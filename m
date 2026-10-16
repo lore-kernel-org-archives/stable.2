@@ -1,158 +1,83 @@
-Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A233400DFC
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 10:25:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 995813BA244;
+	Fri, 16 Oct 2026 10:28:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792146328; cv=none; b=f369i1U8Zgbl4Ubt15xsn+Qzb81onCti8NKtwDxnyecim6gRJNEtrGkmizGLiZhN2yplywNYGIQYYTyanrhO6Okz1jCzaW51x2VTRv9aRkpSnTFIkYjRJOVzdgZWqua+dZZM68pUNojxb9mvkbS/EKN4Vvxg2A4dplF26YaMeeI=
+	t=1792146481; cv=none; b=XIMidj4O8nyt4TXKWyeJeWktGx1AOoGRl+T5UtPxKvv4fkbGHmRVq4KNBvv0gi0H6psuuWkwLd5nUpO0bq0cAMSSaTFZMKcWguie3PBCCRLczaFu6MQbvsuAlStHSQ5t2yDsSJOLLmfqMkynXgXwiuOLznBOXTFFibaedmYJdGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792146328; c=relaxed/simple;
-	bh=+y5F4sNDPjHftsUFjQz9re9KbKNpidBYCZ04/lZzvlM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Vu9RYrMUcmHiBWOjnF8f2U6OPHML4FpGdNVhO/S26uUZgverOfi6hGetJSDx7JS/pB1z6wmuCYFbUJ21iEW5Xe2jYm80MQDRrCCtQ/Sz/Ba4jckVqnEEoVsfo/wD6bTnEaXDG9PikreNZOARf7Ph1w74k+Lc+zTPKq9Q797WuxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=karaolidis.com; spf=pass smtp.mailfrom=karaolidis.com; dkim=pass (2048-bit key) header.d=karaolidis.com header.i=@karaolidis.com header.b=T7r9Bx03; arc=none smtp.client-ip=185.70.43.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=karaolidis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=karaolidis.com
+	s=arc-20240116; t=1792146481; c=relaxed/simple;
+	bh=mrE/BzO7bhFTMiLHsRW6/vXVrJHPy36G3R74Gh3OASw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Pp5W/XWtI7XjAuPXlHX50JdWqysre4yEu+cN+3mt5zWRuoQMyHUHERNcVX5BzYdMCvt8UZukVDS8nvrVRql4/Gox/iFbaQY5194nsfSHEUl3Z6/UnkEWYZdUpdLcXOVmfzOyzpcgcaH1aedH5aF/XxA5jOr3hOMasTg7aydFK3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cUSsEjB+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=karaolidis.com header.i=@karaolidis.com header.b="T7r9Bx03"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=karaolidis.com;
-	s=protonmail3; t=1792146321; x=1792405521;
-	bh=b04DOe8vmbq+QEfUbmjT3IlS1rtxforJbJCVtR4UErk=;
-	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=T7r9Bx03kZ1obL008QSpYAKFDmkSk37XBbQHx4AvZCIaA9xbTeoEXhc/cB3SMlI57
-	 MezU9GsTh0X2puV8/EOcBKYReV9Q0Si//bRYSnPbL1TcjaRYoTjnNgeVCaWCY1cVuK
-	 i0NDQkC539QboKy9GsknWUco5yAc/uayQ+OUsRMiUt4AiZlP5C9ARhF+WYL/nmv81S
-	 ZxQB5w17SwmyKQ1rAO3+8EVTWuE8LSrLytrXUjkwV3tKsFbCUSs8BIla7JbG1YM4+R
-	 d4C2VMC8QarJWifr87HQrFiLP5Coy2SvrrGakMNysf0RdIurfMPUjvoU/kLVO04JQM
-	 6rwEEXp/bHUpQ==
-X-Pm-Submission-Id: 4j5h0F5p8Zz1DDKp
-From: Nikolaos Karaolidis <nick@karaolidis.com>
-To: Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>
-Cc: Jan Kara <jack@suse.cz>,
-	Zhihao Cheng <chengzhihao1@huawei.com>,
-	Mateusz Guzik <mjguzik@gmail.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Nikolaos Karaolidis <nick@karaolidis.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] fs: rotate inodes whose page cache could not be dropped
-Date: Fri, 16 Oct 2026 10:25:15 +0000
-Message-ID: <20261016102515.111285-1-nick@karaolidis.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cUSsEjB+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 524C71F000C5;
+	Fri, 16 Oct 2026 10:27:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792146480;
+	bh=mrE/BzO7bhFTMiLHsRW6/vXVrJHPy36G3R74Gh3OASw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cUSsEjB+E23hz6BEJoFYLGF7+rFGynzwXMi1/SR1ljJOM5acgFubhLGBYxAr8Y5Hc
+	 U9rPCO2DPsB3I2ZQEAH6Ipmqeilb0BBgQwRdFMWIVZ8mD7Z8Igd1q0oWn/ZaoPqF2N
+	 JKZ3yl7j3MBAlD0ghMPmeuzwYJX925sbOMkB8X/LS+CFe/NK+VM5NsiUM/poegS3ZW
+	 lWiq6/JUom/aHBiq6v9ajPDAzgq/5lyqPtalWgT9G2jGOWtHjivR1CT20w5XjPZtvH
+	 HnSBtAbM1se4hM9Nxpti+vJOyaEBKDbdbpWWYk1PJLMzKxMtJ4BygiABsbWu2dQ2jq
+	 P+CfIQJm3UUQA==
+Date: Fri, 16 Oct 2026 11:27:56 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Weibin Liu <liuwb@xiaopeng.com>
+Cc: thangaraj.s@microchip.com, linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] spi: spi-pci1xxxx: quiesce DMA engines on transfer
+ timeout
+Message-ID: <c16a2559-7fcc-48ba-a3b1-3e1273f6666f@sirena.org.uk>
+References: <a02880a9-f20f-45ad-b22b-c405fb7e74d0@sirena.org.uk>
+ <20261016020036.1333548-1-liuwb@xiaopeng.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="C1mMnbE9vl43J2N5"
+Content-Disposition: inline
+In-Reply-To: <20261016020036.1333548-1-liuwb@xiaopeng.com>
+X-Cookie: <<<<< EVACUATION ROUTE <<<<<
 
-When inode_lru_isolate() drops the page cache of an unused inode, it
-has to unlock the list, so it returns LRU_RETRY and the walk restarts
-at the head of the list, where the inode still is. If
-invalidate_mapping_pages() could not empty the mapping, the restarted
-walk strips the same inode again, and so on until nr_to_walk runs out.
-Every walk of that list then ends on this inode, and nothing behind it
-is reclaimed for as long as its cache stays.
 
-Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode lru
-traversing context") the walker pinned the inode with a reference, and
-dropping it in iput_final() set I_REFERENCED, so the restarted walk
-rotated the inode to the tail. Set I_REFERENCED again when the mapping
-is still populated after the invalidation, in the same i_lock section
-that clears I_LRU_ISOLATING. inode_unpin_lru_isolating() now expects
-i_lock to be held, like inode_pin_lru_isolating().
+--C1mMnbE9vl43J2N5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On CONFIG_HIGHMEM kernels this can happen to any unused inode: a folio
-is left behind if it is locked, under writeback, spliced into a pipe,
-or still in another CPU's LRU-add batch after being read. Without
-HIGHMEM it happens to DAX inodes whose only entry is at index 0, which
-mapping_shrinkable() lets onto the LRU and invalidate_mapping_pages()
-never removes.
+On Fri, Oct 16, 2026 at 10:00:36AM +0800, Weibin Liu wrote:
+> If a DMA-mapped transfer times out waiting for DMA_TERM and neither DMA
+> abort interrupt arrived, pci1xxxx_spi_transfer_with_dma() returns
+> through the error label while both DMA engines are still enabled, the
+> done/abort interrupt status is still armed and the transfer state
+> (p->xfer, p->tx_sgl, p->rx_sgl) is still registered.
 
-Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
----
+Please don't send new patches in reply to old patches or serieses, this
+makes it harder for both people and tools to understand what is going
+on - it can bury things in mailboxes and make it difficult to keep track
+of what current patches are, both for the new patches and the old ones.
 
-Found while working on reclaim of inodes pinned by page cache in
-ZONE_MOVABLE.
+--C1mMnbE9vl43J2N5
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Tested in QEMU/KVM on master af32da41b032 (v7.3-rc6-232), with lockdep
-and KASAN enabled. A small init program makes one unused inode whose
-page can't be invalidated, lets it reach the head of the inode LRU,
-opens 2000 other files, does one "echo 2 > /proc/sys/vm/drop_caches"
-and counts the inodes left via umount; kprobes count the
-invalidate_mapping_pages() calls:
+-----BEGIN PGP SIGNATURE-----
 
-                              without patch           with patch
-  i386 HIGHMEM, file read     2000 of 2000 left,      none left,
-  on another CPU              10300 strips, 1 inode   4 strips
-  i386 HIGHMEM, page          same                    same
-  spliced into a pipe
-  x86_64, ext4 -o dax,        same                    same
-  file mmap()ed
-  controls (no leftover,      none left               none left
-  shadow entry at index 0)
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrR/CsACgkQJNaLcl1U
+h9DbFQf9HQTODZj2F1BAfEjNyDgAhTr+T1RqJ/j8y6sNWOy5nNkSZDpvxdsOj/gC
+2eXdK2HVMC1IBX0LFWguyuVQKPy3mRVbQnNjmyCAkiFhosRJxIJ+Zx+/YL+vj2H8
+PkT54dYqfFNhaB+KAYdWDj3jAm/iq++NfgJ/SQNnZ2g42ym4iWa0fGfPyOwAjnKj
+76akhk+2MByEtjtubsLmgcJsN6kNK/j9+e4hhAwX0ujt05GdQBx+4NW3kpwnvWg6
+psg0G1Np1Bp5lUHxFq189OAAszdknZoHaITJmgZCAaco25xoyYJYGVgnXkZiE4av
+XadeFk1nRK24a1oQ5YdT4if/15k63g==
+=KJZa
+-----END PGP SIGNATURE-----
 
-2a0629834cd8^ behaves like the patched kernel, 2a0629834cd8 like
-master. On 5.15.y x86_64, where every unused inode with page cache is
-on the LRU, the read-on-another-CPU case blocks the walk as well.
-
-With "echo 64M > /sys/fs/cgroup/memory.reclaim" instead of
-drop_caches, the i386 pipe case does 262450 strips and frees nothing
-without the patch, 40 strips and frees everything with it. In the DAX
-case that write takes ~400ms with the patch instead of ~4ms:
-invalidate_mapping_pages() counts the DAX entry it leaves behind as
-reclaimed, so unpatched, the 64M are "reclaimed" by re-stripping one
-inode in a tight loop while nothing is freed.
-
-The reproducer is a single C file; I can post it.
-
-An LLM was used to check the analysis against the code, write the
-reproducer and draft the changelog; I have reviewed all of it.
-
- fs/inode.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/fs/inode.c b/fs/inode.c
-index a9d37be390a1..1614a97ce953 100644
---- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -593,12 +593,11 @@ static void inode_pin_lru_isolating(struct inode *inode)
- 
- static void inode_unpin_lru_isolating(struct inode *inode)
- {
--	spin_lock(&inode->i_lock);
-+	lockdep_assert_held(&inode->i_lock);
- 	WARN_ON(!(inode_state_read(inode) & I_LRU_ISOLATING));
- 	inode_state_clear(inode, I_LRU_ISOLATING);
- 	/* Called with inode->i_lock which ensures memory ordering. */
- 	inode_wake_up_bit(inode, __I_LRU_ISOLATING);
--	spin_unlock(&inode->i_lock);
- }
- 
- static void inode_wait_for_lru_isolating(struct inode *inode)
-@@ -981,7 +980,13 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
- 		else
- 			__count_vm_events(PGINODESTEAL, reap);
- 		mm_account_reclaimed_pages(reap);
-+
-+		spin_lock(&inode->i_lock);
-+		/* The walk restarts here: don't retry leftovers right away */
-+		if (!mapping_empty(&inode->i_data))
-+			inode_state_set(inode, I_REFERENCED);
- 		inode_unpin_lru_isolating(inode);
-+		spin_unlock(&inode->i_lock);
- 		return LRU_RETRY;
- 	}
- 
-
-base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
--- 
-2.55.0
-
+--C1mMnbE9vl43J2N5--
