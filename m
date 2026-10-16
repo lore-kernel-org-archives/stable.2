@@ -1,150 +1,143 @@
-Received: from 4.mo576.mail-out.ovh.net (4.mo576.mail-out.ovh.net [46.105.42.102])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C6F34334AA
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 09:04:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.105.42.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 560E045C709
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 09:05:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141445; cv=none; b=DV8oGN65PX1RlrklHoHnoDcbcZ9nSgcQBnVTTUeQFiOK2aTi4pzqdZQ4TZxLCKm19t9RuiK3RMyjDr3rwNlQ3XGeTmBEYSOrA+q85pl6iBm1b8qio+TAy3O2/X+WtazLmybt2Sxu6ucQfWv1TpRTHIiPZC788ScixYlM64Mewn4=
+	t=1792141558; cv=none; b=Nhvs2Zf9fUxPcHahzj01VgRAWm8hk68wYX4V+QaVJBFsAztI2KnZLa79WRGg0O2xtSnFoPjY6LyWHcb+yylXsAqR0fLl99q7NCede5sfRB1Nh8wbQYN0OWW6VTNaWQK/U/5KE9LhubjAcK//yJw14f3ExpLgjofpXh0eqrUsMVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141445; c=relaxed/simple;
-	bh=2itXlY4WWJcPLw4e4JalWJkACvlyR6sDXGe9P8c+phs=;
+	s=arc-20240116; t=1792141558; c=relaxed/simple;
+	bh=vBIXkU5a0czakfaG5UvhQYLDQmtPpOHhwRqC+37to5w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tzcLmuFdp8yKOqynoUsgWiU9gEBGfznPKNfdl6I5L1Gd6MzsWGquuXXJRxCohaS7QgibPlhfnaOtoRahMGRB6TR8sOapOs1ogfwzkfQY3ZvmlnbhZ34v38bYrmMqHL8ofSUjeBHW/ZWFdR37Som2L8aJS9yvEKsrq6c4wzAP6os=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cynove.com; spf=pass smtp.mailfrom=cynove.com; dkim=pass (2048-bit key) header.d=cynove.com header.i=@cynove.com header.b=RXn2gXGg; arc=none smtp.client-ip=46.105.42.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cynove.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cynove.com
+	 MIME-Version:Content-Type; b=bn0iZ4kbjyBlthjXpetyEQ8omqkXlL6NXn4JeNxY+eoekl4xZuOQcXwlJGsbgI4j58c4leZsGw0MHxI+xQesGt83Mb8SCVBS9n44KfPSU9jBz0bmQyyXrl0WP/EPJY9rZtqzJW5yMWhYiuYLUVPiXXSPa/llf7tBqgd8J9K1Kd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R/ma36wG; arc=none smtp.client-ip=74.125.227.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cynove.com header.i=@cynove.com header.b="RXn2gXGg"
-Received: from director3.ghost.mail-out.ovh.net (unknown [10.109.231.242])
-	by mo576.mail-out.ovh.net (Postfix) with ESMTP id 4j5fBJ4bvYz5wq7
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 09:03:52 +0000 (UTC)
-Received: from ghost-submission-7ccd8bbbb6-4kjr4 (unknown [10.111.174.188])
-	by director3.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 05CA7C03E0;
-	Fri, 16 Oct 2026 09:03:51 +0000 (UTC)
-Received: from cynove.com ([37.59.142.97])
-	by ghost-submission-7ccd8bbbb6-4kjr4 with ESMTPSA
-	id fClPE3Xo0WpZ/AEAmtFogg:T3
-	(envelope-from <stephane.debusne@cynove.com>); Fri, 16 Oct 2026 09:03:51 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-97G002e07fcbaa-f78b-4434-88ca-256de4d93e96,
-                    49BC7871EA8B080B249AF49F55FA702C3B4DE52D) smtp.auth=Stephane.Debusne@cynove.com
-X-OVh-ClientIp:176.150.47.247
-From: Stephane Debusne <stephane.debusne@cynove.com>
-To: herbert@gondor.apana.org.au,
-	lukas@wunner.de
-Cc: ignat@cloudflare.com,
-	davem@davemloft.net,
-	horia.geanta@nxp.com,
-	pankaj.gupta@nxp.com,
-	gaurav.jain@nxp.com,
-	linux-crypto@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R/ma36wG"
+Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-39569e136f9so1845546a91.0
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 02:05:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792141557; x=1792746357; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yIua1GyF5CyLs9zVRRQ2YP0+xQy31M4iXC7gh2QlT8o=;
+        b=R/ma36wG/IHRU2eoU0KCWSBoMR66p9M6DTdmOOjFlc/4eMkm5OzKOY0h56NXsULWRY
+         IgsALiiGVxAVMLQL7HCOIv+AbktrciTx4F3MkyaXiPIi637hKWySRrD+hEdtTuDPpzcT
+         PUbRvbJw6xC7unByrBbLZoCGZry+bWJ5MeodvfScKLm8GObt1ltBDiBNGDO8OoEAzuDG
+         S2VwVqWIrI8ptNhYehpvTZE/CfJeP1bBSZe+yQgtlQDOdAcTUW2g9wk+BDZhuTmtASqC
+         Qyqop8R0nbuEjwJfiJiPmjuLZQeOT0z+ljTYOrc8er4X2LhLtpK1s4QNct00ji8/iJEN
+         iAXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792141557; x=1792746357;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yIua1GyF5CyLs9zVRRQ2YP0+xQy31M4iXC7gh2QlT8o=;
+        b=w8V7JLuhthboNbAwlZvC7Jq9fkcbmxjVjVRzbpHv4ogDy08xRUx4y3X0g8tRZIu1oU
+         mUlXakFOEFTwQipJ4fRa7ERiUO5KEs9YvSNke6BWhY3njdjG/PH8ho7G6VYMq5aawjDR
+         JxDnheMiHpjrOaVNwKJPCeloPkmc5h+H/9gDBbt2/xRwTq3RTH+BK2qGoZgqYDX6VIGP
+         IIC5GKYuL5ufmzFBTo9ozghQZEgXt1qt67cuoMOaLNjwy3cnhubtxGd14HHWjnX7rIov
+         1RMAobuKvXaFVKmU+Vd48xO96dugqTUYnRsYPn6z7nVseDWgUEvl6fQx3pz7nwFkl987
+         qfPQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwxwi/8ELqaqeYdXvWzHgogbsT7LwdBXPrT0hfjUcuYj/UBJbpOVf8nDP3BPKY5b+aBifmYb7g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJzZ9RM+ZzSdbnBJeG15GeEAYhon53uGXH1VNm6EQPOOdJoAPIJ
+	H3VQcfHm3zgBtVthKmeVTrZxa+HFepFPLCNXwFuf+drPm84/e+aCU7nm
+X-Gm-Gg: AYBFou1PDxx5B+7N+8cZT2oT3ETuQPWIUaG1sf2fnb7bqFCqhanS0MSn9eu+SON+Ktd
+	jQqJVWWUHdrQVbqt4AUUnzLK6Zk0lAaEgCoK+TCkbDl3G6YdoGW0+a61DYLVZicYssE82FrmtNR
+	oUy9ZeaLN9RlhZX+R/15EMo9NBMlBLLJ1oyg0pEAvBnndDHVehvvXdlJjkvuz0j7Wa1lZF16fiP
+	JexIhnyaeO2VnD/NHKit5d07Erz5PQ5eehcBaeeYLlomDVPY+ZWjdpOitDeFZdvyuiCFasiNRtx
+	AUZwHMztI3DOxeMIcKmoGc4xILgs7up6gRwlSmhAeVk8I8+fPX5yWA+2mDBbQFx8qWXZruSayjL
+	4wbAPdFdwXwY/gcvUxjIMGcabwIONTQxQzxRUR3g3kvlPtFQN+hpPKtuyUoA48500J7pOIn0eqF
+	xlqn4I6PKoEIyRWd3J+yFT+aYVNs2140PeL6KwCq1j2lAQonH/YfqHybajnheMeM8TQbK0EB6IM
+	XPA5sGyf1M7WpWxqU8=
+X-Received: by 2002:a17:90b:2d0b:b0:3ab:36c4:b4ff with SMTP id 98e67ed59e1d1-3ab3a747069mr19095398a91.24.1792141556494;
+        Fri, 16 Oct 2026 02:05:56 -0700 (PDT)
+Received: from LAPTOP-QJLDGQ2L.localdomain ([112.224.225.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd0aa3c24sm1310370a91.4.2026.10.16.02.05.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 02:05:55 -0700 (PDT)
+From: Boyan Liu <yymhvert@gmail.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Stephane Debusne <stephane.debusne@cynove.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] crypto: rsassa-pkcs1 - use a separate buffer for the RSA output
-Date: Fri, 16 Oct 2026 11:03:33 +0200
-Message-ID: <20261016090333.2247764-3-stephane.debusne@cynove.com>
+	stable@vger.kernel.org,
+	co+98d7de09cd94fec5@bugs.sh
+Subject: Re: [PATCH net] udp: Fix out-of-bounds read with unset mac header in unexpected GSO path
+Date: Fri, 16 Oct 2026 17:05:25 +0800
+Message-ID: <20261016090526.2497-1-yymhvert@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261016090333.2247764-1-stephane.debusne@cynove.com>
-References: <20261016090333.2247764-1-stephane.debusne@cynove.com>
+In-Reply-To: <willemdebruijn.kernel.2a345d6bd54c5@gmail.com>
+References: <willemdebruijn.kernel.2a345d6bd54c5@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 16751138816091151131
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: dmFkZTGD4nW62LQB9KssNcZQuK5kWrFQh+w6Vz+V+RAD8MnUAde72M/FLWE8ieu2/logkQIvP3h+HxkwhNQElJPI8dksBAWHsBdG4nOBhE97wdBgSrq7i9Dr7HTzEIPNJ9r0nStZP+4SxoAOI00vFHP+uMc2VAR7sYwcGJsPfO6GsKeTbDbZqUoT/dClNmsHiZliUHARqZfNmZpbXqR+OyK7tCsyhTiGvjmRA5ZoJHO4AiXlGsWEh0ULl2YyjVayzCXrjJyQQpi+DCuYI7TAzwqHsddO0+B9C81cyWecg6aiOCtYZJ4PPYAinicFtLLV81oPd4bQfiHnVg0dZa0FsvCqAOufT3it24uPeaqcndZRbjDRWO0Waaj4np6CCpC6gszDa87hFLP7Xlr0NCBN2x5BZPieKittVK8wbTyYcCWnzHtYuVTeoQZclhIKBls4tP2O1XbGjlobwwWAflK/hqLMfcvylG0usAdC6X5RWKavxuUtNW0Qo42EKart8PhErqf2ebXmIeNJ9+AdxuyaX5geLsrzAeXYbe1Pf3lY6Z1Mwv94uE4JrgmlG9jv9BA9dTTKg63gxbq3gYgTQE/QFrUspvb8zv+uK/0LpXCrvh10mYq4wcpq0j6GaecO7zj7yndk+vNKcvaikfO+P8lVE1H2KpjoWiQktpTsK2a1ar0I82z34g
-DKIM-Signature: a=rsa-sha256; bh=/nyx8E1BJm42jAE/tXOKFc+YlYeMaXu9CSxvpmY+cXU=;
- c=relaxed/relaxed; d=cynove.com; h=From; s=ovhmo4616632-selector1;
- t=1792141432; v=1;
- b=RXn2gXGg/TY5dpuxR6xz/xqezEYUB3lhXJ6eQdK3UTI+PPfHQGZzff+JAy7lMe0qCtqnaRNJ
- yen8cnJ007XQn9eKRTGmlcigU8EpRdPT9XymuCscm0k0gm0mDxBxFQ6ooWC7y5YB61NycCWvMLV
- AkZIwMvEtqKtZWXVyQL2lgl8A3uVzeY1T8A9X0ET5f6pmD0EhoJoWCSSYAQVGC3xoxqbs0z6fet
- hKiYVrMbefk7M15aMeFFEi21ImuU8I9zzyEPUAJ2wLAYiNkXExPKzegoXoVvNtmCvfLiBQm3lqH
- 0Pp3L3F+6ESinGOWY/deOez8Q2ehkPzQk3QWb2B+FbUlQ==
 
-rsassa_pkcs1_verify() places the buffer it hands to the akcipher driver
-right after the driver's request context, in the same allocation, and
-since commit 8552cb04e083 ("crypto: rsassa-pkcs1 - Copy source data for
-SG list") uses it in place (src == dst).
+Hi Willem,
 
-On non-coherent DMA, the start of this buffer may share a cache line
-with the end of the request context. The CAAM driver (caampkc) writes
-req_ctx->edesc and req_ctx->akcipher_op_done after dma_map_sg() of the
-destination, which dirties that line. On arm64,
-dma_unmap_sg(DMA_FROM_DEVICE) cleans and invalidates partial lines
-(dc civac), so the stale CPU copy is written back over the result
-written by the device.
+On Thu, Oct 15, 2026 at 10:49 AM, Willem de Bruijn wrote:
+> I wonder if the right fix here is to not call skb_unset_mac_header in
+> the first place.
+>
+> There are plenty of L3 device type with no L2 header. They still have
+> a valid skb_mac_header.
+>
+> This fix may be papering over a tunnel doing something non-standard.
 
-On i.MX8M Mini (CAAM era 9, rsa-caam, 6.18), the buffer starts 168 bytes
-into the allocation, at offset 40 of the 64-byte line that also holds
-edesc and akcipher_op_done: the first 24 bytes of the RSA output are
-replaced by the signature bytes, and rsassa_pkcs1_verify() returns
--EINVAL in 398 of 400 calls over two runs (the rare successes are
-consistent with the dirty line being evicted before the device writes).
-Visible effects: cfg80211 rejects regulatory.db ("loaded regulatory.db
-is malformed or signature is missing/invalid"), and adding a valid
-self-signed X.509 certificate to a keyring fails with EINVAL. The
-akcipher self-tests pass, as they use separate buffers.
+You're right, and after digging into it I agree the seg6local side is
+the real offender.
 
-A test module comparing rsa-caam with rsa-generic shows that only the
-position of the destination matters: separate or in-place buffers from
-their own kmalloc() give correct results, while a destination right
-after the request context is corrupted, in place or not (200 of 200
-calls, the 24 first bytes always holding the previous content of the
-buffer).
+I checked every skb_unset_mac_header() call site in the tree. There
+are exactly two: net/ipv6/seg6_local.c (end_dt_vrf_rcv) and
+net/core/filter.c (BPF egress, unrelated to the rx path). Every other
+receive path delivers packets with a valid mac header: NIC drivers set
+it in eth_type_trans(), and L3 tunnels without an L2 header (ipip,
+sit, gre, tun, loopback) reset it to the network header after
+decapsulation. seg6local is the only producer that lets a packet
+continue up the stack with mac_header unset, which is also the state
+skb_mac_header() warns about with DEBUG_NET_WARN_ON_ONCE().
 
-Allocate the output buffer separately, so that it is DMA-safe like any
-kmalloc() buffer.
+One complication: the unset in end_dt_vrf_rcv() is not gratuitous.
+vrf_l3_rcv() -> vrf_add_mac_header_if_unset() relies on it to
+synthesize a fake Ethernet header when a sniffer (e.g. tcpdump) is
+attached to the VRF device. Dropping the unset entirely would change
+what sniffers see on VRF devices.
 
-Fixes: 1e562deacecc ("crypto: rsassa-pkcs1 - Migrate to sig_alg backend")
-Cc: stable@vger.kernel.org
-Signed-off-by: Stephane Debusne <stephane.debusne@cynove.com>
----
- crypto/rsassa-pkcs1.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+So instead of removing it, I restore a valid mac header once the VRF
+rx handler returns:
 
-diff --git a/crypto/rsassa-pkcs1.c b/crypto/rsassa-pkcs1.c
-index 94fa5e960..205493037 100644
---- a/crypto/rsassa-pkcs1.c
-+++ b/crypto/rsassa-pkcs1.c
-@@ -223,6 +223,7 @@ static int rsassa_pkcs1_verify(struct crypto_sig *tfm,
- 	struct rsassa_pkcs1_ctx *ctx = crypto_sig_ctx(tfm);
- 	unsigned int child_reqsize = crypto_akcipher_reqsize(ctx->child);
- 	struct akcipher_request *child_req __free(kfree_sensitive) = NULL;
-+	u8 *out_alloc __free(kfree_sensitive) = NULL;
- 	struct crypto_wait cwait;
- 	struct scatterlist sg;
- 	unsigned int dst_len;
-@@ -237,12 +238,21 @@ static int rsassa_pkcs1_verify(struct crypto_sig *tfm,
- 		return -EINVAL;
- 
- 	/* RFC 8017 sec 8.2.2 step 2 - RSA verification */
--	child_req = kmalloc(sizeof(*child_req) + child_reqsize + ctx->key_size,
--			    GFP_KERNEL);
-+	child_req = kmalloc(sizeof(*child_req) + child_reqsize, GFP_KERNEL);
- 	if (!child_req)
- 		return -ENOMEM;
- 
--	out_buf = (u8 *)(child_req + 1) + child_reqsize;
-+	/*
-+	 * The output buffer is mapped for DMA by hardware RSA drivers. Keep
-+	 * it in its own allocation: placed right after the request context,
-+	 * it may share a cache line with fields the driver writes while the
-+	 * buffer is mapped, which corrupts the output on non-coherent DMA.
-+	 */
-+	out_alloc = kmalloc(ctx->key_size, GFP_KERNEL);
-+	if (!out_alloc)
-+		return -ENOMEM;
-+
-+	out_buf = out_alloc;
- 	memcpy(out_buf, src, slen);
- 
- 	crypto_init_wait(&cwait);
--- 
-2.43.0
+        if (!skb_mac_header_was_set(skb))
+                skb_reset_mac_header(skb);
 
+The sniffer rebuild happens inside the handler while the header is
+still unset, so tap behavior is unchanged; when no rebuild happened,
+the packet now carries the same mac header state as any packet
+received on an L3 device.
+
+Tested under QEMU with the original reproducer:
+- unpatched kernel: KASAN slab-out-of-bounds in inet_gso_segment,
+  same stack as the original report;
+- patched kernel: no crash, the re-segmented datagrams are delivered
+  intact, and the unexpected GSO path is confirmed taken;
+- with a sniffer attached to the VRF device, the fake Ethernet header
+  presented to the tap is identical before and after the patch.
+
+I'll send this as v2 with the fix moved to seg6_local.c. If you'd
+rather drop the skb_unset_mac_header() altogether and accept the
+sniffer behavior change, I'm happy to do that instead.
+
+Thanks,
+Boyan
