@@ -1,39 +1,40 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A864346A5E2;
-	Fri, 16 Oct 2026 10:21:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 881C4442372;
+	Fri, 16 Oct 2026 10:22:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792146096; cv=none; b=im2rrLiWUTtSN4sYKBTLI3FHAZTXwgi2FLGBVvR6cemF948mU1WV32lX6MW7Jax61fvWI3jQcIoeZZLWXYeO3sOsEWMrDnvBENffak3TRzN99s+nX+b5lNcHBfDKGHkAI1RMSA8QMx5OzPZTwcdDJIZVkdm7kAiouVNsRDp65cI=
+	t=1792146158; cv=none; b=SdiylXEF2Q59ThsRDFW9xhxgheSjsckF/KTxh69dCZZ0n/xrHjk0n9upogiMa5Rc1UF17ImtmYG2RIXlr5SSEKZAKuw2caKb8Cg0jxmx3niuzWZ8mwsxpnE5BziC8Pl2bosg3rhoWxXgrfu1zeRZ+NP9Jw75awWojkqQrHRf2xg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792146096; c=relaxed/simple;
-	bh=q4OwaTzadwgCTdJ9TVs0P3l712qfdWyz2bs4kl8ONis=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Lj9XCZ1Ql+jDYOR7CSCNRU5GobJIfCwvx0KyYNdM0F5wtbZCYNyNeNh51W6afxoXD/C+YktsSi/xtlIf3WEhV8mRECDSZgf9YL6Wek/A1AGbeAtpDtLo59LZEUx/l4p9ZTB6J1YSeKsa60oxUXcP+k+taYr61yqEzM2VRgnmqLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=llCEn2yZ; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
+	s=arc-20240116; t=1792146158; c=relaxed/simple;
+	bh=MW5IvNBYwiHBeYNR4r2nz/EeyoR93OeQnRKavzXx0FA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DT91kkZheKpPgVOGC0jMXQkMmtxHWXf3tNQLY9X6h6G4vrRMoBlyN1CvWSmHZmh+Dulz9P4cimNq8n+RWOv5AYXR4Lj4FU4T6l0zITrQw+1EP4r3OAT6K7RhMzK6k9icddfRo4KG5+oY2gDSZ8LmH6RDKqFZ/poXIdgCLY68r0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=KEWrpJW9 reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="llCEn2yZ"
-Received: from localhost (gyproxy-mailtls1-entmail-virt216.gy.ntes [39.144.128.100])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 514e64cfb;
-	Fri, 16 Oct 2026 18:16:09 +0800 (GMT+08:00)
-From: guolingxing <guolingxing@tju.edu.cn>
-To: Theodore Ts'o <tytso@mit.edu>,
-	Andreas Dilger <adilger.kernel@dilger.ca>,
-	"Aneesh Kumar K . V" <aneesh.kumar@linux.vnet.ibm.com>
-Cc: Baokun Li <libaokun@linux.alibaba.com>,
-	Jan Kara <jack@suse.cz>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	linux-ext4@vger.kernel.org,
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="KEWrpJW9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=/lK1aOrmSM
+	sK6G3QvQQvpEM4E0EN5PTXRgpLljzp2xQ=; b=KEWrpJW9Z5NsxnagTaTmEJRXaC
+	KvcBfCwrTQOx8eh51wpiu0PF+6mp6lYv4f6sJiTHF5g7bU8twREzxC0aJHb0c0in
+	0hZu8ZXZLR+niUT4fNffhbU3lKuI+XFsKViGsvT+E8tLKhu+Yrxn08xJjLSIb5jD
+	GDYXKH5xJmiCz+dxY=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.90])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkC2vP_X+tFqXf+pAA--.50685S2;
+	Fri, 16 Oct 2026 18:22:16 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	guolingxing <guolingxing@tju.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] ext4: record writeback error when discarding pages on failed delalloc
-Date: Fri, 16 Oct 2026 10:16:05 +0000
-Message-Id: <20261016101605.4039217-1-guolingxing@tju.edu.cn>
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Subject: [PATCH] media: go7007: return queued buffers on start_streaming() failure
+Date: Fri, 16 Oct 2026 18:22:13 +0800
+Message-Id: <20261016102213.42771-1-25031212351@stu.xidian.edu.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -42,57 +43,103 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa14436451b03a2kunm6f703c5baa467
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGktIVkhMGh8fTU1KGEhPH1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlIQlVKT09VSklDVUpLS1lXWRYaDxIVHRRZQVlPS0hVSktISk
-	xMSVVKS0tVSkJLS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=llCEn2yZY/bNmfx1ZaT0CHDxDWlRsRG2EQCH7LRgdxkTdb1qKKk9tthJyIVW/sHJiVpzFGBrW8MOWENs/AhjEzxpSjaDbAY1i/bwI+82usY8ET+W/aOglDBtCt9j6WaUahAGaofqK3rNuOScanh+b1H4BAIZzcWxe9LW3r1Z+rU=; s=default; c=relaxed/relaxed; d=tju.edu.cn; v=1;
-	bh=DOLiDaA5ZGjG1eytvPuyuGBa6K7mUgIux4GKB6ue1nM=;
-	h=date:mime-version:subject:message-id:from;
+X-CM-TRANSID:BbQMCkC2vP_X+tFqXf+pAA--.50685S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWw4rAFWxGFykXF4ftFW3Awb_yoW5ZFWfpF
+	yY9ayayrZ8tF48ua13Gw1ag3WYkas7A347CayfWwn5Arn8JF98u3y0q3yqgr1DC3yxZF1j
+	yrZ8CFW3CF4jyrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9K14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
+	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr
+	0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8v
+	x2IErcIFxwCY1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_Gw1l42xK82IYc2Ij64vIr4
+	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
+	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
+	8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAv
+	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
+	v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUYxhLUUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUID2rQ7FG19QAAsE
 
-When mpage_map_and_submit_extent() gives up on a failed block mapping,
-it sets give_up_on_write so that mpage_release_unused_pages() discards
-the remaining dirty folios. However, the error is not recorded in the
-mapping's writeback error state.
+The vb2 framework hands ownership of every queued buffer to the driver
+through the buf_queue() callback before start_streaming() is called.  If
+start_streaming() then returns an error, the driver must return those
+buffers to vb2 with vb2_buffer_done() and VB2_BUF_STATE_QUEUED.
+Otherwise vb2_start_streaming() fires WARN_ON(owned_by_drv_count) and
+forcibly reclaims the buffers.
 
-If this happens during background writeback, a later fsync() may
-report success even though the dirty data was discarded and never
-written. Returning the error from ext4_writepages() is not sufficient
-to notify a later fsync(). In addition, ext4_do_writepages() may clear
--ENOSPC when committing the journal and retrying, even after the
-affected dirty folios have been discarded.
+go7007_start_streaming() returns -EIO when go7007_start_encoder() fails,
+which happens for example when a USB transfer cannot be submitted because
+the device has been disconnected:
 
-Call mapping_set_error() when deciding to give up on the write,
-before the dirty folios are invalidated, so that fsync() can report
-the writeback failure through the mapping's error state.
+    go7007 1-1:1.0: error submitting audio urb 5: -2
+    go7007 1-1:1.0: error starting stream transfer
+    WARNING: drivers/media/common/videobuf2/videobuf2-core.c:1797 at vb2_start_streaming
 
-Fixes: c4a0c46ec92c ("ext4: invalidate pages if delalloc block allocation fails.")
+but it leaves the already queued buffers on go->vidq_active.  Give them
+back to vb2 with VB2_BUF_STATE_QUEUED before bailing out, clearing
+go->active_buf as well.
+
+Fixes: 7955f03d18d1 ("[media] go7007: move out of staging into drivers/media/usb.")
 Cc: stable@vger.kernel.org
-Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
- fs/ext4/inode.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/media/usb/go7007/go7007-v4l2.c | 29 +++++++++++++++++++++++++-
+ 1 file changed, 28 insertions(+), 1 deletion(-)
 
-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 26f0f9714f03..dba903d188e2 100644
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
-@@ -2505,6 +2505,12 @@ static int mpage_map_and_submit_extent(handle_t *handle,
- 				ext4_print_free_blocks(inode);
- 		invalidate_dirty_pages:
- 			*give_up_on_write = true;
-+			/*
-+			 * Record the error so that a subsequent fsync()
-+			 * / errseq check can observe the data loss that
-+			 * discarding these dirty pages implies.
-+			 */
-+			mapping_set_error(inode->i_mapping, err);
- 			return err;
- 		}
- 		progress = 1;
+diff --git a/drivers/media/usb/go7007/go7007-v4l2.c b/drivers/media/usb/go7007/go7007-v4l2.c
+index 2087ffcb85a5..e0b646e8dad1 100644
+--- a/drivers/media/usb/go7007/go7007-v4l2.c
++++ b/drivers/media/usb/go7007/go7007-v4l2.c
+@@ -394,6 +394,31 @@ static void go7007_buf_finish(struct vb2_buffer *vb)
+ 	vbuf->field = V4L2_FIELD_NONE;
+ }
+ 
++/*
++ * Return all buffers that have been queued to the driver back to vb2.
++ *
++ * The vb2 framework hands ownership of every queued buffer to the driver
++ * before calling start_streaming().  If start_streaming() fails, those
++ * buffers must be returned with VB2_BUF_STATE_QUEUED, otherwise
++ * vb2_start_streaming() triggers WARN_ON(owned_by_drv_count).
++ */
++static void go7007_return_queued_buffers(struct go7007 *go)
++{
++	struct go7007_buffer *vb, *tmp;
++	unsigned long flags;
++	LIST_HEAD(buffers);
++
++	spin_lock_irqsave(&go->spinlock, flags);
++	list_splice_init(&go->vidq_active, &buffers);
++	go->active_buf = NULL;
++	spin_unlock_irqrestore(&go->spinlock, flags);
++
++	list_for_each_entry_safe(vb, tmp, &buffers, list) {
++		list_del(&vb->list);
++		vb2_buffer_done(&vb->vb.vb2_buf, VB2_BUF_STATE_QUEUED);
++	}
++}
++
+ static int go7007_start_streaming(struct vb2_queue *q, unsigned int count)
+ {
+ 	struct go7007 *go = vb2_get_drv_priv(q);
+@@ -409,8 +434,10 @@ static int go7007_start_streaming(struct vb2_queue *q, unsigned int count)
+ 	else
+ 		ret = 0;
+ 	mutex_unlock(&go->hw_lock);
+-	if (ret)
++	if (ret) {
++		go7007_return_queued_buffers(go);
+ 		return ret;
++	}
+ 	call_all(&go->v4l2_dev, video, s_stream, 1);
+ 	v4l2_ctrl_grab(go->mpeg_video_gop_size, true);
+ 	v4l2_ctrl_grab(go->mpeg_video_gop_closure, true);
 -- 
 2.34.1
 
