@@ -1,386 +1,153 @@
-Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from 11.mo550.mail-out.ovh.net (11.mo550.mail-out.ovh.net [188.165.48.29])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E81ED47C0FD
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 09:34:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C11224AF2
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 09:39:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.165.48.29
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792143300; cv=none; b=AflrkytObCvpSs9lCPFHt6s86MZqrEFhM09AMczorieM8+gRmljE4dtagXCWTmzuT418bWztwPf98z0mpwUL6coHtY1i37IIGJONGkRxO/5ZqTcUkSWes7gTBMh2Aak3bqFjNBbA4HljKxgNKRfCL60LFMDkSpHnxiNRNWexMIU=
+	t=1792143556; cv=none; b=h7Wp1XSrtw19Fb6/uosJaNQrqnY8q8ZjqXr27vtKl46o1UrtTbpJ8hxPhoTFaw+q8HXGjdBbyWtfpYby/ITnJEBKGovShNuvmLsh6y1SPZ+Qkq2lx77wA+XofHUNy0IxOh+O6yiBnI2SnLNTz9CiWa3bv8deQz3BnkXRpKPLUYU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792143300; c=relaxed/simple;
-	bh=jATVXdSR7drPsGyun7txqDokUgxfAAuCezJBJU935HU=;
-	h=From:Mime-Version:To:Subject:Date:Cc:Content-Type:Message-Id; b=Hl+tVq8rKg+R5mqm9qUwHe/37mIsg3ZpfUVILg5uw+4SDPF6JlTJSROKy77OBdzPWfz5ToxwcLyDS8Ez2RAD6g6csziQ6PQu6vDgyvGloBd65jesXXNviO6I+91Dc/wujXgcqYe1IdR3Jm49q4PTILEpQ9hlN5DeQVTdQfS5Egw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=UaN1YuqR; arc=none smtp.client-ip=209.127.230.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1792143556; c=relaxed/simple;
+	bh=Q0ET48T5kgmvhDWW6V1583s0V4siUNHdEUiqObL6GsY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RJ4A4tRQc13RNeECDoRU6JcE/tF7RA7Karxl6wYk6evyI9J43eaFkoB9lj1eMI7BBUCQTNMrmeobDmVw3eDiKdV4ojDrj6+Zq0uHfh6OK3djKRLWpp3CkvaGD6siq6aNpyXwU1M2awu+a9wNYlZreWllb6qVTA66Vu0r7x2/4vM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cynove.com; spf=pass smtp.mailfrom=cynove.com; dkim=pass (2048-bit key) header.d=cynove.com header.i=@cynove.com header.b=RViDwafa; arc=none smtp.client-ip=188.165.48.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cynove.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cynove.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="UaN1YuqR"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1792143285; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=IzCgEU4IS2MI5o9AIJIF2awMWvZJL8KbhYSWjGTWDgo=;
- b=UaN1YuqRF87HnZfdlLHMpdoKC1a9cidH8hsNv4zXM2c2BVuVNciqffMOYbPmtGL76Fp2kx
- 03JrmwXGfUSYU3VfXyT9trlNQ2Refy96N7Oh6GylqYs3dW9413gmukcmZUHK3CmEssADco
- pXpnv1CftnD4TjvwIKtOe3utu6xd1aUVO4W6pnVq0aD47MxY8a09y43M/gul84XGdouN09
- GD69RKvOxptxOfKtqcoqsUi1JY/u7egMH6zsWEmQmFqDoljs2Je9C9vZH4XKiKqYgJ3jzt
- EfEY5ZKibzm6410d4a09PIv+FkHNvGdUltLcRFeGVAPVLIpsNOQ6QwoKTIt1Tg==
-From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+	dkim=pass (2048-bit key) header.d=cynove.com header.i=@cynove.com header.b="RViDwafa"
+Received: from director3.ghost.mail-out.ovh.net (unknown [10.109.231.233])
+	by mo550.mail-out.ovh.net (Postfix) with ESMTP id 4j5fBH6t0jz61L3
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 09:03:51 +0000 (UTC)
+Received: from ghost-submission-7ccd8bbbb6-4kjr4 (unknown [10.111.174.188])
+	by director3.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 46763C0D11;
+	Fri, 16 Oct 2026 09:03:51 +0000 (UTC)
+Received: from cynove.com ([37.59.142.97])
+	by ghost-submission-7ccd8bbbb6-4kjr4 with ESMTPSA
+	id fClPE3Xo0WpZ/AEAmtFogg:T2
+	(envelope-from <stephane.debusne@cynove.com>); Fri, 16 Oct 2026 09:03:51 +0000
+Authentication-Results:garm.ovh; auth=pass (GARM-97G002356f9ba6-d7b5-4ce0-a9a4-835329139dfb,
+                    49BC7871EA8B080B249AF49F55FA702C3B4DE52D) smtp.auth=Stephane.Debusne@cynove.com
+X-OVh-ClientIp:176.150.47.247
+From: Stephane Debusne <stephane.debusne@cynove.com>
+To: herbert@gondor.apana.org.au,
+	lukas@wunner.de
+Cc: ignat@cloudflare.com,
+	davem@davemloft.net,
+	horia.geanta@nxp.com,
+	pankaj.gupta@nxp.com,
+	gaurav.jain@nxp.com,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Stephane Debusne <stephane.debusne@cynove.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] crypto: akcipher - use a separate buffer in the sync helpers
+Date: Fri, 16 Oct 2026 11:03:32 +0200
+Message-ID: <20261016090333.2247764-2-stephane.debusne@cynove.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261016090333.2247764-1-stephane.debusne@cynove.com>
+References: <20261016090333.2247764-1-stephane.debusne@cynove.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-To: <viro@zeniv.linux.org.uk>, <brauner@kernel.org>
-Subject: [PATCH] vfs: keep the mount pinned while waiting for a parent delegation break
-Date: Fri, 16 Oct 2026 17:34:21 +0800
-X-Lms-Return-Path: <lba+26ad1efb3+343adc+vger.kernel.org+zhaogongyi@bytedance.com>
-Cc: <jack@suse.cz>, <jlayton@kernel.org>, <cel@kernel.org>, 
-	<neil@brown.name>, <linux-fsdevel@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
-	"Zhao Gongyi" <zhaogongyi@bytedance.com>
-X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Message-Id: <20261016093421.90725-1-zhaogongyi@bytedance.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+x-ovh-tracer-id: 16750857340520291099
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: dmFkZTGD4nW62LQB9KssNcZQuK5kWrFQh+w6Vz+V+RAD8MnUAde72M/FLWE8ieu2/logkQIvP3h+HxkwhNQElJPI8dksBAWHsBdG4nOBhE97wdBgSrq7i9Dr7HTzEIPNJ9r0nStZP+4SxoAOI00vFHP+uMc2VAR7sYwcGJsPfO6GsKeTbDbZqUoT/dClNmsHiZliUHARqZfNmZpbXqR+OyK7tCsyhTiGvjmRA5ZoJHO4AiXlGsWEh0ULl2YyjVayzCXrjJyQQpi+DCuYI7TAzwqHsddO0+B9C81cyWecg6aiOCtYZJ4PPYAinicFtLLV81oPd4bQfiHnVg0dZa0FsvCqAOufFGE8bDTdY97VTi8yQ7wlHH+kT7+R0IbzKzoUKX5kCrZwo77y29k71fRGv1FlWUZQJTCiJ7e8NeUrs/YDrSqEwmKeyMf52NxeUc2UX79KCOpEZrtBwBbR5KH8kHXHx05JN6yOq55F1cZTUaaEotg8eYTwxxr0kz2wN4yWYWMLezRP/ijBz2PKtzIOOAPDOZ5Q/xeyk6Xt0vQTukrhxZEV/RwnuU/NLDsof6WDbm4uyuDSXKjRwbNZZ8uMJYrfam2Uxq1V6OesZSOLrxQQJVn902NVv42vLyY4OfYaNiRW+eBVq1YqnbGqdNHAvP/E1qlJJRkcegf1VtHj4LwDL4tvqQ
+DKIM-Signature: a=rsa-sha256; bh=1+xUyMr4KllGTv9LUAcboLMXAuFRnwjR1tKUjAHdUr0=;
+ c=relaxed/relaxed; d=cynove.com; h=From; s=ovhmo4616632-selector1;
+ t=1792141432; v=1;
+ b=RViDwafaWZvbkymGTsEFVsp0D/sA2VLkQ5yXMVPU+0ab2DjdkjZ7ArW9HpdowsIlMrKBWuIc
+ N4BuszVt6vpR5fkg4kO10RQ03Xlxj8IqxozHFMtPozNgu4ALHB65M1yUeTdG66jjaBWdDdm1PtM
+ xg44ltqu2USgQva6QzALqWx79qm9xGrbSKVtIIdHWa9LuI0FQGqLRN3ATsMjdDsJvMj6ZzM8C3l
+ uZ0/lDfLjqFSSKDbV8N8bFPt9VgCn642kp7qJwJWvNz5IrcQg0pGuGruyoW5UxCyog7tIpf5yAd
+ SMmy7MqZSX+oBoxaolDqW35KtGKlokxnBOwA3xQiGHyNA==
 
-filename_mknodat(), filename_mkdirat(), filename_symlinkat() and
-filename_rmdir() can call break_deleg_wait() on a delegated parent
-directory after dropping the struct path that pins the mount.
-try_break_deleg() only takes an inode reference, and an inode reference
-does not keep the superblock active.
+crypto_akcipher_sync_prep() places the data buffer right after the
+request context, in the same allocation, and passes it to the driver
+in place (src == dst).
 
-After a lazy unmount, closing the delegation holder can both wake the
-waiter and drop the detached mount's last reference:
+On non-coherent DMA, the start of this buffer may share a cache line
+with the end of the request context. A DMA-based driver such as the
+CAAM (caampkc) writes req_ctx->edesc and req_ctx->akcipher_op_done
+after dma_map_sg() of the destination, which dirties that line. On
+arm64, dma_unmap_sg(DMA_FROM_DEVICE) cleans and invalidates partial
+lines (dc civac), so the stale CPU copy is written back over the result
+written by the device.
 
-  Thread A (symlinkat)              Thread B (close delegation fd)
-  try_break_deleg(dir): ihold(dir)
-  end_creating_path(): path_put()
-  break_deleg_wait(): wait
-                                   __fput(): break delegation, wake A
-                                   drop final mount reference
-                                   cleanup_mnt(): shut down superblock
-                                   shmem_put_super(): free shmem_sb_info
-  iput(dir): shmem_evict_inode()
-    use freed shmem_sb_info
+crypto_akcipher_sync_encrypt() and crypto_akcipher_sync_decrypt() are
+used by rsassa_pkcs1_sign() and by software_key_eds_op() (keyctl
+pkey_encrypt and pkey_decrypt), so RSA signing and encryption through
+rsa-caam are affected.
 
-generic_shutdown_super() may warn "VFS: Busy inodes after unmount" if
-the waiter still holds the inode at the busy-inode check. On tmpfs,
-this race was reported as a KASAN use-after-free in shmem_evict_inode(),
-called from iput() in break_deleg_wait(), after shmem_put_super() had
-freed the filesystem-private state.
+On i.MX8M Mini (CAAM era 9, rsa-caam, 6.18), the buffer starts at
+offset 40 of a 64-byte line shared with the end of the request context,
+and crypto_akcipher_sync_encrypt() returns a result whose first 24
+bytes still hold the input in 199 of 200 calls.
 
-Hold a mount reference across break_deleg_wait() in the creation paths,
-where end_creating_path() must still drop the dentry and inode locks
-before waiting. For filename_rmdir(), move path_put() after the wait so
-the existing path reference pins the mount. This matches the other
-break_deleg_wait() callers (unlink, link, rename, setattr, xattr, ACL
-and O_CREAT open), which already wait with a path or file reference held.
+Allocate the data buffer separately, so that it is DMA-safe like any
+kmalloc() buffer.
 
-With this change, a non-detached unmount racing with one of these waiters
-can observe the mount as busy until the delegation break completes or
-times out.
-
-Fixes: e12d203b8c88 ("vfs: allow mkdir to wait for delegation break on parent")
-Fixes: 4fa76319cd0c ("vfs: allow rmdir to wait for delegation break on parent")
-Fixes: c826229c6a82 ("vfs: make vfs_create break delegations on parent directory")
-Fixes: e8960c1b2ee9 ("vfs: make vfs_mknod break delegations on parent directory")
-Fixes: 92bf53577f01 ("vfs: make vfs_symlink break delegations on parent dir")
+Fixes: addde1f2c966 ("crypto: akcipher - Add sync interface without SG lists")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+Signed-off-by: Stephane Debusne <stephane.debusne@cynove.com>
 ---
-Validation used arm64 KVM and syzkaller (procs=6, repeat=0). Both
-kernels were based on af32da41b032 and used the same .config, compiler
-and guest image. Both included the same local arm64 MPAM compatibility
-change; their functional source difference was the fix in this patch.
-The submission base is v7.3-rc7; the affected code is unchanged there.
+ crypto/akcipher.c | 21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
 
-The unpatched Image SHA-256 starts with 10e1bbf908bc; this is an image
-hash, not a different source revision. The rebuilt patched Image
-SHA-256 is:
-  d39ac23fcc4c21bd1c7e9d9f2b79fa50f288e798abbd9363d80ca311cbd3b5ab
-It contains the current mnt declaration placement. All patched results
-below refer to this rebuilt namei-only fix, not the separate s_active
-implementation or the earlier 2acfbb234ceb Image.
-
-  mkdirat, original dd7c3373 reproducer:
-    The original unpatched run crashed (1/1). The rebuilt patched
-    kernel completed 2/2 runs of 300 seconds each, reporting 2028 and
-    2070 executed programs, without warnings.
-
-  symlinkat, original a203e0af reproducer:
-    The original unpatched run crashed in shmem_evict_inode() (1/1).
-    The rebuilt patched kernel completed 2/2 runs of 300 seconds each,
-    reporting 2028 and 2070 executed programs, without warnings.
-
-  mknodat, targeted S_IFREG and S_IFIFO reproducers:
-    The original unpatched kernel crashed in 2/2 runs for each variant.
-    The rebuilt patched kernel completed 2/2 runs of 600 seconds for
-    each variant: S_IFREG reported 4163 and 4126 executed programs;
-    S_IFIFO reported 4129 and 4164. No kernel warnings were observed.
-
-  rmdir, targeted unlinkat(AT_REMOVEDIR) reproducer:
-    The original unpatched kernel crashed in 2/2 runs. The rebuilt
-    patched kernel completed 2/2 runs of 600 seconds each, reporting
-    4174 and 4163 executed programs, without warnings.
-
-The unpatched results are from the earlier baseline runs, not new
-runs performed alongside the rebuilt Image. Each new patched run
-completed its requested duration, left the guest responsive, and had
-no Busy inodes, KASAN, WARNING, BUG or panic messages in its console.
-
-For the patched mknodat and rmdir runs, sampling selected threads with
-a break_lease wait channel and read /proc/<tid>/stack to identify
-filename_mknodat() or filename_rmdir(). Together with the blocking
-wait channel, this confirms delegation-wait coverage, not that unmount
-occurred during each sampled wait. Merely entering __break_lease()
-would not prove waiting: try_break_deleg() also calls it nonblocking.
-
-A standalone C reproducer for the symlinkat sequence is below.
-Run it as root, or with CAP_SYS_ADMIN for the mount operations and
-ownership of the delegated directory. The program does not create a
-user namespace; unprivileged user-namespace execution was not tested.
-
-  gcc -O2 -pthread deleg_umount_repro.c -o deleg_umount_repro
-  ./deleg_umount_repro
-
-Its exit status only reports whether the user-space sequence completed;
-check dmesg and runtime sampling separately for kernel warnings and
-delegation-break coverage.
-
-    // Standalone reproducer for the symlinkat delegation-break sequence:
-    // On an unpatched kernel, the operation drops its mount reference
-    // before waiting. The last mount reference then goes away and tmpfs
-    // is torn down.
-    #define _GNU_SOURCE
-    #include <errno.h>
-    #include <fcntl.h>
-    #include <pthread.h>
-    #include <sched.h>
-    #include <signal.h>
-    #include <stdint.h>
-    #include <stdio.h>
-    #include <stdlib.h>
-    #include <string.h>
-    #include <sys/mount.h>
-    #include <sys/stat.h>
-    #include <unistd.h>
-
-    #ifndef F_SETDELEG
-    #define F_SETDELEG (1024 + 16)
-    #endif
-
-    struct delegation {
-            uint32_t d_flags;
-            uint16_t d_type;
-            uint16_t __pad;
-    };
-
-    static int dfd = -1;
-    static volatile int waiter_ret = 1, waiter_errno;
-    static volatile int waiter_called, waiter_setup_errno;
-
-    static int pin_cpu0(void)
-    {
-            cpu_set_t set;
-
-            CPU_ZERO(&set);
-            CPU_SET(0, &set);
-            if (sched_setaffinity(0, sizeof(set), &set)) {
-                    int ret = errno;
-
-                    perror("sched_setaffinity");
-                    return ret;
-            }
-            return 0;
-    }
-
-    static void *waiter(void *arg)
-    {
-            struct sched_param sp = { 0 };
-            int ret;
-
-            ret = pin_cpu0();
-            if (ret) {
-                    waiter_setup_errno = ret;
-                    return NULL;
-            }
-            /* Keep the woken waiter from running before umount completes. */
-            ret = pthread_setschedparam(pthread_self(), SCHED_IDLE, &sp);
-            if (ret) {
-                    waiter_setup_errno = ret;
-                    errno = ret;
-                    perror("pthread_setschedparam");
-                    return NULL;
-            }
-            waiter_called = 1;
-            waiter_ret = symlinkat("target", dfd, "lnk");
-            waiter_errno = errno;
-            return NULL;
-    }
-
-    int main(int argc, char **argv)
-    {
-            const char *dir = "/tmp/deleg-umount";
-            struct delegation d = { .d_type = F_RDLCK };
-            pthread_t t;
-            int ret;
-            int fd;
-
-            if (unshare(CLONE_NEWNS) ||
-                mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL)) {
-                    perror("unshare/mount private");
-                    return 2;
-            }
-            mkdir(dir, 0700);
-            if (mount("none", dir, "tmpfs", 0, NULL)) {
-                    perror("mount tmpfs");
-                    return 2;
-            }
-            dfd = open(dir, O_PATH | O_DIRECTORY);
-            fd = open(dir, O_RDONLY | O_DIRECTORY);
-            if (dfd < 0 || fd < 0) {
-                    perror("open");
-                    return 2;
-            }
-            if (fcntl(fd, F_SETDELEG, &d)) {
-                    perror("F_SETDELEG");
-                    return 2;
-            }
-            if (umount2(dir, MNT_DETACH)) {
-                    perror("umount2");
-                    return 2;
-            }
-
-            ret = pin_cpu0();
-            if (ret)
-                    return 2;
-            if (signal(SIGIO, SIG_IGN) == SIG_ERR) {
-                    perror("signal");
-                    return 2;
-            }
-            ret = pthread_create(&t, NULL, waiter, NULL);
-            if (ret) {
-                    errno = ret;
-                    perror("pthread_create");
-                    return 2;
-            }
-            sleep(1);
-
-            close(dfd);
-            close(fd);
-
-            sleep(2);
-            ret = pthread_join(t, NULL);
-            if (ret) {
-                    errno = ret;
-                    perror("pthread_join");
-                    return 2;
-            }
-            if (waiter_setup_errno) {
-                    fprintf(stderr, "waiter setup failed: %s\n",
-                            strerror(waiter_setup_errno));
-                    return 2;
-            }
-            if (!waiter_called) {
-                    fprintf(stderr, "waiter did not call symlinkat\n");
-                    return 2;
-            }
-            printf("symlinkat returned %d errno=%d (%s)\n",
-                   waiter_ret, waiter_errno, strerror(waiter_errno));
-            return 0;
-    }
-
- fs/namei.c | 21 ++++++++++++++++-----
- 1 file changed, 16 insertions(+), 5 deletions(-)
-
-diff --git a/fs/namei.c b/fs/namei.c
-index c87c14ee1..de334d045 100644
---- a/fs/namei.c
-+++ b/fs/namei.c
-@@ -5328,6 +5328,7 @@ int filename_mknodat(int dfd, struct filename *name, umode_t mode,
- 	struct path path;
- 	int error;
- 	unsigned int lookup_flags = 0;
-+	struct vfsmount *mnt;
+diff --git a/crypto/akcipher.c b/crypto/akcipher.c
+index 630bb1973..2381ed43b 100644
+--- a/crypto/akcipher.c
++++ b/crypto/akcipher.c
+@@ -170,23 +170,29 @@ static int crypto_akcipher_sync_prep(struct crypto_akcipher_sync_data *data)
+ 	struct akcipher_request *req;
+ 	struct scatterlist *sg;
+ 	unsigned int mlen;
+-	unsigned int len;
+ 	u8 *buf;
  
- 	error = may_mknod(mode);
- 	if (error)
-@@ -5359,9 +5360,11 @@ int filename_mknodat(int dfd, struct filename *name, umode_t mode,
- 			break;
- 	}
- out2:
-+	mnt = is_delegated(&di) ? mntget(path.mnt) : NULL;
- 	end_creating_path(&path, dentry);
--	if (is_delegated(&di)) {
-+	if (mnt) {
- 		error = break_deleg_wait(&di);
-+		mntput(mnt);
- 		if (!error)
- 			goto retry;
- 	}
-@@ -5455,6 +5458,7 @@ EXPORT_SYMBOL(vfs_mkdir);
+ 	mlen = max(data->slen, data->dlen);
  
- int filename_mkdirat(int dfd, struct filename *name, umode_t mode)
- {
-+	struct vfsmount *mnt;
- 	struct dentry *dentry;
- 	struct path path;
- 	int error;
-@@ -5474,9 +5478,11 @@ int filename_mkdirat(int dfd, struct filename *name, umode_t mode)
- 		if (IS_ERR(dentry))
- 			error = PTR_ERR(dentry);
- 	}
-+	mnt = is_delegated(&delegated_inode) ? mntget(path.mnt) : NULL;
- 	end_creating_path(&path, dentry);
--	if (is_delegated(&delegated_inode)) {
-+	if (mnt) {
- 		error = break_deleg_wait(&delegated_inode);
-+		mntput(mnt);
- 		if (!error)
- 			goto retry;
- 	}
-@@ -5605,12 +5611,14 @@ int filename_rmdir(int dfd, struct filename *name)
- exit3:
- 	mnt_drop_write(path.mnt);
- exit2:
--	path_put(&path);
- 	if (is_delegated(&delegated_inode)) {
- 		error = break_deleg_wait(&delegated_inode);
--		if (!error)
-+		if (!error) {
-+			path_put(&path);
- 			goto retry;
-+		}
- 	}
-+	path_put(&path);
- 	if (retry_estale(error, lookup_flags)) {
- 		lookup_flags |= LOOKUP_REVAL;
- 		goto retry;
-@@ -5830,6 +5838,7 @@ EXPORT_SYMBOL(vfs_symlink);
- int filename_symlinkat(struct filename *from, int newdfd, struct filename *to)
- {
- 	int error;
-+	struct vfsmount *mnt;
- 	struct dentry *dentry;
- 	struct path path;
- 	unsigned int lookup_flags = 0;
-@@ -5847,9 +5856,11 @@ int filename_symlinkat(struct filename *from, int newdfd, struct filename *to)
- 	if (!error)
- 		error = vfs_symlink(mnt_idmap(path.mnt), path.dentry->d_inode,
- 				    dentry, from->name, &delegated_inode);
-+	mnt = is_delegated(&delegated_inode) ? mntget(path.mnt) : NULL;
- 	end_creating_path(&path, dentry);
--	if (is_delegated(&delegated_inode)) {
-+	if (mnt) {
- 		error = break_deleg_wait(&delegated_inode);
-+		mntput(mnt);
- 		if (!error)
- 			goto retry;
- 	}
-
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+-	len = sizeof(*req) + reqsize + mlen;
+-	if (len < mlen)
+-		return -EOVERFLOW;
+-
+-	req = kzalloc(len, GFP_KERNEL);
++	req = kzalloc(sizeof(*req) + reqsize, GFP_KERNEL);
+ 	if (!req)
+ 		return -ENOMEM;
+ 
++	/*
++	 * The data buffer is mapped for DMA by hardware drivers. Keep it in
++	 * its own allocation: placed right after the request context, it
++	 * may share a cache line with fields the driver writes while the
++	 * buffer is mapped, which corrupts the result on non-coherent DMA.
++	 */
++	buf = kzalloc(mlen, GFP_KERNEL);
++	if (!buf) {
++		kfree(req);
++		return -ENOMEM;
++	}
++
+ 	data->req = req;
+ 	akcipher_request_set_tfm(req, data->tfm);
+ 
+-	buf = (u8 *)(req + 1) + reqsize;
+ 	data->buf = buf;
+ 	memcpy(buf, data->src, data->slen);
+ 
+@@ -207,6 +213,7 @@ static int crypto_akcipher_sync_post(struct crypto_akcipher_sync_data *data,
+ 	err = crypto_wait_req(err, &data->cwait);
+ 	memcpy(data->dst, data->buf, data->dlen);
+ 	data->dlen = data->req->dst_len;
++	kfree_sensitive(data->buf);
+ 	kfree_sensitive(data->req);
+ 	return err;
+ }
 -- 
-2.39.5 (Apple Git-154)
+2.43.0
+
