@@ -1,77 +1,41 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED6B723A564
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 04:00:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4A3243009F2;
+	Fri, 16 Oct 2026 04:04:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792123224; cv=none; b=ZccdDYn+J12ZerHgt9+jzvv/H5S9CGoiCfCAbMZRxAB1RmSmdEMrQT9jstJ1hbHafQDAvDx25Re40a049QPW5yEybBTrYzEWLTjujxE1dHjalOQ667/qSnLwK2ugJwME5vSTNM1gr6uabKIrSfa2ouRt9BnfrowKmzUlgoY5e7U=
+	t=1792123469; cv=none; b=QsKJIM3g38WezGsY0dmEMx0Z7kDjNo7tnJrxRId9gzBvdYU4uuQezQ/QEYqA3MH+ayAPO6VVrOEYEeKsg+j/wp3zmxja/AmO9Nfx+fgsmYlj7XUGFDdHboOkSiuDJi3MsbFhwVEUSfiLr+6Gj5oEbiErevppNs/qnL2vl5HQWW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792123224; c=relaxed/simple;
-	bh=R1f53fZVOQpXpGpCi4RklZRTZOgEf4RFVZqHIV1IEjY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kpfomnheejzuSmEG13KY8IzDzThsBTcrmDbqre24jD0tUAJVWDBmm1FH5CG0zbEtrLo8/YH0+13lnuYVa5cMAx+IUWjSgZF/G3TWIsNZIPUssGHH7u2U32tJ9XXWuahPIOosalRJYYgGe4TVdeWf8B52vgPZiXpiEgt4FJLsLfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LZIn4Nb8; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792123469; c=relaxed/simple;
+	bh=h87naY7RnHqXfoQX6aaL788b15IXb90ueQxSxvAx4W4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KopoO+2hQPqregzNStUHqXzNE5FsfWquml9kpizWhIlkE4Z6LzbXa5L2HtQX6cNXyB/oPG76s/t0bQhRDa69dIAZJmzdo/Ez2HQzbNTojPpbWZTyrcjD4s+9Mjfeaee5q+Hv1Om5cFQ7DhNQv2H2RNH0PYiPKjpWb7VZDp+9lIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=ATHFzLZK reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LZIn4Nb8"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3a7cfe8f761so422235a91.1
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 21:00:22 -0700 (PDT)
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="ATHFzLZK"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792123222; x=1792728022; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g9IQw/iWHXUIP0xYQGBwa0OfUNbaaj14Fj4E0JqM4sE=;
-        b=LZIn4Nb86Im+eJt/C2Z8tvysgraS2xt11OqHgABFEDtbc4L9UzgX+rkAmvCaf3qWpZ
-         YrRQ/G9DWEHcA3jaEQVGVLgo1w6xS4ttOxTDJiarb9APKyqPBovADl9C/WFYx5gjuNIp
-         NYxK934bVsZnzU4025+/660RdteqDSkEOjjCLYBYpp75chpAug5MlTcNHiCFHauNf5ee
-         xnPfvK2P7k2P9q/jSGzTildbi5YZA/ZMctd1x+Sw+aJdu1TmqCj/gJ7+qoxkkdY/d6XH
-         x6jcETDeUjBSd72vBER9PuBgP61DzxNIUd1eDYK4dOCXVpCQ5fk4AbXVPxL3+XP5BECO
-         5llw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792123222; x=1792728022;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g9IQw/iWHXUIP0xYQGBwa0OfUNbaaj14Fj4E0JqM4sE=;
-        b=PmcWhYt1LCIUAyrOKLecMcZpyI+OaOJU2hd93JnRGE2sjbL1UAvnwEzMpcqG1cpgcI
-         Z6VshJy4I71BMbJs1oxLPpUK6iqFSxaLqjABxPjfIqbLgXY87r3pgpaIs1Lxy5F4deDu
-         KhfizYa9OFLlzPQeYKOqo1x3ThrXdjVOhSXVyOLHP68Tr1lSvdrctbftBYqa+9/R2gZP
-         trVEl/ylO6VMmqSt1yiKZ4vfvhClD6B9E3rFRVTEdhQ8mGrl9ENL88pP1ten9hD4zab7
-         30t7VPcgvY8pqYYsv099tY3j4N9xgiHF0ZjG115dbJWLOtQLZ/sBq+3hUcj7+kZiBkxD
-         p81Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx6DlA653qV6KHoixmsvmEYOWmDEVHuKZSa7ANEVivPznuHzW5z16oc0UBHc+t8Btx75qznJV4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLzobi9QdQpIpaJqixHJr+yLOKJK6kKvJ6PGef97DkWHMg3Mufj
-	4eVkToul4n2/Uj7bax6r4DW+mPuDoP75co2IrgA44FuxQw7LzRkzQGF2
-X-Gm-Gg: AYBFou222f+eyj2j/3Jp0VFlrC++oWsuynhniQMrGh4JQh3++bsJx0kNNzJ7qKzzFE7
-	AyHS7P2NPgl0QDmfoz3+pyKUHJQ7BJrGIvhOTeAnCTcEfL+R1+SxZBGHyvNjkNHYw9FN7T4PV4i
-	r/77fgXLWR6tIivP4lMcxUcdQTRnL4wiiNH6YmgbOadHdUvl3SaPog87rMPC8qq4Rv7Kmq4CEp1
-	jFMDQXYOhkoowaGGoW1yUTgyhj01ke2bz6JlFl1MmP+fzhaCwGzxVoE1jrNrR0NLTm0p60AeeVO
-	yuPDwWxuD5u/CX2PNK5CaJLjyC63VE8Vs9FkxjDbLT9aPd/k+mJmthqGu5IXyF1B9ISmBw2/41h
-	gHOsblQW09nbph3xQ9zu9gqobmsQlr+WfYWVfFo6VaXroOCPZXra0HMAggJoywV6+U9HeXOyKh9
-	9MPxszG9FhrT5e1OyL5nQR2XOsaFYzSeoEe0+0+/7fOw30qbH+xbZAg0wep+hQ0R2ozofbU9UrN
-	qqTTwM895Y=
-X-Received: by 2002:a17:90b:3e89:b0:3aa:412f:b0a7 with SMTP id 98e67ed59e1d1-3acbb689d36mr1258321a91.5.1792123221974;
-        Thu, 15 Oct 2026 21:00:21 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac94627250sm7017040a91.8.2026.10.15.21.00.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 21:00:20 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: David Howells <dhowells@redhat.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E . Hallyn" <serge@hallyn.com>,
-	"Jason A . Donenfeld" <Jason@zx2c4.com>,
-	keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=xRmRnms+zV
+	zYh0Y3KzMMuYDjvDit7pvXuCmYcJKfhoQ=; b=ATHFzLZKSHBzu+LsEvcCIOAw0F
+	D5mXXQqAMX1ncfPTXtuW17csgWkKsKmqgFvBm4h21dt8s0xmg7yLzJ3+liwIhJfJ
+	Ixd5luS+a2cUcjdAOQRh7p79NBoehRwTAZuog9at6wZNoIJqBYLMNKdq7EFXmP5f
+	vc/UBWzE1ElUcH/WI=
+Received: from localhost.localdomain (unknown [113.200.174.90])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkDWGP5CotFqbSqoAA--.50587S2;
+	Fri, 16 Oct 2026 12:04:19 +0800 (CST)
+From: Yuanzhe Liu <25031212351@stu.xidian.edu.cn>
+To: Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] keys: big_key: Reserve the final quota before destroying the payload
-Date: Fri, 16 Oct 2026 13:00:04 +0900
-Message-ID: <20261016040004.324286-1-4ncienth@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH] media: gspca: check return value of usb_ifnum_to_if() in gspca_init_transfer()
+Date: Fri, 16 Oct 2026 12:04:04 +0800
+Message-ID: <20261016040404.1337-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.45.1.windows.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,62 +43,79 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkDWGP5CotFqbSqoAA--.50587S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJFyxur48Ar45Wr4xCw43trb_yoW5Gr4DpF
+	Z3GF4jyay5Jr4qkr4UXr4Du3Wruan7Jay7Cry5Aw1kZw47XFZ3Aryj9r15XrsrArZYyw4I
+	q3WUJayUW347CaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9K14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r1j
+	6r4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
+	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr
+	0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8v
+	x2IErcIFxwCY1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_Gryl42xK82IYc2Ij64vIr4
+	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
+	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
+	8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAv
+	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
+	v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUeL0eDUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUID2rQ7FFu7gAAsE
 
-A big_key is charged a fixed 16 bytes of key quota, regardless of the
-actual payload size.  big_key_update() currently reserves the actual new
-payload length before destroying the old payload, while the subsequent
-generic_key_instantiate() reserves the fixed quota length.
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 
-For an update to a payload shorter than 16 bytes, the first reservation
-temporarily returns quota.  Another key operation by the same user can
-consume that quota before generic_key_instantiate() tries to reserve it
-again.  If that second reservation fails, the key remains instantiated but
-its old big_key payload has already been destroyed.  Reading a
-buffer-backed key or revoking a shmem-backed key then dereferences a NULL
-payload pointer.
+In gspca_init_transfer() and gspca_input_create_urb(), intf is looked up
+via usb_ifnum_to_if(gspca_dev->dev, gspca_dev->iface).  According to the
+USB core implementation, usb_ifnum_to_if() returns NULL if the given
+interface number is not found in the active configuration (for example,
+if the device was disconnected or had its configuration reset).
 
-On a KASAN build, reading a buffer-backed key reports:
+Currently, neither function checks whether the returned intf pointer is
+NULL before dereferencing its members.  In gspca_init_transfer(), when
+a bulk camera is used, intf->num_altsetting is dereferenced immediately;
+for an isochronous camera, intf is passed into build_isoc_ep_tb(), which
+also reads intf->num_altsetting unconditionally.  This triggers a NULL
+pointer dereference and results in a general protection fault crash.
+In gspca_input_create_urb(), intf->cur_altsetting is likewise accessed
+without checking for NULL.
 
-  BUG: KASAN: null-ptr-deref in big_key_read+0x110/0x310
-  Read of size 64 at addr 0000000000000000
-  ...
-  big_key_read+0x110/0x310
-  keyctl_read_key+0x2da/0x550
+Fix this by verifying that intf is non-NULL before dereferencing it.
+Return -ENODEV in gspca_init_transfer() if intf is NULL, and return early
+in gspca_input_create_urb().
 
-Revoking a shmem-backed key reports, with oops=panic:
-
-  Oops: general protection fault
-  KASAN: null-ptr-deref in range [0x68-0x6f]
-  RIP: vfs_truncate+0xa2/0x730
-  big_key_revoke+0xbd/0xe0
-  key_revoke+0xc0/0x1a0
-  Kernel panic - not syncing: Fatal exception
-
-Reserve the final fixed quota length before destroying the old payload.
-The reservation in generic_key_instantiate() then has no quota delta and
-cannot fail for this reason after the destructive step.
-
-Fixes: b6f61c314649 ("keys: Implement update for the big_key type")
+Fixes: d43fa32fec44 ("V4L/DVB (8156): Many bug fixes, zc3xx added.")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
- security/keys/big_key.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/media/usb/gspca/gspca.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/security/keys/big_key.c b/security/keys/big_key.c
-index 268f702df380e..6aff1a73c7b38 100644
---- a/security/keys/big_key.c
-+++ b/security/keys/big_key.c
-@@ -195,7 +195,7 @@ int big_key_update(struct key *key, struct key_preparsed_payload *prep)
- {
- 	int ret;
+diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
+index 594d73e50b9f..1b76f871b672 100644
+--- a/drivers/media/usb/gspca/gspca.c
++++ b/drivers/media/usb/gspca/gspca.c
+@@ -213,6 +213,8 @@ static void gspca_input_create_urb(struct gspca_dev *gspca_dev)
  
--	ret = key_payload_reserve(key, prep->datalen);
-+	ret = key_payload_reserve(key, prep->quotalen);
- 	if (ret < 0)
- 		return ret;
+ 	if (gspca_dev->sd_desc->int_pkt_scan)  {
+ 		intf = usb_ifnum_to_if(gspca_dev->dev, gspca_dev->iface);
++		if (!intf)
++			return;
  
+ 		ret = usb_find_int_in_endpoint(intf->cur_altsetting, &ep);
+ 		if (ret)
+@@ -765,6 +767,8 @@ static int gspca_init_transfer(struct gspca_dev *gspca_dev)
+ 
+ 	/* do the specific subdriver stuff before endpoint selection */
+ 	intf = usb_ifnum_to_if(gspca_dev->dev, gspca_dev->iface);
++	if (!intf)
++		return -ENODEV;
+ 	gspca_dev->alt = gspca_dev->cam.bulk ? intf->num_altsetting : 0;
+ 	if (gspca_dev->sd_desc->isoc_init) {
+ 		ret = gspca_dev->sd_desc->isoc_init(gspca_dev);
 -- 
-2.55.0
+2.34.1
 
