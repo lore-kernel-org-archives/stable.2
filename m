@@ -1,147 +1,245 @@
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3DC547535E;
-	Fri, 16 Oct 2026 14:08:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC0094A4EFA
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 14:11:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792159742; cv=none; b=YHQj/VotkobYWi0imx6yZShSXoMbJdVxKy4f+4x2+1PSb1m537i2rIk3niM3lh3YFVUXELwUY9F5SX4ZM0aQUuWR7xDdlsBZbiOuMtSXHsh0KFR9kRvjMR0Bze/QWw9V8l689W+lWvUbwDNMASjE1JrLvakOrpP8YY4YzbWj5gQ=
+	t=1792159921; cv=none; b=J/QhA0b7YZQvYelm0WDvfWkVi+3sTcwd+fX7Rz1hP+Glgjuy2Hcd5IPyg+6lPI6jPWFC2CKGjz0E5oiaJFYyG7gix/dpqVZAJDIvyU+qfOBDjspUt6wljrUfRvqUkTowkOjrj6a0HeYeP0kXihOu44OxdxjLLqm/kyWUuNQZ1U8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792159742; c=relaxed/simple;
-	bh=5+jNcPrFVwyar2TgHXjQU7Gg8W4bNNaqqDwQA/tIK5w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k5mPdvp+ctiagRgavpMJdwumSObkfPPsfpw94tuV/pOJ4aZS4HZb4RMbVzQ/w8/309CnviOFibxZ+LxLTIcWQGCU23Og0PfBT/Dm0ztyDcRCwyag56HTs1+caKtlIVjB+dBmuTlAyqxiPl1Y9L2xsM1iWuHdy+7Z2wuN3ZMqHwo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=tzG6IAaL; arc=none smtp.client-ip=37.230.196.243
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	s=arc-20240116; t=1792159921; c=relaxed/simple;
+	bh=AjOlvVJQS//DsvCuefdKjOocvAsT0+tW+iqMVZga33c=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=RtGF6gQAMueJlRNcwVcJlDCc5T47EQhQwa+QVcJDO4dwKl0ajir2DDKhL3CU+kqOVHIg24JeKStgw/VtciLzDbdSf1smM58YWEcTtdJo0zmJqFYBVXdguSe6KSwywpi3G/9x6R6NGDfiBfHjZS26fX3w4Cc6HBByx3CP1B0DlyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eXadYWpf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QTmg5NJW; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="tzG6IAaL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1792159729;
-	bh=5+jNcPrFVwyar2TgHXjQU7Gg8W4bNNaqqDwQA/tIK5w=;
-	h=From:To:Cc:Subject:Date:From;
-	b=tzG6IAaLMLuiNDg/07xA+hyFpMX/8iTpk81K5XjQaR9wadIcObhDUp10NxdduxHX7
-	 8AzPDdtWv6cwnlBpAnM415MV/f4Lqhllxs39EMfItPog7WBznCbN+z1e773jt5ggRE
-	 ltNLRUQPfif0bnzT8z+plKfBG01NGr15DR6ixJokcdzIKZj7yB6VL1WKbLCOwXgdWL
-	 LhyM/u0R5jTUCrfkNMcy0EonfwWAqnaKszsMMRBoDBheagthK4jMJLKgwGSe72wbPB
-	 KAvTvIi8CnmwWscmQzvGo3B9Izw8m55sTmOipyhVVqZLdGoBulUXWLCCZCctYpkT67
-	 VVDIWd0cLAx6w==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 05A0125D2B;
-	Fri, 16 Oct 2026 17:08:49 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.8])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Fri, 16 Oct 2026 17:08:47 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.49.29])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j5mdS38KFzY9W;
-	Fri, 16 Oct 2026 16:54:20 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Sasha Levin <sashal@kernel.org>,
-	Tobi Gaertner <tob.gaertner@me.com>,
-	Oliver Neukum <oliver@neukum.org>,
-	=?UTF-8?q?Bj=C3=B8rn=20Mork?= <bjorn@mork.no>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-usb@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10/5.15] net: usb: cdc_ncm: add ndpoffset to NDP16 nframes bounds check
-Date: Fri, 16 Oct 2026 16:53:07 +0300
-Message-ID: <20261016135308.600-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eXadYWpf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QTmg5NJW"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GE5xmJ2301973
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 14:11:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=1byDc83PlgEFqClSIW/YQ5
+	2JFlcU14c6UW3k5RoQVkU=; b=eXadYWpfZjCOh9tyzIyF85QCi/uAkszfnQNy0y
+	WbRalV7RNTdNotgEzIp0dP1ujsCFotN+xS131Sf7Yl8H+unBT1BRdNHC3iPS7HSA
+	DzaOhpo7rXtNSekyh0f1wwA9wHyj6NhGFKFpLbqGsnMJEww9HSkKu2Nve3S+Ckfp
+	WZEy5n1kzH341POhgm6ObeUjiScWDy/KMo48QwUdAcUqn66DasQlhlvt8tCZhk3u
+	+7pjmsc3k80HXUOQKkbhejQHxchYphxCzP6n8Y2bwc3tgM+EGvmeva/bCGe5XX7z
+	w5aefN0Otlni1jt5PmJZugMMMPehrSk0dPz5OLmCx5ITO/Fg==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb3sev2g9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 14:11:56 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91b8c60c550so752586d6.0
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 07:11:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792159916; x=1792764716; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1byDc83PlgEFqClSIW/YQ52JFlcU14c6UW3k5RoQVkU=;
+        b=QTmg5NJWG6+kExiAjg/CX3bgTkP+0LLwDRbLAHTJoYnMef3VQaVIy0QF0TqqDOaNrp
+         riVgD21n4sTcKg3hDE/+TsWrNUfkzFO/n9ck32YRbiQSbcZiUKxzncPIrxnjwI61IUKe
+         OC2Vqe1uIybkALQn8UrCgckfESeUW+VQIXA/yiWr+EPCHGz796fIb6A91hDdGXx4O0W7
+         DBsJ7o/Fz7wFW8vyasqCPCwjK1GJiWloABmNesy2tcEjXg/tIUJyJcz/AqfHkOfUD92g
+         OgHwbPcVuXtoyhtcys2+Pup99s/ECd2nw9vpKRy1EbYbGlp7FiQHdua4DJatNMtKu3fF
+         t6fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792159916; x=1792764716;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1byDc83PlgEFqClSIW/YQ52JFlcU14c6UW3k5RoQVkU=;
+        b=f4GKAtgBI8al5aNqC3w94X42MbtC0pwYovXNZY6vdRKrs7OEDq1V8Rsd2R7GqIzAFY
+         VJgWpdP0YAE/8q/Le2klsOtAr3tweRNC5ZFeBztwtvbychXxuaC3KgtnosLtmZeXt4YU
+         niLOVzaOtJyLMtOAJKqEDui9GTw712Xgq9yJoap8sy6H4HoDX4b73LpgpfjYXJ9Vy0iy
+         Bucd4TN+Qh8UBwOc2hgBhiLr2Cv9Tfkr6Kf+CpWjRk1HTp21PchJb4llR7qIcdrTU2vU
+         9Y1bQ332E99y7/N+z7b/KErj6vBK0BDj9WJwDNvy6w6YR09A2e9qX7NmBDMigtkLUk44
+         PZCw==
+X-Forwarded-Encrypted: i=1; AKwUvByd7UbTOt5/KWBii9DU1fuPAqaJ+mPIyTCRJlRGfS2BfDnHGjuqlWOFEE25cv9rglHPNadP2j4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK6cBep2qrfC5G3HAYqi7uZ9KXFMeDgrgP6Wphua75trF4JmMoH
+	fH+/SbEJKI9pstLzovQFAeC7S+7wvcyItD9xMK4XaloFUcMCqzK9/BXzKzcymGkO7MFN1Hzvvl4
+	xlxdG77Ps0s4Ml9+2jWf4gS/16CkjIOBf5RKXueWAjec4RkntOzsfihcpDyg=
+X-Gm-Gg: AYBFou2drKmxVE2M3RWAmtRCWXqYD9NcIoRuI3D8kOGWN+4LwqJ9EsZmnlte16pl/Th
+	eXgrGLlVbUz82Wfw8SoZbBKX1lBmgzMBr1fMv4xaJ0TQwbxoEDjrIQ2zCHb+QTKAHEVDynz9hKN
+	7vl92HhqxLBLwzzF6xB83Aspis1ST660ocyNJARZxfvI+ND96g0HrhiEwIY9H9L3LOZE3bI8s/m
+	qnE6JrGLe9y7SPtcl7aJD3PduJK+l+QOjsyr4kFe4rYTBCkbcJSYenjkFaq4plMzgLusuYR503U
+	FH8bKq0hjMnAKWiN5TixTXu2VBvsdz1oD4XOYaeFmnw0eg0i9cryiAz1+DslXwbesawel0lpLRb
+	7ItHOP/A3zfXUkcsrHZlCCQeckgf/
+X-Received: by 2002:a05:620a:4411:b0:93e:7ec5:2d65 with SMTP id af79cd13be357-93ebd20b8f0mr3679549985a.31.1792159915837;
+        Fri, 16 Oct 2026 07:11:55 -0700 (PDT)
+X-Received: by 2002:a05:620a:4411:b0:93e:7ec5:2d65 with SMTP id af79cd13be357-93ebd20b8f0mr3679541585a.31.1792159915227;
+        Fri, 16 Oct 2026 07:11:55 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f8babsm5760145f8f.33.2026.10.16.07.11.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 07:11:54 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH v11 0/4] crypto: qce - fix self-test issues in skcipher
+Date: Fri, 16 Oct 2026 16:11:45 +0200
+Message-Id: <20261016-qce-fixes-skcipher-v11-0-d13ddfe609a4@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/16 12:54:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;new-mail.astralinux.ru:7.1.1;patch.msgid.link:7.1.1;astralinux.ru:7.1.1;127.0.0.199:7.1.2, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 206758 [Oct 16 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/16 06:35:00 #28691046
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/10/16 12:54:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKEw0moC/x2LSwqAMBDFriKzdqCtWsSriItSnzoIfjoggnh3i
+ 8uE5CFFEih1xUMJl6jsWwZry4LiErYZLGMW5Izz1ljPZwRPckNZ1yjHgsQwVVsH3xi4hvJ4JPx
+ F/vrhfT/jvXubZQAAAA==
+X-Change-ID: 20261016-qce-fixes-skcipher-e0384a650e25
+To: Bartosz Golaszewski <brgl@kernel.org>,
+        Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eneas U de Queiroz <cotequeiroz@gmail.com>,
+        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Eric Biggers <ebiggers@kernel.org>,
+        Demi Marie Obenour <demiobenour@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Russell King <linux@armlinux.org.uk>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        stable@vger.kernel.org, Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4065;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=AjOlvVJQS//DsvCuefdKjOocvAsT0+tW+iqMVZga33c=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq0jCjF/ApNt06fNbT487zzn+mpbTpLSUYBXIDt
+ 3o4ikMWHe+JAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCatIwowAKCRAFnS7L/zaE
+ wxFVD/4/b2oyMXUj5o7TwUpj5efwfrLwfZGI0ImidbuoLepHmnJ7t1hxoPEohtNIsASNq78tx8k
+ /dwm7rmYalGwJJBb/7iyUS7Kwr1UqVdxI/T3iub0EBIpTXJPfcaL5PA8pwjj+cR2Y9/+gi/B8ME
+ 8lvluOQiuH8BWKq0yQPVnfh4pZ7/HQUOOLwpVwHwoKPT68S+l8X28Tw4DdjGWcjB9//QIIOhiNY
+ shFPTujfUvYtkVBF41NJ0hGNY3Po9jME3FoiCAN/3Crx5VmXHDM9i0b471cSozyh3vP0u25mJ7x
+ 6H43PxiO4A1mJPZlYB+jKuetKoqZNIjPxZXBmnmfM+m5wPqSh5OYF3NB6DADFimiA8E/7zCiPdo
+ LAVZZk+N1lYt9zwlFxAJz82MPpKkvh3wUE7QtACO9gAZ8hvr8xJW2F7pwSssn9wNWdNjAjC4ucd
+ Kvvmz6HoTs4BB421h101YgsBXwBEsvOfzoLm5wulPVwBNdlc28V1ilH4cBAgtB970o93IPmbfst
+ Hhp307G3WUiVvDXIBQ5oMkBHzpFpNZCbqxvh7Qn3IymrFzNam/BBeZjBS4yCB5Ddzrij8LvmTPk
+ gwDPdxXyH0q/xRycT4hn9F5t45zP4rRDamv9eB+VCt4IVtvZaTlx6zz+/+2fTHHXSIrJ4fOG++j
+ zgmyUqACLb2MY+Q==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-ORIG-GUID: apER1ipUjeOIv0YRizk0pETMd3uK7iYs
+X-Proofpoint-GUID: apER1ipUjeOIv0YRizk0pETMd3uK7iYs
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA1NiBTYWx0ZWRfX24toYwoUCv+A
+ OiMEbksJOmYpp60mSf2nfKABX230QxaiuxORlCv1iLDy6TJZyjLm/bBq+fA8rsLaIKFpMI+XwW8
+ QU+qk1mMyTZpjSIcZfchGzslvgYuxg8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA1NiBTYWx0ZWRfXxXAPNVZGbLuL
+ 3mnfrQUK0JwG9PpLWURqgWuqlJv7zJtGaLFqO8s6kGZbtWL0pE7PlKJ/Z5HCEm2DsOnXXZfAxY7
+ qbrqgK8Qysn3i963jDspzwzADEhZsEVwPcVur6y8MZEOy6tGyAtVC0uyn4IEiGTuvGzGS4JzyZf
+ ElUiPUvXp7sM6MCSWu2VBmDRULZ8/rP3jQjf3A/rEzP86WEpVEPT4tQ/5nYGJ0sK14VlKdDTHne
+ 5KVYKu6/a6mvAJeNKWv72PpIFEE3XRhiYd4ihvXJmL/bs0MNYEIoMTWtlz7dJNIbFKm7wzS3LYL
+ ThTcYCUVS5vBryH8b5JSsD0mcVwHBIEvkm+zR1aDbu7dHA4yL91sfR+YHhwxbLu4AWHLab5KvJf
+ F+Db7iRLh5LgLUw8wtr/44FBAIozGUYINOLK2LoTBglcmb1BEcog8KqRSuxa/f2BGmc05GqZKM0
+ B2Zgmens6opH+mkOPIA==
+X-Authority-Analysis: v=2.4 cv=Se1i5fRu c=1 sm=1 tr=0 ts=6ad230ac cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=iK5QPMNa_E_FA8V_BHUA:9 a=QEXdDO2ut3YA:10
+ a=OIgjcC2v60KrkQgK7BGD:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-16_02,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 adultscore=0 spamscore=0 malwarescore=0 priorityscore=1501
+ phishscore=0 bulkscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160056
 
-From: Tobi Gaertner <tob.gaertner@me.com>
+As requested by Herbert: this is the first of smaller series wits fixes
+for QCE. This one contains the patches addressing issues in skcipher.c.
 
-commit 2aa8a4fa8d5b7d0e1ebcec100e1a4d80a1f4b21a upstream.
-
-cdc_ncm_rx_verify_ndp16() validates that the NDP header and its DPE
-entries fit within the skb. The first check correctly accounts for
-ndpoffset:
-
-  if ((ndpoffset + sizeof(struct usb_cdc_ncm_ndp16)) > skb_in->len)
-
-but the second check omits it:
-
-  if ((sizeof(struct usb_cdc_ncm_ndp16) +
-       ret * (sizeof(struct usb_cdc_ncm_dpe16))) > skb_in->len)
-
-This validates the DPE array size against the total skb length as if
-the NDP were at offset 0, rather than at ndpoffset. When the NDP is
-placed near the end of the NTB (large wNdpIndex), the DPE entries can
-extend past the skb data buffer even though the check passes.
-cdc_ncm_rx_fixup() then reads out-of-bounds memory when iterating
-the DPE array.
-
-Add ndpoffset to the nframes bounds check and use struct_size_t() to
-express the NDP-plus-DPE-array size more clearly.
-
-Fixes: ff06ab13a4cc ("net: cdc_ncm: splitting rx_fixup for code reuse")
-Signed-off-by: Tobi Gaertner <tob.gaertner@me.com>
-Link: https://patch.msgid.link/20260314054640.2895026-2-tob.gaertner@me.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ mdmitrichenko: use struct_size() on the already initialized ndp16
-  pointer instead of struct_size_t(), which does not exist in 5.10 and
-  5.15; struct_size_t(type, ...) is defined as
-  struct_size((type *)NULL, ...), so the result is the same. ]
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
-Backport fix for CVE-2026-23448
- drivers/net/usb/cdc_ncm.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Changes in v11:
+- Split out the skcipher patches into a smaller series for easier review
+- Drop patch "crypto: qce - Fix CTR-AES for partial block requests" as a
+  subsequent commit makes this adjustment effectively dead code
+- Fix a mid-series build failure due to an earlier bad rebase
+- Link to v10: https://patch.msgid.link/20261013-qce-fix-self-tests-v10-0-57162a38a554@oss.qualcomm.com
 
-diff --git a/drivers/net/usb/cdc_ncm.c b/drivers/net/usb/cdc_ncm.c
-index 57b1e6dc62f0..a3d3f2b6cb1b 100644
---- a/drivers/net/usb/cdc_ncm.c
-+++ b/drivers/net/usb/cdc_ncm.c
-@@ -1638,6 +1638,7 @@ int cdc_ncm_rx_verify_ndp16(struct sk_buff *skb_in, int ndpoffset)
- 	struct usbnet *dev = netdev_priv(skb_in->dev);
- 	struct usb_cdc_ncm_ndp16 *ndp16;
- 	int ret = -EINVAL;
-+	size_t ndp_len;
- 
- 	if ((ndpoffset + sizeof(struct usb_cdc_ncm_ndp16)) > skb_in->len) {
- 		netif_dbg(dev, rx_err, dev->net, "invalid NDP offset  <%u>\n",
-@@ -1657,8 +1658,8 @@ int cdc_ncm_rx_verify_ndp16(struct sk_buff *skb_in, int ndpoffset)
- 					sizeof(struct usb_cdc_ncm_dpe16));
- 	ret--; /* we process NDP entries except for the last one */
- 
--	if ((sizeof(struct usb_cdc_ncm_ndp16) +
--	     ret * (sizeof(struct usb_cdc_ncm_dpe16))) > skb_in->len) {
-+	ndp_len = struct_size(ndp16, dpe16, ret);
-+	if (ndpoffset + ndp_len > skb_in->len) {
- 		netif_dbg(dev, rx_err, dev->net, "Invalid nframes = %d\n", ret);
- 		ret = -EINVAL;
- 	}
+Changes in v10:
+- don't pass a NULL buffer to sg_init_one()
+- fix byte order of the imported hash state on empty finalization
+- don't recompute the CTR counter in software for every request
+- reject skcipher requests with a too short scatterlist
+- check fragmentation for empty CCM decryption requests too
+- don't use a static loop iterator (duh...)
+- initialize the return value in qce_handle_queue()
+- Link to v9: https://patch.msgid.link/20260922-qce-fix-self-tests-v9-0-b1aa742e79af@oss.qualcomm.com
+
+Changes in v9:
+- Rebase on top of cryptodev/master
+- Rephrase Kconfig help text changes
+- Link to v8: https://patch.msgid.link/20260921-qce-fix-self-tests-v8-0-107537869a72@oss.qualcomm.com
+
+Changes in v8:
+- Add a patch making the crypto driver *not* register algos by default
+  but only if the user explicitly requests it with the provided module
+  parameter
+- Use the "offloader" name for the crypto IP instead of "accelerator"
+- Fix device module table issues
+- Make the core driver use a list (despite it only having a single
+  member now) of child auxiliary devices to register to make it clear we
+  have the intention of extending this once we start the work on secure
+  media playback
+- Link to v7: https://patch.msgid.link/20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com
+
+Changes in v7:
+- Add follow-up changes converting the QCE crypto driver to auxiliary
+  bus, adding the core QCE driver under drivers/soc/ registering the
+  auxiliary device and removing the BROKEN Kconfig label
+- Link to v6: https://patch.msgid.link/20260717-qce-fix-self-tests-v6-0-455775fe5f6c@oss.qualcomm.com
+
+Changes in v6:
+- Handle all zero-length HMAC finalizations (like imported state with
+  data already hashed), not only the genuinely empty message case
+- Add an additional patch addressing the fragmented skcipher payload
+  issue
+- Link to v5: https://patch.msgid.link/20260706-qce-fix-self-tests-v5-0-86f461ff1829@oss.qualcomm.com
+
+Changes in v5:
+- Dropped patch 1/8 that's already queued
+- Use the pre-allocated fallback ahash for HMAC transforms (Herbert)
+- Link to v4: https://patch.msgid.link/20260622-qce-fix-self-tests-v4-0-4f82ffa716c6@oss.qualcomm.com
+
+Changes in v4:
+- Remove remaining ECB and DES3 bits
+- Pick up tags
+- Link to v3: https://patch.msgid.link/20260617-qce-fix-self-tests-v3-0-ecc2b4dedcfd@oss.qualcomm.com
+
+Changes in v3:
+- Remove even more algorithms and dead code in patch 1/8
+- Link to v2: https://patch.msgid.link/20260615-qce-fix-self-tests-v2-0-dc911f1aad42@oss.qualcomm.com
+
+Changes in v2:
+- Add fixes for the full suite of crypto self-tests
+- Add Fixes and Cc tags
+- Link to v1: https://patch.msgid.link/20260610-qce_selftest_fix-v1-0-1b0504783a46@oss.qualcomm.com/
+
+---
+Bartosz Golaszewski (3):
+      crypto: qce - Reject empty messages for AES-XTS
+      crypto: qce - Use a fallback for AES-CTR with a partial final block
+      crypto: qce - Use fallback for fragmented skcipher payloads
+
+Kuldeep Singh (1):
+      crypto: qce - Fix xts-aes-qce for weak keys
+
+ drivers/crypto/qce/cipher.h   |  1 +
+ drivers/crypto/qce/skcipher.c | 39 ++++++++++++++++++++++++++++++---------
+ 2 files changed, 31 insertions(+), 9 deletions(-)
+---
+base-commit: f0f20b900bbb8bdcfaf6cb282787854067d8eec8
+change-id: 20261016-qce-fixes-skcipher-e0384a650e25
+
+Best regards,
 -- 
-2.43.0
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
