@@ -1,117 +1,133 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A72AA44C678
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 08:57:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141046; cv=none; b=VYSNLlucItJXNDKgNul7eGfXtvr+xL0Um60ZvpZmVlS4qhMtl5TZiFQrh9DXeM79um3Big1vBT2qNe1KtNPbJKIQO/et3NM1Rvqm+PZczaTnw95nrx/VHDZqaAx+91zFv5MDb3g/ykyLgZ8icEqm7UVRA05ueZ55efxeLNE51vs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141046; c=relaxed/simple;
-	bh=uL1w8BEtt8Np/I2lqGqbLuXM7I9yviHkRH0NnWW0ons=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=K5XZjyjJiXNYfIayeqFmRzgQXkGjqeLi/cpqAztM4G6TwWxw74BYGlRgVnI1HvZnO5YLbs4RkZzN9asAS5js9EDywK1+qU4lCe10lDJ/Hk8OqBesBXFd7IfTwdVxlVj7vDi/WCBTMuwIU1vND8s4H4UoWdCF4lM/KOQC3/KppEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OdledJKk; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A026544CF40
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 09:00:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792141230; cv=pass; b=aqdzXiZkUFzCkCPR5NZ6UbBxsEVKUceBAnJsYIFjJBF525gQJYQIujTvDVQ/YrOiynQ2Dolecb1pcmhzJg5MYegQ4tQ4ZxbMIJ+RSSsY3ZOav+ZOHY7GlNkvE6t5CA180HEDeCBdQ0zZynT2Jhdr05afi7EzZsrhNt/mVt9bQ1I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792141230; c=relaxed/simple;
+	bh=OVzfRZdbw7s/lzMKC8M5X9MPCV4GrzsQdddsKbt+Ujo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uxHS4FlUpR22+niVzUwXmgTkZ350LXjJNGwUf6n87IztddfyQ4P0E8gMV/Q5FVfRVgm/rMlW8dnYCYHKTjg/SIjss2U6FOKA1cvXHANSQAwuQ8GU9lE2AlV8Wcp5cj46O5yeRKpbTQorjl0CwPI10/SeFxzj1vAWeg/xddPCCe8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=RhPXrHLB; arc=pass smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OdledJKk"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso3457792f8f.3
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 01:57:24 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="RhPXrHLB"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2dd76b1361dso21059435ad.1
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 02:00:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792141228; cv=none;
+        d=google.com; s=arc-20260327;
+        b=R1gHxAwrpBpo+pY1kvo4Jmv1pknVDODw2Ci+nYsj3UB8yMlE0bI/4F3NARzZAgpGNT
+         rNSfxLr3EnZp62eTlhSH6xlyLS6D+Dfr8G831E4Zf5J65xLRytR7OcPv+5rgXehZHphP
+         pfHhjk6KSWT1IogfmrSvwU7XKxJ2JuLdyeNGzs0Flds91QhAFyktoM385bmRUD7XIh0h
+         s2T7bAr5Q+KXJAlw//b4z8eu99cWcPRFLFPH+UzgXg6D1ZeQMSclb/ni+JiEKRfdSu24
+         j6frMbBsEPU6kuWqRHKcSU+KSVv8aEwvuuwL/RC3DDPfCCQ99cqlem6i5mZ/LAND6Jux
+         XM2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=K5vZaRJtEgpb/nYXCR3GtSi2IujdlKts4184PdxaRd0=;
+        fh=NHMkmVsrv6RmyZzPMlTZm/FFzv7n535KWFf1976YqoU=;
+        b=A5xY+5Yb7sSJOS+RXN4bzieyarotLtwxtlssFQy1yXSTbziseU5CAAFORWJDoayDXP
+         t+cxbSK/I0VEa5fOUEhZDyh/IL+OlHae9UxASspxKVkHtCMHhg0RFe8rcudWuwWrddLw
+         cgjAanp+4T6/tUeNc1EDxT9MZYwCZDmZQSM4OEP7cp8SN66FJxmvQu1JGWo9hRfX66Ng
+         QUEb/NrhAaU5RzvzFORnPOa3E+kdN2rFLVf/B6rutQqb5CZoYlErvzKpnT78YrBXspFE
+         ZvI4mVO5zVBUCh99A82W72Owz8bkP6/AKbwVAsLHSPATNecxgbtTvh88Fakkz1z5BHu0
+         uJDQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792141043; x=1792745843; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x/q2L7BS45aTpoyNh7m1QrG5eRubgbrBzhsyuMzS0/Y=;
-        b=OdledJKkHyKkUe6e5iBmeFLKmwU4PVSsxli3jDVGIf+o2l8l/lL/Q+j1oJ2S+OFZkZ
-         vu1HLC3kzj3iQ81Du7bUKzkjPOXU6kzbKOss+TygfuoNDqCJpX9bnLZh6HATnZ6gFEpC
-         2cFzzS5HTqFarzB0Fe4uaW/n83p3wxocH21RfEM02yq6NBTJPhuaJGU6P5yDl7K7GC28
-         FT219PpULEJ93e3nq047QIiZ+xObxIw7LApAj16ai6Y+1iFPmVjW4L9m+gs40+k/R5TJ
-         Nd7sfxW0mU3wypTvpiiXEuSj7lDUbSD75uz0m9WjqXnxtRDLLaRAnsGaS4TErlGrUrtY
-         b+gw==
+        d=mojatatu.com; s=google; t=1792141228; x=1792746028; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=K5vZaRJtEgpb/nYXCR3GtSi2IujdlKts4184PdxaRd0=;
+        b=RhPXrHLBCiDBBEYrYBTNlfmD/QQlldceZlMSoGT3/57ifVzThp17AHeWKuBZNcvvFR
+         ASYsFIMH1K+DkMf8RfRP+GPtUyx1Gzs04E69j2T1oXUgnexFwEXwIe0FaSyXHH1A/pNU
+         udfXZqlt/dwy3t80CKsQ0YaGKES+JMKUEl7aY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792141043; x=1792745843;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x/q2L7BS45aTpoyNh7m1QrG5eRubgbrBzhsyuMzS0/Y=;
-        b=ntH9po6jgptk4v5pP6+wdnaIPjSzKdZMSriZ10nSjqTZ5Dw08LKISFWnz32Yt8M9nX
-         SEE1bIfztxenmPWnaQjOamMd9QnmFMPtlf4XAR5UMyP9BVsHmn6PO8pF7CvfQJrhptGh
-         qBnF7JVvNbkCdf0ORkBzTlvoijo1L3rL/RRR2XI3ioF3MXEZyhc1jKQ4fVHGfFjoXtRG
-         774KzMpCCIWl3zgh2LxdXbm4J9qyfR8GZvi5I65zG76/NF2jiaaYS0jgyLDj5Xiqi8FI
-         WYWHe2Epu8il8P9eNP6Xp2hOyB1E2Cz9EmGedWwMO8Eol64GbLJtmancm0juuwlfCF8l
-         nm7g==
-X-Forwarded-Encrypted: i=1; AKwUvBxPi0VOsAjTu2NRir0iFvyoYn5lI16f+Li52c2v5m+IEO3HHEV5uXjJ6Ga7qCtbcaiFFBMW2Dk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI9ypxcmzdlQVJiw+JGlXPsIzXEDV2qHQ/PkraXKhz7VeKfo+1i
-	PL/+cMCoodoYwubySXQ74KBoiXEgNlCL8yZK0ShGrpU0Opj/fOfXk2Rl
-X-Gm-Gg: AYBFou0nu2l7Z2ibTJz6C/f0kYpGU0fvG7NK5Dum/qAAY77m3eTvUYJ3qBE/MdTdRPF
-	0IKLm/klm3iGRQaRsGWWXXm36I31sgZiYOpdZL2ofaDYepC9Xy3eCJANr8PTKmiULKHHTWm5LJR
-	pcjD2YvDAmt+9CySKSNDPWIu7hloZtuXM4MHaS1duU98rGM9xb1DmgmsG9BbG1o3kHfrrj9dj6y
-	Vlm7QuFd2p6mtg7bqZ6CRAdrMbSfxVOQb2avmFeilqtgDNUZj+Mk6lBEJ/ExlD4I3JR8q+uBGZL
-	QBJDdawtvUblo5poykkKZolJ7US+fOeOEj5HltEHq+WoRUZol6E+9FJJMwi84ZzOKFpU3DxgfVp
-	9mz5XhMPukMZFBMAB4K5K/KiL9hFMgJ26BXjv5L439eOOkygxrzesuLtskUuhLqxxP8NPJJIGSQ
-	5DIKKrtHTZwy+RVy/46gGedCvpXa/R1cL0QYbwwcZeRwnvkWvAHkfiWvD16saWPBflVnUmCfxKt
-	2fLOkjVB9Ds4Ne702LrFV13+0ZiMSG4U507eHAnf7Q7j2aHl4w=
-X-Received: by 2002:a5d:5e8d:0:b0:48d:f7ef:721f with SMTP id ffacd0b85a97d-48df7ef72e4mr8636884f8f.11.1792141042620;
-        Fri, 16 Oct 2026 01:57:22 -0700 (PDT)
-Received: from [192.168.1.18] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfdcc0f20sm3509146f8f.11.2026.10.16.01.57.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 01:57:22 -0700 (PDT)
-Message-ID: <eaeeaecd-f51a-4c2e-8439-36c7b8f6721b@gmail.com>
-Date: Fri, 16 Oct 2026 10:57:20 +0200
+        d=1e100.net; s=20260707; t=1792141228; x=1792746028;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K5vZaRJtEgpb/nYXCR3GtSi2IujdlKts4184PdxaRd0=;
+        b=xq/aOSKNORS2+6gaJSqXDumad53cLAkIrIBvzkRYYdthAclLV/eFq35pX6e5tCdltY
+         DppTtoUUg6sblNDScBgt29y/jTQCE/dq+mNjc9knRn5vJFIZUjy10S5ecXQ1WOoudqU4
+         7sgEZAbEXTFgKVnCyWlSiR8EnerQezcRLU07gQAwBHy45M0wx4JrVpWANmRk2z3jdJSU
+         b9ZoCbSXSr5vhRpz8AxhL9gg3ICiNb1HpxOV+qa5BK9RvhG9Gc5nSRhtE2o7uaFzMxNj
+         U0n0W+pzMJEc+iZ4XVX1hhpNixkymDLTf1TiCx+foSg3CC6Gq9KA8noyUN9SpECYV0Xz
+         UjIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBztLrqejpVUVDteBr2qy3CubQoQK24sSP+b3tvGe01TRB+hIvRtcV2EWG59NNjbBLGljKxRDBk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL7Plc6qE9Bj7sY6R265zr8cnNgICYU89tiRbzNMZahls646ozM
+	xIhw08fy09lHW299ySlr/QEG1eLND2zE7HS5IpQLL2Fkr6Ko8eyhYFDws7JXgtFD3sjEo2ANUny
+	vPPB68uMQl0ha0dwMjPzn8cuhlW+QZHRVfG+iJqf3
+X-Gm-Gg: AYBFou15NFked4yrhvuMiw1HmxPHiKRMeMbWVvmWUIn1h6u2rLDY8gk3CkQLao3CXWe
+	j2/tzlLs9RWCKl3AI8OvgZjmx3dWVBdjwwbYbNNzprXhmLchVi52rGz6ifbUUH/Ht0WHkiUhmLY
+	M6nPVs3d8D0esPzuN2GAdnDUCHNvLF1jz5K8TjrUbGcDCYid4imHPnInUYNgEBimCI9bV8gdAT4
+	oOpKoEyd7/p1AWY4TjygFvYHKZ2q0veXsw/YLQ1vGJkpfPxSu+TxLI1KWSwBntasBhw301/6Kwk
+	K0+7ugduXHf1Y+bCmwcFt0S4JfQw6peulR/37mtEXRsU6S8iR8YoYbAbFNE9jRakh0tgm/z4271
+	txWtNnn+vmL0ST0JqEFccD/aNSqtS76aEs0xQ35nY7w20
+X-Received: by 2002:a17:90b:4ac9:b0:3ac:c005:cf07 with SMTP id
+ 98e67ed59e1d1-3acc005d046mr2346529a91.42.1792141227770; Fri, 16 Oct 2026
+ 02:00:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/vma: avoid spurious write locks when mm->mm_lock_seq
- overflows
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>,
- Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Daehyeon Ko <4ncienth@gmail.com>, stable@vger.kernel.org
-References: <20261015-fix-vma-lock-overflow-v1-1-01beb245d9da@kernel.org>
- <f5548d05-5aec-42d0-b9d9-c14fb575dec9@gmail.com> <atHa3-KlMPg6oy8v@gremlin>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <atHa3-KlMPg6oy8v@gremlin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <QDISC-Y0BY.v1.r0.20261015184107@mojatatu.com> <179214079109.408196.5152796723435821487@kernel.org>
+In-Reply-To: <179214079109.408196.5152796723435821487@kernel.org>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Fri, 16 Oct 2026 05:00:16 -0400
+X-Gm-Features: AclHuK9CcjmyT6uSXvsASMcDVgH1hUyqtUYOnWylPW-Z9sshIHj2VYWrJCmAPrw
+Message-ID: <CAM0EoMnb78SoNwrqgH5308B_+Mh1sBtm+wJ=SFXtMHS-L2zfXg@mail.gmail.com>
+Subject: Re: [PATCH net 0/2] net/sched: sch_teql: fix transmit-path regressions
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, Victor Nogueira <victor@mojatatu.com>, 
+	Jiri Pirko <jiri@resnulli.us>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+	Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Patrick McHardy <kaber@trash.net>, owen kwan <owen@verialabs.com>, linux-rt-devel@lists.linux.dev, 
+	stable@vger.kernel.org, sashiko-bot@kernel.org, 
+	zdi-disclosures@trendmicro.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/16/26 10:19 AM, Lorenzo Stoakes (ARM) wrote:
-> It seems likely that you're using AI to generate these review points. Please do
-> say if you're doing that, thanks.
+On Fri, Oct 16, 2026 at 4:53=E2=80=AFAM <netdev-bot+sinfo@kernel.org> wrote=
+:
+>
+> Hi!
+>
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
+>
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+>
 
-yes, I used an LLM to find the commits I pointed out and check if my
-reasoning was correct. my bad for not mentioning it. anyway, I reviewed
-everything and checked that it was correct.
+Patch 1 is a followup that addresses an issue discovered by sashiko
+and proven by our system.
+Patch 2 was sent to the security list - likely from a drive-by AI
+submission (i.e found and produced by an LLM). I am not getting
+responses from the OP but have veried the legitimacy of the bug and we
+have reproduced the issue; and it looks serious enough to push
+upstream.
 
-[snip]
-
->>> Cc: stable@vger.kernel.org
->>
->> the parity check relies on e5e7fb278e59. before that, mm_lock_seq only
->> increments on unlock, so locked values can be odd or even. should this
->> be limited to 6.14+, with a note that older trees need a different fix?
->> a straight backport of the odd check would ignore write locks taken on
->> even cycles.
-> 
-> I have a plan for older kernels (just make the value 64 bit...)
-
-okay, I didn't know.
-
--- 
 cheers,
-jose a. p-a
+jamal
+
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
