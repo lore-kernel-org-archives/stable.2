@@ -1,240 +1,140 @@
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-8fae.mail.infomaniak.ch (smtp-8fae.mail.infomaniak.ch [83.166.143.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D51F4DC551
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 15:14:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0DB84D9549
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 15:17:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792163643; cv=none; b=gWR1UnTWv0BTk5g0lAB4KLRaLdxSZjiW9asEJxorT9fUjSupnyEKVrsRIm60ut87Mm/Yn+H3fwS/HA8DVaOHFCcQxQ7ma8g7gZCpdySR+zytENJ0ZHAjoV3a1D1Lj8y1VnfDVQaZYBK/3cRnqjQYQwNoys7oUUmhjW2KqKIJ5ec=
+	t=1792163875; cv=none; b=UmbsJOg9Ap53S53kLZxKhGG0JHlcPaNO43CP4EdZ4G1XkPISth1G4suOJJY2/mGrWuDY8KMxzV3H4CIPzs6eAiUXY4NNg7L69H3Wyq+1OuKTfj3YHcWlw2DUycg9BmVGhSaR/1x6QyxNrpGnhGqC7GNokxjFlVGiH3NOSsw4d34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792163643; c=relaxed/simple;
-	bh=Tfm02lrkH9VmFMESRukHB3YhrdebKxeHbFXI7GjENkc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PAjFs25g1eWAs+vgGi+BNkcqZ+dbUjuqpnF30La7MxSwT5oU+uPd3j2FiLekAB+mKiPiIq0JGOJ6ydxk7Fxq06GJqNyaw7F+uKPnsZ8YIh2xFw9yNumWOEVZBMtaSxJbrD/xxqKyc8KIGDYE9w6IOF8CBv/HO1/xBGJ5ovE3Xzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qnOXZjEK; arc=none smtp.client-ip=209.85.160.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792163875; c=relaxed/simple;
+	bh=PMOuEOnfRx5yLf8TRyl6EYO5TmT4wQO/UftAE1bIfo4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qg0QJs4lRSSxzfYfSUGUtB0laVH4Oq2jEXueHjC7lysprGKAj73pOdH+dtVpfsJjM09GiW7DpBOnPke/kUqy0ktx5BuejVFSclWuNBrScCgV7OIlF6gKE3ge9VXlApLDMzlvX57grIcUazTo96VPa2lZG9ZE92kAp/jy8TfyDmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=BHMycvXv; arc=none smtp.client-ip=83.166.143.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qnOXZjEK"
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-5363c8de563so144251cf.0
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 08:14:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792163641; x=1792768441; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4cg/NeALXrxKotAI3u5uSYzw1KdGURDQwTKLcHQsWt8=;
-        b=qnOXZjEKSXUpRA4t8c/bvp1B3XJ6uXyIZdu1jONR66thaTmL7XIKjQ87VYCSj8QvH8
-         bwHwe0VPvPVd8dinXptF4d4E5DqRcdJ4FqL5lW2f/MwxdZibyGpMQlAksz5xm8MlEZXr
-         D9goXraLQyam0bkADr9Mb8G4hUPUZmtYLNcQhIb/nmY28YztHc+lXIyEoqkIit5AJY3i
-         ot7ji6YWY6dw3d5N98RjKYFNp+emmefm5SE923xIYUzDm/KebxREvDlPtP/X4F3GrqJv
-         /zo1f/XwkAcHg6Pbi9UvY7w+VWH8RUf27CwF2KW1pqMFwpmBEKka+/SfWotY+WrvgaUK
-         AHNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792163641; x=1792768441;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4cg/NeALXrxKotAI3u5uSYzw1KdGURDQwTKLcHQsWt8=;
-        b=BLYXmyMchZTWkRmsZ604Bxdf/hO44tDGvJUxA2HlzGQH67uDw4LCemFSNf1OL/8MWR
-         lFyU1nKd7iCgMFFtcIoIIvJIx36ht02vGTo9SgThHEolLRcW+O8NW26nnib46ypYwXAt
-         98AW4Q3GOLqtBk99LDmXrf4l5zTns3Ms/WStMloBC75BFq71oOMK2VA7CnQ/OOw88DpE
-         aw0xJJnx+As477Vl1TR/4mhdojK4UemL8bjlbxO+ZGJ49+MJenH5fpKeLEslQ1MxysXj
-         NUqftyvkJ5yqTUdzaIeZpyj4o8XJBrtdFSvGuN9IwiZx4EHWqx93H1SVoxWKmxWeg6vd
-         z3WQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxbIoxJAeqEuccSIP/+qifjf7OywfXjSnhvFZt9uJSQACSBrbqgG8bpOkqyCpTByJmqXAvK4H4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLdGZNTB56R43Fq6Jgs5OiWtU0WoAOp0vOxt7LqCfMhdVsh/cke
-	MIQB497MwKvGUia0WSU6kIHtFwD7FVsYaFw+zdDNhhwTmRKCr9hXuwrGuo1wIPJk
-X-Gm-Gg: AYBFou3wOSjVQGPasvi0UJ+PXjrF0qCy+c8PkCscjdpyP/jki9EvfmevFvAJHUqAb9N
-	AhUkS5NLiO7afzXvSW+u75V8Mb5T1cDJS9dnKGCZOI9OwNku+L9xPVTuSVJfOMX3DPdP5HJ6qog
-	bWzTSH271FXtL5hQh1pxxZK9tBBDe+0Obr5F+nbHHFg81ErQY9Os9uifDqB9qCRA7EsfnCCb6n0
-	mArUa2M3YSBStR+H2HDxgCYo6E+EPwQcAPKoFdzmXre0qqrD6gR/HagnRDUeUiHKvxh6ZQmd9XU
-	ZNsgt6rF/Y1qhDl9uJmI7yq5Ywfzpicb3C1htGT+VXb2ZdgDOnE5zJmUfNye6zuRXrhoRqfmSWp
-	D+a7l/XmebkTjsF7LDi8nqvtP1WeuwroZIUhUpaaXEU69bz78mjx6t9CvckZyni3HvjuGYYzniJ
-	CHgmJBYRnopFgJx4QBqFwImnx8P8CJbjRFj9YXofUONKjIZDEl2VsHTZ/NK/ryQ8k=
-X-Received: by 2002:ac8:5d0a:0:b0:536:2fd8:a4d8 with SMTP id d75a77b69052e-5362fd8a9a2mr33325271cf.15.1792163641162;
-        Fri, 16 Oct 2026 08:14:01 -0700 (PDT)
-Received: from beelink ([187.15.139.183])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5362aa59b03sm24674041cf.27.2026.10.16.08.13.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 08:14:00 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: jikos@kernel.org,
-	bentiss@kernel.org
-Cc: dmitry.torokhov@gmail.com,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH v6 2/2] HID: multitouch: fix use-after-free of haptic data on delayed input release
-Date: Fri, 16 Oct 2026 12:13:42 -0300
-Message-ID: <20261016151343.3120300-3-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016151343.3120300-1-qwe.aldo@gmail.com>
-References: <20261016135516.2957381-1-qwe.aldo@gmail.com>
- <20261016151343.3120300-1-qwe.aldo@gmail.com>
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="BHMycvXv"
+Received: from smtp-3-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246c])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4j5pHr6s2hzhbr;
+	Fri, 16 Oct 2026 17:09:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1792163352;
+	bh=3256253bsOKrTJpRBMkqybzV1hV3WOY+3tdxzY2s2kY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=BHMycvXv6aUjPsvZr0y6bpmg2aEKWZtt8xT3ZEBXHfDo6F28BBNIxPIsM7D7eMNjC
+	 aLXXFP+Vqp8FgXlTnfW5e6gmEnshu8v5wjCBrk3lM8hvAZ+4mKQVj3TOJLYya9gY2Z
+	 M2C1n/IRryT7PMIAIhvFGGvAqkDQz6XzTZbV/xKE=
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4j5pHr21ZnzVJL;
+	Fri, 16 Oct 2026 17:09:12 +0200 (CEST)
+Date: Fri, 16 Oct 2026 17:09:10 +0200
+From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
+Cc: linux-security-module@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] landlock: Fix superblock use-after-free in
+ release_inode()
+Message-ID: <20261016.ohj7ze0Eerun@digikod.net>
+References: <20261006105847.2541190-1-gnoack@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261006105847.2541190-1-gnoack@google.com>
+X-Infomaniak-Routing: alpha
 
-mt_probe() allocates td->haptic with devm_kzalloc() and hid_haptic_init()
-stores it in ff->private.  When the HID device is removed while an evdev
-fd is still held, devres frees td->haptic at unbind but
-hid_haptic_destroy() runs later from input_dev_release() and dereferences
-the freed pointer.  input_ff_destroy() then double-frees it via
-kfree(ff->private).
+On Tue, Oct 06, 2026 at 12:58:47PM +0200, Günther Noack wrote:
+> Without this fix, release_inode() (task 1) can race with a umount operation in
+> hook_sb_delete() (task 2).  The order of operations in which the race occurs is:
+> 
+> * task 2: hook_sb_delete() arrives at the end of the function, waiting for
+>   landlock_superblock(sb)->inode_refs to become zero.
+> * task 1: release_inode(): does atomic_long_dec_and_test(), decrementing
+>   inode_refs to zero.
+> * task 2: gets woken up through some other means, sees that inode_refs is
+>   zero and returns.  The caller is the unmount operation and proceeds to
+>   release the superblock.
+> * task 1: Runs wake_up_var(&landlock_superblock(sb)->inode_refs),
+>   *dereferencing the sb_security on the freed-up superblock*.
+> 
+> Notably, wake_up_var() does not dereference the pointer passed to it, and
+> only uses it to determine an overapproximated set of tasks to wake up. So
+> while it's potentially possible for an attacker to provide a different
+> value for that pointer, this only results in the wrong set of tasks getting
+> woken up, and in this scenario, no further tasks are actually waiting.
+> 
+> Nevertheless, KASAN detects it as a slab-use-after-free read on
+> sb->s_security:
+> 
+>   BUG: KASAN: slab-use-after-free in release_inode+0x196/0x290
+>   Read of size 8 at addr ffff888103b6c0a8 by task repro/217
+>    release_inode+0x196/0x290
+>    landlock_put_object+0x71/0x90
+>    landlock_free_rules+0x38/0xc0
+>    landlock_put_ruleset+0x47/0x130
+>    fop_ruleset_release+0x33/0x40
+>    __fput+0x305/0x780
+>   Freed by task 54:
+>    kfree+0x11c/0x390
+>    process_scheduled_works+0x766/0xe50
+>    worker_thread+0x7bc/0xb20
+> 
+> The fix is to determine &landlock_superblock(inode->i_sb)->inode_refs only once
+> earlier in release_inode(), and later use that precalculated address for the
+> wake_up_var() call, without having to dereference through the superblock.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: cb2c7d1a1776 ("landlock: Support filesystem access-control")
+> Assisted-by: LLM
+> Signed-off-by: Günther Noack <gnoack@google.com>
 
-Move all resource cleanup into a devm_add_action() callback so it runs
-at unbind before devres frees the struct.  hid_haptic_destroy() becomes
-ff->private = NULL plus module_put() -- keeping the module loaded until
-the FF subsystem is done with the callback.  The input device is pinned
-with input_get_device() to prevent concurrent release during the devres
-action; the workqueue is drained first while all buffers are still live.
+Thanks! It's in my next branch.
 
-Guard against double-init when multiple touchpad collections trigger
-hid_haptic_init() for the same haptic struct.
-
-Fixes: 8d0bf7908b5a ("HID: multitouch: add haptic multitouch support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
- drivers/hid/hid-haptic.c | 74 +++++++++++++++++++++++++++++++++++-----
- 1 file changed, 66 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/hid/hid-haptic.c b/drivers/hid/hid-haptic.c
-index 592b44e..6d72d9c 100644
---- a/drivers/hid/hid-haptic.c
-+++ b/drivers/hid/hid-haptic.c
-@@ -379,32 +379,61 @@ static int hid_haptic_erase(struct input_dev *dev, int effect_id)
- 
- static void hid_haptic_destroy(struct ff_device *ff)
- {
--	struct hid_haptic_device *haptic = ff->private;
--	struct hid_device *hdev = haptic->hdev;
-+	/*
-+	 * Resource cleanup is handled by hid_haptic_devm_release() at
-+	 * driver unbind.  Disconnect the FF pointer so input_ff_destroy()'s
-+	 * kfree(ff->private) becomes kfree(NULL).  Drop the module
-+	 * reference last -- it must outlive this callback.
-+	 */
-+	ff->private = NULL;
-+	module_put(THIS_MODULE);
-+}
-+
-+static void hid_haptic_devm_release(void *data)
-+{
-+	struct hid_haptic_device *haptic = data;
-+	struct input_dev *dev = haptic->input_dev;
- 	int r;
- 
--	if (hdev)
--		put_device(&hdev->dev);
-+	/*
-+	 * Drain pending work first -- handlers dereference ff->private
-+	 * through the input_dev, so the workqueue must be idle before
-+	 * we NULL that pointer or free any buffers.
-+	 */
-+	if (haptic->wq) {
-+		destroy_workqueue(haptic->wq);
-+		haptic->wq = NULL;
-+	}
-+
-+	if (dev && dev->ff && dev->ff->private == haptic)
-+		dev->ff->private = NULL;
-+
-+	if (haptic->hdev) {
-+		put_device(&haptic->hdev->dev);
-+		haptic->hdev = NULL;
-+	}
- 
- 	kfree(haptic->stop_effect.report_buf);
- 	haptic->stop_effect.report_buf = NULL;
- 
- 	if (haptic->effect) {
--		for (r = 0; r < ff->max_effects; r++)
-+		for (r = 0; r < FF_MAX_EFFECTS; r++)
- 			kfree(haptic->effect[r].report_buf);
- 		kfree(haptic->effect);
- 	}
- 	haptic->effect = NULL;
- 
--	destroy_workqueue(haptic->wq);
--	haptic->wq = NULL;
--
- 	kfree(haptic->duration_map);
- 	haptic->duration_map = NULL;
- 
- 	kfree(haptic->hid_usage_map);
- 	haptic->hid_usage_map = NULL;
- 
-+	if (dev) {
-+		input_put_device(dev);
-+		haptic->input_dev = NULL;
-+	}
-+
- 	module_put(THIS_MODULE);
- }
- 
-@@ -414,12 +443,17 @@ int hid_haptic_init(struct hid_device *hdev,
- {
- 	struct ff_device *ff;
- 	int ret = 0, r;
-+	int (*saved_flush)(struct input_dev *, struct file *);
-+	int (*saved_event)(struct input_dev *, unsigned int, unsigned int, int);
- 	struct ff_haptic_effect stop_effect = {
- 		.hid_usage = HID_HP_WAVEFORMSTOP & HID_USAGE,
- 	};
- 	const char *prefix = "hid-haptic";
- 	char *name;
- 
-+	if (haptic->wq)
-+		return 0;
-+
- 	haptic->hdev = hdev;
- 	haptic->max_waveform_id = max(2u, haptic->max_waveform_id);
- 	haptic->max_duration_id = max(2u, haptic->max_duration_id);
-@@ -511,6 +545,8 @@ int hid_haptic_init(struct hid_device *hdev,
- 		goto stop_buffer_free;
- 	}
- 
-+	saved_flush = dev->flush;
-+	saved_event = dev->event;
- 	ret = input_ff_create(dev, FF_MAX_EFFECTS);
- 	if (ret) {
- 		dev_err(&hdev->dev, "Failed to create ff device.\n");
-@@ -525,6 +561,28 @@ int hid_haptic_init(struct hid_device *hdev,
- 	ff->playback = hid_haptic_playback;
- 	ff->erase = hid_haptic_erase;
- 	ff->destroy = hid_haptic_destroy;
-+
-+	/*
-+	 * Pin the input device so it cannot be released concurrently
-+	 * with our devres cleanup, and take a second module reference
-+	 * so the module stays loaded while hid_haptic_devm_release()
-+	 * executes (the first ref is dropped by hid_haptic_destroy()
-+	 * which may run inside input_put_device() below).
-+	 */
-+	input_get_device(dev);
-+	__module_get(THIS_MODULE);
-+
-+	ret = devm_add_action(&hdev->dev, hid_haptic_devm_release, haptic);
-+	if (ret) {
-+		module_put(THIS_MODULE);
-+		input_ff_destroy(dev);
-+		dev->flush = saved_flush;
-+		dev->event = saved_event;
-+		input_put_device(dev);
-+		put_device(&hdev->dev);
-+		goto stop_buffer_free;
-+	}
-+
- 	return 0;
- 
- stop_buffer_free:
--- 
-2.53.0
-
+> ---
+>  security/landlock/fs.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/security/landlock/fs.c b/security/landlock/fs.c
+> index cab43892ec2f..0959e9f487e6 100644
+> --- a/security/landlock/fs.c
+> +++ b/security/landlock/fs.c
+> @@ -61,7 +61,7 @@ static void release_inode(struct landlock_object *const object)
+>  	__releases(object->lock)
+>  {
+>  	struct inode *const inode = object->underobj;
+> -	struct super_block *sb;
+> +	atomic_long_t *inode_refs;
+>  
+>  	if (!inode) {
+>  		spin_unlock(&object->lock);
+> @@ -77,8 +77,8 @@ static void release_inode(struct landlock_object *const object)
+>  	 * Makes sure that if the filesystem is concurrently unmounted,
+>  	 * hook_sb_delete() will wait for us to finish iput().
+>  	 */
+> -	sb = inode->i_sb;
+> -	atomic_long_inc(&landlock_superblock(sb)->inode_refs);
+> +	inode_refs = &landlock_superblock(inode->i_sb)->inode_refs;
+> +	atomic_long_inc(inode_refs);
+>  	spin_unlock(&object->lock);
+>  	/*
+>  	 * Because object->underobj was not NULL, hook_sb_delete() and
+> @@ -92,8 +92,8 @@ static void release_inode(struct landlock_object *const object)
+>  	 */
+>  
+>  	iput(inode);
+> -	if (atomic_long_dec_and_test(&landlock_superblock(sb)->inode_refs))
+> -		wake_up_var(&landlock_superblock(sb)->inode_refs);
+> +	if (atomic_long_dec_and_test(inode_refs))
+> +		wake_up_var(inode_refs);
+>  }
+>  
+>  static const struct landlock_object_underops landlock_fs_underops = {
+> -- 
+> 2.56.0.rc1.315.gc6ed9934b7-goog
+> 
+> 
