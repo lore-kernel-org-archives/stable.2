@@ -1,126 +1,141 @@
-Received: from mail.flyingcircus.io (mail.flyingcircus.io [185.105.255.63])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A5C42E8F8
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 16:08:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.105.255.63
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 547204F0538
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 16:15:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792166914; cv=none; b=k4Y6NWX8xBEi18/wavLMjAJ6aEDfi9yBqc3/jkXPU4ncBsNfZJhyEkIwoyZs4CE8zP4u70EnHaOuxctdifcZWBVQ2nc2Jsczxdqrpnp5FH1ZYEaGnT/9FdXfHr4E4Fg7Y5OTxTK/kKzqduDDHzE4KnamsxXq37hyFQvX+ZZ8Tao=
+	t=1792167340; cv=none; b=HVR8Bp2mIMOOtl9y8FvAzpjxqWNG8nilxnfFw3cc8wkkb2ORLJS93EqNEVfOMfYLejPeeInDT6lMYPvpKTv7xps//06Zb2aVNNkT5Tg1KXmfs3ic2WY9uEJu4BJZjx8sz4by7lor09Qn1OPE+p++BeFv5d30UXcMiPOHq8+5jKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792166914; c=relaxed/simple;
-	bh=na9/4sPpjtUD4jFZ00XrvZdF1bGkk4FuLrfUDxeBN3M=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=F8xa0j5AUUIni3j6QjJoCk2yeC5Q9sYUzCcoPlakX0xCmvElyACOhsMFhM8rLEIqw+7rL6omM3c8YzLBt4n9qD6ZaCRaCGnaKxGGyw8saC6+rGOejFJnxEPaKHfM3oSA0fEkImpK8JFcyLuJe27nIUoMcSDBlG0ipYkkhXjTPRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=flyingcircus.io; spf=pass smtp.mailfrom=flyingcircus.io; dkim=pass (2048-bit key) header.d=flyingcircus.io header.i=@flyingcircus.io header.b=A+lwzxHu; arc=none smtp.client-ip=185.105.255.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=flyingcircus.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flyingcircus.io
+	s=arc-20240116; t=1792167340; c=relaxed/simple;
+	bh=xIVIqXqeXMZHo7WcZNa0at4HEMt/ghEEI2/pB73QgfM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WRFbLJKH7XQKYAZehWE2lkkyO+bYEnBVH0DVRC+29wQ0hi/rYW27UTxF5PMZn5QP184OdV52z/YqW6MFldihJkTa1lkHO/SPsw3Ngny+RpXMk84ZS1EfFvt1ihuJ7//u7SD8+96jEnepeZvo2Ua143XO0dXFTfeKKikJLr7HLN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lsl3HZL5; arc=none smtp.client-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flyingcircus.io header.i=@flyingcircus.io header.b="A+lwzxHu"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 000A8185505A;
-	Fri, 16 Oct 2026 18:01:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flyingcircus.io;
-	s=dkim; t=1792166478;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=na9/4sPpjtUD4jFZ00XrvZdF1bGkk4FuLrfUDxeBN3M=;
-	b=A+lwzxHuYzMibn69jzcU+qEgZL7TzInk0XA7fWschn2iEEPPv5FtZ+M/BUSBQ/WhhLUGcD
-	02L/dRiFbC79im3zi2dCCBpOM+KMQg1DZj85/v2q5k70WQlKh2z6zevYvpb3HaCMXvbqdq
-	P55Pdh8Fnmm6pGMfiRZoQ292AqNshpZQ+x1Vcb6dApIc4Zzzkgni+NlQoMFT445z5RgGL5
-	/yLjUEzLk2coZ9C392OFr5bN8T+HBOIiKnFgEmf0vAt1QSL+PMttml8qcypa7Lb7veaL7t
-	OVR7GncTvF6NjxB2vvhP9u2cTm4MwoSiA2s3gvaxalROVMkmqd1NPcQZ6po/dw==
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lsl3HZL5"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3282db206d3so111557eec.0
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 09:15:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792167331; x=1792772131; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0j3Ic2XiSkpUSuqw2KaX3WIQgC+OMSs64+mNG8M5Cqo=;
+        b=Lsl3HZL5YK0LSZmUzq1zw3VlfyHBIGrEgAOcgnFbfs0hujm4w+kRDvadrx2hhQqZmQ
+         x6RWxnxFEv41QN2lRV2zNE3O78V4CvuiOVajY743ISwR7Ydc4gUCq0tzFghhtkoHFl2v
+         AloOlXqciMEDV+wM1bDraznk8md/o8QcNs10jLXXVgQr6hCEer7HKnpsfeiG1EmqaoYd
+         tqnYWk4zJ4mJTImpkaasSgzEz4wPjCOC92dafzv4XyFwyVfw/3VBgcosH9QV3YAwpx/5
+         ur/O3X4+L3+cF6AqBDKtGKG+EPrhaqGGRAfsy04/ceVffDr7i6XSvHUmW3GTCeefZtD5
+         HIAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792167331; x=1792772131;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0j3Ic2XiSkpUSuqw2KaX3WIQgC+OMSs64+mNG8M5Cqo=;
+        b=omtUtVJgWrYx9HDpmPB83czqst5IX3c1LGb4lkDWcpogZm3t7/F2iQmj20Cc9c8mOK
+         TQEnJ7cGVGlqEgGJ5eKWWt4xSKqliHXrbnc6FStvL5vkXTqEM0XrTB5eB6Xt+nT4Kb/i
+         m4TgshvbgxCeqUbRug3IyDsz75TT2ozGJol/0CM4zw13JTyl60L/uq35OOBs7Tharc/i
+         ZkaxV1KpqLMnX6JHZfPmf8czoWs3rHSmR46h8eOuod9gtzZ7MDev1Uq640Cjaxc3DVCu
+         KxrT+J49bV2byRy9JehXOyqMILaXqsWvBXdwAx2bOnmnImiQ1HWPUMJ+Kfz9NcMIDG+p
+         Kn1w==
+X-Forwarded-Encrypted: i=1; AKwUvBwRrx78ceirBIOVYcUqDfjMOfna0dsF9CQkK4seVINbIc70CXlWhiampuYncd4MRgO+B5FcZvA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLeXOGs+eQKMG4vaa3wlYPGDY1lqdM6XY8osWQ18gVXMgghbYVT
+	vOPMy2WLgWu2TqfkuVn+vOw3kDW5tSEu193xQBBB3esU6SecYBPWVA3it1eRVGIf
+X-Gm-Gg: AYBFou3wG/qysM+Khd4r+QWAJuxKXKipPx+eSx8C269vYeda7EVD65RH6CA3lhWQ1Qo
+	aCMGUiNVANIQhbn/EYbEk2wt0hssUUh1k+1qfeHwVFpijfTI02gV0ROsoD5PPRMiAqxIfUuYOtj
+	26qxId8Q7cqxiNeu2WoI9fm4ZSofinPj//XZEH/9yMFDov7WdhqGYokmkOGr5VcNUxRkhrWj3vY
+	hRW115CMmpAgEmh0SDbpv6T3FxfBMUiZf0szCI8a2axJQUN0q39rsuqWlILbJFVpeldh6E3j8DV
+	SqMhobsgpQU/S2KAUmFzPhVgItQEPFxAeI6RFKxcJQJqjGkZ/EyNR0g+T6dq5X1P2gaDennEDyu
+	Kz5kR7bjp9AYOMRlKoezEKfMJe02HWYbKjVIM1iU+SGH55CCCnWdpzvjFdyif3hekO8wtN3fwS8
+	s9wRFxeiWFh4rLvEZgKH8q9Ek8nOKDH4zLb/ZmaJLnkn1464Z7uQoT5kJLEUkeHX3iJD15GcPS
+X-Received: by 2002:a05:7301:a02:b0:360:8596:657d with SMTP id 5a478bee46e88-361a3128fdamr255027eec.32.1792167331133;
+        Fri, 16 Oct 2026 09:15:31 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2a09:bac5:d45a:16dc::247:b8])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082a7b33bsm15192394eec.24.2026.10.16.09.15.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 09:15:30 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Allison Henderson <achender@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	rds-devel@oss.oracle.com,
+	linux-kernel@vger.kernel.org,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	syzbot+c3741bb338b5c6d6a4aa@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] net/rds: ib: don't enable IRQs in rds_ib_conn_free()
+Date: Fri, 16 Oct 2026 23:15:25 +0700
+Message-ID: <20261016161525.146537-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: 6.12.110: kswapd NULL deref in list_lru_add, possibly related to
- xas_split_alloc backport
-From: Christian Theune <ct@flyingcircus.io>
-In-Reply-To: <2026-10-03-1-daily-reply-0006-re-kswapd-list-lru-aca1f2d5-6-18-queued@kernel.org>
-Date: Fri, 16 Oct 2026 18:01:00 +0200
-Cc: Zi Yan <ziy@nvidia.com>,
- Deepak Nagaraj <deepak.nagaraj@baseten.com>,
- stable@vger.kernel.org,
- mfleming@cloudflare.com,
- Kaz Kato <kazuyoshi.kato@baseten.co>,
- Stephen Day <stephen.day@baseten.co>,
- Greg KH <greg@kroah.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <9479A92E-645A-4A30-8332-212707E66A35@flyingcircus.io>
-References: <CAL3JwHPX_fJpg_Az3Et4-xrTdkcdtT20xw7Bhjz1FZSLW_xODQ@mail.gmail.com>
- <A90F7E87-80B5-47AA-BD31-0F0CA5A17862@nvidia.com>
- <CAL3JwHN34En=iiEB+Zyxo3=_xfODTY_k_kddb2njN+AJwSCnnw@mail.gmail.com>
- <7C66B0B0-1F43-41D9-9B4F-89956045D81C@nvidia.com>
- <2026100327-shrine-refusal-0488@gregkh>
- <2026-10-03-1-daily-reply-0006-re-kswapd-list-lru-aca1f2d5-6-18-queued@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
-X-Last-TLS-Session-Version: TLSv1.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi,
+__rds_conn_create() calls trans->conn_free() with rds_conn_lock held
+and IRQs disabled when it loses the race to insert a connection.
+rds_ib_conn_free() takes the device list lock with spin_lock_irq() and
+releases it with spin_unlock_irq(), so IRQs are turned on while
+rds_conn_lock is still held:
 
-we=E2=80=99re being intermittently bitten by this on 6.12.112. I was =
-considering upgrading
-to 6.18 or selectively applying the patch to 6.12 but couldn=E2=80=99t =
-find the patch you
-mentioned queued up for 6.18.=20
+  raw_local_irq_restore() called with IRQs enabled
+  WARNING: kernel/locking/irqflag-debug.c:10 at warn_bogus_irq_restore+0xc/0x20
+   _raw_spin_unlock_irqrestore+0x67/0x80
+   __rds_conn_create+0x1de5/0x2290
+   rds_conn_create_outgoing+0x43/0x60
+   rds_sendmsg+0xfca/0x20e0
+   __sys_sendto+0x408/0x5a0
 
-Is there anything we can do to help move the missing patches forward for =
-6.12 and earlier?
+It needs an RDS socket bound to an address on an RDMA device (e.g. rxe)
+and two concurrent sendto() calls to the same new destination.
 
-I have colleagues I can ask to step in if needed.
+The TCP and loopback ->conn_free() callbacks already use irqsave, so
+do the same here.
 
-@Deepak: I=E2=80=99m guessing you=E2=80=99re running your patches =
-selectively in your environment already? I=E2=80=99d be willing to apply =
-selectively to the machines that are affected over here.
+Fixes: 745cbccac3fe ("RDS: Rewrite connection cleanup, fixing oops on rmmod")
+Reported-by: syzbot+c3741bb338b5c6d6a4aa@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=c3741bb338b5c6d6a4aa
+Cc: stable@vger.kernel.org
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+ net/rds/ib_cm.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Love,
-Christian
-
-> On 4. Oct 2026, at 00:32, Sasha Levin <sashal@kernel.org> wrote:
->=20
->>> Rather than picking your patch below, I think we will need to =
-backport
->>> commit aca1f2d5de17e ("mm/huge_memory: initialise workingset state =
-before
->>> folio split=E2=80=9D), although the backported version might need to =
-change
->>> mapping_set_update() like what you did below.
->>=20
->> Please send us the properly backported, and tested, commits and we =
-will
->> be glad to queue them up.
->=20
-> I've queued that one for 6.18.
->=20
-> 6.12, 6.6 and 6.1 are left for the tested backports. 6.6.157+ and =
-6.1.188+
-> carry the same 789763523fb4 ("xarray: honor XA_FLAGS_ACCOUNT in
-> xas_split_alloc()") backport without it, so they have the same =
-exposure as
-> 6.12.109+ and the backports should cover all three trees.
->=20
-> On 6.12, mapping_set_update() is static in mm/filemap.c, so =
-62e72d2cf702 ("mm,
-> madvise: fix potential workingset node list_lru leaks") is needed =
-first. 6.6
-> and 6.1 have no __folio_split() and already have mapping_set_update() =
-as a
-> macro in swap.h, so there the call goes before xas_split_alloc() in
-> split_huge_page_to_list().
->=20
-> --=20
-> Thanks,
-> Sasha
->=20
-
---=20
-Christian Theune =C2=B7 ct@flyingcircus.io =C2=B7 +49 345 219401 0
-Flying Circus Internet Operations GmbH =C2=B7 https://flyingcircus.io
-Leipziger Str. 70/71 =C2=B7 06108 Halle (Saale) =C2=B7 Deutschland
-HR Stendal HRB 21169 =C2=B7 Gesch=C3=A4ftsf=C3=BChrer: Christian Theune, =
-Christian Zagrodnick
+diff --git a/net/rds/ib_cm.c b/net/rds/ib_cm.c
+index 6e3110a04ae6..5c717120eab5 100644
+--- a/net/rds/ib_cm.c
++++ b/net/rds/ib_cm.c
+@@ -1271,6 +1271,7 @@ void rds_ib_conn_free(void *arg)
+ {
+ 	struct rds_ib_connection *ic = arg;
+ 	spinlock_t	*lock_ptr;
++	unsigned long flags;
+ 
+ 	rdsdebug("ic %p\n", ic);
+ 
+@@ -1281,9 +1282,10 @@ void rds_ib_conn_free(void *arg)
+ 	 */
+ 	lock_ptr = ic->rds_ibdev ? &ic->rds_ibdev->spinlock : &ib_nodev_conns_lock;
+ 
+-	spin_lock_irq(lock_ptr);
++	/* May be called with IRQs already disabled (see __rds_conn_create()) */
++	spin_lock_irqsave(lock_ptr, flags);
+ 	list_del(&ic->ib_node);
+-	spin_unlock_irq(lock_ptr);
++	spin_unlock_irqrestore(lock_ptr, flags);
+ 
+ 	rds_ib_recv_free_caches(ic);
+ 
+-- 
+2.43.0
 
