@@ -1,141 +1,93 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65DEB377A83
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 14:31:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8EE0470EA9;
+	Fri, 16 Oct 2026 14:31:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161074; cv=none; b=T4eOWAEBHKAXTdNkNsKVH2Iebdxz+48eh/tITwCxlN8MSgFS9q0FMLcW7ccmZkJ/yALwsOWoKHJiJE7k9QHWs/olFTK0nBP5T1ELUvxgduAeidcLm4CtIkF3W0xsvtA26iyYXs6Mwg1shldhSFU6eNmJRpdA1wIzF5F9sDrtOns=
+	t=1792161099; cv=none; b=ahM9fuwCl5h/yAs0DkHk0s7IV5cE7Pi6bnFovr1rmGDbXvnYWAYTsomH7pKJeuAt4glYyPR8gTjL2S94WpjkaplejvMaKW/mfCmVoxc0XmF3ubI0/w5SbIi4sO5p03n6lO6Nwp1VMmnvpHa3J84w2oHjXHJKEDbEE0BSypxk8Fo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792161074; c=relaxed/simple;
-	bh=qaSleZlW3nXuTXd0EhZkXj7WhOX+X9Tdrdi1jQx2VI8=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=aSZI8DTUiaWKEz/hRqPR7kwJsOlebdP8Z77yFp1QDgXJUIJgMNU36ZGnRaJfXUk+5Kf8/Q9yAqlzdpliENqQn5sl7C7e8n4DQUDe7wBjQ17d3bUE60sdHDdkH7PQ2cPz0FxtGWbKon547GzlOvUu9+yVdIZ3O7ztf6zBGbbTKzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=lLzuDpcq; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=YVg6Omdw; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=VXAa8D/q; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=BueSwkbQ; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1792161099; c=relaxed/simple;
+	bh=OiXxv1qZ/xcEU5mRqLHS7JbWWOLbEHsCm6Z01k2Zn68=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type; b=saXRA+3GplJIcNYsFlWyeFx+CkBEy6/tQR/E5rSRKiUHa+M7/ltMWGmMOKNiHoNJ8zN3ABF01Isu8wDp9S9541oCdN0uX2YM7JxFh85BNLGdFlp0KBQmV3IENxwpFUTew27sml/Cda/7CJdLqQhpAdDrxA/BqFqsomJn+npY9+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fXyefEp8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="lLzuDpcq";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="YVg6Omdw";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="VXAa8D/q";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="BueSwkbQ"
-Received: from pobox.suse.cz (unknown [10.128.32.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 3A9D921C5E;
-	Fri, 16 Oct 2026 14:31:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792161063; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4f5jTznm1xS5lXeSHA4KQdVoMwMQCPBjS0e8+iN9CDg=;
-	b=lLzuDpcqgmJk1OSFq14FxNqO1wkGrHF824kBJJP67UuQpzK1Ye+JoyaaJwnyOQK4J3Rwe/
-	lnvsEHWMe3jQF4HL1aBBsMJlYBPEnSjNhXVBor0jxE57ERS5U8ecNbLF18Pesofpu+h7ik
-	H6XwdLjEWCcN2Ya/Ji5SMHTCkHKKtfM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792161063;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4f5jTznm1xS5lXeSHA4KQdVoMwMQCPBjS0e8+iN9CDg=;
-	b=YVg6OmdwHDXy+o5pKhH4yc8e4+CWwTbPleoPKRrBN37FXO7DIr6bq0+53ZxtSP1VeRcsG1
-	RMFd8H8tTOzxSwCg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792161062; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4f5jTznm1xS5lXeSHA4KQdVoMwMQCPBjS0e8+iN9CDg=;
-	b=VXAa8D/q0D3apwvDFxN9m0hsWMxrBzvTj3U5c9kLlsy36JDBrM1cDH6jX+5Mv2JwaSXHxI
-	EBtvpPl07exS6JFxu3wQox+fCHuiVbhXrPBx0yRxWXH++Qegn3XwKEmhj09Tam//kZqqkJ
-	1BGFR7sQXqtKS22nyv4COg5XTNPB88Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792161062;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4f5jTznm1xS5lXeSHA4KQdVoMwMQCPBjS0e8+iN9CDg=;
-	b=BueSwkbQe1tF91gzhS4/KNhCRJzYMI9VT14XzBP8/Acw7BErSC6Iay4jLmM4hpgotsGqYK
-	m8TGrms8Fo3JFMCA==
-Date: Fri, 16 Oct 2026 16:31:02 +0200 (CEST)
-From: Miroslav Benes <mbenes@suse.cz>
-To: Andrea Parri <parri.andrea@gmail.com>
-cc: Josh Poimboeuf <jpoimboe@kernel.org>, Jiri Kosina <jikos@kernel.org>, 
-    Petr Mladek <pmladek@suse.com>, Joe Lawrence <joe.lawrence@redhat.com>, 
-    Song Liu <song@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-    live-patching@vger.kernel.org, linux-kernel@vger.kernel.org, 
-    stable@vger.kernel.org, petr.pavlu@suse.com
-Subject: Re: [PATCH] livepatch: Fix races between stack check and module
- load/unload
-In-Reply-To: <20261014133553.102324-1-parri.andrea@gmail.com>
-Message-ID: <alpine.LSU.2.21.2610161625430.16668@pobox.suse.cz>
-References: <20261012140546.154730-1-parri.andrea@gmail.com> <alpine.LSU.2.21.2610141410370.16733@pobox.suse.cz> <20261014133553.102324-1-parri.andrea@gmail.com>
-User-Agent: Alpine 2.21 (LSU 202 2017-01-01)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fXyefEp8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CA2C1F000CC;
+	Fri, 16 Oct 2026 14:31:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792161097;
+	bh=jAIll/eRG7L3dQo+tAL1ksieQ7ragvOZqbiPDuFU5YU=;
+	h=Date:From:To:Cc:Subject:References;
+	b=fXyefEp8M4P0jNOJUAlXG+46gIfncgd7fOGUo+SMkvGyW+Jj804QNykMoGNRYrBjJ
+	 SUO+Iv0VxeHelMC38hucg+5k6hTi/Bv98hsri71OgGK6drcR9fkMCZefx9TRzfB34u
+	 Sr0zXQ70UOMBM6vv3WWEXVA2lgNvmywMfzbtiHyASQitxjFpxOZoAriUqAuu8dFJwh
+	 TRoIvFyZTWjjrlFpBzymwV+bnqL5e/RqIY5lseDUJcejufG92TKQmSkGoMa5mjqGem
+	 oEJHyqEAfzwzKtMjiKqi/eERSPa6t7KfYSOH/Ak0Tvex0nNrtxsAyOxfg/EhpjohQ+
+	 HhGge4LoxCjqg==
+Received: from rostedt by gandalf with local (Exim 4.100.1)
+	(envelope-from <rostedt@kernel.org>)
+	id 1xHiy8-00000000Xnf-42S6;
+	Fri, 16 Oct 2026 10:31:36 -0400
+Message-ID: <20261016143136.783442663@kernel.org>
+User-Agent: quilt/0.69
+Date: Fri, 16 Oct 2026 10:31:28 -0400
+From: Steven Rostedt <rostedt@kernel.org>
+To: linux-kernel@vger.kernel.org
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ stable@vger.kernel.org,
+ Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Subject: [for-next][PATCH 13/18] tracing: Add the bucket size to expr_field_str()
+References: <20261016143115.392980228@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Score: -2.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_ZERO(0.00)[0];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[pobox.suse.cz:helo]
+Content-Type: text/plain; charset=UTF-8
 
-> An LLM found it while auditing kernel/livepatch/.  It is not a
-> production issue.  The reproducer was written by an LLM as well; it is
-> below, apply it with "git apply -p0".  It keeps a transition stuck on
-> a few kthreads and reloads a patched module in a loop.  On v7.3-rc7 it
-> faults in klp_find_ops() within a few minutes with KCSAN_STRICT=y.
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-Ok, kthreads certainly make it easier.
+expr_field_str() renders a HIST_FIELD_FL_BUCKET field as "pid.buckets",
+dropping the count, and parse_field() rejects that spelling.
+
+get_hist_field_flags() returns the bare string "buckets" and keeps the
+count in hist_field->buckets. hist_field_print() appends it,
+expr_field_str() never did. Nothing reaches it today, since .buckets is
+refused on a value and no expression can carry one, but the next patch
+renders histogram keys with expr_field_str(), where a .buckets key is
+legal.
+
+Append the count, as hist_field_print() does.
+
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260914053443.981201-3-donggeunyoo.kernel@gmail.com
+Fixes: de9a48a360b7 ("tracing: Add linear buckets to histogram logic")
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+---
+ kernel/trace/trace_events_hist.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index a3eae5c1344a..91a550411e8a 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -1754,6 +1754,9 @@ static bool expr_field_str(struct hist_field *field, struct seq_buf *s)
+ 			seq_buf_printf(s, ".%s", flags_str);
+ 	}
  
-> > I wonder whether we could just decline delete_module() in this case and
-> > return -EBUSY. It should be a rare operation anyway. Alternatively we
-> > could increase refcounts of all patched modules during a transition and
-> > decrease them after.
-> 
-> I don't think either covers all the paths.  klp_module_going() is also
-> called when a module's init fails, or when its load is aborted after
-> klp_module_coming(), and neither -EBUSY nor a module reference prevents
-> that.  Loading a patched module also adds to klp_ops under the walk.
-> And klp_find_ops() walks the global klp_ops list, so it's the modules of
-> all patches that matter, not just the transition patch.
-
-Correct. You would need to check all and you would need to hook up to the 
-module loader differently to the current state.
-
-> > I am not saying we should not do the RCU protection but it feels like a
-> > can of worms a bit so if there is an easier way...
-> 
-> I could split it: one patch RCU-protecting klp_ops, which fixes the
-> crash, and a second one for the ordering on module reload, which was found
-> by inspection and has not been reproduced.  Would that be easier to review?
-
-Please. It should always be well structured (a logical change per a 
-separate patch and such).
-
-Let's explore Petr's proposal first though.
-
-Miroslav
++	if (field->buckets)
++		seq_buf_printf(s, "=%lu", field->buckets);
++
+ 	return !seq_buf_has_overflowed(s);
+ }
+ 
+-- 
+2.53.0
