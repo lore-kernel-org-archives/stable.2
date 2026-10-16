@@ -1,153 +1,117 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32E323C8705
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 08:55:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A72AA44C678
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 08:57:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792140963; cv=none; b=qlWE84fwLfsX1rK21i7R5s1pyIpt5/JLoOVXFWyUa2wePn+ZnxeOL9sSrxsCSaRQP5nXMTL80yfewo9c3DKjsl4cK9KE/fhpN2ZpP3FDx9cZht99SDqA1JktDMVswywf77vcxANy0utOhzko4bfRlPqElBYrRMTKE3xpFqpP0n4=
+	t=1792141046; cv=none; b=VYSNLlucItJXNDKgNul7eGfXtvr+xL0Um60ZvpZmVlS4qhMtl5TZiFQrh9DXeM79um3Big1vBT2qNe1KtNPbJKIQO/et3NM1Rvqm+PZczaTnw95nrx/VHDZqaAx+91zFv5MDb3g/ykyLgZ8icEqm7UVRA05ueZ55efxeLNE51vs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792140963; c=relaxed/simple;
-	bh=2E+0ccS/jvGnm4GN4Z1UMT3YVp9khzlNVVIH8LJD5w8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ll8uittkSVeYPvkKXCZVSeVW3Yqkc4uQ8eYMokOZHrCeAGwAUKx+GSPW9f6j2ASxBitFIV7rs4pReEDP+dOnl3EG4/eKMPdqJo8ftPV/K/T4OqWsx9Gisgz1zfIxwZDD53O0GB0+h3usVAo7ut1t52VZr5xgth++iH2J8236dXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d5eF62M/; arc=none smtp.client-ip=209.85.210.182
+	s=arc-20240116; t=1792141046; c=relaxed/simple;
+	bh=uL1w8BEtt8Np/I2lqGqbLuXM7I9yviHkRH0NnWW0ons=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=K5XZjyjJiXNYfIayeqFmRzgQXkGjqeLi/cpqAztM4G6TwWxw74BYGlRgVnI1HvZnO5YLbs4RkZzN9asAS5js9EDywK1+qU4lCe10lDJ/Hk8OqBesBXFd7IfTwdVxlVj7vDi/WCBTMuwIU1vND8s4H4UoWdCF4lM/KOQC3/KppEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OdledJKk; arc=none smtp.client-ip=209.85.221.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d5eF62M/"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8935f42e8f0so1300193b3a.2
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 01:55:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OdledJKk"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso3457792f8f.3
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 01:57:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792140958; x=1792745758; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tlnCz8G1IlSw43gyBHlpTezhQ/heCnWiA359vivmr2s=;
-        b=d5eF62M/w+m/OGH6nRYtRtKeagzCfljfF5WXiP1PFSXLEoCcEdRa7n9gaqkHeyCbvj
-         igDFYOkjpBfvlu7TQ74QLCGgVIQXq+2bd7mAz7jUYghBWYwPw6Oc7m8KteNjxNhQZ+4b
-         gSljfqAXS4hf291cq38QwpviVirVFn1aJaZm0TYGVxekQC1mChHWRN1LTJWr13U2nvIh
-         0+4rCLHQla24Aw6PA8y3L9hU83tRjFt8gjrYtQ2RgiFd73FepDF0q3E7CzTYESXW06+J
-         vVKKBh958W0cuQfGYmyrOBgOcXKSCXaCFgOxO6KZqs1MbvMKtSWkskdc/vLvFAnIcC6e
-         c7hw==
+        d=gmail.com; s=20251104; t=1792141043; x=1792745843; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=x/q2L7BS45aTpoyNh7m1QrG5eRubgbrBzhsyuMzS0/Y=;
+        b=OdledJKkHyKkUe6e5iBmeFLKmwU4PVSsxli3jDVGIf+o2l8l/lL/Q+j1oJ2S+OFZkZ
+         vu1HLC3kzj3iQ81Du7bUKzkjPOXU6kzbKOss+TygfuoNDqCJpX9bnLZh6HATnZ6gFEpC
+         2cFzzS5HTqFarzB0Fe4uaW/n83p3wxocH21RfEM02yq6NBTJPhuaJGU6P5yDl7K7GC28
+         FT219PpULEJ93e3nq047QIiZ+xObxIw7LApAj16ai6Y+1iFPmVjW4L9m+gs40+k/R5TJ
+         Nd7sfxW0mU3wypTvpiiXEuSj7lDUbSD75uz0m9WjqXnxtRDLLaRAnsGaS4TErlGrUrtY
+         b+gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792140958; x=1792745758;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792141043; x=1792745843;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tlnCz8G1IlSw43gyBHlpTezhQ/heCnWiA359vivmr2s=;
-        b=vPyxcyF9IPUq05UGZ6gYmCRvZpQqYvw87awC7vtSAqqS6Woz5w+ynM1fWPRosSU7JL
-         374KCaFZ0nl0mku16KorBtHeaDXsm/gz3NVk8ourXIWlLkFoVrzxrCmDCgFvQxRlkSPV
-         jF3QFsgDGkWEUsoydoD/voEhySgrJbZpa+RLOamTCw2nYMfWbvgeB0pYr3MqgrK70Ctz
-         tMZ5Mm1jkvZpS8X3H6OqAaU2IPI8axWRXhMVYSBGzYtwCRwpFuFlXNE6xWviglan0Gpm
-         axtulV6HVRcdE6LSNWVR552L4R4mtrc0PpSqodBmnnnppwTpeB4b8Uf8qkha4b1wnhOe
-         r8cw==
-X-Forwarded-Encrypted: i=1; AKwUvBz1Vu5EFe4f9IedgNNoqLz15sxC3plEbuOdKU6f0XfmfKLCVpBT2AIPpN05NSkcxmthvTwj56E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIc24YXndObKQfRg9QnEF5hZj3/t3LYE/Ijii8OYudMDJo8KY5D
-	eG8juLpHkw5HHahuM66jxG4Abp01kDnXiCCcy6HkbXYbgg+MFoNTml35
-X-Gm-Gg: AYBFou3iULSIN8Oo/1a8oQoPtVWGhDtJ83jA5mbew4AwJVKTdT22A3nsiNYau7Vpv3l
-	BIgH05YSChVlY2FKuhxQP3JX66y5OBtUpQVY34GUom0hecLartzAOm631nroE25nwMqIFcvtAae
-	jCZZ/nLYuAuwXS4DFjrTZ5h4vj3ZYlfvoI4qs4y3AUJWLGOfXg46RpoLShBZYwVrLPZh6sWnDU6
-	XY0T4XGj2HhHvybBvzCkOsofNeuCME9mPXPy0xRapl0+qr7/6Kf4QQ09OYKtnNKHyuiOptrCuaR
-	hji1+HmjXXtrfiajUIcqxq7VO5XBNmbxe2lY/61r6oUEoUG9MwyNj4jzSmyyipmdBtN1Jvj51/u
-	B+IV179w5FFmyFHrGdPDoCVAJLb/thUt9I8voUC1BxeLq0n3qZRDDWC4HEK+YYDmXU5Rk+I/mCc
-	ThAleM1jjifTZhM7k5ZpWA/eISbDHarmremqlag3dhf+woeeEEUDRedFY/m7rnpOePFdgpho4LO
-	FwIEYOyoarcrDIYkeRorw==
-X-Received: by 2002:a05:6a00:ba8d:b0:89f:e1e7:e7e8 with SMTP id d2e1a72fcca58-89fe1e7e935mr511572b3a.18.1792140958260;
-        Fri, 16 Oct 2026 01:55:58 -0700 (PDT)
-Received: from DESKTOP-UCPRL76.localdomain ([113.200.174.30])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f579479f8sm776051b3a.38.2026.10.16.01.55.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 01:55:57 -0700 (PDT)
-From: vienna-0FFH <viennaoffh@gmail.com>
-To: Carlos Maiolino <cem@kernel.org>
-Cc: linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	viennaoffh@gmail.com,
-	syzbot+e7f24354da9f7915bc54@syzkaller.appspotmail.com
-Subject: [PATCH] xfs: fix slab-use-after-free in xrep_newbt_free()
-Date: Fri, 16 Oct 2026 16:55:36 +0800
-Message-ID: <20261016085536.591-1-viennaoffh@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=x/q2L7BS45aTpoyNh7m1QrG5eRubgbrBzhsyuMzS0/Y=;
+        b=ntH9po6jgptk4v5pP6+wdnaIPjSzKdZMSriZ10nSjqTZ5Dw08LKISFWnz32Yt8M9nX
+         SEE1bIfztxenmPWnaQjOamMd9QnmFMPtlf4XAR5UMyP9BVsHmn6PO8pF7CvfQJrhptGh
+         qBnF7JVvNbkCdf0ORkBzTlvoijo1L3rL/RRR2XI3ioF3MXEZyhc1jKQ4fVHGfFjoXtRG
+         774KzMpCCIWl3zgh2LxdXbm4J9qyfR8GZvi5I65zG76/NF2jiaaYS0jgyLDj5Xiqi8FI
+         WYWHe2Epu8il8P9eNP6Xp2hOyB1E2Cz9EmGedWwMO8Eol64GbLJtmancm0juuwlfCF8l
+         nm7g==
+X-Forwarded-Encrypted: i=1; AKwUvBxPi0VOsAjTu2NRir0iFvyoYn5lI16f+Li52c2v5m+IEO3HHEV5uXjJ6Ga7qCtbcaiFFBMW2Dk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9ypxcmzdlQVJiw+JGlXPsIzXEDV2qHQ/PkraXKhz7VeKfo+1i
+	PL/+cMCoodoYwubySXQ74KBoiXEgNlCL8yZK0ShGrpU0Opj/fOfXk2Rl
+X-Gm-Gg: AYBFou0nu2l7Z2ibTJz6C/f0kYpGU0fvG7NK5Dum/qAAY77m3eTvUYJ3qBE/MdTdRPF
+	0IKLm/klm3iGRQaRsGWWXXm36I31sgZiYOpdZL2ofaDYepC9Xy3eCJANr8PTKmiULKHHTWm5LJR
+	pcjD2YvDAmt+9CySKSNDPWIu7hloZtuXM4MHaS1duU98rGM9xb1DmgmsG9BbG1o3kHfrrj9dj6y
+	Vlm7QuFd2p6mtg7bqZ6CRAdrMbSfxVOQb2avmFeilqtgDNUZj+Mk6lBEJ/ExlD4I3JR8q+uBGZL
+	QBJDdawtvUblo5poykkKZolJ7US+fOeOEj5HltEHq+WoRUZol6E+9FJJMwi84ZzOKFpU3DxgfVp
+	9mz5XhMPukMZFBMAB4K5K/KiL9hFMgJ26BXjv5L439eOOkygxrzesuLtskUuhLqxxP8NPJJIGSQ
+	5DIKKrtHTZwy+RVy/46gGedCvpXa/R1cL0QYbwwcZeRwnvkWvAHkfiWvD16saWPBflVnUmCfxKt
+	2fLOkjVB9Ds4Ne702LrFV13+0ZiMSG4U507eHAnf7Q7j2aHl4w=
+X-Received: by 2002:a5d:5e8d:0:b0:48d:f7ef:721f with SMTP id ffacd0b85a97d-48df7ef72e4mr8636884f8f.11.1792141042620;
+        Fri, 16 Oct 2026 01:57:22 -0700 (PDT)
+Received: from [192.168.1.18] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfdcc0f20sm3509146f8f.11.2026.10.16.01.57.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 01:57:22 -0700 (PDT)
+Message-ID: <eaeeaecd-f51a-4c2e-8439-36c7b8f6721b@gmail.com>
+Date: Fri, 16 Oct 2026 10:57:20 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/vma: avoid spurious write locks when mm->mm_lock_seq
+ overflows
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Daehyeon Ko <4ncienth@gmail.com>, stable@vger.kernel.org
+References: <20261015-fix-vma-lock-overflow-v1-1-01beb245d9da@kernel.org>
+ <f5548d05-5aec-42d0-b9d9-c14fb575dec9@gmail.com> <atHa3-KlMPg6oy8v@gremlin>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <atHa3-KlMPg6oy8v@gremlin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-syzbot reported a slab-use-after-free read in xfs_defer_item_unpause()
-while online repair was rebuilding a bmap btree:
+On 10/16/26 10:19 AM, Lorenzo Stoakes (ARM) wrote:
+> It seems likely that you're using AI to generate these review points. Please do
+> say if you're doing that, thanks.
 
-  BUG: KASAN: slab-use-after-free in xfs_defer_item_unpause+0x116/0x250
-  Read of size 4 at addr ffff8880132c127c by task syz.0.0/5327
-  Call Trace:
-   xfs_defer_item_unpause
-   xrep_newbt_free+0x3fe/0x5f0
-   xrep_bmap_build_new_fork+0x5a9/0x740
-   xrep_bmap
-   xrep_attempt
-   xfs_scrub_metadata
+yes, I used an LLM to find the commits I pointed out and check if my
+reasoning was correct. my bad for not mentioning it. anyway, I reviewed
+everything and checked that it was correct.
 
-The buggy address belongs to the object at ffff8880132c1240,
-which belongs to the cache xfs_defer_pending of size 64.
+[snip]
 
-xrep_newbt_add_blocks() attaches a paused EFI to the repair transaction
-for each space reservation so that the blocks are reclaimed if the
-system goes down before the new btree is committed.  If a later
-xrep_defer_finish() fails (e.g. metadata I/O errors while staging the
-new btree), xfs_defer_finish_noroll() shuts the filesystem down and
-xfs_defer_cancel_list() frees all pending deferred work items, which
-includes the paused EFIs referenced by resv->autoreap.
+>>> Cc: stable@vger.kernel.org
+>>
+>> the parity check relies on e5e7fb278e59. before that, mm_lock_seq only
+>> increments on unlock, so locked values can be odd or even. should this
+>> be limited to 6.14+, with a note that older trees need a different fix?
+>> a straight backport of the odd check would ignore write locks taken on
+>> even cycles.
+> 
+> I have a plan for older kernels (just make the value 64 bit...)
 
-The repair then unwinds through xrep_newbt_cancel() -> xrep_newbt_free().
-That function notices the shutdown and jumps to the junkit label, which
-calls xfs_alloc_commit_autoreap() for each leftover reservation.  That
-unpauses the deferred item through the stale pointer, causing the
-use-after-free.  The report confirms this: the object was allocated by
-xfs_alloc_schedule_autoreap() from xrep_newbt_add_blocks(), and freed
-by xfs_defer_cancel_list() from the failing xrep_defer_finish().
+okay, I didn't know.
 
-Beyond the use-after-free, unpausing the deferred item is pointless
-once the filesystem has been shut down: the remaining deferred work
-will be cancelled when the repair transaction is torn down, and any
-EFI that was committed to the log before the failure is replayed by
-log recovery on the next mount.
-
-Fix this by only unpausing the autoreap when the filesystem is not shut
-down.
-
-Fixes: 6bb9ea8ecd2c ("xfs: log EFIs for all btree blocks being used to stage a btree")
-Reported-by: syzbot+e7f24354da9f7915bc54@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=e7f24354da9f7915bc54
-Cc: stable@vger.kernel.org
-Signed-off-by: vienna-0FFH <viennaoffh@gmail.com>
----
- fs/xfs/scrub/newbt.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/fs/xfs/scrub/newbt.c b/fs/xfs/scrub/newbt.c
-index 584076b..83558fd 100644
---- a/fs/xfs/scrub/newbt.c
-+++ b/fs/xfs/scrub/newbt.c
-@@ -516,10 +516,15 @@ junkit:
- 	/*
- 	 * If we still have reservations attached to @newbt, cleanup must have
- 	 * failed and the filesystem is about to go down.  Clean up the incore
--	 * reservations and try to commit to freeing the space we used.
-+	 * reservations.  If the filesystem is already shut down, leave the
-+	 * autoreaps alone: a failed deferred finish has freed the pending
-+	 * work items they point to, and nothing will ever finish deferred
-+	 * work on a dead filesystem.  Any EFI that made it to the log is
-+	 * replayed by log recovery.
- 	 */
- 	list_for_each_entry_safe(resv, n, &xnr->resv_list, list) {
--		xfs_alloc_commit_autoreap(sc->tp, &resv->autoreap);
-+		if (!xfs_is_shutdown(sc->mp))
-+			xfs_alloc_commit_autoreap(sc->tp, &resv->autoreap);
- 		list_del(&resv->list);
- 		xfs_perag_put(resv->pag);
- 		kfree(resv);
 -- 
-2.43.0
-
+cheers,
+jose a. p-a
