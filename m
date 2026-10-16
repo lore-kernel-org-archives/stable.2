@@ -1,152 +1,110 @@
-Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 544B325B0A5;
-	Fri, 16 Oct 2026 16:32:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D103D3812D2
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 16:34:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792168368; cv=none; b=E6lIEvHSoLY+25Dh85Rz0WIjjr6/x3m30iamoBxEY0Go7syxV3H8KlY9sQPv/W6dmcpyJoGAxJeoeO8GZYzebcE7yb45ricB5/ZEoj1RFlQCwXF8nv4DIDd2Esp7rWBgBhSzudTvMMEGEJL4pGvVudkjp5Z69IPJ1BLKD1oZR+w=
+	t=1792168447; cv=none; b=gx4jbkk4Ud3yXsKi77torkPjfOPezmpFB4AHr/1H/rWCRCBVoFr70AQjX6OFuoa3JoWRjvdcP4aTwvYz4DT5eHz7GgbXEr7OusQB6KwXJ2En2myalv5XodNg35sxKfJvQ8E/pkWYGFw5l0hPPVElpMXAYQDiUb+BNs0+7F9vnas=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792168368; c=relaxed/simple;
-	bh=5+3ZyQcjnDR3yuuIMSCId2BZ/pAwcxAcqdilDYJeIKY=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version:Content-Type; b=GUg4mXSjOKtI43k661JJPPCDMRm5/Zv0Ks8wiR4kKGBf9VJO5gHoOWOSdByOSk6xRjp1EopkBHhKBKOWeq+ffh+eJIqFgeTULBQcijWLUDz2T0ndotQ5imsDk3TfnjBdW1xPo+0DM6X2HjVLJ8smbc+59AjgpoZUMN1P+7DB9og=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=lZFRgCBX; arc=none smtp.client-ip=162.62.57.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1792168447; c=relaxed/simple;
+	bh=qiRAXZkRJEXPmqs8IIFVKCH0Z9Kb5ltx/zf1mIOnkpw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=d7pK1110r6baHK3JpOvk3SB/s1KX8V2wqXvOU9vgtyh0dGS3kSyHMGl0Ffboow0gRx41r1N2p4PiMNj/E0xMKdayGP1vMkOiIAnMxumfv9SkNYRdLM3MaAPCC4nfHX3RvxBHFs6fQscMtKZ/dCoXCcU6amAK3v6iywT14ikP8jY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gMryacOp; arc=none smtp.client-ip=209.85.222.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="lZFRgCBX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792168360; bh=WW0pURbzdrk5T1uFlgXzBoltZ2WZpOYrXfpT0JNkh8I=;
-	h=From:To:Cc:Subject:Date;
-	b=lZFRgCBXOsnV/1dfaC7VXlRVxDGG/ieFLQ58h5LNzYF3609Bd0P+MdaUJWvh3oJDs
-	 6Q8ddTQg8iU+CZca6W+wyh6sTxLI5wmsHwdIutvIEeWUaoFcEBXfUQFzq9P6YLqXW5
-	 i3sd4OUvBpScFUgFKDf1QqI6qQxkgG0y7+yyd4Lo=
-Received: from [172.18.4.77] ([61.136.26.103])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id 7DD844A7; Sat, 17 Oct 2026 00:31:29 +0800
-X-QQ-mid: xmsmtpt1792168289t064c6x5k
-Message-ID: <tencent_46887DB8A24452C3BEAD474A9C664CDBA209@qq.com>
-X-QQ-XMAILINFO: Nwte6vbuj0Eq20mYrONgUTmBbxP1gH1TKg1QKTfwhBCOOs+hX9Skh6jFYI4EGQ
-	 hWiFnUxAGb1cijdqHkYqqNt81qiQGfVf2WMEFLhXGDuTm7kXU89BEmBK4n1d7GtPkokjvuMdMN//
-	 3/y1REwmBcUDuEiTWA4wG587wHiCx379aNfk/xRPtE52dbfGDVOViIjsXrx1gMg/eyNzjJcOwQaT
-	 ZB/4nUoIuWnKGJNEOxPOLqQlJFkk8dpfgUG8sLhgDD0MlGqAFy4gyifoe0iw3/LQizKW1CjHQU57
-	 2a4gpUNRUum+70dCZQN/scBYqhWUjDNG40yU54QD6RBozyHys93Ljhb2dczhyUMlzwVzPtkWtnSZ
-	 7yL5TY7YB1u45UAw75pDIRBo/eTNtkGTw+EYGIGHlJbnUIMks4pnTDOZHS6hRqvKJOvmz7Fa/VLG
-	 eReyTPIDyPkCwUpzfewNmSQIh1r1wJZMPCDlFIn3pSoyjCwR83p2Od63pPvu+FwyKVO9ka1QszC1
-	 HwY3W/7TwaRWaiATfpzmOmlEuyBTQj04EiuWNfqSkyftEVgXPOkUzSefD/tsEFgcHT3CPwjyMe9P
-	 dmKl/oN1xNcF+le46CxVmpT1ky/V6j2VQf96bW4G7659H5qq2CyH9XoZ8DfA1NN0b6pZHgl2QqdG
-	 JuuXZy7uQaedxZragudAH5+IbealPu0kc/oqkknO0K7yKYOSuUItNyALji+4KkBAHoXz8SC32PLY
-	 9ECUtZD+4kADUi9qhGpyo9tLN3NKDbZvRUa+/ons4IBktFaLLd1NWySwluVLPgPWt9GeocFmv+Yz
-	 XqmAiSfvxUHLidzQ4oMwdC2fGl8VGXVxMb7JpO8i83TiYTA50MhG8IDHhD+WOgscK0V0kG1ZZ1YP
-	 NSVtpfP6JKoqpOb3xwTQzGDzJvjQsPmYkZu0Sio1nQ23Z1G9xlVgG08acSSIOiwk4ekERl3QK4QL
-	 BeQQWAtNiUdVpnEOjw7FZ1UrBzW+enKnXQFMZzsKT8rpLaZd1otXwTzVMIJ/4+DuJsN4EbnAlIwh
-	 4lEJn41srvjZbANzuviCa/hvGu92s/cMyB/4a4qzJDFJwJ+TVW
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-From: Guikun Yang <yangguikun19@qq.com>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, ntfs3@lists.linux.dev, stable@vger.kernel.org
-Subject: [PATCH] fs/ntfs3: fix log replay index walkers running past the entry chain
-Date: Sat, 17 Oct 2026 00:31:29 +0800
-X-OQ-MSGID: <20261017003129.92048-ntfs3-walker-yangguikun19@qq.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gMryacOp"
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93f1cf92c9eso11858485a.0
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 09:34:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792168445; x=1792773245; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hHrZ44E7mwbp2nfJxIBL5668mhyMNf3IrRHINSdc80I=;
+        b=gMryacOp8OWOdnsjDfFoTn8t8hmkzwqNlobI0iYqM7L86wd8LtgLd9xDswuqApgHiT
+         OqJ8mcsHshjwy9LbrNuu/JYC4K3SMkLY7RLcJmkt7pcRAs9oyMVGyVKibvaB7pTl4eS9
+         oznDAaLfB9LHGYgVA9IxXyuA/Eq15F1kxhnZppNHTMY6/pLRPlKMw2409G6mWEjhVCzK
+         khyy94UVbgzDUjAY4sjwefWJLpfQARWUWPat0aYwAc1G+jitJAUk8Mk8x+Fw6VHr9Q2f
+         yFMA4jyA3rNdbP3+l+B2Nh5HQAjSPmRZ+kH6N8GnPlsiWeYtVM92Ma1ywOriLhcsGmOC
+         /r5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792168445; x=1792773245;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hHrZ44E7mwbp2nfJxIBL5668mhyMNf3IrRHINSdc80I=;
+        b=jY0bDhZWJHzxdL1utaEMnZZYMTJxKO0PVE+bwqOYRtc5TB2vekQUXX1qp+uvNtRVF5
+         7KXojwov/dPgyCj4gJjet6NEsVo8J4TiinW+kwXKtlxisAFNQekzpV/BLITMN1f6y0FK
+         /tdaFZ9IcroNso9wFr23UE2iv+HqlPVHk/uIMy9fBjAO9ooT2McBbEYeB07NiG8rwSGh
+         ttAsuqepBnfTPmn3/lvvOOiBCEcGTpKZIui+aZGURGRKe2kgacDghlzx3NQzKvTFJU91
+         qngzGLk9LJbET9uuk06Si+KV8gdXRPsaGYteVvUILtuFEJJnAA3Jxs9yOcmp24FMEj2F
+         ApSA==
+X-Forwarded-Encrypted: i=1; AKwUvBxnoIt/tmelfBURUhe+RqBSpgB1TcTUbzhgLAyxvvsYq2p4Ul+I/wswU6iaxHpDBhG1SbYhR9c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLHJJMR7rpGhuueQHPY9mgt3kfsEyJawld4YCMkXkxvC1iifMS3
+	CNcA5bbeT4wV9XidevJ3oBXey2U1kiZlZH4NvfUlqM+na72W8mGCiqfG
+X-Gm-Gg: AYBFou1wVO/ecnUlCNI50u22/vBMdB3cjyUUlqejZWJaAlTh+iI0LbaZl+Sz+Zz0NkO
+	hggs9nNFvovRpuKjHzBIaUEQGWEjcx5ML7EUIO4GpAsS0cnqKSbMRzDm6Gy1g0rm4ZGxY5xKHec
+	B/9AspSaf9wMd87z9iRDV9V6RAuUF9C44VE5Iz09zJBEDRg0byOlh6ghCEImNYSmt2nm49PuvZi
+	qqmqcuGwSQT9E6gCbcZarQ8Kz4Jju8Oish2YQ5SjwQRyJ+gL2RDnCbJHuMGHMdc8mgZWJ4eukeG
+	uYKc6DVxsueZMU/tt3MN3A8W53kU8VAGDpqJstqyrLWoj8X2P/LVJUMte05MPN4iU03hb7iAx2P
+	K6rMYFZJH/WSHjb7DyKYWwnY/MJoVVIG745RLzf8NxqdsWI3JU3zq/zV+z96x/ToL7K5/Bo+hBK
+	brseb9zyY804zCaj2Z0qlvwAEyn1dponKAa5lDAd9ARUfNrMkJ7mHWPRXmeblJ/TU=
+X-Received: by 2002:a05:620a:439b:b0:939:4a44:5f99 with SMTP id af79cd13be357-93f29b7eac0mr63046685a.10.1792168444661;
+        Fri, 16 Oct 2026 09:34:04 -0700 (PDT)
+Received: from beelink ([187.15.139.183])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcc47bccasm25272806d6.20.2026.10.16.09.34.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 09:34:04 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: jikos@kernel.org,
+	bentiss@kernel.org
+Cc: dmitry.torokhov@gmail.com,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: [PATCH v7 0/2] HID: multitouch: fix use-after-free of haptic data on delayed input release
+Date: Fri, 16 Oct 2026 13:33:47 -0300
+Message-ID: <20261016163349.3293666-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261016151343.3120300-1-qwe.aldo@gmail.com>
+References: <20261016151343.3120300-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-check_if_root_index() and check_if_alloc_index() walk the directory
-entry chain of an index header until the walk offset reaches
-lrh->attr_off, but they only re-check the buffer boundary at the top
-of each iteration.  The chain that check_index_header() validated ends
-at its NTFS_IE_LAST entry; the walkers ignore that flag and keep
-reading size fields from the gap between the end of the chain and
-hdr->used, which is still inside the validated buffer.  A crafted
-$LogFile can place a size field there that jumps the walk straight to
-an attr_off far outside the buffer, and the walker then reports
-success.
+v7 fixes issues found by Sashiko on v5 and v6.
 
-The callers treat that result as "attr_off names a valid entry" and
-act on it:
+Patch 1 now moves input_set_capability(EV_FF) after input_ff_create()
+so the capability is not advertised when FF setup fails -- the caller
+masks the error and EVIOCGEFFECTS would deref a NULL dev->ff.
 
-  - SetIndexEntryVcnRoot/Allocation write the 8-byte log payload at
-    attr/ib + attr_off,
-  - AddIndexEntry* compute PtrOffset(e1, hdr + used) with e1 beyond
-    that point, which underflows to a huge length,
-  - Update/DeleteIndexEntry* read entry fields at the same offset.
+Patch 2 keeps the devm_add_action() design.  Changes since v5:
+  - module_put in hid_haptic_destroy (not devm_release) so the module
+    stays loaded until FF is done; __module_get for devm_release itself
+  - guard against double-init (return 0 when haptic->wq is set)
+  - NULL haptic->hdev and haptic->input_dev after put in devm_release
+  - restore dev->flush/event on devm_add_action failure
 
-Mounting such an image read-write therefore performs an out-of-bounds
-write of controlled data at a controlled offset while replaying the
-log.  KASAN reports slab-out-of-bounds in log_replay() on v6.6; both
-walkers are unchanged since they were introduced in b46acd6a6a62.
+v6: https://lore.kernel.org/linux-input/20261016151343.3120300-1-qwe.aldo@gmail.com/
+v5: https://lore.kernel.org/linux-input/20261016135516.2957381-1-qwe.aldo@gmail.com/
+v4: https://lore.kernel.org/linux-input/20261009103333.2476105-1-qwe.aldo@gmail.com/
+v1: https://lore.kernel.org/linux-input/20261009031207.3233206-1-qwe.aldo@gmail.com/
 
-Stop the walk at the NTFS_IE_LAST entry so the landing offset can no
-longer be driven past the end of the validated chain.
+Aldo Ariel Panzardo (2):
+  HID: haptic: reorder try_module_get/get_device before input_ff_create
+  HID: multitouch: fix use-after-free of haptic data on delayed input
+    release
 
-Tested on v6.6.12 and on a v7.3-rc5 based linux-next tree, both with
-KASAN: with the crafted image the unpatched kernel reports
-slab-out-of-bounds (write of size 8) during mount, while the patched
-kernel rejects the record and the mount fails without touching memory
-outside the buffer.  An ordinary NTFS image still mounts read-write,
-accepts writes and is readable after remount.
+ drivers/hid/hid-haptic.c | 105 +++++++++++++++++++++++++++++++++------
+ 1 file changed, 79 insertions(+), 26 deletions(-)
 
-Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guikun Yang <yangguikun19@qq.com>
----
- fs/ntfs3/fslog.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
---- a/fs/ntfs3/fslog.c
-+++ b/fs/ntfs3/fslog.c
-@@ -2956,6 +2956,7 @@ static inline bool check_if_root_index(const struct ATTRIB *attr,
- 
- 	while (o < ao) {
- 		u16 esize;
-+		bool last;
- 
- 		if (o >= asize)
- 			break;
-@@ -2964,8 +2965,13 @@ static inline bool check_if_root_index(const struct ATTRIB *attr,
- 		if (!esize)
- 			break;
- 
-+		last = de_is_last(e);
-+
- 		o += esize;
- 		e = Add2Ptr(e, esize);
-+
-+		if (last)
-+			break;
- 	}
- 
- 	return o == ao;
-@@ -2981,6 +2987,7 @@ static inline bool check_if_alloc_index(const struct INDEX_HDR *hdr,
- 
- 	while (o < attr_off) {
- 		u16 esize;
-+		bool last;
- 
- 		if (de_off >= used)
- 			break;
-@@ -2989,9 +2996,14 @@ static inline bool check_if_alloc_index(const struct INDEX_HDR *hdr,
- 		if (!esize)
- 			break;
- 
-+		last = de_is_last(e);
-+
- 		o += esize;
- 		de_off += esize;
- 		e = Add2Ptr(e, esize);
-+
-+		if (last)
-+			break;
- 	}
- 
- 	return o == attr_off;
--- 
-2.39.5
-
+--
+2.53.0
