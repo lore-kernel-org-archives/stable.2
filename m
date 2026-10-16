@@ -1,119 +1,203 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF1A377A81
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 22:19:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792189172; cv=none; b=so0CDMKJWP2QwUV91f/yeiLqMoD3C5892Bzd6OeLB/Zz5TuLoTJecWYWdm7Cxvmx6pfbjYhkEk/PD9NTf9j+C6y6aZw+zssoPbIekuNvvb38cVvG1hhcLdse3KnYEj47zbYlEtLeoF6vBjoqQUk2zaaPaUwZcrsBbPX3Y8F+cnM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792189172; c=relaxed/simple;
-	bh=CczPsXEzRRfqJ9GyVserx+qYU8CP5SVMLNDQ8x8WOsI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZbYjPlCXrZeUG8mvBWbyNhACAr9KyO8wT3LJ5up4BRBYuPa1y/U271bBlYgpJ7OLIngXnGGTrFFTkp3OVurhC4HGSi9hiioB4v3ZLlpJnjrN9baSiA2auAmUrZz7dKqIodJklmU0j4/6uHBpUm8CGpzS1UqmaoztNB6C3tvzKMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IZJ4gV2S; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 119C63D0919
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 22:19:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792189201; cv=pass; b=touo0547UIzGgZcWEqLkizuvmEDrbXuvVGQiw3o0qeD4uzhs27+EWl07GOLiBYGqxOtSk15jwCHpJffFOZX+YLW8LEWNVowHcYfmbixRhyrwYiuLVllp6QKgvD8CbDWMAFQTxAu8cJ5xjnA6nK9XKMpL1/84TOdZoixZVaaoKrI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792189201; c=relaxed/simple;
+	bh=g2RpCD6pPbG0jDZvBkn3q6Al3Jxnoi0KYgJ+ZRe5j8s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FGzmPRFZaIG/bWXAyoZ+RmizRdmTnqCft5m/1i7MtcVqZZ4DoQowylmnfO92ebaJSkRixQLUW5bkQUzETcBiIX2R5ytlr25ms8OKhYzZ8PdRxrdAI9mhn8mfGfcpcB/uZefrjWaShXOUrwfowtTey+r/v+U7FF1ZROwgMa8XfvY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q+h9E66A; arc=pass smtp.client-ip=209.85.222.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IZJ4gV2S"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48b0584ad71so186709f8f.0
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 15:19:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q+h9E66A"
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93c5b7f5bfaso157871385a.1
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 15:19:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792189199; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MTki5s9YnDX1i8pnBU7y7YdlshodygVjkAP/2DU1E6xoiv/wwNbk7qUYuYM3xaR4hx
+         xJkjhuWila4Hbinhm3ZZILClvhNgzHKqtn91fnCjuvuKk/cwwWcV1rbHJ1QBq1uRqSoW
+         ImH6kedrQNYJTPSPi7Pqxmvww4PBe/1ltorFcfYT1WJMKQSAssDjqapy+5Z15hS5EdSj
+         FLNU4SUySkGZlMXH1wAtxvBHpYwYfb3kV8QEzUwz28ssgr5h8xgto7rndshuIme3UKnh
+         f7w/b3yYu8u9GxzFcXIoHvmSnF8/VUHw16SMYu1SyN67fCrWWv7r3V+XSUWlSfftQt9x
+         HClA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=g2RpCD6pPbG0jDZvBkn3q6Al3Jxnoi0KYgJ+ZRe5j8s=;
+        fh=VOJADvUD7AgIdLpJDjwzUcMVLEy3GKwQQYY0DOqUEYM=;
+        b=X3Hk39iRNOusE4Xu9IIsDbTecbXswGbA//52tiaETAlsDQdnVOj0/ncK8+eUYX7dCT
+         YYr0v5PpoTpRBtTKVU5WV6grqX8uK2bHMGJ0lCg0ExARUX3LCRsk743tcrWvilsJmsYN
+         TTCtMxv9kHQaPn9vSVes9uA7qxS8cCEh24qbc1gnJAo8GBMHGxYdgPpUCpv89xQSWTd2
+         j4v7ZL7IwcB7/cmgjhsMNEIO3jKz8RMQG9K/nAFL2ZPnzeS9/AfOF/gjLpEDdZiCeSJ2
+         vDEUpERK1fkoCDI5UdunrHc6zrNUYBcBSu8FSPpntS5njMC1nMH7ZsjqcHIQfFHVpAnl
+         /qOQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792189169; x=1792793969; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6OhD9xLYcSH+hZ3LcnQSTj3wOScq4AWKpIi8HmoA4vQ=;
-        b=IZJ4gV2SKYIpM+47r9EHL/k91zdJ0x0Mhkz1OxMeDhgt/jgsXghaJRErhKbcspzZ6G
-         e9mlKjoCZGc3rg2fZQisDHbI0aW8MHFBjQJkJ+OolHPry09U5HMFIyT8zuwQDhgQoE81
-         95F/IMO69lecscsMxeiq6zAKWT9WJE4UysZV8tKqZkbT6odrBkdCBenaP9+lTgsow//v
-         rhDEKtdpjQlZiKMCBOgODq17rLKknBe8AwfPR+W0e4ZULdn14AhVDFXrGD9bqDymvLjs
-         8S9Zc/9KymPiM2zoSl3ZomAyYp5QsUFWmNPbntFrhF9Gw34ewqoQTUjUfCoTP1lxvB54
-         AnmQ==
+        d=gmail.com; s=20251104; t=1792189199; x=1792793999; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=g2RpCD6pPbG0jDZvBkn3q6Al3Jxnoi0KYgJ+ZRe5j8s=;
+        b=q+h9E66AaU9a48mn7wf46Os90TFjyXXo6AGhW9dI3rum+Zv87n3uKJvVEXJqhn/rEm
+         E9SJ2l69Ir6398j4Q42XnL7wxMth8EkQKXJs5/nMJsfLSc2VMdqS9hexeo4uh6SbvSfF
+         xsObDOJa2nbsK+3Iq8Nz4q1qTpdNzLYyqPvNNqw09QwPZ+B1f1BCHubTw55GT+8j/Pf4
+         Vl7T/svgox4WDoUSPiXZ7Qzc084VKnUjl+qfhI2xG5BNiMye5K8+rLddu4MnjfYOW0kX
+         vgXAKCZpNfJ6CGin3La2hmwxqQ06aMmN5+RXhihjqd1/X/T0je/LhCsMUOU8YcfWOIeI
+         06sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792189169; x=1792793969;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6OhD9xLYcSH+hZ3LcnQSTj3wOScq4AWKpIi8HmoA4vQ=;
-        b=Usj6ZSmj67WaziqPB/t8AvmldRWX/NH7/0HR5/vRb9ADrlv0UKQrJvnh2NKAC7EGNp
-         e5rYual+qkTidscW/6US3T0O7JmbtF3qtWbvKVVdHkpQ/GEZJ3XeB7+H/Y5aOC6Db5EY
-         af8vMjdhJBIGiv+2HMqTY0mddNgF7JShBPM3t8kvbkd0Q9eVgHGZvA7Z6hEurD4A/vPO
-         ThuZImlTByjFNi8CAy2VCYdFKW6hn//I92Rz349ibNtH/MR1a0Z/+W17BZJgbww1KqGf
-         89IHtuyq0ih6J/86W2J4qQQktSsKu/Hn24Q5rbmEbF1VukRZDshzlmPJ4/xn6/1t3/Cj
-         n7tg==
-X-Forwarded-Encrypted: i=1; AKwUvBw0VRSPFqg3+D92q3zlXFL+pXxH2Sopi0JuCgFNZKvWL/24anFJqbfDImGnr31/ceDRMpelo/o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkq2N7rljblWxjZKy8BAAsLxNr+5iPMOMnRYMhu+nv0SKPwQgX
-	+Z63hJCH+C7z59rddtyoSCnAVJbynvI/CRFaV7kflYQdIH9NO98MJ3Dz
-X-Gm-Gg: AYBFou2Q/EEXF0KWIcXqz4kMzs5rXn9zjiWGtcYCzUYEWjxjxPhWiD0xEvdWDmAlB1t
-	pczN2CdNsUEKH/bVWGucnO/YtsaLBbmoTtQu5K8B20vhPr0FXTD0A7MEhTs1f9dXpWzA+gcjhRq
-	2bU3jE8D/pLia1k6QqUtzMJXdz6jJtEki8aAb6kkOvr/ZjGN29HC+3eHWXuCHCnS++rQhvqiUBi
-	wWsy61p4s93QuSgpYNoFqF7ws9gvc1Dc/fvlS702bE/vwilRb40q7cgXdupcxPbuP2ZQwpIPSM3
-	RWXaWZ6DWGeDylrBNRpVyvma58hllxm+zBnF3lduYd6w2nARnY9LVjaugp9v1JLw6BcuBrfZC3u
-	c0pER/k48plxupvrpTHsTf8xR26oHNa/9+flMjg71jxHEQmQul3c4KLGC7sgvtVb/Tr+J5yvAJf
-	1PzQ7LIq8Q6+gPP2oADpxCrpcf0j9ZkkYxWlJPrjxGNuFlkow4tpM0Pg8XsMlsXtlngYytN1mx1
-	pK/DA==
-X-Received: by 2002:a05:6000:469b:b0:48d:efca:5f3d with SMTP id ffacd0b85a97d-48e07f9c439mr1254947f8f.30.1792189169148;
-        Fri, 16 Oct 2026 15:19:29 -0700 (PDT)
-Received: from [192.168.1.50] ([81.196.40.70])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd471877sm6416485f8f.1.2026.10.16.15.19.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 15:19:28 -0700 (PDT)
-Message-ID: <637a1420-69bc-42bc-a1aa-df70faf769da@gmail.com>
-Date: Sat, 17 Oct 2026 01:19:26 +0300
+        d=1e100.net; s=20260707; t=1792189199; x=1792793999;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=g2RpCD6pPbG0jDZvBkn3q6Al3Jxnoi0KYgJ+ZRe5j8s=;
+        b=ffvgZMlbvUyUaG4MTXMMN60DH0S0jsl6M0o6LErLDkW3Ii3h9THmoH44Mn0sZzhumu
+         JnCON6Q8kYhN4w89gm6nA9NtlpvU7VGTKytMNZpEJ79kQtcDawaYMTQ6uOq1oXujsP3v
+         V0cUSDs/YP+6+/HIRtDXy26wROtTqu68TYvXCheSvVg6zbcMzfAZ/+elTtcsBmiN5bKj
+         HN1SXMIQUCf9QHISA0xAAsXuQsDqUIbGdpYsjmeBVrOYSehebcvyBanCAo9qdeYtqM68
+         lfycr/UTxr4lR7GiB4a+SHpV/Nt9rt4/CmkPFJgHpWfz1jHRQasUoc7Ubq8Y46Ju/pA0
+         Zgnw==
+X-Forwarded-Encrypted: i=1; AKwUvBxEloofm+XVTErq5HRaG58VZph0tp3MNfARnn1U+I9QeQSsvrs8Ee7cUVSNqD08e3zVebgkPc4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIpjdUwoaFhlvqV6LTyZ2vRl57/vkQRgZG7HFWeQJ05GsVxCura
+	FOOQtYRvkRxcvXllsmRDXcIq5I2A5I2dOqyATKkJjQqbuRpWdgrq8faUVvqoWVod0AMyUNl5wf9
+	u2j0Yswo5pkpnK1A3CAXhLTOBl2DQ7HU=
+X-Gm-Gg: AYBFou0QlnFMRzy4jnzXjHCt48lIPNpXmTwC344XxIaz9DczhPhrZEwPujIkafl+dnD
+	KZ5bJzfXuugfFMBZ8kJs2DG1QL+etPGDYlyPF4jTurkWmeEd5uzN082NIyAM60OWBk3Q58582CG
+	V+KiC3P/krMm9Z+Jr9utYAkKu00FU0iYaflRVKuariaTmQoT6cZLR/SJXjw4yzB9mhe8G5OkVYO
+	BalEvoBA5cRaop2wf5Iuz/hNq6hAx+QqT0A2TAz7/toVbu8vabLyxKiQ9HqmFGsiiAqCO5isk4n
+	gXRsavxEkHn3Hu16xU0QzFIphLRYBC89u9ghrVu5zP+0bC7znX89aEUkCjNmp3c3QL2SIl8TYZy
+	Lc5olFQmotbLp0/d5rK6AdwrBm52HyrAWSKkQjYdG
+X-Received: by 2002:a05:620a:8006:b0:93e:5de7:fd45 with SMTP id
+ af79cd13be357-93f17efcb48mr754027485a.18.1792189198909; Fri, 16 Oct 2026
+ 15:19:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH rtw-next] wifi: rtl8xxxu: isolate the USB register buffer
- from CPU state
-To: Kim Wooseok <5mghybrid@khu.ac.kr>, linux-wireless@vger.kernel.org
-Cc: Jes Sorensen <Jes.Sorensen@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>,
- Kalle Valo <kvalo@kernel.org>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261010-rtl8xxxu-usb-dma-v1-0-e670d9c08fdf@khu.ac.kr>
- <20261010-rtl8xxxu-usb-dma-v1-1-e670d9c08fdf@khu.ac.kr>
- <fd91ff33-d8a1-4ab0-83da-c15816c148cd@gmail.com>
- <CAH1Bc_w89ymu+E1Gx13M9JD7ZNmdQ3=y_zFwVvMkQMKk4m6NAA@mail.gmail.com>
-Content-Language: en-US
-From: Bitterblue Smith <rtl8821cerfe2@gmail.com>
-In-Reply-To: <CAH1Bc_w89ymu+E1Gx13M9JD7ZNmdQ3=y_zFwVvMkQMKk4m6NAA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <2026092253-dimness-unethical-2515@gregkh> <20260922153334.136648-1-bub4z0r@gmail.com>
+ <2026092320-reentry-lyricist-330b@gregkh> <32446a55-070d-4739-bd3a-d56c4b628e29@amd.com>
+ <2026092332-alkaline-overthrow-494f@gregkh>
+In-Reply-To: <2026092332-alkaline-overthrow-494f@gregkh>
+From: Dave Airlie <airlied@gmail.com>
+Date: Sat, 17 Oct 2026 08:19:46 +1000
+X-Gm-Features: AclHuK_7jePb0TrqT3zGoVqGEPf6lhbuQZGz5zOPfyLgS0sUKe6-z1rwyROI4cs
+Message-ID: <CAPM=9tyVcUdb-wjv2unksLV-BVcOxswqB0Y+H7agBU5vYGFKDw@mail.gmail.com>
+Subject: Re: [PATCH 7.2.y] drm/ttm: fix swapped-out resources never leaving
+ their bulk_move range
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Vadim Nikitushkin <bub4z0r@gmail.com>, stable@vger.kernel.org, 
+	thomas.hellstrom@linux.intel.com, dri-devel@lists.freedesktop.org, 
+	skainsworth@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 16/10/2026 21:05, Kim Wooseok wrote:
-> Hi Bitterblue,
-> 
->> Perhaps it's a silly question, but doesn't this just move the problem
->> elsewhere? Or does kmalloc_obj() guarantee that nothing else will access
->> the memory near usb_buf?
-> 
-> With a separately allocated kmalloc buffer, the kernel ensures that
-> CPU accesses to other objects do not corrupt the DMA data through
-> cache-line sharing. It provides the required alignment or bounce
-> buffering, and usb_control_msg() uses this DMA mapping path.
-> 
-> The patch turns usb_buf from an embedded member into a standalone
-> kmalloc buffer so that this guarantee applies to the buffer itself.
-> 
+So I got a report that
 
-Okay, that's good then.
+"the backport of "drm/ttm: Fix ttm_bo_swapout() infinite LRU walk on
+swapout failure" to yesterday's 6.18 missed "drm/ttm: fix swapped-out
+resources never leaving their bulk_move range",
 
->> An allocation for every register access was not happening even before
->> this patch. I guess your LLM wrote this...
-> 
-> I did not state that the previous code allocated a buffer on every
-> register access. That sentence describes the allocation strategy for
-> the newly separate buffer: allocate it once in probe and reuse it.
-> 
-> If any part of the explanation is unclear, please point it out and I
-> will clarify it. I don't think speculation about how the text was
-> written is necessary.
-> 
-> Wooseok
+So can we make sure this patch is in the stable branches the other one
+went into?
 
+Thanks,
+Dave.
+
+On Wed, 23 Sept 2026 at 20:51, Greg KH <gregkh@linuxfoundation.org> wrote:
+>
+> On Wed, Sep 23, 2026 at 09:53:54AM +0200, Christian K=C3=B6nig wrote:
+> > Hi Greg,
+> >
+> > On 9/23/26 09:41, Greg KH wrote:
+> > > On Tue, Sep 22, 2026 at 06:33:34PM +0300, Vadim Nikitushkin wrote:
+> > >> commit 3db7d7d583419f7b1f2e141e36418802dbb25cf8 upstream.
+> > >>
+> > >> ttm_tt_swapout() returns the number of pages swapped out on success =
+and
+> > >> a negative error code on failure; for a populated ttm it never retur=
+ns
+> > >> zero. Commit b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite L=
+RU
+> > >> walk on swapout failure") moved the bulk_move bookkeeping in
+> > >> ttm_bo_swapout_cb() under "if (!ret)", so the
+> > >> ttm_resource_del_bulk_move_unevictable() / ttm_resource_move_to_lru_=
+tail()
+> > >> pair is now skipped on every successful swapout. The equivalent chan=
+ge
+> > >> for the shrinker in commit 1d59f36e95f7 ("drm/ttm: Fix ttm_bo_shrink=
+()
+> > >> infinite LRU walk on backup failure") tests "lret > 0", which is wha=
+t
+> > >> was intended here as well.
+> > >>
+> > >> Before b2ed01e7ad3d the resource was taken off the bulk_move before =
+the
+> > >> swapout; since then a swapped-out resource stays inside its BO's
+> > >> bulk_move range (and on the manager LRU) although it is unevictable.
+> > >> When it is later freed or the BO leaves the bulk_move
+> > >> (ttm_resource_free(), ttm_bo_set_bulk_move() via amdgpu_vm_bo_del())=
+,
+> > >> ttm_resource_del_bulk_move() skips it because of its
+> > >> !ttm_resource_unevictable() guard, so a range endpoint in pos->first=
+ /
+> > >> pos->last is left pointing at freed memory. The next
+> > >> ttm_lru_bulk_move_tail() or ttm_resource_add_bulk_move() on that cur=
+sor
+> > >> is a use-after-free, seen as the resv WARN in ttm_lru_bulk_move_add(=
+),
+> > >> "list_del corruption" in ttm_resource_move_to_lru_tail() or a NULL
+> > >> dereference in ttm_resource_manager_next() -- minutes to hours after=
+ a
+> > >> hibernation, or at process exit / reboot following one. Samuel
+> > >> Ainsworth's analysis of drm/amd issue 5387 (see Link) identified the
+> > >> dangling cursor; the missing removal at swapout time is the reason i=
+t
+> > >> dangles.
+> > >>
+> > >> Testing the condition for success restores the removal. On an AMD
+> > >> Phoenix APU (ASUS UM3406GA, gfx1103) running suspend-then-hibernate =
+on
+> > >> a 7.0.y stable kernel carrying the backport (Ubuntu 7.0.0-31) the bu=
+g
+> > >> crashed 5 of 18 hibernation cycles; a function profile of one
+> > >> hibernation showed 336 ttm_tt_swapout() calls and zero
+> > >> ttm_resource_del_bulk_move_unevictable() calls. With this change the
+> > >> removal happens for every swapped-out resource and 12 further cycles
+> > >> were clean.
+> > >>
+> > >> Fixes: b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite LRU wal=
+k on swapout failure")
+> > >> Cc: stable@vger.kernel.org # v7.1+
+> > >> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5387
+> > >> Link: https://lore.kernel.org/dri-devel/CAHYiNPa6aVacJoLOje-qZ1GyYx-=
+9p0tN4NuP8D_eSL+UJeevXw@mail.gmail.com/
+> > >> Signed-off-by: Vadim Nikitushkin <bub4z0r@gmail.com>
+> > >> Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com=
+>
+> > >> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > >> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > >> Link: https://lore.kernel.org/r/20260909205028.13799-1-bub4z0r@gmail=
+.com
+> > >> [ Squashed with commit fcfe64715b425262af1b36f498f9197f3537ceed
+> > >
+> > > Do not squash, send a patch series instead please.
+> >
+> > in this particular case that squashing is the correct approach.
+> >
+> > AMDs mail servers mangled the initial patch so badly that I had trouble=
+ applying it and ended up pushing a broken patch upstream. The squash is ba=
+sically fixing that up.
+>
+> Ok, I'll take this then, thanks for the response.
+>
+> greg k-h
