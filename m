@@ -1,97 +1,178 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D583E558F
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 11:47:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DF843EE1EE
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 11:50:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792151280; cv=none; b=DKtr13gl6fYVQs6CHvPAaiJvmekoygiSQjMthM1VO9L95lMXdEBRXNEkpmJu2SHNQbQ5jq0s5Fb2iFiB0wYZgfbEYqjoDCcgbrTy7h6l6qsDw+1pAHRwR4DsJqNR1SupfBHvX5MSoXArQfeFJeT8qT604ZkeOlD4YunSLB4qYZY=
+	t=1792151425; cv=none; b=fKA3vNplr7JqU025vUzBgUvNiUX1JfkNRv5S/J7bBVEqS58uWzRrIWR2YTLfNA4sXHFKYskzw6oxRXiCWhKw8ZZgQrchA5VrxRGu0SH/c7WdOEEcGeBsOp+9UsfaLfPhfulVH/AyafTyFvQub1v5TuV3IzBZuCvHTVZEOeR0lTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792151280; c=relaxed/simple;
-	bh=JUDXYjE+085vb/qXA5RYsfGWqhq2Vv8zIRaknoSRtqk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=s86NBcnEbMeDX2wsLoctPm//naFnAANQkCErwYJi1wESiw7tXgG2K5+puV4Lp+bGO7rtxwBmxHBz4r6WqGZb/qt28gnHO2wd/aPUOOAZsq9m2T+d3Txh5Prs3PrXiGRGZTy8jwiRLm4uGtCR3/Wa5JkHZzHDAtE6qIOienizbuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=TUcTAwrp; arc=none smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1792151425; c=relaxed/simple;
+	bh=1a9MCT8Cm/A1hVksA6LjcTFs8zA/cgY41rAIEPY2FME=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VUrvRdNun0sDMUORZ3Po6e0FYa6aYEXtMbNKvkg3aOSlsRGAZQxn+Q8it16AB0Q2Na3SNZhOnXjH8SipmnExFXmQb9Wost2JD9BOmyBA5dW7/ozJTjWsSNLVTH7e5j18Z4H/ZBQqBnG4PKhhQ69yM8YS5MoTrRYgbbIjeindk0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QzMDMbGZ; arc=none smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="TUcTAwrp"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c40447e25e6so118854666b.1
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 04:47:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QzMDMbGZ"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc4ca696de6so3575219a12.2
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 04:50:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1792151276; x=1792756076; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1792151422; x=1792756222; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=sN9AXA6EqMmnIUQ8CwnmZZw/CdisNxm/jULatVAixaA=;
-        b=TUcTAwrp8CosftUxh8RirJuBq3RYlLWem5/17h60yxHsyLw5bSwYIvXv/J+Rt4+BPX
-         y5ot6EoupSPvmyDPy/kO1MqTVSRCnGA0mLZ6+BjOGgT0OFJ/3ADcQOKdcVrmWfUZxR5u
-         Od1lPhSHuM+BT0DSVd9TLOLKa9ZnJezFkPKVI=
+        bh=wVeL1rPVZJdsXQDna6VLNmnPhET76Llh1vUPBWe1Z9s=;
+        b=QzMDMbGZzNQBwIroZ9kYSi/8q4oxSO/jpglNnkat/gE1clOSQ6xhjuUHo3J8tDOmYZ
+         WpbM2h3mwEtthXh4ugaiexAtyPUenj7q9QW6CbM09jIzJyUvfxcJvAgmPelYN1q6Sl98
+         OH6463EuFy9p1u7ZRYfngP/TjvyjUsbKaLzas70KRmY1XMQKd2VgUxascld/Ylu94OsM
+         wUQlyg9KlYSE0bIHqr7P1ztV3rFEMUBfQ31VSowFkiXz4kcjNAyQEpL27Z4jdp3nkv8y
+         YyHOJqsUIONEaQcGyCf7JpZSYB0knfdR6PN1X6T+DXmvcVv+8jecvVN//Q6PEycylefX
+         V1og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792151276; x=1792756076;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792151422; x=1792756222;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sN9AXA6EqMmnIUQ8CwnmZZw/CdisNxm/jULatVAixaA=;
-        b=ifPYXEViGhW0SOdgxbhlTc31nLHyG6muzd0kBN6L6hhtlIF6a0U+zsFrWM9Y2hQCk4
-         aDFuMJ+ZJ5K6M1IVPGn5mURSQ/lqeIFE6aKdpGbknr3M4Ps6iMA112EwnRYSm9zoJ6KZ
-         lCJdfwkNhf+iH/1Pe2JPAhD78JXuLqpbIy86zhxVQtXFYYEcVEbcWCxP98SSya2qm5ym
-         yKioYCmiGXAEoeBt826/p7kgKlRhK7qEmchLlZD7rrteZgKQOZWqnnqz/d4wb7Z99gOh
-         EulIx/tINXGLEgQU3l2kxl63OF691H9narQfuF6oqmoabh3phiwNqu6en9m5L/flsiR5
-         5zOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwyzN+QB19Gv2ABCgD/r+vW/UWX78eqxvtIuSXKFNR1se9cFhvMSNcyZxSq2dC4bCH/Bo9BEY8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKgxG0YWwy2tEYdgiG8mi/hTGqS9hibI/PXAdbZYoQ/2se8foab
-	cyCW02XYvno36Jyof2iJ+hejkKvJoEIBjHo4zwIyHBzgycLmw4ZhXK4QrTois1aF2UdIAJWJ4r5
-	kNjXYfjo=
-X-Gm-Gg: AYBFou35WR7JWeqCr1RKcy8EVm00zhJe5UG1qq5S763gtRPzGR93wWJqCjoFcZZZmKY
-	AYzebTtRBw8P9xKFRobOVpGEHYeoQSko/YKYrf9yKaJTOPfX8AtDaFyivAhZB5b/Bxup7bl0cz0
-	aJ+0DW5DnxVmSFf54p0g13Rsbki6OkNGiyVa1MN+0DPFQHDwoQZK0VwxoxY9TSxSiofjcWifsOg
-	xoDs/IlSQe5ggR//TxWC/PUzrwNBbbXLlKHJovuOksWYsUsc6jkZy1R9QUNoL8qWY7f6cerc4JZ
-	SAXELKSiYnPch+EqPearmlfB/2ELjJq1eGDHiWga251XgXW8cPvlRew5lyaK1VOpCcXM4pDB2SD
-	srit+IcqKcy+Iq586bAts3bjXob8tIic6jiwa5jv0MiYiVyh6Yhg7bey5eIqeCO3YaUnO71AguI
-	mrpP7hlmMu4aZFaevXdWiWQqr9Jlw0GLc7LR0yhMyO8sTXpDu+QihumJnPtvgTKPhkF2k72S4+Q
-	/br9RNNZYsIR5CgSgb4vU4V5jXYlwsjwj52teuXlbIacon3
-X-Received: by 2002:a17:907:9447:b0:c2e:3307:b922 with SMTP id a640c23a62f3a-c31a9d569c2mr2147312666b.28.1792151276455;
-        Fri, 16 Oct 2026 04:47:56 -0700 (PDT)
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com. [209.85.218.54])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40913c6145sm65550266b.41.2026.10.16.04.47.55
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 04:47:55 -0700 (PDT)
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c40447e25e6so118852066b.1
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 04:47:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByS44brsXWBMotc+spG6ZwNvubObO4wCtZHGLjhX9cPJe14bqPtwpxtSA9fLFdJNQ7XEjX1QCM=@vger.kernel.org
-X-Received: by 2002:a17:907:6d16:b0:c26:1649:47ab with SMTP id
- a640c23a62f3a-c31a9f8d2c1mr1950016066b.33.1792151275531; Fri, 16 Oct 2026
- 04:47:55 -0700 (PDT)
+        bh=wVeL1rPVZJdsXQDna6VLNmnPhET76Llh1vUPBWe1Z9s=;
+        b=J3tWJYAGzLRXY/TouM37z6CAMhy92Lba64edm0tqoiR7sBDlmGkvTp8artXTq5nBH3
+         YPtsXgt+Yu1HGDSTduXgadYBJ0R7LTW5y7TTLkultI5UHGOX6KgIvOwqkZjjmjwP2jwa
+         tsYSEjS8LR2DEr5/xH11pCn0BBKWJRbJX8p7kIizoOtjrjIieEQo/SIZ7k55NeedIuBv
+         7T8hoNiCwBQHwTWSca74/mjRXQpxDp5HLyEAXgqqeBsA/vHnHjtMR/i8rWMb/pcWuKov
+         qujvEWoqCFNSJSoRFU5WoZh1QtxCxfU2rpXnVr3nXAPPQm7KibU+ltz3heLBXX09A1ZQ
+         UMTA==
+X-Forwarded-Encrypted: i=1; AKwUvByHJ4R+JNy4ZjdgB6HhgQLilCs4j6A6/GrCLSpEDz7LvDePRAfSZFcJj2xV+G3kUofvZai4/bs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLdNZBfUPN7iTFTOMv6kVxYDbaOMrS7gekyhCj7eeH2KCs3G8Z5
+	/5aLEAMpI+/Q93sTA85Ihu+qhJLoLW3KlYufdpicYc3JFiAjsJFYU+4Gt37hZw==
+X-Gm-Gg: AYBFou1neWscHAwKSWtj7d3/d8ZWDjaoNsZteCWuE5Lv2MZVyFSe4cuAIDN7hN17GQF
+	0Buo6y8JmtQIlCSD85smpWfUOEKVwSkoyUoxCooacuTT0DFIy0/ZnIjvCTljwp26wSUd/Lcr5t/
+	P4v8Sz9ZP4Kuib2KuBjE50ZeGmnZ+M/fwt6e5/nLsR6/XOsMTJt8A4pO6u2sdbVklI98oRfl5zd
+	NOqCIn6wsEPNoBNy4W4lPZnny4auc94TK6wAcv53bGtXj1Y4oLSCo6qvZL0Q3zGYOiNzKI2VjH9
+	bBDiYcvVBTWu1GUytReDFGzVlepyBN4gikg/FJ9Fsim5xIDLudX32GHmExzg583xH7lHj9J4EVw
+	quDQgNvKUx6M1nXjR8gSyeEzj/ZYaLyWBk1Zh7KGCkyOrEwmjUr2wafcZrVKkpe9jVeDQnsNuws
+	45tMneC2WScS1OMKJYeOXGjPukgfnffq8FrxB8OGj5gAOvHnE1jVDCjEYSG5bHuPeee1TadBc23
+	xDH/7NSxPwV5JV2mg==
+X-Received: by 2002:a05:6a21:9192:b0:3e0:e60f:2e5b with SMTP id adf61e73a8af0-3e16bde9731mr22875105637.30.1792151422443;
+        Fri, 16 Oct 2026 04:50:22 -0700 (PDT)
+Received: from rigel (194-223-74-160.tpgi.com.au. [194.223.74.160])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f579479f8sm980090b3a.38.2026.10.16.04.50.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 04:50:21 -0700 (PDT)
+Date: Fri, 16 Oct 2026 19:50:09 +0800
+From: Kent Gibson <warthog618@gmail.com>
+To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] gpiolib: cdev: don't set GPIOD_FLAG_IS_OUT
+Message-ID: <20261016115009.GA111978@rigel>
+References: <20261016-gpiolib-cdev-direction-v2-1-aambrozewicz@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261016085013.136825-1-toke@toke.dk>
-In-Reply-To: <20261016085013.136825-1-toke@toke.dk>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Fri, 16 Oct 2026 04:47:39 -0700
-X-Gmail-Original-Message-ID: <CAHk-=whqmfF3SL=r51KZ72TZJVzEgbMkp5Vhxf_c1fGCyeTS9g@mail.gmail.com>
-X-Gm-Features: AclHuK-pNrkTLT4US-FhTlvtT0CJPZm2Y6CTKe4y46HYYxBap8FQNPYdpsrF2Zk
-Message-ID: <CAHk-=whqmfF3SL=r51KZ72TZJVzEgbMkp5Vhxf_c1fGCyeTS9g@mail.gmail.com>
-Subject: Re: [PATCH] wifi: atk9k: Revert "wifi: ath9k: reject short WMI
- command responses"
-To: =?UTF-8?B?VG9rZSBIw7hpbGFuZC1Kw7hyZ2Vuc2Vu?= <toke@toke.dk>
-Cc: linux-wireless@vger.kernel.org, stable@vger.kernel.org, 
-	Mehmet Fide <mehmet.fide@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016-gpiolib-cdev-direction-v2-1-aambrozewicz@nvidia.com>
 
-On Fri, 16 Oct 2026 at 01:50, Toke H=C3=B8iland-J=C3=B8rgensen <toke@toke.d=
-k> wrote:
->
-> Linus, this regression was introduced in the 7.3 cycle, could you please
-> pick up the revert directly? Thanks!
+On Fri, Oct 16, 2026 at 12:22:58PM +0300, Adrian Ambrozewicz wrote:
+> When a line is requested or reconfigured through the v2 uAPI,
+> gpio_v2_line_config_flags_to_desc_flags() copies the requested
+> configuration into the descriptor flags, GPIOD_FLAG_IS_OUT included,
+> before gpiod_direction_input_nonotify() or
+> gpiod_direction_output_nonotify() asks the driver for the direction.
+> If the driver refuses, for instance with -EOPNOTSUPP from
+> .direction_input() for a line that can only be an output, the ioctl
+> fails but the flag keeps the refused direction. gpiod_free_commit()
+> does not touch GPIOD_FLAG_IS_OUT, so this outlives the failed request,
+> and GPIO_V2_GET_LINEINFO_IOCTL reports the line as an input while the
+> hardware still drives it, until a request without direction flags
+> makes gpiod_request_commit() read the direction back from the driver:
+> 
+>   GPIO_V2_GET_LINE_IOCTL, line 0, input:         -EOPNOTSUPP
+>   GPIO_V2_GET_LINEINFO_IOCTL, line 0:            input
+>   GPIO_V2_GET_LINE_IOCTL, line 0, no direction:  ok
+>   GPIO_V2_GET_LINEINFO_IOCTL, line 0:            output
+> 
+> GPIO_V2_LINE_SET_CONFIG_IOCTL updates the flags in the same order.
+> There the line stays requested, and since commit 92ac7de3175e
+> ("gpiolib: don't allow setting values on input lines")
+> GPIO_V2_LINE_SET_VALUES_IOCTL on it then fails with -EPERM, though the
+> line is still an output. A line whose driver refuses to make it an
+> output is likewise reported as one.
+> 
+> gpiod_direction_input_nonotify() and gpiod_direction_output_nonotify()
+> set or clear GPIOD_FLAG_IS_OUT themselves once the driver has accepted
+> the direction, emulated open drain and open source included, and
+> nothing between the copy and those calls reads the flag. Leave it to
+> them, as the v1 uAPI already does.
+> 
+> The other flags that the helper copies stay as they are. Active low,
+> drive and bias are what gpiod_direction_*() applies, drive and bias
+> possibly before the driver refuses the direction; edges and event
+> clock are the character device's own. None of them is read back from
+> the driver, so there is no earlier state that is more accurate to go
+> back to. A failed request releases the line, which clears them, and a
+> failed reconfiguration leaves the line, like the lines before it, with
+> what was applied up to the failure.
+> 
+> Reproduced under QEMU with a test GPIO chip whose line 0 refuses input
+> and line 1 refuses output: both refused requests and both refused
+> reconfigurations leave the line info with the refused direction, and
+> setting the value of the reconfigured output fails with -EPERM. With
+> this change the line info shows the direction of the hardware in all
+> four cases and setting the value works. First seen on real hardware
+> with v6.12.
+> 
+> Fixes: 3c0d9c635ae2 ("gpiolib: cdev: support GPIO_V2_GET_LINE_IOCTL and GPIO_V2_LINE_GET_VALUES_IOCTL")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
 
-Done. Thanks,
+That is an incredibly verbose commit comment, particularly the
+discussion of error rollback behaviour, or lack thereof.
+This probably isn't the place for it, but I'll leave that for others to judge.
 
-                Linus
+I'm definitely ok with the code change.
+
+Reviewed-by: Kent Gibson <warthog618@gmail.com>
+
+
+> ---
+> Changes in v2:
+> - Subject says what the patch does: cdev no longer sets
+>   GPIOD_FLAG_IS_OUT (Kent).
+> - Comment dropped (Kent).
+> - Assisted-by tag.
+> - Link to v1: https://lore.kernel.org/r/20261012-gpiolib-cdev-direction-v1-1-aambrozewicz@nvidia.com
+> 
+>  drivers/gpio/gpiolib-cdev.c | 5 -----
+>  1 file changed, 5 deletions(-)
+> 
+> diff --git a/drivers/gpio/gpiolib-cdev.c b/drivers/gpio/gpiolib-cdev.c
+> index 5d53bfcdf726..f4d78113ade2 100644
+> --- a/drivers/gpio/gpiolib-cdev.c
+> +++ b/drivers/gpio/gpiolib-cdev.c
+> @@ -1229,11 +1229,6 @@ static void gpio_v2_line_config_flags_to_desc_flags(u64 lflags,
+>  	assign_bit(GPIOD_FLAG_ACTIVE_LOW, &flags,
+>  		   lflags & GPIO_V2_LINE_FLAG_ACTIVE_LOW);
+>  
+> -	if (lflags & GPIO_V2_LINE_FLAG_OUTPUT)
+> -		set_bit(GPIOD_FLAG_IS_OUT, &flags);
+> -	else if (lflags & GPIO_V2_LINE_FLAG_INPUT)
+> -		clear_bit(GPIOD_FLAG_IS_OUT, &flags);
+> -
+>  	assign_bit(GPIOD_FLAG_EDGE_RISING, &flags,
+>  		   lflags & GPIO_V2_LINE_FLAG_EDGE_RISING);
+>  	assign_bit(GPIOD_FLAG_EDGE_FALLING, &flags,
+> 
+> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+> -- 
+> 2.43.0
+> 
