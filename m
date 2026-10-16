@@ -1,92 +1,105 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E55B348463;
-	Fri, 16 Oct 2026 14:25:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1481537EFE3
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 14:28:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792160749; cv=none; b=bqlhhz8FFDRa+O5voviJteBOAhrg9Q3I0w3f4Wvw7BwFJ2bs6fRq30w0uuLNc6UX6rWHGYkNINOtpE54/y+dZM/0FyNVQprmYWWNy1pLtNyvYS1XG/MlH1SNJOuwTijMn7Kw553Q/db9dc+CVkDpsyPg1+TOVz9xy2EJSSX9K50=
+	t=1792160920; cv=none; b=oQvzxUeur7jePi1fxV15KNQnrVeDudvLSgpH7to/nzcSQZRKaeY/vo5Q9W4YfM6V3L8C9d1oBxGX/XyAh/IdCOqRqurJ1OLBcv/Nan5wPi8mK+8HpLCreRYcvVyCk6o3DZZj01lAdLdJfTenR3HqiaHwiU+bLo1MgJTu8aDUVPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792160749; c=relaxed/simple;
-	bh=szQp2x9EWR4vfHWya40UsJqPLgUiJaQohaMUPN7CE70=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gevAL8h0muYPIthp6whsa/3qguFfkZOXRFkryfCQIkg58CVxiVfs0FhJ5eoTSBIAjBaolmlJXq+hoZt5Em3Vv7hW6cz7L9TGyfx7DmzYBiuCe8KGKbMG6v96VxqE7qUh/+/q+uxS+agES5DnTw1KEt6EXMADVaR/i/eXBEEMtSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=o1PG1Tok; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
+	s=arc-20240116; t=1792160920; c=relaxed/simple;
+	bh=tCiJvvmVqkDn9bBZcYj3gCwhrS0H3F9Qtdp20m+sp5Q=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=f0NHdrlMpbQdk6idHNQZTVtsUZqkrWrRYEo6/BbZx1HhnV4tjXPwbQqQLex0/aBFmiVswpTqM4g/1yvT6kmI1qfasZ9QuOHOZCpHdmt1s3Opxc0C1JLOrWoV5U9HO0PgEeeUDF0e8WMJmn1rGdlr+zKNo2AWtQ1RG8ZhkzLOzbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=FHqdv+3V; arc=none smtp.client-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="o1PG1Tok"
-Received: from localhost (gyproxy-mailtls1-entmail-virt216.gy.ntes [IPV6:2409:8d28:134:eea:4556:1010:dcf7:51f2])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5154882b4;
-	Fri, 16 Oct 2026 22:25:29 +0800 (GMT+08:00)
-From: guolingxing <guolingxing@tju.edu.cn>
-To: Theodore Ts'o <tytso@mit.edu>,
-	Andreas Dilger <adilger.kernel@dilger.ca>,
-	Jan Kara <jack@suse.cz>
-Cc: Baokun Li <libaokun@linux.alibaba.com>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	guolingxing <guolingxing@tju.edu.cn>
-Subject: [PATCH] ext4: fix folio reference leak in mpage_submit_partial_folio()
-Date: Fri, 16 Oct 2026 14:25:24 +0000
-Message-Id: <20261016142524.655789-1-guolingxing@tju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="FHqdv+3V"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-353804b591eso11276923eec.0
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 07:28:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792160918; x=1792765718; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lZNDAA0XdcAcUqgBVAh4lShInRCyhCpm07d2o6YZC/E=;
+        b=FHqdv+3VwCIo2+J09xi+YGOLak1/q7OXSZbyRS8Vl5Oi1QMPJQiA04n3Pj6hT22CDc
+         7t3ymWfa8wbsAep8/pc2X5m7e+UwGg/xRAsOYoPhBSNwwy/QPLKf610iOHnwxfV/wc6I
+         FajLQalN0zpeqlpItO3ZtQU87+MIhplG39URNEn7F6OfSc1Z//kAthnm25gy1MGUP97+
+         MTJw6vR5eSiXGiAguaO8/wkqA3uCziRO6z9iwuhKnM/T9fpdkCTzKJT5U137bgYWc/xJ
+         vdTYVcxRhucjvsDaEnLFbiY6qIbaqkstPRk2buvy7GUosej7lIiE9hcMeVhe9gIS69LO
+         goRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792160918; x=1792765718;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lZNDAA0XdcAcUqgBVAh4lShInRCyhCpm07d2o6YZC/E=;
+        b=yygP8Z5RBzq3gZwAPi31JwXU3PV1tKoXMNF93d4CJnPbfCgg15uo9E+LrzR4qBzudg
+         NzIo8LjAI1jQGjppbHIck6JEljOmCQRy4iASu/wHE+NyZEKLtWxrr5PGwLhYUs6aBvEb
+         Dmf24m36VKrnn7pnLdAmDt4WbcLoyEwVxrp6hyoNU4s54YVacP+0vlMIbnzl0nDyt2YY
+         AI8lNPKjMhjpa3QeQKY6/tM3vyexPDb76DPRVcUc7pdqgmxr8wEjUP36+r5RpSgrh2x4
+         lX32XQxki1LjGYiUaC+cFtcPldI1TuY/6oDU8xk2DbaqB1lch0+//eQJRGKm10YObvSA
+         um2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzy9xka3D7aQ1h5qK3aMCgPshv+Xb6QXQerAC/jzNvE5PDbQVUOcuUGZbLyND048VYVXzgX6jE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIe5pNopOCifWcYtkMsFDyQVFhNlGc++/BnjogpLEX/uXf3WXBt
+	lB3ZxvdiJheaAIs5z3UcFJjFY8aLnBe4o5+XDPwqD9qrPuqy7uOoeQzAor2zxiQLLJQ=
+X-Gm-Gg: AYBFou0V/P9eGZFRgE5et+OhBoli6TIqL6NaUluuY+nHmZgxBYbi/SsZ/8+sLNrC3X/
+	oAsGfWVfQYvBAT+3qZApvAurX+LXW7qYmHVReeiR5d34b8FNl1X+xq9mlTZaGkh8F1H1hTDxHen
+	1egrLd/Yhq8rdDDnLjrbf2eXre/dapxEo7d3+lIIYbZdIkxhdq8i6HcjAsNetVDP+sFw5a2vGEx
+	rwFbdR3rAUpha8mesvxLa1BnrVQgKU9L1yqUHkSsSJbUidwPHvju/jPrZCWCQNHfeXb9JUZ8lld
+	4+vFFpX47EhypkS2fcI2zEGP3/vjk0aGm624caX5ThmtvbH0pK8fH1ay9z5PYLkpZdYTR+B49O6
+	3C8Y7EYCpebTkYbe8mHIYaSDf3SLKUpZUECaJ/L9Ic0VrF34kwpCxSmphLIwMvzfUPz4dak3X4J
+	2mDsA8TW0gdkT/F0Rmabw5IPBvGra5sQbn6CKZiYiV7VypNJmSpuQ0UxlBPMsUrMVkotSj9wrjC
+	XBXhwDWvjL5i6RNdmJj41TydZd08V42g63cKHY+ou9uWL8j1H97p7q44xgHy/eBsYaq
+X-Received: by 2002:a05:7301:1706:b0:35e:6816:fa72 with SMTP id 5a478bee46e88-35e6816febdmr8708847eec.18.1792160916751;
+        Fri, 16 Oct 2026 07:28:36 -0700 (PDT)
+Received: from [192.168.1.106] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36081bafa7asm7150945eec.14.2026.10.16.07.28.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 07:28:35 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: Ming Lei <tom.leiming@gmail.com>, sonotri <sono7ri@gmail.com>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20261015120654.241354-1-sono7ri@gmail.com>
+References: <20261015120654.241354-1-sono7ri@gmail.com>
+Subject: Re: [PATCH] ublk: pin module while release work is pending
+Message-Id: <179216091563.2070939.8848021281402109877.b4-ty@b4>
+Date: Fri, 16 Oct 2026 08:28:35 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1451a877703a2kunm7f44cf27b33ab
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSB9NVhoeSk9DTEpCSR9CGFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0tCQUMfSUNBSkhPQR4eGkFPTk5NQUpLSktBHxgdTEFOSh
-	1JWVdZFhoPEhUdFFlBWU9LSFVKS0hKTExJVUpLS1VKQktLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=o1PG1TokcOtgjx7F5d7gI9zkLQ7ziMKJU7tYA375Zr9QHgA8Oa+bSjlu2QqS8NUULh72CLAC/VXLr1oB+sIK2Zz7hquW4Ywceb8l+F4I5D+8kUGJg7yvZiqflteAC6vB/GMkjTeWGA+DzBB5JkN5RVeCeFW4DmKKk0SfrRI5kHs=; s=default; c=relaxed/relaxed; d=tju.edu.cn; v=1;
-	bh=FaoUrVLY9q63hf1mhaJumY0BtzAnUSDQxIIcoiAq7qg=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-mpage_submit_partial_folio() obtains a folio reference with
-filemap_get_folio(). If the subsequent position check fails, it
-returns -EINVAL without dropping that reference.
 
-Call folio_put() before returning from this error path. Leave the
-folio locked so that the caller can invalidate and unlock it through
-mpage_release_unused_pages().
+On Thu, 15 Oct 2026 21:06:54 +0900, sonotri wrote:
+> ublk_ch_release() takes a device reference and queues exit_work.  The VFS
+> module reference held through the file operations is dropped after
+> ->release() returns.  A queued work item does not acquire its own module
+> reference for the callback.
+> 
+> Consequently, normal module removal can start while exit_work is pending or
+> executing.  In addition to the worker callback itself, the final device put
+> can invoke ublk_cdev_rel(), which is also module code.
+> 
+> [...]
 
-Fixes: ded2d726a304 ("ext4: fix stale data if it bail out of the extents mapping loop")
-Cc: stable@vger.kernel.org
-Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
----
- fs/ext4/inode.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+Applied, thanks!
 
-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 26f0f9714f03..7afba6298fa2 100644
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
-@@ -2412,8 +2412,14 @@ static int mpage_submit_partial_folio(struct mpage_da_data *mpd)
- 	 */
- 	pos = ((loff_t)mpd->map.m_lblk) << inode->i_blkbits;
- 	if (WARN_ON_ONCE((folio_pos(folio) == pos) ||
--			 !folio_contains(folio, pos >> PAGE_SHIFT)))
-+			 !folio_contains(folio, pos >> PAGE_SHIFT))) {
-+		/*
-+		 * Leave the folio locked so that the caller can invalidate
-+		 * and unlock it through mpage_release_unused_pages().
-+		 */
-+		folio_put(folio);
- 		return -EINVAL;
-+	}
- 
- 	mpage_submit_folio(mpd, folio);
- 	/*
+[1/1] ublk: pin module while release work is pending
+      commit: afc9cde716b29ce814798d649a95f9128ba42b43
+
+Best regards,
 -- 
-2.34.1
+Jens Axboe
+
+
 
