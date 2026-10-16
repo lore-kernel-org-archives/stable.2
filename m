@@ -1,334 +1,155 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010042.outbound.protection.outlook.com [52.101.46.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B45233CF1F2
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 12:12:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95D11472782;
+	Fri, 16 Oct 2026 12:16:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792152733; cv=pass; b=UURuS5p2cLypULYot5M2WGzleM/32gebonrxZZoLukCmeTHXivyARyBuGZh/MUnoDQcNwd+9XO4f7kkpCTuB7WyN66hCdKTk9mijWG2qqgweJTZjAoBH3YiN3tEmRilN8s2m2ppz4w0YMLFhzOMilFJCojDSreK+R4QIpw9EdIk=
+	t=1792153005; cv=fail; b=tm21JP15KDYIVwOkEfSbF+KOykov3p84ue4K4rRIfEdbMTT69R+rp3mqDQQcOx0ueypq1Jjt2RReJvZKz7DsysoNhWGcXpNz6prnPt0Fyw/c/tJDPaDjj+XvlA2NVv3b4x5FxVJR0LSbd6+t/yuqZs48B5+VnmWIVvwwPhsotIM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792152733; c=relaxed/simple;
-	bh=6IYjp02uYmxvMluUbWofrgoM9m03JSf8XQivc0rvedw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Vy3WJAykDJF+P6W6oxBSZjxWQJQ4HyxIh9xP2GNVscL4+YRRqnaA8HoEfPR4BCgAntyOWb7h8eEpB/aYJUZaNRyum3X+I1oj/gCvjXnmviQXV4oWaoiDno3FAZdeeHivl4F5pyUzR3WXyX/ouJ5GiJTSPv+dcfuvT/q245DD1W0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KsMCenwG; arc=pass smtp.client-ip=209.85.208.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792153005; c=relaxed/simple;
+	bh=RpQ0DEXUO2U/KCjIO505R3H9gci5zGq4bN+Afze/Gec=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=V+wreFOOAeAyObtqAnyDFpOGH44VuJz2spzkhZvLHmcvRSh4YD7h67ihEZBAVti3ohiRL3V1c4ycL3hJiqxbmueaQWJoG21c7L3dVy9/GqcxRBkyXDxCHsKjDq929c1OgBb6cNHc8TAaJ8KNuHN61py+q5KtUDShJCTz5kQA/Vs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=JVkZPC+H; arc=fail smtp.client-ip=52.101.46.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KsMCenwG"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b1aa29e06bso5537771a12.2
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 05:12:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792152729; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nNojNdyvkcTf6uhk0acehh9KPE4KWveMg2eUB/erusL38E/DL5Cszf29GADR1rj81o
-         dRJfqbUIVxNV8asd7QTZwZgtO7nkqa0tiC0Tq0Ro6N/o0/aQJwICbW217QGbuboF0gqz
-         17a5hvFGlzvR5lRIUbfHEwvsaVzJHmJ6tt6dtqkx6xy6g40AAwBvsaWmp4aYnXK9O7TC
-         1j9DG4nrqhaDD3PzUzKykql7/B7lavAlVKSfue5fkNDG0+l3BajhkZLiCQghknGrWO32
-         Yw0bGMn9nJ1hKiduRdp/3EnVstYk+j5IXiLgHXtTCs1SPpeeL0pb8JavXpGWrJ1YVssS
-         OdbA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6t2J8EE3L3nlE7G0BZMfNQxPefv2h/6dn0nY1OvRibM=;
-        fh=tOAiohDckOn7biZfiArvIk5MMOgnA4HUHH9o+wmD1UQ=;
-        b=BYb8+cmMkZgHEflf00sBE5FEfqIOpMeckWC/zTteehe+Ou1qiiunTK5Hue2Hwxlq+5
-         TbeCX0F/pHU8MsIODkwRZr26tfxBKnxrkQxK05xEjrgt0dmAPxvlTun41k78W2iODUVz
-         ptzWeGE6FgDwtnnUGkCAwAjXj3SLs9Zylhe1Zn6ORdfIyHUD9IWN2UHzsXQa5aV1vmLp
-         /iNDyK9YfSwzQFPnXg+Ihudkq/HJLuahi2NYipVFWkF8agn2jWCTR6tNvxXfAm+xdwB5
-         vXp/DqoRwIWTEp/YKbXO06w4BFV7717XlXGzP4ntIzV6EMfYiKasSjxCmeG8rLEmShIV
-         y8uQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792152729; x=1792757529; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6t2J8EE3L3nlE7G0BZMfNQxPefv2h/6dn0nY1OvRibM=;
-        b=KsMCenwG4UKWLxxBE6KqU1ddztmwWw4k1EAO0JaJSOVkMOvywgA28VEnyrrKZKZUiw
-         K6GuKxuYyH3yiJbJjrrqfXCdu80PO9CvtJ+9ngNS2ngF59q+OpZAbKlB1rcvLh5kiJ5v
-         agsC3bVm1aZPz2k1ERTKIuLLjmZQN2k3G6ulezBjR0NOyilLM0vL2ev+O73fyhwm5feH
-         Bh5no+EhvL+857OvptDpIvJ0pgIq40xAlGMcLWo+lp37iB80ZDNPtKaHWYuKKMlMyxAx
-         SzUN9tx7eAtgrBICXvoa+A4tJ7Y+FC8MGVf4hmwQQoIooOVETYMM7kLJf4Gur47LLDKJ
-         QNsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792152729; x=1792757529;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6t2J8EE3L3nlE7G0BZMfNQxPefv2h/6dn0nY1OvRibM=;
-        b=qaMc8mUiy3mS4xayNu8YKQRTX0xzAPzUBXRcOyYAMAp5DtyBK2/r1oAeC1t6W1WDyU
-         q0S2bUBUI0QBigBvE4fzAvuuxX5BrhSe6plK/43RAqQKmihibFeTCo1rFaLezcSnn+qw
-         4k6ZBWHDuFFVBqI6iLypu38M3HVx1jmWLQjqPdgz1Mlv3hxeu8KyzkVUfutBdhix7gkN
-         z37SCyyG/MReBVqBVA/Jgp1fKTHxmXfismOz2chT86qrpPwfEQsiQ82umTezZbDQalMv
-         ZXjIBCeU1hImgFK+jmCKgCOPRmKx9pOn9NmAUZFspKQiqaXAt8lZLTKfCged2c4Nte3u
-         cjDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwOPF3God7FkiuG3wA37FD67C87l0513bC4cEIz3Ge4OC+lth+GDVeB1Kt7EuMLZ2WUF5UgxAI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI/f6XYr7hc2Vf8i7EI6hECM4ZmQHtQlKPNlPFYBGJ9DIlConHm
-	MKtOEFZyAe74I5Psl6OJ1VbLQxWZteoFyQJ6X+09k84Sw8G8hzyqy0a8Q+Inyhidvclfdoo9IL/
-	H1ImeTKrUA7ShqQhQMdCpnwi4kGEms1A=
-X-Gm-Gg: AYBFou0cHf6NRBoOmntm2lMAthO7u0wXqmM9YwrQ89QoUx+mH0fiAU/s9lP6WOSKm3y
-	3gpiVQxdXbX3gHjLiFHF5rZi84EKyx9gLkNHAiMOj8cw/Lpc/hTDv+Kn/OgaYhWTuftAnRJTg1e
-	TQiyhGSg39KBfhtP1oBSG03GxUF4hqrDAGQUuJD0D2Skii2h7EQgNgIKnR7xYi4roF3OexfyMyL
-	36jLs7IneJjKNEqgn11ygEOIt5RufOFJVEEhwvwKI17UpVJ7VTqmsnR69pD4g5MBqL7yioP4QDt
-	LnOXZUPuTmJLDSOiL4SE2iy33uJ34iAgamvlQw37JOk2Toyar7aqdPwAny6b8x/bfGvTsY8cDpp
-	cBz03orlR7n2n
-X-Received: by 2002:a17:906:ba90:b0:c41:1e13:4ba9 with SMTP id
- a640c23a62f3a-c411e1365e0mr83342566b.6.1792152728681; Fri, 16 Oct 2026
- 05:12:08 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="JVkZPC+H"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KrrjZrsytimZZTU+WWQBOgFCDoVr5BQMuGPuq4qL++jN2lavWlqCom2iKei0wD2y+v4UmftoOeITbfq8sGIcvjtgZsqRVNm1FhhXxfhMN2YOY+fKwfr/wMO08kq2pj+spsbpYIHgRZYDkg+QidTraZVKygfDU86pp4HYTfzjdRlouRJbHlHTQC8kIWdvSt1iGNJxCxD9Er2HrvvEri3NWuS7BqXcDouE3SlmuXsMpBi0efYLWilBBgor9JKfZsE5sOAOudVZYBVAqhNa6je3pAtYOtNbypYHYcH4NTiXyeeMVpXkGbDFLgijGZn1UmQel8JgS0/mw/uecsE33VnpyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5Rfcsqeo4enPM6AuyGnCJxiGnd+s4O5mnXliqfplvOo=;
+ b=dnC8bcU4A+cD9/rivcGib0VRul3ZeJwYlAbbqhDtMLepFsInMjMlIxKBKRG0fU3pZqVEMcqjTX3o65VShuuP98t3vf9qsr4vmQXb22EWvZXOX2V7N0JpMKLERQYvBqOGqUdC+HJmDUz9TBTMXKMRB3+RahABiPz/cAkcN70wFIzDku3XZn9QgTgYbnG4DbcSl6HtYnE4uiDfTCeKehL3WC4e17wj8m2bqcgd7aELIKa5NdqrDZiAB0ZrKT5oYViXdhCOm+TSUQSJ7s1jB9q8clnLiQIGBzDHHKr6VAZ2tU3lU6OLA+PzU4jqWaBF0SOumnJDL0BSjD9ZrTP0C+fXfg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5Rfcsqeo4enPM6AuyGnCJxiGnd+s4O5mnXliqfplvOo=;
+ b=JVkZPC+H/mTUHNB14NE5+x2Nez4QvWdaimBsEcuEH+oHkuI9ZtNh63clax6TbJt0EVrXCi4/G+rWeLFzvspW0MhL61WusFk9b+GaoXLet8k+rv3/H1d5ZbN7m5Gj3f6OnwiSZYuzshUjmuayp5R350PYM8T1cIkmPbqVFUBnBcI=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB9733.namprd12.prod.outlook.com (2603:10b6:8:225::13)
+ by MN2PR12MB4375.namprd12.prod.outlook.com (2603:10b6:208:24f::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.17; Fri, 16 Oct
+ 2026 12:16:42 +0000
+Received: from DM4PR12MB9733.namprd12.prod.outlook.com
+ ([fe80::aeaa:23b5:1d59:602c]) by DM4PR12MB9733.namprd12.prod.outlook.com
+ ([fe80::aeaa:23b5:1d59:602c%5]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
+ 12:16:42 +0000
+Message-ID: <b2d9229d-2f34-4a1c-b288-9332917c3b8e@amd.com>
+Date: Fri, 16 Oct 2026 17:46:29 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] spi: amd: fix len==0 underflow and FIFO overflow
+To: Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org,
+ Raju.Rangoju@amd.com, Weibin Liu <liuwb@xiaopeng.com>
+Cc: linux-kernel@vger.kernel.org, sanju.mehta@amd.com,
+ stable@vger.kernel.org, Guanglei Zhu <zhugl3@xiaopeng.com>
+References: <20261014-spi-amd-fifo-fix-v1-1-9fec9ab753e8@xiaopeng.com>
+ <179210311701.134795.14035717437104935583.b4-ty@b4>
+Content-Language: en-US
+From: "M, Krishnamoorthi" <krishnamoorthi.m@amd.com>
+In-Reply-To: <179210311701.134795.14035717437104935583.b4-ty@b4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0211.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1ab::17) To DM4PR12MB9733.namprd12.prod.outlook.com
+ (2603:10b6:8:225::13)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261016-mglru-fg-v4-0-2106750c0bfa@tencent.com>
- <20261016084256.12955-1-baohua@kernel.org> <CAMgjq7AtuK22FsuqvGRLVZ2eWrp-N4qQ_MHoXsXDkVBprekdDA@mail.gmail.com>
-In-Reply-To: <CAMgjq7AtuK22FsuqvGRLVZ2eWrp-N4qQ_MHoXsXDkVBprekdDA@mail.gmail.com>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Fri, 16 Oct 2026 20:11:32 +0800
-X-Gm-Features: AclHuK-z6qzMGmKAbzLQtij7nv772LAigQWhuT7JqlQxVqOPHcB0PjAQdUtEGDA
-Message-ID: <CAMgjq7Ao-1q5r7KtwV-UyvuP3hSazkfr3BbmKL+fv=dSDaU2Cg@mail.gmail.com>
-Subject: Re: [PATCH v4 00/17] mm/mglru: frequency guided promotion (MGLRU-FG)
- and flag cleanup
-To: "Barry Song (Xiaomi)" <baohua@kernel.org>
-Cc: devnull+kasong.tencent.com@kernel.org, akpm@linux-foundation.org, 
-	axelrasmussen@google.com, baolin.wang@linux.alibaba.com, baoquan.he@linux.dev, 
-	cgroups@vger.kernel.org, chenridong@xiaomi.com, chrisl@kernel.org, 
-	damon@lists.linux.dev, david@kernel.org, dev.jain@arm.com, 
-	ehab.ababneh@intel.com, gourry@gourry.net, hannes@cmpxchg.org, 
-	hughd@google.com, kunwu.chan@gmail.com, lance.yang@linux.dev, 
-	liam@infradead.org, lianux.mm@gmail.com, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, liuxiang.277@bytedance.com, ljs@kernel.org, 
-	mhocko@kernel.org, muchun.song@linux.dev, nico.pache@linux.dev, 
-	nphamcs@gmail.com, qi.zheng@linux.dev, rientjes@google.com, 
-	roman.gushchin@linux.dev, ryan.roberts@arm.com, shakeel.butt@linux.dev, 
-	shikemeng@huaweicloud.com, sj@kernel.org, surenb@google.com, 
-	tz2294@columbia.edu, usama.arif@linux.dev, vbabka@kernel.org, 
-	vernon2gm@gmail.com, wangzicheng@honor.com, weixugc@google.com, 
-	willy@infradead.org, ying.huang@linux.alibaba.com, youngjun.park@lge.com, 
-	yuanchu@google.com, yuzhao@google.com, zhaozhengzhuo@uniontech.com, 
-	ziy@nvidia.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB9733:EE_|MN2PR12MB4375:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8e1e91c3-62b2-414f-114b-08df2b7f56a1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|6133799003|18002099003|22082099003|10067099003|4143699003|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	0VZxrYDrfn/lrRv6L0jF3nbKtkv2t+fQHEsrpgrTii/GtQJOYK5S38Jh9nTDYWuOdJxA6Fp6fcB9CUIg9WXILHC+WvExcVdXz4a9gpZTkl2BexLtHqEV6pwM57FAQACOrgGJfH9nYf2PYPTkDa/uiDVXJgT6VUDiqNtkNaHX8ZVmOWLXyzY4Kl2rhc/H7NBevPZReRF2jmLW9TYnlgbMaXam33L2tLpSvNTtFQmub/GsubCIBVVhsu6iqLqZXc7eIf0inqrcR4+ZeumuNeOTSHnlbBJoUJcUMZmPDkz/H2cof6sutgYrTIKr7DgQHvEzKJvsnCfFFEh9CcvXB71JNiLOX9OLoWjcZVbXHdb2UlVv/BhedRgAqCPYIML8mEY0TiB2NRYHPj0f+2pBoRx2KsRyKX6geN+2uUpQPYpVBwz3O2r4IPf208jw5nFZC32O+vdjdrSGEjTNCjW4HMHLk7mHOZwrDPOrpm33HmJnSd/lxAx4Rwvt4R9gBWuGUux2+qHUjMwhKL4f0AyV+W7ei462Tqy85yqFPXIdBf/Q5OUNQrQLDA1UbWzhQKtdDoEoJ/inv1hXG8iPfTxbZ9earD0HLL5qACJ7k3RPRkl8k9O5APlmnczLpJhYMUWKL7or
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB9733.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(6133799003)(18002099003)(22082099003)(10067099003)(4143699003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?K3R4blR3VnZNbmVzN1ZzbHJpSlJVbGFmendhb2xHcDRmWmxUWTJ4ZXhZSDMy?=
+ =?utf-8?B?VnhVSEs1VFVlaGlITy9RdE1yVmk3cnFwNEc3eXpCcUZzSzdJRmpzUHpsTUNq?=
+ =?utf-8?B?YjdkaHk2Q0dHMkYxYWhLS0NZUEZwZGwwRGZyb3UwbnpRb1pUdm1WUnNxbERh?=
+ =?utf-8?B?bG5WT0gxcERFY1Y5aVJBNkVwVy9jRFlXN1FiQ1hDOERnUEFPTStXdEIvd1lU?=
+ =?utf-8?B?QWkvalAzY28zNTJnYW9qazdPYUd5U2tzbWdBNHZ2b1RmbG11KzVIekcwa0hy?=
+ =?utf-8?B?OFBTSlhWSno5QzlXVkg3TkJITS95Szh2TWg5ZXpqdnhOR0RzdnBuUXl2c3JT?=
+ =?utf-8?B?NUlIcGNRS1FQM01pMnE0NCt4SXYyNnVyS2p0RjEyUlB2OENFT2F4SzFGbmpw?=
+ =?utf-8?B?K2ppR3ZKeDF3NWNPMUg1WjZZUEJOWUlhOW1rY0prbi8rdnRPaWx5dkFtakJ1?=
+ =?utf-8?B?cW9ZTnFjelhTa1N4NktiMWsyNm04T3Nma0x2S1Vrei81NnlERDI2VktabmJ5?=
+ =?utf-8?B?NGhJK2dpMHJrbkUwTGpzV2hsQVZHMHcyQkoyYXFZYWJhcmdMWnJNbUN3T0gr?=
+ =?utf-8?B?V3BFbzIrMUNNSkI2MnZrT2tDZ2RqWTlHK2c1Z2hRaENoYW5jMURCK3hiQUhH?=
+ =?utf-8?B?dXhtbzg5NG9YOGVvNksrR0ovdTlHRzNpdEpzeHBaMzE5VXJwZjRoSDF0L0cw?=
+ =?utf-8?B?S3VZNFcrUGZ5TlRHb3dYTmdvcXp3R20rVlJtc2RJZFEwMmpBd0ZMRGhUQVhQ?=
+ =?utf-8?B?Zlp2dFByUmhQYm5KR0EyZ3FsRExUbUlIU2c1bWlYdDUzcEh3Z3FxV2twWEFn?=
+ =?utf-8?B?THkzcEZRL0J3N0dudTZMSEE1VmVWb2ZCZ3RIQkttdXRNQ0dPU29Id2EyQmFC?=
+ =?utf-8?B?cUxjR0Q1b0VibWNtQzY4cTRRVU91eFpvSjVHOTlwaU9qTVRLZXBDYkFGL25o?=
+ =?utf-8?B?NnRnTU9UODBoUTQ3cCthRDRCNlNDR1B1em1IMDFlSSs3YmpUQ2Z5VSs2UElK?=
+ =?utf-8?B?NjA3eWx0dHlqTE9XbjBnZ3dNcFlXNHhGcmtaK1lWRnJVekxodXB2Z2V2bHVZ?=
+ =?utf-8?B?bzVNcStpTkZxcnVKaXE5ZTkrVHo0WUlNSERMRFE5eEY3ejN6cTA2Z25LWGhE?=
+ =?utf-8?B?Zytrc0V0cXNMdklDbW1IbUNKcEtZY1o1TTR5V0hvWGxTNjV3SmlwdkhRZlUz?=
+ =?utf-8?B?YmsyNkJ2U2xwVzl0ZDdRcVVLcXhvWEJDdXMvQ2RUUmdxUlV1OU1nWFlSa05n?=
+ =?utf-8?B?QkFzWmhtTGNVaGRqdlBnT1VDQisxWG5vOWZOZ0NobDM1bXZZRDBzVnJnaEY2?=
+ =?utf-8?B?d1ZXenREd1hmQnRNV21iNmxYKzE1RUxlTHBOZW9lbUZyc3RidWUyckhQNDI2?=
+ =?utf-8?B?YVRmV21vRDRJNDFGRC96UGg0cmFya3NFMkRRMklsQkhjMkJxTVE0M3pvKzdK?=
+ =?utf-8?B?OVlvY2VXbFJpQjdWeVVORTdwd043Y3hZaFR2Nkxpb0Q1bFhsYnJBb2U4ZWVX?=
+ =?utf-8?B?Y01veitQZTRNaG8yVTVhM2prRUlUQTJJdGNrWitySHg3TldNM1FmOW9lQzJv?=
+ =?utf-8?B?RDhubUlUOCs5Zit3R0JGWXlhQVh5TjVleVdUay85S1B1YTVkQ0FWV1dKRjYw?=
+ =?utf-8?B?aVBvays5RExBekFJNEh0MTkxbnNqNTkzT3JDYVB0a3ZDeVRtOWVJcERvQ1lv?=
+ =?utf-8?B?bHBSenpNNVRRWTBiSE0yZjRKTFZrNDZGQ0Z3dkZWYkpEcmJKVmYzLzV6cmRI?=
+ =?utf-8?B?eGxXcjY0K012RVZ5SVZtd0dHTjFucjNERTVLT0NZc3M0NTNkVklkQjhGZFo2?=
+ =?utf-8?B?TzhRUGFGbjFLRVFDYjg5NzJiSFUxc2dUOUE4TXVNSDFvZmVNM1IrcTZzT3RW?=
+ =?utf-8?B?VzlhZ294NStYeFFwZFdPS0hqS0NWWXNmMHFZd2JYRlJRSzYybmNDVzd5RTk3?=
+ =?utf-8?B?bDVwS2hkL1dpWkd1L1o0WjlTdjhrZDMvUHFWbDdlQXA3NGVpKzZkWW4zenBJ?=
+ =?utf-8?B?VzVzUWJkaFV4d0t2QmxLZkI1MDYvS1NLQ3pVeG9udEp3dVZnREk0dWIyaXdl?=
+ =?utf-8?B?K2ZEMDBsRkl2RWpLR3ZaV1NqOVJpUFFiTFlDckRTekhJYk9hUW95aE0vcVBs?=
+ =?utf-8?B?U1RhYm5Lb3Y2VHBEaFVEMTdEVzV6Q1ZNdWlVZ25CSUZVbjJFOVRZNEpnUCsx?=
+ =?utf-8?B?eURNbGtDcTY1VjV2TnhIclVRNWs5SWFUMkZCNWg3VWR6Z2U5Z25aNG1ET2xQ?=
+ =?utf-8?B?YWl0VlBBVWRSVUtKME90OGZyRFJTbHg4MHpKbFV1R3VYY004aldZUmJiM21F?=
+ =?utf-8?B?R0dlOG5OOVNycml6d1hCdi9zcXVlWEJYRy9jT0FDZGhQNU10YjB4QT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e1e91c3-62b2-414f-114b-08df2b7f56a1
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB9733.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 12:16:42.5310
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: J53S6jW59b0QqoFmCFqJsMB6+24+fP8wR+Gp2wN9sYM+1RaIoOdIccv2M9qXeDBVshSsWi7kTWtlRaiTJvIM1g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4375
 
-On Fri, Oct 16, 2026 at 7:43=E2=80=AFPM Kairui Song <ryncsn@gmail.com> wrot=
-e:
->
-> On Fri, Oct 16, 2026 at 4:43=E2=80=AFPM Barry Song (Xiaomi) <baohua@kerne=
-l.org> wrote:
-> >
-> > On Fri, Oct 16, 2026 at 2:15=E2=80=AFAM Kairui Song via B4 Relay <devnu=
-ll+kasong.tencent.com@kernel.org> wrote:
-> > [...]
-> > >
-> > > LevelDB Scan/Get
-> > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > I also retested the LevelDB benchmark from the cache_ext paper [5].
-> > > Interestingly, mainline MGLRU already beats CLRU on this one after a
-> > > recent change in lru_gen_folio_seq that bumps new folios with refs =
-=3D=3D 1
-> > > to the second-oldest generation as discussed. That change accidentall=
-y
-> > > gave random reads a higher hotness level while making sequential read=
-s
-> > > much colder as described before [14]. However it's unreliable and
-> > > incorrect because it depends on LRU drain timing, and hurts some work=
-loads
-> > > as reported, or where the sequential part is actually hotter (any wor=
-kload
-> > > involving hotter large file and many small cold files will be affecte=
-d)
-> > > which is reproduced below.
-> > >
-> > > This series improves it while covering ordinary workloads too and sho=
-uld
-> > > fix regressions:
-> > >
-> > > LevelDB Scan / Get, Throughput Total:
-> > > CLRU:         4708.3 ops/s
-> > > MGLRU:        5026.9 ops/s (faster than CLRU, but hurts other workloa=
-ds)
-> > > MGLRU After:  5179.2 ops/s (even better in all cases, and no regressi=
-on)
-> > >
-> > > The hot-sequential and cold-random workload can be easily reproduced =
-with
-> > > SQLite and grep. SQLite continuously scans and looks up a small hot
-> > > portion of a DB file, while grep iterates over a set of small files m=
-uch
-> > > larger than RAM [6]:
-> > >
-> > >          SQLite scan & lookup time:       Grep iterate time:
-> > > CLRU:                       14.51ms               13281.37ms
-> > > MGLRU mainline:            567.05ms               13694.47ms
-> > > MGLRU After this series:    10.58ms               12930.43ms
-> > >
-> >
-> > Thanks, Kairui. I'll do a thorough review of the whole patchset over
-> > the next two weeks.
-> >
-> > BTW, do you think we need a quick fix patch like the one below
-> > for the above problem before this patchset, so that it can be
-> > backported to stable? I assume your patchset is too large to
-> > backport?
->
-> Hi Barry,
->
-> Good question, I think we can patch it first.
->
-> > From f9683205d2ab6e3b185022d7d5af3496dfe5f35f Mon Sep 17 00:00:00 2001
-> > From: "Barry Song (Xiaomi)" <baohua@kernel.org>
-> > Date: Fri, 16 Oct 2026 11:48:06 +0800
-> > Subject: [PATCH] mm/mglru: fix using folio_mark_accessed to replace
-> >  folio_set_active
-> >
-> > Commit 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to
-> > replace folio_set_active") tried to avoid over-protecting
-> > fault-around read-ahead file folios by placing them in the
-> > second-oldest generation instead of the youngest generations.
-> >
-> > However, it abuses `PG_referenced` on read-ahead file folios
-> > for this purpose, potentially coupling their handling with
-> > normal syscall-based file accesses that also use
-> > `PG_referenced`.
-> >
-> > This could regress some workloads, as reported by Kairui Song[1]
-> > and Ehab Ababneh[2]. Many thanks to both for reporting these
-> > issues!
-> >
-> > The long-term fix is Kairui's MGLRU-FG, but in the meantime,
-> > we also need a quick fix that can be backported to stable.
-> >
-> > This patch reverts all of the original commit's behavior that
-> > abuses `PG_referenced`, while preserving the semantics of
-> > avoiding over-protection of fault-around read-ahead file
-> > folios by adjusting only `lru_gen_folio_seq()`.
-> > Specifically, fault-around read-ahead file folios with
-> > `PG_active` set but `PG_workingset` clear are placed in the
-> > second-oldest generation.
-> > Activated file folios and refaulted workingset file folios
-> > are still placed in the youngest generations.
-> >
-> > Build kernel cases in a memcg shows it not only perserve
-> > the benefit of original patch, but also even improve
-> > performance further.
-> >
-> > w/o fix:
-> >
-> > real    1m49.094s
-> > user    25m31.484s
-> > sys     3m40.959s
-> > pswpin: 662112
-> > pswpout: 2504415
-> > pgpgin: 4424336
-> > pgpgout: 10355273
-> > refault_file: 359626
-> > refault_anon: 670724
-> >
-> > w/ fix:
-> >
-> > real    1m48.913s
-> > user    25m31.639s
-> > sys     3m30.875s
-> > pswpin: 689815
-> > pswpout: 2689894
-> > pgpgin: 4422659
-> > pgpgout: 11043464
-> > refault_file: 326566
-> > refault_anon: 697138
-> >
-> > Revert original patch:
-> >
-> > real    1m50.044s
-> > user    25m37.137s
-> > sys     4m4.493s
-> > pswpin: 1349087
-> > pswpout: 4317933
-> > pgpgin: 7083597
-> > pgpgout: 17602735
-> > refault_file: 337676
-> > refault_anon: 1368542
-> >
-> > [1] https://lore.kernel.org/linux-mm/20261003-mglru-fg-v3-0-cbd4546a5bd=
-9@tencent.com/
-> > [2] https://lore.kernel.org/linux-mm/20260901180704.168106-1-ehab.ababn=
-eh@intel.com/
-> > Fixes: 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to replace foli=
-o_set_active")
-> > Cc: <stable@vger.kernel.org>
-> > Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
-> > ---
-> >  include/linux/mm_inline.h |  8 +++++---
-> >  mm/folio.c                | 16 +++-------------
-> >  mm/vmscan.c               |  9 ++-------
-> >  mm/workingset.c           | 10 ++++------
-> >  4 files changed, 14 insertions(+), 29 deletions(-)
-> >
-> > diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
-> > index ab69b9930893..7aaff4e06e80 100644
-> > --- a/include/linux/mm_inline.h
-> > +++ b/include/linux/mm_inline.h
-> > @@ -311,7 +311,8 @@ static inline unsigned long lru_gen_folio_seq(const=
- struct lruvec *lruvec,
-> >          * | Accessed through page tables and  | Accessed through file =
-descriptors |
-> >          * | promoted by folio_update_gen()    | and protected by folio=
-_inc_gen()  |
-> >          * +-----------------------------------+-----------------------=
-------------+
-> > -        * | PG_active (set while isolated)    |                       =
-            |
-> > +        * | PG_active (set while isolated)    | PG_active (files|     =
-            |
-> > +        * |                                   | fault-readahead)|     =
-            |
->
-> This comment is not correct I think, faulting file folios are not
-> access through fd, we may just better leave it uncommented.
->
-> >          * +-----------------+-----------------+-----------------+-----=
-------------+
-> >          * |  PG_workingset  |  PG_referenced  |  PG_workingset  |  LRU=
-_REFS_FLAGS |
-> >          * +-----------------------------------+-----------------------=
-------------+
-> > @@ -319,7 +320,8 @@ static inline unsigned long lru_gen_folio_seq(const=
- struct lruvec *lruvec,
-> >          * |<---------------------------- MAX_NR_GENS -----------------=
------------>|
-> >          */
-> >         if (folio_test_active(folio))
-> > -               gen =3D MIN_NR_GENS - folio_test_workingset(folio);
-> > +               gen =3D MIN_NR_GENS - folio_test_workingset(folio) +
-> > +                     (type ? !folio_test_workingset(folio) : 0);
->
-> This looks a bit hard to follow. Does it mean that for active but
-> non-workingset files, they are put into the third newest generation?
-> It creates more divergence of file / anon but if it work for now, I'm
-> fine with it.
->
-> >         else if (reclaiming)
-> >                 gen =3D MAX_NR_GENS;
-> >         else if ((!folio_is_file_lru(folio) && !folio_test_swapcache(fo=
-lio)) ||
-> > @@ -327,7 +329,7 @@ static inline unsigned long lru_gen_folio_seq(const=
- struct lruvec *lruvec,
-> >                   (folio_test_dirty(folio) || folio_test_writeback(foli=
-o))))
-> >                 gen =3D MIN_NR_GENS;
-> >         else
-> > -               gen =3D MAX_NR_GENS - (folio_test_workingset(folio) || =
-folio_test_referenced(folio));
-> > +               gen =3D MAX_NR_GENS - folio_test_workingset(folio);
->
-> This is a nice change, but meanwhile the LevelDB and cerain workload
-> gain are gone too, we will again have a ~40% regression for similiar
-> workloads, I just double checked it. But that's fine, though, it was
-> never meant to be optimized that way, and the long-term fix can be
-> done later.
+Hi Mark,
 
-Here I mean the "optimization" of 6cbdd9726fb5 is more like a side
-effect, and not reliable, that is simply not the goal of 6cbdd9726fb5.
-So I think it stands well as a fixes for 6cbdd9726fb5.
+On 10/16/2026 3:55 AM, Mark Brown wrote:
+> On Wed, 14 Oct 2026 20:39:13 +0800, Weibin Liu wrote:
+>> spi: amd: fix len==0 underflow and FIFO overflow
+> 
+> Applied to
+> 
+>     https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
+> 
+> Thanks!
+> 
+
+I sent review comments in parallel without seeing the apply mail - 
+they're not a blocker, just a minor improvement.
+
+The applied change is already memory-safe; the rx FIFO bound is just 
+checked after amd_spi_execute_opcode(), so an oversized message drives 
+one transaction before being rejected. Since the patch is applied, the 
+change can be taken in a follow-up patch.
+
+
+Thanks,
+Krishna
