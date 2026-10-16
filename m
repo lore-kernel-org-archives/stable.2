@@ -1,126 +1,178 @@
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 906FD2E2DD2
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 01:11:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792113073; cv=pass; b=lNq6PISH7jpNmcTDzLKyCivFIiZ+n80KWLnT4WBC1+vM112p2y2hRgf43YmffA7owSCJiO/ROFAfVksNcU0gYv8Dsu+7OReROtFbWFQSh+Nvf+CQjZy4IVkhm97O7vXUb1HTL57Le2f+26qHjK7BdFJq8YzYEaGpUvHzIvWnzA4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792113073; c=relaxed/simple;
-	bh=JzG9jaJYiued69pJ3zjgkohjroIPbtGqeOHKXUqa6kI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gC7dgb+I34LFwBF2TG7tf62h0uoy8g83S1HMJ+oTSMfcVIs7K9gPZH6EZ63xF6Io3QSm6SEpKjAV8egB9uhpbG4JKghKwMs6dnvHyAhD0Wu6B4sdRw4S1xDUlBV6nF/4yLkrbdXvxOMk4W/qoTsa2Oo7RHH5JTN3EkQE2Zm2S2w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j9HaZW5P; arc=pass smtp.client-ip=209.85.128.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DC3A2DB7BF
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 01:15:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792113360; cv=none; b=Q8+FYr4HbxuXhFhNfvwzCQW657ICRwCnfyGP72xI7zF6RR4lwPmIQv3OmDtPl14DzEtlnOIzeRlfOY75/u409U9dr8/Hk65AyCoz/9B6aFAll2DW8g4td0Kt5nTiknLJF8oHiyEoRqjjy4QtsQTc/kOQCvvr1kGzsXqhrdxC+y0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792113360; c=relaxed/simple;
+	bh=9VAJj7cYZ380+pNqLiYIjT2WUQyqSLCyrHJH/HMmkLY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VZxyW717K1W6DXFoAmlv2fL1+OPlrb7ntx4ncT1m0x3Ee+A0fdaj5/XpWkPlu6fmdogxIPN/V9GeUYnYvPWtFysirQbAkT806PDNgJAFrbN4ZjAUHuwk/BdyFS6c4AFUsGbCB8b02K7QGs2QAHs+vDCFMIhN0cdf0AW2msJDXBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=EAPBPvPO; arc=none smtp.client-ip=209.85.210.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j9HaZW5P"
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8aea7b7ca0cso45690557b3.2
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 18:11:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792113071; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZcnmqJUe4e/k0YVm/A8jauOTfmlpwb0yNixkqsoivCWdvytWMwnHljXSjabSop8Bnm
-         IRqffyyJM+3QYXdV5ORtjqA/Sneo8D2gNL8Wq5ywY5qNO1vvU0Pt8laNu0IMbHH7YLUu
-         Cx9Si/Aq08tsLFInc+tnxrpSzIur+hielg23zZG9X2sBKVv+9B6jbPsPcOmBmZqowGBT
-         IrYdquNVqoeQJsvV/tzFfJ6Wcjc/T8DEt4lxKXtv334UDxirovyWoqYxVH0RWR6kB3r/
-         8RDDZuhuR1MSG1Vvesx1252kgh/XOYfvH750xj+dCANLI6U38C1l3/WGjp9Ab7itDY+N
-         oHRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VQkIfSljpkAXMtApCpc6CLLTd+fi+11lXbgR/qs4Vvs=;
-        fh=H55OUr7CBfn/mH7yjTFNTXlzEbXsRN8bYo7JtjknP1I=;
-        b=UTKBPocCmvMj+IJWn1sjU0i0g/PU21G9WTwWHw8xKiYEcWv3FEFpWnTY05IySJ7LC8
-         q4uTH8K6+TO0dtwFTmkIM/DCgikd6e9wg1GS5EUJT1OqXVSpe2FU/TApgjYVDkR74C0x
-         k0VfzUb6jbBJsmarVqrJDFnBBGE5H8WZYUcqK+4tCGX1VTF4blZIrwUPslRlsvnlELS0
-         OUkB3VinUsqWRqdPTbLalOohWmlHj7FPzrIa81r6ntXwiC33rwaKOCTrXbKHM0Wp+4af
-         WwlOVXiPrnn2Hd/o4FbMCkRvVlk0bJDG3bUw3di/lPvO028cVhZGInIXnsu9pXEISzXn
-         ZQXQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="EAPBPvPO"
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-825b40f8a26so2874293a34.1
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 18:15:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792113071; x=1792717871; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VQkIfSljpkAXMtApCpc6CLLTd+fi+11lXbgR/qs4Vvs=;
-        b=j9HaZW5PoxhSqNwvgD0NsFCSS/JbqOhSQfeCvhwAK1DaEInaPVzP+vD/aBJkDw2eiM
-         GJKvNQ1Kk8AOZYmfjgSy4Aw9Dtqhj6EBZFgejjiFi2cfcnBxTDIvyGB4TEbKpH9uZxEi
-         HAKGkygSLVw/+eZ/6ClYz/f4Pdtq6gwFcP8UbeWsFU2lxDyVB7Jd31houVlvPBoz1a7k
-         6jtI5/lxB88olW2p9hmrkx+e02vZRPEhEXwB9568RPEsJ3UtQhC3TJH0Gyq2tctymKyC
-         jsc4/vHMJotVqBtBEcdAzobUfI8Q0TFSUuQgzY7tMqbxDI5j6BsqRBeYihDQuwOkXMj4
-         ri/g==
+        d=openai.com; s=google; t=1792113356; x=1792718156; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6NehW30zqnjXf2BZQWCFKMsNatcoAA2i6XIIUsdpRco=;
+        b=EAPBPvPOekpK8Iln5SdDepOa9mPsiKmVKqIOD8Kj9bBpptcdAjgP9N/7wBus8Z27/G
+         +ItyZrRQCZkH1TO3wn9cqB7zGHG7HWp1CFG9iGu3JEIVS73wWH6lYJ9tWwKT11S2s6Jm
+         jBnB4v/Kb1foK/mRB13c/+wIeeed5Gq6vzZpM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792113071; x=1792717871;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VQkIfSljpkAXMtApCpc6CLLTd+fi+11lXbgR/qs4Vvs=;
-        b=iP+XVZDpF8GyNtcBdhpsEPIOSmek18UEtnRwrd8lLkXkHieJl4KhDnTKkRi4fGRbdr
-         OD/Az0cbKudmZeNaqZAITkKD8gQTaGTr/nAqbFylXg1b6VaGBt9r5uwlyqQxrS9GmCBt
-         nQZupjkEhjYcQGV5Bfw40zDQ4wtfgI1r4ZWJTNXcoTlGMEevF/OWRx1o25iCzhtW/mZv
-         f213EW32BuY9MB/lO8pHwN2D5+nvk7/DdFdpUlazZS6N1U9+4OlE//8fFNphSHoIpLL5
-         lKmj16PMNgjgszFXX9G3IC/dFJFT4Wadvyd2Va7biC5LjfK7MuTBiGbNUHvN6jKSsd+t
-         9+Bg==
-X-Forwarded-Encrypted: i=1; AKwUvBzk6PL2MQjdDukwdclAyaB1zqx+y/cKSdsrVkxe1LfvgMRsYQ4r/XPO/pawvMRCzybHdnr5DVU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJXCIKYpzN+Yq1m5sYnqOML830jZ+5YjJAQfx3WXzxnF+XIs9SN
-	C+ISTzYb3AV7mWbMLh8JGvlMl+7SfffwJ82Rd3XZ2Uiz3nlImBMH0KHSj7fww1jpTLOpCmLh0AY
-	e6pUNGgRgqaOK4OnAGZ0VYoeIa79GHMc=
-X-Gm-Gg: AYBFou12dpkZRK0LwDJmWbX+TbYMpsbozqs9OHRiubHeFZS+kIBa8XL/vPJqHwjGkih
-	BUO+18lLhQj5Ejntw288XvQy1+DG8RS5Usz84Xn+CSIw2daxnS9Ohloq9GnHgnMTMUSWwVj46xk
-	e1EhVr3KTKgocKQzfI4O9YM0YEtjYj+uDXuT96DjnslERvo1hs3eeBUM3dIOUWZtftb5shVGfRT
-	wtQDUVJQyW36wLK/mRJJmGFQ5HVIxU1KGVUzLGfXAlDAzB9YqGP8HF66vywyaan8XNcPBPsnLre
-	iGkcO2SMJDH1fIqHCnI6v7HIvqgGJw6isrdISh9KID+uM2CRDIN+T7d8ATMVYQrkzvTuWQJ7MY8
-	sFPee3X5PGiEeG6lf9/Yt
-X-Received: by 2002:a05:690c:c4e9:b0:8b0:8ec8:d4df with SMTP id
- 00721157ae682-8b08ec8d874mr61136177b3.53.1792113071334; Thu, 15 Oct 2026
- 18:11:11 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792113356; x=1792718156;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6NehW30zqnjXf2BZQWCFKMsNatcoAA2i6XIIUsdpRco=;
+        b=t0SIuXVr4Sk74gLXaD3EPy7OCXwa9bd5XHZLLzu/sgXFgN19mqDl8PrAYVaGUJIFhu
+         h/B0T+K/WmUSqVdvmzmOHGLPS/KErULG4fIQ7NC18mqND60ymQTeMaQ9OCCqKyuCsNLi
+         z9ulZmK6usC9vcNMeNflLQFXyE/BhGQU3BjrlUVI3KRNgNRc7h9eU8amVVnHUAbIrtUK
+         ln/N1ZxEi2B/jd0JdAV4OMHZbeIvKrN3DIPGpz3G4uA8hvNrb/m2uOPkXYaX7O7glkDo
+         ZUY9QjyphwmmsWJznyFpcA8cTHM6pOLg7CiSwdbty7vUlJrQGIwUegluqYnUEYezILwD
+         xcfQ==
+X-Forwarded-Encrypted: i=1; AKwUvByLwsjK1H5xPO6qkaALLC6IXqrzxoQuAGXwl/KNMsyjvA2sZKLJsrUVfLi6BPiANlQmUlrPsGA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKXgCcRBIuSke003icVKEo0Ks2QA9XEduRvp4y0mWLmqRdKXdGf
+	rhQopnhmzduziHc5R01KBYRFOitvsYjOWVlu2tFYcr7fjYovMzFrgfsazYZlZCIvjxw=
+X-Gm-Gg: AYBFou03GVbqnWzLNuLFs71sj3KHxkt13RYGTi8TALLlQ15N779DkZM+ZcYX5O7ppGP
+	wFR5pS+3Vz8EwSqIUngkMzQlF/aUetxwlrvos8czjgli/sQFERCmomRmUHpAexf3aPeOIy4LD0u
+	ut0YIzh7Dx23ePWWLUdwoxCJmD53HsFtzNDgbGlkkwOzsZGORFDuI0cpo3G8ESn3frbKlYWhfg3
+	U8K+freVN8mMuZhUQW7xgcez0dnQpZwHh15x+DjmiHvDJcM65LzUVj+axRy8BYHGL8ptRX6CM1/
+	/WElrKzOxptfJ2KlWVy/IOGhLH7/amI6fpSh5pHzMAQ7sRdLC5CsIkYdimkgUTndycZG5mvzyd5
+	StGsJgm358d3RSEZB3SrvZ7ijns/r66kaAmhLy6f9QV0sVS7RWo4MivF612nGGyN0wyugIrXAno
+	sTGG4HOgOfV8jAQjnkqEC2Yo9q+RtuHgoLhIdNkI/WfLGtAiIQB59xQI+mMtspYN5C65Acrr2hX
+	FSrE52/QHbdEisH30RNpMplyZhLfiSej6kIrbCmXzzM565K9rxwpwX9kxu2sclU9gD/wn8uA2s=
+X-Received: by 2002:a05:6830:67d6:b0:829:9992:2106 with SMTP id 46e09a7af769-830984475fcmr20639981a34.22.1792113356354;
+        Thu, 15 Oct 2026 18:15:56 -0700 (PDT)
+Received: from com-75606.corp.openai.org ([199.47.143.7])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-842a4a01f56sm547197a34.7.2026.10.15.18.15.55
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 15 Oct 2026 18:15:56 -0700 (PDT)
+From: Kyle Zeng <kylebot@openai.com>
+To: linux-mm@kvack.org
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Rik van Riel <riel@surriel.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	Kyle Zeng <kylebot@openai.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] mm/page_vma_mapped: continue past nonmatching huge PMDs
+Date: Thu, 15 Oct 2026 18:15:49 -0700
+Message-ID: <20261016011549.61146-1-kylebot@openai.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <pm-ocfs2-objects-candidate-0089-v5-076c780eeaf45afb2a53@gmail.com>
- <202610151231.3D8F9A63@keescook>
-In-Reply-To: <202610151231.3D8F9A63@keescook>
-From: Cen Zhang <zzzccc427@gmail.com>
-Date: Fri, 16 Oct 2026 09:10:58 +0800
-X-Gm-Features: AclHuK8edup2SupqX1o3fhs6D1NgY4SqIBp2hHyIkSs-U-DuEilWC35HgZo3hmg
-Message-ID: <CAFRLqsUAQuorPYcEOWJX-hgduzG+CGYUy=ozS-rXB-Cs+VNBTg@mail.gmail.com>
-Subject: Re: [PATCH v2] ocfs2: Pin owning modules for open debugfs files
-To: Kees Cook <kees@kernel.org>
-Cc: mark@fasheh.com, jlbec@evilplan.org, joseph.qi@linux.alibaba.com, 
-	heming.zhao@suse.com, akpm@linux-foundation.org, kmehltretter@gmail.com, 
-	christophe.jaillet@wanadoo.fr, ericterminal@gmail.com, rppt@kernel.org, 
-	rollkingzzc@gmail.com, brauner@kernel.org, sunil.mushran@oracle.com, 
-	kurt.hackel@oracle.com, jack@suse.cz, ocfs2-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, baijiaju1990@gmail.com, 
-	jjzuming@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Kees,
+A PTE-mapped large folio can straddle PMD boundaries after an unaligned
+mremap().  If the first part is discarded and replaced with an unrelated
+huge PMD, page_vma_mapped_walk() stops instead of looking for the rest
+of the folio in subsequent PMDs.
 
-Kees Cook <kees@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=8816=E6=97=A5=E5=
-=91=A8=E4=BA=94 03:32=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Fri, Oct 16, 2026 at 12:42:32AM +0800, Cen Zhang wrote:
-> >  static const struct file_operations o2hb_debug_fops =3D {
-> > +     .owner =3D THIS_MODULE,
-> >       .open =3D         o2hb_debug_open,
-> >       .release =3D      o2hb_debug_release,
-> >       .read =3D         o2hb_debug_read,
->
-> Please match the indentation of neighboring member assignments through-ou=
-t.
->
-> --
-> Kees Cook
+This also affects migration entries.  A walk that stops at an unrelated
+huge PMD can leave migration PTEs behind when migration or an anonymous
+folio split restores the mappings.  Those entries do not hold mapping
+references and can outlive the source folio.
 
-Thanks for the review. I will fix that.
+Skip the current PMD rather than ending the walk on a flag or PFN
+mismatch.  Do the same if the PMD became nonpresent before the locked
+recheck.  Release the PMD lock, clear the per-PMD state and advance with
+step_forward(), so the existing range limit controls termination.
+This covers present, migration and device-private huge PMDs while
+preserving the matching-PMD and split-to-PTE paths.
 
-Best regards,
-Cen Zhang
+Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
+Cc: <stable@vger.kernel.org>
+Assisted-by: LLM
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+---
+ mm/page_vma_mapped.c | 28 +++++++++++++++++++---------
+ 1 file changed, 19 insertions(+), 9 deletions(-)
+
+diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+index 4e964545e5e8..67c8039e9d28 100644
+--- a/mm/page_vma_mapped.c
++++ b/mm/page_vma_mapped.c
+@@ -258,28 +258,28 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 				softleaf_t entry;
+ 
+ 				if (!(pvmw->flags & PVMW_MIGRATION))
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				entry = softleaf_from_pmd(pmde);
+ 				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				return true;
+ 			} else if (pmd_is_device_private_entry(pmde)) {
+ 				softleaf_t entry;
+ 
+ 				if (pvmw->flags & PVMW_MIGRATION)
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				entry = softleaf_from_pmd(pmde);
+ 				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				return true;
+ 			} else if (!pmd_present(pmde)) {
+-				return not_found(pvmw);
++				goto next_pmd;
+ 			}
+ 			if (likely(pmd_trans_huge(pmde))) {
+ 				if (pvmw->flags & PVMW_MIGRATION)
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				if (!check_pmd(pmd_pfn(pmde), pvmw))
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				return true;
+ 			}
+ 			/* THP/device-private pmd was split under us: handle on pte level */
+@@ -292,8 +292,7 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 			    (pvmw->nr_pages >= HPAGE_PMD_NR))
+ 				sync_with_folio_pmd_zap(mm, pvmw->pmd);
+ 
+-			step_forward(pvmw, PMD_SIZE);
+-			continue;
++			goto next_pmd;
+ 		}
+ 		if (!map_pte(pvmw, &pmde, &ptl)) {
+ 			if (!pvmw->pte)
+@@ -336,6 +335,17 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 			pvmw->ptl = ptl;
+ 		}
+ 		goto this_pte;
++next_pmd:
++		/*
++		 * A large folio can be PTE-mapped across PMDs, so a
++		 * nonmatching PMD does not end the walk.
++		 */
++		if (pvmw->ptl) {
++			spin_unlock(pvmw->ptl);
++			pvmw->ptl = NULL;
++		}
++		pvmw->pmd = NULL;
++		step_forward(pvmw, PMD_SIZE);
+ 	} while (pvmw->address < end);
+ 
+ 	return false;
+-- 
+2.55.0.openai.911.g06873a30d2f3
+
