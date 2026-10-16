@@ -1,83 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 995813BA244;
-	Fri, 16 Oct 2026 10:28:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88A024746BD;
+	Fri, 16 Oct 2026 10:30:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792146481; cv=none; b=XIMidj4O8nyt4TXKWyeJeWktGx1AOoGRl+T5UtPxKvv4fkbGHmRVq4KNBvv0gi0H6psuuWkwLd5nUpO0bq0cAMSSaTFZMKcWguie3PBCCRLczaFu6MQbvsuAlStHSQ5t2yDsSJOLLmfqMkynXgXwiuOLznBOXTFFibaedmYJdGQ=
+	t=1792146609; cv=none; b=gYbWoWZ6gK6cSQ/rJ4XeGw3gaOu+zOqqw4zAaBs+GhyXx7uKLjCHsxsWgXLwU5u74J3HDrRaU4Gi5ye8p9NI6CpGs04BwghLynDe2fPMpbazLPGGQGnV9L3ywvxSPKfLI5FMJnHPV0GgXp0AI6gaa2vvP0PLTc2i1H6CTYGXecI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792146481; c=relaxed/simple;
-	bh=mrE/BzO7bhFTMiLHsRW6/vXVrJHPy36G3R74Gh3OASw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Pp5W/XWtI7XjAuPXlHX50JdWqysre4yEu+cN+3mt5zWRuoQMyHUHERNcVX5BzYdMCvt8UZukVDS8nvrVRql4/Gox/iFbaQY5194nsfSHEUl3Z6/UnkEWYZdUpdLcXOVmfzOyzpcgcaH1aedH5aF/XxA5jOr3hOMasTg7aydFK3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cUSsEjB+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792146609; c=relaxed/simple;
+	bh=Dyk6VmNF0evOKGHfPQBJNWA0dzJ9kMffqwLc1fanMmk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XpLX24HttkK+vWwgwMv4EKINrLYQpo7Vx6b8DAds60XC8xt6ABW48NqvcuuudtpCziKqjZBsYxaBMtnjNV5Igv/dxCl5QMgqDfSJr8YUsPvDyqRHeQTuPU+iW2htvBpuYWrVopryNn8kuHLch4hqtZSqJGdhrCxEgpGaCyNbbus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=WouJ4DXO; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cUSsEjB+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 524C71F000C5;
-	Fri, 16 Oct 2026 10:27:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792146480;
-	bh=mrE/BzO7bhFTMiLHsRW6/vXVrJHPy36G3R74Gh3OASw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cUSsEjB+E23hz6BEJoFYLGF7+rFGynzwXMi1/SR1ljJOM5acgFubhLGBYxAr8Y5Hc
-	 U9rPCO2DPsB3I2ZQEAH6Ipmqeilb0BBgQwRdFMWIVZ8mD7Z8Igd1q0oWn/ZaoPqF2N
-	 JKZ3yl7j3MBAlD0ghMPmeuzwYJX925sbOMkB8X/LS+CFe/NK+VM5NsiUM/poegS3ZW
-	 lWiq6/JUom/aHBiq6v9ajPDAzgq/5lyqPtalWgT9G2jGOWtHjivR1CT20w5XjPZtvH
-	 HnSBtAbM1se4hM9Nxpti+vJOyaEBKDbdbpWWYk1PJLMzKxMtJ4BygiABsbWu2dQ2jq
-	 P+CfIQJm3UUQA==
-Date: Fri, 16 Oct 2026 11:27:56 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Weibin Liu <liuwb@xiaopeng.com>
-Cc: thangaraj.s@microchip.com, linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] spi: spi-pci1xxxx: quiesce DMA engines on transfer
- timeout
-Message-ID: <c16a2559-7fcc-48ba-a3b1-3e1273f6666f@sirena.org.uk>
-References: <a02880a9-f20f-45ad-b22b-c405fb7e74d0@sirena.org.uk>
- <20261016020036.1333548-1-liuwb@xiaopeng.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="WouJ4DXO"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id C0BFF1A124A;
+	Fri, 16 Oct 2026 10:30:05 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 94CD36075D;
+	Fri, 16 Oct 2026 10:30:05 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DB69E10328113;
+	Fri, 16 Oct 2026 12:30:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792146604; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=yIWRmoxTuioRnT0BgpV9XyWpmHQpmK8B4yOZV8/ES+4=;
+	b=WouJ4DXOihUK5Knhq9ROF4byLdA2KK2rWQsC03eqnZ25Liu1GMUVzXgPEX+JzydUMRWniV
+	L8vw4ahVvfms4Ntcdr342oJDD8hzpJXtQ9I7LKFskn7S9uz2ccqQ0IUcFLB8Eh5HJ1jH5q
+	sQPQlZWJvXB1Ct6/nGIRIXleQArMx3RmOJRlb1vo8I4DBchDx919osqjUYBz918PR7Lmol
+	dmsnR6jMa4Nq2sZl+BUeO1jCetBSZTBqz6d+cBzxFExiwsSTNelzUlSFUQTY4o3oLkE+NG
+	zRPgkc+og3fIB+GLPnAgE5y9+8QBJntx1ZaFxHhgLfeqjSFaq3fO5yb8IqotLA==
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: Pratyush Yadav <pratyush@kernel.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: Kees Cook <kees@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	"Guilherme G . Piccoli" <gpiccoli@igalia.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-spi@vger.kernel.org,
+	Bharat Bhushan <bbhushan2@marvell.com>,
+	Sunil Kovvuri Goutham <sgoutham@marvell.com>,
+	Tanmay Jagdale <tanmay@marvell.com>,
+	stable@vger.kernel.org,
+	Paul Cercueil <paul.cercueil@bootlin.com>
+Subject: [PATCH v4 4/7] spi: cadence-xspi: Clear "SDMA ready" IRQ flag after polling
+Date: Fri, 16 Oct 2026 12:29:14 +0200
+Message-ID: <20261016102917.171095-5-paul.cercueil@bootlin.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261016102917.171095-1-paul.cercueil@bootlin.com>
+References: <20261016102917.171095-1-paul.cercueil@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="C1mMnbE9vl43J2N5"
-Content-Disposition: inline
-In-Reply-To: <20261016020036.1333548-1-liuwb@xiaopeng.com>
-X-Cookie: <<<<< EVACUATION ROUTE <<<<<
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+From: Tanmay Jagdale <tanmay@marvell.com>
 
---C1mMnbE9vl43J2N5
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+When polling for the "SDMA ready" event, once the corresponding bit is
+set in the CDNS_XSPI_SDMA_TRIGGER we should reset it to zero. Otherwise,
+any subsequent call to cdns_xspi_is_sdma_ready() will just return early.
 
-On Fri, Oct 16, 2026 at 10:00:36AM +0800, Weibin Liu wrote:
-> If a DMA-mapped transfer times out waiting for DMA_TERM and neither DMA
-> abort interrupt arrived, pci1xxxx_spi_transfer_with_dma() returns
-> through the error label while both DMA engines are still enabled, the
-> done/abort interrupt status is still armed and the transfer state
-> (p->xfer, p->tx_sgl, p->rx_sgl) is still registered.
+Fixes: 931e389ded0f ("spi: cadence: Add Marvell xfer operation support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tanmay Jagdale <tanmay@marvell.com>
+Co-developed-by: Paul Cercueil <paul.cercueil@bootlin.com>
+Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
+---
 
-Please don't send new patches in reply to old patches or serieses, this
-makes it harder for both people and tools to understand what is going
-on - it can bury things in mailboxes and make it difficult to keep track
-of what current patches are, both for the new patches and the old ones.
+Notes:
+    v2: New patch
+    
+    v3-v4: No change
 
---C1mMnbE9vl43J2N5
-Content-Type: application/pgp-signature; name="signature.asc"
+ drivers/spi/spi-cadence-xspi.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xspi.c
+index 39c868a5b171..095bf640b379 100644
+--- a/drivers/spi/spi-cadence-xspi.c
++++ b/drivers/spi/spi-cadence-xspi.c
+@@ -1068,12 +1068,20 @@ static bool cdns_xspi_is_sdma_ready(struct cdns_xspi_dev *cdns_xspi, bool sleep)
+ {
+ 	u32 ctrl_stat;
+ 
+-	return !readl_relaxed_poll_timeout
+-		(cdns_xspi->iobase + CDNS_XSPI_INTR_STATUS_REG,
+-		ctrl_stat,
+-		(ctrl_stat & CDNS_XSPI_SDMA_TRIGGER),
+-		sleep ? MRVL_XSPI_POLL_DELAY_US : 0,
+-		sleep ? MRVL_XSPI_POLL_TIMEOUT_US : 0);
++	if (readl_relaxed_poll_timeout
++	    (cdns_xspi->iobase + CDNS_XSPI_INTR_STATUS_REG,
++	     ctrl_stat,
++	     (ctrl_stat & CDNS_XSPI_SDMA_TRIGGER),
++	     sleep ? MRVL_XSPI_POLL_DELAY_US : 0,
++	     sleep ? MRVL_XSPI_POLL_TIMEOUT_US : 0)) {
++		return false;
++	}
++
++	/* Clear the flag */
++	writel(CDNS_XSPI_SDMA_TRIGGER,
++	       cdns_xspi->iobase + CDNS_XSPI_INTR_STATUS_REG);
++
++	return true;
+ }
+ 
+ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
+-- 
+2.47.3
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrR/CsACgkQJNaLcl1U
-h9DbFQf9HQTODZj2F1BAfEjNyDgAhTr+T1RqJ/j8y6sNWOy5nNkSZDpvxdsOj/gC
-2eXdK2HVMC1IBX0LFWguyuVQKPy3mRVbQnNjmyCAkiFhosRJxIJ+Zx+/YL+vj2H8
-PkT54dYqfFNhaB+KAYdWDj3jAm/iq++NfgJ/SQNnZ2g42ym4iWa0fGfPyOwAjnKj
-76akhk+2MByEtjtubsLmgcJsN6kNK/j9+e4hhAwX0ujt05GdQBx+4NW3kpwnvWg6
-psg0G1Np1Bp5lUHxFq189OAAszdknZoHaITJmgZCAaco25xoyYJYGVgnXkZiE4av
-XadeFk1nRK24a1oQ5YdT4if/15k63g==
-=KJZa
------END PGP SIGNATURE-----
-
---C1mMnbE9vl43J2N5--
