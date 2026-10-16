@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB9A64DDB5D;
-	Fri, 16 Oct 2026 13:32:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42E3F4D90A8;
+	Fri, 16 Oct 2026 13:32:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792157567; cv=none; b=MuguDngkLf//YbhD3M3mWcaFWJ+OTWRDzsIcNMZ67ky7nlhPQvvRSrK179MVVl/nY9wufJUzUS0MVAHbW2UMFCXoVEGJ81+d1ogCyEvwfLvAaCUZLccMuIBjUrm8SgiIc+QSpsGZAjHqlysrw4nL96uLp/+s1QzbQJo6+t9hlEo=
+	t=1792157567; cv=none; b=U6o8xMWUFocUFWk28eD9i37GNurM2tb7A3GrWADOplL9ANXBWkY8cGccE4swgteWc97Sq9HEvaYPZP86SVBv1h5oRvGRCjbe9mjl4a2kpIcpLbTPaHDN6thwjBdnsAgcQIDLHJwpR/j6VMcxKbKbpdfGObrkPOwp+0cW5RpOGC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792157567; c=relaxed/simple;
-	bh=IX6H8arMlYubY/lS89ufiC7y/RqcLUMFhlz3ioSxX8Q=;
+	bh=hGqodRoGCI5YE+oT4vhLHnafio1aXirR+ORfsDJ48tU=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=Y/HYPTWCcGOANI16n1nldc3iNt25suBfF93xXLKZ3nReBU4gMteWBji7JCtvh5RahKCojHwvwRGUDxw01/jpXDDJf0HBHh8Ds8DpksxqPLzxUj16f98W18pAcfsTQp6czT/XZ1CV6i4JWTtur9ZhlS5cgJXZNiIliuC0dbESb3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cpvecSfy; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=GPpmAzZI+hkKU+iVVLgh8iDPiVhGOL2dPjDZ3GeGk0dq6676sEQrtC3dWeN2uIHvv8FvMEs5gj+eNAi2PSQoUojPP55NKuQu7ETxslA9Qq+bFizFTC1sjijomks3R4hqQV7TXzlI4QYMOIm4qTjtWW454T//g5Fx/6ALjnZgWC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WJAH01C1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cpvecSfy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 893091F000C6;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WJAH01C1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1B181F000C5;
 	Fri, 16 Oct 2026 13:32:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792157565;
-	bh=D5xTKdNA3CQIHjqgOAUhRXvpc0K+S7w4M//wDUxIodY=;
+	s=k20260515; t=1792157566;
+	bh=W+C171zRxj+umQS5nKNAEPQiGxGvZ6J+WQhyegwQ3sE=;
 	h=Date:From:To:Cc:Subject:References;
-	b=cpvecSfyAn20+W23rc0NSNYxTcvp3PyyStXuM7bPRfVxzcDxvrDgTRHU+3dtNp+6w
-	 SyzV40EA8XleH7hbO7bSdGgbxnvqN9jKhs4f9e8UDOi6K0071pU8fKp5EFF6gdJie0
-	 bYLfNmIWHr8W80moeblPMRSRQ37WNSdhRIzsiHHCkZghDXQ8oRB9eOcucsvTPn7QtA
-	 xn3oRtRToyMSLdROyw8psNpsW55XvMmR6971JqHsqmglxyIjP1/NiiuvJGbuhtlrw2
-	 3JDHmyDk/EojDw8Pv5CMNaP2SnALsafVoJfqVnhMxXIcvGKNmfCRseMSGRHhQuZTi1
-	 z7AvxL34hcLPA==
+	b=WJAH01C1sGUu72JSkhRI0UsnTyssQgcGKQ+/l8PDtiaJvGNuF1NaW7Ak2MYhAfhOt
+	 sWvrI2SEkOQHB6cmL6BfCAkbPuKObBP0917/gSYNhPxiosGDfHd8qpzBtMVWiIkUoQ
+	 tjMpgMB524iy4RMb0ly2nCL5QV0VgsmPFyj+u0eahUjL9hntNQGTDHNCIqm7i90XSh
+	 kivYv0fYfk8dlN4RFvUbDXpvkibvvKKQMZDIwKA6PpotQR313g6G8sFuwvlW5slN3S
+	 CJuGuABEYTkfbrWX7MfFLUaSoPI/rm03Ya7zvrZQk1j08nH8oefkvsbdjsSrldJWno
+	 JFSOlN/31ZbWg==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
 	(envelope-from <rostedt@kernel.org>)
-	id 1xHi3A-00000000WUS-3PQB;
-	Fri, 16 Oct 2026 09:32:44 -0400
-Message-ID: <20261016133244.620040185@kernel.org>
+	id 1xHi3B-00000000WVY-10St;
+	Fri, 16 Oct 2026 09:32:45 -0400
+Message-ID: <20261016133245.046502357@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 16 Oct 2026 09:32:19 -0400
+Date: Fri, 16 Oct 2026 09:32:21 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -40,8 +40,8 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
- Hao Ge <hao.ge@linux.dev>
-Subject: [for-linus][PATCH 1/3] tracing: Fix crash in print_graph_function_event()
+ Taeyang Lee <0wn@theori.io>
+Subject: [for-linus][PATCH 3/3] tracing: Check operator stack capacity before pushing
 References: <20261016133218.800011513@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -51,104 +51,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Hao Ge <hao.ge@linux.dev>
+From: Taeyang Lee <0wn@theori.io>
 
-tracing_set_tracer() assigns the flags of the newly selected tracer
-with:
+predicate_parse() uses the first operator stack entry before processing
+any opening parentheses. A push then increments top before writing.
+The existing check still permits that write when top already points to
+the last allocated entry, which can access beyond the operator stack.
 
-	tr->current_trace_flags = t->flags ? : t->tracer->flags;
-
-If the new tracer defines neither static flags nor default flags, like
-hwlat, irqsoff or wakeup, add_tracer() has no per instance flags copy
-for it, and both operands are NULL, so tr->current_trace_flags ends up
-being NULL as well.
-
-The ring buffer is not cleared when switching tracers: it is reset
-inside tracer_init(), after current_trace_flags was already assigned.
-If the buffer still holds function_graph entries of the previous
-tracer, printing one of them dereferences the NULL pointer. This was
-hit by cat trace during an ftrace stress test:
-
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  #PF: supervisor read access in kernel mode
-  RIP: 0010:print_graph_function_event+0xe/0x20
-  Call Trace:
-   s_show+0x4d/0x110
-   seq_read_iter+0x2d4/0x490
-   seq_read+0x130/0x170
-   vfs_read+0xb5/0x370
-   ksys_read+0x6d/0xe0
-   do_syscall_64+0xbc/0x450
-
-The snapshot buffer is not reset at all, so this can be reproduced
-without a race:
-
-  echo function_graph > /sys/kernel/tracing/current_tracer
-  echo 1 > /sys/kernel/tracing/snapshot
-  echo hwlat > /sys/kernel/tracing/current_tracer
-  cat /sys/kernel/tracing/snapshot
-
-Rather than teaching every user of tr->current_trace_flags about this
-corner case, make sure it is never NULL: when the newly selected
-tracer has no flags at all, tracing_set_tracer() falls back to a
-static empty no_tracer_flags. run_tracer_selftest() can hit the same
-case, so the same fallback is added there too. The existing users
-already handle opts == NULL, so these tracers keep behaving as before.
+Reject the push when top reaches the last allocated entry.
 
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261015130658.221198-1-hao.ge@linux.dev
-Fixes: e29aa918a928 ("tracing: Have function graph tracer define options per instance")
-Suggested-by: Steven Rostedt <rostedt@goodmis.org>
-Signed-off-by: Hao Ge <hao.ge@linux.dev>
+Fixes: 39f7c41c908b ("tracing/filters: Enable filtering a cpumask field by another cpumask")
+Link: https://patch.msgid.link/atELO9L0I9kg5CpC@Taeyangs-MacBook-Pro.local
+Signed-off-by: Taeyang Lee <0wn@theori.io>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+ kernel/trace/trace_events_filter.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index 3b22e70c6016..97a058623f94 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -99,6 +99,12 @@ struct tracers {
- 	struct tracer_flags	*flags;
- };
+diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
+index 781416ba6bdf..127880ebe83f 100644
+--- a/kernel/trace/trace_events_filter.c
++++ b/kernel/trace/trace_events_filter.c
+@@ -511,7 +511,7 @@ predicate_parse(const char *str, int nr_parens, int nr_preds,
  
-+/*
-+ * Tracers that do not define their own flags use these empty flags,
-+ * as tr->current_trace_flags must never be NULL.
-+ */
-+static struct tracer_flags no_tracer_flags;
-+
- /*
-  * To prevent the comm cache from being overwritten when no
-  * tracing is active, only save the comm when a trace event
-@@ -1318,7 +1324,12 @@ static int run_tracer_selftest(struct tracer *type)
- 	tracing_reset_online_cpus(&tr->array_buffer);
- 
- 	tr->current_trace = type;
--	tr->current_trace_flags = type->flags ? : type->default_flags;
-+	if (type->flags)
-+		tr->current_trace_flags = type->flags;
-+	else if (type->default_flags)
-+		tr->current_trace_flags = type->default_flags;
-+	else
-+		tr->current_trace_flags = &no_tracer_flags;
- 
- #ifdef CONFIG_TRACER_MAX_TRACE
- 	if (tracer_uses_snapshot(type)) {
-@@ -5089,7 +5100,12 @@ int tracing_set_tracer(struct trace_array *tr, const char *buf)
- 			return ret;
- 	}
- 
--	tr->current_trace_flags = t->flags ? : t->tracer->flags;
-+	if (t->flags)
-+		tr->current_trace_flags = t->flags;
-+	else if (t->tracer->flags)
-+		tr->current_trace_flags = t->tracer->flags;
-+	else
-+		tr->current_trace_flags = &no_tracer_flags;
- 
- 	if (trace->init) {
- 		ret = tracer_init(trace, tr);
+ 		switch (*next) {
+ 		case '(':					/* #2 */
+-			if (top - op_stack > nr_parens) {
++			if (top - op_stack >= nr_parens - 1) {
+ 				ret = -EINVAL;
+ 				goto out_free;
+ 			}
 -- 
 2.53.0
