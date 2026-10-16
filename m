@@ -1,84 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E13441DE0A;
-	Fri, 16 Oct 2026 23:40:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A969F37B01F;
+	Fri, 16 Oct 2026 23:44:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792194040; cv=none; b=Lij43iaFgYkxZsjJDs/2Jjj7/fJUlGNhqYNDpM51vrO6rOv6gvDNhbmMgpm9vIJ1qj7u5X062Bo4y1L0eSl3f5nZlbpxbp/hiMXdcq8VFCzJavigQhYvw1Wwvh8S+tRUvcUTODNMbEDLWPsgE+vM56PdjIp2lwyCykGKKuy8tHk=
+	t=1792194280; cv=none; b=ZMjdbKd244pYDgHvnlmuUvW1nEJRKhFH5zKMI8lI6ne66iaTKENjmqs7wqbOKwXF0TrHa2SgsBKb5yk97W3+itidb3PfTTGvFz38xj/Q+EWqENRVrPymJVKpFHvZjs6HwRwSbiRUI3h/WFBYFGyrwSXa9HkAeqd+n/iMUnqXL/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792194040; c=relaxed/simple;
-	bh=s0iunntDN0XEq2X9Nv4lZuldL3wNpmLyYQqgLUfAlU0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d8dr3tbtBFb1x7eeavO+krkXPOLa8s/70LbbeVAa8XnyjCGrUV4N7FoIR3DznvT9eAk3mJebo/m9+5BkuHY3ZfaKk7wqDg3EtzquW+bVV0mL+Bk5YaPruepT3aU9M65MfVQppNJguhFdGINEARGD5u/SLr/KTdGp49/56mqLsaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CTLKjrPl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792194280; c=relaxed/simple;
+	bh=5VCwJfE4Z/P9x23klDvOwkAvTc0A6r6We9QB5Bn+eqg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cpVRzQ9xjVl69M1FPeKz/X9ILkknVMZ6ewuo4P5mDSGS1ifChdf/tmk5VkO6iAVuZ//RrZhuuZeE17mURO5ffz1mYZv2Lw+6uzk7r0tyNSjUKGeCuOvX6oGWI8jrI/itFCKqrMBAt1Yb9Bf/AcLhzVvmdov/SxxaohmwR+TdVJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lMw0PVOe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CTLKjrPl"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 2BCDA1F000C4;
-	Fri, 16 Oct 2026 23:40:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lMw0PVOe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1E9E1F000C4;
+	Fri, 16 Oct 2026 23:44:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792194038;
-	bh=tDHuuTvJquMWwJ2tkqi+ArsBHnlPtm/XZaOoe9H1IcM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CTLKjrPlWRQyy+kNSUUqEyfVPUsB6aGQXPy1coQsGu2uRe4wnFBQk8mTg9jSnIGK8
-	 Qf6AS8+sF7G3LDFx5VY1sGLT2x3ZWvlfg6IKo48+POWv/qWiRAPRP2almoynukLQ1O
-	 B77+sI/aMlKKanxunEYqma89zbJGl4cLUDxkbpoCmRu569AAbtMOCTorkKpMYqlS7L
-	 pe7eov2QZUhBu/cYSQ6hdtB9Kepgyu4mk3d6Yk/q6NuVbQNCJwBFwvZ2YRucBQ1fVj
-	 3SdSehcGRSBLU8tAZoQ2mS9NEQdOJJ5DYP2vhrHDCTiP9Xl0yOb3p3IPak5kk2xE3m
-	 68KBoxNHyXxLg==
-Date: Sat, 17 Oct 2026 02:40:35 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Daehyeon Ko <4ncienth@gmail.com>
-Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E . Hallyn" <serge@hallyn.com>,
-	"Jason A . Donenfeld" <Jason@zx2c4.com>, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] keys: big_key: Reserve the final quota before destroying
- the payload
-Message-ID: <atK186hMPBhYyPCN@kernel.org>
-References: <20261016040004.324286-1-4ncienth@gmail.com>
- <atK0MnGM2h9IH6FD@kernel.org>
+	s=k20260515; t=1792194279;
+	bh=5VCwJfE4Z/P9x23klDvOwkAvTc0A6r6We9QB5Bn+eqg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=lMw0PVOeK8HtNUkVEqJ0JVSxC+8ZXyibSi6zKJWE2EOtw/qy/D9gkRJ0GDdGEtrih
+	 QtHD9JBNbWWUBQ0VsT86MqXHLRlhpiUA5u88311aPdXyYLWri2R60Lpdrrcm9ovQKC
+	 t1WK/y7z1R8GGyGK7jUsCncaFY7De/TqPo4shFwZh6ImJAxELGDW+pYlKMfDs0ddUr
+	 h/ISGHO5Z7OROetmqhcuSs6sa8nLWT/P+upPhoxCwV/1fN+fDqWYfX2Bw6a2G7wVUz
+	 BUFUk6LpRv2fy5w0dYTEP21VUIdbBxEpV0i8cRa/0YZqZqTXlz4XHaDXeanQxRFy/e
+	 C3kWmWFVAsprQ==
+Date: Fri, 16 Oct 2026 16:44:38 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Joe Damato <joe@dama.to>
+Cc: Michael Chan <michael.chan@broadcom.com>, netdev@vger.kernel.org, Pavan
+ Chebbi <pavan.chebbi@broadcom.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ edumazet@google.com, horms@kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH net 2/2] bnxt_en: Pad short SW USO segments to
+ BNXT_MIN_PKT_SIZE
+Message-ID: <20261016164438.36b334d6@kernel.org>
+In-Reply-To: <aslESokQPvYCWarH@devvm20253.cco0.facebook.com>
+References: <20261008191114.3736826-1-joe@dama.to>
+	<20261008191114.3736826-3-joe@dama.to>
+	<CACKFLikWkH6QaOG=EO_zu8cqCFRxGqtA2-+R-btp0TwUbJjVBg@mail.gmail.com>
+	<asklVFvUJx8P/k1d@devvm20253.cco0.facebook.com>
+	<CACKFLiksRwZm+Zy74G_u59yEpY5BK+xRv=r6f9Wpo6WgT_TwDQ@mail.gmail.com>
+	<aslESokQPvYCWarH@devvm20253.cco0.facebook.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atK0MnGM2h9IH6FD@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sat, Oct 17, 2026 at 02:33:10AM +0300, Jarkko Sakkinen wrote:
-> On Fri, Oct 16, 2026 at 01:00:04PM +0900, Daehyeon Ko wrote:
-> > A big_key is charged a fixed 16 bytes of key quota, regardless of the
-> > actual payload size.  big_key_update() currently reserves the actual new
-> > payload length before destroying the old payload, while the subsequent
-> > generic_key_instantiate() reserves the fixed quota length.
-> > 
-> > For an update to a payload shorter than 16 bytes, the first reservation
-> > temporarily returns quota.  Another key operation by the same user can
-> > consume that quota before generic_key_instantiate() tries to reserve it
-> > again.  If that second reservation fails, the key remains instantiated but
-> > its old big_key payload has already been destroyed.  Reading a
-> > buffer-backed key or revoking a shmem-backed key then dereferences a NULL
-> > payload pointer.
-> 
-> Even at the risk that I'm saying something stupid, makes me
-> wonder why the call exists in big_key.c? I.e. why not remove
-> the call instead of doing what the patch does?
-> 
-> If I'm now missing something out, that's cool, just correct
-> me.
+On Fri, 9 Oct 2026 12:45:14 -0700 Joe Damato wrote:
+> I could be wrong (and if so I am happy to drop this if statement from the
+> code), but IIUC generic XDP runs from __netif_receive_skb_core() after
+> software GRO, so the packet it sees can be a GRO'd UDP packet with
+> SKB_GSO_UDP_L4 set (because maybe the socket had UDP_GRO set?).
 
-So the way I see it this patch has the right bug and a wrong fix.
-
-I.e. if you still want to move forward with this fix, explain
-why two repeated calls are still a necessity. Then we can ensure
-that the fix addressing the root cause.
-
-Alternatively rewrite the patch so that it makes the call path have
-only a single call site for key_payload_reserve().
-
-Br. Jarkko
+FWIW indeed, generic XDP may see GRO'd packets today, but that's a hole
+that should be plugged. Real XDP can't deal with super-frames neither
+should the SW mistake^w I mean emulation. I started sending some patches
+a couple of weeks ago to plug up the holes but got bogged down in the
+bonding interactions :/
