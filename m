@@ -1,125 +1,98 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEFE744AB68;
-	Fri, 16 Oct 2026 10:19:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A864346A5E2;
+	Fri, 16 Oct 2026 10:21:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792145992; cv=none; b=H3WYVtX4D8+d3SHxg46uD7NwAQ7Mcc5L9GbRUHyMDF+Vz61Ui22GzD+UZOnVtKgzN7ndQsdTsizw5rxve4KeAyAxZmLTnX8tqcyxxFbUeS1fOfwLPak9Now1VQGl4ph4i0SYWsqrwQxWLoaMYnJJTvIj94A8WRn7j0O1l9HjCC8=
+	t=1792146096; cv=none; b=im2rrLiWUTtSN4sYKBTLI3FHAZTXwgi2FLGBVvR6cemF948mU1WV32lX6MW7Jax61fvWI3jQcIoeZZLWXYeO3sOsEWMrDnvBENffak3TRzN99s+nX+b5lNcHBfDKGHkAI1RMSA8QMx5OzPZTwcdDJIZVkdm7kAiouVNsRDp65cI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792145992; c=relaxed/simple;
-	bh=mV7apZJqXyrvkEGiIS0ISDfMrDM5bR6Fa2lY+w1Z2RU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bCmWKcKI/9HhnyCKmZBEd/tN/3DjT0sNwjfSPm8mm692Oxw7ZtYWk7rfiUyNb2swPCVQFtDFVnTHisZGAjgcMcgHezrZ9CksE/q262rzruThCK2SkPzFjcY9LIsKnQGKQMBhjbPlYkjR7oSIUsV28uRahDaZvUoIki4wMtEY8B0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ry7CRrD9; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792146096; c=relaxed/simple;
+	bh=q4OwaTzadwgCTdJ9TVs0P3l712qfdWyz2bs4kl8ONis=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Lj9XCZ1Ql+jDYOR7CSCNRU5GobJIfCwvx0KyYNdM0F5wtbZCYNyNeNh51W6afxoXD/C+YktsSi/xtlIf3WEhV8mRECDSZgf9YL6Wek/A1AGbeAtpDtLo59LZEUx/l4p9ZTB6J1YSeKsa60oxUXcP+k+taYr61yqEzM2VRgnmqLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=llCEn2yZ; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ry7CRrD9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792145991; x=1823681991;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=mV7apZJqXyrvkEGiIS0ISDfMrDM5bR6Fa2lY+w1Z2RU=;
-  b=Ry7CRrD9TpQ+m7XYL6cGXe1Nos35A+mdQZesw8bnAnE9eHjkX/1U0k6L
-   fOPBJgG1mqRHQfaDL6RajyLjNH0W9C2YXCew2cDu88Dxy2mh3VH604FwG
-   au0VqKExa/G95TyvA3y9SMkR3+ba+/2ixhjgdTwgadRBFjK4HoKcaN2MB
-   ZLM5QQs0JksYL5qb/5hcbbjDzvitBrv0UZ5x8g2gz25fDus7OhxGTcJPk
-   Ku3dNPsMsvhzr0aAHFcp1yqWrcfgYVFsbk4ZbvNxSHvv2YFkzshV78ZvC
-   SeFMUy6EKHs0gqxwfh0sH6r23W//I0SpXn/9ta4xq1tseKI3TBz2sfUoR
-   A==;
-X-CSE-ConnectionGUID: /Jc/6u0WRF2b2buHB45Unw==
-X-CSE-MsgGUID: HmztS/E+QHmZ3YEquonuwQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="818260"
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="818260"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 03:19:51 -0700
-X-CSE-ConnectionGUID: VwgXEHenSZanZL/0PWwHRg==
-X-CSE-MsgGUID: qfMmHcJEQR6A6fktOcfTRQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="1795965"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.35])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 03:19:48 -0700
-Date: Fri, 16 Oct 2026 13:19:45 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: jean-baptiste.maneyrol@tdk.com
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="llCEn2yZ"
+Received: from localhost (gyproxy-mailtls1-entmail-virt216.gy.ntes [39.144.128.100])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 514e64cfb;
+	Fri, 16 Oct 2026 18:16:09 +0800 (GMT+08:00)
+From: guolingxing <guolingxing@tju.edu.cn>
+To: Theodore Ts'o <tytso@mit.edu>,
+	Andreas Dilger <adilger.kernel@dilger.ca>,
+	"Aneesh Kumar K . V" <aneesh.kumar@linux.vnet.ibm.com>
+Cc: Baokun Li <libaokun@linux.alibaba.com>,
+	Jan Kara <jack@suse.cz>,
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Zhang Yi <yi.zhang@huawei.com>,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	guolingxing <guolingxing@tju.edu.cn>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] iio: imu: inv_icm42600: fix parsing of all FIFO frames
- for odr change
-Message-ID: <atH6QdvvmEPzkGE2@ashevche-desk.local>
-References: <20261016-iio-imu-inv-icm42600-fix-odr-change-event-in-all-frames-v1-1-b2bb168a0551@tdk.com>
+Subject: [PATCH] ext4: record writeback error when discarding pages on failed delalloc
+Date: Fri, 16 Oct 2026 10:16:05 +0000
+Message-Id: <20261016101605.4039217-1-guolingxing@tju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016-iio-imu-inv-icm42600-fix-odr-change-event-in-all-frames-v1-1-b2bb168a0551@tdk.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa14436451b03a2kunm6f703c5baa467
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGktIVkhMGh8fTU1KGEhPH1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlIQlVKT09VSklDVUpLS1lXWRYaDxIVHRRZQVlPS0hVSktISk
+	xMSVVKS0tVSkJLS1kG
+DKIM-Signature: a=rsa-sha256;
+	b=llCEn2yZY/bNmfx1ZaT0CHDxDWlRsRG2EQCH7LRgdxkTdb1qKKk9tthJyIVW/sHJiVpzFGBrW8MOWENs/AhjEzxpSjaDbAY1i/bwI+82usY8ET+W/aOglDBtCt9j6WaUahAGaofqK3rNuOScanh+b1H4BAIZzcWxe9LW3r1Z+rU=; s=default; c=relaxed/relaxed; d=tju.edu.cn; v=1;
+	bh=DOLiDaA5ZGjG1eytvPuyuGBa6K7mUgIux4GKB6ue1nM=;
+	h=date:mime-version:subject:message-id:from;
 
-On Fri, Oct 16, 2026 at 11:28:10AM +0200, Jean-Baptiste Maneyrol via B4 Relay wrote:
+When mpage_map_and_submit_extent() gives up on a failed block mapping,
+it sets give_up_on_write so that mpage_release_unused_pages() discards
+the remaining dirty folios. However, the error is not recorded in the
+mapping's writeback error state.
 
-> For getting all odr change events, we need to parse all FIFO frames
-> in each iio device. Fix this correctly by sending effectively all
-> frames to all iio devices.
-> 
-> Previously only batches of frames containing a matching sensor event
-> were sent to the corresponding iio device.
+If this happens during background writeback, a later fsync() may
+report success even though the dirty data was discarded and never
+written. Returning the error from ext4_writepages() is not sufficient
+to notify a later fsync(). In addition, ext4_do_writepages() may clear
+-ENOSPC when committing the journal and retrying, even after the
+affected dirty folios have been discarded.
 
-...
+Call mapping_set_error() when deciding to give up on the write,
+before the dirty folios are invalidated, so that fsync() can report
+the writeback failure through the mapping's error state.
 
-> -		ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
-> -		if (ret)
-> -			return ret;
->  	}
+Fixes: c4a0c46ec92c ("ext4: invalidate pages if delalloc block allocation fails.")
+Cc: stable@vger.kernel.org
+Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+---
+ fs/ext4/inode.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-+ Blank line.
-
-> +	ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
-> +	if (ret)
-> +		return ret;
->  
->  	/* handle accelerometer timestamp and FIFO data parsing */
->  	if (st->fifo.nb.accel > 0) {
->  		ts = &accel_st->ts;
->  		inv_sensors_timestamp_interrupt(ts, st->fifo.watermark.eff_accel,
->  						st->timestamp.accel);
-> -		ret = inv_icm42600_accel_parse_fifo(st->indio_accel);
-> -		if (ret)
-> -			return ret;
->  	}
-
-+ blank line.
-
-> +	ret = inv_icm42600_accel_parse_fifo(st->indio_accel);
-> +	if (ret)
-> +		return ret;
->  
->  	return 0;
->  }
-
-	return inv_icm42600_accel_parse_fifo(st->indio_accel);
-
-?
-
-...
-
-Similar comments to the inv_icm42600_buffer_hwfifo_flush() changes.
-
+diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+index 26f0f9714f03..dba903d188e2 100644
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -2505,6 +2505,12 @@ static int mpage_map_and_submit_extent(handle_t *handle,
+ 				ext4_print_free_blocks(inode);
+ 		invalidate_dirty_pages:
+ 			*give_up_on_write = true;
++			/*
++			 * Record the error so that a subsequent fsync()
++			 * / errseq check can observe the data loss that
++			 * discarding these dirty pages implies.
++			 */
++			mapping_set_error(inode->i_mapping, err);
+ 			return err;
+ 		}
+ 		progress = 1;
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.34.1
 
