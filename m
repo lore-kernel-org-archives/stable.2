@@ -1,149 +1,188 @@
-Received: from mx1.zhaoxin.com (MX1.ZHAOXIN.COM [210.0.225.12])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DDA66223336;
-	Fri, 16 Oct 2026 03:45:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.0.225.12
+Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 349B43B811F
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 03:45:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792122316; cv=none; b=H0gWVWqBoT/gm8E8hpVPqVvMHdaseS5vPF3v705zgSGoPM/iZPQQ3DpG43bWHplmy0HEwvRPAl/jgLumpLw9V5B/BzLwue/W4HuKJH8cIzJpy1XIIiO+2Xy5Mos8ilaJVG0Uki3DQlCJcVCceUzcayTyTqY1ux1PWBr3EhVHbpY=
+	t=1792122349; cv=none; b=A6jyOt0dVrQq+AuDzrS3Q4MTkoSSVWPX/5P18thdHfseiGcNInomYUh3jXX2G7S3rPXWmOaHNlTMmd+FH96tE6E1+BBf0OJlzkOgbf5JW8RtHrbvq2AqY0PHU2absxaV0mYIrDMSA0GbCgiSfTsWoKoplFpEckGaHksgLnLwJfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792122316; c=relaxed/simple;
-	bh=DTPI8cTkKJkMRR3tgCCU1MkTp3aWiFtYFgB2neHV2YU=;
-	h=From:Message-ID:Date:MIME-Version:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=UX4s53W42jAAYYp03CAe9FsTKRqzeEjmLjEx7LhhIeXvr1aOSZlz8UCmzsVhxdJxmqO+/6omuNMjxAJvc2XVLihg+RSisd5EiCY+I4n/GCHn+HysjjI/7pmRAx67nN3Uz3o2zDcEQvPrllHt6gXuRCAUcihQg1N01bvm31H2fEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com; spf=pass smtp.mailfrom=zhaoxin.com; arc=none smtp.client-ip=210.0.225.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zhaoxin.com
-Received: from zhaoxin.com (unknown [127.0.0.1])
-	by mx1.zhaoxin.com (MTA) with ESMTP id 4j5VwF1y1Xzb0pbD;
-	Fri, 16 Oct 2026 11:36:13 +0800 (CST)
-Received: from zhaoxin.com (unknown [10.28.140.201])
-	by mx1.zhaoxin.com (MTA) with ESMTP id 4j5VwC581Nzb0pbf;
-	Fri, 16 Oct 2026 11:36:11 +0800 (CST)
-Received: from [10.29.8.50] ([10.29.8.50] [10.29.8.50])
-	by zhaoxin.com (8.30) with ESMTP0264a61b2a04fa418478202609a85106
-	Fri, 16 Oct 2026 11:36:11 +0800
-X-Eyou-Smtpauth: weitaowang-oc@zhaoxin.com
-X-Eyou-EnvelopeSender: weitaowang-oc@zhaoxin.com
-X-Eyou-From: zhaoxinweitaowangoc <weitaowang-oc@zhaoxin.com>
-From: "=?UTF-8?B?V2VpdGFvV2FuZy1vYw==?=" <weitaowang-oc@zhaoxin.com>
-Message-ID: <316900d3-2ce8-4391-ad8f-556bb5540c2a@zhaoxin.com>
-Date: Fri, 16 Oct 2026 11:36:10 +0800
+	s=arc-20240116; t=1792122349; c=relaxed/simple;
+	bh=u5IrG70TsMGR0TeAkFBFLu/8wLCeYLQpP87CO9uxKJI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BnXF7Vm3+B1bcV7e4bDdB0QRY2tJUoz3CCPi//CWEFxUszk0dRoAj1hPGzylhQ2loiikfD6Hq737ViztnlBuOadwMxkZpA5GkoMBApl7wtKXxKLwcl1bM54KMQgzPPdhMGWk9M0ZSgwjqZXHuKMlXvH3+5XYDSEehq/EEt5YrQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BcEHJUJB; arc=none smtp.client-ip=74.125.229.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BcEHJUJB"
+Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-35de2661992so1537106eec.1
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 20:45:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792122346; x=1792727146; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R0y1dJ5AAiyMzBzdNY5zHpT5jRGPheygtScQcJ1Wvm4=;
+        b=BcEHJUJBpTvCLUk0LorQH908hXs8m6PjWOWm/atEATkkge6DfOHh/us4bS5xaAS39h
+         n9bUwYCev7dEFz1yT291t9/fgDK4Q0Aag8SmlLL/Y7dhhHGAnIVmPPFOYUqB/AAFWPwE
+         g+lRK9v7haGDdUGbB2ScdgL5Hv4Mh8fmQwTB/LctU7TZLuzJlpyPA/xn0evV14vvvGL3
+         +i/8voxh7oLxOkcsVWDgpsCeEpjewMWgvhS6odwP95Cjlxr5n6nKriiCqcdrv84orx2m
+         7r+zmUzOuqZFjcQ9HJ6x14A4dTQEqLPzz0DuUuzPZvtfQlhb2U40k0P/Zq9aqb7JfdYx
+         Oksw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792122346; x=1792727146;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R0y1dJ5AAiyMzBzdNY5zHpT5jRGPheygtScQcJ1Wvm4=;
+        b=Z/de5kcHiVkQ/m/fpa4pr8LlzpppM7Vjo/wfDSjigZsoqXq2/howpv3Xiweo5tYwQT
+         ZWZFcuolZCinrUkvFng7hzQR5crXOW1LFUyUfT5aFLRSOJRqaD3HBXG/d3g/uN4W9dPe
+         9ukQA0iGy/E1tTZ9QNFs9Xa4bNnxUTXHSzx3gf1R+udu/4F2jfRxOeypHzvczivbHhrK
+         BFI93PDetXIdhCED1IJDByBNPEqFgVCJlotaGwbLTP9q7abSjLpQD61rwFHBEsCzOEbj
+         U5hi2A8wWIG1GPUfLZLTZI1cGFG6Cxpbmf1FFPRZy61xk9mPKew+T7ew43PRK10uO+cc
+         360A==
+X-Forwarded-Encrypted: i=1; AKwUvBx9zE+ORO5ap+kZK76kggArnoM1AuN/FY15dSEjIHFv+lkfWx3aMhEE6hl06PxrVFwwWDEEsk4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI1WM2SGESlb5JT66tAI6cR1K+zaLwrrBEUI7s0hjm12Hb9/euG
+	KY/GaaUKfx0O6a1S4dM1SYdzb6+95rzbU6zekWdH3C4MuFO2YCfbQZCxlR4DDe+68bAWgbk/RMI
+	=
+X-Gm-Gg: AYBFou1uN/ntjgH3QuMdFDIj1B09msRaXoHWHW7cQFOiW+lwHueyx23ZJug3htdeRjN
+	cYChqygrnrRpyAwC59vWsmxqLlSIn1WGOqANpfU3z63TbIc6ooNRA3fqQYOeDMxv9+NsS+XOrlA
+	gHpWBd7oSnPidDl7o0qiZCsgZfmZPJgXhHBk0qzruemRVdS1J8Tecuqdv1NYqQlPg15M1XhQWki
+	09cG9buGuXNlGx9Z9ZblZh4r9ORSnDKnnKVVfGgV06y49qOhmGHWPxIdxsIQwPrlXoTYpR1tZFy
+	Yze4UvBKpQFUBtOl9kSthX117yhVY+w4eItYhajE5n9wAD4r3LYbeX1S/WhXXkYTnFCoA3tf6x4
+	zmAccAuqohcER0yqFKsk15y8iQklhofcdOY3vRR+KCLlmr1wH5j2ySOIUwdL2eeiflRHjxhWYah
+	M0Vwd9fAYINymNuzGzhkVgqxvVGsYZpGMMjQf52YEk++uIinK56LyumZ7GVJ6aISSeqz3mIOXwx
+	L0EBKWjfe/ooiTNA+xhiArKA9vYzK+gj/LCpko=
+X-Received: by 2002:a05:7300:c8cb:b0:35f:f4c3:6403 with SMTP id 5a478bee46e88-35ff4d2b879mr3439491eec.36.1792122346157;
+        Thu, 15 Oct 2026 20:45:46 -0700 (PDT)
+Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com. [104.194.64.109])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608297f4f7sm2434229eec.23.2026.10.15.20.45.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 20:45:45 -0700 (PDT)
+From: Yao Yiqi <yyaqia@gmail.com>
+X-Google-Original-From: Yao Yiqi <yaoyiqi3@huawei.com>
+To: deller@gmx.de,
+	tzimmermann@suse.de,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
+	linux-fbdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	yaoyiqi3@huawei.com,
+	Yao Yiqi <yyaqia@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/3] fbcon: Include font geometry in the rotated font cache
+Date: Fri, 16 Oct 2026 11:45:31 +0800
+Message-ID: <20261016034533.445862-2-yaoyiqi3@huawei.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261016034533.445862-1-yaoyiqi3@huawei.com>
+References: <20261016034533.445862-1-yaoyiqi3@huawei.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: =?UTF-8?B?UmU6IFvmraTkuLrlpJbpg6jpgq7ku7Yg6LCo6Ziy6aOO6ZmpXSBSZTog?=
- =?UTF-8?Q?=5BPATCH=5D_x86/apic/msi=3A_Fix_MSI_interrupt_affinity_configurat?=
- =?UTF-8?Q?ion?=
-To: Thomas Gleixner <tglx@linutronix.de>, Koichiro Den <den@valinux.co.jp>
-Cc: mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
- x86@kernel.org, hpa@zytor.com, linux-kernel@vger.kernel.org,
- WeitaoWang@zhaoxin.com, wwt8723@163.com, CobeChen@zhaoxin.com,
- stable@vger.kernel.org
-References: <20260928164839.6381-1-WeitaoWang-oc@zhaoxin.com>
- <6mg2eqdehsmb5fh6hf7icsha2547xfdfvulnycawiit2czhhmh@6bbmicaoz2zd>
- <87jynid352.ffs@fw13>
-Content-Language: en-US
-In-Reply-To: <87jynid352.ffs@fw13>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Eyou-Sender: <weitaowang-oc@zhaoxin.com>
+Content-Transfer-Encoding: 8bit
 
-On 10/16/26 06:12, Thomas Gleixner wrote:
-> On Wed, Sep 30 2026 at 01:29, Koichiro Den wrote:
->> On Tue, Sep 29, 2026 at 12:48:39AM +0800, WeitaoWang-oc wrote:
->>> commit b56ebe7c896d ("x86/apic/msi: Fix misconfigured non-maskable MSI
->>> quirk") try to fix the issue of misconfigured non-maskable MSI quirk.
->>> For non-maskable MSI interrupts, use the slow path to fix the MSI affinity
->>> race. Maskable MSI interrupts use the direct path to update configuration
->>> info. However, the current code logic is the opposite as only maskable
->>> MSI interrupts will enable reservation mode.
-> 
-> Please read:
-> 
->    https://docs.kernel.org/process/maintainer-tip.html#changelog
-> 
-> and restructure and reword the changelog accordingly. The above is
-> incomprehensible word salad.
+From: Yao Yiqi <yyaqia@gmail.com>
 
-Hi Thomas,
+From: Yao Yiqi <yaoyiqi3@huawei.com>
 
-Thank you for the suggestions. I realize the problem description in my
-previous patch needed to be more precise. Before posting v3, I have
-updated the change log as shown below. Could you please take a look?
-If this looks good to you, I will send out the next version.
+fbcon_rotate_font() caches a rotated copy of the console font in
+par->rotated.buf and skips the rebuild when the cache appears to be
+up to date. The cache is keyed on the source font's data pointer and
+the rotation alone, on the assumption that an unchanged fontdata
+pointer implies an unchanged font.
 
-From: Weitao Wang <WeitaoWang-oc@zhaoxin.com>
-Subject: [PATCH v3] x86/apic/msi: Fix MSI interrupt affinity configuration
+That assumption does not hold. Raw font data (font_data_t) stores no
+glyph geometry; width, height and charcount are tracked separately in
+vc->vc_font. When a font is uploaded, fbcon_set_font() deduplicates
+it against the fonts of all consoles with font_data_is_equal(), which
+compares only the byte count, the checksum and the raw bytes. Two
+uploads of the same data that declare different dimensions therefore
+end up sharing one font_data_t, and a console can install a new
+geometry while its fontdata pointer stays the same.
 
-The two step update sequence in msi_set_affinity() is required for MSI
-interrupts which cannot be migrated atomically, i.e. devices which do not
-provide MSI masking. The MSI message update writes address and data
-registers separately, so such a device can raise an interrupt in between,
-which results in a message built from half updated state: A stray
-interrupt on a stale vector and a possibly lost device interrupt.
+The early-out in fbcon_rotate_font() then skips the rebuild, and the
+rotated blitting routines index the stale buffer with cell sizes
+computed from the new geometry:
 
-The update sequence is selected by a per interrupt quirk flag, which is
-set for interrupts which cannot use reservation mode. Reservation mode is
-only enabled for maskable interrupts, i.e. devices which provide MSI-X or
-mask support, so the quirk flag is the inverse of the reservation mode
-bit.
+	src = par->rotated.buf + (scr_readw(s) & charmask) * cellsize;
 
-The removal of the quirk flag replaced the flag check with a reservation
-mode check, but dropped the negation of the removed condition:
+Rotation swaps a glyph's width and height, so the size of the rotated
+cell depends on pitch rounding and differs between geometries. A 4x16
+font whose 4096 bytes are re-uploaded as 16x8 on a CW-rotated console,
+for example, grows the rotated cell size from 8 to 16 bytes, and the
+largest character then reads past the end of the 2048-byte buffer that
+was built for the 4x16 geometry.
 
-       - if (!irqd_msi_nomask_quirk(irqd) || ...)
-       + if (!irqd_can_reserve(irqd) || ...)
+The key has never included the geometry. Its exposure was limited,
+but not eliminated, while the deduplication in fbcon_set_font() also
+compared the consoles' font widths and total byte counts: with the
+charcount restricted to 256 or 512, differing uploads could then only
+trade height against charcount (such as 4x18x256 against 4x9x512),
+and even those can change the rotated cell size. Commit 1e3c49aa03fb
+("lib/fonts: Compare font data for equality with font_data_is_equal()")
+dropped the width comparison, so identical bytes now share font data
+across arbitrary dimensions.
 
-As the quirk flag is the inverse of the reservation mode bit, the
-replacement inverted the condition and selects the wrong update path for
-every interrupt: Non-maskable interrupts take the direct update path
-again, which reopens the race, while maskable interrupts needlessly go
-through the two step update.
+Record the geometry that the buffer was built from and compare it in
+the early-out, so a geometry change always triggers a rebuild.
 
-Restore the original condition so that the direct update path is selected
-when reservation mode is enabled, which also matches the comment above the
-check: Direct update is possible when the MSI is maskable, which is the
-case when the reservation mode bit is set.
-
-Fixes: b56ebe7c896d ("x86/apic/msi: Fix misconfigured non-maskable MSI quirk")
-Signed-off-by: Weitao Wang <WeitaoWang-oc@zhaoxin.com>
-Reviewed-by: Koichiro Den <den@valinux.co.jp>
-Cc: <stable@vger.kernel.org> # v6.1+
+Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
 ---
-  Changes in v3:
-   - Rework the changelog as requested by Thomas:
-     https://lore.kernel.org/all/87jynid352.ffs@fw13/
+ drivers/video/fbdev/core/fbcon.h        | 9 ++++++---
+ drivers/video/fbdev/core/fbcon_rotate.c | 9 ++++++++-
+ 2 files changed, 14 insertions(+), 4 deletions(-)
 
-  Changes in v2:
-   - Change the Fixes tag to b56ebe7c896d ("x86/apic/msi: Fix misconfigured
-     Dnon-maskable MSI quirk")
-   - Update commit messages for clarity
-
-   - Link to v1: https://lore.kernel.org/all/20260928164839.6381-1-WeitaoWang-oc@zhaoxin.com/
-   - Link to v2: https://lore.kernel.org/all/20260930155213.4380-1-WeitaoWang-oc@zhaoxin.com/
-
-    arch/x86/kernel/apic/msi.c | 2 +-
-    1 file changed, 1 insertion(+), 1 deletion(-)
-
-   diff --git a/arch/x86/kernel/apic/msi.c b/arch/x86/kernel/apic/msi.c
-   index 66bc5d3e79db..da5f44a80313 100644
-   --- a/arch/x86/kernel/apic/msi.c
-   +++ b/arch/x86/kernel/apic/msi.c
-   @@ -62,7 +62,7 @@ msi_set_affinity(struct irq_data *irqd, const struct cpumask *mask, bool force)
-          * - The interrupt is not yet started up
-          * - The new destination CPU is the same as the old destination CPU
-          */
-   -     if (!irqd_can_reserve(irqd) ||
-   +     if (irqd_can_reserve(irqd) ||
-             cfg->vector == old_cfg.vector ||
-             old_cfg.vector == MANAGED_IRQ_SHUTDOWN_VECTOR ||
-             !irqd_is_started(irqd) ||
-  --
-  2.32.0
-
-Thanks
-weitao
+diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/fbcon.h
+index 407d207b14f1..bfbd70f8b1cd 100644
+--- a/drivers/video/fbdev/core/fbcon.h
++++ b/drivers/video/fbdev/core/fbcon.h
+@@ -89,10 +89,13 @@ struct fbcon_par {
+ 	char  *cursor_data;
+ #ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
+ 	struct {
+-		font_data_t *fontdata;  /* source font */
+-		u8 *buf;                /* rotated glyphs */
++		font_data_t *fontdata;       /* source font */
++		u8 *buf;                     /* rotated glyphs */
+ 		size_t bufsize;
+-		int buf_rotate;         /* rotation of buf */
++		int buf_rotate;              /* rotation of buf */
++		unsigned int buf_width;      /* geometry of source font */
++		unsigned int buf_height;
++		unsigned int buf_charcount;
+ 	} rotated;
+ #endif
+ 	u8    *cursor_src;
+diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
+index 6cdbc96eeca6..660a3fa81bae 100644
+--- a/drivers/video/fbdev/core/fbcon_rotate.c
++++ b/drivers/video/fbdev/core/fbcon_rotate.c
+@@ -21,11 +21,18 @@ int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
+ 	unsigned char *buf;
+ 	int ret;
+ 
+-	if (par->p->fontdata == par->rotated.fontdata && par->rotate == par->rotated.buf_rotate)
++	if (par->p->fontdata == par->rotated.fontdata &&
++	    par->rotate == par->rotated.buf_rotate &&
++	    vc->vc_font.width == par->rotated.buf_width &&
++	    vc->vc_font.height == par->rotated.buf_height &&
++	    vc->vc_font.charcount == par->rotated.buf_charcount)
+ 		return 0;
+ 
+ 	par->rotated.fontdata = par->p->fontdata;
+ 	par->rotated.buf_rotate = par->rotate;
++	par->rotated.buf_width = vc->vc_font.width;
++	par->rotated.buf_height = vc->vc_font.height;
++	par->rotated.buf_charcount = vc->vc_font.charcount;
+ 
+ 	if (info->fbops->fb_sync)
+ 		info->fbops->fb_sync(info);
+-- 
+2.56.0
 
