@@ -1,141 +1,124 @@
-Received: from mta0.migadu.com (out-198.mta0.migadu.com [91.218.175.198])
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F07C41D64E
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 09:52:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.198
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792144346; cv=none; b=mrVM0IGyFsGz4eBMwPiK05jHzDalOw9HFn5TRe/jU1ur3r/DoGtB59Io573HqPaHPdzlPObba6rEKdD4taP/aAyFBhChvGXv6nU9hYWuDiFxdCXUSEjhCSRkBZLsaneU5qk2bOwpa9NO9rZimdXJGiPKdjVIzp5AzcVh2etkqUU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792144346; c=relaxed/simple;
-	bh=cYDQAo4y4RUVTtwoUXBAS+2ASZSDHzhPf6jkQnpyU60=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=LR2U0GDnBNR0Jwzw6zsAfkeY7FabWB8QHzag7aEOuwQjbjbRGg4tBsoQeRr9RlDZPed/+Jf9nPBRf7e0JAwqn9l/B1SgyLuBnz1+I6VSK9HwdSqYzbdOKCNQPND3zFlDDYWmuEedVcLxEzKvre0yB6IZOQY4zq/srYIQifGNO3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xB1w8S3z; arc=none smtp.client-ip=91.218.175.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FD113E40E3
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 09:53:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792144396; cv=pass; b=Ey9r3M4xaZiAFbmlgtj7yaX0P1Vm4cNLnayL7jo9xCvxn+WVohiPxA6nXSDzkkvGdkeL5O1r0do4Gks6wka3dtGcsjulHra0+SwOO5rDPPpK6awIQ9b08qWZEMWC/yrYLuPYvroAbYIz4zM3T+1KD+hvbmAicbyaVXJIyQ3T5H8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792144396; c=relaxed/simple;
+	bh=xqN3pfb0UkR3DIFYcIuV6kM3FHfjO1La5ULm2s3cbLs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kfttKUBrd0MYcq5x3aWMIvXfjg5Bp1CFC1Dc5cZ3PFqyYPZ1MDgy87HH/cvzFIAv+MBT/m586+Luj5DX/FSDJUCQEa4lxORvmD/YxrBaVYeptCyUoXIP2CIS8onTEMHuLTQpv/Q167dF0wqn6ecHUzCjS6fpErYg18RLLMyGjgA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jDLdGiMx; arc=pass smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xB1w8S3z"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=cYDQAo4y4RUVTtwoUXBAS+2ASZSDHzhPf6jkQnpyU60=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792144342; v=1; x=1792749142;
- b=xB1w8S3zBSgF2SQ7hQW2j9zrs6T4Rn9vpXhT5nPI1tgerR4OAToFbei3+msLxVTpPkaJTCTe
- iLeCfqpa9KihhS2EFrkV9JaPzMUsfpv5vkdntsCBTweJtnh3n9KEn6qUptxLwL447hv3Gfn4Bcs
- mpvSb0+3iWXmexUxpMphehC0=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id be15a02e218a3bac;
-	Fri, 16 Oct 2026 09:52:22 +0000
-X-Mizu-Trace-ID: be15a02e218a3bac
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jDLdGiMx"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48df54150dfso1002805f8f.0
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 02:53:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792144394; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Df0FUmNHdbtLo0vAXHs9OfBfbrByK/VCX+Q865ofyCmCwltOLN5fK8+lLAmafWpQZB
+         CgxKR0LQ2DMEnKkhNrLunwXuIIkdd05AScBw9q9CBDA+lASIqxt6ZJ+KoiNHKitkPE19
+         QQB3Iq35D3NBhswmyEByAz1NvFEsfcq+BhQq45axwCA1vElwTZ4JhtfzZ1T7es6OZSsC
+         hT4Cp41fF/IjjEzh25miUDVbjQUx8GaUgnBxOc4Knfm26bDeDkbTeiCI8/yEfBzj6j43
+         /ROFu81cmdRepF2loTCiSTZ9rSgXkA9D09M9rGQrmIWsGTz9Nv5aS1pz3v/C3w6uCePj
+         ieiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xqN3pfb0UkR3DIFYcIuV6kM3FHfjO1La5ULm2s3cbLs=;
+        fh=fUDR5z7KTKm8QA4IT/vaVgXPyqdvJMFpE2HQiPN3b7U=;
+        b=gcdsCsWOoEXtJlzbO0OursjTQ81IEQaQOlpoz9aeha69pQEEvpMnaOFb+Y0KZoEfL6
+         C3BJNBKsQjoUZmZq/9Uoc7G7Y0IFl9kKFygoeeljc2S9srEmfhNyrvEIQ4NcT+NFEGvo
+         rVo8z2zaZTO5xJD1IKbIp3A/aEN1bwFs8nnsg2HOfxzDBrhqO3j4539gdB5Uukl7CS7/
+         i+Z4nUFVoH2qjGr1/3GkOc9uP6saf5eHjkl5AEu8+yBLpGwteJ4RFBU8D/3KJzTNo8mY
+         Eeso3AaR6DpziA21oq5qZDd2GJyPzt1Dbga1JYjUOOkIiu+amVHnS6HciEbC7ZoAPah7
+         tuWw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792144394; x=1792749194; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xqN3pfb0UkR3DIFYcIuV6kM3FHfjO1La5ULm2s3cbLs=;
+        b=jDLdGiMxcaIIYMRGh+/GvHB/GA2RtVlZ9FADMtj0vAbP1wEoVOK7yf3/RVrUvrDISp
+         VX0yHYOzbdKZcvVJsyuWYoY4XZAv0gvp7jTfkw/ugOH9FabPwKKShjq+4zlue1ycatq9
+         gRDJmIn2wGsrvvmrHrTaEoNjNB0Pkpt53izXaa2uy9tMrAyFIqxJgFT/jJfeTLyDdlaJ
+         4DdblAtnRZRcaEarLArRz0AsacuUKRHccW8hBc9PDkygzNlKcBfTX2UPx9I1CLVKBpFK
+         otx1NuO8dCubfeszmS42aeEKkZi2lRAw1PGcVypZUVBjrf3huKHaNd+mXA9wZ0zYANM6
+         ESsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792144394; x=1792749194;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xqN3pfb0UkR3DIFYcIuV6kM3FHfjO1La5ULm2s3cbLs=;
+        b=zvSzOErPKDDPqgf2qd3WkHSMN9V2rYRBV579QvIUzqNpcnfLEJWskb2ALNEErpcyiV
+         ZaO3AVSqkcQaSkbe1/Gco3HTyWsTcm4bwAmNsN1/eUCm8QTS4drzPQeuaUDbgzUMQqHI
+         pdstB+5wKGBzBNrK1l6g2VMZD3Md0XHkEddbkngo29Ub5mPhX/h61mcgPaqccHqCgvfO
+         wNMcZmKIToXcKquiZqwo3Dl8D9qpeLEt20vj9lg+hdo2JrmXKm2+I/RqbDYvXXGcQ76q
+         WKeHYLkRpNc4tWGXb4eNug0gkLarGFVIMnT4d9GrTkTGpBl7D/rOR+r7xy8oloPtEhuj
+         Mkzw==
+X-Forwarded-Encrypted: i=1; AKwUvBy30wlV+B0wOgiEShNRLbJ7KNK5A2tZI/w9nv4/KtVtyKdJO3whRwX/Fl+UaiolAtuk63/C8kE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLaYUojWieyEaVQZlmNDaJodFRC2rRYs6FJ1jrMaLNznpzjR48M
+	lujjw29oGVcjzSpjLXYwh1MpoOKzkv64CaCFjopcpMK788kL9LEbz3UYp325Sh23ZP7K15CUMEO
+	jyee66pXYwceRhlZg/1rZVngdMDIXl904F6frQvQO
+X-Gm-Gg: AYBFou2a0x9UPKtB9022whZ5nP1K7LM9a+ftB4DG8lpfw26xAMuH/NnULZBgCvhTdTT
+	RaPGG4yNRux+KrHrt8rsmogslgJie13C9Va5bETR523Q7Q9Aoxp5eKG5JVz17+jG/kFS/FJPhNR
+	z4Uc7bl8pWjU+RhzjKWGEQFkv6x5F/v/EhPV5r2PCHLU0cXY8UZyZfK/b14d5VBr1+dL2ZKAxg2
+	MNSQexheGikYk3oW8vA/Bc+Oc6o+OxeWAjee3vy9WIG/yhBoHPuMB2UWuxredF1kCdTz5+zokAD
+	aySA2rkKQqE3h5MgjRaYMj1wohfwmirPDK3rUM/5RtkOzaY5vdOhym+NL1vXNX/XBIFKP24PLc6
+	qFLVZe4aW6iaWaUWSfjS3GHLeFDcQ++As4aXGyGqnx0NiXR4dYrk1
+X-Received: by 2002:adf:e64c:0:b0:485:8ee5:5ffa with SMTP id
+ ffacd0b85a97d-48dba9de8f4mr35213414f8f.38.1792144393256; Fri, 16 Oct 2026
+ 02:53:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH 05/10] mm/hugetlb: don't clear the resv_map of a VMA whose
- lock is held
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261015-urgent_fixes-v1-5-42796911043b@kernel.org>
-Date: Fri, 16 Oct 2026 17:52:04 +0800
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>,
- Oscar Salvador <osalvador@suse.de>,
- Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>,
- Adam Litke <agl@us.ibm.com>,
- Mel Gorman <mel@csn.ul.ie>,
- Rik van Riel <riel@surriel.com>,
- Peter Xu <peterx@redhat.com>,
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
- "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Josef Bacik <josef@toxicpanda.com>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- Chris Mason <mason@kernel.org>,
- stable@vger.kernel.org
+MIME-Version: 1.0
+References: <20261009140946.008206689@linuxfoundation.org> <20261011111313.27648-1-ojeda@kernel.org>
+ <2026101124-rethink-craftily-cb25@gregkh> <CANiq72ndhLush3bugar1YGPnsein8min1k3_NucBxzFwCWe9Ug@mail.gmail.com>
+ <2026101103-fling-stipulate-084f@gregkh> <CANiq72kjJ__OnsTjmsuQZH8+U-cRDCNnRpSuHU3PwYYT07Xf0Q@mail.gmail.com>
+In-Reply-To: <CANiq72kjJ__OnsTjmsuQZH8+U-cRDCNnRpSuHU3PwYYT07Xf0Q@mail.gmail.com>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Fri, 16 Oct 2026 11:53:00 +0200
+X-Gm-Features: AclHuK-KZrzl8buAxw5--JIrQ3Q2GlG4ZFRpXT7mWgEiCKlqaDvBAHdKaEgr_aM
+Message-ID: <CAH5fLgjjPmL-hiQ7R5zFG9BwWbxm6j+GnahoC11AiNxM7iyGJQ@mail.gmail.com>
+Subject: Re: [PATCH 7.2 000/428] 7.2.10-rc1 review
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Greg KH <gregkh@linuxfoundation.org>, Miguel Ojeda <ojeda@kernel.org>, achill@achill.org, 
+	akpm@linux-foundation.org, broonie@kernel.org, conor@kernel.org, 
+	f.fainelli@gmail.com, hargar@microsoft.com, jonathanh@nvidia.com, 
+	linux-kernel@vger.kernel.org, linux@roeck-us.net, 
+	lkft-triage@lists.linaro.org, patches@kernelci.org, patches@lists.linux.dev, 
+	pavel@nabladev.com, rwarsow@gmx.de, shuah@kernel.org, sr@sladewatkins.com, 
+	stable@vger.kernel.org, sudipm.mukherjee@gmail.com, 
+	torvalds@linux-foundation.org, =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+	Todd Kjos <tkjos@android.com>, Christian Brauner <christian@brauner.io>, 
+	Carlos Llamas <cmllamas@google.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <92E58ED4-A09C-41CB-A3B8-12F6F834FD87@linux.dev>
-References: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
- <20261015-urgent_fixes-v1-5-42796911043b@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
+On Sun, Oct 11, 2026 at 6:39=E2=80=AFPM Miguel Ojeda
+<miguel.ojeda.sandonis@gmail.com> wrote:
+>
+> On Sun, Oct 11, 2026 at 4:17=E2=80=AFPM Greg KH <gregkh@linuxfoundation.o=
+rg> wrote:
+> >
+> > If that works, can you, or someone else, send an updated version of tha=
+t
+> > commit for the next round of stable releases as I dropped it for this
+> > one.
+>
+> Done (I didn't add vger).
+>
+> Alice: please double-check, thanks!
 
-
-> On Oct 16, 2026, at 00:07, David Hildenbrand (Arm) <david@kernel.org> =
-wrote:
->=20
-> From: Josef Bacik <josef@toxicpanda.com>
->=20
-> Since commit bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to =
-private
-> VMAs") the lock of a private hugetlb VMA that owns a reservation is =
-the
-> rw_sema of its resv_map.  The hugetlb_vma_*lock*() helpers find it =
-through
-> vma->vm_private_data, anew for every lock and every unlock.
->=20
-> At the end of mremap() the old VMA has to let go of the resv_map, =
-which
-> now belongs to the new VMA: clear_vma_resv_huge_pages() stores NULL =
-into
-> vm_private_data.  mremap() holds mmap_lock for writing and has write
-> locked the VMA, which keeps away everybody who comes through the mm.  =
-It
-> does not keep away those who find the VMA through the file.  For hole
-> punch and truncation hugetlb_vmdelete_list() does
->=20
-> hugetlb_vma_trylock_write(vma); locks resv_map->rw_sema
-> unmap_hugepage_range(vma, ...);
-> vm_private_data =3D NULL
-> hugetlb_vma_unlock_write(vma); no resv_map: does nothing
->=20
-> and the rw_sema stays write locked for ever:
->=20
->  WARNING: lock held when returning to user space!
->  mremap_punch/116 is leaving the kernel with locks still held!
->  locks held by mremap_punch/116: 1, last CPU#1:
->   #0: (&resv_map->rw_sema){+.+.}-{4:4}, at:
->                                       hugetlb_vmdelete_list+0x46/0x160
->=20
-> The next fault in the new VMA sleeps in hugetlb_vma_lock_read(),
-> uninterruptibly, and it holds its entry of =
-hugetlb_fault_mutex_table[].
-> That table is global, so a fault of any other process on a page that
-> hashes to the same entry sleeps uninterruptibly as well.
->=20
-> All those who take the lock of a private VMA without taking the =
-mmap/vma
-> lock are affected: rmap walks. So hold i_mmap_rwsem around the =
-clearing
-> of the resv_map.
->=20
-> No change of behaviour, other than that mremap() of a hugetlb VMA =
-takes
-> i_mmap_rwsem once more.
->=20
-> Original fix generated by an LLM and sent in private by Josef.
->=20
-> Fixes: bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private =
-VMAs")
-> Reported-by: Chris Mason <mason@kernel.org>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> [ david: avoid local variable, move and refine comment, description =
-cleanups+simplifications ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-
-Acked-by: Muchun Song <muchun.song@linux.dev>
-
-Thanks.
-
+Thanks Miguel
