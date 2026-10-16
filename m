@@ -1,125 +1,131 @@
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF060283FD4
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 02:30:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB94631326A
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 02:32:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792117842; cv=none; b=SuMsAF96WKF5RVTlV3DNsEyr+VuMMv7QFNVOn3PyGGYdCPX3rdHCuqz1qIid5HaqQO9/v69D1wCDBHlkHxZaNtz0g5bdQq/kysPyX1DCaQeLq6Vgi4CiehLksMp77AUf2VzQQ2yc0N7MOQcqTN8TW6BXcWyT/2nbuoX4VFE0c7Y=
+	t=1792117926; cv=none; b=nDbPT02QuA10kqADEMf+7K6d+z5nnlOv2GyZq+XDpHQlCV3khgxK9WHci7wGx45ppqfPNIdNr2FOuffZ8/6p8k6HvH15DyMklIcLyKo3fKZtsf9ao+OX6700UZZtK5eP3B298PDmoO99W+ceVPkIkc2WMxAbc4M4eCy1h0X9rgs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792117842; c=relaxed/simple;
-	bh=MdQbvLuOPr6WAutucNcaDbG6QgegyUBAjYgKGs5jCPY=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=tFZtaQtp/r6DzbCsZ+pgkHJyiZCQbHQmFi2LTcPmRXjxfoAb+ay5oeer93A13F2CAkya8Jf41h/i9XkphIbByBqcj8hgwU+ndMYB8hSgVMN15Nm3rohbRmGsosM3jgPktlI+m9uxKjfPHCYTH/CM0v+GJ3HGYA7XSZ8TYd6whTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=MayTpZuN; arc=none smtp.client-ip=74.125.82.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	s=arc-20240116; t=1792117926; c=relaxed/simple;
+	bh=f3DORJrJpkP6ZRkP19t1XIOYLbgIcUWXGly+WSIdbaQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lT127mR70ip5iHf22vA4JjDWQZ6T5M9i58Qh+eFcy46prqabgd2dkTY9hz+biug6w5uemqJak5akiLD0Wjq1p+9yuUWPwwWW5xI7ClHwDdq/Qn6i73ovXJ7q8HXjrTVybbuxBNoYGrKf9JgdvKe6oTX46fGGEpgDe+rvwK3VUGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=Lb+yK4lq; arc=none smtp.client-ip=209.85.160.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="MayTpZuN"
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-35829219da8so647463eec.0
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 19:30:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="Lb+yK4lq"
+Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-53505bc6524so6805701cf.0
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 19:32:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1792117841; x=1792722641; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=hhhpbx9/4xxOFUY9dl6g4m9rt8XKsm9h3ppQ/KQAD8Y=;
-        b=MayTpZuNOpAzguZmu1FLtV3vxZ3lxlu6dwGtT+HX3IF2Q0CJfjN4tdyWB4l7yusEfr
-         KF8roFvdbSLyksLquuAPAqAVV9X9ubc+93LTPGAKcOvdj9WxX8e8v+bf+bn+bglPUyY3
-         Rt3k6n9hgFrbh9gX1dk9+iCijEYQRlnj44y+H8sqhIHhYQWIQ6Iqbo5vlPrI9yKuzbIT
-         q85M2qEmWUqeaYXCXUl6MgcIG1/stl+0Gzbf4NYXiiG8wk35WEh3CZl21Y188IxvZyHe
-         Hq0kT1SUvpQkY8PSLWhwO5D3X1/lIqmeRu0WDbUJtpQZufkhZ4Opnb8NybUS7IDHsx9P
-         rSqQ==
+        d=cs.unc.edu; s=google; t=1792117924; x=1792722724; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=myFazyiklnuqy8xHfQCBKX5TKL0fchWKCY5jJRzEhZ4=;
+        b=Lb+yK4lqkt2BfUfCOe7Bt8yvghRl9MUpErEBMAEYfXa1prT4eNcmwhHcy/WnNaPDQO
+         31DJne0gjcuj66Lit4Nol8wJDO8rnFNowtS4Spgwo40BY1lZKdo1R5Ls/kDGu16/fKU2
+         k24jLb6tQvVlbnbhmLrCYBWKLBcbRmFg1966I2EAhK8fKsdjGEfhQ/Qb+Juxj0wxSZB9
+         kO7ipFOUMgtn9A1pw/ad9moHelbQU0e1smRYinSMp3Tvyeny3pmltDV2KB3aVdwwb4oi
+         wm5zyQZ1YlX7FFT2bkQ1Gab+gFwDh3Z+lnvYS82ITjprwO+MflkNaueAtIJv1xJu7a4y
+         pMcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792117841; x=1792722641;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+        d=1e100.net; s=20260707; t=1792117924; x=1792722724;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hhhpbx9/4xxOFUY9dl6g4m9rt8XKsm9h3ppQ/KQAD8Y=;
-        b=SJcV1r6Bqn/cgr2r1HdDdf9TTVgZBtMQrAe9W1uK8v7ViHT2lfHuYB/AMZBuRPuL3C
-         YrZ9U0Ame8nTWpl2R1IranmfQodlqksDpPSCzJECOGrYdy/lsDluQJOQaCmXKApEvdOw
-         PrAYqlHvBMkUaCnv+z2kjyhnBngd/6ynDYPGFVTGqjCTyiBJm6MKkKJ3abwRvIGfXkal
-         ttU4iLevWnZ2BxVRXR0E+SdA1wzgRP94xWVAvGYn4tMOBgkw2QO0YEA5VAsqnid5mGvx
-         NoZ3HBupVJYyy+4WXNtJDZobYMKkFRRh+Am6SKSEDKoCP3jREKdbDhnmSwTj4LSUrAWL
-         kk+A==
-X-Gm-Message-State: AFq9FYIHWEaRquTNuAFdZQJPfQ3SN6Uow6Ll0vDtiMnaD+dUSL48hlo+
-	GUmFRLf+M/lvp+dlQ60x4dmaakt/CbW7WXxEI4yHT1ZFrm5XrfJMRmlbn0pbPwigbUPFnqMYy1C
-	qw4Wl
-X-Gm-Gg: AYBFou2CKhTpz6MzOxxxUhG3ppfsgcx+HpSMvY09cXgxTCIs6rHlcO00UXw283suA6q
-	5qSKYMkaHcvo4wPhpi1vkH3brosvKqppKasvD2oRFvXSrxO8O55oiIPN6Cbq37bPODT2jSAZi4O
-	zJm7vFfTWgRfyyB8qTr2c42njSMadvxtbg6b1WJGtYMCZxsMhfWxWf3LZYfyPfmUdJ6NLw1wSUn
-	tL0G319KFZFekUZvr1k0MtoZ1SKqRwwyFpo7TfEvldwIsivHSO1srovEkjmdgk1rCE0yLEgKbc/
-	vleISKd9Vk3q3phTxkdFAcRs4Vkwts0Co3eMA9Mb3wGMVHhphwyzgeEIdiRELFd375p56PpeYZz
-	VFUbS5WQfVs+iqk71XANQGsQ2BMQMok3LKdyphpD05N1I4WsT83p9Lt9evfwtDF5H4UG1KO3g+W
-	pCO0U5DMedGktt7U/PfFaYg95daUvkOGKqCeu9wvTOBFE33KDX1sj4F1tYW6GcHW4=
-X-Received: by 2002:a05:7022:f9c:b0:166:fc9a:11b3 with SMTP id a92af1059eb24-1825856b60cmr2980317c88.12.1792117840445;
-        Thu, 15 Oct 2026 19:30:40 -0700 (PDT)
-Received: from 244668f92ec4 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-18314ef8ed8sm1433764c88.3.2026.10.15.19.30.39
+        bh=myFazyiklnuqy8xHfQCBKX5TKL0fchWKCY5jJRzEhZ4=;
+        b=tNoUsOKikGTXV3k5AVJXVfB6vSLBwH8Yg4mNoTPw0jbJyv3c0zj/agBK3YWMsBXdxj
+         Uh9+toP0O4P1zkDCHYVs44Sgaq9aHH16Gt4U4CZznlhI6f9pvn4nn72vb7hyqrsO3mYq
+         gbFw2UASMl5Pdxc7pd/b2qGIp8GuYo98X/U6FmhjpZt7xcxt8m3BvqEcISrLtsYNlpVh
+         Q+EpJyBLKZS9n+tWV+Z5nWurCtm8f9SW0XZF8tjZIdlTEB5Ms5uGb56NlJmR29Z6yiua
+         bDlbvOcs/HG3h1ykN/3mWiaBJt6oRhA2NM76JNwlY4Woo1aqbYi5n7gDW9FnffMcw2Na
+         +UBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwBnGV0xZDObINqP7ArnKeXzk/mqf+aqb/3KvaTJYGsgkGF+Y0c/Wzck0h/ohjiHJwkTFSfkLE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKSqelsF2JLPZpIn3H7JBVxB3GYhJk4llOpn7qlhjHQMo56WUSH
+	cxk9sFMWF6ZI2lz4Lbj52iuiwuN3kyocsLNOFZ24olWF6FQKC2hkneuZgwSoPoFHDg==
+X-Gm-Gg: AYBFou2lrtUbpHhwdYV3VCjLqcFU1hmKFfUfV4BBkGjZ8FIHVXldXAnFVgwBOHJVZ6P
+	EcDAQ1GmAAO7Enh+jWIagBsRjcQ3inA7UseILhp1xsmRySMbsIEkwWpxF0UFXDObvEULhS/d9e0
+	PZy4+bhJrLSsa1DW4xuuH4fa9+MuKmiZlEZ+rZ6IEquHU08gO9WxZ/8UXTqG9ZMGrN/8yrJkxrW
+	hwNCzf4R+YRAbpRSZ0CAEUuA9PUn7SpTIYr4begf36uThlSQpLpu8kaSzRuucZEgQ25/pp7RZIa
+	XLwiL3Fj/PA7+kOD2Iwmxu7zLUXE6v6ihJpjF/hgMJAPlbwTpN1LRIfiwrez75/92Q7N2dHKrso
+	JsIHb0oV40xWy9uE5XyPlfgMByEMg1TV3xG05DC/rRrfB+2frXN44eRn4AiopCUj8p5C0Ed+Ekw
+	LrWB5RS1qt1a53DwfaTr+y0GcYvuLv3iKolT5wsKsYZp5r3a8R2osFkZu2vai7dYIlibZmfUzUK
+	qxJZ2bOOq4EXzek5Hk1
+X-Received: by 2002:a05:622a:1dcb:b0:535:fdd7:b490 with SMTP id d75a77b69052e-53626d2623dmr35175501cf.0.1792117923761;
+        Thu, 15 Oct 2026 19:32:03 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bce8918bdsm6778646d6.48.2026.10.15.19.32.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 19:30:39 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+        Thu, 15 Oct 2026 19:32:01 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: slava@dubeyko.com
+Cc: glaubitz@physik.fu-berlin.de,
+	frank.li@vivo.com,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] hfs: avoid reusing occupied CNIDs after deletion
+Date: Thu, 15 Oct 2026 22:31:25 -0400
+Message-ID: <20261016023125.2271361-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <45b692cfda51e3b10caa27ae51609edc34efb0d0.camel@dubeyko.com>
+References: <20261015110114.1649059-1-hengyul@cs.unc.edu> <45b692cfda51e3b10caa27ae51609edc34efb0d0.camel@dubeyko.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [STATUS] stable/linux-6.6.y -
- cecd39af8a1ab81373fd9fa765b2f7ab73becaad
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
-Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Fri, 16 Oct 2026 02:30:39 -0000
-Message-ID: <179211783906.391248.13089973609176471260@244668f92ec4>
 
+Hi Slava,
 
+On Thu, Oct 15, 2026 at 12:58:14PM -0700, Viacheslav Dubeyko wrote:
+> (1) The goal of hfs_correct_next_unused_CNID() was to fix the volume
+> corruption issue. Have you run hfs.fsck tool to check that volume is
+> valid (not corrupted) after your fix?
 
-Hello,
+Thanks for pointing this out. I have now run the additional checks on
+v7.3-rc6 with this patch, using fsck.hfs 540.1-Linux:
 
-Status summary for stable/linux-6.6.y
+- All 14 normal-volume images from the original tests passed
+  fsck.hfs -fn after unmount. This includes the reproducer, CNID holes,
+  missing optional file threads, concurrent operations, and reordered
+  leaf node numbers. The checker did not modify the images.
 
-Dashboard:
-https://d.kernelci.org/c/stable/linux-6.6.y/cecd39af8a1ab81373fd9fa765b2f7ab73becaad/
+> (2) Have you run xfstests (especially, generic/736) with your fix?
+> Because, the patch had goal to fix the generic/736 failure:
 
-giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-branch: linux-6.6.y
-commit hash: cecd39af8a1ab81373fd9fa765b2f7ab73becaad
-origin: maestro
-test start time: 2026-10-15 13:13:48.777000+00:00
+- On a freshly formatted 64 MiB HFS volume, I ran:
 
-Builds:	   54 ✅    0 ❌    0 ⚠️
-Boots: 	   80 ✅    0 ❌    0 ⚠️
-Tests: 	 9129 ✅ 1238 ❌ 1361 ⚠️
+    ./check -i 10 generic/736
 
-### POSSIBLE REGRESSIONS
+  All 10 iterations passed, including the filesystem checks after each
+  iteration, with FSCK_OPTIONS="-fn". A separate fsck.hfs -fn after
+  the run also passed. There was no "invalid MDB drNxtCNID" error.
+  The unpatched v7.3-rc6 kernel also passed these 10 iterations.
 
-  No possible regressions observed.
+- I repeated the minimal reproducer on a separate fresh volume. The
+  first creation of c failed with EEXIST without the patch and succeeded
+  with it. The surviving file's CNID and contents were unchanged, and
+  the patched volume passed fsck.hfs -fn after unmount.
 
+For completeness, I initially ran generic/736 on a 256 MiB HFS volume.
+The test body completed, but the final fsck reported:
 
-### FIXED REGRESSIONS
+    Invalid map node linkage
+    (4, 2048)
 
-  No fixed regressions observed.
+I reproduced the same failure on unpatched v7.3-rc6 with the same volume
+size and tools. The catalog had 6129 nodes, while its header map and
+single map node covered only 5984 nodes. I then used fresh 64 MiB volumes
+for the runs above; their filesystem checks passed without repair.
 
+No KASAN report or kernel BUG/WARNING was observed during these runs.
 
-### UNSTABLE TESTS
-    
-Hardware: qemu-arm64
-  > Config: defconfig+netdev+nfs-root-boot+ltp
-    - Architecture/compiler: arm64/gcc-15
-      - ltp
-      last run: https://d.kernelci.org/test/maestro:6ad0f149a3f195e1aa8b10a5
-      history:  > ✅  > ✅  > ❌  > ✅  > ❌  
-            
-
-
-Sent every day if there were changes in the past 24 hours.
-Legend: ✅ PASS   ❌ FAIL  ⚠️ INCONCLUSIVE
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
+Thanks,
+Hengyu
