@@ -1,288 +1,130 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA37A33F5AA
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 01:17:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A757B2D2495;
+	Fri, 16 Oct 2026 01:18:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792113447; cv=none; b=EnI5EO8iKeht0nck7C1sd2U/KZMRxUXAX3+i9W2DA5VLw26OhTe4zKDGcIcestJXDQv6FTXqfJu16ck00URTjXYeqGtqsrfyNBG0H1nNLFOMrUhaCBXXbcgxEwznTohOboWJ2yXd8STFFrQ2VadqlU6/PXhGYn5bu0NRfrnEGys=
+	t=1792113498; cv=none; b=noxcpdy920ZRAsLDQC4CMwToigsrqNK4AajS84xq0zJdzJ1VCb60AFwlv1IxSZclV9huzo2n/rnx2BU6/bl+Nn6h9Td0u13B0EG0rpgurB1PWcMyU5obNvRzbGogATXBo5i6aQI0/YG0b3A2nI8svKpJrVBVW7Pxk9Y8iB6jpQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792113447; c=relaxed/simple;
-	bh=SJ/jG8MLQshaLuhuluYLLcj2s2DRB1st0MberlN5Xn8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=krdvAu5MpaSZTGR4Tahl30gPs75wNdtR87bQFUbwRTwxk4YjzYvk80YR6fvV3rjeCJrsZU54WPgbqZlhvkAE42bluglO6eb8eXKkdfXX8o9WjdgB41HoVIf60uw4WQL36Y2Ruwha4rNK79nI2vkEfK32gQqZ/i9IewNOLcMy0lo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qtA4PMHY; arc=none smtp.client-ip=209.85.210.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792113498; c=relaxed/simple;
+	bh=m2p8ClZhjt+mEQdodurL/RDWzXw7j7up6R8PL32MsXs=;
+	h=Date:To:From:Subject:Message-Id; b=YZ8ZE+6r5+JqX+5OnOhc3NjfhUX7fya3H+JBWrQM3j59CDp0HVWE1T1tZ8lZa5+IFZ81waq6bll2nsb3u441HnB55vIw16LWNCBs8xU7E1HZTPkRNuDM+U/p65cm0y3C00IS8ZnKhMFX1Dt+LNLCByBKpcuArD6JxHuYgigilhQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=FHa+0HP/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qtA4PMHY"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8917c712f32so2818438b3a.2
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 18:17:22 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="FHa+0HP/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3506B1F000C4;
+	Fri, 16 Oct 2026 01:18:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792113441; x=1792718241; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Kt9FQDsR1MLn/kxVOoumsCY08npA6k90Pz+IFSTIf/4=;
-        b=qtA4PMHYkPBEq3zuWGZUi5OI9/e3x5TELtHQc/iN1zFJhVJon9El7OJrR1PH1ARGy6
-         5GGVXKL/Yu+jCNZTvo7XMi08+iL/zPv/Js9V0/v8U1WJHAhhkc3epzpIt7pTQg/gVKnF
-         DDh1yxkH5YCfXNueJ/5BeRfogpUxuWre9UMRRP9aMQ6JMVfieXen97gd+Od9y2WntfJJ
-         J54xTtyr8jC4OXzEBsR2XHfr/TYWS3Y7ZkXzwXfP002O+Y4NkuslbYcd4vLgCqVjD11c
-         S4BjANuMjvAqmkaJdEEZ5nBaO80PmiHFm7/0HCIdiFOSq8IWrn4ap0u2dgpsnZibk1ze
-         LGnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792113441; x=1792718241;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Kt9FQDsR1MLn/kxVOoumsCY08npA6k90Pz+IFSTIf/4=;
-        b=1vuxnLXkE5W9g/Aoh+jSAcC8JBwq4sM4H6AX3rCiIl36AVcPzMZAFGqn/a1hG2xrqd
-         efHtjM8ng/MqJoH9kNsu/ANRYMH1rswXcV4qeOSwXKTKapN8ZcDA5lVTkPYGG1holR9y
-         N88ngckymUJ5iWs4rDVvjbit+9xRo7483Pe6UUqSSLD9l8YBQ8QO8xqq3xnqll0WjTKN
-         iM3ZNy/K8P/qbw5LvBNNLdTBRMtfqVlPuQLkVBvObj7kJVYvSzKk6CV7mYHan91oGWtN
-         sOW6Acijng7JKf6u6igvi2S957g0ZhXzagXysAGnbWmXYbP02JkUjLMt32IGO791W2DR
-         13vw==
-X-Forwarded-Encrypted: i=1; AKwUvByIhljB+QRt+qxRzgxKyOiL0qxJiPxCiDSKIp+3KA0WBioCNgMDiHMEE+zgteGZJOw2NmSJKOk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL2ig7Sk+8uJylSkqFNklQ86O1KpOrKf72nAB14coX7zzIik0/n
-	u7aowbud0vHrQB0RTZNT7jOz8xKwS8lW7sOel3opLLBAFn+cBpCR6GsG
-X-Gm-Gg: AYBFou2qa9O9W2sCP9s+uVZgohKTyCalFXoS9O7Ks83yd2k/9Tzuba7SEneb/ckoNPV
-	Tq9EQ5iGNakGEYsezKm6u/x7aOmckh0BKTBina6WW1DjbLIPeSagG3o3bMg2VZqdOXkDzzhErBI
-	5ZSs0XW9sl+0yrxYbwNmp5DbPA1jj1Qa+hLIus0Eg03sQBlU7S+CCHZcKu1+q3Whtex+PIp00aQ
-	i9ceQdHde+ynVALwkpr0FnLSfmwe/TyJj3ukR3y+NLzjm+XySgI2djTF6sgv5jCnxyhPBVUYMDF
-	LpQXN5WZMVYY+ohx8ldXwenFZz+WQu/pRW2Rq5OG2h6aHaCLjXQvcTUmvGgg8A5VAosC9TjtmNV
-	XNFYGHUcN2Nfz9xF9zxafe2+Qo/ustiYo7mIcewBDGoI2NE4xEH6kWHWqM3uF/SUeurdQO0pu+L
-	bri/g7NRxLX6BGs06eqafJLAu6/ocguHspNEF86B8kc7Z6lNmBfkZ+MkA9U9LNN5CdH9k=
-X-Received: by 2002:a05:6a00:9504:b0:878:6ee:671c with SMTP id d2e1a72fcca58-897c700e769mr18527238b3a.30.1792113441269;
-        Thu, 15 Oct 2026 18:17:21 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f6ab19e93sm247444b3a.49.2026.10.15.18.17.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 18:17:20 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com,
-	heming.zhao@suse.com,
-	akpm@linux-foundation.org,
-	zzzccc427@gmail.com,
-	kees@kernel.org,
-	kmehltretter@gmail.com,
-	christophe.jaillet@wanadoo.fr,
-	ericterminal@gmail.com,
-	rppt@kernel.org,
-	rollkingzzc@gmail.com,
-	brauner@kernel.org,
-	sunil.mushran@oracle.com,
-	kurt.hackel@oracle.com,
-	jack@suse.cz
-Cc: ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com
-Subject: [PATCH v3] ocfs2: Pin owning modules for open debugfs files
-Date: Fri, 16 Oct 2026 09:17:13 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0089-v6-f7fda843f80887488145@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	d=linux-foundation.org; s=korg; t=1792113497;
+	bh=lNh/S+poiI7m/Vn0zI9okNXLfb2gLAZVmJ+NahNXIQY=;
+	h=Date:To:From:Subject;
+	b=FHa+0HP/xohpQ+d1sFj8VXBRhFbwFkG2iT0Pdnt1uRWnxcsQR2WzgMWyi72IDsigu
+	 Qp7CRorPoiRaJki/vttS0m9rH2zQhISyAIvMQU0WY1oOQI/97JENXqtwEuCHrU1ETD
+	 +xuIG8/pDRoRwaRkM93BK+c5ud9EP7xKqDDfKG+w=
+Date: Thu, 15 Oct 2026 18:18:16 -0700
+To: mm-commits@vger.kernel.org,viro@zeniv.linux.org.uk,stable@vger.kernel.org,kbusch@kernel.org,hare@kernel.org,axboe@kernel.dk,4ncienth@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + iov_iter-validate-extracted-segment-for-bvec-alignment.patch added to mm-hotfixes-unstable branch
+Message-Id: <20261016011817.3506B1F000C4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The OCFS2 debugfs file operation tables do not set owner. The
-full debugfs proxy obtains real_fops with fops_get() at open and
-keeps it until final release. Without an owner, this does not acquire
-a reference to the module containing the table and its callbacks.
-Removing the debugfs entries does not drain retained open files.
 
-An open connected_nodes file can therefore outlive ocfs2_nodemanager
-and make full_proxy_release() read real_fops->release from freed
-module memory. Heming also reproduced the issue with fs_state and
-asked for the other OCFS2 debugfs operation tables to be checked.
+The patch titled
+     Subject: iov_iter: validate extracted segment for bvec alignment
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     iov_iter-validate-extracted-segment-for-bvec-alignment.patch
 
-Set owner to THIS_MODULE in all eleven explicit debugfs operation
-tables: five in ocfs2_nodemanager, four in ocfs2_dlm, and two in
-ocfs2. The existing debugfs get/put pair then holds the appropriate
-module until final release. Leave the open, read and release callbacks
-unchanged. The blockcheck table already sets owner through
-DEFINE_DEBUGFS_ATTRIBUTE(), so it needs no change.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/iov_iter-validate-extracted-segment-for-bvec-alignment.patch
 
-The original controlled test used an unloadable OCFS2 module and
-case-local probe filters without changing the candidate open, unload
-or release logic. Closing a retained connected_nodes file after
-normal unload produced:
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-  BUG: unable to handle page fault for address: fffffbfff804cfef
-  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:full_proxy_release+0xbf/0x190
-  Call Trace:
-   <TASK>
-   __fput+0x39a/0xa60
-   fput_close_sync+0xff/0x200
-   __x64_sys_close+0x8c/0xf0
-   do_syscall_64+0x114/0x620
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
-  Modules linked in: [last unloaded: ocfs2_nodemanager]
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-Fixes: 2309e9e040fe ("ocfs2/net: Add debug interface to o2net")
-Fixes: 87d3d3f3931f ("ocfs2/hb: Expose the list of heartbeating nodes via debugfs")
-Fixes: 3ba169ccec1c ("ocfs2/cluster: Add new function o2net_fill_node_map()")
-Fixes: 50397507e856 ("ocfs2: Expose the file system state via debugfs")
-Fixes: ccd979bdbce9 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Fixes: 7209300a9b98 ("ocfs2/dlm: Dumps the purgelist into a debugfs file")
-Fixes: d0129aceaecc ("ocfs2/dlm: Dumps the mles into a debugfs file")
-Fixes: 4e3d24ed1a12 ("ocfs2/dlm: Dumps the lockres' into a debugfs file")
-Fixes: 007dce53a29c ("ocfs2/dlm: Dump the dlm state in a debugfs file")
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Daehyeon Ko <4ncienth@gmail.com>
+Subject: iov_iter: validate extracted segment for bvec alignment
+Date: Thu, 15 Oct 2026 15:19:07 +0900
+
+iov_iter_extract_bvecs() validates iter_iov_addr() and iter_iov_len()
+before iov_iter_extract_pages() selects the first nonempty segment and
+limits it by iter->count.  The checks can therefore cover a different
+range after a leading empty segment or iov_iter_truncate().
+
+An unprivileged O_DIRECT preadv() reproduced the empty-segment case: an
+aligned empty segment followed by a misaligned one completed 4096 bytes
+instead of returning -EINVAL.  A truncated iterator has the same mismatch
+when its full segment length is aligned but its remaining count is not.
+
+This can result in a misaligned segment getting fed to the device driver,
+with unknown results.
+
+Bound the normal fast-path length by iter->count.  Keep
+first_iovec_segment() for leading empty segments so validation covers the
+remaining portion of the segment available for extraction.
+
+Link: https://lore.kernel.org/20261015061907.2713943-1-4ncienth@gmail.com
+Fixes: 14b007e17881 ("block: validate user space vectors during extraction")
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Closes: https://lore.kernel.org/r/20261012065520.1089147-1-4ncienth@gmail.com
 Assisted-by: LLM
+Cc: Al Viro <viro@zeniv.linux.org.uk>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Keith Busch <kbusch@kernel.org>
+Cc: Hannes Reinecke <hare@kernel.org>
 Cc: <stable@vger.kernel.org>
-Suggested-by: Heming Zhao <heming.zhao@suse.com>
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-
 ---
-Changes in v3:
-- Match each .owner assignment to the indentation of neighboring members
-  throughout, as requested by Kees Cook.
 
-Changes in v2:
-- Cover fs_state and locking_state in the OCFS2 filesystem module.
-- Cover all four OCFS2 DLM debugfs operation tables.
-- Keep the five node manager fixes and the original diagnostic.
-- Add explicit module headers and Fixes tags for the added tables.
-- Add Cc: stable@vger.kernel.org.
+ lib/iov_iter.c |    9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0089-v2-4c67f48d4e2d0fc85990@gmail.com
-Link to v2: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0089-v5-076c780eeaf45afb2a53@gmail.com
+--- a/lib/iov_iter.c~iov_iter-validate-extracted-segment-for-bvec-alignment
++++ a/lib/iov_iter.c
+@@ -1022,7 +1022,7 @@ static ssize_t iter_xarray_get_pages(str
+ 	return maxsize;
+ }
+ 
+-/* must be done on non-empty ITER_UBUF or ITER_IOVEC one */
++/* must be used on a non-empty ITER_UBUF, ITER_IOVEC or ITER_KVEC */
+ static unsigned long first_iovec_segment(const struct iov_iter *i, size_t *size)
+ {
+ 	size_t skip;
+@@ -1938,8 +1938,13 @@ ssize_t iov_iter_extract_bvecs(struct io
+ 		   iter_is_iovec(iter) ||
+ 		   iov_iter_is_kvec(iter))) {
+ 		unsigned long start = (unsigned long)iter_iov_addr(iter);
++		size_t seg_size = min(iter_iov_len(iter), iter->count);
+ 
+-		if ((start | iter_iov_len(iter)) & mem_align_mask)
++		if (unlikely(!seg_size && iter->count)) {
++			seg_size = iter->count;
++			start = first_iovec_segment(iter, &seg_size);
++		}
++		if ((start | seg_size) & mem_align_mask)
+ 			return -EINVAL;
+ 	} else if (iov_iter_alignment(iter) & mem_align_mask) {
+ 		return -EINVAL;
+_
 
- fs/ocfs2/cluster/heartbeat.c | 1 +
- fs/ocfs2/cluster/netdebug.c  | 4 ++++
- fs/ocfs2/dlm/dlmdebug.c      | 5 +++++
- fs/ocfs2/dlmglue.c           | 2 ++
- fs/ocfs2/super.c             | 1 +
- 5 files changed, 13 insertions(+)
+Patches currently in -mm which might be from 4ncienth@gmail.com are
 
-diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
-index 8e6ead433228e7419bfbbe5c7cdde65c654a24f4..1cb516df53f4e1b3b2a292eb2550faa3d16e3fa2 100644
---- a/fs/ocfs2/cluster/heartbeat.c
-+++ b/fs/ocfs2/cluster/heartbeat.c
-@@ -1447,6 +1447,7 @@ static ssize_t o2hb_debug_read(struct file *file, char __user *buf,
- #endif  /* CONFIG_DEBUG_FS */
- 
- static const struct file_operations o2hb_debug_fops = {
-+	.owner =	THIS_MODULE,
- 	.open =		o2hb_debug_open,
- 	.release =	o2hb_debug_release,
- 	.read =		o2hb_debug_read,
-diff --git a/fs/ocfs2/cluster/netdebug.c b/fs/ocfs2/cluster/netdebug.c
-index f7ab66e70799302f3ed4e70ab6a8fb057dd0bfa9..5d373002297de1fdd9a05e270f7942d8c1ce2dac 100644
---- a/fs/ocfs2/cluster/netdebug.c
-+++ b/fs/ocfs2/cluster/netdebug.c
-@@ -183,6 +183,7 @@ static int nst_fop_release(struct inode *inode, struct file *file)
- }
- 
- static const struct file_operations nst_seq_fops = {
-+	.owner = THIS_MODULE,
- 	.open = nst_fop_open,
- 	.read = seq_read,
- 	.llseek = seq_lseek,
-@@ -415,6 +416,7 @@ static int stats_fop_open(struct inode *inode, struct file *file)
- }
- 
- static const struct file_operations stats_seq_fops = {
-+	.owner = THIS_MODULE,
- 	.open = stats_fop_open,
- 	.read = seq_read,
- 	.llseek = seq_lseek,
-@@ -427,6 +429,7 @@ static int sc_fop_open(struct inode *inode, struct file *file)
- }
- 
- static const struct file_operations sc_seq_fops = {
-+	.owner = THIS_MODULE,
- 	.open = sc_fop_open,
- 	.read = seq_read,
- 	.llseek = seq_lseek,
-@@ -476,6 +479,7 @@ static ssize_t o2net_debug_read(struct file *file, char __user *buf,
- }
- 
- static const struct file_operations nodes_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= nodes_fop_open,
- 	.release	= o2net_debug_release,
- 	.read		= o2net_debug_read,
-diff --git a/fs/ocfs2/dlm/dlmdebug.c b/fs/ocfs2/dlm/dlmdebug.c
-index ce6d301cb9420385211d20d59637069154a89993..8919eb14df22700b36b1edf985bca15b8f185fd6 100644
---- a/fs/ocfs2/dlm/dlmdebug.c
-+++ b/fs/ocfs2/dlm/dlmdebug.c
-@@ -7,6 +7,7 @@
-  * Copyright (C) 2004, 2008 Oracle.  All rights reserved.
-  */
- 
-+#include <linux/module.h>
- #include <linux/types.h>
- #include <linux/slab.h>
- #include <linux/highmem.h>
-@@ -339,6 +340,7 @@ static int debug_purgelist_open(struct inode *inode, struct file *file)
- }
- 
- static const struct file_operations debug_purgelist_fops = {
-+	.owner =	THIS_MODULE,
- 	.open =		debug_purgelist_open,
- 	.release =	debug_release,
- 	.read =		debug_read,
-@@ -394,6 +396,7 @@ static int debug_mle_open(struct inode *inode, struct file *file)
- }
- 
- static const struct file_operations debug_mle_fops = {
-+	.owner =	THIS_MODULE,
- 	.open =		debug_mle_open,
- 	.release =	debug_release,
- 	.read =		debug_read,
-@@ -601,6 +604,7 @@ static int debug_lockres_release(struct inode *inode, struct file *file)
- }
- 
- static const struct file_operations debug_lockres_fops = {
-+	.owner =	THIS_MODULE,
- 	.open =		debug_lockres_open,
- 	.release =	debug_lockres_release,
- 	.read =		seq_read,
-@@ -791,6 +795,7 @@ static int debug_state_open(struct inode *inode, struct file *file)
- }
- 
- static const struct file_operations debug_state_fops = {
-+	.owner =	THIS_MODULE,
- 	.open =		debug_state_open,
- 	.release =	debug_release,
- 	.read =		debug_read,
-diff --git a/fs/ocfs2/dlmglue.c b/fs/ocfs2/dlmglue.c
-index 6bc4a21cf5f02f04a6b54100925084aed239ae62..88d9464660833006b7bac25e2c2641dd77874438 100644
---- a/fs/ocfs2/dlmglue.c
-+++ b/fs/ocfs2/dlmglue.c
-@@ -7,6 +7,7 @@
-  * Copyright (C) 2003, 2004 Oracle.  All rights reserved.
-  */
- 
-+#include <linux/module.h>
- #include <linux/types.h>
- #include <linux/slab.h>
- #include <linux/highmem.h>
-@@ -3332,6 +3333,7 @@ static int ocfs2_dlm_debug_open(struct inode *inode, struct file *file)
- }
- 
- static const struct file_operations ocfs2_dlm_debug_fops = {
-+	.owner =	THIS_MODULE,
- 	.open =		ocfs2_dlm_debug_open,
- 	.release =	ocfs2_dlm_debug_release,
- 	.read =		seq_read,
-diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
-index 1e76b1d9fe0af4b3cf503e91e1dd077762fef88a..0af2245ae30369421e78ecd781b986c481d10f5b 100644
---- a/fs/ocfs2/super.c
-+++ b/fs/ocfs2/super.c
-@@ -387,6 +387,7 @@ static ssize_t ocfs2_debug_read(struct file *file, char __user *buf,
- #endif	/* CONFIG_DEBUG_FS */
- 
- static const struct file_operations ocfs2_osb_debug_fops = {
-+	.owner =	THIS_MODULE,
- 	.open =		ocfs2_osb_debug_open,
- 	.release =	ocfs2_debug_release,
- 	.read =		ocfs2_debug_read,
+assoc_array-discard-shortcut-when-collapsing-a-leaf-only-node.patch
+iov_iter-validate-extracted-segment-for-bvec-alignment.patch
+
