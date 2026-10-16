@@ -1,140 +1,95 @@
-Received: from smtp-8fae.mail.infomaniak.ch (smtp-8fae.mail.infomaniak.ch [83.166.143.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0DB84D9549
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 15:17:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F3424DD3AB
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 15:18:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792163875; cv=none; b=UmbsJOg9Ap53S53kLZxKhGG0JHlcPaNO43CP4EdZ4G1XkPISth1G4suOJJY2/mGrWuDY8KMxzV3H4CIPzs6eAiUXY4NNg7L69H3Wyq+1OuKTfj3YHcWlw2DUycg9BmVGhSaR/1x6QyxNrpGnhGqC7GNokxjFlVGiH3NOSsw4d34=
+	t=1792163924; cv=none; b=B3bC+Ziun7A3CYPuC5J4fJLs0oecBEgObQ+BpLCClvEulkJTRFLdBWjfEjGIKbolUHHNrEmCVbVeW0EoEItv1X4GKr0L9tKMWjqItwKZUIHLVV705khBv2MQl5xp+rTfVL65K6nSYaYLRSZCdNSeyR67Ev9/EoMn7XXiQHjkwCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792163875; c=relaxed/simple;
-	bh=PMOuEOnfRx5yLf8TRyl6EYO5TmT4wQO/UftAE1bIfo4=;
+	s=arc-20240116; t=1792163924; c=relaxed/simple;
+	bh=gTsOfT7qc4+y/R1b+Q3dOr5vhFSgpJC8pEs2pNorJ7A=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Qg0QJs4lRSSxzfYfSUGUtB0laVH4Oq2jEXueHjC7lysprGKAj73pOdH+dtVpfsJjM09GiW7DpBOnPke/kUqy0ktx5BuejVFSclWuNBrScCgV7OIlF6gKE3ge9VXlApLDMzlvX57grIcUazTo96VPa2lZG9ZE92kAp/jy8TfyDmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=BHMycvXv; arc=none smtp.client-ip=83.166.143.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=oaeOPui5aLMbda99rUD/+247Ek5Dlp5SKo85xRCLClrQQ5UPnfOnYbY8tkYV+cqig8rR34MUbxofU3PoAQgTEu2/1Ut11/vfVu32BYZViX83CCuTIFvGBmGuXKYCcrtWqF4efHBPpP2i36svzjNnRtSMZ8HdVVzVB3p8h/jXPoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=I8paqOTn; arc=none smtp.client-ip=209.85.219.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="BHMycvXv"
-Received: from smtp-3-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246c])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4j5pHr6s2hzhbr;
-	Fri, 16 Oct 2026 17:09:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1792163352;
-	bh=3256253bsOKrTJpRBMkqybzV1hV3WOY+3tdxzY2s2kY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=BHMycvXv6aUjPsvZr0y6bpmg2aEKWZtt8xT3ZEBXHfDo6F28BBNIxPIsM7D7eMNjC
-	 aLXXFP+Vqp8FgXlTnfW5e6gmEnshu8v5wjCBrk3lM8hvAZ+4mKQVj3TOJLYya9gY2Z
-	 M2C1n/IRryT7PMIAIhvFGGvAqkDQz6XzTZbV/xKE=
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4j5pHr21ZnzVJL;
-	Fri, 16 Oct 2026 17:09:12 +0200 (CEST)
-Date: Fri, 16 Oct 2026 17:09:10 +0200
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
-Cc: linux-security-module@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] landlock: Fix superblock use-after-free in
- release_inode()
-Message-ID: <20261016.ohj7ze0Eerun@digikod.net>
-References: <20261006105847.2541190-1-gnoack@google.com>
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="I8paqOTn"
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-917c04630c2so1069246d6.3
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 08:18:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1792163922; x=1792768722; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gTsOfT7qc4+y/R1b+Q3dOr5vhFSgpJC8pEs2pNorJ7A=;
+        b=I8paqOTnnBFl4CkOn5U2tiES1BNMEhJ9AhGndoNW6nis4nPUdDSdPf+KFX41YXHqEX
+         PHEu+27JD5JaY2CtLXAlUvIL7At5OVKogRdkeOqcQqIAuuYTxulfUoLUU148ys8nEvHv
+         zh6rZ2bLk+Z78gGyJPZPfDXTrL1vgSl9dr+zFSLToUp9FpCdsJueLcMMsmdy3K438/wx
+         06jj+HxmusbDb/dflHBzRuXq6HWFKD7jdSs+dMWn/qCSsxoi5N3IaTqIScZdbw4Fvj5T
+         qCbeT443JGf+uDJJZrMd2nBB7hFJY9b7F9QO6muUFZLVU7g6YPPLoGvlLSMQKdyVREgG
+         DjsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792163922; x=1792768722;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gTsOfT7qc4+y/R1b+Q3dOr5vhFSgpJC8pEs2pNorJ7A=;
+        b=ZtD0YQ2X3WhzUK53ErZEuiyLjHIR6yHup/f4pUwCNMsWefA9Ymm+LdsoYHmM18gC+D
+         xSS+Hz158SaYZ9mPRDXYDt2cvEcJ8Dxl8oqdoEzsSk0t73HTyk8k2BWDvAp/QZaw13YH
+         ARxAYNITARxhsd/KnPNv+JHniYZw6o2dJwyB4t+QS5dmTuqBQJKNWNJrtaaw4xffbaCD
+         2CeL/zc/ogfL4pTzkJcveXEDnSm8evanQRQugOmNQDHw/J976DihGFI2af+UZ2O7ncv3
+         UwTTIW1cDYL8+2GGtlqqVWP01OGkr/dmieCR4QD7rRr03NV7id4N3zjDVuA8OK0TR0Py
+         GoNw==
+X-Forwarded-Encrypted: i=1; AKwUvBxNNtYEKJ/x2pM2d07sZwz4EYKR2j7VSa+M/IhXbzNGe/6ObWJjmNU6/NjAlcJXfsQxT8PRKSg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ6MUxwcmaFPE9MnpF6KMLyuGOTjsZqv4ZY2oZ1/FxxyAJH+JLA
+	O6Yz2+ctupm8t4PhkYdOVXBqIR1bgl+DXvASNb+Z3eE65SY4kiMuuCmog+PYWKFwJ40=
+X-Gm-Gg: AYBFou1FG0L5zNafNcjiAuJNkWftzb75m1iiW17bbh9s3iPr7qdwVfey200sd85VqrL
+	WlZ+r3ytbFINC79ZBBzpo81vStpKfVv9XvCggU1p9CBOIkvKef3Ly63z+AauhGYjoEEw/MZ1z2s
+	atj2nyqtZGXwNsaaPE5ET1zI6bydwU9Ts/CqyFrD85hMaDqe9fUA2jhbPH6WFncD7IdbwA0qj4W
+	jqPE+6Pe6+2MeQ1almO7y9JkZ4gIsm3DjuUCkA5umh/C/BL7o3tK/n/hc41yp5wwta+18jtgJb1
+	Qemc1sdt44mVEcs4Ta6jizuWbR+10BoOyrYClT1tN8uKwEG1tuBR7xDA8NRch5XdJ5YEpea6AK7
+	rxsj4bkcviLfo9puMa/NTvdW0Z9xwDmqUgT73zRL/t2AZ9qVpMXRoEW5MiDNcK0N6JpDbjdXVyC
+	MDGpwGuI6CJALZkt8ev4Ull8wsq2DhEva+fcswzgj82SBEEmLcrTBcfbK0y0g3gtmzG4XIG9Yzy
+	BsjjUsdWmHvrOnTzYR2hmfPMqX8+OvVRB+vSTJXg94JW2i0F5kb3Mg=
+X-Received: by 2002:a05:6214:202c:b0:90c:b843:d679 with SMTP id 6a1803df08f44-91bdf063686mr5556436d6.29.1792163921793;
+        Fri, 16 Oct 2026 08:18:41 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcbade61csm24949136d6.26.2026.10.16.08.18.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 08:18:41 -0700 (PDT)
+Date: Fri, 16 Oct 2026 11:18:39 -0400
+From: Gregory Price <gourry@gourry.net>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, vbabka@kernel.org, surenb@google.com, mhocko@suse.com, 
+	brendan.jackman@linux.dev, hannes@cmpxchg.org, ziy@nvidia.com, mgorman@techsingularity.net, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/page_alloc: validate zonelist slots against
+ concurrent rebuilds
+Message-ID: <atJAIfZ55x68Ft8p@gourry-fedora-PF4VCD3F>
+References: <20261015210539.3243563-1-gourry@gourry.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261006105847.2541190-1-gnoack@google.com>
-X-Infomaniak-Routing: alpha
+In-Reply-To: <20261015210539.3243563-1-gourry@gourry.net>
 
-On Tue, Oct 06, 2026 at 12:58:47PM +0200, Günther Noack wrote:
-> Without this fix, release_inode() (task 1) can race with a umount operation in
-> hook_sb_delete() (task 2).  The order of operations in which the race occurs is:
-> 
-> * task 2: hook_sb_delete() arrives at the end of the function, waiting for
->   landlock_superblock(sb)->inode_refs to become zero.
-> * task 1: release_inode(): does atomic_long_dec_and_test(), decrementing
->   inode_refs to zero.
-> * task 2: gets woken up through some other means, sees that inode_refs is
->   zero and returns.  The caller is the unmount operation and proceeds to
->   release the superblock.
-> * task 1: Runs wake_up_var(&landlock_superblock(sb)->inode_refs),
->   *dereferencing the sb_security on the freed-up superblock*.
-> 
-> Notably, wake_up_var() does not dereference the pointer passed to it, and
-> only uses it to determine an overapproximated set of tasks to wake up. So
-> while it's potentially possible for an attacker to provide a different
-> value for that pointer, this only results in the wrong set of tasks getting
-> woken up, and in this scenario, no further tasks are actually waiting.
-> 
-> Nevertheless, KASAN detects it as a slab-use-after-free read on
-> sb->s_security:
-> 
->   BUG: KASAN: slab-use-after-free in release_inode+0x196/0x290
->   Read of size 8 at addr ffff888103b6c0a8 by task repro/217
->    release_inode+0x196/0x290
->    landlock_put_object+0x71/0x90
->    landlock_free_rules+0x38/0xc0
->    landlock_put_ruleset+0x47/0x130
->    fop_ruleset_release+0x33/0x40
->    __fput+0x305/0x780
->   Freed by task 54:
->    kfree+0x11c/0x390
->    process_scheduled_works+0x766/0xe50
->    worker_thread+0x7bc/0xb20
-> 
-> The fix is to determine &landlock_superblock(inode->i_sb)->inode_refs only once
-> earlier in release_inode(), and later use that precalculated address for the
-> wake_up_var() call, without having to dereference through the superblock.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: cb2c7d1a1776 ("landlock: Support filesystem access-control")
-> Assisted-by: LLM
-> Signed-off-by: Günther Noack <gnoack@google.com>
+On Thu, Oct 15, 2026 at 05:05:39PM -0400, Gregory Price (Meta) wrote:
+> Onlining the first block of a zone (e.g. via virtio-mem or a DIMM)
+> rebuilds every node's zonelists in place. An allocation in flight can
+> then be served from a zone it never asked for: a GFP_KERNEL allocation
+> can get a page from ZONE_MOVABLE.
+>
 
-Thanks! It's in my next branch.
+Sashiko pointed out some other race conditions (related, different),
+i'm going to repackage this one with those fixes because they're likely
+to conflict and they'll all want to be backported together.
 
-> ---
->  security/landlock/fs.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/security/landlock/fs.c b/security/landlock/fs.c
-> index cab43892ec2f..0959e9f487e6 100644
-> --- a/security/landlock/fs.c
-> +++ b/security/landlock/fs.c
-> @@ -61,7 +61,7 @@ static void release_inode(struct landlock_object *const object)
->  	__releases(object->lock)
->  {
->  	struct inode *const inode = object->underobj;
-> -	struct super_block *sb;
-> +	atomic_long_t *inode_refs;
->  
->  	if (!inode) {
->  		spin_unlock(&object->lock);
-> @@ -77,8 +77,8 @@ static void release_inode(struct landlock_object *const object)
->  	 * Makes sure that if the filesystem is concurrently unmounted,
->  	 * hook_sb_delete() will wait for us to finish iput().
->  	 */
-> -	sb = inode->i_sb;
-> -	atomic_long_inc(&landlock_superblock(sb)->inode_refs);
-> +	inode_refs = &landlock_superblock(inode->i_sb)->inode_refs;
-> +	atomic_long_inc(inode_refs);
->  	spin_unlock(&object->lock);
->  	/*
->  	 * Because object->underobj was not NULL, hook_sb_delete() and
-> @@ -92,8 +92,8 @@ static void release_inode(struct landlock_object *const object)
->  	 */
->  
->  	iput(inode);
-> -	if (atomic_long_dec_and_test(&landlock_superblock(sb)->inode_refs))
-> -		wake_up_var(&landlock_superblock(sb)->inode_refs);
-> +	if (atomic_long_dec_and_test(inode_refs))
-> +		wake_up_var(inode_refs);
->  }
->  
->  static const struct landlock_object_underops landlock_fs_underops = {
-> -- 
-> 2.56.0.rc1.315.gc6ed9934b7-goog
-> 
-> 
+~Gregory
