@@ -1,159 +1,89 @@
-Received: from mta0.migadu.com (out-227.mta0.migadu.com [91.218.175.227])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99870400DF0
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 14:06:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD095B5AB;
+	Fri, 16 Oct 2026 14:08:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792159591; cv=none; b=h9QmL+EESBIAslBp46/scEK62ysJ46KW4OwWh31FSRd1TKxghtoWah2Hz1BG0nRaCbKOSUf9BQ6rrJw6dzcTvspBENIrUteAKBZcPGKO494OkwFm3ETcrf/Li73H0c7BXaK9h5siyIIx8DiK1mLyA8iK7t/yNQPz8TORxIGXJ6I=
+	t=1792159711; cv=none; b=qh4KB7NzNFjot4IUYWeHePuG62t/e1tr7l4qtFp0JojhgNOoMA6i3nCGTRoGbqgyoJivJUW/Be6xB28Arn2ADhAHTooJbPuHMB4Ly1tW4QJoFQuJbrFBgJ8AR46Akbq4lOMILAHaDbZx8MGPoUM2t6ee945kGW/jxzYe8uuNneE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792159591; c=relaxed/simple;
-	bh=kyoBK8WCWHp/eP+c0vx3teIgRzxLrJVt4wgAAkxJuAw=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=nQ9Kxvq/kyPXDsyLjRIQAyRDn6boerf0WfQsasN0dHSW/lVHHrRTU/H0M+cD/yTprRyWqkRqcBcBIKohG0t8TGTnb35mG45BjLZyfHfhV1Q4g+7FPHuFP/yrDSj6kM+E6EY2B7V/mAG5st+aKkN1LVFf6+3A45bt72jDI33xKHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=d8jD1YYB; arc=none smtp.client-ip=91.218.175.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792159711; c=relaxed/simple;
+	bh=pgmlANoo4PHwXDRcZvar1fCXwIi7mclSi6zj3yGX9Ec=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 MIME-Version:Content-Type; b=f2uj9bCqPpUkjejt8iYwVzIbR5NYlNeSnd1njNKiahiKfrkFioGHWek4zRFFw6LyGDRkaKjN3oW1v9Tb/6hpBCwjJyB/S0SJUBI7su0bBagec+sZ7T0YUD6cadwspW5f5eP7qYdsOwVI74Z4UnIGN9pqknVAKBZYzcjU8f1P1Kc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=RiCph5Ad; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="d8jD1YYB"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=kyoBK8WCWHp/eP+c0vx3teIgRzxLrJVt4wgAAkxJuAw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792159586; v=1; x=1792764386;
- b=d8jD1YYBgSr8/dE0/FEbK5rEjeHtX9KDwubAL8R2IAXwxWcRcCIAWpglWm+6izYEY6ZrrFNg
- mj95WRc8Jwu80vua1jMv/5ZbP5TQ5ifYUIbjReK++UAvf9PLerCfx4jGqwhGbulBinnFsMX5xsH
- WFb7k7UR0QtKzQXhJVYI2zoA=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 5b7d4e89d766a128;
-	Fri, 16 Oct 2026 14:06:26 +0000
-X-Mizu-Trace-ID: 5b7d4e89d766a128
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="RiCph5Ad"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
+	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=uX4fIb/uSUYNnsP+YLqWHZFcIPv0mWtTQ8iI6IvR0GE=; b=RiCph5Adu7tzCwUtI3bRX4VACz
+	Uf7R1VQq787+1BAXpNuThUN+BOU/k4HVWmP19RExJS98qzkfsHRNhDe3ZBfgsvUg3ggyWQYogig+u
+	h6tGYACXLg/RaqdmwPELSfVCtyjAZuS1XaDwj6bZzCY2dusX9GApsWk2ADhRtv8Qlz58MXTQqk8DW
+	FUVMZxkWe0EkgkFV6dOTHK9xZqZIs+D621iXrDU3cr3YEcDNkODLMwAhO2ywC1aUUuUrLdBA8Fsu0
+	VE91cncpLNogcigC9fm0DKdi02/hMlK6d3ZJfLuuSni4EqBevG00c0r55AviT2S/ygAJXaVPNI2OD
+	4Z+cCvgg==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1xHibd-00000003nIN-0MsN;
+	Fri, 16 Oct 2026 11:08:21 -0300
+Message-ID: <437553f9978afec2dc14363fdfedab5f@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: Paul Aurich <paul@darkrain42.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>
+Cc: linux-cifs@vger.kernel.org, stable@vger.kernel.org, Namjae Jeon
+ <linkinjeon@kernel.org>, Henrique Carvalho <henrique.carvalho@suse.com>,
+ Sasha Levin <sashal@kernel.org>, regressions@lists.linux.dev
+Subject: Re: [REGRESSION] smb: client: batch SRV_COPYCHUNK entries to cut
+ round trips - 6.12.y EIO above 12 MiB with SMB3 encryption
+In-Reply-To: <atFFiAr9gbs9jXZA@redcloak.home.arpa>
+References: <atEn9dyqsyI3SNaP@redcloak.home.arpa>
+ <441cd931c56cb539eb099bf6d976cc59@manguebit.org>
+ <atFFiAr9gbs9jXZA@redcloak.home.arpa>
+Date: Fri, 16 Oct 2026 11:08:20 -0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH] dax/pmem: fix unaligned compound devmap initialization
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <31c89da1-6d3f-4a42-b6bb-2b8f8170eed6@oracle.com>
-Date: Fri, 16 Oct 2026 22:06:06 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Ritesh Harjani <ritesh.list@gmail.com>,
- stable@vger.kernel.org,
- nvdimm@lists.linux.dev,
- Dan Williams <djbw@kernel.org>,
- linux-cxl@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Vishal Verma <vishal.l.verma@intel.com>,
- Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <FB79CEA5-ECA4-4313-9D9B-10B231C88E92@linux.dev>
-References: <20261016054914.2601510-1-songmuchun@bytedance.com>
- <31c89da1-6d3f-4a42-b6bb-2b8f8170eed6@oracle.com>
-To: Joao Martins <joao.m.martins@oracle.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Type: text/plain
 
+Paul Aurich <paul@darkrain42.org> writes:
 
+> On 2026-10-15 16:54:29 -0300, Paulo Alcantara wrote:
+>>Thanks for the report.
+>>
+>>Paul Aurich <paul@darkrain42.org> writes:
+>>
+>>> In stable 6.12.y releases, a copy_file_range request exceeding 12 MiB on an
+>>> encrypted SMB3 mount fails with EIO and a WARN_ON_ONCE() splat in
+>>> SMB2_ioctl_init:
+>>>
+>>>      # cp /mnt/otters/13mib.bin /mnt/otters/output.bin
+>>>      cp: error copying '/mnt/otters/13mib.bin' to '/mnt/otters/output.bin':
+>>>      Input/output error
+>>>
+>>> Works in 6.12.110.  Fails in 6.12.111 through 6.12.113 (latest).  Via
+>>> bisection, introduced by 8d103b285359 ("smb: client: batch SRV_COPYCHUNK
+>>> entries to cut round trips").
+>>
+>>Does it work if you backport the other 3 missing commits?
+>
+> Yes.  With v6.12.113 + bc925c1216f0 + 9f544d26b15b + 90f7c100d2dd, 'cp' and 
+> the Python reproducer work.  (Tested with both a 13 MiB file and a 250 MiB 
+> file)
 
-> On Oct 16, 2026, at 18:00, Joao Martins <joao.m.martins@oracle.com> =
-wrote:
->=20
-> On 16/10/2026 06:49, Muchun Song wrote:
->> Static pmem Device DAX namespaces reserve space for namespace =
-metadata before
->> the user-visible data range, and may also include padding needed to =
-satisfy the
->> Device DAX alignment. __dax_pmem_probe() adjusts the dax_region range =
-to start
->> at the
->>=20
->> Static pmem Device DAX namespaces reserve space for namespace =
-metadata
->> before the user-visible data range, and may also include padding =
-needed
->> to satisfy the Device DAX alignment. __dax_pmem_probe() adjusts the
->> dax_region range to start at the data range, but the dev_pagemap =
-range
->> still starts at the beginning of the namespace.
->>=20
->> That is not valid for compound devmap mappings whose memmap is stored =
-in
->> system RAM. Compound page initialization requires the start PFN to be
->> naturally aligned to the compound page size, because the head and =
-tail
->> struct pages are initialized according to that geometry. If the pgmap
->> starts before the aligned data range, memmap_init_zone_device() can =
-build
->> compound page metadata from an unaligned PFN.
->>=20
->> The resulting struct page layout is inconsistent with the Device DAX
->> mapping. A later mmap fault can then resolve the user-visible PFN =
-through
->> invalid compound page metadata and hit a kernel panic while inserting =
-the
->> DAX folio.
->>=20
->> Fix this by advancing the pgmap start to the aligned Device DAX data
->> range for non-altmap compound mappings. Leave base-page namespaces
->> unchanged, and leave the altmap path unchanged because
->> memmap_init_zone_device() already skips the altmap reservation =
-itself.
->>=20
->> Fixes: 14606001efb4 ("device-dax: compound devmap support")
->> Cc: <stable@vger.kernel.org>
->> Reported-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
->> Closes: https://lore.kernel.org/r/wlrkqqvg.ritesh.list@gmail.com
->> Assisted-by: LLM
->> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->> --->  drivers/dax/pmem.c | 7 +++++++
->> 1 file changed, 7 insertions(+)
->>=20
->> diff --git a/drivers/dax/pmem.c b/drivers/dax/pmem.c
->> index bee93066a849..d3a9b85107b0 100644
->> --- a/drivers/dax/pmem.c
->> +++ b/drivers/dax/pmem.c
->> @@ -51,6 +51,13 @@ static struct dev_dax *__dax_pmem_probe(struct =
-device *dev)
->> 	/* adjust the dax_region range to the start of data */
->> 	range =3D pgmap.range;
->> 	range.start +=3D offset;
->> + 	/*
->> + 	 * When the memmap is stored in RAM, exclude metadata and =
-alignment
->> + 	 * padding from compound page initialization.  Otherwise, the =
-pgmap
->> + 	 * may start before the naturally aligned Device DAX data range.
->> + 	 */
->> + 	if (!pgmap_altmap(&pgmap) && le32_to_cpu(pfn_sb->align) > =
-PAGE_SIZE)
->> + 		pgmap.range.start =3D range.start;
->=20
-> Should we need to check here for pgmap.type =3D=3D =
-MEMORY_DEVICE_GENERIC ?
->=20
-> Considering the dedup is not quite applicable for FSDAX.
+Thanks for testing it!
 
-Good point that FS-DAX does not use compound devmap initialization.
-However, pgmap.type is not set until the Device DAX or FS-DAX driver
-probes, so checking it here would always be false.
+Greg,
 
-The pgmap is also copied into the static dev_dax and reused across
-driver rebinds. Moving this adjustment into dev_dax_probe() would make
-its range depend on the previous driver binding unless it were
-restored on unbind. The removed prefix is only metadata and alignment
-padding and is not exposed to devdax-backed FS-DAX, while its
-vmemmap_shift remains zero. Therefore, keeping the adjustment here is
-harmless for FS-DAX and keeps the static pgmap range consistent.
+Could you please backport the following to v6.12.y
 
-If you have a more elegant solution in mind, I'd be glad to hear it.
+	bc925c1216f0 ("smb: client: improve compound padding in encryption")
+	9f544d26b15b ("smb: client: get rid of bounds check in SMB2_ioctl_init()")
+	90f7c100d2dd ("smb: client: fix compound alignment with encryption")
 
-Thanks,
-Muchun
-
-
+Thanks.
