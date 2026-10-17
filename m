@@ -1,187 +1,192 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E83C0E555
-	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 00:04:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792195497; cv=none; b=SWiQYgB5LJKUAyOKhj/Tg/Ui6NOnMyiX9tiv+9GMXo2Ad3mbmZDV9ing63/tAPmxBZ9Tsqkt0MPvxfxmD0F1KbC1/0hx77wnVFQrQHV96XetuZDHBjpmSBu4R1kDgL6d5+PkM7U/aKU0TjO+4nEmIGjRdu/wtVplDZ8n+72Ss1I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792195497; c=relaxed/simple;
-	bh=6/qYlEhJHSxlMKX7o7HI7DT+c0x8I+YT/0Zuz+mG7pg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Mj4CM6CSPvBDdb2p/LAm4Qsny1vp4b1Do0H2ATS32oywmZp/uJGgSXyyvWv+3m59ysHD616X9BoGDOD7vEE+U+ZTDG4rEy6Uz9SorgUCXwTVTzsmlt+zCLn+8rGGi3CBmT/uzDJBylCa4ZX14xt8qnDuRX6f42CeEIL5XSMOTkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ABXhLn1J; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7097B19BB3
+	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 00:05:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792195551; cv=pass; b=hDQJbh3oXQJPrvtLySM68jAkR018R7xyYHqlQMBfEyLW5QhXHFLhDAAV6DZIUnT+ePkyC7vhb3m09/Iba/TGbZEWCqDdBuoqQC6/RM/ez3v5yogeeQUFp3+XCraHIvRPMLVIHKx+osJ/iQwhnuyUaQmfCIVtZo4yacRrUxifrMA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792195551; c=relaxed/simple;
+	bh=7sGdRH+GOCeIbPggafCtteXnjrkYq313LLWRk0dNvSs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WytKvnth8fCmqCFHAiBX9bKF1InH3E52E+wnshC9uRXnLtJ7gfQLYPYeEUiA3vBCz7UFw9fV0zdzD2yPV51sFIb3biRPRRtzk6KUPY7Yv1ZDPKresNvYqfN3b7sGw6kcuOD1aymcp5kI9++ocyettN1+3ggDu/SgPPv3LySkpOI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g94BXGzc; arc=pass smtp.client-ip=209.85.219.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ABXhLn1J"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3a0aaa0fd13so463970a91.2
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 17:04:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g94BXGzc"
+Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-91b813ac020so7357726d6.3
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 17:05:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792195549; cv=none;
+        d=google.com; s=arc-20260327;
+        b=o03JNukmmDoXCt7ElkKrYVUiOXdvNdIbnPJr3r2CEnOH93+n+Ja76QILVmpA7ASO56
+         DX5Wzg/QOKTManaqqamG16WBt8CUDJWac/vSfMC5RHtYl4P7/S8KabJ3uB2oZcJpO8Wd
+         gwk99LO0rvgb2cLGWR+9FyX6c7prsUuY+QaYc4xybGPsLaFIm2YjnNixNUh0DQhQlPFd
+         CM8lnBvhegnBF37CuDWlyv8Z/TvoTFspzEtuYQm9mr+Kz7z0OOgPCt1SE0ty12S1XRPD
+         1Z/x2PzJNF7R/wT7fFBjSPIzkJLMB9Jeplj2VJ+F59nvibUemsWtMyu/P90r/M1QUYkF
+         MxBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cSA7UZw2c3bTiGnVzwM29+KWNJ0lb+yekyy+zeNvwcQ=;
+        fh=hcrGQ8gJwoPK1M+rXpAAi5zv6G2p4TuJYXWFVdCDrnA=;
+        b=Y/BcqR2eUotP3O3MhqsHZ8AA7KG/5FJrb6LsWbmj0wEyyTmVXWMC7VVRVVBub0TniJ
+         5veCJnnQLVisMsENt4W0CnkmefswsmtO5U1RM/eZH9s8fKUPgdHSZV1eQdCYGDVdty3o
+         XiRE4ud1IkBZqJ+NkoPF3woRtmuqTCINDnZ/1b9H2PswaH+c/ogV5xs+e22XDBz4nec9
+         t3icnlvsvsYTIqbXzM5yoltTLnOXC68hExFO+LEIy7bXC4dl0+onjA9SMiTXcYYyP61U
+         XEhV0eVYV2SlvZRhAg7WUJaIeYYzVpIMdXL0F2ewmhvX+fri+SbkQ0LDRp0/wZHbqj+0
+         KV0A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792195495; x=1792800295; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lBiMjT8ldL7Ky1jQPlUb8oCa4/bnIv7ADJeJybOOjZ4=;
-        b=ABXhLn1JrHn/1sKXLDqSqPT3tOxX9nb4NDv08QUpcWND53dDiyh+RQXk66t+AHn76i
-         35BWs1WGYGaNW+LSJzXUbF5wc4PcRO98vGufCZtxJEiGsO57knWQSkOOJXg8FWF9x78g
-         HZw0t4HgVbVkZsiPvFo5dyehS8aKdRIUjqTe3qIHN+iMUw7/0KWl38bvSlCKAB0q+Swq
-         +TD4TP8K4K42xg/HhslvedAM6vWZRz2NcNLoXia+HEeRSxsJ4C4EN/fX1xJqM3ph0Bja
-         zxMKf6ooBwnUKh7Rfp1pTPkIKQPkJUH0jyAy/M62QDxH7Dzj+4d00112vp55dF1SgjqI
-         52Ag==
+        d=gmail.com; s=20251104; t=1792195549; x=1792800349; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cSA7UZw2c3bTiGnVzwM29+KWNJ0lb+yekyy+zeNvwcQ=;
+        b=g94BXGzcUfM5/h0F5vseQpt2i9AG2qoz3PGxqBRBXzYVaNnvbThmks0kglshNXu0iC
+         qFBIrP47o0JcQv2WBGCxyhsgIVMKETdpA9435HpOr9H0bLvQSslijfOaSLnSNk3AZduL
+         K5z3UEXoztI8TJ8Db72ydvIjep1do7WrSC24e19pnPlSYoAVFjbY7ZxLLW0+KGIAZJ+H
+         r2YM5TrLbAXa5tce7qyhdpnwWao0Kybsy/fOn/9GAWgaePO3zcpFf2BLwCr/vk/L9cg5
+         aNuyG/uqEdEuUCz9fEJ2P705DXOilz3JAtfNgHhA3zEy/H78xSsULVhnFLhNy1GjekEQ
+         72wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792195495; x=1792800295;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lBiMjT8ldL7Ky1jQPlUb8oCa4/bnIv7ADJeJybOOjZ4=;
-        b=IaVXezu4P6gi/lnLSmH1UIsMIkF84OtPIqPw2ANtoYU5CqEUo4gPMRMVvvce8FsAQ2
-         wfD8s+GnnCmg3v/tdqa3ZnKqHHxikXOdGsnpXPBYCHWoHFP0j9V4Lz90kMAz3a8wpJbb
-         eaaX4dl2gVWKSbatscQhELuMP4B6FKo+UgVvg2k+y457TVQC6JoO6UXGi8HJz1H0oC4r
-         M+S+GRqi322XtymVx94iBzNMaodAXXAfKmtOy+5bBssVYppW3vYIDfepoGnQQEmoXmU4
-         K67MzpdBsT28V0pbDiHcRuljRItCHljbBlL2dEFwXmOiQVkiBtoD6OHJIVaaFnoGUHRd
-         JG3w==
-X-Forwarded-Encrypted: i=1; AKwUvBwnLdMZruZpxXjwVMlJpASqgWeZHJNlxgR5X42jT5SWvjeSzP2vDwr8TBn7efN3q0YuQCEzkrI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLpt/QIYawHOGgEHjfwwbn9jUjy0quVU29YQRVBC58GBH8tiYBO
-	3+AvhG5tWvXYZ6Cf9Ssa0A1Yp7InjZVPQWWK6PMMp6tOM3ZzLgGs/Sw1
-X-Gm-Gg: AYBFou0wW93ZLiJ4Vq5y5Ox/95zhsuWovIeobF6BO4YVaCP/cXUj8+LNvFo+1ptAGT8
-	oE3caSNd07DoIwE7I3w/O5rYJaZr2GAHdMAjW8Tte78LM5HJTX6Ckv/BW3ziQg5aUsZl3FxhC4O
-	77PfPtd8Rb5NelVz/bVbl6DEuVjZx/w/J9PqD0zZc7eKpuFqrll/rLLyMU3JCRykpW9vBg0TQcT
-	BkdQusucBqUqgg46T+hMtZbwMxJWuenVW2UwyynhXcRGJq8XEW1uHYqJiYx4iUMnAQ06nijZJbp
-	+WsVmrKVJtnGcDrkpfq1K4uiuE9GmNJCmW9/Di9CTAXTZ+I2V7K1uUhMlR5Fz39Yl+hMpAJWXs8
-	ozWXwxQ/Ty0qP4+Ofj+bzvl9AKAZ5n+4Adjz50HTpjEtw0nNVhG7Ol332UuwIkHnZno/8zFLiXf
-	6ihN6+dDOg4zZuJ447VM609DVyRRc+0BVVmQhuNuuSYsO4SPANWiy1AE+oZxwYp7Ay5MSUYdAZF
-	ILbJIyz8k6SuNtvMHnWC4DzJWeR582IAWrtBwvHxYXNL7X/eUdzQ16T5ksuDVb6liyfgvrj5lRJ
-	JBqwqLBCPTot8GPvkvv0rRvZpESKw2W0DNhRVqc5x2WoW0yD9LBDwjZe3gCRLVwoTQOJGDYPSyw
-	aLPCopam60Q==
-X-Received: by 2002:a17:90b:2e46:b0:3ac:9e76:aa9e with SMTP id 98e67ed59e1d1-3acee276f13mr1245594a91.3.1792195495154;
-        Fri, 16 Oct 2026 17:04:55 -0700 (PDT)
-Received: from sid-dev-env.cgrhrlrrq2nuffriizdlnb1x4b.xx.internal.cloudapp.net ([4.155.54.158])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc98139ccsm3284963a91.0.2026.10.16.17.04.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 17:04:54 -0700 (PDT)
-From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-To: akpm@linux-foundation.org,
-	hannes@cmpxchg.org
-Cc: david@kernel.org,
-	mhocko@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	ljs@kernel.org,
-	kasong@tencent.com,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	baoquan.he@linux.dev,
-	baolin.wang@linux.alibaba.com,
-	yuzhao@google.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	apais@microsoft.com,
-	rlmenge@gmail.com,
-	Siddharth Chintamaneni <sidchintamaneni@gmail.com>,
-	stable@vger.kernel.org,
-	Hardik Garg <hargar@linux.microsoft.com>
-Subject: [PATCH v1] mm: multi-gen LRU: fix NULL lruvec->pgdat deref with memcg disabled on cmdline
-Date: Sat, 17 Oct 2026 00:04:51 +0000
-Message-ID: <20261017000451.89536-1-sidchintamaneni@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1792195549; x=1792800349;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cSA7UZw2c3bTiGnVzwM29+KWNJ0lb+yekyy+zeNvwcQ=;
+        b=K0s9TpkBqJLOsF3UjvN32jkdDFmSaGB8drlSdeZ7drmb6tEdiB3JXBRN4JcQJPVsKW
+         egbK9yT7K8XDo91+Buz04gFDnrCHmRqwIutfTYxStW/Y8WCj81U//ADTY5zXbwqJ+L14
+         URSAltHrIwHFIDNX2kEhwtsJezuRTPIg9jVJig/gryA/2+IIVBJaGl1ghYvKIRzz/aKT
+         WYQObDDcERijnswdltfx5Z7AwKDknukgjjd5B0TL4ef8EWLK5RE8uC+WGLpfY7YpZauH
+         2JI/IwXAshyi324/8uhZsuOAvmXNSangfJvaKBkkCXTRcjUw2nDxS3ubS98ij8tsND0H
+         sF0w==
+X-Forwarded-Encrypted: i=1; AKwUvBwhiZD0BGkOSNiOq5Lz0AI91m5Y2qhwcemRJI2Yi9bZdNLVzzmHoC7jNr6HsF8QxdaffLyG95Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIQdl8t1Y6fck1Jdwh9HdG+2C8SIE9ldU5XdpW2vFTbKNnEALqY
+	JsftVKdMykcsxdYBH9zuQp3H9Pp+7TZvVUn5Hzt/btJWCpE6f+CUjJbT3O0MQGJWnZs/HI4ZqB0
+	mCj6cAfDLGRvQ51HPopsa4c8+HzpZX98=
+X-Gm-Gg: AYBFou1P4/tIqGlm16BIi2jxNayzg6L5A1r1BaUmKBIcKj+WAOIAj12LqyzJshbQpbT
+	gVv8QJ16ZAbeQizP+5+gp9+19k0cxVV9VsNzY6zXNpMFFxdAGZ2HM3KxOTVqNKS72C82DG9kvSs
+	aaVVfTTyJ5YpATEHs00tX9iuLKP36LW8UdLr3VyCN/aNKhrLKRj2HW9MBxbkta5g0KrFByO0KeU
+	da2CwW/SuGFzN75M3KVyhBsCHIl6JTj5OBS1j4ERX35xujHl/8tdigw0lNfTczuE7AwvFw65W6q
+	GuugYmSIdty+rWH5vmr6kUiFYDkEQRjHJds/Shv6s4VRcu2kV6nCEZY=
+X-Received: by 2002:a05:6214:509d:b0:917:9915:1f76 with SMTP id
+ 6a1803df08f44-91bdf0a8018mr27071886d6.30.1792195549268; Fri, 16 Oct 2026
+ 17:05:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <579o8so3-09o3-o312-4sq0-0qp6n672q46p@xreary.bet>
+ <20260927041138.4112920-1-jinmo44.yang@gmail.com> <20260927041138.4112920-2-jinmo44.yang@gmail.com>
+In-Reply-To: <20260927041138.4112920-2-jinmo44.yang@gmail.com>
+From: Jason Gerecke <killertofu@gmail.com>
+Date: Fri, 16 Oct 2026 17:05:36 -0700
+X-Gm-Features: AclHuK95QwdgfqCpzXo3U6esCMQ8q2bJI473RTvTkZWxw9RndnhzLiH1N68nFXk
+Message-ID: <CANRwn3TMAhhsL8J43ROhNbFzp-wdin84L_+J42AD8Qrz6wKLHw@mail.gmail.com>
+Subject: Re: [PATCH 1/5] HID: wacom: check the input device in the shared
+ report helpers
+To: Jinmo Yang <jinmo44.yang@gmail.com>
+Cc: ping.cheng@wacom.com, jason.gerecke@wacom.com, jikos@kernel.org, 
+	bentiss@kernel.org, dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When CONFIG_MEMCG=y, lruvec_pgdat() returns lruvec->pgdat, which for the
-per-node pgdat->__lruvec is left NULL by lruvec_init() and only filled in
-lazily by mem_cgroup_lruvec(). Normally that happens early, e.g. on the
-first folio_add_lru().
+On Sat, Sep 26, 2026 at 9:12=E2=80=AFPM Jinmo Yang <jinmo44.yang@gmail.com>=
+ wrote:
+>
+> wacom_report_numbered_buttons() and wacom_wac_finger_count_touches() are
+> reached from several report handlers and use the input device they are
+> given without checking it.
+>
+> Both can see a NULL input device on a fully successful probe. The report
+> handler is selected by features.type from the id table, while the three
+> input devices are allocated from what the report descriptor declares.
+> When wacom_setup_{pen,touch,pad}_input_capabilities() returns -ENODEV,
+> wacom_setup_inputs() frees that input device, sets the pointer to NULL
+> and still returns 0 - the "no pen in use on this interface" case.
+> wacom_wac_irq() then still routes reports to a handler that passes the
+> NULL pointer down.
+>
+> Reproduced on linux-next 20260925 (x86_64, KASAN) from one /dev/uhid
+> device plus a single UHID_INPUT2 write:
+>
+>   BUG: KASAN: null-ptr-deref in range [0x290-0x297]
+>   RIP: 0010:wacom_report_numbered_buttons+0x37/0x210
+>    wacom_intuos_irq+0x29e/0x3300
+>    wacom_wac_irq+0x1b59/0xb3f0
+>    wacom_raw_event+0x68f/0xb60
+>    __hid_input_report+0x398/0x4d0
+>    uhid_char_write+0xa99/0xfc0
+>
+> Check the pointer in both helpers, following the convention the driver
+> already uses in wacom_tpc_irq() and wacom_wac_pad_event().
+>
+> Fixes: 10059cdc0ad0 ("Input: wacom - split out the pad device for Intuos/=
+Cintiq")
+> Fixes: 2a6cdbdd4cc0 ("HID: wacom: Introduce new 'touch_input' device")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jinmo Yang <jinmo44.yang@gmail.com>
+> ---
+>  drivers/hid/wacom_wac.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
+> index c4cd87b781c4..177a1e09fd05 100644
+> --- a/drivers/hid/wacom_wac.c
+> +++ b/drivers/hid/wacom_wac.c
+> @@ -1263,6 +1263,9 @@ static int wacom_wac_finger_count_touches(struct wa=
+com_wac *wacom)
+>         int count =3D 0;
+>         int i;
+>
+> +       if (!input)
+> +               return 0;
+> +
 
-With cgroup_disable=memory, lru_gen_shrink_node() passes &pgdat->__lruvec
-directly to shrink_one(). If direct reclaim runs before anything has
-called mem_cgroup_lruvec() for the node, which can happen during early
-boot under memory pressure (e.g. a kdump kernel), get_swappiness() ends
-up dereferencing a NULL pgdat:
+Checks like this are for an unusual error condition so a dev_warn_once
+or hid_warn_once before returning is suggested. I could even see an
+argument for removing the device if these conditions are encountered,
+but that's probably too extreme. In general, each of the places that
+you perform this check should be updated with such a warning (in this
+and other patches).
 
-  Unable to handle kernel NULL pointer dereference at virtual address 0000000000005040
-  pc : get_swappiness+0x68/0xb0
-  lr : try_to_shrink_lruvec+0x54/0x2c0
-  Call trace:
-   get_swappiness+0x68/0xb0 (P)
-   try_to_shrink_lruvec+0x54/0x2c0
-   shrink_one+0x8c/0x240
-   shrink_node+0xc6c/0xe08
-   do_try_to_free_pages+0xdc/0x570
-   try_to_free_pages+0x124/0x278
-   __alloc_frozen_pages_noprof+0x6e8/0xf78
-   alloc_pages_mpol+0xc4/0x1c0
-   alloc_frozen_pages_noprof+0x54/0xe8
-   alloc_pages_noprof+0x1c/0x40
-   atomic_pool_expand+0x98/0x300
-   __dma_atomic_pool_init+0x58/0xd8
-   dma_atomic_pool_init+0x154/0x170
-   do_one_initcall+0x64/0x350
-   kernel_init_freeable+0x214/0x430
-   kernel_init+0x2c/0x208
-   ret_from_fork+0x10/0x20
-
-The classic LRU path and MGLRU before per-node lru_gen_folio lists
-obtained the lruvec through mem_cgroup_lruvec(), which sets
-lruvec->pgdat.
-
-The above was hit on an arm64 kdump kernel (6.18-based) booted with
-cgroup_disable=memory nr_cpus=4. It also reproduces on mainline on an
-arm64 VM with CONFIG_ARM64_64K_PAGES=y, CONFIG_MEMCG=y,
-CONFIG_LRU_GEN_ENABLED=y and:
-
-  mem=160M nr_cpus=4 coherent_pool=512M cgroup_disable=memory
-
-These options only serve to force direct reclaim early in boot; with
-160M the boot eventually ends in OOM regardless. On mainline the first
-LRU reclaim happens while unpacking the initramfs, and faults the same
-way:
-
-  Unable to handle kernel NULL pointer dereference at virtual address 0000000000005040
-  pc : get_swappiness+0xd4/0x150
-  Call trace:
-   get_swappiness+0xd4/0x150 (P)
-   try_to_shrink_lruvec+0x44/0x2b8
-   shrink_one+0x80/0x1a0
-   shrink_node+0xd98/0xea8
-   do_try_to_free_pages+0xf4/0x4b0
-   try_to_free_pages+0x110/0x360
-   __alloc_frozen_pages_noprof+0x8b0/0x1718
-   ...
-   __filemap_get_folio_mpol+0x2ac/0x548
-   simple_write_begin+0x44/0xf8
-   page_symlink+0x178/0x198
-   ...
-   do_populate_rootfs+0x13c/0x200
-
-Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
-Cc: stable@vger.kernel.org # 6.3+
-Assisted-by: LLM
-Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
+Jason (she/they)
 ---
- mm/vmscan.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Now instead of four in the eights place /
+you=E2=80=99ve got three, =E2=80=98Cause you added one  /
+(That is to say, eight) to the two,     /
+But you can=E2=80=99t take seven from three,    /
+So you look at the sixty-fours....
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index f11491ee9ed5..0c57e4f1eb15 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -5253,7 +5253,7 @@ static void lru_gen_shrink_node(struct pglist_data *pgdat, struct scan_control *
- 		sc->nr_reclaimed = 0;
- 
- 	if (mem_cgroup_disabled())
--		shrink_one(&pgdat->__lruvec, sc);
-+		shrink_one(mem_cgroup_lruvec(NULL, pgdat), sc);
- 	else
- 		shrink_many(pgdat, sc);
- 
--- 
-2.45.4
 
+>         if (!touch_max)
+>                 return 0;
+>
+> @@ -4226,9 +4229,14 @@ static void wacom_update_led(struct wacom *wacom, =
+int button_count, int mask,
+>  static void wacom_report_numbered_buttons(struct input_dev *input_dev,
+>                                 int button_count, int mask)
+>  {
+> -       struct wacom *wacom =3D input_get_drvdata(input_dev);
+> +       struct wacom *wacom;
+>         int i;
+>
+> +       if (!input_dev)
+> +               return;
+> +
+> +       wacom =3D input_get_drvdata(input_dev);
+> +
+>         for (i =3D 0; i < wacom->led.count; i++)
+>                 wacom_update_led(wacom,  button_count, mask, i);
+>
+> --
+> 2.53.0
+>
+>
