@@ -1,133 +1,139 @@
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 577793BFAFC
-	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 05:21:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5FE3815DD
+	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 05:33:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792214494; cv=none; b=QK5GKaiP8JoSYjcJxjaKohhsKuuXadH8vWQAc7FeWw0SAqMzMNDj65Mm+gtPQYCbewc9UPukKWbYrxMAn3ebeQgGGMoESKkEOX4HNDJwpqEIax0uumIhx6ISHG/nzX2BQHBR1CQR2UYqoT0lbvgUWVNPbHh1VjD6DU1JIAIE5xA=
+	t=1792215197; cv=none; b=rrH6WxBPAyNjn2nJmkATFvWxi+FFVv0SPFqzINTqYr8+AquBRs/KoPA09sGTP7JkdbIdwRANLK3olKJoVo7uba+XkJc1/XZ0xI+iw9R9D5LaowcDT7gMqyq3vK5DaHri4MXpvqre4MMCnOi74kEpqhXXMwnPRd2WMhS76yryfRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792214494; c=relaxed/simple;
-	bh=aC4Bvl+lsY8CU7Vvs//CHQEgxOBks6KfY7owryN0QbQ=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=irQPIwMgcmbmTr9EPpNRSCNHN0LneSvDm/5idmtAd5NoR6DiIky6JDn/1hRUKWairwRqaz8sSgMShwd56t2SoO/5CTDx1S4PPbEDjW1Ex+67GEJAQ01q5zudf0qldebxcETEGUS+qPDQS2t96rtREz+62Rg/Qi8qqje6YAvdY1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=idvv7AwR; arc=none smtp.client-ip=209.85.214.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	s=arc-20240116; t=1792215197; c=relaxed/simple;
+	bh=33TYKDzHD2rggUr45Wt4u+YeRQ6ZvxWnoSICEHDivpQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Qf4+pMdKsmRuY20FLeXU3O+Bsdm2t4PKrZGUpRUC9Dj5gR5cxxWm7LDtU9iIhziW8kzLTBkk4otvGmEVHNba/GSDgby522hPoAg0PE9GKMIx6K108sT7lT2aUL1jAAayu9GlqSSsSt324088vnvGSN4aOdhUYPD1NdfD9wKII/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EIkM7vBn; arc=none smtp.client-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="idvv7AwR"
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e9821ca96fso4624315ad.0
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 22:21:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EIkM7vBn"
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1517bda04a0so444901c88.0
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 22:33:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792214493; x=1792819293; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4FrYQNLOC0ua6Y12Q7VcbQ5pmrylw5LYh/sMmd8pDQ8=;
-        b=idvv7AwRBqCjKS0p+o3BPgccAWAslq48nlSk9Uk6QP3NowhJgSJlhwM5j4BWTA1PM5
-         5lF/NmvOMwOE/LGj7wFRqyZOEVALMzazs/RQxgVu1J8BVH3efWjAXlXfoziAjqeruSLc
-         dpY9GPpWFBoO9OsCqvToKxZ30w9R/nwtfm2a+VCUD8WSZw4OoJxI6fi0PF8113MTkzlh
-         jFcjW1PMQKyOSvgT9+XvPNOWGs7g9n6006U262aQy0RLDWlQ5VgrCLL5qQKcCyN9Fxft
-         FqvzFRo2TH9gseuxBnmrhfINNYOCl0SLZMnOiY5/kStDqC4CEpOcydhkmK/4O0eFEMdl
-         Z8Gg==
+        d=gmail.com; s=20251104; t=1792215195; x=1792819995; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Lr8NPS0Zpuk7i4YZHvQ6XKBJuI1y1yFtaeXA00kTa0o=;
+        b=EIkM7vBnoh02tZNQTnekfmj0GoJzNbfXjbIUfcMzoSy+KsBNpvP0k8dqVymM3E8oAf
+         MK66vS1NpH4XaEvaOC4co7zppWCvd59Z8RFgJU+HzZGWIbaGHaN6xJ8kdh21ZolmkvRc
+         IIInE/vLQ1mF9iCWrpQf8bc47d7187hUxjAIRCPhIQy1S5JhvPbfZnkvM2ZD3ZOKhmjJ
+         czIwVPQQRMkDyKE0l5/pFiezRy+ot1rjnAI1HyY9YXeH/slx1ZB8THPPBF6Gz7AQc93a
+         riJgRogIbS0donp4tJuJ7KfcXtUhvajf6MModfa3cGGy81sn/cWfPr9wXHU/l8ukNKaw
+         p5uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792214493; x=1792819293;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792215195; x=1792819995;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4FrYQNLOC0ua6Y12Q7VcbQ5pmrylw5LYh/sMmd8pDQ8=;
-        b=VUP2wx99VW2hgmKwnsSkUAP1vnL/TlqOPfCI6b5MdJ1jj6yMc14T7NJ9cGyrJ43gZ8
-         aDpLrp/IY/JyxICSmamTwqE2ONyuelrE3AVss4s4HXsgk/ntvJGDyQrM32BYawpwZBzq
-         LArFuop3Ek9bioM25bvEMpQ6YOPRvXep688sS7/UqPrEXL7LNADaqn37KAtYk4sU+V5y
-         Xa7yo+BqZqwxkq48FpyfwM1Q4nbJw0tUHC21x8zTUBN9fCQTZ4cnogpQWr0Q5yx1EALr
-         LFv/xZTFb414d+3934FrVSwWU5TCqSeRUCOqjx3DHpYRmCKkVBoT3Q0+1RKfGk3xkcNz
-         lkoA==
-X-Forwarded-Encrypted: i=1; AKwUvBwLZ7Qsqhf8XLnv+JuMRpx2a+3W1vLntRnnugcxc+6EeAviJIYKlDLZsuvNdPRCySkeRdWpoB8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKBCqHMNZrKtUGQSADXZUk9HgEe8GsibLBbCWg178yzfJuLCJsD
-	gR68MJvhydeRu1N/9xOXAzcF4Tt/fqgsYVcSvc4kJguCBwXZWbXAHG7lniFl4GYKMOQdYcY8g9K
-	trUp9AA==
-X-Received: from plxq15.prod.google.com ([2002:a17:902:dacf:b0:2e9:3d99:bb3f])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e943:b0:2e9:79db:449c
- with SMTP id d9443c01a7336-2e9a6f55653mr15650925ad.47.1792214492411; Fri, 16
- Oct 2026 22:21:32 -0700 (PDT)
-Date: Sat, 17 Oct 2026 05:21:31 +0000
-In-Reply-To: <20261015201549.4023-2-kj2864@nyu.edu>
+        bh=Lr8NPS0Zpuk7i4YZHvQ6XKBJuI1y1yFtaeXA00kTa0o=;
+        b=sEy5N7d2IlH2lRu5wPeKMYLYC9+uP0xhmALo/WOBE0iIIBOpG3QRR+3fEzyaDRjwcl
+         zzbbU/92RI4765jC1+Rxiq1h5icX96UZWI/xNTm3vlJDRBEcHcSJx/uOLroBvutEWfjB
+         0UWvrE31Wt0Gnyro7WXYSnosKYfxR6P7nRM32w++p4oBp3jD09fkEJ2LwVZD11dwcoPH
+         iX872tPPcTLYQMXirA9M9LQ7g/zospKqBrIdJrxHfFIlqUE65tbUEkeZXy7LwiGBajH/
+         W+baRdqKKCeWil3zEt8piiaLr85IehUHUtt8dSihYgG+CLxdl0HEET1NdgDMGSGVSFyk
+         3fDA==
+X-Forwarded-Encrypted: i=1; AKwUvBxDYXOe/txnDHnnzpiMGzIRhij/DXZsU1i3/xvXEytMsiOsQojhVNjvB3FhKKBa6V3l4sY46b8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ2xt3ptvP0X1FKT4F0gg3lh6z7BB0etJ6RgcaISDX5WioSFDKT
+	X6nMNC5utW0qZLDB/c+4c+WHtZzQGrpQAT5iTLVkBNQTQD/PsYF/2by3
+X-Gm-Gg: AYBFou2PXUzlnfijwWbtxxAXdBzUKq1GIo2+KiO41SRcD2+4SnQasB7FB0jeAnsv2cR
+	x9D2MQfNvM2+9HYsTHVKiLhyQvdXChhtj8U45hpXhE9/A+Px/d3iY8VrsP2Luscctn+290Gyltq
+	pgm406s3KNI2Hxth7P9ofDEbyuHO3r7ZSh9qb87x1Q5GjqaKesMcTo/k/YOYq0u+5Wp5cANEhTk
+	udqTHHFGYXCUQT1lytQDkkPRYobYGV8fULebPEZcVsNU3Y+SGF4Jk3SJYX3kalZukWxziBnCt6t
+	7LBL4W26EY/wiqnz4ZDA8sQIYM1QlQX18fk71ZbI4jMLEy6zXJtdvk2g2KSbTWa/21VkDgxSa+V
+	/1JCfJ0GbK8md971rnM2zGq0X5dZ6wYBFm3Y+no8ZnUP2hRK4LWJHGgMBuWlnW9rj+b0y6zZcHT
+	m9cwCxz/EsH/yNivm3bRmgxEWoAdYDg6cbJnzo/UtO4XkA6ua7/GOxae3hBhVuAJ/Uy5M//XgeW
+	xyeXJKJ
+X-Received: by 2002:a05:701b:2601:b0:151:f0c5:7a09 with SMTP id a92af1059eb24-18513b99fd0mr3090280c88.43.1792215194486;
+        Fri, 16 Oct 2026 22:33:14 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2a09:bac1:7ac0:50::247:2e])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b37ce3fsm9220827c88.14.2026.10.16.22.33.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 22:33:14 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+788733b16e87faa63deb@syzkaller.appspotmail.com,
+	stable@vger.kernel.org,
+	matheus.aalmeida@inf.ufrgs.br,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Subject: [PATCH] Input: ff-core - clear flush and event hooks in input_ff_destroy()
+Date: Sat, 17 Oct 2026 12:33:09 +0700
+Message-ID: <20261017053309.136764-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261015201549.4023-2-kj2864@nyu.edu>
-Message-ID: <atMFPKhON1IK5cxc@google.com>
-Subject: Re: [PATCH net v3] net: ipv4: add zero check for snd_cwnd_clamp
-From: kuniyu@google.com
-To: Kaho Jiang <kj2864@nyu.edu>
-Cc: ncardwell@google.com, davem@davemloft.net, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, edumazet@google.com, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	co+71b6509cb791e531@bugs.sh, stable@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 15 Oct 2026 16:15:50 -0400, Kaho Jiang wrote:
-> User can pass zero to snd_cwnd_clamp via RTAX_CWND type.
-> This could lead to division of zero error if not checked properly.
-> 
-> Oops: divide error: 0000 [#1] SMP KASAN NOPTI
-> Call Trace:
->  <IRQ>
->  tcp_reno_cong_avoid (net/ipv4/tcp_cong.c:510 (discriminator 1))
->  tcp_ack (net/ipv4/tcp_input.c:3517 net/ipv4/tcp_input.c:3873 net/ipv4/tcp_input.c:4440)
->  tcp_rcv_established (net/ipv4/tcp_input.c:6685)
->  tcp_v4_do_rcv (net/ipv4/tcp_ipv4.c:1854)
->  tcp_v4_rcv (net/ipv4/tcp_ipv4.c:2248)
->  ip_protocol_deliver_rcu (net/ipv4/ip_input.c:207 (discriminator 1))
->  ip_local_deliver_finish (net/ipv4/ip_input.c:241 (discriminator 1))
->  ip_local_deliver (./include/linux/netfilter.h:325 ./include/linux/netfilter.h:319 net/ipv4/ip_input.c:262)
->  ip_rcv (./include/net/dst.h:481 (discriminator 6) net/ipv4/ip_input.c:492 (discriminator 6) ./include/linux/netfilter.h:325 (discriminator 6) ./include/li)
->  __netif_receive_skb_one_core (net/core/dev.c:6297 (discriminator 4))
->  __netif_receive_skb (net/core/dev.c:6410)
->  process_backlog (net/core/dev.c:6761)
->  __napi_poll.constprop.0 (net/core/dev.c:7830)
->  net_rx_action (net/core/dev.c:7893 net/core/dev.c:8050)
->  handle_softirqs (kernel/softirq.c:645)
->  __irq_exit_rcu (kernel/softirq.c:679 kernel/softirq.c:519 kernel/softirq.c:758)
->  irq_exit_rcu (kernel/softirq.c:775)
->  sysvec_apic_timer_interrupt (arch/x86/kernel/apic/apic.c:1062 (discriminator 35) arch/x86/kernel/apic/apic.c:1062 (discriminator 35))
-> RIP: 0010:tcp_cong_avoid_ai (net/ipv4/tcp_cong.c:482)
-> 
-> Fix by checking if user pass in zero as parameter,
-> if so reject the value zero.
-> 
-> Fixes: 814d488c6126 ("tcp: fix the timid additive increase on stretch ACKs")
-> Cc: stable@vger.kernel.org
-> Reported-by: co+71b6509cb791e531@bugs.sh
-> Assisted-by: LLM
-> Signed-off-by: Kaho Jiang <kj2864@nyu.edu>
-> ---
->  net/ipv4/metrics.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/net/ipv4/metrics.c b/net/ipv4/metrics.c
-> index ad40762a8b38..e83a129a25b6 100644
-> --- a/net/ipv4/metrics.c
-> +++ b/net/ipv4/metrics.c
-> @@ -54,6 +54,10 @@ static int ip_metrics_convert(struct nlattr *fc_mx,
->  			NL_SET_ERR_MSG(extack, "Unknown flag set in feature mask in metrics attribute");
->  			return -EINVAL;
->  		}
-> +		if (type == RTAX_CWND && val == 0) {
+input_ff_create() installs input_ff_flush() and input_ff_event() in the
+input device, but input_ff_destroy() only clears EV_FF and frees dev->ff,
+leaving both hooks dangling.
 
-While at it, please check RTAX_INITCWND too (although it is
-ignored and TCP_INIT_CWND is used), also use !val.
+Callers use input_ff_destroy() in their probe error paths, after which
+the input device is still registered. Closing an evdev node then reaches
+input_flush_device() -> dev->flush() -> input_ff_flush(), which takes
+ff->mutex through the now NULL dev->ff:
 
+  Oops: general protection fault, probably for non-canonical address 0xdffffc0000000015
+  KASAN: null-ptr-deref in range [0x00000000000000a8-0x00000000000000af]
+  RIP: 0010:__mutex_lock+0x149/0x1550
+   input_ff_flush+0x5e/0x170 drivers/input/ff-core.c:231
+   input_flush_device+0xd6/0x130 drivers/input/input.c:685
+   evdev_release+0xda/0x7f0 drivers/input/evdev.c:440
 
-> +			NL_SET_ERR_MSG(extack, "RTAX_CWND must be greater than zero");
-> +			return -EINVAL;
-> +		}
->  		metrics[type - 1] = val;
->  	}
->  
-> -- 
-> 2.43.0
-> 
+This is reachable with hid-logitech-hidpp, where hidpp_ff_init() calls
+input_ff_destroy() when a later allocation fails.
+
+Reset the hooks in input_ff_destroy(), but only if they are still the
+ones installed by input_ff_create(), so that a driver-provided handler
+is left alone.
+
+Reported-by: syzbot+788733b16e87faa63deb@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=788733b16e87faa63deb
+Fixes: 509ca1a93836 ("Input: implement new force feedback interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+Reproduced in QEMU (7.3-rc5, KASAN) with the syzbot raw-gadget reproducer:
+GPF in input_ff_flush() on the first evdev close after hidpp_ff_init()
+fails past input_ff_create(); with this patch 392 evdev open/close cycles
+are clean. (The emulated G920 does not answer every HID++ command, so the
+allocation failure was forced with a temporary local hack.)
+
+An alternative is to test EV_FF in input_ff_flush() as in the syzbot test
+patch from matheus.aalmeida@inf.ufrgs.br; I prefer fixing the stale hooks
+at the source so that flush and event stay consistent.
+
+ drivers/input/ff-core.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/input/ff-core.c b/drivers/input/ff-core.c
+index 0e5d1d1ceb46..086a6ddf2b5f 100644
+--- a/drivers/input/ff-core.c
++++ b/drivers/input/ff-core.c
+@@ -345,6 +345,10 @@ void input_ff_destroy(struct input_dev *dev)
+ 	struct ff_device *ff = dev->ff;
+ 
+ 	__clear_bit(EV_FF, dev->evbit);
++	if (dev->flush == input_ff_flush)
++		dev->flush = NULL;
++	if (dev->event == input_ff_event)
++		dev->event = NULL;
+ 	if (ff) {
+ 		if (ff->destroy)
+ 			ff->destroy(ff);
+-- 
+2.43.0
+
