@@ -1,156 +1,130 @@
-Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
+Received: from mx-2023-1.gwdg.de (mx-2023-1.gwdg.de [134.76.10.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD223D5C05
-	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 09:06:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A63FF3939C1;
+	Sat, 17 Oct 2026 09:30:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=134.76.10.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792227966; cv=none; b=UipQeh1YGwujYCnHe5rD7Hqvoogj5L3BCo52pY6knlngkw38S5BMM6wxsbQJCxKpw6UwZVCkQNHAl+i+UOf9Xm59ZH+Dy0lMme3ZVwtCwEH9fQazaqZlrsdEB9bnPaX56UoiC5MTNYT0Zo9onyQNGQcGPm2AgV8OjYYHzF7+V2U=
+	t=1792229433; cv=none; b=lavnf/vVWpN1pBS7l6H0fLwnlFagNizKSymwpgeZstkmS3RgKGJ7wIr8UNcy2nWInQtraIdWnAYysGOjqEZpnVIqfiW18Aal7iTlQid+kpc+9VY5vRwQvciJZEPjB1wIXqRWiRhXN8Pv9o3JICVpfobgJ+QE99KS7GLMgECdZ8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792227966; c=relaxed/simple;
-	bh=PJIb4TRS1B7oZsCjZ5WW1IwlU12EO4LgK9NuEO1Pa68=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=opkijScYeLwPqirvTxA6helvFxlhUUDDqRq/xv7OQcgDS85ogAo4CI6vEf9KMMtwcFUMOXHfKP+HWbKm1ouoaaBABoCR6IUMUDsnpVaX+VR+r6f1+EBDwXE6iVvg6X8trjH3VKJEOu+pRYbv+SFworUENvbCMIUIxcLTXJfLrH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=MoyatWcL; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=UnkV1F+s; arc=none smtp.client-ip=202.12.124.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	s=arc-20240116; t=1792229433; c=relaxed/simple;
+	bh=nSVWA18uvGh4nAp8alVhSxOQW7XOzf91yi2GGtut3kY=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=R+PSHe4cz5wYsLSuDERj/WJ8OEswct7zt/ih4D5bC522lTBbTLNQf3LWIGKeveYDJaDDPG/OEDzhIjM0KmQfdJpfuJrCqiP9i8mMPhdZ6LPho2TkWeQiSHI3mK26ulzMt2XE7el1SUY/29gN8L9+EvH9f+JehwG3JfA+14GMOO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cispa.de; spf=pass smtp.mailfrom=cispa.de; dkim=pass (2048-bit key) header.d=cispa.de header.i=@cispa.de header.b=Iw5Qcgz5; arc=none smtp.client-ip=134.76.10.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cispa.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cispa.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="MoyatWcL";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="UnkV1F+s"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id C9F511D000CA
-	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 05:06:03 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Sat, 17 Oct 2026 05:06:03 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1792227962; x=1792314362; bh=nVZZl6/Mu+
-	b0pKxknf/5K0vEjUCByAfibexN3hnGTGs=; b=MoyatWcLwb7JrN3Plo/AYcROBU
-	5cIsAg2GXW3NFBepev5xqGvx0ZhmeMCUQWPe4u2Eh2desbNeTmD/2ePXN8DtkjjF
-	hIY/5yTVzJGuu2wZBb9Zcxr4HWhbDayHc7gvh5PaNO90iTb/2s3QHBj6J2/or/ln
-	XbO3oRgaV+XBn326IrTr2QCEPg13J2V6M3RCXSp28Cyf5DVy7cmawYtFPAJKJhiz
-	wSFp0YzS2zAxyIIZnDjRan46ZIqNx0IPkQf/7QeWlQAcq3O/Wb6Y+Yb2Vb1+gNSR
-	vI7stgnrS1jlGvISMj9EHcQMopH2G85Vme4EXl+/JZ/xQlMK/vz5GZY1Gjpg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1792227962; x=1792314362; bh=nVZZl6/Mu+b0pKxknf/5K0vEjUCByAfibex
-	N3hnGTGs=; b=UnkV1F+szvuzJqJYZ2dfWWiXErITbSqB0S1TGHw/zhtLcM3HwLs
-	kpYQz/pgLx0xXtH9lruD164FcEAUx5ApvN2aGs9Zi3Zm9XH4y0uGIB0C4zluTBhQ
-	VdUdeB3nkl2xn6mvOBS9BEvY45F/eiH+sSa7GNoKOPgTzMi4e6S+tC9N56v8M4kW
-	zXtM9SGWedo1f7fj46PMUqziqXNzojSHL6Q7lqLPTIAQ6dd4+xcEjh9ACfzHYmTG
-	D2zGrQr7PiagIvPwBh4zHz/8S9T5qsbHZFKJEnbgmhX7ZJOoV/rS2j7T7gZdkted
-	4jAa4PK+JEWDQgbA5k6Pgd8T0RVhwncGdmQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=kroah.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792227962; d=kroah.com;
-	mf=PGdyZWdAa3JvYWguY29tPg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:RItdxl9cHSeN2Zx4EdGFxjI9G94Vu8e4vVV9G70CClA0uUY
-	ydvibIApQ6B8CzBEK6mpzHbbUTU3IiA5LgNBZXftuno4+Mjhm9/poHLkV30+Ri0q
-	q21xO98EahGHB85XuzPzclgMiHwz9sf6sCUlls6mS3qQk/+0OO4bFNDaU5Eaxgfc
-	JZ41Z1srRgoACd9hB7udjZUuRx+3vF6s5zz3jBlOJaJSPqERJzaeQypj57BrSZfa
-	Mv+yNQ3cauSqjF9MgooJR90y4jlMAMudvDnQZI3n4IXZNJgdQIv0XFZwjB53DIIq
-	AOy481SE89TW+oRp87oOumGGQCbhXdfdV1jFSgA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:1KXjdkGRee6BPcWb+KLOanPCir7NKbfNOq6AHMIKUlQ=:PJIb4TRS1B7oZsCjZ5WW1IwlU12EO4LgK9NuEO1Pa68=;
-X-ME-Sender: <xms:ejrTalod7NYQ2bWMzjc4pYGmkcUPmCeUsyVivHwdK9pqU3pxrZSNwg>
-    <xme:ejrTasxPPtpZj3AHXroEzUh1Mivy2hNxU_9eH52OLOw0BDmVRzHeHfDPCr3PfpL3B
-    P38oj0IrwB1eu1GSqVgiF85k9BGkoexGXtKahGZs-bg9eer9_U>
-X-ME-Received: <xmr:ejrTalIZG93txse36Vkm9pKW4KotG_eOjZ0bWezRN5qJGNd3QevjzZyxcnq36UOdhGRKaCBLLW9W9Un1lsHZf1yDRqYCl9RA1ee6JjOEUyU>
-X-ME-Proxy-Cause: dmFkZTGQQdqoEe7fwc0RF/hCGdyTrVrgrv/fnU4qZKHJGS2riRgYXePyEuB8jYXrA/NwyJ
-    Z0NthuPRl5Y8EvXeHQskQv3bZgwpg3P3DaMcRxJA9Uy2j6fVM7G5rRUbOfv4r2nICpiN9T
-    X0ktSIv8L+5R5AbDFYhEqj5bVBhYKCWe4vg3s3upCE6aIT9Nj/exGqzpCERYmci9UUh8jV
-    0yTmhHW0HfhwiX/NzSy8krpjpF+py7AxDTHWhGNtdYoRCsGU9zeLfXFFSVZKZR/9/3U8+d
-    KOcdu4AWDwTNqtwKGmypRSygBg9Cp/pMMSUs3XIvJtqY+jp34ZLjNz3SMHkmPqtamC+LfX
-    tbDZgk4qdZdYrMzZ/Or/KxKRHlIClfmzgPzC8zQXaZWoVYEQIszmvp1ZOKKsvvp7+rBAw7
-    qFZ4eH+wnYDnyVMWHSn44tcGCFfuw1daN2h0Ju5PxuZ3T/cc764GUhjjDd0TBQW7sT0An6
-    ODeqV/0rCvQCyo9JhanqIFltNrHa5MuCYhWGS1g522XwYdbcJZWBLlC1BvwKdTX8372EJ9
-    yNR7lQzyQGk+iX8NG6lnQZqSktMCp70eVEm3D7bgG0U5uE7y+G3uADLVrjsLeOaV1BsHom
-    WM9XsLJb+QJnInfIO9DW5xJArpLY0x1UB7QSpkGEMPE8UBABWEL+vszFEWRQ
-X-ME-Proxy: <xmx:ejrTam68LSS0A4lyRWBLF4ilGVoM2y6SXHxdiv_lf8f7w5F1APGVRg>
-    <xmx:ejrTarxdL3TJJcbmBGiX5dC9OyhaDbB-e6bUEmwQKCTrESCQtb16jw>
-    <xmx:ejrTag-4xYDnRSw7tNeQcA6X-TgZ9Ki1T7Q5vbudXo6J8DCc4JrDmQ>
-    <xmx:ejrTanHC03pYjZ7Xl8J5Jd_YRpGRM6WlO4VR7ItZEBaBo0aq5lYdKA>
-    <xmx:ejrTasXVeMAAS7YPNen_1oiOqc-0BwLu8DV1MsG6XwxjSbNd3iUJ2wYV>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 17 Oct 2026 05:06:01 -0400 (EDT)
-Date: Sat, 17 Oct 2026 11:05:59 +0200
-From: Greg KH <greg@kroah.com>
-To: CatMe0w <CatMe0w@live.cn>
-Cc: Helge Deller <deller@gmx.de>, Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>,
-	Albin Babu Varghese <albinbabuvarghese20@gmail.com>,
-	dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] fbdev: bitblit: Fix glyph clipping when fbcon pans
-Message-ID: <2026101740-concrete-mowing-498b@gregkh>
-References: <TYYP301MB1525C03FE71D47908263EBFCF69A2@TYYP301MB1525.JPNP301.PROD.OUTLOOK.COM>
+	dkim=pass (2048-bit key) header.d=cispa.de header.i=@cispa.de header.b="Iw5Qcgz5"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=cispa.de;
+	s=2023-rsa; h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:
+	Date:Subject:CC:To:From:Sender:Reply-To:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=Gn5Yjmt5x1gvUfD5RTw6LXc3CyfsFmB+PGjK1hFs1uE=; b=Iw5Qcgz5egVfOTniBmsUP4BK7T
+	Pf/uK0hykCq9k2229YiWf12bO9vCqGT7LB1BBFbLqY9vhqRwTiyC7J9w1//NPl1D83ThhyNMiWkls
+	CjZRja3LUhV/Iq1J/NcT3bIq0ms37Tsab8ebf5KIVwgHRisizP1Acck5WOGc+mRQa9BVRNYtwlSuf
+	B5w6mFDljYOxLTYJGNAJWjQEK25KdGI+K9zrGfWzGaFjg7a5gSS79pGPydQPdWOZicKPX9jAzdFJc
+	flmSlRsR3PntDXF9YwYHjOaf7z66NDjacRWr3VRR4mTvB2ifvpGlCg6TixSq2uEJk/LbzrgcyRcEY
+	RPSBvTTw==;
+Received: from mailer.gwdg.de ([134.76.10.26]:51104)
+	by mailer.gwdg.de with esmtp (GWDG Mailer)
+	(envelope-from <amirmohammad.eftekhar@cispa.de>)
+	id 1xI0kH-00BAXF-32;
+	Sat, 17 Oct 2026 11:30:29 +0200
+Received: from mbx19-gwd-01.um.gwdg.de ([10.108.142.50] helo=email.gwdg.de)
+	by mailer.gwdg.de with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+	(GWDG Mailer)
+	(envelope-from <amirmohammad.eftekhar@cispa.de>)
+	id 1xI0kH-000VX7-1e;
+	Sat, 17 Oct 2026 11:30:29 +0200
+Received: from localhost.localdomain (10.250.9.199) by mbx19-gwd-01.um.gwdg.de
+ (10.108.142.50) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Sat, 17 Oct
+ 2026 11:30:28 +0200
+From: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
+To: <seanjc@google.com>, <pbonzini@redhat.com>
+CC: <kvm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+Subject: [PATCH] KVM: nVMX: Clear nested.smm.guest_mode on a failed RSM-to-L2
+Date: Sat, 17 Oct 2026 11:30:10 +0200
+Message-ID: <20261017093016.32348-1-amirmohammad.eftekhar@cispa.de>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <TYYP301MB1525C03FE71D47908263EBFCF69A2@TYYP301MB1525.JPNP301.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MBX19-FMZ-07.um.gwdg.de (10.108.142.66) To
+ mbx19-gwd-01.um.gwdg.de (10.108.142.50)
+X-Virus-Scanned: (clean) by clamav
+X-Spam-Level: -
 
-On Sat, Oct 17, 2026 at 02:53:37AM -0600, CatMe0w wrote:
-> Commit 3637d34b35b2 ("fbdev: Add bounds checking in bit_putcs to fix
-> vmalloc-out-of-bounds") made bit_putcs() clip glyphs to var.yres. When
-> fbcon scrolls by panning, it draws text rows up to var.yres_virtual,
-> so after the first pan most new text is not drawn until the next full
-> redraw. This affects fbdev drivers that set FBINFO_HWACCEL_YPAN or
-> FBINFO_HWACCEL_YWRAP, such as vesafb with the ypan option, when
-> CONFIG_FRAMEBUFFER_CONSOLE_LEGACY_ACCELERATION=y.
-> 
-> Clip to GETVYRES() instead, which fbcon_ud.c and fbcon_ccw.c already
-> use as the drawing area height. When fbcon does not pan, GETVYRES()
-> returns var.yres, keeping the existing bound. When fbcon pans, it
-> returns var.yres_virtual, which the framebuffer memory must cover
-> anyway for panning to work.
-> 
-> Fixes: 3637d34b35b2 ("fbdev: Add bounds checking in bit_putcs to fix vmalloc-out-of-bounds")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: CatMe0w <CatMe0w@live.cn>
-> ---
->  drivers/video/fbdev/core/bitblit.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
+vmx_leave_smm() consumes nested.smm.vmxon into nested.vmxon up front, but
+clears nested.smm.guest_mode only on the success path.  On either failure
+arm (nested_vmx_check_restored_vmcs12() < 0, or
+nested_vmx_enter_non_root_mode() != NVMX_VMENTRY_SUCCESS) it returns early
+with nested.smm.guest_mode still true while nested.smm.vmxon is already
+false.
 
-Hi,
+em_rsm() turns that non-zero return into a triple fault, but the vCPU is
+left with the internal pair (smm.guest_mode=true, smm.vmxon=false).  That
+pair is not representable in migration state: vmx_get_nested_state()
+serializes KVM_STATE_NESTED_SMM_GUEST_MODE without
+KVM_STATE_NESTED_SMM_VMXON, and vmx_set_nested_state() rejects exactly
+SMM_GUEST_MODE && !SMM_VMXON with -EINVAL.  KVM thus serializes a state it
+refuses to restore -- a save/restore (live-migration) round-trip break.
 
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
+The leak is sticky: free_nested() and vCPU reset do not clear
+nested.smm.guest_mode (kvm_vcpu_reset() gates the nested unwind on
+is_guest_mode(), false here), so a later VMXON re-exposes the bad
+KVM_GET_NESTED_STATE with no SMI/RSM involved, for the life of the vCPU.
 
-You are receiving this message because of the following common error(s)
-as indicated below:
+Clear nested.smm.guest_mode before the consistency check and re-entry, so
+it is cleared on every exit from the block.  nested.vmxon is left true,
+which is correct (L1 does have VMX on) and round-trips cleanly on its own.
+Not a memory-safety issue; fidelity / migration only.
 
-- It looks like you did not use your "real" name for the patch on either
-  the Signed-off-by: line, or the From: line (both of which have to
-  match).  Please read the kernel file,
-  Documentation/process/submitting-patches.rst for how to do this
-  correctly.
+Cc: stable@vger.kernel.org
+Signed-off-by: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
+---
+ arch/x86/kvm/vmx/vmx.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index 1f802cdbe..56332a85c 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -8381,6 +8381,18 @@ int vmx_leave_smm(struct kvm_vcpu *vcpu, const union kvm_smram *smram)
+ 	}
+ 
+ 	if (vmx->nested.smm.guest_mode) {
++		/*
++		 * Clear smm.guest_mode up front so the failure arms below, which
++		 * triple-fault the vCPU, cannot leave the internal pair
++		 * (smm.guest_mode=true, smm.vmxon=false): smm.vmxon was already
++		 * consumed into nested.vmxon above, and KVM_GET_NESTED_STATE
++		 * would then serialize SMM_GUEST_MODE without SMM_VMXON, which
++		 * KVM_SET_NESTED_STATE rejects (-EINVAL), breaking the
++		 * save/restore round-trip.  The flag has served its only purpose
++		 * (bringing the vCPU into this re-entry) by now.
++		 */
++		vmx->nested.smm.guest_mode = false;
++
+ 		/* Triple fault if the state is invalid.  */
+ 		if (nested_vmx_check_restored_vmcs12(vcpu) < 0)
+ 			return 1;
+@@ -8390,7 +8402,6 @@ int vmx_leave_smm(struct kvm_vcpu *vcpu, const union kvm_smram *smram)
+ 			return 1;
+ 
+ 		vcpu->arch.nested_run_pending = KVM_NESTED_RUN_PENDING;
+-		vmx->nested.smm.guest_mode = false;
+ 	}
+ 	return 0;
+ }
+-- 
+2.54.0 (Apple Git-157)
 
-thanks,
-
-greg k-h's patch email bot
