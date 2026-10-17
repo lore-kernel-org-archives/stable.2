@@ -1,139 +1,149 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1BEA382F1E;
-	Sat, 17 Oct 2026 18:34:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708613AFB07;
+	Sat, 17 Oct 2026 18:39:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792262087; cv=none; b=Q19ueta1wOigr2+iwHinCHLbi6aiQRDeakmn4szeaUnJZbxjGRr0bEg8Pys0vSg4SS8SAuZuXGFrSBLZojEvNMx8Y9hZTiq84zNBngMM60JQCFP6YnkvikXhYb46NWtzGLhwd6I15movcL76k7xTwSFV2YsJWwkZr3tBkkw1BOk=
+	t=1792262389; cv=none; b=UoDsv9+yahademKR6l4S3xV2Hyq3pGyolTck2mpt88dI5oBDabhcV0OLahUTtgehtoGkZcRwHq1ljx/bdRmscanxZy21cSApiMAvjQvbqqQTDWwrlGkf+W69CCOPducoDBoTyt8ha7vWejmgLr3d0cMHKUOaVbAYUw1ynfFdINA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792262087; c=relaxed/simple;
-	bh=WjtYC0JJVVHPGFt6KM5QwJv500+Juc/Cr2pUlgFC7Vo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=J0u2JTXlqr95jKsTdZqnxHdOmlrP8ar0akoWcKvUskLjhkTgS7Q/peKlzne6FNekOcys+SD+mJWEu7MngvGXpd6c9efaW4mYkb/giAsgAqg228Bh0OKXGwF/HsPFXOF6UavH0rEGhgskKs9CUtPJfGLt8PNmvaWrrciWup6x0bQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=hfX7dMXl; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	s=arc-20240116; t=1792262389; c=relaxed/simple;
+	bh=Z05sb3Nd53Khkf3RVSbd7u60rrrVIPx0BeDT4RF+Zck=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MOCALqo5L1kFrL/H36v47nt+cLsKGlIc8p+CCj8NmxMx5DEcH2guAwHGziLigYsi/Jh7SGT6sLTBbkXaNwurKJ2Jqs4pqxqJa1H82bSw0xYeOiMGadqfkYklZ+lkVhBj2IOK91fBI3pbq3DKtKDi80UF+ufqEH7kA+PmXPGAKyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=hT4jV8Xa; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="hfX7dMXl"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=U38TNxbjZWPafcS+7I1nkZg5tbz0P1qs72gc4jTBwsI=; t=1792262084;
-	x=1792866884; b=hfX7dMXlEcQAegaKx9bxeQR1JIanTBYyqYZlNJTX4A/JLSFuK+4mCSpN6yCFi
-	rE9ZPlLa1wxhCQQ4fjKGrZoMpDUp52Y1dLmHSFEJjC5z/OFqHpy8nFIME3eOI7v+wjcdDXy6z2CBL
-	QNnTeypSbB5WfA9TjyfQHxA2ejG07hCkoOzTXJvetRuLhXT71vyvtQQ3tLk+3qxr5xhl/SEUcSLbr
-	4XKL+k87gnTfkEKQj/4vQXxAeuLIuELNm1wLDyK83IMTeIb+MPeN43a0j6sL2IGK6sW9nR8KF1b6U
-	1wn6OT2AWedUxvoLnE0UxGw8fczRPxOYFP1dzUobyrqq9tGNHQ==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xI9Eo-00000003JjI-1CiV; Sat, 17 Oct 2026 20:34:34 +0200
-Received: from dynamic-002-242-066-005.2.242.pool.telefonica.de ([2.242.66.5] helo=[192.168.178.50])
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xI9En-000000049Wd-42q6; Sat, 17 Oct 2026 20:34:34 +0200
-Message-ID: <e94382c5fad225eff08bd7126997eeef05d0287b.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH] sh: maple: use the matching IRQ cookie
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Florian Fuchs <fuchsfl@gmail.com>, Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker
- <dalias@libc.org>, 	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,  Jianhao Xu <jianhao.xu@seu.edu.cn>
-Date: Sat, 17 Oct 2026 20:34:33 +0200
-In-Reply-To: <atO85d3tjAyPiPRF@lithos>
-References: <20261009040248.1136356-1-runyu.xiao@seu.edu.cn>
-	 <atO85d3tjAyPiPRF@lithos>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="hT4jV8Xa"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69HGEMrG2982246;
+	Sat, 17 Oct 2026 18:39:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=KTLDFca2RUZggMNob
+	4Mpw36J0eNj2WkttT/RfqgV0xo=; b=hT4jV8Xa+FChPKe6UTDKpG4JfaujO3oWB
+	HLubhhIYjQGfWl6DI1BSjWf5FdDI36ZIi/Him3vQLM9PDzE0rmr9DHxIAvkWk4J+
+	dvVOqqf3nwRSmPTNJ971L17JUT+XY2jEp3TlwkJKzYSddWF6MwgEK8nFgYyTNUWw
+	z3ityyn7GyrDUZCijSVZ47XVS22kQ9EghN2LmQZBW70nUrhxfTMAk2Nnc/56yCm7
+	6GwOWBYmUAbpdwe3dhekI4S7h3+y8vxeeNwjtfYuxd1/r1b1HxnRkpWrn/LKxhA0
+	J7XmJdytR77FBRE4j6e+yUcZkqP5eYaqO8bhEeyrBkfqcOdDBC6ow==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hc0h52sga-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Sat, 17 Oct 2026 18:39:21 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69HGJxhr1277496;
+	Sat, 17 Oct 2026 18:39:20 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hb2398uh0-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sat, 17 Oct 2026 18:39:20 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69HIdGad14483960
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sat, 17 Oct 2026 18:39:17 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id DFD6D2004B;
+	Sat, 17 Oct 2026 18:39:16 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9AD3520040;
+	Sat, 17 Oct 2026 18:39:09 +0000 (GMT)
+Received: from li-fc74f8cc-3279-11b2-a85c-ef5828687581.ibm.com (unknown [9.67.66.83])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Sat, 17 Oct 2026 18:39:09 +0000 (GMT)
+From: Srish Srinivasan <ssrish@linux.ibm.com>
+To: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org
+Cc: maddy@linux.ibm.com, ritesh.list@gmail.com, sshegde@linux.ibm.com,
+        mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
+        James.Bottomley@HansenPartnership.com, jarkko@kernel.org,
+        zohar@linux.ibm.com, linux-kernel@vger.kernel.org,
+        linux-security-module@vger.kernel.org, nayna@linux.ibm.com,
+        rnsastry@linux.ibm.com, ssrish@linux.ibm.com, stable@vger.kernel.org
+Subject: [PATCH v4 1/9] pseries/plpks: fix double conversion of write and remove flush errors
+Date: Sun, 18 Oct 2026 00:08:45 +0530
+Message-ID: <20261017183853.596052-2-ssrish@linux.ibm.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261017183853.596052-1-ssrish@linux.ibm.com>
+References: <20261017183853.596052-1-ssrish@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE3MDA3MiBTYWx0ZWRfX7drpqJaAwfRA
+ er7xeYJm8In+sAkEx0/FOboIJi+nGWn1Rpbh+gDownPuoE4XsPQuT/2+PvRj4SHmV29tbH/Ufu0
+ 1KHXYwIQLmKZkatnCTiML8CeInaFJIM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE3MDA3MiBTYWx0ZWRfX33bMJgb9ZF5q
+ 6DXgybJo7PD+uG6VKbTkxErbxzUCdCmS6fgxw55cvj/1S4B9QuP8yeYwjNmxjx4khJQ+clEtT8D
+ U1HPV/fM15mNZlA0HaaNY/4V2SLL38OVdfo+w8r7U0FAmPzvpEAGCXkWywFTBns2AhtUjAWY5iC
+ Y8LN4wp3PkasSRd8Pn62G+hvTKjoJo8hGu8VDEtdbu5awuA3Le8wcFjtzeulS8ZyerATZlxzbDF
+ gfnY79AQrObpRl1gLUbp4ZZb34S9TTW/chQvbx9fHDnsCuaTik9A4mEJVnVMi7SCxksM81B9qvB
+ IhLAgJMFS5fa/k4etL6WVcJSifih46OPVGD+1ORLoc6ZIVFh3pQDjS8CoYgP5BO6/sGam4VOug1
+ oV8dzQ+GfYdi7aGqkq+nNoHQcxuwlO2ee1xcViN3ULFxiAx5jz9f6ZN5JVuCQQ8vRKuhe6dPVzU
+ X3WLWBD4o47ctxBfnoQ==
+X-Proofpoint-ORIG-GUID: JG84z_HYhTBljq6dogfpTklVN9MXvF53
+X-Proofpoint-GUID: _-5V1h0ZmWJdf3B01ZTnRXG4pgf2NIoS
+X-Authority-Analysis: v=2.4 cv=KujYSmWN c=1 sm=1 tr=0 ts=6ad3c0d9 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=TJ-IsHwomnPjbSOrev0A:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-17_05,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 malwarescore=0
+ clxscore=1015 lowpriorityscore=0 spamscore=0 phishscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610170072
 
-Hi Florian,
+plpks_confirm_object_flushed() returns zero or a negative Linux errno.
+However, plpks_write_var() and plpks_remove_var() pass this return value
+through pseries_status_to_err(), which treats it as a raw hypervisor status
+and converts it again.
 
-On Sat, 2026-10-17 at 20:22 +0200, Florian Fuchs wrote:
-> On 09 Oct 12:02, Runyu Xiao wrote:
-> > The Maple DMA and VBLANK handlers are registered with
-> > &maple_unsupported_device as their dev_id. Passing NULL to free_irq()
-> > cannot find either action, so the handlers remain registered and the
-> > IRQ core warns.
-> >=20
-> > Use the same cookie when freeing both handlers on the error paths.
-> >=20
-> > Fixes: 17be2d2b1c33 ("sh: Add maple bus support for the SEGA Dreamcast.=
-")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: LLM
-> > Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> > ---
-> >  drivers/sh/maple/maple.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/drivers/sh/maple/maple.c b/drivers/sh/maple/maple.c
-> > index 5585f220e..7df88e00c 100644
-> > --- a/drivers/sh/maple/maple.c
-> > +++ b/drivers/sh/maple/maple.c
-> > @@ -863,10 +863,10 @@ static int __init maple_bus_init(void)
-> >  	kmem_cache_destroy(maple_queue_cache);
-> > =20
-> >  cleanup_bothirqs:
-> > -	free_irq(HW_EVENT_VSYNC, 0);
-> > +	free_irq(HW_EVENT_VSYNC, &maple_unsupported_device);
-> > =20
-> >  cleanup_irq:
-> > -	free_irq(HW_EVENT_MAPLE_DMA, 0);
-> > +	free_irq(HW_EVENT_MAPLE_DMA, &maple_unsupported_device);
-> > =20
-> >  cleanup_dma:
-> >  	free_pages((unsigned long) maple_sendbuf, MAPLE_DMA_PAGES);
-> > --=20
-> > 2.34.1
->=20
-> The patch looks correct to me and works like intended, that it frees the
-> corresponding IRQ handler in the error path.
->=20
-> Reviewed-By: Florian Fuchs <fuchsfl@gmail.com>
-> Tested-by: Florian Fuchs <fuchsfl@gmail.com>
-> Fixes: b3c69e248176 ("maple: more robust device detection.")
->=20
-> Just a little addition, it looks like commit b3c69e248176
-> ("maple: more robust device detection.") introduced the issue, where the
-> static irqaction with IRQF_SHARED, was replaced by a request_irq() with
-> a cookie, but the free_irq() wasn't updated.
->=20
-> I tested the patch with a forced failure of maple_bus_init(), which
-> gives the WARNs and keeps the handlers registered in /proc/interrupts:
-> Trying to free already-free IRQ 69
-> WARNING: kernel/irq/manage.c:1880 at 0x8c0522c4, CPU#0: swapper/0/1
->=20
-> After the patch, the IRQ handlers are unregistered in /proc/interrupts
-> and no kernel WARN is shown.
->=20
-> And tested if keyboard, mouse still work with the patch, which they do.
+Convert only errors returned by the write and remove HCALLs, and propagate
+errors from plpks_confirm_object_flushed() unchanged.
 
-Thanks a lot for both the additional review and testing!
-Since I'm using b4, it will automatically pick up the Fixes tag you provide=
-d.
+Fixes: 2454a7af0f2a ("powerpc/pseries: define driver for Platform KeyStore")
+Cc: stable@vger.kernel.org # 6.0
+Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
+---
+ arch/powerpc/platforms/pseries/plpks.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Will apply the patch tomorrow or Monday.
+diff --git a/arch/powerpc/platforms/pseries/plpks.c b/arch/powerpc/platforms/pseries/plpks.c
+index 240cd5632446..c86960f102dc 100644
+--- a/arch/powerpc/platforms/pseries/plpks.c
++++ b/arch/powerpc/platforms/pseries/plpks.c
+@@ -750,8 +750,9 @@ int plpks_write_var(struct plpks_var var)
+ 
+ 	if (!rc)
+ 		rc = plpks_confirm_object_flushed(label, auth);
++	else
++		rc = pseries_status_to_err(rc);
+ 
+-	rc = pseries_status_to_err(rc);
+ 	kfree(label);
+ out:
+ 	kfree_sensitive(auth);
+@@ -808,8 +809,9 @@ int plpks_remove_var(char *component, u8 varos, struct plpks_var_name vname)
+ 
+ 	if (!rc)
+ 		rc = plpks_confirm_object_flushed(label, auth);
++	else
++		rc = pseries_status_to_err(rc);
+ 
+-	rc = pseries_status_to_err(rc);
+ 	kfree(label);
+ out:
+ 	kfree_sensitive(auth);
+-- 
+2.52.0
 
-Adrian
-
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
