@@ -1,38 +1,65 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABCA6493639;
-	Sat, 17 Oct 2026 14:50:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E423451DA
+	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 14:53:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792248656; cv=none; b=e9yZE6ZP+p8ZUD7HN5FAFbSYcELh7Zi1ez/UvyvLbP8rPbaJBd6/fzxUguaDNzBEj+mc5cbfYABDw5yf4ClKBDzE3v+dMOUbuQswPKQCTShd7nnQr1pTRCsM340YvKxFp1jbsjsfDGumPiYUJz/n7toE6GIirJCTsWmwgsEElbM=
+	t=1792248838; cv=none; b=Jx1RmbivZHDkyI2POSzTRDVOJr23dBcRca6RW/Qqri8dpP0Lnm9bv59wT8dMlIlS9+Js4Da/RnOt6+ABenxbTw1mWAj/xuk0ZTjKYjFq+KDJTcyjZQK1q1kJP4Gfct0ueeKgKiFE4AfnZGiCNcvnZPhmosNfprzz4qgRo3ia61A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792248656; c=relaxed/simple;
-	bh=mXB6tIL/+qLpJiz4Sn4FUNs0zYbvBZ/cActaGcwuZns=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DWgSW1xEa587cy0rE7D9t78Vz+EXZ38AqDvYvZujkoht1VAWaouUoysDYZ92BO9Fn8N0Q8ObFaoeydFsN9Sp3iIyx+TIKLKBpO+BYF4dhpOhaQ7VHTX+/KIfHZmwv9UgLhaJM0sWoaMOX6oBlT50GWgbSSNv3+3DE4iwamydlQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o6McW2T7; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792248838; c=relaxed/simple;
+	bh=14/hMLHV/tYtznG0hyhpzTapCNH3vt/FqyYM36Xqhsw=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=a1Uk0mj/q7R6mil9akzhdPXUbPyN7+KTOlB5VLA6sFeV0eLKcxm2saCiqVLhgj5pOXM5EmNqyvptJxb8IkvU4lxqogCNrHFOXQgvU4yU/PvJSAazhI7ZEfHuNFsrp6RogZPzJFuvaoMkvrFIDcjA8KDo2i+61U/5JpVcfoxGNXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=f3syT2qo; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o6McW2T7"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8126BC2BCFA;
-	Sat, 17 Oct 2026 14:50:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792248656;
-	bh=mXB6tIL/+qLpJiz4Sn4FUNs0zYbvBZ/cActaGcwuZns=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=o6McW2T7vbO4CyNy9OouBAAjrvPz/CwRj3+jigb8koaxo5R7GpaKUTe1+Nfe0/4yQ
-	 h/ZmuD2Iyu4luOMJADAkMny0H2CN+OdwOsBUGv4SPm7CczflfM8adyV4btTp0IRC3r
-	 J2mzgcYjrTaUvobg2LiXT5Fs08s0gjQm7puhMLBOlMWUhkvBmy2qtink6lnNd8l8N/
-	 mgigMtyQnJVX+5xMFMtAzvaZ1iUkFhkRjMVKbCyGYJa7iPT4LGtXxSU2ZjLJ2fhPWV
-	 1Pv2ImueT7AlGx6LsJsnkTk3C4spP92T+TfvJY2ueKi9c2m3dY5N3vbqAwufLv/z/t
-	 q9oLzHrE7l5DA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F308CCF2C1;
-	Sat, 17 Oct 2026 14:50:56 +0000 (UTC)
-From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
-Date: Sat, 17 Oct 2026 22:50:56 +0800
-Subject: [PATCH net v6 6/6] can: rockchip_canfd: serialize timecounter
- timestamp conversion
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="f3syT2qo"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a16bc2278aso6600725e9.1
+        for <stable@vger.kernel.org>; Sat, 17 Oct 2026 07:53:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1792248835; x=1792853635; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=p9zss0HBxC2hnh3BG5QDi7k5785zMX75I0uTXgjx5mI=;
+        b=f3syT2qo/3TFp/8ROffPWWw8I70qB+tcFyHNSM/8TcaxkUqaCtjZkZdvj2JSMSGUHf
+         +9EWZ6d5K4gpne9RQSqgpxmyj8d++dihDaKIXdwlHKxWMEo6qqpydzJZ5/IdLHOlFXj3
+         2ERg2toU39IhvS9qZkSV1uE0khD614YZPcOdk3rj1x8ws7whhpY6j26Wh1oOPzRsyW8i
+         hEOhRx3UJXymlCJ9gJZRLwYQx7jmjEvCnx9flExfrwkRfLbT5Tco+8JIq99R6D6tEAGA
+         fp57RxU75lJXfPYWqzGx9yJ2UJtS4kbKZyEb9bOFrPrHh3sqmV33bdKiYOD7KWgzIE0E
+         457g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792248835; x=1792853635;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=p9zss0HBxC2hnh3BG5QDi7k5785zMX75I0uTXgjx5mI=;
+        b=Wv30ynWbr6vdfbsHAddSZnE0ExpO3Cfdrl0Ea3mgSze49thqdlyKIPv9ocOvjyY4+m
+         WoPKHE8PS/JThFAJjgtZORYdcDFEUAglvFO3QGPOM5l30qeIhTbnhvxoFrELH/G/7BJP
+         5pP8RuLtalFxs+tuWIv/UQsYFHXXhX7RFQQV7MJNKzPeBMAJB9YnEQSGDhDh7fwurXeF
+         JbElVQHmp/Aii414EgC50LHqdk2mI3TQ0Rrw1R9/c8AKIDqPfEbk1GUOMzPAR8q9wOq6
+         rJCqeIZbaN/re7QuoVYW5MwBmMropRmmfp2U770mioZ9Pqgv0X19f6F2pQX12BHoCAwT
+         /IwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw29wsJGURzxJg25KO6l+vxxgS76z0evpgPkLNGu1LnBLc1L7FdLrBNSOcTIIeDvjTrSKGlquo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIlWM+xKdx94tQiZeDuqaGN3E31mhR07xoQGCEWJ8boGkQwFnbF
+	9LU2EcuqRD0iBIcj7on3Ufu+5sSXM3Lo7B0w9bPtTVyUsDRl/yFRYss58WlF09NIM6k=
+X-Gm-Gg: AYBFou3B37n2j4iI5KZ3RQAzLn9PDRpyTIDDWvG167yQxIEhSsRFwR6MxxGsFFa2Ccc
+	LKxAxLQrhwuppO189vshlb0h/zzyU7yUFSdvPEduEc0lNajRxJtETLilTi+QiJQROYJrIj3cPFN
+	GTEu+LkIXmwsgRob6BvdQSrY5zRIAEJP6BBmB8Ab7JltPI0bm9pKfXATPePav/T+sUVcHreTuZ7
+	CEmB3ntH7nRJ3oA5a61dp9V7a5AncSk6PCiq/Sh8HdkoiTxTJUmTR21SDfs4FkwCpi/wqgOsUVK
+	9AXiN6jEkuMMP3wBM2LXqyS/SOesOYTf9fNzP+BvzEx8lPt8QANp4mHoqYx+3wgn2ouFvMCNDUH
+	BsCkIIR3ua36L6JvTudufeoyOoU5X8mbtZCHvHO65VQaS6wlGe0gLYpzwpwcq/7q76YXHb+YqIG
+	VF6+a5gUjj5hKyUNatkUWuE/QLeX8icavOIiyIlQdip1ZJbwopEyXUqaLFPDbr9EWvii6uakQT3
+	2NVNe2fJ1aK8CSBsw==
+X-Received: by 2002:a05:600c:19ca:b0:4a1:ac66:5ffe with SMTP id 5b1f17b1804b1-4a1d75fce82mr60259805e9.15.1792248835113;
+        Sat, 17 Oct 2026 07:53:55 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd503862sm11663833f8f.46.2026.10.17.07.53.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 07:53:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,106 +68,140 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261017-rockchip-canfd-restart-close-v6-6-ed605feb4b6e@qq.com>
-References: <20261017-rockchip-canfd-restart-close-v6-0-ed605feb4b6e@qq.com>
-In-Reply-To: <20261017-rockchip-canfd-restart-close-v6-0-ed605feb4b6e@qq.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>, 
- Vincent Mailhol <mailhol@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- "David S. Miller" <davem@davemloft.net>, 
- Wolfgang Grandegger <wg@grandegger.com>, 
- Oliver Hartkopp <socketcan@hartkopp.net>, kernel@pengutronix.de, 
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- netdev@vger.kernel.org, linux-doc@vger.kernel.org, stable@vger.kernel.org, 
- Cunhao Lu <1579567540@qq.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792248654; l=2940;
- i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
- bh=PpQslORihJNgfj4mzr9VTzdMu4X2EvQLejo/FRw489Q=;
- b=ePvaeQozhEYsa/ePirwiG2llAcEhxRrpEqR3ehdU7AuYWHAd5VaNp20yypzZH4+YrUsFIHWgZ
- JWbt8OX2FdoDP/5PCcHX9Cm4poP6MxPECQMx3e4fZ5LUQhEs6I2HeWB
-X-Developer-Key: i=1579567540@qq.com; a=ed25519;
- pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
-X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
- auth_id=1177
-X-Original-From: Cunhao Lu <1579567540@qq.com>
-Reply-To: 1579567540@qq.com
+Subject: Re: [PATCH v10 03/10] clk: nuvoton: ma35d1: Retrieve HXT/LXT from
+ DT when possible
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, stable@vger.kernel.org
+In-Reply-To: <20261015-perso-ma35d1-upstream-clk-v10-3-47c97b54a809@bootlin.com>
+References: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
+ <20261015-perso-ma35d1-upstream-clk-v10-3-47c97b54a809@bootlin.com>
+Date: Sat, 17 Oct 2026 16:53:42 +0200
+Message-Id: <179224882241.859276.15035084302735586039.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4123; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=14/hMLHV/tYtznG0hyhpzTapCNH3vt/FqyYM36Xqhsw=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFmXexhiw+4KLE5n8ZwffqTXfGbaLNNtyasLfJ8e/iCm3
+ CLy7tCfjlIWBjEuBlkxRZYa7mrxd5JaX2ZN17kNM4eVCWQIAxenAEzErpWR4Sdf0fTfq1xm7zgu
+ fv93xOVbXPPn+r/I3S6oeFzkuOUXhThGhgMHEnaejKt438ISlZTPdOvAkmXKVzS2fls294zl9io
+ tcx4A
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-From: Cunhao Lu <1579567540@qq.com>
+> HXT and LXT are crystal oscillator inputs of the clock controller. As
+> such, they are external clock sources which should not be registered by
+> this driver.
+> 
+> HXT is already described in the DT, but is not named. In order to point
+> to this parent from its direct child which is HXT_GATE, we must provide
+> a fw_name (when it is named, new DTs) and a .name (for when it's not
+> named, but the fixed clock node name is used).
+> 
+> LXT is missing in old DTs, so we must create that clock and register it
+> for backward compatibility reasons. It should however be described and
+> pointed at in updated DTs.
+> 
+> Both HXT and LXT are exposed by this driver only in the backward
+> compatibility case. Otherwise, both clocks are expected to be retrieved
+> from the DT.
+> 
+> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+> ---
+>  drivers/clk/nuvoton/clk-ma35d1.c | 44 +++++++++++++++++++++++++++++++++-------
+>  1 file changed, 37 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
+> index 00d635cdb604..33b397d7b7c5 100644
+> --- a/drivers/clk/nuvoton/clk-ma35d1.c
+> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
+> @@ -65,6 +65,14 @@ static DEFINE_SPINLOCK(ma35d1_lock);
+>  
+>  #define MA35D1_MUX_MAX_PARENTS	10
+>  
+> +static const struct clk_parent_data hxtg_parent_data[] = {
+> +	{ .fw_name = "hxt", .name = "clk_hxt" },
+> +};
+> +
+> +static const struct clk_parent_data lxtg_parent_data[] = {
+> +	{ .fw_name = "lxt", .name = "lxt" },
+> +};
+> +
+>  /* Mux parent selection, by index into the controller's clock table */
+>  static const int ca35clk_parent_idx[] = { HXT, CAPLL, DDRPLL };
+>  static const int sysclk0_parent_idx[] = { EPLL_DIV2, SYSPLL };
+> @@ -191,6 +199,15 @@ static struct clk_hw *ma35d1_clk_gate(struct device *dev, const char *name, cons
+>  				    reg, shift, 0, &ma35d1_lock);
+>  }
+>  
+> +static struct clk_hw *ma35d1_clk_gate_parent_data(struct device *dev, const char *name,
+> +						  const struct clk_parent_data *parent_data,
+> +						  void __iomem *reg, u8 shift)
+> +{
+> +	return devm_clk_hw_register_gate_parent_data(dev, name, parent_data,
+> +						     CLK_SET_RATE_PARENT,
+> +						     reg, shift, 0, &ma35d1_lock);
+> +}
+> +
+>  static int ma35d1_get_pll_setting(struct device_node *clk_node, u32 *pllmode)
+>  {
+>  	const char *of_str;
+> @@ -219,7 +236,7 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+>  	static struct clk_hw **hws;
+>  	static struct clk_hw_onecell_data *ma35d1_hw_data;
+>  	u32 pllmode[PLL_MAX_NUM];
+> -	int ret;
+> +	int ret, num_clks;
+>  
+>  	ma35d1_hw_data = devm_kzalloc(dev,
+>  				      struct_size(ma35d1_hw_data, hws, MA35D1_CLK_COUNT),
+> @@ -240,12 +257,25 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+>  		return -EINVAL;
+>  	}
+>  
+> -	hws[HXT] = ma35d1_clk_fixed("hxt", 24000000);
+> -	hws[HXT_GATE] = ma35d1_clk_gate(dev, "hxt_gate", "hxt",
+> -					clk_base + REG_CLK_PWRCTL, 0);
+> -	hws[LXT] = ma35d1_clk_fixed("lxt", 32768);
+> -	hws[LXT_GATE] = ma35d1_clk_gate(dev, "lxt_gate", "lxt",
+> -					clk_base + REG_CLK_PWRCTL, 1);
+> +	num_clks = of_clk_get_parent_count(clk_node);
+> +	if (num_clks < 1 || num_clks > 2)
+> +		return -EINVAL;
+> +
+> +	/*
+> +	 * Old DTs do not describe the low-speed crystal. They may also expect
+> +	 * an HXT output from this driver. In practice, nobody should use these
+> +	 * clocks directly, but they must be kept for backward compatility
+> +	 * purposes.
+> +	 */
+> +	if (num_clks == 1) {
+> +		hws[HXT] = ma35d1_clk_fixed("hxt", 24000000);
+> +		hws[LXT] = ma35d1_clk_fixed("lxt", 32768);
+> +	}
 
-The timestamp worker advances the timecounter with timecounter_read()
-while RX, TX completion and error-frame paths use timecounter_cyc2time()
-to convert hardware timestamps without holding timestamp_lock.
+The above is fine but the problem is those IDs still exist and something like
+<&clk HXT> is still valid in DT but now does not provide a clock anymore.
 
-timecounter_read() updates frac, cycle_last and nsec in separate steps.
-A concurrent conversion can observe the new cycle_last with the old
-nsec and produce an incorrect timestamp.
-
-Hold timestamp_lock across timecounter_cyc2time(), using the same lock
-as timecounter_read() and timecounter_init(). Keep the SKB timestamp
-assignment outside the critical section.
-
-TX completion nests timestamp_lock inside tx_lock; no timestamp-lock
-holder acquires tx_lock.
-
-Fixes: 4e1a18bab124 ("can: rockchip_canfd: add hardware timestamping support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cunhao Lu <1579567540@qq.com>
----
- drivers/net/can/rockchip/rockchip_canfd-timestamp.c | 5 ++++-
- drivers/net/can/rockchip/rockchip_canfd.h           | 4 ++--
- 2 files changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/can/rockchip/rockchip_canfd-timestamp.c b/drivers/net/can/rockchip/rockchip_canfd-timestamp.c
-index 0fa791849c95..05f1005ee506 100644
---- a/drivers/net/can/rockchip/rockchip_canfd-timestamp.c
-+++ b/drivers/net/can/rockchip/rockchip_canfd-timestamp.c
-@@ -15,13 +15,16 @@ static u64 rkcanfd_timestamp_read(struct cyclecounter *cc)
- 	return rkcanfd_get_timestamp(priv);
- }
- 
--void rkcanfd_skb_set_timestamp(const struct rkcanfd_priv *priv,
-+void rkcanfd_skb_set_timestamp(struct rkcanfd_priv *priv,
- 			       struct sk_buff *skb, const u32 timestamp)
- {
- 	struct skb_shared_hwtstamps *hwtstamps = skb_hwtstamps(skb);
-+	unsigned long flags;
- 	u64 ns;
- 
-+	spin_lock_irqsave(&priv->timestamp_lock, flags);
- 	ns = timecounter_cyc2time(&priv->tc, timestamp);
-+	spin_unlock_irqrestore(&priv->timestamp_lock, flags);
- 
- 	hwtstamps->hwtstamp = ns_to_ktime(ns);
- }
-diff --git a/drivers/net/can/rockchip/rockchip_canfd.h b/drivers/net/can/rockchip/rockchip_canfd.h
-index 4a2bdc205296..63f146ff8e6b 100644
---- a/drivers/net/can/rockchip/rockchip_canfd.h
-+++ b/drivers/net/can/rockchip/rockchip_canfd.h
-@@ -489,7 +489,7 @@ struct rkcanfd_priv {
- 
- 	struct cyclecounter cc;
- 	struct timecounter tc;
--	/* Protects timestamp_active and worker reads/requeueing. */
-+	/* Protects tc, timestamp_active and worker requeueing. */
- 	spinlock_t timestamp_lock;
- 	struct delayed_work timestamp;
- 	unsigned long work_delay_jiffies;
-@@ -557,7 +557,7 @@ void rkcanfd_ethtool_init(struct rkcanfd_priv *priv);
- 
- int rkcanfd_handle_rx_int(struct rkcanfd_priv *priv);
- 
--void rkcanfd_skb_set_timestamp(const struct rkcanfd_priv *priv,
-+void rkcanfd_skb_set_timestamp(struct rkcanfd_priv *priv,
- 			       struct sk_buff *skb, const u32 timestamp);
- void rkcanfd_timestamp_work_init(struct rkcanfd_priv *priv);
- void rkcanfd_timestamp_init(struct rkcanfd_priv *priv);
+This is why I asked if you about removing the ID. At the very least a comment is
+needed next to the IDs saying those are obsolete and should not be used.
 
 -- 
-2.34.1
-
+Jerome
 
