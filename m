@@ -1,55 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A46333F36D;
-	Sat, 17 Oct 2026 03:00:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2F313AC0F3;
+	Sat, 17 Oct 2026 03:00:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792206047; cv=none; b=Bu0vDKTcx4saWl4SJvn5L1BHILqPXR44I0YDUjlOiZoPB4YAwF2xvP9I6IHDgalY0rxPU5/ikXk8tXLCUnXtlllutXVk50UKxppGF1H29BMkvuMOHwSt95xPcoYiLsVNt05/K+pvni1oK/ol1F0EALy5saMaLYUS70uB+O1cy0I=
+	t=1792206048; cv=none; b=ZQw9zynAkLIC8X5QixY8cXUYIriR7TxcRR3IzRKrz5MvGcrY8MpN0V6Lu2XDEy9klfBSv8kYjLsPcbrOoFRjCoSQ+2bBRRp7rr6rol7KT++Ac51ghOgRKpaksCSGAgE/jwzBfRyWi5dhvN9nvqIHyU/t2gN1LpREizU93m5IUUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792206047; c=relaxed/simple;
-	bh=9DgN8JSScJoKsXAkC7cE8YGy7xYbjpdwhIUrSOIstIA=;
+	s=arc-20240116; t=1792206048; c=relaxed/simple;
+	bh=1NCnHmHAiFBx6DE1soTzPxYirn4ZWu9IV0VRjQEoSkY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T5GtH74r/Sedi0iQXiyeiPzx+znZSX9rw1Kd6bTmtc30lb5BvHaBkrobs2BtqC8Yzn7PsyIy4+ugDXTLWsQkICXumYEP1eJiMXL5qCFH71ezbW/8fapaZsXy2SpSGZAGQcQ0aiMecQ5jyfG/Mn4eS7RZigfJ7XXMuPfAe0t372A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jHUEdf16; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WsayYJJuvreZTNpReWdBcURZ7nB7FusE12lH/IyCGFbtJH0UjEVY0V3JzYxxU1xZhAsgnxwyflLDRa/gx8U/z8/dmwBr1l6Tmho8SUK4LXO+peGa/yU3XHFtjKZoX/GqtEXPu/vPWZZHz9+LmlN/zAitehmi8+zcCA6pzYyCyMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G2plqA4y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jHUEdf16"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00DF21F000C4;
-	Sat, 17 Oct 2026 03:00:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G2plqA4y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD8841F000C8;
+	Sat, 17 Oct 2026 03:00:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792206041;
-	bh=A1ZM7cy2IxVTAOmtE27CyXR2LkV0RVLLMmxN/Rzvr5Y=;
+	s=k20260515; t=1792206039;
+	bh=nEn+CusHEuo7JRMQua/CI+Ds3eOaDSAz9H+xFjAWP4E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jHUEdf16HMvyrXcXsxhz4/eZwq9JldPSyLERGp2uc+wyxiHb86zKf/dCv3tIPQCq9
-	 /juyQVjor8NkxuPQ5d1Ds9z7SQYnphuGpcX5cV5dHbZspKMpDjchxdlnO8RQmwnPEb
-	 iwh5m/k/g0UkQnUCytCXIPnrgfjGJkfjO52B912zYJl8ELvenogj8q+CDBAgPjzZ9A
-	 7mt6lln6Em305jl0de95WHsgydAyQGIJYrizWFPatnZCWm8iKGfw0HVFCn5nUvHbXi
-	 Te/Y2V8dO5FiSd6aWLIQXa6ugm0kkmUUPXE2L4ZicRDEGDEihSq1cnphCNkLqil64r
-	 XA7pOg3Jc1ApQ==
+	b=G2plqA4yeNwWyrDDkszetp9nvNGg8CvC0XKf3CPI9akyn8xwvdIlMx2sSaBJcLIsU
+	 VISSmchqd+bb/zIhh47bc7eoU0Ei5zPZw0/JSoLT41TcMo+CvvgyT8Jw7BGDprCbxu
+	 fDPWTRsUSaBApUrxrLV+tNgM0fDab27j9KHa3/jz6M3OAi+IRLVgvrCN4nntODSQOC
+	 RK7yf6JAxi42a6wFkiHW7/GcsAVjVoqwPEXH55kBhVF5rzpJgrr0Npdum5sdIxn7QP
+	 ToaGVWRZa2fFp8eblRoqfLkyPF+CkxpK8IKCQwIJyv4mK6mmruQXv0lUQuJWTgQpwJ
+	 EmHL8CmN/4tJw==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: "Darrick J. Wong" <djwong@kernel.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	andrii@kernel.org,
-	ast@kernel.org,
-	bpf@vger.kernel.org,
-	daniel@iogearbox.net,
-	eddyz87@gmail.com,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	john.fastabend@gmail.com,
-	jolsa@kernel.org,
+	linux-xfs@vger.kernel.org,
+	stable@vger.kernel.org,
+	Dave Chinner <dchinner@redhat.com>,
 	linux-kernel@vger.kernel.org,
-	martin.lau@linux.dev,
-	memxor@gmail.com,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	Artem Dinaburg <artem@trailofbits.com>
-Subject: Re: [PATCH 6.6.y 2/2] bpf: abort verification if env->cur_state->loop_entry != NULL
-Date: Fri, 16 Oct 2026 23:00:18 -0400
-Message-ID: <2026-10-16-1-daily-reply-0013-bpf-loop-entry-abort-6-6@kernel.org>
+	Mark Tinguely <mark.tinguely@oracle.com>,
+	Siddh Raman Pant <siddh.raman.pant@oracle.com>,
+	Catherine Hoang <catherine.hoang@oracle.com>,
+	Chandan Babu R <chandan.babu@oracle.com>
+Subject: Re: [PATCH RESEND 6.6 v2 0/5] Backport of XFS umount hang fixes
+Date: Fri, 16 Oct 2026 23:00:17 -0400
+Message-ID: <2026-10-16-1-daily-reply-0012-xfs-umount-hang-6-6@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016022011.16938-3-artem@trailofbits.com>
-References: <20261016022011.16938-3-artem@trailofbits.com>
+In-Reply-To: <20261015144723.GQ2705364@frogsfrogsfrogs>
+References: <20261015144723.GQ2705364@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -58,10 +51,10 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Please consider this backport of the corrective follow-up for
-> CVE-2025-38060 to 6.6.y.
+> This also looks good to me,
+> Acked-by: "Darrick J. Wong" <djwong@kernel.org>
 
-Queued for 6.6, thanks.
+Queued the series for 6.6, thanks.
 
 -- 
 Thanks,
