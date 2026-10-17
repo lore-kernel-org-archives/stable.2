@@ -1,126 +1,244 @@
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AD8D134CF
-	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 00:09:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF344299929;
+	Sat, 17 Oct 2026 00:33:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792195781; cv=none; b=Nq2so5k08ymItnL0mrSzNiB+EcqIAMHcTTZ9Jt/nL56GSwdFeY3DPr2k11tyF2lNcF2I15X0uOyPFR6yyqOdsnYtj5BqbUa6E51wz0uTJ6TXABXvJ8vGVIy/4MxgQzDlyBD6rGL5NEYZjW+v+rv3r3Stc9Id+lCv2yQe7iiIwpE=
+	t=1792197234; cv=none; b=SvUkyhKPq84SPljVXuJ3xGoM2imk5kGCCHziduIPPnKfs7M7evYXKGBG+UT46e8Ey10HzIc9CTMh74UTsS51aat8vv6V59VWHKRTZAkCgP5ZzGjJrXFkJwk4usIWX4XmO3uQHBqFJ2Nxi+hoWoOSRPR+usjhMFgacC7CUNu0qWI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792195781; c=relaxed/simple;
-	bh=R03FmR3pbbWZC6kdWDV0GBdzqk7u8iUUBNKqb3kTguU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IHQYFLYJgciI7Vaa99DIaHSypdEnGmhYIofQXp8Kc64XUXPS6B1Yj8mi1fZehPo4+ePHRcATEkVk7pTcCBeNun7+Qa0XPV+h1GeYVkbZo4vrlzDR4DQOXbn3XSbVcGaCzYSAdJurd2FkfqmCfUZlwcUnmUC786ewS4SMR5rbK88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CYhoZuxo; arc=none smtp.client-ip=74.125.82.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792197234; c=relaxed/simple;
+	bh=Q+UQFFOGkGQoah/uga72iNFZA2qYmB7N1/Xk2r915fs=;
+	h=Date:To:From:Subject:Message-Id; b=u3dlOOqS/oPqUTJWdrbPv3Cl4z/HEonIc5vHKufsMJZXtgjWGI9G8XiuP1HeO/DIcinS6IpbtRbFoB1uod5X1uN9SuqDcWRqylRkV1sx0zS69I90ku+oLHocaUCeZa/NbRKJDl0I6gLQE/cQqXUfKZCYvEieNLQgJUfEeayhkLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=F1mzAskr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CYhoZuxo"
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-16079d54c17so917181c88.0
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 17:09:39 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="F1mzAskr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 550971F000C4;
+	Sat, 17 Oct 2026 00:33:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792195779; x=1792800579; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hdEgyaxXnBWSRhuv+q3gw3+PLLgLDUmHWnxnCGdLz4E=;
-        b=CYhoZuxos8RpvjncbtcsaUbVHCqs7SZstFBPOOF1Q/f1JhphMfe1HYVuJXOzJO0r4z
-         dNAHPTKL6A0Yc9sdOuPJS+eYLaHW67xgWsExF1h0M+I7rDbp/F6f15NcZNSyyiF0KGrP
-         FuPnKnSma3J73splMAY0tU5Mw86vsAJOeSh6l+SPt5myf53s3GmHSHbhvrxRlmkY9ITF
-         74ozvUVVej+yw8LqSvpNYeeiwFxo6k8M2ZMKlKzzov6EctpxE2Z0OCR1PPvRQZMvV3w2
-         QVvkc9mg23s22xFWRDDqdTe27JCxgNJ6kJ7L6v9nXdM5nPzCQ89JPsWrNXIL4rlcZu0y
-         kfRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792195779; x=1792800579;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hdEgyaxXnBWSRhuv+q3gw3+PLLgLDUmHWnxnCGdLz4E=;
-        b=KawEg9UvkE2059EY0AywM1KqZ8l9EuvzERX4C6pbZZzUM3MONqZjLbvw9bQ9xtPACK
-         YX2FuEU5nJPlPL0GhA5jtI52miRhK/UGPlltlY37xleV/qt9Yp1BliqTB9kQTTHtRi4/
-         1p7Zx75BhWCWuu79HGSvH6yFAYhQLlGR79yFPNehqR7/4gniJVnOHRJKHG6dLeWrht29
-         kStzshdzZ5aqqGApUPkkGxpQtAifIN3kwpJdR+HYoqQQhJF+tUnzQ6RQtqeXkr75CZDP
-         eWK1DajgUovyA539gr7yuOPVM3Dd4jCu6ObRipU13GMrdkafESJ0F1ah8CQZMmCVZcfn
-         kMXg==
-X-Forwarded-Encrypted: i=1; AKwUvBz94IXKUR40x49UFNy9mkYcC3KvXQhCW86uqBmxDhJVAvBJBVImoUbH34NrPVvCxvsNRg8QJS8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLsCR5vbR3Yr7T+68eDwV7awzPkYutFaZjxtIyiAqlpq2ZUlfuH
-	isuZuMWQuP4ISguXBcHHi6TAryAhY1LV+NgW2nDZ1k436WeGcOOxaWV5
-X-Gm-Gg: AYBFou02/smSuMhK9IbbEyfs2tiM6MyebCFq2lYODk6s2tBfajyW4TNx4+A6iDyJ7zi
-	13r+EoXwXfGkZ+8/mmqMc1vqClwZ/0wH7w9QeuA6AjMzH/qAbeMvL0nNQ1yXfhssMS78sQGx16h
-	pHj3U6gM3NCg4Z7BIH4t+hNzEzJ99+mSXa8+V0iMEqVWWJIl04kzXS7x3kznZUD1a/Cy10/mbpZ
-	7tNFex4LlqMgUQuLxBmO50DV/Njc5aHD9C60j84MlfyEmVGbg24yoRm5u8vrtPM5gEzDTLH4FJP
-	t2iZLY/FLalZTWJ9gY62oJ4B8MymCppG3mmptDhOohbDiN++mnXdh8qm2l2sUbHq+SgAJ00/pCe
-	iYyauV6UCRyeRKhMqoIsdy9RXZZtLU+iLvXYTtpNxeiJw//DuR0PddVcrS9L08cxHGRDi8KctMu
-	SmPejQgjohW0rmwr8VbxEXQLnMgTnAaD85nOA6LN3hlMt1pr+RuPjxisHdpW0kPsaXYZ2swxm7e
-	qMh3a/G
-X-Received: by 2002:a05:7022:ebc4:b0:14a:fe37:cdf0 with SMTP id a92af1059eb24-18514bfa955mr2412948c88.45.1792195779041;
-        Fri, 16 Oct 2026 17:09:39 -0700 (PDT)
-Received: from maclinux ([2803:c600:9110:8ba5:1c75:eeaa:b22f:20dc])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831919fc14sm10982553c88.6.2026.10.16.17.09.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 17:09:37 -0700 (PDT)
-From: =?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?= <fbeltranmillalen@gmail.com>
-To: qchcio@gmail.com
-Cc: amd-gfx@lists.freedesktop.org,
-	alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	dev@deq.rocks,
-	me@freddy.us,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] drm/amdgpu: reset VI ASIC on Apple boards with VRAM at 0
-Date: Fri, 16 Oct 2026 21:09:04 -0300
-Message-ID: <20261017000904.8663-1-fbeltranmillalen@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261015181837.41690-4-qchcio@gmail.com>
-References: <20261015181837.41690-4-qchcio@gmail.com>
+	d=linux-foundation.org; s=korg; t=1792197232;
+	bh=RLfFRIaGC6rGRICe2F35aLRGT7qZ2ykMvmZr9tvxxB8=;
+	h=Date:To:From:Subject;
+	b=F1mzAskrdLBleP/je9bJZjDcmllcr3EbhxvxbGGMSQH7ZAiPmFXTlnt/XEL1fHY+2
+	 hHT/LVVFz+IV0kknBlyI9zO3nMrjj+FGndwzJ+uuR02q9Gt6QPGcyLT5hsJ7T2VBca
+	 5WVDC2TrjgM3HEl3iugNGA7zH4/yXGuwFlrXIQPk=
+Date: Fri, 16 Oct 2026 17:33:51 -0700
+To: mm-commits@vger.kernel.org,yuzhao@google.com,yuanchu@google.com,weixugc@google.com,stable@vger.kernel.org,shakeel.butt@linux.dev,qi.zheng@linux.dev,lance.yang@linux.dev,kasong@tencent.com,ehab.ababneh@intel.com,baoquan.he@linux.dev,baolin.wang@linux.alibaba.com,axelrasmussen@google.com,baohua@kernel.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-mglru-fix-using-folio_mark_accessed-to-replace-folio_set_active.patch added to mm-unstable branch
+Message-Id: <20261017003352.550971F000C4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Hi Maciej,
 
-Thanks for the patch.
+The patch titled
+     Subject: mm/mglru: fix using folio_mark_accessed to replace folio_set_active
+has been added to the -mm mm-unstable branch.  Its filename is
+     mm-mglru-fix-using-folio_mark_accessed-to-replace-folio_set_active.patch
 
-I applied patch 3 to the 6.18.49 kernel I use on my MacBookPro14,3
-(Radeon Pro 555, 1002:67ef, subsystem 106b:017a, rev c7).  The kernel
-also carries my unrelated PCI and ACPI patches for this machine.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-mglru-fix-using-folio_mark_accessed-to-replace-folio_set_active.patch
 
-After a cold boot, amdgpu logs "PCI CONFIG reset" and "GPU posting
-now..." while it loads, and VRAM ends up at 0xF400000000.
-MC_VM_FB_LOCATION reads 0xf47ff400 through debugfs.  In my tests in
-September, a kernel without the reset left VRAM at 0 after a cold boot.
+This patch will later appear in the mm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-I then suspended to RAM three times with rtcwake.  After each resume
-MC_VM_FB_LOCATION was still 0xf47ff400, the screen came back, and the
-kernel log showed no VM faults, ring timeouts or GPU recovery.  After
-the last one I ran glxgears for a minute and the gfx ring kept going.
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-I also closed the lid for about ten minutes.  After opening it the
-screen came back, MC_VM_FB_LOCATION was 0xf47ff400, and glxgears ran
-for a minute without errors.
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-Before that I had also tried it after a warm reboot, with four rtcwake
-cycles and one 45-minute suspend from the idle timer.  After each of
-those MC_VM_FB_LOCATION was 0xf47ff400 and the log showed no GPU
-errors.
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
-Finally, I reloaded amdgpu after a suspend, twice, with modprobe -r
-and modprobe.  Each time amdgpu logged "PCI CONFIG reset" and "GPU
-posting now..." during the reload, VRAM was at 0xF400000000 and
-MC_VM_FB_LOCATION read 0xf47ff400.  VRAM is no longer at 0 by then, so
-I think the reset came from the existing SMC check: with amdgpu
-unloaded, SMC_SYSCON_CLOCK_CNTL_0 read 0x01000000 and SMC_PC_C was
-about 0x205xx and changing (read through the MMIO BAR).  After the
-second reload I logged in again and ran glxgears for a minute without
-errors.
+------------------------------------------------------
+From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+Subject: mm/mglru: fix using folio_mark_accessed to replace folio_set_active
+Date: Sat, 17 Oct 2026 05:31:15 +0800
 
-Tested-by: Francisco Beltrán Millalén <fbeltranmillalen@gmail.com> # MacBookPro14,3
+Commit 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to replace
+folio_set_active") attempted to avoid over-protecting in-fault read-ahead
+file folios by placing them in the second-oldest generation rather than
+the young generations.
 
-Thanks again,
-Francisco
+However, it repurposes `PG_referenced` on in-fault read-ahead file folios
+for this purpose, potentially coupling their handling with that of regular
+file accesses through syscalls, which also use `PG_referenced`.
+
+This could regress some workloads, as reported by Kairui Song[1] and Ehab
+Ababneh[2].  Many thanks to both for reporting these issues!
+
+The long-term fix is Kairui's MGLRU-FG, but in the meantime, we also need
+a quick fix that can be backported to stable.
+
+This patch reverts the original commit's abuse of `PG_referenced` while
+preserving its goal of avoiding over-protection of in-fault read-ahead
+file folios by adjusting only `lru_gen_folio_seq()`.
+
+Specifically, in-fault read-ahead file folios with `PG_active` set but
+`PG_workingset` clear are placed in the second-oldest generation (the
+third-youngest generation).  Activated file folios and refaulted
+workingset file folios remain in the youngest generations.
+
+Kernel build tests in a memcg show that this approach not only preserves
+the original patch's benefits but also further improves performance.
+
+w/o fix:
+
+real    1m49.094s
+user    25m31.484s
+sys     3m40.959s
+pswpin: 662112
+pswpout: 2504415
+pgpgin: 4424336
+pgpgout: 10355273
+refault_file: 359626
+refault_anon: 670724
+
+w/ fix:
+
+real    1m48.913s
+user    25m31.639s
+sys     3m30.875s
+pswpin: 689815
+pswpout: 2689894
+pgpgin: 4422659
+pgpgout: 11043464
+refault_file: 326566
+refault_anon: 697138
+
+Revert original patch:
+
+real    1m50.044s
+user    25m37.137s
+sys     4m4.493s
+pswpin: 1349087
+pswpout: 4317933
+pgpgin: 7083597
+pgpgout: 17602735
+refault_file: 337676
+refault_anon: 1368542
+
+Link: https://lore.kernel.org/20261016213115.70515-1-baohua@kernel.org
+Link: https://lore.kernel.org/linux-mm/20261003-mglru-fg-v3-0-cbd4546a5bd9@tencent.com/ [1]
+Link: https://lore.kernel.org/linux-mm/20260901180704.168106-1-ehab.ababneh@intel.com/ [2]
+Fixes: 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to replace folio_set_active")
+Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Ehab Ababneh <ehab.ababneh@intel.com>
+Cc: Axel Rasmussen <axelrasmussen@google.com>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Qi Zheng <qi.zheng@linux.dev>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Wei Xu <weixugc@google.com>
+Cc: Yuanchu Xie <yuanchu@google.com>
+Cc: Yu Zhao <yuzhao@google.com>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: <stable@vger.kernel.org>
+---
+
+ include/linux/mm_inline.h |    5 +++--
+ mm/folio.c                |   16 +++-------------
+ mm/vmscan.c               |    9 ++-------
+ mm/workingset.c           |   10 ++++------
+ 4 files changed, 12 insertions(+), 28 deletions(-)
+
+--- a/include/linux/mm_inline.h~mm-mglru-fix-using-folio_mark_accessed-to-replace-folio_set_active
++++ a/include/linux/mm_inline.h
+@@ -319,7 +319,8 @@ static inline unsigned long lru_gen_foli
+ 	 * |<---------------------------- MAX_NR_GENS ---------------------------->|
+ 	 */
+ 	if (folio_test_active(folio))
+-		gen = MIN_NR_GENS - folio_test_workingset(folio);
++		gen = MIN_NR_GENS - folio_test_workingset(folio) +
++		      (type ? !folio_test_workingset(folio) : 0);
+ 	else if (reclaiming)
+ 		gen = MAX_NR_GENS;
+ 	else if ((!folio_is_file_lru(folio) && !folio_test_swapcache(folio)) ||
+@@ -327,7 +328,7 @@ static inline unsigned long lru_gen_foli
+ 		  (folio_test_dirty(folio) || folio_test_writeback(folio))))
+ 		gen = MIN_NR_GENS;
+ 	else
+-		gen = MAX_NR_GENS - (folio_test_workingset(folio) || folio_test_referenced(folio));
++		gen = MAX_NR_GENS - folio_test_workingset(folio);
+ 
+ 	return max(READ_ONCE(lrugen->max_seq) - gen + 1, READ_ONCE(lrugen->min_seq[type]));
+ }
+--- a/mm/folio.c~mm-mglru-fix-using-folio_mark_accessed-to-replace-folio_set_active
++++ a/mm/folio.c
+@@ -474,20 +474,10 @@ void folio_add_lru(struct folio *folio)
+ 			folio_test_unevictable(folio), folio);
+ 	VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);
+ 
+-	/*
+-	 * For refaulted workingset folios, set PG_active so they
+-	 * can be added to active generations.
+-	 * For prefaulted file folios, folio_mark_accessed() sets
+-	 * PG_referenced so lru_gen_folio_seq() places them into
+-	 * the second oldest generation.
+-	 */
++	/* see the comment in lru_gen_folio_seq() */
+ 	if (lru_gen_enabled() && !folio_test_unevictable(folio) &&
+-	    lru_gen_in_fault() && !(current->flags & PF_MEMALLOC)) {
+-		if (folio_test_workingset(folio))
+-			folio_set_active(folio);
+-		else if (!folio_test_referenced(folio))
+-			folio_mark_accessed(folio);
+-	}
++	    lru_gen_in_fault() && !(current->flags & PF_MEMALLOC))
++		folio_set_active(folio);
+ 
+ 	folio_batch_add_and_move(folio, lru_add);
+ }
+--- a/mm/vmscan.c~mm-mglru-fix-using-folio_mark_accessed-to-replace-folio_set_active
++++ a/mm/vmscan.c
+@@ -952,13 +952,8 @@ static bool lru_gen_set_refs(struct foli
+ 		return false;
+ 	}
+ 
+-	/* Promote on second access */
+-	if (folio_lru_refs(folio) > 1) {
+-		folio_set_workingset(folio);
+-		folio_set_lru_refs(folio, 0);
+-	} else {
+-		folio_mark_accessed(folio);
+-	}
++	folio_set_workingset(folio);
++	folio_set_lru_refs(folio, 0);
+ 	return true;
+ }
+ #else
+--- a/mm/workingset.c~mm-mglru-fix-using-folio_mark_accessed-to-replace-folio_set_active
++++ a/mm/workingset.c
+@@ -319,13 +319,11 @@ static void lru_gen_refault(struct folio
+ 
+ 	atomic_long_add(delta, &lrugen->refaulted[hist][type][tier]);
+ 
++	/* see folio_add_lru() where folio_set_active() will be called */
++	if (lru_gen_in_fault())
++		mod_lruvec_state(lruvec, WORKINGSET_ACTIVATE_BASE + type, delta);
++
+ 	if (workingset) {
+-		/*
+-		 * see folio_add_lru(), where folio_set_active() is
+-		 * called for workingset folios
+-		 */
+-		if (lru_gen_in_fault())
+-			mod_lruvec_state(lruvec, WORKINGSET_ACTIVATE_BASE + type, delta);
+ 		folio_set_workingset(folio);
+ 		mod_lruvec_state(lruvec, WORKINGSET_RESTORE_BASE + type, delta);
+ 	} else
+_
+
+Patches currently in -mm which might be from baohua@kernel.org are
+
+mm-mglru-fix-using-folio_mark_accessed-to-replace-folio_set_active.patch
+
