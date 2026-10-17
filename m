@@ -1,105 +1,90 @@
-Received: from mx1.bren.win (mx1.bren.win [51.81.56.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A7084CF461;
-	Sat, 17 Oct 2026 19:43:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.81.56.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE26941DEEC;
+	Sat, 17 Oct 2026 19:45:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792266220; cv=none; b=HDsCkuIOeO5YeE59PfHXnSZ/MpYhhLBSNPa9bnxLoMi/pEtXnfn5H1Kc+xVPQVhTXp4szZ9p7Hdnp3lphdi3pGuKRNVf9NrOZQUPhZTTiarsi2kZbRnLnBGqm4YqHstyFzHshTQLN2UR/jaql+y7Oar6J2LVX7z4upNh+dIfdCg=
+	t=1792266355; cv=none; b=HTcET/fE3+YUEZ02efyUdKx8y5mZZzVN9lgo5su+O6lxJ9WeWOP92Lr4ljglAvgcEnPFF5whOmI/qL65ZG/gRNZY8c+gtUUQ0Egq51iLLqPG/2C4/ZS+3wQGZK85AjZqZqHVfzqM8uvQjPYzgeVBetk3Nm6dvlpWVHBhFG5/sSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792266220; c=relaxed/simple;
-	bh=4VJJpzrYPQwWPT9k9guTizo863FPGPNnHOu7gtlArto=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CLHxgx9BDLIBt7jKbnhr9E94Tre+jfLnMdDnCrdhVqWEn/5cBFFlA5AcnQIjuFmphgAnuifI2asaA3zf91gshXsJFV/09Q5dMYt8uTjJrngpTcAw/NKrbecRwgjm6hHKvteMp7MQLKi+wmEwB/rjmYLAMc5rDjc2Wwkw6H/8HiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bren.win; spf=pass smtp.mailfrom=bren.win; dkim=permerror (0-bit key) header.d=bren.win header.i=@bren.win header.b=LIkwzP9V; dkim=pass (2048-bit key) header.d=bren.win header.i=@bren.win header.b=r9yuZ0AL; arc=none smtp.client-ip=51.81.56.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bren.win
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bren.win
+	s=arc-20240116; t=1792266355; c=relaxed/simple;
+	bh=wWLDOJdrfIDfiLHhWX4LWDsIkkOm+x5wPTFgpcAbCbA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PBMIFJmfRuqlOHNth5R1HyCn3Y2FOk8uGYTdX8FiLk+7F/avonrSh8FX+uK1SXRSewNx7yoaaQYpXzHOPayJDzt8HqpWQrF7Hjp7K+ixp03N3eVjXo1AGYbzfUInz6a8KZtTaMix7YyunVIAse/o5RE2MFB41U4g8xv/baHde9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kU81wk70; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=bren.win header.i=@bren.win header.b="LIkwzP9V";
-	dkim=pass (2048-bit key) header.d=bren.win header.i=@bren.win header.b="r9yuZ0AL"
-DKIM-Signature: v=1; a=ed25519-sha256; s=v1-ed25519-20260901; d=bren.win; c=relaxed/relaxed; r=y;
-	h=Message-ID:Date:Subject:To:From; t=1792266203; bh=feAW8sNvX4y7Z/iBdWCH/eX
-	YB2pXonRKpjrqViUaCfw=; b=LIkwzP9V92PBqPzeHSEYssjkW1cD5WqMubuWZRTPQmweF6U2Dq
-	NMSnzmDUeEOIHVblVLST0Pm29K0CRfxLHnBQ==;
-DKIM-Signature: v=1; a=rsa-sha256; s=v1-rsa-20260901; d=bren.win; c=relaxed/relaxed; r=y;
-	h=Message-ID:Date:Subject:To:From; t=1792266203; bh=feAW8sNvX4y7Z/iBdWCH/eX
-	YB2pXonRKpjrqViUaCfw=; b=r9yuZ0ALtiW9PXG2nnS3Y7Gd1cjrhjSP6xDouXjnw4K49c0pAC
-	2/BEYj7HvE3+0Y+wq7cvmz2yCJS4AOd79L4FZcR24Zcvyt2/7FY/Tjklt9jJtEhG2LVLRTVq9Tf
-	Wz5vA5XBtCsv1C2l1S23k4mz16XthaRcpqlNAQWnFVs2TkdlN2hPtxNWPIAK3Dlaj5G7Q9Fwd38
-	yjfL1JDFNXYou9EdKxyRsd4vyaDxqtVInNnkRUTTcSqRIpjcsiu/Iq0Wv2FPnbm6+NDY0ysD77X
-	XfRVOn8HdKTgmxBb1VR6KMZYDZJ5T9LEDzMmyLEqQ0qyCRejjY5x3z4CmO8VxBIKeMg==;
-From: "Brendon C." <bren@bren.win>
-To: linux-clk@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] clk: mediatek: mt7981: feed MSDC from emmc_208m, not emmc_400m
-Date: Sat, 17 Oct 2026 14:43:08 -0500
-Message-ID: <20261017194308.1541507-1-bren@bren.win>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kU81wk70"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92BD61F000C4;
+	Sat, 17 Oct 2026 19:45:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792266353;
+	bh=ITJ6t2fZVc0gHUZydBoqsFaY4joEqY86BVsirSkhtKs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kU81wk70kECsQgR0a9kXHPpTa3dFf+0cL1ufffspnWGRe8ikpP2d2YZYhDJwb3/Fd
+	 Yebz3diQ0f0OrteRP7skmgCpl5Yx2NDToI9HG0zt/Cg2fTy9qAwBkm/8hej3hdpeI1
+	 W7TsEkW0pduFrZxkG8NVgLvGJ9lSlwp7B3RVAEIsyYMbfY6Vpu0L9FPBNS6ufHOrCe
+	 HtI33lomydjtRizGXG5+axgOf55U5zpWwaVGgVnP2TOEctHFv27gBxCcyXvu45HQpk
+	 wcAeq/wUicL8FwTAsAt06GoINGHS9/ICBwSyYsGMmpFrN00P6aEAeRZ/YtqnMySaT2
+	 0aT1tdsC9X+bA==
+Date: Sat, 17 Oct 2026 12:45:48 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	Linus Walleij <linus.walleij@linaro.org>,
+	Kees Cook <kees@kernel.org>, Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH 6.12 696/869] kcfi: Rename CONFIG_CFI_CLANG to CONFIG_CFI
+Message-ID: <20261017194548.GA318740@ax162>
+References: <20261017160036.979869304@linuxfoundation.org>
+ <20261017160054.817469217@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261017160054.817469217@linuxfoundation.org>
 
-The MT7981B datasheet specifies the storage interface as "eMMC v4.5 @52
-MHz 3.3V", MediaTek's SDK kernel parents CLK_INFRA_MSDC_CK from
-emmc_208m, and both the SDK and U-Boot device trees hand the controller
-CK_TOP_EMMC_208M as its "source" clock with max-frequency 52 MHz (52 =
-208/4). Mainline parents the gate from emmc_400m instead. mtk-sd derives
-its divider, the reported actual_clock and its data timeouts from that
-source rate, so with a device tree asking for 26 MHz it programs CKDIV=4
-and believes the bus runs at 25 MHz while the real bus clock is 13 MHz,
-and every clock-derived timeout is sized for a bus twice as fast as the
-real one.
+On Sat, Oct 17, 2026 at 05:58:57PM +0200, Greg Kroah-Hartman wrote:
+> 6.12-stable review patch.  If anyone has any objections, please let me know.
+> 
+> ------------------
+> 
+> From: Kees Cook <kees@kernel.org>
+> 
+> [ Upstream commit 23ef9d439769d5f35353650e771c63d13824235b ]
+> 
+> The kernel's CFI implementation uses the KCFI ABI specifically, and is
+> not strictly tied to a particular compiler. In preparation for GCC
+> supporting KCFI, rename CONFIG_CFI_CLANG to CONFIG_CFI (along with
+> associated options).
+> 
+> Use new "transitional" Kconfig option for old CONFIG_CFI_CLANG that will
+> enable CONFIG_CFI during olddefconfig.
+> 
+> Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+> Reviewed-by: Nathan Chancellor <nathan@kernel.org>
+> Link: https://lore.kernel.org/r/20250923213422.1105654-3-kees@kernel.org
+> Signed-off-by: Kees Cook <kees@kernel.org>
+> 
+> [ Adapted to this tree: the kconfig here has no "transitional" keyword, so
+>   the CFI_CLANG compat symbol is omitted; re-applied the rename on top of the local
+>   contents of the conflicting files, converted the remaining
+>   CONFIG_CFI_CLANG users (riscv cfi.c, longest_symbol kunit comment),
+>   and dropped the tools/ cfi_types.h hunk as that file is absent here. ]
+> 
+> Stable-dep-of: 52fb1756ea1d ("riscv, bpf: Fix kernel stack corruption in tailcall with CFI")
 
-On a GL.iNet GL-X3000 (Samsung 8GTF4R eMMC, 8-bit, 3.3 V, HS) this shows
-up as msdc_track_cmd_data write data errors (host->error=0x4) on
-roughly every 40 MB written, escalating under sustained multi-segment
-writes to exhausted retries, "I/O error, dev mmcblk0", lost page writes
-and a stopped f2fs overlay. Raw direct reads top out at 11 MB/s where
-the vendor kernel reaches 23 MB/s on the same card.
+I object to this being backported in its current form, especially as a
+"dependency" of the listed change... The transitional keyword is very
+much needed for this change to avoid silently disabling the feature
+across olddefconfig. Either backport it as well or just do the simple
+thing and properly adjust 52fb1756ea1d for trees that do not contain
+23ef9d43976:
 
-With the correct parent the same device tree yields a real 26 MHz bus,
-23 MB/s reads, and four rounds of a 1.4 GB mixed direct/buffered write
-stress complete with zero retries and zero I/O errors, matching the
-vendor firmware.
+  $ git format-patch --stdout -1 52fb1756ea1d | sed 's;(CONFIG_CFI);(CONFIG_CFI_CLANG);g' | git am
 
-Fixes: 813c3b53b55b ("clk: mediatek: add MT7981 clock support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Brendon C. <bren@bren.win>
----
-v2: add Fixes: and Cc: stable tags so the fix reaches 6.12 and other
-    stable series; no code change. v1:
-    https://lore.kernel.org/all/20261017190729.1369302-1-bren@bren.win/
-
- drivers/clk/mediatek/clk-mt7981-infracfg.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/clk/mediatek/clk-mt7981-infracfg.c b/drivers/clk/mediatek/clk-mt7981-infracfg.c
-index 68a102d..3d98bff 100644
---- a/drivers/clk/mediatek/clk-mt7981-infracfg.c
-+++ b/drivers/clk/mediatek/clk-mt7981-infracfg.c
-@@ -157,7 +157,7 @@ static const struct mtk_gate infra_clks[] = {
- 	GATE_INFRA1(CLK_INFRA_SPI1_HCK_CK, "infra_spi1_hck", "infra_66m_mck",
- 		    14),
- 	GATE_INFRA1(CLK_INFRA_FRTC_CK, "infra_frtc", "cb_rtc_32k", 15),
--	GATE_INFRA1(CLK_INFRA_MSDC_CK, "infra_msdc", "emmc_400m", 16),
-+	GATE_INFRA1(CLK_INFRA_MSDC_CK, "infra_msdc", "emmc_208m", 16),
- 	GATE_INFRA1(CLK_INFRA_MSDC_HCK_CK, "infra_msdc_hck", "emmc_208m", 17),
- 	GATE_INFRA1(CLK_INFRA_MSDC_133M_CK, "infra_msdc_133m", "sysaxi", 18),
- 	GATE_INFRA1(CLK_INFRA_MSDC_66M_CK, "infra_msdc_66m", "sysaxi", 19),
-
-base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
 -- 
-2.55.0
-
-
+Cheers,
+Nathan
