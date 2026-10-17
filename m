@@ -1,139 +1,133 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8D01395ADD
-	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 05:19:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 577793BFAFC
+	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 05:21:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792214387; cv=none; b=TtLcospfMFTXQkN96j1+iGVOODtc+vfCHdXYIbvTdz8w9QTxFD3w8l5t9C+WNCvIcG8inrAAewcUAnyZB5dUdDdcQHVLRYg/IKXxd2kLP1/wx218GYTxG8hvN1XHT99aQDNjdkU3IGX5P0/4b9PdZuT8zMfPm2C7rPOBOBaNp9U=
+	t=1792214494; cv=none; b=QK5GKaiP8JoSYjcJxjaKohhsKuuXadH8vWQAc7FeWw0SAqMzMNDj65Mm+gtPQYCbewc9UPukKWbYrxMAn3ebeQgGGMoESKkEOX4HNDJwpqEIax0uumIhx6ISHG/nzX2BQHBR1CQR2UYqoT0lbvgUWVNPbHh1VjD6DU1JIAIE5xA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792214387; c=relaxed/simple;
-	bh=SWBmXu448zjzxYjCx3pUm9k+IVsTZM+Oeo1N4UfrkmA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VgiKK1O8xyY8XWVar8Hiq6cvufLDaBAsiDZGzL4NA7ltEVFSYsztB5CuzMYhfDHAfYFt2c0v32vUlZ7bCLItnQ9Zts+kK84OAD4jbwZLWOx9k3Opd1DROj+GQkhNTIXgXANS95liT9ACPTRrAvNlJcpOszlUx35GRuxf2TQCGcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I02ItFUu; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792214494; c=relaxed/simple;
+	bh=aC4Bvl+lsY8CU7Vvs//CHQEgxOBks6KfY7owryN0QbQ=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=irQPIwMgcmbmTr9EPpNRSCNHN0LneSvDm/5idmtAd5NoR6DiIky6JDn/1hRUKWairwRqaz8sSgMShwd56t2SoO/5CTDx1S4PPbEDjW1Ex+67GEJAQ01q5zudf0qldebxcETEGUS+qPDQS2t96rtREz+62Rg/Qi8qqje6YAvdY1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=idvv7AwR; arc=none smtp.client-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I02ItFUu"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a1682bff3cso2497545e9.1
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 22:19:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="idvv7AwR"
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e9821ca96fso4624315ad.0
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 22:21:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792214384; x=1792819184; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/dnusO2vMBZJOXXq/LcKes7+kqYaIPlF1nsGZCt+1mw=;
-        b=I02ItFUupSWO3qGt/U1fQo2Y/vHnIePCw+EtE/R5rKNAoK0GDrZmxyfty0HjPeXHL6
-         k+TxVm1S1+H4rNz9zSYDFRfCJYxh21nsr79tAaq4jRU2hqj4MluvrHaBG0Fd8ORvPQH6
-         GDqM3x32sQF7qD11eHiDTsoJWnQveJAZPWHSWTtlC/wFrfWdwCOiU287Gl6dmzcUz1rn
-         HEhHkCqaj/TZTa4OA5x4PkIg4HeALufuIG/WaqyaqtXCvD5hPDIYZ2eodkd3deJhy7fR
-         t7x3Tm1fgZy2slneDZmiwrqg/3hHfgzr87gKOzmDbBR9IDszIjpWFQFQNJDst4PvRQy2
-         JJlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792214384; x=1792819184;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1792214493; x=1792819293; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/dnusO2vMBZJOXXq/LcKes7+kqYaIPlF1nsGZCt+1mw=;
-        b=Hu0cqiRwS9rnzaHbHLqVS82GdhvWPZPQ1H7G57ueZzlBnu66SoEOzymgufGI0G+CA6
-         /HD8+1PXK7OWue22OwlhvtgpNoRduyYrLgaePF4FAE5pGv96NhtDhsIEbcuwW0ondLvU
-         mlOIglxwVTZBYyOL6r7Se3EJVf/UIt0OW3s1lJ6rmF+p5wQyj9D838TkC1oCKDHb6GxB
-         /FDS5KYpTVFHwvET57f6KPkf0EfdlJwez+NZZKXho35u+TVdwKyP+zUqXC0lv2hamZrc
-         uIrnQ7eknUw37GeUAnyqe5U22/scW+SPn+f3TxsS+zAijWT3nhrWyy2uROSc6QrAbwtM
-         zt4g==
-X-Forwarded-Encrypted: i=1; AKwUvByBgPdhyVWLMidM+4DHha3nNqsXn2gFY26defMrTuWmeBO81whDuT1NeVc75ElbCMFfe7Vaczg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIWP+vI5N4A7kq12dAfxv27WsWiL2CMm8vH16429kIKXQvo3s5q
-	cmN3UjCSG2m2dykW77ReTQgTmGdekI5gwZKUymwdrh/Yd/nivZTtrToo
-X-Gm-Gg: AYBFou0vA1x8FJhxr9xxZ17NUkpZhQZD37vHQh+n2lAqaXUKiUtEtrxo+8L4iLA3uJ/
-	B+l5pF5IgErcoYQSfJxyazyrdQJHKrD+b+FSE3Ps6IR5ZOcDp+Kq0mZMk9V1BXX1ebNOhUZm6/O
-	kclg5t59F5ZGQdh8oZt+x1S3MNBytR/+NZ66rm8+cmic359O0LddhWXqzDOArbmiRyV33l98g3m
-	uCUUO4zCcTRfeV6KN4t99MMCajctGidcOgdmPa35IisSCIHvzUHScPXUFd2wCaH+IPGIPZ544wO
-	YzoRbzAKcXo5m4Rl2PoM8ye+cdfsMZbiEp+7qrjJnArsvMPFaSWJbkLOjo6N6eHTchj6NFw6Upp
-	ZLcFU3ViScsa6Yp1stExlml+C8JsN41YrO4OM/U8OgvgOHQHzITyek8afM0M4AwnG9a7ErDmoh9
-	Jd5IZKf0ZCVjZGc8OK4OcDr3mwtN1SGvrn+gCyDPpkSTIY1Lx7BwOv3KNEyR+fsvgJmbpzx/JSa
-	fVfc3tgcmRc4nxzrj/zY/nwXNkGnCMnS7FVErK5YcctDdB6wR42nUISa6mOy2bnhhyh3R44XB/g
-	m6rgIlcKoWwviejn4jFSsPm6uOm6kUtqmbhd/oBNHVwI8NFL5URtdt00O7fOm4M06DziwHtmU0Q
-	dzSIsZQFh/XBNSFR25plse0N0v1A0G6LsWDu4TlDI/uIyqLeDbE/zFveii67rmFRqiFHjLCse7z
-	zxTPw27cs=
-X-Received: by 2002:a05:600c:1552:b0:4a1:825a:56fd with SMTP id 5b1f17b1804b1-4a1d762a26bmr37921725e9.32.1792214383959;
-        Fri, 16 Oct 2026 22:19:43 -0700 (PDT)
-Received: from [10.200.7.52] (109-81-110-105.rct.o2.cz. [109.81.110.105])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1dc952d63sm16432585e9.2.2026.10.16.22.19.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 22:19:43 -0700 (PDT)
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-Date: Sat, 17 Oct 2026 07:19:21 +0200
-Subject: [PATCH v3 2/2] iio: gyro: mpu3050: add missing trigger cleanup on
- remove()
+        bh=4FrYQNLOC0ua6Y12Q7VcbQ5pmrylw5LYh/sMmd8pDQ8=;
+        b=idvv7AwRBqCjKS0p+o3BPgccAWAslq48nlSk9Uk6QP3NowhJgSJlhwM5j4BWTA1PM5
+         5lF/NmvOMwOE/LGj7wFRqyZOEVALMzazs/RQxgVu1J8BVH3efWjAXlXfoziAjqeruSLc
+         dpY9GPpWFBoO9OsCqvToKxZ30w9R/nwtfm2a+VCUD8WSZw4OoJxI6fi0PF8113MTkzlh
+         jFcjW1PMQKyOSvgT9+XvPNOWGs7g9n6006U262aQy0RLDWlQ5VgrCLL5qQKcCyN9Fxft
+         FqvzFRo2TH9gseuxBnmrhfINNYOCl0SLZMnOiY5/kStDqC4CEpOcydhkmK/4O0eFEMdl
+         Z8Gg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792214493; x=1792819293;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4FrYQNLOC0ua6Y12Q7VcbQ5pmrylw5LYh/sMmd8pDQ8=;
+        b=VUP2wx99VW2hgmKwnsSkUAP1vnL/TlqOPfCI6b5MdJ1jj6yMc14T7NJ9cGyrJ43gZ8
+         aDpLrp/IY/JyxICSmamTwqE2ONyuelrE3AVss4s4HXsgk/ntvJGDyQrM32BYawpwZBzq
+         LArFuop3Ek9bioM25bvEMpQ6YOPRvXep688sS7/UqPrEXL7LNADaqn37KAtYk4sU+V5y
+         Xa7yo+BqZqwxkq48FpyfwM1Q4nbJw0tUHC21x8zTUBN9fCQTZ4cnogpQWr0Q5yx1EALr
+         LFv/xZTFb414d+3934FrVSwWU5TCqSeRUCOqjx3DHpYRmCKkVBoT3Q0+1RKfGk3xkcNz
+         lkoA==
+X-Forwarded-Encrypted: i=1; AKwUvBwLZ7Qsqhf8XLnv+JuMRpx2a+3W1vLntRnnugcxc+6EeAviJIYKlDLZsuvNdPRCySkeRdWpoB8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKBCqHMNZrKtUGQSADXZUk9HgEe8GsibLBbCWg178yzfJuLCJsD
+	gR68MJvhydeRu1N/9xOXAzcF4Tt/fqgsYVcSvc4kJguCBwXZWbXAHG7lniFl4GYKMOQdYcY8g9K
+	trUp9AA==
+X-Received: from plxq15.prod.google.com ([2002:a17:902:dacf:b0:2e9:3d99:bb3f])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e943:b0:2e9:79db:449c
+ with SMTP id d9443c01a7336-2e9a6f55653mr15650925ad.47.1792214492411; Fri, 16
+ Oct 2026 22:21:32 -0700 (PDT)
+Date: Sat, 17 Oct 2026 05:21:31 +0000
+In-Reply-To: <20261015201549.4023-2-kj2864@nyu.edu>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261017-mpu3050-fix-v3-2-d6f29f335a2b@gmail.com>
-References: <20261017-mpu3050-fix-v3-0-d6f29f335a2b@gmail.com>
-In-Reply-To: <20261017-mpu3050-fix-v3-0-d6f29f335a2b@gmail.com>
-To: Linus Walleij <linusw@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Joshua Crofts <joshua.crofts1@gmail.com>, 
- Dingisoul <dingiso.kernel@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792214381; l=1550;
- i=joshua.crofts1@gmail.com; s=20261015; h=from:subject:message-id;
- bh=SWBmXu448zjzxYjCx3pUm9k+IVsTZM+Oeo1N4UfrkmA=;
- b=Fev/aLp/t11PuIxED9XWHh8KFvT+A+vQaVp18KaBwGEewZtgXbUFr+4wGlDOjtM2p045I2Rxo
- mcfut4HanCTBy+iHu47QabIH0hrPyOukxNqQYLWwPzM2r2m9f1AoDr0
-X-Developer-Key: i=joshua.crofts1@gmail.com; a=ed25519;
- pk=RTDOoVwgeL4oFdASj9U+cxJuIjXuXk73zkjnGOJKbEo=
+Mime-Version: 1.0
+References: <20261015201549.4023-2-kj2864@nyu.edu>
+Message-ID: <atMFPKhON1IK5cxc@google.com>
+Subject: Re: [PATCH net v3] net: ipv4: add zero check for snd_cwnd_clamp
+From: kuniyu@google.com
+To: Kaho Jiang <kj2864@nyu.edu>
+Cc: ncardwell@google.com, davem@davemloft.net, kuba@kernel.org, 
+	pabeni@redhat.com, horms@kernel.org, edumazet@google.com, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	co+71b6509cb791e531@bugs.sh, stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-The mpu3050_trigger_probe() registers a trigger but
-mpu3050_common_remove() and error paths in mpu3050_common_probe() forget
-to clean it up, causing a use-after-free bug.
+On Thu, 15 Oct 2026 16:15:50 -0400, Kaho Jiang wrote:
+> User can pass zero to snd_cwnd_clamp via RTAX_CWND type.
+> This could lead to division of zero error if not checked properly.
+> 
+> Oops: divide error: 0000 [#1] SMP KASAN NOPTI
+> Call Trace:
+>  <IRQ>
+>  tcp_reno_cong_avoid (net/ipv4/tcp_cong.c:510 (discriminator 1))
+>  tcp_ack (net/ipv4/tcp_input.c:3517 net/ipv4/tcp_input.c:3873 net/ipv4/tcp_input.c:4440)
+>  tcp_rcv_established (net/ipv4/tcp_input.c:6685)
+>  tcp_v4_do_rcv (net/ipv4/tcp_ipv4.c:1854)
+>  tcp_v4_rcv (net/ipv4/tcp_ipv4.c:2248)
+>  ip_protocol_deliver_rcu (net/ipv4/ip_input.c:207 (discriminator 1))
+>  ip_local_deliver_finish (net/ipv4/ip_input.c:241 (discriminator 1))
+>  ip_local_deliver (./include/linux/netfilter.h:325 ./include/linux/netfilter.h:319 net/ipv4/ip_input.c:262)
+>  ip_rcv (./include/net/dst.h:481 (discriminator 6) net/ipv4/ip_input.c:492 (discriminator 6) ./include/linux/netfilter.h:325 (discriminator 6) ./include/li)
+>  __netif_receive_skb_one_core (net/core/dev.c:6297 (discriminator 4))
+>  __netif_receive_skb (net/core/dev.c:6410)
+>  process_backlog (net/core/dev.c:6761)
+>  __napi_poll.constprop.0 (net/core/dev.c:7830)
+>  net_rx_action (net/core/dev.c:7893 net/core/dev.c:8050)
+>  handle_softirqs (kernel/softirq.c:645)
+>  __irq_exit_rcu (kernel/softirq.c:679 kernel/softirq.c:519 kernel/softirq.c:758)
+>  irq_exit_rcu (kernel/softirq.c:775)
+>  sysvec_apic_timer_interrupt (arch/x86/kernel/apic/apic.c:1062 (discriminator 35) arch/x86/kernel/apic/apic.c:1062 (discriminator 35))
+> RIP: 0010:tcp_cong_avoid_ai (net/ipv4/tcp_cong.c:482)
+> 
+> Fix by checking if user pass in zero as parameter,
+> if so reject the value zero.
+> 
+> Fixes: 814d488c6126 ("tcp: fix the timid additive increase on stretch ACKs")
+> Cc: stable@vger.kernel.org
+> Reported-by: co+71b6509cb791e531@bugs.sh
+> Assisted-by: LLM
+> Signed-off-by: Kaho Jiang <kj2864@nyu.edu>
+> ---
+>  net/ipv4/metrics.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/net/ipv4/metrics.c b/net/ipv4/metrics.c
+> index ad40762a8b38..e83a129a25b6 100644
+> --- a/net/ipv4/metrics.c
+> +++ b/net/ipv4/metrics.c
+> @@ -54,6 +54,10 @@ static int ip_metrics_convert(struct nlattr *fc_mx,
+>  			NL_SET_ERR_MSG(extack, "Unknown flag set in feature mask in metrics attribute");
+>  			return -EINVAL;
+>  		}
+> +		if (type == RTAX_CWND && val == 0) {
 
-Add the missing calls to the iio_trigger_unregister() function.
+While at it, please check RTAX_INITCWND too (although it is
+ignored and TCP_INIT_CWND is used), also use !val.
 
-Reported-by: Dingisoul <dingiso.kernel@gmail.com>
-Closes: https://lore.kernel.org/all/20261010203601.1686148-1-dingiso.kernel@gmail.com/
-Fixes: 3904b28efb2c ("iio: gyro: Add driver for the MPU-3050 gyroscope")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
----
- drivers/iio/gyro/mpu3050-core.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iio/gyro/mpu3050-core.c b/drivers/iio/gyro/mpu3050-core.c
-index 879caf3b729c..9e747836df3e 100644
---- a/drivers/iio/gyro/mpu3050-core.c
-+++ b/drivers/iio/gyro/mpu3050-core.c
-@@ -1262,7 +1262,9 @@ int mpu3050_common_probe(struct device *dev,
- 	pm_runtime_get_sync(dev);
- 	pm_runtime_put_noidle(dev);
- 	pm_runtime_disable(dev);
--	if (irq)
-+	if (mpu3050->trig)
-+		iio_trigger_unregister(mpu3050->trig);
-+	if (mpu3050->irq)
- 		free_irq(mpu3050->irq, mpu3050->trig);
- err_cleanup_buffer:
- 	iio_triggered_buffer_cleanup(indio_dev);
-@@ -1281,6 +1283,8 @@ void mpu3050_common_remove(struct device *dev)
- 	pm_runtime_get_sync(dev);
- 	pm_runtime_put_noidle(dev);
- 	pm_runtime_disable(dev);
-+	if (mpu3050->trig)
-+		iio_trigger_unregister(mpu3050->trig);
- 	if (mpu3050->irq)
- 		free_irq(mpu3050->irq, mpu3050->trig);
- 	iio_triggered_buffer_cleanup(indio_dev);
-
--- 
-2.56.0
-
+> +			NL_SET_ERR_MSG(extack, "RTAX_CWND must be greater than zero");
+> +			return -EINVAL;
+> +		}
+>  		metrics[type - 1] = val;
+>  	}
+>  
+> -- 
+> 2.43.0
+> 
