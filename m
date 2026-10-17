@@ -1,45 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0877B36CE19;
-	Sat, 17 Oct 2026 17:17:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7DD81E520A
+	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 17:17:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792257467; cv=none; b=Sgj4MsGF68p+PmZJKyKHNSGdNblsNvsw4WJcj+Vetwvf15CfHmK+WsGKYQM3pjE7+NEKelOqoUpOxshq7NXndg1zki3jM31UsnZxz+ZxmBH+nNjQPlT4H9gZIfGFfO+ZBa5CFhS3CjxyxTOGf9PwCgueXlJsYieoau1AzGk8k8I=
+	t=1792257470; cv=none; b=IBnOgr0WaVlOqD3w28iYN764aWXfxzKLV/NZDmc+9sC2Zlvoy2cN3xMZSkDEiNo7S1q00Z93BXseBwwBGA3kKKRx+5ewaAj+UA3BiqezKvY/BB+ehx0CwyzHioFYi9ibLL/DcA2Ag3kRhpgiC1CLWGiTMX/8oBdYo9EqMthfscU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792257467; c=relaxed/simple;
-	bh=pCPeLvqBDiPn0KGdx1a8B4oJoRbjTvYUMrZQ+/d+xZM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MiPK5tIQ/Wq7mrlzz5Dcnn7awbh+UhOwOxaHpLnYnPQHYklRwSHuLqA+lCXSkgvJRiT3olU+rlySlilV0Dry064Gc9RhKaRZS4iLn8DNTE09kRuMA7VRvPktX3TioxyRmEUuDyU7G9n++zRWxZfoge21JSuKSDYE2kXo2/z/ER8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LJ2s6GKA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792257470; c=relaxed/simple;
+	bh=dzyiSRz4+xBFKPvndD/3jeiT3Eok+8jZG/7BgH78V4g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rUmBmB8XkUPtml9EweFwuaPcyWvPBlRs4MgUXEX6Q6ztL5rv7fypK6G2sdzNjoXJL0Sa6i6gR9V5Fp+cJ8l8DPQyiXloJu4Xwe+NZt7mA3exWPhpVWEMfLuFe6ZgEkHxphIeaMwFNBxbnisZZsB/4lqn27prrqcAfFZglePc66Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RsZLAZUI; arc=none smtp.client-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LJ2s6GKA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52FBE1F000C4;
-	Sat, 17 Oct 2026 17:17:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792257465;
-	bh=43NiaWjxy7/TIHYo0edktLr7R2bRNyZnufWwmyZhdZQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LJ2s6GKApxk3qZM2ooVdX01nqozjVTuRIgNeqfHcL25JE51P3MbA12eK9ETmCD3XR
-	 4JyKkDz6uK6Ds+I4M6aDf9OA1wsgLwMrfiJKQRoiRTxagN5e8qO9aimcm/y7LA6qC4
-	 QHs8Gj2U4ahVGpsMZbi9HG3Mn9nRH5P40G/ql4L0=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Vicki Pfau <vi@endrift.com>,
-	Jiri Kosina <jkosina@suse.com>,
-	Lee Jones <lee@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 0566/1674] HID: steam: Refactor registration
-Date: Sat, 17 Oct 2026 17:47:18 +0200
-Message-ID: <20261017160445.621075018@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261017160431.119607952@linuxfoundation.org>
-References: <20261017160431.119607952@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RsZLAZUI"
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-16079d54c17so2147020c88.0
+        for <stable@vger.kernel.org>; Sat, 17 Oct 2026 10:17:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792257468; x=1792862268; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hDa9JjAt9pCFlYhBjZKvcPCh0gjBULFSTkPmO/Bq8MA=;
+        b=RsZLAZUIZIrApSgGRfnsdNVG8OpGlLeYSzIZbQWm3bNTY2nKP1AFxZ/lr6D2FK7dZ2
+         0m2vKdD2obhIzuR1vREY0njveHfO7nAXT8Pcal88q4I110WO2rAyMdhwbnh7aemZKveU
+         xYi1UzUTcqwY3OY9hRjtBYUHeSaNZ3LUhoVEDQlBa+cZZDGEalprEYe1ieytCcXY8VAZ
+         eJOz9YXG+7z5ukvKOJR7FLOeL91xndSCvBVw2ReR22ZwzubaQzNqJu3428ZE1ecwPERW
+         tBy9oOfMB/l3wm9/jebNrOT3922Sc4+gJDV/wS2MZ5IMMb0b/xMbjeQ77LdpzTdM7mDt
+         ciQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792257468; x=1792862268;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hDa9JjAt9pCFlYhBjZKvcPCh0gjBULFSTkPmO/Bq8MA=;
+        b=kz+8MNbfcc1KjpyfOVA+JdevgabmCKu2RARozw8giRfKJKmuCm5cq/IzTJCpfxYL9N
+         0NcJOF3JcPcz7mWwYyH7llBy/7Qa98fWj9V1bmiT25pZytVIrM1+6Wuy/VDk753IVGmH
+         tJJVIlNBAUsi/Wn1DQGExP08M4FZyJ6W/GwYpZMkvwPJik4s/IzXpoaxnBPJKfvSYFx6
+         X9votBbpD9VecjZXjgQcnke9k1i0TiG9PySh6MMF9s6Hv8Wsh/DnmA91HQvFGs6bgxVd
+         dzweKQYigDA5J5Lsn1kYkDQqkWWQfZyNIwC+UECeIcK5p4uMnXIEcjA4a4dXUAhPJp8p
+         TIHg==
+X-Forwarded-Encrypted: i=1; AKwUvBwOGfe3ksJmZqCbGpZsQ0E0LuA9ZPrn9UIyipV3lbATq97XatYmkPZhbPMNwG9ojZtFOrewSKM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0r71UCqsrJN+d533AWMH3GKDMlD3UK7PIJPf2mrR9kBFgpIWf
+	dykvoe/tvNQCKqQBQqXSVTEu7khUgP5QWqF2zARCTqFs9fiKdIzCkz/X
+X-Gm-Gg: AYBFou0g/8vR5UFURH/XAs2F5hQXCFR5+z5t3D4s0flwrFJewZqDY0IY6AmBihSaX+P
+	weDcUQ3sGO97DQfwDk5fYt1iitfmTPTEwM0Lo8ZW0eIZbZZqENCgJi5u5gjlTa/g1DkqoutN9sk
+	ADGf59CBXBVc9x2uBG+3+9L3IEIYBJTK/BVvxW48ociAlJ+zzLtKOms5ab3/tnRbeAFu9ZLOnGl
+	xkh8dzwnAvd7BuMjg5h/6NNZgf0/r6WQtruIqeb9a+XPdvg1PY8Bjo06ybL8slKHEuyYrZ1UETs
+	+iRKyeG/V1JbIlqslulumFcdI+1eRMe2RYLWk+ycz1iBvk3NtZiz7fYLeUb3uTSlJnx/BLQmmQH
+	3pn8YF8euuT/EpnZxmXPqgqQPqQt7QP9JS/6CkEc8pa/An7Mur9FvmgQONEm9Sjg1ohILSu/m5r
+	OscLZLwwxJ7OEolKdBhXF8ZKYqHmP0alKWqsMfJ6ceK+P/fRkPlqJTbbshPttPX6Jn/tsFGOE=
+X-Received: by 2002:a05:701b:4308:b0:15a:2b63:a0cb with SMTP id a92af1059eb24-18511ad8bacmr5174627c88.13.1792257467699;
+        Sat, 17 Oct 2026 10:17:47 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2a09:bac5:d45a:263c::3cf:8])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831a6f58c2sm24518865c88.11.2026.10.17.10.17.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 10:17:47 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Johan Hovold <johan@kernel.org>,
+	Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: greybus-dev@lists.linaro.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+a2e50fb40695811c2dab@syzkaller.appspotmail.com,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Subject: [PATCH] greybus: operation: arm the timeout timer before sending the request
+Date: Sun, 18 Oct 2026 00:17:43 +0700
+Message-ID: <20261017171743.24612-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,153 +77,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+gb_operation_request_send() sends the request message and only then arms
+the operation timer. The host driver can complete the operation before
+add_timer() runs, e.g. when the transfer fails right away. The completion
+work then calls timer_delete_sync() on a timer that is not armed yet,
+the synchronous caller wakes up and drops the last reference, and
+the operation is freed while the timer is still pending:
 
-------------------
+  ODEBUG: free active (active state 0) object type: timer_list
+          hint: gb_operation_timeout+0x0/0xc0
+  WARNING: lib/debugobjects.c:629 at debug_print_object+0x198/0x2b0
+   kmem_cache_free+0xfd/0x6d0
+   gb_operation_sync_timeout+0x1c7/0x270
+   gb_svc_process_deferred_request+0x5f3/0x1150
 
-From: Vicki Pfau <vi@endrift.com>
+Arm the timer before the message is sent. If sending fails, delete the
+timer again. If it has already fired, its work is queued and drops the
+active and operation references itself, so the error path must not drop
+them a second time.
 
-[ Upstream commit 6f9b740c31ba7e061b2ebb330d9a3d63f1358f29 ]
-
-This refactors and simplifies the registration/unregistration flow. Since
-we now only perform registration when the client isn't opened anymore, the
-logic for handling that can be removed, and the rest of the function
-streamlined.
-
-We also remove the previous assumption that we have a serial number to show
-we're registered, replacing it with a single purpose boolean.
-
-In a previous refactor the code for unregistering a battery if later
-registration steps failed was accidentally left out. As a result, a
-lingering power_supply object could get left over after the steam object
-was torn down. This is also fixed here.
-
-Signed-off-by: Vicki Pfau <vi@endrift.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-[Lee: Omit steam_get_attributes() and coalesce_rumble_work cancellation
-      as a0fbd9437d7d and 1d4549fd1115 are not present]
-Signed-off-by: Lee Jones <lee@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: dbec27298b0d ("staging: greybus: operation: add generic timeout support")
+Cc: stable@vger.kernel.org
+Reported-by: syzbot+a2e50fb40695811c2dab@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=a2e50fb40695811c2dab
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 ---
- drivers/hid/hid-steam.c | 70 +++++++++++++++++++----------------------
- 1 file changed, 32 insertions(+), 38 deletions(-)
+ drivers/greybus/operation.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/hid/hid-steam.c b/drivers/hid/hid-steam.c
-index df176a722061b..06c2fcd134ce0 100644
---- a/drivers/hid/hid-steam.c
-+++ b/drivers/hid/hid-steam.c
-@@ -300,6 +300,7 @@ struct steam_device {
- 	unsigned long quirks;
- 	struct work_struct work_connect;
- 	bool connected;
-+	bool registered;
- 	char serial_no[STEAM_SERIAL_LEN + 1];
- 	struct power_supply_desc battery_desc;
- 	struct power_supply __rcu *battery;
-@@ -953,9 +954,6 @@ static void steam_battery_unregister(struct steam_device *steam)
- static int steam_register(struct steam_device *steam)
- {
- 	int ret;
--	unsigned long client_opened;
--	unsigned long flags;
--	bool do_add;
+diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
+index 7e12ffb2dd60..19b0cdeca498 100644
+--- a/drivers/greybus/operation.c
++++ b/drivers/greybus/operation.c
+@@ -766,17 +766,22 @@ int gb_operation_request_send(struct gb_operation *operation,
+ 	if (ret)
+ 		goto err_put;
  
- 	/*
- 	 * This function can be called several times in a row with the
-@@ -963,60 +961,56 @@ static int steam_register(struct steam_device *steam)
- 	 * another client send a get_connection_status command, for example.
- 	 * The battery and serial number are set just once per device.
- 	 */
--	if (!steam->serial_no[0]) {
--		/*
--		 * Unlikely, but getting the serial could fail, and it is not so
--		 * important, so make up a serial number and go on.
--		 */
--		if (steam_get_serial(steam) < 0)
--			strscpy(steam->serial_no, "XXXXXXXXXX",
--					sizeof(steam->serial_no));
-+	if (steam->registered)
-+		return 0;
- 
--		hid_info(steam->hdev, "Steam Controller '%s' connected",
--				steam->serial_no);
-+	/*
-+	 * Unlikely, but getting the serial could fail, and it is not so
-+	 * important, so make up a serial number and go on.
-+	 */
-+	if (steam_get_serial(steam) < 0 || !steam->serial_no[0])
-+		strscpy(steam->serial_no, "XXXXXXXXXX",
-+				sizeof(steam->serial_no));
- 
--		/* ignore battery errors, we can live without it */
--		if (steam->quirks & STEAM_QUIRK_WIRELESS)
--			steam_battery_register(steam);
-+	hid_info(steam->hdev, "Steam Controller '%s' connected",
-+			steam->serial_no);
- 
--		do_add = true;
--	}
-+	/* ignore battery errors, we can live without it */
-+	if (steam->quirks & STEAM_QUIRK_WIRELESS)
-+		steam_battery_register(steam);
- 
--	spin_lock_irqsave(&steam->lock, flags);
--	client_opened = steam->client_opened;
--	spin_unlock_irqrestore(&steam->lock, flags);
+-	ret = gb_message_send(operation->request, gfp);
+-	if (ret)
+-		goto err_put_active;
 -
--	if (!client_opened) {
--		steam_set_lizard_mode(steam, lizard_mode);
--		ret = steam_input_register(steam);
--		if (ret != 0)
--			goto steam_register_input_fail;
--		ret = steam_sensors_register(steam);
--		if (ret != 0)
--			goto steam_register_sensors_fail;
--	}
-+	steam_set_lizard_mode(steam, lizard_mode);
-+	ret = steam_input_register(steam);
-+	if (ret != 0)
-+		goto steam_register_input_fail;
-+	ret = steam_sensors_register(steam);
-+	if (ret != 0)
-+		goto steam_register_sensors_fail;
++	/* Arm before sending, as the response may complete the operation at once. */
+ 	if (timeout) {
+ 		operation->timer.expires = jiffies + msecs_to_jiffies(timeout);
+ 		add_timer(&operation->timer);
+ 	}
  
--	if (do_add) {
--		mutex_lock(&steam_devices_lock);
--		if (list_empty(&steam->list))
--			list_add(&steam->list, &steam_devices);
--		mutex_unlock(&steam_devices_lock);
--	}
-+	steam->registered = true;
-+	mutex_lock(&steam_devices_lock);
-+	if (list_empty(&steam->list))
-+		list_add(&steam->list, &steam_devices);
-+	mutex_unlock(&steam_devices_lock);
++	ret = gb_message_send(operation->request, gfp);
++	if (ret)
++		goto err_del_timer;
++
  	return 0;
  
- steam_register_sensors_fail:
- 	steam_input_unregister(steam);
- steam_register_input_fail:
-+	steam_battery_unregister(steam);
-+	cancel_work_sync(&steam->rumble_work);
-+	cancel_delayed_work_sync(&steam->mode_switch);
- 	return ret;
- }
- 
- static void steam_unregister(struct steam_device *steam)
- {
--	if (!steam->serial_no[0])
-+	if (!steam->registered)
- 		return;
- 
- 	hid_info(steam->hdev, "Steam Controller '%s' disconnected",
- 			steam->serial_no);
-+	steam->registered = false;
- 	steam_battery_unregister(steam);
- 	steam_sensors_unregister(steam);
- 	steam_input_unregister(steam);
++err_del_timer:
++	/* A timer that already fired has queued work which drops our references. */
++	if (timeout && !timer_delete_sync(&operation->timer))
++		return ret;
+ err_put_active:
+ 	gb_operation_put_active(operation);
+ err_put:
 -- 
-2.53.0
-
-
+2.43.0
 
