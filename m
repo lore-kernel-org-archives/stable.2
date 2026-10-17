@@ -1,177 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 127D83793D0;
-	Sat, 17 Oct 2026 01:00:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 600E23783BE
+	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 01:40:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792198847; cv=none; b=rDkActvzfEQfbV9iCHA9rOrwbZJ/pqhVx1IY1mvCKZdnvRWBXKhKigR9zFn83MMk12KCWc86xN9TBajl6DazDkDfX1umdSWi3D52yT28T6tVXaqiRIx/7OhPQMYX9Gkv1husrxA6P2zhQXM1M7ZbFcQFhAk3dJKkfdsjoAQgY8c=
+	t=1792201210; cv=none; b=aPK/TGdkbYVWqfldWKZKpCC4a0Sfp8XqpZdHyUnpnF8uKamn388FoCsl7s+UA29/g1OV9JTwXwYZgeVXTNdE+x4kpZC5enS0pc3TXaKyYiV/jwnBeTvLIL6hoAmREm2Ouu8RS0TuUDE9ETLVS2EPtmWsJpM6y99AsLdGipKsr5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792198847; c=relaxed/simple;
-	bh=1pTJR/NPztZbKjTlHhU4kn7kpr5kW3+cwbwJPBk56S4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=U2024ohCExNc+it4qxQrdxV7AQrTCOuOEP5NMAtX5TqsYCq1d+JprFH8KrWQi7pCNsNe6btgCl4A7BnDNcIEv+CUOIxxeCCWJVz71ASX4TEKysizCliYtTeX0HVcIhD+O7uncAAemsOARJwXiQ/JgE0ZTlnpvD6RXAkhVy+JMKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sggz42U+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792201210; c=relaxed/simple;
+	bh=B5NcsJqiM6ca6zoKCCSiRnmiGiK51EUO/f+42QeBqzI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=t5CMk0aMz3+nyfeZJt1qTG2cJ35SuP3yBF7LUCS7QDfccQ7cPPkdS0VPZ2rEU8aLzODYqHUTznrx4t0TOIh+RuaLhLVqPu18OcznZx5swgLVxdmrB0ZDKERQik+BaHKfw8bPGbi8OSMHrwemRuAvHrMwzQqrXKO4ZEzPCO8BfQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WBqIxRNB; arc=none smtp.client-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sggz42U+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A77801F000C4;
-	Sat, 17 Oct 2026 01:00:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792198845;
-	bh=S4QWG8iL9mfl/dhfo2RsR4M7cwNDRqdBeBp9keTXYPE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Sggz42U+vvkvhddKw1jnhpFRzpbHV5ovSzaKRxOPwG2B3o/+mk3l5Z+PxKbE0Dp2E
-	 UTkXifp811PubD9ZlmQ2OgS3SDUPhjHfZwJrD5Ed5qrW5kKPW51wI4E3jaRCBZ9rCR
-	 HTjpFfEKFKpFxMRMkssI4+uCEegoibs3qUC0BPw5VBxt3iHHxzUlnD/k2JnlzlG6vc
-	 vVzw+cwyDaUSa+wRhcWzVL5ukGoGNO8LveVrkb5na3T6NBxyneFr6Juf1l0+L4FbEb
-	 AAsjkq0qpQYXbpruOze+Vu2z7+dGUsf4a50t3ZBz+d2S4eyABJG+ps21XVYxRbgIlV
-	 LVX1roSf9+66w==
-Subject: Re: [PATCH net v5 5/6] can: rockchip_canfd: serialize TX with bus-off
- and restart
-From: netdev-bot+sashiko@kernel.org
-To: 1579567540@qq.com
-Cc: mkl@pengutronix.de, mailhol@kernel.org, heiko@sntech.de,
- davem@davemloft.net, wg@grandegger.com, socketcan@hartkopp.net,
- kernel@pengutronix.de, linux-can@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Sat, 17 Oct 2026 01:00:44 +0000
-Message-ID: <179219884425.1406898.18319979032484933416@kernel.org>
-In-Reply-To: <20261015-rockchip-canfd-restart-close-v5-5-ae77327037c9@qq.com>
-References: <20261015-rockchip-canfd-restart-close-v5-5-ae77327037c9@qq.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WBqIxRNB"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-35f1f76ea84so760316eec.1
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 18:40:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792201208; x=1792806008; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cket7DPZv1j5YnyOIveBa4NpPNYaScJjvnuFzxjWh88=;
+        b=WBqIxRNBUqBRRhN6b7EfvbJPWt6hwGRIlRYS9Qf57HMtBDdB7YOqqF7LSkXOZ272cb
+         Y4Ur9MaxHuCDIjGl95MejJfqlwhOH6DNbNrSiFW/lUQsqW3kQHjIc4AsYUvIAEdR1Kv6
+         qs5o7XJqW2gv1rCEhbo60Nu0/+UPO97Qf3FRErUP3VUBx5Xekknkn7tBOhOhlWCF+fj1
+         pED7QO7Udl2PBu3HbMtqK7r9IP8ltoc3bnQurCc6LAWdJQYHS/MGaj//5XJVX4umkEcc
+         /8iV9933xXySzoTwS9m56dFDaLVXiuGVPillMcKWuJ2FhdQxSahzVd0ixF9YHMyQ+ok7
+         csOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792201208; x=1792806008;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cket7DPZv1j5YnyOIveBa4NpPNYaScJjvnuFzxjWh88=;
+        b=kG/o4fXLZQ+WZ4YzJBo+YgnBxuznSLrPMFek7IP41SZE51sd+ku3PY4nrmP6XXf2lW
+         NQ30i1e9ijSM1Q4vLElFWn//ncOawL068IGZwRWQHVfscNE7Fs6AyIE9+JGqtCyFPNC1
+         xhVMGYKmmRUYUjKIXGP2EqgQXAfcLsq0cvd9w2iqLj55HviujNG6jMf7iaoeulWxC4T8
+         cu1FqvSgMRgSs6v3jPR5cXIRY1o7Xb6TcbveDDJ5xvmzTjmg7doR+wy6bOUkOCv3aImP
+         +eTxeVnz7l3r4255jRA+bp1tIZw1eZEggpaQL/q2NNasd9pgKAnhiY2DhFqaQRUWIt3I
+         pAEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxqC38QQ7YuIeyWAKI/uehSJOzeZm7n5kJmoxfMTlOe7xqF5NB3REk9HjgmDy3+qsh3z53umr0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLHluvWW1hbJFrkQuqtKrgo50gaWAmmRRPh9d0dhe4UMIUwiFfL
+	yI1jeXUVHijVPyZVeYSNstHtvx6Jodg8IoiqczICcYg9AUXgZS7cUrc0
+X-Gm-Gg: AYBFou3yJzfgLPBCvdQnpEKIWhdnHg18f8CHi4a+QsJ4jRRu3tqbfUN9XdhihJ92Z47
+	9KLyB98HCGdeAwQCWz9Dd//PKoYE+pKau69GmNc9p3CKY0WXp+mRcUSHRe//LkPlTkucEKrp4lN
+	NnADf7efVl7EcbIVyZr4Mw2vvQLWvBzlnodg3QrZT5VCk95Nt+qf571diksa+ae498WZCMYo1c5
+	sSOcLj/3xBSYtahL9k/DFxOeYrKtbUCLVy2MHUqyQluZWr3RiWKM1zsVgisHzVwBQ1GV6x+r9D5
+	x3PlTfTkna495fIrc0lKHi9CfQjF7ses0K1CimKzvjYmpU/DDrNBdpaLwrVhQ6kT3Nt5ERGL8vX
+	rlRCBW/RSniYYbXvoITO0vBLzcXYfHUzxwGRV6WqNsEV9V/ndtqyjcCtrwnfjvNQ91gIkwnTB9/
+	z2Tnzl7SmOWLXjjNsAdmy/QUDVmD1+gNRUA7XLcfFVz2uUvcX63RjWDTFwbEbgCygloyYhS2BPF
+	ZGcylAthpoFKKCJ5iSJroIkRN8ujp/fYZoiIvc6ZjBa6lk9QSn6+69LY59sG3geKwLUkppU35A=
+X-Received: by 2002:a05:701a:c951:b0:156:3684:96db with SMTP id a92af1059eb24-18515e402d1mr2235374c88.45.1792201208381;
+        Fri, 16 Oct 2026 18:40:08 -0700 (PDT)
+Received: from lappy.taila8a9bd.ts.net (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831acba710sm12128429c88.13.2026.10.16.18.40.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 18:40:07 -0700 (PDT)
+From: "Derek J. Clark" <derekjohn.clark@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>,
+	"Derek J . Clark" <derekjohn.clark@gmail.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kernel@lists.opengamingcollective.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 01/11] HID: hid-lenovo-go-s: Return ret instead of 0 in mcu_property_out()
+Date: Fri, 16 Oct 2026 18:39:46 -0700
+Message-ID: <20261017013956.2440130-2-derekjohn.clark@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261017013956.2440130-1-derekjohn.clark@gmail.com>
+References: <20261017013956.2440130-1-derekjohn.clark@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Currently mcu_property_out() blanket returns 0, discarding the ret
+value and any errors with it. Wait completion returns a positive value
+when it is not timed out, which would error on all successes, so if it
+is positive return the ret value from the raw event handler. Only if
+it is 0 set it to -EBUSY, otherwise pass the actual error.
 
-Low priority / nit picks for your consideration:
+Fixes: a23f3497bf208c59ad ("HID: hid-lenovo-go-s: Add Lenovo Legion Go S Series HID Driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Derek J. Clark <derekjohn.clark@gmail.com>
+---
+ drivers/hid/hid-lenovo-go-s.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-- [Low] This patch takes spin_lock_irqsave(&priv->tx_lock, flags) near
-  the top of rkcanfd_start_xmit()…
-
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but
-  rkcanfd_start_xmit() does not handle a can_put_echo_skb() failure.
-
---
-
-can: rockchip_canfd: serialize TX with bus-off and restart
-
-This adds a private tx_lock and tx_enabled flag. They serialize
-rkcanfd_start_xmit() and the RX-side echo completion and retry against
-bus-off handling and CAN restart. TX is disabled before CAN_STATE_BUS_OFF
-is published, and carrier, TX, IRQs and the queue are re-enabled together
-under the lock after the controller has been reinitialized.
-
-> diff --git a/drivers/net/can/rockchip/rockchip_canfd-tx.c b/drivers/net/can/rockchip/rockchip_canfd-tx.c
-> index 12200dcfd3389..f49ed6d2266d9 100644
-> --- a/drivers/net/can/rockchip/rockchip_canfd-tx.c
-> +++ b/drivers/net/can/rockchip/rockchip_canfd-tx.c
-> @@ -69,12 +69,19 @@ netdev_tx_t rkcanfd_start_xmit(struct sk_buff *skb, struct net_device *ndev)
-
-[ ... ]
-
->  	if (can_dev_dropped_skb(ndev, skb))
->  		return NETDEV_TX_OK;
->  
-> +	spin_lock_irqsave(&priv->tx_lock, flags);
-> +	if (unlikely(!priv->tx_enabled)) {
-> +		netif_stop_queue(ndev);
-> +		goto out_busy;
-> +	}
-> +
-
-[Severity: Low]
-This lock stays held with hard IRQs disabled until the end of
-rkcanfd_start_xmit(). The locked region includes the echo skb handling:
-
-drivers/net/can/rockchip/rockchip_canfd-tx.c:rkcanfd_start_xmit() {
-    ...
-	frame_len = can_skb_get_frame_len(skb);
-	err = can_put_echo_skb(skb, ndev, tx_head, frame_len);
-	if (!err)
-		netdev_sent_queue(priv->ndev, frame_len);
-    ...
-}
-
-can_put_echo_skb()->can_create_echo_skb() clones the skb and then calls
-consume_skb() on the original. If the clone fails, it calls kfree_skb()
-instead. can_put_echo_skb() also calls kfree_skb() in three cases: IFF_ECHO
-is clear, the protocol check fails, or the echo slot is still occupied.
-
-Freeing the original skb runs the socket destructor (sock_wfree()). If this
-is the last TX skb of a closed socket, that can continue into __sk_free().
-
-The comment above dev_kfree_skb_irq() in include/linux/netdevice.h says
-kfree_skb() and consume_skb() must not be called with hardware interrupts
-disabled. Before this patch, ndo_start_xmit() ran with only BH disabled.
-
-Nothing seems to fail visibly today. skb_release_head_state() only warns
-on in_hardirq(), not on irqs_disabled(), and peak_canfd uses a similar
-pattern. Even so, should the clone and the free of the original skb happen
-outside tx_lock, with only the echo slot pointer and tx_head published
-under the lock?
-
-[ ... ]
-
-> @@ -137,7 +144,14 @@ netdev_tx_t rkcanfd_start_xmit(struct sk_buff *skb, struct net_device *ndev)
->  				  RKCANFD_TX_STOP_THRESHOLD,
->  				  RKCANFD_TX_START_THRESHOLD);
->  
-> +	spin_unlock_irqrestore(&priv->tx_lock, flags);
-> +
->  	return NETDEV_TX_OK;
-
-[Severity: Medium]
-This is a pre-existing issue that this patch did not introduce. What
-happens when can_put_echo_skb() fails earlier in this function?
-
-If the GFP_ATOMIC clone in can_create_echo_skb() fails, can_put_echo_skb()
-frees the original skb and returns -ENOMEM. That leaves
-priv->can.echo_skb[tx_head] set to NULL. In that case rkcanfd_start_xmit()
-only skips netdev_sent_queue():
-
-	err = can_put_echo_skb(skb, ndev, tx_head, frame_len);
-	if (!err)
-		netdev_sent_queue(priv->ndev, frame_len);
-
-	WRITE_ONCE(priv->tx_head, priv->tx_head + 1);
-
-	rkcanfd_start_xmit_write_cmd(priv, reg_cmd);
-
-When the self-received frame comes back, rkcanfd_handle_rx_int_one() sees
-tx_pending != 0 and calls rkcanfd_rxstx_filter(). That function then hits
-the NULL slot:
-
-drivers/net/can/rockchip/rockchip_canfd-rx.c:rkcanfd_rxstx_filter() {
-    ...
-	skb = priv->can.echo_skb[tx_tail];
-	if (!skb) {
-		netdev_err(priv->ndev, ...);
-
-		return -ENOMSG;
-	}
-    ...
-}
-
-tx_tail never advances, because the only normal advance happens after a
-successful echo match. rkcanfd_handle_rx_int() also stops draining the
-FIFO when it gets the error.
-
-After that, does every RX IRQ consume and drop one FIFO entry with another
--ENOMSG? TX would then stall once the ring is full, until a bus-off
-restart or an interface down/up reinitializes the controller.
-
-This patch keeps the same error propagation in rkcanfd_handle_rx_int_one().
-
+diff --git a/drivers/hid/hid-lenovo-go-s.c b/drivers/hid/hid-lenovo-go-s.c
+index a72f7f748cb5..68301d4c762a 100644
+--- a/drivers/hid/hid-lenovo-go-s.c
++++ b/drivers/hid/hid-lenovo-go-s.c
+@@ -38,6 +38,7 @@ static struct hid_gos_cfg {
+ 	struct led_classdev *led_cdev;
+ 	struct hid_device *hdev;
+ 	struct mutex cfg_mutex; /*ensure single synchronous output report*/
++	int cmd_status;
+ 	u8 gp_auto_sleep_time;
+ 	u8 gp_dpad_mode;
+ 	u8 gp_mode;
+@@ -435,7 +436,9 @@ static int hid_gos_raw_event(struct hid_device *hdev, struct hid_report *report,
+ 	dev_dbg(&hdev->dev, "Rx data as raw input report: [%*ph]\n",
+ 		GO_S_PACKET_SIZE, data);
+ 
++	drvdata.cmd_status = ret;
+ 	complete(&drvdata.send_cmd_complete);
++
+ 	return ret;
+ }
+ 
+@@ -474,12 +477,10 @@ static int mcu_property_out(struct hid_device *hdev, u8 command, u8 index,
+ 	timeout = (command == GET_PL_TEST) ? 200 : 5;
+ 	ret = wait_for_completion_interruptible_timeout(&drvdata.send_cmd_complete,
+ 							msecs_to_jiffies(timeout));
+-
+-	if (ret == 0) /* timeout occurred */
+-		ret = -EBUSY;
++	ret = ret > 0 ? drvdata.cmd_status : ret ?: -EBUSY;
+ 
+ 	reinit_completion(&drvdata.send_cmd_complete);
+-	return 0;
++	return ret;
+ }
+ 
+ static ssize_t gamepad_property_store(struct device *dev,
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015-rockchip-canfd-restart-close-v5-0-ae77327037c9%40qq.com
+2.55.0
+
