@@ -1,43 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC893BAD9A;
-	Sat, 17 Oct 2026 16:47:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBB4385D7B;
+	Sat, 17 Oct 2026 16:47:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792255654; cv=none; b=VRJWCDsxmsiIlhrmc2i8vqD0soIEh0hhycIN8YRwriZhJ0nHEklgnapD3mEIS8oPxYCCMmt4nTzREVpzAU7Vd1sXyiynMYLi/QKfAceR7rZM5uDnkpuR6JSQokODCXwfyVmGygO8++f2Cnfz9/IJ3zvmY65Er+RlFk0AVJZuZSM=
+	t=1792255657; cv=none; b=JhVV3GYd3VYlJVSEsUGQOmDUQeBzJLqupHrQ/2UhUIyvqX6ienWifcY6Uop0Tl1JsZRQheocwgbTohI4zuhuvHy9kNSqLIFS0ZVCfK8y85v12s3XC/LklV4o+NSLVrKUEB/ka6PRuK0Pi77hUBJk5/yebwyilhxk2QcFvCHZkFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792255654; c=relaxed/simple;
-	bh=Gw7sKoeQFMzHT4YjfwdJh1hrUHpPcRtcYh4jJ/9+usA=;
+	s=arc-20240116; t=1792255657; c=relaxed/simple;
+	bh=XblhLUTytYD/oUhn4SUspFg9IJN0V3Vs+hkVdVwOXr4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l7sR1miaIMu22EpSgN38cfURdHy8MzWuFhocicOAw9a2FftKo+EydBCTKzLplTpV4WWrFZNd8w/BdHcy7Uip+ZNbmGvKLDsEhY01ijCZcEgRDHblDXb8KqjiKE9oDtVrR9q3q2jZ/HRH3Xk2HgZTMueUarghXDThtzLeqyeJ6nA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fLRU0tT7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=XGNAEXfhfuXpzJpyWF9t1WMqBH6pO9nTf7ZnFhYm+ex+PnX367Xbv04XiQFjqiU27MPLe/FPtVvkNxRTT2R2QH4lp5hFOsv2pqi+NH9ExwfEQXqGvOFS9d85jRtTYl92EvCC9WZVom85fmmsURjgXkPbFFTJfK0sslFiwO1a0g0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fZNSnesO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fLRU0tT7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEDED1F000C4;
-	Sat, 17 Oct 2026 16:47:32 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fZNSnesO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C81A11F000C4;
+	Sat, 17 Oct 2026 16:47:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792255653;
-	bh=w/4UVAwhaT08TcRu4ghfaffMCjdRoH4478/iVLeH3W4=;
+	s=korg; t=1792255656;
+	bh=Y+frANdwXg4+i+LgSvURWZH8t9ZKZDMvxc+f1YICSF8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fLRU0tT7Qk84Cj0pr785rox6g6N+5qxQ6zVtDNRCnjSQ/AfyGII1IOS1af44rMGYi
-	 ERE852OcvQOheLEC5ih/a+O+wu1I8KywbGsHB8ntZkkEa81zYl66bHPUWeDFGPGG0P
-	 TKBeL/wPnT1x02sPdBAyi1AHV44pPz2C2ICGwl4Q=
+	b=fZNSnesO9vP0b1r3YvJ6gbKLPJ6/mtSfh8A1Db/TfNplnLbZ2KeaPzeiSQBkcUdze
+	 UyIuGKFq3EqL3MAP/2uVf7YST3SXkm9UrDpuL36qaH1TvJMDvMyvcjuQaZnGry4MYF
+	 sj67hHf/xT4WxnxJufTXMG7AEuUweZ654fH0lK0E=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Yi Zhang <yi.zhang@redhat.com>,
-	Nadja Hariz <Nadia.Hariz@ibm.com>,
-	Ingo Franzki <ifranzki@linux.ibm.com>,
-	Holger Dengler <dengler@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Harald Freudenberger <freude@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
+	Ramses <ramses@well-founded.dev>,
+	John <therealgraysky@proton.me>,
+	Qiuxu Zhuo <qiuxu.zhuo@intel.com>,
+	Tony Luck <tony.luck@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 848/869] s390/zcrypt: Fix memory leak with CCA cards used as accelerator
-Date: Sat, 17 Oct 2026 18:01:29 +0200
-Message-ID: <20261017160058.607249024@linuxfoundation.org>
+Subject: [PATCH 6.12 849/869] EDAC/igen6: Fix the flood of invalid error reports
+Date: Sat, 17 Oct 2026 18:01:30 +0200
+Message-ID: <20261017160058.633148827@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261017160036.979869304@linuxfoundation.org>
 References: <20261017160036.979869304@linuxfoundation.org>
@@ -56,127 +53,64 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Harald Freudenberger <freude@linux.ibm.com>
+From: Qiuxu Zhuo <qiuxu.zhuo@intel.com>
 
-[ Upstream commit c8d46f17c2fc7d25c18e60c008928aecab26184d ]
+[ Upstream commit 267e5b1d267539d9a927dc04aab6f15aca57da92 ]
 
-Tests showed that there is a memory leak if CCA cards are used as
-accelerator for clear key RSA requests (ME and CRT). With the last
-rework for the memory allocation the AP messages are allocated by
-ap_init_apmsg() but for some reason on two places (ME and CRT) the
-older allocation was still in place. So the first allocation simple
-was never freed.
+The ECC_ERROR_LOG register of certain SoCs may contain the invalid value
+~0, which results in a flood of invalid error reports in polling mode.
 
-Fixes: 57db62a130ce ("s390/ap/zcrypt: Rework AP message buffer allocation")
-Reported-by: Yi Zhang <yi.zhang@redhat.com>
-Closes: https://lore.kernel.org/linux-s390/CAHj4cs9H67Uz0iVaRQv447p7JFPRPy3TKAT4=Y6_e=wSHCZM5w@mail.gmail.com/
-Reported-by: Nadja Hariz <Nadia.Hariz@ibm.com>
-Cc: stable@vger.kernel.org
-Reviewed-by: Ingo Franzki <ifranzki@linux.ibm.com>
-Reviewed-by: Holger Dengler <dengler@linux.ibm.com>
-Acked-by: Heiko Carstens <hca@linux.ibm.com>
-Signed-off-by: Harald Freudenberger <freude@linux.ibm.com>
-Signed-off-by: Vasily Gorbik <gor@linux.ibm.com>
+Fix the flood of invalid error reports by skipping the invalid ECC error
+log value ~0.
+
+Fixes: e14232afa944 ("EDAC/igen6: Add polling support")
+Reported-by: Ramses <ramses@well-founded.dev>
+Closes: https://lore.kernel.org/all/OISL8Rv--F-9@well-founded.dev/
+Tested-by: Ramses <ramses@well-founded.dev>
+Reported-by: John <therealgraysky@proton.me>
+Closes: https://lore.kernel.org/all/p5YcxOE6M3Ncxpn2-Ia_wCt61EM4LwIiN3LroQvT_-G2jMrFDSOW5k2A9D8UUzD2toGpQBN1eI0sL5dSKnkO8iteZegLoQEj-DwQaMhGx4A=@proton.me/
+Tested-by: John <therealgraysky@proton.me>
+Signed-off-by: Qiuxu Zhuo <qiuxu.zhuo@intel.com>
+Signed-off-by: Tony Luck <tony.luck@intel.com>
+Link: https://lore.kernel.org/r/20250212083354.31919-1-qiuxu.zhuo@intel.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/s390/crypto/zcrypt_msgtype6.c | 32 ++++++++++++---------------
- 1 file changed, 14 insertions(+), 18 deletions(-)
+ drivers/edac/igen6_edac.c | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/s390/crypto/zcrypt_msgtype6.c b/drivers/s390/crypto/zcrypt_msgtype6.c
-index 352d5c15f7dcc..2578384705592 100644
---- a/drivers/s390/crypto/zcrypt_msgtype6.c
-+++ b/drivers/s390/crypto/zcrypt_msgtype6.c
-@@ -956,6 +956,10 @@ static atomic_t zcrypt_step = ATOMIC_INIT(0);
- /*
-  * The request distributor calls this function if it picked the CEXxC
-  * device to handle a modexpo request.
-+ * This function assumes that ap_msg has been initialized with
-+ * ap_init_apmsg() and thus a valid buffer with the size of
-+ * ap_msg->bufsize is available within ap_msg. Also the caller has
-+ * to make sure ap_release_apmsg() is always called even on failure.
-  * @zq: pointer to zcrypt_queue structure that identifies the
-  *	CEXxC device to the request distributor
-  * @mex: pointer to the modexpo request buffer
-@@ -967,21 +971,17 @@ static long zcrypt_msgtype6_modexpo(struct zcrypt_queue *zq,
- 	struct ap_response_type *resp_type = &ap_msg->response;
- 	int rc;
+diff --git a/drivers/edac/igen6_edac.c b/drivers/edac/igen6_edac.c
+index 3a28b3d6242da..0cf7f8bde6cac 100644
+--- a/drivers/edac/igen6_edac.c
++++ b/drivers/edac/igen6_edac.c
+@@ -785,13 +785,22 @@ static u64 ecclog_read_and_clear(struct igen6_imc *imc)
+ {
+ 	u64 ecclog = readq(imc->window + ECC_ERROR_LOG_OFFSET);
  
--	ap_msg->msg = (void *)get_zeroed_page(GFP_KERNEL);
--	if (!ap_msg->msg)
--		return -ENOMEM;
--	ap_msg->bufsize = PAGE_SIZE;
- 	ap_msg->receive = zcrypt_msgtype6_receive;
- 	ap_msg->psmid = (((unsigned long)current->pid) << 32) +
- 		atomic_inc_return(&zcrypt_step);
- 	rc = icamex_msg_to_type6mex_msgx(zq, ap_msg, mex);
- 	if (rc)
--		goto out_free;
-+		goto out;
- 	resp_type->type = CEXXC_RESPONSE_TYPE_ICA;
- 	init_completion(&resp_type->work);
- 	rc = ap_queue_message(zq->queue, ap_msg);
- 	if (rc)
--		goto out_free;
-+		goto out;
- 	rc = wait_for_completion_interruptible(&resp_type->work);
- 	if (rc == 0) {
- 		rc = ap_msg->rc;
-@@ -994,15 +994,17 @@ static long zcrypt_msgtype6_modexpo(struct zcrypt_queue *zq,
- 		ap_cancel_message(zq->queue, ap_msg);
- 	}
+-	if (ecclog & (ECC_ERROR_LOG_CE | ECC_ERROR_LOG_UE)) {
+-		/* Clear CE/UE bits by writing 1s */
+-		writeq(ecclog, imc->window + ECC_ERROR_LOG_OFFSET);
+-		return ecclog;
+-	}
++	/*
++	 * Quirk: The ECC_ERROR_LOG register of certain SoCs may contain
++	 *        the invalid value ~0. This will result in a flood of invalid
++	 *        error reports in polling mode. Skip it.
++	 */
++	if (ecclog == ~0)
++		return 0;
  
--out_free:
--	free_page((unsigned long)ap_msg->msg);
--	ap_msg->msg = NULL;
-+out:
- 	return rc;
+-	return 0;
++	/* Neither a CE nor a UE. Skip it.*/
++	if (!(ecclog & (ECC_ERROR_LOG_CE | ECC_ERROR_LOG_UE)))
++		return 0;
++
++	/* Clear CE/UE bits by writing 1s */
++	writeq(ecclog, imc->window + ECC_ERROR_LOG_OFFSET);
++
++	return ecclog;
  }
  
- /*
-  * The request distributor calls this function if it picked the CEXxC
-  * device to handle a modexpo_crt request.
-+ * This function assumes that ap_msg has been initialized with
-+ * ap_init_apmsg() and thus a valid buffer with the size of
-+ * ap_msg->bufsize is available within ap_msg. Also the caller has
-+ * to make sure ap_release_apmsg() is always called even on failure.
-  * @zq: pointer to zcrypt_queue structure that identifies the
-  *	CEXxC device to the request distributor
-  * @crt: pointer to the modexpoc_crt request buffer
-@@ -1014,21 +1016,17 @@ static long zcrypt_msgtype6_modexpo_crt(struct zcrypt_queue *zq,
- 	struct ap_response_type *resp_type = &ap_msg->response;
- 	int rc;
- 
--	ap_msg->msg = (void *)get_zeroed_page(GFP_KERNEL);
--	if (!ap_msg->msg)
--		return -ENOMEM;
--	ap_msg->bufsize = PAGE_SIZE;
- 	ap_msg->receive = zcrypt_msgtype6_receive;
- 	ap_msg->psmid = (((unsigned long)current->pid) << 32) +
- 		atomic_inc_return(&zcrypt_step);
- 	rc = icacrt_msg_to_type6crt_msgx(zq, ap_msg, crt);
- 	if (rc)
--		goto out_free;
-+		goto out;
- 	resp_type->type = CEXXC_RESPONSE_TYPE_ICA;
- 	init_completion(&resp_type->work);
- 	rc = ap_queue_message(zq->queue, ap_msg);
- 	if (rc)
--		goto out_free;
-+		goto out;
- 	rc = wait_for_completion_interruptible(&resp_type->work);
- 	if (rc == 0) {
- 		rc = ap_msg->rc;
-@@ -1041,9 +1039,7 @@ static long zcrypt_msgtype6_modexpo_crt(struct zcrypt_queue *zq,
- 		ap_cancel_message(zq->queue, ap_msg);
- 	}
- 
--out_free:
--	free_page((unsigned long)ap_msg->msg);
--	ap_msg->msg = NULL;
-+out:
- 	return rc;
- }
- 
+ static void errsts_clear(struct igen6_imc *imc)
 -- 
 2.53.0
 
