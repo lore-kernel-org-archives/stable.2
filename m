@@ -1,44 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BEC63C3C0E;
-	Sat, 17 Oct 2026 16:41:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 739EB3B7B79
+	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 16:41:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792255318; cv=none; b=ItGkJQafJEmSQdZUfP/v4yQTnsjSAGmU0USVICtkizW/rmUgSavEwc2nS0HRLkkM1LrPdRa1TUdewDMisrd/LWj/4zHh1UxJg+R/ZS94/5W6sX6cjJul99HCJo7QwWxTGF1EOBx00olDCVei/lGT/gVYxAyYN/RnWzHxM/aoWWs=
+	t=1792255320; cv=none; b=j2Xnkn1SJOFvnoH1W2TIUaei7HDcxO/GRI8KMQuhfUSIptn8EuTiJKBYNRTS8OaRYhD29UosWwI1imdiGLQBfKm3SS2Uu2b5OAWpYeBmmp95zIfxRzYOXECQw6ZYbeTaFB9gMQD/3VcHL8MVHKMx5qXo+LsXym2Sg7n4hovUWUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792255318; c=relaxed/simple;
-	bh=1et4Y3b4/PIpdW3EbNgi1lTQ1O/stLxahYhpeQVMMCA=;
+	s=arc-20240116; t=1792255320; c=relaxed/simple;
+	bh=BemLKpzMV2cGNDiIiS5GnsqPgSEVdKRMSXgi3VNog9M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=o+3GBtww/ykOaovkDtwY8kvwUinw0k6tovta+OmJEDRqKkQluXXO98lSpdmo8+L+qvUB9HN5OSZOecpQ4lofvjuQq9rNTHRZssdjmPlIuTGomIHfKCjSHbmPRUSV3eFh92+FzxRdIVtmzrVFiRDu1XSuclDhZT03eMKQs4ce2JI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Jzy+bqbE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=VrDBgy1p+qf2Oxq0en+nh3sDa6SffCUJ801MWNNIZRFCvc3xuE4F1CXDy1zrlGjxWEmVJezHMG1VyKQ/vlqqo6C7kSInk7x4IxyIOAZVheFfn44A/BQtPl9j6RdWhMlXePp6bnjH7KKzov9rUb/O6WGHqmaqOM+RJpJoZFXhC7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lNLrRFv8; arc=none smtp.client-ip=209.85.219.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Jzy+bqbE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F183A1F000C4;
-	Sat, 17 Oct 2026 16:41:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792255317;
-	bh=6DcV64i9LUt6KSipuxbVO+UM8fqZiqYSFY02F/QO42U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Jzy+bqbEm2nl2uOi8aOFPVMe3cJ+MFzmRQ2FhS2Dqh/NWQXjD7EgDo9CO7ezyo0/6
-	 pfkNx7IS4CninQXsUE3xm1TeGtQIZEDIjeGYK/AnynYgY8bgkbjjN4ZKydSWaDI+6Y
-	 k0nA1wldstffWlQWFcS/hJYcymwd6trQ2bjbgsXo=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 735/869] PM: Rearrange documentation related to __pm_runtime_disable()
-Date: Sat, 17 Oct 2026 17:59:36 +0200
-Message-ID: <20261017160055.792845048@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261017160036.979869304@linuxfoundation.org>
-References: <20261017160036.979869304@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lNLrRFv8"
+Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-91ba702cceaso10739996d6.0
+        for <stable@vger.kernel.org>; Sat, 17 Oct 2026 09:41:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792255317; x=1792860117; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qNGfrzFy6C0Pbu+P9jw0rVj22bwJD+aan7KFDBDtGhU=;
+        b=lNLrRFv8vbH7dLyOq2Qc6mW1Oh626FEP3ZZtBXfuzSWwJcslNYqcGEGiQdN+PuREC7
+         kny4OwC84ufhNK/9iYHE7ritmmwfK3yY4JzxoeTPHoEfh2jlC6KA3B8xn5eKlUYpjBre
+         wY37RQqhQOHf/x1KfmUZ9ousIsS2yGkiU63j+pEJ65UzNRF6z8zGACH+nGb/ezfVukKV
+         dTMeqKwubTkWQtK0y7eCTbIBQgWqCMWFuFMBAMHLXHE4gonQIEJ6H4/EpckNvisTBAkO
+         qiWRCTd/d7tNc9a/HUYjmTFO2VK8m/bkH+5l81MAucos6w8tqjvd09iZ2m6EYlzCUWAU
+         vl7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792255317; x=1792860117;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qNGfrzFy6C0Pbu+P9jw0rVj22bwJD+aan7KFDBDtGhU=;
+        b=O8fen06y9C7HdVoK60O6imgTeK4xJsQ5gjs1o8UHUxmerQbI9qDeOo9bKsqNQVbpoq
+         EqaGGo+hTpYlBf5mSkvTYdNUI54bFqc6bOs+CxE3XJWIro4JrCi9rGzf4TojFAM8mXMh
+         rdid48E5Xmj00cLAWy2Xv3YGUWFqAWJot5DpATWe3vF2XdG7+zGcLX5B3Tg5ZDgncd+M
+         LttUnVAyQQpWZEtym8eLd3LrEq4SzrcVRLFJWVjDOfyHoYGqb+SozG5htoxvXxc6f5cX
+         ItKPv69Y10HuLHZMCbsM01KB5AjPgRNbiZqSkg1vMaOc+ByrwsPL4EB3XSDt0WUf0xwl
+         4OpQ==
+X-Forwarded-Encrypted: i=1; AKwUvByp/F5bGoX1fNLkJBxy72fjtbZQcRfBEn5GvkSQb1bPnHhWgXcKC33KfCxzf82XNx0vRKtNR4U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK+EhThQior2qeCTUUoALAzm4zU+7Ko8MBYKRKWQYmkInwOkMqP
+	RxJSppFwJXN/Cn3Y4IIcS21/LHVPPURO4cY5gnEnNpgbDwce1Mn5gVAJ
+X-Gm-Gg: AYBFou20U5ynOPg9ubAGxnRtMnfu83mcbcEuKYdFud7aVFfwl2yxjq19cld4sag7xKF
+	yRW+LZ2uGepEAwpMDXjovAA8efj+zleEHMM5kFBo4l+wnuE0t+ybel5juLBXHkigK5klLfvARZp
+	XLu8qwcHODCA16p5MAxb+k0WkL7HNDqSQtqjXfG1JtPv/JzeGU9kabnZFB9iqwyYC7rw7Uf2BrL
+	fNZrBUaDUO7WrGK9g8HRDipXHdSahp8/ttPIDKReVpSUwuMuBLYWU6C1xLsBfhdYdyHAzgxpFPp
+	QCIuXklBSM9EZDZ2h7Ne2eIXk1LVXZVtMm8q9nDlSdVUi6xARd2FHXDhd9iX1BajW1gy4XCMgX0
+	KVl0sWHsVRlw0ptpcWxQ2CLaeSfDRu/ThOr7kqzoREnblcXkIHUt6ysivfywdEkdSR5y2K4lRa1
+	r14GcKBUgE1xVVX9Yy9YyJ1uQvdVbcfmcxsBl4jfUPkr1b1CtLjl2SvJY/VlvBxJs=
+X-Received: by 2002:a05:6214:5508:b0:919:56d7:4052 with SMTP id 6a1803df08f44-91bdf0f0c84mr55566726d6.24.1792255317297;
+        Sat, 17 Oct 2026 09:41:57 -0700 (PDT)
+Received: from beelink ([187.15.140.245])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcb8c4adasm51061296d6.1.2026.10.17.09.41.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 09:41:56 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: jikos@kernel.org,
+	bentiss@kernel.org
+Cc: dmitry.torokhov@gmail.com,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: [PATCH v11 2/2] HID: multitouch: give FF core ownership of haptic state
+Date: Sat, 17 Oct 2026 13:41:39 -0300
+Message-ID: <20261017164139.1791033-3-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261017164139.1791033-1-qwe.aldo@gmail.com>
+References: <20261017164139.1791033-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,110 +80,425 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+An open evdev fd can delay input_ff_destroy() until after HID unbind.
+The descriptor mapping state is devres managed and cannot serve as
+ff->private for that lifetime.
 
-------------------
+Clone the mapped state in hid_haptic_init(). Transfer the allocation
+to ff->private only after input_ff_create() succeeds; the input core
+then frees it at final input device release. Scope cleanup releases
+the clone and its subresources on initialization failure.
 
-From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+On devices with multiple inputs, attach FF to the multitouch touchpad
+input whose pressure uses gram or newton units. An earlier touchpad
+report without a multitouch collection or haptic pressure must not
+consume the single FF instance. Other inputs skip FF initialization
+and do not acquire INPUT_PROP_PRESSUREPAD from the haptic setup. The
+HID reports are shared, so multiple FF instances would write the same
+fields under different mutexes.
 
-[ Upstream commit 258e231dc29fbd72bc82c16859a8304f71780ba2 ]
+Validate the touchpad class and initialize FF before setting up MT
+slots. Enable pointer emulation, total force and contact pressure
+accounting on the input that owns FF. If no input receives FF, disable
+haptic mode before input reports can be processed.
 
-There are only two callers of __pm_runtime_disable(), one of which is
-device_suspend_late() and the other is pm_runtime_disable() that has
-its own kerneldoc comment and there are no plans to add any more of
-them.  Since they use different values of the __pm_runtime_disable()
-second parameter, the actual code behavior is different in each case,
-but it is all documented in the __pm_runtime_disable() kerneldoc comment
-which is not particularly straightforward.
-
-For this reason, move the information from the __pm_runtime_disable()
-kerneldoc comment to the pm_runtime_disable() one and into a separate
-comment in device_suspend_late() and remove the __pm_runtime_disable()
-kerneldoc comment altogether.
-
-No functional impact.
-
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Reviewed-by: Ulf Hansson <ulf.hansson@linaro.org>
-Link: https://patch.msgid.link/12617588.O9o76ZdvQC@rjwysocki.net
-Stable-dep-of: 36d74f17e03f ("driver core: Avoid warning when removing a device while its supplier is unbinding")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 8d0bf7908b5a ("HID: multitouch: add haptic multitouch support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 ---
- drivers/base/power/main.c    |  4 ++++
- drivers/base/power/runtime.c | 14 --------------
- include/linux/pm_runtime.h   | 17 ++++++++++++-----
- 3 files changed, 16 insertions(+), 19 deletions(-)
+ drivers/hid/hid-haptic.c     | 131 ++++++++++++++++++-----------------
+ drivers/hid/hid-haptic.h     |   6 +-
+ drivers/hid/hid-multitouch.c |  61 ++++++++++------
+ 3 files changed, 109 insertions(+), 89 deletions(-)
 
-diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
-index 34645758b2f1b..577202aaaffbf 100644
---- a/drivers/base/power/main.c
-+++ b/drivers/base/power/main.c
-@@ -1401,6 +1401,10 @@ static int device_suspend_late(struct device *dev, pm_message_t state, bool asyn
- 	TRACE_DEVICE(dev);
- 	TRACE_SUSPEND(0);
- 
-+	/*
-+	 * Disable runtime PM for the device without checking if there is a
-+	 * pending resume request for it.
-+	 */
- 	__pm_runtime_disable(dev, false);
- 
- 	dpm_wait_for_subordinate(dev, async);
-diff --git a/drivers/base/power/runtime.c b/drivers/base/power/runtime.c
-index 167ff6f7a3fec..b81d12a45aeb1 100644
---- a/drivers/base/power/runtime.c
-+++ b/drivers/base/power/runtime.c
-@@ -1469,20 +1469,6 @@ int pm_runtime_barrier(struct device *dev)
- }
- EXPORT_SYMBOL_GPL(pm_runtime_barrier);
- 
--/**
-- * __pm_runtime_disable - Disable runtime PM of a device.
-- * @dev: Device to handle.
-- * @check_resume: If set, check if there's a resume request for the device.
-- *
-- * Increment power.disable_depth for the device and if it was zero previously,
-- * cancel all pending runtime PM requests for the device and wait for all
-- * operations in progress to complete.  The device can be either active or
-- * suspended after its runtime PM has been disabled.
-- *
-- * If @check_resume is set and there's a resume request pending when
-- * __pm_runtime_disable() is called and power.disable_depth is zero, the
-- * function will wake up the device before disabling its runtime PM.
-- */
- void __pm_runtime_disable(struct device *dev, bool check_resume)
- {
- 	spin_lock_irq(&dev->power.lock);
-diff --git a/include/linux/pm_runtime.h b/include/linux/pm_runtime.h
-index 142ab39a3b386..dfc367df1c305 100644
---- a/include/linux/pm_runtime.h
-+++ b/include/linux/pm_runtime.h
-@@ -562,11 +562,18 @@ static inline int pm_runtime_set_suspended(struct device *dev)
-  * pm_runtime_disable - Disable runtime PM for a device.
-  * @dev: Target device.
-  *
-- * Prevent the runtime PM framework from working with @dev (by incrementing its
-- * "blocking" counter).
-- *
-- * For each invocation of this function for @dev there must be a matching
-- * pm_runtime_enable() call in order for runtime PM to be enabled for it.
-+ * Prevent the runtime PM framework from working with @dev by incrementing its
-+ * "disable" counter.
-+ *
-+ * If the counter is zero when this function runs and there is a pending runtime
-+ * resume request for @dev, it will be resumed.  If the counter is still zero at
-+ * that point, all of the pending runtime PM requests for @dev will be canceled
-+ * and all runtime PM operations in progress involving it will be waited for to
-+ * complete.
-+ *
-+ * For each invocation of this function for @dev, there must be a matching
-+ * pm_runtime_enable() call, so that runtime PM is eventually enabled for it
-+ * again.
+diff --git a/drivers/hid/hid-haptic.c b/drivers/hid/hid-haptic.c
+index 0a6126e..ec2a891 100644
+--- a/drivers/hid/hid-haptic.c
++++ b/drivers/hid/hid-haptic.c
+@@ -5,6 +5,7 @@
+  *  Copyright (c) 2021 Angela Czubak <acz@semihalf.com>
   */
- static inline void pm_runtime_disable(struct device *dev)
+ 
++#include <linux/cleanup.h>
+ #include <linux/input/mt.h>
+ #include <linux/module.h>
+ 
+@@ -90,7 +91,9 @@ int hid_haptic_input_configured(struct hid_device *hdev,
+ 	if (!haptic->auto_trigger_report || !haptic->manual_trigger_report)
+ 		return 0;
+ 
+-	__set_bit(INPUT_PROP_PRESSUREPAD, hi->input->propbit);
++	/* The HID reports are shared; create only one FF instance. */
++	if (haptic->input_dev)
++		return 1;
+ 
+ 	error = hid_haptic_init(hdev, haptic, hi->input);
+ 	if (error) {
+@@ -99,6 +102,9 @@ int hid_haptic_input_configured(struct hid_device *hdev,
+ 		return error;
+ 	}
+ 
++	__set_bit(INPUT_PROP_PRESSUREPAD, hi->input->propbit);
++	haptic->input_dev = hi->input;
++
+ 	return 1;
+ }
+ EXPORT_SYMBOL_GPL(hid_haptic_input_configured);
+@@ -377,53 +383,76 @@ static int hid_haptic_erase(struct input_dev *dev, int effect_id)
+ 	return 0;
+ }
+ 
+-static void hid_haptic_stop(struct ff_device *ff)
++static void hid_haptic_stop_work(struct hid_haptic_device *haptic)
  {
+-	struct hid_haptic_device *haptic = ff->private;
+-
+ 	if (haptic->wq) {
+ 		destroy_workqueue(haptic->wq);
+ 		haptic->wq = NULL;
+ 	}
+ }
+ 
+-static void hid_haptic_destroy(struct ff_device *ff)
++static void hid_haptic_stop(struct ff_device *ff)
++{
++	hid_haptic_stop_work(ff->private);
++}
++
++static void hid_haptic_free_resources(struct hid_haptic_device *haptic)
+ {
+-	struct hid_haptic_device *haptic = ff->private;
+ 	int r;
+ 
+-	hid_haptic_stop(ff);
++	hid_haptic_stop_work(haptic);
+ 
+ 	kfree(haptic->stop_effect.report_buf);
+-	haptic->stop_effect.report_buf = NULL;
+ 
+ 	if (haptic->effect) {
+-		for (r = 0; r < ff->max_effects; r++)
++		for (r = 0; r < FF_MAX_EFFECTS; r++)
+ 			kfree(haptic->effect[r].report_buf);
+ 		kfree(haptic->effect);
+ 	}
+-	haptic->effect = NULL;
+ 
+ 	kfree(haptic->duration_map);
+-	haptic->duration_map = NULL;
+-
+ 	kfree(haptic->hid_usage_map);
+-	haptic->hid_usage_map = NULL;
++}
++
++static void hid_haptic_free_state(struct hid_haptic_device *haptic)
++{
++	if (haptic) {
++		hid_haptic_free_resources(haptic);
++		kfree(haptic);
++	}
++}
++
++DEFINE_FREE(hid_haptic_state, struct hid_haptic_device *, hid_haptic_free_state(_T));
++
++static void hid_haptic_destroy(struct ff_device *ff)
++{
++	struct hid_haptic_device *haptic = ff->private;
++
++	hid_haptic_free_resources(haptic);
+ 
+ 	module_put(THIS_MODULE);
+ }
+ 
+ int hid_haptic_init(struct hid_device *hdev,
+-		    struct hid_haptic_device *haptic,
++		    const struct hid_haptic_device *config,
+ 		    struct input_dev *dev)
+ {
++	struct hid_haptic_device *haptic __free(hid_haptic_state) =
++		kmemdup(config, sizeof(*config), GFP_KERNEL);
+ 	struct ff_device *ff;
+-	int ret = 0, r;
++	int ret, r;
+ 	struct ff_haptic_effect stop_effect = {
+ 		.hid_usage = HID_HP_WAVEFORMSTOP & HID_USAGE,
+ 	};
+-	const char *prefix = "hid-haptic";
+-	char *name;
++	if (!haptic)
++		return -ENOMEM;
++
++	/* The mapping state does not own these allocations. */
++	haptic->hid_usage_map = NULL;
++	haptic->duration_map = NULL;
++	haptic->effect = NULL;
++	haptic->stop_effect.report_buf = NULL;
++	haptic->wq = NULL;
+ 
+ 	haptic->hdev = hdev;
+ 	haptic->max_waveform_id = max(2u, haptic->max_waveform_id);
+@@ -431,16 +460,12 @@ int hid_haptic_init(struct hid_device *hdev,
+ 
+ 	haptic->hid_usage_map = kcalloc(haptic->max_waveform_id + 1,
+ 					sizeof(u16), GFP_KERNEL);
+-	if (!haptic->hid_usage_map) {
+-		ret = -ENOMEM;
+-		goto exit;
+-	}
++	if (!haptic->hid_usage_map)
++		return -ENOMEM;
+ 	haptic->duration_map = kcalloc(haptic->max_duration_id + 1,
+ 				       sizeof(u32), GFP_KERNEL);
+-	if (!haptic->duration_map) {
+-		ret = -ENOMEM;
+-		goto usage_map;
+-	}
++	if (!haptic->duration_map)
++		return -ENOMEM;
+ 
+ 	if (haptic->max_waveform_id != haptic->max_duration_id)
+ 		dev_warn(&hdev->dev,
+@@ -460,21 +485,19 @@ int hid_haptic_init(struct hid_device *hdev,
+ 	haptic->manual_trigger_report_len =
+ 		hid_report_len(haptic->manual_trigger_report);
+ 	mutex_init(&haptic->manual_trigger_mutex);
+-	name = kmalloc(strlen(prefix) + strlen(hdev->name) + 2, GFP_KERNEL);
+-	if (name) {
+-		sprintf(name, "%s %s", prefix, hdev->name);
++	{
++		char *name __free(kfree) = kasprintf(GFP_KERNEL,
++						     "hid-haptic %s", hdev->name);
++
++		if (!name)
++			return -ENOMEM;
+ 		haptic->wq = create_singlethread_workqueue(name);
+-		kfree(name);
+-	}
+-	if (!haptic->wq) {
+-		ret = -ENOMEM;
+-		goto duration_map;
+ 	}
++	if (!haptic->wq)
++		return -ENOMEM;
+ 	haptic->effect = kzalloc_objs(struct hid_haptic_effect, FF_MAX_EFFECTS);
+-	if (!haptic->effect) {
+-		ret = -ENOMEM;
+-		goto output_queue;
+-	}
++	if (!haptic->effect)
++		return -ENOMEM;
+ 	for (r = 0; r < FF_MAX_EFFECTS; r++) {
+ 		haptic->effect[r].report_buf =
+ 			hid_alloc_report_buf(haptic->manual_trigger_report,
+@@ -482,8 +505,7 @@ int hid_haptic_init(struct hid_device *hdev,
+ 		if (!haptic->effect[r].report_buf) {
+ 			dev_err(&hdev->dev,
+ 				"Failed to allocate a buffer for an effect.\n");
+-			ret = -ENOMEM;
+-			goto buffer_free;
++			return -ENOMEM;
+ 		}
+ 		haptic->effect[r].input_dev = dev;
+ 		INIT_WORK(&haptic->effect[r].work, haptic_work_handler);
+@@ -494,8 +516,7 @@ int hid_haptic_init(struct hid_device *hdev,
+ 	if (!haptic->stop_effect.report_buf) {
+ 		dev_err(&hdev->dev,
+ 			"Failed to allocate a buffer for stop effect.\n");
+-		ret = -ENOMEM;
+-		goto buffer_free;
++		return -ENOMEM;
+ 	}
+ 	haptic->stop_effect.input_dev = dev;
+ 	INIT_WORK(&haptic->stop_effect.work, haptic_work_handler);
+@@ -507,7 +528,9 @@ int hid_haptic_init(struct hid_device *hdev,
+ 	ret = input_ff_create(dev, FF_MAX_EFFECTS);
+ 	if (ret) {
+ 		dev_err(&hdev->dev, "Failed to create ff device.\n");
+-		goto ff_cap_clear;
++		__clear_bit(FF_HAPTIC, dev->ffbit);
++		__clear_bit(EV_FF, dev->evbit);
++		return ret;
+ 	}
+ 
+ 	ff = dev->ff;
+@@ -517,30 +540,8 @@ int hid_haptic_init(struct hid_device *hdev,
+ 	ff->stop = hid_haptic_stop;
+ 	ff->destroy = hid_haptic_destroy;
+ 	__module_get(THIS_MODULE);
+-	ff->private = haptic;
++	ff->private = no_free_ptr(haptic);
+ 	return 0;
+-
+-ff_cap_clear:
+-	__clear_bit(FF_HAPTIC, dev->ffbit);
+-	__clear_bit(EV_FF, dev->evbit);
+-	kfree(haptic->stop_effect.report_buf);
+-	haptic->stop_effect.report_buf = NULL;
+-buffer_free:
+-	while (--r >= 0)
+-		kfree(haptic->effect[r].report_buf);
+-	kfree(haptic->effect);
+-	haptic->effect = NULL;
+-output_queue:
+-	destroy_workqueue(haptic->wq);
+-	haptic->wq = NULL;
+-duration_map:
+-	kfree(haptic->duration_map);
+-	haptic->duration_map = NULL;
+-usage_map:
+-	kfree(haptic->hid_usage_map);
+-	haptic->hid_usage_map = NULL;
+-exit:
+-	return ret;
+ }
+ EXPORT_SYMBOL_GPL(hid_haptic_init);
+ 
+diff --git a/drivers/hid/hid-haptic.h b/drivers/hid/hid-haptic.h
+index 6332991..661b605 100644
+--- a/drivers/hid/hid-haptic.h
++++ b/drivers/hid/hid-haptic.h
+@@ -69,7 +69,8 @@ int hid_haptic_input_mapping(struct hid_device *hdev,
+ int hid_haptic_input_configured(struct hid_device *hdev,
+ 				struct hid_haptic_device *haptic,
+ 				struct hid_input *hi);
+-int hid_haptic_init(struct hid_device *hdev, struct hid_haptic_device *haptic,
++int hid_haptic_init(struct hid_device *hdev,
++		    const struct hid_haptic_device *config,
+ 		    struct input_dev *dev);
+ void hid_haptic_handle_press_release(struct hid_haptic_device *haptic);
+ void hid_haptic_pressure_reset(struct hid_haptic_device *haptic);
+@@ -108,7 +109,8 @@ static inline
+ void hid_haptic_reset(struct hid_device *hdev, struct hid_haptic_device *haptic)
+ {}
+ static inline
+-int hid_haptic_init(struct hid_device *hdev, struct hid_haptic_device *haptic,
++int hid_haptic_init(struct hid_device *hdev,
++		    const struct hid_haptic_device *config,
+ 		    struct input_dev *dev)
+ {
+ 	return 0;
+diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
+index 154dc94..34aefe8 100644
+--- a/drivers/hid/hid-multitouch.c
++++ b/drivers/hid/hid-multitouch.c
+@@ -174,6 +174,7 @@ struct mt_device {
+ 	struct mt_class mtclass;	/* our mt device class */
+ 	struct timer_list release_timer;	/* to release sticky fingers */
+ 	struct hid_haptic_device *haptic;	/* haptic related configuration */
++	struct input_dev *haptic_pressure_input;
+ 	int haptic_init_error;
+ 	struct hid_device *hdev;	/* hid_device we're attached to */
+ 	unsigned long mt_io_flags;	/* mt flags (MT_IO_FLAGS_RUNNING) */
+@@ -963,9 +964,12 @@ static int mt_touch_input_mapping(struct hid_device *hdev, struct hid_input *hi,
+ 		case HID_DG_TIPPRESSURE:
+ 			set_abs(hi->input, ABS_MT_PRESSURE, field,
+ 				cls->sn_pressure);
+-			td->is_haptic_touchpad =
+-				hid_haptic_check_pressure_unit(td->haptic,
+-							       hi, field);
++			if (!td->haptic_pressure_input &&
++			    field->application == HID_DG_TOUCHPAD &&
++			    hid_haptic_check_pressure_unit(td->haptic, hi, field)) {
++				td->haptic_pressure_input = hi->input;
++				td->is_haptic_touchpad = true;
++			}
+ 			MT_STORE_FIELD(p);
+ 			return 1;
+ 		case HID_DG_SCANTIME:
+@@ -1087,7 +1091,9 @@ static void mt_sync_frame(struct mt_device *td, struct mt_application *app,
+ 
+ 	app->num_received = 0;
+ 	app->left_button_state = 0;
+-	if (td->is_haptic_touchpad)
++	if (td->is_haptic_touchpad &&
++	    app->application == HID_DG_TOUCHPAD &&
++	    td->haptic->input_dev == input)
+ 		hid_haptic_pressure_reset(td->haptic);
+ }
+ 
+@@ -1240,7 +1246,9 @@ static int mt_process_slot(struct mt_device *td, struct input_dev *input,
+ 			minor = minor >> 1;
+ 		}
+ 
+-		if (td->is_haptic_touchpad)
++		if (td->is_haptic_touchpad &&
++		    app->application == HID_DG_TOUCHPAD &&
++		    td->haptic->input_dev == input)
+ 			hid_haptic_pressure_increase(td->haptic, *slot->p);
+ 
+ 		x = hdev->quirks & HID_QUIRK_X_INVERT ?
+@@ -1443,8 +1451,10 @@ static int mt_touch_input_configured(struct hid_device *hdev,
+ 	if (cls->is_indirect)
+ 		app->mt_flags |= INPUT_MT_POINTER;
+ 
+-	if (td->is_haptic_touchpad)
+-		app->mt_flags |= INPUT_MT_TOTAL_FORCE;
++	if (td->is_haptic_touchpad &&
++	    app->application == HID_DG_TOUCHPAD &&
++	    td->haptic->input_dev == input)
++		app->mt_flags |= INPUT_MT_POINTER | INPUT_MT_TOTAL_FORCE;
+ 
+ 	if (app->quirks & MT_QUIRK_NOT_SEEN_MEANS_UP)
+ 		app->mt_flags |= INPUT_MT_DROP_UNUSED;
+@@ -1956,22 +1966,11 @@ static int mt_input_configured(struct hid_device *hdev, struct hid_input *hi)
+ 	struct hid_report *report;
+ 	int ret;
+ 
+-	if (td->is_haptic_touchpad && (td->mtclass.name == MT_CLS_WIN_8 ||
+-	    td->mtclass.name == MT_CLS_WIN_8_FORCE_MULTI_INPUT ||
+-	    td->mtclass.name == MT_CLS_WIN_8_KEEP_LATENCY_ON_CLOSE)) {
+-		if (hi->application == HID_DG_TOUCHPAD) {
+-			ret = hid_haptic_input_configured(hdev, td->haptic, hi);
+-			if (ret < 0) {
+-				td->haptic_init_error = ret;
+-				td->is_haptic_touchpad = false;
+-				return ret;
+-			}
+-			if (ret == 0)
+-				td->is_haptic_touchpad = false;
+-		}
+-	} else {
++	if (td->is_haptic_touchpad &&
++	    td->mtclass.name != MT_CLS_WIN_8 &&
++	    td->mtclass.name != MT_CLS_WIN_8_FORCE_MULTI_INPUT &&
++	    td->mtclass.name != MT_CLS_WIN_8_KEEP_LATENCY_ON_CLOSE)
+ 		td->is_haptic_touchpad = false;
+-	}
+ 
+ 	list_for_each_entry(report, &hi->reports, hidinput_list) {
+ 		rdata = mt_find_report_data(td, report);
+@@ -1983,6 +1982,22 @@ static int mt_input_configured(struct hid_device *hdev, struct hid_input *hi)
+ 		mt_application = rdata->application;
+ 
+ 		if (rdata->is_mt_collection) {
++			if (td->is_haptic_touchpad &&
++			    hi->application == HID_DG_TOUCHPAD &&
++			    mt_application->application == HID_DG_TOUCHPAD &&
++			    td->haptic_pressure_input == hi->input &&
++			    !td->haptic->input_dev) {
++				ret = hid_haptic_input_configured(hdev, td->haptic,
++								  hi);
++				if (ret < 0) {
++					td->haptic_init_error = ret;
++					td->is_haptic_touchpad = false;
++					return ret;
++				}
++				if (ret == 0)
++					td->is_haptic_touchpad = false;
++			}
++
+ 			ret = mt_touch_input_configured(hdev, hi,
+ 							mt_application);
+ 			if (ret)
+@@ -2211,6 +2226,8 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		hid_hw_stop(hdev);
+ 		return ret;
+ 	}
++	if (!td->haptic->input_dev)
++		td->is_haptic_touchpad = false;
+ 
+ 	ret = sysfs_create_group(&hdev->dev.kobj, &mt_attribute_group);
+ 	if (ret)
 -- 
 2.53.0
-
-
 
