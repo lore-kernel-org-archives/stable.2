@@ -1,148 +1,190 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45ED83BB9F7;
-	Sat, 17 Oct 2026 18:40:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792262421; cv=none; b=ib1sXEuowl73+PIBwoebmdyuZ4Bm0vrzzuubHx+cQp2kttCZV8wwSywY+xRWcHlJV6zovRmz/pmfgDhiupqseilO+HsR57oLfzKDaQGqbIqleM4nnHMDrhmiEGD3QK0GQZtAvBS08K1ckWKNc6vjkMe89g8gUrjBfnN85Qpam1w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792262421; c=relaxed/simple;
-	bh=qdFrkCm+W8+77xsYDAo/ZIHQjh9pP40LMYpbfpAPYkY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f3v8izloyIV69OlsBXQYGb6gCU6XGhoADlUKuopWIblw+vy2Oco4Y8mPsVwFvaB9/Cpd9FJQCnxW2W0BNWFTUFe43o/SxyuNcMvD0APTF7gDxNpyzvUH0qVVFgZ968wl4902aWawvdH4d2gUZU6q/82VFaEZ0kOA7PZvaF0pDM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=SZdqIuon; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 577E13921FB;
+	Sat, 17 Oct 2026 18:43:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792262582; cv=pass; b=fOOf50+7PH2Mq+9mSr0PpE7vXdvAi94fB32K8/Lh6R8pERUzWUghR0iAAFl2/0FM61btaIMpG22o5O4K1fcIXO5Okr3+FaZrEcvMqsIMBTF4AffQGqPdjBEyTReKgZT8E2DRjFb1UCljPVqlGUxaZ3dBSFQR026UY44QHXfAldg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792262582; c=relaxed/simple;
+	bh=tm7WOCOdXVnruUyEr1d9GICgvPAFdmtHhh8mVuQdGeI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=MnJnoSgj70F9kaDNZ8Yr7Pp7iBUUsmCQvUlAEeqsHXtu7bqfSfLc10sTULanHFDAmjBRqTF6Gphsi47UeaaRxlWSoU30kCNk15VDlVjnmhcWTIliVzPi+XrmGItQv5Iet47jpyDJ/1dOBr2D/HARZfMAlrgRIiVciIlxLnUbt6I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=SoO2/2zW; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="SZdqIuon"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69HGEEqE1130574;
-	Sat, 17 Oct 2026 18:40:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=UwAOYK3hKGE7aM5Bs
-	WRTnOVXm1lEw2FQ6v2Xm9ujK0o=; b=SZdqIuon6HODyMDnGlWi/QB1d9Gu0gsin
-	f4Ax4ZRa6+fNtHjOdsErxkaswaHUQEfWhW8b3gjtd1fz7cOtcGUHfIs6YR0i7r4S
-	dFGgru40Etfj2SF8xUmRi4YMCpG0b4uj5W1OwjS0YlJr1Yn+l8RVdjXpRsq3He8v
-	WfiwcIefeh2zeowxjv6yx5Ye5nya7gckwwAG57ObhGTUQfTi2veO2z9oeHNC/AsC
-	eLjmaZZbDH8X/4pQnEV95ORVhFvnHoIPdt5Hh8cZVE/vkXO+bKpjHCw/AmNGvNCA
-	mFBQQ98JilFx0/CSmiChqmclGvn8FVaGDMz8T3jOYoKEdrGCg9kig==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hc0ptarwc-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sat, 17 Oct 2026 18:40:06 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69HGJsl91277474;
-	Sat, 17 Oct 2026 18:40:06 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hb2398uk7-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 17 Oct 2026 18:40:06 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69HIe2Cc53543194
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sat, 17 Oct 2026 18:40:02 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6834520040;
-	Sat, 17 Oct 2026 18:40:02 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0DAE120043;
-	Sat, 17 Oct 2026 18:39:55 +0000 (GMT)
-Received: from li-fc74f8cc-3279-11b2-a85c-ef5828687581.ibm.com (unknown [9.67.66.83])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Sat, 17 Oct 2026 18:39:54 +0000 (GMT)
-From: Srish Srinivasan <ssrish@linux.ibm.com>
-To: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org
-Cc: maddy@linux.ibm.com, ritesh.list@gmail.com, sshegde@linux.ibm.com,
-        mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
-        James.Bottomley@HansenPartnership.com, jarkko@kernel.org,
-        zohar@linux.ibm.com, linux-kernel@vger.kernel.org,
-        linux-security-module@vger.kernel.org, nayna@linux.ibm.com,
-        rnsastry@linux.ibm.com, ssrish@linux.ibm.com, stable@vger.kernel.org
-Subject: [PATCH v4 6/9] keys/trusted_keys: clear sensitive PKWM buffers
-Date: Sun, 18 Oct 2026 00:08:50 +0530
-Message-ID: <20261017183853.596052-7-ssrish@linux.ibm.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261017183853.596052-1-ssrish@linux.ibm.com>
-References: <20261017183853.596052-1-ssrish@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="SoO2/2zW"
+ARC-Seal: i=1; a=rsa-sha256; t=1792262571; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=EYpLXrYL+uXN3QBwVe0XKzPQ1q3E6axnAVZduISxbm0IUyZk5DhM3J9GDRx4j17WK59LPoO/XDCG0AmonHvxkzjYR8PXbvp5fcqV3kWx32a72KItdPpQ1JoY6LWn/cu98nuymUqs/ojEuEhbS7BZRYEZE37XkQ/fSarYlcqDRmo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792262571; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=TRXKiOnDHB4Q3axsgrKmLm4uzR/VUp60mTpkKCsfx1I=; 
+	b=ZuChxXjGMhcxWUPQvdn9LFGbhABFHqReLT6MrpfLC0mW6O6h3vwAn/GHGG5tgBJ59eFR6EQd1cuBQABOkTPAvVkV/e3SuZNsVzjPxlPFlZ5lcpV6DMdRlU0D7SxvkYqcJk8M65dB1/puYWBSFQcizntdHS4mSIVbTElIGR1TJ40=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792262571;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+	bh=TRXKiOnDHB4Q3axsgrKmLm4uzR/VUp60mTpkKCsfx1I=;
+	b=SoO2/2zWMxExEuXlRAUKT9uyFZk7b0WscQ1RmVniZ5pYUSD7Vblp2c7RJ2CdnLug
+	MhIeLmQXvP39+6mBhicfMTQ5ejrjThhHfgWRd2+cUJrh+CZwcR8lQ3p5TpNeuaPTR2W
+	29+EXAtY+12/ybuYHXrfdU0zR755V5Ocmxg9KZU981VK0boolDnxQwC0VHsHNyTInQk
+	9OQB4F4qns+mrWgNtjuCGk7Ot4xXCK8owzwc6DSW5KX4EfmdsK1+q/eO6Ow3IkZZK6B
+	H8ZHpAENkRES5MhrV0RJ85WpTnFgQCYIpOxzi0NiaCVA0NCF3vUk1zCgPGe1UA285Sc
+	gg/G3ahvRQ==
+Received: by smtp.zohomail.com with SMTPS id 1792262569671448.5068987587547;
+	Sat, 17 Oct 2026 11:42:49 -0700 (PDT)
+From: Rong Zhang <i@rong.moe>
+Subject: [PATCH v4 00/12] platform/x86: lenovo-wmi-{other,capdata,helpers}:
+ Improve robustness on faulty firmware
+Date: Sun, 18 Oct 2026 02:42:30 +0800
+Message-Id: <20261018-lwmi-wmi-new-api-v4-0-aafef7956c4a@rong.moe>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE3MDA3MiBTYWx0ZWRfX1OOLBYrI1q1x
- Ar9RUzFkCdiZfpeuMcmA6jIN3H/4VN4wSxRD9kV68V8vlM/ghdB52be+nsx2bugx0UB8hqKRu2f
- ebXWe5MlRmThmHx8otbE3dNWLMCY9PTp9r3GoHzgvvzPLPjW6P2y/R71965db4Ncy1QYcqouiUQ
- BbkIrk2H1X3Rv+L93Ap9NMAhvygW/fmWZdAErvjgpd+HBRmw6Bjcrog9AYZVRM5+1p2Ri0ScO2V
- HmjCcoQt8vcAfHzR0Uq2CLATP+6juR40I/DN5PLdIAgBjKOgXtzg5Rt9yrv9jDqMJ9/8fu/NvaC
- 4Eg3fofvkQWAXG3Ci8nay7LL4GmQb5djXwy8wa/Zcy0mLwI+5M4yEQ7E3ATB1FBMC4RVfb32Q1O
- pkOhp9VP34HNKDloS6pZyxeSG4HCZgfhGTZIc6LFm0vigCL3kO18A6vl+mOy9VYfajP3JI0yzut
- VSEMgbNCrOU49FQV/2A==
-X-Authority-Analysis: v=2.4 cv=WNvqzXsR c=1 sm=1 tr=0 ts=6ad3c107 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=0K-bQ7w7VnYq07X3RDEA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE3MDA3MiBTYWx0ZWRfX3AGDdLUW/gQp
- IRU9UrK8pVFH06QD1xb+rNR3L30k+tQNTzx205f54BvbZHTFBZ17e0b07YPcWYPEnv54l99Uyjl
- wRO1W4PUbKN0NzSkNOUjsNR34Tc3qkE=
-X-Proofpoint-GUID: -WqvN467Mm_wVM8-V8jb7FnuSHVpAkDo
-X-Proofpoint-ORIG-GUID: KbSIVg9a_suh3cqkMcVjCVSFT4NrGGvM
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-17_05,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 spamscore=0 impostorscore=0 phishscore=0
- suspectscore=0 bulkscore=0 priorityscore=1501 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610170072
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22OQQ7CIBBFr2JYixkGrODKexgXtB0Uo60BpRrTu
+ wuaGKMuZvGT/96fO4sUPEW2nNxZoOSj77sc1HTCmp3ttsR9mzOzc1DWoOGH4eh5uY4Gbk+eu7l
+ UqlXa6sqyjJ0COX99KtebV46Xek/NuXhKY+fjuQ+352YSpccQsAIj1K8+CQ58YRWAQ1cZp1eh7
+ 7azY0+s2BO+eQHw572EmVeAGrXUWC3MFy8/+L/7MvMkQGJNrWi0+ODHcXwA/Z3WI0EBAAA=
+X-Change-ID: a504a929-lwmi-wmi-new-api-f5344d48a86a
+To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
+ "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Armin Wolf <W_Armin@gmx.de>
+Cc: Charles <hanker007@gmail.com>, 
+ Navon John Lukose <navonjohnlukose@gmail.com>, 
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Rong Zhang <i@rong.moe>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-73bef
+X-ZohoMailClient: External
 
-The input buffer to PKWM seal and the output buffer from PKWM unseal
-contain plaintext trusted-key payload data. Freeing these buffers with
-kfree(), without wiping the contents, can leave sensitive key material
-in memory.
+Some devices do not support LENOVO_CAPABILITY_DATA_01 and define the
+query method as a stub that returns zero buffer. Unfortunately, some
+devices do not implement the stub properly, causing WMI errors
+(including ACPI errors). This was reported by Charles.
 
-Use kfree_sensitive() to wipe the sensitive key material when freeing
-these buffers.
+The current lenovo-wmi-* implementation enforces the binding between
+LENOVO_CAPABILITY_DATA_00+01 and LENOVO_OTHER_MODE because of a
+limitation of the device component framework. When the capdata device
+bailing out due to a WMI error, lenovo-wmi-other becomes unbound and
+unable to provide firmware-attributes or hwmon/power_supply_ext devices
+for the other functional capdata device.
 
-Fixes: c99fcb0d735b ("keys/trusted_keys: establish PKWM as a trusted source")
-Cc: stable@vger.kernel.org # 7.0
-Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
-Reviewed-by: Nayna Jain <nayna@linux.ibm.com>
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Therefore, errors must be non-fatal in order not to break the
+assumptions made by the device component framework.
+
+Poison the capdata device by releasing the capability data list in this
+case. After that, NULL list will be passed to lenovo-wmi-other on bind.
+The latter will provide whatever is available, or unbind the components
+if nothing is available.
+
+A poisoned capdata device releases or skips allocating most resources,
+e.g., the capability data list and the debugfs directory. The device
+itself is only used to satisfy the component dependency of lenovo-wmi-
+other and coordinate with the latter about the absence of the capability
+data.
+
+Meanwhile, for devices that properly stubs the WMI query method (but
+still declares >0 instances), keeping the capability data list with
+empty data is meaningless and causes lenovo-wmi-other to call
+lwmi_cd*_get_data() to retrieve nonexistent capdata in vain. These
+capdata devices are poisoned as well to save resources.
+
+In order to release or skip allocating most resources for poisoned
+devices, some preparatory work is done in prior. With the preparatory
+work, it also skips allocating most resources for the WMI devices that
+declare 0 instance.
+
+Also identify missing components using the new wmidev_exists() interface
+(introduced at the very beginning of the series), and skip adding them
+to the match list, so that all components in the list must present,
+fulfilling the binding requirement. Some devices need this because they
+either do not have the WMI GUID of LENOVO_CAPABILITY_DATA_01, or do not
+implement the query method, causing the WMI core not to create the
+corresponding WMI device. This was reported by Navon.
+
+The new WMI API is also adopted to conform to the behavior of the
+Windows WMI-ACPI driver and improve robustness on various WMI ACPI
+method implementation.
+
+Finally, add myself as a LENOVO drivers maintainer as previously
+suggested by Derek.
+
+Reported-by: Charles <hanker007@gmail.com>
+Closes: https://msgid.link/CAKtz0s8UYRQYW_0bh=0TMx47Axm-W-muEay-r3rqUBS1NHMPVw@mail.gmail.com/
+Reported-by: Navon John Lukose <navonjohnlukose@gmail.com>
+Closes: https://msgid.link/20260928190901.1369497-1-navonjohnlukose@gmail.com
+Suggested-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+Link: https://msgid.link/9789f452-d7eb-4f1e-8a13-7335332193a7@app.fastmail.com
+Suggested-by: Derek J. Clark <derekjohn.clark@gmail.com>
+Link: https://msgid.link/782FE636-A06A-4E12-9563-786374805947@gmail.com
+Signed-off-by: Rong Zhang <i@rong.moe>
 ---
- security/keys/trusted-keys/trusted_pkwm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Changes in v4:
+- Fix typo (thanks Mark Pearson)
+- Pass the error from guid_parse() to matchptr
+- Link to v3: https://patch.msgid.link/20261014-lwmi-wmi-new-api-v3-0-e1032bed1c81@rong.moe
 
-diff --git a/security/keys/trusted-keys/trusted_pkwm.c b/security/keys/trusted-keys/trusted_pkwm.c
-index 7345f233eb74..b5c3d17be475 100644
---- a/security/keys/trusted-keys/trusted_pkwm.c
-+++ b/security/keys/trusted-keys/trusted_pkwm.c
-@@ -118,7 +118,7 @@ static int trusted_pkwm_seal(struct trusted_key_payload *p, char *datablob)
- 		pr_err("Wrapping of payload key failed: %d\n", rc);
- 	}
- 
--	kfree(input_buf);
-+	kfree_sensitive(input_buf);
- 	kfree(output_buf);
- 
- out:
-@@ -153,7 +153,7 @@ static int trusted_pkwm_unseal(struct trusted_key_payload *p, char *datablob)
- 	}
- 
- 	kfree(input_buf);
--	kfree(output_buf);
-+	kfree_sensitive(output_buf);
- 
- 	return rc;
- }
--- 
-2.52.0
+Changes in v3:
+- Shorten the comments of struct lwmi_cd_priv's members (thanks Derek
+  J. Clark)
+- Leave struct cd_fan_block's __packed attribute as is (thanks Armin
+  Wolf)
+- Link to v2: https://patch.msgid.link/20261009-lwmi-wmi-new-api-v2-0-402828382679@rong.moe
+
+Changes in v2:
+- Add PATCH 1 ("platform/wmi: Introduce wmidev_exists()") to the series
+  as discussed at https://msgid.link/83776200-4A60-4756-A99F-D5A3BB4D834A@rong.moe
+- Add PATCH 2 ("lenovo-wmi-capdata: Do not stop the AC notifier chain on
+  error") to the series, as adopting the new WMI API will intentionally
+  catch more faulty firmware and propagate more errors
+- Synchronize mutex initialization with release-acquire barriers (thanks
+  Ilpo Järvinen)
+- Refine line wrap (ditto)
+- Replace the term "poison" with "stub" (ditto)
+- Add PATCH 10 ("platform/x86: lenovo-wmi-capdata: Do not match missing
+  components") to the series to solve the report made by Navon
+- Update outdated comments, function documentations and commit messages
+- Link to v1: https://patch.msgid.link/20260914-lwmi-wmi-new-api-v1-0-7a400f2f69f8@rong.moe
+
+---
+Armin Wolf (1):
+      platform/wmi: Introduce wmidev_exists()
+
+Rong Zhang (11):
+      platform/x86: lenovo-wmi-capdata: Do not stop the AC notifier chain on error
+      platform/x86: lenovo-wmi-capdata: Only allocate sub-master info when necessary
+      platform/x86: lenovo-wmi-capdata: Store a pointer to component info
+      platform/x86: lenovo-wmi-capdata: Defer mutex initialization
+      platform/x86: lenovo-wmi-{capdata,other}: Only allocate capdata list when necessary
+      platform/x86: lenovo-wmi-capdata: Adopt new WMI API
+      platform/x86: lenovo-wmi-capdata: Register component even on WMI error
+      platform/x86: lenovo-wmi-capdata: Detect stubbed capdata device
+      platform/x86: lenovo-wmi-capdata: Do not match missing components
+      platform/x86: lenovo-wmi-helpers: Adopt new WMI API
+      MAINTAINERS: Add myself as a LENOVO drivers co-maintainer
+
+ MAINTAINERS                               |   1 +
+ drivers/platform/wmi/core.c               |  33 ++-
+ drivers/platform/x86/lenovo/wmi-capdata.c | 452 ++++++++++++++++++++++--------
+ drivers/platform/x86/lenovo/wmi-helpers.c |  61 ++--
+ drivers/platform/x86/lenovo/wmi-other.c   |  24 +-
+ include/linux/wmi.h                       |   3 +
+ 6 files changed, 401 insertions(+), 173 deletions(-)
+---
+base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+change-id: a504a929-lwmi-wmi-new-api-f5344d48a86a
+
+Thanks,
+Rong
 
