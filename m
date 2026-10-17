@@ -1,133 +1,105 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CA7172877DE;
-	Sat, 17 Oct 2026 07:03:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A9A2D1F7B;
+	Sat, 17 Oct 2026 07:43:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792220633; cv=none; b=Ufo+C1WEdGC8BppyL3e4LHoRmesIbXc9upLA63ZjpnQ/jcmqvg5ELxydWH99Ux7lup5lFlVCpcB8P7CM8dT2lOidCopFuRdkouAacdsmi8pG8jO+PJyYbP8yS/5uqRYMQTiDcgK7BV5LpCo4MrRxWOjIdBN842dJOcRtx0vbD1k=
+	t=1792222995; cv=none; b=RwiKxFKldoRHPGdvwZYhBWwxVTk/li3+1MQ55ZQaaMCnpyh4q7p60nyst8X8vdtmqDrqGrGVc0PovoXT5nFM8llfzx824ONc9q0zApqwWj2GAKuHhMxs7s+QW3Nk1fmopJ1d9ni1dn35Yj7N+WsnLyGoBpba1hJVKzgy8b+c7oI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792220633; c=relaxed/simple;
-	bh=LlGpm7qD6u3DExZbUErAOyHnhK2G0MPho8mL0LeRKrk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ltAc8EesJ9jj/d7nRdCs3uj0EQruS09wBM82x/7V3/uOwxGD05o6MHqulyGh55yei11eRdVeItk5cUFCgBPfxuLWQaOkXph8jdjCCedX2oTy6soPul3hqhm1GSN10RNdx/ggqmHFK0uRfVWdzLLKI/RUuBpbC30idBcI3ir9pj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=VigEsU6H reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	s=arc-20240116; t=1792222995; c=relaxed/simple;
+	bh=L1ZzRUNO15Wcq1tW/lxQLVisoqfwoeeNEieUCfi5fnM=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=oXzd1oPQxDt9iqsvmclb1LPXm2g+DUpHMM4Q089bnZ5GxNvw5N1cgE5ocmXM/Z7wHIm0hn+VCPvMNSqYTGdbkhS3h6THc1TG7xlEpDLPPvdcMl9rfHaq9uVr1JgTC6sv28DDVGqiAqY6MvdC9mS4+xfDmW/jA7uHS++LKoH9d2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=bTUs22iq; arc=none smtp.client-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="VigEsU6H"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=LH5oxfFALy
-	feze5kOzVd/GRJgHOwip9pVGpes13qqVo=; b=VigEsU6HFhexcs3LBS6k+2+4xR
-	BcK0BDY2+EkpoKIS5h2MGqI7SnFnslgkj/2Uc8ATs+VeM7RGmk+kUYWXpsyXFLWF
-	v/UgJlBsGhIMxTrDLoEwCfgWeZlZVxJ083eMVqXka9oLZD4Qh562QPBoO2Hcdwd3
-	5DXMujB3a1XYZ2MJY=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.50])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkA2XALHHdNqiyWvAA--.26153S2;
-	Sat, 17 Oct 2026 15:03:36 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: linux-wireless@vger.kernel.org,
-	libertas-dev@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Daniel Hodges <git@danielhodges.dev>,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] wifi: libertas: check workqueue creation in lbs_add_card()
-Date: Sat, 17 Oct 2026 15:03:35 +0800
-Message-Id: <20261017070335.19330-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="bTUs22iq"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=7Xa7wrZpzGbe9BZSoSeuK0FiGnGIBL2+6xHOdQnRNAQ=;
+	b=bTUs22iqp5UbfqcN34dlQW0hyXCkj7jsdSLiCwtJ/Sqb6zcv/sL3UkABoANOlHV4e2rRfbDtQ
+	KdJuFxM0q1yldyfqhBEuYM9Piwkkfrwl6SuIkBguAm9AjUSilKqI/wH3Lv+s2QHem5nzpONuDD/
+	0/l4+xyy9StCYPN8VGC4Tn4=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4j6DLb6T7mz1T4LX;
+	Sat, 17 Oct 2026 15:43:03 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+	by mail.maildlp.com (Postfix) with ESMTPS id 144ED40537;
+	Sat, 17 Oct 2026 15:43:06 +0800 (CST)
+Received: from [10.174.178.46] (10.174.178.46) by
+ whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Sat, 17 Oct 2026 15:43:04 +0800
+Subject: Re: [PATCH] fs: rotate inodes whose page cache could not be dropped
+To: Nikolaos Karaolidis <nick@karaolidis.com>, Christian Brauner
+	<brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>
+CC: Jan Kara <jack@suse.cz>, Mateusz Guzik <mjguzik@gmail.com>,
+	<linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+References: <20261016102515.111285-1-nick@karaolidis.com>
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+Message-ID: <5b74fceb-dc8d-21ad-d313-eba7a0009056@huawei.com>
+Date: Sat, 17 Oct 2026 15:43:03 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+In-Reply-To: <20261016102515.111285-1-nick@karaolidis.com>
+Content-Type: text/plain; charset="gbk"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkA2XALHHdNqiyWvAA--.26153S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAFy3CFWfKr1kZry3KF4kWFg_yoW5Wry3pr
-	W5CryUK3yFyr4qka98Jws7tF15Cw1fJFy3GrWI9w1rAwsxGrZYv34FgFyUWrW5AFW0vFW7
-	ZF98t3s2yFWqyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
-	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4xMxAIw28IcxkI7VAKI48JMxC20s
-	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
-	JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
-	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
-	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
-	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8HrW5UUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUJD2rSPdFn1gAAsn
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 
-lbs_add_card() does not check whether create_singlethread_workqueue()
-returned a valid workqueue.  That helper always creates the workqueue
-with WQ_MEM_RECLAIM, so alloc_workqueue() also creates a rescuer kthread
-and returns NULL if that kthread cannot be created, for example when the
-task which starts the driver is killed while kthread_create() waits for
-the new thread:
+ÔÚ 2026/10/16 18:25, Nikolaos Karaolidis Ð´µÀ:
+> When inode_lru_isolate() drops the page cache of an unused inode, it
+> has to unlock the list, so it returns LRU_RETRY and the walk restarts
+> at the head of the list, where the inode still is. If
+> invalidate_mapping_pages() could not empty the mapping, the restarted
+> walk strips the same inode again, and so on until nr_to_walk runs out.
+> Every walk of that list then ends on this inode, and nothing behind it
+> is reclaimed for as long as its cache stays.
+[...]
+>   static void inode_wait_for_lru_isolating(struct inode *inode)
+> @@ -981,7 +980,13 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
+>   		else
+>   			__count_vm_events(PGINODESTEAL, reap);
+>   		mm_account_reclaimed_pages(reap);
+> +
+> +		spin_lock(&inode->i_lock);
+> +		/* The walk restarts here: don't retry leftovers right away */
+> +		if (!mapping_empty(&inode->i_data))
+> +			inode_state_set(inode, I_REFERENCED);
+>   		inode_unpin_lru_isolating(inode);
+> +		spin_unlock(&inode->i_lock);
+>   		return LRU_RETRY;
+>   	}
 
-  workqueue: Failed to create a rescuer kthread for wq "lbs_worker": -4
+Hi Nikolaos,
+I find a possible BUG_ON if this patch applied, details shown as:
+    P1                          P2
+prune_icache_sb
+  lock(lru->lock)
+  inode_lru_isolate
+   if (!mapping_empty(&inode->i_data))
+    unlock(lru->lock)
+    spin_lock(&inode->i_lock)
+    inode_state_set(inode, I_REFERENCED)
+    inode_unpin_lru_isolating
+    spin_unlock(&inode->i_lock)
+                          unlink
+                           iget_locked // find_inode_fast gets the inode
+                           iput
+                            iput_final
+                             drop = 1
+                             evict
+                              BUG_ON(inode_state_read_once(inode) != 
+(I_FREEING | I_CLEAR))  // inode state with I_REFERENCED
 
--4 is -EINTR, which is exactly what the killable wait in
-kthread_create_on_node() returns when it is interrupted.
-
-The card is published anyway, with priv->work_thread left NULL, and the
-removal path destroys the workqueue unconditionally.  destroy_workqueue()
-dereferences the NULL pointer while unregistering the workqueue from
-sysfs, which faults at offset 0xb0, the ->wq_dev member of struct
-workqueue_struct:
-
-  KASAN: null-ptr-deref in range [0x00000000000000b0-0x00000000000000b7]
-  RIP: 0010:destroy_workqueue+0x2e/0xc00 kernel/workqueue.c:6147
-  Call Trace:
-   lbs_remove_card+0xc9/0x3a0 main.c:919
-   if_usb_disconnect+0xc1/0x270 if_usb.c:317
-
-Fail the probe instead of publishing a card whose workqueue could not be
-created.  The other two libertas bus backends already check the result
-of their alloc_workqueue() call, and all three callers of lbs_add_card()
-already handle an ERR_PTR() return, so no caller needs to change.
-
-Fixes: 2afc0c5d71a3 ("[PATCH] libertas: push WEXT scan requests to a work queue")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- drivers/net/wireless/marvell/libertas/main.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/drivers/net/wireless/marvell/libertas/main.c b/drivers/net/wireless/marvell/libertas/main.c
-index dd97f1b61f4d..522736ca6cfd 100644
---- a/drivers/net/wireless/marvell/libertas/main.c
-+++ b/drivers/net/wireless/marvell/libertas/main.c
-@@ -877,6 +877,12 @@ struct lbs_private *lbs_add_card(void *card, struct device *dmdev)
- 	}
- 
- 	priv->work_thread = create_singlethread_workqueue("lbs_worker");
-+	if (!priv->work_thread) {
-+		err = -ENOMEM;
-+		lbs_deb_thread("Error creating worker thread.\n");
-+		goto err_thread;
-+	}
-+
- 	INIT_WORK(&priv->mcast_work, lbs_set_mcast_worker);
- 
- 	priv->wol_criteria = EHS_REMOVE_WAKEUP;
-@@ -886,6 +892,9 @@ struct lbs_private *lbs_add_card(void *card, struct device *dmdev)
- 
- 	return priv;
- 
-+ err_thread:
-+	kthread_stop(priv->main_thread);
-+
-  err_ndev:
- 	free_netdev(dev);
- 
--- 
-2.34.1
-
+Could that be possible?
