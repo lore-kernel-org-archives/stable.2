@@ -1,37 +1,37 @@
 Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC1A3290D1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8120336881;
 	Sat, 17 Oct 2026 13:07:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792242440; cv=none; b=kGgIMjw74uXcaU8Fdj4LWPtq8SPShjZVcYNkX9oqzA1wjEbOmzhXxVSB3hk6SlrmXf3A8u7jRjPK2Mqr0KJQIZiZQ82yVSJUaQwyFr1xAtMeHjcJMxJ4NXJSSg9oa3Uzd7uHQXL19HDVX/xWDKWS/HX7ps5b8eqAc61M3g/HhYc=
+	t=1792242441; cv=none; b=CGDI1qfY2vQBFUwwwiPhcW6pWaeJtcBQyQrUmGVfVSqCJKwbk2FNqTYwK4mFResN5/oKutxmzOqaM4DKQobC47A4p8ZR2laEdZ3fHR2vjLvHMMneHYP/Sod5zPvSag3ptuXhtorbhv1XM9pLqG36FbmZ6D950Je26h1uQzVpioM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792242440; c=relaxed/simple;
-	bh=CMaThmWfnpj/MwA2ZEDlOLJGrmCmh7iE0IvIv/qfMzw=;
+	s=arc-20240116; t=1792242441; c=relaxed/simple;
+	bh=SqtrgbIiAd+6BUIuHUasrx3pKdiGGT77q7IizZmSZkM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tf12kFxgIufpRtMVThcqJgDimD73mQXGo1tAIvj+JXgtsxLV8NxjsaMntoH/tq4+/tbt3FBXnkIm2+Gn/ukfsdrxnbHxfXmiixvyuHirVvqDIa7fkdwBhgS0WN44pWb5bRstdSE8fHXZXdFuLJRu04W2aR+JGsgNPPNRLtMo5EM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=eUfLGFwY; arc=none smtp.client-ip=178.21.23.139
+	 MIME-Version:Content-Type; b=jji0mTYCRX2Tw60U6YV9EtW23g5hdNCQIhbfCxB+hAzSBNQSWX7TWiU+rvzLUn/u7nepryr1HWxLnIFCAwSwVmVPp4PHn7UvocBrF1ybRN3wSU/IQRVZkb7RjEJWuSi30J97H8V5oDckzmxM1egRpV9FuaWo6axiuvBRuRoORbk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=aY9zMjb1; arc=none smtp.client-ip=178.21.23.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="eUfLGFwY"
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="aY9zMjb1"
 Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 019DB80A11;
-	Sat, 17 Oct 2026 15:07:11 +0200 (CEST)
+	by disroot.org (Postfix) with ESMTP id 702D880B80;
+	Sat, 17 Oct 2026 15:07:12 +0200 (CEST)
 X-Virus-Scanned: SPAM Filter at disroot.org
 Received: from layka.disroot.org ([127.0.0.1])
  by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id JeIEbBuWO2j0; Sat, 17 Oct 2026 15:07:10 +0200 (CEST)
+ id R1LMfnlzWBDN; Sat, 17 Oct 2026 15:07:11 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1792242430; bh=CMaThmWfnpj/MwA2ZEDlOLJGrmCmh7iE0IvIv/qfMzw=;
+	t=1792242431; bh=SqtrgbIiAd+6BUIuHUasrx3pKdiGGT77q7IizZmSZkM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eUfLGFwYzQES0YA7ITz/UZZIHg86QTVUJzDHns7s4PwjFGAZBnBpG+XAyxwUgVL4O
-	 cjYmFXZY6uKUDcI4+F9KAp8OXQ/W1xgRqIRmSK9qwRRm3Oa85nOgujqHhNXwdstTQS
-	 rX26f6CwclRws7e8RkYqXL0WfZ0lK+QnsyYvHD7WQ+ziziUPmCEsjeQX08rV1x3KBy
-	 xDipBOEXrOE4HWJWszYiFDTy8xXqTKhGlMMjLD/Uj4xl1/FhIN9r8clDj9fr3IX2ji
-	 kzN9KoFg0U6l6NRnNXujpp6YHVuHYBWsL36/sb+/snYGuJWMRhLegauNmk/krT4L35
-	 YfDILnqQPF8bg==
+	b=aY9zMjb1hout5+ASPBYEbOqAPo2zGL9+8Lt8chkTP5gaJwDVmjv+lV6cFhkMOV4QL
+	 h8ES6I8MAWV1fzspeOfSSpxPDkOqoW3C+E96SG8ZsddB1WZCTguXZW+t8LB334oFHB
+	 o+h36ql96QDfLyTOMq21T/gRo0gxVFQwM0XQ9FJMkje0w9IpPlJCHRxkDAcZAKNLJr
+	 0yCCMazJsjmxYzouYc7kJtzJkHi65j6/p804wnWex31zaxt17+7CXtja/0GVcMBLYl
+	 xY1TAgBgPqJmRRGGOyWYt9v6DoSSu5kEG2ruichtclhEQLLmbDm93k1ZIbYgeiUBKM
+	 t+gY+JQjFXWUw==
 From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
 To: "Rafael J . Wysocki" <rafael@kernel.org>
 Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
@@ -55,9 +55,9 @@ Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
 	acpica-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2 2/4] ACPI: battery: Evaluate battery methods exclusively
-Date: Sat, 17 Oct 2026 16:06:35 +0300
-Message-ID: <20261017130652.318778-3-aliamemis@disroot.org>
+Subject: [PATCH v2 3/4] thermal: intel: int340x: Evaluate _TMP exclusively
+Date: Sat, 17 Oct 2026 16:06:36 +0300
+Message-ID: <20261017130652.318778-4-aliamemis@disroot.org>
 In-Reply-To: <20261017130652.318778-1-aliamemis@disroot.org>
 References: <20261017130652.318778-1-aliamemis@disroot.org>
 Precedence: bulk
@@ -70,12 +70,10 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On ThinkPad P1 Gen2 and P53, INT3403 _TMP switches the EC page selector
-without taking the AML mutex the battery methods use, so _BIX and _BST
-running at the same time can read the wrong page. Since commit d33e89d12295
-("thermal: core: Suspend thermal zones later and resume them earlier")
-this happens on most resumes.
+without taking the mutex the battery methods use, so it must not run
+interleaved with them.
 
-Evaluate the battery methods with acpi_evaluate_object_exclusive().
+Evaluate _TMP with acpi_evaluate_integer_exclusive().
 
 Fixes: d33e89d12295 ("thermal: core: Suspend thermal zones later and resume them earlier")
 Reported-by: Charis Stratakis <c.stratakis@proton.me>
@@ -85,45 +83,25 @@ Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
 Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
 Reviewed-by: Rong Zhang <i@rong.moe>
 ---
- drivers/acpi/battery.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ .../thermal/intel/int340x_thermal/int340x_thermal_zone.c    | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/acpi/battery.c b/drivers/acpi/battery.c
-index 670853ec3a4d..7169ac7e83f3 100644
---- a/drivers/acpi/battery.c
-+++ b/drivers/acpi/battery.c
-@@ -583,9 +583,8 @@ static int acpi_battery_get_info(struct acpi_battery *battery)
- 		struct acpi_buffer buffer = { ACPI_ALLOCATE_BUFFER, NULL };
- 		acpi_status status = AE_ERROR;
+diff --git a/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.c b/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.c
+index 965700ee6962..9451fea1f65c 100644
+--- a/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.c
++++ b/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.c
+@@ -18,7 +18,11 @@ static int int340x_thermal_get_zone_temp(struct thermal_zone_device *zone,
+ 	unsigned long long tmp;
+ 	acpi_status status;
  
--		status = acpi_evaluate_object(battery->device->handle,
--					      use_bix ? "_BIX":"_BIF",
--					      NULL, &buffer);
-+		status = acpi_evaluate_object_exclusive(battery->device->handle,
-+							use_bix ? "_BIX" : "_BIF", NULL, &buffer);
- 
- 		if (ACPI_FAILURE(status)) {
- 			acpi_handle_info(battery->device->handle,
-@@ -624,8 +623,7 @@ static int acpi_battery_get_state(struct acpi_battery *battery)
- 			msecs_to_jiffies(cache_time)))
- 		return 0;
- 
--	status = acpi_evaluate_object(battery->device->handle, "_BST",
--				      NULL, &buffer);
-+	status = acpi_evaluate_object_exclusive(battery->device->handle, "_BST", NULL, &buffer);
- 	if (ACPI_FAILURE(status)) {
- 		acpi_handle_info(battery->device->handle,
- 				 "_BST evaluation failed: %s",
-@@ -675,8 +673,8 @@ static int acpi_battery_set_alarm(struct acpi_battery *battery)
- 	    !test_bit(ACPI_BATTERY_ALARM_PRESENT, &battery->flags))
- 		return -ENODEV;
- 
--	status = acpi_execute_simple_method(battery->device->handle, "_BTP",
--					    battery->alarm);
-+	status = acpi_execute_simple_method_exclusive(battery->device->handle, "_BTP",
-+						      battery->alarm);
+-	status = acpi_evaluate_integer(d->adev->handle, "_TMP", NULL, &tmp);
++	/*
++	 * On some ThinkPads _TMP switches the EC page selector without
++	 * taking the mutex the battery methods use.
++	 */
++	status = acpi_evaluate_integer_exclusive(d->adev->handle, "_TMP", NULL, &tmp);
  	if (ACPI_FAILURE(status))
- 		return -ENODEV;
+ 		return -EIO;
  
 -- 
 2.55.0
