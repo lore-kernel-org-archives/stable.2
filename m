@@ -1,105 +1,96 @@
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A9A2D1F7B;
-	Sat, 17 Oct 2026 07:43:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 492403E49F7;
+	Sat, 17 Oct 2026 07:44:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792222995; cv=none; b=RwiKxFKldoRHPGdvwZYhBWwxVTk/li3+1MQ55ZQaaMCnpyh4q7p60nyst8X8vdtmqDrqGrGVc0PovoXT5nFM8llfzx824ONc9q0zApqwWj2GAKuHhMxs7s+QW3Nk1fmopJ1d9ni1dn35Yj7N+WsnLyGoBpba1hJVKzgy8b+c7oI=
+	t=1792223046; cv=none; b=VcOAwBnAYNZJCPi/U1dTvcKEDcQpggKjo85O2uY+CzYAVakzJCRFcEtemdGND6K00uf+D/HAr/NwYjkHwN/Jpi7YyvbKzKOuljPovdld0egQybEyulZOzjpFShwqtdGnjAr3TTmI5mY3tLy1sLArV4xkyXCorPQ0k12vkg3jRdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792222995; c=relaxed/simple;
-	bh=L1ZzRUNO15Wcq1tW/lxQLVisoqfwoeeNEieUCfi5fnM=;
-	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=oXzd1oPQxDt9iqsvmclb1LPXm2g+DUpHMM4Q089bnZ5GxNvw5N1cgE5ocmXM/Z7wHIm0hn+VCPvMNSqYTGdbkhS3h6THc1TG7xlEpDLPPvdcMl9rfHaq9uVr1JgTC6sv28DDVGqiAqY6MvdC9mS4+xfDmW/jA7uHS++LKoH9d2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=bTUs22iq; arc=none smtp.client-ip=113.46.200.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1792223046; c=relaxed/simple;
+	bh=d5s+U1xynEBidcfTy3l1a0UGpJ0XIBZFfRngrNU0RW8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QEN9dWJkV/WzQfUinZitQClLlFWeU8+c+2Df+SfKzGe22lXTdaQqnrkTZDIkUIvI1lLlDw40rgDDe8Zm97f4svCvCgVpCZjNOjPpoVIEW4kqrC9wzK7EURzXAgV69AA7y8ourxn25QJ/ddHuPrHmGEseW8IFxeAHb5l7oxxNMSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=h1GS5RGj; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="bTUs22iq"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=7Xa7wrZpzGbe9BZSoSeuK0FiGnGIBL2+6xHOdQnRNAQ=;
-	b=bTUs22iqp5UbfqcN34dlQW0hyXCkj7jsdSLiCwtJ/Sqb6zcv/sL3UkABoANOlHV4e2rRfbDtQ
-	KdJuFxM0q1yldyfqhBEuYM9Piwkkfrwl6SuIkBguAm9AjUSilKqI/wH3Lv+s2QHem5nzpONuDD/
-	0/l4+xyy9StCYPN8VGC4Tn4=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4j6DLb6T7mz1T4LX;
-	Sat, 17 Oct 2026 15:43:03 +0800 (CST)
-Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
-	by mail.maildlp.com (Postfix) with ESMTPS id 144ED40537;
-	Sat, 17 Oct 2026 15:43:06 +0800 (CST)
-Received: from [10.174.178.46] (10.174.178.46) by
- whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Sat, 17 Oct 2026 15:43:04 +0800
-Subject: Re: [PATCH] fs: rotate inodes whose page cache could not be dropped
-To: Nikolaos Karaolidis <nick@karaolidis.com>, Christian Brauner
-	<brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>
-CC: Jan Kara <jack@suse.cz>, Mateusz Guzik <mjguzik@gmail.com>,
-	<linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-References: <20261016102515.111285-1-nick@karaolidis.com>
-From: Zhihao Cheng <chengzhihao1@huawei.com>
-Message-ID: <5b74fceb-dc8d-21ad-d313-eba7a0009056@huawei.com>
-Date: Sat, 17 Oct 2026 15:43:03 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="h1GS5RGj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=SZ
+	c5AhPFvmF7qT8nRXpWlmKEX66dB4gon7/zJcUhDh4=; b=h1GS5RGjCvNRj1bU6m
+	GsPpSFU/TZ11Up6TAehjaXL9AyZWcumAErTL8DkyIAYAwziH/eADmIvskggaxFYa
+	77OZGs+oS42KRcCdI9gDn8QWjFmVdxkLFrtejZbwHqKYP8oWy+5wtnDpBOlPAZdv
+	7LUi5eUTImOPG1uNqswyM08AI=
+Received: from 163.com (unknown [])
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgC3n7QzJ9NqcoFrAQ--.45846S2;
+	Sat, 17 Oct 2026 15:43:47 +0800 (CST)
+From: zhanghao <zh_exit@163.com>
+To: song@kernel.org,
+	yukuai@fygo.io
+Cc: magiclinan@didiglobal.com,
+	xiao@kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	zhanghao <zh_exit@163.com>
+Subject: [PATCH] md/raid5: fix inverted condition in rdev_set_badblocks call
+Date: Sat, 17 Oct 2026 15:43:43 +0800
+Message-ID: <20261017074343.59513-1-zh_exit@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20261016102515.111285-1-nick@karaolidis.com>
-Content-Type: text/plain; charset="gbk"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- whupemo200011.china.huawei.com (7.152.185.179)
+X-CM-TRANSID:QCgvCgC3n7QzJ9NqcoFrAQ--.45846S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJrWfXw1xKry3Xw1rGrWDCFg_yoW8Aryxpr
+	Z8Ga4Yv34DWr95Aa1DXrWkAFy8ua17ta9F9ay3A3W29as0qF4IqF4rXFyUZFyUXF1ft3Wv
+	qF17WrWqvFyrGw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pE-eO9UUUUU=
+X-CM-SenderInfo: p2kbv5llw6il2tof0z/xtbC9hRmzmrTJzStpQAA3o
 
-ÔÚ 2026/10/16 18:25, Nikolaos Karaolidis Ð´µÀ:
-> When inode_lru_isolate() drops the page cache of an unused inode, it
-> has to unlock the list, so it returns LRU_RETRY and the walk restarts
-> at the head of the list, where the inode still is. If
-> invalidate_mapping_pages() could not empty the mapping, the restarted
-> walk strips the same inode again, and so on until nr_to_walk runs out.
-> Every walk of that list then ends on this inode, and nothing behind it
-> is reclaimed for as long as its cache stays.
-[...]
->   static void inode_wait_for_lru_isolating(struct inode *inode)
-> @@ -981,7 +980,13 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
->   		else
->   			__count_vm_events(PGINODESTEAL, reap);
->   		mm_account_reclaimed_pages(reap);
-> +
-> +		spin_lock(&inode->i_lock);
-> +		/* The walk restarts here: don't retry leftovers right away */
-> +		if (!mapping_empty(&inode->i_data))
-> +			inode_state_set(inode, I_REFERENCED);
->   		inode_unpin_lru_isolating(inode);
-> +		spin_unlock(&inode->i_lock);
->   		return LRU_RETRY;
->   	}
+Commit fd4d44c14ff6 ("md: mark rdev Faulty when badblocks setting fails")
+attempted to unify badblock handling but introduced a logic inversion in
+raid5_end_read_request().
 
-Hi Nikolaos,
-I find a possible BUG_ON if this patch applied, details shown as:
-    P1                          P2
-prune_icache_sb
-  lock(lru->lock)
-  inode_lru_isolate
-   if (!mapping_empty(&inode->i_data))
-    unlock(lru->lock)
-    spin_lock(&inode->i_lock)
-    inode_state_set(inode, I_REFERENCED)
-    inode_unpin_lru_isolating
-    spin_unlock(&inode->i_lock)
-                          unlink
-                           iget_locked // find_inode_fast gets the inode
-                           iput
-                            iput_final
-                             drop = 1
-                             evict
-                              BUG_ON(inode_state_read_once(inode) != 
-(I_FREEING | I_CLEAR))  // inode state with I_REFERENCED
+The original check was:
 
-Could that be possible?
+    if (!(set_bad && In_sync && rdev_set_badblocks(...)))
+            md_error(...);
+
+which records badblocks when `set_bad && In_sync`, and calls md_error()
+either when recording fails or when the rdev is not In_sync. The new
+condition `if (!(set_bad && In_sync))` skips rdev_set_badblocks() exactly
+during recovery/reshape (In_sync is set), so failed badblock updates no
+longer trigger md_error() and the rdev is not marked Faulty. This allows
+reconstruction to continue on a disk with a saturated badblock table,
+potentially propagating corrupted data to the replacement disk.
+
+Fix the condition to match the intended behavior: call rdev_set_badblocks()
+when `set_bad && In_sync`, and let the callee handle md_error() on failure.
+
+Fixes: fd4d44c14ff6 ("md: mark rdev Faulty when badblocks setting fails")
+Cc: stable@vger.kernel.org
+Signed-off-by: zhanghao <zh_exit@163.com>
+---
+ drivers/md/raid5.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
+index d52adf81065a..dcfb1bfa9ebf 100644
+--- a/drivers/md/raid5.c
++++ b/drivers/md/raid5.c
+@@ -2866,7 +2866,7 @@ static void raid5_end_read_request(struct bio * bi)
+ 		else {
+ 			clear_bit(R5_ReadError, &sh->dev[i].flags);
+ 			clear_bit(R5_ReWrite, &sh->dev[i].flags);
+-			if (!(set_bad && test_bit(In_sync, &rdev->flags)))
++			if (set_bad && test_bit(In_sync, &rdev->flags))
+ 				rdev_set_badblocks(rdev, sh->sector,
+ 						   RAID5_STRIPE_SECTORS(conf), 0);
+ 		}
+-- 
+2.43.0
+
