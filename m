@@ -1,108 +1,98 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8120336881;
-	Sat, 17 Oct 2026 13:07:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F1743246E8
+	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 13:08:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792242441; cv=none; b=CGDI1qfY2vQBFUwwwiPhcW6pWaeJtcBQyQrUmGVfVSqCJKwbk2FNqTYwK4mFResN5/oKutxmzOqaM4DKQobC47A4p8ZR2laEdZ3fHR2vjLvHMMneHYP/Sod5zPvSag3ptuXhtorbhv1XM9pLqG36FbmZ6D950Je26h1uQzVpioM=
+	t=1792242501; cv=none; b=Z+aXgBUWYPv+DmbG6dTp9ZjE5iOWm8xBJEJ76EM817TDLtX2XzHr1ZD65dnW89AmvgEeSwxuYfIw/RlhSQfkse4kpFQiHrhpcfzBKcjQ5f8/bVaQQAIlNcS256K5kutEpodvDYzD+n+UephumT3qX46DQW0+5wuWjQxx56VjmeQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792242441; c=relaxed/simple;
-	bh=SqtrgbIiAd+6BUIuHUasrx3pKdiGGT77q7IizZmSZkM=;
+	s=arc-20240116; t=1792242501; c=relaxed/simple;
+	bh=Z/5JBeqwPxSZ0TpSsf5O+k1fvGG7B04vtfTOruv2JxA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jji0mTYCRX2Tw60U6YV9EtW23g5hdNCQIhbfCxB+hAzSBNQSWX7TWiU+rvzLUn/u7nepryr1HWxLnIFCAwSwVmVPp4PHn7UvocBrF1ybRN3wSU/IQRVZkb7RjEJWuSi30J97H8V5oDckzmxM1egRpV9FuaWo6axiuvBRuRoORbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=aY9zMjb1; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	 MIME-Version; b=NyE52d9aOGw02y8IN/efvm6xiKHyOIw8p1KGQykyaD4wf+IhmMPq60pJ/93JcD5XCk25fLL89C0R/kXJ0wUetz+a6v8sChiolYmpAjp+ZthpPFijDWu5yT8wuAoTvywfvSt4T6CF/v0oleheYmDr8J3Vjr5g/38uPJIFRjOCqZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VXl2HU6b; arc=none smtp.client-ip=74.125.82.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="aY9zMjb1"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 702D880B80;
-	Sat, 17 Oct 2026 15:07:12 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id R1LMfnlzWBDN; Sat, 17 Oct 2026 15:07:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1792242431; bh=SqtrgbIiAd+6BUIuHUasrx3pKdiGGT77q7IizZmSZkM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aY9zMjb1hout5+ASPBYEbOqAPo2zGL9+8Lt8chkTP5gaJwDVmjv+lV6cFhkMOV4QL
-	 h8ES6I8MAWV1fzspeOfSSpxPDkOqoW3C+E96SG8ZsddB1WZCTguXZW+t8LB334oFHB
-	 o+h36ql96QDfLyTOMq21T/gRo0gxVFQwM0XQ9FJMkje0w9IpPlJCHRxkDAcZAKNLJr
-	 0yCCMazJsjmxYzouYc7kJtzJkHi65j6/p804wnWex31zaxt17+7CXtja/0GVcMBLYl
-	 xY1TAgBgPqJmRRGGOyWYt9v6DoSSu5kEG2ruichtclhEQLLmbDm93k1ZIbYgeiUBKM
-	 t+gY+JQjFXWUw==
-From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
-To: "Rafael J . Wysocki" <rafael@kernel.org>
-Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Rong Zhang <i@rong.moe>,
-	Len Brown <lenb@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Ike Panhc <ikepanhc@gmail.com>,
-	"Derek J . Clark" <derekjohn.clark@gmail.com>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>,
-	Armin Wolf <W_Armin@gmx.de>,
-	Charis Stratakis <c.stratakis@proton.me>,
-	Avraham Hollander <anhollander516@gmail.com>,
-	=?UTF-8?q?Jeffrey=20W=C3=A4lti?= <jeffrey@waelti.dev>,
-	Rick <rickk1166@gmail.com>,
-	linux-acpi@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VXl2HU6b"
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-15943c9be84so48366c88.3
+        for <stable@vger.kernel.org>; Sat, 17 Oct 2026 06:08:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792242498; x=1792847298; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z/5JBeqwPxSZ0TpSsf5O+k1fvGG7B04vtfTOruv2JxA=;
+        b=VXl2HU6bjknN1IMUfwiSPFCo4VVowwrSEmRotFX6qrdkgbsozOl3Sgewo2O/cYYsXg
+         Pkc55EjKirp/4gxCfW7/bybcVFjy/TgoKYkAKf1yvgMlb2Ir8ikM85CcQInSJwJ52Ckw
+         gHWUDuLm8EdyOQTVT6oM2XaqeKWqBK3Eusu+kBT0D9jWULFuVqhAvjf4AMFJCVjm3cJz
+         9O6oO9PfUW8EK9WwFnQZHdvfq68nOFTWlL0Xx3ZRGePCm2uKpj/QEiu7qAn5mZvLV89A
+         VqZ7tpokdg3y4NHKeIXL5h7ZQ+YTV6kBu4k6EAtGzUYxAFjXZxmERJea60rAaaKFh1LN
+         WGiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792242498; x=1792847298;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z/5JBeqwPxSZ0TpSsf5O+k1fvGG7B04vtfTOruv2JxA=;
+        b=yMgCw5j/rEgVnL3mS+g5O9XQ3/XXxxBCFcNexcjq9Wy/h85vml5j5mMV3QkPc7wPM2
+         BzaxIB2g+UW7hdEuYt/BmG9vW0PGi4HwZcXCz2DyCTlBELKQXdeTQUq0OKUQ8udrhmMw
+         nCDN4LcbJvvLr7Bbj1wb2W6lzOq0n0rO1xaykwmLLDvfILd/s8Zbj3uGimYnDLBHNOkH
+         +LOv5YrTjDDsZmpPwq7L/yabOu4NWzJ4j6I8Nmx7LXv7Dnpfpp6CSs1QTvE9HX26YpXf
+         rflUvTHI21EXF+2Xr33UinCL7LRpD35IaFhzyINv7jnNVvRGWnd0/h7QCqnehVOzwZfr
+         Lfww==
+X-Forwarded-Encrypted: i=1; AKwUvBx8p+NvKDNpYu/d2Qn8vNBsJTR9bRSPNMZMullChG6+WK8ZeUqe5olkfx9XqLq1V/T88xYtLio=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJv+RaoDNRgZs/2uH2hGUXfXKMMVl7av4eZUMRsC9OkYOVKdSWu
+	JU/w5d5RPQEwTbzbi/I0GOHXLEm7vf/9ngD8k7uyi9RKJROhDfq5Bp+BhIpSjlaCkpQ=
+X-Gm-Gg: AYBFou1cyjP7S31pBSIFLjPyjOGYYsANZp7V9VMloOtdN5XCiqNiCmaSupEvcLaD4dl
+	Y2nin8KLAh12PO0ZDvb4vEEDdDGMeUh7nQwmzj+Qk75yJ7Lks0eX9d09ny+Xm55z8XiNfPFzMlV
+	UIHCiZcMud8JAqS/vSDhUnyzHQu2TXKMcaeOsupvbcjsjW3RQK4MipaNayJcJB//XvIPjXzpk3i
+	HZs4KRKxsA6c5ldoghPb1httEAX6aOvzj0hI/qLaOmHcsxDAQAKq8leQHR7CrcQIPrvYBtQCQCc
+	sS81FkrJrEnnPgMCk60JDq/mZDGiPRHBKiTnqt1yHu/MdnrI5g/WLiKK1RX53jZJg9jabkKYjym
+	2q4ICZXvKDqmGcadTnII+rCcXR2pROEV6JKGaoH0hMqthBEIFwKqRk5TIc6dekpKDbjlRgu8EMU
+	Gvbmy3T1JPXcQuJT2AzwaXR2fq5H6nGcRZz/E+pP40wQzDQghts961JFFtmmPo91cr8D85ZBSyF
+	5QA3NESjq3AbfWyu6ScORFzbJtL7LgxqsTrPlWOp809ZdM2X42s8OajENaFdy7zFVODy68qBkwE
+	TQaOw4M1+WA7BsvR/A==
+X-Received: by 2002:a05:7023:a5c:10b0:183:d275:cf76 with SMTP id a92af1059eb24-18511adbd46mr5910454c88.2.1792242497725;
+        Sat, 17 Oct 2026 06:08:17 -0700 (PDT)
+Received: from cachyos-aura ([45.112.151.53])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b75be5esm18903260c88.16.2026.10.17.06.08.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 06:08:17 -0700 (PDT)
+From: Navon John Lukose <navonjohnlukose@gmail.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Lukas Wunner <lukas@wunner.de>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Mario Limonciello <Mario.Limonciello@amd.com>,
+	=?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?= <fbeltranmillalen@gmail.com>,
+	linux-pci@vger.kernel.org,
 	linux-pm@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	acpica-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2 3/4] thermal: intel: int340x: Evaluate _TMP exclusively
-Date: Sat, 17 Oct 2026 16:06:36 +0300
-Message-ID: <20261017130652.318778-4-aliamemis@disroot.org>
-In-Reply-To: <20261017130652.318778-1-aliamemis@disroot.org>
-References: <20261017130652.318778-1-aliamemis@disroot.org>
+Subject: Re: [PATCH] PCI/PM: Skip the suspend_noirq config save if runtime-suspended
+Date: Sat, 17 Oct 2026 18:38:06 +0530
+Message-ID: <20261017130806.305673-1-navonjohnlukose@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261016214123.GA1884818@bhelgaas>
+References: <20261016214123.GA1884818@bhelgaas>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On ThinkPad P1 Gen2 and P53, INT3403 _TMP switches the EC page selector
-without taking the mutex the battery methods use, so it must not run
-interleaved with them.
+On Fri, Oct 16, 2026 at 04:41:23PM -0500, Bjorn Helgaas wrote:
+> pci_pm_freeze() doesn't call pci_save_state() itself, so I guess it's
+> the combination of pci_pm_freeze() and pci_pm_freeze_noirq(), where if
+> not runtime-suspended, pci_pm_freeze() clears dev->state_saved so
+> pci_pm_freeze_noirq() will call pci_save_state()?
 
-Evaluate _TMP with acpi_evaluate_integer_exclusive().
+Yes, that's what I meant.
 
-Fixes: d33e89d12295 ("thermal: core: Suspend thermal zones later and resume them earlier")
-Reported-by: Charis Stratakis <c.stratakis@proton.me>
-Closes: https://lore.kernel.org/all/37N_jFulf7n-Z55NfKfE71C_wVPxYvZ0xD_iRUg2fXu7TypDiF5PStQ6siSfVBih6fThg5WoPes8U5ZQpfVm_teMFcUGXFxz2DdMbfSWuws=@proton.me/
-Cc: stable@vger.kernel.org
-Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Reviewed-by: Rong Zhang <i@rong.moe>
----
- .../thermal/intel/int340x_thermal/int340x_thermal_zone.c    | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.c b/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.c
-index 965700ee6962..9451fea1f65c 100644
---- a/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.c
-+++ b/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.c
-@@ -18,7 +18,11 @@ static int int340x_thermal_get_zone_temp(struct thermal_zone_device *zone,
- 	unsigned long long tmp;
- 	acpi_status status;
- 
--	status = acpi_evaluate_integer(d->adev->handle, "_TMP", NULL, &tmp);
-+	/*
-+	 * On some ThinkPads _TMP switches the EC page selector without
-+	 * taking the mutex the battery methods use.
-+	 */
-+	status = acpi_evaluate_integer_exclusive(d->adev->handle, "_TMP", NULL, &tmp);
- 	if (ACPI_FAILURE(status))
- 		return -EIO;
- 
--- 
-2.55.0
-
+Thanks,
+Navon
