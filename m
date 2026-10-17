@@ -1,152 +1,146 @@
-Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047602AD0C
-	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 06:30:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 964B73D522F
+	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 06:46:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.12
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792218629; cv=pass; b=ZDH0qbH7nUYPAAh1GTTj0SDlpmQk1+olRj3dIuTZyggZbgyJLussX/8NWepPqM1VIfga+8a5kXOj+vY0+rTgUorDJOBx35fr9c0gvGAbPTWcRurS6ubths4eldiz3RLx3ag8jprO2ubqMAXyMJd2f+1R0Dfg3eHzM70zoXDZpKI=
+	t=1792219594; cv=pass; b=hm4ZQprHu8Hqrxhc2n2AE5xb5qFI18iN/nh6oQ4ENUiMh7IjI2Dq0CsdhwfrBO6Mp5XqcHOmC9aIpFaxwh96tsmwHKAfrslN2FvPwgs9shnnFGu1nqWtPbCQyZ/oYUg3tdkdDPhS/MwcIEcCxB+Mj/9+4+wtVklKKRFQvDsisEM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792218629; c=relaxed/simple;
-	bh=RdwkPyJhh9E98r1MpaOcpYc/Nwt3X8Omeo42Fd0x3w0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WbFdO2rl3GglSizcrVk9dNfpFH9ZIDQNoAMLNbEwtr5znVP112RGrnjf+j3YrkDmtP//kypJHY7qJc7qCy8+Wxb9jUsmX4KwoJz6ygU9UCV1FMAxCqTBXEvXrciU7j4WoJzby3reM0Pswm9LuuAhdqx64EPrO5VCLSJtipfkZS8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q6Ao+T+H; arc=pass smtp.client-ip=209.85.219.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792219594; c=relaxed/simple;
+	bh=hpprqmxVIoUL50iPL1EDoFQ1Rr2A4SmJwNDvuCEzCmw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aXClKBSceybs/jxiW/Nr0R8SitRf+cVKQXrXV/x/7i21c/SLXQzC3Tvv2zfD/sscxK9G6g+EOw+UW87+w6rFSJhlOGxnZm4Djs1BjAs4MCV9lnev0ZfpbP/0rtaYFUIGDd/iNkIpvPs3JsJ7VXirll3zCeRTEsE8uBFQ3UB8x/E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=harin.net; spf=pass smtp.mailfrom=harin.net; dkim=pass (2048-bit key) header.d=harin.net header.i=me@harin.net header.b=K4Ss3DsP; arc=pass smtp.client-ip=165.173.180.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=harin.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=harin.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q6Ao+T+H"
-Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-91b89c6caffso4361256d6.2
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 23:30:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792218627; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fp1godm8zhBoeqOX/eXCJAr0xDw1gK8NrH3msh6aBukF+8gd+/wnmgIB1l69+D/c+z
-         JkrXzP5NIFiGaf3MOP1GuG8m4+ZiyzZWxAXXVZKOYqApbEDo48B0/7gr2P3RMAa7zmM+
-         bsclwi1E6YDPQtXoR4TpqTezvcPqB5D40ZdEA1Qf+ZrmhNUV0eEWYJAHQvPSPTzLy2QU
-         mgkxqNxByGeDYEyNJ+qmyxKIDnWm+YemlNbRq+cITJ+tCHkcevGU+bQ+0qndhZbgJlXf
-         ocO8VO99Hl1SBySovShjGoNqmDEpEDhIfyNBzKfneXPGYhkDCktDHVoR1GPYrmZFKMT+
-         AKCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=9+/72NBdno+j2crMEeoosJzc0n5Cq53P1qeqSGU//OY=;
-        fh=bQPw1kPss5rGiQWQGfBLJNJoeweWaFmo/7s3ExnOvDQ=;
-        b=bxCYRxlm6iq+GXIG4tRUkN8QaLmfv+1Nxu/asMCz3bJxrc0luquLUf1vCFb36+NoL/
-         20x+1k7fzewH6NBplyh9Lx/snNOPbR9Bi7U59waaA2A5Q+cMNfpQ6myPult/PAv8dPME
-         m4sCk2XC/CdzrvbFmSMXntxdsw3umEzq7NOjchY9ptMpCCEGtuHqUilvUGkLCKig/Id0
-         nKexEFDwyzJJy1OGI5gjJEAADhC7pwmD4cwSW0ereWM/GdSghud0D2RQ/ETabjrxAMvK
-         NLJgU+RGN5kZK1CAPnkkhLKsuzMlIXa6sdc1OtP4wg0TvrUg4kurDg7UPAW3tUrCR5RN
-         tikw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792218627; x=1792823427; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9+/72NBdno+j2crMEeoosJzc0n5Cq53P1qeqSGU//OY=;
-        b=q6Ao+T+HQUDaazuA5UYlqkK2Wum75oOv2z+RsR6W/879wNJfq2FUkV+j/lkFicFEW/
-         O66XtO2s1loXJQD+9wMcmR4DkSdB1uYRS27TB+M69t/rpTlngM5KmaPJRFtZLbfke4Sl
-         2sCrfWuokcF0ms6chc5Ufs3SBI7j2Fss+xb2kxlmvM8RiLIEyrBuF6VIJP/2c9qBCbP/
-         6sfaQ5EZLNgYKjTdg85Y0xpfiR+rhKm087rilF4aUuPbv6NKiYuLhD6VvWiPYsCvPik+
-         XMZywBnRZb0acwrJLf6grjUJxMBE50B82t/YQ7lywO6dFuHQUgNcdwymfClNmNE/gdYd
-         wxgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792218627; x=1792823427;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9+/72NBdno+j2crMEeoosJzc0n5Cq53P1qeqSGU//OY=;
-        b=ksL5/MNXf97sc1no08AY11nibkR5dCosimnVSOu/c/SpdYfIbPhoRy5k7z48eBhbN9
-         F1Cz5aHmU4KJ1IbBy169LWMFLygiz3MI1D6eXNMpppq7fsoyVtos96vROtqdgH6+XhAC
-         paUNcJiVOQdpjyKd7oKYWT4a6Y5vHPDwp+ENNke20udF8FfWDemxHpC5n19UzrVTu2TE
-         fg7lSCenoVTZ/JJUieijP4udqR4h4q88+Mky8zJ25yvdrRZ8e0FqnmpkZVMRbQK+qfQO
-         TGXRajDpO1mdk2OULcDCEI173NyVD+u2E8v8gKs4Hkt4boQtJX+jlJOP3GTNNR8MlPBM
-         hKDg==
-X-Forwarded-Encrypted: i=1; AKwUvBy8owDNhMj6/C97Gjwo2LlaE4dzLPvPg3aBcO4VVxp1wcnoNyjMy2XL5w9c62BJCcmLESuGqD8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJncXbTNlRgH+nG5PbzXo9Ix734tO+gq1z8ZrGoHjiq3j75Cm1F
-	LdKAByatMG1pMUnFTLbxrcLDdqAH2ZOho77fJJsV8ffOCPs2gE4PMUPDz2ahr1Twy+xZ7HW+Gz+
-	4KFAa9CRU4//OuxjIxZIpdkvYnJ+d8QFxMkdSUuk=
-X-Gm-Gg: AYBFou1ZiDzzsVap3+r4lO4CdueVMLbTyHTSXOPILTkxeR6O50xjK8lQQLE5qtWfAbx
-	OGn2XUoe3XvCPRVwKSdk0M3LmdpHu6vHJmjUKUfXULHNTz3OEOacotVTF14T2GDo++msNFjtOiP
-	ZRITM0oj5tR6TRhL9w14+mGchr94NvY3lghVvu3siguymYpa7ONNX4QOppSw90unP8rlCVQ/xeL
-	sR+EUU+Qar3jJO+zge3Au+qV4HxCrk1IS1nEN/4O083o39s2XIxXSWDUFho2hGNRjOq/Or6c2X2
-	wRqI91xhQpBmxUCZavyMlFvl97FyAh65gb6E5xThedURH3NP2ygaTNcS5UY2acJypg4LTLN9Uf2
-	4Xx4+6mMYDvKyVfZbxmKiRdsuZqzQih0f2/tt9BonNXMdstYW0lhA
-X-Received: by 2002:a05:620a:410c:b0:93c:b33a:5ee0 with SMTP id
- af79cd13be357-93f29d3f0d1mr345360085a.41.1792218626850; Fri, 16 Oct 2026
- 23:30:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=harin.net header.i=me@harin.net header.b="K4Ss3DsP"
+ARC-Seal: i=1; a=rsa-sha256; t=1792219584; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=iJX7a/X40wNe97fQd3sSSTG6BRUtyp2kielIqnlnqRItaBc3+AzRGPaczZ/T+HmQhkjXsMmpE0H5QTKZfNhCpGrqPAcuCS1/UE3D43Fo6jNoHyhMzV0cckcgYbAP7JnkEUK3BBESArff2CAg0qs2Jzeg5iAzD8niTXYKwJ1GC7M=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792219584; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=KOfhUuLPttCiY+vbDrm2DUqo6wjNKt4zh7AeRtyztbY=; 
+	b=O5cuOXaR1Rl3DgtUtxJvofUrGDehq0OCvPfvQrh+jWRTxNh/KHgr3fNwqVMJX8gkfPthDUeii+lHoY3BKwz47jKV/T2saiSzWVQA/NEc5e3wh02AMvHX7qxhqRwPtHNxXfsVce72XSiIkeB6ahkyoleKsU+ceAnum4vSf7k9VyM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=harin.net;
+	spf=pass  smtp.mailfrom=me@harin.net;
+	dmarc=pass header.from=<me@harin.net>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792219584;
+	s=zmail; d=harin.net; i=me@harin.net;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=KOfhUuLPttCiY+vbDrm2DUqo6wjNKt4zh7AeRtyztbY=;
+	b=K4Ss3DsPx0QEVK/Q9QDAz3bDo4DnBGOsrLtGcnnKUkGYDmJw0UtgfWsPjkkNzNxl
+	andQZWy28uhNM+Ojv98m4YmIKynV0dPDwlQBPgI+qIyoOFKp9OiSXv3HIDRKWjgAH+G
+	DyG4Dkr+asbNTmVN9amCHmxQgwtU5YOBM16U8HrLwY1fqoXG4yIeoRvbpv2sQu1G8/4
+	eM9QuHJbI/CNPnpu5ZG2/IgYwj+1ZwP4wadut1bjwBwFUYjwYtCC8K31wOmJu/ecMS6
+	6PQqTxVcRbxLrHb5ec7DX4ZA/x6g/hbVAoA9qvdiuiY9rSiiW5vsVT77xaZ6OJokP8S
+	ZjoldEKa6A==
+Received: by smtp.zohomail.com with SMTPS id 1792219581633443.94715788512895;
+	Fri, 16 Oct 2026 23:46:21 -0700 (PDT)
+Message-ID: <d19f3435-57fd-4ddf-9465-36f359c8b8bd@harin.net>
+Date: Sat, 17 Oct 2026 15:46:19 +0900
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <2026092253-dimness-unethical-2515@gregkh> <20260922153334.136648-1-bub4z0r@gmail.com>
- <2026092320-reentry-lyricist-330b@gregkh> <32446a55-070d-4739-bd3a-d56c4b628e29@amd.com>
- <2026092332-alkaline-overthrow-494f@gregkh> <CAPM=9tyVcUdb-wjv2unksLV-BVcOxswqB0Y+H7agBU5vYGFKDw@mail.gmail.com>
- <2026101737-broker-output-d845@gregkh>
-In-Reply-To: <2026101737-broker-output-d845@gregkh>
-From: Dave Airlie <airlied@gmail.com>
-Date: Sat, 17 Oct 2026 16:30:14 +1000
-X-Gm-Features: AclHuK8oTdGZtkAYns0vEGDb9KwY2aZC1M6hyDXrk7IpcqJ0wBLT9V-mKbZizfw
-Message-ID: <CAPM=9twsgnL_SPf7hi+mnPUgJTyGVDFyQdbOSNhQZXSSoxZmNQ@mail.gmail.com>
-Subject: Re: [PATCH 7.2.y] drm/ttm: fix swapped-out resources never leaving
- their bulk_move range
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Vadim Nikitushkin <bub4z0r@gmail.com>, stable@vger.kernel.org, 
-	thomas.hellstrom@linux.intel.com, dri-devel@lists.freedesktop.org, 
-	skainsworth@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: ALSA: ctxfi: Regarding recent stable backports
+To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
+Cc: Takashi Iwai <tiwai@suse.de>, Harin Lee <me@harin.net>
+References: <e5b53e3f-02ac-4afc-9fa1-823ddb80875e@harin.net>
+Content-Language: en-US
+From: Harin Lee <me@harin.net>
+Autocrypt: addr=me@harin.net; keydata=
+ xsFNBGTISwABEADmFninPoVcq/XKNS5RAgT9GHeoPXMpIHVR0/WaEpEuwi0RBjXuscnStxGF
+ uKnu1wSVArTHVrUH3H+DlpQMmdwhvxIJJqGItVgmuOTFEvc9+wyh9CEE7xeXSPsbNKUL+7WY
+ A/oBaXsIR+PxaY9F3oIcK//VLN7WYJt6qqPGfdDEeIgje66LSsdo5o+ZLaUc0pCuGlZt79UD
+ vSPUZvPfk0mTY0UQVi3QbiOWaHpias70ZXyTkAqga7azyUyNylMkd5ot+hGOfq/lEymRov1p
+ qJ5FNcG0zxUOmnx7LIXfEQO53OVT6jquNS6u+8ohT9x501is7khebQo9jPfqp6E8HKuS/ryB
+ j/GpHUNd1l3Yhnu3EYaeANtlnmfcG0yk+gd+lCPfx8esjHhijnBHgpW29W+bRs4l6MRdTjnL
+ 25nJLvWifjNop4XYPX7tTpzJ7Iys94XroGESkFeNEHxNO8n+7+0oju+FXJstcz6PqFgT9g7d
+ HibvIRhOWsS+f9XVnC/BffhtAwbuomnVFTUKr31BycpMl1gUkB9wTjYvhGoPjEZ8TmPOmmPl
+ EgMtlyGqK9CLG/WGkCN5S+rSnEHca+USyDQoW1FV+X8HrQCM4daFGFEc7J2YkxIJphTDoLdM
+ vBuFmGBFYr/2qNidpfl42Z/rwggdQICHsq7YtrA/o3LT3/roFwARAQABzRhIYXJpbiBMZWUg
+ PG1lQGhhcmluLm5ldD7CwZQEEwEKAD4CGwMFCwkIBwIGFQoJCAsCBBYCAwECHgECF4AWIQQB
+ 8U1e3DNTsF3+GT1J/msjUbJSGgUCakRYgAUJC0c1AAAKCRBJ/msjUbJSGhUWEADgLWMscyeC
+ 2yRkqWPlbcVGhtSGWR+sDQDSYFaQA/K9DCw/OAdg4zF3khFJqOfkoAMCUX7PRcg53/xTttp/
+ KfuG9gD0AKpla72M323gip5C69UpPIkryp2taUce/fkrhBhF+f+WS6z9XwbrfRhhByTsD/4h
+ v1yNvjxrNqLoag8TasDgPLEHfXAyLo7vyZ9jLzFxeRXlsx4OUcfwp0anS5ueQ3r1bbJwYd2A
+ TkCjuMvROpVqXFkuUXfenEtqmo0GeHFs0XqrvH1ZByHhuxPTl2VUXIdfVLgTbGeZi/SWfy4s
+ UDwBPuOuW5P5QULPgQ7I6Q2hXGJbt+jVZ7VSRAzF2nOTfDJ1PF3AhH7HcdbX3IfdyRF17+Ot
+ bPvoZmYPohWO9IRRh9OQImB6G4fUMSDuPKECYzKEpDCr3kYg3YTWHK9sM5Co6PhEMQ0dk1ZU
+ Fw93yugRa7mGj7loEddIKItL+eMzsJfVKCMe+jNJ07i4F5GcfZTRywtzSiZWqFubRhov+zou
+ hXfO+SfJAbUtlxjK4tLFbRI/RPRc4G2Ggx2FE+brOWObPDaKGaRkkDFqObEsqDkG7Y0swesY
+ WQG7YoZ1hU+hU02JUmlO9PBwlPY+KDR+RZg4OozzFjKTKJ8ZlnDu3a3uXIalba2cDJJZfDt8
+ Wsm9gPwzAU/9vOoj3lFRO7KcI87BTQRkyEsAARAAtuVCcP+dXZ7moKUZy1QKFbD2wNScDY/B
+ nGa6uShjvYjuvAbiDAVkAYfWniHuv0cuAkBtF/wvba3JAxOg1IjMSse7QhHCLlkE9MgUiq50
+ n1nSChlGZ2m3oB4S+VjroVjNLWURIBkjmiCclRJVqSZJu3h1+SguocMAIkYVtJddZXyCuQiW
+ 2lhjfrMMM5m3HB4NQdj/HPIpo2WYIohPDqHeJxKdPQrC3W/FjtBoCGvBPsPwtfxrBB+isTRz
+ 9NonQPvONDR35rtSKHa8KUpmAu9ScaiPhqEG8qV+9VoZbMe7TR7ZnL5XonexCUdr7NHFvpcS
+ m2mpYMh4RmEtRjxnHzr1OVGHHAIC4BoTOcZveMu4/4s3OJZcp/mtfLJrYfy2IccAgYebx20a
+ 7gbMhxkOD7A1Nbt9nOoA2W7wO8SNo1gG1Rn+2+jPjihkQmH9BMuGm5glj4PabhiFP3ewrSxh
+ ABLRQ4PnaQijTty7MU2Lw+6uwlocV3oLB+Bwen0M9+2m9AcsUFuB2NEXERJuVcJX7STlm+Sa
+ gan03N97cnNyFG0hDHiAO/xwxS9qMQpqTbXjHy1VQkhyw9I95+R9BltApML/miZ71Istyy1g
+ 33ljRGK403j+we8Uf+OsAkHtnFsZqC06m82ADvgbI61DnEPHZOF/QEAn7vDNWKID0SvI7/qU
+ h6cAEQEAAcLBfAQYAQoAJgIbDBYhBAHxTV7cM1OwXf4ZPUn+ayNRslIaBQJqRFiABQkLRzUA
+ AAoJEEn+ayNRslIahggQAMb5TAYt92L0zvT8g+NTOTeR9RfC2cQW/mIMJoaYYHhKYRrI+6lI
+ MfPg+g8u3KqA/I+IlBVP0LLqxeZAshZ+RqZzJp6e5d4mNRGQinVTN9KbxAGkKACG4JO0qCyj
+ Xrx7Up7OV2m8dk5hyw7K8lcGgze0OmLBxR/gmcMfH0IkKFHkgn6zqCoFRa+d6AwRlOrvViRb
+ /XxUBarkEt06oKc0OOKRu8oRLU3Xe2H/vWCfQlxZ7K2IfGIyjnLUxcQGN39fJQzGLAZ2PI85
+ KO9TSv4YLBYOYRM7piOOO8/YNhT2G4z29gi+SHuK5y6BOG+KxCN2A03Azr1o5I87LaSWaz6n
+ tdiaXfxTkVTRqHe9kLQI1eMl+cicuMve4c/32luivfXa0ei76XmJFM4fCN5DFn980J+CbxO+
+ AOc4997kf3VVX85/T8lvsk+XyrWBzx/UKjlyY68k3/FIrCOF0tuH2GA9yqqOnYzePip3TLsg
+ yeV7OSmTso79RUI/99Zwgsw92at5/xfjXPUfPd+ZU7A9PfKI9kL/H+/bzT0TfSc7MiOjHUzl
+ ZN/7ASBcbIsZNVhL1e4vXt/NI36Gyd3jW8GMLlqhmPzRVjjxdq6mzTcMYvWpZ33Bp8mhSt6A
+ qboqGNyBLnH3o9jJnnob8NBrCXmGur9MpJDTpVvHOVSDqYESo4rNJA/q
+In-Reply-To: <e5b53e3f-02ac-4afc-9fa1-823ddb80875e@harin.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On Sat, 17 Oct 2026 at 15:45, Greg KH <gregkh@linuxfoundation.org> wrote:
->
-> On Sat, Oct 17, 2026 at 08:19:46AM +1000, Dave Airlie wrote:
-> > So I got a report that
-> >
-> > "the backport of "drm/ttm: Fix ttm_bo_swapout() infinite LRU walk on
-> > swapout failure" to yesterday's 6.18 missed "drm/ttm: fix swapped-out
-> > resources never leaving their bulk_move range",
-> >
-> > So can we make sure this patch is in the stable branches the other one
-> > went into?
->
-> Sure, any hint as to what git id that is?
+On 10/17/2026 4:10 AM, Harin Lee wrote:
+> I noticed that some patches from my original ctxfi patch series are
+> being pulled into the 6.6.y, 6.12.y, 6.18.y stable branches as
+> dependencies of the error-handling patch (277c6960d4dd).
+> 
+> For 6.18.y, since these changes have already been merged, could you
+> also include Takashi's follow-up workaround and my subsequent cleanup
+> patches? Without these patches, some devices may have no sound.
+> 
+> 75dc1980cf48 ("ALSA: ctxfi: Don't enumerate SPDIF1 at DAIO initialization")
+> c6cd83cceec5 ("ALSA: ctxfi: Rename SPDIFI1 to SPDIFI_BAY")
+> 07b116b44e52 ("ALSA: ctxfi: Use correct DAIO type for da_desc")
+> 
+> The relevant part of atc_get_resources() for 6.18.y should look like:
+> 
+> ...
+> for (i = 0; i < NUM_DAIOTYP; i++) {
+>      if ((i == MIC && !cap.dedicated_mic) ||
+>          (i == SPDIFIO && atc->model == CTSB073X) ||
+>          (i == SPDIFI_BAY && atc->model != CTSB073X))
+>          continue;
+> 
+>      da_desc.type = i;
+>      da_desc.output = i < LINEIM;
+> ...
+> 
+> For 6.12.y and 6.6.y, could you drop the following pending backport
+> from the stable queues? It is adding new functionality from my
+> original patch series, which was not present in these stable branches.
+> I don't think this change is good for backporting to older stable
+> kernels.
+> 
+> a2dbaeb5c61e ("ALSA: ctxfi: Refactor resource alloc for sparse mappings")
+> 
+> Thanks,
+> Harin Lee
 
-All of the hints:
+Actually, I haven't tried compiling these backport sets on the stable
+branches yet. My original comments are based on inspection only.
 
-6.18.57 has
-commit 060f8f3020516d71bc4d6159d4d0beef85606a74
-Author: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-Date:   Tue Apr 28 11:44:42 2026 +0200
-
-    drm/ttm: Fix ttm_bo_swapout() infinite LRU walk on swapout failure
-
-    [ Upstream commit b2ed01e7ad3de80333e9b962a44024b094bc0b2b ]
-
-
-upstream has two fixes, because we messed up,
-commit 3db7d7d583419f7b1f2e141e36418802dbb25cf8
-Author: Vadim Nikitushkin <bub4z0r@gmail.com>
-Date:   Wed Sep 9 23:50:28 2026 +0300
-
-    drm/ttm: fix swapped-out resources never leaving their bulk_move range
-
-commit fcfe64715b425262af1b36f498f9197f3537ceed
-Author: Vadim Nikitushkin <bub4z0r@gmail.com>
-Date:   Thu Sep 10 17:34:51 2026 +0300
-
- drm/ttm: apply the swapout bulk_move fix to the intended condition
-
-
-we ideally would want the proper resolution of those applied. which is
-the patch in this thread.
-
-So can we just apply the patch in this thread to stable, the squash
-fixes the stupid in master, or apply both patches to stable and leave
-the stupid.
-
-Dave.
+Thanks,
+Harin Lee
