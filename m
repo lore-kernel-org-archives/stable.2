@@ -1,130 +1,144 @@
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-75.mail.aliyun.com (out28-75.mail.aliyun.com [115.124.28.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E08C37C931
-	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 02:19:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1821891A9;
+	Sat, 17 Oct 2026 02:49:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792203593; cv=none; b=RWTd2PC89jRVjgporB/quIJZ/f9ySyFFEnY6/v+Pcmss9+96OaaxrsSQN20sfVbdJ4yAJOwVxxPSex2Y4htfTlAST/ut2PMWrWhg8RZsTUrNYsz+H47Pxrcn8A5gOM/SqyleJnOxiT0i376cqCefQIquV5mKkwz/O+Ubj55pCTE=
+	t=1792205398; cv=none; b=dUArSwFapqoMiXmoEbjwBd3N7T903jSpjVS9DpErZbp97vu/wa2i9AiSou6I2l/UlHh5bTW2oyho4xnfU5jq8IvEt5otGMxxHYMRTN9HDNGQ7NUV9HbfmDluA/2LDcZYcODZ3mYNM427lnpkndC87w67GqjUGBJU1P+e4LKwcCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792203593; c=relaxed/simple;
-	bh=5rRTjvVUCj1giTYCsBQ/YKcd/9d9HjEXgG9juU7sMfM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qP6NAoBLrS61JlYilkb+azzdAFgYL2WPfCVqymj+iKracBDOjXKkXxbHAycwZhGaLfHbVhXscp5iAUob/tPLvBgX0CZBm6e8q/CdW1VU7ECHXWpN/K1LHyarb4AGwDwxO+JotpvM0FDJhmhjuGm4RhEjVnXxfPK0igVHKJtWNPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qZNiQ2vr; arc=none smtp.client-ip=74.125.82.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792205398; c=relaxed/simple;
+	bh=0euMBpXL8iOhtQwMwFPTjpI1MpcsW7S2QlnDj/v8nLo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qU/WPB2wG64TT2Z8nRcnmB+CxhG99R2NQ7rTkicb4sz6HMnEjJ2dhKC7aUjhAH/lgB7J8znzyvDYTDEfPwxAz9dG7y43WAptNJrLN6gMc6/w2vQRP/20dfneuFn6JGnqicfdvaNs1qhCLqxi5ihW8wsJ+Mhtg89HmNfCca5qJnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=eGHXmxtc; arc=none smtp.client-ip=115.124.28.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qZNiQ2vr"
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-157fe9d771bso136744c88.0
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 19:19:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792203591; x=1792808391; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5+kfzjr8MQEb3lKi5cTeDPkUvBSdgUV4zlTId0CwE3M=;
-        b=qZNiQ2vrR8t1p1kDECcMcJ+4tgxT0xHqGWGnIkvfdJnmRdStPCy2f30zRNJhI6hpQn
-         tVrB7pmcocSx6V8z0p2FgOWpDE+EhdzDOFlxZpESRsr6+4S5hIASg1BM70lbfvmW8S3G
-         tX92JFpLaVwIwvIKBKMrF9jI5FO4kRhPAhCk7pgDe/Y4uSA33l1ulwF3qGtzwVVBux6G
-         P2LcuWNFUIAaFJAis5qWu1OeyQ8cLWicwDfBCafuD4FljTEAujvXtbE/7kqkGnuIAzXu
-         KAaZDWw+cZvBSMnayWw9ANvrZrPR6a30wVyClUXyohfyyDQ3jLl4oGzloS4scNhMVbgT
-         QNcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792203591; x=1792808391;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5+kfzjr8MQEb3lKi5cTeDPkUvBSdgUV4zlTId0CwE3M=;
-        b=uziqJdCqqC0deCuhmAkU37dAD7xViYCVxV+95qF1fjGlnAP8umEkMQ9je7KR7oLBWO
-         na7VVt9f/p0FEoKyAYuc+63E6PvpIK9wJQEaTnXNqy3an1mtFKwHtmDBXcZzt/iGS8Z2
-         r2s0FxyqPO+Elt55sFBiBlYOmUWMYod/4Q4/zwD1NYjDX0tAfDHOSIRlvSZijyi7Frc3
-         kD3moCWZTEy+xClFApyithrTwkSwUbQjaNBqRFdMqaWnG9PioR7qvZVbevAN7KRC0CF+
-         ridrfGpdIYsaeOPkFvKgbb+KlKpEd1EeIdBpnQsp+wbbm1tLWWmaLYVtEvhgCkR8VukP
-         5G2Q==
-X-Forwarded-Encrypted: i=1; AKwUvByHgd/NbNGELE1AL404TNh9zVW7c28afYQAz3vAQaM4zQF8w4RYCeGdlhPsQo/S03wdWs0oeEw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIUkc+JxYl9PzEpxli3a3vsidpBt9Ev8jq+mlLDx+8GP+hyLiLI
-	x0idM4mEuLXKRFBFkGpygfL4QnStzd8OPg0Orgoz7yTU4aWs+pBaYH12
-X-Gm-Gg: AYBFou3PDKpTh1MMUUEo5Lk+KEg8w1SPQg1GE30kHLaTM/DQuislUybi7y6YbmRDS6v
-	u2OpBd77L2PONFlV8Xr26Jh2WZLg7w8F/l4Is3Ic7KRmo+qUKif6oaXU4ToY/gzmDZ66AhQB+Y2
-	5rYGqhMs59I/U8zyeE6c8ayIevc1XmcyRmMVBeHgd54GBaFid+RzlfY+FHm+IEZuUB+rYcsAoEV
-	QrHUK+V7NpYmrV659f7dlAOTeFJW1mW2LC0RH3JqA38DXWw3tAD5Nda+prXdSEwWifINuxbOB6q
-	wihhE4tFSoPuIwSzFrYe7nQpLQZwn8AuhFjGC3T6vpWau2shgI+BxdBclXt8RNrl4Q2XhhpVznm
-	Jrzr/WqgRRYVipvFol+7o9EpogQoKCTsDCTy8ne9I/qckAl4U33qEg9eDTRtUqJJl1jwhVpWNvp
-	mOfF2+aB+IR7GSU6h3rcctmk2gmwwVM83K8ZSWfSxsayOZgfsrfvYH/FKIujb8MmwJMeMFjY4bp
-	dGY9THUmGoGXiF7Q1g=
-X-Received: by 2002:a05:7023:a47:10b0:14c:fb3f:bedb with SMTP id a92af1059eb24-185136cad08mr2162857c88.18.1792203591050;
-        Fri, 16 Oct 2026 19:19:51 -0700 (PDT)
-Received: from [100.125.248.95] ([124.70.231.46])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-183190aa7bbsm9100489c88.5.2026.10.16.19.19.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 19:19:50 -0700 (PDT)
-Message-ID: <743d1d96-40f9-4dac-839f-5d5269364b50@gmail.com>
-Date: Sat, 17 Oct 2026 10:19:41 +0800
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="eGHXmxtc"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1792205385; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=nATI1dwinW9aHIS28Bn4IeOTB2dnVSU87dYw4MGIlF4=;
+	b=eGHXmxtcdh6ogygERe1mBEwbgTcgDzU+FMKJp6kVeVBfEZhPhCkWlR/DnHhrqAUSKpztuqIolQdYHLefq4fXgdCRzZgFPhAV6vQocWjpEckSrZpuSdGL81hOiAjXVj46Q0wpaBol5sB73OGQBIs40U6AkdoqVuIKp6ZLoWilCwk=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.128401|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0198099-0.00310662-0.977083;FP=215468512779060368|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032053168;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.jh9kJmy_1792205062;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jh9kJmy_1792205062 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Sat, 17 Oct 2026 10:44:23 +0800
+From: liuc63 <liuc63@xiaopeng.com>
+To: Peter Chen <peter.chen@kernel.org>
+Cc: Roger Quadros <rogerq@kernel.org>,
+	Pawel Laszczak <pawell@cadence.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Liu Chao <liuc63@xiaopeng.com>
+Subject: [PATCH v3] usb: cdns3: validate endpoint index from setup packet
+Date: Sat, 17 Oct 2026 10:44:22 +0800
+Message-ID: <20261017024422.3400907-1-liuc63@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ext4: fix folio reference leak in
- mpage_submit_partial_folio()
-To: guolingxing <guolingxing@tju.edu.cn>
-Cc: Theodore Ts'o <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>,
- Jan Kara <jack@suse.cz>, Baokun Li <libaokun@linux.alibaba.com>,
- Ojaswin Mujoo <ojaswin@linux.ibm.com>, Ritesh Harjani
- <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>,
- linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261016142524.655789-1-guolingxing@tju.edu.cn>
-Content-Language: en-US
-From: Zhang Yi <yizhang089@gmail.com>
-In-Reply-To: <20261016142524.655789-1-guolingxing@tju.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/16/2026 10:25 PM, guolingxing wrote:
-> mpage_submit_partial_folio() obtains a folio reference with
-> filemap_get_folio(). If the subsequent position check fails, it
-> returns -EINVAL without dropping that reference.
-> 
-> Call folio_put() before returning from this error path. Leave the
-> folio locked so that the caller can invalidate and unlock it through
-> mpage_release_unused_pages().
-> 
-> Fixes: ded2d726a304 ("ext4: fix stale data if it bail out of the extents mapping loop")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+From: Liu Chao <liuc63@xiaopeng.com>
 
-Thank you for the fix, looks good to me.
+cdns3_ep_addr_to_index() masks the endpoint address with 0x7F instead of
+USB_ENDPOINT_NUMBER_MASK (0x0F).  wIndex is supplied by the USB host, so
+bits 4-6 of the endpoint number are attacker-controlled and the returned
+index can reach 143, while priv_dev->eps[] holds only
+CDNS3_ENDPOINTS_MAX_COUNT (32) entries.  Both cdns3_req_ep0_get_status()
+(GET_STATUS) and cdns3_ep0_feature_handle_endpoint() (SET/CLEAR_FEATURE)
+feed that index straight into priv_dev->eps[index] and dereference the
+result, so a crafted control request causes an out-of-bounds access.
+Even when the index stays within 0-31, the stray bits alias the request
+onto a different endpoint slot.
 
-Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
+Mask the endpoint number with USB_ENDPOINT_NUMBER_MASK so the computed
+index is always within [0, 31].  This mirrors the cdnsp counterpart
+cdnsp_w_index_to_ep_index(), which already extracts the endpoint number
+with the same mask.
 
-> ---
->   fs/ext4/inode.c | 8 +++++++-
->   1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-> index 26f0f9714f03..7afba6298fa2 100644
-> --- a/fs/ext4/inode.c
-> +++ b/fs/ext4/inode.c
-> @@ -2412,8 +2412,14 @@ static int mpage_submit_partial_folio(struct mpage_da_data *mpd)
->   	 */
->   	pos = ((loff_t)mpd->map.m_lblk) << inode->i_blkbits;
->   	if (WARN_ON_ONCE((folio_pos(folio) == pos) ||
-> -			 !folio_contains(folio, pos >> PAGE_SHIFT)))
-> +			 !folio_contains(folio, pos >> PAGE_SHIFT))) {
-> +		/*
-> +		 * Leave the folio locked so that the caller can invalidate
-> +		 * and unlock it through mpage_release_unused_pages().
-> +		 */
-> +		folio_put(folio);
->   		return -EINVAL;
-> +	}
->   
->   	mpage_submit_folio(mpd, folio);
->   	/*
+In addition, eps[index] may be NULL for endpoints that are not enabled,
+as cdns3_init_eps() only populates entries for endpoints enabled in
+USB_CAP3.  Check priv_dev->eps[index] for NULL before dereferencing it
+in both functions, matching the fix already applied to aspeed_udc in
+commit ee0d382feb44 ("usb: gadget: aspeed_udc: validate endpoint index
+for ast udc").
+
+Fixes: 7733f6c32e36 ("usb: cdns3: Add Cadence USB3 DRD Driver")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+---
+Changes in v3:
+ - Mask the endpoint number with USB_ENDPOINT_NUMBER_MASK (0x0F) in
+   cdns3_ep_addr_to_index() instead of bounding the 0x7F-derived index
+   at the call sites; the index is now always within eps[], which also
+   resolves the endpoint-aliasing concern raised by the Sashiko review
+   (Peter Chen)
+ - Drop the now-redundant index >= CDNS3_ENDPOINTS_MAX_COUNT check,
+   keeping only the NULL check on priv_dev->eps[index] (Peter Chen)
+ - The Sashiko review also flagged that the raw wIndex is passed
+   unmasked to cdns3_select_ep() and so reaches the ep_sel register;
+   that is pre-existing behaviour (commit 7733f6c32e36), orthogonal
+   to this fix, and is deferred to a separate follow-up patch
+
+Changes in v2:
+ - Also check priv_dev->eps[index] for NULL, as endpoints not enabled
+   in USB_CAP3 are left NULL by cdns3_init_eps() (Peter Chen)
+ - Correct the reference: the same-class fix ee0d382feb44 is for
+   aspeed_udc, not renesas_usb3; cite it with the commit title and
+   drop the CVE mention (Peter Chen)
+ - Fix the function name cdns3_ep0_handle_status() ->
+   cdns3_req_ep0_get_status() in the commit message
+
+v2: https://lore.kernel.org/linux-usb/20261012110107.2458022-1-liuc63@xiaopeng.com/
+v1: https://lore.kernel.org/linux-usb/20260917103145.3047850-1-liuc63@xiaopeng.com/
+---
+ drivers/usb/cdns3/cdns3-ep0.c    | 4 ++++
+ drivers/usb/cdns3/cdns3-gadget.c | 3 ++-
+ 2 files changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/cdns3/cdns3-ep0.c b/drivers/usb/cdns3/cdns3-ep0.c
+index e29989d57bef..ab18adec831e 100644
+--- a/drivers/usb/cdns3/cdns3-ep0.c
++++ b/drivers/usb/cdns3/cdns3-ep0.c
+@@ -251,6 +251,8 @@ static int cdns3_req_ep0_get_status(struct cdns3_device *priv_dev,
+ 		return cdns3_ep0_delegate_req(priv_dev, ctrl);
+ 	case USB_RECIP_ENDPOINT:
+ 		index = cdns3_ep_addr_to_index(le16_to_cpu(ctrl->wIndex));
++		if (!priv_dev->eps[index])
++			return -EINVAL;
+ 		priv_ep = priv_dev->eps[index];
+ 
+ 		/* check if endpoint is stalled or stall is pending */
+@@ -368,6 +370,8 @@ static int cdns3_ep0_feature_handle_endpoint(struct cdns3_device *priv_dev,
+ 		return 0;
+ 
+ 	index = cdns3_ep_addr_to_index(le16_to_cpu(ctrl->wIndex));
++	if (!priv_dev->eps[index])
++		return -EINVAL;
+ 	priv_ep = priv_dev->eps[index];
+ 
+ 	cdns3_select_ep(priv_dev, le16_to_cpu(ctrl->wIndex));
+diff --git a/drivers/usb/cdns3/cdns3-gadget.c b/drivers/usb/cdns3/cdns3-gadget.c
+index 0d272e9c556c..f65a87f11e26 100644
+--- a/drivers/usb/cdns3/cdns3-gadget.c
++++ b/drivers/usb/cdns3/cdns3-gadget.c
+@@ -109,7 +109,8 @@ void cdns3_set_register_bit(void __iomem *ptr, u32 mask)
+  */
+ u8 cdns3_ep_addr_to_index(u8 ep_addr)
+ {
+-	return (((ep_addr & 0x7F)) + ((ep_addr & USB_DIR_IN) ? 16 : 0));
++	return ((ep_addr & USB_ENDPOINT_NUMBER_MASK) +
++		((ep_addr & USB_DIR_IN) ? 16 : 0));
+ }
+ 
+ static int cdns3_get_dma_pos(struct cdns3_device *priv_dev,
+-- 
+2.50.1
 
