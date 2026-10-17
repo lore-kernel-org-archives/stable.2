@@ -1,244 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF344299929;
-	Sat, 17 Oct 2026 00:33:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F8511AF4E9
+	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 00:48:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792197234; cv=none; b=SvUkyhKPq84SPljVXuJ3xGoM2imk5kGCCHziduIPPnKfs7M7evYXKGBG+UT46e8Ey10HzIc9CTMh74UTsS51aat8vv6V59VWHKRTZAkCgP5ZzGjJrXFkJwk4usIWX4XmO3uQHBqFJ2Nxi+hoWoOSRPR+usjhMFgacC7CUNu0qWI=
+	t=1792198125; cv=none; b=PN4SkDRSriFP7eIKy1uEto8x34l1qLBL6tggEYnBCMcEAZdO8CNsreRLc7Em3ifkjprKR19TTO8cGnymjuMovf5mF8+3LLLvrTpbxK4lKcGiKw74g/oVi41H86sK1Ycpsrvo9AImPl3NVAC/v9cznxGjhhkdzqwlEFPApG8SKNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792197234; c=relaxed/simple;
-	bh=Q+UQFFOGkGQoah/uga72iNFZA2qYmB7N1/Xk2r915fs=;
-	h=Date:To:From:Subject:Message-Id; b=u3dlOOqS/oPqUTJWdrbPv3Cl4z/HEonIc5vHKufsMJZXtgjWGI9G8XiuP1HeO/DIcinS6IpbtRbFoB1uod5X1uN9SuqDcWRqylRkV1sx0zS69I90ku+oLHocaUCeZa/NbRKJDl0I6gLQE/cQqXUfKZCYvEieNLQgJUfEeayhkLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=F1mzAskr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792198125; c=relaxed/simple;
+	bh=5V8rinvEffdQKrE933/i9Jyx4668IhiI+lCFsqIuIZo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L6lxSgGphpZcbv/KNqGQP1nI5XfDCQ2RYKg9hkH9FPm3BC4J7St0cAnZdXEIqBUJ/dWnR/ms2tBwgNnsC8jYEIEj/9GiqWvKSTHvCZb29HqeAe/CKGDoyB78IRom5LEInSihT61kFhzuAdbCIQ2UgP9N1jCobuuUFLZYZeeJQ+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KTciQFId; arc=none smtp.client-ip=209.85.210.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="F1mzAskr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 550971F000C4;
-	Sat, 17 Oct 2026 00:33:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KTciQFId"
+Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-82380b0f55dso156423a34.1
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 17:48:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792197232;
-	bh=RLfFRIaGC6rGRICe2F35aLRGT7qZ2ykMvmZr9tvxxB8=;
-	h=Date:To:From:Subject;
-	b=F1mzAskrdLBleP/je9bJZjDcmllcr3EbhxvxbGGMSQH7ZAiPmFXTlnt/XEL1fHY+2
-	 hHT/LVVFz+IV0kknBlyI9zO3nMrjj+FGndwzJ+uuR02q9Gt6QPGcyLT5hsJ7T2VBca
-	 5WVDC2TrjgM3HEl3iugNGA7zH4/yXGuwFlrXIQPk=
-Date: Fri, 16 Oct 2026 17:33:51 -0700
-To: mm-commits@vger.kernel.org,yuzhao@google.com,yuanchu@google.com,weixugc@google.com,stable@vger.kernel.org,shakeel.butt@linux.dev,qi.zheng@linux.dev,lance.yang@linux.dev,kasong@tencent.com,ehab.ababneh@intel.com,baoquan.he@linux.dev,baolin.wang@linux.alibaba.com,axelrasmussen@google.com,baohua@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-mglru-fix-using-folio_mark_accessed-to-replace-folio_set_active.patch added to mm-unstable branch
-Message-Id: <20261017003352.550971F000C4@smtp.kernel.org>
+        d=gmail.com; s=20251104; t=1792198123; x=1792802923; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=t+hJXj8wwiIb+5no1EG7QW0zHdqHn0SmMCU0JKT/7aQ=;
+        b=KTciQFId0emTCbGG1h2y2A32KpZaW1YgzuufShBg7eeh6R25uPNCylYmLVKFvxw40t
+         NM53u/SE+zTFnwAI4Zzl7loAX1jrrgFbViCYa9xhu0U4pRsLddh0erwJtdjZXzGZm4qf
+         LCH5wCbT2hI7oCurhzULUxG6eAglzkqULm40jVUswc0zfxkd2PFkiN0Lm5s39WDIg666
+         dLsCD3PxieHqh8+KUkfxxF32HT7KO1UigoonJHYtkGEHsdaOsxPw67I9DLNlRxYc5MPh
+         DbHPSTYMjBsL0VAKbDwrTEO05JKtouUCwXpX8aTBTmsT+RGuEl92Rpy8+Z6TwZA/DiIE
+         l2bA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792198123; x=1792802923;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=t+hJXj8wwiIb+5no1EG7QW0zHdqHn0SmMCU0JKT/7aQ=;
+        b=NVBf1IeLPAXM/gNjWf5uJjgJmlV53jlIshL/CCNMyihHu2adRHLhACNJQDxcJqwECD
+         0j/zr7weg1UTn+9ZceDO9K+kJ3FQD30Cr+B1QN1Ego/zb19GnOOEZ19am5n1N7Vej6ss
+         YZC+cANtJny06PDbKjpfZgDoH8OHiVsx51cC862m1fLDZf3w9gugUQGxBt0HGuoKfRVP
+         RyiisCJF1Bl96iek5xPYDLnkGMZTk1LVvIIaoY8921QPpEQgOmhh6c/wjop3enXgjAQU
+         zaS/eaRak6S7DpB9dBkH4henHxZs1cMEv3G7f5R52e+J0MweNbUlNXUq5noRqcBNdufR
+         CXwQ==
+X-Gm-Message-State: AFq9FYLto00V8GK+N+ndjriJj+p1WfyoLy7LEg1HHNxg06TLgx0zOByc
+	ZqyJ+VoqDdgopC3LxQZ2nzDbe04AfLG/JNOaH4xYN07K0WguX/SfhyWJ
+X-Gm-Gg: AYBFou2MsACxgaX+sOUgJQieMxJG1lDGL210fqhfjHuSJRhyWSYVpRHhAMPByd+hq4T
+	BZ9aXV0TmSxRuTeBxK3AHRDLBeVMO2qAMa0tSb5iTsW8isKPhNl4T9GE//+WwCCw/xI+pxASSfb
+	mmnyWHqxC9uolKz2n5eYnxLD8DaAPtgmhoAUEIIFFBqLC+SCS/Hs21Ou707lY1909RVSlvXkGWh
+	I+v3NtVTagAwRnz4lxTSWmPfJyxgdBKj1SU2Pzopf9FdPpw6TKR2XUQ9q2cyCO48CmHmZlkBKAV
+	3EiMnQHL1NgNg1FK2YNu9pl4RvgP+NYPY25TnamIi8j5qYnyf0yI5W5WXmddX97nAyWrP22uM5W
+	8XHUh/R+NEtNGrpY1PN6PaBGRpHkCNSG+4s/jlL/0r6NJCF862R3qX+6xBbEMfwan0DKUkxsYEm
+	sUc91bI3+0dv4M6UgfpcIO8uXsu6SUmGWUwmpb0q6VfLEZ8PttLrFvWtZH5zyJODQ=
+X-Received: by 2002:a05:6830:6a8b:b0:816:b03e:f9dc with SMTP id 46e09a7af769-844fe3a42e0mr1445474a34.5.1792198123190;
+        Fri, 16 Oct 2026 17:48:43 -0700 (PDT)
+Received: from fedora ([2806:266:482:9274:1367:9be1:68ed:86d5])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-842a53d88c3sm3059400a34.10.2026.10.16.17.48.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 17:48:42 -0700 (PDT)
+From: Luis Gerardo Lopez Hernandez <gamaerry@gmail.com>
+To: gamaerry@gmail.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH] ALSA: hda/realtek: Fix internal speakers on Acer Aspire AL16-31P
+Date: Fri, 16 Oct 2026 18:48:38 -0600
+Message-ID: <20261017004838.8774-1-gamaerry@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+The Acer Aspire AL16-31P (Intel Alder Lake-N, Realtek ALC269VC,
+PCI/codec SSID 2782:1718) has its internal speakers wired to pin 0x1b,
+but the BIOS marks that pin as not connected (0x411111f0) and only
+exposes pin 0x14 as the speaker. As a result the internal speakers are
+silent while headphones, HDMI and Bluetooth work.
 
-The patch titled
-     Subject: mm/mglru: fix using folio_mark_accessed to replace folio_set_active
-has been added to the -mm mm-unstable branch.  Its filename is
-     mm-mglru-fix-using-folio_mark_accessed-to-replace-folio_set_active.patch
+This is the same layout as the Infinix Y4 Max and MEDION E15433, which
+share the 0x2782 subsystem vendor. Reuse their fixup, which configures
+pin 0x1b as an internal speaker and limits the internal mic boost.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-mglru-fix-using-folio_mark_accessed-to-replace-folio_set_active.patch
+Tested by booting with snd-hda-intel model=2782:1705: the fixup is
+picked, pin 0x1b is used as a speaker output, the internal speakers
+work, and they are muted when headphones are plugged in.
 
-This patch will later appear in the mm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: "Barry Song (Xiaomi)" <baohua@kernel.org>
-Subject: mm/mglru: fix using folio_mark_accessed to replace folio_set_active
-Date: Sat, 17 Oct 2026 05:31:15 +0800
-
-Commit 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to replace
-folio_set_active") attempted to avoid over-protecting in-fault read-ahead
-file folios by placing them in the second-oldest generation rather than
-the young generations.
-
-However, it repurposes `PG_referenced` on in-fault read-ahead file folios
-for this purpose, potentially coupling their handling with that of regular
-file accesses through syscalls, which also use `PG_referenced`.
-
-This could regress some workloads, as reported by Kairui Song[1] and Ehab
-Ababneh[2].  Many thanks to both for reporting these issues!
-
-The long-term fix is Kairui's MGLRU-FG, but in the meantime, we also need
-a quick fix that can be backported to stable.
-
-This patch reverts the original commit's abuse of `PG_referenced` while
-preserving its goal of avoiding over-protection of in-fault read-ahead
-file folios by adjusting only `lru_gen_folio_seq()`.
-
-Specifically, in-fault read-ahead file folios with `PG_active` set but
-`PG_workingset` clear are placed in the second-oldest generation (the
-third-youngest generation).  Activated file folios and refaulted
-workingset file folios remain in the youngest generations.
-
-Kernel build tests in a memcg show that this approach not only preserves
-the original patch's benefits but also further improves performance.
-
-w/o fix:
-
-real    1m49.094s
-user    25m31.484s
-sys     3m40.959s
-pswpin: 662112
-pswpout: 2504415
-pgpgin: 4424336
-pgpgout: 10355273
-refault_file: 359626
-refault_anon: 670724
-
-w/ fix:
-
-real    1m48.913s
-user    25m31.639s
-sys     3m30.875s
-pswpin: 689815
-pswpout: 2689894
-pgpgin: 4422659
-pgpgout: 11043464
-refault_file: 326566
-refault_anon: 697138
-
-Revert original patch:
-
-real    1m50.044s
-user    25m37.137s
-sys     4m4.493s
-pswpin: 1349087
-pswpout: 4317933
-pgpgin: 7083597
-pgpgout: 17602735
-refault_file: 337676
-refault_anon: 1368542
-
-Link: https://lore.kernel.org/20261016213115.70515-1-baohua@kernel.org
-Link: https://lore.kernel.org/linux-mm/20261003-mglru-fg-v3-0-cbd4546a5bd9@tencent.com/ [1]
-Link: https://lore.kernel.org/linux-mm/20260901180704.168106-1-ehab.ababneh@intel.com/ [2]
-Fixes: 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to replace folio_set_active")
-Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Ehab Ababneh <ehab.ababneh@intel.com>
-Cc: Axel Rasmussen <axelrasmussen@google.com>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Qi Zheng <qi.zheng@linux.dev>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Wei Xu <weixugc@google.com>
-Cc: Yuanchu Xie <yuanchu@google.com>
-Cc: Yu Zhao <yuzhao@google.com>
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: <stable@vger.kernel.org>
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Luis Gerardo Lopez Hernandez <gamaerry@gmail.com>
 ---
+ sound/hda/codecs/realtek/alc269.c | 1 +
+ 1 file changed, 1 insertion(+)
 
- include/linux/mm_inline.h |    5 +++--
- mm/folio.c                |   16 +++-------------
- mm/vmscan.c               |    9 ++-------
- mm/workingset.c           |   10 ++++------
- 4 files changed, 12 insertions(+), 28 deletions(-)
-
---- a/include/linux/mm_inline.h~mm-mglru-fix-using-folio_mark_accessed-to-replace-folio_set_active
-+++ a/include/linux/mm_inline.h
-@@ -319,7 +319,8 @@ static inline unsigned long lru_gen_foli
- 	 * |<---------------------------- MAX_NR_GENS ---------------------------->|
- 	 */
- 	if (folio_test_active(folio))
--		gen = MIN_NR_GENS - folio_test_workingset(folio);
-+		gen = MIN_NR_GENS - folio_test_workingset(folio) +
-+		      (type ? !folio_test_workingset(folio) : 0);
- 	else if (reclaiming)
- 		gen = MAX_NR_GENS;
- 	else if ((!folio_is_file_lru(folio) && !folio_test_swapcache(folio)) ||
-@@ -327,7 +328,7 @@ static inline unsigned long lru_gen_foli
- 		  (folio_test_dirty(folio) || folio_test_writeback(folio))))
- 		gen = MIN_NR_GENS;
- 	else
--		gen = MAX_NR_GENS - (folio_test_workingset(folio) || folio_test_referenced(folio));
-+		gen = MAX_NR_GENS - folio_test_workingset(folio);
- 
- 	return max(READ_ONCE(lrugen->max_seq) - gen + 1, READ_ONCE(lrugen->min_seq[type]));
- }
---- a/mm/folio.c~mm-mglru-fix-using-folio_mark_accessed-to-replace-folio_set_active
-+++ a/mm/folio.c
-@@ -474,20 +474,10 @@ void folio_add_lru(struct folio *folio)
- 			folio_test_unevictable(folio), folio);
- 	VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);
- 
--	/*
--	 * For refaulted workingset folios, set PG_active so they
--	 * can be added to active generations.
--	 * For prefaulted file folios, folio_mark_accessed() sets
--	 * PG_referenced so lru_gen_folio_seq() places them into
--	 * the second oldest generation.
--	 */
-+	/* see the comment in lru_gen_folio_seq() */
- 	if (lru_gen_enabled() && !folio_test_unevictable(folio) &&
--	    lru_gen_in_fault() && !(current->flags & PF_MEMALLOC)) {
--		if (folio_test_workingset(folio))
--			folio_set_active(folio);
--		else if (!folio_test_referenced(folio))
--			folio_mark_accessed(folio);
--	}
-+	    lru_gen_in_fault() && !(current->flags & PF_MEMALLOC))
-+		folio_set_active(folio);
- 
- 	folio_batch_add_and_move(folio, lru_add);
- }
---- a/mm/vmscan.c~mm-mglru-fix-using-folio_mark_accessed-to-replace-folio_set_active
-+++ a/mm/vmscan.c
-@@ -952,13 +952,8 @@ static bool lru_gen_set_refs(struct foli
- 		return false;
- 	}
- 
--	/* Promote on second access */
--	if (folio_lru_refs(folio) > 1) {
--		folio_set_workingset(folio);
--		folio_set_lru_refs(folio, 0);
--	} else {
--		folio_mark_accessed(folio);
--	}
-+	folio_set_workingset(folio);
-+	folio_set_lru_refs(folio, 0);
- 	return true;
- }
- #else
---- a/mm/workingset.c~mm-mglru-fix-using-folio_mark_accessed-to-replace-folio_set_active
-+++ a/mm/workingset.c
-@@ -319,13 +319,11 @@ static void lru_gen_refault(struct folio
- 
- 	atomic_long_add(delta, &lrugen->refaulted[hist][type][tier]);
- 
-+	/* see folio_add_lru() where folio_set_active() will be called */
-+	if (lru_gen_in_fault())
-+		mod_lruvec_state(lruvec, WORKINGSET_ACTIVATE_BASE + type, delta);
-+
- 	if (workingset) {
--		/*
--		 * see folio_add_lru(), where folio_set_active() is
--		 * called for workingset folios
--		 */
--		if (lru_gen_in_fault())
--			mod_lruvec_state(lruvec, WORKINGSET_ACTIVATE_BASE + type, delta);
- 		folio_set_workingset(folio);
- 		mod_lruvec_state(lruvec, WORKINGSET_RESTORE_BASE + type, delta);
- 	} else
-_
-
-Patches currently in -mm which might be from baohua@kernel.org are
-
-mm-mglru-fix-using-folio_mark_accessed-to-replace-folio_set_active.patch
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 36d3bc23a..2a0d25493 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -8671,6 +8671,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x2782, 0x1701, "Infinix Y4 Max", ALC269VC_FIXUP_INFINIX_Y4_MAX),
+ 	SND_PCI_QUIRK(0x2782, 0x1705, "MEDION E15433", ALC269VC_FIXUP_INFINIX_Y4_MAX),
+ 	SND_PCI_QUIRK(0x2782, 0x1707, "Vaio VJFE-ADL", ALC298_FIXUP_SPK_VOLUME),
++	SND_PCI_QUIRK(0x2782, 0x1718, "Acer Aspire AL16-31P", ALC269VC_FIXUP_INFINIX_Y4_MAX),
+ 	SND_PCI_QUIRK(0x2782, 0x4900, "MEDION E15443", ALC233_FIXUP_MEDION_MTL_SPK),
+ 	SND_PCI_QUIRK(0x2782, 0xa128, "Positivo N15RPE-S", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+ 	SND_PCI_QUIRK(0x2782, 0xa212, "Lunnen Ground 14", ALC269VC_FIXUP_LUNNEN_GROUND_14),
+-- 
+2.56.0
 
