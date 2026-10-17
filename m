@@ -1,89 +1,119 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D78E248F72;
-	Sat, 17 Oct 2026 19:52:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A20C32F7EE9
+	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 19:59:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792266723; cv=none; b=Cgey2vhG8UTmB3UPPJ0ydo9t1vNKxh1nL4Nz3I8e7XGUEkcZG+yWWT3RUyIZMMInog4avjiE8DxqaDxDf2wShVgBORAALqnhyBZalI4y+kO9CxMOs6sjB4ljW6Lgt9BkQureJAN94T6hpXVDawZLrrHkMBeTdkOONkJ+2pgd+k8=
+	t=1792267148; cv=none; b=OmXSvR7cManizjD43pn9krjpRAeO4/VFWnTO95C2qG2fJeciLUZShD1l+dMVlENoKZa2V+UeszzZLAXwX4gkU4jvUaHjA+DfXMeNxWKPwt8p54Kz9c24BVLzE5HvxFJlQpKedGOQcIRA5vboT1tPS6QOyvct3TTrpeeB8QC3pOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792266723; c=relaxed/simple;
-	bh=QWHnOIR/gEegt66Twr9xj92A74B+8WmceSQg0bWLy0c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B/R13b7VO9A+x61FsjntzAHYmYzmnTjkZdFpL5OE/x/9E2VYCq97FcjbdSCdhMIfwsdB3x3WFyGPFoVe4aMG8bRZkNJNpP7opCplsvR8jgr/373lnRuiMhkbjSSqv91qdG1txoHPFJ8aCHKUWQCIq/XzN/iFZkV9PFpzk9q3LNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=MmSchGBV; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1792267148; c=relaxed/simple;
+	bh=Ml000V61fr3YuTld7r7u6ykURZpQlGmMzt64SRhSqA4=;
+	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=sytFZ1qGzNN2SMTjQde5ruqDo7PK8BiGfNrc6nUF+fX+jcmQ68A/Tk4O9aWiQHjdsQMJobHTeApwGVix1wgA8HY7faTQgI3uaSrXYe5DkMZlAsTwzudKYYbEYmFE8bfkc+MLjHZV6JYK69/ysf57FIvC8dkYJgaf62DUsLOUm0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=J9bQj5LK; arc=none smtp.client-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="MmSchGBV"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 2279640E0488;
-	Sat, 17 Oct 2026 19:51:59 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id WlMeZV5jlWpO; Sat, 17 Oct 2026 19:51:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1792266716; bh=w+9+z6Y+dnThsE+OuxfD+pno9gifp3roJ194Xgds+ho=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=MmSchGBVUxuO5u4Iy4NP9tQApG86Xu1drct2WmTTeHSt3yYoILE/Jr0GZa41iCDR8
-	 MDURCsq3/HO961phhUtniAudQa8y2goGZITHFhoM1SSzd8T1aAMD/n0JDBjAmIqzKb
-	 I6THNB4p3cWIueXZZEfv2Ye3+TNI5xAlSTZI9S+Uia2yeZqkr9JwRz+oAAd8u+9Bzt
-	 IbASSEKco8dtDp7ZobRGB9Fdfaw/BClECEqhJP6ogNWhuYH36+TtwaIqT5qANoYEN1
-	 37zPq5Agq053V4LPYuVfnFUshAKtftAMWyjPGdoSPzXShqgHLp03nvkc18eSl6qi5J
-	 Lm8Bic3FdSfkNzJxAos3pn+RzCtxKhLpS/SX23H/NPyBJWAXMMIIV2n3A39arZHhbG
-	 bkSIEW1m7wy2ykcdW0wZZzc2BqucA58S89XyX0osVRSzltxckiXNDPKD7VlKcN83FH
-	 FNZDquJgdZqU2yD2B0hX6vKLvxujAkyNoRMFU9Jle2tBIOPDRu8+tslIaurYVRYODb
-	 ObEdMM1V7H7B0foLwOl9/Q/n4jWpeu/NchG2mnXiRwUzU9sqYboY4736y3SMlpPXr0
-	 1tRvXrp5BCrWl1p2L40d7+5+7bWkypYCdDIbuOJBfT96tDPqCNgFuuuf9hcNuiM9ky
-	 jCJtqLjB1HxOLjNOWREqnvZU=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::2a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 8862440E015B;
-	Sat, 17 Oct 2026 19:51:48 +0000 (UTC)
-Date: Sat, 17 Oct 2026 12:51:45 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Yazen Ghannam <yazen.ghannam@amd.com>
-Cc: Guixiong Wei <weiguixiong@bytedance.com>,
-	Tony Luck <tony.luck@intel.com>,
-	Muralidhara M K <muralidhara.mk@amd.com>,
-	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] EDAC/mce_amd: Add missing long names for SMCA bank types
-Message-ID: <20261017195145.GAatPR0dQVZGEMHglh@fat_crate.local>
-References: <20261009020447.90758-2-weiguixiong@bytedance.com>
- <20261012140330.GC15198@yaz-khff2.amd.com>
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="J9bQj5LK"
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-35f1f76ea84so1698993eec.1
+        for <stable@vger.kernel.org>; Sat, 17 Oct 2026 12:59:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernelci.org; s=google; t=1792267146; x=1792871946; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=HAgaZs7U9Ts9mDMveQXhZnqnkSOSUDsoHpqBUnmOvg0=;
+        b=J9bQj5LKD+aVHe8s/slYvevtxHcCmivyfSeSfhcnjC4SdOwqnXyAOPofeyfMwR3gbN
+         R81q2Md55lO+GNu2HDud+aYbJJKqwlgprUMxlvvfR9iRf8HU59mEukf49oFAiagHh3mc
+         5zGq0z+KCB2ChOpOJP4BPGI7/JUXBg15eiCKl39XlW+S0S9bNeb1EtQQrFEgjyFSfAet
+         I53GN7yQgUNQx1XEpMFdeH86nGBruLh4aM56x7jnz/6aYQyS6KycKSW4XduYFGEwNIH7
+         8RLDp9D9bJqyL/pinrUkl+dQKAe97IncCoztcsVcjG5PbPCTj/3caVNnP6KL0wilciwI
+         fQbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792267146; x=1792871946;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HAgaZs7U9Ts9mDMveQXhZnqnkSOSUDsoHpqBUnmOvg0=;
+        b=tqqHK7GSS4uBARMJ2fMvodYJ50eUGGIEwA2EDQoywRmHHCKfl8InnwuRg+twF68kK4
+         lnZ8YFPxOp5dag4Mj+Nm9oF9jFzvfu7vPyRqTMywojDhAAJ6ICk2N+B0pzMPop4hb0va
+         sJpyxOt9AVPsZClxivF0n7ZOWPuucHwe+FaiA8HxKwGWy7qP34p9dpBi/ES6KTb+8oSg
+         fJcHe/3ZBpJrRW1nLt53+9QzwKpBBPtKjc7bxEydwgMKjbWue4JYFYm1utvbqs1tGnTo
+         3pkYMPWOdPAjTZWxZhq9JEGH5PJo7CbAHlUTsrNOWp1gZKVxuJBMBsdi8bIHOXGw6eKx
+         QFXQ==
+X-Gm-Message-State: AFq9FYKgMbo1ll/os1Q7P3yK+77YBbi+q/G9nSUdYalz2om1ZohfJes+
+	uW+rX1EEqHE2p6XIaeKKwC2+RZnwzI2plKgipx39W/deP3vgQkfsg6R+OOja3kVABDUPgqJGXTm
+	rLVxl
+X-Gm-Gg: AYBFou2WGtuhPwF9p5FZ4lvaIg844hn6ttC7RuH8+NHmNo9okV+f0J5IieOgFDD7iRm
+	DoSK9pBRY4a4muonoFTQvKoULzZqWagw2ASglg3T03wNSqzjk55M/uCcNoOZkwzrjSoxML3iFHb
+	hzArKHhQqCWSmqtl4U6lTSMhqRQC1xnG1R2G0FXO3xAvhafnmnYU40s4289WZRMrMhfgsbpNK0P
+	S5W9DuNPhHhjEcC8etlWJqlSWm2ob+XPN8Qyu/zJ5iygw9OjTj9o/Zv1ZOEJIem3rTUaQdCtkmZ
+	lw1YOFakZlJzj7jJHkYXXOl22sZqJYYxIQ1rmS0rf1BeSCi3Lhn3k9b8AlSiLblB+pK5eP3z02L
+	gDiJXO5cpNrsYyFcs6k6lGfrNK0twol7ac1yBYmL46je72tGZcYz3YzVPHivDLZXB1uDwXVVCTz
+	3asENmiYRGli8QPAt8OJISAwdAkQbSaY/USLejsrz5nFKC7bpw+hIwIoSuLbi6f/0=
+X-Received: by 2002:a05:7301:428c:b0:35b:7dcd:dd57 with SMTP id 5a478bee46e88-361a0b99d57mr4335423eec.10.1792267145451;
+        Sat, 17 Oct 2026 12:59:05 -0700 (PDT)
+Received: from 6e52bff8000c ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36081fa5a6esm18584708eec.16.2026.10.17.12.59.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 12:59:04 -0700 (PDT)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261012140330.GC15198@yaz-khff2.amd.com>
+Content-Transfer-Encoding: 7bit
+Subject: [REGRESSION] stable-rc/linux-6.6.y: (build)label at end of compound
+ statement
+ is a C23 extension [-Werror,-Wc2...
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
+Cc: stable@vger.kernel.org
+Reply-To: kernelci@lists.linux.dev
+Date: Sat, 17 Oct 2026 19:59:04 -0000
+Message-ID: <179226714426.54876.6274550650293482487@kernelci.org>
 
-On Mon, Oct 12, 2026 at 10:03:30AM -0400, Yazen Ghannam wrote:
-> These were intentionaly left out as it as it seems users have been
-> moving to user space decode tools.
+New build issue found on stable-rc/linux-6.6.y:
 
-You're making the old mistake:
+---
+label at end of compound statement is a C23 extension [-Werror,-Wc23-extensions] in net/sunrpc/svc_xprt.o (net/sunrpc/svc_xprt.c) [logspec:kbuild,kbuild.compiler.error]
+---
 
-a. a naked MCE record in dmesg, you have to open the PPRs and actually decode
-it by hand. Or use a tool but most of the time, that tool is not updated with
-the latest error definitions, and you need the exact machine info in order for
-the tool to decode properly, yadda yadda...
+Log excerpt:
+=====================================================
+/tmp/kci/linux/net/sunrpc/svc_xprt.c:874:1: error: label at end of compound statement is a C23 extension [-Werror,-Wc23-extensions]
+  874 | }
+      | ^
+1 error generated.
 
-b. Get a fully decoded error string in dmesg.
+=====================================================
 
-What is better: a) or b) ?
+When fixing this issue, please attribute this report according to the
+patch submission rules:
 
--- 
-Regards/Gruss,
-    Boris.
+Reported-by: kernelci.org bot <bot@kernelci.org>
 
-https://people.kernel.org/tglx/notes-about-netiquette
+For complete logs and details about the environment used, see the issue
+on the KernelCI dashboard:
+
+- dashboard: https://d.kernelci.org/i/maestro:697e787e9252e3e148ea5672e0816f2159fa228e
+- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+- commit HEAD:  47804a4b58848c9b0a2773013334c8ba54eba310
+
+# Builds where the incident occurred:
+
+## x86_64_defconfig on (x86_64):
+- compiler: clang-21
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6ad3ae6f7c0a66b9cb43aff9
+
+#kernelci issue maestro:697e787e9252e3e148ea5672e0816f2159fa228e
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
