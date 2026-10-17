@@ -1,50 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 973503C09EF;
-	Sat, 17 Oct 2026 03:00:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC20D3AAF67;
+	Sat, 17 Oct 2026 03:00:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792206036; cv=none; b=dIpJLAUXK5KdE2aONuuM3IEMwved04+svwqaFGUjTHjBDbBtNzZx4EKKnWLkcYBz9geNdPV/0OWpei/dl1ogPKu+w15Xq+O33U86qbHCx4dzzRvBnNfWhyFk/kgbfbK8DO2D/FhgTvhrpVxUxJ2oRYOV0Rd3MJcO34Xzp7rQJ48=
+	t=1792206037; cv=none; b=Jd4B0H1kfp2dmjo2oPPNpequXs8WX6HLY3tNHunKN/XIs0IMJai8qZ2/ek9wVKDWRvjqvu2ryxJbfAdCCVbTtYhjE7JRv7Brd2Yos7etY8NSA6rNZx38cU/DMrueKjhi1pKFL53Tnpc1m1cOd7RyJeDzSwbuyNqM6hIAYuFfJwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792206036; c=relaxed/simple;
-	bh=mWrENTQ5kvxg3hMNodYeKHDlsST656+QDnn7gz1rWC8=;
+	s=arc-20240116; t=1792206037; c=relaxed/simple;
+	bh=PCIhtikeFldSmOdgfPbVx3VTw6+BtQ7VT+bytkNhhBc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bNXR+pNy6VE8XFyIEK3nwTcVkOlv/uoB5OvDEBVVXaG5aY/u4VrDCMViv63OusBv3aCId9bAr/ILHMsFX2iJvNM+6OK3quaguoSGMN1hJBPWAiRmVW3feGWARxbb251pxGUIp9BtDLGk8CcdsYIKbNmv64WTWhRVw6B0XqN0Dqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZKodG6hA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=eINo/4DgSRkiAUAkBUAxt2Qd1sqy/Jl+1/vcuH4HuE7pSURUOhvcfMU8FLWxRoA4GIJcJ/CNmgJXUjHdrQyPvok1XOUCwx4NJ9/L596x3rl/L1vc7QlFkZ2r2WZ9+KcZ9leF2zbGQP3BlPDqT/yvix17gs9PKj9+dNqXy0lgOCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k6KD7jtW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZKodG6hA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C13401F000C6;
-	Sat, 17 Oct 2026 03:00:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k6KD7jtW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FD391F000C5;
+	Sat, 17 Oct 2026 03:00:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792206032;
-	bh=4gPD4L+1sL7lcR7Sr+sUtlwsiz4IzVaXbBWYT1gM/BU=;
+	s=k20260515; t=1792206033;
+	bh=ostKh87JK/EU95R+F8toJ5luoLJr5yeBgB6K3dkVWH8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZKodG6hAiv2w/UYLm8dntBehfWN2gSw6KN4E3bgeQz6DO3k4tsRvXIKM1NB75M72m
-	 vDFjd8tywIbIEjX28rnO7nDo86AqONkd5zzN72z9LPmjuwb49wOqgSWWHLgIgX2QxP
-	 wePTn0T8y1WVxDsbn/2NZviXB9toH8Uho8xhU6QdQgYmuoQLWi57CrhaZwf/Uh8cjB
-	 JQaFwtpMHIkS7fJPBl731fAD6Qi+ColDdjO2sqfPSEr7VfnZlm3WwHi4/4h8JvOqXs
-	 t9oPOTr6lwFHdRIpuSdmCj0bpi04Av90SrcG5qzvYghwXJuO7iU6p0mLctlxPxPpQC
-	 rcLywbeZS3GZQ==
+	b=k6KD7jtWyOZQdr0S5VmuQLkESk2VE1zujvnorlJZFYUq81uEHYLJayvypmwEJdX0r
+	 2ZcECfwmkawa0d1hIg4SF0hQPf5wCPAigrMl5W6z+AwLYPXyZSsFwjwPtR/BLVHRpd
+	 oq0VFNXz05NT9x/hSRI8Oj/A6haeOOuywyWGxkRy67Q6cMRDOANQC9Eekw907aXzW1
+	 dGXTofTcPQcXTs1Wg/A4LAfq0/Ap/TTAvUsPJmkD4uKyS19/PELCn9OfhzHh73wLMq
+	 gbZCrrKkxICtVItl8k67J+Wst3eDhod9Mszk7MuK+tXS6usCzqLs1Oo2RJt1Up3DJF
+	 Q/RB3pKW4zJIw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	davem@davemloft.net,
-	steffen.klassert@secunet.com,
-	herbert@gondor.apana.org.au,
-	kuba@kernel.org,
-	netdev@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	apais@linux.microsoft.com,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	Tahera Fahimi <taherafahimi@linux.microsoft.com>
-Subject: Re: [PATCH 5.15.y] xfrm: prevent policy_hthresh.work from racing with netns teardown
-Date: Fri, 16 Oct 2026 23:00:11 -0400
-Message-ID: <2026-10-16-1-daily-reply-0006-xfrm-policy-hthresh-5-15@kernel.org>
+	luiz.dentz@gmail.com,
+	luiz.von.dentz@intel.com,
+	marcel@holtmann.org,
+	ngocthang2710.1999@gmail.com,
+	Artem Dinaburg <artem@trailofbits.com>
+Subject: Re: [PATCH 6.6.y 2/2] Bluetooth: hci_core: Fix queuing tx_work after workqueue is drained
+Date: Fri, 16 Oct 2026 23:00:12 -0400
+Message-ID: <2026-10-16-1-daily-reply-0007-bluetooth-tx-work-drain-6-6@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261015230634.2364063-1-taherafahimi@linux.microsoft.com>
-References: <20261015230634.2364063-1-taherafahimi@linux.microsoft.com>
+In-Reply-To: <20261016021047.16461-3-artem@trailofbits.com>
+References: <20261016021047.16461-3-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,11 +50,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> An XFRM_MSG_NEWSPDINFO request can queue the per-net work item
-> policy_hthresh.work onto the system workqueue. xfrm_hash_rebuild()
-> retrieves the enclosing struct net from the work item, so the callback
+> Please consider this backport of the fix for CVE-2026-98297 to 6.6.y.
 
-Queued for 5.15, thanks.
+Queued for 6.6, thanks.
 
 -- 
 Thanks,
