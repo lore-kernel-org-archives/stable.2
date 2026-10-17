@@ -1,149 +1,189 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F6B38F636;
-	Sat, 17 Oct 2026 07:50:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B991F3F4128
+	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 08:23:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792223401; cv=none; b=RKcpdvRh8VNdi18s39opDydkPY9w8W/ZU7OO1qmzomWeN+Obe3mKxhbdvuGTuIwRtyDgWcuzNSMPvKOKx82N+Rc8MZclMsR5k6h6HbBiAXyRNKCUT+oDsgPj935d132eS7CcgmOsxnCjbxlDcm0rloB2n8l+UuJM6z+wXqcJhE8=
+	t=1792225407; cv=none; b=Kq19TijI6gT8MWp5GHuq9gMvdfOspMeCHxzuUqW76BfxIn6MQ+PBqL3p9emXqH6+MIkcPPmM9qKGqk7GZVWUIsM8pV7WxXH4aPcWhiOqf5oQZPAHKXWETBzp4g/akQugCpTxCv5Ni79d35IPG4UAt7eZf9jo3mGWCEBsw599K0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792223401; c=relaxed/simple;
-	bh=Ja880ieX5btGbOetW6ERT7C8QZpzOvpUGxaS+9vPCzc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fV6z+KFuO3QE1SEFtKYkTyJm3l9pLcYP9H2QESn1GAM7E6Qq4GzNlh3cQ0+atTAfQLX7KK5Mjiuhgv4lHGOpgi3kvQmxyoQuNlJ4ORkDdALyOXxHC8u35p+YCRZioYvgmLAEzXKYZ13GkwVs3Pl5ZGs+K5kmRyS7QKvcQfPYES4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=iKGv5GWZ; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1792225407; c=relaxed/simple;
+	bh=B/8PT4AjH4rqvTrp0fFTFPo8EpA/5PLE0aHfyAYek6E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dwyYcchZNjKfuvxgVEyBUlq+oxVu7qcUKapQ2Y/ECNAhxfVWd1Zi5tHfUE4ng/98FohZ1E3rBgYZAvI7G7y2Dhn2ms/b+n6j83e9MxtNcPqALkFx/BtS2+8MU8n3FN+vfNRptYUL7uv5fIKczS8dqoktnWTx7adDg5J0HF3aQ8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ABo4VBp8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="iKGv5GWZ"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69H7ECN3660074;
-	Sat, 17 Oct 2026 07:49:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=TzjXRaGDFHVgAyX5X
-	ZwWn/VzZjkJ8CrZs+wqvCCu2LE=; b=iKGv5GWZPIKMX5WABtl4MQJb1Rr/j/x5U
-	HVCOYwMZNAK9LCdT9Xf4jmmlU3kHvDWrk+Gpvt9ErLRR4Ge4zeQtE3r5hNRPBQA9
-	QcfQ5C7U8S05LJXyGU6Vzgq1zZHIIEVWwYP1GNpFg1noat/Uch/XDwj6ump3b/OY
-	nBCU9kYwEPkM4yrZp+24GRRJGAnIStEZAp8ECtSmt6EA6MofWXQP0ZnVdXdll2jj
-	8SU0NnLLQKCVi6Ndwp2hpqbNtNKETZOA03wM/3k+0wBY8cck9WYTtUoh+uSzYgW3
-	sH3eyJvAIuuhg4bgJSWtCceabRDRM8sWeOpxPlNLYIJah483iDrgA==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hbyepgwjh-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sat, 17 Oct 2026 07:49:43 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69H6nqwB729104;
-	Sat, 17 Oct 2026 07:49:43 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hb36wpuv3-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 17 Oct 2026 07:49:43 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69H7ndIW47841728
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sat, 17 Oct 2026 07:49:39 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5777020043;
-	Sat, 17 Oct 2026 07:49:39 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5988520040;
-	Sat, 17 Oct 2026 07:49:31 +0000 (GMT)
-Received: from li-fc74f8cc-3279-11b2-a85c-ef5828687581.ibm.com (unknown [9.67.66.83])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Sat, 17 Oct 2026 07:49:30 +0000 (GMT)
-From: Srish Srinivasan <ssrish@linux.ibm.com>
-To: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org
-Cc: maddy@linux.ibm.com, ritesh.list@gmail.com, sshegde@linux.ibm.com,
-        mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
-        James.Bottomley@HansenPartnership.com, jarkko@kernel.org,
-        zohar@linux.ibm.com, linux-kernel@vger.kernel.org,
-        linux-security-module@vger.kernel.org, nayna@linux.ibm.com,
-        rnsastry@linux.ibm.com, ssrish@linux.ibm.com, stable@vger.kernel.org
-Subject: [PATCH v3 3/6] keys/trusted_keys: clear sensitive PKWM buffers
-Date: Sat, 17 Oct 2026 13:18:47 +0530
-Message-ID: <20261017074850.164031-4-ssrish@linux.ibm.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261017074850.164031-1-ssrish@linux.ibm.com>
-References: <20261017074850.164031-1-ssrish@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ABo4VBp8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A61F1F000CE
+	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 08:23:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792225405;
+	bh=CzWYlYAS4AGuXYGusSpuGOU8ZQW7NemBmNK6vpZWRD8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ABo4VBp8LdHmkhYF0soBjkxk5JGJNFflZus5ddgKJIGeibVURxWGA1Ik93sG28Qpf
+	 L/g8m9/AFX/70H7TG6aKnrd86APHwphob9Cwtp1PcKbTuraBj0UOLKAbsGHMyDsNqX
+	 0eQQvO+OpSPSkHio1ZRVJ5GuX6eoGrRZAZ4VR48XQ03Oz9P0kwW5hV4IuFboK818aa
+	 nmc+Y3kkkhs+8XRYhbhnium8Mg5gPuMxjhJ8lZbqwbIF3yogQNY4i1eayk4aneSfO7
+	 MADiFa+Kvayq0DNttvDSQmUOgv9zc7otjd42h9weMPEuBkBLPSmTrKORd2SBTpKT6S
+	 dLlA1POuq0baA==
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b203527bceso699873a12.0
+        for <stable@vger.kernel.org>; Sat, 17 Oct 2026 01:23:25 -0700 (PDT)
+X-Gm-Message-State: AFq9FYKGb8IewMoRFDLsVKNwaHX0ED6dZg16LsbfOKDtgeRPj4fbC9YZ
+	vP7IRBNvOKcvFYUMxI5q3abkKxDc01CMb6+m84vEGGGYwtu6sd2Vt7ZOg8cLyclvXILd2o290rX
+	J9zhZVPW6IKFOJMCmhWvVpYo2LfZDe/Q=
+X-Received: by 2002:a05:6402:2110:b0:6a9:aabb:5364 with SMTP id
+ 4fb4d7f45d1cf-6b3a8175ddamr1231513a12.11.1792225403927; Sat, 17 Oct 2026
+ 01:23:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE3MDAzMCBTYWx0ZWRfX6WRCvgAAYY93
- 3ecyrcXYC2XpZnR0krXg60O/geGE6S/OoZbiP1jBj1cNpsLtAPguNCewdbe2VBWzeSqkI/8WkH+
- ZvhXkjHeIcvAhFxPPSg9NAF0b0KC6uw=
-X-Authority-Analysis: v=2.4 cv=Z4R5j3RA c=1 sm=1 tr=0 ts=6ad32898 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=0K-bQ7w7VnYq07X3RDEA:9
-X-Proofpoint-ORIG-GUID: pQ_U88MVLMH2ayV5-tbYxDOFTeN_dna2
-X-Proofpoint-GUID: t4wt0HvaE2goMA7bG7OzNuVX-9Llh-mH
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE3MDAzMCBTYWx0ZWRfX29nI1EYEE/R7
- +dgrZI0QFjEoWWcanL5afsSWalt9pntVYS7zvuznCzcWVC5PsE5SBsYGcgsSQCIB11DrPACMfZO
- eUgBz0HzA0+UJbfGDYlXtaqkSUaXgv82Me9XlqFKbuzAQuNSeklwFKBJjkKwo+QCdVwe+Hk+WKw
- 4xVpfcQ+Iw+9iaW4AKqri6P+QNdKym6eaTVuxxAHtVxjqnW8Zm5hHaxceyzjxfEnpZH61od2bCX
- HM8sVKVSDdWIiQaA1mf9x8C5gpJiaBTHleD56gxFXHaLJ+wCyn31D+NGEtFkpGs43aYj+xz3/BV
- V9hUyTdLQmoNaveleelXcQFnWRfFJoLs/RsfrNvR6lYk0C92yuKV/IAA8b+Y59CmAPNOmWQNN8B
- fYDyeDRT8V2KYxYoXTNcJcjlM7kjFv0K9Jx8mOa4DrP8WOQ+2GLjD9qxUJhN8g+GHaISI2he3Dt
- Mk1mUzQgDC/cy0JLzNQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-17_02,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
- impostorscore=0 suspectscore=0 phishscore=0 clxscore=1015 adultscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610170030
+References: <20261016170833.3977982-1-sashal@kernel.org>
+In-Reply-To: <20261016170833.3977982-1-sashal@kernel.org>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Sat, 17 Oct 2026 16:23:12 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H4K-i-zdWB7mkXVujXEhc2G350a1pKXx+q=9Uxx5tHbxg@mail.gmail.com>
+X-Gm-Features: AclHuK8n0GCr5b_1Bh7P8v3FENlgYQx8VrecjirPT_wbTraUwPSwmzyN_l0pnuE
+Message-ID: <CAAhV-H4K-i-zdWB7mkXVujXEhc2G350a1pKXx+q=9Uxx5tHbxg@mail.gmail.com>
+Subject: Re: Patch "LoongArch: BPF: Refactor jump offset calculation in tail
+ call" has been added to the 6.12-stable tree
+To: stable@vger.kernel.org
+Cc: stable-commits@vger.kernel.org, yangtiezhu@loongson.cn, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, John Fastabend <john.fastabend@gmail.com>, 
+	KP Singh <kpsingh@kernel.org>, Stanislav Fomichev <sdf@google.com>, Hao Luo <haoluo@google.com>, 
+	Jiri Olsa <jolsa@kernel.org>, WANG Xuerui <kernel@xen0n.name>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The input buffer to PKWM seal and the output buffer from PKWM unseal
-contain plaintext trusted-key payload data. Freeing these buffers with
-kfree(), without wiping the contents, can leave sensitive key material
-in memory.
+Hi, Sasha,
 
-Use kfree_sensitive() to wipe the sensitive key material when freeing
-these buffers.
+On Sat, Oct 17, 2026 at 1:08=E2=80=AFAM Sasha Levin <sashal@kernel.org> wro=
+te:
+>
+> This is a note to let you know that I've just added the patch titled
+>
+>     LoongArch: BPF: Refactor jump offset calculation in tail call
+>
+> to the 6.12-stable tree which can be found at:
+>     http://www.kernel.org/git/?p=3Dlinux/kernel/git/stable/stable-queue.g=
+it;a=3Dsummary
+>
+> The filename of the patch is:
+>      loongarch-bpf-refactor-jump-offset-calculation-in-ta.patch
+> and it can be found in the queue-6.12 subdirectory.
+>
+> If you, or anyone else, feels it should not be added to the stable tree,
+> please let <stable@vger.kernel.org> know about it.
+>
+I think this patch is not necessary for 6.6/6.12 because the commit it
+fixes is not in 6.6/6.12.
 
-Fixes: c99fcb0d735b ("keys/trusted_keys: establish PKWM as a trusted source")
-Cc: stable@vger.kernel.org # 7.0
-Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
-Reviewed-by: Nayna Jain <nayna@linux.ibm.com>
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
----
- security/keys/trusted-keys/trusted_pkwm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Tiezhu, what's your opinion?
 
-diff --git a/security/keys/trusted-keys/trusted_pkwm.c b/security/keys/trusted-keys/trusted_pkwm.c
-index 633a7674d065..6774557f818a 100644
---- a/security/keys/trusted-keys/trusted_pkwm.c
-+++ b/security/keys/trusted-keys/trusted_pkwm.c
-@@ -118,7 +118,7 @@ static int trusted_pkwm_seal(struct trusted_key_payload *p, char *datablob)
- 		pr_err("Wrapping of payload key failed: %d\n", rc);
- 	}
- 
--	kfree(input_buf);
-+	kfree_sensitive(input_buf);
- 	kfree(output_buf);
- 
- out:
-@@ -153,7 +153,7 @@ static int trusted_pkwm_unseal(struct trusted_key_payload *p, char *datablob)
- 	}
- 
- 	kfree(input_buf);
--	kfree(output_buf);
-+	kfree_sensitive(output_buf);
- 
- 	return rc;
- }
--- 
-2.52.0
 
+Huacai
+
+>
+>
+> commit 0dab95914c7ff9101f5b41b2d549be998370c84a
+> Author: Tiezhu Yang <yangtiezhu@loongson.cn>
+> Date:   Mon Aug 17 22:07:23 2026 +0800
+>
+>     LoongArch: BPF: Refactor jump offset calculation in tail call
+>
+>     [ Upstream commit 37d545d12f21c4d50612ecaebd7ae1e5bf91b2d8 ]
+>
+>     The old macro-based jmp_offset calculation derives the jump distance
+>     from a stale prior-pass code stride, which can lead to wrong branch
+>     offsets and soft lockups under extra JIT passes.
+>
+>     Fix this by calculating the offset directly on the absolute target:
+>     "ctx->offset[insn + 1] - ctx->idx".
+>
+>     To avoid a false 16-bit range check abort during size estimation, add
+>     a "ctx->image =3D=3D NULL" guard to inject a safe dummy offset.
+>
+>     Cc: stable@vger.kernel.org
+>     Fixes: cd39d9e6b7e4 ("LoongArch: BPF: Fix jump offset calculation in =
+tailcall")
+>     Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+>     Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+>     Signed-off-by: Sasha Levin <sashal@kernel.org>
+>
+> diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
+> index f1aaa4367fc88..4797b0bcc4fd7 100644
+> --- a/arch/loongarch/net/bpf_jit.c
+> +++ b/arch/loongarch/net/bpf_jit.c
+> @@ -210,17 +210,13 @@ bool bpf_jit_supports_far_kfunc_call(void)
+>
+>  static int emit_bpf_tail_call(struct jit_ctx *ctx, int insn)
+>  {
+> -       int off, tc_ninsn =3D 0;
+> +       int off, jmp_offset;
+>         u8 tcc =3D tail_call_reg(ctx);
+>         u8 a1 =3D LOONGARCH_GPR_A1;
+>         u8 a2 =3D LOONGARCH_GPR_A2;
+>         u8 t1 =3D LOONGARCH_GPR_T1;
+>         u8 t2 =3D LOONGARCH_GPR_T2;
+>         u8 t3 =3D LOONGARCH_GPR_T3;
+> -       const int idx0 =3D ctx->idx;
+> -
+> -#define cur_offset (ctx->idx - idx0)
+> -#define jmp_offset (tc_ninsn - (cur_offset))
+>
+>         /*
+>          * a0: &ctx
+> @@ -230,12 +226,12 @@ static int emit_bpf_tail_call(struct jit_ctx *ctx, =
+int insn)
+>          * if (index >=3D array->map.max_entries)
+>          *       goto out;
+>          */
+> -       tc_ninsn =3D insn ? ctx->offset[insn+1] - ctx->offset[insn] : ctx=
+->offset[0];
+>         emit_zext_32(ctx, a2, true);
+>
+>         off =3D offsetof(struct bpf_array, map.max_entries);
+>         emit_insn(ctx, ldwu, t1, a1, off);
+>         /* bgeu $a2, $t1, jmp_offset */
+> +       jmp_offset =3D ctx->image ? (ctx->offset[insn + 1] - ctx->idx) : =
+0;
+>         if (emit_tailcall_jmp(ctx, BPF_JGE, a2, t1, jmp_offset) < 0)
+>                 goto toofar;
+>
+> @@ -244,6 +240,7 @@ static int emit_bpf_tail_call(struct jit_ctx *ctx, in=
+t insn)
+>          *       goto out;
+>          */
+>         emit_insn(ctx, addid, REG_TCC, tcc, -1);
+> +       jmp_offset =3D ctx->image ? (ctx->offset[insn + 1] - ctx->idx) : =
+0;
+>         if (emit_tailcall_jmp(ctx, BPF_JSLT, REG_TCC, LOONGARCH_GPR_ZERO,=
+ jmp_offset) < 0)
+>                 goto toofar;
+>
+> @@ -256,6 +253,7 @@ static int emit_bpf_tail_call(struct jit_ctx *ctx, in=
+t insn)
+>         off =3D offsetof(struct bpf_array, ptrs);
+>         emit_insn(ctx, ldd, t2, t2, off);
+>         /* beq $t2, $zero, jmp_offset */
+> +       jmp_offset =3D ctx->image ? (ctx->offset[insn + 1] - ctx->idx) : =
+0;
+>         if (emit_tailcall_jmp(ctx, BPF_JEQ, t2, LOONGARCH_GPR_ZERO, jmp_o=
+ffset) < 0)
+>                 goto toofar;
+>
+> @@ -269,8 +267,6 @@ static int emit_bpf_tail_call(struct jit_ctx *ctx, in=
+t insn)
+>  toofar:
+>         pr_info_once("tail_call: jump too far\n");
+>         return -1;
+> -#undef cur_offset
+> -#undef jmp_offset
+>  }
+>
+>  static void emit_atomic(const struct bpf_insn *insn, struct jit_ctx *ctx=
+)
