@@ -1,73 +1,97 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC287481648
-	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 11:11:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1073803DC
+	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 11:12:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792235486; cv=none; b=dtzVp53Hxfadz0mWxo9usDWmu38V8H3hl7EKNuoNiStdIsLMuVq9emESXCvyHItT3/4Ci9sWvGmuHq3oo1n6/aePL4Dz2CeyrKNBXSqv2/rKZHxLTqUhr1YGSkK4RiKW2acWXwqtSBP6/awHVd8s/gUY8bOLvTvNthf97kdIUrM=
+	t=1792235526; cv=none; b=LH/Y25yz/h3gzrJTb+MQIkRaAuiQmK0LvR1yr0509oZWHWO50iDiVqDEaBsrEPhkw0181oYpe4ca5KfgKznbItdf4Ge8IOiFCu/Hydolq6njXoKpQ6G2pxGRcAwfUrcqALeoW4ISAkCGrM/fTTpo3XdFwtGbtbgvQe2KouKo4ps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792235486; c=relaxed/simple;
-	bh=FXpl+aOb8ZxqdMza6huuGxKQd5fQg4/v+NznngJK6Oo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AnKJQYZwgFKCHLcb66PWB+5VUblHN3tnq5q6GuKh07NUY62eLNR5uvVsYY/3wXhycTGOft689mV9Jb3WIykRtrjHe59ePYw7vlK5nWuyVXIeMby1xHQgYQ6uwcoki6ptTolv4s16X8QvpS6K4RinzRDj+wPtO4zkIbTjlmop49k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XpMzd4Fz; arc=none smtp.client-ip=209.85.216.53
+	s=arc-20240116; t=1792235526; c=relaxed/simple;
+	bh=uh9SS2WMqmUt4cpgp+wv9TrfsT1TAr44dlN+wtjyrDk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=ohxUNUal/u93Nq8YwDK7cZLk72jmvc/n6Q9+jVqrjdyJyZQblu35TdRUG+XHgp4kFceol25U8G4RGKj1tR+9BwmWJhuh9CC6uJe6dy4O4FF0X4iSGO1b6BOV0jYyP6+saxZObtES9+EAR8BtIWp8DkB5QWotp8SzNvS4Daujkmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RqKXqkfM; arc=none smtp.client-ip=74.125.227.138
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XpMzd4Fz"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ab2cb02816so131695a91.0
-        for <stable@vger.kernel.org>; Sat, 17 Oct 2026 04:11:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RqKXqkfM"
+Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-3abe4fb64d2so507121a91.1
+        for <stable@vger.kernel.org>; Sat, 17 Oct 2026 04:12:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792235484; x=1792840284; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JcF+DRWasibANQc8YNZXnJ99HscJ7q/xfWKQy6h+B9g=;
-        b=XpMzd4FzbShpMX9xL2Lg6X26Bpk637HW4XS1VxztHs+YW+/JnLgq2CRmhdw+51ctS0
-         EY9N57UAjaGfaaUv2Fn27ElbSUWYppxU0S3znjFi0w/58LuojO9KoivpFj8etXCMHHaA
-         iOI6XAYb1+2dE4BGdyWl1Whrh0cfzNk2J6E9CAcJPwP/zD26RLqhyv6rRxFZ+MWmV8ro
-         drEsMs4NYiU7SzUpWSQ8oTBkG92tpAnoE7JjLgLxFqZCh3inUenBN4SKHeJbtQ2q3yC5
-         OtvhrIRyDYifXR+8RnGyF7iATDa1Bi41tVQbc49FX5JwUKxjOH2kBwUrhpkUrC7cDSIb
-         jrNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792235484; x=1792840284;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792235523; x=1792840323; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JcF+DRWasibANQc8YNZXnJ99HscJ7q/xfWKQy6h+B9g=;
-        b=B3sTOoK7+5KRH0YYwXZ2sP/UEzza+b7ltcL/XuO9/1z7vV7TSI1p3veRNOttpO8cM6
-         ldjJo2Mh6i2c/uThKc90XB5n5rhhYm28zGLZyBcMA9Sv2hSOGklQ0odr8ilrI12zYk1F
-         9TE+aQtBnzQHACbrXjNan4CXw5q+BtqjuD8cI9U3Y9uonWG3b8eoXRj6rdp0NIiD0k5w
-         lG3OU3Y1BUJ4yvWpYXJlyEW7zrjRAWIVSVqE04jCVYfFYIjO/Q8ISmdByuP/zjtt3cLy
-         8v9ROe8OgW1fezFq3smty4bBI9ys3xOk+BzGKHwXvnSkordtXzb7ZBONEDAi2hQekAa8
-         fi/Q==
-X-Forwarded-Encrypted: i=1; AKwUvByf77Pg0TfjI+soTezqdy9sS/YHRSfcAQwuI760GU/fBhcBhNWkYP03z43giCbVwj9uVIOvWM4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/rERX88KtdbHGkdO63iTDXoXkheiRKKJXlu6dcyfFGrvnlPdW
-	qkFighMTV36bz0MAH1pBQQBLIpgVJxy97cjK3mXdwDk8DPUEnHju4P26
-X-Gm-Gg: AYBFou2bfG0syN3cLE0LaCk0swaLtahkVDyOE4TYlnPa+q9i7XII4I1WV7Wz5nXfstz
-	BIYDXCxhqSW4aN4eEoxXc3RKeeeNAzUlFyBU6noJbfZblkATTwOgN1dzI4GmxcNQ8045zq4LS7R
-	jKD95UWE0ihJfzZ7GvtMpEZFXBCpveiglJcdishfzoqL8iQQ6YTfvJERIi1bfJ7+qaUu8miJev0
-	BW40PB+zWStvabzdL12UyOhPGTzhPiEbpu7gir1lQzYTC60RfMDixRWbjJRAVai+c/TIQVHoxtN
-	7c5mSIUsfOX8aeiDskeSw13DGSLM4UJ/zvnZR1T5TTTBorU3Am/ZhmoqqAfCTcGMs0RZ3FiI4uz
-	cUSvipeOrNXDkUo+vioKa0pK8rf97FUJSOdJ7L5Cnfux6SD/JG5JoOge/OucXUsBnE8jNTgk0Pk
-	G1VyX8oiM3gpi6NPzlbP/flvKb74+2urDfnG+Pa6/xqNWv3Pe/bIcbdP7X1aBngH1WL2NF1aen8
-	ZZVkqKYLCsV1GktqV/C7yY=
-X-Received: by 2002:a17:90b:582d:b0:3ac:9e5e:d1a5 with SMTP id 98e67ed59e1d1-3acef14590amr3620466a91.6.1792235484304;
-        Sat, 17 Oct 2026 04:11:24 -0700 (PDT)
-Received: from MELOKC-LAPTOP ([61.171.228.110])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac947cf9a5sm12813154a91.15.2026.10.17.04.11.19
+        bh=VkH44/WMax9Nf0vxizpHzIgEQxchbF7m2t+NOJIeX+U=;
+        b=RqKXqkfMYuK9PqL/ckYuiIt9u/yhe2Ba/XfDmm6534ciUbcVjOsBjdOFDl7zV1Um+b
+         rU4TpVAetDUl+IMJksQleLN008FVLZZ/GwRpAWaTitFfRPrkuZtoVZ0fObEECmbSgRGh
+         VZvNEAOVzNYzN7qrIl19F2AJgyS+ihWX7cvwgk/Iwwp61ADyZDBEswwfDDvVoBXJiHLK
+         +GRVI+GJ277QxRcNe36y9qK7drJF8O2NvkHplFwQ5+gRL3CaPa/G+mGTq4BwEvqtOBPN
+         Ol3eGNUO/KSNnVzsIG4QHXODKxCzFfaYM4s61vcvjvHI7xSdIkcNhKVd3+9OObjhEpjr
+         YiYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792235523; x=1792840323;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VkH44/WMax9Nf0vxizpHzIgEQxchbF7m2t+NOJIeX+U=;
+        b=N15rZwFQU7djtZV2QrgshQlhr8FfLLO4KRjYGSw2XYRQRd5qdsWebS9MkDiimnSl2t
+         eBQ1dXRIoCo20NXIOe3tEmAX7OFwDwijhIzOA4jU2hjp8SxMCxySJnL8V/Mtc2PqI4g/
+         Vvt2W0Lwb/AwqzlDRIBGedq+VLX9HTRR9Bn5dUgmdIruNmuUyopJtbDskFpqHcR0bZ7X
+         M5tv1/EBBAsSOyDjs0c4SGfL1JPDkoSpZoViUgNcpl6wnPR7q6lk09J8NRfLEKL1XDXe
+         H9MA4ubF/BnFWdmSEWLYAW1kzfswbWzHz7vsS/uymVyauPOrCiEY+tshnd43R++gmWtL
+         HpIw==
+X-Forwarded-Encrypted: i=1; AKwUvBwu+PJMgRzvV333cf1um67+I3G7M6CQl4Vu2ixz0orOXTjNHHlsEdfe6DxpkXymKBLAn07KOTs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZGj0fQAfUpccePlNpV10IO98uzKfk0/8VRcPrQJD/0OgB6PFQ
+	Z9s4nrmPLS5J3h+m5C/HZpU2FWnP63szV9aVE3suDrAtm2gJ9amvtJU=
+X-Gm-Gg: AYBFou3C4ird8QsVFdRUPZ3VS3vYABnp8QDBvN2vTieR47BVjmOaePjiQ08qh/sjGfP
+	00bkcD+IQWfFR7lkxEGHB8R7yJ2UKlQaQZitgCok9OTuuK2ySN4GyWOLqRauJ7eCWrZuzKtAA2b
+	2yXJOk5ftvNUWiNYXP71Ti4jBXeSwgLPSjYIsE8GVXc4ED6cNHnvcnqDGugUuM/hpNnnnzbPBJd
+	R/S0rJgBqtJf1LdXdPmndQlbhB6N10FwkEU+3p0cn+tjdlWoL8ZVQ+hquvMFnxohA1ez2WIjfCj
+	ZilFSRS0ZkfKKmSZWiSGzJPKPjgI1yfBI5aPFCUNh57VF+8//XNWPmtgbIA4CC1Xxj28/Pr8drV
+	R7I+9nrudslx9IemCAMttf1m53aMglpqdvgB0R0cC0/BueCBn98h+xut5+/wj1r0oe11ge1rP5S
+	v/F+COSSzSpcCrKWjERtXrpuElhRCsRfh8hJWhd8mySZZaw/v7/VTC6t6ZQaIsEKWcoJfBNA1NV
+	2LgJJv0Kgap+9FLcHR5vIO4O6nR
+X-Received: by 2002:a17:90b:1f91:b0:3ac:38dc:6b9e with SMTP id 98e67ed59e1d1-3acef13e57fmr1849616a91.25.1792235523056;
+        Sat, 17 Oct 2026 04:12:03 -0700 (PDT)
+Received: from WIN-2DEDQG69EF6.localdomain ([2a0c:9a40:9205:1:be24:11ff:fe93:ff0e])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd403c212sm2974687a91.4.2026.10.17.04.11.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 04:11:22 -0700 (PDT)
-From: Anfernee Cao <anferneemelokc5@gmail.com>
-To: Mathias Nyman <mathias.nyman@intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org,
+        Sat, 17 Oct 2026 04:12:01 -0700 (PDT)
+From: chenhan <chenhan0017.work@gmail.com>
+To: rust-for-linux@vger.kernel.org
+Cc: a.hindborg@kernel.org,
+	boqun@kernel.org,
+	fujita.tomonori@gmail.com,
+	frederic@kernel.org,
+	lyude@redhat.com,
+	tglx@kernel.org,
+	anna-maria@linutronix.de,
+	jstultz@google.com,
+	sboyd@kernel.org,
+	ojeda@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	aliceryhl@google.com,
+	tmgross@umich.edu,
+	dakr@kernel.org,
+	daniel.almeida@collabora.com,
+	tamird@kernel.org,
+	acourbot@nvidia.com,
+	work@onurozkan.dev,
+	miguel.ojeda.sandonis@gmail.com,
+	tomo@flapping.org,
+	georgeandrout13@gmail.com,
 	linux-kernel@vger.kernel.org,
-	Anfernee Cao <anferneemelokc5@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] usb: xhci: fix EP0 context leak on virt device allocation failure
-Date: Sat, 17 Oct 2026 19:11:13 +0800
-Message-ID: <20261017111114.1135-1-anferneemelokc5@gmail.com>
-X-Mailer: git-send-email 2.54.0.windows.1
+Subject: [PATCH v3 1/3] rust: time: rename the rem_nanos() divisor
+Date: Sat, 17 Oct 2026 19:11:32 +0800
+Message-Id: <20261017111134.22546-2-chenhan0017.work@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261017111134.22546-1-chenhan0017.work@gmail.com>
+References: <20261017111134.22546-1-chenhan0017.work@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,56 +100,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When XHCI_EP_LIMIT_QUIRK is set, xhci_alloc_dev() reserves an endpoint
-context for the default control endpoint before allocating the virt
-device:
+The argument to rem_nanos() is the divisor, while self holds the
+dividend. Rename the argument and correct the documentation. Drop the
+architecture-specific implementation explanation from the public API
+documentation; the argument type already states the divisor's width.
 
-	ret = xhci_reserve_host_control_ep_resources(xhci);
-	...
-	if (!xhci_alloc_virt_device(xhci, slot_id, udev, GFP_NOIO))
-		goto disable_slot;
+This does not change the function's type or behavior. It is a preparation
+for documenting and checking the invalid divisors in the next patch.
 
-The reservation is normally released by xhci_handle_cmd_disable_slot(),
-which calls xhci_free_device_endpoint_resources() for the virt device
-found at xhci->devs[slot_id].  xhci_alloc_virt_device() does not install
-the virt device when it fails, so the Disable Slot completion handler
-finds an empty slot, returns early, and the reserved context is never
-released.
-
-Each failure leaks one endpoint context.  Once num_active_eps reaches
-limit_active_eps, every new device is rejected with "Not enough host
-resources" and cannot be enumerated.
-
-Fix this by releasing the reservation when xhci_alloc_virt_device()
-fails.
-
-Fixes: 2cf95c18d506 ("Intel xhci: Limit number of active endpoints to 64.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Anfernee Cao <anferneemelokc5@gmail.com>
+Cc: stable@vger.kernel.org # prerequisite for the Delta division/remainder fix
+Assisted-by: LLM
+Signed-off-by: chenhan <chenhan0017.work@gmail.com>
 ---
- drivers/usb/host/xhci.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ rust/kernel/time.rs | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-index 7f7babe9d681..8b9a6f88cca5 100644
---- a/drivers/usb/host/xhci.c
-+++ b/drivers/usb/host/xhci.c
-@@ -4278,6 +4278,15 @@ int xhci_alloc_dev(struct usb_hcd *hcd, struct usb_device *udev)
- 	 */
- 	if (!xhci_alloc_virt_device(xhci, slot_id, udev, GFP_NOIO)) {
- 		xhci_warn(xhci, "Could not allocate xHCI USB device data structures\n");
-+		/*
-+		 * The virt device was not installed, so the Disable Slot
-+		 * completion handler cannot drop the EP0 context reservation.
-+		 */
-+		if (xhci->quirks & XHCI_EP_LIMIT_QUIRK) {
-+			spin_lock_irqsave(&xhci->lock, flags);
-+			xhci->num_active_eps--;
-+			spin_unlock_irqrestore(&xhci->lock, flags);
-+		}
- 		goto disable_slot;
- 	}
- 	vdev = xhci->devs[slot_id];
+diff --git a/rust/kernel/time.rs b/rust/kernel/time.rs
+index 5ae377e70dd8..16b44e82d2ac 100644
+--- a/rust/kernel/time.rs
++++ b/rust/kernel/time.rs
+@@ -614,16 +614,13 @@ pub fn to_jiffies_timeout(self) -> Delta<Jiffy> {
+         Delta::<Jiffy>::from_jiffies(jiffies)
+     }
+ 
+-    /// Return `self % dividend` where `dividend` is in nanoseconds.
+-    ///
+-    /// The kernel doesn't have any emulation for `s64 % s64` on 32 bit platforms, so this is
+-    /// limited to 32 bit dividends.
++    /// Return `self % divisor` where `divisor` is in nanoseconds.
+     #[inline]
+-    pub fn rem_nanos(self, dividend: i32) -> Self {
++    pub fn rem_nanos(self, divisor: i32) -> Self {
+         #[cfg(CONFIG_64BIT)]
+         {
+             Self {
+-                value: self.as_nanos() % i64::from(dividend),
++                value: self.as_nanos() % i64::from(divisor),
+             }
+         }
+ 
+@@ -632,7 +629,7 @@ pub fn rem_nanos(self, dividend: i32) -> Self {
+             let mut rem = 0;
+ 
+             // SAFETY: `rem` is in the stack, so we can always provide a valid pointer to it.
+-            unsafe { bindings::div_s64_rem(self.as_nanos(), dividend, &mut rem) };
++            unsafe { bindings::div_s64_rem(self.as_nanos(), divisor, &mut rem) };
+ 
+             Self {
+                 value: i64::from(rem),
 -- 
-2.54.0.windows.1
+2.34.1
 
