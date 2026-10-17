@@ -1,42 +1,72 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 492403E49F7;
-	Sat, 17 Oct 2026 07:44:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F658277007;
+	Sat, 17 Oct 2026 07:49:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792223046; cv=none; b=VcOAwBnAYNZJCPi/U1dTvcKEDcQpggKjo85O2uY+CzYAVakzJCRFcEtemdGND6K00uf+D/HAr/NwYjkHwN/Jpi7YyvbKzKOuljPovdld0egQybEyulZOzjpFShwqtdGnjAr3TTmI5mY3tLy1sLArV4xkyXCorPQ0k12vkg3jRdg=
+	t=1792223389; cv=none; b=uimPY6psxZouRzFlR2bA2z8rYwxjkAo8NnLhpUPVczx9exYqXCRGg5zoYflW86OloC+gfbixVVz/jfZAZ7LoWHxgUrGAYD4lnBEcxohN+DUD/whTfEhBeGLyiWlcaDEVQbGZ8YRALNKo0iNR0D4XZq2Gb2wmlG6FeD8zOiIosc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792223046; c=relaxed/simple;
-	bh=d5s+U1xynEBidcfTy3l1a0UGpJ0XIBZFfRngrNU0RW8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QEN9dWJkV/WzQfUinZitQClLlFWeU8+c+2Df+SfKzGe22lXTdaQqnrkTZDIkUIvI1lLlDw40rgDDe8Zm97f4svCvCgVpCZjNOjPpoVIEW4kqrC9wzK7EURzXAgV69AA7y8ourxn25QJ/ddHuPrHmGEseW8IFxeAHb5l7oxxNMSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=h1GS5RGj; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792223389; c=relaxed/simple;
+	bh=3BML9Diq2iDrub7cVCUHA7zANQIQ6dIa5AeZEvig3qM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QuQcn8sYRaBMhjHJdQgw4OY30jX1Om88DQugnnx0vRfNFG3wvBlesYUhee6C3GYfIp4/N/N5OhuKdkiiMsZLv6CkwNNcqwbI6SKdpzMB1xdz2OhKoGnYGR68r0ECfblclVy+Ha1AziatPpwn9Mvc/8MPu9gDV3NQG6CXpZy7sEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=SRZb9CfU; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="h1GS5RGj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=SZ
-	c5AhPFvmF7qT8nRXpWlmKEX66dB4gon7/zJcUhDh4=; b=h1GS5RGjCvNRj1bU6m
-	GsPpSFU/TZ11Up6TAehjaXL9AyZWcumAErTL8DkyIAYAwziH/eADmIvskggaxFYa
-	77OZGs+oS42KRcCdI9gDn8QWjFmVdxkLFrtejZbwHqKYP8oWy+5wtnDpBOlPAZdv
-	7LUi5eUTImOPG1uNqswyM08AI=
-Received: from 163.com (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgC3n7QzJ9NqcoFrAQ--.45846S2;
-	Sat, 17 Oct 2026 15:43:47 +0800 (CST)
-From: zhanghao <zh_exit@163.com>
-To: song@kernel.org,
-	yukuai@fygo.io
-Cc: magiclinan@didiglobal.com,
-	xiao@kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	zhanghao <zh_exit@163.com>
-Subject: [PATCH] md/raid5: fix inverted condition in rdev_set_badblocks call
-Date: Sat, 17 Oct 2026 15:43:43 +0800
-Message-ID: <20261017074343.59513-1-zh_exit@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="SRZb9CfU"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69H7EEF41820899;
+	Sat, 17 Oct 2026 07:49:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=jOSTDu/LPV2hnD8er
+	mLoXOjRDsEmLDyWj3fpyB7Btwc=; b=SRZb9CfUke0wlCPA0i+0U6Bw+4PF+YmXg
+	ZptgoYp1fMmQow59LJJiixWAb1nq2vb8DW0qntD8PRGuR3ksosRLoCnIbpwUuQMy
+	5fZAXZJw+Cr/owwT0zfGHEOhmMxUOdoBq/Qt8sAabe+gxKgbxh018RBdqzlUucOV
+	eMLvLyP9cPYrGnFyge30BWbGhC8nqOKeKJzpDBUeaRwaEl7KVS7dQlfcenwDgHOZ
+	sjRW8SwcA6tFXXoYz0sOjpB0D6cYj7rwNFVX+kY9UwyfK6w+M3untl7P9xaIXevp
+	FhrXIYqpGM90OFnalv8IUQJ4BSxlE/sd2R3Jmtw8Htdy3KOPrP0rw==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hc0r78rhf-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Sat, 17 Oct 2026 07:49:33 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69H74qsk671685;
+	Sat, 17 Oct 2026 07:49:32 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hbtqc9r6j-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sat, 17 Oct 2026 07:49:32 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69H7nSTo28115626
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sat, 17 Oct 2026 07:49:29 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D3B8120043;
+	Sat, 17 Oct 2026 07:49:28 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1E4B720040;
+	Sat, 17 Oct 2026 07:49:21 +0000 (GMT)
+Received: from li-fc74f8cc-3279-11b2-a85c-ef5828687581.ibm.com (unknown [9.67.66.83])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Sat, 17 Oct 2026 07:49:20 +0000 (GMT)
+From: Srish Srinivasan <ssrish@linux.ibm.com>
+To: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org
+Cc: maddy@linux.ibm.com, ritesh.list@gmail.com, sshegde@linux.ibm.com,
+        mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
+        James.Bottomley@HansenPartnership.com, jarkko@kernel.org,
+        zohar@linux.ibm.com, linux-kernel@vger.kernel.org,
+        linux-security-module@vger.kernel.org, nayna@linux.ibm.com,
+        rnsastry@linux.ibm.com, ssrish@linux.ibm.com, stable@vger.kernel.org
+Subject: [PATCH v3 2/6] keys/trusted_keys: propagate wrapping key generation errors
+Date: Sat, 17 Oct 2026 13:18:46 +0530
+Message-ID: <20261017074850.164031-3-ssrish@linux.ibm.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261017074850.164031-1-ssrish@linux.ibm.com>
+References: <20261017074850.164031-1-ssrish@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,53 +74,62 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgC3n7QzJ9NqcoFrAQ--.45846S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJrWfXw1xKry3Xw1rGrWDCFg_yoW8Aryxpr
-	Z8Ga4Yv34DWr95Aa1DXrWkAFy8ua17ta9F9ay3A3W29as0qF4IqF4rXFyUZFyUXF1ft3Wv
-	qF17WrWqvFyrGw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pE-eO9UUUUU=
-X-CM-SenderInfo: p2kbv5llw6il2tof0z/xtbC9hRmzmrTJzStpQAA3o
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE3MDAzMCBTYWx0ZWRfXxXjN7kHfRpap
+ r30GWCGdPEF7Km18TCTT9MiCvqY9R4PI1+Mlx0yRNRhie5uvkDXl1tIfnH36ggsGisk5mZ0DalS
+ luuEamLGkPfY9iTKZXSsRU8ut4tyckE=
+X-Authority-Analysis: v=2.4 cv=PrUG/AM3 c=1 sm=1 tr=0 ts=6ad3288e cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=sFUY0Dm8-Bub5huaTLsA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE3MDAzMCBTYWx0ZWRfX0DZBg/kuhC+s
+ 0zXFSiovi8b+aZMDHPS8ARyMzQUBMsP217Ny8e09rDqeJKRAbHEMJA7N2C0mWsoSNmcKiSmcMyx
+ /gbgGeb71Fejx8HU0eWCbArA1oOyEefVc4RrToafSlzTxyPeDA4z8W1XXw+PaI+OapWzYcEmwXU
+ lZ8wCGbNquu198dr1zx7xQuA1anLGqE56aBDuABHfZIK0v3JP+zBEWRgwk6CJJZKB14hvlQpbfN
+ DMQWRjaL1th/M6QPve6MhBiWV0eW7nrjfLOtAv3rA+X20mv7qtuMaYWNqEG2l5PEiOvz10Xpcsf
+ QOaHRWMv3P6oOKrwUYOrNAbPR9JlycN2AMlNtfibdJOFEiuT3Jg0yEOeFhGE6Gz1JoCDyfU1bwe
+ IlTTrOxkNtwSBvqVlpWlmDDDIfvzZQjnrcUPk+UfT+EMeNz/TjF3PHjy21f91mPEi2EBTWLrcdU
+ +JOIBYQl8BGtgK06MKw==
+X-Proofpoint-GUID: xS1F05CcIzSUzSHTRLGjBb57jGsWFXq4
+X-Proofpoint-ORIG-GUID: -yckf9MQBHfJghRYda_UJKq3bcBR6OUi
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-17_02,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 bulkscore=0 impostorscore=0 phishscore=0
+ clxscore=1015 priorityscore=1501 malwarescore=0 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610170030
 
-Commit fd4d44c14ff6 ("md: mark rdev Faulty when badblocks setting fails")
-attempted to unify badblock handling but introduced a logic inversion in
-raid5_end_read_request().
+plpks_gen_wrapping_key() returns a negative errno when default wrapping key
+generation fails. However, trusted_pkwm_init() returns -EINVAL for all such
+failures, discarding the original error.
 
-The original check was:
+Propagate the error returned by plpks_gen_wrapping_key() unchanged.
 
-    if (!(set_bad && In_sync && rdev_set_badblocks(...)))
-            md_error(...);
-
-which records badblocks when `set_bad && In_sync`, and calls md_error()
-either when recording fails or when the rdev is not In_sync. The new
-condition `if (!(set_bad && In_sync))` skips rdev_set_badblocks() exactly
-during recovery/reshape (In_sync is set), so failed badblock updates no
-longer trigger md_error() and the rdev is not marked Faulty. This allows
-reconstruction to continue on a disk with a saturated badblock table,
-potentially propagating corrupted data to the replacement disk.
-
-Fix the condition to match the intended behavior: call rdev_set_badblocks()
-when `set_bad && In_sync`, and let the callee handle md_error() on failure.
-
-Fixes: fd4d44c14ff6 ("md: mark rdev Faulty when badblocks setting fails")
-Cc: stable@vger.kernel.org
-Signed-off-by: zhanghao <zh_exit@163.com>
+Fixes: c99fcb0d735b ("keys/trusted_keys: establish PKWM as a trusted source")
+Cc: stable@vger.kernel.org # 7.0
+Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
+Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
 ---
- drivers/md/raid5.c | 2 +-
+ security/keys/trusted-keys/trusted_pkwm.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
-index d52adf81065a..dcfb1bfa9ebf 100644
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -2866,7 +2866,7 @@ static void raid5_end_read_request(struct bio * bi)
- 		else {
- 			clear_bit(R5_ReadError, &sh->dev[i].flags);
- 			clear_bit(R5_ReWrite, &sh->dev[i].flags);
--			if (!(set_bad && test_bit(In_sync, &rdev->flags)))
-+			if (set_bad && test_bit(In_sync, &rdev->flags))
- 				rdev_set_badblocks(rdev, sh->sector,
- 						   RAID5_STRIPE_SECTORS(conf), 0);
- 		}
+diff --git a/security/keys/trusted-keys/trusted_pkwm.c b/security/keys/trusted-keys/trusted_pkwm.c
+index b6b5697426a8..633a7674d065 100644
+--- a/security/keys/trusted-keys/trusted_pkwm.c
++++ b/security/keys/trusted-keys/trusted_pkwm.c
+@@ -170,7 +170,7 @@ static int trusted_pkwm_init(void)
+ 	ret = plpks_gen_wrapping_key();
+ 	if (ret) {
+ 		pr_err("Failed to generate default wrapping key\n");
+-		return -EINVAL;
++		return ret;
+ 	}
+ 
+ 	return register_key_type(&key_type_trusted);
 -- 
-2.43.0
+2.52.0
 
