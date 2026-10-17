@@ -1,163 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A0E15E5BB;
-	Sat, 17 Oct 2026 18:14:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A188D3AF666;
+	Sat, 17 Oct 2026 18:15:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792260854; cv=none; b=cRDOw8sPCTKI6UG3iuYWZcsioE5tsk4iqOZvvoLecuOvaHjTnrNDectP7KanmmETFNB8P8u2IkDz9r8cyi4gA6sFEsqbk37b4NL45fN+p4nfM/uuh6vCXxGrfr5YfYzoYlNHWkOpdSDFcWirLaHRUL30Il51UsuVFneDij9nlIM=
+	t=1792260912; cv=none; b=ZFTpHb5q78oo8sIwzPF0MbvlXkMqWojvPNnVWbstZfcxVlw740nbXIyLYi8E68CFojMMuvuD64op/dX8uBWiuOle9xbOpYFMJNr+LTJR5uYen746EQqpkFiilp+wQPmx9BmCT23LXg6JB1XrOQMpGdk3A6g4bloxFEmqbROD5Q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792260854; c=relaxed/simple;
-	bh=B9PR24tVQMiW5231qd+L/oXAW/8AmIDXwlZksIf8Dvo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QsaQI/bDC/pyTIvHtIhNKPNRw6jhpiCuG+MCDraFMnr+bwO0oITqH5hQrzWzSlzQcFKsQtRoTE5bwLdzrlvprTJDLoj0g9lzqM34KHbLuD7SwfigchncszRj9clxaOCNIQ0Jmlf9MU2nN54Ddz5QWTT8931HBGUR6j2uc4yuwYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uuNO9MIx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792260912; c=relaxed/simple;
+	bh=w5l7AZoel6Uf3sXVPO0QyL8QcG7bxfsLhXR0D1M2iIY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IbYXrwCcStMoK9bcudNI6Fto1t8die9OeIL4MAmXyv0ZoMKVj4LeukaV7/zjAiUnzpZhvqMfP6v1McVegEcWZJ6dNm7wa5o1annfN/3FvTYqaX6iCGUZYoNDBMrNgPe7fLxSBVUPVt01gudqSNZNoVlDU1NaNtGOj1Rmvi0BvYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BM3YyAIw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uuNO9MIx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 140641F000C4;
-	Sat, 17 Oct 2026 18:14:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792260853;
-	bh=VkUpRe4EVCKaZnpfZbaiNzorp+CtVtBveNBv2xioaCs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=uuNO9MIx/fQTg1Hu5Nzvl/vT3ZK4io7JAA1ryJXAUkiIGMNwNR8N2jnOssXpPEyjI
-	 f5RY9bz58xHvH2Eio1IEY6rStPVJ3n/qohgbudsf/V8jtVlHKo/NuWEgCk4BuFR2QA
-	 5QuWYBbD4VzzwoisgHcAfkjGwceT2+UdITMhkVN0=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Dave Chinner <dchinner@redhat.com>,
-	Carlos Maiolino <cmaiolino@redhat.com>,
-	Carlos Maiolino <cem@kernel.org>,
-	Siddh Raman Pant <siddh.raman.pant@oracle.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 1670/1674] xfs: factor out stale buffer item completion
-Date: Sat, 17 Oct 2026 18:05:42 +0200
-Message-ID: <20261017160513.932772162@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261017160431.119607952@linuxfoundation.org>
-References: <20261017160431.119607952@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BM3YyAIw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F22BA1F000C4;
+	Sat, 17 Oct 2026 18:15:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792260911;
+	bh=4znjinCLcqPzFE0R8FB/ik0uww9KW27iFqq3XzpkYl0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=BM3YyAIw1goCY7dMBhIt1OVCTawJ09Qakto1ZAD+9EYSmdA81ggm2OioShJDrrBWO
+	 ElrVX9gMaAJgPXYZCm3FIYuUiSWJxZ2LEuKG/BLqhlM5L0yBC+2JWa7fG/bi/EtI/r
+	 4cLrL1TYfqMjeCBBSxklP6v8/9q72bIVHpcBh6hT4aTkxwuH/U1EtYMop7wzL5/6Sr
+	 1kbuYm8+zGIbMElvcAK01+j3V03QPkjySHwHibyzY4wZyWNG9H3PSnEzbzsleEj/5E
+	 zkRq5ojBASRqPl01bmCY32+gIRmApsq8Q5Hu9kP7gM2c2IWqUuLt4B/MO1tHttvCD9
+	 kX0fRKjhHKC1g==
+Date: Sat, 17 Oct 2026 19:15:05 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>
+Cc: BouziguesAlexis@johndeere.com, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, Lothar Rubusch <l.rubusch@gmail.com>,
+ linux@analog.com, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] iio: accel: adxl345: select IIO_BUFFER and
+ IIO_KFIFO_BUF
+Message-ID: <20261017191505.3668b209@jic23-hlaptop>
+In-Reply-To: <as3zHnUUTcpJl9Zi@nsa>
+References: <20261007-fix-adxl345-buffer-deps-review-v1-1-0c94c8d0443a@JohnDeere.com>
+	<as3zHnUUTcpJl9Zi@nsa>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+On Tue, 13 Oct 2026 10:00:35 +0100
+Nuno S=C3=A1 <nuno.sa@analog.com> wrote:
 
-------------------
+> On Wed, Oct 07, 2026 at 09:34:16AM -0500, Alexis Bouzigues via B4 Relay w=
+rote:
+> > From: Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
+> >=20
+> > Since the addition of FIFO watermark support, adxl345_core.c calls
+> > devm_iio_kfifo_buffer_setup() and iio_push_to_buffers(), but the
+> > ADXL345 Kconfig entry does not select IIO_BUFFER and IIO_KFIFO_BUF.
+> > Building with CONFIG_ADXL345_I2C=3Dy and CONFIG_IIO_BUFFER=3Dn fails to
+> > link:
+> >=20
+> >   ld: drivers/iio/accel/adxl345_core.o: in function `adxl345_irq_handle=
+r':
+> >   adxl345_core.c:(.text+0x145c): undefined reference to `iio_push_to_bu=
+ffers'
+> >   ld: drivers/iio/accel/adxl345_core.o: in function `adxl345_core_probe=
+':
+> >   adxl345_core.c:(.text+0x1db6): undefined reference to `devm_iio_kfifo=
+_buffer_setup_ext'
+> >=20
+> > Add the missing selects on the hidden ADXL345 core symbol, as done for
+> > ADXL367, ADXL372 and ADXL380, so both the I2C and SPI front-ends are
+> > covered.
+> >=20
+> > Fixes: cf04212d1fe7 ("iio: accel: adxl345: add FIFO with watermark even=
+ts")
+> > Assisted-by: LLM
+> > Signed-off-by: Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
+> > ---
+> > Add the buffer selections required by the ADXL345 FIFO support.
+> > The shared core symbol covers both I2C and SPI frontends.
+> > --- =20
+>=20
+> Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
+Applied to the fixes-togreg branch of iio.git.
 
-From: Dave Chinner <dchinner@redhat.com>
+Note I'll rebase that on rc1 (once available) before doing a pull
+request.
 
-[ Upstream commit 816c330b605c3f4813c0dc0ab5af5cce17ff06b3 ]
+Thanks,
 
-The stale buffer item completion handling is currently only done
-from BLI unpinning. We need to perform this function from where-ever
-the last reference to the BLI is dropped, so first we need to
-factor this code out into a helper.
-
-Signed-off-by: Dave Chinner <dchinner@redhat.com>
-Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-Signed-off-by: Siddh Raman Pant <siddh.raman.pant@oracle.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/xfs/xfs_buf_item.c | 60 ++++++++++++++++++++++++++-----------------
- 1 file changed, 37 insertions(+), 23 deletions(-)
-
-diff --git a/fs/xfs/xfs_buf_item.c b/fs/xfs/xfs_buf_item.c
-index 1b323b3c0eb93..ade89a233e686 100644
---- a/fs/xfs/xfs_buf_item.c
-+++ b/fs/xfs/xfs_buf_item.c
-@@ -541,6 +541,42 @@ xfs_buf_item_pin(
- 	atomic_inc(&bip->bli_buf->b_pin_count);
- }
- 
-+/*
-+ * For a stale BLI, process all the necessary completions that must be
-+ * performed when the final BLI reference goes away. The buffer will be
-+ * referenced and locked here - we return to the caller with the buffer still
-+ * referenced and locked for them to finalise processing of the buffer.
-+ */
-+static void
-+xfs_buf_item_finish_stale(
-+	struct xfs_buf_log_item	*bip)
-+{
-+	struct xfs_buf		*bp = bip->bli_buf;
-+	struct xfs_log_item	*lip = &bip->bli_item;
-+
-+	ASSERT(bip->bli_flags & XFS_BLI_STALE);
-+	ASSERT(xfs_buf_islocked(bp));
-+	ASSERT(bp->b_flags & XBF_STALE);
-+	ASSERT(bip->__bli_format.blf_flags & XFS_BLF_CANCEL);
-+	ASSERT(list_empty(&lip->li_trans));
-+	ASSERT(!bp->b_transp);
-+
-+	if (bip->bli_flags & XFS_BLI_STALE_INODE) {
-+		xfs_buf_item_done(bp);
-+		xfs_buf_inode_iodone(bp);
-+		ASSERT(list_empty(&bp->b_li_list));
-+		return;
-+	}
-+
-+	/*
-+	 * We may or may not be on the AIL here, xfs_trans_ail_delete() will do
-+	 * the right thing regardless of the situation in which we are called.
-+	 */
-+	xfs_trans_ail_delete(lip, SHUTDOWN_LOG_IO_ERROR);
-+	xfs_buf_item_relse(bip);
-+	ASSERT(bp->b_log_item == NULL);
-+}
-+
- /*
-  * This is called to unpin the buffer associated with the buf log item which was
-  * previously pinned with a call to xfs_buf_item_pin().  We enter this function
-@@ -590,13 +626,6 @@ xfs_buf_item_unpin(
- 	}
- 
- 	if (stale) {
--		ASSERT(bip->bli_flags & XFS_BLI_STALE);
--		ASSERT(xfs_buf_islocked(bp));
--		ASSERT(bp->b_flags & XBF_STALE);
--		ASSERT(bip->__bli_format.blf_flags & XFS_BLF_CANCEL);
--		ASSERT(list_empty(&lip->li_trans));
--		ASSERT(!bp->b_transp);
--
- 		trace_xfs_buf_item_unpin_stale(bip);
- 
- 		/*
-@@ -607,22 +636,7 @@ xfs_buf_item_unpin(
- 		 * processing is complete.
- 		 */
- 		xfs_buf_rele(bp);
--
--		/*
--		 * If we get called here because of an IO error, we may or may
--		 * not have the item on the AIL. xfs_trans_ail_delete() will
--		 * take care of that situation. xfs_trans_ail_delete() drops
--		 * the AIL lock.
--		 */
--		if (bip->bli_flags & XFS_BLI_STALE_INODE) {
--			xfs_buf_item_done(bp);
--			xfs_buf_inode_iodone(bp);
--			ASSERT(list_empty(&bp->b_li_list));
--		} else {
--			xfs_trans_ail_delete(lip, SHUTDOWN_LOG_IO_ERROR);
--			xfs_buf_item_relse(bip);
--			ASSERT(bp->b_log_item == NULL);
--		}
-+		xfs_buf_item_finish_stale(bip);
- 		xfs_buf_relse(bp);
- 		return;
- 	}
--- 
-2.53.0
-
-
+Jonathan
+>=20
+> >  drivers/iio/accel/Kconfig | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >=20
+> > diff --git a/drivers/iio/accel/Kconfig b/drivers/iio/accel/Kconfig
+> > index 4094299e2ed8..fc130854af71 100644
+> > --- a/drivers/iio/accel/Kconfig
+> > +++ b/drivers/iio/accel/Kconfig
+> > @@ -61,6 +61,8 @@ config ADXL313_SPI
+> > =20
+> >  config ADXL345
+> >  	tristate
+> > +	select IIO_BUFFER
+> > +	select IIO_KFIFO_BUF
+> > =20
+> >  config ADXL345_I2C
+> >  	tristate "Analog Devices ADXL345 3-Axis Digital Accelerometer I2C Dri=
+ver"
+> >=20
+> > ---
+> > base-commit: 7b63ef2d55f24519e7e9e5f4d15dbea03f126e40
+> > change-id: 20261007-fix-adxl345-buffer-deps-review-69a214e05dca
+> >=20
+> > Best regards,
+> > --=20
+> > Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
+> >=20
+> >  =20
 
