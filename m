@@ -1,73 +1,46 @@
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 809AC3ACF15
-	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 16:41:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B815E3BFAC8;
+	Sat, 17 Oct 2026 16:41:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792255310; cv=none; b=qJKjxRWGoZ7HGZQrmPW5IBuVUycK2n8m/ZK0M8HhQrEDTmZf/dabD1/N7MyA0hH870FGEsaP6cxq0ckUi6rVBTEEBb6Lkv1PxQXxzx9gX318f7kI50H98JkGhEQP79spiC+/stwzMIJF3Tg5TXv1HC9uJ/hoBMxMJE8B+ZI0yO0=
+	t=1792255312; cv=none; b=OCbYe6lrf3HUg4bWG+CUopmSFtGzNIoy7lgQj0czyYHLTkkG1v/q+ylhWlEE/4qU+iLHcaEo2nwBgkrD69104ij8eTXr9AtwnJeUHpozZ1YkUkwG3Lc4h6DQ4rPNJSh294YpsLT5hUGMvHhIgTXEaOFLbQvv9u9dxZOm7dkcbi0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792255310; c=relaxed/simple;
-	bh=f0oOwJ99ASBwohPnUw6E+rSWJn8E7P22P3UNI/krsOI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OBjXwDztnbqmjOZFvOZLtXQwU9hWU3V15HS+pDchexlAgspP9iIFr8s/i/BK1GJm7KdF9F7x4UuIGnv5CfDEBYiNuoWVq0S2MvVvu4mup4DcJmtC6nqi6ktqOXl1R9prjsKgeX824fPNFMoLLatq4NKEPu5P5baX97fb0zqf400=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eaqPQQaB; arc=none smtp.client-ip=209.85.219.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792255312; c=relaxed/simple;
+	bh=75dujK0sH9R/1oN0At8wW3XrVOVLU8cK0uwCClee9xA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bywWysLXqxl0aC99tHN9Xqc7kYE00+e7Zy5Y3fiLwbpODK0jJKoS9ZZBTIFtVmCQj2YFiWazx5UNz2uPm3TxMjRyB8sRhbiCj9sr4NQhW/Mgh+lw25XQfBlreMdE2hst8t3ZQy/9KmLwIsVXTHO8MkY6j5AVNGF+UurU+PjCqzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1EEvUM01; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eaqPQQaB"
-Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-91b52ba422cso11840606d6.2
-        for <stable@vger.kernel.org>; Sat, 17 Oct 2026 09:41:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792255308; x=1792860108; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tJIcl5oLftMCiRZNmyVUnJAZje8wxQdTARXgo+oxa1E=;
-        b=eaqPQQaBtGDG4Hzd2VZQKPEnLDGwTroNn+VSySiQssXijYvMQmXTzNeIgSkJxWK2d3
-         PbDSaNgAagAzegi2jRxPuIHJ4LPUwpA2EA+aMJgZHDQbzi2BpFjz9a9xVPWIR0sW+O3C
-         A+brrb1J15bXvwwugKD+DouyK5VjA6664zHiwsXeeQDygIxntBTwU24M+owZHOe5aQwq
-         nOun5yHsz0zeYJE3sxRQBrGIq5YPOW1vgqX58VKuRevXLH/8hv4b6bFCWHzo/cVR8XDw
-         gXIpsqwoRG6WzSiFrEEhLtZzMFSmEVuN0pbRDM/ReQjKkRm96Sf0z9tPTdVGrV8IK63L
-         nICQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792255308; x=1792860108;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tJIcl5oLftMCiRZNmyVUnJAZje8wxQdTARXgo+oxa1E=;
-        b=vPo7FCJergHhfqUO41g+qCd2vfj96YW6F3+zE5NMGCsFzaegZs2erjJT7Ak5mDP6fK
-         fxgbR9lH04xDdeFjK+CvK/S1Es/7fhpGpkqBto1ORN/2vUF8NqaqX8Sv3IoVVr0JxZr3
-         jcK+R16ajaZ0gFBfft3yVZOo7rwTivZA3qYqwWPfLuWrRRcGRVchCCmaNKOrSveGsJry
-         VmKXbH+yy/gO6dtsasuxubZ0BHS8iE2hyHf/ys0F6SSyaQeStDV/16+lpKF5t2aZWaiE
-         mmDO//MLZcOFOCDP+p8aC2n4U13Lg3p6TPUJuw1cj2uiT35KtonWptOyr6CriQ8S5P4Y
-         ZqTA==
-X-Forwarded-Encrypted: i=1; AKwUvBwN6ro4OSHd+d5jUVX1OdmFqTMsf+aqa+l8qUEva7IJ8BXEYkefwShpV5/ofnLK4YPDVyf2b54=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIX72GTopnoty5YpTUu1frBemSlxj+LSza1uigFI1ve0xCnZ4Tv
-	1Qf7CbGv0d0WgLsAP5PSmiIlTaVGJzbE17fZ6+EdoiNKYE1JhokUHrN3fiD+tpJn
-X-Gm-Gg: AYBFou0n0Z0VzmH3CImN5nGGseQ4rOVUZ1Bi7VSffYPWN0mpZVIX9bvKDkPdpjXs1wv
-	mkWLZT23TMVAEJ5PEUY+xWPIAYlDfBYoZApqK9YIiqajI9URxosiKLfFr6XV4hYMyt7yStG+pFR
-	uRWSCNOskUoUA/M8YCNwEs6obYzsc8+g44a7WFyqsLxtk5DabkQyh0xytL8+mzaHoAIjrM/seey
-	RdvvcPHCwYTS7o/jl3hBC00vyH9f9iy+VaHczc1xd42O8eHtcYLn8gp+o4yOBaY6UU255gyLSR+
-	xMON9fpNzLeQI8UFovGQkwdTSb1iHIXFddEmpayt/KcYBQVWzTtkHWzXdDJ4R/KLhT4XD5a7ScV
-	NgjVVrN+/iFQpXOedl0hH8U4SddmFlLDUCFGOPOb/5sxbkWdqsZDeGIzFyv/dJrQe1KBOVqO//n
-	sI5K9eYCXtPNkf/HhKM5UbTPnt9QJhXVgfJgxGJmRkBUhm5uV85YDcUrXHKcDPMF/C
-X-Received: by 2002:a05:6214:3b89:b0:90c:4422:84d1 with SMTP id 6a1803df08f44-91bdf17e317mr60816536d6.30.1792255308456;
-        Sat, 17 Oct 2026 09:41:48 -0700 (PDT)
-Received: from beelink ([187.15.140.245])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcb8c4adasm51061296d6.1.2026.10.17.09.41.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 09:41:48 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: jikos@kernel.org,
-	bentiss@kernel.org
-Cc: dmitry.torokhov@gmail.com,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH v11 0/2] HID: multitouch: fix haptic lifetime on delayed input release
-Date: Sat, 17 Oct 2026 13:41:37 -0300
-Message-ID: <20261017164139.1791033-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1EEvUM01"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ED4D1F000C4;
+	Sat, 17 Oct 2026 16:41:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792255311;
+	bh=m7aLbNtUWN8F3Zj6K2MxLCiiM59NBeoYOUVyVAbFVY0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=1EEvUM01ZbDNhTu4Y3z59nJklOIdvd/Oa7AMJQskOhkAZ7fUZEP9mEtRT9lbcnL34
+	 ez13Zvo/skn8va/PqGhOmPGMzdpX05hMnAetXf2WG/UsUDzCWH46h+lHnM8epZiuBs
+	 DMA2J53h/zlUVpldEyYdkg7cUTsvF+py0IGFvgeE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Johan Hovold <johan@kernel.org>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Johan Hovold <johan+linaro@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 733/869] PM: sleep: core: Synchronize runtime PM status of parents and children
+Date: Sat, 17 Oct 2026 17:59:34 +0200
+Message-ID: <20261017160055.742707455@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261017160036.979869304@linuxfoundation.org>
+References: <20261017160036.979869304@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,43 +49,123 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-v10 review found that the multitouch slot setup ran before validating
-the haptic class and selecting the input that owns FF. This could set
-INPUT_MT_TOTAL_FORCE on an input without haptics. If no multitouch
-touchpad input was found, haptic mode could remain enabled.
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-Patch 2 now validates the class and attaches FF before setting up MT
-slots. It selects the input where multitouch touchpad pressure was
-mapped with gram or newton units, so an earlier multitouch report
-without haptic pressure cannot take the sole FF instance. Only that
-input gets pointer emulation, total force and haptic pressure
-accounting. Haptic mode is disabled if no input receives FF. Patch 1
-is unchanged from v10.
+------------------
 
-Tested on x86_64 with W=1. The HID multitouch module compiled, and
-QEMU/KVM with KASAN completed 10 virtual UHID haptic cycles and 10
-multi-input cycles with a non-multitouch report before the multitouch
-report. The tests checked FF_HAPTIC, effect upload and playback, HID
-removal with an open evdev fd, and final release. Two negative fixtures
-had gram pressure but either no haptic reports or no touchpad report.
-With two contacts, v10 summed ABS_PRESSURE to 30 in both cases; v11
-reported the oldest contact's pressure of 10. A split-report fixture
-placed a multitouch report without pressure before the pressure-bearing
-one; FF, INPUT_PROP_POINTER and ABS_PRESSURE were on the latter input.
-No KASAN report was emitted. Physical hardware was not tested.
+From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 
-Base: 58161ead29e50d70a317ea26b472e0c7508e69da
-v9: https://lore.kernel.org/linux-input/20261017140332.1480375-1-qwe.aldo@gmail.com/
+[ Upstream commit 3775fc538f535a7c5adaf11990c7932a0bd1f9eb ]
 
-Aldo Ariel Panzardo (2):
-  HID: haptic: make FF creation the last fallible init step
-  HID: multitouch: give FF core ownership of haptic state
+Commit 6e176bf8d461 ("PM: sleep: core: Do not skip callbacks in the
+resume phase") overlooked the case in which the parent of a device with
+DPM_FLAG_SMART_SUSPEND set did not use that flag and could be runtime-
+suspended before a transition into a system-wide sleep state.  In that
+case, if the child is resumed during the subsequent transition from
+that state into the working state, its runtime PM status will be set to
+RPM_ACTIVE, but the runtime PM status of the parent will not be updated
+accordingly, even though the parent will be resumed too, because of the
+dev_pm_skip_suspend() check in device_resume_noirq().
 
- drivers/hid/hid-haptic.c     | 161 +++++++++++++++++------------------
- drivers/hid/hid-haptic.h     |   6 +-
- drivers/hid/hid-multitouch.c |  59 ++++++++++---
- 3 files changed, 125 insertions(+), 101 deletions(-)
+Address this problem by tracking the need to set the runtime PM status
+to RPM_ACTIVE during system-wide resume transitions for devices with
+DPM_FLAG_SMART_SUSPEND set and all of the devices depended on by them.
 
+Fixes: 6e176bf8d461 ("PM: sleep: core: Do not skip callbacks in the resume phase")
+Closes: https://lore.kernel.org/linux-pm/Z30p2Etwf3F2AUvD@hovoldconsulting.com/
+Reported-by: Johan Hovold <johan@kernel.org>
+Tested-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Reviewed-by: Johan Hovold <johan+linaro@kernel.org>
+Tested-by: Johan Hovold <johan+linaro@kernel.org>
+Link: https://patch.msgid.link/12619233.O9o76ZdvQC@rjwysocki.net
+Stable-dep-of: 36d74f17e03f ("driver core: Avoid warning when removing a device while its supplier is unbinding")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/base/power/main.c | 29 ++++++++++++++++++++---------
+ include/linux/pm.h        |  1 +
+ 2 files changed, 21 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
+index abb16a5bb7967..71489b46a07bb 100644
+--- a/drivers/base/power/main.c
++++ b/drivers/base/power/main.c
+@@ -654,13 +654,15 @@ static void device_resume_noirq(struct device *dev, pm_message_t state, bool asy
+ 	 * so change its status accordingly.
+ 	 *
+ 	 * Otherwise, the device is going to be resumed, so set its PM-runtime
+-	 * status to "active", but do that only if DPM_FLAG_SMART_SUSPEND is set
+-	 * to avoid confusing drivers that don't use it.
++	 * status to "active" unless its power.set_active flag is clear, in
++	 * which case it is not necessary to update its PM-runtime status.
+ 	 */
+-	if (skip_resume)
++	if (skip_resume) {
+ 		pm_runtime_set_suspended(dev);
+-	else if (dev_pm_skip_suspend(dev))
++	} else if (dev->power.set_active) {
+ 		pm_runtime_set_active(dev);
++		dev->power.set_active = false;
++	}
+ 
+ 	if (dev->pm_domain) {
+ 		info = "noirq power domain ";
+@@ -1187,18 +1189,24 @@ static pm_message_t resume_event(pm_message_t sleep_state)
+ 	return PMSG_ON;
+ }
+ 
+-static void dpm_superior_set_must_resume(struct device *dev)
++static void dpm_superior_set_must_resume(struct device *dev, bool set_active)
+ {
+ 	struct device_link *link;
+ 	int idx;
+ 
+-	if (dev->parent)
++	if (dev->parent) {
+ 		dev->parent->power.must_resume = true;
++		if (set_active)
++			dev->parent->power.set_active = true;
++	}
+ 
+ 	idx = device_links_read_lock();
+ 
+-	list_for_each_entry_rcu_locked(link, &dev->links.suppliers, c_node)
++	list_for_each_entry_rcu_locked(link, &dev->links.suppliers, c_node) {
+ 		link->supplier->power.must_resume = true;
++		if (set_active)
++			link->supplier->power.set_active = true;
++	}
+ 
+ 	device_links_read_unlock(idx);
+ }
+@@ -1275,8 +1283,11 @@ static int device_suspend_noirq(struct device *dev, pm_message_t state, bool asy
+ 	      dev->power.may_skip_resume) || !pm_runtime_need_not_resume(dev))
+ 		dev->power.must_resume = true;
+ 
+-	if (dev->power.must_resume)
+-		dpm_superior_set_must_resume(dev);
++	if (dev->power.must_resume) {
++		dev->power.set_active = dev->power.set_active ||
++			dev_pm_test_driver_flags(dev, DPM_FLAG_SMART_SUSPEND);
++		dpm_superior_set_must_resume(dev, dev->power.set_active);
++	}
+ 
+ Complete:
+ 	complete_all(&dev->power.completion);
+diff --git a/include/linux/pm.h b/include/linux/pm.h
+index 97b0e23363c82..a478737115cd9 100644
+--- a/include/linux/pm.h
++++ b/include/linux/pm.h
+@@ -683,6 +683,7 @@ struct dev_pm_info {
+ 	bool			no_pm_callbacks:1;	/* Owned by the PM core */
+ 	bool			async_in_progress:1;	/* Owned by the PM core */
+ 	bool			must_resume:1;		/* Owned by the PM core */
++	bool			set_active:1;		/* Owned by the PM core */
+ 	bool			may_skip_resume:1;	/* Set by subsystems */
+ #else
+ 	bool			should_wakeup:1;
 -- 
 2.53.0
+
+
 
