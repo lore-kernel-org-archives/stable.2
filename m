@@ -1,90 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE26941DEEC;
-	Sat, 17 Oct 2026 19:45:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D78E248F72;
+	Sat, 17 Oct 2026 19:52:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792266355; cv=none; b=HTcET/fE3+YUEZ02efyUdKx8y5mZZzVN9lgo5su+O6lxJ9WeWOP92Lr4ljglAvgcEnPFF5whOmI/qL65ZG/gRNZY8c+gtUUQ0Egq51iLLqPG/2C4/ZS+3wQGZK85AjZqZqHVfzqM8uvQjPYzgeVBetk3Nm6dvlpWVHBhFG5/sSc=
+	t=1792266723; cv=none; b=Cgey2vhG8UTmB3UPPJ0ydo9t1vNKxh1nL4Nz3I8e7XGUEkcZG+yWWT3RUyIZMMInog4avjiE8DxqaDxDf2wShVgBORAALqnhyBZalI4y+kO9CxMOs6sjB4ljW6Lgt9BkQureJAN94T6hpXVDawZLrrHkMBeTdkOONkJ+2pgd+k8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792266355; c=relaxed/simple;
-	bh=wWLDOJdrfIDfiLHhWX4LWDsIkkOm+x5wPTFgpcAbCbA=;
+	s=arc-20240116; t=1792266723; c=relaxed/simple;
+	bh=QWHnOIR/gEegt66Twr9xj92A74B+8WmceSQg0bWLy0c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PBMIFJmfRuqlOHNth5R1HyCn3Y2FOk8uGYTdX8FiLk+7F/avonrSh8FX+uK1SXRSewNx7yoaaQYpXzHOPayJDzt8HqpWQrF7Hjp7K+ixp03N3eVjXo1AGYbzfUInz6a8KZtTaMix7YyunVIAse/o5RE2MFB41U4g8xv/baHde9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kU81wk70; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=B/R13b7VO9A+x61FsjntzAHYmYzmnTjkZdFpL5OE/x/9E2VYCq97FcjbdSCdhMIfwsdB3x3WFyGPFoVe4aMG8bRZkNJNpP7opCplsvR8jgr/373lnRuiMhkbjSSqv91qdG1txoHPFJ8aCHKUWQCIq/XzN/iFZkV9PFpzk9q3LNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=MmSchGBV; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kU81wk70"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92BD61F000C4;
-	Sat, 17 Oct 2026 19:45:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792266353;
-	bh=ITJ6t2fZVc0gHUZydBoqsFaY4joEqY86BVsirSkhtKs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kU81wk70kECsQgR0a9kXHPpTa3dFf+0cL1ufffspnWGRe8ikpP2d2YZYhDJwb3/Fd
-	 Yebz3diQ0f0OrteRP7skmgCpl5Yx2NDToI9HG0zt/Cg2fTy9qAwBkm/8hej3hdpeI1
-	 W7TsEkW0pduFrZxkG8NVgLvGJ9lSlwp7B3RVAEIsyYMbfY6Vpu0L9FPBNS6ufHOrCe
-	 HtI33lomydjtRizGXG5+axgOf55U5zpWwaVGgVnP2TOEctHFv27gBxCcyXvu45HQpk
-	 wcAeq/wUicL8FwTAsAt06GoINGHS9/ICBwSyYsGMmpFrN00P6aEAeRZ/YtqnMySaT2
-	 0aT1tdsC9X+bA==
-Date: Sat, 17 Oct 2026 12:45:48 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Kees Cook <kees@kernel.org>, Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH 6.12 696/869] kcfi: Rename CONFIG_CFI_CLANG to CONFIG_CFI
-Message-ID: <20261017194548.GA318740@ax162>
-References: <20261017160036.979869304@linuxfoundation.org>
- <20261017160054.817469217@linuxfoundation.org>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="MmSchGBV"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 2279640E0488;
+	Sat, 17 Oct 2026 19:51:59 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id WlMeZV5jlWpO; Sat, 17 Oct 2026 19:51:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1792266716; bh=w+9+z6Y+dnThsE+OuxfD+pno9gifp3roJ194Xgds+ho=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MmSchGBVUxuO5u4Iy4NP9tQApG86Xu1drct2WmTTeHSt3yYoILE/Jr0GZa41iCDR8
+	 MDURCsq3/HO961phhUtniAudQa8y2goGZITHFhoM1SSzd8T1aAMD/n0JDBjAmIqzKb
+	 I6THNB4p3cWIueXZZEfv2Ye3+TNI5xAlSTZI9S+Uia2yeZqkr9JwRz+oAAd8u+9Bzt
+	 IbASSEKco8dtDp7ZobRGB9Fdfaw/BClECEqhJP6ogNWhuYH36+TtwaIqT5qANoYEN1
+	 37zPq5Agq053V4LPYuVfnFUshAKtftAMWyjPGdoSPzXShqgHLp03nvkc18eSl6qi5J
+	 Lm8Bic3FdSfkNzJxAos3pn+RzCtxKhLpS/SX23H/NPyBJWAXMMIIV2n3A39arZHhbG
+	 bkSIEW1m7wy2ykcdW0wZZzc2BqucA58S89XyX0osVRSzltxckiXNDPKD7VlKcN83FH
+	 FNZDquJgdZqU2yD2B0hX6vKLvxujAkyNoRMFU9Jle2tBIOPDRu8+tslIaurYVRYODb
+	 ObEdMM1V7H7B0foLwOl9/Q/n4jWpeu/NchG2mnXiRwUzU9sqYboY4736y3SMlpPXr0
+	 1tRvXrp5BCrWl1p2L40d7+5+7bWkypYCdDIbuOJBfT96tDPqCNgFuuuf9hcNuiM9ky
+	 jCJtqLjB1HxOLjNOWREqnvZU=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::2a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 8862440E015B;
+	Sat, 17 Oct 2026 19:51:48 +0000 (UTC)
+Date: Sat, 17 Oct 2026 12:51:45 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Yazen Ghannam <yazen.ghannam@amd.com>
+Cc: Guixiong Wei <weiguixiong@bytedance.com>,
+	Tony Luck <tony.luck@intel.com>,
+	Muralidhara M K <muralidhara.mk@amd.com>,
+	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] EDAC/mce_amd: Add missing long names for SMCA bank types
+Message-ID: <20261017195145.GAatPR0dQVZGEMHglh@fat_crate.local>
+References: <20261009020447.90758-2-weiguixiong@bytedance.com>
+ <20261012140330.GC15198@yaz-khff2.amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261017160054.817469217@linuxfoundation.org>
+In-Reply-To: <20261012140330.GC15198@yaz-khff2.amd.com>
 
-On Sat, Oct 17, 2026 at 05:58:57PM +0200, Greg Kroah-Hartman wrote:
-> 6.12-stable review patch.  If anyone has any objections, please let me know.
-> 
-> ------------------
-> 
-> From: Kees Cook <kees@kernel.org>
-> 
-> [ Upstream commit 23ef9d439769d5f35353650e771c63d13824235b ]
-> 
-> The kernel's CFI implementation uses the KCFI ABI specifically, and is
-> not strictly tied to a particular compiler. In preparation for GCC
-> supporting KCFI, rename CONFIG_CFI_CLANG to CONFIG_CFI (along with
-> associated options).
-> 
-> Use new "transitional" Kconfig option for old CONFIG_CFI_CLANG that will
-> enable CONFIG_CFI during olddefconfig.
-> 
-> Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
-> Reviewed-by: Nathan Chancellor <nathan@kernel.org>
-> Link: https://lore.kernel.org/r/20250923213422.1105654-3-kees@kernel.org
-> Signed-off-by: Kees Cook <kees@kernel.org>
-> 
-> [ Adapted to this tree: the kconfig here has no "transitional" keyword, so
->   the CFI_CLANG compat symbol is omitted; re-applied the rename on top of the local
->   contents of the conflicting files, converted the remaining
->   CONFIG_CFI_CLANG users (riscv cfi.c, longest_symbol kunit comment),
->   and dropped the tools/ cfi_types.h hunk as that file is absent here. ]
-> 
-> Stable-dep-of: 52fb1756ea1d ("riscv, bpf: Fix kernel stack corruption in tailcall with CFI")
+On Mon, Oct 12, 2026 at 10:03:30AM -0400, Yazen Ghannam wrote:
+> These were intentionaly left out as it as it seems users have been
+> moving to user space decode tools.
 
-I object to this being backported in its current form, especially as a
-"dependency" of the listed change... The transitional keyword is very
-much needed for this change to avoid silently disabling the feature
-across olddefconfig. Either backport it as well or just do the simple
-thing and properly adjust 52fb1756ea1d for trees that do not contain
-23ef9d43976:
+You're making the old mistake:
 
-  $ git format-patch --stdout -1 52fb1756ea1d | sed 's;(CONFIG_CFI);(CONFIG_CFI_CLANG);g' | git am
+a. a naked MCE record in dmesg, you have to open the PPRs and actually decode
+it by hand. Or use a tool but most of the time, that tool is not updated with
+the latest error definitions, and you need the exact machine info in order for
+the tool to decode properly, yadda yadda...
+
+b. Get a fully decoded error string in dmesg.
+
+What is better: a) or b) ?
 
 -- 
-Cheers,
-Nathan
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
