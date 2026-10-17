@@ -1,44 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E0243B3880;
-	Sat, 17 Oct 2026 16:41:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 809AC3ACF15
+	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 16:41:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792255309; cv=none; b=f5HCMgS3ietNyjRGkLJiGDRhFz6E9ZtvPxNISuqZ5Wuo/rMAh57poV1rm8lVtKf79/8gw8J5BTSHtTIkLhl8ZtnwHrDYzSa41zZ1BcVFWhr8KPchIRtFF2rMSItFKdZBtqvLGX3H9Lhxu2Jn1/IV+fsv8SJFDdZIjoRaxTaPGR0=
+	t=1792255310; cv=none; b=qJKjxRWGoZ7HGZQrmPW5IBuVUycK2n8m/ZK0M8HhQrEDTmZf/dabD1/N7MyA0hH870FGEsaP6cxq0ckUi6rVBTEEBb6Lkv1PxQXxzx9gX318f7kI50H98JkGhEQP79spiC+/stwzMIJF3Tg5TXv1HC9uJ/hoBMxMJE8B+ZI0yO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792255309; c=relaxed/simple;
-	bh=PkL/ajIdyCfWP/EnlTQY8iYsK7YAp1vSe8wk0OxWB2A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W3O8MpKQATIj3mY/BKiiH+OrvprUL+IUeuw3N66kXJuE6iSWbOh04n1y861r5S8aoTM6xgztgUTv5OUwXq16uDz6YKvPhm61mn50O+v4PEvXfFzWJ+AIfUtGmiFM9B3UZU+hC6nWRI84vHc+9Pu05PQ1rx9IjUg5u38sicJUp4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UW/RUifH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792255310; c=relaxed/simple;
+	bh=f0oOwJ99ASBwohPnUw6E+rSWJn8E7P22P3UNI/krsOI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OBjXwDztnbqmjOZFvOZLtXQwU9hWU3V15HS+pDchexlAgspP9iIFr8s/i/BK1GJm7KdF9F7x4UuIGnv5CfDEBYiNuoWVq0S2MvVvu4mup4DcJmtC6nqi6ktqOXl1R9prjsKgeX824fPNFMoLLatq4NKEPu5P5baX97fb0zqf400=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eaqPQQaB; arc=none smtp.client-ip=209.85.219.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UW/RUifH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0A6D1F000C6;
-	Sat, 17 Oct 2026 16:41:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792255308;
-	bh=zABqjDbBQclPq5O2qZAqYi9OWLPC/vP9R79mFlzjriA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UW/RUifH3F5buUfDDP35mVfXK6HNCMn1Qm5ZpuCQuBRB69GtD5+O1gcDLjt0yP/iG
-	 45krMvteHqcIvCR4PJBSg9uRnNczCKSRB8wdysZsNIytKm8m9by5fhbw0lSka/TsoB
-	 GPYSw/dp3KWaYZE5ydv9lmxl2h1pd/5786yCVgMc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Sicong Huang <congei42@163.com>,
-	Fei Li <fei1.li@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 732/869] virt: acrn: Fix irqfd use-after-free during eventfd shutdown
-Date: Sat, 17 Oct 2026 17:59:33 +0200
-Message-ID: <20261017160055.715186327@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261017160036.979869304@linuxfoundation.org>
-References: <20261017160036.979869304@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eaqPQQaB"
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-91b52ba422cso11840606d6.2
+        for <stable@vger.kernel.org>; Sat, 17 Oct 2026 09:41:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792255308; x=1792860108; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tJIcl5oLftMCiRZNmyVUnJAZje8wxQdTARXgo+oxa1E=;
+        b=eaqPQQaBtGDG4Hzd2VZQKPEnLDGwTroNn+VSySiQssXijYvMQmXTzNeIgSkJxWK2d3
+         PbDSaNgAagAzegi2jRxPuIHJ4LPUwpA2EA+aMJgZHDQbzi2BpFjz9a9xVPWIR0sW+O3C
+         A+brrb1J15bXvwwugKD+DouyK5VjA6664zHiwsXeeQDygIxntBTwU24M+owZHOe5aQwq
+         nOun5yHsz0zeYJE3sxRQBrGIq5YPOW1vgqX58VKuRevXLH/8hv4b6bFCWHzo/cVR8XDw
+         gXIpsqwoRG6WzSiFrEEhLtZzMFSmEVuN0pbRDM/ReQjKkRm96Sf0z9tPTdVGrV8IK63L
+         nICQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792255308; x=1792860108;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tJIcl5oLftMCiRZNmyVUnJAZje8wxQdTARXgo+oxa1E=;
+        b=vPo7FCJergHhfqUO41g+qCd2vfj96YW6F3+zE5NMGCsFzaegZs2erjJT7Ak5mDP6fK
+         fxgbR9lH04xDdeFjK+CvK/S1Es/7fhpGpkqBto1ORN/2vUF8NqaqX8Sv3IoVVr0JxZr3
+         jcK+R16ajaZ0gFBfft3yVZOo7rwTivZA3qYqwWPfLuWrRRcGRVchCCmaNKOrSveGsJry
+         VmKXbH+yy/gO6dtsasuxubZ0BHS8iE2hyHf/ys0F6SSyaQeStDV/16+lpKF5t2aZWaiE
+         mmDO//MLZcOFOCDP+p8aC2n4U13Lg3p6TPUJuw1cj2uiT35KtonWptOyr6CriQ8S5P4Y
+         ZqTA==
+X-Forwarded-Encrypted: i=1; AKwUvBwN6ro4OSHd+d5jUVX1OdmFqTMsf+aqa+l8qUEva7IJ8BXEYkefwShpV5/ofnLK4YPDVyf2b54=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIX72GTopnoty5YpTUu1frBemSlxj+LSza1uigFI1ve0xCnZ4Tv
+	1Qf7CbGv0d0WgLsAP5PSmiIlTaVGJzbE17fZ6+EdoiNKYE1JhokUHrN3fiD+tpJn
+X-Gm-Gg: AYBFou0n0Z0VzmH3CImN5nGGseQ4rOVUZ1Bi7VSffYPWN0mpZVIX9bvKDkPdpjXs1wv
+	mkWLZT23TMVAEJ5PEUY+xWPIAYlDfBYoZApqK9YIiqajI9URxosiKLfFr6XV4hYMyt7yStG+pFR
+	uRWSCNOskUoUA/M8YCNwEs6obYzsc8+g44a7WFyqsLxtk5DabkQyh0xytL8+mzaHoAIjrM/seey
+	RdvvcPHCwYTS7o/jl3hBC00vyH9f9iy+VaHczc1xd42O8eHtcYLn8gp+o4yOBaY6UU255gyLSR+
+	xMON9fpNzLeQI8UFovGQkwdTSb1iHIXFddEmpayt/KcYBQVWzTtkHWzXdDJ4R/KLhT4XD5a7ScV
+	NgjVVrN+/iFQpXOedl0hH8U4SddmFlLDUCFGOPOb/5sxbkWdqsZDeGIzFyv/dJrQe1KBOVqO//n
+	sI5K9eYCXtPNkf/HhKM5UbTPnt9QJhXVgfJgxGJmRkBUhm5uV85YDcUrXHKcDPMF/C
+X-Received: by 2002:a05:6214:3b89:b0:90c:4422:84d1 with SMTP id 6a1803df08f44-91bdf17e317mr60816536d6.30.1792255308456;
+        Sat, 17 Oct 2026 09:41:48 -0700 (PDT)
+Received: from beelink ([187.15.140.245])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcb8c4adasm51061296d6.1.2026.10.17.09.41.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 09:41:48 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: jikos@kernel.org,
+	bentiss@kernel.org
+Cc: dmitry.torokhov@gmail.com,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: [PATCH v11 0/2] HID: multitouch: fix haptic lifetime on delayed input release
+Date: Sat, 17 Oct 2026 13:41:37 -0300
+Message-ID: <20261017164139.1791033-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,234 +76,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+v10 review found that the multitouch slot setup ran before validating
+the haptic class and selecting the input that owns FF. This could set
+INPUT_MT_TOTAL_FORCE on an input without haptics. If no multitouch
+touchpad input was found, haptic mode could remain enabled.
 
-------------------
+Patch 2 now validates the class and attaches FF before setting up MT
+slots. It selects the input where multitouch touchpad pressure was
+mapped with gram or newton units, so an earlier multitouch report
+without haptic pressure cannot take the sole FF instance. Only that
+input gets pointer emulation, total force and haptic pressure
+accounting. Haptic mode is disabled if no input receives FF. Patch 1
+is unchanged from v10.
 
-From: Sicong Huang <congei42@163.com>
+Tested on x86_64 with W=1. The HID multitouch module compiled, and
+QEMU/KVM with KASAN completed 10 virtual UHID haptic cycles and 10
+multi-input cycles with a non-multitouch report before the multitouch
+report. The tests checked FF_HAPTIC, effect upload and playback, HID
+removal with an open evdev fd, and final release. Two negative fixtures
+had gram pressure but either no haptic reports or no touchpad report.
+With two contacts, v10 summed ABS_PRESSURE to 30 in both cases; v11
+reported the oldest contact's pressure of 10. A split-report fixture
+placed a multitouch report without pressure before the pressure-bearing
+one; FF, INPUT_PROP_POINTER and ABS_PRESSURE were on the latter input.
+No KASAN report was emitted. Physical hardware was not tested.
 
-[ Upstream commit 666c7f9e07925aa0863348f960e09bb89f8f05a3 ]
+Base: 58161ead29e50d70a317ea26b472e0c7508e69da
+v9: https://lore.kernel.org/linux-input/20261017140332.1480375-1-qwe.aldo@gmail.com/
 
-acrn_irqfd_deassign() and the eventfd EPOLLHUP wakeup can race and free
-the same struct hsm_irqfd:
+Aldo Ariel Panzardo (2):
+  HID: haptic: make FF creation the last fallible init step
+  HID: multitouch: give FF core ownership of haptic state
 
-  CPU0                                 CPU1
-  ----                                 ----
-  eventfd_release()
-    wake_up_poll(EPOLLHUP)
-      hsm_irqfd_wakeup()
-        queue_work(&irqfd->shutdown)
-                                       acrn_irqfd_deassign()
-                                         hsm_irqfd_shutdown()
-                                           list_del_init()
-                                           eventfd_ctx_remove_wait_queue()
-                                           eventfd_ctx_put()
-                                         kfree(irqfd)
-  hsm_irqfd_shutdown_work()
-    container_of(work, ..., shutdown)
-    irqfd->vm                  <-- use-after-free
+ drivers/hid/hid-haptic.c     | 161 +++++++++++++++++------------------
+ drivers/hid/hid-haptic.h     |   6 +-
+ drivers/hid/hid-multitouch.c |  59 ++++++++++---
+ 3 files changed, 125 insertions(+), 101 deletions(-)
 
-The deassign path freed the irqfd while a shutdown work item was
-already queued by EPOLLHUP (or vice versa), so the work item could
-resurrect a dangling pointer through container_of().
-
-Switch to the lifetime model used by KVM irqfds:
-
- - Deassign/deinit only deactivate the irqfd: remove it from vm->irqfds
-   under irqfds_lock and queue the cleanup work.
- - hsm_irqfd_shutdown_work() becomes the sole owner that unhooks the
-   eventfd waitqueue entry, drops the eventfd reference and frees the
-   irqfd.
- - A new HSM_IRQFD_FLAG_SHUTDOWN bit guarded by test_and_set_bit()
-   ensures the cleanup work is queued at most once, no matter how many
-   of {EPOLLHUP, deassign, deinit} fire concurrently.  This is safe to
-   call from the waitqueue callback, which runs with wqh->lock held and
-   IRQs disabled and therefore cannot take irqfds_lock.
- - acrn_irqfd_deassign() flushes vm->irqfd_wq before returning so the
-   eventfd is fully detached on return.  acrn_irqfd_deinit() deactivates
-   every irqfd, flushes the workqueue and only then destroys it, so no
-   path can queue_work() onto a torn-down workqueue.
- - acrn_irqfd_assign() now installs the eventfd waitqueue entry and
-   publishes the irqfd to vm->irqfds under irqfds_lock, so the irqfd is
-   never visible to deassign/deinit before its waitqueue entry is in
-   place, and any EPOLLHUP that fires in the assign window queues
-   cleanup work that blocks on irqfds_lock until publication is done.
-
-Signed-off-by: Sicong Huang <congei42@163.com>
-Reviewed-by: Fei Li <fei1.li@intel.com>
-Link: https://patch.msgid.link/20260519112018.2135000-2-congei42@163.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/virt/acrn/irqfd.c | 71 ++++++++++++++++++++++++---------------
- 1 file changed, 44 insertions(+), 27 deletions(-)
-
-diff --git a/drivers/virt/acrn/irqfd.c b/drivers/virt/acrn/irqfd.c
-index 5574fbf878209..1b1a33d702c10 100644
---- a/drivers/virt/acrn/irqfd.c
-+++ b/drivers/virt/acrn/irqfd.c
-@@ -16,6 +16,9 @@
- 
- #include "acrn_drv.h"
- 
-+/* Cleanup work has been queued; set via test_and_set_bit(). */
-+#define HSM_IRQFD_FLAG_SHUTDOWN	0
-+
- /**
-  * struct hsm_irqfd - Properties of HSM irqfd
-  * @vm:		Associated VM pointer
-@@ -25,6 +28,7 @@
-  * @list:	Entry within &acrn_vm.irqfds of irqfds of a VM
-  * @pt:		Structure for select/poll on the associated eventfd
-  * @msi:	MSI data
-+ * @flags:	Internal lifecycle flags (HSM_IRQFD_FLAG_*)
-  */
- struct hsm_irqfd {
- 	struct acrn_vm		*vm;
-@@ -34,6 +38,7 @@ struct hsm_irqfd {
- 	struct list_head	list;
- 	poll_table		pt;
- 	struct acrn_msi_entry	msi;
-+	unsigned long		flags;
- };
- 
- static void acrn_irqfd_inject(struct hsm_irqfd *irqfd)
-@@ -44,30 +49,29 @@ static void acrn_irqfd_inject(struct hsm_irqfd *irqfd)
- 			irqfd->msi.msi_data);
- }
- 
--static void hsm_irqfd_shutdown(struct hsm_irqfd *irqfd)
-+/* Queue the cleanup work at most once. Safe from atomic context. */
-+static void hsm_irqfd_queue_shutdown(struct hsm_irqfd *irqfd)
- {
--	u64 cnt;
--
--	lockdep_assert_held(&irqfd->vm->irqfds_lock);
--
--	/* remove from wait queue */
--	list_del_init(&irqfd->list);
--	eventfd_ctx_remove_wait_queue(irqfd->eventfd, &irqfd->wait, &cnt);
--	eventfd_ctx_put(irqfd->eventfd);
--	kfree(irqfd);
-+	if (!test_and_set_bit(HSM_IRQFD_FLAG_SHUTDOWN, &irqfd->flags))
-+		queue_work(irqfd->vm->irqfd_wq, &irqfd->shutdown);
- }
- 
-+/* Sole owner of @irqfd: unhook waitqueue, drop eventfd ref, free. */
- static void hsm_irqfd_shutdown_work(struct work_struct *work)
- {
--	struct hsm_irqfd *irqfd;
--	struct acrn_vm *vm;
-+	struct hsm_irqfd *irqfd = container_of(work, struct hsm_irqfd,
-+					       shutdown);
-+	struct acrn_vm *vm = irqfd->vm;
-+	u64 cnt;
- 
--	irqfd = container_of(work, struct hsm_irqfd, shutdown);
--	vm = irqfd->vm;
- 	mutex_lock(&vm->irqfds_lock);
- 	if (!list_empty(&irqfd->list))
--		hsm_irqfd_shutdown(irqfd);
-+		list_del_init(&irqfd->list);
- 	mutex_unlock(&vm->irqfds_lock);
-+
-+	eventfd_ctx_remove_wait_queue(irqfd->eventfd, &irqfd->wait, &cnt);
-+	eventfd_ctx_put(irqfd->eventfd);
-+	kfree(irqfd);
- }
- 
- /* Called with wqh->lock held and interrupts disabled */
-@@ -76,17 +80,16 @@ static int hsm_irqfd_wakeup(wait_queue_entry_t *wait, unsigned int mode,
- {
- 	unsigned long poll_bits = (unsigned long)key;
- 	struct hsm_irqfd *irqfd;
--	struct acrn_vm *vm;
- 
- 	irqfd = container_of(wait, struct hsm_irqfd, wait);
--	vm = irqfd->vm;
-+
- 	if (poll_bits & POLLIN)
- 		/* An event has been signaled, inject an interrupt */
- 		acrn_irqfd_inject(irqfd);
- 
- 	if (poll_bits & POLLHUP)
--		/* Do shutdown work in thread to hold wqh->lock */
--		queue_work(vm->irqfd_wq, &irqfd->shutdown);
-+		/* Defer teardown to the cleanup work; can't sleep here. */
-+		hsm_irqfd_queue_shutdown(irqfd);
- 
- 	return 0;
- }
-@@ -143,6 +146,12 @@ static int acrn_irqfd_assign(struct acrn_vm *vm, struct acrn_irqfd *args)
- 	init_waitqueue_func_entry(&irqfd->wait, hsm_irqfd_wakeup);
- 	init_poll_funcptr(&irqfd->pt, hsm_irqfd_poll_func);
- 
-+	/*
-+	 * Hold irqfds_lock across waitqueue install and list_add so the
-+	 * irqfd is not visible to deassign/deinit before its waitqueue
-+	 * entry is in place, and any racing EPOLLHUP cleanup work blocks
-+	 * on irqfds_lock until publication completes.
-+	 */
- 	mutex_lock(&vm->irqfds_lock);
- 	list_for_each_entry(tmp, &vm->irqfds, list) {
- 		if (irqfd->eventfd != tmp->eventfd)
-@@ -151,14 +160,12 @@ static int acrn_irqfd_assign(struct acrn_vm *vm, struct acrn_irqfd *args)
- 		mutex_unlock(&vm->irqfds_lock);
- 		goto fail;
- 	}
--	list_add_tail(&irqfd->list, &vm->irqfds);
--	mutex_unlock(&vm->irqfds_lock);
- 
--	/* Check the pending event in this stage */
- 	events = vfs_poll(fd_file(f), &irqfd->pt);
--
-+	list_add_tail(&irqfd->list, &vm->irqfds);
- 	if (events & EPOLLIN)
- 		acrn_irqfd_inject(irqfd);
-+	mutex_unlock(&vm->irqfds_lock);
- 
- 	fdput(f);
- 	return 0;
-@@ -185,13 +192,17 @@ static int acrn_irqfd_deassign(struct acrn_vm *vm,
- 	mutex_lock(&vm->irqfds_lock);
- 	list_for_each_entry_safe(irqfd, tmp, &vm->irqfds, list) {
- 		if (irqfd->eventfd == eventfd) {
--			hsm_irqfd_shutdown(irqfd);
-+			list_del_init(&irqfd->list);
-+			hsm_irqfd_queue_shutdown(irqfd);
- 			break;
- 		}
- 	}
- 	mutex_unlock(&vm->irqfds_lock);
- 	eventfd_ctx_put(eventfd);
- 
-+	/* Wait for cleanup work to finish so the eventfd is fully detached. */
-+	flush_workqueue(vm->irqfd_wq);
-+
- 	return 0;
- }
- 
-@@ -224,9 +235,15 @@ void acrn_irqfd_deinit(struct acrn_vm *vm)
- 	struct hsm_irqfd *irqfd, *next;
- 
- 	dev_dbg(acrn_dev.this_device, "VM %u irqfd deinit.\n", vm->vmid);
--	destroy_workqueue(vm->irqfd_wq);
-+
- 	mutex_lock(&vm->irqfds_lock);
--	list_for_each_entry_safe(irqfd, next, &vm->irqfds, list)
--		hsm_irqfd_shutdown(irqfd);
-+	list_for_each_entry_safe(irqfd, next, &vm->irqfds, list) {
-+		list_del_init(&irqfd->list);
-+		hsm_irqfd_queue_shutdown(irqfd);
-+	}
- 	mutex_unlock(&vm->irqfds_lock);
-+
-+	/* Drain all cleanup work before tearing the workqueue down. */
-+	flush_workqueue(vm->irqfd_wq);
-+	destroy_workqueue(vm->irqfd_wq);
- }
 -- 
 2.53.0
-
-
 
