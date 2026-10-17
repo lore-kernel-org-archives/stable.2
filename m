@@ -1,120 +1,169 @@
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A8E34DCD2
-	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 05:06:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1702629A9C3
+	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 05:07:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792213616; cv=none; b=g9t9cCZAUzrLH/Y0qyE/yWMSDN6xVcIdrh/DF5sIXlLx7Z+Oc3svctKUh5JOwE8+2IHcQxrKBlCpRyHlj14R5+D98IY23c6UhRj2Qohtu1229msm4Lb9UJQ7vrgWbNlI03AQdg/FSVMraXdwxSw9CfVkDywN3S3GSkXxaf/duRk=
+	t=1792213650; cv=none; b=i0TT28+Bk7SF6f/CTxl01sHA1BTuSp/IQIaUjsGQQMtfDs8Ip8xbPqILb6DAHyOqut/jHgEwV/oZqvjrr1hgVAVhuSIbD8Bxf7VG8n3MYqMwBfOde/OMhycOBef4FyNiYIs6vxK9dDkhFDTs42njC6Xyz3RYks/Z/oBEMjrLLPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792213616; c=relaxed/simple;
-	bh=UxEGsDp+X8XVGsojDB6p8Pq7U4zHWN6nO0KwXXBjwTU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Rhdhd6PKF0qGcFZPLQ8BG/HMdv2yoIxUchVcroSJnx+H/roRgBmtcS6Qm/UIifDJoRTsQgF0/y/vkZMcNKuo8b9LSNRoG/9dXXQgPeNWk5ikTTQ9TN4VgwkkMfOdkbKFiHNSpuLSrfyjNykf//tWGDAndmtBf4eXn7I9huKSKNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rG7bTMiV; arc=none smtp.client-ip=209.85.210.46
+	s=arc-20240116; t=1792213650; c=relaxed/simple;
+	bh=6/qYlEhJHSxlMKX7o7HI7DT+c0x8I+YT/0Zuz+mG7pg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r4cyAILNU34/+VQkWqikh/aD8gGlUns633YNmECXao3PmLL+8Aqi0ilKAYrbdUwNErRMlr1VW8wtAh4BegXk9TJdMppiUldL34MbqDgDYajcuDVyQ+XY62NhZg4xzHY/bm4JuNpfob3C68CG3Fy7P3XENN78awz6xvUyqAgVy94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lvWag99b; arc=none smtp.client-ip=209.85.210.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rG7bTMiV"
-Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-823e4047037so351653a34.2
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 22:06:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lvWag99b"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-89d4030cc57so316502b3a.1
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 22:07:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792213614; x=1792818414; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2QPqiCPtv6mBsOEA+xwRq+Gvryl1g6t6b+sIBHTwo/w=;
-        b=rG7bTMiV27I2A4OpBqK+mMADpNRgZ2ml1KduiGZcmIBFOTVPuazF39SXvRcF/x6Ps5
-         hlDyUYtC2fAPNuE4rC8ZAFpAqzqj6dZ8C/2e6uFAeMGATLxumEmOJjQ9iuc53pJ93k7K
-         Jt1mUXYOO8g7uPi05mVdU0gfl0xBZUAHMgFW/lvnLLTEXaKRFlI1TEzpw0pV3fnsU0mG
-         OQICOph2JBVGJRyxCfB7bXq1CA8tnd9H1doaZmMgCHQPnAKNAihfsNvIl1VIyKxoUg1A
-         eHwemBZzRLVPKCFW/lStKADIdYiBNUrFWnplKWBfWSu0f3sR97pUUhk4DnO8aTr9UGhI
-         baPQ==
+        d=gmail.com; s=20251104; t=1792213648; x=1792818448; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lBiMjT8ldL7Ky1jQPlUb8oCa4/bnIv7ADJeJybOOjZ4=;
+        b=lvWag99bsYIKt/+2rBh7ekOV/4jvmSQIgDlKusd1AEoUzi8Ly/7XKQKyeV0chQO3EU
+         1aL5kGntrv5VouEfrZGFciLJJp6mJLEx/m4btdLRdKSdTN0QorKQ0Kl0FSIwTaYvJ6hO
+         Z8aYZOPegBNItB1j0vuUsAPd5tDl5voQlpJi3FMQGgVd0TGJQNCpyFxL9bJpxBr0ASfb
+         UiVC26pgLZFoO9KYUZqviU/PtVfJpmxW2AIyNjwOQfd8DDwXSg37OgNJ6WD/dpwAQUTt
+         S8E8yLLeiFAIummQBzCwykm4lNYptfstSAPbghMETA/mYTMmYSID4JdJHn/3ck8jMNtr
+         Cx5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792213614; x=1792818414;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2QPqiCPtv6mBsOEA+xwRq+Gvryl1g6t6b+sIBHTwo/w=;
-        b=I3eGCQlUPGi6PfCeY42JFt6o1LLu32z97wdJhVYb6Yu+LxEcFSGU0vQrXmGy+K4Nvv
-         TP6NYW1YBOGdcV3fVDYFzwn2RR8dOeXw+Vem5PVMvz043mTPhV4ujKm7eIfEo2/k34/d
-         jwGl4uDD5B6z66XzAMi+lRcTbnK6cc8B6HpS9mWCQu7w/51Cyqs3n27x9HeVTTZh8eEx
-         nwyFH9PlnOKtXMH7bx3XWFxGzovgz3Yek6OeWQt27T4UgVxtlqR/rH1pMMttlBkCfx7/
-         hF/gkYbltAYC7johz3OsDxTVvS3SK6DH3qykajruOHvgU8OtxyTnyCqJivHNNMip3MUl
-         y1yA==
-X-Forwarded-Encrypted: i=1; AKwUvBzUO33Bb2vS0WLhh4nD+cJ7pcNlWvX8Jj5poCZoKgFEq+n2u/iQAYbq4oLfb9Ygd1d5dDitZ50=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLVCQQ/j7wX4+ypU0RJgQYW1CMF+7rgPoL5+nxAOnz1kvVl8VJf
-	x2HFjwhzbM24dhJp+8Q1SP6Lzo6gQb2zBY1YieaF97PSqqSlh01lUC0R
-X-Gm-Gg: AYBFou0nLSPEf0ld/L2Y4sJcssb2zIXT8GrCGA41G+EVEme9ryYqaPmV1xTSZQG751T
-	PFYz7iQy+bue0n3Lz7UyOShY8Q+r4KYH/Q74e4uOGkrQg0zqmAPewVl0awGp7OdNeO2mUtOWy1B
-	shaT+OYzWwDKcUuDPKZWNxAHnRFLthq9+pjFvdVpnz7lyGE2KQjeTYPLSWEdLBdm1kCGUrMz56W
-	8KhzIMI/LaCRQV64PgQDl6XZmfs/fMvOAG73jh551Cn5DdjOF7lCKaCPw2pUAkcYjRUS0EIuSsy
-	ZotNsy6Wx3nKzGkgK9Vyhvvs3d/T/cRtI4QwGybc9rU7e+pzhi5muFXVrSBWywSlte52oFGMpOv
-	fFiM69B780MK3cZeqtLADcgp8JJNulYz/eEePOX+PWT93lFlr2Py+n2qn4pIPF49kFSyJsaHb/Q
-	IeAFaRb9+V5eQVpTda1f4ySSluxgO0UdI2vA+Qb6rET1fWJeHn+cnJeiaBmuZYvTJUFU/c4lh4l
-	L6VA1BhudpvfukW5M+PjSALx5/3xg==
-X-Received: by 2002:a05:6830:2e05:b0:80c:d34f:5f65 with SMTP id 46e09a7af769-84501a1395fmr1739782a34.30.1792213614098;
-        Fri, 16 Oct 2026 22:06:54 -0700 (PDT)
-Received: from fedora (fixed-189-203-106-166.totalplay.net. [189.203.106.166])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-842a0f31614sm3504872a34.3.2026.10.16.22.06.51
+        d=1e100.net; s=20260707; t=1792213648; x=1792818448;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lBiMjT8ldL7Ky1jQPlUb8oCa4/bnIv7ADJeJybOOjZ4=;
+        b=ji6dLiUANdH/+D5WWLRZy/nNzNxs3wO7p1Hw8xDqzmPZ64wM3BbkGsvTGBQgaeodnb
+         8w0KbHvnxNAAPFN5AK/Z745oHjCuknC8ed+H7X9H3+1MWU8fbpeO1B/diL0vETHFAY/3
+         SoZGkk/BN5QKThayftNCHtQCuJaGucEO1/JWBLcJcHAMHRlYHSF3ijQbvK3jrIOAky9q
+         dbeDZWIP1MVac5P5JuVAEnWNwcHEOH6kzKh+HbNecx4CyhiuQ2GQ4WYXVVImv8x9oVjq
+         pws35r13jDkwmbLWnFjIr6QFiV4zofhYUq9BKSnpWeNRRCvHyHsUu03BR4NvfCMOyt/T
+         W/uw==
+X-Forwarded-Encrypted: i=1; AKwUvBySS3LUFcOVUpR93bx6A24aGssG6vhDAnNWyGBtxZvaq/LRL+/NxaaG7XowP5Ns5+Gi2syxC2E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9oRqCohq8I1s/fzosrWhAYTFyoqbD6nb0z5UDhfIv4aEYQsqC
+	fihIz9K1malDqhyVDUMJHX+nqFH0RT7Zbml/1WjIWaetnd0EPwWVSjk+WKGiTw==
+X-Gm-Gg: AYBFou1/lLes35Tq7SBjI48QIm9JsNfoH7Mug8gIqIk25/9ne3tdeGxvyNcJAhJ4jbw
+	sPB6o8Eq8DezPI+VjnZbitQ8T8B1H4TlOQ9jma2jZbpwH1zjzPE0RHmIEJ7klu0ubF0sYArXsI0
+	l0utRZlrftlz4s/AdX5//tLxd/EpXQGIRuXyqenuMNoc+6Ix6/6DCSbyTTZfeMhE9Hl/UAKdhk1
+	ibstX4+vIQnoSm5CBCQxJhH81UD3mghJJ66l0BiCBS3YwKS7VymhsKMZyPYKlPyKZn8Z+opLKnS
+	WmakuiN5IPYeA/Bq4nN8BNcTupam6GF+YcvPQ1gPL9M8G8gqlleqAc1FhLzgpA6akd1umInyJYI
+	CqHG5I1gOvUoHJjZtV/TKazJdFnEiXrZ2gLKvTe1F/cRLEm0yROzGbDYmhfYoetMRRNAv2UHCUV
+	SjPNFVR6hH8eC2KmrNSDDHm1OvrB3YxLKcFMI8qkwWMFvopd1+QXR46RhfqZpezy5YKXucVgSZ8
+	QXLS5F0nxel1J16Ujd2qb3oJoL38wsyz9TBO/fTiMo362NEaM4olN6hzefk/wzrqDQSF+uqEmy+
+	c06MSQIs1N90JgqEMY2gnQj3+ydvtXunFA8cs1TmsUUXGRiQkgOgeuYl5JsNAXhN5E+MzhtTG6z
+	CQG4YV3uOmQ==
+X-Received: by 2002:a05:6a20:6a22:b0:3d3:ae40:51e2 with SMTP id adf61e73a8af0-3e225f398b4mr1200716637.22.1792213648057;
+        Fri, 16 Oct 2026 22:07:28 -0700 (PDT)
+Received: from sid-dev-env.cgrhrlrrq2nuffriizdlnb1x4b.xx.internal.cloudapp.net ([4.155.54.158])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd65484a66csm2111964a12.2.2026.10.16.22.07.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 22:06:53 -0700 (PDT)
-From: =?UTF-8?q?Jos=C3=A9=20Miguel=20Castellanos=20Valladolid?= <josstamy@gmail.com>
-To: tiwai@suse.com
-Cc: perex@perex.cz,
-	linux-sound@vger.kernel.org,
-	=?UTF-8?q?Jos=C3=A9=20Miguel=20Castellanos=20Valladolid?= <josstamy@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ALSA: hda/realtek: Enable mute LEDs on HP OmniBook X Flip 14-fm0xxx
-Date: Fri, 16 Oct 2026 23:06:15 -0600
-Message-ID: <20261017050615.14481-1-josstamy@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        Fri, 16 Oct 2026 22:07:27 -0700 (PDT)
+From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+To: 
+Cc: Siddharth Chintamaneni <sidchintamaneni@gmail.com>,
+	stable@vger.kernel.org,
+	Hardik Garg <hargar@linux.microsoft.com>
+Subject: [PATCH v2 1/2] mm: multi-gen LRU: fix NULL lruvec->pgdat deref with memcg disabled on cmdline
+Date: Sat, 17 Oct 2026 05:07:22 +0000
+Message-ID: <20261017050726.128260-1-sidchintamaneni@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The HP OmniBook X Flip Laptop 14-fm0xxx (subsystem ID 0x103c8d9f, ALC245
-with two CS35L41 amplifiers over I2C) is currently handled by
-ALC287_FIXUP_CS35L41_I2C_2. That binds the amplifiers but does not set up
-the mute LEDs, so neither the speaker mute key LED nor the microphone mute
-key LED lights up under Linux. With that fixup the codec GPIOs stay
-disabled (IO[0..2] enable=0).
+When CONFIG_MEMCG=y, lruvec_pgdat() returns lruvec->pgdat, which for the
+per-node pgdat->__lruvec is left NULL by lruvec_init() and only filled in
+lazily by mem_cgroup_lruvec(). Normally that happens early, e.g. on the
+first folio_add_lru().
 
-Switch the entry to ALC287_FIXUP_CS35L41_I2C_2_HP_MUTE_LEDS, which chains
-cs35l41_fixup_i2c_two with ALC245_FIXUP_HP_X360_MUTE_LEDS. This keeps the
-amplifier setup and adds the speaker mute LED through the ALC245 COEF
-register and the mic mute LED through codec GPIO2. It is the same fixup
-already used for the 17 Turbine OmniBook 7 DIS (0x103c8d9c).
+With cgroup_disable=memory, lru_gen_shrink_node() passes &pgdat->__lruvec
+directly to shrink_one(). If direct reclaim runs before anything has
+called mem_cgroup_lruvec() for the node, which can happen during early
+boot under memory pressure (e.g. a kdump kernel), get_swappiness() ends
+up dereferencing a NULL pgdat:
 
-Tested on the affected laptop with v7.2.11 using the equivalent
-ALC245_FIXUP_HP_ENVY_X360_15_FH0XXX fixup, which has the identical
-cs35l41_fixup_i2c_two + ALC245_FIXUP_HP_X360_MUTE_LEDS chain: hda::mute
-and hda::micmute LED class devices appear and both key LEDs light up
-when muting.
+  Unable to handle kernel NULL pointer dereference at virtual address 0000000000005040
+  pc : get_swappiness+0x68/0xb0
+  lr : try_to_shrink_lruvec+0x54/0x2c0
+  Call trace:
+   get_swappiness+0x68/0xb0 (P)
+   try_to_shrink_lruvec+0x54/0x2c0
+   shrink_one+0x8c/0x240
+   shrink_node+0xc6c/0xe08
+   do_try_to_free_pages+0xdc/0x570
+   try_to_free_pages+0x124/0x278
+   __alloc_frozen_pages_noprof+0x6e8/0xf78
+   alloc_pages_mpol+0xc4/0x1c0
+   alloc_frozen_pages_noprof+0x54/0xe8
+   alloc_pages_noprof+0x1c/0x40
+   atomic_pool_expand+0x98/0x300
+   __dma_atomic_pool_init+0x58/0xd8
+   dma_atomic_pool_init+0x154/0x170
+   do_one_initcall+0x64/0x350
+   kernel_init_freeable+0x214/0x430
+   kernel_init+0x2c/0x208
+   ret_from_fork+0x10/0x20
 
-Cc: stable@vger.kernel.org
-Signed-off-by: José Miguel Castellanos Valladolid <josstamy@gmail.com>
+The classic LRU path and MGLRU before per-node lru_gen_folio lists
+obtained the lruvec through mem_cgroup_lruvec(), which sets
+lruvec->pgdat.
+
+The above was hit on an arm64 kdump kernel (6.18-based) booted with
+cgroup_disable=memory nr_cpus=4. It also reproduces on mainline on an
+arm64 VM with CONFIG_ARM64_64K_PAGES=y, CONFIG_MEMCG=y,
+CONFIG_LRU_GEN_ENABLED=y and:
+
+  mem=160M nr_cpus=4 coherent_pool=512M cgroup_disable=memory
+
+These options only serve to force direct reclaim early in boot; with
+160M the boot eventually ends in OOM regardless. On mainline the first
+LRU reclaim happens while unpacking the initramfs, and faults the same
+way:
+
+  Unable to handle kernel NULL pointer dereference at virtual address 0000000000005040
+  pc : get_swappiness+0xd4/0x150
+  Call trace:
+   get_swappiness+0xd4/0x150 (P)
+   try_to_shrink_lruvec+0x44/0x2b8
+   shrink_one+0x80/0x1a0
+   shrink_node+0xd98/0xea8
+   do_try_to_free_pages+0xf4/0x4b0
+   try_to_free_pages+0x110/0x360
+   __alloc_frozen_pages_noprof+0x8b0/0x1718
+   ...
+   __filemap_get_folio_mpol+0x2ac/0x548
+   simple_write_begin+0x44/0xf8
+   page_symlink+0x178/0x198
+   ...
+   do_populate_rootfs+0x13c/0x200
+
+Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+Cc: stable@vger.kernel.org # 6.3+
+Assisted-by: LLM
+Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
 ---
- sound/hda/codecs/realtek/alc269.c | 2 +-
+ mm/vmscan.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 36d3bc23a..c33a38598 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -7957,7 +7957,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x8d9c, "HP 17 Turbine OmniBook 7 DIS", ALC287_FIXUP_CS35L41_I2C_2_HP_MUTE_LEDS),
- 	SND_PCI_QUIRK(0x103c, 0x8d9d, "HP 17 Turbine OmniBook X UMA", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8d9e, "HP 17 Turbine OmniBook X DIS", ALC287_FIXUP_CS35L41_I2C_2),
--	SND_PCI_QUIRK(0x103c, 0x8d9f, "HP 14 Cadet (x360)", ALC287_FIXUP_CS35L41_I2C_2),
-+	SND_PCI_QUIRK(0x103c, 0x8d9f, "HP 14 Cadet (x360)", ALC287_FIXUP_CS35L41_I2C_2_HP_MUTE_LEDS),
- 	SND_PCI_QUIRK(0x103c, 0x8da0, "HP 16 Clipper OmniBook 7(X360)", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8da1, "HP 16 Clipper OmniBook X", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8da7, "HP 14 Enstrom OmniBook X", ALC287_FIXUP_CS35L41_I2C_2),
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index f11491ee9ed5..0c57e4f1eb15 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -5253,7 +5253,7 @@ static void lru_gen_shrink_node(struct pglist_data *pgdat, struct scan_control *
+ 		sc->nr_reclaimed = 0;
+ 
+ 	if (mem_cgroup_disabled())
+-		shrink_one(&pgdat->__lruvec, sc);
++		shrink_one(mem_cgroup_lruvec(NULL, pgdat), sc);
+ 	else
+ 		shrink_many(pgdat, sc);
+ 
 -- 
-2.56.0
+2.45.4
 
