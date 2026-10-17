@@ -1,107 +1,95 @@
-Received: from mta0.migadu.com (out-192.mta0.migadu.com [91.218.175.192])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB30947F3C1
-	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 09:47:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.192
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C98E18E025;
+	Sat, 17 Oct 2026 10:05:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792230450; cv=none; b=uJTmsUj6Ev7HuPvbmexv7FGQ/f37Nicwj/tdBPdVPR1WcLxTV8VksmTd2Rk9EqgJjXTO3zsr9rh04WPfLIzzBcyNnu4hNDH7ScbFAzWq2ZHfrjgPG4tW1Y3IoFj6dPryaWSMJs4MFoVse1aD+hnJlktW7ZKYn+QRwunXDuO8keg=
+	t=1792231516; cv=none; b=tkD4dI6D9fcn09GS/fo/eNJhXxVpgRlGkgh1Qrpfgc74j8+uIWA4gqiuDf3vpkGrr4hLxYsPSsJMpytFOWoCU/5So1agz6f7YFX6+U5GvL5DeHL7IHNKNa1u4vm5pQ30YuZ69BbhI+9F5wKLvVeaQ1c0Nn0cjcSbIhErgFQ2cSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792230450; c=relaxed/simple;
-	bh=qX7rmF6h1+DZNL++qx2GfJQv14aUtMydKWiaDVtlerY=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=mGMm2ssw9xuJ2KxUl/zytkoRIWnA73jRKCKKNMkm7DYBHZZaTQiVkHziFPofeM8Gm8/Hwl1doJsEUk9mx4zJ9VR9dc9FSEu9CBjK4cBNYWfcG9HzFYYbDmZIdIFs0VXzbE8BehpgQTA36RRA39qYi9v8Zkr5EMWZTquUspolHPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=c66ldpvY; arc=none smtp.client-ip=91.218.175.192
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792231516; c=relaxed/simple;
+	bh=91HBGVJ05AtflliIqD96I6sBfC5U5s/ZEcWdncabeZI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=m02VOdpAL1G498gFqWbmyYSr1NnsaDHHoXBW7zdF3mb1haXY0OMrkjXikdSUBsryHAeT9QFwsjDZq7f3dKhG+wIqFbdieKgp1Wb5wl8coJirrKUU7YbeabzyXiroD2jE8h54eWY2fwH9CDoTrL7x+VqoY/ya9rTtU0SPzI1ZmGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=fkNO9mgm; arc=none smtp.client-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="c66ldpvY"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=qX7rmF6h1+DZNL++qx2GfJQv14aUtMydKWiaDVtlerY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792230445; v=1; x=1792835245;
- b=c66ldpvYnT+E89ydv5wTqv+bBiJe0/ngQyRw+5vC0dFyYjXI0ajiZn5kbLGaVzkYpLBoTX0f
- kGzISi8wxfCQnRBNlGsWseuGnMI+Ty/P7oPJ8CcUFWKT33eZpdHAArMJ40eoHY6BhvFKW/1POvs
- EaNupO8RjjGma0GqBt78eEd4=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a42a045764720f77;
-	Sat, 17 Oct 2026 09:47:25 +0000
-X-Mizu-Trace-ID: a42a045764720f77
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="fkNO9mgm"
+From: Stian Halseth <stian@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1792231506;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rT54bwXR0RkT/QOli/8iX9p1hf/Ll8/Tyy05zQ30IMw=;
+	b=fkNO9mgm5puVGBeVviBnR8oced7WC6Sl5MiuLui8A8qLs7wXeGPAaU5R7EHrPhOefcJLOO
+	rnhHPh3yLTbgOmOdjQgjpo2SFTO+8j/UO/A4LP3NVarvaQWxkMma42cnFjO003on18sZTu
+	ssjOw6xQtQ8yFzM0is8KC2gG++H9yE0=
+To: Andreas Larsson <andreas@gaisler.com>,
+	"David S . Miller" <davem@davemloft.net>
+Cc: Kees Cook <kees@kernel.org>,
+	Michel Lespinasse <michel@lespinasse.org>,
+	sparclinux@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Stian Halseth <stian@itx.no>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] sparc64: Start bottom-up mmap searches at mm->mmap_base
+Date: Sat, 17 Oct 2026 12:04:50 +0200
+Message-ID: <20261017100451.2266781-2-stian@itx.no>
+In-Reply-To: <20261017100451.2266781-1-stian@itx.no>
+References: <20261017100451.2266781-1-stian@itx.no>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 17 Oct 2026 11:47:24 +0200
-Message-Id: <DM70O3RX648Y.JHOHHH89JM3F@linux.dev>
-To: "YuanZhe Liu" <25031212351@stu.xidian.edu.cn>, "Ping-Ke Shih"
- <pkshih@realtek.com>
-Cc: <linux-wireless@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <stable@vger.kernel.org>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Bin Yu"
- <byu@xidian.edu.cn>, "Cheng Wen" <wencheng@xidian.edu.cn>
-Subject: Re: [PATCH] wifi: rtw88: usb: drop RX frames received before the
- device is started
-From: "Luka Gejak" <luka.gejak@linux.dev>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20261016161931.18495-1-25031212351@stu.xidian.edu.cn>
-In-Reply-To: <20261016161931.18495-1-25031212351@stu.xidian.edu.cn>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri Oct 16, 2026 at 6:19 PM CEST, YuanZhe Liu wrote:
-> rtw_usb_probe() submits the bulk-in RX URBs at the end of probe, right
-> after rtw_register_hw(). A device can already have data queued on that
-> endpoint, so rtw_usb_read_port_complete() runs and queues the frame on
-> rtwusb->rx_queue before any interface has been brought up. Submitting
-> the URBs late does not close that window: the frame can arrive as soon
-> as they are submitted, which is still before the device is started.
->
-> rtw_usb_rx_handler() hands every non-C2H frame to mac80211 without
-> checking whether the device is running, so ieee80211_rx_irqsafe() runs
-> while local->started is still false. mac80211 treats that as a driver
-> bug and warns in ieee80211_rx_list():
->
->   WARNING: net/mac80211/rx.c:5601 at ieee80211_rx_list
->    Call Trace:
->     <IRQ>
->     ieee80211_rx_napi
->     ieee80211_rx
->     ieee80211_handle_queued_frames
->     <TASK>
->     rtw_usb_rx_resubmit
->     rtw_usb_setup_rx
->     rtw_usb_probe
->
-> The frame is dropped by mac80211 anyway, and because the URB is
-> resubmitted from its completion handler, every further frame repeats the
-> warning, which floods the log until an interface is actually started.
->
-> rtw_ops_tx() already drops frames outside of start/stop by checking
-> RTW_FLAG_RUNNING, which mirrors local->started: it is set at the end of
-> rtw_core_start() and cleared at the beginning of rtw_core_stop(). Use
-> the same check in the RX path and free the frame while the device is not
-> running. This also covers the opposite ordering, where a frame that is
-> still queued in rtwusb->rx_queue is handed over after the device has
-> been stopped again.
->
-> C2H packets are left untouched: they go to the firmware event queue
-> handled by rtw_fw_c2h_cmd_rx_irqsafe() and are never passed to mac80211.
->
-> Fixes: a82dfd33d123 ("wifi: rtw88: Add common USB chip support")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-> ---
+arch_pick_mmap_layout() randomizes mm->mmap_base for the bottom-up
+layout, which every 64-bit task uses, but arch_get_unmapped_area()
+starts its search at TASK_UNMAPPED_BASE and never looks at it. Shared
+libraries and anonymous mappings of 64-bit tasks therefore land at the
+same address on every run; only the stack is randomized.
 
-Looks good to me.
+Before the conversion to vm_unmapped_area() the search started at
+mm->free_area_cache, which binfmt_elf set to mm->mmap_base. Use
+mm->mmap_base as the low limit again, as generic_get_unmapped_area()
+does.
 
-Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+Fixes: bb64f55019c7 ("mm: use vm_unmapped_area() on sparc64 architecture")
+Link: https://github.com/sparclinux/issues/issues/119
+Cc: stable@vger.kernel.org
+Signed-off-by: Stian Halseth <stian@itx.no>
+---
+ arch/sparc/kernel/sys_sparc_64.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Best regards,
-Luka Gejak
+diff --git a/arch/sparc/kernel/sys_sparc_64.c b/arch/sparc/kernel/sys_sparc_64.c
+index ecefcffcf7b10..087595fa43081 100644
+--- a/arch/sparc/kernel/sys_sparc_64.c
++++ b/arch/sparc/kernel/sys_sparc_64.c
+@@ -142,7 +142,7 @@ unsigned long arch_get_unmapped_area(struct file *filp, unsigned long addr, unsi
+ 	}
+ 
+ 	info.length = len;
+-	info.low_limit = TASK_UNMAPPED_BASE;
++	info.low_limit = mm->mmap_base;
+ 	info.high_limit = min(task_size, VA_EXCLUDE_START);
+ 	info.align_mask = get_align_mask(filp, flags);
+ 	if (!file_hugepage)
+@@ -151,7 +151,7 @@ unsigned long arch_get_unmapped_area(struct file *filp, unsigned long addr, unsi
+ 
+ 	if ((addr & ~PAGE_MASK) && task_size > VA_EXCLUDE_END) {
+ 		VM_BUG_ON(addr != -ENOMEM);
+-		info.low_limit = VA_EXCLUDE_END;
++		info.low_limit = max(mm->mmap_base, VA_EXCLUDE_END);
+ 		info.high_limit = task_size;
+ 		addr = vm_unmapped_area(&info);
+ 	}
+-- 
+2.43.0
+
