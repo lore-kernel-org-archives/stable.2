@@ -1,192 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914F86DCE1;
-	Sat, 17 Oct 2026 22:14:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22F524679C
+	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 22:19:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792275243; cv=none; b=at3yYWA3Gic+IsEKfmC+QbErVIV4jhq3o5AQksEZJIcOcVtnywQ2q5x8E0NGcACzoridmG2OzATNGnEznLYW3SdJA2PteCOGoqPlarZu0OIR9gsZJ/5GlghJ53+mqR9XuXUE1BBZ6Pi4zAgIEvGMoJshnUDD9A/jajUtqkTzeoM=
+	t=1792275560; cv=none; b=K77GIMB7SeHHCJCc6p0YnP476hZCaaNUtk44p4nlLit0KX7gO0fYdhaOJpjuTnKZF4Te6Gnh9tT45EN65+XA1J/b5yWbUsF7+mSiPhxQAJthVxa+SzWzH5tWDHptOLjaThpeMCEpeqBD1hgK7Geue8gYfryaVGNNUM1DIDZq6X4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792275243; c=relaxed/simple;
-	bh=wKiVm+fISozJ/oe4djtJE0VcXXeGusc0YNiG4d2Oy1Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ErnVUvtxkV8gt4+S5zJYhHXaviQuXMZ0HAVASerg+o6l/xvrx8BzxfQS0OsBFlfDNEyqK/ixrSgX7VyJjZII1afislFmXsq+AErIPA2TP+LkYKsjn0rmJdFEjtWZ+5TEZOZjWVB/It7Bye5mWRgG0vR272KS4jD2mNGS9o3LQ40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Arv/O+46; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792275560; c=relaxed/simple;
+	bh=fEZZqs/2ON9aIF0WA8+r/aO+iqtvUwUqKlBtjbwzNe4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=k4GQy0Bj8epkVLqQ1dP6Wl1VMAMmJ2DAUkv74aZiDiiZD65xOoN/UcvJMbgjbg0nwnG7bRL3Iyn7RTSr3dxNdZktegmL/MfYWIaANmd/C1ejZaDvplYeeQGSXHPbaWv1effA1RPd5fmG9QRFh4shH6cAwiy+3p4Iozbk2SQHlRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=SOWq4zZi; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Arv/O+46"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DF68BC2BCF5;
-	Sat, 17 Oct 2026 22:14:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792275243;
-	bh=wKiVm+fISozJ/oe4djtJE0VcXXeGusc0YNiG4d2Oy1Y=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=Arv/O+46mcaBQ9WvxCCMvW45jhU3Q0Ou6iGaQwekvwTx4+bIg4NvDnYp/sUnm1coO
-	 yGwN2RqsCxiP2le9UYdNQ0LVPs2XhkKZGO9SducMHwm4N1j0uxLp9/FeeXT0Hghxhb
-	 CRQpFcoRN3yEKT9Nd9y1sLdiAE6+bwHaukHQEgCF22577m4BcRdVYi+OMvw8DGjiN+
-	 x7CJmONcJL8r4+FLtNHeu/2EvXXaalYwVgKqk6IGULXsVFbE7swWxGfbvXQy60tZev
-	 Kixsse8MCo7etSyKjv2eYv3dWWXm9xKsQUifZtWBBde8jYu9DD17faPU3B++eh+odB
-	 iKKxvs/XpT/rg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B6364CCF2C4;
-	Sat, 17 Oct 2026 22:14:02 +0000 (UTC)
-From: Chris Simpson via B4 Relay <devnull+chris.nilk.net@kernel.org>
-Date: Sat, 17 Oct 2026 16:13:38 -0600
-Subject: [PATCH] media: ipu6: Keep psys out of direct-complete on system
- suspend
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="SOWq4zZi"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1dede3c2cso6927985e9.2
+        for <stable@vger.kernel.org>; Sat, 17 Oct 2026 15:19:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1792275557; x=1792880357; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1P3vBDxvZfLACU44clWpmAKjc22PaxwE3/MUdrEQfXA=;
+        b=SOWq4zZi5+XauVKDDwNwGHJ0gsc44CwYFUiPNd3bouCqJST88O75zU+E/vlKYwHwoF
+         CaTaCIgfFR/FPYBL09w7OqGtLsO2elsGJULKR5amUKr1jvcpwjGJabQmo3B8TTvSTsTR
+         SpjY/MP2igKREEV9JdSniBPc+490ARMPcMicKZ7RrRSw742RP7ALtrwHBsPVHdwMUkM/
+         JZUXNFUbqVY4+w4DxCMB5fc2olfo5xUx6PSOo0gTyZB2X5KwrGYo+g+BnAXG4X2X7QdF
+         7WSdfyYSs0KHIBwnlp+n8cotdGzs989gMIK2VG/bFQQMowqwN3Nvme4sxUiju2dKHW3K
+         Eq+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792275557; x=1792880357;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1P3vBDxvZfLACU44clWpmAKjc22PaxwE3/MUdrEQfXA=;
+        b=ey3f6YnDOCx3NfRSyQw0lKUnuVKf+cbxZkt2I4GT3wXUo3pdMCuwHUTRaSZgBkAYzf
+         tGedyxc8fQxCbxKXEFO8qadO2i9Jvv1fx9NYvEgX6wklgfjaK8EdxfhZxqkZehbqB1lc
+         uKWEW9yO5+tfFVa9wdA0wDnqJL7PrrIF2HfuXQH6z9mPGhN/Ig9mKoKEkQoV40AK693Q
+         A8gNO4PlPVhdBc2PxmcIy8TSwyTQDpLeGtue/Qb9y2Vtp+nO+Y3K/qh4ZBaAC2MNxf23
+         aVLvT3FqQMWt5nLY2t1A3FY/ubeaj2v0h0mzvpQs5ltXhUbMnWN8XMvbS+zo9Bw0BMLy
+         fu6A==
+X-Forwarded-Encrypted: i=1; AKwUvByX3qXFhudNXtWmjxAhzKAbmAI+oqHbNQ5TgnJ+R+atHoK7WBpFuYbDKwigKb2yWm2B0WTYz5w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIEMzbbu0be+oCSRPUmqXNRYG6q5XcF+JD2tNVNfRDWISjW9zzW
+	WXoTPytjCifeC4Y3xcMBK8GGH+hG5ND4DIO1+8glH41pU7MZNrbafCk=
+X-Gm-Gg: AYBFou2IlzLdvhhKsR0eUK0f3Wwi6wWWOZh11Q++0zV1nfsuPjlw1JpJA9WJKI5pJrk
+	EYkmpZJ7eOcEGDW+zPtQR2m3e703RBinLn44+V72EHNUKSBnSWfdQw/VXv19q9c+gcap9A5hr5g
+	3xVJ1QSW0iBm+VQrF2fMHasp29GQpWz5ICD45QmffN3ZoFZK3klUzt2FG4vK/HCZAeqIJ2gW/7N
+	U6K4NzZknrbLtWEID8J/+dddS0eFzBBgT9c9Jar3CdsjIsDQ1N7j24RO7SqmYOmofR5DbwuitoJ
+	E93+cDt9Bs1YU+nqcASeJUQIj5fSnTqrisSqnvzmoetiYGOU7A3/XSB05srrJplZRYahOCABCOp
+	uwi7jTo+sIMRKEZAgdsb0r6H1j4bUDrBUwoYqn9q7bRsI6WVOsPUjL3yz/WAjM48SL6EytNuz58
+	guVeRuQQrP6tBefRk3m3TsX+toSo5arBY87mV4dB6QPdzQHv5qC9nuP7fmW79VSgcyvby+TGt7u
+	BJCxdW+F5WJpVsD4intb+vZO1RJp5h+FUg0gJcsRpz1m1Ag
+X-Received: by 2002:a05:600c:4595:b0:49f:bd3c:bc24 with SMTP id 5b1f17b1804b1-4a1d762168amr82215755e9.31.1792275557036;
+        Sat, 17 Oct 2026 15:19:17 -0700 (PDT)
+Received: from [192.168.1.3] (p5b057d26.dip0.t-ipconnect.de. [91.5.125.38])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd47104csm14989798f8f.8.2026.10.17.15.19.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 17 Oct 2026 15:19:16 -0700 (PDT)
+Message-ID: <65c9facc-377d-48b1-8d48-aebac14e8bbb@googlemail.com>
+Date: Sun, 18 Oct 2026 00:19:15 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261017-psys-ipu6-v1-1-56e333f6ed04@nilk.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDA0Nz3YLiymLdzIJSM13jRJOkZEOL1DRz8zQloPqCotS0zAqwWdGxtbU
- AbTAk11sAAAA=
-X-Change-ID: 20261017-psys-ipu6-3a4bc18ef77f
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Antti Laakso <antti.laakso@linux.intel.com>, 
- "Sapre, Sarang" <sarang.sapre@intel.com>, 
- Divyamani Tripathi <divyamani.tripathi@intel.com>, 
- Manik Bajpai <manik.bajpai@intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Danilo Krummrich <dakr@kernel.org>, linux-media@vger.kernel.org, 
- linux-pm@vger.kernel.org, driver-core@lists.linux.dev, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Chris Simpson <chris@nilk.net>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792275242; l=5398;
- i=chris@nilk.net; s=20261017; h=from:subject:message-id;
- bh=RpJEa/l3s3LAaSolDKPx/sHpPb3BursxeLOSSpNbLls=;
- b=Exb1QNu4nWHRU48GmPgf1r/WXUwJNK82Bfaf7uS/0XxOjRKTyes+jHzeluQwoqWtUaj1XxBSh
- QraG6oNjWXgBlTf4E+YGNKUn1MC1Qug0PFITN1a6q45SuD/skEXTbZO
-X-Developer-Key: i=chris@nilk.net; a=ed25519;
- pk=bwNSTJdm8iKtfcCRqyaQFQFlAxLuiAxLw4pMXey4Z+o=
-X-Endpoint-Received: by B4 Relay for chris@nilk.net/20261017 with
- auth_id=1225
-X-Original-From: Chris Simpson <chris@nilk.net>
-Reply-To: chris@nilk.net
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.18 00/52] 6.18.58-rc1 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261017155104.830766652@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20261017155104.830766652@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-From: Chris Simpson <chris@nilk.net>
+Am 17.10.2026 um 17:54 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.18.58 release.
+> There are 52 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Since commit a1fa010b3c9f ("driver core: auxiliary bus: Drop
-auxiliary_dev_pm_ops"), the auxiliary bus has no dev_pm_ops. The psys
-auxiliary device has no driver in mainline, and its PM domain,
-ipu6_bus_pm_domain, has only runtime PM callbacks. So
-device_pm_check_callbacks() now sets power.no_pm_callbacks for psys,
-and device_prepare() puts it in direct-complete.
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
 
-A runtime-suspended psys in direct-complete gets its runtime PM
-disabled in device_suspend(). Runtime PM is enabled again only in
-psys's own device_resume(), which in practice runs after the PCI
-device's. Before, it came back in device_resume_early(). ipu6_resume(),
-the system resume callback of the PCI device, runtime-resumes psys
-before the firmware authentication. That now fails with -EACCES on
-every resume:
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
-  auxiliary intel_ipu6.psys.40: Failed to get runtime PM
 
-and ipu6_resume() returns early, skipping ipu6_buttress_authenticate().
-In secure mode the firmware is then not re-authenticated after resume,
-which matters whenever the IPU has lost power. On s2idle on a Surface
-Pro 9 the cameras still work, and the error is logged on every resume.
+Beste Grüße,
+Peter Schneider
 
-Add suspend and resume callbacks to ipu6_bus_pm_domain that forward to
-the driver. That is what the PM core does without them, so isys is
-unaffected, but psys has PM callbacks again and is not left in
-direct-complete. This restores the behaviour from before the auxiliary
-bus change.
-
-The fix is kept local rather than in the auxiliary bus or the PM core:
-it is this driver that runtime-resumes a driverless child from its
-parent's ->resume().
-
-Fixes: a1fa010b3c9f ("driver core: auxiliary bus: Drop auxiliary_dev_pm_ops")
-Cc: stable@vger.kernel.org # v7.1+
-Cc: Rafael J. Wysocki <rafael@kernel.org>
-Cc: linux-pm@vger.kernel.org
-Assisted-by: LLM sparse smatch coccinelle
-Signed-off-by: Chris Simpson <chris@nilk.net>
----
-Tested on a Surface Pro 9 (IPU6 in secure mode) running a Fedora-based
-7.2.11 kernel with the linux-surface patches (a COPR build), whose only
-changes near this code are in ipu-bridge. The patch applies unchanged to
-media-committers next. Three s2idle cycles before and thirteen after,
-tracing the rpm and power:device_pm_callback_start events for psys:
-
-  before: "Failed to get runtime PM" on every resume. At ipu6_resume()
-          time rpm_resume() sees disable_depth 1 and returns -EACCES,
-          and psys gets no system sleep callbacks.
-  after:  no message. disable_depth is 0 and rpm_resume() returns 0,
-          and the domain's suspend and resume run for psys. No new
-          kernel warnings, and both cameras capture after resume.
-          psys is runtime-suspended again at the end of every cycle.
-
-A suspend attempt with a stream open was also tried. isys still
-refuses it with -EBUSY, now through the domain's pm_generic_suspend(),
-and the abort unwinds cleanly: no warnings, psys ends suspended, the
-stream continues with no gap in frame sequence numbers, and the next
-s2idle cycle passes.
-
-Not tested: a resume where the IPU actually loses power, which is where
-the skipped authentication matters (s2idle keeps it powered), and
-IPU7/IPU8 (no hardware).
-
-On next the ipu6 driver also drives IPU7 (by default,
-VIDEO_INTEL_IPU6_IPU7) and IPU8, so this covers those devices there too.
-The staging ipu7 driver has the same pattern in ipu7_bus_pm_domain and
-ipu7_resume(). I can send the same change for it, but I have no IPU7
-hardware to test it on.
-
-Intel's out-of-tree psys driver (intel/ipu6-drivers) has empty
-.suspend/.resume callbacks for the same reason. Its comment says they
-"are needed to enable runtime PM in IPU PCI device resume".
-
-Rafael, Cc'd as the author of a1fa010b3c9f: a driverless auxiliary
-device whose PM domain has only runtime PM callbacks now ends up in
-direct-complete. That is consistent PM-core behaviour, and the fix here
-is local to ipu6. But any other driver that runtime-resumes such a
-child from its parent's ->resume() would see the same failure.
-
-Made with AI assistance. Written by Claude Opus 5.5 (fix, analysis and
-text; reviews by Claude Opus subagents), with testing by Claude Opus
-5.5, under the direction of Chris Simpson <chris@nilk.net>, who reviewed
-and approved it and had it tested on their Surface Pro 9.
----
- drivers/media/pci/intel/ipu6/ipu6-bus.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-bus.c b/drivers/media/pci/intel/ipu6/ipu6-bus.c
-index 173616381..1b06e581e 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-bus.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-bus.c
-@@ -63,8 +63,16 @@ static int bus_pm_runtime_resume(struct device *dev)
- 	return -EBUSY;
- }
- 
-+/*
-+ * The driverless psys device needs system sleep callbacks, or it is put in
-+ * direct-complete and its runtime PM is normally still disabled when
-+ * ipu6_resume() tries to runtime-resume it. These only forward to the driver,
-+ * as the PM core would do without them.
-+ */
- static struct dev_pm_domain ipu6_bus_pm_domain = {
- 	.ops = {
-+		.suspend = pm_generic_suspend,
-+		.resume = pm_generic_resume,
- 		.runtime_suspend = bus_pm_runtime_suspend,
- 		.runtime_resume = bus_pm_runtime_resume,
- 	},
-
----
-base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
-change-id: 20261017-psys-ipu6-3a4bc18ef77f
-
-Best regards,
 -- 
-Chris Simpson <chris@nilk.net>
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
-
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
