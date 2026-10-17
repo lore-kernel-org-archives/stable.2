@@ -1,150 +1,113 @@
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87500384CED
-	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 01:41:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C69F36D51B
+	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 01:56:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792201298; cv=none; b=qFqqcWFvGSI0K6Bi9zk016d99bv4h1RBSbFpANRQvwkFQl3NfqtkhBrjTcCQj9wfTBIkTgagHzxRlzS7OZD69gyFU8/R72QjcSllhIylMHw86d4pBFiTB4uv4l6gOcN1Qi2KXlYo2GGZyIznb2tILdwYEHJbdTrEDmqRPMqXIlk=
+	t=1792202168; cv=none; b=XrM053ZpXLmsyDCt7PL0oFX/LHN6ISiWGweLRp8zGKf+AqxjdbhFOTpB8voHmUw51TDBcGn1+2huO8ncLrIfH5WzYWsmTa/ryWmyP6RCrrdVovcU+qBqTXXFd66yKR6gfrvPQuC8JTkq+vlwXZOgYtG0+fPcpLOzHEbcMa3JmY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792201298; c=relaxed/simple;
-	bh=e6X+D5c/Tv+Ez0yFoodFngWklvLeykaCU8B+V7wc9tg=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=o7UG3KLbKPwUWXgqrvW7F8wWV+d69EtxhqauJEOckSF2fTq6abVVDXIDc1zihtV6j7FblpHLlnuwuGA0RZWy0hp9sJgCG/qDnMVUpPwfmJmre+4MV0gnj3bPlcmx4NOXlRvZseACo2J+jRqwDICr6+x5f5/U7OQaI5FkhHvumVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AsvPzqB2; arc=none smtp.client-ip=209.85.221.169
+	s=arc-20240116; t=1792202168; c=relaxed/simple;
+	bh=Fe8zxGQq/7dCid2W89W5GWhcTNqPOSQenj/BB/O4q7E=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=YghOGK5dg/Rged8i6fnwPT9nfAY4ZfXGBAOOxHQ4qRenCYH/raa7rZeQqLCWmVZbs2ZVv/heES+NUMViFxPCDlIHvsguzzckdYqE+h3QdUH28t36lgMoUPTsT+seu5u8SqgjNeFyRcM/e9wdJt314hP0d82t1JJ7rUV5kuFND2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=njj0NpxP; arc=none smtp.client-ip=209.85.214.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AsvPzqB2"
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5e94a057d9eso340444e0c.3
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 18:41:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="njj0NpxP"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e49fbf92aaso2360085ad.0
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 18:56:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792201295; x=1792806095; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=yKsSek1QBLZx4VbISQM48zQ9ZZju16PuBgR+zu138+g=;
-        b=AsvPzqB2AMkAUnOgBySfx+Hw3l8yEXPYIW92JNpxIa+hu8PoWZZgLJd84RKbyoTOsX
-         dXc57wYZN9LWkOiMpj3KutBOgcxjqzwVq1a3V5jMH0lrnqImMdl0Sfp772LYYEjcObGL
-         ee5ZPCddT96Qnr7lVb1p98Qljv7TC1F9hDw+WyDhsYnAj0sGro10wFOCF4Br9+f1x++M
-         mVmBCMy87nrXJQFgB6BUh66flTlUvm9y/kbaRWUG/XLqHRhZ8iaNYFlcGBUKGfTNNlSc
-         OpIPntJ8baS7C5VtEPgkuUIcnYkDr/qTnOH9Qrrvvsrs0mgllEgvtVxNaVspwByeSELv
-         e/aw==
+        d=gmail.com; s=20251104; t=1792202166; x=1792806966; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:date:subject:cc:to:from:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Fe8zxGQq/7dCid2W89W5GWhcTNqPOSQenj/BB/O4q7E=;
+        b=njj0NpxP7PMMY9QiiCHu2ZMK5ZNDmcqLnqXiLZCzhA26eiXXHdA0CikuUD+zuPTfNw
+         phtEfb42sCyThPfhrO6X5q6PkzLVvJjplFoZcMaGNqv8hPNvY/AJs7ZvwOLxNKh/IBsh
+         gAzjDTJVHVj/FWyo6gbPWWDf48MecKc9682oSwdSyReHfgXgVbzhHMa1kcoV97p2lKZV
+         FeKdHc+Mv1hp9GOWMLtc17PvFkpTKVdPXnmg5tSM/f/wfm/VQw5ZwV2WlfzXpMC0R+re
+         TDpPD2mOEzyg81PHtX9pDJ5IcMFC7XM3gWYYsC5w8m8MWjpsNv/yXxbZ18+4oywd5MGG
+         10dQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792201295; x=1792806095;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1792202166; x=1792806966;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:date:subject:cc:to:from:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yKsSek1QBLZx4VbISQM48zQ9ZZju16PuBgR+zu138+g=;
-        b=N8uQrEMXAiF/ybg5wwtxuO4JTd92FamSoOGX/uTmn/caUXc9Rm/FjU4bqI7H5sZqHt
-         CW+GK4jT3vgE7XNZkfJS2LpEDvsF5hJMdDO5jqEOdLBI1iUW1hG4yT/7RRyzx2RJ1i8g
-         JgKMtnhRTfbMqCbhSTG0RebYlXKAYvMxpREI2FWRCr4uxo4VJ41zOv4WUtUtdHG47/C/
-         NwJcx0Hporrv/rDSpKu7ZQ/9SioiVbj8EIxmDOcmfv6oUdTJGIKImYrEt8LsKgkKYKW7
-         r56nvffIy8awAddypUMtmjE/zCRQ9DZFhobNGHT+jEnlkMUMgC5/iE+kp9uWvwvbWPST
-         iRLw==
-X-Forwarded-Encrypted: i=1; AKwUvBwb6U5WjSvBK/l8Fs6YHLRVX7kpGeEeLptnJTahs+vHMAjR6A92HrrchR+OhLF3LKr5OuHS26o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8ods431jAWwySO1rie58s+CmPdtBuYF3LLOfUGCZev/jP+z76
-	Zu/4AFYMklH73Z2MBOTDTCa90v38DcM6MWkM/WbtoxgRTpBqGexzc0P8
-X-Gm-Gg: AYBFou0BnIfz89QWnn1wZsg01a6zAmPlh+QRIWsJeTCKVFZYk7UfvEwrs2vOnAdPxr5
-	as71fI2sNF/CMh6W3/n/MnyZd/pO6+qQd0+lNBje1XuDhJGezDOGEekiKu/GQr1uYx/ALxqKykU
-	n/Vuqt46U5j3rBWUGg0K2b3D9hFrA3rleCY10fGuPlqFhDEt6vD3DFhjgACMz6j03vciEsNdmwS
-	oLc7C11wX/vC1U/Vt9QQ/gBC/6TfsV3uReDxq9B8Tv6HKbwCf2KK1yRi7Tgfu8R+/EoNRQ8aVC5
-	xEy95c3ct5Xd1z8g5CII8sOtd2QH25/AFRpG+vEecl7CagNxSPt8cGopqDWH+fa9G/Gy7UFVXnX
-	H4Pgo0yiGHZUIJso2NTjvJYIEayIDwqi2LjCpI1unaLIvHrKE7uqbCxgPxvMbo0V8Lu0Cda3HO4
-	8PCCvBCM4boVVfdiLziK6n/bcICr13nYfzgPHXEaDoVBcMRSW3Q/olzGiQtX4O93AmHarhbJ+uo
-	7i75WdXD5eigz7j6q6Je/nqPpqfRs0/+wfNqindzWVho27QOsUjFn4z+jpaenPqWkiB5xF/9JjE
-	yUNu130q/WC5Zqu0rIFcNOMR6EG+vTg0N9lem5sTqB112eCB
-X-Received: by 2002:a05:6102:1612:b0:7a6:b18e:6d24 with SMTP id ada2fe7eead31-7cc36a38330mr415620137.23.1792201295404;
-        Fri, 16 Oct 2026 18:41:35 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990836389b0sm2847007241.11.2026.10.16.18.41.34
+        bh=Fe8zxGQq/7dCid2W89W5GWhcTNqPOSQenj/BB/O4q7E=;
+        b=DDFrqQV7BnooCkeqHRoRzH41iaZV6+Ur8G5Xl73ns1DpC6YDfbBV9i89svS7KC18iH
+         Ld95BiQo3OrHo1qyKLHIYpKI6Nq6P/u8zu1PHnvROf2rQp+DMPgPSMqp0Js5czmRp6wt
+         YaGPq/diH9mCi8M23QCYvGviEAaAALlHELvlu2NU/6rj1nMhCsSLpFGgcQ/YPPipJcm3
+         RaeHmWX5vwFlV5b8JX4wfarO9XAfFQSTSP0zCZWbB0cQ4HwlFhykM0A9X6QRPnaoctq1
+         vp0KJ2JEA9aqNcZXuF85xZU12air17KGJDOpp5CI1q18bV0/l7tPscg1oyxoFQRsCWtr
+         6LjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzJI1qyMb1VXMaWv5sMdmcDbwFJP4qsUJaTXj1wjTVwzYkhsZ6TP8Id5lgyTygLKouia9GnuaE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLHPFqh0qqBxHUEftF0sdm5j6mB9ZwN+8yl2velcUEtqAnyLVsA
+	jSzlgE7f7IgT5NmQbmQ5j4xpJMl5jJtdpPRXtjoLX7+2ObKV4fdsRO6r
+X-Gm-Gg: AYBFou2GCYhqXiZP1I+nNu1KsjCM20pwREoh1KAZXPvWEzPphINZdT2bantgaN2n1z5
+	RGt3yLPFcC4SuU/xJ1EBRfV7GHD9nYCQNN6gYPHSc6NhjqBUcfoNPJ9Sawpu8dIZLfP3XzEIVRO
+	N1+2jsBKBge7AdJYPkO36VbCQ0QWBcKVZGP9x4YJcndi9GCha4UruF7/mtR61dIUpBoLm3Gg2yE
+	BbkkBqDS2zHqxlnpRYEAMMMc/fDnXvnCc9VpEAAnEufDmH6shSWanHoP+kE66iX3ARuh9mY6snV
+	NHwMHhhGLzED1ivsZxVkRX+T3at3c4kot9SzqdK3CCOtj4LROLV4AYU/JkTnyUZGi+SfETB4Z8o
+	QGGKRdtgC4Y4JiScqsv9VKdt43Oe2N+Xl8KM5o3bTOYDOByHbw0B0hyW6MrzuXvgPXHvQh0z2Ef
+	WseOrBbjMn2llJo+0rozDzizs5HkLRtnKrdKcdRAAtDGrVgR8uORUbMQFsPNv7ly8T0N/ztYuKN
+	Yjub/JFinJZ4IusRt/pmQ==
+X-Received: by 2002:a17:90a:c110:b0:3ab:f38:2b43 with SMTP id 98e67ed59e1d1-3aceeeabd7dmr1165560a91.34.1792202165738;
+        Fri, 16 Oct 2026 18:56:05 -0700 (PDT)
+Received: from DESKTOP-UCPRL76.localdomain ([113.200.174.30])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac94794dd9sm11245327a91.12.2026.10.16.18.56.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 18:41:34 -0700 (PDT)
-Date: Fri, 16 Oct 2026 21:41:34 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Boyan Liu <yymhvert@gmail.com>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, 
- Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, 
- netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- co+98d7de09cd94fec5@bugs.sh, 
- andrea.mayer@uniroma2.it, 
- dsahern@kernel.org
-Message-ID: <willemdebruijn.kernel.ddaa3b8e2bca@gmail.com>
-In-Reply-To: <20261016090526.2497-1-yymhvert@gmail.com>
-References: <willemdebruijn.kernel.2a345d6bd54c5@gmail.com>
- <20261016090526.2497-1-yymhvert@gmail.com>
-Subject: Re: [PATCH net] udp: Fix out-of-bounds read with unset mac header in
- unexpected GSO path
+        Fri, 16 Oct 2026 18:56:05 -0700 (PDT)
+Message-ID: <6ad2d5b5.969afe5a.ee04c.f286@mx.google.com>
+From: Zheng Shuhao <viennaoffh@gmail.com>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ syzbot+e7f24354da9f7915bc54@syzkaller.appspotmail.com
+Subject: Re: [PATCH] xfs: fix slab-use-after-free in xrep_newbt_free()
+Date: Sat, 17 Oct 2026 09:56:00 +0800
+In-Reply-To: <20261016152359.GA107986@frogsfrogsfrogs>
+References: <20261016085536.591-1-viennaoffh@gmail.com>
+ <20261016152359.GA107986@frogsfrogsfrogs>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
 
-Boyan Liu wrote:
-> Hi Willem,
-> 
-> On Thu, Oct 15, 2026 at 10:49 AM, Willem de Bruijn wrote:
-> > I wonder if the right fix here is to not call skb_unset_mac_header in
-> > the first place.
-> >
-> > There are plenty of L3 device type with no L2 header. They still have
-> > a valid skb_mac_header.
-> >
-> > This fix may be papering over a tunnel doing something non-standard.
-> 
-> You're right, and after digging into it I agree the seg6local side is
-> the real offender.
-> 
-> I checked every skb_unset_mac_header() call site in the tree. There
-> are exactly two: net/ipv6/seg6_local.c (end_dt_vrf_rcv) and
-> net/core/filter.c (BPF egress, unrelated to the rx path). Every other
-> receive path delivers packets with a valid mac header: NIC drivers set
-> it in eth_type_trans(), and L3 tunnels without an L2 header (ipip,
-> sit, gre, tun, loopback) reset it to the network header after
-> decapsulation. seg6local is the only producer that lets a packet
-> continue up the stack with mac_header unset, which is also the state
-> skb_mac_header() warns about with DEBUG_NET_WARN_ON_ONCE().
-> 
-> One complication: the unset in end_dt_vrf_rcv() is not gratuitous.
-> vrf_l3_rcv() -> vrf_add_mac_header_if_unset() relies on it to
-> synthesize a fake Ethernet header when a sniffer (e.g. tcpdump) is
-> attached to the VRF device. Dropping the unset entirely would change
-> what sniffers see on VRF devices.
-> 
-> So instead of removing it, I restore a valid mac header once the VRF
-> rx handler returns:
-> 
->         if (!skb_mac_header_was_set(skb))
->                 skb_reset_mac_header(skb);
-> 
-> The sniffer rebuild happens inside the handler while the header is
-> still unset, so tap behavior is unchanged; when no rebuild happened,
-> the packet now carries the same mac header state as any packet
-> received on an L3 device.
-> 
-> Tested under QEMU with the original reproducer:
-> - unpatched kernel: KASAN slab-out-of-bounds in inet_gso_segment,
->   same stack as the original report;
-> - patched kernel: no crash, the re-segmented datagrams are delivered
->   intact, and the unexpected GSO path is confirmed taken;
-> - with a sniffer attached to the VRF device, the fake Ethernet header
->   presented to the tap is identical before and after the patch.
-> 
-> I'll send this as v2 with the fix moved to seg6_local.c. If you'd
-> rather drop the skb_unset_mac_header() altogether and accept the
-> sniffer behavior change, I'm happy to do that instead.
+Hi Darrick,
 
-Thanks Boyan. This sounds good to me too.
+Thanks. Re: "What if some other thread initiates the shutdown?"
 
+That is what I tested. The paused autoreap dfps are freed by the failed
+xrep_defer_finish() in the repair thread, no matter which thread sets the
+shutdown. xfs_defer_finish_noroll()'s out_shutdown path forces the
+shutdown before xfs_defer_cancel_list(), which frees every
+xfs_defer_pending on the scrub transaction, including the paused autoreap
+EFIs. resv->autoreap.dfp is dangling by the time junkit runs.
+
+If the shutdown is already set before repair starts, the dfps may still be
+alive, but unpausing them is a no-op: deferred work cannot progress on a
+dead log, and scrub teardown cancels the transaction and frees the dfps.
+Any EFI that reached the log is replayed at mount, which is exactly the
+intended autoreap behavior for a repair that never committed its new
+btree.
+
+The guard cannot miss the dangling case, because the cancel that frees the
+dfps happens after the shutdown is forced.
+
+Testing: helper threads issue XFS_IOC_GOINGDOWN (LOGFLUSH and NOLOGFLUSH)
+after the xfs_defer_item_pause trace event -- 1 to 8 threads, 0-100 ms
+delays -- while the main thread force-rebuilds a bmap btree. Unpatched:
+KASAN UAF every time in xrep_newbt_free() -> xfs_defer_item_unpause().
+Patched: no splats, scrub returns -EIO; after remount the log replays,
+free block count is unchanged, data reads back intact, xfs_repair -n is
+clean. Healthy forced rebuilds still do the normal pause/unpause.
+
+Thanks,
+Zheng Shuhao
