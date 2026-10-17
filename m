@@ -1,188 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2B6E3C3C17
-	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 08:23:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0E14315A;
+	Sat, 17 Oct 2026 08:28:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792225421; cv=none; b=i9TsiWnZrQT3pwQ2H+tzIMJ5dLzm41eFeg/5dAkzYNG/fuKrHkINYqEWXv3IpEbRkJF7rPhFX4G9wB+FVA6U2rwAZdHlcHH1+5/r0fSoOWBvydhFOPMjB09PgO9tb9jdIGVvy/vrToPNVWm8QjJfP2Qw6xKLhWUrstYM7zLg8VE=
+	t=1792225702; cv=none; b=hXIsZajJ46bySdUGCO6+Q6g7dlFpF8OmWP48dflsywysw1OBmt9h9ldfSD1+b8pzdIFysKgt333lJTGkOTc1+QNwjNL4ujSa/iaz65Rpgz5NEp3G/380GwvAHiPlsnibvF0w4GG8+m4wRoNCnXgNWHI7Ks3MSu5msfIZTrVDDJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792225421; c=relaxed/simple;
-	bh=y2+e/LTKf+MKGERt11D3l4dQR8nUfwKaXWb2VD6+1LY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QZKMBG1gtSuruecrr5R3J+1yOOvtTbf7AgiHxgz1/FFOjQf1n93MAZV+RSv7jVp2eI7h41OHDzDqYzn0spcaLDaCi74w15R5CA7eqoNjYmttUu5yywHO6cHY1XfUxNfxrBaUfaDDlqXso3hec0abPuYoZtuYisCF08VGjiDwGx4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JxHcIeaA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792225702; c=relaxed/simple;
+	bh=xBNlNILWdBvg2c3Gb0jF/ZqgBM7J5dqAtDfDSWNI+T0=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LCNQRsYAoVpkQuU3KhOZFtg4OCby/n+8snaSsqCxcCd+Ho968oFdzjFnS7OGCl8l8KHF6IvRvSeZxr1MHrYoZwrMUkGan3+tUbSZ8s3+/3iGtdpveAvoxgWDMva6TQUNhzeqHbVH3C7NODN61PyLNyd0D04XMpgBt2/16rYol6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=q7S21Q6e; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=B1lYB7Yl; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=RXLYg4yQ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=TZqST7xU; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JxHcIeaA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 946871F000D2
-	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 08:23:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792225419;
-	bh=vmhFk4RtQGZxg27YqVubstl52Uhel2A+MIgKqAe73/o=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=JxHcIeaAWk8DG6BjhvhiE3F4hA6aCn3iNFvbMWdF1UcJiJ2SOa7PSvKNdcDNdiEFw
-	 NpxNEURB/faOnYwgiT//iOzBMVlzBpEWDncfcZwNR5dAvhBZaWUa7edvTCc9makof9
-	 TQaJNRaKPziMoSzpwbm22G+7lXwihIrSlZG+u8EzWM80NdNNRDIiYgIn7wNJ07OkEH
-	 DptlgqpEOB+6ey0sJmCWD3l9+jObbWevBIN+Quj05Afx+AaA5tZ074M41Sb6AVxg+s
-	 GxSzI+j9gnAQIkCE1UpGl1WoWYRVE92HEepZdBxmTqhhiFHNcUe0jwdfcXogn0UgJ0
-	 mrAReMbuZpuig==
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b21cf1a580so630725a12.1
-        for <stable@vger.kernel.org>; Sat, 17 Oct 2026 01:23:39 -0700 (PDT)
-X-Gm-Message-State: AFq9FYJdiCc3dRiIalG7YUnBIEdm8Zvawmgqgkk0GOn2nafIJV5AQfm6
-	3BKavMhIVu5y/QG+cIW5heEcHaW4mLJwjjIMbSPjQInjw4xrs05UcRERklAsZstVeKOLm9voWq7
-	y7CIk/OcB41M2n2l0lGnzWv9E2OS79R0=
-X-Received: by 2002:a05:6402:5192:b0:6af:5b14:78e7 with SMTP id
- 4fb4d7f45d1cf-6b3a818b711mr1194022a12.34.1792225418181; Sat, 17 Oct 2026
- 01:23:38 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="q7S21Q6e";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="B1lYB7Yl";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="RXLYg4yQ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="TZqST7xU"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id B9AA521BE5;
+	Sat, 17 Oct 2026 08:28:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792225699; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XI7USDzzBcfJKmNjraZayIHfmmXgQJiwGp1Eg0bettk=;
+	b=q7S21Q6er9yr6BqPdhNwRyfQEDeTx1urva8H4WdeMdr9y+vwGftBz3DtFmPnT6J7pDva9W
+	jmJmpM3VywyB4LBFp5cGLqlalyi38gYL0xmSLJT8J4cJz7jiD54uOaQabsfx5LdcL2wymI
+	ff1Pc+1CDBGL5Gb/dKudMrNs781LzTo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792225699;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XI7USDzzBcfJKmNjraZayIHfmmXgQJiwGp1Eg0bettk=;
+	b=B1lYB7YlCwQS0Ece4l2tv07XEoV04rV/RrNqseTTJD0Ak3NW1bPhFy08fuG8a802ai9cBJ
+	ler3Gq+h+tMorqDg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792225697; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XI7USDzzBcfJKmNjraZayIHfmmXgQJiwGp1Eg0bettk=;
+	b=RXLYg4yQNB2JfBm9exLQ7oikdLYyvbDuUCvSf8YY38si752MNnBf0BKnn1ZaHluu96NSCP
+	giKXDCaR40oMcyBX2IxWLrZDiB5YGZxp+FZ06uda/9gZWuCL5H+LrDMrx3+8Ayr6FWFN3y
+	WtNETafJSxsW7wQPM/SlmIGKcqAUieE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792225697;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XI7USDzzBcfJKmNjraZayIHfmmXgQJiwGp1Eg0bettk=;
+	b=TZqST7xUptsGzJ0NAQTIsHJdrU+oNhuivKw5lfPNsJ46+l6ShwZ0zEVf3njCWCqV4xRCoP
+	G8e2vYm/sTTMrXDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6FFB8133A7;
+	Sat, 17 Oct 2026 08:28:17 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id ROH0EaEx02rQJgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sat, 17 Oct 2026 08:28:17 +0000
+Date: Sat, 17 Oct 2026 10:28:16 +0200
+Message-ID: <87jyng20kf.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: =?ISO-8859-1?Q?Jos=E9?= Miguel Castellanos Valladolid
+ <josstamy@gmail.com>
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	linux-sound@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/realtek: Enable mute LEDs on HP OmniBook X Flip 14-fm0xxx
+In-Reply-To: <20261017050615.14481-1-josstamy@gmail.com>
+References: <20261017050615.14481-1-josstamy@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261016180418.4060503-1-sashal@kernel.org>
-In-Reply-To: <20261016180418.4060503-1-sashal@kernel.org>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Sat, 17 Oct 2026 16:23:27 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H44JKoqH4borfXjR--mX5yp8gMJJpuxJqopFdOsEXbvQw@mail.gmail.com>
-X-Gm-Features: AclHuK898mAKFrIMp_FpQ3_tqmR-HnEFN5rMIoWhGIyzU3DbhU9TN2A9R75EQcI
-Message-ID: <CAAhV-H44JKoqH4borfXjR--mX5yp8gMJJpuxJqopFdOsEXbvQw@mail.gmail.com>
-Subject: Re: Patch "LoongArch: BPF: Refactor jump offset calculation in tail
- call" has been added to the 6.6-stable tree
-To: stable@vger.kernel.org
-Cc: stable-commits@vger.kernel.org, yangtiezhu@loongson.cn, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, John Fastabend <john.fastabend@gmail.com>, 
-	KP Singh <kpsingh@kernel.org>, Stanislav Fomichev <sdf@google.com>, Hao Luo <haoluo@google.com>, 
-	Jiri Olsa <jolsa@kernel.org>, WANG Xuerui <kernel@xen0n.name>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	FREEMAIL_TO(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-Hi, Sasha,
+On Sat, 17 Oct 2026 07:06:15 +0200,
+José Miguel Castellanos Valladolid wrote:
+> 
+> The HP OmniBook X Flip Laptop 14-fm0xxx (subsystem ID 0x103c8d9f, ALC245
+> with two CS35L41 amplifiers over I2C) is currently handled by
+> ALC287_FIXUP_CS35L41_I2C_2. That binds the amplifiers but does not set up
+> the mute LEDs, so neither the speaker mute key LED nor the microphone mute
+> key LED lights up under Linux. With that fixup the codec GPIOs stay
+> disabled (IO[0..2] enable=0).
+> 
+> Switch the entry to ALC287_FIXUP_CS35L41_I2C_2_HP_MUTE_LEDS, which chains
+> cs35l41_fixup_i2c_two with ALC245_FIXUP_HP_X360_MUTE_LEDS. This keeps the
+> amplifier setup and adds the speaker mute LED through the ALC245 COEF
+> register and the mic mute LED through codec GPIO2. It is the same fixup
+> already used for the 17 Turbine OmniBook 7 DIS (0x103c8d9c).
+> 
+> Tested on the affected laptop with v7.2.11 using the equivalent
+> ALC245_FIXUP_HP_ENVY_X360_15_FH0XXX fixup, which has the identical
+> cs35l41_fixup_i2c_two + ALC245_FIXUP_HP_X360_MUTE_LEDS chain: hda::mute
+> and hda::micmute LED class devices appear and both key LEDs light up
+> when muting.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: José Miguel Castellanos Valladolid <josstamy@gmail.com>
 
-On Sat, Oct 17, 2026 at 2:04=E2=80=AFAM Sasha Levin <sashal@kernel.org> wro=
-te:
->
-> This is a note to let you know that I've just added the patch titled
->
->     LoongArch: BPF: Refactor jump offset calculation in tail call
->
-> to the 6.6-stable tree which can be found at:
->     http://www.kernel.org/git/?p=3Dlinux/kernel/git/stable/stable-queue.g=
-it;a=3Dsummary
->
-> The filename of the patch is:
->      loongarch-bpf-refactor-jump-offset-calculation-in-ta.patch
-> and it can be found in the queue-6.6 subdirectory.
->
-> If you, or anyone else, feels it should not be added to the stable tree,
-> please let <stable@vger.kernel.org> know about it.
->
-I think this patch is not necessary for 6.6/6.12 because the commit it
-fixes is not in 6.6/6.12.
-
-Tiezhu, what's your opinion?
+Applied now to for-next branch (with Fixes tag of the former quirk).
 
 
-Huacai
->
->
-> commit a0d511d60c584afdc0fb206d070abd1f2d5464af
-> Author: Tiezhu Yang <yangtiezhu@loongson.cn>
-> Date:   Mon Aug 17 22:07:23 2026 +0800
->
->     LoongArch: BPF: Refactor jump offset calculation in tail call
->
->     [ Upstream commit 37d545d12f21c4d50612ecaebd7ae1e5bf91b2d8 ]
->
->     The old macro-based jmp_offset calculation derives the jump distance
->     from a stale prior-pass code stride, which can lead to wrong branch
->     offsets and soft lockups under extra JIT passes.
->
->     Fix this by calculating the offset directly on the absolute target:
->     "ctx->offset[insn + 1] - ctx->idx".
->
->     To avoid a false 16-bit range check abort during size estimation, add
->     a "ctx->image =3D=3D NULL" guard to inject a safe dummy offset.
->
->     Cc: stable@vger.kernel.org
->     Fixes: cd39d9e6b7e4 ("LoongArch: BPF: Fix jump offset calculation in =
-tailcall")
->     Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
->     Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
->     Signed-off-by: Sasha Levin <sashal@kernel.org>
->
-> diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
-> index f1ad46e233215..e3220af7d26a1 100644
-> --- a/arch/loongarch/net/bpf_jit.c
-> +++ b/arch/loongarch/net/bpf_jit.c
-> @@ -205,17 +205,13 @@ bool bpf_jit_supports_kfunc_call(void)
->
->  static int emit_bpf_tail_call(struct jit_ctx *ctx, int insn)
->  {
-> -       int off, tc_ninsn =3D 0;
-> +       int off, jmp_offset;
->         u8 tcc =3D tail_call_reg(ctx);
->         u8 a1 =3D LOONGARCH_GPR_A1;
->         u8 a2 =3D LOONGARCH_GPR_A2;
->         u8 t1 =3D LOONGARCH_GPR_T1;
->         u8 t2 =3D LOONGARCH_GPR_T2;
->         u8 t3 =3D LOONGARCH_GPR_T3;
-> -       const int idx0 =3D ctx->idx;
-> -
-> -#define cur_offset (ctx->idx - idx0)
-> -#define jmp_offset (tc_ninsn - (cur_offset))
->
->         /*
->          * a0: &ctx
-> @@ -225,12 +221,12 @@ static int emit_bpf_tail_call(struct jit_ctx *ctx, =
-int insn)
->          * if (index >=3D array->map.max_entries)
->          *       goto out;
->          */
-> -       tc_ninsn =3D insn ? ctx->offset[insn+1] - ctx->offset[insn] : ctx=
-->offset[0];
->         emit_zext_32(ctx, a2, true);
->
->         off =3D offsetof(struct bpf_array, map.max_entries);
->         emit_insn(ctx, ldwu, t1, a1, off);
->         /* bgeu $a2, $t1, jmp_offset */
-> +       jmp_offset =3D ctx->image ? (ctx->offset[insn + 1] - ctx->idx) : =
-0;
->         if (emit_tailcall_jmp(ctx, BPF_JGE, a2, t1, jmp_offset) < 0)
->                 goto toofar;
->
-> @@ -239,6 +235,7 @@ static int emit_bpf_tail_call(struct jit_ctx *ctx, in=
-t insn)
->          *       goto out;
->          */
->         emit_insn(ctx, addid, REG_TCC, tcc, -1);
-> +       jmp_offset =3D ctx->image ? (ctx->offset[insn + 1] - ctx->idx) : =
-0;
->         if (emit_tailcall_jmp(ctx, BPF_JSLT, REG_TCC, LOONGARCH_GPR_ZERO,=
- jmp_offset) < 0)
->                 goto toofar;
->
-> @@ -251,6 +248,7 @@ static int emit_bpf_tail_call(struct jit_ctx *ctx, in=
-t insn)
->         off =3D offsetof(struct bpf_array, ptrs);
->         emit_insn(ctx, ldd, t2, t2, off);
->         /* beq $t2, $zero, jmp_offset */
-> +       jmp_offset =3D ctx->image ? (ctx->offset[insn + 1] - ctx->idx) : =
-0;
->         if (emit_tailcall_jmp(ctx, BPF_JEQ, t2, LOONGARCH_GPR_ZERO, jmp_o=
-ffset) < 0)
->                 goto toofar;
->
-> @@ -264,8 +262,6 @@ static int emit_bpf_tail_call(struct jit_ctx *ctx, in=
-t insn)
->  toofar:
->         pr_info_once("tail_call: jump too far\n");
->         return -1;
-> -#undef cur_offset
-> -#undef jmp_offset
->  }
->
->  static void emit_atomic(const struct bpf_insn *insn, struct jit_ctx *ctx=
-)
+thanks,
+
+Takashi
