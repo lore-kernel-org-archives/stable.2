@@ -1,116 +1,96 @@
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0AD13DEFFA
-	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 05:00:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB82837A4AB
+	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 05:04:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792213253; cv=none; b=hvPqpH5S527Kmk50QNchZW1SYjKmzLkuNIFw/mEOZjva5/iNhw1DNIrssjlOuxWp7tyoISjdvjzPd/kscUJdz1WzvgWwQE73qTWMNjU291eY8Zyq0zuTA7yNRnpE8wZEZ2rMPD0z1M0KRt51kNrymaZKa5SvrkW6bJ05HRtp5ec=
+	t=1792213451; cv=none; b=h11/oynptR/T8zgKTcEdVBpyhD/W2sWrCXXpWNMc5xlDTrNvvuN4JMUkNE3yJg/wvhFCzTz5BsrNEan1MrNrLF2PJFPZa0yCN8deNyHQDftbEDnlOwjDXuLn5dKXsI3lOahUaxgBqqZ5g7ANLxUI+MUjVNWdoO0BfEL17nZRRDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792213253; c=relaxed/simple;
-	bh=UxEGsDp+X8XVGsojDB6p8Pq7U4zHWN6nO0KwXXBjwTU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=mVnOOdzBkLGDm1HYA9gUVELtsfYCp7WfYJ8lwq05GzXla/sN9DQ4Lv/wkTDAfVFRtfhv3PmjNd1Iek2dL8SZ0FQhPKvVbvr+CDEyON2TmTtlgrUMxCfgfj56V9SwTBfMxV5yJ4xQOcljPf4XM6HTUFkw8Este5AmEiw3Wkfs7tg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gk9jGtU6; arc=none smtp.client-ip=209.85.210.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792213451; c=relaxed/simple;
+	bh=8BLUOuobsXVPK0Hk4WClUwg69wNv/LObwP6VEuCQQpk=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=grU1S3FiOgMCt1x4PKjWPJq3/C+xfZFtXyeoQq8iXvPnsznkbbCgiHX33r29DMYor1XxLFnXWM6/4T539IQNbafebtx7SCo9E6BdWKI32cpgy+LKTE46HKUXeNohKQn/wCxpjjFiwj9PKGkedQJY4/OKSj7Z+zuEs88OoDaadjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vuFAi4DJ; arc=none smtp.client-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gk9jGtU6"
-Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-843cf077f10so523615a34.1
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 22:00:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vuFAi4DJ"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e93f266d20so6235555ad.3
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 22:04:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792213251; x=1792818051; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1792213449; x=1792818249; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2QPqiCPtv6mBsOEA+xwRq+Gvryl1g6t6b+sIBHTwo/w=;
-        b=gk9jGtU6mcwxmm5YveCtn7/a9ZGRRMOSYnc68qmOhKs6fkvuLkYWlpjceGF2QV2mFA
-         BsujIx7AcVRPH8M5DdXLut+t+QmaBphC/yA9XOVKfDHosZHGKrBoL1xqspqCZz2LyH1u
-         Upx53rbEsxbxT7pxqfL5h8j/HpjiOfIYdm/DYewNofeT7oISclQLqjHm0Jjaa9QyYtza
-         jcR+X6zkPThmtbauDzARreSnPXPphZ5S4PKMDgTTTc7oTebYnck7fMR2B/62CnPm44/5
-         wXdYsHEzD+IhDrtvvfgWY8iETi+UukAJO/7k623D7vxv10DiGeHfT8yggOOfqLN7bj8J
-         YSgw==
+        bh=gV9/cHPnIlfRbaMaPitg64wMYECZnHJw7L0U4tqnfHE=;
+        b=vuFAi4DJZ3XmakwcmpGKv0lcssWG4LtJUbgyNBHPfk0cJswBAE71rjmLlge6JknNij
+         z7yxz4PyXTYr+H5tr/54ENmWbB3973pECVnzStvnUsRZ4aqYOAlo0cEtPVOVpMC4uuh5
+         QlpWLZIInRvg0LsOWmXAo7hcX8g8Km4gc1OYddz/KlNZ2fee6aVmHaJz+9c52KTu44oo
+         euBZTJQjdAzKpE0JnjWfQXtIZqc+UI8HX7JkvTd/OGkbEI4VObrThX8hC85RKX29lk2r
+         tr/047uTvpJTcwHheKedmxp0VyfUaa0OcEiIRkcmR/hZAMtZbd4Q8RsKLCfEw18NwtAJ
+         bP+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792213251; x=1792818051;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2QPqiCPtv6mBsOEA+xwRq+Gvryl1g6t6b+sIBHTwo/w=;
-        b=egcpYNcX2j7MEYW/NXgNnZzB9ilT2H2QGoCF3KPWxMFNhH8rrAokyrSTCyU1MY7JmT
-         UrxwekqE5WQMYeeOAtoX7zYf8BTYRSlmvcFpOlqxSVtHz+eKOM8NJG6YUPefDwCOLPcM
-         hshH03Y63Z2Gzw2QbLZM012ab3wYTulucbpLEgiEPIua3hlzDDjb3BtpJ5IkI7tMS69a
-         pe7GSUDoRVLFgr1sxAKEMQJsJmky8p+Lg05GUqfiPrb4lKHHrxOYwCks4VLQUU7dJH4Z
-         lXxF2wKnC+P5Xoym8yNF0Z3PwVKqb+n9iF0zOwgg3BrjRoWQNQWpK4roGOhIwdlpEnTj
-         wLBA==
-X-Gm-Message-State: AFq9FYLBU/wDZqncsUeFRatv8Oww9r7K0p5os9il8L3+IbcfdkUREAmZ
-	x3j+3JwPNP87TyhDSTeUip3MRy53SoZdC8UWW2vG0MmsT7P61CU7XBZUoY2mDQ==
-X-Gm-Gg: AYBFou0JWK2nuakCCpXanSfEUmm3a0MIBmYL7B+xmJUUIQUqifIqjGX8YN8AKB80nXu
-	BKfMA6wYzYck/57/yB1LtEzlgRKSdlWNf8dw0mjPdP4OjLgaJWKHe1ZKykD/FxyTna0UlMdklfg
-	RlVB66+czNszcCpieWZa7PDg1BeZIpo9pNdVAB9F9ELRqb16fzQuJLfNsODmjYuBHZUMytea1bT
-	c9/SalKjGIX1fRGofgJtsT18d5wukNxVyKIEDueDA4IyMWCyL/rkgQFQ9mVq7BPbb5J4msYNdPF
-	btEESMaS/V+BMosQcN7zf/MqyUCFl+hU+wEkAut8F51gxpTP7HmiKqKSI8EijfgfP+TkaNXYm1c
-	R5D4VlH7JBwXSg6lqb6voWdsvpnAwszYm3pYlqM2xyY55hHRmw2Krs01nXIAJcmvoyyZZ1OGc2C
-	mLlDreswaC5MnLvLvK1kuyKmf69jvnBoJFluYfkUjJ6324qhiNBLioihTohkClJVJxlQjmHWSNN
-	Hwo8EXd9L8gFlsUneVmwp58pZkaAQ==
-X-Received: by 2002:a05:6830:310c:b0:81c:37e2:2008 with SMTP id 46e09a7af769-844fe0afaa6mr2245162a34.14.1792213251272;
-        Fri, 16 Oct 2026 22:00:51 -0700 (PDT)
-Received: from fedora (fixed-189-203-106-166.totalplay.net. [189.203.106.166])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8462659e3f0sm224078a34.17.2026.10.16.22.00.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 22:00:50 -0700 (PDT)
-From: =?UTF-8?q?Jos=C3=A9=20Miguel=20Castellanos=20Valladolid?= <josstamy@gmail.com>
-To: josstamy@gmail.com
-Cc: stable@vger.kernel.org
-Subject: [PATCH] ALSA: hda/realtek: Enable mute LEDs on HP OmniBook X Flip 14-fm0xxx
-Date: Fri, 16 Oct 2026 23:00:14 -0600
-Message-ID: <20261017050014.13594-1-josstamy@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1792213449; x=1792818249;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gV9/cHPnIlfRbaMaPitg64wMYECZnHJw7L0U4tqnfHE=;
+        b=baKIUalGUW1BKxzjNLR7lBxXl+GAl2OhxSDDrVzfezXXUjuiQCz5lpV6Tko8JGbcd4
+         l33qAGUIEa1xF7FxOs4qDd49JVsNupTOQRQSZkAeyWvDd5GGnNPT/FE/MTL7sF2jY7RP
+         tnZIORYmKy3LxSDyf0OMscQSSdWdkgWShNYTaw7xef4GPjN44x2RPpJpEo/OF8wBGR4n
+         wFmdrK3WQyJ9pC98tO8ZvEL92I60xfvS3W+ag4N0WNlT5jQX0aCsLxmXLEcg3QR/utHI
+         aQ6v9j3kKKHaqmLC+aJQmKPkF26idNfDUCB/fFqoG/T7zrzsjkHmX0uF3nWyv+HsTVPO
+         MnOg==
+X-Forwarded-Encrypted: i=1; AKwUvByTylLpD7IzO9NY9brU0pITh0LZ6XiEzn7uWhQ6Gm4kCZZubRXt/lVQ/jPT9BQ88XWTai6eCDs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJIbzu050HMKXEnP6EKSSMR470ILbSM5nQweEmpwH600pYMB8Vo
+	m5OgD1PRYB5y8bxuZoR6zlYDyG3yUyu/2vE2iUzPHdYfpbY1DxanGHcLXxsBLUKkDq3FkcFGDAQ
+	OGy3z4Q==
+X-Received: from plbkm15.prod.google.com ([2002:a17:903:27cf:b0:2e9:5442:b91a])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:22c1:b0:2e9:6788:9372
+ with SMTP id d9443c01a7336-2e9a6d3668fmr18323965ad.62.1792213448706; Fri, 16
+ Oct 2026 22:04:08 -0700 (PDT)
+Date: Sat, 17 Oct 2026 05:04:08 +0000
+In-Reply-To: <tencent_A643419B56079E9A448D97922763FF069F08@qq.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <tencent_A643419B56079E9A448D97922763FF069F08@qq.com>
+Message-ID: <atMBc9DNAnFhsR9V@google.com>
+Subject: Re: [PATCH net v3] net: unix: reject negative max_dgram_qlen values
+From: kuniyu@google.com
+To: Yingjie Wang <1075151112@qq.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-api@vger.kernel.org, stable@vger.kernel.org, skhan@linuxfoundation.org, 
+	rdunlap@infradead.org
+Content-Type: text/plain; charset="us-ascii"
 
-The HP OmniBook X Flip Laptop 14-fm0xxx (subsystem ID 0x103c8d9f, ALC245
-with two CS35L41 amplifiers over I2C) is currently handled by
-ALC287_FIXUP_CS35L41_I2C_2. That binds the amplifiers but does not set up
-the mute LEDs, so neither the speaker mute key LED nor the microphone mute
-key LED lights up under Linux. With that fixup the codec GPIOs stay
-disabled (IO[0..2] enable=0).
+On Fri, 16 Oct 2026 11:02:58 +0800, Yingjie Wang wrote:
+> net.unix.max_dgram_qlen is parsed as a signed int and copied to the u32
+> sock::sk_max_ack_backlog when an AF_UNIX socket is created.  Consequently,
+> a negative value such as -1 is accepted and converted to UINT_MAX.  Since
+> the receive queue length is also u32, its fullness check cannot become true
+> for that limit.
+> 
+> max_dgram_qlen has no documented negative sentinel.  Its existing signed
+> interface represents nonnegative values only through INT_MAX; negative bit
+> patterns are not a supported encoding for the upper half of the u32
+> consumer range.
+> 
+> Switch to proc_dointvec_minmax and make the established 0..INT_MAX input
+> range explicit.  This rejects negative values without adding new accepted
+> values or changing the default and zero-value behavior.  Very large valid
+> values can still make the queue limit impractical to reach; this change
+> corrects the input domain rather than imposing a new resource ceiling.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5
+> Signed-off-by: Yingjie Wang <1075151112@qq.com>
 
-Switch the entry to ALC287_FIXUP_CS35L41_I2C_2_HP_MUTE_LEDS, which chains
-cs35l41_fixup_i2c_two with ALC245_FIXUP_HP_X360_MUTE_LEDS. This keeps the
-amplifier setup and adds the speaker mute LED through the ALC245 COEF
-register and the mic mute LED through codec GPIO2. It is the same fixup
-already used for the 17 Turbine OmniBook 7 DIS (0x103c8d9c).
-
-Tested on the affected laptop with v7.2.11 using the equivalent
-ALC245_FIXUP_HP_ENVY_X360_15_FH0XXX fixup, which has the identical
-cs35l41_fixup_i2c_two + ALC245_FIXUP_HP_X360_MUTE_LEDS chain: hda::mute
-and hda::micmute LED class devices appear and both key LEDs light up
-when muting.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: José Miguel Castellanos Valladolid <josstamy@gmail.com>
----
- sound/hda/codecs/realtek/alc269.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 36d3bc23a..c33a38598 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -7957,7 +7957,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x8d9c, "HP 17 Turbine OmniBook 7 DIS", ALC287_FIXUP_CS35L41_I2C_2_HP_MUTE_LEDS),
- 	SND_PCI_QUIRK(0x103c, 0x8d9d, "HP 17 Turbine OmniBook X UMA", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8d9e, "HP 17 Turbine OmniBook X DIS", ALC287_FIXUP_CS35L41_I2C_2),
--	SND_PCI_QUIRK(0x103c, 0x8d9f, "HP 14 Cadet (x360)", ALC287_FIXUP_CS35L41_I2C_2),
-+	SND_PCI_QUIRK(0x103c, 0x8d9f, "HP 14 Cadet (x360)", ALC287_FIXUP_CS35L41_I2C_2_HP_MUTE_LEDS),
- 	SND_PCI_QUIRK(0x103c, 0x8da0, "HP 16 Clipper OmniBook 7(X360)", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8da1, "HP 16 Clipper OmniBook X", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8da7, "HP 14 Enstrom OmniBook X", ALC287_FIXUP_CS35L41_I2C_2),
--- 
-2.56.0
-
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
