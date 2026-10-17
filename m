@@ -1,227 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA0AC3C1085;
-	Sat, 17 Oct 2026 22:48:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792277297; cv=none; b=Fe/RlXcsHAE5MYb51MWYoZJt+msd2JuEWPp0Xoj5kdpmEWrFGpoP3ibDEj0AL+bQ4NK8Jvfcq5pI9QR/BK1lg5QT4bL8DX8yhdRLAHjg2QIot5gcpepqIRZdURKE3ClzMU8LkxUS0vFPlkG1kCquLsTnjay/MZDTOO2F30g6Y/c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792277297; c=relaxed/simple;
-	bh=6w8ls3ddkRvHs/SvfiBj9mUf44LhNGmVgEDCnRr19l0=;
-	h=Date:To:From:Subject:Message-Id; b=fB2jNyMJRZ+3q/wJCdBI/3vQ4QhwoMtdtRCJAlwtN9WXSMLu7IBvMVX1gce9elPaSJEQhGNHeV5vSFJLn7IFnl8sQvg51AA3vHzlN1JIE8hjiyVLb2tx1LBEDAVzNAa+3qVHl2fRFoAj0F8c45wUDqEZdds/KjE9Tykrg67y/Bw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=xyCvCBv/; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B5EC37C109;
+	Sat, 17 Oct 2026 23:16:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792279005; cv=pass; b=HT5X7fTM6uZoub4IPsBiW6P/lJWluq1pHLgh3bLBCO4ULh2WX72+aaYHJxduSCj/yo6/iPCQGYYdkybC57syTZL6ny/nY6PH75iomEWsz2a5yR5TEySx9iQjkEvVUXHfi+owWreznpRA5ilSWTOetRQkbUsXJVvsZhNwTj0CyyQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792279005; c=relaxed/simple;
+	bh=3NLu69xnmXGuJpUsAFPYowmvOmnuWDR4fL1ZandStho=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=LaWZtPAZuUU0rv4grH1TZRCBIEadrII5nt6kmBl7pXgP4n4JNKE0hdK1RyNAhXcAXFEd4/5SkojQeYEyeZObFUVtPpytrfN2bkOZDd8POxV6WwCLrIrZ8veHSJRnoBEKUkTvn/iHN6o/eR1JdiLMUQHpSS/53AWQm47+xQcP+5U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=Zq1M+mOS; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="xyCvCBv/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 389E61F000C4;
-	Sat, 17 Oct 2026 22:48:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792277295;
-	bh=nb5bVlnL/h85VHg0klCqgnRR52cvArehTizxOnGXOLE=;
-	h=Date:To:From:Subject;
-	b=xyCvCBv/40zAjSfPXG4WpJmu7IckzLlvfBrWjzUzCPMu2C/SLnD3k7DfE4VQwYA8K
-	 8kHYB/HlF012qO8zbCOZTZo0x3kcbwl2j907DjXjiGll+MvT5XWrahrfEtItI7BAQZ
-	 U8ZrS9SBscNCVImrQe+pR2OzQzmBUwaT5bmNYaAI=
-Date: Sat, 17 Oct 2026 15:48:14 -0700
-To: mm-commits@vger.kernel.org,yuzhao@google.com,yuanchu@google.com,weixugc@google.com,stable@vger.kernel.org,shakeel.butt@linux.dev,qi.zheng@linux.dev,lance.yang@linux.dev,kasong@tencent.com,ehab.ababneh@intel.com,baoquan.he@linux.dev,baolin.wang@linux.alibaba.com,axelrasmussen@google.com,baohua@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [to-be-updated] mm-mglru-fix-using-folio_mark_accessed-to-replace-folio_set_active.patch removed from -mm tree
-Message-Id: <20261017224815.389E61F000C4@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="Zq1M+mOS"
+ARC-Seal: i=1; a=rsa-sha256; t=1792278994; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=bhITBwjKH8Pf/ovfpye7cm5efSAx8IRc+EuBGR56rnhOS7VZ7gh8EekMPBmA9yQ2i87pzKANlfq+fu9Q/DZfR82pGLF1LxAjMLhFihJxEMWPnTRY1ZsLwpNZ/PQvydr48eYwFKyvqh/BoRwMeb24wnj2pQhnPwn3mL2BN9qXu4c=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792278994; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=53HKstwmkLPFbV8XfZ5DGpoM+Ybu/fPwYEuOn3Qd33A=; 
+	b=UcP1d6/i8IdKG+793rmgjMcMzsG8KkvwSxpeUwwlnqcz1IiuP3GyaBGlc0HnJtN4s8s8WzxeI4r6Myl2D15NdsJ/+RN/PcZtifkbMnKbAwknENOPDEQ0QpmCRfaAUcy24/vha4jb8nH7VJvHosXlEpYsg7IH+FxMvRMgRuhn5fg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792278994;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+	bh=53HKstwmkLPFbV8XfZ5DGpoM+Ybu/fPwYEuOn3Qd33A=;
+	b=Zq1M+mOSRLIKvEUQ56W+cLGx7wx5qvDyRRZUUKNDPBLGW9OhK0NGOTeQUPemFnoD
+	QAlAdasQCIdg9d7vx644j5mlXyL6oHVoUFM2piOstcYnG0sgzcPtW6mw8IkzfiCHIeW
+	Oxt77yBC8JV/yDL518Fyv3Bs8XvYs2gJzeSw/ce+u2fTmGXsfc3Ffip42yZ+hvw5fQH
+	0e3za3KtmgnFCXrfxxbaYRFhfS9z65eh+z0YwInWjEUSAMcql19ze58FnEUxl0iGfIQ
+	tWddsjR6FBOXmnfgjWFxlb4/kA91xN6Qn8zOnA4GAqhOMi3xNVqI+Wl8g4G5yxJ+GVc
+	nBOsS5cMhg==
+Received: by smtp.zohomail.com with SMTPS id 1792278992220550.5663809917767;
+	Sat, 17 Oct 2026 16:16:32 -0700 (PDT)
+From: Rong Zhang <i@rong.moe>
+Subject: [PATCH 0/2] platform/x86: ideapad-laptop: Fix unexpected
+ charge_types on probe
+Date: Sun, 18 Oct 2026 07:16:17 +0800
+Message-Id: <20261018-ideapad-fix-charge-types-v1-0-db52e3bb061a@rong.moe>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CQBBE0auQXjMJkhGBqxAWA11os8DJNBgJ4
+ e62unzJrzpIkQRKbXZQwktUnovhkmc0PsJyhxM2E6ayBgdvRIiB3SRvZ0WyYt0j1BXVjX3FRd3
+ 4K9k8Jljzu+76v3UbZozr94/O8wOVuyxEfAAAAA==
+X-Change-ID: ef28eda4-ideapad-fix-charge-types-067d46d08945
+To: Ike Panhc <ikepanhc@gmail.com>, 
+ Mark Pearson <mpearson-lenovo@squebb.ca>, 
+ "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Rong Zhang <i@rong.moe>
+X-Mailer: b4 0.17-dev-73bef
+X-ZohoMailClient: External
 
+It was reported [1] that some unfortunate combinations of BIOS and
+Lenovo utilities (e.g., Legion Go 2 + Legion Space) may enable Rapid
+Charge and Conservation Mode at the same time, which is very out of
+sepc.
 
-The quilt patch titled
-     Subject: mm/mglru: fix using folio_mark_accessed to replace folio_set_active
-has been removed from the -mm tree.  Its filename was
-     mm-mglru-fix-using-folio_mark_accessed-to-replace-folio_set_active.patch
+If both are enabled during a previous Windows boot, ideapad-laptop will
+see both bits set and correctly shout "unexpected charge_types".
 
-This patch was dropped because an updated version will be issued
+A planned BIOS update will address this. Before that, if unexpected
+charge_types are encountered on probe, enforce [Long_Life] to prevent
+the device from operating in an out-of-spec state. On check or fix
+failure, skip registering the battery hook and the conservation_mode
+attribute.
 
-------------------------------------------------------
-From: "Barry Song (Xiaomi)" <baohua@kernel.org>
-Subject: mm/mglru: fix using folio_mark_accessed to replace folio_set_active
-Date: Sat, 17 Oct 2026 05:31:15 +0800
+Note: the switches never enable themselves autonomously, so there is no
+need to fix it during runtime.
 
-Commit 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to replace
-folio_set_active") attempted to avoid over-protecting in-fault read-ahead
-file folios by placing them in the second-oldest generation rather than
-the young generations.
-
-However, it repurposes `PG_referenced` on in-fault read-ahead file folios
-for this purpose, potentially coupling their handling with that of regular
-file accesses through syscalls, which also use `PG_referenced`.
-
-This could regress some workloads, as reported by Kairui Song[1] and Ehab
-Ababneh[2].  Many thanks to both for reporting these issues!
-
-The long-term fix is Kairui's MGLRU-FG, but in the meantime, we also need
-a quick fix that can be backported to stable.
-
-This patch reverts the original commit's abuse of `PG_referenced` while
-preserving its goal of avoiding over-protection of in-fault read-ahead
-file folios by adjusting only `lru_gen_folio_seq()`.
-
-Specifically, in-fault read-ahead file folios with `PG_active` set but
-`PG_workingset` clear are placed in the second-oldest generation (the
-third-youngest generation).  Activated file folios and refaulted
-workingset file folios remain in the youngest generations.
-
-Kernel build tests in a memcg show that this approach not only preserves
-the original patch's benefits but also further improves performance.
-
-w/o fix:
-
-real    1m49.094s
-user    25m31.484s
-sys     3m40.959s
-pswpin: 662112
-pswpout: 2504415
-pgpgin: 4424336
-pgpgout: 10355273
-refault_file: 359626
-refault_anon: 670724
-
-w/ fix:
-
-real    1m48.913s
-user    25m31.639s
-sys     3m30.875s
-pswpin: 689815
-pswpout: 2689894
-pgpgin: 4422659
-pgpgout: 11043464
-refault_file: 326566
-refault_anon: 697138
-
-Revert original patch:
-
-real    1m50.044s
-user    25m37.137s
-sys     4m4.493s
-pswpin: 1349087
-pswpout: 4317933
-pgpgin: 7083597
-pgpgout: 17602735
-refault_file: 337676
-refault_anon: 1368542
-
-Link: https://lore.kernel.org/20261016213115.70515-1-baohua@kernel.org
-Link: https://lore.kernel.org/linux-mm/20261003-mglru-fg-v3-0-cbd4546a5bd9@tencent.com/ [1]
-Link: https://lore.kernel.org/linux-mm/20260901180704.168106-1-ehab.ababneh@intel.com/ [2]
-Fixes: 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to replace folio_set_active")
-Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Ehab Ababneh <ehab.ababneh@intel.com>
-Cc: Axel Rasmussen <axelrasmussen@google.com>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Qi Zheng <qi.zheng@linux.dev>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Wei Xu <weixugc@google.com>
-Cc: Yuanchu Xie <yuanchu@google.com>
-Cc: Yu Zhao <yuzhao@google.com>
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: <stable@vger.kernel.org>
+Fixes: 90430ea98f55 ("platform/x86: ideapad-laptop: Add charge_types:Fast (Rapid Charge)")
+Closes: https://github.com/ValveSoftware/SteamOS/issues/2876 [1]
+Signed-off-by: Rong Zhang <i@rong.moe>
 ---
+Rong Zhang (2):
+      platform/x86: ideapad-laptop: Factor out charge_types methods for internal use
+      platform/x86: ideapad-laptop: Fix unexpected charge_types on probe
 
- include/linux/mm_inline.h |    5 +++--
- mm/folio.c                |   16 +++-------------
- mm/vmscan.c               |    9 ++-------
- mm/workingset.c           |   10 ++++------
- 4 files changed, 12 insertions(+), 28 deletions(-)
+ drivers/platform/x86/lenovo/ideapad-laptop.c | 113 ++++++++++++++++++++-------
+ 1 file changed, 84 insertions(+), 29 deletions(-)
+---
+base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
+change-id: ef28eda4-ideapad-fix-charge-types-067d46d08945
 
---- a/include/linux/mm_inline.h~mm-mglru-fix-using-folio_mark_accessed-to-replace-folio_set_active
-+++ a/include/linux/mm_inline.h
-@@ -319,7 +319,8 @@ static inline unsigned long lru_gen_foli
- 	 * |<---------------------------- MAX_NR_GENS ---------------------------->|
- 	 */
- 	if (folio_test_active(folio))
--		gen = MIN_NR_GENS - folio_test_workingset(folio);
-+		gen = MIN_NR_GENS - folio_test_workingset(folio) +
-+		      (type ? !folio_test_workingset(folio) : 0);
- 	else if (reclaiming)
- 		gen = MAX_NR_GENS;
- 	else if ((!folio_is_file_lru(folio) && !folio_test_swapcache(folio)) ||
-@@ -327,7 +328,7 @@ static inline unsigned long lru_gen_foli
- 		  (folio_test_dirty(folio) || folio_test_writeback(folio))))
- 		gen = MIN_NR_GENS;
- 	else
--		gen = MAX_NR_GENS - (folio_test_workingset(folio) || folio_test_referenced(folio));
-+		gen = MAX_NR_GENS - folio_test_workingset(folio);
- 
- 	return max(READ_ONCE(lrugen->max_seq) - gen + 1, READ_ONCE(lrugen->min_seq[type]));
- }
---- a/mm/folio.c~mm-mglru-fix-using-folio_mark_accessed-to-replace-folio_set_active
-+++ a/mm/folio.c
-@@ -474,20 +474,10 @@ void folio_add_lru(struct folio *folio)
- 			folio_test_unevictable(folio), folio);
- 	VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);
- 
--	/*
--	 * For refaulted workingset folios, set PG_active so they
--	 * can be added to active generations.
--	 * For prefaulted file folios, folio_mark_accessed() sets
--	 * PG_referenced so lru_gen_folio_seq() places them into
--	 * the second oldest generation.
--	 */
-+	/* see the comment in lru_gen_folio_seq() */
- 	if (lru_gen_enabled() && !folio_test_unevictable(folio) &&
--	    lru_gen_in_fault() && !(current->flags & PF_MEMALLOC)) {
--		if (folio_test_workingset(folio))
--			folio_set_active(folio);
--		else if (!folio_test_referenced(folio))
--			folio_mark_accessed(folio);
--	}
-+	    lru_gen_in_fault() && !(current->flags & PF_MEMALLOC))
-+		folio_set_active(folio);
- 
- 	folio_batch_add_and_move(folio, lru_add);
- }
---- a/mm/vmscan.c~mm-mglru-fix-using-folio_mark_accessed-to-replace-folio_set_active
-+++ a/mm/vmscan.c
-@@ -952,13 +952,8 @@ static bool lru_gen_set_refs(struct foli
- 		return false;
- 	}
- 
--	/* Promote on second access */
--	if (folio_lru_refs(folio) > 1) {
--		folio_set_workingset(folio);
--		folio_set_lru_refs(folio, 0);
--	} else {
--		folio_mark_accessed(folio);
--	}
-+	folio_set_workingset(folio);
-+	folio_set_lru_refs(folio, 0);
- 	return true;
- }
- #else
---- a/mm/workingset.c~mm-mglru-fix-using-folio_mark_accessed-to-replace-folio_set_active
-+++ a/mm/workingset.c
-@@ -319,13 +319,11 @@ static void lru_gen_refault(struct folio
- 
- 	atomic_long_add(delta, &lrugen->refaulted[hist][type][tier]);
- 
-+	/* see folio_add_lru() where folio_set_active() will be called */
-+	if (lru_gen_in_fault())
-+		mod_lruvec_state(lruvec, WORKINGSET_ACTIVATE_BASE + type, delta);
-+
- 	if (workingset) {
--		/*
--		 * see folio_add_lru(), where folio_set_active() is
--		 * called for workingset folios
--		 */
--		if (lru_gen_in_fault())
--			mod_lruvec_state(lruvec, WORKINGSET_ACTIVATE_BASE + type, delta);
- 		folio_set_workingset(folio);
- 		mod_lruvec_state(lruvec, WORKINGSET_RESTORE_BASE + type, delta);
- 	} else
-_
-
-Patches currently in -mm which might be from baohua@kernel.org are
-
+Thanks,
+Rong
 
