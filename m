@@ -1,127 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A74713DBBD;
-	Sat, 17 Oct 2026 03:31:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D503CC9F6
+	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 03:41:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792207861; cv=none; b=gJMxlP2l1qolh0TI8BcALO1YZYn7jJ736cqAgp8oivBlkaJy3Llm4wuicKOyxAiNE8HUoHWBlQCcDu6q5cxsTYt1prEf40sodkVmm8Lc/JZqEuiX0MLKYwH2JgvgeQ1zCC8Xk5V4Z92uCKq8OW+4pIFoZ8URgVT6Elpzj+ioL5g=
+	t=1792208461; cv=none; b=MsZbizM5DGrWa7eRnINP7pT3kDwviVPknxSe2bGvGtDpuRiH5+dD612ssM/zXdd1LEuA4yL4A2ayakcaXMyrTqEuv70Kl9puqMr7lAC7tVkdjFNA7CulP8YEVqYYwY8/rNjL2thxNpF1orZIg67At1EWCrO/9Vj+dtwCz7mH7mE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792207861; c=relaxed/simple;
-	bh=4htGvYAaz+HNY/W5RkM0Qnrrlup/q0CU9Pnb/p7ag3Y=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=FK//xMy7icWomisQqxylYb4nF8mmCB2DEJrPs1nP2GBhkqLguWDOHRiCvnmBHqAIX4jIqaQI79R8+OIt7MH509xMkVexxyXSLYLDCWL1WoLATlB82QlnXTiPwYfuB5KZClTBeaP6tRNaJlUjssBYdAKQFUuU5M2dF79zeOD/zkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hs+Zeub9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792208461; c=relaxed/simple;
+	bh=Y1bl133ZdUib1Spm1gYj9ptIgV2t1Qw5I02BgWvvsZs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CLmNntnpLixFvJpyB+8ST8plJp6NOeUZWZgn2ELGwjudiQeWMW5RMaI7g2wC4FgxHhksK/ND4bOc2fddWxWHClU93jsTq878PR53g76HlxUnEgMZHL+grsKsarMvq8L7P04aCyo/RQVcvLp3gFDFcA+ZxFyhEEcRaPs6e3ENcrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jrciUTau; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hs+Zeub9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5D7A1F000C4;
-	Sat, 17 Oct 2026 03:30:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792207860;
-	bh=ZUxYoYWAabNcZrZ6jwTO0vLugKf54gQSbtB94tzJeSs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Hs+Zeub9KwGIrN7zoLvKtohPZLiVxJtCwm851oR+c2wWFj86LZuGOrCbOkCwsKSOt
-	 XUtocbQVs4gvRO8Md6CUmJEoKnc67oocX/iMNmXW5HM0n0RCxpUwkGMTHVI6zrxWfh
-	 KNpkHPL3vvpLl0SDwflBJto/CuKtqVsfNHagri+6m3Dfbjw8Fz2nun4q8Jn6pnxF5l
-	 RoffcjsyEojEMVZYynwR0L1Ljv0lOyIEkuj05jajhjISgimL4Qcc5GyyN3zEyZYxZE
-	 wAnuYYKDE1MdBpoqW9tlhpEZEZHq6KpRmt62lguq8lxbP7sFDW5WCkAv+hjaoiu9W9
-	 wSxQpBFQJtIrg==
-Message-ID: <d0f8499622c1b81505ecfafa4fd056840d5cfd89.camel@kernel.org>
-Subject: Re: [PATCH] net/rds: ib: don't enable IRQs in rds_ib_conn_free()
-From: Allison Henderson <achender@kernel.org>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>, "David S . Miller"
-	 <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	 <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, 
- linux-rdma@vger.kernel.org, rds-devel@oss.oracle.com, 
- linux-kernel@vger.kernel.org, 
- syzbot+c3741bb338b5c6d6a4aa@syzkaller.appspotmail.com,
- stable@vger.kernel.org
-Date: Fri, 16 Oct 2026 20:30:58 -0700
-In-Reply-To: <20261016161525.146537-1-ngocthang2710.1999@gmail.com>
-References: <20261016161525.146537-1-ngocthang2710.1999@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jrciUTau"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3a4c78ee4d6so88562a91.1
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 20:41:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792208460; x=1792813260; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mISF2YrSQB8JbgqvEnoo7X2DvInAFDBMsF8kaHx60+4=;
+        b=jrciUTaufx2KVdl+NBjF+FCRofh4SjKDskZ3f6bo9dK01e6uPDNMYs6qV/DrMdL5Eb
+         hdMotquHcYn0kC56PVEwvtA6yPLcad5eqW1oNV42KWKB1nERUZlrsn00NmmwSb1snxCy
+         sNIPboIahbPyK1SQCDDTnlnTPZf+OZJHdr4zHTZjbw+GrkTHscvlB6/2FwR9WHxJHJop
+         cxlVYLed3jEtTXq3vFwoUKodYJs+0AOkabo3a2B8agV8Pi9hO/HsDEKTIFD3OnW0hMzZ
+         IzsS6QugBVYRV+9xFYVde/0VfBfJriIJ4tXUBJBogWtv3vvDJXqq2RxVIeQj2f+TJBQc
+         F3gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792208460; x=1792813260;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mISF2YrSQB8JbgqvEnoo7X2DvInAFDBMsF8kaHx60+4=;
+        b=m7gxFEB1lJX2CBzYWP3rKGgJTr6wVjpZUmKj6hv2cVebkehrig6chLMXkZOYkvb2wb
+         BbPRkhMN5HlLVyEzedyzcvqQMPygbgN0eUOOnL/tz33xWmKQW7YeopYgsEU1x8smtuHP
+         /Zo6wtbSo2HRv83+wFdoC5giHqK95eRiL5k0s3LJ41DclBUT6d2LKZ9fHpj3GB/A51Dp
+         03YiJWnvLfdTg2tDFF/5kGDHXCNaKFuHnzQ9MWVHRwhKaQTYo5zBOlB7ehffXOwVJszx
+         IoB1gfmiCU7/m3SPLn/2CQsLyS5urACdWIW6B+C9Pp9O4xA6np3cTaUpsXbBvBCYEmWH
+         igQw==
+X-Forwarded-Encrypted: i=1; AKwUvBxS3TaGIoY7KWmwI/oGLzar0tj8o5sL1XJYlUMpqVTbOnKbnZNIdUoRYS6ZvYW/mXB/e1bOMOk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIVXKByjwRmbACvPdXPRkIfnwcxwN2DnuN/KIbJDMRZ3V+b9OnF
+	AYiVmAtn+C/BKiKyJh0Mi9tKSVlzzX/UPyYASl9wly/kG4pl5k2PgNwR
+X-Gm-Gg: AYBFou3eTyjGKDLA4Ll/tG3wmtVTdMmAZ9gnqBVJG1FeNL0+IKnQBEMCS9v/5OtZhc9
+	VjnoAOyGystYfkL0YRq0dRcn/ojg1NMYA6cu5cTyaYBWixVRFv7KzwKPLaKJRvC8iR9uov0JV9f
+	mk45X3umwOyv3I8mM8nJBaYMvXteQ8+yPtKAH+f9YTGJ12PBPbysCzW9mlgVbLQgVqgfAonWtCR
+	WJFlImiYe8bXlMxJke9t31vIMbfflCh7ccQbLiRkLQshsZqgU+5zC1bvnekkXKYIF1pmcWinF3A
+	Uh1z/e2bKRZnf+pxwnAi/5arDc39huYiV66gq9VR16E3ueA7m0aFgqqRk7f+fCOiy4Xa74HSXNy
+	lthxeWYl94ZnuGL3psACPHY0qJw8FRpKUvPn9rAB2f8PgtVPI1Dxo7dpKZD0pf4U3+pusadi0RB
+	PAp3nvTTxyM1sGEfsoTbEIy2CCaW21Brsc8gPzPvA6wGApVnPqHm0KwekYw1huHxlO
+X-Received: by 2002:a17:90b:164b:b0:3aa:ff60:9bb8 with SMTP id 98e67ed59e1d1-3acef167affmr2330778a91.3.1792208459839;
+        Fri, 16 Oct 2026 20:40:59 -0700 (PDT)
+Received: from ser8.. ([221.156.231.192])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac945e7311sm11708667a91.4.2026.10.16.20.40.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 20:40:59 -0700 (PDT)
+From: DaeMyung Kang <charsyam@gmail.com>
+To: linkinjeon@kernel.org
+Cc: senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	DaeMyung Kang <charsyam@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] ksmbd: avoid restoring only in-memory EOF after allocation change
+Date: Sat, 17 Oct 2026 12:40:50 +0900
+Message-ID: <20261017034051.72932-2-charsyam@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261017034051.72932-1-charsyam@gmail.com>
+References: <CAKYAXd_50E7cH51hxKi9xWfE3Hjyj0PhwccgsuGX416pEJVs8A@mail.gmail.com>
+ <20261017034051.72932-1-charsyam@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, 2026-10-16 at 23:15 +0700, Nguyen Ngoc Thang wrote:
-> __rds_conn_create() calls trans->conn_free() with rds_conn_lock held
-> and IRQs disabled when it loses the race to insert a connection.
-> rds_ib_conn_free() takes the device list lock with spin_lock_irq() and
-> releases it with spin_unlock_irq(), so IRQs are turned on while
-> rds_conn_lock is still held:
->=20
->   raw_local_irq_restore() called with IRQs enabled
->   WARNING: kernel/locking/irqflag-debug.c:10 at warn_bogus_irq_restore+0x=
-c/0x20
->    _raw_spin_unlock_irqrestore+0x67/0x80
->    __rds_conn_create+0x1de5/0x2290
->    rds_conn_create_outgoing+0x43/0x60
->    rds_sendmsg+0xfca/0x20e0
->    __sys_sendto+0x408/0x5a0
->=20
-> It needs an RDS socket bound to an address on an RDMA device (e.g. rxe)
-> and two concurrent sendto() calls to the same new destination.
->=20
-> The TCP and loopback ->conn_free() callbacks already use irqsave, so
-> do the same here.
->=20
-> Fixes: 745cbccac3fe ("RDS: Rewrite connection cleanup, fixing oops on rmm=
-od")
-> Reported-by: syzbot+c3741bb338b5c6d6a4aa@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3Dc3741bb338b5c6d6a4aa
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+When SetAllocation requests a size below the allocated block count but
+above EOF, ksmbd truncates the file to that size and restores only the
+in-memory i_size. The larger EOF remains on disk and reappears after a
+reboot. A 3-byte file preallocated to 64 KiB can acquire a 4 KiB EOF
+after reducing its allocation to 4 KiB. Extending EOF this way is not
+a reliable way to reclaim the preallocation beyond the old EOF either.
 
-Hi Nguyen,
+Only use this truncate path when the requested allocation is at or below
+the observed EOF. A truncate to the existing EOF still lets filesystems
+release preallocated blocks beyond EOF. Remove the in-memory-only i_size
+restoration. The size check still precedes vfs_truncate() taking the
+inode lock, so a concurrent shrink can make the truncate extend EOF;
+that race also existed in the original path.
 
-Thanks for the fix.  This is the same change as patch 1 of the
-connection-lifetime series pending for net-next ("net/rds: ib: don't
-enable interrupts in rds_ib_conn_free()").  But that's a much bigger set
-that's been churning for a while.  Since yours is stand alone with the
-syzbot report for net, it's fine for yours to go first.  I'll drop my
-patch 1 when your patch lands.
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@vger.kernel.org
+Signed-off-by: DaeMyung Kang <charsyam@gmail.com>
+---
+ fs/smb/server/smb2pdu.c | 15 ++++-----------
+ 1 file changed, 4 insertions(+), 11 deletions(-)
 
-Reviewed-by: Allison Henderson <achender@kernel.org>
-
-Thanks!
-Allison
-
-> ---
->  net/rds/ib_cm.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->=20
-> diff --git a/net/rds/ib_cm.c b/net/rds/ib_cm.c
-> index 6e3110a04ae6..5c717120eab5 100644
-> --- a/net/rds/ib_cm.c
-> +++ b/net/rds/ib_cm.c
-> @@ -1271,6 +1271,7 @@ void rds_ib_conn_free(void *arg)
->  {
->  	struct rds_ib_connection *ic =3D arg;
->  	spinlock_t	*lock_ptr;
-> +	unsigned long flags;
-> =20
->  	rdsdebug("ic %p\n", ic);
-> =20
-> @@ -1281,9 +1282,10 @@ void rds_ib_conn_free(void *arg)
->  	 */
->  	lock_ptr =3D ic->rds_ibdev ? &ic->rds_ibdev->spinlock : &ib_nodev_conns=
-_lock;
-> =20
-> -	spin_lock_irq(lock_ptr);
-> +	/* May be called with IRQs already disabled (see __rds_conn_create()) *=
-/
-> +	spin_lock_irqsave(lock_ptr, flags);
->  	list_del(&ic->ib_node);
-> -	spin_unlock_irq(lock_ptr);
-> +	spin_unlock_irqrestore(lock_ptr, flags);
-> =20
->  	rds_ib_recv_free_caches(ic);
-> =20
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 2da6163ee776..d06bdc8b23db 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -8636,24 +8636,17 @@ static int set_file_allocation_info(struct ksmbd_work *work,
+ 			pr_err("vfs_fallocate is failed : %d\n", rc);
+ 			return rc;
+ 		}
+-	} else if (alloc_blks < stat.blocks) {
+-		loff_t size;
+-
++	} else if (alloc_blks < stat.blocks &&
++		   alloc_blks * 512 <= i_size_read(inode)) {
+ 		/*
+-		 * Allocation size could be smaller than original one
+-		 * which means allocated blocks in file should be
+-		 * deallocated. use truncate to cut out it, but inode
+-		 * size is also updated with truncate offset.
+-		 * inode size is retained by backup inode size.
++		 * Truncate at or below EOF to discard excess allocation.
++		 * Truncating above EOF would extend the file on disk.
+ 		 */
+-		size = i_size_read(inode);
+ 		rc = ksmbd_vfs_truncate(work, fp, alloc_blks * 512);
+ 		if (rc) {
+ 			pr_err("truncate failed!, err %d\n", rc);
+ 			return rc;
+ 		}
+-		if (size < alloc_blks * 512)
+-			i_size_write(inode, size);
+ 	}
+ 
+ 	fp->allocation_size = le64_to_cpu(file_alloc_info->AllocationSize);
+-- 
+2.43.0
 
