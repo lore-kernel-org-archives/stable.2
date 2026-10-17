@@ -1,119 +1,67 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A20C32F7EE9
-	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 19:59:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34F79768EA;
+	Sat, 17 Oct 2026 20:18:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792267148; cv=none; b=OmXSvR7cManizjD43pn9krjpRAeO4/VFWnTO95C2qG2fJeciLUZShD1l+dMVlENoKZa2V+UeszzZLAXwX4gkU4jvUaHjA+DfXMeNxWKPwt8p54Kz9c24BVLzE5HvxFJlQpKedGOQcIRA5vboT1tPS6QOyvct3TTrpeeB8QC3pOM=
+	t=1792268313; cv=none; b=q2xTtdpCeIPf5ftQKKYP15k1aD1BjkiU68LFOKITLQ+dgBAHCmWtfEJbYWi3RfYXHV93QhNxE+V2oA4fS/440B3Z7RNdc3q4abOZKX8HGrVURoFiYoYmHUDFXazurZsr92czN3jPcprYvB7aBgqh/I8rEw7fDK8YsEg+RE06vyk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792267148; c=relaxed/simple;
-	bh=Ml000V61fr3YuTld7r7u6ykURZpQlGmMzt64SRhSqA4=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=sytFZ1qGzNN2SMTjQde5ruqDo7PK8BiGfNrc6nUF+fX+jcmQ68A/Tk4O9aWiQHjdsQMJobHTeApwGVix1wgA8HY7faTQgI3uaSrXYe5DkMZlAsTwzudKYYbEYmFE8bfkc+MLjHZV6JYK69/ysf57FIvC8dkYJgaf62DUsLOUm0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=J9bQj5LK; arc=none smtp.client-ip=74.125.82.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	s=arc-20240116; t=1792268313; c=relaxed/simple;
+	bh=0RjmdEzx1dEa77m7XPkGxCV4G8P7wf/2lCoqyJZVEuI=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=clihg08KukP5Jvv/cXmtfyyTrJtFkR0F3+/1eUQQ9OSgFonjM84EnJVUANWK9TgJmIUwPAbnNsDzSRA61GFkkSUbARXKEU/xEqmLSAmsRrt/dNYG6ZemBdxZNUHPXrN22QIq1CukBFgm3scPekSSD3MyYig1dlxlh0Dg2lVbBCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=WSe2nSLh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="J9bQj5LK"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-35f1f76ea84so1698993eec.1
-        for <stable@vger.kernel.org>; Sat, 17 Oct 2026 12:59:06 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="WSe2nSLh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 009F41F000C4;
+	Sat, 17 Oct 2026 20:18:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1792267146; x=1792871946; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=HAgaZs7U9Ts9mDMveQXhZnqnkSOSUDsoHpqBUnmOvg0=;
-        b=J9bQj5LKD+aVHe8s/slYvevtxHcCmivyfSeSfhcnjC4SdOwqnXyAOPofeyfMwR3gbN
-         R81q2Md55lO+GNu2HDud+aYbJJKqwlgprUMxlvvfR9iRf8HU59mEukf49oFAiagHh3mc
-         5zGq0z+KCB2ChOpOJP4BPGI7/JUXBg15eiCKl39XlW+S0S9bNeb1EtQQrFEgjyFSfAet
-         I53GN7yQgUNQx1XEpMFdeH86nGBruLh4aM56x7jnz/6aYQyS6KycKSW4XduYFGEwNIH7
-         8RLDp9D9bJqyL/pinrUkl+dQKAe97IncCoztcsVcjG5PbPCTj/3caVNnP6KL0wilciwI
-         fQbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792267146; x=1792871946;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HAgaZs7U9Ts9mDMveQXhZnqnkSOSUDsoHpqBUnmOvg0=;
-        b=tqqHK7GSS4uBARMJ2fMvodYJ50eUGGIEwA2EDQoywRmHHCKfl8InnwuRg+twF68kK4
-         lnZ8YFPxOp5dag4Mj+Nm9oF9jFzvfu7vPyRqTMywojDhAAJ6ICk2N+B0pzMPop4hb0va
-         sJpyxOt9AVPsZClxivF0n7ZOWPuucHwe+FaiA8HxKwGWy7qP34p9dpBi/ES6KTb+8oSg
-         fJcHe/3ZBpJrRW1nLt53+9QzwKpBBPtKjc7bxEydwgMKjbWue4JYFYm1utvbqs1tGnTo
-         3pkYMPWOdPAjTZWxZhq9JEGH5PJo7CbAHlUTsrNOWp1gZKVxuJBMBsdi8bIHOXGw6eKx
-         QFXQ==
-X-Gm-Message-State: AFq9FYKgMbo1ll/os1Q7P3yK+77YBbi+q/G9nSUdYalz2om1ZohfJes+
-	uW+rX1EEqHE2p6XIaeKKwC2+RZnwzI2plKgipx39W/deP3vgQkfsg6R+OOja3kVABDUPgqJGXTm
-	rLVxl
-X-Gm-Gg: AYBFou2WGtuhPwF9p5FZ4lvaIg844hn6ttC7RuH8+NHmNo9okV+f0J5IieOgFDD7iRm
-	DoSK9pBRY4a4muonoFTQvKoULzZqWagw2ASglg3T03wNSqzjk55M/uCcNoOZkwzrjSoxML3iFHb
-	hzArKHhQqCWSmqtl4U6lTSMhqRQC1xnG1R2G0FXO3xAvhafnmnYU40s4289WZRMrMhfgsbpNK0P
-	S5W9DuNPhHhjEcC8etlWJqlSWm2ob+XPN8Qyu/zJ5iygw9OjTj9o/Zv1ZOEJIem3rTUaQdCtkmZ
-	lw1YOFakZlJzj7jJHkYXXOl22sZqJYYxIQ1rmS0rf1BeSCi3Lhn3k9b8AlSiLblB+pK5eP3z02L
-	gDiJXO5cpNrsYyFcs6k6lGfrNK0twol7ac1yBYmL46je72tGZcYz3YzVPHivDLZXB1uDwXVVCTz
-	3asENmiYRGli8QPAt8OJISAwdAkQbSaY/USLejsrz5nFKC7bpw+hIwIoSuLbi6f/0=
-X-Received: by 2002:a05:7301:428c:b0:35b:7dcd:dd57 with SMTP id 5a478bee46e88-361a0b99d57mr4335423eec.10.1792267145451;
-        Sat, 17 Oct 2026 12:59:05 -0700 (PDT)
-Received: from 6e52bff8000c ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36081fa5a6esm18584708eec.16.2026.10.17.12.59.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 12:59:04 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+	d=linux-foundation.org; s=korg; t=1792268311;
+	bh=lAhESF2COvNcZpbBEtxaDnp4lDWPBoATUHnjiDJ7C6Y=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=WSe2nSLhoarMc88nXYKJ1TgMSop5g7gaop+Z4z94vHqiXXNE0zFqr7efSgtk22PJl
+	 IudNt6TcEJx/DkN11rFzUyiYj8DN8txkgDbgG/reLq/Qyt5pvRneSXsInMobRvJQ5x
+	 ydBVHjJrQDo9kc7imcx6Dcy4vuKdyxqkA43Bosbg=
+Date: Sat, 17 Oct 2026 13:18:30 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Cc: hannes@cmpxchg.org, david@kernel.org, mhocko@kernel.org,
+ qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org,
+ kasong@tencent.com, baohua@kernel.org, axelrasmussen@google.com,
+ yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev,
+ baolin.wang@linux.alibaba.com, yuzhao@google.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, apais@microsoft.com, rlmenge@gmail.com,
+ stable@vger.kernel.org, Hardik Garg <hargar@linux.microsoft.com>
+Subject: Re: [PATCH v2 1/2] mm: multi-gen LRU: fix NULL lruvec->pgdat deref
+ with memcg disabled on cmdline
+Message-Id: <20261017131830.d698d0a474745243d5d5b7f7@linux-foundation.org>
+In-Reply-To: <20261017050928.128582-1-sidchintamaneni@gmail.com>
+References: <20261017050928.128582-1-sidchintamaneni@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Subject: [REGRESSION] stable-rc/linux-6.6.y: (build)label at end of compound
- statement
- is a C23 extension [-Werror,-Wc2...
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
-Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Sat, 17 Oct 2026 19:59:04 -0000
-Message-ID: <179226714426.54876.6274550650293482487@kernelci.org>
 
-New build issue found on stable-rc/linux-6.6.y:
+On Sat, 17 Oct 2026 05:09:27 +0000 Siddharth Chintamaneni <sidchintamaneni@gmail.com> wrote:
 
----
-label at end of compound statement is a C23 extension [-Werror,-Wc23-extensions] in net/sunrpc/svc_xprt.o (net/sunrpc/svc_xprt.c) [logspec:kbuild,kbuild.compiler.error]
----
+> When CONFIG_MEMCG=y, lruvec_pgdat() returns lruvec->pgdat, which for the
+> per-node pgdat->__lruvec is left NULL by lruvec_init() and only filled in
+> lazily by mem_cgroup_lruvec(). Normally that happens early, e.g. on the
+> first folio_add_lru().
+> 
+> With cgroup_disable=memory, lru_gen_shrink_node() passes &pgdat->__lruvec
+> directly to shrink_one(). If direct reclaim runs before anything has
+> called mem_cgroup_lruvec() for the node, which can happen during early
+> boot under memory pressure (e.g. a kdump kernel), get_swappiness() ends
+> up dereferencing a NULL pgdat:
 
-Log excerpt:
-=====================================================
-/tmp/kci/linux/net/sunrpc/svc_xprt.c:874:1: error: label at end of compound statement is a C23 extension [-Werror,-Wc23-extensions]
-  874 | }
-      | ^
-1 error generated.
+Thanks, v2 lgtm.
 
-=====================================================
-
-When fixing this issue, please attribute this report according to the
-patch submission rules:
-
-Reported-by: kernelci.org bot <bot@kernelci.org>
-
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
-
-- dashboard: https://d.kernelci.org/i/maestro:697e787e9252e3e148ea5672e0816f2159fa228e
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  47804a4b58848c9b0a2773013334c8ba54eba310
-
-# Builds where the incident occurred:
-
-## x86_64_defconfig on (x86_64):
-- compiler: clang-21
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6ad3ae6f7c0a66b9cb43aff9
-
-#kernelci issue maestro:697e787e9252e3e148ea5672e0816f2159fa228e
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
+Maintainers: please review and let us know whether you agree with the
+cc:stable on both.
