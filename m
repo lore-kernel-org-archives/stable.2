@@ -1,170 +1,152 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90D902DB78C;
-	Sat, 17 Oct 2026 06:18:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792217900; cv=none; b=PQTDycrYaplrJPwujIdEewWDJC6obYwNW+F17brw87HFq/xRc5IDUhn5Y0/oM6+QRUfgt9CaqZZglIj8SQy+7Cn2rekVNPWqkoS7uq67DUGCDChaheHz+7ii5mZ5nvuTNa9BYaTBPF0RjUGKbbzAiIHP1l2aEzCpAAuSkwKpCaM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792217900; c=relaxed/simple;
-	bh=DCK/iYWJMSYJDxo305ZpiExNdT4+Lqr8XrKaIu/Z9IM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Av/xzfW2g7o4WQCneP/fUfJdxytn9V+HGvWUFo7k/41NN4MhT75Rz1DSYGbZjBtN+nRGhQ8CxV3GBELCNcFKVAZ1RKdx4o8Urqfju/7CuoZd+Ar3U6ava+c2Wy5fiJwvhwbc54qZaBodB04bC5jZf0Ib+uV5p+wvUCcYsbzic78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=dUOICMpX; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047602AD0C
+	for <stable@vger.kernel.org>; Sat, 17 Oct 2026 06:30:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792218629; cv=pass; b=ZDH0qbH7nUYPAAh1GTTj0SDlpmQk1+olRj3dIuTZyggZbgyJLussX/8NWepPqM1VIfga+8a5kXOj+vY0+rTgUorDJOBx35fr9c0gvGAbPTWcRurS6ubths4eldiz3RLx3ag8jprO2ubqMAXyMJd2f+1R0Dfg3eHzM70zoXDZpKI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792218629; c=relaxed/simple;
+	bh=RdwkPyJhh9E98r1MpaOcpYc/Nwt3X8Omeo42Fd0x3w0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WbFdO2rl3GglSizcrVk9dNfpFH9ZIDQNoAMLNbEwtr5znVP112RGrnjf+j3YrkDmtP//kypJHY7qJc7qCy8+Wxb9jUsmX4KwoJz6ygU9UCV1FMAxCqTBXEvXrciU7j4WoJzby3reM0Pswm9LuuAhdqx64EPrO5VCLSJtipfkZS8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q6Ao+T+H; arc=pass smtp.client-ip=209.85.219.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="dUOICMpX"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4030CA1582;
-	Sat, 17 Oct 2026 08:18:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792217893; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=PF+Y90C0DdmG3gqHE3quKSUYf/8ga1a8WbrmI7vsCHo=;
-	b=dUOICMpXYIis8IzGc5nJc9QnaZS0eZIC7KbDD5EZVVM2GnrxjlbA3fV7h4IoG3Luue73zR
-	vABAQMXH+HRCGTwxx2+ws0WKEXA8Ke2REiXcw7zO4bDMq9P4QE+SDQHWEo2QvSjRlPJaVp
-	Jho8P78hGtTehcqzhFlWYelMMfUS0t73FdwMT75Gib9ZLShIo82gqnuIqpAV6q6ZiR1lFK
-	dm8uyUFOr8SnQOh4hTKZBVq6U6AOO5v0RfunfV6IN4aJDeTUvz56Ybstdq7VfOWgDZ//7U
-	VYqYMpbC2Og5lch/KxFr4ErurXG9zKcsCZ8PN1e+Ra/wWhTaUS811X3IXvqrnQ==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Sat, 17 Oct 2026 08:18:03 +0200
-Subject: [PATCH v2 1/2] serial: amba-pl011: finish a transmission still
- running when RS485 is enabled
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q6Ao+T+H"
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-91b89c6caffso4361256d6.2
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 23:30:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792218627; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fp1godm8zhBoeqOX/eXCJAr0xDw1gK8NrH3msh6aBukF+8gd+/wnmgIB1l69+D/c+z
+         JkrXzP5NIFiGaf3MOP1GuG8m4+ZiyzZWxAXXVZKOYqApbEDo48B0/7gr2P3RMAa7zmM+
+         bsclwi1E6YDPQtXoR4TpqTezvcPqB5D40ZdEA1Qf+ZrmhNUV0eEWYJAHQvPSPTzLy2QU
+         mgkxqNxByGeDYEyNJ+qmyxKIDnWm+YemlNbRq+cITJ+tCHkcevGU+bQ+0qndhZbgJlXf
+         ocO8VO99Hl1SBySovShjGoNqmDEpEDhIfyNBzKfneXPGYhkDCktDHVoR1GPYrmZFKMT+
+         AKCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9+/72NBdno+j2crMEeoosJzc0n5Cq53P1qeqSGU//OY=;
+        fh=bQPw1kPss5rGiQWQGfBLJNJoeweWaFmo/7s3ExnOvDQ=;
+        b=bxCYRxlm6iq+GXIG4tRUkN8QaLmfv+1Nxu/asMCz3bJxrc0luquLUf1vCFb36+NoL/
+         20x+1k7fzewH6NBplyh9Lx/snNOPbR9Bi7U59waaA2A5Q+cMNfpQ6myPult/PAv8dPME
+         m4sCk2XC/CdzrvbFmSMXntxdsw3umEzq7NOjchY9ptMpCCEGtuHqUilvUGkLCKig/Id0
+         nKexEFDwyzJJy1OGI5gjJEAADhC7pwmD4cwSW0ereWM/GdSghud0D2RQ/ETabjrxAMvK
+         NLJgU+RGN5kZK1CAPnkkhLKsuzMlIXa6sdc1OtP4wg0TvrUg4kurDg7UPAW3tUrCR5RN
+         tikw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792218627; x=1792823427; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9+/72NBdno+j2crMEeoosJzc0n5Cq53P1qeqSGU//OY=;
+        b=q6Ao+T+HQUDaazuA5UYlqkK2Wum75oOv2z+RsR6W/879wNJfq2FUkV+j/lkFicFEW/
+         O66XtO2s1loXJQD+9wMcmR4DkSdB1uYRS27TB+M69t/rpTlngM5KmaPJRFtZLbfke4Sl
+         2sCrfWuokcF0ms6chc5Ufs3SBI7j2Fss+xb2kxlmvM8RiLIEyrBuF6VIJP/2c9qBCbP/
+         6sfaQ5EZLNgYKjTdg85Y0xpfiR+rhKm087rilF4aUuPbv6NKiYuLhD6VvWiPYsCvPik+
+         XMZywBnRZb0acwrJLf6grjUJxMBE50B82t/YQ7lywO6dFuHQUgNcdwymfClNmNE/gdYd
+         wxgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792218627; x=1792823427;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9+/72NBdno+j2crMEeoosJzc0n5Cq53P1qeqSGU//OY=;
+        b=ksL5/MNXf97sc1no08AY11nibkR5dCosimnVSOu/c/SpdYfIbPhoRy5k7z48eBhbN9
+         F1Cz5aHmU4KJ1IbBy169LWMFLygiz3MI1D6eXNMpppq7fsoyVtos96vROtqdgH6+XhAC
+         paUNcJiVOQdpjyKd7oKYWT4a6Y5vHPDwp+ENNke20udF8FfWDemxHpC5n19UzrVTu2TE
+         fg7lSCenoVTZ/JJUieijP4udqR4h4q88+Mky8zJ25yvdrRZ8e0FqnmpkZVMRbQK+qfQO
+         TGXRajDpO1mdk2OULcDCEI173NyVD+u2E8v8gKs4Hkt4boQtJX+jlJOP3GTNNR8MlPBM
+         hKDg==
+X-Forwarded-Encrypted: i=1; AKwUvBy8owDNhMj6/C97Gjwo2LlaE4dzLPvPg3aBcO4VVxp1wcnoNyjMy2XL5w9c62BJCcmLESuGqD8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJncXbTNlRgH+nG5PbzXo9Ix734tO+gq1z8ZrGoHjiq3j75Cm1F
+	LdKAByatMG1pMUnFTLbxrcLDdqAH2ZOho77fJJsV8ffOCPs2gE4PMUPDz2ahr1Twy+xZ7HW+Gz+
+	4KFAa9CRU4//OuxjIxZIpdkvYnJ+d8QFxMkdSUuk=
+X-Gm-Gg: AYBFou1ZiDzzsVap3+r4lO4CdueVMLbTyHTSXOPILTkxeR6O50xjK8lQQLE5qtWfAbx
+	OGn2XUoe3XvCPRVwKSdk0M3LmdpHu6vHJmjUKUfXULHNTz3OEOacotVTF14T2GDo++msNFjtOiP
+	ZRITM0oj5tR6TRhL9w14+mGchr94NvY3lghVvu3siguymYpa7ONNX4QOppSw90unP8rlCVQ/xeL
+	sR+EUU+Qar3jJO+zge3Au+qV4HxCrk1IS1nEN/4O083o39s2XIxXSWDUFho2hGNRjOq/Or6c2X2
+	wRqI91xhQpBmxUCZavyMlFvl97FyAh65gb6E5xThedURH3NP2ygaTNcS5UY2acJypg4LTLN9Uf2
+	4Xx4+6mMYDvKyVfZbxmKiRdsuZqzQih0f2/tt9BonNXMdstYW0lhA
+X-Received: by 2002:a05:620a:410c:b0:93c:b33a:5ee0 with SMTP id
+ af79cd13be357-93f29d3f0d1mr345360085a.41.1792218626850; Fri, 16 Oct 2026
+ 23:30:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261017-devel-nbuchwitz-pl011-rs485-reconfig-stall-v2-1-6f457a1ee527@tipi-net.de>
-References: <20261017-devel-nbuchwitz-pl011-rs485-reconfig-stall-v2-0-6f457a1ee527@tipi-net.de>
-In-Reply-To: <20261017-devel-nbuchwitz-pl011-rs485-reconfig-stall-v2-0-6f457a1ee527@tipi-net.de>
-To: Russell King <linux@armlinux.org.uk>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Lino Sanfilippo <LinoSanfilippo@gmx.de>, 
- Nicolai Buchwitz <nb@tipi-net.de>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+References: <2026092253-dimness-unethical-2515@gregkh> <20260922153334.136648-1-bub4z0r@gmail.com>
+ <2026092320-reentry-lyricist-330b@gregkh> <32446a55-070d-4739-bd3a-d56c4b628e29@amd.com>
+ <2026092332-alkaline-overthrow-494f@gregkh> <CAPM=9tyVcUdb-wjv2unksLV-BVcOxswqB0Y+H7agBU5vYGFKDw@mail.gmail.com>
+ <2026101737-broker-output-d845@gregkh>
+In-Reply-To: <2026101737-broker-output-d845@gregkh>
+From: Dave Airlie <airlied@gmail.com>
+Date: Sat, 17 Oct 2026 16:30:14 +1000
+X-Gm-Features: AclHuK8oTdGZtkAYns0vEGDb9KwY2aZC1M6hyDXrk7IpcqJ0wBLT9V-mKbZizfw
+Message-ID: <CAPM=9twsgnL_SPf7hi+mnPUgJTyGVDFyQdbOSNhQZXSSoxZmNQ@mail.gmail.com>
+Subject: Re: [PATCH 7.2.y] drm/ttm: fix swapped-out resources never leaving
+ their bulk_move range
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Vadim Nikitushkin <bub4z0r@gmail.com>, stable@vger.kernel.org, 
+	thomas.hellstrom@linux.intel.com, dri-devel@lists.freedesktop.org, 
+	skainsworth@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Disabling RS485 during a transmission keeps it running. If RS485 is
-enabled again before it ends, the state is OFF while data is still going
-out. The TX path does not end a transmission in state OFF, so nothing
-sets the idle RTS level afterwards and the transceiver keeps driving the
-bus.
+On Sat, 17 Oct 2026 at 15:45, Greg KH <gregkh@linuxfoundation.org> wrote:
+>
+> On Sat, Oct 17, 2026 at 08:19:46AM +1000, Dave Airlie wrote:
+> > So I got a report that
+> >
+> > "the backport of "drm/ttm: Fix ttm_bo_swapout() infinite LRU walk on
+> > swapout failure" to yesterday's 6.18 missed "drm/ttm: fix swapped-out
+> > resources never leaving their bulk_move range",
+> >
+> > So can we make sure this patch is in the stable branches the other one
+> > went into?
+>
+> Sure, any hint as to what git id that is?
 
-Hand such a transmission back to RS485 when it is enabled on an open
-port. Assert RTS and mark it as sending, so that the TX path ends it
-like any other. With only the FIFO left or output stopped, the TX path
-won't run again, so drain the FIFO from trigger_stop_tx instead. Data
-queued while output is stopped is not part of the transmission. Pause
-DMA first, as output is marked stopped before the driver pauses it.
+All of the hints:
 
-Fixes: 97f85204275a ("serial: amba-pl011: keep transmitter enabled when disabling RS485")
-Cc: stable@vger.kernel.org # 6.18.x: 1b6d660e038b: serial: amba-pl011: drive the bus during break in RS485 mode
-Cc: stable@vger.kernel.org
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
----
- drivers/tty/serial/amba-pl011.c | 60 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 60 insertions(+)
+6.18.57 has
+commit 060f8f3020516d71bc4d6159d4d0beef85606a74
+Author: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+Date:   Tue Apr 28 11:44:42 2026 +0200
 
-diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
-index 79776a882ae35..3b9cce435c650 100644
---- a/drivers/tty/serial/amba-pl011.c
-+++ b/drivers/tty/serial/amba-pl011.c
-@@ -1734,6 +1734,18 @@ static unsigned int pl011_tx_empty(struct uart_port *port)
- 							0 : TIOCSER_TEMT;
- }
- 
-+/* While output is stopped, only data already in the FIFO counts */
-+static bool pl011_tx_pending(struct uart_amba_port *uap, bool stopped)
-+{
-+	struct tty_port *tport = &uap->port.state->port;
-+
-+	if (!pl011_tx_empty(&uap->port))
-+		return true;
-+
-+	return !stopped &&
-+	       (!kfifo_is_empty(&tport->xmit_fifo) || pl011_dma_tx_queued(uap));
-+}
-+
- static void pl011_maybe_set_bit(bool cond, unsigned int *ptr, unsigned int mask)
- {
- 	if (cond)
-@@ -2454,13 +2466,56 @@ static int pl011_verify_port(struct uart_port *port, struct serial_struct *ser)
- 	return ret;
- }
- 
-+/*
-+ * Data from before RS485 was enabled is still going out. Finish it as an
-+ * RS485 transmission, so that its end sets the idle level.
-+ */
-+static void pl011_rs485_tx_resume(struct uart_amba_port *uap,
-+				  const struct serial_rs485 *rs485, bool stopped)
-+{
-+	struct tty_port *tport = &uap->port.state->port;
-+	u32 cr = pl011_read(uap, REG_CR);
-+
-+	cr |= UART011_CR_TXE;
-+	if (!(rs485->flags & SER_RS485_RX_DURING_TX))
-+		cr &= ~UART011_CR_RXE;
-+	if (rs485->flags & SER_RS485_RTS_ON_SEND)
-+		cr &= ~UART011_CR_RTS;
-+	else
-+		cr |= UART011_CR_RTS;
-+	pl011_write(cr, uap, REG_CR);
-+
-+	/*
-+	 * With only the FIFO left or output stopped, the TX path won't end it.
-+	 * The timer does, once the new settings are stored.
-+	 */
-+	if (stopped ||
-+	    (kfifo_is_empty(&tport->xmit_fifo) && !pl011_dma_tx_queued(uap))) {
-+		uap->rs485_tx_state = WAIT_AFTER_SEND;
-+		hrtimer_start(&uap->trigger_stop_tx, uap->rs485_tx_drain_interval,
-+			      HRTIMER_MODE_REL);
-+	} else {
-+		uap->rs485_tx_state = SEND;
-+	}
-+}
-+
- static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
- 			      struct serial_rs485 *rs485)
- {
- 	struct uart_amba_port *uap =
- 		container_of(port, struct uart_amba_port, port);
-+	bool tx_stopped = uart_tx_stopped(port);
- 
- 	uap->rs485_break = false;
-+
-+	/*
-+	 * Output is marked stopped before stop_tx pauses DMA. Pause it now, so
-+	 * that clearing TXE below cannot strand DMA data in the FIFO. Output
-+	 * stopped after this check is ended by stop_tx.
-+	 */
-+	if ((rs485->flags & SER_RS485_ENABLED) && tx_stopped)
-+		pl011_dma_tx_stop(uap);
-+
- 	if ((port->rs485.flags & SER_RS485_ENABLED) &&
- 	    !(rs485->flags & SER_RS485_ENABLED)) {
- 		bool tx_pending = uap->rs485_tx_state == WAIT_AFTER_RTS;
-@@ -2483,6 +2538,11 @@ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
- 		if (tx_pending && !uart_tx_stopped(port) &&
- 		    !pl011_dma_tx_start(uap))
- 			pl011_start_tx_pio(uap);
-+	} else if ((rs485->flags & SER_RS485_ENABLED) &&
-+		   uap->rs485_tx_state == OFF &&
-+		   tty_port_initialized(&port->state->port) &&
-+		   pl011_tx_pending(uap, tx_stopped)) {
-+		pl011_rs485_tx_resume(uap, rs485, tx_stopped);
- 	} else if (port->rs485.flags & SER_RS485_ENABLED) {
- 		pl011_rs485_tx_stop(uap);
- 	}
+    drm/ttm: Fix ttm_bo_swapout() infinite LRU walk on swapout failure
 
--- 
-2.53.0
+    [ Upstream commit b2ed01e7ad3de80333e9b962a44024b094bc0b2b ]
 
+
+upstream has two fixes, because we messed up,
+commit 3db7d7d583419f7b1f2e141e36418802dbb25cf8
+Author: Vadim Nikitushkin <bub4z0r@gmail.com>
+Date:   Wed Sep 9 23:50:28 2026 +0300
+
+    drm/ttm: fix swapped-out resources never leaving their bulk_move range
+
+commit fcfe64715b425262af1b36f498f9197f3537ceed
+Author: Vadim Nikitushkin <bub4z0r@gmail.com>
+Date:   Thu Sep 10 17:34:51 2026 +0300
+
+ drm/ttm: apply the swapout bulk_move fix to the intended condition
+
+
+we ideally would want the proper resolution of those applied. which is
+the patch in this thread.
+
+So can we just apply the patch in this thread to stable, the squash
+fixes the stupid in master, or apply both patches to stable and leave
+the stupid.
+
+Dave.
