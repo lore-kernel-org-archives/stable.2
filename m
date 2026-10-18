@@ -1,48 +1,76 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D69A4AEBE5;
-	Sun, 18 Oct 2026 16:10:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A02DD4D0A1D
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 16:23:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792339811; cv=none; b=sctjulFqe8C8YEfl3+pLZ874/TIMwynyi7xNzee+p/L3kUc2Fq1w6rKMfpekLoYDMqzf9qEbAv4q6/wgCbl9Wdpq8zPWiGOT0lhMA7pHkg+Lw5ejg9YJ8SDukF8F6j7Ivd7twxc/t7siDed8HhlAunu79KbxlIptyJSq5N5HlHM=
+	t=1792340618; cv=none; b=a00bwYzxrt/mwPKp5+iZP2ZgTw9M5oCluDwjsZh2dqh7Sk/zGexCSOGYQjVfUwhhZHzNlP0OaFMRcRdVt7/zXhBwWRgB2z0HBZYEQxoFSBRIpl2dWjko6Wiig1PeBU5Mo6Jh2EHoAp+fcd68HjfQmTr9EqQ0geCTk58D65V9S58=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792339811; c=relaxed/simple;
-	bh=EUp9OxghaaUbdXshNZklnsyS1ZQXBQUqAg/PcxvKuy0=;
+	s=arc-20240116; t=1792340618; c=relaxed/simple;
+	bh=ACJTAtu7mJj/qHLG8YMgtJMB+SSR4aYM27NlxUW9dns=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pZw/C2+KVrMmxRFObFHoPwCdrF9raOb4S049CypIOjIiHD9H5YgPxP/vGvncznAgBHOO+tiD/fo5OVgA5HaFNwxSoNfRWeMp1GvibPvmvo+s9iyJ3UdPOBC6/BNXv1xraofwRCBGeUPhYVMZGhGXkWJILS+fo3MlpPENMdQ1zDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=XP2LyJ/y; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=e7zbELk4UNrOjnXLb3w4YAYGC2a2ShWS3UiTE0RFHWmd8qPBLJ4gQxdtRCy7Hfs2jEiC9PFmaRSG5AZkyHa6BTIpb61keWmhwbAAW1x2ZsxK1AWGVYVwZES/sGOATCfcqWX41oRVm1yltgApTPMOYds+CRz+W6FHFi5ViB+vt7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G7Aqgeyv; arc=none smtp.client-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="XP2LyJ/y"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=jKuRvw62P9dZ3Ihr2ZfFrRv3XWzvYUb5KNEn9SgslhI=; b=XP2LyJ/ysnRd6uv1HcntXTyNAp
-	BACtgbM6mFXZ7v0RrMv9TYUZBuJ4op96kaIXGEXsep+gpO+G3midWtfIGprJI2yUm+9abeh0QmT0Y
-	CvYTNIKC0StauovEQkmtje257qOTRBUpeLwl5uvI+DirhCQwx+FhWn8sqK1qvIoK73F4=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xITSQ-00BVTr-8q; Sun, 18 Oct 2026 18:09:58 +0200
-Date: Sun, 18 Oct 2026 18:09:58 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Wei Jie Law <law.wei.jie@gt.tech.gov.sg>
-Cc: Thangaraj Samynathan <Thangaraj.S@microchip.com>,
-	UNGLinuxDriver@microchip.com, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Woojung Huh <woojung.huh@microchip.com>, netdev@vger.kernel.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Wei Jie Law <98lawweijie@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH net v2 2/2] net: usb: lan78xx: reject short register and
- statistics reads
-Message-ID: <ce3a8add-3bf2-4507-b778-a0f8a10370c7@lunn.ch>
-References: <20261018061734.19488-1-law.wei.jie@gt.tech.gov.sg>
- <20261018061734.19488-3-law.wei.jie@gt.tech.gov.sg>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G7Aqgeyv"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-886e61fa30fso404840b3a.1
+        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 09:23:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792340617; x=1792945417; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LsdC1ntDUFxSCa8DHZFb/rWt1can9hw1VcMUAe2mXgA=;
+        b=G7AqgeyvMXaa+Uj8AtLb+xEPjlZvBNRbO1yAIMVDO5o7miQeIWyiNxSt4vdjwSTjIs
+         obGffdts6sizIcfz8U10DjCRHGpxlbUw4SnG76fpHrgRb2iSaf3qKEutnocpWdYi3qw6
+         gP3zQjpYqCwU8+qkILovYS9z2t2C8ldozvXpHB8CE2RoivqAJxTtq9CcCMPlhE+Nxhor
+         Udz4B67nPX943myk6qJzB3YyuTknZVCjptrMStIRsNi2mQZ60x45DkChOXjgk76eGsDU
+         PCsz4egxxd0OaiX0NYBiSKuYbM4k19qyantSIfTVQYiERZImFXcGjtoCkH01Azt4XpvT
+         xJhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792340617; x=1792945417;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LsdC1ntDUFxSCa8DHZFb/rWt1can9hw1VcMUAe2mXgA=;
+        b=RQ+JWJQ5YAO5It9ep02s/eNWbnwfojXPcl9NEucHzPHv616E82hSWY/RjoLM7FxvsG
+         NcGAoonhLDtRjiU0ds4uhVIKWCgSiKD/j4KpWmEt5DRqCd0W3n4TYqN1ih/4Sy4fveXe
+         Qv/dzC/uPXGGqC0nBh8iTNzdo/ZTpRer/8FoFCjeXGAHV/wJpEgNT4AgJ+Ilm4vA/COs
+         SoxqizaW0YQf7imAldzV6/Mqqa9vK4/VreenWEPjZmkpzlQUQheLkG97h1vRUyUY/I5w
+         /ainZE3GOW9Wx2WkvObgstPhD5C8YjniYB7BtZ9osoqeokCGjX1/fI97bpdCytwXzAO2
+         OJUg==
+X-Forwarded-Encrypted: i=1; AKwUvByx88ti7l3RQSwsgJv9IHX8V/3QibUSqRNYmf8xmuUF2bZXaCKSuCZMTPSVA2eE5hLv04iqCQc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJAL0JFeplhBtrZ8mUXs3SXgTr7sl5m6urlcnJQMOe8Jov1nPDx
+	pt/+yhMuDASwVLwDF0ukofrDNJ/MkJMN+iPSx3+sQK2snD3/B/CigAhzoVkCHA==
+X-Gm-Gg: AYBFou2Cswpdq505f0s8LjXminkL1Xhd73Z9XDWbHBBJEuRk28vVyXWtwsyFS50bDk7
+	+9s0bQKa1K+m3CGuqTVaKIWJCBfWhBMPZOAs+yrWi+PgFqSPbMBXOPDpH1tEokfBl1T9qTQ5mxg
+	qSx0U0dCTMLmDGUZMmeJJInTVct0Lk/whqhKsWVNeoC2a56N2SrnCiy1ifCIMwbdIb3ldT7EQdJ
+	aWCO4siiP3qE57PRedFnE/ktUZw9rcmgXZ0JYikXbDfP5cifMlyDdAOtuCCV3ZIgSfFoE142SOH
+	4jw7skxzxUsPStxFBaUkKCQL/jXKDV7rugtCvCuCj5FSNM24eOm2zX/H1guTTrNwMMy6LsTovbS
+	xwdo2hXv2DFrGCOH1xAsWqx3nhvbLYRqLAIbVPN4NMD1FJHqGkYcGs6OeJXBuA3Utj0qErYoe+s
+	4FD0lIFYyeCkt9HofVJp8XpAPfqA66k1PoNTaEjCxN+m4Dek4V+tEWUIDT1eLMhfvcl4IidjNuU
+	yXjf5xcedrCZJIYNBKA4+c=
+X-Received: by 2002:a05:6a00:4c92:b0:89f:3c81:e733 with SMTP id d2e1a72fcca58-8a04ba3bf1emr3895108b3a.25.1792340616855;
+        Sun, 18 Oct 2026 09:23:36 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89fcd67cf30sm2498542b3a.17.2026.10.18.09.23.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 09:23:36 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Sun, 18 Oct 2026 09:23:35 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Tom Verdonck <tom.verdonck@inspiral.be>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (sht4x) Fix torn read of heating_complete in
+ heater_enable_show()
+Message-ID: <26a02aca-2067-48f8-a26d-2edef878751f@roeck-us.net>
+References: <7b2087ccb963e097cf3f6333efaec0c46549003b.1790358356.git.tom.verdonck@inspiral.be>
+ <20260928062238.67746-1-tom.verdonck@inspiral.be>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,52 +79,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261018061734.19488-3-law.wei.jie@gt.tech.gov.sg>
+In-Reply-To: <20260928062238.67746-1-tom.verdonck@inspiral.be>
 
-On Sun, Oct 18, 2026 at 02:17:34PM +0800, Wei Jie Law wrote:
-> From: Wei Jie Law <98lawweijie@gmail.com>
+On Mon, Sep 28, 2026 at 08:22:38AM +0200, Tom Verdonck wrote:
+> Commit 61406e9cac69 ("hwmon: (sht4x) Fix jiffies wraparound in
+> heater-ready check") widened ->heating_complete from unsigned long to
+> u64. On 32-bit architectures a u64 is no longer loaded and stored
+> atomically, so heater_enable_show(), which reads ->heating_complete
+> without any locking, can race heater_enable_store() and observe a torn
+> value, reporting a wrong heater state.
 > 
-> lan78xx_read_reg() and lan78xx_read_stats() read from the device into
-> a freshly kmalloc()ed buffer, but only treat a negative return value
-> from usb_control_msg() as an error. A device that answers with fewer
-> bytes than requested leaves part or all of the buffer uninitialized,
-> and those bytes are then used as the register value or the counters.
-
-You are assuming reading registers can fail with sort reads. To be
-symmetric, don't you have to assume writes can also fail in the same
-way? Should lan78xx_write_reg() have a similar test?
-
-> With an emulated device on a kernel booted with init_on_alloc=0:
+> Take the hwmon lock in heater_enable_show(), as heater_enable_store()
+> already does when it updates ->heating_complete. The other reader,
+> sht4x_read_values(), is only reached through the hwmon read callback,
+> which the hwmon core already serializes with the same lock.
 > 
-> - A reply to the statistics request that is shorter than the 188 byte
->   counter block leaves the rest of the kmalloc-192 buffer stale, and
->   ethtool -S, which needs no privileges, reports it. Before the
->   previous patch, a zero-length reply was enough: one counter pair read
->   back as 0xffffffff8a427800, the address of
->   usb_api_blocking_completion(), next to several direct map pointers.
->   With the previous patch a zero-length reply is already harmless, but
->   a reply of 1 to 187 bytes still gets through.
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/cover.1790358356.git.tom.verdonck@inspiral.be?part=3
+> Fixes: 61406e9cac69 ("hwmon: (sht4x) Fix jiffies wraparound in heater-ready check")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
+> ---
+> Guenter, if the hwmon branch has not gone to Linus yet, feel free to
+> squash this into commit 61406e9cac69 ("hwmon: (sht4x) Fix jiffies
+> wraparound in heater-ready check") instead.
+
+I'll do that.
+
+Thanks,
+Guenter
+
 > 
-> - A zero-length reply to the RX_ADDRL/RX_ADDRH reads in
->   lan78xx_init_mac_address() turns uninitialized heap memory into the
->   MAC address (12:85:1f:dc:2e:bd and e6:93:44:41:9b:9f on two probes).
->   Both of those are valid unicast addresses, so they are used as they
->   are: written to MAF_LO(0)/MAF_HI(0) and set as the address of the
->   net device, where anyone can read it.
-
-If short reads can happen, bad things are expected to happen. No need
-for examples.
-
-> This patch needs the previous one. Without it, a failed statistics read
-> would make lan78xx_update_stats() compute the counters from its
-> uninitialized on-stack buffer, so the leak would move from the heap to
-> the stack. Both patches are Cc: stable and should be backported
-> together.
-
-This belongs below the --- so that is it not part of the commit
-message.
-
-    Andrew
-
----
-pw-bot: cr
+>  drivers/hwmon/sht4x.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/hwmon/sht4x.c b/drivers/hwmon/sht4x.c
+> index da2b6130fca7..27fddff70354 100644
+> --- a/drivers/hwmon/sht4x.c
+> +++ b/drivers/hwmon/sht4x.c
+> @@ -237,6 +237,8 @@ static ssize_t heater_enable_show(struct device *dev,
+>  {
+>  	struct sht4x_data *data = dev_get_drvdata(dev);
+>  
+> +	guard(hwmon_lock)(dev);
+> +
+>  	return sysfs_emit(buf, "%u\n", time_before64(get_jiffies_64(), data->heating_complete));
+>  }
+>  
