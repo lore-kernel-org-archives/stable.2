@@ -1,149 +1,127 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 744083E6DD0;
-	Sun, 18 Oct 2026 16:44:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792341871; cv=pass; b=U0vSO23K1FJOX3mcLgMgQSWuRY6AdbQ/NFbS7k1gehZsTPiP6lqXjw70LRiv40f6tEErhyKMEnDfnUU+FP5cKfjDgsxuPQ/SgGmeTowB8e868JYzISIw63LZg9SGPIrxZp3HBRFG/w+Xtvxwyf2UMMqcVK9kyKQzby52leYf8MY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792341871; c=relaxed/simple;
-	bh=lN+w9Hb50Sosh/5aDDQ9VPpOvAOfZv4llV6ijMEIaow=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GCPSoIqReV1LeEs4kWvmozdCBFuPMHRsmDVIGGU96WYwNEkEPtzcEANkB063rztIOZWBvwuLNqNpMTgDt/Hhpd/Nb7sUV3ezELSE19waOUr+CMUXIUagLOttSJDAKMvYCSF26gYSng6taKkuCini3Ys18NBm6G4PohN3RPVTKpE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=D9GG8fxa; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B675A320CD3
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 16:48:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.24
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792342094; cv=none; b=JbsOPbh0UG0d3G9gj5E6XSYiD5vNXqBQPEQALrxhkz8b60IXC+cLARvJplcyW6FXvSYVIZqnpBqiAfNOH241I0N/4ZQFeoQ9hGrcukkEDZzplj628YdKXX+sVcjIA7jhlCMAVRZ28zJxpYH+HFFGdJh90ZN/vLptC4CThnP4uKk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792342094; c=relaxed/simple;
+	bh=YtuArZrJ5k0lumYLRLZjdb7x7yqpwIrTMz5SX4VVG04=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZxCEwFJsLTH///rsnfkCxEHbfxpq2QiA+Ql2ngXzG69byuo3Cp7uNuAN6G+R+5nO5upjh+tr+9glO/QszkE3Ku4kfnCze+rwCjPybLj1ysCK6q26kfJSSvNpPz325Bpy+3dsSqNcGhfebqyBfF40v+V3aZwYmOlaHKMUvP5Th8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ametros.net; spf=pass smtp.mailfrom=ametros.net; dkim=pass (2048-bit key) header.d=ametros.net header.i=kernel@ametros.net header.b=t0Vadawa; arc=none smtp.client-ip=212.227.17.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ametros.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ametros.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="D9GG8fxa"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 59A3C20283C;
-	Sun, 18 Oct 2026 18:44:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792341860;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VDV5MA7YZtqhfRoQgg1SF3NmmVl5fJKMmfmIpU00WlM=;
-	b=D9GG8fxaBz1K8GRSj5yJJrBEaQFN7OSn3yW9Y/aSSeMQXAzUVbTQha7bTL1pq37qDeEilM
-	2c6p8UzBSxYDVEwrj5lhDpzwbPEE6HZeQ3Xy/J1EDnFVUmbZnA9WcwYO66+RlmQsimNb5e
-	NT3Z/EJsIet1kZvo8uyNFPG+9OMQe95DRVqsHZqbDsio4+2L9TMH6Dp17ANoUXT1x1oO7j
-	l1BVdbD7A8eKdXdi4q7WSOAgHsBcg8Bz0WXOalBYi72D9EAF6j2uQK1mkqA6/qrLLAI0Eq
-	+4/dMfzQH4wBMcT3deNIA3doDjMoKbJnDF2cDe5uH4A4vIBcr3m4fcDTmoNuRA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792341860; a=rsa-sha256;
-	cv=none;
-	b=akhXmtjQ81dXSpSE9oj13giIC/Nk4zXqGP/N6plM3Sc+1xiIc5CNkr4AeeehK8vH65EoCd
-	mIFDUzp0rv8mUKf/EOUV5qrvBA4imEQjhRe7QmGJ8V7m2hQGsSzep/jE82P3BMRGhnUWY5
-	T8nUzsU/sGWhLIcKAmWJQhjj/r6nKej4eMSWK1PjYVUfecl8kPQCoyM62ANTcmnckDu0Ay
-	CluCV/d5V737yyY5ZJEoRVHjWiXWZDTWpvnZ1Fd2JFPPS4ILqfsHpXelz4CLdPxhJ64mwi
-	jjSDVKx5dWvgOx9aZK22JAYp7yOU0kWQ5CJjxN0MA6PkSQ6TZKiWLqmwRoonrQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792341860;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VDV5MA7YZtqhfRoQgg1SF3NmmVl5fJKMmfmIpU00WlM=;
-	b=NqKv4RCkIrgHyv/hmYabAOGyRmLf/BV6uEazpztG8KrzfK44GoyRr89VvWshFgNNA2I82B
-	OUViOgybnmRPEQsieK8Bm49qnFlI4oTd5TpI7OA9w1Xij0b3a6RXcco6hSVGP/A48f1uih
-	5HOF25qB/dgv32zQCRGy5je5v3vMWhMbEX1ofrvl9/XoLc2UU9wy9jgKQWVV7SldnXDxHy
-	VFzzRqT0NDPVcNdYuRhxHP12vM9r5NKoRhTy8c0G7gJbwoOpThkVAQ8EaXn+jw/faJkWDu
-	9w76wVWq7qA/9JpGKPDVvgeF9EC9wUt7uSueLHX0wj750ECmu3NtkhIegnEQZw==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xITzg-0006Sf-0q;
-	Sun, 18 Oct 2026 18:44:20 +0200
-Received: from blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 03A045C7D99;
-	Sun, 18 Oct 2026 16:44:20 +0000 (UTC)
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	kuba@kernel.org,
-	linux-can@vger.kernel.org,
-	kernel@pengutronix.de,
-	Kaixuan Li <kaixuanli0131@gmail.com>,
-	Oliver Hartkopp <socketcan@hartkopp.net>,
-	Quchaosheng <quchaosheng000406@163.com>,
-	stable@vger.kernel.org,
-	Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH net-next 09/12] can: isotp: check the frame type, not just the length
-Date: Sun, 18 Oct 2026 18:41:45 +0200
-Message-ID: <20261018164417.1540449-10-mkl@pengutronix.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261018164417.1540449-1-mkl@pengutronix.de>
-References: <20261018164417.1540449-1-mkl@pengutronix.de>
+	dkim=pass (2048-bit key) header.d=ametros.net header.i=kernel@ametros.net header.b="t0Vadawa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ametros.net;
+	s=s1-ionos; t=1792342069; x=1792946869; i=kernel@ametros.net;
+	bh=YtuArZrJ5k0lumYLRLZjdb7x7yqpwIrTMz5SX4VVG04=;
+	h=X-UI-Sender-Class:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:In-Reply-To:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=t0VadawaF3IBm6n5gb1ZLf2JcAH8dRjvN82iSsBOmwZy2t3YbQSP4HDRrQE7gBCL
+	 H/2NUEh4yl23eLdwpSPl8IGT9KyZFge0sN8vyOejxPgh3tHCjbYq9mnNKFBSEM/hW
+	 ctOXUkTs9TOcNd5F8gSTS5vf9HHFAdRQJzXHsuK2bHjRx7kIlEArXZY3NzzhDHBg3
+	 O4VzdP0tBzBx2LqXIECW+ixh/rqjO2mbg12bXeEXMIfycOkN65sh/299Cg0Botdbl
+	 jjQXRmSILG+r/eMDlXkm05U5qtfmZNGpH8r8/nDJGiYNK4trjjx2ahg1bKG94GlbV
+	 fJd6QIPcCdVnbQSdbg==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue109
+ [213.165.67.119]) with ESMTPSA (Nemesis) id 1M9WqY-1xCyGX33jw-00AInU; Sun, 18
+ Oct 2026 18:47:49 +0200
+Date: Sun, 18 Oct 2026 17:47:47 +0100
+From: Bob Anderson <kernel@ametros.net>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Wolfgang Walter <linux@stwm.de>, stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: Re: regression 6.18.57: acpi power button vanished in machines
+ running in qemu
+Message-ID: <atT4M12w4Em-JdsA@ametros.net>
+References: <5fe757e7aa54c38df3525d313598db99@stwm.de>
+ <2026101834-parchment-reps-0bee@gregkh>
+ <atSdI7buRErdF1jZ@ametros.net>
+ <2026101813-doorstop-hyphen-614c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026101813-doorstop-hyphen-614c@gregkh>
+X-Provags-ID: V03:K1:br/SXQxHTqGhH5leLP0uZ9DTD6EVZ0Cyxufe0A8SglF6C8RmL9b
+ wC5CTmg5Yu/1ti83nPCOia+G6ufAaNIaCYj6wDz6cDmpobQMIx3POwnb3/h/bx01xuiSYPO
+ YEPlBRZUAY50r0Ru1y1nUtgtU2ZkwHyZqcvMHxlXmn6h3DlcyWvVqPIEWHYKMfsWRKkg2My
+ C8SnlwdZ4bChQB4D9C47g==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:W9+Cv8ZFFVo=;se8QK+qbK3OX3JvkobT1q5+Z25w
+ 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
+ JNzd0b
+Content-Transfer-Encoding: quoted-printable
 
-From: Kaixuan Li <kaixuanli0131@gmail.com>
+On Sun, Oct 18, 2026 at 03:35:31PM +0200, Greg Kroah-Hartman wrote:
+> On Sun, Oct 18, 2026 at 11:19:15AM +0100, Bob Anderson wrote:
+> > > On Sat, Oct 17, 2026 at 07:26:54PM +0200, Wolfgang Walter wrote:
+> > > >=20
+> > > > since 6.18.57 there is no acpi power button any more in virtual qe=
+mu based
+> > > > machines (as far as I can see model doesn't matter).
+> > ...
+> > Reverting 38c79dacc8063ff8a0d75ce2a900fbaff82ad94c makes the problem
+> > go away.
+> > ...
+>=20
+> is this an issue in 7.3-rc as well?
 
-isotp_rcv() separates Classic CAN from CAN FD by skb->len alone:
+ACPI power button in QEMU on v7.3-rc7 seems OK.
 
-	if (skb->len != so->ll.mtu)
-		return;
+I haven't tested on hardware, but I suspect that it'll also be OK.
 
-	cf = (struct canfd_frame *)skb->data;
-
-A CAN XL frame with cxl->len 4 is CAN_MTU bytes, so it passes, and is then
-read as a canfd_frame whose len comes out of canxl_frame.flags: at least
-0x80.
-
-Of the paths that follow, only the flow control one uses that length
-without bounding it first, so check_pad() walks to 255 over a 16-byte
-frame and the caller reports EBADMSG on an unrelated socket.
-
-bcm_rx_handler(), j1939_can_recv(), can_can_gw_rcv() and raw_rcv() check
-the frame type here, and can_dropped_invalid_skb() switches on
-skb->protocol on the transmit side. isotp_rcv() is the gap.
-
-Fixes: fb08cba12b52 ("can: canxl: update CAN infrastructure for CAN XL frames")
-Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
-Reviewed-by: Oliver Hartkopp <socketcan@hartkopp.net>
-Acked-by: Oliver Hartkopp <socketcan@hartkopp.net>
-Reviewed-by: Quchaosheng <quchaosheng000406@163.com>
-Link: https://patch.msgid.link/20260920035626.2581040-1-kaixuanli0131@gmail.com
-Cc: stable@vger.kernel.org
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
----
- net/can/isotp.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/net/can/isotp.c b/net/can/isotp.c
-index 1a272ce6a2bd..5e1c3971ebfc 100644
---- a/net/can/isotp.c
-+++ b/net/can/isotp.c
-@@ -756,6 +756,14 @@ static void isotp_rcv(struct sk_buff *skb, void *data)
- 	if (skb->len != so->ll.mtu)
- 		return;
- 
-+	/* check for correct CAN CC/FD frame content */
-+	if (so->ll.mtu == CAN_MTU) {
-+		if (!can_is_can_skb(skb))
-+			return;
-+	} else if (!can_is_canfd_skb(skb)) {
-+		return;
-+	}
-+
- 	cf = (struct canfd_frame *)skb->data;
- 
- 	/* if enabled: check reception of my configured extended address */
--- 
-2.53.0
+thanks,
+Bob.
 
