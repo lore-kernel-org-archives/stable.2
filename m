@@ -1,86 +1,117 @@
-Received: from mta0.migadu.com (out-199.mta0.migadu.com [91.218.175.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B9DA40F750
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 08:08:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58AD532B13E;
+	Sun, 18 Oct 2026 08:19:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792310889; cv=none; b=f3HSuuBx1OZ+fG5BC0tk4DqDTyhb8YWcPP0XpaWOa+A/vn54EePOj1H3bwj+vkcIntWzySe3OKBFEGESlueLLoDOCfEX7ML8y2nKEVj12v5mrkJA3EELKJj8Rgb9cK2aSbNdJr5WJPxAbyxGNSqstpXx2fGbcMEyXr4bByqlDfI=
+	t=1792311558; cv=none; b=WuwE5Ao1J1L5fzh4KzSmb3a2QWmTiXNxTXfOovMCJJRZStKCiWZPA4qqlZYq4eppWrQ/AAH7emn6t/YcHeA7D0OK06E+D9/+omPhuwjuqklJaCqkZcu204M/bI5ajZl0gZlgDYJfn2rif75GAU8HjE2c0PKMIMgnC+sE0ZksRMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792310889; c=relaxed/simple;
-	bh=XbcCGqXm08UD+4MN89FaxhWYXmB/b4iOm5BY4cHWO+0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=n5nyhUNn0CKAZpCYnnSB2eJW97X1iz248yHEutDE6QKjC7P6XQYOjobCU8qyUWH5DXxUaEGBs0PoYWdhuxPAiwBYOmaaCudeIbtHZcQGzTlqqQq9dpkEi16KRiFfD24gLpjAO2g80p6YnPveh6sxRgpeDnVRWfdYi8AUlo1fvx4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=p7jnQJDx; arc=none smtp.client-ip=91.218.175.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792311558; c=relaxed/simple;
+	bh=4QUD4emdW0rO2zG3qPgumkCr5bVggmy1qTIcZ2SptDs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=flX3W7OX6nbTqdls2yhFlqNAJYxS5iI3b5Aqlj5JhKnLh1eaYKbe7TV3EgDFbvqkXt2BrRpcHBc3P8irMayEuhWrM+CAYBtQUcGvLc4PXSH30sL2nN5tYcuLxWwbD3gmayOwwLfoE1R3ortx59PQiVc+iAwb/1Xh+4xUlJyXgHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wVCgTqDg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="p7jnQJDx"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=XbcCGqXm08UD+4MN89FaxhWYXmB/b4iOm5BY4cHWO+0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792310885; v=1; x=1792915685;
- b=p7jnQJDxQMGX25AeFA7oM+lhn6PaZkuGuFKMJ28uIQrj5oGa14bN9VPLVMltoQNSZ3xMxHJ4
- MBwro4frvjNLi0qW4g74zXI+af9EHawmu1+cfcriWwvf+r4RygGT8ITaYfTpmMiYivez2iKfuca
- bTLLBgBV9PA8Dzjeg0ZTLouY=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 56d35b3a46d02963;
-	Sun, 18 Oct 2026 08:08:04 +0000
-X-Mizu-Trace-ID: 56d35b3a46d02963
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	liam@infradead.org,
-	ljs@kernel.org,
-	vbabka@kernel.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	muchun.song@linux.dev,
-	osalvador@suse.de,
-	linmiaohe@huawei.com,
-	nao.horiguchi@gmail.com,
-	agl@us.ibm.com,
-	mel@csn.ul.ie,
-	riel@surriel.com,
-	peterx@redhat.com,
-	kas@kernel.org,
-	rppt@kernel.org,
-	josef@toxicpanda.com,
-	linux-mm@kvack.org,
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wVCgTqDg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A9041F000C4;
+	Sun, 18 Oct 2026 08:19:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792311556;
+	bh=7+f+K98c1MlbjTLqXaEBYt49K9dOeXTOw7oluMlYA/A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=wVCgTqDgjg42YIPB/LXOI/avaLk+R+y5Xnwr4Cz5lMUvVollPLcSXOumxSQhfv6VG
+	 fQHDgV7n+Xv5KzMrxxmnoM4dnxAYrtj69B54cWcDLO6H8ESDAyhJ8ZjEoPmVbkinA4
+	 vn/3eixzyISJ4/OeBPCxNSZjaaJaBENk5cGcsKL8=
+Date: Sun, 18 Oct 2026 10:19:13 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Rafael Alejandro Diaz Cruz <rafad900@gmail.com>
+Cc: linux-usb@vger.kernel.org, stable@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 08/10] mm/hugetlb: tolerate UFFD_WP markers outside uffd-wp VMAs
-Date: Sun, 18 Oct 2026 16:07:59 +0800
-Message-ID: <20261018080759.4295-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261015-urgent_fixes-v1-8-42796911043b@kernel.org>
-References: <20261015-urgent_fixes-v1-8-42796911043b@kernel.org>
+	syzbot+4a5c87a01894ca37f25c@syzkaller.appspotmail.com,
+	Alan Stern <stern@rowland.harvard.edu>
+Subject: Re: [PATCH usb-next v2] USB: gadget: Fix UAF on refcount inside
+ gadgetfs_bind()
+Message-ID: <2026101857-transform-hazelnut-4715@gregkh>
+References: <20260905003607.1686172-1-rafad900@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260905003607.1686172-1-rafad900@gmail.com>
 
+On Fri, Sep 04, 2026 at 05:36:07PM -0700, Rafael Alejandro Diaz Cruz wrote:
+> When usb_ep_alloc_request() fails, gadgetfs_bind() takes
+> the following error path:
+> 
+> if (!dev->req)
+>         goto enomem;
+> // ...
+> 
+> enomem:
+> 	gadgetfs_unbind (gadget);
+> 	return -ENOMEM;
+> 
+> In normal case, get_dev() will be called to increment
+> refcounter from gadget->dev->count but in error case,
+> this increment is skipped and gadgetfs_unbind() will
+> decrement it via put_dev().
+> 
+> Going down the error path leads to a refcount imbalance
+> which will cause UAF in close()/umount() operations
+> due to refcount dropping below 0.
+> 
+> Fix this by moving get_dev() above the error paths so
+> that refcounter is incremented before the put_dev()
+> call.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Reported-by: syzbot+4a5c87a01894ca37f25c@syzkaller.appspotmail.com
+> Link: https://syzkaller.appspot.com/bug?extid=4a5c87a01894ca37f25c
+> Signed-off-by: Rafael Alejandro Diaz Cruz <rafad900@gmail.com>
+> Reviewed-by: Alan Stern <stern@rowland.harvard.edu>
+> ---
+> Changes from v1:
+>     Removed syzkaller reference in description
+> 
+>     Added Reviewed-by: tag. 
+> 
+>  drivers/usb/gadget/legacy/inode.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
+> index 3e2bce7543d4..181b19e7fc2f 100644
+> --- a/drivers/usb/gadget/legacy/inode.c
+> +++ b/drivers/usb/gadget/legacy/inode.c
+> @@ -1679,6 +1679,7 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
+>  	}
+>  
+>  	set_gadget_data (gadget, dev);
+> +	get_dev(dev);
+>  	dev->gadget = gadget;
+>  	gadget->ep0->driver_data = dev;
+>  
+> @@ -1696,7 +1697,6 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
+>  	spin_lock_irq(&dev->lock);
+>  	dev->state = STATE_DEV_UNCONNECTED;
+>  	spin_unlock_irq(&dev->lock);
+> -	get_dev (dev);
+>  	return 0;
+>  
+>  enomem:
+> -- 
+> 2.43.0
+> 
+> 
 
-On Thu, Oct 15, 2026 at 06:07:14PM +0200, David Hildenbrand (Arm) wrote:
->UFFD PTE bit handling is a bit like swiss cheese, in particular with
->recently added RWP mode. Having uffd-wp markers outside uffd-wp VMAs
->already confused this code in the past and resulted in uffd-pte bits
->confusing other code later.
->
->Let's play safe and just ignore these markers in hugetlb_no_page(), not
->silently propagating the uffd-wp PTE bit.
->
->Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
->Cc: stable@vger.kernel.org
->Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->---
+I think
+https://lore.kernel.org/r/20260811060810.295666-1-khiemtranzo532001@gmail.com
+was send before yours.
 
-LGTM!
+thanks,
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+greg k-h
