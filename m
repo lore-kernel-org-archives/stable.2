@@ -1,154 +1,117 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 18A333164BB
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 01:54:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 032FA4CF489
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 02:08:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792288485; cv=none; b=mMlcCcjVc+z0myjZWemKENmQpctAye+Tj3jXoAPhS3Mz173+yO/x0ttH7WEOU9J8qkNK2HXO5djahTOL4w6NCZ84CC1w0P0A+7JkAlU0tv+Reoczu2/im1lM3YyHXTnVbVIJXiidA2lHBnq3Ml/aBnQQnWDnjzJpSSKOvAftQD8=
+	t=1792289328; cv=none; b=NhYFDwBIY8SbhFzeDC2HOfCXWYdlqfFqkCsk8ah5QSbbTnkt9V1VzVZ7gnX+96L2o8LxKYsX4Yg45Bm3yn/7mFVDrvSOV9WHf+/oJDD1oVyISQFfEFR1Q2ICO+COk3A27TIlrYXE7L58HfJZhzMYRfA4F1ZR+IDep45oaszw0x4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792288485; c=relaxed/simple;
-	bh=nAQDGyDfiUHaLZOa0kGjliZEaTshSFO8YFfSkMTOlFc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=nGIyS8kmtbcGeWckF/CtWqDfJhb0XSs4PjklHS0ijHkOTzArKaIyfCmexYgd68tTtXE8weFcdxIV/flwqBCk5ejTOIkdOmBzmb9eI8zHEU/9348oVrcXY/CmW6jWSEUPDPJOvh6wTRmGFGJ5/+XlpgdlLGzuT+JfjuWhuNPiLqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [121.236.242.147])
-	by gateway (Coremail) with SMTP id _____8DxpvDhJtRqse4WAA--.1507S3;
-	Sun, 18 Oct 2026 09:54:41 +0800 (CST)
-Received: from chenhuacai$loongson.cn ( [121.236.242.147] ) by
- ajax-webmail-front1 (Coremail) ; Sun, 18 Oct 2026 09:54:41 +0800
- (GMT+08:00)
-Date: Sun, 18 Oct 2026 09:54:41 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?6ZmI5Y2O5omN?= <chenhuacai@loongson.cn>
-To: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	"Tiezhu Yang" <yangtiezhu@loongson.cn>,
-	"Sasha Levin" <sashal@kernel.org>
-Subject: Re: [PATCH 6.12 590/869] LoongArch: BPF: Refactor jump offset
- calculation in tail call
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.3-cmXT6 build
- 20250609(354f7833) Copyright (c) 2002-2026 www.mailtech.cn loongson
-In-Reply-To: <20261017160052.180362519@linuxfoundation.org>
-References: <20261017160036.979869304@linuxfoundation.org>
- <20261017160052.180362519@linuxfoundation.org>
-Content-Transfer-Encoding: base64
-X-CM-CTRLDATA: aWNbuWZvb3Rlcl90eHQ9Mzk3NTo2MTg=
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1792289328; c=relaxed/simple;
+	bh=ow69sVINNaVvr2Z0q+1YVQzqsCXceAWHPGehvygUFA0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d6CsCFHLNly8Xfe18LrjMUx5AhCkTFXpVoEpQIpSJjpzVKo7VScLkw76biQD0cDgfjAfsB0wlJGqEn9yAlE/SSPvAIj18YQcgr4V7o7EOgxzFRq8orsg1DvhSAinHVi++l/09S+OhWqI/7xxN2TANJEdSOHsUukXGW9PpOPdtlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mPlWBOVk; arc=none smtp.client-ip=209.85.160.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mPlWBOVk"
+Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-533972e0cccso13400211cf.0
+        for <stable@vger.kernel.org>; Sat, 17 Oct 2026 19:08:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792289326; x=1792894126; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RaGAAGiU7kTJl217HSqn7DxbRR+6QeuVGQHPa0XU5iw=;
+        b=mPlWBOVkqSoa40MfIhSXJRka9r5QpJvEQmzcBu2AoExSX0cGEbXGeGmYxDv/zFZYZ9
+         0U+IQidBjkH4nt2igg+bZt0MSOnKYocUpLsUmQDJdH6z1ewtuVUaeFzoHHnjSLea6zEx
+         7U6C/nRvb/6NZk4qc+LC+sHcfVrCwN26o+1lnXrXhpHuAqXg0lmeUdT82mb8uHpS4n7x
+         LJsTE6r4uesd5RPCFrA4A8n0VdQg4Ww1ItWiCMFgPL3ytmQtRVnZqN0vjoX8ZT5+R5cN
+         AJPtnNtK15OsRAUDFWlnugLaI9xR57hBUB0Z+ryV7eFWasHlrie1sKmEEFGPGB+victL
+         FvSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792289326; x=1792894126;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RaGAAGiU7kTJl217HSqn7DxbRR+6QeuVGQHPa0XU5iw=;
+        b=dHWEcDCvz22eYKYFAfX/a8QONnqDSoCcYfPP6fAdmK2aPS1wyoWD8p/Wj05WHixaT9
+         gUSiWDgFn1QEFvTfxXFKnhFb/N9mO/L/cJDKw8WkA9ktwFnq/wkLHg1UmYLDd8zFB5HU
+         XAxFkEMT4rj/8dPUM8p4DIEIDO24wXvmbtK4pjQ8Jn1uraVulY0I9uIejjAJ1CCYYtp8
+         KX1WdkHQ4d2EiDL+ruusrMdSwI7lbRSfOZ/5TSwJ74R9brq+zpzBGlOG8yOzQ0j0PJg+
+         MlHpIF78pLvu54svwZ3w/KxwHsgduXxPhIaxCQUslVaHkagU7sLDkgVvlbZCENY5IQky
+         g17g==
+X-Forwarded-Encrypted: i=1; AKwUvBwPZ+I23+4dqyLSvHiqU6D3o8JJhw8TPp9edasTP716rIWcq1k/OokfgGvDZMU1bLMcy84w/Qw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIB3sNFYrkUag+BlnOGmRlbhaYB3q5C+vEUMZUWB8ovVRUtT8ol
+	aQuxIyvb9C/uW0hhiv67oKk0ZdrOIFP1EwoMI/b7HKI+0xDrnIDhPV0=
+X-Gm-Gg: AYBFou3M2jLhKcCr5EsDG6+k9J9sk36DDiWaSsYSipSwGZozLhxUfToAZb0ZTVK+1qO
+	4au7JFXGw+H3XFRSJUHG45UFyrOlE3Sm5Xun0Ue+zmJRqmh7zW5BEQOm7nzdDCnFbkKstfYzT64
+	yk9e4fDX7vClR4a97/Vp0hTeszdAGlgQ/rEL+EOa4r75AJYxjgIAOtF91/5d3nQm1gslN4EC7sx
+	qdb35iqH/M53POnacRFsQnGgJpFgcY9H3xi/x62IOyPZZHVNtJU+/d7T2aEvk5iwL+dYXz9B7HK
+	PYWlzjha0xHmBuQcMBUhJ0ktNeFYj+kbi765IxE7i3RAJXg3DvETof7+yMo8AmF0xroen+MFY8n
+	jIpAIzw22w0an9u5uPj6eq47m584VDGHOIaDwjgXpbPtcbwo7vhNICZKYyw5OOigTLDWaEWuEWa
+	AH8xHCbiowfNRfK9Utz75qfCepI4bP2pDkIIvuE9qUBtAJyNRdO5PQ1JqxrCj0mFXvd3ZoxT8cv
+	R8SoR52SL07vE8TTIkujl3c8b7DF0r3c2gxsuiYj7iDg4TnAHR8/KwAha0tT5+ZmXT5hMX+6zQb
+	j7vGG1lwU1p8cUlmerhaiAolQJkV
+X-Received: by 2002:a05:622a:48b:b0:536:575b:8dd6 with SMTP id d75a77b69052e-536575bbc1dmr35825921cf.0.1792289325861;
+        Sat, 17 Oct 2026 19:08:45 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5362aa68f8esm61731291cf.29.2026.10.17.19.08.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 19:08:44 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: netdev@vger.kernel.org
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	ae878000@gmail.com,
+	daniel.machon@microchip.com
+Subject: [PATCH net v3 0/2] net: nixge: fix tasklet and DMA teardown
+Date: Sat, 17 Oct 2026 22:08:38 -0400
+Message-ID: <20261018020840.3851552-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <704712fd.8bf3.1a14cb7e0ba.Coremail.chenhuacai@loongson.cn>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:qMiowJBxLs_hJtRqN5ktAA--.11979W
-X-CM-SenderInfo: hfkh0x5xdftxo6or00hjvr0hdfq/1tbiAQEDBmrS13cF3wAEsD
-X-Coremail-Antispam: 1Uk129KBj93XoWxCw15tw1DAw1fAF47ur1UCFX_yoWrAr4Upr
-	Z0kws7KrWfXr1UGFsrJF9F9F17Kan5GrW7KF1DK3yvyr9Ivr95Wa45K3Wrua4YyryrZFyx
-	XFs0yr1S9F4UJrbCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUmYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
-	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWU
-	twAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI4
-	8JM4xvF2IEb7IF0Fy264kE64k0F24lFcxC0VAYjxAxZF0Ex2IqxwCF04k20xvY0x0EwIxG
-	rwCFx2IqxVCFs4IE7xkEbVWUJVW8JwCFI7km07C267AKxVWUXVWUAwC20s026c02F40E14
-	v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkG
-	c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4U
-	MIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_Gr1l6VACY4xI67k04243AbIYCTnIWIevJa73Uj
-	IFyTuYvjxUcg10UUUUU
+Content-Transfer-Encoding: 8bit
 
-SGksIEdyZWcgYW5kIFNhc2hhLAoKCj4gLS0tLS3ljp/lp4vpgq7ku7YtLS0tLQo+IOWPkeS7tuS6
-ujogIkdyZWcgS3JvYWgtSGFydG1hbiIgPGdyZWdraEBsaW51eGZvdW5kYXRpb24ub3JnPgo+IOWP
-kemAgeaXtumXtDoyMDI2LTEwLTE3IDIzOjU3OjExICjmmJ/mnJ/lha0pCj4g5pS25Lu25Lq6OiBz
-dGFibGVAdmdlci5rZXJuZWwub3JnCj4g5oqE6YCBOiAiR3JlZyBLcm9haC1IYXJ0bWFuIiA8Z3Jl
-Z2toQGxpbnV4Zm91bmRhdGlvbi5vcmc+LCBwYXRjaGVzQGxpc3RzLmxpbnV4LmRldiwgIlRpZXpo
-dSBZYW5nIiA8eWFuZ3RpZXpodUBsb29uZ3Nvbi5jbj4sICJIdWFjYWkgQ2hlbiIgPGNoZW5odWFj
-YWlAbG9vbmdzb24uY24+LCAiU2FzaGEgTGV2aW4iIDxzYXNoYWxAa2VybmVsLm9yZz4KPiDkuLvp
-opg6IFtQQVRDSCA2LjEyIDU5MC84NjldIExvb25nQXJjaDogQlBGOiBSZWZhY3RvciBqdW1wIG9m
-ZnNldCBjYWxjdWxhdGlvbiBpbiB0YWlsIGNhbGwKPiAKPiA2LjEyLXN0YWJsZSByZXZpZXcgcGF0
-Y2guICBJZiBhbnlvbmUgaGFzIGFueSBvYmplY3Rpb25zLCBwbGVhc2UgbGV0IG1lIGtub3cuCjYu
-Ni82LjEyIGRvZXNuJ3QgbmVlZCB0aGlzIHBhdGNoLCBJIGhhdmUgYWxyZWFkeSBwb2ludCBvdXQu
-Cmh0dHBzOi8vbWFyYy5pbmZvLz9sPWxpbnV4LXN0YWJsZS1jb21taXRzJm09MTc5MjIyNTI4ODUw
-NjYxJnc9MgpodHRwczovL21hcmMuaW5mby8/bD1saW51eC1zdGFibGUtY29tbWl0cyZtPTE3OTIy
-MjUyMjg1MDYxNiZ3PTIKCkh1YWNhaQoKPiAKPiAtLS0tLS0tLS0tLS0tLS0tLS0KPiAKPiBGcm9t
-OiBUaWV6aHUgWWFuZyA8eWFuZ3RpZXpodUBsb29uZ3Nvbi5jbj4KPiAKPiBbIFVwc3RyZWFtIGNv
-bW1pdCAzN2Q1NDVkMTJmMjFjNGQ1MDYxMmVjYWViZDdhZTFlNWJmOTFiMmQ4IF0KPiAKPiBUaGUg
-b2xkIG1hY3JvLWJhc2VkIGptcF9vZmZzZXQgY2FsY3VsYXRpb24gZGVyaXZlcyB0aGUganVtcCBk
-aXN0YW5jZQo+IGZyb20gYSBzdGFsZSBwcmlvci1wYXNzIGNvZGUgc3RyaWRlLCB3aGljaCBjYW4g
-bGVhZCB0byB3cm9uZyBicmFuY2gKPiBvZmZzZXRzIGFuZCBzb2Z0IGxvY2t1cHMgdW5kZXIgZXh0
-cmEgSklUIHBhc3Nlcy4KPiAKPiBGaXggdGhpcyBieSBjYWxjdWxhdGluZyB0aGUgb2Zmc2V0IGRp
-cmVjdGx5IG9uIHRoZSBhYnNvbHV0ZSB0YXJnZXQ6Cj4gImN0eC0+b2Zmc2V0W2luc24gKyAxXSAt
-IGN0eC0+aWR4Ii4KPiAKPiBUbyBhdm9pZCBhIGZhbHNlIDE2LWJpdCByYW5nZSBjaGVjayBhYm9y
-dCBkdXJpbmcgc2l6ZSBlc3RpbWF0aW9uLCBhZGQKPiBhICJjdHgtPmltYWdlID09IE5VTEwiIGd1
-YXJkIHRvIGluamVjdCBhIHNhZmUgZHVtbXkgb2Zmc2V0Lgo+IAo+IENjOiBzdGFibGVAdmdlci5r
-ZXJuZWwub3JnCj4gRml4ZXM6IGNkMzlkOWU2YjdlNCAoIkxvb25nQXJjaDogQlBGOiBGaXgganVt
-cCBvZmZzZXQgY2FsY3VsYXRpb24gaW4gdGFpbGNhbGwiKQo+IFNpZ25lZC1vZmYtYnk6IFRpZXpo
-dSBZYW5nIDx5YW5ndGllemh1QGxvb25nc29uLmNuPgo+IFNpZ25lZC1vZmYtYnk6IEh1YWNhaSBD
-aGVuIDxjaGVuaHVhY2FpQGxvb25nc29uLmNuPgo+IFNpZ25lZC1vZmYtYnk6IFNhc2hhIExldmlu
-IDxzYXNoYWxAa2VybmVsLm9yZz4KPiAtLS0KPiAgYXJjaC9sb29uZ2FyY2gvbmV0L2JwZl9qaXQu
-YyB8IDEyICsrKystLS0tLS0tLQo+ICAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCA4
-IGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9hcmNoL2xvb25nYXJjaC9uZXQvYnBmX2pp
-dC5jIGIvYXJjaC9sb29uZ2FyY2gvbmV0L2JwZl9qaXQuYwo+IGluZGV4IGYxYWFhNDM2N2ZjODgu
-LjQ3OTdiMGJjYzRmZDcgMTAwNjQ0Cj4gLS0tIGEvYXJjaC9sb29uZ2FyY2gvbmV0L2JwZl9qaXQu
-Ywo+ICsrKyBiL2FyY2gvbG9vbmdhcmNoL25ldC9icGZfaml0LmMKPiBAQCAtMjEwLDE3ICsyMTAs
-MTMgQEAgYm9vbCBicGZfaml0X3N1cHBvcnRzX2Zhcl9rZnVuY19jYWxsKHZvaWQpCj4gIAo+ICBz
-dGF0aWMgaW50IGVtaXRfYnBmX3RhaWxfY2FsbChzdHJ1Y3Qgaml0X2N0eCAqY3R4LCBpbnQgaW5z
-bikKPiAgewo+IC0JaW50IG9mZiwgdGNfbmluc24gPSAwOwo+ICsJaW50IG9mZiwgam1wX29mZnNl
-dDsKPiAgCXU4IHRjYyA9IHRhaWxfY2FsbF9yZWcoY3R4KTsKPiAgCXU4IGExID0gTE9PTkdBUkNI
-X0dQUl9BMTsKPiAgCXU4IGEyID0gTE9PTkdBUkNIX0dQUl9BMjsKPiAgCXU4IHQxID0gTE9PTkdB
-UkNIX0dQUl9UMTsKPiAgCXU4IHQyID0gTE9PTkdBUkNIX0dQUl9UMjsKPiAgCXU4IHQzID0gTE9P
-TkdBUkNIX0dQUl9UMzsKPiAtCWNvbnN0IGludCBpZHgwID0gY3R4LT5pZHg7Cj4gLQo+IC0jZGVm
-aW5lIGN1cl9vZmZzZXQgKGN0eC0+aWR4IC0gaWR4MCkKPiAtI2RlZmluZSBqbXBfb2Zmc2V0ICh0
-Y19uaW5zbiAtIChjdXJfb2Zmc2V0KSkKPiAgCj4gIAkvKgo+ICAJICogYTA6ICZjdHgKPiBAQCAt
-MjMwLDEyICsyMjYsMTIgQEAgc3RhdGljIGludCBlbWl0X2JwZl90YWlsX2NhbGwoc3RydWN0IGpp
-dF9jdHggKmN0eCwgaW50IGluc24pCj4gIAkgKiBpZiAoaW5kZXggPj0gYXJyYXktPm1hcC5tYXhf
-ZW50cmllcykKPiAgCSAqCSBnb3RvIG91dDsKPiAgCSAqLwo+IC0JdGNfbmluc24gPSBpbnNuID8g
-Y3R4LT5vZmZzZXRbaW5zbisxXSAtIGN0eC0+b2Zmc2V0W2luc25dIDogY3R4LT5vZmZzZXRbMF07
-Cj4gIAllbWl0X3pleHRfMzIoY3R4LCBhMiwgdHJ1ZSk7Cj4gIAo+ICAJb2ZmID0gb2Zmc2V0b2Yo
-c3RydWN0IGJwZl9hcnJheSwgbWFwLm1heF9lbnRyaWVzKTsKPiAgCWVtaXRfaW5zbihjdHgsIGxk
-d3UsIHQxLCBhMSwgb2ZmKTsKPiAgCS8qIGJnZXUgJGEyLCAkdDEsIGptcF9vZmZzZXQgKi8KPiAr
-CWptcF9vZmZzZXQgPSBjdHgtPmltYWdlID8gKGN0eC0+b2Zmc2V0W2luc24gKyAxXSAtIGN0eC0+
-aWR4KSA6IDA7Cj4gIAlpZiAoZW1pdF90YWlsY2FsbF9qbXAoY3R4LCBCUEZfSkdFLCBhMiwgdDEs
-IGptcF9vZmZzZXQpIDwgMCkKPiAgCQlnb3RvIHRvb2ZhcjsKPiAgCj4gQEAgLTI0NCw2ICsyNDAs
-NyBAQCBzdGF0aWMgaW50IGVtaXRfYnBmX3RhaWxfY2FsbChzdHJ1Y3Qgaml0X2N0eCAqY3R4LCBp
-bnQgaW5zbikKPiAgCSAqCSBnb3RvIG91dDsKPiAgCSAqLwo+ICAJZW1pdF9pbnNuKGN0eCwgYWRk
-aWQsIFJFR19UQ0MsIHRjYywgLTEpOwo+ICsJam1wX29mZnNldCA9IGN0eC0+aW1hZ2UgPyAoY3R4
-LT5vZmZzZXRbaW5zbiArIDFdIC0gY3R4LT5pZHgpIDogMDsKPiAgCWlmIChlbWl0X3RhaWxjYWxs
-X2ptcChjdHgsIEJQRl9KU0xULCBSRUdfVENDLCBMT09OR0FSQ0hfR1BSX1pFUk8sIGptcF9vZmZz
-ZXQpIDwgMCkKPiAgCQlnb3RvIHRvb2ZhcjsKPiAgCj4gQEAgLTI1Niw2ICsyNTMsNyBAQCBzdGF0
-aWMgaW50IGVtaXRfYnBmX3RhaWxfY2FsbChzdHJ1Y3Qgaml0X2N0eCAqY3R4LCBpbnQgaW5zbikK
-PiAgCW9mZiA9IG9mZnNldG9mKHN0cnVjdCBicGZfYXJyYXksIHB0cnMpOwo+ICAJZW1pdF9pbnNu
-KGN0eCwgbGRkLCB0MiwgdDIsIG9mZik7Cj4gIAkvKiBiZXEgJHQyLCAkemVybywgam1wX29mZnNl
-dCAqLwo+ICsJam1wX29mZnNldCA9IGN0eC0+aW1hZ2UgPyAoY3R4LT5vZmZzZXRbaW5zbiArIDFd
-IC0gY3R4LT5pZHgpIDogMDsKPiAgCWlmIChlbWl0X3RhaWxjYWxsX2ptcChjdHgsIEJQRl9KRVEs
-IHQyLCBMT09OR0FSQ0hfR1BSX1pFUk8sIGptcF9vZmZzZXQpIDwgMCkKPiAgCQlnb3RvIHRvb2Zh
-cjsKPiAgCj4gQEAgLTI2OSw4ICsyNjcsNiBAQCBzdGF0aWMgaW50IGVtaXRfYnBmX3RhaWxfY2Fs
-bChzdHJ1Y3Qgaml0X2N0eCAqY3R4LCBpbnQgaW5zbikKPiAgdG9vZmFyOgo+ICAJcHJfaW5mb19v
-bmNlKCJ0YWlsX2NhbGw6IGp1bXAgdG9vIGZhclxuIik7Cj4gIAlyZXR1cm4gLTE7Cj4gLSN1bmRl
-ZiBjdXJfb2Zmc2V0Cj4gLSN1bmRlZiBqbXBfb2Zmc2V0Cj4gIH0KPiAgCj4gIHN0YXRpYyB2b2lk
-IGVtaXRfYXRvbWljKGNvbnN0IHN0cnVjdCBicGZfaW5zbiAqaW5zbiwgc3RydWN0IGppdF9jdHgg
-KmN0eCkKPiAtLSAKPiAyLjUzLjAKPiAKPiAKDQoNCuacrOmCruS7tuWPiuWFtumZhOS7tuWQq+ac
-iem+meiKr+S4reenkeeahOWVhuS4muenmOWvhuS/oeaBr++8jOS7hemZkOS6juWPkemAgee7meS4
-iumdouWcsOWdgOS4reWIl+WHuueahOS4quS6uuaIlue+pOe7hOOAguemgeatouS7u+S9leWFtuS7
-luS6uuS7peS7u+S9leW9ouW8j+S9v+eUqO+8iOWMheaLrOS9huS4jemZkOS6juWFqOmDqOaIlumD
-qOWIhuWcsOazhOmcsuOAgeWkjeWItuaIluaVo+WPke+8ieacrOmCruS7tuWPiuWFtumZhOS7tuS4
-reeahOS/oeaBr+OAguWmguaenOaCqOmUmeaUtuacrOmCruS7tu+8jOivt+aCqOeri+WNs+eUteiv
-neaIlumCruS7tumAmuefpeWPkeS7tuS6uuW5tuWIoOmZpOacrOmCruS7tuOAgiANClRoaXMgZW1h
-aWwgYW5kIGl0cyBhdHRhY2htZW50cyBjb250YWluIGNvbmZpZGVudGlhbCBpbmZvcm1hdGlvbiBm
-cm9tIExvb25nc29uIFRlY2hub2xvZ3kgLCB3aGljaCBpcyBpbnRlbmRlZCBvbmx5IGZvciB0aGUg
-cGVyc29uIG9yIGVudGl0eSB3aG9zZSBhZGRyZXNzIGlzIGxpc3RlZCBhYm92ZS4gQW55IHVzZSBv
-ZiB0aGUgaW5mb3JtYXRpb24gY29udGFpbmVkIGhlcmVpbiBpbiBhbnkgd2F5IChpbmNsdWRpbmcs
-IGJ1dCBub3QgbGltaXRlZCB0bywgdG90YWwgb3IgcGFydGlhbCBkaXNjbG9zdXJlLCByZXByb2R1
-Y3Rpb24gb3IgZGlzc2VtaW5hdGlvbikgYnkgcGVyc29ucyBvdGhlciB0aGFuIHRoZSBpbnRlbmRl
-ZCByZWNpcGllbnQocykgaXMgcHJvaGliaXRlZC4gSWYgeW91IHJlY2VpdmUgdGhpcyBlbWFpbCBp
-biBlcnJvciwgcGxlYXNlIG5vdGlmeSB0aGUgc2VuZGVyIGJ5IHBob25lIG9yIGVtYWlsIGltbWVk
-aWF0ZWx5IGFuZCBkZWxldGUgaXQuIA0KDQoNCg==
+Separate the IRQ/tasklet ordering fix and the DMA shutdown fix from
+v2, as requested by Daniel Machon.
+
+Patch 1 releases both IRQ handlers before draining dma_err_tasklet.
+Patch 2 masks channel interrupts after recovery has stopped and waits
+for DMA reset completion before releasing the buffers. On reset timeout,
+it retains those buffers and prevents a later open from replacing them.
+
+Changes in v3:
+- Split the IRQ/tasklet ordering fix and DMA shutdown fix into two patches.
+- Give each fix its own subject and commit message.
+- Order the nixge_stop() local declarations longest to shortest (RXT).
+
+Changes in v2:
+- Wait for DMA reset completion; retain buffers and reject reopen on timeout.
+
+v2: https://lore.kernel.org/netdev/20261004042702.1130389-1-mhun512@gmail.com/
+Review: https://lore.kernel.org/netdev/20261007104833.4ukkys7rnmv7ki5i@DEN-DL-M70577.microsemi.net/
+
+Based on net commit 6dc989ea46b96ce170840174b4a38c4a387fb005.
+Found by code inspection. No hardware testing.
+
+
+Myeonghun Pak (2):
+  net: nixge: free IRQs before killing the DMA error tasklet
+  net: nixge: wait for DMA reset before releasing buffers
+
+ drivers/net/ethernet/ni/nixge.c | 33 ++++++++++++++++++++++++++++++---
+ 1 file changed, 30 insertions(+), 3 deletions(-)
+
+base-commit: 6dc989ea46b96ce170840174b4a38c4a387fb005
+-- 
+2.53.0
 
