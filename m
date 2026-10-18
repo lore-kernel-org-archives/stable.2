@@ -1,100 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96977331203;
-	Sun, 18 Oct 2026 16:56:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56203B4E8F;
+	Sun, 18 Oct 2026 17:05:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792342595; cv=none; b=Cax6bxSySCNWO+lamiXDDKtamukDuumeWHLJ3484KZNJzzqfv2Vl77Yc+7VlpDarIeu0HJ031d2CR6ZB9+BBbSjUjMS+0Jm0r+aAwQHSS6ESxSk+t7Rf9UB0mEsbkP/FQQuNK1F3iiYhOPYG68kh4/MDZV8SHldv0G5XRPvJUhM=
+	t=1792343136; cv=none; b=gQ1jL7YN3xyi+W17Fx9xY//bNA/xiYfglcxibJ4CtfBiYAzdSJcCd/lSX9jYImO3JTXch3PaDbmWXaHV1LFt0VuA03Sk/abpOCtL9aEYidw1fswWh5xy2bRgfC3E2SbvL32ejI1qwTUEY5XP3GdGci66fKHU2JXxYLW6yDCrEp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792342595; c=relaxed/simple;
-	bh=d3ay5FXVBDcidVSbB5fN4cGPC7NcpEA77jmvawpdrdI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ZhVoGp3uBB84dKSpvtX4J4XU3tjh3ziM3XP+4xOOvLhRyQWX2Mvgu+JeY6nozSI2zWXtfScTXNypGVSqgK9yMUhTI4WeJGec4MKBFBwC9t10kkM/3BjficW0bnq+0TUCCvqg5QJBY5x7oGGiL800k/SdO83meCl5UsVgwvUtH5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JCl/OMXx; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792343136; c=relaxed/simple;
+	bh=sv5UIdnnKbvFM8wAL1VxgEDtqX6UqRxvUMkVZYxLR90=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=al3uussJmn+th5iTcUJAyEONEKhgvXikNQaYomnZFtmECaXTbXCDTMKekUJcg+n9tU3l9/1e6LCErOlH7KnIF59zn6vnV8hKRVCOP51fvEYBiQakLoW9vgUfGQDhFgkk6x9CEqPXBrY73VRuPKKGPgguci0Di8cPAKyxDke0m7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=tAy9H1St; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=WPkOMlM6; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JCl/OMXx"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 36708C2BCC7;
-	Sun, 18 Oct 2026 16:56:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792342595;
-	bh=d3ay5FXVBDcidVSbB5fN4cGPC7NcpEA77jmvawpdrdI=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=JCl/OMXxBcGhi2Ll/A5UPVqONZLV0PSFH4cwDTB9PnRFNj1hXb5UcFENGP2WMZLOp
-	 NED5yX0u80HjEt9JhGv5pLjurLBFDaqLgLWPbsLxDsXY1WpyUmGJE/v6PGH7v6XO1o
-	 fGZASlgyqToSsH3lNiGrGGEXdFxlOj/K+NuymrOwroxaz4yKcJKHnBU91mIxaLkR1d
-	 hYEFNIQ3xPP0R+N0u07kHjTyOlvh7KlSrHNf7Mn8pcRmx9EjInwQeksPaDo3Gb1QiS
-	 ZGii2oC3rKREujlC9rgS95Fm/TwtpW+qJj/rIClxhdjPyq5Q8dExHNi98TKVhbK8MU
-	 ToioVsYHRXRFg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 22ADACCA490;
-	Sun, 18 Oct 2026 16:56:35 +0000 (UTC)
-From: George Christidis via B4 Relay <devnull+gxristidis.gmail.com@kernel.org>
-Date: Sun, 18 Oct 2026 18:56:31 +0200
-Subject: [PATCH] ALSA: hda/realtek: Fix headset mic on ASUS Zenbook 14
- UX3402VA
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="tAy9H1St";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="WPkOMlM6"
+Date: Sun, 18 Oct 2026 19:05:31 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792343132;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NXRIhKqp7p6mjXufeJEV1PkBtP6sj31ZyFXrbBHAoKs=;
+	b=tAy9H1StdBEcMqaKjyOrqAtsnokQFrzlwJElFTkaHnAuB+h3WOKUiLnqnip1U4SMbX+qUo
+	jF5OINXK0XeFewmO10lKZ0scpUBv2aG2vyDfBbQjQelUrjpN18TDDbsOIVRoUPCE5A3jlU
+	1gR0bHTHIf76ZIysMu5fKrk6/jbpnUPRmjzcRL2tjqd6ozpzSvBYuklE9IXHapld1/LcVJ
+	QkuYZnmBH2MV1BktPOt5jf06ry2bjLMr/LMgB5RQg6wFktI1WiHloR50vwDWwN5cxnXuh5
+	MfELyZddkwJTITM8dzlxdeUxVsrC1rCdte9q16BfNo/apuJXnLKZaa1c85mfgg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792343132;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NXRIhKqp7p6mjXufeJEV1PkBtP6sj31ZyFXrbBHAoKs=;
+	b=WPkOMlM6tdboPyJXMr4TGyGutKlAxTAQFHzNRYj4vpD/rq6GyMFs5SKU/hvrI7h0KqsecF
+	fA0/cHR/4xwYGACA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Cc: Fan Gong <gongfan1@huawei.com>, netdev@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Xin Guo <guoxin09@huawei.com>, Gur Stavi <gur.stavi@huawei.com>,
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] hinic3: bound the Rx fragment count to MAX_SKB_FRAGS
+Message-ID: <20261018170531.bILLh5Zw@linutronix.de>
+References: <20261010030901.1712792-1-yhlee@isslab.korea.ac.kr>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261018-for-linus-v1-1-4d8e9ff27d89@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QpAMBSA4VfRubbaVkZeRS6MM4402jEpeXfD5
- Vd//wWMgZChzi4IeBDT6hNUnkE/dX5EQUMyaKmNkqoSbg1iIR9ZaGt1aWRnC2cg9VtAR+f3atr
- fHO2M/f4O4L4f5zB/zG0AAAA=
-X-Change-ID: 20261018-for-linus-2bb2760ab5f6
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, George Christidis <gxristidis@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792342594; l=1568;
- i=gxristidis@gmail.com; s=20261018; h=from:subject:message-id;
- bh=WO42s5RZ6hbZHX1anwLnUs6RiGT8aq0KXyrmR3Fn9vI=;
- b=QgWJrj9Qpp1fCpRoh16U+axun5rMtlsLJ/obgxrMZptprt+QU8kMl0U/dMuYYg3D9Y0nsg0hy
- p0h9w83tomhAJA7xDeWYteWFx+8QV5fZZetdGYyjRhH+OnU7W0ftD9Q
-X-Developer-Key: i=gxristidis@gmail.com; a=ed25519;
- pk=LWp/LBe13KlT/70ZpW3a73MV3ESP4a0DmOo2Zrz0Dhg=
-X-Endpoint-Received: by B4 Relay for gxristidis@gmail.com/20261018 with
- auth_id=1227
-X-Original-From: George Christidis <gxristidis@gmail.com>
-Reply-To: gxristidis@gmail.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261010030901.1712792-1-yhlee@isslab.korea.ac.kr>
 
-From: George Christidis <gxristidis@gmail.com>
+On 2026-10-10 12:09:01 [+0900], Yehyeong Lee wrote:
+> hinic3_rx_poll() takes the packet length from the Rx completion
+> descriptor and turns it into a fragment count:
+> 
+>       pkt_len = RQ_CQE_SGE_GET(vlan_len, LEN);
+>       sge_num = pkt_len >> rxq->buf_len_shift ...
+> 
+> RQ_CQE_SGE_LEN_MASK is a 16-bit field, so pkt_len is up to 65535 and
+> sge_num up to 32 with the default 2048-byte buffers.  packaging_skb()
+> then calls skb_add_rx_frag() sge_num times without checking the count
+> against MAX_SKB_FRAGS, so a device reporting a length above
+> MAX_SKB_FRAGS * buf_len writes fragment descriptors past the end of the
+> skb's shared info array.
+> 
+> Driving the receive path with an out-of-range length reports under
+> KASAN:
+> 
+>       BUG: KASAN: slab-out-of-bounds in hinic3_fetch_rx_buffer [hinic3]
+>       Write of size 8 ...
+>       The buggy address belongs to the object ...
+>        which belongs to the cache skbuff_small_head of size 704
+> 
+> The length is chosen by the device and an skb cannot hold more than
+> MAX_SKB_FRAGS fragments, so drop a frame that needs more instead of
+> overrunning the array.  The buffers it claimed are already posted on the
+> ring, so return them to the page pool and advance the consumer index
+> over them to keep it in step with the device.
+> 
+> Fixes: 17fcb3dc12bb ("hinic3: module initialization and tx/rx logic")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-The UX3402VA (1043:16a3) BIOS leaves pin 0x19 unconfigured, so the
-headset mic does not work. Use ALC294_FIXUP_ASUS_SPI_HEADSET_MIC like
-the UX3405MA, it sets up the mic and keeps the CS35L41 speaker fixup.
+How do you run into this? With the default 17 frags and 2048 buffers
+your packet is larger than 17 * 2048 = 34KiB. Is this with a large MTU
+or does the HW merge packets on its own? Ideally you would like to avoid
+this from happening. The user gets just a dropped packet with no clue
+what is wrong.
 
-Tested on a UX3402VA: headset mic, internal mic and speakers work.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: George Christidis <gxristidis@gmail.com>
----
- sound/hda/codecs/realtek/alc269.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 1623cf926..cea8c7091 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -7867,7 +7867,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x1663, "ASUS GU603ZI/ZJ/ZQ/ZU/ZV", ALC285_FIXUP_ASUS_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x1664, "ASUS ExpertBook PM3406CHA", ALC256_FIXUP_ASUS_PM3406CHA),
- 	SND_PCI_QUIRK(0x1043, 0x1683, "ASUS UM3402YAR", ALC287_FIXUP_CS35L41_I2C_2),
--	SND_PCI_QUIRK(0x1043, 0x16a3, "ASUS UX3402VA", ALC245_FIXUP_CS35L41_SPI_2),
-+	SND_PCI_QUIRK(0x1043, 0x16a3, "ASUS UX3402VA", ALC294_FIXUP_ASUS_SPI_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x16b2, "ASUS GU603", ALC289_FIXUP_ASUS_GA401),
- 	SND_PCI_QUIRK(0x1043, 0x16d3, "ASUS UX5304VA", ALC245_FIXUP_CS35L41_SPI_2),
- 	SND_PCI_QUIRK(0x1043, 0x16e3, "ASUS UX50", ALC269_FIXUP_STEREO_DMIC),
-
----
-base-commit: 8e8cd9a4c6dc006e9bd51b8ad0079fb4576b48d3
-change-id: 20261018-for-linus-2bb2760ab5f6
-
-Best regards,
---  
-George Christidis <gxristidis@gmail.com>
-
-
+Sebastian
