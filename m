@@ -1,124 +1,121 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0678B4CF499
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 08:48:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792313311; cv=none; b=V1aWV+0LEdm07r2GAecQ5OK4yXwJbN/+vvrJGi7r1HVvjtJDUDLcztwcQv/QXcUW/ajc8Fw+wmmIaNnU6K+39sNBLwFIaXkKZ1Qm5Ehw3TMtH0bUJ8My68eGSoo7MGdOLHrONsCsPVag7J6PsItd/gImfFAXKvxyrax//Adx8WM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792313311; c=relaxed/simple;
-	bh=CEOmBKRPRHQvggQ/jUprVScYeABN6UGtUJElxmkh6EU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dSxhXMuaRgVAKHjZ3FDkqREqPkpTQFzgi0zOfe9DeMa/04yk3KmvQ+Ttp/KtEpmOzjDZ8uONa0RPOAJ1giASb/+c7Z1+wzKv+gtZMkeuDqvgYFOZZWErNxLbfskkuYUb1Dqtf33P7mcGUNubQIZBM0n1BqugJ+X8v3SSQddZaLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SoiJqLSx; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E16203955CB
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 09:18:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792315126; cv=pass; b=Obs08VsiN7FFpQ5kYYe4mz+1hc0YAEGOymO75NFvb6zvv3LrXceh74X4jTTbz5xqEeNlJfd0siOoxGYQiW6CnGsdzRQn4pjJnZ1IjNfagfEgnnsFPLEBPVrg8vBZiUR6MdwF/lSRt20a7kAVQzhNT8Y85mVmz1muWybMi1bBhDE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792315126; c=relaxed/simple;
+	bh=Hl9knlG4/9ywK5hPuGY9eJmWuv7uoveTetSEz3BOFyI=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=nlrjWwHMOE5skLkJ897O1OI3sDXi8/VhOAcV2a3EFGMpS7dTaP/zAdWVqHSYrts6VDMGklr2bzfeHP14gqsz4+Wwgariop98AYXp5gTcdy0i3h+IQlsA2yodISEqlNsSkGx+krKBxowwacUMraLrceKQjex9kGAriHG8jNS6imA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=safebreach.com; spf=pass smtp.mailfrom=safebreach.com; dkim=pass (1024-bit key) header.d=safebreach.com header.i=@safebreach.com header.b=WYyA6iHw; arc=pass smtp.client-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=safebreach.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=safebreach.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SoiJqLSx"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1dede3c2cso9533845e9.2
-        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 01:48:29 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=safebreach.com header.i=@safebreach.com header.b="WYyA6iHw"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c40e30c26a4so292321566b.0
+        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 02:18:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792315123; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PtCEFVBfCHpYbMsaJQfMWeBBdKwul2XIePq0cAy+FlHQ4mGUwvXTBn0GAdmlL991mA
+         6dzGfEAGcGzhZg0V08YDUlQTkJyI2ADTXOqPVoqQVT84pT1WWF+JdKa8bN64ezWNM3dN
+         xLdXH9/CQAVhYuyKirbdXb7gv6Qc4TC50DLVngd99Ph/BVJM0yAjnJVy/lOEOVGJl8mu
+         Gg2WoJfO/v2vAl2JyPFZ4db8MEwhN3K/u7BMTIWmwv5b/BA/K/50DVIFOc2RlGSQZMQ3
+         okAfgtkA1uHE+1qXP9brP+x0X0bv+jX/bqcvM4EGe+5S6PQmNFbRUAYFKc5g7BmpiQ6D
+         Hi8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=H/fFhaq2RFRjuIvCWE9nRJGfxKNKEB9NeriN24IeNGc=;
+        fh=P3UluCj88NwkXz2slhL2SyOd7gJcUKwxpU9LBu4edYs=;
+        b=qeNUoiOYqGYv/n32QMF42PKpY5hRx6a1k4TU6jubJjm7kRaJkDGj5Wx5mn2vUgoWHj
+         FQGeH5YCZMwOzNAaAS2/TnRnyWXZ1jvOizfkweCExUx+b1+zHmqISE0PeeT8/gJmN4hu
+         etaTeo/W289x1qG0/+A+9nSOoSuXhMIacNNEa3K6uURhsr20SDV8IeecXCaMY9VKodB2
+         2jMNJ8RYV7b6mxGGXGHslksfaeOL/biPEF0dihJdjagvWHeO+IbJLR1NQJAXvF01flsp
+         7Ca19Ix+/hdlXNksJWtOgPkOtK4KzE2cJXrJ4p/fkT3NS/dxKCLIcV6Ee6feLQq52gq+
+         EqBw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792313308; x=1792918108; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KN/6iLwfCQ//2avSJv9DQ5CIOHPByLS1SPM2UhK/GmE=;
-        b=SoiJqLSxbWoLMSHRYyr2a0L/DpzmLUkhnrTTvmUTMK7uDoHbFHeafunDUH7F88Jv1j
-         J7YtCICj9D5Nt3BTbd2qtP4HU6ow8BT65/9mYRK4U8EvUoEr8pqgEMml1tALfGEFVbHe
-         u+TKcLqst+vGjmdiqA2Ib1QPuFZ/+N5X1UfZJFKUrIHgumoQfmyHW0DwMR9bpAxHrSBe
-         SEaZHNUOx7A2DEnyMCBNOz42YtYa4y1e0vnjLu8mZt9RpyurTmkAC+jk5QAR4muPwTDF
-         gZM6PkRf+BBlLxIdFbX41nJ1HeIftWnDp88wMHUGTa+j8wIBzTMrv8bCIj0WnrKxiKxX
-         IrOQ==
+        d=safebreach.com; s=google; t=1792315123; x=1792919923; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H/fFhaq2RFRjuIvCWE9nRJGfxKNKEB9NeriN24IeNGc=;
+        b=WYyA6iHwPQldnN7DhtEGHoumn+wcB9Grt2p1EM5JOI+QxQaByr/aKxtOmxtf99lqqY
+         3ETLBXWSR5Bx97KxNMi38A3uBWLPz4MVSbFTfakyPAqNUI5C0UeVI7YGVPAt+OBMkf7T
+         aruvLT88LHxnF99JuASAXXD3BK7J3lH86vkps=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792313308; x=1792918108;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KN/6iLwfCQ//2avSJv9DQ5CIOHPByLS1SPM2UhK/GmE=;
-        b=BbGMt/8AEBeGAZbxdR4L8YmHdLkdUdqeaYs8yIPYg3hn5dtzzsISWotrTadsfE/1xP
-         ONYowz285m7dWgJgN9qb2+TrbEJUxll8AHgBgwEK6J2coG3GhdIOrZMz++NPVG9cc5JF
-         OggWmEFBJQp87Uy/yPl3RyyYqxw0kyP8YwxkvAOudkx+TJ+DiGiwHPFKozFgg3Z6BMO+
-         dJG5c4vGmMEa8+Mb35tKqrL8HTyQdKG+6wpB8vVEnslAxC/2xbg0vQBv7ac0c3/aUCte
-         VAQ9xfgSwAhNRyi7sdxW0o7uPtaKmnZOAOB/zR7MxjtTzLOlUKG46JjAe2YYFaFLfb5r
-         T7Pw==
-X-Forwarded-Encrypted: i=1; AKwUvBw1V97TaIoqls2ZxnFUb1U1oA5hql0YuFnp6yuWaZJtQbGXux7fsM6S+JM6d2YY6+DRQBiRIXs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI1N4OqP+pHBB+rcBe1m3pAF1+A0yOLOCSIFfssftOjXt5rf+Og
-	89x3Ee3wp8EXE3Wys1kUhAQC13jRoOkiqF2Q8HFz91VVFwhKlB0GTJIy
-X-Gm-Gg: AYBFou2i4XmoU4f28UF0kTtayQb5lXnyXga3EtgYZIscwH6VuMIZly9E2cXHUjHXSH6
-	jRmpEZwyqplFACq0NY8O5r42+o1qRV0nwbnVcCoEChW4D379BHRs59rieGBUMgrY2gGP3hrTDHm
-	sAhPVIkvvEzhXHG2Y2Gf7CTcZ/MwR7cCmT7/eq7h3hHgRLgQLNe+5KkHJQAIOUuPoMw6ynik9jx
-	1oSvhXP/5K/UAzyHRfrclCEzf9lWVrm22fsspAUbx9WAaWmwGH5nenXN/Lk4qf6IPZgizb8gXom
-	ZC9F00XxFjAw31DajfBmi7co4KDk98Rf7sVXXRruDW/WksQT0YT/spWxKzJcWpRphVi2FFRoTIB
-	lND87gOK+FxOSlp0iVwdp54MhGJNgvlSgfdIVzTGn4owdsnNnpk+zIb4hGIsK7Kjw/ufltl6kXC
-	Sx/nnYw6+iPS5krr9vdvG/ZlkfeUC4cC5BKzReHhVQJBDQQXaq4DND6853nfUYyTz6PJM=
-X-Received: by 2002:a05:600d:8643:10b0:4a1:e00b:a10b with SMTP id 5b1f17b1804b1-4a1e00ba2fdmr28805675e9.7.1792313307895;
-        Sun, 18 Oct 2026 01:48:27 -0700 (PDT)
-Received: from [192.168.1.18] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c10fe9d3sm248499795e9.13.2026.10.18.01.48.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 18 Oct 2026 01:48:27 -0700 (PDT)
-Message-ID: <6b17c6a5-5164-402f-8d97-2b25f4f9ae8d@gmail.com>
-Date: Sun, 18 Oct 2026 10:48:25 +0200
+        d=1e100.net; s=20260707; t=1792315123; x=1792919923;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=H/fFhaq2RFRjuIvCWE9nRJGfxKNKEB9NeriN24IeNGc=;
+        b=hGCH0p2kD/HygYIxy4lnW2Epr8yL9AX1NSrUQo4vZDcODgvUdpnWhulfDXG8JiUgjg
+         w8Jb+WIPJ2Su/gW+BBtIbYE1Z/xr0M8rYbhtd09ZMr6LOD79JLw7aZqDziadfZTmIvOt
+         dsCFdyKNVIdi3ElvIEaRh+hYcP6ee4ajgBW+J5djHx47U/eu7jYRUvoSQRuI01rjkGrN
+         xbgilOtgix2T9GgqzED3Y9WZQLvX2lbVuZmaDK+httfv4I+autrkgI/ARgD+HJAXOrR2
+         zpL4JOlXiVkcpFRv5VmUSI9pmmIon0LdyqH+HZB/QLm7e0ZWfLRRBS5lOzYKw4stsIHc
+         x42Q==
+X-Gm-Message-State: AFq9FYJKxgY7iPZJgBk5s7TFDY4mzOfPMTjbhYvle23KfoaftKZ/VRD+
+	/Wl71yh9YLWtnDZnTASRSr3cMgPmILrvcpYG0CHuLCb6tfivYz8yl5CbwODHA+Kt96EQ+nU8Cco
+	gpttWm5eu/ElOiuSuQ7RCOetnbmvfOT7sNyBmt/z/vwX+8sQWyCWI7sEuhg==
+X-Gm-Gg: AYBFou1yd157NLiMncqJsw0VTWsDJdpKrxxh5QojH92hwYoUhneceKM3p1RduPIBvq0
+	KeQ63pXLbgzzlbaTtaekyAQnujBHnIySF7uFKk38nWBc8oQL8ftjo78DMNP5SiQUy47KbShvRSS
+	pyCz4ZXCONDbRfx/huQ+RZZRCiCPSuQjiRRtRvCfgPG6cGgInrrAJkX9DxXIiJLl72HslwJ7J0T
+	4m8fDKnC7tsgAxhZaPfUY/FC03COGX/Vr6XO4TB7zJh/xF6XndJIl30FZwGzj6f3QvHPKUL6Fiy
+	6ocgF1WCnMkXW/3h0viUUEHl+oh0wC/XJVSZaEkxgFq4S9J1B4r00x0=
+X-Received: by 2002:a17:906:9c93:b0:c2e:204d:9490 with SMTP id
+ a640c23a62f3a-c40217bfed6mr616038366b.17.1792315123134; Sun, 18 Oct 2026
+ 02:18:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] kasan: fix runtime shadow page table synchronization
-To: Muchun Song <songmuchun@bytedance.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Alexander Potapenko <glider@google.com>,
- Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>,
- Vincenzo Frascino <vincenzo.frascino@arm.com>, Dan Williams
- <djbw@kernel.org>, linux-mm@kvack.org, kasan-dev@googlegroups.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, muchun.song@linux.dev
-References: <20261018043501.3257632-1-songmuchun@bytedance.com>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <20261018043501.3257632-1-songmuchun@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Ilan Dudnik <ilan.dudnik@safebreach.com>
+Date: Sun, 18 Oct 2026 12:18:33 +0300
+X-Gm-Features: AclHuK8jBpd4fOYBK4rGGeRadJy1WR4qtfRkepjNBzPoZfIt3xn_lQ-UjczWrcU
+Message-ID: <CACdWfbyqY_rUJ_Qj0HvuHGEb-PBjwj6eKYCY+r1WZtNnsWuhiw@mail.gmail.com>
+Subject: Subject: Request backport: ksmbd: fix heap out-of-bounds write in krb5_authenticate()
+To: stable@vger.kernel.org
+Cc: linux-cifs@vger.kernel.org, Namjae Jeon <linkinjeon@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/18/26 6:35 AM, Muchun Song wrote:
-> -		if (IS_ALIGNED(addr, PMD_SIZE) && end - addr >= PMD_SIZE) {
-> +		if (IS_ALIGNED(addr, PMD_SIZE) && end - addr >= PMD_SIZE &&
-> +		    pmd_none(*pmd)) {
->  			pmd_populate_kernel(&init_mm, pmd,
->  					lm_alias(kasan_early_shadow_pte));
+Hi stable team,
 
-what if the entry already points at the early shadow table? this walks
-down into it then, which loongarch does on every boot.
+Please consider the following upstream commit for the stable trees:
 
-[snip]
+  23a0be6a84a3 ("ksmbd: fix heap out-of-bounds write in krb5_authenticate()")
 
-> -		zero_pmd_populate(pud, addr, next);
-> +		ret = zero_pmd_populate(pud, addr, next, mask);
-> +		if (ret)
-> +			return ret;
+It was merged in v7.3-rc1 without a Fixes: or Cc: stable tag, so it has
+not been picked up for any stable release yet.
 
-isn't this a separate fix? it's not in the changelog.
+Why it should be applied:
+When SMB2_SESSION_SETUP is processed as a non-first element of a compound
+request, krb5_authenticate() computes out_len without subtracting
+work->next_smb2_rsp_hdr_off. This overstates the remaining room in
+response_buf, so the length check in ksmbd_krb5_authenticate() passes,
+and memcpy() writes the Kerberos AP-REP blob past the end of
+response_buf into adjacent kernel heap memory. A remote client holding
+a valid Kerberos ticket for the server can trigger this during session
+setup when ksmbd Kerberos authentication is enabled.
 
-[snip]
+The issue was introduced when smb2_sess_setup() started passing the
+compound-offset response buffer to krb5_authenticate() without updating
+the out_len calculation:
 
->  		if (kasan_pud_table(*p4d)) {
-> +			if (ARCH_PAGE_TABLE_SYNC_MASK & PGTBL_P4D_MODIFIED)
-> +				continue;
-> +
+  Fixes: 98422bdd4cb3 ("ksmbd: fix out of bounds read in smb2_sess_setup")
 
-doesn't this leave the range on the zero shadow, which memory onlined
-there later then keeps? would always allocating a table at the synced
-level once slab is up avoid that?
+Kernel versions:
+98422bdd4cb3 was backported to all maintained stable trees, and the
+vulnerable out_len calculation is present in the latest releases of
+7.2.y, 6.18.y, 6.12.y, 6.6.y, 6.1.y and 5.15.y. The fix is a one-line
+change. On 5.15.y the file is fs/ksmbd/smb2pdu.c instead of
+fs/smb/server/smb2pdu.c.
 
--- 
-cheers,
-jose a. p-a
+it's a resend because the first copy was rejected for HTML
+
+Thanks,
+Ilan Dudnik
