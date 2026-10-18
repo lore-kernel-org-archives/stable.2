@@ -1,71 +1,75 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B9C3D7D6A
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 22:54:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10BB93D903B
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 22:54:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792364082; cv=none; b=IXWkiUEC1F2tAacoWeUISVFavmpeyZdAMdAXwyshP2n5SNo7zAYUgOvapvfxUJSrZ7Yg8IL4Yh2Ydt0/Niwz0jZVIY63u/j0dyqj7Vk3YpyCGYdJwi9b0tGDwJf3fjd/fjhfjclIAXwnS37fNktn1wWL4o5EcmcnLsNOfud55z4=
+	t=1792364085; cv=none; b=s0PIN22Zll/rI6z1B3FqbcUhVNJcrWq15yWblgwEjo1T+EseQUA2XfFALxY0hclNIIy0kJ959xpEfwBEjH+/DJv6YRFOQOaKoMb+8PlYUgrUq5h63JURQDl3rzXzwU10nhoKChLfntpuS63OAqRX6YY3bqRjG4SLo5BXn/jKTM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792364082; c=relaxed/simple;
-	bh=XYhSvFA7CBE5j2HCUixLblDFjVWyrOA3uBQKm7vadDE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aQyqSY/QqAv80p8OD8WqQmImAQoxmJ9ajHMk1/+fZ0ZhjkEwy7MpaWDWMpGgWznpp/YltETS4NLZJeP4jU/yQgKH0Q3Zh8DcwH1LhL2RP4XQzFvrDcvJapew2DH0THeyIOWcg2P/544S53l0ZDzB7NEWNu2i2l6R3TAh2XUN6Dk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cdnt1SQm; arc=none smtp.client-ip=209.85.221.45
+	s=arc-20240116; t=1792364085; c=relaxed/simple;
+	bh=dxv1b+vccQom33ZO/mh8/OtjYdeB819yqMvj1KaVDSw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CeCGmyyPVTfO9g4Wt0PzmuW/aWSDECqunGJk7p33AJTH27hAPjW3E5ipnuenL22WhfLjyNLzhDBr4J75em8prPrSv3bwa22nrO37AQurhjGaps2lAMmQhZadVvxESmNgO4w+bFqNDzOS0OrdEW8WdnXRiQW5L9AUL82qdFiJKMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N9UFF3pa; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cdnt1SQm"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso777331f8f.1
-        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 15:54:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N9UFF3pa"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a19cba5c14so16417905e9.3
+        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 15:54:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792364079; x=1792968879; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=X1kgUc2g/VLG79PKdhTxP86IrE7Gw22NMZrvrz31EMI=;
-        b=cdnt1SQmdLpQdw4/vsPLYrjkdD8r6sYDy4++rdwleAx64mjKe/vn1eFlfkn5GBxr1B
-         4JoQtVHNjqbtxqn3Z99sOf4E0MAkDbLLc2oDLmVZsQ+iw12SZsl9J5F4AzjXjrSJ7RhO
-         hYnFjqZOV/qxag0gTy5W/M8QttJLXx9WFQEX+fdrwUSQxYHj+WsLMUHTxTO8kXsiUeoy
-         gmnB5hVnuqRPxPOQDa4DeEEkhE4jNs1T+tUX/7rVa8dCsqaFgJok3nzsQm0twcbpl690
-         gzi8XXk6//eLLOUdWlASm1q9AtIl4Q+Wxz3LJ+ieCcBAsrM44/CyeiipK0BB9sRKAMV/
-         z5UQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792364079; x=1792968879;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792364080; x=1792968880; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=X1kgUc2g/VLG79PKdhTxP86IrE7Gw22NMZrvrz31EMI=;
-        b=hncI4q/+IM8JRy45uIVkb0qxga5ITfrjLPqji0SlcDXFumibjKLvX6SmrLumnmF8gS
-         inCDXeiWsHV2Qfld5KcWQPjhCpYsZBqimpO5/HyJcWUoU6l00BzxshulWuOxBV/7Aks/
-         N5nl6U5HmXG3YFk9FbU0d5/gq+g0jAxSl9KSsOyNEuSEAK8053Hkb1IluShzSoSppRYZ
-         3KcOfWrrUePCj3Ew9vLBS4qUmBeuV1cfCa2qEGYil6mr3FPx8VSLtg6Y8vGhLh6q8JFX
-         wpZoytlId0ZR3z4KK0QxCdqCvdwMT0BYO7ZsIBLWYQhCMg+8roGNJy/1U3Kl+Xbvqrxt
-         8Drw==
-X-Forwarded-Encrypted: i=1; AKwUvByCMaLnZJoSMa72a2EkSYyYxIUzu8dE6sVXrz/U7M02dMElHhKkdOngf4tAWv+WyGK/wF1ncAY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIOvZ7zX5JATeUf1SXAmQGxntMRqhKIQm1v9Fnp7JlT6WXn23vt
-	3vbhpHEUk3IR7sfQMNKLtWumHH4DY2GAXcD0iSet/NNGWnH1hBvmG8+cchlP
-X-Gm-Gg: AYBFou1auUIFYPs35gaI9O+I+ie9KUTwlEO0BfXuv4EsaOdmDqWtnp2AmYQ2y5coik0
-	/H6dqAba/FTYm2NbCN+z3GTfxTou8rizBsUDSUbJNukGP7b2falkLarF24UQZAsK7h9gZhgABe+
-	nF7GUJfllpLrGc/I1UzHiEjbzf2DbDuMFfiOm9hswkaRYVRshDGQrZhETXsYL2xnp0OWfDqjhYy
-	UGTJlQqquPe4ju2Jm8w94iA+7vgNcGqMZfVeonMCm7LKkMwMiI98uSCQnpu/H07DwgYVK12r3os
-	2mHW3rWZxCmXfiMtnrdw5M0VPFyY2oaOTiAlMcNxdx5RSzn4hmZtGPAxv0CXJPX0YkAjtw/c4Hw
-	idG5eco+4DZy6yDKA+ghx+9Dk00QSXXYy5VRuAJVSaeZzLqeGcnYoVpyXWUjRh8sleoa1gi4DdK
-	ezXuccJ9v0hOxizoFQudcwQt38urDSapCh48ducGQ=
-X-Received: by 2002:a05:600c:548c:b0:49f:dc71:e609 with SMTP id 5b1f17b1804b1-4a1d7610f2dmr127399005e9.20.1792364079193;
-        Sun, 18 Oct 2026 15:54:39 -0700 (PDT)
+        bh=h7FhAoYW9emh+NxVgMk3Jx+hbwPHLY+KSUNSM3vjf6o=;
+        b=N9UFF3paw/RZqW/u5CGOMk2WWNl5VOq0RitO5k7dFs6nPpqbdsiYdH392WS4BPUHSV
+         wMrhNFQRFnoVW3WPtuvvnsWbSaGGJN264eZiudhijxnQIrxyoJbhF7hXlEg18hWCTkPc
+         kax0SVsUIK3Gs/A8DJHwHE234ZzMbUnteS6Tui3RE7eFdBz1cw7oNYpx0YTsignsmGa9
+         oqsE7kvHEExPftLt+z8BxE4FyOFkzLuiBxwvSNVisu9Rzgr31L4nn6LAIbmJBvuIVkcu
+         bKbiGOx16XUBKK9iIV8RnXUtvpp1bIkIgZX5SKr1nCq1i4T/3ZjnQA3OY/JPvudT08NE
+         zFQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792364080; x=1792968880;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=h7FhAoYW9emh+NxVgMk3Jx+hbwPHLY+KSUNSM3vjf6o=;
+        b=EuN/jQ/4QjrG3hfcmoATNlJCMkF7FnNpW0ed2hEBAf4TqFEr+yJsyeCwfWQF39SfIN
+         NGhMD9EioLiTtULbCym2KumoHbb0T6Mjdi0uuROO+BTLHNU3glDbJwTXvTcwANqXuFg3
+         asKfYdLjESeM5zqWj24bOU55m4f7MYmfzNQTvqJW6yqGtuKHuVVuKHTpbAwcrAYTi+JJ
+         Rbw5nYBlVeAk9zQ5kilGMWXaJrsgZ1Z1O49w48YCKy4TflbePQbWTr+Xq6PVnPU6U528
+         Bo7fPxndH6jJ7/blARUT9ZAS+8shuP0sHV9COBIPG52BiBDpw5f29RiN++x/an7KHWmj
+         YIEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw71kfSB/TcvUjfJYcNyDVMVR1VQbZJbnrcu3nWC1f0SLSEQw8AaoXxWCAd6T1pT1Q+RsBQUtU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJ1kzkcA8lADzPU/ON78jn9jptQObtB2cRkOf2hur6mF0AVqrx
+	NNKRQi8fA0CxbzfiQhSVHpn7hC/hcskMEKV70S3BrJ908odN667N6BQ=
+X-Gm-Gg: AYBFou3APwZrw2AAHng+9o5sT03CMS+2TXTDKnB6FwQeXHIe1CdIUXLUkuT+SH2IS9G
+	tq0erCNLr57quTZtEX9iug0uRkDDqej1PExDwv0oHigUeKEgp57U4EKzlq4whrH+PHuzy0H+5lf
+	dkgV0+Bjb7txmjOBXPqhglMbFJmwu6CYtRi045xw6QzwVF6zr3RMEBQ8QcO9n4Gps1gQm3cPuY7
+	bkuEpv9s/DoGZ+KNZ5LIV4vblD0Oryj8i3PWSZNr8NTBSq12qZ016HiY+udbI4wGT7X73qoxe5A
+	0S10RpDjhzdYAZ5aie5G+XYUHTStPPZSYFZPblj7FlDORLEx3TSMt66vJh32uYQf5ahCcqpRrpS
+	IrLRsyvpfI9DEA2hN5b7qmVE//F9sO9ut/j/pQkGyJ8jGIVHO9M+2idOpWy/oCAAIfJkwl0kGfn
+	+UCfbz3oXTnlYQG5jBl5go/0b5+DV29vw1qnk593w=
+X-Received: by 2002:a05:600c:3b17:b0:4a1:7c7d:8881 with SMTP id 5b1f17b1804b1-4a1d76139ffmr130244235e9.13.1792364080102;
+        Sun, 18 Oct 2026 15:54:40 -0700 (PDT)
 Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1e19ad17esm42257355e9.3.2026.10.18.15.54.38
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1e19ad17esm42257355e9.3.2026.10.18.15.54.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 15:54:38 -0700 (PDT)
+        Sun, 18 Oct 2026 15:54:39 -0700 (PDT)
 From: Tristan Madani <tristmd@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Hans Verkuil <hverkuil@kernel.org>
 Cc: linux-media@vger.kernel.org,
 	stable@vger.kernel.org,
 	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH 0/3] media: USB: validate transfer lengths in URB callbacks
-Date: Sun, 18 Oct 2026 22:54:34 +0000
-Message-ID: <20261018225437.2655311-1-tristmd@gmail.com>
+Subject: [PATCH 1/3] media: cx231xx: validate minimum transfer length in video handlers
+Date: Sun, 18 Oct 2026 22:54:35 +0000
+Message-ID: <20261018225437.2655311-2-tristmd@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261018225437.2655311-1-tristmd@gmail.com>
+References: <20261018225437.2655311-1-tristmd@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,29 +80,45 @@ Content-Transfer-Encoding: 8bit
 
 From: Tristan Madani <tristan@talencesecurity.com>
 
-Several media USB drivers process URB transfer buffers at fixed
-offsets without checking actual_length or iso_frame_desc
-actual_length.  When a device delivers a short transfer, the
-arithmetic on the length value wraps and the driver reads or copies
+cx231xx_isoc_copy() and cx231xx_bulk_copy() both save the last 4
+bytes of the transfer buffer via memcpy(dma_q->partial_buf,
+p_buffer + buffer_size - 4, 4).  When the transfer length is less
+than 4, the subtraction wraps to a large value and the memcpy reads
 from an unintended memory offset.
 
-This series adds minimum length checks to three drivers:
+Add a minimum length check to both handlers before processing.
 
- - cx231xx video: isoc and bulk handlers need buffer_size >= 4
-   before computing p_buffer + buffer_size - 4
- - cx231xx VBI: same pattern, raise threshold from > 0 to >= 4
- - au0828: isoc handler subtracts 4-byte header, raise threshold
-   from > 0 to >= 5
+Fixes: 64fbf4445526 ("[media] cx231xx: Added support for Carraera, Shelby, RDx_253S and VIDEO_GRABBER")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+ drivers/media/usb/cx231xx/cx231xx-video.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Tristan Madani (3):
-  media: cx231xx: validate minimum transfer length in video handlers
-  media: cx231xx: require minimum VBI transfer length
-  media: au0828: require minimum isochronous packet length
-
- drivers/media/usb/au0828/au0828-video.c     | 2 +-
- drivers/media/usb/cx231xx/cx231xx-vbi.c     | 2 +-
- drivers/media/usb/cx231xx/cx231xx-video.c   | 6 ++++++
- 3 files changed, 8 insertions(+), 2 deletions(-)
-
+diff --git a/drivers/media/usb/cx231xx/cx231xx-video.c b/drivers/media/usb/cx231xx/cx231xx-video.c
+index 70aa99fead278..76776cd6e5691 100644
+--- a/drivers/media/usb/cx231xx/cx231xx-video.c
++++ b/drivers/media/usb/cx231xx/cx231xx-video.c
+@@ -303,6 +303,9 @@ static inline int cx231xx_isoc_copy(struct cx231xx *dev, struct urb *urb)
+ 		buffer_size = urb->iso_frame_desc[i].actual_length;
+ 		bytes_parsed = 0;
+ 
++		if (buffer_size < 4)
++			continue;
++
+ 		if (dma_q->is_partial_line) {
+ 			/* Handle the case of a partial line */
+ 			sav_eav = dma_q->last_sav;
+@@ -382,6 +385,9 @@ static inline int cx231xx_bulk_copy(struct cx231xx *dev, struct urb *urb)
+ 		buffer_size = urb->actual_length;
+ 		bytes_parsed = 0;
+ 
++		if (buffer_size < 4)
++			return 0;
++
+ 		if (dma_q->is_partial_line) {
+ 			/* Handle the case of a partial line */
+ 			sav_eav = dma_q->last_sav;
 -- 
-2.39.5
+2.47.3
+
