@@ -1,70 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 687083368B0;
-	Sun, 18 Oct 2026 11:33:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 585EA476059;
+	Sun, 18 Oct 2026 12:22:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792323229; cv=none; b=KjvHrytrtuYtsz0+JYHc0yH63QAk2eZmdS5XjcLhw+wEZ0n6dh8gjSjKDOcp+u9RkRmNohxku1f/2qsjDXpMOm1lJfa9pbQVJnuuQj9A5JpdAGcSVQr912kys5dLCsdCIngWW5O4eE99egqwXDlvCF/+mBugQ1hQaMAhLQZKu48=
+	t=1792326156; cv=none; b=kBT13tVN0hrLVPbLVt+UmXkrOfrM5gk6a9zIJUqaIXoPEkgT9HCOqnAwIhTJz1UIBk6+6sCpNvqx01Oat7UXZcB6rjhfXPbayrd5TF4Xgwnek1z0GkkxQuJhlYds0B8gyLbWNhZgX30rSXG295GiNk+waY8cjb/NhZyKEGRvpCo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792323229; c=relaxed/simple;
-	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
+	s=arc-20240116; t=1792326156; c=relaxed/simple;
+	bh=obptXnKJfo9G8MUS1THB+vW0v6eRQjK4F3RSahuS4b4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=huuIdmrNuHm0UWY+8P4MULS03kBynojdoJ5pKg1QV4JU73OP459gR8WF61VYP7Bx4dl2HFXZ8gy9Xl6QiFD2JEYkzAXUs5uG6oUE09+Wo8asDMeeLRyxXLQxh7TPSCZFpcQA7o0sBPSOM/dDWPueWdh8EgOLXkccg+tRWnxy3wg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CxvT7YJs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=oL8A5rrGS8il6m+uHF5cedrCXzLcQUIwU8iJH+HGeloQttrpOIwbRPYRb+tPwAoFFl3u+v3hnqTU7I77fcNXtnl17LecublsHA2IyvpKcVQTOl/bjPPej7SsNaBAwC0dKCDnhiK0/Iq/qjkTLp+E34+aDl9kgjlQRh4Hc3Q/keM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=JqwmJnS4; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CxvT7YJs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E9A41F000C4;
-	Sun, 18 Oct 2026 11:33:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792323228;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="JqwmJnS4"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id A4F3880847;
+	Sun, 18 Oct 2026 14:22:32 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id moFbRbfDAkZh; Sun, 18 Oct 2026 14:22:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1792326151; bh=obptXnKJfo9G8MUS1THB+vW0v6eRQjK4F3RSahuS4b4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CxvT7YJsy3ttXANa2ctmoyxUj5AqO87u5gTKQ39dY8zwgz+56IIdPvTwB+aPetE0Q
-	 3ZHX28VuJviweh01F9da37pDnG7pmPlmdln8HKdnVmbTVux39UmoqLBxk8G094K5+S
-	 +XZtS5eaML1anwbcPwwF2AXXhJ9xa6SNhgYO7cHWdQB88IUTnv1RWQ6AE4Ek9KSk4B
-	 ExPOT6gRMEBqz0KJXDw6xIVhcuFwBWfS1HniI5KCK3Gd2EHH1N/BQnfzmixjOrHKGw
-	 zXtke6b1kPqOVUUlj9yM6FHtRImqUop3wb7MgwlPaq26zMkrl8uQKoAvC9vL0Jp8tO
-	 a52AusfIN9bJA==
-From: netdev-bot+sinfo@kernel.org
-To: Qihang <q.h.hack.winter@gmail.com>
-Cc: jhs@mojatatu.com, jiri@resnulli.us, netdev@vger.kernel.org,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, pablo@netfilter.org, stable@vger.kernel.org
-Subject: 
- Re: [PATCH net v2] net/sched: cls_api: unlink indr cb on a failed bind
-Date: Sun, 18 Oct 2026 11:33:47 +0000
-Message-ID: <179232322705.3290.16461222882953603304@kernel.org>
-In-Reply-To: <20261018112955.61470-1-q.h.hack.winter@gmail.com>
-References: <20261018112955.61470-1-q.h.hack.winter@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	b=JqwmJnS4TS8dGh0S3qGtqzY79aet4ZZmtGZYlfdlWjB0nvMm+5GcRB8yEea8gFYlh
+	 Y8RKhcodrVIwWVSGHGCBv29ovAx37GCyAEH7MgVZ2/Spoe4nXVVp7L68RWJdhSN5aT
+	 GTFwoIc8FEomTw/bdqAG+KXsltymghAhEEc86PhHmx4T3ys7Oz3pbgQc9jpBemgdCZ
+	 mIKL2ES9ZNrfkhdpW0JBUc0qLYtmRroET9QKmVff76ATQWVCuDnH2fOreCMojXso4a
+	 ajbvrI1y7i4By9ll7bv4lXt4nwO1TP337BxduT/R0zEGhu/KmWcAY8XwGA5lu/THsK
+	 i3uePnJA1XGPw==
+From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
+To: "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Rong Zhang <i@rong.moe>,
+	Len Brown <lenb@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Ike Panhc <ikepanhc@gmail.com>,
+	"Derek J . Clark" <derekjohn.clark@gmail.com>,
+	Mark Pearson <mpearson-lenovo@squebb.ca>,
+	Armin Wolf <W_Armin@gmx.de>,
+	Charis Stratakis <c.stratakis@proton.me>,
+	Avraham Hollander <anhollander516@gmail.com>,
+	=?UTF-8?q?Jeffrey=20W=C3=A4lti?= <jeffrey@waelti.dev>,
+	Rick <rickk1166@gmail.com>,
+	linux-acpi@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	acpica-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/4] ACPI: utils: Add exclusive AML evaluation helpers
+Date: Sun, 18 Oct 2026 15:22:17 +0300
+Message-ID: <20261018122220.678822-2-aliamemis@disroot.org>
+In-Reply-To: <20261018122220.678822-1-aliamemis@disroot.org>
+References: <20261018122220.678822-1-aliamemis@disroot.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi!
+ACPICA drops the interpreter lock while AML waits, for example around EC
+accesses, so two methods can run interleaved. Some firmware relies on
+methods not interleaving, for instance by switching an EC page selector
+without taking the AML mutex that the other users of that page hold.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Add acpi_evaluate_object_exclusive(), acpi_evaluate_integer_exclusive()
+and acpi_execute_simple_method_exclusive() which serialize the
+evaluation under a global mutex, for callers that are known to be
+affected.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Suggested-by: Rafael J. Wysocki <rafael@kernel.org>
+Link: https://lore.kernel.org/all/CAJZ5v0gS4agVUkCO6M=VW4Wi2y1-s+k23bpzmX9aAZ0Rsv4z9Q@mail.gmail.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
+Reviewed-by: Rong Zhang <i@rong.moe>
+---
+ drivers/acpi/utils.c    | 41 +++++++++++++++++++++++++++++++++++++++++
+ include/acpi/acpi_bus.h |  7 +++++++
+ 2 files changed, 48 insertions(+)
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+diff --git a/drivers/acpi/utils.c b/drivers/acpi/utils.c
+index d499b72574ab..ea8cb876c12d 100644
+--- a/drivers/acpi/utils.c
++++ b/drivers/acpi/utils.c
+@@ -10,6 +10,7 @@
+ 
+ #include <linux/kernel.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/slab.h>
+ #include <linux/init.h>
+ #include <linux/types.h>
+@@ -243,6 +244,28 @@ acpi_extract_package(union acpi_object *package,
+ 
+ EXPORT_SYMBOL(acpi_extract_package);
+ 
++static DEFINE_MUTEX(acpi_exclusive_eval_lock);
++
++/**
++ * acpi_evaluate_object_exclusive - Evaluate an object without interleaving
++ * @handle: ACPI handle of the object or its scope.
++ * @pathname: Path of the object relative to @handle.
++ * @arguments: Arguments to pass, or NULL.
++ * @buffer: Buffer for the return value, or NULL.
++ *
++ * Same as acpi_evaluate_object(), but serialized with other exclusive
++ * evaluations.  Use it only for methods known to break when interleaved.
++ */
++acpi_status acpi_evaluate_object_exclusive(acpi_handle handle, acpi_string pathname,
++					   struct acpi_object_list *arguments,
++					   struct acpi_buffer *buffer)
++{
++	guard(mutex)(&acpi_exclusive_eval_lock);
++
++	return acpi_evaluate_object(handle, pathname, arguments, buffer);
++}
++EXPORT_SYMBOL_GPL(acpi_evaluate_object_exclusive);
++
+ acpi_status
+ acpi_evaluate_integer(acpi_handle handle,
+ 		      acpi_string pathname,
+@@ -277,6 +300,16 @@ acpi_evaluate_integer(acpi_handle handle,
+ 
+ EXPORT_SYMBOL(acpi_evaluate_integer);
+ 
++acpi_status acpi_evaluate_integer_exclusive(acpi_handle handle, acpi_string pathname,
++					    struct acpi_object_list *arguments,
++					    unsigned long long *data)
++{
++	guard(mutex)(&acpi_exclusive_eval_lock);
++
++	return acpi_evaluate_integer(handle, pathname, arguments, data);
++}
++EXPORT_SYMBOL_GPL(acpi_evaluate_integer_exclusive);
++
+ int acpi_get_local_u64_address(acpi_handle handle, u64 *addr)
+ {
+ 	acpi_status status;
+@@ -685,6 +718,14 @@ acpi_status acpi_execute_simple_method(acpi_handle handle, char *method,
+ }
+ EXPORT_SYMBOL(acpi_execute_simple_method);
+ 
++acpi_status acpi_execute_simple_method_exclusive(acpi_handle handle, char *method, u64 arg)
++{
++	guard(mutex)(&acpi_exclusive_eval_lock);
++
++	return acpi_execute_simple_method(handle, method, arg);
++}
++EXPORT_SYMBOL_GPL(acpi_execute_simple_method_exclusive);
++
+ /**
+  * acpi_evaluate_ej0: Evaluate _EJ0 method for hotplug operations
+  * @handle: ACPI device handle
+diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
+index a10a591c18b2..8b1d329455f7 100644
+--- a/include/acpi/acpi_bus.h
++++ b/include/acpi/acpi_bus.h
+@@ -32,6 +32,12 @@ acpi_status
+ acpi_evaluate_integer(acpi_handle handle,
+ 		      acpi_string pathname,
+ 		      struct acpi_object_list *arguments, unsigned long long *data);
++acpi_status acpi_evaluate_object_exclusive(acpi_handle handle, acpi_string pathname,
++					   struct acpi_object_list *arguments,
++					   struct acpi_buffer *buffer);
++acpi_status acpi_evaluate_integer_exclusive(acpi_handle handle, acpi_string pathname,
++					    struct acpi_object_list *arguments,
++					    unsigned long long *data);
+ bool acpi_evaluate_reference(acpi_handle handle, acpi_string pathname,
+ 			     struct acpi_object_list *arguments,
+ 			     struct acpi_handle_list *list);
+@@ -48,6 +54,7 @@ acpi_evaluate_ost(acpi_handle handle, u32 source_event, u32 status_code,
+ bool acpi_has_method(acpi_handle handle, char *name);
+ acpi_status acpi_execute_simple_method(acpi_handle handle, char *method,
+ 				       u64 arg);
++acpi_status acpi_execute_simple_method_exclusive(acpi_handle handle, char *method, u64 arg);
+ acpi_status acpi_evaluate_ej0(acpi_handle handle);
+ acpi_status acpi_evaluate_lck(acpi_handle handle, int lock);
+ acpi_status acpi_evaluate_reg(acpi_handle handle, u8 space_id, u32 function);
+-- 
+2.55.0
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
