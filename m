@@ -1,272 +1,94 @@
-Received: from sonata.ens-lyon.org (domu-toccata.ens-lyon.fr [140.77.166.138])
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [81.169.146.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914302C11EE;
-	Sun, 18 Oct 2026 18:24:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.77.166.138
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792347859; cv=none; b=p0KvA71Dsiu+gyHSw33x0uGq4Hl6yXXuI0ODSV0W57nmimT/DRA4sw7PpZXLqwa8HmjHvQ4hWowSSO83zNTO+75CxS4pih09TDuwHRYzPJh6uH3sPDypBD+zsiTpnQY7gt8hlNFTSZ2ZMoybMwrV44cNBnpCh4iRy5gSL4xdQS8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792347859; c=relaxed/simple;
-	bh=MDbRZsT12MhiXzMl2uuaArchwNh0ZXojZ0UZPkdJFs0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=raTtH/Gd8Q9wro20MudFvmUAVpmRy/MIMp8lx4Ov2glyiKFIHigpBF9EWrMBhMgtvjee5b/r+Bd0vgF/PDm2EdkPWBlBcUBwWRyr1XlAIpILmATHZ/QGBipzIVBmH6cIG1ciJswATCDIRHKXHTbToCV2Zs5Za5gWYkaegk9+dkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ens-lyon.org; spf=pass smtp.mailfrom=bounce.ens-lyon.org; dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b=Dk8TLWiT; dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b=FnbWpTqs; arc=none smtp.client-ip=140.77.166.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ens-lyon.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bounce.ens-lyon.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C37F12C11EE;
+	Sun, 18 Oct 2026 18:24:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.168
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792347884; cv=pass; b=A7ngYHbzIH526gMVwYB/8syXkjRmgmg+cKKt5FMXKzj7EqEZkFHJ0w0qW/l8RUUXhS14LLZseKA/5Ckt0gkJDF1H8nV8/u5FiZzvihyXKDdcGc6Pb7T4nAlCqLXhj9pRAJWjYkOx4DKO5NXmQN05CLFqoH2bGR5ruloPir7qu9E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792347884; c=relaxed/simple;
+	bh=XU3f8iOzysWsUXprwUt22rCfRKOt8VzIxFdJ24lS6Ew=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=NVpmrmSyjUN5VGeLYyKi36YSnLPaYbQY9S5fPVSNvHH/nB7AcOElemkwUEt7Ku+MCcF8rbFkxs6Jntb7p4oA9X65JarbQX820Lkmia/lb/2a3ioq6W1JeGcg2BgL31ID9f3wOVeJbHIqBy/Kyd2p7h4tWjFBntaljVQ1m4fLkCw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=Zy2X/iCz; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=qy72SpKr; arc=pass smtp.client-ip=81.169.146.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b="Dk8TLWiT";
-	dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b="FnbWpTqs"
-Received: from localhost (localhost [127.0.0.1])
-	by sonata.ens-lyon.org (Postfix) with ESMTP id 21BCBA0288;
-	Sun, 18 Oct 2026 20:24:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ens-lyon.org; s=dkim;
-	t=1792347849; bh=MDbRZsT12MhiXzMl2uuaArchwNh0ZXojZ0UZPkdJFs0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Dk8TLWiTl/YbdCkFktEgKgV9cjcPKaGpwXXDvrc5gS77abPeevQDiyWQAMPQVkguD
-	 OxQMvuP+OWsRbkhQunMcjnhPS9IEfmQyAvX0LUEJE/V79adSdFo0da4bbBXQ44Cixk
-	 pPmPph86/SzEMpXbfPyaun5noNPDGXPoLdGjH/GvnQjLGInGOo4dBDepbCd2VYSAur
-	 psqzToR8WyumBYPDoxU2C+CVeqRhUgwPJ+NEWdDprBBVZ/aK+2GuUWJAfXLp3U/tIX
-	 zhZ0ELEuE4kY3UbNCt+obp6JW8Nf6BCeyWPSPEz37Z9r1P2LlpZu3UTK7kCJqvGQtX
-	 X2IXe67NcD2YA==
-Received: from sonata.ens-lyon.org ([127.0.0.1])
-	by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id 1LpMSBfTdPly; Sun, 18 Oct 2026 20:24:09 +0200 (CEST)
-Received: from end (lfbn-bor-1-980-210.w90-120.abo.wanadoo.fr [90.120.173.210])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by sonata.ens-lyon.org (Postfix) with ESMTPSA id 4558DA010A;
-	Sun, 18 Oct 2026 20:24:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ens-lyon.org; s=dkim;
-	t=1792347848; bh=MDbRZsT12MhiXzMl2uuaArchwNh0ZXojZ0UZPkdJFs0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FnbWpTqscxty/OmW4A6Y2nQTspm09pWB4zrjmk8ZTc8Qb6Sv3flMCYRebWLYqlQv+
-	 bdq2b4+S+EFKHB/wiT9L9/BDmUpw2v71UwZm2wyDFhVx8cuqKesSDfQjfYS8HO4UoN
-	 AATxUYRxz4TdkmhJ3a8mPDd4JTsADFmIwB5EIz/gZ3wQmNJy5TkhRgQK57Qhk4TvPP
-	 PfZbDP2gfq5WL+s/DP/JZr/onCrB/EI47ADQj9Utv6MVwhCWdG150Saa0LTQtkCTm0
-	 pXLiEgQECOLJX0xAnYEfJgaNAZWxQZ1KL1I9g8UpuxZLaPkQoUGX62fKfkislkoMSW
-	 SeDM6SMlxDFkA==
-Received: from samy by end with local (Exim 4.100.1)
-	(envelope-from <samuel.thibault@ens-lyon.org>)
-	id 1xIVYF-000000024lh-1eRB;
-	Sun, 18 Oct 2026 20:24:07 +0200
-Date: Sun, 18 Oct 2026 20:24:07 +0200
-From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-To: Hongyu Xie <xiehongyu1@kylinos.cn>
-Cc: speakup@linux-speakup.org, linux-kernel@vger.kernel.org,
-	gregkh@linuxfoundation.org, chris@the-brannons.com, kirk@reisers.ca,
-	w.d.hubbs@gmail.com, stable@vger.kernel.org
-Subject: Re: [PATCH 1/4] speakup: Stop catch_up when the synth is not alive
-Message-ID: <atUOx28JlfcIUqHH@end>
-Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Hongyu Xie <xiehongyu1@kylinos.cn>, speakup@linux-speakup.org,
-	linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org,
-	chris@the-brannons.com, kirk@reisers.ca, w.d.hubbs@gmail.com,
-	stable@vger.kernel.org
-References: <20261014071713.321914-1-xiehongyu1@kylinos.cn>
- <20261014071713.321914-2-xiehongyu1@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="Zy2X/iCz";
+	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="qy72SpKr"
+ARC-Seal: i=1; a=rsa-sha256; t=1792347875; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=Qvs85FlQ3GFR7EOuOgGr6d08uSkuEYtOh9gW5vV2BX9lxZJLTjCG/NucJIG+ViuXRF
+    Ml0LcesctdAnpzncXAyfSuoW5lDb2mZdUnFpTrbn3f9AB6z2bMSR9nQlgZaSfh15hBtA
+    xusk8nqaoTnPgItw08EhrYbC2zjRe3J/JZgtyofdCXf5KAhcQgZt5Me64LKPcEhl7KTu
+    UKuclJ+CJnt4mYzgO9+XchCRT/Sw4a6IwH52kBncui5A4ULsa900EzXD/mUK3T9jbVsF
+    a6FhMeKHj13H5rpLQnDREDJANXDpZ0n/a9hh7dpnP22qPMLS+Gp9h/JfC7XsLrwwiTaO
+    4qJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792347875;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=XU3f8iOzysWsUXprwUt22rCfRKOt8VzIxFdJ24lS6Ew=;
+    b=f9PRW0uXNY0fo36oXZRMYh45n5Kn5ZTrHwtIFbfJqSu1EunD1UMkdpOEWhQjzgYds8
+    bCk1NvVBJdMIRnVkdhqI9fmodhNYR7Bfq4HFWNMkofAMvV1QyM5i+ksx4jZ1HTDEWw+w
+    XsOBuGiMBjBaNn57yXDWAFzVqG1cuYO7cV2yEVhdZ5VNCyezN+d92Z/rZF5RPfZ1q5Gu
+    5YuiQ9WKmQp6ytao0ZF5QRODlAJkbFzOM2Vx047FpvP1bs/7ZIl0UupsvjGPksXBCfF3
+    cN83uKNBSiWWol8L7M2k4R4fyDqFiGkSBhydM1u4vqI7Sg/OcSjlhwuYH+DwhF0sR2+O
+    I2pA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792347875;
+    s=strato-dkim-0002; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=XU3f8iOzysWsUXprwUt22rCfRKOt8VzIxFdJ24lS6Ew=;
+    b=Zy2X/iCzCV3TgxIIMLvX8TEJj2LXtsZ0LADH5S0eS5zH5FeHPuCrp+N6fzyAepOvuH
+    iGhWnFkM5ntacpZVtDZU2D1g1Z/m6M4POEyfweDFnIbHsWZVAx87uu0UGRNSLmuzAV0v
+    u9TVwhivv1WFdZqSQ8aykYH7A8e3MZZuKAA/Yy/9XBJSKNnTwhHOKrg1llOwLaF9sXYV
+    z+G1uihqJwHm9fmoP55eHHrEY1d4KiQth4xeSNmfmfMnSmUcJO0aHrVNFIQbThLZPvdT
+    0rUTe+yAE6ef2yzH5HGxq2lhdDGGqtOBq3bQANsuzRl60n0iIWii9w014pVsxHCRLVWf
+    SFqQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792347875;
+    s=strato-dkim-0003; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=XU3f8iOzysWsUXprwUt22rCfRKOt8VzIxFdJ24lS6Ew=;
+    b=qy72SpKrZHthUMyn3Dy4Bj6M/ef0lMx6IF1MyUBGz2Ctjmca9ZxTfZB1sfuGR/RNZA
+    sZDWwDNAZ4/dpkgRuzCA==
+X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0zNriHg+YfT0rGeWpIGzZge/Z0bJo/ZKBs7IP24cD2xnjN93xVc="
+Received: from p200300c5873684d949ea70d47c97a062.dip0.t-ipconnect.de
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id z831ad29IIOYHJo
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Sun, 18 Oct 2026 20:24:34 +0200 (CEST)
+Message-ID: <95b7c186e20778557250f2f25c92dde77e355fbd.camel@iokpp.de>
+Subject: Re: [PATCH v2 2/5] scsi: ufs: bsg: Clear the reply buffer before use
+From: Bean Huo <beanhuo@iokpp.de>
+To: Stanley Jhu <stanleyjhu@google.com>, "Martin K. Petersen"
+ <mkp@kernel.org>,  "James E.J. Bottomley"
+ <James.Bottomley@HansenPartnership.com>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche
+ <bvanassche@acm.org>,  Bean Huo <beanhuo@micron.com>, Peter Wang
+ <peter.wang@mediatek.com>, Brian Kao <powenkao@google.com>, 
+ linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Sun, 18 Oct 2026 20:24:34 +0200
+In-Reply-To: <20261015001855.3450573-3-stanleyjhu@google.com>
+References: <20261015001855.3450573-1-stanleyjhu@google.com>
+	 <20261015001855.3450573-3-stanleyjhu@google.com>
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261014071713.321914-2-xiehongyu1@kylinos.cn>
-Organization: I am not organized
 
-Hongyu Xie, le mer. 14 oct. 2026 15:17:10 +0800, a ecrit:
-> When the synth output cannot make progress, the catch-up loop in
-> _spk_do_catch_up() (and in its local copies in the serial synth
-> drivers) can spin forever: nothing tells it that the synth is dead.
-> This happens
-> 
-> - when the tty write keeps returning 0 (no room) because nothing
->   consumes the data, e.g. a serial port with no device attached that
->   keeps flow control asserted, or
-> - when an I/O error deactivates the synth: synth_out() then keeps
->   returning 0 and the loop never notices that synth->alive became 0.
-> 
-> While speakup_thread() holds spk_mutex across the whole loop, any
-> synth_add(), synth_remove() or synth_init() then blocks forever,
-> which gets reported as a hung task on module unload:
-> 
->  INFO: task modprobe:2999919 blocked for more than 120 seconds.
->   mutex_lock+0x54/0x68
->   synth_remove+0x28/0xb8 [speakup]
->  INFO: task modprobe:2999919 is blocked on a mutex likely owned
->   by task speakup:
->   schedule_timeout+...
->   _spk_do_catch_up+...
->   speakup_thread+...
-> 
-> Check synth->alive in the loops as well, so that catch_up() stops as
-> soon as the synth is dead.  synth_release() writes it under
-> speakup_info.spinlock, while the I/O error paths write it without the
-> lock; that is fine, since the loops only need to eventually observe
-> the change.
-> 
-> On its own this fixes the I/O error case, where the synth is already
-> deactivated when the loop retries.  In the no-room case nothing
-> clears synth->alive, and speakup_thread() still holds spk_mutex
-> across the loop, so nothing can get in to deactivate the synth; the
-> follow-up patch completes the fix by clearing synth->alive from
-> synth_release() and by dropping spk_mutex from the catch_up() call.
-> 
-> Fixes: 2067fd92d75b6 ("staging/speakup: Move out of staging")
-> Cc: stable@vger.kernel.org
-> Cc: Samuel Thibault <samuel.thibault@ens-lyon.org>
 
-Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
-
-Thanks!
-
-Samuel
-
-> Signed-off-by: Hongyu Xie <xiehongyu1@kylinos.cn>
-> ---
->  drivers/accessibility/speakup/speakup_acntpc.c | 4 ++++
->  drivers/accessibility/speakup/speakup_apollo.c | 4 ++++
->  drivers/accessibility/speakup/speakup_decext.c | 4 ++++
->  drivers/accessibility/speakup/speakup_decpc.c  | 4 ++++
->  drivers/accessibility/speakup/speakup_dectlk.c | 4 ++++
->  drivers/accessibility/speakup/speakup_dtlk.c   | 4 ++++
->  drivers/accessibility/speakup/speakup_keypc.c  | 4 ++++
->  drivers/accessibility/speakup/synth.c          | 4 ++++
->  8 files changed, 32 insertions(+)
-> 
-> diff --git a/drivers/accessibility/speakup/speakup_acntpc.c b/drivers/accessibility/speakup/speakup_acntpc.c
-> index a27e6bbf05da3..fe19ba3f00053 100644
-> --- a/drivers/accessibility/speakup/speakup_acntpc.c
-> +++ b/drivers/accessibility/speakup/speakup_acntpc.c
-> @@ -192,6 +192,10 @@ static void do_catch_up(struct spk_synth *synth)
->  	jiff_max = jiffies + jiffy_delta_val;
->  	while (!kthread_should_stop()) {
->  		spin_lock_irqsave(&speakup_info.spinlock, flags);
-> +		if (!synth->alive) {
-> +			spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-> +			break;
-> +		}
->  		if (speakup_info.flushing) {
->  			speakup_info.flushing = 0;
->  			spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-> diff --git a/drivers/accessibility/speakup/speakup_apollo.c b/drivers/accessibility/speakup/speakup_apollo.c
-> index d2fbb3f572219..b62696e050fc0 100644
-> --- a/drivers/accessibility/speakup/speakup_apollo.c
-> +++ b/drivers/accessibility/speakup/speakup_apollo.c
-> @@ -157,6 +157,10 @@ static void do_catch_up(struct spk_synth *synth)
->  
->  	while (!kthread_should_stop()) {
->  		spin_lock_irqsave(&speakup_info.spinlock, flags);
-> +		if (!synth->alive) {
-> +			spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-> +			break;
-> +		}
->  		jiffy_delta_val = jiffy_delta->u.n.value;
->  		full_time_val = full_time->u.n.value;
->  		delay_time_val = delay_time->u.n.value;
-> diff --git a/drivers/accessibility/speakup/speakup_decext.c b/drivers/accessibility/speakup/speakup_decext.c
-> index 271bcf279bf9b..e6be5a99670bd 100644
-> --- a/drivers/accessibility/speakup/speakup_decext.c
-> +++ b/drivers/accessibility/speakup/speakup_decext.c
-> @@ -171,6 +171,10 @@ static void do_catch_up(struct spk_synth *synth)
->  
->  	while (!kthread_should_stop()) {
->  		spin_lock_irqsave(&speakup_info.spinlock, flags);
-> +		if (!synth->alive) {
-> +			spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-> +			break;
-> +		}
->  		if (speakup_info.flushing) {
->  			speakup_info.flushing = 0;
->  			spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-> diff --git a/drivers/accessibility/speakup/speakup_decpc.c b/drivers/accessibility/speakup/speakup_decpc.c
-> index 1bf36d1e54773..cfafd94759639 100644
-> --- a/drivers/accessibility/speakup/speakup_decpc.c
-> +++ b/drivers/accessibility/speakup/speakup_decpc.c
-> @@ -391,6 +391,10 @@ static void do_catch_up(struct spk_synth *synth)
->  
->  	while (!kthread_should_stop()) {
->  		spin_lock_irqsave(&speakup_info.spinlock, flags);
-> +		if (!synth->alive) {
-> +			spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-> +			break;
-> +		}
->  		if (speakup_info.flushing) {
->  			speakup_info.flushing = 0;
->  			spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-> diff --git a/drivers/accessibility/speakup/speakup_dectlk.c b/drivers/accessibility/speakup/speakup_dectlk.c
-> index 56334405d865c..d9247c53d3275 100644
-> --- a/drivers/accessibility/speakup/speakup_dectlk.c
-> +++ b/drivers/accessibility/speakup/speakup_dectlk.c
-> @@ -246,6 +246,10 @@ static void do_catch_up(struct spk_synth *synth)
->  		spin_unlock_irqrestore(&flush_lock, flags);
->  
->  		spin_lock_irqsave(&speakup_info.spinlock, flags);
-> +		if (!synth->alive) {
-> +			spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-> +			break;
-> +		}
->  		if (speakup_info.flushing) {
->  			speakup_info.flushing = 0;
->  			spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-> diff --git a/drivers/accessibility/speakup/speakup_dtlk.c b/drivers/accessibility/speakup/speakup_dtlk.c
-> index fa826568937bf..73cd39e781b86 100644
-> --- a/drivers/accessibility/speakup/speakup_dtlk.c
-> +++ b/drivers/accessibility/speakup/speakup_dtlk.c
-> @@ -206,6 +206,10 @@ static void do_catch_up(struct spk_synth *synth)
->  	jiff_max = jiffies + jiffy_delta_val;
->  	while (!kthread_should_stop()) {
->  		spin_lock_irqsave(&speakup_info.spinlock, flags);
-> +		if (!synth->alive) {
-> +			spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-> +			break;
-> +		}
->  		if (speakup_info.flushing) {
->  			speakup_info.flushing = 0;
->  			spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-> diff --git a/drivers/accessibility/speakup/speakup_keypc.c b/drivers/accessibility/speakup/speakup_keypc.c
-> index 9356f63795603..e229009107f75 100644
-> --- a/drivers/accessibility/speakup/speakup_keypc.c
-> +++ b/drivers/accessibility/speakup/speakup_keypc.c
-> @@ -193,6 +193,10 @@ static void do_catch_up(struct spk_synth *synth)
->  	jiff_max = jiffies + jiffy_delta_val;
->  	while (!kthread_should_stop()) {
->  		spin_lock_irqsave(&speakup_info.spinlock, flags);
-> +		if (!synth->alive) {
-> +			spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-> +			break;
-> +		}
->  		if (speakup_info.flushing) {
->  			speakup_info.flushing = 0;
->  			spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-> diff --git a/drivers/accessibility/speakup/synth.c b/drivers/accessibility/speakup/synth.c
-> index 11cba1fd8715d..6a49ff475c16a 100644
-> --- a/drivers/accessibility/speakup/synth.c
-> +++ b/drivers/accessibility/speakup/synth.c
-> @@ -75,6 +75,10 @@ static void _spk_do_catch_up(struct spk_synth *synth, int unicode)
->  	jiff_max = jiffies + jiffy_delta_val;
->  	while (!kthread_should_stop()) {
->  		spin_lock_irqsave(&speakup_info.spinlock, flags);
-> +		if (!synth->alive) {
-> +			spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-> +			break;
-> +		}
->  		if (speakup_info.flushing) {
->  			speakup_info.flushing = 0;
->  			spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-> -- 
-> 2.25.1
-> 
-
--- 
-Samuel
-<D> m'enfin, le 5 juillet, le mec vient visiter le labo...
-* D a marque d'une croix rouge le 5 juillet sur son agenda
-<y> niarc niarc niarc
-<D> cet homme va souffrir
-<B> c'est donc le 5 juillet qu'il meurt d'un accident de la route écrasé par un truck muni d'un pare buffle
- -+- #ens-mim - repaire de terroristes -+-
+Reviewed-by: Bean Huo <beanhuo@micron.com>
