@@ -1,139 +1,109 @@
-Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218563F1044
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 16:36:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37583DCDA3;
+	Sun, 18 Oct 2026 16:40:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792341394; cv=none; b=XjgEyAXuuL0BGqYNtylv4QkzfEDLfVnTGuyHUeXN0IxxyUFMnLzGeTJr6t/i/ybJtUE0LN/eascbIyiTbp5Z9Lv3IY1Q3cm+KI+ilp6P0uPhpiM2qEOz1Hm2HU6iHkZCGX9xbZVWeRux82Y9i4aO9v72EobH4bT9V5mLa55iXhc=
+	t=1792341623; cv=none; b=uHWX+V29Gk8gEb23isYsG7DI+WVy3Mj+TzOCGDDdh95jjMrlbsvL4XoTjq/AfV70znZ5bAbrnejq0e9g0giHkPyFBdSRhiFjQhB5ze7n2Zc8HAERydQOiuVzj2COvcfkkKX4DxnQ8uPPOg7BRR16rK3qooyAUdy8UEV22fsACAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792341394; c=relaxed/simple;
-	bh=1206x6K8a9ICANECB2z1av+VARsTQzPmVYCJuXW4jkQ=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:Subject:Content-Type; b=k/bAHiGfgiLWQ8cgdBsH+5cG9iVLv1m325cxAHU9b2vkbF8HYt8FlHwcpz7zqh62X4BEPgryFVInqG50XSH/fqGuO0OZ+fKR34THSMWrV6VWfLEdUVaUuAbI9LNwBbruhJ2KQ1MBP4cW+2L3AmnKLwinJ7OyzFO/92XYBarSNjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=willbush.dev; spf=pass smtp.mailfrom=willbush.dev; dkim=pass (2048-bit key) header.d=willbush.dev header.i=@willbush.dev header.b=lYKzUJi3; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=HbyAxFIo; arc=none smtp.client-ip=103.168.172.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=willbush.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=willbush.dev
+	s=arc-20240116; t=1792341623; c=relaxed/simple;
+	bh=FWWx4ZDDiefNjXUI40xB48tjNw6eYDDMGUG7UkGpCvQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iEbHYHyxpfFyGDXBp6R7fvQ8I8ggZgQASKO1GoKEY9Z+GWidcSjX+hUjId4m4JcOgy3JfxvILZ3AKwbitmJwkGDkbNwfrtoB1U9OQfMvuqGhDDhfZFPly+G3WfED6YEPYYDiMtSn5ugXLyHZQmZEqCK26vzEmwp7ycBUL/Lb1c4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Vd68iNZi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=willbush.dev header.i=@willbush.dev header.b="lYKzUJi3";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="HbyAxFIo"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id CF4FE1400107
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 12:36:24 -0400 (EDT)
-Received: from phl-imap-02 ([10.202.2.81])
-  by phl-compute-01.internal (MEProxy); Sun, 18 Oct 2026 12:36:24 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=willbush.dev; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm3; t=1792341384; x=1792427784; bh=3t
-	GoBjVzGZKF3e9XOxGK5DBNmYAUi7baXlpnnVm/Z3E=; b=lYKzUJi3M3GXQPl6Eu
-	OxmLhF00+esvTt2lxajrUvAONrZ1UHMSK/lkQOu4CVi5p8m2vXOEwHrulmhsSR9e
-	UMNw3ZOQZD45T6HObUTTAAgXrYdssOB5VyDZyAi50EmTFF/SgRf+cHa+Rl0UEUJ8
-	xYfTq9sqSH8QwfkVKMsPqB3PmtP5GBCSxK6+b4HdMQxBMCww6DzSsJnwg5J4/xNm
-	eXAdgfk9mhx/IKsCc7uCBYvGGaJPqg4fUpbLHG0K5tXrlbWKEHkKHrSP4O0XQMtA
-	Ne9pCy7F1QEoJKoHZHpmAAJ54vur+E9UfxCaO3ZMWS9kdaEXjBsIauIeg34HIUn3
-	uzvw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1792341384; x=1792427784; bh=3tGoBjVzGZKF3e9XOxGK5DBNmYAU
-	i7baXlpnnVm/Z3E=; b=HbyAxFIo459zrV+gweoJ3VnrGHcnvr7yGM3xCCjd9kfU
-	wct+tX7EYnLzqe10R5S5DjbY7ul51xd8Zrs9wSHkayadXL4EmZqOJQ0jCe5rXTQG
-	U8LknvSfKEZ8Zhrg2WErEDQixgWhGN3sA1ZeEcE2ca0MNCosjyAM/kYMO+okrbpg
-	FTEuJbk2LcrJ4NyTu48dEsvOSQ7nzzW2zSX5yCgVIH7dzSnWPEFF2FdI6hDM3Akl
-	6dJ3t+8+eDNKvlH32mK32d3RnR34eIkB3agPDEk9Xri9jw4w1+xP0UPogQnfRWB1
-	MQniU2gLxt0EhY/QH+ecAnK89SoUl0PmsD737lzhag==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=willbush.dev a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792341384; d=willbush.dev;
-	mf=PHdpbGxAd2lsbGJ1c2guZGV2Pg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:OYQKwOmd/DOSpm89SJaC2WjEHwQR33cUFHGx/9rToTRSGF0
-	pvsAN5qzV9rsF0J7yQPH4AZcvVoa4R0CYmiVhFKPoaMzUZUN5COLttmpCWvlfrsn
-	pXU+Iz23zq8eDqXFjQiI9XpYE6K+hhHhO1V1qdlI6B1nzkyPRIFKw6tLOROhR4zL
-	C5QpDfOhlonMnMLIVyGkOTfRoKR6NymsqySHK1mwy99uoUbvB/ds4yC//ar5HIwH
-	EGB9QXl564C7xQ2//5/3zMkRpRy6gXOT+/8m1IinQrwrgLIqYwwwWVSaorC5lzNA
-	ivUU4bK38cSGttAVAx6Zvt6zx16QXLS1sv05hsA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=10;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:VyqkAny2DlF94PbEW/U6krYIS9vjRI0OHL+QyT+KFWo=:1206x6K8a9ICANECB2z1av+VARsTQzPmVYCJuXW4jkQ=;
-X-ME-Sender: <xms:iPXUarlCO74UqomhNfK6oJCRMOe_QxmEPyZqaR5Og5Gjck6rqckurw>
-    <xme:iPXUappySAnDJnF208TqYQrD85S4B0w7I9kmkoW7jqzFJWvKc5IhTlSeNT4iy581K
-    8rELZ8Or-qh-1mWFDlpvm9YqqDYcJbPwNTMU5za1Z_23Awx9219PAA>
-X-ME-Proxy-Cause: dmFkZTF60ouSx4v/CB2rZwLkCojmMW49pkgKmDBNRc390uF4YMSwxJ+jNb6I9CBnm7ox1F
-    Z4jKHIAHpdZigf6UdYARBoyG41hXtIuZ+OgLdv7Rp15fxeo2CXIpBFk15nuvl7vX0b0Zf2
-    m5Kb92mDMdj7Vn6dZUHKRagG+inK6bPlrSwibh3IKh8fS1YVfTk2neEkSSAdPU0EW5z6ix
-    kGpfNcz4+4fmzaQ1UP3jCqI3P6HFVDoafmt/07TPsGz3XI73yMrm2SkAivSafxxyl4D0PD
-    up67XGqJIp5de7BHkcloFhcPsUgX7ZRVelaGxZYMlPSQ4xuu1ynuDzBVEmzC3QlbblKqN7
-    mbs/fjX2to2SorxzQMPraQXjoOkyCPz9YqGymZIZ1AP66g8Uo81NfmZn5MWIGlCUZ66bdm
-    9r/+nZUll/KEpBwonSVZ9OWjarzXBQmPe/Lw3ss3El+8CkRYgcyzY4/UmCuy8PCrr0lbxE
-    Lgk8KDLDJvtwSryJY22wgVhfLxFH6lsB4Zy+KTVSfxtkHCTLspdcRuP2h+/oCQ3hawv1UK
-    w5WP4UYShO7X08ERXmMaEYyiTdeQS/PzLn9zZHsahejk/ebpy864nLb82tDYcUrMdAFJIb
-    EODpBl5TIbj6Igbk0HFMQOrY5CmQteO5/rxsDdaQ38EmA8WCJ8HqUIkuYgPA
-X-ME-Proxy: <xmx:iPXUasLr_N5428jlTcBt1LtrKFCVWRrgSiq3IzCc8HDU4HWVDhtLPg>
-    <xmx:iPXUarOowU7nZ8_3sSzfpaPFF8wNIsC2qgJMHAZcW1wuDVkviXjFjQ>
-    <xmx:iPXUai5klthezB1OJ04pNHeDv-VpubRNl09UscnMWONUrsizA17oPQ>
-    <xmx:iPXUal4ZWwmfoNwu53kKvw8KH7ARQKw5CO95jPfioHIZBTq98Y8svw>
-    <xmx:iPXUahKPugSNnyuTaKqpJw_lk8nvb1bORzk65pxFZJKVir8PsS3oatwV>
-Feedback-ID: i0f194965:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 10C71700065; Sun, 18 Oct 2026 12:36:24 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Vd68iNZi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CE551F000C4;
+	Sun, 18 Oct 2026 16:40:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792341620;
+	bh=oqQrhlRf8+x6VkzRmu9l8lO/YsPfcMgj53KVL4Drs3g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Vd68iNZij3CfVWSXBbbAj08PC725nSk5NIW90FA3PFGtaSQz28KaxR5DCWMfSSMdc
+	 YJLxJV7BUepHrPYeGxt6m1Rkj+cMaYat9upaFWCiqv+gVQwsPHvFjp0jcfogyf+0fd
+	 +Z1diFWo7Q5IufixqWZoNc/RD39EHB839rIxLPSk=
+Date: Sun, 18 Oct 2026 18:38:39 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Eklavya Singh <eklavyasingh2106@gmail.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	syzbot+1459655b2bf1e798f9d0@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] usb: gadgetfs: fix use-after-free after a failed bind
+Message-ID: <2026101825-glacial-slapstick-a133@gregkh>
+References: <20261018163434.129569-1-eklavyasingh2106@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Sun, 18 Oct 2026 11:34:27 -0500
-From: "Will Bush" <will@willbush.dev>
-To: "Takashi Iwai" <tiwai@suse.com>
-Cc: "Jaroslav Kysela" <perex@perex.cz>, linux-sound@vger.kernel.org,
- regressions@lists.linux.dev, stable@vger.kernel.org,
- "Jan Lentfer" <jan.lentfer@web.de>,
- =?UTF-8?Q?Sebastian_Dalfu=C3=9F?= <sd@sedf.de>
-Message-Id: <45162613-2802-401c-84c9-742f9c8c68e6@app.fastmail.com>
-Subject: [REGRESSION] usb-audio: Behringer UMC204HD broken in 7.2.10
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261018163434.129569-1-eklavyasingh2106@gmail.com>
 
-Hi Takashi,
+On Sun, Oct 18, 2026 at 04:34:34PM +0000, Eklavya Singh wrote:
+> gadgetfs_bind() takes its reference on dev_data only right before it
+> returns success, but its error path calls gadgetfs_unbind(), which
+> always calls put_dev(). So when bind fails it drops a reference it
+> never took.
+> 
+> With ep0 open the count is 2, one for the superblock and one for the
+> open file. A failed bind takes it to 1, closing ep0 frees dev_data,
+> and the superblock still points at it. The next open of ep0 then takes
+> dev->lock on freed memory:
+> 
+>   BUG: KASAN: slab-use-after-free in _raw_spin_lock_irq+0x3d/0x50
+>    gadget_dev_open+0x4b/0x1b0 drivers/usb/gadget/legacy/inode.c:1919
+> 
+> syzbot gets there by making an allocation in bind fail, which is the
+> "failed to start USB Gadget filesystem: -12" message right before the
+> report.
+> 
+> Take the reference before anything in bind can fail, so that
+> gadgetfs_unbind() always has one to drop.
+> 
+> I tested this on dummy_hcd by writing a config to ep0 with fail-nth
+> set and then closing and reopening ep0, for every fail-nth value the
+> write goes through. Without the patch KASAN reports the use-after-free
+> right after the first failed bind. With it, 122 failed binds give no
+> reports and the last bind works.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Reported-by: syzbot+1459655b2bf1e798f9d0@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=1459655b2bf1e798f9d0
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
+> ---
+>  drivers/usb/gadget/legacy/inode.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
+> index 67c6ffaf4..f5b97dcd4 100644
+> --- a/drivers/usb/gadget/legacy/inode.c
+> +++ b/drivers/usb/gadget/legacy/inode.c
+> @@ -1688,6 +1688,7 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
+>  		return -ENODEV;
+>  	}
+>  
+> +	get_dev(dev);
+>  	set_gadget_data (gadget, dev);
+>  	dev->gadget = gadget;
+>  	gadget->ep0->driver_data = dev;
+> @@ -1706,7 +1707,6 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
+>  	spin_lock_irq(&dev->lock);
+>  	dev->state = STATE_DEV_UNCONNECTED;
+>  	spin_unlock_irq(&dev->lock);
+> -	get_dev (dev);
+>  	return 0;
+>  
+>  enomem:
+> -- 
+> 2.55.0
+> 
 
-Thanks for all your work on usb-audio. I was updating my system (NixOS), which
-took me from 7.2.9 to 7.2.10, and my Behringer UMC204HD device stopped working.
+Isn't this already fixed in the usb-next tree?
 
-It gets into a loop:
+thanks,
 
-  [  225.148019] blazar kernel: usb 3-4: new high-speed USB device number 19 using xhci_hcd
-  [  225.340016] blazar kernel: usb 3-4: New USB device found, idVendor=1397, idProduct=0508, bcdDevice= 1.35
-  [  225.366005] blazar kernel: usb 3-4: New USB device strings: Mfr=1, Product=2, SerialNumber=0
-  [  225.366187] blazar kernel: usb 3-4: Product: UMC204HD 192k
-  [  225.366304] blazar kernel: usb 3-4: Manufacturer: BEHRINGER
-  [  230.493021] blazar kernel: usb 3-4: failed to read device descriptor: -110
-  [  230.493313] blazar kernel: snd-usb-audio 3-4:1.0: probe with driver snd-usb-audio failed with error -110
-  [  235.612029] blazar kernel: usb 3-4: failed to read device descriptor: -110
-  [  235.612302] blazar kernel: snd-usb-audio 3-4:1.3: probe with driver snd-usb-audio failed with error -110
-  [  240.732035] blazar kernel: usb 3-4: failed to read device descriptor: -110
-  [  240.732461] blazar kernel: snd-usb-audio 3-4:1.4: probe with driver snd-usb-audio failed with error -110
-  [  240.732538] blazar kernel: usb 3-4: USB disconnect, device number 19
-  [  241.019061] blazar kernel: usb 3-4: new high-speed USB device number 20 using xhci_hcd
-
-Issue seems to be from commit: b5c4823cf3e4 ("ALSA: usb-audio: Apply boot quirk for Behringer models generically")
-
-I was able to patch 7.2.10 to get it working again:
-
--	if (USB_ID_VENDOR(id) == 0x1397)
-+	if (id == USB_ID(0x1397, 0x1234))
-
-Not sure if applying the quirk to every Behringer device is too broad or what
-the fix should be. Ping me if you want me to test a patch.
-
-#regzbot introduced: b5c4823cf3e4
-
-Thanks,
-Will Bush
+greg k-h
