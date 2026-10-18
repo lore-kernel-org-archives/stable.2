@@ -1,80 +1,79 @@
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14DE52BEC5F
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 02:33:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B06A342523
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 02:34:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792290838; cv=none; b=ApMOjn4Ts7Bn/vz3yIELmRlsfAWWiM/fCe9HG4q/vLGwGA4HAtv+0JIMNBl9JVLDkYbK4aupQHFwgQljmE1M9RFezyE3O1+WDRBGZh8Cik2vlu+KnNFJyS8zxX8wOiJ0vhFhy0nQyrxJPFh4JjSTHhbiAA7xpqb1Vj0y2EdW/qQ=
+	t=1792290883; cv=none; b=dTQPqch4nPZBr318I0VYvPB84cSoJBaxRG4SdlxFvo52Wm51aPzuW4qfYbrGddI1egXNp3WHfmUUYn6m/i3lIZAOPNMm62f1SSkByhuZ/rnryVth/quxipvXrOmP5Fusvpu4c+UwqMFV8QLcYxk0wiRiG1WJT51NMKL6JjEx3oM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792290838; c=relaxed/simple;
-	bh=ZfxlxtmL3f3PRGLmnA/UFU+0uUoCd85J9y/mFCt9dxM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tF+7hhdS11u+UHk6B7R7dW29Fp9qzl4gue11ht6r/nHlGI7HrsCF//zqkdWsvW7R08RLcR1mqWs/AZzde7VcHYvaKzC5BfHfAE46s2GXDl6uIKfjCpDCyKDOeeitNvUqsacv4nIb9jalw3hBGpYn4W89u2T1P/pZdEVX6eOdUJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=CMtqfJvy; arc=none smtp.client-ip=209.85.219.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1792290883; c=relaxed/simple;
+	bh=amXIGpnA1xRsk4c4805nJ28it3Nl1OxrGpO61NTy6tI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uz7rZlRTFotCXfM4R9PpBWPdPKWwVCD05TbYbUh8iuR+nPBktvbomEMpX53QL+eIi7A5tv60T6TnmudI3JTtvRP1HawC8Yh4VngU5p8AQefdMO5xO61pD5BVeqQq/Vrvu7/XcPhymNUPTSP9U8VuJ05OzoQ9lXQg4pfTr68Wxdk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D6vGZ1P1; arc=none smtp.client-ip=209.85.160.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="CMtqfJvy"
-Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-918f75a68f0so16910896d6.1
-        for <stable@vger.kernel.org>; Sat, 17 Oct 2026 19:33:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D6vGZ1P1"
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-533972e0cccso13532281cf.0
+        for <stable@vger.kernel.org>; Sat, 17 Oct 2026 19:34:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792290836; x=1792895636; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792290881; x=1792895681; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HeSnSeSZP+b+6MzP6ewtTRyYSL3RxjlUFlHftt5R+jo=;
-        b=CMtqfJvy46Fu1j6MExudMxmUp2GT2OE0bSguoLYv0MphSj/eGgo4ZYP0maOHYiCUkS
-         AZVbUzj3tcQV750AeRXlEW0QcZrJ338gskkoSkSGRyy0gMjUjpIQS4VWHNtubpooxxNF
-         YZiUT0ArxEvSiF829KEyXk68lukAz074kX/pk0Rsbfd4QsCmTTmD9ePZj7XU4nxaGd6M
-         E23oEB2HiI6SEgO9LMGHRRGgMBCwkZXfvQESz3s/lopaT20RG1EHev2MIpz5OJ6hpY3O
-         M0Bbnp30gTq8OP7d+m/viHwNICNIJk5t77IJLCueY08jgYiB889sfDEtodLMGBXJNg78
-         hHjQ==
+        bh=enBfETJLRoNIRyzwwRZuG5sQrbPTYtIwGM7+j3cSJxc=;
+        b=D6vGZ1P1E/lBZxnk8F6R3O2hkuffTcsmtTpHrWcz8l7buzhnMOrQn4VkROeohz5rHQ
+         kBe3aiUWN1a6eTcX8mYIkfQu9Uhsnv/HOmWSDrVkwGVy7mYD6ieUxCD/rToTf6qxKkEg
+         RzaVrtJ5m0i09ZSAwRiutGf9G3Un+X4ZidrSByScZIqnC5u7Kt0QydAz8jvBOe2W8nsr
+         osezExuVqqVIfgc7g5cvteXmt+46rdO3hXYJJoi8YW4O5MCsgMS0epqB+c29IlNJ60uU
+         C4/xmWsAxTlF0a0pilgkKYRQOmo0K9aSq+0nd/6pozC2Q9y3zOHzZLMk0ZPwLX8lSUG6
+         cGqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792290836; x=1792895636;
+        d=1e100.net; s=20260707; t=1792290881; x=1792895681;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HeSnSeSZP+b+6MzP6ewtTRyYSL3RxjlUFlHftt5R+jo=;
-        b=x/wmCOkOBjyjgVA/iXXJRMSTOVn0JWqm7tUjZSgUeg1FJ3jhZn7dP7PiJTEmHtswz1
-         nf+6xE/XW69wYJroX4C163jqYhgmgq0uRQY7REPadfanIPTjs2trCPSbCHLAG7SuMGvV
-         uEHBg3Q7r7nr2Px07cZSBSG/UGe3jTF16Xe8/hpE5r1hIhoJo5kJizmvvW5ofpnTnFFe
-         9PD/3bSDdXxPn0zz9CxsjekAgskXi1tQlpziLczwJtdYxgYjbuAjT+2uRi/yil+EB99Z
-         fXrmvJhPO4sVdZQlKWFVyhdEkNcCk/47Y2652+uJHrWti7g2Q7fS8Ds9l7e0P5KBTldI
-         wlTg==
-X-Forwarded-Encrypted: i=1; AKwUvBx0AjSFKGveZQV82cxSzfREVGkQ17KiWkWz8ZLT63unwiFAUIXNsBRHfnsgUXhx0Iw2GLwPSKg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK8bhMztqvI5xwehDIpAGKQdj7klImD8mT3MLAuizVR9aOOkCmD
-	JT2yjmIL+ad8OHzUnP/ofYZmiY63mVXJzv7+jbYxK7dIL886rQtI+F9CyuSJoMfsz9g=
-X-Gm-Gg: AYBFou0LenGmKhuUAqo1VwNC4fIyZHDMaur3733Fofk4edSeD62G2KCB7U0YoZRUL8a
-	Skri4A0DQh8LOv+BRXYt7HFRTjGOwBcUExp42ImRNUznNTJpyta9j7cFqKkBMBU80hbUM/2CpQa
-	xRysL7sDpWtKpylIW9UPHhB9KokZq2MLZGsP7eeCftojdNkxLeCKlDlD6DxQ7x+75WQxY6fBJAb
-	Q5XnRBcHKnHwXgF6fZpiP/PNqduIRvK6pkJhwcfCI7QXo/hWK4UoCkZPYOqDHttP3L9deKUD6Fs
-	mZ8gPzjS5qcqMbjTS0Rqtrr05FXWUS1NXxrAMvOdzHpeWDd9tLwyg/vXraSQvbbX9Oiurndt0bD
-	+1BqcUhHg7Pd7OXiWx2JuuIqfrcnc/DgZ66mLaUM+H3NfWwtZ3GHW9ErAFSj5aRNaaHk+e/I1aF
-	JyRa8YvVKZAYIC2tpoUl+IJlIqxllNJycwm2YMuJh4tWoI7kBvAbpYr2nosq7xWmH+zhiU93T8f
-	A50aUsNNPOeNwaw2f3DFd24QsTleClJ+BAoCAuhTZ7zjeIIQfUD1ImJlbGg
-X-Received: by 2002:a05:6214:2a4d:b0:91b:5d39:e13f with SMTP id 6a1803df08f44-91bdf517971mr74943116d6.52.1792290835889;
-        Sat, 17 Oct 2026 19:33:55 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcba473easm61705926d6.17.2026.10.17.19.33.54
+        bh=enBfETJLRoNIRyzwwRZuG5sQrbPTYtIwGM7+j3cSJxc=;
+        b=JyDWpSvKAFoeDTSHD/MYNbzrJZfwBTJrH+Fgx/3y1ZBz/sbEro2my2aJ3RkYXf4EVB
+         jU+vdTJkl5P4UIbUwf8KscDctrJIl4Zsppb0sKfKnm40Q5Sq+via8PBII54p08krDEbW
+         0JuR/Ex6fWIseD++9wB2fl85QfhPC3nFSMvcpxoPyBis+utqECCcZYkIz5ktUJfae7XZ
+         z5Aw1pPOTIq+U8OUTi1ot3eINQCSf18OMv53k74Lz6Lznt3lsttHiandbcnRF9hWo41H
+         9NnjSwtfifWUMSEUXAjbyX1AkjhbnXR7cdLiZwtBzwfOEVp+19wFlCfYbX5s8Vqp0pFI
+         Vsag==
+X-Forwarded-Encrypted: i=1; AKwUvBzpn6V0cj+p3iN/he8vtOr0TwwkGPy8YwgfV8lRyGvefM3N8dpYxGfaBL5pJi1J9OvXB2itJ3o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI6pMTKPGvzI+klddRqlHauEZTCng3B1pCKu0yOwtLrq4NmYnJU
+	kRYLdQqLgm7HNpU71LuftV0edCy72Gz1cP1Ke/zBB+JwxEMg39a0LHs=
+X-Gm-Gg: AYBFou0HYJlIJh+dUAUg0dOBtAnW20aPe/qgNvEQNqacqSmrgB2+3nWqGyyzHHZpZ46
+	L0yDQooql1WdWLjCDc/FWel5zcg2qOG/LgBLM6x5Djx/stzFYEhKe7T6YxSu8/msx542dV5ogyS
+	ZmAj9Ojmho8ekLBFmx3nSLUydnQbf7wbMKWD8QYjXE4oS+iCQegUPWnFIg/A8R3mjkhW2fR0QF+
+	rTDtZ4RuPShba4183KX+V6Fs2AcbtrlQy1kIWn/ndQvyRdyRDK2UPXU8K6xi+XDPh9thcOZBKuG
+	MYIH87qPGUKUCn5htnuAGtmVyzA4CS09zThuxlEwsmuRlINJf10yNeD5iYykkRLny+62i2vDDeE
+	jAzpQzdM2Jg1nagE60BsqX0WSYAoL/PXevCnOiggu5GmpA6D5JrSrKU6O1el0grOvAYJBBUCIuY
+	dGBNmRwkaoK6XLEL3/2n6ySMSo9LwnBahT457NpIreJ8+3Ou5F04W7GcGYxz9MVUwzMfYwaueB0
+	pnQyFWWQzM5szWB8M/E8cCuudYMy6wenksk1J3BXRnvFb+9v8WKDmGSTDOCtRyAmIyGc9DLrgb6
+	EvogHCaF/adYoDaFLhS2KynIVV9L
+X-Received: by 2002:ac8:5745:0:b0:532:abc9:8f4f with SMTP id d75a77b69052e-53645ff0043mr60804511cf.37.1792290881142;
+        Sat, 17 Oct 2026 19:34:41 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcb8c4adasm61046666d6.1.2026.10.17.19.34.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 19:33:55 -0700 (PDT)
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	gourry@gourry.net,
-	ziy@nvidia.com,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	pasha.tatashin@soleen.com,
-	mhocko@suse.com,
-	stable@vger.kernel.org
-Subject: [PATCH] mm/mempolicy: apply bind policies against the scoped allocation zone
-Date: Sat, 17 Oct 2026 22:33:49 -0400
-Message-ID: <20261018023349.1697434-1-gourry@gourry.net>
-X-Mailer: git-send-email 2.56.0
+        Sat, 17 Oct 2026 19:34:40 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Benson Leung <bleung@chromium.org>,
+	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
+	Jameson Thies <jthies@google.com>,
+	Andrei Kuchynski <akuchynski@chromium.org>,
+	Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: Guenter Roeck <groeck@chromium.org>,
+	chrome-platform@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	mhun512@gmail.com,
+	stable@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH v3] platform/chrome: cros_ec_typec: Stop altmode work during partner removal
+Date: Sat, 17 Oct 2026 22:34:38 -0400
+Message-ID: <20261018023438.3902617-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,74 +82,150 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-QEMU fails to start a guest with a VFIO device when guest RAM comes
-from a memory backend bound to a movable-only node:
+DisplayPort and Thunderbolt port altmodes queue work to deliver VDM
+responses to partner drivers. Partner altmode unregistration does not
+drain this work, so it can run while the partner driver is being removed
+and access released driver data.
 
-  vfio_container_dma_map(0x55b1b1317800, 0x0, 0x10000000,
-                         0x7f39a2200000)
-    = -12 (Cannot allocate memory)
+Look up the corresponding port altmode with typec_altmode_get_partner()
+and disable its work before unregistering the partner altmode. Keep the
+work disabled while the partner driver is removed, then clear pending
+response and DP status state before re-enabling it for a new connection.
+Use the same cleanup when list-node allocation fails after registering
+an altmode.
 
-VFIO pins guest RAM when the device is realized, and the pin faults
-the pages in. io_uring fixed buffers fail the same way. Faulting the
-range in before pinning lets the same pin succeed, since resident
-pages are migrated off the node instead.
+This issue was identified as part of our ongoing research while
+reviewing kernel code.
 
-A long-term pin faults under memalloc_pin_save(). PF_MEMALLOC_PIN makes
-current_gfp_context() clear __GFP_MOVABLE, but policy_nodemask() tests
-apply_policy_zone() against the caller's gfp.
-
-The bind keeps its movable-only nodemask, and the allocation finds no
-usable zone:
-
-  page allocation failure:
-      order:0,
-      mode:0x140dc2(GFP_HIGHUSER|__GFP_ZERO|__GFP_COMP),
-      nodemask=1,cpuset=/,mems_allowed=0-1
-
-  Call Trace:
-   warn_alloc+0x136/0x150
-   __alloc_frozen_pages_noprof+0xed8/0x1720
-   alloc_pages_mpol+0xaa/0x170
-   vma_alloc_folio_noprof+0x65/0xd0
-   __handle_mm_fault+0x137b/0x1ac0
-   handle_mm_fault+0xa0/0x270
-   __get_user_pages+0x250/0xfd0
-   __gup_longterm_locked+0x116/0x870
-   gup_fast_fallback+0xcfc/0xdf0
-   pin_user_pages_fast+0x47/0x60
-   io_pin_pages+0x9a/0x110
-
-Base page faults fail with -ENOMEM.
-hugetlb faults fail with -EFAULT.
-
-Check the policy zone against current_gfp_context(gfp), so a pin-scoped
-fault falls back off the movable-only nodemask, like any other
-non-movable allocation under the same bind.
-
-Tested in qemu with a dax/kmem movable-only node 1. io_uring and VFIO
-pins of unfaulted base pages and 2MB hugetlb pages now succeed and land
-on node 0 (correct). QEMU now starts with the same backend binding.
-
-Fixes: 8e3560d963d2 ("mm: honor PF_MEMALLOC_PIN for all movable pages")
+Fixes: dbb3fc0ffa95 ("platform/chrome: cros_ec_typec: Displayport support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- mm/mempolicy.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v3:
+- Use typec_altmode_get_partner() while walking the existing altmode list
+  instead of separately iterating over all port altmodes.
+- Replace the port-wide helper with cros_typec_enable_altmode() and drop
+  the redundant cancellation during port altmode unregistration.
+- Drop the allocation-order change. Reuse a single-altmode cleanup helper
+  for list-node allocation failures instead.
 
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 70298fded1b4a..0884c629670dd 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -2302,7 +2302,7 @@ static nodemask_t *policy_nodemask(gfp_t gfp, struct mempolicy *pol,
- 		break;
- 	case MPOL_BIND:
- 		/* Restrict to nodemask (but not on lower zones) */
--		if (apply_policy_zone(pol, gfp_zone(gfp)) &&
-+		if (apply_policy_zone(pol, gfp_zone(current_gfp_context(gfp))) &&
- 		    cpuset_nodemask_valid_mems_allowed(&pol->nodes))
- 			nodemask = &pol->nodes;
- 		if (pol->home_node != NUMA_NO_NODE)
+Previous version:
+https://lore.kernel.org/all/20261002200108.399258-1-mhun512@gmail.com/
+
+Validation: GCC 15 x86_64 W=1 composite-object builds passed with DP/TBT
+both enabled, DP only, TBT only, and both disabled. Patch application and
+checkpatch checks also passed.
+No hardware or runtime testing.
+
+ drivers/platform/chrome/cros_ec_typec.c      |   20 +++++++++++++++++--
+ drivers/platform/chrome/cros_typec_altmode.c |   28 ++++++++++++++++++++++++++
+ drivers/platform/chrome/cros_typec_altmode.h |    7 +++++++
+ 3 files changed, 53 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/platform/chrome/cros_ec_typec.c b/drivers/platform/chrome/cros_ec_typec.c
+index 50a68819ceb7bbfbd888ca919d678d4c75237c26..09a5c58e1edbb1599e3903c15cab2766a849a891 100644
+--- a/drivers/platform/chrome/cros_ec_typec.c
++++ b/drivers/platform/chrome/cros_ec_typec.c
+@@ -274,6 +274,22 @@ static int cros_typec_add_partner(struct cros_typec_data *typec, int port_num,
+ 	return ret;
+ }
+ 
++static void cros_typec_unregister_altmode(struct typec_altmode *amode, bool is_partner)
++{
++	const struct typec_altmode *port_altmode =
++		is_partner ? typec_altmode_get_partner(amode) : NULL;
++
++	/* Partner drivers can queue port work until their removal completes. */
++	if (port_altmode)
++		cros_typec_enable_altmode(port_altmode, false);
++
++	typec_unregister_altmode(amode);
++
++	/* Port altmodes are reused when a partner reconnects. */
++	if (port_altmode)
++		cros_typec_enable_altmode(port_altmode, true);
++}
++
+ static void cros_typec_unregister_altmodes(struct cros_typec_data *typec, int port_num,
+ 					   bool is_partner)
+ {
+@@ -284,7 +300,7 @@ static void cros_typec_unregister_altmodes(struct cros_typec_data *typec, int po
+ 	head = is_partner ? &port->partner_mode_list : &port->plug_mode_list;
+ 	list_for_each_entry_safe(node, tmp, head, list) {
+ 		list_del(&node->list);
+-		typec_unregister_altmode(node->amode);
++		cros_typec_unregister_altmode(node->amode, is_partner);
+ 		devm_kfree(typec->dev, node);
+ 	}
+ }
+@@ -915,7 +931,7 @@ static int cros_typec_register_altmodes(struct cros_typec_data *typec, int port_
+ 			node = devm_kzalloc(typec->dev, sizeof(*node), GFP_KERNEL);
+ 			if (!node) {
+ 				ret = -ENOMEM;
+-				typec_unregister_altmode(amode);
++				cros_typec_unregister_altmode(amode, is_partner);
+ 				goto err_cleanup;
+ 			}
+ 
+diff --git a/drivers/platform/chrome/cros_typec_altmode.c b/drivers/platform/chrome/cros_typec_altmode.c
+index 66c546bf89b532d3bae1de322a1cfb1205e0190f..c06ad9238ad740d21d38015b7ece831660a475da 100644
+--- a/drivers/platform/chrome/cros_typec_altmode.c
++++ b/drivers/platform/chrome/cros_typec_altmode.c
+@@ -37,6 +37,34 @@ struct cros_typec_dp_data {
+ 	bool pending_status_update;
+ };
+ 
++void cros_typec_enable_altmode(const struct typec_altmode *alt, bool enable)
++{
++	struct cros_typec_altmode_data *adata = dev_get_drvdata(&alt->dev);
++	struct cros_typec_dp_data *dp_data;
++
++	/* An altmode without its optional implementation has no work. */
++	if (!adata)
++		return;
++
++	if (!enable) {
++		disable_work_sync(&adata->work);
++		return;
++	}
++
++	mutex_lock(&adata->lock);
++	adata->header = 0;
++	adata->vdo_data = NULL;
++	adata->vdo_size = 0;
++	if (adata->sid == USB_TYPEC_DP_SID) {
++		dp_data = container_of(adata, struct cros_typec_dp_data, adata);
++		dp_data->configured = false;
++		dp_data->pending_status_update = false;
++	}
++	mutex_unlock(&adata->lock);
++
++	enable_work(&adata->work);
++}
++
+ static void cros_typec_altmode_work(struct work_struct *work)
+ {
+ 	struct cros_typec_altmode_data *data =
+diff --git a/drivers/platform/chrome/cros_typec_altmode.h b/drivers/platform/chrome/cros_typec_altmode.h
+index 3f2aa95d065af709643ad653df487a9987780da4..7f47eae66b0c23d14f158296075d1092df704676 100644
+--- a/drivers/platform/chrome/cros_typec_altmode.h
++++ b/drivers/platform/chrome/cros_typec_altmode.h
+@@ -11,6 +11,13 @@ struct typec_altmode;
+ struct typec_altmode_desc;
+ struct typec_displayport_data;
+ 
++#if IS_ENABLED(CONFIG_CROS_EC_TYPEC_ALTMODES)
++void cros_typec_enable_altmode(const struct typec_altmode *alt, bool enable);
++#else
++static inline void cros_typec_enable_altmode(const struct typec_altmode *alt,
++					    bool enable) {}
++#endif
++
+ #if IS_ENABLED(CONFIG_TYPEC_DP_ALTMODE)
+ struct typec_altmode *
+ cros_typec_register_displayport(struct cros_typec_port *port,
 -- 
-2.53.0-Meta
-
+2.53.0
