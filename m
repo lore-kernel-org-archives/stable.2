@@ -1,175 +1,230 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C4194DDB58
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 22:17:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 688512D738F;
+	Sun, 18 Oct 2026 22:31:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792361835; cv=none; b=pif3rellRZiKmBEVYTbrHMkl63el33gbZdENUu9vwtmB8aUicZJWpAKk1fDVbKJJDHj91KAyLCPdRr/mpNu4Squ1pe0DUUDpCnCH46ka0W8s1a3rjJSej7V8MnENaS3c5nw8I+G+aJcdVf+3ZK2KwUHW2UKHXhJvlUNdE5GZ884=
+	t=1792362668; cv=none; b=b2irppqt2ZWrEXji8i397LuMTj5LqU9s+ZhOD0DAgIu9PdsyneDTBncHFpf+YcMWvYDyi2D7opUXANyXBniDUzYBebWIGyyR36Vpz9CitkABepSmgnKS4XlNcY5KnBT1mvMBnjzxgcVYHnJ6Hp8fouLNM2hMJEyVrEhbLxwCayY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792361835; c=relaxed/simple;
-	bh=VKNbwgcEhxTZb7+Gkey0ITWYcvK/kIrzZaY1olhv+WU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ofdWiIb8irm0WsBLEEY3KN8SrnwhIQvFrSOQj8+fEt49RX18zupfV5cUfh+k7cxXxkFUpzmek01kMC3z1til+NvFop3MhIH7MFQXZ1MUouWBHYvHNlNfG8O5a8F3dwaFBVFG6VnPFMuGqt3IRD3YMIoP+Y6dVmtah2mrqNzzGlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y/jTXRn9; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792362668; c=relaxed/simple;
+	bh=BWnOAvNsu6Hn1Yo/1ltCClpl+2xOU9XjAaNDugUcWVk=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=cysZntdsnRg/VpGyn7wnNTKmOw9YmPHbNfIDdj6q8quRLHDRPqn2BpSJPmgPQrTKjAUvTM9HQ225KgIRx7dxtZUFx3TKqRgF2sCgyGn1I2b/1f3vRAI3sY2vPfl2LWE1XNQIIEHZVveY6t4zhCO1smIxYWdhfuql8aGE0WSZjUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n4J8Tivn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y/jTXRn9"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48dee593f18so1021460f8f.3
-        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 15:17:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792361832; x=1792966632; darn=vger.kernel.org;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=exx9vnO6Bda4i2g0FCDaNxaa3NTc6XzPUEQjxDZ7cFo=;
-        b=Y/jTXRn905UVrDawiNBxJEkCvxkDyItlnpLBiNs9DnrLN/Q0QZw2Lddg79DJH7leDl
-         NP/Q6AwULkCXWVcf8yma97rm2PZp+qPCIKez+CmjN9qSkxMPv4F4k7PaWhNqZNvarw0H
-         45F5j9/pOdnQQl9mll3BdA46wmsr/Z4t1Lo6Zz0O5BIuc8p85pYm3pOwgSJugpo6W0+u
-         XbL48Opdvm7GjLUzK9/3vy5O7AKUl0HrDEJ5OhO1rN4fH0pJ/+ZK3TgDA5yhWgyEuy9Q
-         tosyj4dgCs7IKh0odaCdp1TjQisscCDaCdgkktq3jd4LmRumkBRFQ4/RFqNDMzsqim5q
-         PbAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792361832; x=1792966632;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=exx9vnO6Bda4i2g0FCDaNxaa3NTc6XzPUEQjxDZ7cFo=;
-        b=xsHGfVV8APqs9wjMnAzBH3/UhTxC2wtYhxlzDqlO2HfWvz7wgs9D6+H+7TJO1suu4m
-         CmKvLRYKE8cPEJz7u3f2M9/NJDC83kOTlB34rmYyn/29gAtW5BkeYe3jZymKnpvG7Yq9
-         ZnGQuw+8ReSIxj0+gkf3kO6+BTCFTKdKjdbh7fkHifm6NyHRpZkpDAnU7Q9BXpqkpwyd
-         J/tWTzKWiPl3ZgTRod5omqT2zBbkdVQgK8JDhPp1yG7FpAPPKR6TDL80+WFY5q85wlV7
-         mPYvdpsfuM3kSOY26b82u91R0eDLLrO50hb2CJD8e7EUntPeWML4ARS/GbT5LHkap5I7
-         Znug==
-X-Forwarded-Encrypted: i=1; AKwUvBwRCiJLQqXaSgdZIzg77tPm2Bhk74ee9TscLXT3z7a4xm6sL+iqbmpLxRf23eqEK4yUf/dUMoI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwbd5ERBy/Bx5A/BFor0dJiSlrfr6aJ8ospK+2FjXYZ/Gw4De3
-	OS7QMKNKHCGoJ6kyjSTSYHSZZBImYw4crAVA/5TrUvgUseLOd3Ihhvbj4W5QACtDRZM=
-X-Gm-Gg: AYBFou0awK3Aojc/kkS/pSv/LwoHuoGgr4YqWL1dzQXV+Eja7/w+CD22k7y29AQwLqc
-	/EFUodvb5FpwJsdYVnntRPL61z0LJbSk1BggIRUmewdwfjWKcBEzgOTUNRLaoTfHShi7PIYUZYP
-	B2pUCv+05xzWBIldmZ88kkWH81/t21hjb8Iw8zAQOKuLsn4Y/8W22e/+x+5Qdq+G609W0rhp8zq
-	w2dp315zoyB9fg6DlFdiCrJPMBSybEhbRynJv1gcfak6X+ADs5SgVXRr04LcE8dlLZ1HgJbMorv
-	HOXGhnoZHOrbdFsTmQz4DpV3RyHouz0fwsOTWbjUXA1hT9UK2AV0p7nHANEZcFYxVzDsbxEzH7/
-	1Tnjs2uacAWdtf/l7InutdAiWu7gL2yop0eox4qRA/J6UG4KQ1eXyIASQYCqsgpOSWOeqYHA8QZ
-	vkQ1enZoUAdGsU/kRM71O1McrXaJQ31pBoIbd4b9kFKBfIN8iHMNGknIMa3D/GMilvsRbaAx+Jk
-	U/8OP/2vjsX53JB4kkS8DDnpg25c/2CmXNXvygBVIGFXSOc1u4=
-X-Received: by 2002:a05:6000:4021:b0:48e:cd3:b3ec with SMTP id ffacd0b85a97d-48e0cd3b575mr9163350f8f.28.1792361831605;
-        Sun, 18 Oct 2026 15:17:11 -0700 (PDT)
-Received: from SurHub.localdomain ([102.218.50.130])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4edea3sm19938569f8f.28.2026.10.18.15.17.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 15:17:11 -0700 (PDT)
-From: Abdifatah Suruur <suruurism@gmail.com>
-To: Florian Westphal <fw@strlen.de>, Pablo Neira Ayuso <pablo@netfilter.org>
-Cc: security@kernel.org, Willy Tarreau <w@1wt.eu>, stable@vger.kernel.org
-Subject: Re: [SECURITY] netfilter: nft_byteorder leaks uninitialised kernel
- stack on 6.12.y with CONFIG_INIT_STACK_NONE (CWE-457)
-Date: Mon, 19 Oct 2026 01:17:07 +0300
-Message-ID: <179236182769.4914.3317139682579833845@gmail.com>
-In-Reply-To: <atU2brRgmeb6ght2@1wt.eu>
-References:
- <179235055956.10524.6485282696272965887@gmail.com> <atU2brRgmeb6ght2@1wt.eu>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n4J8Tivn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 428FE1F000C4;
+	Sun, 18 Oct 2026 22:31:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792362666;
+	bh=dZ+A9sRdQCSyqdCPlLTuLfwp38QHp8qh0nL7TJQw3CU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=n4J8Tivn+mJoUtx+Gf4drLXbJsSJdn2WlHNN1IhKDueNbqz7j6XFq4G20QaeqjeIk
+	 9nnLMA0R+gOlew7SCrCKCaUyggPy89kmsGUaDDtwu94TxJVL7yJj8JXEgLfr+R4ESx
+	 vnOdYAUV1biruiG01fhSnKKCtn72Caj+AhAN6/preC2K1GhjOzylwxmWjr47ZPEEwo
+	 Kh5wN7tQ5i5esYcPw+wZouEAzBSJjZ0kmbQaRQakN7D4rZW5+e6ub5hYzVabIzDQTk
+	 Kzy3vHshnLYTss3yVZsd5cIshVj7y5PWwDWeLtBdALAAcN2kyTx4YFvGf42qGLtrYs
+	 2pH1rsP7krWNg==
+Subject: Re: [PATCH net v4] net: ipv4: add zero check for snd_cwnd_clamp
+From: netdev-bot+sashiko@kernel.org
+To: kj2864@nyu.edu
+Cc: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, edumazet@google.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ co+71b6509cb791e531@bugs.sh, stable@vger.kernel.org
+Date: Sun, 18 Oct 2026 22:31:05 +0000
+Message-ID: <179236266579.3135.14593132945174653104@kernel.org>
+In-Reply-To: <20261017214845.28769-2-kj2864@nyu.edu>
+References: <20261017214845.28769-2-kj2864@nyu.edu>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============5449592912516909087=="
 
---===============5449592912516909087==
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Willy, thanks for the guidance. I have Cc'd Florian (author of bb061d3) and
-Pablo as you suggested.
+Critical: 0 · High: 0 · Medium: 3 · Low: 0
 
-Florian, Pablo,
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Mainline closed this only as a side effect of bb061d3de4170741 ("netfilter:
-nft_byteorder: remove multi-register support", 2026-05-12), which is marked
-Cc: stable+noautosel and is not in 6.12.y.  Was it left out of stable because
-it is not backportable, or because it was judged not worth backporting?
+- [Medium] The patch silently changes tcp_snd_cwnd_set() in
+  include/net/tcp.h, a hot-path helper used by every TCP congestion…
+- [Medium] The new check in ip_metrics_convert() rejects the wrong set of
+  inputs.
+- [Medium] net: ipv4: snd_cwnd_clamp still 0 in tcp_init_metrics() via
+  RTAX_LOCK
 
-I verified the gap on 6.12.113: nft_byteorder_eval() writes len / size whole
-elements, while nft_parse_register_store() marks DIV_ROUND_UP(len, 4) full
-32-bit words as initialised.  With size 2 and len 1 the control plane marks
-one word and eval writes none of it; a later load from another expression is
-accepted and reads the uninitialised struct nft_regs slot in nft_do_chain().
+--
 
-To be precise about scope, since Willy rightly noted that distro kernels are
-not the point: the official 6.12.y source itself has the unvalidated store.
-With the default CONFIG_INIT_STACK_ALL_ZERO the register file is zeroed at
-nft_do_chain() entry and the stale bytes are masked; with
-CONFIG_INIT_STACK_NONE they are exposed.  nft_byteorder should not depend on
-the stack-init configuration either way.  My SUSE run was only where I could
-observe it.
+net: ipv4: add zero check for snd_cwnd_clamp
 
-Attached is a minimal format-patch against 6.12.113 that zeroes the
-destination span the control plane marks as written.  It is semantically
-neutral for existing rules and preserves multi-register support, unlike
-backporting bb061d3's removal.  I have verified that it applies cleanly to
-6.12.113; I can build and boot-test the patched kernel and provide the logs
-if that helps.
+This patch makes ip_metrics_convert() reject a zero RTAX_CWND metric.
+The goal is to avoid a divide error in tcp_cong_avoid_ai() when
+snd_cwnd_clamp is zero. The patch also changes tcp_snd_cwnd_set() so it
+no longer has the WARN_ON_ONCE() and instead clamps the written value to
+at least 1.
 
-If you agree, would you ack it for 6.12.y?  If you prefer the full bb061d3
-removal or a different fix, I will follow your preference.  security@ is kept
-in Cc for the stable-integration discussion, as Willy suggested.  I have read
-Documentation/process/cve.rst and will use the documented CVE process; no
-public disclosure has been made, and I ask that the thread stay private until
-a fix is agreed.
+> diff --git a/include/net/tcp.h b/include/net/tcp.h
+> index 4416cdf9bf30e..ad80b8fb8a520 100644
+> --- a/include/net/tcp.h
+> +++ b/include/net/tcp.h
+> @@ -1521,8 +1521,7 @@ static inline u32 tcp_snd_cwnd(const struct tcp_sock *tp)
+>  
+>  static inline void tcp_snd_cwnd_set(struct tcp_sock *tp, u32 val)
+>  {
+> -	WARN_ON_ONCE((int)val <= 0);
+> -	WRITE_ONCE(tp->snd_cwnd, val);
+> +	WRITE_ONCE(tp->snd_cwnd, max(val, 1U));
+>  }
 
-Thanks,
-Abdifatah Suruur
-suruurism@gmail.com
+[Severity: Medium]
+Is this change meant to be part of this fix? The commit message only
+talks about rejecting zero in ip_metrics_convert(). This hunk changes
+tcp_snd_cwnd_set(), which every congestion control module uses.
 
---===============5449592912516909087==
-Content-Type: text/x-patch
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment;
- filename*0*=us-ascii''0001-netfilter-nft_byteorder-initialise-marked-destina;
- filename*1*=tion-span.patch
-MIME-Version: 1.0
+The WARN_ON_ONCE() came from commit 40570375356c ("tcp: add accessors to
+read/set tp->snd_cwnd"). Its purpose was to catch where and when
+tp->snd_cwnd gets set to an illegal value. After this change, a zero
+cwnd from any caller is silently turned into 1, with no diagnostic.
 
-RnJvbSA4MzY4M2JlYWRkMTBjYTZhODFiOWY3OGMwZGQ3OWM0ODljODY4ZWQ4IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBBYmRpZmF0YWggU3VydXVyIDxzdXJ1dXJpc21AZ21haWwuY29t
-PgpEYXRlOiBNb24sIDE5IE9jdCAyMDI2IDAxOjE1OjI3ICswMzAwClN1YmplY3Q6IFtQQVRDSF0g
-bmV0ZmlsdGVyOiBuZnRfYnl0ZW9yZGVyOiBpbml0aWFsaXNlIHRoZSBtYXJrZWQgZGVzdGluYXRp
-b24KIHNwYW4KCm5mdF9ieXRlb3JkZXJfZXZhbCgpIHdyaXRlcyBvbmx5IHByaXYtPmxlbiAvIHBy
-aXYtPnNpemUgd2hvbGUgZWxlbWVudHMsCndoaWxlIG5mdF9wYXJzZV9yZWdpc3Rlcl9zdG9yZSgp
-IG1hcmtzIERJVl9ST1VORF9VUChwcml2LT5sZW4sIDQpIGZ1bGwKMzItYml0IHdvcmRzIGFzIGlu
-aXRpYWxpc2VkLiAgRm9yIGxlbi9zaXplIGNvbWJpbmF0aW9ucyB0aGF0IGRvIG5vdCBmaWxsCnRo
-ZSBsYXN0IG1hcmtlZCB3b3JkIC0tIGZvciBleGFtcGxlIHNpemUgMiB3aXRoIGxlbiAxLCB3aGlj
-aCB3cml0ZXMgbm8KZWxlbWVudCBhdCBhbGwgLS0gdGhlIGNvbnRyb2wgcGxhbmUgc3RpbGwgYWNj
-ZXB0cyBhIGxhdGVyIGxvYWQgb2YgdGhlCndob2xlIHdvcmQgZnJvbSBhbm90aGVyIGV4cHJlc3Np
-b24uICBUaGF0IGxvYWQgcmVhZHMgc3RhbGUgYnl0ZXMgZnJvbQp0aGUgc3RydWN0IG5mdF9yZWdz
-IHN0YWNrIHNsb3QgaW4gbmZ0X2RvX2NoYWluKCksIHdoaWNoIGlzIG5vdAp6ZXJvLWluaXRpYWxp
-c2VkLgoKTWFpbmxpbmUgY2xvc2VkIHRoaXMgaW5jaWRlbnRhbGx5IGluIGJiMDYxZDNkZTQxNzA3
-NDEgKCJuZXRmaWx0ZXI6Cm5mdF9ieXRlb3JkZXI6IHJlbW92ZSBtdWx0aS1yZWdpc3RlciBzdXBw
-b3J0IikgYnkgcmVtb3ZpbmcgdGhlIGZlYXR1cmUKdGhhdCBhbGxvd2VkIHBhcnRpYWwgbXVsdGkt
-cmVnaXN0ZXIgc3RvcmVzLiAgVGhhdCBpcyBhIGZ1bmN0aW9uYWwgY2hhbmdlCmFuZCB3YXMgbWFy
-a2VkIG5vYXV0b3NlbCwgc28gc3RhYmxlIDYuMTIueSBzdGlsbCBhY2NlcHRzIHRoZSBzYW1lCmxl
-bi9zaXplIGNvbWJpbmF0aW9ucyBhbmQgc3RpbGwgbWFya3MgdGhlIHVud3JpdHRlbiBzcGFuLgoK
-WmVybyB0aGUgc3BhbiB0aGF0IHRoZSBjb250cm9sIHBsYW5lIG1hcmtzIGFzIGluaXRpYWxpc2Vk
-IGJlZm9yZSBkb2luZwp0aGUgY29udmVyc2lvbi4gIFRoaXMgZG9lcyBub3QgY2hhbmdlIHRoZSBy
-ZXN1bHQgb2YgYW55IGV4aXN0aW5nIHJ1bGU7Cml0IG9ubHkgcmVtb3ZlcyB0aGUgZGVwZW5kZW5j
-eSBvbiBzb21lIG90aGVyIGluaXRpYWxpc2F0aW9uIG9mIHRoZQpyZWdpc3RlciBmaWxlLiAgVGhl
-IGxlYWsgaXMgbWFza2VkIHdoZW4gQ09ORklHX0lOSVRfU1RBQ0tfQUxMX1pFUk8KemVyb2VzIG5m
-dF9kb19jaGFpbigpJ3MgcmVncywgYnV0IG5mdF9ieXRlb3JkZXIgbXVzdCBub3QgcmVseSBvbiB0
-aGF0OgpidWlsZHMgdXNpbmcgQ09ORklHX0lOSVRfU1RBQ0tfTk9ORSBleHBvc2UgdGhlIHN0YWxl
-IGJ5dGVzLgoKU2luY2UgbWFpbmxpbmUgbm8gbG9uZ2VyIGhhcyB0aGUgbXVsdGktcmVnaXN0ZXIg
-cGF0aCBhZnRlciBiYjA2MWQzLAp0aGlzIGluaXQgZml4IGlzIHByb3Bvc2VkIGZvciA2LjEyLnkg
-b25seS4KCkZpeGVzOiAxNGZiMDcxMzBjN2QgKCJuZXRmaWx0ZXI6IG5mX3RhYmxlczogYWxsb3cg
-bG9hZHMgb25seSB3aGVuIHJlZ2lzdGVyIGlzIGluaXRpYWxpemVkIikKQ2M6IHN0YWJsZUB2Z2Vy
-Lmtlcm5lbC5vcmcKU2lnbmVkLW9mZi1ieTogQWJkaWZhdGFoIFN1cnV1ciA8c3VydXVyaXNtQGdt
-YWlsLmNvbT4KLS0tCiBuZXQvbmV0ZmlsdGVyL25mdF9ieXRlb3JkZXIuYyB8IDIgKysKIDEgZmls
-ZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9uZXQvbmV0ZmlsdGVyL25m
-dF9ieXRlb3JkZXIuYyBiL25ldC9uZXRmaWx0ZXIvbmZ0X2J5dGVvcmRlci5jCmluZGV4IDc0NDg3
-ODcuLjYzOGY4M2EgMTAwNjQ0Ci0tLSBhL25ldC9uZXRmaWx0ZXIvbmZ0X2J5dGVvcmRlci5jCisr
-KyBiL25ldC9uZXRmaWx0ZXIvbmZ0X2J5dGVvcmRlci5jCkBAIC0zMyw2ICszMyw4IEBAIHZvaWQg
-bmZ0X2J5dGVvcmRlcl9ldmFsKGNvbnN0IHN0cnVjdCBuZnRfZXhwciAqZXhwciwKIAl1MTYgKnMx
-NiwgKmQxNjsKIAl1bnNpZ25lZCBpbnQgaTsKIAorCW1lbXNldChkc3QsIDAsIERJVl9ST1VORF9V
-UChwcml2LT5sZW4sIDQpICogc2l6ZW9mKHUzMikpOworCiAJczE2ID0gKHZvaWQgKilzcmM7CiAJ
-ZDE2ID0gKHZvaWQgKilkc3Q7CiAKLS0gCjIuNTMuMAoK
+Underflowed values such as 0x80000000 used to trigger the warning
+because (int)val <= 0. max(val, 1U) leaves them unchanged, so they now
+pass without any warning.
 
---===============5449592912516909087==--
+It also looks like this hunk, not the metrics.c check, is what actually
+prevents the reported divide error. With snd_cwnd_clamp == 0,
+tcp_reno_cong_avoid()->tcp_slow_start() now stores 1 instead of 0. That
+means tcp_cong_avoid_ai() no longer divides by zero.
+
+Could the WARN_ON_ONCE() be kept? If the setter change is really needed,
+could it go in a separate patch, or at least be described in the commit
+message?
+
+> diff --git a/net/ipv4/metrics.c b/net/ipv4/metrics.c
+> index ad40762a8b383..cb36686973e57 100644
+> --- a/net/ipv4/metrics.c
+> +++ b/net/ipv4/metrics.c
+> @@ -54,6 +54,10 @@ static int ip_metrics_convert(struct nlattr *fc_mx,
+>  			NL_SET_ERR_MSG(extack, "Unknown flag set in feature mask in metrics attribute");
+>  			return -EINVAL;
+>  		}
+> +		if (type == RTAX_CWND && !val) {
+> +			NL_SET_ERR_MSG(extack, "RTAX_CWND must be greater than zero");
+> +			return -EINVAL;
+> +		}
+
+[Severity: Medium]
+Does this fully close the zero snd_cwnd_clamp case? The new check only
+runs when an RTAX_CWND attribute is actually present in fc_mx.
+
+ip_fib_metrics_init() allocates fib_metrics with kzalloc_obj(), so
+metrics[RTAX_CWND - 1] starts out as zero. Consider a route request
+whose RTA_METRICS has RTAX_LOCK with (1 << RTAX_CWND) set but no
+RTAX_CWND attribute at all. It passes ip_metrics_convert() with CWND
+locked and the CWND value still zero.
+
+tcpm_suck_dst() then sees dst_metric_locked(dst, RTAX_CWND) and copies
+both the lock bit and dst_metric_raw(dst, RTAX_CWND), which is 0, into
+the tcp_metrics_block. tcp_init_metrics() applies a locked CWND
+without checking for zero. TCP_METRIC_SSTHRESH and
+TCP_METRIC_REORDERING are only applied when non-zero:
+
+net/ipv4/tcp_metrics.c:tcp_init_metrics() {
+    ...
+	if (tcp_metric_locked(tm, TCP_METRIC_CWND))
+		tp->snd_cwnd_clamp = tcp_metric_get(tm, TCP_METRIC_CWND);
+
+	val = READ_ONCE(net->ipv4.sysctl_tcp_no_ssthresh_metrics_save) ?
+	      0 : tcp_metric_get(tm, TCP_METRIC_SSTHRESH);
+	if (val) {
+		WRITE_ONCE(tp->snd_ssthresh, val);
+		if (tp->snd_ssthresh > tp->snd_cwnd_clamp)
+			WRITE_ONCE(tp->snd_ssthresh, tp->snd_cwnd_clamp);
+	}
+    ...
+}
+
+So tp->snd_cwnd_clamp is still set to 0. If a saved ssthresh exists,
+tp->snd_ssthresh is clamped down to 0 as well.
+
+tcp_init_cwnd() then returns min(cwnd, tp->snd_cwnd_clamp), which is
+0. The congestion control paths that clamp against snd_cwnd_clamp keep
+computing a cwnd of 0. These include tcp_slow_start(),
+tcp_cong_avoid_ai(), hstcp_cong_avoid(), htcp_cong_avoid(),
+tcp_veno_cong_avoid() and tcp_vegas_cong_avoid().
+
+With the tcp.h hunk, tcp_snd_cwnd_set() silently turns that 0 into 1.
+The divide error goes away, but the connection is pinned at a cwnd of
+1.
+
+BPF congestion control programs (net/ipv4/bpf_tcp_ca.c) are also
+allowed to write tp->snd_cwnd directly, bypassing tcp_snd_cwnd_set().
+They can still end up with snd_cwnd == 0.
+
+This needs CAP_NET_ADMIN, but so does the RTAX_CWND == 0 case the
+patch is trying to close.
+
+Would it be better to validate the final result after the loop? For
+example, reject the route when metrics[RTAX_LOCK - 1] has
+(1 << RTAX_CWND) set and metrics[RTAX_CWND - 1] is zero. Or should
+tcp_init_metrics() ignore a locked CWND of zero, the same way it
+already ignores a zero ssthresh?
+
+[Severity: Medium]
+Should this check only apply when RTAX_CWND is locked?
+
+TCP uses the CWND metric as snd_cwnd_clamp only when it is locked:
+
+net/ipv4/tcp_metrics.c:tcp_init_metrics() {
+    ...
+	if (tcp_metric_locked(tm, TCP_METRIC_CWND))
+		tp->snd_cwnd_clamp = tcp_metric_get(tm, TCP_METRIC_CWND);
+    ...
+}
+
+When it is not locked, RTAX_CWND only seeds TCP_METRIC_CWND through
+tcpm_suck_dst(). After that, tcp_update_metrics() treats it as a running
+estimate and overwrites it:
+
+net/ipv4/tcp_metrics.c:tcp_update_metrics() {
+    ...
+		if (!tcp_metric_locked(tm, TCP_METRIC_CWND)) {
+			val = tcp_metric_get(tm, TCP_METRIC_CWND);
+			if (tcp_snd_cwnd(tp) > val)
+				tcp_metric_set(tm, TCP_METRIC_CWND,
+					       tcp_snd_cwnd(tp));
+		}
+    ...
+}
+
+So an unlocked zero means the same thing as unset. With this patch,
+route requests that used to be accepted, such as "ip route add ...
+cwnd 0" without "lock", now fail with -EINVAL.
+
+ip_metrics_convert() is shared by IPv4 through
+fib_create_info()->ip_fib_metrics_init() and by IPv6 through
+ip6_route_info_create()->ip_fib_metrics_init(). The stricter input
+check therefore applies to IPv6 routes too, even though the subject
+says "net: ipv4". The commit message does not mention this change in
+accepted input.
+
+Also, a locked CWND with no RTAX_CWND attribute at all still seems to be
+accepted. That leaves metrics[RTAX_CWND - 1] at zero, which
+tcp_init_metrics() then copies into snd_cwnd_clamp.
+
+Would it be better to check for "CWND locked and final value zero" after
+the loop, rather than rejecting a zero attribute value?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261017214845.28769-2-kj2864%40nyu.edu
