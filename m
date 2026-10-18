@@ -1,156 +1,144 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.flyingcircus.io (mail.flyingcircus.io [185.105.255.63])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD12E3DA7D1
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 10:46:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06BFB386559
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 11:09:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.105.255.63
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792320400; cv=none; b=m6DhH5TBcUa081t4tZ3M7n0RfQQWnXFeMufLHZvEreVHaEdypjmlSWjnyoZremr3buHwTdzszywO217sBN9RtgVLtCX8mVyTCPT9SZWnOHuoIrokeuhCu9Pj511yAY8E7PWFGsg/yBlPbtHvfgN9z+wOr8CL5ILAJNGsXzTEdSM=
+	t=1792321793; cv=none; b=VEhNiMuXhtTIxm93R5kilwH/aXeWzua4GyIVbDWhB3P0KF22ioTit/G0XjYecrYuHWo61iPnaxPKFSzwshqISieokEWcSkvVQRqYICrNE1yuV4y5qC3aIG54zRUQZxi02MpTa5JtrGIuJMNqAZRNlYWAWb2Zp5q3VRWb3whbBf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792320400; c=relaxed/simple;
-	bh=/9jJroci2U2W/cLGUUAnMj5rSdaDkUk8alpovYx9b1Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rvbM2B1gpBgnMF87TMuIdoqSxRmDoo4cNYH+gLp8CZYWDV8EwRCCqyd4G3Tv/x12XWGrvFPGKw0q5JnhPb7sBPIgqJphyULbX1WOY4yyienmdwrktWJ4NDxL9dEpE32VOPJfDYCkL4ZBSHBiSqYRydoJP4oBJu658bx32nrTUjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qSGOfGgW; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792321793; c=relaxed/simple;
+	bh=f0FSBCrebBSGV9fQxm5HDDdVHOuSOJQeaJBKj6QeOf0=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=iOJmgbA4Sf6b9CYQAPoDFXfBigzarL5yhniLiPgUT9R+mD5g4ArRnKOaFS4QxEr1U4X+gB8LiscpubAtEK/Qo/AgeUDeS1zdpbJkOeUxW7Jt+EdWciuQz9S+KwWXX1tS4bpcQXSM0rqvbVrRczUc8YqgaDKL3c3orqATbHSsvPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=flyingcircus.io; spf=pass smtp.mailfrom=flyingcircus.io; dkim=pass (2048-bit key) header.d=flyingcircus.io header.i=@flyingcircus.io header.b=RFU/hBRf; arc=none smtp.client-ip=185.105.255.63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=flyingcircus.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flyingcircus.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qSGOfGgW"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ab4178ee33so967916a91.3
-        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 03:46:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792320398; x=1792925198; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rTvdBTA1ASG/CLsQcCPNTtAezqD6MV1QwMPamzS3K+8=;
-        b=qSGOfGgWrX6cpb7sKnahvisOstsNgVnUD8wjDv1vX57LGeatjcbNhmleYUXQkxlYBc
-         sVcfNNTU5uLzw6D1gH8oGLzMI61RNEYQWzFUYUwuUFmbzWn0znvY10Pl6DuRNmRb9i2x
-         9EdQ0To7n4OmXtpfe9n7rWupdCBXvFZbR1jGhUbjXe2v4rZYTBS+4cY8fsPdRL0MQzKm
-         C/a+J2fhOOsM5OikGUDrkI2vdsy4/RqEiUBbmnHEOnRLBdojlDwkIYzFdG0PLoXvJFeh
-         CdJ8gW7Q2yQElBRzXQ9PMEfgCYENhLksyL5iw7Qz+UiSrpkEixUrZS7ereYrGoDxa/hn
-         N5bg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792320398; x=1792925198;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rTvdBTA1ASG/CLsQcCPNTtAezqD6MV1QwMPamzS3K+8=;
-        b=Ih+1MrD6buKNoztkWCb0kuPMWn0QMZBs/vYwYzgdEm7v17NlRiVLJe1fC4IwzLx5D5
-         bhF/cT5Cp2pZJ4o9OGImYfbwXpBOAN6imstXzSZV7hSYDGgdeKAzUN1nSKGrgs9B851d
-         cGpknQ2d4gfwlk3mWfyHWjSF2KuQEFOs+Dk91zIfbN0JqrRYuXk99/baotdxCxU9ZO5B
-         rlNecB9PuwFIGMb2qnFx5g4T63fjSdOlR8YhR2jZOlo5QwrXVCENrl7R9tKI16/ftv41
-         mXPZOEzAWStcPWbpEEJR89S9bzPCmyppIR1coMabh6trKyYFT71uKD1mDyJH3jQ6F/fO
-         iqrA==
-X-Forwarded-Encrypted: i=1; AKwUvBw9qhWgI7ExejNwtvxY7iiOpbj8eCstsBVd5ykZNGj8+kpBblh1Taoi9zCQRZfvZtXwk8S0VUI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwQ8s9YVvkbobWZuu/0th3wxCNGCfIa/l8Yb8MMWGDCSi3z5r+
-	CGRaoGGN/IgTE+ojtypjEqy+Nd/hJ5ORO/D8kULbYfzZdScx09qBumwt
-X-Gm-Gg: AYBFou3VmSyhQLeWFsWiATdKZi1Oa9KAr9iRzu4X8cjpuAniAI8YpOwS6/zkk+4x+sQ
-	b3Jxysy38VmeNZKbNiT4NT236ApvQIpejsynYq/SI7cwbtmYzoU7kK8SJFxxCtVD5Zi+UQreAQX
-	R7k071217BZH5sb9vEd7we6wHOKTVfYGymvgfAw6ZOb8PXw6SAn4oDUvagsKpogCA5XR7U2auZD
-	W0qF6Ft3mUOKCOrkL/hgcl2W8nYktYwC9vPOzHL6idF0/Nz5DLXD0vAlR0NyM1lJMhYGj7bWrYo
-	DjBib4WeA7amf+wDIpH1UZlJ40Z7WgLK3LSrxvDWJH5kWK9qr9dM8r7GbcuaVErp0J2OTlVuFMk
-	q+/VzciTxEopPPf78Tf8k6YCdIkUln9GEGSkEFWq2Fi58G2Tsku70PGB9WADKQfaC8hSW8jbsvJ
-	4PMBmG1myn+PNvsTmjVRnLMJ2VSmDmIHzMOUrhjzqSjZWbsBsxTHQvchu7uMSTDHLUlcWXtbnB+
-	Uu9SQd3mzRo6Ipr8fviOipvXA0Jg0oyKg==
-X-Received: by 2002:a17:90b:5825:b0:3ac:7c52:faf6 with SMTP id 98e67ed59e1d1-3acee2963bdmr3584156a91.1.1792320398213;
-        Sun, 18 Oct 2026 03:46:38 -0700 (PDT)
-Received: from jmoon ([118.220.156.4])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd654a33681sm2949085a12.29.2026.10.18.03.46.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 03:46:37 -0700 (PDT)
-From: Jinmo Yang <jinmo44.yang@gmail.com>
-To: ping.cheng@wacom.com,
-	jason.gerecke@wacom.com,
-	jikos@kernel.org,
-	bentiss@kernel.org
-Cc: dmitry.torokhov@gmail.com,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	jinmo44.yang@gmail.com,
-	"Claude Opus 4.6" <noreply@anthropic.com>
-Subject: [PATCH v2 5/5] HID: wacom: add NULL input guards to Bamboo touch/button handlers
-Date: Sun, 18 Oct 2026 19:46:17 +0900
-Message-ID: <20261018104617.743771-6-jinmo44.yang@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261018104617.743771-1-jinmo44.yang@gmail.com>
-References: <20260927041138.4112920-1-jinmo44.yang@gmail.com>
- <20261018104617.743771-1-jinmo44.yang@gmail.com>
+	dkim=pass (2048-bit key) header.d=flyingcircus.io header.i=@flyingcircus.io header.b="RFU/hBRf"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 409D41854FC9;
+	Sun, 18 Oct 2026 13:09:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flyingcircus.io;
+	s=dkim; t=1792321783;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=f0FSBCrebBSGV9fQxm5HDDdVHOuSOJQeaJBKj6QeOf0=;
+	b=RFU/hBRf20QS4Mg3j2MLrCPpn0Yumqn80VLb2lwA3+G6E44ukOQReB4UBrI+lXxPEEy7eR
+	il5zIox8AKdzGg1rJpE/a3GMYzT4DBcGIZxW/FPU8JT1dlhOGY5z8sM0Ue7Sil/IqIQH8c
+	2UJo6LKPi71RvEnWK26+x/baJlT8+jHb8Gnxo72Q/42rYbOsMX+uv/ASpP5Cg9k9300Xae
+	BFwqVZgdNF6EV1HZUnmqQAfNYIxFT2RHlwCbphDPLAi1u7CdGEl3Oh6PcoFrOWQY/P+KeK
+	mwq8JXfj219pSXfpuoKyLxd/T+lTtz+GictaUjfXuHOb8xFNVSCjWITiGxppcA==
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: 6.12.110: kswapd NULL deref in list_lru_add, possibly related to
+ xas_split_alloc backport
+From: Christian Theune <ct@flyingcircus.io>
+In-Reply-To: <9479A92E-645A-4A30-8332-212707E66A35@flyingcircus.io>
+Date: Sun, 18 Oct 2026 13:09:26 +0200
+Cc: Zi Yan <ziy@nvidia.com>,
+ Deepak Nagaraj <deepak.nagaraj@baseten.com>,
+ stable@vger.kernel.org,
+ mfleming@cloudflare.com,
+ Kaz Kato <kazuyoshi.kato@baseten.co>,
+ Stephen Day <stephen.day@baseten.co>,
+ Greg KH <greg@kroah.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <BC985D55-6DAC-4897-A3CD-51FFBB33FEA5@flyingcircus.io>
+References: <CAL3JwHPX_fJpg_Az3Et4-xrTdkcdtT20xw7Bhjz1FZSLW_xODQ@mail.gmail.com>
+ <A90F7E87-80B5-47AA-BD31-0F0CA5A17862@nvidia.com>
+ <CAL3JwHN34En=iiEB+Zyxo3=_xfODTY_k_kddb2njN+AJwSCnnw@mail.gmail.com>
+ <7C66B0B0-1F43-41D9-9B4F-89956045D81C@nvidia.com>
+ <2026100327-shrine-refusal-0488@gregkh>
+ <2026-10-03-1-daily-reply-0006-re-kswapd-list-lru-aca1f2d5-6-18-queued@kernel.org>
+ <9479A92E-645A-4A30-8332-212707E66A35@flyingcircus.io>
+To: Sasha Levin <sashal@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
+X-Last-TLS-Session-Version: TLSv1.2
 
-wacom_bpt_touch() dereferences both touch_input and pad_input.
-wacom_bpt3_touch_msg() dereferences touch_input.
-wacom_bpt3_button_msg() dereferences pad_input.
+Quick note: while rolling back the affected machine, I noticed that we =
+only saw those exact crashes on 6.12.112 but not on 6.12.110 and =
+6.12.111. I did roll back to 6.12.109 for good measure, though.
 
-All three can be NULL when the corresponding
-wacom_setup_{touch,pad}_input_capabilities() returns -ENODEV during a
-successful probe. Add per-function guards.
+Christian
 
-Fixes: 2a6cdbdd4cc0 ("HID: wacom: Introduce new 'touch_input' device")
-Fixes: 862cf5535c0c ("HID: wacom: Introduce a new WACOM_DEVICETYPE_PAD device_type")
-Signed-off-by: Jinmo Yang <jinmo44.yang@gmail.com>
-Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
----
- drivers/hid/wacom_wac.c | 25 +++++++++++++++++++++++--
- 1 file changed, 23 insertions(+), 2 deletions(-)
+> On 16. Oct 2026, at 18:01, Christian Theune <ct@flyingcircus.io> =
+wrote:
+>=20
+> Hi,
+>=20
+> we=E2=80=99re being intermittently bitten by this on 6.12.112. I was =
+considering upgrading
+> to 6.18 or selectively applying the patch to 6.12 but couldn=E2=80=99t =
+find the patch you
+> mentioned queued up for 6.18.=20
+>=20
+> Is there anything we can do to help move the missing patches forward =
+for 6.12 and earlier?
+>=20
+> I have colleagues I can ask to step in if needed.
+>=20
+> @Deepak: I=E2=80=99m guessing you=E2=80=99re running your patches =
+selectively in your environment already? I=E2=80=99d be willing to apply =
+selectively to the machines that are affected over here.
+>=20
+> Love,
+> Christian
+>=20
+>> On 4. Oct 2026, at 00:32, Sasha Levin <sashal@kernel.org> wrote:
+>>=20
+>>>> Rather than picking your patch below, I think we will need to =
+backport
+>>>> commit aca1f2d5de17e ("mm/huge_memory: initialise workingset state =
+before
+>>>> folio split=E2=80=9D), although the backported version might need =
+to change
+>>>> mapping_set_update() like what you did below.
+>>>=20
+>>> Please send us the properly backported, and tested, commits and we =
+will
+>>> be glad to queue them up.
+>>=20
+>> I've queued that one for 6.18.
+>>=20
+>> 6.12, 6.6 and 6.1 are left for the tested backports. 6.6.157+ and =
+6.1.188+
+>> carry the same 789763523fb4 ("xarray: honor XA_FLAGS_ACCOUNT in
+>> xas_split_alloc()") backport without it, so they have the same =
+exposure as
+>> 6.12.109+ and the backports should cover all three trees.
+>>=20
+>> On 6.12, mapping_set_update() is static in mm/filemap.c, so =
+62e72d2cf702 ("mm,
+>> madvise: fix potential workingset node list_lru leaks") is needed =
+first. 6.6
+>> and 6.1 have no __folio_split() and already have mapping_set_update() =
+as a
+>> macro in swap.h, so there the call goes before xas_split_alloc() in
+>> split_huge_page_to_list().
+>>=20
+>> --=20
+>> Thanks,
+>> Sasha
+>>=20
+>=20
+> --=20
+> Christian Theune =C2=B7 ct@flyingcircus.io =C2=B7 +49 345 219401 0
+> Flying Circus Internet Operations GmbH =C2=B7 https://flyingcircus.io
+> Leipziger Str. 70/71 =C2=B7 06108 Halle (Saale) =C2=B7 Deutschland
+> HR Stendal HRB 21169 =C2=B7 Gesch=C3=A4ftsf=C3=BChrer: Christian =
+Theune, Christian Zagrodnick
+>=20
 
-diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-index 12a632ee1cbf..21c2504a085a 100644
---- a/drivers/hid/wacom_wac.c
-+++ b/drivers/hid/wacom_wac.c
-@@ -3148,6 +3148,12 @@ static int wacom_bpt_touch(struct wacom_wac *wacom)
- 	if (data[0] != 0x02)
- 	    return 0;
- 
-+	if (!input || !pad_input) {
-+		dev_warn_once(&container_of(wacom, struct wacom, wacom_wac)->hdev->dev,
-+			      "%s: input is NULL\n", __func__);
-+		return 0;
-+	}
-+
- 	for (i = 0; i < 2; i++) {
- 		int offset = (data[1] & 0x80) ? (8 * i) : (9 * i);
- 		bool touch = report_touch_events(wacom)
-@@ -3182,8 +3188,17 @@ static void wacom_bpt3_touch_msg(struct wacom_wac *wacom, unsigned char *data)
- {
- 	struct wacom_features *features = &wacom->features;
- 	struct input_dev *input = wacom->touch_input;
--	bool touch = data[1] & 0x80;
--	int slot = input_mt_get_slot_by_key(input, data[0]);
-+	bool touch;
-+	int slot;
-+
-+	if (!input) {
-+		dev_warn_once(&container_of(wacom, struct wacom, wacom_wac)->hdev->dev,
-+			      "%s: touch_input is NULL\n", __func__);
-+		return;
-+	}
-+
-+	touch = data[1] & 0x80;
-+	slot = input_mt_get_slot_by_key(input, data[0]);
- 
- 	if (slot < 0)
- 		return;
-@@ -3226,6 +3241,12 @@ static void wacom_bpt3_button_msg(struct wacom_wac *wacom, unsigned char *data)
- 	struct input_dev *input = wacom->pad_input;
- 	struct wacom_features *features = &wacom->features;
- 
-+	if (!input) {
-+		dev_warn_once(&container_of(wacom, struct wacom, wacom_wac)->hdev->dev,
-+			      "%s: pad_input is NULL\n", __func__);
-+		return;
-+	}
-+
- 	if (features->type == INTUOSHT || features->type == INTUOSHT2) {
- 		input_report_key(input, BTN_LEFT, (data[1] & 0x02) != 0);
- 		input_report_key(input, BTN_BACK, (data[1] & 0x08) != 0);
--- 
-2.53.0
+--=20
+Christian Theune =C2=B7 ct@flyingcircus.io =C2=B7 +49 345 219401 0
+Flying Circus Internet Operations GmbH =C2=B7 https://flyingcircus.io
+Leipziger Str. 70/71 =C2=B7 06108 Halle (Saale) =C2=B7 Deutschland
+HR Stendal HRB 21169 =C2=B7 Gesch=C3=A4ftsf=C3=BChrer: Christian Theune, =
+Christian Zagrodnick
 
