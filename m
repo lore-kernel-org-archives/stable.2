@@ -1,207 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6242940DB5F;
-	Sun, 18 Oct 2026 20:12:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEDAB3DB64D;
+	Sun, 18 Oct 2026 20:18:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792354369; cv=none; b=Pr4pRUjrJJl/Y3HetDreeUnXYQJ1exPyVYBjTWjpL1FADIqoVJ4nadJwqt0rKNdu/TNAceJ8tMjbpk7ROA3zsjHPfgU5tjXgTGuL7ftbCYn/1CBZV6NVEKPp7NZEk1iJ+r/6GESNbBDeuPFUMpe6I4hxeZTHdQflK41QpjjLZ58=
+	t=1792354728; cv=none; b=qoEs8zWCTMUaFn9CRmBqXpATA4oNXlIiMiIbP4rOtQNvyI6zuRUIEDwSWlT/7+hu84g3Ncho98tJuyeVJDSW3xjXXtspOPzJGXZDINB2TEpATyNS0/arMa2lrcSP/UurYjhNsjvWv9UmVeI+W4vEj1BX0GRINblRcx7FQ58D41c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792354369; c=relaxed/simple;
-	bh=Q4CkcTGHfwqlTq/v3Lz/CGzpf17o9gtfSV7GuFzUiVo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=icpadB4Kw5qVaTTH/Keo+pJUgqBLjHH3TXBljbBDYJ8pKv9In6OoYhio/p3tPwIPjVt1g869u4XdIbT/WtvZJV4LjQt+pRjSMGcvaWQCQtO/AQpa/bwdliDT6lQG2U1BNxKYuyCy+3VeRd7o2hWmfbzvwR94j/lc45YmL75x5VU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sQqdhi3M; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792354728; c=relaxed/simple;
+	bh=59OVdo2PjY95NdoYTMPvuuAFu/PyWOUVQ7pqOJbJx4Y=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=uhuYLbK0iGMhR4iT+oEy/cWNx+asBKqbaMOFRGd8WfXmecuMMOlbhSVY+w7AfuGZhqb13e7Aohltkkv03/CqCri1Tt7gNTlyeTRBYtK9lKA60q/No8so5IrBxTHg1Qsql94cN+JYXf/8EI2MGfk2+nRnw5JeabYxzLzZIUV1UJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CXlitjtr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sQqdhi3M"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DE9D0C2BCF7;
-	Sun, 18 Oct 2026 20:12:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792354368;
-	bh=Q4CkcTGHfwqlTq/v3Lz/CGzpf17o9gtfSV7GuFzUiVo=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=sQqdhi3M8f5GPF2nUAuQ2zY2NdImI0p3kH3y02aJFLQdJbiLHVgVu7WVTivxlEPBD
-	 4Ct9I1+91hyrzyCHN6hNOLK6GIidvxnQXGrxIngNExYl7UYTiXFIFOvRbo0TqKOLl1
-	 BnV+8w8kvE+3CXaIb3GJs3GCmZNUspFX2LIgZJbr3Hh4iVD9U9uwO0rlOwtXVzr/1V
-	 yhPKY7Cf7NzVqhpkdqdzJNMcxPV0iICZViX+Jzd51Mftlc6wiCkNerCFTTkTKSKXMM
-	 dc3YsdnynGmSW5CjJZYHTSh+wW3cmjHtAHem0lMUX4C6IWUgZjWC2/OcjDf1UOvtML
-	 2w2n1Xbj1is1g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AB85CCCF2C4;
-	Sun, 18 Oct 2026 20:12:48 +0000 (UTC)
-From: Mike Anderson via B4 Relay <devnull+mwwa919.gmail.com@kernel.org>
-Date: Sun, 18 Oct 2026 16:12:40 -0400
-Subject: [PATCH] drm/i915/dsi: Use owned panel/backlight GPIOs in VLV MIPI
- sequences
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CXlitjtr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F32B1F000C4;
+	Sun, 18 Oct 2026 20:18:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792354727;
+	bh=KT5XCWY4ZCcqX5OOgQs37cKX0hdmIu5lGuJWPTgP6cE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=CXlitjtrVyMbUHK+u3UkeRlE1jNibOC1Ibn/kJ8guxq/qAPjH7SMsNlC2O1rb352d
+	 XfIFjKBoUo1uplZVoXql+6PjokdiZruqQMY3iuTL2DkAO8ZYklbh1WXFP/dPUnF3RV
+	 DcoPbpW6WfyAvEPkOvr9tr0zSgDkRwRqu+4rh9O7E0aeX2M5d9bajcRkryThkTwlTB
+	 Rty01y1oVTvcrflBSTUHeB/9xjyA4/c/crTX9s9bsF0GYqT68LsrQxWk73b1+XOMMn
+	 G7lXGONpMqvDFv/BZVJk7DluuLfUkc7Xo0rMPyclygLMDKclkVPvc2YAwxkXtCEU/C
+	 SVMYA6J4cgWMQ==
+Subject: Re: [PATCH net v2] net: ipv4: add zero check for snd_cwnd_clamp
+From: netdev-bot+sashiko@kernel.org
+To: kj2864@nyu.edu
+Cc: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, edumazet@google.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ co+71b6509cb791e531@bugs.sh, stable@vger.kernel.org
+Date: Sun, 18 Oct 2026 20:18:46 +0000
+Message-ID: <179235472615.3135.13817965744546885405@kernel.org>
+In-Reply-To: <20261014195640.430824-2-kj2864@nyu.edu>
+References: <20261014195640.430824-2-kj2864@nyu.edu>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261018-vlv-dsi-owned-gpios-v1-1-3ca18bcda670@gmail.com>
-X-B4-Tracking: v=1; b=H4sIADco1WoC/yXMQQqDMBBA0avIrDvgpNBIr1JcaDLVkZJIpkZBv
- HtTXb7F/zsoJ2GFZ7VD4iwqMRTQrQI3dmFgFF8MpjYPqqnB/MnoVTCugT0Os0RF58nYvqO7ZQu
- lnBO/ZTuvr/ayLv3E7vtfwXH8ANQqkXx3AAAA
-X-Change-ID: 20261018-vlv-dsi-owned-gpios-cd127ba137e7
-To: Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Hans de Goede <hansg@kernel.org>, intel-xe@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Mike Anderson <mwwa919@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792354368; l=5805;
- i=mwwa919@gmail.com; s=20261018; h=from:subject:message-id;
- bh=fqIda2quYt/iS4PsHXKJtfdrABxMHpRCeHK2kOAm+9k=;
- b=YPHI4gGMlKh/kb6yUfYInfnPvCZcDfrreT+IUEzcqj8yDTmMeypyE/LvfsSY7CklhtFaRTt2Q
- HYf2EATZ1JuCKiR8aNZuOhkZcMZnQCuOATJ0osAE1n4myfVScnPlcDL
-X-Developer-Key: i=mwwa919@gmail.com; a=ed25519;
- pk=r8JyAI3thBa7smjCwoiNX+4TLbge6jj5Swldychd7nE=
-X-Endpoint-Received: by B4 Relay for mwwa919@gmail.com/20261018 with
- auth_id=1231
-X-Original-From: Mike Anderson <mwwa919@gmail.com>
-Reply-To: mwwa919@gmail.com
 
-From: Mike Anderson <mwwa919@gmail.com>
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-On VLV with PPS_BLC_SOC, intel_dsi_vbt_gpio_init() requests the
-backlight and panel enable GPIOs (INT33FC:01 pins 10 and 11) for i915
-itself. Since commit 8241b55f1ded ("drm/i915/dsi: Replace poking of VLV
-GPIOs behind the driver's back") the GPIO elements of the VBT MIPI
-sequences also request their pin through gpiolib, so when a sequence
-toggles one of these two pins the request fails and the toggle is
-dropped:
+Critical: 0 · High: 1 · Medium: 0 · Low: 1
 
-  i915 0000:00:02.0: [drm] *ERROR* GPIO index 10 request failed (-EBUSY)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Before that commit the pad registers were written directly, so the
-sequences could still drive the pins i915 owned.
+- [High] The fix is incomplete, so the divide-by-zero it claims to fix
+  can still be triggered.
+- [Low] The new check in ip_metrics_convert() (net/ipv4/metrics.c:57)
+  returns -EINVAL for RTAX_CWND == 0 whether or not the metric is locked.
 
-The Toshiba Encore 2 WT8-B (Bay Trail, DSI panel) uses pin 10 as the
-panel reset line: MIPI_SEQ_ASSERT_RESET drives it low and
-MIPI_SEQ_DEASSERT_RESET pulses it high-low-high. With every toggle
-failing, the panel is never reset after i915 sends MIPI_SEQ_DISPLAY_OFF
-during takeover and stays black, even though the backlight PWM and both
-enable GPIOs read back as on. The tablet only has a usable display
-with nomodeset.
+--
 
-When a VLV MIPI sequence targets pin 10 or 11 and i915 holds the
-corresponding descriptor, set it through that descriptor instead of
-requesting the pin a second time.
+net: ipv4: add zero check for snd_cwnd_clamp
 
-Fixes: 8241b55f1ded ("drm/i915/dsi: Replace poking of VLV GPIOs behind the driver's back")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM sparse
-Signed-off-by: Mike Anderson <mwwa919@gmail.com>
----
-This patch was developed with an AI coding assistant (Claude Code,
-Claude Opus 5.5): it ran the debugging session on the tablet (drm.debug
-log, gpio/pwm debugfs), traced the -EBUSY to 8241b55f1ded, and wrote the
-change and the changelog; I reviewed it and tested it on the hardware.
+This commit adds a check in ip_metrics_convert() that rejects an RTAX_CWND
+route metric of zero with -EINVAL. It is meant to stop snd_cwnd_clamp from
+being set to zero, which causes a divide error in tcp_cong_avoid_ai().
 
-Testing, Toshiba Encore 2 WT8-B (Atom Z3735F, BIOS 2.10, VBT MIPI
-sequence block v2, PPS_BLC_SOC):
-- Arch Linux v7.2.11-arch1 with this patch backported (applies as is):
-  the panel lights up at i915 takeover and the Xorg login screen shows;
-  no "GPIO index ... request failed" errors; gpio-10/11 stay owned as
-  "backlight"/"panel". Unpatched v7.2.11 and v6.18.57 give a black
-  panel with five -EBUSY errors during boot.
-- drm-intel-next: built intel_dsi_vbt.o for i915 (=m and =y) and for
-  xe (=m) with W=1 and sparse (C=2, sparse v0.6.5-rc1): no new
-  warnings.
+> diff --git a/net/ipv4/metrics.c b/net/ipv4/metrics.c
+> index ad40762a8b383..e83a129a25b68 100644
+> --- a/net/ipv4/metrics.c
+> +++ b/net/ipv4/metrics.c
+> @@ -54,6 +54,10 @@ static int ip_metrics_convert(struct nlattr *fc_mx,
+>  			NL_SET_ERR_MSG(extack, "Unknown flag set in feature mask in metrics attribute");
+>  			return -EINVAL;
+>  		}
+> +		if (type == RTAX_CWND && val == 0) {
+> +			NL_SET_ERR_MSG(extack, "RTAX_CWND must be greater than zero");
+> +			return -EINVAL;
+> +		}
 
-Not tested: other VLV machines with PPS_BLC_SOC. Their behaviour only
-changes when their VBT sequences touch pin 10 or 11, which currently
-fails with -EBUSY anyway.
----
- drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 32 +++++++++++++++++++++++-----
- 1 file changed, 27 insertions(+), 5 deletions(-)
+[Severity: High]
+Does this fully close the divide by zero? The new check runs only when an
+RTAX_CWND attribute is present in the RTA_METRICS nest.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-index fe12041e9..85d1cdc6e 100644
---- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-+++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-@@ -54,6 +54,10 @@
- #define MIPI_VIRTUAL_CHANNEL_SHIFT	1
- #define MIPI_PORT_SHIFT			3
- 
-+/* VLV NC pins of the backlight and panel enable GPIOs, see soc_panel_gpio_table */
-+#define VLV_GPIO_NC_BACKLIGHT		10
-+#define VLV_GPIO_NC_PANEL		11
-+
- struct i2c_adapter_lookup {
- 	u16 target_addr;
- 	struct intel_dsi *intel_dsi;
-@@ -247,10 +251,12 @@ static void soc_opaque_gpio_set_value(struct intel_connector *connector,
- 	kfree(lookup);
- }
- 
--static void vlv_gpio_set_value(struct intel_connector *connector,
-+static void vlv_gpio_set_value(struct intel_dsi *intel_dsi,
- 			       u8 gpio_source, u8 gpio_index, bool value)
- {
--	struct intel_display *display = to_intel_display(connector);
-+	struct intel_display *display = to_intel_display(&intel_dsi->base);
-+	struct intel_connector *connector = intel_dsi->attached_connector;
-+	struct gpio_desc *gpio_desc = NULL;
- 
- 	/* XXX: this assumes vlv_gpio_table only has NC GPIOs. */
- 	if (connector->panel.vbt.dsi.seq_version < 3) {
-@@ -265,6 +271,22 @@ static void vlv_gpio_set_value(struct intel_connector *connector,
- 		}
- 	}
- 
-+	/*
-+	 * With PPS_BLC_SOC, intel_dsi_vbt_gpio_init() already owns these pins,
-+	 * so requesting them again fails with -EBUSY. Some VBTs still toggle
-+	 * them in their MIPI sequences, e.g. as the panel reset line, so drive
-+	 * them through the descriptors we hold.
-+	 */
-+	if (gpio_index == VLV_GPIO_NC_BACKLIGHT)
-+		gpio_desc = intel_dsi->gpio_backlight;
-+	else if (gpio_index == VLV_GPIO_NC_PANEL)
-+		gpio_desc = intel_dsi->gpio_panel;
-+
-+	if (gpio_desc && connector->panel.vbt.dsi.config->pwm_blc == PPS_BLC_SOC) {
-+		gpiod_set_value_cansleep(gpio_desc, value);
-+		return;
-+	}
-+
- 	soc_opaque_gpio_set_value(connector, gpio_index,
- 				  "INT33FC:01", "Panel N", gpio_index, value);
- }
-@@ -430,7 +452,7 @@ static const u8 *mipi_exec_gpio(struct intel_dsi *intel_dsi, const u8 *data)
- 	else if (DISPLAY_VER(display) >= 9)
- 		bxt_gpio_set_value(connector, gpio_index, value);
- 	else if (display->platform.valleyview)
--		vlv_gpio_set_value(connector, gpio_source, gpio_number, value);
-+		vlv_gpio_set_value(intel_dsi, gpio_source, gpio_number, value);
- 	else if (display->platform.cherryview)
- 		chv_gpio_set_value(connector, gpio_source, gpio_number, value);
- 
-@@ -886,8 +908,8 @@ static struct gpiod_lookup_table pmic_panel_gpio_table = {
- static struct gpiod_lookup_table soc_panel_gpio_table = {
- 	.dev_id = "0000:00:02.0",
- 	.table = {
--		GPIO_LOOKUP("INT33FC:01", 10, "backlight", GPIO_ACTIVE_HIGH),
--		GPIO_LOOKUP("INT33FC:01", 11, "panel", GPIO_ACTIVE_HIGH),
-+		GPIO_LOOKUP("INT33FC:01", VLV_GPIO_NC_BACKLIGHT, "backlight", GPIO_ACTIVE_HIGH),
-+		GPIO_LOOKUP("INT33FC:01", VLV_GPIO_NC_PANEL, "panel", GPIO_ACTIVE_HIGH),
- 		{ }
- 	},
- };
+What happens if the nest has only RTAX_LOCK with (1 << RTAX_CWND) set and no
+RTAX_CWND attribute at all?
 
----
-base-commit: 0507cc5a476af0b6d037b19248bdd20dbe27487d
-change-id: 20261018-vlv-dsi-owned-gpios-cd127ba137e7
+ip_fib_metrics_init() allocates the metrics array zero-filled:
 
-Best regards,
---  
-Mike Anderson <mwwa919@gmail.com>
+net/ipv4/metrics.c:ip_fib_metrics_init() {
+    ...
+	fib_metrics = kzalloc_obj(*fib_metrics);
+    ...
+}
 
+This leaves metrics[RTAX_CWND - 1] at 0 while the CWND lock bit is set.
+tcpm_suck_dst() then copies the lock bit and the value separately:
 
+net/ipv4/tcp_metrics.c:tcpm_suck_dst() {
+    ...
+	if (dst_metric_locked(dst, RTAX_CWND))
+		val |= 1 << TCP_METRIC_CWND;
+    ...
+	tcp_metric_set(tm, TCP_METRIC_CWND,
+		       dst_metric_raw(dst, RTAX_CWND));
+    ...
+}
+
+tcp_init_metrics() checks only the lock bit:
+
+	if (tcp_metric_locked(tm, TCP_METRIC_CWND))
+		tp->snd_cwnd_clamp = tcp_metric_get(tm, TCP_METRIC_CWND);
+
+So snd_cwnd_clamp ends up as 0 and tcp_init_cwnd() returns min(cwnd, 0).
+Then tcp_reno_cong_avoid()->tcp_cong_avoid_ai() runs this with w == 0:
+
+	u32 delta = tp->snd_cwnd_cnt / w;
+
+That gives the same oops as the one in the commit message.
+
+A dump/restore cycle can also produce this input. rtnetlink_put_metrics()
+skips metrics that are zero:
+
+	for (i = 0; i < RTAX_MAX; i++) {
+		if (metrics[i]) {
+
+A route with a locked CWND of 0 is therefore dumped as RTAX_LOCK only.
+Replaying that dump recreates the same state without hitting the new check.
+
+Both IPv4 and IPv6 RTM_NEWROUTE reach this path through
+ip_fib_metrics_init(). The only privilege needed is CAP_NET_ADMIN in a netns
+owned by an unprivileged user namespace.
+
+Would it work better to check after the loop that a locked RTAX_CWND has a
+non-zero value? Another option is to guard tcp_init_metrics() so that a
+locked CWND of zero is never applied to snd_cwnd_clamp.
+
+[Severity: Low]
+This rejects RTAX_CWND == 0 whether or not the CWND bit is set in RTAX_LOCK.
+Is that intended?
+
+Before this patch, an unlocked CWND of 0 was accepted and had no effect.
+tcp_init_metrics() reads the metric only when it is locked, and for unlocked
+metrics tcp_update_metrics() overwrites the cached value anyway.
+
+With this change, RTM_NEWROUTE requests that carry an unlocked cwnd of 0 now
+fail with -EINVAL. The subject says net: ipv4, but this also affects IPv6
+routes, because ip6_route_info_create() calls the same ip_fib_metrics_init()
+path.
+
+A lock-aware check after the loop, or a guard in tcp_init_metrics(), would
+fix the crash without rejecting this harmless input. Would one of those be
+preferable?
+
+>  		metrics[type - 1] = val;
+>  	}
+>
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261014195640.430824-2-kj2864%40nyu.edu
