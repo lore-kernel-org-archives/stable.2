@@ -1,162 +1,131 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E36494C10C5;
-	Sun, 18 Oct 2026 14:24:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792333495; cv=pass; b=l+WhNHdh6aTR3OOoANucWpQWxBxy9TWuPwaCe0ueZSFmrlJ+faeEy9MHHR7r7jSZektO14XsOiw6bsssb00u8D9IVpyYjfYwnR3X8dv4s+ao0YDeMfvoWIageDSzpTrx94z84NiVkPs5YDO4ZgG/xwdkSb7dlLf5JxyjV+HVwMM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792333495; c=relaxed/simple;
-	bh=TxqCclwgwahYNCJUlgKptCLHJGaqlm3iNCsgB3td/Zo=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=bCWY5GhC82tSzkyj7diLO7lFBdgflCubO324M/Nts3Z36sF4LnVY76SVmF9hKwqnF2tG/VRVSTkfp8vwmhmaLtl0dQ05whANzkei2kwNmdIE3G8ChU/Nm28FGZUngjOkH3BcjNrxJ56zK4/+yCkisDFRkynj6Ck79Krj7fMqzIo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=CTzA6aDh; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90687339847
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 14:59:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792335577; cv=none; b=NWcJKVvYrQCTNGxB3MnOYCaRrY3EJc9o31ehMR+UGV9DZt4dylZd/yx58j5pvnFmvYIxkPPsl+Y6xJdOxinp5AGvcEQ5Y9Pdf2I2Fs4YfO6hDus4L0dtCpmfenM+j8PXAFiPb+ZFsCXUe1mqSevX7WIrqDsjuFct1HdqG1flWXQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792335577; c=relaxed/simple;
+	bh=eAePSMguL6EqnK6uLPXhTD4oc8nXCafCbmC72gKkFhI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q9Wi73NAdkc++Lp29LAu1k0S+gtvZS8QPxoc37tesNOxsEZfFDTNQ3yHVNnKEDzFXXOi1d29VeeImEBuGRy7oMyqlsHGkx2Rii+sM6ZSxlT/5wkfJzEJC8IrDZbQSgCqVvJwY5xtwbpabfOQFOcy7/cnoYZ9YA9IZq3ERLPUPn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bbwm2+Rc; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="CTzA6aDh"
-ARC-Seal: i=1; a=rsa-sha256; t=1792333483; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=UQbSPfc68q2fP3U+ZrSt18pf3da5NuruogR24UVDEdpXafWcP4T2j6BQ2pKzSclNKT0P4Ef4ksomnKFLaH44y8aAslDtmHcHCriaIdQyJg31aJQaavb+RRoEg9dzPbAWtzepB5okPG1y16gUWFDhsVp40h2usN1EXFHOKIHx7no=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1792333483; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=kbctbg+bk9Le87fq+d7TG72Faw2pL9FiXkPz6pgGzjA=; 
-	b=EgXmII2ZBNlJyOQbV60BYS/SK0PTq1M3KK7Ksw5zrz/bdgoPtT8GvjDOXtwmVsXaQokg8tbZtH7qYpRfkIEBVQUpMz9V0/rhw3ZfK6XIjSTYDEvfOONhjdjdiOgJCF3q7MmXcB08Pa6+S47T9p4/KGgJ02IbddpwXgKDRgipCbs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792333483;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
-	bh=kbctbg+bk9Le87fq+d7TG72Faw2pL9FiXkPz6pgGzjA=;
-	b=CTzA6aDh70lw1RWgfC+lR2iJ3VV6bGuX5aFPTbOK+XWKFiTydGSwtFRQTXlLKN8N
-	mNZAGF8SzZoPyfb2F72tYGqtC9Odpkt+4MYaNVU9dWf+Nw+8+EZIqMGZKlN8+nPkdFh
-	kBhgXdkoG4QINFFM/PtkxtwD5aunVgxO9OtOK0uPDYHd776A0TH9DLSOhyG5DLDzINP
-	mhvpGv0l4TGn1jxDQvMeIiFjP/iMzH9p1tLcRku65dDbeU8wfhj37qTkYftB8iLJFed
-	TvmTq52FeEFtNIewJqiU/lLch4Bmw9DLkTuewJseffsgezyFZC+e3vv+H4QTseXHIec
-	W3Plyp01mQ==
-Received: by smtp.zohomail.com with SMTPS id 1792333480583189.62194695259757;
-	Sun, 18 Oct 2026 07:24:40 -0700 (PDT)
-Message-ID: <e7e6423eb2a358faa0d2a26fddd0f992e3d03448.camel@rong.moe>
-Subject: Re: [PATCH 0/2] platform/x86: ideapad-laptop: Fix unexpected
- charge_types on probe
-From: Rong Zhang <i@rong.moe>
-To: "Derek J. Clark" <derekjohn.clark@gmail.com>, Ike Panhc
- <ikepanhc@gmail.com>,  Mark Pearson <mpearson-lenovo@squebb.ca>, Hans de
- Goede <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=
- <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-In-Reply-To: <DB59F3C0-040F-4663-9750-C387963DCFE3@gmail.com>
-References: <20261018-ideapad-fix-charge-types-v1-0-db52e3bb061a@rong.moe>
-	 <DB59F3C0-040F-4663-9750-C387963DCFE3@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 18 Oct 2026 22:19:33 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bbwm2+Rc"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e98798cbddso4595125ad.0
+        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 07:59:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792335575; x=1792940375; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=f6pyy7nH+NFSMHTDEazkO6g8qtUhCZCbtKhuHMJcuO4=;
+        b=bbwm2+RcdVwwfpw5dk22GVPjbO9YwRSW0Q8XpSzJaTW7Sn/Vbh6llKlDy+wQgvkjMb
+         ltrJUITxZ4QPvyY+UssiE3m8npL0xLPfgu+oqom3l4jvTA7e4YCQyURTxHaJ3IQCYdwq
+         //26yCN3fEgwWmkD3UX7STc4XEA1p59zjSp7jZqAN+tHiPYO84A2SEum55ib8bZVcCy9
+         8mnVhUQsbun54h/qLr58d+Jbl83BYwk3oik+393m4QZL5LoC1IftWoKPTXMgZORV/Gcc
+         +VWanwWB5gyEvQUwQ8fOFqhnBiG5gSfozdps/0xsP2t1b3vg1bw9mUXTwCceGsSG+ltU
+         hjzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792335575; x=1792940375;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=f6pyy7nH+NFSMHTDEazkO6g8qtUhCZCbtKhuHMJcuO4=;
+        b=hoeGDlAAKIMpAwMkhhz8ya3V6OOg4cKAw7MwZ7wMlvXiSfzjZUgwajfKLz2pC7R6D/
+         VyvlCUWdWnbtS8Iolb6dhN045NGQsLLpgganL6XWYvAB4ZVYpLEZmCglGep0I0gkpnFj
+         7OIn41d1kuVa0kJUeTfaPpb/Be3hbzxRlWImR+LBnOQC5nQ3/Xq62ATVLlhTVCQ2wF1i
+         1KmPTevl5JiqLnDk6gg9y4MXg/iB2FdEE04OiD7M/KBoSKFDgBcKvpwthmQjqBKeABkR
+         7+HSeAUSyEfcHN3vpXMGwP9qw9HKWgehbzbjWmieScfHXzyiTzHLPdb4VFxndtOfuvQA
+         9U0A==
+X-Forwarded-Encrypted: i=1; AKwUvByo7zAsEyx3xozLQvmb5OZVHXlf7AnPUEuhcNRxx0WI+wHzGr6QZnls2awRGxlxhly3rnX9INo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLLAS5r6dIy5rdHDhfETCcxEgPbt7CxZnlNuY+MsrtwNzCXQ8SJ
+	u6LAdpylrluQNEpH7kAmhBdhUiCTKvVNfu+qEz7ot3QfWMVBZG6I8Zmj
+X-Gm-Gg: AYBFou1tBZNq5DQ//DpTrRvx1hsZo7H4ulAaPyKq6p6LUHrwsdKLgikcjZ1I67SRnMj
+	m1j+vrmw9dRKaTNAOsioqS0HTnFRx8kHLYyTNHMZQW1GaFrS0U+YrEOvmUSiE7eEwZmj4S+a7ab
+	TfLpeIzG4EZ2BBpg3xYqoPtFHaDV25rnKStD9Fz88LIxvDLX3uRGrfUba/OgYJ6hF9Ppzpege05
+	M8he4ohXZpldt+uJeuve7DFkRfc8eoR5XnRz3YYSgRw0sVkyz4A9i5Icv8JvtIPsw4w6zn6xEso
+	wZjCOPyBkCSLOH72yylBt7Qgnut0jU7Z3GxvDxMTcoW+scWLv4HuUewkpfV76rmw6AR/kMxPKOV
+	hPPsNj9S8fYds8hgbCbRI3m+gKo4E/1nDmZ0a/xwOQeUbISHLKXBzyUrXz/VjjWvp3EBv45Xi+K
+	nSJzOLXxmBPR9VgwlTRlIB39kJV6nzTYr/lqKuLKcd0kgCkiKLt+Nbro0SiaM4r41lDnBd9NfhM
+	45bEyC4
+X-Received: by 2002:a17:90a:d00f:b0:3ab:b39f:41cd with SMTP id 98e67ed59e1d1-3acef543057mr4181119a91.60.1792335574786;
+        Sun, 18 Oct 2026 07:59:34 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2a09:bac1:7aa0:50::245:a2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc487cccdsm12001698a91.8.2026.10.18.07.59.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 07:59:34 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: jmaloy@redhat.com,
+	tung.quang.nguyen@est.tech,
+	netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	tipc-discussion@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+0017742620a9d06f06ef@syzkaller.appspotmail.com
+Subject: [PATCH] tipc: unshare skb in tipc_l2_rcv_msg() before decrypting
+Date: Sun, 18 Oct 2026 21:59:28 +0700
+Message-ID: <20261018145928.58317-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.56.2-10+b1 
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-Hi Derek,
+Packet taps such as AF_PACKET sockets bound to ETH_P_TIPC take an extra
+reference on the skb before handing it to the TIPC packet handler.
+tipc_l2_rcv_msg() passes it on as is, and for an encrypted message
+tipc_aead_decrypt() calls skb_cow_data(), which may end up in
+pskb_expand_head() and hit BUG_ON(skb_shared(skb)):
 
-Thanks for you information.
+  kernel BUG at net/core/skbuff.c:2308!
+  pskb_expand_head
+  __pskb_pull_tail
+  skb_cow_data
+  tipc_aead_decrypt
+  tipc_crypto_rcv
+  tipc_rcv
+  tipc_l2_rcv_msg
+  __netif_receive_skb_core
 
-On Sat, 2026-10-17 at 22:30 -0700, Derek J. Clark wrote:
-> On October 17, 2026 4:16:17 PM PDT, Rong Zhang <i@rong.moe> wrote:
-> > It was reported [1] that some unfortunate combinations of BIOS and
-> > Lenovo utilities (e.g., Legion Go 2 + Legion Space) may enable Rapid
-> > Charge and Conservation Mode at the same time, which is very out of
-> > sepc.
-> >=20
-> > If both are enabled during a previous Windows boot, ideapad-laptop will
-> > see both bits set and correctly shout "unexpected charge_types".
-> >=20
-> > A planned BIOS update will address this. Before that, if unexpected
-> > charge_types are encountered on probe, enforce [Long_Life] to prevent
-> > the device from operating in an out-of-spec state. On check or fix
-> > failure, skip registering the battery hook and the conservation_mode
-> > attribute.
-> >=20
-> > Note: the switches never enable themselves autonomously, so there is no
-> > need to fix it during runtime.
-> >=20
->=20
-> Hi Rong,
->=20
-> Note that this isn't strictly true. A known bug in multiple Lenovo device=
-s is that querying the EC too quickly can cause it to reset into an invalid=
- state. I.e. some games run under wine for check the state of the AC adapte=
-r multiple times a second. In such a case they can reset and then report bo=
-th modes on.=C2=A0
->=20
+A packet_type handler must not modify a shared skb. Use
+skb_share_check() on entry, which clones a shared skb and frees the
+original reference.
 
-Could you confirm if it's a completely different issue compared to
-https://msgid.link/58586fa666f09c209f9d7fe8c692a8bdda6d4410.camel@rong.moe
-(i.e., an ACPI mutex ABBA deadlock cause the GBMD method to return
-garbage data)?
+Reported-by: syzbot+0017742620a9d06f06ef@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=0017742620a9d06f06ef
+Fixes: fc1b6d6de220 ("tipc: introduce TIPC encryption & authentication")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+ net/tipc/bearer.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-> I don't believe the device re-enumerates in this case. This is documented=
- in the driver [1].
+diff --git a/net/tipc/bearer.c b/net/tipc/bearer.c
+index 05dcd2f9e887..5e7e220fa7f5 100644
+--- a/net/tipc/bearer.c
++++ b/net/tipc/bearer.c
+@@ -659,6 +659,10 @@ static int tipc_l2_rcv_msg(struct sk_buff *skb, struct net_device *dev,
+ {
+ 	struct tipc_bearer *b;
+ 
++	skb = skb_share_check(skb, GFP_ATOMIC);
++	if (!skb)
++		return NET_RX_DROP;
++
+ 	rcu_read_lock();
+ 	b = rcu_dereference(dev->tipc_ptr) ?:
+ 		rcu_dereference(orig_dev->tipc_ptr);
+-- 
+2.43.0
 
-The comments and the relevant fix was added in a patch of mine. They are
-about yet another different issue, in which querying the EC with an
-interval < 50 *us* causes the EC to shut down the platform.
-
-Then the user must press the power button to power on the platform again.
-It's a cold boot. All kernel drivers are loaded from scratch, so the
-probe-time fix here takes effects.
-
-That being said, as far as I can recall, running into the issue doesn't
-set both modes to enabled. Besides, userspace checking the state of the
-AC adapter multiple times a second must have an interval much larger than
-50 us, so I don't think the issue you described is the same as the issue
-described in the comments either.
-
->=20
-> Lenovo ha mentioned to me a BIOS fix for this issue will be coming for th=
-e Go S and Go 2 at some point as well, but this isn't exclusive to Go model=
-s. It may be prudent to fix any time an invalid state is detected.
-
-I am OK with the fix-whenever-seen approach, but in this manner it'd be
-better to wait until
-https://msgid.link/20261018122348.679126-1-aliamemis@disroot.org is
-applied to solve the ABBA deadlock issue, so that false positives during
-runtime are reduced.
-
-Thanks,
-Rong
-
->=20
-> Thanks,
-> - Derek
->=20
-> [1] https://github.com/torvalds/linux/blob/32c52ec87d6245ee2d12ed5dd509e4=
-0062939b50/drivers/platform/x86/lenovo/ideapad-laptop.c#L286-L296
->=20
-> > Fixes: 90430ea98f55 ("platform/x86: ideapad-laptop: Add charge_types:Fa=
-st (Rapid Charge)")
-> > Closes: https://github.com/ValveSoftware/SteamOS/issues/2876 [1]
-> > Signed-off-by: Rong Zhang <i@rong.moe>
-> > ---
-> > Rong Zhang (2):
-> >      platform/x86: ideapad-laptop: Factor out charge_types methods for =
-internal use
-> >      platform/x86: ideapad-laptop: Fix unexpected charge_types on probe
-> >=20
-> > drivers/platform/x86/lenovo/ideapad-laptop.c | 113 ++++++++++++++++++++=
--------
-> > 1 file changed, 84 insertions(+), 29 deletions(-)
-> > ---
-> > base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
-> > change-id: ef28eda4-ideapad-fix-charge-types-067d46d08945
-> >=20
-> > Thanks,
-> > Rong
-> >=20
