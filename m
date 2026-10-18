@@ -1,184 +1,170 @@
-Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com [209.85.217.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC0B4DD6C6
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 21:02:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792357329; cv=pass; b=A5lYmzUUOVvogcTkp+Wq3ktcq9pj7aOMRplxtCzWyd4TwyCn1D0A0ue2otCvuRV7/hz4sevT2Tme3xTt20L4bXmVayTZAe04Mffg6jZUFSi/p5iHR9KiLoDjzNr2Xruhe5AESy001qByotnS+D+SR+Ko7FW29d1qRBfOxOYbBbo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792357329; c=relaxed/simple;
-	bh=escU3Q+P3zWInrjZP9+4JGAHTeMsskmq9FXjRcMohoo=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C21C3B19D8
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 21:05:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792357505; cv=none; b=jOkmZUihI2Vyj3VnvywoxzGMPwam3hfOjBH2Y+Q5Dy/WzCA6qTasoWS8AqoZYBBR+ZmcS/FtRgBUCZWjg0wE2lHQG7O2jHkPCf5VRjfemzNnlgtWSU25wJ7HjDbsqt0aHTeSe1QTol3nywCTPlTNiEPFIe1KoD2lAUEoH7QYyrU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792357505; c=relaxed/simple;
+	bh=OthJdEKOZyT5cyQthiIhZUkaQDgEaf8zEWxc3cak/oU=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SxFpWniEA4COx2v/RKP1ldilWNtBxko6Jk0G2TGohia6ZjXsszin6/qNdUK5oELi+Pvld6SBz3lMvOOYEUC2MLRqZlbAz6Ri8U/TVT+cNjLRLDFeYl3lmBhSWU2RZa0Dt8NaWrYoplW5Z1qeTFGTp7VeftHuZdfTjH6TvkapehU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b9yxLerV; arc=pass smtp.client-ip=209.85.217.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=Ab1ttc3N/pHVOX8kUL9IL+dbFLtsjwZ0d/s8xv867Rr8xMlDWUJamrouhXSt1cuNWvQRphkJOv2BzRDGAkvqsnIsgvm/+igve3X0EXygYXvvZRvjrLsX/qhq5Nb7MWFjAPxKqabRT45ytnx7oq43YJafWFqxk2oVboKEmZKwuSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P4lLs6eE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b9yxLerV"
-Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-7c6e6822b11so346212137.0
-        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 14:02:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792357326; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TD8BOjNXB62l4vJpUM5ASYm8in+3nb4my2j94Rp+5t9W/YWKkqes9DTyHQeTbyiZXs
-         j0bcu7Z+lt4DjF324W5lbxOmkGEX6xViyWjTaiXK075Sqwik6LmbD1whZn3Trt+bgOck
-         SmbGpTTYQdPJoIYTBX/m7/tnWP9eUaFVJHhq6LFjUA8+NlJvNba8bg7WnpNHPmj8Dx81
-         olCJ8UxY5eQFVBnIOzBJLj9Dnm/Ry0jaWykDX5FjhZmDqmR1H5tQQR64crTYvzbyB9W5
-         6a9zQNZhCYonV18eYwGVVLR9jURO1+r4H/0BAub5ZeFJhgBkLB08IC0y7DMYgpxwLXgY
-         3OEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Qy/eUVeUOjsCzAJiN1MNGTJCTNknQERtyP6Ddh4oOBI=;
-        fh=6riH9CMb4V+QTwzsdTh9He30CAyAIkF3+c1YoUYwKR0=;
-        b=blhXHtmox7Kl+zvml1N7fuigPfyMXy+mFdxI0j/j601LCYXDtdOph+kS9QVY8DE2BO
-         Yi+Kep7+/K8WWebworwhYk7TJt7wXOMcZGxbs5GbtlY8ZrREDEQ5kAcrV5gp5ApckjVU
-         LeieLDpu4P5paN7BHeyvlvPtpEgmzdvUnlhaz2h0gTQoTiOkAtZ2ZpKMJrh6+Zg2W9rv
-         be2tXJKkHFbn9lw1R6lh2ohLj4InasTOVUUqI73up2d3zq+Cx5z420tF7qF2tR5vfMrD
-         vfzZqj5IYMV1YRfMArTwnffB+IwQAbgPrkedR1w/f2yQMooE3TZ59PIIwl3ms/TBxieL
-         vggQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792357326; x=1792962126; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Qy/eUVeUOjsCzAJiN1MNGTJCTNknQERtyP6Ddh4oOBI=;
-        b=b9yxLerVZSFDSlMrB3Sqvb1c2CBc0S9R/x13M63+Iu7qSxr0uLDcNnzGrrmz6moqlp
-         U5Agy1BkvOS5tab3cU6+EEQPmFVhv4OH+jU10xC6ww8zrcxR1Aoloqb15KnGA3j2j+eR
-         6e8n97NeCGo76ppWF/M578Br4kqz09HO3iylmuzFeoSAP2o3VcHbT+3+NYk+H8TFvw4g
-         UXvwSobiuH1GWJW+dweH/pcYyQWlimtV1WA+Glep+tkIfgSfdVfd/UMNmqV0veLsojBI
-         1lf0R9VoTj9dEcVQt2Q5u9rOhOQsNAfE427MbLke+uY0UoEnYPwJW/cB8G67yBg/KQnO
-         9EeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792357326; x=1792962126;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Qy/eUVeUOjsCzAJiN1MNGTJCTNknQERtyP6Ddh4oOBI=;
-        b=B4ZMpp2EviwXKrhjyI88y24EIHKSfrS4ksZbotAdJZV6b/TtbNvA+zUg2rIZ/KF2X1
-         LKXpZqj+70rnwqeI/Jp+waJzvEmBelXp1ZQnXoT+HEdM9jg2EHgPEBhXFBhHyZXre5Kt
-         O0Qd+Ye+MF4OKJKAszIDCizzo6cFF5T5HSXuCVnKfAprJoQ+XfkeNgwPJiWngNmFRS2b
-         Jibb0GdElCa87ZZC2iRfi+d8Ck7beM1QENSA3r9nMy/qprGimuUxioPsXHQoG4qOV1u5
-         qA5QzjkVhkoyPmWMbuN1XaUCBLBqYX6VRfIdfSuB6cc9fEhvFCtdiqSDL0yUsPeco0OS
-         5AFg==
-X-Forwarded-Encrypted: i=1; AKwUvByZ8KCtvCZqNudMvLcGuqdfsavJ+jAuBLtRKs/QzyxETdHs0XoqtQ87d42ubg3ZLYSBtNdjVRw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKczePXsP6qch/6ntJLCbiyp2YXsMVBXAVh6tP+uYkY+ePKR4wV
-	B+SxcD3wcwVNoObxy+gDWFJ7mx1J1O9H9ql/xjW+XcsPy1+Da0uFXs1mHlwdsNqoVXIeHut+ulJ
-	mh8MDxuatcvBgnwnGjs+ub7fyWP+q4ms=
-X-Gm-Gg: AYBFou3EGSRgw9qgfVlo2BaZYykjHLNeWJPx2SpMphjUtgNdycPM+NJ1apZOtDn+p2j
-	0mydrZMPCCMkVe0Pp7GgOnghzHtJwojMqUxDQLcgzg+rShqWKtEqpT8yeFodN7Ngy/PjeRukWnN
-	HwRDOc1dCKMrqJPiqZE7BokeArUN8T2w1qTSyBYfNTyGBDX5fkCSigtJ+UvRgv0J0tUEqGLPSoH
-	kkQkPWNyGQrfNaZz6TbYIwiOo92Qb4hKsQsyNed/P0X4lCl8cvqKjRj2snPgmpEe3mToGjrKHUi
-	AWYYD0odTeXxCD4LL7vhSBPWeRlG5nNKXZeAu5UnjAj5auZdqij5OGi24pYMVCtk9f7VILqMQYh
-	j8qZpsY6QvPSIgFx0OZy01W5/eYXgOq5GM1mcdjpbw1KKMw==
-X-Received: by 2002:a05:6102:548b:b0:7c3:c0b9:9031 with SMTP id
- ada2fe7eead31-7cc36b17a5fmr1262224137.36.1792357325888; Sun, 18 Oct 2026
- 14:02:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P4lLs6eE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 479E11F000CB
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 21:05:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792357504;
+	bh=iQDTlvvwoXWqTgqUBdk+kEmh4xR3Lpqc+hC8biCo7vg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=P4lLs6eEEnoVjUQJuctxKFBDuyiPaK3m6UuM2qgmkC16By/9aSfZIWgpmJuCHfJPH
+	 AZ2cEGKtdOqRNMne4/juWp8RLzT7qlc2GWSSIOK/AUl3LAOwSSsXi2xDZ5ELgU/LuJ
+	 HCCZ+rsUppmYKvwZkqtLKONFVSL0amezDpnaIKAMeBxriahtJGt5qCaMjPT6ZQoJkp
+	 47LrDtFiOgVtj4qwixrez4zTggHJ8aPqPPZAgg8ShK7muCU8B7cAFCCEDvaxnImxhc
+	 qbssp2b5F8TKOPmKrxEXScyhc2cd0A/XHK2v/f0JApCl90328xasjtDE3vVKolKoTP
+	 Y6y42DguGoHsQ==
+Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-93a40a9a01aso353861585a.0
+        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 14:05:04 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwkA30KbU4WrYY1cpiqoHpSZygf3Gqrz44BJx0KIIclaQk2Rpi0+SPVCvwX6qrtM7kEhVMjE3s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9+lwxMYeUyfXGdT1fO7vsN/OqV6xbcBdu0xZyP4Y+krTUAaZV
+	fgMkgP6Iokxa4k5BQGV1oB05TFNKoX8Mko4sF1gKX9NnhFptatW0owmYpWCT3m5ZTeNHwwb5i4A
+	/ly4liqQUxPXnrCkN6qjEfAirzBl7AqU=
+X-Received: by 2002:a05:620a:280a:b0:93e:c12d:4ec9 with SMTP id
+ af79cd13be357-93f17faaefdmr1523087585a.41.1792357503555; Sun, 18 Oct 2026
+ 14:05:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261018023349.1697434-1-gourry@gourry.net>
-In-Reply-To: <20261018023349.1697434-1-gourry@gourry.net>
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-Date: Sun, 18 Oct 2026 17:01:55 -0400
-X-Gm-Features: AclHuK_otQGVJnFH3of7l6giChtEJc7SlCr0xXb-9-VAKMTt98ua1SNqHcfLZJE
-Message-ID: <CAN+CAwMJZ929StJF3=5pJ8uO97u6pK+XrF3LwmhHia-rUO+dUg@mail.gmail.com>
-Subject: Re: [PATCH] mm/mempolicy: apply bind policies against the scoped
- allocation zone
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, rakie.kim@sk.com, 
-	ying.huang@linux.alibaba.com, pasha.tatashin@soleen.com, mhocko@suse.com, 
-	stable@vger.kernel.org
+References: <20261017050928.128582-1-sidchintamaneni@gmail.com>
+In-Reply-To: <20261017050928.128582-1-sidchintamaneni@gmail.com>
+From: Barry Song <baohua@kernel.org>
+Date: Mon, 19 Oct 2026 05:04:51 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4whqGRQ4JY5rLLJZU=f8u5T75qHkJYQFDoqZSx5c6EBHQ@mail.gmail.com>
+X-Gm-Features: AclHuK--x7DVGO_dcw8j_MNytrS7YLiy9sMauVU8tR1EJZ2OhP3EMm1WXJm10Fc
+Message-ID: <CAGsJ_4whqGRQ4JY5rLLJZU=f8u5T75qHkJYQFDoqZSx5c6EBHQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] mm: multi-gen LRU: fix NULL lruvec->pgdat deref
+ with memcg disabled on cmdline
+To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, david@kernel.org, 
+	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org, 
+	kasong@tencent.com, axelrasmussen@google.com, yuanchu@google.com, 
+	weixugc@google.com, baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, 
+	yuzhao@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	apais@microsoft.com, rlmenge@gmail.com, stable@vger.kernel.org, 
+	Hardik Garg <hargar@linux.microsoft.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 17, 2026 at 10:33=E2=80=AFPM Gregory Price (Meta) <gourry@gourr=
-y.net> wrote:
+On Sat, Oct 17, 2026 at 1:09=E2=80=AFPM Siddharth Chintamaneni
+<sidchintamaneni@gmail.com> wrote:
 >
-> QEMU fails to start a guest with a VFIO device when guest RAM comes
-> from a memory backend bound to a movable-only node:
+> When CONFIG_MEMCG=3Dy, lruvec_pgdat() returns lruvec->pgdat, which for th=
+e
+> per-node pgdat->__lruvec is left NULL by lruvec_init() and only filled in
+> lazily by mem_cgroup_lruvec(). Normally that happens early, e.g. on the
+> first folio_add_lru().
 >
->   vfio_container_dma_map(0x55b1b1317800, 0x0, 0x10000000,
->                          0x7f39a2200000)
->     =3D -12 (Cannot allocate memory)
+> With cgroup_disable=3Dmemory, lru_gen_shrink_node() passes &pgdat->__lruv=
+ec
+> directly to shrink_one(). If direct reclaim runs before anything has
+> called mem_cgroup_lruvec() for the node, which can happen during early
+> boot under memory pressure (e.g. a kdump kernel), get_swappiness() ends
+> up dereferencing a NULL pgdat:
 >
-> VFIO pins guest RAM when the device is realized, and the pin faults
-> the pages in. io_uring fixed buffers fail the same way. Faulting the
-> range in before pinning lets the same pin succeed, since resident
-> pages are migrated off the node instead.
+>   Unable to handle kernel NULL pointer dereference at virtual address 000=
+0000000005040
+>   pc : get_swappiness+0x68/0xb0
+>   lr : try_to_shrink_lruvec+0x54/0x2c0
+>   Call trace:
+>    get_swappiness+0x68/0xb0 (P)
+>    try_to_shrink_lruvec+0x54/0x2c0
+>    shrink_one+0x8c/0x240
+>    shrink_node+0xc6c/0xe08
+>    do_try_to_free_pages+0xdc/0x570
+>    try_to_free_pages+0x124/0x278
+>    __alloc_frozen_pages_noprof+0x6e8/0xf78
+>    alloc_pages_mpol+0xc4/0x1c0
+>    alloc_frozen_pages_noprof+0x54/0xe8
+>    alloc_pages_noprof+0x1c/0x40
+>    atomic_pool_expand+0x98/0x300
+>    __dma_atomic_pool_init+0x58/0xd8
+>    dma_atomic_pool_init+0x154/0x170
+>    do_one_initcall+0x64/0x350
+>    kernel_init_freeable+0x214/0x430
+>    kernel_init+0x2c/0x208
+>    ret_from_fork+0x10/0x20
 >
-> A long-term pin faults under memalloc_pin_save(). PF_MEMALLOC_PIN makes
-> current_gfp_context() clear __GFP_MOVABLE, but policy_nodemask() tests
-> apply_policy_zone() against the caller's gfp.
+> The classic LRU path and MGLRU before per-node lru_gen_folio lists
+> obtained the lruvec through mem_cgroup_lruvec(), which sets
+> lruvec->pgdat.
 >
-> The bind keeps its movable-only nodemask, and the allocation finds no
-> usable zone:
+> The above was hit on an arm64 kdump kernel (6.18-based) booted with
+> cgroup_disable=3Dmemory nr_cpus=3D4. It also reproduces on mainline on an
+> arm64 VM with CONFIG_ARM64_64K_PAGES=3Dy, CONFIG_MEMCG=3Dy,
+> CONFIG_LRU_GEN_ENABLED=3Dy and:
 >
->   page allocation failure:
->       order:0,
->       mode:0x140dc2(GFP_HIGHUSER|__GFP_ZERO|__GFP_COMP),
->       nodemask=3D1,cpuset=3D/,mems_allowed=3D0-1
+>   mem=3D160M nr_cpus=3D4 coherent_pool=3D512M cgroup_disable=3Dmemory
 >
->   Call Trace:
->    warn_alloc+0x136/0x150
->    __alloc_frozen_pages_noprof+0xed8/0x1720
->    alloc_pages_mpol+0xaa/0x170
->    vma_alloc_folio_noprof+0x65/0xd0
->    __handle_mm_fault+0x137b/0x1ac0
->    handle_mm_fault+0xa0/0x270
->    __get_user_pages+0x250/0xfd0
->    __gup_longterm_locked+0x116/0x870
->    gup_fast_fallback+0xcfc/0xdf0
->    pin_user_pages_fast+0x47/0x60
->    io_pin_pages+0x9a/0x110
+> These options only serve to force direct reclaim early in boot; with
+> 160M the boot eventually ends in OOM regardless. On mainline the first
+> LRU reclaim happens while unpacking the initramfs, and faults the same
+> way:
 >
-> Base page faults fail with -ENOMEM.
-> hugetlb faults fail with -EFAULT.
+>   Unable to handle kernel NULL pointer dereference at virtual address 000=
+0000000005040
+>   pc : get_swappiness+0xd4/0x150
+>   Call trace:
+>    get_swappiness+0xd4/0x150 (P)
+>    try_to_shrink_lruvec+0x44/0x2b8
+>    shrink_one+0x80/0x1a0
+>    shrink_node+0xd98/0xea8
+>    do_try_to_free_pages+0xf4/0x4b0
+>    try_to_free_pages+0x110/0x360
+>    __alloc_frozen_pages_noprof+0x8b0/0x1718
+>    ...
+>    __filemap_get_folio_mpol+0x2ac/0x548
+>    simple_write_begin+0x44/0xf8
+>    page_symlink+0x178/0x198
+>    ...
+>    do_populate_rootfs+0x13c/0x200
 >
-> Check the policy zone against current_gfp_context(gfp), so a pin-scoped
-> fault falls back off the movable-only nodemask, like any other
-> non-movable allocation under the same bind.
 
-Hi Gregory,
+So this happens before any folios are added to the LRU and before
+the userspace init process starts?
 
-LGTM, thank you for making it so easy to review!
-I wonder if other places are missing current_gfp_context as well.
-
-Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-
-> Tested in qemu with a dax/kmem movable-only node 1. io_uring and VFIO
-> pins of unfaulted base pages and 2MB hugetlb pages now succeed and land
-> on node 0 (correct). QEMU now starts with the same backend binding.
->
-> Fixes: 8e3560d963d2 ("mm: honor PF_MEMALLOC_PIN for all movable pages")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+> Cc: stable@vger.kernel.org # 6.3+
+> Assisted-by: LLM
+> Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+> Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
 > ---
->  mm/mempolicy.c | 2 +-
+>  mm/vmscan.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-> index 70298fded1b4a..0884c629670dd 100644
-> --- a/mm/mempolicy.c
-> +++ b/mm/mempolicy.c
-> @@ -2302,7 +2302,7 @@ static nodemask_t *policy_nodemask(gfp_t gfp, struc=
-t mempolicy *pol,
->                 break;
->         case MPOL_BIND:
->                 /* Restrict to nodemask (but not on lower zones) */
-> -               if (apply_policy_zone(pol, gfp_zone(gfp)) &&
-> +               if (apply_policy_zone(pol, gfp_zone(current_gfp_context(g=
-fp))) &&
->                     cpuset_nodemask_valid_mems_allowed(&pol->nodes))
->                         nodemask =3D &pol->nodes;
->                 if (pol->home_node !=3D NUMA_NO_NODE)
-> --
-> 2.53.0-Meta
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index f11491ee9ed5..0c57e4f1eb15 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -5253,7 +5253,7 @@ static void lru_gen_shrink_node(struct pglist_data =
+*pgdat, struct scan_control *
+>                 sc->nr_reclaimed =3D 0;
 >
+>         if (mem_cgroup_disabled())
+> -               shrink_one(&pgdat->__lruvec, sc);
+> +               shrink_one(mem_cgroup_lruvec(NULL, pgdat), sc);
+
+What's a bit weird is that even if we fix this here, with an empty
+lruvec, we still won't be able to reclaim a single page. But it's
+hard to see where we could break out early, right?
+
+>         else
+>                 shrink_many(pgdat, sc);
+
+Best Regards
+Barry
