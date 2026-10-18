@@ -1,105 +1,86 @@
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-199.mta0.migadu.com [91.218.175.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A50F4CF494;
-	Sun, 18 Oct 2026 08:07:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B9DA40F750
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 08:08:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792310853; cv=none; b=QpJO/DbLpB5ZkEaudXlnyq4jwulFIuBLu2VTZCysSGojZTwVSqW+TPaCvatwIZl+cGwkEx6H5h84XzCCGaAP0vVLmnAhhdWSKv03FRs8OLwHfLkJJpQubyPczj4qhlxBXAc0CvW8/bZBBJwO1qyrmcS3v16OF9KsamlMFG2f3mM=
+	t=1792310889; cv=none; b=f3HSuuBx1OZ+fG5BC0tk4DqDTyhb8YWcPP0XpaWOa+A/vn54EePOj1H3bwj+vkcIntWzySe3OKBFEGESlueLLoDOCfEX7ML8y2nKEVj12v5mrkJA3EELKJj8Rgb9cK2aSbNdJr5WJPxAbyxGNSqstpXx2fGbcMEyXr4bByqlDfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792310853; c=relaxed/simple;
-	bh=TOnAVyEK+04cMOfsycnPsuY3HAxNe+V2VOvmkupQOI8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=uRU3J6oCD+MzJl0KZcmR1iRnYUszkTmxmWdwe3NSNp6mGForNCHKYxV8oNKNyAs6yXcPmU+O+tTmQTWkIC7aP8L5pklU8ZG7QaPbnpPxEN9hfp529eayx+l0bbbHhlKsM22wV4n8crM+CuarZsQEra7ByT8/DLAbN3z7GJQYMVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=pKklwc6W; arc=none smtp.client-ip=54.254.200.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1792310889; c=relaxed/simple;
+	bh=XbcCGqXm08UD+4MN89FaxhWYXmB/b4iOm5BY4cHWO+0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=n5nyhUNn0CKAZpCYnnSB2eJW97X1iz248yHEutDE6QKjC7P6XQYOjobCU8qyUWH5DXxUaEGBs0PoYWdhuxPAiwBYOmaaCudeIbtHZcQGzTlqqQq9dpkEi16KRiFfD24gLpjAO2g80p6YnPveh6sxRgpeDnVRWfdYi8AUlo1fvx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=p7jnQJDx; arc=none smtp.client-ip=91.218.175.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="pKklwc6W"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1792310765;
-	bh=TOnAVyEK+04cMOfsycnPsuY3HAxNe+V2VOvmkupQOI8=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=pKklwc6Wg9KZ91VMtBG1vhQYMY8dbeu9tVe+lOFTTh2T0eE2K0GHac44HHCs9GyY6
-	 3IQCrLnOxzjRykJDF6zRGlYBD1Vxf3ZN39xszLQOHtNk2EQZJtMiZL2Cx1tjlieI7e
-	 +9iAGB7kUtsjVzmYgD0S7D474V++fp+i/xcbb/vU=
-X-QQ-mid: zesmtpip4t1792310759t03841159
-X-QQ-Originating-IP: MbAfE2g+DSik+IzecFblDwmmIriWgwV/1JDDtkxUcfs=
-Received: from localhost.localdomain ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sun, 18 Oct 2026 16:05:55 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 14395054749382422729
-EX-QQ-RecipientCnt: 21
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="p7jnQJDx"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=XbcCGqXm08UD+4MN89FaxhWYXmB/b4iOm5BY4cHWO+0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792310885; v=1; x=1792915685;
+ b=p7jnQJDxQMGX25AeFA7oM+lhn6PaZkuGuFKMJ28uIQrj5oGa14bN9VPLVMltoQNSZ3xMxHJ4
+ MBwro4frvjNLi0qW4g74zXI+af9EHawmu1+cfcriWwvf+r4RygGT8ITaYfTpmMiYivez2iKfuca
+ bTLLBgBV9PA8Dzjeg0ZTLouY=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 56d35b3a46d02963;
+	Sun, 18 Oct 2026 08:08:04 +0000
+X-Mizu-Trace-ID: 56d35b3a46d02963
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org
+Cc: akpm@linux-foundation.org,
+	liam@infradead.org,
+	ljs@kernel.org,
+	vbabka@kernel.org,
+	jannh@google.com,
+	pfalcato@suse.de,
+	muchun.song@linux.dev,
+	osalvador@suse.de,
+	linmiaohe@huawei.com,
+	nao.horiguchi@gmail.com,
+	agl@us.ibm.com,
+	mel@csn.ul.ie,
+	riel@surriel.com,
+	peterx@redhat.com,
+	kas@kernel.org,
+	rppt@kernel.org,
+	josef@toxicpanda.com,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH 6.18 00/52] 6.18.58-rc1 review
-Date: Sun, 18 Oct 2026 16:05:47 +0800
-Message-Id: <20261018080546.1474756-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261017155104.830766652@linuxfoundation.org>
-References: <20261017155104.830766652@linuxfoundation.org>
+	stable@vger.kernel.org
+Subject: Re: [PATCH 08/10] mm/hugetlb: tolerate UFFD_WP markers outside uffd-wp VMAs
+Date: Sun, 18 Oct 2026 16:07:59 +0800
+Message-ID: <20261018080759.4295-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261015-urgent_fixes-v1-8-42796911043b@kernel.org>
+References: <20261015-urgent_fixes-v1-8-42796911043b@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OFyf58EP9GzUkkduIxlBIKwrEq8Suu1wWo1l7h4D75q/gMS4YGqDJ4qC
-	Zpqw4cn7XuObT8+/SKuLZ4MeJ31rbuqJw7Y+NVkxmgfBGt0d/nFjAAUfNEkFM913I+lY82w
-	1xpYuwAihyxFuIzR3VFZDu0e5hlWIERxiU+3OvZb6B1BrScWsnhbHgnHyRgDoq+ECs3jrzR
-	lrgGrjSPeYhwP7eOEQfjg0s5q3iZZIipDpr/C0adzbPKoRbggzSNZ87v1dtTiUbibtu5NDb
-	VV/tX/A5wyfB1UIHhxvmNAsEY+3Cs9I0XeLVnFy1OsXvxUTcLXJJXY9K3RMBcYMTMrLv8I2
-	6+Xch++wkIuNWkPw8MasVesw1zs+M8cQIpgAVIzdUeVhjpqXXpndrr8glWL4l/N/c8JJWOm
-	JzCpWrodBcsVGSaWLLgq8PrOtkaEoGawAlsa9o0gqQsRwfSMlxQNJSHucOdxd4Pj400hHF1
-	VJl9FhSsW9PWJnmUNC8aCeW/Wrih8pCZnyIGxKez7Ot5hXshbjCXj+yd8mF7LNX28IKghoD
-	i1P3V9ScMEk1/yFArzm7AQ9WYLSdjk9tNiOGZBuCKauZsddAX8SpRXhqxumLZYvGe+ghO/W
-	qt2Ln9PH+rTsfHktchkRX1Dln1RqLIe0++9Lwwdcm8NkWZHgD8lY32BNv3v1AUhIs+ilzPm
-	r7HN1T7Up6rEug8bs5ZB/4yPzFhtyXFXeGeRCOwPP29QR42tIzPwTFRbN+vdh3/VcJUU4jK
-	jDx6LjMNSv37nm+0/ogAFtt31d0XvhFiSlExXw71WNq8nQ0NmFpUcJLjbsN5kThDVtp8fAq
-	xQ7pFsujoH6lsncQmITN4qtz8XVKyHB8xg3c67aWX7m5GQPTLM5Ec7H3kcoDC9f6oFriC7h
-	iyz7uPeRnm2rEOblhuGHPB6oGgsqu917bDGkQgQDBa6Bt54iZYMf8omKVNYg9ar49ImnYc+
-	yG3dyT/phAZP58hbZVNZ3L5twnnd8YcEMwRjamxBYSxXTvrb6pmBypdhHW7XbMSsL2yTVmZ
-	0vg4PXPC6gmNTeRF/LAPvxVep68EzPbACwjPD42DC9mxkn0JeHlIuq9kK57gOZok9mC+1c1
-	AVXHv7KPV8GtKcvzP7rmxHaM5TsUA9CtIICP1h8W2TTPfRGHw8NTK59eUhRkaQ4YRxDE+uF
-	3GfS
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
 
-Build tested in our x86,arm64,loongarch,riscv config successfully without error.
 
-Tested-by: Wentao Guan <guanwentao@uniontech.com>
+On Thu, Oct 15, 2026 at 06:07:14PM +0200, David Hildenbrand (Arm) wrote:
+>UFFD PTE bit handling is a bit like swiss cheese, in particular with
+>recently added RWP mode. Having uffd-wp markers outside uffd-wp VMAs
+>already confused this code in the past and resulted in uffd-pte bits
+>confusing other code later.
+>
+>Let's play safe and just ignore these markers in hugetlb_no_page(), not
+>silently propagating the uffd-wp PTE bit.
+>
+>Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
+>Cc: stable@vger.kernel.org
+>Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>---
 
-Best Regards
-Wentao Guan
+LGTM!
 
-Log:
-Linux version 6.18.58-rc1-g73d1ddb7c097 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT_DYNAMIC Sun Oct 18 15:09:15 CST 2026
-Linux version 6.18.58-rc1-g73d1ddb7c097 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT_DYNAMIC Sun Oct 18 15:30:09 CST 2026
-Linux version 6.18.58-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT Sun Oct 18 15:49:28 CST 2026
-Linux version 6.18.58-rc1-g73d1ddb7c097 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Sun Oct 18 14:49:12 CST 2026
-
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
