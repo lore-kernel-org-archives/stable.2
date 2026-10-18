@@ -1,127 +1,131 @@
-Received: from mta0.migadu.com (out-62.mta0.migadu.com [91.218.175.62])
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8DD3B100A
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 06:16:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.62
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 058093FD960
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 06:17:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792304202; cv=none; b=S39qTYaN7fLoG7A8m7wtrt6VQWeFGJLc0mHif/fZlItJ4EjoWpQ9yiFDwjmlbz61FwVtF5PZOLL5Eo2QQ/7zIHE+7pGcqwHZZDIGMF2oGeoLD48IWsmaex3Gyy45zx/+P3X8kNEz4/fUUJmUccgPh2tQjk4lhMUVf1Og9Vhncfs=
+	t=1792304269; cv=none; b=M67MDerp9CqpgN2TZR++GY03Ap4wxCty1+A9EhbA0NxvV9yTkLKqIddY/iUoJCZEM4vMc4rzBhJ0G+1Gnx+7YH2lwcPL49E2tpEXes5OXs5KvgCS5wgIkzCDbcqsNWT/RFdP3fbHsfRf2L2biUAUGdibNP+wbqRCeyPm4Huvch0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792304202; c=relaxed/simple;
-	bh=B7Gw/wiYK21i/cMa7GU1UmN3hJqv1WC6YvEMSTJM0Ps=;
+	s=arc-20240116; t=1792304269; c=relaxed/simple;
+	bh=AA4CFCI/T0Ewszphaoo15ML6lrPZ6nLxKoibb0yiWds=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YerY5AX1hRgMnCt83cOYtzMmHeGNBwsarGju9OlCOoyYsSt/ZWp2aZEzaVkrjWZvEz4j9t0aq2WaAmcbWx19DkykmCMQdOxwRw8/TOJs3fNKXglroCk96i6XJ7TU6/ZJIOaP1vXQHw99mN/qlBwSn7Qisfy3aY9CIlk4m/Lik6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=svOFuxEq; arc=none smtp.client-ip=91.218.175.62
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 MIME-Version; b=EN6fzQMSbEPYos1hXe5BS8BY7xWBkeg0v48Ui4F8fXoKXGHSuW1xyEokvPzhtaKSyu6jJq1OhjMzZ5iH56jjrJPcpi487yMqjtEdeuikub5bV7zGTy35zf6mNOT1SZuZ4EdQZL2CprtC8s+yxX09BOoeGC9x6i5XO8rjTYBznrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gt.tech.gov.sg; spf=pass smtp.mailfrom=gt.tech.gov.sg; dkim=pass (1024-bit key) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.b=Dtlfntjz; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gt.tech.gov.sg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gt.tech.gov.sg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="svOFuxEq"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=B7Gw/wiYK21i/cMa7GU1UmN3hJqv1WC6YvEMSTJM0Ps=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792304197; v=1; x=1792908997;
- b=svOFuxEqWf6TmVMdnsN1mZk98lR9tnesVti+KOrfgctxjpv8rBn12cxqNLDbHUyl+Rttw4Uy
- YA4lWw/9Qjlf9VWwziulrNT54f2eRyGnVA5cK41UhvKt5+6gNMuOUrAYCEmwdCUj8EoAzdj5nSU
- kH4lQrOX8B0Qk2jckfVlZGRU=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8a974899a536c980;
-	Sun, 18 Oct 2026 06:16:37 +0000
-X-Mizu-Trace-ID: 8a974899a536c980
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	liam@infradead.org,
-	ljs@kernel.org,
-	vbabka@kernel.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	muchun.song@linux.dev,
-	osalvador@suse.de,
-	linmiaohe@huawei.com,
-	nao.horiguchi@gmail.com,
-	agl@us.ibm.com,
-	mel@csn.ul.ie,
-	riel@surriel.com,
-	peterx@redhat.com,
-	kas@kernel.org,
-	rppt@kernel.org,
-	josef@toxicpanda.com,
-	linux-mm@kvack.org,
+	dkim=pass (1024-bit key) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.b="Dtlfntjz"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3acb11973c3so1106087a91.3
+        for <stable@vger.kernel.org>; Sat, 17 Oct 2026 23:17:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gt.tech.gov.sg; s=google; t=1792304267; x=1792909067; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yaonELdcVf4OUI2YJCgEvAYKPGQioZd6te9YEzY8XbI=;
+        b=DtlfntjzLEdOCfUOgBuomjBZSoGFilba39LXPLFRJm8I29WHiwQbUmdE4K43K3vD9Q
+         KWVUOyEcs7MtwE4e4Q63F9wRAxbjq+t33arNw+NWjw4N2ywegiK+AZ4tt0Ak3UibM/xI
+         43tacmr5e061Jqy8Cq7nLVd8x0RSPpYreW78U=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792304267; x=1792909067;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yaonELdcVf4OUI2YJCgEvAYKPGQioZd6te9YEzY8XbI=;
+        b=wLCz9zpZvl4YfkPgiKFaOHYegkJCcw6e9n16iVLheBHW5bgwLvRhO9oFlX1JTVpj7p
+         uToNQAKMxNaZSj5lxm9WnEQoWyAM057FQFJt52T12gVIFj2eJnr9k5HOi1lWq33J72cZ
+         7JvNbaZqk/OMviJeOYFenoCQy8n0jNnBKrAYuigHVe+hwbkt/YxBCFdTes+Th4si2L2A
+         oWSdARtbhLHNx6olnrRDZvYZQ+rc6s4wJlhDeMmNDZ9dm4SLz+hVt9G5pWbJXSSjKgJY
+         WS6YSXDRM1JVGgxRmsYNhUOkRzZCHnV7+zkPMiJplC3Wqj6AY5l7JlkWrAscGXmo4GYb
+         VPkA==
+X-Forwarded-Encrypted: i=1; AKwUvBz0zB3YF1nYPrQPNjfu67Znzx16BAjhDX/GT5IwF/uQXwDoWJypTz/Y7T06t2oikEv+7PAVxnU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWGJ3WLc03mkMl7nafpBHCsPv2TnsFdd5oqDVFOikyGnM3Vrko
+	a4PAKgfyrPlhe48WeDomabkJmlQBj8AV+AWXhVvhGr5kCSX9YzJZAbNgoAcCrXcAob0=
+X-Gm-Gg: AYBFou0ShNvmGaRUSPvJOW0CYIxx4t2vJAimKx2pus3tq3Bnh30VcW6I/zzWBRKouR4
+	36BVPPMfZYZDL38fxFnURA9yyjQ0ipHFAH41SyEJN8VyUgJeOs63po4pzbeKZcv5pIqWVhoe87A
+	yPsFPOpPj4QKJOf7nrROs1hff6RZ4goR9/O526tuqZL0HP2uptTZUrQXEh2ttRpvQhi/yUfn7iH
+	zmLE/nxMMUNsD+bTliHqV4RYgkmpMSxAduXu+zgTk9+asrSMK0c2SZPHpi0C8SJl391FKGWZjRA
+	XA/uHSRoS8DPs2xSr2qnexUC5edVyIY/E0RqT3Jq7SujCQFQZACeZkR6USgdOBeAbXMZw8qkuYF
+	1pJuR2l7Dx9I9CB9O3TVFFr1kX9jyX56HiG05kVYJDynTHIU7zC0vHhL6MKvsBtFP+/MeBF+tVD
+	gB8vGtQf2IdnbQQ+xCv2BVbXSWqSOJtQMhUl1XwZuknHLwfepn/J8OC9Jhid1xRR7V8bUu2XHhZ
+	Gy0BT7+++x8FpNWZscjeV9OW8xFbw0ff0QTE8d20mQMtxCHbKf/mQc=
+X-Received: by 2002:a17:90b:4c49:b0:3a8:185:cf40 with SMTP id 98e67ed59e1d1-3aceeb95f82mr3978010a91.10.1792304267228;
+        Sat, 17 Oct 2026 23:17:47 -0700 (PDT)
+Received: from LAPTOP-UUUVNN1I.localdomain (bb119-74-6-224.singnet.com.sg. [119.74.6.224])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc46ecd32sm11025963a91.3.2026.10.17.23.17.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 23:17:46 -0700 (PDT)
+From: Wei Jie Law <law.wei.jie@gt.tech.gov.sg>
+To: Thangaraj Samynathan <Thangaraj.S@microchip.com>,
+	UNGLinuxDriver@microchip.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Woojung Huh <woojung.huh@microchip.com>,
+	netdev@vger.kernel.org,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	Wei Jie Law <98lawweijie@gmail.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH 02/10] mm/hugetlb: fix use-after-free of a new anon folio
-Date: Sun, 18 Oct 2026 14:16:32 +0800
-Message-ID: <20261018061632.14622-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261015-urgent_fixes-v1-2-42796911043b@kernel.org>
-References: <20261015-urgent_fixes-v1-2-42796911043b@kernel.org>
+Subject: [PATCH net v2 1/2] net: usb: lan78xx: do not update statistics after a failed read
+Date: Sun, 18 Oct 2026 14:17:33 +0800
+Message-ID: <20261018061734.19488-2-law.wei.jie@gt.tech.gov.sg>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261018061734.19488-1-law.wei.jie@gt.tech.gov.sg>
+References: <20261018061734.19488-1-law.wei.jie@gt.tech.gov.sg>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+From: Wei Jie Law <98lawweijie@gmail.com>
 
-On Thu, Oct 15, 2026 at 06:07:08PM +0200, David Hildenbrand (Arm) wrote:
->From: Josef Bacik <josef@toxicpanda.com>
->
->For a fault in a private mapping with nothing in the page cache,
->hugetlb_no_page() allocates a folio, locks it and maps it.  The folio has
->one reference, which belongs to the page table entry from then on.  After
->dropping the page table lock the function still sets the migratable flag
->of the folio and unlocks it.
->
->Whoever zaps the entry in between frees the folio.  The fault holds the
->fault mutex and the lock of the vma.  MADV_DONTNEED and the first unmap of
->a hole punch, hugetlb_vmdelete_list(), do not take the fault mutex, and a
->private vma only has a lock if it owns a reservation map: not with
->MAP_NORESERVE, and not in the child after fork().
->
->Then the flag is set in, and folio_unlock() is called on, a folio that is
->free or has a new owner.  A surplus page goes back to the page allocator
->while it is locked:
->
->  BUG: Bad page state in process init  pfn:108e00
->  flags: 0x200000000000059(locked|uptodate|dirty|head|node=0|zone=2)
->  page dumped because: PAGE_FLAGS_CHECK_AT_FREE flag(s) set
->
->A page of the pool can be given to the next user, of any file, who locks
->it and loses the lock to the late folio_unlock():
->
->  kernel BUG at mm/filemap.c:1532!
->   hugetlb_no_page+0x111b/0x23e0
->   hugetlb_fault+0x3a9/0x14a0
->
->An unprivileged process is enough: threads that write to a MAP_PRIVATE |
->MAP_NORESERVE hugetlb mapping, threads that call MADV_DONTNEED on it, and
->one that takes the freed pages for another file.
->
->Until commit 3a47c54f09c4 ("hugetlbfs: revert use i_mmap_rwsem for more
->pmd sharing synchronization") the fault held i_mmap_rwsem for reading,
->which everybody who zaps takes for writing.  The lock that commit
->bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private VMAs") gave
->to private vmas closed the window again, but only for those with a
->reservation map.
->
->Be done with the folio before the page table lock is dropped, as
->hugetlb_wp() is with its copy.  The function already unlocks page cache
->folios under that lock.
->
->Original fix generated by an LLM and sent in private by Josef.
->
->Fixes: 3a47c54f09c4 ("hugetlbfs: revert use i_mmap_rwsem for more pmd sharing synchronization")
->Cc: stable@vger.kernel.org
->Signed-off-by: Josef Bacik <josef@toxicpanda.com>
->Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->[ david: simplify+move comment ]
->Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->---
+lan78xx_update_stats() reads the hardware counters into an on-stack
+struct lan78xx_statstage. If lan78xx_read_stats() fails, only the
+rollover check is skipped: the counters are still recomputed from the
+uninitialized stack buffer and stored in dev->stats.curr_stat, which is
+then reported to user space by ethtool -S.
 
-Nice work! Nothing jumped out at me, so:
+Keep the previous values when the read fails.
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Found by code review with LLM assistance. Tested together with the next
+patch, which makes short reads fail: with an emulated device, ethtool -S
+then keeps reporting the previous counters.
+
+Fixes: 20ff55655a93 ("lan78xx: handle statistics counter rollover")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+---
+ drivers/net/usb/lan78xx.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/usb/lan78xx.c b/drivers/net/usb/lan78xx.c
+index 5655941f1478..cb8204371f5c 100644
+--- a/drivers/net/usb/lan78xx.c
++++ b/drivers/net/usb/lan78xx.c
+@@ -789,11 +789,13 @@ static void lan78xx_update_stats(struct lan78xx_net *dev)
+ 
+ 	mutex_lock(&dev->stats.access_lock);
+ 
+-	if (lan78xx_read_stats(dev, &lan78xx_stats) > 0)
++	if (lan78xx_read_stats(dev, &lan78xx_stats) > 0) {
+ 		lan78xx_check_stat_rollover(dev, &lan78xx_stats);
+ 
+-	for (i = 0; i < (sizeof(lan78xx_stats) / (sizeof(u32))); i++)
+-		data[i] = (u64)p[i] + ((u64)count[i] * ((u64)max[i] + 1));
++		for (i = 0; i < (sizeof(lan78xx_stats) / (sizeof(u32))); i++)
++			data[i] = (u64)p[i] +
++				  ((u64)count[i] * ((u64)max[i] + 1));
++	}
+ 
+ 	mutex_unlock(&dev->stats.access_lock);
+ 
+-- 
+2.43.0
+
