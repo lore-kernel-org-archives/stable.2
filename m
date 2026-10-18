@@ -1,193 +1,128 @@
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D7E838F62A
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 16:31:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A5A03DB31A
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 16:33:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792341113; cv=none; b=qz6e4+efKCMezBqlxLT6eLG0qyZUf3aVSWHMxi+ZhoPdDuzyrNL6rkX9H194qWWkovTLgevsQOza8Pz47AiwyLhI87G0IP4a38/+PXeISUdc/RrI7GZJ8KaH1dwhYBT3Ru279FnVY2egLK6lR38xlLrGSjM++EVOouc8xrpWa74=
+	t=1792341193; cv=none; b=AKVJjf7ZTKE1OuS/EcDMLH5U911/2brAdvJ6TfeQNfXZhV6SBazKXfx6i5qodq7Ld5Lta0No7Rbee3U9bn7ZnRm17EValljkF1aO3UF1QzlF1pe/eyMJ0GLjH3Kc+q/rJlXnmIBGGqzvtQqrHKgdENq+f/ImKQVUQUh7l4ZDuQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792341113; c=relaxed/simple;
-	bh=sCP6gp7v4kua0OIiD2f4Nb3Lrarw7N2ZRp8nfSOx8xc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ht3CGiH5b/7jzFylypECDHHO0b78bnR1fbbrE6cpx4ZdED/MdawvJMpovrHN0throoVr7hxSuvahLKWi8w6VuWTyqecKxfR43poArdZI+vOKwB46aTg6ABcN37ZRD1NlDDR8wJCqDE/yNUmbITJqtX09gsXbk1IsTUqI6I1Ykg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oEQiH74x; arc=none smtp.client-ip=74.125.82.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1792341193; c=relaxed/simple;
+	bh=AJ/km8sE6GctD4RuE/KlvnKKGAXGH2QdqK+ac6g6Ezo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BE9b+MjfUSJhi9L5u/bM0Aqn91MXQiv01NVnMxivGn4L+ktyOeYgurHAZ9OOwOA5e2O7+WmPJ1kjUCmlI5VSGZJalPOkC0OnaZb2gynvSZKca2KTglhZjGSnGNpfkT5KUfsQTCBq9XUKKQKgmf3/Pjy8bbIZ8S83nU3ru7pYsIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A2tNA6R3; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oEQiH74x"
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1517bda04a0so814339c88.0
-        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 09:31:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A2tNA6R3"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d6d28aa26cso4973415ad.2
+        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 09:33:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792341111; x=1792945911; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rC079flF1ea2UIC6V0VoUeWhWKPu+OYvPPnysw6iStQ=;
-        b=oEQiH74xrmZRf3K9XLOQip3aBUl+tICfhE6hvUKUQNm4GQaOUhPhHyW6yfehjAQL3q
-         girtdGujZ4Gb/5xdgvJbazp2UYIAmBF01cTChkTIrwzjjF/7hGUPU1RA+LNkjIfQt0zB
-         yuYpymD2oLErp3noJ5Q56Y86ir4JO0uH39KiFKFORgStr5gCSeOXsqtu1n/Ex+P0V4mt
-         eB/opFNjFPj6lnFVrVd83JGbWqURXKbACqDXF8kC6mGEEt2mqXtx1OFQ8e75ls2DBWUA
-         oLUpB52el8iD67E9Yw0I/N6zm/Y5O/pIZCpdzl7x7COAoKPEi/knACsO5SNrHBlRs3j3
-         RT6A==
+        d=gmail.com; s=20251104; t=1792341192; x=1792945992; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8lASuEAWr02cFkueHsd07yvRwkaU6dw60ogYfI+giIU=;
+        b=A2tNA6R3Vkx0sbAjhxknPHRb+hTU4X5Hjo3H3xLWAypJXOUWqXsLhSaLVZD5AXy4tU
+         sj1/jYi+16zV3sW1W/tuFc8zIJco2PgtyAiS+KI9zfpBtASAzOXulIHbMQzmuh4c2OCe
+         CGsrQ2LAQfpFEbO/Ni+RT4D8VBFFYL8aMR/gVRYCMAO4ptIk/tXvCSgz5OVSemO1fwgh
+         Yc/qoea0n1PfS0ZhXh2cpp1YiTWX5aMsUbYVm7HioD6WbksWs8KQGvHEadH+BtMQ1AT7
+         c7RHxtiARNrAKya43R1IGw3Hh+I3KMBZdoM3s5rOR5x35FbfnXc6kv3uIJtKEkO2aKK3
+         O0uQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792341111; x=1792945911;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rC079flF1ea2UIC6V0VoUeWhWKPu+OYvPPnysw6iStQ=;
-        b=Xsf/eP+mc0ytxH9ZyYjyjQqdXEsltkP40fuYOkithuvsChURW+I/W3qb6pfwtKDb7v
-         RHmk2slzRNRX5wP+Y1Ps3H0HQ/s6cor0FMShM6L1QgjdQc1nT3rEeFecp3jHe9rfIC6G
-         MApFTw8Pkvog4SlzWazFw+/PkIKua5sfclUOsuomgqEM6ddg0X9b8zjNt4yySdi1N/Wj
-         J868aqu/No/e8Xfb9CbOq/PW9m/D6hTX4XMn+Pdrm0/fwSLyyK3XO0LC2fD/H8gt882A
-         dYw+O/EHSqHu67S3g/PQ8/ri0cKd8xy8rZf5O4D6aM2/NOmGyD+IaV/KFIxvFtzdRSfX
-         LzpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzPB3AIxdZUfiRccWKY6Qz5q+SPU1cEYQ2xytWTYbqOs2msBUCeslLychq2eV15XpQrzaCIPpM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJoUVTTZobcheBPHKTmkEPWet0AuRs5+JQOw2wbaxBLaOT6CPTY
-	YnhJJYD72vnrBorxhD3ddphwc3akMkOgDK5RvZNahm00fNsC2oboYlsg
-X-Gm-Gg: AYBFou0ffHHg1JYCI5w/IhX2SLV71Se89xr8z7m2GYXkaH6iPwXhUwRSXg8Hz5bAW/U
-	7BLhJve+N9LaNSFtZ3HbjwxWiIymJeJ5HwdqfVxZj961H+KqrV4EX8iTqD1bNham+6MSbQ4DsY7
-	tnQWboDvjkjYbHk+vA8kXltAT7e3uaaA3fRHOrTfrTYXVejjxF0Y6vzESOxHM9Ieo5q+hxPEYHt
-	Lh56Y5nzEbrk6l3LCxLhsBGZ8hIK/fv7zfHx1mq71jhvMo5qNL8RboS1RvF+jQpieuPtywb1c88
-	k9p2UTPjcZ3PFww3wywUKJpul3BgxXwKM8Q/CCaAVNlWr7AGRHaKM+5ySP53J7SZpa2nHWhei3p
-	AcIycV0hLFixHmUgfxdja4FZgGSF4hpXeC1TVY/RYO7VbbxYQ22Yk7WKa6vtr1KvpMeZD8v+30z
-	LjC4B5AHcxhG85ufjyQqAeZvXf8483pkH7rzWK+E8LtQX+EQ7iXL3o/2QU2SLQsvjKv6HhwoiEa
-	4+uyRg6TyG2ZiWf0AyKzjQOrKtwFVSP3dqQLHOgcYtZnkTDjBf0uBg1YC/q5SiTuEG96aXEJG59
-	5RwtBQ==
-X-Received: by 2002:a05:7022:fc03:b0:128:d4be:7428 with SMTP id a92af1059eb24-1851229662fmr6253633c88.19.1792341110987;
-        Sun, 18 Oct 2026 09:31:50 -0700 (PDT)
-Received: from codespaces-393231.mimvmn1ww3huhhjmzljqefhnig.rx.internal.cloudapp.net ([4.240.39.195])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-183190aa7bbsm21629178c88.5.2026.10.18.09.31.47
+        d=1e100.net; s=20260707; t=1792341192; x=1792945992;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8lASuEAWr02cFkueHsd07yvRwkaU6dw60ogYfI+giIU=;
+        b=IYfEzDZ7Rjzyb8PFPHhjAEFiXbGrOaArfHcFUfeyKtnLloFJHcjOflrjWqyxFTsAQ0
+         UhpUFEJpCAWtwWn99S1JXyJy9LHNLBBCl169rb8KAiTbp7flxcCQApmsQi2maC+3uKRd
+         G8gIiHI2AKC5BZxblCdlF8mBxNTYIDaVm8QIdt0UBxSgoZbuaMElZzaT/CYHGHmMS17E
+         bGnNeh5/NKmP1PXPePI8U51ZVrT7qlAbCOyDsKqNKe/B70s/aMzJzFIMbTYOzwwCvaIm
+         LEDwkxMgKnEGOFaXntcyi3Ou38unRqc9mMg8ot7ROcOghA61zCzRV4ThiZBjlbiZnq1K
+         Blfw==
+X-Forwarded-Encrypted: i=1; AKwUvBz0VNpyG8hLdd+ysfB+hkKW+kt3STPBMi8Hp0718gZ2LCVBp7HkDkW8BJMMPH/fXQ4WBQyi5wM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJCBLa/d+iBdyQFtP35Vj764Lc6I3FmqUgQVTSHMruYDs5bcrIR
+	NjVBmI5PwbVHbkKjUZ4SrLvCGDUbkC5fT4IuYVAwYKNXKV1HVvJR8ALT
+X-Gm-Gg: AYBFou3KMyJ8fLTTVzQQoLXvu+iknPKZsfPQMTbUw6tXyybDTn6mx+bDtX9i+KAHLEz
+	Jc3WMhofb4ustkr6fvvJrzOYWcaLFVlhQtDp8rC9bpzPP0s9eNYGam4fisPa6SmfNHLTrQnTPVz
+	T+rUsW28GMHZZxqYREbqLSbe/6kUKr3LQn0oNOUpoj4pa/tAGPnNx1IhR6qbxjKTt7FMPiJhz46
+	MZuczcGfz+D9orr6NrVYzgBOX6F5hZ3Zt4W/pWd6qutSOOet4aD6JyW6xs3qFNWu6uKL68zFt29
+	sxOjCtjYthXqBrOzUakTxg+5hQ1ADcz+nzmysYaJ02I/P8Pe9Dm/vnR5bR0SYyI75ZSAI67NRHU
+	QztLabpaOB0TR3bK3iC16j61y1kq3eVC/M7zvdGi/NdcB1X6kURF5OARLHJzU6iFD2kq9UxcXia
+	77NvBVSC1nuFTHCIJoFTccVBDJTkFM5a0O4wHDWmcZIYh6SJmaBJD1xbsxQQ75LxopSbki+Sbdm
+	LYzwc/aqjxBG8jOvZD/22I=
+X-Received: by 2002:a17:902:e748:b0:2e9:8510:6acf with SMTP id d9443c01a7336-2e9a6bff6c2mr46257275ad.25.1792341191722;
+        Sun, 18 Oct 2026 09:33:11 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e83406bsm29315425ad.38.2026.10.18.09.33.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 09:31:50 -0700 (PDT)
-From: Eklavya Singh <eklavyasingh2106@gmail.com>
-To: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Heming Zhao <heming.zhao@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	ocfs2-devel@lists.linux.dev,
+        Sun, 18 Oct 2026 09:33:11 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Sun, 18 Oct 2026 09:33:10 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Sanan Hasanov <sanan.hasanou@gmail.com>
+Cc: Marius Zachmann <mail@mariuszachmann.de>,
+	Sanan Hasanov <sanan.hasanov@ucf.edu>, linux-hwmon@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Eklavya Singh <eklavyasingh2106@gmail.com>,
-	syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com,
+	Aleksa Savic <savicaleksa83@gmail.com>,
+	syzbot+0f98b0c0bdeaab2dc2fd@syzkaller.appspotmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH] ocfs2/heartbeat: serialize concurrent writes to a region's dev attribute
-Date: Sun, 18 Oct 2026 16:31:21 +0000
-Message-ID: <20261018163121.128911-1-eklavyasingh2106@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Subject: Re: [PATCH] hwmon: (corsair-cpro) Make wait_input_report_lock IRQ
+ safe
+Message-ID: <0b7c972c-f3e2-41ee-bd75-45bcae83a34a@roeck-us.net>
+References: <20261008205310.30832-1-sanan.hasanou@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008205310.30832-1-sanan.hasanou@gmail.com>
 
-o2hb_region_dev_store() checks reg->hr_bdev_file to see if the region
-is already started, but nothing stops two writers from doing that at
-the same time. configfs only serializes writes through the same open
-file, so two processes that each open the dev attribute can both get
-past the check:
+On Thu, Oct 08, 2026 at 04:52:45PM -0400, Sanan Hasanov wrote:
+> From: Sanan Hasanov <sanan.hasanov@ucf.edu>
+> 
+> ccp_raw_event() is the HID ->raw_event() callback and takes
+> wait_input_report_lock with a plain spin_lock(). This callback can run
+> in very different contexts depending on the transport: from process
+> context (e.g. uhid, via a write() to /dev/uhid) with softirqs and
+> interrupts enabled, and from URB completion, which is softirq context
+> for HCDs using HCD_BH and hard interrupt context for HCDs that do not
+> (e.g. OHCI, UHCI).
+> 
+> Taking the lock from process context with softirqs enabled while the
+> same lock is also taken from softirq context can deadlock if the
+> softirq interrupts the lock holder on the same CPU. Lockdep reports:
+> 
+>   WARNING: inconsistent lock state
+>   inconsistent {SOFTIRQ-ON-W} -> {IN-SOFTIRQ-W} usage.
+>   ...
+>    spin_lock include/linux/spinlock.h:347 [inline]
+>    ccp_raw_event+0x51/0x110 drivers/hwmon/corsair-cpro.c:161
+>    __hid_input_report+0x41c/0x580 drivers/hid/hid-core.c:2175
+>    hid_irq_in+0x492/0x710 drivers/hid/usbhid/hid-core.c:287
+>    __usb_hcd_giveback_urb+0x378/0x540 drivers/usb/core/hcd.c:1657
+>    dummy_timer+0xa91/0x4cc0 drivers/usb/gadget/udc/dummy_hcd.c:2023
+> 
+> For the same reason, the spin_lock_bh() in send_usb_cmd() is not
+> sufficient when ccp_raw_event() is called from hard interrupt context.
+> 
+> Use spin_lock_irqsave() in ccp_raw_event(), since it may be called with
+> interrupts already disabled, and spin_lock_irq() in send_usb_cmd(),
+> which always runs in process context.
+> 
+> Fixes: d02abd57e794 ("hwmon: (corsair-cpro) Protect ccp->wait_input_report with a spinlock")
+> Reported-by: syzbot+0f98b0c0bdeaab2dc2fd@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=0f98b0c0bdeaab2dc2fd
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sanan Hasanov <sanan.hasanov@ucf.edu>
 
-  A: hr_bdev_file is NULL, opens file A, sets hr_bdev_file = A
-  B: hr_bdev_file is NULL, opens file B, sets hr_bdev_file = B
-  A: start fails, fput(hr_bdev_file) drops B, sets it to NULL
-  B: start fails, fput(NULL)
+Applied.
 
-Both calls also use the same hr_slots, hr_slot_data and hr_tmp_block,
-so the error paths can free the slot data twice.
-
-syzbot hit the fput(NULL) with an unbound loop device, where every
-start fails with -EIO. With four threads doing the same thing on a
-KASAN kernel I get both crashes within a second:
-
-  BUG: KASAN: double-free in o2hb_unmap_slot_data+0x14d/0x2f0
-  BUG: kernel NULL pointer dereference, address: 0000000000000158
-
-Add a mutex to the region and take it in dev_store(), in the
-block_bytes, start_block and blocks stores, and in dev_show(), since
-they all look at hr_bdev_file. dev_store() sleeps with it held while it
-waits for the heartbeat thread. That is fine because neither the thread
-nor the teardown paths take it.
-
-With the patch the same test ran for 10 minutes with lockdep on and
-nothing was reported.
-
-Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Reported-by: syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=5d4e96acd0febccb5e87
-Cc: stable@vger.kernel.org
-Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
----
- fs/ocfs2/cluster/heartbeat.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
-index 1c3def99b..2ea870098 100644
---- a/fs/ocfs2/cluster/heartbeat.c
-+++ b/fs/ocfs2/cluster/heartbeat.c
-@@ -269,6 +269,8 @@ struct o2hb_region {
- 	struct list_head	hr_handler_list;
- 	/* Serializes timeout arming against failed-start and teardown. */
- 	struct mutex		hr_arming_mutex;
-+	/* Serializes the region's configfs attributes against dev_store(). */
-+	struct mutex		hr_dev_mutex;
- 	bool			hr_stopping;
- 
- 	/* last hb status, 0 for success, other value for error. */
-@@ -1676,6 +1678,7 @@ static ssize_t o2hb_region_block_bytes_store(struct config_item *item,
- 	unsigned long block_bytes;
- 	unsigned int block_bits;
- 
-+	guard(mutex)(&reg->hr_dev_mutex);
- 	if (reg->hr_bdev_file)
- 		return -EINVAL;
- 
-@@ -1705,6 +1708,7 @@ static ssize_t o2hb_region_start_block_store(struct config_item *item,
- 	char *p = (char *)page;
- 	ssize_t ret;
- 
-+	guard(mutex)(&reg->hr_dev_mutex);
- 	if (reg->hr_bdev_file)
- 		return -EINVAL;
- 
-@@ -1731,6 +1735,7 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
- 	char *p = (char *)page;
- 	int ret;
- 
-+	guard(mutex)(&reg->hr_dev_mutex);
- 	if (reg->hr_bdev_file)
- 		return -EINVAL;
- 
-@@ -1748,10 +1753,12 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
- 
- static ssize_t o2hb_region_dev_show(struct config_item *item, char *page)
- {
-+	struct o2hb_region *reg = to_o2hb_region(item);
- 	unsigned int ret = 0;
- 
--	if (to_o2hb_region(item)->hr_bdev_file)
--		ret = sprintf(page, "%pg\n", reg_bdev(to_o2hb_region(item)));
-+	guard(mutex)(&reg->hr_dev_mutex);
-+	if (reg->hr_bdev_file)
-+		ret = sprintf(page, "%pg\n", reg_bdev(reg));
- 
- 	return ret;
- }
-@@ -1879,6 +1886,7 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
- 	ssize_t ret = -EINVAL;
- 	int live_threshold;
- 
-+	guard(mutex)(&reg->hr_dev_mutex);
- 	if (reg->hr_bdev_file)
- 		return -EINVAL;
- 
-@@ -2156,6 +2164,7 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
- 	reg->hr_key = crc32_le(reg->hr_region_num + O2NM_MAX_REGIONS,
- 		name, strlen(name));
- 	mutex_init(&reg->hr_arming_mutex);
-+	mutex_init(&reg->hr_dev_mutex);
- 	reg->hr_stopping = true;
- 	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
- 	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
--- 
-2.55.0
-
+Thanks,
+Guenter
