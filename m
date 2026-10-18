@@ -1,128 +1,115 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A02DD4D0A1D
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 16:23:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EFD54A2A46;
+	Sun, 18 Oct 2026 16:27:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792340618; cv=none; b=a00bwYzxrt/mwPKp5+iZP2ZgTw9M5oCluDwjsZh2dqh7Sk/zGexCSOGYQjVfUwhhZHzNlP0OaFMRcRdVt7/zXhBwWRgB2z0HBZYEQxoFSBRIpl2dWjko6Wiig1PeBU5Mo6Jh2EHoAp+fcd68HjfQmTr9EqQ0geCTk58D65V9S58=
+	t=1792340876; cv=none; b=A7d76ad0j2VOVxOqc+uxvZV9O0SzbkGoCedtKtJiS83w0z/sPEzszMI5lj1qnFBkHrRR0UxaTYsJ4YMlM6YAn9UUUp0jnTGfaNvQo9ykyxw1ENoDkEnqNKmsOKF3Ca9NM5V+4lkQlbASXDK0RW47GkToPJdfZtdhN86i5L8SGOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792340618; c=relaxed/simple;
-	bh=ACJTAtu7mJj/qHLG8YMgtJMB+SSR4aYM27NlxUW9dns=;
+	s=arc-20240116; t=1792340876; c=relaxed/simple;
+	bh=zFTCaKctHU/dgcTz4fJxnzuN9ChTCA4PFmsOdvp8W/U=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e7zbELk4UNrOjnXLb3w4YAYGC2a2ShWS3UiTE0RFHWmd8qPBLJ4gQxdtRCy7Hfs2jEiC9PFmaRSG5AZkyHa6BTIpb61keWmhwbAAW1x2ZsxK1AWGVYVwZES/sGOATCfcqWX41oRVm1yltgApTPMOYds+CRz+W6FHFi5ViB+vt7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G7Aqgeyv; arc=none smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Up7wd6BYL9q8RsYb6AwQ7J7x7fvgDneA+JdoacAfuuOoyBUkiVUGykDICjVTogSiz+IeeJ7U25tvGmdxOo1IrlZlVjBqtrFKJLDplTJF3jGSYEv/AuzEfXz9w9DwKaTdhNHl5f/qT/7UAfULjptuJit1zCx6C6hOv5MbFE+iuTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hAsYlT86; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G7Aqgeyv"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-886e61fa30fso404840b3a.1
-        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 09:23:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792340617; x=1792945417; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=LsdC1ntDUFxSCa8DHZFb/rWt1can9hw1VcMUAe2mXgA=;
-        b=G7AqgeyvMXaa+Uj8AtLb+xEPjlZvBNRbO1yAIMVDO5o7miQeIWyiNxSt4vdjwSTjIs
-         obGffdts6sizIcfz8U10DjCRHGpxlbUw4SnG76fpHrgRb2iSaf3qKEutnocpWdYi3qw6
-         gP3zQjpYqCwU8+qkILovYS9z2t2C8ldozvXpHB8CE2RoivqAJxTtq9CcCMPlhE+Nxhor
-         Udz4B67nPX943myk6qJzB3YyuTknZVCjptrMStIRsNi2mQZ60x45DkChOXjgk76eGsDU
-         PCsz4egxxd0OaiX0NYBiSKuYbM4k19qyantSIfTVQYiERZImFXcGjtoCkH01Azt4XpvT
-         xJhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792340617; x=1792945417;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LsdC1ntDUFxSCa8DHZFb/rWt1can9hw1VcMUAe2mXgA=;
-        b=RQ+JWJQ5YAO5It9ep02s/eNWbnwfojXPcl9NEucHzPHv616E82hSWY/RjoLM7FxvsG
-         NcGAoonhLDtRjiU0ds4uhVIKWCgSiKD/j4KpWmEt5DRqCd0W3n4TYqN1ih/4Sy4fveXe
-         Qv/dzC/uPXGGqC0nBh8iTNzdo/ZTpRer/8FoFCjeXGAHV/wJpEgNT4AgJ+Ilm4vA/COs
-         SoxqizaW0YQf7imAldzV6/Mqqa9vK4/VreenWEPjZmkpzlQUQheLkG97h1vRUyUY/I5w
-         /ainZE3GOW9Wx2WkvObgstPhD5C8YjniYB7BtZ9osoqeokCGjX1/fI97bpdCytwXzAO2
-         OJUg==
-X-Forwarded-Encrypted: i=1; AKwUvByx88ti7l3RQSwsgJv9IHX8V/3QibUSqRNYmf8xmuUF2bZXaCKSuCZMTPSVA2eE5hLv04iqCQc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJAL0JFeplhBtrZ8mUXs3SXgTr7sl5m6urlcnJQMOe8Jov1nPDx
-	pt/+yhMuDASwVLwDF0ukofrDNJ/MkJMN+iPSx3+sQK2snD3/B/CigAhzoVkCHA==
-X-Gm-Gg: AYBFou2Cswpdq505f0s8LjXminkL1Xhd73Z9XDWbHBBJEuRk28vVyXWtwsyFS50bDk7
-	+9s0bQKa1K+m3CGuqTVaKIWJCBfWhBMPZOAs+yrWi+PgFqSPbMBXOPDpH1tEokfBl1T9qTQ5mxg
-	qSx0U0dCTMLmDGUZMmeJJInTVct0Lk/whqhKsWVNeoC2a56N2SrnCiy1ifCIMwbdIb3ldT7EQdJ
-	aWCO4siiP3qE57PRedFnE/ktUZw9rcmgXZ0JYikXbDfP5cifMlyDdAOtuCCV3ZIgSfFoE142SOH
-	4jw7skxzxUsPStxFBaUkKCQL/jXKDV7rugtCvCuCj5FSNM24eOm2zX/H1guTTrNwMMy6LsTovbS
-	xwdo2hXv2DFrGCOH1xAsWqx3nhvbLYRqLAIbVPN4NMD1FJHqGkYcGs6OeJXBuA3Utj0qErYoe+s
-	4FD0lIFYyeCkt9HofVJp8XpAPfqA66k1PoNTaEjCxN+m4Dek4V+tEWUIDT1eLMhfvcl4IidjNuU
-	yXjf5xcedrCZJIYNBKA4+c=
-X-Received: by 2002:a05:6a00:4c92:b0:89f:3c81:e733 with SMTP id d2e1a72fcca58-8a04ba3bf1emr3895108b3a.25.1792340616855;
-        Sun, 18 Oct 2026 09:23:36 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89fcd67cf30sm2498542b3a.17.2026.10.18.09.23.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 09:23:36 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sun, 18 Oct 2026 09:23:35 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Tom Verdonck <tom.verdonck@inspiral.be>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] hwmon: (sht4x) Fix torn read of heating_complete in
- heater_enable_show()
-Message-ID: <26a02aca-2067-48f8-a26d-2edef878751f@roeck-us.net>
-References: <7b2087ccb963e097cf3f6333efaec0c46549003b.1790358356.git.tom.verdonck@inspiral.be>
- <20260928062238.67746-1-tom.verdonck@inspiral.be>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hAsYlT86"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 010F61F000C4;
+	Sun, 18 Oct 2026 16:27:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792340875;
+	bh=CJp7IGwRNv51s2AUzxgvpb1+5GYEYJb/XW2pP9VE+dY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hAsYlT86AAcKtKqIsma/Pck45sBR2SoBuYwWrmpq8rL4bUX728xlq+SN1aGh5eyoZ
+	 H/4AfGtkOQezjEQyNLxyxtY5l+ZH9pRkimpONwfWLr04XDlHGIIzVKFzwhYcdP1hiW
+	 mm9zr0gXYxwBatJVP4XROH6KTQk/2Vdkc78R4dY7mkfKqDBgydg5uGokLT7i4DM8jg
+	 /KLMV+HcEmCam6BIbfIyG36dV+lZYXmgp0/l11whWjQMXyzU8l1fyFoc0tYJJ/vXdc
+	 mzPpDDS4ECF6m2kev+KaQX31ZB7Rlps8svFwDPPd4M223FBqA7qIAKFRocE9pOWcFm
+	 vwUsUar3Ge4zw==
+Date: Sun, 18 Oct 2026 18:27:51 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: Al Viro <viro@zeniv.linux.org.uk>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Jan Kara <jack@suse.cz>, stable@vger.kernel.org
+Subject: Re: [PATCH 5/8] fs: don't silently unmount busy mounts
+Message-ID: <20261018-haarausfall-erdarbeiten-aufwuchs-5f1467040468@brauner>
+References: <20260923-work-mount-fixes-v1-0-f424cf8d3242@kernel.org>
+ <20260923-work-mount-fixes-v1-5-f424cf8d3242@kernel.org>
+ <20261018013815.GA3535232@ZenIV>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260928062238.67746-1-tom.verdonck@inspiral.be>
+In-Reply-To: <20261018013815.GA3535232@ZenIV>
 
-On Mon, Sep 28, 2026 at 08:22:38AM +0200, Tom Verdonck wrote:
-> Commit 61406e9cac69 ("hwmon: (sht4x) Fix jiffies wraparound in
-> heater-ready check") widened ->heating_complete from unsigned long to
-> u64. On 32-bit architectures a u64 is no longer loaded and stored
-> atomically, so heater_enable_show(), which reads ->heating_complete
-> without any locking, can race heater_enable_store() and observe a torn
-> value, reporting a wrong heater state.
-> 
-> Take the hwmon lock in heater_enable_show(), as heater_enable_store()
-> already does when it updates ->heating_complete. The other reader,
-> sht4x_read_values(), is only reached through the hwmon read callback,
-> which the hwmon core already serializes with the same lock.
-> 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/cover.1790358356.git.tom.verdonck@inspiral.be?part=3
-> Fixes: 61406e9cac69 ("hwmon: (sht4x) Fix jiffies wraparound in heater-ready check")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
-> ---
-> Guenter, if the hwmon branch has not gone to Linus yet, feel free to
-> squash this into commit 61406e9cac69 ("hwmon: (sht4x) Fix jiffies
-> wraparound in heater-ready check") instead.
+On Sun, Oct 18, 2026 at 02:38:15AM +0100, Al Viro wrote:
+> [My apologies for being MIA since July - had been sick; should be
+> back to normal now]
 
-I'll do that.
+Glad you're better!
 
-Thanks,
-Guenter
+> >   mount --make-shared /mnt
+> nit: mkdir /mnt/a
+> >   mount -t tmpfs none /mnt/a
 
+Yep, lost that line.
+
+> > Teach propagate_mount_busy() the same checks that propagate_umount()
+> > does. It now checks for a single victim mount without children
+> > for which it can assume that MNT_LOCKED is cleared on every copy like
+> > propagate_umount() does.
 > 
->  drivers/hwmon/sht4x.c | 2 ++
->  1 file changed, 2 insertions(+)
+> Huh?  propagate_umount() does *not* assume anything of that sort - look for
+> those IS_MNT_LOCKED() in there.
+
+Badly worded, sorry. What I meant is that in the do_umount() path
+propagate_mount_unlock() has cleared MNT_LOCKED on every candidate by
+the time propagate_umount() looks at them. It's the same set. The mount
+at the mountpoint below each receiver. So for a single childless victim
+none of the IS_MNT_LOCKED() checks can trigger and
+propagate_mount_busy() doesn't need to mirror them.
+
+> Explanation is somewhat misleading here, IMO...  Sure, all candidate
+> victims have identical mountpoints, so they must have distinct parents,
+> etc., but "copy" is not a good word here - all of them *are* copies of
+> copies of the same mount, but the history of copying might have nothing
+> to do with your chains.
+
+Fair. "copy" was meant as "receives propagation from the victim's
+parent", the clone history doesn't matter.
+
+> ; umount /mnt/a			# takes out M1, M3 and M4
+> ; /bin/pwd
+> pwd: couldn't find directory entry in '..' with matching i-node
 > 
-> diff --git a/drivers/hwmon/sht4x.c b/drivers/hwmon/sht4x.c
-> index da2b6130fca7..27fddff70354 100644
-> --- a/drivers/hwmon/sht4x.c
-> +++ b/drivers/hwmon/sht4x.c
-> @@ -237,6 +237,8 @@ static ssize_t heater_enable_show(struct device *dev,
->  {
->  	struct sht4x_data *data = dev_get_drvdata(dev);
->  
-> +	guard(hwmon_lock)(dev);
-> +
->  	return sysfs_emit(buf, "%u\n", time_before64(get_jiffies_64(), data->heating_complete));
->  }
->  
+> What happens is that propagate_mount_busy() sees that M3 has something
+> mounted _not_ on its root and decides that propagate_umount() will not
+> take it out.  M1 and M4 are not busy, so we proceed to propagate_umount(),
+> which notices what propagate_mount_busy() hadn't - the thing mounted on
+> M3/a is something we are taking out, so M3 is not pinned by remaining
+> mounts...
+
+That one is covered. M3 is the first candidate in the chain below M2
+and M4 is its next candidate, so chain_busy() does the refcount check
+on M3 and umount(2) fails with EBUSY. I ran your sequence on current
+mainline: EBUSY, cwd intact. On v7.1 it takes M3 out as you describe.
+
+> I'm not fond of the patch itself, TBH - the amount of work done under
+> mount_lock would better be linear by the number of mounts involved and
+> your variant is at least quadratic.  That's not hard to fix, but that'll
+> obviously have to wait - Saturday after -rc7 is not a good time for
+> that.
+
+Agreed, it isn't pretty. receives_from() walks the master chain for
+every candidate and chain_busy() walks every chain twice. But I very
+much didn't want to touch propagate_umount() in something that goes to
+stable.
+
+For 7.4 the obvious way is to run gather_candidates() and the trim
+passes without committing anything and refcount check whatever ends up
+in to_umount. If you have something send it my way, otherwise I'll do it
+for 7.4.
