@@ -1,57 +1,49 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E362E2F745D;
-	Sun, 18 Oct 2026 10:09:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C643DB980;
+	Sun, 18 Oct 2026 10:24:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792318165; cv=none; b=FlNPkgXTBG6gsAtuxHSvAyo0K/mnNrg4cGs4txMZ2jt9T1EJ1MplPgXfZwArNIK2XMIMosTAW6xHa6oP75hRI1VIQRUI/zc8nMqOQgYB9iYFAI8QEuRx4/qw3pHFwEwjdrHjreFXK2vemXGjV5FgwYpkjUwCcFIvz5/8Y2K9PX8=
+	t=1792319043; cv=none; b=HKtnBc2zoJKmGQrFinumzohZd9+TH5VJNgkwmZs+ChC8bABk6h3ACu3U7W1Tit4Y+L8mveC1jFfCSDMmVH5HlOQS4/ADeQ5tIRlkqPYjo5S6F1C54S1pu3dG3nMog+iVUQ5LICuZQc9gKXXyb7Y0bOuUbgagm97xuNR7ZF4Bx/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792318165; c=relaxed/simple;
-	bh=f5LfeOOR+T+AJ9JCbpP5ObMTllY+dxdUVy7vwtRdYzo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XXdItocac0+jRyOuFYCcveKQa+02ozfYy7dbJcB1Tw95oXesdk+RkKcpqUHQ/qVzdtXJ1bQn9ncShmbn2cOQIc5TFwRKarvAMHrVLS9waw/VJUmvIiKi6AbIOS+PygrvAyfUQYzMCkF8QP1yS9nU6BfDoimLg4KO9w4yf9SVGUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UD8TMk98; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792319043; c=relaxed/simple;
+	bh=mkFEDrApwNVHnpQW6fTa8SONt5XnpgCHj2+JtwTAPr8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PFC7lQ3IDtrHQfmwdKQQ+e8QIRGTlimWlb2+d5OolFaa9cifAIj4Evj480ibZ/Sz0buWYsmlejpca8T1m7P+22yjFGTB5lSORbbMIvv31mt3GGLcVcCWB0GobKtvSMTCM8m6OWOkDs0jA/GLB2l9Jp/poE/4SqCUZPJTrasWST0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=I7pQuRXt; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UD8TMk98"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 131801F000C4;
-	Sun, 18 Oct 2026 10:09:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792318159;
-	bh=5aWf32wcpf9vmrl4EC28Fl01gzRwMBwB7dBfgd5BTC4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UD8TMk98m1XgQb6VJKpMshy6kzEFYey8Q6ie6xeqHU4NwteMDdHBsW7dYNoR0SE3Z
-	 TfNXOFQQLVyvmNOQABv3pkMJS+xalY4q+aJVSwDVRe36lL8BqycTva3sxzZxLaiMiD
-	 D5IVrSepOOMM5rEFFo5UA6YBLWefm5W6NdTT6Eny3cdnL43yBPREpnQgmlGHHcQRSi
-	 whX4rRpnbCOCuA53cRu1zQ98l8dJ/1j893tcEg40cnTx2gpD0zpX0Abh/BQfV3kpDn
-	 0y3ggLDDBC5z76L/hBvlS1SSPCj/X0CDYeUkbp200U7SX0Kc6pyYqbTqqzeeFw3mHB
-	 kwcCjbsP3cCSQ==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Miguel Ojeda <ojeda@kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="I7pQuRXt"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j6vsp0BZgzMlWp;
+	Sun, 18 Oct 2026 12:23:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1792319038;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LfcGtuFt14aLawmeFdDDC0cmMdWupykDob9ZfZ9H+l8=;
+	b=I7pQuRXtPAlXwax2SnMrytZuYFenReWkIlUuqleDbJGu22nco81I2YoOfTugxwQ7DMOW1w
+	SgOBPt2eANbzYsjK9aJfxlRBXBAF1EYDo4FJ20ipsQ483DypbRGr8Hm4W7Eg7Ko3oGnmxD
+	R4qg7hoI/a1DEA2jGqzNW68iv58+T6WbkMjQZB9SSTQvi6oIbit2dGu31MD1zVBPSKIwRn
+	eKuBH2mXbgPQ8uRWBNZNHu7mK9QzJiOScxpQWr2+/JA9zxCNvEr3fF0Q190nisPMQK4JnN
+	ZUZJSFL2tDlbbImGSDJpwXBNGNw9eYnj2/Ax1m4S/o0B49TFrtelwdCa3mZ8LA==
+Date: Sun, 18 Oct 2026 12:23:53 +0200
+From: Benjamin Boortz <bennib@mailbox.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, akpm@linux-foundation.org, 
+	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org, 
+	lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com, 
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, 
+	broonie@kernel.org, achill@achill.org, sr@sladewatkins.com
 Subject: Re: [PATCH 7.2 00/10] 7.2.12-rc1 review
-Date: Sun, 18 Oct 2026 12:09:08 +0200
-Message-ID: <20261018100908.50076-1-ojeda@kernel.org>
-In-Reply-To: <20261017155059.698368299@linuxfoundation.org>
+Message-ID: <atSeEcAqpKIl47lX@bb-82jq>
 References: <20261017155059.698368299@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -59,27 +51,21 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261017155059.698368299@linuxfoundation.org>
+X-MBO-RS-META: 81m6zz81ytpq7tnpnpmdjd9tnm7mz3m7
+X-MBO-RS-ID: 560b2b1976b406a0af3
 
-On Sat, 17 Oct 2026 17:54:29 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 7.2.12 release.
-> There are 10 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Mon, 19 Oct 2026 15:50:51 +0000.
-> Anything received after that time might be too late.
+On Sat, Oct 17, 2026 at 05:54:29PM +0200, Greg Kroah-Hartman wrote:
 
-Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
-for loongarch64 and arm32:
+>This is the start of the stable review cycle for the 7.2.12 release.
+>There are 10 patches in this series, all will be posted as a response
+>to this one.  If anyone has any issues with these being applied, please
+>let me know.
 
-Tested-by: Miguel Ojeda <ojeda@kernel.org>
+Build and boot tested with QEMU for x86_64, i386, arm64, and riscv
+across multiple configurations, and boots on AMD Ryzen 7 5800H.
+No regressions observed.
 
-I see some `objtool` warnings with Rust nightly (there was a change
-upstream to `core`), so I will send a patch to mainline as usual.
-
-Thanks!
-
-Cheers,
-Miguel
+Tested-by: Benjamin Boortz <bennib@mailbox.org>
