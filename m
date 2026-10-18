@@ -1,130 +1,98 @@
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A583D45C5
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 06:14:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14EF43CAE9B
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 06:15:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792304061; cv=none; b=MYqina+dkXFP+3xC/yFcUlcfE276mVa7w+w4MHtyMEVYrJ18JmABMEWW4Q6g28m0qtsMsV0C9VIcXdS7FbWWXfaB7PMocjHKi4Mt0Ogehn8gPieKoxZRlL7wWBc+HTlnF1KfElTxCXub6ZcDsacTVCvC01mwT2PvFulMXBpD+ug=
+	t=1792304109; cv=none; b=X1l/MpKUwVX/csMyeiHbFfNjOgpE4u/Z+mcmQ1/X+kT82L5nB8IXRhcAnK9X+xT46M7TryArmDvSpMw8pCGX4oUNpMztPhbIYh1cTwSZznIy4EDua/TtRnAr2+sS1/uns/bcPCQEUhszyX+RQqLo6sjhWtugW44qNeTj8x+QyUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792304061; c=relaxed/simple;
-	bh=+2lEsHyBEj6ioBUM00ZaO+fos5og6KcV34JeUe9h9kc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SC79J35iLvb25VRyeZ59yn3Ma1XHlmOzRVGEbHFP3MX2rKqwx+OOvD22ph13wM0Q5ji2JzcNBPiOQhlTLIw6y0s4B9scIkFdnp5tAaI69/vKz5G3Dsvz6VA3c78X3HSiWUGH5zN7VEhKZaS+e2WwKWKnij9kkLIFck6zCU4c8ig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qASQ5Cbe; arc=none smtp.client-ip=74.125.82.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792304109; c=relaxed/simple;
+	bh=dFRO/d/6Wl1NjIou5Sj9HlQFKiI/UvFn2/HqnF5nYY8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ol2lxzOHGaWwGIEIGzQRB6Vu90ES6UwguRcgSlmudeBDDk4T1/OjTN5D9NC3gTXZtTwUtZOmIGu+B0GbomEgEr15dJPr/ggsFOoVEowBtV4sqEGSvnVg5c3c3sOWskZNtY2I3t1HWSBafIgLVzv3N5u0gALgNJV1rZRlwmrTg8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gt.tech.gov.sg; spf=pass smtp.mailfrom=gt.tech.gov.sg; dkim=pass (1024-bit key) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.b=h3PwPNQe; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gt.tech.gov.sg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gt.tech.gov.sg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qASQ5Cbe"
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-15354aa70e8so394052c88.1
-        for <stable@vger.kernel.org>; Sat, 17 Oct 2026 23:14:20 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.b="h3PwPNQe"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e60f9af6e6so8025775ad.3
+        for <stable@vger.kernel.org>; Sat, 17 Oct 2026 23:15:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792304060; x=1792908860; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Hcz1sgIE2hsxMXDV8dXqqMZVM6gJO/fdOKrjWhvUYTA=;
-        b=qASQ5CbeSnYv8rF9d4E/1QQXlPU4xp4jS4DDecT7VuB5icPrBfwyAT2RXA5+FaVero
-         0wAgr+O8UvVyg5AII9C4OF3aZKQYuwPLe6p1OWiwCwAdZ60/9ttMtbHuutao3USzx2PO
-         EKN20kDKftlH8gO4QfgR0KfUE3KqaoISx7DPnDuSAjzAk++0PapxGeKBfiU1wtyNHnoL
-         ziWdc5Us3JqWWP3+lHmq+jWYO5X3Pz7lSulv0eZrRXk0DAS4XVp2f1/8ygxDM62zqudB
-         dopUT0t6Rhq7DJLEXwmz1r4oCse7VBfXh8ufJRkUc5GgSIM8afkgBM0YIdypWhYcBt8n
-         81Zg==
+        d=gt.tech.gov.sg; s=google; t=1792304107; x=1792908907; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oRH5Jy551mYfc/WkSOrU9rJBVCAUTwu41wYys1NmakA=;
+        b=h3PwPNQe7KKjKgZVpIK7synCo/UDTN54hSCWKXRywMpEsFftUOAPh0x+9S8iso4LlP
+         rAitp2FcPWnRQWCA1pS7oJuxHgLQGLFxvvEVluYZ8SBu6nz9R2rfsAS/hzlqujcpPxT9
+         VmCbtYMuMEzzFmbRkR3b0DiLsgpoP35MuS0ck=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792304060; x=1792908860;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Hcz1sgIE2hsxMXDV8dXqqMZVM6gJO/fdOKrjWhvUYTA=;
-        b=gYXNeBzbnrP+050/kTXQ9sxx4Nf3U/Kx1FUI01iq7xNQEHrEpOIJWFrMsYgdYhkiuF
-         oQVtP35FhzxFditt9lKrLS3D1IFixQNBv9JDpY4+rfM1yvSkAAxxb5868D5RZSLpTqRi
-         p0MnqNsKGR+5nHo9PT4rAFZYxe++s+QlPgIfVEyY3mhuOi8/2YGJ2sQULqHEmRBlt0HF
-         RYS0EwBZLWoQyVl0sjoxyzQ/zhRvZVgCPKeaKst+4rE3s9kjQkhRL56+2NwxigtWitfT
-         IYxUJ3sUS930F45Ne44rU4O7hlLLYbMaITWl+eAU9pHrm9bb/Pepo+R454vpErZq+YaV
-         a4TA==
-X-Forwarded-Encrypted: i=1; AKwUvBwicc4VJeHdOZAn5BVtecZQYmTp56nkhxF+Mxa/LnVsp83t6ZZeUtv5lFSPweN7c7WA0/Q1GxE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6fRHahVM9TCyda54byUzBYhmB2mjaa7SQYS6AzsPWTbqDVu7M
-	eTV9oIGDFCoCNW/1MaOxgeyNqDQgmLjCXX1/TZX3nYolXD6ggxx/vI5x
-X-Gm-Gg: AYBFou2yF4P+k4itUP6O68F+6DSQDMh9kKxVIVk9tDEGDHyJNuApocdi5+RRrcOapXO
-	hTHJKljtqCDk5cwMuiOGqfJvtLLBUwoukog8sgbUS+xoZhJLUxqsBJG4ulgAa7+AqLalVyEhoMy
-	qLFaaQg+q3Xu1ZYSes0gzm91UIw8p1p/U+kM8/ti6HXh4L90Bezj0JBBuJK1lPOZQePX2ssiU31
-	RruBAGFubNZUetvlpWVlMtC4+HVlrQ+xC1i6qoucmodxbVC4J5GW5fNzms0zXzZZ9mKt4agdz+b
-	KLhPiSS0iJZ8oC617TBfeRwHfZhw9i0cHS5+SRcgJvCOjS5aufRAEC77bu/FdjwAwXPE4lZ+tLE
-	/wT5BuGovWSBvxbkpxyK7nPOe0QPn0SF0/MMKB7ngPb3+5AJLXnZlBrLXJTUZcmobHwSfWQXf+6
-	5qsKlvIZx2b20BlDsykdW+oAUtDm10gL1YiRz5aGa4NQjumx41O2nuRcWNHIIZ+2ARLRVqWxa4T
-	rcEoYaoQ3CoWggOq40iSkXXXtkuXpzLxjnEmJA=
-X-Received: by 2002:a05:701b:2319:b0:151:2e62:fe8d with SMTP id a92af1059eb24-1851238b627mr6194268c88.9.1792304059620;
-        Sat, 17 Oct 2026 23:14:19 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:297c:6f48:9e5:4e5b])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-183190aa411sm21099809c88.4.2026.10.17.23.14.18
+        d=1e100.net; s=20260707; t=1792304107; x=1792908907;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oRH5Jy551mYfc/WkSOrU9rJBVCAUTwu41wYys1NmakA=;
+        b=fjwU/dLStiC3VQjtZOErtNk2/rLviEjtS0OLdv+SnCWyd12fCX9P99O9P5ROkixX/q
+         4wfqyrofH1/WUbLA/pc0eJ68d+bzP9viyxHEo6Ei41RCTbWU5QlYg9KN8gbyctGSoNUB
+         XgK+uHXYe1LfOUYhULgX4vzZyM2BPJrD+RDq6yaM7gKugjWQgwWAUcSU9AEkyzdsCTjB
+         x17fhp+A4TmvOv+t7JaUfHrUGaPJM00OdIaEewoBwflr+XMirXsLFr/IXfEUEh49yY+8
+         d9yYXkqEADGB7Lidn+IV4nee344KG3xMOmMzx4EpAQypSeY6RHgISYvv6KkaJtyjoYqE
+         JXew==
+X-Forwarded-Encrypted: i=1; AKwUvBwjUkbDBP+Bm2HP5mq1PI1RPOxIQwODg1Dyfc8vhTTEUIio03mwVvMbq6MxQ0S5ZM87GyQJH/o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLlS6uLIBfHwl/qE8ylbRtTHJhjsBmo9plVq6ArO5vbsVmkcleC
+	36PXZKUNSJDgbrmTeRGrOicDCBds6o4XYJxuQ/tHbVWnbDbMtuG4nyvIevSPmtVUYVA=
+X-Gm-Gg: AYBFou2wx3S0y41wwg2aNWC39JwIjTyXN8UbIoeUVqiV22ViYgv+jVLL+CD1iMNAy8f
+	9dqw5q4J5NMFimHStmbxfA+i/XCI3XEfEZkE+6ZeXVZkmAmz94gG6bsrKkzWkxEQtzASHjA9uEe
+	dAuLfaxqv2+gH9lKCbTAxYeOd4EsxCKIwMeDD8inIMN2TCj6+iM0Gh8cFaJVJsCs2NW8yM4/Evv
+	Tb5yEb1ISYXKa6TpAL8eDdWoqAhKlNsPSTww2PkBot2dI3nkkkAEDIXtdcfX7jxrASkf2qhbrUc
+	BLoyApkQQ8NGrZJJpM7amXKS+pX8WwqOKcLIFe5jNN39Lsvqhmte1GBhcAywfFDFfgBM55QNmww
+	Jcx7VeewAtqzzQm4CSGNJP/aschtmn7p9KEWTuWah1fCdRhjOU8u6T8SMWEfWM2XrtEuyLBAgOM
+	WlrgkYCNGnoo/mnJi1jfaAG/okoa754AI4Mxf+ZJU98GPHolWzud7l0/cjJUxWM9NoZNvO4liiv
+	3FIiHl/lvPG6wE3o8EnX3d9e2Mv+TLjE4BdV1dba82jRZpyiSxLL18=
+X-Received: by 2002:a17:903:2f87:b0:2e9:4175:3079 with SMTP id d9443c01a7336-2e9a69e4360mr42362815ad.21.1792304107338;
+        Sat, 17 Oct 2026 23:15:07 -0700 (PDT)
+Received: from LAPTOP-UUUVNN1I.localdomain (bb119-74-6-224.singnet.com.sg. [119.74.6.224])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e833f1asm26464945ad.43.2026.10.17.23.15.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 23:14:18 -0700 (PDT)
-Date: Sat, 17 Oct 2026 23:14:16 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Fabio Estevam <festevam@gmail.com>
-Cc: lee@kernel.org, jic23@kernel.org, linux-input@vger.kernel.org, 
-	mfd@lists.linux.dev, linux-iio@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mfd: mxs-lradc: Pass mapped IRQs to child devices
-Message-ID: <atRjqcFvWVSSKKgX@google.com>
-References: <20261018022400.599028-1-festevam@gmail.com>
+        Sat, 17 Oct 2026 23:15:06 -0700 (PDT)
+From: Wei Jie Law <law.wei.jie@gt.tech.gov.sg>
+To: netdev-bot+sashiko@kernel.org
+Cc: 98lawweijie@gmail.com,
+	Thangaraj.S@microchip.com,
+	UNGLinuxDriver@microchip.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	law.wei.jie@gt.tech.gov.sg,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	stable@vger.kernel.org,
+	woojung.huh@microchip.com
+Subject: Re: [PATCH net 2/2] net: usb: lan78xx: reject short register and statistics reads
+Date: Sun, 18 Oct 2026 14:14:56 +0800
+Message-ID: <20261018061456.18648-1-law.wei.jie@gt.tech.gov.sg>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179229346399.3135.12116533277810426921@kernel.org>
+References: <179229346399.3135.12116533277810426921@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261018022400.599028-1-festevam@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 17, 2026 at 11:24:00PM -0300, Fabio Estevam wrote:
-> The MFD resource tables store indices into the parent DT interrupts
-> property. Since the MFD core is given neither an IRQ domain nor a base,
-> however, it exposes those indices to child devices as though they were
-> Linux IRQ numbers.
-> 
-> The touchscreen interrupt is at DT index 0 on both supported SoCs.
-> platform_get_irq_byname() therefore rejects its child resource with:
-> 
->  0 is an invalid IRQ number
-> 
-> On current kernels it also returns -EINVAL, preventing the touchscreen
-> driver from probing.
-> 
-> The child drivers try to map their resource values afterwards with
-> irq_of_parse_and_map(), but the touchscreen driver never reaches that
-> call for index 0. More generally, translating the parent firmware's IRQ
-> indices does not belong in the child drivers, where platform IRQ
-> resources are expected to contain mapped Linux IRQs already.
-> 
-> Have the MFD parent copy each resource template and resolve its IRQ
-> indices with platform_get_irq() before registering the child. The child
-> drivers can then request the mapped IRQs directly. Use per-device copies
-> so later instances and reprobes still start with the DT indices.
-> 
-> Apply the same fix to the ADC child, which uses the same IRQ mapping
-> scheme.
-> 
-> Tested on an i.MX28 EVK. The mxs-lradc-ts driver now probes
-> successfully, and its interrupt counters increase when the screen is
-> touched.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: a85a6c86c25b ("driver core: platform: Clarify that IRQ 0 is invalid")
-> Closes: https://lore.kernel.org/linux-input/CAOMZO5CgTzo6GuXptD4mFTN=UsJJqpkixDW1Q64gqZGrij8+uQ@mail.gmail.com/
-> Signed-off-by: Fabio Estevam <festevam@gmail.com>
-> ---
-> This is a long-standing bug that I reported in 2020:
-> https://lore.kernel.org/linux-input/CAOMZO5CgTzo6GuXptD4mFTN=UsJJqpkixDW1Q64gqZGrij8+uQ@mail.gmail.com/
-> 
-> This patch touches MFD, IIO, and Input. Since the IRQ mapping is moved
-> into the MFD parent, I suggest merging it through the MFD tree, with
-> acks from the IIO and Input maintainers.
+Sashiko is correct. Will be submitting v2 with commit messages changed:
+- with patch 1 a zero-length stats reply is already harmless; the remaining
+  leak is a 1 to 187 byte reply (the counter block is 188 bytes). The message
+  now says so and no longer claims the counters "stay zero" because of 2/2.
+- it says that 2/2 depends on 1/2 (otherwise the leak moves to the stack) and
+  that both should be backported together.
+- RX_ADDRL/RX_ADDRH are only written back for an invalid address; the heap
+  derived address is written to MAF_LO(0)/MAF_HI(0) and set as the netdev address.
 
-Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com> # for input
-
-Thanks.
-
--- 
-Dmitry
+pw-bot: cr
