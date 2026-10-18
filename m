@@ -1,153 +1,173 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C64C3EC81A
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 21:14:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BAF320CD3;
+	Sun, 18 Oct 2026 21:21:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792358063; cv=none; b=XZ2TfnrKMtMPUZ9fY6f9+oAvRdLWxRTM9t0qlP2z80tHOarc9cG+0rxz839yn3pWUT33+IMgcsXWERLJNR8B9F9Y4wvkyT1CY1w01zI4OOrgwxrfgNvc3asD8ZVJK5mu2gj28zOkUcHT21DMMd/fHiGM7l4cJOWsM8z6T0hoDuo=
+	t=1792358493; cv=none; b=UtkUbb5w7u5epFrPJGDgUG7uBwlaDuNgBx7716aJkBNPLnLppQeGUqGB6OKx4OqUkFXGhFePTwMgj0mvTuxOl60aYYyVhmpFWU4K8T5VVQm13vbv0q5rqEnDEzDeUpGOvGTv9YDz21GC026u6MwcOzM6n/yu8m6N9jiGNYwgWxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792358063; c=relaxed/simple;
-	bh=ELsTm3j7AhO/Y219Lftj+MonZ2lkR1m0RK4B8AueOsI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WOYnkfrk2YIG5+V66MkDNgWrWSCB4Ma4D52dCTfbbkqvBBRIbc3vN1OMKnqqupZRgaFpJ4bbjydQPpVhfcTPtqc8vK2lay2IverLyI2OE+udcLv/DW5k4jvFwVVrqFE4E/sxGQGGkKzrTXYSohrFNXsHtxqUqLcNuL9lJ9EbM/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=DnvH0YsM; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1792358493; c=relaxed/simple;
+	bh=EsiM1aX8JF3Q+enhWf0ViEm/464IO2aRFvFcjSc6oQ4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=lJF7mBqFAcg3OY2fVhD9SwWGWX/z80B31UtAoBvMiEWCFEiIZr4W5gANW5DRPyXZ6IDuZzFfahtQr+PRgK/0LhahIrnjnzPbWoxBHNPPrBt0oufUYQrIhB+wqeV8L5V2PzMsVRe4rLSjKSvmmEfTQtEfGbOGzKYC2gKXTPXN3nU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KZP8kJb1; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="DnvH0YsM"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1e34ecb02so3635705e9.2
-        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 14:14:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792358058; x=1792962858; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XFmT0VCL/Q/dgan6nnGoPiwft7ERrnmKegD898CfuBQ=;
-        b=DnvH0YsMiLc9ovWZPMzdj5+v0lNHZKf6BAfSmSpS5YQK38dsO5n5c5E31d0GGCe1Od
-         Gpr5LP8fv5zK/MxH1cuTU/042qOf6pJ6M2LkdGaDDv/wiGe8CvCMgf8lOr4d38jn9n7K
-         fSf0ExDk1N5nb4hRx/e/6SxtVl92FufH2Dkwddu93gKAQA67obhZ/C/NeiA0Xq89UwWy
-         SOyckmDfLrpxix3cAQGfDjbvRXQjGmG+GPksCc8fVKPtad8zBvi5N3wL5m2j9A0fc3wJ
-         OBYVbQHO4NfBxEj1iBSCeax+GFY3xFitoFZaiO42OMKS9v9iLSDhbJ2z7tYmcm6U4vqZ
-         Tw4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792358058; x=1792962858;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XFmT0VCL/Q/dgan6nnGoPiwft7ERrnmKegD898CfuBQ=;
-        b=a6GkqUiLiRp6yR/LhpmPmqusWeWZddeGlo7RU/3BAuJob4dlXBGGBvFr5n9pGHqeG9
-         7+oz2ydeuJKAvs5FaRwtWuLI1npnxA2zukuRcSfN65Nnj7BReMOjBbNo+h9kJeALKUn8
-         1ETDYqiCKWvh9Y1UgDmv/DeaXbrd1/2f4GDS4mRWOT/ib8Tsd2/fvxw7IpnhxtGGwlKE
-         6Fr/GY1Be1z7H6ijiGdDjiCxCWt2VxrI+USxr0fhOOFj1jpgzqN6k5d3SAB/Y2dyjxTD
-         4lFPWMBrkwGByGBX5G6oDWG90g+RlG/LsEKdp/M7uyjB3cOLmqOgqfYh2isZkQ5welJ3
-         KR0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx7Rgr3RqHzxqaiyQSMoJc9nzqJ75dCtNdvFvnz6PjSl5Fy9SHsOHxq1SMvuNPCrGWi0i5Fddw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqtQMkduvsIuiMjpf5fKaUpIge+L7zaBq5I8INLnUaJOXyrlAQ
-	r+5RM7UDJUnYn6aPlfUoCPVr1XAWjhv70Iz1nvneudz58IeaP4KYStIU8fRC8qKfcKo=
-X-Gm-Gg: AYBFou0zXRtntn6ygpNCfQkUFP1AOAmrpMHB2f93UdR+HnwSNRBnNr86OMIIS7L82H0
-	i4TtjhPw6a6RAyIOh3BjGSEpufPbrgmVat4d8Ie+0983y0V184eDO5GzmAKOBLwko3/dhjX+tOl
-	T3V/v2uheKFwRfP3+SVLsARmB99K2vAZyI6NKJttYoGs+c6eKQGHzmWcf9HXosmp4yAHX9YaaR4
-	bQ6Q8R4lDHxZcZQxlfADMhvpe2W6lUV3CUDB1VczQKAUryZ+nZArrgpjhgoYcfkmePdCGuPdPhM
-	gBrNz0NlJ79PGrpcfSqJ3BaFcnhEGAe7pDQhmNx7mZ8zVS5od5lHJ9ggw9js2xWLx2x/3wKy2tm
-	La1u2qg+1Scw+J2VEyeYmVUmonZ1ewuh5jn2ihBP7b9k+lnFoDGDYc8x6xifnYoslR8VsEPeAb3
-	zWSo8Fnk3RLe9UKTtiM6O7iyChAUfqPCpybebme8+b/nHhB2/lNpeb+QgZdk1OSiw=
-X-Received: by 2002:a05:600c:4503:b0:4a1:985b:83a9 with SMTP id 5b1f17b1804b1-4a1d75acb11mr135826505e9.4.1792358058435;
-        Sun, 18 Oct 2026 14:14:18 -0700 (PDT)
-Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e8aad3dsm30778145ad.64.2026.10.18.14.14.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 18 Oct 2026 14:14:16 -0700 (PDT)
-Message-ID: <e6e38b8b-130b-40d4-b4aa-30e9bdc79618@suse.com>
-Date: Mon, 19 Oct 2026 07:44:10 +1030
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KZP8kJb1"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 60996C2BCC7;
+	Sun, 18 Oct 2026 21:21:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792358493;
+	bh=EsiM1aX8JF3Q+enhWf0ViEm/464IO2aRFvFcjSc6oQ4=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=KZP8kJb1HBVdCxX5/1thKJDEPZGID7SVHAkz6gs63NpDmQcnSNv901ow/NGOc4COw
+	 xFu4K0QgFYAEE+E01oAh4C2TCpNMZATO10UrdspJEJ77VZIdqIAbirzcUPya1aWM0S
+	 mJvaNOz/5f6qzmbQc3Gf9jaXggLsCPVpK4rEJtIl9ZfZ1FCEvMuSzvdDE7FxAHFEGz
+	 dtRVSh4qr3TJ1Qqh0xHeftmh7V8LKVtKmMRJDHXBakuY3DAzMfCu+Tvt9fMIC6U+2f
+	 tV8pQunX6nkUpF2QgUBBe/n7qii0EoKQIEpxz/tsIOr74gTtB4xtB8KR+e9/4gxS1n
+	 70ELkI/hPxotw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4C376CCF2C9;
+	Sun, 18 Oct 2026 21:21:33 +0000 (UTC)
+From: George Neacsu via B4 Relay <devnull+geocausa.gmail.com@kernel.org>
+Date: Sun, 18 Oct 2026 22:20:57 +0100
+Subject: [PATCH v2] leds: flash: leds-qcom-flash: Release all V4L2 flash
+ devices
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] btrfs: prevent deleting the wrong subvolume by ID
-To: guolingxing <guolingxing@tju.edu.cn>, David Sterba <dsterba@suse.com>
-Cc: Chris Mason <mason@kernel.org>, Marcos Paulo de Souza
- <mpdesouza@suse.com>, linux-btrfs@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261018073709.1586733-1-guolingxing@tju.edu.cn>
- <20261018153810.2692021-1-guolingxing@tju.edu.cn>
-Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-In-Reply-To: <20261018153810.2692021-1-guolingxing@tju.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261018-qcom-flash-v4l2-release-v2-1-8e2297844d9f@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNQQ7CIBBFr9LM2jGAtQRX3sN0Qei0TEKLBUM0T
+ e8u9gIu38//72+QKTFluDUbJCqcOS4V1KkB5+0yEfJQGZRQnRSyw9XFGcdgs8fSBoWJAtlMaAZ
+ xdUYP0rUa6vqZaOT3YX70lT3nV0yf46jIX/rfWSRKFGSUtdqZi9L3abYczrUO/b7vXxkI636+A
+ AAA
+X-Change-ID: 20261016-qcom-flash-v4l2-release-9d05c97d1c47
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>
+Cc: linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Sashiko AI review <sashiko-bot@kernel.org>, 
+ George Neacsu <geocausa@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792358492; l=4486;
+ i=geocausa@gmail.com; s=20261015; h=from:subject:message-id;
+ bh=ppY/VnlROueCHxcWyyUzVBQ38YxKqQ50DfJqg4W2Kio=;
+ b=xB+4jGMcpNcyEpSTCCr38ebdfeTe6g+KZM/6wSQB/v8xU1euMNCqlyws2k07/zULg5tXxIVDC
+ 4+qd4mMfxsPCxMzyGaf2vzEPLdCW0Jo6BZ0GmuLLsJDsdVd0RSH9ozD
+X-Developer-Key: i=geocausa@gmail.com; a=ed25519;
+ pk=KyQk/iWbxsikewDBh0SwlHI51RvAqahD3loqmRp9DVI=
+X-Endpoint-Received: by B4 Relay for geocausa@gmail.com/20261015 with
+ auth_id=1199
+X-Original-From: George Neacsu <geocausa@gmail.com>
+Reply-To: geocausa@gmail.com
 
+From: George Neacsu <geocausa@gmail.com>
 
+The probe error path and qcom_flash_led_remove() use leds_count as an
+array index before decrementing it. Since leds_count is the number of
+registered LEDs, that first access is one entry past the last registered
+V4L2 flash device. The loops also stop before index 0, so with a single
+LED nothing is released at all.
 
-在 2026/10/19 02:08, guolingxing 写道:
-> When deleting a subvolume by ID, btrfs_ioctl_snap_destroy() first
-> resolves the requested ID to a name, then looks up that name again
-> under the parent directory lock.
-> 
-> A concurrent rename can change which subvolume is associated with
-> the name between these operations. Since the deletion path does not
-> verify the ID of the resolved subvolume, it can delete a different
-> subvolume while leaving the requested one intact.
-> 
-> This was reproduced by repeatedly exchanging the names of two
-> subvolumes using renameat2(RENAME_EXCHANGE) while deleting one of
-> them by ID. The wrong subvolume was deleted in 9 out of 14 independent
-> tests.
-> 
-> Fix this by checking that the resolved subvolume ID matches the
-> requested ID while holding the parent directory lock. Return -EAGAIN
-> on a mismatch so that userspace can retry the operation instead of
-> being told that the requested subvolume does not exist.
-> 
-> Fixes: 949964c92843 ("btrfs: add new BTRFS_IOC_SNAP_DESTROY_V2 ioctl")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+The V4L2 flash sub-device then stays registered after the driver is
+unbound, still pointing at the driver's freed devm memory. On a Surface
+Pro 11 (X1E80100, PM8550 flash, IR LED linked to a sensor through
+flash-leds), unloading the module and then setting a flash control on
+the sub-device triggered UBSAN shift-out-of-bounds reports and a NULL
+pointer dereference in regmap_field_update_bits_base(), called from
+update_allowed_flash_current().
 
-Reviewed-by: Qu Wenruo <wqu@suse.com>
+Release the registered entries from leds_count - 1 down to 0. Initialize
+the mutex only after the probe checks that can return directly, destroy
+it on the shared failure path, and route a final torch-clamp programming
+failure through that cleanup as well.
 
-Thanks,
-Qu
+Fixes: 96a2e242a5dc ("leds: flash: Add driver to support flash LED module in QCOM PMICs")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20261016-qcom-flash-v4l2-release-v1-1-0e92aa7c9327@gmail.com?part=1
+Assisted-by: Claude:claude-opus-5-5
+Assisted-by: ChatGPT:gpt-5.6-sol
+Signed-off-by: George Neacsu <geocausa@gmail.com>
+---
+The V4L2 flash cleanup currently indexes one element past the registered
+array and fails to release index 0. Fix the cleanup for both probe failure
+and driver removal.
 
-> ---
-> Changes since v1:
-> - Return -EAGAIN instead of -ENOENT on a subvolume ID mismatch,
->    as suggested by Qu Wenruo.
-> 
-> 
-> Testing:
-> - Unpatched kernel: 9 wrong deletions in 14 independent runs.
-> - v2 patched kernel: 0 wrong deletions in 30 independent runs.
-> - EAGAIN was observed in 14 runs; all 30 runs successfully deleted
->    the requested subvolume while preserving the other one.
-> 
->   fs/btrfs/ioctl.c | 11 +++++++++++
->   1 file changed, 11 insertions(+)
-> 
-> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-> index 576cd76ca0bf..d82a7f3f3d14 100644
-> --- a/fs/btrfs/ioctl.c
-> +++ b/fs/btrfs/ioctl.c
-> @@ -2380,6 +2380,17 @@ static noinline int btrfs_ioctl_snap_destroy(struct file *file,
->   
->   	inode = d_inode(dentry);
->   	dest = BTRFS_I(inode)->root;
-> +
-> +	/*
-> +	 * A concurrent rename may have changed which subvolume the name
-> +	 * refers to. Verify that the resolved ID still matches the requested ID.
-> +	 */
-> +	if (destroy_v2 && (vol_args2->flags & BTRFS_SUBVOL_SPEC_BY_ID) &&
-> +	    btrfs_root_id(dest) != vol_args2->subvolid) {
-> +		ret = -EAGAIN;
-> +		goto out_end_removing;
-> +	}
-> +
->   	if (!capable(CAP_SYS_ADMIN)) {
->   		/*
->   		 * Regular user.  Only allow this with a special mount
+v2 also makes the probe error handling symmetric around the mutex and
+routes a late torch-clamp programming failure through the V4L2 cleanup.
+---
+Changes in v2:
+- initialize the mutex after direct-return probe checks and destroy it on
+  the shared failure path, addressing the Sashiko review;
+- route the final torch-clamp register-write failure through V4L2 cleanup;
+- retain the v1 tested cleanup of every registered V4L2 flash device.
+- Link to v1: https://lore.kernel.org/r/20261016-qcom-flash-v4l2-release-v1-1-0e92aa7c9327@gmail.com
+---
+ drivers/leds/flash/leds-qcom-flash.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/leds/flash/leds-qcom-flash.c b/drivers/leds/flash/leds-qcom-flash.c
+index b03a683..35646c4 100644
+--- a/drivers/leds/flash/leds-qcom-flash.c
++++ b/drivers/leds/flash/leds-qcom-flash.c
+@@ -923,7 +923,6 @@ static int qcom_flash_led_probe(struct platform_device *pdev)
+ 	devm_kfree(dev, regs); /* devm_regmap_field_bulk_alloc() makes copies */
+ 
+ 	platform_set_drvdata(pdev, flash_data);
+-	mutex_init(&flash_data->lock);
+ 
+ 	count = device_get_child_node_count(dev);
+ 	if (count == 0 || count > flash_data->max_channels) {
+@@ -936,6 +935,8 @@ static int qcom_flash_led_probe(struct platform_device *pdev)
+ 	if (!flash_data->v4l2_flash)
+ 		return -ENOMEM;
+ 
++	mutex_init(&flash_data->lock);
++
+ 	device_for_each_child_node_scoped(dev, child) {
+ 		led = devm_kzalloc(dev, sizeof(*led), GFP_KERNEL);
+ 		if (!led) {
+@@ -951,10 +952,16 @@ static int qcom_flash_led_probe(struct platform_device *pdev)
+ 		flash_data->leds_count++;
+ 	}
+ 
+-	return regmap_field_write(flash_data->r_fields[REG_TORCH_CLAMP], flash_data->torch_clamp);
++	rc = regmap_field_write(flash_data->r_fields[REG_TORCH_CLAMP],
++				flash_data->torch_clamp);
++	if (rc)
++		goto release;
++
++	return 0;
+ release:
+-	while (flash_data->v4l2_flash[flash_data->leds_count] && flash_data->leds_count)
+-		v4l2_flash_release(flash_data->v4l2_flash[flash_data->leds_count--]);
++	while (flash_data->leds_count)
++		v4l2_flash_release(flash_data->v4l2_flash[--flash_data->leds_count]);
++	mutex_destroy(&flash_data->lock);
+ 	return rc;
+ }
+ 
+@@ -962,8 +969,8 @@ static void qcom_flash_led_remove(struct platform_device *pdev)
+ {
+ 	struct qcom_flash_data *flash_data = platform_get_drvdata(pdev);
+ 
+-	while (flash_data->v4l2_flash[flash_data->leds_count] && flash_data->leds_count)
+-		v4l2_flash_release(flash_data->v4l2_flash[flash_data->leds_count--]);
++	while (flash_data->leds_count)
++		v4l2_flash_release(flash_data->v4l2_flash[--flash_data->leds_count]);
+ 
+ 	mutex_destroy(&flash_data->lock);
+ }
+
+---
+base-commit: 62f482ff73bf3ae88b0c899115527752cf9cbf13
+change-id: 20261016-qcom-flash-v4l2-release-9d05c97d1c47
+
+Best regards,
+-- 
+George Neacsu <geocausa@gmail.com>
+
 
