@@ -1,42 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273AF394EB0;
-	Sun, 18 Oct 2026 22:03:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F6F249EC4B
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 22:03:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792360988; cv=none; b=J//KTTMoO/IcR+cVA4wMdF2DwU45YhUB39YRwMz3K18+lCScU5L/uHwAAYa2+qgR0dM0bX84X4xwsQdU3VhJYEdiR+iXr/G/aw9knzJlewyo5UYcY+4f7x28Nkb7gXG8zVVOeHVZqUee/81+MNkuT8TTI7jbGwaxsN3WTkMdn7k=
+	t=1792361029; cv=none; b=hzUk6CAyBgupvGJrnXY+wmk2ymfL8nvMHYCCcC8EUJOx0oipaHpcPXISdklMRVthmKEht5fFGLMzEJ90QQwOMusD4jqujhZqiaSA3FA5TjlONdUmN8MCmEEKBQK6m53dFgHww1xdP/2/A9mD7dHO8Ztb+zxsMFwQRCc12fqNyhE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792360988; c=relaxed/simple;
-	bh=twLiNJ2iWt/8LUbRgsm5ooLbyC12UPzg7TGB8ejiu0Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QL29NoVwf89QEkFyRTJhrGjBTHgri8aiSiXE9+zK49JcUGR6Laq25YeVl+1o8OyX338QXF2BIfEVecJbRuYRZu8zDYr1MBgl2utP+DetST5lQIFU/pnz+Gxp5LGeQ4AbWINiadYKuJmGIgt438b0H/AmpueEX2W6X7LYPivhWEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PO1SlCH6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792361029; c=relaxed/simple;
+	bh=fLPb8kE775oBdl47IoHKogj9ZqIRFUWk55lG7MgAYNU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ohgzbrG+qL0rSFBskV7SropZnelGZRfgOaFPqdIQq2C8NiqkBBn+nzTQf5WO2uCuo4r4+5yToY0UWg9RvWGEVM2+ZJELMYUzlI9tFtJWYol/BN9zapn0de+tY/xbKqd5BjCMHXq4J7vl1fZOgdRoaD11bMFV+M2YKrCGy4x+lIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L6fcgFk4; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PO1SlCH6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 896111F000C4;
-	Sun, 18 Oct 2026 22:03:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792360986;
-	bh=9jIwRePGhGl7Lj5AtdjryQO+SfZ1sGL+oGdwGuNfa24=;
-	h=From:To:Cc:Subject:Date;
-	b=PO1SlCH62VrarZagP9eLCG2Zz/sSoHA25CDWscQESh9Jq62Iu5LnFfmDh8f54vvNM
-	 mKQg9EFCHasXibgNzVZtonckwtoUm76FsgS4R8lUqAW+1Yu5885OHZ/Ulhm9/1MddY
-	 E+TSJ0h1MKBmQDWb3fRQ/aOl4zyh+OLTmE4kcrujbQwUNf1YPVYTsJDhQkx2SpMg0Z
-	 xMuiniBCwvhm4J6tqBlYGnUibF9HbliZsa29LOi5C4bFSXBHOsRdU79Aehhf3OEHUD
-	 dNcAwF+k+V8jPs3aswqV3EmHp+yZzwyt70eQz9FBc25zdS8IWwf4lQelbi3HJkBYek
-	 hbLnkEaLN5b8A==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH] mm/damon/core: filter out damos address filter-split failed region
-Date: Sun, 18 Oct 2026 15:02:52 -0700
-Message-ID: <20261018220253.158238-1-sj@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L6fcgFk4"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so10604085e9.2
+        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 15:03:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792361027; x=1792965827; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=f/Q05qxdTDTmhGuswkD33MZaClxV6rlgBVgFFN3G8GI=;
+        b=L6fcgFk4wFCecUOMrMRbgJ327e++InffjP308Uf4fLiP+B/9TFmILR9ax9IONtOpOe
+         uHSEX5CzSeta/XoYpw8qeBLbz4i2a6x0viIXZzIE8rEYhqmX7yL3rawazThIxJk1EET2
+         TEQgZ8D9vQEbSTO3tHJsIBebtQa+7H1mx/RUzeYHFTAPmqpTKoAgOpEDeA/uSCUBG08v
+         C1TgtrcVT6W4fzhb9He9KYA3J/dCNVfLxZ43aQpdQ0mEjCR7Skb3LtwKfz1bZjBwFKc6
+         mlpZflnUEZog8dx0PpfQ8IRnoMfci+SgOp6TocWix+PupxT41PjRCe9blFmMgh6cV51X
+         Fr9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792361027; x=1792965827;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=f/Q05qxdTDTmhGuswkD33MZaClxV6rlgBVgFFN3G8GI=;
+        b=FH5mNEMk6sNyKgSw57dBrHYP2jwXmAKWS7QP1qs0yVlRicfROEoGSOuM8pBXsrUURE
+         z+TcLrb5tTdV3js9PZai8rVHZsShZ2n86myMVuTHG4gILi5qmQbQCp3o41EmXtCDfBqv
+         hqkJU/bTiiNg1bxxmh43no3rWguPUQAxnp7fylZZ1BXS/mwna+844Cw4P9ZQYcfL4hDu
+         O6Jw7m/96uMS6cxAp2thmS6Zv/jg2Wxf+eJ/VaSZNtVV0nOKLB9i0C2ZQU+yHyP35h6Q
+         E+oebg5jfuYPD409pFBfBozUNMYALmgromr275d0o6e8gd1lVhVI7+agi7eajxwyieUK
+         2S/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwoydmvg6wGAHOpe3Nxdd+mmvlpxCO+/pkcPYLCMf3wrIE9bMYsNZMj6rJJvU0v3QzIfoxR0VQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYISja3nfjiylz9Zj19cFJcOhjyOxCPF90TXkCIJS4YvsTA/lXbg
+	RBTid3naUXnfbC9DztMuUP+xUv1GTEgXwL2EEEna+ERzDFtH8ais+fA=
+X-Gm-Gg: AYBFou0zM2L/ScxeoXo4xe1btMlasi8lSgUnbsrEjy/VgpYwZgAb4OAlk8agXcA1DSB
+	T8zsjVqZ4qZUkVLEGgxllbfEclXd441AOHtKSJmDbCe3a+LoK7WUEs7RI9CNeoSPx5t5XuoKmLk
+	40pD8dlTmnZC4xnQpMQ3865Az420CYUPj9YcbG6IZWg7k4210DeROphCAv0N32hHM8IxZBJl0TC
+	YwwTm2aBZHCbp2cjG/Wu/rF1fSAyl/b1BbPk6SyLo4A6s+x2EFUEp+0Cib5T0payiVflHvqqK4q
+	PMYoz05w+ca35twVJC+/DYMqZN6tT3i8QNghbTeJfs1aTKcSCqKNA6Nrl7TL0eTueIEq4wkCSRh
+	u4OhkjXe51gWw4qvBMsLc0/aXtd1en+edTqh9+Mu1o6HfSUne4LssnZ9s/KEfDEJeo8xBSfdSUn
+	jOnvWhZt8ZWLbcP7DCmyz58aXJwynj6FRARdzja3k=
+X-Received: by 2002:a05:600c:1c0f:b0:4a1:e489:f89f with SMTP id 5b1f17b1804b1-4a1e489fa4bmr56224815e9.14.1792361026632;
+        Sun, 18 Oct 2026 15:03:46 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd91c55bsm278731975e9.0.2026.10.18.15.03.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 15:03:45 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org,
+	Marcus Folkesson <marcus.folkesson@gmail.com>,
+	"Derek J . Clark" <derekjohn.clark@gmail.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Tristan Madani <tristan@talencesecurity.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/8] HID: pxrc: validate report size in raw_event callback
+Date: Sun, 18 Oct 2026 22:03:37 +0000
+Message-ID: <20261018220344.1987142-2-tristmd@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261018220344.1987142-1-tristmd@gmail.com>
+References: <20261018220344.1987142-1-tristmd@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,139 +81,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When an address type DAMOS filter is configured, DAMOS tries to split
-the region for the filter range, and apply DAMOS action to the filter-in
-region.  The split operation (damon_split_region_at()) could fail from
-allocation failure under extreme memory pressure.  In the case, DAMOS
-action could be applied more or less than expected, ignoring the address
-filter.
+From: Tristan Madani <tristan@talencesecurity.com>
 
-The issue only rarely happens under extreme memory pressure.  No crash
-or leak happens.  Occasionally not applying the action to a few regions
-shouldn't be a real problem.  But applying the action to a region that
-the user has excluded via address filter could be a surprise depending
-on the use case.  It is only theoretical.  No such real case is found
-yet.
+pxrc_raw_event() reads and writes data[1] and data[7] without
+checking that the report buffer is large enough. A device sending a
+short report could cause out-of-bounds memory access because
+hid-core invokes raw_event before it validates the report length in
+hid_report_raw_event().
 
-Filter out the entire region if the split is failed.  Update
-damos_filter_match() signature to receive the error from split.  Also
-update kunit tests for the updated signature.
+Add a size check at the start of the function.
 
-The issue was discovered [1] by sashiko.
-
-[1] https://lore.kernel.org/20260801203121.117449-1-sj@kernel.org
-
-Fixes: ab9bda001b68 ("mm/damon/core: introduce address range type damos filter")
-Cc: <stable@vger.kernel.org> # 6.6.x
-Signed-off-by: SJ Park <sj@kernel.org>
+Fixes: acc3e34613da ("HID: Add driver for PhoenixRC Flight Controller")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- mm/damon/core.c             | 15 ++++++++++++---
- mm/damon/tests/core-kunit.h | 11 ++++++-----
- 2 files changed, 18 insertions(+), 8 deletions(-)
+ drivers/hid/hid-pxrc.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index b63e60ef89901..4d34587387456 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -2551,13 +2551,14 @@ static void damos_update_stat(struct damos *s,
- 
- static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
- 		struct damon_region *r, struct damos_filter *filter,
--		unsigned long min_region_sz)
-+		unsigned long min_region_sz, int *err)
+diff --git a/drivers/hid/hid-pxrc.c b/drivers/hid/hid-pxrc.c
+index 71fe0c06ddcdf..e3755d8b85c22 100644
+--- a/drivers/hid/hid-pxrc.c
++++ b/drivers/hid/hid-pxrc.c
+@@ -55,6 +55,9 @@ static int pxrc_raw_event(struct hid_device *hdev, struct hid_report *report,
  {
- 	bool matched = false;
- 	struct damon_target *ti;
- 	int target_idx = 0;
- 	unsigned long start, end, wsum;
+ 	struct pxrc_priv *priv = hid_get_drvdata(hdev);
  
-+	*err = 0;
- 	switch (filter->type) {
- 	case DAMOS_FILTER_TYPE_TARGET:
- 		damon_for_each_target(ti, ctx) {
-@@ -2588,7 +2589,9 @@ static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
- 			break;
- 		}
- 		/* start inside the range */
--		damon_split_region_at(t, r, end - r->ar.start);
-+		*err = damon_split_region_at(t, r, end - r->ar.start);
-+		if (*err)
-+			return false;
- 		matched = true;
- 		break;
- 	case DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:
-@@ -2607,10 +2610,16 @@ static bool damos_core_filter_out(struct damon_ctx *ctx, struct damon_target *t,
- 		struct damon_region *r, struct damos *s)
- {
- 	struct damos_filter *filter;
-+	bool matching;
-+	int err;
- 
- 	s->core_filters_allowed = false;
- 	damos_for_each_core_filter(filter, s) {
--		if (damos_filter_match(ctx, t, r, filter, ctx->min_region_sz)) {
-+		matching = damos_filter_match(ctx, t, r, filter,
-+				ctx->min_region_sz, &err);
-+		if (err)
-+			return true;
-+		if (matching) {
- 			if (filter->allow)
- 				s->core_filters_allowed = true;
- 			return !filter->allow;
-diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index 3fbb4e4e36fac..43e2f950f8ff4 100644
---- a/mm/damon/tests/core-kunit.h
-+++ b/mm/damon/tests/core-kunit.h
-@@ -1783,6 +1783,7 @@ static void damos_test_filter_out(struct kunit *test)
- 	struct damon_target *t;
- 	struct damon_region *r, *r2;
- 	struct damos_filter *f;
-+	int err;
- 
- 	f = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true, false);
- 	if (!f)
-@@ -1803,27 +1804,27 @@ static void damos_test_filter_out(struct kunit *test)
- 	damon_add_region(r, t);
- 
- 	/* region in the range */
--	KUNIT_EXPECT_TRUE(test, damos_filter_match(NULL, t, r, f, 1));
-+	KUNIT_EXPECT_TRUE(test, damos_filter_match(NULL, t, r, f, 1, &err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region before the range */
- 	r->ar.start = 1;
- 	r->ar.end = 2;
- 	KUNIT_EXPECT_FALSE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(NULL, t, r, f, 1, &err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region after the range */
- 	r->ar.start = 6;
- 	r->ar.end = 8;
- 	KUNIT_EXPECT_FALSE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(NULL, t, r, f, 1, &err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region started before the range */
- 	r->ar.start = 1;
- 	r->ar.end = 4;
--	KUNIT_EXPECT_FALSE(test, damos_filter_match(NULL, t, r, f, 1));
-+	KUNIT_EXPECT_FALSE(test, damos_filter_match(NULL, t, r, f, 1, &err));
- 	/* filter should have split the region */
- 	KUNIT_EXPECT_EQ(test, r->ar.start, 1);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, 2);
-@@ -1839,7 +1840,7 @@ static void damos_test_filter_out(struct kunit *test)
- 	r->ar.start = 2;
- 	r->ar.end = 8;
- 	KUNIT_EXPECT_TRUE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(NULL, t, r, f, 1, &err));
- 	/* filter should have split the region */
- 	KUNIT_EXPECT_EQ(test, r->ar.start, 2);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, 6);
-
-base-commit: dbff06b9dcfe3a45b66fcf20d0fec8c3e56f5624
++	if (size < 8)
++		return 0;
++
+ 	if (priv->alternate)
+ 		priv->slider = data[7];
+ 	else
 -- 
 2.47.3
+
