@@ -1,165 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97BB1366DD3;
-	Sun, 18 Oct 2026 03:17:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4177419303
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 04:31:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792293466; cv=none; b=T8+47P1ibenPKGDF7YXzgpDec1Wl0suReUwBkHEetMSqXQpaKjfzyaxVAs8L5ghciErJGdHmBqgcGvepTpApnRf8AK7fGYA44T7rFZwF5MPL7EAjKJiX1lZcT+ONYWe6Yaq9938cluyBEx01ER+kQsSubglRnZdF+FrGYGjsvu0=
+	t=1792297898; cv=none; b=VDBkSojjCQLb+WZvy2HNib2E0uC8wtcnLmci7YJem2OrwzRiw13fhQsFz5pqKbbJHLR3/9e2C7hEo1oEykkzyfjnyB/ZAUlVVxI8HsIFfaIkqRCdRZnrkajJ9vEki3ckfVi5ByTHRGnvoTE8hZsccD6HWclX/JhZWnzLeHW+rk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792293466; c=relaxed/simple;
-	bh=Vb+ei8N3NRQz/AMvH9MLTC6259M+aZ0Bg/jP410ctPQ=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IEpUxfTZwmnrriMEsQs14Y8OJPE569wXjy38yfPmhCkrfh/wbm8QUsTBZ2EGT1ctqlPtIbRPpMak0fhe6Pgbx4YG5ojZJtvTBn+O/+oKjZxd9JhKTiwBgdtjc4vwikEmqr5sGNDENSYilGngJ37K1kySDLPtrDGkA/VGSQlYQnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j2QqiDhm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792297898; c=relaxed/simple;
+	bh=GfG8xreSC2gYnlnLaGNihyW3nGiw1/JdLmQCZBJjHoo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=r259CM1xvxEBGXrSQ7yu5VnkVacX5oaefH1U4T9W4jMDD8Dnpyli6reaAnOeZBBffsR0OspnLcef69Ug92LWqYr6dBHr3FUTNH2nAe4p7PDqXaXu0Ymf9Vz0vAkW0ZnTXpi5VpB3PRTDLMFYuQ0tOBxKfTw46EzNClkW4NVjTuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mb9BXWxt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j2QqiDhm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 717A21F000C4;
-	Sun, 18 Oct 2026 03:17:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mb9BXWxt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 750251F000C6;
+	Sun, 18 Oct 2026 04:31:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792293465;
-	bh=yqieXVip+Y0+11WxWPmjTLS4Expr9Kk2s6GQ/K7PRo8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=j2QqiDhmAGa4krixvX1h5yNduq5tKZqeQj03+TKGTt48YPwP/CmDzoMU+10+m+ayN
-	 FXJsZYl7UtrjVzbxkbi5XAJWkJoj2vVf6RMbqNsU/ZriqgWZFL60AyRjErS1Yk8YDl
-	 hCxbOdVVWjgRFaolUovh8ShhNCfGthdSr0vGnT/5HBJN1DP/+MaCfZp6buno8WHSK1
-	 BcpDUr8l5cylxlU0k0qjdtevFdXOqnL83z+3LUqBtIVSFMmjSjY4yBi00+Cd1+jDUL
-	 YIY9FrJqIgQiQujI1KPuoSe7See1L+zg1LLBjVAdaLWREXv3Oa6VNzkUpLYXIb0fO7
-	 uuaqbSiJkKqeg==
-Subject: Re: [PATCH net 2/2] net: usb: lan78xx: reject short register and
- statistics reads
-From: netdev-bot+sashiko@kernel.org
-To: law.wei.jie@gt.tech.gov.sg
-Cc: Thangaraj.S@microchip.com, UNGLinuxDriver@microchip.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, woojung.huh@microchip.com,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, 98lawweijie@gmail.com, stable@vger.kernel.org
-Date: Sun, 18 Oct 2026 03:17:43 +0000
-Message-ID: <179229346399.3135.12116533277810426921@kernel.org>
-In-Reply-To: <20261014025602.26334-3-law.wei.jie@gt.tech.gov.sg>
-References: <20261014025602.26334-3-law.wei.jie@gt.tech.gov.sg>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1792297892;
+	bh=DYBq7xeKvEEfhwWtcg1/NmSK9WIDoGWbifeYKQ6iaPU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mb9BXWxt88MpB9qYnzbH95e1QrRQzxEiEgi7/2F/8hxj4Nvv6oj2/BHBk3Qm4gqWL
+	 GWeQP4oq2b0cRa2vq/YWt+VON52QmcgZEKdFhblV4sG21cPhx+3wEiJL7g1rSNBGWZ
+	 DOZEbwSUVAdSZaOr+LHmaj0c+P27fOkNdwnZBKUVKBPukBo5ykBFnYtk4P3++breFR
+	 YZGcdhdHz4Cl+8ot9hRaARiYvlfxC5HqpAX3YTCviIkNyGZ8iborIKNboR1PAQKiyL
+	 zuVTGaL39gigLDweKWhWXmrbSyUlNv6nhWP+3qMkdZIIEuciRIZYaqsahz6mAOn8+W
+	 LWEfQ2qVRcwDw==
+Date: Sun, 18 Oct 2026 07:31:25 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Federico Parola <fparola@amazon.de>
+Cc: stable@vger.kernel.org, Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Alexander Graf <graf@amazon.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	kexec@lists.infradead.org, linux-mm@kvack.org,
+	nh-open-source@amazon.com
+Subject: Re: [PATCH 6.18.y 2/2] kho: free phys_bits bitmaps using free_page()
+ in __kho_abort()
+Message-ID: <atRLncxeTcA2dRD6@kernel.org>
+References: <20261015144529.76911-1-fparola@amazon.de>
+ <20261015144529.76911-3-fparola@amazon.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015144529.76911-3-fparola@amazon.de>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Thu, Oct 15, 2026 at 02:45:29PM +0000, Federico Parola wrote:
+> Commit fa759cd75bce ("kho: allocate metadata directly from the buddy
+> allocator") switched the allocation of preserved memory bitmaps to
+> get_zeroed_page(), but __kho_abort() still releases them with kfree().
+> kfree() on a buddy page that is not a large kmalloc allocation hits the
+> WARN_ON_ONCE() in free_large_kmalloc() and returns without freeing it,
+> so every aborted finalization leaks all bitmap pages.
+> 
+> Free the bitmaps with free_page() instead.
+> 
+> This is a stable-only patch. Upstream fixed it as a side effect of
+> commit 99cd2ffac697 ("kho: don't unpreserve memory during abort"), which
+> removes the tracking teardown from __kho_abort() altogether. That change
+> builds on commit 36f8f7ef7fd2 ("kho: add interfaces to unpreserve
+> folios, page ranges, and vmalloc") and commit 70f9133096c8 ("kho: drop
+> notifiers"). In 6.18.y, KHO users still preserve memory from the
+> KEXEC_KHO_FINALIZE notifier and have no interface to unpreserve it, so
+> the teardown on abort is the only way their preservations get dropped.
+> Backporting that commit would make preservations outlive every abort,
+> so keep the teardown and fix only the mismatched free.
+> 
+> Fixes: fa759cd75bce ("kho: allocate metadata directly from the buddy allocator")
+> Signed-off-by: Federico Parola <fparola@amazon.de>
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] Three statements in this commit message (tagged for stable) do
-  not match the code at its parent.
-
---
-
-net: usb: lan78xx: reject short register and statistics reads
-
-This patch makes lan78xx_read_reg() and lan78xx_read_stats() return -EIO
-when usb_control_msg() transfers fewer bytes than requested. Before this,
-uninitialized kmalloc() memory could be used as a register value or as the
-statistics counters.
-
-> With an emulated device on a kernel booted with init_on_alloc=0:
->
-> - A zero-length reply to the statistics request makes ethtool -S, which
->   needs no privileges, report the stale contents of the kmalloc-192
->   buffer. One counter pair read back as 0xffffffff8a427800, the
->   address of usb_api_blocking_completion(), next to several direct
->   map pointers.
->
-> - A zero-length reply to the RX_ADDRL/RX_ADDRH reads in
->   lan78xx_init_mac_address() turns uninitialized heap memory into the
->   MAC address (12:85:1f:dc:2e:bd and e6:93:44:41:9b:9f on two probes),
->   which is then written back to the device in RX_ADDRL/RX_ADDRH and
->   MAF_LO(0)/MAF_HI(0).
->
-> Treat a short transfer as -EIO in both helpers. With this change the
-> same device fails to probe with -EIO, and with only the statistics
-> reply cut short all counters stay zero.
-
-[Severity: Medium]
-
-Can the zero-length statistics case still be reproduced at this patch's
-parent?
-
-The previous patch in the series, "net: usb: lan78xx: do not update
-statistics after a failed read", already updates curr_stat only when the
-return value is positive:
-
-drivers/net/usb/lan78xx.c:lan78xx_update_stats() {
-    ...
-	if (lan78xx_read_stats(dev, &lan78xx_stats) > 0) {
-		lan78xx_check_stat_rollover(dev, &lan78xx_stats);
-
-		for (i = 0; i < (sizeof(lan78xx_stats) / (sizeof(u32))); i++)
-			data[i] = (u64)p[i] +
-				  ((u64)count[i] * ((u64)max[i] + 1));
-	}
-    ...
-}
-
-A zero-length reply makes usb_control_msg() return 0. Then
-lan78xx_read_stats() returns 0 and dev->stats.curr_stat is never written.
-
-With that patch applied, it looks like only a partial reply of 1 to 187
-bytes still leaks the uninitialized tail of the kmalloc() buffer. The
-message doesn't mention that case.
-
-For the same reason, wouldn't "with only the statistics reply cut short all
-counters stay zero" also be true without this patch when the reply has zero
-length?
-
-Could the message also mention that it depends on the previous patch? Both
-patches are Cc: stable, but they have different Fixes: tags (20ff55655a93
-and 55d7de9de6c3).
-
-If this patch is backported alone, lan78xx_read_stats() returns -EIO
-without writing data. The old lan78xx_update_stats() still runs the loop
-unconditionally:
-
-	if (lan78xx_read_stats(dev, &lan78xx_stats) > 0)
-		lan78xx_check_stat_rollover(dev, &lan78xx_stats);
-
-	for (i = 0; i < (sizeof(lan78xx_stats) / (sizeof(u32))); i++)
-		data[i] = (u64)p[i] + ((u64)count[i] * ((u64)max[i] + 1));
-
-The heap leak would then become a leak of the uninitialized on-stack
-lan78xx_stats through ethtool -S, and the counters would not stay zero.
-
-In the MAC paragraph, is the RX_ADDRL/RX_ADDRH write-back accurate? In
-lan78xx_init_mac_address(), those registers are only written when the
-address is invalid, after addr has been replaced from DT, EEPROM, OTP or a
-random address:
-
-	if (!is_valid_ether_addr(addr)) {
-		...
-		ret = lan78xx_write_reg(dev, RX_ADDRL, addr_lo);
-		...
-		ret = lan78xx_write_reg(dev, RX_ADDRH, addr_hi);
-		...
-	}
-
-	ret = lan78xx_write_reg(dev, MAF_LO(0), addr_lo);
-
-Both quoted addresses (12:85:1f:dc:2e:bd and e6:93:44:41:9b:9f) are valid
-unicast addresses, so they skip that block. Only MAF_LO(0)/MAF_HI(0) and
-the netdev address set by eth_hw_addr_set() receive the value taken from
-the heap.
-
-The code change itself looks correct.
+> ---
+>  kernel/kexec_handover.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/kernel/kexec_handover.c b/kernel/kexec_handover.c
+> index 9fe5d14f1ec54..9691f6bc2fba7 100644
+> --- a/kernel/kexec_handover.c
+> +++ b/kernel/kexec_handover.c
+> @@ -1054,7 +1054,7 @@ static int __kho_abort(void)
+>  		unsigned long phys;
+>  
+>  		xa_for_each(&physxa->phys_bits, phys, bits)
+> -			kfree(bits);
+> +			free_page((unsigned long)bits);
+>  
+>  		xa_destroy(&physxa->phys_bits);
+>  		kfree(physxa);
+> -- 
+> 2.47.3
+> 
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261014025602.26334-1-law.wei.jie%40gt.tech.gov.sg
+Sincerely yours,
+Mike.
