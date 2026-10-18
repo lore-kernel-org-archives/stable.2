@@ -1,63 +1,63 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8387414A1F
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 22:03:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A95D9414A1F
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 22:03:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792361037; cv=none; b=rbuxJs776wAUNBresKXUB0vgfqUWVFtrAzWEiNtDIO0E2pgRHq6lUXnCy5QSm3Zsc7uG8qmYVuTaZVwcXVnyVzD8k5vyt9PXCZPt3NwQ4QibySB1ST/FBPevNZK+GZS2hWijgQR7MXx664YKx1sIZ9bzR4R9UHRDmmg/11uHZAY=
+	t=1792361038; cv=none; b=Ru8o2VjPIp0CZTu1z2RAtc/QklevloUSD3+D4HLePOrUxoxP1+7PkX7khmgFP8AHeGBvh1qj+wLnnFuZ0X2OEPiI/5hGqsOut6kPaNEyumsw44SiM6ytGG68xKkZbzallE2Oo0ws4r/nI4vAFH43zamsH/Ia7XBrPkYjma3V+Hc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792361037; c=relaxed/simple;
-	bh=mDZyU+7/YB0JlQIRAEywPgCEGsycCredHJmQMQnsn4E=;
+	s=arc-20240116; t=1792361038; c=relaxed/simple;
+	bh=8bHmYASogem4UkImv9USP3WHnLyATHC1Hy5IMe6WNU0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pt7uFMh+kT4n3Gq/z2aZFPawdEsZjujsw1aO/oiNX3qMs7+WNzSWVglYfHRNZ1rvDIohEcRAq/Wt7hkvc9HUdsN9hgLxh/JpiWtUJNaMShACDbrtTHuEBbK5JfhTxwDy67i7BlijLKnhl2FWBwRxNEpWGCK193IP2clX9mmgpz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fNWczaNW; arc=none smtp.client-ip=209.85.128.48
+	 MIME-Version; b=UEV1sp0xEzX1VFi1LKvPtESrML0vrnaWH/X2oMT7KZXeVykaUDE6zY+GkRJ/Ap70OOBLTSCnHX/pWy6BkDQRGBm8AqqXa3a0rW5f/Lg4UtdllYbCkh8wG6sfxV30Cn2vSr9hb4JP8WCQoPgFvKfBoX1C3w/E8TELUx/IucfTPw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WUgK/eC7; arc=none smtp.client-ip=209.85.221.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fNWczaNW"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a1cef0439aso15760065e9.0
-        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 15:03:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WUgK/eC7"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48bbb06e746so628253f8f.3
+        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 15:03:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792361034; x=1792965834; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792361036; x=1792965836; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hgux2BSkdpCe0yAd96caJdE5ThN2ey9owMjfge1g0T0=;
-        b=fNWczaNWPq+wspNxMiQh0BTjpibMILCgj9S6CWAa1IaHiiqzIfk4RZ5+EHAqvEN1C1
-         JAqb6bXB0wLlbrQwHuTk3LKdw5YXcj+Pbdei40/lvT2tTuv6+wddaSEn+L4CEFxq37hq
-         pMqWOFkRZfPhWDem4WsZN/VvFS5aoGNex0IVTf1o2mV1S8cZdTT6jmlyaLJsSaDnSXli
-         oewAbLDV315L3TIULGe1peAdPM7xH8gLKU2/lWaPNdvP6T3fcMYVh38aTC4HxKe1oDpK
-         4G2tq+SUl/hufG00GjXExm81xxBaPFCpCeP35p1t85ZNS3gN4ewoUtLzzrDhDPpYLp9o
-         Ab0A==
+        bh=BbJN8CvA2HEjblO9LmvSpdf6N0XOweTOQoH+n7JOTxI=;
+        b=WUgK/eC7u70BKGzluYiFXMKcsiXpqaC0dKDn+8RE+3SzQ+IA87C5pAKltt5rZwisEa
+         7Ldzza1tPYVjqVsR9ItmF/neqwOJ2xf2Ilu9MbjTDhycZo8lzSZKLxEDT0ztMA1/T9Ok
+         7olgxht60OFn27URmGEN4ayCGa9RRJusN+9uMbP6m6Il6lZcDg1q+Oj+5KdDQtqCLGg3
+         /5HbzsibrCwLplkWSGiBiOAbOBDElqsdcrndPyPzlXL006eM2X63JlhNXQ2VGR9SuHDy
+         Ow5Fogp0tSZQjCYCR7++KBAW+pEjjCyJfnDxiZygU8zyiE3NOtEcneQUnvMAZYGVdMww
+         HKxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792361034; x=1792965834;
+        d=1e100.net; s=20260707; t=1792361036; x=1792965836;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hgux2BSkdpCe0yAd96caJdE5ThN2ey9owMjfge1g0T0=;
-        b=QjeMJTRrjdRvqFeao3IB2jJi4n7TnjxHCD8+/2J7ISWJPAVGWMLT/uSYwVRPqVvL3P
-         aYe24AFYY5sXpfo9uwMih8N2eNeUhBg1ZuDx2UfSwjapEzQj+taxgNk+VYlW9XvgyEDE
-         L1oDd+wljQ9y7tJ+kLI2NjBVVYiMuLOeDk8ZFuPxwa3LLX2flPg3Kb7t7HUn0uhu8nLw
-         9c3PHBzmBtM0gwfpVK/OPK3FnVEdGJLcPl6HfegNt8TS2Q9DtFdj4QrddvnwItNYlMor
-         hVgateadhUx4CR+XC+cJPbISmvfpKUk54cnrMt7AstiL438UvEckDtATZeP2Qf0z7q3d
-         yBUA==
-X-Forwarded-Encrypted: i=1; AKwUvBwZoiTpHg0izqnxnazj+01R8CdrF1kokDXYQKz8HYlaAjlAmeEIeOvz7bbPqaNcazETocbwQA4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIlRhBEdJYSrv8oPm135w6G+qYD3Pn4bW91or5CVZlUgcxPsl/5
-	jRnSgxryt3uJZ29nJRfusnBuzC38u9pHnA9dpNl0OnEfLE0721z62kY=
-X-Gm-Gg: AYBFou3V+PtpFSg2cXOxnZYqJXoU8b1ezWyss4oxVQogPj7Jix0L3AGde/RVT5Zyyv8
-	y/QnsMWHogT7tenNGF29795fyg5t198b37wxbT7kuG9m35sKukJcMgf0RduMy16HOzgr4NN/q9o
-	uY8HI8/NitwglOzTEO/U2SR+V9srVZTQBoOC+0V1aFKfrqmBCX5S+/ZRVx8pRUYRWBCuc9K3CZc
-	ycFc6LQQRPEOSmRlqsI3UWUSUSzc+kVzowDptqARxpJi9Nz9ZyE5k3KSYeweaJ4nC5z52OQnX0+
-	e9/BYbfPZQtLAcZBmuukuCHhDvItSAhntCsLPY2LDyMaqY6iMzQikqSe9hK/0X7qH9Oq4IBeEo2
-	xr3ZdbWHDeLU2TMwFd7zlnMhUPTr2eydPYZvqJwL0JWREfnsWYPz1KS1x3NLqQGi2bjKotlK0Tn
-	S0qUNsQnp+XFcrkUetBNiSgr12OsEFXymY07VJa/M=
-X-Received: by 2002:a05:600c:a085:b0:49f:c1a1:5222 with SMTP id 5b1f17b1804b1-4a1d762ba65mr117228185e9.33.1792361033877;
-        Sun, 18 Oct 2026 15:03:53 -0700 (PDT)
+        bh=BbJN8CvA2HEjblO9LmvSpdf6N0XOweTOQoH+n7JOTxI=;
+        b=tXhXTggGYGlxzIUeikh/yAEJq9gl//MEHQYXThATeQ2ZClDkvYNr9jExpUEZYZx7BN
+         T8nm6rrceUczaA+2Cs5nbAcfMv1G3aIDBvkSHAP7VhFzSWehcS3NnTx3dFjBL6hfg1Fw
+         6H+Dm/Jx3UW23LkzKlNPj+wiIaRbIXdGvdwkTsc67NCycETXQ4Zu8/BVrh6V+yItGc8r
+         rGrxj/H9yJ76uvqAPT6luMJ7IgTWOjnw5/sC1TJHoXBOoaDOTDszyGWNo6KrG8ZSA4og
+         ANIxy6vw+pHoyoHz56tan/sCWYprq4YQzHLDJ999T/FiSoFTqjHiw6gGTJi3YII9y8Lm
+         X0lw==
+X-Forwarded-Encrypted: i=1; AKwUvBziSMgYbveSUH8Yw6jOhFocEjjnOzmy4ZlGKaGugXnvbwQO45/xwobplW2dmr16ZIvXpwLz/rI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJKalGeoboDi/nCYss5ePT/NAvrCcKLXHzyeHrNIa+b7siI9YiI
+	e6OnwjnExCEWv+ZXPMwXUQ4Pah/amVEVSMQuNwi3uf5M9nkryhDzZqY=
+X-Gm-Gg: AYBFou2ci7QLcU6/86yA+1z+Auyt6Q6pP6CaoS8ijOjrjq7oCcoZZxeCtkkwrNDFfFU
+	9QhYWeNSxhf5QzqmU7JxI3Ehb6kgHNJCve/OkOmWsi3hv2RO2tdoflmFz1JOuaRkhhOd3Td7i5w
+	qEeDLkhYHZS57EHF4ZEk86xEK7bDExqWF0CwW5eOlIRAjgHfp1aukz245zEHO2+S7S3LAySX/uP
+	0U1rOQuNQrinD8c/u6CK8E4GxDnvn2pJxZoR2TT7ZSS3/zB60Z2QZoS8JTGpczSYvYc/uIonihM
+	1iNQNnlsk32IeXU98AiNlZHicjc34gHsDDXcSZpl0cZIIFqxpq5Je9sf6W3XiEh4/Srm1wE4JUJ
+	a87b1WEM/5f+VPfydqkU8xBDFe+TOp1DGyfm7NwB+9slJjVMG89QI3CFGkyPLcIPobv2qRQODMr
+	lsyiXLeU1MDuScMNRdPENbppnHS1q7PPAD4e0vVglF
+X-Received: by 2002:a05:600c:628e:b0:4a1:df70:b4a5 with SMTP id 5b1f17b1804b1-4a1df70b5c0mr94000825e9.7.1792361035900;
+        Sun, 18 Oct 2026 15:03:55 -0700 (PDT)
 Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd91c55bsm278731975e9.0.2026.10.18.15.03.51
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd91c55bsm278731975e9.0.2026.10.18.15.03.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 15:03:52 -0700 (PDT)
+        Sun, 18 Oct 2026 15:03:55 -0700 (PDT)
 From: Tristan Madani <tristmd@gmail.com>
 To: Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>
@@ -67,9 +67,9 @@ Cc: linux-input@vger.kernel.org,
 	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Tristan Madani <tristan@talencesecurity.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 7/8] HID: cp2112: validate report size in raw_event callback
-Date: Sun, 18 Oct 2026 22:03:43 +0000
-Message-ID: <20261018220344.1987142-8-tristmd@gmail.com>
+Subject: [PATCH v2 8/8] HID: prodikeys: validate report size in raw_event callback
+Date: Sun, 18 Oct 2026 22:03:44 +0000
+Message-ID: <20261018220344.1987142-9-tristmd@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261018220344.1987142-1-tristmd@gmail.com>
 References: <20261018220344.1987142-1-tristmd@gmail.com>
@@ -83,64 +83,45 @@ Content-Transfer-Encoding: 8bit
 
 From: Tristan Madani <tristan@talencesecurity.com>
 
-cp2112_raw_event() processes incoming HID reports without validating
-the report size against the data it accesses. Since hid-core calls the
-driver's raw_event callback before it validates the report size in
-hid_report_raw_event(), the driver must perform its own bounds checking.
+pcmidi_handle_report1() and pcmidi_handle_report4() read a 24-bit
+bitmask from data[1..3] without verifying the report buffer is large
+enough. Since hid-core invokes raw_event before validating the report
+length in hid_report_raw_event(), the driver must check the buffer size
+itself.
 
-For CP2112_TRANSFER_STATUS_RESPONSE, the code casts data to struct
-cp2112_xfer_status_report (7 bytes) and accesses fields at offsets 1-6.
+Add minimum size checks before calling pcmidi_handle_report1() and
+pcmidi_handle_report4(). pcmidi_handle_report3() already handles
+variable-length reports via its own size parameter and needs no
+additional guard.
 
-For CP2112_DATA_READ_RESPONSE, the code reads data[1], data[2], and
-then copies data[2] bytes (capped to 61) starting from data[3]. If the
-report is shorter than 3 + read_length bytes, the memcpy reads beyond
-the buffer boundary.
-
-Add size validation for both report types:
- - Transfer status: require sizeof(struct cp2112_xfer_status_report)
- - Data read: require at least 3 bytes for the header, then cap the
-   copy length to what is actually available in the buffer
-
-Fixes: e932d817866770d4 ("HID: add hid-cp2112 driver")
+Fixes: 3a370ca1dcf8c ("HID: Prodikeys PC-MIDI HID Driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- drivers/hid/hid-cp2112.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/hid/hid-prodikeys.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/hid/hid-cp2112.c b/drivers/hid/hid-cp2112.c
-index 04379db93571b..2508c8ea8b693 100644
---- a/drivers/hid/hid-cp2112.c
-+++ b/drivers/hid/hid-cp2112.c
-@@ -1430,6 +1430,10 @@ static int cp2112_raw_event(struct hid_device *hdev, struct hid_report *report,
+diff --git a/drivers/hid/hid-prodikeys.c b/drivers/hid/hid-prodikeys.c
+index fba01e4fcab1c..925ca70f9cd4a 100644
+--- a/drivers/hid/hid-prodikeys.c
++++ b/drivers/hid/hid-prodikeys.c
+@@ -491,12 +491,16 @@ static int pcmidi_handle_report(
  
- 	switch (data[0]) {
- 	case CP2112_TRANSFER_STATUS_RESPONSE:
-+		if (size < sizeof(struct cp2112_xfer_status_report)) {
-+			hid_err(hdev, "short transfer status report\n");
-+			return 0;
-+		}
- 		hid_dbg(hdev, "xfer status: %02x %02x %04x %04x\n",
- 			xfer->status0, xfer->status1,
- 			be16_to_cpu(xfer->retries), be16_to_cpu(xfer->length));
-@@ -1463,11 +1467,17 @@ static int cp2112_raw_event(struct hid_device *hdev, struct hid_report *report,
- 		atomic_set(&dev->xfer_avail, 1);
+ 	switch (report_id) {
+ 	case 0x01: /* midi keys (qwerty)*/
++		if (size < 4)
++			break;
+ 		ret = pcmidi_handle_report1(pm, data);
  		break;
- 	case CP2112_DATA_READ_RESPONSE:
-+		if (size < 3) {
-+			hid_err(hdev, "short data read response\n");
-+			return 0;
-+		}
- 		hid_dbg(hdev, "read response: %02x %02x\n", data[1], data[2]);
- 
- 		dev->read_length = data[2];
- 		if (dev->read_length > sizeof(dev->read_data))
- 			dev->read_length = sizeof(dev->read_data);
-+		if (dev->read_length > size - 3)
-+			dev->read_length = size - 3;
- 
- 		memcpy(dev->read_data, &data[3], dev->read_length);
- 		atomic_set(&dev->read_avail, 1);
+ 	case 0x03: /* midi keyboard (musical)*/
+ 		ret = pcmidi_handle_report3(pm, data, size);
+ 		break;
+ 	case 0x04: /* multimedia/midi keys (qwerty)*/
++		if (size < 4)
++			break;
+ 		ret = pcmidi_handle_report4(pm, data);
+ 		break;
+ 	}
 -- 
 2.47.3
 
