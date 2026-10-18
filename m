@@ -1,127 +1,116 @@
-Received: from out198-180.us.a.mail.aliyun.com (out198-180.us.a.mail.aliyun.com [47.90.198.180])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90DB0438010
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 15:24:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B8938DC4C;
+	Sun, 18 Oct 2026 15:38:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792337053; cv=none; b=P2rbILozIyhLT8VE06aZiw/0kqLPgltSDOcteoopC1FDE/Eq0rVk60tSTv1HwR9wVfk3h6W3VJBYDJ91CPO4u2/GPXEIgzAQ8S8Ggw7HIlE4sp56UfndMJwUfwl4iB9494zoyjkwoWI1LdxNBJCGXL4hoLbB/Zq0SodzrpF2qRA=
+	t=1792337909; cv=none; b=ShkskNrnIEF5riHPrYgw7JgVhfoSA77zjI/KKhagAUiimH+rDubMNYXpMO2U9yVI1Xvz/BE2fUUytGtFxeFDfdkEpY8+JenHadkLs1fOhRv2hXF6Tfwd7cz6CvnaG1W38ViPhqqIF4XX6u21SGRXzs7bd8tLYTC04rUAMe/tKTE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792337053; c=relaxed/simple;
-	bh=iwrG2CF5CQKCjpu/K5joC/BAqpZ90MdR78mFcfVqEqU=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:Message-Id:
-	 MIME-Version:Content-Type; b=GopezH/aOOgoLGI6IL0fu0tG0BCMKhrNKiCYsRgiJfYrrjCf7/H9c1Tlw8R4QY1/vfx4w/2JZokQ/GPvMPlXPvF0GaS59V/le4WlAFnqhAWTQfaSUBLbbEs2OeVdoDsW9auyiqrKXxi5KNAFexfl4Il+QxGSS5+aJKOStAWwz7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=e16-tech.com; spf=pass smtp.mailfrom=e16-tech.com; arc=none smtp.client-ip=47.90.198.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=e16-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=e16-tech.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04436514|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.131031-0.000425844-0.868543;FP=15510668704860441811|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037026024;MF=wangyugui@e16-tech.com;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.jj7kr-7_1792329738;
-Received: from 192.168.2.112(mailfrom:wangyugui@e16-tech.com fp:SMTPD_---.jj7kr-7_1792329738 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Sun, 18 Oct 2026 21:22:19 +0800
-Date: Sun, 18 Oct 2026 21:22:20 +0800
-From: Wang Yugui <wangyugui@e16-tech.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH 6.12 543/869] perf tools: Use perf_env__get_cpu_topology() in machine__resolve()
-Cc: stable@vger.kernel.org,
- patches@lists.linux.dev,
- sashiko-bot <sashiko-bot@kernel.org>,
- Ian Rogers <irogers@google.com>,
- Kan Liang <kan.liang@intel.com>,
- Arnaldo Carvalho de Melo <acme@redhat.com>,
- Sasha Levin <sashal@kernel.org>
-In-Reply-To: <20261017160051.014967079@linuxfoundation.org>
-References: <20261017160036.979869304@linuxfoundation.org> <20261017160051.014967079@linuxfoundation.org>
-Message-Id: <20261018212219.A23A.409509F4@e16-tech.com>
+	s=arc-20240116; t=1792337909; c=relaxed/simple;
+	bh=ki2dJIdNQ7javRTzaztK0vLz0oKE/NRrVmqBqi4sLps=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=nNj8dWD8Ec4dws03JZ6VSX9gmryW8NQFx0NDrxV7Ml+TQl4XndLPLGHqzLAzicTcm4jF+cbjEDIdE/dgZA6wge1oOPNGjimJ6FHPYrBDJQ1xGNywqNlXeuyPkiaSoUbInI01/PlMp8hvD3xpksmk9fXgYZ0DlEmH36a9ecUK6Yg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=Km5UYluf; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="Km5UYluf"
+Received: from localhost (gyproxy-mailtls3-entmail-gy2-virt38.gy.ntes [IPV6:2409:8d28:134:eea:b3c7:b48c:ed5c:b15])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5171d82b3;
+	Sun, 18 Oct 2026 23:38:17 +0800 (GMT+08:00)
+From: guolingxing <guolingxing@tju.edu.cn>
+To: David Sterba <dsterba@suse.com>,
+	Qu Wenruo <wqu@suse.com>
+Cc: Chris Mason <mason@kernel.org>,
+	Marcos Paulo de Souza <mpdesouza@suse.com>,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	guolingxing <guolingxing@tju.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] btrfs: prevent deleting the wrong subvolume by ID
+Date: Sun, 18 Oct 2026 15:38:10 +0000
+Message-Id: <20261018153810.2692021-1-guolingxing@tju.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261018073709.1586733-1-guolingxing@tju.edu.cn>
+References: <20261018073709.1586733-1-guolingxing@tju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="GB2312"
 Content-Transfer-Encoding: 8bit
-X-Mailer: Becky! ver. 2.83.03 [en]
+X-HM-Tid: 0aa14fa9e96503a2kunm453fc5f0117af0
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGk9DVh9PQ05OThhJQk1PHVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0tCQUMfSUNBSkhPQR4eGkEZSBhMQRlPQxhBHh9OGEEZSk
+	5ZV1kWGg8SFR0UWUFZT0tIVUpLSEpMTU1VSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=Km5UYlufDwQrBTXYK8zzzdCIPfSlMMmdCq1BD60RCHep8gppp9WRi5iCb3Q4Go72wLUY/LEoOxcOa8Wp9NGg9xp9sYTK8iawkbkRrH+gEXnZ+TbKNwd1L19h0lpoxfY+6CtqhVJ9msWJgf8rS8rXB3KD6RH5hsvAlGPzjV7kCnw=; s=default; c=relaxed/relaxed; d=tju.edu.cn; v=1;
+	bh=dYkS3t96wAxupPcTikKeWXJjbBOJRkN1uFMvedhCh/A=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi,
+When deleting a subvolume by ID, btrfs_ioctl_snap_destroy() first
+resolves the requested ID to a name, then looks up that name again
+under the parent directory lock.
 
-please drop this patch for 6.12.y or add some dependency.
+A concurrent rename can change which subvolume is associated with
+the name between these operations. Since the deletion path does not
+verify the ID of the resolved subvolume, it can delete a different
+subvolume while leaving the requested one intact.
 
-because of the build error:
-util/event.c:775:32: error: implicit declaration of function ¡®perf_env__get_cpu_topology¡¯; did you mean ¡®perf_env__read_cpu_topology_map¡¯? [-Wimplicit-function-declaration]
+This was reproduced by repeatedly exchanging the names of two
+subvolumes using renameat2(RENAME_EXCHANGE) while deleting one of
+them by ID. The wrong subvolume was deleted in 9 out of 14 independent
+tests.
 
-Best Regards
-Wang Yugui (wangyugui@e16-tech.com)
-2026/10/18
+Fix this by checking that the resolved subvolume ID matches the
+requested ID while holding the parent directory lock. Return -EAGAIN
+on a mismatch so that userspace can retry the operation instead of
+being told that the requested subvolume does not exist.
 
-> 6.12-stable review patch.  If anyone has any objections, please let me know.
-> 
-> ------------------
-> 
-> From: Arnaldo Carvalho de Melo <acme@redhat.com>
-> 
-> [ Upstream commit 5484b43a0ec8231c36fba6ead654cb72dbba8b8f ]
-> 
-> machine__resolve() accesses env->cpu[al->cpu].socket_id after checking
-> al->cpu >= 0 and env->cpu != NULL, but without validating al->cpu
-> against env->nr_cpus_avail.  Since al->cpu comes from the untrusted
-> perf.data sample, a crafted file with a large CPU index causes an
-> out-of-bounds heap read.
-> 
-> Use perf_env__get_cpu_topology() which validates both NULL and bounds.
-> Also bounds-check al->cpu before the cast to struct perf_cpu (int16_t):
-> without this, values like 65536 silently truncate to 0, bypassing the
-> accessor's internal check and returning CPU 0's topology.
-> 
-> Fixes: 0c4c4debb0adda4c ("perf tools: Add processor socket info to hist_entry and addr_location")
-> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-> Reviewed-by: Ian Rogers <irogers@google.com>
-> Cc: Kan Liang <kan.liang@intel.com>
-> Cc: Ian Rogers <irogers@google.com>
-> Assisted-by: Claude:claude-opus-4.6
-> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  tools/perf/util/event.c | 15 +++++++++++++--
->  1 file changed, 13 insertions(+), 2 deletions(-)
-> 
-> diff --git a/tools/perf/util/event.c b/tools/perf/util/event.c
-> index aac96d5d19170..1e5085817e825 100644
-> --- a/tools/perf/util/event.c
-> +++ b/tools/perf/util/event.c
-> @@ -12,6 +12,7 @@
->  #include <linux/zalloc.h>
->  #include "cpumap.h"
->  #include "dso.h"
-> +#include "env.h"
->  #include "event.h"
->  #include "debug.h"
->  #include "hist.h"
-> @@ -763,8 +764,18 @@ int machine__resolve(struct machine *machine, struct addr_location *al,
->  	if (al->cpu >= 0) {
->  		struct perf_env *env = machine->env;
->  
-> -		if (env && env->cpu)
-> -			al->socket = env->cpu[al->cpu].socket_id;
-> +		/*
-> +		 * Bounds-check al->cpu (s32) before casting to struct perf_cpu
-> +		 * (int16_t): without this, e.g. 65536 truncates to 0 and silently
-> +		 * returns CPU 0's topology.  Can go once perf_cpu.cpu is widened.
-> +		 */
-> +		if (env && al->cpu < env->nr_cpus_avail) {
-> +			struct cpu_topology_map *topo;
-> +
-> +			topo = perf_env__get_cpu_topology(env, (struct perf_cpu){ al->cpu });
-> +			if (topo)
-> +				al->socket = topo->socket_id;
-> +		}
->  	}
->  
->  	if (al->map) {
-> -- 
-> 2.53.0
-> 
-> 
-> 
-> 
+Fixes: 949964c92843 ("btrfs: add new BTRFS_IOC_SNAP_DESTROY_V2 ioctl")
+Cc: stable@vger.kernel.org
+Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+---
+Changes since v1:
+- Return -EAGAIN instead of -ENOENT on a subvolume ID mismatch,
+  as suggested by Qu Wenruo.
 
+
+Testing:
+- Unpatched kernel: 9 wrong deletions in 14 independent runs.
+- v2 patched kernel: 0 wrong deletions in 30 independent runs.
+- EAGAIN was observed in 14 runs; all 30 runs successfully deleted
+  the requested subvolume while preserving the other one.
+
+ fs/btrfs/ioctl.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+index 576cd76ca0bf..d82a7f3f3d14 100644
+--- a/fs/btrfs/ioctl.c
++++ b/fs/btrfs/ioctl.c
+@@ -2380,6 +2380,17 @@ static noinline int btrfs_ioctl_snap_destroy(struct file *file,
+ 
+ 	inode = d_inode(dentry);
+ 	dest = BTRFS_I(inode)->root;
++
++	/*
++	 * A concurrent rename may have changed which subvolume the name
++	 * refers to. Verify that the resolved ID still matches the requested ID.
++	 */
++	if (destroy_v2 && (vol_args2->flags & BTRFS_SUBVOL_SPEC_BY_ID) &&
++	    btrfs_root_id(dest) != vol_args2->subvolid) {
++		ret = -EAGAIN;
++		goto out_end_removing;
++	}
++
+ 	if (!capable(CAP_SYS_ADMIN)) {
+ 		/*
+ 		 * Regular user.  Only allow this with a special mount
+-- 
+2.34.1
 
