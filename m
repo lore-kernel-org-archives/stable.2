@@ -1,248 +1,122 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D8E49D598
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 12:52:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7780749BD85;
+	Sun, 18 Oct 2026 12:54:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792327949; cv=none; b=QQXkfkczQAuG+qtLRGyUMe2OVA+YEQ1ScX6G+4nX2wnt56a8MbqcvCMmjjcby88gk2BPzNczsjfLd3kUVQQziCFKJShdHLZdyl95yFoyDwghThrjZsj0CGHnbrBTJDbimzCYuo+Vl/R2IH5qhtvBzilitj9Iwi3asyXuTV5Sm7M=
+	t=1792328084; cv=none; b=DqkLxaYnNfTfH1H7bfYj1AWU2IYtmbj+tQPhTUq4B96vvSkFR/SIsGpGEiWi2KGj6y/Jr1cQUBtlD61wXz2vOGhl3ffmk4+eQ94y4/MjuhHu3eqWgM5OatnQwtgfSTkwKRbaDjOi8igBpxN71kmnTaWY2qe6ttJ3LsnWzBakl2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792327949; c=relaxed/simple;
-	bh=4e/cZlNHFugnl0GQlTF6D9lv8zDe84gkKeLcigX3E04=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=Js0JYwN6rNV7U8MSwpb/TjcLx2HYWzvMTFVI1oRQl9BmJz4PdmdxiLwGrZvc7Wdno3Q05srxIEJLPOQx9Mg1Iy+o1ZU8s2pZFzBL6DgebVUaX79u5OR2yryWMzPOCn0YJ/EXUzb/4EdVi003YGaUUkuN/jer3AObyapRWtt8io4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4e778acdbc6so2470082b6e.3
-        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 05:52:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792327947; x=1792932747;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ynpU3sFABEIJ2y70VYaPsZuLbo5x2o5qkA8rVhUTAfM=;
-        b=AMRjAnVdHStwl1xDnDQXjKBRG/3jXMsAfeSsbfoZ3t8rE9ct0Ke20KxV9xXWYL1gqp
-         8QkWXkESLK41pxLwz8mxfW0v86kPUaNsFJ7rf8j1q2jKPg71cytXyocdj4X4oB/6ZQvz
-         JvRBOmbDIPhH9g5TaT+3Us4d4emJrIJ8L2c14SgVBy9owa9oF4FOZhwVGu2WgvYj3pMr
-         p6fl/m6W+rFqAAAlUqh6vnQWgSX0QF2hPu0/aNgpNPtDPDKyE/uROjTDsQcvnlRBDyLy
-         nfDN95B+Xague5GVeKRY7y+eMG9OzWtro6t85S++qGdrEM9BtchT5KKc3KIYeUbl31wa
-         mJRg==
-X-Forwarded-Encrypted: i=1; AKwUvBwZPqpaJzylgsEgLoTqGhXGIMbHk4NDfvPYoI61LIZMVzFXOrDN+NmD6wzV4pJ241vyHh9lDyE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLUJmhwnB6uLYE7Y3/swpN9QTFD2iwLPUVvR4nt41moHl9RKCMm
-	TdkyDynX/XK07saYy68hkhjt+90tztgdQqCVFlNoQj+Bs0FqnWNuoN1tc0YWJDWbZg5qb+131l6
-	lXlUzwFSG2+uezja4D6HDXIK/CuNwathZ9AjLUWQ4O8mE9NqI1CbO4oKZlXI=
+	s=arc-20240116; t=1792328084; c=relaxed/simple;
+	bh=K91a2wxHB4FwHjmzpZ+I8QAbJM+TqaqqZTK9Xz5tEV8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=O5i6P/nI7ZhSIkxXi5XdHgOsGiUZ6LI0U3c4GUbW9pNZJtD1exa9PEKhIAyaNO+AX8QF7m/3R2WEuimHeFJS4a75U/S394rWKbx1E4idEVI6jIDukWnkGkMYzteqfBMS4SxcZNWK5roMG8vUUjXxdRJvYv91jou3lsFZ0f7pfWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J9kBrk8t; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J9kBrk8t"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1790CC2BCC7;
+	Sun, 18 Oct 2026 12:54:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792328084;
+	bh=K91a2wxHB4FwHjmzpZ+I8QAbJM+TqaqqZTK9Xz5tEV8=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=J9kBrk8tRWxqPI1HwKePVInipTv6MAC3dVRAYCerC4PEQn3se0qIBJ0VBCco3x3WS
+	 rkw0FAcVni71gmgqZtlYHNG3UHJjuuFCE4xlzf6fMsS/syFoHhm0pKJPs2TsBq5lD1
+	 4l3R3h75Dvue8mSM6fSkcekfC78ASbNM7zm0Upmg+8AWVQwnJPy1UCYz/4fCZ2niHf
+	 xDYZ6bhXYvpp15E9zk1b/R+qwwTK9R1lO8dSW/eOC9PgIUYM2bW/OZzQcGbwr8el8F
+	 n0H5UQFwGPdufLvAA/diJR22uDdVjQ0ZL7/ZYunIYEPoP7O737yZLkaCdQCyL09Khf
+	 StEisds+CiEDg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E4CB0CCF2C4;
+	Sun, 18 Oct 2026 12:54:43 +0000 (UTC)
+From: Wenqiang Zhao via B4 Relay <devnull+berringtoni36.gmail.com@kernel.org>
+Date: Sun, 18 Oct 2026 20:54:41 +0800
+Subject: [PATCH] media: i2c: imx415: Use target vblank to calculate vmax in
+ s_ctrl
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2384:b0:4f8:716d:793e with SMTP id
- 5614622812f47-53cd2a696camr3829902b6e.46.1792327946845; Sun, 18 Oct 2026
- 05:52:26 -0700 (PDT)
-Date: Sun, 18 Oct 2026 05:52:26 -0700
-In-Reply-To: <6a6c0d7d.b1a781d0.210f9.001a.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad4c10a.6814cce4.34c49f.00f2.GAE@google.com>
-Subject: Re: [syzbot] [xfs?] KASAN: slab-use-after-free Read in xfs_defer_item_unpause
-From: syzbot <syzbot+e7f24354da9f7915bc54@syzkaller.appspotmail.com>
-To: cem@kernel.org, djwong@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-xfs@vger.kernel.org, stable@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, viennaoffh@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261018-fix-imx415-vblank-exposure-sync-20261018-v1-1-920383f39185@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAJHB1GoC/z2Nyw6CMBBFf4XM2klaRER/hbigdYrjo5AOkBrCv
+ 1MhcXmSc8+dQSgwCVyzGQJNLNz5BPqQgX00viXke2LIVV5qpSt0HJE/sdAnnMy78S+k2HcyBkL
+ 5eot/8VKejVKVdUdnIOX6QGm7XdW3nWU0T7LDrw/LsgLwKY07jAAAAA==
+X-Change-ID: 20261018-fix-imx415-vblank-exposure-sync-20261018-967b008cf3fb
+To: Michael Riesch <michael.riesch@collabora.com>
+Cc: linux-kernel@vger.kernel.org, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ stable@vger.kernel.org, Wenqiang Zhao <berringtoni36@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792328082; l=2337;
+ i=berringtoni36@gmail.com; s=review-20261018; h=from:subject:message-id;
+ bh=VZBNv5G7PV61F4nW8nKw7nfhwmNHgpYp0zx5Th5RsKU=;
+ b=y0I4RN8etmVzJc8kZI4ijc+eHURND8vIc9jRpYcBLr/nlkZAZnWI/CvPCnLD8HG9caALmaLkR
+ FidvMg+pI78BzJVZVppB4EWgKkv/PIteF/ytW1S2ImWzInv3DcHqyIv
+X-Developer-Key: i=berringtoni36@gmail.com; a=ed25519;
+ pk=rRiAvRvS4MMqogNnloZgVnqWliVWNDq+PcP6vMYXOvs=
+X-Endpoint-Received: by B4 Relay for
+ berringtoni36@gmail.com/review-20261018 with auth_id=1226
+X-Original-From: Wenqiang Zhao <berringtoni36@gmail.com>
+Reply-To: berringtoni36@gmail.com
 
-syzbot has found a reproducer for the following issue on:
+From: Wenqiang Zhao <berringtoni36@gmail.com>
 
-HEAD commit:    32c52ec87d62 x86/insn-eval: Fix shadowed segment index in ..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=13778bc9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=4ccb65e03706547e
-dashboard link: https://syzkaller.appspot.com/bug?extid=e7f24354da9f7915bc54
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=13ca1e9c580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17ca1e9c580000
+When setting V4L2_CID_VBLANK, imx415_s_ctrl() writes the new frame length
+(format->height + ctrl->val) to the IMX415_VMAX register, and then falls
+through to case V4L2_CID_EXPOSURE to update the electronic shutter register
+(IMX415_SHR0 = vmax - exposure) so that exposure is preserved across frame
+rate changes.
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-32c52ec8.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/e3667e150f2a/vmlinux-32c52ec8.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/603cc202ff6c/bzImage-32c52ec8.xz
-mounted in repro: https://storage.googleapis.com/syzbot-assets/97b1c323a9b6/mount_0.gz
-  fsck result: failed (log: https://syzkaller.appspot.com/x/fsck.log?x=15ca1e9c580000)
+However, in case V4L2_CID_EXPOSURE, vmax is calculated as:
+    vmax = format->height + sensor->vblank->cur.val;
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+e7f24354da9f7915bc54@syzkaller.appspotmail.com
+Within the V4L2 control framework, sensor->vblank->cur.val holds the
+committed old vertical blanking value, which is not updated to the new
+value until s_ctrl() returns 0. Consequently, when VBLANK changes, vmax
+is calculated from the stale vblank value:
+- If VBLANK increases, SHR0 is computed using the smaller old VMAX, causing
+  the actual hardware exposure (VMAX - SHR0) to jump by the blanking delta.
+- If VBLANK decreases, SHR0 is computed using the larger old VMAX, causing
+  the actual hardware exposure to drop by the blanking delta.
+- Additionally, ctrl->val is clamped against the stale vmax limit.
 
-==================================================================
-BUG: KASAN: slab-use-after-free in xfs_defer_item_unpause+0x116/0x250 fs/xfs/libxfs/xfs_defer.c:1256
-Read of size 4 at addr ffff88803b37d0fc by task syz.0.22/5598
+Fix this by using sensor->vblank->val instead of sensor->vblank->cur.val,
+which holds the target vertical blanking value currently being applied.
+When setting V4L2_CID_EXPOSURE directly, sensor->vblank->val equals the
+current vblank, keeping behavior unchanged.
 
-CPU: 0 UID: 0 PID: 5598 Comm: syz.0.22 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- xfs_defer_item_unpause+0x116/0x250 fs/xfs/libxfs/xfs_defer.c:1256
- xrep_newbt_free+0x3fe/0x5f0 fs/xfs/scrub/newbt.c:522
- xrep_ibt_build_new_trees+0xafd/0xdc0 fs/xfs/scrub/ialloc_repair.c:752
- xrep_iallocbt+0x24e/0x340 fs/xfs/scrub/ialloc_repair.c:828
- xrep_attempt+0x184/0x7c0 fs/xfs/scrub/repair.c:78
- xfs_scrub_metadata+0xce4/0x1910 fs/xfs/scrub/scrub.c:747
- xfs_ioc_scrubv_metadata+0x7ac/0xb70 fs/xfs/scrub/scrub.c:980
- xfs_file_ioctl+0x916/0x1590 fs/xfs/xfs_ioctl.c:1308
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fc864b9e559
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fc865a8b028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007fc864e25fa0 RCX: 00007fc864b9e559
-RDX: 0000200000041d40 RSI: 00000000c0285840 RDI: 0000000000000005
-RBP: 00007fc864c35ab8 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fc864e26038 R14: 00007fc864e25fa0 R15: 00007ffe67582028
- </TASK>
+Fixes: 3bcae55ab96a ("media: i2c: imx415: Add read/write control of VBLANK")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wenqiang Zhao <berringtoni36@gmail.com>
+---
+ drivers/media/i2c/imx415.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Allocated by task 5598:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- unpoison_slab_object mm/kasan/common.c:351 [inline]
- __kasan_slab_alloc+0x6c/0x80 mm/kasan/common.c:377
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- kmem_cache_alloc_noprof+0x2b9/0x600 mm/slub.c:5010
- xfs_defer_alloc fs/xfs/libxfs/xfs_defer.c:843 [inline]
- xfs_defer_add+0x143/0x480 fs/xfs/libxfs/xfs_defer.c:871
- xfs_extent_free_defer_add+0x1bf/0x3b0 fs/xfs/xfs_extfree_item.c:507
- xfs_defer_extent_free+0x2a8/0x400 fs/xfs/libxfs/xfs_alloc.c:2682
- xfs_alloc_schedule_autoreap+0xb0/0x170 fs/xfs/libxfs/xfs_alloc.c:2727
- xrep_newbt_add_blocks+0x22a/0x3f0 fs/xfs/scrub/newbt.c:211
- xrep_newbt_alloc_ag_blocks+0x81e/0xcc0 fs/xfs/scrub/newbt.c:311
- xrep_ibt_build_new_trees+0x75e/0xdc0 fs/xfs/scrub/ialloc_repair.c:696
- xrep_iallocbt+0x24e/0x340 fs/xfs/scrub/ialloc_repair.c:828
- xrep_attempt+0x184/0x7c0 fs/xfs/scrub/repair.c:78
- xfs_scrub_metadata+0xce4/0x1910 fs/xfs/scrub/scrub.c:747
- xfs_ioc_scrubv_metadata+0x7ac/0xb70 fs/xfs/scrub/scrub.c:980
- xfs_file_ioctl+0x916/0x1590 fs/xfs/xfs_ioctl.c:1308
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Freed by task 5598:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:264 [inline]
- __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:296
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6509 [inline]
- kmem_cache_free+0x182/0x650 mm/slub.c:6636
- xfs_defer_cancel_list fs/xfs/libxfs/xfs_defer.c:505 [inline]
- xfs_defer_finish_noroll+0xf8b/0x14e0 fs/xfs/libxfs/xfs_defer.c:737
- xfs_defer_finish+0x1c/0x180 fs/xfs/libxfs/xfs_defer.c:755
- xrep_defer_finish+0x16e/0x240 fs/xfs/scrub/repair.c:242
- xrep_newbt_alloc_ag_blocks+0x86c/0xcc0 fs/xfs/scrub/newbt.c:318
- xrep_ibt_build_new_trees+0x75e/0xdc0 fs/xfs/scrub/ialloc_repair.c:696
- xrep_iallocbt+0x24e/0x340 fs/xfs/scrub/ialloc_repair.c:828
- xrep_attempt+0x184/0x7c0 fs/xfs/scrub/repair.c:78
- xfs_scrub_metadata+0xce4/0x1910 fs/xfs/scrub/scrub.c:747
- xfs_ioc_scrubv_metadata+0x7ac/0xb70 fs/xfs/scrub/scrub.c:980
- xfs_file_ioctl+0x916/0x1590 fs/xfs/xfs_ioctl.c:1308
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff88803b37d0c0
- which belongs to the cache xfs_defer_pending of size 64
-The buggy address is located 60 bytes inside of
- freed 64-byte region [ffff88803b37d0c0, ffff88803b37d100)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff88803b37d600 pfn:0x3b37d
-flags: 0x4fff00000000200(workingset|node=1|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 04fff00000000200 ffff888033947dc0 ffff888033c36588 ffff888033c36588
-raw: ffff88803b37d600 00000002002a0010 00000000f5000000 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c40(GFP_NOFS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 131, tgid 131 (kworker/u4:5), ts 153391648879
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x2209/0x2280 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x217/0x5a0 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab+0x7d/0x620 mm/slub.c:3462
- new_slab mm/slub.c:3513 [inline]
- refill_objects+0x2d5/0x350 mm/slub.c:7418
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- kmem_cache_alloc_noprof+0x399/0x600 mm/slub.c:5010
- xfs_defer_alloc fs/xfs/libxfs/xfs_defer.c:843 [inline]
- xfs_defer_add+0x143/0x480 fs/xfs/libxfs/xfs_defer.c:871
- xfs_bmap_add_extent_hole_real+0xd61/0x1a40 fs/xfs/libxfs/xfs_bmap.c:2782
- xfs_bmapi_allocate+0x248c/0x2f20 fs/xfs/libxfs/xfs_bmap.c:3975
- xfs_bmapi_write+0x843/0x1330 fs/xfs/libxfs/xfs_bmap.c:4265
- xfs_dquot_disk_alloc+0x4af/0xae0 fs/xfs/xfs_dquot.c:385
- xfs_qm_dqread+0xfe/0x520 fs/xfs/xfs_dquot.c:724
- xfs_qm_dqget+0x18a/0x3d0 fs/xfs/xfs_dquot.c:927
- xfs_qm_quotacheck_dqadjust+0xdd/0x5a0 fs/xfs/xfs_qm.c:1260
- xfs_qm_dqusage_adjust+0x4ad/0x670 fs/xfs/xfs_qm.c:1389
-page last free pid 9 tgid 9 ts 153295791972 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0xc93/0xd90 mm/page_alloc.c:2962
- __slab_free+0x274/0x2c0 mm/slub.c:5823
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x99/0x100 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x148/0x160 mm/kasan/quarantine.c:286
- __kasan_slab_alloc+0x22/0x80 mm/kasan/common.c:361
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- __kmalloc_cache_noprof+0x29f/0x600 mm/slub.c:5559
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- nsim_fib6_rt_create drivers/net/netdevsim/fib.c:547 [inline]
- nsim_fib6_rt_insert drivers/net/netdevsim/fib.c:752 [inline]
- nsim_fib6_event drivers/net/netdevsim/fib.c:856 [inline]
- nsim_fib_event+0xf37/0xa3a0 drivers/net/netdevsim/fib.c:889
- nsim_fib_event_work+0x244/0x3b0 drivers/net/netdevsim/fib.c:1493
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Memory state around the buggy address:
- ffff88803b37cf80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff88803b37d000: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->ffff88803b37d080: fc fc fc fc fc fc fc fc fa fb fb fb fb fb fb fb
-                                                                ^
- ffff88803b37d100: fc fc fc fc fa fb fb fb fb fb fb fb fc fc fc fc
- ffff88803b37d180: fa fb fb fb fb fb fb fb fc fc fc fc fa fb fb fb
-==================================================================
-
+diff --git a/drivers/media/i2c/imx415.c b/drivers/media/i2c/imx415.c
+index c3b22b238..e5aa741fc 100644
+--- a/drivers/media/i2c/imx415.c
++++ b/drivers/media/i2c/imx415.c
+@@ -729,7 +729,7 @@ static int imx415_s_ctrl(struct v4l2_ctrl *ctrl)
+ 		fallthrough;
+ 	case V4L2_CID_EXPOSURE:
+ 		/* clamp the exposure value to VMAX. */
+-		vmax = format->height + sensor->vblank->cur.val;
++		vmax = format->height + sensor->vblank->val;
+ 		ctrl->val = min_t(int, ctrl->val, vmax);
+ 		ret = cci_write(sensor->regmap, IMX415_SHR0,
+ 				vmax - ctrl->val, NULL);
 
 ---
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+base-commit: a5ebb76233b79db01e82e061173cb73c6d2b5c6b
+change-id: 20261018-fix-imx415-vblank-exposure-sync-20261018-967b008cf3fb
+
+Best regards,
+--  
+Wenqiang Zhao <berringtoni36@gmail.com>
+
+
