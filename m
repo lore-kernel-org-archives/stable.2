@@ -1,87 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 606CD43B4BC;
-	Sun, 18 Oct 2026 20:41:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E77A3E6394
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 20:52:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792356094; cv=none; b=pJsoe9WgfWIJEPMPowRutgu9UPao18Dmr41eLi9jqjtB403k4biEEFJpBDgKmUYXvaKDlHyDjhPU8DjKVKk5Rzmuh1d8BlJCuAVgwtuDLKT89AnGQdeNsdDs+q1wKCf8ZONMgdbp3ouKlOFt4xypBippLH1zozE5KqvNXP/zkos=
+	t=1792356729; cv=none; b=CDgSW0JnrAQywS/zRHQrzLzz+QJpH5ZjrmI4RzyGA3iKeTjFcXLye2mB38PQzh2bHhfvTMy5++ZW/aLw2FxA52XqfvRqo0qtcKlPbS+ivxVw+XUyUN3lRrDxFYqc8AVTf4I7LC3/XpCgs8KCNUpICN3iR755rxScrMXiZaflMFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792356094; c=relaxed/simple;
-	bh=puRJF6b4XSquydSVBlYDP3nIomGvJq/gteOjU5paHDw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=lTvIW8dOEn2eO3JfD2rFo3i6pAqo6d4IhZdK0mFZC19S0j3aL8l3DMMYaaqt7yGRaArd1ZLQE26Ev3OWzWL8+HCczOjVtEYha7I7MtuIh3QNKLaETGCbV9x3AhyDVYG7HOAMAUxwktV2vpe3NnL2f21qasdmsyqWFMOl8r8raQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T+Iq1pBt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792356729; c=relaxed/simple;
+	bh=wMHBvDevb1HH83ISn4ILYpsOlM3EIIsW4bpsFjH6lrM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ep6/LZpN81ZuThtd+k556E+gXM8tkJx7uQ8MCWMFudmnQ5/Vi6UWyUuiz/Q5df+j/jgK9MaAsU77/umIPA/c0zTmBQ/qj10VpHqidzpgFf4LIkgRAMzsS1bO4dMdmJ+ulm/ItF/ZS15RUPmU8rd44Es6XUbAPbclhzZLUzQp+jQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hFTLadVH; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T+Iq1pBt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B04A21F000C4;
-	Sun, 18 Oct 2026 20:41:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792356093;
-	bh=KZl1E7ojGN4UcuQl+IdP+UtPm4+3Dzwnc6HOFL1y8LU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=T+Iq1pBtHwyque6J9oxwUmCpSdytj3Ee9KHh2R2JfnacRVOaHb9vfVX6xlH8vLh9K
-	 sfpn6ZfkIli/NCGK1hhAQ0i+6f75kO713KyLgZTOadD9wXcAXW1RivzHKE8dFmJHeR
-	 ijg5G3+bzbNVAvI+ScKXS16+gkyod22KBcQePHfagmPy1KXraHoB5iIjSuLBCrrLvI
-	 nGJNqlivzcZA31JBlw/7hddeW5yH+I6BxtmQuhOZ6GjBfsv/+GgDaZeW5jeRqZxUAI
-	 sdjvRgFNRU6p51ddQFa+E5JYLMWJ4fF0KB7YWwy4iNBtgq2Lfj0l/SrkjHtz+3Pbvb
-	 az5gF6M9q6Yfg==
-From: Mark Brown <broonie@kernel.org>
-To: Weibin Liu <liuwb@xiaopeng.com>
-Cc: jth@kernel.org, linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20261013054339.77477-1-liuwb@xiaopeng.com>
-References: <20261013054339.77477-1-liuwb@xiaopeng.com>
-Subject: Re: [PATCH v2] spi: ch341: handle transfers without a TX or RX
- buffer
-Message-Id: <179232568178.3162228.6393530462413113880.b4-ty@b4>
-Date: Sun, 18 Oct 2026 13:14:41 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hFTLadVH"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a018dc1f98so9964405e9.3
+        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 13:52:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792356726; x=1792961526; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ms4tyV1sL6nNdfngDRnkwbO5sD+oKmpI75kMudnVvyk=;
+        b=hFTLadVHMCnwXenpidFM+pmbJumzuIap7cS2jE2kHGuwZpRR4VTXYAJaqr4U0yCZAd
+         1PQiuE6dVcJtyLQxefoQbiS/cCIoasSAitsEmx/GqI5JQqozDjkjBMp5KeG5iJyLhhCJ
+         H7rtWa0yLfPEK2H9EXmsS82KKrV4MFwXDvOCdrkRiHHFnrqZzIB+quQC0k5tnc6+Bwgt
+         I5ogEuL4eU9QHtj9THgV+QZdtpyavme2adPOpYfI5yNh76egL7K4Lqw3PmbFQe3yV/0I
+         Uq9M5CHn2jSWzwVU/qPeNyPIXHfqcgctQ7g+DhdYOZtb3tBZ0YrZ0l6GoROzhd2dyPYd
+         7YPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792356726; x=1792961526;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ms4tyV1sL6nNdfngDRnkwbO5sD+oKmpI75kMudnVvyk=;
+        b=hQbrvjHvWWgKTSguTkhhbxaKAP3QNfYjMdhFZH8F+aDLHhRXdi3h7nW0NWppaG0gV+
+         iAC0PKOiq0NMMxJwzUOJvnGSjrDmmV9Zqo13QwTWY0IQ8EDs9987QMrkLbGxiuM7P3C2
+         CobC7bg/b//o0Jql696kpCs3WETH5q1XuLQ2jWM6V+dxndPm9TxhXgbjkXbip+pN3X9/
+         1pKr+pvZhP51SpR8MhL30m+UcZJk7k3IM+mCjRt+cUz4SyUyf5P7Ywc9WgDbBv1wuWln
+         n/t2oPeYmoUScr2EItlv1JUybP31eYrY4R2wpnKQ7VxdP2PoxBMoolr3IEbLeVMwS2PL
+         JOmg==
+X-Forwarded-Encrypted: i=1; AKwUvBwhaC3UNE5Cg7awsO2ZOnz9VgLeHE5jgpVtN3dJ/Qrn/daDdJSB4NQESW5h4DulKsbStgbCfXs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKc4ifbZlXD5ONAgEh4/Vk8k0CPW7rJt5G88qf6s6vjZRV1xl0Z
+	X1f+lkAN3ULjZADwZmd7hNtG+pbO+NvfHLvdkl0OvK42tgEFM38fn1MX
+X-Gm-Gg: AYBFou1ugsnEH33A+sLzuSRmKfq2CJZ3+AknXzrHAsqPGf3gA/vElEZAINsVLhfsqtq
+	+QLKXWwuDI8PBapBTJTNRKHM3A+SkxfQE+abKCniPARmTu1E3loRfAK435lY7n0xLNlXsAQry9X
+	7Yik8DLJfE/1HzX23FBPi2wStpdqXDTrUDeC3RPoGjEW0ju7BxVdn79TwwYcaMcWieGOnHr/qTl
+	AkQlY/2uSzdBWrICYhk6BH8WmDI0wPZKjAXfiokAdjB4EuVs5uDeR7ZefipkBU4MPxdcBIwVw2C
+	N5GuBOK7RKHHD+LZLxvtBELssgbjKrR5y4rH1F93Kk/EyapoDD7JhFJFuFb+ZPxZc3NyVVSbApv
+	fVPlKWbhEq6I8D+N1Li/X73Vm3sO4XFn0MZLGIx4MzVJJ/qh6WmcgsOuqnMCXzx9K2tjpCfJxY3
+	YhJJOwcW5Z6wZWVIhT0PliaWaQgyOg3bi+GX2m1apvnPu/VDr8nBq0DofkRBClSKidgeQv40f2P
+	g==
+X-Received: by 2002:a05:600c:3b11:b0:4a1:9661:14b7 with SMTP id 5b1f17b1804b1-4a1d761202cmr112714575e9.32.1792356726210;
+        Sun, 18 Oct 2026 13:52:06 -0700 (PDT)
+Received: from CachyOS ([176.88.124.226])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1d28b698asm223954145e9.11.2026.10.18.13.52.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 13:52:05 -0700 (PDT)
+From: =?UTF-8?q?Asaf=20Nuri=20Bertizlio=C4=9Flu?= <ycistak@gmail.com>
+To: linux@roeck-us.net,
+	mtosatti@redhat.com
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	xzhangjr@gmail.com,
+	=?UTF-8?q?Asaf=20Nuri=20Bertizlio=C4=9Flu?= <ycistak@gmail.com>
+Subject: Re: [PATCH] hwmon: (coretemp) Fix handling of isolated SMT siblings
+Date: Sun, 18 Oct 2026 23:51:33 +0300
+Message-ID: <20261018205140.34668-1-ycistak@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261016-codex-coretemp-housekeeping-v1-1-96618c5676b2@gmail.com>
+References: <20261016-codex-coretemp-housekeeping-v1-1-96618c5676b2@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1120; i=broonie@kernel.org;
- h=from:subject:message-id; bh=puRJF6b4XSquydSVBlYDP3nIomGvJq/gteOjU5paHDw=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLKu6n3WP7y2bdLSeKlfZ1l3mGqmfyldFWQieP75oW8m7
- hm1FYc4OkpZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRLCOG/7kbfnBxeex30Jnk
- bPYp4fPLkD2p4s2FtccF/8u2vG7w1mH4p5A5+Z2J9ZVD/Gmrmronh36fuMk4vi/9SM/zuric0us
- 5LAA=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, 13 Oct 2026 13:43:39 +0800, Weibin Liu wrote:
-> spi: ch341: handle transfers without a TX or RX buffer
+I tested this on an Intel Core i7-14700F (hybrid, 8 P-cores with SMT
+and 12 E-cores) running 7.2.9-2-cachyos, booted with nohz_full=2.
+cpu2 and cpu3 are SMT siblings with core_id 4, i.e. temp6.
 
-Applied to
+Without the patch, temp6 is missing: the hwmon device has 20 labels
+instead of 21 (the package plus 20 cores).
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
+With the patch applied to the hwmon-next version of coretemp.c and
+loaded as a module:
 
-Thanks!
+  - temp6_label is "Core 4" and temp6_input reads 31000.
+  - Offlining cpu3 removes temp6 instead of moving it to the isolated
+    cpu2. Onlining cpu3 brings temp6 back.
 
-[1/1] spi: ch341: handle transfers without a TX or RX buffer
-      https://git.kernel.org/broonie/spi/c/84182c48999f
+This reply was drafted with the help of an LLM; the tests were run by
+me on the machine above.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Tested-by: Asaf Nuri Bertizlioğlu <ycistak@gmail.com>
