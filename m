@@ -1,125 +1,80 @@
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 347D338F950
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 15:50:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9BF4395AFE;
+	Sun, 18 Oct 2026 15:51:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792338640; cv=none; b=VHvZgC7G67RUblscKKjBnsZkBmw732IUg9MCQUFVukq1o+2qQnGSWDgh+fVbNHXVJjKUT7FxCfaabkQvnwgKlw1+EdASazgm4CTviXHTd/s7eXCjbzZa0DjLtekods8vrwZw1j0uWYCS4fzfAHVfnSD1HiWUtUZ6V2ZWhQiPrLA=
+	t=1792338683; cv=none; b=qdJpHRny4AybyQtUnXVmIm+6p1Zp86NnbjetJ1kjsvGl0d8F2ogcYz21m9wnEteiJduRkPv9Qn4cn8BlxQfn/t5iUc146Q4Yjy0Wocr2pl5H40llsznrVHKa+GmPUDP6WAfNgRC9y3OIx1I6SbBcAdEkIG+AemJK9xIoP1ohppo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792338640; c=relaxed/simple;
-	bh=X+1zrtXejRrfQMhuaglFGS2WuOgDy+lVe5hYeklGYC0=;
+	s=arc-20240116; t=1792338683; c=relaxed/simple;
+	bh=PC2nwUIctw/opFVir6NYxMVSrSsNepCXzeuf4jelZlU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Wo3z1C9caEg+8gDVvVWyMxqA0oJoq6dxFrEfdkOEKP0rUmMobI/c4lpRG9QM8TytjJM2FkDkDJLpON9xmySEUiW5wj8OBdNhECmAOt8zvlK+PTKthe+ITIg9C46Xk1E/wxcxwto02BCg2sRE7dW0U8BK9P7w7sDNoyNIiW+twJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=kHxC1lV0; arc=none smtp.client-ip=209.85.160.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	 Content-Type:Content-Disposition:In-Reply-To; b=YB3W+jzuSQEBLQa/yJIIP9RpBJu15rk2cm+ELe3nBUbV4VoLBRO8/9h1Cru6hLGKAwVyY8ZwIISp6aDgwkr83czRlAwh3L/e1NYbRu8Ywi9JNe0CPpCKnJXbxu9XWIONujw4XiZM1m0l7+YPCKXDDlkT16MMj/LPIApyHyHCEBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=JmSJjNfQ; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="kHxC1lV0"
-Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-5363c8de563so12551591cf.0
-        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 08:50:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1792338638; x=1792943438; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wDrGfc+QmDUG23Iv3Y5ooeIfcPWkkBSGjgdvWGkt54U=;
-        b=kHxC1lV0/lOkHeSP2hpxlyHtjyZuw31r7Bv4Va0TtkxTLqoGYok6LeWyH8YWtbvENi
-         czhOXtS7hZZ1uXHhO1oE3qQ/zGWo/IIW/cQI0ZrmomNSjAP5QDujGfZUYJBRT4rz5YUb
-         2ZXVlIm0HPnZUnWJpEHCFQeUyPgdDIY/HAk3UyJv65vD7kEW3oq//Q46wHPBrNqCbQYD
-         AtReC4kO18K85DWVXKDRWxSFN136Ag/ylrGM9a74c3CWoMnC2OZUgj08be4uCJVy+acB
-         JKZbUetPlCnrx4nvI/s6gGH6VOsSZcp5K5VRzjXiU2AJ1ErTQOuobceY+Fys/X5UiR9E
-         gSoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792338638; x=1792943438;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wDrGfc+QmDUG23Iv3Y5ooeIfcPWkkBSGjgdvWGkt54U=;
-        b=RWOWQPrGICNp8C0Q44VhM0905agxtHLZsr9tUmfG96Zzb85pTHaERn82B8VsnievNi
-         VM2kDjokCUYtsTZ5aiKwJzOfyeS5DsPIXh4pvX8rfD/8ZFPNazWfzohI/XLdBWbaTzWT
-         cjSe0x8Ib7LjvWve9JRS8YZhqj3J+FXsSEO3eaUVqjUsLEPh1KWOd7WrPY09uKMDk41t
-         q0rat4wvegjf8WeWKt/mufirpAJ0HmQzb1oJvh6G8Fe4ukFsYaVlpY/A+UzsMbJrejUN
-         mL7idxjBghLlLNqTxKxxh7rZzXhpohBpvt7lGFlJV4FYjaBD6bKhMU9i9ERUqooxSysZ
-         XTyw==
-X-Forwarded-Encrypted: i=1; AKwUvByHnVl7O6/Xi22dPQU1Jhm6iEf4Toaw3GINLpwb0woW4jI5OWWdS95f0rdFYYKyidrw8KCcqBw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKj1mKgI1ZjmLOm1IzqV2zLthvX5sY7BLb2yRxR0VUwI/34o4QN
-	aGELDiQI4Cx44xE5aGJz7l28zc0djbtdQW1zEn4Z5Al6W3zIqETUKw5goUD7XopWLP0nSe7w9Dt
-	Y+vWWaQ==
-X-Gm-Gg: AYBFou1MyD3t6MsieXHn77lnukHtYGf5Djf3y7iXWwc9ZSdP8MPCWPE8izkZNdbrFpk
-	/2LGRiBjWml1YqcUaib8+Rd4zezqItTaLdY0NIcEIbwcms3nQQMcOELWeZsCHQeQvzeClTsKF5p
-	LuaAkHtfyYg6KrvoZpfrZWh3f3oLOoIAjEYP2rZWxEwMjQ4lFPYK0t4pciXAsP8KaMYdpJUO1oU
-	634Qof2goWsOcekSsVD+90Zke+g53pblqbBI93SxnisWLI88DFEPYr5Qm9c0NKu2vG4Ngir1NJ/
-	mHeCAevFKDK5erKnK+InUWJIAgBWhA2AIP0WhA1DBEgDdvOLPJ/aprVIRUsGILtS20IOaBzmVof
-	apM8jlXvrlDrgkypOxSTix8e3YkJlvutDqn0wUDnNmFClPV4da7XHrIcl5sjFk/8skvBTujAa0d
-	ryZt+bNLF08bnJtp9pKaARXBAlR7PftFiIgYQ7qFsFZQvVIejiw/68lhvnD+3jGswdTgR+vEY=
-X-Received: by 2002:a05:622a:2b09:b0:535:1368:4582 with SMTP id d75a77b69052e-536460097bamr72026991cf.46.1792338637925;
-        Sun, 18 Oct 2026 08:50:37 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::4791])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53656bcf751sm32924451cf.14.2026.10.18.08.50.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 08:50:37 -0700 (PDT)
-Date: Sun, 18 Oct 2026 11:50:34 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Yu Zhang <yuz08559@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] usb: gadget: f_mass_storage: take filesem in nofua store
- to fix backing-file UAF
-Message-ID: <17102759-8b97-4b5b-b130-c01ef0f90980@rowland.harvard.edu>
-References: <20261018130519.65850-1-yuz08559@gmail.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="JmSJjNfQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=/GXMNXvu9Ucx8ydkf56R+nlJN3aAcHuHVa89lye6maQ=; b=Jm
+	SJjNfQqNodHlr4SfFLNQ8bLBjhHmMOrV6SK9ZZJLq771tU4uqAbV7KI3Xc6l1glVGiyfSFKTyh34q
+	nHUrIl6xVQkOdvowc+LsYFMzXu2crkXlkoK4Z/J00+oP/Jz/FxGGcLS3njy6FDD653ozfzD7c2ZqY
+	kJRyEanfmesSRdw=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xITA8-00BVLw-OY; Sun, 18 Oct 2026 17:51:04 +0200
+Date: Sun, 18 Oct 2026 17:51:04 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Josef Schlehofer <pepe.schlehofer@gmail.com>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
+	Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
+	devicetree@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] powerpc: dts: turris1x.dts: Describe switch PHYs on the
+ MDIO bus
+Message-ID: <cb96159f-c510-49ab-bc1d-20149222781a@lunn.ch>
+References: <20261018015311.4822-1-pepe.schlehofer@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261018130519.65850-1-yuz08559@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261018015311.4822-1-pepe.schlehofer@gmail.com>
 
-On Sun, Oct 18, 2026 at 11:05:19PM +1000, Yu Zhang wrote:
-> fsg_store_nofua() syncs the LUN's backing file when switching from async
-> to sync mode:
+On Sun, Oct 18, 2026 at 03:53:11AM +0200, Josef Schlehofer wrote:
+> The QCA8337's integrated PHYs are visible on the same MDIO bus as the
+> KSZ9031, at addresses 0–4. Since they are not described in the device
+> tree, qca8k accesses them through the switch's MDIO master.
 > 
-> 	if (!nofua && curlun->nofua)
-> 		fsg_lun_fsync_sub(curlun);
+> Describe the PHYs and reference them from the switch ports so phylib
+> accesses them directly through the MDIO bus. This fixes intermittent
+> WAN link recovery failures on Turris 1.x.
 > 
-> fsg_lun_fsync_sub() dereferences curlun->filp (vfs_fsync(filp)). Unlike
-> every other store that touches the backing file -- fsg_store_ro() and
-> fsg_store_cdrom() (down_read), fsg_store_file() (down_write) --
-> fsg_store_nofua() holds no filesem while doing so.
+> Tested on Turris 1.1: 40 WAN link down/up cycles across 3 boots and
+> 10 LAN link down/up cycles passed.
+> 
+> Fixes: 54c15ec3b738 ("powerpc: dts: Add DTS file for CZ.NIC Turris 1.x routers")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
 
-> diff --git a/drivers/usb/gadget/function/storage_common.c b/drivers/usb/gadget/function/storage_common.c
-> index 0000003..0000004 100644
-> --- a/drivers/usb/gadget/function/storage_common.c
-> +++ b/drivers/usb/gadget/function/storage_common.c
-> @@ -415,7 +415,8 @@
->  }
->  EXPORT_SYMBOL_GPL(fsg_store_ro);
->  
-> -ssize_t fsg_store_nofua(struct fsg_lun *curlun, const char *buf, size_t count)
-> +ssize_t fsg_store_nofua(struct fsg_lun *curlun, struct rw_semaphore *filesem,
-> +			const char *buf, size_t count)
->  {
->  	bool		nofua;
->  	int		ret;
-> @@ -424,11 +425,13 @@
->  	if (ret)
->  		return ret;
->  
-> +	down_read(filesem);
->  	/* Sync data when switching from async mode to sync */
->  	if (!nofua && curlun->nofua)
->  		fsg_lun_fsync_sub(curlun);
->  
->  	curlun->nofua = nofua;
-> +	up_read(filesem);
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-Shouldn't filesem be held only within the body of the conditional?  
-There's no reason to take it if fsg_lun_fsync_sub() isn't going to be 
-called.
-
-Alan Stern
+    Andrew
