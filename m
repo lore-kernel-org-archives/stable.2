@@ -1,158 +1,207 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.164])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A775361952;
-	Sun, 18 Oct 2026 19:53:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.164
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792353197; cv=pass; b=jDMTa2M1JIzunkOMAPmHoTtkDtRmaO1QVBMDF/D0nSBMrPWwuU+Fn0u7fLPUUulbub7sCJAMY20idn4jAsRODR/RA+GolMC8GN7hdsRi8RZ+89V4pp7P55ZVkfvjhGerOO7N/mZ/QnGm5GfFjfnFV521qNjnnBsES75Xjt+Z4r4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792353197; c=relaxed/simple;
-	bh=R3o4vMzUrYsL/RCUK4nSgjcaLxI8VJKT2cq2tZpXVuM=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=RsEoOglg/wHGjKKMyyfP5tgpDJ5QpnTj3OVFypV+G4bXOjNyCyq4ZgOM1K90AKIfov+dSKUW8hwOQTCuyrx+DZQyXCgMShlS0bhsnYVQkU6uIgXtq+GAbHc8z4G9Xuu+TOI/gVspisE+FRyCe96HFa5EM9UGBi3X5akhvivIR1M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=Y2BrKIbg; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=jhtCRQ9o; arc=pass smtp.client-ip=81.169.146.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6242940DB5F;
+	Sun, 18 Oct 2026 20:12:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792354369; cv=none; b=Pr4pRUjrJJl/Y3HetDreeUnXYQJ1exPyVYBjTWjpL1FADIqoVJ4nadJwqt0rKNdu/TNAceJ8tMjbpk7ROA3zsjHPfgU5tjXgTGuL7ftbCYn/1CBZV6NVEKPp7NZEk1iJ+r/6GESNbBDeuPFUMpe6I4hxeZTHdQflK41QpjjLZ58=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792354369; c=relaxed/simple;
+	bh=Q4CkcTGHfwqlTq/v3Lz/CGzpf17o9gtfSV7GuFzUiVo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=icpadB4Kw5qVaTTH/Keo+pJUgqBLjHH3TXBljbBDYJ8pKv9In6OoYhio/p3tPwIPjVt1g869u4XdIbT/WtvZJV4LjQt+pRjSMGcvaWQCQtO/AQpa/bwdliDT6lQG2U1BNxKYuyCy+3VeRd7o2hWmfbzvwR94j/lc45YmL75x5VU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sQqdhi3M; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="Y2BrKIbg";
-	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="jhtCRQ9o"
-ARC-Seal: i=1; a=rsa-sha256; t=1792353152; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=pPrYrkTg4DBc5mzZJUr1NvUmqXcKtYwIVsjeh61gTMPjyWXaBuTlEhubKm8OqsL4DQ
-    8Iq/pG8TV2lghnKF3bGso3lfYFN4/NXqxtMEAlPXhLVtYCtE6GbNzRx/RJ5pWixeHLtp
-    VExfbM/Weq4bKIfN4dFGYSmbpElgjJRNsm6+iUazFCngsZVFLhTZKFn1807o4U+60UwK
-    fDp3znGEWwo3/krStL+XTLo2bkKEBa43P5QHyhplsbhBLOIsGLZ0QkfpVgfHcloDmXzX
-    RfKm/dlWPmfVpFZt1IIdOtO0X+1GegFN+df3FWvXbTo4P64AbRUeI8rsQtxXgQwzNxCq
-    T7gg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792353152;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=gC6qHl1B+V5o14yq+og01fIcLFwgTL+54fZf+LvzfMs=;
-    b=fUg11KG2fZEhS3F6UHoBQv4LD+dbvBXxRXbLPqw5RFnE5wLxd4+CbnEDc7gtWPp0EE
-    zq4Og4qq8Fxnmx2AnRDbPh+VDVcNXxaknT6tfoODp6uGe8L2XsQ5rb174AOkEFpA/yCd
-    Dk1SCL0wcM3Kc4MA0NyKfvKGT1/rLjxuerih3+ST68Knbn9FbefDUHrtpMbRhXXQoA1E
-    irnriz9B+CFcQSs/T6GuOOga5aGYbKDAhLH3quCzerAqvESviL/rsGFFcjYBrSXyZn0N
-    EDUxOuhNSQwkutwJhH8HASU27kSw8/6Tpy9AAi5S2vSvcMW9JFriz+bghV/VTx9fjwmH
-    w1cg==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792353152;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=gC6qHl1B+V5o14yq+og01fIcLFwgTL+54fZf+LvzfMs=;
-    b=Y2BrKIbg6yLYG/1PMSz6sY3P9ad4+RXLIXIUqDidl+vVPasZ7iNcq3m+VlO3vRkDrk
-    /StZLs6XkYjWRMJnL880MIVzjj3rgft7saR1SOuWHJ4SnXxfASopF1bap91suOh0j+rj
-    gxjPXMb03iRsSo7fSyqMnebBG701bspkyGApFt1sOwevIGx3sRRURbPI8n6BkOHjU9Sa
-    0aMhDeIbJpWgHIXN/H6WiUFoHZ5VVbjBq3L3mbhxBSLgx1z+lTdc+5L4NJ75FKxrMU5b
-    Z41CQaH9/SLzaaIIz5uKODx7LsMuscggtdB2Q8kU/Kif5kXQAoGNFJvYHtTBj6PZFs5e
-    ukdg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792353152;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=gC6qHl1B+V5o14yq+og01fIcLFwgTL+54fZf+LvzfMs=;
-    b=jhtCRQ9ozemKiHn1anGVu1eFS/1d6H66F0uQkYmHKzfMYXSsciaufKmJatqqybkp3Y
-    5TcZcCNx/1YWlFInIXBA==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0zNriHg+YfT0rGeWpIGzZge/Z0bJo/ZKBs7IP24cD2xnjN93xVc="
-Received: from p200300c5873684d949ea70d47c97a062.dip0.t-ipconnect.de
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id z831ad29IJqVHQk
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Sun, 18 Oct 2026 21:52:31 +0200 (CEST)
-Message-ID: <2e042211ca0ebc974ad5ec4c0de9f3f93b3c75c0.camel@iokpp.de>
-Subject: Re: [PATCH v2 0/4] scsi: ufs: core: Factor hba->outstanding_reqs
- helper and fix double completion
-From: Bean Huo <beanhuo@iokpp.de>
-To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
- <mkp@kernel.org>,  linux-scsi@vger.kernel.org
-Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,  Bart
- Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>,
- Bean Huo <beanhuo@micron.com>,  Peter Wang <peter.wang@mediatek.com>, Can
- Guo <can.guo@oss.qualcomm.com>, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-Date: Sun, 18 Oct 2026 21:52:31 +0200
-In-Reply-To: <20261017084403.875420-1-stanleyjhu@google.com>
-References: <20261017084403.875420-1-stanleyjhu@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sQqdhi3M"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DE9D0C2BCF7;
+	Sun, 18 Oct 2026 20:12:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792354368;
+	bh=Q4CkcTGHfwqlTq/v3Lz/CGzpf17o9gtfSV7GuFzUiVo=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=sQqdhi3M8f5GPF2nUAuQ2zY2NdImI0p3kH3y02aJFLQdJbiLHVgVu7WVTivxlEPBD
+	 4Ct9I1+91hyrzyCHN6hNOLK6GIidvxnQXGrxIngNExYl7UYTiXFIFOvRbo0TqKOLl1
+	 BnV+8w8kvE+3CXaIb3GJs3GCmZNUspFX2LIgZJbr3Hh4iVD9U9uwO0rlOwtXVzr/1V
+	 yhPKY7Cf7NzVqhpkdqdzJNMcxPV0iICZViX+Jzd51Mftlc6wiCkNerCFTTkTKSKXMM
+	 dc3YsdnynGmSW5CjJZYHTSh+wW3cmjHtAHem0lMUX4C6IWUgZjWC2/OcjDf1UOvtML
+	 2w2n1Xbj1is1g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AB85CCCF2C4;
+	Sun, 18 Oct 2026 20:12:48 +0000 (UTC)
+From: Mike Anderson via B4 Relay <devnull+mwwa919.gmail.com@kernel.org>
+Date: Sun, 18 Oct 2026 16:12:40 -0400
+Subject: [PATCH] drm/i915/dsi: Use owned panel/backlight GPIOs in VLV MIPI
+ sequences
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261018-vlv-dsi-owned-gpios-v1-1-3ca18bcda670@gmail.com>
+X-B4-Tracking: v=1; b=H4sIADco1WoC/yXMQQqDMBBA0avIrDvgpNBIr1JcaDLVkZJIpkZBv
+ HtTXb7F/zsoJ2GFZ7VD4iwqMRTQrQI3dmFgFF8MpjYPqqnB/MnoVTCugT0Os0RF58nYvqO7ZQu
+ lnBO/ZTuvr/ayLv3E7vtfwXH8ANQqkXx3AAAA
+X-Change-ID: 20261018-vlv-dsi-owned-gpios-cd127ba137e7
+To: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Hans de Goede <hansg@kernel.org>, intel-xe@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Mike Anderson <mwwa919@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792354368; l=5805;
+ i=mwwa919@gmail.com; s=20261018; h=from:subject:message-id;
+ bh=fqIda2quYt/iS4PsHXKJtfdrABxMHpRCeHK2kOAm+9k=;
+ b=YPHI4gGMlKh/kb6yUfYInfnPvCZcDfrreT+IUEzcqj8yDTmMeypyE/LvfsSY7CklhtFaRTt2Q
+ HYf2EATZ1JuCKiR8aNZuOhkZcMZnQCuOATJ0osAE1n4myfVScnPlcDL
+X-Developer-Key: i=mwwa919@gmail.com; a=ed25519;
+ pk=r8JyAI3thBa7smjCwoiNX+4TLbge6jj5Swldychd7nE=
+X-Endpoint-Received: by B4 Relay for mwwa919@gmail.com/20261018 with
+ auth_id=1231
+X-Original-From: Mike Anderson <mwwa919@gmail.com>
+Reply-To: mwwa919@gmail.com
 
-On Sat, 2026-10-17 at 16:43 +0800, Stanley Jhu wrote:
-> In Single Doorbell (SDB) mode, ufshcd_clear_lu_cmds() clears a transfer
-> request slot in the controller and completes the request without
-> claiming its bit in hba->outstanding_reqs. A subsequent ufshcd_poll()
-> call sees the stale bit with its doorbell bit cleared and completes the
-> request a second time, causing a double DMA unmap.
->=20
-> Patch 1 adds __ufshcd_clear_outstanding_reqs() and
-> ufshcd_clear_outstanding_reqs() to share the bit-claim logic across
-> ufshcd_poll() and ufshcd_abort() with no functional change. Patch 2 uses
-> the new helper in ufshcd_clear_lu_cmds() to fix the SDB double
-> completion. Patch 3 uses the new helper in ufshcd_eh_timed_out(). It is
-> a follow-on cleanup and is not needed for the fix. Patch 4 removes a
-> WARN_ONCE() whose condition is always false.
->=20
-> This series is based on mkp/for-next (db8b4d2bf2d3).
->=20
-> Tested on QEMU ARM64 UFS in SDB and MCQ modes across LU reset, polled
-> and interrupt I/O, and task abort without double completion or DMA
-> unmap warnings.
->=20
-> Changes since v1:
-> - Add a helper for clearing hba->outstanding_reqs and use it in
-> =C2=A0 ufshcd_poll(), ufshcd_abort(), and ufshcd_clear_lu_cmds()
-> =C2=A0 (Bart Van Assche).
-> - Convert ufshcd_eh_timed_out() to use the new helper in patch 3.
-> - Remove an always-false WARN_ONCE() in patch 4.
-> - Link to v1:
-> https://lore.kernel.org/r/20261016085403.1711740-1-stanleyjhu@google.com
->=20
-> Stanley Jhu (4):
-> =C2=A0 scsi: ufs: core: Add a helper for clearing hba->outstanding_reqs
-> =C2=A0 scsi: ufs: core: Fix double completion in ufshcd_clear_lu_cmds()
-> =C2=A0 scsi: ufs: core: Use ufshcd_clear_outstanding_reqs() in
-> =C2=A0=C2=A0=C2=A0 ufshcd_eh_timed_out()
-> =C2=A0 scsi: ufs: core: Remove an always-false WARN_ONCE()
->=20
+From: Mike Anderson <mwwa919@gmail.com>
 
-Hi Stanley,
+On VLV with PPS_BLC_SOC, intel_dsi_vbt_gpio_init() requests the
+backlight and panel enable GPIOs (INT33FC:01 pins 10 and 11) for i915
+itself. Since commit 8241b55f1ded ("drm/i915/dsi: Replace poking of VLV
+GPIOs behind the driver's back") the GPIO elements of the VBT MIPI
+sequences also request their pin through gpiolib, so when a sequence
+toggles one of these two pins the request fails and the toggle is
+dropped:
 
-For the whole series:
+  i915 0000:00:02.0: [drm] *ERROR* GPIO index 10 request failed (-EBUSY)
 
-Reviewed-by: Bean Huo <beanhuo@micron.com>
+Before that commit the pad registers were written directly, so the
+sequences could still drive the pins i915 owned.
 
-One more place has the same problem. In ufshcd_abort(), the "cmd was comple=
-ted,
-but without a notifying intr" path completes the request but leaves its bit=
- set
-in hba->outstanding_reqs:
+The Toshiba Encore 2 WT8-B (Bay Trail, DSI panel) uses pin 10 as the
+panel reset line: MIPI_SEQ_ASSERT_RESET drives it low and
+MIPI_SEQ_DEASSERT_RESET pulses it high-low-high. With every toggle
+failing, the panel is never reset after i915 sends MIPI_SEQ_DISPLAY_OFF
+during takeover and stays black, even though the backlight PWM and both
+enable GPIOs read back as on. The tablet only has a usable display
+with nomodeset.
 
-if (!hba->mcq_enabled && !(reg & (1 << tag))) {
-	...
-	 __ufshcd_transfer_req_compl(hba, 1UL << tag);
-	...
-}
+When a VLV MIPI sequence targets pin 10 or 11 and i915 holds the
+corresponding descriptor, set it through that descriptor instead of
+requesting the pin a second time.
 
+Fixes: 8241b55f1ded ("drm/i915/dsi: Replace poking of VLV GPIOs behind the driver's back")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM sparse
+Signed-off-by: Mike Anderson <mwwa919@gmail.com>
+---
+This patch was developed with an AI coding assistant (Claude Code,
+Claude Opus 5.5): it ran the debugging session on the tablet (drm.debug
+log, gpio/pwm debugfs), traced the -EBUSY to 8241b55f1ded, and wrote the
+change and the changelog; I reviewed it and tested it on the hardware.
 
-could use the new helper in the same way as patch 2?
+Testing, Toshiba Encore 2 WT8-B (Atom Z3735F, BIOS 2.10, VBT MIPI
+sequence block v2, PPS_BLC_SOC):
+- Arch Linux v7.2.11-arch1 with this patch backported (applies as is):
+  the panel lights up at i915 takeover and the Xorg login screen shows;
+  no "GPIO index ... request failed" errors; gpio-10/11 stay owned as
+  "backlight"/"panel". Unpatched v7.2.11 and v6.18.57 give a black
+  panel with five -EBUSY errors during boot.
+- drm-intel-next: built intel_dsi_vbt.o for i915 (=m and =y) and for
+  xe (=m) with W=1 and sparse (C=2, sparse v0.6.5-rc1): no new
+  warnings.
 
+Not tested: other VLV machines with PPS_BLC_SOC. Their behaviour only
+changes when their VBT sequences touch pin 10 or 11, which currently
+fails with -EBUSY anyway.
+---
+ drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 32 +++++++++++++++++++++++-----
+ 1 file changed, 27 insertions(+), 5 deletions(-)
 
- if (ufshcd_clear_outstanding_reqs(hba, BIT(tag)))
-	ufshcd_compl_one_cqe(hba, tag, NULL);
+diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
+index fe12041e9..85d1cdc6e 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
++++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
+@@ -54,6 +54,10 @@
+ #define MIPI_VIRTUAL_CHANNEL_SHIFT	1
+ #define MIPI_PORT_SHIFT			3
+ 
++/* VLV NC pins of the backlight and panel enable GPIOs, see soc_panel_gpio_table */
++#define VLV_GPIO_NC_BACKLIGHT		10
++#define VLV_GPIO_NC_PANEL		11
++
+ struct i2c_adapter_lookup {
+ 	u16 target_addr;
+ 	struct intel_dsi *intel_dsi;
+@@ -247,10 +251,12 @@ static void soc_opaque_gpio_set_value(struct intel_connector *connector,
+ 	kfree(lookup);
+ }
+ 
+-static void vlv_gpio_set_value(struct intel_connector *connector,
++static void vlv_gpio_set_value(struct intel_dsi *intel_dsi,
+ 			       u8 gpio_source, u8 gpio_index, bool value)
+ {
+-	struct intel_display *display = to_intel_display(connector);
++	struct intel_display *display = to_intel_display(&intel_dsi->base);
++	struct intel_connector *connector = intel_dsi->attached_connector;
++	struct gpio_desc *gpio_desc = NULL;
+ 
+ 	/* XXX: this assumes vlv_gpio_table only has NC GPIOs. */
+ 	if (connector->panel.vbt.dsi.seq_version < 3) {
+@@ -265,6 +271,22 @@ static void vlv_gpio_set_value(struct intel_connector *connector,
+ 		}
+ 	}
+ 
++	/*
++	 * With PPS_BLC_SOC, intel_dsi_vbt_gpio_init() already owns these pins,
++	 * so requesting them again fails with -EBUSY. Some VBTs still toggle
++	 * them in their MIPI sequences, e.g. as the panel reset line, so drive
++	 * them through the descriptors we hold.
++	 */
++	if (gpio_index == VLV_GPIO_NC_BACKLIGHT)
++		gpio_desc = intel_dsi->gpio_backlight;
++	else if (gpio_index == VLV_GPIO_NC_PANEL)
++		gpio_desc = intel_dsi->gpio_panel;
++
++	if (gpio_desc && connector->panel.vbt.dsi.config->pwm_blc == PPS_BLC_SOC) {
++		gpiod_set_value_cansleep(gpio_desc, value);
++		return;
++	}
++
+ 	soc_opaque_gpio_set_value(connector, gpio_index,
+ 				  "INT33FC:01", "Panel N", gpio_index, value);
+ }
+@@ -430,7 +452,7 @@ static const u8 *mipi_exec_gpio(struct intel_dsi *intel_dsi, const u8 *data)
+ 	else if (DISPLAY_VER(display) >= 9)
+ 		bxt_gpio_set_value(connector, gpio_index, value);
+ 	else if (display->platform.valleyview)
+-		vlv_gpio_set_value(connector, gpio_source, gpio_number, value);
++		vlv_gpio_set_value(intel_dsi, gpio_source, gpio_number, value);
+ 	else if (display->platform.cherryview)
+ 		chv_gpio_set_value(connector, gpio_source, gpio_number, value);
+ 
+@@ -886,8 +908,8 @@ static struct gpiod_lookup_table pmic_panel_gpio_table = {
+ static struct gpiod_lookup_table soc_panel_gpio_table = {
+ 	.dev_id = "0000:00:02.0",
+ 	.table = {
+-		GPIO_LOOKUP("INT33FC:01", 10, "backlight", GPIO_ACTIVE_HIGH),
+-		GPIO_LOOKUP("INT33FC:01", 11, "panel", GPIO_ACTIVE_HIGH),
++		GPIO_LOOKUP("INT33FC:01", VLV_GPIO_NC_BACKLIGHT, "backlight", GPIO_ACTIVE_HIGH),
++		GPIO_LOOKUP("INT33FC:01", VLV_GPIO_NC_PANEL, "panel", GPIO_ACTIVE_HIGH),
+ 		{ }
+ 	},
+ };
 
-Kind regards,
-Bean
+---
+base-commit: 0507cc5a476af0b6d037b19248bdd20dbe27487d
+change-id: 20261018-vlv-dsi-owned-gpios-cd127ba137e7
+
+Best regards,
+--  
+Mike Anderson <mwwa919@gmail.com>
 
 
