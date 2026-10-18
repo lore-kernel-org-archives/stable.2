@@ -1,81 +1,75 @@
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3C3242D7B
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 02:18:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 126DC3451BA
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 02:24:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792289904; cv=none; b=KjV5IX0nWA1kYIzMiYF8bG6Xnj9p/v5biWn63m4xWBWN5cxBxJqMXKKV7vEDo4ffaxnPen+jH20ffu2CVQvT7MSGjnLH76l3XusBPMHk/rROA8tTjnHlQETWzt0uovxu23iXIxrt8oXEHLxt+gSvUALKoo5JRzqMtcJeALqLWUo=
+	t=1792290258; cv=none; b=YoAyAHTPEewafRhxcVfwVV0oCzLTYee/BuED7zLobihJO+vMSHJMuGds1ak7Fe3VgPCx7leHUtukVA/mAqSy88fNhYtptk75kkYtcqOBSwAnA//6I3Wu7KJ9TtSVeFP76G8eb1fXIBZcSvz4v9727SisJa0pADFkxsoZi5hTE6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792289904; c=relaxed/simple;
-	bh=Ldrass7YZ/p74jIXxz7+C6GAjM5NGsD+baovS0Mp7zI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BdOZiwQvXLYC0hZHpRPLTXnI/igXtfoH3v1ljVeosSxpwn1BzpkNikwfnipXyKwHYphmEnXlcIoB51CrfJ8dQOTJ56QSlzkEd6nKlGR2bAcAWdVd+wp/52N4VgZoTC/T515XVysBGZ2U+u5LUwb1zdi5FYL/a6sLyG+/jZ3kwEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R3ee+uTw; arc=none smtp.client-ip=209.85.160.181
+	s=arc-20240116; t=1792290258; c=relaxed/simple;
+	bh=flhb0gip6ac+yKbn9op5HnfVk9ByKpzEsFTrJgZuPyE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MADt2x1Y8x3ebgdtro4em7lbqa0srOsACm7Bq7uRYFmo5a84e9Tb66FDBfx5/k2Gsjx9BfUkgZwZX2sFIQh2QytKd5my+GpZ2V5pXX8hE9yeiH2D2cXT0xyIgHxazdi1X1w0pH1u+TeOPr78EvyWjVveIVR625EY4W0VNScf8m4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KthzAMgn; arc=none smtp.client-ip=209.85.221.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R3ee+uTw"
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-53648215f9dso8245791cf.2
-        for <stable@vger.kernel.org>; Sat, 17 Oct 2026 19:18:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KthzAMgn"
+Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5dc2dc6d3fdso380282e0c.0
+        for <stable@vger.kernel.org>; Sat, 17 Oct 2026 19:24:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792289902; x=1792894702; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792290253; x=1792895053; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6h7cwshK4bhZz90I/AWA8AjZrCXIbK39PmBPiXuKICY=;
-        b=R3ee+uTwprxc2JW14NDU0JtduFzxZnaWS1T1MlwOEjFRaxm/knlA4OC18hfT/Bfp8X
-         Ar8xNgnzfOeyYTj9acl4HCwCqVRaILVss1phmPzkRRKo0Ezre0762/e7a8U4+S/BN1V4
-         oVCeLR5kxZ1vfU5QDSR6c4buJMawfIZS+/Y1UmVz/lhh8Vcsg860ZC5fsIZhfdsNF5cY
-         iF0SAOjjeFdnE7UjW1mukr63bXq3rYdyOeiA+yYGRuWbCqtbgdkJLhq3FFVhXCNL+2x8
-         ixJ7d8NOKYBnDFhMueLibCgHBTZqlDPjepJ8cCcRwEYz22QmZUQGEmfpYuk3rXOeJxFI
-         /dWg==
+        bh=guJnNJx35gGcmWEl1UQFNTpJpm/r2Xf62CKT+X59fAg=;
+        b=KthzAMgn29yCsaZQ5Gr11mFccvH037ctMAGAWV/ahFibqM5f4o5p2QnKnr+cTxIN84
+         S6dYnSoLOp1I89XrkhndeWUJhcJYcqdpi8/dk20MoVMXg/awm62Y4fYZhY0zFScLlTis
+         +HBxoBCNEnO1Mk5t9zeDYk76NCUW0jTPz70mPurMrTvnCKer+ba5UI25DAlQf0y5DNA+
+         3LyGcf9Pgc1ZtgoaLSAro5gt4j0KDZdZ2k//PqFh3Ho6XG/1S+9+nCsAMDTsrmm05HX8
+         zqTg9FHhJm3uPAfZeUS1frsIe60yqRXvoyDuMcsESC7CQvacFfr0s039TbO4ORaWL2LP
+         FQBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792289902; x=1792894702;
+        d=1e100.net; s=20260707; t=1792290253; x=1792895053;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6h7cwshK4bhZz90I/AWA8AjZrCXIbK39PmBPiXuKICY=;
-        b=Kpl1e1eXUhA1hkAhjBtyVp1829W9uFL/rGlJHnZJZ2LQqGApHMmq1XPFwOkH8cLGaX
-         JXjAKm75T0SHjETy8V2I4aVN+ORoU4i7DqdgplymKLnftM/69xd62TaGv5XMYp2pJu2s
-         qutz+aotoHaqExmlgraBcXWCp/VUg5zx0LzmPWd8tB5t4ZkYcBM4hOZDvVHZFBPRwUnO
-         g5ZOeVSFjzoP5MpBpMD10YJmsC5Pf26EiiLZNP56JK7Eoby0R1UMwwZ/7lUOattGS+70
-         f5OzbY+YWCVjUPqg427KDK6dfT1X+aHbKPG2PQpj3RQpA9fdxsrw+ymxorq7yGiJ3dzl
-         iQ7w==
-X-Forwarded-Encrypted: i=1; AKwUvBxUp+cGMJn9KONYASu1oop1vPhgujVc+iIptyO0rxCrFduuOKZaoMGjV2RndJS4Fi8yVAF4/+c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYItJ4WL/NLQIsxIaKPUTDfK9Mb7BKSZxNkWkDTUECeIu+cFq8va
-	w1cD+Ut1QSOUTnNBmMit8ogFwa0ZKYl6CGpLF/eRz1W3QRicCQMvDAk=
-X-Gm-Gg: AYBFou1mc/3sqNBnQ8bJ2L6YLY37dJ4g79ZUmoWtMX8kOwFPgVtdIDNpTUjnyjNldtz
-	2qSBxAqLeziuwadJO3Hbwjb/77UvEdPFtSwHSB87CqwYQRFscM2NoZev6Zb9iTYBQlxRwiJ6rd5
-	NIBldjdSfb2AAkIB8mexvEVOwhFkry9T+C7qq7BQ+WoKx3Y/8nwo6nue4ZCy/ZdrOqLM4U2vA2L
-	deqcRZXl05SPIQTdtDm+dtTTmOF6lnSbh+nkGIA3zig/1Tk2fvJjhFMsWKNMfZDt9EhieaQYxP0
-	K7gOyrGQ7z7nyPn0DnkHPFIi+V2/gt69kAz1vDIJUKLSsSWf0gGYYTJ+VAvVoQXAxIxyzFfAf20
-	AaDc9XH70lcHZb8em/iNndFqmW2iK7bHS5av8gu03rV7JAGMY494hN4khojewda3kW3ztDgHtoo
-	WLutYv0lRY3tiO3C8ZnOdXr20YDQJ5SJH337PfuKRJ/A5+PQ5mt+zU63CGL7DP394Bl4hDWlz8R
-	FZyjX3jXIAIs5U0M06lpDfMBOEbFdYl9kLLQqXxkkl92JBMU7ayo+ezSak4KqZY7SmGnDoQS4rf
-	o7CviQBAh4ww7cwVPPB0FeBrDd/5
-X-Received: by 2002:a05:622b:c8:20b0:535:1683:5a71 with SMTP id d75a77b69052e-53645ff1af1mr42415901cf.38.1792289902347;
-        Sat, 17 Oct 2026 19:18:22 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5362aa68f8esm61881881cf.29.2026.10.17.19.18.21
+        bh=guJnNJx35gGcmWEl1UQFNTpJpm/r2Xf62CKT+X59fAg=;
+        b=Ppx3hY/rzDXwGx01piA/H5FSduNNGNxIVgIDEMUd7HEnV2Rhci+3yyy7D9bI9m1twK
+         Kx2tauaaVP/G67rijW5I0E0poEtSyxKANE2GA+2/CiezspWW4xfGYQrH/epGlJLOQi3B
+         /oHn2iDyw4mkii5Dd6ZFZyZGsFrWyMhQgkZtFdfFhfldwlvpEHSN24ogChFg/hTj2yEK
+         K0CtYK+Xfmj0xHpGUrKkszRMwX+oWCTcZZV7xus7Ez0iS3S0pD4fPSUEcsTIr4n9eHah
+         6tglm14i2ZJoQJwyWSzROdvw1UcsITCwgnDqb3sHV3eAoZJE+rpJ/AEYDdF5Y3yqafW1
+         YhuQ==
+X-Forwarded-Encrypted: i=1; AKwUvByvBqtvnb4BiAhZTpX0nGkvoUs10HzNA7P6J8b8AfQFsQWmCf1/ZD0nNV/qpZSFOqZwtYvQZww=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJT4QFbgvtaTwC+rGkMeZtJRblVcQlmJpRsO3vKd3qAE1IxSmNQ
+	806ckOBMqzAOXbNqvyeDjlZeCIj5k5uHUiS+2rD1/e89J6EI+8Xv9aKu
+X-Gm-Gg: AYBFou0h1Lm7gIa9GewePMrsH137jX7NpNimlf+CZkmf8o69VK2uu6a20/BS8p/PI2S
+	Q7vfhVzvbrCO01DNUemvyYFd3TkCgn0VIgz16jhJbcd+2EqCRpbOJnz5fSw3ax8EHmRwWhryla6
+	XBesj4pKmSWH0gPVORh404DfS0xfKsO8eAfKLROuIEEspOsZU7U3kHml62RkIX34vakYVfYRw4n
+	z5WXa48WAJMam/rKn5IGFv1+aJrOUQPT2BDvxsjv8CxZn6iykScY3vPFyLenKPJOUm+JGDzsNDH
+	lhonBQdADcCBVj1B6kw8zZYJrRxbpIXQEJXZgQXef9KtL9jYCTTgjGhwCy10IevgUwqdNDm6fFP
+	retfL32ddC+8a5zWOXUarC9pNS3w4/r2nAZSQq3mmZvFJwaEExUNZe4fKvAC7Xmc0my7Kgn5abM
+	IaRaLYXb2dfjP0qZe6XrYSgNe+Sk/zRAr4IeRorqblUShg/Lbi7bfB9zjGBNfIcyqnmw+YQTTF7
+	UmPsg9OOWRfVNG+iF8qHwP8je3q3qs88D4ArfxTBxcQvQ==
+X-Received: by 2002:a05:6102:2c0d:b0:7cc:1c60:d4de with SMTP id ada2fe7eead31-7cc368f6d0fmr1151509137.13.1792290252593;
+        Sat, 17 Oct 2026 19:24:12 -0700 (PDT)
+Received: from fabio-X870-EAGLE-WIFI7.. ([2804:1b3:a801:42fc:e5a:e466:ca42:1512])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cc1987c95csm6311942137.11.2026.10.17.19.24.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 19:18:21 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	patches@opensource.cirrus.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH v4] ASoC: wm8962: Stop IRQ from requeuing mic_work on remove
-Date: Sat, 17 Oct 2026 22:18:17 -0400
-Message-ID: <20261018021817.3859256-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Sat, 17 Oct 2026 19:24:10 -0700 (PDT)
+From: Fabio Estevam <festevam@gmail.com>
+To: lee@kernel.org
+Cc: dmitry.torokhov@gmail.com,
+	jic23@kernel.org,
+	linux-input@vger.kernel.org,
+	mfd@lists.linux.dev,
+	linux-iio@vger.kernel.org,
+	Fabio Estevam <festevam@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] mfd: mxs-lradc: Pass mapped IRQs to child devices
+Date: Sat, 17 Oct 2026 23:24:00 -0300
+Message-ID: <20261018022400.599028-1-festevam@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,145 +78,249 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The WM8962 IRQ remains registered to the I2C device when an ASoC card is
-unbound. wm8962_remove() cancels mic_work, but a MICD or MICSCD interrupt
-can queue it again before the component is destroyed. The work then
-accesses the component and reports to the old jack.
+The MFD resource tables store indices into the parent DT interrupts
+property. Since the MFD core is given neither an IRQ domain nor a base,
+however, it exposes those indices to child devices as though they were
+Linux IRQ numbers.
 
-Mask microphone interrupts and disable detection in wm8962_mic_detect(),
-wait for any handler that already read the old mask, and drain mic_work
-before changing the jack pointer. When installing a new jack, unmask its
-interrupts before enabling detection, preserving the existing hardware
-sequence. Call this path from component remove while the component is
-still valid, leaving the IRQ registered for FLL, FIFO and thermal events.
+The touchscreen interrupt is at DT index 0 on both supported SoCs.
+platform_get_irq_byname() therefore rejects its child resource with:
 
-Tegra's card remove callback runs after ASoC removes the codec component
-and PCM runtimes. Drop its redundant microphone cleanup.
+ 0 is an invalid IRQ number
 
-Fixes: 0512615db6db ("ASoC: wm8962: Convert interrupt handler to direct regmap usage")
+On current kernels it also returns -EINVAL, preventing the touchscreen
+driver from probing.
+
+The child drivers try to map their resource values afterwards with
+irq_of_parse_and_map(), but the touchscreen driver never reaches that
+call for index 0. More generally, translating the parent firmware's IRQ
+indices does not belong in the child drivers, where platform IRQ
+resources are expected to contain mapped Linux IRQs already.
+
+Have the MFD parent copy each resource template and resolve its IRQ
+indices with platform_get_irq() before registering the child. The child
+drivers can then request the mapped IRQs directly. Use per-device copies
+so later instances and reprobes still start with the DT indices.
+
+Apply the same fix to the ADC child, which uses the same IRQ mapping
+scheme.
+
+Tested on an i.MX28 EVK. The mxs-lradc-ts driver now probes
+successfully, and its interrupt counters increase when the screen is
+touched.
+
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Fixes: a85a6c86c25b ("driver core: platform: Clarify that IRQ 0 is invalid")
+Closes: https://lore.kernel.org/linux-input/CAOMZO5CgTzo6GuXptD4mFTN=UsJJqpkixDW1Q64gqZGrij8+uQ@mail.gmail.com/
+Signed-off-by: Fabio Estevam <festevam@gmail.com>
 ---
-Changes in v4:
-- Always disable microphone detection before draining the IRQ and work,
-  then unmask microphone interrupts before re-enabling detection for a
-  new jack, as requested by Charles Keepax.
-- Keep the redundant Tegra card remove callback deletion; Charles
-  withdrew his initial objection in the follow-up review.
+This is a long-standing bug that I reported in 2020:
+https://lore.kernel.org/linux-input/CAOMZO5CgTzo6GuXptD4mFTN=UsJJqpkixDW1Q64gqZGrij8+uQ@mail.gmail.com/
 
-Changes in v3:
-- Mask microphone interrupts, synchronize the IRQ and cancel mic_work
-  before replacing the jack pointer in wm8962_mic_detect().
-- Use wm8962_mic_detect(component, NULL) from component remove and drop
-  the redundant Tegra card remove callback.
-- Keep the IRQ registered for the other interrupt sources.
+This patch touches MFD, IIO, and Input. Since the IRQ mapping is moved
+into the MFD parent, I suggest merging it through the MFD tree, with
+acks from the IIO and Input maintainers.
 
-Changes in v2:
-- Do not disable the IRQ from wm8962_i2c_remove(); card unbind does not
-  unbind the I2C client.
-- Keep the devm IRQ on the I2C device for FLL, FIFO and thermal events.
+The full backtrace:
 
-Found by inspection. Compile-tested both modified objects with GCC 15,
-W=1, x86_64 and COMPILE_TEST=y. No hardware or runtime testing.
+[   10.540505] WARNING: drivers/base/platform.c:492 at __platform_get_irq_byname+0xb4/0xcc, CPU#0: swapper/0/1
+[   10.555516] 0 is an invalid IRQ number
+[   10.559627] Modules linked in:
+[   10.562849] CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.3.0-rc7-next-20261016-00003-g36062817a968 #17 VOLUNTARY
+[   10.573732] Hardware name: Freescale MXS (Device Tree)
+[   10.578934] Call trace:
+[   10.578992]  unwind_backtrace from show_stack+0x10/0x14
+[   10.586955]  show_stack from dump_stack_lvl+0x48/0x64
+[   10.592170]  dump_stack_lvl from __warn+0x8c/0x190
+[   10.597114]  __warn from warn_slowpath_fmt+0x94/0xcc
+[   10.602232]  warn_slowpath_fmt from __platform_get_irq_byname+0xb4/0xcc
+[   10.609027]  __platform_get_irq_byname from platform_get_irq_byname+0x10/0x30
+[   10.616337]  platform_get_irq_byname from mxs_lradc_ts_probe+0x18c/0x378
+[   10.623247]  mxs_lradc_ts_probe from platform_probe+0x58/0x90
+[   10.629174]  platform_probe from really_probe+0xc4/0x2cc
+[   10.634649]  really_probe from __driver_probe_device+0xa0/0x1e0
+[   10.640721]  __driver_probe_device from driver_probe_device+0x30/0xc0
+[   10.647315]  driver_probe_device from __driver_attach+0x94/0x158
+[   10.653466]  __driver_attach from bus_for_each_dev+0x7c/0xd0
+[   10.659280]  bus_for_each_dev from bus_add_driver+0x158/0x1fc
+[   10.665169]  bus_add_driver from driver_register+0x7c/0x114
+[   10.670901]  driver_register from do_one_initcall+0x60/0x294
+[   10.676721]  do_one_initcall from kernel_init_freeable+0x19c/0x24c
+[   10.683073]  kernel_init_freeable from kernel_init+0x14/0x10c
+[   10.688997]  kernel_init from ret_from_fork+0x14/0x38
+[   10.694200] Exception stack(0xc8819fb0 to 0xc8819ff8)
+[   10.699335] 9fa0:                                     00000000 00000000 00000000 00000000
+[   10.707591] 9fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+[   10.715843] 9fe0: 00000000 00000000 00000000 00000000 00000013 00000000
+[   10.723117] irq event stamp: 146363
+[   10.726729] hardirqs last  enabled at (146367): [<c00adbd8>] __nbcon_atomic_flush_pending_con+0x120/0x1c0
+[   10.736770] hardirqs last disabled at (146372): [<c0008f38>] __irq_svc+0x58/0xb0
+[   10.744618] softirqs last  enabled at (146362): [<c0032c20>] __irq_exit_rcu+0x148/0x1d4
+[   10.753153] softirqs last disabled at (146385): [<c0032c20>] __irq_exit_rcu+0x148/0x1d4
+[   10.761603] ---[ end trace 0000000000000000 ]---
+[   10.766374] mxs-lradc-ts mxs-lradc-ts: error -EINVAL: IRQ mxs-lradc-touchscreen not found
+[   10.766456] mxs-lradc-ts mxs-lradc-ts: probe with driver mxs-lradc-ts failed with error -22
 
-Review: https://lore.kernel.org/r/arY6GbRBjKxJDKVn@opensource.cirrus.com/
-Follow-up: https://lore.kernel.org/r/arY%2FVSKn%2Fsq32sr0@opensource.cirrus.com/
+ drivers/iio/adc/mxs-lradc-adc.c          |  7 +---
+ drivers/input/touchscreen/mxs-lradc-ts.c |  7 +---
+ drivers/mfd/mxs-lradc.c                  | 47 +++++++++++++++++++-----
+ 3 files changed, 42 insertions(+), 19 deletions(-)
 
- sound/soc/codecs/wm8962.c      |   36 +++++++++++++++++++++---------------
- sound/soc/tegra/tegra_wm8962.c |   13 -------------
- 2 files changed, 21 insertions(+), 28 deletions(-)
-
-diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
-index 8a9598161b35..253b41fff8ab 100644
---- a/sound/soc/codecs/wm8962.c
-+++ b/sound/soc/codecs/wm8962.c
-@@ -3230,21 +3230,29 @@
- {
- 	struct wm8962_priv *wm8962 = snd_soc_component_get_drvdata(component);
- 	struct snd_soc_dapm_context *dapm = snd_soc_component_to_dapm(component);
--	int irq_mask, enable;
-+	int mic_irq_mask = WM8962_MICD_EINT | WM8962_MICSCD_EINT;
-+
-+	/*
-+	 * Mask microphone events, then drain the IRQ and work before
-+	 * changing the jack.
-+	 */
-+	snd_soc_component_update_bits(component, WM8962_INTERRUPT_STATUS_2_MASK,
-+				      mic_irq_mask, mic_irq_mask);
-+	snd_soc_component_update_bits(component, WM8962_ADDITIONAL_CONTROL_4,
-+				      WM8962_MICDET_ENA, 0);
-+	if (wm8962->irq)
-+		synchronize_irq(wm8962->irq);
-+	cancel_delayed_work_sync(&wm8962->mic_work);
+diff --git a/drivers/iio/adc/mxs-lradc-adc.c b/drivers/iio/adc/mxs-lradc-adc.c
+index dda5182a5076..2c7129cd9c05 100644
+--- a/drivers/iio/adc/mxs-lradc-adc.c
++++ b/drivers/iio/adc/mxs-lradc-adc.c
+@@ -17,7 +17,6 @@
+ #include <linux/mfd/core.h>
+ #include <linux/mfd/mxs-lradc.h>
+ #include <linux/module.h>
+-#include <linux/of_irq.h>
+ #include <linux/platform_device.h>
+ #include <linux/sysfs.h>
  
- 	wm8962->jack = jack;
- 	if (jack) {
--		irq_mask = 0;
--		enable = WM8962_MICDET_ENA;
--	} else {
--		irq_mask = WM8962_MICD_EINT | WM8962_MICSCD_EINT;
--		enable = 0;
--	}
--
--	snd_soc_component_update_bits(component, WM8962_INTERRUPT_STATUS_2_MASK,
--			    WM8962_MICD_EINT | WM8962_MICSCD_EINT, irq_mask);
--	snd_soc_component_update_bits(component, WM8962_ADDITIONAL_CONTROL_4,
--			    WM8962_MICDET_ENA, enable);
-+		snd_soc_component_update_bits(component,
-+					      WM8962_INTERRUPT_STATUS_2_MASK,
-+					      mic_irq_mask, 0);
-+		snd_soc_component_update_bits(component,
-+					      WM8962_ADDITIONAL_CONTROL_4,
-+					      WM8962_MICDET_ENA, WM8962_MICDET_ENA);
-+	}
+@@ -691,7 +690,7 @@ static int mxs_lradc_adc_probe(struct platform_device *pdev)
+ 	struct mxs_lradc_adc *adc;
+ 	struct iio_dev *iio;
+ 	struct resource *iores;
+-	int ret, irq, virq, i, s, n;
++	int ret, irq, i, s, n;
+ 	u64 scale_uv;
+ 	const char **irq_name;
  
- 	/* Send an initial empty report */
- 	snd_soc_jack_report(wm8962->jack, 0,
-@@ -3592,9 +3600,7 @@
+@@ -743,9 +742,7 @@ static int mxs_lradc_adc_probe(struct platform_device *pdev)
+ 		if (irq < 0)
+ 			return irq;
  
- static void wm8962_remove(struct snd_soc_component *component)
- {
--	struct wm8962_priv *wm8962 = snd_soc_component_get_drvdata(component);
+-		virq = irq_of_parse_and_map(dev->parent->of_node, irq);
 -
--	cancel_delayed_work_sync(&wm8962->mic_work);
-+	wm8962_mic_detect(component, NULL);
+-		ret = devm_request_irq(dev, virq, mxs_lradc_adc_handle_irq,
++		ret = devm_request_irq(dev, irq, mxs_lradc_adc_handle_irq,
+ 				       0, irq_name[i], iio);
+ 		if (ret)
+ 			return ret;
+diff --git a/drivers/input/touchscreen/mxs-lradc-ts.c b/drivers/input/touchscreen/mxs-lradc-ts.c
+index 137ab3b60f2d..ff9310592ad0 100644
+--- a/drivers/input/touchscreen/mxs-lradc-ts.c
++++ b/drivers/input/touchscreen/mxs-lradc-ts.c
+@@ -18,7 +18,6 @@
+ #include <linux/mfd/core.h>
+ #include <linux/mfd/mxs-lradc.h>
+ #include <linux/of.h>
+-#include <linux/of_irq.h>
+ #include <linux/platform_device.h>
  
- 	wm8962_free_gpio(component);
- 	wm8962_free_beep(component);
-diff --git a/sound/soc/tegra/tegra_wm8962.c b/sound/soc/tegra/tegra_wm8962.c
-index 31f9d9181595..a79d464b6a80 100644
---- a/sound/soc/tegra/tegra_wm8962.c
-+++ b/sound/soc/tegra/tegra_wm8962.c
-@@ -97,18 +97,6 @@
- 	return 0;
- }
+ static const char * const mxs_lradc_ts_irq_names[] = {
+@@ -605,7 +604,7 @@ static int mxs_lradc_ts_probe(struct platform_device *pdev)
+ 	struct device_node *node = dev->parent->of_node;
+ 	struct mxs_lradc *lradc = dev_get_drvdata(dev->parent);
+ 	struct mxs_lradc_ts *ts;
+-	int ret, irq, virq, i;
++	int ret, irq, i;
+ 	u32 ts_wires = 0, adapt;
  
--static int tegra_wm8962_remove(struct snd_soc_card *card)
--{
--	struct snd_soc_dai_link *link = &card->dai_link[0];
--	struct snd_soc_pcm_runtime *rtd = snd_soc_get_pcm_runtime(card, link);
--	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
--	struct snd_soc_component *component = codec_dai->component;
+ 	ts = devm_kzalloc(dev, sizeof(*ts), GFP_KERNEL);
+@@ -674,11 +673,9 @@ static int mxs_lradc_ts_probe(struct platform_device *pdev)
+ 		if (irq < 0)
+ 			return irq;
+ 
+-		virq = irq_of_parse_and_map(node, irq);
 -
--	wm8962_mic_detect(component, NULL);
--
--	return 0;
--}
--
- SND_SOC_DAILINK_DEFS(wm8962_hifi,
- 	DAILINK_COMP_ARRAY(COMP_EMPTY()),
- 	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "wm8962")),
-@@ -129,7 +117,6 @@
- 	.owner = THIS_MODULE,
- 	.dai_link = &tegra_wm8962_dai,
- 	.num_links = 1,
--	.remove = tegra_wm8962_remove,
- 	.fully_routed = true,
+ 		mxs_lradc_ts_stop(ts);
+ 
+-		ret = devm_request_irq(dev, virq,
++		ret = devm_request_irq(dev, irq,
+ 				       mxs_lradc_ts_handle_irq,
+ 				       0, mxs_lradc_ts_irq_names[i], ts);
+ 		if (ret)
+diff --git a/drivers/mfd/mxs-lradc.c b/drivers/mfd/mxs-lradc.c
+index 64afc7631790..f893312a1d9b 100644
+--- a/drivers/mfd/mxs-lradc.c
++++ b/drivers/mfd/mxs-lradc.c
+@@ -22,7 +22,6 @@
+ 
+ #define ADC_CELL		0
+ #define TSC_CELL		1
+-#define RES_MEM			0
+ 
+ enum mx23_lradc_irqs {
+ 	MX23_LRADC_TS_IRQ = 0,
+@@ -123,6 +122,42 @@ static const struct of_device_id mxs_lradc_dt_ids[] = {
  };
+ MODULE_DEVICE_TABLE(of, mxs_lradc_dt_ids);
  
-base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
++static int mxs_lradc_add_device(struct platform_device *pdev,
++				struct mfd_cell *cell,
++				const struct resource *mem)
++{
++	struct resource *resources;
++	struct mfd_cell child = *cell;
++	int i, irq;
++
++	resources = devm_kmemdup_array(&pdev->dev, cell->resources,
++				       cell->num_resources,
++				       sizeof(*resources), GFP_KERNEL);
++	if (!resources)
++		return -ENOMEM;
++
++	for (i = 0; i < cell->num_resources; i++) {
++		if (resource_type(&resources[i]) == IORESOURCE_MEM) {
++			resources[i] = *mem;
++			continue;
++		}
++
++		if (resource_type(&resources[i]) != IORESOURCE_IRQ)
++			continue;
++
++		irq = platform_get_irq(pdev, resources[i].start);
++		if (irq < 0)
++			return irq;
++
++		resources[i].start = irq;
++		resources[i].end = irq;
++	}
++
++	child.resources = resources;
++	return devm_mfd_add_devices(&pdev->dev, PLATFORM_DEVID_NONE,
++				    &child, 1, NULL, 0, NULL);
++}
++
+ static int mxs_lradc_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+@@ -189,13 +224,9 @@ static int mxs_lradc_probe(struct platform_device *pdev)
+ 
+ 	switch (lradc->soc) {
+ 	case IMX23_LRADC:
+-		mx23_adc_resources[RES_MEM] = *res;
+-		mx23_touchscreen_resources[RES_MEM] = *res;
+ 		cells = mx23_cells;
+ 		break;
+ 	case IMX28_LRADC:
+-		mx28_adc_resources[RES_MEM] = *res;
+-		mx28_touchscreen_resources[RES_MEM] = *res;
+ 		cells = mx28_cells;
+ 		break;
+ 	default:
+@@ -204,8 +235,7 @@ static int mxs_lradc_probe(struct platform_device *pdev)
+ 		goto err_clk;
+ 	}
+ 
+-	ret = devm_mfd_add_devices(&pdev->dev, PLATFORM_DEVID_NONE,
+-				   &cells[ADC_CELL], 1, NULL, 0, NULL);
++	ret = mxs_lradc_add_device(pdev, &cells[ADC_CELL], res);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "Failed to add the ADC subdevice\n");
+ 		goto err_clk;
+@@ -214,8 +244,7 @@ static int mxs_lradc_probe(struct platform_device *pdev)
+ 	if (!lradc->touchscreen_wire)
+ 		return 0;
+ 
+-	ret = devm_mfd_add_devices(&pdev->dev, PLATFORM_DEVID_NONE,
+-				   &cells[TSC_CELL], 1, NULL, 0, NULL);
++	ret = mxs_lradc_add_device(pdev, &cells[TSC_CELL], res);
+ 	if (ret) {
+ 		dev_err(&pdev->dev,
+ 			"Failed to add the touchscreen subdevice\n");
 -- 
-2.53.0
+2.43.0
+
