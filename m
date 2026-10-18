@@ -1,74 +1,71 @@
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA783559C9
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 22:47:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B9C3D7D6A
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 22:54:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792363634; cv=none; b=VGc9tC1C47z2P1PrrTUhZVy7yK/+8BpRaSBJy3lKYUymmVLikkN5/sSdxuTwM3s24yRc6ZYvk8r/FQ9xXy6jaCyCKJKklMZMIPsktm7zyUXg3weFCEZPyNUQm7ooozo/mn/XJPZp+Wp5dmlgGT3QGJ2mEWcJRgyjnqOyWvtFY6U=
+	t=1792364082; cv=none; b=IXWkiUEC1F2tAacoWeUISVFavmpeyZdAMdAXwyshP2n5SNo7zAYUgOvapvfxUJSrZ7Yg8IL4Yh2Ydt0/Niwz0jZVIY63u/j0dyqj7Vk3YpyCGYdJwi9b0tGDwJf3fjd/fjhfjclIAXwnS37fNktn1wWL4o5EcmcnLsNOfud55z4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792363634; c=relaxed/simple;
-	bh=j6r1yM0Nj2g7ZVK6IoYOqBzm9qH0abhm+U7Ll+RV5so=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WNOVybriaix/lCYP3kocF8hBL5uAel5X1KAbS9QomFu56Ylmv2X9dyYeFNZvsFsVAhCCUtNvYWnmqO4RYXduE+a7EvtF1YzhS2sXjGwJJHfmbCP8F2M42oyCRB7widnVkM0iiuQbLxbON7leI5UyF+0yyb/AwEYBPFk5DL7P4cw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SF5xvDTN; arc=none smtp.client-ip=74.125.82.177
+	s=arc-20240116; t=1792364082; c=relaxed/simple;
+	bh=XYhSvFA7CBE5j2HCUixLblDFjVWyrOA3uBQKm7vadDE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aQyqSY/QqAv80p8OD8WqQmImAQoxmJ9ajHMk1/+fZ0ZhjkEwy7MpaWDWMpGgWznpp/YltETS4NLZJeP4jU/yQgKH0Q3Zh8DcwH1LhL2RP4XQzFvrDcvJapew2DH0THeyIOWcg2P/544S53l0ZDzB7NEWNu2i2l6R3TAh2XUN6Dk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cdnt1SQm; arc=none smtp.client-ip=209.85.221.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SF5xvDTN"
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-35829219da8so2917711eec.0
-        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 15:47:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cdnt1SQm"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso777331f8f.1
+        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 15:54:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792363632; x=1792968432; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792364079; x=1792968879; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SRaL3m+hn3zzK9EEds28lDnI6OFgmnj9tIFxBXhk9kw=;
-        b=SF5xvDTNo+3n+HfbuJxjOMILj8uf6e09EpbK4CuDoHWrBrTm7ccWV6RZ5dH1w0xBDe
-         zCOyYjEo9Tz7xgedOtmCzJQulLXTVBoUaG50/t3USPbWL8wg+53AGgEvbNWYj6j4YQb3
-         aRE3ouVzH9M+uEAABBFwqQ2nCg9Nt7JFnSwPj5CDM8p7rzZuSzGpZwVrdR5wLOGHNj9l
-         t/AplPLN0K0JPhxeUs6jZsj7EKnmNT0DTfC12Jr+tnnRTBeJwUp5EFEaIyiaPQqy2r0Q
-         Z1iSDej8wvEtq5IZ/JtNq1fWOPy5oDOyZoGFFVXGKGPb716PcoS0NJBSRAyvEEz8/nht
-         rA2w==
+        bh=X1kgUc2g/VLG79PKdhTxP86IrE7Gw22NMZrvrz31EMI=;
+        b=cdnt1SQmdLpQdw4/vsPLYrjkdD8r6sYDy4++rdwleAx64mjKe/vn1eFlfkn5GBxr1B
+         4JoQtVHNjqbtxqn3Z99sOf4E0MAkDbLLc2oDLmVZsQ+iw12SZsl9J5F4AzjXjrSJ7RhO
+         hYnFjqZOV/qxag0gTy5W/M8QttJLXx9WFQEX+fdrwUSQxYHj+WsLMUHTxTO8kXsiUeoy
+         gmnB5hVnuqRPxPOQDa4DeEEkhE4jNs1T+tUX/7rVa8dCsqaFgJok3nzsQm0twcbpl690
+         gzi8XXk6//eLLOUdWlASm1q9AtIl4Q+Wxz3LJ+ieCcBAsrM44/CyeiipK0BB9sRKAMV/
+         z5UQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792363632; x=1792968432;
+        d=1e100.net; s=20260707; t=1792364079; x=1792968879;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SRaL3m+hn3zzK9EEds28lDnI6OFgmnj9tIFxBXhk9kw=;
-        b=YtwEeWDj6baRdMi33pn03hzdq0HMbRoA/aY2e8iRZVl3Nui4qKkcgN2PVoHys5Watp
-         wiObd4Gg1CvHJbfxLTFP3VJKDcdeBa3+HpmcGbInW+vYA5bcpl79Li9TCvAzEyZYhZrZ
-         cyPzcu44k9h4M0Ad1jLywXPRqqui01xSZMZdNyypMX19E9dwYw66Dop1XCKUE7pZ8coi
-         KQv2gvKLWV5bwLbjQ8ONori0f5jryZjHAezK+85JrJS3ljQqwRsOYmTHBfgO0RTwwr/K
-         nAaSQnBDUH8JtwZbnkkicPMsIFtgFwCTRZ2aLV0U5OKnSwfhYpjwW5JFcXCHZbWyZ9nw
-         QRFA==
-X-Forwarded-Encrypted: i=1; AKwUvBy4t1m/XpQTNM/HWQcj3tKBN+gpQBnEH/BqmrWXbQmGN8IjlrxbARl/BlrGL07MeL86Mb3FURk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI4IRnc8BesB9fFBRPMgPg3cAMks8onHqSdFuwPN72Xj+eCtboc
-	v7O6jQc2ivQRz6DDUEuhZpCM3OkqeMVFOBXzDbIQntIBWPTY/t12LTrj
-X-Gm-Gg: AYBFou0L7CtIw+7leg+eKAA2Y5iOL/bIpg6Uwjh8r8Arz2TaCDqf4SXS2RGdeUfOgm6
-	M6hMOyFwdIDCy6ua+bmIDk5An9cnpJHX+I0zrF3oWtHe/jqc0kcFMNf4I+QkFudf97674zN2/dE
-	McqJHkrlobiLUZMgKkBOIO51pHUEbs68HPleDg7Xlq0v3aWcUb1jzIIqXFmOlSbs5OzJy6oTAol
-	Zd2VcVE5+sCnPFLKJx6Bwtrq1gF5IDW/vv//P0FrXDTwmjhOvEjE5bmaFKUP83ZZ7EoM4GtMml/
-	W+0t3+FX+UA81CTfpm6Mg1nZOyHY+87N1WOeGQggxKkmxpFvB6t7fV/YFV5gjmGo/B0neeC8qi8
-	Nukr4fldWOnP0eOxmECRxEO68kQ2McEBQowMFb2mMjTVR4RmagoZ2j7tsK+x8KONq/RoY92TYlH
-	zbSik4XeNfMpFwccqdDeupUow1LYfkla+799/MHH0rmEjX19pHlJ20cs/05yRIJPSIPq7yc5m4X
-	OwKDDPBoyZTd1LXEUvT7os6zUk/lT/FX3SG3xXIP58=
-X-Received: by 2002:a05:7022:438d:b0:143:1bb1:3305 with SMTP id a92af1059eb24-1825b20a2ddmr17210769c88.22.1792363631761;
-        Sun, 18 Oct 2026 15:47:11 -0700 (PDT)
-Received: from siegeengine2 (c-73-158-156-210.hsd1.ca.comcast.net. [73.158.156.210])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360820a02b8sm29221886eec.17.2026.10.18.15.47.10
+        bh=X1kgUc2g/VLG79PKdhTxP86IrE7Gw22NMZrvrz31EMI=;
+        b=hncI4q/+IM8JRy45uIVkb0qxga5ITfrjLPqji0SlcDXFumibjKLvX6SmrLumnmF8gS
+         inCDXeiWsHV2Qfld5KcWQPjhCpYsZBqimpO5/HyJcWUoU6l00BzxshulWuOxBV/7Aks/
+         N5nl6U5HmXG3YFk9FbU0d5/gq+g0jAxSl9KSsOyNEuSEAK8053Hkb1IluShzSoSppRYZ
+         3KcOfWrrUePCj3Ew9vLBS4qUmBeuV1cfCa2qEGYil6mr3FPx8VSLtg6Y8vGhLh6q8JFX
+         wpZoytlId0ZR3z4KK0QxCdqCvdwMT0BYO7ZsIBLWYQhCMg+8roGNJy/1U3Kl+Xbvqrxt
+         8Drw==
+X-Forwarded-Encrypted: i=1; AKwUvByCMaLnZJoSMa72a2EkSYyYxIUzu8dE6sVXrz/U7M02dMElHhKkdOngf4tAWv+WyGK/wF1ncAY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIOvZ7zX5JATeUf1SXAmQGxntMRqhKIQm1v9Fnp7JlT6WXn23vt
+	3vbhpHEUk3IR7sfQMNKLtWumHH4DY2GAXcD0iSet/NNGWnH1hBvmG8+cchlP
+X-Gm-Gg: AYBFou1auUIFYPs35gaI9O+I+ie9KUTwlEO0BfXuv4EsaOdmDqWtnp2AmYQ2y5coik0
+	/H6dqAba/FTYm2NbCN+z3GTfxTou8rizBsUDSUbJNukGP7b2falkLarF24UQZAsK7h9gZhgABe+
+	nF7GUJfllpLrGc/I1UzHiEjbzf2DbDuMFfiOm9hswkaRYVRshDGQrZhETXsYL2xnp0OWfDqjhYy
+	UGTJlQqquPe4ju2Jm8w94iA+7vgNcGqMZfVeonMCm7LKkMwMiI98uSCQnpu/H07DwgYVK12r3os
+	2mHW3rWZxCmXfiMtnrdw5M0VPFyY2oaOTiAlMcNxdx5RSzn4hmZtGPAxv0CXJPX0YkAjtw/c4Hw
+	idG5eco+4DZy6yDKA+ghx+9Dk00QSXXYy5VRuAJVSaeZzLqeGcnYoVpyXWUjRh8sleoa1gi4DdK
+	ezXuccJ9v0hOxizoFQudcwQt38urDSapCh48ducGQ=
+X-Received: by 2002:a05:600c:548c:b0:49f:dc71:e609 with SMTP id 5b1f17b1804b1-4a1d7610f2dmr127399005e9.20.1792364079193;
+        Sun, 18 Oct 2026 15:54:39 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1e19ad17esm42257355e9.3.2026.10.18.15.54.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 15:47:11 -0700 (PDT)
-From: Mark Pariente <markpariente@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: =?UTF-8?q?Filipe=20La=C3=ADns?= <lains@riseup.net>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mark Pariente <markpariente@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] HID: logitech-dj: Re-announce connected devices on reset-resume
-Date: Sun, 18 Oct 2026 15:46:27 -0700
-Message-ID: <20261018224627.60328-1-markpariente@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        Sun, 18 Oct 2026 15:54:38 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH 0/3] media: USB: validate transfer lengths in URB callbacks
+Date: Sun, 18 Oct 2026 22:54:34 +0000
+Message-ID: <20261018225437.2655311-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,72 +74,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If a receiver is reset on resume, for example because a USB KVM switch
-moved it to another host while the system was suspended, its paired
-devices may have reconnected to it while the host was not listening.
-The connection notification the receiver queued for the host is lost
-in the USB reset, so hid-logitech-hidpp never re-runs its connect
-handling for the device.
+From: Tristan Madani <tristan@talencesecurity.com>
 
-Devices drop host-configured state when they reconnect, so whatever
-hidpp configured on connect is silently lost. The most visible case is
-HID++ 2.0 hi-res scrolling: the mouse reverts to low-resolution wheel
-reports while hidpp keeps scaling them by the hi-res multiplier, so
-scrolling becomes extremely slow (1/15 of the normal speed on an MX
-Master 3) until the receiver is replugged or the mouse power cycled.
+Several media USB drivers process URB transfer buffers at fixed
+offsets without checking actual_length or iso_frame_desc
+actual_length.  When a device delivers a short transfer, the
+arithmetic on the length value wraps and the driver reads or copies
+from an unintended memory offset.
 
-logi_dj_reset_resume() only switches the receiver back to DJ mode. Also
-ask the receiver to re-announce its connected devices with the HID++
-"fake device arrival" request, which is already used to query paired
-devices on non-DJ receivers, and which Solaar sends to all receivers on
-startup. The resulting connect notifications are forwarded to the
-existing child devices, whose drivers then reconfigure them.
+This series adds minimum length checks to three drivers:
 
-Reproduced with an MX Master 3 on a Unifying receiver (046d:c52b)
-behind a USB KVM switch: suspend, switch the KVM away and back, move
-the mouse while the host is still suspended, then resume. Without this
-change the wheel stays in low-res mode with the hi-res multiplier
-applied; with it, hidpp re-enables hi-res scrolling after resume.
+ - cx231xx video: isoc and bulk handlers need buffer_size >= 4
+   before computing p_buffer + buffer_size - 4
+ - cx231xx VBI: same pattern, raise threshold from > 0 to >= 4
+ - au0828: isoc handler subtracts 4-byte header, raise threshold
+   from > 0 to >= 5
 
-Fixes: 534a7b8e10ec ("HID: Add full support for Logitech Unifying receivers")
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=203421
-Link: https://gitlab.freedesktop.org/libinput/libinput/-/issues/528
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Mark Pariente <markpariente@gmail.com>
----
-Tested on Fedora's 7.2.11 kernel, with this change applied to the v7.2
-driver and loaded as an out-of-tree module. Only tested with a Unifying
-receiver (046d:c52b) and an MX Master 3; Lightspeed, Nano and 27 MHz
-receivers were not tested. Investigation, patch and changelog were
-drafted with an LLM coding assistant, then reviewed and tested by me.
+Tristan Madani (3):
+  media: cx231xx: validate minimum transfer length in video handlers
+  media: cx231xx: require minimum VBI transfer length
+  media: au0828: require minimum isochronous packet length
 
- drivers/hid/hid-logitech-dj.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/media/usb/au0828/au0828-video.c     | 2 +-
+ drivers/media/usb/cx231xx/cx231xx-vbi.c     | 2 +-
+ drivers/media/usb/cx231xx/cx231xx-video.c   | 6 ++++++
+ 3 files changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hid/hid-logitech-dj.c b/drivers/hid/hid-logitech-dj.c
-index 6e8db01d27ec..cdb20fdc7b21 100644
---- a/drivers/hid/hid-logitech-dj.c
-+++ b/drivers/hid/hid-logitech-dj.c
-@@ -2010,6 +2010,16 @@ static int logi_dj_reset_resume(struct hid_device *hdev)
- 		return 0;
- 
- 	logi_dj_recv_switch_to_dj_mode(djrcv_dev, 0);
-+
-+	/*
-+	 * Paired devices may have reconnected and lost their configuration
-+	 * (e.g. hi-res scrolling) while the receiver was unpowered or switched
-+	 * away by a KVM. Have the receiver re-announce connected devices so
-+	 * the child drivers run their connect handling again.
-+	 */
-+	if (djrcv_dev->dj_mode && logi_dj_recv_query_hidpp_devices(djrcv_dev))
-+		hid_err(hdev, "%s: failed to query connected devices\n", __func__);
-+
- 	return 0;
- }
- 
-
-base-commit: ae6927c533a4454570950125ca8ba909c45f20f9
 -- 
-2.56.0
-
+2.39.5
