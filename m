@@ -1,128 +1,137 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A5A03DB31A
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 16:33:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F7C03EA963
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 16:34:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792341193; cv=none; b=AKVJjf7ZTKE1OuS/EcDMLH5U911/2brAdvJ6TfeQNfXZhV6SBazKXfx6i5qodq7Ld5Lta0No7Rbee3U9bn7ZnRm17EValljkF1aO3UF1QzlF1pe/eyMJ0GLjH3Kc+q/rJlXnmIBGGqzvtQqrHKgdENq+f/ImKQVUQUh7l4ZDuQE=
+	t=1792341291; cv=none; b=WNUCQS3hJC9AxGdyDsoYIqEDGHC/8tpltmPkRibNi+l7TIO2VEBJ9r1XE3v9YrgFaL2XWoaEq/1we+4XZzOiVRwcQDR0LDor0H+H16SuR3i+CQVzzgpBN1ZCY2o8q9ygaNno1j206tGteQzLjuNJPQ+/DycfzCKjvvJJxrLvzmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792341193; c=relaxed/simple;
-	bh=AJ/km8sE6GctD4RuE/KlvnKKGAXGH2QdqK+ac6g6Ezo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BE9b+MjfUSJhi9L5u/bM0Aqn91MXQiv01NVnMxivGn4L+ktyOeYgurHAZ9OOwOA5e2O7+WmPJ1kjUCmlI5VSGZJalPOkC0OnaZb2gynvSZKca2KTglhZjGSnGNpfkT5KUfsQTCBq9XUKKQKgmf3/Pjy8bbIZ8S83nU3ru7pYsIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A2tNA6R3; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1792341291; c=relaxed/simple;
+	bh=KsvbhHmrpPYdQnremxgLvolRQzFzNASHFLr8Ynq5MnY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mbRQuHDxfXPmvox31rT9NFQtJQzBhrKaMss7yeS7/KP5GYEZGoQGEmMM7l3FxFCPi1h3kdVkSWJJP4FCoT3nyDRegE+hNWYnx+7ad7AABZyCwTSdcjkcriVjw5Ir995x1yh63fTgN6r9oN6KNQutuxi82xJ6M+MDdPFIs1DofII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T9WCeA0Y; arc=none smtp.client-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A2tNA6R3"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d6d28aa26cso4973415ad.2
-        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 09:33:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T9WCeA0Y"
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-15ea896ddc8so1562588c88.0
+        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 09:34:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792341192; x=1792945992; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8lASuEAWr02cFkueHsd07yvRwkaU6dw60ogYfI+giIU=;
-        b=A2tNA6R3Vkx0sbAjhxknPHRb+hTU4X5Hjo3H3xLWAypJXOUWqXsLhSaLVZD5AXy4tU
-         sj1/jYi+16zV3sW1W/tuFc8zIJco2PgtyAiS+KI9zfpBtASAzOXulIHbMQzmuh4c2OCe
-         CGsrQ2LAQfpFEbO/Ni+RT4D8VBFFYL8aMR/gVRYCMAO4ptIk/tXvCSgz5OVSemO1fwgh
-         Yc/qoea0n1PfS0ZhXh2cpp1YiTWX5aMsUbYVm7HioD6WbksWs8KQGvHEadH+BtMQ1AT7
-         c7RHxtiARNrAKya43R1IGw3Hh+I3KMBZdoM3s5rOR5x35FbfnXc6kv3uIJtKEkO2aKK3
-         O0uQ==
+        d=gmail.com; s=20251104; t=1792341282; x=1792946082; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YpKPKplGyC1zv9vCrQd5tlK3JvlHI8Pmz+ZUDoFfyg0=;
+        b=T9WCeA0YI514ZO3//AEJhYYo5OYAvjOweaDNxsLm5t5AahQey15DMAnKQIKHLfTW/C
+         s6h4FzPx2AwAQyA9xxIdeiF8jWphwBUY+4W1SpmwW2sVzFAsGxDz7qi2T7Xq8I8KpXAN
+         a4IbjiwnB8lU9R/cU7rFbqnArwyUQujJ4QVWthHLTUk+3bg6DsXusZMwH3s4lQPWcUxT
+         T8BMI0pURZ1AXYaryr83ppZW7UNc0+KRP7Qm0AGS3br6lrDb+boUznKPqGREp/Urt4p6
+         QQ6Y/4RoiO0HnuB1WglEnaVajDtjGXodyZrjFpvFdEjmiD4F19PREaaciXFbpInPSRAy
+         rbjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792341192; x=1792945992;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8lASuEAWr02cFkueHsd07yvRwkaU6dw60ogYfI+giIU=;
-        b=IYfEzDZ7Rjzyb8PFPHhjAEFiXbGrOaArfHcFUfeyKtnLloFJHcjOflrjWqyxFTsAQ0
-         UhpUFEJpCAWtwWn99S1JXyJy9LHNLBBCl169rb8KAiTbp7flxcCQApmsQi2maC+3uKRd
-         G8gIiHI2AKC5BZxblCdlF8mBxNTYIDaVm8QIdt0UBxSgoZbuaMElZzaT/CYHGHmMS17E
-         bGnNeh5/NKmP1PXPePI8U51ZVrT7qlAbCOyDsKqNKe/B70s/aMzJzFIMbTYOzwwCvaIm
-         LEDwkxMgKnEGOFaXntcyi3Ou38unRqc9mMg8ot7ROcOghA61zCzRV4ThiZBjlbiZnq1K
-         Blfw==
-X-Forwarded-Encrypted: i=1; AKwUvBz0VNpyG8hLdd+ysfB+hkKW+kt3STPBMi8Hp0718gZ2LCVBp7HkDkW8BJMMPH/fXQ4WBQyi5wM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJCBLa/d+iBdyQFtP35Vj764Lc6I3FmqUgQVTSHMruYDs5bcrIR
-	NjVBmI5PwbVHbkKjUZ4SrLvCGDUbkC5fT4IuYVAwYKNXKV1HVvJR8ALT
-X-Gm-Gg: AYBFou3KMyJ8fLTTVzQQoLXvu+iknPKZsfPQMTbUw6tXyybDTn6mx+bDtX9i+KAHLEz
-	Jc3WMhofb4ustkr6fvvJrzOYWcaLFVlhQtDp8rC9bpzPP0s9eNYGam4fisPa6SmfNHLTrQnTPVz
-	T+rUsW28GMHZZxqYREbqLSbe/6kUKr3LQn0oNOUpoj4pa/tAGPnNx1IhR6qbxjKTt7FMPiJhz46
-	MZuczcGfz+D9orr6NrVYzgBOX6F5hZ3Zt4W/pWd6qutSOOet4aD6JyW6xs3qFNWu6uKL68zFt29
-	sxOjCtjYthXqBrOzUakTxg+5hQ1ADcz+nzmysYaJ02I/P8Pe9Dm/vnR5bR0SYyI75ZSAI67NRHU
-	QztLabpaOB0TR3bK3iC16j61y1kq3eVC/M7zvdGi/NdcB1X6kURF5OARLHJzU6iFD2kq9UxcXia
-	77NvBVSC1nuFTHCIJoFTccVBDJTkFM5a0O4wHDWmcZIYh6SJmaBJD1xbsxQQ75LxopSbki+Sbdm
-	LYzwc/aqjxBG8jOvZD/22I=
-X-Received: by 2002:a17:902:e748:b0:2e9:8510:6acf with SMTP id d9443c01a7336-2e9a6bff6c2mr46257275ad.25.1792341191722;
-        Sun, 18 Oct 2026 09:33:11 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e83406bsm29315425ad.38.2026.10.18.09.33.10
+        d=1e100.net; s=20260707; t=1792341282; x=1792946082;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YpKPKplGyC1zv9vCrQd5tlK3JvlHI8Pmz+ZUDoFfyg0=;
+        b=jKWSWYQsIevHKl0LL/7YML5MJ73INfdJ88WQ3v/9w4+bT4G9ATHEwxjEyv7qiUlOSJ
+         YtopvZn3aOvHjO/h0S5TXaXOGY0UL1MUT+J8C1VWEVPhIwy4GvldWBW3u3xo0bklT4Oh
+         9sDRo/8/y/pIo5KQCd1nigwXObh4YVz0UqBESDjyl/BM3NUbY2TgNB2zH5nX7dwiFFBA
+         8BezuDN3eneI8Zx/w29h1gmBDGHHeId/m/nrCABDsB+Q7oaB37FP4xknwi94xzX6BQvu
+         yoX1qznPRYWX6WGXqKJP9GB+JXqp0C0CmhDKb9n4iclwV5n/8Y/ZC42a+vEhgO8p/kiW
+         oAsw==
+X-Forwarded-Encrypted: i=1; AKwUvBxW5IlHzbQRIo+5LPw5SM0lvPLNykMBOsV1CVzNaA94X+EPisNFQ+7YAoC/4CsTaiN6S23hM7I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ5FUrv2GEZcDjSMRW33OeKdCcfaiEZeh4CWV8m5BB9iNZnPv1I
+	778wCr9xK3iqEAwYBlVXmm9diABWI0BMe1P6nKtH8JobtFCNhz0EmPrB
+X-Gm-Gg: AYBFou0GLahxEa0pmWzouo/mPAxg9tchW3fCG6Jn2l5HiKKa1Lg55DI2o+lYjFgeXAX
+	SgQNntvC+YhXb2LVbwAn/ZFRRGi83C6zx0Ydz2/ppob4SCT+tu4XDajMcZzCbeFBXdsasJWPqkB
+	x0m3vf43Hmahc5/q3vwrGR0ZuPQ/aWamoCdrzi5UmgJzNV+bzeHA3xJFolVibPnYgYl8r1AK04e
+	h6h5A5kYpt3HFdsjXjk/jytt+zT7JfnlhvesFlpnVZ5j0Jv3iV2/Vyr7mFXUO1F/5frV2nlOFEI
+	zL09mSZMevr/rbJIlfAFPTGECy9uEUdtiprE1hWCeTw62HSvaJiTmfVds8pEJA1rI8qPpowpsj3
+	uyJIMzufcrNtzCtecWejOXP1npfTm03v/qGckIceB0Y4Y+WzA87HeBJFwI1kV/t2Qp9jyey8vaG
+	8AoyfjHMp8h+vDzxvu7ZUCHX/uDeP9Nev+E2OUKtfEHrALltSaJ9t6oQ4Y5zifQkyOQOXVHX8PA
+	MVIxN9tiDGe8UvQ9U3dkovpOkrr2z2uDj12Eer/JcKO4ZiHtSocMleyv5LH+we9hdnmwyZH2PeM
+	zemhFw==
+X-Received: by 2002:a05:7300:dd45:b0:358:5bc0:4f08 with SMTP id 5a478bee46e88-361a2b3a5cdmr7150254eec.37.1792341281979;
+        Sun, 18 Oct 2026 09:34:41 -0700 (PDT)
+Received: from codespaces-393231.mimvmn1ww3huhhjmzljqefhnig.rx.internal.cloudapp.net ([4.240.39.195])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b6e33sm26303667eec.7.2026.10.18.09.34.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 09:33:11 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sun, 18 Oct 2026 09:33:10 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Sanan Hasanov <sanan.hasanou@gmail.com>
-Cc: Marius Zachmann <mail@mariuszachmann.de>,
-	Sanan Hasanov <sanan.hasanov@ucf.edu>, linux-hwmon@vger.kernel.org,
+        Sun, 18 Oct 2026 09:34:41 -0700 (PDT)
+From: Eklavya Singh <eklavyasingh2106@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Aleksa Savic <savicaleksa83@gmail.com>,
-	syzbot+0f98b0c0bdeaab2dc2fd@syzkaller.appspotmail.com,
+	Eklavya Singh <eklavyasingh2106@gmail.com>,
+	syzbot+1459655b2bf1e798f9d0@syzkaller.appspotmail.com,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] hwmon: (corsair-cpro) Make wait_input_report_lock IRQ
- safe
-Message-ID: <0b7c972c-f3e2-41ee-bd75-45bcae83a34a@roeck-us.net>
-References: <20261008205310.30832-1-sanan.hasanou@gmail.com>
+Subject: [PATCH] usb: gadgetfs: fix use-after-free after a failed bind
+Date: Sun, 18 Oct 2026 16:34:34 +0000
+Message-ID: <20261018163434.129569-1-eklavyasingh2106@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261008205310.30832-1-sanan.hasanou@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 08, 2026 at 04:52:45PM -0400, Sanan Hasanov wrote:
-> From: Sanan Hasanov <sanan.hasanov@ucf.edu>
-> 
-> ccp_raw_event() is the HID ->raw_event() callback and takes
-> wait_input_report_lock with a plain spin_lock(). This callback can run
-> in very different contexts depending on the transport: from process
-> context (e.g. uhid, via a write() to /dev/uhid) with softirqs and
-> interrupts enabled, and from URB completion, which is softirq context
-> for HCDs using HCD_BH and hard interrupt context for HCDs that do not
-> (e.g. OHCI, UHCI).
-> 
-> Taking the lock from process context with softirqs enabled while the
-> same lock is also taken from softirq context can deadlock if the
-> softirq interrupts the lock holder on the same CPU. Lockdep reports:
-> 
->   WARNING: inconsistent lock state
->   inconsistent {SOFTIRQ-ON-W} -> {IN-SOFTIRQ-W} usage.
->   ...
->    spin_lock include/linux/spinlock.h:347 [inline]
->    ccp_raw_event+0x51/0x110 drivers/hwmon/corsair-cpro.c:161
->    __hid_input_report+0x41c/0x580 drivers/hid/hid-core.c:2175
->    hid_irq_in+0x492/0x710 drivers/hid/usbhid/hid-core.c:287
->    __usb_hcd_giveback_urb+0x378/0x540 drivers/usb/core/hcd.c:1657
->    dummy_timer+0xa91/0x4cc0 drivers/usb/gadget/udc/dummy_hcd.c:2023
-> 
-> For the same reason, the spin_lock_bh() in send_usb_cmd() is not
-> sufficient when ccp_raw_event() is called from hard interrupt context.
-> 
-> Use spin_lock_irqsave() in ccp_raw_event(), since it may be called with
-> interrupts already disabled, and spin_lock_irq() in send_usb_cmd(),
-> which always runs in process context.
-> 
-> Fixes: d02abd57e794 ("hwmon: (corsair-cpro) Protect ccp->wait_input_report with a spinlock")
-> Reported-by: syzbot+0f98b0c0bdeaab2dc2fd@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=0f98b0c0bdeaab2dc2fd
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sanan Hasanov <sanan.hasanov@ucf.edu>
+gadgetfs_bind() takes its reference on dev_data only right before it
+returns success, but its error path calls gadgetfs_unbind(), which
+always calls put_dev(). So when bind fails it drops a reference it
+never took.
 
-Applied.
+With ep0 open the count is 2, one for the superblock and one for the
+open file. A failed bind takes it to 1, closing ep0 frees dev_data,
+and the superblock still points at it. The next open of ep0 then takes
+dev->lock on freed memory:
 
-Thanks,
-Guenter
+  BUG: KASAN: slab-use-after-free in _raw_spin_lock_irq+0x3d/0x50
+   gadget_dev_open+0x4b/0x1b0 drivers/usb/gadget/legacy/inode.c:1919
+
+syzbot gets there by making an allocation in bind fail, which is the
+"failed to start USB Gadget filesystem: -12" message right before the
+report.
+
+Take the reference before anything in bind can fail, so that
+gadgetfs_unbind() always has one to drop.
+
+I tested this on dummy_hcd by writing a config to ep0 with fail-nth
+set and then closing and reopening ep0, for every fail-nth value the
+write goes through. Without the patch KASAN reports the use-after-free
+right after the first failed bind. With it, 122 failed binds give no
+reports and the last bind works.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: syzbot+1459655b2bf1e798f9d0@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=1459655b2bf1e798f9d0
+Cc: stable@vger.kernel.org
+Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
+---
+ drivers/usb/gadget/legacy/inode.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
+index 67c6ffaf4..f5b97dcd4 100644
+--- a/drivers/usb/gadget/legacy/inode.c
++++ b/drivers/usb/gadget/legacy/inode.c
+@@ -1688,6 +1688,7 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
+ 		return -ENODEV;
+ 	}
+ 
++	get_dev(dev);
+ 	set_gadget_data (gadget, dev);
+ 	dev->gadget = gadget;
+ 	gadget->ep0->driver_data = dev;
+@@ -1706,7 +1707,6 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
+ 	spin_lock_irq(&dev->lock);
+ 	dev->state = STATE_DEV_UNCONNECTED;
+ 	spin_unlock_irq(&dev->lock);
+-	get_dev (dev);
+ 	return 0;
+ 
+ enomem:
+-- 
+2.55.0
+
