@@ -1,173 +1,106 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BEE8471258
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 11:30:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3086147FAF7
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 11:30:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792323006; cv=none; b=RFKVF28gRwYf23WPdjAb6c96gHFv20SMFXmDyL9nT+ZthOBzU8pBAWYSQXIwAHh4Xd3JMYt5O/K/K4WV0yJkLE2NdDdT2/M1ykUJpfosDOVGIhnkjfi8rp3WYcC3AUsT3WkJFOEgTCm1uH1LW876N1e9TbV28Ai57SNmVnW5kEw=
+	t=1792323028; cv=none; b=a9Pnqd+2TX1MI3bHhLReTKJpP40IUziKrLraeswOEy6MQqfM69XVOCuY3pUapXzME2V0iAYqE+ZZ1hjR02VYAaAVQtYb037JO1Pvdz556xJeLzWO7bxJgAqhOS2lJO/4nmdJV2riesFhRU/e508/rsb5nibFiEV0aHbwRif891s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792323006; c=relaxed/simple;
-	bh=z9mZ1nkUPH//WXspdQ7uPbIwDfgZdqWERRmaO6Hli4A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=P4qmvmtvB02OoTFGYCEZqdseSqkWxm322rjDNrOr/Tp6elsXN82hxR4DIioxdXjnPQcX/uCMg25+Mhdkw5BSZpz7ffkif5zTMuyxPhOW0x1KZSTE8MuE77OG/ADDBwJGQ1EHklFam4Z+fTxtj+usXEc4m95PcRLT8A2to13jXeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PjjZIECs; arc=none smtp.client-ip=209.85.210.176
+	s=arc-20240116; t=1792323028; c=relaxed/simple;
+	bh=X6gzrwrZSwvb6nhYFxp6vBs7zjV097PxDw1Oj/IM9k8=;
+	h=Message-ID:Date:From:To:Cc:Subject:In-Reply-To:References; b=m5CoEVgmyJ9MIoXzA6VIBoTNqWZBff8PjjlvGK6tR9lU4QKp7pTxUBNykWCYicEN7eFukaTFycZZZozKkywNhsC3UZi8raY34yPKxU6yS82uyBkb9uQplmxBlPBeRo7Q2yZkgqIhNd4GVmrb9gmqxGJsiZVVUpuwNbLBYgaaaTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UNgO7trm; arc=none smtp.client-ip=74.125.82.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PjjZIECs"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-89e2d6c31f7so39787b3a.1
-        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 04:30:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UNgO7trm"
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-33e623bd651so101636eec.0
+        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 04:30:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792323004; x=1792927804; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iv8yp98/kiK12Je0YsBkzTzUev6Y+uj8yzE4h7Pr6dI=;
-        b=PjjZIECscdpymnIA8mlSUDvnOisC/CEzSRhDuh4PSFSuxAydCiDWzWNU7OUw/9vmuR
-         3RvFPYbWyLVexONIdOUMPF99MjfqYDr0xw0YXW89kYtrthnVfzHvwtvbwp1w9RLJujd9
-         oc384QEgZWLwZ9bxIpOhJpVFs8wPJSveGfrlWUY0UeUk08gZiMXW/tZN80+s7IZQxnD8
-         vyXm0Mno8/D1jRAIlHrdY7r2EuKxbViXYRBINYETj1mMHL+03jGg5OCn501IV61HonFq
-         X4s5g8Z2NdtLlE0wFGvVfzWqX9B9Sl/WRNLTT0gwu7VMEpO/jsj7/y+KCEE8ctr7rZGk
-         +31Q==
+        d=gmail.com; s=20251104; t=1792323026; x=1792927826; darn=vger.kernel.org;
+        h=references:in-reply-to:subject:cc:to:from:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=zqbMboxnHiPTWg2dbceDr02J6CVLgX+y93se6T9a34I=;
+        b=UNgO7trm0/YZBMzR+ozQwURYeoUDI55MtLJxMp9sKpYwqJCyd+vErVf6yfeAbKEYCq
+         vTIc/o/pc7JKHMs8AZZ1z33rMW0adAP/9lrT4qsZUeyXpuDf5lVo+F96EQgteWKV7Fuq
+         zhHV4/vPSulnA6oAOoJmqn5q4kgESLNmydfwBDtzN4R4WQg4LfNamoYrPn3OzYZKw647
+         FMqZ2v6/2erIOi/W6cMpF+gj8hVkkFxUIyfOcNKxSWhU8dlWdfvxU22SsoND1lhiMqhs
+         bA/R/E9tfycNVMnQVgjBIF4VHBnwjJmYC/voAqcsuV+d8Rtq/4uyIG5R506Uuf/eu2C6
+         iLig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792323004; x=1792927804;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iv8yp98/kiK12Je0YsBkzTzUev6Y+uj8yzE4h7Pr6dI=;
-        b=otmU5+m7qucEFX/6hsMm4M8CPTnAPDtfguKCR9Rp7K4KyFpTr5KkZ/97aK1r1lfYpv
-         FgIWNq0qIGR16rlcsuu7dBZIYCBDFBTVyezV9+IWeah1xdaDg+R6uJI0/XbpjNoFaM1M
-         BYekmu2O1bs5NxC06ALdmndUywv/uQLsUD67gfq5MR08cUO6l7w0xYKbXlpeYR8E05ug
-         Elg8tyn3K/F1qvxk+/FPdg/bO5bOMpPC7zao+YsZWMUx5z01FQLStuvnAWdMwk5hNnCg
-         XjKxcrr9NXAtN/6J69T6sQLPOpM2tNi1ySzoq0R7keffN40CSIz7rbCBPt7zbrAD6AoQ
-         7Ynw==
-X-Forwarded-Encrypted: i=1; AKwUvBxxVQvMfn6zHQDyWIt/n7n06BywZLvYT5tSfZq70p5rLxY4ZjcZnDbsEBxrn6f1NSGMVKXeCg0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJVjXPWsku6C+OB0EW0jqIDUJC92OULWErBvMLbT3/lLUd75vR+
-	NAwQu6KO7/bkC/LhINlfGvYQ0Y0ia+C5qLS95pVNGJb8GWSiqbRaSGcR
-X-Gm-Gg: AYBFou22e7WYLURO/++YdKv5W0ylmP8PSW1eO0wHcK69N60bMp1+l9R0X5LBM1jZ1+g
-	AUbXZNR0B2/ZeX0D9EMnS1M8R4aWVJAD0wmKmGYYrb4GJBpbXoh8YK5nhj5CRA9Bc276GqVmf0c
-	ihndruPpqS1VdSw0T6ECDO5aVQ8FEmqP/6KrTJDKen0ezvxF3kThgjRigUfIwVs8y8jXoQLr3Xf
-	7Yz9tBje49QQubOz7zTHriSq2WnQy/Cv9JBiq1xHzM1tZ7mX2r1jvRkbEs6qGvD5kiBOCevulR5
-	CcFTkZE7GRsF3TnMnMth7OkQjXUMAptnj0eKy9tBzjiHXzLQpBzays5HSu9peWnDHWsWgHi60Tw
-	t+bcyRsRf0DkczmNAiNynrKeG+ss5H72jJCggWXnKM4ymAKtvaXFQXkhRpLNenVlGywsbwvtutM
-	d+4vZW7gvbxy4Xz9oVVm1x+nNCMm5fG6NXizc7RUfraR120dPJGEI8Dm9ImfAAgVl60g4dvogz+
-	3ROiLUReDQ7PObIbwrnhK1/0/ZRzbnVLYKfXrzNylZu7eCQ3UAWUGw93Qh1ySOeKNs=
-X-Received: by 2002:a17:90b:48cf:b0:3ac:e6a:1af5 with SMTP id 98e67ed59e1d1-3acee6f12famr6963832a91.2.1792323004381;
-        Sun, 18 Oct 2026 04:30:04 -0700 (PDT)
-Received: from localhost.localdomain ([113.102.237.20])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd9c4b4eesm9195365a91.2.2026.10.18.04.30.00
+        d=1e100.net; s=20260707; t=1792323026; x=1792927826;
+        h=references:in-reply-to:subject:cc:to:from:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zqbMboxnHiPTWg2dbceDr02J6CVLgX+y93se6T9a34I=;
+        b=zlNH1mgbeXn4F7RgGhjcjCxI2oogLpmDDtl8jKUaHqac7qlQ1K1z5GhCh5dzD8ogMw
+         SJf/2aJ3nhSQdV8sE0pl+LI3Glg3a9SmI41U4bNkjEcWcE3uwo1TDB8zj+5uPUZJtpNL
+         YiuinKmaht9R1gLPC51/so0B9IChvQjEmim6+jDo2v3+YGYK0S39WwWTeKaGGX19lfRN
+         8qq8kWj7dcLcqeIXMi2add1k1Q3d1tULE45Dz6Iz3HEmu0YCcWWsbBNAWpJndop7loIG
+         T3yd6NZfoo8E/0jKX5YuA1toCXqLgRN8zUUb4QI9LYg8ck48FrfTXIH2Af/1NQwOP6jc
+         GGmw==
+X-Forwarded-Encrypted: i=1; AKwUvBy5znX9QtdgFR2LGO/o7sOvgV1F6mYHKfkiZyoJKAmyxk7+D5bQDlnr3wLWWcXaxwYzZGGXRlM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ6ugv+r3Um9bnzAI3IzvgGO7NG6z5dfYjh8uM1Vl5tGWXbs8p9
+	TGBzf7eOOs+NN7Vctsb5ZmNjwBZc3QZkkXFlMCFeGZ/Wew0Hsz6/T2mk
+X-Gm-Gg: AYBFou1Caa2rOjqT23GLVpNe61i82/tGZDc+4NTmNjNd/u4PRkTnECLE81PXE2h6XMx
+	OZwTlAHkmnGA3aIIaDGSHKppKjJvS/SR8UOGJ+2lFsA1nBemRZJmy45itaV70J0ROUnujPpZx7h
+	AWgyqOyclIr9deY7M/l6cGktg3gzg6segL14ED1RryQIXqbdSXinm7/eFEBvYAnBjVFp2aIs0AO
+	CPqZQYNQsFJJ1+T32QP9nY/s4/LrFRzNSJqFVgUiQD5+JWTuuHzjDmVCAJQLdlJnd/67lANBvAK
+	NbpywfdwHp5g3m9it9BpgDNUwhBVjtWSXWqyxxe/Vv33Oo3/eXHThHMvsYBFFeGYylxPbpa72UL
+	G9wLaoM64wvBiqsEFIIGLP4RmMxFs+DMTRgd40oZ6yXTjprHTsRlFfj3EpHu1ml7hz3fQfsGhX9
+	luDDe6FOoGYOiW0rvJZTwsVzxi9/EmDK0foyRNsZTDzawf8gg1KSFNL/SALmISupLz53WlblG2j
+	hLX9Bh/BsUcv84RfCgjNj3GRPQkRK0gIFqpfZXz
+X-Received: by 2002:a05:7301:1c99:b0:358:c9f3:b055 with SMTP id 5a478bee46e88-361a02b6dfamr9574409eec.1.1792323025943;
+        Sun, 18 Oct 2026 04:30:25 -0700 (PDT)
+Received: from msg ([188.253.120.76])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0d391sm24066119eec.4.2026.10.18.04.30.21
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 18 Oct 2026 04:30:04 -0700 (PDT)
+        Sun, 18 Oct 2026 04:30:25 -0700 (PDT)
+Message-ID: <1792323015.61575.10feb7db22@gmail.com>
+Date: Sun, 18 Oct 2026 11:30:15 +0000
 From: Qihang <q.h.hack.winter@gmail.com>
-To: jhs@mojatatu.com,
-	jiri@resnulli.us
-Cc: netdev@vger.kernel.org,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	pablo@netfilter.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] net/sched: cls_api: unlink indr cb on a failed bind
-Date: Sun, 18 Oct 2026 19:29:55 +0800
-Message-ID: <20261018112955.61470-1-q.h.hack.winter@gmail.com>
-X-Mailer: git-send-email 2.54.0
+To: netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+    Jiri Pirko <jiri@resnulli.us>,
+    "David S. Miller" <davem@davemloft.net>,
+    Eric Dumazet <edumazet@kernel.org>,
+    Jakub Kicinski <kuba@kernel.org>,
+    Paolo Abeni <pabeni@redhat.com>,
+    Simon Horman <horms@kernel.org>,
+    stable@vger.kernel.org
+Subject: Re: [PATCH net] net/sched: cls_api: unlink indr cb on a failed bind
+In-Reply-To: <20261013162949.25622-1-q.h.hack.winter@gmail.com>
+References: <20261013162949.25622-1-q.h.hack.winter@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-When a device is bound to a shared block through the indirect flow-block
-path, flow_indr_block_cb_alloc() links the driver callback on
-flow_block_indr_list.  If tcf_block_bind() then fails, its error path
-removes the callback from driver_list and frees it, but leaves it linked
-on flow_block_indr_list, so the next flow_indr_dev_unregister() of that
-driver walks the freed callback.
+The [High] finding is valid, thanks.
 
-Remove the callback from flow_block_indr_list before freeing it.  That
-list is protected by flow_indr_block_lock, so do the unlink under the
-lock through a new flow_indr_block_cb_unlink() helper.
+flow_block_indr_list is protected by flow_indr_block_lock, and the err_unroll
+path ran without it, so the list_del_init() there could race a concurrent
+flow_indr_dev_unregister() that walks the list under that lock -- and, if the
+notify half unlinks first, list_empty()/list_del_init() could touch a node
+that is already off-list.
 
-commit da94a7781fc3 ("net/sched: cls_api: remove block_cb from driver_list
-before freeing") fixed this same error path for driver_list; indr.list is
-the link that change still misses.
+v2 keeps the unlink but does it under the lock: it adds
+flow_indr_block_cb_unlink(), which takes flow_indr_block_lock and calls
+list_del_init(), and tcf_block_bind()'s error path calls that instead of
+touching indr.list directly.  Taking cb_lock before flow_indr_block_lock is
+the order the indirect bind already uses (tcf_block_offload_bind() ->
+tcf_block_offload_cmd() -> flow_indr_dev_setup_offload()), so no new lock
+nesting is introduced, and the bind and driver-unregister paths are serialized
+by rtnl in any case.  flow_block_cb_alloc() now initialises indr.list, so the
+helper is a no-op for the direct (non-indirect) callbacks that are never on
+the global list.
 
-flow_block_cb_alloc() initialises indr.list, so the helper is a no-op for
-the direct (non-indirect) callbacks that are never on the list.
+Rebuilt and re-run under KASAN (arm64): the unpatched kernel panics in
+flow_indr_dev_unregister() with a slab-use-after-free, the v2 kernel completes
+clean -- the bind still fails with -EOPNOTSUPP and the driver's
+flow_indr_dev_unregister() returns 0 with no report.
 
-Fixes: 1fac52da5942c ("net: flow_offload: consolidate indirect flow_block infrastructure")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
----
-v2:
- - unlink the callback under flow_indr_block_lock with a new
-   flow_indr_block_cb_unlink() helper; v1 called list_del_init() without
-   holding the lock, which races a concurrent flow_indr_dev_unregister()
-   walking flow_block_indr_list.
- - initialise indr.list in flow_block_cb_alloc() so the helper is a no-op
-   for direct (non-indirect) callbacks.
-
-v1: https://lore.kernel.org/netdev/20261013162949.25622-1-q.h.hack.winter@gmail.com/
-
- include/net/flow_offload.h | 1 +
- net/core/flow_offload.c    | 9 +++++++++
- net/sched/cls_api.c        | 1 +
- 3 files changed, 11 insertions(+)
-
-diff --git a/include/net/flow_offload.h b/include/net/flow_offload.h
-index 70a02ee14308..b8ca8cc0a241 100644
---- a/include/net/flow_offload.h
-+++ b/include/net/flow_offload.h
-@@ -640,6 +640,7 @@ struct flow_block_cb *flow_indr_block_cb_alloc(flow_setup_cb_t *cb,
- 					       void *indr_cb_priv,
- 					       void (*cleanup)(struct flow_block_cb *block_cb));
- void flow_block_cb_free(struct flow_block_cb *block_cb);
-+void flow_indr_block_cb_unlink(struct flow_block_cb *block_cb);
- 
- struct flow_block_cb *flow_block_cb_lookup(struct flow_block *block,
- 					   flow_setup_cb_t *cb, void *cb_ident);
-diff --git a/net/core/flow_offload.c b/net/core/flow_offload.c
-index 5071d7fe6ce2..62bc2eb6e0da 100644
---- a/net/core/flow_offload.c
-+++ b/net/core/flow_offload.c
-@@ -266,6 +266,8 @@ struct flow_block_cb *flow_block_cb_alloc(flow_setup_cb_t *cb,
- 	if (!block_cb)
- 		return ERR_PTR(-ENOMEM);
- 
-+	INIT_LIST_HEAD(&block_cb->indr.list);
-+
- 	block_cb->cb = cb;
- 	block_cb->cb_ident = cb_ident;
- 	block_cb->cb_priv = cb_priv;
-@@ -525,6 +527,13 @@ static void flow_block_indr_init(struct flow_block_cb *flow_block,
- 	flow_block->indr.cleanup = cleanup;
- }
- 
-+void flow_indr_block_cb_unlink(struct flow_block_cb *block_cb)
-+{
-+	mutex_lock(&flow_indr_block_lock);
-+	list_del_init(&block_cb->indr.list);
-+	mutex_unlock(&flow_indr_block_lock);
-+}
-+
- struct flow_block_cb *flow_indr_block_cb_alloc(flow_setup_cb_t *cb,
- 					       void *cb_ident, void *cb_priv,
- 					       void (*release)(void *cb_priv),
-diff --git a/net/sched/cls_api.c b/net/sched/cls_api.c
-index a9f54988561f..9e4ea3715419 100644
---- a/net/sched/cls_api.c
-+++ b/net/sched/cls_api.c
-@@ -1665,6 +1665,7 @@ static int tcf_block_bind(struct tcf_block *block,
- err_unroll:
- 	list_for_each_entry_safe(block_cb, next, &bo->cb_list, list) {
- 		list_del(&block_cb->driver_list);
-+		flow_indr_block_cb_unlink(block_cb);
- 		if (i-- > 0) {
- 			list_del(&block_cb->list);
- 			tcf_block_playback_offloads(block, block_cb->cb,
--- 
-2.54.0 (Apple Git-157)
+pw-bot: cr
 
