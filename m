@@ -1,111 +1,158 @@
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.164])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD3C4078FE
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 19:49:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.126.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792352994; cv=none; b=HiboUGZRwdBMKXPph5wll3aSrlXFX37A94f/wUQagonHOD7RoTMkin76PSlaosLHez5zegNFRBaU8SqLtNBNcZPZWa0oJKbOUJlrtAm/meajelpGN5x870ZpvS0nZ2k2PsCYkvj27VBkh6hH9Vt8k21sRPp3qAWFwkEvAI19Mas=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792352994; c=relaxed/simple;
-	bh=K7WXAtj6VcqOgXqUYGwSYxMRZ5G2Y+rU7yssblzKzYA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CKb/1t78096xLlMMjbx4uX/oIsOzyU/p79m9d912zk7NL+g+DzYcXQs12QGg+ELgy1ck9EjMcMsZGO9z4oWOnjAyf/ILDP6jZQxjEZj883GdNogdMwCj9xx8z138zYqX0UtxoGDsAPudOJNecsH5cJgqI+ObcUOESS1U61szMew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ametros.net; spf=pass smtp.mailfrom=ametros.net; dkim=pass (2048-bit key) header.d=ametros.net header.i=kernel@ametros.net header.b=RQyCDaWX; arc=none smtp.client-ip=212.227.126.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ametros.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ametros.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A775361952;
+	Sun, 18 Oct 2026 19:53:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.164
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792353197; cv=pass; b=jDMTa2M1JIzunkOMAPmHoTtkDtRmaO1QVBMDF/D0nSBMrPWwuU+Fn0u7fLPUUulbub7sCJAMY20idn4jAsRODR/RA+GolMC8GN7hdsRi8RZ+89V4pp7P55ZVkfvjhGerOO7N/mZ/QnGm5GfFjfnFV521qNjnnBsES75Xjt+Z4r4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792353197; c=relaxed/simple;
+	bh=R3o4vMzUrYsL/RCUK4nSgjcaLxI8VJKT2cq2tZpXVuM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=RsEoOglg/wHGjKKMyyfP5tgpDJ5QpnTj3OVFypV+G4bXOjNyCyq4ZgOM1K90AKIfov+dSKUW8hwOQTCuyrx+DZQyXCgMShlS0bhsnYVQkU6uIgXtq+GAbHc8z4G9Xuu+TOI/gVspisE+FRyCe96HFa5EM9UGBi3X5akhvivIR1M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=Y2BrKIbg; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=jhtCRQ9o; arc=pass smtp.client-ip=81.169.146.164
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ametros.net header.i=kernel@ametros.net header.b="RQyCDaWX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ametros.net;
-	s=s1-ionos; t=1792352989; x=1792957789; i=kernel@ametros.net;
-	bh=K7WXAtj6VcqOgXqUYGwSYxMRZ5G2Y+rU7yssblzKzYA=;
-	h=X-UI-Sender-Class:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:In-Reply-To:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=RQyCDaWX/W/jZhuc2CyEQK20UxPCinYCFpA08CGu2rBTYNqlS9gBg0KeGv5kTt/E
-	 91eccsoWX+0cQ+zZl9pGVPZ+1DR/QC1w5F8gYWyvrmI/gZeWkB9C0AHCRGe6RzKbF
-	 tOOJJQTuMLiMUZvqZw7PKzTkeqf++Mawt1Q/QxR4mNkLtXAnR2Pa3w887LDS2LlyV
-	 tydXUyQ9CwhyJQ/AbXuVD5rGz7X763Z1sZg9J9ITO74sNK9HiHMuaf/g9/aGGTGE9
-	 Geq2Up7k+ilMa2lJIpbaNF0GM1g9U1XCubpFz0jpx0K4G7G3kJp3g+bWrlpVF3okF
-	 2nFrj+Pv1acCJyyUTw==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue011
- [213.165.67.103]) with ESMTPSA (Nemesis) id 1MeCYx-1wieAk2bX5-00nmvv; Sun, 18
- Oct 2026 21:49:49 +0200
-Date: Sun, 18 Oct 2026 20:49:47 +0100
-From: Bob Anderson <kernel@ametros.net>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Wolfgang Walter <linux@stwm.de>, stable@vger.kernel.org,
-	patches@lists.linux.dev,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: Re: regression 6.18.57: acpi power button vanished in machines
- running in qemu
-Message-ID: <atUi2y2BDyrDGbpG@ametros.net>
-References: <5fe757e7aa54c38df3525d313598db99@stwm.de>
- <2026101834-parchment-reps-0bee@gregkh>
- <atSdI7buRErdF1jZ@ametros.net>
- <2026101813-doorstop-hyphen-614c@gregkh>
+	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="Y2BrKIbg";
+	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="jhtCRQ9o"
+ARC-Seal: i=1; a=rsa-sha256; t=1792353152; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=pPrYrkTg4DBc5mzZJUr1NvUmqXcKtYwIVsjeh61gTMPjyWXaBuTlEhubKm8OqsL4DQ
+    8Iq/pG8TV2lghnKF3bGso3lfYFN4/NXqxtMEAlPXhLVtYCtE6GbNzRx/RJ5pWixeHLtp
+    VExfbM/Weq4bKIfN4dFGYSmbpElgjJRNsm6+iUazFCngsZVFLhTZKFn1807o4U+60UwK
+    fDp3znGEWwo3/krStL+XTLo2bkKEBa43P5QHyhplsbhBLOIsGLZ0QkfpVgfHcloDmXzX
+    RfKm/dlWPmfVpFZt1IIdOtO0X+1GegFN+df3FWvXbTo4P64AbRUeI8rsQtxXgQwzNxCq
+    T7gg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792353152;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=gC6qHl1B+V5o14yq+og01fIcLFwgTL+54fZf+LvzfMs=;
+    b=fUg11KG2fZEhS3F6UHoBQv4LD+dbvBXxRXbLPqw5RFnE5wLxd4+CbnEDc7gtWPp0EE
+    zq4Og4qq8Fxnmx2AnRDbPh+VDVcNXxaknT6tfoODp6uGe8L2XsQ5rb174AOkEFpA/yCd
+    Dk1SCL0wcM3Kc4MA0NyKfvKGT1/rLjxuerih3+ST68Knbn9FbefDUHrtpMbRhXXQoA1E
+    irnriz9B+CFcQSs/T6GuOOga5aGYbKDAhLH3quCzerAqvESviL/rsGFFcjYBrSXyZn0N
+    EDUxOuhNSQwkutwJhH8HASU27kSw8/6Tpy9AAi5S2vSvcMW9JFriz+bghV/VTx9fjwmH
+    w1cg==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792353152;
+    s=strato-dkim-0002; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=gC6qHl1B+V5o14yq+og01fIcLFwgTL+54fZf+LvzfMs=;
+    b=Y2BrKIbg6yLYG/1PMSz6sY3P9ad4+RXLIXIUqDidl+vVPasZ7iNcq3m+VlO3vRkDrk
+    /StZLs6XkYjWRMJnL880MIVzjj3rgft7saR1SOuWHJ4SnXxfASopF1bap91suOh0j+rj
+    gxjPXMb03iRsSo7fSyqMnebBG701bspkyGApFt1sOwevIGx3sRRURbPI8n6BkOHjU9Sa
+    0aMhDeIbJpWgHIXN/H6WiUFoHZ5VVbjBq3L3mbhxBSLgx1z+lTdc+5L4NJ75FKxrMU5b
+    Z41CQaH9/SLzaaIIz5uKODx7LsMuscggtdB2Q8kU/Kif5kXQAoGNFJvYHtTBj6PZFs5e
+    ukdg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792353152;
+    s=strato-dkim-0003; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=gC6qHl1B+V5o14yq+og01fIcLFwgTL+54fZf+LvzfMs=;
+    b=jhtCRQ9ozemKiHn1anGVu1eFS/1d6H66F0uQkYmHKzfMYXSsciaufKmJatqqybkp3Y
+    5TcZcCNx/1YWlFInIXBA==
+X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0zNriHg+YfT0rGeWpIGzZge/Z0bJo/ZKBs7IP24cD2xnjN93xVc="
+Received: from p200300c5873684d949ea70d47c97a062.dip0.t-ipconnect.de
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id z831ad29IJqVHQk
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Sun, 18 Oct 2026 21:52:31 +0200 (CEST)
+Message-ID: <2e042211ca0ebc974ad5ec4c0de9f3f93b3c75c0.camel@iokpp.de>
+Subject: Re: [PATCH v2 0/4] scsi: ufs: core: Factor hba->outstanding_reqs
+ helper and fix double completion
+From: Bean Huo <beanhuo@iokpp.de>
+To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
+ <mkp@kernel.org>,  linux-scsi@vger.kernel.org
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,  Bart
+ Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Bean Huo <beanhuo@micron.com>,  Peter Wang <peter.wang@mediatek.com>, Can
+ Guo <can.guo@oss.qualcomm.com>, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+Date: Sun, 18 Oct 2026 21:52:31 +0200
+In-Reply-To: <20261017084403.875420-1-stanleyjhu@google.com>
+References: <20261017084403.875420-1-stanleyjhu@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026101813-doorstop-hyphen-614c@gregkh>
-X-Provags-ID: V03:K1:QTVi1O4yec0oadD44TJ0KgBN3bDxBok6eCCWpioUhgI7R1FY8UG
- zjUENgECFoL+nEGPkoUc4DyCxTcXvCicUDXQJyn0nktJulQPinOK6YAwmxVmD8Q2PPvNtou
- ADF9ZXxAnuDfR5cSpGvXcRIwDxBn6XJFDDOAl4y39Su7BacBOhPVmFyLCSfyfhgDcJ1yXCV
- 2VlntU5pdDPM+c7oj6BYA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:A5bYA/jo6G8=;74gA9c1n8eo6EgAYvvq8GNivX9s
- zfgerQvZ2V8FRZ1ElBrQPqd1+ZgMwPSCKugHyDwQjGubYsxT/8U+y3sBkubeITlJbch2sPA5H
- SljxUWLrJUrDOK359SmtNzPl9nc0i78wa+3nyhJyMRKgq/7XJsH8xCxs4SzaoSACGQChVDUWd
- Yl42AW15cqcx35lcXdtlFXA10Cgi6nnQU1r3VNBL8oS/1luWb3H+iGmP+iCeFz8wx3pGlrUk3
- ULDG2kfT3jBUyKSNlcuA2P9l/sj9Ct3jJEvWahuymPIxM/BpJQWe9DDkGy/Q8BFWDP62IX04X
- 0lQP9SzZZXyx4v4OUdSaC5/Sn4EMyHDeLJPHf/f1WJvxY81QDTJi9+Xs43KiDqcxykkfALNi9
- pHxUoBAVai9FKGLZtvKjkLcyPFiFXvukKeqTdPl7UA5CyaA42DbWMF1rASJEBcxUWlXtUlVau
- HemekBHqquPIs1b9XAXy05qvi5Aq6tUdZpGMtO1V9obMu74QraxjIWHVPnvt0q2tRBrbKNuGh
- GSWboVvRzM0LecO4QW84Tt1us+FpCdlesnZDYjfzrOVXB0tGPkI82O0g5/tZzkkhBGRLfVjz4
- EW0yINtogAdcVGVMQ0E3f62F8lST0X05M/NUciRqHw4jVbQKx+PRqya0hLxaeSql/byIMrY2n
- ySD+2Qkh9f74f+/VlfTHW5I6VduPrEqkxf1ZdKVC+ALyziZ/gkcxIbC0McZN1XBi6ykYYEOCz
- HUrPdqGMab+a6gmVMabTT4lnk5CvnBZp830YFZSU+oIC4WmgK6j/qHA/taYuFURph2YLQhLZL
- gEb04s6wWLSfFajjD9aMhXVT3AZaIi8UoGmJSPwOiLcjiU1172sCsgV/0s6zMXghdW4xiSWrg
- 7o2Tq6JaqOLQscyzwnCpeWwAAX5vcE11a7ccNftj2hWpZRxnYGUXf4YcZ5JrKsYFCE2mOF+oD
- nBa1K8qPdGK4TLQ8X4UDMYEJy0Vqd2mVXbl7czK01sizo1sQrB6T5BHOq0fzAT9hGwdOebYxJ
- yJiu1AvGF72kNsXKF8X9EJ+C23KkEHQJggVdJJnDR/AsAAIDTMsktMzQ63k5FKbv7gyKLS5k0
- nq2ksM1H+T+TL5Qfrlpjr9+nCKRfllFVJy9P1ogEvx+GuzWAVtbWrCiS+VbgusL/8bRILp0Z/
- FzyX5rVjL5p3cq6YSNFgt8DRFhcUGiLkTj6uj2xP3sd8fOt6pyamyMnpGy2oMxfhdib0/kzBk
- W1mod96LRBJaMCNifWFarDPGgqUjxWXbzeCYba2jMGfV4iDUTgHx1SYArwgZ5FpZpGB/I5yrv
- MJWYxKL7KF7uhaoXYYHVlEQHCR9lly9hMdyiLuVA6rk0mPZELudvfsoKAfnJikylgETKLoZqx
- SOP22kPRhm5eIGZE+zfgMMLoEFNaD6uO62F2jhtZsymoII/rgnE+dxh1hW+GtdH4gYlvZaxTJ
- IZ/l/85pvaLIdqXomC8qLzlvEOSBijCW+pMt0owDpY65JIVkPtVk2N/kBp5PJImTcGzbImxte
- pLbx5HOH4dr4bthFU1Z5mIhNb+A5PdrF85dY1oAf86OEbhJKuCmnzwzjeGXjjbA9Em539GVxq
- IwmfYPWDtjXTnnZhcJW51NrLDtkGCiCz3xC7oG8zUABohVjdA5ZBcQl0AiOI1Y5IlhqIKoPd8
- kOL3X25TlyTHB8wM55pZAl/I+LR7erN7JOeNo9dG5JcfeNnaRM4jgP3zKTbIASzU1PVhZDVRF
- 3kUteNKNmjNjvIfcCTpWJ47/THIlYBz1813fOpadUzUbC0u0LlPcFUZNYk+cOIkraeOt561PO
- K1cku1OIel39tcvkszl+cfrCHXqy9n2FVVoPan7OkxE39M6vEFj5e90UAmdVAk/cpfIMaPYO9
- 6OM8byEIc0RfBIu7CcLAqoeWEEcuNUMIwuIt/KBynM49o8n9wlQmq37e9seyS20KIGEq5MocE
- Oib+QyBNUDOAn6wF15Upmcj4uKnGVK4mXI3LvOB1OrGpG6RcGCaj6ljLBTmIjRAeOuQSUvSZL
- rvMr05mv5RUn6PZkTlLz7Wo7wQtnfE0KDNjqjRsS8mQFVNCykBU8bow1NBUXp/1w3QrbkbKzf
- rgEeGv1YBOTcMhGQcK4YSkezYp8ouGsJHY8K4xP5rRFVstVDQnPdEkewn3QpVAwHfIvFjcvpf
- Ij79Y/S1z8VIv3MLeQ6W/BlN5pcm7SyVOLwUpFd8uoiWbQ9RIPQBVZlG0iGInJqRtHMcKNR+S
- Nw3PUBxAGP/+bVpC3eTHJDhe+t4xA8+n7TrKoiM4ECz3pMO3kJTZ0hxF+NGRcDRj+V1AljXcx
- bjDg2kRfaCKTl4ubjOa1GT7cb9/Am89XfldMEHvyP9D78U01jwOb2E52CtymsN2f6efHjlNr0
- Zsyi16oxy7gXBUowgFl30itDvrbZ+OQVC2tXbug4T0WR579JjNm7cEguASCmALnRyvxs3/0fS
- HJHbJs1hu0oG2YVOsCZUjQhHd4MY1+ADOAty/u/HKw1h7jK9aXfy4qLntkLxJrf2rN0mc0Dv7
- j0ECaTQhRhAP8eWwRmuLGW8fgfjiZxTA/6HO7SUAOekTrl/8farzQSFhUZMv5qb/8zidagmDI
- f8zpKUDldGkrroFu+ABv+yzUNrovuKLuCqjcsj9vZ82dz3aB/gmUJaU+/KEURQesXwtAiqdR5
- 1MVExatW7p2P+H5ZkZWB4mnIZBtR8UL+rKxTxujnqwQrMYGey6J5CMghXTrV5z1j8K8=
 
-On Sat, Oct 17, 2026 at 07:26:54PM +0200, Wolfgang Walter wrote:
-> since 6.18.57 there is no acpi power button any more in virtual qemu based
-> machines (as far as I can see model doesn't matter).
+On Sat, 2026-10-17 at 16:43 +0800, Stanley Jhu wrote:
+> In Single Doorbell (SDB) mode, ufshcd_clear_lu_cmds() clears a transfer
+> request slot in the controller and completes the request without
+> claiming its bit in hba->outstanding_reqs. A subsequent ufshcd_poll()
+> call sees the stale bit with its doorbell bit cleared and completes the
+> request a second time, causing a double DMA unmap.
+>=20
+> Patch 1 adds __ufshcd_clear_outstanding_reqs() and
+> ufshcd_clear_outstanding_reqs() to share the bit-claim logic across
+> ufshcd_poll() and ufshcd_abort() with no functional change. Patch 2 uses
+> the new helper in ufshcd_clear_lu_cmds() to fix the SDB double
+> completion. Patch 3 uses the new helper in ufshcd_eh_timed_out(). It is
+> a follow-on cleanup and is not needed for the fix. Patch 4 removes a
+> WARN_ONCE() whose condition is always false.
+>=20
+> This series is based on mkp/for-next (db8b4d2bf2d3).
+>=20
+> Tested on QEMU ARM64 UFS in SDB and MCQ modes across LU reset, polled
+> and interrupt I/O, and task abort without double completion or DMA
+> unmap warnings.
+>=20
+> Changes since v1:
+> - Add a helper for clearing hba->outstanding_reqs and use it in
+> =C2=A0 ufshcd_poll(), ufshcd_abort(), and ufshcd_clear_lu_cmds()
+> =C2=A0 (Bart Van Assche).
+> - Convert ufshcd_eh_timed_out() to use the new helper in patch 3.
+> - Remove an always-false WARN_ONCE() in patch 4.
+> - Link to v1:
+> https://lore.kernel.org/r/20261016085403.1711740-1-stanleyjhu@google.com
+>=20
+> Stanley Jhu (4):
+> =C2=A0 scsi: ufs: core: Add a helper for clearing hba->outstanding_reqs
+> =C2=A0 scsi: ufs: core: Fix double completion in ufshcd_clear_lu_cmds()
+> =C2=A0 scsi: ufs: core: Use ufshcd_clear_outstanding_reqs() in
+> =C2=A0=C2=A0=C2=A0 ufshcd_eh_timed_out()
+> =C2=A0 scsi: ufs: core: Remove an always-false WARN_ONCE()
+>=20
 
-Cherry-picking ab06eb9204010c61e754bf4e71ee6f554584714d should fix things.
+Hi Stanley,
 
-thanks,
-Bob.
+For the whole series:
+
+Reviewed-by: Bean Huo <beanhuo@micron.com>
+
+One more place has the same problem. In ufshcd_abort(), the "cmd was comple=
+ted,
+but without a notifying intr" path completes the request but leaves its bit=
+ set
+in hba->outstanding_reqs:
+
+if (!hba->mcq_enabled && !(reg & (1 << tag))) {
+	...
+	 __ufshcd_transfer_req_compl(hba, 1UL << tag);
+	...
+}
+
+
+could use the new helper in the same way as patch 2?
+
+
+ if (ufshcd_clear_outstanding_reqs(hba, BIT(tag)))
+	ufshcd_compl_one_cqe(hba, tag, NULL);
+
+Kind regards,
+Bean
+
+
