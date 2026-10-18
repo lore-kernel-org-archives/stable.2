@@ -1,181 +1,160 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75EFC3EF663;
-	Sun, 18 Oct 2026 16:42:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792341782; cv=none; b=ZmbcjlFI9exIAOvg3U+Dc3kX3XZcBnhp0COSvePpEkh5/nUQTJqkVWo4Q+YbnLzcgYYmrPtNMnsbxTNQgjzSLsW8FhQ6c+05o7Dn1RTeI+KkFEh3LAWvo1UTpMnoN4pbaBz2h8JkIcOZj1khHCpYy6YZZmkmj2/YUSz5d/HcJaU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792341782; c=relaxed/simple;
-	bh=IHrvpG2wVPzApJlQiEzQQkeSpUN0h3yuPVCXYWde/rs=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XIn2qyYTvAw+wQoegtsepI03+aeqAWWtVChSr0Iryifr0Ny+GEcXI7hOaCtbNVjWOOe2YZnXTk8stJAlAwFTjwID6sHddq88LzXIWlcrJGQt2H4NLuWgv1IqTgmtURrLe/vHPg3M/sxDYCgD2hiw6u4H1mcYe5tTf0urYK+YvaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=os4D7A73; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ik/JJU9D; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=os4D7A73; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ik/JJU9D; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72C933E410F;
+	Sun, 18 Oct 2026 16:44:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792341868; cv=pass; b=aqxjwpQgHW83rIo2LqbhDsjfKA42ykMVx77S5UktgSARD6F6syiZJDggROujDzkNMmrWlLByxtTEnJY/pMilD81Q/LEPcjysnCc/AeoQP1hHIwEcEnM+/VsxnqDnHY1frfEFNS6S2Aaw8uA3nM9nblrJ4neIstBjM2YQFzbs4hw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792341868; c=relaxed/simple;
+	bh=g2FMKl/lBmFvFo3Km5VSg4ir60Zngr53bIY6J485DyA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=M8ZMAYAm9oBcSaNzB0F7l5AtQR3VFqpSKCt648QY5LcjYwhFV7LC4dWoF1/LmS9N4KBHf6HJ+e4Vnwawg3fR3SXWIkk/7YikpsfMOfyV/Wc7WqhRwY4SjvM8xftS9RKbGsP5KAnToKkmora0bbTYakxlqq6mlMo8JNMFIB+j/rw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=HBAiTeSj; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="os4D7A73";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ik/JJU9D";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="os4D7A73";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ik/JJU9D"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="HBAiTeSj"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 8D1DF202841;
+	Sun, 18 Oct 2026 18:44:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792341860;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Rd5lSezKIyW/9dcGa/xeP6YPWeM5EbHyXW3FSFeJnHo=;
+	b=HBAiTeSj4PkLv8OcqaANlAPYh6VGMNEi9BVoI3fw3/5ZF/3l2VPpltUs08sc9gCK+npEwP
+	wc7lWVU9AqqRQb8C/k7Ce+fp1pg9e9oTUPJ4kBaJmYyZ07vN6DzMf/nSgroFfQqGEXkwvU
+	xe4SE1NqDpTZNfevg3utZ9aCmSlyDg8V5VX+fHe2OLA2j0EO2/qh/2JyGp1SLA1l+VgTlA
+	92c/XCipUd1xnaB6ai6mYy1OMyniwe2slnavyzBJi4VUCVUXMxym/OwKMPlTnUlP28SEft
+	3m6Wf0bOy1P2DdOCV89D/ufRpg5Alba3QFpAsO3BwRrzxKh6UuN2id5v6eGpuQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792341860; a=rsa-sha256;
+	cv=none;
+	b=IYEUVRunR0cxQEqfClBN46isAs2vBM5HywbcpgdRzXV+xDNiZZ8i8vzDTDTzIF6skLQdXc
+	HljVrC4YgOPOX/R4+D3M2GThmk04HcxklznrYDD+2vi9Z5L5gvSG57gHDc0orfLi2c4QaP
+	jWReHG+Xtb9uZnxY2hLyGTVqO6WQZKl5TTFYKxEuTV93ngEZNr//VViGmNBEWnm4zQDhEK
+	fCrOtgEMBCiE5KhvaTiCS1tX2ZXS1eHqq9Um3ogyx0AuyjqrGrlEDIq+/3gqlc8axtSFqq
+	61LEIqhvO6Vrud2lO7QEl7kqZNZpPtrOepBl0XTOslqSlb0B5qYwGtbLFHdZmw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792341860;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Rd5lSezKIyW/9dcGa/xeP6YPWeM5EbHyXW3FSFeJnHo=;
+	b=cDGYFJ3h3PiDqoeuk8rvCss1wUN3oAVV9XQDb/tHIMkJpgSVClQAL7shiGWAnfo8TbUert
+	McN02IiSY8hmrySQH8Vkp7yoAjmQlHi6mNJka5y4P7+qFK531knJT1LeaiBAb9yFogBlyU
+	oixIdIRnYmYvaymqnbb7+9gRDWoX2NDTG+1sGNP8aMqPUIiutWFkt0gV3f4Z7hpmwgOgB9
+	y3XrRvaUEhj0qI/DLPmkgIKpv1S0rJYuhKLm3PdF42BeFEYtrk/kl22l+D2OkKFa+F15S3
+	kEbO8RVMf80Dyby/5JpmycxUQ80OOsHdxSNHXnZDw+c6nIMuDTEmV6HXytRY/g==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xITzg-0006Sp-1X;
+	Sun, 18 Oct 2026 18:44:20 +0200
+Received: from blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 13FF621C3C;
-	Sun, 18 Oct 2026 16:42:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792341769; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+R51h5F8SUVAknQAJcEABYH8iVTxPikAQ8Yb5pzDi5s=;
-	b=os4D7A73SvBJNwDLO5tTW+87iU/EEuoecnL2nCIXpJ9jLn9IyVrtlqyyvZZ3EJOEReXLZ8
-	DsIXbOd9a1j2nWx7Qus1Dii0/fzM4FfGgLgTLA+YTHrBCJqFOb9gSsiCnZFP7+mA7a7v9a
-	/JgkV9ZlLbvP6ZhPemQ1X7c5iPFbVng=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792341769;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+R51h5F8SUVAknQAJcEABYH8iVTxPikAQ8Yb5pzDi5s=;
-	b=ik/JJU9DDo76v1xarhAKQWdFCVaX8STlucEPWrmB4yAj7Lh1HuhOHrrd2cDuRhdHpVXm2z
-	kfuu2xbnn4uRgxDg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=os4D7A73;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="ik/JJU9D"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792341769; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+R51h5F8SUVAknQAJcEABYH8iVTxPikAQ8Yb5pzDi5s=;
-	b=os4D7A73SvBJNwDLO5tTW+87iU/EEuoecnL2nCIXpJ9jLn9IyVrtlqyyvZZ3EJOEReXLZ8
-	DsIXbOd9a1j2nWx7Qus1Dii0/fzM4FfGgLgTLA+YTHrBCJqFOb9gSsiCnZFP7+mA7a7v9a
-	/JgkV9ZlLbvP6ZhPemQ1X7c5iPFbVng=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792341769;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+R51h5F8SUVAknQAJcEABYH8iVTxPikAQ8Yb5pzDi5s=;
-	b=ik/JJU9DDo76v1xarhAKQWdFCVaX8STlucEPWrmB4yAj7Lh1HuhOHrrd2cDuRhdHpVXm2z
-	kfuu2xbnn4uRgxDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8F401132D3;
-	Sun, 18 Oct 2026 16:42:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id zL6LGAj31GrKLgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sun, 18 Oct 2026 16:42:48 +0000
-Date: Sun, 18 Oct 2026 18:42:47 +0200
-Message-ID: <87tsmjarjs.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: "Will Bush" <will@willbush.dev>
-Cc: "Takashi Iwai" <tiwai@suse.com>,	"Jaroslav Kysela" <perex@perex.cz>,
-	linux-sound@vger.kernel.org,	regressions@lists.linux.dev,
-	stable@vger.kernel.org,	"Jan Lentfer" <jan.lentfer@web.de>,	Sebastian
- =?ISO-8859-1?Q?Dalfu=DF?= <sd@sedf.de>
-Subject: Re: [REGRESSION] usb-audio: Behringer UMC204HD broken in 7.2.10
-In-Reply-To: <45162613-2802-401c-84c9-742f9c8c68e6@app.fastmail.com>
-References: <45162613-2802-401c-84c9-742f9c8c68e6@app.fastmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 3B5C75C7D9C;
+	Sun, 18 Oct 2026 16:44:20 +0000 (UTC)
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	kuba@kernel.org,
+	linux-can@vger.kernel.org,
+	kernel@pengutronix.de,
+	Cunhao Lu <1579567540@qq.com>,
+	stable@vger.kernel.org,
+	Vincent Mailhol <mailhol@kernel.org>,
+	Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: [PATCH net-next 12/12] can: dev: can_put_echo_skb(): free skb on invalid echo index
+Date: Sun, 18 Oct 2026 18:41:48 +0200
+Message-ID: <20261018164417.1540449-13-mkl@pengutronix.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261018164417.1540449-1-mkl@pengutronix.de>
+References: <20261018164417.1540449-1-mkl@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Action: no action
-X-Spam-Score: -3.51
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVRCPT(0.00)[web.de];
-	RCVD_TLS_ALL(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[suse.com,perex.cz,vger.kernel.org,lists.linux.dev,web.de,sedf.de];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 13FF621C3C
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sun, 18 Oct 2026 18:34:27 +0200,
-Will Bush wrote:
-> 
-> Hi Takashi,
-> 
-> Thanks for all your work on usb-audio. I was updating my system (NixOS), which
-> took me from 7.2.9 to 7.2.10, and my Behringer UMC204HD device stopped working.
-> 
-> It gets into a loop:
-> 
->   [  225.148019] blazar kernel: usb 3-4: new high-speed USB device number 19 using xhci_hcd
->   [  225.340016] blazar kernel: usb 3-4: New USB device found, idVendor=1397, idProduct=0508, bcdDevice= 1.35
->   [  225.366005] blazar kernel: usb 3-4: New USB device strings: Mfr=1, Product=2, SerialNumber=0
->   [  225.366187] blazar kernel: usb 3-4: Product: UMC204HD 192k
->   [  225.366304] blazar kernel: usb 3-4: Manufacturer: BEHRINGER
->   [  230.493021] blazar kernel: usb 3-4: failed to read device descriptor: -110
->   [  230.493313] blazar kernel: snd-usb-audio 3-4:1.0: probe with driver snd-usb-audio failed with error -110
->   [  235.612029] blazar kernel: usb 3-4: failed to read device descriptor: -110
->   [  235.612302] blazar kernel: snd-usb-audio 3-4:1.3: probe with driver snd-usb-audio failed with error -110
->   [  240.732035] blazar kernel: usb 3-4: failed to read device descriptor: -110
->   [  240.732461] blazar kernel: snd-usb-audio 3-4:1.4: probe with driver snd-usb-audio failed with error -110
->   [  240.732538] blazar kernel: usb 3-4: USB disconnect, device number 19
->   [  241.019061] blazar kernel: usb 3-4: new high-speed USB device number 20 using xhci_hcd
-> 
-> Issue seems to be from commit: b5c4823cf3e4 ("ALSA: usb-audio: Apply boot quirk for Behringer models generically")
-> 
-> I was able to patch 7.2.10 to get it working again:
-> 
-> -	if (USB_ID_VENDOR(id) == 0x1397)
-> +	if (id == USB_ID(0x1397, 0x1234))
-> 
-> Not sure if applying the quirk to every Behringer device is too broad or what
-> the fix should be. Ping me if you want me to test a patch.
-> 
-> #regzbot introduced: b5c4823cf3e4
+From: Cunhao Lu <1579567540@qq.com>
 
-Interesting, it's just a descriptor read and this fails on your device
-by some reason.  Could you try to ignore the error like below, and
-verify whether it continues to work?
+can_put_echo_skb() consumes the skb on all paths except when the echo
+index is out of bounds. This leaves ownership with the caller on -EINVAL,
+unlike the other error paths, and can leak the skb if the caller expects
+consistent semantics.
 
+Free the skb before returning -EINVAL so that all return paths consume it.
 
-thanks,
+Fixes: 6411959c10fe ("can: dev: can_put_echo_skb(): don't crash kernel if can_priv::echo_skb is accessed out of bounds")
+Cc: stable@vger.kernel.org
+Reviewed-by: Vincent Mailhol <mailhol@kernel.org>
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
+Link: https://patch.msgid.link/tencent_683AA16E643DE00211CD2FB62991264DC605@qq.com
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
-Takashi
+---
 
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -865,7 +865,7 @@ static int snd_usb_cm1a_boot_quirk(struct usb_device *dev)
- 	err = usb_get_descriptor(dev, USB_DT_DEVICE, 0, desc, sizeof(*desc));
- 	if (err < 0) {
- 		dev_err(&dev->dev, "failed to read device descriptor: %d\n", err);
--		return err;
-+		// return err;
+FAQ:
+
+Q: `can_skb_init_valid()` directly modifies `skb->data` without checking if
+   the SKB is cloned or shared. Is this violating SKB shared buffer rules and
+   causing data corruption?
+
+A: The finding about can_skb_init_valid() modifying skb->data on a
+   potentially shared buffer is not relevant for this (correct) patch.
+
+   The FDF-flag write in can_skb_init_valid() only matters for PF_PACKET
+   use: PF_CAN allocators already set CANFD_FDF. The write exists to
+   normalize frames for PF_PACKET observers (tcpdump/Wireshark) so they can
+   distinguish classic CAN from CAN FD at the netdev level, and to
+   compensate for PF_PACKET senders that omit the bit. That normalization
+   is functionally required.
+
+   The shared-buffer concern only becomes realistic through a specific
+   chain: a PF_PACKET sender injects a CANFD-sized frame, the CAN driver's
+   loopback puts an echo skb back into can_rcv(), and cgw (without
+   modfuncs) clones it for forwarding to another interface. Only on that
+   second can_skb_init_valid() call is the skb cloned. By then the bit was
+   already set on the exclusive skb during the initial xmit path, so the
+   flags |= CANFD_FDF write is strictly idempotent for any parallel
+   consumer of the shared buffer - no memory-safety or
+   information-disclosure consequence. It's a formal violation of the skb
+   sharing rules without an observable effect, so the current code can stay
+   as-is.
+
+Link: https://lore.kernel.org/all/54a3cc01-abcf-4a33-b932-39bb1f68cdd5@hartkopp.net/
+[mkl: convert Oliver's mail to FAQ section]
+---
+ drivers/net/can/dev/skb.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/net/can/dev/skb.c b/drivers/net/can/dev/skb.c
+index 3e36c0368bae..738d5968dfa6 100644
+--- a/drivers/net/can/dev/skb.c
++++ b/drivers/net/can/dev/skb.c
+@@ -55,6 +55,7 @@ int can_put_echo_skb(struct sk_buff *skb, struct net_device *dev,
+ 	if (idx >= priv->echo_skb_max) {
+ 		netdev_err(dev, "%s: BUG! Trying to access can_priv::echo_skb out of bounds (%u/max %u)\n",
+ 			   __func__, idx, priv->echo_skb_max);
++		dev_kfree_skb_any(skb);
+ 		return -EINVAL;
  	}
  
- 	return 0;
+-- 
+2.53.0
+
