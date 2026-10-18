@@ -1,159 +1,162 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mta1.migadu.com (out-77.mta1.migadu.com [95.215.58.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397BA439F91
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 06:24:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3507A2EBDE9
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 06:43:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792304681; cv=none; b=Y14XcEP67vfe/yb+atBbZjMjW8djEEEQnYoXonSD10fSN9ILV9Ftq8m85+M/Mr/hZLQ751/j3DvdnnZEs9nhOlcOaarVDtp0zLsUAiwv2NZLXIGdxEfsC//EAHCcdwAheIuAvwjP+z38CQqZrwrbeoRUCGJhxRfOXsjzzscCA7k=
+	t=1792305796; cv=none; b=HyW+Aj373DW6dalIxwC3Bvb9fZrOidUVjTVtcqQP/1YFH+A8z35JYLCljewDfOAE28KaWl0vikl6XDQ1RqiXSf6FuOszEL+SeTL38arv4KIj1AdBYx/vYjJMqdTK2X/y61ksK6qhPcU8E3fXAUXm4Eq71NHfN4tt2WEWP5aoOi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792304681; c=relaxed/simple;
-	bh=arE8oVz2fH+8eS0750nhWq32DGLzP4mMXrxh1y3HsCs=;
+	s=arc-20240116; t=1792305796; c=relaxed/simple;
+	bh=Uw0YIVaZtfH6o8cYYNicP3BPPfnY5BFJtNnGIlhTWb4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BMcWOmlNtOhNGHq6/hJFn8AA33jZQy04GYWVShm/bHxoz09x2r70Mflb2McH8+ws3q18PCiBQ4N2cIeSDvoEVDrojGALbWUjDjGJrBTj+P1oTrzo6jmdy01Ka+q75H0NS0I7aWGusrYpdyVmLC7wJFToK5ai6S8/66J/wzfRLD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gt.tech.gov.sg; spf=pass smtp.mailfrom=gt.tech.gov.sg; dkim=pass (1024-bit key) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.b=i/9nro3N; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gt.tech.gov.sg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gt.tech.gov.sg
+	 MIME-Version:Content-Type; b=RwoHGEKmlsqA+SijuQ7bSknaR3dUON68jWu9MaljiK8oH4NNy49qnAix3d2K/yVb3+BzbbxmHk2NII7QSFASDCUzUPrqWKXNCnc4AGN33OgFI4QRZ/4RDAyr9IeoYm4y7ok4NqqkYnd63Pta32YsfpWkZvQX1sJ36v2HsCpvzW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wzQtTrpD; arc=none smtp.client-ip=95.215.58.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.b="i/9nro3N"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3acb11973c3so1108279a91.3
-        for <stable@vger.kernel.org>; Sat, 17 Oct 2026 23:24:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gt.tech.gov.sg; s=google; t=1792304679; x=1792909479; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DkEX/9YVHLMJf2nTtXDatYuMtWB76zz4RytnLFluowQ=;
-        b=i/9nro3NqFe4vwmeeZspibxo8gBiEki7C1ppw+sEsNM4e0TjH/GilyD1hP73OyL78H
-         6clkqv5/4+xW+ro1DUkmQjmWNboOrt1d2/6zOpnVQbUO8nw+5g6UcyMp7ZmDoIgf/FPm
-         4ehNmOWrmvYfzxIv9th5bMtpx+mtpwktH0Bmo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792304679; x=1792909479;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DkEX/9YVHLMJf2nTtXDatYuMtWB76zz4RytnLFluowQ=;
-        b=sdy41ecNLIuRQ1As/aDxl1Lb9qF59vHKB8UPvmEn6Et79Ru2vV1lWtDokk9OX9AkQS
-         lFHjFLtYegFVd5jHPXJKnvwFKh5HU299Z/pF8a5Yerp4GRrZtwfvIx4COWo8h00UJOik
-         2c14OiobNqI7m8heKPfkjYcKBt5Y06T+wyy/4/JjJ+kRFJWopY3gvVJT2spaskve13ve
-         DwGUsOdhPimqSCPdT67wt6YB5A7z1R19dmwgCTIs2MNVyqS2aY7rMKMRvSSWpqp4fVR5
-         uOxHMPU4Y9jiD+UwFj+vJ6hi59E9qko9Jf+blHGVH4xDrJ9CnBjTX35PA5UpvTf4NEqq
-         1v+Q==
-X-Forwarded-Encrypted: i=1; AKwUvByQvZNmKexTpdBwu0EEU9pcG8z7Js8kRs+7mr4QtNUYCcxJmL5A4HcKF1X3Qija+uXRDI91Onw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJuahNjd5vK+XFjD0AvyoxkT1QauhypfshTF3uWC99V+FJJLzu9
-	4gTGRMvSswXYGv7fj3Chs/zxrnv82XT/yGbwlCnBDdXWxopZaBHOwOJ/iodhnT8WyZk=
-X-Gm-Gg: AYBFou07OjYxXgFVzv0ty4SgUgGEIw4uLgWlaubNHXYvbhc/AA4cGI/2oVXqFf8Nt6o
-	DFljoMMLx5nbUC9hioInD8QEZTLn9S9pzwQ5K4dGC31ikhCtw2TjShRGi1uC0fxsZhqulqirsKU
-	wV7qji8FOA9TKhgIICOunRlB4wMhZ41EmZhYKKayTLSPBDXAj91l7qbbD0WITW0jKbYfy6odDLl
-	/R9gUi1OSFt1FODkHpU6vrmnyV5Aq/REcRjpDiQanC8RFE5HrfGz6+z6+PYmd0L7FhFkpyK0wgL
-	sAjIcrW+X/t3/Ry9LQpuoTdmLQ73QezZWTH9ppZsADsWI+mgm5VfROSeR4DIdv6pNT3RgA1iu0W
-	NmOZ3jv90SVkXtD4bLzpRGph7yMhCTHXBHwdmkDHKA29gXBwrX/0gsb6l1lPRnmJyDE588V0C6k
-	DrHwGNn6vEwcq3hFH9dZBtxigl4wD8lhmxF4SzbRtwsf7JHBy5oiW6Cll1ahHvCUYSd7WdnWyoF
-	1Ee7M6kQH2w3Dg9R1rpxX1X31s0gwI83Fd6QL7kcwexJz9D2AOOaig=
-X-Received: by 2002:a17:90b:2e45:b0:3a6:dc51:cce9 with SMTP id 98e67ed59e1d1-3acef10a75fmr3867761a91.57.1792304679503;
-        Sat, 17 Oct 2026 23:24:39 -0700 (PDT)
-Received: from LAPTOP-UUUVNN1I.localdomain (bb119-74-6-224.singnet.com.sg. [119.74.6.224])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc46ee274sm10513293a91.4.2026.10.17.23.24.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 23:24:38 -0700 (PDT)
-From: Wei Jie Law <law.wei.jie@gt.tech.gov.sg>
-To: Thangaraj Samynathan <Thangaraj.S@microchip.com>,
-	UNGLinuxDriver@microchip.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Woojung Huh <woojung.huh@microchip.com>,
-	netdev@vger.kernel.org,
-	linux-usb@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wzQtTrpD"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Uw0YIVaZtfH6o8cYYNicP3BPPfnY5BFJtNnGIlhTWb4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792305791; v=1; x=1792910591;
+ b=wzQtTrpDmaMrrqBaJyyLJamCuw7QHX2tgQT3VnVCIYmoDpc8KhryI/vrM+dr4djjC7+qDXLu
+ 4QPBmwW5RFy2jMn+4Z9tGAN9OlHmRPTzGY/1HmxfkQvHzSo+vCADmFthl0XkHPjEkWK8cprJG6W
+ IfPw3eZuxm5jhw8R6ApeP3sU=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0bd3a34f4381111f;
+	Sun, 18 Oct 2026 06:43:10 +0000
+X-Mizu-Trace-ID: 0bd3a34f4381111f
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org
+Cc: akpm@linux-foundation.org,
+	liam@infradead.org,
+	ljs@kernel.org,
+	vbabka@kernel.org,
+	jannh@google.com,
+	pfalcato@suse.de,
+	muchun.song@linux.dev,
+	osalvador@suse.de,
+	linmiaohe@huawei.com,
+	nao.horiguchi@gmail.com,
+	agl@us.ibm.com,
+	mel@csn.ul.ie,
+	riel@surriel.com,
+	peterx@redhat.com,
+	kas@kernel.org,
+	rppt@kernel.org,
+	josef@toxicpanda.com,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	Wei Jie Law <98lawweijie@gmail.com>,
+	mason@kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH net v3 2/2] net: usb: lan78xx: reject short register and statistics reads
-Date: Sun, 18 Oct 2026 14:24:19 +0800
-Message-ID: <20261018062419.21921-3-law.wei.jie@gt.tech.gov.sg>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261018062419.21921-1-law.wei.jie@gt.tech.gov.sg>
-References: <20261018062419.21921-1-law.wei.jie@gt.tech.gov.sg>
+Subject: Re: [PATCH 04/10] mm/hugetlb: unmap the page where the other VMA maps it
+Date: Sun, 18 Oct 2026 14:43:04 +0800
+Message-ID: <20261018064304.17357-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261015-urgent_fixes-v1-4-42796911043b@kernel.org>
+References: <20261015-urgent_fixes-v1-4-42796911043b@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-lan78xx_read_reg() and lan78xx_read_stats() read from the device into
-a freshly kmalloc()ed buffer, but only treat a negative return value
-from usb_control_msg() as an error. A device that answers with fewer
-bytes than requested leaves part or all of the buffer uninitialized,
-and those bytes are then used as the register value or the counters.
 
-With an emulated device on a kernel booted with init_on_alloc=0:
+On Thu, Oct 15, 2026 at 06:07:10PM +0200, David Hildenbrand (Arm) wrote:
+>From: Josef Bacik <josef@toxicpanda.com>
+>
+>If the owner of a MAP_PRIVATE hugetlb mapping fails to allocate a page
+>for CoW, unmap_ref_private() unmaps the old page from all other private
+>VMAs that have no reservation of their own.  It finds them by the offset
+>in the file, but then zaps each of them at the address of the faulting
+>VMA.  Nothing says that another VMA maps the offset at that address: a
+>child can have moved its copy of the VMA with mremap(), and a second
+>mapping of the file is wherever mmap() has put it.
+>
+>So __unmap_hugepage_range() walks the page tables of the other mm at an
+>address outside of iter_vma, where i_mmap_rwsem of this file protects
+>nothing and where anything can be mapped, and the page stays mapped where
+>it really is.
+>
+>All of the following was seen on v7.3-rc6+ (g6c377d19d4a5) in KVM guests,
+>as a user without any privilege.  It takes a pool of 2 MiB pages with no
+>free page that is not reserved, so that the allocation fails: the user
+>can take or reserve what is free itself.
+>
+> - The child moves its VMA away.  The page is never unmapped, the
+>   mapcount stays 2, and the owner goes round retry_avoidcopy in
+>   hugetlb_wp() until the child is gone or a page becomes free.  SIGKILL
+>   to the owner does not end it.  5 of 5 runs.
+>
+> - The owner's mm has a second private mapping of the offset, made with
+>   MAP_NORESERVE.  The owner zaps its own entry and reads zeroes where
+>   its data was.  5 of 5 runs.
+>
+> - The child moves its VMA away and maps a 1 GiB hugetlb page at the old
+>   address, so this one takes a pool with a 1 GiB page as well.
+>   huge_pte_offset() for the 2 MiB size steps through the PUD
+>   leaf, so the "PMD table" is the 1 GiB page itself and its "page table
+>   lock" is folio->private of that page, which holds 2.  Kernels with
+>   lock debugging oops in __unmap_hugepage_range(), 7 of 7 runs.  Others
+>   spin on that word for ever with preemption disabled, 5 of 5 runs:
+>
+>     watchdog: BUG: soft lockup - CPU#0 stuck for 26s! [u_det3:130]
+>     RIP: 0010:queued_spin_lock_slowpath+0x8a/0x290
+>     RAX: 0000000000000002 RBX: ffffea0001000028
+>     Call Trace:
+>      __unmap_hugepage_range+0x154/0x6d0
+>      unmap_hugepage_range+0xc1/0x140
+>      hugetlb_wp+0x55c/0x700
+>      hugetlb_fault+0x5f3/0x8f0
+>
+>   RCU stalls follow, and killing all tasks of the user changes nothing.
+>   Four such owners, whose children share a single 1 GiB page, took down
+>   the whole guest with its four CPUs, 2 of 2 runs: one reported soft
+>   lockups on all four, the other gave no sign of life any more.
+>
+>   i_mmap_rwsem stays write locked.  With a MAP_PRIVATE mapping of a
+>   hugetlbfs file that belongs to another user, and that the attacker
+>   can only read, the next mmap() of that file by its owner sleeps
+>   uninterruptibly in __mmap_region(), 4 of 4 runs.
+>
+>Compute the address from the offset for each VMA.  The tree walk returns
+>only VMAs that cover pgoff, and vm_start, vm_end and vm_pgoff of a hugetlb
+>VMA are aligned to the huge page size, as pgoff is, so the whole range
+>lies inside iter_vma.  Its page tables can not go away there, since the
+>VMA is unlinked from the file under i_mmap_rwsem first.
+>
+>With the right address the page is unmapped from all VMAs but the
+>owner's, so the retry in hugetlb_wp() finds a mapcount of 1 and reuses the
+>page.
+>
+>A child that has moved its copy of the VMA now loses the page, and gets
+>SIGBUS when it faults on a missing page of that VMA.  That is what the
+>comment above the function has always promised to those who do not own
+>the reservation, and what already happens to a child that has left the
+>VMA in place.
+>
+>The address has been wrong from the start, and the second case needs
+>only mmap() and fork().  mremap() of hugetlb VMAs, which the other cases
+>use, came with commit 550a7d60bd5e ("mm, hugepages: add mremap() support
+>for hugepage backed vma") in v5.16.
+>
+>Original fix generated by an LLM and sent in private by Josef.
+>
+>Fixes: 04f2cbe35699 ("hugetlb: guarantee that COW faults for a process that called mmap(MAP_PRIVATE) on hugetlbfs will succeed")
+>Reported-by: Chris Mason <mason@kernel.org>
+>Cc: stable@vger.kernel.org
+>Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+>[ david: switch to vma_filebacked_address, add VM_WARN_ON_ONCE, refine comments]
+>Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>---
 
-- A reply to the statistics request that is shorter than the 188 byte
-  counter block leaves the rest of the kmalloc-192 buffer stale, and
-  ethtool -S, which needs no privileges, reports it. Before the
-  previous patch, a zero-length reply was enough: one counter pair read
-  back as 0xffffffff8a427800, the address of
-  usb_api_blocking_completion(), next to several direct map pointers.
-  With the previous patch a zero-length reply is already harmless, but
-  a reply of 1 to 187 bytes still gets through.
+Good catch1
 
-- A zero-length reply to the RX_ADDRL/RX_ADDRH reads in
-  lan78xx_init_mac_address() turns uninitialized heap memory into the
-  MAC address (12:85:1f:dc:2e:bd and e6:93:44:41:9b:9f on two probes).
-  Both of those are valid unicast addresses, so they are used as they
-  are: written to MAF_LO(0)/MAF_HI(0) and set as the address of the
-  net device, where anyone can read it.
-
-Treat a short transfer as -EIO in both helpers. With this change the
-same device fails to probe with -EIO, and a short statistics reply
-fails with -EIO and, with the previous patch, leaves the counters
-unchanged.
-
-This patch needs the previous one. Without it, a failed statistics read
-would make lan78xx_update_stats() compute the counters from its
-uninitialized on-stack buffer, so the leak would move from the heap to
-the stack. Both patches are Cc: stable and should be backported
-together.
-
-Found by code review with LLM assistance and reproduced with an
-emulated USB device (raw-gadget + dummy_hcd).
-
-Fixes: 55d7de9de6c3 ("Microchip's LAN7800 family USB 2/3 to 10/100/1000 Ethernet device driver")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Wei Jie Law <law.wei.jie@gt.tech.gov.sg>
----
- drivers/net/usb/lan78xx.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/net/usb/lan78xx.c b/drivers/net/usb/lan78xx.c
-index cb8204371f5c..e6be066349de 100644
---- a/drivers/net/usb/lan78xx.c
-+++ b/drivers/net/usb/lan78xx.c
-@@ -612,6 +612,9 @@ static int lan78xx_read_reg(struct lan78xx_net *dev, u32 index, u32 *data)
- 			      USB_VENDOR_REQUEST_READ_REGISTER,
- 			      USB_DIR_IN | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
- 			      0, index, buf, 4, USB_CTRL_GET_TIMEOUT);
-+	if (ret >= 0 && ret != sizeof(*buf))
-+		ret = -EIO;
-+
- 	if (likely(ret >= 0)) {
- 		le32_to_cpus(buf);
- 		*data = *buf;
-@@ -695,6 +698,9 @@ static int lan78xx_read_stats(struct lan78xx_net *dev,
- 			      (void *)stats,
- 			      sizeof(*stats),
- 			      USB_CTRL_SET_TIMEOUT);
-+	if (ret >= 0 && ret != sizeof(*stats))
-+		ret = -EIO;
-+
- 	if (likely(ret >= 0)) {
- 		src = (u32 *)stats;
- 		dst = (u32 *)data;
--- 
-2.43.0
-
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
