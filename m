@@ -1,162 +1,122 @@
-Received: from mta1.migadu.com (out-77.mta1.migadu.com [95.215.58.77])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3507A2EBDE9
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 06:43:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AACA32ED40;
+	Sun, 18 Oct 2026 06:47:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792305796; cv=none; b=HyW+Aj373DW6dalIxwC3Bvb9fZrOidUVjTVtcqQP/1YFH+A8z35JYLCljewDfOAE28KaWl0vikl6XDQ1RqiXSf6FuOszEL+SeTL38arv4KIj1AdBYx/vYjJMqdTK2X/y61ksK6qhPcU8E3fXAUXm4Eq71NHfN4tt2WEWP5aoOi8=
+	t=1792306040; cv=none; b=uZe8EnILnPyfFasv2QSxSjfQNLLjb9CJOrW2Cw0A0UgekOuNrMUvxF2ESik4tl3m641ZyAf3tnk3YFFIMUKhst+c3yJa9kblUb7i8TT6ksXUQZYFKQcjS0rbFTv1QrMnX2ZXq8Hr7Ud/8XI2ZisFOEQURpib5EtNqMoizKIVdbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792305796; c=relaxed/simple;
-	bh=Uw0YIVaZtfH6o8cYYNicP3BPPfnY5BFJtNnGIlhTWb4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RwoHGEKmlsqA+SijuQ7bSknaR3dUON68jWu9MaljiK8oH4NNy49qnAix3d2K/yVb3+BzbbxmHk2NII7QSFASDCUzUPrqWKXNCnc4AGN33OgFI4QRZ/4RDAyr9IeoYm4y7ok4NqqkYnd63Pta32YsfpWkZvQX1sJ36v2HsCpvzW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wzQtTrpD; arc=none smtp.client-ip=95.215.58.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792306040; c=relaxed/simple;
+	bh=Kag3VvMNOMl0BZrtLk5BrSlmPs8H9EdaW8N3lXiMD94=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NKMuCxXnPSw2pKKzDfg59/pVPHXQW8+Iczz5TVEBOW/G9encChg1nzHDZgDwjrD7oJZ3H4j1PIohfHkhY8atF7wRSiQ1EN53b67OFBK5/KNCy1STKZjINjqiEhga5ffZUhqXAj4P1ak0EeUqFH7r+Rp9Fg/buvkK8yZtJweRtX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dxt31r+C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wzQtTrpD"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Uw0YIVaZtfH6o8cYYNicP3BPPfnY5BFJtNnGIlhTWb4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792305791; v=1; x=1792910591;
- b=wzQtTrpDmaMrrqBaJyyLJamCuw7QHX2tgQT3VnVCIYmoDpc8KhryI/vrM+dr4djjC7+qDXLu
- 4QPBmwW5RFy2jMn+4Z9tGAN9OlHmRPTzGY/1HmxfkQvHzSo+vCADmFthl0XkHPjEkWK8cprJG6W
- IfPw3eZuxm5jhw8R6ApeP3sU=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0bd3a34f4381111f;
-	Sun, 18 Oct 2026 06:43:10 +0000
-X-Mizu-Trace-ID: 0bd3a34f4381111f
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	liam@infradead.org,
-	ljs@kernel.org,
-	vbabka@kernel.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	muchun.song@linux.dev,
-	osalvador@suse.de,
-	linmiaohe@huawei.com,
-	nao.horiguchi@gmail.com,
-	agl@us.ibm.com,
-	mel@csn.ul.ie,
-	riel@surriel.com,
-	peterx@redhat.com,
-	kas@kernel.org,
-	rppt@kernel.org,
-	josef@toxicpanda.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	mason@kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 04/10] mm/hugetlb: unmap the page where the other VMA maps it
-Date: Sun, 18 Oct 2026 14:43:04 +0800
-Message-ID: <20261018064304.17357-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261015-urgent_fixes-v1-4-42796911043b@kernel.org>
-References: <20261015-urgent_fixes-v1-4-42796911043b@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dxt31r+C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0367B1F000C4;
+	Sun, 18 Oct 2026 06:47:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792306037;
+	bh=30fmuKsiOgutazDDAqdwR0Z+rtWTId1UKgz9yLCQBBk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dxt31r+Cn9KLSlF0j2FoMxu9MUUycQBkbAMhUiSpaLdgM0/Uzu71XTh3/bK1Q+kE9
+	 3Y8Ey89b3PV1kJtZpHI76TopcsrFx8c8lfCrJktiPawXodaGo/4n3SAerpboC9BaLg
+	 ezWnhcZA0qBN4VnpliNjYtWqnXNY5IKwh1Y5ilB4=
+Date: Sun, 18 Oct 2026 08:47:14 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+	greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+a2e50fb40695811c2dab@syzkaller.appspotmail.com
+Subject: Re: [PATCH] greybus: operation: arm the timeout timer before sending
+ the request
+Message-ID: <2026101814-static-agreeing-29ad@gregkh>
+References: <20261017171743.24612-1-ngocthang2710.1999@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261017171743.24612-1-ngocthang2710.1999@gmail.com>
 
+On Sun, Oct 18, 2026 at 12:17:43AM +0700, Nguyen Ngoc Thang wrote:
+> gb_operation_request_send() sends the request message and only then arms
+> the operation timer. The host driver can complete the operation before
+> add_timer() runs, e.g. when the transfer fails right away. The completion
+> work then calls timer_delete_sync() on a timer that is not armed yet,
+> the synchronous caller wakes up and drops the last reference, and
+> the operation is freed while the timer is still pending:
+> 
+>   ODEBUG: free active (active state 0) object type: timer_list
+>           hint: gb_operation_timeout+0x0/0xc0
+>   WARNING: lib/debugobjects.c:629 at debug_print_object+0x198/0x2b0
+>    kmem_cache_free+0xfd/0x6d0
+>    gb_operation_sync_timeout+0x1c7/0x270
+>    gb_svc_process_deferred_request+0x5f3/0x1150
 
-On Thu, Oct 15, 2026 at 06:07:10PM +0200, David Hildenbrand (Arm) wrote:
->From: Josef Bacik <josef@toxicpanda.com>
->
->If the owner of a MAP_PRIVATE hugetlb mapping fails to allocate a page
->for CoW, unmap_ref_private() unmaps the old page from all other private
->VMAs that have no reservation of their own.  It finds them by the offset
->in the file, but then zaps each of them at the address of the faulting
->VMA.  Nothing says that another VMA maps the offset at that address: a
->child can have moved its copy of the VMA with mremap(), and a second
->mapping of the file is wherever mmap() has put it.
->
->So __unmap_hugepage_range() walks the page tables of the other mm at an
->address outside of iter_vma, where i_mmap_rwsem of this file protects
->nothing and where anything can be mapped, and the page stays mapped where
->it really is.
->
->All of the following was seen on v7.3-rc6+ (g6c377d19d4a5) in KVM guests,
->as a user without any privilege.  It takes a pool of 2 MiB pages with no
->free page that is not reserved, so that the allocation fails: the user
->can take or reserve what is free itself.
->
-> - The child moves its VMA away.  The page is never unmapped, the
->   mapcount stays 2, and the owner goes round retry_avoidcopy in
->   hugetlb_wp() until the child is gone or a page becomes free.  SIGKILL
->   to the owner does not end it.  5 of 5 runs.
->
-> - The owner's mm has a second private mapping of the offset, made with
->   MAP_NORESERVE.  The owner zaps its own entry and reads zeroes where
->   its data was.  5 of 5 runs.
->
-> - The child moves its VMA away and maps a 1 GiB hugetlb page at the old
->   address, so this one takes a pool with a 1 GiB page as well.
->   huge_pte_offset() for the 2 MiB size steps through the PUD
->   leaf, so the "PMD table" is the 1 GiB page itself and its "page table
->   lock" is folio->private of that page, which holds 2.  Kernels with
->   lock debugging oops in __unmap_hugepage_range(), 7 of 7 runs.  Others
->   spin on that word for ever with preemption disabled, 5 of 5 runs:
->
->     watchdog: BUG: soft lockup - CPU#0 stuck for 26s! [u_det3:130]
->     RIP: 0010:queued_spin_lock_slowpath+0x8a/0x290
->     RAX: 0000000000000002 RBX: ffffea0001000028
->     Call Trace:
->      __unmap_hugepage_range+0x154/0x6d0
->      unmap_hugepage_range+0xc1/0x140
->      hugetlb_wp+0x55c/0x700
->      hugetlb_fault+0x5f3/0x8f0
->
->   RCU stalls follow, and killing all tasks of the user changes nothing.
->   Four such owners, whose children share a single 1 GiB page, took down
->   the whole guest with its four CPUs, 2 of 2 runs: one reported soft
->   lockups on all four, the other gave no sign of life any more.
->
->   i_mmap_rwsem stays write locked.  With a MAP_PRIVATE mapping of a
->   hugetlbfs file that belongs to another user, and that the attacker
->   can only read, the next mmap() of that file by its owner sleeps
->   uninterruptibly in __mmap_region(), 4 of 4 runs.
->
->Compute the address from the offset for each VMA.  The tree walk returns
->only VMAs that cover pgoff, and vm_start, vm_end and vm_pgoff of a hugetlb
->VMA are aligned to the huge page size, as pgoff is, so the whole range
->lies inside iter_vma.  Its page tables can not go away there, since the
->VMA is unlinked from the file under i_mmap_rwsem first.
->
->With the right address the page is unmapped from all VMAs but the
->owner's, so the retry in hugetlb_wp() finds a mapcount of 1 and reuses the
->page.
->
->A child that has moved its copy of the VMA now loses the page, and gets
->SIGBUS when it faults on a missing page of that VMA.  That is what the
->comment above the function has always promised to those who do not own
->the reservation, and what already happens to a child that has left the
->VMA in place.
->
->The address has been wrong from the start, and the second case needs
->only mmap() and fork().  mremap() of hugetlb VMAs, which the other cases
->use, came with commit 550a7d60bd5e ("mm, hugepages: add mremap() support
->for hugepage backed vma") in v5.16.
->
->Original fix generated by an LLM and sent in private by Josef.
->
->Fixes: 04f2cbe35699 ("hugetlb: guarantee that COW faults for a process that called mmap(MAP_PRIVATE) on hugetlbfs will succeed")
->Reported-by: Chris Mason <mason@kernel.org>
->Cc: stable@vger.kernel.org
->Signed-off-by: Josef Bacik <josef@toxicpanda.com>
->[ david: switch to vma_filebacked_address, add VM_WARN_ON_ONCE, refine comments]
->Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->---
+How was this generated and tested?
 
-Good catch1
+> Arm the timer before the message is sent. If sending fails, delete the
+> timer again. If it has already fired, its work is queued and drops the
+> active and operation references itself, so the error path must not drop
+> them a second time.
+> 
+> Fixes: dbec27298b0d ("staging: greybus: operation: add generic timeout support")
+> Cc: stable@vger.kernel.org
+> Reported-by: syzbot+a2e50fb40695811c2dab@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=a2e50fb40695811c2dab
+> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+> ---
+>  drivers/greybus/operation.c | 13 +++++++++----
+>  1 file changed, 9 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
+> index 7e12ffb2dd60..19b0cdeca498 100644
+> --- a/drivers/greybus/operation.c
+> +++ b/drivers/greybus/operation.c
+> @@ -766,17 +766,22 @@ int gb_operation_request_send(struct gb_operation *operation,
+>  	if (ret)
+>  		goto err_put;
+>  
+> -	ret = gb_message_send(operation->request, gfp);
+> -	if (ret)
+> -		goto err_put_active;
+> -
+> +	/* Arm before sending, as the response may complete the operation at once. */
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+"Arm" what?
+
+>  	if (timeout) {
+>  		operation->timer.expires = jiffies + msecs_to_jiffies(timeout);
+>  		add_timer(&operation->timer);
+>  	}
+>  
+> +	ret = gb_message_send(operation->request, gfp);
+> +	if (ret)
+> +		goto err_del_timer;
+> +
+>  	return 0;
+>  
+> +err_del_timer:
+> +	/* A timer that already fired has queued work which drops our references. */
+
+Why is this comment needed?
+
+> +	if (timeout && !timer_delete_sync(&operation->timer))
+> +		return ret;
+
+Did you just leak this:
+
+>  err_put_active:
+>  	gb_operation_put_active(operation);
+
+And again, how was this tested?
+
+thanks,
+
+greg k-h
