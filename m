@@ -1,63 +1,63 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB4549AA4B
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 21:38:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 564DE4DEC23
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 21:38:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792359497; cv=none; b=u53PHRiE7RMlMaayYnTJmdWt5RpvF62PYABKaWWn0CBJvCXylyYCwQcBi71yEw1bfzBcs2vua3tqDpd7Qo6SDlMap0vtR3Jrh4w515lfw7tbVwRuJFNPyMVjokho4UKebcJUKyH+meTSD90jgDDUo9/3KMybBqfA1RiW5k42OsI=
+	t=1792359501; cv=none; b=Mz13SmV25+hkFftRZ6ZHAefWKtmL41erQ4BI3AHwxV80u6FS/RLc6BBN0bmsRqyKFmWWxwQREM9mNppvNBZAqjnK7p8Fw+GQ+YndNI0/orYdY7ocEmUsdRuBTmlzKw3qSgpBG9AyhviIiaUIAZVXEndrn5Ywokl57x0n0PxY1ow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792359497; c=relaxed/simple;
-	bh=C5OeVmVc9RUqWQx2xLWOpeX88Xt1ishh/7V1x3S2xhA=;
+	s=arc-20240116; t=1792359501; c=relaxed/simple;
+	bh=TEReWKhHAWlGInl30NA0QerMBstlNh4jb6eCUhA0BqE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a8QIatp/k0iIfPbO8ZGl9xZs+g+5gl/RGz4PQGXDhEQlnRn1ZjyfAl+88l3eqjLEYFhGy7rptbmsp75VjEr0GROOC0gd28x1KuPfGSjbN7r999axatfo9Bl4iwFOpdxOmNDletHAPBfSREA71HdJKepwGmlm/8THFzF4IxID0QY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i0Etv2pH; arc=none smtp.client-ip=209.85.221.52
+	 MIME-Version; b=Knrc7r4r2oeJO3mzVHpubwXLSD1TQc6oKv2crLtN4Ogi1FqBY9x/8kExBJvQkrTkDTymwJhtPmeoteLgYOS9UsA9w4HQ/BD6DsKAW7CnWz8/ILKn+gmlLt35vqqA919x21INki6KSq6gjhPqO8C+Za7Nx9GXaWFdCmsIEkt2JKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rPodl2sv; arc=none smtp.client-ip=209.85.221.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i0Etv2pH"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48b042c0759so838819f8f.2
-        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 14:38:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rPodl2sv"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48c5358fc28so1227220f8f.0
+        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 14:38:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792359493; x=1792964293; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792359499; x=1792964299; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=s+77y3oo4X91iER6HxasZRzsFWRhDOryP02cl98gD8s=;
-        b=i0Etv2pHdqdDOtH/Drn40wJtjhf6YD6hXwev8uwOysg5fzTMSArXwinXXZKDVL/KVq
-         hw2B+wlzRvui7mX1KaJP4FywAsos3+0VS2pOjSBLYTXz2ZM5D6ukoNN3DLgKYjFCFx+9
-         StrWhKXZN6hc8lI3FmMGt1Womx+QIvgLaVNezzWds2se/Ixtkp8jTa/85Cz8jm4yxL4y
-         aZt9xgHB4UWYVOQPD/Dj/FSwtODgwiorEvMJF19Ed8ofSuvtdOrRWpdRSjnLE++5YqNm
-         JFd7DIS4n3/qiAfuu5k9HxynCtOYVptH3ttKSgX7Sk1DETMX4o83bN5/QHyVIEcyTWVN
-         4Czw==
+        bh=J8n79Due07oqax9zNrI4fLW7LZxFciWP3oxVoKoGx80=;
+        b=rPodl2svA+RFJUrA8ecxSA01BT5m0uOQu1uVrHUNOsHOFmV9LwzSdXAK0ufgwMClJe
+         MNjf/zrm66e7HXlh2uVcYGoEoAKQyF0t+JeRMiS/xKLL3R5sz7hg6Blt/H1D5gukL9Md
+         gwc/Qx+WrMhBsqlSm9cm31/d5gSD2Hdkpol5alR1QvHJFaZhMMYvLDmA7jOYoWrgBM+H
+         aBHxsdEDhIWG0E8XkHWqmWOW7qh9LZrI1gjYW8CHNLihM3zvGD0X9TaVdTBTosKzZeec
+         Zu0Glj8moFANMqvwPq/40ebO2xcqA4UTZZA090dWeMq/iqSpiISDMsTkfYvGmG+KYQC5
+         FlKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792359493; x=1792964293;
+        d=1e100.net; s=20260707; t=1792359499; x=1792964299;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=s+77y3oo4X91iER6HxasZRzsFWRhDOryP02cl98gD8s=;
-        b=o6E3dzfsK9to82AbODpOiB+3IbUQNHZWkU0GJx4VAvIq2fkHLde6uAghCR4/XKwzxj
-         buYHXocpZDbYU9FcOwbcaB/eJhDiYVNchVKrAablF624O9x/oHIBk9TeA3FVSPIZjfor
-         CNqvhRNivd4KZfDNuWHXJ13/Q1YfhStCP70LLjQ7xkpbrvzHek8CCRmacZgFIieaDBtE
-         y6Mg5U/Rd5LgzkHhRu5WaODGraWEy7rkigwNg22d4UQ9JmazvaL0GdvcsamKbVa3g/N/
-         B3hQH6u8bgx5ivmRvxq35ZSeVkRDwKxDct2jcE2rkdarEQ/ybiSOs8bQ99CvbyBlMIHv
-         47JQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwjCRyh0svzuN0IMhnrh66srUh23DGfm1b4FDEpPdvr3bEypsTc2zUihHJqxbL8kaYX8SF8ixI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIDPSmSiIAGoegXddTuCYox9J/+wigNzCgE9ZKJL8Iuj76Hqti
-	uh60M3h1BWcDSid1bThbkA7UwJwRS8TNQ2nBkgGhc25ARCaJSwv7Pss=
-X-Gm-Gg: AYBFou1/l0qKvL41iyyuKaZA51hdeQJa5ttOfiVINSep9QCJIFKjTKnUQL4KSQdNy0l
-	9AnhGWYxvliqZP8bowYa/LBd84k5y62Spvj4KRW9F00nsNOUQNiaoZ7Lgle52IyMSBf7SenUqh2
-	79Nl97KAF9XUhZZ6jEbq6Ett8Bw06HJkgW8wfoSAaTk+jBXR/Aq6/xLpU5xpHCkC8z8/tFhE6Ab
-	j07WHlbVC1NHjPXXarOuG954M+qNZ7p/97KByBzTmnLlafwK1X0NFULyy9X1jonpNF0uSJkPOqu
-	ishusQLRuYRjft6LunyK4Dn1pqgWpT6+yTvneY0+741JLVLSpIfzjDJfWB5WCew75fWNIbtvhXi
-	ZPPM1KLm5ERg12iiUcSQuuicaEgWhdQeSIc7VxK7uTFpXK0aKKollJrrmbOpsi5CwZ7GE1+M8uR
-	grZUBSm+Y/Shi9g/k7BXd1KzRdZ3Gz2ai8h8lE5UU=
-X-Received: by 2002:a05:6000:400d:b0:48d:f58f:c98 with SMTP id ffacd0b85a97d-48e07fd288amr12216908f8f.40.1792359493335;
-        Sun, 18 Oct 2026 14:38:13 -0700 (PDT)
+        bh=J8n79Due07oqax9zNrI4fLW7LZxFciWP3oxVoKoGx80=;
+        b=00CKpCpmrX76gRvYQcKaQpekfkYb8qjOftGEvuAmUDT8OHTU7cYz0+FsUjBgvd1wXq
+         qbA3rjb/86ZynY48bf7KpCvnNbwdt4ZVioUlgMnp3Z5HAWaqhJ/As2JNIatmN40hBEfF
+         jEB36n7D8FIRhSThwf9lpWuxWQBpQuRHI6x0uSZFqwmEjFeA8/VxSxGfar7r4X3hHK6e
+         Qil8vZ5qHTK/NKR1EUcYL9hybHtqmF4SRY44hFU7rkgnWMe8mO4N57WIvbwWWIaj85sz
+         BWzpTm5gCeGxniZDXDt342T0R+qjB5PCs6BdLBsn/nAScNDYHWJ06T9760I9h/yAE4xf
+         K6ow==
+X-Forwarded-Encrypted: i=1; AKwUvBxp8G52pOL8qxRhsmW7TE51NZn5NgQL5t1VS/VSJbIvUxgGvjAOIm/sX1DX5Af371v9Z4yG8ow=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKLRHMV6GacyElKNlMeKMqcr2ZUhnB42ceinldzobiuZQncVJA+
+	ucQv7Jcx/VRcUBYYeLUZsgGgMGFPUyoN1hQl+6VcGdOwz7yVGhE7S6Y=
+X-Gm-Gg: AYBFou3kShg3Q/WooWG1vTAO8wpAgIdSLk6P7gSiwIpUsqZeijtTSQVlaqXyvXBptqE
+	mTimEGwl0z8eteIDGryhjGHb6CM4kIpXkw1onVazzXewry9w0HeAhKL+lMpZh6piE7T003iz4NY
+	HBWmI6GsBYh7RkNq0nGSxtUHU7IFOZKzvI9ocMFKoYL4gIN1UKe33pzD7VhteJHxFhDcVFkY6HC
+	hFExlB8Hiuj+sO491prWTrjtFWNcMUa14vfjkQJcsVRpIv7h3P2idNP6GagqEps/3pYeKlBFLqs
+	iX+dI9mXPjEA+wDdKOHONG8gkOwVZaiyiq2ClIJiGWBMQjOFxE3A+moZ8gR/mD5CfHDth6dBFDA
+	IIEOs5Bdb4naC/Q6zNLYU0CHArJ2U2qd9fUdCXumIntv14TC0g6Ik/NKT3QpfHw1MyEKCc76hTD
+	lH4OpN0Z8F4OOelZVrmFZ0JYYMOuklmoCUrlTDEq3X
+X-Received: by 2002:a05:6000:4021:b0:48e:cd3:b3ec with SMTP id ffacd0b85a97d-48e0cd3b575mr9075304f8f.28.1792359498543;
+        Sun, 18 Oct 2026 14:38:18 -0700 (PDT)
 Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd500e75sm18597841f8f.42.2026.10.18.14.38.09
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd500e75sm18597841f8f.42.2026.10.18.14.38.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 14:38:11 -0700 (PDT)
+        Sun, 18 Oct 2026 14:38:16 -0700 (PDT)
 From: Tristan Madani <tristmd@gmail.com>
 To: Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>
@@ -74,9 +74,9 @@ Cc: linux-input@vger.kernel.org,
 	Clemens Ladisch <clemens@ladisch.de>,
 	Tristan Madani <tristan@talencesecurity.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 4/8] HID: cougar: validate report size in raw_event callback
-Date: Sun, 18 Oct 2026 21:37:49 +0000
-Message-ID: <20261018213754.1951187-5-tristmd@gmail.com>
+Subject: [PATCH 5/8] HID: zydacron: validate report size in raw_event callback
+Date: Sun, 18 Oct 2026 21:37:50 +0000
+Message-ID: <20261018213754.1951187-6-tristmd@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261018213754.1951187-1-tristmd@gmail.com>
 References: <20261018213754.1951187-1-tristmd@gmail.com>
@@ -90,35 +90,34 @@ Content-Transfer-Encoding: 8bit
 
 From: Tristan Madani <tristan@talencesecurity.com>
 
-cougar_raw_event() accesses data[COUGAR_FIELD_CODE] (offset 1) and
-data[COUGAR_FIELD_ACTION] (offset 2) without checking the report
-size. A device sending a short report could cause out-of-bounds memory
+zc_raw_event() accesses data[1] without checking the report size.
+A device sending a single-byte report could cause out-of-bounds memory
 access because hid-core invokes raw_event before it validates the
 report length in hid_report_raw_event().
 
-Add a size check at the start of the function.
+Add a size check before accessing data[1].
 
-Fixes: b8e759b8f6da ("HID: cougar: Add support for the Cougar 500k Gaming Keyboard")
+Fixes: d0742abaa1c3 ("HID: add omitted hid-zydacron.c file")
 Cc: stable@vger.kernel.org
 Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- drivers/hid/hid-cougar.c | 3 +++
+ drivers/hid/hid-zydacron.c | 3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/drivers/hid/hid-cougar.c b/drivers/hid/hid-cougar.c
-index ad027c45f1628..2dc135d0fd123 100644
---- a/drivers/hid/hid-cougar.c
-+++ b/drivers/hid/hid-cougar.c
-@@ -267,6 +267,9 @@ static int cougar_raw_event(struct hid_device *hdev, struct hid_report *report,
- 	if (!cougar->special_intf || !shared)
- 		return 0;
+diff --git a/drivers/hid/hid-zydacron.c b/drivers/hid/hid-zydacron.c
+index 1aae80f848f50..203457398780c 100644
+--- a/drivers/hid/hid-zydacron.c
++++ b/drivers/hid/hid-zydacron.c
+@@ -116,6 +116,9 @@ static int zc_raw_event(struct hid_device *hdev, struct hid_report *report,
  
-+	if (size < 3)
-+		return 0;
+ 	if (report->id == data[0] && (hdev->claimed & HID_CLAIMED_INPUT)) {
+ 
++		if (size < 2)
++			return 0;
 +
- 	if (!shared->enabled || !shared->input)
- 		return -EPERM;
- 
+ 		/* break keys */
+ 		for (index = 0; index < 4; index++) {
+ 			key = zc->last_key[index];
 -- 
 2.47.3
 
