@@ -1,105 +1,110 @@
-Received: from ms.puri.sm (ms.puri.sm [135.181.196.210])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-127.mta1.migadu.com [95.215.58.127])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8D393B6364;
-	Sun, 18 Oct 2026 06:58:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=135.181.196.210
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 816503D301F
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 07:11:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.127
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792306718; cv=none; b=l4LDTediUqV8mPOWQuergyIth/T7nDFduvvXPpHJSob5aqSilnCjar5GO/lB9hZ3XmC9cyLhzPWOICzLthiMMg/GY/QqgV9Gh0ahqEqsPd9QJQP03i5WzHwuLnZfrAfhiT2QAxZ/AeZnJ1wIqpH216pe2BNk1eFAtXJCEz+6Mjo=
+	t=1792307486; cv=none; b=VNHYlSjFO2DNtTEFOT8eF0nYG28rwhuWTbppsN4xIz6iZeelORblwrOOdcHg2UalvnKfUx1rIPc+KCxA5El9JMGcKOSo5nPAwrnQmt8lJVqgx+Q7KLjEcy9SVRQkJNC1FvppV8CXhQzH5o5IGFMnrgdwvHhcOmuE8JBpWR7tl54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792306718; c=relaxed/simple;
-	bh=qvSAkfPXBK85nIKvwlaMA+P/P+Ie/Tb7w5MX7+TjJnc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gg31J15/3Ov3PGRm045eh1Yh4lNA3azXMnQAbmwF2Zfr3UVa6pWFpXrdmNON0A9hSmDPJu1FEzTrtKw7/6uOxx+gxWHajKzX3a8B0gW7mInIwNrLKjbD6wAJdmjfwiQVhceJ61FD5VOIfDfd3jMrlf9hevO/K3ApvgVm9Q4okbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=puri.sm; spf=pass smtp.mailfrom=puri.sm; dkim=pass (2048-bit key) header.d=puri.sm header.i=@puri.sm header.b=I/5Iwk0m; arc=none smtp.client-ip=135.181.196.210
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=puri.sm
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=puri.sm
+	s=arc-20240116; t=1792307486; c=relaxed/simple;
+	bh=lGb4nruPMj51RONlIa9w9I0Qf0y/WffyQUyIb347g3E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=a39cCukZ3BkYIx4ETTRIYGepuHJCl/lQJDq2637ifDVprpcxw23HKvOJ6XZMsvinIT+IrXDse265DUhUK31v2dHPmdSsyuI0Rza3HrVSahSH04T/HWQt97CMVOvmSWch/Z2jp5Bl/zjoEl5it8nvuo63SAVi7k2EGPymUI8eI90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LYLyWErn; arc=none smtp.client-ip=95.215.58.127
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=puri.sm header.i=@puri.sm header.b="I/5Iwk0m"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=puri.sm; s=smtp2;
-	t=1792306386; bh=qvSAkfPXBK85nIKvwlaMA+P/P+Ie/Tb7w5MX7+TjJnc=;
-	h=From:Date:Subject:To:Cc;
-	b=I/5Iwk0mCGzuK1LgV8pHZe3TdxIJDUqXuwL09Ck+HuGsz3x1lR0e+g6/rcArr7A32
-	 9DSaHKuUGE8QOwHiOICZuNEOl7fKs2QJLwB2hsAOgnFPpJr39hXjyf/YXLgdUliTcu
-	 bVTURQVN4cXzA1VhUm/TIxL1z69lYPRlCxtt4GVBgvPXdXcuqxmTzOwFyJ+AWWMIjE
-	 AF/NPX6CKOxxFnF3ix/RKCdCwjJJGWS8efiAS01UsxEM7FNoJ60CBQuE6E9uOmoW5D
-	 iQTf+qqs3+tQ0ZJK1RL48CttfBwfo/0C400KrN/bghIaROkTauEJgEnWmC6Fnlfu2y
-	 urw79LIx1l6bQ==
-Received: from pliszka.localdomain (83.24.27.201.ipv4.supernova.orange.pl [83.24.27.201])
-	by ms.puri.sm (Postfix) with ESMTPSA id DA1F51F5E8;
-	Sat, 17 Oct 2026 23:53:05 -0700 (PDT)
-From: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
-Date: Sun, 18 Oct 2026 08:52:43 +0200
-Subject: [PATCH] wifi: brcmfmac: use ISO3166 country code fallback on 43752
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LYLyWErn"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=lGb4nruPMj51RONlIa9w9I0Qf0y/WffyQUyIb347g3E=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792307482; v=1; x=1792912282;
+ b=LYLyWErn9bNn7Rpo0VTkVWYu5HqNGmQcbWSCIkdQcW1Fvf+nsoVuPXLgsHzTboBz1CrxwP4t
+ NDNbcI+x667eJ2oEKWBRpdkMQid6XUTidBtv6oazh34rbCJt0m64LbbyC/rxy2jh2aQ5INlJ2aO
+ Lv34iDGRXXdh/ZG9rWUhCe8U=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 970df750e1cbd372;
+	Sun, 18 Oct 2026 07:11:21 +0000
+X-Mizu-Trace-ID: 970df750e1cbd372
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org
+Cc: akpm@linux-foundation.org,
+	liam@infradead.org,
+	ljs@kernel.org,
+	vbabka@kernel.org,
+	jannh@google.com,
+	pfalcato@suse.de,
+	muchun.song@linux.dev,
+	osalvador@suse.de,
+	linmiaohe@huawei.com,
+	nao.horiguchi@gmail.com,
+	agl@us.ibm.com,
+	mel@csn.ul.ie,
+	riel@surriel.com,
+	peterx@redhat.com,
+	kas@kernel.org,
+	rppt@kernel.org,
+	josef@toxicpanda.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	mason@kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 06/10] mm/hugetlb: fix endless write fault on a leftover uffd bit
+Date: Sun, 18 Oct 2026 15:11:16 +0800
+Message-ID: <20261018071116.20342-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261015-urgent_fixes-v1-6-42796911043b@kernel.org>
+References: <20261015-urgent_fixes-v1-6-42796911043b@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261018-brcmfmac-country-code-v1-1-54d7cbcce035@puri.sm>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQ7CIBBEf6XZs0QgaNRfMT0A3do1lppdMJqm/
- y7oafImM28FQSYUuHQrML5IaEkVzK6DOPl0Q0VDZbDaHo02JxU4zuPso4pLSZk/NQdUeHY2OG0
- cHhDq98k40vvnvfZ/lhLuGHOTtUXwglXmU5xa9aBUZD97yciwbV//tg6OmAAAAA==
-X-Change-ID: 20261018-brcmfmac-country-code-e942b4014e5e
-To: Arend van Spriel <arend.vanspriel@broadcom.com>, 
- Angus Ainslie <angus@akkea.ca>, Kalle Valo <kvalo@kernel.org>
-Cc: kernel@puri.sm, linux-wireless@vger.kernel.org, 
- brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1336;
- i=sebastian.krzyszkowiak@puri.sm; h=from:subject:message-id;
- bh=qvSAkfPXBK85nIKvwlaMA+P/P+Ie/Tb7w5MX7+TjJnc=;
- b=owEBbQKS/ZANAwAKAejyNc8728P/AcsmYgBq1GzRuycjVCSe47CjuTqsApGrZUTaMen871JOE
- 9y4Zgq8yhqJAjMEAAEKAB0WIQQi3Z+uAGoRQ1g2YXzo8jXPO9vD/wUCatRs0QAKCRDo8jXPO9vD
- /9G3EACe3jCcyote0++9/dYWztHQzxQjX1s1HCII9VN7e9h1nCAm96QC0kGSTZAWt2brTz4DJwX
- T/qpnmKJG3Ch3pqnG8k5jD+QBhDlnbEY7q5JKC0IPLt+/eisFmFk5R7h63DbkdG3cqSpxjeVoxH
- 8G8xLm4Put35d89Dg1Ndetu13c3XyJDJul039X7NTBn7fi1f8F+H333KakAr3LZ7QPSxVwyIUdb
- 8zX8GvW+Cb58wZPXZroaiTXnKXLOIgVhiZLw+3LHpJi/LakPbFZ8eEQj91xamgjWZtQpu0FaZjp
- GOXxn2Vv0SZGSRLrSw93dyzMIlKzzk7Mw43fcc2rrPMmJRFMG45MhlI9cz4OtXaP1Pr1dqbulhn
- 335F46D2KfnbOyI/Wsu1FXbrHY1A+ncHnXDBRgCHnSHH1xeRkS7wbngmCmdXDs1e4yebR04UOxK
- G/QckwnRIbxUvby46Dk7yi1XtZkgJ4kUXvkRr4lTqttnnxx9GdpeS4ljp4cmCa6DJcKY1J0Kbvy
- Yxx7StYXQ9QFn39j7uwgafShzsZ0xrp/L2NdYq6O31GiiTUK1hl7WqUntYbuJuUN6NP1XiSBFiY
- M2U6t07K46fYObf3lHBpGoRreyxz8SCclEADK5/U0RDc9SVqjt7IbHcIFM6+b7KAghUbR50QBkC
- MO/iPh3QtH697bw==
-X-Developer-Key: i=sebastian.krzyszkowiak@puri.sm; a=openpgp;
- fpr=22DD9FAE006A11435836617CE8F235CF3BDBC3FF
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Without this, the interface stays confined to the country set by
-ccode iovar default value, which is usually 0 (global).
 
-Tested by verifying that enabling the fallback makes channel 13 APs
-visible in scans while in Poland without having to manually change
-the ccode variable.
+On Thu, Oct 15, 2026 at 06:07:12PM +0200, David Hildenbrand (Arm) wrote:
+>From: Josef Bacik <josef@toxicpanda.com>
+>
+>hugetlb_fault() resolves the uffd bit on a write fault only if the VMA is
+>registered for userfaultfd write protection, and hugetlb_wp() bails out
+>for any entry with the uffd bit set assuming hugetlb_fault() has already
+>resolved it.
+>
+>When a read-only hugetlb entry with the uffd bit set is mapped in a VMA
+>that is not registered for uffd-wp, a write fault to it never makes
+>progress. If the access comes from the kernel, e.g. read(2) from
+>/dev/zero into such page, the task spins in the page fault handler,
+>ignores SIGKILL and keeps holding the locks taken by the system call.
+>
+>Such entries should not exist, but an unprivileged user can create them,
+>for example with MADV_DONTNEED of a page protected with UFFDIO_RWPROTECT
+>or with UFFDIO_COPY in MODE_WP racing with UFFDIO_UNREGISTER.
+>
+>Clear the uffd bit when the VMA is not registered for uffd-wp and let the
+>fault proceed to hugetlb_wp(), like do_wp_page() does for regular pages.
+>
+>Note that a FOLL_FORCE write to a page protected with UFFDIO_RWPROTECT in
+>a private VMA that was made PROT_NONE now drops the RWP protection of
+>that page.
+>
+>Original fix generated by an LLM and sent in private by Josef.
+>
+>Fixes: 60d5b473d61b ("mm/hugetlb: fix uffd wr-protection for CoW optimization path")
+>Reported-by: Chris Mason <mason@kernel.org>
+>Cc: stable@vger.kernel.org
+>Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+>[rppt: massage commit message]
+>Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+>[ david: convert comment into a TODO ]
+>Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>---
 
-Fixes: d2587c57ffd8 ("brcmfmac: add 43752 SDIO ids and initialization")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
----
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c | 1 +
- 1 file changed, 1 insertion(+)
+LGTM!
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-index 872c48806d09..bd6ac29a0471 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-@@ -7973,6 +7973,7 @@ static bool brmcf_use_iso3166_ccode_fallback(struct brcmf_pub *drvr)
- 	case BRCM_CC_4345_CHIP_ID:
- 	case BRCM_CC_4356_CHIP_ID:
- 	case BRCM_CC_43602_CHIP_ID:
-+	case BRCM_CC_43752_CHIP_ID:
- 		return true;
- 	default:
- 		return false;
-
----
-base-commit: 32c52ec87d6245ee2d12ed5dd509e40062939b50
-change-id: 20261018-brcmfmac-country-code-e942b4014e5e
-
-Best regards,
---  
-Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
-
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
