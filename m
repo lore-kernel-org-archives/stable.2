@@ -1,115 +1,82 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.167])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194553DAACB;
-	Sun, 18 Oct 2026 18:21:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.167
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792347712; cv=pass; b=bx1wVyiJ2pmzShfoRIhFVrk0YPHTeomqMFBhHFOALDjUAAw1kL5KjxxtQj3/A7qRpZls0PbqZl1mD/ZMiWKFcXCpBjmMGdcvzDFlBbokAQMQXdfNdXxln5kPvBkgQ5RXGI+ClF8mGSXJYPl8dA/g9ntDSV89N0i53vZLylCCdcI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792347712; c=relaxed/simple;
-	bh=3pKT3x2ThQdMxHZhCFYPZjzhmVUEvaSkjCmS5Kxzclc=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rK0IJSXI3NA4FPHToh/vtFpQpYyRyzQAIosPPuHQsDDXWNqmvyBS1UMJJfUgqpey5O2bSqYqAOL1zQz1FpGVZlhIi51Rf1cAif88KLU3kjGFuzo+amaWqUlRaTYAg7zMM4F0wGu7aCHE5f2euROOQ2ml5o4FzJ7CGVIiD8PIqKw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=iFh4bgYo; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=3ymZfxcJ; arc=pass smtp.client-ip=81.169.146.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67FEF42E8F0;
+	Sun, 18 Oct 2026 18:22:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792347768; cv=none; b=dOi/2fZzwTyYXFgKuaXTP3Q8gvwU8yaTgz99WSnaBHLW3cq3/LF6BtvFfGwyVXViG95ESR8RyOBCwQcwVPow1QMNjwH5NJ0hdWdjK9UsjIEn3gLaeBI2/gZtnXGx6teIsA7kFJb8dbh5qh0h0hqe/2jSJPk2WgDVO7+xIpfxJbU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792347768; c=relaxed/simple;
+	bh=w3f8nnOhrpDvKnFy/PDsV54pX8IsNy9Gy1aojE3/sqQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CiQqADMbP2QUPSgRSDErczTe0vh2yGg85Wi6sZOdIih04HgW87773z/iFrzxwB3lzA4HC5i8VaQtu6498lGJRixnXnreidk06WwkcQioCGJvXgtbhAyjbb1Zwlj6iqQ2RL0QEAJwJw3NZsBP38pOSd9twNCUlZ49s+O+pK0CQnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RddeYA2d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="iFh4bgYo";
-	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="3ymZfxcJ"
-ARC-Seal: i=1; a=rsa-sha256; t=1792347701; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=p/cYTrrHL9DsBsr2+ou0E5MsJhCzYv1XJsvePJ1grYsACz0MhqI851j9A8AqEzG998
-    j/ClzCw9Uz6xKp2FidDallmUheg8u+L8qsvg/cMFJ9R6mY8ryY8RyFyQQ8F31Kb33v86
-    BHbhWrCPVC5GJnx+95K0V8YsCjsI1NmdY8yU2U3/EhQLf1l8vyvqktG2OfYHIOeE5kR+
-    ghd44FoUj1Skj3gOdhPyJ2x50Hn9YYAE4jGAczanePjlG2/REhcWeV8OtSH9j+MOFhPH
-    0i/hwU+mEqxSdX8CpuwCDcfbuAPrgMrxVNggH3pjr6mMj/VK6YNMXDV92F9W0ijC3N5Q
-    zozg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792347701;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=3pKT3x2ThQdMxHZhCFYPZjzhmVUEvaSkjCmS5Kxzclc=;
-    b=WWoRmwSn9ezX1Se+lFpGoGiKtgRVOvHMCy5mdrYfDlJlq5gYQEvk4u/G0bd9XAG7Wc
-    3xlLHzqqhKkpY3Ibb5G2VMe7gSQPJjsg2ahuxYkgGOV9Mx33xJMbIAXCKPs4NnEev5sn
-    G6mSpxuUO4eR5RI2tMF3wq0tcX/BGgdu+YfPf3VtGfopjiBjOjB8hlDOGj1VPztr9Cn8
-    0gJuHy/lgABsfKPZNRZyvS1H8kL/YBwjuel2vR3DYX3NRd+srA6h901DzTF+XhbYauPH
-    6AC1n1bOMP4JbQ8WhPwlmefjh/L30OzKQV28+UCHnyomBjufTxCTAdOgTsEDadTF+ehv
-    ZrBg==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792347701;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=3pKT3x2ThQdMxHZhCFYPZjzhmVUEvaSkjCmS5Kxzclc=;
-    b=iFh4bgYollk2iwNasoW0IxYJs0TaN/p2I3hQUuPQh2kvNGXtI0u1docBIO6HuiYyZq
-    cGR710G9NnE4Va1BEq5pzJ+O49+vd+afSCW1ecMZFl+Mnpjn8XKZkj/kQ802fPs7C9AM
-    whInmkwvXVWLnC3q8hWgUtbdATysOejTxpYKeIxk9QeGivjbkpWh9rw+xqnnBt/wSw1z
-    HHg5qHW62ijkyWPXRW8feRB/rv7ra/KkHoGyLge4PD5l1CMp+th0Yd+YeiLCNxDMcT60
-    V9wpePX9BgJ9UQA+P0o4+SfwNuPeNJ+OYo/Sd9spzHOmvER2LsFYCCruH+DoIZxoB/wl
-    xBDA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792347701;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=3pKT3x2ThQdMxHZhCFYPZjzhmVUEvaSkjCmS5Kxzclc=;
-    b=3ymZfxcJgFv9ZRBiLMwcWu9Tqs0gK2Q8yhaq6SqGMmYOqfHOLWEfnl4zWFG5O1SuEY
-    sx5PJTzN69pDq6NFLCDA==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0zNriHg+YfT0rGeWpIGzZge/Z0bJo/ZKBs7IP24cD2xnjN93xVc="
-Received: from p200300c5873684d949ea70d47c97a062.dip0.t-ipconnect.de
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id z831ad29IILeHJa
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Sun, 18 Oct 2026 20:21:40 +0200 (CEST)
-Message-ID: <361e83f8ae479909597238b4ddf9b3a1e40ef0c2.camel@iokpp.de>
-Subject: Re: [PATCH v2 1/5] scsi: ufs: bsg: Complete the job on error
-From: Bean Huo <beanhuo@iokpp.de>
-To: Stanley Jhu <stanleyjhu@google.com>, "Martin K. Petersen"
- <mkp@kernel.org>,  "James E.J. Bottomley"
- <James.Bottomley@HansenPartnership.com>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche
- <bvanassche@acm.org>,  Bean Huo <beanhuo@micron.com>, Peter Wang
- <peter.wang@mediatek.com>, Brian Kao <powenkao@google.com>, 
- linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Sun, 18 Oct 2026 20:21:39 +0200
-In-Reply-To: <20261015001855.3450573-2-stanleyjhu@google.com>
-References: <20261015001855.3450573-1-stanleyjhu@google.com>
-	 <20261015001855.3450573-2-stanleyjhu@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RddeYA2d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F9561F000C4;
+	Sun, 18 Oct 2026 18:22:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792347765;
+	bh=4EC4ZAqnkcehz0PXUia4zuS6AQ0G5SF9jBU4dORYNIU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RddeYA2djG2gV9OqmLzMnmVMA1gE43+Pee0UgBgEMqZviJ3tNTrw45vuVVNc3pr7j
+	 AmvwkspbP7fR2C8nC5/tmZn2WZv/aOmc0SsHEsPwlflmNeFeMmvDmFpSGj9BYD3TiC
+	 Ag5RwVlvohKU6aXWuiFcPDdSb0a9OGrC/6+UstBinH5675XVWOmq5j6KOXaFqR9AVA
+	 FXyE5Ddzwp1+TZjpmdNAcVPfBTXRUFgMWjErQ0SMgiryvH80mQ8a86Ad96Z7dalRYG
+	 HhueCH5pkhx4i7TSiN8D1sHlUVvWeiONgok6i9ygr3GwnhUje5/t6a3l12YHwCugw4
+	 /R8xYzfWDFDhw==
+From: SJ Park <sj@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	jonathanh@nvidia.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 000/869] 6.12.114-rc1 review
+Date: Sun, 18 Oct 2026 11:22:37 -0700
+Message-ID: <20261018182237.376990-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261017160036.979869304@linuxfoundation.org>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-T24gVGh1LCAyMDI2LTEwLTE1IGF0IDA4OjE4ICswODAwLCBTdGFubGV5IEpodSB3cm90ZToKPiBp
-bmRleCA3YTY2OTE3YjNmYzAuLjE4YzMxOGQ3ODEyMiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL3Vm
-cy9jb3JlL3Vmc19ic2cuYwo+ICsrKyBiL2RyaXZlcnMvdWZzL2NvcmUvdWZzX2JzZy5jCj4gQEAg
-LTE5NSwxNCArMTk1LDEyIEBAIHN0YXRpYyBpbnQgdWZzX2JzZ19yZXF1ZXN0KHN0cnVjdCBic2df
-am9iICpqb2IpCj4gwqDCoMKgwqDCoMKgwqDCoHVmc2hjZF9ycG1fcHV0X3N5bmMoaGJhKTsKPiDC
-oMKgwqDCoMKgwqDCoMKga2ZyZWUoYnVmZik7Cj4gwqDCoMKgwqDCoMKgwqDCoGJzZ19yZXBseS0+
-cmVzdWx0ID0gcmV0Owo+IC3CoMKgwqDCoMKgwqDCoC8qIGNvbXBsZXRlIHRoZSBqb2IgaGVyZSBv
-bmx5IGlmIG5vIGVycm9yICovCj4gLcKgwqDCoMKgwqDCoMKgaWYgKHJldCA9PSAwKSB7Cj4gK8Kg
-wqDCoMKgwqDCoMKgaWYgKHJldCA9PSAwKQo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgam9iLT5yZXBseV9sZW4gPSBycG1iID8gc2l6ZW9mKHN0cnVjdCB1ZnNfcnBtYl9yZXBseSkg
-Ogo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgc2l6ZW9mKHN0cnVjdCB1ZnNfYnNnX3JlcGx5KTsK
-PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgYnNnX2pvYl9kb25lKGpvYiwgcmV0LCBi
-c2dfcmVwbHktPnJlcGx5X3BheWxvYWRfcmN2X2xlbik7Cj4gLcKgwqDCoMKgwqDCoMKgfQo+ICvC
-oMKgwqDCoMKgwqDCoGJzZ19qb2JfZG9uZShqb2IsIHJldCwgYnNnX3JlcGx5LT5yZXBseV9wYXls
-b2FkX3Jjdl9sZW4pOwoKU2luY2UgdGhlIG9sZCBjb21tZW50IGlzIGdvbmUsIGl0J3MgYmV0dGVy
-IHRvIGFkZCBhIHNob3J0IG9uZSBiZWZvcmUKYnNnX2pvYl9kb25lKCkgc2F5aW5nIHdlIG11c3Qg
-YWx3YXlzIGNvbXBsZXRlIHRoZSBqb2IgYW5kIHJldHVybiAwPwoKb3RoZXJ3aXNlIGEgbGF0ZXIg
-Y2hhbmdlIGNvdWxkIGVhc2lseSBicmluZyBiYWNrIGVpdGhlciB0aGUgbGVhayBvciB0aGUgZG91
-YmxlCmNvbXBsZXRpb24gdGhhdCBiMTNhMzUzOWViMmEgZml4ZWQ/CgpSZXZpZXdlZC1ieTogQmVh
-biBIdW8gPGJlYW5odW9AbWljcm9uLmNvbT4KCj4gwqAKPiAtwqDCoMKgwqDCoMKgwqByZXR1cm4g
-cmV0Owo+ICvCoMKgwqDCoMKgwqDCoHJldHVybiAwOwo+IMKgfQoK
+On Sat, 17 Oct 2026 17:47:21 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
 
+> This is the start of the stable review cycle for the 6.12.114 release.
+> There are 869 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+
+This rc kernel passes DAMON functionality test [1] on my test machine.
+
+Tested-by: SJ Park <sj@kernel.org>
+
+[1] https://github.com/damonitor/damon-tests/tree/next/corr
+
+
+Thanks,
+SJ
+
+[...]
