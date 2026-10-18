@@ -1,177 +1,178 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazolkn19013070.outbound.protection.outlook.com [52.103.20.70])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D11313B05B9;
-	Sun, 18 Oct 2026 15:41:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.20.70
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792338077; cv=fail; b=i7KKj+lJKbfhJUbWS6hhlS7VIGorfVsMJw7eXGjh15QCLIYJDln/tcKIjMQYQaeZ+0dubN2wgEVfrYK+dV57XzR1obf0XOAdwbCzUpfw+I2pR/lXc1CV34HCbNPXPkVQl+1QmcnPGESaq4LeobAr4fRszVMMrw/BSC/l3iO9MF4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792338077; c=relaxed/simple;
-	bh=zHxFN2fKlgD0e5y6TI8AZPHoRd6ocsjonUn+ggUNeVM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=T8HJI8jALdXMI1faMpw+qtgOtHxPQ6D9RFuXYSGj0NmXvv6pcfDYLLyIrakY7IXhmCV7fioDqj1Gqy+KZYNcJNwQ3JCt/UkKj/gbZ/nA50BCrYjC/I09xlNw2wjUaLS7MI6ljWRJYe1bdXiKhZh4WrHgWUtcNsaHTH/cM61t8Ko=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=LHDx57Og; arc=fail smtp.client-ip=52.103.20.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3A833A453B;
+	Sun, 18 Oct 2026 15:48:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792338522; cv=none; b=mQPBS+o84ndHvbu/QcdVOn1C4GVAz3KkMHOy+po/FHyJ1hA0VwMxGc05BP51inAKwA5NIHPzUfWko9D/iGKa3lou/NNSk+cymGWKFk0m/8bvXZvegGuC4+cljbBj3f9VF5uU83y7IV7IhFFaHC3rjBxnxchZ8u6V6AgcoytMMRs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792338522; c=relaxed/simple;
+	bh=FaRcLEUs6l15qig9t/5mUVXsio7boF41UEEgpQSRb4g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T55XSCI5Bv56z3Hz7iH+q3uCuqzavW/LdzfnBbLbQ+2F21ozj5E0tkJXj1ZPmVDvzuYoL1scaALTOtQ80iK+KwKQZK/ru7MWmriw/gq+yiB8Y9M/K3gqORZouwhMktbG+8pd2rix8Jejv23kJ6tLwNybtIYZvoT83l5E3tSmtZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WVyI2KX3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="LHDx57Og"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oEPnEEubxdYIASUJt0+o1LI2j5G+fJ2+jRd+rnjfqbNa0fFB4C6HFNWw95944sHmFnPkFk2ex2AXHJGbGFZnrWAr0JycBkxgGEetoFf5pXmiwfw8hNKqcnRfXZRzyWxjqi9YfmdFybetzcvm24Jm3qaGgqhshTKGmtBv/P9pxcVk9mcOpJ6wRVhdmi6oclIEgWPFOW4WohQO5ty3HwoJRVaJiOZEKPMWQyzK8tFXfFAy40sDn19KAskFC8WAEp5P9+I1P/afOjz4ZmSJjvWT2aedVuBZ7Hg4ST/cDSee4eT+jLDsJPt/CapTRds2ARgwJvaTaYyDVUG/K30dYW834A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=dpM5p56XNRU26xMdR8CUp0x2QLqGdVgrys/2QllhMvw=;
- b=mhLRX64PgYFA9I9sz+8p3LuUNMowjdVlYjTejPvmaKnszfSPnQ5nAUcxFtq5BOzu1Ql0KKkJIZnV8Kk0KoKaMbBg0bkf7Z0HyoiKpCfb60mUYM17MfzSDd8aWFRAaEP5eAJPyv+EfkNhAiB9g8j52Iu586jWYixiQKTrVg9lJuWWVjVzYC+UwfvfMZGHrrgV+4OcSSI6XcxfYx6cFWfzpc5fBSyMVAXiv8tTk481uSVeOoeFbu4Ldev3W+MfoRNn2wIas2Uoexe2lwsSKVFqQiFWQMyPSVhKikbbzsa1nvejcsOB6wfQ0RUQ/snCJSWGf5TR+alQvVog2D7HwgxuGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dpM5p56XNRU26xMdR8CUp0x2QLqGdVgrys/2QllhMvw=;
- b=LHDx57Ogp5MNGwYOs9NC01zGthy6+O+dqY9fTgLs4CVxr+5pmzzDixXP+79wLwBYB96RvdJS3XcKccTR/7iRQ9gSN8Xi/9URjrNcK4bNqO7Gb9r+Oaq+FW5VPxRTpCAlJINwptQAcuZRRkEDOtv1qpAzWYc1Ks5qmtX/0jdhFAZEYCBmbncjaQeCCZeS0R0y3kWv6M56p0CB0/CCKdwAyQ0hHIezmAgcfYfVmXd6xRQCiONOCRh0i1kk+2FSxiN70VMvmh7Ygc2FhRCe6bSRKfUoY09KwpjVA6LNFOQch7FYjenyGp9lTIXQsLTU9oEcQFnQXEM5yfDURka25BzbsQ==
-Received: from SA3PR05MB10385.namprd05.prod.outlook.com
- (2603:10b6:806:39d::17) by FT1PR05MB999137.namprd05.prod.outlook.com
- (2603:10b6:170:16::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Sun, 18 Oct
- 2026 15:41:13 +0000
-Received: from SA3PR05MB10385.namprd05.prod.outlook.com
- ([fe80::e22f:a0f5:fcb0:9b0d]) by SA3PR05MB10385.namprd05.prod.outlook.com
- ([fe80::e22f:a0f5:fcb0:9b0d%6]) with mapi id 15.21.0522.017; Sun, 18 Oct 2026
- 15:41:13 +0000
-From: Wang Yingjie <x-professor@outlook.com>
-To: "James.Bottomley@HansenPartnership.com"
-	<James.Bottomley@HansenPartnership.com>, "mkp@kernel.org" <mkp@kernel.org>
-CC: "yangxiuwei@kylinos.cn" <yangxiuwei@kylinos.cn>, "axboe@kernel.dk"
-	<axboe@kernel.dk>, "bvanassche@acm.org" <bvanassche@acm.org>,
-	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
-	"io-uring@vger.kernel.org" <io-uring@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Wang Yingjie
-	<x-professor@outlook.com>, "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: [PATCH 6/6] scsi: bsg: report io_uring data copyback failures
-Thread-Topic: [PATCH 6/6] scsi: bsg: report io_uring data copyback failures
-Thread-Index: AQHdXxcbj0vT2niKYkydJQKQWh0ezA==
-Date: Sun, 18 Oct 2026 15:41:13 +0000
-Message-ID:
- <3303ad865a8e75c4329769d11e281f55578ef30f.1792237341.git.x-professor@outlook.com>
-References: <cover.1792237341.git.x-professor@outlook.com>
-In-Reply-To: <cover.1792237341.git.x-professor@outlook.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA3PR05MB10385:EE_|FT1PR05MB999137:EE_
-x-ms-office365-filtering-correlation-id: 44335025-01b3-4781-979f-08df2d2e3dab
-x-ms-exchange-slblob-mailprops:
- AZnQBsB9XmrTkIzDOCxR6E7nJ4I/6XZ7/v4IBBbflA1fd4tTKzAEqgN28exgXOWBmxWLNbpj7hJCR+Vewgxhr/70aoyD7dJ6k19En+ou23uMJItM2JY2YuKwp6fhtKIF9HNbIRQumRANfEp1kdrarlHwO1yiZOTESkv12jL8vmtzdWyVzEm6Zcne4jv9F9zrjDTXasLVdWv221ZMe7dIFyRXzYXDMbrEWRKNy1BzW0RzUu1Tr5eCUn4nPXvp8QWlBJRWxHAmDE2WGY/JRg02mtvNtdsCJB7wL4KtXno2HBAz5NYPRSHFqTH9P4xuFMN8R/Q5qLXn7l/40OsEoeN6xQ5xzEMT7S3IQgVlSZs2SNyxBWm4RineZ6zzZIxjLBaNHVSzvVpeCx//kxJhi3X2kqOojpPow3ocLWmMS40kqB9Zz4A234m58lDjLqVbGU5KQrIMRVP3LRYEJk/nOHBIZINqQbKNeH4g3LpHJB+Mv+BQXaCXAoYH1E7TE+jetXXw7JASoXZzKg6bRJPUTszTvknijuRJTixuIGwa+iusjDqJZ0ts5ieSR4tp5eLi5ho0GKUI7OF3Pch6YaEmrvht+dkh0jx/p+Fg7Vry431DT94B84KpLkj8ZdDl/JvtZzFtVHWSsudayaE263apGFt2VDRHMZ2ZygoJ1c7BM3ep7fZmuM0AWdtXg6spev7rKvxmPgrf8dg6KdcJ0uXDzcd+Fn89B7SL71JmLm3ML8QPTHsSThGliu4N2EV/cfNWfdEeQk7Xqlw2ghc=
-x-microsoft-antispam:
- BCL:0;ARA:14566002|24021099003|15080799012|39105399006|16051099003|22091999003|22121099003|41001999006|8062599012|8060799015|19110799012|24121999003|31061999003|38102599003|4040399003|4140399003|102099032|3412199025|440099028|53005399003|40105399003|12091999003|26121999007|3430499035|1710799026;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?k0Wrk3l4NnYdrcWICOtvKplMS8yxgS8bZePC/o5wY+qkEJuq9LsA4kX+vd?=
- =?iso-8859-1?Q?06U1k6Kj3wcJiMkDjeeumODnOznjaDSO2Jj5+sGLggQwyvHjLj2OZi8/eQ?=
- =?iso-8859-1?Q?8aSOUSEEh39MOZoRjsGOiyl0w2GMl/Hx0cXAVQowMBoWltEt8lzp6Yb+CP?=
- =?iso-8859-1?Q?qf+ot+r0/M4EEM0mM/Vns6fwKjw6FUZ1Ga6Z2KNYRq/7ZG3EeUOECGY0NT?=
- =?iso-8859-1?Q?AMFgk1z1NFCecPWpxeiSFgNr1T/QY5kLOcIncoDjbUyrgMr1JpsTO/x3kI?=
- =?iso-8859-1?Q?8IMi5Af7e7wa2YPl2K6j+kMbBXiadaGjFyHRBISPWIgTTeOQ5yAW/afIFJ?=
- =?iso-8859-1?Q?/Sf9ftd/4DaPW9Dt3tuj59x8aXAPkkypDU7WpmehmN6atvQCvUrVcXrZY0?=
- =?iso-8859-1?Q?KCFLNonKGZUpDYGj7Yp5cowGw2z5kNeJOk5iA192Lj1Iiob5N1TrGnMPHu?=
- =?iso-8859-1?Q?8Yf1JYWRGL1AAWZBKXM/FWW0oNNGx0HBhHYNwjfweispn3TESLlweblG+X?=
- =?iso-8859-1?Q?PIsuddbr0wlURJmKScgpOp0GnBREaHBsKHZbUrY8m46478P6ButJTVVzha?=
- =?iso-8859-1?Q?ZCaBZf6+jNC51+DLJ66WxE0elVMyqcG6TmXrXg8tVSvBpcQMRp5BCEUxrR?=
- =?iso-8859-1?Q?teT47pFCxxOhRsxyX/X9MNovB7REAA132trEcW2ctyxUkR7dqGY1OUfccj?=
- =?iso-8859-1?Q?JwZFbceQEOn7Gq+t1Uqjwq0SIwqvloKieMdyF9XiROlXre1WzL2RbM9+2w?=
- =?iso-8859-1?Q?OYRqE32qZNsPwh4KxnI3s1NawVqiw7xwWm6Zr0Hq09YA255FI1NCiBm0bs?=
- =?iso-8859-1?Q?hR8yjHnjkJIWE+vbN6+h/WiHPcjSVuaW/x4dU6Vdth9MHI3/fL9mobp2N4?=
- =?iso-8859-1?Q?2/YXrgQw3KzwZNXw7cTeXxShaPstC2nILj1D4/EVqWNYhftG+xNDXtElwu?=
- =?iso-8859-1?Q?+cu8stpb4JJHqdHczefd/hqFZS38pQbz1odYjTxpcNajutKKed44c+ADyP?=
- =?iso-8859-1?Q?ln/nd+z03gZeLMGpP5vwMTgscX94CCyc36JDcsvhIZ3TAxK7usI7MAZKmQ?=
- =?iso-8859-1?Q?i5B27mahf1sXwlrF6IAXug4meMTffeyKdeSSktXHKttfbIsLvwZh26fenb?=
- =?iso-8859-1?Q?VrtRHHadHu5sowWlDCbAuhseoc12VGHLqeDswDD+RrRLiDiV2uBLS77XMJ?=
- =?iso-8859-1?Q?iFmPSyLPFuFLanOvJRaesmOYwdgc5PeeP6r4jNfprgndXGZb7iDgJrZDCM?=
- =?iso-8859-1?Q?f3DtF26JTTkZxnsTw9fQS4go3ql6DYHtpM/u8AlrwCtfAZzOnHzad9ndTv?=
- =?iso-8859-1?Q?E/Tx?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?4dLmeWrquCFUtK0pLzcHL/ZYOTVLjsrMTJPFnil+jFFi8O7ef8DXHow98k?=
- =?iso-8859-1?Q?g7t1j6d/fJdET7n7g8XTysGs2ss6jfxdq7z/Tr4hEIHwrKIny1/+FMtQKI?=
- =?iso-8859-1?Q?i2W2AP5XPhnR37BnuSMnJxe3PIel8WRFpMFunfARoLt6lb1ZXG/0MLVfes?=
- =?iso-8859-1?Q?mnCH6eXcc5aNEUvjYcdoB5UTzqSJDqP8jYiCK2Z/jzbrLBN296xBBuJvK6?=
- =?iso-8859-1?Q?N8eOdlHzLI/WrcGGtPau0+/yylyRuuG1nARgPeanaemKyFiH3x2aVRbHxM?=
- =?iso-8859-1?Q?hRECGOu/iS+dQRxaT9tFTCjK5bcf9gBAo3e+fkUc3BLdidX1tGv8pumJkO?=
- =?iso-8859-1?Q?U/t8sK0ypRndO2zSI+HkqdqFfcfht0WyRLPWi6GENcEbARIBY/jgALNlEo?=
- =?iso-8859-1?Q?fYqCvuq05JX4cCAfv8sDi6MJgk+7Ufougotn3gwbOIfWbNCy8YEKciLca+?=
- =?iso-8859-1?Q?Bm1R2MUjwCRzMt3cd67mMNZEeSNhdognry0VqIhsLWTaM1VKvunY45xVvN?=
- =?iso-8859-1?Q?D4NgOxTWg89LTfquqe1VUz2NZor2jJqnN7WvTctu1O4xQt55XeuZ4x0HNZ?=
- =?iso-8859-1?Q?RHcLG5xdCgyzZMLWdgvpq+pjgl5iiq6q0gBJ/nu8DAus3/SkAoi17R16WF?=
- =?iso-8859-1?Q?OA9tjC/efMx103HXdkGVi2uX6NZf8ImLuNLT7uuZfabbkeUq8dmyft97t+?=
- =?iso-8859-1?Q?F6fOcPjZizJLL7tC+328cHn7W12CTbMPRF4ierbkDvLn+sfdCO/Mxdd/o2?=
- =?iso-8859-1?Q?naHhvCjkPhheaSfWYioPVcG1UOHDQWP64GCHmUnqrtQZk6JDtEqvuwu9E8?=
- =?iso-8859-1?Q?NYCH4erbBuGQzBlOpL2LMuz1ueUK3SX7FDLoL1Zj6ExzZLZALKQcEKgaDO?=
- =?iso-8859-1?Q?SjdtWtHEPaGSK8JIQvunWWteAS9yTiZ1ptZ0LnGfn8xNUsgj8A8xXl8l0S?=
- =?iso-8859-1?Q?bfUiGdcUyv7vSAddR35eIye1+vqZKvXcMbxY6Ol1f+OwHt0QS2uLxA7tzR?=
- =?iso-8859-1?Q?HSwvoBxlFRo7Ck3UHFTs08LkCppgDayjt4QKnwUHssMmTloykKHq5LHE5i?=
- =?iso-8859-1?Q?IpgCQnwvL5PKgaFoSsHHhhGK7+AVQj38T4WvW05f1Tj8XubibRjuLKYFCm?=
- =?iso-8859-1?Q?vIGJuYU+tadzkcEMoKtNaIat6f0YMxeqCf+3/CFayJhFnvDO5QEdE/bNv2?=
- =?iso-8859-1?Q?WrJqeyd4HZ6uFFNshzgqTMoO05fltye8TR7hC2ZqIurZxQTjIBA43es82S?=
- =?iso-8859-1?Q?yD3XUKoInNY+P7CpEMhXHvW/SRY1hIUm4TfIU24DaQz76pB8tuWwLYs95L?=
- =?iso-8859-1?Q?YlsMwauCpd3UQxhabW0KS7u8TcchXiGkZkZ5/p91Y7snWaIKAEuqz6DErA?=
- =?iso-8859-1?Q?zIIK4/VR0oplCEFggCq6TVqjKO3ve9RvIJrWsdpbtoy9xnplyYmZqiH9c4?=
- =?iso-8859-1?Q?QTQ3hA18mAlr2YJb?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WVyI2KX3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F62E1F000C8;
+	Sun, 18 Oct 2026 15:48:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792338520;
+	bh=qHr+ZYKSpAzCi10EtcwRrDzJJq6BBKkyzbps+RPUef0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WVyI2KX3sfSFb7oZBIkg5vyFZX7+LpvwVP7fn4Cty10Z+Y1LmZOfywyVqCXWWjkZk
+	 w0HsKNxrIpDN+fTkwgMX01zxZ9pMY6N/P1LtrU17V8ZUMVAxbiAmgrPDGg7W+Rjs6i
+	 cOUCAgudB6PnoTQaLURK0fj6/ZYFFSlnOyU9KKE/6KmvZiNJKMOPTK8W4Rny4GZZn5
+	 dnzO8E7iP9hzjx0W6bJF+lnhorAfjoibm0p1V0l9L9VW6uVghDWolJvqlzthVu28XZ
+	 /BYjpM8dC6pSBrEBdq8Xis70LV4n4Q0dBgk6Rq7VtYXCr+VagK8d6QqHe7hk60/2QA
+	 1AcOlXaFgMXKQ==
+Date: Sun, 18 Oct 2026 17:48:34 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+Cc: Jan Kara <jack@suse.com>, Al Viro <viro@zeniv.linux.org.uk>, 
+	ecryptfs@vger.kernel.org, linux-ext4@vger.kernel.org, jfs-discussion@lists.sourceforge.net, 
+	linux-nilfs@vger.kernel.org, exfat@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
+	ntfs@lists.linux.dev, ocfs2-devel@lists.linux.dev, linux-btrfs@vger.kernel.org, 
+	gfs2@lists.linux.dev, linux-efi@vger.kernel.org, linux-mtd@lists.infradead.org, 
+	linux-xfs@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH RFC 20/28] gfs2: wait for a pending withdraw before
+ remounting read-only
+Message-ID: <20261018-ungemacht-sodbrennen-hausordnung-42d33a4f7098@brauner>
+References: <20261012-work-fs-sb_rdonly-v1-0-60743a3dc326@kernel.org>
+ <20261012-work-fs-sb_rdonly-v1-20-60743a3dc326@kernel.org>
+ <CAHc6FU5bdAjABRm=bnH68b2f66TZTDZ8sPdatLB2fS7-55U=yw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR05MB10385.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 44335025-01b3-4781-979f-08df2d2e3dab
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Oct 2026 15:41:13.6254
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FT1PR05MB999137
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAHc6FU5bdAjABRm=bnH68b2f66TZTDZ8sPdatLB2fS7-55U=yw@mail.gmail.com>
 
-From: Yingjie Wang <x-professor@outlook.com>=0A=
-=0A=
-scsi_bsg_uring_task_cb() discards the return from blk_rq_unmap_user().=0A=
-A successful data-in command can therefore post CQE 0 even when bounce=0A=
-data was not delivered to userspace.=0A=
-=0A=
-Use the unmap result as the CQE status.  A later sense-buffer copy=0A=
-failure remains -EFAULT as before.=0A=
-=0A=
-A raw BSG INQUIRY into an unaligned anonymous PROT_NONE mapping posted=0A=
-false success in 20/20 runs before this change and -EFAULT in 20/20 runs=0A=
-afterward.  Writable controls continued to succeed.=0A=
-=0A=
-Fixes: 7b6d3255e7f8 ("scsi: bsg: add io_uring passthrough handler")=0A=
-Cc: stable@vger.kernel.org=0A=
-Assisted-by: LLM=0A=
-Signed-off-by: Yingjie Wang <x-professor@outlook.com>=0A=
----=0A=
- drivers/scsi/scsi_bsg.c | 2 +-=0A=
- 1 file changed, 1 insertion(+), 1 deletion(-)=0A=
-=0A=
-diff --git a/drivers/scsi/scsi_bsg.c b/drivers/scsi/scsi_bsg.c=0A=
-index 341142dda71d..f776c4a74fb3 100644=0A=
---- a/drivers/scsi/scsi_bsg.c=0A=
-+++ b/drivers/scsi/scsi_bsg.c=0A=
-@@ -54,7 +54,7 @@ static void scsi_bsg_uring_task_cb(struct io_tw_req tw_re=
-q, io_tw_token_t tw)=0A=
- =0A=
- 	blk_mq_free_request(rq);=0A=
- 	if (pdu->bio)=0A=
--		blk_rq_unmap_user(pdu->bio);=0A=
-+		ret =3D blk_rq_unmap_user(pdu->bio);=0A=
- =0A=
- 	if (sense_len_wr) {=0A=
- 		if (copy_to_user(uptr64(pdu->response_addr), sense_buffer,=0A=
--- =0A=
-2.43.0=0A=
-=0A=
+On Fri, Oct 16, 2026 at 02:32:01AM +0200, Andreas Gruenbacher wrote:
+> Christian,
+> 
+> On Mon, Oct 12, 2026 at 1:27 PM Christian Brauner <brauner@kernel.org> wrote:
+> > Since commit 9c4a3de6cd5b ("gfs2: Asynchronous withdraw") most of a
+> > withdraw happens in do_withdraw() from a work item and SDF_JOURNAL_LIVE
+> > stays set until it ran. A remount to read-only in that window goes
+> > through gfs2_make_fs_ro(). Its log flushes bail out early on the
+> > withdrawn filesystem before FLUSH_SHUTDOWN can clear SDF_JOURNAL_LIVE
+> > and then gfs2_quota_cleanup() hits its BUG_ON():
+> >
+> >   kernel BUG at fs/gfs2/quota.c:1532!
+> >   RIP: 0010:gfs2_quota_cleanup+0x562/0x6b0
+> >    gfs2_make_fs_ro+0xf3/0x2e0
+> >    gfs2_reconfigure+0x42e/0xfd0
+> >    reconfigure_super+0x437/0xb20
+> >
+> > Just flushing the withdraw work before the remount isn't enough.
+> > gfs2_withdraw() sets SDF_WITHDRAWN, calls dump_stack() and only then
+> > queues the work. So a remount can see a withdrawn filesystem while
+> > there's nothing to flush yet. And a withdraw can also start in the
+> > middle of gfs2_make_fs_ro().
+> >
+> > So let do_withdraw() wake up waiters when it clears SDF_JOURNAL_LIVE and
+> > let gfs2_make_fs_ro() wait for the bit after its log flushes, right
+> > before gfs2_quota_cleanup(). On a healthy filesystem the shutdown flush
+> > already cleared it. umount doesn't need to wait. gfs2_put_super() sets
+> > SDF_NORECOVERY first and gfs2_quota_cleanup() only BUGs without it. Once
+> > the bit is clear the journal isn't live anymore and gfs2_make_fs_ro()
+> > doesn't write anything.
+> >
+> > gfs2_make_fs_rw() can leave the bit set on a withdrawn filesystem as
+> > well. It checks for a withdraw and then sets SDF_JOURNAL_LIVE. If
+> > do_withdraw() runs in between it finds the journal not live yet and
+> > returns. Nothing clears the bit then and the next remount to read-only
+> > waits for it forever. So check for the withdraw and set the bit under
+> > sd_log_flush_lock, which do_withdraw() holds while it tests the bit.
+> > Then either the remount sees the withdraw or do_withdraw() sees the live
+> > journal.
+> >
+> > Reproducer, lock_nolock: a SCHED_FIFO task writes 1 to the withdraw
+> > sysfs knob from cpu 1 and keeps cpu 1 busy (RT throttling and cpu 1's
+> > fair server disabled) so do_withdraw() can't run, then from cpu 2:
+> >
+> >   mount -o remount,ro /mnt
+> >
+> > On lock_dlm the window lasts as long as the withdraw helper runs. The
+> > window before the work is queued can be widened with a kprobe on
+> > dump_stack_lvl() that delays the task writing to the withdraw knob by a
+> > few seconds. A remount to read-only or sysrq u in that window hits the
+> > same BUG_ON().
+> >
+> > Fixes: 9c4a3de6cd5b ("gfs2: Asynchronous withdraw")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> > ---
+> >  fs/gfs2/super.c | 22 ++++++++++++++++++----
+> >  fs/gfs2/util.c  |  2 +-
+> >  2 files changed, 19 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
+> > index 06302c29340f..1d7b39354d65 100644
+> > --- a/fs/gfs2/super.c
+> > +++ b/fs/gfs2/super.c
+> > @@ -147,12 +147,23 @@ int gfs2_make_fs_rw(struct gfs2_sbd *sdp)
+> >         }
+> >
+> >         error = gfs2_quota_init(sdp);
+> > -       if (!error && gfs2_withdrawn(sdp)) {
+> > -               gfs2_quota_cleanup(sdp);
+> > +       if (error)
+> > +               return error;
+> > +
+> > +       /*
+> > +        * do_withdraw() only takes a live journal down. Check for a withdraw
+> > +        * under the lock it holds for that so that either we see the withdraw
+> > +        * or it sees the journal live. Otherwise gfs2_make_fs_ro() waits for
+> > +        * the bit forever.
+> > +        */
+> > +       down_write(&sdp->sd_log_flush_lock);
+> > +       if (gfs2_withdrawn(sdp))
+> >                 error = -EIO;
+> > -       }
+> > -       if (!error)
+> > +       else
+> >                 set_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags);
+> > +       up_write(&sdp->sd_log_flush_lock);
+> > +       if (error)
+> > +               gfs2_quota_cleanup(sdp);
+> >         return error;
+> >  }
+> >
+> > @@ -565,6 +576,9 @@ void gfs2_make_fs_ro(struct gfs2_sbd *sdp)
+> >                                    HZ * 5);
+> >                 gfs2_assert_warn(sdp, gfs2_log_is_empty(sdp));
+> >         }
+> > +       /* A withdraw that do_withdraw() didn't finish yet leaves it live. */
+> > +       if (!test_bit(SDF_NORECOVERY, &sdp->sd_flags))
+> > +               wait_on_bit(&sdp->sd_flags, SDF_JOURNAL_LIVE, TASK_UNINTERRUPTIBLE);
+> >         gfs2_quota_cleanup(sdp);
+> >  }
+> >
+> > diff --git a/fs/gfs2/util.c b/fs/gfs2/util.c
+> > index 83b8bb6446e5..1535ce2b7aa8 100644
+> > --- a/fs/gfs2/util.c
+> > +++ b/fs/gfs2/util.c
+> > @@ -122,7 +122,7 @@ static void do_withdraw(struct gfs2_sbd *sdp)
+> >                 up_write(&sdp->sd_log_flush_lock);
+> >                 return;
+> >         }
+> > -       clear_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags);
+> > +       clear_and_wake_up_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags);
+> >         gfs2_ail_drain(sdp); /* frees all transactions */
+> >         up_write(&sdp->sd_log_flush_lock);
+> >
+> >
+> > --
+> > 2.53.0
+> >
+> 
+> this looks good all around, thank you very much. Can I add it to my gfs2 queue?
+
+I was planning to just provide a stable branch for everyone to pull post
+-rc1. Then you can just pull that in?
