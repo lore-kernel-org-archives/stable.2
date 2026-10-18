@@ -1,134 +1,127 @@
-Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21BF53DAAB9
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 10:36:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA05228030E
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 10:46:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792319802; cv=none; b=l0/FbcCB8p4Tfyeuk+lZnhkiIV/0XaHGmaARvtsNetwmgdIyAiUUB0CS8+jJHfEdemtYKUq3wNBsBTRaBZ8pmIrxa2n0d5wmKfrkRNV6aSJBAz0Xs9dvDgbmR0A05C1upqC80oynJxipT07ZwuvSoVn4nvG9fGuBu20xn2+ZIJE=
+	t=1792320385; cv=none; b=jg7Hk9tDA68mQwzUuS4Kg8s0HcpUmyamGUWP1vu6VDVN+95skUbvViGhNtF47K8vRxqrGYwcRPZKKUDkAgnk3lXi4ra4mMyG7No4r7oWOzSwy2gSMnFis/bkauX5muc6UzEMLU8ATJc7m4E/IokJvf7frQ2MvDr397aWjFS2y6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792319802; c=relaxed/simple;
-	bh=dScO//3OXCPK83AZyVSrKIO5kqhcrTpD4lNAneOvXAI=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=PSl5USZaRaVFo9Rntxhtub8hw+n0b09IjjK4Bbp6WeG/b8v4PAaSoHG9mC0VVxJlHML1qJXa/Ey2ciZwCa4bJWJ3c91oLGTv2mJ/z1ycsZ/PReT7rtxS5mBKmrpfjLloyJCXdQnto73vZfT3Uh046Q5FL5h+J+trLG8F/lpXh+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=KE/aq7+5; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=rp5W5VZE; arc=none smtp.client-ip=202.12.124.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	s=arc-20240116; t=1792320385; c=relaxed/simple;
+	bh=kEWxDoymA7MHszQKrmZjRfLNtr2Di+jrlgc4xNhUAG8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IwCKIK8/cfNdCvZxLnrpbh3SDs0tn/Bvg2DDv/7dVm9rhXfhLujWYuRuZI4W4KNk6povdWC3Q+IOqX437r46aJO1hmUvNRGk2FYi+ttUvuVNxibw2KRbPfhFt2JGvF1INf3ayWRQOLHSvn9yxRJJSqOiNKC2ErXRvgswsPpUFVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T6CnJ+yy; arc=none smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="KE/aq7+5";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="rp5W5VZE"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id 832F61D00131
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 06:36:38 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Sun, 18 Oct 2026 06:36:38 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm2; t=1792319797; x=1792406197; bh=x0njwKrqM5mvnyfFdJH2j
-	Oqop7WfZuE2d98EOErm5FQ=; b=KE/aq7+5ZZtCcpj1zpGnLZDzrTXqP5o7CCZpU
-	DtdS+t8+RMKcR3ZnSDlrU5jmR31vly7SJ/DP+yp7sVSKzHsO7UqG1iFCF/Knsqk8
-	EZOi6pdyLMlweDb+6X0JV6j9jPqmgsq4/oma8M4iXZ5kchOCMv1Zg7zlI1GfrXNI
-	VnDM+uRvMVHSZraZF4fcs/irC3Cwzi3f1h/1xCTaR0Eo/Ncrim1Nju/NizLS4ITq
-	UNS2PWYUpFgtKI4HGzas+2BxpMbulBC7P4buL6Rc7+tWReXUclnkGSWbS0xbH5PP
-	TonR0Y6TCgXatd6u/v/ztjkHYKLF3Brfo2I+odgMvnes08Pyg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:message-id
-	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792319797; x=
-	1792406197; bh=x0njwKrqM5mvnyfFdJH2jOqop7WfZuE2d98EOErm5FQ=; b=r
-	p5W5VZEd3ZyCinYpVaBOUyfMaZpibpZrRQGUO5xHJmsM3PxDezb8bWoe9d4tHCw6
-	msiSomNbZIFQOlpqNggLfoCxuv6zUaDFnz9vHtzWHZ2PuORiVW5Va2aEgkRLSGJD
-	jrwIrY+inedKuiQAeI8OGSyqrh0f1e3mpp3BX6kZJKGMyeUue6CnXgLax+uTZtrc
-	Nuf/MBMAGgAnwHasBpIQElOE9fzCcIsVWtpFY7SITfKn2bhsAsTMHzCT/VB9GeRT
-	a1ANtZsp2EZuXrSWZz5G014/jUN+Xq6okGcmi8mdq74CNPNYTTIS1dqC2LsVaGcp
-	4Whrb30TtVSJfTOGWZZGw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=sakamocchi.jp a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792319797; d=sakamocchi.jp;
-	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:CbXipbCKJKFfyIqkP1Ofjum3+eNbnnyliOSsrangOX2fnnu
-	2CDsOUmeN1H0lYlZSllO2MhUShMUaFAWKFqsUHbkgcGjc70RLc7E3Q/gk6g7mqf/
-	43JD1KJKENQIOqgRegbXpoGZllZ6JFtdhCE7ghU714nSjaJPjLLRIskpSmzlPgDB
-	QqlLDzKyWXk6uokWLaeFwvdTlypAaGPo+LHJzRS0aUP7mjrDKk1mI601lB//ngq8
-	9oAed5fDWWb9ogp5NJlCY+EgqPX77wKyLRypLizFgTKQkbBrxm4nv84tFf2mFlXe
-	Dc3my3WykDXwBeooHbi2zVxC0mlLVcbMEqPY7Kw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	mail-followup-to,message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:7aIV+0FXuty3izUn+OfmModAAjq+N04xx/MePTAeXT8=:dScO//3OXCPK83AZyVSrKIO5kqhcrTpD4lNAneOvXAI=;
-X-ME-Sender: <xms:NaHUagi-t0L0FFJkG-a7f8m8TuBnoMkptguBOp6yn6Ezsx5yaQCMQA>
-    <xme:NaHUakdn7eogc1D53vX3-hJ7hUisOFvgWRkI93dsxvdyC3k6fEJLkp1nBBFLdeqtV
-    qDJ97SYqKvB45elKZ63G8s2E5yRV2PkH0jWbPxAHpPFN8kjC4uCJTI>
-X-ME-Received: <xmr:NaHUarnWPaF1w2aZ6qqk9twAs3MbarLVFrELnvqIUEkc4JlVyz59RorjnfJ1FOavnY3Y8DpKvS70boBKfbAIjap1ToZ2>
-X-ME-Proxy-Cause: dmFkZTG2xmJIM2TZ8yhppk8p5H8soyTrAFdYSQzyycr0BU/oGaQ6JVeLhVqUn77L3auT1k
-    U/Nc6qlegI7NT5ABznLrpc1U2ZURjbOUdEe4a8qNS1OY3oPFpPGCPCDYqQ6BMync3uau72
-    1qPR6T0TP/OoH75o1vIES+E22i54O2EYtxEFAESiNEJDRQpX/HWjxwDB40X9M3FRfBizud
-    fjm9nCmEwop84+8kLnpUyvDLp5V1zQ+Cmj35P0/GAjCA7CPCG5yWWwjATCiYZbU6qy0PGV
-    r/M6Qti7aQQuMpWd/hMvwoD1HCDwZJ9eo+NaT7saBZeXDT+rTY3kJJssOIdSh1+8566/OA
-    6HGy3n7JBhmcKFixeUtEX8WgW4VYJhd22hWZrcc4inGMiXvGwytL9RJQ17vNuwHOzYpnxt
-    EnkmrewIa8E2tyl+EuRT0lewjD/wvsLozjWZUi450YLFgmDywtAb7SyYe5H7tg8SsuOyHu
-    A8FTUoxiwdlwwjGBp79hyWpUBaULq0AlcWgK2AOJtac6n+90ZYT8D2MTIErggDXh1k4rE/
-    8DSg33xeZxlZPjRUZ2YLKqM9iUVqYEyFybH9T3ugM14h+6Ze9uzNZ8xur5hj5+LY/Ox+ia
-    RD+kBcHyQBmv2sF5bLLVqoXAwgheCNz0TQU+p+J7GIcH5S1GPDB0ZtPvjA1g
-X-ME-Proxy: <xmx:NaHUaluJ97E_rkWWQddJrthJ8FtgCf53p6O61OJMt1DeCHIvR03dGw>
-    <xmx:NaHUap_Qw1gMyKjnGypaigQk7EClajXYq71aInaXfWAXlSCy3iwijw>
-    <xmx:NaHUavPXA3P3Bt7dE9bDfnMU1GZsZpCY-QM1iAlMVobYBM_NRyr6hw>
-    <xmx:NaHUanEBwW9jdRXMGMYkIib39Kh3dZ0bGPa5USKZy4SJL-sB_iYSqg>
-    <xmx:NaHUaodNpCZpZA07wmJ1VyV1es_7pWVGXterrjGeZ8IgUeu27YfyzN5g>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 18 Oct 2026 06:36:36 -0400 (EDT)
-Date: Sun, 18 Oct 2026 19:36:34 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: torvalds@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
-	stable@vger.kernel.org
-Subject: [GIT PULL] firewire fixes for v7.3-final
-Message-ID: <20261018103634.GA346762@sakamocchi.jp>
-Mail-Followup-To: torvalds@linux-foundation.org,
-	linux-kernel@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
-	stable@vger.kernel.org
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T6CnJ+yy"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cd67cc518a6so166393a12.1
+        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 03:46:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792320383; x=1792925183; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HDzT7tmYvszUfdQMD+ETbxumnaTj0Q1RZIImeY9qlcA=;
+        b=T6CnJ+yyrmUBYqj1LyDWTEjptLTfUjoPYPmWrjXrAbLgw8eOGkEmJTbrOh/mvx5f4S
+         HWfAsRZgxr1J+IcsGva7CogW570a7Qbj6RrOI4su11YbSY+vCc5S4Qxq1de1YbpqD9Fg
+         FVi7UvOJQ+1C2ssz4ZwLxHL/6ENZBWphDDYHRId01zVDZdcT3U8JvU0L4ZJsMz9qX9uA
+         B9cULbcJ3qVj5qCpfxD1/JBBkhWf6o61us6l565OC/+MXWekWjz5F0tBObTliBa9+mJN
+         +oFsF5Xb98HB9tDdmxzs1kaHqKfSG//WioNgKWw8QW6iU+bHZ5oGpjThooQMQhCMK7LA
+         64Cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792320383; x=1792925183;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HDzT7tmYvszUfdQMD+ETbxumnaTj0Q1RZIImeY9qlcA=;
+        b=Z0u1roN9d8VDyU1AXvWEmfADmcGIUsAmEbopkg9QGe6+3QNUh+oLH4kGPT0/a6my81
+         ip9LtVUdvD3/fNIwfuj6s+xBmn7ORcQKoxmkfpxhXaJH0Gufkd+ByqS0NHDqe9mBOfkR
+         Rp1GlZFNh2VMVzuIyJb6CNaAIISf9j/ylECgdV7zxR9kFzf6O2LNmjNbvm65rOSYOYjp
+         d9GRivmVy2FZvdmoAToQGsFjUZiEOg1bs71tOzHBQbcVGLj9x2cdeC5LTx+hbaHrhRja
+         O4cGpVmRRY1ruqlOn74w4llYogR6cbJHOR57mti+n8U/nzCqez2sIGZJN7dqjGPUjm2M
+         VASg==
+X-Forwarded-Encrypted: i=1; AKwUvBxbLGPELBGCv4UtnGnjcou8Wf8YK60SlD/gKwmt1JsvFzeTwh2nwjX8RVASfWcYf1RK0nB4zVI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYInBRKsqQfUQA0f2Q1vHg1iJFSgSISR1OxZva7l0KOm/Xk5JDZm
+	mf/398etw7Qk1SYZJOaMpNwVwv3lV+MBZQFWwvpW7HvpDZRveeQ3bNIS
+X-Gm-Gg: AYBFou3gy81uGLvgFS6VGoPgMb5CwATeraEIa9BEBg91t7i15a7wpdLx1Ev2fdymSKn
+	ehTE/2iS43lubw9MiIftdDa6OSzTrV6LfTAp7DHoGRtS/2VlNfU3+Euj8mT+gnm+3G9l6AG2lPq
+	8NTzsa6k0dj45UQT5PjNefL136Kce6JaJj0c01r81/FO+n6BgNt4iYSWmygyFGCNfhKNxmGHqxH
+	YjZ1SL/tSW+HTKoOAHQBikVvV//Oh24neyt0qMMgc0cRvwxD4qcdPvMox1/XLIujdhf1sxACA4x
+	QZLvTrBJY7hzMNl5qZ7pJq0NyZxX9rssnNn23UzLSKoYwDCPGQM14rWzZPch8rzCKlgveuA1B01
+	Ko1oA1JINPx/KwJYDCzhNW96/FQsMZRmEu7xDjdEUZLsm3AD2GYLytQw5IhMxBmTtCQ2TWauJXz
+	1gAkT0kS53tsAQbYiRt/pkBQwViZIZr7PRGdSy3LGiwrDMgFn1wVXHX/pXAkn3N67h46KpznA1S
+	PSz+0moKICshtUcDSqRwH4=
+X-Received: by 2002:a05:6a20:3d07:b0:3e2:490d:511b with SMTP id adf61e73a8af0-3e2490d5900mr777312637.20.1792320382944;
+        Sun, 18 Oct 2026 03:46:22 -0700 (PDT)
+Received: from jmoon ([118.220.156.4])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd654a33681sm2949085a12.29.2026.10.18.03.46.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 03:46:21 -0700 (PDT)
+From: Jinmo Yang <jinmo44.yang@gmail.com>
+To: ping.cheng@wacom.com,
+	jason.gerecke@wacom.com,
+	jikos@kernel.org,
+	bentiss@kernel.org
+Cc: dmitry.torokhov@gmail.com,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	jinmo44.yang@gmail.com
+Subject: [PATCH v2 0/5] HID: wacom: guard against NULL input devices on successful probe
+Date: Sun, 18 Oct 2026 19:46:12 +0900
+Message-ID: <20261018104617.743771-1-jinmo44.yang@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260927041138.4112920-1-jinmo44.yang@gmail.com>
+References: <20260927041138.4112920-1-jinmo44.yang@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Linus,
+When wacom_setup_{pen,touch,pad}_input_capabilities() returns -ENODEV,
+the corresponding input pointer is set to NULL but probe still succeeds.
+Subsequent irq handlers dereference those pointers unconditionally,
+causing NULL-pointer dereferences reachable from a spoofed HID device.
 
-Please apply the following regression fix for firewire subsystem.
+This series adds per-function NULL guards across all affected handlers.
 
-The following changes since commit 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907:
+Changes in v2:
+  - Restructured per Jason Gerecke's review: replaced per-branch checks
+    with per-function checks for dtus_irq, graphire_irq, and the Bamboo
+    handlers — simpler and matches what each function actually requires.
+  - wacom_intuos_pad() now returns 1 (not 0) when pad_input is NULL, so
+    the report is consumed and does not fall through to
+    wacom_intuos_inout() which would misparse a pad packet as a pen
+    event (sashiko-bot).
+  - wacom_intuos_bt_irq() now guards both pen_input and pad_input, since
+    INTUOS4WL always has both on a single interface.
+  - Added dev_warn_once at every guard (Jason).
+  - Dropped the cp2112 patch (Benjamin prefers Dmitry's series).
 
-  Linux 7.3-rc7 (2026-10-11 20:04:55 -0700)
+Tested with uhid across 27 Wacom device types (spoofed bus):
+                   unpatched  patched
+  KASAN crashes          17        0
+  probe failures          0        0
+  hidraw nodes           26       26
+  input registrations    25       25
 
-are available in the Git repository at:
+Jinmo Yang (5):
+  HID: wacom: check the input device in the shared report helpers
+  HID: wacom: check the input devices in the legacy irq handlers
+  HID: wacom: add NULL pad_input guard to wacom_intuos_pad()
+  HID: wacom: add NULL input guards to wacom_intuos_bt_irq()
+  HID: wacom: add NULL input guards to Bamboo touch/button handlers
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/ieee1394/linux1394.git tags/firewire-fixes-7.3-final
+ drivers/hid/wacom_wac.c | 90 +++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 87 insertions(+), 3 deletions(-)
 
-for you to fetch changes up to 7f9f2d6abc40f79e802b4063859eda343043b85c:
+-- 
+2.53.0
 
-  firewire: core: fix race condition in split transaction handling (2026-10-18 11:59:35 +0900)
-
-----------------------------------------------------------------
-firewire fixes for 7.3-final
-
-Fix a regression introduced in v6.19. It affects cancellation of the
-timer for split transaction timeout when handling a response. The issue
-is unlikely to occur in practice.
-
-----------------------------------------------------------------
-Takashi Sakamoto (1):
-      firewire: core: fix race condition in split transaction handling
-
- drivers/firewire/core-transaction.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
