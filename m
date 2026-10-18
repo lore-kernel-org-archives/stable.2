@@ -1,127 +1,169 @@
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B675A320CD3
-	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 16:48:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F4E331203
+	for <stable@vger.kernel.org>; Sun, 18 Oct 2026 16:49:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792342094; cv=none; b=JbsOPbh0UG0d3G9gj5E6XSYiD5vNXqBQPEQALrxhkz8b60IXC+cLARvJplcyW6FXvSYVIZqnpBqiAfNOH241I0N/4ZQFeoQ9hGrcukkEDZzplj628YdKXX+sVcjIA7jhlCMAVRZ28zJxpYH+HFFGdJh90ZN/vLptC4CThnP4uKk=
+	t=1792342171; cv=none; b=n4/k965Cf9UZV+SeJt/cUlu6nBlFBa0XjJXeBhVM+ihTFvSBLVUhTzL2QLAKRWs4wJZBM9aDa6E6BpO1FPdkuwfeCE7kHsd/Sdg2gVNtd2Iv3BqQkNlUa1UmNk+LPXym/Meb0IU3oDSJq+DvkPeNVb9M+oxVcJHoobTykFzdN48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792342094; c=relaxed/simple;
-	bh=YtuArZrJ5k0lumYLRLZjdb7x7yqpwIrTMz5SX4VVG04=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZxCEwFJsLTH///rsnfkCxEHbfxpq2QiA+Ql2ngXzG69byuo3Cp7uNuAN6G+R+5nO5upjh+tr+9glO/QszkE3Ku4kfnCze+rwCjPybLj1ysCK6q26kfJSSvNpPz325Bpy+3dsSqNcGhfebqyBfF40v+V3aZwYmOlaHKMUvP5Th8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ametros.net; spf=pass smtp.mailfrom=ametros.net; dkim=pass (2048-bit key) header.d=ametros.net header.i=kernel@ametros.net header.b=t0Vadawa; arc=none smtp.client-ip=212.227.17.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ametros.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ametros.net
+	s=arc-20240116; t=1792342171; c=relaxed/simple;
+	bh=nigSKyk4TnxZ3aJHJc63V91xRtePvQ/VQifQk2tmR2s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BIe6ccICLyUzxou2+dEcUZ/IznZTAXLQVCpEL01I3hwQ7gJ91bC7yUwxt2ZalJ7uWNUSHEQJOwzzb6PwVuY7hjXPD5lCBO8F1IH2GEVWpnqzVagGp83+V3rE2zxMFzfzNiL4iBUyc20c5A6khA/8hBcNh/20vo5L07WAmPQsCjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DSW5eY+/; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ametros.net header.i=kernel@ametros.net header.b="t0Vadawa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ametros.net;
-	s=s1-ionos; t=1792342069; x=1792946869; i=kernel@ametros.net;
-	bh=YtuArZrJ5k0lumYLRLZjdb7x7yqpwIrTMz5SX4VVG04=;
-	h=X-UI-Sender-Class:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:In-Reply-To:Content-Transfer-Encoding:
-	 cc:content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=t0VadawaF3IBm6n5gb1ZLf2JcAH8dRjvN82iSsBOmwZy2t3YbQSP4HDRrQE7gBCL
-	 H/2NUEh4yl23eLdwpSPl8IGT9KyZFge0sN8vyOejxPgh3tHCjbYq9mnNKFBSEM/hW
-	 ctOXUkTs9TOcNd5F8gSTS5vf9HHFAdRQJzXHsuK2bHjRx7kIlEArXZY3NzzhDHBg3
-	 O4VzdP0tBzBx2LqXIECW+ixh/rqjO2mbg12bXeEXMIfycOkN65sh/299Cg0Botdbl
-	 jjQXRmSILG+r/eMDlXkm05U5qtfmZNGpH8r8/nDJGiYNK4trjjx2ahg1bKG94GlbV
-	 fJd6QIPcCdVnbQSdbg==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue109
- [213.165.67.119]) with ESMTPSA (Nemesis) id 1M9WqY-1xCyGX33jw-00AInU; Sun, 18
- Oct 2026 18:47:49 +0200
-Date: Sun, 18 Oct 2026 17:47:47 +0100
-From: Bob Anderson <kernel@ametros.net>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Wolfgang Walter <linux@stwm.de>, stable@vger.kernel.org,
-	patches@lists.linux.dev,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: Re: regression 6.18.57: acpi power button vanished in machines
- running in qemu
-Message-ID: <atT4M12w4Em-JdsA@ametros.net>
-References: <5fe757e7aa54c38df3525d313598db99@stwm.de>
- <2026101834-parchment-reps-0bee@gregkh>
- <atSdI7buRErdF1jZ@ametros.net>
- <2026101813-doorstop-hyphen-614c@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DSW5eY+/"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8a04d34e294so510702b3a.3
+        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 09:49:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792342166; x=1792946966; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y5fE8Lslo5prpIPlzBnw8CBP8b/bdGGy/PtlPJV/98Y=;
+        b=DSW5eY+//Jkyq55cFFPzHVMoSBIAIQv0tUxrgtXCM8c3eGs4uXmTRitsE9uG/RQ3/o
+         YI5TEK07PMcNt0ZjAcachiW00Pb1YaQvaHCyqd6jJ66MYV8DlyG72OsF/JNZQwJZg1bH
+         /WouFAMUi58nM6CcgMR3P8q6IHLEOflVPhan/EEAZ1/IxvXIs3cHDNniRiQUZP+qhf2e
+         lt5usV2DYDp9zc6Pftkf4skeawHxY3SpFid4n2Cft3Cg1sGF9d0jwDPS4+wrXHMOC7gW
+         Nq3mmiwPXLzc11VyLU0m5bIWQaRjPM0isvmifCtU8vEc9YjAPzI1MSL9QiRLbJOKMjA5
+         A6Gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792342166; x=1792946966;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=y5fE8Lslo5prpIPlzBnw8CBP8b/bdGGy/PtlPJV/98Y=;
+        b=JpT9c9SHaJWQxt1vSb53GQIYGgMhXw2AWfZUqclaJ7cKHN2AD/dEOTSVGacuP070c9
+         MoqOtB6p5fTU/b93X/fbijdadMs5baZeCZ7Mg+oXF4eUb7U2x0/rFSo6F+mZriTGeOdR
+         Jgssj2KmDL04AIz7wBRq13vfZHxGZf03VJYvcK0gIPW2kcT4oiFMcUINuZh/LftA41Qr
+         nJTnpbYmfylTJLMgy8IiXzZm+X21Sssi9r2uG9y+1VccqAUtWUpoo61SgZ3ZwKdKw72Q
+         fMQzVlQTRJuWKiW53aYa9C/ivHA3yktxGAT/XyK7W341lDhKX0Kp781N620ZWDHl1RhP
+         MWIw==
+X-Forwarded-Encrypted: i=1; AKwUvBwCSCwpa/9l6viNEEkZxUx5wAS9XPkCRTjZ7Q91UmvMye1SLaI9k2ujOaeqw+lDOCMKzUvfyic=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJuuJryP1tNM9mEHC5MzetVc776O/MqhGGL6Scwckx6OFb2WWQz
+	zeMcm+n97OQvtiOlcPyGqmBW9w1wwyLXb5R1RbUgBdL4iXvsHeAlvGq2
+X-Gm-Gg: AYBFou0XaW2NISCbdnBzTbEoxElj9Rarv2hOrOpJUyz53EeZoMk1gEu9or8q+KaFMX7
+	kliWcao1F0rCS5RvraNK4Y+BrBQiySSsCVzquUIXrDIb48+L5OQJZThN4qTlB8tjWHAfjB8OIAH
+	XsG5dIEo1Xtnhw3c8oYRrBcvQ2oaYJL5EwZV2/kFtcFVSQrV5untTHu2MqLLbYb1bIRR9nd+iVr
+	d2g9YWVeuJ6zifHOQFLPRRG3eo/5ukYeqAVJ68Jp8P5VMzWX/ettJ8ZGQxd7jDx2+gOz795pehr
+	IPbjDIOsREpcmoRQGL8h6OJd5Ca1E/r6MTpA7ghJnxbcPZh+JcwDgILrLzC4kkYMeEiLFS7hOfJ
+	KYKRNoD4rogfF927jGFqlmHbjaVR9YdHdeR8UB72TnP33FB1Hgy2fJfXADEGbumTP6gyc/RnJpf
+	IcLmnSS4cf36BfWDLSipPLFtLRQBiRWvrVJlcZXKYCUHwPhoGjNKf8Sh8HQ+0QbJZlDkyfFKxAg
+	aEgYf4DMV0L17YGbJnX+WwwL/MBq61STzkIwhg=
+X-Received: by 2002:a17:90b:5743:b0:3ac:9772:8da3 with SMTP id 98e67ed59e1d1-3acef13e5c1mr4453029a91.31.1792342165209;
+        Sun, 18 Oct 2026 09:49:25 -0700 (PDT)
+Received: from obadmin-Precision-3680.atlascopco.group ([136.226.232.175])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad335ca338sm744527a91.10.2026.10.18.09.49.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 09:49:24 -0700 (PDT)
+From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Marek Vasut <marek.vasut@gmail.com>
+Subject: [PATCH] gpio: pca953x: Handle direction register read errors in IRQ paths
+Date: Sun, 18 Oct 2026 22:20:03 +0530
+Message-ID: <20261018165003.3372368-1-sahaj123.sc@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026101813-doorstop-hyphen-614c@gregkh>
-X-Provags-ID: V03:K1:br/SXQxHTqGhH5leLP0uZ9DTD6EVZ0Cyxufe0A8SglF6C8RmL9b
- wC5CTmg5Yu/1ti83nPCOia+G6ufAaNIaCYj6wDz6cDmpobQMIx3POwnb3/h/bx01xuiSYPO
- YEPlBRZUAY50r0Ru1y1nUtgtU2ZkwHyZqcvMHxlXmn6h3DlcyWvVqPIEWHYKMfsWRKkg2My
- C8SnlwdZ4bChQB4D9C47g==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:W9+Cv8ZFFVo=;se8QK+qbK3OX3JvkobT1q5+Z25w
- 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
- JNzd0b
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 18, 2026 at 03:35:31PM +0200, Greg Kroah-Hartman wrote:
-> On Sun, Oct 18, 2026 at 11:19:15AM +0100, Bob Anderson wrote:
-> > > On Sat, Oct 17, 2026 at 07:26:54PM +0200, Wolfgang Walter wrote:
-> > > >=20
-> > > > since 6.18.57 there is no acpi power button any more in virtual qe=
-mu based
-> > > > machines (as far as I can see model doesn't matter).
-> > ...
-> > Reverting 38c79dacc8063ff8a0d75ce2a900fbaff82ad94c makes the problem
-> > go away.
-> > ...
->=20
-> is this an issue in 7.3-rc as well?
+Three IRQ paths ignore the result of reading the direction registers
+and then use the destination bitmap. pca953x_read_regs() does not populate
+that bitmap when regmap_bulk_read() fails, leaving the callers to use
+uninitialized stack data.
 
-ACPI power button in QEMU on v7.3-rc7 seems OK.
+This can select incorrect GPIOs for direction changes during IRQ bus
+synchronization, corrupt the saved input state during IRQ setup, or
+produce incorrect pending interrupt decisions.
 
-I haven't tested on hardware, but I suspect that it'll also be OK.
+Check the read result at all three sites. Release irq_lock without
+changing GPIO directions on failure, leave the IRQ history untouched
+when pending detection fails, and propagate the error from IRQ setup.
+The read helper already logs the error.
 
-thanks,
-Bob.
+Fixes: 0f25fda840a9 ("gpio: pca953x: Zap ad-hoc reg_direction cache")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+---
+Testing:
+- Built an ARM64 kernel with CONFIG_GPIO_PCA953X_IRQ=y,
+  CONFIG_PM_SLEEP=y and CONFIG_SUSPEND=y, containing this fix alone.
+- Booted it on AM642 and confirmed both expected expanders bound to
+  pca953x, with an untainted kernel.
+- Ran the isolated exact-function harness on an AM642 CPU: 22 checks,
+  three failures before and none after. The same isolated checks passed
+  host ASan and UBSan. This harness simulates kernel and hardware APIs.
 
+The hardware test covers boot and probe, not the IRQ error paths.
+Neither expander has IRQs configured in this board's device tree, so
+direction-register read failures were exercised only in the harness.
+
+ drivers/gpio/gpio-pca953x.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpio/gpio-pca953x.c b/drivers/gpio/gpio-pca953x.c
+index aac9ea7520b6..b6f0849d3bdf 100644
+--- a/drivers/gpio/gpio-pca953x.c
++++ b/drivers/gpio/gpio-pca953x.c
+@@ -862,6 +862,7 @@ static void pca953x_irq_bus_sync_unlock(struct irq_data *d)
+ 	DECLARE_BITMAP(irq_mask, MAX_LINE);
+ 	DECLARE_BITMAP(reg_direction, MAX_LINE);
+ 	int level;
++	int ret;
+ 
+ 	guard(mutex)(&chip->i2c_lock);
+ 
+@@ -880,7 +881,9 @@ static void pca953x_irq_bus_sync_unlock(struct irq_data *d)
+ 	}
+ 
+ 	/* Switch direction to input if needed */
+-	pca953x_read_regs(chip, chip->regs->direction, reg_direction);
++	ret = pca953x_read_regs(chip, chip->regs->direction, reg_direction);
++	if (ret)
++		goto out;
+ 
+ 	bitmap_or(irq_mask, chip->irq_trig_fall, chip->irq_trig_raise, gc->ngpio);
+ 	bitmap_or(irq_mask, irq_mask, chip->irq_trig_level_high, gc->ngpio);
+@@ -890,6 +893,7 @@ static void pca953x_irq_bus_sync_unlock(struct irq_data *d)
+ 	for_each_andnot_bit(level, irq_mask, reg_direction, gc->ngpio)
+ 		pca953x_gpio_direction_input_unlocked(&chip->gpio_chip, level);
+ 
++out:
+ 	mutex_unlock(&chip->irq_lock);
+ }
+ 
+@@ -984,7 +988,9 @@ static bool pca953x_irq_pending(struct pca953x_chip *chip, unsigned long *pendin
+ 	}
+ 
+ 	/* Remove output pins from the equation */
+-	pca953x_read_regs(chip, chip->regs->direction, reg_direction);
++	ret = pca953x_read_regs(chip, chip->regs->direction, reg_direction);
++	if (ret)
++		return false;
+ 
+ 	bitmap_copy(old_stat, chip->irq_stat, gc->ngpio);
+ 
+@@ -1084,7 +1090,9 @@ static int pca953x_irq_setup(struct pca953x_chip *chip, int irq_base)
+ 	 * interrupt.  We have to rely on the previous read for
+ 	 * this purpose.
+ 	 */
+-	pca953x_read_regs(chip, chip->regs->direction, reg_direction);
++	ret = pca953x_read_regs(chip, chip->regs->direction, reg_direction);
++	if (ret)
++		return ret;
+ 	bitmap_and(chip->irq_stat, irq_stat, reg_direction, gc->ngpio);
+ 	mutex_init(&chip->irq_lock);
+ 
+
+base-commit: ac46dac1613a7c971e28e16d3a7a6ad4b1ae6c5a
+-- 
+2.43.0
