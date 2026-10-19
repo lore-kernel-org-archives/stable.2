@@ -1,101 +1,126 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF6C83E0088;
-	Mon, 19 Oct 2026 12:12:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 485F04F0545;
+	Mon, 19 Oct 2026 12:24:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792411980; cv=none; b=LHijfHItWbSkrea0XW23jAvQOoUZdzLasoP3ATvCUBjGSq2IPNK0BaLya3WFxXO76/69sHxPqMLpdgpiimV1oPbhLPNWr7t25uvUEIcSH2+aKmgM3xu2MTirak2lnPf9t4PXUaA2Jr0KIp5BTCljMCWlyqIi/nARlywqB5JFNEk=
+	t=1792412682; cv=none; b=cS9QKMBz9l/LxSqYKtk+rJN4CwW+VicLatk6fPMZMJW7pHbeXZ4a7dSwj7LrCCaWE/LLc0QyIrbL/jLwgbZ6Awe8mWHHT3ZbRtRBKIzo/rctavakMEwsyaveU7paCDhDXzim5E9jXOJy2Vgql5c4li7bYYKivNrR5c21SSsiESg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792411980; c=relaxed/simple;
-	bh=Y3J17ScURVLMgamwb8LB4OcOXkKMkuQtLh0AIehEdpY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=YVYCinH+o9PdYxBBCq2BQUuNVENeYau5yLpMZQIWCKMzDs+ejdjCXB7s2gMuTbbofyJMh3uhg+pueURsMtZfaWTsLaL/iE75cO3nin4um8Ioc4E9bbhuc7IggJIGVl71SnF6KtY8yvykZA4jVbP7ELamcHgBHerVqAvW/oSVmOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=lvzrf4da; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1792412682; c=relaxed/simple;
+	bh=depGBNWTJOth+tixF+gTVLE6p+N/VC4raERj007M5c4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=R93s+nI0CSI/Nbs8Q1Kdqni09f2Oit24X05rjQt3Fu22rMVoZ0f8Wm9PPq02EfU0+stNAwWbOXwy97PAh8HvlX6aBCZcC13AyrXYtPxnl485pkrDhCpmvrTFF2eIIuRI/zU+KMUiLFntsP+KyQ/BsTZFJzGqp66J8ES4mSDDuIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UIclckRe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="lvzrf4da"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69JCC62X01879690, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1792411926; bh=Y3J17ScURVLMgamwb8LB4OcOXkKMkuQtLh0AIehEdpY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=lvzrf4davbB2v/FdvT9F/Ss0DdNTxKejmC+krgh6aHe1Xg2ZmL8yKX7MSQ6FKJoMe
-	 uAlvxWrC71OYwlbn0Kt/1B/0MMAoNN00ZyrDbq22/62rwZVyRaiciJ5/PGAFrU/gKJ
-	 2xGF/VXW4woeajCx4bDgYN6F+1nvraYS67HiR8+MIvgR4C+z1hlxBq7knQLoRAYG5B
-	 GPYN+ObZ3IZLdFRRoXwrodXthAkCX049flzFw4YWClTtHYM630M12+MdCXLSK81Q3n
-	 vkIhTUGQZNSTOqJooGlFmFvjE3eRRiW753wPI0SX/qiUfL5+QRqfMJNZ5gpuYc+HcQ
-	 Eiy4sQj4iGi9w==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69JCC62X01879690
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 19 Oct 2026 20:12:06 +0800
-Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 19 Oct 2026 20:12:06 +0800
-Received: from RTKEXHMBS03.realtek.com.tw ([::1]) by
- RTKEXHMBS03.realtek.com.tw ([fe80::f36f:a844:4916:93f2%9]) with mapi id
- 15.02.2562.049; Mon, 19 Oct 2026 20:12:06 +0800
-From: Hayes Wang <hayeswang@realtek.com>
-To: Linmao Li <lilinmao@kylinos.cn>, Andrew Lunn <andrew@lunn.ch>
-CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Chih Kai Hsu
-	<hsu.chih.kai@realtek.com>, nic_swsd <nic_swsd@realtek.com>, Birger Koblitz
-	<mail@birger-koblitz.de>, Xiangqian Zhang <zhangxiangqian@kylinos.cn>,
-	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH net v2] r8152: Use BMSR to detect the link state
-Thread-Topic: [PATCH net v2] r8152: Use BMSR to detect the link state
-Thread-Index: AQHdVLexra3FlE5swkqMdmzmTHCGJ7bwLnWg///8UICABCHSAIAAVXKAgAaA7TCAAZqtgIACjy+AgAWOExA=
-Date: Mon, 19 Oct 2026 12:12:06 +0000
-Message-ID: <04de94998df1449b945b8847204980d2@realtek.com>
-References: <20261005105249.1281648-1-lilinmao@kylinos.cn>
- <fd3bff0e63304681b9e5f35f2f57e50e@realtek.com>
- <7a8d21bd-3484-4120-abd6-f7290f919b7d@lunn.ch>
- <2bd3886a-da6e-4703-bd7a-9baa32bfd2f4@kylinos.cn>
- <591ca604-b296-4469-94b5-957d9ba45ae4@lunn.ch>
- <16d9caec96e8449d88ac456e8512f08b@realtek.com>
- <06aaa778-ad49-4e30-b1c6-a7dc68718a21@lunn.ch>
- <cf64cf73-aa31-4a78-82c4-a9a6c866d7cf@kylinos.cn>
-In-Reply-To: <cf64cf73-aa31-4a78-82c4-a9a6c866d7cf@kylinos.cn>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UIclckRe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04A4C1F000C4;
+	Mon, 19 Oct 2026 12:24:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792412677;
+	bh=PjLOjJ0vU6EmifRuz9YgBL8J8WMfaEKUpeJsLHfNMeQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UIclckReVDUKs6IGU4//3urRXgq0S9ghCmLXaRsJrj6BW+j2Qwg23bgIo9fckLFqr
+	 hxuOfaIEh9VV5IZp4JGashPMUqJqF6QAgoPBJ1EJAsjR3VamkhfW0sESBzVMbvWb3S
+	 RgHzND38ypHVJ9C1DzZdfk6bTZIAZVEvLlch1vekluuGbTgyy5kPSAwE+UdWeaeCy9
+	 UrSFJ6pTe0eq3qTnfyUdFeA/fH7+D3eufcrORD7ftW3SFiI+WUsCFhqBpl7g9fUdR9
+	 LQDyWJwFx5X58g8cxo3R9fkIjGZkw/A4ikJtvSBVlFqS0Z5sCnPoRSqXmvzwz32plP
+	 R9bW7waE21/tA==
+Message-ID: <3fcce5c1-076f-44e2-b162-9adcea52f157@kernel.org>
+Date: Mon, 19 Oct 2026 14:24:30 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 10/10] mm/mremap: fix calling fixup_hugetlb_reservations()
+ on the wrong VMA
+To: Lance Yang <lance.yang@linux.dev>
+Cc: akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org,
+ vbabka@kernel.org, jannh@google.com, pfalcato@suse.de,
+ muchun.song@linux.dev, osalvador@suse.de, linmiaohe@huawei.com,
+ nao.horiguchi@gmail.com, agl@us.ibm.com, mel@csn.ul.ie, riel@surriel.com,
+ peterx@redhat.com, kas@kernel.org, rppt@kernel.org, josef@toxicpanda.com,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261015-urgent_fixes-v1-10-42796911043b@kernel.org>
+ <20261018083431.15699-1-lance.yang@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261018083431.15699-1-lance.yang@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-TGlubWFvIExpIDxsaWxpbm1hb0BreWxpbm9zLmNuPg0KPiBTZW50OiBGcmlkYXksIE9jdG9iZXIg
-MTYsIDIwMjYgMzoxNiBQTQ0KWy4uLl0NCj4gT3B0aW9uIGEpIGFkZHJlc3NlcyBvbmx5IHRoZSBz
-cGVlZCByZWdyZXNzaW9uLiBJdCBrZWVwcyB0aGUgZXhpc3RpbmcNCj4gUExBX1BIWVNUQVRVUyBj
-YXJyaWVyIGRldGVjdGlvbiBhbmQgZG9lcyBub3QgaW1wcm92ZSByZXBvcnRpbmcgb2Ygc2hvcnQg
-bGluaw0KPiBkcm9wcyB0aGF0IHJlY292ZXIgYmVmb3JlIHRoZSBsaW5rIHdvcmsgcnVucy4NCj4g
-DQo+IEkgcGxhbiB0byBwb3N0IGEpIGFzIHYzIGZvciBuZXQgbmV4dCB3ZWVrLCBrZWVwaW5nIHRo
-YXQgc2NvcGUgZXhwbGljaXQuIFBsZWFzZSBsZXQNCj4gbWUga25vdyBpZiB5b3Ugc2VlIGEgcHJv
-YmxlbSB3aXRoIHRoaXMgYXBwcm9hY2guDQoNCkkgdGVzdGVkIHRoZSBmb2xsb3dpbmcgcGF0Y2gs
-IGFuZCBpdCB3b3JrcyBmb3IgbWUuIEl0IG1pZ2h0IGJlIHVzZWZ1bCBhcyBhIHJlZmVyZW5jZS4N
-Cg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L3VzYi9yODE1Mi5jIGIvZHJpdmVycy9uZXQvdXNi
-L3I4MTUyLmMNCmluZGV4IGY2MTY4NjQzMzAzMS4uMzk4ZDM1ZjZmYjdiIDEwMDY0NA0KLS0tIGEv
-ZHJpdmVycy9uZXQvdXNiL3I4MTUyLmMNCisrKyBiL2RyaXZlcnMvbmV0L3VzYi9yODE1Mi5jDQpA
-QCAtNjk3OSwxMSArNjk3OSw4IEBAIHN0YXRpYyB2b2lkIHNldF9jYXJyaWVyKHN0cnVjdCByODE1
-MiAqdHApDQogew0KIAlzdHJ1Y3QgbmV0X2RldmljZSAqbmV0ZGV2ID0gdHAtPm5ldGRldjsNCiAJ
-c3RydWN0IG5hcGlfc3RydWN0ICpuYXBpID0gJnRwLT5uYXBpOw0KLQl1MTYgc3BlZWQ7DQotDQot
-CXNwZWVkID0gcnRsODE1Ml9nZXRfc3BlZWQodHApOw0KIA0KLQlpZiAoc3BlZWQgJiBMSU5LX1NU
-QVRVUykgew0KKwlpZiAocjgxNTJfbWRpb19yZWFkKHRwLCBNSUlfQk1TUikgJiBCTVNSX0xTVEFU
-VVMpIHsNCiAJCWlmICghbmV0aWZfY2Fycmllcl9vayhuZXRkZXYpKSB7DQogCQkJdHAtPnJ0bF9v
-cHMuZW5hYmxlKHRwKTsNCiAJCQluZXRpZl9zdG9wX3F1ZXVlKG5ldGRldik7DQpAQCAtNzAwOSw2
-ICs3MDA2LDExIEBAIHN0YXRpYyB2b2lkIHNldF9jYXJyaWVyKHN0cnVjdCByODE1MiAqdHApDQog
-CQkJdGFza2xldF9lbmFibGUoJnRwLT50eF90bCk7DQogCQkJbmV0aWZfaW5mbyh0cCwgbGluaywg
-bmV0ZGV2LCAiY2FycmllciBvZmZcbiIpOw0KIAkJfQ0KKw0KKwkJaWYgKHJ0bDgxNTJfZ2V0X3Nw
-ZWVkKHRwKSAmIExJTktfU1RBVFVTKSB7DQorCQkJc2V0X2JpdChSVEw4MTUyX0xJTktfQ0hHLCAm
-dHAtPmZsYWdzKTsNCisJCQlzY2hlZHVsZV9kZWxheWVkX3dvcmsoJnRwLT5zY2hlZHVsZSwgMCk7
-DQorCQl9DQogCX0NCiB9DQoNCg0KQmVzdCBSZWdhcmRzLA0KSGF5ZXMNCg0K
+On 10/18/26 10:34, Lance Yang wrote:
+> 
+> On Thu, Oct 15, 2026 at 06:07:16PM +0200, David Hildenbrand (Arm) wrote:
+>> In case we fail to move the page tables, for example, because we fail
+>> to allocate a page table, we actually keep the old VMA.
+>>
+>> Calling fixup_hugetlb_reservations() on the old VMA is wrong. Fix it
+>> by just calling it on the VMA that will be removed.
+>>
+>> The user-visible impact is that the VMA loses its reservations, meaning
+>> that the existing reservations get stranded (leaked) and new hugetlb folios
+>> that are getting allocated in the VMA cannot make use of the
+>> reservations, failing these allocations.
+>>
+>> Fixes: b714ccb02a76 ("mm/mremap: complete refactor of move_vma()")
+>> Cc: stable@vger.kernel.org
+>> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>> ---
+> 
+> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+
+Thanks for all the review, Lance!
+
+-- 
+Cheers,
+
+David
