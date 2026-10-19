@@ -1,94 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792422958;
-	b=2hG6nIWtb4kUh3lrkp3icqfChJo2cSvr4uEwuBqtIDDRfhnBKek2m0/G2/M8qwe04MhR
-	 NOWpCVsNJ9KOII/3qZa6lr/n3rq8R3iKzJVFUgM/OjMl4sjgxrTl1dPalmfjyfxxGA1ty
-	 T2rldwKZ2oHNllX+G8I0coqGUvtZebE7wkoyUWyz27AlB/6MTDLjoBH6kPnbjVb9uqXqk
-	 9COr0nvaU2hl4Eayz8FBy0UNZzNAFSASe3Zp5HIJck9a+3QqZEgoSr1KCAygOKoyeNCMu
-	 C/85fwbH/ppZa/y3dZeQBQzIgzblyDTKxbWYZF51sSEGz+HZsxOyUcrEn9igxELKUOg==
+	t=1792422877;
+	b=NEvVXBqfwFmNCgf03N21RrZwa2jYkJbGYB8N4r1hSw9ukVz1L+qjKtNgydj94ZEozhPE
+	 FIswlJt5RVkedkwkummGqLb4oqDqkeZNpF9Dt89WJmOiaOOm93QE+WgpO1N0Z1teLp7wl
+	 1FJnELvrg6ynFTJ2jeXSQu4NnSpUsrho0gAwxqy5wEKoAM3Isq1V2UnbyQQ+YDustS0pn
+	 TlkPYxNQhrbGvT9yNkyH8dnmwB2ee+l3rcYR2f4xTVm48ZzMMynJbSiiu3+WxsgKInhom
+	 zGf/bWzuEW2x8oCHAVSHN1AVyogHmrji7+aL09hWiBFpWtBpeEbc4b928YFBnfISmLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422958;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792422877;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=2RZlDIC+aSZp6ZEEkfEcnm1WZOr/jDMCERLnAaOMTJY=;
-	b=P98D4thk3IrpMUZRq2GpTLcC42FZxLzRg0mL5citL60qctHAI/vuqz6dcwV5obtS+MAX
-	 CEwnRFeXdIVW1P8gK37pdSTR3yqOZ6B8JZ17I/g3y1rDfsXuXbgeBJuEdgmdn8oaWbRNN
-	 lvXhkZtCCtELB3PgM8Syr3vXV+amEqbViLi67KQqNxguzJ4UHX8QdmbpOw4S7YsXjPczg
-	 dJYFTkrmqA2mU9f4FPfSOPF15duW9+2ZGWdkOhS1g0SzJRnI3jZA58G2YYaXeIWlQtqMk
-	 lInxiRiHzSw4O1PA1duaOYV9g555yUHXPNyBPYZIZkcxUcAWd4BwkojkLDmojkm8i4g==
+	bh=cG24RMmUaiXVAtObDzlYYK9d3lv/X/GCzcJFD3qOCfc=;
+	b=zIuzvmFJsHesM5n6YMTz4lOvVp13BgNN9CS+PxijPE1jgbd97EAbFUoY4462AG8g8YsP
+	 ELe3HFPGntFell00kYN1+32vNIAEQcU2lncpFfjrgi633E+wYgGDPwLNIgqr+4lhlaTQ0
+	 F56KseSg+EifI0iVxaFyRACPBxMMKvFthy5wewPh+151MEzprbtdwoRq/on3q6K/T48e1
+	 U5kdVWMecGgCV1cZQ6PnISUVHERcQas6mJlREl1ninJVbKac7QuU/eUil8H66yYfqzNKC
+	 6OJk+Jn3sIlifk43p0HwQBlpKq2lCWO9FgvYIHZBW3fS4NN9SRLaGYIOTWGFq1qBUbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pqshield.com;
-	spf=pass smtp.mailfrom=pqshield.com;
-	dkim=pass header.d=pqshield.com header.i=@pqshield.com header.a=rsa-sha256 header.s=google header.b=m+33W1RO;
-	arc=none smtp.remote-ip=74.125.225.132
-Received: from mail-wm2-f4.google.com (mail-wm2-f4.google.com [74.125.225.132])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=G3LZGcCj;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97925609F0C8
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 15:15:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97925609F0C8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=pqshield.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pqshield.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9721B609CED2;
+	Mon, 19 Oct 2026 15:14:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9721B609CED2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pqshield.com header.i=@pqshield.com header.a=rsa-sha256 header.s=google header.b=m+33W1RO
-Received: by mail-wm2-f4.google.com with SMTP id 5b1f17b1804b1-4a1ee98e9abso1204225e9.0
-        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 08:15:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=pqshield.com; s=google; t=1792422956; x=1793027756; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2RZlDIC+aSZp6ZEEkfEcnm1WZOr/jDMCERLnAaOMTJY=;
-        b=m+33W1ROqaFFvnsFtChESXj7bgxwEM75XdPoa3KtQNuuqY2KKkDB0gM4jcGeM5KzUl
-         4b3KH3ZQaaLsHYvVTzJQ7E8xPxTXGXjBHQPoZWrzN7TxkQUoVGKWqPRZl6Peo5sgNANC
-         Sp6YcW9m+x0vFQzLQ6RG5Ttqd5SiBIKCLVyyQuaMMN7hyDksOkjpTO1po0ra3pdpydJA
-         bYtilFYdZbrIMX7LnEMf2oahltTQiZ4NS8b9GjYCUPHLvsi2MN+8tHo1IO5c3Ntl2L/J
-         fhyRlt7dWr8WQpFvFkK6CdpkT59GBTLy/CWr5+GEY2JYmmw5oo53+XTXWMsBNcM7/cdL
-         yCUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792422956; x=1793027756;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2RZlDIC+aSZp6ZEEkfEcnm1WZOr/jDMCERLnAaOMTJY=;
-        b=uMEcbGGzxKhgtXvrAwsCoi8W/ewPHUc7vXtERk/iPe+toDjkkvkiUG6tQZxZsuGU85
-         1ax/NFTUWdUdw0WQKhMXGH93CERUlBTHjoHlFCOKtcZmG37UsdBMVo22pRIvFWAJnRkM
-         GKdM3r/M+TyA7mqYFcR8O00PHniVxvRohIqhhA2cFALXw6wF9r6/nKjRvENbYWqiay8R
-         QvhzKbtsC6OT5nvL3yFgwMPsDIwxq7U/b3UlsnbBFX9aw5vC4kQrI6Zgzm4AfLRM+kpo
-         Zg8tP8V0sRmbIc2d1MCjyXiq1lsG7axsO1ZFQ4WyhEWw2Q87GFnFDrR3N3KdNapj0X1n
-         BAYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBylm2ayCWX7ReCQKbzZk79v4mweCouAkxpJo5Fmou5+DONnWQ0ZgwDB04jmaywUu3LCobHnQM8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3ZG3pWw3b9MY7t29BYDviOLBHcf4o+Bt9l1FJVbdcGSdDkO2Y
-	z7WdZMHq4RECKVwUYzoNN9bxV0+fKU53jOhOnPfjbLe41V62ybMgFT9XZpakCxak3AU=
-X-Gm-Gg: AYBFou2KKi6zEjxqGrbP8ywg472Gn60qtYuDNgU9qzjSli4Jr/laXN3W0tw6E/Ocj12
-	9E9iQYR0jhKy6yp/6W76L5FAHtClPSLiPEqorf3akNh+bM7P2KgiLfKprV52n55+wUNndYUJcMu
-	z9Yn/BZ6LKLSaNOyxCKDiWJckYELc1WXz2hH3P3ytBGF489tX6rbngP7xZkQcJ82H9r4nFB+gGC
-	AtIPL00vLQn48Wa4ZcpQ0Ypg7bxHTflTuzS8qEX0BQKmCAAFpEO+gjwbGNI9X2rCBehAXhvhGZ5
-	kyIFW+zfsaLUWyW4+LdS1e2q8r85AxpVX9xhRRAaJpDZjPY+tSVeJPyxf5uBkNrE1H4SawzDtk9
-	QqF1NLFWlihQHczzEdUJUUwdbadbidn8JapUIHQuLpFgoSyaoF7eWfeZ1VB9oZXT2DMSfsZR2nJ
-	H4OSeWcHu3mSIGnT2f95ZF2BtWpNK08jtvIDQOTK0Rhj+FP4OEwEH56q/OsubfhL1pfREqeFc1A
-	LymxiLR6j4cg9ucXXsLB+FsNZSbq7vM2NoAPktLC3uJF/Gmn6PQdJrrPWa2nZ8KFVwN86dxDFMG
-	HqaFq2P2
-X-Received: by 2002:a05:600d:4447:10b0:4a1:7d9b:d4ae with SMTP id 5b1f17b1804b1-4a1d75fe19bmr123792525e9.5.1792422955492;
-        Mon, 19 Oct 2026 08:15:55 -0700 (PDT)
-Received: from lucas-pascal-pqshield.. (2a02-8440-5609-5d9a-864f-9c6d-db81-5e2e.rev.sfr.net. [2a02:8440:5609:5d9a:864f:9c6d:db81:5e2e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1e9423f20sm71083715e9.7.2026.10.19.08.15.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 08:15:55 -0700 (PDT)
-From: Lucas Pascal <lucas.pascal@pqshield.com>
-To: Valentina Manea <valentina.manea.m@gmail.com>,
-	Shuah Khan <shuah@kernel.org>
-Cc: Hongren Zheng <i@zenithal.me>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org,
-	Lucas Pascal <lucas.pascal@pqshield.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=G3LZGcCj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792422876; x=1823958876;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=KTR6pKHqamqU24yuPvOmlvmDDNIEcFSj7cSOCzmOv2k=;
+  b=G3LZGcCjM6c248F1ff5VoGsmgQUN0bHqQ7TS8NlXfWwGdX5LEJgneK4G
+   qfBar2Le1+B6KyPTb5iPsyWQOVggDh5tpXNkmHtezI0WntOYYBJ+5/V5K
+   LMyyBXZECO0bzN9hmCfgneeJvoyN6QjqPAAkyU0ZUfIRNK38ddNfGg9AD
+   rH+tlFq0z9LCGG159uAwHfP/F3ABZHvflWvWH2YH/LXI1jJvQjrPrcB1v
+   a9RHPTqyIQK+Qx94c/6Ru0NYQoSxyfQ6KHYqIa4mJTBTSX6xKk9Vs3r7L
+   Juh77MS/FSg4SXfTS5zNQhDJG127w2sKkkRgdzLSpi2IcuKNnduWMR/Q3
+   w==;
+X-CSE-ConnectionGUID: qLB50olgTmu4/2LtDmwN1w==
+X-CSE-MsgGUID: ry4mVDXLQWaO9b3c2OX6tg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="986903"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="986903"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:14:34 -0700
+X-CSE-ConnectionGUID: 2bccA0DES3maz9bNH6Y3bA==
+X-CSE-MsgGUID: SUq4MvxvRESjMZd5Uiw6KA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2536954"
+Received: from jf5300-15a101203tc.jf.intel.com (HELO meta-crater2c.jf.intel.com) ([10.54.113.49])
+  by orviesa003.jf.intel.com with ESMTP; 19 Oct 2026 08:14:33 -0700
+From: Daniel Byrne <daniel1.byrne@intel.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>
+Cc: Fenghua Yu <fenghua.yu@intel.com>,
+	Dan Williams <djbw@kernel.org>,
+	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+	Frank Li <Frank.Li@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Tom Zanussi <tom.zanussi@linux.intel.com>,
+	Kristen Accardi <kristen.c.accardi@intel.com>,
+	dmaengine@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] usbip: vhci_hcd: store seqnums as u32 to fix lost unlinks after 2^31
-Date: Mon, 19 Oct 2026 17:15:37 +0200
-Message-ID: <20261019151537.112304-1-lucas.pascal@pqshield.com>
+Subject: [PATCH 04/17] dmaengine: idxd: list a new channel only once it is complete
+Date: Mon, 19 Oct 2026 08:06:17 -0700
+Message-ID: <20261019150630.4026341-5-daniel1.byrne@intel.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261019150630.4026341-1-daniel1.byrne@intel.com>
+References: <20261019150630.4026341-1-daniel1.byrne@intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,151 +92,163 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vhci_hcd numbers every CMD_SUBMIT and CMD_UNLINK from a per-HCD atomic_t
-counter, and keeps the value in unsigned long fields of struct vhci_priv
-and struct vhci_unlink. On the wire, the seqnum is a __u32, and the peer
-echoes it back as such.
+idxd_register_dma_channel() links a new channel into the dma_device's
+channel list before it registers the channel, and sets the channel's
+work queue only after that. The dma_device is registered when the
+device is enabled, before any of its work queues, and a channel
+request walks the channel list of every registered device under
+dma_list_mutex and may hand out any listed channel without a client.
+A request that runs while a work queue is being enabled can therefore
+take the half-built channel, and the allocation callback dereferences
+its NULL work queue with dma_list_mutex held, after which every
+channel request and release hangs. The link runs without that mutex
+as well, so it races the walkers.
 
-Once the counter passes INT_MAX, atomic_inc_return() returns a negative
-int, which is sign-extended when stored in an unsigned long on 64-bit.
-Commit 15b93f340fa6 ("usbip: Fix seqnum sign extension issue in
-vhci_tx_urb") fixed this for submitted URBs with a (u32) cast, but
-vhci_urb_dequeue() still stores the unlink seqnum without one. The
-CMD_UNLINK goes out with the correct, truncated 32-bit value, but when
-the RET_UNLINK comes back, dequeue_pending_unlink() compares the
-sign-extended value with the 32-bit one and never finds it:
+When the registration fails, the channel is freed but left on the
+list, where the next request, the next channel's link and the device's
+unregistration all reach it. Registration can fail: the core frees a
+channel's id before it removes the channel's sysfs device. The channel
+of a work queue enabled while another queue of the same device is
+being disabled can therefore be handed an id whose sysfs name still
+exists, and its registration then fails with -EEXIST.
 
-  vhci_hcd: unlink->seqnum 18446744071562096407
-  vhci_hcd: cannot find the pending unlink 2147512087
+Add dma_async_device_channel_add(), which registers a channel and only
+then links it into its device's list, under dma_list_mutex, and use
+it. The driver sets the channel's work queue and initializes its
+descriptors before the call, so a request finds the channel complete
+or not at all, and a channel that failed to register is never listed.
+An enable that hits the -EEXIST race still fails, but leaves nothing
+on the list.
 
-The unlinked URB is then never given back. A task waiting for it in
-usb_kill_urb() blocks forever, typically with the device lock held by
-usbdev_do_ioctl(), and everything else touching that device (open,
-ioctl, driver binding, rmmod, reboot) piles up behind it in D state.
-Only a forced reboot recovers. On a machine importing a few FTDI-based
-JTAG adapters through a local usbip loopback, the counter crossed 2^31
-after about 30 days of uptime:
+A new helper rather than a change to dma_async_device_channel_register():
+that function's contract requires the caller to have linked the channel
+into the device's list already, which virt-dma's vchan_init() does for
+stm32-dma3, the only other caller. That driver has the same window
+between the link and the registration and is left for a follow-up.
 
-  INFO: task fpServer:2209312 blocked for more than 122 seconds.
-  Call Trace:
-   usb_kill_urb
-   usbdev_do_ioctl
-   usbdev_ioctl
+The helper serves DMA_PRIVATE devices such as idxd's only, since the
+channel list of a public device is also walked under RCU alone and its
+channels hold references for the dmaengine_get() users, which the
+helper does not take. The unbind still unlinks the channel without the
+mutex. A later change, which reworks the unbind for channels that
+clients still hold, unlinks it under the mutex.
 
-The wire protocol uses 32-bit seqnums, so store them as u32 as well.
-The counter then wraps around modulo 2^32 consistently on both the
-submit and the unlink paths, instead of relying on a cast at each
-assignment. Adjust the format specifiers that printed these fields
-with %lu.
+The hang is reachable since the dma_device registration moved to the
+device enable in v5.13, so this is for stable too.
 
-Fixes: 04679b3489e0 ("Staging: USB/IP: add client driver")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Lucas Pascal <lucas.pascal@pqshield.com>
+Fixes: 8f47d1a5e545 ("dmaengine: idxd: connect idxd to dmaengine subsystem")
+Fixes: 397862855619 ("dmaengine: idxd: fix dma device lifetime")
+Cc: stable@vger.kernel.org # 5.13+
+Assisted-by: Claude:claude-fable-5-1
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Daniel Byrne <daniel1.byrne@intel.com>
 ---
-Hi,
+ drivers/dma/dmaengine.c   | 41 +++++++++++++++++++++++++++++++++++++++
+ drivers/dma/idxd/dma.c    | 12 +++++++++---
+ include/linux/dmaengine.h |  2 ++
+ 3 files changed, 52 insertions(+), 3 deletions(-)
 
-A bit of context on this fix:
-
-- We heavily use USB/IP on CI/CD runners, in order to have full
-  control/isolation for multiple USB development boards plugged into
-  a powered hub. So USB/IP host and client are on the same machine.
-  Once configured, a runner host stays up ad vitam.
-- I found the bug while debugging a runner host lockup on Ubuntu
-  7.0.0-31-generic, with an uptime > 1month. The log lines above are from
-  that machine.
-- The diagnosis, this patch and its changelog were prepared with the
-  help of an AI coding assistant (Claude Opus 5.5), then reviewed by me.
-- Build-tested on x86_64 and i386 with CONFIG_USBIP_DEBUG=y: no new
-  warnings (W=1 reports a pre-existing -Wformat-truncation in
-  vhci_sysfs.c, unrelated).
-- checkpatch.pl --strict: clean.
-- The patch was tested in QEMU (virtme-ng), not on the physical runner,
-  using dummy_hcd + g_zero in loopback mode (bulk IN read only complete
-  when unlinked), exported through a USB/IP loopback (bind + attach to
-  localhost), running usbtest test 11 (unlink reads, 3000 iterations), with
-  a test-only change starting vhci_hcd->seqnum at INT_MAX - 2000.
-  Without this patch: the first unlink past 2^31 is lost
-  ("unlink->seqnum 18446744071562067969", "cannot find the pending
-  unlink 2147483649"), and testusb hangs in D state.
-  With this patch: 5007 unlinks past 2^31, none lost, testusb passes.
-- The explicit (u32) cast added by 15b93f340fa6 in vhci_tx_urb() is now
-  redundant. I left it alone to keep this fix minimal.
-
-Thanks,
-Lucas
-
-
- drivers/usb/usbip/vhci.h    | 6 +++---
- drivers/usb/usbip/vhci_rx.c | 4 ++--
- drivers/usb/usbip/vhci_tx.c | 4 ++--
- 3 files changed, 7 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/usb/usbip/vhci.h b/drivers/usb/usbip/vhci.h
-index 5659dce1526e..64c824c7d165 100644
---- a/drivers/usb/usbip/vhci.h
-+++ b/drivers/usb/usbip/vhci.h
-@@ -50,7 +50,7 @@ struct vhci_device {
-
- /* urb->hcpriv, use container_of() */
- struct vhci_priv {
--	unsigned long seqnum;
-+	u32 seqnum;
- 	struct list_head list;
-
- 	struct vhci_device *vdev;
-@@ -59,12 +59,12 @@ struct vhci_priv {
-
- struct vhci_unlink {
- 	/* seqnum of this request */
--	unsigned long seqnum;
-+	u32 seqnum;
-
- 	struct list_head list;
-
- 	/* seqnum of the unlink target */
--	unsigned long unlink_seqnum;
-+	u32 unlink_seqnum;
- };
-
- enum hub_speed {
-diff --git a/drivers/usb/usbip/vhci_rx.c b/drivers/usb/usbip/vhci_rx.c
-index a678e7c89837..c8a27778478d 100644
---- a/drivers/usb/usbip/vhci_rx.c
-+++ b/drivers/usb/usbip/vhci_rx.c
-@@ -118,9 +118,9 @@ static struct vhci_unlink *dequeue_pending_unlink(struct vhci_device *vdev,
- 	spin_lock_irqsave(&vdev->priv_lock, flags);
-
- 	list_for_each_entry_safe(unlink, tmp, &vdev->unlink_rx, list) {
--		pr_info("unlink->seqnum %lu\n", unlink->seqnum);
-+		pr_info("unlink->seqnum %u\n", unlink->seqnum);
- 		if (unlink->seqnum == pdu->base.seqnum) {
--			usbip_dbg_vhci_rx("found pending unlink, %lu\n",
-+			usbip_dbg_vhci_rx("found pending unlink, %u\n",
- 					  unlink->seqnum);
- 			list_del(&unlink->list);
-
-diff --git a/drivers/usb/usbip/vhci_tx.c b/drivers/usb/usbip/vhci_tx.c
-index 32e6fabccf72..4b602849c14b 100644
---- a/drivers/usb/usbip/vhci_tx.c
-+++ b/drivers/usb/usbip/vhci_tx.c
-@@ -74,7 +74,7 @@ static int vhci_send_cmd_submit(struct vhci_device *vdev)
- 		memset(&msg, 0, sizeof(msg));
- 		memset(&iov, 0, sizeof(iov));
-
--		usbip_dbg_vhci_tx("setup txdata urb seqnum %lu\n",
-+		usbip_dbg_vhci_tx("setup txdata urb seqnum %u\n",
- 				  priv->seqnum);
-
- 		if (urb->num_sgs && usb_pipeout(urb->pipe))
-@@ -201,7 +201,7 @@ static int vhci_send_cmd_unlink(struct vhci_device *vdev)
- 		memset(&msg, 0, sizeof(msg));
- 		memset(&iov, 0, sizeof(iov));
-
--		usbip_dbg_vhci_tx("setup cmd unlink, %lu\n", unlink->seqnum);
-+		usbip_dbg_vhci_tx("setup cmd unlink, %u\n", unlink->seqnum);
-
- 		/* 1. setup usbip_header */
- 		pdu_header.base.command = USBIP_CMD_UNLINK;
---
+diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
+index c71763047126..ced78c985d1c 100644
+--- a/drivers/dma/dmaengine.c
++++ b/drivers/dma/dmaengine.c
+@@ -1155,6 +1155,47 @@ int dma_async_device_channel_register(struct dma_device *device,
+ }
+ EXPORT_SYMBOL_GPL(dma_async_device_channel_register);
+ 
++/**
++ * dma_async_device_channel_add - register a channel and make it available
++ * @device: the dmaengine device, DMA_PRIVATE and registered already
++ * @chan: the channel, not on @device's channel list
++ * @name: the channel's name, or NULL for the default one
++ *
++ * Channel requests walk the channel list of every registered device under
++ * dma_list_mutex and may hand out any listed channel that has no client.
++ * A channel added to a registered device is therefore linked to the list
++ * only once it is registered, and under that mutex, so that a request
++ * never finds it half initialized. The driver's own state behind the
++ * channel must be complete before the call. A channel that fails to
++ * register is not linked.
++ *
++ * Only a DMA_PRIVATE device may add channels this way. The channel list
++ * of a public device is also walked under RCU alone, and its channels
++ * hold references for the dmaengine_get() users, which this function
++ * does not take.
++ *
++ * Return: 0 on success or a negative errno.
++ */
++int dma_async_device_channel_add(struct dma_device *device,
++				 struct dma_chan *chan, const char *name)
++{
++	int rc;
++
++	if (WARN_ON_ONCE(!dma_has_cap(DMA_PRIVATE, device->cap_mask)))
++		return -EINVAL;
++
++	rc = __dma_async_device_channel_register(device, chan, name);
++	if (rc < 0)
++		return rc;
++
++	mutex_lock(&dma_list_mutex);
++	list_add_tail(&chan->device_node, &device->channels);
++	dma_channel_rebalance();
++	mutex_unlock(&dma_list_mutex);
++	return 0;
++}
++EXPORT_SYMBOL_GPL(dma_async_device_channel_add);
++
+ static void __dma_async_device_channel_unregister(struct dma_device *device,
+ 						  struct dma_chan *chan)
+ {
+diff --git a/drivers/dma/idxd/dma.c b/drivers/dma/idxd/dma.c
+index c116416e10e5..defd1af74c0a 100644
+--- a/drivers/dma/idxd/dma.c
++++ b/drivers/dma/idxd/dma.c
+@@ -279,7 +279,7 @@ static int idxd_register_dma_channel(struct idxd_wq *wq)
+ 
+ 	chan = &idxd_chan->chan;
+ 	chan->device = dma;
+-	list_add_tail(&chan->device_node, &dma->channels);
++	idxd_chan->wq = wq;
+ 
+ 	for (i = 0; i < wq->num_descs; i++) {
+ 		struct idxd_desc *desc = wq->descs[i];
+@@ -288,14 +288,20 @@ static int idxd_register_dma_channel(struct idxd_wq *wq)
+ 		desc->txd.tx_submit = idxd_dma_tx_submit;
+ 	}
+ 
+-	rc = dma_async_device_channel_register(dma, chan, NULL);
++	/*
++	 * The dma_device is registered already, so a channel request may
++	 * take the channel as soon as it is on the device's list. The core
++	 * links it only once it is registered, and everything a client
++	 * reaches through it is set up by then. What follows serves the
++	 * unbind, which cannot run before this probe returns.
++	 */
++	rc = dma_async_device_channel_add(dma, chan, NULL);
+ 	if (rc < 0) {
+ 		kfree(idxd_chan);
+ 		return rc;
+ 	}
+ 
+ 	wq->idxd_chan = idxd_chan;
+-	idxd_chan->wq = wq;
+ 	get_device(wq_confdev(wq));
+ 
+ 	return 0;
+diff --git a/include/linux/dmaengine.h b/include/linux/dmaengine.h
+index fe33a20abc61..4178248611d9 100644
+--- a/include/linux/dmaengine.h
++++ b/include/linux/dmaengine.h
+@@ -1751,6 +1751,8 @@ static inline int dmaengine_desc_free(struct dma_async_tx_descriptor *desc)
+ int dma_async_device_register(struct dma_device *device);
+ int dmaenginem_async_device_register(struct dma_device *device);
+ void dma_async_device_unregister(struct dma_device *device);
++int dma_async_device_channel_add(struct dma_device *device,
++				 struct dma_chan *chan, const char *name);
+ int dma_async_device_channel_register(struct dma_device *device,
+ 				      struct dma_chan *chan,
+ 				      const char *name);
+-- 
 2.43.0
+
