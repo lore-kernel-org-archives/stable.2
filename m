@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A3653C012;
-	Mon, 19 Oct 2026 14:25:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB52D53C025;
+	Mon, 19 Oct 2026 14:25:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792419944; cv=none; b=XOpvEIUZlNtX526PHDEd7vnjDzzEvw+MGdVS75MQ0jGWUHQ3s9Ys0fSHjY61DYSJOKPkI8Gpmck6oCb2aenW2ojf5oSeQyY1DGIeLoij/KNm8oh3GIJFmSlD7bsKsiCCmh2tlIWh9OyQiUOnG8zkxpfz1O3wcPOqaTa/F+vVSjU=
+	t=1792419948; cv=none; b=Svenz9d4lwuCGS2VNmZreX6sqWlJmdOmvFUTj1exK4T1JxOQsMZIKd49pPHRVCfSKzB6zu2Fy2dOM++tF9yY7WS7ilRYA3fpzD895Ct3dZjhT/3NVK7uDN5tqXOPdJupTt8OAHSkpu5/+/J5jwcihb9YDdZu0GCP10Weujp3lko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792419944; c=relaxed/simple;
-	bh=p2G2lP2zW4OuqUyJbbccm1x6zKEjrNPyl0BywwNZTsY=;
+	s=arc-20240116; t=1792419948; c=relaxed/simple;
+	bh=KzlJxrcEwOc+Wm4DDpDhvcSOlyJtf7WDqtaQExnJi6U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rxYIUKYScKUDoPYGwpoHfk+Qc4yiA8Bnk4P8g8sP2tmxPaiL3sfRDiVOhzEEWlvmzi7Q5uO/jnYPwAylwFMnThUWLJ0+1neUWgMx1us2w409/hEt6BeCBMzJYi2u+64uxycrEXBprRe4dJNnoTTYOoNERRD4Tj87ZqK6IOvxwxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AGmzooUF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=JYBCowaitHasjZuYk9dvv7sSnRNHvW0TZQUniRrDtv1utwN5G+WlTi2E8SRVDTFsmJ/K3rXnCbLFOJTZ5RdJh+SCT3Av/yaaVZhoB6OCJcSGSphhkJmgVuaGHMyS4ZQ9bnghH8/VXILqSyQTZvpKPOC9FYLLuXOl9p+PnkMWrso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CaGr6pq3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AGmzooUF"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id C5FE81F000C8;
-	Mon, 19 Oct 2026 14:25:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CaGr6pq3"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id DF0241F000C4;
+	Mon, 19 Oct 2026 14:25:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792419943;
-	bh=cj0fIYU2oAbSnQlk97T67CaTvZalAZQ4W0pfC1dQ0IU=;
+	s=k20260515; t=1792419947;
+	bh=r3CDASqOxmw/tgSs1bQht6L0qkVktMahuo2BFM3/UAg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AGmzooUF0T/D8ciygKkRhAgAXswHz9nVwUIQ9B7V9PVl+HBR+FvbpkQaTzG74deTC
-	 QEJnQg3r4xIj1OSv2bs4bUoWOkyXyz/NkLBN+yMOdUNn7XBP7rseaoeVdLqvne56oq
-	 PkJutUtAgKoq4KFgd4cgB+62ZgoRnoqSwsGN9y21qrn4mRtV1M8b6OsVeVHlhoHSAw
-	 YHPPZNNcDMFQEYXX+xf9/lr3PNPJTx5z49mBeviBy1uIjELFAcr+c/1TDKtFZuiqDZ
-	 pz+2ZOJkmFlXcy/i6FxS91VLm8gqyqeFkssJMa0BqwoC1GYmLfguSBS9spYTt8tqE5
-	 hDBRRlIWj4Bwg==
+	b=CaGr6pq30srGnzh0cSMoFAj1TNjAxJxMFWbSJnIb0LU8w9ODYPZEkqzHv0RYtjVrB
+	 abPXoX3Q2J2Uf7WeLeiu40tk6SZgt8zXrX6lohZaJpDw2XP0eBk0QBK9ugvyotEGq4
+	 NWEcQg2IVmWJ4rxR4W2m2m0kp7QkdWGb0496FZiq8TwMJB4W+HNY4XKtsxl3xmfsao
+	 hSctK37mEh55Rao2p0Nfxo+QWMvzyIi/+pr7p33CQlJRy41ef+wk4MezTQu7SaLZR+
+	 isq6czxMJa6sF9hds1u9x0tp5QTtvsTECjJTFSDe5kHS7M7+bNS4ZKiio7ljCSPlMV
+	 uVKP/Zq3HK/3Q==
 From: Jarkko Sakkinen <jarkko@kernel.org>
 To: David Howells <dhowells@redhat.com>
 Cc: keyrings@vger.kernel.org,
@@ -35,11 +35,12 @@ Cc: keyrings@vger.kernel.org,
 	Paul Moore <paul@paul-moore.com>,
 	James Morris <jmorris@namei.org>,
 	"Serge E. Hallyn" <serge@hallyn.com>,
+	Andrew Morton <akpm@osdl.org>,
 	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM),
 	linux-kernel@vger.kernel.org (open list)
-Subject: [RFC PATCH 3/8] KEYS: Reject @desclen values over U16_MAX in key_alloc()
-Date: Mon, 19 Oct 2026 17:25:03 +0300
-Message-ID: <20261019142516.300040-4-jarkko@kernel.org>
+Subject: [RFC PATCH 4/8] KEYS: Prevent overflow of user->qnkeys in key_alloc()
+Date: Mon, 19 Oct 2026 17:25:04 +0300
+Message-ID: <20261019142516.300040-5-jarkko@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261019142516.300040-1-jarkko@kernel.org>
 References: <20261019142516.300040-1-jarkko@kernel.org>
@@ -51,33 +52,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-@desclen in key_alloc() is saved to the 16-bit wide desc_len field in
-struct keyring_index_key.
-
-Reject @desclen values over U16_MAX with -EINVAL in order to prevent
-integer overflow.
+Add the missing check rejecting allocations when user->qnkeys has reached
+INT_MAX.
 
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Fixes: f771fde82051 ("keys: Simplify key description management")
+Fixes: 7e047ef5fe2d ("[PATCH] keys: sort out key quota system")
 Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 ---
- security/keys/key.c | 2 ++
- 1 file changed, 2 insertions(+)
+ security/keys/key.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/security/keys/key.c b/security/keys/key.c
-index 6ebb8691551f..7888c0c6a772 100644
+index 7888c0c6a772..30f8a8dea206 100644
 --- a/security/keys/key.c
 +++ b/security/keys/key.c
-@@ -245,6 +245,8 @@ struct key *key_alloc(struct key_type *type, const char *desc,
- 	}
+@@ -263,6 +263,9 @@ struct key *key_alloc(struct key_type *type, const char *desc,
+ 			key_quota_root_maxbytes : key_quota_maxbytes;
  
- 	desclen = strlen(desc);
-+	if (desclen > U16_MAX)
-+		goto error;
- 	quotalen = desclen + 1 + type->def_datalen;
- 
- 	/* get hold of the key tracking for this user */
+ 		spin_lock_irqsave(&user->lock, irqflags);
++		if (user->qnkeys == INT_MAX)
++			goto no_quota;
++
+ 		if (!(flags & KEY_ALLOC_QUOTA_OVERRUN)) {
+ 			if (user->qnkeys + 1 > maxkeys ||
+ 			    user->qnbytes + quotalen > maxbytes ||
 -- 
 2.47.3
 
