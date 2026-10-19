@@ -1,175 +1,253 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E1F39099C;
-	Mon, 19 Oct 2026 09:19:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7915F4AA59E;
+	Mon, 19 Oct 2026 09:23:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792401545; cv=none; b=rRrsz6xYo7lDdhdv+cNAEJkkwIjfXxkIqPzvBxLsrG6e5bcjeKWGC/Jb4NGZ58TrljkVWEF9wfwmoEZQ2frQquNdMeEaRvJoy+pFbumg1KdVaAQHODlpEIZW1Shyid9mYCoPNxzcj0XsiTfeO8e48L79GKh+8pIKNspjV3AJJSg=
+	t=1792401833; cv=none; b=ngii6UhEL7JmwwKqyJjELK3PSlDQ7SRMF0YPG/WxTgdYiz137tRX9mgXYxetbKzrIYLqPga8qaRsDH+OAEUr1iKW0Qa0c8Y7lgcxlowTCRiXPHOYJAN+E9IepU65uOxtu+rbr+SuWQU53WB2yHUY7tOgdBRYGruC/QCyZzKQ0C0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792401545; c=relaxed/simple;
-	bh=+7YEmMh9hqu9EFqnLCRSsNJtJX3xTYVHHsuMazPAaZM=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=DFDgADhB8QLJ1Ka3z9RL4ZrR6zxQBBzr1jVA5vqA8KEb8x0yzsmWlkfIREEACAm1HHB1FXthl+7jlkWj5lDvlP35YhI3QYMQ8j9fHVfEqgj1KiSrJ431nGQ5+qE3Zw06rri3w9YoSFJmDoaqGiacONFq7gnRjRAeOO7CiOaGx68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i19dov7+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792401833; c=relaxed/simple;
+	bh=SF3SYmREPD3QDwlcFdhBIfZrlZY88z3F9n8nPN+ywfE=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BjaQGC0Fi6u8/V18/TgsSIYeRkSDMjpxgeCZls2ZZCjsn969TnHCXnPH0KkIvdd5a07ieD/a/R5UVpnqus1cHECVqL1fsqxXFHkLa5OaarRv2wRhRIDQD7AYWEIOXi9JeYL3cbwSnkVMvaTO19j5vq/kPxRlrhLkZxMscvZXOF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=eFG3sIxG; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=80ReDOAK; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=eFG3sIxG; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=80ReDOAK; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i19dov7+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 350161F000C5;
-	Mon, 19 Oct 2026 09:19:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792401544;
-	bh=oN70H5R9ldPbMGdAr2ddG48R+ac02LOo0uRx3leltQU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=i19dov7+vGYjSHrO6jpb2nbQ4GIXDtxmwgJ1eZLG+iurtBU/w2rpNV3RI8TxKuEOq
-	 rLAlAq9YQYe6dTie7MA8+ojwz534boCl+tizXrN95A0aV7vH7x6L4gi0xBSjbh7iZc
-	 qDNAVSE95znBlVeZANVjVkm8JhNr0TAyQnAjlVh2z3HkAB8FR3bQFl20/qg6Lgc8t2
-	 ENodISmPYwI/7bxlKDed0gJL9f5n48EiGZGnBU5z5mRQzMwv0HTwVYVA11wVesAjjv
-	 UlRaka7UNppXEO8yC5iYmjlkru7U+aGc1YrYII3mV7sEyPeSUrSBbPy2Hlmt0eMvu8
-	 Ei4Owapx6kabQ==
-Subject: Re: [PATCH net v11] net/smc: fix lgr/lnk lifetime vs diag reader race
-From: netdev-bot+sashiko@kernel.org
-To: mjambigi@linux.ibm.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, alibuda@linux.alibaba.com,
- dust.li@linux.alibaba.com, sidraya@linux.ibm.com, hidayath@linux.ibm.com,
- pasic@linux.ibm.com, horms@kernel.org, tonylu@linux.alibaba.com,
- guwen@linux.alibaba.com, stable@vger.kernel.org, netdev@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
-Date: Mon, 19 Oct 2026 09:19:02 +0000
-Message-ID: <179240154272.3135.17238777571997282600@kernel.org>
-In-Reply-To: <20261015081349.1252391-1-mjambigi@linux.ibm.com>
-References: <20261015081349.1252391-1-mjambigi@linux.ibm.com>
-X-sashiko-severity: Critical
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="eFG3sIxG";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="80ReDOAK";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="eFG3sIxG";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="80ReDOAK"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 9DC481F449;
+	Mon, 19 Oct 2026 09:23:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792401829; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QWJbFyCX+KFjmGzLRAQLL4HAnlfRs5wGfEOCRcwKTNE=;
+	b=eFG3sIxGENmELq+g7SHdrFxWJ+OUorceO2ylDAKxPT2QZ5GtPP+PMCvBu/rQDlcermHPlQ
+	phZtYA8VQY7TRl2cuvG0/BtJ6kJpZgqP2pgmtEtbMRO/u1KdA42Rt0irRGFW8Iy3VNq1lI
+	ErGPELI/n/6TeRYZvVq+dTVRcr4PyPM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792401829;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QWJbFyCX+KFjmGzLRAQLL4HAnlfRs5wGfEOCRcwKTNE=;
+	b=80ReDOAKIiV4EECTbWGfwAwQDBGuGO9FqSmyBKFaiZIMxSm9vve+0dAqeNI8NVOfxXOB/J
+	uSAqiU5FCg5rvoBg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792401829; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QWJbFyCX+KFjmGzLRAQLL4HAnlfRs5wGfEOCRcwKTNE=;
+	b=eFG3sIxGENmELq+g7SHdrFxWJ+OUorceO2ylDAKxPT2QZ5GtPP+PMCvBu/rQDlcermHPlQ
+	phZtYA8VQY7TRl2cuvG0/BtJ6kJpZgqP2pgmtEtbMRO/u1KdA42Rt0irRGFW8Iy3VNq1lI
+	ErGPELI/n/6TeRYZvVq+dTVRcr4PyPM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792401829;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QWJbFyCX+KFjmGzLRAQLL4HAnlfRs5wGfEOCRcwKTNE=;
+	b=80ReDOAKIiV4EECTbWGfwAwQDBGuGO9FqSmyBKFaiZIMxSm9vve+0dAqeNI8NVOfxXOB/J
+	uSAqiU5FCg5rvoBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 43954134B3;
+	Mon, 19 Oct 2026 09:23:49 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Kir2BqXh1WrGHAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 19 Oct 2026 09:23:49 +0000
+Date: Mon, 19 Oct 2026 11:23:48 +0200
+Message-ID: <87a4oaavrv.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Will Bush" <will@willbush.dev>
+Cc: "Takashi Iwai" <tiwai@suse.de>,	"Takashi Iwai" <tiwai@suse.com>,
+	"Jaroslav Kysela" <perex@perex.cz>,	linux-sound@vger.kernel.org,
+	regressions@lists.linux.dev,	stable@vger.kernel.org,	"Jan Lentfer"
+ <jan.lentfer@web.de>,	Sebastian =?ISO-8859-1?Q?Dalfu=DF?= <sd@sedf.de>
+Subject: Re: [REGRESSION] usb-audio: Behringer UMC204HD broken in 7.2.10
+In-Reply-To: <bb9cad8e-48fc-4cc7-a893-1542270f2018@app.fastmail.com>
+References: <45162613-2802-401c-84c9-742f9c8c68e6@app.fastmail.com>
+	<87tsmjarjs.wl-tiwai@suse.de>
+	<bb9cad8e-48fc-4cc7-a893-1542270f2018@app.fastmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_TLS_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_ENVRCPT(0.00)[web.de];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_CC(0.00)[suse.de,suse.com,perex.cz,vger.kernel.org,lists.linux.dev,web.de,sedf.de];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[]
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Mon, 19 Oct 2026 10:39:46 +0200,
+Will Bush wrote:
+> 
+> On Sun, Oct 18, 2026, at 11:42 AM, Takashi Iwai wrote:
+> > Interesting, it's just a descriptor read and this fails on your device
+> > by some reason.  Could you try to ignore the error like below, and
+> > verify whether it continues to work?
+> 
+> Thanks for the quick reply. I reverted my patch and applied yours. Device keeps
+> disconnecting and reconnecting (just more slowly). It never ends up working.
+> 
+>   ❯ journalctl -k -b -0 -o short-monotonic | grep -E 'usb 3-4|snd-usb-audio 3-4'
+>   [    2.264012] blazar kernel: usb 3-4: new high-speed USB device number 3 using xhci_hcd
+>   [    2.458009] blazar kernel: usb 3-4: New USB device found, idVendor=1397, idProduct=0508, bcdDevice= 1.35
+>   [    2.484013] blazar kernel: usb 3-4: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+>   [    2.484035] blazar kernel: usb 3-4: Product: UMC204HD 192k
+>   [    2.484050] blazar kernel: usb 3-4: Manufacturer: BEHRINGER
+>   [   12.976010] blazar kernel: usb 3-4: USB disconnect, device number 3
+>   [   18.012013] blazar kernel: usb 3-4: failed to read device descriptor: -110
+>   [   18.012623] blazar kernel: usb 3-4: parse_audio_format_rates_v2v3(): unable to retrieve number of sample rates (clock 41)
+>   [   18.012768] blazar kernel: usb 3-4: parse_audio_format_rates_v2v3(): unable to retrieve number of sample rates (clock 41)
+>   [   18.012903] blazar kernel: usb 3-4: 10:0: failed to get current value for ch 1 (-19)
+>   [   18.013047] blazar kernel: usb 3-4: 10:0: failed to get current value for ch 2 (-19)
+>   [   18.013181] blazar kernel: usb 3-4: 10:0: failed to get current value for ch 3 (-19)
+>   [   18.013309] blazar kernel: usb 3-4: 10:0: failed to get current value for ch 4 (-19)
+>   [   18.013434] blazar kernel: usb 3-4: 10:0: failed to get current value for ch 0 (-19)
+>   [   18.013565] blazar kernel: usb 3-4: 10:0: cannot get min/max values for control 2 (id 10)
+>   [   18.013690] blazar kernel: usb 3-4: Warning! Unlikely small volume range (=1), linear volume or custom curve?
+>   [   18.013822] blazar kernel: usb 3-4: [10] FU [PCM Playback Volume] ch = 4, val = 0/1/1
+>   [   18.013959] blazar kernel: usb 3-4: 10:0: cannot get min/max values for control 2 (id 10)
+>   [   18.014102] blazar kernel: usb 3-4: Warning! Unlikely small volume range (=1), linear volume or custom curve?
+>   [   18.014239] blazar kernel: usb 3-4: [10] FU [PCM Playback Volume] ch = 1, val = 0/1/1
+>   [   18.014374] blazar kernel: usb 3-4: 11:0: failed to get current value for ch 1 (-19)
+>   [   18.014508] blazar kernel: usb 3-4: 11:0: failed to get current value for ch 2 (-19)
+>   [   18.014635] blazar kernel: usb 3-4: 11:0: failed to get current value for ch 0 (-19)
+>   [   18.014763] blazar kernel: usb 3-4: 11:0: cannot get min/max values for control 2 (id 11)
+>   [   18.014890] blazar kernel: usb 3-4: Warning! Unlikely small volume range (=1), linear volume or custom curve?
+>   [   18.015021] blazar kernel: usb 3-4: [11] FU [Mic Capture Volume] ch = 2, val = 0/1/1
+>   [   18.015151] blazar kernel: usb 3-4: 11:0: cannot get min/max values for control 2 (id 11)
+>   [   18.015278] blazar kernel: usb 3-4: Warning! Unlikely small volume range (=1), linear volume or custom curve?
+>   [   18.015408] blazar kernel: usb 3-4: [11] FU [Mic Capture Volume] ch = 1, val = 0/1/1
+>   [   18.300040] blazar kernel: usb 3-4: new high-speed USB device number 6 using xhci_hcd
+>   [   18.491087] blazar kernel: usb 3-4: New USB device found, idVendor=1397, idProduct=0508, bcdDevice= 1.35
+>   [   18.517036] blazar kernel: usb 3-4: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+>   [   18.517242] blazar kernel: usb 3-4: Product: UMC204HD 192k
+>   [   18.517398] blazar kernel: usb 3-4: Manufacturer: BEHRINGER
+>   [   23.644013] blazar kernel: usb 3-4: failed to read device descriptor: -110
+>   [   33.884021] blazar kernel: usb 3-4: parse_audio_format_rates_v2v3(): unable to retrieve number of sample rates (clock 41)
+>   [   49.244015] blazar kernel: usb 3-4: parse_audio_format_rates_v2v3(): unable to retrieve number of sample rates (clock 41)
+>   [   59.484034] blazar kernel: usb 3-4: 10:0: failed to get current value for ch 1 (-110)
+>   [   69.725032] blazar kernel: usb 3-4: 10:0: failed to get current value for ch 2 (-110)
+>   [   79.965020] blazar kernel: usb 3-4: 10:0: failed to get current value for ch 3 (-110)
+>   [   90.204027] blazar kernel: usb 3-4: 10:0: failed to get current value for ch 4 (-110)
+>   [  100.444027] blazar kernel: usb 3-4: 10:0: failed to get current value for ch 0 (-110)
+>   [  110.684056] blazar kernel: usb 3-4: 10:0: cannot get min/max values for control 2 (id 10)
+>   [  110.684281] blazar kernel: usb 3-4: Warning! Unlikely small volume range (=1), linear volume or custom curve?
+>   [  110.684397] blazar kernel: usb 3-4: [10] FU [PCM Playback Volume] ch = 4, val = 0/1/1
+>   [  115.804025] blazar kernel: usb 3-4: 10:0: cannot get min/max values for control 2 (id 10)
+>   [  115.812386] blazar kernel: usb 3-4: Warning! Unlikely small volume range (=1), linear volume or custom curve?
+>   [  115.812521] blazar kernel: usb 3-4: [10] FU [PCM Playback Volume] ch = 1, val = 0/1/1
+>   [  131.164026] blazar kernel: usb 3-4: 11:0: failed to get current value for ch 1 (-110)
+>   [  141.404011] blazar kernel: usb 3-4: 11:0: failed to get current value for ch 2 (-110)
+>   [  151.644020] blazar kernel: usb 3-4: 11:0: failed to get current value for ch 0 (-110)
+>   [  161.885033] blazar kernel: usb 3-4: 11:0: cannot get min/max values for control 2 (id 11)
+>   [  161.885326] blazar kernel: usb 3-4: Warning! Unlikely small volume range (=1), linear volume or custom curve?
+>   [  161.885446] blazar kernel: usb 3-4: [11] FU [Mic Capture Volume] ch = 2, val = 0/1/1
+>   [  167.004009] blazar kernel: usb 3-4: 11:0: cannot get min/max values for control 2 (id 11)
+>   [  167.004224] blazar kernel: usb 3-4: Warning! Unlikely small volume range (=1), linear volume or custom curve?
+>   [  167.004341] blazar kernel: usb 3-4: [11] FU [Mic Capture Volume] ch = 1, val = 0/1/1
+>   [  167.005012] blazar kernel: usb 3-4: Quirk or no altset; falling back to MIDI 1.0
+>   [  187.486013] blazar kernel: usb 3-4: USB disconnect, device number 6
+>   [  187.785034] blazar kernel: usb 3-4: new high-speed USB device number 7 using xhci_hcd
+>   ...
+>   [ 1035.327013] blazar kernel: usb 3-4: New USB device found, idVendor=1397, idProduct=0508, bcdDevice= 1.35
+>   [ 1035.353013] blazar kernel: usb 3-4: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+>   [ 1035.353185] blazar kernel: usb 3-4: Product: UMC204HD 192k
+>   [ 1035.353301] blazar kernel: usb 3-4: Manufacturer: BEHRINGER
+>   [ 1040.476017] blazar kernel: usb 3-4: failed to read device descriptor: -110
+>   [ 1050.717019] blazar kernel: usb 3-4: parse_audio_format_rates_v2v3(): unable to retrieve number of sample rates (clock 41)
+>   ...
 
-Critical: 1 · High: 0 · Medium: 0 · Low: 0
+OK, thanks.  Then the only way to introduce some deny list.
+Below is a quick fix.  I'm going to submit & merge this later.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
 
-- [Critical] The patch makes smc_conn_free() call
-  smc_lgr_unregister_conn() unconditionally.
+thanks,
 
---
+Takashi
 
-net/smc: fix lgr/lnk lifetime vs diag reader race
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH] ALSA: usb-audio: Avoid applying boot quirk for Behringer
+ UMC204HD
 
-This patch closes races between the SMC sock_diag dump and teardown of
-conn/lgr/lnk state. It unhashes sockets before smc_conn_free() and
-smcd_buf_detach(), orders sk_state with acquire/release, skips the
-extension attributes for sockets in SMC_INIT/SMC_CLOSED, and uses the
-cached link->ibname. It also makes smc_conn_free() always call
-smc_lgr_unregister_conn().
+Will reported that the recent boot quirk for Behringer devices broke
+his UMC204HD (1397:0508).  The quirk was to just run
+usb_get_descriptor(), so I expected it rather harmful, but in this
+case, it doesn't look so.
 
-> diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
-> index 9974149659c2..6735f185cf48 100644
-> --- a/net/smc/smc_core.c
-> +++ b/net/smc/smc_core.c
-> @@ -1279,10 +1279,9 @@ void smc_conn_free(struct smc_connection *conn)
->  		if (current_work() != &conn->abort_work)
->  			cancel_work_sync(&conn->abort_work);
->  	}
-> -	if (!list_empty(&lgr->list)) {
-> +	if (!list_empty(&lgr->list))
->  		smc_buf_unuse(conn, lgr); /* allow buffer reuse */
-> -		smc_lgr_unregister_conn(conn);
-> -	}
-> +	smc_lgr_unregister_conn(conn);
->  
->  	if (!lgr->conns_num)
->  		smc_lgr_schedule_free_work(lgr);
+As a quick workaround, skip the quirk for UMC204HD.
 
-[Severity: Critical]
-Now that the unregister is unconditional, can lgr->free_work get re-armed
-on a link group that is already being torn down? If so, the lgr could be
-freed while that timer is still pending.
+Fixes: b5c4823cf3e4 ("ALSA: usb-audio: Apply boot quirk for Behringer models generically")
+Reported-by: Will Bush <will@willbush.dev>
+Closes: https://lore.kernel.org/45162613-2802-401c-84c9-742f9c8c68e6@app.fastmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/quirks.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-smc_lgr_cleanup_early() unlinks the lgr but never sets lgr->freeing:
-
-smc_lgr_cleanup_early() {
-    ...
-	if (!list_empty(&lgr->list))
-		list_del_init(&lgr->list);
-	spin_unlock_bh(lgr_lock);
-	__smc_lgr_terminate(lgr, true);
-}
-
-smc_lgr_schedule_free_work() checks only lgr->freeing, not
-lgr->terminating:
-
-	if (!lgr->freeing) {
-		mod_delayed_work(system_percpu_wq, &lgr->free_work, ...
-
-__smc_lgr_terminate() cancels free_work once, before a loop that sleeps
-in lock_sock(). After the loop it calls smc_lgr_free(), and nothing on
-that path cancels free_work again:
-
-__smc_lgr_terminate() {
-    ...
-	cancel_delayed_work(&lgr->free_work);
-	lgr->terminating = 1;
-	...
-		lock_sock(&smc->sk);
-		smc_conn_kill(conn, soft);
-	...
-	smc_lgr_cleanup(lgr);
-	smc_lgr_free(lgr);
-}
-
-One possible sequence on an SMC-D server:
-
-- Conn X creates a first-contact lgr L. smc_listen_work() releases
-  smc_server_lgr_pending for SMC-D right after sending ACCEPT.
-
-- Conn Y joins L. smc_conn_create() has no conns_num limit for SMC-D.
-
-- X's CONFIRM fails:
-  smc_listen_decline(X) -> smc_conn_abort() -> smc_conn_free(X), while
-  L is still listed. Then smc_lgr_cleanup_early(L) runs list_del_init()
-  and __smc_lgr_terminate(L) cancels free_work, sets terminating = 1 and
-  blocks in lock_sock(Y). Y's listen worker holds that lock while it
-  waits for its own CONFIRM.
-
-- Y's CONFIRM also fails:
-  smc_listen_decline(Y) -> smc_conn_abort() -> smc_conn_free(Y). The
-  lgr list is now empty, but with this change smc_lgr_unregister_conn(Y)
-  still runs. conns_num drops to 0, freeing is 0, so
-  smc_lgr_schedule_free_work() arms free_work with
-  SMC_LGR_FREE_DELAY_SERV.
-
-- X's worker resumes, the loop ends, and smc_lgr_free(L) ->
-  smc_lgr_put() -> __smc_lgr_free() -> kfree(L) runs while free_work is
-  still pending.
-
-Would the timer then fire on freed memory? If L were still alive at that
-point, smc_lgr_free_work() would see freeing == 0 and an empty conns_all
-and call smc_lgr_free() a second time.
-
-Before this patch, smc_conn_free(Y) skipped smc_lgr_unregister_conn() when
-the lgr list was empty, so conns_num stayed at 1 and free_work was not
-re-armed.
-
-The peer decides whether and when each CONFIRM fails, and with
-loopback-ism the client can be a local unprivileged user.
-
-Should smc_lgr_cleanup_early() set lgr->freeing like the other unlink
-paths do? Alternatively, smc_lgr_schedule_free_work() could also check
-lgr->terminating.
-
-[ ... ]
-
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 4fadb1fdcdea..0dd06cc2c854 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -1790,8 +1790,14 @@ int snd_usb_apply_boot_quirk_once(struct usb_device *dev,
+ 	}
+ 
+ 	/* Behringer devices may need explicit device descriptor read at boot */
+-	if (USB_ID_VENDOR(id) == 0x1397)
++	if (USB_ID_VENDOR(id) == 0x1397) {
++		/* the quirk seems breaking on some Behringer devices */
++		switch (id) {
++		case USB_ID(0x1397, 0x0508): /* UMC204HD */
++			return 0;
++		}
+ 		return snd_usb_cm1a_boot_quirk(dev);
++	}
+ 
+ 	return 0;
+ }
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015081349.1252391-1-mjambigi%40linux.ibm.com
+2.55.0
+
+
