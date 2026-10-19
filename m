@@ -1,82 +1,111 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59483B38AD;
-	Mon, 19 Oct 2026 04:19:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792383567; cv=none; b=SRfUSCk5jJbJMqOpGnhsgKx01uHL1s3eWgjhBTC+3NtIlxz8BZKKt6knv6nDv9CzhhV4yKON0gcLENtjYb1rKMDmfp6QOba4WHNgkli2pmoyJG7/9M/2y9aEpZ4H1YR8cRjVD+MmLLnqAEMXGAW2o/UXqobN92dFVFrf7xm/Qj0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792383567; c=relaxed/simple;
-	bh=Hniv5Rxo4Srf/AQP3ouchkZsDzCPDxDuv4EWUbI2HuY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RiYd+e77StT7B4RTyEsKaxIWZSaog+if53mfxkVS29zXm1f0IiarxxYWAuCrHJMqkVndfCJ7T6XaJQ42j0UIwTLT+0yWFcFiew+NYEJocaF9m29AAYdzHaF5zQMn1uyQO+0RP5mOcvWQvPpW9icksBf/5XLiTn9tGw0LTkUi4Xs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=HsQcTih0; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FE0646EF61
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 04:29:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792384206; cv=pass; b=F+MvJEMKc3yi28tV8jY1sSDJ2XGHi36ZP4H95nvmIJSVK50qM4ldpbiFcK7+OVcmQ4LB9ct4WfNI1VxUZyM9iRAYwlWfbFb+ZLDHn8sp5KDTA/3zTucL1e3EsePB21EunDWlt6oVa20c83CCC9KTTU+4Q0jVdAY0yzofe5rj8ow=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792384206; c=relaxed/simple;
+	bh=asE30SXVAoP90qhP9dNI0QR+nkwcC4PqmT3gY2NE+Dk=;
+	h=In-Reply-To:References:MIME-Version:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=W8NeSXFo8FDWAaIXshBxu50F/JxY1MykRGQyiVIxE6DPtvIuQbcoXj0PDJ5nvctzRBQIRmDrT1beWDkIc6RgvQ+zK/4yMwg/khw7PFkeSFlv5RqvFTbXkJO6KLjbjKsWhvjejp7k+ckzm3or0ApP+5HQK4YF7JVZ+S57XoF8snA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rX/rQ0HE; arc=pass smtp.client-ip=209.85.160.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="HsQcTih0"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id AD69340E02A8;
-	Mon, 19 Oct 2026 04:19:22 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id xbL_rZk8CS-o; Mon, 19 Oct 2026 04:19:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1792383559; bh=m4C6NDAdLfTLYUdsWad3uh+TsP43kSzO0JJ54T+8QwA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HsQcTih0LnyYEIQVxNe/gnMNQrSpTpB7nzTAlePZAVEj7hCxsipn6tlLuMrfalsl2
-	 7eiU3QcXeCJ9dF7n3wJq7vInGY2wO/fSD44OMgnKiEIuFHEztuTTfGw/SRVZ/eohjs
-	 v5qDpB5F0dV/C/MDrI28axozW1kDtOzwSr9Gh1CNH3feF0uajtZgt1teyDkQhswGjj
-	 /3QpHO+smvC0DBQ+BaTodkqhfdry9poWt/W4LVzkntYECAQP7xUo7OiOL6TE8ZM+7C
-	 PUYbspn1DVsaTYVSEEENGHD8KO8GDRCj1YBM5iO+KCEMAo9yaghlTUhMi74wfYuylJ
-	 /FWS9bePFKGbgIb91k6hsSrFromh6S9iDieKfFGQzGwghLsP/COrvmIzhfd930n7Us
-	 wwJiQjh2HI/apvEeomPQL+S+PIQzKP0XxVXDEMNSCE78ssx4eWyWsuZcjn4tzkmWmZ
-	 u1KzechXTvuil4bsDrkELsQGUcFTNs1I6f/ufXeWTLo+YotOBFJXiL5mnQD/tyJFpg
-	 jEsNc5/nb+R/4a0gDxabbl4FEv7de7GXvaQk9o68NnoEZL+ohheXs40ksO7Yne+HJw
-	 xQQgpik7JiC2TSsPOIoW7CjB8KTuJgA4ubIWlbSku1Yf9WFpsDQPg0kzDogboIycSj
-	 vc0HHYT/oHROSSAqJvIFT3bc=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 2703F40E021A;
-	Mon, 19 Oct 2026 04:19:12 +0000 (UTC)
-Date: Sun, 18 Oct 2026 21:19:09 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Guixiong Wei <weiguixiong@bytedance.com>
-Cc: Yazen Ghannam <yazen.ghannam@amd.com>, Tony Luck <tony.luck@intel.com>,
-	Muralidhara M K <muralidhara.mk@amd.com>,
-	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] EDAC/mce_amd: Add missing long names for SMCA bank types
-Message-ID: <20261019041909.GDatWaPatyL2pHDLKo@fat_crate.local>
-References: <20261009020447.90758-2-weiguixiong@bytedance.com>
- <20261012140330.GC15198@yaz-khff2.amd.com>
- <20261017195145.GAatPR0dQVZGEMHglh@fat_crate.local>
- <20261018223431.GA3236@yaz-khff2.amd.com>
- <451788d5e97cba38274e663d2b7952c593e959be.461d4034.890c.4720.915c.a7839a9cc59e@bytedance.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rX/rQ0HE"
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-5337fa12431so255941cf.1
+        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 21:29:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792384197; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TcKkRlsLA4VFGKoIfiGFQ2v16pxBvMqWyM9bbSJFoBOkChwdLixIoN7emVpRUoZVgd
+         y9w1wDPAO/wYlmSmEaDE0Mnvv6x9S8Efer2h4foksgI+4mCx7RdfD6FVqxR9fKvLPjxF
+         MF7JM+iR/fzqsIMDUFy8IUIQ14S69I59yADjhqr2tLcsFnzoXSQYYi9t+t17oPnM9bpe
+         xA+fy99YwcQrstw8jSI42q839/uJXnYofDXVp2VCRknziS6bLH5fo5Y0V5m6DQuqrIoh
+         dPFGtQVvAoecKzvbtdp73ArqlYeGV2ULpqkmbzaj78CJGqO1Puol6eBRIteseKylD5Gz
+         xHWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:references
+         :in-reply-to:dkim-signature;
+        bh=asE30SXVAoP90qhP9dNI0QR+nkwcC4PqmT3gY2NE+Dk=;
+        fh=uQnNPmwIRLcOt0/FRebU//+CfwXamAJo+EXbBJnRfBg=;
+        b=K1ub5JlWiCt9iFgEU2PI5+WNehjVDQuAm52iwvh/7YPDpEzFALZylWgLgNkAxgt+hc
+         HitKsDSqx3ufosqNWNtxjNp7GBU52XTNbGloIiAQBjv5Ee38K45heYj16uUPhvuZ3qzv
+         QbDEa+Ry9O9lufXKx/dF80t7R8wTbQq/vQ4bufRSVn2Y7T5KbtavPN4FdIXGiBvoKhQA
+         AByTwNfN8d1HGDqs8jAqMCYHSXihMY8//1ywM1HhvTCuad4OAos9E6ExGuj7pZP2iiY9
+         hPINVDHgjl3b4/psTZVayvJMJ9TEYlAZf6ebJi9MiEXp65aOJ26WXUIGNucDuvX5Nua0
+         J7Vg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792384197; x=1792988997; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :references:in-reply-to:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=asE30SXVAoP90qhP9dNI0QR+nkwcC4PqmT3gY2NE+Dk=;
+        b=rX/rQ0HEKLJX8qBzFVQDFAiMyp/Zpn4YvJngjq2qxJL0TQl1+f3Qhr9zfPMQgC7yka
+         OyyUFmVHDrAAdGlrqIea2RR6Fg/fS8knB9pX9awXJuKRaSrpaTUY35+AlGcHn0tHuOv0
+         4KgKF2hf6E+rhzy7uiM9QM8n1i2Yxot4Kb+/doUezMR6iODptFXeBoTnshovBnhKT91P
+         aHOHMoMzWT2vEB7ZMMvfI83/thn6XBI8CD4invQSbHSr8+kNS1l8ONs9zDMwvzchxWmg
+         fvZtRNDyw82opiqdL2/0+N9k0ibVU8s3M0DIQm6bXACy/o5EFaW9Z3NLClCIFLmvBGI0
+         48oA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792384197; x=1792988997;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :references:in-reply-to:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=asE30SXVAoP90qhP9dNI0QR+nkwcC4PqmT3gY2NE+Dk=;
+        b=Up7He+g1axc1InGkKHXZkqMfMXC5MKgr/o87JLZicJgFEGE5eqpNefmqxJklf5tIn/
+         NcE+5wPDRl9I4lS6BxyyyhlLvbR21RUonZAPdjSpoSEXNMx4adVS30+GryS+K16shH+J
+         HX0EcdqkRLqcJajCqW00i3O4s5HInCVrjgtregsXd6BWTKZ66furYYzUyOfTs57B1ANd
+         1z2no8uk7kmV09h9StpVwXxfo2OndcQjIIf6Un84Wc206FgElPRoSmbMWu3SNhg595Pa
+         6VPZ3wbyvGD5TE8ShP36e9G67FNrGdeNysQ9nlxm6lQzhQLQzhp/5cQ8xe5wut/5Qra5
+         KRLA==
+X-Forwarded-Encrypted: i=1; AKwUvBwfQFT+Q1rL0WSSwHJYlhuoSJ/fZmXM6ZcTRWUGCokT8Xcw+sIw8u83fQfc/RUM/uxmVdjl8cM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5qztM1XakkaDE6o3OExBKKRmgX2B4wR39dsCqXaxErd2SSJ7t
+	B94/SKLyy+egYN8WfiOk+dqGCTGxowwl2OEtzpaiSHT3cWglrxad2kioIRtr3XghQajHWNC3VtM
+	Jj93izE5/SXn2bEu0WRTb53eQ7Y410+/5mZnok1b4
+X-Gm-Gg: AYBFou0hXC9pZjQjJY98s10mJ8nWXLhhO+oGF2Ipa+komDql42hYm/3m7Fd0AKVkd+H
+	K4nwYIakNTgMmWtoRUPAOD9EDS4I3Jg2VU/6vbDTN/wJD7WRaoayek7o9h8tILffEhnk6U/DTuc
+	Bu+DXApeZDehYUDL63FyGIl03oWwXHrRfcKyTt6X/K/+qNJ/zkme4QOCXEItw1eQKqPV9D6LgHN
+	vaCzSnZxazqLF8ejZvSn8k8kwkO8ne6cwYHxwbYFbtVQokCnTl7w6M5+034oV58oSBnzuPk50tl
+	zf+llpL2XF5Xu/VlBU75eSghRbDv75uRissiWI+jB0wyHwL4TdMKuid7ACFo3vImBmS9J8LZc49
+	W3V8eCYg=
+X-Received: by 2002:a05:622a:90a:b0:52f:8389:29e0 with SMTP id
+ d75a77b69052e-53649acf23cmr28899601cf.0.1792384196502; Sun, 18 Oct 2026
+ 21:29:56 -0700 (PDT)
+Received: from 913411032810 named unknown by gmailapi.google.com with
+ HTTPREST; Sun, 18 Oct 2026 23:29:55 -0500
+Received: from 913411032810 named unknown by gmailapi.google.com with
+ HTTPREST; Sun, 18 Oct 2026 21:29:41 -0700
+In-Reply-To: <2e042211ca0ebc974ad5ec4c0de9f3f93b3c75c0.camel@iokpp.de>
+References: <20261017084403.875420-1-stanleyjhu@google.com> <2e042211ca0ebc974ad5ec4c0de9f3f93b3c75c0.camel@iokpp.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <451788d5e97cba38274e663d2b7952c593e959be.461d4034.890c.4720.915c.a7839a9cc59e@bytedance.com>
+From: Stanley Jhu <stanleyjhu@google.com>
+Date: Sun, 18 Oct 2026 23:29:55 -0500
+X-Gm-Features: AclHuK-HgN0FmhIdLMEsn6Gjhf6fsxEJCtdj6atYDCuubd88JF0LL5qqpkihSd8
+Message-ID: <CAE14pdc3QJyxY+YizyUfi2+NTB4oxYyqu_zTyT__-LfMxJLMmQ@mail.gmail.com>
+Subject: Re: [PATCH v2 0/4] scsi: ufs: core: Factor hba->outstanding_reqs
+ helper and fix double completion
+To: Bean Huo <beanhuo@iokpp.de>, "Martin K . Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org
+Cc: "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Bean Huo <beanhuo@micron.com>, Peter Wang <peter.wang@mediatek.com>, 
+	Can Guo <can.guo@oss.qualcomm.com>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Oct 19, 2026 at 10:16:32AM +0800, Guixiong Wei wrote:
-> Regarding Boris's earlier comment, I agree that the Cc: stable tag
-> was not justified here and will drop it.
+On Sun, 2026-10-18 at 21:52 +0200, Bean Huo wrote:
+> One more place has the same problem. In ufshcd_abort(), the "cmd was completed,
+> but without a notifying intr" path completes the request but leaves its bit set
+> in hba->outstanding_reqs:
 
-You don't have to resend - I'll fix it up.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Good catch, thanks. I can confirm it. I will add a separate patch to fix
+it in v3.
