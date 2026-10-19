@@ -1,210 +1,168 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E384E0B8A;
-	Mon, 19 Oct 2026 11:02:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792407758; cv=none; b=fUS44Qzw1edOL9xXaGMGP6AZwIJr2V415iA84N4aMn3XTk8XjohcsGS+qEt6CNq216Xx8gV4zorOA14f0od1MDz5mwvcyGikz0YeyfsSOilX5HeEFrrloPw/Wu+pIDgvuFD0vtlcBxnhVU9pi/zDldmRbufv7zqGOQz7tBNV5Vo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792407758; c=relaxed/simple;
-	bh=GHQthElYodFukO8Wk4FyIQVeVUz/66AOdJQjwFPw9Rg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TO3X21C4xcbqmPCt5xXLzwTwnJtapUr7VpxDo/+xGKTYtGHA3qC1MpPRCK7JqSJAGE1WiuwpM7IzaiRuJSBaByxP6wGgSLsm+pxwlVysC9VuBwd/dWZshXX45cgSih7kpRVNiOoZIBNERLUyhmIJx7skFfFlhTN0WPHH5eYVcjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=oEgtmEoU; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=dZky7Hn6; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ObkBXr+a; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=SRZFtaS+; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01BE44AA3F4
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 11:04:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792407852; cv=pass; b=P6tve4R6tTUo5pV1MpEHXCPVAug6/vMmTH/VKtEy+/Mvhjg4dNmH2E2mPRhqe83/UKtnWQ3EwdvV8OjieD6V1Qtm5bCbPdSzBra+lBwhV8ABxNq+j8xyonw8T8Ru0/XROGzhRhbjTs2v9hVGFFE3LDK5JqdikMuDhZ8DkFFYpCY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792407852; c=relaxed/simple;
+	bh=bfHt9VJUjw2jpaKsvRmu5N8bb4qZt+FbJS5wdGnbVME=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dGrATr82rgzrYDnxrUdc2Fp0Le2TaCgoWwySe/MPPkvGEEsf1d5Psd+jndWfTDESQu6m2lC66Sfg7w/1GWlMYUQSnCcQl+sPJxIEajbn69C2vhVx1L9uBgMIw/pgmETbxSNeKC/AJMdEIJKtScLE5p07XNBwB0o3hDvK4UwMJh8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hkE25WF3; arc=pass smtp.client-ip=209.85.167.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="oEgtmEoU";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="dZky7Hn6";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ObkBXr+a";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="SRZFtaS+"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 392AD21CC7;
-	Mon, 19 Oct 2026 11:02:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792407754; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=By1KvhKOe++xK8+cQtNPfkcJ4RuE0S7F5y5fKPhCy1Q=;
-	b=oEgtmEoUxWmnkFfjWOGKbjUgw8UTSUpF4//h1vgUgNKfmLVXH4QLH3hJSP3ci0n/cv8m2v
-	AdKLeTVFB9i/Xj76eOnxAHn+T1YtXTQ4yeCM+xMhm6I2sJeKyUZRki+3pQqm71B8/SSmtO
-	1loXs8mBPAbzCQjS3pWxxjrdGF0jc1Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792407754;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=By1KvhKOe++xK8+cQtNPfkcJ4RuE0S7F5y5fKPhCy1Q=;
-	b=dZky7Hn6PJWHZwPp92pFY/fiBjuzD4REA+tXAdgIW5M1qZ032u2Qk1L0T7RmQOtctSmQ2y
-	HXCH7PCFKfBGXbCw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792407753; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=By1KvhKOe++xK8+cQtNPfkcJ4RuE0S7F5y5fKPhCy1Q=;
-	b=ObkBXr+a9ioSeSfgUltkShj5WGp/pRb3txCDmczYjXXaPrE5TBzR4NHi8FRLEo+wG7Blmv
-	xzqLivu+YBm7nhXoAfMEqsIzo/d3WbDd9ZTZzkFcpRw2AKftRZTY24p1bJItnfVTstUI2X
-	Tr5mdEtnp8cUeuJR7bntc9B8/dmjMOk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792407753;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=By1KvhKOe++xK8+cQtNPfkcJ4RuE0S7F5y5fKPhCy1Q=;
-	b=SRZFtaS+t08DlqSVh/CHauw1Ny+qb3seSc21mIsutCuA98PAusY8pkJewAyTEO9i/ds6/X
-	cbDV1GRxux7tsoDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 11A3A134B3;
-	Mon, 19 Oct 2026 11:02:33 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id t5cTOsj41WrIDQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 19 Oct 2026 11:02:33 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 9A0CEA1413; Mon, 19 Oct 2026 13:02:32 +0200 (CEST)
-Date: Mon, 19 Oct 2026 13:02:32 +0200
-From: Jan Kara <jack@suse.cz>
-To: guolingxing <guolingxing@tju.edu.cn>
-Cc: Theodore Ts'o <tytso@mit.edu>, 
-	Andreas Dilger <adilger.kernel@dilger.ca>, "Aneesh Kumar K . V" <aneesh.kumar@linux.vnet.ibm.com>, 
-	Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
-	Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] ext4: record writeback error when discarding pages on
- failed delalloc
-Message-ID: <nxmkmipb4fu6ig7rznmupixugfv2cbbusjd2hu6tttpabv5yko@2fx7k6oqdlen>
-References: <20261016101605.4039217-1-guolingxing@tju.edu.cn>
- <20261016110311.71391-1-guolingxing@tju.edu.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hkE25WF3"
+Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-4c9859ea2ceso1136859b6e.2
+        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 04:04:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792407850; cv=none;
+        d=google.com; s=arc-20260327;
+        b=S1CwKqqKTGCqvYC3H7+rRhw/7Q1tKykAmJfzIkt8ofFP3W8WMoFl+PBJTZ4gMXWe7L
+         wJaOXXxSkGKCA23UXIABhxilXhOLFM1IqgNrC9rTXEZAnfeSmk0Wgb+hVBIlCFUx8n8U
+         hCfDEtxNqKFoO3AW/equ/Z42GTsYDvvaGxuBv1dwqsPPCMinm1fhVjiPgILsMS3B9wHK
+         U6Kh1qTiwW7ha83X4k1c+tDhwR1yvpxhn44HQeXUDEFOc3rMEgf7nOsFXZ5PWHdzfg9l
+         Z6JuaZuKwOSBPzXJe2QMwLYKQZAU/V6tPYnZn/pJCn8gyCcyHdfp7AejYer1S57M83uX
+         p4zg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2RjmAJkJaRfKW8CM604T3xdOE/8FYHsXLHXgCKfQYGM=;
+        fh=qMHO3qbfSxC5iQxLgTQ9JrZMJ2IFjY9n2DTZo/BFFyE=;
+        b=DPG+SsnLhTeflej+w0UbWVP6BWBcl5wLHKmiT8CnYChNh00htiulAuVA/xlWICc8cl
+         Qndgj5yNrF2u3HZdGv73dqrMlLIQ4Vnc+CejoCAFXahr1MhJ/bC3zkK0Y1tqv28QH3a5
+         Sc+XeAc519t1i0UThmVSGCRIpfQwhPM6H6IkSRGQKpkXQpsYE+6b7PjW80AC9Abw5bFv
+         sjwR7s5kq2sTredoFyEDvyD5d0GcMVRyZV0VE/3fxH3l7YbmRxMGRR840lqiegYVogxP
+         +ZdDU38xLiJ54zhxXBSD/bALWR7/oz/KNwaj18G6yIkNeZYolcrVoWiqiLLRLz/UC033
+         qN3w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792407850; x=1793012650; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2RjmAJkJaRfKW8CM604T3xdOE/8FYHsXLHXgCKfQYGM=;
+        b=hkE25WF3TS5GmwX5rJIjm82r6l8ivurb5IXDVfJwUrMsU5PL2R2qw0QLzZY3D9tmIJ
+         K3flmfB5VEVE1d/YIXwoibHUETJeJtOd43MmhTGeG+g8NKFgYrqRnttLtB722NsOu2m5
+         dLbEM8JhoOUn3lpLAvd8PAl8Exn5J2ioRqnDfiM5UMmpoxgyuC1/xyjtDnk1suZbGUQx
+         zfjYQZzMN2A3LhfSmySpIvtusTR8Ej4jkGZ5pdcKoWnND0YkcLrPFZ2lbQKxHfDFa8J1
+         5zTNyMPiPKbY9f+DcepKc8q6UdSfAOBvj49wYV5DUKgP53niPT4gSGzGApQfsZImqIf4
+         Y9TA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792407850; x=1793012650;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2RjmAJkJaRfKW8CM604T3xdOE/8FYHsXLHXgCKfQYGM=;
+        b=GPByc+GHp491fUC24ReWB6mS2OzYQirrODl34DNAq2lwzf/4co/6aAEjbL63Bod/TR
+         7NSfrYW+C9tJQo+29BCClBMiBjMd8IRx4pIip2BzQOftSjwxVZWfS/F0bkxgpul9D218
+         TnV3CfQzTpOv6s7MiIq/5dXQVZ5eoIChXabWzs6fmbmniwODSf7+QBvWiPl00Mr3/CYV
+         B4SbJR+iLvoOoxLSw3GvpKjSBi8pzXPVJopupcBl3KPlQXkRF5CzrlBHOCZ1Ve7jUTG1
+         /cJDWaO7LgBdsXqDgrxaCVSGdM6eOvJqHgL5/9sQjHziz9yTlJeUwkQ1lNQNQftMK0yp
+         txmA==
+X-Forwarded-Encrypted: i=1; AKwUvBzM6RGgymcc2N7oc9n5cJL34uNxiAvJ6qiguM3er8qP6fwKu0fui+zLoEUHDFPG0C/Qx2120eM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4DdUvcHF1lfd6F+WBCHecHSWnojtE/2g37Lr/Mg76050kBJK5
+	Hj4zVZGc29bKYakOjCl65u/c554L7l0SxOC6Ceui9WYbQE3wlhymnAe7/zL4WGta0XYXfDeIXBM
+	DYkOG9iyT44FFRjP0gxXbEa7A0rn62md/hYTasoY=
+X-Gm-Gg: AYBFou0Foy53I0HiexLAwp5hEnhR8TlWnm1VW3EC8tD6ZMj74WMjUzJsVVuSAL1qIRu
+	Z687ruxJSXU2ZMTh1Dl7Jl+D3YrlB8RhgKQ9pweQFfnVquMLz3Ou4F+2lNI4nWrPlrCBWAoCm0k
+	ptVkYmx6U+2G7fq78DEdADtGNROxCMJRrVDUxZ7zkpMkyidocL6mUt7BzUC0j9Lbe5tqOn421vp
+	YTLXsZj61WYJgx0eRLyQX37o7ACJ0jxmxs86ZAV6+Jgp/58yby/8TQ4VRrxsUBAYEDVTaNw29Gt
+	wb2Pj3iyJyJCNak3UkqVi52Ls+vKVQiEauENsAFLop34y6HO2d7qbJ0Qcc7s/GDGjtxHHMvJoOM
+	pRQlCg+fMET51YZYf7IF1qLg3EhFH5jve7qFGch2E
+X-Received: by 2002:a05:6808:3509:b0:53a:6769:c35b with SMTP id
+ 5614622812f47-53ccaf1f442mr5332468b6e.12.1792407849778; Mon, 19 Oct 2026
+ 04:04:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016110311.71391-1-guolingxing@tju.edu.cn>
-X-Spamd-Result: default: False [-2.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	TAGGED_RCPT(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.vnet.ibm.com,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.com:email,imap1.dmz-prg2.suse.org:helo,tju.edu.cn:email]
-X-Spam-Score: -2.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+References: <20261018-vlv-dsi-owned-gpios-v1-1-3ca18bcda670@gmail.com> <atXp2NSPKZUPj8sq@ashevche-desk.local>
+In-Reply-To: <atXp2NSPKZUPj8sq@ashevche-desk.local>
+From: Michael Anderson <mwwa919@gmail.com>
+Date: Mon, 19 Oct 2026 07:03:57 -0400
+X-Gm-Features: AclHuK8biEMfZ_1GVer949iI38PfSha8JvD86j9Plx2_choI2YB3QRBY5aZp0yo
+Message-ID: <CAL-Wm=O-Gr3CuvCn8iSQceQMhu=LGFz0SPhmWeFL=RiVnoprdw@mail.gmail.com>
+Subject: Re: [PATCH] drm/i915/dsi: Use owned panel/backlight GPIOs in VLV MIPI sequences
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+	intel-gfx@lists.freedesktop.org, 
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Hans de Goede <hansg@kernel.org>, 
+	intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri 16-10-26 11:03:11, guolingxing wrote:
-> When mpage_map_and_submit_extent() gives up on a failed block mapping,
-> it sets give_up_on_write so that mpage_release_unused_pages() discards
-> the remaining dirty folios. However, the error is not recorded in the
-> mapping's writeback error state.
-> 
-> If this happens during background writeback, a later fsync() may
-> report success even though the dirty data was discarded and never
-> written. Returning the error from ext4_writepages() is not sufficient
-> to notify a later fsync(). In addition, ext4_do_writepages() may clear
-> -ENOSPC when committing the journal and retrying, even after the
-> affected dirty folios have been discarded.
-> 
-> Call mapping_set_error() when deciding to give up on the write,
-> before the dirty folios are invalidated, so that fsync() can report
-> the writeback failure through the mapping's error state.
-> 
-> The give_up_on_write flag also persists across writeback loop
-> iterations. After a fatal -ENOSPC failure sets it, ext4_do_writepages()
-> may commit the journal and retry without clearing the flag. If a
-> subsequent iteration encounters a transient error and leaves dirty
-> folios pending, mpage_release_unused_pages() invalidates them instead
-> of preserving them for retry. Initialize give_up_on_write inside the
-> loop so that only a fatal failure in the current iteration causes
-> the remaining dirty folios to be discarded.
-> 
-> Fixes: c4a0c46ec92c ("ext4: invalidate pages if delalloc block allocation fails.")
-> Fixes: cb530541182b ("ext4: fix up error handling for mpage_map_and_submit_extent()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+Thanks for looking at this. I'd like to make sure I understand before
+doing a v2.
 
-I agree this is a bug but the kernel will complain very loudly to the log
-(as this generally means filesystem corruption) so the practical impact of
-this is very low. With that reservation feel free to add:
+Here both users of pin 10 are i915 itself: intel_dsi_vbt_gpio_init()
+takes it as the "backlight" enable GPIO (soc_panel_gpio_table,
+PPS_BLC_SOC), and the VBT MIPI sequences on this tablet then toggle the
+same pin as the panel reset (low in ASSERT_RESET, high-low-high in
+DEASSERT_RESET). Do you mean describing pin 10 with a software-node
+"reset-gpios" reference and having both paths go through
+reset_control_*(), or something else?
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+One concern: the VBT drives explicit pulses on the pin, and shared reset
+controls are refcounted, so a pulse from one path wouldn't reach the line
+while the other holds it deasserted. Would an exclusive reset obtained
+once by i915 and used by both paths work instead, or am I missing how
+reset-gpio handles this?
 
-								Honza
+Thanks,
+Mike
 
-> ---
-> Changes since v1:
-> - Initialize give_up_on_write in each writeback iteration to prevent
->   a stale value from invalidating dirty folios after an ENOSPC retry.
-> - Update the commit message and add the corresponding Fixes tag.
-> 
->  fs/ext4/inode.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-> index 26f0f9714f03..ae54212e0a7d 100644
-> --- a/fs/ext4/inode.c
-> +++ b/fs/ext4/inode.c
-> @@ -2505,6 +2505,12 @@ static int mpage_map_and_submit_extent(handle_t *handle,
->  				ext4_print_free_blocks(inode);
->  		invalidate_dirty_pages:
->  			*give_up_on_write = true;
-> +			/*
-> +			 * Record the error so that a subsequent fsync()
-> +			 * / errseq check can observe the data loss that
-> +			 * discarding these dirty pages implies.
-> +			 */
-> +			mapping_set_error(inode->i_mapping, err);
->  			return err;
->  		}
->  		progress = 1;
-> @@ -2774,7 +2780,6 @@ static int ext4_do_writepages(struct mpage_da_data *mpd)
->  	int needed_blocks, rsv_blocks = 0, ret = 0;
->  	struct ext4_sb_info *sbi = EXT4_SB(mapping->host->i_sb);
->  	struct blk_plug plug;
-> -	bool give_up_on_write = false;
->  
->  	trace_ext4_writepages(inode, wbc);
->  
-> @@ -2892,6 +2897,8 @@ static int ext4_do_writepages(struct mpage_da_data *mpd)
->  		goto unplug;
->  
->  	while (!mpd->scanned_until_end && wbc->nr_to_write > 0) {
-> +		bool give_up_on_write = false;
-> +
->  		/* For each extent of pages we use new io_end */
->  		mpd->io_submit.io_end = ext4_init_io_end(inode, GFP_KERNEL);
->  		if (!mpd->io_submit.io_end) {
-> -- 
-> 2.34.1
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+
+On Mon, Oct 19, 2026 at 5:58=E2=80=AFAM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> On Sun, Oct 18, 2026 at 04:12:40PM -0400, Mike Anderson via B4 Relay wrot=
+e:
+>
+> > On VLV with PPS_BLC_SOC, intel_dsi_vbt_gpio_init() requests the
+> > backlight and panel enable GPIOs (INT33FC:01 pins 10 and 11) for i915
+> > itself. Since commit 8241b55f1ded ("drm/i915/dsi: Replace poking of VLV
+> > GPIOs behind the driver's back") the GPIO elements of the VBT MIPI
+> > sequences also request their pin through gpiolib, so when a sequence
+> > toggles one of these two pins the request fails and the toggle is
+> > dropped:
+> >
+> >   i915 0000:00:02.0: [drm] *ERROR* GPIO index 10 request failed (-EBUSY=
+)
+> >
+> > Before that commit the pad registers were written directly, so the
+> > sequences could still drive the pins i915 owned.
+> >
+> > The Toshiba Encore 2 WT8-B (Bay Trail, DSI panel) uses pin 10 as the
+> > panel reset line: MIPI_SEQ_ASSERT_RESET drives it low and
+> > MIPI_SEQ_DEASSERT_RESET pulses it high-low-high. With every toggle
+> > failing, the panel is never reset after i915 sends MIPI_SEQ_DISPLAY_OFF
+> > during takeover and stays black, even though the backlight PWM and both
+> > enable GPIOs read back as on. The tablet only has a usable display
+> > with nomodeset.
+> >
+> > When a VLV MIPI sequence targets pin 10 or 11 and i915 holds the
+> > corresponding descriptor, set it through that descriptor instead of
+> > requesting the pin a second time.
+>
+> Ah, nice, this should be solved via using reset-gpio, which is exactly fi=
+xed
+> for the reset shared lines case.
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
+>
+
+
+--=20
+Michael Anderson
