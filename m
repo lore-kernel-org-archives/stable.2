@@ -1,75 +1,98 @@
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B8BD50F12D
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 14:11:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 415D14F6469
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 14:13:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792419106; cv=none; b=qFnzc8ROu/dj05FAn98FBJ2lkb+N3kBw3Vv/p7LgDZlOGSsx20iV0Eh3jP6gdbdKRv0heJgc3O+Yb6oHkg6iBJKcQtwi/POqUPBVIM5xA913f2FMsFHO7VasFk0oGqh5MajiRQM7ARM9679KK6+yfmpDKc9dV2JxuzlxJvgzUUA=
+	t=1792419234; cv=none; b=DlMMK3A8hMO0nHhXnEL+Qa2Sx3mnxoXGcXjg87Fon2dAom7oLdMdK1+5R685mTfWxOnDvmzs95PibiPaWF5tIKaHz4FRaX5QNSeKIcaNQXS5QlVh5M15dCMdavVQiKHoJtdD86rjAvyBfl/Pu6CQ5RqRRXOxWdG1Dw9yaAAlSiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792419106; c=relaxed/simple;
-	bh=3pmSZNjogDg7Ey9thVcaWwUVzv/jy+kUn+t5/GFxm9s=;
+	s=arc-20240116; t=1792419234; c=relaxed/simple;
+	bh=bz51zWK3lsygrwU+pTmiPdYM3xUzHrKDRl5VJvqLxIU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AFg5YOqlEHsSObHe+fZw9KUHDTMZg95QTgmx5TZGAKJJD42QsBz1v/iy5RrItSzM1nnBPgqUVlmN5Ic8+89qwkJU/jHfgMypA6R5tL1MuKHhX9PNkBAzh0U4DdzQNzCotu+fFnJ17GYJp6+aqGYzX9T+OltanoPwJ+Wq42d7CSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=uGn6yYiB; arc=none smtp.client-ip=209.85.222.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	 Content-Type:Content-Disposition:In-Reply-To; b=P50SYXQdLbELWaNNgb8tU5FzgWhHyDw8Pif2KQ/hnIe2Z49Rm4ZkfYsuOxaDYalHgV+80MnxrDLUNjMdELrbLZS9K1BgDV1H/DACJ/AzxAbypX5Mq0zZkFdl2lmRdQpL2fywwbOgPK2A1C5RV5xMKvyPT3wkkrc28l1rPq/hPxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=KW+DLg1g; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=EoTxvB4l; arc=none smtp.client-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="uGn6yYiB"
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93cb1c0e851so156769085a.0
-        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 07:11:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1792419104; x=1793023904; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=k97+ZXzgjg5prQ8QTVjKptpH9hxSgUmIIFjzAIHNKV4=;
-        b=uGn6yYiBnlxJRS1F8ckc1bm8ECtX6/wiUhM2Hq0i166OCVNwqQnFRBEuzZhI3bWyfV
-         CuaAiS1sJS3nkuutN49N9b2gulckeEcTDvlx5pPLwgKZfhtTx5oL4TM6Y7XUQ0wpzSzh
-         kxyDhakzVLBSIc92JCgLnrLm3S2Y+zFKhTfGoRmbHtZ5muEAUyAWtNx8jlajTxJPGgVH
-         X5LEXPxj1I1ExRcW3VzyQRLokbDwvdJxRa5VPWLlmyRUIgv8Nqey7G9hqusOIuK8+3Kb
-         eEmy4y2rVTl74/yxDYgXy1eCmlp/oeFLS5KQN6xYrm0AHJwpkdiOnk8Z+OvsX/gGLb67
-         6CIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792419104; x=1793023904;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k97+ZXzgjg5prQ8QTVjKptpH9hxSgUmIIFjzAIHNKV4=;
-        b=MEojA1DPqoKbu89X4zX1DTrLIrewPtRUTTXXZz5CWAPagUeHnr6YcufcHH/BqBHmOx
-         1FQH2CqEYGhsTpTR1pR7avLVgayAXkSSwWELAbx7SZ2UH4gupasKUlaVYpexBksmXXZ/
-         RTbOc/QmHcXzZyW+fwqokSgwnRmQNCn4rQ6ZtpH1Zvov6hIYtXX4HeTS7e24ryjvkraK
-         ZEB6Op/DuX9dt8lMXQelwoE/pH0OydpCRex74LmMDGzqAbpYGQs3fbOgM1pZ2S0RanPC
-         AeBj7GdEh40EanuaTg0F501/Va2m0MXoJnbYs1Ymgeh/x/KUknLDVfi3jwDBTt0H2scM
-         JaeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxfqJfXldPTOkw9uZBBhuQe+VX5zjS5TSv43s0hP+dDMLHlzTc8eQ/Co/gThMeNeFPmV6D9/PM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIiL37xUBgY2LQxHJK3xoGs2HoAVtzJL/klQ8uQVdn5DjRz0E+E
-	zMMWNcVJ3N/du6fCLRK+ROVHql2vIroJNRYrd3ytOBlpPfTLrqWPUcbOMvy2EbR8Vw==
-X-Gm-Gg: AYBFou3mDGtkSNvKaDqL0Y92rVQyx+Qbz1E0co/GacQ2WNZDrO2P4iuwpTn4SsdBp90
-	yAP1JNY81bQ4YDVm8FRPzt9wXsk14vLe17KZ+7cmF3U/utRBB4zfSXIRoak0LktnmUA81Loh+Wy
-	vpaVHAO+mfzdzolHhpreqIpWICWVIGxKAQiMkQZt5SJdYKrutoCmWtfrFgttmphfBWWYf0yrw75
-	XPNc7bffFQOZj5JGkTw+2jLV4GS4gLSwDh1mzw0hmZhi/7NX24fYTyZR1oV7/faR0EwlOUAhzsp
-	/gjQHewAMfMeshCXMJlWpYRt+elXtWeAigCtyKgYa2igQArmHOBpBOg8/NUd5Jxd7SsJpK1Hn8W
-	q3+W09E+k5GAGbWaFT/vXhiAIs22Snn6K6jlIB/eSG8mmtb1nfl3KDaI+yAY6gYZuR5YpSbwip1
-	K2qY9PpaGPqEKBENhNBlY7nBcA/H9iw7UsBqLcr9gVnuYchKogQ9XEIh5Xs7pUtFD9Aac93HX06
-	MefGRRmAWD3nSmI
-X-Received: by 2002:a05:620a:3715:b0:93f:1823:308f with SMTP id af79cd13be357-93f29dabcdemr1233148985a.81.1792419103824;
-        Mon, 19 Oct 2026 07:11:43 -0700 (PDT)
-Received: from rowland.harvard.edu ([140.247.181.15])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcba3d5a1sm97847996d6.8.2026.10.19.07.11.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 07:11:42 -0700 (PDT)
-Date: Mon, 19 Oct 2026 10:11:40 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: liuc63 <liuc63@xiaopeng.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Weibin Liu <liuwb@xiaopeng.com>, linux-usb@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] usb: gadget: net2280: fix out-of-bounds read of short
- packet in write_fifo
-Message-ID: <c0ba00f7-822d-437f-a3e1-3a4c0e3d9776@rowland.harvard.edu>
-References: <20261019075651.2093625-1-liuc63@xiaopeng.com>
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="KW+DLg1g";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="EoTxvB4l"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 76F5A7A007C
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 10:13:51 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Mon, 19 Oct 2026 10:13:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1792419231; x=1792505631; bh=J9xWzwJZWO
+	lbdeKeK3bTThQv26NxXY4xrdFqvt2pQjk=; b=KW+DLg1gy9bh7/N7i50vIwU+w1
+	UUOLLFegD092p95o+oGdEdu/V7S+8Bl5QTPm7kA2EQm8kIILyWjMoHM5vL9sBrf0
+	+KA2FTsl1H3RedoLNexkXysRJRXEqHHY6UFFIoowDldRWXPuDLCXO4njUYwk4F35
+	qGh6WP/aLmmEzID+pavgdNSd7seQMmep1mDBdk4aWZUFf0FyZZCgtSJvN31etfYD
+	6ciAV8cwhsZCWiaBXYK4a3BMV2mYJURwqMVA6pVgXoV2ijuh3yjUUcjoi2896U9b
+	idqhj7PS+HtlCg+62GW0TAJeFwKzWpKJYIb5M7hTNY0ZH/jOquUX6czZsY2A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1792419231; x=1792505631; bh=J9xWzwJZWOlbdeKeK3bTThQv26NxXY4xrdF
+	qvt2pQjk=; b=EoTxvB4ltDNh/HD+RhJr8I5PWBhAEMRgCmA0K1XSmarvD1yFYMS
+	8yC49QdkpLI2C4fviaC3XW4mvn21YvKCs3Az8nYvowoQVMifGYcho4zzKBUwf1zR
+	MuZGbkqEfPfhcqCobOBY07MaT3n/cVs1LdmJHrVxrR+qM7/cL7/AGqvk+WSpsG1B
+	REYPsbLrPecP2lNblaywBQUmb1lbfKzYkNwGRaoq9LYrVx+nhWQGNUJ+P9XpuRfN
+	8kM45dKhD9iWRxsJAeTrar10V49LDBQGusiHDjDzZq9v9yP+Pq/kcuQ8+rzqBroU
+	hQnQvIuC3VT0FOPiHuAJb0L4uuQ1l3WK10w==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792419231; d=kroah.com;
+	mf=PGdyZWdAa3JvYWguY29tPg==;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:nhOHRgi2etBSgTagcc70TtVQDEYvxsn7e01XawnpvjioNCl
+	XgFzPxFws4igBKFPkedXlWwV1dfYxnnmItVZ1PenhYJyWPFD1FsbqO/T/jeU3DRe
+	TLsoRy20q2pGr0P3hi35hvUFtnmyyneHRHcXVjASLTLC4uLqDzedPrK9dxqhh/w/
+	ME+J7yu2i4yc7hyCInUQL8hWI/jfzE0y8RZAslZb623pjsxx7lH+BXNxqOUMZAHb
+	4iekvsEgvfZXtsogYzn+IE5v0ZcRBnUOUGnqp0gXcjg3hqTLTgye8ae41aFnbCuf
+	qcv6EOYJek4g+nGEstpNJsZqcMsHoQpuylls06A==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:OLfAuuSEUFRxePVTML1CvBGp8d0gDeBuwWXDhjX68QQ=:bz51zWK3lsygrwU+pTmiPdYM3xUzHrKDRl5VJvqLxIU=;
+X-ME-Sender: <xms:nyXWal_CtAS0cKIUkaZVdrzi0torrGEQUZQBs9O71nTatOFtI-VApw>
+    <xme:nyXWasT83ytT_Qc_so-Z3X13bc0yMHLgom8Zi99yDvUS5h9P_jp7PKZGsnEtHoHIU
+    iNm9AgTJagi_RHfhu0YfrIdSQEihpexNTBsTcQaROYn-vdcCQ>
+X-ME-Received: <xmr:nyXWamqMRG8mlRRb9i5KCw9r-lKwk_9nusqww_1CevYoCCjHY5LeYZyK4N0XwLH-QOmVBDCRUsMCVukGvN0>
+X-ME-Proxy-Cause: dmFkZTFm4Amxcp/cEC3B9PqZvqSO6JSMhvY9if8ijjQYumYqZ/QqnPMn+tjx1VMe0FydCQ
+    lliEF2EdE21QaXvZUl7ew3nc0IZ/LgJO7iXKA0gzk8H78Zs9QW2vXBkFBp976JEYM2R8Q0
+    1koe7XsNEWF79sGpPHZ6+U35IGfUrIGo2To7fO9xtItwMqSjYkBzmBpahPq7LhHpph21mD
+    q7jb+7PwUlR8aVgG4ZkQYL/sCYWYbDU/udtH2qWAzDD2KGbLy4krbk7hlOs+tZRG7XBvqf
+    w8JfoxhIrt9LeHIeyUJqBJ+qquMuXEAvZCi/s9oaEGq2N9kdo65Csce9gyZiQI9pWHsbF8
+    hPrur+/T1R1hmVItAQyVE41LVv5NVhHBSfyZjvXg/d7vrOxQb9Q2MpjYYb2gylrExF+Y6k
+    w5e4YIbISIQLPJ07NJfqczEkIIkKfNM9PZXQk+MbjSUXNC1L7SBiCDMT4DMdzL/A1ZYBhK
+    Uiu9j8brEFaS8nENajjmKSkdSEshCRcxTnsTUcRAOs0f542aF39llHQFKFQN2q8+4XzoIG
+    fKkRxKxg7u/0PyZ4tLcLfKRvIcixA++MXiEaonUzqNEjF82XgSTyTmF36oaWa7oN4s2k3T
+    6htGGllYDGoE5DJPjML7C+li/FXtA+7zwiQpzmMgXQZpJAaLPqurKX0ocWiw
+X-ME-Proxy: <xmx:nyXWapm6m2G2MTgTteShZOVCFYam08yTNlZ_DbgQwQlsT0m4SokVpw>
+    <xmx:nyXWavcYgK1Jt9nN9RCUWuy0r_sq2nMYXnz1H42sbMh8BhBiLjIlBg>
+    <xmx:nyXWalpBTj0_sIU-qWrEneihP6LNsj6QYfwbRCESd37eY875C3bUQA>
+    <xmx:nyXWapOrB339rPpaFdBB_SYxScNBiR-7Ji1YHE48RXh2I2xj_G7q7A>
+    <xmx:nyXWauNeesbcOSeDCcMBmy3RgvOfhsrTZZGNMRM1NewGx3giPZkpM4jy>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 19 Oct 2026 10:13:50 -0400 (EDT)
+Date: Mon, 19 Oct 2026 16:13:48 +0200
+From: Greg KH <greg@kroah.com>
+To: Ilan Dudnik <ilan.dudnik@safebreach.com>
+Cc: stable@vger.kernel.org, linux-cifs@vger.kernel.org,
+	Namjae Jeon <linkinjeon@kernel.org>
+Subject: Re: Subject: Request backport: ksmbd: fix heap out-of-bounds write
+ in krb5_authenticate()
+Message-ID: <2026101945-unlined-swizzle-11f9@gregkh>
+References: <CACdWfbyqY_rUJ_Qj0HvuHGEb-PBjwj6eKYCY+r1WZtNnsWuhiw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,67 +101,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261019075651.2093625-1-liuc63@xiaopeng.com>
+In-Reply-To: <CACdWfbyqY_rUJ_Qj0HvuHGEb-PBjwj6eKYCY+r1WZtNnsWuhiw@mail.gmail.com>
 
-On Mon, Oct 19, 2026 at 03:56:49PM +0800, liuc63 wrote:
-> From: Liu Chao <liuc63@xiaopeng.com>
+On Sun, Oct 18, 2026 at 12:18:33PM +0300, Ilan Dudnik wrote:
+> Hi stable team,
 > 
-> write_fifo() handles the trailing short word of an IN transfer by
-> reading a full 32-bit word from req->buf even when only 1..3 bytes
-> remain. get_unaligned((u32 *)buf) therefore reads up to three bytes
-> past the end of the request buffer, which KASAN reports as a
-> slab-out-of-bounds read.
+> Please consider the following upstream commit for the stable trees:
 > 
-> The over-read bytes are not sent to the host: set_fifo_bytecount()
-> limits the FIFO to count & 0x03 bytes, so this is an out-of-bounds read
-> rather than an information leak.
+>   23a0be6a84a3 ("ksmbd: fix heap out-of-bounds write in krb5_authenticate()")
 > 
-> Copy the remaining 1..3 bytes into a zero-padded word and feed that to
-> the existing get_unaligned()/cpu_to_le32s() sequence, so the trailing
-> word is built only from data that belongs to the request. The full-word
-> path above is unchanged, and reusing get_unaligned()/cpu_to_le32s()
-> keeps the byte order identical on both little- and big-endian hosts.
+> It was merged in v7.3-rc1 without a Fixes: or Cc: stable tag, so it has
+> not been picked up for any stable release yet.
 > 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
-> Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
-> ---
->  drivers/usb/gadget/udc/net2280.c | 13 ++++++++++++-
->  1 file changed, 12 insertions(+), 1 deletion(-)
+> Why it should be applied:
+> When SMB2_SESSION_SETUP is processed as a non-first element of a compound
+> request, krb5_authenticate() computes out_len without subtracting
+> work->next_smb2_rsp_hdr_off. This overstates the remaining room in
+> response_buf, so the length check in ksmbd_krb5_authenticate() passes,
+> and memcpy() writes the Kerberos AP-REP blob past the end of
+> response_buf into adjacent kernel heap memory. A remote client holding
+> a valid Kerberos ticket for the server can trigger this during session
+> setup when ksmbd Kerberos authentication is enabled.
 > 
-> diff --git a/drivers/usb/gadget/udc/net2280.c b/drivers/usb/gadget/udc/net2280.c
-> index 7c5f30cfd24d..a1f5d11f82d2 100644
-> --- a/drivers/usb/gadget/udc/net2280.c
-> +++ b/drivers/usb/gadget/udc/net2280.c
-> @@ -649,7 +649,18 @@ static void write_fifo(struct net2280_ep *ep, struct usb_request *req)
->  	 * when maxpacket is not a multiple of 4 bytes.
->  	 */
->  	if (count || total < ep->ep.maxpacket) {
-> -		tmp = count ? get_unaligned((u32 *)buf) : count;
-> +		/*
-> +		 * Don't read past the end of the request buffer: a short
-> +		 * trailing packet has only count & 0x03 valid bytes. Copy
-> +		 * them into a zero-padded word and reuse the same
-> +		 * get_unaligned()/cpu_to_le32s() sequence as the full-word
-> +		 * path above, so the byte order on the wire is unchanged.
-> +		 */
-> +		u8 tail[4] = {};
-> +
-> +		if (count)
-> +			memcpy(tail, buf, count & 0x03);
-> +		tmp = get_unaligned((u32 *)tail);
->  		cpu_to_le32s(&tmp);
+> The issue was introduced when smb2_sess_setup() started passing the
+> compound-offset response buffer to krb5_authenticate() without updating
+> the out_len calculation:
+> 
+>   Fixes: 98422bdd4cb3 ("ksmbd: fix out of bounds read in smb2_sess_setup")
+> 
+> Kernel versions:
+> 98422bdd4cb3 was backported to all maintained stable trees, and the
+> vulnerable out_len calculation is present in the latest releases of
+> 7.2.y, 6.18.y, 6.12.y, 6.6.y, 6.1.y and 5.15.y. The fix is a one-line
+> change. On 5.15.y the file is fs/ksmbd/smb2pdu.c instead of
+> fs/smb/server/smb2pdu.c.
 
-Wouldn't it be simpler to do the memcpy() directly into tmp?  Then the 
-get_unaligned() call wouldn't be needed at all.  Also, the big comment 
-would be unnecessary.
+Now queued up, thanks.
 
-Alan Stern
-
->  		set_fifo_bytecount(ep, count & 0x03);
->  		writel(tmp, &regs->ep_data);
-> -- 
-> 2.50.1
-> 
-> 
+greg k-h
