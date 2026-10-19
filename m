@@ -1,66 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792442741;
-	b=OWZwtbAHNxOYaMncKBIXLH3TjiTv/TTzz18DAMDhtnl/HnzgNlEpxMUlunTeTYZUVpk+
-	 Kl7lrggZeaW2a95r35AaNRrurIp6s6iPGih9mW0+12uyE8RxpLbi3aFbCZB2e511Q1O8p
-	 zcT48HjkiU3GscPlyIXsnn16UchkbOs/ROOzBB6MJaFuapkhKtFrT5zdXjZPP+KXOGKnl
-	 Eh/FihmvuE4+3ktVjyCyXcgu/oantNQfpHkmeSL2Z3rjeLTMV+A8hgbUN5zzSgVBW3st0
-	 ff9YiCFYaDXqTTX8dmD18rN6h27eDjeNZKQ5BHmhNUwaI4Gxgu8ALUfEix5sN9ee8MA==
+	t=1792442823;
+	b=zqA7bWne9axyx1SXtpQHp5G34eVp3L8eg5df0lG1I7bwrXoJxnNPgY4veCyolS8xT5uH
+	 gOdn/Sv4nI6d0KwW41ovLxasZhqN3G0xB6QP4x4ikCZ1hzE5hkSmmWY3T+3fGkZegXys7
+	 QQSPv5gIOJgStaoj1qL563wtXVpW/xD8wPu3DPGoHBIyXjW1RUo24ffk5LtnTSvmA3ERe
+	 opk0/Wsx3C/UNUfk7e5E9keAB38Ygdq6mE+uLxPHzABNyPwYMVbCtubQM6DlYhIscHYbB
+	 SE8eAps0axYGSrA+Ho5NIl0bpfuKr+Npuol3UT0tMqFeUw41GOWhv3AaW+npK8re1Cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792442741;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=oQzekqZ7QQZ886FQsbl24ntC2ncZi9SY8ECfn/mFYQY=;
-	b=0opAcO0T44b+tRZzCi4kdAgqhL8vEuOCT4wnpljdFjcMf+ZsMV5M+/NMlQNpprkpgJ6R
-	 A7kW+XH0JA7wabKp6cWUEEsLylmg3skpysSuEnuSdDaRcQFKTXn1V3ChrhPBf2njsZB8C
-	 fHixSUaTLsbnjoVtH0CEPSwRiF9NsY214E5BFb9wsjk0eRn82EV0Zatem9wa6AigoS/tO
-	 s9JNvk8ZCPQAfm+kHMJC+4I0sSYT4VHz2aqWIKPRptQ3hSAU9y4qaHpB/OFxLSLf6cSE7
-	 iwZagKH7trOjdr1p9zquMBlB3w/LgtXvqMbZMipQD8sybzd5H6OzMAlgR33p1mkbsWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792442823;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=V1WbwvhVT+CaOduktfFrsnpnmJC/bkfFVrmRm8iPY4A=;
+	b=3HI94pChNavWyuYjZB821HmUiCDafMGMfP6uSYQpOk3uJGyWrggjJ4fobt4Bgqa9L9EN
+	 +cD8gKgzLWvc6Euz/acVbkNoax0v0Scf+KIYQYTxaeyluQOcnNZfWFx2KMeC28wBWUNns
+	 TMiITa25/x0f46l/qCV2Eb1JPuDRgW6TvvBmr9TKmY7sz7cqc8+aSoHR/P8shiP1I8cfZ
+	 8XxBKUiRtjoxCcnfT10SBMk+RKNzloIQUFrRx5RES503QlfPtQiAVYsEAD039aDtFUbg6
+	 lWlicgY2mWFtkroyX43JJ0L/8q9mK8bz3QpcROd48GgKUlLqDdOmk8eM5zxKmMzU0rg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=woS0UVBa;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lPX21dfN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740C3606A31C;
-	Mon, 19 Oct 2026 20:45:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 740C3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 05CF7606A31B;
+	Mon, 19 Oct 2026 20:47:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=woS0UVBa
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4j7nch6TRtzlfvpT;
-	Mon, 19 Oct 2026 20:45:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1792442737; x=1795034738; bh=oQzekqZ7QQZ886FQsbl24ntC
-	2ncZi9SY8ECfn/mFYQY=; b=woS0UVBaVQxkuzlrsIWuEMi+p+FhHcWbZSmODBOC
-	9E4+8L3D8NEZnK41d6twvrubvXiiBkPFVTgMNX6XGavrzAKtlehONPsiwOyg+o2p
-	yK9TENPqykyOEJcTdoBD4ebrheyBYXY62KTaKh/+2DqMbVqXOvbkL2UicAgOSY1n
-	5cp8m2xVVQCiy5bUVh2udwJoHeZ/oScpd6Ojn1yKh7ZOG6uq4fcIlqv1YqsH8Ggw
-	TL2Jc2kgh2PPZBLTuD3rjai9h+R6OWnmkZw5q0tCOUgDihdGCT2naBHKpRVxc+CP
-	xVVMwk0ERG6XkDTtGgFvlGxvPyLB3weG/i4/Jep24VN7Qg==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id yHjlOeM5TSnk; Mon, 19 Oct 2026 20:45:37 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4j7ncc39BHzlfvpH;
-	Mon, 19 Oct 2026 20:45:36 +0000 (UTC)
-Message-ID: <6ef38c72-9288-4d33-9f42-439c9dbd01d4@acm.org>
-Date: Mon, 19 Oct 2026 13:45:35 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lPX21dfN
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 2AA791F000C4;
+	Mon, 19 Oct 2026 20:47:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792442822;
+	bh=V1WbwvhVT+CaOduktfFrsnpnmJC/bkfFVrmRm8iPY4A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lPX21dfNa/srFS30DqBEg08zS+0XWWTbE8Gd9yfXMbpXTtzN7wg3al9B01EpvJ2Z9
+	 Gt9G2kr7S9un7IaTaGjBKIUw0nlSvgXFxKSE9Zq4ckFRrAR1xt9aNgnpKatoiQ2dKf
+	 wIubCd76No+obcmZdBMgo68aoeIrGvC1Ep4Y3wzhoOuyF9a5Ctn2W3g9Y1rROtzTMr
+	 ZoArsTHr3+C+g+FZpTvuEtQFs915UjYKKfHTIHRn6kBeyUyTMBdY27qGuMJGijUzaI
+	 K+BNPePs4TcQqQRSpDUTTiQGQPyvKzloZvGgDGZSwFj+iU0v/dIVy2EdANa4hJWz/H
+	 Fo4T2wVd2z/Qw==
+Date: Mon, 19 Oct 2026 23:46:58 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
+	stable@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
+Subject: Re: [PATCH v2 2/6] KEYS: Reject @desclen values >= KEY_MAX_DESC_SIZE
+ in key_alloc()
+Message-ID: <ataBwhb8d2M1q2ux@kernel.org>
+References: <20261019181732.449591-1-jarkko@kernel.org>
+ <20261019181732.449591-3-jarkko@kernel.org>
+ <20261019191759.GB65095@quark>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,42 +63,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] scsi: ufs: core: Remove an always-false
- WARN_ONCE()
-To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
- <mkp@kernel.org>, linux-scsi@vger.kernel.org
-Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Bean Huo <beanhuo@micron.com>,
- Peter Wang <peter.wang@mediatek.com>, Can Guo <can.guo@oss.qualcomm.com>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261017084403.875420-1-stanleyjhu@google.com>
- <20261017084403.875420-5-stanleyjhu@google.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261017084403.875420-5-stanleyjhu@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019191759.GB65095@quark>
 
-On 10/17/26 1:44 AM, Stanley Jhu wrote:
-> diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-> index 44e571757535..716dab2352e9 100644
-> --- a/drivers/ufs/core/ufshcd.c
-> +++ b/drivers/ufs/core/ufshcd.c
-> @@ -6059,9 +6059,6 @@ static unsigned long __ufshcd_clear_outstanding_reqs(struct ufs_hba *hba,
->   	unsigned long completed_reqs = mask & hba->outstanding_reqs;
->   
->   	lockdep_assert_held(&hba->outstanding_lock);
-> -	WARN_ONCE(completed_reqs & ~hba->outstanding_reqs,
-> -		  "completed: %#lx; outstanding: %#lx\n", completed_reqs,
-> -		  hba->outstanding_reqs);
->   	if (from_irq) {
->   		/* Do not complete polled requests from interrupt context. */
->   		ufshcd_clear_polled(hba, &completed_reqs);
+On Mon, Oct 19, 2026 at 12:17:59PM -0700, Eric Biggers wrote:
+> On Mon, Oct 19, 2026 at 09:17:22PM +0300, Jarkko Sakkinen wrote:
+> > @desclen in key_alloc() is saved to the 16-bit wide desc_len field in
+> > struct keyring_index_key.
+> > 
+> > Reject @desclen values at or above KEY_MAX_DESC_SIZE with -EINVAL in
+> > order to account for the NUL terminator and prevent integer overflow.
+> 
+> This should say something like: "in order to match the userspace limit
+> and avoid u16 truncation".
+> 
+> There are also similar truncations of desc_len to u16 in
+> key_create_or_update() and keyring_search().
 
-This patch should either be the first patch in this series or should be
-squashed into patch 1/4 from this series.
+Ack.
 
-Thanks,
+> 
+> > +#define KEY_MAX_DESC_SIZE 4096
+> 
+> Could use a comment mentioning that it includes the trailing NUL.
 
-Bart.
+OK, that improved the commit mesage somewhat:
+
+    KEYS: Reject @desclen values >= KEY_MAX_DESC_SIZE in key_alloc()
+
+    @desclen in key_alloc() is saved to the 16-bit wide desc_len field in
+    struct keyring_index_key.
+
+    Reject @desclen values at or above KEY_MAX_DESC_SIZE with -EINVAL in order
+    to match the userspace limit. The constraints inherits from the one byte
+    required for the NULL character.
+
+> 
+> - Eric
+
+Br, Jarkko
