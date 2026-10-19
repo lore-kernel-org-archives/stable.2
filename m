@@ -1,64 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792447596;
-	b=qQq0gxaxyuv2taosQwA5o7umhJJLRrm7VkX8Qg5W1sNG/BN9b4TqZ2h9lpzsk+IrAdXU
-	 m/exLMzzlwEHbxVzejSVZ4pDKFijrR5KWkiLIkUAbupVZIcqgPqoS/1zzLO82nTHipI4n
-	 7sTN6JBpfOWQbpuwsSjIOHRSBufLHWKSHb9P9zx2G7hg4IbJOVjL20b63INY/GAlIndBV
-	 9Ieg3EollEoUNmeTR6EpBzy7CI5hdwk8QRYmIJiLzLOY6IQki2gM15X1lSIDk18Q2fPht
-	 B2zZxolRwhsf4hhB5y6RBQfIGx9Rj+MqGN9dUmdfEwSbF8zv/Lq8Y0eBxJEbuCBiE4Q==
+	t=1792447990;
+	b=dF0rOiMuLvzLFPTX0WIoCYPgq74U9NfV77mnI8gCGQzcGLeZIOCorxvEoz0PfLjeAMUM
+	 VHQ3B/zKuT3yp5O2HvHo/UOgpYStzpox8p+TMXJ+3aqSfzRCEM3dQ8mxmhm1mFw1THmL0
+	 tFopLWu35Sk90uZ1RtP7/1A/MpuBnNvtvpAjc17zegDG6ucPu3Dqvdt0OJ0K2EnUH+7vl
+	 49hSMj8pB/aNy5KVsVowGIQDXgFNLEL/dX6d0YCcqdzqPvUo8fcfnh2m+a9CeaxjjxM1S
+	 PcokTohrX3QYJlzpHacZnSdtpwgMC97BmHgOogE+43jMqkh1oaa4YWUin1AgQnlfIJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792447596;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wIBD55LUoHoDATJCGVof+4CgALz8EVmNkMYBhtvyd6Q=;
-	b=k4368siIxN1PnGnRu8UzPUPxxPe+ArmX+NlNSzdjoppjZdQKobYJ2TPdnnx5lcysI6zv
-	 mHSlTn1o3Vi0+iYd5tlAU9SR9SCvtdqLAJnyCLK0FYc48V4P1+9Bkm9eXqAuD1pwZUW/N
-	 o4i55N0alWpvIcxb65wTnCuMeQliIjpNFx5svZIUG29sppaxlZ/qLJG6SKgqQHakq8zPj
-	 2L7kJ4MP79PrtUk2qIcual3vEBZvBJuHfOM8MADGwlCr0vQ9uRq13KabovdmgR2PI04kH
-	 /XM3S50ArgFjOnRcDgJ6f+ZKPpr4zCYRFvsIucQ8hQ2LlxgkbnVPVhm2N/qlL5xQHsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792447990;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=tEkPMBUY3is8qUNhwEjXM/7z4i29Jmc9M5lXhnaOsa4=;
+	b=ZO7rdULt3TlpvQQO+FbdABAsujhc2xhKu9D8av6wk5rsA0OFSELYPPOoJrXffFjMeqTO
+	 RCMccR/wv0EDw8V5PpxULPkaFx3TDhwhC5aU0gyDSWAQuZL7rXPdihE/Yy0XrGDVsvmcD
+	 50WZAs7H8HTCEpqYKtZault+IWsMfmzjldVsgZnsEnAisi8J/i576I/d5LpO2sJMhp15J
+	 smmYqUp9/bJu9+hQmqOLrO3k38X4hY44GvVIk+GpCN5Pp+d//c4XBX4tPnAhK3miTQkIS
+	 t2ApLXjI/OZc6ZjpbiiFJemLPVvIBHTUP2nsdQiTBF3OyTnUP5gbtwSH41XmyDNn2LA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RGd1WEcy;
-	arc=none smtp.remote-ip=95.215.58.148
-Received: from mta1.migadu.com (out-148.mta1.migadu.com [95.215.58.148])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=mk6XQCdT;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=vq2PLd9b;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E633606A31A
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 22:06:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E633606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB298606A319;
+	Mon, 19 Oct 2026 22:13:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB298606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RGd1WEcy
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=GhC0senqgW9jk2iZrX/Oeif4+RMjrpYmvR16vIm3Y84=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792447592; v=1; x=1793052392;
- b=RGd1WEcy6qUGkInqsO6UQsWxpSvK+GCUSBAFheBJNPOMDkx2Wm6h3ooFMF3h2XC9eBo1/JXS
- mGwIUxbHAIB1I8DpG2ajAUb0Kc/0FxArxX1xbPeubnS+lc1j6hxvD5faGh3cgPyTEupWpX3uNsc
- Z8FyFfQficBtcqQvYNYy4FcQ=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c4935393cb2a0c10;
-	Mon, 19 Oct 2026 22:06:32 +0000
-X-Mizu-Trace-ID: c4935393cb2a0c10
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 19 Oct 2026 15:06:29 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, kasong@tencent.com, qi.zheng@linux.dev, baohua@kernel.org, 
-	axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev, 
-	baolin.wang@linux.alibaba.com, hannes@cmpxchg.org, david@kernel.org, mhocko@kernel.org, 
-	ljs@kernel.org, dave@stgolabs.net, roman.gushchin@linux.dev, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/vmscan: reclaim every zone in per-node proactive
- reclaim
-Message-ID: <ataUUbN1leyRVVQ1@linux.dev>
-References: <20261019185002.3428594-1-gourry@gourry.net>
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=mk6XQCdT;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=vq2PLd9b
+Date: Tue, 20 Oct 2026 00:13:06 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792447987;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tEkPMBUY3is8qUNhwEjXM/7z4i29Jmc9M5lXhnaOsa4=;
+	b=mk6XQCdTNAxu6g/VChpbVZiDbwQxr79w6PQbjG/TSiGsIjS8+RmIlhpTRPOaNhFPof0c2U
+	0CUqCfRgiKlQwYblxS+w/nOio0BuX5L3WhMsYR3RJjyQspFToSxw2BeysUFRbAVyfMlyOs
+	sqBkpUegZ2CM2qnp26TeyTXG5fLctLzBUCR0zXtF76BCkHP62r0QKlvcYZ7y71sg8s+U8D
+	w2CmoCYxUfJ91IAZB6V2d4tKjEvYoTb7Cbhf8ahx9I13zG1h1dU0yv14+RNm+JyYL2eIKj
+	Mg3tvI9hn05eHabMYiueK8HxXov1eysIHU1wORoiYsn30Fo2hsE+NSFa70NaRg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792447987;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tEkPMBUY3is8qUNhwEjXM/7z4i29Jmc9M5lXhnaOsa4=;
+	b=vq2PLd9bEIj+nT29+S4J+T1fZznn4lc+TS86Lef4i197NXqVZxYH/i35vn1xXikqrFpMOo
+	pNVQuASl8pfeJrAA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Cc: Fan Gong <gongfan1@huawei.com>, netdev@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Xin Guo <guoxin09@huawei.com>, Gur Stavi <gur.stavi@huawei.com>,
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] hinic3: bound the Rx fragment count to MAX_SKB_FRAGS
+Message-ID: <20261019221306.d6dfPY_y@linutronix.de>
+References: <20261010030901.1712792-1-yhlee@isslab.korea.ac.kr>
+ <20261018170531.bILLh5Zw@linutronix.de>
+ <20261019001037.3496843-1-yhlee@isslab.korea.ac.kr>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,27 +78,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261019185002.3428594-1-gourry@gourry.net>
+In-Reply-To: <20261019001037.3496843-1-yhlee@isslab.korea.ac.kr>
 
-On Mon, Oct 19, 2026 at 02:50:02PM -0400, Gregory Price (Meta) wrote:
-> user_proactive_reclaim() limits per-node reclaim to
-> gfp_zone(GFP_KERNEL), which is ZONE_NORMAL. Proactive reclaim serves no
-> allocation, but that limit makes shrink_node() skip every ZONE_MOVABLE
-> folio, so writing to /sys/devices/system/node/nodeN/reclaim never
-> reclaims a node's movable memory. A movable-only node, such as dax/kmem
-> or hotplugged memory onlined movable, reclaims nothing and fails with
-> -EAGAIN.
+On 2026-10-19 09:10:37 [+0900], Yehyeong Lee wrote:
+> Thanks for the review.
 > 
-> To reproduce, fill a movable-only node with clean page cache and write
-> 200M to its nodeN/reclaim: the write fails with -EAGAIN and the page
-> cache stays. The same write to a ZONE_NORMAL node frees 200MB.
-> 
-> Scan every zone, as memory.reclaim does.
-> 
-> Fixes: b980077899ea4 ("mm: introduce per-node proactive reclaim interface")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> A well-behaved device can't reach it. rx_buf_len is fixed at 2048
+> regardless of MTU, so the frag count is ceil(pkt_len / 2048): a max-MTU
+> frame (9600) is 5 frags, and LRO -- off by default, capped at 32K when
+> enabled -- is at most 16, both below the 17 the array holds. Only the
+> 16-bit length field in the completion descriptor (RQ_CQE_SGE_LEN_MASK)
+> lets a device claim up to 65535 bytes, i.e. 32 frags. So it takes a
+> device reporting a bogus length, i.e. broken or malicious firmware,
+> which is why I treated it as a robustness fix -- I should have said so
+> in the changelog.
 
-Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+If this is something that in general opinion never can be reached then
+it might be something to target net-next and not net looking like a fix.
+
+> I found it by code inspection, not in the field, and I don't have a
+> hinic3 card, so it's untested on real hardware; I reproduced it by
+> injecting an out-of-range length to get the KASAN splat in the
+> changelog. The netdev bot asked for these same two things, so this
+> answers it as well.
+
+I see. That KASAN splat makes it look like something that was really
+reproduced. I assumed jumbo frames and aggregation at HW level.
+Just because a field is 16 bit wide, it does not mean the hardware will
+utilise all its fields. 
+
+> You're right that the bare drop is unhelpful. It only surfaces as
+> rx_dropped via ndo_get_stats64, not in ethtool -S -- hinic3 has no
+> get_ethtool_stats, and the stats series in net-next doesn't export
+> dropped either. I'm happy to add a net_warn_ratelimited() on the
+> discard path in v2; it only fires for a misbehaving device, so it won't
+> spam a healthy system. Let me know if you'd like that.
+
+I would suggest to target net-next if this can not be reached and is
+just there to address a possible overflow. Maybe a warning if it was
+reached after all. Fan has probably an opinion here.
+
+> For reference, eea does the same thing -- it drops once nr_frags
+> reaches MAX_SKB_FRAGS.
+> 
+> Thanks,
+> Yehyeong
+
+Sebastian
