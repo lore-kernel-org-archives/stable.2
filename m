@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792427501;
-	b=z9G/3jh6Q3YdrzYstrUn5ehfvz3AQKNrftOD5/e9gkaCJGt37ME678fMygzXJZCJCC3u
-	 qvly840Zu2aFO3T4fgjuaJj5wRbC3ypFL7zV31H4SgTQzpmIaRU80K0Y06uH/55Kk0e1Z
-	 xu5TH/WtBGM5j/5LJBUBjiqgC0TxTUk0cack7a6pW4Gyha3iDoRtrkUvHfwBLWxwPUq1J
-	 IrN0TihucwBdKO55WgEGBwADOD60akibfTvuJ5ogEP7ZfRGxUztcILC+3ELA+oOMk1FZ5
-	 GCQYhwlPoHqOtpmUV1mQSXTj50hUaSKo326ALKn0O0UD0kE80ouAKgHEj6uMKbXVvUg==
+	t=1792427553;
+	b=5lInLH0n74JZz0NDGV9SPHvRJQnuy5AxfBP61OzcHaH+mqh+/WH3361aIlQ86VLA2gcP
+	 je2FEUxjjoBtcijwUtiMqZ7E17+ytO0aRVPpvSKScL39guGEgbs5WZtzewdIoAVk37+kC
+	 jpLCOCRh7ri2kF5KBuVrGY6g3yheuP39XjpIxH3pKWu5VyiwSS/mY3DxMbpjArpgyHAjO
+	 9GHB+hnZnuNd9HzUhF0AYtmZXUGdmujRivRt3KCODleBP4ywKSeh5g9SHNUAhVzs0ebgu
+	 A/ItnT2R1mylGx8A3mfO52+bmQsi2qd1/eMRXoxX0DvfVmb4WMENrdsiG4QoGKGx8yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792427501;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792427553;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=9PTCGIfHqtYqMTLPhP30HbjjDJXCnmWLO/evJguW83U=;
-	b=A2qnZKRqklot8EAuQoOy8+uFGN1kgwWhBSLtOb8NgdCNcI02oKrpE5hD0ULhH5p6ZVYb
-	 q5gMCx6Iu3XVms0Rm+KLKGfPJdHrttMT+aipw0XLnlgWocKsZaLTUdVSuqI9BYGxLnIET
-	 +EEAvSpoQNkl8DMVWuthTfrQC1WhYavFtAMBkLAdTPOjf/SZFigo9RBClaK5m0muHjqj6
-	 xChsQl/zq3iEoGYxDKAACgpLeT7pngbjUPdU3i4sCvz3eWvQB8CrTKFbOhu5JzuHl/OC3
-	 reqqW+1BIBcQW0hq+AKScG//Ynm/iwDbuw/9GS+MGxzleb0ELz5UnY72U1ijUJMIUnw==
+	bh=+VR/o2o/DhJfnVdRZHSwegdY3Q5vwh/kgdmzV0BQzrI=;
+	b=nl4K8A+Uh2xx9Ja6NgWgkaUkCNbphdgXUKAaIq7gwrfclLfb0yIcR1nUkVccD8P6VSJY
+	 fu5dep4o0rk2RvzO8svoSLk39ZvdBD0HLji4QWgaMHM/pdgbi8SpxUdskJmzZSIaUujVM
+	 zG7NiiuRptwivZ80JOOFxfnNBpEoTqu8AYDighDyWvmyHT44oFCioNvz8RxxIkN/OJdme
+	 uVKq5LiNG+LVw0Vv20qws9IawJG/uSHKCe25nom91AMhNfouPhbzbhgOlV65uWBT+Ng6B
+	 qSzT6W7sCgC7KeX7S8kpCsqvssBeZ7sfzUkrexAjvKN2xO0UWwDM6bNeMWvQHwrKQRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iFNVXkt3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n5FS2pB7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 7C67D606A323;
-	Mon, 19 Oct 2026 16:31:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 5C1F4606A31F;
+	Mon, 19 Oct 2026 16:32:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iFNVXkt3
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id CE7C11F000C4;
-	Mon, 19 Oct 2026 16:31:40 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n5FS2pB7
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 4D8D11F000CC;
+	Mon, 19 Oct 2026 16:32:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792427501;
-	bh=9PTCGIfHqtYqMTLPhP30HbjjDJXCnmWLO/evJguW83U=;
+	s=k20260515; t=1792427552;
+	bh=+VR/o2o/DhJfnVdRZHSwegdY3Q5vwh/kgdmzV0BQzrI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iFNVXkt3NzfxWDtSAaM/InhkOo/nCE1+EmpW6OvvN9GzTl8FdQWxhE502rkn/5XBn
-	 2u8/ECJGBOb0mh+/HLr2EhKrcM8rIK75WK3kPucBYYngclDbGVgF2hZOifafcvOS7I
-	 A1i/IUzgzl9GtuUSkpEVnsjtAyq/TyRcqC/mYvNRYU9Wrzj4TMBsSHDER9ReYuaaIO
-	 11/Pbg1GhwGZzXniJndLUoOkPeH+XLbmXSIOvXonJrq59kar+hO1RFlqv0emStvhmD
-	 3Df3+zo6gjMrX7/Ln+yhj6TAkUPTsAq8h8wtjDiyE9FItwTDftm8tmswA6SnGGFtLQ
-	 fn1HDovdd7zlg==
-Date: Mon, 19 Oct 2026 19:31:37 +0300
+	b=n5FS2pB7BNbwmdCUMaZ7qcy9gEJS+4y6GcWxbkZ6ShABdtlLxKtiQKg6d6tzP8auY
+	 Q0kUUPTL+BAERQjOTKdMLBOHy5uHVy0plbsYycgMlWWydecQ+vbHRWed4F26etXmiU
+	 xReVnS+t3N8ZxDcL71AqQ2OLDdpOana2bHBps3cT3v73Qb/VD0WjT1kVoHkRaLqn0d
+	 XO3xFUJ3znwpNOBmTtKGWC/zLEeX+i4yprDUPNYnCsH7l3yjuqLxmXrKwLPGukpj9G
+	 7QQF8xA93U7Q+TuRoN56kPLLzENu6D/y4SaChUFJ8zQ8ckY9bosFzn7Ws2RlM4fHSS
+	 UGtsJ8977koPA==
+Date: Mon, 19 Oct 2026 19:32:29 +0300
 From: Jarkko Sakkinen <jarkko@kernel.org>
 To: David Howells <dhowells@redhat.com>
 Cc: keyrings@vger.kernel.org, Eric Biggers <ebiggers@kernel.org>,
 	stable@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
 	James Morris <jmorris@namei.org>,
 	"Serge E. Hallyn" <serge@hallyn.com>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
-Subject: Re: [RFC PATCH 2/8] KEYS: Change the type of key->datalen to
- unsigned int
-Message-ID: <atZF6T5roFnM4nTy@kernel.org>
-References: <20261019142516.300040-3-jarkko@kernel.org>
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH 3/8] KEYS: Reject @desclen values over U16_MAX in
+ key_alloc()
+Message-ID: <atZGHd_ricOqIPnw@kernel.org>
+References: <20261019142516.300040-4-jarkko@kernel.org>
  <20261019142516.300040-1-jarkko@kernel.org>
- <2609766.1792424012@warthog.procyon.org.uk>
+ <2609869.1792424119@warthog.procyon.org.uk>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,21 +65,18 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2609766.1792424012@warthog.procyon.org.uk>
+In-Reply-To: <2609869.1792424119@warthog.procyon.org.uk>
 
-On Mon, Oct 19, 2026 at 04:33:32PM +0100, David Howells wrote:
-> I would merge this with patch 1.
+On Mon, Oct 19, 2026 at 04:35:19PM +0100, David Howells wrote:
+> Jarkko Sakkinen <jarkko@kernel.org> wrote:
 > 
-> Apart from that:
+> > Reject @desclen values over U16_MAX with -EINVAL in order to prevent
+> > integer overflow.
 > 
-> 	Reviewed-by: David Howells <dhowells@redhat.com>
-> 
-> on both 1 & 2.
+> KEY_MAX_DESC_SIZE.
 > 
 > David
-> 
 
-I can do that. I went a little over the top with sanity checking
-the slop :-)
+Good catch, thanks.
 
 Br, Jarkko
