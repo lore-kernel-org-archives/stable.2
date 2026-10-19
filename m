@@ -1,129 +1,175 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3661448382F;
-	Mon, 19 Oct 2026 09:18:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792401530; cv=pass; b=KKuJuHIsj9Fk8Q5owRvE0fKdL/9elAt7OFqpOfOKLvDrTEhK/uCfIzUes2tlxLDwr7AA/l01tEvsZ7v6vsf0/vG2U+/QbOr6btbc0R04g8bnDhwzdiCtXRGwGC/yc4HVgvlcKPf4yh64cF5u7B4kadofDkkf4y1a1Ry9HvDOMM8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792401530; c=relaxed/simple;
-	bh=Ha1/ipn73y2N6FQJ8KbsU4ighAF5nNlAVjfzyEHq6Ik=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F6i6KQVE7Xtn0OuSKi1dorbA7TBal6I72Ccj9XTDW5ZW5efu3dnz7LtANuoBVpdbxGGCRQIdqXdIlsvTYoYgP/DmLnlQ3hNfRnLcCYI28EfwE2Sze0XNF0e4CAUhtCEMxUywbN0Qrv89XmEzW2HimGmLk8nFAG7cog5Bi2mRsZ0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=es0Bfqtw; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E1F39099C;
+	Mon, 19 Oct 2026 09:19:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792401545; cv=none; b=rRrsz6xYo7lDdhdv+cNAEJkkwIjfXxkIqPzvBxLsrG6e5bcjeKWGC/Jb4NGZ58TrljkVWEF9wfwmoEZQ2frQquNdMeEaRvJoy+pFbumg1KdVaAQHODlpEIZW1Shyid9mYCoPNxzcj0XsiTfeO8e48L79GKh+8pIKNspjV3AJJSg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792401545; c=relaxed/simple;
+	bh=+7YEmMh9hqu9EFqnLCRSsNJtJX3xTYVHHsuMazPAaZM=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=DFDgADhB8QLJ1Ka3z9RL4ZrR6zxQBBzr1jVA5vqA8KEb8x0yzsmWlkfIREEACAm1HHB1FXthl+7jlkWj5lDvlP35YhI3QYMQ8j9fHVfEqgj1KiSrJ431nGQ5+qE3Zw06rri3w9YoSFJmDoaqGiacONFq7gnRjRAeOO7CiOaGx68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i19dov7+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="es0Bfqtw"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E12E92018E8;
-	Mon, 19 Oct 2026 11:18:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792401524;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2SizZY3M5+zhVSSriBwCUfXvqJYB3Q9U7m8qMTQTl9w=;
-	b=es0Bfqtwo4jPpCHuNRICHhgKi4HMW/Ir5r59nUAwRKiyPw2rPty3djeCuWRHAz3TbeQ7HR
-	aVf4L1m1XwxBx2P0UBM5ghH2NP2126aE4lu/ykgqcbjP4BDE0l3YQ818NOdv/I+YeuC6+L
-	K6/ME1t7NCQzJcBEUY60ucPxlDZ5a1oVle8Da/h0bbX4IyIggMGX4xerGR0t9Rlx2IuTQc
-	WiVka33VRND2DbUr4sSaFuhiO+mZTZt3BIJTVIivVyKN6YbtXYQSpBzbv49Z0EqsfcmmZB
-	i8o0EK9yyjXkGY4vWVrOL7huZ8v8RfNO5QJUKsUX6x6uujzNkn1cQxFA7Ohepg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792401524; a=rsa-sha256;
-	cv=none;
-	b=BESa0Y1JmSGzeggTTz4AhwE6fWk6+XtHa/nWlc44WkFyJaS5mw80eCPozCpq8STwBDJjik
-	7ftC9Ik1EzIbUskaobY+kgZhktB0W+dlkyefwITASCSNbiQocdObGukM6dN9NWLxlM9DBx
-	alte5j5fI7Yv6OV7ZCqB2RJEyUWlda5TskK1exwl+KANIjau5jUpbJC5ld0r2yK7qM4RKK
-	KnJMhfSP1TBmXln0AuSVamMxO9xEx1ayeTZpwrX/gZb/XyG8gzB+mPor79WJpz0HJk/r/n
-	qhKvDW12I+vkfvMXHDnJqpWkShp5jr19EJ9rAw4+N0jaksFALI40o4AGS7a6Tg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792401524;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2SizZY3M5+zhVSSriBwCUfXvqJYB3Q9U7m8qMTQTl9w=;
-	b=SsjbKNFRg9B3qag3E/kvyvQYSm+8dKn9z277hDGSF/Q6sDfKUtKe5Gj4ReIzD6mqnkqf/V
-	x3fIV8IWm+ceX57krBoaH2q+jZWL5ykHZPR8/jd/i+QAfbh/NkEhcJN1g9krSdno7QNP+3
-	KYH8OWFjrDx3MkrwGWzVwvsMWdrq/yRls81Zl1AMWAE9bqff6GWVeV3bRAZMq/2VhuU5ak
-	bdbBaJOaE1/lRTohgVf1fFaL1/Xs/mUXtIe5I+ofiwecsDnRbv4EqbUNXqYew7x0wmKxH2
-	aJIRsDFo+1Z3JYxmxQvFbTroF8UubpPYdVhBqw2JsR8AQf/4ONpXpXMiPCiBYQ==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xIjW0-000Cbu-2d;
-	Mon, 19 Oct 2026 11:18:44 +0200
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 78D2E5C8514;
-	Mon, 19 Oct 2026 09:18:44 +0000 (UTC)
-Date: Mon, 19 Oct 2026 11:18:44 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Oliver Hartkopp <socketcan@hartkopp.net>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org, 
-	linux-can@vger.kernel.org, kernel@pengutronix.de, Norbert Szetei <norbert@doyensec.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH net-next 06/12] can: bcm: fix filter removal race between
- release and netns change
-Message-ID: <20261019-audacious-premium-fox-414190-mkl@pengutronix.de>
-References: <20261018164417.1540449-1-mkl@pengutronix.de>
- <20261018164417.1540449-7-mkl@pengutronix.de>
- <088cfba9-f0c7-4f51-a9a5-4e1b28b8e90b@hartkopp.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i19dov7+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 350161F000C5;
+	Mon, 19 Oct 2026 09:19:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792401544;
+	bh=oN70H5R9ldPbMGdAr2ddG48R+ac02LOo0uRx3leltQU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=i19dov7+vGYjSHrO6jpb2nbQ4GIXDtxmwgJ1eZLG+iurtBU/w2rpNV3RI8TxKuEOq
+	 rLAlAq9YQYe6dTie7MA8+ojwz534boCl+tizXrN95A0aV7vH7x6L4gi0xBSjbh7iZc
+	 qDNAVSE95znBlVeZANVjVkm8JhNr0TAyQnAjlVh2z3HkAB8FR3bQFl20/qg6Lgc8t2
+	 ENodISmPYwI/7bxlKDed0gJL9f5n48EiGZGnBU5z5mRQzMwv0HTwVYVA11wVesAjjv
+	 UlRaka7UNppXEO8yC5iYmjlkru7U+aGc1YrYII3mV7sEyPeSUrSBbPy2Hlmt0eMvu8
+	 Ei4Owapx6kabQ==
+Subject: Re: [PATCH net v11] net/smc: fix lgr/lnk lifetime vs diag reader race
+From: netdev-bot+sashiko@kernel.org
+To: mjambigi@linux.ibm.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, alibuda@linux.alibaba.com,
+ dust.li@linux.alibaba.com, sidraya@linux.ibm.com, hidayath@linux.ibm.com,
+ pasic@linux.ibm.com, horms@kernel.org, tonylu@linux.alibaba.com,
+ guwen@linux.alibaba.com, stable@vger.kernel.org, netdev@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
+Date: Mon, 19 Oct 2026 09:19:02 +0000
+Message-ID: <179240154272.3135.17238777571997282600@kernel.org>
+In-Reply-To: <20261015081349.1252391-1-mjambigi@linux.ibm.com>
+References: <20261015081349.1252391-1-mjambigi@linux.ibm.com>
+X-sashiko-severity: Critical
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tcitz5funqytehiq"
-Content-Disposition: inline
-In-Reply-To: <088cfba9-f0c7-4f51-a9a5-4e1b28b8e90b@hartkopp.net>
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
---tcitz5funqytehiq
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH net-next 06/12] can: bcm: fix filter removal race between
- release and netns change
-MIME-Version: 1.0
+Critical: 1 · High: 0 · Medium: 0 · Low: 0
 
-On 18.10.2026 20:37:41, Oliver Hartkopp wrote:
-> ps. I did your requested instrumentation and found a missing glitch which=
- is
-> the reason for the v2 patch. The v1 will get its sashiko review today at
-> ~10pm due to the 24h embargo :-/
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Can you send a follow up patch, that adds the guarded_by stuff? And
-include it if you re-spin the series.
+- [Critical] The patch makes smc_conn_free() call
+  smc_lgr_unregister_conn() unconditionally.
 
-regards,
-Marc
+--
 
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+net/smc: fix lgr/lnk lifetime vs diag reader race
 
---tcitz5funqytehiq
-Content-Type: application/pgp-signature; name="signature.asc"
+This patch closes races between the SMC sock_diag dump and teardown of
+conn/lgr/lnk state. It unhashes sockets before smc_conn_free() and
+smcd_buf_detach(), orders sk_state with acquire/release, skips the
+extension attributes for sockets in SMC_INIT/SMC_CLOSED, and uses the
+cached link->ibname. It also makes smc_conn_free() always call
+smc_lgr_unregister_conn().
 
------BEGIN PGP SIGNATURE-----
+> diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+> index 9974149659c2..6735f185cf48 100644
+> --- a/net/smc/smc_core.c
+> +++ b/net/smc/smc_core.c
+> @@ -1279,10 +1279,9 @@ void smc_conn_free(struct smc_connection *conn)
+>  		if (current_work() != &conn->abort_work)
+>  			cancel_work_sync(&conn->abort_work);
+>  	}
+> -	if (!list_empty(&lgr->list)) {
+> +	if (!list_empty(&lgr->list))
+>  		smc_buf_unuse(conn, lgr); /* allow buffer reuse */
+> -		smc_lgr_unregister_conn(conn);
+> -	}
+> +	smc_lgr_unregister_conn(conn);
+>  
+>  	if (!lgr->conns_num)
+>  		smc_lgr_schedule_free_work(lgr);
 
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCatXgcQAKCRDMOmT6rpmt
-0myOAQD0BtEXQgJXhBuOjK8tpQd+03rCeASuKDqcOlAwepA8aQD+NE9j6gcgIgdy
-Q6psIE59I3ZRfyheXMBx9Q7li9zyzA4=
-=FoVq
------END PGP SIGNATURE-----
+[Severity: Critical]
+Now that the unregister is unconditional, can lgr->free_work get re-armed
+on a link group that is already being torn down? If so, the lgr could be
+freed while that timer is still pending.
 
---tcitz5funqytehiq--
+smc_lgr_cleanup_early() unlinks the lgr but never sets lgr->freeing:
+
+smc_lgr_cleanup_early() {
+    ...
+	if (!list_empty(&lgr->list))
+		list_del_init(&lgr->list);
+	spin_unlock_bh(lgr_lock);
+	__smc_lgr_terminate(lgr, true);
+}
+
+smc_lgr_schedule_free_work() checks only lgr->freeing, not
+lgr->terminating:
+
+	if (!lgr->freeing) {
+		mod_delayed_work(system_percpu_wq, &lgr->free_work, ...
+
+__smc_lgr_terminate() cancels free_work once, before a loop that sleeps
+in lock_sock(). After the loop it calls smc_lgr_free(), and nothing on
+that path cancels free_work again:
+
+__smc_lgr_terminate() {
+    ...
+	cancel_delayed_work(&lgr->free_work);
+	lgr->terminating = 1;
+	...
+		lock_sock(&smc->sk);
+		smc_conn_kill(conn, soft);
+	...
+	smc_lgr_cleanup(lgr);
+	smc_lgr_free(lgr);
+}
+
+One possible sequence on an SMC-D server:
+
+- Conn X creates a first-contact lgr L. smc_listen_work() releases
+  smc_server_lgr_pending for SMC-D right after sending ACCEPT.
+
+- Conn Y joins L. smc_conn_create() has no conns_num limit for SMC-D.
+
+- X's CONFIRM fails:
+  smc_listen_decline(X) -> smc_conn_abort() -> smc_conn_free(X), while
+  L is still listed. Then smc_lgr_cleanup_early(L) runs list_del_init()
+  and __smc_lgr_terminate(L) cancels free_work, sets terminating = 1 and
+  blocks in lock_sock(Y). Y's listen worker holds that lock while it
+  waits for its own CONFIRM.
+
+- Y's CONFIRM also fails:
+  smc_listen_decline(Y) -> smc_conn_abort() -> smc_conn_free(Y). The
+  lgr list is now empty, but with this change smc_lgr_unregister_conn(Y)
+  still runs. conns_num drops to 0, freeing is 0, so
+  smc_lgr_schedule_free_work() arms free_work with
+  SMC_LGR_FREE_DELAY_SERV.
+
+- X's worker resumes, the loop ends, and smc_lgr_free(L) ->
+  smc_lgr_put() -> __smc_lgr_free() -> kfree(L) runs while free_work is
+  still pending.
+
+Would the timer then fire on freed memory? If L were still alive at that
+point, smc_lgr_free_work() would see freeing == 0 and an empty conns_all
+and call smc_lgr_free() a second time.
+
+Before this patch, smc_conn_free(Y) skipped smc_lgr_unregister_conn() when
+the lgr list was empty, so conns_num stayed at 1 and free_work was not
+re-armed.
+
+The peer decides whether and when each CONFIRM fails, and with
+loopback-ism the client can be a local unprivileged user.
+
+Should smc_lgr_cleanup_early() set lgr->freeing like the other unlink
+paths do? Alternatively, smc_lgr_schedule_free_work() could also check
+lgr->terminating.
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015081349.1252391-1-mjambigi%40linux.ibm.com
