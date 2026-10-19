@@ -1,61 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.105
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792429285;
-	b=VhKTdzaTDGLqo8N37223zW5AejaXFraqFeg6NJKvr6CvapxVwJZ6viG+cCp72SJmBoxU
-	 VRUjMzZP+jSCiqGYdIWrzhRO55Xbf51GLq0asVnBiNkJ6egns9HkF6ngM92JwrThlzh4t
-	 gDfZIWHp7oRmS9bBon0NSiNZMkPh+NEG9GW2mDHA6wY6J0MkRfIU+jbWMqxUF+7dUjqEG
-	 m9vHnyBpff0gZADUD6IsBG8f9tHKPThvpM69wv8Vz0VYujtNx/avgpgg4yGj6ql8xGv3B
-	 7HIs4HpiMmPYaImiaZYKKnUr84em3tUJEGbiq9x7SSbqFIJRpMVhjrM5indEBOyI6lg==
+	t=1792429692;
+	b=LENVGgc3nQEhBocYy/jhembXMwqen/jv5H2qUVwCzHjCqpOmRR9lDvKLLP+Uxm6TNOSG
+	 6L6k6FOs6UKy3MM+D+z69WKn22pzcRR6S7/LjQgp5SOOCgcTvK2fOanuXIsX73DwKMjZG
+	 f+RWGcmnzkfFZh3cFkJ0vxeGmPpopE+ckMSPJTIdIG2vRn/YxHGSUI4oXIJWnixKM5SI1
+	 2cDxX0IT6qBfWHRKnaEdJoIvs9foi/61FAy4u6QFuBF1xwcAKNgWuhV1zCIkwxo77InNn
+	 QGxw7BOizhqdTVcXoyBYfrV//+IgAwe3FHlqQnaeXSnWQKkr51kWxqTyJ148dvXVE5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792429285;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=w8p8m5DjVMBSrwiq6bXrGhA8+EN+mWvM6EpWmDSChR4=;
-	b=WcYMIhJiSIkNPnyctRCKyFBoJKTvfP9ZKZ9HBqnZCm/VU0KsIJdtlzdsUNXYB1O/GiWV
-	 KgXwyFf54t1yoaH0mpdt9cPaFrvqFo+9MrYWCTUOV49olkouVwc3j+F+Tes+qqEeUgV3c
-	 TMhUVqDF+WwDooIijjFg21YVprX3LYU3CEcEdZDNPq6vnk71ruYC++0prTQUxVUX5VKl5
-	 iTlUCnt3riPxbbTC9ivCQhyGQp8VBViCksY4iii0y/BwLG9X4ekwemHZW3q6D6U0oFqc4
-	 dPeR1eNcmJbCXgfqvHG+jEhZ/objcocDXgH1tYuJRt7Tx8Vh7jgGz3RE4P2r9K0g1nA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792429692;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=j4/7Kgm4XZXwlNXK7i/XyrsG1PgqZdxrffszkRMdy3o=;
+	b=XzWfkeklICsucq00ct9w/FzR0a/iydsPX7gHblmmyTpqyGqKhUSnUH/RvF4j1hMpGc2D
+	 /1inb6mHE656vxU6iTneXkOAqdZ3+5rJVCHfRaXuRwRrFoshBMp3Dlvfp21c7bvLapd5G
+	 BebWQu2K7jFOMkTQLfPiZX9AyVBx+h15tU5Xb8QNyG51vJN/WGhTyDLwIMilYew3rUQ2/
+	 ir87aCa455yBO6hvQV50KSc1hlWMOeQB0jaBaUk+pH5EhM6psraT6Yc5+uzN3RTV+embF
+	 3a3IDX9JI3zdS8IEDMqAfVhNE3ltNtoyzR6MDSTF3dBdeuacEJGifC2CxyvzJXM+LRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=justthetip.ca;
-	spf=pass smtp.mailfrom=justthetip.ca;
-	dkim=pass header.d=justthetip.ca header.i=@justthetip.ca header.a=rsa-sha256 header.s=key1 header.b=n07WgLWV;
-	arc=none smtp.remote-ip=91.218.175.105
-Received: from mta0.migadu.com (out-105.mta0.migadu.com [91.218.175.105])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cVc19Aom;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7942A606A31A
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 17:01:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7942A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=justthetip.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8C99606A31C
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 17:08:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8C99606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=justthetip.ca header.i=@justthetip.ca header.a=rsa-sha256 header.s=key1 header.b=n07WgLWV
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=0x8x8x+fKY2Y6jyMC+O/5KwxOqoFU+Cw86mPFidozF4=;
- c=simple/simple; d=justthetip.ca;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792429282; v=1; x=1793034082;
- b=n07WgLWVmaMa383egFTHzyZ4+1p01tRim6FVFMxYj0p8y2hRtRn7Nm4NSipO5COZEwnTpl8I
- n5VbYggzEDbZtvBWVWX1zm23Q17791QtHpGVMQvEJMacXmLJFdZTxmYrjN9k8urSbhrHoiXDMhv
- e060vvsUGVi4t5gPYpX3oa8hBw7VGHdyY8OatUT+WD9kNHWSXQ37oTqP6Zqcyp+54Aoyck42TTw
- X99PJehUpXW16ARAAL3hj65EvkwI7N4ql8qvWNGgO4IoDAF2rAVgWaxWkDYKyf1Rtb1rQo9nMMg
- 0d5ZyV8K/V91jpaS8pMVKCjjJ+lxmm3fWjogobXD/Ee3w==
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4622ebdc0972b596;
-	Mon, 19 Oct 2026 17:01:22 +0000
-X-Mizu-Trace-ID: 4622ebdc0972b596
-X-Migadu-Flow: FLOW_OUT
-From: Devin Wittmayer <lucid_duck@justthetip.ca>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cVc19Aom
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-15354aa70e8so1846678c88.1
+        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 10:08:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792429691; x=1793034491; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j4/7Kgm4XZXwlNXK7i/XyrsG1PgqZdxrffszkRMdy3o=;
+        b=cVc19Aomo64aR16ix/R5O5dyM3I4GAAw6gk0VtSIwZ+2h/vt2KDFbChvMaztwqgi0m
+         aiplcbokenloB48gyTcdJ/bERcLODSBtfUYXSI7iH0d/f8+o2cJMEm0Raiz0N2MeHhGH
+         foxK1ojjKzhA9dossH6qkI8VKVp2A1D5Uq7wb/PuyIh1cR0bDuYpRfYkBp2jlSYY+/QR
+         0d64ZkosW7NBpnN5tYj/Hyz5Ak/r+l7JA8xHGOnVpr0EhMo1p0lNoj5r+P3Gc10N5koT
+         kBJXd3ZL6Wr6aIhwVDujHvMOfEX0kkirAzOl080dVRSIEo1VGu7cCtiCEH6yBYBPUULG
+         QSMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792429691; x=1793034491;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=j4/7Kgm4XZXwlNXK7i/XyrsG1PgqZdxrffszkRMdy3o=;
+        b=PityYYRWXPXcKs1eSCtaz68v9YFUMXs1MYhp3fSV+Ptiwqlnms0B76N/UJcZJEXJJd
+         QQZ7HxFqj0/3KX28l3d6+Fw3d1jYRE9hwYHsgW+eO+SAzmXOxlVoGcLStIyEZm3jSJLY
+         m2s3NsYNnFpddWYnAV1/enIebJ1oDi6yAG5hCFxBtfqtKCya9HOGyoWBV4tWLbHiPzoB
+         e/wFHhjqhi+gmy0YiZHWa67c9Ud78ujkvE0YUFf5TOCpXD3UsXR2ESd8ntkXkqxEcGbV
+         zs0EwZgmO6z15ukAqrCPsZ3Ecv2ErE3/OLePPi8Hg4IfGaEYUlVyrYMvqTccnmqN7VgY
+         jDEw==
+X-Forwarded-Encrypted: i=1; AKwUvBzcfwRek6/KA0j8Ea+LOPzM/m9cuGuk/c8OCJW60xF539PxQ/QP2tsntxzYS7BtAhTd3Oj1VmE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKYoBy1v5wCMKfjHn9P8WOOxLxk8uPVJCXARnrzOp9p2rGbJ7Ep
+	Eh+Pw+fXeH4TGSTzxCCI6dOxKtIsbE0BvYW660i00BoY+mE7hoyhshJltEJ88w==
+X-Gm-Gg: AYBFou14lmU3kO6WGGy5ghpp8KcIEINM4CfbWmNUKhTs5xZiwke2SlDPAPISzv50u4q
+	+SLBodA9Iav0j8wTBJoer+rjSOGAc3kvEmkSC2ZbGJkKXqgOu/HWkrZUJyXl9Mx2y0RLCpxg2mD
+	DgwuJgST0QnOWp2Pil69HtlrjPaVZ3SBUb5CSsaC6XzxDOHkxHi8bm0DlK+PMVYwrzpbe8wM/aP
+	y8/3c+8Aajq1ZN7Im8q2+pZuC+TzmctulJ5kPhojZWK1mPEM3T3IxwUiyNrhIDsfNjG1SEM7RnU
+	3QOwAgTDhK2rRM1tjc+MvwggF+xHUDl3Fug4ITY+f5t+P+EHYvUQpMkftzL1905UHUovINpsgZg
+	/07J+xGD80Sljj+B/vDxWcbg3fnbKweSzp4tkf+kdspRKTxyn2O1rllCXfUNlmygJ7kqykKscO3
+	4odA+24U9f8PV3fAkqoBKEgRpv6InjoblNqaTUhl+aQPTEHpFCAgphQ0629BV91PvK68M0t1v7N
+	67FYpvSQSChIgrhRQ==
+X-Received: by 2002:a05:7022:1608:b0:16b:fdbf:4a9d with SMTP id a92af1059eb24-185139add2bmr10116222c88.27.1792429690701;
+        Mon, 19 Oct 2026 10:08:10 -0700 (PDT)
+Received: from vscode-11-19.w453y.xyz ([59.164.88.43])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-183190aa7bbsm29247207c88.5.2026.10.19.10.08.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 10:08:08 -0700 (PDT)
+From: Abdul Wasey <w453y.me@gmail.com>
+To: mptcp@lists.linux.dev
+Cc: Matthieu Baerts <matttbe@kernel.org>,
+	Mat Martineau <martineau@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
 	stable@vger.kernel.org
-Subject: [PATCH rtw-next v2] wifi: rtw89: debug: return the error when a read handler fails
-Date: Mon, 19 Oct 2026 10:01:20 -0700
-Message-ID: <20261019170120.726156-1-lucid_duck@justthetip.ca>
-X-Mailer: git-send-email 2.56.0
+Subject: [PATCH mptcp-net 1/2] mptcp: pm: in-kernel: fullmesh: skip closed subflows
+Date: Mon, 19 Oct 2026 17:07:50 +0000
+Message-ID: <20261019170751.200446-2-w453y.me@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261019170751.200446-1-w453y.me@gmail.com>
+References: <20261019170751.200446-1-w453y.me@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,61 +101,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Return the error when a read handler fails, instead of passing it to the
-copy to userspace as a length:
+With fullmesh endpoints, if the endpoint used by the initial subflow is
+removed and then added back, no new subflow is created from it: the
+connection never uses this local address again.
 
-  rtw89_8852bu 2-1:1.0: invalid read reg len 0
-  usercopy: Kernel memory exposure attempt detected from SLUB object 'kmalloc-8k' (offset 56, size 262144)!
-  kernel BUG at mm/usercopy.c:102!
+The initial subflow is kept in the conn_list once closed, and it keeps
+the local ID 0, which is also the ID used by the re-added endpoint. In
+fill_remote_addresses_fullmesh(), this closed subflow then marks its
+remote ID as unavailable. When the peer has a single address, all
+subflows use the remote ID 0, no remote address is left, and the
+endpoint is skipped without trying to create a subflow.
 
-Fixes: 831cceed3baf ("wifi: rtw89: debugfs: implement file_ops::read/write to replace seq_file")
+Skip the subflows being closed when looking for the remote IDs already
+in use, and when picking the remote addresses: the addresses of a
+closed subflow are not reliable, e.g. its destination port can be reset
+by tcp_disconnect(). __mptcp_subflow_active() cannot be used here:
+subflows still being established have to keep their remote ID marked as
+in use, to avoid creating duplicated subflows.
+
+Without the fullmesh flag, the remote address is taken from the MPTCP
+socket, so this issue is specific to fullmesh endpoints.
+
+Fixes: 045e9d812868 ("mptcp: fix duplicate subflow creation")
 Cc: stable@vger.kernel.org
-Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+Signed-off-by: Abdul Wasey <w453y.me@gmail.com>
 ---
-v2: reword commit message
+ net/mptcp/pm_kernel.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-Reading read_reg in debugfs before choosing a register gives the log
-above every time on an RTL8852BU. I found it while testing an RTL8922AU
-patch, and it does the same there. After the BUG the driver cannot be
-unloaded. Without hardened usercopy the read returns kernel memory
-instead. The error is also kept for reads at a later offset, so reading
-mac_mem_dump at offset 1 after a failed read hits it too.
-
-  RTL8852BU over USB                 before    after
-  read_reg, nothing chosen
-    6.18.52                          BUG       -EINVAL
-    7.2.6                            BUG       -EINVAL
-    6.18.52, hardened usercopy off   256 KB    -EINVAL
-  mac_mem_dump at offset 1,
-  after a failed read
-    6.18.52                          BUG       -ENOENT
-    7.2.6                            BUG       -ENOENT
-    6.18.52, hardened usercopy off   256 KB    -ENOENT
-
-  RTL8922AU over USB                 before    after
-  read_reg, nothing chosen
-    7.2.6                            BUG       -EINVAL
-  mac_mem_dump at offset 1,
-  after a failed read
-    7.2.6                            BUG       -ENOENT
-
- drivers/net/wireless/realtek/rtw89/debug.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/net/wireless/realtek/rtw89/debug.c b/drivers/net/wireless/realtek/rtw89/debug.c
-index 3a430bd08..3b7f8a809 100644
---- a/drivers/net/wireless/realtek/rtw89/debug.c
-+++ b/drivers/net/wireless/realtek/rtw89/debug.c
-@@ -185,6 +185,9 @@ static ssize_t rtw89_debugfs_file_read(struct file *file, char __user *userbuf,
- 	debugfs_priv->rused = n;
- 
- out:
-+	if (n < 0)
-+		return n;
+diff --git a/net/mptcp/pm_kernel.c b/net/mptcp/pm_kernel.c
+index d3014bf57..ca794853d 100644
+--- a/net/mptcp/pm_kernel.c
++++ b/net/mptcp/pm_kernel.c
+@@ -216,11 +216,19 @@ fill_remote_addresses_fullmesh(struct mptcp_sock *msk,
+ 	 * already created by incoming ADD_ADDR
+ 	 */
+ 	bitmap_zero(unavail_id, MPTCP_PM_MAX_ADDR_ID + 1);
+-	mptcp_for_each_subflow(msk, subflow)
++	mptcp_for_each_subflow(msk, subflow) {
++		/* The initial subflow stays in the list once closed */
++		if (subflow->closing)
++			continue;
 +
- 	return simple_read_from_buffer(userbuf, count, ppos, buf, n);
- }
+ 		if (READ_ONCE(subflow->local_id) == local->id)
+ 			__set_bit(subflow->remote_id, unavail_id);
++	}
  
+ 	mptcp_for_each_subflow(msk, subflow) {
++		if (subflow->closing)
++			continue;
++
+ 		ssk = mptcp_subflow_tcp_sock(subflow);
+ 		mptcp_remote_address((struct sock_common *)ssk, &addrs[i]);
+ 		addrs[i].id = READ_ONCE(subflow->remote_id);
 -- 
-2.56.0
+2.43.0
 
