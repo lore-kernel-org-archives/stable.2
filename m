@@ -1,149 +1,92 @@
-Received: from mta0.migadu.com (out-221.mta0.migadu.com [91.218.175.221])
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BB3723BD17
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 01:02:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.221
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F9DB282F20
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 01:07:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792371755; cv=none; b=YCP48JmZJlAfwqr+5kJBHptstoRCd2hChyV/bwcpcfl4ET9b+EXCVv7WYziSPjbuO2b+RG72FEAgoiRciL0VYtifb5rYNv5e4LwetCc/zIpoIdtbdRofFTIpLbIe0tYBRq0vQ4QYpNgawzIs4/60piPaH26gegWdolmXis+koaI=
+	t=1792372053; cv=none; b=rVAk1geZ8ZC4esKgoY+qyDrPZMxJbY8hG9MKUaWKOkKBFoHZcH0NEacRcTt7V1v0MghLkPuvCxrR7c5xHsdjr1XMv3wUP3tSGYi3mpCPZdHgA/u4E2oQvHfjaMabpz61Y0dQGdx7tFKAQ8Bw6j57mxPh47Q4SIsrD02JRJj1tEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792371755; c=relaxed/simple;
-	bh=7SU2HNON/BqLq2bv/cBKuk5LpU1ziW+Kvf5YYswTIMs=;
+	s=arc-20240116; t=1792372053; c=relaxed/simple;
+	bh=mIiL9PgSJJ8fjuyW++lfEH4uifioW1V5PZY/k9OTv5k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gBOJtyXTodKsJIyS20pc1LkbOlQrI2WWrFc7rENh5l1WpT4Hcy3EThms+f/mQu7FNvEgmDxMGzA3QtS1hD/FahcqSsRCKn3rfm1vPEbp5yRMZ5KpodjsB5lSEq/C40TB1dwqBk5hGM/jJx6TcJy1Ufk2gQijUmp2klJDcrXVPpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=V5Q54Or0; arc=none smtp.client-ip=91.218.175.221
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 MIME-Version; b=AkrEn7WgT1IW84TQ2hb+5PEvV8MgeUoCqw+F91vSGREwb+QQJyym/Z63Uw999pc5MYCe15td5yNs3UoE/KHrl9Nhp442n00VRZiUylxQpLL98NtCh3jF05834hrCZa3XzvSF+mmDbp+pA7iJUNbVXs0zisplZdUPfn3j/+Te0Bc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gt.tech.gov.sg; spf=pass smtp.mailfrom=gt.tech.gov.sg; dkim=pass (1024-bit key) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.b=pdpjT8dR; arc=none smtp.client-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gt.tech.gov.sg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gt.tech.gov.sg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="V5Q54Or0"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7SU2HNON/BqLq2bv/cBKuk5LpU1ziW+Kvf5YYswTIMs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792371750; v=1; x=1792976550;
- b=V5Q54Or0jGTuNpPsKosHfm8ybonnXKSHjGN7wJImYDTyrcP/Xby+C5jLIuLAf5LCl05iBLMf
- 0yL5M1HVZdvW72E79PTFS+k4U3IHx01WtNMlVWHeZvqs9dtDEAsUNf2lMVw+l6PlWMPUtVy8zEm
- GR//fK5+cBH7JPr6hLb46adA=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9ff5fbd1b53f1ea9;
-	Mon, 19 Oct 2026 01:02:30 +0000
-X-Mizu-Trace-ID: 9ff5fbd1b53f1ea9
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: samarth.colleges@gmail.com
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	xu.xin@linux.dev,
-	chengming.zhou@linux.dev,
-	peterx@redhat.com,
-	kas@kernel.org,
-	rppt@kernel.org,
-	lance.yang@linux.dev,
-	linux-mm@kvack.org,
+	dkim=pass (1024-bit key) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.b="pdpjT8dR"
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so3247795eec.0
+        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 18:07:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gt.tech.gov.sg; s=google; t=1792372051; x=1792976851; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MwsY2GW9uMLA/+aDo+zZetHYH/MOnEHa84gDTy3J3Zg=;
+        b=pdpjT8dR72Iis7eWYhTg1J+Li4ygPMsE7ibvytonFeSadqQ8Rnqs+DKxmWpIBBsG8M
+         RRjsjNd7XrWLqODNqBQ0sIcD0GYEtojWeRd24nXiphw25Gn0PnHbbm0u9BZClt9hFh8a
+         mfcC+OcF3Xb9f3QpbMpFrXXBtiU/sY2wlC/qo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792372051; x=1792976851;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MwsY2GW9uMLA/+aDo+zZetHYH/MOnEHa84gDTy3J3Zg=;
+        b=fpc3APqx9ckOQ7t1fqPkfCPtuOJSBOUCMlZSTVey4YIzZAE2MsjsvWZEO/rn2uHmUq
+         jmEx0462IvT2ZNTG0X6wI1rPVcYQC94Rmg4h6v9ymyPnBUPRWmEqRzNsVa7ngwQwlw6c
+         PvJ/yKDqJSRi3UuRJk1GPNLTfCnQ8ZO13WQBf3mCnFjltBRxX0etroQObPoEWTCsxYgF
+         0aiJcoH7aLNCJbakpwqgj/Hpc5hJB3Nfa2j0NZtNeyoLoSgXFHG1NTo9A/2YDuX48Ry/
+         6/92ubSEDfFXHB94RaaAh6ZRtuk472RMjVBjmXIebKU7CNyMeYLMW9TXbwtbIGqCp6Dc
+         7rfw==
+X-Forwarded-Encrypted: i=1; AKwUvBwS0e/pHnap9S8yWqjDN8JGE7qEyrk/RD6Ws9LLsbmFfxs3/xGLLX5+GEkTViZeVy8hA2hQBfA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJojQnQK43RfUuTzxJow4Z194+R1ejcahlQFW6L83PEsNmX82PW
+	Lcz3x6GevpgKSWCIfNdSf1Nz+4KKPDHLJlns0IkX76+PfXscRLrAD7G3WAgl+1+xsJ4=
+X-Gm-Gg: AYBFou3iCpnpDqcAm1Mv10dHxbvnjDyN8mZIpa2pY7QVLYSj2Ou4Gii7mdv4RJTspTz
+	oBME1sBSsjPRLrjNTq4WqEYiJwmaxhl81njgorrmR/oTUYu2SzT+crAr25k7YBM1nuu1ACOInqW
+	u3q+Or4uTCnm3zLynL36pIolDRtpYgjYirZyLAQS/VGnE3FhW2S5Ffd8d3Q3UtHNz3x34ddSfnl
+	lhYKIFs8QWyRGp8F7PSILXC4N/mTPpgc0T59oL3rIJLv8VFZ6lZPSX3c4CJPkiGu5e7NsDlTi5y
+	yrNx7KL0PgKthMbNRpL0x16M9E6no38iLNtnsWmvduhhE95ICaN9Gat/f8BsOWHYfca+nLQONui
+	ugz+/f89jBGWIRF4R87gfGVVQw5EU/yOuNBNEMb1XK0VCGaCw0ZslHnVh15li1PyKAJU9GCkjP1
+	yKF7w1V3AbB3SHiVfRcvP/BeFkyXrjEmNtHh8rlKkvk6euHlzwhkCe3JeQULxKJZacg28x0mRHq
+	+b0ixUeM4fCD8uehL04Gz5Lt5WNsY4FnvR5L5eqNmG/ishggKlbvMSR0NNylfZHEg==
+X-Received: by 2002:a05:7300:7a99:b0:358:f678:46b6 with SMTP id 5a478bee46e88-361a2343165mr9757670eec.22.1792372051354;
+        Sun, 18 Oct 2026 18:07:31 -0700 (PDT)
+Received: from LAPTOP-UUUVNN1I.localdomain (bb119-74-6-224.singnet.com.sg. [119.74.6.224])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082784ec8sm25934235eec.22.2026.10.18.18.07.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 18:07:30 -0700 (PDT)
+From: Wei Jie Law <law.wei.jie@gt.tech.gov.sg>
+To: netdev-bot+sashiko@kernel.org
+Cc: 98lawweijie@gmail.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	law.wei.jie@gt.tech.gov.sg,
 	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	petkan@nucleusys.com,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/ksm: keep soft-dirty and uffd-wp when merging a page
-Date: Mon, 19 Oct 2026 09:02:24 +0800
-Message-ID: <20261019010224.69153-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261018122957.526467-1-samarth.colleges@gmail.com>
-References: <20261018122957.526467-1-samarth.colleges@gmail.com>
+Subject: Re: [PATCH net 2/2] net: usb: pegasus: check rx pkt_len against the received length
+Date: Mon, 19 Oct 2026 09:07:04 +0800
+Message-ID: <20261019010704.90465-1-law.wei.jie@gt.tech.gov.sg>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179229290253.3135.18168766657798775955@kernel.org>
+References: <179229290253.3135.18168766657798775955@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+Sashiko is right. Will be making changes to this patch (2/2) in a v2
+patch request, addressing those comments.
 
-On Sun, Oct 18, 2026 at 05:29:56AM -0700, Samarth Narang wrote:
->replace_page() maps the KSM page with a PTE built from scratch, so the
->soft-dirty and uffd bits of the PTE it replaces are lost. Due to this, a
->write before the merge no longer shows as soft-dirty, the next write to
->a uffd-wp page raises no write-protect fault, and because the page is
->mapped with the VMA's normal permissions, on a uffd-rwp VMA the next
->access raises no RWP fault.
->
->Copy the soft-dirty and uffd bits from the original PTE to the new PTE,
->and restore PAGE_NONE for RWP VMAs, as try_to_map_unused_to_zeropage()
->does.
->
->Fixes: 292924b26024 ("userfaultfd: wp: apply _PAGE_UFFD_WP bit")
->Fixes: 0f8975ec4db2 ("mm: soft-dirty bits for user memory changes tracking")
->Fixes: 763f43865fc4 ("mm: preserve RWP marker across PTE rewrites")
-
-Shouldn't we use these two instead?
-
-Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
-Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
-
-At 292924b26024, WP registration still returns -EINVAL. RWP registration
-isn't enabled at 763f43865fc4 either.
-
-Fixes: 0f8975ec4db2 ("mm: soft-dirty bits for user memory changes tracking")
-
-As for soft-dirty, the tag looks fine to me :)
-
->Cc: stable@vger.kernel.org
->Assisted-by: LLM
->Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
->---
-> mm/ksm.c | 13 +++++++++++++
-> 1 file changed, 13 insertions(+)
->
->diff --git a/mm/ksm.c b/mm/ksm.c
->index dbfb8f98b189..b0d0555aa1b5 100644
->--- a/mm/ksm.c
->+++ b/mm/ksm.c
->@@ -34,6 +34,7 @@
-> #include <linux/memory.h>
-> #include <linux/mmu_notifier.h>
-> #include <linux/swap.h>
->+#include <linux/userfaultfd_k.h>
-> #include <linux/ksm.h>
-> #include <linux/hashtable.h>
-> #include <linux/freezer.h>
->@@ -1463,6 +1464,18 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
-> 		dec_mm_counter(mm, MM_ANONPAGES);
-> 	}
-> 
->+	/*
->+	 * The old PTE may carry soft-dirty and uffd-wp state that tracks writes
->+	 * to this address. Make sure to preserve these bits in the new PTE.
->+	 * On a uffd-rwp VMA, also restore PAGE_NONE.
->+	 */
-
-Nit: the uffd bit also carries RWP state, so "tracks writes" doesn't quite
-cover it.
-
-Maybe:
-
-/*
- * Preserve soft-dirty and uffd bits when replacing the page.
- * Restore PAGE_NONE for RWP-protected PTEs.
- */
-
-Otherwise, LGTM, thanks!
-
-Tested-by: Lance Yang <lance.yang@linux.dev>
-
-Cheers, Lance
-
->+	if (pte_soft_dirty(orig_pte))
->+		newpte = pte_mksoft_dirty(newpte);
->+	if (pte_uffd(orig_pte))
->+		newpte = pte_mkuffd(newpte);
->+	if (pte_uffd(orig_pte) && userfaultfd_rwp(vma))
->+		newpte = pte_modify(newpte, PAGE_NONE);
->+
-> 	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
-> 	/*
-> 	 * No need to notify as we are replacing a read only page with another
->
->base-commit: 48fe11c8d0f1e4e59426a3606f20ac1130b6d8dc
->-- 
->2.53.0
->
->
+    Wei Jie Law
+---
+pw-bot: cr
