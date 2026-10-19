@@ -1,109 +1,113 @@
-Received: from mx9.didiglobal.com (mx9.didiglobal.com [111.202.70.124])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id 54A804E2372;
-	Mon, 19 Oct 2026 12:57:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.202.70.124
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E8384DE731;
+	Mon, 19 Oct 2026 12:59:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792414676; cv=none; b=t/DKOWCjlg08TQp7CBuISOtXhmiqw3InJFWB8juRcZt71jd7QI3oVrtbCqUKK2OQAuwdivrIQJ08rMvObdu1595FeHGLi7oGRJsFIE3WwWURt77qZj39ACA04LuBry9ugfUXF9+60Jcdz3G4hwCziMfuDCKyUY4mOpEuHq94LY8=
+	t=1792414774; cv=none; b=azg23YivcEG6y3NLPROIRfgM1c44qwnQdY0F7TxE8Faek0SG3XA7mO/wkCIkwhkJOeQT88LXaIscr38hZQyJWXTgz+yhETgZMumIXIXWybDzeGwT0ac1mWlOvX9FKePTLaKljcFk4YZCjrylDhI/E0vcGCSuru/jrCH/eZQLD4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792414676; c=relaxed/simple;
-	bh=24vK8Q5xtyzmhS/g+2C/QPGvVqUhzpAJz+hYy1TqqzY=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:MIME-Version:
-	 Content-Type; b=K+XS1fuOcYLkj6kQzjtjg8mrVfU82SlYr2ZGOK0jsQTqIcRZCII3E2PuXijhN4InC6Yt9B3GpPcn69aTfrcWb7QcMTehTXzoCVB29JQ9qKIupoebOjUbQkCYJYvpvTRMHFdMJO0RkwtfpE/rFHsqqC6A7LhqlxA332xPwmdRy0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=didiglobal.com; spf=pass smtp.mailfrom=didiglobal.com; dkim=pass (1024-bit key) header.d=didiglobal.com header.i=@didiglobal.com header.b=jxuWTtvF; arc=none smtp.client-ip=111.202.70.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=didiglobal.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=didiglobal.com
+	s=arc-20240116; t=1792414774; c=relaxed/simple;
+	bh=/O/IZ6jeYkwVNlBRQZe+YCt80JcWyH19FfeWPmk/BhU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d5ndfEOjYpa6Ca9Y3nxK4xOzTEVgktQ/x/OK4IxdibNF9SKcH9NkSJo04VIpjc6pI45uVPp0r5A+YYew3jgn4/+mNf+3I1CFSIPEeVTFAesFQHPE0qV3EolEYcroYt4+TvuftJQI6RbZdfkf9mjoQRqW37gaFXEruKVXnR755PM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hg7xatRv; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=didiglobal.com header.i=@didiglobal.com header.b="jxuWTtvF"
-Received: from mail.didiglobal.com (unknown [10.79.71.38])
-	by mx9.didiglobal.com (MailData Gateway V2.8.8) with ESMTPS id D09EE198006EF9;
-	Mon, 19 Oct 2026 20:54:35 +0800 (CST)
-Received: from BJ01-ACTMBX-05.didichuxing.com (10.79.64.32) by
- BJ03-ACTMBX-02.didichuxing.com (10.79.71.38) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 19 Oct 2026 20:54:35 +0800
-Received: from ml-justfortest.ys (10.79.64.102) by
- BJ01-ACTMBX-05.didichuxing.com (10.79.64.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.45; Mon, 19 Oct 2026 20:54:35 +0800
-X-MD-Sfrom: daikunhai@didiglobal.com
-X-MD-SrcIP: 10.79.71.38
-From: Kunhai Dai <daikunhai@didiglobal.com>
-To: <tj@kernel.org>
-CC: <axboe@kernel.dk>, <josef@toxicpanda.com>, <yukuai@fygo.io>,
-	<cui.tao@linux.dev>, <cgroups@vger.kernel.org>,
-	<linux-block@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<rostedt@goodmis.org>, <mhiramat@kernel.org>,
-	<mathieu.desnoyers@efficios.com>, <linux-trace-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-Subject: [PATCH v2 1/2] blk-iocost: abort weight transfer on invalid donation weights
-Date: Mon, 19 Oct 2026 08:54:11 -0400
-Message-ID: <20261019125412.3123895-2-daikunhai@didiglobal.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20261019125412.3123895-1-daikunhai@didiglobal.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hg7xatRv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792414773; x=1823950773;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=/O/IZ6jeYkwVNlBRQZe+YCt80JcWyH19FfeWPmk/BhU=;
+  b=hg7xatRvSprGp3zrnXY0Nt+sPRMVMjKW5myYVNjEyL40gAo1MZf2gQbU
+   csmi6Hkw/56M+Xgf6bEV4RKDIEewNE5FRLIyhoVgFrLzg8G7ULC2/KxBx
+   PFjIPDbUffUTpPtCXhYA1AuQIalmI1DGDcmL0LiMLNWFXLdueiz9OTDlt
+   wQyCKHX5IDZA28rDaiuUHo3hLXhdK8Rv1f3JEeXC2ZdTgYslXn+DTAoY2
+   YZro2VNb6EOyu73ETGQ9igGHktUkiZGPqjX+yTH5gjK9hwz2xohhpj65Y
+   yy8rr6swPyD+WhLrcB+0rsm2ZwFN0h9hjiflqItcqbZLHNu8yhfDBTOMj
+   w==;
+X-CSE-ConnectionGUID: R+FXD3yEQfuK4P04DaZXfQ==
+X-CSE-MsgGUID: y/pDUeU4QouyK1fkbLAnlA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="981126"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="981126"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 05:59:32 -0700
+X-CSE-ConnectionGUID: C+hhxvkJQNCNH16oITH1WQ==
+X-CSE-MsgGUID: +48RKeNsQQmP901awQUj0w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2410369"
+Received: from nneronin-mobl1.ger.corp.intel.com (HELO [10.245.113.10]) ([10.245.113.10])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 05:59:29 -0700
+Message-ID: <80a71702-f2aa-47ce-a1e9-15d6884270ce@linux.intel.com>
+Date: Mon, 19 Oct 2026 15:59:26 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BJ03-PUBMBX-01.didichuxing.com (10.79.71.11) To
- BJ01-ACTMBX-05.didichuxing.com (10.79.64.32)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=didiglobal.com;
-	s=2026; t=1792414477;
-	bh=XJm75H3TeCaT+jFh4zfoNaIXvTNCGPePFv9zbAerBFs=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
-	b=jxuWTtvFafc4eOoJgrq0KLXLGsILfcTySmhBST8rCsHP0+jNM6VNqzXs85Bs1/+kl
-	 ylgYxisbZGKvaFIa/XI96F8j7CO0+NTX1um+ArfPZyrFUgPVs26im0oMgA61A41dvw
-	 DFu0nmk6/PGyJg6UmBv2qJuH+jLsO9vLMkqWn1KQ=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] usb: xhci: disable the correct slot on alloc_dev failure
+To: raoxu <raoxu@uniontech.com>, mathias.nyman@intel.com
+Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <6C94F1F35FF16E76+20260806084909.2959131-1-raoxu@uniontech.com>
+Content-Language: en-US
+From: "Neronin, Niklas" <niklas.neronin@linux.intel.com>
+In-Reply-To: <6C94F1F35FF16E76+20260806084909.2959131-1-raoxu@uniontech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-transfer_surpluses() warns and then keeps going when the donation
-calculation produced invalid weights.  The following propagation can then
-divide by a zero hweight_inuse, so the warning is immediately followed by a
-divide error.
 
-When the check trips, abandon this period's donation transfer and release
-the walk lists.  This trades one period without donation for not crashing;
-the invalid state is not expected on the normal path.
 
-Developed with assistance from Claude Code (Anthropic): the assistant
-analysed the failure path, drafted the change and ran the checks listed
-below.  The author reviewed the result and remains responsible for it.
+On 06/08/2026 11.49, raoxu wrote:
+> From: Xu Rao <raoxu@uniontech.com>
+> 
+> xhci_alloc_dev() stores the Slot ID returned by the Enable Slot command
+> in the local slot_id variable.  udev->slot_id is updated only after
+> xhci_alloc_virt_device() succeeds.
+> 
+> If endpoint resource reservation or virtual device allocation fails
+> before that update, the error path passes udev->slot_id to
+> xhci_disable_and_free_slot().  During initial enumeration this is slot 0.
+> When reallocating a device whose virtual device is missing or belongs to
+> another usb_device, udev->slot_id may contain a stale Slot ID.
+> The newly enabled slot can therefore remain active, or the wrong slot can
+> be disabled.
+> 
+> Pass slot_id, which identifies the slot enabled by this invocation.
+> xhci_disable_and_free_slot() already handles a missing xhci->devs entry.
+> 
+> Fixes: 3ffbba9511b4 ("USB: xhci: Allocate and address USB devices")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xu Rao <raoxu@uniontech.com>
+> ---
+>  drivers/usb/host/xhci.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
+> index 091c82ca8ee2..dd8c12380e0c 100644
+> --- a/drivers/usb/host/xhci.c
+> +++ b/drivers/usb/host/xhci.c
+> @@ -4298,7 +4298,7 @@ int xhci_alloc_dev(struct usb_hcd *hcd, struct usb_device *udev)
+>  	return 1;
+> 
+>  disable_slot:
+> -	xhci_disable_and_free_slot(xhci, udev->slot_id);
+> +	xhci_disable_and_free_slot(xhci, slot_id);
+> 
+>  	return 0;
+>  }
+> --
+> 2.50.1
 
-Fixes: e08d02aa5fc9 ("blk-iocost: implement Andy's method for donation weight updates")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kunhai Dai <daikunhai@didiglobal.com>
----
-The failure was originally observed on a vendor 4.18 kernel and reproduced
-on v7.3-rc7 by a kprobe widening the current_hweight() publication window.
-The guard is a fail-safe: a hand-constructed input can trigger the divide
-at the function level, but runtime reachability without a race is not
-confirmed, so this patch does not claim to fix a reachable no-race divide.
----
- block/blk-iocost.c | 2 ++
- 1 file changed, 2 insertions(+)
+Reviewed-by: Niklas Neronin <niklas.neronin@linux.intel.com>
 
-diff --git a/block/blk-iocost.c b/block/blk-iocost.c
-index 2745bffcd..7b8af094a 100644
---- a/block/blk-iocost.c
-+++ b/block/blk-iocost.c
-@@ -1956,6 +1956,7 @@ static void transfer_surpluses(struct list_head *surpluses, struct ioc_now *now)
- 			pr_cont(": active=%u donating=%u after=%u\n",
- 				iocg->hweight_active, iocg->hweight_donating,
- 				iocg->hweight_after_donation);
-+			goto out;
- 		}
- 	}
- 
-@@ -2054,6 +2055,7 @@ static void transfer_surpluses(struct list_head *surpluses, struct ioc_now *now)
- 		__propagate_weights(iocg, iocg->active, inuse, true, now);
- 	}
- 
-+out:
- 	/* walk list should be dissolved after use */
- 	list_for_each_entry_safe(iocg, tiocg, &inner_walk, walk_list)
- 		list_del_init(&iocg->walk_list);
--- 
-2.27.0
+Thanks,
+Niklas
 
