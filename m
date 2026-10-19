@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC20360EC6;
-	Mon, 19 Oct 2026 02:57:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C49737E5D2;
+	Mon, 19 Oct 2026 02:57:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792378642; cv=none; b=bqTGy0QcGErvgi9teohl4JXF0vGMOukieKQMfsLuBmxzOlb6EMXqLhgkvCwDAGu8XAzLGpbrLgbclBcykgRhuN+Cp8xKpo8112VfFAWTUw7csl2C8SSrQG28pLf6dyYip8PN483FesdDmXktpmHBeoEZkwFPsO+A37QbZSUiRhA=
+	t=1792378643; cv=none; b=Twayt3eNRgYvYy//qgArnl0kQGqXagN/XzpBu1rlWTS+3iIXMtk7MAbmD4b8m22PFFey92+ZPFq/9L/w3vCTJYWCIZqM33WvDJkPbgOtmgR2jb+2Xfulyrt4cryp/bU3hX/F7+5HD8rULShiVSqha1AeKg00c0FX97h64KdcN3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792378642; c=relaxed/simple;
-	bh=MROBembhKh2MtsGxWOWhn2y86sktX7Rgv9BN5HTh3g0=;
+	s=arc-20240116; t=1792378643; c=relaxed/simple;
+	bh=X8ihD6Eyge+fZTh6cL9EEbhE0krAzDGBObPa4JCeJ+Y=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iJqKfmoGaD3PUMcTfHut6UfQA8P7XpQRuqHxHAo/qVvDantkgY2iE4YWvd7EjAOyVUFiMuYbhcVRPKwDjIPGpfbo4IWBPH9eglPIM/tj/MTmu2avE1Fhsee7ihsvdhcaWMPx3D2Vuj5StnN7sq42hydIo+hIdN+wpfOjHAugw+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U1E4tGPh; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=g3z6qn3UGXT5GDAPXO3zzUdb6Hms8W94IRZ7A99nNLetE1I13boFdJ0wbHTE6vr8uqxYnx18fbsvflU6wGGwT7/UFTz9KQCtHgqAfm5qtK9etwev1JuczvQbBqa6hH7uHli+DQfX6rubXPoq19enSJA7048YOaGf+abNjRQW2q8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KUj8Ycfm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U1E4tGPh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 633EE1F000C4;
-	Mon, 19 Oct 2026 02:57:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KUj8Ycfm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2611F1F000C5;
+	Mon, 19 Oct 2026 02:57:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792378640;
-	bh=hqGSmcH9+ql+tEzrz3OUYyCpkz7GsJAUKHd9AYB6ZuE=;
+	s=k20260515; t=1792378642;
+	bh=mTGE5PbqpCX7JgrNOh1LLgryClihqC8acCoXQ+w/znw=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=U1E4tGPhA3a75LS+t0HIP1THYdihWm2Qztg4A6+NkkiArrZ+mmMwdD3i15saFKXxk
-	 aMPzC/lu35nY4M1rePgi8YaCCKxj6VKytt2aLhGHKqj7hNauNunFbVrZZvfv7B0i4Q
-	 ULNq3sHrD3s3K6MD80dA7WnH83y/VIohMGrV73He3O3PN7wVufgHsyVJd42QHZoz/G
-	 JESmb15SmA4darfDuW9EWRIFKYxeXc4Pi++YrEzbj2TMxQPaUPZ+40g/9G8UPkHHgN
-	 7jei6u8hFYYP0W25FzlBR+1tznmH3bdicTd3vBK9zy7AWI9B9NIHB9neYOFhK+5WSv
-	 m12WjGjIhag2w==
-Subject: Re: [PATCH net v6 1/6] can: dev: prevent bus-off recovery when the
- interface is not running
+	b=KUj8YcfmOETOrGgsb59oAUieoDR/+1QWVtj6m75B6a+xEfja/ztIa3yiOAhPmt7bg
+	 n2W1FlAl3ATlV6hKKJRGNC8xjN2zzPyPu5QSW3TwE706QRl7Ooew78UwUa/Oe/U2if
+	 D83995rfYqJiYOpMIq4UsNocxFo/XFqD1FXrS+0y/sOAqVd+UuGSHkVvMsSAgeeo0S
+	 mxZgv5/qqJ2/y2Ajp+NdArYIQkiq+dBf59aOzsyhc/NC98TjsCp31gKlJgGuLRwjq6
+	 7P/VjjADvTSrHylt1bMtJYV79XM8bwzy4RjwDiMSBnM82iLt380kdJQe5bassGbwgN
+	 jhYxeH+HYi++Q==
+Subject: Re: [PATCH net v6 3/6] can: rockchip_canfd: cancel bus-off restart
+ before closing the device
 From: netdev-bot+sashiko@kernel.org
 To: 1579567540@qq.com
 Cc: mkl@pengutronix.de, mailhol@kernel.org, heiko@sntech.de,
@@ -38,10 +38,10 @@ Cc: mkl@pengutronix.de, mailhol@kernel.org, heiko@sntech.de,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-rockchip@lists.infradead.org, netdev@vger.kernel.org,
  linux-doc@vger.kernel.org, stable@vger.kernel.org
-Date: Mon, 19 Oct 2026 02:57:18 +0000
-Message-ID: <179237863891.3135.16148468658160918424@kernel.org>
-In-Reply-To: <20261017-rockchip-canfd-restart-close-v6-1-ed605feb4b6e@qq.com>
-References: <20261017-rockchip-canfd-restart-close-v6-1-ed605feb4b6e@qq.com>
+Date: Mon, 19 Oct 2026 02:57:20 +0000
+Message-ID: <179237864073.3135.8117104622491949177@kernel.org>
+In-Reply-To: <20261017-rockchip-canfd-restart-close-v6-3-ed605feb4b6e@qq.com>
+References: <20261017-rockchip-canfd-restart-close-v6-3-ed605feb4b6e@qq.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -52,10 +52,10 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 (1) · Medium: 1 · Low: 2
+Critical: 0 · High: 0 · Medium: 1 (2) · Low: 0 (1)
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -63,229 +63,182 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The patch is titled 'prevent bus-off recovery when the
-  interface is not running', but the netif_running() checks it adds are…
-- [Low] The patch rewords the bus-off recovery paragraph in
-  Documentation/networking/can.rst so that the 'e.g.::' now follows the…
-- [Low] The new user-facing text in Documentation/networking/can.rst
-  states that recovery happens only while the interface is running, with…
+- [Medium] The patch adds a boolean gate, priv->irq_suspended.
 
 Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the patch only
-  narrows it.
+- [Medium] At this commit, rkcanfd_start_xmit() is not serialized with
+  the bus-off stop or with restart reinitialisation.
+- [Medium] At this commit, rkcanfd_timestamp_work() calls
+  timecounter_read(&priv->tc), which updates frac, cycle_last and nsec,…
+- [Low] At this commit, rkcanfd_timestamp_stop() (rockchip_canfd-
+  timestamp.c:101-104) only calls cancel_delayed_work(), while…
 
 --
 
-can: dev: prevent bus-off recovery when the interface is not running
+can: rockchip_canfd: cancel bus-off restart before closing the device
 
-This patch adds a netif_running() check to can_restart() before the echo
-skbs are flushed and the driver restart callback is called. It also changes
-can_bus_off() so the restart work is only scheduled when restart_ms is set
-and the interface is running. Documentation/networking/can.rst is updated to
-describe the running-interface requirement.
+This patch cancels the bus-off restart at the start of ndo_stop(). During
+CAN_MODE_START it masks the device interrupts, sets an irq_suspended flag
+and synchronizes the IRQ, and it drains the timestamp work before the
+controller is reinitialized. It also moves INIT_DELAYED_WORK() to probe and
+disables RX offload when request_irq() fails in open.
 
-> diff --git a/Documentation/networking/can.rst b/Documentation/networking/can.rst
-> index 536ff411da1d1..861397e4ce906 100644
-> --- a/Documentation/networking/can.rst
-> +++ b/Documentation/networking/can.rst
-> @@ -1298,7 +1298,8 @@ More info to the above output:
->  	Automatic restart delay time. If set to a non-zero value, a
->  	restart of the CAN controller will be triggered automatically
->  	in case of a bus-off condition after the specified delay time
-> -	in milliseconds. By default it's off.
-> +	in milliseconds, provided the interface is running. By default
-> +	it's off.
-
-[Severity: Low]
-Is this guarantee accurate as written? The bus-off paragraph below makes the
-same claim with no qualification ("Recovery is only scheduled and started
-while the interface is running").
-
-Each new check is a single lockless netif_running() snapshot. Once the check
-in can_restart() passes, the function still goes on to do:
-
-	can_flush_echo_skb(dev);
-	...
-	netif_carrier_on(dev);
-	err = priv->do_set_mode(dev, CAN_MODE_START);
-
-Nothing orders this against __dev_close_many() clearing __LINK_STATE_START
-and calling ndo_stop(). In the same way, can_bus_off() saves netif_running()
-into restart and only queues the work later.
-
-The only wait point is cancel_delayed_work_sync() in close_candev(). That
-runs inside ndo_stop, after the interface has already stopped running.
-
-The commit message says as much ("These checks do not wait for recovery
-that has already passed the check, nor serialize the check with work
-submission"), but the user documentation doesn't. Would softer wording, for
-example that recovery is not scheduled and is skipped once the interface is
-down, describe the behaviour more accurately?
-
-> @@ -1372,7 +1373,8 @@ before you can start it to avoid error-prone default settings::
->  A device may enter the "bus-off" state if too many errors occurred on
->  the CAN bus. Then no more messages are received or sent. An automatic
->  bus-off recovery can be enabled by setting the "restart-ms" to a
-> -non-zero value, e.g.::
-> +non-zero value. Recovery is only scheduled and started while the
-> +interface is running, e.g.::
->  
->      $ ip link set canX type can restart-ms 100
-
-[Severity: Low]
-Is the "e.g.::" now attached to the wrong sentence? Before this patch, the
-example showed how to enable recovery by setting restart-ms. Now it follows
-the "while the interface is running" sentence, so it reads as a command to
-run on a running interface.
-
-can_changelink() rejects that case:
-
-drivers/net/can/dev/netlink.c:can_changelink() {
-    ...
-		/* Do not allow changing restart delay while running */
-		if (dev->flags & IFF_UP)
-			return -EBUSY;
-    ...
-}
-
-Could the "e.g.::" stay on the enabling sentence, with the running-interface
-note moved after the example? It might also be worth saying that restart-ms
-must be set while the interface is down.
-
-> diff --git a/drivers/net/can/dev/dev.c b/drivers/net/can/dev/dev.c
-> index 769745e22a3c7..d5cb22db2a346 100644
-> --- a/drivers/net/can/dev/dev.c
-> +++ b/drivers/net/can/dev/dev.c
-> @@ -198,6 +198,9 @@ static int can_restart(struct net_device *dev)
->  	if (!priv->do_set_mode)
->  		return -EOPNOTSUPP;
->  
-> +	if (!netif_running(dev))
-> +		return -ENETDOWN;
-> +
-
-[Severity: Medium]
-Does this check actually close the window the subject line describes?
-can_restart_work() runs on system_percpu_wq without RTNL. That means the
-check can pass just before __dev_close_many() clears __LINK_STATE_START:
-
-CPU0 (restart work)              CPU1 (RTNL held)
-can_restart_work()
-  can_restart()
-    netif_running() == true
-                                 __dev_close_many()
-                                   clear_bit(__LINK_STATE_START)
-                                   dev_deactivate_many()
-                                   flexcan_close()
-                                     free_irq()
-                                     flexcan_chip_stop_disable_on_error()
-                                     can_rx_offload_del()
-                                     flexcan_transceiver_disable()
-    netif_carrier_on()
-    flexcan_set_mode(CAN_MODE_START)
-      flexcan_chip_start()
-      flexcan_chip_interrupts_enable()
-      netif_wake_queue()
-                                     close_candev()
-                                       cancel_delayed_work_sync()
-
-flexcan_close() calls close_candev() only after all of the hardware
-teardown. So cancel_delayed_work_sync() just waits for the restart to
-finish.
-
-Could the controller then stay restarted and active on the bus after
-ifdown, with its IRQ freed and the transceiver disabled?
-
-can_bus_off() has a similar gap. restart comes from a snapshot, and
-schedule_delayed_work() runs later. hi3110_stop() calls close_candev()
-before free_irq(), so in drivers like hi3110 the work can be queued after
-the only cancel. If the interface is reopened within restart_ms, that stale
-work would run can_restart() on a live controller.
-
-The commit message scopes this case out. A later patch in the series adds
-close_candev_cancel_restart_sync(), but only rockchip_canfd uses it. At the
-end of the series flexcan, hi3110 and the other in-tree drivers still have
-this race.
-
-Is real serialization needed here to stop recovery once the interface starts
-closing? For example, the restart work could be cancelled at the start of
-ndo_stop (in each driver, or through a core hook), or the work could use an
-rtnl_trylock() and requeue on failure.
-
-> @@ -259,13 +262,15 @@ int can_restart_now(struct net_device *dev)
+> diff --git a/drivers/net/can/rockchip/rockchip_canfd-core.c b/drivers/net/can/rockchip/rockchip_canfd-core.c
+> index 37c1c22c40c9f..4b3db07242395 100644
+> --- a/drivers/net/can/rockchip/rockchip_canfd-core.c
+> +++ b/drivers/net/can/rockchip/rockchip_canfd-core.c
 
 [ ... ]
 
->  void can_bus_off(struct net_device *dev)
->  {
->  	struct can_priv *priv = netdev_priv(dev);
-> +	const bool restart = priv->restart_ms && netif_running(dev);
+> @@ -356,7 +357,18 @@ static int rkcanfd_set_mode(struct net_device *ndev,
 >  
-> -	if (priv->restart_ms)
-> +	if (restart)
->  		netdev_info(dev, "bus-off, scheduling restart in %d ms\n",
->  			    priv->restart_ms);
->  	else
-> @@ -273,7 +278,7 @@ void can_bus_off(struct net_device *dev)
+>  	switch (mode) {
+>  	case CAN_MODE_START:
+> +		rkcanfd_chip_interrupts_disable(priv);
+> +		/* Flush the interrupt mask write before suspending the handler. */
+> +		rkcanfd_read(priv, RKCANFD_REG_INT_MASK);
+> +		/* Keep shared IRQs from accessing the device during restart. */
+> +		WRITE_ONCE(priv->irq_suspended, true);
+> +		/* Wait for handlers that already passed the suspended check. */
+> +		synchronize_irq(ndev->irq);
+> +		rkcanfd_timestamp_stop_sync(priv);
+> +
+>  		rkcanfd_chip_start(priv);
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but is rkcanfd_start_xmit()
+serialized against this reinitialization at all?
+
+The restart path quiesces the IRQ handler and the timestamp work, but not
+the TX path. The bus-off path only turns the carrier off, and can_restart()
+calls netif_carrier_on() before do_set_mode(). So xmit can run while
+rkcanfd_chip_start() resets the controller and rkcanfd_chip_fifo_setup()
+does:
+
+	WRITE_ONCE(priv->tx_head, 0);
+	WRITE_ONCE(priv->tx_tail, 0);
+	netdev_reset_queue(priv->ndev);
+
+A concurrent rkcanfd_start_xmit() could write the TX frame registers and
+RKCANFD_REG_CMD into a controller that is being reset. It could also leave
+an echo_skb slot occupied after the indices have been zeroed.
+
+On RKCANFD_QUIRK_RK3568_ERRATUM_12 parts, rkcanfd_start_xmit_write_cmd()
+also writes the full mode register:
+
+	if (priv->devtype_data.quirks & RKCANFD_QUIRK_RK3568_ERRATUM_12)
+		rkcanfd_write(priv, RKCANFD_REG_MODE, priv->reg_mode_default);
+
+Could that take the controller out of reset while it is bus-off, or before
+the bit timing has been programmed?
+
+A later patch in the series, "can: rockchip_canfd: serialize TX with bus-off
+and restart", appears to fix this. It adds tx_lock and tx_enabled, calls
+rkcanfd_tx_disable() in the bus-off path and at the start of
+CAN_MODE_START, and makes xmit return NETDEV_TX_BUSY while TX is disabled.
+
+> +		/* Publish the initialized state before resuming IRQ handling. */
+> +		smp_store_release(&priv->irq_suspended, false);
+> +		rkcanfd_chip_interrupts_enable(priv);
+> +		netif_wake_queue(ndev);
+>  		break;
+> @@ -666,6 +678,10 @@ static irqreturn_t rkcanfd_irq(int irq, void *dev_id)
+>  	struct rkcanfd_priv *priv = dev_id;
+>  	u32 reg_int_unmasked, reg_int;
 >  
->  	netif_carrier_off(dev);
->  
-> -	if (priv->restart_ms)
-> +	if (restart)
->  		schedule_delayed_work(&priv->restart_work,
->  				      msecs_to_jiffies(priv->restart_ms));
+> +	/* Pairs with the release after restart has initialized the device. */
+> +	if (smp_load_acquire(&priv->irq_suspended))
+> +		return IRQ_NONE;
+> +
+
+[Severity: Medium]
+irq_suspended is set at the start of the CAN_MODE_START region in
+rkcanfd_set_mode() and cleared before the final unmask and queue wake.
+While it is set, rkcanfd_irq() returns IRQ_NONE. Is this flag enough to
+keep the handler out of the rest of the restart?
+
+Once smp_store_release() clears the flag, nothing stops a shared IRQ on
+another CPU from running the whole handler before the restart has finished.
+restart_work is preemptible, so the window could be wide:
+
+CPU0 (restart_work)
+rkcanfd_set_mode(CAN_MODE_START)
+    rkcanfd_chip_start(priv);
+    smp_store_release(&priv->irq_suspended, false);
+    <preempted>
+
+CPU1 (shared IRQ)
+rkcanfd_irq()
+    smp_load_acquire(&priv->irq_suspended) returns false
+    reads RKCANFD_REG_INT, sees a new bus-off
+    rkcanfd_handle_state_error_int()
+        rkcanfd_chip_stop(priv, CAN_STATE_BUS_OFF);
+        can_bus_off(ndev);
+
+CPU0 resumes
+    rkcanfd_chip_interrupts_enable(priv);
+    netif_wake_queue(ndev);
+
+Would this leave INT_MASK unmasked and the TX queue awake on a controller
+that is in reset with the CAN state at CAN_STATE_BUS_OFF? That would undo
+the newer bus-off.
+
+The later patch "can: rockchip_canfd: serialize TX with bus-off and
+restart" seems to close this window. It clears the flag, unmasks and wakes
+the queue under tx_lock in rkcanfd_chip_start_finish(), and the bus-off
+path takes tx_lock through rkcanfd_tx_disable(). The flag-as-gate scheme is
+still present at the end of the series, though, including in
+rkcanfd_open().
+
+Lockdep cannot see a flag like this. Would a real lock shared with the
+handler be a better fit here?
+
+[ ... ]
+
+> diff --git a/drivers/net/can/rockchip/rockchip_canfd-timestamp.c b/drivers/net/can/rockchip/rockchip_canfd-timestamp.c
+> index 72774cd2f94b7..ad582afbbd682 100644
+> --- a/drivers/net/can/rockchip/rockchip_canfd-timestamp.c
+> +++ b/drivers/net/can/rockchip/rockchip_canfd-timestamp.c
+> @@ -37,6 +37,11 @@ static void rkcanfd_timestamp_work(struct work_struct *work)
+>  	schedule_delayed_work(&priv->timestamp, priv->work_delay_jiffies);
 >  }
 
-[Severity: High]
-This is a pre-existing issue, but this patch only narrows it and doesn't
-close it. Can restart_work still be queued after close_candev() and then
-outlive the net_device?
+[Severity: Low]
+This isn't a bug introduced by this patch, but rkcanfd_timestamp_work()
+always requeues itself, and rkcanfd_timestamp_stop() only does:
 
-Here is the teardown path with hi3110:
+	cancel_delayed_work(&priv->timestamp);
 
-hi3110_can_remove()
-  unregister_candev()
-    __dev_close_many()
-      hi3110_stop()
-        close_candev()
-          cancel_delayed_work_sync()   <- nothing pending yet
-        priv->force_quit = 1;
-        free_irq()
+Suppose the bus-off interrupt runs rkcanfd_chip_stop()->
+rkcanfd_timestamp_stop() while the worker is executing. Can the worker
+rearm itself and keep polling RKCANFD_REG_TIMESTAMP on a controller in
+reset? That would continue until the restart path or ndo_stop cancels it
+synchronously.
 
-Meanwhile the threaded IST can be on its way into can_bus_off(). It calls
-can_bus_off() whatever the value of restart_ms:
+This appears to be fixed later in the series by "can: rockchip_canfd:
+prevent timestamp work from rearming after bus-off". That patch adds
+timestamp_lock and a timestamp_active flag, which the worker checks before
+reading or requeueing.
 
-hi3110_can_ist()
-    ...
-			if (new_state == CAN_STATE_BUS_OFF) {
-				if (skb)
-					netif_rx(skb);
-				can_bus_off(net);
+[Severity: Medium]
+This is also a pre-existing issue. In rkcanfd_timestamp_work(),
+timecounter_read(&priv->tc) updates cycle_last, nsec and frac in process
+context without any lock.
 
-Suppose the IST computed restart as true before __LINK_STATE_START was
-cleared, and was then delayed until after close_candev(). In that case
-schedule_delayed_work() queues the work after the only cancel.
-hi3110_can_remove() then calls free_candev(), which is just:
+rkcanfd_skb_set_timestamp() reads the same state from the IRQ handler for
+RX, TX-done and error frames, also without a lock:
 
-void free_candev(struct net_device *dev)
-{
-	free_netdev(dev);
-}
+	ns = timecounter_cyc2time(&priv->tc, timestamp);
 
-When restart_ms expires, the delayed_work timer and can_restart_work() would
-run on freed memory. That covers the container_of() to priv, the priv->dev
-load, the new netif_running() read of dev->state, and the indirect call
-through priv->do_set_mode. The new check in can_restart() can't help here,
-because it reads the freed net_device itself.
+Can the handler see a new cycle_last together with an old nsec, and produce
+a hardware timestamp that is off by a whole work period? On 32-bit the u64
+fields could also tear.
 
-Before this patch, any can_bus_off() after close_candev() queued the work,
-so the window is now much smaller. The commit message leaves the remaining
-case to drivers, and no later patch in the series changes hi3110 or the core
-free path.
+The later patch "can: rockchip_canfd: serialize timecounter timestamp
+conversion" appears to fix this by holding timestamp_lock across
+timecounter_cyc2time().
 
-Would closing this need either serialization of the check and the queuing
-against close_candev(), or a cancel/disable of restart_work in the
-unregister or free path?
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261017-rockchip-canfd-restart-close-v6-0-ed605feb4b6e%40qq.com
