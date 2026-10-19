@@ -1,57 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792438310;
-	b=SFKmxdV31ry/iekaIzVg1D6oKCe+2YxlWGrepeQI/2mu+eQ6Qgz2RhN7Jn2/yC4Tyd/A
-	 O+YB4PKrzBWDWGFInjAFMxMs+xJ6fdAT/xDvoIdvowgTAm8452j444+VVD6soWBmRErD3
-	 gVHBhuU/TiFLbjjA8iSEUWEZ3MiyxP3wn8/OJjtKPtjgfExOz1H8cXN3iTRbuetWiMFKM
-	 5CEg1fZTgSj0ytv4uopJMd2UeL0vBXwEjlVTUul3URwMEwQ2F4mP9DiHiKanxR4EvE1Yk
-	 b/EMSugTDCTKfGFRHoczh1gxoz3qjf9iONEV98ilj1NPveND2DUmf32jnbhS19E4dBQ==
+	t=1792438427;
+	b=c9ghnXQxgZfdvAaHGqwPKGyycSWSY4J7KfwvZQYjqiTRDNlcfPL0k4xg4ogVGFU8gXk3
+	 Ep/CuvLCNurxNvQMqyHbUF1lxlYqtUBWN5zaN8yoPctKSPW7YyLUynQkfk9hu27cA3ZdJ
+	 wKMQslDiYzozgQsHLjhzc+pAf2U4eF9yjqv69UoP1d2LAWepeeaaifiWWVyAw6/JxYgrv
+	 zolFC+SIzCO7eZrdlFSwEzRHrigv4XMF3uaMzJJ53XbAUeSeJz8mZi77K35iIiWpJGwIF
+	 M1rGqDaP+sVl06o915M+niCMFUWCBrKJF4N9xSJ+JHlrVf0wsqtXbbrhDO5rYjTj74w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792438310;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=9folctfNGauCs5nvuP3PEOoDXtbhtMvhvDZ7wQ7zCJA=;
-	b=dC6B7VWb/dHiXI8CxM5NhKgUQB+oAPuLbmFpzWzNTftiTcWCI8Q2JLyYlTkDLnwM5rFe
-	 tXwUXkdnVRm7ayM9zqSg/CHlcZYjviVTV9DkaH5ip6SBBwYWxvwc9fxzAaCbx8XYQTVL2
-	 e0jvbswUB/XxKgot4Ag89jDxvLgT8ffxfAfYBbhfuapx8Qny83c1mRPJfON1qz1hqrG+O
-	 DuU4brbwQT29V4KZRKeW11rxMproe1mamuRJ8lT5gltggEZ+qPmgfpLnwIlZppbNKhSo7
-	 O/07AnLssagmbY9hW8hJMYnqmpYp9q8t6Yb/4y/D/QcKusOEaC+DO5h+dZBhsPde2aA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792438427;
+	h=Received:DKIM-Signature:Received:Message-ID:User-Agent:Date:From:To:
+	 Cc:Subject:References:MIME-Version:Content-Type;
+	bh=cLf80aF1oE//m9U0h9Krq6cHWUyxHuFgVvrddQhntx8=;
+	b=1DOlGQBeW09uSh0m8qbrrTQgWr/iUVIltEKJQjDD2HZ7ODL8169G9rI+bGQMRxTBpH5d
+	 MjdSy9IaVxPHaZOM3B4s+XGk0CYMi/3516hy5A1sKuJ4skyEe6JSz2d9KzUdKwRfloI4Q
+	 1vQTKu834ke8yLrjONmW/08fBwnDTEktULEWRCLVszRy4aFW1hAfFexFGZDB6xsdwE1u4
+	 LBZ+R1UhWUb/grdaF4RMsfiYXz1ZHmB1W7IyMp6gF4sDGUN69+E+2dd8BlpVic7M+dLSw
+	 vWZ0Z94iJdNyxPHIwVnQZDnEfO06Yalo85hq5IZxlldiJQA3eHysEEfKDiOojZxOgAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KRv0YG9c;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LBwxDyjl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C54606A319;
-	Mon, 19 Oct 2026 19:31:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6CE8606A326;
+	Mon, 19 Oct 2026 19:33:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KRv0YG9c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E74D1F000C4;
-	Mon, 19 Oct 2026 19:31:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LBwxDyjl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C50AF1F000C7;
+	Mon, 19 Oct 2026 19:33:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792438309;
-	bh=9folctfNGauCs5nvuP3PEOoDXtbhtMvhvDZ7wQ7zCJA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KRv0YG9crZ6IffbISojEqA6WtBl5tZ9bfqx8x0v7OigyeBWdLRWKs7LN7+a2nVvKR
-	 YLQ06uqUvsW5EZHaibPXfilTwVoho6evFS5/edIne0VJt0c2bt+Fc46c73+vYdoJep
-	 a1OQhtxg2phVCVejKi6aqBS907dz6u3mjwTcWMQdcX392lCWi7r0q3ezkKv3miM5YQ
-	 mm1RlkmMOfPpWUuIyjk2ZryRLgWzkiBpvJrySS74Wq8hfILMNBv8DRGQEaigX6Z88m
-	 GN/zwM0tqXCIM9Up6/vu+Yq6m9qGipuwi02BYYwRcJ7OKIdw0BfuWAwwWBHEW4xmn0
-	 BU4pD4vQ1z/nw==
-Date: Mon, 19 Oct 2026 12:31:48 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	stable@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 5/6] KEYS: Reject @datalen values over INT_MAX
-Message-ID: <20261019193148.GE65095@quark>
-References: <20261019181732.449591-1-jarkko@kernel.org>
- <20261019181732.449591-6-jarkko@kernel.org>
+	s=k20260515; t=1792438426;
+	bh=cLf80aF1oE//m9U0h9Krq6cHWUyxHuFgVvrddQhntx8=;
+	h=Date:From:To:Cc:Subject:References;
+	b=LBwxDyjlduxjvasCtyqtnh/9TS4YTVPNYcuVJYWTABD+91IRUWooiP6X1K+5ucuS8
+	 uqmF9QJIdlklzpJv7ixmmW7QXueCrt83c7pfFRgx7lj7plzsldsiPWXAn0hCh+1rpv
+	 exI8GM/Twlx16vt0mMkPv0OWzT9RqEcqbf/5ni2eeDnKwFDX4ACG5MNo1OUotSwqQo
+	 ArDZ+mEyxuGA6lpc2Yay4oaKZrxT5Hf+/ABNg4+8B+bL1RYziyh5rH6jSpZgFOFTiV
+	 V13i82oxoYTl2mWo13s3g8z7omol3qNphuOZBHa5fHUUWEEbvO1P+rqD7olrQRWiIM
+	 NIa+H/CsnrRiA==
+Received: from rostedt by gandalf with local (Exim 4.100.1)
+	(envelope-from <rostedt@kernel.org>)
+	id 1xIt7C-00000001ego-0WpN;
+	Mon, 19 Oct 2026 15:33:46 -0400
+Message-ID: <20261019193345.931372911@kernel.org>
+User-Agent: quilt/0.69
+Date: Mon, 19 Oct 2026 15:33:35 -0400
+From: Steven Rostedt <rostedt@kernel.org>
+To: linux-kernel@vger.kernel.org
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ stable@vger.kernel.org,
+ David Carlier <devnexen@gmail.com>,
+ Vincent Donnefort <vdonnefort@google.com>
+Subject: [for-next][PATCH 5/5] ring-buffer: Take cpus_read_lock() when changing the subbuf order
+References: <20261019193330.365764549@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,16 +66,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019181732.449591-6-jarkko@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 
-On Mon, Oct 19, 2026 at 09:17:25PM +0300, Jarkko Sakkinen wrote:
-> Protect quota from overflowing by rejecting @datalen values that
-> surpass over INT_MAX.
+From: David Carlier <devnexen@gmail.com>
 
-Is there an example of how this can happen, and why the limit needs to
-still be so large?  add_key() for example limits the payload length to
-1 MiB.
+A CPU coming online for the first time gets its per CPU buffer allocated
+by trace_rb_cpu_prepare(), which then adds it to buffer->cpumask. If that
+happens while ring_buffer_subbuf_order_set() is running, the CPU shows up
+after the allocation loop and the install loop walks it with an empty
+new_pages list, corrupting the buffer.
 
-- Eric
+Take cpus_read_lock() as ring_buffer_resize() does.
+
+Cc: stable@vger.kernel.org
+Fixes: f9b94daa542a ("ring-buffer: Set new size of the ring buffer sub page")
+Link: https://patch.msgid.link/20260916192628.274136-1-devnexen@gmail.com
+Signed-off-by: David Carlier <devnexen@gmail.com>
+Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+---
+ kernel/trace/ring_buffer.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 0068bd185945..443271779e94 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -7464,6 +7464,8 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
+ 	if (psize > RB_WRITE_MASK + 1)
+ 		return -EINVAL;
+ 
++	guard(cpus_read_lock)();
++
+ 	/* prevent another thread from changing buffer sizes */
+ 	guard(mutex)(&buffer->mutex);
+ 
+-- 
+2.53.0
