@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 492A247C0FD;
-	Mon, 19 Oct 2026 06:51:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC45247C0FD;
+	Mon, 19 Oct 2026 06:51:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792392697; cv=none; b=MZrTupvCv3BDQX1fT0C7xLXjBz/qqahRtWF4v62xPIuLTa2wD0Ud+5TjZ1lXlk+BjEmAmIm59CsMgrTcGOYNe8jV+8RCSNytUr3gGhFjYuOlJxdjBZHQkwoNC4Uljr+tWXsK6mQWKjp+XcwXrjYdyS9Pn+1mYnJqG4XFf2Deu2k=
+	t=1792392700; cv=none; b=AgNM1GCmah7uxGSO3a0XvyZU1jiDFQc+XLPPKZfQKX6n9960zmZ+wvFoEp0rMywd99X/CA7rNXr18lHUndHUQ1p3BdtGC3Lq62WX7ptJADlqjdv+bYyQ+MwF0Mokr3nDF4Z4cGevb0zQgO0JRu23HzQhuYN5cNREPxnPcoNQv78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792392697; c=relaxed/simple;
-	bh=qxQmdp87TLNqxUO21Mzmr7NFYe66kT6uB7KfN/vckvA=;
+	s=arc-20240116; t=1792392700; c=relaxed/simple;
+	bh=E/sqaxZ81jFhMJlJD563vuWAS3uoWWrqdyfcxpaZmSw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Qr5/GAYl946QowO4xDDtRfLTrN6vMP3o3uJAeu1xnq6Ln9XQDrO7anj/RMEz14CulFxfRZmoythThOZRLQPl/fhqHgyxT5ShuAHlcK3gb77kvOGvdeQ02C62hkOqnipWpWL5Gi4Hy5sOqoCv7kRgMDBzd99H+8/dX+n/0o6y6ew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XRfco/bI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GFH3u7w6eI2KLKsEUTu2sHlGq+ivWM8HSet3BgMxzo6LrY8TDdXTCGBARXBkvimHodWzMWCdmzBVFJcTDu/jrlTStcUBWW7XePa+OEH10AOkHJvvfQNDbUKS3ax7OgIOPbEZeWrqS+ztirg344DE5leiw6pJtRE+P6wBnxp2sdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OmYGWiof; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XRfco/bI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D10201F000C5;
-	Mon, 19 Oct 2026 06:51:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OmYGWiof"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B2D91F000C4;
+	Mon, 19 Oct 2026 06:51:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792392695;
-	bh=rI5RrFchGyd1mI7QuRLeEAz7J1hM0abQKn3OpJsQTCU=;
+	s=k20260515; t=1792392699;
+	bh=Uowh+AcD/kXI8NgNXZj91Lbsa0sKwDYfl2a7Qf1AGUY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XRfco/bI/i2kzP62pJLVEHavMh8LxmNlkFAlYVAK+nYqObKYJXTjSE7KomhhSP0ed
-	 F7ViZshHNawT+gRWvt9p8k5UDpB25HZ3mrh1LwoOsdGAsIWkiRf1ZRsjf+/kCkmt0A
-	 sh0EWNtBKu9hKZiL9/jwzENF43UZEqb2vcR1MXFe0zNH03USrsDe3WYZlDu9Fg/6vp
-	 f+7J3hzav/mj9WBlR1xhjZVSnnrkR8zRJDfmhCHwtUu4NzUiY509c/tZja3GzUn3dL
-	 oQi8UG7a8vDXvu72qY5aHEltXZn1Wiwr8P0Qt8eUv1YKk2lAJChjlWkvMUcSLOFxpn
-	 4Q98cnB7hSvIQ==
+	b=OmYGWiof+zxEEaDdmcSDpn24I3UTeIjR8EFUN0ZAz/YzHFQL/yHZ4pXv2f8hoXFQq
+	 oD/M3rpol3FjPRLkogYfxtFi42zWVYSLCO8Y/N1rc8iEYNaobrLoijkfljCnPRF7n6
+	 OQZdF5LFOZk7Je/Qf0KrmJVyqnbhUjW2IQaWDTOyTYaSf9RF1zvt+u/OrCT6ci918I
+	 /liTOF7hsn2bAQVMqGRnsTggqvLittOkRL0tEJGZoYPzGsbM7gYtA7RQKoVxgbgGMA
+	 2gq4vaBb2qhxtGomj6r2WQHO2rYBGb9pjkSzL2SRObtHd9WDiUFAH3by9DqW4gcG++
+	 p94buTs5s7b4w==
 From: Claudiu Beznea <claudiu.beznea@kernel.org>
 To: lpieralisi@kernel.org,
 	kwilczynski@kernel.org,
@@ -41,9 +41,9 @@ Cc: claudiu.beznea@tuxon.dev,
 	linux-renesas-soc@vger.kernel.org,
 	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v7 03/14] PCI: rzg3s-host: Don't mix goto-based unwinding and cleanup helpers
-Date: Mon, 19 Oct 2026 09:50:14 +0300
-Message-ID: <20261019065025.2146539-4-claudiu.beznea@kernel.org>
+Subject: [PATCH v7 04/14] PCI: rzg3s-host: Create the INTx IRQ domain before setting the chained handlers
+Date: Mon, 19 Oct 2026 09:50:15 +0300
+Message-ID: <20261019065025.2146539-5-claudiu.beznea@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261019065025.2146539-1-claudiu.beznea@kernel.org>
 References: <20261019065025.2146539-1-claudiu.beznea@kernel.org>
@@ -57,12 +57,14 @@ Content-Transfer-Encoding: 8bit
 
 From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-rzg3s_pcie_probe() releases the sysc_np OF node through the
-__free(device_node) annotation, while the rest of the function uses
-goto-based unwinding. According to cleanup.h, the two styles should
-not be mixed within a function, as this makes the ownership semantics
-hard to follow. Drop the annotation and call of_node_put() explicitly
-on the exit paths instead.
+rzg3s_pcie_init_irqdomain() installs the chained INTx handlers before
+creating the INTx IRQ domain. irq_set_chained_handler_and_data() also
+enables the interrupt, so an INTx interrupt arriving in between is
+handled by rzg3s_pcie_intx_irq_handler() while host->intx_domain is
+still NULL, leading to a NULL pointer dereference.
+
+Move the IRQ domain creation before the loop that installs the chained
+handlers.
 
 Fixes: 7ef502fb35b2 ("PCI: Add Renesas RZ/G3S host controller driver")
 Cc: stable@vger.kernel.org
@@ -72,39 +74,49 @@ Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 Changes in v7:
 - none, this patch is new
 
- drivers/pci/controller/pcie-rzg3s-host.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/pci/controller/pcie-rzg3s-host.c | 22 ++++++++++------------
+ 1 file changed, 10 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/controller/pcie-rzg3s-host.c
-index 0ef49bb5ab1a..bee3e46d025f 100644
+index bee3e46d025f..cc985020d962 100644
 --- a/drivers/pci/controller/pcie-rzg3s-host.c
 +++ b/drivers/pci/controller/pcie-rzg3s-host.c
-@@ -1822,9 +1822,8 @@ static int rzg3s_pcie_probe(struct platform_device *pdev)
- 	struct pci_host_bridge *bridge;
- 	struct device *dev = &pdev->dev;
- 	struct device_node *np = dev->of_node;
--	struct device_node *sysc_np __free(device_node) =
--		of_parse_phandle(np, "renesas,sysc", 0);
- 	struct rzg3s_pcie_host *host;
-+	struct device_node *sysc_np;
- 	struct rzg3s_sysc *sysc;
- 	int ret;
+@@ -1024,6 +1024,16 @@ static int rzg3s_pcie_init_irqdomain(struct rzg3s_pcie_host *host)
+ 	struct platform_device *pdev = to_platform_device(dev);
+ 	int i, ret;
  
-@@ -1859,7 +1858,14 @@ static int rzg3s_pcie_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
-+	sysc_np = of_parse_phandle(np, "renesas,sysc", 0);
-+	if (!sysc_np) {
-+		ret = -ENODEV;
-+		goto port_refclk_put;
++	host->intx_domain = irq_domain_create_linear(dev_fwnode(dev),
++						     PCI_NUM_INTX,
++						     &rzg3s_pcie_intx_domain_ops,
++						     host);
++	if (!host->intx_domain) {
++		return dev_err_probe(dev, -EINVAL,
++				     "Failed to add irq domain for INTx IRQs\n");
 +	}
++	irq_domain_update_bus_token(host->intx_domain, DOMAIN_BUS_WIRED);
 +
- 	sysc->regmap = syscon_node_to_regmap(sysc_np);
-+	of_node_put(sysc_np);
- 	if (IS_ERR(sysc->regmap)) {
- 		ret = PTR_ERR(sysc->regmap);
- 		goto port_refclk_put;
+ 	for (i = 0; i < PCI_NUM_INTX; i++) {
+ 		char irq_name[5] = {0};
+ 		int irq;
+@@ -1045,18 +1055,6 @@ static int rzg3s_pcie_init_irqdomain(struct rzg3s_pcie_host *host)
+ 						 host);
+ 	}
+ 
+-	host->intx_domain = irq_domain_create_linear(dev_fwnode(dev),
+-						     PCI_NUM_INTX,
+-						     &rzg3s_pcie_intx_domain_ops,
+-						     host);
+-	if (!host->intx_domain) {
+-		ret = -EINVAL;
+-		dev_err_probe(dev, ret,
+-			      "Failed to add irq domain for INTx IRQs\n");
+-		goto teardown_intx;
+-	}
+-	irq_domain_update_bus_token(host->intx_domain, DOMAIN_BUS_WIRED);
+-
+ 	if (IS_ENABLED(CONFIG_PCI_MSI)) {
+ 		ret = rzg3s_pcie_init_msi(host);
+ 
 -- 
 2.43.0
 
