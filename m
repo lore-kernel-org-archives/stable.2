@@ -1,82 +1,37 @@
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BABA048987A
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 07:30:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424FF3B840E;
+	Mon, 19 Oct 2026 07:31:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792395010; cv=none; b=VRYFN5tZD4I6bA0dzqhfYIrII4jOyFG9XgRtoD5rWpK2MJE/fRkajxD9LsuyncSLbb7mpA2QgxytWQdQsvIM+05xF+vQ8+vIl8LfSHIo2HajFmMJV+UxBKhmVwh+vFkxtAcGo8jgKE+RDTaHpaKpr8v5zfTC2il1PDHwfcmksd0=
+	t=1792395077; cv=none; b=hSlrtp8e+2xWAcPuoQdAgUUPrWx+uJ8yq6EeM6WlFhiWikaRA9EST+Zo8Mz025KLzLC04BKkRCHWu1lDDF+HTx53UEisgRrYQEvAZzElGXCkysetOSKAI/ipGaoXnkBTWJi4kSBOfHcgUdyPwSE6ligb9GS+a7GsSoXfBCXXiCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792395010; c=relaxed/simple;
-	bh=KSLxsLECDBlglJ5ok09mHe2q8VxULP0ESynDUsj7NjM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Cx8t+4gKkN251RhQ41tswIfm5Tt3tBCDwFNhriDK8nBqLTX6M09IUYFkLakJvgfTB5F6Ogm0jawpahGoBXkjPLvUr1NZs/HZ79a7+54iz0xL88Cnoj5cPSAli4rrHvrc3WYBZSSjylE/QS9Z8ITegrOodd6qZ0fm6NdLGffQ7uc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YEuLeHx+; arc=none smtp.client-ip=74.125.82.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792395077; c=relaxed/simple;
+	bh=EHY8rLc2FwiDGXDYp12bwuY3kPhNQbNyoalFhdVK0bA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oSzEQRZCrZVRY3oVTi3VZp2qaAkv1vlUmjmOLuUr/oP2hdoW4TCiqF/9d9U6Gd9MeAFECn5Q2I6NojFFNZoPSiU++0iVxEWg/zNt7Ks1PaO3WNPf9WcV2uEnb3zoZT5jsg+Kfxvlh7mRCLTsQuKacL9hK8bpzvXHqi8XlG0QzOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=V9ZudTh0; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YEuLeHx+"
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-15dd124bbe7so3353924c88.1
-        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 00:30:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792395008; x=1792999808; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W7q+tRZEp7x1zsFqvPs4W277M15/fE06QNYP4aD/T7c=;
-        b=YEuLeHx+oIDYF0/1zs0ioFged4Rid3sTaRson+OVR/O/l3fgz5++mImkgtx4AfMjfR
-         SypSb3MxBgv5LzQzRRRicI9LNbRYNloaMkt0jSsddSk+SPG7yUNCj84xwoEredJaJwhd
-         xBhJ+9fxyT7iO8Sgq7v57XxlnXB64E7LHtxBO2IRczqUkoJCM4HaQZgSu+tidQDz6Wzk
-         rUB5pK8SIRpVMem2bX2hXiSOmK08baUt02nCvRgQyGGsNEt1JS3l7WHh8dmtmgjNnrG9
-         opf0F466B7ahWHi4VMDqCZHlRLLmTyd/CSAFK400Q6ixNxmZlCFCxG6iVcGsXyScxpSh
-         ABjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792395008; x=1792999808;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W7q+tRZEp7x1zsFqvPs4W277M15/fE06QNYP4aD/T7c=;
-        b=NzkWCAWXqAtW6kHwymlzG4OQVuW7Oy2JfYrmgKV2P7O7ioxeWow3kmRFiv6MN+0hhk
-         CqTS+LageTZPxgioFKQF4e0KKkIyfO5Hv4i3P3J4UboNMZ8hwGw6ZJ4bPH4XejYnh5go
-         47/Z+cYMmBKHypXUx0LSMt4HP9ealVbTNa3gkEINw6Q1wpdDQnOwZ8IXYBz9TVN+//rH
-         LsrwQ7LjlTeN/HkPBufKeROhHV58+unS0gUTAy9CNsElAzioPTGuXjqZGQ/x4L6CjMPK
-         XqW+ixcfppvAGwy4nTpoOIB2tT3li7TwCLgQYIOUm6EJuaCQqQjtMvtiRZeJv4v+2RSP
-         wdDg==
-X-Forwarded-Encrypted: i=1; AKwUvBxUbkCmB/yUc0vOEBE72bTAMl5oWOaAkrJAlgfW/Jfcp3LMOoakQ9bBs0+8wqO36i6cKcjNCq0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK9ZardX1ab1RpdOVeF+zWyAqrTFA/X3wBRaLXQ1xOzEMszXhkm
-	BD6IPWnSecDmfThzUO+6OIf4EvBYtPBURZnzobAWDvUicSruws/KQvvw
-X-Gm-Gg: AYBFou3sQyXw2EnaDSDLwE3ATfgJkuKDpthO25CJQyWc7cbbUGxFOUS5pvPkLtKYoVc
-	UmguyD5t9NF453lmifN2Eyjop2r/GGSRu/HL7MseqJzxWVIVA8sS9CW9N07L7f1ORT6fNZ1nxlz
-	dYVyWg+yqN8YuVCt2HRvgGrVuVqAzeOiX7MqmOpZPpyYOqsW7991Wt3FhL6t06JakSPBufXjMZV
-	zrNTk+7TKsXaNAuVElFA/ME+0uqx176C7ofT9IwNS391MSFaYXFhMXk8/praXbjST923CQw9Plp
-	hp3rmbkFUmFDcdT12vib0z7sKKpe/hn7CYYbpb2MyQyffpQMdrvreFeHMMr+xVTrPLsXQbJMqzl
-	B1JtptEKR+BfhNJW+jBBN8l1r2hpOeL6/M6dIMHm07rdmVLS34R18hAV3R8bKwf62h12GYVT1k4
-	QDKGoaoh9aQZlCKPHFGafMStxY7DCqO/rtUehKYsL+pmUFAaGnn5IO4GnE0XrsEM1pcdNp6/Msj
-	qdR48LRdG+NMQnwycMygnlgyOxIwp5kCUwi3TiqifvnKq/IWdveuzX3scV4TNNXT4tMZ04NXjdK
-	QkESsg==
-X-Received: by 2002:a05:701a:ca05:b0:17e:6de6:6a1a with SMTP id a92af1059eb24-18511ad9debmr11070852c88.8.1792395007422;
-        Mon, 19 Oct 2026 00:30:07 -0700 (PDT)
-Received: from codespaces-393231.mimvmn1ww3huhhjmzljqefhnig.rx.internal.cloudapp.net ([4.240.39.204])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b75be5esm35134155c88.16.2026.10.19.00.30.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 00:30:06 -0700 (PDT)
-From: Eklavya Singh <eklavyasingh2106@gmail.com>
-To: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Heming Zhao <heming.zhao@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Eklavya Singh <eklavyasingh2106@gmail.com>,
-	syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="V9ZudTh0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=12
+	85rFpzC6YZHeY1fzSe60PUfJDV9XOWaOJECVINhlM=; b=V9ZudTh0UimYum8+Ny
+	kScKWBtvLO7qj55W5MSX9q40iIY0G0lY37k3uDO0/YV0J1d+Y+wXIwGHAjJ2/WwJ
+	YgtC1kvVBPKxaU1fo0Gn25i86PBmNyE2q5laafm3OYFSfuHBQmf2iBhCmKo4jvee
+	BwtQbGjTjGUeZBm5kdvx78QeM=
+Received: from LAPTOP-BJS5C4G0 (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD331Y8x9VqPYGvBA--.37115S2;
+	Mon, 19 Oct 2026 15:31:09 +0800 (CST)
+From: Heyang Tan <thy15333007817@163.com>
+To: linux-wireless@vger.kernel.org
+Cc: chunkeey@gmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH v2] ocfs2/heartbeat: serialize concurrent writes to a region's dev attribute
-Date: Mon, 19 Oct 2026 07:29:35 +0000
-Message-ID: <20261019072936.2279-1-eklavyasingh2106@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261018163121.128911-1-eklavyasingh2106@gmail.com>
-References: <20261018163121.128911-1-eklavyasingh2106@gmail.com>
+Subject: [PATCH] p54: validate firmware record lengths
+Date: Mon, 19 Oct 2026 15:31:04 +0800
+Message-ID: <20261019073105.1853-1-thy15333007817@163.com>
+X-Mailer: git-send-email 2.51.0.windows.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,147 +39,102 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD331Y8x9VqPYGvBA--.37115S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGr13WFy7tw4DuF17Aw48Crg_yoW5ZrWrpF
+	Wjkay3JrWDC3W3X3s5Jrs7AFW5Ja1fJFW3WFyIq3ZxXF13Ar1Fq34YvFWkZrn0krySyrWY
+	k3yUta47CF4DAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UqYLPUUUUU=
+X-CM-SenderInfo: 5wk1ikatttiiixyrlqqrwthudrp/xtbC4R0RumrVxz3eYQAA3t
 
-o2hb_region_dev_store() checks reg->hr_bdev_file to see if the region
-is already started, but nothing stops two writers from doing that at
-the same time. configfs only serializes writes through the same open
-file, so two processes that each open the dev attribute can both get
-past the check:
+The p54 firmware parser accesses component ID and component version
+records without checking that their lengths cover the fields being read.
+A malformed record can therefore make the parser read past the record.
 
-  A: hr_bdev_file is NULL, opens file A, sets hr_bdev_file = A
-  B: hr_bdev_file is NULL, opens file B, sets hr_bdev_file = B
-  A: start fails, fput(hr_bdev_file) drops B, sets it to NULL
-  B: start fails, fput(NULL)
+Validate the component ID and component version record lengths before
+accessing their data. The descriptor record is also checked against the
+shortest descriptor length found in the supported firmware images.
 
-Both calls also use the same hr_slots, hr_slot_data and hr_tmp_block,
-so the error paths can free the slot data twice.
+Reject descriptor values that underflow the RX offset or produce an empty
+RX range before updating the driver state.
 
-syzbot hit the fput(NULL) with an unbound loop device, where every
-start fails with -EIO. With four threads doing the same thing on a
-KASAN kernel I get both crashes within a second:
+Assisted-by: LLM Codex
+Tested-by: Christian Lamparter <chunkeey@gmail.com>
+Signed-off-by: Heyang Tan <thy15333007817@163.com>
 
-  BUG: KASAN: double-free in o2hb_unmap_slot_data+0x14d/0x2f0
-  BUG: kernel NULL pointer dereference, address: 0000000000000158
-
-Add a mutex to the region and hold it in dev_store(), in the
-block_bytes, start_block and blocks stores, and in dev_show(), since
-they all look at hr_bdev_file. dev_store() cleans up with goto, so it
-takes the mutex in a small wrapper rather than with guard(). It sleeps
-with the mutex held while it waits for the heartbeat thread. That is
-fine because neither the thread nor the teardown paths take it.
-
-With the patch the same test ran for 10 minutes with lockdep on and
-nothing was reported.
-
-Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Reported-by: syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=5d4e96acd0febccb5e87
+Acked-by: Christian Lamparter <chunkeey@gmail.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
 ---
-v2: take the mutex in a wrapper around dev_store() instead of with
-guard(), since dev_store() uses goto for its cleanup. No other changes.
+ drivers/net/wireless/intersil/p54/fwio.c | 45 ++++++++++++++++++++----
+ 1 file changed, 39 insertions(+), 6 deletions(-)
 
-v1: https://lore.kernel.org/all/20261018163121.128911-1-eklavyasingh2106@gmail.com/
-
- fs/ocfs2/cluster/heartbeat.c | 32 ++++++++++++++++++++++++++------
- 1 file changed, 26 insertions(+), 6 deletions(-)
-
-diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
-index 1c3def99bb0..003c398366e 100644
---- a/fs/ocfs2/cluster/heartbeat.c
-+++ b/fs/ocfs2/cluster/heartbeat.c
-@@ -269,6 +269,8 @@ struct o2hb_region {
- 	struct list_head	hr_handler_list;
- 	/* Serializes timeout arming against failed-start and teardown. */
- 	struct mutex		hr_arming_mutex;
-+	/* Serializes the region's configfs attributes against dev_store(). */
-+	struct mutex		hr_dev_mutex;
- 	bool			hr_stopping;
- 
- 	/* last hb status, 0 for success, other value for error. */
-@@ -1676,6 +1678,7 @@ static ssize_t o2hb_region_block_bytes_store(struct config_item *item,
- 	unsigned long block_bytes;
- 	unsigned int block_bits;
- 
-+	guard(mutex)(&reg->hr_dev_mutex);
- 	if (reg->hr_bdev_file)
- 		return -EINVAL;
- 
-@@ -1705,6 +1708,7 @@ static ssize_t o2hb_region_start_block_store(struct config_item *item,
- 	char *p = (char *)page;
- 	ssize_t ret;
- 
-+	guard(mutex)(&reg->hr_dev_mutex);
- 	if (reg->hr_bdev_file)
- 		return -EINVAL;
- 
-@@ -1731,6 +1735,7 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
- 	char *p = (char *)page;
- 	int ret;
- 
-+	guard(mutex)(&reg->hr_dev_mutex);
- 	if (reg->hr_bdev_file)
- 		return -EINVAL;
- 
-@@ -1748,10 +1753,12 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
- 
- static ssize_t o2hb_region_dev_show(struct config_item *item, char *page)
- {
-+	struct o2hb_region *reg = to_o2hb_region(item);
- 	unsigned int ret = 0;
- 
--	if (to_o2hb_region(item)->hr_bdev_file)
--		ret = sprintf(page, "%pg\n", reg_bdev(to_o2hb_region(item)));
-+	guard(mutex)(&reg->hr_dev_mutex);
-+	if (reg->hr_bdev_file)
-+		ret = sprintf(page, "%pg\n", reg_bdev(reg));
- 
- 	return ret;
- }
-@@ -1867,11 +1874,9 @@ static int o2hb_populate_slot_data(struct o2hb_region *reg)
-  * this is acting as commit; we set up all of hr_bdev_file and hr_task or
-  * nothing
-  */
--static ssize_t o2hb_region_dev_store(struct config_item *item,
--				     const char *page,
--				     size_t count)
-+static ssize_t __o2hb_region_dev_store(struct o2hb_region *reg,
-+				       const char *page, size_t count)
- {
--	struct o2hb_region *reg = to_o2hb_region(item);
- 	struct task_struct *hb_task;
- 	long fd;
- 	int sectsize;
-@@ -2032,6 +2037,20 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
- 	return ret;
- }
- 
-+static ssize_t o2hb_region_dev_store(struct config_item *item,
-+				     const char *page,
-+				     size_t count)
-+{
-+	struct o2hb_region *reg = to_o2hb_region(item);
-+	ssize_t ret;
+diff --git a/drivers/net/wireless/intersil/p54/fwio.c b/drivers/net/wireless/intersil/p54/fwio.c
+index a3d9053f043c..b19d054441b8 100644
+--- a/drivers/net/wireless/intersil/p54/fwio.c
++++ b/drivers/net/wireless/intersil/p54/fwio.c
+@@ -52,6 +52,12 @@ int p54_parse_firmware(struct ieee80211_hw *dev, const struct firmware *fw)
+ 		u32 code = le32_to_cpu(bootrec->code);
+ 		switch (code) {
+ 		case BR_CODE_COMPONENT_ID:
++			if (len != 1) {
++				wiphy_err(priv->hw->wiphy,
++					  "firmware component ID has invalid length\n");
++				return -EINVAL;
++			}
 +
-+	mutex_lock(&reg->hr_dev_mutex);
-+	ret = __o2hb_region_dev_store(reg, page, count);
-+	mutex_unlock(&reg->hr_dev_mutex);
+ 			priv->fw_interface = be32_to_cpup((__be32 *)
+ 					     bootrec->data);
+ 			switch (priv->fw_interface) {
+@@ -71,17 +77,44 @@ int p54_parse_firmware(struct ieee80211_hw *dev, const struct firmware *fw)
+ 				return -ENODEV;
+ 			}
+ 			break;
+-		case BR_CODE_COMPONENT_VERSION:
++		case BR_CODE_COMPONENT_VERSION: {
++			struct bootrec_comp_ver *desc =
++				(struct bootrec_comp_ver *)bootrec->data;
 +
-+	return ret;
-+}
++			if (len < 6) {
++				wiphy_err(priv->hw->wiphy,
++					  "firmware component version is too short\n");
++				return -EINVAL;
++			}
 +
- static ssize_t o2hb_region_pid_show(struct config_item *item, char *page)
- {
- 	struct o2hb_region *reg = to_o2hb_region(item);
-@@ -2156,6 +2175,7 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
- 	reg->hr_key = crc32_le(reg->hr_region_num + O2NM_MAX_REGIONS,
- 		name, strlen(name));
- 	mutex_init(&reg->hr_arming_mutex);
-+	mutex_init(&reg->hr_dev_mutex);
- 	reg->hr_stopping = true;
- 	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
- 	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
+ 			/* 24 bytes should be enough for all firmwares */
+-			if (strnlen((unsigned char *) bootrec->data, 24) < 24)
+-				fw_version = (unsigned char *) bootrec->data;
++			if (strnlen(desc->fw_version, sizeof(desc->fw_version)) <
++			    sizeof(desc->fw_version))
++				fw_version = (unsigned char *)desc->fw_version;
+ 			break;
++		}
+ 		case BR_CODE_DESCR: {
+ 			struct bootrec_desc *desc =
+ 				(struct bootrec_desc *)bootrec->data;
+-			priv->rx_start = le32_to_cpu(desc->rx_start);
+-			/* FIXME add sanity checking */
+-			priv->rx_end = le32_to_cpu(desc->rx_end) - 0x3500;
++			u32 rx_start, rx_end;
++
++			/* 0xa is the shortest descriptor in supported firmware. */
++			if (len < 0xa) {
++				wiphy_err(priv->hw->wiphy,
++					  "firmware descriptor is too short\n");
++				return -EINVAL;
++			}
++
++			rx_start = le32_to_cpu(desc->rx_start);
++			rx_end = le32_to_cpu(desc->rx_end);
++			if (rx_end < 0x3500 || rx_end - 0x3500 <= rx_start) {
++				wiphy_err(priv->hw->wiphy,
++					  "firmware descriptor has invalid RX range\n");
++				return -EINVAL;
++			}
++
++			priv->rx_start = rx_start;
++			priv->rx_end = rx_end - 0x3500;
+ 			priv->headroom = desc->headroom;
+ 			priv->tailroom = desc->tailroom;
+ 			priv->privacy_caps = desc->privacy_caps;
 -- 
-2.55.0
+2.34.1
 
