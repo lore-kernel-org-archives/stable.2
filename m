@@ -1,106 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792429733;
-	b=NmIkrX39qTjMRYXBIS99qc+oMQqs66uo13s7DPllEeOR7pUho6DXINJYTK7gxlgq9JtY
-	 ht6OTuhXE94Ydy9Dy6fccGhSqcqcz3taxXn2HEhf4Ehey/1aKMI27iRW04D8BhfJ+V3dl
-	 iDrquAG/2bnMXQbzSvAwtORAV7/AMSsfGkQS1WtkVXwr4LgClnnqKiGRSjQBZ+AalKbcf
-	 ItvdHWAV4IsMSZUw03D1zAz0sDqCHuGv1VUpKJ1QGocIasdmjz2hlCHk6ORs0069vc+h4
-	 b3ui1Udk4aqjrFTTCajjLZmW5ff+v74JKXlvKIo2HPnRRTXBORrCrAuEf6QNBHtqHlA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792429733;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=eALao68/H5C/VsMyz1IjAZA3Cs8TeVJx3ISpy1cycgI=;
-	b=JWaY84L1gxlhUK43J9nJZaZXITIHtn2yilIRCdyaj95+H9S7Jyc9fQV6RXxU8pkGTlVb
-	 4kMozVcw068v24ftJxxCcraTLLkR/Zri7tF8iu12jfc9YjBj6aRx1xowfrQKam6WOqUiq
-	 WgvMu0Z4bbHHAFWHCooF8qn8PFN++yKxlQ5e1HQrgBu099d/q8gA/ROT0n51KH1hrN35X
-	 4Jw9aLTHsLNi5giKNmofyAF5IoOobjPROtOiPEqMtwCMS3CF6h5jgVHl3RQjAX1BGpjU/
-	 i0uW1ALaq4weDnAd2KJTHnzoeUJb6ALEUOR+XSV1HFXx9iYy/K3uerq7LGlVhrCLptA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ZTp+5dhs;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792430192;
+	b=fuc0QiZUWyaEVvklRGvy8TsSQB/0eIz5r41EKHaBCq9imHoKECuHLJXotzbIvnNn5usA
+	 bWh+67xSKj6TldICe3rW5rXbSlzk9L4zVigDWrKf0XsT/s8KupXYAQoTMK3vYKvnA3EY6
+	 AOsJtN4tn8zbsYftHQqayypiVs6zXzg2nTu2kf69Okwut1lgcym9YlW7TZ/cuteqQVkJe
+	 f9vMjh1aU2Ty+KEazy8x+n0P0L61JvixBgbQdT21ndyij57qHdydGfPwqvazMyJQBdl6q
+	 6O+RPLKlmImlgj3ymvQyuTlV3/Dc5oQyHoWE+nDVsWcZqr1UYfPVK7FQ61FCEhVr1qA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792430192;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
+	bh=K2vUzuaMBCNTUuvS6I+gP0mVDNrQtyFuOyf7v+WWCK4=;
+	b=DJYrU6h58ASGQ7XMiaaAgN0b0t9E4ifHbVnamTTpVoGtbDfPqd+IF//kwWBrT2MtNDfX
+	 mBf/PgQUDawFWHIYBJtfrjQiqhFo8hLvyuAtYA/HBBKV2BgPHXPalaMR69jeaEDpZaUU4
+	 oeIrl2NQyipKiK5XzwmTQOrXznMEjuKSQGAPOyA1BQcYI+Xum0vd2FibEGKPPZOVPV/+0
+	 NLee8uZ9cfUPVRt765J72W/f7uUYDWBxQ0IRgpMq4f5HnLqO7Ye/1iA8fr7Erl4zdEIUZ
+	 +ItOADlQsl+glbnncWHI8kc4la+fxC9U9xYVFIUmYqfDE9LoJErNpXoJLQRS1OeI/1A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="ChWe/0gB";
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC02606A337;
-	Mon, 19 Oct 2026 17:08:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BC02606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 821B9606A31C
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 17:16:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 821B9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ZTp+5dhs
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 15DE3202855;
-	Mon, 19 Oct 2026 19:08:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792429717;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eALao68/H5C/VsMyz1IjAZA3Cs8TeVJx3ISpy1cycgI=;
-	b=ZTp+5dhs40pCb8tfzCnJL6WafcRzplPTVkHDwPojAJeHx7qkIwHlt+eOtXL3KPC8eKaW+D
-	8Gxr/+ozgoQf9f+7X2Z9jEL8da8Zw93yivQCQCRRsnxk9smvLhXYgJDTiz+1AvmBayi3aO
-	fTSbnZxaeY1pfBrovvkwdu9pXl4UueldH4qomiCxG/akjNPwQgb+aDBkVC+9BhyX0N4/RB
-	2UfTEy+Wsq5yqT6dfo1XUBmDnjY4hAx+suF+tNWuPO8vb5xOsPGoers6fbiTeuC+aIenGN
-	D7oFGMiFpkDjs2N+FW55IkgoSg1yRtGlnvZNYvotyfaCb+cFT/fXKmzzjKcsEA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792429717; a=rsa-sha256;
-	cv=none;
-	b=JJaO1f+PCVdN1O465g5L6DrakxSkga3fJoMSvlW1XNEeLY+wLvrSghcCqdqrNApF8K2ptL
-	7UySIKwAxHQWzmIa0lkQ8VGm2eClhuZLtRy3GZOVW5QaxRCN1AqqEssSwZQttWkiku1Wmw
-	wzRz5zbwvGUsyRLWMc9Dx+bxoc0P48Q9dOlTusCbdEyR/5f1swnLaWzPBG0jKb7BUTcU5a
-	v4RkOjnrzM/MuhgnhwQsJe1IshiWZJWhqhGE5C6NpL4OuWQGks/77CYBwmAk1lqDjgDzWU
-	F1eWEjGaBGl0/Ejodyh7xpy+0jBo4jfSC50+ni7p8A+hFRdr1hOQLBNO2MaCOQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792429717;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eALao68/H5C/VsMyz1IjAZA3Cs8TeVJx3ISpy1cycgI=;
-	b=SzM696FwEGXCsyE7U5d+WBXQPtBKtp3g/pIAqtdvMaz5YV0KUvdGhEINaWZC5rE2R/fPWM
-	HmzTn5B+trrIE/zhiteLRmzdcVxQbUb+GceQTDsLDkGE8F7/fcH9cbvSdxr3FlM2xuP9it
-	NQ6qAQS1eOc+XJDr2nCk+ZDXax9H3oMR2dW35MA77l1K/R4nVCvPv/h6qG7QANZrGbgwG7
-	KAeBG6rJEBXKX3Nyi8c3scvpSw5ZDFOOsQolYl5pWuJWeZlouXt2RMZdXn6HehJ4eg3LOS
-	npcd/PyY1P2N8h/MobdYzthf7sf82TmDYHN1GytYgVNgZtJb62/QYnBUwjlzrA==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xIqqi-000FgJ-34;
-	Mon, 19 Oct 2026 19:08:36 +0200
-Received: from blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id A20F35C9490;
-	Mon, 19 Oct 2026 17:08:36 +0000 (UTC)
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	kuba@kernel.org,
-	linux-can@vger.kernel.org,
-	kernel@pengutronix.de,
-	Kaixuan Li <kaixuanli0131@gmail.com>,
-	Oliver Hartkopp <socketcan@hartkopp.net>,
-	Quchaosheng <quchaosheng000406@163.com>,
-	stable@vger.kernel.org,
-	Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH net-next 06/11] can: isotp: check the frame type, not just the length
-Date: Mon, 19 Oct 2026 19:01:11 +0200
-Message-ID: <20261019170834.1727150-7-mkl@pengutronix.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261019170834.1727150-1-mkl@pengutronix.de>
-References: <20261019170834.1727150-1-mkl@pengutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ChWe/0gB
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 6EAF51A1237;
+	Mon, 19 Oct 2026 17:16:22 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3975A60582;
+	Mon, 19 Oct 2026 17:16:22 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6A78B10328429;
+	Mon, 19 Oct 2026 19:16:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792430177; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=K2vUzuaMBCNTUuvS6I+gP0mVDNrQtyFuOyf7v+WWCK4=;
+	b=ChWe/0gBcL6Z0ItStPa/eTv7ISYebz5yzAyP/xTLc92Ewba7oxmNNgU2GDiIKY2YBdzOS/
+	uYq+Wo2GKhlPcFtjvxHMGv93MzwbyhZb1sG5rFzZ8JCMtF6Zhu27FrzT5pyw6brr6KLZGG
+	ZuTHg2VKmkpQ1A5IdXSARoE9gZiW57k6LtVtpMTvKigB+DOWsIQ+1jlaM/VNJWs0uUIUpN
+	gERIWSKRwoMj7twbqo/1t75xDzHXs+SgcHRu1BNHN4tvRVhftEVVhL5idOQdVyBVQli/MO
+	+mZr0P+Y+mL7Oh4l1sAXFBtk/qenV2XqIvv616XzimId7nKDnr4jKPipgeR2pg==
+From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Date: Mon, 19 Oct 2026 19:16:11 +0200
+Subject: [PATCH 5.10.y] sock_map: avoid race between sock_map_close and
+ sk_psock_put
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -110,60 +63,143 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261019-cve-2024-39500-v1-1-e23b37e81914@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vchc3bJLtIKvorxIGXB9YCmVaIhv
+ LtFj98k8y9IGk0TjsWCqLMlu08ZsisQrpdpVLI+GxVXXlhaCrNSRk371jHTwauw56bpa4d8ekQ
+ d7P0LnuBK4fKD839Pr+6m4bnVsK5fEoE0YnoAAAA=
+X-Change-ID: 20261019-cve-2024-39500-76e106088d45
+To: stable@vger.kernel.org
+Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ syzbot+07a2e4a1a57118ef7355@syzkaller.appspotmail.com, 
+ Jakub Sitnicki <jakub@cloudflare.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792430174; l=5109;
+ i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
+ bh=JMhG3o9boJ+wxHglsnr7t8etUPNj8qZyaqZOEfMIXRU=;
+ b=wC1Z/gb6XmH3vAEa8zkLo4H8SrSTwhJVpfNo/Vlm/ve8IwCIYPZqo4OwHI6ilbwaPvBl1QSis
+ JTedoy2k0HhAIb/1LrKCYa+WBClOGuCb82/R6qqEHlxTzjVFzZErO+g
+X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
+ pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Kaixuan Li <kaixuanli0131@gmail.com>
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 
-isotp_rcv() separates Classic CAN from CAN FD by skb->len alone:
+commit 4b4647add7d3c8530493f7247d11e257ee425bf0 upstream.
 
-	if (skb->len != so->ll.mtu)
-		return;
+sk_psock_get will return NULL if the refcount of psock has gone to 0, which
+will happen when the last call of sk_psock_put is done. However,
+sk_psock_drop may not have finished yet, so the close callback will still
+point to sock_map_close despite psock being NULL.
 
-	cf = (struct canfd_frame *)skb->data;
+This can be reproduced with a thread deleting an element from the sock map,
+while the second one creates a socket, adds it to the map and closes it.
 
-A CAN XL frame with cxl->len 4 is CAN_MTU bytes, so it passes, and is then
-read as a canfd_frame whose len comes out of canxl_frame.flags: at least
-0x80.
+That will trigger the WARN_ON_ONCE:
 
-Of the paths that follow, only the flow control one uses that length
-without bounding it first, so check_pad() walks to 255 over a 16-byte
-frame and the caller reports EBADMSG on an unrelated socket.
+------------[ cut here ]------------
+WARNING: CPU: 1 PID: 7220 at net/core/sock_map.c:1701 sock_map_close+0x2a2/0x2d0 net/core/sock_map.c:1701
+Modules linked in:
+CPU: 1 PID: 7220 Comm: syz-executor380 Not tainted 6.9.0-syzkaller-07726-g3c999d1ae3c7 #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 04/02/2024
+RIP: 0010:sock_map_close+0x2a2/0x2d0 net/core/sock_map.c:1701
+Code: df e8 92 29 88 f8 48 8b 1b 48 89 d8 48 c1 e8 03 42 80 3c 20 00 74 08 48 89 df e8 79 29 88 f8 4c 8b 23 eb 89 e8 4f 15 23 f8 90 <0f> 0b 90 48 83 c4 08 5b 41 5c 41 5d 41 5e 41 5f 5d e9 13 26 3d 02
+RSP: 0018:ffffc9000441fda8 EFLAGS: 00010293
+RAX: ffffffff89731ae1 RBX: ffffffff94b87540 RCX: ffff888029470000
+RDX: 0000000000000000 RSI: ffffffff8bcab5c0 RDI: ffffffff8c1faba0
+RBP: 0000000000000000 R08: ffffffff92f9b61f R09: 1ffffffff25f36c3
+R10: dffffc0000000000 R11: fffffbfff25f36c4 R12: ffffffff89731840
+R13: ffff88804b587000 R14: ffff88804b587000 R15: ffffffff89731870
+FS:  000055555e080380(0000) GS:ffff8880b9500000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000000000000000 CR3: 00000000207d4000 CR4: 0000000000350ef0
+Call Trace:
+ <TASK>
+ unix_release+0x87/0xc0 net/unix/af_unix.c:1048
+ __sock_release net/socket.c:659 [inline]
+ sock_close+0xbe/0x240 net/socket.c:1421
+ __fput+0x42b/0x8a0 fs/file_table.c:422
+ __do_sys_close fs/open.c:1556 [inline]
+ __se_sys_close fs/open.c:1541 [inline]
+ __x64_sys_close+0x7f/0x110 fs/open.c:1541
+ do_syscall_x64 arch/x86/entry/common.c:52 [inline]
+ do_syscall_64+0xf5/0x240 arch/x86/entry/common.c:83
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fb37d618070
+Code: 00 00 48 c7 c2 b8 ff ff ff f7 d8 64 89 02 b8 ff ff ff ff eb d4 e8 10 2c 00 00 80 3d 31 f0 07 00 00 74 17 b8 03 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 48 c3 0f 1f 80 00 00 00 00 48 83 ec 18 89 7c
+RSP: 002b:00007ffcd4a525d8 EFLAGS: 00000202 ORIG_RAX: 0000000000000003
+RAX: ffffffffffffffda RBX: 0000000000000005 RCX: 00007fb37d618070
+RDX: 0000000000000010 RSI: 00000000200001c0 RDI: 0000000000000004
+RBP: 0000000000000000 R08: 0000000100000000 R09: 0000000100000000
+R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
 
-bcm_rx_handler(), j1939_can_recv(), can_can_gw_rcv() and raw_rcv() check
-the frame type here, and can_dropped_invalid_skb() switches on
-skb->protocol on the transmit side. isotp_rcv() is the gap.
+Use sk_psock, which will only check that the pointer is not been set to
+NULL yet, which should only happen after the callbacks are restored. If,
+then, a reference can still be gotten, we may call sk_psock_stop and cancel
+psock->work.
 
-Fixes: fb08cba12b52 ("can: canxl: update CAN infrastructure for CAN XL frames")
-Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
-Reviewed-by: Oliver Hartkopp <socketcan@hartkopp.net>
-Acked-by: Oliver Hartkopp <socketcan@hartkopp.net>
-Reviewed-by: Quchaosheng <quchaosheng000406@163.com>
-Link: https://patch.msgid.link/20260920035626.2581040-1-kaixuanli0131@gmail.com
+As suggested by Paolo Abeni, reorder the condition so the control flow is
+less convoluted.
+
+After that change, the reproducer does not trigger the WARN_ON_ONCE
+anymore.
+
+Suggested-by: Paolo Abeni <pabeni@redhat.com>
+Reported-by: syzbot+07a2e4a1a57118ef7355@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=07a2e4a1a57118ef7355
+Fixes: aadb2bb83ff7 ("sock_map: Fix a potential use-after-free in sock_map_close()")
+Fixes: 5b4a79ba65a1 ("bpf, sockmap: Don't let sock_map_{close,destroy,unhash} call itself")
 Cc: stable@vger.kernel.org
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Acked-by: Jakub Sitnicki <jakub@cloudflare.com>
+Link: https://lore.kernel.org/r/20240524144702.1178377-1-cascardo@igalia.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
 ---
- net/can/isotp.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ net/core/sock_map.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/net/can/isotp.c b/net/can/isotp.c
-index f5dc9d04bd68..d3e43ab48425 100644
---- a/net/can/isotp.c
-+++ b/net/can/isotp.c
-@@ -755,6 +755,14 @@ static void isotp_rcv(struct sk_buff *skb, void *data)
- 	if (skb->len != so->ll.mtu)
- 		return;
- 
-+	/* check for correct CAN CC/FD frame content */
-+	if (so->ll.mtu == CAN_MTU) {
-+		if (!can_is_can_skb(skb))
-+			return;
-+	} else if (!can_is_canfd_skb(skb)) {
-+		return;
-+	}
-+
- 	cf = (struct canfd_frame *)skb->data;
- 
- 	/* if enabled: check reception of my configured extended address */
--- 
-2.53.0
+diff --git a/net/core/sock_map.c b/net/core/sock_map.c
+index 438bbef5ff75..1aa4eafdd7ea 100644
+--- a/net/core/sock_map.c
++++ b/net/core/sock_map.c
+@@ -1601,13 +1601,17 @@ void sock_map_close(struct sock *sk, long timeout)
+ 	lock_sock(sk);
+ 	rcu_read_lock();
+ 	psock = sk_psock(sk);
+-	if (unlikely(!psock)) {
++	if (likely(psock)) {
++		saved_close = psock->saved_close;
++		sock_map_remove_links(sk, psock);
++		psock = sk_psock_get(sk);
++		if (unlikely(!psock))
++			goto no_psock;
+ 		rcu_read_unlock();
+ 		release_sock(sk);
+-		saved_close = READ_ONCE(sk->sk_prot)->close;
+ 	} else {
+-		saved_close = psock->saved_close;
+-		sock_map_remove_links(sk, psock);
++		saved_close = READ_ONCE(sk->sk_prot)->close;
++no_psock:
+ 		rcu_read_unlock();
+ 		release_sock(sk);
+ 	}
+
+---
+base-commit: aca95a35f1bcc0626c4fa4d1252bf2d4c990a1a2
+change-id: 20261019-cve-2024-39500-76e106088d45
+
+Best regards,
+--  
+Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
 
