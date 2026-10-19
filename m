@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792433886;
-	b=VrXJa5ak9K6RAFZ2uC4/lNR0ABeFSWtxu4hT01V9lez+4qCWLTgCpIMymv/JiAtcvSRJ
-	 Xzwf4VyjNpCkPEtb7drZxalmLwS3O8fGXPsNVwUkCxlTxN++3KWhzjDpZx1ahB+7nDO8I
-	 Vror9hYpKzbfMl7Jqb0PXXIlf28qndYhXWdgZa4GLDX3TI8yg+wMBSZa1FObIZCpdIvFF
-	 hJr1honMvJsZKcrS6goFD/KZk5/3Mq2G5CttQHzgg+XAeokm740G4QVedX+ss+Uf2rrtR
-	 ztdxREl8D/7GHvWq+DMySI9/JAGdA3M7YwV0hekPG8KFB9hNtKG0vfByfIGSGj1oViQ==
+	t=1792433881;
+	b=KdFNEmfhuhtbFDlwtPqmwPdHyZSuRRIiFfM67czS28R/2rA7VHLNZafZrQRv5wbZvTv9
+	 xuNUR1u7DQw+m5fhGnMeNtakrl2iu3YX5uhVYOhCmmqbKYwZizRhijUj1xSLYTo9p9W7b
+	 jqzxhtH6jlv8Pc85nmehAUWodmpUirqDKPFKOOlL7AyZ/FUTM37g6jAFoTd116EfkqhRf
+	 l6cU8d8Zckoxnifir7c86qRqBOWeja2Th2DmX6+x6kp0pcuCdI+AqjEcpD2LBGytdg8yR
+	 YXdju1S655y4rPDJfR+yxDMdAbqhKbRsM9jVBIWjhy9oDTKEJNcCRukcIAIY/ZBxftg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792433886;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792433881;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=GtBw/Wu0WnwjYL9xqON2SXYjgCC1DmhQpuIb3/Nqu5Y=;
-	b=X0EJUUaYqZUDM39euIOdMyV0TawNm8bXXywZIukTWA4ZJYwbYWdeBFSEe0BkAv9NNcju
-	 XnNIxvlHltxb6cR13oWEE8hbUpThDYgPMMY6bQmpzKXmXS8FM1Q89KNki/bMcRUNiBwcC
-	 W7s/SX+wwA9LDDZM11iY5DCdkC+HrbtTQ+yAPWI+f7e6Op4PRPkM9x70OA9hcEbLBfG+Z
-	 +5COh5qfxhwdLxuKZDGrts7k6Gfn3ugjpI5A/rMoTtSQBvfdJydo8QAWjDyxa0UpXO/p5
-	 TMtdpBuyFLd5Mjz6oJYYrP0BQl3ewIFL9HxKoq1Pnh1Orace0OC41R+qy2riciSoP5w==
+	bh=acg8T1h3CP9b+Pbi7wYrl5dgPp8n7OnwctjB/+c79FI=;
+	b=in6fqTMAcDhTFKljkMwngVXReOFW6Aybm9tfA3PSh+Ndv10AQiMpLGMFTQahZQjfrAX6
+	 c+yn5l1ycHtj0NHpoaPKMzsutLlvnXEEZwGKmSVQveqNB06/LYm+6TsCKNJE0IdKkN1Tw
+	 40Qvw6PyM56QOV6G2rZCMYAiIHwoxFJ+7vvojDPJ4RPAItUEMyGmXSs59xBvCSAowjPN6
+	 Pn3TLCCqvId9CDU3y7f0UO/iAUazXXbZxQwtTkffDA6Bat7JNHSSvEYFG2RU7uV9KxlQ0
+	 MFGlwCBaNDZR5fRb4GzSZU+sYVOVbIW6o2NQoqH7OoJ6lOhbYnXwlNOmmkLhhE2veaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DIw2YP+T;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="k/C5fKB/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E901D606A320;
-	Mon, 19 Oct 2026 18:18:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 789D3606A319;
+	Mon, 19 Oct 2026 18:18:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DIw2YP+T
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 040E21F000C4;
-	Mon, 19 Oct 2026 18:18:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k/C5fKB/
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id C48591F000C6;
+	Mon, 19 Oct 2026 18:18:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792433885;
-	bh=GtBw/Wu0WnwjYL9xqON2SXYjgCC1DmhQpuIb3/Nqu5Y=;
+	s=k20260515; t=1792433881;
+	bh=acg8T1h3CP9b+Pbi7wYrl5dgPp8n7OnwctjB/+c79FI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DIw2YP+T5Vlm+B1GP02dUbDQdFUjxfrL7V2usrFpBJmbaRybtcaVCPdt80fZfCKEp
-	 uAE1A7l/CVD5ILHUOvTjnI0nuUENjrIrCaCE2F2fO12HlEauZVzrV3Y0Ddp80KyqGX
-	 egH2UfixPMkmhyVP5KePT1EMZt6lU3KpbRZN6MBvehWm8hDrod+WWoXfIRkl4+71va
-	 Dpk9eA9T52WAX3j2luQ8YDFUxOqTwyQv/mzN+1bC117tPkKDpgTj9zXrkSNmp8DmmX
-	 vGEDHVdMqTZR7JF7UGIgEH2uY7/Z5S6bzWZadC06iE4sVvTdyfDyq3S+E6XTDbM4ff
-	 msl+cgI4C/txw==
+	b=k/C5fKB/vJ25NS3VOcEi5R5Yn0aZiY51Nz1m708LNtFtIBQ8SS4qeCGdF0dfZXMrs
+	 uiHg15Lo+SkFXVeNpBvC8skmG4mfIrnb86dY766mac6TYW+U+UdMdk2QtEaZ2Gdr8s
+	 TFBCpyaKlP+7dM5fhVTtKScatovVDJ+ERRHzxNAglEV0S0KU5z6nlpr7rcj7MbDGmQ
+	 93Vn62qGM3sviYkIhF1TNX0aZ1Xth+9GZsS7QyoL9JN2fSpy8qJGkP45Oiif4dza/E
+	 sWMAFw4FJ/jz1Wyey2Jr04td/3g4++Lz7WXXi0dogRTR/8BOBvL869DD9cK3eBb/1S
+	 XaXDMYAvJ5qVA==
 From: Jarkko Sakkinen <jarkko@kernel.org>
 To: David Howells <dhowells@redhat.com>
 Cc: keyrings@vger.kernel.org,
@@ -50,9 +50,9 @@ Cc: keyrings@vger.kernel.org,
 	"Serge E. Hallyn" <serge@hallyn.com>,
 	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM),
 	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v2 6/6] KEYS: Verify the key identity in __keyctl_unlink
-Date: Mon, 19 Oct 2026 21:17:26 +0300
-Message-ID: <20261019181732.449591-7-jarkko@kernel.org>
+Subject: [PATCH v2 5/6] KEYS: Reject @datalen values over INT_MAX
+Date: Mon, 19 Oct 2026 21:17:25 +0300
+Message-ID: <20261019181732.449591-6-jarkko@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261019181732.449591-1-jarkko@kernel.org>
 References: <20261019181732.449591-1-jarkko@kernel.org>
@@ -67,50 +67,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Let's define the following preconditions:
+Protect quota from overflowing by rejecting @datalen values that
+surpass over INT_MAX.
 
-- Two keys: A and B.
-- R is a keyring.
-- Both have the same type/description/domain.
-
-Then:
-
-1. KEYCTL_LINK(A, R) => {A}
-1. KEYCTL_LINK(B, R) => {B}
-2. KEYCTL_UNLINK(A, R) => {}
-
-Instead, verify key tidentity before unlinking, and return -ENOENT on
-mismatch.
-
-Assisted-by: LLM
 Cc: stable@vger.kernel.org
-Fixes: b2a4df200d57 ("KEYS: Expand the capacity of a keyring")
+Assisted-by: LLM
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Reviewed-by: David Howells <dhowells@redhat.com>
 Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 ---
- security/keys/keyring.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ security/keys/key.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/security/keys/keyring.c b/security/keys/keyring.c
-index 7143f3079d20..b025331488c5 100644
---- a/security/keys/keyring.c
-+++ b/security/keys/keyring.c
-@@ -1501,9 +1501,15 @@ static int __key_unlink_begin(struct key *keyring, struct key *key,
- 			      struct assoc_array_edit **_edit)
- {
- 	struct assoc_array_edit *edit;
-+	const void *object;
+diff --git a/security/keys/key.c b/security/keys/key.c
+index dbf5626a48b7..fbd608634bde 100644
+--- a/security/keys/key.c
++++ b/security/keys/key.c
+@@ -384,6 +384,9 @@ int key_payload_reserve(struct key *key, size_t datalen)
  
- 	BUG_ON(*_edit != NULL);
+ 	key_check(key);
  
-+	object = assoc_array_find(&keyring->keys, &keyring_assoc_array_ops,
-+				  &key->index_key);
-+	if (!object || keyring_ptr_to_key(object) != key)
-+		return -ENOENT;
++	if (datalen > INT_MAX)
++		return -EINVAL;
 +
- 	edit = assoc_array_delete(&keyring->keys, &keyring_assoc_array_ops,
- 				  &key->index_key);
- 	if (IS_ERR(edit))
+ 	/* contemplate the quota adjustment */
+ 	if (delta != 0 && test_bit(KEY_FLAG_IN_QUOTA, &key->flags)) {
+ 		unsigned maxbytes = uid_eq(key->user->uid, GLOBAL_ROOT_UID) ?
 -- 
 2.47.3
 
