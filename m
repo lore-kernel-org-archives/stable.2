@@ -1,96 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9325A4AD7F6;
-	Mon, 19 Oct 2026 09:44:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F04133F383;
+	Mon, 19 Oct 2026 09:52:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792403084; cv=none; b=MGKaRJIGo0yfGttHcDyEsg/9vM7HsCmZ3P4MdW9dxZy0xj2myhwqx9M8tpdGG8dyeDJ9Br7E/9OOKkjXC+EQU3edOailZVg1WAegeUWFU6NaqEAvVfVc2wnCi6Wwj5xpCC//KDKI+YECMOU6PcK9e4KIHESlE+xH+W/SMVM64Ac=
+	t=1792403554; cv=none; b=h3tQ1igpdIANRrMuAftjN9Mzbefc/n7blm9qjCwOYcMgJsz+98fsFFffkt0tHrarl8Y5bhk8ItiwWidbgv+fGNsPpYAYFFcn5vn0rFNCHCB0YhFlEexFy6PhP2ukMCTeTUT5Z2H1V7hekFt/IZ2Nr0R1KYOZPpmrCThjGJ8nJc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792403084; c=relaxed/simple;
-	bh=pSXKSxezTvk2VOUeT0zN6S3csEqGn3iefHVtY4ZUGs0=;
+	s=arc-20240116; t=1792403554; c=relaxed/simple;
+	bh=WvTtg8JCOogctn7ZSS15ZrjyvEQJ4j+2UdlxuxFQnTw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rC2KuG+kUOQSyIdl7goVUgRzo9VBMI1hmVXipjkyp6ahcfHErlwDPoodeO/UnXfU/TxCW9Gdi1G21mhj+4bHNFmIBnmxnidGUDM+dpfYBz6PLf9y3mgXv0sdQTpmc7Ru5siqj9tTCIrFAHKxyVxjcmd8X+oXAIRpFDWyaZbCZ28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pMGXW7//; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=CfiBFQvZrR7GyJkM+yMTQuGzCdp0oNMqfmU0ZDeD2Nltxtddj27SaHHVhxlVDfBTA1oj0ZzVyh+la59qopzAdK2yzUk7yicXfN0TB1danUVUEvnAjuq3sMp1C27gQ+kIne9lli9mnBL8KNTbEq/24yr3Jy2qtuo8IYfvLxWSzIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=DapX6O+I; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=HkvNOVKW; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=DapX6O+I; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=HkvNOVKW; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pMGXW7//"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2162B1F000C4;
-	Mon, 19 Oct 2026 09:44:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792403082;
-	bh=NVj3qVIVjj/Noq+geb2xGXoB3a1a0LYTHU/cvLo7+9s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=pMGXW7//CqzKlUILcyEdGuwwaPqF9MnvjJ8/i5oAhpu9b0hbeE5TVrRDV+4EbEtb6
-	 foG1sg8pN2Co8odqFQ+29M7WWvq4kmFzmLwG4matTIa2ofnWtk3KCZUtzrVJZET3Xm
-	 g9yXhHmZ1jTbwqlFua4zUVN6W07vRf0Wld8c7YGw=
-Date: Mon, 19 Oct 2026 11:44:39 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Qi Zheng <zhengqi.arch@bytedance.com>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	Muchun Song <songmuchun@bytedance.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Chuck Lever <cel@kernel.org>, "Darrick J. Wong" <djwong@kernel.org>,
-	Dave Chinner <david@fromorbit.com>, Kirill Tkhai <tkhai@ya.ru>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Price <steven.price@arm.com>, Theodore Tso <tytso@mit.edu>,
-	Vlastimil Babka <vbabka@suse.cz>,
-	Abhinav Kumar <quic_abhinavk@quicinc.com>,
-	Alasdair Kergon <agk@redhat.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
-	Andreas Dilger <adilger.kernel@dilger.ca>,
-	Andreas Gruenbacher <agruenba@redhat.com>,
-	Anna Schumaker <anna@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Bob Peterson <rpeterso@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Carlos Llamas <cmllamas@google.com>,
-	Chandan Babu R <chandan.babu@oracle.com>, Chao Yu <chao@kernel.org>,
-	Chris Mason <clm@fb.com>,
-	Christian Koenig <christian.koenig@amd.com>,
-	Coly Li <colyli@suse.de>, Dai Ngo <Dai.Ngo@oracle.com>,
-	Daniel Vetter <daniel@ffwll.ch>,
-	Daniel Vetter <daniel.vetter@ffwll.ch>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	David Airlie <airlied@gmail.com>,
-	David Hildenbrand <david@redhat.com>,
-	David Sterba <dsterba@suse.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
-	Gao Xiang <hsiangkao@linux.alibaba.com>,
-	Huang Rui <ray.huang@amd.com>, Ingo Molnar <mingo@redhat.com>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Jani Nikula <jani.nikula@linux.intel.com>, Jan Kara <jack@suse.cz>,
-	Jason Wang <jasowang@redhat.com>, Jeff Layton <jlayton@kernel.org>,
-	Jeffle Xu <jefflexu@linux.alibaba.com>,
-	"Joel Fernandes (Google)" <joel@joelfernandes.org>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Josef Bacik <josef@toxicpanda.com>, Juergen Gross <jgross@suse.com>,
-	Kent Overstreet <kent.overstreet@gmail.com>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>, Minchan Kim <minchan@kernel.org>,
-	Nadav Amit <namit@vmware.com>, Neil Brown <neilb@suse.de>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Olga Kornievskaia <kolga@netapp.com>,
-	Richard Weinberger <richard@nod.at>,
-	Rob Clark <robdclark@gmail.com>, Rob Herring <robh@kernel.org>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>, Sean Paul <sean@poorly.run>,
-	Song Liu <song@kernel.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Tomeu Vizoso <tomeu.vizoso@collabora.com>,
-	Tom Talpey <tom@talpey.com>,
-	Trond Myklebust <trond.myklebust@hammerspace.com>,
-	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Yue Hu <huyue2@coolpad.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH 6.6 1003/1674] mm: shrinker: add infrastructure for
- dynamically allocating shrinker
-Message-ID: <2026101913-unicycle-fancy-0adc@gregkh>
-References: <20261017160431.119607952@linuxfoundation.org>
- <20261017160456.871872142@linuxfoundation.org>
- <68c00b4f-d74e-4e2d-a7bc-9af44beeb25e@bytedance.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="DapX6O+I";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="HkvNOVKW";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="DapX6O+I";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="HkvNOVKW"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 6896E1F44E;
+	Mon, 19 Oct 2026 09:52:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792403550; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q/XjywU63jHK3zYfOZqk/GFYoCnttMlmfWvXQ5qlU98=;
+	b=DapX6O+Ip4pKRXdlJVwKoYbFSgZmnci+oTZVGWx9N//wk+3Co0A6Gy6VjLwyPbJnXuzAkL
+	nK/2Yk9eDEsEWraU+H6ro4FbaBRxl+xMkoYT76R16fauUCeKeP7bK2SBFwKH5znABsckFq
+	6f8cRPlmgFApKa7bh+P/Y4scW5VQEgI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792403550;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q/XjywU63jHK3zYfOZqk/GFYoCnttMlmfWvXQ5qlU98=;
+	b=HkvNOVKWZPcLczlyzJhxbC7tMzVsoibO8LGhYXd0PSctA5J8hm3Rc9LMb4abX/F22nZPqn
+	qBMliAhGPtxMP+Ag==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792403550; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q/XjywU63jHK3zYfOZqk/GFYoCnttMlmfWvXQ5qlU98=;
+	b=DapX6O+Ip4pKRXdlJVwKoYbFSgZmnci+oTZVGWx9N//wk+3Co0A6Gy6VjLwyPbJnXuzAkL
+	nK/2Yk9eDEsEWraU+H6ro4FbaBRxl+xMkoYT76R16fauUCeKeP7bK2SBFwKH5znABsckFq
+	6f8cRPlmgFApKa7bh+P/Y4scW5VQEgI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792403550;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q/XjywU63jHK3zYfOZqk/GFYoCnttMlmfWvXQ5qlU98=;
+	b=HkvNOVKWZPcLczlyzJhxbC7tMzVsoibO8LGhYXd0PSctA5J8hm3Rc9LMb4abX/F22nZPqn
+	qBMliAhGPtxMP+Ag==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3F3B4134B3;
+	Mon, 19 Oct 2026 09:52:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id emzKBV7o1WpYOgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 19 Oct 2026 09:52:30 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id BB917A1413; Mon, 19 Oct 2026 11:52:25 +0200 (CEST)
+Date: Mon, 19 Oct 2026 11:52:25 +0200
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Andreas Gruenbacher <agruenba@redhat.com>, Jan Kara <jack@suse.com>, 
+	Al Viro <viro@zeniv.linux.org.uk>, ecryptfs@vger.kernel.org, linux-ext4@vger.kernel.org, 
+	jfs-discussion@lists.sourceforge.net, linux-nilfs@vger.kernel.org, exfat@lists.linux.dev, 
+	linux-fsdevel@vger.kernel.org, ntfs@lists.linux.dev, ocfs2-devel@lists.linux.dev, 
+	linux-btrfs@vger.kernel.org, gfs2@lists.linux.dev, linux-efi@vger.kernel.org, 
+	linux-mtd@lists.infradead.org, linux-xfs@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH RFC 20/28] gfs2: wait for a pending withdraw before
+ remounting read-only
+Message-ID: <wauqpgtmmf2beg3pc2kqlbizrigd4ew26do4zqch5ilwdjy4cd@brolwbx25sem>
+References: <20261012-work-fs-sb_rdonly-v1-0-60743a3dc326@kernel.org>
+ <20261012-work-fs-sb_rdonly-v1-20-60743a3dc326@kernel.org>
+ <CAHc6FU5bdAjABRm=bnH68b2f66TZTDZ8sPdatLB2fS7-55U=yw@mail.gmail.com>
+ <20261018-ungemacht-sodbrennen-hausordnung-42d33a4f7098@brauner>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -99,20 +95,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <68c00b4f-d74e-4e2d-a7bc-9af44beeb25e@bytedance.com>
+In-Reply-To: <20261018-ungemacht-sodbrennen-hausordnung-42d33a4f7098@brauner>
+X-Spam-Flag: NO
+X-Spam-Score: -3.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[18];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
 
-On Mon, Oct 19, 2026 at 05:01:07PM +0800, Qi Zheng wrote:
-> Hi Greg,
+On Sun 18-10-26 17:48:34, Christian Brauner wrote:
+...
+> On Fri, Oct 16, 2026 at 02:32:01AM +0200, Andreas Gruenbacher wrote:
+> > > diff --git a/fs/gfs2/util.c b/fs/gfs2/util.c
+> > > index 83b8bb6446e5..1535ce2b7aa8 100644
+> > > --- a/fs/gfs2/util.c
+> > > +++ b/fs/gfs2/util.c
+> > > @@ -122,7 +122,7 @@ static void do_withdraw(struct gfs2_sbd *sdp)
+> > >                 up_write(&sdp->sd_log_flush_lock);
+> > >                 return;
+> > >         }
+> > > -       clear_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags);
+> > > +       clear_and_wake_up_bit(SDF_JOURNAL_LIVE, &sdp->sd_flags);
+> > >         gfs2_ail_drain(sdp); /* frees all transactions */
+> > >         up_write(&sdp->sd_log_flush_lock);
+> > >
+> > >
+> > > --
+> > > 2.53.0
+> > >
+> > 
+> > this looks good all around, thank you very much. Can I add it to my gfs2 queue?
 > 
-> Backporting just this patch alone doesn't seem to fix any actual issue.
-> Why was it backported to v6.6?
+> I was planning to just provide a stable branch for everyone to pull post
+> -rc1. Then you can just pull that in?
 
-Because:
+On a related topic: I didn't find any branch with this work in vfs.git - I
+wanted to check how all the things come together after adding the generic
+emergency RO bit. So if you can push some inofficial branch for now it
+would help me... Thanks!
 
-> > Stable-dep-of: d227786ab111 ("fs/mbcache: cancel shrink work before destroying the cache")
+								Honza
 
-this.  Is that not ok?
-
-thanks,
-
-greg k-h
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
