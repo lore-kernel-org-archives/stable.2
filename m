@@ -1,146 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-196.mta1.migadu.com [95.215.58.196])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1464CF468;
-	Mon, 19 Oct 2026 02:02:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E304CF490
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 02:08:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.196
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792375342; cv=none; b=H9B5vxX8UFSLIapKqaO3Dop0EFfITO2f584s7pm8qQgPTrNKEa2gE/HY7kfY1MfgB5tJHv464rAFAQ4xU2wJyV6+6APCxOct4TlTas82GN11Pi2cztheHN46SwLgyvZbAyVYEDYCQPBIhAsuvNc0wJ8pqN90Vpd+FC5MRh/ZUrM=
+	t=1792375702; cv=none; b=Qn/UoAVigrECyahHxtKJiqMCJ6NGgLW0PxhHDayinKwX0YlrP53tAdjoJN3hxIafUqANZqo0LlmC/MXj852MQOnbowzzPqaobraWLaqmcQv7ux7JrCqQCi9pO4s7t2QCOyPyxwKA7Nh32zcsyqdHexHXWdB8S1kAwrEwctiUcoQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792375342; c=relaxed/simple;
-	bh=xzmMhe3En0iGGgxIu2uTvisgSE+J/bIqyfT4Fw5hiZo=;
-	h=Date:To:From:Subject:Message-Id; b=JfO+BTjHKe9qUZei4x4nUZNUp3HJF3EO/SHRmPsJbx0Mut8Y4RxXkY+mMfgDYB05slSAKy724KfBy1WfD2J/tIKK0qDGy06WyzWpq4XdL/mGcst46KY3pjLtz1A2Ec8NGe/94Ug31IVmRezHKigGuWG2xk++c6Xqzzrn1x/pLTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=NcDnyJuc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792375702; c=relaxed/simple;
+	bh=TGx+L/6tf3P9BlQx79oc67eTtWqhL3dBGQ6vFXfCt04=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AKqgSG8rxY0P2qXTVTJBjLx7eU8rnHzYaxaZvEk5547Bq17OgyvFTa2VHnCdyYoSjPlOJ/lsh1hK5SE7fhaCHGxMPKzFGHZly/Y39LgOwCbj6VMEIzU/nQFULAyyiJN6M+zR979x8tQduPcXa7kyeA975+ckHMiofUavq8tpdPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pLDQIBFL; arc=none smtp.client-ip=95.215.58.196
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="NcDnyJuc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA0641F000C4;
-	Mon, 19 Oct 2026 02:02:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792375341;
-	bh=HSeUaHD6sYX6iqPLtlZQJ8/f1YTO2AmTdAcejzoWHaU=;
-	h=Date:To:From:Subject;
-	b=NcDnyJuc4QSCy7N7t0A+bUCkyqqGCZG3fvnmJ8Gq8jQdIUGGb0NRMcERsSLcha00l
-	 /GCYZmqGG1V26GopHai97uVkfn2GxXT5NhbMKjX4x5d//BY272dUsnWC16SgVZFwUQ
-	 6hJtE6E75PLEmfnq8hGytPjRZ/TGTKd219hdx9pw=
-Date: Sun, 18 Oct 2026 19:02:20 -0700
-To: mm-commits@vger.kernel.org,tz2294@columbia.edu,stable@vger.kernel.org,l1za0.sec@gmail.com,kbusch@kernel.org,hch@lst.de,axboe@kernel.dk,4ncienth@gmail.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + bio-iov-iter-rollback.patch added to mm-hotfixes-unstable branch
-Message-Id: <20261019020220.DA0641F000C4@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pLDQIBFL"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=TGx+L/6tf3P9BlQx79oc67eTtWqhL3dBGQ6vFXfCt04=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792375696; v=1; x=1792980496;
+ b=pLDQIBFLOfInEnDPpokkie/UA47oQoauG108QTVlqIktQGJX/n0lLXVZDZOWuKXtaxIxI9+e
+ t7N7EyMYplvk2oLpYy6jiHX78FTPXwHt879aOOfRWf5MInsqfJa4L8qEadLpw+IAfh1psjwIs3y
+ O71dUGLPE50XIzWLy1W08gMM=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0856886304343c3d;
+	Mon, 19 Oct 2026 02:08:16 +0000
+X-Mizu-Trace-ID: 0856886304343c3d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <e2ea8e4f-152a-4695-bc25-1712e385d8a2@linux.dev>
+Date: Mon, 19 Oct 2026 10:07:55 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm/ksm: keep soft-dirty and uffd-wp when merging a
+ page
+To: Samarth Narang <samarth.colleges@gmail.com>
+Cc: Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Peter Xu <peterx@redhat.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>
+References: <20261019010934.697895-1-samarth.colleges@gmail.com>
+Content-Language: en-US
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <20261019010934.697895-1-samarth.colleges@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-The patch titled
-     Subject: block: restore the iterator when rejecting a misaligned bio
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     bio-iov-iter-rollback.patch
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/bio-iov-iter-rollback.patch
+On 2026/10/19 09:09, Samarth Narang wrote:
+> replace_page() maps the KSM page with a PTE built from scratch, so the
+> soft-dirty and uffd bits of the PTE it replaces are lost. Due to this, a
+> write before the merge no longer shows as soft-dirty, the next write to
+> a uffd-wp page raises no write-protect fault, and because the page is
+> mapped with the VMA's normal permissions, on a uffd-rwp VMA the next
+> access raises no RWP fault.
+> 
+> Copy the soft-dirty and uffd bits from the original PTE to the new PTE,
+> and restore PAGE_NONE for RWP VMAs, as try_to_map_unused_to_zeropage()
+> does.
+> 
+> Fixes: 0f8975ec4db2 ("mm: soft-dirty bits for user memory changes tracking")
+> Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+> Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
+> Cc: stable@vger.kernel.org
+> Tested-by: Lance Yang <lance.yang@linux.dev>
+> Assisted-by: LLM
+> Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+> ---
+> 
+> Notes:
+>      v1: https://lore.kernel.org/all/20261018122957.526467-1-samarth.colleges@gmail.com/
+>      
+>      Changes since v1 (thanks, Lance):
+>      - Fixes: point the uffd-wp and RWP tags at the commits that make the
+>        registration modes reachable (63b2d4174c4a, 2d427bb01639).
+>      - Shorten the comment; the uffd bit carries RWP state too.
+>      - Add Lance's Tested-by.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Generally, no need to rush the next version out, please. Let it soak for a
+few days so folks have time to review properly, instead of making everyone
+start over every time. Just saying :)
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: block: restore the iterator when rejecting a misaligned bio
-Date: Sun, 18 Oct 2026 17:30:00 -0700
-
-bio_iov_iter_get_pages() can extract some iovecs before encountering a
-misaligned one.  It releases the pages and rejects the entire bio, but
-leaves the supplied iterator advanced.
-
-An iomap direct-I/O caller may subsequently reexpand the iterator's
-byte count and fall back to buffered I/O.  The reexpanded count then
-includes bytes before the iterator's current segment, potentially
-causing iterate_iovec() to read beyond the imported iovec array.
-
-In a reproducer using an initial empty iovec followed by 10-byte and
-1015-byte segments, writev() returned 1015 instead of 1025 and KASAN
-reported an 8-byte read beyond the nine-element iovec allocation.
-Saving and restoring the iterator on the rejected-bio path makes
-writev() return 1025 and eliminates the KASAN report.
-
-Restore the entire iterator rather than reverting a byte count:
-advancing past an empty segment changes its position without consuming
-any bytes.
-
-Leave successful and partially accepted bio paths unchanged.
-
-Fixes: 14b007e17881 ("block: validate user space vectors during extraction")
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Haocheng Yu <l1za0.sec@gmail.com>
-Closes: https://lore.kernel.org/20261018081203.2431035-1-l1za0.sec@gmail.com
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Keith Busch <kbusch@kernel.org>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Tal Zussman <tz2294@columbia.edu>
-Cc: Daehyeon Ko <4ncienth@gmail.com>
-Cc: <stable@vger.kernel.org>
----
-Testing on x86-64 QEMU/KVM with generic KASAN:
-- Before: the ext4 writev() reproducer returned 1015 instead of 1025
-  and triggered an 8-byte slab out-of-bounds read.
-- After: 100 consecutive reproducer runs returned 1025 without KASAN;
-  60-second buffered and direct ext4 fio runs passed.
-- Daehyeon's alignment patch independently avoids the reproducer.
-
-Tal Zussman's pending atomic-write changes introduce another rejected-bio
-cleanup path. If both patches are combined, restore the iterator there too.
-
-
- block/bio.c |    3 +++
- 1 file changed, 3 insertions(+)
-
---- a/block/bio.c~bio-iov-iter-rollback
-+++ a/block/bio.c
-@@ -1285,6 +1285,7 @@ int bio_iov_iter_get_pages(struct bio *b
- 			   unsigned mem_align_mask, unsigned len_align_mask)
- {
- 	iov_iter_extraction_t flags = 0;
-+	struct iov_iter saved_iter;
- 
- 	if (WARN_ON_ONCE(bio_flagged(bio, BIO_CLONED)))
- 		return -EIO;
-@@ -1303,6 +1304,7 @@ int bio_iov_iter_get_pages(struct bio *b
- 	if (bio->bi_bdev && blk_queue_pci_p2pdma(bio->bi_bdev->bd_disk->queue))
- 		flags |= ITER_ALLOW_P2PDMA;
- 
-+	saved_iter = *iter;
- 	do {
- 		ssize_t ret;
- 
-@@ -1320,6 +1322,7 @@ int bio_iov_iter_get_pages(struct bio *b
- 				bio_release_pages(bio, false);
- 				bio_clear_flag(bio, BIO_PAGE_PINNED);
- 				bio->bi_vcnt = 0;
-+				*iter = saved_iter;
- 			}
- 			if (!bio->bi_vcnt)
- 				return ret;
-_
-
-Patches currently in -mm which might be from akpm@linux-foundation.org are
-
-bio-iov-iter-rollback.patch
-mm-damon-core-introduce-damos_quota_goal-complement-fix.patch
-lib-cmdline-fix-get_options-count-and-overflow-with-large-ranges-fix.patch
-drivers-media-v4l2-core-v4l2-vp9c-reduce-inlining.patch
-fat-roll-back-the-new-entry-when-create-mkdir-fails-to-build-the-inode-fix.patch
-
+Cheers, Lance
