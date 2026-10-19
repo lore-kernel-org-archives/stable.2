@@ -1,28 +1,28 @@
 Received: from c.mail.sonic.net (c.mail.sonic.net [64.142.111.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FDAC35E1AC;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD1E35A398;
 	Mon, 19 Oct 2026 02:44:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=64.142.111.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792377889; cv=none; b=hLzRgRzOCf7jUYr9Fb7XRJmUtJOYm9N+u4vbm+wePPScHdWd2vX4IAKys1ljHZI0VKm15QhLB4Ltgu+Z1Y5EydGb2v5o9hQtwno3W8XRsw7pIJArE5WZKoQGIFdJhRmOuGKajr5H4Pw28Aa14HJv40ShWCPLCTdkej3ULkEDMS8=
+	t=1792377890; cv=none; b=FRhCcRmEROJ0dHMF4b30vTXKt7dG9HeiFRJoZgl/DYNom6Yhp3wmcmRA3/Q5J6qyHe+bxVa/7wcjf0D+5618ZeDSFWywYM3KUIj25L/XOSvrH96S/9ivV9RtxKbPRAomGGzdFou+MFzNmN+gCPWFWGVS1vYqyO54LaEt41lo3BE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792377889; c=relaxed/simple;
-	bh=PZCWgfU3xBSDm6h/grCHW6Y5UnDHaHXsQgaFCJEkrpE=;
+	s=arc-20240116; t=1792377890; c=relaxed/simple;
+	bh=lKRdjN1LnFRrLgCWBQD6HasQoii1meKrsL2OjbyDdBo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DIeLGDEHZeTl7xNJtAIxsXxtJovaz9/oalfcRR2OYPCSM57Rnxs8wDkWgQ1VrYLlSfiQzdJ/cEivuXst3PpOCCMeyLCckXBZEtJLHZs1VnVKbgeX7JwtuOoDLOnkoimzlJtv1/NXGWmEs2AXxLdtLBNQlG39q54tz5WAzfMg9lQ=
+	 MIME-Version; b=kcliWbemSVDWJYp5Gf9mWYigB5ARcsk2x/0QhZNbIyDxNW0urt8Jy23e3/fThPT7UHtToe7BsAzbf8oxFlY7OPf8ogAksX/AdPZ0z8e8PbyQ3Z+siN8y2Q9MbvPflyjWPI/Ek5k27hw97hQbSK2YfS2sINZmq32C8bY0r9EZFVc=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=murgatroid.com; spf=pass smtp.mailfrom=murgatroid.com; arc=none smtp.client-ip=64.142.111.80
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=murgatroid.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=murgatroid.com
 Received: from fred.murgatroid.com ([70.134.61.105])
 	(authenticated bits=0)
-	by c.mail.sonic.net (8.16.1/8.16.1) with ESMTPSA id 69J2YKQs005969
+	by c.mail.sonic.net (8.16.1/8.16.1) with ESMTPSA id 69J2YKVM005970
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
 	Sun, 18 Oct 2026 19:34:21 -0700
 Received: from murgatroid.com (unknown [10.0.1.185])
-	by fred.murgatroid.com (Postfix) with SMTP id 949E82A603B0;
+	by fred.murgatroid.com (Postfix) with SMTP id 9D3DA2A6048F;
 	Sun, 18 Oct 2026 19:34:20 -0700 (PDT)
-Received: (nullmailer pid 84004 invoked by uid 1000);
+Received: (nullmailer pid 84001 invoked by uid 1000);
 	Mon, 19 Oct 2026 02:34:20 -0000
 From: Christopher Hoover <ch@murgatroid.com>
 To: Jonathan Cameron <jic23@kernel.org>, Jiri Kosina <jikos@kernel.org>,
@@ -35,9 +35,9 @@ Cc: Lixu Zhang <lixu.zhang@intel.com>,
         Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
         linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
         Christopher Hoover <ch@murgatroid.com>, stable@vger.kernel.org
-Subject: [PATCH v3 3/3] iio: humidity: hid-sensor-humidity: Use per-instance callbacks
-Date: Sun, 18 Oct 2026 19:34:20 -0700
-Message-ID: <20261019023420.83976-4-ch@murgatroid.com>
+Subject: [PATCH v3 2/3] iio: temperature: hid-sensor-temperature: Use per-instance callbacks
+Date: Sun, 18 Oct 2026 19:34:19 -0700
+Message-ID: <20261019023420.83976-3-ch@murgatroid.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019023420.83976-1-ch@murgatroid.com>
 References: <20261019023420.83976-1-ch@murgatroid.com>
@@ -48,66 +48,74 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Sonic-CAuth: UmFuZG9tSVadRcsoGuumIkYqrsyWTybaCxtMVyE6E4q3EjYNf1GGEN+AH0rQ/FCa1udsRnEUgwSLyOnXxhAMuJyb38DyTca4FgQ3WhpLvAo=
-X-Sonic-ID: C;3LnMlmXL8RGa6uXouUKo1g== M;MOz1lmXL8RGa6uXouUKo1g==
+X-Sonic-CAuth: UmFuZG9tSVZ0SxVvhNTiBLz81PD/nrDu50/hhhPGREDGAzaaeDKCotX38q+fxtsiJH7MKq0SAXXCEPyQxQOvFhayH6S/tKeIa6YjwZVPf3w=
+X-Sonic-ID: C;XlbMlmXL8RG92OXouUKo1g== M;4uT1lmXL8RG92OXouUKo1g==
 X-Spam-Flag: Unknown
 X-Sonic-Spam-Details: not scanned (too big) by cerberusd
 
-hid-sensor-humidity keeps a single static struct
+hid-sensor-temperature keeps a single static struct
 hid_sensor_hub_callbacks for all instances and overwrites its pdev in
-every probe, so with two humidity sensors, input reports for one are
-delivered with the other's platform device, and a NULL dereference
-follows once that device is removed.  The same bug was found in
-hid-sensor-temperature, which shares this code.
+every probe.  With two temperature sensors, input reports for one are
+delivered with the other's platform device; once that device is
+removed, platform_get_drvdata() returns NULL and
+temperature_capture_sample() dereferences it:
 
-Keep the callbacks in struct hid_humidity_state, as the other HID
+  BUG: kernel NULL pointer dereference, address: 00000000000003a8
+  RIP: 0010:temperature_capture_sample+0xd/0x50 [hid_sensor_temperature]
+
+The oops happens in sensor_hub_raw_event() with the hub's spinlock
+held, so the hub's removal then hangs.  It reproduces with two uhid
+devices that each declare a temperature sensor, one destroyed while
+the other still sends input reports.
+
+Keep the callbacks in struct temperature_state, as the other HID
 sensor drivers (accel, gyro, als, ...) do.
 
-Fixes: d7ed89d5aadf ("iio: hid: Add humidity sensor support")
+Fixes: 59d0f2da3569 ("iio: hid: Add temperature sensor support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Christopher Hoover <ch@murgatroid.com>
 Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 ---
- drivers/iio/humidity/hid-sensor-humidity.c | 14 +++++++-------
+ drivers/iio/temperature/hid-sensor-temperature.c | 14 +++++++-------
  1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/iio/humidity/hid-sensor-humidity.c b/drivers/iio/humidity/hid-sensor-humidity.c
-index 7cec81ff5685..644c82719447 100644
---- a/drivers/iio/humidity/hid-sensor-humidity.c
-+++ b/drivers/iio/humidity/hid-sensor-humidity.c
+diff --git a/drivers/iio/temperature/hid-sensor-temperature.c b/drivers/iio/temperature/hid-sensor-temperature.c
+index 5e3262e461f4..4bc9d42a0301 100644
+--- a/drivers/iio/temperature/hid-sensor-temperature.c
++++ b/drivers/iio/temperature/hid-sensor-temperature.c
 @@ -14,6 +14,7 @@
  
- struct hid_humidity_state {
+ struct temperature_state {
  	struct hid_sensor_common common_attributes;
 +	struct hid_sensor_hub_callbacks callbacks;
- 	struct hid_sensor_hub_attribute_info humidity_attr;
+ 	struct hid_sensor_hub_attribute_info temperature_attr;
  	struct {
- 		s32 humidity_data;
-@@ -184,11 +185,6 @@ static int humidity_parse_report(struct platform_device *pdev,
+ 		s32 temperature_data;
+@@ -181,11 +182,6 @@ static int temperature_parse_report(struct platform_device *pdev,
  	return ret;
  }
  
--static struct hid_sensor_hub_callbacks humidity_callbacks = {
--	.send_event = &humidity_proc_event,
--	.capture_sample = &humidity_capture_sample,
+-static struct hid_sensor_hub_callbacks temperature_callbacks = {
+-	.send_event = &temperature_proc_event,
+-	.capture_sample = &temperature_capture_sample,
 -};
 -
  /* Function to initialize the processing for usage id */
- static int hid_humidity_probe(struct platform_device *pdev)
+ static int hid_temperature_probe(struct platform_device *pdev)
  {
-@@ -240,9 +236,13 @@ static int hid_humidity_probe(struct platform_device *pdev)
+@@ -237,9 +233,13 @@ static int hid_temperature_probe(struct platform_device *pdev)
  
  	platform_set_drvdata(pdev, indio_dev);
  
--	humidity_callbacks.pdev = pdev;
-+	humid_st->callbacks = (struct hid_sensor_hub_callbacks) {
-+		.send_event = humidity_proc_event,
-+		.capture_sample = humidity_capture_sample,
+-	temperature_callbacks.pdev = pdev;
++	temp_st->callbacks = (struct hid_sensor_hub_callbacks) {
++		.send_event = temperature_proc_event,
++		.capture_sample = temperature_capture_sample,
 +		.pdev = pdev,
 +	};
- 	ret = sensor_hub_register_callback(hsdev, HID_USAGE_SENSOR_HUMIDITY,
--					   &humidity_callbacks);
-+					   &humid_st->callbacks);
+ 	ret = sensor_hub_register_callback(hsdev, HID_USAGE_SENSOR_TEMPERATURE,
+-					   &temperature_callbacks);
++					   &temp_st->callbacks);
  	if (ret)
  		goto error_remove_trigger;
  
