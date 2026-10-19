@@ -1,128 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BAAC48C8DC;
-	Mon, 19 Oct 2026 13:24:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0409529992B;
+	Mon, 19 Oct 2026 13:37:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792416256; cv=none; b=JTFROkj+WdfDgZJ8s/uvGt36QV+RyLghhh8DIHBMRi+/kmATwp3ILxKLTRVN8/aVDTf1QNUNu7L+iiRL+NNAfpJi+Y2aJPU+si0m3qZUKfraHm5+7cH9Djv5QeYqmRmCEd2gRWojUbuNQHcjCX0YEF6MXmOqPmsbrr+c6YTPDGc=
+	t=1792417057; cv=none; b=d5vjMxE4H4GTQ7Y9Y3NaJkln5TpGP9Nv8zmHrxQ86Ep5ws7erVmdlwItsAPMLJUs53bdknUqCIkBht20KQIccFLOVAcuEFrV8Ok9i8DfEXBjlVVZAjS9RathJuecJXaPm0r3SMWnn5G71Tc7+6czItTg2j1+4Kah3hPPVwXM3Qo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792416256; c=relaxed/simple;
-	bh=vFdm7K+BOiaCFTgQqxIdvMKp++Djuo0sVxiTsHKjPiY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TMk1uUqmBCwFqKa2wvsv41anNMEK8kvX/2z/OVqUG+fEm8uOPALXEh6Lwt+ua+MNaKGbmLes9+49PeTFDA3kSqXSSqeIX19O79sKnDNlwj+7F1T96fSIjgF5gqvpOdQAfc2Gm84xBUJLDH2RJy9yPQxn8FAAEfbSNvtfuvR9ujw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZcP/V1D+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792417057; c=relaxed/simple;
+	bh=yoDuwaoTWLvDt97OblECL52QxBpB44G9LCtIekhYmag=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=FTcXCt5uaUFdWgTB2gCN1/QAmdSQWlh9zUedfoyH5v6rTOU1xA8ymn1OxbF0h+bL5uT2mUtZaFp21Igvd4ujbttmQm+FwY+XUW4evZjMXS5tBzEUqImxmr913ztE7ZckaTlPLaQE9j53nFA9QOO8pCvHn85G3dbIgDGFGAr2N7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BAoVD4YU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZcP/V1D+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9342D1F000C4;
-	Mon, 19 Oct 2026 13:24:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792416255;
-	bh=WCRqZNeckY15D0lVwoVM0U4hT9cjL2n8Ttnb75nDkG8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ZcP/V1D+BfB2bhX74a3xgdkNlYqZmTKQDmmXp/USbEJYCDQcqco9yn3z1hxlRrBpk
-	 7Nv8boDEuXbQYl4t3T4voNLFgFTqoBlrwhstRPnDS2schA0//V8H/ovRWtkjBPiQ17
-	 SsN2VgT7XgYIYNT7LSn7Q/OZS/YJ/U0czfX/ij3B/HRS8Ycp/Zd5A3xQgageiD6fjv
-	 VmkGtMy14YUULfiytqOEcOhcEN323Uyt46PQhbwWT8FQZVBoHTbRZQ6XDBRVhUSTBq
-	 hWEOMgVXSOHJpQhOP8Z3SPbWzSjttJyaywUuFaQqWyXck2crIZuy1rEdx35KdXapUT
-	 /VRPJvJvfRDnQ==
-Message-ID: <efa6a28c-f0f9-4d1e-9cce-fec2c08e7d9f@kernel.org>
-Date: Mon, 19 Oct 2026 15:24:11 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BAoVD4YU"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id AAC3CC2BCF4;
+	Mon, 19 Oct 2026 13:37:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792417056;
+	bh=yoDuwaoTWLvDt97OblECL52QxBpB44G9LCtIekhYmag=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=BAoVD4YUPJ+RnmRP5Jri3wJBrh5QkILdiPfL9FzrAvzyXJg1fIl+p18QWm4iKlyvw
+	 bYapei2/j7LV8A+1C1Y1s7pzTlnqnhEPu9UmVJpemCR2mj+PGHsuFHO7o8qnrEIeG8
+	 1O7IBQhNoYy3T65blvT8vrdY1zZMmCURwfEDUPkZeeorEUKP/+Ci5BT3JMRg0uhPXQ
+	 niKEkUxuQLJ7dlasIkzaT43p2Ec5PfsNcNRoxIRSlMbYch0xKddynwX/VCnNhEO6D3
+	 TQEiBwuaFUTNBVzTSBGa3k5xInHC76XNMgtHykxejFXPKbJCAQx7UKSJkSGApqC9L4
+	 yf8OPLi+gCT9w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BDD9CCF2DE;
+	Mon, 19 Oct 2026 13:37:36 +0000 (UTC)
+From: Jean-Baptiste Maneyrol via B4 Relay <devnull+jean-baptiste.maneyrol.tdk.com@kernel.org>
+Date: Mon, 19 Oct 2026 15:37:33 +0200
+Subject: [PATCH v2] iio: imu: inv_icm42600: fix parsing of all FIFO frames
+ for odr change
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/ksm: keep soft-dirty and uffd-wp when merging a
- page
-To: Samarth Narang <samarth.colleges@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
- Peter Xu <peterx@redhat.com>, Kiryl Shutsemau <kas@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Kiryl Shutsemau <kas@kernel.org>
-References: <20261019010934.697895-1-samarth.colleges@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261019010934.697895-1-samarth.colleges@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261019-iio-imu-inv-icm42600-fix-odr-change-event-in-all-frames-v2-1-d72a69c327ff@tdk.com>
+X-B4-Tracking: v=1; b=H4sIABwd1moC/6WOTQ6CMBBGr0K6dkzbAKIr72FYtGWUUUpNWxoN4
+ e4W9AYuX/K+n5kF9ISBnYqZeUwUyI0Z5K5gplfjDYG6zExyWQsuaiByQHYCGhOQsaWsOYcrvcB
+ 1Hn4RTDjGbIAaBrh6ZTHAoVRHYbRslNQstz895tS2fGm/HCZ9RxPXudXoKUTn39u1JFbv/xdJg
+ AAttRZ1o3hViXPsHnvjLGuXZfkAOQ2nmw4BAAA=
+X-Change-ID: 20261016-iio-imu-inv-icm42600-fix-odr-change-event-in-all-frames-74a91cb28a2b
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, 
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, 
+ Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792417055; l=3281;
+ i=jean-baptiste.maneyrol@tdk.com; s=20240923; h=from:subject:message-id;
+ bh=kD1/ng0GS6kPMK14Mq3qWLm6q2zMJ+jIcdvPt6Xp/Vo=;
+ b=DAWMDcOLqRRr7iqC6DWTped4J4M9UNqklDYVqXiraMEK1fslvlmpH7O4i+UCorQ2C3UCeS0Cw
+ dxi5AoZlxs/CjA0LPxi0W3PhIz2XivYnxoetCD1fkKagTl2fqN8/MlJ
+X-Developer-Key: i=jean-baptiste.maneyrol@tdk.com; a=ed25519;
+ pk=bRqF1WYk0hR3qrnAithOLXSD0LvSu8DUd+quKLxCicI=
+X-Endpoint-Received: by B4 Relay for
+ jean-baptiste.maneyrol@tdk.com/20240923 with auth_id=218
+X-Original-From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+Reply-To: jean-baptiste.maneyrol@tdk.com
 
-On 10/19/26 03:09, Samarth Narang wrote:
-> replace_page() maps the KSM page with a PTE built from scratch, so the
-> soft-dirty and uffd bits of the PTE it replaces are lost. Due to this, a
-> write before the merge no longer shows as soft-dirty, the next write to
-> a uffd-wp page raises no write-protect fault, and because the page is
-> mapped with the VMA's normal permissions, on a uffd-rwp VMA the next
-> access raises no RWP fault.
-> 
-> Copy the soft-dirty and uffd bits from the original PTE to the new PTE,
-> and restore PAGE_NONE for RWP VMAs, as try_to_map_unused_to_zeropage()
-> does.
-> 
-> Fixes: 0f8975ec4db2 ("mm: soft-dirty bits for user memory changes tracking")
-> Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
-> Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
+From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
 
-I would actually split that up into separate patches.
+For getting all odr change events, we need to parse all FIFO frames
+in each iio device. Fix this correctly by sending effectively all
+frames to all iio devices.
 
-Over-indicating soft-dirty (as raised by Sashiko) is in general not a problem.
+Previously only batches of frames containing a matching sensor event
+were sent to the corresponding iio device.
 
-Losing WP bits is.
+Fixes: f670d4d34773 ("iio: imu: inv_icm42600: fix odr change not caught in certain cases")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+---
+Changes in v2:
+- Add blank line and direct return at end of functions.
+- Link to v1: https://patch.msgid.link/20261016-iio-imu-inv-icm42600-fix-odr-change-event-in-all-frames-v1-1-b2bb168a0551@tdk.com
 
-UFFD, the gift that keeps on giving.
+To: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+To: Jonathan Cameron <jic23@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+To: Nuno Sá <nuno.sa@analog.com>
+To: Andy Shevchenko <andy@kernel.org>
+Cc: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: linux-iio@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c | 24 +++++++++-------------
+ 1 file changed, 10 insertions(+), 14 deletions(-)
 
-How to deal RWP properly is a good question (see Sashiko review). I feel like
-some more stuff might be missing there to handle this correctly.
+diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
+index 2bf9fc29d7d2..5bff2a3a44bc 100644
+--- a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
++++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
+@@ -532,22 +532,20 @@ int inv_icm42600_buffer_fifo_parse(struct inv_icm42600_state *st)
+ 		ts = &gyro_st->ts;
+ 		inv_sensors_timestamp_interrupt(ts, st->fifo.watermark.eff_gyro,
+ 						st->timestamp.gyro);
+-		ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
+-		if (ret)
+-			return ret;
+ 	}
+ 
++	ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
++	if (ret)
++		return ret;
++
+ 	/* handle accelerometer timestamp and FIFO data parsing */
+ 	if (st->fifo.nb.accel > 0) {
+ 		ts = &accel_st->ts;
+ 		inv_sensors_timestamp_interrupt(ts, st->fifo.watermark.eff_accel,
+ 						st->timestamp.accel);
+-		ret = inv_icm42600_accel_parse_fifo(st->indio_accel);
+-		if (ret)
+-			return ret;
+ 	}
+ 
+-	return 0;
++	return inv_icm42600_accel_parse_fifo(st->indio_accel);
+ }
+ 
+ int inv_icm42600_buffer_hwfifo_flush(struct inv_icm42600_state *st,
+@@ -572,20 +570,18 @@ int inv_icm42600_buffer_hwfifo_flush(struct inv_icm42600_state *st,
+ 	if (st->fifo.nb.gyro > 0) {
+ 		ts = &gyro_st->ts;
+ 		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.gyro, gyro_ts);
+-		ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
+-		if (ret)
+-			return ret;
+ 	}
+ 
++	ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
++	if (ret)
++		return ret;
++
+ 	if (st->fifo.nb.accel > 0) {
+ 		ts = &accel_st->ts;
+ 		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.accel, accel_ts);
+-		ret = inv_icm42600_accel_parse_fifo(st->indio_accel);
+-		if (ret)
+-			return ret;
+ 	}
+ 
+-	return 0;
++	return inv_icm42600_accel_parse_fifo(st->indio_accel);
+ }
+ 
+ int inv_icm42600_buffer_init(struct inv_icm42600_state *st)
 
--- 
-Cheers,
+---
+base-commit: a22dc7ebb21a6bd4c8b63bc2c1dd46a24945aae7
+change-id: 20261016-iio-imu-inv-icm42600-fix-odr-change-event-in-all-frames-74a91cb28a2b
 
-David
+Best regards,
+--  
+Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+
+
