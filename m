@@ -1,132 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.21
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792432421;
-	b=LX9eTjLz/uq4S+casEgiON7P6Vt+T7WsCxYWbRA91UEvyS0QAGktVNrz6miJ1oATaQhK
-	 bhVcUVHuuwaytGRApDcolPMnSyxuxAGv50nKngVnPH3yPGfMsGy+kOp1nVfECRYkjTA+0
-	 zKjAXiH0t5LnW7dAplyrwDLNvRH8Qi2oS2neLlX8k8HgUBP5E/xiiwRpI8b1Hqs9DQn+e
-	 CvEjblbIzRg1iEVahTHJWvD64Pb5CJm11riIqiCh6kStZ0Aacs8lcrUFfpsKiHMq9SKgv
-	 Ux7zVIy4Cg7b5r9BCPMmIDPGqIYffqxEi5HLSTn9FmbLKn/8u8jPiGFr8cF5JZsggCg==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792432934;
+	b=zhmqOuFQSXJhka6b810zA2hJMyQ2uRg5uiEbVL9sl0SiKXv4k5H6ZTtkPyiCQUtRxJH2
+	 /GfRwvHhkn+VZgQBzT5L1E64B56pfYeEWR+AMNWWgSh86BY7kcsNgZOlhHGFdrF4FQALQ
+	 kwrFxln5FqMKKOt8XKVEqsXLrK1mjJDp+VpkW9BUbK7WT61ZMzIV+T+NA1VxteadIb4Tt
+	 mwWrpRZfsnQAKbU+oMKGeLa2/p1D12Ex1R0ZkfC/h+jXLHBrs+tQp/I0vzAkwsqwLHBkN
+	 bAqOV/PB0ipbyyrqm5x9dSFnen16AZ0PFLPXwOpjn+pgii/t09h51wBhWyYOE1JHgpQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792432421;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Message-ID:Date:User-Agent:From:Subject:To:
-	 CC:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=2JWQeQQGivI9lH8TkgT8J6x/sQxmHej8acdswZ8WcW8=;
-	b=k/q6s0s6BpO1nWjGa0ZWlPtwcFkFux8G7dpNho7RYWSvCfDVPcQKPx4qLWuzeTJyYtqM
-	 l62/uDbhZzR/hjt8FMUTBdfJ1Du+KFOqij/z4d8AiiZwstJKd2UjA3OyerVlsOo8Jwymv
-	 PtMBulNeviSetJLyBPeGk+f2VRvvDr7dTiBBhAD9P9+kbvhOrqtMokoJv46IBvOZM3u1E
-	 m9HBf2W5M5q7+khUXl+aCWTzx6YfE4ZH/68WqHoF5GoZq69Y+LdcRpFYdAHQfMW0Mc/OW
-	 YqaT2ok4gCYCFYeKKfPkN6J4GaGTIjYFMIDXvMV0x9tjgDiyip3VnQNac+xkAqR8C1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792432934;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=x875RJdjfXCxzZDJCUqQBTmV/vQ+aYgwGesNdJIJmZs=;
+	b=HbLHsggD6wUWRsitIxOFAgi3J+2+di/gXB6TyhyI+4GvwricOUNLjR8Ula7R6lA5/NYB
+	 wkAH9aYbQWcFkYeNzRKaFdjdNZXJWj1+pzQoYtoKrnji2ak6K3edsD1bPP9aaBQuzdq7E
+	 /fLqUDuxwzJv/+Xbda2yNU3pIKJpMmdtvi1cul66xfNh+VFfRGSl+33kWhM3eIsikrat1
+	 +na8CO8nfPrzb1Wm0+IAq7JqOVA7Rizjb4I3PxBjnJ0lEaVLep31cVhf59Ff1Zgtxfapt
+	 eZUCXoUMaaPO+Y3Rbi2sJ7+TiGF1HQXQGmGHHG6g7RrIIudzvxuuZZL0io5cVCyRowg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	arc=fail smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="qJQvN/7K";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.51
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7E2F606A31F;
-	Mon, 19 Oct 2026 17:53:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7E2F606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792432414; x=1823968414;
-  h=message-id:date:from:subject:to:cc:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=drAm3HEzTJUtZEZX4KuedCczgOz/5tYW7IEsn51mdY8=;
-  b=a29MZB4SozUr+WKhWZZ18MY4oKNMQ5K46YJau4gTrohM0poNUZc/duet
-   fYGWqAhV3pCrmjmfHR6UpYRcIIrMTHnq1hb7rKow8ZbjumlEurv8Glpj1
-   YZq8Gqc2MG3RfCELmOBniMLnM7uvAm9+77bpbinJnxSAM/H0e6aBAa9p6
-   ER/gaIaHbZEfSqtVm6JxdyIENtIHRrj1sUfxj31lFsZXhYv6O/lShDcsG
-   nlAU2GB5SdWVlKsn5qZZPoWN4pZsE8fRz/XA4QvjNGJa/sLQcRWo7j130
-   Un9e5x/Ac5VJm0pGEouMETSVraFD0hdmTMsZSOOBJhjdwmOPKfMOWvSW4
-   Q==;
-X-CSE-ConnectionGUID: ohsox4GbT8+AaXH4miZQgA==
-X-CSE-MsgGUID: Uxau1L6iSOW0hBxd4S5DBg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1225001"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="1225001"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 10:53:32 -0700
-X-CSE-ConnectionGUID: u7ew6WmNQ3KqBDRVhBM23A==
-X-CSE-MsgGUID: taYjHMnTQJm/xwhTn7o/yw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2701367"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 10:53:32 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 19 Oct 2026 10:53:31 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Mon, 19 Oct 2026 10:53:31 -0700
-Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.57) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 19 Oct 2026 10:53:31 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fjpES0rQfUvitHHMbrxlZ3EFoj3PsENwG8JQbgr2JFP7EjViuPTmSt5JAtvBTu2qEP/lpvDjdHia5WkxssgvTj9tpRww2849rQx4gWHj8JRdzJmn1lacVt1Pb1Op6YGPPX7yrz1LWAn/86WmIMRTBml32ZQb7IUQ4QEYrWikg2OYRHThVCfMwtiUnrQE83dtSAysV5aUiAFrOjARnTsWo91Kt0MMpDIxoCPHGTqiW98fZkFxme1wf8eV41cqxmvfK31gLYz+I2/LqGQj8UJgzHDdQBGWm2F6WT3GANTdrrxHIoSoRiq0dTzsjt7IaVOzVnQwXUdi7+TRC9XkWeET8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2JWQeQQGivI9lH8TkgT8J6x/sQxmHej8acdswZ8WcW8=;
- b=X33WF/EpQ2qLxv5ZnQaaI2YTG4ag3Uxbuvc/mVX8YpdG5R8e6v0rtco/HxB8RqhXFNWVH5Qob/02kIA/WiA/5j0w4hCHw+ipti2Q3iQVe92CIYmqgw2wxZn0rCgeyrFg9pNu63cdIj/HRy8PsfHrZPWjvMQ0MGIZszcQa1OkBjecgWpkOufYvROFSIqSif/tFPX8Eo7id19Z36F3MV3+GJ1mrGFsRkigeDUw79Mv8PfERJZEiJ2wORNLecfqU9GyRBfUCVFNZGBXBbuFRnqNV6VQFIjnH4BuAZkrhadlVp5ZqRdFnqeixv/EJO+Wh5pE4iDUns9rs/Gpaf9s153Oog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB7925.namprd11.prod.outlook.com (2603:10b6:8:f8::18) by
- SJ0PR11MB4829.namprd11.prod.outlook.com (2603:10b6:a03:2d3::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 17:53:29 +0000
-Received: from DS0PR11MB7925.namprd11.prod.outlook.com
- ([fe80::60af:89a0:65dc:9c84]) by DS0PR11MB7925.namprd11.prod.outlook.com
- ([fe80::60af:89a0:65dc:9c84%7]) with mapi id 15.21.0496.015; Mon, 19 Oct 2026
- 17:53:28 +0000
-Message-ID: <89727492-b1d1-4f14-955a-0673ebaee753@intel.com>
-Date: Mon, 19 Oct 2026 10:53:24 -0700
-User-Agent: Mozilla Thunderbird
-From: "Chang S. Bae" <chang.seok.bae@intel.com>
-Subject: Re: [PATCH v2 1/2] x86/fpu: Fix memory leak with dynamic fpstate and
- exec()
-To: Guixiong Wei <weiguixiong@bytedance.com>, <x86@kernel.org>
-CC: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "H
- . Peter Anvin" <hpa@zytor.com>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-References: <cover.1791428412.git.weiguixiong@bytedance.com>
- <b9277cad5e1098d3e60d5c0f025c58061df10af0.1791428412.git.weiguixiong@bytedance.com>
- <d28dc497-a74b-4c52-bb6c-8b9010f9ee2d@intel.com>
-Content-Language: en-US
-In-Reply-To: <d28dc497-a74b-4c52-bb6c-8b9010f9ee2d@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SJ0PR03CA0042.namprd03.prod.outlook.com
- (2603:10b6:a03:33e::17) To DS0PR11MB7925.namprd11.prod.outlook.com
- (2603:10b6:8:f8::18)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAADB606A31D
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 18:02:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAADB606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qJQvN/7K
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ac7538422bso312874a91.2
+        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 11:02:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792432933; cv=none;
+        d=google.com; s=arc-20260327;
+        b=k9H/NF75dBgzigdqYkJL3GLD97yrlutkyO7zI8oqg1SlL41EYiHUCXxITAacBDVfHR
+         qf1cW0JPVb3AlaqB8IffEgVrIm5YCaQ1aR2cXMLu9OqCI1G+de7ihnbgReqofX2k47Zu
+         1HoQTOT7CLIW3tdO2WmeAM612GjQnWp0QLPHpCjTYtUsUxUHX1tquIOo2OkZaYLImtt6
+         8kwZNrsNAl+oCQ1rdDS+VPjK+QjHWCCMBWMCu6AmEiTbHn1fu0IWqROA2cJTGX5kJB6V
+         +iwXszDwdvud4MTdJLGRt/hKHcNYtwf0WzoL00qpnX5VfESAdmY+Yze26yk2+L912ymF
+         SYWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=x875RJdjfXCxzZDJCUqQBTmV/vQ+aYgwGesNdJIJmZs=;
+        fh=AaEDDhovIURDo/Vmj8nMDJ6gx5kjUFghBShKf0vgSYQ=;
+        b=Ajf76bZ9uYkhc/e6ENKsygDuESqGmYhiYp+9jgN8iqrNpgpr3DrdTJRXbqceIiOyUP
+         xR/FDGNha4R3K+5KD01UWJXfQLam9yAxyplTQYJRlOjhkYc1sx3eZVESf/k//fAsAEjY
+         BRElx+tbUo3/9RclZ1NYI01wFxFHm74pkDUvH/BMrTPCw1PE2vqBKIGnPxUx4lBx4abF
+         FgmoAvYzixgzwBG9jN2mfFPK+/UiDxXcVsFQiISJ7JGQ9qm0lT50oos56+Q8vKEwr47h
+         h/jBcR2bl/h4B4KfymEG935KNVEYjKKTq/FL/rJAPq8FI2mdfeorX3ssgG+odBXfK5hb
+         cMYQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792432933; x=1793037733; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=x875RJdjfXCxzZDJCUqQBTmV/vQ+aYgwGesNdJIJmZs=;
+        b=qJQvN/7KojCS7HBvK6Z5ZwxBfB7QttmRlobfb7uaf2+XIudUvsYaCUpDdnNXNe4SPk
+         Vn3Qc2UT9CVexBt/UsIl1NJ2MTzqgKLWqSgGPrjmisKFh2ukR7CSL9AGWq/lpzmYPU/C
+         mbWdNPqlFqh56LZtM/W/gmbhLLOAVHlQ/ThpDNfAK6fzhrln5SXUH6lj2UzYew1TWTcn
+         ux2tXh15km17AgwThmeM1/VYV0FMEWA5Go4WdroPqKomWDZB4nc1TX9xz4lu/wO7dVKm
+         XsucJR5xDv999hqFjnqmtMNrkFoLyDLYggGoRvnSVaudHGfyAfykryRSK+jdWIVj3GZP
+         S3bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792432933; x=1793037733;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=x875RJdjfXCxzZDJCUqQBTmV/vQ+aYgwGesNdJIJmZs=;
+        b=vq+Vdy7p87TUAPhu0iqCca71rNc9KZFqtP0ITk34dZRu7exV3Zh9bf6+nHW8NNwAEF
+         +SzzLYt/zig0U3420eIn0yw1f7+HcXFZjd1fs1xQq39VsowCGoL7aQsV+MbwDwpl8rbx
+         eBmiO6j8fS6S9qsOFL0hHHdfqfRw+DzudCoohg2beM9wL7ucy8E2okbtgPraV5QWsoNG
+         SBVreYtSoVn67SnXomtxoL21oTQPcReX/JyaBC4gXCRUVfWyyBg5RQIJFtV/evkBdqQ+
+         aOCzC0anew1K6Un95pd1Upyn/Mp6GLeCPtyVIFaxhDSW8yOsbAgvUJm/gAZEP1N8M3lR
+         GYHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz7pwcqROEnaY1oEKrcZMFFW9Jr1+94X7n9fGcap3ZtDDfhE3lTH3QXphi1CA0HQEkfjgSSpUc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJKrt6S3P+43IHpYQDmayWhrxEejBZSFvHDtw0v3cFVpK689wtL
+	8DXPxCXtp5Q2toWXX250ytWvFkfHLXTw/UvC+J1QCVYERRXyNkSqLvEZpkKQS3pneH1TzUkn6MW
+	f7WORm5q52y63qRkxic4f1z4JRxrt4Iw=
+X-Gm-Gg: AYBFou1h7TCPVYjX0V2i1wywkM4NJRh9KQ5PUEnK8nf0JzWDgPu7yDlPOVTjQJnME+o
+	fXWfRtSULBMBUJBRh0AAptRNhu+e3tDGlcaFb6WLVML8oMTzxEgVk6eASxHkchTxGtSg+eLQrir
+	bwYQl2PcX/3gptu4Jvn+0KJB9WhSu78qWSX11zB2MjdJUIMlbE/DXM3vQiaQZawQ9X2NQXnfOSw
+	Z+2Ga1IT5nmh4PII5VnkQs5cCMgQDuaf46RFa5YhoSZSosP++ix/6ys94CK4xEPRTwMMcg6uXsp
+	Y9xiN//D0os0cKA2XPvC5inci8Yfv9aklZvvTOVm+g144Im0+bj+w1wwJivdfS3LNQuhbbVqMSF
+	zPbVwqEfrFXLbB67T6DxpmN37Ax+lGNsmH2tsB2opwg==
+X-Received: by 2002:a17:90b:1d4f:b0:3ab:be66:ddc5 with SMTP id
+ 98e67ed59e1d1-3acef4fda1dmr12483438a91.6.1792432933217; Mon, 19 Oct 2026
+ 11:02:13 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -136,96 +104,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7925:EE_|SJ0PR11MB4829:EE_
-X-MS-Office365-Filtering-Correlation-Id: 143af086-833b-4cd1-d960-08df2e09e18f
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|22082099003|18002099003|10067099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: ttYD68IU46hUFyrcTu0fsUYCXVKKNjxVyw7xbdyge+TIE5+Gi92PvEwOvuJS+DMTtnVLKvBY1jNYGKBYoC8eKuIkDGI3f8/+sGlxYQyvhjEvLPSqA1UZuxgednGTRsJcQcRzTBL7xlI94omoY0NCAZNSrJ7h3WAjUyAgcLTRY2WBnx5oyJBreMjq632ziDP5Mn9DteJnDVEWCDqh4/WAKEYdIxtTTBi4WPmCsho+zHpGJsSiPibqMHRSDKZp7G59tKyeNuz9GPSnmhF5ANEIXrEQfWVCUiJofWggazjdCfq/thp3LA96A1pJmX3qcIBsOY2MMD9YB900jjeLl5RqAw1AmD5bbFKKYWtLZgluyCPeRo3goLpAEI057qWYlYWuaTi29PB3hCSf+vi3sGFTdRVrePymslT4wUFY7qqclhICjlskqJg18IykdKI26AUhW+yz9fZjqttoulso69j0AxzwjAca+au4cqTcq6FFyl4aWEp+JhESyT1I0wCMt0f+y9nnQvvDz+30X7YgMTdAGZMrztSDXYJK/Mrfor279dN8JWFLSUNA9lJ81k/hawf2ygPG/cP+MOICLOymRHDz0iehhqx7Vigc9TDdVZsi7gPwdeXvZ4VjoJbNu2BKJJuI/k4+02tzCsNbGlQYV6H3becUuTgrErbgEvl+3zPTXoU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7925.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(22082099003)(18002099003)(10067099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?akpxVUoxa2x1U2NacVBkdzFQL09GK0xpY1FndHNjVXhPWGpIa05yUFNKcW5Y?=
- =?utf-8?B?YlN0Q2NVWlJiMTNWZ0NyaGFDSE1iaHNXemQwemhwbkE4c1pqKzJMQzM1NGZr?=
- =?utf-8?B?R3NpczVSc2wzcUdWQ3lkV2ZuVC92ZWFsazBFWDlSZ1cxdlZXYWdZUFhFMjlD?=
- =?utf-8?B?MUxjc2N6aWprOExJd2tuNFZWQmNrbWFVZWV6cU9CRjBRTE5zYmtXSkpNcit4?=
- =?utf-8?B?dzRFWXBKTWVxOVk4OVByUEpWSTRPdS9UaSt4VGFrSlZpdEIxM3FnTmFkNEox?=
- =?utf-8?B?Z3NHMEZpTWZKY2lKYmdvUUlNZytBbmtobUIrTXY4aENjSi81V2owVUxITVNI?=
- =?utf-8?B?Q2pvd3RldGUrSmJ2US84RlBMbnA1Vys4NHVyamxXTUV5dkJwMWRyWnBJV2h3?=
- =?utf-8?B?SktiRWN5OTh3b0FFdExVRVVkUHNvTmNpZ01EelZrQmNOYlRSN01iaUZ6ZklJ?=
- =?utf-8?B?VjVUeWVzTzVSUGJLbEhWTEZYUGVlTzhSL1hxRmtoc0JKeEVvRGcwOHVTZTV4?=
- =?utf-8?B?OFdLUXZaZlBVUnFSTzRkUG5LNkh2NVptZGxoK2RZVWI0bUZpT3VTUmJUaGNq?=
- =?utf-8?B?ZkVacGtEdTJpVUllYnVtUnFQdXRpQ0VQdHcvUHNVWlE1dk9GckhOWWdzaUM2?=
- =?utf-8?B?QkczbDRjVytLL0NIZnRBQ0hxUzFsNEJkS3ZCWXVCSms1KzVnYk9QZTl6WUNo?=
- =?utf-8?B?OVNRVGxSb0lpRXlTSHU4L1kyMU5DaXVaNFJhVDBzNGxUaHhXUnpTaXVraXdH?=
- =?utf-8?B?VEgxM1RQSUt0dmg3QzNlOCtFWHBTekp5SXVVVFYzMi9RbzQ0bjdyYW1SSXZE?=
- =?utf-8?B?ait6dG44RmlzeE9aZWpTK0JVd2w3UjJXSHFTWXBMZ0xnNGxQUmRxOTFLb1FD?=
- =?utf-8?B?b2dNV3lJWUhjajBvOGg1SkdNa1UyZ1ArYzErZnJGejBKc1kzd2hIN2NTS01a?=
- =?utf-8?B?bE5TUThmUEE1dlJNKzBSRVVRKzNTOUJBL0kxN0FMemtlRW51cVJkYlVXRC9n?=
- =?utf-8?B?T3V6Ti9rV2Vpbll3V0dlTlVmbHdWbUpldnowZS9OMENjRU9LV1JmUXZPQ1lw?=
- =?utf-8?B?dE5yV2t5aWlsYmo5aEJGb2Y3Q08zdU1GUjBkTHlReGNVcXFvVUV0d0FuTWNQ?=
- =?utf-8?B?eGFsVHlEUkJmZmFPUFhmb3VCUGc0ZDZua3MreVQvdjU1cmx6RWo3aExFc2h4?=
- =?utf-8?B?eXl3a2tlMlBMNTF3UWZjeVJqRlB4blh1dGpVQjF1czl6bElZK1VxVmF2Mmt4?=
- =?utf-8?B?eGdQT3A3cVpZcEo4R083bzJEN2laMk9RSC9uMFI0OXBhdEJPdmRsc1VjVldq?=
- =?utf-8?B?T3BJWTZUalJSeEE1SHhaV2NWL0taK3NuVmdxVCs5SWJ0MlNyc1NGb280YkM4?=
- =?utf-8?B?Q2VFaFl1eldDL2ZYMDFEb3hkV0NXaGFCNFp0TStWUmdYWVphcXZVekhPT3NJ?=
- =?utf-8?B?WWdhSWk0aTVGNVlXR3MxclZ0MUFKN2dWZTA0NzBqdWNlNWVVZWx4bitmVE9D?=
- =?utf-8?B?bTBlL0ZlaHk2Y3p6bDRGV3p6RzQrQk5wL1V2K1ZUUFF2RG90NGlSZjdCVDho?=
- =?utf-8?B?d0wwM0lQaUUrMUxoTS9VMTZVcGhTOGp3OWpUTE01anBrUWVScTlidnRMY2d6?=
- =?utf-8?B?aU51QVJDcHF3QlladUxIQUs4NkdMWGJMYkJabTVvZTJ2SE5FMTNWbmtJcnJF?=
- =?utf-8?B?TCsrbkZZUlNtRHVNT1hxVGhQYXV0aU8yZkJEMks4bDRjYndBdWtlUlJtbEEr?=
- =?utf-8?B?TTRnWXh3WTNVcDZLdFN5NE1hSXF3akcwZWF5Y3lvQTliczE5UmZnZ0xua1NV?=
- =?utf-8?B?WlV1WTMyNUZoVWl1RmdCV2tPUUJtK3RYa1A0c2pISFlkbkhCVmpsZ3RXREM2?=
- =?utf-8?B?ZnJsQ2g3TWJMcGdad0p3bC9NMkluWks0czc1N3o5UU9iVktiZXBaOERtcVdy?=
- =?utf-8?B?anhFNmg2cm52Z29NU2RoZHN0bUI4Ym95RHdFWFFHbUFVTFp0RzJlVTRrMGh3?=
- =?utf-8?B?Ri9pR2JsajNMTWt4K1hoNmRvblllN2FuREhqVzdEbmthbWo3QnN6MkN1cEVK?=
- =?utf-8?B?MFhpSGVpS0llOURmTWowNVhjbWlUTnpSZDJSNy94TGFnNmVZbFcxbW1HZXJw?=
- =?utf-8?B?RWlwL25Wa1dMeUFZVGZ2NUhWR0ljREtkVG1LemRsZUJHQm5GWjUyazgvVHk0?=
- =?utf-8?B?TU1ta1lxYkNPWjBzS0pkZ0pBTU40KzlQbzJpdm5ZMWt3d0EyRDlNbEkvZ1h3?=
- =?utf-8?B?ZDU0WGNtd0QzSC90S3pSdmE2U0VTZnl5OG1MVE5lMUpzWm9uTlZMcUhzRVBm?=
- =?utf-8?B?UE5hWnk0MUhZVmwvTTVhcVh2MDdydGZYcjN6ckx4RUkxM1ZjeGxtUT09?=
-X-Exchange-RoutingPolicyChecked: yRq4qv7NYVdTa/wwbB9z/rcr8CUrDZg3maWqG+5QhWrU0YLU8Nt6o4ZXLSNVR19e+zXI2/+2FSSoNOXAnv2iWqStlWVSBIBp7wIknBodw+0jcijRF0uwV8TQWt7MqlSdm/xOAJ20WQMLK9GKJaf6bzhCyk+1u5GttQQ3K3IyTnqoJF8MxZ+ad7a0UVN1OsX4NQd9gv1KjfewMrEvhuNbv07FYoqhkof2WNNfI2jECaOsjqUjfjGep+rK89AtHTkdkVnMnuRjDZT7+xF/VfPWuxPS1rH/WC3pixkxYRBPcfuzZfCdrXVWc/EYTbCy0LIQnt5AIXuActOK12KAWc3NtA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 143af086-833b-4cd1-d960-08df2e09e18f
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7925.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 17:53:28.9015
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: khpfU6p2oCpM+WMSAJ1Lr6n19ZHPl0TnVtepgPigTwDN/qFLAIVhGHp7a0HTOmYptc+8wHLbVDb12v+HsJEtiNdgeErt9RJuTspuHCdVZ6Y=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB4829
-X-OriginatorOrg: intel.com
+References: <20261019153942.4067-1-leo.liu@amd.com>
+In-Reply-To: <20261019153942.4067-1-leo.liu@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 19 Oct 2026 14:02:01 -0400
+X-Gm-Features: AclHuK-Hr_TiHi7B9j25lZ-SyOtwCmY1t6K0AhTjKN3tb5gC86EVsG2kNO6g25c
+Message-ID: <CADnq5_PZBhnJXza6Y7KRTGaM-p1iGOMmV_ST70T+wuxf6rj+vQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: call hw_fini for IP blocks whose hw_init failed
+To: Leo Liu <leo.liu@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/14/2026 5:19 PM, Chang S. Bae wrote:
-> On 10/7/2026 10:59 PM, Guixiong Wei wrote:
->>
->> -void fpstate_free(struct fpu *fpu)
->> +void fpstate_free(struct fpstate *fpstate)
->>   {
->> -    if (fpu->fpstate && fpu->fpstate != &fpu->__fpstate)
->> -        vfree(fpu->fpstate);
->> +    if (fpstate && fpstate->is_valloc)
->> +        vfree(fpstate);
->>   }
-> 
-> Shouldn't is_valloc be cleared here, or when fpstate_reset() replaces 
-> fpu->fpstate with the embedded fpstate?
+On Mon, Oct 19, 2026 at 12:06=E2=80=AFPM Leo Liu <leo.liu@amd.com> wrote:
+>
+> When an IP block's hw_init() fails, amdgpu_device_ip_fini_early() skips
+> its hw_fini() because status.hw was never set.  For VCN, UVD, VCE, and
+> JPEG this leaves their idle work queued after sw_fini() frees the adev
+> state the handler touches, causing a use-after-free.
+>
+> The bug was reported on MI355X after unloading GIM then loading amdgpu.
+> GIM's teardown resets the GPU, leaving VCN unresponsive.
+> amdgpu_vcn_enc_ring_test_ring() calls amdgpu_ring_commit() =E2=80=94 whic=
+h
+> schedules the idle work =E2=80=94 before polling rptr.  The poll times ou=
+t
+> (-ETIMEDOUT), hw_init() fails, hw_fini() is skipped, and the idle work
+> handler fires after sw_fini() against freed state.
 
-No, is_valloc is pat of the vmalloc'ed memory itself.
+I think it would be better if hw_init() cleaned up the idle work
+handler in its failure path.  Can you cancel the worker in the vcn
+ring test helpers if they fail?
 
-That said, removing the original check does not seem reassuring either. 
-Maybe, another option would be adding an internal helper:
+Alex
 
-   void __fpstate_reset(struct fpstate *fpstate)
-   {
-       if (fpstate && fpstate->is_valloc)
-           vfree(fpstate);
-   }
-
-Then, refactor fpstate_realloc() and replace the vfree() in 
-fpstate_free() with it, keeping the fpstate_free() prototype unchanged.
-
-Thanks,
-Chang
+>
+> The ticket (Link below) suggests cancelling the idle work on all
+> failed-probe/sw_fini paths.  This patch takes a different approach: the
+> idle work cancel belongs in hw_fini(), which is already the correct
+> counterpart to hw_init() for hardware-domain cleanup.  Rather than
+> scattering cancel calls across sw_fini() or every IP's hw_init() error
+> path, we ensure hw_fini() is invoked for any block whose hw_init() was
+> attempted but failed.
+>
+> Add status.hw_init_attempted, set it in amdgpu_device_ip_hw_init_phase2()
+> on hw_init() failure, and check it alongside status.hw in
+> amdgpu_device_ip_fini_early().  This causes fini_early() to call hw_fini(=
+)
+> for the failed block in its correct reverse-order position =E2=80=94 a si=
+ngle
+> change in one file that covers all IP types without touching any per-IP
+> code.
+>
+> Link: https://github.com/ROCm/amdgpu/issues/234
+> Fixes: 416e1fab4752 ("drm/amdgpu: drop redundant cancel_delayed_work_sync=
+ call")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:Claude-Sonnet-4.6
+> Signed-off-by: Leo Liu <leo.liu@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 +++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h     | 1 +
+>  2 files changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index b74f9136aa2e..e267fb3774c1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -2233,6 +2233,7 @@ static int amdgpu_device_ip_hw_init_phase2(struct a=
+mdgpu_device *adev)
+>                         dev_err(adev->dev,
+>                                 "hw_init of IP block <%s> failed %d\n",
+>                                 adev->ip_blocks[i].version->funcs->name, =
+r);
+> +                       adev->ip_blocks[i].status.hw_init_attempted =3D t=
+rue;
+>                         return r;
+>                 }
+>                 adev->ip_blocks[i].status.hw =3D true;
+> @@ -2902,7 +2903,8 @@ static int amdgpu_device_ip_fini_early(struct amdgp=
+u_device *adev)
+>         amdgpu_device_smu_fini_early(adev);
+>
+>         for (i =3D adev->num_ip_blocks - 1; i >=3D 0; i--) {
+> -               if (!adev->ip_blocks[i].status.hw)
+> +               if (!adev->ip_blocks[i].status.hw &&
+> +                   !adev->ip_blocks[i].status.hw_init_attempted)
+>                         continue;
+>
+>                 amdgpu_ip_block_hw_fini(&adev->ip_blocks[i]);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_ip.h
+> index 5dd6273982c4..bfa27ca05dbe 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h
+> @@ -99,6 +99,7 @@ struct amdgpu_ip_block_status {
+>         bool valid;
+>         bool sw;
+>         bool hw;
+> +       bool hw_init_attempted;
+>         bool late_initialized;
+>         bool hang;
+>  };
+> --
+> 2.43.0
+>
