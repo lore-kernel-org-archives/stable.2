@@ -1,232 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from remote.fiveco.ch (remote.fiveco.ch [46.14.118.250])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD0E29E116;
-	Mon, 19 Oct 2026 11:39:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF414E5344
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 11:56:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.14.118.250
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792410000; cv=none; b=sk+omE6tYwIawUUUSpMxsq0D97N1yQOUJQj3S3gG2VYiUZKv2sot1xR7Bd4oLEl7qJBfXUsWhF9n6uTKjRaqE5/La3oScDPpgABXHBC6pg3KWBYlO8SMMjcUllKnLxi3Be6wMvv0RUPrKNKCp4OH6qWNz2s7QmR1lHvOd3RPCoA=
+	t=1792410991; cv=none; b=kxwI6ofyeVzdn4NDJhcfIK6dneZZ4qWD1Y3RU36V8RcVZczaOMqAb6BG19jsRJE/11uzNWdBpkCjz0ppMmwEiy+R2mpSQ3tK2wsbEtSZbJVmR1oOw4hF4U9gzlbdWkcA74ND1LAOZjRH6f5MEGcDPBTPStGtLytCbSEhkI7vBG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792410000; c=relaxed/simple;
-	bh=Qph89yOUtQgOqZVxZJ5kREPik3PNlaeu9jjROoX+uSc=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Hzmj/mPvlJ9zNy3j56jjM4OHEZBlA4ILP/Of8kTb/PVSUdkQUnPlmjbrbcX87yC/dmEto5IL8GOShxUqGJTV2iCFjiEJPyUbSQGyt3ODRd9CejNK3DB0M9rkWgX0Qrg45vFmKXUzJrICiF6TjHnGFemRM7Laof5CLYOJVgi6bSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Du+unxfm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792410991; c=relaxed/simple;
+	bh=FYx53TYVkBsd/sCWj2+zcUIj1usEdwFWXY81aK60Xlo=;
+	h=Content-Type:From:To:CC:Subject:Date:Message-ID:MIME-Version; b=o5tV+/rrM8rFNF9pX/IGxVIFdOBMl6ZQKUTGVkgonuoxnxt1l5SKpf15m5C/+5duUDh6ws57qr5EAKkkYBvA2b3PTlfwBqh8W9cZJSmIS+BMpjQ0GilArkdQUCEzNOjAfitXukbpv+C2/CVU/geBq2azLrbAqWYPyWnSX4bc+uA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch; spf=pass smtp.mailfrom=fiveco.ch; dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b=HlX91qDT; arc=none smtp.client-ip=46.14.118.250
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiveco.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Du+unxfm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 138A41F000C4;
-	Mon, 19 Oct 2026 11:39:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792409998;
-	bh=ppgv3sde9BfUFCjlo6uNKGzLm2p48ZtfrYiLyAps7uQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Du+unxfmq0nGhNn/tfND8fmgO/xvQ1AdcOinanC6kOExG+TgrPGG2gV1uIwbh3bzN
-	 gThmL4jymrw9R/PMehGSU71W8L8vs9Gm6eIEzP+hN1U5R01YkV5sIdhHX3JACoMklr
-	 V786CgVZM5IYAWNrVGqqzkb8V4jlGEmZsEouORrV+gQCZ2EnfeiMa8G1DbrcC3eDsM
-	 qP07OJ1Dz0BybW9t1vhonriIiv5OkIwkXlCOqcgQjeFvyt8dqhyRYGB8jOZtB9nkGe
-	 elK0oG+PYJufyQoiY0Bn1MvDpIVc2oZnRF0ekA9VzvV0FZX45oVRgiGzhMrcAQzh0l
-	 BFiv8KIWNDgpg==
-Subject:
- Re: [PATCH net v2] net/sched: cls_api: unlink indr cb on a failed bind
-From: netdev-bot+sashiko@kernel.org
-To: q.h.hack.winter@gmail.com
-Cc: jhs@mojatatu.com, jiri@resnulli.us, netdev@vger.kernel.org,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, pablo@netfilter.org, stable@vger.kernel.org
-Date: Mon, 19 Oct 2026 11:39:57 +0000
-Message-ID: <179240999753.3135.11391134985623127399@kernel.org>
-In-Reply-To: <20261018112955.61470-1-q.h.hack.winter@gmail.com>
-References: <20261018112955.61470-1-q.h.hack.winter@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b="HlX91qDT"
+Received: from [192.168.16.44] (port=61408 helo=remote.fiveco.ch)
+	by remote.fiveco.ch with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.96)
+	(envelope-from <valentin.kindschi@fiveco.ch>)
+	id 1xIly5-000000002xB-0SE2;
+	Mon, 19 Oct 2026 13:55:53 +0200
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+DKIM-Signature: v=1; a=rsa-sha256; d=fiveco.ch; s=fiveco; c=simple/simple;
+	t=1792410952; h=from:subject:to:date:message-id;
+	bh=FYx53TYVkBsd/sCWj2+zcUIj1usEdwFWXY81aK60Xlo=;
+	b=HlX91qDT3pkkxgx+A9f4fPUF1brQ76i7AMgxhJ6YR2dBBDgyPVW4ev05SQqmXeD0DZn8CF6QxEQ
+	I40ae2wNZeQfum6C5T2ESr4I5rtXndFwzRHykTyKK2XwIKJ56hRYBmz/jPlbKg9PrJWIjNiCbykiN
+	12r62GGRFTZdP4v9MYw=
+Received: from fiveco-vm-vk1.fiveco.local (192.168.16.29) by
+ FIVECO-MX01.fiveco.local (192.168.16.44) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.61; Mon, 19 Oct 2026 13:55:52 +0200
+From: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+To: <linux-bluetooth@vger.kernel.org>
+CC: <marcel@holtmann.org>, <johan.hedberg@gmail.com>, <luiz.dentz@gmail.com>,
+	<linux-kernel@vger.kernel.org>, Valentin Kindschi
+	<valentin.kindschi@fiveco.ch>, <stable@vger.kernel.org>
+Subject: [PATCH v6 1/2] Bluetooth: hci_sync: re-enable legacy advertising on resume
+Date: Mon, 19 Oct 2026 13:55:37 +0200
+Message-ID: <20261019115538.45115-1-valentin.kindschi@fiveco.ch>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-ClientProxiedBy: FIVECO-MX01.fiveco.local (192.168.16.44) To
+ FIVECO-MX01.fiveco.local (192.168.16.44)
+X-Sophos-OBS: success
+X-SASI-Version: Antispam-Engine: 6.0.0.1, AntispamData: 2026.10.19.112719
+X-SASI-RCODE: 200
+X-SASI-SpamProbability: 8%
+X-SASI-Hits: BODY_SIZE_3000_3999 0.000000, BODY_SIZE_5000_LESS 0.000000,
+ BODY_SIZE_7000_LESS 0.000000, CTE_8BIT 0.000000, DKIM_ALIGNS 0.000000,
+ DKIM_SIGNATURE 0.000000, HTML_00_01 0.050000, HTML_00_10 0.050000,
+ MULTIPLE_RCPTS 0.100000, NO_CTA_URI_FOUND 0.000000, NO_FUR_HEADER 0.000000,
+ NO_URI_HTTPS 0.000000, OUTBOUND 0.000000, OUTBOUND_SOPHOS 0.000000,
+ SENDER_NO_AUTH 0.000000, WEBMAIL_SOURCE 0.000000, WEBMAIL_XOIP 0.000000,
+ WEBMAIL_X_IP_HDR 0.000000, __ANY_URI 0.000000, __BODY_NO_MAILTO 0.000000,
+ __BODY_VOICEMAIL 0.000000, __BULK_NEGATE 0.000000, __CC_NAME 0.000000,
+ __CC_NAME_DIFF_FROM_ACC 0.000000, __CC_REAL_NAMES 0.000000, __CT 0.000000,
+ __CTE 0.000000, __CT_TEXT_PLAIN 0.000000, __DKIM_ALIGNS_1 0.000000,
+ __DKIM_ALIGNS_2 0.000000, __DQ_NEG_DOMAIN 0.000000, __DQ_NEG_HEUR 0.000000,
+ __DQ_NEG_IP 0.000000, __FUR_RDNS_SOPHOS 0.000000, __HAS_CC_HDR 0.000000,
+ __HAS_FROM 0.000000, __HAS_MSGID 0.000000, __HAS_XOIP 0.000000,
+ __HAS_X_MAILER 0.000000, __MIME_TEXT_ONLY 0.000000, __MIME_TEXT_P 0.000000,
+ __MIME_TEXT_P1 0.000000, __MIME_VERSION 0.000000,
+ __MULTIPLE_RCPTS_CC_X2 0.000000, __NO_HTML_TAG_RAW 0.000000,
+ __OUTBOUND_SOPHOS_FUR 0.000000, __OUTBOUND_SOPHOS_FUR_IP 0.000000,
+ __OUTBOUND_SOPHOS_FUR_RDNS 0.000000, __RCVD_CTE 0.000000,
+ __RCVD_EXIM_4_96_AES_128 0.000000, __RCVD_FROM_HOMEUSER 0.000000,
+ __SANE_MSGID 0.000000, __SL_HEAVY 0.000000, __SL_LIGHT 0.000000,
+ __SUBJ_ALPHA_END 0.000000, __SUBJ_STARTS_S_BRACKETS 0.000000,
+ __TO_MALFORMED_2 0.000000, __TO_NO_NAME 0.000000, __URI_MAILTO 0.000000,
+ __URI_NO_WWW 0.000000, __URI_NS 0.000000
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+hci_resume_advertising_sync() never re-enables advertising on a
+controller without extended advertising.
 
-Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0
+It restores HCI_ADVERTISING from advertising_old_state, then calls
+hci_schedule_adv_instance_sync(), which starts with:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+  if (hci_dev_test_flag(hdev, HCI_ADVERTISING) && !ext_adv_capable(hdev))
+          return -EPERM;
 
-- [High] The new flow_indr_block_cb_unlink() helper takes
-  flow_indr_block_lock, and the v2 notes say this stops the race with a…
+The flag it tests was set a few lines earlier by the resume itself, so
+the call returns -EPERM without sending anything. The return value is
+discarded by every caller, so the failure is silent: advertising_paused
+is cleared, HCI_ADVERTISING is set, and the controller is not
+advertising.
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the same
-  failed indirect bind leaves a second stale indirect-offload object,…
+Observed on a BCM43455 (no extended advertising) after an active scan:
+btmon shows the pause disabling advertising and no re-enable in the ten
+seconds that follow, the device does not appear in another controller's
+scan, and btmgmt info still reports "advertising" in current settings.
 
---
+Enable instance 0x00 directly in that case, the way reenable_adv_sync()
+already does for the same situation. Instances continue to go through
+hci_schedule_adv_instance_sync() so the software rotation loop is
+rearmed.
 
-net/sched: cls_api: unlink indr cb on a failed bind
+This affects every caller of hci_resume_advertising_sync(), not only the
+scan path: address resolution changes, accept list updates, discovery
+stop, suspend/resume and the end of an LE connection attempt all leave
+advertising disabled on such a controller today.
 
-With this patch, the tcf_block_bind() error path removes an indirect
-flow_block_cb from flow_block_indr_list before freeing it. It does this
-through a new flow_indr_block_cb_unlink() helper that takes
-flow_indr_block_lock. The patch also initialises indr.list in
-flow_block_cb_alloc(), so the helper does nothing for direct callbacks.
+err is initialised because the extended branch leaves it unset when
+adv_instances is empty and HCI_LE_ADV_0 is clear.
 
-> diff --git a/net/core/flow_offload.c b/net/core/flow_offload.c
-> index 5071d7fe6ce2a..62bc2eb6e0da1 100644
-> --- a/net/core/flow_offload.c
-> +++ b/net/core/flow_offload.c
+Fixes: ad383c2c65a5 ("Bluetooth: hci_sync: Enable advertising when LL privacy is enabled")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5.5 btmon
+Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+---
+Changes in v6:
+- No change; resent as part of the series.
 
-[ ... ]
+Changes in v5:
+- New patch. v4 of the scan fix resumed advertising through
+  hci_schedule_adv_instance_sync(), which refuses HCI_ADVERTISING on a
+  controller without extended advertising, so the resume never sent
+  anything. Patch 2 depends on this.
 
-> @@ -525,6 +527,13 @@ static void flow_block_indr_init(struct flow_block_cb *flow_block,
->  	flow_block->indr.cleanup = cleanup;
->  }
->  
-> +void flow_indr_block_cb_unlink(struct flow_block_cb *block_cb)
-> +{
-> +	mutex_lock(&flow_indr_block_lock);
-> +	list_del_init(&block_cb->indr.list);
-> +	mutex_unlock(&flow_indr_block_lock);
-> +}
+ net/bluetooth/hci_sync.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-[Severity: High]
-Does taking flow_indr_block_lock here really serialize against a
-concurrent flow_indr_dev_unregister()? The v2 notes say it does.
-
-Unregister only holds the lock while it moves the matching callbacks onto
-a private list on its stack:
-
-net/core/flow_offload.c:flow_indr_dev_unregister() {
-    ...
-	__flow_block_indr_cleanup(release, cb_priv, &cleanup_list);
-	mutex_unlock(&flow_indr_block_lock);
-
-	tcf_action_reoffload_cb(cb, cb_priv, false);
-	flow_block_indr_notify(&cleanup_list);
-    ...
-}
-
-flow_block_indr_notify() then walks cleanup_list without the lock. For
-each entry it poisons the list node and calls the cleanup callback:
-
-	list_for_each_entry_safe(this, next, cleanup_list, indr.list) {
-		list_del(&this->indr.list);
-		this->indr.cleanup(this);
-	}
-
-For tc, the cleanup callback is tc_block_indr_cleanup(). It blocks in
-rtnl_lock() and down_write(&block->cb_lock).
-
-The binder holds both of those locks for the whole of
-tcf_block_offload_bind(), and that includes the err_unroll path in
-tcf_block_bind().
-
-So this sequence looks possible:
-
-CPU A (driver teardown)
-flow_indr_dev_unregister()
-  __flow_block_indr_cleanup()      /* moves X to cleanup_list */
-  mutex_unlock(&flow_indr_block_lock)
-  flow_block_indr_notify()
-    list_del(&X->indr.list)        /* X poisoned */
-    tc_block_indr_cleanup(X)
-      rtnl_lock()                  /* blocks */
-
-CPU B (tc qdisc add, holding rtnl and cb_lock)
-tcf_block_bind()
-  err_unroll:
-    flow_indr_block_cb_unlink(X)   /* list_del_init() on poison */
-    flow_block_cb_free(X)
-
-If the walker has already called list_del() on X, does list_del_init()
-in this helper then run on LIST_POISON1/LIST_POISON2? Before this patch
-the error path never touched indr.list, so that crash point looks new.
-
-X could instead be the walker's saved next pointer, while the cleanup of
-an earlier entry is blocked on rtnl. In that case the helper unlinks X
-from CPU A's private cleanup_list and frees it. Would the walker then
-step into freed memory?
-
-Either way, once CPU A gets rtnl and cb_lock, tc_block_indr_cleanup()
-runs:
-
-	list_del(&block_cb->driver_list);
-	list_move(&block_cb->list, &bo.cb_list);
-	tcf_block_unbind(block, &bo);
-
-Does this write into the already freed X? tcf_block_unbind() would then
-call flow_block_cb_free(X) a second time, which runs the driver's
-->release() on cb_priv twice.
-
-The error path seems to need a way to tell, under flow_indr_block_lock,
-that unregister has already claimed the entry, and skip the free in that
-case. The other option is to make the notify/cleanup side handle it.
-
-> diff --git a/net/sched/cls_api.c b/net/sched/cls_api.c
-> index a9f54988561f2..9e4ea37154191 100644
-> --- a/net/sched/cls_api.c
-> +++ b/net/sched/cls_api.c
-> @@ -1665,6 +1665,7 @@ static int tcf_block_bind(struct tcf_block *block,
->  err_unroll:
->  	list_for_each_entry_safe(block_cb, next, &bo->cb_list, list) {
->  		list_del(&block_cb->driver_list);
-> +		flow_indr_block_cb_unlink(block_cb);
->  		if (i-- > 0) {
->  			list_del(&block_cb->list);
->  			tcf_block_playback_offloads(block, block_cb->cb,
-
-[Severity: High]
-This is a pre-existing issue, but a failed indirect bind also leaves a
-stale flow_indir_dev_info entry on flow_indir_dev_list. Could that entry
-cause a use-after-free later?
-
-flow_indr_dev_setup_offload() records the bind before it knows whether
-the bind succeeds. It holds no references on dev, sch or the block:
-
-	if (bo) {
-		if (bo->command == FLOW_BLOCK_BIND)
-			indir_dev_add(data, dev, sch, type, cleanup, bo);
-
-On the indirect path, tcf_block_offload_cmd() ignores the result of
-tcf_block_setup() and always returns -EOPNOTSUPP:
-
-	flow_indr_dev_setup_offload(dev, sch, TC_SETUP_BLOCK, block, &bo,
-				    tc_block_indr_cleanup);
-	tcf_block_setup(block, &bo);
-
-	return -EOPNOTSUPP;
-
-tcf_block_offload_bind() then fails whenever the block already has
-offloaded filters:
-
-no_offload_dev_inc:
-	if (tcf_block_offload_in_use(block))
-		goto err_unlock;
-
-The err_block_offload_bind path in tcf_block_get_ext() never sends
-FLOW_BLOCK_UNBIND, so indir_dev_remove(block) is never called. Once the
-qdisc, the device or the shared block is freed, info->sch, info->dev and
-info->cb_list point to freed memory.
-
-The next flow_indr_dev_register() then calls existing_qdiscs_register(),
-which does:
-
-	cb(cur->dev, cur->sch, cb_priv, cur->type, &bo, cur->data, cur->cleanup);
-	list_splice(&bo.cb_list, cur->cb_list);
-
-Would that pass freed dev and sch pointers to the driver? For example,
-mlx5e_rep_indr_setup_block() dereferences netdev right away. Would it
-also splice into the flow_block.cb_list of a freed block?
-
-Triggering this does not need tcf_block_bind() to fail. It is enough to
-bind a device without ndo_setup_tc to a shared block that already has
-offloaded filters, even when no indirect driver is registered. Any later
-driver load or reload that calls flow_indr_dev_register() then uses the
-stale entry.
-
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index 7ac26daba..d215432db 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -2733,7 +2733,7 @@ static int hci_pause_advertising_sync(struct hci_dev *hdev)
+ static int hci_resume_advertising_sync(struct hci_dev *hdev)
+ {
+ 	struct adv_info *adv, *tmp;
+-	int err;
++	int err = 0;
+ 
+ 	/* If advertising has not been paused there is nothing  to do. */
+ 	if (!hdev->advertising_paused)
+@@ -2766,13 +2766,18 @@ static int hci_resume_advertising_sync(struct hci_dev *hdev)
+ 		 */
+ 		if (hci_dev_test_and_clear_flag(hdev, HCI_LE_ADV_0))
+ 			err = hci_enable_ext_advertising_sync(hdev, 0x00);
+-	} else {
++	} else if (hdev->cur_adv_instance) {
+ 		/* Schedule for most recent instance to be restarted and begin
+ 		 * the software rotation loop
+ 		 */
+ 		err = hci_schedule_adv_instance_sync(hdev,
+ 						     hdev->cur_adv_instance,
+ 						     true);
++	} else {
++		/* hci_schedule_adv_instance_sync() rejects instance 0x00 while
++		 * HCI_ADVERTISING is set, so enable it directly.
++		 */
++		err = hci_start_adv_sync(hdev, 0x00);
+ 	}
+ 
+ 	hdev->advertising_paused = false;
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261018112955.61470-1-q.h.hack.winter%40gmail.com
+2.34.1
+
