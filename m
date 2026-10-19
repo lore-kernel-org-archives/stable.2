@@ -1,121 +1,123 @@
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C37B485502;
-	Mon, 19 Oct 2026 06:42:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 533993C1D70;
+	Mon, 19 Oct 2026 06:44:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792392165; cv=none; b=jEvdAxPuXIFjRDGehiIGuTFSaidS79PV4ZYE7kn8l++aL2JNt6cSBK3InbB6wcqgWIV8hWm/Y3Ki9Mz2ScDxfFCDEbJCgu06LmHa3YHNtpk8ptGW1te3ECea7YEICw4jBQSf8L/GKTbVP+/Vcx0/llC6O6mSYC7o6YlzHU68YHY=
+	t=1792392290; cv=none; b=DXqFDaVjPYoOl74S2/YLV+uqS2N8NSs5vXYZZtOubHoQueHFtooNsWOBr0kGwnt2w/uM++bgHsmW+cvJRrhnt48KjY6BL23VdBhg1NcxEIdSKUpbuYF8LGzrovba5zOE33hSRxzj6yVKLs7IRPq2pCyzL7Dgx7oYplbtLIFJLa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792392165; c=relaxed/simple;
-	bh=mG0ssjMFAqzBF8Nmuf2BLS/qbjtCpjzqJbiwQCoLYB8=;
-	h=Date:From:To:Cc:Subject:References:Mime-Version:Message-ID:
-	 Content-Type; b=Dg9b+YqaXz6iODHFYol/KS5Cs15inMsU5ItQY5KLJYPo0ch/uRPsZy89JHPLnYivfZXWnmltnndffv6fK9SCsKEICQYSdFu+oi7mD/cQE2zVnQrVg2s8CrL/4+8GoW0JP4oJA+fmM9DtwgPauNFzwDy9YBMM7lmoUzwETrh8REM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=iqxCGKaQ; arc=none smtp.client-ip=54.207.19.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1792392290; c=relaxed/simple;
+	bh=brmz6Ugg4+Wssx/Cd5pn3XoUG5aERwRrLt35+dX+2+s=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Tbqm78YT3eizOimRPI2huRzidWkctUzBLON/CU/9LxLtcClMfTt2ROxarMU5aXCTJo+eSle0KLsPCE962qT6DX1plmCS8nJE+LhVObakeau8P/pbyFQjwnNWG87n5SRSQLO2uh/N3/yVUHYfuYcFU1V3kpx8XxWhiyWiFbVmy0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=njh60DzA; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="iqxCGKaQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1792392110;
-	bh=mG0ssjMFAqzBF8Nmuf2BLS/qbjtCpjzqJbiwQCoLYB8=;
-	h=Date:From:To:Subject:Mime-Version:Message-ID;
-	b=iqxCGKaQ+kEKq3DeKjS7A37YJuOoPKMFc67+kcwN+T1C6S4+9s7ZMuJp/3AVWhFBP
-	 sgayQYJlEzHl82rIRIsKAR+uQXL5dOnTed0scLUt+Eku9HOV4bgmcrVeY+8r0pgY2I
-	 Rmpg2H8Lq4GDo0jN26CatkmpLQ76UTtc+QOoiGgE=
-X-QQ-mid: esmtpsz19t1792392103t79caaa3a
-X-QQ-Originating-IP: 4FLorRqvu9ksBRu2FZoUp74sIwk0o+b3lTnhR8E8luQ=
-Received: from PEN002676 ( [1.202.39.170])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 19 Oct 2026 14:41:40 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 18404627450710380155
-Date: Mon, 19 Oct 2026 14:41:41 +0800
-From: =?GB2312?B?1dS98MP3?= <zhaojinming@uniontech.com>
-To: "Eric Biggers" <ebiggers@kernel.org>
-Cc: brgl <brgl@kernel.org>, 
-	herbert <herbert@gondor.apana.org.au>, 
-	davem <davem@davemloft.net>, 
-	thara.gopinath <thara.gopinath@linaro.org>, 
-	linux-crypto <linux-crypto@vger.kernel.org>, 
-	linux-arm-msm <linux-arm-msm@vger.kernel.org>, 
-	linux-kernel <linux-kernel@vger.kernel.org>, 
-	stable <stable@vger.kernel.org>
-Subject: Re: [PATCH 0/3] crypto: qce - fix CCM AAD buffer leak and the AEAD error paths
-References: <20261016-fix-qce-ccm-adata-leak-v1-0-f54a82af2de0@uniontech.com>, 
-	<20261016155628.GA3947801@google.com>
-X-Priority: 3
-X-GUID: 9191DB10-C88B-4DAC-A051-F800609F7DC6
-X-Has-Attach: no
-X-Mailer: Foxmail 7.2.25.375[cn]
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="njh60DzA"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69J6iVrC51650305, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1792392271; bh=q6toGPiAhl8lDOX+lhOHl14TFZGbmZsm49q0x+8+nLg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=njh60DzAekDUzBK+GACdM51ajV+ugDA+4nyS0AYILHp2PnqW8LpA2u4amEDLWOqvr
+	 +mo2ODTs1e1HF1RU8b04UtI+hkYEh98cVj6IbdJwNUmNZr3tjMYV97GOHfqL/0eN1A
+	 hg1uXNeoJ69HQ9OSKWOrDKTr0WqT+AyfJeYrPr/Y27/WcQSwA3Eza49vqNp/Y3Ug4W
+	 eW+XVl1ir4g5Ptu3/qSnF/HfM5wA05QT+49IYqkUJ/Mcl/sfOvEoWFdkqP8iqYYAin
+	 hjeI26tfghl++xxE8uqnyV6yh3pPvVQjr5agZHH9EIq7TeqmvZJouiWcRel/M6oQSX
+	 xD5ARN+VliSCA==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69J6iVrC51650305
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 19 Oct 2026 14:44:31 +0800
+Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 19 Oct 2026 14:44:32 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 19 Oct 2026 14:44:32 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Mon, 19 Oct 2026 14:44:32 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, Sascha Hauer
+	<s.hauer@pengutronix.de>, Bin Yu <byu@xidian.edu.cn>, Cheng Wen
+	<wencheng@xidian.edu.cn>
+Subject: RE: [PATCH v2] wifi: rtw88: usb: drop RX frames received before the
+ device is started
+Thread-Topic: [PATCH v2] wifi: rtw88: usb: drop RX frames received before the
+ device is started
+Thread-Index: AQHdX5TFSpeU6nUm5Ei39SmkeDvplrcEa1HQ
+Date: Mon, 19 Oct 2026 06:44:31 +0000
+Message-ID: <128f18dd67cf4848bb22209f290e33c8@realtek.com>
+References: <20261016161931.18495-1-25031212351@stu.xidian.edu.cn>
+ <20261019064000.5167-1-25031212351@stu.xidian.edu.cn>
+In-Reply-To: <20261019064000.5167-1-25031212351@stu.xidian.edu.cn>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Message-ID: <CA7A5103C91FA945+2026101914414023542111@uniontech.com>
-Content-Type: text/plain;
-	charset="GB2312"
-Content-Transfer-Encoding: base64
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: NWLpwLZrMWrIHCw6m4REeHpuAj5h5Im2QmkeMWqQjSWN/KQwphzej+Vc
-	LikyNJdugrwl9xe+YTFW1lh9h2oR7yTvSq8bZTW/77ultkE2XsO2ep6PDGPKs20drYR5jno
-	VkVYxX5KdULe+u4b2AhnxtuoZanFcM4dvhgbYCdpQXBRO+GC+bmfFZ/FaKJoKwByPyIOUr8
-	GymCAeQchuRp+DfgtofuZvP5CZ4modil+TCKy1AnfaVQhKT+4VrgddGFNrzWFbY+ztgya4d
-	NT3cdh6G5BxIG02+xmUQ2QspAGh/MkxCyxNIRnzpCXv1u/m3w6xTb5zca5QVTr7sacXwFYS
-	vyqtydrJHjBOGBpuRhbCamFWI3d6XmrdAKCKqOF0jwXk62Vnoh0+eM0sap5hvcs+UI5mcMe
-	D0YLUtIR39gklHpjVSrkM8hpucEe02It616RoFlLEF4NBVeh3MkdeOmaQDueJoOwMiB542G
-	nZCsTaDwVRI5scrEQa+QeFpWpvAY5cK2n6yqQ7Gkf+41eoe3KoOSrQDyJvpw5jr7V44Lpw2
-	V3DE2x1k1etGcgZosu8BtlgkB3afAgfliMYpsQkroNnuvg4wsMAnxT6KiJxZurTzByTwxbE
-	ul0wylheGEzlPlLxydSLg8Tz7rAiTYV2i09jt0+rDCvSzniJVw5Zw99W8fx7q5DyoM6IIsL
-	mqxOC+c7SjdvuwJgjEjGjonngrz40cMcBDUn83Hgv7niXDkh+ujFtF4L0J97stsdzG69nE7
-	SDzHNqkoSQsJJnUkBhPO7lnjwNkNlhtQDpyL7mUXBGoU85IATorcbCveQjrTqlJr7rkLaiU
-	bDdCf69lRqWxLiEJ5HDWyXuxGAWZtsxLAlVyegDEnRsVPblEwnyfP2eB5MbyGMTSIynLXOD
-	Qmvqveaa2mxHpX9dR+MFZle7qXI2FxG+HHdWFLEMKwRWxIkwjVfzJu5zBEq+ub5AoPg4j2L
-	Zc8HR1QdO+FvHKzRlZB3GnBBC+SNcBIXzEg6DULqWsROxWKGlRCPdOux/wz0pC/licVS1RN
-	emDIOzBvzJcOLu72d89yUaUcThoQTsBK5ISkTw84VA1+LXJnXA2v6VNpiyKCY=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
 
-CkhpIEVyaWMsCgpUaGFua3MgLSB5b3UncmUgcmlnaHQsIGFuZCBJIHNob3VsZCBoYXZlIGR1ZyB1
-cCB0aGUgb3JpZ2luYWwgdGhyZWFkCmZpcnN0LiBUaGUgU2FzaGlrbyByZXZpZXcgb25seSBmbGFn
-Z2VkIHRoZXNlIGFzIHByZS1leGlzdGluZzsgeW91CnJlcG9ydGVkIHRoZW0gZmlyc3QuIEknbGwg
-Y3JlZGl0IHRoYXQgcHJvcGVybHkgYW5kIHJlc2VuZDoKCiAgICBSZXBvcnRlZC1ieTogRXJpYyBC
-aWdnZXJzIDxlYmlnZ2Vyc0BrZXJuZWwub3JnPgogICAgTGluazogaHR0cHM6Ly9sb3JlLmtlcm5l
-bC5vcmcvbGludXgtY3J5cHRvLzIwMjYwNzIzMTgzNDM4LkdCOTM1MzRAcXVhcmsvCgpJJ2xsIGZv
-bGQgdGhvc2UgdHJhaWxlcnMgaW4gYW5kIHNlbmQgYSB2MiBzaG9ydGx5LgoKVGhlIHJlbWFpbmlu
-ZyBidWdzIHlvdSBsaXN0ZWQgYXJlIG9uIG15IHJhZGFyOyBJIGNhbiB0YWtlIHRoZW0gYXMKc2Vw
-YXJhdGUgZm9sbG93LXVwcyB1bmxlc3MgeW91J2QgcHJlZmVyIG90aGVyd2lzZS4KClRoYW5rcywK
-Wmhhb0ppbm1pbmcKCgoKPk9uIEZyaSwgT2N0IDE2LCAyMDI2IGF0IDEwOjA5OjQyQU0gKzA4MDAs
-IFpoYW9KaW5taW5nIHdyb3RlOgoKCgo+PiBUaGlzIHNlcmllcyBmaXhlcyBhIG1lbW9yeSBsZWFr
-IGluIHRoZSBRQ0UgQUVBRCBkcml2ZXIgdG9nZXRoZXIgd2l0aCB0d28KCgoKPj4gYnVncyBpbiB0
-aGUgZXJyb3IgaGFuZGxpbmcgYXJvdW5kIGl0LgoKCgo+PiAKCgoKPj4gcWNlX2FlYWRfY2NtX3By
-ZXBhcmVfYnVmX2Fzc29jbGVuKCkgYWxsb2NhdGVzIHJjdHgtPmFkYXRhIGZvciBldmVyeSBDQ00K
-CgoKPj4gcmVxdWVzdCB0aGF0IGNhcnJpZXMgYXNzb2NpYXRlZCBkYXRhLCBidXQgdGhlIGJ1ZmZl
-ciBpcyBuZXZlciBmcmVlZC4KCgoKPj4gCgoKCj4+IFdoaWxlIHByZXBhcmluZyB0aGF0IGZpeCwg
-dHdvIHByb2JsZW1zIGluIHRoZSBlcnJvciBwYXRoIG9mCgoKCj4+IHFjZV9hZWFkX2FzeW5jX3Jl
-cV9oYW5kbGUoKSB0dXJuZWQgb3V0IHRvIG1hdHRlcjoKCgoKPj4gCgoKCj4+Pz8gLSBJdCB1bm1h
-cHMgcmVxLT5zcmMgYWx0aG91Z2ggcmN0eC0+c3JjX3NnIGlzIHRoZSBzY2F0dGVybGlzdCB0aGF0
-IHdhcwoKCgo+Pj8/Pz8gcGFzc2VkIHRvIGRtYV9tYXBfc2coKS4/IEZvciBDQ00gcmVxdWVzdHMg
-d2l0aCBhc3NvY2lhdGVkIGRhdGEsCgoKCj4+Pz8/PyByY3R4LT5zcmNfc2cgY2FycmllcyB0aGUg
-QUFEIGJ1ZmZlciwgc28gaXRzIG1hcHBpbmcgaXMgbGVha2VkLCBhbmQKCgoKPj4/Pz8/IGZyZWVp
-bmcgcmN0eC0+YWRhdGEgdGhlcmUgd291bGQgZnJlZSBtZW1vcnkgdGhhdCBpcyBzdGlsbCBETUEt
-bWFwcGVkLgoKCgo+PiAKCgoKPj4/PyAtIEEgZG1hX21hcF9zZygpIGZhaWx1cmUgZm9yIHRoZSBz
-b3VyY2Ugc2NhdHRlcmxpc3QgaXMgbm90IGRldGVjdGVkLAoKCgo+Pj8/Pz8gYmVjYXVzZSB0aGUg
-cmVzdWx0IGlzIGNoZWNrZWQgZm9yIGEgbmVnYXRpdmUgdmFsdWUgd2hpbGUKCgoKPj4/Pz8/IGRt
-YV9tYXBfc2coKSByZXR1cm5zIDAgb24gZmFpbHVyZS4/IFRoZSBlcnJvciBwYXRoIHRoZW4gdW5t
-YXBzIGEKCgoKPj4/Pz8/IHNjYXR0ZXJsaXN0IHRoYXQgd2FzIG5ldmVyIG1hcHBlZC4KCgoKPj4g
-CgoKCj4+IFBhdGNoIDEgdW5tYXBzIHRoZSBjb3JyZWN0IHNjYXR0ZXJsaXN0LCBwYXRjaCAyIGFk
-ZHMgdGhlIG1pc3NpbmcgZnJlZXMKCgoKPj4gYW5kIHBhdGNoIDMgZml4ZXMgdGhlIGRtYV9tYXBf
-c2coKSBjaGVjay4KCgoKPj4gCgoKCj4+IEFsbCB0aHJlZSB3ZXJlIHJlcG9ydGVkIGFzIHByZS1l
-eGlzdGluZyBpbiB0aGUgU2FzaGlrbyByZXZpZXcgb2YgdGhlIFFDRQoKCgo+PiBCQU0gbG9ja2lu
-ZyBzZXJpZXMuPyBUaGV5IHRvdWNoIHRoZSBzYW1lIGZ1bmN0aW9uIHRoYXQgd2FzIHJlY2VudGx5
-IGZpeGVkCgoKCj4+IGJ5IGNvbW1pdCA3ZjIzNDVmNDdkZDEgKCJjcnlwdG86IHFjZSAtIGZpeCBD
-Q00gQUFEIGJ1ZmZlcgoKCgo+PiB1bmRlcmFsbG9jYXRpb24iKS4KCgoKPgoKCgo+Tm90ZSB0aGF0
-IEkgcmVwb3J0ZWQgdGhlc2UgYnVncyAoYW5kIG90aGVycyBzdGlsbCB1bmZpeGVkKSAzIG1vbnRo
-cyBhZ286CgoKCj5odHRwczovL2xvcmUua2VybmVsLm9yZy9saW51eC1jcnlwdG8vMjAyNjA3MjMx
-ODM0MzguR0I5MzUzNEBxdWFyay8KCgoKPgoKCgo+LSBFcmljCgoKCj4KCgo=
+YuanZhe Liu <25031212351@stu.xidian.edu.cn> wrote:
+> rtw_usb_probe() submits the bulk-in RX URBs at the end of probe, right
+> after rtw_register_hw(). A device can already have data queued on that
+> endpoint, so rtw_usb_read_port_complete() runs and queues the frame on
+> rtwusb->rx_queue before any interface has been brought up. Submitting
+> the URBs late does not close that window: the frame can arrive as soon
+> as they are submitted, which is still before the device is started.
+>=20
+> rtw_usb_rx_handler() hands every non-C2H frame to mac80211 without
+> checking whether the device is running, so ieee80211_rx_irqsafe() runs
+> while local->started is still false. mac80211 treats that as a driver
+> bug and warns in ieee80211_rx_list():
+>=20
+>   WARNING: net/mac80211/rx.c:5601 at ieee80211_rx_list
+>    Call Trace:
+>     <IRQ>
+>     ieee80211_rx_napi
+>     ieee80211_rx
+>     ieee80211_handle_queued_frames
+>     <TASK>
+>     rtw_usb_rx_resubmit
+>     rtw_usb_setup_rx
+>     rtw_usb_probe
+>=20
+> The frame is dropped by mac80211 anyway, and because the URB is
+> resubmitted from its completion handler, every further frame repeats the
+> warning, which floods the log until an interface is actually started.
+>=20
+> rtw_ops_tx() already drops frames outside of start/stop by checking
+> RTW_FLAG_RUNNING, which mirrors local->started: it is set at the end of
+> rtw_core_start() and cleared at the beginning of rtw_core_stop(). Use
+> the same check in the RX path and free the frame while the device is not
+> running. This also covers the opposite ordering, where a frame that is
+> still queued in rtwusb->rx_queue is handed over after the device has
+> been stopped again.
+>=20
+> C2H packets are left untouched: they go to the firmware event queue
+> handled by rtw_fw_c2h_cmd_rx_irqsafe() and are never passed to mac80211.
+>=20
+> Fixes: a82dfd33d123 ("wifi: rtw88: Add common USB chip support")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+
+
 
