@@ -1,46 +1,48 @@
 Received: from forward102d.mail.yandex.net (forward102d.mail.yandex.net [51.250.60.162])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0249F4AA02F
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 09:53:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E75C14973B1
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 09:53:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.250.60.162
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792403609; cv=none; b=tp80xnzbi69LWBgcb/6K7cl8tt/7yygq23d6HFj95hQi8AXXOa4QUoiXlYrxLkwSPa0UON7KKaZR1J+kbCVpWKcf91GSUoR5sVp/nRF4RsHwz4RWjvcGL2z3ddVemo23G1BP51sAYfAR4aSZrkZxuiCXzS73yMXHrrVZu5tgkBw=
+	t=1792403614; cv=none; b=NXur/ss/KsjDtq5+Z62YTTuKlp1eYWR+9NdjPWPTrFb/jiOkXKCjGYAHqEEGiuxdA6Ly8RP3GE7a07DHXHybJ8ZcqIXN4KCLS1p7iemDUAQi5Hlg4cCV0GLf9yA/UUCcJumF79rAeL/sqSFQG4kHxpimOYi8c1vdBi9KcV3A34c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792403609; c=relaxed/simple;
-	bh=wSN3ub5TrmRaWBsbfyH4c/xksBOX2p7ZP+TAhGLQxUk=;
+	s=arc-20240116; t=1792403614; c=relaxed/simple;
+	bh=NPcQU+TdPSBNuzZThbg37HnIF8ciK9VfGaEgERRfzAg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bVxgaoKHK5pJPhKxLR+/B+b5qm5fBDT5u61U68uqpHH+/0E0udkdhJGiTkMzNPzA5v48yvcQcg+/0b59Ljuys6edznlFu9HfACLtSqhzPU4beUX1A6fmEo4THT4QyugG05RAAKAVEBbx6iLFDSN0xi4O9CqJTqZ182FfI0cpKI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=W/BN5Awe; arc=none smtp.client-ip=51.250.60.162
+	 MIME-Version; b=o3GKQV8m4R3LnwQ5gHQskNVsqLiRNnuMhG8xZ2cbzyL2ibc5ui0UP8tEzLCtjqVZ3PmkvWPxaTPP5GJ6EbY1FyZg81EllJSekKTjCo2UJymyZdbFCFO6tWjvuAFZhZzu6iiKScF708UpISjHtG3pz0hKfrC6LOrJEdWYGuQnrIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=kmXJ9ezc; arc=none smtp.client-ip=51.250.60.162
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="W/BN5Awe"
+	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="kmXJ9ezc"
 Received: from forward102e.mail.yandex.net (forward102e.mail.yandex.net [IPv6:2a02:6b8:c32:0:1:45:d181:d102])
-	by forward102d.mail.yandex.net (postfix) with ESMTPS id 1BCE1C02E8
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 12:53:19 +0300 (MSK)
+	by forward102d.mail.yandex.net (postfix) with ESMTPS id B049AC01A4
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 12:53:30 +0300 (MSK)
 Received: from mail-nwsmtp-smtp-production-main-36.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-36.yp-c.yandex.net)
-	by forward102e.mail.yandex.net (postfix) with ESMTPS id C11838001E;
-	Mon, 19 Oct 2026 12:53:10 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-36 with ESMTPSA id 5rV6YbUhriE0-QgZh16hc;
-	Mon, 19 Oct 2026 12:53:10 +0300
+	by forward102e.mail.yandex.net (postfix) with ESMTPS id 44E27800C5;
+	Mon, 19 Oct 2026 12:53:13 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-36 with ESMTPSA id 5rV6YbUhriE0-bqi6QGYs;
+	Mon, 19 Oct 2026 12:53:12 +0300
 X-Yandex-Fwd: 1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
-	t=1792403590; bh=2SHza1+i+zwo8us2btOCup8u5eXc61mQ7dRrKv+AwK0=;
+	t=1792403592; bh=RR19wngGKMN5kHt+3p/yYi3Mp4a6kIE11rZ+27aXC2U=;
 	h=Message-ID:Date:In-Reply-To:Cc:Subject:References:To:From;
-	b=W/BN5AwebfGJQbS4TBFAeP7ijTCeFiXlmz8fWC/Sys1FH+Cxro9ulHeBswnxPO0y8
-	 kJ2NS4kwUZEPACIlg4Wbla/hr7zoZOv5kNxtG5CsEbh8JcQcWv7ZWh+NG526iaRAOF
-	 ba9/2QdAtHB9DOtxMdDpiS3I+5RJfLbykP7cuRME=
+	b=kmXJ9ezcbKQgWdtd8kexdZHPWA7yAuZUMaZpH6twlak2FKVdNfAcmvBsMrgIJfW10
+	 oIpvCl2c5rZ9RfvS6oJMVYqtZ8PAslmWX+5Jt3QrNQqOTOSqcxMvFsGOCQquEbsgFz
+	 jmB6UyZGipzfEDwYwbw6jn1aQs2K5wPDCFLox/Do=
 Authentication-Results: mail-nwsmtp-smtp-production-main-36; dkim=pass header.i=@yandex.ru
 From: Dmitry Antipov <dmantipov@yandex.ru>
 To: stable@vger.kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: lvc-project@linuxtesting.org,
-	Dmitry Antipov <dmantipov@yandex.ru>,
-	Sashiko <shodan.ai@mcst.ru>
-Subject: [PATCH 6.12 v2 3/5] tcp_bpf: propagate error code in tcp_bpf_sendmsg()
-Date: Mon, 19 Oct 2026 12:52:37 +0300
-Message-ID: <20261019095239.221813-4-dmantipov@yandex.ru>
+	Sami Tolvanen <samitolvanen@google.com>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Dmitry Antipov <dmantipov@yandex.ru>
+Subject: [PATCH 6.12 v2 5/5] bpf, btf: Enforce destructor kfunc type with CFI
+Date: Mon, 19 Oct 2026 12:52:39 +0300
+Message-ID: <20261019095239.221813-6-dmantipov@yandex.ru>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261019095239.221813-1-dmantipov@yandex.ru>
 References: <20261019095239.221813-1-dmantipov@yandex.ru>
@@ -52,35 +54,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-No upstream commit exists for this patch.
+From: Sami Tolvanen <samitolvanen@google.com>
 
-In tcp_bpf_sendmsg(), the value returned by sk_msg_memcopy_from_iter()
-is checked for error but not propagated to 'out_err' label, so error
-handling may not work as expected. Fix this by assigning error value
-to 'err', thus making sure that error won't be silently ignored.
+commit 99fde4d0626176d03cea35c64a063df73816e64d upstream.
 
-Reported-by: Sashiko <shodan.ai@mcst.ru>
-Fixes: 5153a75ef34b ("tcp_bpf: Fix copied value in tcp_bpf_sendmsg")
+Ensure that registered destructor kfuncs have the same type
+as btf_dtor_kfunc_t to avoid a kernel panic on systems with
+CONFIG_CFI enabled.
+
+Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+Acked-by: Yonghong Song <yonghong.song@linux.dev>
+Link: https://lore.kernel.org/r/20260110082548.113748-10-samitolvanen@google.com
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
 Signed-off-by: Dmitry Antipov <dmantipov@yandex.ru>
 ---
-Upstream commit is on the way at
-https://lore.kernel.org/bpf/179239853943.3290.3841022911205774928@kernel.org/T/#t.
----
- net/ipv4/tcp_bpf.c | 1 +
- 1 file changed, 1 insertion(+)
+ kernel/bpf/btf.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/net/ipv4/tcp_bpf.c b/net/ipv4/tcp_bpf.c
-index abaaf3e70ece..d17b347b852d 100644
---- a/net/ipv4/tcp_bpf.c
-+++ b/net/ipv4/tcp_bpf.c
-@@ -567,6 +567,7 @@ static int tcp_bpf_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
- 					       copy);
- 		if (ret < 0) {
- 			sk_msg_trim(sk, msg_tx, osize);
-+			err = ret;
- 			goto out_err;
- 		}
- 
+diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
+index 5f3b1162208b..b38bdf282991 100644
+--- a/kernel/bpf/btf.c
++++ b/kernel/bpf/btf.c
+@@ -8745,6 +8745,13 @@ static int btf_check_dtor_kfuncs(struct btf *btf, const struct btf_id_dtor_kfunc
+ 		 */
+ 		if (!t || !btf_type_is_ptr(t))
+ 			return -EINVAL;
++
++		if (IS_ENABLED(CONFIG_CFI_CLANG)) {
++			/* Ensure the destructor kfunc type matches btf_dtor_kfunc_t */
++			t = btf_type_by_id(btf, t->type);
++			if (!btf_type_is_void(t))
++				return -EINVAL;
++		}
+ 	}
+ 	return 0;
+ }
 -- 
 2.56.0
 
