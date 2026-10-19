@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792443369;
-	b=DCSswBHfzY0/vWyzwbstTYtv8VbSNAhuHnw916+AimbvRdQAPuxcj1oK/Z+9frRiFO/1
-	 STkmJMKwN0OCdjFix9insOkqoUAFClACLPoQ4bIt6oJLdDwpGM5GAYltPKFPuLbIJiflw
-	 zHBRlpe0tjDfkLY88F5VeP3wsyceov0VxtEjqKKjUCRPg6TI7cCAqCCKDUTWi5KHmhV8J
-	 lw3ctoSRAyN7qFxlwZhShIOtLTTWBoR9iVhbFfU2hNMTQ3RjCyehK53lRaKUABJkT1Y2F
-	 TMrALAs673mZ2sqQVEmVVtFnAKgDyU+69tdVO6vmwywOc7BMvzwo9Wpa039WndaqQig==
+	t=1792443371;
+	b=bmIujMtJBnWXDz/9N0wvaEIdQDaQGEJ4C6dGSMiPaxzpwxYImH4cPYNaecW7ZFFM6MyV
+	 Jh5nH6gfkOXn+iMrcO7QcXBqX8cS1hrJt56D3ae5vaMRfG0GIuRyrG0ZaW4T7tQVbiOYG
+	 FDbqOnIrHZdEFgkOgI0A8BhCy5zvRhRHtip8OsaYAISdCE5CiOxqIdoD6iKrl6HbDwxuP
+	 8/xAm412gMYs8U2O0LTv/SiO9WgmtMfxFMklJDo65FR05f0uBOEyF2rVwZ6vVWUhZeihF
+	 ZjI9N257+lFVV5E4H048bKgNhMw9WBkj+q5oIX9Z8jfGdoX5D+whWQJvfIgRadPgK1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792443369;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443371;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=PBjfrHzm/OKBuKlP+dIXBXkDVnP1alo35u4bRFvw+Pw=;
-	b=h0EeHo7tumwm5hzVgFwIBRkOFsRzR3fVspRwUFfCGrVEh59bakF7C1PRSJUKAUzy81K1
-	 8VNBG/E7t/YHdAuTm2smO73wNSi9KkVnmNX6lOXnYgPKkK2oTbYmPHg/NasEjHTjPuN7w
-	 u7CAI+f1DJ9sZpOy7NLoysfodnAzKbOx0TLj14Q/N4FJnhbUVwNms9pWysqTpZKBi2CwS
-	 9ujmktgYTRMg+kQ73U6TkaycgfNc9yeg56vJ7reTgS5LoDNMLT/kVKztUHW7NepRVtoIJ
-	 1Up8Po4s5hBhCt5/3XwPyHiDfyWaSx+TAzhXjq4rCiTB3dOobJ4qF5WVlwQou77ET7g==
+	bh=1sSRiuhUT2L7YQelzzyVYy5ejFQRJw0I95rCZ397zT0=;
+	b=5bK9J63JeYqGH4pBOgKPHCjlW/TD2aZPANJu6MPLrWQqTzI7Ww+EQaq8c0sYeNxpc2DW
+	 /Q7cgREAahR3HNc8Yt7IEzzzSjZQ9ejI+aytC2DIj3wzUyRTr1rioOUAI4/3vhALBJWEW
+	 PXvnzM7O92gIh+vp81R4Dixd6VXmjaKJzaNPuQyVFLs3uIf+Un5A2zbpG7TWmXvX0P18j
+	 pcz7nDG59T83a1KgsJ26O6WMM5Qk0PzpqzW/ZeWslYfQVRo84sxB6CrXNxrk/2/GZCN0d
+	 0HCpVRI/CmHTgDoomgtIvFG1uhnGCw8fL6QouFuemv/Xl4zY7XX3EZxiD8u/2zMPEKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bxcqLrfH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Icym+B/Z";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A836C606A31D
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 20:56:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D5F606A32D
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 20:56:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bxcqLrfH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A98E1F000C7;
-	Mon, 19 Oct 2026 20:56:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Icym+B/Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DFDE1F000C5;
+	Mon, 19 Oct 2026 20:56:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792443369;
-	bh=PBjfrHzm/OKBuKlP+dIXBXkDVnP1alo35u4bRFvw+Pw=;
+	s=k20260515; t=1792443370;
+	bh=1sSRiuhUT2L7YQelzzyVYy5ejFQRJw0I95rCZ397zT0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bxcqLrfHNbKP9mFjGR0uRo9csVSB0P2IDQq2LmKmDYcdL4XHkQL/S4cJmBpZ5ocwk
-	 4mDOvBxJp5Awu5pTOqZgS+NZgTeRuxOebzw/aVSKmj9RwcUwfwSEFt3eydtZINtQWH
-	 U8XGEpkj2rSvGkaHyLjgoW5XESBmPVLjBVJJHebeomO0AdHyauyJ3+WaLGFU2Wfm9w
-	 /jpYTcVNCuViaEuWk/bLVoQwWksi5a9vMdCiA0FD11ubEB+ZepTm1TaFmJQYcHDbTI
-	 Q3FAOmodehd1xItMqx4TbnzB3+1KMchlrQ0zs0/YV+WLWqtY9oZjcguYqwEQlh/WuU
-	 0INqU3lr68sJw==
+	b=Icym+B/ZO1LgMsTVtV/0rWQI2vzYcUjbHGsacdF12PoDgUzlmV8m104Djel301NOg
+	 b2+ud4GFaI8A+NQHEuNuynKNmOyqVK+1CIZ4ASu6i38IkKeBszpDGoWmwsXRUGpUy7
+	 ZiHinyjLKQMgG1jw+Za9iGxr6kOHpv+HxvmPs1+1OoJ54pOSpwo30SiBsDTdASUeRj
+	 Qg7iq+uMv9wc0foAyEWgj4cVq45eoC6NwwgKotoBvZFGaplVJaMyc2Rr83MGNK5UZ4
+	 NgTQtDzL53GVJCRUTYx/5+BpjXLbzYlD9WhZdzmZihB+uVjtmtYA6tRbjv5ZYwnska
+	 GRrtnJ9So0yYQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andrew Chiang <andrewchiang@microsoft.com>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	Jan Kara <jack@suse.cz>,
-	Theodore Ts'o <tytso@mit.edu>,
-	Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-Subject: Re: [PATCH 6.6.y] ext4: fallback to complex scan if aligned scan doesn't work
-Date: Mon, 19 Oct 2026 16:55:43 -0400
-Message-ID: <2026-10-19-1-daily-reply-0018-ext4-aligned-scan-6-6@kernel.org>
+	Benjamin Robin <benjamin.robin@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	"Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Subject: Re: [PATCH 5.15.y] bpf: fix potential 32-bit overflow when accessing ARRAY map element
+Date: Mon, 19 Oct 2026 16:55:44 -0400
+Message-ID: <2026-10-19-1-daily-reply-0019-bpf-array-overflow-5-15@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016192018.839676-1-hamzamahfooz@linux.microsoft.com>
-References: <20261016192018.839676-1-hamzamahfooz@linux.microsoft.com>
+In-Reply-To: <20261019-cve-2022-50167-v1-1-965ab366b9b6@bootlin.com>
+References: <20261019-cve-2022-50167-v1-1-965ab366b9b6@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,10 +64,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Currently in case the goal length is a multiple of stripe size we use
-> ext4_mb_scan_aligned() to find the stripe size aligned physical blocks.
+> If BPF array map is bigger than 4GB, element pointer calculation can
+> overflow because both index and elem_size are u32.
 
-Queued for 6.6, thanks.
+Queued for 5.15, thanks.
 
 -- 
 Thanks,
