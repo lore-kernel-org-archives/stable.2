@@ -1,94 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792435746;
-	b=dNVAB43+/BSHEMsN1wO8vG61BUPjZK35svlJjwzuKxp5z/jM040rXLcoNIc0Huf5Xe1v
-	 DYmTWA8RiM6moLvDGN+/ApAl4ir8Q1lNBRrIOKfZMurVkq/R/c+UxxxagjNP6uuQgN+iR
-	 Cr7xwmMsmyVGla/pwTMHhtr/LZN3DXIZ5WiP7808gA+tqAX5y3OeBw/ORnoio0Yy6tnHv
-	 FCw3we5fRWJ9ffb+6ZWZvVF4X6Mo5EaxilbfYPffFd1Y8+hBhcvDgFEcEZ7hctGVbW+yK
-	 hXocFDbOr0lMhwLqehjB6e9Nn9mRRxEowgErMPM77zuDj6yKZOlVp4AB94oeyD51Wcw==
+	t=1792435808;
+	b=ERX/kOAHlGJKryViTIfR51U7NpN8ipRRhCCDk8geyuuGnXHePyLYuHOrhx7J3xkAWtuq
+	 UZO8EKp2Nm+nqsYAEoYvVgzNcNqagWfQVbgvQXmXYgh7T3Iy9PTrNY5jbSbKe2QyuuZD6
+	 Lj5mskyEXg2rcbE+PuadN/nxzmvCnoTyfgAN8H4QKzxtsC7snE4c5duSUxaSOkxEkqDk/
+	 AthdPsEGAsoEGYZM/jeRRnlYugML8iG5KN0XAdo3XXE16/YyJpVErVMYanncfByLVWJNN
+	 MzTFi9Zk6zYGePmstCLXwcME/w2qOb4oB80at8ur/Go0IhYA7yiQQl0D4EMyFetqBtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792435746;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792435808;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=GAXZCV5m9JMQykLn0Ukn1ebbST4LlX+DTEB51yMeYSo=;
-	b=g/Wtobvrx0tHRCf/qQRZ48Im4zrlp3MRTkqVLkJNpCSzdAPv7p4/XnltJXx1Y9DJ2Psp
-	 Dn60Esu3f6wN4LPELEjKkDE5EzmV72fsEysKe0Ceu2bZzYJNiaKXvEUzoU/tDLrVLm4SN
-	 4/8IAOvZciiKUg5ahvUl4YjxUOUt+udj7KMSV6XXXlIAMSvtz9B79PsIIRPQEGGjCuATL
-	 SvDauyv47+yzf7Fb82WgiJSx9DciAntzlYzjUptpY1SDIoVlvG479cxGSLSNMMJ5Yux46
-	 oZRisfPMstaeYFQIzTWFiCV3K6f/J0AdtvH1sISGy22luGuCLW3y+RLFrigZfANp8PQ==
+	bh=qQajsp9ObyIZH1W2JtDu/mB6mPActDF2v9UueTjQ/T8=;
+	b=WQSO5RR0A2MDi1tHnSGzoZ6IZRb2Tyd9lW58qZykliBLtEHPHbIZb/t0IX81A/XP0ucJ
+	 tsfvFz6sheDkyB7UPuEnYTltOCEgpe6gasYPVVS3KIwm/uvhXi/P9mvtLkrooygTlyHSv
+	 JGdCXhYopeeRPnPoJqdxOIz6kfat6Jwpf7OzKAC3+snbLhK2aVgj7l4Qa/OKZ1271HZsX
+	 cyIUqeH3V8dF4PmjPRCWrWLBNYDX1NhXH+w22G5lkXsmfiXmJ4H4ituf5JEuRw6dwTfeH
+	 WosAMcsdVOOm2Xuf5tJjBfh4vz7lzKZyw3DB1lvowgd6ZfOQO33JGBE/IPzBA5lg9TA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RJJP8MSy;
-	arc=none smtp.remote-ip=209.85.217.49
-Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com [209.85.217.49])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=PC4SbAoc;
+	arc=none smtp.remote-ip=209.85.219.51
+Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF5C606A31A
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 18:49:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EF5C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB00606A31B
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 18:50:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEB00606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RJJP8MSy
-Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-7ba2ee12f65so61993137.0
-        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 11:49:06 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=PC4SbAoc
+Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-917a707f37eso25260666d6.0
+        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 11:50:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792435745; x=1793040545; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1792435807; x=1793040607; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GAXZCV5m9JMQykLn0Ukn1ebbST4LlX+DTEB51yMeYSo=;
-        b=RJJP8MSyqk6+vTmNLG6J3fudmf63oXBxtb4bAw28vBZ/T6JPfC0jcs6qLshzy7gXzI
-         2B4yDwx7cSLLIjBVELGhYNcnsQ4Bs9FYBd2eGuwhZYD12RTpG48BuEB81wFPCvPqCryY
-         YoL/kf+FMxFHCDrd5T4PFE12geD+FKi4gUmkKbNWN3Ack543k/k0AVyYvmSVqP0ks0wq
-         A3XtxUZtGaxE0o4GHDJ4oPDv03kUrYH9JZWjblYVrSEGOIRKOTOq5iBU1OK2pJyqSEaT
-         seUn9rQ3Beo73B78IiOhVBFjCQQqenodUU+T2Gll9LFTnsC2JEcKlKxNJxquu88x95mZ
-         rtfA==
+        bh=qQajsp9ObyIZH1W2JtDu/mB6mPActDF2v9UueTjQ/T8=;
+        b=PC4SbAocOcKCk1olB/9Of3Mk7Qksv9J9g2B61lEgWdLNvU+Yk1s6PVk5lvuLnEx4lr
+         mvmVmSWV7KSn+Z2JaGwGn9L7La1IOFjQymWkn1bzEOHufm9ZTc5KURasEQh5ElYjRbXu
+         pfUjc4qrhvx9DsP/4jkQtXaZpcv3Mp6YWNCZLk3TQKeVpjmfiT5+GN3fj3zKf54x4M71
+         COp8q/V0vv1J9MIAQaXyPB8ayYjoIXNHmwfy7X+Q3jY81iGkW7zlJkNKNoXeZZFxp9ZG
+         gaq36sIN76PGb1mJmGGJGzCb+KRwuTdKUGb69h3rHTb9E9+eurkZ7j0jfzTeNb7aSTA3
+         QUtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792435745; x=1793040545;
+        d=1e100.net; s=20260707; t=1792435807; x=1793040607;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GAXZCV5m9JMQykLn0Ukn1ebbST4LlX+DTEB51yMeYSo=;
-        b=2gaCAjHK2mAo0Wm/J4Ug2LIqPuw52HXTaYrDQ250e5Ph1/upxY9EJ/ZxcpiBb1jXGR
-         GnXehKcLkgLzXsBmMfomdzBargFjVah3rQ7bg9wSIRm+Qgyko3RLCCmAmRzoxAVc4LNK
-         liN8lExssMv3KDYwuuuAD/T9D/60l//TdpyS6Ur0CJbosA0lpPeTTP9wws5IW75NQvDw
-         DB2d3hK4MeZbBId0J78Yv0i0smFb+kFnemQlQg5UCr3NYPl5v1QkUBS8+2lEheIgcVHT
-         nqju0/Y1jSGhAfUv1Ag8QvZ2mnKjX/vIH52yVHEIP24v9/BrzhtSRqFfHE6YlH1L65ek
-         cNEg==
-X-Forwarded-Encrypted: i=1; AKwUvBwbGmcftTV5OeQrqcDhdWL6VAXIav42cHfw7k40zdKfx7YosWlYxrFRkDmX01CAwIz6BLnYJZU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIuEbg/J+ouArXRtHbMt6xmOX1vCjL/KmUxezQrFllrc3Rguza5
-	DxZIlFUSe1XJotRDZU05iMPp5L8caR9P1FB46WuF5gJq3qdegrOQ1Snx
-X-Gm-Gg: AYBFou3RGuqbexBWy3QS+5kSVFVnXhQJ+kNmoYIkMO9Qnsm1SzQqIBWRKI4gvTT4gur
-	NNtHTSF4I1b3w+Ho94CFWChyfFpBMol6SX9WBMzL/ficBegYH23gW5di61dBKrFFO3+NV0AHWRe
-	HzDyakTxJcVG00qUszHLx6kC2Pq1K4OILlXZy1+aNNGfsI4ggQxq2kKvrYCgia53Yp53vxlvSwZ
-	MLVCkh6Gr7irzUu2wdF3cMo/oxKApFtppPL3DeE6UZyAfG5yX+UpTl1hkQKktWqpREJGfRbJWNQ
-	jfAih3l2v225x474bjgBnoPIxHgptO2JRveK9cYuzgsOo7hqaMbW0nCbBN7tL9AxKhBFrHAi/Gq
-	q4i9U3NihKd83DRJ7iB0nWykCNsMmZ64i0XHC5eb94l4X6XGaUWrbOyFp9JyvXKtsV9yFtEE3Tt
-	GIvpw26kQnxYlspys6RpdB0Dp6xrwwc9BwosNB+Y7cuH2fkRpYX2NHVSGlXjptBz6Oh8T3ui+qe
-	GUrOLzbqp3BGpt4y7bva+yRmANoVXOCqCpgOMGa6FoJxhaQuFNEi3w3wPYeps0bm+m/llfljr25
-	6n3CnEpIWcq9TAMO/xA=
-X-Received: by 2002:a05:6122:8107:b0:5ea:b7b5:454 with SMTP id 71dfb90a1353d-5eab7b5070bmr1354058e0c.1.1792435745253;
-        Mon, 19 Oct 2026 11:49:05 -0700 (PDT)
-Received: from localhost.localdomain ([132.170.205.109])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9b53cfdfsm10488632e0c.15.2026.10.19.11.49.02
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 19 Oct 2026 11:49:02 -0700 (PDT)
-From: Sanan Hasanov <sanan.hasanou@gmail.com>
-To: Alexander Aring <aahringo@redhat.com>,
-	David Teigland <teigland@redhat.com>
-Cc: gfs2@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	syzbot+b2b8d04ec4914f618d23@syzkaller.appspotmail.com,
-	Sanan Hasanov <sanan.hasanov@ucf.edu>,
+        bh=qQajsp9ObyIZH1W2JtDu/mB6mPActDF2v9UueTjQ/T8=;
+        b=qCIJrt891XP/+u/621BTPHyNqT7nLcvDOGv+iexOp4ZI6kp21m/IBzBuFigPg4Ov3x
+         jrdK1KJC64e7+khglhnZHM9ymbZoOjZuQES5l+h/Nxcxfno7arOMMYYP9boOZO2XbtUe
+         2rgtxTm+JMyOcqu0CnDFinGULvHSbORHCbXkNcNLhpqaTA1LYcKc1kxZS/tfmpLFMKhG
+         KjOAYfLvFHs0SXi8p57H7s9o5AhYUkyOxVJ0ib+RJGSSLlb+Syb5QJ6DYqUg5Gz0Paz8
+         UVOX5e16AEJRFqV/+GTki0eeXrQoA+CH/LUXhGbg4ojqb9RjDF7hHbTNdieEXuTgyFWy
+         A4Qg==
+X-Forwarded-Encrypted: i=1; AKwUvBzXUqZ7+1k9GiFWwjuXImuI32kiC1upH54CWkHJoqPGNM8aTJ4llwynARXOzgoMSqovRi6aDPk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL0JaxrFPksnMJq+vWZAVFiEDdQalsG7OKLWP/uttwI8/yNouim
+	XZTzQ6dVazeNZNO1rqUu/+wjHiMjP7IUKrvqrWb9WrXDbdeYUFfs/6IKnUaQaKE+cRk=
+X-Gm-Gg: AYBFou00L6fkMNe1n2rr8y2B/G+RoSb4B8h5w6v1Skagof3DJGrGglYLEmzuSOhlHPT
+	95mP1nJPmK/1ogO1iuNJdMhy5DTbbU1mSW8Yf1Mg9VQQxHZqQjef/ALtqf3s5WShCkVJFBB543Y
+	sCCVBJ0vBzBFC97gY8D1GQoiZvbzIBYhZHqZEXDKG0VzPt7CacWfUPIwrgbJP/ldJEIm/PsH9i5
+	e0zPt0VjVc0t0qGvcUoFFL21Fbs1B5OKvo5zRcpv402v1HXaqomOCW2tScpnD5tcpskga2GuOXy
+	ECl0IUbbgf6ii4ENtefrtSbbcc7q1f1vJTOepjrdJcbyoj/fxGCeiVCLlBt5DrY4iugKPf7fmf/
+	0qJ0pGFUycOUwYnTMJpJ9P9ThylPjAfJxsAc67Afeo6Pz+wyXR8/aZl7u0xeLiXVQ7g5aGCNVDU
+	VeDsVIf27FfPmwLTK1bhpSsptR9V9IKa3tO8oi5zlKbNvmK5SQfJNUaoWj2oMmUTaTLmuehMuWZ
+	IqoKPNEfuG7OG/qgv+6anToo7ftpTvjXAoNq7vRRnGyn2E0bG5BZ/+dMg8j62G1Gc7kDzRnE1/h
+	xFJ9U4sx/rvHsu9RDTY6q20P8QCP6Z3B3peBUFruDw==
+X-Received: by 2002:a05:6214:5d02:b0:917:a2ba:e478 with SMTP id 6a1803df08f44-91bdf01992dmr155941286d6.23.1792435806990;
+        Mon, 19 Oct 2026 11:50:06 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c0411586csm3122706d6.44.2026.10.19.11.50.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 11:50:06 -0700 (PDT)
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	akpm@linux-foundation.org,
+	kasong@tencent.com,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	baoquan.he@linux.dev,
+	baolin.wang@linux.alibaba.com,
+	hannes@cmpxchg.org,
+	david@kernel.org,
+	mhocko@kernel.org,
+	ljs@kernel.org,
+	dave@stgolabs.net,
+	roman.gushchin@linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH] dlm: don't put an uninitialized lockspace kobject on error
-Date: Mon, 19 Oct 2026 14:48:49 -0400
-Message-ID: <20261019184849.24422-1-sanan.hasanou@gmail.com>
-X-Mailer: git-send-email 2.48.1
+Subject: [PATCH] mm/vmscan: reclaim every zone in per-node proactive reclaim
+Date: Mon, 19 Oct 2026 14:50:02 -0400
+Message-ID: <20261019185002.3428594-1-gourry@gourry.net>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,76 +113,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sanan Hasanov <sanan.hasanov@ucf.edu>
+user_proactive_reclaim() limits per-node reclaim to
+gfp_zone(GFP_KERNEL), which is ZONE_NORMAL. Proactive reclaim serves no
+allocation, but that limit makes shrink_node() skip every ZONE_MOVABLE
+folio, so writing to /sys/devices/system/node/nodeN/reclaim never
+reclaims a node's movable memory. A movable-only node, such as dax/kmem
+or hotplugged memory onlined movable, reclaims nothing and fails with
+-EAGAIN.
 
-Commit 8a4cf500f1dd ("dlm: drop kobject release callback handling")
-dropped the do_unreg flag from new_lockspace() and made the out_lsfree
-error label call kobject_put(&ls->ls_kobj) unconditionally. But ls_kobj
-is only initialized by kobject_init_and_add() after the callback
-workqueue and dlm_recoverd have been started, so every failure before
-that point puts a kobject that was never initialized:
+To reproduce, fill a movable-only node with clean page cache and write
+200M to its nodeN/reclaim: the write fails with -EAGAIN and the page
+cache stays. The same write to a ZONE_NORMAL node frees 200MB.
 
-  dlm: ls_6035_1: can't start dlm_callback -12
-  kobject: '(null)' (ffff888027a28088): is not initialized, yet kobject_put() is being called.
-  WARNING: lib/kobject.c:736 at kobject_put+0x66/0x550 lib/kobject.c:734
-  Call Trace:
-   new_lockspace fs/dlm/lockspace.c:617 [inline]
-   __dlm_new_lockspace+0x1714/0x1cd0 fs/dlm/lockspace.c:638
-   device_create_lockspace+0xc7/0x350 fs/dlm/user.c:414
-   device_write+0x872/0xed0 fs/dlm/user.c:606
-   vfs_write+0x296/0xba0 fs/read_write.c:685
+Scan every zone, as memory.reclaim does.
 
-syzbot hits this by sending SIGKILL to a task creating a lockspace
-through /dev/dlm-control, so that alloc_ordered_workqueue() in
-dlm_callback_start() fails to create its rescuer thread. The same
-happens if rhashtable_init(), the ls_recover_buf allocation or
-dlm_recoverd_start() fail.
-
-Bring the flag back so the kobject is only put once
-kobject_init_and_add() has been called. Since the kobject no longer
-frees the lockspace, kfree(ls) still runs on every error path.
-
-Fixes: 8a4cf500f1dd ("dlm: drop kobject release callback handling")
-Reported-by: syzbot+b2b8d04ec4914f618d23@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=b2b8d04ec4914f618d23
+Fixes: b980077899ea4 ("mm: introduce per-node proactive reclaim interface")
 Cc: stable@vger.kernel.org
-Signed-off-by: Sanan Hasanov <sanan.hasanov@ucf.edu>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
- fs/dlm/lockspace.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ mm/vmscan.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
-index a9c98b4f37..443421e945 100644
---- a/fs/dlm/lockspace.c
-+++ b/fs/dlm/lockspace.c
-@@ -364,6 +364,7 @@ static int new_lockspace(const char *name, const char *cluster,
- 			 int *ops_result, dlm_lockspace_t **lockspace)
- {
- 	struct dlm_ls *ls;
-+	int do_unreg = 0;
- 	int namelen = strlen(name);
- 	int error;
- 
-@@ -567,6 +568,9 @@ static int new_lockspace(const char *name, const char *cluster,
- 	wait_event(ls->ls_recover_lock_wait,
- 		   test_bit(LSFL_RECOVER_LOCK, &ls->ls_flags));
- 
-+	/* ls_kobj must only be put once kobject_init_and_add() ran */
-+	do_unreg = 1;
-+
- 	ls->ls_kobj.kset = dlm_kset;
- 	error = kobject_init_and_add(&ls->ls_kobj, &dlm_ktype, NULL,
- 				     "%s", ls->ls_name);
-@@ -614,7 +618,8 @@ static int new_lockspace(const char *name, const char *cluster,
- 	xa_destroy(&ls->ls_lkbxa);
- 	rhashtable_destroy(&ls->ls_rsbtbl);
-  out_lsfree:
--	kobject_put(&ls->ls_kobj);
-+	if (do_unreg)
-+		kobject_put(&ls->ls_kobj);
- 	kfree(ls);
-  out:
- 	module_put(THIS_MODULE);
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index e82ba737c028d..90f7a7bf4e426 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -8180,7 +8180,7 @@ int user_proactive_reclaim(char *buf,
+ 		} else {
+ 			struct scan_control sc = {
+ 				.gfp_mask = current_gfp_context(gfp_mask),
+-				.reclaim_idx = gfp_zone(gfp_mask),
++				.reclaim_idx = MAX_NR_ZONES - 1,
+ 				.proactive_swappiness = swappiness == -1 ? NULL : &swappiness,
+ 				.priority = DEF_PRIORITY,
+ 				.may_writepage = 1,
 -- 
-2.34.1
+2.53.0-Meta
 
