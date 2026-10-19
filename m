@@ -1,93 +1,114 @@
-Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C69749CF25
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 09:12:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14824483BFA;
+	Mon, 19 Oct 2026 09:14:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792401179; cv=none; b=Gv3oFBTk5JqCdE/4mQdIJesn9Yzf+T9VR3dgX4v3onDqzHB3RbtR++jQjIUi9/9cDxuq/guvUXPrwHNalW0EbCf6yVsNkiutd62j0H6VBt2MWrvAN7/jqOCnfpy+Tmi9F6fgl9CmOQOAthTXfwTeFMlOO/Z9E52iB1LZ9qu0Ydw=
+	t=1792401268; cv=none; b=PWo1+3lxC3lkMqiB/rBqH3zn4mEs0+NkDs1HbF4DjKR7eL1Pqs7+qFpqV/IgLr311GA0CKhZaf4gj4cPVQUlwtg3YSaC6w4Xat7CIZ2lnVfTeqRL1y7AaSQGpWAZa24ego+xU846U0EJ+u87jmIToiDZ+FWA7CMY5iWITx/VS0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792401179; c=relaxed/simple;
-	bh=t/h5DpMhUIYeLONHjlycBELUNoQmFT3rwegVO/JrzCw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G9d50Pz3s0OmT9KwXkHC8KGoBpufwSijKCrUPwUE7Vzkrrrp/klKzdmL3f7T0fcYKaIILTuhjteQqdCQEReMVq8YsA0gYdEH9gxGZo1LyBefMsonLsMANQ0eSvgD6M5UnPVWRlmchG40P6JAE6iQqdakznC0dng9uyIqHhnZRQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h/P2EyqG; arc=none smtp.client-ip=74.125.229.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792401268; c=relaxed/simple;
+	bh=yRXagBuaJxsDY2VfPZj52w7WTfhNTlSatMVfACzoS6A=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Pz+0gJLpGlWSJiP7Wu9MOMHQtazTfCCHtd+bW+fBoqmxOdqTy8Qt8loCoURb1Wh4rbAALiKAJb9AcJxV0ar+Dd5/kkPNIy0gO8cc3XROpatxYVy1Jbl16OwXAHg6Vk+rUlGK8hcFRR0F0vZGBJWWWj4x4w181AlQrakM/35wMPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=3f1GmWoQ; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h/P2EyqG"
-Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-3535a54c09bso1832200eec.0
-        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 02:12:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792401177; x=1793005977; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=t/h5DpMhUIYeLONHjlycBELUNoQmFT3rwegVO/JrzCw=;
-        b=h/P2EyqG+vz/k5AG6bPvlzBTpbXciM8oS4PXFPyqt0gyHmhbnqh/x1ZCDItJLnJSvv
-         FHphneFX6sD1g1iyvN1I4vIly2ZNj02BmotmVvzZgIGzPOIrmeJQx1Ha+XfDQI40LrBz
-         qkP+UfQLzZc6oN36YZ1/vp1Bpc58q01to4oFpb2Et3bqBM6ZegHZPQigoFfxslIxEr2n
-         8UiWvDJL9gweZSzWbSeU18GjVYnOKalGoU75jeFOW8oNeTmkmo9gZGagpgd7ATOtQ6ct
-         pBTa3lAf4SgawdmIZCRfne9FW8otDRf5tQDJIuACHZD05aHwe0sqpBMOCJvCSOMYEQMC
-         BVBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792401177; x=1793005977;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t/h5DpMhUIYeLONHjlycBELUNoQmFT3rwegVO/JrzCw=;
-        b=pNG/7MGUcxavTJEmjP4T/Zxh28AEyOvmCayUneRFmy/gKDnhcJKB5SkxC1dv602A6N
-         ZDmxP1ahdkGZpTD9bI3ok5ua8J0csEBkhz2pyPMiCtdhAsl0XWCzgqnwR6ucUoo7KJZj
-         pQXCDwb2NKFOF3mS3q+G8GHhKXsQo86Z6YGPefLEV4p6MhkQ5XLPd3gBSY30oSIHxman
-         wbsawoWlwTOkYmXOPlEnLJBSz5zyiCc9gIHoDzOPDtSMeDkaab4HgCMCf94oaBZSH4Ac
-         RTc6jEJNfrxzozBySuZkywFTSysG3rJcSmg/GQWr0q8cWYF7bfLc+hNicphjnvuze8HP
-         j6ZA==
-X-Forwarded-Encrypted: i=1; AKwUvBwv2/Zo5gDt+ZyLMAKTexwiJT3DXPRwm8hU7RGo3XvTPeP/C7sSm/cxQ7c/TbUbxOSxEqWnG14=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK+Ji+vQuxCCYnl0DmTDYlngt7OHsg9fYdgrcNDjQEZI+re9i+p
-	sosPRt2H7IfzQ7f63g3bBaSU/PILmmdxF2jOGrLlD7e8mg6iyf3TZKnWm3MDK3egoz6maQ==
-X-Gm-Gg: AYBFou1BPX/ysJvA7wZKLPhzHo98BqM1HZOZSazvblx9yW1r4KKUR3fW0ziaxTcrT0F
-	556H0d2LeJyRuY5xWNIzLBMXx7jQDyf4beVBgIHJBDUKOGglm+uPd/ySnQec4jGblHOn5V/B+gg
-	WVi8kH9awucY6grin0an39NynmQYSSRr8mgyKN4/T/m5FdsRZGzSdcpzSafYmY5rHLB8U/BPM/X
-	mRT9qcL7doBxLP/x74349agOhtUQ9GYwjNLnGlNZyouoHvlD/zU3qjVRrhpHIllHv6s0R4BqH/a
-	tBKyqWgaxCKmnJeZsGlwN+aUiXRofeoptOceYloCBE9qgwVCKf3lo/GXmu1QeE3J9IflhlnEKZ7
-	GWxNy0VRsUhXC5XrVZOMaIzZjbxCCz/Frr5oI3bFrYJV1KS1gCYWdKwOP04eAQVldZo4BoTMGrk
-	Mq3P5pG4M4RcM5irAHefHQxurPIXIUKDzpawNJrwMJjXHfMfuXm0iRPfXfAUAyP6/aBJz6xGbnN
-	Ahuw28n2yM=
-X-Received: by 2002:a05:7300:d588:b0:35f:4780:518e with SMTP id 5a478bee46e88-361a16609bdmr11651555eec.16.1792401177429;
-        Mon, 19 Oct 2026 02:12:57 -0700 (PDT)
-Received: from blue (104.194.64.109.16clouds.com. [104.194.64.109])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360819be413sm30693119eec.13.2026.10.19.02.12.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 02:12:56 -0700 (PDT)
-Date: Mon, 19 Oct 2026 17:12:52 +0800
-From: yyaqia@gmail.com
-To: Helge Deller <deller@gmx.de>, tzimmermann@suse.de, simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, yaoyiqi3@huawei.com, stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] fbcon: Include font geometry in the rotated font
- cache
-Message-ID: <atXeFarSzZcJmThe@blue>
-References: <20261016073023.490430-1-yyaqia@gmail.com>
- <20261016073023.490430-2-yyaqia@gmail.com>
- <b93a87be-f55d-45e9-8705-74a5c63600ab@gmx.de>
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="3f1GmWoQ"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D9BC2A161F;
+	Mon, 19 Oct 2026 11:14:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1792401262; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=D2FZhEuWGfcHkZJXHIKapH9bw99lywluT49CTI5wUOw=;
+	b=3f1GmWoQnVOd66Sc9IZu5NHb0MX+VNhRDalIP867IF94aOb4aBW7oIoXL+965GHxIOHTzV
+	HR1kjl2C8AJntdVk4wItWom7DrapsYQdP6Ya1bTAO0Bb3C8QBnmAuTslEH2yvdRUCgZ1AZ
+	6R5gCkP2PZXQVqJzkpCmqPHwWPy5PZnvhiTeCDsIO/xzvmpVdYlElqP5TPTtNNyeWYxBdP
+	cB63/kpBzm2gd7+XnqWyM6BbDPJlFwDPGySI2iJt5lzmim9KC92KStGddRgSaTcj52584e
+	t95eQMzjv/y6i+uRpgQoIRG0Y2MLgQtHVF68u4eB+jx5vOIK6U2p5SIU8Le/xg==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+Date: Mon, 19 Oct 2026 11:14:13 +0200
+Subject: [PATCH v3 2/2] serial: amba-pl011: keep RS485 transmission running
+ on reconfiguration
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b93a87be-f55d-45e9-8705-74a5c63600ab@gmx.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261019-devel-nbuchwitz-pl011-rs485-reconfig-stall-v3-2-072a9c82ea5e@tipi-net.de>
+References: <20261019-devel-nbuchwitz-pl011-rs485-reconfig-stall-v3-0-072a9c82ea5e@tipi-net.de>
+In-Reply-To: <20261019-devel-nbuchwitz-pl011-rs485-reconfig-stall-v3-0-072a9c82ea5e@tipi-net.de>
+To: Russell King <linux@armlinux.org.uk>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Lino Sanfilippo <LinoSanfilippo@gmx.de>, 
+ Nicolai Buchwitz <nb@tipi-net.de>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 2026-10-18 16:05, Helge Deller wrote:
-> I've replaced the v1 version of this series with this v3 version
-> in fbdev/for-next git tree for further testing.
+Changing the RS485 settings while RS485 stays enabled calls
+pl011_rs485_tx_stop(), also while a transmission is in progress. Unlike
+pl011_stop_tx() it leaves the TX interrupt enabled, so the remaining
+data is still pushed into the FIFO after the drain turned off the
+transmitter. The FIFO never empties, the port stalls, and closing it
+hangs in pl011_dma_shutdown() waiting for the transmitter to go idle.
+A start still waiting for delay_rts_before_send is dropped as well.
 
-Sorry, the patch was not good enough, Zimmermann reviewed the code and I
-did some modification after that. So we might need to switch to v4
-version, sadly. Anyway, appreciate your continuous work for testing.
+Only stop the transmitter when no transmission is in progress. The
+call is still needed there, it sets the idle RTS level when the port
+is configured or resumed. A transmission in progress sets that level
+when it ends.
 
-Thanks,
-Yao Yiqi
+An active break counts as a transmission too. Forget it only when
+leaving RS485 mode, so that pl011_break_ctl() still ends the
+transmission when the break ends.
+
+Fixes: 8d479237727c ("serial: amba-pl011: add RS485 support")
+Cc: stable@vger.kernel.org # 6.18.x
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+---
+ drivers/tty/serial/amba-pl011.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
+index 6adfe7a1e0487..14f0e8aa56fd2 100644
+--- a/drivers/tty/serial/amba-pl011.c
++++ b/drivers/tty/serial/amba-pl011.c
+@@ -2513,8 +2513,6 @@ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
+ 		container_of(port, struct uart_amba_port, port);
+ 	bool tx_stopped = uart_tx_stopped(port);
+ 
+-	uap->rs485_break = false;
+-
+ 	/*
+ 	 * Output is marked stopped before stop_tx pauses DMA. Pause it now, so
+ 	 * that clearing TXE below cannot strand DMA data in the FIFO. Output
+@@ -2528,6 +2526,8 @@ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
+ 		bool tx_pending = uap->rs485_tx_state == WAIT_AFTER_RTS;
+ 		u32 cr = pl011_read(uap, REG_CR);
+ 
++		uap->rs485_break = false;
++
+ 		/*
+ 		 * Leaving RS485 mode, which only enables the transmitter while
+ 		 * sending. Don't stop it, as that stalls a DMA transfer still
+@@ -2550,7 +2550,9 @@ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
+ 		   tty_port_initialized(&port->state->port) &&
+ 		   pl011_tx_pending(uap, tx_stopped)) {
+ 		pl011_rs485_tx_resume(uap, rs485, tx_stopped);
+-	} else if (port->rs485.flags & SER_RS485_ENABLED) {
++	} else if ((port->rs485.flags & SER_RS485_ENABLED) &&
++		   uap->rs485_tx_state == OFF) {
++		/* Set the idle level now, a transmission sets it when done */
+ 		pl011_rs485_tx_stop(uap);
+ 	}
+ 
+
+-- 
+2.53.0
+
