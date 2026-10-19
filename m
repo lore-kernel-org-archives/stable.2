@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B477F547057;
-	Mon, 19 Oct 2026 14:26:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12B4156DCDD;
+	Mon, 19 Oct 2026 14:26:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792419962; cv=none; b=BFZpTdTcqkKfyOdMB9iEvSK2rEZNvQWXwhWa5U9qrLkF5wCxUkpj0BVuIK78DGvDVQXqggLuHsvUhLxv1h21LpMevWYufK0NZMotTtJfTp1zJE2ENoo+UFRsEOW05VpuGuFSVY4fvLpi7/Os1Hq4el7PY33f9RlRoPlJihb2Xe4=
+	t=1792419967; cv=none; b=lrgUPDAOZv4FW3XOx+IghBwZJC5O/her8HmuV4oQdmIRVn4zx9YJUgIUtWZPuCmG8zHND5Xp49ZzqwEpu+zN00torOfwfZ4UKB0gFbHor0zqX5FEfXaWAwDf6qArFCEj24ZKXQ9kkAVp8k/1Wt8pkwsJB4luRGZCQ/UBp0VlsFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792419962; c=relaxed/simple;
-	bh=VdE7kNdCWzMUy9Bt5Yz+m1YMOQWiQOyBBZJA1zVPvZ0=;
+	s=arc-20240116; t=1792419967; c=relaxed/simple;
+	bh=koZeMyxGNBlOTT1LjPvu2Qikkq5hyG+Vr4MPSrsGO6A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VlMW7oVNJA1rdyfpXeUonhYn3IRhDE7mSFDWGNAxIasOoNhvHibgxHKw5VzrFtDZYjRGmcsHM+1+ybuJmoz/jy5Jm+quXt5BPtqRRxSn4DfuOCV5Xtis3tLckut2I/nv612hyFDUAr3brb1EG3DsWXbGkNHhIF7Tn3FGdaGBRtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yn/kPW94; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Viksvd/GjdMTP6hscZqBjAdaH4FeVcIT2glt64M1a7w2eSwMkDK1Z9vP1qR7q09G5B9Hqik1iWcuUdjA4Gsv3JYLj5PJ1FlX6+4Eut5BbWBRbuP8xodxtXsb65LEsHFPEDqQdlBP83g4goLVOryoC+eWBwZTJ/EtNLE5wZ9ETs8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JUP8N/rJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yn/kPW94"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D87EB1F000C5;
-	Mon, 19 Oct 2026 14:26:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JUP8N/rJ"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 1B8571F000C7;
+	Mon, 19 Oct 2026 14:26:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792419961;
-	bh=+AWRgm7uNfmxNtSmNdc0nNffI7T6ptp8+S/m/3OZGDM=;
+	s=k20260515; t=1792419965;
+	bh=skxcJp9zwrJVgDVjVljLICivl5v/0jQaIPiugtaJATk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Yn/kPW94Gvy7VssWQJfY95APzHRvXkftxIxl+BYwwxYJ81UroAkx1z5EaCf6XbLEA
-	 9Wb4t2ELnVV7Aoxc0k4t4ok+aCexeC2oAtB/VjZi/mp2g86U5MTpvnr1aCzytNx+N/
-	 nnueIkNrzgNlTHqBYQBVmJJCdEFnunNOayz1pVndCiGC5huYPr0kdB8rVRSStSoJsl
-	 t8DqYV6xe/MJW6C3383qijsufUkXjk55JQPcCGm5Gysmrug4MXCeAXkG1DzVFBURx9
-	 vgjsaI2Jbgi1n7Ejl8m9ynNJxDeqJiH0WRR8YgTaBO48iIAfJAUkPg0NMujUwzYfkS
-	 mBLYHVJ5UGhAg==
+	b=JUP8N/rJY/CDiTnI6wWIvQ4LpUoUCpPNElaVf/Ldbctyu74lex5U+6KF798a3STML
+	 l8TU0YWVCtKTQc7vFl+rWjS0UDldLXQxXYyEzJr85DAA+k5JvdGP5AQucU3LfQpeFn
+	 18QdC5OQx0Xr42dnIMSABFRF/an9bTgMCPVRvh46cegPbZPSVCPBUbZumg96MVB4Jg
+	 N9sycEk1GIfP3zc+fr3l+nhTHHp9Xf/FMm73XglSY8PrJvCvlAnQCJyKoidKqaSLSf
+	 I3vt6Pr5OU4GRb+tID7ibo097AJOLfKQ9iE9E1QZ0TeonPyo87SDjGcMdP+4Yfnsts
+	 HbVGFyWCa5I8w==
 From: Jarkko Sakkinen <jarkko@kernel.org>
 To: David Howells <dhowells@redhat.com>
 Cc: keyrings@vger.kernel.org,
@@ -37,9 +37,9 @@ Cc: keyrings@vger.kernel.org,
 	"Serge E. Hallyn" <serge@hallyn.com>,
 	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM),
 	linux-kernel@vger.kernel.org (open list)
-Subject: [RFC PATCH 7/8] KEYS: Reject @datalen values over INT_MAX
-Date: Mon, 19 Oct 2026 17:25:07 +0300
-Message-ID: <20261019142516.300040-8-jarkko@kernel.org>
+Subject: [RFC PATCH 8/8] KEYS: Verify the key identity in __keyctl_unlink
+Date: Mon, 19 Oct 2026 17:25:08 +0300
+Message-ID: <20261019142516.300040-9-jarkko@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261019142516.300040-1-jarkko@kernel.org>
 References: <20261019142516.300040-1-jarkko@kernel.org>
@@ -51,39 +51,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Protect quota from overflowing by rejecting @datalen values that
-surpass over INT_MAX.
+Let's define the following preconditions:
+
+- Two keys: A and B.
+- R is a keyring.
+- Both have the same type/description/domain.
+
+Then:
+
+1. KEYCTL_LINK(A, R) => {A}
+1. KEYCTL_LINK(B, R) => {B}
+2. KEYCTL_UNLINK(A, R) => {}
+
+Instead, verify key tidentity before unlinking, and return -ENOENT on
+mismatch.
 
 Cc: stable@vger.kernel.org
+Fixes: b2a4df200d57 ("KEYS: Expand the capacity of a keyring")
 Assisted-by: LLM
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 ---
- security/keys/key.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ security/keys/keyring.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/security/keys/key.c b/security/keys/key.c
-index 5afc16425daf..5718ae7b80e5 100644
---- a/security/keys/key.c
-+++ b/security/keys/key.c
-@@ -379,11 +379,16 @@ EXPORT_SYMBOL(key_alloc);
-  */
- int key_payload_reserve(struct key *key, size_t datalen)
+diff --git a/security/keys/keyring.c b/security/keys/keyring.c
+index 7143f3079d20..b025331488c5 100644
+--- a/security/keys/keyring.c
++++ b/security/keys/keyring.c
+@@ -1501,9 +1501,15 @@ static int __key_unlink_begin(struct key *keyring, struct key *key,
+ 			      struct assoc_array_edit **_edit)
  {
--	int delta = (int)datalen - key->datalen;
-+	int delta;
- 	int ret = 0;
+ 	struct assoc_array_edit *edit;
++	const void *object;
  
- 	key_check(key);
+ 	BUG_ON(*_edit != NULL);
  
-+	if (datalen > INT_MAX)
-+		return -EINVAL;
++	object = assoc_array_find(&keyring->keys, &keyring_assoc_array_ops,
++				  &key->index_key);
++	if (!object || keyring_ptr_to_key(object) != key)
++		return -ENOENT;
 +
-+	delta = (int)datalen - key->datalen;
-+
- 	/* contemplate the quota adjustment */
- 	if (delta != 0 && test_bit(KEY_FLAG_IN_QUOTA, &key->flags)) {
- 		unsigned maxbytes = uid_eq(key->user->uid, GLOBAL_ROOT_UID) ?
+ 	edit = assoc_array_delete(&keyring->keys, &keyring_assoc_array_ops,
+ 				  &key->index_key);
+ 	if (IS_ERR(edit))
 -- 
 2.47.3
 
