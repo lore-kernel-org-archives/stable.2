@@ -1,135 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792425685;
-	b=VELZf5lS5E8l7kd8Hq2hTcUl5UO/aztyVDF8tgVX9gKAsLkC4xP9I30G7cMH1Y+1R/i5
-	 tAg50kkyIwz7DqmgbKATs1E6pTMn7QyPiVEYTsPDshIbZv71zW/z55s5sAq0hiNW5ifF6
-	 RRlye6UH6oU7wHlvPfEqNETcCC543Xj5CTNHG5sX4ers2xqJeOHJC07jUX5xri5vjIHYm
-	 eRGtRHBZTpnhkgvjd6xITE9+TpgN5z1XSm2eb3FuhfU5TrOORaElxs0EV9RYHkRh0Z8Np
-	 12/c9gkZg+6HxRgCXXAmxkh1ZGYlqdtVwT5EE5C1OrhFcfr9RlI9YjV1eFFpKUblK9g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792425685;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=RR3LS1EONX7dUI17D5hTIfqwrIjpxUdicCgjF5Rl/D8=;
-	b=V2jGuXn4yofvbyMYsjuVwjW37F6cyFtUxtUJkpxN7+XIPfGO3B9EqEMdMEyZA7Fa8tSd
-	 0ffJmN0zRIkVBmTWp7Q7y0Uz7b+85Nvs+zrjByqs3oAXwdzW/k2HGLZeFD1115Bf89TQM
-	 jdvi7y3pJE8Qm2WxioBIRKpITVlwl3iMNXex9qMOp70vP4hjXu3shiNKYZ86u/C7AC3JA
-	 Whf5U88e4+EO1/ERCwFMz2K4AuJqx0GFxUCPLPEtfkF4X/3VNrZWmTPC2nZJgYlF2PWy1
-	 EpWFBdrMCYhFTneMsYuBylrS1B4Phkf9ur1BCGX7BU1C4EKOjoU2CwL3FFbo08QIGeA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ti.com;
-	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=VkSWg+Lc;
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=V2bHezdU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792425780;
+	b=kKffY9aCOtsK5xbiCgrhrBUEcwspnYIN8BiBoefwXo/Tlr2KISLKM3rrPGe7QDEa8BBf
+	 30RROWn8n7bkeQ051v83+Y8O/RSQmgt5Z7/zMgDHR+l9kjfPeGiwy7m327n1+e8VSTGs1
+	 ImLU/Lm10UDtHBDDJkn2k/bzIFpQ+w7ihGta+leRzoVJYdptO+88doeIq3Ucg7fkZo9ZS
+	 De8g4WD3reAo1clDOIojvSSYYYUnfSRkEbjd2hvWtiC8xgrXb8E0P3YJcvz/1h65vvHeg
+	 GBchkQG5kHpkbBsDYKE+ZlFnF/gbv6Lpi3DiKlPH3Pbc7oP3ijQumJDG+Vz4dfais6w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792425780;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=i304SC/HQYDOIv0BcT5DzauQuw5vfS8n4xRru+qlH6M=;
+	b=lyWCypukdzuc+aZ9zX4KLGXkjNwOWH1elw0PGXzOaMjVLDj+PWKI/grpomvq/3MJC91z
+	 DBMDm4aDFGpER35Uc/fyEGCobWg9YQ7xUqz4EwBWqoB1uGxvGafkzQTAe/ai+ZLmCbBnJ
+	 2y6t50vWQp4N4z8srl+a69v9MgLPpzpxw/zJ7k1+axdTvrG7GjjvgqRRhRzJ1gph0Nnxp
+	 Nu9HEuB+VG89t9EokLgwzqCM2z3J7dzVz6Qbr7mv2B9tAZ0GfUmEfrRT+nXM11xkyvoRH
+	 fMLAd55acLlc9Pjdq/h6h5eiesImgWimHiPUfmsWAFTuRRcaf5/d6SSZ97Y7DQTa8XA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=j8SXMp3L;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077B6606DA57;
-	Mon, 19 Oct 2026 16:01:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 077B6606DA57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5CE16075539;
+	Mon, 19 Oct 2026 16:02:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=VkSWg+Lc;
-	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=V2bHezdU
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69JFP9se081216;
-	Mon, 19 Oct 2026 11:01:03 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=proofpoint-05-2026; bh=RR3LS1EONX7dU
-	I17D5hTIfqwrIjpxUdicCgjF5Rl/D8=; b=VkSWg+LcDZpEN33dL3iyWTpvYTSzf
-	pQq/8iNi5GYx0irJlC4lqj5XAm0aBTYzaUGoOq1JJM2k/btGdCahP4KBf9kc46Bq
-	bHDYggbj2qx78zl5EbaCEn+ReMWP3hs9tGIxNM4EDLAVVVvVvhrYt2AS9F2X/AeK
-	EqZ+Mf5X5wogqQnYKalRATsqS9Tjw4wOVyDs8zn2WjqhWasldjKRfZQ+pcOl7vtP
-	ZODk3S3JXD9xDNmjPncqPHrtJVE8/fA9REbeI4s7a5w+ABA1xBf6TkwJ3cCi5oj1
-	TdPYXAwAyoiygJ6YHI0VXmPHt8D0jFUuZbcvhAQMw57Q8VLnYpnQu5hnA==
-Received: from ch1pr05cu001.outbound.protection.outlook.com (mail-northcentralusazon11010040.outbound.protection.outlook.com [52.101.193.40])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4hdjbksqan-2
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 19 Oct 2026 11:01:02 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dpPgx0wxCjmsHqrXHAJ55e2HDX1wka8GQVsCPrcchFYWsQUbQCkBIpe9BPIKFosMMlMjsioRE4Zh7UBrjdfRG04MFwMGfMHQGIj5Qd6D6ynnBnWeYSSXgjyxVpLwaT/YvZ7VoArTmw+WmOwk0reXi6sard3MB5HGiyAwlIc53JVnaU/HzmQfVW16eBjJ4sA3i1yYMawZOP7rX/yFD9EDDcwO2YW4yQKwEmiDnjOL4f6KhxyQXUrmSayzeJHEBjZg6GAERtzXUaFmJvGfS6WijfBk5yZjJX5cfd7xLOBSsnuG9annq9coG+z+aTXWzDUJ8EvWdo8EfDryFn13W4WSPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RR3LS1EONX7dUI17D5hTIfqwrIjpxUdicCgjF5Rl/D8=;
- b=JRf7iZFtwiTH1LoQIdq5oxLKjKes5H1yq8Rf2cG3bCXOxyMmEr3VVa0k0mIiOnPriUATIk43U2Qmrr/WUzsB738sABl1KGNhbIojaaaUg9Wkk380SQ1mb2kYIkGirO/qlS9QjA9ZAZtCTQGaebsYOo9Fz8ZunTYX3E9xN8WCinkMpV5R2YNg/pI2G/mu82t4x3W5bAvNQZyH1GcRuYmNzhbLQY5rgKvmSa5+QNHnNiBcPxR0kxcCjeUrTJqhBcf2dWSXYlw4tATtVnkQD4A1TUFe3Qz/goPYn/5nfzgnOYil2yy+kK9s4R/2i3yD5RWJdP6M34OZL6rwirDmtULjyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=j8SXMp3L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A5721F000C4;
+	Mon, 19 Oct 2026 16:02:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RR3LS1EONX7dUI17D5hTIfqwrIjpxUdicCgjF5Rl/D8=;
- b=V2bHezdUD9U0/XFN4lgAPqs9rPSPGJm6n/AAqNktDYdSf4RTMZairo0YfOWiWzAyU4rfT2llG7PxisRwd/E05KxxB247kq3Tj1WnXwXZ3inL1pPZiulHWDYAY27K19w133AZZrFS4X80XWNHCzdYnPHFzwj2hcS191kUdRQ4xPA=
-Received: from SJ0PR03CA0344.namprd03.prod.outlook.com (2603:10b6:a03:39c::19)
- by IA5PR10MB998092.namprd10.prod.outlook.com (2603:10b6:208:603::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Mon, 19 Oct
- 2026 16:01:00 +0000
-Received: from MWH0EPF000A6734.namprd04.prod.outlook.com
- (2603:10b6:a03:39c:cafe::65) by SJ0PR03CA0344.outlook.office365.com
- (2603:10b6:a03:39c::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Mon,
- 19 Oct 2026 16:00:59 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- MWH0EPF000A6734.mail.protection.outlook.com (10.167.249.26) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 16:00:58 +0000
-Received: from DFLE215.ent.ti.com (10.64.6.73) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 19 Oct
- 2026 11:00:10 -0500
-Received: from DFLE210.ent.ti.com (10.64.6.68) by DFLE215.ent.ti.com
- (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 19 Oct
- 2026 11:00:10 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE210.ent.ti.com
- (10.64.6.68) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Mon, 19 Oct 2026 11:00:10 -0500
-Received: from b-brnich.dhcp.ti.com (b-brnich.dhcp.ti.com [128.247.75.1])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69JG0AZN4044379;
-	Mon, 19 Oct 2026 11:00:10 -0500
-From: Brandon Brnich <b-brnich@ti.com>
-To: <nas.chung@chipsnmedia.com>, <jackson.lee@chipsnmedia.com>,
-        <mchehab@kernel.org>, <hverkuil@kernel.org>, <heiko@sntech.de>,
-        <nicolas.dufresne@collabora.com>, <linux-media@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
-CC: <devarsht@ti.com>, <b-brnich@ti.com>, <stable@vger.kernel.org>
-Subject: [PATCH] media: chips-media: wave5: Account for sizeimage 0 case
-Date: Mon, 19 Oct 2026 11:00:03 -0500
-Message-ID: <20261019160003.2375198-1-b-brnich@ti.com>
-X-Mailer: git-send-email 2.43.0
+	d=linux-foundation.org; s=korg; t=1792425779;
+	bh=i304SC/HQYDOIv0BcT5DzauQuw5vfS8n4xRru+qlH6M=;
+	h=Date:To:From:Subject;
+	b=j8SXMp3Lvie4k0gZzd9r800DRhbKuLBXuSNivcdW0pC7a0Sev/Sn8t0lsumoChwuR
+	 46rECvsMKxt3jNFo5YtaOjJA8Gi6gUlAQR5uTLRFI6msgM2uyEVeWR1zkrqXBdjEH0
+	 6jeXLkkVb+SVfLxHvehCapmS0NIqDTA8dC5fE5es=
+Date: Mon, 19 Oct 2026 09:02:59 -0700
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,pfalcato@suse.de,liam@infradead.org,jannh@google.com,bgeffon@google.com,0x7f454c46@gmail.com,ljs@kernel.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-mremap-correctly-uncharge-accountable-vmas-in-error-path.patch added to mm-unstable branch
+Message-Id: <20261019160259.7A5721F000C4@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -138,116 +48,141 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000A6734:EE_|IA5PR10MB998092:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5599a1b7-a7a0-4167-ce85-08df2dfa2a8d
-X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|82310400026|7416014|376014|36860700016|1800799024|23010399003|18002099003|3023799007|10067099003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
- lt+anbb6rUovHK67Cdxn4W5PqqISlruSjHQlYzINav/7uXDBvQpeEVc3FFzsq+sFCRJWGFdaqknpnMtF11qnK+ThMiMJ+GM/gw+8alDG+vPWEH0K9K3iN8AVAnF9lQVA3y1ip9ZRIk3z97s00B72C/8KdmWni9GydRMSnm65HFtooGLCOd8Kg4ft1lt9KTnQqMbICpJqxh6uTorjcc1GAbq+Ex9nkMrm7lYzdUkQNMq/N4xq9OQCW7sFtoDG5gPua3cnILDOHaOgNo6guR78feTj9bXhk4UTPjIjzK9fpjlcw3G4IsEFk3wkFLMKWWsUmepvR3iL+864UU2qlw45dLZ2YFpr+apuHGWQQfJDCqbclZBio1gTUiIxZnbU7N9l2rZVhxRUzSl3/9Y4+BRktnGhhMbxQNBcWfy4Lvw+CIR6yFI469BICLkLfEQXJwBKOVokLbsH0bGu5jxTq+I+wTZNmbUbEGKb4KGmRS79K0zxIhFQEGORdaySBilPV4V7EP7jiaqYO05NhziqE0LBOAKhr5hUkSCso0gxOi9N/WOIt34w3Xc9e8rU8sTqUNcx90lkV49ONP7TAYg1m9EHwZmK+MMTwzguqxu//HDEYDar8Lpvv6CilufHXZpgtBS/fcWQHFM6GqkmudZmUTEYxFLKnpXenenH/xOJEKzoMxKnjhkTarYgPyMlBAjhpihQnlXft4ngsJZVrFjWjWdkrQ==
-X-Forefront-Antispam-Report:
- CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(7416014)(376014)(36860700016)(1800799024)(23010399003)(18002099003)(3023799007)(10067099003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- dKyrEQfi9BJSGeVQSfwTHEMbNUff/DEhCSqp+ErVz66ld8F8RYQ1Pbs1z7r10iBh2R6aHaE2G4zxGV/veTYZl9KQhwMSTNY+kmhusTh5ByCJQzC4ezX+TVWlpola4AGras9pMzusnsdOVreuaH7X1NtrxT54iCCZOOBxWu8BuP0VVcl6WF2B8fECZbKS+5zKMf6oymhWHof7JtazyAvRY6o9fZXQ+2MupxU/zdZ3jXxB4DM+8+DyXrESTyCkDMUGDum6anUsAWpsg3A+AKBFCfec4Cud28NYnbki7VDfT3L7z5CivzZJyYKJyLFhFn8AsEaibK7PRh6OpiCptTmuPQxnRdFeqXIqjH1uRQa0baDUmfw6rpq88WjLjecHjwaLrdMZpm72o9/gcDGzM8B5EyssSBkHuIVelD8NjEgsZ3J02OgpS0qc0toT31lV5oaL
-X-Exchange-RoutingPolicyChecked:
-	LBrdRoWyAHnWxTG78/jgPwIAQXR1FlkmZKtKVe1YHPceWA0E52tyZi5Lzg4NIrEesAvJ2pE0sTuUxI1EZAD2nP45qGMCKNaf1lKMJVY2XOgxov9nGw6iTuFMSXvEmTbK+rPCu1nheF67iZVx2T5K10NEQpCeUzW+71WR9QMuiZ5DlkUh7rDmM48tKrl5yzLC32bm7EEm53jbTm5FSCRNK3KPaJ75kpu2X4NNZa/ap1a/zYQSKx/hNK0Mwxz6Ull39Dyk8Q8+e5PGVLBj0v1+v8i82b/EXmkwty+tsz36+QK7a0zJ2TynwIPx7fjYqLCSvsw4HStZAAUQmDeftyGDzw==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 16:00:58.7579
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5599a1b7-a7a0-4167-ce85-08df2dfa2a8d
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A6734.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA5PR10MB998092
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA2MyBTYWx0ZWRfX1cdYiBXRGhCc
- bT7RwlJHUKzUpj0L6DK4P1xKYA8nJ8Ks/QHRvLrpi8o86v2YMK90/V6IAycdeC8ujGP7cImVpST
- Fe1XHcnAxQd2xfK8VivWrBgR42r6BhftzBMLWA7aEJ8qnPZ6uV7HALzBwFm8S6/zX1uP4YQsAS1
- 2mCJIbVt+hZw7Wnr0ZfV4lXMx72jg/Co1IUf6wpNhgDH2hF5vV5RVuKES+pf+B/rKElowxTLjCJ
- mKdA+6zyWYKvYNV0mkAAEZPUAhHAs9Ey2+E16/L7q2eyn71aCjNN6PQtSUd3bzDyedUpUCyz2Rz
- J6o2a4ddowF1jl/yDWD9mIsp7tpUACLTcsFmBjfA6Xobnns+C6lcFrxLcmYCCHRiyPNE2u83yMV
- OzKLvJ1XkvGO54jCO6Jdvrcfb8+WidT2P9+/OyanktKPdhmqeuzEYBmbY1zOVVvnWX3X7z9d4ic
- 5n1dUflDI7pSDTsRJVw==
-X-Proofpoint-ORIG-GUID: 7jh8f8vauuvXSGfYz2OOlv0y1P8eceXA
-X-Proofpoint-GUID: 7jh8f8vauuvXSGfYz2OOlv0y1P8eceXA
-X-Authority-Analysis: v=2.4 cv=Vsa2kO2n c=1 sm=1 tr=0 ts=6ad63ebe cx=c_pps
- a=2d9FbaPwie0YXhWIRYJR4A==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=660iZSQnnn4A:10 a=AlMIdn_sM9wA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22
- a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8 a=Gk16nDaxf-trY3xgl4wA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA2MyBTYWx0ZWRfX3+Ej5YG+0OiL
- 7FvpS2IRi7f3QEFiwYSDVr1DLPTY5K8G/msmVq3zxZxpxpQBRJ5cfb4eOcHPn2tjdFKRcbVTYCj
- 5BjdkxtU7YYZ5/pojvO80mWGZRekLEE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-19_05,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 priorityscore=1501 bulkscore=0 suspectscore=0 spamscore=0
- phishscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190063
 
-V4L2 uAPI states that sizeimage can be set to 0 in struct
-v4l2_pix_format_mplane if client wants the driver to configure a proper
-sizeimage. If client leaves this field unset and configures an encode with
-high bitrate, low QP, or any other parameters resulting in high quality
-encode, then the driver-calculated bitstream buffer size (MIN_BS_SIZE) will
-be too small resulting in undetermined behavior.
 
-Cc: stable@vger.kernel.org
-Fixes: 88ff31fd0181 ("media: chips-media: wave5: Use helpers to calculate bytesperline and sizeimage.")
-Signed-off-by: Brandon Brnich <b-brnich@ti.com>
+The patch titled
+     Subject: mm/mremap: correctly uncharge accountable VMAs in error path
+has been added to the -mm mm-unstable branch.  Its filename is
+     mm-mremap-correctly-uncharge-accountable-vmas-in-error-path.patch
+
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-mremap-correctly-uncharge-accountable-vmas-in-error-path.patch
+
+This patch will later appear in the mm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: mm/mremap: correctly uncharge accountable VMAs in error path
+Date: Mon, 19 Oct 2026 16:57:48 +0100
+
+The mremap error path is a fragile and unwieldy beast - it reverses the
+page table move then updates vma_remap_struct state to swap VMA, length and
+address between old and new VMAs in copy_vma_and_data().
+
+If the mremap() operation didn't specify MREMAP_DONTUNMAP then its caller,
+move_vma(), invokes unmap_source_vma(), which unmaps the new VMA rather
+than the old one.
+
+For accountable VMAs when MREMAP_DONTUNMAP is not specified,
+unmap_source_vma() unsets VMA_ACCOUNT_BIT during this unmap in order that
+only the delta of a VMA expansion is charged (performed by
+vrm_calc_charge() earlier).
+
+Therefore nothing uncharges the expanded VMA size, and there is a permanent
+leak in global Committed_AS.
+
+Resolve the issue by uncharging when MREMAP_DONTUNMAP is not specified.
+
+Link: https://lore.kernel.org/20261019-other-mremap-charge-leak-v1-1-d94477fe6545@kernel.org
+Fixes: fdbef6149135 ("mm/mremap: don't account pages in vma_to_resize()")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Brian Geffon <bgeffon@google.com>
+Cc: Dmitry Safonov <0x7f454c46@gmail.com>
+Cc: <stable@vger.kernel.org>
 ---
 
-Current DEFAULT_BS_SIZE is just a placeholder value - I can lower if
-required so memory consumption doesn't go up drastically if sizeimage is
-set 0 by user. I saw this was the common equation in rockchip and hantro
-driver.
+ mm/mremap.c |   14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-Link to uAPI requirement: https://docs.kernel.org/userspace-api/media/v4l/pixfmt-v4l2-mplane.html
+--- a/mm/mremap.c~mm-mremap-correctly-uncharge-accountable-vmas-in-error-path
++++ a/mm/mremap.c
+@@ -1339,6 +1339,20 @@ static int copy_vma_and_data(struct vma_
+ 		pmc_revert.need_rmap_locks = true;
+ 		move_page_tables(&pmc_revert);
+ 
++		/*
++		 * When copy_vma_and_data() returns, the new VMA will be
++		 * unmapped rather than the old one.
++		 *
++		 * When an accountable move is being performed, this unmapping
++		 * will not uncharge any expansion, so do that now.
++		 *
++		 * A move is accountable if the VMA is accountable and
++		 * MREMAP_DONTUNMAP is not specified, so only do so if the
++		 * latter is true.
++		 */
++		if (!(vrm->flags & MREMAP_DONTUNMAP))
++			vrm_uncharge(vrm);
++
+ 		vrm->vma = new_vma;
+ 		vrm->old_len = vrm->new_len;
+ 		vrm->addr = vrm->new_addr;
+_
 
- .../media/platform/chips-media/wave5/wave5-helper.c  | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+Patches currently in -mm which might be from ljs@kernel.org are
 
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-helper.c b/drivers/media/platform/chips-media/wave5/wave5-helper.c
-index c3d34be833ff0..384a0a9aac3ae 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-helper.c
-+++ b/drivers/media/platform/chips-media/wave5/wave5-helper.c
-@@ -7,7 +7,10 @@
- 
- #include "wave5-helper.h"
- 
--#define DEFAULT_BS_SIZE(width, height) ((width) * (height) / 8 * 3)
-+/* Smallest bitstream buffer accepted when the client provides a sizeimage */
-+#define MIN_BS_SIZE(width, height) ((width) * (height) * 3 / 8)
-+/* Worst case: Allocate bitstream buffer size based on resolution and max depth */
-+#define DEFAULT_BS_SIZE(width, height) ((width) * (height) * 2)
- 
- const char *state_to_str(enum vpu_instance_state state)
- {
-@@ -261,8 +264,11 @@ void wave5_update_pix_fmt(struct v4l2_pix_format_mplane *pix_mp,
- 		pix_mp->height = height;
- 		pix_mp->num_planes = 1;
- 		pix_mp->plane_fmt[0].bytesperline = 0;
--		pix_mp->plane_fmt[0].sizeimage = max(DEFAULT_BS_SIZE(width, height),
--						     pix_mp->plane_fmt[0].sizeimage);
-+		if (!pix_mp->plane_fmt[0].sizeimage)
-+			pix_mp->plane_fmt[0].sizeimage = DEFAULT_BS_SIZE(width, height);
-+		else
-+			pix_mp->plane_fmt[0].sizeimage = max(MIN_BS_SIZE(width, height),
-+							     pix_mp->plane_fmt[0].sizeimage);
- 	} else {
- 		v4l2_fill_pixfmt_mp(pix_mp, pix_mp->pixelformat, width, height);
- 	}
--- 
-2.43.0
+mm-vma-fix-mmap_prepare-file-handling-remove-file_doesnt_need_get.patch
+mm-vma-introduce-and-use-vma_can_merge.patch
+mm-consistently-validate-vma-state-after-mmap-hooks.patch
+mm-vma-ensure-mmap_prepare-doesnt-set-actions-on-a-mergeable-vma.patch
+mm-make-map_kernel_pages_-internal-and-unexported.patch
+mm-vma-tidy-up-map-kernel-pages-enum-values.patch
+mm-assert-mmap-lock-held-use-new-flags-api-in-vm_insert_page.patch
+mm-add-mmap-action-for-discontiguous-kernel-page-mapping.patch
+docs-filesystems-update-mmap_prepare-docs-for-discontig-kernel-pgs.patch
+drivers-usb-mon-update-to-use-mmap_prepare-map-kernel-pages.patch
+infiniband-update-hfi1-to-use-remap_vmalloc_range.patch
+selinux-reject-writable-opens-of-policy-file-drop-mmap-shared-write-check.patch
+alsa-pcm-use-vm_insert_page-to-map-pcm-status-page.patch
+bpf-arena-mark-arena_map_mmap-mappings-vm_mixedmap.patch
+mm-vma-add-vma_is_mm_managed-predicates.patch
+mm-vma-only-allow-mmap-to-clear-vma_maywrite_bit-if-not-mm-managed.patch
+mm-vma-add-and-use-vma__is_fixed_mapping.patch
+scsi-sg-convert-mmap-hook-to-mmap_prepare-and-rework.patch
+fbdev-defio-assert-fbinfo_virtfb-drop-vm_io-add-vm_mixedmap.patch
+hsi-cmt_speech-convert-mmap-hook-to-mmap_prepare-refactor.patch
+mm-gup-error-out-early-on-vma_mayread_bit-vmas.patch
+uprobes-remove-vm_io-set-vm_mixedmap-for-mapped-kernel-pages.patch
+mm-mlock-clear-vma_locked_mask-over-mmap-callback.patch
+mm-mlock-eliminate-weird-vma_io_bit-abuse-and-simplify.patch
+mm-vma-enforce-that-mm-managed-mappings-may-not-set-vma_io_bit.patch
+mm-remove-vma_io_bit-check-in-vma_is_mm_managed.patch
+mm-remove-hugetlb_inlineh.patch
+mm-rename-is_vm_hugetlb_page-to-vma_is_hugetlb.patch
+mm-drop-some-redundant-checks-around-hugetlb-vmas.patch
+mm-vma-introduce-vma_is_mm_backed.patch
+mm-madvise-update-is_valid_guard_vma-to-use-vma_is_mm_backed.patch
+mm-uffd-use-predicates-for-userfaultfd-checks.patch
+mm-madvise-use-predicates-for-madvise-madv_dofork.patch
+mm-eliminate-vma_special_flags-usage-when-hugetlb-explicitly-tested.patch
+mm-eliminate-vma_special_flags-check-in-lru_gen_look_around.patch
+mm-avoid-use-of-vma_special_flags-in-migrate_vma_setup.patch
+mm-eliminate-vm_special-vma_special_flags.patch
+fuse-dax-do-not-set-vm_mixedmap.patch
+mm-huge_memory-remove-vma_is_special_huge.patch
+mm-vma-const-ify-vma_assert_stabilised-and-associated-functions.patch
+mm-implement-and-use-vma_has_anon_rmap-silence-kcsan.patch
+mm-update-comments-to-refer-to-anon-rmap-rather-than-anon_vma.patch
+mm-vma-dont-remove-vma-from-rmap-if-pgoff-unchanged.patch
+mm-vma-avoid-spurious-write-locks-when-mm-mm_lock_seq-overflows.patch
+mm-mremap-populate-calculated-fields-in-vrm-state-correctly.patch
+mm-mremap-correctly-uncharge-accountable-vmas-in-error-path.patch
 
