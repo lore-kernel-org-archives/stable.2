@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792443360;
-	b=SekIsXpzVTqdcRmmgqWVNYRhS561fj9iOvqJAK8NW+1YJ41RLsxx0OhATCSmlc9pghFg
-	 jquqz8NrQl/cxBrSjUCQfQywbb7hRq2lQq6mKZr3fpCMOv43aZeuU8olIoumjmy4+wzJ7
-	 0P6mtJ4U5shaNpC0NjzlCIbY9Xz265TLAv4hwODtsWqQCHgVi+OTyYpf/9/wB/4xKGH68
-	 HDHnTNnsI07KTEhv0S2wWFUF8WbR4DsYX5/MKcCUwszmBQbm7g/tOlMNaTHhcAAYH1mtM
-	 iuAzWhw6/Iz083n1p+y341i4ztSlss55bOfwkJ5y3RDAFNGxNR9PrlaSSRQ1xOFH8GQ==
+	t=1792443356;
+	b=T7yWTHHReB8Lmm2L4IDr3r2NxxLBhFes6evNyBZmScGDHJkMsZLnK84C+6PX1wQ7lh7S
+	 Z0qGpchj2Mazl/scAWtb4asVzkyX/gPV2TCoSzhXA6enlKELls/uNtP76lyhMfvnASRpq
+	 PnQ2DhQvfaEk5cQi+pRnPwAqPhNHwRbmN1VXM3n+i9do8AZQ1BLgh9M7w+w0FPK6fuPQc
+	 E1fN3bzD5WlcPlE7CWRatUOcrHiq+Y+TC+/3Wru0RFLvjwJ9s2guHahE0P3BW7nT04yWh
+	 CvYvvzj8djT7pBlSmDUwrURatQvfMVV6jU7vCPkKCeHRnVakL1XnSrj4Zl+jNwhwVeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792443360;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443356;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=MfEcM7XR8BekR/lwtKAGvYyvjMj9to5P+UmTvrtROkg=;
-	b=UGRWVIChejF/nJJCm2z9aM8Igqz7HYpNvT3ceVCbjo9jeb1xUwz58bqWluy85qesvGB0
-	 1/0kc1Z9L6NEjTP6MAivIiQrMXtphGr0kCtA1KxVL1Xiww/Tnu6rQTHZsXjWZ4Z2AvISN
-	 XgUyZs4DEtN61wyBX7gH4a6d/xe7KPRT19Ty7eGl/lxVfJ9vFBZD83QLW2aKW4a0YBROW
-	 ChWfm9Cnx8oz7Tw8FtwAbSkxkUjM7smvkeADD2W5OnG5W2vZz7ePHgfg78c4vWOSxzv+3
-	 mlntmyInMla1/MrtNQj8k3HFtJ22ZjtSFsa+vUPGPZLVH7A811EyG8yRTQxa3A/OMDA==
+	bh=e6OqCyaRJ+RNQrqMXUtu6q96XwVHbtg/zKywa1y5RoM=;
+	b=3RmEUOn9DRRESBHenhei9ej5hJrmzIP33pWdnkiaLVqjbBE4oCuEskn+wTqyPHgTFM0t
+	 rNhqkMBjr/dlIDBuwp77fxsXbKvPSKsJw1+j0/KliUQzYk75xFTgPLxd5PrCOjhbNUfK+
+	 +IhabPRnz3nKu/PFPpgXVQmeC3k+eq6Tt4SSADM+TXYAnuYfk9tGb24QdyAAACpxSC+K/
+	 7D1pm9oOq+T0pdClsRle/A3Cr10FKMpGfv3kcpVvo8kLM62SWB9xvps7weVhwcJ7/i+um
+	 331rzJ0uLjSwbwZeTcUSlnSFX7PTo+2aPLAkSE0g1XKP1IP0J3oW4KZhOqzIUfPkT6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VE165g7t;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="KsG861/X";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 721D1606A31B;
-	Mon, 19 Oct 2026 20:56:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7AE6606A325;
+	Mon, 19 Oct 2026 20:55:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VE165g7t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 628F71F000C4;
-	Mon, 19 Oct 2026 20:55:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KsG861/X
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0958F1F000C7;
+	Mon, 19 Oct 2026 20:55:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792443360;
-	bh=MfEcM7XR8BekR/lwtKAGvYyvjMj9to5P+UmTvrtROkg=;
+	s=k20260515; t=1792443355;
+	bh=e6OqCyaRJ+RNQrqMXUtu6q96XwVHbtg/zKywa1y5RoM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VE165g7tS1lC1akeFovp3SQhMQiyKzRSw4dsEEr8Iks1pIhxUWwdwSxMXJDkEhyZh
-	 U90AEeP6SBWlW/vEZFrDDas1W+cD+81/fr9p85Pqw+tWdG1SwK4c9omIsqvLny1Yyz
-	 9cxpYu9RCSLeZJ+dbfZ9DNpv/BH60zc/5dTdJl2FXCJpjtvf17SD7WUBdVCKdSDskl
-	 ZzHd84irM0h2yO7Xa1PVzrf2f7hRDUFSBtzQcqefT1zzHs0qSIxxXJa13TIPlZMrnk
-	 sBFioypSw+CekP1UZcUchhGT7d5Qll3Ai7MHvarzyM+fZ6aK29N1XuGV7FD5YbSWyX
-	 aUttUzah7mTLA==
+	b=KsG861/XINh6P6UKNU0bF7U3sT06wMzAonp+IQpOlyKHjwOle9OKdRG6j3FzDvUh4
+	 9GdtZODd0T/Go7yAv+WAI/i8NVQJuazNCJZG6MizX/OcwF4NvTSv6ej2nSv2hajXl5
+	 +TasqFXCi9vdnrMsDgyQkBQFi5bO/4fw14SeUxkmIciAAdiH8AyZQCAWaVp/0Uxge4
+	 e/YLjYVfbnQ0SRHZ3zlJvuDvcyxOoI0Z5SPVbIBXdnQ/CvtqqyQvqko1XDPqdnZ+1Q
+	 3YJwko9xpM2z8tI2aN7qkuY8DoQTS87/7KfUC0QJYWEkG1QtZsKn2qKsbp8YC//lB5
+	 vCapw8xerRu1A==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: gregkh@linuxfoundation.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	mptcp@lists.linux.dev,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Mat Martineau <martineau@kernel.org>,
-	Geliang Tang <geliang@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Abdul Wasey <w453y.me@gmail.com>
-Subject: Re: [PATCH 6.6.y] mptcp: move the OoO check back into __mptcp_try_fallback()
-Date: Mon, 19 Oct 2026 16:55:36 -0400
-Message-ID: <2026-10-19-1-daily-reply-0011-mptcp-ooo-fallback-6-6@kernel.org>
+	stable@vger.kernel.org,
+	kuba@kernel.org,
+	linux-hams@vger.kernel.org,
+	Bernard Pidoux <bernard.f6bvp@gmail.com>
+Subject: Re: [stable request] ROSE memory-safety fixes for 7.0.y and earlier (merged out-of-tree in linux-netdev/mod-orphan)
+Date: Mon, 19 Oct 2026 16:55:32 -0400
+Message-ID: <2026-10-19-1-daily-reply-0006-rose-ax25-6-18-6-12-followup@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261019111551.2063200-1-w453y.me@gmail.com>
-References: <20261019111551.2063200-1-w453y.me@gmail.com>
+In-Reply-To: <CAFAa3YAx1VhVJw82fSK4OWTKZ8niDDRBdGYnngeCibZFqm04eA@mail.gmail.com>
+References: <CAFAa3YAx1VhVJw82fSK4OWTKZ8niDDRBdGYnngeCibZFqm04eA@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,11 +63,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> The 6.6.y backport of upstream commit 1bba3f219c5e ("mptcp: do not
-> fallback when OoO is present") put the out-of-order queue check
-> in __mptcp_finish_join() instead of __mptcp_try_fallback().
+> Here are two more fixes for 6.12.y and 6.18.y.
+> They were merged in mod-orphan in September, but I left them out of my
+> earlier batches by mistake.
 
-Queued for 6.6, thanks.
+Queued for 6.18 and 6.12, thanks.
 
 -- 
 Thanks,
