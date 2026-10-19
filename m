@@ -1,123 +1,118 @@
-Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2151E4AA3F4
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 09:44:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9325A4AD7F6;
+	Mon, 19 Oct 2026 09:44:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792403041; cv=none; b=ZCIVMl1KrtcNlKzCdDYqiEfOb+nStEPRGmI2Bmm9/OQmpB2LRC9XWTBqmEAIB87WnOFP9hw3gz3KDBlaUVdwwmnsz18/xzu91HGYgYbj9XGbk6JWO4IKS8Gc4wRo/EreKwhZZC5w0RuovZwYQdcpDnzPTl1ZRNMsUNvUnOOuVKM=
+	t=1792403084; cv=none; b=MGKaRJIGo0yfGttHcDyEsg/9vM7HsCmZ3P4MdW9dxZy0xj2myhwqx9M8tpdGG8dyeDJ9Br7E/9OOKkjXC+EQU3edOailZVg1WAegeUWFU6NaqEAvVfVc2wnCi6Wwj5xpCC//KDKI+YECMOU6PcK9e4KIHESlE+xH+W/SMVM64Ac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792403041; c=relaxed/simple;
-	bh=eF9ybIO73BvXJx/tfM15TxxY0Adrd/pDfCRrQG6zpJs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BrYMZEJNzGPU0BZykg9j8swT3Qr3lRN3A1ruk8pZdTTht2gBm0rGm41YCNMalwhPmD29hnKzgxkVfOW1o+OJEem9ZMPRGGYoidm04m46X+7GJTMX9xO1fNnbHC8wZf9PB98cs9L87ZEcH1MGyfl8CVHUsw8bnVRNX4lPI9u6y2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CZLHAr+5; arc=none smtp.client-ip=74.125.229.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792403084; c=relaxed/simple;
+	bh=pSXKSxezTvk2VOUeT0zN6S3csEqGn3iefHVtY4ZUGs0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rC2KuG+kUOQSyIdl7goVUgRzo9VBMI1hmVXipjkyp6ahcfHErlwDPoodeO/UnXfU/TxCW9Gdi1G21mhj+4bHNFmIBnmxnidGUDM+dpfYBz6PLf9y3mgXv0sdQTpmc7Ru5siqj9tTCIrFAHKxyVxjcmd8X+oXAIRpFDWyaZbCZ28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pMGXW7//; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CZLHAr+5"
-Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-3535a54c09bso1862534eec.0
-        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 02:44:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792403039; x=1793007839; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SS9kJ1jH1xG6CLAUi3XRMYbxFYxyeHVEus5/yx1itww=;
-        b=CZLHAr+5SX+9O1+UKYUHozqaxF2RfMchhttSCgzxcKinJil1RdzUOe07aDVb89Dfsi
-         ONyShNKWZhj4smiq1Cm8hyyN5E2sRgdpHp0mln5BucMZtPhbmILte6x1yK9sLQQvIIe7
-         Q8IRR+fb+Gqe2GB9lwtoYS4DpAbIDF5dlOH6iUKoNfS0JWxeqYlCTCjE06kH8lcAZl8O
-         r1BOSBW5oqmyA67DDa/5yX5gkDGmdj4sqAKc4CmCNycam4OvLSudgfllbg3LiEnjhWIS
-         XqIJOI3m2k6YEPrQYQ2mZVbp7tuchL7XHn1XavSIEX7Qq5mUgic/Dz19Mq1OtiyHvFTM
-         9Rew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792403039; x=1793007839;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SS9kJ1jH1xG6CLAUi3XRMYbxFYxyeHVEus5/yx1itww=;
-        b=Yjg7xLF/FBrUfiWlE2nIfrENaBjpYhg8b6ko+bIboIORkYvh4s3X8vT0YGUe2FjvXx
-         bEdmUgjd0KwsM+WB+cp9aZ3OUHuEquH28o5vEVeyuMPoWg25qWN8lK12oxldSljCmMpY
-         S+Vi+lgonbirPHfB+vI6XuNKqdgCURQ16HuZDWaM98UIKmbfQifRZyauD98UL6J6IwGq
-         tsbKNLNZabU4WfV2Mbjd5nI7Yrg2bRZeqw8diODmf6WdI1c0pd8nS2h9+C4lAqI6LBRK
-         P/H2+wqbTAGQp1oyVjQq7pmBkJ5AnN+PL/oLnNwVvXujg1PFZQ16NMvr6nJsbMvCNkEh
-         l3Vg==
-X-Forwarded-Encrypted: i=1; AKwUvByXIjix9wjxUHqbEK45aqQQTDiAqOIy1J32Uuy/QhxzpRqdkZ8so1PIbkLXC4E0Y3+ugNBSUmU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQEhm2mHO3d/OT4RFXNbDpaqOVt0dCgz3ermhFb9dkKiyg0e7q
-	nV+vJmNximJPXdEnQ5yoWRPkhKLyErmvarBP2ssr6IVZoyr4szXPmMgu
-X-Gm-Gg: AYBFou1cdjxgCLbsMPC3GQcaud/9PNMz29ep5DIGCyKtsz8x6UDlZ62gG/r+honBheD
-	rswh3bBNQSe7nrsnpE+iQUSiIGyNP9vy1NScCRLUr/dO9FQzJOCvoxQHysBmPIew2oVURSg942N
-	vy9f8djBmEcZkuLkKQh9SakyfcywSJhik9yAdfmMMZOoOzrurwQqyWA7DixE9ctdnrgyualOod9
-	Ga4xt6Xw00IzEbUKih+/DkLGCh96jugFL9nax5tOC9pYIWoHMJn+wV4yCklexf2fjyRPNayIuHD
-	ENWspS4uRhcGpQZ6v+17FRmO9Yz7NtFJn5IjdjiheZx1ICEPdfaXrA8R9yQdZYActSh992wwhWV
-	yAM3/3cSKK/dsBLqbvCNeryTzv7DY7+G+CUfpVEWfWSqA7jYohtwlwkfnq62tlQTtPsCid8R/bA
-	vokCGt4KhrVJJUzCw7Il+0Vy69mKGVp/2eMbRe2nhTy6VjdAWa+S4HxTdoko3EZhOnZEB8Rcjc/
-	imjIETLSxBi5g0mn4qIZloUHl+sIT7DhrQ=
-X-Received: by 2002:a05:7301:6404:b0:360:f13a:ff0e with SMTP id 5a478bee46e88-361a1b539f1mr10748987eec.23.1792403039178;
-        Mon, 19 Oct 2026 02:43:59 -0700 (PDT)
-Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com. [104.194.64.109])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607bc950f9sm34370074eec.0.2026.10.19.02.43.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 02:43:58 -0700 (PDT)
-From: Yao Yiqi <yyaqia@gmail.com>
-To: deller@gmx.de,
-	tzimmermann@suse.de,
-	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	yaoyiqi3@huawei.com,
-	Yao Yiqi <yyaqia@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v5 3/3] fbcon: Retry rotated font allocation after failure
-Date: Mon, 19 Oct 2026 17:43:31 +0800
-Message-ID: <20261019094331.1128871-4-yyaqia@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261019094331.1128871-1-yyaqia@gmail.com>
-References: <20261019094331.1128871-1-yyaqia@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pMGXW7//"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2162B1F000C4;
+	Mon, 19 Oct 2026 09:44:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792403082;
+	bh=NVj3qVIVjj/Noq+geb2xGXoB3a1a0LYTHU/cvLo7+9s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=pMGXW7//CqzKlUILcyEdGuwwaPqF9MnvjJ8/i5oAhpu9b0hbeE5TVrRDV+4EbEtb6
+	 foG1sg8pN2Co8odqFQ+29M7WWvq4kmFzmLwG4matTIa2ofnWtk3KCZUtzrVJZET3Xm
+	 g9yXhHmZ1jTbwqlFua4zUVN6W07vRf0Wld8c7YGw=
+Date: Mon, 19 Oct 2026 11:44:39 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Qi Zheng <zhengqi.arch@bytedance.com>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	Muchun Song <songmuchun@bytedance.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>, "Darrick J. Wong" <djwong@kernel.org>,
+	Dave Chinner <david@fromorbit.com>, Kirill Tkhai <tkhai@ya.ru>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Price <steven.price@arm.com>, Theodore Tso <tytso@mit.edu>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Abhinav Kumar <quic_abhinavk@quicinc.com>,
+	Alasdair Kergon <agk@redhat.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+	Andreas Dilger <adilger.kernel@dilger.ca>,
+	Andreas Gruenbacher <agruenba@redhat.com>,
+	Anna Schumaker <anna@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	Bob Peterson <rpeterso@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Carlos Llamas <cmllamas@google.com>,
+	Chandan Babu R <chandan.babu@oracle.com>, Chao Yu <chao@kernel.org>,
+	Chris Mason <clm@fb.com>,
+	Christian Koenig <christian.koenig@amd.com>,
+	Coly Li <colyli@suse.de>, Dai Ngo <Dai.Ngo@oracle.com>,
+	Daniel Vetter <daniel@ffwll.ch>,
+	Daniel Vetter <daniel.vetter@ffwll.ch>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	David Airlie <airlied@gmail.com>,
+	David Hildenbrand <david@redhat.com>,
+	David Sterba <dsterba@suse.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+	Gao Xiang <hsiangkao@linux.alibaba.com>,
+	Huang Rui <ray.huang@amd.com>, Ingo Molnar <mingo@redhat.com>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	Jani Nikula <jani.nikula@linux.intel.com>, Jan Kara <jack@suse.cz>,
+	Jason Wang <jasowang@redhat.com>, Jeff Layton <jlayton@kernel.org>,
+	Jeffle Xu <jefflexu@linux.alibaba.com>,
+	"Joel Fernandes (Google)" <joel@joelfernandes.org>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Josef Bacik <josef@toxicpanda.com>, Juergen Gross <jgross@suse.com>,
+	Kent Overstreet <kent.overstreet@gmail.com>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>, Minchan Kim <minchan@kernel.org>,
+	Nadav Amit <namit@vmware.com>, Neil Brown <neilb@suse.de>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Olga Kornievskaia <kolga@netapp.com>,
+	Richard Weinberger <richard@nod.at>,
+	Rob Clark <robdclark@gmail.com>, Rob Herring <robh@kernel.org>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>, Sean Paul <sean@poorly.run>,
+	Song Liu <song@kernel.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+	Tom Talpey <tom@talpey.com>,
+	Trond Myklebust <trond.myklebust@hammerspace.com>,
+	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Yue Hu <huyue2@coolpad.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH 6.6 1003/1674] mm: shrinker: add infrastructure for
+ dynamically allocating shrinker
+Message-ID: <2026101913-unicycle-fancy-0adc@gregkh>
+References: <20261017160431.119607952@linuxfoundation.org>
+ <20261017160456.871872142@linuxfoundation.org>
+ <68c00b4f-d74e-4e2d-a7bc-9af44beeb25e@bytedance.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <68c00b4f-d74e-4e2d-a7bc-9af44beeb25e@bytedance.com>
 
-From: Yao Yiqi <yaoyiqi3@huawei.com>
+On Mon, Oct 19, 2026 at 05:01:07PM +0800, Qi Zheng wrote:
+> Hi Greg,
+> 
+> Backporting just this patch alone doesn't seem to fix any actual issue.
+> Why was it backported to v6.6?
 
-fbcon_rotate_font() records the font, its geometry and the rotation in
-par->rotated before calling font_data_rotate(). If the allocation
-fails, the error path clears par->rotated.buf, but the recorded key
-already looks up to date, so the next call takes the early-out and
-never retries. The rotated putcs/cursor ops keep returning early on
-the NULL buffer, and the console stays blank even after memory is
-available again.
+Because:
 
-Also test par->rotated.buf in the early-out, so a failed allocation
-is retried on the next call: at the next fbcon_switch(),
-fbcon_modechanged() or font change.
+> > Stable-dep-of: d227786ab111 ("fs/mbcache: cancel shrink work before destroying the cache")
 
-Fixes: e4ef723d8975 ("fbcon: Avoid OOB font access if console rotation fails")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
----
- drivers/video/fbdev/core/fbcon_rotate.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+this.  Is that not ok?
 
-diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
-index 660a3fa81bae..7afd63dcee7b 100644
---- a/drivers/video/fbdev/core/fbcon_rotate.c
-+++ b/drivers/video/fbdev/core/fbcon_rotate.c
-@@ -25,7 +25,8 @@ int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
- 	    par->rotate == par->rotated.buf_rotate &&
- 	    vc->vc_font.width == par->rotated.buf_width &&
- 	    vc->vc_font.height == par->rotated.buf_height &&
--	    vc->vc_font.charcount == par->rotated.buf_charcount)
-+	    vc->vc_font.charcount == par->rotated.buf_charcount &&
-+	    par->rotated.buf)
- 		return 0;
- 
- 	par->rotated.fontdata = par->p->fontdata;
--- 
-2.56.0
+thanks,
 
+greg k-h
