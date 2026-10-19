@@ -1,47 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.145.95.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792443908;
-	b=egDF1u5qqCtT6VQTNlE5tvTc6OhITfLpIRomZyE1fwat6bf0KcCB2/V6ER3nVHunyd7f
-	 CMJR0EFc3ZBkTBv3ZyUNYRIhywRP0axFNhcXMT9XcILy+Bhdp7p2FYg6OEte0oyymCWY+
-	 ET10tcO2FaCIFXGcs2/qV8Fv95eZ4mnOoKZd79UXE3VHhshkgaQFhx94/1iPTd9g5JJz7
-	 5GDHAAxDSN4zxe2p/+a6GoKxTXQcjdqdP9oF6YJTxzueS7YT+OI0wpBrA6XHxN6cUzGEE
-	 lBImWdnLdmzTroShCyil9RiOUFGyc6eHZTbSq0cXYOn4X6eYHFBUD3m6CXeWu/GD/iA==
+	t=1792443994;
+	b=J93iRZFoi7Sc/VN9F7AYHC+jL5ctgxAGtJI8lH1ymDQjXhLsJBbeDWXT08QoTEnxJfWU
+	 7NYAquM14+BMFnZ2muXI2FKuyloPYrRsUwO2E07CkNGQgO9rO6o1eDtLU8fm3ULK59KAg
+	 DlaFZKeErmNACHUCJGarjclCNJM1UwMTJnWGFhzdUhtwg8wbNitUv7NZjYUojZWNuiPoh
+	 HjCVaasBe8nLFclpVem2G30lLCOE2kYR/Bno5jHeGJLqB06e8pXIH3JtwAoSGNVofGV7k
+	 nZW0vUOI0XyS/sKOsDMwdepYa3m0KI5gobfLm80axxmR5g7ieSlDNHvbV2XDdmqgMtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792443908;
-	h=DMARC-Filter:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 X-Clacks-Overhead:Message-ID:MIME-Version:Content-Type;
-	bh=MAMTZ+go6zLwdnQjqi8PpY4WA7VuyI13uOFhcQaRL5I=;
-	b=y1RhHkyKvc4fKRxwPfFgpzHQ+PVW8XW+XTqfuGWsNiH/kiJ3dP5MHBswHDWI/m+cDfSi
-	 JvYJPwb50ogDxx9pKJtvlNC+MfLEGckrrIHam7Yf/MB3QpBa21znnC47LyE3SQinbZ5Za
-	 XioFmvtUIwbWYqyPHa3S/igw1b7UdYaF3riLUXpWsiGe0IdvBDnwt15/8CYfJ9kkXsCIR
-	 xPyV299DUfIfKqqrKG7F9fLuUYhlrTLNvvHCqsND2wBZhIdNooyYaUxODcOJIj/uaKOoX
-	 OSS4okc1fxrWaRntRt073Mzpvdp5T5LYSmL7YQdaSLJ5B/vPYeEIcJyMce8Nsu3jKTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443994;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=AWqHTSRn5LTK5jrpP68OYatKjaIxaIVfkVKm7B/jVgo=;
+	b=IZWqFW5hxrv7SeA8uXvW2VckPfVwjvH4fi6XgL39qTrP0lYhXc2YLEBrVhJeqvQL6Y0k
+	 oOJJxC1ditVdNQTeUtWNAAjZvfPuCsxDV6eELNOgt9UTpSRrE3KVosbznBUSS7rlYViaX
+	 0NOaL0MJtzdaaEL8ex6byAgDpsQy8SYDupSmuaS4L0oSKv3kS1984UIG91S7Kt/YHCEA3
+	 sbUt5nJnUDSAcf+3RW4mLeAaVrisUR4PYLFbBT/usshOPjwQmFfdwuuZDPxfpQhdevG1G
+	 Fov6Jo/GogsARZvC09QOJLhYjxFW2yTCsKkaA1s+dROwjf0lZHwMS4PZp7T0mF9KkIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=toke.dk;
-	spf=pass smtp.mailfrom=toke.dk;
-	arc=none smtp.remote-ip=45.145.95.4
-Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DOYlcOo7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A3E606A31B;
-	Mon, 19 Oct 2026 21:05:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41A3E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
-Authentication-Results: mail.toke.dk; dkim=none
-From: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
-To: Evan Severson <eseverson@gmail.com>, Johannes Berg
- <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] wifi: ath9k: track PS-Poll responses in the BlockAck
- window
-In-Reply-To: <20261014025734.2288693-1-eseverson@gmail.com>
-References: <20261014025734.2288693-1-eseverson@gmail.com>
-Date: Mon, 19 Oct 2026 23:05:04 +0200
-X-Clacks-Overhead: GNU Terry Pratchett
-Message-ID: <87ecdlv1tr.fsf@toke.dk>
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 47F9B606A31C;
+	Mon, 19 Oct 2026 21:06:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DOYlcOo7
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 60F151F000C4;
+	Mon, 19 Oct 2026 21:06:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792443993;
+	bh=AWqHTSRn5LTK5jrpP68OYatKjaIxaIVfkVKm7B/jVgo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DOYlcOo7rXSQmA120gnsaduf3i5LnNd6M0ky+Rx7HokEjP4BAgOaBtumCi/IZkGE8
+	 IrDrY6Lcl0xYAYcwAMirj5pyPT/LVPgTFQ1wSCgXLv4ogUE7IO++wugXwUrmpjNJiz
+	 Fof2u/w4PAwHQKVdDqYfLUU0G4+usQBJUHn3iGc2yzcaH45GOAdCPSCRb2sTNBTTKK
+	 MBrUBuPGQqIiVTLVjKPtimUAH6GTHPT6VhJ7jhAYt5K0R+mfCCgkun+QK2vysrJIaZ
+	 gr9dweE3MTnRK4NFXIdobky+DJXt3lZe5uu1dM0bnEylXu907vidEOnQKiNfdL0w1p
+	 bHWTt9QPGMeUg==
+Date: Tue, 20 Oct 2026 00:06:30 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
+	stable@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 6/6] KEYS: Verify the key identity in __keyctl_unlink
+Message-ID: <ataGVmTZooWzJYMP@kernel.org>
+References: <20261019181732.449591-1-jarkko@kernel.org>
+ <20261019181732.449591-7-jarkko@kernel.org>
+ <20261019193502.GF65095@quark>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,56 +62,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019193502.GF65095@quark>
 
-Evan Severson <eseverson@gmail.com> writes:
+On Mon, Oct 19, 2026 at 12:35:02PM -0700, Eric Biggers wrote:
+> On Mon, Oct 19, 2026 at 09:17:26PM +0300, Jarkko Sakkinen wrote:
+> > [PATCH v2 6/6] KEYS: Verify the key identity in __keyctl_unlink
+> 
+> There is no __keyctl_unlink.  Seems you mean __key_unlink_begin.
 
-> ath_tx_setup_buffer() takes a sequence number from the TID for every
-> QoS data frame, but a frame only enters the BlockAck window when it
-> carries IEEE80211_TX_CTL_AMPDU. Since commit 592234e941f1 ("wifi:
-> mac80211: Fix iTXQ AMPDU fragmentation handling"), mac80211 sets that
-> flag only when dequeuing from a TXQ. Frames that reach ath_tx_start()
-> directly while a session is running, such as PS-Poll responses for a
-> dozing station, now use up session sequence numbers without being
-> tracked.
->
-> Once seq_next is more than baw_size ahead of seq_start, every frame
-> the TXQ hands out is outside the window. ath_tx_get_tid_subframe()
-> puts it back on the retry queue and returns -EINPROGRESS on every
-> attempt, nothing ever moves the window, and the AP stops sending
-> unicast data to the station until the session is torn down or the
-> station reassociates.
->
-> Seen on a QCA9563 AP (OpenWrt) with a station that stayed in power
-> save for several seconds under downlink load: the window was empty
-> and seq_next was about 2170 ahead of seq_start. With this change, a
-> 90 minute run saw a run of more than 3800 such frames and no stall.
->
-> Flag unfragmented QoS data frames of an active session as A-MPDU where
-> the sequence number is assigned, so they are tracked like any other
-> session frame. Fragments stay unflagged, as mac80211 intends. A frame
-> from ath_tx_start() cannot wait for the window, so if it is already
-> outside it, send it untracked as before rather than set a bit beyond
-> the window.
->
-> A PS-Poll response is sent on the UAPSD queue, and ath_tx_start() held
-> that queue's lock while it took the TID's sequence number. The sequence
-> counter and the window belong to the lock of the TID's own queue, which
-> the TXQ path holds when it adds to or advances the window, so take that
-> lock for the TID work and the UAPSD queue's lock only to hand the frame
-> to the hardware, as ath9k_release_buffered_frames() already does.
->
-> Fixes: 592234e941f1 ("wifi: mac80211: Fix iTXQ AMPDU fragmentation handling")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Evan Severson <eseverson@gmail.com>
-> ---
->
-> Notes:
->     An alternative would be to restore IEEE80211_TX_CTL_AMPDU on
->     non-fragmented PS-Poll responses in mac80211, which would also cover
->     other drivers that track the BA window in software. Happy to rework it
->     that way if that's preferred.
+This is definitely my typo :-) I was looking at the implementation
+in other terminal while writing this and apparently lost focus.
 
-Johannes, WDYT?
+> 
+> > Let's define the following preconditions:
+> > 
+> > - Two keys: A and B.
+> > - R is a keyring.
+> > - Both have the same type/description/domain.
+> > 
+> > Then:
+> > 
+> > 1. KEYCTL_LINK(A, R) => {A}
+> > 1. KEYCTL_LINK(B, R) => {B}
+> > 2. KEYCTL_UNLINK(A, R) => {}
+> 
+> Should be 1, 2, and 3?
 
--Toke
+I tried to describe the scenarion but apparently was not so successful.
+
+I.e. unlinking A removes B given the match in attributes while you would
+expect getting -ENOENT and B retained. Or this is the idea.
+
+> 
+> > Instead, verify key tidentity before unlinking, and return -ENOENT on
+> 
+> tidentity => identity
+> 
+> Also should explicitly say what the bug is.
+
+I tried and failed... But yeah, the bug is illict successful removal
+so there is nothing unclear on that side.
+
+Is clearer description enough or should I supplement this keyctl
+snippet?
+
+> 
+> - Eric
+
+Br, Jarkko
