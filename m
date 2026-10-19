@@ -1,36 +1,36 @@
 Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14824483BFA;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1476E483811;
 	Mon, 19 Oct 2026 09:14:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792401268; cv=none; b=PWo1+3lxC3lkMqiB/rBqH3zn4mEs0+NkDs1HbF4DjKR7eL1Pqs7+qFpqV/IgLr311GA0CKhZaf4gj4cPVQUlwtg3YSaC6w4Xat7CIZ2lnVfTeqRL1y7AaSQGpWAZa24ego+xU846U0EJ+u87jmIToiDZ+FWA7CMY5iWITx/VS0A=
+	t=1792401268; cv=none; b=CKVW3SlEJrtb9G8dv7ld/nXHHyg9jS3svPrRC+jnTwpoLixqpq2XfPPOdVlHW+3sklHKmeREoa9MydNFgOOD7ZcqgcG+RncxroN4x/R7wi+oGzVBeG8ekMqZ4aDiIThpZrKJDQBHPGV4+2D2u8T49gvPe+spi6SbYLXn++FBI9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792401268; c=relaxed/simple;
-	bh=yRXagBuaJxsDY2VfPZj52w7WTfhNTlSatMVfACzoS6A=;
+	bh=ETsdBunU5Pm9sm6F94Q+a8Fh5KMzgM/XJRIn2yqYrbU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Pz+0gJLpGlWSJiP7Wu9MOMHQtazTfCCHtd+bW+fBoqmxOdqTy8Qt8loCoURb1Wh4rbAALiKAJb9AcJxV0ar+Dd5/kkPNIy0gO8cc3XROpatxYVy1Jbl16OwXAHg6Vk+rUlGK8hcFRR0F0vZGBJWWWj4x4w181AlQrakM/35wMPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=3f1GmWoQ; arc=none smtp.client-ip=194.13.80.246
+	 In-Reply-To:To:Cc; b=BzEykOrGiWmvGbrjSKWlxLU3faYi/jv8hSCkfeWvFUynUUVuV/62yfjIOOXG5oiDWbq3J1sbFhGM7c7uJteSiyoT+3/uER3Cd1RZIerHBZLrISbk/Be9+b8aQBsmNkZPAtDn81u2SXIiEKMRYDsjhmoUtr9NPhu/UrWobv10NHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=5r9nG45Y; arc=none smtp.client-ip=194.13.80.246
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="3f1GmWoQ"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D9BC2A161F;
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="5r9nG45Y"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6688CA161E;
 	Mon, 19 Oct 2026 11:14:21 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792401262; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1792401261; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=D2FZhEuWGfcHkZJXHIKapH9bw99lywluT49CTI5wUOw=;
-	b=3f1GmWoQnVOd66Sc9IZu5NHb0MX+VNhRDalIP867IF94aOb4aBW7oIoXL+965GHxIOHTzV
-	HR1kjl2C8AJntdVk4wItWom7DrapsYQdP6Ya1bTAO0Bb3C8QBnmAuTslEH2yvdRUCgZ1AZ
-	6R5gCkP2PZXQVqJzkpCmqPHwWPy5PZnvhiTeCDsIO/xzvmpVdYlElqP5TPTtNNyeWYxBdP
-	cB63/kpBzm2gd7+XnqWyM6BbDPJlFwDPGySI2iJt5lzmim9KC92KStGddRgSaTcj52584e
-	t95eQMzjv/y6i+uRpgQoIRG0Y2MLgQtHVF68u4eB+jx5vOIK6U2p5SIU8Le/xg==
+	bh=qJgFV+rbIgkZlkrw2Uy+ooquHPD+BJRODHYc0jMUxHc=;
+	b=5r9nG45YK3n4xriFlF1j0fRmwGYQv/GmA/6R/OBBc/y6I6WwhiLDsDZmBIrcfJxz/11VgK
+	UhO3ApqmZje9V2yvDxrwCrY2aeUUIivTgO6z42lQswhosVsH288+a2onLLOcdGn87g/Lzn
+	beWidF7ayXRc94Zdqkyrc/Bq8PB6iDN1dp72Ux1V148gwvC9XGzvNbwPjCM1o5W8U1FXlt
+	NDYW9ciyIJ+BuDLuOTo4+v5C0OXp7BS1sWkJRJ6vNTXc8B07mk++cqcCQiO+uIxsXgBzaz
+	Cy7YmrCpWX2cQGoxS4iTcJ0CmQTH6qYvQXJ2HpsQHlNw/IsjR+26J7rT0EDcfw==
 From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Mon, 19 Oct 2026 11:14:13 +0200
-Subject: [PATCH v3 2/2] serial: amba-pl011: keep RS485 transmission running
- on reconfiguration
+Date: Mon, 19 Oct 2026 11:14:12 +0200
+Subject: [PATCH v3 1/2] serial: amba-pl011: finish a transmission still
+ running when RS485 is enabled
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,7 +39,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-devel-nbuchwitz-pl011-rs485-reconfig-stall-v3-2-072a9c82ea5e@tipi-net.de>
+Message-Id: <20261019-devel-nbuchwitz-pl011-rs485-reconfig-stall-v3-1-072a9c82ea5e@tipi-net.de>
 References: <20261019-devel-nbuchwitz-pl011-rs485-reconfig-stall-v3-0-072a9c82ea5e@tipi-net.de>
 In-Reply-To: <20261019-devel-nbuchwitz-pl011-rs485-reconfig-stall-v3-0-072a9c82ea5e@tipi-net.de>
 To: Russell King <linux@armlinux.org.uk>, 
@@ -51,63 +51,126 @@ Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
 X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 
-Changing the RS485 settings while RS485 stays enabled calls
-pl011_rs485_tx_stop(), also while a transmission is in progress. Unlike
-pl011_stop_tx() it leaves the TX interrupt enabled, so the remaining
-data is still pushed into the FIFO after the drain turned off the
-transmitter. The FIFO never empties, the port stalls, and closing it
-hangs in pl011_dma_shutdown() waiting for the transmitter to go idle.
-A start still waiting for delay_rts_before_send is dropped as well.
+Disabling RS485 during a transmission keeps it running. If RS485 is
+enabled again before it ends, the state is OFF while data is still going
+out. The TX path does not end a transmission in state OFF, so nothing
+sets the idle RTS level afterwards and the transceiver keeps driving the
+bus.
 
-Only stop the transmitter when no transmission is in progress. The
-call is still needed there, it sets the idle RTS level when the port
-is configured or resumed. A transmission in progress sets that level
-when it ends.
+Hand such a transmission back to RS485 when it is enabled on an open
+port. Assert RTS and mark it as sending, so that the TX path ends it
+like any other. With only the FIFO left or output stopped, the TX path
+won't run again, so drain the FIFO from trigger_stop_tx instead. Data
+queued while output is stopped is not part of the transmission. Pause
+DMA first, as output is marked stopped before the driver pauses it.
 
-An active break counts as a transmission too. Forget it only when
-leaving RS485 mode, so that pl011_break_ctl() still ends the
-transmission when the break ends.
-
-Fixes: 8d479237727c ("serial: amba-pl011: add RS485 support")
-Cc: stable@vger.kernel.org # 6.18.x
+Fixes: 97f85204275a ("serial: amba-pl011: keep transmitter enabled when disabling RS485")
+Cc: stable@vger.kernel.org # 6.18.x: 1b6d660e038b: serial: amba-pl011: drive the bus during break in RS485 mode
+Cc: stable@vger.kernel.org
 Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
 ---
- drivers/tty/serial/amba-pl011.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/tty/serial/amba-pl011.c | 67 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 67 insertions(+)
 
 diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
-index 6adfe7a1e0487..14f0e8aa56fd2 100644
+index 79776a882ae35..6adfe7a1e0487 100644
 --- a/drivers/tty/serial/amba-pl011.c
 +++ b/drivers/tty/serial/amba-pl011.c
-@@ -2513,8 +2513,6 @@ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
- 		container_of(port, struct uart_amba_port, port);
- 	bool tx_stopped = uart_tx_stopped(port);
+@@ -1734,6 +1734,18 @@ static unsigned int pl011_tx_empty(struct uart_port *port)
+ 							0 : TIOCSER_TEMT;
+ }
  
--	uap->rs485_break = false;
--
- 	/*
- 	 * Output is marked stopped before stop_tx pauses DMA. Pause it now, so
- 	 * that clearing TXE below cannot strand DMA data in the FIFO. Output
-@@ -2528,6 +2526,8 @@ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
- 		bool tx_pending = uap->rs485_tx_state == WAIT_AFTER_RTS;
- 		u32 cr = pl011_read(uap, REG_CR);
- 
-+		uap->rs485_break = false;
++/* While output is stopped, only data already in the FIFO counts */
++static bool pl011_tx_pending(struct uart_amba_port *uap, bool stopped)
++{
++	struct tty_port *tport = &uap->port.state->port;
 +
- 		/*
- 		 * Leaving RS485 mode, which only enables the transmitter while
- 		 * sending. Don't stop it, as that stalls a DMA transfer still
-@@ -2550,7 +2550,9 @@ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
- 		   tty_port_initialized(&port->state->port) &&
- 		   pl011_tx_pending(uap, tx_stopped)) {
- 		pl011_rs485_tx_resume(uap, rs485, tx_stopped);
--	} else if (port->rs485.flags & SER_RS485_ENABLED) {
-+	} else if ((port->rs485.flags & SER_RS485_ENABLED) &&
-+		   uap->rs485_tx_state == OFF) {
-+		/* Set the idle level now, a transmission sets it when done */
++	if (!pl011_tx_empty(&uap->port))
++		return true;
++
++	return !stopped &&
++	       (!kfifo_is_empty(&tport->xmit_fifo) || pl011_dma_tx_queued(uap));
++}
++
+ static void pl011_maybe_set_bit(bool cond, unsigned int *ptr, unsigned int mask)
+ {
+ 	if (cond)
+@@ -2454,13 +2466,63 @@ static int pl011_verify_port(struct uart_port *port, struct serial_struct *ser)
+ 	return ret;
+ }
+ 
++/*
++ * Data from before RS485 was enabled is still going out. Finish it as an
++ * RS485 transmission, so that its end sets the idle level.
++ */
++static void pl011_rs485_tx_resume(struct uart_amba_port *uap,
++				  const struct serial_rs485 *rs485, bool stopped)
++{
++	struct tty_port *tport = &uap->port.state->port;
++	u32 cr = pl011_read(uap, REG_CR);
++
++	cr |= UART011_CR_TXE;
++	if (!(rs485->flags & SER_RS485_RX_DURING_TX))
++		cr &= ~UART011_CR_RXE;
++	if (rs485->flags & SER_RS485_RTS_ON_SEND)
++		cr &= ~UART011_CR_RTS;
++	else
++		cr |= UART011_CR_RTS;
++	pl011_write(cr, uap, REG_CR);
++
++	/* pl011_break_ctl() ends the transmission when the break ends */
++	if (pl011_read(uap, REG_LCRH_TX) & UART01x_LCRH_BRK) {
++		uap->rs485_break = true;
++		uap->rs485_tx_state = SEND;
++		return;
++	}
++
++	/*
++	 * With only the FIFO left or output stopped, the TX path won't end it.
++	 * The timer does, once the new settings are stored.
++	 */
++	if (stopped ||
++	    (kfifo_is_empty(&tport->xmit_fifo) && !pl011_dma_tx_queued(uap))) {
++		uap->rs485_tx_state = WAIT_AFTER_SEND;
++		hrtimer_start(&uap->trigger_stop_tx, uap->rs485_tx_drain_interval,
++			      HRTIMER_MODE_REL);
++	} else {
++		uap->rs485_tx_state = SEND;
++	}
++}
++
+ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
+ 			      struct serial_rs485 *rs485)
+ {
+ 	struct uart_amba_port *uap =
+ 		container_of(port, struct uart_amba_port, port);
++	bool tx_stopped = uart_tx_stopped(port);
+ 
+ 	uap->rs485_break = false;
++
++	/*
++	 * Output is marked stopped before stop_tx pauses DMA. Pause it now, so
++	 * that clearing TXE below cannot strand DMA data in the FIFO. Output
++	 * stopped after this check is ended by stop_tx.
++	 */
++	if ((rs485->flags & SER_RS485_ENABLED) && tx_stopped)
++		pl011_dma_tx_stop(uap);
++
+ 	if ((port->rs485.flags & SER_RS485_ENABLED) &&
+ 	    !(rs485->flags & SER_RS485_ENABLED)) {
+ 		bool tx_pending = uap->rs485_tx_state == WAIT_AFTER_RTS;
+@@ -2483,6 +2545,11 @@ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
+ 		if (tx_pending && !uart_tx_stopped(port) &&
+ 		    !pl011_dma_tx_start(uap))
+ 			pl011_start_tx_pio(uap);
++	} else if ((rs485->flags & SER_RS485_ENABLED) &&
++		   uap->rs485_tx_state == OFF &&
++		   tty_port_initialized(&port->state->port) &&
++		   pl011_tx_pending(uap, tx_stopped)) {
++		pl011_rs485_tx_resume(uap, rs485, tx_stopped);
+ 	} else if (port->rs485.flags & SER_RS485_ENABLED) {
  		pl011_rs485_tx_stop(uap);
  	}
- 
 
 -- 
 2.53.0
