@@ -1,37 +1,60 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424FF3B840E;
-	Mon, 19 Oct 2026 07:31:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BB4248E0C0
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 07:32:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792395077; cv=none; b=hSlrtp8e+2xWAcPuoQdAgUUPrWx+uJ8yq6EeM6WlFhiWikaRA9EST+Zo8Mz025KLzLC04BKkRCHWu1lDDF+HTx53UEisgRrYQEvAZzElGXCkysetOSKAI/ipGaoXnkBTWJi4kSBOfHcgUdyPwSE6ligb9GS+a7GsSoXfBCXXiCw=
+	t=1792395136; cv=none; b=FDuLIgfV+p9gOPONLQuM9iexyAlMeCq1Rgo1ETFyYfWOmZOc9dKXDgaaqOoltrnyFeyqrUlRydO29nznVRZwssU0RKSoQ1f47d9UTjRiWnt/1qVAp+6h6lGgauMFlc6a7LOchN09Upb85+vcJTkF7ERVvQw4KjbeT1isfOr2Px0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792395077; c=relaxed/simple;
-	bh=EHY8rLc2FwiDGXDYp12bwuY3kPhNQbNyoalFhdVK0bA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oSzEQRZCrZVRY3oVTi3VZp2qaAkv1vlUmjmOLuUr/oP2hdoW4TCiqF/9d9U6Gd9MeAFECn5Q2I6NojFFNZoPSiU++0iVxEWg/zNt7Ks1PaO3WNPf9WcV2uEnb3zoZT5jsg+Kfxvlh7mRCLTsQuKacL9hK8bpzvXHqi8XlG0QzOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=V9ZudTh0; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792395136; c=relaxed/simple;
+	bh=IZkEtTUfskSomLMipc9Ku+crMNuoH+WFlzgZ10E2GeM=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=IIH8jqOgUbLs9Sy8WtzMDJlaXI9ws1qs1VR/uPMMGKNNv6pO2KJ9ronugwNZw0VHdyyVcc4s1XQMVpdXFh3vYulCEs2qbnGSwKzjsaTVV+Wj3FJj6+lnj6kM6O43FeAcaAQ2eLD3aqUMQAyvIOtDTKzmCn13QaBXCQ2F9T12QNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=UbS1bgLz; arc=none smtp.client-ip=162.62.57.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="V9ZudTh0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=12
-	85rFpzC6YZHeY1fzSe60PUfJDV9XOWaOJECVINhlM=; b=V9ZudTh0UimYum8+Ny
-	kScKWBtvLO7qj55W5MSX9q40iIY0G0lY37k3uDO0/YV0J1d+Y+wXIwGHAjJ2/WwJ
-	YgtC1kvVBPKxaU1fo0Gn25i86PBmNyE2q5laafm3OYFSfuHBQmf2iBhCmKo4jvee
-	BwtQbGjTjGUeZBm5kdvx78QeM=
-Received: from LAPTOP-BJS5C4G0 (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD331Y8x9VqPYGvBA--.37115S2;
-	Mon, 19 Oct 2026 15:31:09 +0800 (CST)
-From: Heyang Tan <thy15333007817@163.com>
-To: linux-wireless@vger.kernel.org
-Cc: chunkeey@gmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] p54: validate firmware record lengths
-Date: Mon, 19 Oct 2026 15:31:04 +0800
-Message-ID: <20261019073105.1853-1-thy15333007817@163.com>
-X-Mailer: git-send-email 2.51.0.windows.1
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="UbS1bgLz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792395102; bh=IdiSV7QWld7YiHkNrnxkbOYb29Vk9yxXrLeq//wBYhk=;
+	h=From:To:Cc:Subject:Date;
+	b=UbS1bgLz6xXTssK5mhFqfJLOi+nnivoqWF8d8UcMSFWf6WLhW9D94QDCq+Hmp7ya8
+	 +K0ikCLYggV9C/22yxOu6JaMoN+uYMbljnJp7EnEbhqReDLRCug0iB7Xv9/kNem9S3
+	 k+4+qa/W/oOV+OZ142SCHg1kSJR3/O7d7QDEgnL8=
+Received: from localhost.localdomain ([123.60.231.41])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id 798A5494; Mon, 19 Oct 2026 15:30:24 +0800
+X-QQ-mid: xmsmtpt1792395024tmfhuyqfr
+Message-ID: <tencent_7F47B27F7FE811035796A0AFC61993769409@qq.com>
+X-QQ-XMAILINFO: MyzM/wvJS/65bfvV/QZT3tO6rT0VUHXh/BSYKCkt4Ptr0+7Sjy9GbptKAMVeWt
+	 Jn/OTO6LuY8t4vpaDcNRKCMT/k6IKZm2dZIP0S2P12Kx9LjQJJehZxUcU1z8tiREjT6uJb++rA/e
+	 ryjgROc5wIn8iQAltQyI/zdDrRFAXMYg+5lt8KbSrYowyRqCzqGkZndFeToYqg1T2Zbs7tQJA9AZ
+	 /akQ1aTboj+HOAZOt2I9sB2MZExdMs84mXWJB+GqgvkAFy2s69+9TEC2zYS7uuZnLS7rEQBdibaX
+	 FspbC4iqwtTPjL4dlsCOI2iscCy3rxSPUhN+mGx1FWQzTQ630BOBBpnAgW5+n9AbG5B1YVCnfRvn
+	 kZ3YD6gHFAY891gwi3Vpp40p7t2CZBJb0Fro0bCqctQPm83osntjHkfHsNoanv8GoDrNBJisY4j9
+	 DK0GDEB2tnxcmub5wWmN+GJgmsp8OtzZ/0TWM0mOHN6cXUhV+3dD7F1q5XYNvK2FYu/8JCpcmrWe
+	 4xQUJstkLP6y9W8SRtLtmr9ubZ+nhYW+6+DkJffZ5DtFxzU2wdVilxUW6UETAJOkNuGlxIxa9X+l
+	 CqKn8tHXuejAJkSh0ieYdhJOAJaYXZrIsOCYdf/UYtdb+uJd/MJ/GTkM9KIDvchAgfIR7AgGBqXo
+	 aQsUDM/hMUMg6rBQ95KdeVTZ//atpocbhjgmsrCjWj/ZFYz/D/M4WUwEdhxNwg8HMUctR1OF9S2F
+	 UzG69CuQMWEIHWfgwYbBlzyKXEiOyK/pXqipIeRGwwL/GxVqRkJ+Vr76HP2upj113gr4Rn1e0qvw
+	 ae2/97sIYFpWDSq5JWNNbXVlbLw10hOiX9zh3QRENNFzWFc2E948cSdZeCFTbXUtEv/h194PDMAx
+	 09U4SmNQeFSPjV53x+Wi+LHlzcJwPt3seS9eq6hNnpn//xlvezlddB9sHwaLtKLcall+4TMQZApW
+	 gNCCsOlEplCZdBXs31v+ZO2d8HZMN+m8OLT04RZNEElbnKR9IOk5GcaVwz10/2/KYo+1zECJLahQ
+	 cosIdPxc4L8nHBf7Ae
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+From: Absoler <absoler@qq.com>
+To: stable@vger.kernel.org
+Cc: gregkh@linuxfoundation.org,
+	sashal@kernel.org,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	broonie@kernel.org,
+	linux-arm-kernel@lists.linux.dev,
+	Zhang Kunbo <absoler@qq.com>
+Subject: [PATCH] arm64/cpufeature: Fix malformed SME I8I32 hwcap entry
+Date: Mon, 19 Oct 2026 15:23:39 +0800
+X-OQ-MSGID: <20261019072339.384264-1-absoler@qq.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,102 +62,61 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD331Y8x9VqPYGvBA--.37115S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGr13WFy7tw4DuF17Aw48Crg_yoW5ZrWrpF
-	Wjkay3JrWDC3W3X3s5Jrs7AFW5Ja1fJFW3WFyIq3ZxXF13Ar1Fq34YvFWkZrn0krySyrWY
-	k3yUta47CF4DAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UqYLPUUUUU=
-X-CM-SenderInfo: 5wk1ikatttiiixyrlqqrwthudrp/xtbC4R0RumrVxz3eYQAA3t
 
-The p54 firmware parser accesses component ID and component version
-records without checking that their lengths cover the fields being read.
-A malformed record can therefore make the parser read past the record.
+From: Zhang Kunbo <absoler@qq.com>
 
-Validate the component ID and component version record lengths before
-accessing their data. The descriptor record is also checked against the
-shortest descriptor length found in the supported firmware images.
+During the backport of a75ad2fc76a2 ("arm64: Filter out SME hwcaps when
+FEAT_SME isn't implemented") to v6.6, the I8I32 hwcap entry was mangled
+into:
 
-Reject descriptor values that underflow the RX offset or produce an empty
-RX range before updating the driver state.
+	HWCAP_CAP(ID_MATCH_ID(has_sme_feature, AA64SMFR0_EL1, I8I32, IMP,
+			      CAP_HWCAP, KERNEL_HWCAP_SME_I8I32),
 
-Assisted-by: LLM Codex
-Tested-by: Christian Lamparter <chunkeey@gmail.com>
-Signed-off-by: Heyang Tan <thy15333007817@163.com>
+which uses the wrong macro (HWCAP_CAP() instead of
+HWCAP_CAP_MATCH_ID()), references a nonexistent ID_MATCH_ID, drops the
+ID_ prefix from the register name, and leaves the argument list
+unterminated, breaking the build as soon as CONFIG_ARM64_SME is
+selected:
 
-Acked-by: Christian Lamparter <chunkeey@gmail.com>
+  arch/arm64/kernel/cpufeature.c:2899:2: error: unterminated argument list invoking macro "HWCAP_CAP"
+
+The error has gone unnoticed because the entry sits inside
+CONFIG_ARM64_SME, and SME has depended on BROKEN since it was disabled
+in v6.6.61, so this code has never been built. It breaks the build for
+anyone re-enabling SME on top of 6.6.y, e.g. distros backporting the
+upstream SME fixes.
+
+Fix it to use HWCAP_CAP_MATCH_ID() with the ID_AA64SMFR0_EL1 register,
+matching the surrounding SME hwcap entries and the backports of the
+same change to 6.12.y and 6.15.y.
+
+Mainline is not affected; this was introduced by the v6.6 backport.
+
+Fixes: d5024dc5e644 ("arm64: Filter out SME hwcaps when FEAT_SME isn't implemented")
+Signed-off-by: Zhang Kunbo <absoler@qq.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Sasha Levin <sashal@kernel.org>
 Cc: stable@vger.kernel.org
 ---
- drivers/net/wireless/intersil/p54/fwio.c | 45 ++++++++++++++++++++----
- 1 file changed, 39 insertions(+), 6 deletions(-)
+ arch/arm64/kernel/cpufeature.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/intersil/p54/fwio.c b/drivers/net/wireless/intersil/p54/fwio.c
-index a3d9053f043c..b19d054441b8 100644
---- a/drivers/net/wireless/intersil/p54/fwio.c
-+++ b/drivers/net/wireless/intersil/p54/fwio.c
-@@ -52,6 +52,12 @@ int p54_parse_firmware(struct ieee80211_hw *dev, const struct firmware *fw)
- 		u32 code = le32_to_cpu(bootrec->code);
- 		switch (code) {
- 		case BR_CODE_COMPONENT_ID:
-+			if (len != 1) {
-+				wiphy_err(priv->hw->wiphy,
-+					  "firmware component ID has invalid length\n");
-+				return -EINVAL;
-+			}
-+
- 			priv->fw_interface = be32_to_cpup((__be32 *)
- 					     bootrec->data);
- 			switch (priv->fw_interface) {
-@@ -71,17 +77,44 @@ int p54_parse_firmware(struct ieee80211_hw *dev, const struct firmware *fw)
- 				return -ENODEV;
- 			}
- 			break;
--		case BR_CODE_COMPONENT_VERSION:
-+		case BR_CODE_COMPONENT_VERSION: {
-+			struct bootrec_comp_ver *desc =
-+				(struct bootrec_comp_ver *)bootrec->data;
-+
-+			if (len < 6) {
-+				wiphy_err(priv->hw->wiphy,
-+					  "firmware component version is too short\n");
-+				return -EINVAL;
-+			}
-+
- 			/* 24 bytes should be enough for all firmwares */
--			if (strnlen((unsigned char *) bootrec->data, 24) < 24)
--				fw_version = (unsigned char *) bootrec->data;
-+			if (strnlen(desc->fw_version, sizeof(desc->fw_version)) <
-+			    sizeof(desc->fw_version))
-+				fw_version = (unsigned char *)desc->fw_version;
- 			break;
-+		}
- 		case BR_CODE_DESCR: {
- 			struct bootrec_desc *desc =
- 				(struct bootrec_desc *)bootrec->data;
--			priv->rx_start = le32_to_cpu(desc->rx_start);
--			/* FIXME add sanity checking */
--			priv->rx_end = le32_to_cpu(desc->rx_end) - 0x3500;
-+			u32 rx_start, rx_end;
-+
-+			/* 0xa is the shortest descriptor in supported firmware. */
-+			if (len < 0xa) {
-+				wiphy_err(priv->hw->wiphy,
-+					  "firmware descriptor is too short\n");
-+				return -EINVAL;
-+			}
-+
-+			rx_start = le32_to_cpu(desc->rx_start);
-+			rx_end = le32_to_cpu(desc->rx_end);
-+			if (rx_end < 0x3500 || rx_end - 0x3500 <= rx_start) {
-+				wiphy_err(priv->hw->wiphy,
-+					  "firmware descriptor has invalid RX range\n");
-+				return -EINVAL;
-+			}
-+
-+			priv->rx_start = rx_start;
-+			priv->rx_end = rx_end - 0x3500;
- 			priv->headroom = desc->headroom;
- 			priv->tailroom = desc->tailroom;
- 			priv->privacy_caps = desc->privacy_caps;
+diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
+index 5db25bfb854f..ab60dc4dd9e7 100644
+--- a/arch/arm64/kernel/cpufeature.c
++++ b/arch/arm64/kernel/cpufeature.c
+@@ -2896,7 +2896,7 @@ static const struct arm64_cpu_capabilities arm64_elf_hwcaps[] = {
+ 	HWCAP_CAP_MATCH_ID(has_sme_feature, ID_AA64SMFR0_EL1, I16I32, IMP, CAP_HWCAP, KERNEL_HWCAP_SME_I16I32),
+ 	HWCAP_CAP_MATCH_ID(has_sme_feature, ID_AA64SMFR0_EL1, B16B16, IMP, CAP_HWCAP, KERNEL_HWCAP_SME_B16B16),
+ 	HWCAP_CAP_MATCH_ID(has_sme_feature, ID_AA64SMFR0_EL1, F16F16, IMP, CAP_HWCAP, KERNEL_HWCAP_SME_F16F16),
+-	HWCAP_CAP(ID_MATCH_ID(has_sme_feature, AA64SMFR0_EL1, I8I32, IMP, CAP_HWCAP, KERNEL_HWCAP_SME_I8I32),
++	HWCAP_CAP_MATCH_ID(has_sme_feature, ID_AA64SMFR0_EL1, I8I32, IMP, CAP_HWCAP, KERNEL_HWCAP_SME_I8I32),
+ 	HWCAP_CAP_MATCH_ID(has_sme_feature, ID_AA64SMFR0_EL1, F16F32, IMP, CAP_HWCAP, KERNEL_HWCAP_SME_F16F32),
+ 	HWCAP_CAP_MATCH_ID(has_sme_feature, ID_AA64SMFR0_EL1, B16F32, IMP, CAP_HWCAP, KERNEL_HWCAP_SME_B16F32),
+ 	HWCAP_CAP_MATCH_ID(has_sme_feature, ID_AA64SMFR0_EL1, BI32I32, IMP, CAP_HWCAP, KERNEL_HWCAP_SME_BI32I32),
 -- 
-2.34.1
+2.54.0
 
