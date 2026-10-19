@@ -1,75 +1,86 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792422852;
-	b=CyaNhmPvrAjhj78hOI/gfdrP2E20hnwP3iWgcQ6omDForiLBhmIgMc0PkTgw137k5Res
-	 3Zhdu+QA6/5kbJ1QDDbiYEkYd4JTEYkH7tX10sqmbja+LDl5M0fIhcIJbInZ/xr9dgHR0
-	 cPLW1vaYaG8vNRVdiud9aUwwAIF+5ibXPxmKWE7UBz3UiojIEIL/XSd9V+ArTBhOS37gF
-	 j5nkqpVoiQehhrjCtt6dQj7xmyiw60c36TufL9Sv+NzveNR4cRmrSzGTf/osPWBkj/i1W
-	 g2XaYcHD1XzoCJ5mwOoiswv/omyMs5T5eDeqD2NC1XJ7VvcJICzUrQqXGlYAmJ2Omkg==
+	t=1792422882;
+	b=c9vG1k1qa61APJHQSEMYLx33MbBe3dTI6wL9yGuI29qUGUay8IgzNUnOqi3h7lrsgteX
+	 hWZVpDzZOmULN1cyaC3JgByoPfM1TV9qGPwRdCd2rYiGp8VKTKp/QNYlu6AF14dvmPFeJ
+	 LimCiwMnH9DfzHZH212rFAesqXmRk59Kb1Jt3EOrXa69KA2PpJTOGZ+q5jowCkYgfdRgV
+	 q3Bg6H4DGsvs/+1BYKoVbMsOytTLmB2vHz487dP4/1tK6UVWfpjlTCg5ou2wJwbQFq+kU
+	 L06zsDQg65/Leo4pOlGZ2n4nzXsVWmvA/VC/uVHfCUcXENPyVzsyraCKTDXRdQbcpsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422852;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792422882;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=ExRw9WuWIr0p5AYjgul5hezibf1JXB0BJmVlaNloBdA=;
-	b=ul17uyEyNWNaqHrM64exOFfWI1vC+BXy/RyMtoZaLlsuA3O+iIOaPuN2L3yR0DX1pXEz
-	 W0Y9GqTimRm17+ibnjWT+F8GV/wgr87/QcHdyz3zBKwcj8YE1n1pSC8E482wW+EQpcEE+
-	 PwBxl3+ZrOMaRRQm6vXYN2VVCEg7lgTDLvsmABG+M18kwdk4pTvpIixgG0sgar9dg1vML
-	 Di1w8utLc2jSym19Wg8GL6vOKYQh327q4efeMT7cP3/9Q5E4yeZ1UxWzfLR7rMJEungpb
-	 kh2bPKmWw+RtgSpOWGvujQynbbJdn58iHRqBIhG1671I2WTkMyy27Tbs08n9osndnTw==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=O9DFPRtsvFa1wF4eZGI4Ud3A05lAczg6QVi/FUJ5XMw=;
+	b=e5ab+d9D/eW05t7amjD+OVpwzgaSyuktGusyF7oBQ51nzCqEI1POQFY5igBfidQaqKGI
+	 kmiLxpOjagzxN8N891oOQv4+u9p695eZqK5yHKc3xKA4Hql6+2cbaFj9I1Ms80FQPCAxV
+	 kjX2LivmpT+byLmQzWQcfJYQL4/oJIotSGuLjGw0cEbXQX9vUaGaWk/QIL0lb9hF8HQCR
+	 0vLdvlrjSCVJEN5JYjel7A3lZWPOAWGyeVrreRaTLTrvhV3F/hVhGrDGeJ2aj9mVvHBjS
+	 6ZLE68MoTyV0pfFrrIBjhEYjV8WhwaJVVeTFOO2w2bztghc85zjPkySwiRfI+g3057w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mWWAch4u;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WpHIvtzw;
 	arc=none smtp.remote-ip=198.175.65.12
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33250609B66C;
-	Mon, 19 Oct 2026 15:14:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33250609B66C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DBF1609CEE5;
+	Mon, 19 Oct 2026 15:14:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DBF1609CEE5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mWWAch4u
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WpHIvtzw
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792422851; x=1823958851;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=9f4xcAeEk4Y2XZsQrlSHLA8dr7zRkDfjKkFP/Y8XoTs=;
-  b=mWWAch4uCn64BSVq7LhyXfnDLUdx7YDhPcL2a0xlnQSnN+vUYZGus2pw
-   q5r7/TGee8L2gVGRBwhruWU85u61jOPf9XVUyGnwbrtnnFGNyX+X1t5iL
-   xGqupbif1/sHPa7IFoexg+CAP8W1fFm+1NK7qbCRh/uwdTrcEguUEmYJy
-   +m9QqBq3VPyUkZTtOrMLJ7kz4UzHnzj3k0VkuRMirpKdI36DKMfVNa1qk
-   85sOK8pDovPbNP2iy5AyrJh4Ah4p70uw17P5IbT4TnlYWqFEKHN/Anc/+
-   XRi8dFC/XdvzoWSymNS3hebkDv3mCbvSk/GHER8TQ6vfBgTl7Mu3TW1TO
-   A==;
-X-CSE-ConnectionGUID: 9SiRVx6PRmSOmG0ydAQ7DA==
-X-CSE-MsgGUID: WCJhci1PSpuv0qoNGt2DAA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="986871"
+  t=1792422881; x=1823958881;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=xpv4f6XP1D6XhVQhRlWNeBRPenANWbW+HGesP3n05aQ=;
+  b=WpHIvtzw6Z1v31YMnuwVjlQ3EYKH3HpZyrNKXc6ojRcrPaLBmmnmca2I
+   pN+KSjhD4fKsCGCmknMbkc1bE1VmjOzr07N4NZ+gSfy1oCDUAZhPCIbww
+   pJnR4Itt6glYXLe6atxcRaBzbH6OJh5I1s3jfllDtTJKflD7tMoxzqpJ3
+   dMS9pk/sGydMEFD+6CEaLzUD0d3sa0GRSKRSIuhwC5vZWgsmGjytwOL72
+   mEj3x71MY3tM2a7jOhsCoLgNN5k4vVQuOiRDN9+n2tLJJ6F3AWIPVlRT0
+   Xndgefe2vDJGy1TXIrYJK6r3pbmvlpNtycP5Q4bg7VKZbRFRlhX3Oway7
+   w==;
+X-CSE-ConnectionGUID: 1eBNpD7kTwu8nd1fC8Sx8A==
+X-CSE-MsgGUID: NYo4SZctQlWlHn191BQj2A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="986936"
 X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="986871"
+   d="scan'208";a="986936"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:14:10 -0700
-X-CSE-ConnectionGUID: zJZvmXxpROKsCJn1yJ8EoA==
-X-CSE-MsgGUID: PnyO1OXHR3S41b0OX43Iow==
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:14:35 -0700
+X-CSE-ConnectionGUID: qdidTF+eSdqLLnpMq7JVzw==
+X-CSE-MsgGUID: aZ8vhuKzTWKrSaueGeo0pA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2536877"
+   d="scan'208";a="2536999"
 Received: from jf5300-15a101203tc.jf.intel.com (HELO meta-crater2c.jf.intel.com) ([10.54.113.49])
-  by orviesa003.jf.intel.com with ESMTP; 19 Oct 2026 08:14:10 -0700
+  by orviesa003.jf.intel.com with ESMTP; 19 Oct 2026 08:14:34 -0700
 From: Daniel Byrne <daniel1.byrne@intel.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Pavel Begunkov <asml.silence@gmail.com>,
-	io-uring@vger.kernel.org,
+To: Vinod Koul <vkoul@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>
+Cc: Fenghua Yu <fenghua.yu@intel.com>,
+	Dan Williams <djbw@kernel.org>,
+	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+	Frank Li <Frank.Li@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Tom Zanussi <tom.zanussi@linux.intel.com>,
+	Kristen Accardi <kristen.c.accardi@intel.com>,
+	dmaengine@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] io_uring: don't sleep on a claimed DEFER_TASKRUN wakeup
-Date: Mon, 19 Oct 2026 08:06:07 -0700
-Message-ID: <20261019150607.4026170-1-daniel1.byrne@intel.com>
+Subject: [PATCH 15/17] dmaengine: idxd: flush the work queues on every halt type
+Date: Mon, 19 Oct 2026 08:06:28 -0700
+Message-ID: <20261019150630.4026341-16-daniel1.byrne@intel.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261019150630.4026341-1-daniel1.byrne@intel.com>
+References: <20261019150630.4026341-1-daniel1.byrne@intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,198 +92,356 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A producer that stalls between publishing local task work and
-running the cq_wait_nr wake protocol can claim an arm from a later
-wait cycle than the one its work belongs to. The waiter may already
-have drained that work and re-armed for its next sleep. The claimed
-wake then fires through wake_up_state() while the waiter is still
-TASK_RUNNING, before it has set its task state for the sleep, and
-is a no-op. The arm is spent and nothing restores it in time, so
-every later producer reads a non-positive cq_wait_nr and skips the
-wake. No producer wakes the waiter, which sleeps while the
-completions it waits for pile up on ctx->work_list.
+A device halt ends the engines, so nothing in flight completes and a
+client waiting on one of those descriptors waits forever. Only the FLR
+branch of idxd_halt() flushed the kernel work queues. The software-reset
+branch only queued the reinit, which re-enables the queues with the dead
+descriptors still on their lists and their slots held, and the
+system-reset branch only quiesced the queues.
 
-Three waiters arm cq_wait_nr. io_cqring_wait() and the BPF loop
-waiter io_loop_wait() arm it a few instructions before
-set_current_state(). The third waiter is the cancel wait in
-io_uring_cancel_generic(), where exec waits for all of a task's
-inflight requests and exit waits for its tracked ones, such as
-futex waits. There, io_uring_try_cancel_requests() arms cq_wait_nr
-at the start of each cancel pass. The task state is set only after
-the whole pass, so the window spans the io-wq cancel, the local
-work run and the cancel walkers. That wait has no timeout. A
-stranded exec sleeps until a signal arrives, and a stranded exit of
-the last thread, which no longer receives signals, can sleep for
-good.
+Flush on every halt type. The flush hands descriptors back, so no
+submitter may still own one: a submitter that passed the state check
+before the halt holds its descriptor on the pending list while ENQCMDS
+retries, and aborts and frees it itself when the submit fails. Every
+halt branch therefore kills wq_active and waits for the last submitter
+before it flushes, and the abort now runs before the submitter drops
+its reference, so the wait covers it. Each queue is handled in one hold
+of wq_lock, from the state check through the revive. The software reset
+revives the queues afterwards, but only what its own flush killed and
+only a queue whose interrupt handle a failed revoke has not
+invalidated. That revive comes before the reinit enables the device
+again, so the submit checks the state again once it holds the reference
+and fails with -EIO while the device is not enabled.
 
-A prototype that busy-polls device completions in TASK_RUNNING from
-io_cqring_wait_schedule() while armed (to be posted separately, as part of
-the io_uring DMA copy offload) widens the io_cqring_wait() window to
-tens of microseconds, and those completions push local work from many
-CPUs, so what is a narrow race in upstream io_cqring_wait() wedged fio
-reliably within seconds there. Every ring was parked in
-io_cqring_wait() with exactly its queue depth of completions stranded
-on ctx->work_list and cq_wait_nr at IO_CQ_WAKE_INIT.
+Every killer of wq_active runs under wq_lock and waits for the last
+reference before it unlocks, so a reference found dying under the lock
+is already dead and the kill is idempotent. A halt branch that does not
+revive the queue leaves the reference dead, and the recovery's unbind
+and a later halt skip the kill rather than drop the count below zero
+and wait forever for a release that cannot come.
 
-Add io_cq_wait_arm_spent() and refuse to sleep in all three waiters
-once the arm is spent. io_cqring_wait() runs its wait loop again,
-and io_loop_wait() returns to the loop in __io_run_loop(). Both
-loops drain anything pending and re-arm. The cancel wait runs
-another pass, which re-arms. Each check follows the setting of the
-task state, so a later claim can no longer be lost. The cancel wait
-checks only the rings whose deferred work the task runs, because an
-arm wakes only ctx->submitter_task. wait.h documents the rule next
-to IO_CQ_WAKE_INIT.
+The software-reset branch flushes queues that its reinit enables again
+without requesting new interrupt handles, which is safe only because
+the flush no longer releases them since "dmaengine: idxd: keep the
+interrupt handle across terminate_all".
 
-The check relies on nothing else restoring a spent arm before it
-runs. The min_wait timer stores an arm only during the timed sleep,
-which starts after the check and cancels the timer before the
-waiter checks again. io_uring_try_cancel_requests() also arms the
-ring when io_ring_exit_work() runs it or when a task that does not
-own the ring runs it, such as the creator of an R_DISABLED ring
-that another task enabled. Such a store that lands between the
-owner's test for pending local work and its check hides a spent
-arm, and the owner sleeps on work that no later producer wakes it
-for. Arm only in the owner's passes, the ones that also run the
-ring's local work, as the owner is the only task an arm wakes.
-io_ring_exit_work() never sleeps on the arm and runs stranded work
-itself, so it needs no arm.
-
-Fixes: d46ab2c98aba ("io_uring: switch local task_work to a mpscq")
-Cc: stable@vger.kernel.org # v7.2
-Assisted-by: Claude:claude-fable-5-1
+Fixes: f019d7814bce ("dmaengine: idxd: Flush kernel workqueues on Function Level Reset")
+Assisted-by: Claude:claude-opus-5
 Assisted-by: Claude:claude-opus-5-5
+Assisted-by: Claude:claude-fable-5-1
 Signed-off-by: Daniel Byrne <daniel1.byrne@intel.com>
 ---
- io_uring/cancel.c | 25 +++++++++++++++++++++++--
- io_uring/loop.c   |  3 ++-
- io_uring/wait.c   | 19 +++++++++++++++++++
- io_uring/wait.h   | 20 ++++++++++++++++++++
- 4 files changed, 64 insertions(+), 3 deletions(-)
+ drivers/dma/idxd/device.c | 49 ++++++++++++++++++++++++---------
+ drivers/dma/idxd/idxd.h   |  2 ++
+ drivers/dma/idxd/irq.c    | 57 ++++++++++++++++++++++++++++++++++++---
+ drivers/dma/idxd/submit.c | 54 ++++++++++++++++++++++++++++++-------
+ 4 files changed, 135 insertions(+), 27 deletions(-)
 
-diff --git a/io_uring/cancel.c b/io_uring/cancel.c
-index 4f706aff14fc..0ed7544851f8 100644
---- a/io_uring/cancel.c
-+++ b/io_uring/cancel.c
-@@ -520,8 +520,18 @@ __cold bool io_uring_try_cancel_requests(struct io_ring_ctx *ctx,
- 	enum io_wq_cancel cret;
- 	bool ret = false;
- 
--	/* set it so io_req_local_work_add() would wake us up */
--	if (ctx->flags & IORING_SETUP_DEFER_TASKRUN) {
-+	/*
-+	 * Arm so that io_req_local_work_add() wakes ->submitter_task. An
-+	 * arm wakes no other task, so only that task's passes arm, the same
-+	 * ones that run the local work below. A store from another task
-+	 * could restore an arm that a stalled add spent while the owner was
-+	 * getting ready to sleep, and so hide the spent arm from the
-+	 * owner's test. See the comment above IO_CQ_WAKE_INIT. This leaves
-+	 * out io_ring_exit_work(), which never sleeps on the arm and runs
-+	 * stranded work itself.
-+	 */
-+	if ((ctx->flags & IORING_SETUP_DEFER_TASKRUN) &&
-+	    io_allowed_defer_tw_run(ctx)) {
- 		atomic_set(&ctx->cq_wait_nr, 1);
- 		smp_mb();
- 	}
-@@ -639,6 +649,17 @@ __cold void io_uring_cancel_generic(bool cancel_all, struct io_sq_data *sqd)
- 			if (io_local_work_pending(node->ctx) &&
- 			    io_allowed_defer_tw_run(node->ctx))
- 				goto end_wait;
-+			/*
-+			 * The pass armed ->cq_wait_nr while running, so a
-+			 * stalled add may have spent the arm with a lost
-+			 * wake up. See the comment above IO_CQ_WAKE_INIT.
-+			 * Run another pass, which re-arms, instead of
-+			 * sleeping. An arm only wakes the ring's
-+			 * submitter_task.
-+			 */
-+			if (io_allowed_defer_tw_run(node->ctx) &&
-+			    io_cq_wait_arm_spent(node->ctx))
-+				goto end_wait;
- 		}
- 		/*
- 		 * If we've seen completions, retry without waiting. This
-diff --git a/io_uring/loop.c b/io_uring/loop.c
-index 3d472b7827fa..55acd9580940 100644
---- a/io_uring/loop.c
-+++ b/io_uring/loop.c
-@@ -29,7 +29,8 @@ static void io_loop_wait(struct io_ring_ctx *ctx, struct iou_loop_params *lp,
- 
- 	if (unlikely(io_local_work_pending(ctx) ||
- 		     io_loop_nr_cqes(ctx, lp) <= 0) ||
--		     READ_ONCE(ctx->check_cq)) {
-+		     READ_ONCE(ctx->check_cq) ||
-+		     io_cq_wait_arm_spent(ctx)) {
- 		io_loop_wait_finish(ctx);
- 		return;
- 	}
-diff --git a/io_uring/wait.c b/io_uring/wait.c
-index a48523c2f356..221b5181dd25 100644
---- a/io_uring/wait.c
-+++ b/io_uring/wait.c
-@@ -178,6 +178,25 @@ static inline int io_cqring_wait_schedule(struct io_ring_ctx *ctx,
- 		return -EINTR;
- 	if (unlikely(io_should_wake(iowq)))
- 		return 0;
-+	/*
-+	 * A DEFER_TASKRUN producer that stalls between publishing its work
-+	 * and claiming the wake can claim an arm from a later wait cycle
-+	 * than the one its work belongs to: this task may already have
-+	 * drained that work while disarmed and re-armed for the next sleep.
-+	 * The claimed wake then lands via wake_up_state() while this task
-+	 * is still TASK_RUNNING, between the arm and set_current_state(),
-+	 * and is a no-op. The arm is gone, so every later producer reads a
-+	 * non-positive ->cq_wait_nr and skips the wake, and this task would
-+	 * sleep unwakeable under a non-empty work list. If the arm set at
-+	 * the top of the wait loop is no longer intact, a claim has fired:
-+	 * re-run the loop, which drains anything pending and re-arms,
-+	 * instead of sleeping. From here to schedule() the state stays
-+	 * TASK_INTERRUPTIBLE, so any later claim delivers its wake.
-+	 */
-+	if (io_cq_wait_arm_spent(ctx)) {
-+		__set_current_state(TASK_RUNNING);
-+		return 1;
-+	}
- 
- 	return __io_cqring_wait_schedule(ctx, iowq, ext_arg, start_time);
+diff --git a/drivers/dma/idxd/device.c b/drivers/dma/idxd/device.c
+index a33c4309f5d4..158c141650e3 100644
+--- a/drivers/dma/idxd/device.c
++++ b/drivers/dma/idxd/device.c
+@@ -483,13 +483,32 @@ int idxd_wq_init_percpu_ref(struct idxd_wq *wq)
  }
-diff --git a/io_uring/wait.h b/io_uring/wait.h
-index b7b9c46b1b01..a07c64696697 100644
---- a/io_uring/wait.h
-+++ b/io_uring/wait.h
-@@ -11,9 +11,29 @@
-  * wake up is to be issued: IO_CQ_WAKE_INIT when no task is waiting (also
-  * what a forced wake up resets it to when claiming one), zero once the
-  * countdown has fired.
-+ *
-+ * An add can stall between publishing its work and claiming the wake up,
-+ * and the waiter may run that work and arm a later cycle in between. The
-+ * add then claims the new arm, and if the waiter has not set its task state
-+ * yet, that wake up is a no-op. Every later add sees the spent arm and
-+ * issues none. A waiter must therefore test io_cq_wait_arm_spent() after
-+ * setting its task state and must not sleep if it returns true.
-+ *
-+ * The test is sound only if nothing but the waiter stores an arm while it
-+ * gets ready to sleep, as such a store could restore a spent arm and hide
-+ * it. io_uring_try_cancel_requests() therefore arms only in the
-+ * submitter_task's own passes, and the min_wait timer stores an arm only
-+ * during the timed sleep, which cancels the timer before the waiter tests
-+ * again.
-  */
- #define IO_CQ_WAKE_INIT		(-1)
+ EXPORT_SYMBOL_NS_GPL(idxd_wq_init_percpu_ref, "IDXD");
  
-+static inline bool io_cq_wait_arm_spent(struct io_ring_ctx *ctx)
-+{
-+	return (ctx->flags & IORING_SETUP_DEFER_TASKRUN) &&
-+	       atomic_read(&ctx->cq_wait_nr) <= 0;
+-void __idxd_wq_quiesce(struct idxd_wq *wq)
++/*
++ * Kill wq_active and wait for the last submitter to drop its reference.
++ * Every killer runs under wq_lock and waits before it unlocks, so a
++ * reference found dying here was killed and waited out by an earlier
++ * caller, such as a halt flush that did not revive the queue. Killing
++ * it again would drop the count below zero and wait forever. A
++ * reference that percpu_ref_exit() released reads as dying too, so a
++ * queue the device re-enabled behind an unbind is skipped as well.
++ * Returns whether this call killed the reference.
++ */
++bool idxd_wq_kill(struct idxd_wq *wq)
+ {
+ 	lockdep_assert_held(&wq->wq_lock);
++	if (percpu_ref_is_dying(&wq->wq_active))
++		return false;
+ 	reinit_completion(&wq->wq_resurrect);
+ 	percpu_ref_kill(&wq->wq_active);
+-	complete_all(&wq->wq_resurrect);
+ 	wait_for_completion(&wq->wq_dead);
++	return true;
 +}
 +
- struct ext_arg {
- 	size_t argsz;
- 	struct timespec64 ts;
-
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
++void __idxd_wq_quiesce(struct idxd_wq *wq)
++{
++	idxd_wq_kill(wq);
++	/* Let parked submitters retry and fail on the dead reference. */
++	complete_all(&wq->wq_resurrect);
+ }
+ EXPORT_SYMBOL_NS_GPL(__idxd_wq_quiesce, "IDXD");
+ 
+@@ -1627,14 +1646,15 @@ void idxd_wq_quarantine_free(struct idxd_wq *wq, struct list_head *list)
+ 
+ /*
+  * A halt killed every descriptor the device held: the quarantined slots
+- * are free, and the fence a failed drain raised can be lifted. Under
+- * wq_lock, since an unbind racing the halt may free the pool.
++ * are free, and the fence a failed drain raised can be lifted. The halt
++ * flush calls this under wq_lock, since an unbind racing the halt may
++ * free the pool.
+  */
+ void idxd_wq_halt_release(struct idxd_wq *wq)
+ {
+ 	LIST_HEAD(dead_descs);
+ 
+-	guard(mutex)(&wq->wq_lock);
++	lockdep_assert_held(&wq->wq_lock);
+ 
+ 	if (wq->state != IDXD_WQ_ENABLED || wq->type != IDXD_WQT_KERNEL)
+ 		return;
+@@ -1697,13 +1717,14 @@ void idxd_wq_free_irq(struct idxd_wq *wq)
+  * @quarantine: the device keeps running, so the slots of the descriptors
+  * it has not finished stay out of use until a drain covers them. A halt
+  * has killed them and frees their slots at once.
++ * The caller holds wq_lock.
+  */
+-void idxd_wq_flush_descs(struct idxd_wq *wq, bool quarantine)
++void __idxd_wq_flush_descs(struct idxd_wq *wq, bool quarantine)
+ {
+ 	struct idxd_irq_entry *ie = &wq->ie;
+ 	bool killed = false;
+ 
+-	guard(mutex)(&wq->wq_lock);
++	lockdep_assert_held(&wq->wq_lock);
+ 
+ 	if (wq->state != IDXD_WQ_ENABLED || wq->type != IDXD_WQT_KERNEL)
+ 		return;
+@@ -1714,12 +1735,8 @@ void idxd_wq_flush_descs(struct idxd_wq *wq, bool quarantine)
+ 	 * descriptor in the device, where the drain that frees the
+ 	 * quarantine covers it. A halt flush has done this itself.
+ 	 */
+-	if (quarantine && !percpu_ref_is_dying(&wq->wq_active)) {
+-		reinit_completion(&wq->wq_resurrect);
+-		percpu_ref_kill(&wq->wq_active);
+-		wait_for_completion(&wq->wq_dead);
+-		killed = true;
+-	}
++	if (quarantine)
++		killed = idxd_wq_kill(wq);
+ 	idxd_flush_pending_descs(ie, quarantine);
+ 	if (killed) {
+ 		percpu_ref_reinit(&wq->wq_active);
+@@ -1727,6 +1744,12 @@ void idxd_wq_flush_descs(struct idxd_wq *wq, bool quarantine)
+ 	}
+ }
+ 
++void idxd_wq_flush_descs(struct idxd_wq *wq, bool quarantine)
++{
++	guard(mutex)(&wq->wq_lock);
++	__idxd_wq_flush_descs(wq, quarantine);
++}
++
+ int idxd_wq_request_irq(struct idxd_wq *wq)
+ {
+ 	struct idxd_device *idxd = wq->idxd;
+diff --git a/drivers/dma/idxd/idxd.h b/drivers/dma/idxd/idxd.h
+index 3caf9fc00f83..0ad61bc233e8 100644
+--- a/drivers/dma/idxd/idxd.h
++++ b/drivers/dma/idxd/idxd.h
+@@ -826,11 +826,13 @@ int idxd_wq_map_portal(struct idxd_wq *wq);
+ void idxd_wq_unmap_portal(struct idxd_wq *wq);
+ int idxd_wq_set_pasid(struct idxd_wq *wq, int pasid);
+ int idxd_wq_disable_pasid(struct idxd_wq *wq);
++bool idxd_wq_kill(struct idxd_wq *wq);
+ void __idxd_wq_quiesce(struct idxd_wq *wq);
+ void idxd_wq_quiesce(struct idxd_wq *wq);
+ int idxd_wq_init_percpu_ref(struct idxd_wq *wq);
+ void idxd_wq_free_irq(struct idxd_wq *wq);
+ int idxd_wq_request_irq(struct idxd_wq *wq);
++void __idxd_wq_flush_descs(struct idxd_wq *wq, bool quarantine);
+ void idxd_wq_flush_descs(struct idxd_wq *wq, bool quarantine);
+ void idxd_wq_quarantine_take(struct idxd_wq *wq, struct list_head *list);
+ void idxd_wq_quarantine_put_back(struct idxd_wq *wq, struct list_head *list);
+diff --git a/drivers/dma/idxd/irq.c b/drivers/dma/idxd/irq.c
+index 1ec3d360eea8..99b2df7fc2de 100644
+--- a/drivers/dma/idxd/irq.c
++++ b/drivers/dma/idxd/irq.c
+@@ -422,15 +422,61 @@ static void idxd_device_flr(struct work_struct *work)
+ 		dev_err(&idxd->pdev->dev, "FLR failed\n");
+ }
+ 
+-static void idxd_wqs_flush_descs(struct idxd_device *idxd)
++/*
++ * Complete what the halted engines will never finish, or a client waiting
++ * on one of those descriptors waits forever. The flush hands descriptors
++ * back, so no submitter may still own one: a submitter that passed the
++ * state check before the halt can hold a descriptor on the pending list
++ * while its ENQCMDS retries, and it aborts and frees that descriptor
++ * itself when the submit fails. Killing wq_active and waiting for the
++ * last submitter to drop its reference orders the flush after that.
++ * Each queue is handled in one hold of wq_lock, from the state check
++ * through the revive. A driver remove that quiesces the queue in one
++ * hold and disables it in another, as iaa_crypto's does, would otherwise
++ * find the reference dying between the kill and the revive, skip its
++ * own kill, and have the revive undo its quiesce before its disable
++ * frees the queue.
++ * @resurrect: revive the queues afterwards for a reset that keeps them.
++ */
++static void idxd_wqs_halt_flush(struct idxd_device *idxd, bool resurrect)
+ {
++	bool killed;
+ 	int i;
+ 
+ 	for (i = 0; i < idxd->max_wqs; i++) {
+ 		struct idxd_wq *wq = idxd->wqs[i];
+ 
+-		idxd_wq_flush_descs(wq, false);
++		mutex_lock(&wq->wq_lock);
++		if (wq->state != IDXD_WQ_ENABLED || wq->type != IDXD_WQT_KERNEL) {
++			mutex_unlock(&wq->wq_lock);
++			continue;
++		}
++		killed = idxd_wq_kill(wq);
++		__idxd_wq_flush_descs(wq, false);
+ 		idxd_wq_halt_release(wq);
++
++		if (resurrect) {
++			/*
++			 * Revive only what this flush killed, and only if no
++			 * failed interrupt handle revoke killed it for good,
++			 * which leaves the handle invalid. The state changes
++			 * without the lock only to enabled, in the reinit of
++			 * an earlier halt, or on a queue that an FLR recovery
++			 * has unbound, whose reference reads as dying, so this
++			 * flush did not kill it. A reference an earlier halt
++			 * left dead stays dead, since that halt's recovery
++			 * unbinds the queue. The revive has to stay in this
++			 * hold: moved to the reinit, it would reopen the
++			 * window described above.
++			 */
++			if (killed && wq->ie.int_handle != INVALID_INT_HANDLE)
++				percpu_ref_reinit(&wq->wq_active);
++			complete_all(&wq->wq_resurrect);
++		} else {
++			/* Let blocked submitters retry and fail on the state. */
++			complete_all(&wq->wq_resurrect);
++		}
++		mutex_unlock(&wq->wq_lock);
+ 	}
+ }
+ 
+@@ -442,6 +488,8 @@ static irqreturn_t idxd_halt(struct idxd_device *idxd)
+ 	if (gensts.state == IDXD_DEVICE_STATE_HALT) {
+ 		idxd->state = IDXD_DEV_HALTED;
+ 		if (gensts.reset_type == IDXD_DEVICE_RESET_SOFTWARE) {
++			/* The reinit below re-enables the queues, so revive them. */
++			idxd_wqs_halt_flush(idxd, true);
+ 			/*
+ 			 * If we need a software reset, we will throw the work
+ 			 * on a system workqueue in order to allow interrupts
+@@ -460,7 +508,7 @@ static irqreturn_t idxd_halt(struct idxd_device *idxd)
+ 			 * device command; they are requested again when a work
+ 			 * queue is re-enabled after the reset.
+ 			 */
+-			idxd_wqs_flush_descs(idxd);
++			idxd_wqs_halt_flush(idxd, false);
+ 			for (i = 0; i < idxd->max_wqs; i++) {
+ 				struct idxd_wq *wq = idxd->wqs[i];
+ 
+@@ -474,7 +522,8 @@ static irqreturn_t idxd_halt(struct idxd_device *idxd)
+ 
+ 		} else {
+ 			idxd->state = IDXD_DEV_HALTED;
+-			idxd_wqs_quiesce(idxd);
++			/* Same as above: nothing in flight will ever complete. */
++			idxd_wqs_halt_flush(idxd, false);
+ 			idxd_wqs_unmap_portal(idxd);
+ 			idxd_device_clear_state(idxd);
+ 			dev_err(&idxd->pdev->dev,
+diff --git a/drivers/dma/idxd/submit.c b/drivers/dma/idxd/submit.c
+index fab3e0176cba..cf8536e94c15 100644
+--- a/drivers/dma/idxd/submit.c
++++ b/drivers/dma/idxd/submit.c
+@@ -132,10 +132,14 @@ static void llist_abort_desc(struct idxd_wq *wq, struct idxd_irq_entry *ie,
+ 			}
+ 
+ 			/*
+-			 * A finished descriptor goes on the work list for
+-			 * the interrupt thread, as one still in flight does,
+-			 * rather than being completed in the submitter's
+-			 * context.
++			 * A completion runs a client's callback or another
++			 * driver's handler, and either may submit or terminate
++			 * and so wait for a killer, which waits for this
++			 * submitter's wq_active reference. iaa_crypto's verify
++			 * of a compression may also wait for a free descriptor
++			 * while this submitter holds one. A finished
++			 * descriptor therefore goes on the work list for the
++			 * interrupt thread, as one still in flight does.
+ 			 */
+ 			if (d->completion->status)
+ 				wake = true;
+@@ -156,10 +160,16 @@ static void llist_abort_desc(struct idxd_wq *wq, struct idxd_irq_entry *ie,
+ 
+ 	/*
+ 	 * The device never took the descriptor, so its record is still
+-	 * clear. The interrupt thread and another submitter's abort sort
+-	 * the lists under the list lock and leave one with a clear record
+-	 * on a list, so the search finds the descriptor, and once off the
+-	 * lists it is the submitter's alone. Marking it aborted before
++	 * clear. While this submitter holds wq_active, only the interrupt
++	 * thread and another submitter's abort may take descriptors off
++	 * the lists, and both sort them under the list lock and leave one
++	 * with a clear record on a list. A flush takes them all, so every
++	 * flusher must kill wq_active and wait for this reference before
++	 * it takes the lists, and nothing may revive the reference before
++	 * the flush runs. The error path of iaa_crypto_probe() breaks the
++	 * rule: it disables a queue it has already published without a
++	 * quiesce. Otherwise the search finds the descriptor, and once off
++	 * the lists it is the submitter's alone. Marking it aborted before
+ 	 * that would let another context that saw the mark on a list
+ 	 * complete and free it, and the caller frees it as well.
+ 	 */
+@@ -215,6 +225,22 @@ int idxd_submit_desc(struct idxd_wq *wq, struct idxd_desc *desc)
+ 			return -ENXIO;
+ 	}
+ 
++	/*
++	 * A software-reset halt revives wq_active before its reinit enables
++	 * the device again. A submitter that passed the check above before
++	 * the halt and got its reference after the revive would post to the
++	 * halted device, which drops the descriptor, and nothing would
++	 * complete an interrupt-armed one. The halt stores the state before
++	 * its kill and revives the reference after the wait. The barrier
++	 * pairs with the release in percpu_ref_reinit() and orders this
++	 * read after the tryget that saw the revive.
++	 */
++	smp_rmb();
++	if (idxd->state != IDXD_DEV_ENABLED) {
++		percpu_ref_put(&wq->wq_active);
++		return -EIO;
++	}
++
+ 	portal = idxd_wq_portal_addr(wq);
+ 
+ 	/*
+@@ -239,10 +265,18 @@ int idxd_submit_desc(struct idxd_wq *wq, struct idxd_desc *desc)
+ 	} else {
+ 		rc = idxd_enqcmds(wq, portal, desc->hw);
+ 		if (rc < 0) {
+-			percpu_ref_put(&wq->wq_active);
+-			/* abort operation frees the descriptor */
++			/*
++			 * Abort before dropping the reference: a halt flush
++			 * waits for wq_active to die before it takes the
++			 * pending descriptors, and this one must not still be
++			 * listed when it does. The abort takes the descriptor
++			 * off the lists and runs no callback, which could wait
++			 * for this reference to die. The caller completes or
++			 * frees the descriptor.
++			 */
+ 			if (ie)
+ 				llist_abort_desc(wq, ie, desc);
++			percpu_ref_put(&wq->wq_active);
+ 			return rc;
+ 		}
+ 	}
 -- 
 2.43.0
 
