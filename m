@@ -1,117 +1,140 @@
-Received: from mta0.migadu.com (out-207.mta0.migadu.com [91.218.175.207])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A1B13D3CE6
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 07:22:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.207
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45CBE41A8F
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 07:28:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792394571; cv=none; b=AKz+tl3gXfstU+mJlh1sbMJjOBKGG3hVsrS9EbTLJ2NTDe7krx48cBEEwijv9wx+h4zV/HcaI/CmMbKuJ0qoGmnpkFtj9k5u9EhQBWp2bEpBoY+GEsXwsvn5caJTFNzVq0kitRU8HeknRfcW5GZu1ysI1lnnIiG7MMtLoF3lQZI=
+	t=1792394889; cv=none; b=G74tUtDIF1/juaIl1VhH5GZ2djMrr10x7WpFR60vlg+0jHe6zh+/eZHr4gwOQpJ0F7CG+GvN3l3LB4c8R+dR3k20Kb3C8jJ0sKvMazS5MRasDFYIuvnmATKQXDX81rtbfGY/EY9eVw9wFwQW9WwvzCZxjZc+ITofx9H5LqGzuH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792394571; c=relaxed/simple;
-	bh=tIcB/mfw1V4/KEV3mq2Mt8WWKPnOPSq+oy94YAQGtdk=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=KoxKNGebztKbVxa8u+xlkAXAsDeRmR3Rg1B8J65K7FNJygfuCz/lAquPb01UKawxUtVnysnr+ZedOKKJrI23fnQIFCMN2CzBqnTLI2y8yW9qKNlsssEMWVAgtggLJKbZ9vVWW76qJk+S2H6FNCSxAicLqfsRKeP3+hOvINE65eU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=X03FReZ0; arc=none smtp.client-ip=91.218.175.207
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792394889; c=relaxed/simple;
+	bh=N//A1el18IitjBVhxG0iUcW6/gMXEpoey422eGiu+qs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ch2Do0qm1uFYlHNM4Xzs0RK8fb1tse7146Ei/ndM0FBjQ831P3Kw+4yTUjiE9EzHnejHBRvDeSjq/imWDSve+M7Ff6mNAXcqJiay5D5kwKUPV/cGilC6Z4sBZru9wTR0frJE9kdQU+trnqQk+yfQyxfDMyEOe2e8t7N3mTyhB1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=eQJs5XHJ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=BX+am6CS; arc=none smtp.client-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="X03FReZ0"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=tIcB/mfw1V4/KEV3mq2Mt8WWKPnOPSq+oy94YAQGtdk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792394566; v=1; x=1792999366;
- b=X03FReZ0qVgKhX1IRehv3r7RkEEstcOE+PUy4E7s1FwIfcgWoB7qAJdYZ7ydEuwXjfq6n6c+
- JjDo3gZjJGX+AsZYYPpaphPX1D9LF16twjiEVpJGnpHSnl6AwLT5eXPpryXxw0Nik7lx4uo8g42
- QaHQATOe5n4reXss1XVFNYM0=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 046eedbd3f6afff5;
-	Mon, 19 Oct 2026 07:22:46 +0000
-X-Mizu-Trace-ID: 046eedbd3f6afff5
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="eQJs5XHJ";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="BX+am6CS"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.stl.internal (Postfix) with ESMTP id 5FF1D1D000C8
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 03:28:07 -0400 (EDT)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-02.internal (MEProxy); Mon, 19 Oct 2026 03:28:07 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792394887;
+	 x=1792481287; bh=nl0BUKkKX19Srep/7R7IuZIK7/sRXs+9OW/tyoDdAu0=; b=
+	eQJs5XHJXQBPCs6K8j0wqTXmkxgVgWcZgxodNL6iTacr1iGNqVIMJLeGoyv9mje9
+	WWuJRhA3dGS+eZ6HbD3D5oxVS3RdwxUI/BXUCVXJ9G332CRD2dDTgiEFkwEC4pj5
+	IOQj/3mxXMBs7iJDjHkTJsnRuBwfsP7kdtA6qiNSBm1BUAh5XAVUqiys/uqDrcSu
+	wWfkj75iZr/XLWpYEmWNwgavk6eppymgE0tU297P+AWIPHi2IXotGnFFn6sAbP3y
+	dOuqUHVqkJrJ8z6KDtL1rUD6szk96uAORZWq76U+sLuU2AV4+kK9p3yKAXHPVc/G
+	3L1IR8LG8R1Ik+kYuI2BSQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792394887; x=
+	1792481287; bh=nl0BUKkKX19Srep/7R7IuZIK7/sRXs+9OW/tyoDdAu0=; b=B
+	X+am6CS5xuAT0Y+ZzMvjyR2RtTtYg2eb2RMuriyg6hlx6z9Wc5+f7/Ijrcekwf5N
+	icAlj6oc6fuU02IWqQwbJ9VixHEukQ3Q/9rbCOS3lUp4YgfjT2qPTQiXY5GH6EV8
+	ijqm1pRE8CAMZaO5uRDyq7p5d+HvOpM+GeuCPbdqyhAFnMh24NqFcXIF6KC0XBNg
+	CthDx5qwZFf0eFj7RLYVbj3kk+yAvTv/NaKxrJv/J/1aL2Up395jeRtgTd857Qfa
+	MjhiL317iSbTV7THCGuvv2DI2TOeBtlkYc6JSXhh27TfuTZXQpgPkPXIXMY6CTu3
+	QXL+NQn1rcZHrF58qMtHA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792394887; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:IoFSiBTaaYTgAsNaCn37kQwEqEcmbgUyKiTdprQAkJxPeeS
+	kS83fJnt5RJkkYCNPcDqFtaF1jMdUP5uSLttUx8QzNMkRMsr+y+Qqf5UZvwvG2Aq
+	AdNNNqAl5w/6wjQTm5/Gwt/m0yno7HcBgQQ/pL5wB/Jfdoj+Rk65TmkEyZoMatf9
+	piPo2ePF71175Y+wlL8qEms/48EcBEQS8DNsw329i0z1L8M3ZmIvY03VUhqlBnUZ
+	kRB1qqAc8xdDZAhYVykHkOdEWKvcG1f76fHQq0YLUiyWr9MoF2Vy3oLWdBy/EBK4
+	FZy0JlRtUsqHp6SlkNO9BTcDP5qPI+8Z+vMvpcg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:u/SMbgbsBA83nSqUIv2o2J6WwqcNg+qlZf0dHLhhi/g=:N//A1el18IitjBVhxG0iUcW6/gMXEpoey422eGiu+qs=;
+X-ME-Sender: <xms:hsbVagWV9rX_jb1G_fGvB4yUjXeq6RNm1ldrOeJWw6_bHjUFd3jg8A>
+    <xme:hsbVagdAf5YVq1o53fSwWkFs_s60xZhnwxDObHUqKKTNj9JaeqAgsQDQXPqZtTqb9
+    u2Nnv2fNXwqNG3mtC7w8IGecTk92G_Kg_uQvGA1j0uo9fhu5PhJfnYg>
+X-ME-Received: <xmr:hsbVav5zPIkOBnfRswp-sFtQyIN9T1bCCOZGk0x9C7JTwXFuQo04EmwoOP-abSIhijFwa-kmEKtQfVyhePzfnTcgB2M1UaTD>
+X-ME-Proxy-Cause: dmFkZTFmDQbG4f+zIImbrULE5KD57pgO8qS6q3vsE8rHGP/N/as75OB9NC21g+sbNJ95xy
+    cdgcsSfka3OfwtG2dWLK0Y7olLaaTSTb9EXL1Q8Ah48oz31SVmuJEj0v75eYXC8+EnECcV
+    wOkWs8wbF7q0auV0qVo92eJAbdGO64mA24FEpuklvN3TtUyDlb5pKY5ndr3mGfqioArD3g
+    z9w6GWygTmud+Lmcx/XUdZmeTFYp3dHUyRa9nfNyxXSvH4RiLfFtES8+x0Ojmo3NuMq/Qd
+    suVvGzBamezXqLgY0ZW3A12b8ivwNFGiYKRRF6ZsyJg6pu9lhYkq/c5OA83fLwtexAu6eQ
+    +B539L2DrA7bdi5rPZTyM/vkUBzn971xGRoB2e4AmCQkCnBDvaeLn2irJWBaOIv+bTwxG5
+    ZCB42upH9KJiSfzCgiGls3VJtDF6g9E7oUhLlAMNgYsOEhSZizKWsoG107pfiV9BcD2h7t
+    otO+nBdEgBVdRabHj4T1OJx6Jx6vBR2WUHcahG4QxlLTLGEgUOPtGSnAixDDHzHsHeIJsJ
+    RFtisAbVXAOREkkxD6i/A6Sg/3XwTNMQY8MAMA+3rKaOrHoR27PNjDYGjZyx9pUCniW+KM
+    bQwwQk4Gr1KqSItoS9S78yiij7hAZZ0b3gMdTcc1gZ9TJHpj0t7ClPxEz1Pg
+X-ME-Proxy: <xmx:hsbVajSBjkSkKxW0ozHcHUhLwthAqGX9KvdtJKEofcdA-NKAm0GdkA>
+    <xmx:hsbVaid0HegBEwYX6AytR0rf12F6MqCa0sp04luZD8zsnfI7uUyvEg>
+    <xmx:hsbVajQVNfGdJUallUgKH8X_dNksQay7QR5NLZoqofHwCH2pPIsqyw>
+    <xmx:hsbVarPgYBIt8nTH7lNnQocUmQLqJksgDh81pBUm1Cn_YMzWoP9HzA>
+    <xmx:h8bVakryr0eXCXrt-Z8T0dbkfOrujSF6N-C9nVQqqWroTqllsR0meJRU>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 19 Oct 2026 03:28:04 -0400 (EDT)
+Message-ID: <be5fe4b1-585a-44fa-9b93-a0176574442a@pobox.com>
+Date: Mon, 19 Oct 2026 00:28:02 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 19 Oct 2026 07:22:46 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <a3877fa66c76303da8240f65caca292579a006f3@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH v2] wifi: rtw88: usb: drop RX frames received before the
- device is started
-To: "YuanZhe Liu" <25031212351@stu.xidian.edu.cn>, "Ping-Ke Shih"
- <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, "Sascha Hauer" <s.hauer@pengutronix.de>, "Bin Yu"
- <byu@xidian.edu.cn>, "Cheng Wen" <wencheng@xidian.edu.cn>
-In-Reply-To: <20261019064000.5167-1-25031212351@stu.xidian.edu.cn>
-References: <20261016161931.18495-1-25031212351@stu.xidian.edu.cn>
- <20261019064000.5167-1-25031212351@stu.xidian.edu.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 00/10] 7.2.12-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261017155059.698368299@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20261017155059.698368299@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-October 19, 2026 at 8:40 AM, "YuanZhe Liu" <25031212351@stu.xidian.edu.cn=
-> wrote:
+On 10/17/26 8:54 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.12 release.
+> There are 10 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Mon, 19 Oct 2026 15:50:51 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.12-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
+Tested on my amd64 DIY NAS and an arm64 virtual machine. Working well,
+no regressions observed.
 
->=20
->=20rtw_usb_probe() submits the bulk-in RX URBs at the end of probe, righ=
-t
-> after rtw_register_hw(). A device can already have data queued on that
-> endpoint, so rtw_usb_read_port_complete() runs and queues the frame on
-> rtwusb->rx_queue before any interface has been brought up. Submitting
-> the URBs late does not close that window: the frame can arrive as soon
-> as they are submitted, which is still before the device is started.
->=20
->=20rtw_usb_rx_handler() hands every non-C2H frame to mac80211 without
-> checking whether the device is running, so ieee80211_rx_irqsafe() runs
-> while local->started is still false. mac80211 treats that as a driver
-> bug and warns in ieee80211_rx_list():
->=20
->=20 WARNING: net/mac80211/rx.c:5601 at ieee80211_rx_list
->  Call Trace:
->  <IRQ>
->  ieee80211_rx_napi
->  ieee80211_rx
->  ieee80211_handle_queued_frames
->  <TASK>
->  rtw_usb_rx_resubmit
->  rtw_usb_setup_rx
->  rtw_usb_probe
->=20
->=20The frame is dropped by mac80211 anyway, and because the URB is
-> resubmitted from its completion handler, every further frame repeats th=
-e
-> warning, which floods the log until an interface is actually started.
->=20
->=20rtw_ops_tx() already drops frames outside of start/stop by checking
-> RTW_FLAG_RUNNING, which mirrors local->started: it is set at the end of
-> rtw_core_start() and cleared at the beginning of rtw_core_stop(). Use
-> the same check in the RX path and free the frame while the device is no=
-t
-> running. This also covers the opposite ordering, where a frame that is
-> still queued in rtwusb->rx_queue is handed over after the device has
-> been stopped again.
->=20
->=20C2H packets are left untouched: they go to the firmware event queue
-> handled by rtw_fw_c2h_cmd_rx_irqsafe() and are never passed to mac80211=
-.
->=20
->=20Fixes: a82dfd33d123 ("wifi: rtw88: Add common USB chip support")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-> ---
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-You forgot to carry my Reviewed-by tag so here is it again so it gets
-picked up.
-
-Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
-
-Best regards,
-Luka Gejak
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
