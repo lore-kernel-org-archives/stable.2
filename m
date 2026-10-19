@@ -1,59 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.33.104.224
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792442924;
-	b=S7hM2ex4mbEVfnwqqbUJj5gZ8tuo3M3OCvAg3dpyzlHrJKRZUNcJGuO3za6tNloEOl8m
-	 dvMmCZr4I6J50hSY20Qryga5NLSI5raRsMiNfYsOmLQg/7/3pSxJ/10quCgo9LPpAE89n
-	 JIE/KySC3Wt5fpgGVmWZjn5rCc5OBjn5UbL7Sts9BTi1M5XHxgj1Nb25BEK6iJTMXoHe4
-	 U3eXNy03jXuqRsb9OQAaPmMetoS4z8DQpTqrSr93Hy52OHk+Mq8RoVu1MNcF+Hv0Ts8qz
-	 gC5xnezyUM/oFMhUYw0vmaADW6BGRNMvnKqpwE18s6y33XeRh6v+F3tQ6aqwMmmPR2A==
+	t=1792443016;
+	b=rhXT9Di3P0YO08EUx6OpyxbKVFQ2R36M4PaG0goUgIttvSIWrS05GaOAeZBGe7ucmyIO
+	 MnE8w+qfyK0ymk/yUdJaATp+Fo+1gEPbLslIGR+Rg7ZYyKNiAW0xzh9SY+e14rTNTdTDC
+	 vId6oAxGmLWs1+ZPeJH1tcc3jHBKF1A5s4IMx4YbGFalAnjrFkLFJD2PmjfMImBH9oGqJ
+	 Evdws4VASmAofCmqR6xANrFHQvPy48hmxhxxeN67ojdKfHdgKpa2vNnOWwhQ1xcxLft5i
+	 HCDDno9aSluxNPv0MdM7WcPi2opcEycvegR73D1S9rPR6OsKquHpreya6cABoQGn1Mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792442924;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=znHKFW5DZ1DFTZiPSdRamz8km2jluecigHe2x27tyX4=;
-	b=PIZScdS4TOZ2Cbq/F/xMSV09p6e2h7o0wZ+i3+j+uo9LsKr1wGzitSLsJXcgDyi65EtE
-	 l0PJKJy7pdzNh3qf8p9/uhsbT9m1C1ErbKFgYq/xnND3g667bOrGTNPg3RJZ1tBDmo2wO
-	 Wh3nwSLBtM2Wf92Iocw6v8Xsn88a8MXhVDD0wF7pk3lx24BvtM4q20lu6LNspwIEfZQp5
-	 UY01M+TYzCMGR7R2kOMpnMlLGUeH8pkgyv1F1xlgUDMkzpTrpXG9JayyUuMqSS6J0ELRu
-	 mRLD7bYEwb6HIacHKdWQf2UORxbnQ45dmlt448DPy3wGpVzTcYDX4aEG/4J9zxIE/kg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443016;
+	h=DMARC-Filter:Received:Received:Received:X-OVh-ClientIp:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:x-ovh-tracer-id:X-VR-SPAMSTATE:
+	 X-VR-SPAMSCORE:X-VR-SPAMCAUSE:DKIM-Signature;
+	bh=4fn63uVBYvxfQtH2ReBw1SF76TfWdRjqEc3mmjrw420=;
+	b=z6BJm3n7i0buKpz1DQoXAGLCjRHcFLq/ojbpDRp6H32bhVZBdb1LBSd+4bG6Sk7lLzDc
+	 VoPufMayR21ZkLK9k/chrxeiXjT/BcdAP80Rlv+wj1W70R/Mq4cv0QDsKk33hAhRjZd7j
+	 g07VZ0yiM+Ne8snWoSh7+oYFPdJ3K1Z5tw8ECbnoGYanGotT/tC/K/rcZP+Pkw0jg0Xaz
+	 efJBCggNbjrmstOmEy5e+qlsxZNrdRbmDNheFXhm0VFJFLohDCF7p3u5NmShKuOcNjkss
+	 nCKcIjB9bknTag0fskMZcuej2JPQvYzMNq7HCt08LtYJH6VrubtUZh42ThBlxSoYQTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oniOVljK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=fortytwo.fr;
+	spf=pass smtp.mailfrom=fortytwo.fr;
+	dkim=pass header.d=fortytwo.fr header.i=@fortytwo.fr header.a=rsa-sha256 header.s=ovhmo5104297-selector1 header.b=U1XPlwa6;
+	arc=none smtp.remote-ip=178.33.104.224
+Received: from 16.mo550.mail-out.ovh.net (16.mo550.mail-out.ovh.net [178.33.104.224])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D0A9606A31D;
-	Mon, 19 Oct 2026 20:48:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7F5606A31E
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 20:50:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C7F5606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fortytwo.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fortytwo.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oniOVljK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B5B01F000C4;
-	Mon, 19 Oct 2026 20:48:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792442923;
-	bh=znHKFW5DZ1DFTZiPSdRamz8km2jluecigHe2x27tyX4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=oniOVljKooIW2lqCf7/qMu1/csgI97HBwSQv84eCIHogk/qwVx/o3c98KMHIiNe6r
-	 17/2HvDy5qYtW186SRUGm0cYKk5NXuzvKOe5hTZw+cIB0F3sm+KBQho9Tty5QfhD0u
-	 EoLg3rLmjLkLlJhgqyw+dJcAJqksh/9SbyASLVeolARzy6+48KqScqpTX6YGvn8spj
-	 rew9irxFes56ef49+eJFlcvtQsD0JIWRSz+RROFwQXSkwLzS2JlZtmIyS4uqRn7RIR
-	 yRoGjMeUdyQg/8hRD76RlhNdZU5QqEzUNGhe5ofDemGMffRKId2n89t/m+v0k4J18C
-	 mFKtMyBvwgBtw==
-Subject: Re: [PATCH net v3] net: ipv4: add zero check for snd_cwnd_clamp
-From: netdev-bot+sashiko@kernel.org
-To: kj2864@nyu.edu
-Cc: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, edumazet@google.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- co+71b6509cb791e531@bugs.sh, stable@vger.kernel.org
-Date: Mon, 19 Oct 2026 20:48:42 +0000
-Message-ID: <179244292273.3135.7259079039663290152@kernel.org>
-In-Reply-To: <20261015201549.4023-2-kj2864@nyu.edu>
-References: <20261015201549.4023-2-kj2864@nyu.edu>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=fortytwo.fr header.i=@fortytwo.fr header.a=rsa-sha256 header.s=ovhmo5104297-selector1 header.b=U1XPlwa6
+Received: from director2.ghost.mail-out.ovh.net (unknown [10.110.0.157])
+	by mo550.mail-out.ovh.net (Postfix) with ESMTP id 4j7njj08R1z5wlF
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 20:50:01 +0000 (UTC)
+Received: from ghost-submission-7ccd8bbbb6-fkvks (unknown [10.108.54.44])
+	by director2.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 5324EC0504;
+	Mon, 19 Oct 2026 20:50:00 +0000 (UTC)
+Received: from fortytwo.fr ([37.59.142.109])
+	by ghost-submission-7ccd8bbbb6-fkvks with ESMTPSA
+	id VEu4BniC1mqXTQgAMqfShQ
+	(envelope-from <thomas.nemer@fortytwo.fr>); Mon, 19 Oct 2026 20:50:00 +0000
+Authentication-Results:garm.ovh; auth=pass (GARM-109S003aced7fa9-8cdd-47b0-9b08-e2ff1db65e06,
+                    4B164670A4970DC4CA3EEE43615753EBC6495375) smtp.auth=thomas.nemer@fortytwo.fr
+X-OVh-ClientIp:95.173.222.53
+From: Thomas Nemer <thomas.nemer@fortytwo.fr>
+To: tiwai@suse.com,
+	perex@perex.cz
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thomas Nemer <thomas.nemer@fortytwo.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH] ALSA: usb-audio: Skip sample-rate read-back on PreSonus AudioBox USB
+Date: Mon, 19 Oct 2026 22:49:44 +0200
+Message-ID: <20261019204944.28302-1-thomas.nemer@fortytwo.fr>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,136 +67,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+x-ovh-tracer-id: 9401264225134745115
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: dmFkZTGjmAQVrci1F2f6mTion83iRRK4PKiNe4RxseAtO0YmJpR62k+BVtY6bj7OVCpQDxG4KbOFuqEuCDUBmwuy5yBn98wiYaRPmv7AkF7/9Otq+k/JIhoOeZofohq9Bk3fuGHzDO/S2xRf9ohivivlfQ0gFsr34TOH8V5kECRz/gqUGPDjqLM4UaJ54fEFjLguWGCKNh1YUNhkFYYl+3tsLnP5jImdwFYVRzitJFPcsYHJIlGruamiN0JeKm4l0qu99+GedDWL2af0QiuhvLZccO7fOPV5S7hXa+mMHQVJnjzlAcn+gw2S4tBzUdGbft1Dmrro8hgtdyx3uQfB/sgxCi98YtRacAD+j/YmwR7tL3O78lnflslcjyhaxND7uPEfhs965+jZCHr6faBuod6gd91CpkQwd8KpX6V3HNOrOPb0ZGFotv9z62mRLqlvZ4orpoYNFrYYxPT3Ffsip6ZwH3dBvPxdCsHxmPfz7RUKCAAMyU6X+e44IIJs9S3EBsgfBZRI7E9R2KJGM0qbwY2MBGsczkJtCfV1FHIU/xwNXbKqsmxZrLUbxnYOk7M2yDOtBFCe3xn4ZoB90n89V1rtZCu3u7UV8Mq50AG+QyrDKUI1oUcD/8D22Bi6+eJtuJ4vAD15XC4MZqqNIQGkjceVnjkO7c8tTp9fCZnu8bV85/0BXQ
+DKIM-Signature: a=rsa-sha256; bh=4fn63uVBYvxfQtH2ReBw1SF76TfWdRjqEc3mmjrw420=;
+ c=relaxed/relaxed; d=fortytwo.fr; h=From; s=ovhmo5104297-selector1;
+ t=1792443001; v=1;
+ b=U1XPlwa6UgLvGOZaHEt7oEl4v2CsZMW6PgstShf6PzjsHZw0a3XXRKnyCyO1UZ924IZmEdK3
+ Z0+amFpNzYUSFVZQq+WBhs0tbSX4xn+5BL1+RTGMJTB4QuK8mefc9ScznhM4lAMqvuA0JcoHm6G
+ GzmwMvJ54YIegbFmv3wyVr98DIGZUX5JdNNicwg6VqXRb00o62jw88ENICV5rmXdXTqvE4nz4ao
+ pKU3lPRZBk1dnibRr6G/TOH1gfN5RlFwhKiNwEritcpp5XVUC53L2rO/by2Pbk3GZ+0EE/TgA+F
+ koZC4v+OEnbimfOv0vYU9SCi95wCqSh0zrCpHgDYgFy1g==
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+The AudioBox USB stalls the UAC1 GET_CUR SAMPLING_FREQ request on both
+streaming endpoints. After the sample rate is set, the read-back
+verification in set_sample_rate_v1() fails and logs
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 2
+  usb 1-3.1.2: 2:1: cannot get freq at ep 0x1
+  usb 1-3.1.2: 3:1: cannot get freq at ep 0x82
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+on each endpoint configuration until the sample_rate_read_error counter
+gives up. Set QUIRK_FLAG_GET_SAMPLE_RATE to skip the read-back on this
+device.
 
-- [High] The fix is incomplete: the divide-by-zero it targets can still
-  be triggered.
-- [Medium] The new check rejects every RTM_NEWROUTE with RTAX_CWND == 0
-  with -EINVAL, whether or not RTAX_CWND is locked in RTAX_LOCK.
-- [Low] The new error path in ip_metrics_convert() uses plain
-  NL_SET_ERR_MSG(extack, "RTAX_CWND must be greater than zero") and does…
-- [Low] In the commit message, 'Reported-by: co+71b6509cb791e531@bugs.sh'
-  is followed directly by 'Assisted-by: LLM' instead of a Closes: or…
+Fixes: 1869c47e5d59 ("ALSA: usb-audio: Fix missing sample-rate control for PreSonus AudioBox USB")
 
---
+Cc: stable@vger.kernel.org
+Signed-off-by: Thomas Nemer <thomas.nemer@fortytwo.fr>
+---
+ sound/usb/quirks.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-net: ipv4: add zero check for snd_cwnd_clamp
-
-This commit adds a check in ip_metrics_convert() that rejects an RTAX_CWND
-route metric with a value of zero. The goal is to stop snd_cwnd_clamp from
-being set to zero, which causes a divide error in tcp_cong_avoid_ai().
-
-> Reported-by: co+71b6509cb791e531@bugs.sh
-> Assisted-by: LLM
-
-[Severity: Low]
-This isn't a bug, but checkpatch.pl warns that Reported-by: should be
-immediately followed by a Closes: or Link: tag with a URL to the report.
-Could the link to the original report be added?
-
-> diff --git a/net/ipv4/metrics.c b/net/ipv4/metrics.c
-> index ad40762a8b383..e83a129a25b68 100644
-> --- a/net/ipv4/metrics.c
-> +++ b/net/ipv4/metrics.c
-> @@ -54,6 +54,10 @@ static int ip_metrics_convert(struct nlattr *fc_mx,
->  			NL_SET_ERR_MSG(extack, "Unknown flag set in feature mask in metrics attribute");
->  			return -EINVAL;
->  		}
-> +		if (type == RTAX_CWND && val == 0) {
-
-[Severity: High]
-Does this fully close the divide-by-zero? The check only runs when
-RTA_METRICS actually contains an RTAX_CWND attribute.
-
-Suppose RTA_METRICS contains only RTAX_LOCK = (1 << RTAX_CWND) and has no
-RTAX_CWND attribute. Then this loop never sees type == RTAX_CWND.
-
-ip_fib_metrics_init() allocates the array with kzalloc_obj(), so
-metrics[RTAX_CWND - 1] stays 0, and the lock bit is stored unchanged. That
-leaves the same state as the locked "cwnd 0" configuration this patch is
-meant to reject.
-
->From there, the path in the oops looks the same as before:
-
-tcpm_suck_dst()
-    if (dst_metric_locked(dst, RTAX_CWND))
-        val |= 1 << TCP_METRIC_CWND;
-    ...
-    tcp_metric_set(tm, TCP_METRIC_CWND,
-                   dst_metric_raw(dst, RTAX_CWND));
-
-tcp_init_metrics()
-    if (tcp_metric_locked(tm, TCP_METRIC_CWND))
-        tp->snd_cwnd_clamp = tcp_metric_get(tm, TCP_METRIC_CWND);
-
-tcp_slow_start()
-    tcp_snd_cwnd_set(tp, min(cwnd, tp->snd_cwnd_clamp));
-
-tcp_reno_cong_avoid()->tcp_cong_avoid_ai(tp, 0, acked)
-    u32 delta = tp->snd_cwnd_cnt / w;
-
-Both fib_create_info() and ip6_route_info_create() go through
-ip_fib_metrics_init(), so IPv4 and IPv6 routes would both still be exposed.
-
-Could this per-attribute check be replaced? One option is to check after
-the loop that a locked RTAX_CWND has a non-zero value:
-
-    if ((metrics[RTAX_LOCK - 1] & (1 << RTAX_CWND)) &&
-        !metrics[RTAX_CWND - 1])
-
-Another is a guard in tcp_init_metrics() that only applies the clamp when
-the cached value is non-zero.
-
-[Severity: Medium]
-This check rejects every route with RTAX_CWND == 0, whether or not
-RTAX_CWND is locked in RTAX_LOCK. Is that intended?
-
-As far as I can tell, the value only reaches socket state through
-tcp_init_metrics(), and only when it is locked:
-
-    if (tcp_metric_locked(tm, TCP_METRIC_CWND))
-        tp->snd_cwnd_clamp = tcp_metric_get(tm, TCP_METRIC_CWND);
-
-The other uses in tcp_metrics.c only update the cache for unlocked entries.
-
-So a route such as "ip route add ... cwnd 0" without lock used to be
-accepted and was harmless. It now fails with -EINVAL. This applies to IPv6
-routes too, because ip6_route_info_create() uses the same
-ip_fib_metrics_init() path. With Cc: stable, the same change would reach
-stable kernels.
-
-The commit message also says:
-
-    User can pass zero to snd_cwnd_clamp via RTAX_CWND type.
-
-However, the value only reaches snd_cwnd_clamp when it is locked. The
-"net: ipv4:" subject also doesn't mention that IPv6 route installation is
-affected.
-
-Would a lock-aware check after the attribute loop, or a guard in
-tcp_init_metrics(), avoid rejecting the harmless unlocked case?
-
-> +			NL_SET_ERR_MSG(extack, "RTAX_CWND must be greater than zero");
-
-[Severity: Low]
-This isn't a bug, but could this use NL_SET_ERR_MSG_ATTR(extack, nla, ...)
-so the offending attribute is reported? The nla_len check earlier in
-ip_metrics_convert() already does this, and nla is in scope here.
-
-> +			return -EINVAL;
-> +		}
->  		metrics[type - 1] = val;
->  	}
-
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 4ac4aef47d..43eea72477 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -2731,6 +2731,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+ 		   QUIRK_FLAG_ITF_USB_DSD_DAC | QUIRK_FLAG_CTL_MSG_DELAY),
+ 	DEVICE_FLG(0x1901, 0x0191, /* GE B850V3 CP2114 audio interface */
+ 		   QUIRK_FLAG_GET_SAMPLE_RATE),
++	DEVICE_FLG(0x194f, 0x0301, /* PreSonus AudioBox USB */
++		   QUIRK_FLAG_GET_SAMPLE_RATE),
+ 	DEVICE_FLG(0x19f7, 0x0003, /* RODE NT-USB */
+ 		   QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE),
+ 	DEVICE_FLG(0x19f7, 0x0035, /* RODE NT-USB+ */
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015201549.4023-2-kj2864%40nyu.edu
+2.56.0
+
