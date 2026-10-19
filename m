@@ -1,115 +1,138 @@
-Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B374B3921EC
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 06:38:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.33
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C64D27FB37;
+	Mon, 19 Oct 2026 06:40:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792391901; cv=none; b=diQDfCmBSY66oAuuTeUtpUZec5olWK4Zwl/sWPW/GTLZfAYVqgez1RLxrvQmfRjz82o9Ny7D/Y/Fp+WBomiqNpPdHh8nvEjGnwgz2NtVcg43cdhrA0CUwauJ5IC2jQR1ViDu6NWc8oY+BkCzMuXhn0dsHJUQA7lV0ne77KPfgEA=
+	t=1792392016; cv=none; b=joNPQ56Lsv4R2OR/k/mriVVjWJEJ223uEf+I1KSiiOEg1HaiaVhJckmut5MV4rk3DXp5/3pOl7bauGfscIaRKEsdFDvLeV2tGVdvapTUmexaomOfRck0ZALsrQK7W9SaBosB7kDEFdjo3RxieIGXCUQAPaGdCFgucMH5HI46eRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792391901; c=relaxed/simple;
-	bh=JEUNy2ucDYQjFwtEojj3Awu049HzmGVkRpeXwTauz/g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RWGjHNLYryjoxQgFzv3h6E3rJKUobZ0iNOkxdA1GNMDL5RLUWzM8bpED7lJ7dgABUxaD1mro5qYzdHhS3Xge5/dTx+87AbfY6teezeShwXOiAv49ejktYC1ysSTtwLP23WE2sSDAgsMnnFTsukeJRTkzd4X7dwMeVj2Cf4ucQ1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=oNoNlOG1; arc=none smtp.client-ip=35.89.44.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1792392016; c=relaxed/simple;
+	bh=DEgEoR+CwSwQzoTuJw1vhywsj1BSGJlHxb5/nkup5dc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=NI2RlnAHp+FMtrJFGNvINzjvXSHNktt0Axh0ZoQz6D7wci3bH7lVyjktiSDw5ddj1yU486vU0E6ddi0dtkTzJtPKfkux7BNJ1n9Wztv6Aj8xdoL89McNMMJP17FEJzb07iLElN42V6fnB7IwLiLGK4U3irU6WCasrjz9j7N7ewI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=uHO2UKtd reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="oNoNlOG1"
-Received: from eig-obgw-5007b.ext.cloudfilter.net ([10.0.29.167])
-	by cmsmtp with ESMTPS
-	id IdbYxGTpsaC0UIh0lxVjgL; Mon, 19 Oct 2026 06:38:19 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id Ih0kxtBL7gNihIh0kxiwfk; Mon, 19 Oct 2026 06:38:19 +0000
-X-Authority-Analysis: v=2.4 cv=G78cE8k5 c=1 sm=1 tr=0 ts=6ad5badb
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=B1oJnwGNuL_Lrhb_h-EA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=c35x4WNRIcvySCmt5e6+wGfMeVwbuNLBVfgVqFu3NiE=; b=oNoNlOG18CLzdosdPdtdIEpoer
-	fcXcZM1jst+9Ptwjo3ZKCILymhN3+hqb3wQHoOKST+2kSU0AZBzFR/NRFGwJa1VbAQiP0w5twIlxW
-	NPCaX5XcuJHZRge4GGpHYQmmdXOfyM9+uxNM8/A5GfEsWR5bCz6xXTtFokfqfO+oTlZurVhMe3rJf
-	ERTrwMIGoaTD4es/lqDSpFeDWqzggWtg37iB8XI8HRZVwyVpSs/yzCj47k1paLwqOUZmqpaDX5PJz
-	wFSl8+oiXe10fdr0pzYmFiFFpEDsalkbsuDYYBMV/ExaCedkXRTdDQAJhn2z9xNZSllev/XelSlPI
-	g2n1cg8A==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:56870 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <re@w6rz.net>)
-	id 1xIh0j-00000002zYH-3fGe;
-	Mon, 19 Oct 2026 00:38:17 -0600
-Message-ID: <77174969-df1b-4515-92fc-badb2069772a@w6rz.net>
-Date: Sun, 18 Oct 2026 23:38:16 -0700
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="uHO2UKtd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=YR8FxMCJvzlwEHCna466jdpfQc7jTqAFDm
+	lQJKGC4dw=; b=uHO2UKtdvemOfNEAV6o6Cr6GkeN7BO16YIr0BPIuR8aQhWvnsE
+	bJFSErtt2iAyDNIMzY3+SOwlDuyPu0slMkZb6uYyNxf9sEWBg1qAoBcgM513b9qx
+	4lCM+7V/0J5IoIuO+ZONORZhf5tj+qSQk78PIjdgehxSMPkEbB13EIHMI=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.71])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkCmqfxBu9Vqtxm3AA--.6288S2;
+	Mon, 19 Oct 2026 14:40:02 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH v2] wifi: rtw88: usb: drop RX frames received before the device is started
+Date: Mon, 19 Oct 2026 14:40:00 +0800
+Message-Id: <20261019064000.5167-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261016161931.18495-1-25031212351@stu.xidian.edu.cn>
+References: <20261016161931.18495-1-25031212351@stu.xidian.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 000/869] 6.12.114-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261017160036.979869304@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20261017160036.979869304@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1xIh0j-00000002zYH-3fGe
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:56870
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 59
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfPTHP5g/gF778784q2ytqTkYXPazFW2OOW2TVwmXh0nNyksoEyjGTl0ruzAIDcL3aKtWsTtT0amO7sDIzXUbI+nmFGwVd78f1R6arycX1nsLIS9gl/bu
- ng/r2p5YO60b1sJewRmc2K4735y9e/igK/VRpyyAgYFsisRGqCcLTgMCTwWSZl5z1h0JD2BnCi0ldg==
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BbQMCkCmqfxBu9Vqtxm3AA--.6288S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWF4UGF4UuF1xWw45Kry8Zrb_yoW5AFy3pF
+	Wrtayakas3GF1Uua1rJF1xJFyrZan7Ary7uFWFg345ZFn8Xa4fKFyFgFW29r98AFWkAFWS
+	yFn8tryUGFs8CrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9qb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r47MxAIw28IcxkI7VAKI48JMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJV
+	W8JbIYCTnIWIevJa73UjIFyTuYvjxUxSfOUUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgULD2rU4z5oBwAAsP
 
-On 10/17/26 08:47, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.114 release.
-> There are 869 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Mon, 19 Oct 2026 15:59:15 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.114-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+rtw_usb_probe() submits the bulk-in RX URBs at the end of probe, right
+after rtw_register_hw(). A device can already have data queued on that
+endpoint, so rtw_usb_read_port_complete() runs and queues the frame on
+rtwusb->rx_queue before any interface has been brought up. Submitting
+the URBs late does not close that window: the frame can arrive as soon
+as they are submitted, which is still before the device is started.
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+rtw_usb_rx_handler() hands every non-C2H frame to mac80211 without
+checking whether the device is running, so ieee80211_rx_irqsafe() runs
+while local->started is still false. mac80211 treats that as a driver
+bug and warns in ieee80211_rx_list():
 
-Tested-by: Ron Economos <re@w6rz.net>
+  WARNING: net/mac80211/rx.c:5601 at ieee80211_rx_list
+   Call Trace:
+    <IRQ>
+    ieee80211_rx_napi
+    ieee80211_rx
+    ieee80211_handle_queued_frames
+    <TASK>
+    rtw_usb_rx_resubmit
+    rtw_usb_setup_rx
+    rtw_usb_probe
+
+The frame is dropped by mac80211 anyway, and because the URB is
+resubmitted from its completion handler, every further frame repeats the
+warning, which floods the log until an interface is actually started.
+
+rtw_ops_tx() already drops frames outside of start/stop by checking
+RTW_FLAG_RUNNING, which mirrors local->started: it is set at the end of
+rtw_core_start() and cleared at the beginning of rtw_core_stop(). Use
+the same check in the RX path and free the frame while the device is not
+running. This also covers the opposite ordering, where a frame that is
+still queued in rtwusb->rx_queue is handed over after the device has
+been stopped again.
+
+C2H packets are left untouched: they go to the firmware event queue
+handled by rtw_fw_c2h_cmd_rx_irqsafe() and are never passed to mac80211.
+
+Fixes: a82dfd33d123 ("wifi: rtw88: Add common USB chip support")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+Changes in v2:
+  - Restructure the check as suggested in review: bail out at the top of
+    the data-frame branch with goto skip_packet, and drop the comment.
+---
+ drivers/net/wireless/realtek/rtw88/usb.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/net/wireless/realtek/rtw88/usb.c b/drivers/net/wireless/realtek/rtw88/usb.c
+index 64e1c3420e0a..dbfe02f7d6f0 100644
+--- a/drivers/net/wireless/realtek/rtw88/usb.c
++++ b/drivers/net/wireless/realtek/rtw88/usb.c
+@@ -665,6 +665,11 @@ static void rtw_usb_rx_handler(struct work_struct *work)
+ 			if (pkt_stat.is_c2h) {
+ 				rtw_fw_c2h_cmd_rx_irqsafe(rtwdev, pkt_offset, skb);
+ 			} else {
++				if (!test_bit(RTW_FLAG_RUNNING, rtwdev->flags)) {
++					dev_kfree_skb_any(skb);
++					goto skip_packet;
++				}
++
+ 				skb_pull(skb, pkt_offset);
+ 				rtw_update_rx_freq_for_invalid(rtwdev, skb,
+ 							       &rx_status,
+-- 
+2.34.1
 
