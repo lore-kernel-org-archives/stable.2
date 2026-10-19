@@ -1,182 +1,217 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010030.outbound.protection.outlook.com [52.101.61.30])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B564CEE4D;
-	Mon, 19 Oct 2026 10:18:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.30
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792405104; cv=fail; b=sOjBk5qFSnl1ZxqsVDUUj91mC4a/Z64KU19120YDtr700rp/po5enPCp6xKvrSeK/CJJcDPqcL5nbk4fj1tE4GQXh6euZjorDEM4nIV6aa7/IBMv8Xj8iBjR8YhqFWGumXlP+CofspkM0eh+HNOzPRBmaYg37s50ULlA1jOooFo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792405104; c=relaxed/simple;
-	bh=KtpLEAMedcDmqmo+1AI61z2tOlLrb49gDM6h++lOXJc=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=JbApA8899BSm7IRX7CG1qpawIixpZHxDxikbZ86YgMt3QETLjikAXSUzPkUVYDnG4m6/ddzbUmJHXOnTV0m5a/gpfUfqEszCCVsYOrMx9u5fStv90CMCBLC8YTLuwGKocEjVJL8xn09jAvXuxAWzSqBA//Dcw5e/VZwck8q6vZA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=gDWtb6Op; arc=fail smtp.client-ip=52.101.61.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33DA4A7C8A;
+	Mon, 19 Oct 2026 10:23:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792405390; cv=none; b=Ol2yvTKvtrjhI91Wiz0F3TB6AtR7LJcTf5TmiTo4EWWj0t5VA/nnGiYljxkAwikr9hgStrXzhpOOEqk3ia8FuEnWy40aKGo6hkV/aeUm+4/abBrdBLwrruksRgh20hr2tnKHYsIVQLSfJ3T99SpWtdJZqvVUF69FemIndU4HY8I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792405390; c=relaxed/simple;
+	bh=OdiH2xEEPBPv8eRNB0AVuyOVKMlpyVgFr6l47XD/diw=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JoZ0LuQgY0BTf4t/K6LzjMYXDQj4vzi901ntHTwM55zIc74sBSrDaGfoqclPtKOeVCnu7smicicZz2RDIHm8QdNprRxqsOztogZ3LKEY+oTWDiuoafillXSkbmlwM2iXdgNfH5Ov1DQDBDZgy6mYbYLi136jCpYbnUtZHdXCdyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=juXQXzc4; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=EvM77jX2; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=juXQXzc4; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=EvM77jX2; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="gDWtb6Op"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Epmxl7TYZmqsFSM7YB3tZC3iy9KgTVdFWt1tj/2pvABX7vSKGacxAk60tkN3US5Xkhnk75/ULgy33Q2rU8Hqxs8POfkYByxG/Qz7WDEgefStP0W0uxMgTHt6FzbTRU98aoXmE9Gzb3UHa3nbd89XE/ONk0rkx/2Y0cgEcusTqp7Gl6sHlNcdmN4xdQQk/Z7Gt2plkFYZd22VdQiTGt0phbwmTmIOEJhljGjYvltg13bU+Smru1NAbxj8QVCfL/A7uXKuX48AE9Hqb0GCyaIdJUkowitByAOm/k8WPUZ+XoOWpCSe7QCu36HPnalgHQD3Xmo0cEK3QwacABb9QLAIdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vc6Jm7+Aeccmg1mqNeB3ioH7q7Qrpp/NGeJrCwZ2Pso=;
- b=I30VM5BogyBczMdleF+6dZS6sV8QXyrfBLLUhA0RMfgaGtx+9F29Va5JranhJhp3+JSxEloBF0/zA4EfgJ5xTDWUbwl86VRRDZOTi9muH3EAfbVp2U4pMnLH67EiOKP8EjI+Ce+BiFm4AO4ceej4IL0/X40NabaWSJ8wQzZPigy1Yo6hUfx4Rs9Nvrq4ZyQT6PsmSzz0YQ/+iU31Htdt7FOz5/4IiBH/MAUugJ45ZSwze+h8loLc33ZA1UgFpdwScqcXa9nIoExCHLtzQBCgaK4Wm4LLwUZkKMLuZcDXHMxvj2kCz6Jn3jP17CaKFsxOM/AHGIjB4z7qhBfHYBNg7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vc6Jm7+Aeccmg1mqNeB3ioH7q7Qrpp/NGeJrCwZ2Pso=;
- b=gDWtb6OpaGSUBx9RyFxot/cLtGwn1XGZd4gNJL7wbmaamXUE4jdgItjpuc5UkWbRti5bqN/NaapmxLmiWIA+IJaHWMjw9614H9kzew1qBZu/5zheVUtdksABdTuWyQAtsD1CvXYe3EXAZU1DCHmIY9ANMauyrRSk1J31wDSNj8nYcJiTnPrE9PJ5QiVRYg8oKRsCyv0zVUbvTZ6rek00N11IbLVzW6ed2XG5j122vKdEfMkgRUrWYKAe7piV/zeRI8vAQIGOP6dBJSZpc6dZo3NZelsdVwc+f1f6BI9aUZP4gqgOuZPxhtMI78ajfEK4/aPlbZoGflWOhKFHZkp+lg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH8PR12MB7110.namprd12.prod.outlook.com (2603:10b6:510:22e::11)
- by CY5PR12MB6276.namprd12.prod.outlook.com (2603:10b6:930:f::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 10:18:14 +0000
-Received: from PH8PR12MB7110.namprd12.prod.outlook.com
- ([fe80::736a:e1be:ec64:5740]) by PH8PR12MB7110.namprd12.prod.outlook.com
- ([fe80::736a:e1be:ec64:5740%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 10:18:14 +0000
-Message-ID: <8e765406-3ba3-47d7-bba6-e15a2cb56857@nvidia.com>
-Date: Mon, 19 Oct 2026 11:18:07 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6 0000/1674] 6.6.160-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, f.fainelli@gmail.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>
-References: <20261017160431.119607952@linuxfoundation.org>
-From: Jon Hunter <jonathanh@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <20261017160431.119607952@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0011.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1d::17) To PH8PR12MB7110.namprd12.prod.outlook.com
- (2603:10b6:510:22e::11)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="juXQXzc4";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EvM77jX2";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="juXQXzc4";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EvM77jX2"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id D24C91F444;
+	Mon, 19 Oct 2026 10:23:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792405385; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vXCUC77DUqL6MhRZrFelUG52qJt6rCs3f4AN3ZZrk5w=;
+	b=juXQXzc4MBFPuoiognX1hfDQz+ZaQ2XSewXk/5znHeK74yboyiBth1H23SLA9ZU6ng+0JD
+	qOpEreXRWYewYKwCU0wZxUzjLDaiTyT8XmqOYweSFZVr4/hVvi+lXBi+jKp1Oy8kRcKY3M
+	jPFB7JH3f7UHl+lPg8wBqknNFkyCn98=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792405385;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vXCUC77DUqL6MhRZrFelUG52qJt6rCs3f4AN3ZZrk5w=;
+	b=EvM77jX2NCG2CHbQ40T+BBCA2kc0ltk7vljEapQIeK63OITnH39orinnROfcz/Gaob3S/p
+	JlWodqQk3x2mjkAQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792405385; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vXCUC77DUqL6MhRZrFelUG52qJt6rCs3f4AN3ZZrk5w=;
+	b=juXQXzc4MBFPuoiognX1hfDQz+ZaQ2XSewXk/5znHeK74yboyiBth1H23SLA9ZU6ng+0JD
+	qOpEreXRWYewYKwCU0wZxUzjLDaiTyT8XmqOYweSFZVr4/hVvi+lXBi+jKp1Oy8kRcKY3M
+	jPFB7JH3f7UHl+lPg8wBqknNFkyCn98=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792405385;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vXCUC77DUqL6MhRZrFelUG52qJt6rCs3f4AN3ZZrk5w=;
+	b=EvM77jX2NCG2CHbQ40T+BBCA2kc0ltk7vljEapQIeK63OITnH39orinnROfcz/Gaob3S/p
+	JlWodqQk3x2mjkAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6160F136CC;
+	Mon, 19 Oct 2026 10:23:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 8TkfAYnv1WpHWgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 19 Oct 2026 10:23:05 +0000
+Date: Mon, 19 Oct 2026 12:23:04 +0200
+Message-ID: <871p9mat13.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: "Will Bush" <will@willbush.dev>,	"Takashi Iwai" <tiwai@suse.com>,
+	"Jaroslav Kysela" <perex@perex.cz>,	linux-sound@vger.kernel.org,
+	regressions@lists.linux.dev,	stable@vger.kernel.org,	"Jan Lentfer"
+ <jan.lentfer@web.de>,	Sebastian =?ISO-8859-1?Q?Dalfu=DF?= <sd@sedf.de>
+Subject: Re: [REGRESSION] usb-audio: Behringer UMC204HD broken in 7.2.10
+In-Reply-To: <87a4oaavrv.wl-tiwai@suse.de>
+References: <45162613-2802-401c-84c9-742f9c8c68e6@app.fastmail.com>
+	<87tsmjarjs.wl-tiwai@suse.de>
+	<bb9cad8e-48fc-4cc7-a893-1542270f2018@app.fastmail.com>
+	<87a4oaavrv.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7110:EE_|CY5PR12MB6276:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8df24943-25d2-4aaf-101e-08df2dca48d1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|10070799003|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	J2V7O0EURw/Gz6t1zXWFSI70/Hj3dwIGG6QxVBQ9qSnvKCM5ymXaPDGdRdKS4LG7oXf7Mf/zMf3FvJpU2tCX2brU+LijtObE9Sg35+8DC+Att53rnrCQx3LAkatKTZTRef5jlGI2wHYvL9irtaWlVc9wQ5ck1aXUWMbGM/+C79PlpcSyDUPchY4jD7SSYe02Ct5/z5pRZoBy3daB5xcW2hrlk+QuBc7uSBnxHJMuLWh556wJSYY6mt8zZrksE+Q300dky1GZyTEaXYV9G8IY2iDA17yiFfh3EQqP7MAlgNpc242WsAyQaMg6edIzoCRjuaPdUows2MOyLowwwnocsiiYF3YB2oPLIIysRab1uDWY/BZ+ICyI2HBIpGoppTslYG0uX6h8MbYXXe07wGm70prjQFgMWdt8z8AoljMJ2Zro0urokilQ0/371g5rKAskugIPS7bUuqDFP5HZxob7CMEhyiVAAQ/f1MYk5L6Y6tcRaNrSmsVG4mWxlxl5hB/tdqhymu7yIo5SrvjbGIN/WWsvg0Oe+BlKI9toN1KAkNjcwTHZXQ9UnFcm5v/GuaiVhiqfjHozEP/Wn2iWbEdLk4E9ExGYpezmZtTvdfvCpkwLA4Et2ITu3tBw9OOARgmXSz8iR+qcI4aB2yGUDBG27X/aCWvAZxNBL1ZvDaaV7nU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7110.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(10070799003)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OWxPdnlwWitMTEpXc1JwR0dVQllzTFZXUGJzUlhSRHhRMjFhZEE4Zm1SaTBW?=
- =?utf-8?B?UFBmSzJFSlhEYStkNU4vcWhBK2F0QzZFQkN6clZDUnNrMWVKeEtzb1hucUor?=
- =?utf-8?B?WGl4TXJMYXc4ZmNJY3VXOUZlblV6U3d3SEsrK2lxTm11RldXOFljZlNZa0Fj?=
- =?utf-8?B?dHR1SHVOaDRZV2tIYWkvaWNXblEzSnUyUmZqU2p4WTNlbGJVNDExblhvWlMy?=
- =?utf-8?B?NWZFRzBPR3BoV1g0aWNscmE0bW5qYm9abjZsMUQ2cHBBc1p3REYzVlhFanVk?=
- =?utf-8?B?ZmJTSDhUWlYrazBPd0F0WVZnMW5kYUUyY0h4eHhodEpxQjhzbnpkOU5Yd095?=
- =?utf-8?B?dXBqTkordDNoMzBHN0lYaXNyM1VvR0tKanQ2dmh0TDFzTmNWWUJ4VmVrSGlL?=
- =?utf-8?B?b0lRNlZ4bFJ3MGdPVm9RcEVLY3haZDRsM2o4OUhuNS9NeWszU0xqMyttbGF2?=
- =?utf-8?B?Zi9IbG1CSW1kZVYrM3ZEMXFXMkpQQ1czTmRhVWdwZnMyUE1kRkFYVFZXcmVM?=
- =?utf-8?B?dHVwOU1zK1JsOVpEampVZDFUZlAzYlJMcXJxaEJDYWNTZWM1ajdoeFVaWjA5?=
- =?utf-8?B?T2d6TGJBQWI5Q0ZMSjR5VHBZQmV1MGwxTmI3QnpHRElHYWw5eDI5ZjJhU1M5?=
- =?utf-8?B?TkdmODg1R2V2YmZIRmRBdVQ5M2NpL01rTDgvT0VOdWcwQ1Q1MEdRVHFDUjFB?=
- =?utf-8?B?SXBIckpKeTY5dElxb2E1U241R0xaRDY2WE9saTNRTWQyS2JKRVdsSHgvdmlW?=
- =?utf-8?B?a2xaeHFSRy91UTMvOUxvQ3JEYWFzaUZuc3FXZWgrNjJqY29yVlV2ZUV1ZHlQ?=
- =?utf-8?B?R2I0bFBBTlVSbmxzZ2Y4MEhWdFVXRmFVV2Q1d0NLVUxqVVdlaUlUK05nbUE4?=
- =?utf-8?B?MTd3QzR4bmMydWhza1VzK0ptUElnRTRPV3hBZExBaENxVWU5WHBDUGsvN3A2?=
- =?utf-8?B?QU0rOUJ3NHpJSEx6Z2VZZ1F2c2VHVU9GL0xGWEkrZGFCSzk4V0ZKOHc3MFNR?=
- =?utf-8?B?NmVnODBGd1h1NDhWTnVOdExkZUdxdHY1QjhQeDNrTXFIYmo1c3hHc01vWVZL?=
- =?utf-8?B?clF6NUxqZGdPc09GWFV5VHpBdnBPK1RRMytrSjlOM1NWRmRmNlpzT01xUkd2?=
- =?utf-8?B?NGJ0WmVHYkJjaysrQk1Fc2NFTldyMHJRQUJKM2dWMDkrSGVYNDI1Y1hhbDU0?=
- =?utf-8?B?V29tUHNPd05MQlZPK2RSOHBMY3ZIcml4SkZpWkhoMkswVVVXWU4yVUxrMEp5?=
- =?utf-8?B?aWJrS2Z1dUVHdm11MTFnMmsyb3BMMzRmb0FHL2xBZjkvSjlOUlR1VGZBRHFQ?=
- =?utf-8?B?SXFveUFZYmxGQ1JYYVdRYUF2Vm5CNjBQVDE3djI4ejYxQ3JzVTBUVytYS1d1?=
- =?utf-8?B?bmRmWGhhaUsxclBUdmtaRXlPWXhvOWxXYzVBT1NobFR5YjdpU2dYLyt0Nldi?=
- =?utf-8?B?STNWak5PNjkyUmRqT1pQNEwzbXJWVk9OMzNmVjkrYzNnSHg3TG5OL0QwTHIv?=
- =?utf-8?B?cXd6OTZ1cTlqRDRPb3paRnBOS2ZJcitpdUI4QnVsSkVpL0EyRTRlVGt4MVdG?=
- =?utf-8?B?Q2NtS3N1RnlxS250V0FxSHR3djREUkFRT0JHR0RKc0dzcGlaTVBKUUtWNnNZ?=
- =?utf-8?B?ZG5qNnltbUFkK2hmd0ZsZUs1cjBPSGlsbXZmNWtpeStsQmNXRlVFVThWM1JL?=
- =?utf-8?B?TDlUV0Z5Tk5mcC84Rkgrb0U0NWN0Nkh1WkxnbERIUCs0QlRxNy9DRmppa1dC?=
- =?utf-8?B?eDQ4ajVFNngyT0xpK2JvRWdjbFV3T2Y1ZTNxZlk5YUpHbkExNjNBY1hqaGNr?=
- =?utf-8?B?bFB4cVJ1OXlwREZjYWZUdFN2bDF5U1cxblJ0akg0K0g3Q0F4WW9XSmM5ZXhv?=
- =?utf-8?B?WmlIU0FQQkJ6NlJWYm04Q3orUmluWS9pT2pMRlBhd3Z2M0VYZzA2Slk3Z3Rn?=
- =?utf-8?B?UVhQVUF6SVljZWdGOG8zT0ZzdmZiNWo2M1hFekUrT0dxUGRObjdPd1dHOFV4?=
- =?utf-8?B?Y016ekpLQVQrSm5DVUIrSzFEUmtNcWZVa1Z6N2Z5WUJXa3U5YXBVMWZRekxW?=
- =?utf-8?B?RjFLdlk2YzkveXByTkI1ZzEvUkhpK1hSNkF6SWs5M0t3dVB4QXd4WnYvUnBX?=
- =?utf-8?B?bEZLay9lcTRQYnIvRGJGc1ZkNUg0MEJvOWxkNW8zU1pZYW1NaFh4OC8rZVVw?=
- =?utf-8?B?VlF4K2xXVUtnWUJxSmN6YjBCZGtIcEtLemExL0tNS1N4YzA5VmNYbktiMnEv?=
- =?utf-8?B?Vk5XcUxHeEVUcEh0b1pXY0t1UFZEMC9rQkU4Zy9EbDZaSkJJcXgvYjk3OTFa?=
- =?utf-8?B?ME9LOE9vMGtxV3JIbi8vMi9vL2tGM3FZREdZY09Xam5XNTh0ZWN4eTU0WU9C?=
- =?utf-8?Q?l8vUlyQI0ZfrPUfexFvvTNYRlYFiqTwykSuT4TC5zsYCz?=
-X-MS-Exchange-AntiSpam-MessageData-1: ZNdmOYZkSMJoOA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8df24943-25d2-4aaf-101e-08df2dca48d1
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7110.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 10:18:13.9825
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Bl+xooj/J60mPY0Qwm/Lu4v6oHce/SnkKUmcIgPIVkSeMBM+EGPTUBLmUKCHZnKkEST1Bp8Til1fAmfR80qpCQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6276
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Score: -7.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-7.30 / 50.00];
+	REPLY(-4.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[web.de];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCVD_COUNT_TWO(0.00)[2];
+	FREEMAIL_CC(0.00)[willbush.dev,suse.com,perex.cz,vger.kernel.org,lists.linux.dev,web.de,sedf.de];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url]
 
-Hi Greg, Sasha,
-
-On 17/10/2026 16:37, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.6.160 release.
-> There are 1674 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Mon, 19 Oct 2026 11:23:48 +0200,
+Takashi Iwai wrote:
 > 
-> Responses should be made by Mon, 19 Oct 2026 16:02:05 +0000.
-> Anything received after that time might be too late.
+> On Mon, 19 Oct 2026 10:39:46 +0200,
+> Will Bush wrote:
+> > 
+> > On Sun, Oct 18, 2026, at 11:42 AM, Takashi Iwai wrote:
+> > > Interesting, it's just a descriptor read and this fails on your device
+> > > by some reason.  Could you try to ignore the error like below, and
+> > > verify whether it continues to work?
+> > 
+> > Thanks for the quick reply. I reverted my patch and applied yours. Device keeps
+> > disconnecting and reconnecting (just more slowly). It never ends up working.
+> > 
+> >   ❯ journalctl -k -b -0 -o short-monotonic | grep -E 'usb 3-4|snd-usb-audio 3-4'
+> >   [    2.264012] blazar kernel: usb 3-4: new high-speed USB device number 3 using xhci_hcd
+> >   [    2.458009] blazar kernel: usb 3-4: New USB device found, idVendor=1397, idProduct=0508, bcdDevice= 1.35
+> >   [    2.484013] blazar kernel: usb 3-4: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+> >   [    2.484035] blazar kernel: usb 3-4: Product: UMC204HD 192k
+> >   [    2.484050] blazar kernel: usb 3-4: Manufacturer: BEHRINGER
+> >   [   12.976010] blazar kernel: usb 3-4: USB disconnect, device number 3
+> >   [   18.012013] blazar kernel: usb 3-4: failed to read device descriptor: -110
+> >   [   18.012623] blazar kernel: usb 3-4: parse_audio_format_rates_v2v3(): unable to retrieve number of sample rates (clock 41)
+> >   [   18.012768] blazar kernel: usb 3-4: parse_audio_format_rates_v2v3(): unable to retrieve number of sample rates (clock 41)
+> >   [   18.012903] blazar kernel: usb 3-4: 10:0: failed to get current value for ch 1 (-19)
+> >   [   18.013047] blazar kernel: usb 3-4: 10:0: failed to get current value for ch 2 (-19)
+> >   [   18.013181] blazar kernel: usb 3-4: 10:0: failed to get current value for ch 3 (-19)
+> >   [   18.013309] blazar kernel: usb 3-4: 10:0: failed to get current value for ch 4 (-19)
+> >   [   18.013434] blazar kernel: usb 3-4: 10:0: failed to get current value for ch 0 (-19)
+> >   [   18.013565] blazar kernel: usb 3-4: 10:0: cannot get min/max values for control 2 (id 10)
+> >   [   18.013690] blazar kernel: usb 3-4: Warning! Unlikely small volume range (=1), linear volume or custom curve?
+> >   [   18.013822] blazar kernel: usb 3-4: [10] FU [PCM Playback Volume] ch = 4, val = 0/1/1
+> >   [   18.013959] blazar kernel: usb 3-4: 10:0: cannot get min/max values for control 2 (id 10)
+> >   [   18.014102] blazar kernel: usb 3-4: Warning! Unlikely small volume range (=1), linear volume or custom curve?
+> >   [   18.014239] blazar kernel: usb 3-4: [10] FU [PCM Playback Volume] ch = 1, val = 0/1/1
+> >   [   18.014374] blazar kernel: usb 3-4: 11:0: failed to get current value for ch 1 (-19)
+> >   [   18.014508] blazar kernel: usb 3-4: 11:0: failed to get current value for ch 2 (-19)
+> >   [   18.014635] blazar kernel: usb 3-4: 11:0: failed to get current value for ch 0 (-19)
+> >   [   18.014763] blazar kernel: usb 3-4: 11:0: cannot get min/max values for control 2 (id 11)
+> >   [   18.014890] blazar kernel: usb 3-4: Warning! Unlikely small volume range (=1), linear volume or custom curve?
+> >   [   18.015021] blazar kernel: usb 3-4: [11] FU [Mic Capture Volume] ch = 2, val = 0/1/1
+> >   [   18.015151] blazar kernel: usb 3-4: 11:0: cannot get min/max values for control 2 (id 11)
+> >   [   18.015278] blazar kernel: usb 3-4: Warning! Unlikely small volume range (=1), linear volume or custom curve?
+> >   [   18.015408] blazar kernel: usb 3-4: [11] FU [Mic Capture Volume] ch = 1, val = 0/1/1
+> >   [   18.300040] blazar kernel: usb 3-4: new high-speed USB device number 6 using xhci_hcd
+> >   [   18.491087] blazar kernel: usb 3-4: New USB device found, idVendor=1397, idProduct=0508, bcdDevice= 1.35
+> >   [   18.517036] blazar kernel: usb 3-4: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+> >   [   18.517242] blazar kernel: usb 3-4: Product: UMC204HD 192k
+> >   [   18.517398] blazar kernel: usb 3-4: Manufacturer: BEHRINGER
+> >   [   23.644013] blazar kernel: usb 3-4: failed to read device descriptor: -110
+> >   [   33.884021] blazar kernel: usb 3-4: parse_audio_format_rates_v2v3(): unable to retrieve number of sample rates (clock 41)
+> >   [   49.244015] blazar kernel: usb 3-4: parse_audio_format_rates_v2v3(): unable to retrieve number of sample rates (clock 41)
+> >   [   59.484034] blazar kernel: usb 3-4: 10:0: failed to get current value for ch 1 (-110)
+> >   [   69.725032] blazar kernel: usb 3-4: 10:0: failed to get current value for ch 2 (-110)
+> >   [   79.965020] blazar kernel: usb 3-4: 10:0: failed to get current value for ch 3 (-110)
+> >   [   90.204027] blazar kernel: usb 3-4: 10:0: failed to get current value for ch 4 (-110)
+> >   [  100.444027] blazar kernel: usb 3-4: 10:0: failed to get current value for ch 0 (-110)
+> >   [  110.684056] blazar kernel: usb 3-4: 10:0: cannot get min/max values for control 2 (id 10)
+> >   [  110.684281] blazar kernel: usb 3-4: Warning! Unlikely small volume range (=1), linear volume or custom curve?
+> >   [  110.684397] blazar kernel: usb 3-4: [10] FU [PCM Playback Volume] ch = 4, val = 0/1/1
+> >   [  115.804025] blazar kernel: usb 3-4: 10:0: cannot get min/max values for control 2 (id 10)
+> >   [  115.812386] blazar kernel: usb 3-4: Warning! Unlikely small volume range (=1), linear volume or custom curve?
+> >   [  115.812521] blazar kernel: usb 3-4: [10] FU [PCM Playback Volume] ch = 1, val = 0/1/1
+> >   [  131.164026] blazar kernel: usb 3-4: 11:0: failed to get current value for ch 1 (-110)
+> >   [  141.404011] blazar kernel: usb 3-4: 11:0: failed to get current value for ch 2 (-110)
+> >   [  151.644020] blazar kernel: usb 3-4: 11:0: failed to get current value for ch 0 (-110)
+> >   [  161.885033] blazar kernel: usb 3-4: 11:0: cannot get min/max values for control 2 (id 11)
+> >   [  161.885326] blazar kernel: usb 3-4: Warning! Unlikely small volume range (=1), linear volume or custom curve?
+> >   [  161.885446] blazar kernel: usb 3-4: [11] FU [Mic Capture Volume] ch = 2, val = 0/1/1
+> >   [  167.004009] blazar kernel: usb 3-4: 11:0: cannot get min/max values for control 2 (id 11)
+> >   [  167.004224] blazar kernel: usb 3-4: Warning! Unlikely small volume range (=1), linear volume or custom curve?
+> >   [  167.004341] blazar kernel: usb 3-4: [11] FU [Mic Capture Volume] ch = 1, val = 0/1/1
+> >   [  167.005012] blazar kernel: usb 3-4: Quirk or no altset; falling back to MIDI 1.0
+> >   [  187.486013] blazar kernel: usb 3-4: USB disconnect, device number 6
+> >   [  187.785034] blazar kernel: usb 3-4: new high-speed USB device number 7 using xhci_hcd
+> >   ...
+> >   [ 1035.327013] blazar kernel: usb 3-4: New USB device found, idVendor=1397, idProduct=0508, bcdDevice= 1.35
+> >   [ 1035.353013] blazar kernel: usb 3-4: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+> >   [ 1035.353185] blazar kernel: usb 3-4: Product: UMC204HD 192k
+> >   [ 1035.353301] blazar kernel: usb 3-4: Manufacturer: BEHRINGER
+> >   [ 1040.476017] blazar kernel: usb 3-4: failed to read device descriptor: -110
+> >   [ 1050.717019] blazar kernel: usb 3-4: parse_audio_format_rates_v2v3(): unable to retrieve number of sample rates (clock 41)
+> >   ...
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.160-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
-> 
-> -------------
-> Pseudo-Shortlog of commits:
+> OK, thanks.  Then the only way to introduce some deny list.
+> Below is a quick fix.  I'm going to submit & merge this later.
 
- 
-> Pei Xiao <xiaopei01@kylinos.cn>
->     mmc: atmel-mci: Fix use-after-free in atmci_remove due to race condition
+... and now we received another report for the similar Behringer
+model, so both should be listed.  I'm going to update the patch and
+submit.
+  https://bugzilla.suse.com/show_bug.cgi?id=1285896
 
 
-The above commit is causing the following build failure for ARM with the
-multi_v7_defconfig:
-
-drivers/mmc/host/atmel-mci.c: In function ‘atmci_remove’:                 
-drivers/mmc/host/atmel-mci.c:2661:31: error: ‘struct atmel_mci’ has no member named ‘bh_work’                                                                                                    
- 2661 |         cancel_work_sync(&host->bh_work);
-      |                               ^~
-make[6]: *** [scripts/Makefile.build:243: drivers/mmc/host/atmel-mci.o] Error 1        
-
-
-Jon
-
--- 
-nvpublic
-
+Takashi
