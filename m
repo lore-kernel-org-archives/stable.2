@@ -1,127 +1,98 @@
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 015C7552EAC
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 14:13:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC26A50EC15
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 14:14:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792419237; cv=none; b=TU9hkKjh+Fx75dYgjiHvscp1HeRDrec3tUj2w7/8I+Y06Z7CALythrNRIGQS01/K25BuUGLEHOKcelrG+j7K9AGEYiyvziFgcA1Lagc5U+8xX3YR70ZZ0lBPoPQ35sD+qB70+s5iSrifyqW//vWDs/PocwHgI3vXvQ4jt4POqgA=
+	t=1792419264; cv=none; b=d/1pFJ1pLHGz63X78S7sEG54WSPuxASn4PsDCXwwX6/7ZcUCp8QHaELx+31TngaxLkwhj6Q/JM7753ymvyQxmE4gpbi6ygg7Ne1oRiwTUCkfL8fb2Yy7KZ0q/n+kFFGzveZGBW8tx8euGstxUUF2D1pBSEq113R/b6AOK7eK91A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792419237; c=relaxed/simple;
-	bh=Xj1tXuPgTXzaT3nix7piE0Gi8Q7+az0H1KHgxrxkFZw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nSIwOLwrXMJoqF4fxbsDGn/ohegeGr/Y+tuhoR7wD5xtaMiemcJQnhoO9KjSNVJCqhIo+5Uu62doJEyem1Xocur/jlbG/77IDQFwQDRJFCDTJyOmeXkrdhjkUZthx0K4ZOzJmFqilwHnzG5oU9RXj5lA8vDU4dSUKigqhDccpLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=YTFZ7HMD; arc=none smtp.client-ip=209.85.160.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1792419264; c=relaxed/simple;
+	bh=z/uufzOKyhdC0SjTvaevqnoNwnyGbdyLeYjrkpbtR/E=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NYk2dBCdTgOzuttSanEyi16QkoV2vRNoN5Jv23qHs2OQ0w9fVCOiMBS5CxoqmrDFJIupUNYKoIThSj04dZkn7oLf1T2aph/OLiaqukX7UeY0AUHqogUp03IExPI+h6AEy5AyFOpZD50JNI4LLGlhghnGDA061wAHOVpMBGinvm4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lBUHhcuQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="YTFZ7HMD"
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-53669f7b518so10847531cf.2
-        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 07:13:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1792419235; x=1793024035; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5BlttwcoFjB9LyfPGuIFgEh48duPPMU/zmrf0OZAJ0E=;
-        b=YTFZ7HMD0+7eZ0cb4C8DJvhGaaAIA6s1oS0hIaYf7kL2wQRV+jZYSV9KxZGeBF8JS4
-         TXVFnK+81s75jp2tm77iwoWJMVq1KL3zlwcfDoqcGKhxtGkwDxujOSW4mgcSfaoEGZiQ
-         yQmxvhJTVl9xc6i/eDFIxsUkRzJlChX/LeXyNHXv08kbEZMhvdu/JmMGpfxj6uDwVRZZ
-         8P3SSpVfZ+KE9tzgT8BL6MIQkgfPdyVxStqzrp3TDDL5YzFc7JiyrNibTY5g30HsOeRk
-         iif9nlaAjJLNu73mXLR2QYHJ5oHAh5fz+OhUR1yCr8zn7AtNSKEaCounzi30FMfcpfGi
-         mIPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792419235; x=1793024035;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5BlttwcoFjB9LyfPGuIFgEh48duPPMU/zmrf0OZAJ0E=;
-        b=Fw++Dnd5VvwN1qjhy328jMqwFltRG/V7t6WtSaKKrSUJ1MsMYZFyy6SsiLcH8J173P
-         XiP1P9Jz0jEeq0Kzzq3xUoFyzRRLeCWrNuagApmMjedU+5nRmcg728SoTwDRFezG8CSy
-         vHvrToR1IV4y0ZtF/0JdACHg5R8PNfjYeaY2mO8GD7TiFjkoPmUF7UsFbleOFiXNUlSl
-         zb0QOApYGf8n0azxuj+slBirpFZffaVQ1+O99/Aziy/DdWcd+wkA4Y87aM060feY2pED
-         IKAnZ17c0p/4nDvFMJbSCex+VioOjYuaXCaVr2Xam/GrACOAfGRNO6yaueputKtYQj4G
-         ReOg==
-X-Forwarded-Encrypted: i=1; AKwUvByQ3BVBY7f45b77ecix9EXulG9tPHWaeaVCSA1v0p0f2YuSZbfC++w27Y6Q6vbi/13u9EOxhdk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8FxavcA/8mkSnCDhHXKhKvuaHeKyVFtYj0JGAy/10QjwwByJe
-	ONND5NPge06GGge0XN8KpHyt2/Ej3FtOPt9ZSrxEDiqsGdHHHrWCyeOlThmo6Jo+iQ==
-X-Gm-Gg: AYBFou2DudeAxahxbGbQjjetfr3rEU6sfhdvovV1dmHvxtofcfwZ0BmNUlsUTDU7AOL
-	72ZIGwI06uJbHnILe+5B+3xxZc6m43p01DoGhRZjMsVttZB0UGcNxJCbzPuY6oVDfmS7PbF6WNu
-	P2j6EJ0758/IqdWKxefBWl/qmcwqEhdwd4DYGI1CaLAy+RfDjM8DXeJ7JyEOCEtwyOctA1UxuhJ
-	AsCwB0/91Jnc7pSc61IqlWz5HnXQH8wZLZhVGwMECa5fjhDts+u7rBlKyeu+U50PrGKYWEyGMKE
-	jbFU13bJWkHaoBeVWzNtndmTls82zF8OKXgWqWkBK63J/wmzn3Y7qeXs3MVe5npncT1R+4u/5px
-	Ry0Qhd7KcMpMGWgmHQWKIvOKdycyaTW2NXnCFZc5ekSMWM46uOA141NVriyX/nTpTyKwep3BmNd
-	5oeAfi/AfvGoDHsGD8wTi+QGPJHphJehl9QKnTJGbVb5vw6HZySr95Gf8vAyChJHSptll7fOJbv
-	HZ6wSp2B/FoM/mJhKMAsxWVh94=
-X-Received: by 2002:a05:622a:514e:b0:530:42d4:4c9a with SMTP id d75a77b69052e-5364605937emr109597891cf.44.1792419234421;
-        Mon, 19 Oct 2026 07:13:54 -0700 (PDT)
-Received: from rowland.harvard.edu ([140.247.181.15])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5362a8e43cfsm99785331cf.5.2026.10.19.07.13.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 07:13:52 -0700 (PDT)
-Date: Mon, 19 Oct 2026 10:13:50 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Andi Shyti <andi.shyti@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-usb@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com, stable@vger.kernel.org,
-	Antti Palosaari <crope@iki.fi>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Subject: Re: [PATCH] media: dvb-usb-v2: ec168: Reject zero-length I2C reads
-Message-ID: <1ab79363-7211-475d-8529-1d5c00586f8c@rowland.harvard.edu>
-References: <20261019123542.4040472-1-andi.shyti@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lBUHhcuQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57A9D1F000C9
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 14:14:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792419263;
+	bh=z/uufzOKyhdC0SjTvaevqnoNwnyGbdyLeYjrkpbtR/E=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=lBUHhcuQ1STY21Ac1q2PUTzl/4AVgeJXFxkITlHi37DiWe+2JlOfLrEsENA9BRdni
+	 N7hB2BPfsAIjthXNjNAV4zEXD9FGYlMbjOM69FIxSjF1JBoqeV8oYXJe5MXXeuhgug
+	 4nLLfvUTB9OfoI1OWwrHYOmD1/vo9oXS5eeUurPFHDK/aYA59zPiMyjSZFl1ydE6WU
+	 pDw+WQs2itn4ovf02s6pLG5moZR2IcnD2vmj1Dv+p7O+Q/i9DF467GjIuE4kxhUyfz
+	 TZlTYpNro3cdc9rSm+fxwqtAQRX/zqU8HcWJi9n5ia8FZ0T47nyjIECcMgf9+IjKqb
+	 OsMVWocR7bY0Q==
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3ab3dd9681fso8524511fa.1
+        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 07:14:23 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxR76X3pxNpuXc33jA65pDEZT4AkLwmlBWkK6VeXovwjPNT6RdZR6WbWWeXGnMqzxfJMhciBYk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLKN21EbVkg9XS9Ccy6irCsrIsZef8krLx6o49h83JeqZL7clPr
+	mj6Ca2vYAsO6Xp7A6IemmatZ9+6YhbEgZy3FEbPQGwh3dy7DNsWnjruwL58od1fC1UPDmysjrTJ
+	BobtgBTIwNKaYAveyEUB5m/Akzzqw7oHn8DX/9I5t/Q==
+X-Received: by 2002:a2e:b8d5:0:b0:3ab:2d6a:1a1c with SMTP id
+ 38308e7fff4ca-3ab2d6a1c38mr16436591fa.12.1792419262054; Mon, 19 Oct 2026
+ 07:14:22 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 19 Oct 2026 10:14:20 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 19 Oct 2026 10:14:20 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <atX8mpg19_WkIa27@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019123542.4040472-1-andi.shyti@kernel.org>
+References: <20261018-vlv-dsi-owned-gpios-v1-1-3ca18bcda670@gmail.com>
+ <atXp2NSPKZUPj8sq@ashevche-desk.local> <CAL-Wm=O-Gr3CuvCn8iSQceQMhu=LGFz0SPhmWeFL=RiVnoprdw@mail.gmail.com>
+ <atX8mpg19_WkIa27@ashevche-desk.local>
+Date: Mon, 19 Oct 2026 10:14:20 -0400
+X-Gmail-Original-Message-ID: <CAMRc=Mcrt8JVEUKLw+k_Duidi2Yuf=j61ViidR=aiUnjE5TZUQ@mail.gmail.com>
+X-Gm-Features: AclHuK8c9Lee5KOPnjoOwLwBKEDawbnB4l1kQfS7VfHTiarAnxS_Er4MQ7HyRIQ
+Message-ID: <CAMRc=Mcrt8JVEUKLw+k_Duidi2Yuf=j61ViidR=aiUnjE5TZUQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/i915/dsi: Use owned panel/backlight GPIOs in VLV MIPI sequences
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+	intel-gfx@lists.freedesktop.org, 
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Hans de Goede <hansg@kernel.org>, 
+	intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Michael Anderson <mwwa919@gmail.com>, Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Oct 19, 2026 at 02:35:42PM +0200, Andi Shyti wrote:
-> ec168_i2c_xfer() checks the length of the register-address
-> message in a combined demodulator read, but does not validate the
-> read message length. Userspace can supply a zero-length read
-> through I2C_RDWR.
-> 
-> This reaches ec168_ctrl_msg(), which selects an IN control pipe
-> for READ_DEMOD with wLength set to zero. The USB core treats
-> control requests without a data stage as OUT(*), triggering the
-> "BOGUS control dir" warning in usb_submit_urb().
-> 
-> Reject zero-length read messages with -EOPNOTSUPP before issuing
-> the USB request, using the existing exit path to release the I2C
-> mutex.
-> 
-> (*) is_out = ... || !setup->wLength;
-> 
-> Fixes: 2bf290be4f3e ("V4L/DVB (13364): ec168: add new driver for E3C EC168 DVB USB")
-> Reported-by: syzbot+ed3ada41c4eb1c4ab78e@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=ed3ada41c4eb1c4ab78e
-> Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-> Cc: <stable@vger.kernel.org> # v2.6.33+
-> ---
->  drivers/media/usb/dvb-usb-v2/ec168.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/usb/dvb-usb-v2/ec168.c b/drivers/media/usb/dvb-usb-v2/ec168.c
-> index 973b32356b17..f6b98c7d3704 100644
-> --- a/drivers/media/usb/dvb-usb-v2/ec168.c
-> +++ b/drivers/media/usb/dvb-usb-v2/ec168.c
-> @@ -115,7 +115,7 @@ static int ec168_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg msg[],
->  	while (i < num) {
->  		if (num > i + 1 && (msg[i+1].flags & I2C_M_RD)) {
->  			if (msg[i].addr == ec168_ec100_config.demod_address) {
-> -				if (msg[i].len < 1) {
-> +				if (msg[i].len < 1 || msg[i+1].len < 1) {
->  					i = -EOPNOTSUPP;
->  					break;
->  				}
+On Mon, 19 Oct 2026 13:18:50 +0200, Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> said:
+> +Cc: Bart (as GPIOLIB maintainer and author of the reset-gpio rework).
+>
+> On Mon, Oct 19, 2026 at 07:03:57AM -0400, Michael Anderson wrote:
+>> Thanks for looking at this. I'd like to make sure I understand before
+>> doing a v2.
+>>
+>> Here both users of pin 10 are i915 itself: intel_dsi_vbt_gpio_init()
+>> takes it as the "backlight" enable GPIO (soc_panel_gpio_table,
+>> PPS_BLC_SOC), and the VBT MIPI sequences on this tablet then toggle the
+>> same pin as the panel reset (low in ASSERT_RESET, high-low-high in
+>> DEASSERT_RESET). Do you mean describing pin 10 with a software-node
+>> "reset-gpios" reference and having both paths go through
+>> reset_control_*(), or something else?
+>>
+>> One concern: the VBT drives explicit pulses on the pin, and shared reset
+>> controls are refcounted, so a pulse from one path wouldn't reach the line
+>> while the other holds it deasserted. Would an exclusive reset obtained
+>> once by i915 and used by both paths work instead, or am I missing how
+>> reset-gpio handles this?
+>
+> But then it sounds like the request-by-demand?
+> Bart, any ideas how to address this case?
+>
 
-Isn't there an I2C quirks flag to indicate that 0-length reads aren't 
-allowed?  Setting that flag would be more understandable than this test.
+Yeah. If you need a more complex sequence than what refcounted reset-gpio or
+gpio-shared-proxy can provide (for instance a timed pulse) then you probably
+need to look at implementing a power sequencer using drivers/power/sequencing/.
 
-Alan Stern
+Bart
