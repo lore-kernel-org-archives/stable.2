@@ -1,49 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792425484;
-	b=z8sF+kt6PYml/Bo09byzbOaPivvXo+uap/c+cx2+H68LPeJfR2cfso4dbQmZLSvTp8nF
-	 EtYoA4FelpEGMGhuuUAfvkZWbZu/U7uMxDG02uK0Ysz+1WjTjDBGppX7paMH1ckcbIiKX
-	 H/0QMABcDZY0QXBc/x9QVTfF8brHXHqV0KSvna8G1X0YvmJwPWIP7sVeHMF/ch9BVYlmI
-	 TrLfEr2qyzHojUdEQvmEV3jAGgwhuo+FzGFVjq9i/IxQi2VCcZ3sznIPiBPONAjJye6Ov
-	 xEDac8G18LkSJXLHkze4rsUhg8IhvJLYXD49Ehsrpt21nCqSckMgmmWCW9lg8pt4wlw==
+	t=1792425565;
+	b=Zs5W7D2u6AiHIeOzlOQL5AzjsrcnLfEsstfjutHCRi26vunNp5+gKlC4RuO+GGphT8xw
+	 XqXCGJgdUdWCxLg4BkQFF9qgkKupTF8LW4PCjhfx8pL0nZpiaTB06rIvsqDdGNZWDcU+U
+	 8a5+tP2fk9Ro2aoYB7Q/gCvIlqVGMUW0lPO9HXp5oF4k/5Qh6r12YSQ+O4K0sAUOdHvS1
+	 MSLeqq2pwuYLKtyTkTPlh++SPSWnLqskuJRymvQ5RAbojWM0qSNYXc7HNFPnxOymsMyzI
+	 p443GFcrhzuf22YBVkFZyLiY60/IHv8t4s6nQiEXMhZt9Sw5qUP9vd3fxnnrrqbCorA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792425484;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Yntcu++Bk23KyJ22PYNQhhCbRirZ3yVnoNv98kbGCE8=;
-	b=u8baVuiIiC+xsZ2xvGVZbsYiNmanbcYoceaixYNyr/s+Amm7e2DNXCwDoIp4+epEQYcx
-	 jsRUYSmaKV5icuyqO08/F97LpFvCjTkwwWcHmsAM9Kwt800ypCtyseqOs5JLb41LVFHjj
-	 rqimtYQWwrA7ulJVbUkJ1TvjZVK02uKrusPJTVp39S8Rd6MpOTHk9it88qzteKrhkyQcW
-	 8BShBgjQicivCJ0WnrnXnpSV6K+w6/ujVtsHHw8/O5zyqlmFSvY7coJccqtyTA6FmmSxT
-	 J3k4u7xyj4RskQptqMda1d4GCM4V3L02ksrCWHgfTtR4CB2V+s2nXDOSV5RYNlnMEKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792425565;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Organization:From:In-Reply-To:
+	 References:To:Cc:Subject:MIME-Version:Content-Type:Content-ID:Date:
+	 Message-ID:X-Scanned-By;
+	bh=mxDUftepPPOUZ/7SCslBnNQlYRdDOMe7AAGS48la1a8=;
+	b=f03lifXqhtHLq/3Ed5q2EkOg62ah0ImgAchVFHjLbBlGk+rlxPwTkBru0O8xNAq6vst+
+	 SuqeF5dJu+5rwyFMqdUSle5IBlw/WK7XIrPQLIeUVvr6vm84dSH5jkSDI9ntWp0Tr42qW
+	 t8NF8VMIEmSoil2ucZQnSSJ8DaQh6F7DqOYOWtoD1Y7MWV4ZYpe+j1As2/QJlmk0yr2e2
+	 guUMBQ4W6aA0GMYunGcAVfuDQk0iw3u+n2Uu7pIFBZQvTEUreb8yBh48d+zkgy5wgV2JL
+	 mS21rfDnZaZmZxrj5MPfR7y1RW7xgc/nPpZMznniLsTTjmJio+NNMCqFKyXd4YJYHsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mPTiOnBr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GwjjAmxc;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0C7606DA54;
-	Mon, 19 Oct 2026 15:58:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E3D606C14B
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 15:59:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8E3D606C14B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mPTiOnBr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C18DD1F00ADF;
-	Mon, 19 Oct 2026 15:58:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792425484;
-	bh=Yntcu++Bk23KyJ22PYNQhhCbRirZ3yVnoNv98kbGCE8=;
-	h=From:Date:Subject:To:Cc;
-	b=mPTiOnBrcRiYvhdEH48MA8B3jLhdSuY0CP12o1xMeV0yGsm83xnedw0bOdtFNDy0A
-	 tLly8RCPgWjBB2dILWnJbn0Ag2CKgUNDflqRW4Alutb7HFPMh4tpeOoK6JPKyC7iqD
-	 mToXV3F31lMwwHiPKSoz1RKjEbsuEUdEtnjUFdJOuzZIXEyp3L3u1SADAG51SZzgib
-	 H6cxf+xT8XNDFvBoiea0DLC5HBB39ssEBEXASkCVe4Rf600WLt6Amb1qew0rGBtaq/
-	 A2O3foqkJ7FxcCXnVHh4FCRFPS4QVHW3zG6cJAc1GJ7RV3ZoanIIL2z1kTuEXyI7Nb
-	 t8GkAzjVnzBtQ==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Mon, 19 Oct 2026 16:57:48 +0100
-Subject: [PATCH] mm/mremap: correctly uncharge accountable VMAs in error
- path
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GwjjAmxc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792425563;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mxDUftepPPOUZ/7SCslBnNQlYRdDOMe7AAGS48la1a8=;
+	b=GwjjAmxcPacUMf3nHdk1janj0qAR1xYPse47ori4tZ8vFpgp9gXc3Xov9HspwUbkDC09oJ
+	fWdTwmmxE+vY+WuVGxblD8Ka0Pth8tI/dpZKfdoSTQpepGk8G1Kx+1P5B5Yr1Atk9i/+TB
+	fvhBEBnex36nKVyH06i5r2P5joRy9cM=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-213-I0xvQN0zMnCVxghSPcACeA-1; Mon,
+ 19 Oct 2026 15:59:18 +0000
+X-MC-Unique: I0xvQN0zMnCVxghSPcACeA-1
+X-Mimecast-MFC-AGG-ID: I0xvQN0zMnCVxghSPcACeA_1792425556
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0F64A1954ACF;
+	Mon, 19 Oct 2026 15:59:16 +0000 (UTC)
+Received: from warthog.procyon.org.uk (unknown [10.44.48.11])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0AFCA41B;
+	Mon, 19 Oct 2026 15:59:11 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <20261019145624.309790-2-jarkko@kernel.org>
+References: <20261019145624.309790-2-jarkko@kernel.org> <20261019145624.309790-1-jarkko@kernel.org>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: dhowells@redhat.com, keyrings@vger.kernel.org,
+    Eric Biggers <ebiggers@kernel.org>, stable@vger.kernel.org,
+    Jann Horn <jannh@google.com>, Jonathan Corbet <corbet@lwn.net>,
+    Shuah Khan <skhan@linuxfoundation.org>,
+    Randy Dunlap <rdunlap@infradead.org>,
+    Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+    "Serge E. Hallyn" <serge@hallyn.com>,
+    linux-doc@vger.kernel.org (open
+                         list:DOCUMENTATION),
+    linux-kernel@vger.kernel.org (open list),
+    linux-security-module@vger.kernel.org (open
+                         list:SECURITY SUBSYSTEM)
+Subject: Re: [PATCH v2 2/2] KEYS: Reject keyring creation with overridden credentials
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,88 +89,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-other-mremap-charge-leak-v1-1-d94477fe6545@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MSQqAMAwAvyI5G2irFOpXxEPVqMGVVEQQ/27wO
- DAzDyQSpgRV9oDQxYn3TcHmGXRT3EZC7pXBGeetsQH3cyLBVWiNB6oiqiwUZ2xL54vCd8aFAJo
- fQgPf/7pu3vcDFbuVVWoAAAA=
-X-Change-ID: 20261019-other-mremap-charge-leak-b426336c0299
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- Brian Geffon <bgeffon@google.com>, Dmitry Safonov <0x7f454c46@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, ljs@kernel.org, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2175; i=ljs@kernel.org;
- h=from:subject:message-id; bh=Pa2pyigwPtTmiQmHbxbptIgogTHVgWu/s511reRaxWs=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKu2XGyWPy44dQzj7H2zceTUzcuUn+teVrHOffv106Wt
- shbi+L2dJSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiJ58wMrz8fkrB78jDXH2/
- kMJtRq4dO6y+Wqy6sag8wja/YbpleAHD/4ys1X/nXDr2x85UZH4o56mNfQz3DC/OzHjwXHQejzz
- 7DC4A
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <2610819.1792425550.1@warthog.procyon.org.uk>
+Date: Mon, 19 Oct 2026 16:59:10 +0100
+Message-ID: <2610820.1792425550@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-The mremap error path is a fragile and unwieldy beast - it reverses the
-page table move then updates vma_remap_struct state to swap VMA, length and
-address between old and new VMAs in copy_vma_and_data().
+Would it make sense to just reject KEY_LOOKUP_CREATE at the top of the
+function if the creds are overridden?
 
-If the mremap() operation didn't specify MREMAP_DONTUNMAP then its caller,
-move_vma(), invokes unmap_source_vma(), which unmaps the new VMA rather
-than the old one.
-
-For accountable VMAs when MREMAP_DONTUNMAP is not specified,
-unmap_source_vma() unsets VMA_ACCOUNT_BIT during this unmap in order that
-only the delta of a VMA expansion is charged (performed by
-vrm_calc_charge() earlier).
-
-Therefore nothing uncharges the expanded VMA size, and there is a permanent
-leak in global Committed_AS.
-
-Resolve the issue by uncharging when MREMAP_DONTUNMAP is not specified.
-
-Fixes: fdbef6149135 ("mm/mremap: don't account pages in vma_to_resize()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
-Issue was found when I had local AI check the other mremap() fix from today - it
-raised that this pre-existing issue was present.
----
- mm/mremap.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/mm/mremap.c b/mm/mremap.c
-index 6970783fc445..1620006028c4 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -1338,6 +1338,20 @@ static int copy_vma_and_data(struct vma_remap_struct *vrm,
- 		pmc_revert.need_rmap_locks = true;
- 		move_page_tables(&pmc_revert);
- 
-+		/*
-+		 * When copy_vma_and_data() returns, the new VMA will be
-+		 * unmapped rather than the old one.
-+		 *
-+		 * When an accountable move is being performed, this unmapping
-+		 * will not uncharge any expansion, so do that now.
-+		 *
-+		 * A move is accountable if the VMA is accountable and
-+		 * MREMAP_DONTUNMAP is not specified, so only do so if the
-+		 * latter is true.
-+		 */
-+		if (!(vrm->flags & MREMAP_DONTUNMAP))
-+			vrm_uncharge(vrm);
-+
- 		vrm->vma = new_vma;
- 		vrm->old_len = vrm->new_len;
- 		vrm->addr = vrm->new_addr;
-
----
-base-commit: 4dbe24720eb3811563cd56b35d87ddf3f9beed2a
-change-id: 20261019-other-mremap-charge-leak-b426336c0299
-
-Cheers,
--- 
-Lorenzo Stoakes (ARM) <ljs@kernel.org>
+David
 
