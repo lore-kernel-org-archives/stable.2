@@ -1,87 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792432198;
-	b=lltf819uhxTSJ8wAjh+4++HfPBgwD2eLYi17qd/4TzGpWc7UAFVNbH+H1RL7DwF7xEuX
-	 TZbZxEBSS37o0IX4xmRzIoXYrSijPZ4bxM8XKMdy/2FI/Wf2/6WMbQwa2s/OSBOVB7mrD
-	 midqBVGuDfsjXDciQGep2gnLWZUCw288VJ+DJY/hEjuDHO/LuQ5BcDc9qO5NNWQ+dCF61
-	 cJxbe7Fll9S1pF6oNYgad3/YgB8N9MTmjCyYtz1WXHZImOsiIIe3DG+5MeLcDR2rNnR9X
-	 E6FoMfdwUTsXq+CoTUzO+kZcAWYBC5gE6EnQVPWFXyfBqAbKeHF5GElNQMN8BAv4+KA==
+	t=1792432322;
+	b=YmJ90vsd/nr3cVn1fuR41OvKPnPSMQ051ZOIHVI9Qg1gSXWa7ley+NYCoBa04t6j1JEH
+	 7a+co1hTNeEfPSIZONLmYc1gJvrtGgFXQ/bTV/LpGe9hadiS6hdb2oUQEh8/7/j/Tjl2F
+	 uShMRuCtt2IJiYlP8jywhrJOhJ48RvvJa1OlzR0d/SCyMYnnGeRp68m242PY6fwZ/mgeT
+	 NzYqRwkHbN6WUGBoz3GctNnvtFBMF5r0hH/wdVYeGlHYTBq5IFGR+T42K2hlw2iSz/+gc
+	 +yN7QixXA/V3rT+3LGQTxUopt+kefXvjI4Uj2kyfUIp9d3hQ1t7a6/fd2SkrOiZhzTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792432198;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=639/CBjTq+N5Owb6RBW7UK/oNchKs9KrTos6BTqd4Y0=;
-	b=fA2uMvxGBmbxLrSHL5AhBqGw2Xe7t/YytEj6jfMf11PrDmCaO8dB5U6KG/LM3XV9OeSU
-	 fy1qRoh2cV4ivy8ploGE0I+dtOeoDdqKcgFpdmtST10b3VUOSNUOC29HmsByXhqNgiWQs
-	 8U+f2QDF/c5Y1W+l9zKC7cQ/biHAByO07Y/Wndlg5vZDKryNhRrVv45p/SqVtqQj0VV/E
-	 /pK1TMeg3nBQVTCk8gX5qKJYNor9UKHu+zDSpahaklYnTTpZfBLGm/qpXfy+agROoK7GC
-	 VfdE2e69I0R7xySg/0gsGq55burtWculdM+j+ZVYi6uEP2fw8dHS0oPoAOE0JMFgOGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792432322;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:Organization:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=tIMFS9Evml7gxusVnbmoqtHNewlMfrZaUCwAp94NXiQ=;
+	b=3YP/zkTI7oGjVeDqxYtd/1Dha7aD+CkcWqn9b7LN0cdOY1Q0KIXReXAhuMBFXNGjSrX7
+	 Xb4y6lRSYou13seImv6E1UxYHzD+tdJNpea2BAQHlkdvL9MtKxtBXcweJeomCzrboflPv
+	 PPLDdNDG4NL9l+2Qoy1DHuoRlJi4tOVOSJZgbkF7NVqY7/FCRX/sNgwOChR57bXYE1Pxh
+	 mskZ67/+5naAd7qyJmYkSzbxduDa9ZW467/ZCMNM+VsETMFlR5iiSZ1luV1CCbGaj7c1G
+	 HfqiP2/NNZRtzSYL7muikKLI54knPKo/+0PtIi3BW4qUzig+zHz/wD9gzq8O2FSf/hA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TrpmEFI7;
-	arc=none smtp.remote-ip=209.85.222.180
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="d5//Jip+";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A2B4606A320
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 17:49:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A2B4606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D9C606A320
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 17:52:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TrpmEFI7
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93f259cdc86so240954485a.3
-        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 10:49:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792432197; x=1793036997; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=639/CBjTq+N5Owb6RBW7UK/oNchKs9KrTos6BTqd4Y0=;
-        b=TrpmEFI7tgmuxaiLFhOG1AfLDCzh9t38tdaNq4TC34QmZWpMMsIQhLwWy3Sh7ijCYx
-         pzpvDD5z0Y69K9YZ35fk6nObTGwLtHSvnI6MbVCXdWKVcbDG5zdaWKWMLhC9rr/koPKK
-         y4ZPae8rIOQWAY3VgxcGUftjggF5vUPeVVsPkoaC8TPxtSguw9get4ubsu/KYfBMBn6D
-         Ll7UNzML1468VNpDI46hqB310SFY+K7icsuHYIPtj66PBlOIo5H3xk3qL2PHBQirAt9H
-         2ZNYdYwBob2Z+jiH28e6HL/xN9qHQJ2DIl5BKOcB/gZaIx8duypZz54wIoGpVlgzPcTu
-         4qwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792432197; x=1793036997;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=639/CBjTq+N5Owb6RBW7UK/oNchKs9KrTos6BTqd4Y0=;
-        b=bL0hz1F/cLzUsiRcs7jO1EZEymWnqgyw1qzP2mh94xnRrm4MMZt44D55bx3R/M7xKZ
-         3lMSDPRjvXTBT5coMRNUFqCthUXljSwXSu8wfWBI6vVYW5QVyhggEwUMVbntBPNbzERf
-         SyD2344g4viX+QpKKdlA7YiIj7F2lFvKlgYlSUlfCpTX5OL7fuc5I/ytVFq70Pz4rqbC
-         qGq2y6hbo2BwbcqbsG9ZpRHtf6sYPnBGvfn5f8gckfDgXDJIoGGD+Gb+Tmh2qGvnCRDY
-         9lUBNKzIYx11zVW3Txzm0eUkMlRt9QmvQ+sUkP0yqZYtx7W/1XfetXzQGOdS0SMmFOZi
-         yBAA==
-X-Forwarded-Encrypted: i=1; AKwUvByZRAh/tw4Nwhc5/BMpL7WM8LZmsDiydDjNJPWxjiHYwLlozRS9WcwMh9LSG+lCgOiPLxeGv2s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqpw0c5SZ5VAGlSJda1m6+i2WGtFm06AA5tR8yiUpNX5Hlf8qT
-	u5DRbmFYRCSpw9uz8JofCMoSpPTaPpEvYaLrpMymUaMG7f5apelT/DfR
-X-Gm-Gg: AYBFou3tsjaYzmcMI5GCk5vO165Dq3iu7iR3/BIxODeb+iPBYWql0yfdFhbsqzNcdnF
-	j8F21+xFTGy8w6Iiw3BHETDQ2cJVivkxgcjt+koh8k3bAwgjz1/owcFjp0sup/U9QVVKLPc1EZ0
-	EEoHQYUxjKI9zsq5CR7eFjnmc128lOi270Nk5KHChMyIM935pMi4Cw43oLJk06/IcHwded9p0bG
-	qcQOsAXRA5FnhLvnH0Jo5m9FHChAPnhGgAOFWoJkKH6hyzEsQC4GGXbee5ToiODlqXgE9dteNav
-	d6OwXITH4dXz/NfhWm7NRlPIr7+Co++MU7STxCDGV6/+CqDjCEvCY7QpdpcH5HAWRjek79r+jwF
-	nihg0OhBDvi4qufj52lPQjoz+0HvM+aoL7xH30tTa0PmaWnh1n0W3RZj7fijzmjNUk5S57fPp3h
-	sE7f5srdsb1TGMf+V6xF1UOos1AzlCMRGchLA3ZIhLsN8Yx15+ugoFkT2u8U9Ir8qrHta6lcbek
-	mJro3ear7z8XWFmSlDK869r
-X-Received: by 2002:a05:620a:410a:b0:93e:c12c:f127 with SMTP id af79cd13be357-93f29db24f9mr1288869885a.83.1792432196991;
-        Mon, 19 Oct 2026 10:49:56 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f4af465c2sm17387785a.4.2026.10.19.10.49.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 10:49:55 -0700 (PDT)
-Message-ID: <41fd012e-e699-4165-8224-e0f65f4a4a8d@gmail.com>
-Date: Mon, 19 Oct 2026 10:49:38 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d5//Jip+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 249FB1F000C4;
+	Mon, 19 Oct 2026 17:52:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792432321;
+	bh=tIMFS9Evml7gxusVnbmoqtHNewlMfrZaUCwAp94NXiQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=d5//Jip+nneMljLnBsnQjJS1NSMay2jyygvYn3rfz2PAFm5ROuMED9tfD3cQXUD7P
+	 W3fNxG7gvvJxxfQ5BWMW9/S9cxhQbLxBv49C9wJShpqwJ9/9qoF+Mvk5/dMbIKHfv8
+	 RzuvJ2RST8YQJkpZ1TxSOJVAeP3CJ65X9IrinJpN7wRWB1KEAxSBxgasNPFc+YbTZK
+	 +Df9hQHuvkRFtxEAJW+Sqa0QzbNe5kBhJ74qaWmK9RqPOqnrPCaf2gL8RQTyMQxkdr
+	 tpi3nsZbv1LbA5LOVsTeNLWnxbXfjTzyZreXhxfThnATVKIZpLobyv5uT3zVZABezg
+	 sW/tRW7jy1zcA==
+Message-ID: <8146853b-69ad-4d49-979f-334a4bc83df2@kernel.org>
+Date: Mon, 19 Oct 2026 19:51:59 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,57 +51,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 000/869] 6.12.114-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261017160036.979869304@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20261017160036.979869304@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: stable: queue/* branches no longer updated
+Content-Language: fr
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org
+References: <e6ea1805-3e82-476c-86a8-096b80bde74a@kernel.org>
+ <aImjNPvGPMqFu3RD@lappy> <9989cd82-d126-4dd3-96e5-37dad7f733fb@kernel.org>
+ <c9ca13cc-a7ce-48ac-a7b2-a8bdc823aed3@kernel.org>
+ <08bac413-ad6c-4e3d-a879-554ab0f195db@kernel.org> <anNf2xwwXDfinNQs@laps>
+ <9b7ad8ef-a10a-4a94-9244-0ff983ad480b@kernel.org> <asS7KK444n7U01u0@laps>
+From: Matthieu Baerts <matttbe@kernel.org>
+Autocrypt: addr=matttbe@kernel.org; keydata=
+ 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
+ lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
+Organization: NGI0 Core
+In-Reply-To: <asS7KK444n7U01u0@laps>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/17/26 08:47, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.114 release.
-> There are 869 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Mon, 19 Oct 2026 15:59:15 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.114-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Hi Sasha,
 
-perf fails to build for ARM/ARM64/BMIPS_GENERIC with:
+On 06/10/2026 11:11, Sasha Levin wrote:
+> One day I'll figure this out :) It should be back up.
 
-util/event.c: In function 'machine__resolve':
-util/event.c:775:32: warning: implicit declaration of function 
-'perf_env__get_cpu_topology'; did you mean 
-'perf_env__read_cpu_topology_map'? [-Wimplicit-function-declaration]
-   775 |                         topo = perf_env__get_cpu_topology(env, 
-(struct perf_cpu){ al->cpu });
-       |                                ^~~~~~~~~~~~~~~~~~~~~~~~~~
-       |                                perf_env__read_cpu_topology_map
-util/event.c:775:30: warning: assignment to 'struct cpu_topology_map *' 
-from 'int' makes pointer from integer without a cast [-Wint-conversion]
-   775 |                         topo = perf_env__get_cpu_topology(env, 
-(struct perf_cpu){ al->cpu });
-       |                              ^
+It looks like these queue branches are outdated :)
 
+Cheers,
+Matt
 -- 
-Florian
+Sponsored by the NGI0 Core fund.
+
