@@ -1,75 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41BD54825AC;
-	Mon, 19 Oct 2026 06:08:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13C0B481FA1
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 06:14:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792390136; cv=none; b=W/rSbH+y9dgMhaefMM6cKgX2p1q6hdrpgf1QVSNlujBSugz6ExsPo+sb3kRn33fYRX6Czyf6nX4mAZueeb3iqMj22P548QgQOEjuAkHTng/Dhqpc5sD4Z6b9U19hp8JvOv33GIHEa01ulW5htaYpgXvvLwgZ9UbDWAxiZSSOo4o=
+	t=1792390494; cv=none; b=mlvVtmHtA3rcn4fBJtkmgqB0S4Gz5CM7xqof1BMyj+cEZP269F6kGfJPGhlnWARh6O8dvigLtp850uArn2jnkQgyBeZax2p3Vqsd2LUHsjxWbJg3HiR4Rfl6AF3iFz7Xi03GOUpxBzHoEZs4pJZ877Yz7o7QtapSW/kYBSXzF0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792390136; c=relaxed/simple;
-	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=W40j2TL7R60+xtO02FIQtV/KXmWhAXBi/f7t5eXfwqJbOvP81SBuvCa/63rorBZJQmsAw6/93gu4BUhrcY2yo+4kHNHOUjLRM3IDUE/b9ytwo0z9ce/fqIpJcDEKcYZwNOM7kZCXZNXmaH36YiI6f37ANLsQr2Abt/gtk7/Q03g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hm+e6IQI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792390494; c=relaxed/simple;
+	bh=hLviHrUQcnY9d6Hs59o7A7DhG6hJV3vxIcScsJNeYyM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CDYP8HL8qyuh1lnz7lSpnoLFVjI+grYm+P155hpQSna2Xz8Y95PclxJbaCKCaMLFV+qTiI8OURf0A3clr6Z/6wyEO1MhHT2TEE/zjJr+3e9k2MZRhQM33Sy4CPJ6lHhSe5b1ASF7kNZy3crIVDUtlq42wRel5ZHqq3TLC9bUOqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b15sAq9N; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hm+e6IQI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 314431F000C4;
-	Mon, 19 Oct 2026 06:08:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792390134;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hm+e6IQI5UfsED0++0zXpsNPCntBVdjonmn83/RneO1/jekcMBn3XI0qT0ZGX1BWt
-	 DIBmVhx2qOcxdS8ChEHmdd9EV/H8uyEppR8hukOFcMYAgcQb7pvd/YAeZOtm5pnW2h
-	 BYF2AHg++20ggCQAjwbrWCHSFifnJocBodfm/3/x8VzMuGSqR6QfY8cWhcUy9yTh48
-	 3z/C2VL+/H/exmyMx1vc8wjBt6I2wxcFWUOhr2e98/ThQoPH8Aa/VfCCCkdljJvgrJ
-	 O1blebw1Hc6e3/tf6bcr1tPotXcG8+n+GBRd2ZbvbUIy/0z5INJzywmWrd/7tZJb0q
-	 1neu5m+dXJ5xA==
-From: netdev-bot+sinfo@kernel.org
-To: Mengyuan Lou <mengyuanlou@net-swift.com>
-Cc: netdev@vger.kernel.org, jiawenwu@trustnetic.com,
- duanqiangwen@net-swift.com, linglingzhang@net-swift.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, hramamurthy@google.com,
- jacob.e.keller@intel.com, stable@vger.kernel.org
-Subject: Re: [PATCH net v6] net: libwx: fix VF PM suspend/resume flow
-Date: Mon, 19 Oct 2026 06:08:53 +0000
-Message-ID: <179239013366.3290.140006599068872765@kernel.org>
-In-Reply-To: <20261019060216.38458-1-mengyuanlou@net-swift.com>
-References: <20261019060216.38458-1-mengyuanlou@net-swift.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b15sAq9N"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ab3260b2cdso818617a91.1
+        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 23:14:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792390492; x=1792995292; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CH7/2Pn88Czop2CrZPadAXkcJAGF4wsEW/e1YNB1cxQ=;
+        b=b15sAq9NWihv6GFpfqSH5HJ3jmNXepVPacRSjllpONskWo3VoEK4Itgk5hQGhDqVUm
+         OWiPBYy0UhE40WYO7DWnLZlZpp1Jwz4eqeXN2NSXpBe447i3vO6tMCc7g3awQB10u3Jj
+         jTYX/R96bQphJx/b/em2D3HoMpomNXcg8xaw48nYpVKInNkwqKttKW2Y5t+OgBhBj5Fy
+         EbpmE93ZISJExcTC6ZjYcexazX0RFzhEETQCXjJaWpZSM11D4gqsKPPoT80kk/2BPyfp
+         49Q5kSYl++unHpMs6blx4qxYak19NowZTS7eZvDPax0vG4/9RmoFI/cMVEqXRgNQ7P5Q
+         Zvog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792390492; x=1792995292;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CH7/2Pn88Czop2CrZPadAXkcJAGF4wsEW/e1YNB1cxQ=;
+        b=qLcGTBxGElvN5XhxHA8bFlfKjo6k3q2z2Rn+KQkb4VXahiykMYBG5t5sNvBDhs0cEJ
+         b0I2Vz3jpx9uwrPgRHgUo85iKu1QIYR+zkJWYLctARu8zLUke9Lv0BjNpjkfH1OBCcdo
+         /zsrKQBBhbIPJknRY24uHry9E7j0WreutschZogkjWbecnnxkGHDPaQUu5gHECVEvynS
+         tizFJl/sTyQR7cACrOq8NpFSSiR0c/od2PGYWOBVFe9JQbJCoZWuv8h5cWxFac2Ws4nf
+         lij8AAal1TS6d67QVOL62tgoIXGZcSy1TScn0g3brtG3RXOmE3AVP9opW1P/88Vjajnb
+         Khow==
+X-Forwarded-Encrypted: i=1; AKwUvBzsA1VKdmdXZz0S8OERTdb2ThWuIOb0JGFtnsAmbyOTz04I/JREuklXrUNn/YyYMWPLGerw9IQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEvtlI22WAQt14TIaVCEguj/7JVXmsRu9Sz07NX2T6ijxv5O7O
+	1vPuC6a5SMleZT2Tg7t2YKIE6cMPr6ndYkK4AVVXD0s3cC4XTyqw/h0h
+X-Gm-Gg: AYBFou0oBcphywQcUM+sxI/s4LpBPMtaA3g8pqwauaJ8wBHAHaSk2pWNh0rqwBbZxPA
+	cpHNnX3llH4HU8kXWbI3Aipo8fPA6+jY0Fuv4s1KkIucK+uf5V5lvtsNlcDzYtRap4EZSuddd4P
+	l20dN+cX7UTq3/dzJVO4VuytV8VgP1JHQG7YfguodgCVBRWGnIywrTtQABEZcNYC9i2TPVok3BM
+	7A/JDLmiiSBqK7UO8gBdBcaIIXOwolANTf9NkqdtiCwf9TOqCqYLf808YFaKJzHzf9nVlLOtEi2
+	sCe+VTOLrD6+0ILQ9QgERg5FpCgHhTIkEnD4pkeD/GdUzuVJmHBmiLiNDc49wI9rvkUjwPRIjgn
+	ydabj956EZpyGWEVnaEY0amvy+b20qWRpaBxOrTPQnaPwZorlCPHMZpDLQPWDGz1w6CJB5xLftH
+	Qohrtjbr+eRFKT7sC9d2zcRKnUrbiL8XhkqWEf4dgYAJ4JzzCcaZwP50Afd1To
+X-Received: by 2002:a17:90b:3851:b0:3ab:c80:9362 with SMTP id 98e67ed59e1d1-3aceeea8f3amr5078332a91.35.1792390492104;
+        Sun, 18 Oct 2026 23:14:52 -0700 (PDT)
+Received: from localhost ([27.122.242.71])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac94794dd9sm19035101a91.12.2026.10.18.23.14.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 23:14:51 -0700 (PDT)
+Date: Mon, 19 Oct 2026 15:14:46 +0900
+From: Hyunchul Lee <hyc.lee@gmail.com>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.com>, Al Viro <viro@zeniv.linux.org.uk>,
+	ecryptfs@vger.kernel.org, linux-ext4@vger.kernel.org,
+	jfs-discussion@lists.sourceforge.net, linux-nilfs@vger.kernel.org,
+	exfat@lists.linux.dev, linux-fsdevel@vger.kernel.org,
+	ntfs@lists.linux.dev, ocfs2-devel@lists.linux.dev,
+	linux-btrfs@vger.kernel.org, gfs2@lists.linux.dev,
+	linux-efi@vger.kernel.org, linux-mtd@lists.infradead.org,
+	linux-xfs@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH RFC 14/28] ntfs: don't set SB_RDONLY after filesystem
+ errors
+Message-ID: <atW1VhJXAIvtYPfd@hyunchul-PC02>
+References: <20261012-work-fs-sb_rdonly-v1-0-60743a3dc326@kernel.org>
+ <20261012-work-fs-sb_rdonly-v1-14-60743a3dc326@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261012-work-fs-sb_rdonly-v1-14-60743a3dc326@kernel.org>
 
-Hi!
+Hi Christian,
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+> index 4066bacabe37..12ad2ce938ba 100644
+> --- a/fs/ntfs/super.c
+> +++ b/fs/ntfs/super.c
+> @@ -269,6 +269,8 @@ static int ntfs_reconfigure(struct fs_context *fc)
+>  
+>  	ntfs_debug("Entering with remount");
+>  
+> +	/* Mark the volume dirty first if an error made it read-only. */
+> +	flush_work(&vol->error_work);
+>  	sync_filesystem(sb);
+>  
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+    if (sb_rdonly(sb) && !(fc->sb_flags & SB_RDONLY)) {
+        ....
+	return -EROFS;
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+Before this patch, SB_RDONLY is set, so remount,rw returned -EROFS. With
+this patch, sb_rdonly(sb) is false, so remount,rw skips the check and
+return success even though writes are rejected with -EROFS.
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+I think that the condition should be test NVolErrors(), for example
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+    if ((sb_rdonly(sb) || NVolErrors(vol)) &&
+        !(fc->sb_flags & SB_RDONLY)) {
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+-- 
+Thanks,
+Hyunchul
