@@ -1,98 +1,76 @@
-Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 415D14F6469
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 14:13:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 015C7552EAC
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 14:13:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792419234; cv=none; b=DlMMK3A8hMO0nHhXnEL+Qa2Sx3mnxoXGcXjg87Fon2dAom7oLdMdK1+5R685mTfWxOnDvmzs95PibiPaWF5tIKaHz4FRaX5QNSeKIcaNQXS5QlVh5M15dCMdavVQiKHoJtdD86rjAvyBfl/Pu6CQ5RqRRXOxWdG1Dw9yaAAlSiY=
+	t=1792419237; cv=none; b=TU9hkKjh+Fx75dYgjiHvscp1HeRDrec3tUj2w7/8I+Y06Z7CALythrNRIGQS01/K25BuUGLEHOKcelrG+j7K9AGEYiyvziFgcA1Lagc5U+8xX3YR70ZZ0lBPoPQ35sD+qB70+s5iSrifyqW//vWDs/PocwHgI3vXvQ4jt4POqgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792419234; c=relaxed/simple;
-	bh=bz51zWK3lsygrwU+pTmiPdYM3xUzHrKDRl5VJvqLxIU=;
+	s=arc-20240116; t=1792419237; c=relaxed/simple;
+	bh=Xj1tXuPgTXzaT3nix7piE0Gi8Q7+az0H1KHgxrxkFZw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P50SYXQdLbELWaNNgb8tU5FzgWhHyDw8Pif2KQ/hnIe2Z49Rm4ZkfYsuOxaDYalHgV+80MnxrDLUNjMdELrbLZS9K1BgDV1H/DACJ/AzxAbypX5Mq0zZkFdl2lmRdQpL2fywwbOgPK2A1C5RV5xMKvyPT3wkkrc28l1rPq/hPxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=KW+DLg1g; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=EoTxvB4l; arc=none smtp.client-ip=202.12.124.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=nSIwOLwrXMJoqF4fxbsDGn/ohegeGr/Y+tuhoR7wD5xtaMiemcJQnhoO9KjSNVJCqhIo+5Uu62doJEyem1Xocur/jlbG/77IDQFwQDRJFCDTJyOmeXkrdhjkUZthx0K4ZOzJmFqilwHnzG5oU9RXj5lA8vDU4dSUKigqhDccpLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=YTFZ7HMD; arc=none smtp.client-ip=209.85.160.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="KW+DLg1g";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="EoTxvB4l"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 76F5A7A007C
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 10:13:51 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Mon, 19 Oct 2026 10:13:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1792419231; x=1792505631; bh=J9xWzwJZWO
-	lbdeKeK3bTThQv26NxXY4xrdFqvt2pQjk=; b=KW+DLg1gy9bh7/N7i50vIwU+w1
-	UUOLLFegD092p95o+oGdEdu/V7S+8Bl5QTPm7kA2EQm8kIILyWjMoHM5vL9sBrf0
-	+KA2FTsl1H3RedoLNexkXysRJRXEqHHY6UFFIoowDldRWXPuDLCXO4njUYwk4F35
-	qGh6WP/aLmmEzID+pavgdNSd7seQMmep1mDBdk4aWZUFf0FyZZCgtSJvN31etfYD
-	6ciAV8cwhsZCWiaBXYK4a3BMV2mYJURwqMVA6pVgXoV2ijuh3yjUUcjoi2896U9b
-	idqhj7PS+HtlCg+62GW0TAJeFwKzWpKJYIb5M7hTNY0ZH/jOquUX6czZsY2A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1792419231; x=1792505631; bh=J9xWzwJZWOlbdeKeK3bTThQv26NxXY4xrdF
-	qvt2pQjk=; b=EoTxvB4ltDNh/HD+RhJr8I5PWBhAEMRgCmA0K1XSmarvD1yFYMS
-	8yC49QdkpLI2C4fviaC3XW4mvn21YvKCs3Az8nYvowoQVMifGYcho4zzKBUwf1zR
-	MuZGbkqEfPfhcqCobOBY07MaT3n/cVs1LdmJHrVxrR+qM7/cL7/AGqvk+WSpsG1B
-	REYPsbLrPecP2lNblaywBQUmb1lbfKzYkNwGRaoq9LYrVx+nhWQGNUJ+P9XpuRfN
-	8kM45dKhD9iWRxsJAeTrar10V49LDBQGusiHDjDzZq9v9yP+Pq/kcuQ8+rzqBroU
-	hQnQvIuC3VT0FOPiHuAJb0L4uuQ1l3WK10w==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=kroah.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792419231; d=kroah.com;
-	mf=PGdyZWdAa3JvYWguY29tPg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:nhOHRgi2etBSgTagcc70TtVQDEYvxsn7e01XawnpvjioNCl
-	XgFzPxFws4igBKFPkedXlWwV1dfYxnnmItVZ1PenhYJyWPFD1FsbqO/T/jeU3DRe
-	TLsoRy20q2pGr0P3hi35hvUFtnmyyneHRHcXVjASLTLC4uLqDzedPrK9dxqhh/w/
-	ME+J7yu2i4yc7hyCInUQL8hWI/jfzE0y8RZAslZb623pjsxx7lH+BXNxqOUMZAHb
-	4iekvsEgvfZXtsogYzn+IE5v0ZcRBnUOUGnqp0gXcjg3hqTLTgye8ae41aFnbCuf
-	qcv6EOYJek4g+nGEstpNJsZqcMsHoQpuylls06A==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:OLfAuuSEUFRxePVTML1CvBGp8d0gDeBuwWXDhjX68QQ=:bz51zWK3lsygrwU+pTmiPdYM3xUzHrKDRl5VJvqLxIU=;
-X-ME-Sender: <xms:nyXWal_CtAS0cKIUkaZVdrzi0torrGEQUZQBs9O71nTatOFtI-VApw>
-    <xme:nyXWasT83ytT_Qc_so-Z3X13bc0yMHLgom8Zi99yDvUS5h9P_jp7PKZGsnEtHoHIU
-    iNm9AgTJagi_RHfhu0YfrIdSQEihpexNTBsTcQaROYn-vdcCQ>
-X-ME-Received: <xmr:nyXWamqMRG8mlRRb9i5KCw9r-lKwk_9nusqww_1CevYoCCjHY5LeYZyK4N0XwLH-QOmVBDCRUsMCVukGvN0>
-X-ME-Proxy-Cause: dmFkZTFm4Amxcp/cEC3B9PqZvqSO6JSMhvY9if8ijjQYumYqZ/QqnPMn+tjx1VMe0FydCQ
-    lliEF2EdE21QaXvZUl7ew3nc0IZ/LgJO7iXKA0gzk8H78Zs9QW2vXBkFBp976JEYM2R8Q0
-    1koe7XsNEWF79sGpPHZ6+U35IGfUrIGo2To7fO9xtItwMqSjYkBzmBpahPq7LhHpph21mD
-    q7jb+7PwUlR8aVgG4ZkQYL/sCYWYbDU/udtH2qWAzDD2KGbLy4krbk7hlOs+tZRG7XBvqf
-    w8JfoxhIrt9LeHIeyUJqBJ+qquMuXEAvZCi/s9oaEGq2N9kdo65Csce9gyZiQI9pWHsbF8
-    hPrur+/T1R1hmVItAQyVE41LVv5NVhHBSfyZjvXg/d7vrOxQb9Q2MpjYYb2gylrExF+Y6k
-    w5e4YIbISIQLPJ07NJfqczEkIIkKfNM9PZXQk+MbjSUXNC1L7SBiCDMT4DMdzL/A1ZYBhK
-    Uiu9j8brEFaS8nENajjmKSkdSEshCRcxTnsTUcRAOs0f542aF39llHQFKFQN2q8+4XzoIG
-    fKkRxKxg7u/0PyZ4tLcLfKRvIcixA++MXiEaonUzqNEjF82XgSTyTmF36oaWa7oN4s2k3T
-    6htGGllYDGoE5DJPjML7C+li/FXtA+7zwiQpzmMgXQZpJAaLPqurKX0ocWiw
-X-ME-Proxy: <xmx:nyXWapm6m2G2MTgTteShZOVCFYam08yTNlZ_DbgQwQlsT0m4SokVpw>
-    <xmx:nyXWavcYgK1Jt9nN9RCUWuy0r_sq2nMYXnz1H42sbMh8BhBiLjIlBg>
-    <xmx:nyXWalpBTj0_sIU-qWrEneihP6LNsj6QYfwbRCESd37eY875C3bUQA>
-    <xmx:nyXWapOrB339rPpaFdBB_SYxScNBiR-7Ji1YHE48RXh2I2xj_G7q7A>
-    <xmx:nyXWauNeesbcOSeDCcMBmy3RgvOfhsrTZZGNMRM1NewGx3giPZkpM4jy>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 19 Oct 2026 10:13:50 -0400 (EDT)
-Date: Mon, 19 Oct 2026 16:13:48 +0200
-From: Greg KH <greg@kroah.com>
-To: Ilan Dudnik <ilan.dudnik@safebreach.com>
-Cc: stable@vger.kernel.org, linux-cifs@vger.kernel.org,
-	Namjae Jeon <linkinjeon@kernel.org>
-Subject: Re: Subject: Request backport: ksmbd: fix heap out-of-bounds write
- in krb5_authenticate()
-Message-ID: <2026101945-unlined-swizzle-11f9@gregkh>
-References: <CACdWfbyqY_rUJ_Qj0HvuHGEb-PBjwj6eKYCY+r1WZtNnsWuhiw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="YTFZ7HMD"
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-53669f7b518so10847531cf.2
+        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 07:13:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1792419235; x=1793024035; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5BlttwcoFjB9LyfPGuIFgEh48duPPMU/zmrf0OZAJ0E=;
+        b=YTFZ7HMD0+7eZ0cb4C8DJvhGaaAIA6s1oS0hIaYf7kL2wQRV+jZYSV9KxZGeBF8JS4
+         TXVFnK+81s75jp2tm77iwoWJMVq1KL3zlwcfDoqcGKhxtGkwDxujOSW4mgcSfaoEGZiQ
+         yQmxvhJTVl9xc6i/eDFIxsUkRzJlChX/LeXyNHXv08kbEZMhvdu/JmMGpfxj6uDwVRZZ
+         8P3SSpVfZ+KE9tzgT8BL6MIQkgfPdyVxStqzrp3TDDL5YzFc7JiyrNibTY5g30HsOeRk
+         iif9nlaAjJLNu73mXLR2QYHJ5oHAh5fz+OhUR1yCr8zn7AtNSKEaCounzi30FMfcpfGi
+         mIPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792419235; x=1793024035;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5BlttwcoFjB9LyfPGuIFgEh48duPPMU/zmrf0OZAJ0E=;
+        b=Fw++Dnd5VvwN1qjhy328jMqwFltRG/V7t6WtSaKKrSUJ1MsMYZFyy6SsiLcH8J173P
+         XiP1P9Jz0jEeq0Kzzq3xUoFyzRRLeCWrNuagApmMjedU+5nRmcg728SoTwDRFezG8CSy
+         vHvrToR1IV4y0ZtF/0JdACHg5R8PNfjYeaY2mO8GD7TiFjkoPmUF7UsFbleOFiXNUlSl
+         zb0QOApYGf8n0azxuj+slBirpFZffaVQ1+O99/Aziy/DdWcd+wkA4Y87aM060feY2pED
+         IKAnZ17c0p/4nDvFMJbSCex+VioOjYuaXCaVr2Xam/GrACOAfGRNO6yaueputKtYQj4G
+         ReOg==
+X-Forwarded-Encrypted: i=1; AKwUvByQ3BVBY7f45b77ecix9EXulG9tPHWaeaVCSA1v0p0f2YuSZbfC++w27Y6Q6vbi/13u9EOxhdk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ8FxavcA/8mkSnCDhHXKhKvuaHeKyVFtYj0JGAy/10QjwwByJe
+	ONND5NPge06GGge0XN8KpHyt2/Ej3FtOPt9ZSrxEDiqsGdHHHrWCyeOlThmo6Jo+iQ==
+X-Gm-Gg: AYBFou2DudeAxahxbGbQjjetfr3rEU6sfhdvovV1dmHvxtofcfwZ0BmNUlsUTDU7AOL
+	72ZIGwI06uJbHnILe+5B+3xxZc6m43p01DoGhRZjMsVttZB0UGcNxJCbzPuY6oVDfmS7PbF6WNu
+	P2j6EJ0758/IqdWKxefBWl/qmcwqEhdwd4DYGI1CaLAy+RfDjM8DXeJ7JyEOCEtwyOctA1UxuhJ
+	AsCwB0/91Jnc7pSc61IqlWz5HnXQH8wZLZhVGwMECa5fjhDts+u7rBlKyeu+U50PrGKYWEyGMKE
+	jbFU13bJWkHaoBeVWzNtndmTls82zF8OKXgWqWkBK63J/wmzn3Y7qeXs3MVe5npncT1R+4u/5px
+	Ry0Qhd7KcMpMGWgmHQWKIvOKdycyaTW2NXnCFZc5ekSMWM46uOA141NVriyX/nTpTyKwep3BmNd
+	5oeAfi/AfvGoDHsGD8wTi+QGPJHphJehl9QKnTJGbVb5vw6HZySr95Gf8vAyChJHSptll7fOJbv
+	HZ6wSp2B/FoM/mJhKMAsxWVh94=
+X-Received: by 2002:a05:622a:514e:b0:530:42d4:4c9a with SMTP id d75a77b69052e-5364605937emr109597891cf.44.1792419234421;
+        Mon, 19 Oct 2026 07:13:54 -0700 (PDT)
+Received: from rowland.harvard.edu ([140.247.181.15])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5362a8e43cfsm99785331cf.5.2026.10.19.07.13.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 07:13:52 -0700 (PDT)
+Date: Mon, 19 Oct 2026 10:13:50 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-usb@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com, stable@vger.kernel.org,
+	Antti Palosaari <crope@iki.fi>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Subject: Re: [PATCH] media: dvb-usb-v2: ec168: Reject zero-length I2C reads
+Message-ID: <1ab79363-7211-475d-8529-1d5c00586f8c@rowland.harvard.edu>
+References: <20261019123542.4040472-1-andi.shyti@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -101,41 +79,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CACdWfbyqY_rUJ_Qj0HvuHGEb-PBjwj6eKYCY+r1WZtNnsWuhiw@mail.gmail.com>
+In-Reply-To: <20261019123542.4040472-1-andi.shyti@kernel.org>
 
-On Sun, Oct 18, 2026 at 12:18:33PM +0300, Ilan Dudnik wrote:
-> Hi stable team,
+On Mon, Oct 19, 2026 at 02:35:42PM +0200, Andi Shyti wrote:
+> ec168_i2c_xfer() checks the length of the register-address
+> message in a combined demodulator read, but does not validate the
+> read message length. Userspace can supply a zero-length read
+> through I2C_RDWR.
 > 
-> Please consider the following upstream commit for the stable trees:
+> This reaches ec168_ctrl_msg(), which selects an IN control pipe
+> for READ_DEMOD with wLength set to zero. The USB core treats
+> control requests without a data stage as OUT(*), triggering the
+> "BOGUS control dir" warning in usb_submit_urb().
 > 
->   23a0be6a84a3 ("ksmbd: fix heap out-of-bounds write in krb5_authenticate()")
+> Reject zero-length read messages with -EOPNOTSUPP before issuing
+> the USB request, using the existing exit path to release the I2C
+> mutex.
 > 
-> It was merged in v7.3-rc1 without a Fixes: or Cc: stable tag, so it has
-> not been picked up for any stable release yet.
+> (*) is_out = ... || !setup->wLength;
 > 
-> Why it should be applied:
-> When SMB2_SESSION_SETUP is processed as a non-first element of a compound
-> request, krb5_authenticate() computes out_len without subtracting
-> work->next_smb2_rsp_hdr_off. This overstates the remaining room in
-> response_buf, so the length check in ksmbd_krb5_authenticate() passes,
-> and memcpy() writes the Kerberos AP-REP blob past the end of
-> response_buf into adjacent kernel heap memory. A remote client holding
-> a valid Kerberos ticket for the server can trigger this during session
-> setup when ksmbd Kerberos authentication is enabled.
+> Fixes: 2bf290be4f3e ("V4L/DVB (13364): ec168: add new driver for E3C EC168 DVB USB")
+> Reported-by: syzbot+ed3ada41c4eb1c4ab78e@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=ed3ada41c4eb1c4ab78e
+> Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+> Cc: <stable@vger.kernel.org> # v2.6.33+
+> ---
+>  drivers/media/usb/dvb-usb-v2/ec168.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> The issue was introduced when smb2_sess_setup() started passing the
-> compound-offset response buffer to krb5_authenticate() without updating
-> the out_len calculation:
-> 
->   Fixes: 98422bdd4cb3 ("ksmbd: fix out of bounds read in smb2_sess_setup")
-> 
-> Kernel versions:
-> 98422bdd4cb3 was backported to all maintained stable trees, and the
-> vulnerable out_len calculation is present in the latest releases of
-> 7.2.y, 6.18.y, 6.12.y, 6.6.y, 6.1.y and 5.15.y. The fix is a one-line
-> change. On 5.15.y the file is fs/ksmbd/smb2pdu.c instead of
-> fs/smb/server/smb2pdu.c.
+> diff --git a/drivers/media/usb/dvb-usb-v2/ec168.c b/drivers/media/usb/dvb-usb-v2/ec168.c
+> index 973b32356b17..f6b98c7d3704 100644
+> --- a/drivers/media/usb/dvb-usb-v2/ec168.c
+> +++ b/drivers/media/usb/dvb-usb-v2/ec168.c
+> @@ -115,7 +115,7 @@ static int ec168_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg msg[],
+>  	while (i < num) {
+>  		if (num > i + 1 && (msg[i+1].flags & I2C_M_RD)) {
+>  			if (msg[i].addr == ec168_ec100_config.demod_address) {
+> -				if (msg[i].len < 1) {
+> +				if (msg[i].len < 1 || msg[i+1].len < 1) {
+>  					i = -EOPNOTSUPP;
+>  					break;
+>  				}
 
-Now queued up, thanks.
+Isn't there an I2C quirks flag to indicate that 0-length reads aren't 
+allowed?  Setting that flag would be more understandable than this test.
 
-greg k-h
+Alan Stern
