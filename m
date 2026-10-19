@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792443361;
-	b=euoru701Zq6wqw4Juup8djRhVwwhVgktn5xgA1TRU9nJnAbo0O8Q/6uwc1Cfd5ZuQqbv
-	 RpDP9PSztOUVxBladCJCkk3QNPnuoqrboGQIsugAX6UyRgmkCD5l6cRc51tqqgOXz0aDh
-	 mgIXdPQ40F1pit35hUsw2NtVVqIBKYU7rvXuvvbDZhv8m0CJZ9oyAPUciR+5TudI8Expp
-	 BCYSmRmGTTjQq6xqwovTJE/7deWZPiAtEIT8N+joj+7yXvxL1QrXM/lAO5IlDze0HIWkC
-	 pOQUFG6g8V+icWBpFFQSZxUxRCNYK7wY80lnpWO7F7m5jB5l5ooTcBBlRMhmt1+V+xQ==
+	t=1792443357;
+	b=wPt8XDTiBXm8Xh0Y4xc4eCi+dzDwy24RucZdDJJYIP+fpJ8jeGsydbwDkmCbLV/tAEcq
+	 LAK4PF4MG+6agQXxaLd3nTJOOVWCKy7Fk/kVtlHVY/puywzEqKwRghV93Ny7tVdYCCOzu
+	 C2exv9u2c0+gVk+dEjwQU+/RG5DHukGVva0DQbWbpm4kwiN0QeCj8dPBoTmRqCr7RmGBf
+	 ZPcMSnVgZbiApwvbohZBE7AMiHIXVmXE+ZgfgHyDhmUOZ7dBaPIzaRfgVYh66U0kFrMCf
+	 R1UsKqQJ7gSzq4MgYhbiuAAvLrGna6h4iyRqpjwWkQItZZMSoG/MZORTAK8TTx2tVpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792443361;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443357;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=wX2gOZNV1APNndXXZSYyzBJHWGMDwSmGFFhAiUL4QSM=;
-	b=t+vhbnUDvgFWCKFIiUzGVbgid5AFqligTej8QQKIAyp3aVHlFvqo/Nya6tUFy7YKk3wM
-	 mWtNz9XXVN5n91OBXe2bp9KYQZf+Wh1OzvMmWlU/guJzB3Q/s+sJUORAaZs2qoKk6tcsZ
-	 7srwpWX3F/JoqdjP9X0LHbKIAH9gst7PP8SzZ/onD0Rw7cqxuYmKf7HaKK+0R40MVyX5U
-	 B2ylC/joAcJY4W+C8BKRnqSPK1qt4xHAcCR+bGnK++n+uociZcRzPgKcP9EHhvmZ/Uel9
-	 23CEoERhdrIatTZj6i1QQL0VfGQhAg3TthXH9hHYSu1E4D3HmRQN4bvy7wc0vumfbOQ==
+	bh=7sDRE6SWlT0NO2lqp6RUgHMhDmJqqEafxJRXThBQL4g=;
+	b=Qx0s7azCgroZidv81VhaI/DhgRF/SVXSLL4ZKEFYBZw7aYYnnWfTdYR7fPOe75CsqVdf
+	 sw80IP1BYV7H4cfuILAH5DGfb198jl0LSawEu669OY0TAM7USBDtav04Wc3y1g9to6+Q6
+	 0/j5PA2l/qkRqZMew2wCitAneasiYXCyxKMR02SPFajff4Q9eu2XyR2sVntsKYuOBFHt7
+	 eWP+hbasYYb8qiBAcUf+1N/8SDS4er1OsKGfgV1ua0H/zlwgFqWd7VM60zj8LJYMXHDRp
+	 sNeJustz0L7tcIDy6aay1bn0899bgj4RurjYfDfepZlic/9rk+ChqU6ZWcXO6GydMIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EGTiIfU4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JTpmlJAX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C24E606A31F;
-	Mon, 19 Oct 2026 20:56:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D975606A32A;
+	Mon, 19 Oct 2026 20:55:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EGTiIfU4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95E661F000C5;
-	Mon, 19 Oct 2026 20:56:00 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JTpmlJAX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 031971F000C5;
+	Mon, 19 Oct 2026 20:55:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792443361;
-	bh=wX2gOZNV1APNndXXZSYyzBJHWGMDwSmGFFhAiUL4QSM=;
+	s=k20260515; t=1792443356;
+	bh=7sDRE6SWlT0NO2lqp6RUgHMhDmJqqEafxJRXThBQL4g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EGTiIfU4HydM+kzHFGkFO5+pKfAQA+Oyibb7mnwA327weHGZFIMeL43InqVER3mFS
-	 +v2wyEqYYQwVfsG1lM8ElEWRYm1WCiWo14xChH1M2o2N61mgeRL96knuqWBjyQl1PF
-	 OzQO4eiykODtz/AeoQ5XqT8hqWDqCr5/hHGBpEvRPnTg0qrbWaEL0rfjrMHTG0NQlG
-	 X+lnTMF1J3y3wPfgn/sKBC3AhMLQu2qyPZj+Q+8P68uIITVf5EaR7RHFpIfy9W7U/Q
-	 zy5+GZVh77YC0U5Notq59he5ISVPUkW6lP3MVr1/w+8o7aKXypaAgVxU2mp6mPPjaI
-	 090fnv9Zjd/bA==
+	b=JTpmlJAXeGkHizKyTQvMCcEF/gQYn+4UR7+LQa6gbC2Dp0QObxQfiBo4JgF9IGRvB
+	 hcqBC7V77xtkKEPd7VgNt7ZudZZxJwNyCN9R84SUcF7rorkao2tyjWIqzYg7e5m86F
+	 XqtRONCryvLzy7+LmMHRQDARuimiYJbqRRWL/10CcImMvORdlOAfLUJZ74fNKlm4se
+	 tk+T3oqe37RzLduNrq0eZjotwaucqPGhfoh5i5bJtNXX4oRejr1r25+9Dspg2pn9qs
+	 ovU402GJtf+xQe84PugHHo2Ws3pxJx97DvoT9lsbwlK/4iUZEMrq/a6e5WyF7T4syB
+	 1bb1JbsOkIg6w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	mptcp@lists.linux.dev,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Mat Martineau <martineau@kernel.org>,
-	Geliang Tang <geliang@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Abdul Wasey <w453y.me@gmail.com>
-Subject: Re: [PATCH 6.1.y] mptcp: move the OoO check back into __mptcp_try_fallback()
-Date: Mon, 19 Oct 2026 16:55:37 -0400
-Message-ID: <2026-10-19-1-daily-reply-0012-mptcp-ooo-fallback-6-1@kernel.org>
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Steve French <smfrench@gmail.com>,
+	Gael Blivet <gael.blivet@gmail.com>,
+	linux-cifs@vger.kernel.org,
+	Jan Koester <jan.koester@gmx.net>
+Subject: Re: [7.2.y] ksmbd: exempt FSCTL_PIPE_TRANSCEIVE from the generic file-id lookup
+Date: Mon, 19 Oct 2026 16:55:33 -0400
+Message-ID: <2026-10-19-1-daily-reply-0007-ksmbd-pipe-transceive-7-2@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261019111559.2063342-1-w453y.me@gmail.com>
-References: <20261019111559.2063342-1-w453y.me@gmail.com>
+In-Reply-To: <1792343439.stable-7.2.ksmbd.jan.koester@gmx.net>
+References: <1792343439.stable-7.2.ksmbd.jan.koester@gmx.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,11 +64,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> The 6.1.y backport of upstream commit 1bba3f219c5e ("mptcp: do not
-> fallback when OoO is present") put the out-of-order queue check
-> in __mptcp_finish_join() instead of __mptcp_try_fallback().
+> please consider this mainline commit for 7.2.y:
+>
+>   a3bcea7c819a ("ksmbd: exempt FSCTL_PIPE_TRANSCEIVE from the generic file-id lookup")
 
-Queued for 6.1, thanks.
+Queued for 7.2, thanks.
 
 -- 
 Thanks,
