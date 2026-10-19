@@ -1,216 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDC53DCD85;
-	Mon, 19 Oct 2026 13:39:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4A34F4039;
+	Mon, 19 Oct 2026 13:39:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792417163; cv=none; b=oXpVihr1L2kH62+sBsvABEkXn8vC3lJtrRmjhZKMcIOhtyF3C4EXWW4zEY734fyosT5484iWEb4UzlclWZ68hlrf+hG+50BxzaugszpHqfnE97/+plgOkpG2IdTLVkYGIwnzy7AcfW5lOlaTKS0y+FoSBBWdRDpaC7HO9ktxbi8=
+	t=1792417189; cv=none; b=uJv+O+evIPaKddhuiji5Lq9od91G4glCehMlC49kBEJOUKFMD8HqZFkQ/xOp1Xqukmhs7L4f4PvU7Ka5cOI7F5cWS0g2MGHHnY8af0NPqIT9g1cbJs44k0QHTWrSPx4E/rSlCpKIQwnTJkPjn8zJrOLgTpmEeBo/6rIG1AtRAgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792417163; c=relaxed/simple;
-	bh=slYxthp496E4xcRQzJ2OurTUqSc5h7per4A8X+sBkMc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=kM/mwmBVy8G4hGeca70jguPCfGFYCZ3hwj9adT9rFznTsSNpcEceJUnQVyMz2qmq/Af1CmxqrE7ZLqEHhnqh6KElVXuOzsqoHxun8k3wuNftw3P8ZVx3jKWusPWKZvmVU3HdCcDZV6VABY2n1Y88vxPYmScVOOgyc69ZoziY54U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ooQ1JabA; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792417189; c=relaxed/simple;
+	bh=rfPbKhCA+A6vIjorseDK6y7DZlhxJ9AuGFP0jPmcowI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=R2r4uo/CPNKX3QX2s/M98Bu8wCQ9SSxnBD5p1jS/hjrhaLgrueUKpSJu89SMoJp6lUxA0orFr1YzyjdmpIURhpn4Txp94KGh2a0kX5OjKRrAc3lAAHD+E/M3Uaf8EzdKzwiI4lczOGU+RN3WS8RZTzP3F+OozmEofrK4Ihk1UQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=wUxq30uE; arc=none smtp.client-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ooQ1JabA"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7B87AC2BCFC;
-	Mon, 19 Oct 2026 13:39:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792417162;
-	bh=slYxthp496E4xcRQzJ2OurTUqSc5h7per4A8X+sBkMc=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=ooQ1JabA+OKT/VV/Ola+j8K5TW/1zqY49k4ymYvOnOaFuUUozVqQ0QrOQFb4j/3c2
-	 iR8z2/7xXv8ZeGANB3t6nVpErxwppOf1KpXzkIbjr9+1nmhZVKO0vKgawzcQnw/qWa
-	 vz0PflMFYx+uPgYPT3b3lUfwOkDF2i73tGQSg8rEuIKrHh7Aro0uwK+BcPMaAXez0W
-	 k1ZMNlBcD82416yrUo5u+1s7yaYbYeMyoMtOEh/FBUPYF+YxYm4Rl0yClj5wx6KBwg
-	 iIyRP6HxZjUkEIj4yVWesIx2fam3Tk6tiJ5IbT6+/4xbHZ2q0KqZqDpmWCszrGakHY
-	 CaWCCIO7gG7tw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B4C2CCF2E3;
-	Mon, 19 Oct 2026 13:39:22 +0000 (UTC)
-From: Mohammed AlHashim via B4 Relay <devnull+eng.m7mdhashim.1.gmail.com@kernel.org>
-Date: Mon, 19 Oct 2026 16:38:55 +0300
-Subject: [PATCH v2] drm/msm/adreno: Register devfreq after the GPU-specific
- init
+	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="wUxq30uE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1792417181;
+	bh=rfPbKhCA+A6vIjorseDK6y7DZlhxJ9AuGFP0jPmcowI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=wUxq30uEEq+6qBHxxCpiLpx3FStes43U0QMsamzMCIbi/kBQP4xebe9S+3nB4MDKs
+	 jPZ0Uxo5UmIgmJ0rQenUh8dWeIYQAJ9hO45ipZYqrfk3aBb7wmMA18dVmhb1D0XS3Q
+	 s/Jc9uocR2m+cM91mj6fGXLkvK2f4WNJosId0RgXROb3aOSRvCM0lwB3SNirKhB53v
+	 UJuyXLB4Jz4pYT+Lbo8nXGv1epz+GxbUZkdhwkkCsUbwHZIkIFmbTwzgP6pWFuzEvd
+	 MgLZO4AD6+Yp43xn5X9skQn3Cvp3actzMrVV3ZxQTgBQMD558+XI1pyhUjOQbxDZ2p
+	 2i/JjACnymXFw==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 1A09F25871;
+	Mon, 19 Oct 2026 16:39:41 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Mon, 19 Oct 2026 16:39:40 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.51.9])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j7c971tNmzqSH;
+	Mon, 19 Oct 2026 16:39:39 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Sasha Levin <sashal@kernel.org>,
+	Panagiotis Petrakopoulos <npetrakopoulos2003@gmail.com>,
+	Dan Carpenter <error27@gmail.com>,
+	Dalvin-Ehinoma Noah Aiguobas <fliegbert2@gmail.com>,
+	Andrei Khomenkov <khomenkov@mailbox.org>,
+	Michael Huang <tehsiu.huang@gmail.com>,
+	Jinke Wu <coolbeaner@126.com>,
+	Nikolay Kulikov <nikolayof23@gmail.com>,
+	William Hansen-Baird <william.hansen.baird@gmail.com>,
+	Serhat Kumral <serhatkumral1@gmail.com>,
+	Nazar Kletskii <nazar.kletskii@gmail.com>,
+	Jennifer Guo <guojy.bj@gmail.com>,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	stable <stable@kernel.org>
+Subject: [PATCH 5.10] staging: rtl8723bs: fix missing shared-key auth challenge length check
+Date: Mon, 19 Oct 2026 16:35:34 +0300
+Message-ID: <20261019133535.1940-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-msm-gmu-freq-guard-v2-1-799eb15890ba@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ6CMBBFr0Jm7RhaA6muvIdhUaZDGWNBWyAaw
- t0F3Lt8yfvvz5A4Cie4ZDNEniRJ362gDxlQazvPKG5l0LkuVa4MhhTQhxGbyC/0o40OubBkToV
- RTV3AOnxGbuS9R2/Vj9NY35mGrbQZraShj5/9dVKb9/dgUqjQubN2RMRsyqsPVh5H6gNUy7J8A
- cCu7pbGAAAA
-X-Change-ID: 20261018-msm-gmu-freq-guard-e5ac83581fb5
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Mohammed AlHashim <eng.m7mdhashim.1@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792417161; l=6463;
- i=eng.m7mdhashim.1@gmail.com; s=20261018; h=from:subject:message-id;
- bh=r8SfK/Iz/wVLnIplhj+V3MUujIzOEzMTsriA+q8roW4=;
- b=loEzTtjSzd0LghPPlDggXNMIcuYnZGEFrwTAxA0TB7rMZD0/qmxz2e5HNpxS0/wFLX9gzxI30
- l6uInSRHW73A5aMS4YIeT3LYrcoRHIcQfEipypSRSt7Q5RAuj81yrwr
-X-Developer-Key: i=eng.m7mdhashim.1@gmail.com; a=ed25519;
- pk=nadicxm5lJrpr6u2tkxbYV+wi8bWOYqheGU3HolXoXA=
-X-Endpoint-Received: by B4 Relay for eng.m7mdhashim.1@gmail.com/20261018
- with auth_id=1228
-X-Original-From: Mohammed AlHashim <eng.m7mdhashim.1@gmail.com>
-Reply-To: eng.m7mdhashim.1@gmail.com
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/19 12:18:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, astralinux.ru:7.1.1;new-mail.astralinux.ru:7.1.1;patch.msgid.link:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 206796 [Oct 19 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/19 08:59:00 #28702808
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected, bases: 2026/10/19 12:18:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-From: Mohammed AlHashim <eng.m7mdhashim.1@gmail.com>
+From: Panagiotis Petrakopoulos <npetrakopoulos2003@gmail.com>
 
-a6xx_gpu_init() registers devfreq through adreno_gpu_init() ->
-msm_gpu_init() -> msm_devfreq_init(), and only afterwards calls
-a6xx_gmu_init(), which fills gmu->gpu_freqs[] and sets
-gmu->nr_gpu_freqs. The devfreq sysfs node and the cooling device are
-live in that window, so a write to min_freq or max_freq, or a thermal
-QoS update, can reach a6xx_gmu_set_freq() while nr_gpu_freqs is still
-0.
+commit 2c56ef658ac8c6bca36bc5574715e8f717207c6c upstream.
 
-The lookup loop then compares a u32 perf_index against
-gmu->nr_gpu_freqs - 1. With a count of 0 the bound converts to
-UINT_MAX, so the loop reads past the end of gpu_freqs[] until it hits
-unmapped memory. It faults with devfreq's lock held, so every later
-GPU user blocks and the machine hangs.
+The WEP shared-key authentication handler uses the challenge-text
+element's attacker-controlled length without checking it against the
+fixed 128-byte chg_txt buffer.
 
-This was hit at boot on an X1P42100 (Adreno X1-45) laptop, where a udev
-rule wrote min_freq as soon as the devfreq device appeared:
+In OnAuthClient() the length from rtw_get_ie() - up to 255 - is used
+to perform memcpy() into the 128-byte pmlmeinfo->chg_txt, so a
+malicious AP sending a malformed WLAN_EID_CHALLENGE element can
+overflow/underfill chg_txt by up to 127 bytes. It is reachable over the
+air, before association, during shared-key authentication. In the case
+of an overflow, the driver can write out of bounds. In the case of an
+underfill, the driver can echo stale buffer memory.
 
-  Unable to handle kernel paging request at virtual address ffff000b80000000
-  Internal error: Oops: 0000000096000005 [#1]  SMP
-  CPU: 0 UID: 0 PID: 487 Comm: (udev-worker) Tainted: G        W  O
-  Hardware name: SAMSUNG ELECTRONICS CO., LTD. Galaxy Book4 Edge/NP750XQA-KB2US
-  pc : a6xx_gmu_set_freq+0x74/0x2a0 [msm]
-  lr : a6xx_gmu_set_freq+0x3c/0x2a0 [msm]
-  ...
-  x4 : 00000000ffffffff ...
+The challenge text is defined to be exactly 128 octets, which is
+already provided as the WLAN_AUTH_CHALLENGE_LEN define; require the
+element to be exactly that length before use.
 
-x4 holds the wrapped loop bound. The faulting address is 1 GiB
-aligned, which matches a linear read running off the end of the
-linear map.
-
-Move msm_devfreq_init() out of msm_gpu_init() and call it last in
-adreno_bind(), once the generation's init function has returned, so
-devfreq only appears after the freq and bandwidth tables are complete.
-Do it after dev_pm_opp_of_find_icc_paths() so a deferral there does not
-leave a devfreq or cooling device behind.
-This also closes the narrower race where a6xx_gmu_pwrlevels_probe()
-writes the tables and counts while a6xx_gmu_set_freq() may already be
-running, and it does not drop a frequency request the way an early
-return in a6xx_gmu_set_freq() would.
-
-a2xx has no gpu_busy() and never registers devfreq. a3xx, a4xx and
-a5xx build nothing after msm_gpu_init() that the devfreq callbacks
-read, and a6xx parts with a GMU wrapper or RGMU set the rate through
-the OPP core, so for all of them devfreq simply appears a little later
-in the same bind. GPU runtime PM is only enabled on first open, in
-adreno_load_gpu(), so no resume or suspend can reach
-msm_devfreq_resume() or msm_devfreq_suspend() during bind, and both
-return early through has_devfreq() in any case.
-
-Fixes: a2c3c0a54d4c ("drm/msm/a6xx: Add devfreq support for a6xx")
-Cc: stable@vger.kernel.org
-Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Assisted-by: LLM
-Signed-off-by: Mohammed AlHashim <eng.m7mdhashim.1@gmail.com>
+Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Panagiotis Petrakopoulos <npetrakopoulos2003@gmail.com>
+Link: https://patch.msgid.link/20260720082409.168379-1-npetrakopoulos2003@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ mdmitrichenko: in 5.10 the challenge element is still looked up as
+  _CHLGETXT_IE_ and the NULL check is the braced "p == NULL" form, so
+  the length check is added to that condition. ]
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
 ---
-How this was found and tested:
+Backport fix for CVE-2026-74649
+ drivers/staging/rtl8723bs/core/rtw_mlme_ext.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-- Seen twice at boot (2026-10-03 and 2026-10-05) on a Samsung Galaxy
-  Book4 Edge 15" (NP750XQA, X1P42100 / Adreno X1-45) running a
-  downstream 7.2.7 tree with an out-of-tree device tree. Both oopses
-  were at a6xx_gmu_set_freq+0x74, about 9 s after power-on, from a udev
-  rule writing min_freq when the devfreq device appeared. The log ends
-  at "Call trace:" because the machine hung.
-- With v1's guard applied to the same downstream tree, the laptop has
-  booted 20 times since 2026-10-14 with no oops. That only shows the
-  guard did no harm. It does not prove the race was closed, because the
-  udev rule was moved to a delayed systemd unit on 2026-10-06 and the
-  window is narrow.
-- v2, backported to the same downstream tree in place of v1's guard,
-  booted 5 times with the original udev rule restored, so min_freq was
-  written the moment the devfreq device appeared. All 5 boots were
-  clean and the floor was applied (min_freq and cur_freq read back as
-  requested). Suspend/resume could not be tested: s2idle does not yet
-  resume on this machine for an unrelated reason.
-- On v7.3-rc7 v2 is only build-tested (arm64 defconfig, W=1, all of
-  drivers/gpu/drm/msm/). It has not been run on mainline or msm-next,
-  and I could only reason about a3xx-a5xx from the source.
-
-AI disclosure: an LLM coding assistant helped read the oops, trace the
-init ordering, check the other GPU generations and draft this commit
-message. I reviewed the result, tested it as described above, and take
-responsibility for it.
----
-Changes in v2:
-- Register devfreq from adreno_bind() after the GPU-specific init,
-  instead of returning early in a6xx_gmu_set_freq() (Konrad).
-- This also addresses the two Sashiko findings on v1: the residual
-  race with a6xx_gmu_pwrlevels_probe() and the dropped frequency
-  request on resume.
-- Register devfreq after dev_pm_opp_of_find_icc_paths(), so a probe
-  deferral there does not leave a devfreq or cooling device behind.
-- Retitled from "drm/msm/a6xx: Don't set GPU freq before the GMU freq
-  table is built", since the change now touches common adreno code.
-- Link to v1: https://patch.msgid.link/20261018-msm-gmu-freq-guard-v1-1-dd92dcccee86@gmail.com
----
- drivers/gpu/drm/msm/adreno/adreno_device.c | 8 ++++++++
- drivers/gpu/drm/msm/msm_gpu.c              | 2 --
- 2 files changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-index 05c77fe27..52d90e1d1 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-@@ -247,6 +247,14 @@ static int adreno_bind(struct device *dev, struct device *master, void *data)
- 	if (ret)
- 		return ret;
+diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
+index 46ce8ca12c02..eb1dab9c735c 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
++++ b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
+@@ -1116,7 +1116,7 @@ unsigned int OnAuthClient(struct adapter *padapter, union recv_frame *precv_fram
+ 			p = rtw_get_ie(pframe + WLAN_HDR_A3_LEN + _AUTH_IE_OFFSET_, _CHLGETXT_IE_, (int *)&len,
+ 				pkt_len - WLAN_HDR_A3_LEN - _AUTH_IE_OFFSET_);
  
-+	/*
-+	 * Register devfreq last: its sysfs, QoS and cooling device can reach
-+	 * gpu_set_freq() as soon as it exists, and on a6xx the GMU freq and
-+	 * bandwidth tables are only built by a6xx_gmu_init(), after
-+	 * msm_gpu_init().
-+	 */
-+	msm_devfreq_init(gpu);
-+
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 0c2c35636..452da9272 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -968,8 +968,6 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
- 
- 	platform_set_drvdata(pdev, &gpu->adreno_smmu);
- 
--	msm_devfreq_init(gpu);
--
- 	gpu->vm = gpu->funcs->create_vm(gpu, pdev);
- 	if (IS_ERR(gpu->vm)) {
- 		ret = PTR_ERR(gpu->vm);
-
----
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-change-id: 20261018-msm-gmu-freq-guard-e5ac83581fb5
-
-Best regards,
---  
-Mohammed AlHashim <eng.m7mdhashim.1@gmail.com>
-
+-			if (p == NULL) {
++			if (p == NULL || len != WLAN_AUTH_CHALLENGE_LEN) {
+ 				/* DBG_871X("marc: no challenge text?\n"); */
+ 				goto authclnt_fail;
+ 			}
+-- 
+2.43.0
 
