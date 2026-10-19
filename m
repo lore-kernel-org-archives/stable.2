@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792443374;
-	b=ZOaHtjpGaeZpHKB5zeipxirPRCkFXp5BWteCxSTwmycm8wSRi6O4SjKJuUm+shyRqt3S
-	 MkD6X6qDYZigGQkA9MCw/otChr2XKnEHU0qnbCDO4Vtj0sf+XzET6N40Ck4nHN7QCMXZQ
-	 yzFifU8DfZy/Zwdv8Xt938Ddw8lZZvN/lhQDK7v4lkOs58QMKt9R3quj/+QkQQGQ5VSoq
-	 3thtnqqjgjThpDIFslCiEv2dTLyWxGz+chO9xR4SOT2Q7VykudhE6lrmQHHQJGtIRJBNU
-	 kRcA97qASmT29p5GCnKcNoteIW4t9MEkMPe7kZxIzSKfoP8qFimI/5JgyTYxU7Lcc2w==
+	t=1792443416;
+	b=qyDkbA+jMqUwjxcBWrj5kX8V1PAZB9V+0Ee1AMUdnt1CUhH/wISSIXnmgue4uy8HQZvX
+	 iC4yd1jCXPCnI2pVyJgrdM2o7k4H4hGGLG7Cp3gTnXlKDy4br/LCQZkI0dFzlVhIneflX
+	 kpkEWO4TohFkWOmP5HRUStF9aETaisl8245IeDico8Aofjqxosa61eE8o5ytXP+RBCeMi
+	 2pCmBCCD2N+k7XTaHSZe/f1pjfd1vFjV5znDfpI0RDlkQCtgNjHNkTNN4I2iuVjiMRbLw
+	 ihJeOu84HYZ+QRCEOiCpuf0FsqcfbQcUVXinkAL7C01jvGA8dwe/xVZKUUE9aawWrPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792443374;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=znBIZGIXZeGQsNPvrP7/8Hm1xcb2irITG4wHBpHL2qU=;
-	b=ybIHDwnoeYu3pBe5ulemZSrab1TqCJ+IGHyhtpgZs5jM+apzApqoxdEY9TKsdBRja5+b
-	 4JhTOXDrkP4uWcdKEUFyvJN3s6SE2Net5FBCGduZ2BdwgYkGE/ZpM4L3F30wNmVy8+uCp
-	 +3nufs1EsCbEfXvsGg5j8oQtK5fo6nq2tGhE8aK6eqWBiXC9ITGm6U5K7gYHMC0wG0a1x
-	 nUIwpFN34qdaoI3gAvkbjc+IDvmLQDUnKxpDNP/HnZAQLmi/Wzc6171IjMuFbiNNrAuLn
-	 SQ+95bi5XzVWomqpjj4ZKcyhJUjjF7K3On9H942DrXGJkcmyvDP0FBXyF7x1PpWnPzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443416;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=AN05D8Yt+mlMjUBN9ChH3pDuXIogzb18Y01sfQRIakQ=;
+	b=sX9LJH5ZsM96khS9l2sEehqHpqTETsQk1yyuikIKpNhgSsT+bjIUAts3U9b37quH85K0
+	 W7jS/B+/saI9OoSd8Gg9LUgCcLZ9TNoTz0hHtTrAbVDRoS6+/qTtlGynfx5Z+9k38BB1k
+	 5eS7ZgRxNzF2NjpG64tYpdsuLv+VLIV2vtwYKHQbTMqDGpuqDwss0F4H1/2L67npKH+Vq
+	 oOIfe1UKL84aTZeFcNoAtYOoyViMRQptm2xqiTmDZ1Re6YdHB6GZ1r2n4j8aabhiyPGbs
+	 7t3KbEcODfUP4004+jIWUqSADjASe42nG1/jICgkUCr/O1pt/FVfz+bSOoTLLoaxnGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kQ2j8bt2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IRrYToiX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADB62606A31E
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 20:56:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C63A5606A31A;
+	Mon, 19 Oct 2026 20:56:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kQ2j8bt2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF8441F000C6;
-	Mon, 19 Oct 2026 20:56:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IRrYToiX
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EA52E1F000C4;
+	Mon, 19 Oct 2026 20:56:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792443373;
-	bh=znBIZGIXZeGQsNPvrP7/8Hm1xcb2irITG4wHBpHL2qU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kQ2j8bt21vnaQa2MRD+HDvUH521igfI1v3/Gjvl1CYi1SPkYuVZMrW37i6xeUupsA
-	 MFgF/xXmTY2d1187DwMYIP4eavq/IYY2N9dUWG5wCyoMYRGyycqW8qrtxrZwhACgdO
-	 tgv+0QhcXRFlmQGmgcu1hAaQDBpCpmIigGThtvgHgTdrLdejeJqol+lt6bEJ12VdJx
-	 pWjv52wy3PDcE44L0lG/caiKnZRPJBZre3kU6PaCzrOHjf1cosZ+eFG1q8tn1cH8iu
-	 VTwM6XJHsr080riYeuAanWCOCLPidQA/yTrB/N1EuIFw0C9Gx/SBzGWL9TDaJ/WDj8
-	 YkeuubsDylARg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	gregkh@linuxfoundation.org,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	broonie@kernel.org,
-	linux-arm-kernel@lists.linux.dev,
-	Zhang Kunbo <absoler@qq.com>
-Subject: Re: [PATCH] arm64/cpufeature: Fix malformed SME I8I32 hwcap entry
-Date: Mon, 19 Oct 2026 16:55:46 -0400
-Message-ID: <2026-10-19-1-daily-reply-0021-arm64-sme-hwcap-held-6-6@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <tencent_7F47B27F7FE811035796A0AFC61993769409@qq.com>
-References: <tencent_7F47B27F7FE811035796A0AFC61993769409@qq.com>
+	s=k20260515; t=1792443415;
+	bh=AN05D8Yt+mlMjUBN9ChH3pDuXIogzb18Y01sfQRIakQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IRrYToiXyL7ShWFuQq7DqdYv0fCjQkJIqSRfrfFNDPiKs/S5n8phDXci2iyV1aovm
+	 7RNO+E4cYj1uFAX9DHd7cRwbTRAQlc8UQPa0nRE8I8Pkh2t2P7U+7JTURTY7B0cvzn
+	 Stvb42FRwkRQ82ndoJfo/dqn6jL2Ig0rTstaqC9jmpTe4JBat7nzMmCxlP+pwEi4Hf
+	 JzQROI29FONXYOj19HPdtbPIJqt6IEhjIVKf8y7akKFU/WxQdBkqJWjRQ+yf1E+8TZ
+	 5AkHoFbuirHJZzES6m/FX0pPoI09pqwyh4Sj5yHLkaW1VwcYkQuOwkGkRSE1zP6HDW
+	 ezmNGvsq0ocyA==
+Date: Mon, 19 Oct 2026 23:56:51 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
+	stable@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>, Andrew Morton <akpm@osdl.org>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 4/6] KEYS: Prevent overflow of quota in key_alloc()
+Message-ID: <ataEE0zcWy8ILlms@kernel.org>
+References: <20261019181732.449591-1-jarkko@kernel.org>
+ <20261019181732.449591-5-jarkko@kernel.org>
+ <20261019192545.GD65095@quark>
+ <ataDs4TMkbRjxc_G@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,16 +63,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ataDs4TMkbRjxc_G@kernel.org>
 
-> During the backport of a75ad2fc76a2 ("arm64: Filter out SME hwcaps when
-> FEAT_SME isn't implemented") to v6.6, the I8I32 hwcap entry was mangled
-> into:
+On Mon, Oct 19, 2026 at 11:55:19PM +0300, Jarkko Sakkinen wrote:
+> On Mon, Oct 19, 2026 at 12:25:45PM -0700, Eric Biggers wrote:
+> > On Mon, Oct 19, 2026 at 09:17:24PM +0300, Jarkko Sakkinen wrote:
+> > > Check that the calculated quota length does not go over INT_MAX.
+> > > 
+> > > Cc: stable@vger.kernel.org
+> > > Assisted-by: LLM
+> > > Fixes: 7e047ef5fe2d ("[PATCH] keys: sort out key quota system")
+> > > Reviewed-by: David Howells <dhowells@redhat.com>
+> > > Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+> > 
+> > Seems this should be merged into patch 3?
+> > 
+> > Also is this reachable?  I.e. do any of the key types actually specify
+> > def_datalen > INT_MAX - KEY_MAX_DESC_SIZE + 1?
+> 
+> This is very good question and my *guess* is that no there is not.
+> 
+> That said, when not treated as a bug fix this patch is a great
+> safe-guard e.g., to block corraterall effects of some other
+> bugs.
+> 
+> So yeah, that's I would propose here. Let's not call it a bug fix
+> but still merge.
 
-This is a stable-only fix for 6.6 with no upstream commit, and it has no
-Acked-by or Reviewed-by from an arm64 maintainer or reviewer, so I am holding
-it until one of them has looked at it.
+Or actually: no let's not do this. I'm making my life only more
+difficult.
 
--- 
-Thanks,
-Sasha
+I think it is totally sane to squash this to patch 3 and it
+is reasonable for that fix have this additional safe-guard.
+
+Br, Jarkko
