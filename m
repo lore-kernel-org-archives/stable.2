@@ -1,690 +1,157 @@
-Received: from va-2-113.ptr.blmpb.com (va-2-113.ptr.blmpb.com [209.127.231.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41AEF495504
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 09:04:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A10340099C
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 09:08:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792400674; cv=none; b=FaEjMqKBHUAS829MqFzyUIpi1Hli7K8v9uuvkvVh2W7q1+e8dKWWO60ZgCAYu7v1Cl7XyeCmTkasxf2LPO1jiM8qrUsqn205EADYAuegoOVW3Yw7DFE0Hpv0L1zy59JvMSM4qJSxgFzuK3AX92svxQx32gZGpcXiiP8YeZ4MOio=
+	t=1792400904; cv=none; b=RkHuSyYldjZ6MS7UFOmp+Qu//06m7iAacR7VSxmZDJF650cSw8NNrlPf70nO4J6yZKSByne1ZBUHw1WutibP5ulwAoZxfFiJf1+lO/B+Kvye7ustf21Z+Npp6nqn6+BWut8xSQ/r37DX8PA0b0Srgz8m2+O0+GZAYKTZZfqY77U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792400674; c=relaxed/simple;
-	bh=bSM4HoroKm2wzXVgjsibQKnm8RO82wZ9nCOxHZ6R49o=;
-	h=Subject:Content-Type:In-Reply-To:From:Date:Message-Id:References:
-	 To:Cc:Mime-Version; b=Je8ugnLUO2wZmL9+iBbcUTe2Teby7oC+mvX0dZKWSP3xpNOKJc4bvj2GyoIg9iInXqOWq7BTNF/qzS9XdmNuwFAEGNMY/mH7s8ZST0Z3Gf9ilxgE9voNYYXWaSnxZe6XH5CwvpFIP0ZPVa+TaOIAMW3YylNEp+dTE2gt3TANOOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=UqY9re8m; arc=none smtp.client-ip=209.127.231.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1792400904; c=relaxed/simple;
+	bh=ANWtDHrUN8yaLtWHmbxn0S/UOd3W2HnelMg3mN8P9Sg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Qx19RngKM3TFtNu5IU1FFVA3b3fVoVNE4mRyIJRHWnfP+rOptvpzv/w+SHYz43pD++jvG/3ibz9UJT+0/ykSLW1cEiPIEoNdon+ngv9iF5XHuKcxePM8A6giTCbm/drtPF3LeyxTL9RinXM47YfpbHjS6OIL+UiDeU8q8xvKU2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=He0AHl1x; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SpISH4L+; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="UqY9re8m"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1792400542; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=xl7YYXnV5Xywxpqa6ugXhpCUqmkFVlB2dYJk8WksNig=;
- b=UqY9re8mUYZqt/s68YlPzHyMi7DFzH2cZQXcCogVCjUJE0sXR5DWq61GCBkLjvnHlM2AtE
- yKx0KeAMk6LAnM/i55lD5ZLG56zNL6MTDxmJhMEpMS0GG+d8dUGydm87Ydhdp8nP1gRaaT
- vEdOaTQFY4MNPMwuqI6D7yQ/Igse4Bvwg5uq5GXn7ia9kS9/URA2w9ozlhf/Mr5DqSmua4
- Cis6D8vPLI0BjtXPckXbFGJO17uSZ84eIQ0z4qUM49snTGnsSnckLWAaLE4sz6FZ8mD7Vx
- Eaq13ja90RRjwp5E0Lv8BoYBtQgjQI50YZt2zz2JUPNwzjG2cJVc2kuiZmFjSg==
-Subject: Re: [PATCH 6.6 1003/1674] mm: shrinker: add infrastructure for dynamically allocating shrinker
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=UTF-8
-In-Reply-To: <20261017160456.871872142@linuxfoundation.org>
-From: "Qi Zheng" <zhengqi.arch@bytedance.com>
-Date: Mon, 19 Oct 2026 17:01:07 +0800
-Message-Id: <68c00b4f-d74e-4e2d-a7bc-9af44beeb25e@bytedance.com>
-References: <20261017160431.119607952@linuxfoundation.org> <20261017160456.871872142@linuxfoundation.org>
-User-Agent: Mozilla Thunderbird
-X-Original-From: Qi Zheng <zhengqi.arch@bytedance.com>
-To: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, 
-	<stable@vger.kernel.org>
-Cc: <patches@lists.linux.dev>, "Muchun Song" <songmuchun@bytedance.com>, 
-	"Christian Brauner" <brauner@kernel.org>, "Chuck Lever" <cel@kernel.org>, 
-	"Darrick J. Wong" <djwong@kernel.org>, 
-	"Dave Chinner" <david@fromorbit.com>, "Kirill Tkhai" <tkhai@ya.ru>, 
-	"Paul E. McKenney" <paulmck@kernel.org>, 
-	"Roman Gushchin" <roman.gushchin@linux.dev>, 
-	"Sergey Senozhatsky" <senozhatsky@chromium.org>, 
-	"Steven Price" <steven.price@arm.com>, "Theodore Tso" <tytso@mit.edu>, 
-	"Vlastimil Babka" <vbabka@suse.cz>, 
-	"Abhinav Kumar" <quic_abhinavk@quicinc.com>, 
-	"Alasdair Kergon" <agk@redhat.com>, 
-	"Alexander Viro" <viro@zeniv.linux.org.uk>, 
-	"Alyssa Rosenzweig" <alyssa.rosenzweig@collabora.com>, 
-	"Andreas Dilger" <adilger.kernel@dilger.ca>, 
-	"Andreas Gruenbacher" <agruenba@redhat.com>, 
-	"Anna Schumaker" <anna@kernel.org>, "Arnd Bergmann" <arnd@arndb.de>, 
-	"Bob Peterson" <rpeterso@redhat.com>, "Borislav Petkov" <bp@alien8.de>, 
-	"Carlos Llamas" <cmllamas@google.com>, 
-	"Chandan Babu R" <chandan.babu@oracle.com>, "Chao Yu" <chao@kernel.org>, 
-	"Chris Mason" <clm@fb.com>, 
-	"Christian Koenig" <christian.koenig@amd.com>, 
-	"Coly Li" <colyli@suse.de>, "Dai Ngo" <Dai.Ngo@oracle.com>, 
-	"Daniel Vetter" <daniel@ffwll.ch>, 
-	"Daniel Vetter" <daniel.vetter@ffwll.ch>, 
-	"Dave Hansen" <dave.hansen@linux.intel.com>, 
-	"David Airlie" <airlied@gmail.com>, 
-	"David Hildenbrand" <david@redhat.com>, 
-	"David Sterba" <dsterba@suse.com>, 
-	"Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>, 
-	"Gao Xiang" <hsiangkao@linux.alibaba.com>, 
-	"Huang Rui" <ray.huang@amd.com>, "Ingo Molnar" <mingo@redhat.com>, 
-	"Jaegeuk Kim" <jaegeuk@kernel.org>, 
-	"Jani Nikula" <jani.nikula@linux.intel.com>, "Jan Kara" <jack@suse.cz>, 
-	"Jason Wang" <jasowang@redhat.com>, "Jeff Layton" <jlayton@kernel.org>, 
-	"Jeffle Xu" <jefflexu@linux.alibaba.com>, 
-	"Joel Fernandes (Google)" <joel@joelfernandes.org>, 
-	"Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>, 
-	"Josef Bacik" <josef@toxicpanda.com>, "Juergen Gross" <jgross@suse.com>, 
-	"Kent Overstreet" <kent.overstreet@gmail.com>, 
-	"Marijn Suijten" <marijn.suijten@somainline.org>, 
-	"Michael S. Tsirkin" <mst@redhat.com>, 
-	"Mike Snitzer" <snitzer@kernel.org>, "Minchan Kim" <minchan@kernel.org>, 
-	"Nadav Amit" <namit@vmware.com>, "Neil Brown" <neilb@suse.de>, 
-	"Oleksandr Tyshchenko" <oleksandr_tyshchenko@epam.com>, 
-	"Olga Kornievskaia" <kolga@netapp.com>, 
-	"Richard Weinberger" <richard@nod.at>, "Rob Clark" <robdclark@gmail.com>, 
-	"Rob Herring" <robh@kernel.org>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>, 
-	"Sean Paul" <sean@poorly.run>, "Song Liu" <song@kernel.org>, 
-	"Stefano Stabellini" <sstabellini@kernel.org>, 
-	"Thomas Gleixner" <tglx@linutronix.de>, 
-	"Tomeu Vizoso" <tomeu.vizoso@collabora.com>, 
-	"Tom Talpey" <tom@talpey.com>, 
-	"Trond Myklebust" <trond.myklebust@hammerspace.com>, 
-	"Tvrtko Ursulin" <tvrtko.ursulin@linux.intel.com>, 
-	"Xuan Zhuo" <xuanzhuo@linux.alibaba.com>, "Yue Hu" <huyue2@coolpad.com>, 
-	"Andrew Morton" <akpm@linux-foundation.org>, 
-	"Sasha Levin" <sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="He0AHl1x";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SpISH4L+"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8P1Ii2042000
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 09:08:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	iDOJUKPZ+vd5FVmRMKIpfjJCtt51gYVRZlZPGq8hbR0=; b=He0AHl1xU03PyNTv
+	xDsm+upddU4Xsx967MQJT4Wt34HjxqKkeRZI44q+7420ZbSnex0wMlSdCpI7KeRS
+	CkovQFWNZYbFqwMK1I8pXSatwO89sH4ShObIo0auHRPtOBek18pZh4iiPhWcKcJG
+	sPqmATo88qW7jjs43fw0bbAgcuR2ZcG8BQ5m//Qiom59mQ/zXYJ5FaSxHGNasN5H
+	qg1pnEk9iBohfJJITAZrEiILn9wSbAzyOViIBnWc4/1Hq9sbrW+lxiEpMK1ywBkT
+	+PgTeVlBqzSnySNuH1a29xXmH7uT5jgfbT50qWkSKq7Lt1nSAhazIAELbxuBK8I7
+	+Z7KAQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hd5ur1y11-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 09:08:21 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-934a8cd3a8bso38179585a.3
+        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 02:08:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792400901; x=1793005701; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iDOJUKPZ+vd5FVmRMKIpfjJCtt51gYVRZlZPGq8hbR0=;
+        b=SpISH4L+31opgNM3JGDUOi3zMxXLD0wmm0NdEmcLbeyE0577We3FZGyDzr1ozT2jQ0
+         kqA9deawQpXBSNR1BqBcVAr3a3DSmntlg0vn1IOYic9Pk8PIZidx+42hO3gLHnu/uUsa
+         byWa/AdRkXGtKrO1f5atsbavMSE1OdLZMIZI/sUWWTQFxE/tuyW/HpyhB6fvJnR0Ap44
+         xq8EhYn7h+G9Chfc2xyuaLQ+oibPUXf/arLBc38hVkSVplvWbTYZ/P3Luo8N855zFWUo
+         i8+OMMY7f+gdUfhwrq9vn9BkFaWUS4QTNArzlnWoov+wH/+2HaZQ0gk34nfJU1hYm+7r
+         sYUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792400901; x=1793005701;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iDOJUKPZ+vd5FVmRMKIpfjJCtt51gYVRZlZPGq8hbR0=;
+        b=oAK1jbUK851WOLZX84UU90rFGEYJea10OqO8n/7NYesWYru/9VOGzcr3rfRrGMjr56
+         0tDdADAc8HSyk9CZEy5wyjv6PP+p0JE13QQOdOk30p+BMRNcJpE77d4VmQHurY0FwXhP
+         fvAp37OhK+XDCPAJpTueLYGhJRCNZOukGoKjEdZgQ7kt0xYgzD3/VN/twFv/PRtm13YT
+         Y3uRHnDfTAQrrVLnrp83/XFxLDUBLwTjlADA4CHnheehC2UyFH/zkNcyxJhGRToAK0/M
+         av9dlsE9Z78s67SaXU4K5cih9RJQEeQ+KdfirOOtGT1RoxfbPvDCybiOKSd5afV76rnk
+         CqrA==
+X-Forwarded-Encrypted: i=1; AKwUvBwd9+g5/376kSuV+6kBIcmBPsv+nwdEYCowwHaa3m7amgcZzt1dIqH2n1CEtiU2bej1ErBSitc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKgn1QV7CrEZBRQMBpsKQGfk4eEfNZBExG3/pSrsWgtXtlKV8vR
+	Yc3IS0TfWHiCr7IaZuSLNohAi3Ygil5xpU6eexMbEwNS/coe6N6uqOqvw/dp8+4Aj4bx5cwqBoP
+	2eN7j3uPlxam6RYy/SDWF2vPxdC1rO7M+V1e5kc49jbXg+S9iph9dpNN6zxg=
+X-Gm-Gg: AYBFou2p2K/gNAki+Pi44rKZPRvZQXvFtXiJrAV9WaMGZ+KhWBfOLtTqZ/3yggNHPe3
+	NTgTY4u+U4D5FJK0vfFDTecCKhLlIaSojON4vfUQwYfL8WPVtQatCN1B7OxGYNrJwltQFRWLYLx
+	28nwuu0i3Cu/nqug8/3ku+vQIC6CufbjXKW6m5PlUMDyhMrmUdOxegQP8+Fiww3SN+eJwGhUQYm
+	kzq52S3gcV6dlEPT0AR7UlTjw4ayHzpCih68stxvt9PPdgsUsQVDd8/3IrEzDDafWR3QHaMdDnU
+	fl8t+fbw/CR07dxR4TnzarpcjPNVnMTj3cegJMWTEh/mZ164ysPKLVRERiDhcFFBUF7JB/fgQPs
+	Y6IieagAy1FcEv1w99C2MvQ==
+X-Received: by 2002:a05:620a:4452:b0:93a:14c:329c with SMTP id af79cd13be357-93f29b38f59mr1324501585a.1.1792400900972;
+        Mon, 19 Oct 2026 02:08:20 -0700 (PDT)
+X-Received: by 2002:a05:620a:4452:b0:93a:14c:329c with SMTP id af79cd13be357-93f29b38f59mr1324497185a.1.1792400900469;
+        Mon, 19 Oct 2026 02:08:20 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4090dd10ebsm339452466b.22.2026.10.19.02.08.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 02:08:19 -0700 (PDT)
+Message-ID: <20553686-c073-4b13-a23b-a4936da33dad@oss.qualcomm.com>
+Date: Mon, 19 Oct 2026 11:08:16 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26ad5dc94+d57f93+vger.kernel.org+zhengqi.arch@bytedance.com>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/a6xx: Don't set GPU freq before the GMU freq
+ table is built
+To: eng.m7mdhashim.1@gmail.com, Rob Clark <robin.clark@oss.qualcomm.com>,
+        Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+References: <20261018-msm-gmu-freq-guard-v1-1-dd92dcccee86@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261018-msm-gmu-freq-guard-v1-1-dd92dcccee86@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDAzNiBTYWx0ZWRfXw8V0lRXHX6S+
+ v/nyHcBnQSL2rUYZ9E6ivFn+Kt82gnRH8R7MsB/7UZt8de1tSnjZzoiPwCV0E07AYiO6EuxrHfg
+ j5p8gKfLyLK704GSZIjAufwdzImenq0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDAzNiBTYWx0ZWRfXymjfjrli4/pJ
+ QnRyQYV6NNZOr1f24wn7SBwtJ+n/uK0bPCHfMmhGkFm/0sMkOIxmjidpWG+exyy5FgqGwJ5VJId
+ oggLlT0vGEK/+6gPUDnT0c2/v8mLgEC54DO3KBi4T6qg9nbsGhfd++LggeQUX4tlD5n5FmqQ9j+
+ XGT/LSDvMOL5eLEtfUUjj0+V8o4n5f75gpvCd9PWjHqydezX9Upu1jNTlb4vEGLihNcWTdhU8Ou
+ +/0x+rKD6ei3UWeK01NmrtSfxP+PAl50ZNyE4JxBQCMs4zkBOxlZyZnMXVXPI3OdAtYWQpw8oQL
+ bRPON0KgO0tCh3iFmRCzuUMkuLFKFXNdIYz/aoEumP0bsBMrGt2G19Y3rbAEkQfbMRjWiM399Vd
+ DPG8Zf0yMGEyNgeve31W9H+azrTHce38Fncoh7fGeEpGSdGXf3nLDY8nnCPG94vkXFGv0600++3
+ Ri2Xt/qaXBfoA7EyUmA==
+X-Proofpoint-ORIG-GUID: by_s7ILlDgSJpAQUrr8Z2tNDPQH2_Edk
+X-Proofpoint-GUID: by_s7ILlDgSJpAQUrr8Z2tNDPQH2_Edk
+X-Authority-Analysis: v=2.4 cv=CP6/zhrD c=1 sm=1 tr=0 ts=6ad5de05 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=pGLkceISAAAA:8 a=TId0fF7HYP2RL42ZpU8A:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0
+ priorityscore=1501 spamscore=0 impostorscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190036
 
-Hi Greg,
+On 10/18/26 8:29 PM, Mohammed AlHashim via B4 Relay wrote:
+> From: Mohammed AlHashim <eng.m7mdhashim.1@gmail.com>
+> 
+> a6xx_gpu_init() registers devfreq through adreno_gpu_init() ->
+> msm_gpu_init() -> msm_devfreq_init(), and only afterwards calls
+> a6xx_gmu_init(), which fills gmu->gpu_freqs[] and sets
+> gmu->nr_gpu_freqs. The devfreq sysfs node is visible in that window,
+> so a write to min_freq or max_freq can reach a6xx_gmu_set_freq() while
+> nr_gpu_freqs is still 0.
 
-Backporting just this patch alone doesn't seem to fix any actual issue.
-Why was it backported to v6.6?
+[...]
 
-On 10/17/26 11:54 PM, Greg Kroah-Hartman wrote:
-> 6.6-stable review patch.  If anyone has any objections, please let me know.
-> 
-> ------------------
-> 
-> From: Qi Zheng <zhengqi.arch@bytedance.com>
-> 
-> [ Upstream commit c42d50aefd17a6bad3ed617769edbbb579137545 ]
-> 
-> Patch series "use refcount+RCU method to implement lockless slab shrink",
-> v6.
-> 
-> 1. Background
-> =============
-> 
-> We used to implement the lockless slab shrink with SRCU [1], but then kernel
-> test robot reported -88.8% regression in stress-ng.ramfs.ops_per_sec test
-> case [2], so we reverted it [3].
-> 
-> This patch series aims to re-implement the lockless slab shrink using the
-> refcount+RCU method proposed by Dave Chinner [4].
-> 
-> [1]. https://lore.kernel.org/lkml/20230313112819.38938-1-zhengqi.arch@bytedance.com/
-> [2]. https://lore.kernel.org/lkml/202305230837.db2c233f-yujie.liu@intel.com/
-> [3]. https://lore.kernel.org/all/20230609081518.3039120-1-qi.zheng@linux.dev/
-> [4]. https://lore.kernel.org/lkml/ZIJhou1d55d4H1s0@dread.disaster.area/
-> 
-> 2. Implementation
-> =================
-> 
-> Currently, the shrinker instances can be divided into the following three types:
-> 
-> a) global shrinker instance statically defined in the kernel, such as
->     workingset_shadow_shrinker.
-> 
-> b) global shrinker instance statically defined in the kernel modules, such as
->     mmu_shrinker in x86.
-> 
-> c) shrinker instance embedded in other structures.
-> 
-> For case a, the memory of shrinker instance is never freed. For case b, the
-> memory of shrinker instance will be freed after synchronize_rcu() when the
-> module is unloaded. For case c, the memory of shrinker instance will be freed
-> along with the structure it is embedded in.
-> 
-> In preparation for implementing lockless slab shrink, we need to dynamically
-> allocate those shrinker instances in case c, then the memory can be dynamically
-> freed alone by calling kfree_rcu().
-> 
-> This patchset adds the following new APIs for dynamically allocating shrinker,
-> and add a private_data field to struct shrinker to record and get the original
-> embedded structure.
-> 
-> 1. shrinker_alloc()
-> 2. shrinker_register()
-> 3. shrinker_free()
-> 
-> In order to simplify shrinker-related APIs and make shrinker more independent of
-> other kernel mechanisms, this patchset uses the above APIs to convert all
-> shrinkers (including case a and b) to dynamically allocated, and then remove all
-> existing APIs. This will also have another advantage mentioned by Dave Chinner:
-> 
-> ```
-> The other advantage of this is that it will break all the existing out of tree
-> code and third party modules using the old API and will no longer work with a
-> kernel using lockless slab shrinkers. They need to break (both at the source and
-> binary levels) to stop bad things from happening due to using uncoverted
-> shrinkers in the new setup.
-> ```
-> 
-> Then we free the shrinker by calling call_rcu(), and use rcu_read_{lock,unlock}()
-> to ensure that the shrinker instance is valid. And the shrinker::refcount
-> mechanism ensures that the shrinker instance will not be run again after
-> unregistration. So the structure that records the pointer of shrinker instance
-> can be safely freed without waiting for the RCU read-side critical section.
-> 
-> In this way, while we implement the lockless slab shrink, we don't need to be
-> blocked in unregister_shrinker() to wait RCU read-side critical section.
-> 
-> PATCH 1: introduce new APIs
-> PATCH 2~38: convert all shrinnkers to use new APIs
-> PATCH 39: remove old APIs
-> PATCH 40~41: some cleanups and preparations
-> PATCH 42-43: implement the lockless slab shrink
-> PATCH 44~45: convert shrinker_rwsem to mutex
-> 
-> 3. Testing
-> ==========
-> 
-> 3.1 slab shrink stress test
-> ---------------------------
-> 
-> We can reproduce the down_read_trylock() hotspot through the following script:
-> 
-> ```
-> 
-> DIR="/root/shrinker/memcg/mnt"
-> 
-> do_create()
-> {
->      mkdir -p /sys/fs/cgroup/memory/test
->      echo 4G > /sys/fs/cgroup/memory/test/memory.limit_in_bytes
->      for i in `seq 0 $1`;
->      do
->          mkdir -p /sys/fs/cgroup/memory/test/$i;
->          echo $$ > /sys/fs/cgroup/memory/test/$i/cgroup.procs;
->          mkdir -p $DIR/$i;
->      done
-> }
-> 
-> do_mount()
-> {
->      for i in `seq $1 $2`;
->      do
->          mount -t tmpfs $i $DIR/$i;
->      done
-> }
-> 
-> do_touch()
-> {
->      for i in `seq $1 $2`;
->      do
->          echo $$ > /sys/fs/cgroup/memory/test/$i/cgroup.procs;
->          dd if=/dev/zero of=$DIR/$i/file$i bs=1M count=1 &
->      done
-> }
-> 
-> case "$1" in
->    touch)
->      do_touch $2 $3
->      ;;
->    test)
->      do_create 4000
->      do_mount 0 4000
->      do_touch 0 3000
->      ;;
->    *)
->      exit 1
->      ;;
-> esac
-> ```
-> 
-> Save the above script, then run test and touch commands. Then we can use the
-> following perf command to view hotspots:
-> 
-> perf top -U -F 999
-> 
-> 1) Before applying this patchset:
-> 
->    33.15%  [kernel]          [k] down_read_trylock
->    25.38%  [kernel]          [k] shrink_slab
->    21.75%  [kernel]          [k] up_read
->     4.45%  [kernel]          [k] _find_next_bit
->     2.27%  [kernel]          [k] do_shrink_slab
->     1.80%  [kernel]          [k] intel_idle_irq
->     1.79%  [kernel]          [k] shrink_lruvec
->     0.67%  [kernel]          [k] xas_descend
->     0.41%  [kernel]          [k] mem_cgroup_iter
->     0.40%  [kernel]          [k] shrink_node
->     0.38%  [kernel]          [k] list_lru_count_one
-> 
-> 2) After applying this patchset:
-> 
->    64.56%  [kernel]          [k] shrink_slab
->    12.18%  [kernel]          [k] do_shrink_slab
->     3.30%  [kernel]          [k] __rcu_read_unlock
->     2.61%  [kernel]          [k] shrink_lruvec
->     2.49%  [kernel]          [k] __rcu_read_lock
->     1.93%  [kernel]          [k] intel_idle_irq
->     0.89%  [kernel]          [k] shrink_node
->     0.81%  [kernel]          [k] mem_cgroup_iter
->     0.77%  [kernel]          [k] mem_cgroup_calculate_protection
->     0.66%  [kernel]          [k] list_lru_count_one
-> 
-> We can see that the first perf hotspot becomes shrink_slab, which is what we
-> expect.
-> 
-> 3.2 registration and unregistration stress test
-> -----------------------------------------------
-> 
-> Run the command below to test:
-> 
-> stress-ng --timeout 60 --times --verify --metrics-brief --ramfs 9 &
-> 
-> 1) Before applying this patchset:
-> 
-> setting to a 60 second run per stressor
-> dispatching hogs: 9 ramfs
-> stressor       bogo ops real time  usr time  sys time   bogo ops/s     bogo ops/s
->                            (secs)    (secs)    (secs)   (real time) (usr+sys time)
-> ramfs            473062     60.00      8.00    279.13      7884.12        1647.59
-> for a 60.01s run time:
->     1440.34s available CPU time
->        7.99s user time   (  0.55%)
->      279.13s system time ( 19.38%)
->      287.12s total time  ( 19.93%)
-> load average: 7.12 2.99 1.15
-> successful run completed in 60.01s (1 min, 0.01 secs)
-> 
-> 2) After applying this patchset:
-> 
-> setting to a 60 second run per stressor
-> dispatching hogs: 9 ramfs
-> stressor       bogo ops real time  usr time  sys time   bogo ops/s     bogo ops/s
->                            (secs)    (secs)    (secs)   (real time) (usr+sys time)
-> ramfs            477165     60.00      8.13    281.34      7952.55        1648.40
-> for a 60.01s run time:
->     1440.33s available CPU time
->        8.12s user time   (  0.56%)
->      281.34s system time ( 19.53%)
->      289.46s total time  ( 20.10%)
-> load average: 6.98 3.03 1.19
-> successful run completed in 60.01s (1 min, 0.01 secs)
-> 
-> We can see that the ops/s has hardly changed.
-> 
-> This patch (of 45):
-> 
-> Currently, the shrinker instances can be divided into the following three
-> types:
-> 
-> a) global shrinker instance statically defined in the kernel, such as
->     workingset_shadow_shrinker.
-> 
-> b) global shrinker instance statically defined in the kernel modules, such
->     as mmu_shrinker in x86.
-> 
-> c) shrinker instance embedded in other structures.
-> 
-> For case a, the memory of shrinker instance is never freed. For case b,
-> the memory of shrinker instance will be freed after synchronize_rcu() when
-> the module is unloaded. For case c, the memory of shrinker instance will
-> be freed along with the structure it is embedded in.
-> 
-> In preparation for implementing lockless slab shrink, we need to
-> dynamically allocate those shrinker instances in case c, then the memory
-> can be dynamically freed alone by calling kfree_rcu().
-> 
-> So this commit adds the following new APIs for dynamically allocating
-> shrinker, and add a private_data field to struct shrinker to record and
-> get the original embedded structure.
-> 
-> 1. shrinker_alloc()
-> 
-> Used to allocate shrinker instance itself and related memory, it will
-> return a pointer to the shrinker instance on success and NULL on failure.
-> 
-> 2. shrinker_register()
-> 
-> Used to register the shrinker instance, which is same as the current
-> register_shrinker_prepared().
-> 
-> 3. shrinker_free()
-> 
-> Used to unregister (if needed) and free the shrinker instance.
-> 
-> In order to simplify shrinker-related APIs and make shrinker more
-> independent of other kernel mechanisms, subsequent submissions will use
-> the above API to convert all shrinkers (including case a and b) to
-> dynamically allocated, and then remove all existing APIs.
-> 
-> This will also have another advantage mentioned by Dave Chinner:
-> 
-> ```
-> The other advantage of this is that it will break all the existing
-> out of tree code and third party modules using the old API and will
-> no longer work with a kernel using lockless slab shrinkers. They
-> need to break (both at the source and binary levels) to stop bad
-> things from happening due to using unconverted shrinkers in the new
-> setup.
-> ```
-> 
-> [zhengqi.arch@bytedance.com: mm: shrinker: some cleanup]
->    Link: https://lkml.kernel.org/r/20230919024607.65463-1-zhengqi.arch@bytedance.com
-> Link: https://lkml.kernel.org/r/20230911094444.68966-1-zhengqi.arch@bytedance.com
-> Link: https://lkml.kernel.org/r/20230911094444.68966-2-zhengqi.arch@bytedance.com
-> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-> Reviewed-by: Muchun Song <songmuchun@bytedance.com>
-> Cc: Christian Brauner <brauner@kernel.org>
-> Cc: Chuck Lever <cel@kernel.org>
-> Cc: Darrick J. Wong <djwong@kernel.org>
-> Cc: Dave Chinner <david@fromorbit.com>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Kirill Tkhai <tkhai@ya.ru>
-> Cc: Paul E. McKenney <paulmck@kernel.org>
-> Cc: Roman Gushchin <roman.gushchin@linux.dev>
-> Cc: Sergey Senozhatsky <senozhatsky@chromium.org>
-> Cc: Steven Price <steven.price@arm.com>
-> Cc: Theodore Ts'o <tytso@mit.edu>
-> Cc: Vlastimil Babka <vbabka@suse.cz>
-> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Cc: Alasdair Kergon <agk@redhat.com>
-> Cc: Alexander Viro <viro@zeniv.linux.org.uk>
-> Cc: Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>
-> Cc: Andreas Dilger <adilger.kernel@dilger.ca>
-> Cc: Andreas Gruenbacher <agruenba@redhat.com>
-> Cc: Anna Schumaker <anna@kernel.org>
-> Cc: Arnd Bergmann <arnd@arndb.de>
-> Cc: Bob Peterson <rpeterso@redhat.com>
-> Cc: Borislav Petkov <bp@alien8.de>
-> Cc: Carlos Llamas <cmllamas@google.com>
-> Cc: Chandan Babu R <chandan.babu@oracle.com>
-> Cc: Chao Yu <chao@kernel.org>
-> Cc: Chris Mason <clm@fb.com>
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Cc: Coly Li <colyli@suse.de>
-> Cc: Dai Ngo <Dai.Ngo@oracle.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Cc: Dave Hansen <dave.hansen@linux.intel.com>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: David Hildenbrand <david@redhat.com>
-> Cc: David Sterba <dsterba@suse.com>
-> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Cc: Gao Xiang <hsiangkao@linux.alibaba.com>
-> Cc: Huang Rui <ray.huang@amd.com>
-> Cc: Ingo Molnar <mingo@redhat.com>
-> Cc: Jaegeuk Kim <jaegeuk@kernel.org>
-> Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> Cc: Jan Kara <jack@suse.cz>
-> Cc: Jason Wang <jasowang@redhat.com>
-> Cc: Jeff Layton <jlayton@kernel.org>
-> Cc: Jeffle Xu <jefflexu@linux.alibaba.com>
-> Cc: Joel Fernandes (Google) <joel@joelfernandes.org>
-> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> Cc: Josef Bacik <josef@toxicpanda.com>
-> Cc: Juergen Gross <jgross@suse.com>
-> Cc: Kent Overstreet <kent.overstreet@gmail.com>
-> Cc: Marijn Suijten <marijn.suijten@somainline.org>
-> Cc: "Michael S. Tsirkin" <mst@redhat.com>
-> Cc: Mike Snitzer <snitzer@kernel.org>
-> Cc: Minchan Kim <minchan@kernel.org>
-> Cc: Nadav Amit <namit@vmware.com>
-> Cc: Neil Brown <neilb@suse.de>
-> Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> Cc: Olga Kornievskaia <kolga@netapp.com>
-> Cc: Richard Weinberger <richard@nod.at>
-> Cc: Rob Clark <robdclark@gmail.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Cc: Sean Paul <sean@poorly.run>
-> Cc: Song Liu <song@kernel.org>
-> Cc: Stefano Stabellini <sstabellini@kernel.org>
-> Cc: Thomas Gleixner <tglx@linutronix.de>
-> Cc: Tomeu Vizoso <tomeu.vizoso@collabora.com>
-> Cc: Tom Talpey <tom@talpey.com>
-> Cc: Trond Myklebust <trond.myklebust@hammerspace.com>
-> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-> Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-> Cc: Yue Hu <huyue2@coolpad.com>
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> Stable-dep-of: d227786ab111 ("fs/mbcache: cancel shrink work before destroying the cache")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->   include/linux/shrinker.h |  19 +++++--
->   mm/internal.h            |  22 ++++++++
->   mm/shrinker.c            | 106 +++++++++++++++++++++++++++++++++++++++
->   mm/shrinker_debug.c      |   3 --
->   4 files changed, 142 insertions(+), 8 deletions(-)
-> 
-> diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
-> index 8dc15aa374107..062e9fe5de15d 100644
-> --- a/include/linux/shrinker.h
-> +++ b/include/linux/shrinker.h
-> @@ -70,6 +70,8 @@ struct shrinker {
->   	int seeks;	/* seeks to recreate an obj */
->   	unsigned flags;
->   
-> +	void *private_data;
-> +
->   	/* These are for internal use */
->   	struct list_head list;
->   #ifdef CONFIG_MEMCG
-> @@ -86,15 +88,22 @@ struct shrinker {
->   };
->   #define DEFAULT_SEEKS 2 /* A good number if you don't know better. */
->   
-> -/* Flags */
-> -#define SHRINKER_REGISTERED	(1 << 0)
-> -#define SHRINKER_NUMA_AWARE	(1 << 1)
-> -#define SHRINKER_MEMCG_AWARE	(1 << 2)
-> +/* Internal flags */
-> +#define SHRINKER_REGISTERED	BIT(0)
-> +#define SHRINKER_ALLOCATED	BIT(1)
-> +
-> +/* Flags for users to use */
-> +#define SHRINKER_NUMA_AWARE	BIT(2)
-> +#define SHRINKER_MEMCG_AWARE	BIT(3)
->   /*
->    * It just makes sense when the shrinker is also MEMCG_AWARE for now,
->    * non-MEMCG_AWARE shrinker should not have this flag set.
->    */
-> -#define SHRINKER_NONSLAB	(1 << 3)
-> +#define SHRINKER_NONSLAB	BIT(4)
-> +
-> +struct shrinker *shrinker_alloc(unsigned int flags, const char *fmt, ...);
-> +void shrinker_register(struct shrinker *shrinker);
-> +void shrinker_free(struct shrinker *shrinker);
->   
->   extern int __printf(2, 3) prealloc_shrinker(struct shrinker *shrinker,
->   					    const char *fmt, ...);
-> diff --git a/mm/internal.h b/mm/internal.h
-> index d4ad62bead2e1..b00fa5df33b5f 100644
-> --- a/mm/internal.h
-> +++ b/mm/internal.h
-> @@ -1241,6 +1241,20 @@ unsigned long shrink_slab(gfp_t gfp_mask, int nid, struct mem_cgroup *memcg,
->   			  int priority);
->   
->   #ifdef CONFIG_SHRINKER_DEBUG
-> +static inline int shrinker_debugfs_name_alloc(struct shrinker *shrinker,
-> +					      const char *fmt, va_list ap)
-> +{
-> +	shrinker->name = kvasprintf_const(GFP_KERNEL, fmt, ap);
-> +
-> +	return shrinker->name ? 0 : -ENOMEM;
-> +}
-> +
-> +static inline void shrinker_debugfs_name_free(struct shrinker *shrinker)
-> +{
-> +	kfree_const(shrinker->name);
-> +	shrinker->name = NULL;
-> +}
-> +
->   extern int shrinker_debugfs_add(struct shrinker *shrinker);
->   extern struct dentry *shrinker_debugfs_detach(struct shrinker *shrinker,
->   					      int *debugfs_id);
-> @@ -1251,6 +1265,14 @@ static inline int shrinker_debugfs_add(struct shrinker *shrinker)
->   {
->   	return 0;
->   }
-> +static inline int shrinker_debugfs_name_alloc(struct shrinker *shrinker,
-> +					      const char *fmt, va_list ap)
-> +{
-> +	return 0;
-> +}
-> +static inline void shrinker_debugfs_name_free(struct shrinker *shrinker)
-> +{
-> +}
->   static inline struct dentry *shrinker_debugfs_detach(struct shrinker *shrinker,
->   						     int *debugfs_id)
->   {
-> diff --git a/mm/shrinker.c b/mm/shrinker.c
-> index 043c87ccfab41..0234628ac16a9 100644
-> --- a/mm/shrinker.c
-> +++ b/mm/shrinker.c
-> @@ -550,6 +550,112 @@ unsigned long shrink_slab(gfp_t gfp_mask, int nid, struct mem_cgroup *memcg,
->   	return freed;
->   }
->   
-> +struct shrinker *shrinker_alloc(unsigned int flags, const char *fmt, ...)
-> +{
-> +	struct shrinker *shrinker;
-> +	unsigned int size;
-> +	va_list ap;
-> +	int err;
-> +
-> +	shrinker = kzalloc(sizeof(struct shrinker), GFP_KERNEL);
-> +	if (!shrinker)
-> +		return NULL;
-> +
-> +	va_start(ap, fmt);
-> +	err = shrinker_debugfs_name_alloc(shrinker, fmt, ap);
-> +	va_end(ap);
-> +	if (err)
-> +		goto err_name;
-> +
-> +	shrinker->flags = flags | SHRINKER_ALLOCATED;
-> +	shrinker->seeks = DEFAULT_SEEKS;
-> +
-> +	if (flags & SHRINKER_MEMCG_AWARE) {
-> +		err = prealloc_memcg_shrinker(shrinker);
-> +		if (err == -ENOSYS) {
-> +			/* Memcg is not supported, fallback to non-memcg-aware shrinker. */
-> +			shrinker->flags &= ~SHRINKER_MEMCG_AWARE;
-> +			goto non_memcg;
-> +		}
-> +
-> +		if (err)
-> +			goto err_flags;
-> +
-> +		return shrinker;
-> +	}
-> +
-> +non_memcg:
-> +	/*
-> +	 * The nr_deferred is available on per memcg level for memcg aware
-> +	 * shrinkers, so only allocate nr_deferred in the following cases:
-> +	 *  - non-memcg-aware shrinkers
-> +	 *  - !CONFIG_MEMCG
-> +	 *  - memcg is disabled by kernel command line
-> +	 */
-> +	size = sizeof(*shrinker->nr_deferred);
-> +	if (flags & SHRINKER_NUMA_AWARE)
-> +		size *= nr_node_ids;
-> +
-> +	shrinker->nr_deferred = kzalloc(size, GFP_KERNEL);
-> +	if (!shrinker->nr_deferred)
-> +		goto err_flags;
-> +
-> +	return shrinker;
-> +
-> +err_flags:
-> +	shrinker_debugfs_name_free(shrinker);
-> +err_name:
-> +	kfree(shrinker);
-> +	return NULL;
-> +}
-> +EXPORT_SYMBOL_GPL(shrinker_alloc);
-> +
-> +void shrinker_register(struct shrinker *shrinker)
-> +{
-> +	if (unlikely(!(shrinker->flags & SHRINKER_ALLOCATED))) {
-> +		pr_warn("Must use shrinker_alloc() to dynamically allocate the shrinker");
-> +		return;
-> +	}
-> +
-> +	down_write(&shrinker_rwsem);
-> +	list_add_tail(&shrinker->list, &shrinker_list);
-> +	shrinker->flags |= SHRINKER_REGISTERED;
-> +	shrinker_debugfs_add(shrinker);
-> +	up_write(&shrinker_rwsem);
-> +}
-> +EXPORT_SYMBOL_GPL(shrinker_register);
-> +
-> +void shrinker_free(struct shrinker *shrinker)
-> +{
-> +	struct dentry *debugfs_entry = NULL;
-> +	int debugfs_id;
-> +
-> +	if (!shrinker)
-> +		return;
-> +
-> +	down_write(&shrinker_rwsem);
-> +	if (shrinker->flags & SHRINKER_REGISTERED) {
-> +		list_del(&shrinker->list);
-> +		debugfs_entry = shrinker_debugfs_detach(shrinker, &debugfs_id);
-> +		shrinker->flags &= ~SHRINKER_REGISTERED;
-> +	}
-> +
-> +	shrinker_debugfs_name_free(shrinker);
-> +
-> +	if (shrinker->flags & SHRINKER_MEMCG_AWARE)
-> +		unregister_memcg_shrinker(shrinker);
-> +	up_write(&shrinker_rwsem);
-> +
-> +	if (debugfs_entry)
-> +		shrinker_debugfs_remove(debugfs_entry, debugfs_id);
-> +
-> +	kfree(shrinker->nr_deferred);
-> +	shrinker->nr_deferred = NULL;
-> +
-> +	kfree(shrinker);
-> +}
-> +EXPORT_SYMBOL_GPL(shrinker_free);
-> +
->   /*
->    * Add a shrinker callback to be called from the vm.
->    */
-> diff --git a/mm/shrinker_debug.c b/mm/shrinker_debug.c
-> index fcdef821147c1..694acc2b63740 100644
-> --- a/mm/shrinker_debug.c
-> +++ b/mm/shrinker_debug.c
-> @@ -239,9 +239,6 @@ struct dentry *shrinker_debugfs_detach(struct shrinker *shrinker,
->   
->   	lockdep_assert_held(&shrinker_rwsem);
->   
-> -	kfree_const(shrinker->name);
-> -	shrinker->name = NULL;
+> If you'd rather fix the ordering, so devfreq is registered after
+> a6xx_gmu_init(), I'm happy to rework it that way.
 
-This was mistakenly dropped in this patch.
+I think that's the cleaner fix.
 
-If the entire patchset isn't being backported, this shouldn't be
-included either.
-
-Thanks,
-Qi
-
-> -
->   	*debugfs_id = entry ? shrinker->debugfs_id : -1;
->   	shrinker->debugfs_entry = NULL;
+Konrad
