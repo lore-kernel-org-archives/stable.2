@@ -1,74 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.148
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792446946;
-	b=uxPM02NE6TY9rBXS5Nd606kK7XLlPJ8b53PQ19kxOkUMolbPRoAtDH06amg8O7yk2wSf
-	 r/eeVWRhYApt/oExPK11weSAkfhMxeEmp8fXJ7ECidhcmM8RcMmn/fIKcgvJVKFPh3mT3
-	 3lhXP4X2X2ZNwTyxakIqzkk4xI9GhdWc+hR+H/CPmh3pHDfcTZaghey7/Cq/bG3N6npM2
-	 xT1yUTqvO1WBHLOEDyFyuXIfvxvlrkomaT65rKE6FZtNj6KCmyrzsEiTpP6+CGRlJsgMg
-	 dQTdp7riPSbDscDCQCoIbNZbHEsOi2O7wRBHu+utsFeZ5jdokWVOJvucJJBrljtoQHw==
+	t=1792447596;
+	b=qQq0gxaxyuv2taosQwA5o7umhJJLRrm7VkX8Qg5W1sNG/BN9b4TqZ2h9lpzsk+IrAdXU
+	 m/exLMzzlwEHbxVzejSVZ4pDKFijrR5KWkiLIkUAbupVZIcqgPqoS/1zzLO82nTHipI4n
+	 7sTN6JBpfOWQbpuwsSjIOHRSBufLHWKSHb9P9zx2G7hg4IbJOVjL20b63INY/GAlIndBV
+	 9Ieg3EollEoUNmeTR6EpBzy7CI5hdwk8QRYmIJiLzLOY6IQki2gM15X1lSIDk18Q2fPht
+	 B2zZxolRwhsf4hhB5y6RBQfIGx9Rj+MqGN9dUmdfEwSbF8zv/Lq8Y0eBxJEbuCBiE4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792446946;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=qnAcF7DiLfesErSEN9jHLUGZI40lao7HDdIoFwsZrGo=;
-	b=Qgzq5yUyQwm60C6i+UVR6m7wIW9iQRsKQUcigjxaoGRE5FA+yEh+CKFpfcV1epvnlpva
-	 j0IwmSIl1m6n0VZApbilCw1eTeu1fkPWo2mo1HaOPaG7i//p0pqA8IHYesJ8G3lXbfPGm
-	 UwoNhnG5+04gQvjpw8a/BnVyp19jjXiSQ82iB9B8ABIKJVWmN1cfx/6jiMEWRbngTKBhx
-	 r8ysGSTYeeMic4SoFvqtqFNluzqqtQ/lG/XIfgQpgPxeBabh8ahB0XTRVqYxBXBLSDzbC
-	 8fBYC83fHosOZPqEZZdAPOMIdVsqqfWC2HDdTdtcsH2fEzqfvzkw8YTI5EPqFAQLwrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792447596;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=wIBD55LUoHoDATJCGVof+4CgALz8EVmNkMYBhtvyd6Q=;
+	b=k4368siIxN1PnGnRu8UzPUPxxPe+ArmX+NlNSzdjoppjZdQKobYJ2TPdnnx5lcysI6zv
+	 mHSlTn1o3Vi0+iYd5tlAU9SR9SCvtdqLAJnyCLK0FYc48V4P1+9Bkm9eXqAuD1pwZUW/N
+	 o4i55N0alWpvIcxb65wTnCuMeQliIjpNFx5svZIUG29sppaxlZ/qLJG6SKgqQHakq8zPj
+	 2L7kJ4MP79PrtUk2qIcual3vEBZvBJuHfOM8MADGwlCr0vQ9uRq13KabovdmgR2PI04kH
+	 /XM3S50ArgFjOnRcDgJ6f+ZKPpr4zCYRFvsIucQ8hQ2LlxgkbnVPVhm2N/qlL5xQHsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=urMm9H5G;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RGd1WEcy;
+	arc=none smtp.remote-ip=95.215.58.148
+Received: from mta1.migadu.com (out-148.mta1.migadu.com [95.215.58.148])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F8BC606A31B;
-	Mon, 19 Oct 2026 21:55:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F8BC606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E633606A31A
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 22:06:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E633606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=urMm9H5G
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4j7q9Y48Xjzlfvpn;
-	Mon, 19 Oct 2026 21:55:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:mime-version:x-mailer:message-id:date
-	:date:subject:subject:from:from:received:received; s=mr01; t=
-	1792446941; x=1795038942; bh=qnAcF7DiLfesErSEN9jHLUGZI40lao7HDdI
-	oFwsZrGo=; b=urMm9H5G1ejBcfya+1u42UquflckVusTr4HPjj/i/j7cjjnozoK
-	CPAkKzt+37DHeGR4gvlBMaQ/VBg+KblFReuARp82fChxH4bBOXXBuNbyknehmr8a
-	/ZAIHJQNYcaB9ZEPOHjcveLbfPS+hTUlFxB6+3GlW8gKoQQJj4lq4hluaJhyf1ZO
-	vOINB+0U9yXSlAO8W5qCU2UTjwKckHdOQC7FFXNT7ENO6310UZD4S9b4SeIyCdO0
-	sH1YIBClbWwOVnbZjjXVyqPQkvO5EB0vXKCSfzZ/QbIwuXa0dGnKJsXSUCyWp89j
-	KQDvxRTgpt/xf+JQ0em8Xv58Jgb9wvrugiw==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id pGZJ_9Rcjmzp; Mon, 19 Oct 2026 21:55:41 +0000 (UTC)
-Received: from bvanassche.c.googlers.com.com (245.199.118.34.bc.googleusercontent.com [34.118.199.245])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4j7q9T0r1hzlfvpd;
-	Mon, 19 Oct 2026 21:55:41 +0000 (UTC)
-From: Bart Van Assche <bvanassche@acm.org>
-To: "Martin K . Petersen" <martin.petersen@oracle.com>
-Cc: linux-scsi@vger.kernel.org,
-	John Garry <john.garry@linux.dev>,
-	Christoph Hellwig <hch@lst.de>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Lianqin Hu <hulianqin@vivo.com>,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RGd1WEcy
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=GhC0senqgW9jk2iZrX/Oeif4+RMjrpYmvR16vIm3Y84=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792447592; v=1; x=1793052392;
+ b=RGd1WEcy6qUGkInqsO6UQsWxpSvK+GCUSBAFheBJNPOMDkx2Wm6h3ooFMF3h2XC9eBo1/JXS
+ mGwIUxbHAIB1I8DpG2ajAUb0Kc/0FxArxX1xbPeubnS+lc1j6hxvD5faGh3cgPyTEupWpX3uNsc
+ Z8FyFfQficBtcqQvYNYy4FcQ=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c4935393cb2a0c10;
+	Mon, 19 Oct 2026 22:06:32 +0000
+X-Mizu-Trace-ID: c4935393cb2a0c10
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 19 Oct 2026 15:06:29 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: "Gregory Price (Meta)" <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, kasong@tencent.com, qi.zheng@linux.dev, baohua@kernel.org, 
+	axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev, 
+	baolin.wang@linux.alibaba.com, hannes@cmpxchg.org, david@kernel.org, mhocko@kernel.org, 
+	ljs@kernel.org, dave@stgolabs.net, roman.gushchin@linux.dev, 
 	stable@vger.kernel.org
-Subject: [PATCH] scsi: sd: Mark the disk dead if runtime resume fails in sd_remove()
-Date: Mon, 19 Oct 2026 14:55:32 -0700
-Message-ID: <2c0c76d70f0fe197932836b9bcf8496095135d1b.1792446921.git.bvanassche@acm.org>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Subject: Re: [PATCH] mm/vmscan: reclaim every zone in per-node proactive
+ reclaim
+Message-ID: <ataUUbN1leyRVVQ1@linux.dev>
+References: <20261019185002.3428594-1-gourry@gourry.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,75 +68,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019185002.3428594-1-gourry@gourry.net>
 
-If a SCSI disk is unplugged while runtime suspended, its request queue
-is still in the pm-only state when sd_remove() is called. The runtime
-resume attempted by scsi_autopm_get_device() fails because the parent
-device, e.g. a USB device in the USB_STATE_NOTATTACHED state, cannot be
-resumed. Hence, sdev_runtime_resume() is not called and the pm-only
-state is not cleared. Next, del_gendisk() calls
-blk_report_disk_dead(disk, false), which calls sync_filesystem(). Any
-bio submitted by the filesystem waits forever in __bio_queue_enter()
-because the queue will never leave the pm-only state and because
-GD_DEAD has not yet been set:
+On Mon, Oct 19, 2026 at 02:50:02PM -0400, Gregory Price (Meta) wrote:
+> user_proactive_reclaim() limits per-node reclaim to
+> gfp_zone(GFP_KERNEL), which is ZONE_NORMAL. Proactive reclaim serves no
+> allocation, but that limit makes shrink_node() skip every ZONE_MOVABLE
+> folio, so writing to /sys/devices/system/node/nodeN/reclaim never
+> reclaims a node's movable memory. A movable-only node, such as dax/kmem
+> or hotplugged memory onlined movable, reclaims nothing and fails with
+> -EAGAIN.
+> 
+> To reproduce, fill a movable-only node with clean page cache and write
+> 200M to its nodeN/reclaim: the write fails with -EAGAIN and the page
+> cache stays. The same write to a ZONE_NORMAL node frees 200MB.
+> 
+> Scan every zone, as memory.reclaim does.
+> 
+> Fixes: b980077899ea4 ("mm: introduce per-node proactive reclaim interface")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 
- __bio_queue_enter+0xb8/0x174
- blk_mq_submit_bio+0x640/0x7e4
- [ ... ]
- exfat_sync_fs+0xa4/0xe0
- sync_filesystem+0xa8/0xdc
- fs_bdev_mark_dead+0x30/0x88
- bdev_mark_dead+0x54/0xc4
- blk_report_disk_dead+0x8c/0xd4
- del_gendisk+0xa0/0x2f8
- sd_remove+0x30/0x60
- [ ... ]
- scsi_remove_host+0x88/0x18c
- usb_stor_disconnect+0x68/0xf4
-
-Fix this hang by calling blk_mark_disk_dead() if runtime resume fails.
-This sets GD_DEAD, tells the filesystem that the disk has been removed
-without attempting to sync it, and wakes up any bios that are waiting
-in __bio_queue_enter(). Syncing the filesystem is not possible anyway
-if runtime resume failed, so no data is lost that could otherwise have
-been written. If runtime resume succeeds, behavior is not changed.
-
-Please note that this patch converts temporary runtime resume failures
-into permanent failures. Before this patch, if runtime resume fails
-temporarily, a filesytem sync would be postponed until a later resume
-succeeds.
-
-Cc: Christoph Hellwig <hch@lst.de>
-Tested-by: Lianqin Hu <hulianqin@vivo.com>
-Reported-by: Lianqin Hu <hulianqin@vivo.com>
-Closes: https://lore.kernel.org/all/TYUPR06MB6217DD31B1B3CD09E431CC12D292=
-2@TYUPR06MB6217.apcprd06.prod.outlook.com/
-Fixes: 6f8191fdf41d ("block: simplify disk shutdown")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bart Van Assche <bvanassche@acm.org>
----
- drivers/scsi/sd.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/scsi/sd.c b/drivers/scsi/sd.c
-index b0d2542fd317..dc45df819c42 100644
---- a/drivers/scsi/sd.c
-+++ b/drivers/scsi/sd.c
-@@ -4268,7 +4268,15 @@ static void sd_remove(struct scsi_device *sdp)
- 	struct device *dev =3D &sdp->sdev_gendev;
- 	struct scsi_disk *sdkp =3D dev_get_drvdata(dev);
-=20
--	scsi_autopm_get_device(sdkp->device);
-+	/*
-+	 * If runtime resume fails, e.g. because the device was unplugged
-+	 * while runtime suspended, the request queue stays in the pm-only
-+	 * state and any I/O submitted by del_gendisk(), e.g. from
-+	 * sync_filesystem(), would wait forever in __bio_queue_enter().
-+	 * Prevent this by marking the disk dead.
-+	 */
-+	if (scsi_autopm_get_device(sdkp->device) < 0)
-+		blk_mark_disk_dead(sdkp->disk);
-=20
- 	device_del(&sdkp->disk_dev);
- 	del_gendisk(sdkp->disk);
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
