@@ -1,47 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.245.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792444495;
-	b=IXzPrL7+JX8d12IcCFnEEX/28BguWIFoQT0GZKo2hiC5iN+OP8XmIt6H0t08bJnxycmM
-	 kMMLHKR1c+79j8kyGHHgsc6+Z1/oF55NhXJzB9soU1n9ExvGhqf+2djZZ3EV0svFb7D3d
-	 L3pWGNeta6Xn2l9K32kcninTAbGAt/Lp9I8SbzgJA3Weq13xCbb1Muj92CIvSLyGeg5vY
-	 kef904MEZsY7TxwgtIFc/l8D7veIIYLO6AOM6I7FatuJFIuUOgHVGM52+w5iYaTUaXHc2
-	 pHhiUThdr7WsUrX/QBQxpyXhwrzFoiTWhIdM0tY0E+ui1B3XdKTkjx9SSjf63wFNcGQ==
+	t=1792444615;
+	b=5bex/JwYmb45VCnewVwbWIoIRLI3cWR6aBppivfaWdCxW4umRYwrrfBQBT/sgBombeMU
+	 zznioMfwWAM+2Kul5b9Dj+OtIXfKoDrDxtI8OiDOVwzqwAv2+/6sMtdxWK8WdG8ts5drM
+	 VhM1skeZFZSGxBjhpFyHW53Yy5tGARTkoV2Q5XY/wHZCgb+6KIwYU0F3SGeDaa16K+yn+
+	 fXFtjU/vGa55w7vfbYHJwgpF10FPi8wuXu1P91CyW35Vsps55sYxmR+FD2mIB6fCIa60Q
+	 prKC9maNUvHdeJzkia2Qeu4C70vgRv0DGim3mbPlo0lMMVxKMSe+mwqGlzUtlS9aozw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792444495;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Fc+mbDm2DgYQ1VrXoQJ9t7BbigOlRzpc+tzJi7I+sE0=;
-	b=xDO156Dh9rxDLnOhUxnc02J9TGqEKQoP4ixhFkvH+wPskxcPkv2Kelh2bJbbe5W3SLTp
-	 2qpks8DVoJKp9s+fKUCtMKqPVDQtu/rQQDvswQuzsXP5BhrrdHktKbAXWr8Rc2gIlADrB
-	 mnyTa3aKmdzUPB5Ko4rMzm1akAmgLcI98fuDSTPHUO/jqsGG1dR61PCCX5Nv3n27JApRx
-	 AY+wgnNjWlmXARyf2vQOXQrHKgDvVLZuEvAWIahWpYFnWNHb7jq6Jj959Jw5CqwQPBxGu
-	 KmUSE/osYxghhJFq0GJXhQWGjPxqMLrVUXukHlyulwGcbMv9ZWBNGcY19/bzObhXiYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792444615;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=KSvVZT5VL1jajWhdlJW0RYEn8BnmHvXSXJY9pj46ymU=;
+	b=U4wnw4nnKl4tkmerNmOKqL2Gzo+gWL0ftuo9WkDQJ5F+OHKPfM2YsOGUZM7Mo6bovChT
+	 lENRWZwmbJsRpxsW/fZHQcktAVM7HgJOlM8D6ov5Nvv5mtIQHXp4JXclj5sU0UALcywQq
+	 74UCkbeq68VnbqGmHH69sEsH44pG5jeA4r/its5IodggsDw439qP6425KmedCCnha7QhO
+	 iSz1n7p4qcODae2pTg/aTuhViTe9rP0ZlJ5tHPjt80Yw/e0v6vZH8oMY9m9s51G+ZRMKv
+	 I4bxfZdmC6aMiY4ECWRrt4N6+ynt47xLdvnCQ3imZ/npnORT7Aa8Xs4bSzrSJGXkQIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=strlen.de;
-	spf=pass smtp.mailfrom=strlen.de;
-	arc=none smtp.remote-ip=91.216.245.30
-Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kKyapir4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3010606A320
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 21:14:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3010606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
-Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
-	id B561660515; Mon, 19 Oct 2026 23:14:46 +0200 (CEST)
-Date: Mon, 19 Oct 2026 23:14:39 +0200
-From: Florian Westphal <fw@strlen.de>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Pablo Neira Ayuso <pablo@netfilter.org>,
-	security@kernel.org, Willy Tarreau <w@1wt.eu>,
-	Abdifatah Suruur <suruurism@gmail.com>
-Subject: Re: [SECURITY] netfilter: nft_byteorder leaks uninitialised kernel
- stack on 6.12.y with CONFIG_INIT_STACK_NONE (CWE-457)
-Message-ID: <ataIP3xm8DDtO82v@strlen.de>
-References: <179239012164.14465.16534329674629579851@gmail.com>
- <2026-10-19-1-daily-reply-0008-nft-byteorder-security-declined@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 76773606A331;
+	Mon, 19 Oct 2026 21:16:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kKyapir4
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BFBF01F000C4;
+	Mon, 19 Oct 2026 21:16:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792444615;
+	bh=KSvVZT5VL1jajWhdlJW0RYEn8BnmHvXSXJY9pj46ymU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kKyapir4miVPKj4TmF0vBKOiEB39TZPZlYSw4O+Tg7HtDbojJ6MFoXdgm2dntQyTU
+	 5NPGPhH4wNV5iXWSJDhvkHQEws8LKWcrZM6YxpVi/74OlHWZBPjIygl0m359PQ0H2C
+	 5ghou0OozVI7vaO30WKd8N74TOSUQaOhzRqjQSYRkorSjY+hvTCVjUwAhPvBiJ5BT/
+	 PSINHqPnSA/rxQT59RxXnEX7P2Txxl2KQ1SHQyKjJHVDNNO37DNN/x0m6R7LFafGiy
+	 e3lhDpigUkipfCZQjp9wvHL0kZaWPmvguHr7TejRghJd1aRRssH/vN4xtxN47a1pnG
+	 7c6EEBWVB230g==
+Date: Tue, 20 Oct 2026 00:16:51 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
+	stable@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 6/6] KEYS: Verify the key identity in __keyctl_unlink
+Message-ID: <ataIwzGfUyiY1rSB@kernel.org>
+References: <20261019181732.449591-1-jarkko@kernel.org>
+ <20261019181732.449591-7-jarkko@kernel.org>
+ <20261019193502.GF65095@quark>
+ <ataGVmTZooWzJYMP@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,19 +65,76 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2026-10-19-1-daily-reply-0008-nft-byteorder-security-declined@kernel.org>
+In-Reply-To: <ataGVmTZooWzJYMP@kernel.org>
 
-Sasha Levin <sashal@kernel.org> wrote:
-> > Stable maintainers: would you prefer this minimal init patch or a backport
-> > of bb061d3de4170741?  Either works from my side.  The memset preserves the
-> > existing multi-register ABI and is the smaller change; Florian is fine with
-> > either.
+On Tue, Oct 20, 2026 at 12:06:30AM +0300, Jarkko Sakkinen wrote:
+> On Mon, Oct 19, 2026 at 12:35:02PM -0700, Eric Biggers wrote:
+> > On Mon, Oct 19, 2026 at 09:17:26PM +0300, Jarkko Sakkinen wrote:
+> > > [PATCH v2 6/6] KEYS: Verify the key identity in __keyctl_unlink
+> > 
+> > There is no __keyctl_unlink.  Seems you mean __key_unlink_begin.
 > 
-> That commit has an explicit stable+noautosel tag, but now it needs to go into
-> stable?
+> This is definitely my typo :-) I was looking at the implementation
+> in other terminal while writing this and apparently lost focus.
+> 
+> > 
+> > > Let's define the following preconditions:
+> > > 
+> > > - Two keys: A and B.
+> > > - R is a keyring.
+> > > - Both have the same type/description/domain.
+> > > 
+> > > Then:
+> > > 
+> > > 1. KEYCTL_LINK(A, R) => {A}
+> > > 1. KEYCTL_LINK(B, R) => {B}
+> > > 2. KEYCTL_UNLINK(A, R) => {}
+> > 
+> > Should be 1, 2, and 3?
+> 
+> I tried to describe the scenarion but apparently was not so successful.
+> 
+> I.e. unlinking A removes B given the match in attributes while you would
+> expect getting -ENOENT and B retained. Or this is the idea.
 
-I did not consider this earth shattering enough to risk nft -f croaking
-and refusing to load the ruleset.
+Here's a little bit tweaked version of David's example:
 
-The change has been upstream since 7.1, i.e. June and I am not aware of
-regression reports.  If you prefer to wait longer: no problem...
+#!/bin/sh
+
+set -e
+
+keyctl new_session >/dev/null
+keyctl newring ring_a @s
+keyctl newring ring_b @s
+A=`keyctl add user A ss %:ring_a`
+B=`keyctl add user A qq %:ring_b`
+keyctl newring R @s
+keyctl show
+keyctl link $A %:R
+keyctl link $B %:R
+keyctl unlink $A %:R
+keyctl show
+
+What I get is:
+
+77968717
+178740336
+781765689
+Session Keyring
+ 952124334 --alswrv      0     0  keyring: _ses
+  77968717 --alswrv      0     0   \_ keyring: ring_a
+  32558793 --alswrv      0     0   |   \_ user: A
+ 781765689 --alswrv      0     0   \_ keyring: R
+ 178740336 --alswrv      0     0   \_ keyring: ring_b
+ 907061159 --alswrv      0     0       \_ user: A
+Session Keyring
+ 952124334 --alswrv      0     0  keyring: _ses
+  77968717 --alswrv      0     0   \_ keyring: ring_a
+  32558793 --alswrv      0     0   |   \_ user: A
+ 781765689 --alswrv      0     0   \_ keyring: R
+ 178740336 --alswrv      0     0   \_ keyring: ring_b
+ 907061159 --alswrv      0     0       \_ user: A
+
+What I would expect is -ENOENT.
+
+Br, Jarkko
