@@ -1,87 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792436716;
-	b=bN5EN9K7wN+MsJpt2elCWtI5NHJChb0LHO0vt1GFsaObLekCcmjHHb0Av8CFxAFRCdib
-	 4kMJ3LeMCvKmEVIFWm8ti9sfzRYmsEvXmGEAmtpUuNOaxCpzFrg8byqTjNnqfnM6+FFGC
-	 hJyyYQosNNX/xGR/Cl1X4cFr4PUVbmuyKz88vB1NzXQ6C8BuZjyZrTntIWe0PZ7scvImQ
-	 NggWS10g16/paX8I7V2ylz9sAwLoTrHCsStTlrNpkfSoYuNyP0LFTPtIYsZVLtqgTaDlA
-	 n2TkFQJ8C+jDXK9FM/Z5Uiss99JkDVXc1TyKHMbd1j2pgSGrIV+q2HGa7udmX6C/7IA==
+	t=1792436768;
+	b=CkZPk8YzBQpGNtowOE2J1v7AMakbQckDwY+/NtpDGyCZ/PHdNHocvg8lA/3lIuOSgDAe
+	 HSSbmV8DdWP0/zGW1a0DnA+RC+vhcRGH1V2UUIuKspq3Wix3mBFXuwRhLWyGsTR1iE597
+	 Sc5ZR4SdjYldYAFVREJC5jQZrggODHgLCYtCezDIo9S912moxJRIvS6FLFO1SE5KwmNIf
+	 qoXLfilTt0pkvNHmvGB911xB+HlpXEkbtBEbyQPVf2Q8jM920fJZjaZcFrdjtIfIr1vBW
+	 I7ICeNeFz9qNIEKUWHjV9x2lFV8P0UO1g8m7d/Hhi2GYTY2Kyi/079fv94IivPlxA4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792436716;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792436768;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=zpmbKGaFEA3TJR1yUi9WhNM/6RoCWpD5DQ4UC5ezlj0=;
-	b=G7SRqkDjQzRn1DM+NFPm5jkEdOO8m5eGGXMUW6pOFwPBpQ7hqF2b4tbKQgvHkU15rjq5
-	 LRgOlkYjnOybVO8b7spp9a1X4bAQvpDVg2+X4jlJXvppEHadUv57choPcCzDGwNfoYQac
-	 HAj5fp6KMjKRCi/bPAsFaqvoRuVCrkv75JOGS5s74uKC0vosODZGtKJHuJIupUSPTt6pf
-	 3oWaZWmBc7A6rOh72HYMPzN68VmDWGIWvMw3IagzsZTfxqazJl77UjRLi01bvajdS1xeX
-	 0iuI82Qt27AyesRyzb3s4j2RCcTDDpkdkrb5bHiDr1QakuiwEL6O0lFD/CUQJlBQ4cQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=YMGKjMwOlq6w5EX55Ph8mpyGT/IFXfzZRRGc1xWK8zc=;
+	b=DLWeeQdQYnVtxwVnQxP3lC0hsCICjEfHhM6/qjFeahvoQHokcyswH0XrNv8JyZippqsA
+	 kuUsey44Cuc2TWhl4WZLzW6b7joOp/XqU9G3HVXhX4AiPwPSxDTuCI7kP3qeTKJW7K+Q7
+	 iv+wYqoBtO0J+qd9zlSe6HnEgnbmNLRtR1pBn3H+8g2VxJ3/njl8Sk8PiRmo+c8ByKaMO
+	 2I3aX6KRg/MChkClVtXzOnl6IKC3E9NxUIsxu8r49PddLKswktPNvjDwQohG+ABlI6Zwv
+	 XLw0llpFuzB4n3oJRPDMTYqbqoRbRh/RoszPXCSsaSF1sIlpRSw9uQDOVeWCLH/CGNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=DGtPOJN6;
-	arc=none smtp.remote-ip=209.85.210.43
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NXV0Tb63;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62176606A31A
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 19:05:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62176606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD30606A320
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 19:06:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFD30606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=DGtPOJN6
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-84a2bea315dso661438a34.1
-        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 12:05:09 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NXV0Tb63
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-354ba08cfd1so4485162eec.1
+        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 12:06:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792436709; x=1793041509; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zpmbKGaFEA3TJR1yUi9WhNM/6RoCWpD5DQ4UC5ezlj0=;
-        b=DGtPOJN6BeFxOnGhsq2QFxfh0Yf7BDTFRSvDUn0rV5YpZRES6jO/jjwcFkezj61q+a
-         O0m9K8/Y72aznD+vkPSrKngelQM+agk3IK5hDisvtWH+fN8Re3jTeUzrovdjRZixlFug
-         ZSftLFNiE7wFX8I8C9tmViFAzr/cIlDvpM8zVaYiTcmxAKUIjDivqHPmqCb8m/pdB5Sl
-         p4vxlvE+RPCwg4bay7Ilm7ZI5e7zzaY13bgmwk37YAdDF3MIprAw4F8tLiemP0d1FKsB
-         3ENRqRwtccPQjYaOsVIdTO+9sI2RGmOJKWQ/3GoXjeUWrOA4eXjlXRSZ6UkW28938ETx
-         wIiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792436709; x=1793041509;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792436767; x=1793041567; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zpmbKGaFEA3TJR1yUi9WhNM/6RoCWpD5DQ4UC5ezlj0=;
-        b=uPVLrCeLKFZyY93D0jAgPHoKCg4PEYA2OFh1zEppQRkR3Q9jeTommzMwtQiXWkSMMt
-         mM6HdpyQntUu2d1U/1V0IbROyPKm7ezk2NSAk9Z0h7Dfd/+WDwpilxJlIo962fATSik3
-         W/7Y0fucqHjTtUrK2Di2vxKKiz8UfRcgQ0y2xJD96GyW1RpsHJoOtitHmKqbHH9IHq+S
-         R2wc8CeiwhE07pVOah6r/dzFbtxQPaOb34qR7HsGc2nZqK0xLPtxlZuKaxB2G2K9buNf
-         GibksTz8eDLEq+Nzed9mQGVk4l2jkCw2KCktARIHLjTS8Pe4R+g0EqyriCoK4twIuxc4
-         YZKw==
-X-Forwarded-Encrypted: i=1; AKwUvBzgB5fLo0t+dy32SkA76HRJ5RnTHj1vORh1UtcKnIZ8T4Opbrp88TH66bNFxomZwmwuBSEhSsE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFMVz6qCi/GjRontbrpe496DITouPY5l03dLTRKdKLAIG6S+dS
-	vgbREQ6z4v1JXC98yf/5NFisj8/QwvVDiCMyNZFP4m9V02KaPTNXHbkJ0nNTf9f+rxw=
-X-Gm-Gg: AYBFou2o2cmk9L/p+I4U+ODJvo2lN8JIW5ZliujHKywGe/mEWp9sSLprqpuAKHIKgtP
-	cRYBKubRUfWy1dnXjF6rbpxba2z5l4uBUAggTwKt49fb/6C/ozJyn49HLbcQsJGboKoZKIe5fS+
-	Iaytui9zrU+WHPD+xkQWEhB2Q59zCBocLjVBa6v6ik+SsA5kWimBqRt8Bd9RnZ2XSaUakqPov1+
-	l2awlHlqRqD035ElMe7DmHG0Xk7YSQfoxK6XiI8kU/AHmXYaWVujdDKnMFIgZ2+WnSfPzSmyPBr
-	A2M1tZjMpcnIENq3m37QV5BC86hPyq7BWMbNPpsH7Kxiv8EuMz7qW1wG9jb6s6TE4Pzwi1k9HOF
-	zoizXesHFwiylGicF4KgjXqUqHlx2KfL4iZUz0HLZOgFRQ2WBUephzQc6kfOSeI75Yx6xYZhQUE
-	ATYNbgh/xY0/CBD1OSZNEd2nqaDqGrCC84QtBQPeAuP+TAXo8e1OWc64MFwN0cNHyHBjRlpyR0V
-	h4yN5Nl/zAOBhM8kl9/smWhq4RMdwzJNDHcJYnlOWRNQlVtoBRiqeo=
-X-Received: by 2002:a05:6830:d0b:b0:826:b77:adef with SMTP id 46e09a7af769-844fe96d6b2mr8373623a34.14.1792436708807;
-        Mon, 19 Oct 2026 12:05:08 -0700 (PDT)
-Received: from [192.168.2.38] ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8498d1a4bfdsm3423495a34.20.2026.10.19.12.05.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 12:05:08 -0700 (PDT)
-Message-ID: <23ea58c1-0692-4f11-80d1-8845971902be@kernel.dk>
-Date: Mon, 19 Oct 2026 13:05:07 -0600
+        bh=YMGKjMwOlq6w5EX55Ph8mpyGT/IFXfzZRRGc1xWK8zc=;
+        b=NXV0Tb63VOMf+OISXC6JR2bdyqQe1xmZpWd4Ni2WJCuS+9ENatRUKtIZ6Zcw1iq0zd
+         0M4axRouiMFzmWLPP9z8eEF2Q78c5niCcCkilBWnFug77RFmk2pzLgxd5BhcyQCxQjak
+         njMOB149npty2KHSd5rNIUr/khILD2Ny/o4/EeMN85xiAMo826s4ruj19Bo/6Y4LgqBQ
+         rcADtSRYHft3hSyrZaGIuaELgp2hq6u1RIqPrtDYEgE+HshPGzRLHEeleyuEyo1jg0mI
+         DdgsR2O1oP8icVc2vU+nH9rXc9oLpKp/aNP7bxZwRLuB/rWBGzMMQMQZ6NMfQgi4sqEj
+         P2ZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792436767; x=1793041567;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YMGKjMwOlq6w5EX55Ph8mpyGT/IFXfzZRRGc1xWK8zc=;
+        b=CZY0Eb2Y1JJQ4NvZ9QSX0ECv05bG7eN8j/LLbYVIGBcSYlbb74Clm2JkVn8VMSj61W
+         cbg22/O1TekmwyKxI42qEVjg551WBHOmz3Xvb320epeBTVTE4k25jOrjquarQeJJbyxM
+         LRPund5PeugovJtnOx8SomrC/Nq/6IUkFCIjOmMiY1HPMVLPGCOAVOEc9nETykNbDdfk
+         ZaoAZDo2Gzl1Rm0itzkRyc3wKPg+EbrDka1qqXxAh1x+P+YRHpFW9SaLGwPLKIUWSP7+
+         n3ip/PP1Lo8U3kqZWiMDKFX0jlKiXV06u+cTjg9VchPj8mlH1pEqP0XgMiuowmsGBO6p
+         P0bA==
+X-Forwarded-Encrypted: i=1; AKwUvBx0dTUnsBBUh+49xBI2cZAm1spO+tTDIEHt481oTvGVerFjCrjnej/m53KCnoAVSHZ2zYZTKgk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJfVfAflXENtYO3Irzw0fYvkrh9Ony+BLZDJDl5V2UyXV+YS7yo
+	+Zp3dHohy5Obncy5noBaFmLwlixQpCdxWFILU31Py0aR8rby8O5VqpNv
+X-Gm-Gg: AYBFou2L9oQxGFsi3MijlBqm3WNArjUw0QWvRz19SRf+ef5pvKWOicL12smdIKnaRfC
+	TkDMDY3WxPXIUQ/x4HH8CC57yBvDFVtIc1LVZjsqgknXyzyn1m7vk+u27zUmFQ4wdjmNicvCd8g
+	1SQ7t9rm4j/L4hLvk419UAHWotpnXUnO/6QLa9J9CUgxkZORlcd1cxpOHSKh7xVQkk5byReZWry
+	KUitIFaTubaJZAAm/WvYF7DVKxe8LrETXu+yUiPYlDF6N4AUcP4KhwCKWGpj70EvGf+r/SO8Mhi
+	6PdrBVNNJRwZjVrwEu+7ulQ3eYUBQckjlJWhAfkNN6OU0QtKOifUpDe3RJT1gYagijpfbGlP3Lb
+	xtphFfKgb+eze+lhZzU6q0YPXGPPwS2zGS+3jj/+ogpjCC2znXDtR6iCqiF5W7Ox/l6dZLmXHQw
+	B2gZxYstShcc64JIESQVDbRso0yxuQddgCPcpfX2dnSkLzH2gLWlOELO7MjDM1q0QvoEpA5Dlv1
+	haJK1U=
+X-Received: by 2002:a05:7300:10d:b0:351:1e89:66ab with SMTP id 5a478bee46e88-361a0e85fc5mr12489234eec.7.1792436766863;
+        Mon, 19 Oct 2026 12:06:06 -0700 (PDT)
+Received: from vscode-11-19.w453y.xyz ([59.164.88.43])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082a7b33bsm62848024eec.24.2026.10.19.12.06.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 12:06:06 -0700 (PDT)
+From: Abdul Wasey <w453y.me@gmail.com>
+To: mptcp@lists.linux.dev
+Cc: Matthieu Baerts <matttbe@kernel.org>,
+	Mat Martineau <martineau@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	stable@vger.kernel.org
+Subject: [PATCH mptcp-net v4 1/2] mptcp: pm: in-kernel: fullmesh: skip closed subflows
+Date: Mon, 19 Oct 2026 19:05:57 +0000
+Message-ID: <20261019190558.465270-2-w453y.me@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261019190558.465270-1-w453y.me@gmail.com>
+References: <20261019190558.465270-1-w453y.me@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,87 +99,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] io_uring: don't sleep on a claimed DEFER_TASKRUN wakeup
-To: Daniel Byrne <daniel1.byrne@intel.com>
-Cc: Pavel Begunkov <asml.silence@gmail.com>, io-uring@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261019150607.4026170-1-daniel1.byrne@intel.com>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <20261019150607.4026170-1-daniel1.byrne@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/19/26 9:06 AM, Daniel Byrne wrote:
-> A producer that stalls between publishing local task work and
-> running the cq_wait_nr wake protocol can claim an arm from a later
-> wait cycle than the one its work belongs to. The waiter may already
-> have drained that work and re-armed for its next sleep. The claimed
-> wake then fires through wake_up_state() while the waiter is still
-> TASK_RUNNING, before it has set its task state for the sleep, and
-> is a no-op. The arm is spent and nothing restores it in time, so
-> every later producer reads a non-positive cq_wait_nr and skips the
-> wake. No producer wakes the waiter, which sleeps while the
-> completions it waits for pile up on ctx->work_list.
-> 
-> Three waiters arm cq_wait_nr. io_cqring_wait() and the BPF loop
-> waiter io_loop_wait() arm it a few instructions before
-> set_current_state(). The third waiter is the cancel wait in
-> io_uring_cancel_generic(), where exec waits for all of a task's
-> inflight requests and exit waits for its tracked ones, such as
-> futex waits. There, io_uring_try_cancel_requests() arms cq_wait_nr
-> at the start of each cancel pass. The task state is set only after
-> the whole pass, so the window spans the io-wq cancel, the local
-> work run and the cancel walkers. That wait has no timeout. A
-> stranded exec sleeps until a signal arrives, and a stranded exit of
-> the last thread, which no longer receives signals, can sleep for
-> good.
-> 
-> A prototype that busy-polls device completions in TASK_RUNNING from
-> io_cqring_wait_schedule() while armed (to be posted separately, as part of
-> the io_uring DMA copy offload) widens the io_cqring_wait() window to
-> tens of microseconds, and those completions push local work from many
-> CPUs, so what is a narrow race in upstream io_cqring_wait() wedged fio
-> reliably within seconds there. Every ring was parked in
-> io_cqring_wait() with exactly its queue depth of completions stranded
-> on ctx->work_list and cq_wait_nr at IO_CQ_WAKE_INIT.
-> 
-> Add io_cq_wait_arm_spent() and refuse to sleep in all three waiters
-> once the arm is spent. io_cqring_wait() runs its wait loop again,
-> and io_loop_wait() returns to the loop in __io_run_loop(). Both
-> loops drain anything pending and re-arm. The cancel wait runs
-> another pass, which re-arms. Each check follows the setting of the
-> task state, so a later claim can no longer be lost. The cancel wait
-> checks only the rings whose deferred work the task runs, because an
-> arm wakes only ctx->submitter_task. wait.h documents the rule next
-> to IO_CQ_WAKE_INIT.
-> 
-> The check relies on nothing else restoring a spent arm before it
-> runs. The min_wait timer stores an arm only during the timed sleep,
-> which starts after the check and cancels the timer before the
-> waiter checks again. io_uring_try_cancel_requests() also arms the
-> ring when io_ring_exit_work() runs it or when a task that does not
-> own the ring runs it, such as the creator of an R_DISABLED ring
-> that another task enabled. Such a store that lands between the
-> owner's test for pending local work and its check hides a spent
-> arm, and the owner sleeps on work that no later producer wakes it
-> for. Arm only in the owner's passes, the ones that also run the
-> ring's local work, as the owner is the only task an arm wakes.
-> io_ring_exit_work() never sleeps on the arm and runs stranded work
-> itself, so it needs no arm.
+With fullmesh endpoints, if the endpoint used by the initial subflow is
+removed and then added back, no new subflow is created from it: the
+connection never uses this local address again.
 
-This should already be fixed by proper ordering in my
-for-7.4/io_uring branch - see:
+The initial subflow is kept in the conn_list once closed. If it was
+still established when closed, it keeps the local ID 0, which is also
+the ID used by the re-added endpoint, and fill_remote_addresses_fullmesh()
+then marks its remote ID as unavailable. If it was already in TCP_CLOSE,
+e.g. after a reset, it is disconnected and its context is reset: the
+'closing' flag and the remote ID are cleared, and its remote address
+and port are zeroed. It is then picked as a remote address, with the
+address 0.0.0.0, the port 0 and the ID 0, which also marks the remote
+ID 0 as unavailable. In both cases, when the peer has a single address,
+all subflows use the remote ID 0, and no valid remote address is left.
 
-8257f6ec45ee ("io_uring: don't lose the DEFER_TASKRUN wake up")
+Skip the subflows being closed or in TCP_CLOSE state, both when looking
+for the remote IDs already in use and when picking the remote addresses.
+__mptcp_subflow_active() cannot be used here: subflows still being
+established have to keep their remote ID marked as in use, to avoid
+creating duplicated subflows.
 
-and
+Without the fullmesh flag, the remote address is taken from the MPTCP
+socket, so this issue is specific to fullmesh endpoints.
 
-76a82c666abf ("io_uring/cancel: rearm local work wake up before sleep")
+Fixes: 045e9d812868 ("mptcp: fix duplicate subflow creation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Abdul Wasey <w453y.me@gmail.com>
+---
+ net/mptcp/pm_kernel.c | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
 
-Please take a look and see if you agree.
-
+diff --git a/net/mptcp/pm_kernel.c b/net/mptcp/pm_kernel.c
+index 1a7750813..24cdb170b 100644
+--- a/net/mptcp/pm_kernel.c
++++ b/net/mptcp/pm_kernel.c
+@@ -199,6 +199,16 @@ fill_remote_addr(struct mptcp_sock *msk, struct mptcp_addr_info *local,
+ 	return 1;
+ }
+ 
++/* Closed subflows can stay in the conn_list, e.g. the initial one: their
++ * addresses and IDs are not reliable, possibly even reset.
++ */
++static bool mptcp_subflow_is_closed(struct mptcp_subflow_context *subflow)
++{
++	struct sock *ssk = mptcp_subflow_tcp_sock(subflow);
++
++	return subflow->closing || inet_sk_state_load(ssk) == TCP_CLOSE;
++}
++
+ static unsigned int
+ fill_remote_addresses_fullmesh(struct mptcp_sock *msk,
+ 			       struct mptcp_addr_info *local,
+@@ -216,11 +226,18 @@ fill_remote_addresses_fullmesh(struct mptcp_sock *msk,
+ 	 * already created by incoming ADD_ADDR
+ 	 */
+ 	bitmap_zero(unavail_id, MPTCP_PM_MAX_ADDR_ID + 1);
+-	mptcp_for_each_subflow(msk, subflow)
++	mptcp_for_each_subflow(msk, subflow) {
++		if (mptcp_subflow_is_closed(subflow))
++			continue;
++
+ 		if (READ_ONCE(subflow->local_id) == local->id)
+ 			__set_bit(subflow->remote_id, unavail_id);
++	}
+ 
+ 	mptcp_for_each_subflow(msk, subflow) {
++		if (mptcp_subflow_is_closed(subflow))
++			continue;
++
+ 		ssk = mptcp_subflow_tcp_sock(subflow);
+ 		mptcp_remote_address((struct sock_common *)ssk, &addrs[i]);
+ 		addrs[i].id = READ_ONCE(subflow->remote_id);
 -- 
-Jens Axboe
+2.43.0
 
