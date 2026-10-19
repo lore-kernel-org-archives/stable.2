@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792422878;
-	b=Tsf+n352ZH5Xm0ZbaJxUKvTmmB8SXm5cfIgT5hU60P29Yu8ZYMQS2H9N9ncqTGGbKFn5
-	 k6F1yfVZL57eGLuDWDaotSnBdPPYK0Tn1852JZ2Qg8n4CNvXhN3ei1G/XUrFj8oDUYtlX
-	 goeqXP3QeRiQ6bhOvto1mmZu9X9WT1ZXe51SQmpTqlMBAGiu79r7U8f8TZpQlK8OmOdQA
-	 hSu2vVJeLSgTFwmE6QYZiRSQE0S3VhBQaABzVC4a0R6xlRbj08iico72Z2bQvJFdn1Bue
-	 X9mxhlH7tYKra/id+M1FXX9wmCX91qjUWThZ6OcYzXScjMLrVn5tRBt1xgJ2GK90THA==
+	t=1792422875;
+	b=0aDoASZUX9N8q8uz7jvKpbX3tlVBs/JZAwTgnI87XDldcA7GheS1Zua1zPShfwF+O7qV
+	 6K5aBDOO7jOr6k11rOKKZ0wTRiy0TOvFCujKU4mmOaBDsXf1KLAITwglBYXDOy0zvZL5R
+	 NhrJOijUPmgroSSGAyW5L1u/kvcjJv/POj0pMVMqcbvjYZAR+OngdVHAsu0MfYn5Zs9gH
+	 Clr37Yr/AeGpyqqzhAVLoLvGYl6E6w5fg7gv26GgqhCAEUyXraYl0LoeyniYg/1IiKv+M
+	 u5PTVjO32hGrG6wyj+AE2vgMQ/tEoiwngLum+/tteE66mt+U803bHZufSiyH5zZt2qA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422878;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792422875;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=zcxxhcXJhcDcXdtYXJYhKWLsPyE/epxBeluTCvmeyJs=;
-	b=Y5qsxw3+NnSNgqJAH/5Qab+ZzZV44Hm9KE4WOSiy3Vvb5LQK4Bed1GOEtwjC5BxJXcx2
-	 fsLrzvdm9IoyZ3HtwuO9l/ReOz/EdmnkkxeFweDmoKnZibNhopGQm8d7OYaIKsPoXEnEz
-	 NaBC3bVRxGg+S2EVUT0O2NwSRe80VhgZs6HpZKoXGWIiU6sbhjPmALmTIlnoLrdYMlVhY
-	 GwbJJRNFrzoZAi7k2+EE6xGplisR01pPMq5g8GnxGM+CnZF/Lat7zES+SlZELv++dVlFd
-	 /vKxKrcwApUTEZMmRJn1L+vDeCr037/gyNYDi6hh6LKqUP5WldIfjJOtvR0r2u78XHg==
+	bh=xIJeajS9jjtNcUTuok39zQGD54vxXLVdXbql+UaLazs=;
+	b=a8Br/XZ4FgvHqgeETPyZgGbIoykrHRGim5hiOqmyZnoLtPdTbmQZdZFaM7dJOjn+G60P
+	 aG/rKcTyP3EQCQc7Pp07/DwuqeJY05WrcGPVhOrifuiDpNEncBvw+OS4un6SLlcc4KvhF
+	 Q7Jp3FxNqWDVl3YWCVNdab4aexsS245kT0H/V4hstdvbDlSzPKnJZYps1Hur2IG+2I0vt
+	 LyCC/C/Domx6NTm6o9vtN8kjagIrcEAVyTNR3CaLnFBwDzT5l8iwBx6QKOZ53MdtEJElu
+	 oS6SOdk6ZXkAqCp1V7Eaeutsb2Wze12BDJeLj+m7VP/FX+vqM09wTP3dphHTb9sL9cA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FTNa7F+3;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dLK2KVCg;
 	arc=none smtp.remote-ip=198.175.65.12
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F38CF609CEDC;
-	Mon, 19 Oct 2026 15:14:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F38CF609CEDC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54D7609CECD;
+	Mon, 19 Oct 2026 15:14:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E54D7609CECD
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FTNa7F+3
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dLK2KVCg
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792422877; x=1823958877;
+  t=1792422875; x=1823958875;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=dVDIQXlh36GTlWUkVsVPgEltTI3U6SNtoUvGqwX6zp4=;
-  b=FTNa7F+3Thxjs7PDfvEnV41SzX+RVq3m9TXx6Xl5deh28iNx3rrP34Cf
-   4o3NHuj5+8y56dU1awobBo4Qbk3hbko/hJCgXEXr7omYt4fv/1xm33J9q
-   qTIVCs//8RK6EL7SLrD6nQinadx2eAMB8bRGHwqhgWWPdsPoWuMliX03I
-   eEtWgx47LXuv5OPH9Xep0L97fyvQJT6TjWwVv7Jib5Mpz4TQ7oQG7YR9H
-   AM2imyzMuyXjOYtTwJLmQgQQpUQgsDiO5JJlLovkoZSFuAKo2rVJl5Npb
-   Difbn569uuOdMZByKgl8nHkv78t4CblR/+alZ5jo68OPVuXlBC5hzrxvH
-   w==;
-X-CSE-ConnectionGUID: F9d/7HK3TgqLCy23lezjYg==
-X-CSE-MsgGUID: 6VhEIeI6S2u45YX7sWft6Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="986915"
+  bh=G5nEe1IhmdwwprxW4cb6uNZ0ux+LJmOrwz33ArBAsZY=;
+  b=dLK2KVCg9bgIc9cHErUP5Opk+ZZOChtQF4kDZFNZzqU3V5nJAhGxxDba
+   qqYqbxSKKlhrM8Zr/djBS4WyyYw/3Yrhw95Rgq+55ThfYK0jJ6Uy/DOEj
+   rSi0OP65EW1pyqaO57prv71etxQvnidcF6kQAxjASsnGkbMae2ff5TrkW
+   2EcqVWKNEfE0YxpLq8RVrJ9EzpdV0j1alPwAdGP0B83Hu8dui3gZVsg1E
+   CzBb6iEZ/4nFV2TU2C3omxdZHG2wUDbGSCJEBe1YnLHBID4wnlTzEU1X0
+   MmBz1IAY/k95viB6K7U3iixjYt6uxsCEU+ogGGBNUyvv9J2ycWQRjj+ua
+   Q==;
+X-CSE-ConnectionGUID: 3DSCbVpVRkGmEL4m+Oc3kg==
+X-CSE-MsgGUID: Dn9TagwpSqmLGNdmxJFbWA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="986900"
 X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="986915"
+   d="scan'208";a="986900"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
   by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:14:34 -0700
-X-CSE-ConnectionGUID: dpwFed42TMyNI1Kh/zPkSA==
-X-CSE-MsgGUID: A4zHIWydTZGvmJiNotbxZA==
+X-CSE-ConnectionGUID: rF/5olWiQqmz3RTMepllKA==
+X-CSE-MsgGUID: 1OhYzD1fQjiHK/xv6WrXSg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2536970"
+   d="scan'208";a="2536950"
 Received: from jf5300-15a101203tc.jf.intel.com (HELO meta-crater2c.jf.intel.com) ([10.54.113.49])
-  by orviesa003.jf.intel.com with ESMTP; 19 Oct 2026 08:14:34 -0700
+  by orviesa003.jf.intel.com with ESMTP; 19 Oct 2026 08:14:33 -0700
 From: Daniel Byrne <daniel1.byrne@intel.com>
 To: Vinod Koul <vkoul@kernel.org>,
 	Dave Jiang <dave.jiang@intel.com>
@@ -75,9 +75,9 @@ Cc: Fenghua Yu <fenghua.yu@intel.com>,
 	linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 08/17] dmaengine: idxd: compare the device disable status code whole
-Date: Mon, 19 Oct 2026 08:06:21 -0700
-Message-ID: <20261019150630.4026341-9-daniel1.byrne@intel.com>
+Subject: [PATCH 03/17] dmaengine: idxd: refuse a memcpy longer than the WQ max transfer size
+Date: Mon, 19 Oct 2026 08:06:16 -0700
+Message-ID: <20261019150630.4026341-4-daniel1.byrne@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261019150630.4026341-1-daniel1.byrne@intel.com>
 References: <20261019150630.4026341-1-daniel1.byrne@intel.com>
@@ -92,48 +92,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-idxd_device_disable() accepts the command's status when it is success
-or when `status & IDXD_CMDSTS_ERR_DIS_DEV_EN` is non-zero. The error
-code is a value, not a bit mask, so that test accepts every code that
-has bit 0 or bits 4-5 set, and IDXD_CMDSTS_HW_ERR (0x3), the code a
-refused or timed-out command reports, is one of them. A disable that
-the device refused then read as a device already disabled, after which
-the device-level remove cleared the software state and freed memory
-that the still-enabled device writes.
+idxd_dma_submit_memcpy() checks the length only against the device
+limit from GENCAP. Since commit d7aad5550eca ("dmaengine: idxd: add
+support for configurable max wq xfer size"), WQCFG is programmed with
+the work queue's own max_transfer_size instead, and that is the limit
+the hardware enforces. Since commit 92452a72ebdf ("dmaengine: idxd: set
+defaults for wq configs"), that limit defaults to 2 MiB.
 
-Compare the error code whole against the already-disabled code.
+A copy longer than the work queue's limit is therefore accepted at prep
+time and then fails in hardware with DSA_COMP_XFER_ERANGE. A client that
+sets only tx->callback cannot see that error, so the copy looks
+complete. Also check the work queue's limit, so that prep returns NULL
+and the caller can fall back.
 
-Fixes: bfe1d56091c1 ("dmaengine: idxd: Init and probe for Intel data accelerators")
+On a Granite Rapids DSA with the default 2 MiB work queue limit and a
+device limit of 2 GiB, dmatest with norandom=1 and test_buf_size=4194304
+reports a data error for every copy on v7.2: the destination is never
+written, yet each copy completes. With this change the same test fails
+at prep, and copies of 1 MiB and 2 MiB pass as before.
+
+Fixes: d7aad5550eca ("dmaengine: idxd: add support for configurable max wq xfer size")
+Cc: stable@vger.kernel.org # 5.10+
 Assisted-by: Claude:claude-opus-5-5
-Assisted-by: Claude:claude-fable-5-1
 Signed-off-by: Daniel Byrne <daniel1.byrne@intel.com>
 ---
- drivers/dma/idxd/device.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/dma/idxd/dma.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/dma/idxd/device.c b/drivers/dma/idxd/device.c
-index 5ebc2c1a3859..41223d2e20af 100644
---- a/drivers/dma/idxd/device.c
-+++ b/drivers/dma/idxd/device.c
-@@ -704,9 +704,16 @@ int idxd_device_disable(struct idxd_device *idxd)
+diff --git a/drivers/dma/idxd/dma.c b/drivers/dma/idxd/dma.c
+index 9937b671f637..c116416e10e5 100644
+--- a/drivers/dma/idxd/dma.c
++++ b/drivers/dma/idxd/dma.c
+@@ -115,7 +115,8 @@ idxd_dma_submit_memcpy(struct dma_chan *c, dma_addr_t dma_dest,
+ 	if (wq->state != IDXD_WQ_ENABLED)
+ 		return NULL;
  
- 	idxd_cmd_exec(idxd, IDXD_CMD_DISABLE_DEVICE, 0, &status);
+-	if (len > idxd->max_xfer_bytes)
++	/* The work queue's configured limit is what the hardware enforces. */
++	if (len > idxd->max_xfer_bytes || len > wq->max_xfer_bytes)
+ 		return NULL;
  
--	/* If the command is successful or if the device was disabled */
-+	/*
-+	 * The command succeeded, or the device was already disabled. The
-+	 * error code is a value, not a bit mask, so compare it whole. A
-+	 * refused command reports IDXD_CMDSTS_HW_ERR, which shares a bit
-+	 * with the already-disabled code but leaves the device enabled,
-+	 * and clearing the software state of an enabled device lets a
-+	 * later teardown free memory the device still writes.
-+	 */
- 	if (status != IDXD_CMDSTS_SUCCESS &&
--	    !(status & IDXD_CMDSTS_ERR_DIS_DEV_EN)) {
-+	    (status & IDXD_CMDSTS_ERR_MASK) != IDXD_CMDSTS_ERR_DIS_DEV_EN) {
- 		dev_dbg(dev, "%s: err_code: %#x\n", __func__, status);
- 		return -ENXIO;
- 	}
+ 	op_flag_setup(flags, &desc_flags);
 -- 
 2.43.0
 
