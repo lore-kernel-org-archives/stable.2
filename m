@@ -1,33 +1,94 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 57CC345D5F3;
-	Mon, 19 Oct 2026 06:58:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9068A48592C
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 07:00:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.153
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792393132; cv=none; b=VWPhLvC6TvPP2FHFYaYz1STTIkNuQ8lq0f49BTDQ3rxIOyqk3f8FcTZ9e+kBtehhwWh9kpwJUMbzGlLAtJYoNLjRJww1UZSBOmm94EFILY9Kp/Rv2+82zRG0bOtjOqErWr+vx9kJ5ZiYFRR4q/w7kwj1ih9NSwtG9erIOfYevEU=
+	t=1792393258; cv=none; b=nr8WOo+c80eCeZmRBajeWz1YxaQhDw102WHvdPZ+CfAIpkI3T1CjfIi+xcoBu3qzZdYc3byu57HG1laUD1DMcaqYq/xUreeBP6jyszh0bzL1kGvEYhwY38B60L4AM1hF4VC6QXanNQ41ewMfxD/cBwo45LAf+7SqMi1X3E+iQ0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792393132; c=relaxed/simple;
-	bh=jKcRI0F9aHnlKD651grREaBBW4xvRcUMzBlgAiHKlsU=;
+	s=arc-20240116; t=1792393258; c=relaxed/simple;
+	bh=1STDMwj9uzR4WBJXtTWOS59DAsb5w6o1AuR9iCqD5SM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jNoSbcnDSqx9p0XaDDnR0Ma+kki1ccqM6vWlqmvE6RChURg462fokF9RBzzuSq1B3YHOgpb2HUIkMBcmasEMCxQEAFw1Bw/hC3zKOghNnnM68I5PcaOjkFqaMnpn6PWCHkHnUTgSoqdJu933oolU8Qb5urwb6/6xL8/X+3TkBYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=StlLDKq4; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=L4L9oLm6Q0An7ZcKVEFBpoQFlIoNz0vX2I21718a0n5s3hTmeyyc/USCXFfl1R7MVNwsSYz4zoBpUMfRtIm8kHk0w5HcfowgoKGJOjCTfLZAaRRh1bemhn6wLFB1REJwmp5vi10kz7wwki9mMG1lpN4XVlujhygpAyhcDO/VSjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=lk+JC79s; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=tN5jOPig; arc=none smtp.client-ip=202.12.124.153
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="StlLDKq4"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3F4841477;
-	Sun, 18 Oct 2026 23:58:46 -0700 (PDT)
-Received: from [10.164.148.56] (MacBook-Pro-3.blr.arm.com [10.164.148.56])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 514DC3F673;
-	Sun, 18 Oct 2026 23:58:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792393129; bh=jKcRI0F9aHnlKD651grREaBBW4xvRcUMzBlgAiHKlsU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=StlLDKq4P1yblYmcNUL/S2ln1AqLeYYRPcJPR+/GUUMAOs1w3CfSJYbdyEfSHULs+
-	 yNXPO49brP9+UjPFeg1bY6f39wNxEV9GIf+ejuiDxy5qXrhRH/cH9ROgchLpwdaLtX
-	 AYklqgynUtNpXJDDuA7feuEpCmp7LhrGsihDk9Ms=
-Message-ID: <4aa14b41-9b89-494c-8825-55fffd5a541c@arm.com>
-Date: Mon, 19 Oct 2026 12:28:40 +0530
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="lk+JC79s";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="tN5jOPig"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id D4BA07A01A6
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 03:00:55 -0400 (EDT)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-06.internal (MEProxy); Mon, 19 Oct 2026 03:00:55 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792393255;
+	 x=1792479655; bh=Y5bYXGYvPJN6inJuQQBnrzR/y9AUfMwo0Jm7CFTezwI=; b=
+	lk+JC79shz4VjjsNJgTV3aFzHYL1Ej+g30U5gwUVmku2N6dhgP2KUyI4bPVeHb+j
+	P0hVGcMfjY8wOhdPONWYgWD+x3GeU36ca082YATE2kVtEegxFjN+oSdbziVwWHR9
+	yNcttgTIqUqUFOu7rSABg4sSK7uXZhCRZfkm7Xg3FbVparcHiDVeqB777tuePepo
+	FYrQjz42iB8vyIy8WkzVZQQTHUSi7R0mNkGgM07BZwT3OE/sriLJDIR/j7c4zu4J
+	of0Cc8F4N+glbBL+FYlFPHSpQ4Sljg30wwsjG7BMpv8mogvem9VHMjnxHKVpNQU6
+	LxtN0iCVvUUKRF3FUS61Qw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792393255; x=
+	1792479655; bh=Y5bYXGYvPJN6inJuQQBnrzR/y9AUfMwo0Jm7CFTezwI=; b=t
+	N5jOPigHk13gNkGnJ/Bop2O8tkQNSk3sCDlyy4kGZ6FkNXlG4phctpkLCzhWZ7To
+	+z4iNpzIZmEsGBUYvPKPM2RkHLI2yS0X1RRQTceM9CyE58ajmDh2STGyog7Ia2Vx
+	1yTYFqAZ5zeIiuZvvTaMWMnuKLHNH+hjPsfclNRhcVWae7kGrHC8gfApHTYvAOf6
+	Pu32o1u5bHfnl2lRVdXvBSm+iDGIJxageAgcjwNg7X138bmCGLkgcn+aBSKa5TMS
+	Ra4C0NnTfQR2PcCZ/w970ZeyIqkJcYBckVKVx0Bul3UkBuyLjrqRsihoanOhfU7E
+	3dRf/dAiv2sZjIF8iUFTw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792393255; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:bTtGZE6+G9ELsma+BfILOOy+gspN0rLeAfge/vDOQNOIb1P
+	XqH0lT4D7I/jLHd8zcH5giDFccvaMUhSQBHT60gDU1EjNGupLgBcbhOCLepWH5hr
+	RxfpkMcZtVSIdXuQUAFY7tG3S0PW48xN8/JE37PC1pTTZzhEyKD8mjjU7ShJDIe8
+	MfnTMRXFp0J3MH6T/mK/v88+YVwfDbBsDrCX6a7ZYteOVjDgRj7AD7I7wMhASvsE
+	rTkqm45vw3cppSrVpLURFlQ75ynhqHESGsOunf4/OLC/vHbDuKP9sevA2bAJb7qm
+	sdrj0LLQNy6b3+Box7ludY0LRtGMUN1/mTsqVqw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:93ExNsgr8vl+BBDk1et2SpthhZjc4BdlrKa+VegUl8Q=:1STDMwj9uzR4WBJXtTWOS59DAsb5w6o1AuR9iCqD5SM=;
+X-ME-Sender: <xms:JsDVang1mhd0HqZJK4EsIUqzmglVlkHooXvvMLqv0Cd6_um3NStCFw>
+    <xme:JsDVav7iVc9Kxw_dRUGsMVRs5GVkG4ZDyLPxaro-2hH0lH06HmrCfIVYspIXVs5eJ
+    8IWk9B3JqYvipzmZgoFzjDQ1VoGKH40IoXxqY00AaOGi-3_3eJWqEHv5A>
+X-ME-Received: <xmr:JsDVainBvQAYdPDDNaQ6FeUXaUG4D9vKbDFTC493iwBk--y3FCtS6bLV9ClzgcmQeFL8Ilg3Dl74Ji_GIuduYExsWrACwY1G>
+X-ME-Proxy-Cause: dmFkZTFNv/uwNiMnP3PRAagtCwdDJWac+z/MN5lvwp+dBuvYxTK61HfAu3IcgWC8djDTKt
+    rpCOMfi+pp8mQwnDoFr1s98ozL13LNu2n7LJ/+gXO+hKGai1M/KTaNhT83iQ2LEwSY9ATZ
+    t7E+yK/QTHSq1ktX381YJUE9ENtlF2KwH8EMFuVyb7TMLOBnK49bV8AfvofrFYoZMQiyK2
+    sPZJTma681pRr1F+sH8PYeAvSHEEkmxN5JhSxMtuo4jsUpt+tG4m3i40E5atJVuM0JQa8j
+    gOX2VdCDZTHjK4GfuL/mgylmcdNwSrKhqoTh51FmRT/9P6GiZDUWstP3/6vk0FODmQWdRt
+    NTGa+45lwJMFa3L174bLUb4t4vPNodN0xo3vI36kyCIu0M8DZjcs7/B/AzevMulYYI7mM9
+    H7MMF7YL1noaHxl2cRu6SDDYkric/VnzknSWgDYOWds2AP/rb+XIcAiKV+7NPJWuN0lYW8
+    bATGufHdqa6qx/BQqwZ5HMST5A1NrAF5KuC8EpJL1x02ver7Q4BWsbAV090uLolr0F14zz
+    MR4I8SvpkZrE8rqaC1s7R7FSZAgwR7mXNC7NlzkZVYRzN59cozKRqsHHIYXwdOJtfh8EWj
+    2kQv3SqZM2tuGfN5rEQW3KA9SF025KP69NQ/doCoePKmQAEAslOmCf3esCqQ
+X-ME-Proxy: <xmx:JsDVaoP-lL-ZPjHZqM5x-uTzddaqXcQWgvWWJhdREsAMouG5wx1gnQ>
+    <xmx:JsDVasrISSXCj_TNUuZRmhCeON5OslPUs6TgTkrjIyu0aPLmd2GhFg>
+    <xmx:JsDVapuQYzFuq1JrgNfIAtksvJJP6HoOb_N2pZ0Ac8kVdJsxh_GCIg>
+    <xmx:JsDVao71_T2NiqcBXsT8XMjo8sqS2HrXA0-6TP355uYPZLS2XwtA0Q>
+    <xmx:J8DValUeHNOTG7eiiycPGqrGGoZamb2JV_CChSXbo0IqFQdKWW63XlqC>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 19 Oct 2026 03:00:52 -0400 (EDT)
+Message-ID: <01358de1-7f97-4bfb-92fb-4ed97ebbc29f@pobox.com>
+Date: Mon, 19 Oct 2026 00:00:51 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,58 +96,45 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] mm: page_alloc: make defrag_mode retries follow the
- promoted order
-To: Kiryl Shutsemau <kas@kernel.org>,
- "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Harry Yoo <harry@kernel.org>,
- Usama Arif <usama.arif@linux.dev>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
- Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- kernel-team@meta.com
-References: <20261009125503.126202-1-kas@kernel.org>
- <15a9e03e-c748-4e51-b8cc-583a3610c897@kernel.org>
- <20261012192834.6934ef85444dee4a60d6d876@linux-foundation.org>
- <as5q14OsbK2CmOrh@thinkstation> <20261014202936.GC371161@cmpxchg.org>
- <78238103-3a7f-432c-b1df-bd14d7cf4bb1@kernel.org>
- <atDMN5MoGrwJNpAj@thinkstation>
+Subject: Re: [PATCH 6.18 00/52] 6.18.58-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261017155104.830766652@linuxfoundation.org>
 Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <atDMN5MoGrwJNpAj@thinkstation>
-Content-Type: text/plain; charset=UTF-8
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20261017155104.830766652@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-
-
-On 15/10/26 6:25 pm, Kiryl Shutsemau wrote:
-> On Thu, Oct 15, 2026 at 09:16:36AM +0200, Vlastimil Babka (SUSE) wrote:
->>> And agree 7.4-rc1 with CC stable is fine. Sadly, not sure if anyone
->>> but Meta is using the feature right now.
->>
->> I thought it was there for a long time but it was only added in 2025 :) At
->> least the enterprise world is slow to adopt things, AFAICS.
+On 10/17/26 8:54 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.58 release.
+> There are 52 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> I was thinking to propose a patch after merge window to make defrag_mode
-> default. Do you think it is too early? I don't think it is ever going
-> to be truly stabilized without wider exposure.
-
-AFAIU defrag mode is not going to improve mTHP allocation success.
-
-I ran a synthetic benchmark faulting in lots of 64k mTHP with swap enabled,
-defrag mode caused me to enter a warn_alloc (and 8 times more compact_stalls),
-which didn't happen without defrag.
-
-So perhaps bundle the default with pageblock_order eagerness etc.
-
-
+> Responses should be made by Mon, 19 Oct 2026 15:50:51 +0000.
+> Anything received after that time might be too late.
 > 
-> We also discussed with Johannes to make a stricter (defrag_mode=2?) mode
-> that will not give up on fragmentation ever, but OOM instead.
-
-
-
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.58-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
 > 
+> thanks,
+> 
+> greg k-h
 
+Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
+no regressions observed.
+
+Tested-by: Barry K. Nathan <barryn@pobox.com>
+
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
