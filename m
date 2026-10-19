@@ -1,49 +1,38 @@
-Received: from out28-147.mail.aliyun.com (out28-147.mail.aliyun.com [115.124.28.147])
+Received: from out28-73.mail.aliyun.com (out28-73.mail.aliyun.com [115.124.28.73])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BDB549481C;
-	Mon, 19 Oct 2026 07:56:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FA8E23BCED;
+	Mon, 19 Oct 2026 07:57:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792396610; cv=none; b=tokp43FgzQldXmdm3Vo46+BWv6gW46EIVNHRjWsY4p3f7CF2LU7NBm/XYcdjPjvf3si6Il3NZUJOYLdCncIh5jk0PMLnHH6iBbpb4u1LdAWJzGFgjbiRA+ut59ZzRoAOcpMf7+4SIZCTGkR1ub1FZkxJT/nO30dRg4Yq1V4u2hM=
+	t=1792396624; cv=none; b=PYuZ+dNV7JdgavzxEcyVPZur2hwIlFm6YYlJORY7EclHv8XxLHI79fv5d/V1B+mXzWNz+Vw7IBuBmOwQwNy47JiCzT9Sjy3eQi9c9HbRJcl68l4XZxmpXQh1hbWUs5OwRjtOriNpqqL4ybWy3p9+L99+qCQaeaYWb9hWWo/oH4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792396610; c=relaxed/simple;
-	bh=D6GoqLrBJ52YEbUH7ns2rPeL3+MpjBYUnOmiWl+jSZE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=P+2gBvNG35cUrVXwSyRFQf13x7ma9j5+dW8mw3voz41ci/zieWYe45YjsKr7tUR22THuFlSF82wfc0uM4lQ4uPqUo/46UKZv1eqrmdsrFglrzKnwS/LuvSel4aXeV8Kr5g0G7dKnF1i3WRmCvS7s43bWkyyDRHn1FckYt+FxKQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=H/rqvpJW; arc=none smtp.client-ip=115.124.28.147
+	s=arc-20240116; t=1792396624; c=relaxed/simple;
+	bh=9YHpUOavzvxENmDeG2DwSC3ErhKfgQGBEBFz4en7Hr4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LEFPQRgKDUlg9G8fRyVMCmm1fOK5pnVMpVN9SCdlVDAXfwC5sH+veSktzU7XmvmBHctvUDAXt/MrOOTheEJfq4Ox78jwoYDWRtFnr6zo3XPyiRHickigCz8jo7ZSIgzLb8RSP8sbX4jHWw2vv4hpLGAkRdBmEC3a4+vchPSaRjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=noiyCPMo; arc=none smtp.client-ip=115.124.28.73
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="H/rqvpJW"
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="noiyCPMo"
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1792396591; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=Z5DVAeUGxz/cUycSAr/s96NUWD1NlJPK/sUiDuV7kQo=;
-	b=H/rqvpJWuJF8N9hHuJTlaTZ3PsuQDOxyaftDuwff1r0FxEF6IgE0fO071KMzwb0Pz4vPmP+I2yLNs07hbE8dY/7MR5PqvlVUNNcF1yJsjgwLE/kJ0WrXuh5lxm25a6qhXUCiikHXkwTZ051iJOxkoFWMYz8LAdoGa0uTei+N7lY=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07716876|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00401948-0.000306144-0.995674;FP=8718219688756733345|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037025160;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=16;RT=16;SR=0;TI=SMTPD_---.jkSo8yf_1792396589;
-Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jkSo8yf_1792396589 cluster:ay29)
+	t=1792396613; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=HtSxq9ch9V5183EuTDsUXy0y56NBWimOMgLh4wLO5ko=;
+	b=noiyCPMoD96lZI9hl03NUAj3EP6JpTxOzYOejnNadf0VB+znpluyDNZnu63SB+t/FGeriRgjDpbpaHtHCq+AZzoKtzD/N0aSQxFoGvOPOVaN8E8X1m5HH6Ai0stgVHtZnyQsmi+dPluAxro4viO7nLurWqvAOokgV3Q6y/dikyE=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07449403|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0915784-0.000939334-0.907482;FP=9866395368074857681|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045213054;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jk9xSR3_1792396612;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jk9xSR3_1792396612 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Mon, 19 Oct 2026 15:56:31 +0800
+          Mon, 19 Oct 2026 15:56:52 +0800
 From: liuc63 <liuc63@xiaopeng.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>
-Cc: Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Florent Fourcot <florent.fourcot@wifirst.fr>,
-	Romain Bellan <romain.bellan@wifirst.fr>,
-	Weibin Liu <liuwb@xiaopeng.com>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Weibin Liu <liuwb@xiaopeng.com>,
+	linux-usb@vger.kernel.org,
 	Liu Chao <liuc63@xiaopeng.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] netfilter: nf_conntrack_netlink: fix inverted IPv6 tuple filter
-Date: Mon, 19 Oct 2026 15:56:26 +0800
-Message-ID: <20261019075629.2091511-1-liuc63@xiaopeng.com>
+Subject: [PATCH] usb: gadget: net2280: fix out-of-bounds read of short packet in write_fifo
+Date: Mon, 19 Oct 2026 15:56:49 +0800
+Message-ID: <20261019075651.2093625-1-liuc63@xiaopeng.com>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -55,46 +44,54 @@ Content-Transfer-Encoding: 8bit
 
 From: Liu Chao <liuc63@xiaopeng.com>
 
-ctnetlink_filter_match_tuple() returns 0 (no match) when the IPv6
-source or destination address differs from the filter, because the
-!ipv6_addr_cmp() test is inverted.  ipv6_addr_cmp() returns 0 when
-the addresses are equal, so the negation makes the branch trigger on
-a match instead of a mismatch, which is the opposite of the IPv4
-path above.
+write_fifo() handles the trailing short word of an IN transfer by
+reading a full 32-bit word from req->buf even when only 1..3 bytes
+remain. get_unaligned((u32 *)buf) therefore reads up to three bytes
+past the end of the request buffer, which KASAN reports as a
+slab-out-of-bounds read.
 
-Drop the '!' so the IPv6 branch returns 0 only when the addresses
-differ, matching the IPv4 semantics and the caller's expectation.
+The over-read bytes are not sent to the host: set_fifo_bytecount()
+limits the FIFO to count & 0x03 bytes, so this is an out-of-bounds read
+rather than an information leak.
 
-Fixes: cb8aa9a3affb ("netfilter: ctnetlink: add kernel side filtering for dump")
+Copy the remaining 1..3 bytes into a zero-padded word and feed that to
+the existing get_unaligned()/cpu_to_le32s() sequence, so the trailing
+word is built only from data that belongs to the request. The full-word
+path above is unchanged, and reusing get_unaligned()/cpu_to_le32s()
+keeps the byte order identical on both little- and big-endian hosts.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
 Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
 Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
 ---
- net/netfilter/nf_conntrack_netlink.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/usb/gadget/udc/net2280.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/net/netfilter/nf_conntrack_netlink.c b/net/netfilter/nf_conntrack_netlink.c
-index 4e5d7c701436..cc8695d5356d 100644
---- a/net/netfilter/nf_conntrack_netlink.c
-+++ b/net/netfilter/nf_conntrack_netlink.c
-@@ -1098,13 +1098,13 @@ static int ctnetlink_filter_match_tuple(struct nf_conntrack_tuple *filter_tuple,
- 		break;
- 	case NFPROTO_IPV6:
- 		if ((flags & CTA_FILTER_FLAG(CTA_IP_SRC)) &&
--		    !ipv6_addr_cmp(&filter_tuple->src.u3.in6,
--				   &ct_tuple->src.u3.in6))
-+		    ipv6_addr_cmp(&filter_tuple->src.u3.in6,
-+				  &ct_tuple->src.u3.in6))
- 			return 0;
- 
- 		if ((flags & CTA_FILTER_FLAG(CTA_IP_DST)) &&
--		    !ipv6_addr_cmp(&filter_tuple->dst.u3.in6,
--				   &ct_tuple->dst.u3.in6))
-+		    ipv6_addr_cmp(&filter_tuple->dst.u3.in6,
-+				  &ct_tuple->dst.u3.in6))
- 			return 0;
- 		break;
- 	}
+diff --git a/drivers/usb/gadget/udc/net2280.c b/drivers/usb/gadget/udc/net2280.c
+index 7c5f30cfd24d..a1f5d11f82d2 100644
+--- a/drivers/usb/gadget/udc/net2280.c
++++ b/drivers/usb/gadget/udc/net2280.c
+@@ -649,7 +649,18 @@ static void write_fifo(struct net2280_ep *ep, struct usb_request *req)
+ 	 * when maxpacket is not a multiple of 4 bytes.
+ 	 */
+ 	if (count || total < ep->ep.maxpacket) {
+-		tmp = count ? get_unaligned((u32 *)buf) : count;
++		/*
++		 * Don't read past the end of the request buffer: a short
++		 * trailing packet has only count & 0x03 valid bytes. Copy
++		 * them into a zero-padded word and reuse the same
++		 * get_unaligned()/cpu_to_le32s() sequence as the full-word
++		 * path above, so the byte order on the wire is unchanged.
++		 */
++		u8 tail[4] = {};
++
++		if (count)
++			memcpy(tail, buf, count & 0x03);
++		tmp = get_unaligned((u32 *)tail);
+ 		cpu_to_le32s(&tmp);
+ 		set_fifo_bytecount(ep, count & 0x03);
+ 		writel(tmp, &regs->ep_data);
 -- 
 2.50.1
 
