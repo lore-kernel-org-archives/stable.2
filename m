@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481F7534E37;
-	Mon, 19 Oct 2026 14:25:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A3653C012;
+	Mon, 19 Oct 2026 14:25:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792419940; cv=none; b=QcZxRdwqXZSNeVTl1SJeJRMvbcGng9PPwbBTai8rDVX2yAM0F+pbS78Iu+Q+/CZJhxkEKS++qKyYI/diDedG98W4SX1DruqVUutArTA4Rc4AJcoB3GyUuE3PAv/9M/2KkU9x6dX3IHEerzkqicp8FjMB606W0ZdLwN9ILRFTD3M=
+	t=1792419944; cv=none; b=XOpvEIUZlNtX526PHDEd7vnjDzzEvw+MGdVS75MQ0jGWUHQ3s9Ys0fSHjY61DYSJOKPkI8Gpmck6oCb2aenW2ojf5oSeQyY1DGIeLoij/KNm8oh3GIJFmSlD7bsKsiCCmh2tlIWh9OyQiUOnG8zkxpfz1O3wcPOqaTa/F+vVSjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792419940; c=relaxed/simple;
-	bh=h32VLu/TXB4zECfrvOfSjss4WoUO7k5m0oAjpeUtc0A=;
+	s=arc-20240116; t=1792419944; c=relaxed/simple;
+	bh=p2G2lP2zW4OuqUyJbbccm1x6zKEjrNPyl0BywwNZTsY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=vFi4Qa1awYbrBH5BMIgMg9I1u+Cyswty+rQZFqpcNACx4ZmTZ4fndX88oT18zzvZte6j9ZXcO7u9saFkR2MOUVyOFMy6oED7EbinyVB4zIHPtJIK8FtWc8DKLuYHLCWKbfC74WFnU54S6VJvB2w0gJWqcacl4QKQbxQsQ1H+bKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GTRDPjVz; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rxYIUKYScKUDoPYGwpoHfk+Qc4yiA8Bnk4P8g8sP2tmxPaiL3sfRDiVOhzEEWlvmzi7Q5uO/jnYPwAylwFMnThUWLJ0+1neUWgMx1us2w409/hEt6BeCBMzJYi2u+64uxycrEXBprRe4dJNnoTTYOoNERRD4Tj87ZqK6IOvxwxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AGmzooUF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GTRDPjVz"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 995781F000C4;
-	Mon, 19 Oct 2026 14:25:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AGmzooUF"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id C5FE81F000C8;
+	Mon, 19 Oct 2026 14:25:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792419939;
-	bh=9Wi0UYa4NSZ25zUYv1HgSXPQdq1JjHYOk4LOu9/icqI=;
+	s=k20260515; t=1792419943;
+	bh=cj0fIYU2oAbSnQlk97T67CaTvZalAZQ4W0pfC1dQ0IU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GTRDPjVztR/kkOU+foxQRYLn/4UIsjvQiH2qqGZ7YOZaAuqHJttMPR8dafyueE4sQ
-	 rF1DhEvz4YTJTbQervfQClJcseUeMqZzY1EVtf/XoZfz40j24KqgD146mTMfbthzxK
-	 kthqNL5p71GiIkhHIpIt9bsB2gcdd6Du0lo7/qcSV/VSrfU1zis12c+VQffrUDoNAg
-	 6tOBPtcVRg5IKbe4V18nfN/8eZD86WqX4Qv8Se49+1qX193KedQsCE4CLN0/fuWGwi
-	 ZcjzNRNz9kGFuAg7RvmkRlV7CLJPPVE0+IHy4EIoLx4QaEZa6pQkEH0GuWK8+wI60b
-	 z+U5XJOON7Gmw==
+	b=AGmzooUF0T/D8ciygKkRhAgAXswHz9nVwUIQ9B7V9PVl+HBR+FvbpkQaTzG74deTC
+	 QEJnQg3r4xIj1OSv2bs4bUoWOkyXyz/NkLBN+yMOdUNn7XBP7rseaoeVdLqvne56oq
+	 PkJutUtAgKoq4KFgd4cgB+62ZgoRnoqSwsGN9y21qrn4mRtV1M8b6OsVeVHlhoHSAw
+	 YHPPZNNcDMFQEYXX+xf9/lr3PNPJTx5z49mBeviBy1uIjELFAcr+c/1TDKtFZuiqDZ
+	 pz+2ZOJkmFlXcy/i6FxS91VLm8gqyqeFkssJMa0BqwoC1GYmLfguSBS9spYTt8tqE5
+	 hDBRRlIWj4Bwg==
 From: Jarkko Sakkinen <jarkko@kernel.org>
 To: David Howells <dhowells@redhat.com>
 Cc: keyrings@vger.kernel.org,
@@ -35,11 +35,11 @@ Cc: keyrings@vger.kernel.org,
 	Paul Moore <paul@paul-moore.com>,
 	James Morris <jmorris@namei.org>,
 	"Serge E. Hallyn" <serge@hallyn.com>,
-	linux-kernel@vger.kernel.org (open list),
-	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM)
-Subject: [RFC PATCH 2/8] KEYS: Change the type of key->datalen to unsigned int
-Date: Mon, 19 Oct 2026 17:25:02 +0300
-Message-ID: <20261019142516.300040-3-jarkko@kernel.org>
+	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [RFC PATCH 3/8] KEYS: Reject @desclen values over U16_MAX in key_alloc()
+Date: Mon, 19 Oct 2026 17:25:03 +0300
+Message-ID: <20261019142516.300040-4-jarkko@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261019142516.300040-1-jarkko@kernel.org>
 References: <20261019142516.300040-1-jarkko@kernel.org>
@@ -51,32 +51,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-key_alloc() and key_payload_reserve() set key->datalen with values,
-which can be larger than USHRT_MAX.
+@desclen in key_alloc() is saved to the 16-bit wide desc_len field in
+struct keyring_index_key.
 
-Change the type from unsigned short to unsigned int.
+Reject @desclen values over U16_MAX with -EINVAL in order to prevent
+integer overflow.
 
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: f771fde82051 ("keys: Simplify key description management")
 Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 ---
- include/linux/key.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ security/keys/key.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/include/linux/key.h b/include/linux/key.h
-index 6729536a76b2..26139c3adf62 100644
---- a/include/linux/key.h
-+++ b/include/linux/key.h
-@@ -217,7 +217,7 @@ struct key {
- 	kgid_t			gid;
- 	key_perm_t		perm;		/* access permissions */
- 	unsigned int		quotalen;	/* length added to quota */
--	unsigned short		datalen;	/* payload data length
-+	unsigned int		datalen;	/* payload data length
- 						 * - may not match RCU dereferenced payload
- 						 * - payload should contain own length
- 						 */
+diff --git a/security/keys/key.c b/security/keys/key.c
+index 6ebb8691551f..7888c0c6a772 100644
+--- a/security/keys/key.c
++++ b/security/keys/key.c
+@@ -245,6 +245,8 @@ struct key *key_alloc(struct key_type *type, const char *desc,
+ 	}
+ 
+ 	desclen = strlen(desc);
++	if (desclen > U16_MAX)
++		goto error;
+ 	quotalen = desclen + 1 + type->def_datalen;
+ 
+ 	/* get hold of the key tracking for this user */
 -- 
 2.47.3
 
