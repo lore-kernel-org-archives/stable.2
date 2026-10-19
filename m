@@ -1,229 +1,138 @@
-Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C454D956F;
-	Mon, 19 Oct 2026 11:20:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.118
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D63E48382F;
+	Mon, 19 Oct 2026 11:20:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792408812; cv=none; b=E1V/iLx1xOOLv2mxR4Uig7jblO+uzO0Zr8S2DlDBwXlwqsguSYF0FrkbiijOq7WorlIYMDBGjFE3mXisDR0qNBCx/7/OvZmvZldPYkrOQBCi4OTXhFO/92PxxfCwQ/p2G1fzZeGyVIBBsvLFUzQ1bFPFpeoOYHF4Ts3oqEZ7K5g=
+	t=1792408860; cv=none; b=F+IaowkXbXz2uOGCfq2U8WjKDyx55RdfmX2tmc4ARW/TddSK7vIjLp0ZsoD5l135B1OQ9/ZNvVas+YM6EB5+WgilRTsXV5+OSEPoc9c4Y5+wh0JDNMFUt8Nz5GnbuaBH9cxiefoMcDJ2lEHe+bHiHjjnjIZ+CXt4dSqrfKSsGi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792408812; c=relaxed/simple;
-	bh=Bh3JFEeSOgD04v+jIOgFLNwqHkEIEEaaV1/NLO2q1zo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oD3pTwnEp0i9826OqDZdatVC+ovEbUopMGOiJDB1Dg7Afsulw9GQicM2FDqtrbCskdwQx2aJP3LGK3NJi8U14XW8MiqEezCXxeZZI5BaBrBgE7HCwKWnMqrGhxXTfJLJlPJGmOPfOuNWG8tcb2VVen+e4EYRfeoXRJcyuJ0HIjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=u7jqlnkt; arc=none smtp.client-ip=115.124.30.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1792408860; c=relaxed/simple;
+	bh=OjjfwwLZbDqlnlqqnl+VhPdVOwG66obu/ngPBAEEJ60=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TN7m3y1YGlK644vwn/gcGS6F+YpmF8B6OlazNN6rpCj/wv1tE8ZzCk/qOYgvofwjmx1Mrr+6wb6x8NZL8Sxe8m+XQBjM/9cLdjOd79vKrCG3GOTSk2zUvnfeCev6POjOSIjE6PKVkwK7NJ69lE1iN9L/5afkzbSzPFNnWoSnDm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Viat4dnx; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="u7jqlnkt"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792408805; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=SCCN1hNOBzyFuMh0WPo9IiSvrFw2wKE+VBW+2gR8D4E=;
-	b=u7jqlnktM9qUUj/P7JNjiFVSgI8Rgp1VHBy/uJKX9tYc/Zjkwkw9H66ZuLPLkv4SvCDMhQJTiK21/ELp32eeeA6gO1XsZVmMEdmSU63MvqVxyBGVWwqoFTO+ff75cadvigCb/EMzA4mQr2QHbmFfL9xKCCETap7vDsCZwjR9IAM=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R541e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0XD69E9b_1792408802;
-Received: from 30.251.227.55(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XD69E9b_1792408802 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 19 Oct 2026 19:20:03 +0800
-Message-ID: <b273a680-6b96-4fd6-94e6-c1a79922efc2@linux.alibaba.com>
-Date: Mon, 19 Oct 2026 19:20:02 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Viat4dnx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792408857; x=1823944857;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=OjjfwwLZbDqlnlqqnl+VhPdVOwG66obu/ngPBAEEJ60=;
+  b=Viat4dnxGRZ2G8UEiYOPPdjVHunkgp0Uka8wAOZORJ1wjH6oC/RQ07sZ
+   XE3WrTAP4429RmJNNyURLD852ajaG40KQAdCwwwjMSjfhUATCoStvPBb/
+   2Ur96GE8XSDhweRpOulgHw8b9d8oAU5tP4rXCygExaxF68en9VWCq03nK
+   KMFHwbuymcMU0DXoAYTAhEJrhkowj3FKrUxHcD3fnPQnrN37oB4Z3HqTa
+   lJFAGyA3fLwQpepjBly2Ps02TUJwHH8etZPcKPM1TKV5/KE9GdabKATN0
+   UkkeQZuD0yft44WAmbCqzSHln3E8WGV/wixgP3X+0mLmX9leV+zh6W42o
+   w==;
+X-CSE-ConnectionGUID: X1UZNggIQdKqkVX6a96ZHQ==
+X-CSE-MsgGUID: XdyIYFN6SgmSooMf94zmxQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="993082"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="993082"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 04:18:56 -0700
+X-CSE-ConnectionGUID: 2EQXLQQ7Q3Wkw2XbewmDww==
+X-CSE-MsgGUID: 34XvGfjIT8a4JiB7DgQHWg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2570954"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 04:18:53 -0700
+Date: Mon, 19 Oct 2026 14:18:50 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Michael Anderson <mwwa919@gmail.com>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	intel-gfx@lists.freedesktop.org,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Hans de Goede <hansg@kernel.org>, intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] drm/i915/dsi: Use owned panel/backlight GPIOs in VLV
+ MIPI sequences
+Message-ID: <atX8mpg19_WkIa27@ashevche-desk.local>
+References: <20261018-vlv-dsi-owned-gpios-v1-1-3ca18bcda670@gmail.com>
+ <atXp2NSPKZUPj8sq@ashevche-desk.local>
+ <CAL-Wm=O-Gr3CuvCn8iSQceQMhu=LGFz0SPhmWeFL=RiVnoprdw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ocfs2: Keep the dentry lock inode alive until callbacks
- drain
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com, jack@suse.cz,
- akpm@linux-foundation.org, rgoldwyn@suse.de, srinivas.eeda@oracle.com,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-References: <pm-ocfs2-objects-candidate-0012-v5-a0413a339b72c02fc885@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <pm-ocfs2-objects-candidate-0012-v5-a0413a339b72c02fc885@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAL-Wm=O-Gr3CuvCn8iSQceQMhu=LGFz0SPhmWeFL=RiVnoprdw@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
++Cc: Bart (as GPIOLIB maintainer and author of the reset-gpio rework).
+
+On Mon, Oct 19, 2026 at 07:03:57AM -0400, Michael Anderson wrote:
+> Thanks for looking at this. I'd like to make sure I understand before
+> doing a v2.
+> 
+> Here both users of pin 10 are i915 itself: intel_dsi_vbt_gpio_init()
+> takes it as the "backlight" enable GPIO (soc_panel_gpio_table,
+> PPS_BLC_SOC), and the VBT MIPI sequences on this tablet then toggle the
+> same pin as the panel reset (low in ASSERT_RESET, high-low-high in
+> DEASSERT_RESET). Do you mean describing pin 10 with a software-node
+> "reset-gpios" reference and having both paths go through
+> reset_control_*(), or something else?
+> 
+> One concern: the VBT drives explicit pulses on the pin, and shared reset
+> controls are refcounted, so a pulse from one path wouldn't reach the line
+> while the other holds it deasserted. Would an exclusive reset obtained
+> once by i915 and used by both paths work instead, or am I missing how
+> reset-gpio handles this?
+
+But then it sounds like the request-by-demand?
+Bart, any ideas how to address this case?
+
+> On Mon, Oct 19, 2026 at 5:58 AM Andy Shevchenko
+> <andriy.shevchenko@linux.intel.com> wrote:
+> >
+> > On Sun, Oct 18, 2026 at 04:12:40PM -0400, Mike Anderson via B4 Relay wrote:
+> >
+> > > On VLV with PPS_BLC_SOC, intel_dsi_vbt_gpio_init() requests the
+> > > backlight and panel enable GPIOs (INT33FC:01 pins 10 and 11) for i915
+> > > itself. Since commit 8241b55f1ded ("drm/i915/dsi: Replace poking of VLV
+> > > GPIOs behind the driver's back") the GPIO elements of the VBT MIPI
+> > > sequences also request their pin through gpiolib, so when a sequence
+> > > toggles one of these two pins the request fails and the toggle is
+> > > dropped:
+> > >
+> > >   i915 0000:00:02.0: [drm] *ERROR* GPIO index 10 request failed (-EBUSY)
+> > >
+> > > Before that commit the pad registers were written directly, so the
+> > > sequences could still drive the pins i915 owned.
+> > >
+> > > The Toshiba Encore 2 WT8-B (Bay Trail, DSI panel) uses pin 10 as the
+> > > panel reset line: MIPI_SEQ_ASSERT_RESET drives it low and
+> > > MIPI_SEQ_DEASSERT_RESET pulses it high-low-high. With every toggle
+> > > failing, the panel is never reset after i915 sends MIPI_SEQ_DISPLAY_OFF
+> > > during takeover and stays black, even though the backlight PWM and both
+> > > enable GPIOs read back as on. The tablet only has a usable display
+> > > with nomodeset.
+> > >
+> > > When a VLV MIPI sequence targets pin 10 or 11 and i915 holds the
+> > > corresponding descriptor, set it through that descriptor instead of
+> > > requesting the pin a second time.
+> >
+> > Ah, nice, this should be solved via using reset-gpio, which is exactly fixed
+> > for the reset shared lines case.
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-
-On 10/16/26 12:03 AM, Cen Zhang wrote:
-> The inode reference held by a DENTRY lock must outlive callbacks on
-> that lock. ocfs2_drop_dentry_lock() drops dl_inode before marking the
-> lock freeing and waiting for DLM unlock completion, although the BAST
-> path still reads dl_inode->i_sb in ocfs2_get_dentry_osb().
-> 
-> An EX request, such as a remote unlink or rename, can make the
-> downconvert worker delete all matching aliases. If no other inode
-> reference remains, its post_unlock callback performs the final iput().
-> The O2CB DLM can deliver another BAST while the request is still
-> blocked, for example when another holder releases the same resource:
-> 
->   Downconvert worker                 DLM callback
->   ------------------                 ------------
->   Remove dentry aliases
->   Clear QUEUED; post_unlock()
->   ocfs2_drop_dentry_lock()
->     iput(dl->dl_inode)
->     [inode reclaimed after RCU]
->                                      Duplicate BAST
->                                      ocfs2_blocking_ast()
->                                        ocfs2_get_dentry_osb()
->                                          Read freed dl_inode->i_sb
->   ocfs2_simple_drop_lockres()
-> 
-> Call ocfs2_simple_drop_lockres() before iput() so the existing inode
-> reference remains held while queued work and DLM callbacks are drained.
-> The inode can only be evicted after the DENTRY lock has been unlocked.
-> 
-> KASAN report as below:
-> 
->     BUG: KASAN: slab-use-after-free in ocfs2_get_dentry_osb+0x155/0x170
->     Read of size 8 at addr ffff8881100ff888 by task dlm-5B530197BEF/575
-> 
->     CPU: 0 UID: 0 PID: 575 Comm: dlm-5B530197BEF Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
->     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
->     Call Trace:
->      <TASK>
->      dump_stack_lvl+0x93/0xd0
->      print_report+0xce/0x630
->      ? ocfs2_get_dentry_osb+0x155/0x170
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __virt_addr_valid+0x20e/0x420
->      ? ocfs2_get_dentry_osb+0x155/0x170
->      kasan_report+0xe0/0x110
->      ? ocfs2_get_dentry_osb+0x155/0x170
->      ? __pfx_ocfs2_get_dentry_osb+0x10/0x10
->      ? __pfx_o2dlm_blocking_ast_wrapper+0x10/0x10
->      ocfs2_get_dentry_osb+0x155/0x170
->      ocfs2_blocking_ast+0xd3/0x6d0
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __lock_acquire+0x5a3/0x2140
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __mlog_printk+0x212/0x2a0
->      ? __pfx_ocfs2_blocking_ast+0x10/0x10
->      ? __pfx_o2dlm_blocking_ast_wrapper+0x10/0x10
->      dlm_do_local_bast+0x20c/0x300
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __pfx_dlm_do_local_bast+0x10/0x10
->      ? dlm_thread+0x2e36/0x4480
->      dlm_thread+0x32b8/0x4480
->      ? __pfx_dlm_thread+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __kthread_parkme+0xc1/0x220
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? lock_release+0xc8/0x290
->      ? __pfx_autoremove_wake_function+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __kthread_parkme+0x177/0x220
->      ? __pfx_dlm_thread+0x10/0x10
->      kthread+0x351/0x460
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __pfx_kthread+0x10/0x10
->      ret_from_fork+0x659/0x940
->      ? __pfx_ret_from_fork+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __switch_to+0x74f/0xf70
->      ? __pfx_kthread+0x10/0x10
->      ret_from_fork_asm+0x1a/0x30
->      </TASK>
-> 
->     Allocated by task 584:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      __kasan_slab_alloc+0x89/0x90
->      kmem_cache_alloc_lru_noprof+0x205/0x5c0
->      ocfs2_alloc_inode+0x2b/0x100
->      alloc_inode+0x69/0x230
->      new_inode+0x23/0x1a0
->      ocfs2_get_init_inode+0x84/0x190
->      ocfs2_mknod+0x8a3/0x2150
->      ocfs2_create+0x14f/0x3c0
->      lookup_open+0x88f/0x13e0
->      path_openat+0x95e/0x2020
->      do_file_open+0x21e/0x470
->      do_sys_openat2+0xf4/0x1b0
->      __x64_sys_openat+0x136/0x1e0
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
->     Freed by task 0:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      kasan_save_free_info+0x3b/0x60
->      __kasan_slab_free+0x5f/0x80
->      kmem_cache_free+0x242/0x580
->      i_callback+0x4b/0x80
->      rcu_core+0x6be/0x1ed0
->      handle_softirqs+0x1fa/0x8d0
->      __irq_exit_rcu+0x113/0x1e0
->      irq_exit_rcu+0xe/0x20
->      sysvec_apic_timer_interrupt+0x6c/0x80
->      asm_sysvec_apic_timer_interrupt+0x1a/0x20
-> 
->     Last potentially related work creation:
->      kasan_save_stack+0x33/0x60
->      kasan_record_aux_stack+0xa7/0xc0
->      __call_rcu_common.constprop.0+0x80/0x280
->      destroy_inode+0x131/0x1b0
->      evict+0x543/0x9f0
->      iput+0x680/0xb80
->      ocfs2_dentry_lock_put+0xca/0x230
->      ocfs2_process_blocked_lock+0x1fb/0x420
->      ocfs2_downconvert_thread+0x327/0x730
->      kthread+0x351/0x460
->      ret_from_fork+0x659/0x940
->      ret_from_fork_asm+0x1a/0x30
-> 
->     The buggy address belongs to the object at ffff8881100ff000
->      which belongs to the cache ocfs2_inode_cache of size 3400
->     The buggy address is located 2184 bytes inside of
->      freed 3400-byte region [ffff8881100ff000, ffff8881100ffd48)
-> 
->     [page and shadow-memory details omitted]
-> 
-> Fixes: 8ed6b23709b3 ("ocfs2: revert iput deferring code in ocfs2_drop_dentry_lock")
-
-This is a revert for performance. Not sure if the regression will come
-back with the new order.
-
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-> Assisted-by: LLM
-> 
-> ---
-> diff --git a/fs/ocfs2/dcache.c b/fs/ocfs2/dcache.c
-> index e06774fd89d8..e2b560797f17 100644
-> --- a/fs/ocfs2/dcache.c
-> +++ b/fs/ocfs2/dcache.c
-> @@ -354,8 +354,9 @@ out_attach:
->  static void ocfs2_drop_dentry_lock(struct ocfs2_super *osb,
->  				   struct ocfs2_dentry_lock *dl)
->  {
-> -	iput(dl->dl_inode);
-> +	/* Keep the inode alive until DENTRY callbacks have completed. */
->  	ocfs2_simple_drop_lockres(osb, &dl->dl_lockres);
-> +	iput(dl->dl_inode);
->  	ocfs2_lock_res_free(&dl->dl_lockres);
->  	kfree(dl);
->  }
-
-Commit 9f70968af3e6e ("ocfs2: Re-order iput in ocfs2_drop_dentry_lock")
-is what moved iput() above ocfs2_simple_drop_lockres() to begin with, and
-it was a deliberate move:
-
-  Do this to avoid a theoretical (I haven't seen this in practice) race where
-  the downconvert thread might drop the dentry lock, allowing a remote unlink
-  to proceed before dropping the inode locks. This could bounce access to the
-  orphan dir between nodes.
-
-With the new order the downconvert thread gives up the dentry lockres and
-only afterwards reaches iput() -> ocfs2_evict_inode() ->
-ocfs2_delete_inode(), which takes the nfs_sync lock in shared mode and
-then the inode lock exclusive.
-
-Thanks,
-Joseph
