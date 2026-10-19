@@ -1,74 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792428889;
-	b=oFOMvxUNlQjv0f57jbqKrkXzlm9BFjdUYTLn2SR4joBngaye7F7MgitR8vWoo2ypLg9D
-	 nXqSAvX83LLJebpKGKVBQlLuOFTZQgGmo04QfasVXk0kNAkIsGR8cRjBc0xjZ+sweNxbb
-	 bnd9oZeAkuQWKkeatPLUTRfKOORvi1/GqjFlhoerqAoMa4Wcg9FoqWfxn3i9mPLpsKqB1
-	 9l0jSircos1zdVgDFm/LavFfVMkug0srzxLRydId/LIE8AqmMeigJfmtzWKufq93DtxXc
-	 kpP/vrZQazUcKlY9cvBxnzgohHBCsTisyAWDKrayIGy7f/jatiQ5vd+JlNO3DVoGmgw==
+	t=1792428896;
+	b=cy78rD4YLfZ7dc5p/L/4YXKdVd36dhWtqv5SOmWLSXq3tyoyJrltdlaT9Fua2MGcnnqr
+	 zVR4k3cQFUcPkQzR3gB8yP3CHStrBTQFgKmb7auJVo4+ccnYdhAjlmrmKF3/C4WrKDYKX
+	 YZLYVu/2Q3UXcu5Ni/kRh0ZBlbmQrbquDzJNVjS68YZFVgQBDnogZ8fvfs6HD+87Xo7da
+	 eNaEfbunOMr81Ky961Ft4R+YLlBJLOyUrKuGyEHnjseq6B3YMn742sEVwctYWypNwA5k7
+	 KzTqYQummp3RyZLJI5vWpyUyr+MOof2TQS38r8Yj4zTxwYAk32aZAW/ZSycg+OzW8VA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792428889;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792428896;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=eWKprZGp9xOhbzFtnXXnWxmjQyyqaM2s5HKEF0UwXqo=;
-	b=BlZWc/XlkcxTeIZi/nceK33UmIIRIUsOhYfjr4LTHFzfLpgGuM/jN364mkLLabjyKkig
-	 ne3jiNAjBtlvpUNB4tDCh1sSSThRldiG6mcmsS6z8kRLgJP1CNjd6yQH27/7EBL7U1DpE
-	 khUf0qX0p14nlgEOgift3GbnS0HZqfVzK9XI1IF580TlxqBJHblrHj7FxRlridNvmFqCV
-	 ckVIacMGyxOALVRHSs+uzC9xdBzotZhl8iC/nFPOCmnbqbpPw6VmJ1lxROZonJ3Wess6T
-	 FLvbzbjaM4bu382nlxVNIRSPGszjHXMXQidcqHtSt6V3JZG1lUfjHxz5YmoX6C8igtw==
+	bh=lxpRwCCvswaeNGSGCQHd9d171tlIucfRlQKacrxY3lE=;
+	b=18v2LCKgluOsH8LwdtPxBQD1AYlZQ5z8ifH8ig5NFnv0wUv6zmO1siQomeZpX9R+TZ2d
+	 J3y7nmkBccrxUIfXsHYizccQLRHATCyNfcNESoZiIYnwasZcSLFc3Xwmb2l7UcvJtitEB
+	 3QTOEum7ZsvzbgTKLPP6e1gxrpRamV+31dQe6cN1ZShrfDgcj7cPPYpReah4xCT2t4iTL
+	 C2uWaS3Q1o47XuWXPu31uSWbpcXSpfbRHHhBtih13b0BUxzC+gAO2TlIUBnlnfn35Uuua
+	 AYd6nIS1lLfN6mUmFxp6fwez3O6uhTRRPOkU5C0WZW/1Fo26x/J9o2jTp6DY01kEfNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dISWeMBw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b2rYqsDr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99B2460A2602;
-	Mon, 19 Oct 2026 16:54:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF601606A319;
+	Mon, 19 Oct 2026 16:54:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dISWeMBw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B67A71F000C5;
-	Mon, 19 Oct 2026 16:54:45 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b2rYqsDr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4638B1F000D0;
+	Mon, 19 Oct 2026 16:54:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792428889;
-	bh=eWKprZGp9xOhbzFtnXXnWxmjQyyqaM2s5HKEF0UwXqo=;
+	s=k20260515; t=1792428895;
+	bh=lxpRwCCvswaeNGSGCQHd9d171tlIucfRlQKacrxY3lE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dISWeMBw5d36ciVRzrtUdZNJ/7F0we8/HSvaG3qTV0vYTOS2y888ahJLuj0S+o0eI
-	 B9429i9IQkVdmJVATi5+94yRGgFyTxCZyxyDlZaBFaKkIZ8TxEHbe8B/86jCIYIr0F
-	 coKUx3j4Fuukr5Un6c12r2H04ue2Ya9DDV5+VSXcTKBs1R4itbZa9Yr5JnJzb14EGU
-	 bhEqu9jIRvNoN4dUejSLJvTL4Qi/v7whU2o9UHnSSk0Ol0SdQ0JhT7K1xdw6nF0TvR
-	 btBFTc7ujbfSlzl12fTxHxNWyC6WxTgbD6IiGvIy3yyVTBeHGI+8cqbcjYM/iCW2d+
-	 Svtu9ffEjX/5g==
+	b=b2rYqsDrXbsudWK1jprqgKIduEB7qdnTuytEWMnNbk2SW1oqb8A4vmProxtilvcNW
+	 tCRliMFqN1ItvKHMsksSk+jnXQR/VtfxLqILpW07rpSPODNwcoaCiYE0Tud5/ocAIQ
+	 iJg9n8Y4s5A+za9iTWf0O9DlSZJG2P44lPg7WVAOH1xd08igNg82zEtOiX1lMqP3kQ
+	 E6sg5ZlUSz9h/ZxNsqljVksYb7HQrmI+f+96M1Xpp+Gu6YHoWEpeESXhe7H0DIO+ps
+	 FL4L2Wuvp5xWn63C6JeSYuCBYpiiAKmYmsJiZcSrlym3Etq9cGC+Q+iudgA6HZf3e5
+	 uZ8JaiSWfUMIA==
 From: Sasha Levin <sashal@kernel.org>
-To: Jon Hunter <jonathanh@nvidia.com>
+To: Stefano Garzarella <sgarzare@redhat.com>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	stable@vger.kernel.org,
-	patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org,
-	akpm@linux-foundation.org,
-	linux@roeck-us.net,
-	shuah@kernel.org,
-	patches@kernelci.org,
-	lkft-triage@lists.linaro.org,
-	pavel@nabladev.com,
-	f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com,
-	rwarsow@gmx.de,
-	conor@kernel.org,
-	hargar@microsoft.com,
-	broonie@kernel.org,
-	achill@achill.org,
-	sr@sladewatkins.com,
-	linux-tegra@vger.kernel.org
-Subject: Re: [PATCH 6.6 0000/1674] 6.6.160-rc1 review
-Date: Mon, 19 Oct 2026 12:54:30 -0400
-Message-ID: <rc-reply-0002-a26fc6391c09@kernel.org>
+	stable-commits@vger.kernel.org,
+	edumazet@kernel.org,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Subject: Re: Patch "vsock/virtio: fix potential unbounded skb queue" has been added to the 6.1-stable tree
+Date: Mon, 19 Oct 2026 12:54:33 -0400
+Message-ID: <rc-reply-0005-759883b4df64@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <8e765406-3ba3-47d7-bba6-e15a2cb56857@nvidia.com>
-References: <20261017160431.119607952@linuxfoundation.org> <8e765406-3ba3-47d7-bba6-e15a2cb56857@nvidia.com>
+In-Reply-To: <atYeWYox-fcuEHX0@sgarzare-redhat>
+References: <20261018131321.3798770-1-sashal@kernel.org> <atYeWYox-fcuEHX0@sgarzare-redhat>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,15 +73,15 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 11:18:07AM +0100, Jon Hunter wrote:
-> The above commit is causing the following build failure for ARM with the
-> multi_v7_defconfig:
->
-> drivers/mmc/host/atmel-mci.c:2661:31: error: ‘struct atmel_mci’ has no member named ‘bh_work’
+On Mon, Oct 19, 2026 at 03:48:24PM +0200, Stefano Garzarella wrote:
+> Be careful with this patch, this caused data loss. It's fixed upstream
+> by commits:
+[...]
+> So if you want to backport this patch, I strongly recommend that you
+> include these others as well in the same backport.
 
-Dropped c125ee35a49a ("mmc: atmel-mci: Fix use-after-free in atmci_remove
-due to race condition") from the 6.6 and 6.1 queues. Thanks for the
-report.
+Thanks. Dropped from the 6.1 queue. c6087c5aaad6 and 2a12c05aef21 don't
+apply to 6.1 without rework, so the full set can't be taken there as-is.
 
 -- 
 Thanks,
