@@ -1,166 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0409529992B;
-	Mon, 19 Oct 2026 13:37:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E29495510;
+	Mon, 19 Oct 2026 13:39:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792417057; cv=none; b=d5vjMxE4H4GTQ7Y9Y3NaJkln5TpGP9Nv8zmHrxQ86Ep5ws7erVmdlwItsAPMLJUs53bdknUqCIkBht20KQIccFLOVAcuEFrV8Ok9i8DfEXBjlVVZAjS9RathJuecJXaPm0r3SMWnn5G71Tc7+6czItTg2j1+4Kah3hPPVwXM3Qo=
+	t=1792417154; cv=none; b=ElOEqbYRFRpVVRWc8kKMGTngFNsjWPcxwUlqjNyB3JEb+88Xp59h0hza6/pCnkCbEqs/i2QrUZfez5XI4uDhpHNR7sbPmn2VFfnoRWHHrqTuJp7X4DOObivfSDA2Ooo0Jp9uCGYYc4kbo+PowXz3EgstZH5GLtA+kS99eILb1co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792417057; c=relaxed/simple;
-	bh=yoDuwaoTWLvDt97OblECL52QxBpB44G9LCtIekhYmag=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=FTcXCt5uaUFdWgTB2gCN1/QAmdSQWlh9zUedfoyH5v6rTOU1xA8ymn1OxbF0h+bL5uT2mUtZaFp21Igvd4ujbttmQm+FwY+XUW4evZjMXS5tBzEUqImxmr913ztE7ZckaTlPLaQE9j53nFA9QOO8pCvHn85G3dbIgDGFGAr2N7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BAoVD4YU; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792417154; c=relaxed/simple;
+	bh=uspzV/dJrz8pu2AAzfeE45CxyH97ulPh1CLm1+C3K30=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EQw6nV/iAi+G37TWJeCAD7TTrUKK5/DhVHPnUKX8vM0vW0hqj9smR9Eq8XIRT9ZYzRNC26yVPz6M569RVO58jgbqkO3HiZmDC77HCCLpNLhg3wbDCVp4CeGmmxZKhcHKzHERZVFccL4P2d9a/fyXIdeDeNxGERknUPprPkhczQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WQl2eY5q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BAoVD4YU"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AAC3CC2BCF4;
-	Mon, 19 Oct 2026 13:37:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792417056;
-	bh=yoDuwaoTWLvDt97OblECL52QxBpB44G9LCtIekhYmag=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=BAoVD4YUPJ+RnmRP5Jri3wJBrh5QkILdiPfL9FzrAvzyXJg1fIl+p18QWm4iKlyvw
-	 bYapei2/j7LV8A+1C1Y1s7pzTlnqnhEPu9UmVJpemCR2mj+PGHsuFHO7o8qnrEIeG8
-	 1O7IBQhNoYy3T65blvT8vrdY1zZMmCURwfEDUPkZeeorEUKP/+Ci5BT3JMRg0uhPXQ
-	 niKEkUxuQLJ7dlasIkzaT43p2Ec5PfsNcNRoxIRSlMbYch0xKddynwX/VCnNhEO6D3
-	 TQEiBwuaFUTNBVzTSBGa3k5xInHC76XNMgtHykxejFXPKbJCAQx7UKSJkSGApqC9L4
-	 yf8OPLi+gCT9w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BDD9CCF2DE;
-	Mon, 19 Oct 2026 13:37:36 +0000 (UTC)
-From: Jean-Baptiste Maneyrol via B4 Relay <devnull+jean-baptiste.maneyrol.tdk.com@kernel.org>
-Date: Mon, 19 Oct 2026 15:37:33 +0200
-Subject: [PATCH v2] iio: imu: inv_icm42600: fix parsing of all FIFO frames
- for odr change
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WQl2eY5q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 943531F000C4;
+	Mon, 19 Oct 2026 13:39:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792417152;
+	bh=jFDkykTpCFq9YT8TT2xwNVz5rz5D5UYP/IyAQl0FhJU=;
+	h=From:To:Cc:Subject:Date;
+	b=WQl2eY5qduO/ycVgT9nFECZAtwHY8BcuxkWXEtGaMyZcoWRr10cgdIql5DB6VQJ6v
+	 pf/pzsioytZw2BC2C7loqHvXe20yFpfuGsIPAR2FeoFY+OZUhY/LR5HbRVbdbEhgyx
+	 fiesFcMNxTnouwP+oaTnTBYvdbcUEwiL6Jw9Ecm4XI0pHukfzFD26HNQyyYDFeb4SY
+	 TbcA7KpnDDkrgKaOU9QDiXAKlhUt3AQt6ZSTFUou72vo5ASNrkArSXOnCFbpyVyeAB
+	 5CRq8pVppS7nSk3Yzg9HDrStqoYiAvxGsoK8d7sIzSpri3gTMVZU6zQygsZ66eFVFH
+	 Rc5bJ2UfIXKdw==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH v2] mm/damon/core: filter out damos address filter-split failed region
+Date: Mon, 19 Oct 2026 06:38:55 -0700
+Message-ID: <20261019133856.86835-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261019-iio-imu-inv-icm42600-fix-odr-change-event-in-all-frames-v2-1-d72a69c327ff@tdk.com>
-X-B4-Tracking: v=1; b=H4sIABwd1moC/6WOTQ6CMBBGr0K6dkzbAKIr72FYtGWUUUpNWxoN4
- e4W9AYuX/K+n5kF9ISBnYqZeUwUyI0Z5K5gplfjDYG6zExyWQsuaiByQHYCGhOQsaWsOYcrvcB
- 1Hn4RTDjGbIAaBrh6ZTHAoVRHYbRslNQstz895tS2fGm/HCZ9RxPXudXoKUTn39u1JFbv/xdJg
- AAttRZ1o3hViXPsHnvjLGuXZfkAOQ2nmw4BAAA=
-X-Change-ID: 20261016-iio-imu-inv-icm42600-fix-odr-change-event-in-all-frames-74a91cb28a2b
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, 
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792417055; l=3281;
- i=jean-baptiste.maneyrol@tdk.com; s=20240923; h=from:subject:message-id;
- bh=kD1/ng0GS6kPMK14Mq3qWLm6q2zMJ+jIcdvPt6Xp/Vo=;
- b=DAWMDcOLqRRr7iqC6DWTped4J4M9UNqklDYVqXiraMEK1fslvlmpH7O4i+UCorQ2C3UCeS0Cw
- dxi5AoZlxs/CjA0LPxi0W3PhIz2XivYnxoetCD1fkKagTl2fqN8/MlJ
-X-Developer-Key: i=jean-baptiste.maneyrol@tdk.com; a=ed25519;
- pk=bRqF1WYk0hR3qrnAithOLXSD0LvSu8DUd+quKLxCicI=
-X-Endpoint-Received: by B4 Relay for
- jean-baptiste.maneyrol@tdk.com/20240923 with auth_id=218
-X-Original-From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-Reply-To: jean-baptiste.maneyrol@tdk.com
 
-From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+When an address type DAMOS filter is configured, DAMOS tries to split
+the region for the filter range, and apply DAMOS action to the filter-in
+region.  The split operation (damon_split_region_at()) could fail from
+allocation failure under extreme memory pressure.  In the case, DAMOS
+action could be applied more or less than expected, ignoring the address
+filter.
 
-For getting all odr change events, we need to parse all FIFO frames
-in each iio device. Fix this correctly by sending effectively all
-frames to all iio devices.
+The issue only rarely happens under extreme memory pressure.  No crash
+or leak happens.  Occasionally not applying the action to a few regions
+shouldn't be a real problem.  But applying the action to a region that
+the user has excluded via address filter could be a surprise depending
+on the use case.  It is only theoretical.  No such real case is found
+yet.
 
-Previously only batches of frames containing a matching sensor event
-were sent to the corresponding iio device.
+Filter out the entire region if the split is failed.  Update
+damos_filter_match() signature to receive the error from split.  Also
+update kunit tests for the updated signature.
 
-Fixes: f670d4d34773 ("iio: imu: inv_icm42600: fix odr change not caught in certain cases")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+The issue was discovered [1] by sashiko.
+
+[1] https://lore.kernel.org/20260801203121.117449-1-sj@kernel.org
+
+Fixes: ab9bda001b68 ("mm/damon/core: introduce address range type damos filter")
+Cc: <stable@vger.kernel.org> # 6.6.x
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
-Changes in v2:
-- Add blank line and direct return at end of functions.
-- Link to v1: https://patch.msgid.link/20261016-iio-imu-inv-icm42600-fix-odr-change-event-in-all-frames-v1-1-b2bb168a0551@tdk.com
+Changes from RFC
+- RFC: https://lore.kernel.org/20261018220253.158238-1-sj@kernel.org
+- Handle failure in another split operation in damos_filter_match().
 
-To: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-To: Jonathan Cameron <jic23@kernel.org>
-To: David Lechner <dlechner@baylibre.com>
-To: Nuno Sá <nuno.sa@analog.com>
-To: Andy Shevchenko <andy@kernel.org>
-Cc: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: linux-iio@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c | 24 +++++++++-------------
- 1 file changed, 10 insertions(+), 14 deletions(-)
+ mm/damon/core.c             | 16 ++++++++++++----
+ mm/damon/tests/core-kunit.h | 11 ++++++-----
+ 2 files changed, 18 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-index 2bf9fc29d7d2..5bff2a3a44bc 100644
---- a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-+++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-@@ -532,22 +532,20 @@ int inv_icm42600_buffer_fifo_parse(struct inv_icm42600_state *st)
- 		ts = &gyro_st->ts;
- 		inv_sensors_timestamp_interrupt(ts, st->fifo.watermark.eff_gyro,
- 						st->timestamp.gyro);
--		ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
--		if (ret)
--			return ret;
- 	}
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index b63e60ef89901..479169dc9ac75 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -2551,13 +2551,14 @@ static void damos_update_stat(struct damos *s,
  
-+	ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
-+	if (ret)
-+		return ret;
-+
- 	/* handle accelerometer timestamp and FIFO data parsing */
- 	if (st->fifo.nb.accel > 0) {
- 		ts = &accel_st->ts;
- 		inv_sensors_timestamp_interrupt(ts, st->fifo.watermark.eff_accel,
- 						st->timestamp.accel);
--		ret = inv_icm42600_accel_parse_fifo(st->indio_accel);
--		if (ret)
--			return ret;
- 	}
+ static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
+ 		struct damon_region *r, struct damos_filter *filter,
+-		unsigned long min_region_sz)
++		unsigned long min_region_sz, int *err)
+ {
+ 	bool matched = false;
+ 	struct damon_target *ti;
+ 	int target_idx = 0;
+ 	unsigned long start, end, wsum;
  
--	return 0;
-+	return inv_icm42600_accel_parse_fifo(st->indio_accel);
- }
++	*err = 0;
+ 	switch (filter->type) {
+ 	case DAMOS_FILTER_TYPE_TARGET:
+ 		damon_for_each_target(ti, ctx) {
+@@ -2583,12 +2584,13 @@ static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
+ 		}
+ 		/* start before the range and overlap */
+ 		if (r->ar.start < start) {
+-			damon_split_region_at(t, r, start - r->ar.start);
++			*err = damon_split_region_at(t, r,
++					start - r->ar.start);
+ 			matched = false;
+ 			break;
+ 		}
+ 		/* start inside the range */
+-		damon_split_region_at(t, r, end - r->ar.start);
++		*err = damon_split_region_at(t, r, end - r->ar.start);
+ 		matched = true;
+ 		break;
+ 	case DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:
+@@ -2607,10 +2609,16 @@ static bool damos_core_filter_out(struct damon_ctx *ctx, struct damon_target *t,
+ 		struct damon_region *r, struct damos *s)
+ {
+ 	struct damos_filter *filter;
++	bool matching;
++	int err;
  
- int inv_icm42600_buffer_hwfifo_flush(struct inv_icm42600_state *st,
-@@ -572,20 +570,18 @@ int inv_icm42600_buffer_hwfifo_flush(struct inv_icm42600_state *st,
- 	if (st->fifo.nb.gyro > 0) {
- 		ts = &gyro_st->ts;
- 		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.gyro, gyro_ts);
--		ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
--		if (ret)
--			return ret;
- 	}
+ 	s->core_filters_allowed = false;
+ 	damos_for_each_core_filter(filter, s) {
+-		if (damos_filter_match(ctx, t, r, filter, ctx->min_region_sz)) {
++		matching = damos_filter_match(ctx, t, r, filter,
++				ctx->min_region_sz, &err);
++		if (err)
++			return true;
++		if (matching) {
+ 			if (filter->allow)
+ 				s->core_filters_allowed = true;
+ 			return !filter->allow;
+diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+index 3fbb4e4e36fac..43e2f950f8ff4 100644
+--- a/mm/damon/tests/core-kunit.h
++++ b/mm/damon/tests/core-kunit.h
+@@ -1783,6 +1783,7 @@ static void damos_test_filter_out(struct kunit *test)
+ 	struct damon_target *t;
+ 	struct damon_region *r, *r2;
+ 	struct damos_filter *f;
++	int err;
  
-+	ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
-+	if (ret)
-+		return ret;
-+
- 	if (st->fifo.nb.accel > 0) {
- 		ts = &accel_st->ts;
- 		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.accel, accel_ts);
--		ret = inv_icm42600_accel_parse_fifo(st->indio_accel);
--		if (ret)
--			return ret;
- 	}
+ 	f = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true, false);
+ 	if (!f)
+@@ -1803,27 +1804,27 @@ static void damos_test_filter_out(struct kunit *test)
+ 	damon_add_region(r, t);
  
--	return 0;
-+	return inv_icm42600_accel_parse_fifo(st->indio_accel);
- }
+ 	/* region in the range */
+-	KUNIT_EXPECT_TRUE(test, damos_filter_match(NULL, t, r, f, 1));
++	KUNIT_EXPECT_TRUE(test, damos_filter_match(NULL, t, r, f, 1, &err));
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
  
- int inv_icm42600_buffer_init(struct inv_icm42600_state *st)
+ 	/* region before the range */
+ 	r->ar.start = 1;
+ 	r->ar.end = 2;
+ 	KUNIT_EXPECT_FALSE(test,
+-			damos_filter_match(NULL, t, r, f, 1));
++			damos_filter_match(NULL, t, r, f, 1, &err));
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
+ 
+ 	/* region after the range */
+ 	r->ar.start = 6;
+ 	r->ar.end = 8;
+ 	KUNIT_EXPECT_FALSE(test,
+-			damos_filter_match(NULL, t, r, f, 1));
++			damos_filter_match(NULL, t, r, f, 1, &err));
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
+ 
+ 	/* region started before the range */
+ 	r->ar.start = 1;
+ 	r->ar.end = 4;
+-	KUNIT_EXPECT_FALSE(test, damos_filter_match(NULL, t, r, f, 1));
++	KUNIT_EXPECT_FALSE(test, damos_filter_match(NULL, t, r, f, 1, &err));
+ 	/* filter should have split the region */
+ 	KUNIT_EXPECT_EQ(test, r->ar.start, 1);
+ 	KUNIT_EXPECT_EQ(test, r->ar.end, 2);
+@@ -1839,7 +1840,7 @@ static void damos_test_filter_out(struct kunit *test)
+ 	r->ar.start = 2;
+ 	r->ar.end = 8;
+ 	KUNIT_EXPECT_TRUE(test,
+-			damos_filter_match(NULL, t, r, f, 1));
++			damos_filter_match(NULL, t, r, f, 1, &err));
+ 	/* filter should have split the region */
+ 	KUNIT_EXPECT_EQ(test, r->ar.start, 2);
+ 	KUNIT_EXPECT_EQ(test, r->ar.end, 6);
 
----
-base-commit: a22dc7ebb21a6bd4c8b63bc2c1dd46a24945aae7
-change-id: 20261016-iio-imu-inv-icm42600-fix-odr-change-event-in-all-frames-74a91cb28a2b
-
-Best regards,
---  
-Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-
-
+base-commit: 7e7e74286672b8e164e60aec0e94f05f62eb357e
+-- 
+2.47.3
