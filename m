@@ -1,164 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A594ED1A5;
-	Mon, 19 Oct 2026 12:07:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE6F4E2F3F
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 12:09:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792411657; cv=none; b=sQzUtcJug97FzK08S5DhVPRlFn6wmZWxpx24nutfzcrXvwblcC+IX7GLnuDQFzmfzgLaJQesuTTAyCpW0cuJZY3sfuZkdq5B0KBjgyGFaaUIKriugB1/6YTkVcipFM1TmV8R1oxFRJUugtWnKCObo3+nSN1s2BHqmujWhbYctjc=
+	t=1792411752; cv=none; b=dTpJCfQFxXAhIahIfjF70+Jv6WI1pPxB4E5Tuf28d9PvTYL8L275ern0JOMnWEOaXMsPJfkkAZuQg7cWAkTxLAjdtsXHvmTwjhLcDguwWo8hfs3S1mUSLnqbofzkF6+OvMmLaKV83OWEtes9ArJUG1XXQimBVgYYUs/rFexyPVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792411657; c=relaxed/simple;
-	bh=0VD279vbdOS0EiyvVxP/U5jXF1MFq44rMijcaDVhVNc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FhM/jOCSh/ueGvW/xwl4hM/7xkDUPwwBiqBMPju3fKaZV2vV4KNSuTwWsD43SbEjgdSdWuipaNcehY+e4dzbs8OWACr6TCYd6DvGfhQr5oDUjy9/woiquz9opD5CH+GYvd96PGBTaEWSVteGlii97uJOWm/myiGUUJkv4Fl3Lso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jW0uv/+P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792411752; c=relaxed/simple;
+	bh=B6PGmkEOmOTvRMG4KJSxa+Qi5H7nSmTaQb5cEDlkSyE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qF25i3F0lLD1w8hrDhKdxadG5wzNUPFknCdHv8aGn6gpbEfMrIYRwIrM8+5+CaGHguzZr7zvS9BWRIAAGauJYNw8Jq1ngzIZA32dpwzexIbkFRWPVuxYFCYf6jCK3QFY/gPzR33qa/Jh0PyUy3Wn3PYfr8yGeKtqZvIq8ay2+Z4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aG0nZZZc; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jW0uv/+P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D2871F000C6;
-	Mon, 19 Oct 2026 12:07:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792411654;
-	bh=RF1BCrenhcVKcdUJCeYXXIn58WVKEsWB0QjtqkJFbPY=;
-	h=From:To:Cc:Subject:Date;
-	b=jW0uv/+P1WZ7NmnDqoeL1W5d6JLqGiqZ9qff4O2AtRpYHx86WoKa8B6/b/cW4ypPi
-	 CskWQJImUMnuy9XwYK/np6IlxHWjr3AVQINzxHILh/v3XaP0HXoVuGY7hN+QwBg4A/
-	 wUOFcDBwZgtLA/Gfu/8zVftH1F8lllmzvYrWjBh+QfN7rXiiKOWf581PGAB4XvCHY9
-	 Wp8oOnRDUHRKAWa/OM64a2YH9L0jjiDVAACfa+RYySnwDCUB47bIGJxv9UOQ+xhW7H
-	 aT1E5nkvYgMuuwkJtxkawSrs4YhtlPPvHI4p4XEIJfFELJfgS4G4u6GMjMZveuauk8
-	 Ur6wLkTQay09w==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Tom Zanussi <tom.zanussi@linux.intel.com>,
-	Fengguang Wu <fengguang.wu@intel.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2] tracing/histograms: Verify event_call identity when updating synth_event refcount
-Date: Mon, 19 Oct 2026 12:07:29 +0000
-Message-ID: <20261019120730.2342739-1-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aG0nZZZc"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so15184495e9.2
+        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 05:09:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792411750; x=1793016550; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LQMT+oVedzgIQTTgsSc7H1Q1yfN1sP8EFn/tjZr2lw0=;
+        b=aG0nZZZcNESLfrAJZ88dTK2CwmbB/xFE0YTlAIeNI3JH6AS3EtXBYYqJoUXNa8t1OG
+         bqu+9nzydFdpZsPMtljMGEz+EiPasNyyN4v/N1BANtsJK4lvHZKV2eb4ZrQlJtO9rJU8
+         GFhQ3uza5XhDizUYFWGt5eBMbZ9yje0ZAu3f7wPxHJ4FAYenBwEUWiOQNhW530wuXpPm
+         9VHoao8d5EYpwOz/C+HiFlDbKhBOIPo6n/Yx9QGMntzEML64Ymn21T7jNEtcniUGz1It
+         yEDNJaxe/uHBodggLQvTtIQYBEd9Rn52jeFLPKO+zG5qLQ9G1LurnbC/hq/sJpE7pCVW
+         Vodw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792411750; x=1793016550;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LQMT+oVedzgIQTTgsSc7H1Q1yfN1sP8EFn/tjZr2lw0=;
+        b=GjiU10UEmuMTu8N93BVNyCVQixF+UGdBv2pLLzR+D2gKd87128RBjT6VR2/AWxjB7f
+         Q4O8awIWIDupZB67zsxsNtME6mnz3UksnQVe3tnSrviEeBW5vq5abcRO3f1QP3b1qzCo
+         EXhOZtkxtL4vhT7agwhzphacDoA4akzbVNqH1VV6tCbrobr6jshS62KAu+pyihjmCVof
+         CJxT3B+grl7cWcq/I/5rVDFYcBulb3oyQWl9ifZb9XOzsGa//hxy/HLMw0E3TXVxMf0H
+         I/6w7qvYcQTUu8loK0Hq+W6xp9s70fE5R/pfTciXmztvIpgAurItflL/zdVaiuU+1Cfj
+         3TAw==
+X-Forwarded-Encrypted: i=1; AKwUvBzVBfxJJrc4VrlIiJWKs+MX4gMqyQ/2ruI+c86zhVkOLcbsVINyAQoziRLOiDR2GhxyA03LEpA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKw+8r6qOiwM9OamIG9GVDiWayIfnFWEYSc/bHu2pKa/bv5d3u8
+	+AxnoU4+kWo3Wl4/37x6cKQdZrR6e+7SzXc+s5YrfMBEYCRqjZBS08/3
+X-Gm-Gg: AYBFou2NiUXlF4mpgjuHq2b+rA4/vJaocg0PZ3fLJK24dY6cYfS3YCO4luiIB9QHk3v
+	/ObKW4M1GV+75s0WibTdH5F1C4VOx2pIkAwfuIJqo2XkIaikzZHC7dUBdO9NctHRJclOmMOljyK
+	tDdxOmosBfGatVMFQxyoJKlZhvpMUlHeR0jI2cdhvpXUIxz3mcfjxPSBGDs55LvvVjb8xep+Ir2
+	G06epXgByeKTbWAwi477dYQ94Izo1pr0NwiGt60kqPzaW36Fz/7Nc8hDJ7d3yZUc11LmuehwGFD
+	kIGjdS/U6MQzh/burXTf3MAWGTOMO+FtjL6l191IaMuyFnvG1MIvlUIDiNy+Yk0MCbt0gTf/M9D
+	2HVA7B39OLzqbEmjeijvzBVHpEDATZL8yzlogLfV0gqcLPa0fbxqcc5LxcrScHEz//oppRcA+a9
+	3JFwCJr3M+Vp8b+RrFPFxn0euuA/DkxAmwLeOIPgmkNLNm2eZRftINBXqfk5nyqNcw7mg/R3rOk
+	GfZtF8kVI3KtpQTdOOxSCfgSY9TaNRddqQk4zMv7qzMsvvrvvJFH+VtbQ9HLFngs8VWleomX1aY
+	XEU0uk/homA4h9BDNefAK5e8YKogt3BplY48VHejWQOLlWExdj5bK9XLF5j94sWYfUJhtwotEqI
+	Zz/YBAvncw/0L9OxQ7DOKSa3x+j4TE7ZJ89eNqfe4LBoZli83KpoII/ZA+nCBZTyAMP/zczc3k0
+	nluU5r
+X-Received: by 2002:a05:600c:4e8a:b0:4a1:8961:78dd with SMTP id 5b1f17b1804b1-4a1d7616464mr168857525e9.27.1792411749417;
+        Mon, 19 Oct 2026 05:09:09 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8ad6245sm279022375e9.3.2026.10.19.05.09.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 05:09:09 -0700 (PDT)
+Date: Mon, 19 Oct 2026 14:09:05 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>
+Cc: Linus Walleij <linusw@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, Dingisoul
+ <dingiso.kernel@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] iio: gyro: mpu3050: add missing trigger cleanup
+ on remove()
+Message-ID: <20261019140905.00000094@gmail.com>
+In-Reply-To: <atX1alPtnByIsGFr@nsa>
+References: <20261017-mpu3050-fix-v3-0-d6f29f335a2b@gmail.com>
+	<20261017-mpu3050-fix-v3-2-d6f29f335a2b@gmail.com>
+	<atX1alPtnByIsGFr@nsa>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-In event_hist_trigger_parse() and hist_unreg_all(), the histogram
-registration and unregistration paths look up find_synth_event() using
-trace_event_name(file->event_call) and adjust se->ref if a match is
-found.
+On Mon, 19 Oct 2026 11:54:41 +0100
+Nuno S=E1 <nuno.sa@analog.com> wrote:
 
-Because find_synth_event() only compares the event basename, registering
-or removing a histogram on a non-synthetic trace event whose basename
-matches a synthetic event erroneously modifies the synthetic event's
-reference count.  If a histogram is registered on the non-synthetic
-event before the synthetic event is created and removed afterwards,
-se->ref is decremented without a matching increment, allowing the
-synthetic event to be freed while an active histogram action still holds
-a pointer to it.
+> On Sat, Oct 17, 2026 at 07:19:21AM +0200, Joshua Crofts wrote:
+> > The mpu3050_trigger_probe() registers a trigger but
+> > mpu3050_common_remove() and error paths in mpu3050_common_probe() forget
+> > to clean it up, causing a use-after-free bug.
+> >=20
+> > Add the missing calls to the iio_trigger_unregister() function.
+> >=20
+> > Reported-by: Dingisoul <dingiso.kernel@gmail.com>
+> > Closes: https://lore.kernel.org/all/20261010203601.1686148-1-dingiso.ke=
+rnel@gmail.com/
+> > Fixes: 3904b28efb2c ("iio: gyro: Add driver for the MPU-3050 gyroscope")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+> > ---
+> >  drivers/iio/gyro/mpu3050-core.c | 6 +++++-
+> >  1 file changed, 5 insertions(+), 1 deletion(-)
+> >=20
+> > diff --git a/drivers/iio/gyro/mpu3050-core.c b/drivers/iio/gyro/mpu3050=
+-core.c
+> > index 879caf3b729c..9e747836df3e 100644
+> > --- a/drivers/iio/gyro/mpu3050-core.c
+> > +++ b/drivers/iio/gyro/mpu3050-core.c
+> > @@ -1262,7 +1262,9 @@ int mpu3050_common_probe(struct device *dev,
+> >  	pm_runtime_get_sync(dev);
+> >  	pm_runtime_put_noidle(dev);
+> >  	pm_runtime_disable(dev);
+> > -	if (irq)
+> > +	if (mpu3050->trig)
+> > +		iio_trigger_unregister(mpu3050->trig); =20
+>=20
+> Yeah, I think sashiko is right... I think we can just reuse the if
+> (mpu3050->irq) condition for unregistering  but then this patch depends
+> on the previous one. And such dependencies can be set for stable so
+> don't think it's an issue.
+>=20
+> I already pointed it out and Jonathan seems to have said the same. If
+> you do have the time, converting the whole thing to devm would be nice=20
+> - could be patch 3 :)
 
-Introduce find_synth_event_call() to verify that &se->call matches
-file->event_call before adjusting se->ref.
+Bad time to be lazy :P I'll have a look.
 
-Fixes: 4b147936fa50 ("tracing: Add support for 'synthetic' events")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
----
-v1 -> v2:
-  - Introduce find_synth_event_call() helper instead of open-coding the
-    &se->call == file->event_call check at each call site (Steven).
-
- kernel/trace/trace_events_hist.c  | 11 +++--------
- kernel/trace/trace_events_synth.c | 10 ++++++++++
- kernel/trace/trace_synth.h        |  1 +
- 3 files changed, 14 insertions(+), 8 deletions(-)
-
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 00a1d8522036..9a789f57ed95 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -6792,7 +6792,6 @@ static void hist_unreg_all(struct trace_event_file *file)
- 	struct event_trigger_data *test, *n;
- 	struct hist_trigger_data *hist_data;
- 	struct synth_event *se;
--	const char *se_name;
- 
- 	lockdep_assert_held(&event_mutex);
- 
-@@ -6805,8 +6804,7 @@ static void hist_unreg_all(struct trace_event_file *file)
- 			list_del_rcu(&test->list);
- 			trace_event_trigger_enable_disable(file, 0);
- 
--			se_name = trace_event_name(file->event_call);
--			se = find_synth_event(se_name);
-+			se = find_synth_event_call(file->event_call);
- 			if (se)
- 				se->ref--;
- 
-@@ -6830,7 +6828,6 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
- 	struct hist_trigger_data *hist_data;
- 	char *param, *filter, *p, *start;
- 	struct synth_event *se;
--	const char *se_name;
- 	bool remove;
- 	int ret = 0;
- 
-@@ -6924,8 +6921,7 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
- 		}
- 
- 		event_trigger_unregister(cmd_ops, file, glob+1, trigger_data);
--		se_name = trace_event_name(file->event_call);
--		se = find_synth_event(se_name);
-+		se = find_synth_event_call(file->event_call);
- 		if (se)
- 			se->ref--;
- 		ret = 0;
-@@ -6960,8 +6956,7 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
- 	if (ret)
- 		goto out_unreg;
- 
--	se_name = trace_event_name(file->event_call);
--	se = find_synth_event(se_name);
-+	se = find_synth_event_call(file->event_call);
- 	if (se)
- 		se->ref++;
-  out:
-diff --git a/kernel/trace/trace_events_synth.c b/kernel/trace/trace_events_synth.c
-index dc15658a887c..e2870212e58d 100644
---- a/kernel/trace/trace_events_synth.c
-+++ b/kernel/trace/trace_events_synth.c
-@@ -914,6 +914,16 @@ struct synth_event *find_synth_event(const char *name)
- 	return NULL;
- }
- 
-+struct synth_event *find_synth_event_call(struct trace_event_call *call)
-+{
-+	struct synth_event *se;
-+	const char *name;
-+
-+	name = trace_event_name(call);
-+	se = find_synth_event(name);
-+	return se && &se->call == call ? se : NULL;
-+}
-+
- static struct trace_event_fields synth_event_fields_array[] = {
- 	{ .type = TRACE_FUNCTION_TYPE,
- 	  .define_fields = synth_event_define_fields },
-diff --git a/kernel/trace/trace_synth.h b/kernel/trace/trace_synth.h
-index 43f6fb6078db..d4ebf01b7049 100644
---- a/kernel/trace/trace_synth.h
-+++ b/kernel/trace/trace_synth.h
-@@ -37,5 +37,6 @@ struct synth_event {
- };
- 
- extern struct synth_event *find_synth_event(const char *name);
-+extern struct synth_event *find_synth_event_call(struct trace_event_call *call);
- 
- #endif /* __TRACE_SYNTH_H */
--- 
-2.56.0.212.g129ede20d9-goog
-
+--=20
+Kind regards,
+Joshua Crofts
