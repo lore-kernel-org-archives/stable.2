@@ -1,110 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.155
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792448351;
-	b=KZNlc+QsCJuIp3jxxUUALh0vCEetRaeRIvbhp1tmdIrddavVJSygWhtgS5xMk4tWEsaV
-	 xvAScneZenq6ceh3r0H4F0hRNbqP5rEfL4+/D+sruh1rxCubM54Y1cZOfz8697s/IiyKm
-	 FSPfNthwKkxW47IfsSecB/juZD3RPxtab/kidZ02XOFqcoC9i+ugnRvRHjHKPJ5rh8OIA
-	 J3QaNh89qWEHlKPsbU6cVVbRscxEEgFHD0zT3ODJzvZfByHygMJVFyzn12caf9SdFFiMS
-	 50BtFH0UfiExMrZJv0C67WqlEemQi9UfAScEWZNVevIG5eu8OKUHP8lRermEe2jP0IA==
+	t=1792448502;
+	b=jOK9Rlo6tKqL836mEADpvTidxJCQMWAXN4I0oAR7bBm06ZhG0oQr1A87gbqLZXt/aq4C
+	 I6vfadMqv8fkYE+g1RRJNhYWD25DFjGOBPtNCtBRVo3e3hFTC9CDottfvGyj+3kJxfRsn
+	 Ih4VF5juwCi7w8yO67s0FiS9hlmt26Xh6JfwtWbwduBAwebRnWlDv0VJyBpFvs1c4KyHP
+	 zLFqEBTxNiKh5FCx7goOUA1shfey0RYns12ba+IvBbHRrziYPh6R/l9abQO7osqy7lTh/
+	 6MEqEpzsPc64+03y8ATMWcDrqxrXkEbI4lT8YCaPw/fMopR5Gyktg/0bas/dgvDOO1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792448351;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=kOe4Im1LSzQe6YlhCXm9ZoEY1kfmGwsxFeEwr5kqbYo=;
-	b=J9s4ui1k4mytK+tDzO2gKNw00QOw1hnUu7ZsWocBGJ3kKhM0iVfSjaEM7yj/DkzjggOo
-	 FtFmupQK8bayH3hbrdsJmCJLPXFI4MGZj3xSn7cdxZrT3de6jqMAPqUjhHJPdygEWyIW4
-	 +jeL6gnAxMIf4p+Aod0MPjr5NsLRYmOAIrWuDRqOsYfx/46o59HB5fLrHnbiRaSCQUjBQ
-	 jEzYfikeXXGEndb20zcVZ8IDjsuTmkFr8eeAiODiRbCTp4T8tvsqBlLi6VvXzngoaIJ9Q
-	 h3/jhAbc994IICbey8vbtgzTnTPmEeVBViUI2Rps9vxRiIITHm3D1Kei2SuvtnelZWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792448502;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=IrmFStrxWye7dcbeoq2RKF2LiXBI37hi5qUe8gclDG0=;
+	b=3Em4rI7HzAA0Avu74wAqfHqljxAWaLMZCYQtV2NU+Sl9G2kWhV4UPvee6OGAL6thOYVJ
+	 SHzHdggghuC0rer2jQjnXAtwu8sKZbkA3GGIZSXb0+7QJUxCZg65wnt80M+UsDFYpaXL7
+	 9vmB+BMyk/RyuukZuER9a4qClEJ6LVIDg59ei8+xmGtK0R2cvOdik5gAFgHLvbDbXanPt
+	 jZIwCbd485w1iYOJvYLGyjixzr7ZEvcW+TJmxNfINsnq07dHSore7JNTpE+zxysMaadaI
+	 FbKYRU54vcwcTF12GpM7UChnUzvpKl1vx+0fGGlQ/sobIFSu0osGd425AbgqfVNc7BA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=RCmRXJyx;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=AetS436Z;
-	arc=none smtp.remote-ip=103.168.172.155
-Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=d5eaRcOe;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F15606A31A
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 22:19:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36F15606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F5D0606A31A;
+	Mon, 19 Oct 2026 22:21:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=RCmRXJyx;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=AetS436Z
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 4EDFE14000F1
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 18:19:10 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Mon, 19 Oct 2026 18:19:10 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792448345;
-	 x=1792534745; bh=kOe4Im1LSzQe6YlhCXm9ZoEY1kfmGwsxFeEwr5kqbYo=; b=
-	RCmRXJyxqEdtgqqTPG5ZmqHjdH8E5bq/K9FxPFoyz8jl7GlkI3G+gUgvqij/VJR2
-	YOxbMGBPOpW+636UErWUQdD/20DxsOwdt1Y7ScyVnrDLIgiT+R5u8juNyg17iThN
-	uOKKSE2sOKr70UN0/qjz/T7rrUZboqSq1ndeQD2HA7Am2oBM5bYjNcgw1aqw18Jd
-	YWzeBhlZXlccMeQewWEwpB1PrHjUkbHV5nhM68dJ62cdW2l3jOo6DYGXPdqcr3PI
-	Yy1pACxMwIt6fYTnNAAAZO7359dKdNcxSlMxMsZEzVRu2TNkeG8/OVY0dGMuZZdM
-	SqvbIv4VOTw6e06qhNnLfw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792448345; x=
-	1792534745; bh=kOe4Im1LSzQe6YlhCXm9ZoEY1kfmGwsxFeEwr5kqbYo=; b=A
-	etS436Zh8qxtYdaU/CJq/i9GBjIwq2B9kYd0kXxye/nNgLvgVP4LVV4xXuFxWtoh
-	MxmO0xdBThsUjLtI77Sp4WT+2AyIpNfFfBxFOm3rQMMG4rbvOPUY0ItG+iORdx9N
-	XsGL1HNhJSuEmBLvzmNWsg1ld/kVvfJ0Gs1Q8ZV9TTHf6F7DLMD1pb1hF6e9FTgg
-	+rgyqF1S/wY4+FppkXzTmlfJWIXULOvsFcxeiKlSCwFzbGx784AcyVUwKRnsrRs+
-	dvUjx01nF8XakEYus1XYjCN1h9mQVebnMeJTWTnGOi2SHuCBUcp4+VhfGgF3l3G5
-	yJhkguc55ho2Jye0UqgFw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792448345; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+; rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:p2zvMmS3wRO3ZzAIj1zRi8FVqNBOma0HAS/3bkai/Km6xqL
-	g8Q/CjqTvDUNnb+cz74qYTZ3tRtnEQrsreH0FgjYQ0aJxPNHuQtdlK32m4K+3XVF
-	WwU2M7sb6lozcBcvLTxVzOwWmi701BPax1VkIm0/fG7hdPf2tt9RHtZLm1QNPZVG
-	a4P/c/ss9jN3DZbSdjvMAFUlpQxuTF/0DTqaj9/V2JWJ6vvcjFvohPy9kb9/1xx+
-	qgGLQFbOi7VEEvA5ig4v5s/9cHPBsDBfsENZ3CEmLQ8+cuCwDnrDxBrTaR/Gy5nB
-	L7kJ+6dso6NKXj6o2jH53f5bbdW6GEUz9Kb1V8w==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:7qFSRCKsAm2ZfSbhMkUQBP+eGmVHB8T4s0OQ32AUg8A=:DUipovr+RJ2NSjtSSx+bpSGkCWo+ERoIpLldzN+AaDY=;
-X-ME-Sender: <xms:VJfWaj_uYYTKjZkWENXQ2wAZ69kOIyboHP8mAT4Q0uU6boJ8igX9zA>
-    <xme:VJfWaqjeYXlD6brTZepS8cSOSEWp4301iECxN58JyMRKLrJ2jmwmgBLPbQL26ywJs
-    FkCv0HOtflgB8bClfSmDhIDGh80dzdypLU3LlMWO7x8S3qUzIiyvm4>
-X-ME-Proxy-Cause: dmFkZTGh3VcsoUo+kxXucaKvj9NoR1JkiHcqPaFchknzDs8G+4FcZMoWxMdEK9h+JTCaQH
-    Z0o+iZ7kqFp1/FeuSd/hVwSC2CANsSzc1m82zVf08of7YujL+yrRS1BeH3yO6VrCu+jN4b
-    5JXMc4eFLv+T2BngkIjFhgsthO3ySULh7s4u6PfUSXf662GOO7gznJ/GTHJR7vtU0q/RKZ
-    bk4MSREmjwp92vZg3lfiVNmCJdYAvFbByDZzj4jUDiu41HtP1lh2D0O9Sp+cUCPA3l6sEx
-    il1SySS23YThltlWe9KAs8xi1QH/XobMxR5IlB8X0tKbQvSwWwDhwN58wwePu8cjh4z+YJ
-    oLyQZMlHV2UFNyp4xkZUi24JAIzqWV0zwqe5OdafKAkiuZQNmur02epshKZAt71JmE3nLN
-    605MrmutubwQzlJboxFuimDybjjW5Z4zm14HhovOMvacWSaKMkcvc2ImJCJVChMyyVd9CM
-    epMSI2h1irIolRT1iP/nAXzlLwVK9+A3GSKxtbICTKA9fHZQ2NPakkRaSuDuPzewAb7kat
-    pOLUAdZCVxPMwBYn4GXywRjcuxsnxc55Op6ZOBfO3u896Z5IoUhlKQGVYPa3apYx4JT7N0
-    JY8qIGBJjaT5xXq3jz/dqcb9CWF48XWkmra70nVVHc2oOscJOOFNRdaxSRng
-X-ME-Proxy: <xmx:VpfWasH65rjYJEkR4NOWLCJVcoEb07yaH1AkK8UvkzE6w-_haydRFQ>
-    <xmx:VpfWahKVv4ThIn4DEaKscH8nYo2e7JREt9DeEkjliGYtpBzoS-8lnw>
-    <xmx:VpfWahjeaXaIbjWRlDK64oOq3oDDOPnb2Dg2peifQ_QfnvHeSHW3Iw>
-    <xmx:VpfWanlda0k5GUmABGLeF7WHUhqD9xCFhZZRA5xM9TRHr5y0qp8TyA>
-    <xmx:WZfWavlUEeLDUmegjPy5QQRf93bbwcrM8ctROfKm98GUEijmSqhLkLkK>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id B173932A008F; Mon, 19 Oct 2026 18:19:00 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=d5eaRcOe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF5BC1F000C4;
+	Mon, 19 Oct 2026 22:21:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792448501;
+	bh=IrmFStrxWye7dcbeoq2RKF2LiXBI37hi5qUe8gclDG0=;
+	h=Date:To:From:Subject;
+	b=d5eaRcOeve5HCzQE/b0AH7cwJd2uTUz84M4uUU9DG5C7/aAluGvERbn+D76mjJcRH
+	 4CnNiRE8OH2LRkLUTp8yZMyLsMNoPjSHPcyF809WRIMiavglf7+z5BB1lVlgNd9+oL
+	 RGDh672TXXM70Kp5iaKs8WG0fDwp8FFjGgyexgKk=
+Date: Mon, 19 Oct 2026 15:21:41 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,stable@vger.kernel.org,rakie.kim@sk.com,pasha.tatashin@soleen.com,mhocko@suse.com,joshua.hahnjy@gmail.com,david@kernel.org,gourry@gourry.net,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-mempolicy-apply-bind-policies-against-the-scoped-allocation-zone.patch added to mm-unstable branch
+Message-Id: <20261019222141.BF5BC1F000C4@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -113,46 +48,117 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-ThreadId: A2vF7igrjTD-
-Date: Tue, 20 Oct 2026 00:18:39 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Huacai Chen" <chenhuacai@loongson.cn>,
- "Huacai Chen" <chenhuacai@kernel.org>
-Cc: loongarch@lists.linux.dev, "Yinbo Zhu" <zhuyinbo@loongson.cn>,
- "Xuefeng Li" <lixuefeng@loongson.cn>, guoren <guoren@kernel.org>,
- "WANG Xuerui" <kernel@xen0n.name>, "Jiaxun Yang" <jiaxun.yang@flygoat.com>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- "kernel test robot" <lkp@intel.com>
-Message-Id: <e9489def-3fd1-48c7-a042-98395a3d1589@app.fastmail.com>
-In-Reply-To: <20261019144240.4035274-1-chenhuacai@loongson.cn>
-References: <20261019144240.4035274-1-chenhuacai@loongson.cn>
-Subject: Re: [PATCH] soc: loongson: loongson2_pm: Fix build warnings for 32BIT
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 19, 2026, at 16:42, Huacai Chen wrote:
-> Since loongson_sysconf.suspend_addr is unsigned long, use "unsigned
-> long" instead of "u64" for casting, so as to avoid build warnings for
-> 32BIT:
->
->    drivers/soc/loongson/loongson2_pm.c: In function 'loongson2_pm_probe':
->>> drivers/soc/loongson/loongson2_pm.c:178:49: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
->      178 |                 loongson_sysconf.suspend_addr = 
-> (u64)phys_to_virt(suspend_addr);
->          |
->
-> Cc: stable@vger.kernel.org
-> Fixes: 3d9aba6618d1 ("LoongArch: Adjust build infrastructure for 
-> 32BIT/64BIT")
-> Closes: 
-> https://lore.kernel.org/oe-kbuild-all/202610190549.WM2PO3vO-lkp@intel.com/
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
 
-Reviewed-by: Arnd Bergmann <arnd@arndb.de>
+The patch titled
+     Subject: mm/mempolicy: apply bind policies against the scoped allocation zone
+has been added to the -mm mm-unstable branch.  Its filename is
+     mm-mempolicy-apply-bind-policies-against-the-scoped-allocation-zone.patch
 
-Feel free to pick that up through the loongarch tree, or send it to
-soc@linux.linux.dev if you prefer us to pick it up through the soc tree.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-mempolicy-apply-bind-policies-against-the-scoped-allocation-zone.patch
 
-      Arnd
+This patch will later appear in the mm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+Subject: mm/mempolicy: apply bind policies against the scoped allocation zone
+Date: Sat, 17 Oct 2026 22:33:49 -0400
+
+QEMU fails to start a guest with a VFIO device when guest RAM comes
+from a memory backend bound to a movable-only node:
+
+  vfio_container_dma_map(0x55b1b1317800, 0x0, 0x10000000,
+                         0x7f39a2200000)
+    = -12 (Cannot allocate memory)
+
+VFIO pins guest RAM when the device is realized, and the pin faults
+the pages in. io_uring fixed buffers fail the same way. Faulting the
+range in before pinning lets the same pin succeed, since resident
+pages are migrated off the node instead.
+
+A long-term pin faults under memalloc_pin_save(). PF_MEMALLOC_PIN makes
+current_gfp_context() clear __GFP_MOVABLE, but policy_nodemask() tests
+apply_policy_zone() against the caller's gfp.
+
+The bind keeps its movable-only nodemask, and the allocation finds no
+usable zone:
+
+  page allocation failure:
+      order:0,
+      mode:0x140dc2(GFP_HIGHUSER|__GFP_ZERO|__GFP_COMP),
+      nodemask=1,cpuset=/,mems_allowed=0-1
+
+  Call Trace:
+   warn_alloc+0x136/0x150
+   __alloc_frozen_pages_noprof+0xed8/0x1720
+   alloc_pages_mpol+0xaa/0x170
+   vma_alloc_folio_noprof+0x65/0xd0
+   __handle_mm_fault+0x137b/0x1ac0
+   handle_mm_fault+0xa0/0x270
+   __get_user_pages+0x250/0xfd0
+   __gup_longterm_locked+0x116/0x870
+   gup_fast_fallback+0xcfc/0xdf0
+   pin_user_pages_fast+0x47/0x60
+   io_pin_pages+0x9a/0x110
+
+Base page faults fail with -ENOMEM.
+hugetlb faults fail with -EFAULT.
+
+Check the policy zone against current_gfp_context(gfp), so a pin-scoped
+fault falls back off the movable-only nodemask, like any other
+non-movable allocation under the same bind.
+
+Tested in qemu with a dax/kmem movable-only node 1. io_uring and VFIO
+pins of unfaulted base pages and 2MB hugetlb pages now succeed and land
+on node 0 (correct). QEMU now starts with the same backend binding.
+
+Link: https://lore.kernel.org/20261018023349.1697434-1-gourry@gourry.net
+Fixes: 8e3560d963d2 ("mm: honor PF_MEMALLOC_PIN for all movable pages")
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Ying Huang <ying.huang@linux.alibaba.com>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: <stable@vger.kernel.org>
+---
+
+ mm/mempolicy.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/mm/mempolicy.c~mm-mempolicy-apply-bind-policies-against-the-scoped-allocation-zone
++++ a/mm/mempolicy.c
+@@ -2302,7 +2302,7 @@ static nodemask_t *policy_nodemask(gfp_t
+ 		break;
+ 	case MPOL_BIND:
+ 		/* Restrict to nodemask (but not on lower zones) */
+-		if (apply_policy_zone(pol, gfp_zone(gfp)) &&
++		if (apply_policy_zone(pol, gfp_zone(current_gfp_context(gfp))) &&
+ 		    cpuset_nodemask_valid_mems_allowed(&pol->nodes))
+ 			nodemask = &pol->nodes;
+ 		if (pol->home_node != NUMA_NO_NODE)
+_
+
+Patches currently in -mm which might be from gourry@gourry.net are
+
+mm-damon-use-damon_get_monitor_folio-for-hugetlb-entries.patch
+mm-vmscan-reclaim-every-zone-in-per-node-proactive-reclaim.patch
+mm-mempolicy-apply-bind-policies-against-the-scoped-allocation-zone.patch
+
