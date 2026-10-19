@@ -1,103 +1,159 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C1CE3E7BB2;
-	Mon, 19 Oct 2026 08:40:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6011D3D7D8D;
+	Mon, 19 Oct 2026 08:40:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792399249; cv=none; b=JvqpyoA1m0GSk9YE7fQDDvCZ2v1S4saVU/NF37c83cd5sv4WWi3UevAJ3gRrAoPEQAxe3OkYG3Kw/kDwpjhGc5rbSgpJX3J0ITm8rruvD5H1kB0g+93LFGYtPO9tPVCI99mh48EOdK7rBenBT35rMVagbPZTjd6KO3Z61fGLJPQ=
+	t=1792399259; cv=none; b=bIrrpRbulTd+MvdpP4xHD1WjYD132lCUgcDvoTwpF8YL03RoH98wmW/p0QSFVZSjc352bYOM3IHzPTFTAfZSGGdkmT54M6fegWW9faftitpTRAqhvJWI4E06dIXE9iGY86KQ9lUQVLXAOT7VJ9q8EJWOBqx8x57WvLcHp0YLSgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792399249; c=relaxed/simple;
-	bh=fX34RxUdLPhnUUa1czFBK/3YfZMFivcIJGFk3/35Pu4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y5z1FSzl+rwhZpTRRMaoZyed6K2aImNjid30uaXHLBsT3wqo/aLcWeDqV2BI9z7iVkjrjZkdI+hh04ZCb4dOVkVkDGhG2QBIfU5QiW/RLpcwlKqH3RBbhY29N+epu637ljaigUPcQanV5JWbExyyKp5DXDD4d2/aQp2T0ddUzxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HHr+UKjY; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1792399259; c=relaxed/simple;
+	bh=824lg1lsHXkFily9TJs5O0Zj5zsAHGaSwSm3LAt3l2E=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=o+3I5pRxjCd/+eo4soo2pzSKW5wrGhCBiIX/GIpIqKiYxH1dxl79sF7m84Gj4rJ/JHZCDxUyK7i2kWtrU0MsW5wYfrmxZNzVzBMFLzSu+5lP8DEYb/mjp7tj+p3eLzngyVnrudIJmNhtWZ7u7iES5P9+T6WfaO18SyRje5U1D8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=tmAyxtoV; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=fmlXOGvu; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=tmAyxtoV; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=fmlXOGvu; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HHr+UKjY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792399248; x=1823935248;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=fX34RxUdLPhnUUa1czFBK/3YfZMFivcIJGFk3/35Pu4=;
-  b=HHr+UKjYz+4xGz/G2l6Wisqi+FQ9+jSizSUW25p1Iztbi7mCqrkHqY82
-   hl06zA8OGwVni/LkYShH1rVHZ/lAaHkTbhwrDhc0gULUffOV6MwzqoM/x
-   hdM/GlwABZTJqFfOpLM7SewYS2s1G9poHIx7c5ea20fHMPlPxr4mDau9X
-   D6fcsUWKtlrAQePetXtSf/w3VimeW0n0+j/J5sBWq71G+3+beAwJ0XBPL
-   ihNFvn3UeU1s4KYKxzW4Mf/w5muLoKIIu1Bg5TnTWNp4ssSMXMCEqlv32
-   jqIbyux71h/jlVdFd5N3ZoT3yK30X+B9HKYtnRcuCedRdXyKYPZSRQARe
-   Q==;
-X-CSE-ConnectionGUID: svalk9L0RAOPY7HYLVGl2A==
-X-CSE-MsgGUID: F7ME3vXbRMSNA47J7gA1Yw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="979119"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="979119"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 01:40:48 -0700
-X-CSE-ConnectionGUID: gq8fyXY2Qxih9MnZQ50UAQ==
-X-CSE-MsgGUID: Ai7bu1tDRZudeONvXMK8hA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2477948"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 01:40:45 -0700
-Date: Mon, 19 Oct 2026 11:40:43 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Kent Gibson <warthog618@gmail.com>
-Cc: Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Jia Jia <physicalmtea@gmail.com>, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 6/6] gpiolib: let the character device free its IRQs
- first on chip removal
-Message-ID: <atXXi_EA6iROhK0C@ashevche-desk.local>
-References: <20261016-gpiolib-chip-removal-v2-0-aambrozewicz@nvidia.com>
- <20261016-gpiolib-chip-removal-v2-6-aambrozewicz@nvidia.com>
- <20261016134003.GA155960@rigel>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tmAyxtoV";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fmlXOGvu";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tmAyxtoV";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fmlXOGvu"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 6227221CF7;
+	Mon, 19 Oct 2026 08:40:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792399256; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Swl9d07393pNaVM5gCSrIwypUUIonmrZgxtDNAS5pBM=;
+	b=tmAyxtoVfmuiSWggmVPEQY7mejrZAUkDL73pAxEN5XEGKGOV0qby6Rr5Ki7hsZpb2ZDj4v
+	pMtbdfngoVDmDBkptldputaTd9lY9gbwxyHC12EYjsWxoPawHfziGojOs5iauxYRvpgYrq
+	Szy1VDdW1bm3EkK9v5OiQP0RF0xCOkE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792399256;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Swl9d07393pNaVM5gCSrIwypUUIonmrZgxtDNAS5pBM=;
+	b=fmlXOGvuVT7S9h6mdWSTnGBD6zshMcLnjRFgAqcnhUVKqywNu04HP7wwmzm3rKA0bkx+GC
+	zISi7aJYgNQDp9Bg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792399256; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Swl9d07393pNaVM5gCSrIwypUUIonmrZgxtDNAS5pBM=;
+	b=tmAyxtoVfmuiSWggmVPEQY7mejrZAUkDL73pAxEN5XEGKGOV0qby6Rr5Ki7hsZpb2ZDj4v
+	pMtbdfngoVDmDBkptldputaTd9lY9gbwxyHC12EYjsWxoPawHfziGojOs5iauxYRvpgYrq
+	Szy1VDdW1bm3EkK9v5OiQP0RF0xCOkE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792399256;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Swl9d07393pNaVM5gCSrIwypUUIonmrZgxtDNAS5pBM=;
+	b=fmlXOGvuVT7S9h6mdWSTnGBD6zshMcLnjRFgAqcnhUVKqywNu04HP7wwmzm3rKA0bkx+GC
+	zISi7aJYgNQDp9Bg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F1EE3136CC;
+	Mon, 19 Oct 2026 08:40:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id ikJVLpfX1WrrbgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 19 Oct 2026 08:40:55 +0000
+Date: Mon, 19 Oct 2026 10:40:55 +0200
+Message-ID: <87h5iiaxrc.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Walter Weber <walter.weber@rwth-aachen.de>
+Cc: <linux-sound@vger.kernel.org>,
+	"Geoffrey D . Bennett" <g@b4.vu>,
+	<stable@vger.kernel.org>,
+	Jaroslav Kysela
+	<perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Vasiliy Kovalev
+	<kovalev@altlinux.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] ALSA: usb-audio: Fix Scarlett 8i6 Gen 1 router source numbering
+In-Reply-To: <20261018112012.41807-1-walter.weber@rwth-aachen.de>
+References: <20261018112012.41807-1-walter.weber@rwth-aachen.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016134003.GA155960@rigel>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Flag: NO
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
 
-On Fri, Oct 16, 2026 at 09:40:03PM +0800, Kent Gibson wrote:
-> On Fri, Oct 16, 2026 at 12:23:38PM +0300, Adrian Ambrozewicz wrote:
-
-...
-
-> > +	/* Called with gdev->chip already NULL, so gpiod_to_irq() can't be used. */
-> > +	if (gc->to_irq)
-> > +		irq = gc->to_irq(gc, gpiod_hwgpio(desc));
-> > +	else
-> > +		irq = 0;
-> > +	if (irq <= 0)
-> > +		return;
+On Sun, 18 Oct 2026 13:20:09 +0200,
+Walter Weber wrote:
 > 
-> Perhaps I'm channelling Andy here, but how about:
+> The router source numbering in s8i6_info is identical to the 6i6 entry
+> and was never verified on hardware (it is marked "untested..."). On a
+> Scarlett 8i6 1st Gen everything after the analog inputs is off by two:
+> 
+>   - "SPDIF 1/2" select values 16/17, which carry no signal;
+>   - "Mix A/B" select values 18/19, which are the actual S/PDIF inputs;
+>   - "Mix C-F" select the actual Mix A-D, and Mix E/F cannot be
+>     selected at all;
+>   - the matrix inputs cannot be fed from S/PDIF.
+> 
+> The real numbering was measured on the device by routing known signals
+> (PCM test tones, mixes with distinct gains, an S/PDIF out-to-in
+> loopback) and checking which source value arrives in the capture
+> stream:
+> 
+>   PCM 1-12      0-11
+>   Analog 1-4   12-15
+>   (no signal)  16-17
+>   S/PDIF 1-2   18-19
+>   Mix A-F      20-25
+> 
+> Correct the offsets and enum lengths accordingly, and update the
+> (currently unused) matrix_mux_init table to match. Values 16/17
+> remain as placeholders (shown as "Analog 5/6") since the enum maps
+> items to source values linearly.
+> 
+> The 6i6 entry uses the same layout and is also marked untested. It is
+> left unchanged since I have no 6i6 to verify it.
+> 
+> Tested on a Scarlett 8i6 1st Gen (bcdDevice 2.60) with v7.2.11.
+> 
+> Fixes: 76b188c4b370 ("ALSA: usb-audio: Scarlett mixer interface for 6i6, 18i6, 18i8 and 18i20")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Walter Weber <walter.weber@rwth-aachen.de>
 
-It was in the previous version and I suggested to move it to the above. Seems
-like we have an opposite comments. Can you provide a rationale behind your choice?
-
-> 	if (!gc->to_irq)
->         return;
-> 	irq = gc->to_irq(gc, gpiod_hwgpio(desc));
-> 	if (irq <= 0)
-> 		return;
-
--- 
-With Best Regards,
-Andy Shevchenko
+Applied now.  Thanks.
 
 
+Takashi
