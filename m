@@ -1,87 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792422881;
-	b=bc4eHX5SCDiuMGjV84l7OMYzh2VcKnIGXRqSiyhPzpI3+Eedpim8pzX21iWfUx/F7Qcb
-	 RGloAz5OW5W6pRPbdaKcBYhRdBAEylRmuUoHbPdtZRA7Zh7xIcO9hfonsRNRxxPncvz4X
-	 kI5V2qdcK3F2IHU+BSmHXD392sK5gT1ZteWnvMRJW706JqFM6j+a7qA7K8gwVI+EQLvx/
-	 FptWG3zTdAvh/q7VEr3C6kbBIoKXIkdEjc9ur6UW965NY+RZKLJTzsPlpgMAkr4Vplksx
-	 KOEUuPFzX+5dKhHx2NLeeoGkwPtJycCYvHk1oqyW7HKON99OlXjFvWPD6Ox/J3VhpVg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422881;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-Ironport-Invalid-End-Of-Message:X-ExtLoop1:
-	 X-IronPort-AV:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=MQb8B/qhw+4yCI3Cj8R+lrtVqs8STV1i2INQuKnCvNw=;
-	b=0EhfHbKk18cIZDpB+Dnm54WrxFIaLmQf86sgRuGvaCjycoCs60yytX4KkhrUKhKQNAZ3
-	 +FD5ThRA7owWble/dk8+DtCXo0xeeWw5VxdJPEoIViL8mSyD8fmpnjgKLOyWzUMpYYCeJ
-	 Zq5s8KNQkRCgZHDoTRm6KsBkDyRlCz8PMQrn6R3LqcY9FfrIuob8DCXOapJHom4Vvn72d
-	 o/N8MmmRB+fE2rRlXemDDmYru3lAxQlyYBvuoGeNe1JdDkuwKO97LQ8rBOIsQiST+TBPF
-	 RGh6apuc+PAcEQgkVFLB4t7lTdeVnlFC0i9bAtXrJL2HHvaL+psB260T1CnNmN8c+hw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CC46qBE9;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792422207;
+	b=DXa79jSwTcURqIf865eRiO1pvx0LNeonPyI1pgEgxkW+hVw1dwm6ial3TmfL+t5aLk+W
+	 YXeSWAb7gpAKn2jstWxix3P0oJxElVIcVT0BYuzlr3b3P2jAPlQ4X67Jet6rJzmVsJjnd
+	 v/X+uS9cKZI+PXL6NcHWkJHJf9VbNHwpWt0uhnFXoy0m5GQ/GYy2OW2bVgXHxB/mkzRMl
+	 DQI9wLCdEC08x2ihbjKCL3xECCe/42ZmV6GjtHFuwy6UPYJbzTJf1Jacuj1+0ZPwE48lJ
+	 UZkCxIRp1EAiazDK913ue7yQ2bXdi+eatMu2WXuSq8uhFLkmAjNoAjXi4//do5rWV+w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792422207;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-ZohoMailClient;
+	bh=0UkI+p2KaBppYji0GomycRUpxyn5jorwQt7/VnBco3Q=;
+	b=cLZl9ftc3dq4F9Xl/EonNInrfuMg4sz7RGlO5S1lsjjq56LbXl8Vl6+O6GP7cFGXIVF1
+	 6H7SXE9vN6QkOrvwFP86Ds1MJENEdtv0APWnIlatFvrkanniKAfGhCgebnhbBfILTVqh5
+	 9Dto1V1o865Fc6z2K/j4FaBbvga9ARJ5iob3hviy8nsdggK+WJ0L56qA/yWQxId98Vq0O
+	 k6eNCBZZIj/z1KPNDrZjt470aC2iXXILtCA7jVGg5iRXFHlFfZycua6xC6PKbMH35TR8D
+	 27nryaZH5NEGp9VZvstPkeV0u0HjMlVZVgWKTlR0hfhk0EqPidtSHftx1fQJUUFmljA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rong.moe;
+	spf=pass smtp.mailfrom=rong.moe;
+	dkim=pass header.d=rong.moe header.i=i@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=pJzxqwWk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2458E609CEEA;
-	Mon, 19 Oct 2026 15:14:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2458E609CEEA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4C2607D37F;
+	Mon, 19 Oct 2026 15:03:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E4C2607D37F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CC46qBE9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792422882; x=1823958882;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=z0SkwW//ef7ZJBaFBPaI8edP8HDdXv5L0ptXLFoUlhA=;
-  b=CC46qBE90hvWXyDls/cD7sZtX1nDBEZzDiu1IfzRY2SDWrrI6HQvW46l
-   GznsHv2cXs5YUyTYVzNiSOjW5hkmweiIvQSg8fpDbbAE79otYhcppbJrq
-   V3HqfL+Q36wMJti9qrEOc6d+87FNjcorJEhY+VQoXKvkDXsvnxv7MH1In
-   +pZqkWPxkgvrcjJ1AWLnF8Tcex4SF8ko2UZFMSW1VI8KMUEyAqDZdG8Ah
-   ojKh0NRNJ4O90Ioe7oOlCHtK+BiwhLXdv9GhpAMxDiv9lyBzF2gBUxQjA
-   lq60KGjBzm/Y8GGr77dnc45Yt0nOgesx4M9+dUcjflZnpYu5LOCNu1o0/
-   g==;
-X-CSE-ConnectionGUID: jgmDl+l3SGq+yGwnXGQ8WQ==
-X-CSE-MsgGUID: JRqmPQ4DR0OLsLrOPgztqg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="986942"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="986942"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:14:35 -0700
-X-CSE-ConnectionGUID: GGDSOwEDQZ61D8gwWWlfYQ==
-X-CSE-MsgGUID: qXaD5L4/QjeN7C8PwD3kgA==
-X-Ironport-Invalid-End-Of-Message: True
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2537007"
-Received: from jf5300-15a101203tc.jf.intel.com (HELO meta-crater2c.jf.intel.com) ([10.54.113.49])
-  by orviesa003.jf.intel.com with ESMTP; 19 Oct 2026 08:14:35 -0700
-From: Daniel Byrne <daniel1.byrne@intel.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>
-Cc: Fenghua Yu <fenghua.yu@intel.com>,
-	Dan Williams <djbw@kernel.org>,
-	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
-	Frank Li <Frank.Li@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Tom Zanussi <tom.zanussi@linux.intel.com>,
-	Kristen Accardi <kristen.c.accardi@intel.com>,
-	dmaengine@vger.kernel.org,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 17/17] dmaengine: idxd: run the interrupt-handle revoke under the queue lock
-Date: Mon, 19 Oct 2026 08:06:30 -0700
-Message-ID: <20261019150630.4026341-18-daniel1.byrne@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261019150630.4026341-1-daniel1.byrne@intel.com>
-References: <20261019150630.4026341-1-daniel1.byrne@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=i@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=pJzxqwWk
+ARC-Seal: i=1; a=rsa-sha256; t=1792422182; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=NTCNK8fAaaUFkJGoktH/bsfTmThkZ0m5WtOpTkkfSe0j3JJTZkLdWCrykEurJKFxbnHgVe5spCP4JLvmQi9Sau0n1lQ7s4NiLYIkYiL4dMVjjSvqpH6EOzp5+stP3GTnpTBhAA3Sl9rXtdIQCOQMBn0cnGAuXOkLRAk3n/nEfoA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792422182; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=0UkI+p2KaBppYji0GomycRUpxyn5jorwQt7/VnBco3Q=; 
+	b=HX8GWlD/NBSM0ikdrZoVF5Pa68kVN1YVaitjnH2F0KhJAIRWLiSbXUtZPK8PaSzwjDRZyIfJf0P7RCwxDGNK9tn9jknLTJ0+bLC7EnLh0ALEtmJYPDQbpo/mxfmO9mhfMQhpXyaOiuxP9TwuaSXZRatWyV28d0UohdTsq5I58WY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792422182;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=0UkI+p2KaBppYji0GomycRUpxyn5jorwQt7/VnBco3Q=;
+	b=pJzxqwWk9HJvgbQW8lNZ5hzLr54im2BVSymDHCth5qaoOBYUH5nHbn94PgVLlBaj
+	XnwWjVTgHN9UQc5typjD//1Cp8GlA3rDIVk8MrDlg3m+bfYn4BS1cflZm250jPSasjK
+	4DW8Lmmkj0u2qb168U+cGVj2YADKlG005JiSnbWlOz8Epozf9K0D2pkX0QVf2cVTgks
+	QJ/qoH4jy4Zpw3u4VA1BlSMJ4O35AriT/6kd/jl6EJ9E9PZJ+8wsuIFGdtHPFo46luI
+	63lhiGLUG7xyERZdMeB4yCAZTVgCGyJDnlhxj4zCDUv/OlWgc3BUOGoIsH1wCcPPHyV
+	pA+6nve6Ww==
+Received: by smtp.zohomail.com with SMTPS id 179242217902539.017621314283474;
+	Mon, 19 Oct 2026 08:02:59 -0700 (PDT)
+From: Rong Zhang <i@rong.moe>
+Date: Mon, 19 Oct 2026 23:02:24 +0800
+Subject: [PATCH v5 02/12] platform/x86: lenovo-wmi-capdata: Do not stop the
+ AC notifier chain on error
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,121 +69,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261019-lwmi-wmi-new-api-v5-2-71557d28d058@rong.moe>
+References: <20261019-lwmi-wmi-new-api-v5-0-71557d28d058@rong.moe>
+In-Reply-To: <20261019-lwmi-wmi-new-api-v5-0-71557d28d058@rong.moe>
+To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
+ "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Armin Wolf <W_Armin@gmx.de>
+Cc: Charles <hanker007@gmail.com>, 
+ Navon John Lukose <navonjohnlukose@gmail.com>, 
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Rong Zhang <i@rong.moe>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-6be7c
+X-ZohoMailClient: External
 
-The interrupt-handle revoke worker requests each new handle without
-wq_lock, so that a reset can end the request, and the queue may be
-unbound while it waits. It reads the queue's state without the lock,
-submits the drain after unlocking, and on a failed request quiesces the
-queue and completes the descriptors that carry the revoked handle
-outside the lock, so an unbind can unmap the portal under the drain, or
-free the descriptors, the allocator and the driver under the
-completions.
+Returning NOTIFY_BAD to the AC notifier chain stops it by preventing
+later notifier blocks from being called, but our error is non-fatal for
+other AC notifier blocks, which should continue to consume the event.
 
-The unbind invalidates the handle in the same wq_lock hold that tears
-the queue down, so after the request the worker takes wq_lock and goes
-on only if the handle is still valid. The handle swap and the drain, or
-the quiesce and the completions after a failed request, then run in
-that hold. A queue a halt already killed and did not revive is left
-dead rather than revived behind the halt.
+Return NOTIFY_DONE and add a dev_warn() on error, so that the AC
+notifier chain continues. This also aligns with hp-wmi.
 
-Assisted-by: Claude:claude-opus-5
-Assisted-by: Claude:claude-opus-5-5
-Assisted-by: Claude:claude-fable-5-1
-Signed-off-by: Daniel Byrne <daniel1.byrne@intel.com>
+The function documentation was copied from elsewhere and makes no sense
+here, so correct it as well.
+
+Fixes: e1a5fe662b59 ("platform/x86: Add Lenovo Capability Data 01 WMI Driver")
+Cc: stable@vger.kernel.org
+Tested-by: Navon John Lukose <navonjohnlukose@gmail.com>
+Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
+Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+Signed-off-by: Rong Zhang <i@rong.moe>
 ---
- drivers/dma/idxd/irq.c | 45 +++++++++++++++++++++++++++++++-----------
- 1 file changed, 33 insertions(+), 12 deletions(-)
+Changes in v2:
+- New patch in the series
+---
+ drivers/platform/x86/lenovo/wmi-capdata.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/dma/idxd/irq.c b/drivers/dma/idxd/irq.c
-index 4517a09fcf1b..8217698056bb 100644
---- a/drivers/dma/idxd/irq.c
-+++ b/drivers/dma/idxd/irq.c
-@@ -115,6 +115,11 @@ static void idxd_abort_invalid_int_handle_descs(struct idxd_irq_entry *ie)
- 	struct idxd_desc *d, *t;
- 	struct llist_node *head;
+diff --git a/drivers/platform/x86/lenovo/wmi-capdata.c b/drivers/platform/x86/lenovo/wmi-capdata.c
+index d5e961566136..58787da959b4 100644
+--- a/drivers/platform/x86/lenovo/wmi-capdata.c
++++ b/drivers/platform/x86/lenovo/wmi-capdata.c
+@@ -774,13 +774,11 @@ static int lwmi_cd_setup(struct lwmi_cd_priv *priv, enum lwmi_cd_type type)
  
-+	/*
-+	 * An unbind frees the descriptors and the allocator under
-+	 * wq_lock, so they are completed under it as well.
-+	 */
-+	lockdep_assert_held(&ie_to_wq(ie)->wq_lock);
- 	spin_lock(&ie->list_lock);
- 	head = llist_del_all(&ie->pending_llist);
- 	if (head) {
-@@ -142,6 +147,7 @@ static void idxd_int_handle_revoke(struct work_struct *work)
- 	struct pci_dev *pdev = idxd->pdev;
- 	struct device *dev = &pdev->dev;
- 	int i, new_handle, rc;
-+	bool killed;
- 
- 	if (!idxd->request_int_handles) {
- 		kfree(revoke);
-@@ -166,15 +172,31 @@ static void idxd_int_handle_revoke(struct work_struct *work)
- 			continue;
- 
- 		rc = idxd_device_request_int_handle(idxd, i, &new_handle, IDXD_IRQ_MSIX);
--		if (rc < 0) {
-+		if (rc < 0)
- 			dev_warn(dev, "get int handle %d failed: %d\n", i, rc);
+ /**
+  * lwmi_cd01_notifier_call() - Call method for cd01 notifier.
+- * block call chain.
+- * @nb: The notifier_block registered to lenovo-wmi-events driver.
++ * @nb: The cd01 ACPI notifier_block.
+  * @action: Unused.
+  * @data: The ACPI event.
+  *
+- * For LWMI_EVENT_THERMAL_MODE, set current_mode and notify platform_profile
+- * of a change.
++ * Refresh cached capdata on AC status change.
+  *
+  * Return: notifier_block status.
+  */
+@@ -799,8 +797,16 @@ static int lwmi_cd01_notifier_call(struct notifier_block *nb, unsigned long acti
+ 	switch (event->type) {
+ 	case ACPI_AC_NOTIFY_STATUS:
+ 		ret = lwmi_cd_cache(priv);
+-		if (ret)
+-			return NOTIFY_BAD;
++		if (ret) {
++			dev_warn(&priv->wdev->dev,
++				 "failed to refresh capdata on AC change: %d\n", ret);
 +
-+		/*
-+		 * The request runs without wq_lock, so that a reset can end
-+		 * it, and the queue may have been unbound meanwhile. An
-+		 * unbind invalidates the handle in the same wq_lock hold
-+		 * that unmaps the portal and frees the descriptors, so a
-+		 * handle still valid under the lock means that the queue
-+		 * still has its portal, its descriptors and its completion
-+		 * handler. Everything below, the drain included, stays in
-+		 * this hold.
-+		 */
-+		guard(mutex)(&wq->wq_lock);
-+		if (ie->int_handle == INVALID_INT_HANDLE)
-+			continue;
-+
-+		if (rc < 0) {
- 			/*
- 			 * Failed to acquire new interrupt handle. Kill the WQ
- 			 * and release all the pending submitters. The submitters will
- 			 * get error return code and handle appropriately.
- 			 */
- 			ie->int_handle = INVALID_INT_HANDLE;
--			idxd_wq_quiesce(wq);
-+			__idxd_wq_quiesce(wq);
- 			idxd_abort_invalid_int_handle_descs(ie);
- 			continue;
- 		}
-@@ -193,21 +215,20 @@ static void idxd_int_handle_revoke(struct work_struct *work)
- 			continue;
- 		}
++			/*
++			 * Our error is non-fatal for others, and we still want
++			 * the other event consumers to process it.
++			 */
++			return NOTIFY_DONE;
++		}
  
--		mutex_lock(&wq->wq_lock);
--		reinit_completion(&wq->wq_resurrect);
--
--		/* Kill percpu_ref to pause additional descriptor submissions */
--		percpu_ref_kill(&wq->wq_active);
--
--		/* Wait for all submitters quiesce before we change interrupt handle */
--		wait_for_completion(&wq->wq_dead);
-+		/*
-+		 * Kill percpu_ref to pause additional descriptor submissions
-+		 * and wait for all submitters to quiesce before we change
-+		 * the interrupt handle. A queue a halt already killed and did
-+		 * not revive is left dead.
-+		 */
-+		killed = idxd_wq_kill(wq);
- 
- 		ie->int_handle = new_handle;
- 
- 		/* Revive percpu ref and wake up all the waiting submitters */
--		percpu_ref_reinit(&wq->wq_active);
-+		if (killed)
-+			percpu_ref_reinit(&wq->wq_active);
- 		complete_all(&wq->wq_resurrect);
--		mutex_unlock(&wq->wq_lock);
- 
- 		/*
- 		 * The delay here is to wait for all possible MOVDIR64B that
+ 		return NOTIFY_OK;
+ 	default:
+
 -- 
-2.43.0
+2.55.0
 
