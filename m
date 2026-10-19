@@ -1,68 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3CA483BD1
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 06:58:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 57CC345D5F3;
+	Mon, 19 Oct 2026 06:58:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792393101; cv=none; b=CqmsSLsiC6vrQXW60Ii8Q0l5gqBdMgGJ59/Us+XIIslMPdDVe4lwvBJda6ntlyXbf3cKVH35icKCFY185vB9hGmqIWwphzFdi9bARJgR2w6P0l7ToxbMlpz/hY4oxBiWEwO5QL5X9i8ERkKHEmxvJx60uM/wey+vk1pPYluYEgA=
+	t=1792393132; cv=none; b=VWPhLvC6TvPP2FHFYaYz1STTIkNuQ8lq0f49BTDQ3rxIOyqk3f8FcTZ9e+kBtehhwWh9kpwJUMbzGlLAtJYoNLjRJww1UZSBOmm94EFILY9Kp/Rv2+82zRG0bOtjOqErWr+vx9kJ5ZiYFRR4q/w7kwj1ih9NSwtG9erIOfYevEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792393101; c=relaxed/simple;
-	bh=BkqYLaUB1cV6PolllDNHh7VQegUDlG4d5Vf2nS8ZXhg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mli947R2Dsj1t32lY47KR5ewoTd/ECrl3UqDUAcRIIBLCRuig7wTlQHj+BWeJY4H8lbImlQIDsP5BNd9LrlYc0pBa/618kk5x9tqZhYd6TZU5+8tgUMxgMHB2ewDTRr+elTfr6C2yUcsfY91LvSTIhuqbpxTqwTlvhzOLaGep30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=16bpAqqc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792393132; c=relaxed/simple;
+	bh=jKcRI0F9aHnlKD651grREaBBW4xvRcUMzBlgAiHKlsU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jNoSbcnDSqx9p0XaDDnR0Ma+kki1ccqM6vWlqmvE6RChURg462fokF9RBzzuSq1B3YHOgpb2HUIkMBcmasEMCxQEAFw1Bw/hC3zKOghNnnM68I5PcaOjkFqaMnpn6PWCHkHnUTgSoqdJu933oolU8Qb5urwb6/6xL8/X+3TkBYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=StlLDKq4; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="16bpAqqc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C6A41F000C4;
-	Mon, 19 Oct 2026 06:58:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792393100;
-	bh=c4HX7vS3/ALqXYJaTbKtDxQ9lxdFR6hWFHjGHXBfKi8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=16bpAqqcTKl9Hhv3UNsVTi9KLTEmKm9eLoxIq0k7GYPwHx5Rix8VIaZajhwj3HR9b
-	 LFs9H43mHGkyhZQaQMXzeNNdm/u5F8d1aC0arrr4eCEL1v6bsPAf4hHXdUWmUmQcGK
-	 LYzAVyqBt5axmouvF5+kckbIvNiPafljUzSg6dME=
-Date: Mon, 19 Oct 2026 08:58:08 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Abdifatah Suruur <suruurism@gmail.com>
-Cc: stable@vger.kernel.org, Florian Westphal <fw@strlen.de>,
-	Pablo Neira Ayuso <pablo@netfilter.org>, security@kernel.org,
-	Willy Tarreau <w@1wt.eu>
-Subject: Re: [SECURITY] netfilter: nft_byteorder leaks uninitialised kernel
- stack on 6.12.y with CONFIG_INIT_STACK_NONE (CWE-457)
-Message-ID: <2026101922-cherisher-grout-bd7c@gregkh>
-References: <179235055956.10524.6485282696272965887@gmail.com>
- <atU2brRgmeb6ght2@1wt.eu>
- <179236182769.4914.3317139682579833845@gmail.com>
- <atWvQFXJzJ434qGd@strlen.de>
- <179239012164.14465.16534329674629579851@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="StlLDKq4"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3F4841477;
+	Sun, 18 Oct 2026 23:58:46 -0700 (PDT)
+Received: from [10.164.148.56] (MacBook-Pro-3.blr.arm.com [10.164.148.56])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 514DC3F673;
+	Sun, 18 Oct 2026 23:58:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792393129; bh=jKcRI0F9aHnlKD651grREaBBW4xvRcUMzBlgAiHKlsU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=StlLDKq4P1yblYmcNUL/S2ln1AqLeYYRPcJPR+/GUUMAOs1w3CfSJYbdyEfSHULs+
+	 yNXPO49brP9+UjPFeg1bY6f39wNxEV9GIf+ejuiDxy5qXrhRH/cH9ROgchLpwdaLtX
+	 AYklqgynUtNpXJDDuA7feuEpCmp7LhrGsihDk9Ms=
+Message-ID: <4aa14b41-9b89-494c-8825-55fffd5a541c@arm.com>
+Date: Mon, 19 Oct 2026 12:28:40 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179239012164.14465.16534329674629579851@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] mm: page_alloc: make defrag_mode retries follow the
+ promoted order
+To: Kiryl Shutsemau <kas@kernel.org>,
+ "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Harry Yoo <harry@kernel.org>,
+ Usama Arif <usama.arif@linux.dev>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
+ Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ kernel-team@meta.com
+References: <20261009125503.126202-1-kas@kernel.org>
+ <15a9e03e-c748-4e51-b8cc-583a3610c897@kernel.org>
+ <20261012192834.6934ef85444dee4a60d6d876@linux-foundation.org>
+ <as5q14OsbK2CmOrh@thinkstation> <20261014202936.GC371161@cmpxchg.org>
+ <78238103-3a7f-432c-b1df-bd14d7cf4bb1@kernel.org>
+ <atDMN5MoGrwJNpAj@thinkstation>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <atDMN5MoGrwJNpAj@thinkstation>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 19, 2026 at 09:08:41AM +0300, Abdifatah Suruur wrote:
-> Hi Florian, stable,
+
+
+On 15/10/26 6:25 pm, Kiryl Shutsemau wrote:
+> On Thu, Oct 15, 2026 at 09:16:36AM +0200, Vlastimil Babka (SUSE) wrote:
+>>> And agree 7.4-rc1 with CC stable is fine. Sadly, not sure if anyone
+>>> but Meta is using the feature right now.
+>>
+>> I thought it was there for a long time but it was only added in 2025 :) At
+>> least the enterprise world is slow to adopt things, AFAICS.
 > 
-> Thanks for the explanation and the Ack.  The explicit memset patch is
-> attached with your Acked-by; it applies cleanly to 6.12.113.
+> I was thinking to propose a patch after merge window to make defrag_mode
+> default. Do you think it is too early? I don't think it is ever going
+> to be truly stabilized without wider exposure.
+
+AFAIU defrag mode is not going to improve mTHP allocation success.
+
+I ran a synthetic benchmark faulting in lots of 64k mTHP with swap enabled,
+defrag mode caused me to enter a warn_alloc (and 8 times more compact_stalls),
+which didn't happen without defrag.
+
+So perhaps bundle the default with pageblock_order eagerness etc.
+
+
 > 
-> Stable maintainers: would you prefer this minimal init patch or a backport
-> of bb061d3de4170741?  Either works from my side.  The memset preserves the
-> existing multi-register ABI and is the smaller change; Florian is fine with
-> either.
+> We also discussed with Johannes to make a stricter (defrag_mode=2?) mode
+> that will not give up on fragmentation ever, but OOM instead.
 
-A full backport is always preferred for lots of reasons (long term
-maintenance and proper tracking is the primary one.)
 
-Please submit that and we will be glad to queue it up.
 
-thanks,
+> 
 
-greg k-h
