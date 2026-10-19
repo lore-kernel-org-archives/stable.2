@@ -1,98 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792435740;
-	b=J4mnDckfRSn8Z/j458EDaUiv0YhPLVQkGuoPhNpe+D2xYgqpOmB97e2vp2SAYKAiLISC
-	 lV3wAoxl0YS+92RqrQSP/tDtV1vcZtYSvhTn/3L4TYLaF5DVKz37zVIkOnGpnMXFR71DD
-	 pylzumeHL8XbClJWrcyRGhS4l/ZyQlEmqsoXujaoJ+72Ku4MIiS2tPR8UVBg4nFes7KIr
-	 bmlL5Gh/sn9E5/mHzvDqxv0EJADjIW5XwbJrhg4Dk8t3onQv/rm3C7dRv3f3P61RQoYF6
-	 +qGn9kL5gaGJujIwgvOjVfNWimxSNJM7EeG2WUWqdULusUh0f0jNdxzHeyx5nXCmH4w==
+	t=1792435746;
+	b=dNVAB43+/BSHEMsN1wO8vG61BUPjZK35svlJjwzuKxp5z/jM040rXLcoNIc0Huf5Xe1v
+	 DYmTWA8RiM6moLvDGN+/ApAl4ir8Q1lNBRrIOKfZMurVkq/R/c+UxxxagjNP6uuQgN+iR
+	 Cr7xwmMsmyVGla/pwTMHhtr/LZN3DXIZ5WiP7808gA+tqAX5y3OeBw/ORnoio0Yy6tnHv
+	 FCw3we5fRWJ9ffb+6ZWZvVF4X6Mo5EaxilbfYPffFd1Y8+hBhcvDgFEcEZ7hctGVbW+yK
+	 hXocFDbOr0lMhwLqehjB6e9Nn9mRRxEowgErMPM77zuDj6yKZOlVp4AB94oeyD51Wcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792435740;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792435746;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=LLSI7PktqOCoaAdY+nRTbxlJri6KWY7IdvuhfDd+3gM=;
-	b=lPnz/m7bGSN3BqZexj355y2neL+L8HRfsEx35qiaEdLv1i+EjLlqXtFoSzqHbR8RQA8q
-	 c7M+mQoXovuVl9t9uatm8GeuUEvTlgheY+nZCMgnrJI5ZywOZc5Rvx1XWQxYj8FoY0Ii8
-	 gtaL/9c/HQAEFXgrx3+pdQVQh/Us28WojgmxphR+lp2t45JhiRru/LlMlLJCdAcXSA+kU
-	 vyI3PWsLpqvxbPFqI60U1Dqh6o5xDlAO9GKPyXRoYBCCBGUOhSTYslpkoOPk1Vrjqq3WB
-	 1HQNldUfRDsmQWul9rJoesPUvXpfqF1JUdg2Ytz8o2hKo3NFpWfEX2NsxDVVLm0tSmg==
+	bh=GAXZCV5m9JMQykLn0Ukn1ebbST4LlX+DTEB51yMeYSo=;
+	b=g/Wtobvrx0tHRCf/qQRZ48Im4zrlp3MRTkqVLkJNpCSzdAPv7p4/XnltJXx1Y9DJ2Psp
+	 Dn60Esu3f6wN4LPELEjKkDE5EzmV72fsEysKe0Ceu2bZzYJNiaKXvEUzoU/tDLrVLm4SN
+	 4/8IAOvZciiKUg5ahvUl4YjxUOUt+udj7KMSV6XXXlIAMSvtz9B79PsIIRPQEGGjCuATL
+	 SvDauyv47+yzf7Fb82WgiJSx9DciAntzlYzjUptpY1SDIoVlvG479cxGSLSNMMJ5Yux46
+	 oZRisfPMstaeYFQIzTWFiCV3K6f/J0AdtvH1sISGy22luGuCLW3y+RLFrigZfANp8PQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=U4ZHCe5N;
-	arc=none smtp.remote-ip=209.85.160.175
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RJJP8MSy;
+	arc=none smtp.remote-ip=209.85.217.49
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com [209.85.217.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5ADE606A31B
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 18:48:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5ADE606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF5C606A31A
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 18:49:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EF5C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=U4ZHCe5N
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-53644ab1f7bso21429631cf.3
-        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 11:48:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RJJP8MSy
+Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-7ba2ee12f65so61993137.0
+        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 11:49:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792435739; x=1793040539; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792435745; x=1793040545; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LLSI7PktqOCoaAdY+nRTbxlJri6KWY7IdvuhfDd+3gM=;
-        b=U4ZHCe5NO6N+hQbi1iEFnMsNMJoMSf3gdmKTzm4rJN01YlfmjT42JsbW+9aOcVaP1E
-         K/GcbkOGYXM75il+9cB7zF9MIGTjM2ehLhZdjZs+0sqrGeSF2h332E2jfN2UgPIp4b1/
-         8AvC+3ro+a8aXwJsjMe6IjzPXIftsFduWqnIFbClS0D359WMbb4ZquUeOlDIItJiAuyl
-         ML8gFFl4E7qw+8cfR6AzXAPn73IL0IdXV/jsO8RNITQGH69gh2denSnriW99kszKrm6b
-         GMOKybKDCa22Ns4t/TtQOPUfDQ2WPFKHncHzGU+Bhsx7BUv8jl9YQw7W8wBYdk/j41Rw
-         2Kcg==
+        bh=GAXZCV5m9JMQykLn0Ukn1ebbST4LlX+DTEB51yMeYSo=;
+        b=RJJP8MSyqk6+vTmNLG6J3fudmf63oXBxtb4bAw28vBZ/T6JPfC0jcs6qLshzy7gXzI
+         2B4yDwx7cSLLIjBVELGhYNcnsQ4Bs9FYBd2eGuwhZYD12RTpG48BuEB81wFPCvPqCryY
+         YoL/kf+FMxFHCDrd5T4PFE12geD+FKi4gUmkKbNWN3Ack543k/k0AVyYvmSVqP0ks0wq
+         A3XtxUZtGaxE0o4GHDJ4oPDv03kUrYH9JZWjblYVrSEGOIRKOTOq5iBU1OK2pJyqSEaT
+         seUn9rQ3Beo73B78IiOhVBFjCQQqenodUU+T2Gll9LFTnsC2JEcKlKxNJxquu88x95mZ
+         rtfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792435739; x=1793040539;
+        d=1e100.net; s=20260707; t=1792435745; x=1793040545;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LLSI7PktqOCoaAdY+nRTbxlJri6KWY7IdvuhfDd+3gM=;
-        b=cGSjvIs8xnPRYSkHUZ8Y2VlqS6rWZ8Hul1beH+sJFFy4LhVRMPzw7ORGV2uSc60DER
-         n5EPYYtx4AjP/zul0SeZUy+YJHx9yB877xGv72pWzHs3tiyUd8CzYtlxSk51Eei6IBw7
-         QHD79+Jxpc37skshcTgnMjxLI/JrzE8C7Y6dbYSn6KzmIiKRB1ilYSkdske+NyBUqPGv
-         SDuu9eQgZLKs39e15LjOxsN37c026vBpF5bfpvjsCf8BsNiw1mUyQ+fr5Wdub2NgGXBG
-         fK8Tje2z7jNHJDrGmu7z6GMMIFdqJSsc/loajUOeVcPtuMhYgaKr+umz5teiaGUft2U0
-         3nsg==
-X-Forwarded-Encrypted: i=1; AKwUvBwARFYMEuhKMIvgyye2GEedXU9uaWxrTDnsrl70ua5ccM7lntV1BMKkFIIpLdtLo70ujVP4yMA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLEAtnv3hqLlTIUtPqdJA3J8h0CkNzyBukjNwtS7VncD3SLCx4G
-	jjS2yq91Qqkicqk+OG8R3rzU1A+5e17SMzon340LeSI29CYL7cX/xMR+bm2SyyD8MAA=
-X-Gm-Gg: AYBFou2vQtObXIjo/A4dhXEptJ+T4BChTLbLz9v2aehwvEwfZlDtlJxFuWPT6HZSzbA
-	sH4+Y9b3q9L3c4ddbKenS+QUqT5DyIiuks18SbaaHSjf6j0KAUerAjZJwx8sjV1SXUErNT/HkES
-	nQQ/lm1030oDtwtqiY3R3ZHzASfjD89hiG3+p2x4tPz3J56S30UW24frsIsCedEYVDtKKrvfPHV
-	wWiIAWylAzzxlU5lDHwGJORX6cHzB5/4zt5YQ08MV/aHtHjg5yt6mZa+hCn41QdFZdj3ZYDFQPG
-	rAv1azi7RNkpMZwzlOeUvFcr3z4C4l+AKnDhimTn8KZcRrCsxp5QIk+hUM55PCEQ5REHwfOJhqv
-	CmE9sISqqP5fK7a0PH9tBYFdDlT1kjMXtGs4NqRpnhp/hRasxW0sUS6JDpvLPkK3Vj6muXoKVjr
-	t6OG3TRLCpc2zM3TwF2uG723BgGoJJ+zVHUIw1gkQaMD1TOEuNPIs3y9xmq5giJoegRDN6TfCp8
-	xrUE59aJ64BRE6FO3GX1j+nHccSNbEduHKFkVN6qupz+2mFuqLS60V6OUrO
-X-Received: by 2002:a05:622a:401a:b0:536:5e83:589 with SMTP id d75a77b69052e-5365e8314cdmr96885911cf.71.1792435737103;
-        Mon, 19 Oct 2026 11:48:57 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c040a49b4sm3183196d6.24.2026.10.19.11.48.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 11:48:56 -0700 (PDT)
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	akpm@linux-foundation.org,
-	vbabka@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	flyinrm@gmail.com,
+        bh=GAXZCV5m9JMQykLn0Ukn1ebbST4LlX+DTEB51yMeYSo=;
+        b=2gaCAjHK2mAo0Wm/J4Ug2LIqPuw52HXTaYrDQ250e5Ph1/upxY9EJ/ZxcpiBb1jXGR
+         GnXehKcLkgLzXsBmMfomdzBargFjVah3rQ7bg9wSIRm+Qgyko3RLCCmAmRzoxAVc4LNK
+         liN8lExssMv3KDYwuuuAD/T9D/60l//TdpyS6Ur0CJbosA0lpPeTTP9wws5IW75NQvDw
+         DB2d3hK4MeZbBId0J78Yv0i0smFb+kFnemQlQg5UCr3NYPl5v1QkUBS8+2lEheIgcVHT
+         nqju0/Y1jSGhAfUv1Ag8QvZ2mnKjX/vIH52yVHEIP24v9/BrzhtSRqFfHE6YlH1L65ek
+         cNEg==
+X-Forwarded-Encrypted: i=1; AKwUvBwbGmcftTV5OeQrqcDhdWL6VAXIav42cHfw7k40zdKfx7YosWlYxrFRkDmX01CAwIz6BLnYJZU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIuEbg/J+ouArXRtHbMt6xmOX1vCjL/KmUxezQrFllrc3Rguza5
+	DxZIlFUSe1XJotRDZU05iMPp5L8caR9P1FB46WuF5gJq3qdegrOQ1Snx
+X-Gm-Gg: AYBFou3RGuqbexBWy3QS+5kSVFVnXhQJ+kNmoYIkMO9Qnsm1SzQqIBWRKI4gvTT4gur
+	NNtHTSF4I1b3w+Ho94CFWChyfFpBMol6SX9WBMzL/ficBegYH23gW5di61dBKrFFO3+NV0AHWRe
+	HzDyakTxJcVG00qUszHLx6kC2Pq1K4OILlXZy1+aNNGfsI4ggQxq2kKvrYCgia53Yp53vxlvSwZ
+	MLVCkh6Gr7irzUu2wdF3cMo/oxKApFtppPL3DeE6UZyAfG5yX+UpTl1hkQKktWqpREJGfRbJWNQ
+	jfAih3l2v225x474bjgBnoPIxHgptO2JRveK9cYuzgsOo7hqaMbW0nCbBN7tL9AxKhBFrHAi/Gq
+	q4i9U3NihKd83DRJ7iB0nWykCNsMmZ64i0XHC5eb94l4X6XGaUWrbOyFp9JyvXKtsV9yFtEE3Tt
+	GIvpw26kQnxYlspys6RpdB0Dp6xrwwc9BwosNB+Y7cuH2fkRpYX2NHVSGlXjptBz6Oh8T3ui+qe
+	GUrOLzbqp3BGpt4y7bva+yRmANoVXOCqCpgOMGa6FoJxhaQuFNEi3w3wPYeps0bm+m/llfljr25
+	6n3CnEpIWcq9TAMO/xA=
+X-Received: by 2002:a05:6122:8107:b0:5ea:b7b5:454 with SMTP id 71dfb90a1353d-5eab7b5070bmr1354058e0c.1.1792435745253;
+        Mon, 19 Oct 2026 11:49:05 -0700 (PDT)
+Received: from localhost.localdomain ([132.170.205.109])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9b53cfdfsm10488632e0c.15.2026.10.19.11.49.02
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 19 Oct 2026 11:49:02 -0700 (PDT)
+From: Sanan Hasanov <sanan.hasanou@gmail.com>
+To: Alexander Aring <aahringo@redhat.com>,
+	David Teigland <teigland@redhat.com>
+Cc: gfs2@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	syzbot+b2b8d04ec4914f618d23@syzkaller.appspotmail.com,
+	Sanan Hasanov <sanan.hasanov@ucf.edu>,
 	stable@vger.kernel.org
-Subject: [PATCH] mm/page_alloc: let the highest memory node recover from hopeless state
-Date: Mon, 19 Oct 2026 14:48:50 -0400
-Message-ID: <20261019184850.3427905-1-gourry@gourry.net>
-X-Mailer: git-send-email 2.56.0
+Subject: [PATCH] dlm: don't put an uninitialized lockspace kobject on error
+Date: Mon, 19 Oct 2026 14:48:49 -0400
+Message-ID: <20261019184849.24422-1-sanan.hasanou@gmail.com>
+X-Mailer: git-send-email 2.48.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,47 +100,76 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-free_frozen_page_commit() clears a hopeless node's kswapd failures once
-its zone recovers above the high watermark, but only if another memory
-node exists for allocations to fall back to.
+From: Sanan Hasanov <sanan.hasanov@ucf.edu>
 
-The test `next_memory_node(nid) < MAX_NUMNODES` finds only memory nodes
-with a higher id. The highest-numbered memory node therefore never
-recovers on this path, and its kswapd stays disabled until reclaim on
-that node makes progress and balances it, or demotion is re-enabled.
+Commit 8a4cf500f1dd ("dlm: drop kobject release callback handling")
+dropped the do_unreg flag from new_lockspace() and made the out_lsfree
+error label call kobject_put(&ls->ls_kobj) unconditionally. But ls_kobj
+is only initialized by kobject_init_and_add() after the callback
+workqueue and dlm_recoverd have been started, so every failure before
+that point puts a kobject that was never initialized:
 
-In many cases, direct reclaim many never fully run against a lower
-node (CXL/kmem), and that means its kswapd can end up full disabled
-in rare situations.
+  dlm: ls_6035_1: can't start dlm_callback -12
+  kobject: '(null)' (ffff888027a28088): is not initialized, yet kobject_put() is being called.
+  WARNING: lib/kobject.c:736 at kobject_put+0x66/0x550 lib/kobject.c:734
+  Call Trace:
+   new_lockspace fs/dlm/lockspace.c:617 [inline]
+   __dlm_new_lockspace+0x1714/0x1cd0 fs/dlm/lockspace.c:638
+   device_create_lockspace+0xc7/0x350 fs/dlm/user.c:414
+   device_write+0x872/0xed0 fs/dlm/user.c:606
+   vfs_write+0x296/0xba0 fs/read_write.c:685
 
-To reproduce, fill the highest memory node with bound, non-THP anonymous
-memory and no swap until kswapd gives up, then free it: /proc/zoneinfo
-keeps showing node_unreclaimable 1 for that node. A lower node recovers.
+syzbot hits this by sending SIGKILL to a task creating a lockspace
+through /dev/dlm-control, so that alloc_ordered_workqueue() in
+dlm_callback_start() fails to create its rescuer thread. The same
+happens if rhashtable_init(), the ls_recover_buf allocation or
+dlm_recoverd_start() fail.
 
-Count the memory nodes instead. Adding first_memory_node != nid to the
-existing test would also work, but a count says directly what the check
-means: some other memory node exists.
+Bring the flag back so the kobject is only put once
+kobject_init_and_add() has been called. Since the kobject no longer
+frees the lockspace, kfree(ls) still runs on every error path.
 
-Fixes: e7a5f249e6db ("mm: re-enable kswapd when memory pressure subsides or demotion is toggled")
+Fixes: 8a4cf500f1dd ("dlm: drop kobject release callback handling")
+Reported-by: syzbot+b2b8d04ec4914f618d23@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=b2b8d04ec4914f618d23
 Cc: stable@vger.kernel.org
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Signed-off-by: Sanan Hasanov <sanan.hasanov@ucf.edu>
 ---
- mm/page_alloc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/dlm/lockspace.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 417c427b196d9..6d4f03faf96ee 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -2929,7 +2929,7 @@ static bool free_frozen_page_commit(struct zone *zone,
- 		 * kswapd work again by resetting kswapd_failures.
- 		 */
- 		if (kswapd_test_hopeless(pgdat) &&
--		    next_memory_node(pgdat->node_id) < MAX_NUMNODES)
-+		    num_node_state(N_MEMORY) > 1)
- 			kswapd_clear_hopeless(pgdat, KSWAPD_CLEAR_HOPELESS_PCP);
- 	}
- 	return ret;
+diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
+index a9c98b4f37..443421e945 100644
+--- a/fs/dlm/lockspace.c
++++ b/fs/dlm/lockspace.c
+@@ -364,6 +364,7 @@ static int new_lockspace(const char *name, const char *cluster,
+ 			 int *ops_result, dlm_lockspace_t **lockspace)
+ {
+ 	struct dlm_ls *ls;
++	int do_unreg = 0;
+ 	int namelen = strlen(name);
+ 	int error;
+ 
+@@ -567,6 +568,9 @@ static int new_lockspace(const char *name, const char *cluster,
+ 	wait_event(ls->ls_recover_lock_wait,
+ 		   test_bit(LSFL_RECOVER_LOCK, &ls->ls_flags));
+ 
++	/* ls_kobj must only be put once kobject_init_and_add() ran */
++	do_unreg = 1;
++
+ 	ls->ls_kobj.kset = dlm_kset;
+ 	error = kobject_init_and_add(&ls->ls_kobj, &dlm_ktype, NULL,
+ 				     "%s", ls->ls_name);
+@@ -614,7 +618,8 @@ static int new_lockspace(const char *name, const char *cluster,
+ 	xa_destroy(&ls->ls_lkbxa);
+ 	rhashtable_destroy(&ls->ls_rsbtbl);
+  out_lsfree:
+-	kobject_put(&ls->ls_kobj);
++	if (do_unreg)
++		kobject_put(&ls->ls_kobj);
+ 	kfree(ls);
+  out:
+ 	module_put(THIS_MODULE);
 -- 
-2.53.0-Meta
+2.34.1
 
