@@ -1,63 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.33.104.224
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792443016;
-	b=rhXT9Di3P0YO08EUx6OpyxbKVFQ2R36M4PaG0goUgIttvSIWrS05GaOAeZBGe7ucmyIO
-	 MnE8w+qfyK0ymk/yUdJaATp+Fo+1gEPbLslIGR+Rg7ZYyKNiAW0xzh9SY+e14rTNTdTDC
-	 vId6oAxGmLWs1+ZPeJH1tcc3jHBKF1A5s4IMx4YbGFalAnjrFkLFJD2PmjfMImBH9oGqJ
-	 Evdws4VASmAofCmqR6xANrFHQvPy48hmxhxxeN67ojdKfHdgKpa2vNnOWwhQ1xcxLft5i
-	 HCDDno9aSluxNPv0MdM7WcPi2opcEycvegR73D1S9rPR6OsKquHpreya6cABoQGn1Mw==
+	t=1792443061;
+	b=V5K8Fqo+x0qAXVwg3SXBddcnsLVmL07jpv55lFJIXibsyOiz825RjETRpbP1GKpXnTsT
+	 PL0OtyGX2ZT0G9dIP8bXYthhpEcHdd3RUfNssin3O/9M0bNMdZbCGiUzXgB6G8Z+P1JLv
+	 DG+M4f9Sz4BEkVrBqpEd8PVxXI+xItaInS9bwGcxUyAyqWbMIX0tYzkvyk9muda313t/B
+	 maIwiqaz0MT7cUXoGg7QUe+MynqtGgSBPrV9jV8NQJoAD1DaEmgZbAVARsC+bjBYo+Ed/
+	 wJSvLFkxJCBDbagvbnPXfuSxObGjuK8qSeYTRcBP8R94hfBfxzSXk/SC8ogflH6D4nQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792443016;
-	h=DMARC-Filter:Received:Received:Received:X-OVh-ClientIp:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:x-ovh-tracer-id:X-VR-SPAMSTATE:
-	 X-VR-SPAMSCORE:X-VR-SPAMCAUSE:DKIM-Signature;
-	bh=4fn63uVBYvxfQtH2ReBw1SF76TfWdRjqEc3mmjrw420=;
-	b=z6BJm3n7i0buKpz1DQoXAGLCjRHcFLq/ojbpDRp6H32bhVZBdb1LBSd+4bG6Sk7lLzDc
-	 VoPufMayR21ZkLK9k/chrxeiXjT/BcdAP80Rlv+wj1W70R/Mq4cv0QDsKk33hAhRjZd7j
-	 g07VZ0yiM+Ne8snWoSh7+oYFPdJ3K1Z5tw8ECbnoGYanGotT/tC/K/rcZP+Pkw0jg0Xaz
-	 efJBCggNbjrmstOmEy5e+qlsxZNrdRbmDNheFXhm0VFJFLohDCF7p3u5NmShKuOcNjkss
-	 nCKcIjB9bknTag0fskMZcuej2JPQvYzMNq7HCt08LtYJH6VrubtUZh42ThBlxSoYQTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443061;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=b1bQDtqQcsdPNwQ4spiLRGOLH8eMuZZ+o6x7qKx0XV8=;
+	b=icbaalXocuKAVy/vISmRNkEKVk+IY1QpYoPviEqd4jFK/gyhy3jx4uf44A9PjUIrpy7Z
+	 vbTtQJ14yYiHvi9d0v/GjgCFku30Cb2s5AdTFapPmvrKATIv9+cGRdKPQHE93Vo+qameQ
+	 aYzlyBO1wEkvXrIcdeGJ1JBXvjPX0sPQ6tG8GdsGu1GcAs5AiAsRbAeU8P6M985BgsosK
+	 14Xtoe/0i+cmEUWvyJh02fkWz6MpSnlF0ZCIWA1+pIpmVMkEIHV2pkXzafbuMHl1t95co
+	 BPSSnO+C5hosC0pBVNU0ItyEdoDjvo7Aqs/cpsc2QXvP2HZey6WvPFQXX3qq0FMCCKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fortytwo.fr;
-	spf=pass smtp.mailfrom=fortytwo.fr;
-	dkim=pass header.d=fortytwo.fr header.i=@fortytwo.fr header.a=rsa-sha256 header.s=ovhmo5104297-selector1 header.b=U1XPlwa6;
-	arc=none smtp.remote-ip=178.33.104.224
-Received: from 16.mo550.mail-out.ovh.net (16.mo550.mail-out.ovh.net [178.33.104.224])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Jc73bQvb;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7F5606A31E
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 20:50:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C7F5606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fortytwo.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fortytwo.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71AE606A32D
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 20:50:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D71AE606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fortytwo.fr header.i=@fortytwo.fr header.a=rsa-sha256 header.s=ovhmo5104297-selector1 header.b=U1XPlwa6
-Received: from director2.ghost.mail-out.ovh.net (unknown [10.110.0.157])
-	by mo550.mail-out.ovh.net (Postfix) with ESMTP id 4j7njj08R1z5wlF
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 20:50:01 +0000 (UTC)
-Received: from ghost-submission-7ccd8bbbb6-fkvks (unknown [10.108.54.44])
-	by director2.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 5324EC0504;
-	Mon, 19 Oct 2026 20:50:00 +0000 (UTC)
-Received: from fortytwo.fr ([37.59.142.109])
-	by ghost-submission-7ccd8bbbb6-fkvks with ESMTPSA
-	id VEu4BniC1mqXTQgAMqfShQ
-	(envelope-from <thomas.nemer@fortytwo.fr>); Mon, 19 Oct 2026 20:50:00 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-109S003aced7fa9-8cdd-47b0-9b08-e2ff1db65e06,
-                    4B164670A4970DC4CA3EEE43615753EBC6495375) smtp.auth=thomas.nemer@fortytwo.fr
-X-OVh-ClientIp:95.173.222.53
-From: Thomas Nemer <thomas.nemer@fortytwo.fr>
-To: tiwai@suse.com,
-	perex@perex.cz
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thomas Nemer <thomas.nemer@fortytwo.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH] ALSA: usb-audio: Skip sample-rate read-back on PreSonus AudioBox USB
-Date: Mon, 19 Oct 2026 22:49:44 +0200
-Message-ID: <20261019204944.28302-1-thomas.nemer@fortytwo.fr>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Jc73bQvb
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:
+	From:Reply-To; bh=b1bQDtqQcsdPNwQ4spiLRGOLH8eMuZZ+o6x7qKx0XV8=; b=Jc73bQvb/NM
+	huFjjmdBfjB948fEWllaVHqzpY8FdEU+S/FLPUIgWinb7zRAw4wFtV9+/9s2TWqt2U0tzh37u8BIT
+	653ACH4ucKaD7Gf9bPUHe7Xr3L/J5NqVoOXbjkDxFL5PiIP4PGT8+wBdpuTRqG1F209AdxnZtdO80
+	IZLZ33AbDZeTPY2YJO58gXYoFg2n3Vyq/Q8GdW0Z9+K7Jhw6YffbjXeN2Y61WnUtRb06v6WkZRJNc
+	0N+3YY/Ytsf2BJtlnKXHQJshZznFygDPantBm8EVT5giinzoxBxlcwJuRFHtMXIK2K5Ae0uY3gRRW
+	Jo5xxWIMKsUDKDKWn7zMraA==;
+Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1] helo=quatroqueijos.cascardo.eti.br)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xIuJq-003rsp-Sh; Mon, 19 Oct 2026 22:50:55 +0200
+Date: Mon, 19 Oct 2026 17:50:49 -0300
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Cc: stable@vger.kernel.org, Benjamin Robin <benjamin.robin@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	syzbot+07a2e4a1a57118ef7355@syzkaller.appspotmail.com,
+	Jakub Sitnicki <jakub@cloudflare.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH 5.10.y] sock_map: avoid race between sock_map_close and
+ sk_psock_put
+Message-ID: <ataCqcYSVJfz3c-5@quatroqueijos.cascardo.eti.br>
+References: <20261019-cve-2024-39500-v1-1-e23b37e81914@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,52 +67,141 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 9401264225134745115
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: dmFkZTGjmAQVrci1F2f6mTion83iRRK4PKiNe4RxseAtO0YmJpR62k+BVtY6bj7OVCpQDxG4KbOFuqEuCDUBmwuy5yBn98wiYaRPmv7AkF7/9Otq+k/JIhoOeZofohq9Bk3fuGHzDO/S2xRf9ohivivlfQ0gFsr34TOH8V5kECRz/gqUGPDjqLM4UaJ54fEFjLguWGCKNh1YUNhkFYYl+3tsLnP5jImdwFYVRzitJFPcsYHJIlGruamiN0JeKm4l0qu99+GedDWL2af0QiuhvLZccO7fOPV5S7hXa+mMHQVJnjzlAcn+gw2S4tBzUdGbft1Dmrro8hgtdyx3uQfB/sgxCi98YtRacAD+j/YmwR7tL3O78lnflslcjyhaxND7uPEfhs965+jZCHr6faBuod6gd91CpkQwd8KpX6V3HNOrOPb0ZGFotv9z62mRLqlvZ4orpoYNFrYYxPT3Ffsip6ZwH3dBvPxdCsHxmPfz7RUKCAAMyU6X+e44IIJs9S3EBsgfBZRI7E9R2KJGM0qbwY2MBGsczkJtCfV1FHIU/xwNXbKqsmxZrLUbxnYOk7M2yDOtBFCe3xn4ZoB90n89V1rtZCu3u7UV8Mq50AG+QyrDKUI1oUcD/8D22Bi6+eJtuJ4vAD15XC4MZqqNIQGkjceVnjkO7c8tTp9fCZnu8bV85/0BXQ
-DKIM-Signature: a=rsa-sha256; bh=4fn63uVBYvxfQtH2ReBw1SF76TfWdRjqEc3mmjrw420=;
- c=relaxed/relaxed; d=fortytwo.fr; h=From; s=ovhmo5104297-selector1;
- t=1792443001; v=1;
- b=U1XPlwa6UgLvGOZaHEt7oEl4v2CsZMW6PgstShf6PzjsHZw0a3XXRKnyCyO1UZ924IZmEdK3
- Z0+amFpNzYUSFVZQq+WBhs0tbSX4xn+5BL1+RTGMJTB4QuK8mefc9ScznhM4lAMqvuA0JcoHm6G
- GzmwMvJ54YIegbFmv3wyVr98DIGZUX5JdNNicwg6VqXRb00o62jw88ENICV5rmXdXTqvE4nz4ao
- pKU3lPRZBk1dnibRr6G/TOH1gfN5RlFwhKiNwEritcpp5XVUC53L2rO/by2Pbk3GZ+0EE/TgA+F
- koZC4v+OEnbimfOv0vYU9SCi95wCqSh0zrCpHgDYgFy1g==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019-cve-2024-39500-v1-1-e23b37e81914@bootlin.com>
 
-The AudioBox USB stalls the UAC1 GET_CUR SAMPLING_FREQ request on both
-streaming endpoints. After the sample rate is set, the read-back
-verification in set_sample_rate_v1() fails and logs
+On Mon, Oct 19, 2026 at 07:16:11PM +0200, Miguel Gazquez (Schneider Electric) wrote:
+> From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> 
+> commit 4b4647add7d3c8530493f7247d11e257ee425bf0 upstream.
+> 
 
-  usb 1-3.1.2: 2:1: cannot get freq at ep 0x1
-  usb 1-3.1.2: 3:1: cannot get freq at ep 0x82
+Hi, Miguel.
 
-on each endpoint configuration until the sample_rate_read_error counter
-gives up. Set QUIRK_FLAG_GET_SAMPLE_RATE to skip the read-back on this
-device.
+Thanks for preparing this backport. You should also take a look at:
 
-Fixes: 1869c47e5d59 ("ALSA: usb-audio: Fix missing sample-rate control for PreSonus AudioBox USB")
+8259eb0e06d8 ("bpf, sockmap: Avoid using sk_socket after free when
+sending")
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Thomas Nemer <thomas.nemer@fortytwo.fr>
----
- sound/usb/quirks.c | 2 ++
- 1 file changed, 2 insertions(+)
+and
 
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 4ac4aef47d..43eea72477 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -2731,6 +2731,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
- 		   QUIRK_FLAG_ITF_USB_DSD_DAC | QUIRK_FLAG_CTL_MSG_DELAY),
- 	DEVICE_FLG(0x1901, 0x0191, /* GE B850V3 CP2114 audio interface */
- 		   QUIRK_FLAG_GET_SAMPLE_RATE),
-+	DEVICE_FLG(0x194f, 0x0301, /* PreSonus AudioBox USB */
-+		   QUIRK_FLAG_GET_SAMPLE_RATE),
- 	DEVICE_FLG(0x19f7, 0x0003, /* RODE NT-USB */
- 		   QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE),
- 	DEVICE_FLG(0x19f7, 0x0035, /* RODE NT-USB+ */
--- 
-2.56.0
+6451d58a3556 ("sockmap: Fix sk_psock_drop() race vs
+sock_map_{unhash,close,destroy}().")
 
+Specially the first one, which has also been backported all the way to
+5.15.
+
+Regards.
+Cascardo.
+
+> sk_psock_get will return NULL if the refcount of psock has gone to 0, which
+> will happen when the last call of sk_psock_put is done. However,
+> sk_psock_drop may not have finished yet, so the close callback will still
+> point to sock_map_close despite psock being NULL.
+> 
+> This can be reproduced with a thread deleting an element from the sock map,
+> while the second one creates a socket, adds it to the map and closes it.
+> 
+> That will trigger the WARN_ON_ONCE:
+> 
+> ------------[ cut here ]------------
+> WARNING: CPU: 1 PID: 7220 at net/core/sock_map.c:1701 sock_map_close+0x2a2/0x2d0 net/core/sock_map.c:1701
+> Modules linked in:
+> CPU: 1 PID: 7220 Comm: syz-executor380 Not tainted 6.9.0-syzkaller-07726-g3c999d1ae3c7 #0
+> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 04/02/2024
+> RIP: 0010:sock_map_close+0x2a2/0x2d0 net/core/sock_map.c:1701
+> Code: df e8 92 29 88 f8 48 8b 1b 48 89 d8 48 c1 e8 03 42 80 3c 20 00 74 08 48 89 df e8 79 29 88 f8 4c 8b 23 eb 89 e8 4f 15 23 f8 90 <0f> 0b 90 48 83 c4 08 5b 41 5c 41 5d 41 5e 41 5f 5d e9 13 26 3d 02
+> RSP: 0018:ffffc9000441fda8 EFLAGS: 00010293
+> RAX: ffffffff89731ae1 RBX: ffffffff94b87540 RCX: ffff888029470000
+> RDX: 0000000000000000 RSI: ffffffff8bcab5c0 RDI: ffffffff8c1faba0
+> RBP: 0000000000000000 R08: ffffffff92f9b61f R09: 1ffffffff25f36c3
+> R10: dffffc0000000000 R11: fffffbfff25f36c4 R12: ffffffff89731840
+> R13: ffff88804b587000 R14: ffff88804b587000 R15: ffffffff89731870
+> FS:  000055555e080380(0000) GS:ffff8880b9500000(0000) knlGS:0000000000000000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: 0000000000000000 CR3: 00000000207d4000 CR4: 0000000000350ef0
+> Call Trace:
+>  <TASK>
+>  unix_release+0x87/0xc0 net/unix/af_unix.c:1048
+>  __sock_release net/socket.c:659 [inline]
+>  sock_close+0xbe/0x240 net/socket.c:1421
+>  __fput+0x42b/0x8a0 fs/file_table.c:422
+>  __do_sys_close fs/open.c:1556 [inline]
+>  __se_sys_close fs/open.c:1541 [inline]
+>  __x64_sys_close+0x7f/0x110 fs/open.c:1541
+>  do_syscall_x64 arch/x86/entry/common.c:52 [inline]
+>  do_syscall_64+0xf5/0x240 arch/x86/entry/common.c:83
+>  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> RIP: 0033:0x7fb37d618070
+> Code: 00 00 48 c7 c2 b8 ff ff ff f7 d8 64 89 02 b8 ff ff ff ff eb d4 e8 10 2c 00 00 80 3d 31 f0 07 00 00 74 17 b8 03 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 48 c3 0f 1f 80 00 00 00 00 48 83 ec 18 89 7c
+> RSP: 002b:00007ffcd4a525d8 EFLAGS: 00000202 ORIG_RAX: 0000000000000003
+> RAX: ffffffffffffffda RBX: 0000000000000005 RCX: 00007fb37d618070
+> RDX: 0000000000000010 RSI: 00000000200001c0 RDI: 0000000000000004
+> RBP: 0000000000000000 R08: 0000000100000000 R09: 0000000100000000
+> R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000000
+> R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+>  </TASK>
+> 
+> Use sk_psock, which will only check that the pointer is not been set to
+> NULL yet, which should only happen after the callbacks are restored. If,
+> then, a reference can still be gotten, we may call sk_psock_stop and cancel
+> psock->work.
+> 
+> As suggested by Paolo Abeni, reorder the condition so the control flow is
+> less convoluted.
+> 
+> After that change, the reproducer does not trigger the WARN_ON_ONCE
+> anymore.
+> 
+> Suggested-by: Paolo Abeni <pabeni@redhat.com>
+> Reported-by: syzbot+07a2e4a1a57118ef7355@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=07a2e4a1a57118ef7355
+> Fixes: aadb2bb83ff7 ("sock_map: Fix a potential use-after-free in sock_map_close()")
+> Fixes: 5b4a79ba65a1 ("bpf, sockmap: Don't let sock_map_{close,destroy,unhash} call itself")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> Acked-by: Jakub Sitnicki <jakub@cloudflare.com>
+> Link: https://lore.kernel.org/r/20240524144702.1178377-1-cascardo@igalia.com
+> Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+> ---
+>  net/core/sock_map.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/net/core/sock_map.c b/net/core/sock_map.c
+> index 438bbef5ff75..1aa4eafdd7ea 100644
+> --- a/net/core/sock_map.c
+> +++ b/net/core/sock_map.c
+> @@ -1601,13 +1601,17 @@ void sock_map_close(struct sock *sk, long timeout)
+>  	lock_sock(sk);
+>  	rcu_read_lock();
+>  	psock = sk_psock(sk);
+> -	if (unlikely(!psock)) {
+> +	if (likely(psock)) {
+> +		saved_close = psock->saved_close;
+> +		sock_map_remove_links(sk, psock);
+> +		psock = sk_psock_get(sk);
+> +		if (unlikely(!psock))
+> +			goto no_psock;
+>  		rcu_read_unlock();
+>  		release_sock(sk);
+> -		saved_close = READ_ONCE(sk->sk_prot)->close;
+>  	} else {
+> -		saved_close = psock->saved_close;
+> -		sock_map_remove_links(sk, psock);
+> +		saved_close = READ_ONCE(sk->sk_prot)->close;
+> +no_psock:
+>  		rcu_read_unlock();
+>  		release_sock(sk);
+>  	}
+> 
+> ---
+> base-commit: aca95a35f1bcc0626c4fa4d1252bf2d4c990a1a2
+> change-id: 20261019-cve-2024-39500-76e106088d45
+> 
+> Best regards,
+> --  
+> Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+> 
