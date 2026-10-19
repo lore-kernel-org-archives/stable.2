@@ -1,96 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792438625;
-	b=qYYicCrqlYauzOi/65fh3lHt9kgW2hnV3kym8HXDycLG2CqJf/pDF29T1Lzl8WWekxju
-	 Cp7c6muiH8YKklqwHB2Jqo1/UNeMYaFD/Uv4BlQQfe0U64/nbFEpDjoCxZ1f61HJJpQgF
-	 xk8+FM9ESNhF1z39NFQOyik/5if7vKiC9C5T5mEK85ZeOnkUyuWWXNShrpA5Zcxt2bflo
-	 KMg2fad8c/vSeH/WhFJ0Kpk/j4esJNBB66xUKYL5qmXQBJ4cBzx9ncNlpY1h9mJvsMNk5
-	 BDcKz4KUKpmsnn7NefNWll+buneHdNiiV1/wA9O9SjRJ07q9vC7Bt+lQTkvUs9z/V9A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792438625;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=FvmBdp1Dmbv2yJxDADj49tSTGQ/TMgCg8VxwxHkXYlo=;
-	b=5FV0uPmCLcD8dhIyYuq0PQnCC3l/xZNBO23W6VxlvZIw0maC6aUYrxhiVUZKGyRX0jQg
-	 kCg20c2mOvQgv4y4PxTy8lPfsVT1OX1wRfZVsL56fTAzH+HJlZ4uwx5eXACP7iFybH9LO
-	 iFwKrv0n9p4ngr3QepZsMGW3WG5/cfgBUSvflyTbdYg5NQHbDWASKOtNc58KYv6cLfG+K
-	 RAtfp/xJoXQ/8+o4kJ+1oI6ThhS5AAyhfw3nehKS75Eu9XWQp+DTPf9jQyQ6wqpUQWE4K
-	 zY9rwQo5/RNgtotCEwsPB/rSR0GDXWmbpxZ3r88ekslu+QqXKzFFAb9GYZIcnBKuLqg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jw5RywPK;
-	arc=none smtp.remote-ip=209.85.217.50
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792439501;
+	b=YNdfRuIXN1YoaubP2rt5hYc2ozgToI9xhyt1XNxzXBIoG8t6o2c4ge/NeqZ0UstqIgo4
+	 DW5oCZGt8qtH2D4Ugvr9+DcbwP+W6XFYlrGQGvTDOPpIWlRYb+nQ6Ufko9PvVXwSwxd2s
+	 INCdssrGQlnVhplUFodOZ+0kRRW2iVrnuNAncv1q+nWUfQYzRTlaX0joF9GCXSvxaYbIv
+	 1uCwZclJP8ulA8lYeGd7kQNB3fmYHS1kr2GGRUIQCQDEenbZY5p3fdEck8DpCdS6rk1wD
+	 vmCMErZA1Cs0T/47cW8JY4BUybBR9aItc54pc2jnn9zFIjjrRgsiwN17I6ByhDtTLUQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792439501;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:Cc:To:
+	 From:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=+t4f561lekgR8pp0icghWU3Lv2nfooJktVtw7jLUM/4=;
+	b=e2zljijYSW1EAxlaNR8MYOFfARKKY5lsi+zQ2eLlaIfRQ2iniW0nq7VY08RbqeFsz/Gw
+	 SdAzRyFbt7B3KYwmCypvD8eJ49HO04S+c/PpbXgWm9zJzXZyIUemkvGB6xkgwKHNu5GSe
+	 YwsRuj/Cjye4ZMcbnrMmKfoDGjUPyqXNEQtTRrjpXR9wSWl3Twoh98VnA78xCKosHgCj1
+	 YNBgTE/mdqmjjAe4akGudvUZvoK+l+1RelAYeh4fLN1UaNwufLSHtrT6aTECQUm19l4so
+	 9p68OGTfuEjT+HYo2DwS08D9kEKrueaCiAhDwBOvPoHoqHbZZqvhsptV5VHYYSAI+tA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=fnYf8EPf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.49
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012049.outbound.protection.outlook.com [40.93.195.49])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC7A606A331
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 19:37:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBC7A606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34BAC606A319;
+	Mon, 19 Oct 2026 19:51:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34BAC606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jw5RywPK
-Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-7cc0fb88c90so70552137.3
-        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 12:37:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792438624; x=1793043424; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FvmBdp1Dmbv2yJxDADj49tSTGQ/TMgCg8VxwxHkXYlo=;
-        b=jw5RywPKPKu5GRuRcgskbWzYFCcD0g5ucpK/qpfpLuQnp1pSH1ynMYoeytWy48VM4k
-         suzFSX1RFLmCUJgW99Iynkwr4NE5nZtOuGbuBZ1GGdBE/QAsaWm4C8v1WVfTMeTEISFf
-         xqlXdHqwHYInPfjieQqVTCq2gdk4mlEqNuEiPo8oZLqmvY3sZiumaBaqNK3ZbeEPDeAa
-         vgVsgV4hVrmK4EL2oE64PxVWLGFXBTNcSNiLsQjX8OrL5PhKfpOKbzS93DG/nlvJx1RQ
-         UQ7E841Ph1Nv377dSka7PzCTVAM1Ib3FDg6lUs1St2SkzifXXjNFjEVEf4emzEtnEino
-         F2bA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792438624; x=1793043424;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FvmBdp1Dmbv2yJxDADj49tSTGQ/TMgCg8VxwxHkXYlo=;
-        b=KzdzZiPlgl8QRrHncRqnWbUmInfLbsxdxLBENehGIiF4vPvg+q61l5DzozLIW+3hBO
-         +FOtMccVac4k5viQSntr0+W8wvpHb8hvJuWeEpjAMShfK8lNILWyI4u+BSxy4VlPYKmo
-         apP3OqPW9D3iM9WHrV/XEeu15rnRWORXkt4NvFf02oDuhMQU83hGnHLWxfVmy6bBFmAN
-         znNDfpolwSJDdg2+kahoKR8KOJYKQzL05fR9Xa/F0/YCcDoDuzQOKbTqyGw/UwG5t4Ht
-         qCyLSOIoiK7brWLPf2MUSsM0jh+USLLp/MqXydqf9rFY7kIhvq/O5MfN5K/lQ9BblC4f
-         GbPw==
-X-Forwarded-Encrypted: i=1; AKwUvByLy0EPGITMiJSt/+LFp5bcE92vUOhyL3BTdkOmdoLSvr1o9L581rgwrdXsWsx+SuqblYnte7A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7DeYD1aVVT+kc57W7GAUZpDA9E3gLaxDVV2HanvnTPDwUX2H6
-	lZK5/o4GXeVMANh1TI1VcUF//lXWeZ3Li8bBtpohYDX+TMPZkuAtRji4
-X-Gm-Gg: AYBFou31x0SibnD9HNQTgOLgs6uqKqNBlhLCP5WBRGQXypVHUEZEMSiuDtW1+XmYwfK
-	wqahlDAwdQN7eRXbUFTJOTvuSpziLegjL1hFNJtZAiSZbMvXRHTWn68ZhtUb7R95jsjP8Pz76g5
-	GQsMV+jjHnKdZAfOIWeQUsmMGrec5X1g+zFbY+dUjWpSK5i9vun4KDO9/7FWz5KW0L/BjRgBLxF
-	0wb6nVavvLvrApR+MGMplN6GCV7ze7Y6VdCoLriP66cVkErERsiMVErMXi7eVj2OSM5VhBORSsU
-	v9Cq+qgGq7HJ7mEXI3Lo6PgQbAn7w5laNyLKj+UOCAabgKcBcS7xSDhgKdUIyWvrMKbrdsBZSR+
-	kHz4rNXhT2xgh0Y4bj2DrDFJMj/0V27BlIuMA86J8OpS7Bu4jZ59ae/Ha0hi+yvrkmMgawNJGsD
-	jaq0L+HzXD7DtdXgqYIQadmcHdFx/rWVDp9AWJkmU92z7utcaMAOaJhGYIqlyeOKrRQbw/wPzXK
-	SFjY+6lON+pC3GbfSgOfoXxlM61jkgtumk1FYv2LVJh+Vwi5uOlISwQ8FDYP/BUXXC2wMYSOqIR
-	D9/cRKaOWO2VHqdrlds=
-X-Received: by 2002:a05:6102:1624:b0:7c3:99a3:314e with SMTP id ada2fe7eead31-7cc364a294amr1425709137.0.1792438623550;
-        Mon, 19 Oct 2026 12:37:03 -0700 (PDT)
-Received: from localhost.localdomain ([132.170.205.109])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990bb335be9sm1057850241.3.2026.10.19.12.37.02
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 19 Oct 2026 12:37:03 -0700 (PDT)
-From: Sanan Hasanov <sanan.hasanou@gmail.com>
-To: Song Liu <song@kernel.org>,
-	Yu Kuai <yukuai@fygo.io>
-Cc: Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+0b672810a475890d3636@syzkaller.appspotmail.com,
-	Sanan Hasanov <sanan.hasanov@ucf.edu>,
-	stable@vger.kernel.org
-Subject: [PATCH] md: don't allow changing the personality of a failed array
-Date: Mon, 19 Oct 2026 15:36:59 -0400
-Message-ID: <20261019193659.31381-1-sanan.hasanou@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=fnYf8EPf
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=u9FIl0zgdG7JzsvVeRMtK0jVXIML99M70TiP/kt2w7u9N1T4dxVcAuPFgb4ryUIEaDR6gkKzDuQxHLDwQpfoNwlMoNtqm1shQApAl1iu51Vr4QGh7yMh5YoX/l3rfe6T/bUhCKbN4HT7MOMgQVwCShDpmXA19KvvY8X7x3QDT3E+mgHPuBUHRK5/nxU+C7UvBsopfQX1D+lptIY7JzxjPdnRRz1MSVQRgO7yrGI5A80GqjIbMmk5rtkv/71US0iaO8e7AIUGEhYeOI0bTtqQ4uk9RsGHRy6Eke1ZQXqbmF9E2naqXhqz3ZydhxsUV5nSlBk5Of6muI/BO6WI99QWXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+t4f561lekgR8pp0icghWU3Lv2nfooJktVtw7jLUM/4=;
+ b=wuz+yOI+dn9h+dmRMLjwtgsyZV2FUYjEJPlaRlk+f6D5EiBgHasgCx7R20EC3boU45vDseLaXRBGHYVpmZJ7RPXSbISrTMpM7YkzURI+Opwck1KxodVeLFrGly/+yIDKkBXY6QeQZ1H5+gJaSSCu2HjxSvElqLt3tT/03S2VavxmmimAkyn6w+LGQafqJLurIyWpzVUyywoIln3MAs8le1hMOTP3389wIGJDMFAk7+mOkupTpqpOcyFwUitSmqXwlMkOSlIpjDcqjcMG3ORDnC9ZAt++JqaAM2qH0CEs1DhvPSMVwXKfPfWdQsGvNcw47jCmc+64cIBVyklYY9TZNw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+t4f561lekgR8pp0icghWU3Lv2nfooJktVtw7jLUM/4=;
+ b=fnYf8EPfHGKndwWw4tVX/fExXemyzMzb0w5iMNlxDxJVLTEbBOHmZ1rSBLgvtgOGipmaFHU3Q2tQeCBYGSDyX4z95+zRCVWq9y+rVJ7Ru29lEk05r/KZ+3nH28KZmX2GP1avVhmxa7j+6LASYOHsrZdtGpJdke3MNLrtFP2ihvT9kpykibBhAMu/b0IW0cNKYtAOaRrYjMs7Tg+ZJG5a0NP38xW4+UlmGCXKGMcb+e1jDMNAAIpF1hxTFiEGvureRzDviv5KXpaK0I6cAwzMpeWJjCKOhzfQx1djCihK1dYeEWDuidFlTgsFhnxXogsfkpM/QN3kj/s78M4mjh6c/Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.19; Mon, 19 Oct 2026 19:51:29 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 19:51:29 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 19 Oct 2026 15:51:27 -0400
+Message-Id: <DM92ROTIF1U8.26CQNH7ZPEBG@nvidia.com>
+Subject: Re: [PATCH] mm/page_alloc: let the highest memory node recover from
+ hopeless state
+Cc: <linux-kernel@vger.kernel.org>, <kernel-team@meta.com>,
+ <akpm@linux-foundation.org>, <vbabka@kernel.org>, <surenb@google.com>,
+ <mhocko@suse.com>, <brendan.jackman@linux.dev>, <hannes@cmpxchg.org>,
+ <flyinrm@gmail.com>, <stable@vger.kernel.org>
+To: "Gregory Price (Meta)" <gourry@gourry.net>, <linux-mm@kvack.org>,
+ "Jiayuan Chen" <jiayuan.chen@shopee.com>
+From: "Zi Yan" <ziy@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <20261019184850.3427905-1-gourry@gourry.net>
+In-Reply-To: <20261019184850.3427905-1-gourry@gourry.net>
+X-ClientProxiedBy: YQBPR0101CA0168.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:f::11) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,72 +99,134 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DM3PR12MB9416:EE_
+X-MS-Office365-Filtering-Correlation-Id: 970c202d-0de0-4971-30b7-08df2e1a5def
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|56012099006|5023799004|11063799006|261009223027099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	WHxqES5rmCseXsmD2IbaSnUyURCr9agX3VtzxY1uJOsXJtaKtfUtczw7avrBbqbRXrcghd9hIPPZ1CVDRto98YN7BHQSn+th+8EAfzFwLaM3yCA6DOKdwseQfjnE10yy1gn7wbOFerMGTZlb7u9mdrNacd/QS++JeTi9hvhwVzH/7u+vI2tuCmHwgz1+zkWVKVuhOpU8Jijuqp3VtPDpcnWTtmHHrxeptp7XPLlusPLq5vVPkU5qIyIo4RBoAsX7hEbARdNHIkv7AiHs/18PBynXLsEw5eKse26YsuDr5PyNKf5a1Fsu8eZCUUnod9nOzVnz2hwuFPsO4/lhRY1/OUpZ5UQywPhtsgZ9UBjWO8uuupPDHkHJNd/ViMeCIAm2pAI1I/xql6dO1VdZ2m6tdWNfOyt7WPh6OJSFT4cqDaU82wTnHhokg6dMs5M5JqT2ml7NQRCz2Qnt8Kvs++2TLumz/Qlxi8QICTx37Hr5oFB8BBsg6bflC5l9ThRiBbES9lKpJF7x59UJy/5RUCJEeZd3XPh6N7556gnHkOiNlBIB+3vFa+X+L8bCJvEbUEa0fPjLzXE+5PE9b0hiX3+KQmBTasuN3Vsv9H56E0wu3Q/lPpmiHhQ17jE14KeKrhwoLLsjWAJNBCoigbCttPeyoqeeyUB1Pjv4qcmngC9/XXA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(56012099006)(5023799004)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cXpzbXM2Vmh0MjBQcUMwYU9ZRGhGd0VJdm1YNEdpRWptak9OaEd4S1JlOUVB?=
+ =?utf-8?B?UzBjM2I4QVZxZ3NzNTJEYzFZQWpMZ21TVFNKVDFtZHM3aGZNTmVyRWxtTFhn?=
+ =?utf-8?B?NDYvOGdKRDZVT3psM24rUVlUNDM3OCtjdElGaWprdFdUK3hyRUtuNUZKRjVO?=
+ =?utf-8?B?b2Q2NmFhMzREY3I0N3JWNTYvZ0ZWOURNcVlXZnluS05pTXlHQWZHSWFPUno1?=
+ =?utf-8?B?U2wvakNRQW9pSFNnaXl6dDR4UXRNYmNubmp6Qy90b3VBdXBmZm1Wam8xREND?=
+ =?utf-8?B?UDRrZTNNWVQySGV2ei9mcVVzNzIwWitFM0lxcHJOc0JGS0gyQWNMWDFmek9R?=
+ =?utf-8?B?TVBYZ0VMa0liQmFBRG1XTlQ4VnlVcGxBOHlUSS9TR1dEajlFYUdDbnJNQnRK?=
+ =?utf-8?B?OVFuNklxcEpZcEVnazlkaklVa1hVZzdsWUxxN0ZEZStuN1BFenJEdXlWNDVD?=
+ =?utf-8?B?RFhSOU5pVW81ZUZyaG5RWWZBME8vRHVJcDJuN2htUElMU0tsMzdFdmQ1TFh6?=
+ =?utf-8?B?ZUpuR0pkWXJsaEcyZWIwQVVkb2Y0cFllV0J6QVR3OS9qenJieU05OTNkVnUx?=
+ =?utf-8?B?eGIydjgyNVRObDJidUlVdkdNQ0VhUkFnZW5oRDM3T3F6NmI2aHpDZlpCcG11?=
+ =?utf-8?B?ZWJMYU1EeEFudWE4VWdjYlJDem5oWWY4VU51MHNiN0JNWHF2Ym1vbkdOdU53?=
+ =?utf-8?B?RXVnbklpMXV2VWErYXRualUrR1c5YUtaK2U2RllTdGtvZ2RFU2traHFTRFdV?=
+ =?utf-8?B?NWxXSTVQVUdCMk1vODhROEVocjg1TWZ6VnVOdVh2QUxucFppSzB6ZDVrcW5m?=
+ =?utf-8?B?eW55SGluOHZaNHg3L3gvVnVRMWxEMjZqQkFPNWNWR1hUZC85Vzl4ZVpzTmp0?=
+ =?utf-8?B?ZG0yanVDUkwyTUhyQURhYVhYcXV3VFVxQkpSaEgyWnVEYzI4enludDAzeG1B?=
+ =?utf-8?B?RFBvMjFzWlJPRXdxYzJFOUxBeUM5WkN6T1drTnB2WXVuVmNiczhmUEZkSEVF?=
+ =?utf-8?B?amk3UEhnc1pPSzFoTi9oeEd4ODdjN2tYSGg3d3ROQVBLVUZ2MDNRVWtCdXdI?=
+ =?utf-8?B?SE90ZlNwVHJvSGtXanZwL2IwTzlXVUhob2krRGVDMGNybEJtTGQwd0Izb0Yx?=
+ =?utf-8?B?WjJmZU1FUkFsQm5PVUFyQzQxUU0yNzZORWRScVV2akJUQXRQR3l4NWM1YzZj?=
+ =?utf-8?B?TGlKb2oySi95RW9rN1RUcmhqd3V1OWZFcllrMzVvbjNHZVMvL0VKb2MyMm81?=
+ =?utf-8?B?OTQ3WGRrVDRjWkRldkxTT0dUek9IWlBHR2dIQnI0MmtVQ1ZrM3FWMkw1c2V2?=
+ =?utf-8?B?VkYzQlpKOCtNZUVJV0gzdjN0QllMRnkrSFdOcHU1azduV1ExcVAvT3V4QVRW?=
+ =?utf-8?B?d1Q0SjZHT3VCVEVwWWRPZlU2czZ0VkJKbkhqZWtYYWlVNDJ1WHdpMGJUN01R?=
+ =?utf-8?B?RVNDem4wTjJXbWxKajh4OEZZWXFGVCtQdU1CZCs5UWtheUJOTFUwR0RXNFcr?=
+ =?utf-8?B?QlRKNlRzM05EMHh3N25UMkU3S0hoOXU3U25ERU15MXZxeGFOT05Ka291TFly?=
+ =?utf-8?B?ZUsvUWNUZ3hXSytaM2FGMm1FWUpQZ1pnTnE2M3hQTGYrTzQxak5Sd2ZNc0VG?=
+ =?utf-8?B?Z3Y3MnZ6M1hBS3FLcWR4VnkzS1QzT1FRcHA1YVJ0UGtIMStsTUZ1bEE0bDQz?=
+ =?utf-8?B?ZTZ3SWtkb0RYMmZPdzdWUzRBQnlPbHpsbjJWSzcrcVhNZWNXbVlzcyt1Y0ZZ?=
+ =?utf-8?B?RDkra2FuR0RDcUowNm42cStTeWl5NDhFTzBaZytpejVRNGNBaGZGOVNWUzZm?=
+ =?utf-8?B?a28zcEp5L2lpN3dENXE1UXJlc29jTFU0Z242U09VSW56K3V0Wmx6N1VGZURm?=
+ =?utf-8?B?eCtDdmJnc3M3VnI2bTdZdFhscStpR0ErTnlISXplMEdmdC9JaEJLQ2RFdWdn?=
+ =?utf-8?B?OE1LdE1FMkpwSUNoeUEyOGdFQ0VsODJoQ1Z1UUNOSGR2bHhVRkZNRUNJVUY3?=
+ =?utf-8?B?MkQxb3k2T2FUQXVaSEJIM1o2UkRKcytlUkd2MGxkMnhOL1dlK1o0d0FNRHh5?=
+ =?utf-8?B?R2RldzBRQ2dvdEhSR0h6T1JRUGxVd3I5YTJDcTkwemIvd2lzQTVjKzZRV1dZ?=
+ =?utf-8?B?amd4SXkweDBvNVd4dmNpVVo4NHlVMjJwaTRQRFJPa3YrNi9hRklSd3Q5OHJT?=
+ =?utf-8?B?STVaQ2FVSlJXVnllb2t5empwYXhjZ2NuZ0pVTU8vd2VpT1RPYWF6Y0pSb29k?=
+ =?utf-8?B?TWtpOTdQT2hNSncwemdvZ0xINUkrOGdWVzg3VDVVd3NGM0hZWExvNmdXZ0c2?=
+ =?utf-8?Q?IxJBvJpicJobo5f+Pr?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 970c202d-0de0-4971-30b7-08df2e1a5def
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 19:51:29.1288
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: et95we2RwFu1drK3eJXTsC1PZr0ATJtM10JMvQ3GePFhLU5XBIVcRrTh3UvTTB+q
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9416
 
-From: Sanan Hasanov <sanan.hasanov@ucf.edu>
+On Mon Oct 19, 2026 at 2:48 PM EDT, Gregory Price (Meta) wrote:
+> free_frozen_page_commit() clears a hopeless node's kswapd failures once
+> its zone recovers above the high watermark, but only if another memory
+> node exists for allocations to fall back to.
+>
+> The test `next_memory_node(nid) < MAX_NUMNODES` finds only memory nodes
+> with a higher id. The highest-numbered memory node therefore never
+> recovers on this path, and its kswapd stays disabled until reclaim on
+> that node makes progress and balances it, or demotion is re-enabled.
+>
+> In many cases, direct reclaim many never fully run against a lower
+> node (CXL/kmem), and that means its kswapd can end up full disabled
+> in rare situations.
+>
+> To reproduce, fill the highest memory node with bound, non-THP anonymous
+> memory and no swap until kswapd gives up, then free it: /proc/zoneinfo
+> keeps showing node_unreclaimable 1 for that node. A lower node recovers.
+>
+> Count the memory nodes instead. Adding first_memory_node !=3D nid to the
+> existing test would also work, but a count says directly what the check
+> means: some other memory node exists.
+>
+> Fixes: e7a5f249e6db ("mm: re-enable kswapd when memory pressure subsides =
+or demotion is toggled")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> ---
+>  mm/page_alloc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index 417c427b196d9..6d4f03faf96ee 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -2929,7 +2929,7 @@ static bool free_frozen_page_commit(struct zone *zo=
+ne,
+>  		 * kswapd work again by resetting kswapd_failures.
+>  		 */
+>  		if (kswapd_test_hopeless(pgdat) &&
+> -		    next_memory_node(pgdat->node_id) < MAX_NUMNODES)
+> +		    num_node_state(N_MEMORY) > 1)
 
-level_store() lets userspace switch a running array to another
-personality through the takeover path, and then ignores the return value
-of pers->run(). Takeover is expected to always produce something the new
-personality can run, but that no longer holds for an array that has
-already failed: since commit 57668f0a4cc4 ("raid5: introduce MD_BROKEN"),
-has_failed() treats MD_BROKEN as fatal, so raid5_run() refuses such an
-array. It then frees the new conf and clears mddev->private, while
-level_store() has already installed the raid5 personality and freed the
-old one. The array is left with mddev->pers == &raid5_personality and
-mddev->private == NULL, and the next operation that reaches the
-personality dereferences NULL:
+Why does a runtime behavior, clearing kswapd hopeless state, depend on a
+static memory topology (excluding memory hotadd/hotremove in this
+context)? There is nothing telling us if a fallback node has available memo=
+ry.
 
-  md/raid0md0: Disk failure on loop0 detected, failing array.
-  md/raid:md0: not enough operational devices (1/3 failed)
-  md/raid:md0: failed to run raid set.
-  KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
-  RIP: 0010:kasan_byte_accessible+0x12/0x30 mm/kasan/generic.c:210
-  Call Trace:
-   spin_lock_irq include/linux/spinlock_rt.h:96 [inline]
-   lock_all_device_hash_locks_irq drivers/md/raid5.c:107 [inline]
-   raid5_quiesce+0xc2/0x8a0 drivers/md/raid5.c
-   __md_stop_writes+0xeb/0x4b0 drivers/md/md.c:7038
-   md_set_readonly+0x330/0x560 drivers/md/md.c:7138
-   array_state_store+0x584/0xe90 drivers/md/md.c:4720
+Just reset it regardless. kswapd can go hopeless later if the node
+cannot be reclaimed.
 
-syzbot gets there by failing a member of a raid0 array, which sets
-MD_BROKEN, then writing "raid5" to md/level and "readonly" to
-md/array_state. The same applies to a two-disk raid1 array whose last
-working device has failed: raid1_error() sets MD_BROKEN but leaves
-degraded at 1, so raid5_takeover_raid1() still accepts it.
+BTW, LLM also points out that kswapd_try_clear_hopeless(), called by
+direct reclaim, only clears hopeless when the node is balanced, but that
+rarely happens. So hopeless state can stay much longer if there is only
+one node. Adding Jiayuna, who added kswapd_try_clear_hopeless(), to gvie
+some insight.
 
-MD_BROKEN is never cleared while the array is running, and a failed
-array can't be turned into a working one by changing its level. Refuse
-the change up front with -EBUSY, which is also what state_store()
-returns when failing a device leaves the array broken.
+>  			kswapd_clear_hopeless(pgdat, KSWAPD_CLEAR_HOPELESS_PCP);
+>  	}
+>  	return ret;
 
-Fixes: 57668f0a4cc4 ("raid5: introduce MD_BROKEN")
-Reported-by: syzbot+0b672810a475890d3636@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=0b672810a475890d3636
-Cc: stable@vger.kernel.org
-Signed-off-by: Sanan Hasanov <sanan.hasanov@ucf.edu>
----
- drivers/md/md.c | 6 ++++++
- 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 680b34a63c..367b183f1e 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -4088,6 +4088,12 @@ level_store(struct mddev *mddev, const char *buf, size_t len)
- 	    mddev->sysfs_active)
- 		goto out_unlock;
- 
-+	if (test_bit(MD_BROKEN, &mddev->flags)) {
-+		pr_warn("md: %s: cannot change personality of a failed array\n",
-+			mdname(mddev));
-+		goto out_unlock;
-+	}
-+
- 	rv = -EINVAL;
- 	if (!mddev->pers->quiesce) {
- 		pr_warn("md: %s: %s does not support online personality change\n",
--- 
-2.34.1
+
+
+--=20
+Best Regards,
+Yan, Zi
 
