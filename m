@@ -1,60 +1,77 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792445385;
-	b=Jm0CV2GRTDUPsltvuz92uaMnSYOKw6+Nz6tmsa2bAG2SEpKTAyq4T1cilvSXo2t2hgnM
-	 vSw8KhoCajj+qmxzZgLp/yD/larlF+REPj2bbO0BDJKj76QZvRU+Sc45lD/GF2j855yXy
-	 ykJxX/wEG/2X+VlCio3xh50Kpe6/Qv4p/klh5c0lq68YcFbmOmzmtXwbpkCQRX0cWiYFb
-	 w1BpqZEgEeY4dDtnvvVf3UvlE6K4FN96JRO7Wwms9Nz4YLngSPksC9vTVHY0pFDvjufwc
-	 ZI0cZ728rrMxeViflVgUNVuBrdiMc8UyxTcqs+jkIIa+evPRW9uDB4nK7qA2ddBtAww==
+	t=1792446408;
+	b=1DPdVQkq3vgv+ipbRZEI19aDHfKF38IWjYDRM34iqVSRPSAcdLIlSa9gWBqBtR/Wi741
+	 ksfYqRszLTPIIEd9xjIvp5Qt6CYC7ex+rQyQ9F5l+yrLD2i8+kkY89EZpNvZxQRSqoYpu
+	 Bl+6op/wuFB3bORv0XOZiTVJ7PSYdcvE3a5xrQAS7MOzPtqT2bF8eW6feDnwqSt4dbazY
+	 EMLQgpAeP1TRkOV+IvObV7xoevWK/EyfHdmBp1QadhlooxxrpoADIbUz/M6k7zXPk8Mu/
+	 w5gvYLsXJSXeTITkdteKvHdLpDWAJiHeaan+JZswUZV7V2bvZs1oQp4sjvlEZaPh2lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792445385;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=322oHPhgc7zYpt8HncL/bytYWXSRCTI0Z6cOYScqDVw=;
-	b=Xa1eThmlJA9FiYD9UcSPqOsZq8F1fygRnSBrlm+sqKI5B9/HweXoFfnVIPTA+oUl58qx
-	 fdMA2EZVyE/oxgLZi3m+fwze78ZBfKhNyIK5Rms+uNVnrax7YRQjuvALHK3sO6F/BXl5c
-	 cN1e7P5gcKkdZYMBr/9TwjXSRdiXSCIpPdzUvO/OF1IYUh2EsOVGJg0zblS2oc6iwekgg
-	 2OQbHMAELwR2UeXC9zC5fzRA2snta5NDfOApOWQvR2fZBrOIYzvYRBBhgbeOndRyLspe4
-	 KDT+OSyZ2gEIqne6G4MpdhjPi/X+wN6K37ZwrlasQDlyT9VXbILt31XKQWZsJkRC1tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792446408;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ZMh0iCAmhjZDg07+iXZGqb/qmaSMmikK3Gld4B4JZmI=;
+	b=3U42ioGzEsSvtN1xHPkJMb2lrzs8wJudSazcHrJ5nXSlDLmujTWXf7H7yuTfRVVs1tiT
+	 aAauPGgdvW+9RoqYyVlsNj9gX+KRJR6lGye2SLH5MEpGUCM4eWw39meOoDlCcNmP+ICsP
+	 baOJ5S18Rbkj3UjcCt2tHIm/H/3QtJIEILGjelYUQQtlImEITQCxQrscyhpomNeebXZqV
+	 ytVw6rrx5pRpmuo3fEeLu+YAawgfpoKP0BZ2uG8B/iXlbywDEk2Xq3uxxjUyAikUHbEVP
+	 fTdSHNkKs2pkQEoz+o1X/JH714YRXiicV2K4fYtrQfmtORy6XQRn/QVf3EbOFe9bIhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NQgPMAPy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MLRw0p56;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5281606A319;
-	Mon, 19 Oct 2026 21:29:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3CF606A319;
+	Mon, 19 Oct 2026 21:46:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NQgPMAPy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CC141F000C5;
-	Mon, 19 Oct 2026 21:29:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MLRw0p56
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F372B1F000C4;
+	Mon, 19 Oct 2026 21:46:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792445384;
-	bh=322oHPhgc7zYpt8HncL/bytYWXSRCTI0Z6cOYScqDVw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=NQgPMAPyeQWYtXFB4MdL4Oi/ipd0pEabdDUucJyNVBeywyWSjVzakt6CTmlW6/3Wn
-	 6S9gGSexQ4e/UrnA+JC1oJgp/aC28k52CCh17aCK6blZT2bm4T0upadOyx72YHu6rP
-	 DZgQqsJqRq1tB+ektO2C/lC0dJXBRyMZxMyKKQwtOMRsQfR7WlWvqOfL1b/XlgXB4o
-	 OHeINQvmLIa/UeP17HZA0B2+73CdEOlBeatmtS9dlc84nbjlIK7ljYLLeOZrnwNUcA
-	 n999UaSrJKZ4shuK/NhwzeR3zWvqrgnVd4HcCWwUrgGFVKMCcyp8ukIMBcBkkljiPP
-	 jl5YbFKpeG7Ig==
-Subject: Re: [PATCH net v3] net/sched: clamp skb->queue_mapping before
- indexing the tx queue
-From: netdev-bot+sashiko@kernel.org
-To: jhs@mojatatu.com
-Cc: netdev@vger.kernel.org, victor@mojatatu.com, jiri@resnulli.us,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, hawk@kernel.org, daniel@iogearbox.net,
- sashiko-bot@kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org
-Date: Mon, 19 Oct 2026 21:29:43 +0000
-Message-ID: <179244538310.3135.3763209372390556732@kernel.org>
-In-Reply-To: <QDISC-MD1X.v3.r0.20261015165943-1@mojatatu.com>
-References: <QDISC-MD1X.v3.r0.20261015165943-1@mojatatu.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1792446408;
+	bh=ZMh0iCAmhjZDg07+iXZGqb/qmaSMmikK3Gld4B4JZmI=;
+	h=From:To:Cc:Subject:Date;
+	b=MLRw0p56RTCHYs3ndbGLGg7z8qzas9EKQRXKxLMBtobIGIxXx4IHlH9PI7P0GAWsm
+	 PWBdvrRrHVNMeg9q/rKDe4sgK/UJ/dkBYaYLahu7vwGNT6Cp6ug9RiadqWjPgp5NiA
+	 hGlj3I3ozZ8gOm+ExBIBm6OwWzVFoJnRHck++v4sRIalGpDDHsnaX6gnd6MM8APRDq
+	 EDPRkWh7uHn5ONmUmyZU8JNPBvx3Z33yDMNApXnooBDDmUl0WqO0PwnftvAcSfz/rH
+	 vGnPuORqalJowiqLL8GU4r0oxf2Goe9gqa7Oa+8yqd+ipktAIW3zyexgTTVJXAS5Dl
+	 nDSnVhwtbSj7g==
+From: Yosry Ahmed <yosry@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Jim Mattson <jmattson@google.com>,
+	Kevin Cheng <chengkev@google.com>,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	david@kernel.org,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	David Laight <david.laight.linux@gmail.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Luiz Capitulino <luizcap@redhat.com>,
+	Matt Fleming <matt@readmodwrite.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Rik van Riel <riel@surriel.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Tal Zussman <tz2294@columbia.edu>,
+	andrew.cooper3@citrix.com,
+	gregkh@linuxfoundation.org,
+	sashal@kernel.org,
+	Yosry Ahmed <yosry.ahmed@linux.dev>,
+	Nikola Ciprich <nikola.ciprich@linuxbox.cz>,
+	Yosry Ahmed <yosry@kernel.org>
+Subject: [PATCH 6.18.y] KVM: SVM: Stop toggling virtual VMSAVE/VMLOAD on intercept recalc
+Date: Mon, 19 Oct 2026 21:46:11 +0000
+Message-ID: <20261019214611.404880-1-yosry@kernel.org>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,185 +81,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+From: Yosry Ahmed <yosry.ahmed@linux.dev>
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0
+[ Upstream commit 55780d8a1dcc93d2c4b33c565ada88df12c9f206 ]
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Virtual VMSAVE/VMLOAD enablement (i.e.
+VIRTUAL_VMLOAD_VMSAVE_ENABLE_MASK) is set/cleared by
+svm_recalc_instruction_intercepts() when the intercepts are cleared/set.
+This is unnecessary because the bit is meaningless when intercepts are
+set and KVM emulates the instructions. Initialize the bit in vmcb01 base
+on vls, and keep it unchanged.
 
-- [Medium] net/sched/sch_generic.c, try_bulk_dequeue_skb(): the patch
-  adds a new requeue of a mismatched follower to q->skb_bad_txq in the…
-- [Medium] net/sched/sch_generic.c, qdisc_cap_skb_tx_queue(): an out-of-
-  range queue_mapping is sent to device queue 0 through…
+This is similar-ish to how vGIF is handled. It is enabled in init_vmcb()
+if vgif=1 and remains unchanged when the STGI intercept is enabled (e.g.
+for NMI windows).
 
---
+This fixes a bug in svm_recalc_instruction_intercepts(). The intercepts
+for VMSAVE/VMLOAD are always toggled in vmcb01, but
+VIRTUAL_VMLOAD_VMSAVE_ENABLE_MASK is toggled in the current VMCB, which
+could be vmcb02 instead of vmcb01 if L2 is active.
 
-net/sched: clamp skb->queue_mapping before indexing the tx queue
+Virtual VMSAVE/VMLOAD enablement in vmcb02 is separately controlled by
+nested_vmcb02_prepare_control() based on the vCPU features and VMCB12,
+and if intercepts are needed they are set by recalc_intercepts().
 
-A tc BPF program on an egress qdisc can store an out-of-range value in
-skb->queue_mapping after netdev_core_pick_tx() has already picked the
-queue. This patch caps that value against real_num_tx_queues on the qdisc
-dequeue side. The head is capped in dequeue_skb(), and both bulk helpers
-cap each follower and requeue it to skb_bad_txq if it no longer matches
-the head.
+The bug is benign though. Not toggling the bit for vmcb01 is harmless
+because it's useless anyway. For vmcb02:
 
-Closes: https://lore.kernel.org/netdev/179033713973.2160803.4914570693994398206@kernel.org/
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-9R8V.v2.20260924072708%40mojatatu.com
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-MD1X.v1.20261005193231%40mojatatu.com
-Link: https://lore.kernel.org/netdev/20261015125822.GH83879@horms.kernel.org/
+- The bit could be incorrectly cleared when intercepts are set in
+  vmcb01. This is harmless because VMSAVE/VMLOAD will be emulated by KVM
+  anyway.
 
-> diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
-> index 6f6a6f0d5eb0d..6b548099b55d8 100644
-> --- a/net/sched/sch_generic.c
-> +++ b/net/sched/sch_generic.c
-> @@ -96,9 +96,31 @@ static void qdisc_maybe_clear_missed(struct Qdisc *q,
->  
->  #define SKB_XOFF_MAGIC ((struct sk_buff *)1UL)
->  
-> +/* A tc BPF program on a transmit qdisc can change __sk_buff->queue_mapping
-> + * after the tx queue was picked. Re-cap it against the device and write it
-> + * back, so a driver that re-reads skb_get_queue_mapping() stays in range.
-> + */
-> +static u16 qdisc_cap_skb_tx_queue(struct net_device *dev, struct sk_buff *skb)
-> +{
-> +	u16 queue = skb_get_queue_mapping(skb);
-> +	u16 capped;
-> +
-> +	capped = netdev_cap_txqueue(dev, queue);
-> +	if (unlikely(capped != queue))
-> +		skb_set_queue_mapping(skb, capped);
-> +
-> +	return capped;
-> +}
+- The bit could be incorrectly set when the intercepts are cleared in
+  vmcb01. However, if the bit was originally clear in vmcb02, then
+  recalc_intercepts() will enable in the intercepts in vmcb02 anyway and
+  VMSAVE/VMLOAD will be emulated by KVM.
 
-[Severity: Medium]
+Signed-off-by: Yosry Ahmed <yosry.ahmed@linux.dev>
+Link: https://patch.msgid.link/20260110004821.3411245-3-yosry.ahmed@linux.dev
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Fixes: 5a1a726e68ff ("KVM: x86: Use KVM_REQ_RECALC_INTERCEPTS to react to CPUID updates")
+Reported-by: Nikola Ciprich <nikola.ciprich@linuxbox.cz>
+Closes: https://lore.kernel.org/linux-mm/arY1Wq6R9OY20ans@pcnci.linuxbox.cz/
+Tested-by: Nikola Ciprich <nikola.ciprich@linuxbox.cz>
+[ yosry: The bug is not benign. Since 5a1a726e68ff, a vCPU restored into
+  L2 (e.g. on live migration) recalculates intercepts with vmcb02
+  loaded, leaving vmcb01 with neither VMLOAD/VMSAVE intercepts nor
+  virtual VMLOAD/VMSAVE, so L1's VMLOAD/VMSAVE corrupt host memory. ]
+Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+---
+ arch/x86/kvm/svm/svm.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-Does sending an out-of-range mapping to queue 0 here break the assumption
-documented for TCQ_F_ONETXQUEUE per-queue children (mq, mqprio, taprio,
-htb offload)?
-
-include/net/sch_generic.h:
-#define TCQ_F_ONETXQUEUE	0x10 /* dequeue_skb() can assume all skbs are for
-				      * q->dev_queue : It can test
-				      * netif_xmit_frozen_or_stopped() before
-				      * dequeueing next packet.
-				      * Its true for MQ/MQPRIO slaves, or non
-				      * multiqueue device.
-
-Say a filter on the child attached to txq i (i != 0) stores a
-queue_mapping >= real_num_tx_queues. The head is then rewritten to 0
-here.
-
-dequeue_skb() still uses q->dev_queue in three places: the ONETXQUEUE
-frozen check, the BQL limit passed to try_bulk_dequeue_skb(), and
-trace_qdisc_dequeue(). qdisc_restart(), though, transmits on
-skb_get_tx_queue(dev, skb), which is txq 0.
-
-If txq 0 is stopped at that point, sch_direct_xmit()->dev_requeue_skb()
-puts the list on q->gso_skb. The gso_skb path in dequeue_skb() then
-returns NULL for as long as txq 0 is frozen. When txq 0 wakes:
-
-net/core/dev.c:netif_tx_wake_queue() {
-    ...
-	q = rcu_dereference(dev_queue->qdisc);
-	__netif_schedule(q);
-    ...
-}
-
-this schedules child 0, not q. Can q then stay idle until another packet
-is enqueued to it?
-
-Capping to 0 is consistent in netdev_core_pick_tx(), because the qdisc
-is then taken from txq 0. Here the qdisc has already been chosen.
-
-For ONETXQUEUE qdiscs, would capping to q->dev_queue's index keep the
-documented invariant and avoid this?
-
-> +
-> +static struct netdev_queue *skb_cap_tx_queue(struct net_device *dev,
-> +					     struct sk_buff *skb)
-> +{
-> +	return netdev_get_tx_queue(dev, qdisc_cap_skb_tx_queue(dev, skb));
-> +}
-> +
-
-[ ... ]
-
-> @@ -208,6 +231,7 @@ static void try_bulk_dequeue_skb(struct Qdisc *q,
->  				 int *packets, int budget)
->  {
->  	int bytelimit = qdisc_avail_bulklimit(txq) - skb->len;
-> +	struct net_device *dev = qdisc_dev(q);
->  	int cnt = 0;
->  
->  	while (bytelimit > 0) {
-> @@ -216,6 +240,15 @@ static void try_bulk_dequeue_skb(struct Qdisc *q,
->  		if (!nskb)
->  			break;
->  
-> +		/* Re-cap a mapping changed after pick; requeue a
-> +		 * follower that no longer matches the head, which owns
-> +		 * the _xmit_lock for the whole list.
-> +		 */
-> +		if (unlikely(qdisc_cap_skb_tx_queue(dev, nskb) !=
-> +			     skb_get_queue_mapping(skb))) {
-> +			qdisc_enqueue_skb_bad_txq(q, nskb);
-> +			break;
-> +		}
-
-[Severity: Medium]
-
-Can this stall a per-queue child qdisc of mq, mqprio, taprio offload or
-htb offload on a multiqueue BQL device?
-
-A follower can fail to match the head here in two ways. A filter on the
-child (BPF, or act_skbedit queue_mapping) can set a valid queue X that
-differs from the head's queue Y. Or an out-of-range value can be capped
-to 0 by qdisc_cap_skb_tx_queue() while the head maps to another queue.
-
-In both cases the follower is parked on q->skb_bad_txq, and nothing
-reschedules q or sets the MISSED bit. On the next dequeue_skb(), the
-ONETXQUEUE check only looks at q->dev_queue (Y), which is running. If X
-is stopped:
-
-dequeue_skb()
-  qdisc_dequeue_skb_bad_txq()
-    __skb_dequeue_bad_txq()
-      txq = skb_cap_tx_queue(qdisc_dev(q), skb);   /* X, stopped */
-      skb = SKB_XOFF_MAGIC;
-      qdisc_maybe_clear_missed(q, txq);
-  if (skb == SKB_XOFF_MAGIC)
-      return NULL;
-
-So q->dequeue() is never called. All of q's backlog then waits behind
-the parked skb, including traffic for q's own running txq Y.
-
-When X wakes, netif_tx_wake_queue() schedules rcu_dereference(X->qdisc).
-mq_attach() grafted X's own child there, not q, and Y never stopped.
-
-Does anything reschedule q before a new packet is enqueued to it?
-
-The commit message says the fast helper must requeue a mismatch:
-
-    exactly as the slow helper already does
-
-The slow helper only runs for non-ONETXQUEUE root qdiscs. There every
-txq->qdisc is q, so a wake on any queue reschedules q.
-
-Does that reasoning carry over to per-queue children, where a wake on X
-cannot reach the child attached to Y?
-
->  		bytelimit -= nskb->len; /* covers GSO len */
->  		skb->next = nskb;
->  		skb = nskb;
-
-[ ... ]
-
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index 335b214aa3711..5f3c6d7974fb9 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -981,10 +981,14 @@ static void svm_recalc_instruction_intercepts(struct kvm_vcpu *vcpu)
+ 			svm_set_intercept(svm, INTERCEPT_RDTSCP);
+ 	}
+ 
++	/*
++	 * No need to toggle VIRTUAL_VMLOAD_VMSAVE_ENABLE_MASK here, it is
++	 * always set if vls is enabled. If the intercepts are set, the bit is
++	 * meaningless anyway.
++	 */
+ 	if (guest_cpuid_is_intel_compatible(vcpu)) {
+ 		svm_set_intercept(svm, INTERCEPT_VMLOAD);
+ 		svm_set_intercept(svm, INTERCEPT_VMSAVE);
+-		svm->vmcb->control.virt_ext &= ~VIRTUAL_VMLOAD_VMSAVE_ENABLE_MASK;
+ 	} else {
+ 		/*
+ 		 * If hardware supports Virtual VMLOAD VMSAVE then enable it
+@@ -993,7 +997,6 @@ static void svm_recalc_instruction_intercepts(struct kvm_vcpu *vcpu)
+ 		if (vls) {
+ 			svm_clr_intercept(svm, INTERCEPT_VMLOAD);
+ 			svm_clr_intercept(svm, INTERCEPT_VMSAVE);
+-			svm->vmcb->control.virt_ext |= VIRTUAL_VMLOAD_VMSAVE_ENABLE_MASK;
+ 		}
+ 	}
+ }
+@@ -1137,6 +1140,9 @@ static void init_vmcb(struct kvm_vcpu *vcpu, bool init_event)
+ 		svm->vmcb->control.int_ctl |= V_GIF_ENABLE_MASK;
+ 	}
+ 
++	if (vls)
++		svm->vmcb->control.virt_ext |= VIRTUAL_VMLOAD_VMSAVE_ENABLE_MASK;
++
+ 	if (vcpu->kvm->arch.bus_lock_detection_enabled)
+ 		svm_set_intercept(svm, INTERCEPT_BUSLOCK);
+ 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-MD1X.v3.r0.20261015165943-1%40mojatatu.com
+2.56.0.212.g129ede20d9-goog
+
