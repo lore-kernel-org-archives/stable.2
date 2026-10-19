@@ -1,79 +1,53 @@
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC96485CC4
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 06:50:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1954848BE;
+	Mon, 19 Oct 2026 06:51:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792392639; cv=none; b=SABrPjFBP2J5Ifrp+IRJhJy5B2tPhkiqa2iVHto+b8xC8GURduCM9Xjkdp3gDVz6KmLor3mV1Y95aVPD50TKquNpRt+9JJ/aJOxO6uGYCEJWW1ifss0Gy1fnvEsTVuZ6bi2C2seQ4YNgJOSx1kjY6yeAyB6EwH8/XHkbM0bax08=
+	t=1792392689; cv=none; b=ORRs5I27m5T7s1tH6buJ5vZE1W3w039lMy38NalYbnB21Ol77prqgl2sS4CTuIxKfBeozRI+F3UPgSKP79Iwa5K+lwG74ZVXu9X49ipFI0kW+uQM1lH458SE0lTl/lAn1lvrdkiUUX/KI2FILyjrTdUyDXH7dEhnURoGxnyVbXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792392639; c=relaxed/simple;
-	bh=z6OivWSzqfsIkGB+qypMYD9sy6gvak55sKurmHllDIY=;
+	s=arc-20240116; t=1792392689; c=relaxed/simple;
+	bh=eeB4SKIb7t7+3YTMsXzEyOw6pwy6g8BpMVMtKXD2W9E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=asicFqEmP0wX2LNpuSksh7T1+6fsgutVcqr4iulsLWpIqAwPtYLpI7kbMvRori73mA2gi6Qp/6uarb5WokfYChgvO19JAkQERUiWo6MrC5LHjjqXwJshV1kOpuK1oRZF3+6drXlbkq6200pbA1rN/B7McwbD6wr+JlSsWDdE5PQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=PnNBLts5; arc=none smtp.client-ip=209.85.215.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	 MIME-Version; b=TGHju91pszGi1CRQzLaDkiNuz7eXROpyGaVAXMYLVncbbDDdjxMDOmtRypox80aJqBtdwX/+jv9TnYd8RHX+hxQCcTNEM4o2r6nyxwJySkq7uoVxlwrXGQ0SguChaOuTBIs/p68Zvm/gaqe/7sDOuRBbgBKIk5NTSS8oBRXb4CQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EWy7DbQK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="PnNBLts5"
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc4aa0246b7so547961a12.3
-        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 23:50:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792392638; x=1792997438; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g6wresGPlOerJ8rL7c+F8upCIM1dzOSfqyD9Zn2laIU=;
-        b=PnNBLts59+ZjE0mn8497vEQjSIMe0AW7vywZSY147n9N9YyvJ9FV6Ki2+5VXzWv9Jj
-         5hvlLOE4s/PBGD1jMDFEMrL5CB6jtqLAutGd4FUPLaEgPJz/J1lLKArD6+XQGL9McuCn
-         +/GIqK7XVyqC3qgHLhfT1AUbHoqpVNQLBtYJXahT5H3xkHtB7PaJYUWOxW0ESlLdGFcb
-         3TLM7SB5bc+2mHqV0zSbAOufEFYxaxbuL+ZaSjHICVhGE5OwqkDwIZLvGCoZoZvlIw42
-         YH1GrqjMJ3Z4Z0xkd5F46hQgb6N6pl10jTslgJIS/i/agPkqBnzk52G8uWyR5wu3sSB6
-         I2dQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792392638; x=1792997438;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g6wresGPlOerJ8rL7c+F8upCIM1dzOSfqyD9Zn2laIU=;
-        b=afdSuWD0pOEP3uTIIyhwTjyxr7xaYinUPEeu1lI3ZiUdHErShds6go5FnwAkfEo44M
-         Z6jNqi3U94JKkoFtx6RDET01jEJwagWhRRzVcBqj5yToURPZ05U0UNYNEFK/oX/2Qo9g
-         4nzfkZxGIPNNaRE6hhF7F9deAw2ncneN5Abwjwph4aKNt5zLtCCF694+4H4JquZtFJOa
-         EE7TGPrdNHx0Fk6EPuQjc1GPytlm8VuB+M4t6vYJpPAkN4VTi7PzTxzFapZ04IpBCiec
-         q1JgBCQTv+YtGpsYkubLt+/tNsecnmIIZT28Xuz+ywcV+jQ6o9KqMDJhjKpq07ynlv+S
-         s9+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwOWDjl9Vyl1bapaedzDjtRUiuez44uM2BJcgSX5ypMo7eO0ghNzgmMoR5d7/AjWeQ3cKmqMVY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6sISG8z5m2QWmI4TbC2TslglQ2gJOqYurkzsIvipoImCkWxP1
-	bIpQu8rTzNBeC0fUBkcTpDyn6pKBr/SVafpsihv7p3xqhf1+Mkc7tcTSGaIQhsuyUSM=
-X-Gm-Gg: AYBFou1KnLuLmjOaTuiagMNpW9z3hbcMddO5+fbkYPoBi/AEJ9rpE+JT/AScWoJN4o7
-	pIXdnG7/l79P0stlJCpE/s6ImmnJ6y7qgEVbiiwl+g86nX7TyzJqHNfYYi0MK5+VpmViGyovip6
-	uCqSLaUGPnYpMqigglllbinQ08TxB4B9u6Pm/2jpOm9tW4ENS0HXLvsA/8LRSf3BPyQ+frqvdYf
-	6pM7PaWYRqel6QbFUibG/orOOkmfDGVEnZlYgMd1ONi7/qTe/cBjWpgY0XFIt4lRVO2gppHqT2y
-	+4I3thF5MfJWKDqIFvPP0ommLIPT2ulREdHalNFFEJbNVtQZjNsScXhOepRxEx/kAOIBYyvRWQc
-	zwrfWCSuXD2oOB9r6K2xiRhABhNo1qmNh94SEgZLyBCVkRjKTk3lLtX8FPpDG7REHJ2CJ9nnaTI
-	4XHayLNCv31l4ITw1vf4rWOlnm6HJaGVZtnXNRJEoteBHj0Rd5TgcY83QRTai8ChxYhfbv60EBM
-	EchBKAXegtgtu9+
-X-Received: by 2002:a17:90b:4ac3:b0:3ac:7874:639e with SMTP id 98e67ed59e1d1-3acef4fb85dmr6103457a91.46.1792392637645;
-        Sun, 18 Oct 2026 23:50:37 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd3f3ce5asm5870887a91.3.2026.10.18.23.50.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 23:50:37 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: njavali@marvell.com,
-	mrangankar@marvell.com,
-	mkp@kernel.org,
-	James.Bottomley@HansenPartnership.com
-Cc: GR-QLogic-Storage-Upstream@marvell.com,
-	linux-scsi@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EWy7DbQK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 288211F000C5;
+	Mon, 19 Oct 2026 06:51:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792392688;
+	bh=IUlIDps8XyWSDb32G4KUhVb0C7gubLKT7PaDbrjp0pQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=EWy7DbQK3woK2rZ13NvA7khCYmOaWjb5V8YCvBTEYhz26soYPK2m5oCbd8inFL97m
+	 6Qd65TL5BSJQTRbix4DnFicISpf3woDwU0NF+kt6IIE+Bys5CPpjN389BEaHDJi5Zi
+	 R30EQgPmuhLgiV9Ka5u6OvWVAzYKFzrlB/zxYUFpNbmc3ZBqR67zi1VPoL2oq4Db6x
+	 oTnoPyBct6xcewn9ZC40GjOABUQlDrTew/iyeWxBhLu9s6mkJzmNZbs4m1YdLH46yT
+	 kAvkGxcpPX3cvwS2n7XId9O/CEK10W4GJZlOzN3+RshOOAWCKswljvmbhOOz4MLH1e
+	 lnhPyc09SjIvg==
+From: Claudiu Beznea <claudiu.beznea@kernel.org>
+To: lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	robh@kernel.org,
+	bhelgaas@google.com,
+	p.zabel@pengutronix.de,
+	geert+renesas@glider.be,
+	magnus.damm@gmail.com
+Cc: claudiu.beznea@tuxon.dev,
+	linux-pci@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] scsi: qedi: bound the sense data length reported by the firmware
-Date: Mon, 19 Oct 2026 15:50:19 +0900
-Message-ID: <20261019065019.537183-3-yhlee@isslab.korea.ac.kr>
+	linux-renesas-soc@vger.kernel.org,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+	stable@vger.kernel.org,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v7 01/14] PCI: rzg3s-host: Follow hardware manual clock/reset initialization order
+Date: Mon, 19 Oct 2026 09:50:12 +0300
+Message-ID: <20261019065025.2146539-2-claudiu.beznea@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261019065019.537183-1-yhlee@isslab.korea.ac.kr>
-References: <20261019065019.537183-1-yhlee@isslab.korea.ac.kr>
+In-Reply-To: <20261019065025.2146539-1-claudiu.beznea@kernel.org>
+References: <20261019065025.2146539-1-claudiu.beznea@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,46 +56,165 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-qedi_scsi_completion() reads the sense length out of the CQE and uses it to
-copy sense data out of the command's sense buffer:
+From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-	datalen = cqe_data_in->reserved2 &
-		  ISCSI_COMMON_HDR_DATA_SEG_LEN_MASK;
-	memcpy((char *)conn->data, (char *)cmd->sense_buffer, datalen);
+The RZ/G3S PCIe hardware manual specifies that the clocks must be enabled
+before the reset signals are deasserted during initialization.
 
-That mask is 0xFFFFFF as well.  cmd->sense_buffer is a
-SCSI_SENSE_BUFFERSIZE coherent DMA allocation and the firmware is only ever
-given its address, so 96 bytes is all there is to read there, while
-conn->data is the ISCSI_DEF_MAX_RECV_SEG_LEN buffer libiscsi allocates for
-the connection.  A reported length above 96 reads past the sense buffer and
-one above 8192 writes past conn->data, and datalen reaches
-__iscsi_complete_pdu() afterwards, which reads it back out.  Every
-SAM_STAT_CHECK_CONDITION completion takes this path.
+Follow this sequence in the probe(), suspend(), and resume() paths to
+match the hardware requirements and avoid potential issues.
 
-Cap the length at the size of the buffer the firmware was pointed at.
-
-Unlike the unsolicited path in the previous patch this one is not covered
-by the KUnit harness, since reaching it needs a whole task and connection;
-the bound here is just the size of the allocation the sense data is copied
-out of.
-
-Fixes: ace7f46ba5fd ("scsi: qedi: Add QLogic FastLinQ offload iSCSI driver framework.")
+Fixes: 7ef502fb35b2 ("PCI: Add Renesas RZ/G3S host controller driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Tested-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 ---
-diff --git a/drivers/scsi/qedi/qedi_fw.c b/drivers/scsi/qedi/qedi_fw.c
---- a/drivers/scsi/qedi/qedi_fw.c
-+++ b/drivers/scsi/qedi/qedi_fw.c
-@@ -640,8 +640,10 @@
- 	hdr->residual_count = cpu_to_be32(cqe_data_in->residual_count);
+
+Changes in v7:
+- none
+
+Changes in v6:
+- none
+
+Changes in v5:
+- collected tags
+
+Changes in v4:
+- none
+
+Changes in v3:
+- none, this patch is new
+
+ drivers/pci/controller/pcie-rzg3s-host.c | 40 +++++++++++++-----------
+ 1 file changed, 21 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/controller/pcie-rzg3s-host.c
+index 077cfb0834b3..e1105b1f2652 100644
+--- a/drivers/pci/controller/pcie-rzg3s-host.c
++++ b/drivers/pci/controller/pcie-rzg3s-host.c
+@@ -1888,10 +1888,6 @@ static int rzg3s_pcie_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto sysc_signal_restore;
  
- 	if (hdr->cmd_status == SAM_STAT_CHECK_CONDITION) {
--		datalen = cqe_data_in->reserved2 &
--			  ISCSI_COMMON_HDR_DATA_SEG_LEN_MASK;
-+		/* The firmware can only have filled the buffer it was given; cap at that. */
-+		datalen = min_t(u32, cqe_data_in->reserved2 &
-+				     ISCSI_COMMON_HDR_DATA_SEG_LEN_MASK,
-+				SCSI_SENSE_BUFFERSIZE);
- 		memcpy((char *)conn->data, (char *)cmd->sense_buffer, datalen);
+-	ret = rzg3s_pcie_power_resets_deassert(host);
+-	if (ret)
+-		goto sysc_signal_restore;
+-
+ 	pm_runtime_enable(dev);
+ 
+ 	/*
+@@ -1902,12 +1898,16 @@ static int rzg3s_pcie_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto rpm_disable;
+ 
++	ret = rzg3s_pcie_power_resets_deassert(host);
++	if (ret)
++		goto rpm_put;
++
+ 	raw_spin_lock_init(&host->hw_lock);
+ 
+ 	ret = rzg3s_pcie_host_setup(host, rzg3s_pcie_init_irqdomain,
+ 				    rzg3s_pcie_teardown_irqdomain);
+ 	if (ret)
+-		goto rpm_put;
++		goto power_resets_assert;
+ 
+ 	bridge->sysdata = host;
+ 	bridge->ops = &rzg3s_pcie_root_ops;
+@@ -1922,12 +1922,13 @@ static int rzg3s_pcie_probe(struct platform_device *pdev)
+ 	clk_disable_unprepare(host->port.refclk);
+ 	rzg3s_pcie_teardown_irqdomain(host);
+ 	host->data->config_deinit(host);
++power_resets_assert:
++	reset_control_bulk_assert(host->data->num_power_resets,
++				  host->power_resets);
+ rpm_put:
+ 	pm_runtime_put_sync(dev);
+ rpm_disable:
+ 	pm_runtime_disable(dev);
+-	reset_control_bulk_assert(host->data->num_power_resets,
+-				  host->power_resets);
+ sysc_signal_restore:
+ 	/*
+ 	 * SYSC RST_RSM_B signal need to be asserted before turning off the
+@@ -1948,10 +1949,6 @@ static int rzg3s_pcie_suspend_noirq(struct device *dev)
+ 	struct rzg3s_sysc *sysc = host->sysc;
+ 	int ret;
+ 
+-	ret = pm_runtime_put_sync(dev);
+-	if (ret)
+-		return ret;
+-
+ 	clk_disable_unprepare(port->refclk);
+ 
+ 	/* SoC-specific de-initialization */
+@@ -1964,13 +1961,19 @@ static int rzg3s_pcie_suspend_noirq(struct device *dev)
+ 	if (ret)
+ 		goto config_reinit;
+ 
+-	ret = rzg3s_sysc_config_func(sysc, RZG3S_SYSC_FUNC_ID_RST_RSM_B, 0);
++	ret = pm_runtime_put_sync(dev);
+ 	if (ret)
+ 		goto power_resets_restore;
+ 
++	ret = rzg3s_sysc_config_func(sysc, RZG3S_SYSC_FUNC_ID_RST_RSM_B, 0);
++	if (ret)
++		goto rpm_resume;
++
+ 	return 0;
+ 
+ 	/* Restore the previous state if any error happens */
++rpm_resume:
++	pm_runtime_resume_and_get(dev);
+ power_resets_restore:
+ 	reset_control_bulk_deassert(data->num_power_resets,
+ 				    host->power_resets);
+@@ -1980,7 +1983,6 @@ static int rzg3s_pcie_suspend_noirq(struct device *dev)
+ 	data->config_post_init(host);
+ refclk_restore:
+ 	clk_prepare_enable(port->refclk);
+-	pm_runtime_resume_and_get(dev);
+ 	return ret;
+ }
+ 
+@@ -2009,18 +2011,18 @@ static int rzg3s_pcie_resume_noirq(struct device *dev)
+ 			goto assert_rst_rsm_b;
  	}
  
+-	ret = rzg3s_pcie_power_resets_deassert(host);
++	ret = pm_runtime_resume_and_get(dev);
+ 	if (ret)
+ 		goto assert_rst_rsm_b;
+ 
+-	ret = pm_runtime_resume_and_get(dev);
++	ret = rzg3s_pcie_power_resets_deassert(host);
+ 	if (ret)
+-		goto assert_power_resets;
++		goto rpm_put;
+ 
+ 	ret = rzg3s_pcie_host_setup(host, rzg3s_pcie_msi_hw_setup,
+ 				    rzg3s_pcie_msi_hw_teardown);
+ 	if (ret)
+-		goto rpm_put;
++		goto assert_power_resets;
+ 
+ 	return 0;
+ 
+@@ -2028,11 +2030,11 @@ static int rzg3s_pcie_resume_noirq(struct device *dev)
+ 	 * If any error happens there is no way to recover the IP. Put it in the
+ 	 * lowest possible power state.
+ 	 */
+-rpm_put:
+-	pm_runtime_put_sync(dev);
+ assert_power_resets:
+ 	reset_control_bulk_assert(data->num_power_resets,
+ 				  host->power_resets);
++rpm_put:
++	pm_runtime_put_sync(dev);
+ assert_rst_rsm_b:
+ 	rzg3s_sysc_config_func(sysc, RZG3S_SYSC_FUNC_ID_RST_RSM_B, 0);
+ 	return ret;
+-- 
+2.43.0
+
