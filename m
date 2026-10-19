@@ -1,104 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792425861;
-	b=hL+vGl/H/3MkTuHe+Gi5XXIrHoS6/2POcV+u8TjLFLs/Yn/oZ/JYwqupsLkL7h2ngMCt
-	 i2vDY9PnJqDEzuEIm2NiWBGDQUKB7RQOL7PrmYwG3jRYhou5yK5LwCFZ1/WxMVApRjSBd
-	 XnaM8egn/rCnADfobjm1MbF8Nw2rx5OeTXXX1FfYhOdeoAvsTQWUlQreANQv89Y2ccKGF
-	 WgUQ7+libAHZjvNgi8XRyGd8XxMD0/1DHUlrsraNRn3JWCWOklRzQcviqIbAAVdFxAEfI
-	 0/psRJhhe1HCM+i+SkDQch+1lQlGvwAjfGzwuEUSW+HwH9YWbdcuQ2GES/XFJm2A93Q==
+	t=1792425979;
+	b=thKrOlN66jcOme7yY8q7sxCHi4b4wtDq8sWuzJvRX5YmYUFzG8EgjJDyZTvB59rOCTvj
+	 E++ANeCls/iZI1rfGsxv12ANYevFQnhythFKHDB3GrN4yJvnQparRsmD1Ejtb/oHtVCtv
+	 2ryCQfMcEPvVyXIBmVhwAgcq6mfPA4TXlUJ7B0yUf+BzXNYTaI0Ol/14K9T4HH+DLFlIA
+	 IIok7ioUgthaL/ywmrkk6X+TVAE29i5mhTNrtl6NGkWU31nFz4/1W8yaxfbSBL0Ry/tCU
+	 G8eCFUMPmXrLDZB3O0Wb+zBqh830obQmcAMygock7lLTuOg6gEUMp38KkUOsam6zmsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792425861;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-Rspamd-Action:X-Spam-Level:X-Spamd-Result:
-	 X-Spam-Flag:X-Spam-Score;
-	bh=aLbreY+cSFG22Ltqle1KLEkxhV/BXDyA9LZcfExWCOo=;
-	b=VZurMJPrZ9jzYFoIaM5WdEa5GnCdkQxEKi377hbkEx0mFtjG/Y08b6kodhjIMmxjDtkm
-	 48yIbnYaLhdSzCwh9O62y3IyxFQeF473kY7svV/TnwRYoU6er1f9avia09AG0fqZie5/j
-	 KqyydeU78Q3n2IjoAI6Stnpcph8SvOFVRj7s6tGI7qNCkMjRpBEhJ0UcqzYMADp00sk82
-	 JPy1QcPW/8w/QBDGAYC/1AJfZvJ915cEDUoK1uKBNQKWUOJtqILd6i6hRSqTJDtjUUJzo
-	 VMqcLb+0Ve8UC9/xKvFZffr7a/iPBFn0XoMP/1Mgqnju6FWdadWDbH9zOTIBhYyfBHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792425979;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=E9RGSCGYGB/E4l/ib4WPi1HDJ9J2vhJoK5I5QF5CWgQ=;
+	b=ImoKj/OPMh/DWhH26Caj+jNGnNeLJt73gICvK0gF6Ks7n63nPI96I8pBShAnLylyuuyx
+	 zPWEM1Ztij7LScInWxlF63XOZIYcVl/CwuxfTxqizMuSdaqhFEFgfZUWpnq2cXvmgiDQW
+	 ws0SEgDuuXrQnj9Y2LHFQcMz+8waWfXjLUebc02sAkFUOYYakqf9GqmC28pxz5e8pxai9
+	 848ZkAGi44bdUKb8MI3BJxObretWzJg0U4NEvDpEseV21z3i3n8XxOvBoXJbbGtopDsiw
+	 PR+yo4/mm/WdxztW8qAWRGuT7Bkk3wvkuztUOIUZwF8Hc7Rm87hlV+bPpdCIR27Ftsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=r8LP8w6O;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=uqyW45aQ;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=r8LP8w6O;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=uqyW45aQ;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Y2MnjJrb;
+	arc=none smtp.remote-ip=209.85.161.41
+Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 688EF60724A6
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 16:04:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 688EF60724A6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8054C606C140
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 16:06:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8054C606C140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=r8LP8w6O;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=uqyW45aQ;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=r8LP8w6O;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=uqyW45aQ
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id CC1E821D11;
-	Mon, 19 Oct 2026 16:03:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792425836; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=aLbreY+cSFG22Ltqle1KLEkxhV/BXDyA9LZcfExWCOo=;
-	b=r8LP8w6OkVtOGYrCF1ciEOAovHtI/vbqdd1PevdXjLKUQUXWcUQnm/CBjX4UL7OwIFeI2y
-	vNkRHIowwQ5h7RKiiSuOUyEzEaTyKfn04Pk7g6gQ6U3aIDyXffc1p00JHLVpw0UmqASr4s
-	CyRs8GXfX+f4icUlEjqcWWiB6AmkUts=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792425836;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=aLbreY+cSFG22Ltqle1KLEkxhV/BXDyA9LZcfExWCOo=;
-	b=uqyW45aQiK7XrSAHqi0N7Tfx+P5pAauu6wRMIXFHJCOtDXkMlhlrJ1BzuGz3VJJ/zB7j2E
-	kKOChI+grN3PGGBw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=r8LP8w6O;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=uqyW45aQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792425836; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=aLbreY+cSFG22Ltqle1KLEkxhV/BXDyA9LZcfExWCOo=;
-	b=r8LP8w6OkVtOGYrCF1ciEOAovHtI/vbqdd1PevdXjLKUQUXWcUQnm/CBjX4UL7OwIFeI2y
-	vNkRHIowwQ5h7RKiiSuOUyEzEaTyKfn04Pk7g6gQ6U3aIDyXffc1p00JHLVpw0UmqASr4s
-	CyRs8GXfX+f4icUlEjqcWWiB6AmkUts=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792425836;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=aLbreY+cSFG22Ltqle1KLEkxhV/BXDyA9LZcfExWCOo=;
-	b=uqyW45aQiK7XrSAHqi0N7Tfx+P5pAauu6wRMIXFHJCOtDXkMlhlrJ1BzuGz3VJJ/zB7j2E
-	kKOChI+grN3PGGBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 56D40136CC;
-	Mon, 19 Oct 2026 16:03:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ndvHCmw/1mp9TwAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Mon, 19 Oct 2026 16:03:56 +0000
-Message-ID: <8e91baa4-1ca5-43b8-bb04-9b5e3630bc2b@suse.de>
-Date: Mon, 19 Oct 2026 18:03:55 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Y2MnjJrb
+Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-6cfed5dd083so1517955eaf.1
+        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 09:06:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792425977; x=1793030777; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=E9RGSCGYGB/E4l/ib4WPi1HDJ9J2vhJoK5I5QF5CWgQ=;
+        b=Y2MnjJrbBJCKovtMHLJtH3hpqjQjmfVqwAmhFBeDoUXTASqkVruRoBOgZHtP6sXcYH
+         9ZS7JZGko1kTba/F7+m+cEx6nR3M4Z/5RFveUB1ReKsrrWZOxZ2qEEeJnIZfTqurO0l5
+         3J4LkEr6ysMTNansy7E05s6y8RPUVtJ/By7nzBiDPHr1hS1ujxwXm28AymkFC2iGy4Rg
+         QqqDTus/+Z51w+D/cKzBe4kLAoLrc5o1RWixuUX5kf923hOCacjOPF+iBf5kYrX2ElZN
+         Epa1vyOgzSHh+mvVqrPd8nPF4t8JpDjMZ9T6CNrhl8VOenNsUcYH5WG9QaZ9cByBuDse
+         lihA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792425977; x=1793030777;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=E9RGSCGYGB/E4l/ib4WPi1HDJ9J2vhJoK5I5QF5CWgQ=;
+        b=hZcbkm8NMnfLeTBpCYf6BmK3hP0w5M4d/lPsafwt0aNVUs+Thy3jSG3uDPI9N0Jw5Y
+         O+jz6ruTZy8IuQAdr2OiUYBD88pcE8C0hGkcbQCQLnKN/9qqzI1gaUShLGTN1dmMT69C
+         Sxp2rtLDS1DqGlOdqUWBPxd2gAxzqY8g7lY7fuB/v2Nt2rFoYRbFidGr038eW4N8LlnB
+         ALxVYo7ZCGgbaCF9qVbkDLkkJSlYEdrWEdkNxS9e1cUe0D3Es4FMjJEo6h89E6lEca0r
+         KfIozg/DUYTZR8X5of1kh18wx/wS71SZwtHrif1n9XvZTGUA//a6KUJsgzeBELDpcvgw
+         cFpg==
+X-Forwarded-Encrypted: i=1; AKwUvBxEWHwSm7w/B38ZqcjfltNZ+jvFxNfTLJy52gZ53hjczclR/TQIrg3ZDbb/qbyXl6/EyPEzgSk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKKQvjyb7E4xwCyuJqk/9peBb0mEpVgtHbnur6uVCtxkhIVYy5A
+	jc4+4K3fT853EWPwdc6Sks7xMeVgC9fJvzoM7vgfHrjiYg4uxN5N78MO
+X-Gm-Gg: AYBFou2gOnOxWXrYE8QYGl5lk/YQTn8et1bD/6d67NjbD9GXwgdCmMygrEbrmQzoLTG
+	UL8qTYm3xrmrP2Rj6pW4D/FT9Wz06i/kNnKBWi5rttdl6om8CPOI9Ljye5kLiY2WS41zGhD+Opz
+	Gh3RtYfH6WbPSMhSXsXUJF7FGVSnuMyM14x1CsI3Vh6MmVySRr0nFB5FIrhbB7j8brspTfWaJfy
+	1xmBbwNwoFu39MjdZuPnW2OYI2wbz6MQMBHEer5IErGH0R2dsSTb8R/IBIT/FDJtjdChvJ7wp11
+	qzhw3rBKps0kM7w+X2VLlDVPu6CwCYZicYvVQ6939Z8376ng9wld6WpjHmsznqoqQRKvaG9iy4v
+	T+ZVju83SyhzFWV/zZWBXPGN+ilLnZlUafP0mrKaCoUJgskd2BBor9uRGsbE2Z1zgl4WqkfPm8+
+	Wklmjrnv2jP870g0cP7h47+sNtbNc/Bx/M7naMOkOKMQw9UANbRGQWFVTWTtl41Ns27kQtbpBXP
+	tpSskyhEJRdEXdT4frrb+5MUmiOoMMtG43RqLuWybaa857kYFMYyGQ+INFJSZtmP9f1ymAnixiY
+	WNtIFQ==
+X-Received: by 2002:a05:6820:4b09:b0:702:31a1:9049 with SMTP id 006d021491bc7-70356aa41b7mr5416083eaf.36.1792425977222;
+        Mon, 19 Oct 2026 09:06:17 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:3::])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a73b63cff2sm8248666fac.7.2026.10.19.09.06.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 09:06:16 -0700 (PDT)
+From: Nhat Pham <nphamcs@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] mm, swap: revalidate populated clusters before scanning
+Date: Mon, 19 Oct 2026 09:06:15 -0700
+Message-ID: <20261019160615.2348500-1-nphamcs@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -108,160 +101,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/hyperv: add a parameter to disable the vblank timer
-To: Lanfeng Wei <xlfylawarthur@gmail.com>
-Cc: airlied@gmail.com, decui@microsoft.com, dri-devel@lists.freedesktop.org,
- linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- longli@microsoft.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- regressions@lists.linux.dev, simona@ffwll.ch, ssengar@linux.microsoft.com,
- stable@vger.kernel.org
-References: <c238f4ff-d5d8-4a9a-8773-793bd9056c9b@suse.de>
- <20261019154121.6257-1-xlfylawarthur@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261019154121.6257-1-xlfylawarthur@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: CC1E821D11
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.50 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	MX_GOOD(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_TO(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,microsoft.com,lists.freedesktop.org,vger.kernel.org,linux.intel.com,kernel.org,lists.linux.dev,ffwll.ch,linux.microsoft.com];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[]
-X-Spam-Flag: NO
-X-Spam-Score: -4.50
 
-Hi
+swap_cluster_populate() can publish a cluster's table with the cluster
+lock dropped. A cached allocator can use and empty it before the
+populating allocator reacquires the lock. The resumed scan can then
+dereference a NULL table.
 
-Am 19.10.26 um 17:40 schrieb Lanfeng Wei:
-> Hi Thomas,
->
->> Yeah, what's the cause of it? Switching off features does not fix any
->> bugs or improve the status quo.
-> You are right that the module parameter is only a workaround for users
-> affected; it does not fix the underlying scheduling problem.
->
-> The cause is that the synthetic vblank timer is used to pace completion
-> of atomic updates triggered by dirtyfb, in addition to providing
-> synthetic vblank events. In Xorg's software-cursor path, pointer motion
-> damages the primary framebuffer and the damage is instantly submitted
-> via DRM_IOCTL_MODE_DIRTYFB. The Hyper-V dirtyfb path performs a
-> synchronous atomic commit, and with the vblank timer enabled that commit
-> can wait for the next simulated vblank. Under continuous pointer motion,
-> these commits dominate the update path and delay normal client updates,
-> resulting in sever frame-rate drops.
->
-> This particular regression results from the combination of the blocking
-> dirtyfb path, synthetic vblank pacing, and the absence of a Linux DRM
-> cursor plane in Hyper-V. While the Hyper-V video protocol does have a
-> hardware-cursor command path, the upstream hyperv_drm driver currently
-> exposes only a primary plane. Cursor plane support was deferred during
-> the initial upstreaming [1]. Without a cursor plane, Xorg has to fall
-> back to software cursor-rendering path and it competes with periodic
-> graphical updates on the primary plane.
->
-> So the proper long-term fix could be adding cursor plane support in the
-> Hyper-V DRM driver, which may take some time. Providing that the stated
-> purpose of the offending commit is to rate-limit display updates, while
-> its current implementation regresses the existing software-cursor path,
-> I think adding a switch or reverting the commit until the requested
-> features in the driver is ready, is a reasonable short-term fix.
+For example, CPU1 can retain a cached cluster offset on an SSD with
+per-page discard disabled:
 
-The problem is that module parameters are impossible to remove in 
-practice. Once in place, someone always depends on it. They also 
-increase the number of states to test.  Avoiding them is usually a good 
-idea. Especially as workarounds for bug or regressions.
+    CPU0                          CPU1
+    ----                          ----
+    swap_cluster_populate()
+      swap_cluster_alloc_table() fails
+      spin_unlock(&ci->lock)
+      local_unlock(&percpu_swap_cluster.lock)
+      swap_cluster_alloc_table()
+        rcu_assign_pointer(ci->table, table)
+                                  swap_alloc_fast()
+                                  local_unlock(&percpu_swap_cluster.lock)
+                                  mem_cgroup_try_charge_swap() fails
+                                  swap_cache_del_folio()
+                                    __swap_cluster_free_entries()
+                                      free_cluster()
+                                        __free_cluster()
+                                          swap_cluster_free_table()
+                                            rcu_assign_pointer(..., NULL)
+      local_lock(&percpu_swap_cluster.lock)
+      spin_lock(&ci->lock)
+      return ci
+    alloc_swap_scan_cluster()
+      cluster_scan_range()
+        __swap_table_get()
 
+Reject an unusable cluster under its lock before scanning it. Relocate
+it only while its table is present.
 
-I'm not familiar with the Hyper-V protocol, so I have a question. Why is 
-it hard to implement cursors? From the link at [1], I assume that cursor 
-support was left out because the simple-kms pipeline did not support 
-cursor planes. This has long been resolved: the simple-kms pipeline is 
-gone and hyperv_drm runs on the regular DRM framework.  Unless there's 
-anything special with the Hyper-V protocol, cursor-plane support should 
-be do-able in a single patch. [^1]
+Fixes: cdd77f84d966 ("mm, swap: consolidate cluster allocation helpers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nhat Pham <nphamcs@gmail.com>
+---
+ mm/swapfile.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-Best regards
-Thomas
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index c3288910b3e3..988b7316e0a1 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -981,7 +981,11 @@ static unsigned int alloc_swap_scan_cluster(struct swap_info_struct *si,
+ 	bool need_reclaim, ret, usable;
+ 
+ 	lockdep_assert_held(&ci->lock);
+-	VM_WARN_ON(!cluster_is_usable(ci, order));
++	if (!cluster_is_usable(ci, order)) {
++		if (cluster_table_is_alloced(ci))
++			relocate_cluster(si, ci);
++		goto out_unlock;
++	}
+ 
+ 	if (end < nr_pages || ci->count + nr_pages > SWAPFILE_CLUSTER)
+ 		goto out;
+@@ -1010,6 +1014,7 @@ static unsigned int alloc_swap_scan_cluster(struct swap_info_struct *si,
+ 	}
+ out:
+ 	relocate_cluster(si, ci);
++out_unlock:
+ 	swap_cluster_unlock(ci);
+ 	if (si->flags & SWP_SOLIDSTATE) {
+ 		this_cpu_write(percpu_swap_cluster.offset[order], next);
 
-[^1] See 
-https://elixir.bootlin.com/linux/v7.2.11/source/drivers/gpu/drm/ast/ast_cursor.c 
-for an example of how this looks. Most of it is hardware-related, but 
-hyperv would likely be similar in concept.
-
->
->> We had another fix for a problem with vblank timers:
->>
->> https://lore.kernel.org/dri-devel/20260914110004.211027-1-tzimmermann@suse.de/
->>
->> Did you validate that this fix is unrelated?
-> Yes I tested that fix and confirmed that it is irrelevant. It solves
-> issues with excessively long frame durations, however this problem is
-> found in normal frame updates (in my case 60Hz / 16.7 ms per frame, way
-> below INT_MAX).
->
-> Best regards,
->
-> Lanfeng Wei
->
-> [1] https://lore.kernel.org/dri-devel/20200622110623.113546-1-drawat.floss@gmail.com/
-
+base-commit: 4dbe24720eb3811563cd56b35d87ddf3f9beed2a
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
+2.53.0-Meta
 
