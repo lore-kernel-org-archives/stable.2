@@ -1,49 +1,49 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483C33E3DA4;
-	Mon, 19 Oct 2026 10:57:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86A54DA535;
+	Mon, 19 Oct 2026 10:58:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792407464; cv=none; b=SS2XNZRiCrsY9UkLZN7DcE1HcHs1Jc/JM32yYUG0pG8X0RQ0UDNM2wXmBgpTKJyJcaYP6FfuQKHyYQhDYdLsCa8XF1FXUujIfAATMEvUkadlBKyU28FzymQv1mpZyfWIaVQdf+hwYLSfV3t8W3joEGINTRsxRWA+Jea4GerGiM8=
+	t=1792407494; cv=none; b=APOR1ooE9EYJja84T2tv7GZLlM8rl460PIWqifPS3lG2qnlklY5DhdUxK9BY0CBO7fJBCRmd5DWl3AYgD3UMY6tsjdAsoGCgAS96og/s23c1pr8Sseycq6p7iTj8naZnoEXhyeekINV2NtGvZFKehlb3Hhz0Dfv0GcCLmdgS2ws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792407464; c=relaxed/simple;
-	bh=q80m4nE2uwVii8/kh82DSr3qQf5x8VbtGu88HSiCsUk=;
+	s=arc-20240116; t=1792407494; c=relaxed/simple;
+	bh=zxCw7LM35gSBCwkwViMSJmmfnBJ863fFFLzm1ixlyBo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gq6j7htF23qCisnweUw7SaiZ9iszzNYdPZk3Fr9bUgg58tQBOhs0CFkEum6xQB6knm7MAVW2185qrEpG9zjbfWrjMQqWHz4eaYRUmFkkWpW2MPZUe1AldgdGdglu3bprw1nZGgX/FnIfrXSRcnO21gaMaROvIJn3Oa3FZFRX/10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IJWjK8NW; arc=none smtp.client-ip=198.175.65.20
+	 Content-Type:Content-Disposition:In-Reply-To; b=jRQgtEnAlSTUJZDigxSOAhF6AwOMOqPAjtct+zx4rJzIelF/GFrYcvWTI8mIRw1YrycopVxqM7JJYkp2w1U1hpb63tp4TtJU9m62e+sY9viDAqnRZUF6qUN7zuwWho9Oa8rg/p+OvnrdOLn5Jm70AWe8mvKKtgzd95jkPJdIUeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nnzFnmXy; arc=none smtp.client-ip=198.175.65.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IJWjK8NW"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nnzFnmXy"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792407463; x=1823943463;
+  t=1792407493; x=1823943493;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=q80m4nE2uwVii8/kh82DSr3qQf5x8VbtGu88HSiCsUk=;
-  b=IJWjK8NWMzkJBFL+BzAST3kae+uz6R5Wj9YAH4NZ+6xFY/oPz5P0wCeF
-   PtKIVya0xkV1x21iwT/YzT5/JPR9pWmRkfRETT/BceUqS+nWEDwfYhXea
-   fIafNThq5DkVJLU7T9LQjlacx1Xp21C8AfPsnE0cjaa1TmBLEFZYTJi+7
-   onO5VB8uK3rW3d35rmKyLQY8OO42r+YTrmd//zz53WlV3ZfgW3ZyEID6W
-   PA2HT6ZUyySJ6wUTaQPDuyr4yL5BfwABuiON4TDkhUNc5yHGf2cFL6VnR
-   yaLXjzhHW8KKUdvl8lhARP+v0lBAi0GiQM8VGxm28mBe59unnI3yN2a/T
-   A==;
-X-CSE-ConnectionGUID: mZwZR/SpRBO7PI8GGrAOiQ==
-X-CSE-MsgGUID: gN/lXSGnQNyDYlOgQjxpHA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1096226"
+  bh=zxCw7LM35gSBCwkwViMSJmmfnBJ863fFFLzm1ixlyBo=;
+  b=nnzFnmXyFGwyT+vzb+/Ydo15HoZ1L9DOVk0gKHuyldgUle7xxMKki81A
+   LS1DCGb0QFcFTAsb2QVQZKNbAWxUg4d0Rjyek9swNpkoPlrmaVyjOB2/z
+   I1e5mbKzsT+pWqwa6QoYv5PjOVeEMtz3bZNefTh0CH+xgqHGART8Agi5r
+   2i4ughxaMkrLbpyLfsc1HyTaqiribr++WC9dDn51/Y9XOqllCE0QTlIta
+   atQgt+VoVaSjN+GX0diSqDPRV837hmpHUqfmX+/CDyXWf4dqRgK9+SIl+
+   jKA8lf61RUFttidGDxR9vTTw4XgpLA++q8Yuz+TctpyYRoJ9warTEsr60
+   Q==;
+X-CSE-ConnectionGUID: TkdngWUJTwW8U/IfDI6wEA==
+X-CSE-MsgGUID: PkBmw6AGTU+tizRGpij4SA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1096236"
 X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="1096226"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 03:57:42 -0700
-X-CSE-ConnectionGUID: cgU4XWHtSeGdFFotcM6G9Q==
-X-CSE-MsgGUID: dvyKMqqJTwOgbaEcd+AYXQ==
+   d="scan'208";a="1096236"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 03:58:12 -0700
+X-CSE-ConnectionGUID: YqohVtC6Qt6aYquL0muSJg==
+X-CSE-MsgGUID: eS3B/quwTqqx05hLssKdhg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="4347318"
+   d="scan'208";a="2392023"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 03:57:40 -0700
-Date: Mon, 19 Oct 2026 13:57:37 +0300
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 03:58:09 -0700
+Date: Mon, 19 Oct 2026 13:58:06 +0300
 From: Andy Shevchenko <andriy.shevchenko@intel.com>
 To: Christopher Hoover <ch@murgatroid.com>
 Cc: Jonathan Cameron <jic23@kernel.org>, Jiri Kosina <jikos@kernel.org>,
@@ -56,11 +56,11 @@ Cc: Jonathan Cameron <jic23@kernel.org>, Jiri Kosina <jikos@kernel.org>,
 	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
 	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] iio: temperature: hid-sensor-temperature: Use
+Subject: Re: [PATCH v3 3/3] iio: humidity: hid-sensor-humidity: Use
  per-instance callbacks
-Message-ID: <atX3ocWrOi1l8N_U@ashevche-desk.local>
+Message-ID: <atX3vi_iQ--p1Pha@ashevche-desk.local>
 References: <20261019023420.83976-1-ch@murgatroid.com>
- <20261019023420.83976-3-ch@murgatroid.com>
+ <20261019023420.83976-4-ch@murgatroid.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,45 +69,22 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261019023420.83976-3-ch@murgatroid.com>
+In-Reply-To: <20261019023420.83976-4-ch@murgatroid.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sun, Oct 18, 2026 at 07:34:19PM -0700, Christopher Hoover wrote:
-> hid-sensor-temperature keeps a single static struct
+On Sun, Oct 18, 2026 at 07:34:20PM -0700, Christopher Hoover wrote:
+> hid-sensor-humidity keeps a single static struct
 > hid_sensor_hub_callbacks for all instances and overwrites its pdev in
-> every probe.  With two temperature sensors, input reports for one are
-> delivered with the other's platform device; once that device is
-> removed, platform_get_drvdata() returns NULL and
-> temperature_capture_sample() dereferences it:
+> every probe, so with two humidity sensors, input reports for one are
+> delivered with the other's platform device, and a NULL dereference
+> follows once that device is removed.  The same bug was found in
+> hid-sensor-temperature, which shares this code.
 > 
->   BUG: kernel NULL pointer dereference, address: 00000000000003a8
->   RIP: 0010:temperature_capture_sample+0xd/0x50 [hid_sensor_temperature]
-> 
-> The oops happens in sensor_hub_raw_event() with the hub's spinlock
-> held, so the hub's removal then hangs.  It reproduces with two uhid
-> devices that each declare a temperature sensor, one destroyed while
-> the other still sends input reports.
-> 
-> Keep the callbacks in struct temperature_state, as the other HID
+> Keep the callbacks in struct hid_humidity_state, as the other HID
 > sensor drivers (accel, gyro, als, ...) do.
 
-...
-
->  struct temperature_state {
->  	struct hid_sensor_common common_attributes;
-> +	struct hid_sensor_hub_callbacks callbacks;
->  	struct hid_sensor_hub_attribute_info temperature_attr;
-
-To me sounds like this new member is misplaced. The _attributes and _attr
-current members kinda tighten to each other, while callbacks is separate from
-this "group".
-
->  	struct {
->  		s32 temperature_data;
-
-No need to resend just for this, I hope Jonathan will tweak this whilst
-applying.
+Same comment as per previous patch.
 
 -- 
 With Best Regards,
