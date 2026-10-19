@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A62D4E73DD;
-	Mon, 19 Oct 2026 12:34:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BB874F55B6;
+	Mon, 19 Oct 2026 12:36:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792413294; cv=none; b=oTQOgyvGYCs1n11eJ6f94gxOg2HrRsXND1Rz99kBWk9ebUCAcJ0ev4wWvd0SieZc3g2Lw2OlK71LerPpRTlyeJ6CZrwkHeAAOD27Ku7uAEL7NLvrKDDe/VvGZNrm3noZmiNV1e0HAVzF46FysmMjdCNHy15EFG1U2ockyHUkAbE=
+	t=1792413378; cv=none; b=k1cbE8gI6N+NaRBaHagAlP2WDPO3d2YSzn5BwuKrOKXWb0E1vlyVjLhGvl9GDn7VB5UEKQ8EAxxP+hMlU9YMw7FSGuNwrXyP4k6iTrHoNIrHPz+tVnFoMyUI0f7l6BPShWHqdt+auQ2EeOb4IIJgYX2eQluysCIvE/GpjK37iJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792413294; c=relaxed/simple;
-	bh=FIumoOSiyMnllkdH7vaQGmgMeA2n14LStVbQbffjoB4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BcPiLXcMN5FNZmnyVyH4PgwQQTCzS81kGy9UylZIppN2H/pyPf4j9IdDgGbDuj3RaFyNZdImH25fg7q0iJNKROEx50TqXvf2n6BMhyvin029vKeaGtWsTCYNM9ZGWq0PpisXr6y1PY/7IccgDjkG4MWayHcTweXcmSW1f9gskKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JAjlQDRV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792413378; c=relaxed/simple;
+	bh=4UTjjMi+QFQ3ovjs60yqB/MRkxMf8om27tu1gAwwj4Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=crRtlEkx2ftiw9uK48f52aKq4ClG9jim9hkCRrcD7Zyjt+rj5liOkojBkiFCi/JFo2F/q+AdlozgdAgx3vhiE/9b0+3prFIYJY3igS8SWKDeeEJDcCpdyQ34kKtMkLD4OOmRtNcrMNa7b6rNOC+kUX3JriFmtyvIDWEt95r5HkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VBy50iAB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JAjlQDRV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13DC01F000C4;
-	Mon, 19 Oct 2026 12:34:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VBy50iAB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 877BD1F000C4;
+	Mon, 19 Oct 2026 12:35:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792413278;
-	bh=pfqRwNvIDXgUK6rGQbaCri0jI6Kk8YS9TVYwG5chEmA=;
+	s=k20260515; t=1792413360;
+	bh=d2V9bTKLP+pGrBO8HsBaQ6DWUHGdnb3zJyTrpo3zm04=;
 	h=From:To:Cc:Subject:Date;
-	b=JAjlQDRVWQwBdvZpZ07ULBaVloHNT/S/NQPi1JoD5macBPZM+Q8vMwqqwfYGUjR92
-	 K97xaFoCGYtxkRombanMP3u6Sqm6IFCSKiANyS+ylk2D/918ZavMXI6Vr/v472jIBU
-	 p76q1VjWJSaPfYGQXZIRp8oiq1W5lpeiDPXLbn2WmN9rzgtbwtut/SR7DJZjnNfZ3P
-	 /3HZ/xyK8b6Di1uaIq7PGjPnCCMfaAGIRPZd3TTugFOzBmZE/DGIJTN81J8CoeziZs
-	 sQYnsVWCKUlFcQDokW6qAXMqWggwPI80wLrASB/DSKdXq9P0q1XyL4nW+Qy3OiF67e
-	 yVy+wWA3YgfhQ==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1xImZX-00000008QJ0-3pYq;
-	Mon, 19 Oct 2026 14:34:35 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Johan Hovold <johan@kernel.org>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Maksim Salau <maksim.salau@gmail.com>
-Subject: [PATCH] USB: serial: upd78f0730: fix NULL-deref on hangup
-Date: Mon, 19 Oct 2026 14:34:12 +0200
-Message-ID: <20261019123412.2007715-1-johan@kernel.org>
+	b=VBy50iABV7mcayZYeOLa0kxobjAZKFKtI8WBhwSuDBc6lyDDfp1ab+uctLWkXhOSp
+	 i6CJE3AbjWw4PSo9vuIZNgqKIKSY9HHej8WVQ3QgGXZ2SII0MHrLLptdzFJ9ys6/Cw
+	 VzAzjVVtS8eB2+lfzVJILLiLJhZxeDr2C4Ts/7+eqZzT3G+XBNuJeOA4VR2xFejF+E
+	 7WH/J1owKd1RxthKGXZBsAsSSvCgwbC9NfSES5i5POETn6W40Bg02nFxwHLLoGvhlY
+	 JpmnOZby+4PS3F30UyZrqIEH9fvj10LpU4VMpybvJgDeyBBAOKFSHPamKWLcE8QRar
+	 BWZ4opyOwDYFQ==
+From: Andi Shyti <andi.shyti@kernel.org>
+To: linux-media@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com,
+	stable@vger.kernel.org
+Cc: Alan Stern <stern@rowland.harvard.edu>,
+	Antti Palosaari <crope@iki.fi>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>
+Subject: [PATCH] media: dvb-usb-v2: ec168: Reject zero-length I2C reads
+Date: Mon, 19 Oct 2026 14:35:42 +0200
+Message-ID: <20261019123542.4040472-1-andi.shyti@kernel.org>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -47,71 +47,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The port tty pointer is cleared on hangup before deasserting the modem
-control signals and should not be used in the dtr_rts() callback.
+ec168_i2c_xfer() checks the length of the register-address
+message in a combined demodulator read, but does not validate the
+read message length. Userspace can supply a zero-length read
+through I2C_RDWR.
 
-Factor out a new upd78f0730_port_tiocmset() helper that can be used in
-upd78f0730_dtr_rts() to avoid dereferencing a NULL-pointer on hangup
-(e.g. on disconnect).
+This reaches ec168_ctrl_msg(), which selects an IN control pipe
+for READ_DEMOD with wLength set to zero. The USB core treats
+control requests without a data stage as OUT(*), triggering the
+"BOGUS control dir" warning in usb_submit_urb().
 
-This issue was flagged by an LLM.
+Reject zero-length read messages with -EOPNOTSUPP before issuing
+the USB request, using the existing exit path to release the I2C
+mutex.
 
-Fixes: ea534e0b4047 ("USB: serial: add uPD78F0730 USB to Serial Adaptor Driver")
-Cc: stable@vger.kernel.org	# 4.11
-Cc: Maksim Salau <maksim.salau@gmail.com>
-Assisted-by: LLM
-Signed-off-by: Johan Hovold <johan@kernel.org>
+(*) is_out = ... || !setup->wLength;
+
+Fixes: 2bf290be4f3e ("V4L/DVB (13364): ec168: add new driver for E3C EC168 DVB USB")
+Reported-by: syzbot+ed3ada41c4eb1c4ab78e@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=ed3ada41c4eb1c4ab78e
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+Cc: <stable@vger.kernel.org> # v2.6.33+
 ---
- drivers/usb/serial/upd78f0730.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ drivers/media/usb/dvb-usb-v2/ec168.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/usb/serial/upd78f0730.c b/drivers/usb/serial/upd78f0730.c
-index 78c4d3c19a8e..f2189b994ed7 100644
---- a/drivers/usb/serial/upd78f0730.c
-+++ b/drivers/usb/serial/upd78f0730.c
-@@ -201,10 +201,9 @@ static int upd78f0730_tiocmget(struct tty_struct *tty)
- 	return res;
- }
- 
--static int upd78f0730_tiocmset(struct tty_struct *tty,
-+static int upd78f0730_port_tiocmset(struct usb_serial_port *port,
- 			unsigned int set, unsigned int clear)
- {
--	struct usb_serial_port *port = tty->driver_data;
- 	struct upd78f0730_port_private *private;
- 	struct upd78f0730_set_dtr_rts request;
- 	struct device *dev = &port->dev;
-@@ -238,6 +237,13 @@ static int upd78f0730_tiocmset(struct tty_struct *tty,
- 	return res;
- }
- 
-+static int upd78f0730_tiocmset(struct tty_struct *tty, unsigned int set, unsigned int clear)
-+{
-+	struct usb_serial_port *port = tty->driver_data;
-+
-+	return upd78f0730_port_tiocmset(port, set, clear);
-+}
-+
- static int upd78f0730_break_ctl(struct tty_struct *tty, int break_state)
- {
- 	struct upd78f0730_port_private *private;
-@@ -267,7 +273,6 @@ static int upd78f0730_break_ctl(struct tty_struct *tty, int break_state)
- 
- static void upd78f0730_dtr_rts(struct usb_serial_port *port, int on)
- {
--	struct tty_struct *tty = port->port.tty;
- 	unsigned int set = 0;
- 	unsigned int clear = 0;
- 
-@@ -276,7 +281,7 @@ static void upd78f0730_dtr_rts(struct usb_serial_port *port, int on)
- 	else
- 		clear = TIOCM_DTR | TIOCM_RTS;
- 
--	upd78f0730_tiocmset(tty, set, clear);
-+	upd78f0730_port_tiocmset(port, set, clear);
- }
- 
- static speed_t upd78f0730_get_baud_rate(struct tty_struct *tty)
+diff --git a/drivers/media/usb/dvb-usb-v2/ec168.c b/drivers/media/usb/dvb-usb-v2/ec168.c
+index 973b32356b17..f6b98c7d3704 100644
+--- a/drivers/media/usb/dvb-usb-v2/ec168.c
++++ b/drivers/media/usb/dvb-usb-v2/ec168.c
+@@ -115,7 +115,7 @@ static int ec168_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg msg[],
+ 	while (i < num) {
+ 		if (num > i + 1 && (msg[i+1].flags & I2C_M_RD)) {
+ 			if (msg[i].addr == ec168_ec100_config.demod_address) {
+-				if (msg[i].len < 1) {
++				if (msg[i].len < 1 || msg[i+1].len < 1) {
+ 					i = -EOPNOTSUPP;
+ 					break;
+ 				}
 -- 
 2.55.0
-
