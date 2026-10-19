@@ -1,140 +1,134 @@
-Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9068A48592C
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 07:00:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.153
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46517381EAB
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 07:06:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792393258; cv=none; b=nr8WOo+c80eCeZmRBajeWz1YxaQhDw102WHvdPZ+CfAIpkI3T1CjfIi+xcoBu3qzZdYc3byu57HG1laUD1DMcaqYq/xUreeBP6jyszh0bzL1kGvEYhwY38B60L4AM1hF4VC6QXanNQ41ewMfxD/cBwo45LAf+7SqMi1X3E+iQ0Y=
+	t=1792393617; cv=none; b=fk7dlA/dHQ/bBhiTUQmz7FqPmMB056RzdbaPGjIsag8gZ7PSnDs34xckXaVIe3K4pooDvZYvHdhqWmhtZstp5OOWt52NjqO1my+4ylP3/1jDAUBw6erHv/Ot8OZU9cN2rWyQBzf3waGebxWjVrL/fIwu4LWcphUOqb4Ij0T8DOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792393258; c=relaxed/simple;
-	bh=1STDMwj9uzR4WBJXtTWOS59DAsb5w6o1AuR9iCqD5SM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=L4L9oLm6Q0An7ZcKVEFBpoQFlIoNz0vX2I21718a0n5s3hTmeyyc/USCXFfl1R7MVNwsSYz4zoBpUMfRtIm8kHk0w5HcfowgoKGJOjCTfLZAaRRh1bemhn6wLFB1REJwmp5vi10kz7wwki9mMG1lpN4XVlujhygpAyhcDO/VSjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=lk+JC79s; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=tN5jOPig; arc=none smtp.client-ip=202.12.124.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1792393617; c=relaxed/simple;
+	bh=R8sRVKV2d+v3K80VHraXj2HaX+giPyb6UdNqMy7CE5Q=;
+	h=In-Reply-To:References:Cc:Date:Content-Type:Subject:Mime-Version:
+	 To:From:Message-Id; b=OqZYyKd2AhVgjyjFfXsHyeZTgWl6Mm9W1m7a9Ii/vDXWFI0eQhz1F46zAavSs3T2XDmSiJtjTo8nNlAfweMWGOdF+DR7wWYciSFR2PLvocqYSW+VBnyoZKTp6d6ZNT/uGnRquRKroBzK3jrWVT9Sxx9WQyrhS5Zm/A7qmjN08K8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=hXWIrbHh; arc=none smtp.client-ip=209.127.230.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="lk+JC79s";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="tN5jOPig"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id D4BA07A01A6
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 03:00:55 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-06.internal (MEProxy); Mon, 19 Oct 2026 03:00:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792393255;
-	 x=1792479655; bh=Y5bYXGYvPJN6inJuQQBnrzR/y9AUfMwo0Jm7CFTezwI=; b=
-	lk+JC79shz4VjjsNJgTV3aFzHYL1Ej+g30U5gwUVmku2N6dhgP2KUyI4bPVeHb+j
-	P0hVGcMfjY8wOhdPONWYgWD+x3GeU36ca082YATE2kVtEegxFjN+oSdbziVwWHR9
-	yNcttgTIqUqUFOu7rSABg4sSK7uXZhCRZfkm7Xg3FbVparcHiDVeqB777tuePepo
-	FYrQjz42iB8vyIy8WkzVZQQTHUSi7R0mNkGgM07BZwT3OE/sriLJDIR/j7c4zu4J
-	of0Cc8F4N+glbBL+FYlFPHSpQ4Sljg30wwsjG7BMpv8mogvem9VHMjnxHKVpNQU6
-	LxtN0iCVvUUKRF3FUS61Qw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792393255; x=
-	1792479655; bh=Y5bYXGYvPJN6inJuQQBnrzR/y9AUfMwo0Jm7CFTezwI=; b=t
-	N5jOPigHk13gNkGnJ/Bop2O8tkQNSk3sCDlyy4kGZ6FkNXlG4phctpkLCzhWZ7To
-	+z4iNpzIZmEsGBUYvPKPM2RkHLI2yS0X1RRQTceM9CyE58ajmDh2STGyog7Ia2Vx
-	1yTYFqAZ5zeIiuZvvTaMWMnuKLHNH+hjPsfclNRhcVWae7kGrHC8gfApHTYvAOf6
-	Pu32o1u5bHfnl2lRVdXvBSm+iDGIJxageAgcjwNg7X138bmCGLkgcn+aBSKa5TMS
-	Ra4C0NnTfQR2PcCZ/w970ZeyIqkJcYBckVKVx0Bul3UkBuyLjrqRsihoanOhfU7E
-	3dRf/dAiv2sZjIF8iUFTw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792393255; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:bTtGZE6+G9ELsma+BfILOOy+gspN0rLeAfge/vDOQNOIb1P
-	XqH0lT4D7I/jLHd8zcH5giDFccvaMUhSQBHT60gDU1EjNGupLgBcbhOCLepWH5hr
-	RxfpkMcZtVSIdXuQUAFY7tG3S0PW48xN8/JE37PC1pTTZzhEyKD8mjjU7ShJDIe8
-	MfnTMRXFp0J3MH6T/mK/v88+YVwfDbBsDrCX6a7ZYteOVjDgRj7AD7I7wMhASvsE
-	rTkqm45vw3cppSrVpLURFlQ75ynhqHESGsOunf4/OLC/vHbDuKP9sevA2bAJb7qm
-	sdrj0LLQNy6b3+Box7ludY0LRtGMUN1/mTsqVqw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:93ExNsgr8vl+BBDk1et2SpthhZjc4BdlrKa+VegUl8Q=:1STDMwj9uzR4WBJXtTWOS59DAsb5w6o1AuR9iCqD5SM=;
-X-ME-Sender: <xms:JsDVang1mhd0HqZJK4EsIUqzmglVlkHooXvvMLqv0Cd6_um3NStCFw>
-    <xme:JsDVav7iVc9Kxw_dRUGsMVRs5GVkG4ZDyLPxaro-2hH0lH06HmrCfIVYspIXVs5eJ
-    8IWk9B3JqYvipzmZgoFzjDQ1VoGKH40IoXxqY00AaOGi-3_3eJWqEHv5A>
-X-ME-Received: <xmr:JsDVainBvQAYdPDDNaQ6FeUXaUG4D9vKbDFTC493iwBk--y3FCtS6bLV9ClzgcmQeFL8Ilg3Dl74Ji_GIuduYExsWrACwY1G>
-X-ME-Proxy-Cause: dmFkZTFNv/uwNiMnP3PRAagtCwdDJWac+z/MN5lvwp+dBuvYxTK61HfAu3IcgWC8djDTKt
-    rpCOMfi+pp8mQwnDoFr1s98ozL13LNu2n7LJ/+gXO+hKGai1M/KTaNhT83iQ2LEwSY9ATZ
-    t7E+yK/QTHSq1ktX381YJUE9ENtlF2KwH8EMFuVyb7TMLOBnK49bV8AfvofrFYoZMQiyK2
-    sPZJTma681pRr1F+sH8PYeAvSHEEkmxN5JhSxMtuo4jsUpt+tG4m3i40E5atJVuM0JQa8j
-    gOX2VdCDZTHjK4GfuL/mgylmcdNwSrKhqoTh51FmRT/9P6GiZDUWstP3/6vk0FODmQWdRt
-    NTGa+45lwJMFa3L174bLUb4t4vPNodN0xo3vI36kyCIu0M8DZjcs7/B/AzevMulYYI7mM9
-    H7MMF7YL1noaHxl2cRu6SDDYkric/VnzknSWgDYOWds2AP/rb+XIcAiKV+7NPJWuN0lYW8
-    bATGufHdqa6qx/BQqwZ5HMST5A1NrAF5KuC8EpJL1x02ver7Q4BWsbAV090uLolr0F14zz
-    MR4I8SvpkZrE8rqaC1s7R7FSZAgwR7mXNC7NlzkZVYRzN59cozKRqsHHIYXwdOJtfh8EWj
-    2kQv3SqZM2tuGfN5rEQW3KA9SF025KP69NQ/doCoePKmQAEAslOmCf3esCqQ
-X-ME-Proxy: <xmx:JsDVaoP-lL-ZPjHZqM5x-uTzddaqXcQWgvWWJhdREsAMouG5wx1gnQ>
-    <xmx:JsDVasrISSXCj_TNUuZRmhCeON5OslPUs6TgTkrjIyu0aPLmd2GhFg>
-    <xmx:JsDVapuQYzFuq1JrgNfIAtksvJJP6HoOb_N2pZ0Ac8kVdJsxh_GCIg>
-    <xmx:JsDVao71_T2NiqcBXsT8XMjo8sqS2HrXA0-6TP355uYPZLS2XwtA0Q>
-    <xmx:J8DValUeHNOTG7eiiycPGqrGGoZamb2JV_CChSXbo0IqFQdKWW63XlqC>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 19 Oct 2026 03:00:52 -0400 (EDT)
-Message-ID: <01358de1-7f97-4bfb-92fb-4ed97ebbc29f@pobox.com>
-Date: Mon, 19 Oct 2026 00:00:51 -0700
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="hXWIrbHh"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1792393610; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=96Wm4D57LuIgrDtXs3jtILL79TgZtcHA3nY+j4YAW3Q=;
+ b=hXWIrbHh/zoTrGqhiFS5hJfKXv7MRtu9h/fgsAkvpSItQI1ZG3FHO+G9k83wsyWDD4qgki
+ PVEpHMONKYA3jenAosXFCEvzbFEqVwqDPSWlw27Ku4IedpYrk/BWxL3jjfTXQkArNftX0r
+ wslhnH5fkcuTMGu9tfm5OcnI9J01SIfF9tKV8DfHzJd6+yuvo7/TjFbe1OnHc/3DSyahu8
+ yrDImSeKhxMyZhCaJi9Z7uN3VI9xHFiyl6Fd7lXsSiXkTiIwFs/xP8IfpXt5LAwp1YEa9h
+ fp6l9kbTv6lZ795Io88mkKpGU949+GbPPfh/1OuG54DekUD3Dg4Mnd6Di6fYwA==
+In-Reply-To: <daab2f45-56c2-48ad-a24f-aa4f889e4da2@kernel.org>
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+User-Agent: Mozilla Thunderbird
+References: <20261013093600.54995-1-zhaogongyi@bytedance.com> <daab2f45-56c2-48ad-a24f-aa4f889e4da2@kernel.org>
+Cc: <dev.jain@arm.com>, <baolin.wang@linux.alibaba.com>, 
+	<lance.yang@linux.dev>, <mark.rutland@arm.com>, 
+	<akpm@linux-foundation.org>, <ljs@kernel.org>, <liam@infradead.org>, 
+	<vbabka@kernel.org>, <rppt@kernel.org>, <surenb@google.com>, 
+	<mhocko@suse.com>, <linux-arm-kernel@lists.infradead.org>, 
+	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>
+Date: Mon, 19 Oct 2026 15:06:26 +0800
+Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH] arm64/mm: restrict transparent contpte mappings to valid PTEs
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 00/52] 6.18.58-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261017155104.830766652@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20261017155104.830766652@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26ad5c188+14f43e+vger.kernel.org+zhaogongyi@bytedance.com>
 Content-Transfer-Encoding: 7bit
+To: "David Hildenbrand (Arm)" <david@kernel.org>, <catalin.marinas@arm.com>, 
+	<will@kernel.org>, "Ryan Roberts" <Ryan.Roberts@arm.com>
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+Message-Id: <e0f60526-bb95-4d39-9a7a-72cdf32ca5b6@bytedance.com>
 
-On 10/17/26 8:54 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.58 release.
-> There are 52 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On 10/14/26 5:41 PM, David Hildenbrand (Arm) wrote:
+> CCing Ryan:
 > 
-> Responses should be made by Mon, 19 Oct 2026 15:50:51 +0000.
-> Anything received after that time might be too late.
+> https://lore.kernel.org/r/20261013093600.54995-1-zhaogongyi@bytedance.com
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.58-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
+> On 10/13/26 11:36, Zhao Gongyi wrote:
+>> The transparent contpte layer treats PTE_CONT as software state: when a
+>> PTE has PTE_CONT set, the contpte helpers may align the operation to a
+>> CONT_PTE_SIZE block and operate on the whole block. That invariant only
+>> makes sense for valid mappings. Explicit users such as hugetlb manage
+>> their contiguous encodings separately.
+>>
+>> contpte_set_ptes() currently sets PTE_CONT from alignment alone. Batched
+>> set_ptes() users can therefore install present-invalid PTEs with
+>> PTE_CONT set, for example mprotect(PROT_NONE), NUMA hinting through
+>> modify_prot_commit_ptes(), fork() copying a PROT_NONE large folio, or a
+>> PMD split installing PAGE_NONE PTEs.
+>>
+>> This is not a hardware programming problem: invalid descriptors are not
+>> translated, so the hardware ignores descriptor bits such as PTE_CONT. It
+>> is a software-state problem. Some arm64 fast paths intentionally test
+>> pte_cont() directly instead of pte_valid_cont(), for example commit
+>> 9970a9a27ffc ("arm64: mm: implement the architecture-specific
+>> test_and_clear_young_ptes()"). Fixing the producer side preserves these
+>> fast paths and covers all consumers.
+>>
+>> In the observed failure, mprotect(PROT_NONE) installed a full
+>> CONT_PTE_SIZE range of present-invalid PTEs with PTE_CONT set.
+>> MADV_GUARD_INSTALL then zapped one PTE. The nr == 1 clear_full_ptes()
+>> path only unfolds pte_valid_cont() entries, so the neighbouring
+>> present-invalid entries kept PTE_CONT while the target entry became a
+>> guard marker.
 > 
-> thanks,
+> Hm, is there a good reason why we cannot just use the cont-pte bit for all
+> *present* PTEs, even if HW would not be prepared to benefit (!pte_valid())?
 > 
-> greg k-h
+> I guess we really only have to make sure to shatter properly, right?
+> 
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
-no regressions observed.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+Hi David,
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+Right, there is no architectural restriction preventing PTE_CONT from
+being used as software grouping state for present-invalid PTEs. For this
+particular failure, making contpte_try_unfold() recognize something like
+
+         pte_present(pte) && pte_cont(pte)
+
+would make clear_full_ptes(nr == 1) unfold the block before replacing one
+entry with the guard marker.
+
+My reason for preferring the producer-side fix is that the existing
+transparent contpte helpers mostly use pte_valid_cont() as the membership
+test, including contpte_try_unfold(), ptep_get[_lockless](),
+pte_batch_hint() and contpte_is_consistent(), while some range fast paths
+test pte_cont() directly.
+
+If present-invalid PTEs are also considered members of a transparent
+contpte block, I think we should audit the single-PTE modification paths,
+rather than changing only this clear path. We would likely also need a
+pte_present_cont() helper: the pte_present() guard matters because the
+PTE_CONT bit position is part of the swap offset for non-present entries.
+
+There is no hardware benefit while the descriptors are invalid, and
+set_ptes() can recreate the contiguous encoding when an eligible range is
+made valid again. For a stable fix, I therefore preferred to stop
+contpte_set_ptes() from creating present-invalid transparent contpte
+mappings, which also matches the pte_valid_cont() contract used by most
+of the existing helpers.
+
+I agree that saying this invariant "only makes sense" for valid mappings
+is too strong. I will reword that to describe the current helper
+contract instead.
+
+If preserving the software grouping across PROT_NONE is the intended
+semantics, I can rework this as a broader unfold-path audit instead.
+
+Thanks,
+Gongyi
