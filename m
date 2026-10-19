@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.145.95.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792437536;
-	b=aT+SsGAONAue1LF9RKlIX3UaqJjDq5NQ3X5imqJytVLC9e6KCezNZiE9DSZbVJD3tGQ7
-	 u4CWRxUcKrgn19xTsF8Q1JaTlzrgTFiWYuMiZzqB6W3TKdvEHbNkXgCGDKI1CXfp4hjNh
-	 i96EE7BLvQhVBEKBDZMerJB3MbHbGPZmc1Rvg4373lmlR+3syT1r3whVXThUJ0YASa/zF
-	 J2vqQKYE0xzi6xVEUvOwCBbd5LYQmpwvMA4WNfTwU7gI617rWKIWe4UCpq1+vZkCYOzvt
-	 C146olLlCdQ3xNlxGMWqrK4p/93hLcuKlPZRryVN/Qp41+7rjvSVnYuxK320EKEe34w==
+	t=1792437545;
+	b=FxLH2M0iTjPENv6K7g2PT2jeyZSkTszpRnZagPSgBjOREiwzrHLXFM5X+HVzF6Xy/qIr
+	 JN5QhEqdEyViWxIP7VWKo+GdR8eQW7BtZUTORwygcNXfIEEeR6TMSCFlBXAGGoxK7BGFy
+	 uWHqajGBNZvYRzHTB8fI5xjhRzJQsqs7TmFRVMyFno6CL3YzNd/ymVHZ/+9vsv1SfmgLP
+	 +MS4l7vy+Duu8PaRkB2XAYID9XK5MpfMPYvMEAb6fKq6+VSpeTle1S8g3HxAwEPTNt7Br
+	 tR/VWh+zDe8+LKM1LWhu4LSrH7GhXaQ0ZQG0u7es9qAtowC/47EjpI/xWYwaSt6O4tA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792437536;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792437545;
 	h=DMARC-Filter:From:To:Cc:Subject:In-Reply-To:References:Date:
 	 X-Clacks-Overhead:Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=5ePkrAFhVGr4mAotZVdcNeWakBR6sHFcUDUhmY4lFi4=;
-	b=LCj2L7kAGKz1x+OU1OsPpG7KYLP8OWtWu6Bv4ANe8HGoHMkyhUtrivqQ35aQBb5mKpAx
-	 mJ7luJskMIaO9u/nDmWpcqH2IbZyWpgVvjzs9gduTZR6Y71spSqLxop2Lmw9f4QNUsnNf
-	 L08rF3svmeeFtyO41/QnSJYPFfrHSOVyDYKmKJsOqhK1yXtcxdHtnMh66+po1fTKGXVjL
-	 fdz/B/H04FD10PBWQOwTDP2sMkjV7yd2eI03fZMgAfRmzuuSUAotf3ByvNlZ8WgpEOhag
-	 OwinmJ7i2fmK8HGNaKANr6JBgSbL0waMWlQkB5gYv8/8Cc0xCKznveFcFaWOUT3pr9w==
+	bh=vNr43py3jVhF0oOcIVZ0foVFHSm6HunoXjUgiLBI4mM=;
+	b=Ic7aYlf/UhOwuhrayNFDUB+xxYdsyXeoOeRx3bi2sYbu3hViEdJVmapRqlji1+1IJjte
+	 sj1/tcDltPYQ1Go7OrhLTf6eF86u+BPq627y/Tg6ymPQYArv/46fG+9gQko6wew/qDLOS
+	 eDdJBtnckfaG6f/uAZW2jXHtkFRR8o2mxKsQFkw2JDtND9kobXCCuo9Od0TlG+ubSZRs5
+	 Sh169sRLSXVHgwvGgNHvJQfYfEwxZKS+bRV/DgXAbZnO/tJTXQ5H2O7Bn/Tl5FyMTuIcQ
+	 0UnaHAs93ZHzg7h3472Ypc09EqEUWn29fI6smo5toCCCfIACP7mkV3Tnn88KAv1iwtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=toke.dk;
 	spf=pass smtp.mailfrom=toke.dk;
@@ -25,9 +25,9 @@ Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8803606A325;
-	Mon, 19 Oct 2026 19:18:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8803606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B99606A32E;
+	Mon, 19 Oct 2026 19:19:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9B99606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
 Authentication-Results: mail.toke.dk; dkim=none
@@ -38,14 +38,14 @@ Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "John W .
  <sw@simonwunderlich.de>, Oleksij Rempel <linux@rempel-privat.de>, Kalle
  Valo <kvalo@kernel.org>, Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
  stable@vger.kernel.org
-Subject: Re: [PATCH ath-next v4 5/8] wifi: ath9k: clear the PHY error filter
- when a spectral scan is disabled
-In-Reply-To: <20260916173429.403889-6-nerijus.bendziunas@gmail.com>
+Subject: Re: [PATCH ath-next v4 6/8] wifi: ath9k: count spectral samples in
+ the driver's own RX stats
+In-Reply-To: <20260916173429.403889-7-nerijus.bendziunas@gmail.com>
 References: <20260916173429.403889-1-nerijus.bendziunas@gmail.com>
- <20260916173429.403889-6-nerijus.bendziunas@gmail.com>
-Date: Mon, 19 Oct 2026 21:18:54 +0200
+ <20260916173429.403889-7-nerijus.bendziunas@gmail.com>
+Date: Mon, 19 Oct 2026 21:19:03 +0200
 X-Clacks-Overhead: GNU Terry Pratchett
-Message-ID: <871p9lwlb5.fsf@toke.dk>
+Message-ID: <87y0btv6qg.fsf@toke.dk>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,16 +60,22 @@ Content-Transfer-Encoding: quoted-printable
 
 Nerijus Bend=C5=BEi=C5=ABnas <nerijus.bendziunas@gmail.com> writes:
 
-> Triggering a spectral scan sets the PHY error bits in AR_RX_FILTER and
-> AR_PHY_ERR and sets AR_RXCFG_ZLFDMA; disabling it clears none of them.
-> ath9k_htc carries the hardware bits into every later filter update, so
-> an idle device keeps forwarding every PHY error as a zero-length frame.
+> ath_cmn_process_fft() is shared by ath9k and ath9k_htc, but it casts
+> common->priv to struct ath_softc to reach the rx_spectral_sample_good
+> and rx_spectral_sample_err counters. On ath9k_htc common->priv is a
+> struct ath9k_htc_priv, a much smaller structure, and with
+> CONFIG_ATH9K_DEBUGFS the increment lands far past the end of that
+> allocation, once per FFT sample.
 >
-> Clear all three when the scan is disabled, unless radar detection is
-> enabled and needs the same bits. AR_RXCFG_ZLFDMA must go too, or the
-> frames keep coming.
+> Store a pointer to the driver's struct ath_rx_stats in struct
+> ath_spec_scan_priv and count through it. Both drivers pass their own
+> stats to ath9k_cmn_spectral_init_debug(), and both print them in the
+> shared recv debugfs file, so the two counters now also work on
+> ath9k_htc. Without debugfs the pointer stays NULL and nothing is
+> counted, as before.
 >
-> Fixes: e93d083f42a1 ("ath9k: add spectral scan feature")
+> Fixes: 03224678c013 ("ath9k: add counters for good and errorneous FFT/spe=
+ctral frames")
 > Cc: stable@vger.kernel.org
 > Assisted-by: LLM
 > Signed-off-by: Nerijus Bend=C5=BEi=C5=ABnas <nerijus.bendziunas@gmail.com>
