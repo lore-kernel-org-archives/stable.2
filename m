@@ -1,130 +1,113 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EB1A4F0534;
-	Mon, 19 Oct 2026 12:47:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BEB64E80DA;
+	Mon, 19 Oct 2026 12:48:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792414078; cv=none; b=hn9Qez/BscYCpV6ELoiVQnGNSBzRuF8rfAJFJ10bhCq5lJqiUu96999Yc5vPUGvEn5H3wbIK4+wgkSTgq7tutrun/ALg/BoLq9ygo+bGJCUnB2PifEXfIlgMvMZ5vFvCgJeG6OWgVGGSitnuNgVhfoazi8SdTnzboXccai5J81s=
+	t=1792414115; cv=none; b=Zl0wRtv9TP4budHeqCBebF5Dbxelqa8FS1ZIGzTfR+zMZOH5KcUQULYqnOTEansKfqmYmzEm/qkMSexktKnZnlB2V6ObdbopQyarfz1yUM+NQJAAxof0le6mwjMPTcMWeR5BDl8ekQ0dGmiaTP6uCLZ4Kjn9+gdvs8gaF9VGIDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792414078; c=relaxed/simple;
-	bh=T8TOdyqs3cCrF/nGVma3SBbHxWF77CM8ZvrXReIx5Gs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tVGxMpLor0yKNx4VhJSyy+SIgvaRnlFm/tcBZ5Rj8eZHDDJBtO55EIbqAwtpeGNzZeafb1GycsUzIlj/b1B4sCmUN9GpvHcBUJBa+MUEss0M/u4RHIURzIRYbPsk+3PMBCHCeNiwxKXwkPNcQoAv/Qtlmi5wJqOvRs4biw424R0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XiiADlfH; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1792414115; c=relaxed/simple;
+	bh=fIQv1W9cE2jsy/PTQByc3V/WDGrlc3ns7JV1QIM7UgI=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=ASINJKQI+zcR7JMno4S2gc86+MihyMnV5EEIESkxb8JVqJilG/0zvUT84xu0+2QhY0yV7XdTasS1k0+LIaVNH+aaePW2FDoZzMO1WCq0Xx16EJhiP0n5Th8RlL3CDMSLnip2/EyOhvonqquT+trqAhM6XZtu7ptutQoRKbavsgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=XL9jo5vg; arc=none smtp.client-ip=113.46.200.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XiiADlfH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792414075; x=1823950075;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=T8TOdyqs3cCrF/nGVma3SBbHxWF77CM8ZvrXReIx5Gs=;
-  b=XiiADlfH2y7VFiQPoKmFxChPBhi7+9Iht2ohaeTQGfK8ASF+5NLYP1Mq
-   bYK6FSA1xHjmd+v6RXAQ2PTXIlNNUU+X1Cws9EByst/wjaDMVRe/VrqzQ
-   JJAtFqYJ4qO2zLgYpgs32SuQUz8xwql4TlK83JJPFC7oQyzFngJdMObC0
-   1/1VUwX3dfys5Ki1M20G9CJ5BY54lVqJNjC/VckoAj4vfz0qBR8in8S3f
-   CO0yq+H1eaCiyNPMtuX+t0BVqkcrxgy3LUyd5c1Zb7gqSp/MGgmWKxkxF
-   kCPUXrmVymB06il/G6DB9FCKo34ekF+MZUTi3Jv5RoUGT2O8x8ngu4K91
-   A==;
-X-CSE-ConnectionGUID: Qi+MtPC/QAmwMw1IDWiyIg==
-X-CSE-MsgGUID: n0lllosdSwmjwW73WXo1wA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="994042"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="994042"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 05:47:53 -0700
-X-CSE-ConnectionGUID: q/B1HGdoTfy3jefbYjA7Mw==
-X-CSE-MsgGUID: tXCmjySFRvq6bCNDcgqpKw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2523922"
-Received: from nneronin-mobl1.ger.corp.intel.com (HELO [10.245.113.10]) ([10.245.113.10])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 05:47:51 -0700
-Message-ID: <e952e037-5be8-49c0-b0fe-bcf1bda77bdc@linux.intel.com>
-Date: Mon, 19 Oct 2026 15:47:31 +0300
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="XL9jo5vg"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=MV5RrEEMJXzqIcVuqwIGkxm5V8DKAxWOFj4ELstqf7c=;
+	b=XL9jo5vgq0oiKOY98nWUyAExz+PImnG2MRncQY6TXVMBppLsZwnH2pLigVPxp/5fsm1z+nmyH
+	KfDit8K3iBEFZNcvnCMB/L3u3YUr/u+KzZeJgwsv2fxN1tHrOz1OHXO3yGfH71qQKhaq6STl3ag
+	eblAXEeawk8ldFmWgBuMhec=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4j7b1z47GSzmVXY;
+	Mon, 19 Oct 2026 20:48:23 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+	by mail.maildlp.com (Postfix) with ESMTPS id B96884055B;
+	Mon, 19 Oct 2026 20:48:26 +0800 (CST)
+Received: from [10.174.178.46] (10.174.178.46) by
+ whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 19 Oct 2026 20:48:25 +0800
+Subject: Re: [PATCH] fs: rotate inodes whose page cache could not be dropped
+To: Nick Karaolidis <nick@karaolidis.com>
+CC: Christian Brauner <brauner@kernel.org>, Alexander Viro
+	<viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Mateusz Guzik
+	<mjguzik@gmail.com>, <linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+References: <20261016102515.111285-1-nick@karaolidis.com>
+ <5b74fceb-dc8d-21ad-d313-eba7a0009056@huawei.com>
+ <qNyuimLVAkP0k7luIlbuqeg7Co3gXnyrzZ2fIuFjRZiKon2IaylrG1-_tkSRE_cWyOuq6eIzU6O12OvRg8J-ZszqHBaxE0XL2uYVhQ08MS8=@karaolidis.com>
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+Message-ID: <db764681-95cd-7c15-4b04-1372018fc93e@huawei.com>
+Date: Mon, 19 Oct 2026 20:48:24 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: xhci: fix EP0 context leak on virt device allocation
- failure
-To: Anfernee Cao <anferneemelokc5@gmail.com>,
- Mathias Nyman <mathias.nyman@intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261017111114.1135-1-anferneemelokc5@gmail.com>
-Content-Language: en-US
-From: "Neronin, Niklas" <niklas.neronin@linux.intel.com>
-In-Reply-To: <20261017111114.1135-1-anferneemelokc5@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <qNyuimLVAkP0k7luIlbuqeg7Co3gXnyrzZ2fIuFjRZiKon2IaylrG1-_tkSRE_cWyOuq6eIzU6O12OvRg8J-ZszqHBaxE0XL2uYVhQ08MS8=@karaolidis.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 
-
-
-On 17/10/2026 14.11, Anfernee Cao wrote:
-> When XHCI_EP_LIMIT_QUIRK is set, xhci_alloc_dev() reserves an endpoint
-> context for the default control endpoint before allocating the virt
-> device:
+在 2026/10/19 16:50, Nick Karaolidis 写道:
+> On Saturday, October 17th, 2026 at 8:43 AM, Zhihao Cheng <chengzhihao1@huawei.com> wrote:
 > 
-> 	ret = xhci_reserve_host_control_ep_resources(xhci);
-> 	...
-> 	if (!xhci_alloc_virt_device(xhci, slot_id, udev, GFP_NOIO))
-> 		goto disable_slot;
+>> Hi Nikolaos,
+>> I find a possible BUG_ON if this patch applied, details shown as:
+>>      P1                          P2
+>> prune_icache_sb
+>>    lock(lru->lock)
+>>    inode_lru_isolate
+>>     if (!mapping_empty(&inode->i_data))
+>>      unlock(lru->lock)
+>>      spin_lock(&inode->i_lock)
+>>      inode_state_set(inode, I_REFERENCED)
+>>      inode_unpin_lru_isolating
+>>      spin_unlock(&inode->i_lock)
+>>                            unlink
+>>                             iget_locked // find_inode_fast gets the inode
+>>                             iput
+>>                              iput_final
+>>                               drop = 1
+>>                               evict
+>>                                BUG_ON(inode_state_read_once(inode) !=
+>> (I_FREEING | I_CLEAR))  // inode state with I_REFERENCED
+>>
+>> Could that be possible?
 > 
-> The reservation is normally released by xhci_handle_cmd_disable_slot(),
-> which calls xhci_free_device_endpoint_resources() for the virt device
-> found at xhci->devs[slot_id].  xhci_alloc_virt_device() does not install
-> the virt device when it fails, so the Disable Slot completion handler
-> finds an empty slot, returns early, and the reserved context is never
-> released.
+> Hi Zhihao,
 > 
-> Each failure leaks one endpoint context.  Once num_active_eps reaches
-> limit_active_eps, every new device is rejected with "Not enough host
-> resources" and cannot be enumerated.
+> Thanks for looking at this. I don't think that BUG_ON can trigger.
 > 
-> Fix this by releasing the reservation when xhci_alloc_virt_device()
-> fails.
+> - The patch sets I_REFERENCED in the same i_lock section that clears
+>    I_LRU_ISOLATING, and evict() waits in inode_wait_for_lru_isolating()
+>    before calling ->evict_inode(), so the walker can only set the flag
+>    before the filesystem's eviction runs.
 > 
-> Fixes: 2cf95c18d506 ("Intel xhci: Limit number of active endpoints to 64.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Anfernee Cao <anferneemelokc5@gmail.com>
-> ---
->  drivers/usb/host/xhci.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
+> - clear_inode(), which every ->evict_inode() calls, sets i_state to
+>    I_FREEING | I_CLEAR.
+OK, I missunderstand the realization of 'inode_state_assign_raw(inode, 
+I_FREEING | I_CLEAR)' in the clear_inode().
 > 
-> diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-> index 7f7babe9d681..8b9a6f88cca5 100644
-> --- a/drivers/usb/host/xhci.c
-> +++ b/drivers/usb/host/xhci.c
-> @@ -4278,6 +4278,15 @@ int xhci_alloc_dev(struct usb_hcd *hcd, struct usb_device *udev)
->  	 */
->  	if (!xhci_alloc_virt_device(xhci, slot_id, udev, GFP_NOIO)) {
->  		xhci_warn(xhci, "Could not allocate xHCI USB device data structures\n");
-> +		/*
-> +		 * The virt device was not installed, so the Disable Slot
-> +		 * completion handler cannot drop the EP0 context reservation.
-> +		 */
-> +		if (xhci->quirks & XHCI_EP_LIMIT_QUIRK) {
-> +			spin_lock_irqsave(&xhci->lock, flags);
-> +			xhci->num_active_eps--;
-> +			spin_unlock_irqrestore(&xhci->lock, flags);
-> +		}
->  		goto disable_slot;
->  	}
->  	vdev = xhci->devs[slot_id];
+> - Evicting an inode that has I_REFERENCED set already happens.
+>    iput_final() sets it through __inode_lru_list_add(inode, true) when
+>    the inode is already on the LRU.
+> 
+> Did I miss a path that checks i_state before clear_inode()?
+> 
+> Thanks,
+> Nikolaos
+> 
+> .
+> 
 
-Hi,
-
-Thanks for working on this. I believe this is the same issue addressed in this patch:
-
-https://lore.kernel.org/linux-usb/20261006152427.3735383-3-niklas.neronin@linux.intel.com/
-
-Thanks,
-Niklas
