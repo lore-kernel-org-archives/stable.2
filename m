@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792434014;
-	b=qIcCxshWE1mQQDBG+BfEGLlHD0FbqhrktvVUEH6by0NvAsjMaZYdcQRpl+hqJxVJhVCk
-	 ekB6o68wqW929pTWl8sh5yFVOEBgPAjnpAdl445OY6SOvvLi9nZUs8ZY8co4d1FRZcZNa
-	 sLJ9wbvXbIww1kOGkLW9RTLYOWZ+38zF3D6rq+hMrnFpstKISz12aM/rMzEAtKAEsXxUH
-	 QVr2iPEPeDe3Fv5QMIlka9RvdgbdYzlOUK5dIFo8D9aJgKZQcLyrasJYlxHB+GeuwMztB
-	 DYQIAsAILbBfnOgyPPjm0EX9ODgqO63/V/X19pjLpbKW9qxP9kvNBlUGe1DuZZ2/ejg==
+	t=1792434034;
+	b=HpASNstNGnyA5yHu6w1up7vU+38/kM8YTGfSSJuuFcppvPdj2ZIWX3igNR9R4hBE714Y
+	 SJjs9jHm1BJn8Nexo6Mg5o0EPPjrCsKnBzmcYxNn+VfwFeS2pzJgRQ8uYhBbM8nTQe1o3
+	 DlK0RFmKfEQTWkNxrv97dKES/vnw7xjEzFCwSubgKLJ6Z5ApJ5P8jGcfzgGjxX2t46YGF
+	 my0FeV0bN1fFhdjtaNjuyNJNByHOpf4MXUzi2AO8uFyZpdjSrpsfntjuxw9HYpSdZw0xQ
+	 0WLC5IlY0H6a16GfoNe2RMpYnIun/rnF/OxRM8seFW68QBRpmzvxdI+lDH9D/s6A3yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792434014;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792434034;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:Content-Language:To:Cc:References:From:Autocrypt:Organization:
 	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=QQqOO1sp1cVBMPwhmXDcJAZwgEN/7tzZ1OuMS3CEjL0=;
-	b=l4P836V9j+AgNRG9hfATslQ+57T4T9BnxEw0CfECWNK/tpKqGvn/nrlNZVkBm9XEqmUz
-	 asCMfkc2W0LqyBxdALiYr7iAwJzH7v9GoISNZEnvOMLJr64Bse4TwTSlHPRYTMFb1FvpS
-	 5IJUv6EQUm4nAnofRHjYjdBDsVl3gksr9b+V0IBWZ/+lh1LSXpe/m4HikqtNRsyWv6KM3
-	 YEDL/W0Na8ZsS/Nvc4KZAQxVghEYL8ckj8ewGiiNJevgMdE13oIEVPn65H5UIiIhblb3b
-	 x37JQYvQ8b7q4fmf1FZH/VBLUeeglz0vO2v/t/oWVfzRwH91KsTzaUkJpNi9nNbY5ow==
+	bh=D3SldSbaQcK9BT6fQjX4soK/kQ94ywZREqUfmYS3SHw=;
+	b=ih82qkz/iLgudjeD6i2YCHUUGXHN3gKj6I7ta4gdifnmnFaxYxkWeRkzO0O56F1C5/05
+	 7BeRg2swTdu2Q4LYccxMg38qMYzBoRohUTrSimX1zIm1+2DdT+3p5PqmtimuvWyMZI0z0
+	 jPwLVvkkVp6EW+Q/DtcebYjE3hNbhlrlf0IIDCR1favBm+VA4MBk5vgy1aA8VXg6otBfi
+	 /fYWr4PQf2heuHS00nIZls9aKu/MjxjF3gLwmKhOPwhqHElPHH3LHbIoZ/dL73/UzcbRR
+	 1wscre+QF4/UErIJaeROzZlcAtGwK8nMi70hOIGmDGrkMYGOvMIu9YhwpjDoARMQ5og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EMjSQbVv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="j/TLHk7y";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A54606A31A;
-	Mon, 19 Oct 2026 18:20:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8EFC606A319;
+	Mon, 19 Oct 2026 18:20:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EMjSQbVv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 922341F000C4;
-	Mon, 19 Oct 2026 18:20:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j/TLHk7y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D39E1F000C4;
+	Mon, 19 Oct 2026 18:20:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792434014;
-	bh=QQqOO1sp1cVBMPwhmXDcJAZwgEN/7tzZ1OuMS3CEjL0=;
+	s=k20260515; t=1792434033;
+	bh=D3SldSbaQcK9BT6fQjX4soK/kQ94ywZREqUfmYS3SHw=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EMjSQbVvY9EmxNJweezjTboFtYnjHDOMkgDo/Djfay52tYMV91gvSA/+hp30T2Vgx
-	 G9pDZE3col+s8h5vTzRGh+w2CsiuEhErstSq22nOrrbrB2mET0dsRIB2cu7D2uASbK
-	 zqBlMzzB6QW6vxzqAvvIDIgZPmYjt3RfgmlojdTvwebw4Nq84vMdVRM884XD5Zsh1S
-	 iajaKcQW/dsK7HPWjv+LnDXkq+zDQsyqwUxKzSD3WUYc96sSaXJ/DJ+lKKLt53U6qI
-	 G8mSQGGB4c56Og9Axj21pon9ulsnMjOEelrG+e3JVZ8s2H9MxkVJeBaXaKunRT/dN2
-	 RECNcwcbdIsPw==
-Message-ID: <441c410c-d75e-4dcf-a9eb-b246013bef7a@kernel.org>
-Date: Mon, 19 Oct 2026 20:20:10 +0200
+	b=j/TLHk7y22rb5OrfydcogyRvy8s2e6TcJuwpNqvBC2th6HN6IBWtkIlWrIeAZYrkg
+	 UUnzqrmzBFPucB1+KIP6mU4L+rmHnH4LcAsyR4N3l7AuLm9uMnwqqsRJn3VTi1YQqS
+	 AxBitbwq2bYl6cd4cDhytqYUF6vDMtI0cch034LUKMTa1+ZX/pWvGKBw7cqkRIXMKJ
+	 u3Aj18wNdgqEAqBshzb0GXNAwuDQc0NzqpYmtDsi0bbYMOfyqKgEU1bOAyYLEot6o2
+	 a/T23LlLXlEpglO2aoEe5lkfSJwjhSciwyqKAm7mJ+ZW0sQKec4bdO7IXxOAV8Rcy1
+	 HWTial6XZsK/w==
+Message-ID: <fba1e484-2fcf-45d5-92ed-8af6a4a5cc6c@kernel.org>
+Date: Mon, 19 Oct 2026 20:20:30 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,13 +52,13 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH 6.6.y] mptcp: move the OoO check back into
+Subject: Re: [PATCH 6.1.y] mptcp: move the OoO check back into
  __mptcp_try_fallback()
 Content-Language: fr
 To: Abdul Wasey <w453y.me@gmail.com>, stable@vger.kernel.org
 Cc: mptcp@lists.linux.dev, Mat Martineau <martineau@kernel.org>,
  Geliang Tang <geliang@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-References: <20261019111551.2063200-1-w453y.me@gmail.com>
+References: <20261019111559.2063342-1-w453y.me@gmail.com>
 From: Matthieu Baerts <matttbe@kernel.org>
 Autocrypt: addr=matttbe@kernel.org; keydata=
  xsFNBFXj+ekBEADxVr99p2guPcqHFeI/JcFxls6KibzyZD5TQTyfuYlzEp7C7A9swoK5iCvf
@@ -104,14 +104,14 @@ Autocrypt: addr=matttbe@kernel.org; keydata=
  JY6dglzGKnCi/zsmp2+1w559frz4+IC7j/igvJGX4KDDKUs0mlld8J2u2sBXv7CGxdzQoHaz
  lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
 Organization: NGI0 Core
-In-Reply-To: <20261019111551.2063200-1-w453y.me@gmail.com>
+In-Reply-To: <20261019111559.2063342-1-w453y.me@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 Hi Abdul,
 
 On 19/10/2026 13:15, Abdul Wasey wrote:
-> The 6.6.y backport of upstream commit 1bba3f219c5e ("mptcp: do not
+> The 6.1.y backport of upstream commit 1bba3f219c5e ("mptcp: do not
 > fallback when OoO is present") put the out-of-order queue check
 > in __mptcp_finish_join() instead of __mptcp_try_fallback().
 > 
