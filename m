@@ -1,80 +1,73 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13C0B481FA1
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 06:14:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2315B3DDDDE
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 06:23:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792390494; cv=none; b=mlvVtmHtA3rcn4fBJtkmgqB0S4Gz5CM7xqof1BMyj+cEZP269F6kGfJPGhlnWARh6O8dvigLtp850uArn2jnkQgyBeZax2p3Vqsd2LUHsjxWbJg3HiR4Rfl6AF3iFz7Xi03GOUpxBzHoEZs4pJZ877Yz7o7QtapSW/kYBSXzF0A=
+	t=1792391000; cv=none; b=iLqNPxC4Or28AJ8rX6aRb2vqVs7VxISWAJtIpA4DZlwtgrDN6s62gT5nevesRVZ7qVfoSfcchhJjr/uAoEjO6sHKF11q6DVyfxSpZOrIx96l1EwBGl1Yv/8/meQhDQuUjQuMvpvL51nbqiJdivKvRTO8GdCGIqx7DBFxGFBRIj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792390494; c=relaxed/simple;
-	bh=hLviHrUQcnY9d6Hs59o7A7DhG6hJV3vxIcScsJNeYyM=;
+	s=arc-20240116; t=1792391000; c=relaxed/simple;
+	bh=ikUic+N3QzLsfNnI3YIATm18NVXpKCqxJzugmGA5UwM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CDYP8HL8qyuh1lnz7lSpnoLFVjI+grYm+P155hpQSna2Xz8Y95PclxJbaCKCaMLFV+qTiI8OURf0A3clr6Z/6wyEO1MhHT2TEE/zjJr+3e9k2MZRhQM33Sy4CPJ6lHhSe5b1ASF7kNZy3crIVDUtlq42wRel5ZHqq3TLC9bUOqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b15sAq9N; arc=none smtp.client-ip=209.85.216.48
+	 Content-Type:Content-Disposition:In-Reply-To; b=DG1AGuEh1mTDB7wAuFuTIw5ulFOqqSYfBLR88CtOkCEDlKe9TDE/tU7QH/7mOh9V6igO44AQGjBeTB4LB4VnyHU2s3ay+dEtAgtvjSAkpZW1ahhNUxeIqQV5ektrwMfOavSVDM/qUObpsFKLYi9aE2EbZ3sS2QkeGulUOMbqeNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MQuQNgSV; arc=none smtp.client-ip=209.85.214.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b15sAq9N"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ab3260b2cdso818617a91.1
-        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 23:14:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MQuQNgSV"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e8f2c3ad6bso8381055ad.1
+        for <stable@vger.kernel.org>; Sun, 18 Oct 2026 23:23:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792390492; x=1792995292; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792390998; x=1792995798; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=CH7/2Pn88Czop2CrZPadAXkcJAGF4wsEW/e1YNB1cxQ=;
-        b=b15sAq9NWihv6GFpfqSH5HJ3jmNXepVPacRSjllpONskWo3VoEK4Itgk5hQGhDqVUm
-         OWiPBYy0UhE40WYO7DWnLZlZpp1Jwz4eqeXN2NSXpBe447i3vO6tMCc7g3awQB10u3Jj
-         jTYX/R96bQphJx/b/em2D3HoMpomNXcg8xaw48nYpVKInNkwqKttKW2Y5t+OgBhBj5Fy
-         EbpmE93ZISJExcTC6ZjYcexazX0RFzhEETQCXjJaWpZSM11D4gqsKPPoT80kk/2BPyfp
-         49Q5kSYl++unHpMs6blx4qxYak19NowZTS7eZvDPax0vG4/9RmoFI/cMVEqXRgNQ7P5Q
-         Zvog==
+        bh=EoiDhGYBQsA+EuE6OZ11L0CNeac6JOocBhHY+zeRqN0=;
+        b=MQuQNgSVzXqCGo/aDNOusoian+mrXF/Ayy+/hHNJuupBQDul3QR/SWDRZYGBKRqn+l
+         Rk2qeV/gK4GLykbsM6nd2qezw3l3xXqBXwcQE4hwUyBFJ6MbykVdo48HuqtmOiNpoldp
+         ERtikjs8s5R+PyXcg22WkP2ldz2orb3l8FpEdbprnq6AjBItoACrEDZuIHL/TWABTJfl
+         xeYJhT4CqDSjyn4qhHXWYojS6QemoX/NCn6XrbPKILwcGipIvRfsLbp+iSWld8PsCbGj
+         GeSUw1WxQCp1k8xhnlE8L8oPVDKwtHH0KmcpdDZBGWpOfUlsckXskno6J5ie5afQ5J5i
+         AWsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792390492; x=1792995292;
+        d=1e100.net; s=20260707; t=1792390998; x=1792995798;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CH7/2Pn88Czop2CrZPadAXkcJAGF4wsEW/e1YNB1cxQ=;
-        b=qLcGTBxGElvN5XhxHA8bFlfKjo6k3q2z2Rn+KQkb4VXahiykMYBG5t5sNvBDhs0cEJ
-         b0I2Vz3jpx9uwrPgRHgUo85iKu1QIYR+zkJWYLctARu8zLUke9Lv0BjNpjkfH1OBCcdo
-         /zsrKQBBhbIPJknRY24uHry9E7j0WreutschZogkjWbecnnxkGHDPaQUu5gHECVEvynS
-         tizFJl/sTyQR7cACrOq8NpFSSiR0c/od2PGYWOBVFe9JQbJCoZWuv8h5cWxFac2Ws4nf
-         lij8AAal1TS6d67QVOL62tgoIXGZcSy1TScn0g3brtG3RXOmE3AVP9opW1P/88Vjajnb
-         Khow==
-X-Forwarded-Encrypted: i=1; AKwUvBzsA1VKdmdXZz0S8OERTdb2ThWuIOb0JGFtnsAmbyOTz04I/JREuklXrUNn/YyYMWPLGerw9IQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKEvtlI22WAQt14TIaVCEguj/7JVXmsRu9Sz07NX2T6ijxv5O7O
-	1vPuC6a5SMleZT2Tg7t2YKIE6cMPr6ndYkK4AVVXD0s3cC4XTyqw/h0h
-X-Gm-Gg: AYBFou0oBcphywQcUM+sxI/s4LpBPMtaA3g8pqwauaJ8wBHAHaSk2pWNh0rqwBbZxPA
-	cpHNnX3llH4HU8kXWbI3Aipo8fPA6+jY0Fuv4s1KkIucK+uf5V5lvtsNlcDzYtRap4EZSuddd4P
-	l20dN+cX7UTq3/dzJVO4VuytV8VgP1JHQG7YfguodgCVBRWGnIywrTtQABEZcNYC9i2TPVok3BM
-	7A/JDLmiiSBqK7UO8gBdBcaIIXOwolANTf9NkqdtiCwf9TOqCqYLf808YFaKJzHzf9nVlLOtEi2
-	sCe+VTOLrD6+0ILQ9QgERg5FpCgHhTIkEnD4pkeD/GdUzuVJmHBmiLiNDc49wI9rvkUjwPRIjgn
-	ydabj956EZpyGWEVnaEY0amvy+b20qWRpaBxOrTPQnaPwZorlCPHMZpDLQPWDGz1w6CJB5xLftH
-	Qohrtjbr+eRFKT7sC9d2zcRKnUrbiL8XhkqWEf4dgYAJ4JzzCcaZwP50Afd1To
-X-Received: by 2002:a17:90b:3851:b0:3ab:c80:9362 with SMTP id 98e67ed59e1d1-3aceeea8f3amr5078332a91.35.1792390492104;
-        Sun, 18 Oct 2026 23:14:52 -0700 (PDT)
+        bh=EoiDhGYBQsA+EuE6OZ11L0CNeac6JOocBhHY+zeRqN0=;
+        b=v38ccvDr0iAnkDyE19JLiYl1bhOMsgv2x4AOxSoWJfnQx318H8edB5OmOGX6Wk3aL1
+         VkSnqvHX4hcNHxqDorlPtuZui+KkpK6NJJOolZDpTBQtKsA8OegQ5kqUBEjbUKvcia0V
+         URkiJdQ58KnudpW+1fsrZ6ngqNjuUBmwsZIPXCWp1r8gQ7Q46r2MyPLGoYsR7R0XcYAn
+         H7Ox8+FyyXHi5JszzMfgQdXOU9H24HvNvHM+DtW/JIf60V0OQvx741dQS6LBXPv9DIvY
+         YUs0WiRdAMXWhHVpVu2Wjh13SXE/A9hdKOyoUg+EIquhSMcVOEKlZXBLrZILDkpiB/fS
+         6qFA==
+X-Forwarded-Encrypted: i=1; AKwUvBwQ+phS36jx/Bjh9qquamx6vRVb+pr+KgKsGAhCQ+/BO8VsxRWUtokpk/ilR8ZZ7cDBcQ7oeeA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWamxaLAELrypoehxWKZvZujxganZHBxKFog2KBHG8h05k6OVQ
+	DwnWXfDyk7/vfapC+UwH9btabU1fDYohBI7lYzbG/9N0fYqvyXWiwzsb
+X-Gm-Gg: AYBFou1uLfaWhSBifnPRRDrWkrsNmnm5augy8TaHboBv7YGtfK6z8Sru0gpNmsQ7sKK
+	jOpwM7s+RDVRQNF2h3M98ywGuATqL+Pm23UHp7bIBlefuoXoIu/6OKWiFnN0Ysi1BekDgEPS5Fe
+	3s/5DeVnldiDsnYLoh7os9YzDA7wEN7a1Q5ooWHl356+IujRv5XxeZ7EYxJgEpuysbOUDaRFZua
+	vhAmzYJ0NnjZnMV3NQkloxWBj16n1YkG84v5RQGhM8uayhFxGn6+bs06NyRnBobQ9IOLDOyipIc
+	y3PeksQpmrnulcrqaQVh/fgJKTidpkUHntyBgsH/yQBJvvZV3xAn3bwCyICo0aitgJjOHXDCuOb
+	bELRVAP46dU3SEFOw98i1wI5Fthss/SwMgR6vzdxJY+/Ot8Ki8KiTnUGEafSnRAvGW0gbYBbm9V
+	eD+Gwd1Xh+VURgtCb40N7jQcjMH7Vh+tJPXYciBE6dI0s9Uh9CcIfewuU/9PrE
+X-Received: by 2002:a17:902:ea10:b0:2e9:4175:3070 with SMTP id d9443c01a7336-2e9a683449dmr62525305ad.2.1792390998231;
+        Sun, 18 Oct 2026 23:23:18 -0700 (PDT)
 Received: from localhost ([27.122.242.71])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac94794dd9sm19035101a91.12.2026.10.18.23.14.50
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea0cda9d8fsm570065ad.14.2026.10.18.23.23.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 23:14:51 -0700 (PDT)
-Date: Mon, 19 Oct 2026 15:14:46 +0900
+        Sun, 18 Oct 2026 23:23:17 -0700 (PDT)
+Date: Mon, 19 Oct 2026 15:23:12 +0900
 From: Hyunchul Lee <hyc.lee@gmail.com>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.com>, Al Viro <viro@zeniv.linux.org.uk>,
-	ecryptfs@vger.kernel.org, linux-ext4@vger.kernel.org,
-	jfs-discussion@lists.sourceforge.net, linux-nilfs@vger.kernel.org,
-	exfat@lists.linux.dev, linux-fsdevel@vger.kernel.org,
-	ntfs@lists.linux.dev, ocfs2-devel@lists.linux.dev,
-	linux-btrfs@vger.kernel.org, gfs2@lists.linux.dev,
-	linux-efi@vger.kernel.org, linux-mtd@lists.infradead.org,
-	linux-xfs@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH RFC 14/28] ntfs: don't set SB_RDONLY after filesystem
- errors
-Message-ID: <atW1VhJXAIvtYPfd@hyunchul-PC02>
-References: <20261012-work-fs-sb_rdonly-v1-0-60743a3dc326@kernel.org>
- <20261012-work-fs-sb_rdonly-v1-14-60743a3dc326@kernel.org>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: Namjae Jeon <linkinjeon@kernel.org>, ntfs@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v7 0/4] ntfs: serialize attribute-list access
+Message-ID: <atW3UFR2lPfqLSvP@hyunchul-PC02>
+References: <20260812-topic-attr-list-lock-v6-v7-0-2f35e0a38bfb@gmail.com>
+ <CAFRLqsX+4mzD5t1-1OgWg5K3nQPAY_T24uJHpH853mChUpOkYw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,35 +76,22 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261012-work-fs-sb_rdonly-v1-14-60743a3dc326@kernel.org>
+In-Reply-To: <CAFRLqsX+4mzD5t1-1OgWg5K3nQPAY_T24uJHpH853mChUpOkYw@mail.gmail.com>
 
-Hi Christian,
+Hi Cen,
 
-> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-> index 4066bacabe37..12ad2ce938ba 100644
-> --- a/fs/ntfs/super.c
-> +++ b/fs/ntfs/super.c
-> @@ -269,6 +269,8 @@ static int ntfs_reconfigure(struct fs_context *fc)
->  
->  	ntfs_debug("Entering with remount");
->  
-> +	/* Mark the volume dirty first if an error made it read-only. */
-> +	flush_work(&vol->error_work);
->  	sync_filesystem(sb);
->  
+> 
+> Just checking if there is any update on the v7 series, or if the issue has
+> been resolved otherwise.
 
-    if (sb_rdonly(sb) && !(fc->sb_flags & SB_RDONLY)) {
-        ....
-	return -EROFS;
+I am prepairing a v8 version of this series. I will share the patch
+as it is ready.
 
-Before this patch, SB_RDONLY is set, so remount,rw returned -EROFS. With
-this patch, sb_rdonly(sb) is false, so remount,rw skips the check and
-return success even though writes are rejected with -EROFS.
-
-I think that the condition should be test NVolErrors(), for example
-
-    if ((sb_rdonly(sb) || NVolErrors(vol)) &&
-        !(fc->sb_flags & SB_RDONLY)) {
+> 
+> Thanks again.
+> 
+> Best regards,
+> Cen Zhang
 
 -- 
 Thanks,
