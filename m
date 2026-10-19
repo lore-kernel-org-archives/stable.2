@@ -1,86 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792422878;
-	b=umPVcKQs95dRzQjOEHoWzSMM41hFTslD20oGyQ4w69T8L16mM+Ms7wYoHBvuvFOXD66i
-	 tBGdjNgE4usCzfu7nu25nT7NPBY0zaCfvfJ3xOVlS4zNQctbYrn0ZI0q+RZ1CzWwa/FCb
-	 Q5H3KYjP93Kc7FqhN31ZYQZOZaKDnAapt3/UNCXjyLnrRpq+YiovtFaQM/K9kNvIMeGsw
-	 DAEiU4UcMO4eq59pWNAC3vrgM1WihC75oswz/wgZaApTlT+fF1c8Ami2S9Jm/gV6zvskz
-	 cY/P5JsV4TQavityW4C1Q8vCuBvH9tsNwRtUjVBzzoA9yZSPT2bayDgblyeSzhtG/TQ==
+	t=1792424015;
+	b=fDqn5NtiRsJHGc5zGg79m0X6dag4ghzUD5YjrHMW3PFArYWz3e2HR6sPEx7hOvloFFay
+	 ICcDnjcYPHGRdEvGAujnqG0WOtJIDapGJyiKIvJfIR1BOH5mViITDuAC1Mfx9c9NfYFnM
+	 Ob3KWekws8xb930ocH96qoJIiqUmmhQ9dS7BH+HxjpIQGOoamybFz001SQBa2kMSACd+q
+	 4yvE+QUp7U0meLHIOgKtTSbioUSmRLd0CwjZOuFHApkki0NbM+IaS1G/rGs9F8Un5cnee
+	 pj7m9BIDU3qRJkCOjA4elJ3d/1GNQx4j0pfjaetvl6oANKyafWhVr6f9rLhWLn4bExQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422878;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792424015;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=wyMNmoV7LLQCe5NBcl4HLsDDXaPs+fkB0uZvlmUvPpk=;
-	b=5lDqgc6hMpBPjErUHEwp7FRZfiV+SJske6njyALFB+CCJGtE+XSsdijHVotkx9uIFFlt
-	 ZM8QxskjEiE1waWHSynDx4GwVpE2Zx/ehfwJ5zJ8ixafmBw62BtbLGh24nvs7IgzlVsEq
-	 88pX0Sf6rjbCvI4nivG6F9ulvs9xZOvbovziQjojHG86m2NP4OTKN4mX6FQBLYcmWC75Y
-	 ei/z5LlfLVRNAyhkFlgUCLFOtyh2A22HhpVeDNu9RmXdWBuFSNkDta1/GKJlmve5JiMSZ
-	 be5grZ+wsGTFMJfnP+StWGjyKKnHkWK3IhwmsxJlMHWBgOjLHUEig+OSRQTC54qvMeg==
+	bh=KcbrnnbeRkvyshvSAkYPGjx7mv5yPTqvBatwp6TQmLY=;
+	b=IEjssRkAS4LkJkYTA4jeh7O2W2y+NX1J+oFfVtnfXrNNhsRJRGAsemyb7eNKlejgfQl+
+	 lh+nuFxyiWTxk6IoXzysBGXKe1YSJDLH06e7RbmZXazou7HS0PtpSidqs90Gf96suVC8l
+	 1V5Z15Pj++TPN0xWNC5LZOnEi3nH6yOYZk6CFCfssVowBk6X4qRLuk4w8lbPBgGdbsjAq
+	 XMxuj3i3ID+C3di/ewtHBLa83g/TdSmQZhtEzYlavwMGOImDmPfZPydsbTkuEZ3s2AUdb
+	 si2GrMtAsCBujnoPcMMzZJcdKh02kFktNFZKBnQEXuMNABHEImKyci2Fux2AuOEMAQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Rl9D987c;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=g6GWAdAi;
+	arc=none smtp.remote-ip=209.85.208.180
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21C82609CEDD;
-	Mon, 19 Oct 2026 15:14:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21C82609CEDD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4704060774C5
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 15:33:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4704060774C5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Rl9D987c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792422878; x=1823958878;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=QgVVF5Nil8kjcN6fX6wTMPSDsxBuQH1tWzFFSyv8gGU=;
-  b=Rl9D987cQLXUlIl6L+kbGyP9YFXcJAIF7UsdkcdlNhsN8C4DxrgXKqSc
-   /vXoNejC8cwe0TGp7bzXJrBJo3SR5EkeNywCh2NyOvlMPPtR0EP3XaKmX
-   dpOAy0ZRFH421XM1ulKtAGSYGX7aUNm8mhtaMXtU6jKGFdp1TTG60/nWH
-   nrilSJrvDHW1JKLze5OJHYQ7fZkVCdhKjM8nuWh2jE8UU1CyJ1ow4ouCi
-   betzTIhNq7D9Uyh0Zx67Et2IVP1XEaQd1YxS1CSs88SJw8atXX6IzC9NR
-   OWs6dIzr65dObfPif81fpmxmK6cUI8/UMg9+UlrbPjEYbV7V/R3xhzey7
-   A==;
-X-CSE-ConnectionGUID: yhvr66Z5Re6Q5pKqsMBoHA==
-X-CSE-MsgGUID: ofFD/Pj0QVW1byhtQMBtYw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="986918"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="986918"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:14:34 -0700
-X-CSE-ConnectionGUID: AaLch5cvQiq1SnRJDFgN6Q==
-X-CSE-MsgGUID: XyYt6r+vSMi0J3gzW3jB6Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2536974"
-Received: from jf5300-15a101203tc.jf.intel.com (HELO meta-crater2c.jf.intel.com) ([10.54.113.49])
-  by orviesa003.jf.intel.com with ESMTP; 19 Oct 2026 08:14:34 -0700
-From: Daniel Byrne <daniel1.byrne@intel.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>
-Cc: Fenghua Yu <fenghua.yu@intel.com>,
-	Dan Williams <djbw@kernel.org>,
-	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
-	Frank Li <Frank.Li@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Tom Zanussi <tom.zanussi@linux.intel.com>,
-	Kristen Accardi <kristen.c.accardi@intel.com>,
-	dmaengine@vger.kernel.org,
-	linux-crypto@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=g6GWAdAi
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3ab3b29a1d4so8440291fa.1
+        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 08:33:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792424013; x=1793028813; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KcbrnnbeRkvyshvSAkYPGjx7mv5yPTqvBatwp6TQmLY=;
+        b=g6GWAdAi1yeXRfrYHKKs16zq3vHYV/zmqgZLAGzx2aU6qRmVmjoieGfwiEiKoaCD15
+         3tB3rgbYKC9X31AjdDrMiR6au3KzBFfm7x/go1tY2ASzSQLmtX6q9Wq66y7YZLoDGOr6
+         y/Wp0iOKXMyn9TDpeV/LgkgPUgCuikmPF8yTky5J+cjWda1EN1TlaPZI1P8TniOPvKtG
+         r0CDG7kYwz7+jNXsbCf9BXCqbSAtu89kUlaycQLpoizY0ojN5AFyvWwDBsDEZOxMVoBa
+         U6+aXOlq4Vby1amC3TvhObR1CzF6fIm3ZowSlUNQlcDNbvb7JlTbwk57P9uu4nY0T6Bi
+         HdiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792424013; x=1793028813;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KcbrnnbeRkvyshvSAkYPGjx7mv5yPTqvBatwp6TQmLY=;
+        b=kRbLHiPy67Gk+pMOxNPo671Jgql2GERewjgZTVy74OCzlamLEVe39PbpDDUwugvpgn
+         UBCY7Ajr2jJF8ZyLKm6vKl3aa8uHkBCt7ha08l+9OKI2TtlGE+QxzlC2NZu7sXjvs1pZ
+         06IIEdxWCRS9mL03z+YlG6spFbN1Kx3p2JFbXPYlftPoK9VWIlc77+T4XY/ns27IBsH8
+         n7FKzMV/AJ3YuWp7a6otHfE88erRnxb1vH1h3jK5Svz8IfG9L/caSuZoZESHpbjjRyjY
+         7Ek80ZhI1azL+WY0E0JEUH6alXM2F1f//Vv2MhTtsY/9gSzMXhv5eiu1SzgIN8EMfftl
+         Jn1Q==
+X-Forwarded-Encrypted: i=1; AKwUvByhTOOYTpPOdJ9llqLJQp8LcPmO73Wuk2rqcbQyEQcaANkGWD8G9XxCF2XGUYmTrGYFidoHcDM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIgx4pX7vkTQ5GDPEaZrjA2Tck6nrjHBMm8xOsbU4glDx4Gm8SJ
+	xnLPQMnwqgsNYwSKImeAOeQz6dtTerSFtv/ADAh96oK1dlXFa2PGnNto
+X-Gm-Gg: AYBFou1QO4inQTnbM3QIt3wwejGZp1OfphqPOyjWQKdbxvG8P3A3qeFGJwZEiODmlkd
+	K/6JhNzZ96BHLAdjXROlE+9Yz1VlodsN8qTc7fY3XQLhT+ZEdsL0yYRtFOVYSXpNtTZvfmp1ZWD
+	tnoXkrUdzGpqxpmRbB6aYKL92rHefLFL6Kp+1BCqW5rx5vxabgJMObgGVvhEGN75opUQ4Z3i4rl
+	zIYLbhEm/FYg2hzRilPGhgdkvR9YQsmhdaCocBoZL2cq53kaccPZbEoMlmnc7vq64ce15yhWFvt
+	Z5L1pDIcswts9LIzQqVWgJu4ttM/OWpVWpHrMRMxn2QcNOjijrKSqib6gunaCvkMTtzysy+74YS
+	JvjRvjiB2mUIqiWbX/2jri1QXt1+TjIIEV99KdgiqWsOJGrxQWATtYShtxqYZBazjPJ+xygVnX5
+	bWlapY369Pq3ocJ+iUBoOMfqlcHesbDdJdMohG1wL3dj5GJYqS5G3uCTXzhgfk7NxxWpJUAMbdo
+	CgW8XZj8sdTpDJL1Ba/8l1dIcqi0ij8H+JPymznW8Png6tgl1RYu0Z21qAXzGFeBldqIkKhvXru
+	SX4vjBuF6uAFMvB2Ag==
+X-Received: by 2002:a2e:ac13:0:b0:3a9:9c1f:1b9e with SMTP id 38308e7fff4ca-3ab2927bad6mr19434391fa.4.1792424012906;
+        Mon, 19 Oct 2026 08:33:32 -0700 (PDT)
+Received: from yantra.. (nekmmqvd1y84bxeinum-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:da13:4805:c131:eb3e])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ab3c2ed29csm11870571fa.11.2026.10.19.08.33.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 08:33:30 -0700 (PDT)
+From: Rupesh Majhi <zoone.rupert@gmail.com>
+To: Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Joel Stanley <joel@jms.id.au>,
+	Jonathan Cameron <jic23@kernel.org>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>
+Cc: linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	Rupesh Majhi <zoone.rupert@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 09/17] dmaengine: idxd: quarantine terminate_all's descriptor slots until the device has drained
-Date: Mon, 19 Oct 2026 08:06:22 -0700
-Message-ID: <20261019150630.4026341-10-daniel1.byrne@intel.com>
+Subject: [PATCH] iio: pressure: dps310: wait for a new sample after a ratio change
+Date: Mon, 19 Oct 2026 18:33:28 +0300
+Message-ID: <20261019153328.80739-1-zoone.rupert@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261019150630.4026341-1-daniel1.byrne@intel.com>
-References: <20261019150630.4026341-1-daniel1.byrne@intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,307 +103,132 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-idxd_dma_terminate_all() flushes the pending descriptors and frees their
-slots while the device still holds them. A late completion record then
-lands on the slot's next owner and completes it with the old
-descriptor's status, and the unmap data the client attached is released
-while the device may still access the memory it maps; with an IOMMU
-another mapping can reuse the released address and take the late
-access.
+After an oversampling ratio change, the sample waiting in the result
+registers and the one being measured are both from the old ratio, but
+are scaled with the new one. Pressure ratio 2 to 16 reads 192 kPa instead
+of 103 kPa, and temperature is off by hundreds of degrees. Pressure is
+also wrong after a temperature ratio change, as it is compensated with
+the cached temperature.
 
-Keep those slots out of use instead. terminate_all now waits for the
-submitters in flight, so that every descriptor on the lists is in the
-device, and the flush moves the descriptors the device has not finished
-to a per-queue quarantine, with their unmap data, after it has completed
-their cookies. device_synchronize() takes the quarantine, drains the
-queue, which covers everything the device held when the drain was
-issued, and only then frees the slots and the unmap data. A descriptor
-terminated after the take waits for the next synchronize. The halt flush
-frees the quarantine itself, since the halt killed every descriptor the
-device held, and so does the queue disable once its drain and reset
-have completed.
+Discard those two samples on a ratio change, and for temperature cache
+the one after. The ratio write now blocks until then.
 
-Fixes: 2a93f5747d0e ("dmaengine: idxd: Flush all pending descriptors")
-Assisted-by: Claude:claude-opus-5-5
-Assisted-by: Claude:claude-fable-5-1
-Signed-off-by: Daniel Byrne <daniel1.byrne@intel.com>
+That wait can be longer than the 1/rate timeout, after which the driver
+resets the chip and the ratio silently goes back to 1. Allow two periods.
+
+Fixes: ba6ec48e76bc ("iio: Add driver for Infineon DPS310")
+Fixes: d711a3c7dc82 ("iio: dps310: Add pressure sensing capability")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
 ---
- drivers/dma/idxd/device.c | 117 ++++++++++++++++++++++++++++++++++++--
- drivers/dma/idxd/dma.c    |  12 +++-
- drivers/dma/idxd/idxd.h   |  12 +++-
- drivers/dma/idxd/init.c   |   1 +
- drivers/dma/idxd/irq.c    |   3 +-
- 5 files changed, 138 insertions(+), 7 deletions(-)
+Tested on a DPS310 on a BeagleBone Black. Applies with or without the
+ZTS8032 series.
 
-diff --git a/drivers/dma/idxd/device.c b/drivers/dma/idxd/device.c
-index 41223d2e20af..09475f5ea026 100644
---- a/drivers/dma/idxd/device.c
-+++ b/drivers/dma/idxd/device.c
-@@ -118,6 +118,8 @@ int idxd_wq_alloc_resources(struct idxd_wq *wq)
- 	if (wq->type != IDXD_WQT_KERNEL)
- 		return 0;
+ drivers/iio/pressure/dps310.c | 51 +++++++++++++++++++++++++++++------
+ 1 file changed, 43 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
+index 00f6be126326..e6b27cf26cec 100644
+--- a/drivers/iio/pressure/dps310.c
++++ b/drivers/iio/pressure/dps310.c
+@@ -78,8 +78,8 @@
  
-+	/* A fresh pool: nothing outstanding can land in it. */
-+	INIT_LIST_HEAD(&wq->quarantine);
- 	num_descs = wq_dedicated(wq) ? wq->size : wq->threshold;
- 	wq->num_descs = num_descs;
+ /* Make sure sleep time is <= 30ms for usleep_range */
+ #define DPS310_POLL_SLEEP_US(t)		min(30000, (t) / 8)
+-/* Silently handle error in rate value here */
+-#define DPS310_POLL_TIMEOUT_US(rc)	((rc) <= 0 ? 1000000 : 1000000 / (rc))
++/* A period plus a measurement time; silently handle error in rate value */
++#define DPS310_POLL_TIMEOUT_US(rc)	(2 * USEC_PER_SEC / max(rc, 1))
  
-@@ -170,10 +172,18 @@ EXPORT_SYMBOL_NS_GPL(idxd_wq_alloc_resources, "IDXD");
- void idxd_wq_free_resources(struct idxd_wq *wq)
- {
- 	struct device *dev = &wq->idxd->pdev->dev;
-+	LIST_HEAD(dead_descs);
- 
- 	if (wq->type != IDXD_WQT_KERNEL)
- 		return;
- 
-+	/*
-+	 * The disable frees the pool only after its drain and its reset
-+	 * completed, and a failed enable has run nothing, so the device no
-+	 * longer reaches what a quarantined descriptor maps.
-+	 */
-+	idxd_wq_quarantine_take(wq, &dead_descs);
-+	idxd_wq_quarantine_free(wq, &dead_descs);
- 	free_hw_descs(wq);
- 	free_descs(wq);
- 	dma_free_coherent(dev, wq->compls_size, wq->compls, wq->compls_addr);
-@@ -1391,11 +1401,14 @@ int idxd_device_load_config(struct idxd_device *idxd)
+ #define DPS310_PRS_BASE		DPS310_PRS_B0
+ #define DPS310_TMP_BASE		DPS310_TMP_B0
+@@ -354,6 +354,18 @@ static int dps310_get_temp_precision(struct dps310_data *data, int *val)
  	return 0;
  }
  
--static void idxd_flush_pending_descs(struct idxd_irq_entry *ie)
-+static void idxd_flush_pending_descs(struct idxd_irq_entry *ie,
-+				     bool quarantine)
- {
-+	struct idxd_wq *wq = ie_to_wq(ie);
- 	struct idxd_desc *desc, *itr;
- 	struct llist_node *head;
- 	LIST_HEAD(flist);
-+	LIST_HEAD(qlist);
- 	enum idxd_complete_type ctype;
- 
- 	spin_lock(&ie->list_lock);
-@@ -1423,8 +1436,82 @@ static void idxd_flush_pending_descs(struct idxd_irq_entry *ie)
- 		tx = &desc->txd;
- 		tx->callback = NULL;
- 		tx->callback_result = NULL;
-+		/*
-+		 * A descriptor the device has not finished still has its
-+		 * completion record to write. A flush that leaves the
-+		 * device running keeps its slot out of use, or the record
-+		 * would land on the slot's next owner and complete it with
-+		 * this descriptor's status. Its unmap data stays with the
-+		 * slot as well, since the device may still access what it
-+		 * maps, and an address released now could be mapped again
-+		 * for someone else before the late access.
-+		 */
-+		if (quarantine && ctype == IDXD_COMPLETE_ABORT) {
-+			struct dmaengine_unmap_data *unmap = tx->unmap;
++/*
++ * A sample measured before a ratio change would be scaled with the new one.
++ * Reading it clears its ready bit, so the next read waits for a new sample.
++ */
++static int dps310_drop_sample(struct dps310_data *data, unsigned int reg)
++	__must_hold(&data->lock)
++{
++	u8 val[3];
 +
-+			tx->unmap = NULL;
-+			idxd_dma_complete_txd(desc, ctype, false, NULL, NULL);
-+			tx->unmap = unmap;
-+			list_add_tail(&desc->list, &qlist);
-+			continue;
-+		}
- 		idxd_dma_complete_txd(desc, ctype, true, NULL, NULL);
- 	}
-+
-+	if (list_empty(&qlist))
-+		return;
-+	spin_lock(&ie->list_lock);
-+	list_splice_tail(&qlist, &wq->quarantine);
-+	spin_unlock(&ie->list_lock);
++	return regmap_bulk_read(data->regmap, reg, val, sizeof(val));
 +}
 +
-+/*
-+ * Take what terminate_all has quarantined so far. A drain covers only
-+ * what the device held when it was issued, so a synchronize takes the
-+ * quarantine before it drains and frees it if the drain completed. A
-+ * descriptor terminated meanwhile waits for the next one. The list lock
-+ * serialises this with the flush that adds to the quarantine and with a
-+ * halt or a teardown that frees it all.
-+ */
-+void idxd_wq_quarantine_take(struct idxd_wq *wq, struct list_head *list)
-+{
-+	spin_lock(&wq->ie.list_lock);
-+	list_splice_init(&wq->quarantine, list);
-+	spin_unlock(&wq->ie.list_lock);
-+}
-+
-+/*
-+ * Nothing the device holds can write their completion records, or reach
-+ * the memory their unmap data maps, any more. The unmap data goes before
-+ * the slot, which a new owner may take at once.
-+ */
-+void idxd_wq_quarantine_free(struct idxd_wq *wq, struct list_head *list)
-+{
-+	struct idxd_desc *desc, *itr;
-+
-+	list_for_each_entry_safe(desc, itr, list, list) {
-+		list_del(&desc->list);
-+		dma_descriptor_unmap(&desc->txd);
-+		idxd_free_desc(wq, desc);
-+	}
-+}
-+
-+/*
-+ * A halt killed every descriptor the device held: the quarantined slots
-+ * are free. Under wq_lock, since an unbind racing the halt may free the
-+ * pool.
-+ */
-+void idxd_wq_halt_release(struct idxd_wq *wq)
-+{
-+	LIST_HEAD(dead_descs);
-+
-+	guard(mutex)(&wq->wq_lock);
-+
-+	if (wq->state != IDXD_WQ_ENABLED || wq->type != IDXD_WQT_KERNEL)
-+		return;
-+
-+	idxd_wq_quarantine_take(wq, &dead_descs);
-+	idxd_wq_quarantine_free(wq, &dead_descs);
- }
- 
- static void idxd_device_set_perm_entry(struct idxd_device *idxd,
-@@ -1456,7 +1543,7 @@ void idxd_wq_free_irq(struct idxd_wq *wq)
- 		return;
- 
- 	free_irq(ie->vector, ie);
--	idxd_flush_pending_descs(ie);
-+	idxd_flush_pending_descs(ie, false);
- 
- 	/* FLR revokes every handle; the halt path marks them invalid. */
- 	if (ie->int_handle == INVALID_INT_HANDLE)
-@@ -1476,16 +1563,38 @@ void idxd_wq_free_irq(struct idxd_wq *wq)
- 	ie->pasid = IOMMU_PASID_INVALID;
- }
- 
--void idxd_wq_flush_descs(struct idxd_wq *wq)
-+/*
-+ * @quarantine: the device keeps running, so the slots of the descriptors
-+ * it has not finished stay out of use until a drain covers them. A halt
-+ * has killed them and frees their slots at once.
-+ */
-+void idxd_wq_flush_descs(struct idxd_wq *wq, bool quarantine)
+ static int dps310_set_pres_precision(struct dps310_data *data, int val)
+ 	__must_hold(&data->lock)
  {
- 	struct idxd_irq_entry *ie = &wq->ie;
-+	bool killed = false;
+@@ -369,8 +381,12 @@ static int dps310_set_pres_precision(struct dps310_data *data, int val)
+ 	if (rc)
+ 		return rc;
  
- 	guard(mutex)(&wq->wq_lock);
- 
- 	if (wq->state != IDXD_WQ_ENABLED || wq->type != IDXD_WQT_KERNEL)
- 		return;
- 
--	idxd_flush_pending_descs(ie);
-+	/*
-+	 * A submitter between its list add and its portal write holds
-+	 * wq_active. Waiting for the reference to die puts every listed
-+	 * descriptor in the device, where the drain that frees the
-+	 * quarantine covers it. A halt flush has done this itself.
-+	 */
-+	if (quarantine && !percpu_ref_is_dying(&wq->wq_active)) {
-+		reinit_completion(&wq->wq_resurrect);
-+		percpu_ref_kill(&wq->wq_active);
-+		wait_for_completion(&wq->wq_dead);
-+		killed = true;
-+	}
-+	idxd_flush_pending_descs(ie, quarantine);
-+	if (killed) {
-+		percpu_ref_reinit(&wq->wq_active);
-+		complete_all(&wq->wq_resurrect);
-+	}
+-	return regmap_update_bits(data->regmap, DPS310_PRS_CFG,
+-				  DPS310_PRS_PRC_BITS, ilog2(val));
++	rc = regmap_update_bits(data->regmap, DPS310_PRS_CFG,
++				DPS310_PRS_PRC_BITS, ilog2(val));
++	if (rc)
++		return rc;
++
++	return dps310_drop_sample(data, DPS310_PRS_BASE);
  }
  
- int idxd_wq_request_irq(struct idxd_wq *wq)
-diff --git a/drivers/dma/idxd/dma.c b/drivers/dma/idxd/dma.c
-index defd1af74c0a..196045cb9ef2 100644
---- a/drivers/dma/idxd/dma.c
-+++ b/drivers/dma/idxd/dma.c
-@@ -199,7 +199,8 @@ static int idxd_dma_terminate_all(struct dma_chan *c)
+ static int dps310_set_temp_precision(struct dps310_data *data, int val)
+@@ -388,8 +404,12 @@ static int dps310_set_temp_precision(struct dps310_data *data, int val)
+ 	if (rc)
+ 		return rc;
+ 
+-	return regmap_update_bits(data->regmap, DPS310_TMP_CFG,
+-				  DPS310_TMP_PRC_BITS, ilog2(val));
++	rc = regmap_update_bits(data->regmap, DPS310_TMP_CFG,
++				DPS310_TMP_PRC_BITS, ilog2(val));
++	if (rc)
++		return rc;
++
++	return dps310_drop_sample(data, DPS310_TMP_BASE);
+ }
+ 
+ static int dps310_set_pres_samp_freq(struct dps310_data *data, int freq)
+@@ -651,6 +671,7 @@ static int dps310_write_raw(struct iio_dev *iio,
+ 			    int val2, long mask)
  {
- 	struct idxd_wq *wq = to_idxd_wq(c);
+ 	struct dps310_data *data = iio_priv(iio);
++	int rc;
  
--	idxd_wq_flush_descs(wq);
-+	/* The device keeps running what the lists held. See synchronize. */
-+	idxd_wq_flush_descs(wq, true);
+ 	/* Reconfiguring mid-capture would change the values being captured */
+ 	IIO_DEV_ACQUIRE_DIRECT_MODE(iio, claim);
+@@ -677,10 +698,24 @@ static int dps310_write_raw(struct iio_dev *iio,
+ 	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+ 		switch (chan->type) {
+ 		case IIO_PRESSURE:
+-			return dps310_set_pres_precision(data, val);
++			rc = dps310_set_pres_precision(data, val);
++			if (rc)
++				return rc;
++
++			/* A measurement already running finishes at the old ratio */
++			return dps310_read_pres_raw_locked(data);
  
- 	return 0;
- }
-@@ -207,8 +208,17 @@ static int idxd_dma_terminate_all(struct dma_chan *c)
- static void idxd_dma_synchronize(struct dma_chan *c)
- {
- 	struct idxd_wq *wq = to_idxd_wq(c);
-+	LIST_HEAD(quarantined);
+ 		case IIO_TEMP:
+-			return dps310_set_temp_precision(data, val);
++			rc = dps310_set_temp_precision(data, val);
++			if (rc)
++				return rc;
++
++			/* The next sample is the one cached for pressure compensation */
++			rc = dps310_read_temp_raw_locked(data);
++			if (rc)
++				return rc;
++
++			return dps310_read_temp_raw_locked(data);
  
-+	/*
-+	 * dmaengine_synchronize() promises the client that its memory may
-+	 * be freed afterwards. The drain keeps that promise, and nothing
-+	 * the device held before it is left to write a completion record,
-+	 * so the slots terminate_all quarantined are free again.
-+	 */
-+	idxd_wq_quarantine_take(wq, &quarantined);
- 	idxd_wq_drain(wq);
-+	idxd_wq_quarantine_free(wq, &quarantined);
- }
- 
- int idxd_register_dma_device(struct idxd_device *idxd)
-diff --git a/drivers/dma/idxd/idxd.h b/drivers/dma/idxd/idxd.h
-index 221a7302bb0c..31bc4a506225 100644
---- a/drivers/dma/idxd/idxd.h
-+++ b/drivers/dma/idxd/idxd.h
-@@ -224,6 +224,13 @@ struct idxd_wq {
- 	struct idxd_desc **descs;
- 	struct sbitmap_queue sbq;
- 	struct idxd_dma_chan *idxd_chan;
-+	struct list_head quarantine;	/* descriptors a terminate_all took
-+					 * off the lists while the device
-+					 * still held them. Their slots, with
-+					 * their unmap data, are freed once a
-+					 * drain that covers them completes or
-+					 * the device stops. Under ie.list_lock.
-+					 */
- 	char name[WQ_NAME_SIZE + 1];
- 	u64 max_xfer_bytes;
- 	u32 max_batch_size;
-@@ -807,7 +814,10 @@ void idxd_wq_quiesce(struct idxd_wq *wq);
- int idxd_wq_init_percpu_ref(struct idxd_wq *wq);
- void idxd_wq_free_irq(struct idxd_wq *wq);
- int idxd_wq_request_irq(struct idxd_wq *wq);
--void idxd_wq_flush_descs(struct idxd_wq *wq);
-+void idxd_wq_flush_descs(struct idxd_wq *wq, bool quarantine);
-+void idxd_wq_quarantine_take(struct idxd_wq *wq, struct list_head *list);
-+void idxd_wq_quarantine_free(struct idxd_wq *wq, struct list_head *list);
-+void idxd_wq_halt_release(struct idxd_wq *wq);
- 
- /* submission */
- int idxd_submit_desc(struct idxd_wq *wq, struct idxd_desc *desc);
-diff --git a/drivers/dma/idxd/init.c b/drivers/dma/idxd/init.c
-index 9c47a7b9e48e..c4319ac27bfb 100644
---- a/drivers/dma/idxd/init.c
-+++ b/drivers/dma/idxd/init.c
-@@ -213,6 +213,7 @@ static int idxd_setup_wqs(struct idxd_device *idxd)
- 		init_waitqueue_head(&wq->err_queue);
- 		init_completion(&wq->wq_dead);
- 		init_completion(&wq->wq_resurrect);
-+		INIT_LIST_HEAD(&wq->quarantine);
- 		wq->max_xfer_bytes = WQ_DEFAULT_MAX_XFER;
- 		idxd_wq_set_max_batch_size(idxd->data->type, wq, WQ_DEFAULT_MAX_BATCH);
- 		idxd_wq_set_init_max_sgl_size(idxd, wq);
-diff --git a/drivers/dma/idxd/irq.c b/drivers/dma/idxd/irq.c
-index acb901e59a00..6f58d33b7297 100644
---- a/drivers/dma/idxd/irq.c
-+++ b/drivers/dma/idxd/irq.c
-@@ -427,7 +427,8 @@ static void idxd_wqs_flush_descs(struct idxd_device *idxd)
- 	for (i = 0; i < idxd->max_wqs; i++) {
- 		struct idxd_wq *wq = idxd->wqs[i];
- 
--		idxd_wq_flush_descs(wq);
-+		idxd_wq_flush_descs(wq, false);
-+		idxd_wq_halt_release(wq);
- 	}
- }
- 
+ 		default:
+ 			return -EINVAL;
+
+base-commit: 43ffda3c7f8456bbe641ae8249a077a361b97880
 -- 
 2.43.0
 
