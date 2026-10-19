@@ -1,86 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792422879;
-	b=r99UfxHO65M67gDXr6ToEFv8dCvRhLHl0rgovTQFc89SjBUsuLOnOdZ5js5e+X1VBDaF
-	 v9/4WqHzEljKv0yOvKcANv0E2CoybP5fQvIoPUdS01CaAK6aWNY82iAH+IzkqkIryXjnM
-	 +bnkBhYwXUucRTp2rhYLNF6EipdNdlacfOLV4Z5Z6KqtjJXmGZjP6smZ0Fn/gdcqIzUNN
-	 3YsaTze7yMrjcoa3cSh+bRNuJWU5U0TCfij9uoA6BOdGoolFYpwg553fLFuNQl97dP5Ef
-	 yJct6ffY/oNYZdL3MODstJLsoVLV55Wd3I4YCPXQgwkPgrnLzSHzKmCUckKl31XnR9A==
+	t=1792422701;
+	b=uo/G4wgNCvf/f/kQx1bMH7H+WZyOnWiVycTv1FQeDnIakjDnqFMjjV8V4cOTiaXnthOh
+	 HHcV+47tEPCU5+IZ2TWobz2LsxXRNVjCTgmCoYi6Omc5fiUCPlMzFIl9c40De4c5EuA09
+	 wN26xS6MXLpJBesMxbpW1Obop7hQgz6blKvmYCYPr128oQOc0+R6sh2nTxT912bY6gYQG
+	 Fl9lFWu8nBAFc/Q8gvf8/JvJkmLHxU42+yOOCawQwrvvk+HZTt/MIO0wWRzC9a01cr506
+	 yX88IqogKdK5iUdFLqd6UTw/vo5u/AnIFKES6jmejk4gh4azGAaPT2b3MWmEr6x9ieQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422879;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=TKt0wIyw61Jqk2IhfD66W7oNe5O8PkSQRaKgq/MX62o=;
-	b=Hjrq+Gju3fWvrTeun7DF5/Xq9000LRJfDXawarlK4dICwTVeW2KqiFynxUBzlOLj+pPL
-	 Q6AarLU9kpw0hFTW2FSuOAR87pXFfZhCpN8CbESehgVvmgKtomfVZvK1Cnjdytjcmds9n
-	 XoGYQb9ngpt0ncKqhmzeD/z59jGb01l0814d4NNho5Gk3edy2IexqmqngA7FYQbeXJZsi
-	 HoreGu/5c5RwmWmjWMc7JoBVVDAPjVOfsH4l8u7quR93QweP8xwadbp5asgiJsPE2G7RA
-	 hbWuBFwwwlvH+ME+o6iZDUL3Dps69Ro8SFkXiwsYHdb0Yf51DL2revGu5rLKVCCNe6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792422701;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
+	bh=JJE1dWAygf8nl4PgqDMAG+QEQkNU/QULVJ9fb4tJWSw=;
+	b=ykfyC6UQfsXmVu9sEFFRB9PpDzg31187vJ5WRGZIx2kjVK3v/mhfflSp/tZBZuPecdSu
+	 L7tfr3ZhwvOIldXVeoJsARCDZNvAE01sPA3lyi/fm/o1oHVSvm09LDUK1CRm2fXGpS/b9
+	 m06CN/I2sNJI4KRQ4VdoJjiK1ZbdJ4dd6vMObZmWSmJsBh7Vexo+IaE9TqnloZ9SAlOeY
+	 bHBkXasvxvF6yLv9wZdHfGmzT97K6XAdLyIoId6AC02VSB1QfhbRAUoh/oX/ICEz6APjV
+	 JpZcOvrqgUj5/hC152H4VgQDxSht4yR68skbB/0zZ5XfKT+n4vqFIMvLvdNkdkGVUAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cobzsBOM;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="N/Eb+x1a";
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CE60609CED7;
-	Mon, 19 Oct 2026 15:14:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CE60609CED7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EA56097793
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 15:11:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89EA56097793
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cobzsBOM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792422879; x=1823958879;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=O4amii2pzLm3C5mzdVc3gIpQy4aiCuKSjiPtyMfocTM=;
-  b=cobzsBOMskme4ib2X3gEZ8J0RPbmv9/bPQyBMC0FamTjjc3Ti4RoKzvI
-   SYhKtB5Cu2s62toOHTKm3jPO1x5okpmTpHgIN3dGVqbpJ/Z8DRFugETIO
-   tySRIyKRemMupdfRTox8p3NT7zki08Cey4LB6SF5OeFgx8Fbf+Ef3LOB7
-   dT7lLxk5V8UsHfwXRaOKh7TUS6YUbFpBpf7S/DL7EmytE/Jz7lD4hJg9Q
-   RmuflCs7pmeFHX2UR4RmviCf7eF2IB9hHGLTGRnKwKbCrTrxnk8VypL4Q
-   NEKN7dBPd7L+L+gdRgcbsQKQViWCoFTz7sdlOVl43ctFjQ/8SQ0quiuue
-   g==;
-X-CSE-ConnectionGUID: 8NpEQ7ttRlCiIdyrf+aruA==
-X-CSE-MsgGUID: DitMwP8FTxyJdO27n8YpXg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="986927"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="986927"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:14:34 -0700
-X-CSE-ConnectionGUID: DYtkNTj1Tg+aijwvHYD7ag==
-X-CSE-MsgGUID: CPIvL5oDRxCg92KKLiAeIQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2536986"
-Received: from jf5300-15a101203tc.jf.intel.com (HELO meta-crater2c.jf.intel.com) ([10.54.113.49])
-  by orviesa003.jf.intel.com with ESMTP; 19 Oct 2026 08:14:34 -0700
-From: Daniel Byrne <daniel1.byrne@intel.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>
-Cc: Fenghua Yu <fenghua.yu@intel.com>,
-	Dan Williams <djbw@kernel.org>,
-	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
-	Frank Li <Frank.Li@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Tom Zanussi <tom.zanussi@linux.intel.com>,
-	Kristen Accardi <kristen.c.accardi@intel.com>,
-	dmaengine@vger.kernel.org,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 12/17] dmaengine: idxd: hold device commands off while the reset re-creates its interrupts
-Date: Mon, 19 Oct 2026 08:06:25 -0700
-Message-ID: <20261019150630.4026341-13-daniel1.byrne@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261019150630.4026341-1-daniel1.byrne@intel.com>
-References: <20261019150630.4026341-1-daniel1.byrne@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=N/Eb+x1a
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 1E5384E41223;
+	Mon, 19 Oct 2026 15:11:31 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id DE94060582;
+	Mon, 19 Oct 2026 15:11:30 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CF2AA10328C5E;
+	Mon, 19 Oct 2026 17:11:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792422685; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=JJE1dWAygf8nl4PgqDMAG+QEQkNU/QULVJ9fb4tJWSw=;
+	b=N/Eb+x1aOYztT0zGdoIXBf6HCP/w5dSkuBILx+bu4vuY8J0zaAqKhrNgMtJ7E2VJp4WfIg
+	OTA20JuqDS0N5RZecvSEIAs7LK1ZFca231hdbNsfkGFFSMgYWeRK4VyJnOEsPiLjD53N2E
+	12odEWFvh3sme2FQcvHt5xY2OchZ/Rn25ztp+xy/tADO39TwEMMVZRTlipX4ihz2aopXyr
+	jF3wAzM8c+dIsQmud9EQ6sZdlN/LrV/832kDwwLgCRTF1qqZDOFs7QdFd9EM7qz3S08yz9
+	GtzHKGYISbImSUuighfZ+jgzzszsj161URjR+wulgKKg/tUbsufV3kJ0dyGxDg==
+From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Date: Mon, 19 Oct 2026 17:11:17 +0200
+Subject: [PATCH 5.15.y] bpf: fix potential 32-bit overflow when accessing
+ ARRAY map element
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,125 +63,128 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261019-cve-2022-50167-v1-1-965ab366b9b6@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vchc3ZJd2Mx9VWMB2gXXQ9oWiUSw
+ rtb9fhNMv+Kotm04NisyDpbsftUwbsG8dpPFyVL1RAnHTsOFGelCiHvuDtQEM8phH0vY0I9PbK
+ O9v4FT/At+3bB+b+X13DT+PzWsG0fWUiYEHoAAAA=
+X-Change-ID: 20261019-cve-2022-50167-9251d994a2fd
+To: stable@vger.kernel.org
+Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Andrii Nakryiko <andrii@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+ Sasha Levin <sashal@kernel.org>, 
+ "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792422684; l=3971;
+ i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
+ bh=MXEoCqk8FuRDWidmahOOmvENdX5qV6UtkBCW57A1RwQ=;
+ b=y5vwRU5gl9H9tysZw8eNu1Dg1PkNsVHvafnJwPWzJIN2JM93keXxc9/oatidbifvVbrj678d2
+ 1dt3FZ3EvfkCmmEYnUU/K7ULVrrVmzbXj0wNMxycq6eL7y/o7yUrAQK
+X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
+ pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
+X-Last-TLS-Session-Version: TLSv1.3
 
-The re-probe after a reset frees the misc interrupt and the MSI-X
-vectors and requests them again. A device command whose completion
-interrupt arrives in between is never completed, so its owner times
-out and fences the device that was just reset, and the rebind in
-idxd_reset_done() then fails.
+From: Andrii Nakryiko <andrii@kernel.org>
 
-Wait for the running command before the vectors are freed, since its
-interrupt still arrives, and then hold IDXD_FLAG_CMD_RUNNING without an
-owner until the interrupts are back, so that commands issued meanwhile
-wait as they wait for any running command. A halt's recovery may forget
-the hold, so it is released only if no newer command owns the state.
+[ Upstream commit 87ac0d600943994444e24382a87aa19acc4cd3d4 ]
 
-Assisted-by: Claude:claude-opus-5-5
-Assisted-by: Claude:claude-fable-5-1
-Signed-off-by: Daniel Byrne <daniel1.byrne@intel.com>
+If BPF array map is bigger than 4GB, element pointer calculation can
+overflow because both index and elem_size are u32. Fix this everywhere
+by forcing 64-bit multiplication. Extract this formula into separate
+small helper and use it consistently in various places.
+
+Speculative-preventing formula utilizing index_mask trick is left as is,
+but explicit u64 casts are added in both places.
+
+Fixes: c85d69135a91 ("bpf: move memory size checks to bpf_map_charge_init()")
+Signed-off-by: Andrii Nakryiko <andrii@kernel.org>
+Link: https://lore.kernel.org/r/20220715053146.1291891-2-andrii@kernel.org
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
 ---
- drivers/dma/idxd/device.c | 44 +++++++++++++++++++++++++++++++++++++++
- drivers/dma/idxd/idxd.h   |  2 ++
- drivers/dma/idxd/init.c   | 10 +++++++++
- 3 files changed, 56 insertions(+)
+ kernel/bpf/arraymap.c | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/dma/idxd/device.c b/drivers/dma/idxd/device.c
-index d3b95593a686..222c201669bd 100644
---- a/drivers/dma/idxd/device.c
-+++ b/drivers/dma/idxd/device.c
-@@ -724,6 +724,50 @@ void idxd_cmd_reset_state(struct idxd_device *idxd)
- 	spin_unlock_irqrestore(&idxd->cmd_lock, flags);
+diff --git a/kernel/bpf/arraymap.c b/kernel/bpf/arraymap.c
+index dc42970dda97..a13a270c9aa2 100644
+--- a/kernel/bpf/arraymap.c
++++ b/kernel/bpf/arraymap.c
+@@ -158,6 +158,11 @@ static struct bpf_map *array_map_alloc(union bpf_attr *attr)
+ 	return &array->map;
  }
  
-+/*
-+ * Hold device commands off while the re-probe after a reset frees the
-+ * interrupts and requests them again. A command whose completion
-+ * interrupt comes while the misc vector is gone is never completed, and
-+ * its owner would time out and fence the device that was just reset.
-+ * The running command, if any, is waited for first: its owner gives up
-+ * within its timeout, and the misc vector still takes its interrupt.
-+ * RUNNING is then held without an owner, and new commands wait for it
-+ * as for any running command. Returns false, holding nothing, when a
-+ * command timed out, since commands then fail fast anyway.
-+ */
-+bool idxd_cmd_hold(struct idxd_device *idxd, u32 *seq)
++static void *array_map_elem_ptr(struct bpf_array* array, u32 index)
 +{
-+	bool held = false;
-+
-+	spin_lock_irq(&idxd->cmd_lock);
-+	wait_event_lock_irq(idxd->cmd_waitq,
-+			    !test_bit(IDXD_FLAG_CMD_RUNNING, &idxd->flags) ||
-+			    test_bit(IDXD_FLAG_CMD_TIMEDOUT, &idxd->flags),
-+			    idxd->cmd_lock);
-+	if (!test_bit(IDXD_FLAG_CMD_RUNNING, &idxd->flags)) {
-+		__set_bit(IDXD_FLAG_CMD_RUNNING, &idxd->flags);
-+		*seq = ++idxd->cmd_seq;
-+		held = true;
-+	}
-+	spin_unlock_irq(&idxd->cmd_lock);
-+	return held;
++	return array->value + (u64)array->elem_size * index;
 +}
 +
-+/*
-+ * End a hold taken by idxd_cmd_hold(). A halt's recovery may have
-+ * forgotten the hold meanwhile and let another command run, which then
-+ * has an owner or a newer sequence number, and its state is left alone.
-+ */
-+void idxd_cmd_unhold(struct idxd_device *idxd, u32 seq)
-+{
-+	spin_lock_irq(&idxd->cmd_lock);
-+	if (idxd->cmd_seq == seq && !idxd->cmd_done) {
-+		__clear_bit(IDXD_FLAG_CMD_RUNNING, &idxd->flags);
-+		wake_up(&idxd->cmd_waitq);
-+	}
-+	spin_unlock_irq(&idxd->cmd_lock);
-+}
-+
- int idxd_device_enable(struct idxd_device *idxd)
+ /* Called from syscall or from eBPF program */
+ static void *array_map_lookup_elem(struct bpf_map *map, void *key)
  {
- 	struct device *dev = &idxd->pdev->dev;
-diff --git a/drivers/dma/idxd/idxd.h b/drivers/dma/idxd/idxd.h
-index c04a2855aa3f..9d88b0d82fee 100644
---- a/drivers/dma/idxd/idxd.h
-+++ b/drivers/dma/idxd/idxd.h
-@@ -794,6 +794,8 @@ int idxd_device_disable(struct idxd_device *idxd);
- int idxd_device_reset(struct idxd_device *idxd);
- void idxd_device_clear_state(struct idxd_device *idxd);
- void idxd_cmd_reset_state(struct idxd_device *idxd);
-+bool idxd_cmd_hold(struct idxd_device *idxd, u32 *seq);
-+void idxd_cmd_unhold(struct idxd_device *idxd, u32 seq);
- int idxd_device_config(struct idxd_device *idxd);
- int idxd_device_drain_pasid(struct idxd_device *idxd, int pasid);
- int idxd_device_load_config(struct idxd_device *idxd);
-diff --git a/drivers/dma/idxd/init.c b/drivers/dma/idxd/init.c
-index a037a6e76362..312b4670b3e8 100644
---- a/drivers/dma/idxd/init.c
-+++ b/drivers/dma/idxd/init.c
-@@ -1212,6 +1212,14 @@ int idxd_pci_probe_alloc(struct idxd_device *idxd, struct pci_dev *pdev,
- 	}
+@@ -167,7 +172,7 @@ static void *array_map_lookup_elem(struct bpf_map *map, void *key)
+ 	if (unlikely(index >= array->map.max_entries))
+ 		return NULL;
  
- 	if (!alloc_idxd) {
-+		bool held;
-+		u32 seq;
-+
-+		/*
-+		 * Commands complete through the misc interrupt, which is
-+		 * gone until it is requested again.
-+		 */
-+		held = idxd_cmd_hold(idxd, &seq);
- 		/* Release interrupts in the IDXD device. */
- 		idxd_cleanup_interrupts(idxd);
+-	return array->value + array->elem_size * (index & array->index_mask);
++	return array->value + (u64)array->elem_size * (index & array->index_mask);
+ }
  
-@@ -1219,6 +1227,8 @@ int idxd_pci_probe_alloc(struct idxd_device *idxd, struct pci_dev *pdev,
- 		rc = idxd_setup_interrupts(idxd);
- 		if (rc)
- 			dev_warn(dev, "IDXD interrupts failed to setup\n");
-+		if (held)
-+			idxd_cmd_unhold(idxd, seq);
- 	}
+ static int array_map_direct_value_addr(const struct bpf_map *map, u64 *imm,
+@@ -325,7 +330,7 @@ static int array_map_update_elem(struct bpf_map *map, void *key, void *value,
+ 		       value, map->value_size);
+ 	} else {
+ 		val = array->value +
+-			array->elem_size * (index & array->index_mask);
++			(u64)array->elem_size * (index & array->index_mask);
+ 		if (map_flags & BPF_F_LOCK)
+ 			copy_map_value_locked(map, val, value, false);
+ 		else
+@@ -393,8 +398,7 @@ static void array_map_free_timers(struct bpf_map *map)
+ 		return;
  
- 	dev_info(&pdev->dev, "Intel(R) Accelerator Device (v%x)\n",
--- 
-2.43.0
+ 	for (i = 0; i < array->map.max_entries; i++)
+-		bpf_timer_cancel_and_free(array->value + array->elem_size * i +
+-					  map->timer_off);
++		bpf_timer_cancel_and_free(array_map_elem_ptr(array, i) + map->timer_off);
+ }
+ 
+ /* Called when map->refcnt goes to zero, either from workqueue or from syscall */
+@@ -534,7 +538,7 @@ static void *bpf_array_map_seq_start(struct seq_file *seq, loff_t *pos)
+ 	index = info->index & array->index_mask;
+ 	if (info->percpu_value_buf)
+ 	       return array->pptrs[index];
+-	return array->value + array->elem_size * index;
++	return array_map_elem_ptr(array, index);
+ }
+ 
+ static void *bpf_array_map_seq_next(struct seq_file *seq, void *v, loff_t *pos)
+@@ -553,7 +557,7 @@ static void *bpf_array_map_seq_next(struct seq_file *seq, void *v, loff_t *pos)
+ 	index = info->index & array->index_mask;
+ 	if (info->percpu_value_buf)
+ 	       return array->pptrs[index];
+-	return array->value + array->elem_size * index;
++	return array_map_elem_ptr(array, index);
+ }
+ 
+ static int __bpf_array_map_seq_show(struct seq_file *seq, void *v)
+@@ -674,7 +678,7 @@ static int bpf_for_each_array_elem(struct bpf_map *map, void *callback_fn,
+ 		if (is_percpu)
+ 			val = this_cpu_ptr(array->pptrs[i]);
+ 		else
+-			val = array->value + array->elem_size * i;
++			val = array_map_elem_ptr(array, i);
+ 		num_elems++;
+ 		key = i;
+ 		ret = BPF_CAST_CALL(callback_fn)((u64)(long)map,
+
+---
+base-commit: 792fbe1537d8daeca9bd1917e84078b5432aadc2
+change-id: 20261019-cve-2022-50167-9251d994a2fd
+
+Best regards,
+--  
+Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
 
