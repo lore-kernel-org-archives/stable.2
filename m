@@ -1,415 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B0695083E0;
-	Mon, 19 Oct 2026 14:03:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6725083F8;
+	Mon, 19 Oct 2026 14:03:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418610; cv=none; b=N1ze6QBQAwItIvYXdLzsky99MpI7mCMhFVty0slRB5L+ggX0YG3uLmkueH+QboSOiET6kxPbGHBTKpxqQ9daWnOh1zbeW06c+n2hY7toi8Vt/b5Ndo2D9VSEiVeqphKnyDrXGisqSQgQfspdjNwIaeUBdr3602igtSPDkamKM24=
+	t=1792418610; cv=none; b=J8bkG7E9T61vLqi/wwALS8vFyiMQ68OlYGGF4KdSZPeolHTU1JSbNJprM6E6WqvJzQi0oKhoJenegdWtia4mLNtM0DsXpvv4oge05rCmLbIBxAFRVfyVyJ5m2vaOXyeVKI7nFddzE83+2dZW+NlnF7bXJZxzwlT5o2Gw54EJifI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792418610; c=relaxed/simple;
-	bh=/vk3W0OuB8uzko+mMXFxy4Zv/bmV187ISHDrW5g6WYw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qxw0+t7t4QKwDPqV3Yey2bpXQ7DkH9VAbwaHas/tSsiFqpHs96pW6/ZgJlws6irhJepdvGiwxW9LW3r7P5N0MpgvzZwMTDgnVb3RXY4pV7bF2zwHRt68U+6FfUHb8tUKsADTcU7EQ4uRZ2PDXcxZVV4761xRtHfWXWi3BHdQLlo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DKSjTdaY; arc=none smtp.client-ip=100.103.45.18
+	bh=XPZO7HjYOKL9Yfs7tTkWDW0J3Tks2Vf6ojTnd+zeTJI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EtCfl9b2FbIbGjqGQXQqDNqI7NFomkKFHPmJNlIrRaJlhus4hW03VD3GDEMs5cshGoN+Z7x4T3OPYqhvr6Tn97x2m2u1weI07WdbR6E6afq4tdBtQ3W6wOz0GE12eGj+YA2ZR8NSUkBsHuftHCKfRT9kUfTxNaPFbR8hNk2CzjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Gr9xehgo; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DKSjTdaY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85F6E1F000C9;
-	Mon, 19 Oct 2026 14:03:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418606;
-	bh=VcXNbrzKLhYN5V0hkHe94Cash4qRCSavaP+hGPLNDIk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DKSjTdaYnZ0dDvZYvl+j1Ur5BKSoAUnorFIX1OZsJItLz7bLUawBF6VuBktnSdRjA
-	 4cDEWOGgZfNhZoghNTEIy/pZFliM6Ni4HghFdiIu9SRtjsbNsdMgXyt09FJ5b0N/tX
-	 IOpnaNaZxytmjomimoOp1O7L5yoE9UpFtQEaykvGYVedCddwtIGrjVueNZ1Lfa2BNK
-	 1sCt4y9oXNCtU7NcfhnIdS3lg/EQ9BYz/fI5qzMO1UrBfH5vhMs1WExnOnpiQRCppf
-	 fZlekV5rIQIIz23TBym+kh6bYxTqFZ9rpZtY5e07JzdrT8FY9ifTy8g5bDbwYIGhWA
-	 VmHgzXhLhrDrQ==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Helge Deller <deller@gmx.de>,
-	syzbot+0c815b25cdb3678e7083@syzkaller.appspotmail.com,
-	Sasha Levin <sashal@kernel.org>,
-	tzimmermann@suse.de,
-	simona@ffwll.ch,
-	dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] fbcon: Fix KASAN slab-out-of-bounds Read in fbcon_prepare_logo
-Date: Mon, 19 Oct 2026 09:50:59 -0400
-Message-ID: <20261019135441.1420968-368-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
-References: <20261019135441.1420968-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Gr9xehgo"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8iAeA3449258;
+	Mon, 19 Oct 2026 14:03:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=q2KlCQ
+	jcbNERGhm3X6pdqmvS8YP3HykJrntbNaEE0I0=; b=Gr9xehgoJR2ZuoIegRL5tW
+	rCD9PeSHiyPF3pOzR/gxBX36XWu485Zyr8KyIHaW3avGCyJAOiibUbwjnRtujFGf
+	NipN/n8+ED1uWTRbhgIRrV0x8ehjBHhqhgIyO4KmjRHO5JF5zrC1lyNX4NdDH1Nw
+	M8J5BHx0OFGEwzY6/ngqLjYbglX6fxiXFLDyh+FH86JTpDbFY8L6aP4ljjVUU4tp
+	asD0cyjsAmxCLOsgUz2D/Dlbao64f2q+hIhax4Fa6dNVrJhPlcn9HY0zxmTkuYwM
+	tgSP4J/M06j22ewjpr81p2PmlpDdgWa02I2bVz6dNVw7V4QeFpqDm01vhKCU4BCA
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hc0h5bm75-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 19 Oct 2026 14:03:19 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69JCapfo2651406;
+	Mon, 19 Oct 2026 14:03:19 GMT
+Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hcnjgwt3u-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 19 Oct 2026 14:03:18 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
+	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69JE3Hsa39191068
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 19 Oct 2026 14:03:17 GMT
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 20B6858056;
+	Mon, 19 Oct 2026 14:03:17 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id F169658052;
+	Mon, 19 Oct 2026 14:03:10 +0000 (GMT)
+Received: from [9.39.16.145] (unknown [9.39.16.145])
+	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 19 Oct 2026 14:03:10 +0000 (GMT)
+Message-ID: <e97615d0-23ed-413e-976d-2caf8588599c@linux.ibm.com>
+Date: Mon, 19 Oct 2026 19:33:08 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.57
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v12] net/smc: fix lgr/lnk lifetime vs diag reader race
+To: netdev-bot+sinfo@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+        kuba@kernel.org, pabeni@redhat.com, alibuda@linux.alibaba.com,
+        dust.li@linux.alibaba.com, sidraya@linux.ibm.com,
+        hidayath@linux.ibm.com, pasic@linux.ibm.com, horms@kernel.org,
+        tonylu@linux.alibaba.com, guwen@linux.alibaba.com,
+        stable@vger.kernel.org, netdev@vger.kernel.org,
+        linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
+References: <20261019111008.3367567-1-mjambigi@linux.ibm.com>
+ <179240839082.3290.14556767471721761174@kernel.org>
+Content-Language: en-US
+From: Mahanta Jambigi <mjambigi@linux.ibm.com>
+In-Reply-To: <179240839082.3290.14556767471721761174@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA1NCBTYWx0ZWRfX4+BQLsN8so4q
+ GNEKAy1pG2/j4xtAbL/ptccPEKtjSVPAz4StFRyjg7GVStErpR4qBv1/8vY3JlkYJKp34tqilXf
+ 8Jjy+uCwuikLK8lURpRKLKK7v/hjtzs=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA1NCBTYWx0ZWRfXw8uxNidnDBOf
+ DwEhJ9CeqaOZth5EVMtPoL9HJrt9xjpfcS1dL75w2erkdU2tXL6Hs78iljD3WajcsXkOXK7FPjc
+ Fjc/annPn0KikpOOruDS5DtQCzAKbJjMqBl7+fnCDGm0L+Xfzd6uSkq2cPIOvwmzKQ3XdUB351Y
+ i351PHsORn1zXk8dAZETi6ln987FlwmTjNjAHke6eKC/YMwETVPHuw9LSZLjXPzavZxj4UJUaLa
+ G6x3cXFuLkMxH8tFZ0om9q+qEtjoHwBFX+J2rF6JMqhhM1Czwk2okH83tQkzUotlraa9t8X159X
+ wvbu8Kqn3JJPKZmAjZOUZnQenhPreZpykf1RytKS3p2Ctr2GLbUXJb13llS4bfrePFawVFklh4F
+ hzI6UUGgmKfjaCwk0Qwc2qeqijeyX7PEKjBB1Fz40prgA88XtFFn6sSA3T87z55EtQ3gCPJTGXh
+ QgQ654eHZa/yjaEmdJA==
+X-Proofpoint-ORIG-GUID: oXkWv0V-r3HmhpF52qX_lUtFc0QZcgLX
+X-Proofpoint-GUID: mw5TCMOVyXpa9x8j6m5-aXT6fAu0Pbqf
+X-Authority-Analysis: v=2.4 cv=KujYSmWN c=1 sm=1 tr=0 ts=6ad62328 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
+ a=8WImSUdLa4LpenjYlHkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 malwarescore=0
+ clxscore=1015 lowpriorityscore=0 spamscore=0 phishscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190054
 
-From: Helge Deller <deller@gmx.de>
 
-[ Upstream commit 94e6a058b16820e02f25e1221a4c4e713ba23550 ]
 
-Ensure the logo will not exceed the screen size, which then should
-fix a reported KASAN: slab-out-of-bounds Read in fbcon_prepare_logo.
+On 19/10/26 4:43 pm, netdev-bot+sinfo@kernel.org wrote:
+> Hi!
+> 
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+> 
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
 
-Reported-by: syzbot+0c815b25cdb3678e7083@syzkaller.appspotmail.com
-Signed-off-by: Helge Deller <deller@gmx.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
+The issue was found by manual code inspection while reviewing the diag
+dump path in net/smc/smc_diag.c.
 
-LLM Generated explanations, may be completely bogus:
+> 
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by code inspection). If it was triggered please include
+>    the symptoms, like the stack trace or error messages.
 
-The local tree is **6.12.111** (`pending-6.12`). The buggy `logo_lines`
-walk is present here, and the candidate is a 7-line KASAN bounds check
-that applies cleanly.
-
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
-
-**Step 1.1: PARSE THE SUBJECT LINE**
-Record: **[fbcon] [Fix] [KASAN slab-out-of-bounds read in
-fbcon_prepare_logo]**
-
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-Record:
-- Reported-by: syzbot+0c815b25cdb3678e7083@syzkaller.appspotmail.com
-- Signed-off-by: Helge Deller \<deller@gmx.de\> (FRAMEBUFFER LAYER
-  maintainer; applied the patch himself)
-- No Fixes:, no Cc: stable, no Reviewed-by/Acked-by/Tested-by, no Link:
-  in the committed message (the syzbot-forwarded submission did include
-  `Link: https://syzkaller.appspot.com/bug?extid=0c815b25cdb3678e7083`)
-- Notable: syzbot + maintainer SOB; absence of Fixes/Cc:stable is
-  expected for this review pipeline
-
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-Record:
-- Bug: calculated logo height can exceed the console buffer, then
-  `fbcon_prepare_logo()` reads past it.
-- Symptom: KASAN slab-out-of-bounds Read (also KFENCE OOB and UAF-class
-  reports on the same syzbot bug).
-- Version info in the message: none. Syzbot shows crashes from Feb 2025
-  through 2026 on upstream, and on linux-5.15.y / 6.1.y / 6.6.y.
-- Root cause as stated: logo not clipped to screen size before the
-  buffer walk.
-
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not a hidden fix. Explicit KASAN OOB fix. The later `if
-(logo_lines > vc->vc_bottom)` path already tried to disable an oversized
-logo, but only **after** the out-of-bounds walk.
-
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
-
-**Step 2.1: INVENTORY THE CHANGES**
-Record:
-- File: `drivers/video/fbdev/core/fbcon.c` (+7 / −0)
-- Function: `fbcon_prepare_logo()`
-- Scope: single-file surgical fix
-
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-Record: After `logo_lines = DIV_ROUND_UP(logo_height,
-vc->vc_font.height)` the code immediately walked `q - logo_lines *
-cols`. Now it clamps `logo_lines` to `rows` and `new_rows - 1`, and if
-that leaves nothing, sets `logo_shown = FBCON_LOGO_DONTSHOW` and
-returns. Normal path with a logo that already fits is unchanged.
-
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record: **Memory safety / out-of-bounds.** `fb_prepare_logo()` returns a
-pixel height `<= yres`, but `DIV_ROUND_UP(height, font_height)` can be
-one larger than `yres / font_height` (`new_rows`). Example: yres=100,
-font=16 → logo_lines=7, new_rows=6. Then `q - logo_lines * cols` is one
-row before `vc_origin`, and `scr_readw` / `scr_memcpyw` go OOB. The
-existing `logo_lines > vc->vc_bottom` check runs too late.
-
-**Step 2.4: ASSESS THE FIX QUALITY**
-Record: Obviously correct bounds clamp; 7 lines; no API change.
-`new_rows == 0` yields `new_rows - 1 == -1`, then `logo_lines <= 0`
-bails out. Regression risk is low: at worst the penguin is skipped on
-tiny/odd geometries instead of walking off the buffer. A 2025 RFC (Wang
-ShaoBo) described a related cols-mismatch after `vc_resize()`; this
-clamp does not fully cover that variant, but it does not worsen it, and
-syzbot named this commit as the fix for the 1873-crash report.
-
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
-
-**Step 3.1: BLAME THE CHANGED LINES**
-Record: The OOB walk (`q - logo_lines * cols` / `scr_readw` loop) is
-from **^1da177e4c3f41** (v2.6.12 era). `logo_lines = DIV_ROUND_UP(...)`
-is from **416e74ea781359** (Julia Lawall, 2008). This is long-standing
-code, not a recent 6.12-only bug.
-
-**Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No Fixes: tag. The buggy pattern has been in the function for
-~20 years. `6104c37094e7` ("fbcon: Make fbcon a built-time dependency
-for fbdev", 2017) is in this tree (`merge-base --is-ancestor` exit 0);
-Wang’s RFC cited it, but that is a different proposed patch.
-
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record: Related but distinct history in this tree: `a6a00d7e8ffd7` /
-`5c38052680f56` (kzalloc KMSAN false-positive, reverted);
-`250038f5a7207` (2007 vertical overflow when making space for the logo —
-different hunk). No prior clamp of `logo_lines` to `rows`/`new_rows`.
-Standalone, not patch N/M.
-
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Helge Deller is FRAMEBUFFER LAYER maintainer (`MAINTAINERS`). He
-authors/applies fbdev fixes regularly in this tree.
-
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: Uses existing `logo_lines`, `rows`, `new_rows`, `logo_shown`,
-`FBCON_LOGO_DONTSHOW`. No new helpers. `git apply --check` succeeded
-(hunk at line 596, offset −64). Standalone.
-
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
-
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-Record: `b4 dig -c 94e6a058b168` →
-https://patch.msgid.link/6a897c8e.dbb3a75c.13dd47.002f.GAE@google.com
-(syzbot-forwarded `#syz test` from deller@kernel.org, 2026-08-22). `b4
-dig -a`: v1 only. lore.kernel.org returned 403; openwall mirror confirms
-the same single-hunk patch. No NAK found. Applied two days later by
-Deller (commit date 2026-08-24).
-
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record: `b4 dig -w`: recipients were syzbot and linux-
-kernel@vger.kernel.org only. No public Reviewed-by. Weight comes from
-the maintainer applying it, not from a review thread.
-
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: https://syzkaller.appspot.com/bug?extid=0c815b25cdb3678e7083
-- Status: upstream, C repro, **prio:high**, **1873 crashes**, first
-  2025-02-25
-- Fix commit listed: **94e6a058b168**
-- Patched on 20/29 syzbot instances
-- Stack: `store_bind` → `vt_bind` → `do_bind_con_driver` → `visual_init`
-  → `fbcon_init` → `fbcon_prepare_logo` → `scr_memcpyw`
-- Same title also on linux-5.15.y (C repro), linux-6.1.y, linux-6.6.y
-- Syzbot security assessment: DenialOfService yes, Exploitable yes,
-  Unprivileged no (sysfs `bind` is `S_IWUSR`)
-
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: Not a series. Related RFC 2025-09-25 from Wang ShaoBo added a
-pointer-vs-`vc_origin` guard in the scroll loop; it was not applied in
-this tree or in the candidate’s parent. Older kzalloc change is
-unrelated (reverted KMSAN false positive).
-
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: lore.kernel.org/stable 403. No evidence this 2026-08-24 commit
-was already discussed for 6.12.y. The same KASAN title is already
-reproduced on older stable CIs, which supports that 6.12 is affected.
-
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
-
-**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
-Record: `fbcon_prepare_logo()` only. Semcode MCP not available.
-
-**Step 5.2: TRACE CALLERS**
-Record: Two call sites in this tree:
-1. `con2fb_init_display()` (line 826) — console mapped to a framebuffer,
-   `show_logo`.
-2. `fbcon_init()` (line 1155) — after setting/resizing the VC, if `logo`
-   is set.
-
-`fbcon_init` is `con_init` for fbcon, called from `visual_init()` during
-bind/takeover. `store_bind` is the syzbot trigger (root sysfs write).
-Also runs on normal fbcon takeover at boot when the logo is enabled
-(`!MODULE`).
-
-**Step 5.3: TRACE CALLEES**
-Record: `fb_prepare_logo()`, `scr_readw`/`scr_memcpyw`/`scr_memsetw`,
-`kmalloc`/`kfree`, `update_screen`. The new code only uses `min()` and
-existing `logo_shown`.
-
-**Step 5.4: FOLLOW THE CALL CHAIN**
-Record: Userspace (root) → `sysfs` `vtconN/bind` → `fbcon_init` →
-`fbcon_prepare_logo`. Also boot-time logo on `CONFIG_FRAMEBUFFER_CONSOLE
-&& !MODULE`. Path is real and reproduced.
-
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: The too-late `logo_lines > vc->vc_bottom` check is the same bug
-class, just after the OOB. No sibling drivers copy this logo-scroll
-logic.
-
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
-
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record: Yes. `drivers/video/fbdev/core/fbcon.c` lines 597–604 compute
-`logo_lines` and walk `q - logo_lines * cols` with no clamp. `git merge-
-base --is-ancestor 94e6a058b168 HEAD` is **false** — the fix is not in
-6.12.111. Bug introduced long before 6.12.
-
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: `git apply --check` **clean** (offset −64 from surrounding-line
-drift / `fbcon_ops`→`fbcon_par` rename already in this tree). Expected
-difficulty: **clean apply**.
-
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: No `logo_lines = min(...)` in this file. The 2007 Geert overflow
-tweak and the kzalloc revert do not clamp logo lines.
-
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
-
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: **fbcon** (`drivers/video/fbdev/core/fbcon.c`), the framebuffer
-console used with `CONFIG_FRAMEBUFFER_CONSOLE` (default follows
-`DRM_FBDEV_EMULATION`). Criticality: **IMPORTANT** — not mm/core, but
-default console path on many DRM/fbdev systems.
-
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Mature; still receiving OOB/NULL/font fixes in this tree
-(`51b8258efe254`, `b5bb2c696e140`, `ac970358c5ca0`). Not staging.
-
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
-
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: Users with framebuffer console (typical desktop/embedded DRM
-fbdev emulation, vkms/syzbot, classic fbdev). Config-specific
-(`FRAMEBUFFER_CONSOLE`), not universal.
-
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record: (1) Console bind/takeover with a logo taller than the text grid
-after integer rounding; (2) syzbot C repro via `vtcon` bind. Common on
-fuzzing and on small/rotated/odd modes. Unprivileged users cannot write
-`bind` (`S_IWUSR`); boot-time logo does not need that.
-
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record: KASAN slab-out-of-bounds **read** (and related UAF/KFENCE
-reports). Can oops under KASAN/KFENCE; without sanitizers it is still an
-invalid buffer walk. Severity: **HIGH** (memory-safety crash; syzbot
-marked exploitable but not unprivileged).
-
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-Record: Benefit **high** (stops a reproducible KASAN OOB in a common
-console path). Risk **very low** (7-line clamp, early return already
-used elsewhere in the same function). Ratio strongly favors backport.
-
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
-
-**Step 9.1: COMPILE THE EVIDENCE**
-
-FOR:
-- Real, syzbot-reproduced KASAN OOB with C repro, 1873 crashes,
-  prio:high
-- Same bug title on 5.15.y / 6.1.y / 6.6.y — this 6.12 tree still has
-  the unclamped walk
-- Syzbot lists 94e6a058b168 as the fix commit
-- Maintainer-authored, 7 lines, applies cleanly here
-- Fixes a rounding hole (`DIV_ROUND_UP` vs `yres / font_height`) plus
-  any logo taller than the VC
-- No new API/feature; existing `FBCON_LOGO_DONTSHOW` path
-
-AGAINST:
-- Short commit message, no public review, no Fixes:
-- Does not fully address the Wang RFC cols-mismatch-after-resize case
-- Trigger via sysfs bind is root-only (boot logo path still matters)
-
-UNRESOLVED:
-- Could not read lore.kernel.org (403); used b4 + openwall instead
-- Could not confirm whether post-fix syzbot “last: 2d” crashes are only
-  on the 9 unpatched instances (likely, given 20/29 patched)
-
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — clamp is local and readable;
-   syzbot C repro; maintainer applied it
-2. Fixes a real bug that affects users? **PASS** — KASAN OOB, thousands
-   of syzbot hits, stable-tree crashes
-3. Important issue (crash, security, corruption, deadlock)? **PASS** —
-   HIGH memory-safety OOB
-4. Small and contained? **PASS** — +7 lines, one function
-5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — buggy code present; `git
-   apply --check` clean
-
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: Not a device-ID/quirk/DT/docs exception. It is a normal memory-
-safety bug fix.
-
-**Step 9.4: MAKE YOUR DECISION**
-This is a small, correct bounds check for a long-standing fbcon OOB that
-syzbot can hit on this class of kernels. It belongs in 6.12.y.
-
-Verification:
-- [Phase 1] Parsed tags: syzbot Reported-by; Helge Deller SOB; no
-  Fixes/Cc:stable/review tags in the committed message
-- [Phase 2] Diff: +7 lines in `fbcon_prepare_logo()` after
-  `DIV_ROUND_UP`; clamp `logo_lines` then early return
-- [Phase 3] `git describe HEAD` / Makefile: **6.12.111**, branch
-  pending-6.12
-- [Phase 3] `git blame`: OOB loop from ^1da177e4c3f41; DIV_ROUND_UP from
-  416e74ea781359 (2008)
-- [Phase 3] `git merge-base --is-ancestor 94e6a058b168 HEAD` → not an
-  ancestor (fix absent here)
-- [Phase 3] `git apply --check` of 94e6a058b168 → clean, offset −64
-- [Phase 3] Confirmed no `logo_lines = min` already in this file
-- [Phase 4] `b4 dig -c 94e6a058b168` → msgid
-  6a897c8e.dbb3a75c.13dd47.002f.GAE@google.com; v1 only
-- [Phase 4] Syzbot extid 0c815b25cdb3678e7083: C repro, prio:high, 1873
-  crashes, Fix commit 94e6a058b168
-- [Phase 4] Same KASAN title on linux-5.15.y / 6.1.y / 6.6.y
-- [Phase 5] Callers: `fbcon_init` (line 1155), `con2fb_init_display`
-  (line 826); bind path `store_bind` is `S_IWUSR`
-- [Phase 6] Local function still matches the pre-patch walk at lines
-  597–604
-- [Phase 7] Helge Deller listed as FRAMEBUFFER LAYER maintainer
-- [Phase 8] Failure mode: slab-out-of-bounds read in
-  `scr_memcpyw`/`scr_readw`; severity HIGH
-- UNVERIFIED: full lore.kernel.org thread (HTTP 403); whether every
-  post-Aug-24 syzbot crash is on unpatched instances only
-
-The patch is a 7-line clamp in `fbcon_prepare_logo()` that stops a
-syzbot-reproduced KASAN out-of-bounds read. The buggy walk is in this
-6.12 tree, the fix applies cleanly, and the risk is limited to skipping
-the boot logo when it cannot fit.
-
-**YES**
-
- drivers/video/fbdev/core/fbcon.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 532522c2aed05..903823c9ce567 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -600,6 +600,13 @@ static void fbcon_prepare_logo(struct vc_data *vc, struct fb_info *info,
- 		erase &= ~0x400;
- 	logo_height = fb_prepare_logo(info, par->rotate);
- 	logo_lines = DIV_ROUND_UP(logo_height, vc->vc_font.height);
-+	logo_lines = min(logo_lines, rows);
-+	logo_lines = min(logo_lines, new_rows - 1);
-+	if (logo_lines <= 0) {
-+		logo_lines = 0;
-+		logo_shown = FBCON_LOGO_DONTSHOW;
-+		return;
-+	}
- 	q = (unsigned short *) (vc->vc_origin +
- 				vc->vc_size_row * rows);
- 	step = logo_lines * cols;
--- 
-2.53.0
-
+The races are theoretical — none of the three windows were triggered in
+practice. The smc_conn_kill() / smcd_buf_detach() race requires an
+active smcss poll to coincide with an SMC-D lgr termination on the
+dmb_nocopy path; the smc_close_active_abort() and
+smc_close_passive_work() races require a concurrent diag dump during the
+narrow teardown window between sk_state = SMC_CLOSED and
+smc_conn_free(). No stack trace or error message is available since the
+bugs were not hit in a running system.
