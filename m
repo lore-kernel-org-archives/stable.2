@@ -1,98 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.174
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792453624;
-	b=VKVblhwY51CqoFczoKFWeWdlVMrIUIEOYW31ouxhqbg4TvdBg2HiVoCvodRkkGRNilFH
-	 ZgYFTY5VCOKwuP+q0NUupgfsqYy23UOTHFAazoqEvENCDhyi6gJn4eCKIEAAAkku+cDSH
-	 wWclJHoxy+w8ZsefHmvMAGRDdiC2mVtZ69CRtYwVwKVsT0maR/e+xmMSfIYeaUIqcXsHb
-	 m147W0W7u4DpY+KcRBppbI/EYknOnhr3EAHAjVH0endZ0UgJPWwMs/cq7VU3X0SVimo8f
-	 Z9DeMXDCrRYufDbJ5MiVm6oFGiNib4Q8zuZQ4Viez1/N3Qa8bbHGJ6FnBN+VjS4dygw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792453624;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=ypCU1E5MKpp7DyfKc2E/egobrXvy2R64su9DcxdosVA=;
-	b=qddTjguDInTiNXqjXE4u/8dgOwC7nMTHOmeMf5nMMvJ+V5Wj7uWBMcvaIuJbfqORZ30t
-	 NJqpIZ7ewfiDE2h+19YYX8E3PKK8QviXg2l/qfRfDLgnxUsb8N7fVtrBCbpmZ5C25Xx+6
-	 A0KJqiQ7oQU15ow1V7WL8GMZan1FJllWkKiuhZnnvRg46eNkPpNo4O8V9KoIi3jIuWOSE
-	 48O8iCeZZdUVW0WXefi/g6E2XHv2YMl1O/FRLvW60S5i/KMEGUhpHbJ4dbt/gTp7Am9c7
-	 6BwNN3u7oXQeoPKyMfttgXTgjudrhrlOA2lPy6yya4rIu1rDkWC3uAsW/cQfN0lJjqA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Lgkpddl2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.174
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792453628;
+	b=UDDsaJKVdAgvbIrtku9ec5gy/TotjR1BTw8/3vY/Kombcu/KKC22+EwkmffvGkP4tD/k
+	 ieWI1Tzhe7lXtDl2WsHW46VPuobn9Y42AF6pmcH9GP6zxfZEn/JVbCvHJFg8pkTlZH6Sh
+	 dG+/NtwObhx9qlOjzRFfo2qL4xfrjE9x39UFocw3mr0okFeEm2v9JZ3IL+w5rvXyU+QrZ
+	 Ixa8WpHcaP60YqQys8o2Zjniz+S3CK9Na1jqhjOqlZAsSog07RJk4Sv9+RSAJKv5P0BxU
+	 4thhEprGfOF48es5D665o10NevJCMgEp5Br43IJhF+04KWFA0QFDVoqVcTqRwr0fn4w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792453628;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=EFL7RVpbg7eriH3AqFHCOPDeyuNL9tU0pmOU4dQ3GNo=;
+	b=xYbXo3oQdg0BFqND7EiBuqStJz5GpDguis6WL3RzNwft3efYAsNqcCo4MFkigC0kSHN3
+	 Oeb2gpGVODqC6m9G9pHyLk8kRyn8FhCwL546IM2HubTG7+ggvwEpDVMNWbiBmFt8qg7/a
+	 I+ZadWLOZaCAz9Izp9T43eVMlDcpkCiqzKLIOMGRte0muDqGx9tfM+JEm6J8u6/cT63W2
+	 fGXYxZ/LWO029uaZ0Q40HP8CRG64VUHp3NO6uIikhtcjrkX1EXrEks7l2BZrXL/NVqfp+
+	 hr3+5ZnxM6dwLssHD+RadwkS8E66s578jwxcMhCEKiTAjfYid8jDkDEQkx9OgXrH93g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HkNO5Vms;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E2B0606A31A
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 23:47:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E2B0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 059BE606A319;
+	Mon, 19 Oct 2026 23:47:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Lgkpddl2
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3ab3b29a1d4so11942911fa.1
-        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 16:47:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792453622; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fbKTzDytFmG0swJTMH6hMEUvgA0q2TtK0dw1EYWOevUbSc9WRUE1Uk+RywSrfRUEPv
-         HovVnPOD/+qHcV2pswHeNRf+VtYEkjfazelOpny/jOc7MMamjiOn1dkb3xHDgonmmyYL
-         i6goiImuBYRrBkoRWkEdd7QTmqPxDkrNX9a2gS6788ue+pm+6anTVfsSK9AEf77bqk1n
-         UTWk2J+aYfJPWPI7SZU0OI4oZhn9u6os6LQOjI3mKEnnNqM0xAZybvMVWq0roJQ2amC5
-         9C4uNihVkYJbLO0ANRV0F536f6Ijv1hjn14J+9L4CV3fOYCL5vjRdi9L4wzU/DOzcx/o
-         sfBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ypCU1E5MKpp7DyfKc2E/egobrXvy2R64su9DcxdosVA=;
-        fh=yXX18BOQK+tM/wmWObJ9AIPAc7Ve2Com2ck3J35b08k=;
-        b=st1SkCFgQ9beLK41qk87c7FN6ftVoDQ8DtRqqCEfE2GPQuhAYWB+mv66yMdX/GPR/b
-         Acv3xVVmqet1OnY2GvN7U3nIxs166dE+UPRNUYSeAnC5zg6c0jiYXlESipjQPJZRee4/
-         8ilQ7KhBre/PcVLa9qKFhu2Pz19Go/WY1BYDf5qqPBni1yfZ6sOpPiQLwpUGVaCi0lQc
-         bqypQazY4aGu0poShMv2Dp9YJNxSHILvDpKoYnaOSKWC/+3XhzWtmUvaa8pMNrHj5eHy
-         3Pzr4c931ylcR3XpHEnv66tfJejCq+UeGNgKQKEjWYULSKurdIxtaQ+rKbyBpmUIU9uJ
-         755w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792453622; x=1793058422; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ypCU1E5MKpp7DyfKc2E/egobrXvy2R64su9DcxdosVA=;
-        b=Lgkpddl2TvvCEoP9iVOQkoChp1KC29S+ddjoSUXUlTzd1BTVP6lz/tJ1HwEGS/F/A8
-         /OSHUEs5EcXL83QlbmGhryu9bdgy0Pnu8QxPCvd4c+Unk4Y3rI3UyTm0qqeBASX/5Uou
-         w6tENwv1hm6FZy44zEVf17LfBo25esknPgdZ7gs2Wq3phxLdFCr9aUNhPXe0OyzygCxJ
-         6v1OtRUjnSerusS0ldpWeaxMKtogm9r0GVelfeA+y9tJdqm0MBXTcPQjJtPkagnT2zUZ
-         grHA621VmUi+mG0NhI0VVKH4QKYQVpz9ADfebjH5jT6A864uxZTTn0Q4fUm4Dx2AHXg/
-         CJuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792453622; x=1793058422;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ypCU1E5MKpp7DyfKc2E/egobrXvy2R64su9DcxdosVA=;
-        b=GW+3/jFAIIa5/CPFIUXH2ANSKe3BUHhHz9bcGUgWgUz3I9vHjMGtk03cYNi2WS92pa
-         InwV1AjaCqrkt9Eq4dWbmeUomNLLcLjONG9wP7FI+Uc/+44cYjGPC4B1WBqpkeaKOeH0
-         rKv3e+Vl9PRRdr+8gLxJCzMZa+PxlEIBOvX86oidkuhOzr8dDfgMUp/sQWbBDESoHVf/
-         mFIMPWbl+iQwy5KBahux36Te6oWIG6vDCO8BPhz4qu/bzuuLkZgFtOp2XEMoyLUOH4nZ
-         7UHhvbyKi10sud1z6bFkCWASE8/qDcs53j82y4nRfhkrBFupUEF2l+FRPnAPDEXlgH/E
-         opdg==
-X-Forwarded-Encrypted: i=1; AKwUvBwkXUQhB06JrmD5pCCDv4Z70z/K6kRWoNakaWUQq84joPDnFPKtFqJSrpzvVeIW8nE4yJegEnA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI/v74w5baxBmW4mhFyNIHhiku33KZtStCI3FD5Q8x/2PDpkg0e
-	Yi9muggqOLumA1zebxdqDftRki9sP4z0LsyFI3L1q7WpGcCmMpPiVu7Ogy5F4BqPYTn+eAiNq4A
-	lFLJAysN8kYWZa0QUvVimd1ckHGjQo18=
-X-Gm-Gg: AYBFou0j7fKIhCn5bifVmCTYC7nb6xZhbyxX11KT4Cf2RxD10Gk+ZtaTiByI6Vn31o+
-	w1j3WvdhO68WahKPh8nVNhlHetej6Cr7uLLVz7DvR5ltpNA+vdAASUCM36DFV5Xae5Rw/hD4NCr
-	bepdr2WD2ZecNtJAiMgUOvibpHfgKHF0IyOs3y4AZPSwT3pI81bO3slMJd9VO327sMm4Hn56lUJ
-	I8nmOQ3M7tvrIfL/rO4aa4qyAC3HIyMzD0XI7hnm3QGuUvIwVT47jYQvKCU2InMZshGbX1XbLPX
-	skqhbzSgPuffXaiBQr9GrozgEhJ8L/PySEOFpawhIy6fzcxPnozCkQ==
-X-Received: by 2002:a05:651c:510:b0:3ab:2d74:71e with SMTP id
- 38308e7fff4ca-3ab2d742b84mr17797071fa.10.1792453621900; Mon, 19 Oct 2026
- 16:47:01 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HkNO5Vms
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 105D01F000CA;
+	Mon, 19 Oct 2026 23:47:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792453627;
+	bh=EFL7RVpbg7eriH3AqFHCOPDeyuNL9tU0pmOU4dQ3GNo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=HkNO5VmsfqpvG/7vRrBgfU91eqwkT1MX3sTjDgM8GKYkx0ViU8U7t0SJvD09DTS3t
+	 Q2EXPQn8H0K09q7ETipsFThUXltWdeOtAr2mxBknhJb63F1pUc81xDLqkIEwRnA6Gk
+	 pWjPRYZ7babLd4jmQKpAU62p80/xRq18B20D+yB/ADhnzUKPLepzriDfF2FrY+c09J
+	 1gdCEEIUFtPEZvRKO5KbFYhGtpwaCO2g71+zTYNzD3Iq+TpEAR5Ozbe24xBUw43KUv
+	 28GNFop3mPASUcEG1IgRjTxWMVdwU0uYJ6+uNhrCxml00Zf9ctyI0pdqLuHxCMMlR/
+	 lQ0hkLE2WlBfA==
+Date: Mon, 19 Oct 2026 16:47:06 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Cc: Alexander Duyck <alexanderduyck@fb.com>, netdev@vger.kernel.org,
+ kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ davem@davemloft.net, Eric Dumazet <edumazet@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Dimitri Daskalakis
+ <daskald@meta.com>, Mohsin Bashir <mohsin.bashr@gmail.com>, Bobby Eshleman
+ <bobbyeshleman@meta.com>, Daniel Zahka <daniel.zahka@gmail.com>,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v3 0/5] eth: fbnic: harden Rx and Tx completion
+ handling
+Message-ID: <20261019164706.5c4e9335@kernel.org>
+In-Reply-To: <cover.1791775409.git.yhlee@isslab.korea.ac.kr>
+References: <cover.1791775409.git.yhlee@isslab.korea.ac.kr>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,33 +64,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261016023521.747447-1-oss.patchbox@gmail.com> <25a35fa8-9540-4892-8375-1788e6795dfb@kernel.org>
-In-Reply-To: <25a35fa8-9540-4892-8375-1788e6795dfb@kernel.org>
-From: Yuho Choi <oss.patchbox@gmail.com>
-Date: Mon, 19 Oct 2026 19:46:50 -0400
-X-Gm-Features: AclHuK-d2lDGIbO0nMDnG4pSmt2gfW-rFmLHGdUc2vgLpFp-z405iCYiTrPxDos
-Message-ID: <CAGG=RgDUFpDqtbws4YO4T8A3pS4Dr9twVqP9hSD3J_zP5Dc_mQ@mail.gmail.com>
-Subject: Re: [PATCH v1] virtio-mem: only mark the device ready in kdump mode
- with vmcore support
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, 
-	=?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, virtualization@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, 19 Oct 2026 at 09:05, David Hildenbrand (Arm) <david@kernel.org> wrote:
->
-> Which kdump kernel exists that does not enable CONFIG_PROC_VMCORE?
->
-> IOW, why should this be stable material?
+On Mon, 12 Oct 2026 13:15:55 +0900 Yehyeong Lee wrote:
+> The Rx and Tx completion descriptors carry buffer ids, offsets and
+> lengths that the device writes and the driver consumes without
+> validating. v2 bounded the Rx buffer index against the array only, which
+> the review found insufficient: an in-range id naming an unposted slot
+> still reaches a NULL page, a bare META completion still builds an skb from
+> a NULL buffer, and the offset, length and the Tx completion head are not
+> checked at all.
 
-I tagged it because a9403425b3cf has been in releases since v6.14 and
-PROC_VMCORE can still be turned off with CRASH_DUMP enabled, so the
--EBUSY path is reachable in a valid configuration. But as no practical
-kdump kernel disables it, I'll drop the Cc: stable in v2.
+AFAIU we are not required to add silly safety checks to fast path of
+PCIe and SoC drivers. They can be assumed non-malicious. 
 
-> LGTM, but I am pretty sure it does not make any difference in practice?
-
-Right, nothing is queued on that path, so the device has nothing to
-access.
+Please don't waste our time.
+-- 
+pw-bot: reject
