@@ -1,130 +1,230 @@
-Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE509486E43
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 07:28:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.153
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BABA048987A
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 07:30:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792394923; cv=none; b=aHjRZYUNXI3l2YjXreBzeDPp0hU3zbr1AAQqiCiQgzo8n45jb2xTcabcXADg8+JK8iXRJGkYLOtJ0Z8IDTfc92W5432GePng8OPOa9EM5hVLRPZ/dk5ZnNv6BFPM0Vc46bhcqlpb1+ZzLdjCWk/23T4ttUpN/LFFoGRUfb6VwlY=
+	t=1792395010; cv=none; b=VRYFN5tZD4I6bA0dzqhfYIrII4jOyFG9XgRtoD5rWpK2MJE/fRkajxD9LsuyncSLbb7mpA2QgxytWQdQsvIM+05xF+vQ8+vIl8LfSHIo2HajFmMJV+UxBKhmVwh+vFkxtAcGo8jgKE+RDTaHpaKpr8v5zfTC2il1PDHwfcmksd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792394923; c=relaxed/simple;
-	bh=+EWke+kegKWW2B563dpfhTyACjX4Bih9IB1dZgkly3I=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=IN2uY2+8gl63lN/wIlsDBm3RzWaUFmUXsflDymtmC+lfAn9dq3vBQj/1dlIgo/ACh75+L00stfy70NOYT9tRoHqntDYmdGpC0WPH0/JvPVFWy5RgSHbTpO6t3h53ScKWq8LH8rIE8e452nO+QxR9fuWmMvnVDQqrHmUvqZ4qg/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=dAZcgL1X; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=VrQOALa1; arc=none smtp.client-ip=202.12.124.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1792395010; c=relaxed/simple;
+	bh=KSLxsLECDBlglJ5ok09mHe2q8VxULP0ESynDUsj7NjM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Cx8t+4gKkN251RhQ41tswIfm5Tt3tBCDwFNhriDK8nBqLTX6M09IUYFkLakJvgfTB5F6Ogm0jawpahGoBXkjPLvUr1NZs/HZ79a7+54iz0xL88Cnoj5cPSAli4rrHvrc3WYBZSSjylE/QS9Z8ITegrOodd6qZ0fm6NdLGffQ7uc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YEuLeHx+; arc=none smtp.client-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="dAZcgL1X";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="VrQOALa1"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 016117A00E9
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 03:28:41 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Mon, 19 Oct 2026 03:28:42 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792394916;
-	 x=1792481316; bh=PLHYJfXPw5eZbHRCcZ0a6KnmTa621kQU2YjXteB/tC0=; b=
-	dAZcgL1Xda48bGQNimvV+30TMDWB34dW9GlC5BFaeug0K5leO6Iipw9N7StnEGIS
-	cNAIRj+KjBBi1Y2XcWg66eQfdT1Ifu/Q/JhNWHudkDtwO98sGq/DVAoD0AFppOVO
-	TgBLbF0VeNMEWgfJthmS0MY8uEpLj/me+9TA/n5nGF9XDzJEWVfWv1xCwUlQXnzM
-	/1IkmutlUP3oaoAGMiUAYZq2XWQWO9SFKTSwighnSjjQoXLXJZNG5oEatSWrTQ6V
-	jHOAhMSFYC53fq3ah7ewK13fPzf6/0Tx3gbWr2HiBOIgurSaaAHq6gwVjj+3L8ZZ
-	gba1EwKudsVvN9OD8TaSFQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792394916; x=
-	1792481316; bh=PLHYJfXPw5eZbHRCcZ0a6KnmTa621kQU2YjXteB/tC0=; b=V
-	rQOALa1QDxzsdLrV+6cFGUFFFIhTiUQQr5UwqTAkG8kJf3tOcPXalv6cKmDbcVzx
-	rAqGa0o9t2HivL+B8t9oDRt43k4QoXvzMsVDjxqzKXSP7KjSxlNmljaF2/uk/ukE
-	Q9wdV0kylvNP5hwwpCf8Au+uxqRB7/H4YElPhiQ4JH8o2FEkVjQnN7vuBSDG4Crf
-	SKKHaakVwV/CmQHWmM1DWF/DYQ7eyth7SXlsRLOwOqSr07yRctuhsKpwdvIsiDTy
-	gYUTi+wV/ZnzI6MR+1wbXKb6fGmNVfLwQakupcWSNM07PFqcJ9/r6zCXuOY6B184
-	cjxbKef++G2StWTbzq1Bg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792394916; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+; rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:LKXTo9Xsncg9WAQPoWqWH4tg1iNko6Ye2T5UJvSd+Ifr8EG
-	+8bQ3exWazJVMntUHQ0COf60Wt9m44fwSyQX5Vfx6p1Ie4gFOSdBYnVxUeG7KVTj
-	sgY1QQyZWhlQz60ABPUYQ506Y5S1iyI8Dxrnh3LtlKXxhti1XWMh8RENaEtERhZC
-	+4kLE9tm7aA5slLkmKLOkIGcwmpiQF5AMaWP6Gbqrib5Oncc7bpSiiMESN4GLc9Z
-	wvCPNsgvaoejsUjpVdX9qvz8AInMjgIuwANOxzIrAIBxpGIL7CHy7qZ25quRC0Na
-	U9XMVTVAqsU2kQX64dYcoah+skp+g/4S2LT+9Pg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:mjPdJaOz8JVVi9EZGnwjC/k/+t6i0OU5KJZVz1cg+XA=:+EWke+kegKWW2B563dpfhTyACjX4Bih9IB1dZgkly3I=;
-X-ME-Sender: <xms:n8bVar0hR9ty6kHHUR1QfQ75S-iQUsyT9fJHkfkfNPeFK0dVkydCiA>
-    <xme:n8bVak7_YyElYRzuvT3GNX5FqzEKmky4a_dcj5BRAC99SKMbmzsmZAsqr79qSE5Vw
-    yBysE5zCE5Es7pwcGNr9dOqxeTKtoSIux7CT2fqjEut8BEGBIBeoDsQew>
-X-ME-Proxy-Cause: dmFkZTEgTR2xr3LjwoQxTz4QE7mX+5PH46bNXCriRkEqgyvLMfGBx4gYCV93emLUYy/l5M
-    Uj0lDN5V7zucVcFPXh1K6dNdKEEFwfXHUAHartXABXQj/TBlb8Sd2SoVVoaHQnzMj+JH4u
-    rHfVcJFfbgA92Lex/Nk6wLuWq0JDbqWI9Sx+NsXOzqG0RJWZ3apQcBaysEfF8kv9uVnEjX
-    3tdLlo1+2Tv3+DpYfHNghLqk99BH+v7W0mmQ9RosYwG6Q2Mx/Np754/4x9TNHahfr53oOi
-    qVGBqJ98QI0LAARUdiTHlPZMJwD+rLIpw09e8M0Yykv4qtjMhkSxktzahgs/WxhsSbjAHX
-    JVI/h7iHJ6Cvm/7eR+xhyoKmzMJDHXjSbueGBGFrhiOHS01V7UfR8ldnhfigDagAUjH5Pi
-    lL2viOH/uQEpCEHZZt7oRLZNpi0mn07ge3xyABkkcIcoRp5HuVUCjRykLaY6Fh7IpCocMT
-    Rc1CShHHTCYtzf/kuPU02sKSJfCiRBQJ4TisBDVU8iY3R/Pd8x+ZlSl19LcMqREnO2Fq/O
-    kmLfzkbfNTVy1d02F8djTzJ7HtdiR03t0rlKldRLVaeAPSMIf6hYND5uP997F4j+82i28u
-    fHtZ8l8i+SeM16P3hjDa4n16/IHIFRWkfb6u9WgEbaXn1M65duq+3wZS0v8w
-X-ME-Proxy: <xmx:ocbVasb1HjVuJubc-t3mapr6ddPtKOWHhY5rOIm4Sr0iUEGCqzN51Q>
-    <xmx:ocbVavmZ-Hcw3Io5zJ_6bHf3W4o-UF5yf12p5-N6h20zRWvP1V-NRQ>
-    <xmx:ocbVaigHNthuBahyYD7Qq7buCImw9V4_idiE0y9HP9P7OBQD7m8d8A>
-    <xmx:ocbVahSCx0Q7hjy_DGU--Ab_5Wo6I5cOJl-7cdar0GVA3QfgXzq2yw>
-    <xmx:pMbVasjnztBiCuEhrfCJBjyRwPp0KnpeJ--w7f6o7Hf3WNuPTQYJTOas>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 1F95632A008E; Mon, 19 Oct 2026 03:28:31 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YEuLeHx+"
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-15dd124bbe7so3353924c88.1
+        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 00:30:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792395008; x=1792999808; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=W7q+tRZEp7x1zsFqvPs4W277M15/fE06QNYP4aD/T7c=;
+        b=YEuLeHx+oIDYF0/1zs0ioFged4Rid3sTaRson+OVR/O/l3fgz5++mImkgtx4AfMjfR
+         SypSb3MxBgv5LzQzRRRicI9LNbRYNloaMkt0jSsddSk+SPG7yUNCj84xwoEredJaJwhd
+         xBhJ+9fxyT7iO8Sgq7v57XxlnXB64E7LHtxBO2IRczqUkoJCM4HaQZgSu+tidQDz6Wzk
+         rUB5pK8SIRpVMem2bX2hXiSOmK08baUt02nCvRgQyGGsNEt1JS3l7WHh8dmtmgjNnrG9
+         opf0F466B7ahWHi4VMDqCZHlRLLmTyd/CSAFK400Q6ixNxmZlCFCxG6iVcGsXyScxpSh
+         ABjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792395008; x=1792999808;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=W7q+tRZEp7x1zsFqvPs4W277M15/fE06QNYP4aD/T7c=;
+        b=NzkWCAWXqAtW6kHwymlzG4OQVuW7Oy2JfYrmgKV2P7O7ioxeWow3kmRFiv6MN+0hhk
+         CqTS+LageTZPxgioFKQF4e0KKkIyfO5Hv4i3P3J4UboNMZ8hwGw6ZJ4bPH4XejYnh5go
+         47/Z+cYMmBKHypXUx0LSMt4HP9ealVbTNa3gkEINw6Q1wpdDQnOwZ8IXYBz9TVN+//rH
+         LsrwQ7LjlTeN/HkPBufKeROhHV58+unS0gUTAy9CNsElAzioPTGuXjqZGQ/x4L6CjMPK
+         XqW+ixcfppvAGwy4nTpoOIB2tT3li7TwCLgQYIOUm6EJuaCQqQjtMvtiRZeJv4v+2RSP
+         wdDg==
+X-Forwarded-Encrypted: i=1; AKwUvBxUbkCmB/yUc0vOEBE72bTAMl5oWOaAkrJAlgfW/Jfcp3LMOoakQ9bBs0+8wqO36i6cKcjNCq0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9ZardX1ab1RpdOVeF+zWyAqrTFA/X3wBRaLXQ1xOzEMszXhkm
+	BD6IPWnSecDmfThzUO+6OIf4EvBYtPBURZnzobAWDvUicSruws/KQvvw
+X-Gm-Gg: AYBFou3sQyXw2EnaDSDLwE3ATfgJkuKDpthO25CJQyWc7cbbUGxFOUS5pvPkLtKYoVc
+	UmguyD5t9NF453lmifN2Eyjop2r/GGSRu/HL7MseqJzxWVIVA8sS9CW9N07L7f1ORT6fNZ1nxlz
+	dYVyWg+yqN8YuVCt2HRvgGrVuVqAzeOiX7MqmOpZPpyYOqsW7991Wt3FhL6t06JakSPBufXjMZV
+	zrNTk+7TKsXaNAuVElFA/ME+0uqx176C7ofT9IwNS391MSFaYXFhMXk8/praXbjST923CQw9Plp
+	hp3rmbkFUmFDcdT12vib0z7sKKpe/hn7CYYbpb2MyQyffpQMdrvreFeHMMr+xVTrPLsXQbJMqzl
+	B1JtptEKR+BfhNJW+jBBN8l1r2hpOeL6/M6dIMHm07rdmVLS34R18hAV3R8bKwf62h12GYVT1k4
+	QDKGoaoh9aQZlCKPHFGafMStxY7DCqO/rtUehKYsL+pmUFAaGnn5IO4GnE0XrsEM1pcdNp6/Msj
+	qdR48LRdG+NMQnwycMygnlgyOxIwp5kCUwi3TiqifvnKq/IWdveuzX3scV4TNNXT4tMZ04NXjdK
+	QkESsg==
+X-Received: by 2002:a05:701a:ca05:b0:17e:6de6:6a1a with SMTP id a92af1059eb24-18511ad9debmr11070852c88.8.1792395007422;
+        Mon, 19 Oct 2026 00:30:07 -0700 (PDT)
+Received: from codespaces-393231.mimvmn1ww3huhhjmzljqefhnig.rx.internal.cloudapp.net ([4.240.39.204])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b75be5esm35134155c88.16.2026.10.19.00.30.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 00:30:06 -0700 (PDT)
+From: Eklavya Singh <eklavyasingh2106@gmail.com>
+To: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Heming Zhao <heming.zhao@suse.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Eklavya Singh <eklavyasingh2106@gmail.com>,
+	syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] ocfs2/heartbeat: serialize concurrent writes to a region's dev attribute
+Date: Mon, 19 Oct 2026 07:29:35 +0000
+Message-ID: <20261019072936.2279-1-eklavyasingh2106@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261018163121.128911-1-eklavyasingh2106@gmail.com>
+References: <20261018163121.128911-1-eklavyasingh2106@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AzLNdjRv6F_B
-Date: Mon, 19 Oct 2026 09:28:10 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Huacai Chen" <chenhuacai@loongson.cn>,
- "Huacai Chen" <chenhuacai@kernel.org>
-Cc: loongarch@lists.linux.dev, "Xuefeng Li" <lixuefeng@loongson.cn>,
- guoren <guoren@kernel.org>, "WANG Xuerui" <kernel@xen0n.name>,
- "Jiaxun Yang" <jiaxun.yang@flygoat.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, "kernel test robot" <lkp@intel.com>
-Message-Id: <7f22dbbf-98e9-42ac-9c12-f6b4377ee430@app.fastmail.com>
-In-Reply-To: <20261019031436.3523632-1-chenhuacai@loongson.cn>
-References: <20261019031436.3523632-1-chenhuacai@loongson.cn>
-Subject: Re: [PATCH] soc: loongson: Make Loongson-2 drivers depend on MACH_LOONGSON64
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026, at 05:14, Huacai Chen wrote:
-> Loongson-2 is 64bit CPU series, their SoC drviers are not supposed to be
-> used with 32bit. So make Loongson-2 drivers depend on MACH_LOONGSON64 to
-> avoid build warnings:
->
->    drivers/soc/loongson/loongson2_pm.c: In function 'loongson2_pm_probe':
->>> drivers/soc/loongson/loongson2_pm.c:178:49: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
->      178 |                 loongson_sysconf.suspend_addr = 
-> (u64)phys_to_virt(suspend_addr);
->          |
->
-> Cc: stable@vger.kernel.org
-> Fixes: 3d9aba6618d1 ("LoongArch: Adjust build infrastructure for 
-> 32BIT/64BIT")
+o2hb_region_dev_store() checks reg->hr_bdev_file to see if the region
+is already started, but nothing stops two writers from doing that at
+the same time. configfs only serializes writes through the same open
+file, so two processes that each open the dev attribute can both get
+past the check:
 
-I would prefer just fixing the trivial portability issue here and keep
-the COMPILE_TEST option around. loongson_sysconf.suspend_addr is
-'unsigned long', so just cast to that instead of u64, or
-change the suspend_addr type to 'void *'.
+  A: hr_bdev_file is NULL, opens file A, sets hr_bdev_file = A
+  B: hr_bdev_file is NULL, opens file B, sets hr_bdev_file = B
+  A: start fails, fput(hr_bdev_file) drops B, sets it to NULL
+  B: start fails, fput(NULL)
 
-      Arnd
+Both calls also use the same hr_slots, hr_slot_data and hr_tmp_block,
+so the error paths can free the slot data twice.
+
+syzbot hit the fput(NULL) with an unbound loop device, where every
+start fails with -EIO. With four threads doing the same thing on a
+KASAN kernel I get both crashes within a second:
+
+  BUG: KASAN: double-free in o2hb_unmap_slot_data+0x14d/0x2f0
+  BUG: kernel NULL pointer dereference, address: 0000000000000158
+
+Add a mutex to the region and hold it in dev_store(), in the
+block_bytes, start_block and blocks stores, and in dev_show(), since
+they all look at hr_bdev_file. dev_store() cleans up with goto, so it
+takes the mutex in a small wrapper rather than with guard(). It sleeps
+with the mutex held while it waits for the heartbeat thread. That is
+fine because neither the thread nor the teardown paths take it.
+
+With the patch the same test ran for 10 minutes with lockdep on and
+nothing was reported.
+
+Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+Reported-by: syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=5d4e96acd0febccb5e87
+Cc: stable@vger.kernel.org
+Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
+---
+v2: take the mutex in a wrapper around dev_store() instead of with
+guard(), since dev_store() uses goto for its cleanup. No other changes.
+
+v1: https://lore.kernel.org/all/20261018163121.128911-1-eklavyasingh2106@gmail.com/
+
+ fs/ocfs2/cluster/heartbeat.c | 32 ++++++++++++++++++++++++++------
+ 1 file changed, 26 insertions(+), 6 deletions(-)
+
+diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
+index 1c3def99bb0..003c398366e 100644
+--- a/fs/ocfs2/cluster/heartbeat.c
++++ b/fs/ocfs2/cluster/heartbeat.c
+@@ -269,6 +269,8 @@ struct o2hb_region {
+ 	struct list_head	hr_handler_list;
+ 	/* Serializes timeout arming against failed-start and teardown. */
+ 	struct mutex		hr_arming_mutex;
++	/* Serializes the region's configfs attributes against dev_store(). */
++	struct mutex		hr_dev_mutex;
+ 	bool			hr_stopping;
+ 
+ 	/* last hb status, 0 for success, other value for error. */
+@@ -1676,6 +1678,7 @@ static ssize_t o2hb_region_block_bytes_store(struct config_item *item,
+ 	unsigned long block_bytes;
+ 	unsigned int block_bits;
+ 
++	guard(mutex)(&reg->hr_dev_mutex);
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
+ 
+@@ -1705,6 +1708,7 @@ static ssize_t o2hb_region_start_block_store(struct config_item *item,
+ 	char *p = (char *)page;
+ 	ssize_t ret;
+ 
++	guard(mutex)(&reg->hr_dev_mutex);
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
+ 
+@@ -1731,6 +1735,7 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
+ 	char *p = (char *)page;
+ 	int ret;
+ 
++	guard(mutex)(&reg->hr_dev_mutex);
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
+ 
+@@ -1748,10 +1753,12 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
+ 
+ static ssize_t o2hb_region_dev_show(struct config_item *item, char *page)
+ {
++	struct o2hb_region *reg = to_o2hb_region(item);
+ 	unsigned int ret = 0;
+ 
+-	if (to_o2hb_region(item)->hr_bdev_file)
+-		ret = sprintf(page, "%pg\n", reg_bdev(to_o2hb_region(item)));
++	guard(mutex)(&reg->hr_dev_mutex);
++	if (reg->hr_bdev_file)
++		ret = sprintf(page, "%pg\n", reg_bdev(reg));
+ 
+ 	return ret;
+ }
+@@ -1867,11 +1874,9 @@ static int o2hb_populate_slot_data(struct o2hb_region *reg)
+  * this is acting as commit; we set up all of hr_bdev_file and hr_task or
+  * nothing
+  */
+-static ssize_t o2hb_region_dev_store(struct config_item *item,
+-				     const char *page,
+-				     size_t count)
++static ssize_t __o2hb_region_dev_store(struct o2hb_region *reg,
++				       const char *page, size_t count)
+ {
+-	struct o2hb_region *reg = to_o2hb_region(item);
+ 	struct task_struct *hb_task;
+ 	long fd;
+ 	int sectsize;
+@@ -2032,6 +2037,20 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
+ 	return ret;
+ }
+ 
++static ssize_t o2hb_region_dev_store(struct config_item *item,
++				     const char *page,
++				     size_t count)
++{
++	struct o2hb_region *reg = to_o2hb_region(item);
++	ssize_t ret;
++
++	mutex_lock(&reg->hr_dev_mutex);
++	ret = __o2hb_region_dev_store(reg, page, count);
++	mutex_unlock(&reg->hr_dev_mutex);
++
++	return ret;
++}
++
+ static ssize_t o2hb_region_pid_show(struct config_item *item, char *page)
+ {
+ 	struct o2hb_region *reg = to_o2hb_region(item);
+@@ -2156,6 +2175,7 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
+ 	reg->hr_key = crc32_le(reg->hr_region_num + O2NM_MAX_REGIONS,
+ 		name, strlen(name));
+ 	mutex_init(&reg->hr_arming_mutex);
++	mutex_init(&reg->hr_dev_mutex);
+ 	reg->hr_stopping = true;
+ 	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
+ 	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
+-- 
+2.55.0
+
