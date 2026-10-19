@@ -1,58 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.245.30
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792444056;
-	b=mvAGljrthZp31UjqEp9oUN7YLG+AeTNOqJkGTsch6kee1wxu+nsZfEtnEFQ6qSrWm3QG
-	 yk46YBeF0aschT95eJmFn8L8WjEsYquSMRRxEwuRCNnS2PVaZ9hV1DjNaoopG+PbPkb1M
-	 hiyprtc6YHDBuNz96OaK5gawzlZdhaj3iDBqSCSJxkfOfQQ083nxUjYSjX8odOjFjPTB2
-	 RHAEA22ewvNAVblbhlsCgcCbPFPzioSXGEcz0TAFJEA6wetYbMJXRnxIE6LexsptboPkI
-	 6yq8NdHk4a4jgozlA/1Wc1wc3Y4oSjzzIgYu2IrLRDjmFawElFpEbs7+GWo/PC2azrg==
+	t=1792444495;
+	b=IXzPrL7+JX8d12IcCFnEEX/28BguWIFoQT0GZKo2hiC5iN+OP8XmIt6H0t08bJnxycmM
+	 kMMLHKR1c+79j8kyGHHgsc6+Z1/oF55NhXJzB9soU1n9ExvGhqf+2djZZ3EV0svFb7D3d
+	 L3pWGNeta6Xn2l9K32kcninTAbGAt/Lp9I8SbzgJA3Weq13xCbb1Muj92CIvSLyGeg5vY
+	 kef904MEZsY7TxwgtIFc/l8D7veIIYLO6AOM6I7FatuJFIuUOgHVGM52+w5iYaTUaXHc2
+	 pHhiUThdr7WsUrX/QBQxpyXhwrzFoiTWhIdM0tY0E+ui1B3XdKTkjx9SSjf63wFNcGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792444056;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=3QZ9iUX9FEvs9UzUvz0pc3gaCcyQW6FB1eNnhaIOnkw=;
-	b=jZ84j9U3xHmzknHpMi+uSmVQKbjMEsSvrq4kE59QbfAkhrXlP5ZHFAB6sDK3gn23JyDD
-	 3OqZVBu4OwZXny/CGRgwJG2eAo8Jp/GLo5BUfQ306nslqMg25Py/omfL2Hx7ZwPGOKsXm
-	 /l98+gvm7BmCKj2rhkVk472+QtQ7Gf7nYD4gLPx24FWsTXITA2Uhg62o184SUwwMQWjMr
-	 2qNDyQ6WXfllTSxlSnHGpuogMPRpXR7bGE75s1PaidAa1+E5f+yueRoDy7mBnifoa2ASY
-	 2B9zrivcYcYIeE1HaDtIv8W6M+rPS1n4jVMCRpuPw4BzvwGdJ2iaXExg6souwAUWCQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792444495;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Fc+mbDm2DgYQ1VrXoQJ9t7BbigOlRzpc+tzJi7I+sE0=;
+	b=xDO156Dh9rxDLnOhUxnc02J9TGqEKQoP4ixhFkvH+wPskxcPkv2Kelh2bJbbe5W3SLTp
+	 2qpks8DVoJKp9s+fKUCtMKqPVDQtu/rQQDvswQuzsXP5BhrrdHktKbAXWr8Rc2gIlADrB
+	 mnyTa3aKmdzUPB5Ko4rMzm1akAmgLcI98fuDSTPHUO/jqsGG1dR61PCCX5Nv3n27JApRx
+	 AY+wgnNjWlmXARyf2vQOXQrHKgDvVLZuEvAWIahWpYFnWNHb7jq6Jj959Jw5CqwQPBxGu
+	 KmUSE/osYxghhJFq0GJXhQWGjPxqMLrVUXukHlyulwGcbMv9ZWBNGcY19/bzObhXiYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eHQnRUUd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=strlen.de;
+	spf=pass smtp.mailfrom=strlen.de;
+	arc=none smtp.remote-ip=91.216.245.30
+Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id A02DD606A319;
-	Mon, 19 Oct 2026 21:07:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eHQnRUUd
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id B344F1F000C4;
-	Mon, 19 Oct 2026 21:07:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792444056;
-	bh=3QZ9iUX9FEvs9UzUvz0pc3gaCcyQW6FB1eNnhaIOnkw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eHQnRUUduaYG2sO66ojBQpwD9Ynyfi2F2xq1bWeltzJ2r4P1gfWY6HiUWQKzz8TAP
-	 hQBZyEwUkhJ69k9XiNW0sntIhtjUdhCM1yDnlAaDgT23pCUHK0vUV+EnCNM+8Pl5ZH
-	 aODU1OosOpTEGt5IjoppCc4/kgxjsVCCvNK6a8cTq6IImpAljJcG2Hq6bWx0nuPVAh
-	 ymRGX6WH2KU4EHeUPizKK/TgeLUJIfIxlomoA4+WJFFt4WjR11wbSzawSY0YOnMX82
-	 v736VqlkOHBUS9WVU5lVW3e13kseo9WEKXv/T85BsyFZ8RO2vQGgTmlf9BJT0OgYCr
-	 Yw0c8MyuA8aeg==
-Date: Tue, 20 Oct 2026 00:07:32 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	stable@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 5/6] KEYS: Reject @datalen values over INT_MAX
-Message-ID: <ataGlDBhDaHsLT_q@kernel.org>
-References: <20261019181732.449591-1-jarkko@kernel.org>
- <20261019181732.449591-6-jarkko@kernel.org>
- <20261019193148.GE65095@quark>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3010606A320
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 21:14:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3010606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
+Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
+	id B561660515; Mon, 19 Oct 2026 23:14:46 +0200 (CEST)
+Date: Mon, 19 Oct 2026 23:14:39 +0200
+From: Florian Westphal <fw@strlen.de>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, Pablo Neira Ayuso <pablo@netfilter.org>,
+	security@kernel.org, Willy Tarreau <w@1wt.eu>,
+	Abdifatah Suruur <suruurism@gmail.com>
+Subject: Re: [SECURITY] netfilter: nft_byteorder leaks uninitialised kernel
+ stack on 6.12.y with CONFIG_INIT_STACK_NONE (CWE-457)
+Message-ID: <ataIP3xm8DDtO82v@strlen.de>
+References: <179239012164.14465.16534329674629579851@gmail.com>
+ <2026-10-19-1-daily-reply-0008-nft-byteorder-security-declined@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,21 +53,19 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261019193148.GE65095@quark>
+In-Reply-To: <2026-10-19-1-daily-reply-0008-nft-byteorder-security-declined@kernel.org>
 
-On Mon, Oct 19, 2026 at 12:31:48PM -0700, Eric Biggers wrote:
-> On Mon, Oct 19, 2026 at 09:17:25PM +0300, Jarkko Sakkinen wrote:
-> > Protect quota from overflowing by rejecting @datalen values that
-> > surpass over INT_MAX.
+Sasha Levin <sashal@kernel.org> wrote:
+> > Stable maintainers: would you prefer this minimal init patch or a backport
+> > of bb061d3de4170741?  Either works from my side.  The memset preserves the
+> > existing multi-register ABI and is the smaller change; Florian is fine with
+> > either.
 > 
-> Is there an example of how this can happen, and why the limit needs to
-> still be so large?  add_key() for example limits the payload length to
-> 1 MiB.
+> That commit has an explicit stable+noautosel tag, but now it needs to go into
+> stable?
 
-I did a bit scavenging, and to my knowleddge, no. So I would retain
-this as safety measure but would not consider it as a bug fix.
+I did not consider this earth shattering enough to risk nft -f croaking
+and refusing to load the ruleset.
 
-> 
-> - Eric
-
-Br, Jarkko
+The change has been upstream since 7.1, i.e. June and I am not aware of
+regression reports.  If you prefer to wait longer: no problem...
