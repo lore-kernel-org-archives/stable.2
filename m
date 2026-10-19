@@ -1,93 +1,149 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86A54DA535;
-	Mon, 19 Oct 2026 10:58:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E1434E06CA
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 11:00:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792407494; cv=none; b=APOR1ooE9EYJja84T2tv7GZLlM8rl460PIWqifPS3lG2qnlklY5DhdUxK9BY0CBO7fJBCRmd5DWl3AYgD3UMY6tsjdAsoGCgAS96og/s23c1pr8Sseycq6p7iTj8naZnoEXhyeekINV2NtGvZFKehlb3Hhz0Dfv0GcCLmdgS2ws=
+	t=1792407639; cv=none; b=Sy8CIjnSUpjoqwCUUXr9kkwBIVEznU9YC70F1xekP03LDVitbZsnRtqArR2r7pEZ+pXCy5FxZ9ftkZCCuJuOTgvXuZA6ORLyRNjQ3vc0uFTL6BSVNu8jkZcyejrFJJRC7nLaM9mW7vAj29ay+jmxrT6/1jnl+EcxWtIbYgWsCO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792407494; c=relaxed/simple;
-	bh=zxCw7LM35gSBCwkwViMSJmmfnBJ863fFFLzm1ixlyBo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jRQgtEnAlSTUJZDigxSOAhF6AwOMOqPAjtct+zx4rJzIelF/GFrYcvWTI8mIRw1YrycopVxqM7JJYkp2w1U1hpb63tp4TtJU9m62e+sY9viDAqnRZUF6qUN7zuwWho9Oa8rg/p+OvnrdOLn5Jm70AWe8mvKKtgzd95jkPJdIUeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nnzFnmXy; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792407639; c=relaxed/simple;
+	bh=DEeG+OVMM7oDWOAXVmwXanuReBLaFCkXTAgJYET078o=;
+	h=References:Message-Id:Mime-Version:Date:In-Reply-To:To:Cc:From:
+	 Subject:Content-Type; b=UZeVnPXxhv/SN9f7jfchUFjp5Purt9MBnU7YsDBC4S0BEA9q2siiEWGTY6zUNDrM4WBwEksWzt2/2s5nB1dy9rtr+y7T8Etx8Gpj5Rl2kt2M/jzbxnkF4bNd/3X3L4zJM7bVoWrmmBmPPWjinhNC3UQChLA3kPtTtMhfwBvv5Io=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=ZCXDas2z; arc=none smtp.client-ip=209.127.230.115
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nnzFnmXy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792407493; x=1823943493;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=zxCw7LM35gSBCwkwViMSJmmfnBJ863fFFLzm1ixlyBo=;
-  b=nnzFnmXyFGwyT+vzb+/Ydo15HoZ1L9DOVk0gKHuyldgUle7xxMKki81A
-   LS1DCGb0QFcFTAsb2QVQZKNbAWxUg4d0Rjyek9swNpkoPlrmaVyjOB2/z
-   I1e5mbKzsT+pWqwa6QoYv5PjOVeEMtz3bZNefTh0CH+xgqHGART8Agi5r
-   2i4ughxaMkrLbpyLfsc1HyTaqiribr++WC9dDn51/Y9XOqllCE0QTlIta
-   atQgt+VoVaSjN+GX0diSqDPRV837hmpHUqfmX+/CDyXWf4dqRgK9+SIl+
-   jKA8lf61RUFttidGDxR9vTTw4XgpLA++q8Yuz+TctpyYRoJ9warTEsr60
-   Q==;
-X-CSE-ConnectionGUID: TkdngWUJTwW8U/IfDI6wEA==
-X-CSE-MsgGUID: PkBmw6AGTU+tizRGpij4SA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1096236"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="1096236"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 03:58:12 -0700
-X-CSE-ConnectionGUID: YqohVtC6Qt6aYquL0muSJg==
-X-CSE-MsgGUID: eS3B/quwTqqx05hLssKdhg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2392023"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 03:58:09 -0700
-Date: Mon, 19 Oct 2026 13:58:06 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Christopher Hoover <ch@murgatroid.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Lixu Zhang <lixu.zhang@intel.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] iio: humidity: hid-sensor-humidity: Use
- per-instance callbacks
-Message-ID: <atX3vi_iQ--p1Pha@ashevche-desk.local>
-References: <20261019023420.83976-1-ch@murgatroid.com>
- <20261019023420.83976-4-ch@murgatroid.com>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="ZCXDas2z"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1792407631; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=aqCubf153Xb14OUZAVhvSybo4PNvwko2u4wMBzcpbD0=;
+ b=ZCXDas2zUMX8Pg5jCxshqcCAUlYxiXOt2BZj6EHawlcqdU1EpVCEXOO+h2IafVyc3zz6wi
+ UpwAxEwmu6H0wguzE0H6jeea1yvWTWAo+9+/yOxspJ/ywfDjnK3TNC79Ij0tIUrp0s5PPe
+ q7q0374RS2jHvyCuoKQkWyc8lu7NmvODJRLfQ97X7vrc5duR8PxdrcW8sjIQ/2cieUDSbQ
+ Hpy1ScG3bd6Es7JrJPAvcNJH+8AY4ItwbewGNvoDkeic0okC1nT4A9GeA+osRV/rdMuTUk
+ AKwroIkdLPkm+KulcDWw5k7eASuYpLaZwbxZ18LjWTCBkwSG3sxQ+RC7YPBOqg==
+References: <20261017160431.119607952@linuxfoundation.org> <20261017160456.871872142@linuxfoundation.org> <68c00b4f-d74e-4e2d-a7bc-9af44beeb25e@bytedance.com> <2026101913-unicycle-fancy-0adc@gregkh>
+Content-Transfer-Encoding: 7bit
+Message-Id: <1822c44e-60d1-4df3-81c5-f6720dfbcbce@bytedance.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019023420.83976-4-ch@murgatroid.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26ad5f84d+fcd451+vger.kernel.org+zhengqi.arch@bytedance.com>
+User-Agent: Mozilla Thunderbird
+Date: Mon, 19 Oct 2026 18:59:27 +0800
+In-Reply-To: <2026101913-unicycle-fancy-0adc@gregkh>
+X-Original-From: Qi Zheng <zhengqi.arch@bytedance.com>
+To: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>
+Cc: <stable@vger.kernel.org>, <patches@lists.linux.dev>, 
+	"Muchun Song" <songmuchun@bytedance.com>, 
+	"Christian Brauner" <brauner@kernel.org>, "Chuck Lever" <cel@kernel.org>, 
+	"Darrick J. Wong" <djwong@kernel.org>, 
+	"Dave Chinner" <david@fromorbit.com>, "Kirill Tkhai" <tkhai@ya.ru>, 
+	"Paul E. McKenney" <paulmck@kernel.org>, 
+	"Roman Gushchin" <roman.gushchin@linux.dev>, 
+	"Sergey Senozhatsky" <senozhatsky@chromium.org>, 
+	"Steven Price" <steven.price@arm.com>, "Theodore Tso" <tytso@mit.edu>, 
+	"Vlastimil Babka" <vbabka@suse.cz>, 
+	"Abhinav Kumar" <quic_abhinavk@quicinc.com>, 
+	"Alasdair Kergon" <agk@redhat.com>, 
+	"Alexander Viro" <viro@zeniv.linux.org.uk>, 
+	"Alyssa Rosenzweig" <alyssa.rosenzweig@collabora.com>, 
+	"Andreas Dilger" <adilger.kernel@dilger.ca>, 
+	"Andreas Gruenbacher" <agruenba@redhat.com>, 
+	"Anna Schumaker" <anna@kernel.org>, "Arnd Bergmann" <arnd@arndb.de>, 
+	"Bob Peterson" <rpeterso@redhat.com>, "Borislav Petkov" <bp@alien8.de>, 
+	"Carlos Llamas" <cmllamas@google.com>, 
+	"Chandan Babu R" <chandan.babu@oracle.com>, "Chao Yu" <chao@kernel.org>, 
+	"Chris Mason" <clm@fb.com>, 
+	"Christian Koenig" <christian.koenig@amd.com>, 
+	"Coly Li" <colyli@suse.de>, "Dai Ngo" <Dai.Ngo@oracle.com>, 
+	"Daniel Vetter" <daniel@ffwll.ch>, 
+	"Daniel Vetter" <daniel.vetter@ffwll.ch>, 
+	"Dave Hansen" <dave.hansen@linux.intel.com>, 
+	"David Airlie" <airlied@gmail.com>, 
+	"David Hildenbrand" <david@redhat.com>, 
+	"David Sterba" <dsterba@suse.com>, 
+	"Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>, 
+	"Gao Xiang" <hsiangkao@linux.alibaba.com>, 
+	"Huang Rui" <ray.huang@amd.com>, "Ingo Molnar" <mingo@redhat.com>, 
+	"Jaegeuk Kim" <jaegeuk@kernel.org>, 
+	"Jani Nikula" <jani.nikula@linux.intel.com>, "Jan Kara" <jack@suse.cz>, 
+	"Jason Wang" <jasowang@redhat.com>, "Jeff Layton" <jlayton@kernel.org>, 
+	"Jeffle Xu" <jefflexu@linux.alibaba.com>, 
+	"Joel Fernandes (Google)" <joel@joelfernandes.org>, 
+	"Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>, 
+	"Josef Bacik" <josef@toxicpanda.com>, "Juergen Gross" <jgross@suse.com>, 
+	"Kent Overstreet" <kent.overstreet@gmail.com>, 
+	"Marijn Suijten" <marijn.suijten@somainline.org>, 
+	"Michael S. Tsirkin" <mst@redhat.com>, 
+	"Mike Snitzer" <snitzer@kernel.org>, "Minchan Kim" <minchan@kernel.org>, 
+	"Nadav Amit" <namit@vmware.com>, "Neil Brown" <neilb@suse.de>, 
+	"Oleksandr Tyshchenko" <oleksandr_tyshchenko@epam.com>, 
+	"Olga Kornievskaia" <kolga@netapp.com>, 
+	"Richard Weinberger" <richard@nod.at>, "Rob Clark" <robdclark@gmail.com>, 
+	"Rob Herring" <robh@kernel.org>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>, 
+	"Sean Paul" <sean@poorly.run>, "Song Liu" <song@kernel.org>, 
+	"Stefano Stabellini" <sstabellini@kernel.org>, 
+	"Thomas Gleixner" <tglx@linutronix.de>, 
+	"Tomeu Vizoso" <tomeu.vizoso@collabora.com>, 
+	"Tom Talpey" <tom@talpey.com>, 
+	"Trond Myklebust" <trond.myklebust@hammerspace.com>, 
+	"Tvrtko Ursulin" <tvrtko.ursulin@linux.intel.com>, 
+	"Xuan Zhuo" <xuanzhuo@linux.alibaba.com>, "Yue Hu" <huyue2@coolpad.com>, 
+	"Andrew Morton" <akpm@linux-foundation.org>, 
+	"Sasha Levin" <sashal@kernel.org>
+From: "Qi Zheng" <zhengqi.arch@bytedance.com>
+Subject: Re: [PATCH 6.6 1003/1674] mm: shrinker: add infrastructure for dynamically allocating shrinker
+Content-Type: text/plain; charset=UTF-8
 
-On Sun, Oct 18, 2026 at 07:34:20PM -0700, Christopher Hoover wrote:
-> hid-sensor-humidity keeps a single static struct
-> hid_sensor_hub_callbacks for all instances and overwrites its pdev in
-> every probe, so with two humidity sensors, input reports for one are
-> delivered with the other's platform device, and a NULL dereference
-> follows once that device is removed.  The same bug was found in
-> hid-sensor-temperature, which shares this code.
+On 10/19/26 5:44 PM, Greg Kroah-Hartman wrote:
+> On Mon, Oct 19, 2026 at 05:01:07PM +0800, Qi Zheng wrote:
+>> Hi Greg,
+>>
+>> Backporting just this patch alone doesn't seem to fix any actual issue.
+>> Why was it backported to v6.6?
 > 
-> Keep the callbacks in struct hid_humidity_state, as the other HID
-> sensor drivers (accel, gyro, als, ...) do.
+> Because:
+> 
+>>> Stable-dep-of: d227786ab111 ("fs/mbcache: cancel shrink work before destroying the cache")
+> 
+> this.  Is that not ok?
 
-Same comment as per previous patch.
+Got it. But I don't think it's necessary to introduce new shrinker
+infrastructure just for this fix patch.
 
--- 
-With Best Regards,
-Andy Shevchenko
+If we do end up backporting this, please also note the following:
 
+ >    * Add a shrinker callback to be called from the vm.
+ >    */
+ > diff --git a/mm/shrinker_debug.c b/mm/shrinker_debug.c
+ > index fcdef821147c1..694acc2b63740 100644
+ > --- a/mm/shrinker_debug.c
+ > +++ b/mm/shrinker_debug.c
+ > @@ -239,9 +239,6 @@ struct dentry *shrinker_debugfs_detach(struct 
+shrinker *shrinker,
+ >
+ >   	lockdep_assert_held(&shrinker_rwsem);
+ >
+ > -	kfree_const(shrinker->name);
+ > -	shrinker->name = NULL;
 
+This was mistakenly dropped in this patch.
+
+If the entire patchset isn't being backported, this shouldn't be
+included either.
+
+Thanks,
+Qi
+
+> 
+> thanks,
+> 
+> greg k-h
