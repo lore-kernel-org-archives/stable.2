@@ -1,87 +1,126 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C8EC4825AC;
-	Mon, 19 Oct 2026 05:52:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D12573D7D8D
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 05:56:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792389223; cv=none; b=SdE8Pp68+pIWM8iZSu8BZ9QoUEJOkIAMsP9RINN5LnFJTDvCDbadbLxBHrTG5f97jTPkhxNaWNRravoMC+ILhkm7r9x8lHFYrw+zUWmp1+3A9D3ptV/nu3vkcxMPqbpLtZLvmhj0WaYBZ8PwgpfKBMVQv3GBdCCIm1KzH4WALO0=
+	t=1792389392; cv=none; b=Nt7ersxKucinlaScKRf/capC2H3prB/GkwaAXgSvD2SbyEkhbnw2nh0wLR0WUkfwZ4KYZuQSXbAOHRfaMKfHihHAMGbrIx8pjFVkoLzqtkH/CjtfFDQp3ltVyiV5B04cATfEvUBXGGkYIjlf9aPYRfhVR5TXHqMutrya4CwbXKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792389223; c=relaxed/simple;
-	bh=ieraK7cBVZEsMFvVD0EcLiGEZhvYM4rku4qNKyw0Jyk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gZzgTFxKpZtP5PiSTOcxUXx9uF9Dua10j0rbgKZfp0uE39X/HZFtPjy3OIf8oy4t1fsqJtDgzuYbIY16ixMKtMIly/CQPDhdU06TEdLDqgzo6ec7g9LfieU7pmff2MKdiH7zE5Flf4WDt6zZU149HqrzVFzSB29lpYMIoBpKS5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=GMOKiqft; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792389392; c=relaxed/simple;
+	bh=HTGKwnfLYH9sQbmZR4jgm3rmqqSqjEKTTF/qUw6axck=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g4/81rPdfHaK+5PwWxe0YRL1LXM9uegeiA8kty90Lx5aHWt/F4e2zPDt6Oj2bTm+ckuNci19rgBAo32atYf8iFD11l8xiPRiLTQ4XPjamx9uwuw7E6+1UKYZSj/82KqnmhNA727WkfKNW9ycAwX3Btreydsh0+QPeeyOjQK6x6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=seanlyon.dev; spf=pass smtp.mailfrom=seanlyon.dev; dkim=pass (2048-bit key) header.d=seanlyon.dev header.i=@seanlyon.dev header.b=KqqoozzM; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=v2tiQJ02; arc=none smtp.client-ip=202.12.124.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=seanlyon.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seanlyon.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="GMOKiqft"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=bj
-	C0C9sNmjVdhV/IrzHeBVtTgO0BbAu7HQvpAPfRZB0=; b=GMOKiqftSRSgHEHprg
-	CxAkWAgQa1T8sLq9Ut1q/BxKrsUR0BoGVncEnUKOeolLGnUUZQSXrjnJxRrXUCCM
-	+ub2QZ7Ve+5llkpK6PAIpx6sj17E2+yXuKslmtvwzPDRTdix2oZd87MUsjpbOPKu
-	Ykus0Kb5RiePTHWqRwg2V/NUQ=
-Received: from jbd-ThinkPad-X1-Carbon-Gen-14 (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3H8HQr9VqeNjjBA--.48161S2;
-	Mon, 19 Oct 2026 13:51:13 +0800 (CST)
-From: Slark Xiao <slark_xiao@163.com>
-To: mani@kernel.org,
-	jeff.hugo@oss.qualcomm.com,
-	krishna.chundru@oss.qualcomm.com
-Cc: loic.poulain@oss.qualcomm.com,
-	mhi@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Slark Xiao <slark_xiao@163.com>
-Subject: [PATCH] bus: mhi: host: pci_generic: Update the default autosuspend_delay_ms as 5000ms
-Date: Mon, 19 Oct 2026 13:51:09 +0800
-Message-ID: <20261019055109.49922-1-slark_xiao@163.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=seanlyon.dev header.i=@seanlyon.dev header.b="KqqoozzM";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="v2tiQJ02"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.stl.internal (Postfix) with ESMTP id B8EFE1D00161
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 01:56:26 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Mon, 19 Oct 2026 01:56:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=seanlyon.dev; h=
+	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1792389386; x=1792475786; bh=LfsgXYX7S6
+	XEMaq5hg6L+X+ToacozK9CRcIiiRJcD64=; b=KqqoozzMTGKNaW0OnMrnv4wIK6
+	kwCRU5evq/7xPv67cXk3tNkKIIo5KfiNqfLZua8aHyv6/qSHnTSJA0Ls1nrTeRza
+	O/JLJoiKpMVt0EnfT0omQ97P4ld0r+tixgCyLLG2NSb1/Op41SYTmWXM5zcyhu1u
+	ndiE5ms/BofTe/yAViL/5ujQGIZ4GiPVIqL1H6EG4ZBBiHAdNwOJh7k+PFP70KvD
+	Y/q+sRDuGplwJ/o2K1o+6utVKQAFZUkYB65tk1akDU6r33J4RTsnNR+UqyE/fbjC
+	0eEBNE+tKLfrwMADwZUdHysMFqBy/GqwyTOgW0AEbcFQYqgx7wVRMMO6YkWw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1792389386; x=1792475786; bh=LfsgXYX7S6XEMaq5hg6L+X+ToacozK9CRcI
+	iiRJcD64=; b=v2tiQJ02uJpUDtyt5lcDLSv4VGC7GlGhHLJdpkavUSfwGt28xWP
+	UsvQoMwQOdUR3uyQpwqxySqxsXDIWhSDiDKLywIud/Ny3huynwPhgMfFvnBv1U1H
+	Ad+Bc6dqN21+HYJOXgMzzwUI/GWOJlGRU7l4Sxmm26HLc7yLzHS7AA+vqnnoHVPg
+	2z/td4MdCmhfanTlM+Nm+qmaY5D9FCgXgj9hZ2drGYhZe1WWqSf1RN8Z43+N2c/1
+	Tu9EUEG5kNZYIls8VfJSDptmc4fZaWASHiQWCgrbpjQ5quHnDpgfM/4GMMTCiSBx
+	nZY79FltnkS0C14oJyXJZDpzvx6RCJCEFjA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=seanlyon.dev a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792389386; d=seanlyon.dev;
+	mf=PHNlYW5Ac2Vhbmx5b24uZGV2Pg==;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:MGhgV6nQ5qG3BpX/EkJ/9RvFnL84rTurNg/9Mikjv5VMYN3
+	srvJYJ4TvYIEQMXC8+hKoeVyZyskqbcw1NcBB64B0Car6hLlCWEdHK1PZb0JdoYY
+	Xx0z4zKPYi2+VtOlDaUmEWPDK3E4V11Xt9kxdkR+lM2GmgTGRcyq5LvWCGA4ykhN
+	r8KTXIj2IAoqo3G+D88B6UPajwV8vNC5AsCqfUAaB3kJXB3kLvfUQBp5XEbIlQsX
+	PSitTxD9580JEijiXWCs64VhZjCGxni/9sCiUi8fCnfjGKG3POVUxHVeTqhhTMey
+	NtkwPjVulNmu7LI2SK8ILd7sfbiWmdtnndomxHg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:U9ElxEG/jPgoJeWySPP9W/VOJMtTLCBIJwF3GEj7NwE=:HTGKwnfLYH9sQbmZR4jgm3rmqqSqjEKTTF/qUw6axck=;
+X-ME-Sender: <xms:CbHVal3UW1liSXpHEJPVYeF-SVkA1f-gOPYuuIpW1u9nYOJh2oeAUQ>
+    <xme:CbHVan9IpNSz14ivoAnk6l-c-iFQRhbZ6RBoMBPJnTEgf3Dbj-LJNxsJazj5HpFIH
+    1NsP-8waGFE9kJGzXEOAsxeUDLkIbws4LLE7qoFVvrMIdXjXqNh3Rl2ng>
+X-ME-Received: <xmr:CbHVahbfPCOC9wsjs8JcwyAFBqA3wF7V6e2yitJnPrwADXG-qgxzYwA29HY1urVtRJ288f5n6aCMCyfph7eO8fQ9kMc>
+X-ME-Proxy-Cause: dmFkZTEUaVLKYko0MyiWFKhfebKoDmpe4JifwL4IxiJucUPynfOcgcGHE471IhtrYKsx8Y
+    xFo0EEtgcdmULc8WTEiWNTnhhz6TGsnMxSdv6h47oK2K6KgR+DqbCD+RYp0V+PewkCbiq9
+    kUbuoNmxBXfvetzEFoTZmMuvU8rDfF+WvxuoZRfVjqTkyehkxKwo2tLYRl2m3HDpgqFnjP
+    aWb7hIllC/24/RNXDftGyu7FgaBPzoKvivEJQ/w1Jt23z01P3R+5RiTYo/Ved+pkoTl2X4
+    KU4MuFZr+Jtib5mriNztx5LNn8AppEqfBAK/7Hslruck4Ow6NtbYyuLEqUg+XxX1mEv+Lc
+    ZSZVrJoikyri6K4JugXE6Vlm6hL1GU8IB1FJ0Zn4IuzuP4ZNAiNSmh6w+8CvLT5RHz00Kn
+    gF3P7NG7CUrwb0JtAwmCCo1BKb7+YKqS4iKFYJRdDDyDwORz1x586x17dXOS5Z8dB0ckuc
+    Ff36kQ3NbGxCHv435iC5BF6sjTgic8lg0iK8QtVaixTwXBR5M6UqmdpZgaKPP193/3WE9S
+    NQV03Ekr24jULSgqhR4UkSy57tB6pICKh0H5uULtBiM5cShENZ/dMJFqZrj+1rP35WN0ZD
+    NXuX4XzzHKgc7+Zq9L2WvAFJJy1Z88BvtybV/rl0S/9m5stAVmSsREvhGOKw
+X-ME-Proxy: <xmx:CbHVamyqE8FGbBBBCDIdmFkqBEUaLkImXGZmM7iBlZFeYTfj5-Ezag>
+    <xmx:CbHVav9QeB_qEezRnAl1VqT-1RjvtxhrBRmZhZw0DUbRZbGPMlhw8Q>
+    <xmx:CbHVaiwtbww81xt_UFdQQ7YsKRJtGxyOTod9LTAtmVQsWzZasNAaKQ>
+    <xmx:CbHVakvlRQSH5Eb-8Cv7k4Qy7BAbJiil2rT4kfQtW0pbJ_l33vlB5g>
+    <xmx:CrHVaiLj63OJVIYiKZY92EO1gKB09CSRCaqib2pgNhEpePZlMhCq2pkr>
+Feedback-ID: i07c64b5b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 19 Oct 2026 01:56:25 -0400 (EDT)
+Date: Mon, 19 Oct 2026 01:56:24 -0400
+From: Sean Lyon <sean@seanlyon.dev>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 000/869] 6.12.114-rc1 review
+Message-ID: <atWxCC4cJhFjYmCS@ncase>
+References: <20261017160036.979869304@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3H8HQr9VqeNjjBA--.48161S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJr48tF4fXrW7XF1xWFWUtwb_yoW8XryDpa
-	yF9F45tr48Zr1UKa4qyr1qq345W3y3Gry2gryvkw1Y9398tw1DKryqvFy3KF10yrZ5WF43
-	tF4jgrW5ur10ya7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piH7KxUUUUU=
-X-CM-SenderInfo: xvod2y5b0lt0i6rwjhhfrp/xtbC6BEwlGrVr9FMuwAA3r
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261017160036.979869304@linuxfoundation.org>
 
-For some MHI devices in some specific scenario, the default value
-of autosuspend_delay_ms may not enough to handle last wake event.
-This may lead to some unexpected problems.
+On Sat, Oct 17, 2026 at 05:47:21PM +0200, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.114 release.
+> There are 869 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Refer to the Qualcomm's Windows settings and we checked this with
-Quaclomm over case, Qualcomm recommend us to set this as 5000ms.
-Qualcomm also suggests us to update this for all MHI devices.
-Since this setting has affected some existed kernel versions, it's
-better to be applied to stable version.
+Built, booted, and tested on hardware for x86_64:
 
-Fixes: d3800c1dce24 ("bus: mhi: pci_generic: Add support for runtime PM")
-Cc: stable@vger.kernel.org
-Signed-off-by: Slark Xiao <slark_xiao@163.com>
----
- drivers/bus/mhi/host/pci_generic.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+- Intel N100
 
-diff --git a/drivers/bus/mhi/host/pci_generic.c b/drivers/bus/mhi/host/pci_generic.c
-index 7193a384cca4..40735beb46cb 100644
---- a/drivers/bus/mhi/host/pci_generic.c
-+++ b/drivers/bus/mhi/host/pci_generic.c
-@@ -1483,7 +1483,7 @@ static int mhi_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 
- 	/* Allow runtime suspend only if both PME from D3Hot and M3 are supported */
- 	if (pci_pme_capable(pdev, PCI_D3hot) && !(info->no_m3)) {
--		pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
-+		pm_runtime_set_autosuspend_delay(&pdev->dev, 5000);
- 		pm_runtime_use_autosuspend(&pdev->dev);
- 		pm_runtime_mark_last_busy(&pdev->dev);
- 		pm_runtime_put_noidle(&pdev->dev);
--- 
-2.53.0
+No regressions found.
 
+Tested-by: Sean Lyon <sean@seanlyon.dev>
+
+Thanks!
+Sean
