@@ -1,158 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-221.mta0.migadu.com [91.218.175.221])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9B11E0DE8;
-	Mon, 19 Oct 2026 00:53:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BB3723BD17
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 01:02:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.221
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792371207; cv=none; b=F6liznqcAW70WyMHwDJUoEISDqFrfVtvzrm2REDmmCdVDDfUeFdu4agovVH8iUM6Q9yeqaU+HmCLPc848Go1SlBANudiES0/qPCjflRrB9rMjwp9y4ki3UpQjVRYLVZS7/vD9f/Ei1owWbGbouaScCot+g7ANQB4GbAYvPbkDYE=
+	t=1792371755; cv=none; b=YCP48JmZJlAfwqr+5kJBHptstoRCd2hChyV/bwcpcfl4ET9b+EXCVv7WYziSPjbuO2b+RG72FEAgoiRciL0VYtifb5rYNv5e4LwetCc/zIpoIdtbdRofFTIpLbIe0tYBRq0vQ4QYpNgawzIs4/60piPaH26gegWdolmXis+koaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792371207; c=relaxed/simple;
-	bh=L4oPWyRdOWJ4WVXaJxwGqu9Vbq8LJS2AJQIOWUdz7hY=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=oyDKLFfhH9U7NLzGtAWKAQSRShsIaBnJvLHrAcaD/9YUR50OQ+ghPaevH5m3wSTrmp89F9w141lYmw5WOeSnZgM1lTgb/fJ8KZEg9l7nspwhsN6IfpNgIHo3eBq2PO7JWjt9k4XVdi7Ha+iFsxycvM3SUncNVfUNCUJVc8PLqJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XdhnWjiX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792371755; c=relaxed/simple;
+	bh=7SU2HNON/BqLq2bv/cBKuk5LpU1ziW+Kvf5YYswTIMs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gBOJtyXTodKsJIyS20pc1LkbOlQrI2WWrFc7rENh5l1WpT4Hcy3EThms+f/mQu7FNvEgmDxMGzA3QtS1hD/FahcqSsRCKn3rfm1vPEbp5yRMZ5KpodjsB5lSEq/C40TB1dwqBk5hGM/jJx6TcJy1Ufk2gQijUmp2klJDcrXVPpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=V5Q54Or0; arc=none smtp.client-ip=91.218.175.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XdhnWjiX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC3121F000C4;
-	Mon, 19 Oct 2026 00:53:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792371206;
-	bh=wNMFNftTQpWPPQEWb1Qcvc/380NyQkhR94vu+vFqq4k=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=XdhnWjiXh3ovA4Z1wHt3Cq6FHvaoIp25E/mmiunK1bwHDFfW06u/17DpzQTawjFSJ
-	 WnPVeVTKDsC3fDQR6CCQaf8hVxhhcCxBsCH8T1mcqCF6ThhBeHvFCbXyRihwvW9rPB
-	 yX4OaCtb9+RWNLwZ31oXKrnhaxl82jN7GboTZmD9z0s8fchFOHeXinD6d7JrqGfYv0
-	 XxyuKJ9KCEzUzD/QqP0KmCA5q/o4vYop85FXrvn5Oqytj3wjx1d/8PIxZVPV7QIXQZ
-	 zCR/WRU+mRDyUoKnvdh+dvzDk8P6rDcmxKEMOO6M6ubN8DbXURh9cnY/2p0q6UcJMe
-	 Dpc9ABVdGlNGg==
-Subject:
- Re: [PATCH ipsec] xfrm: esp: reset outer TCP GSO metadata on espintcp input
-From: netdev-bot+sashiko@kernel.org
-To: yangguoshuai@gmail.com
-Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
- sd@queasysnail.net, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon, 19 Oct 2026 00:53:25 +0000
-Message-ID: <179237120528.3135.16925112275068010433@kernel.org>
-In-Reply-To: <20261018005218.53267-1-yangguoshuai@gmail.com>
-References: <20261018005218.53267-1-yangguoshuai@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="V5Q54Or0"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7SU2HNON/BqLq2bv/cBKuk5LpU1ziW+Kvf5YYswTIMs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792371750; v=1; x=1792976550;
+ b=V5Q54Or0jGTuNpPsKosHfm8ybonnXKSHjGN7wJImYDTyrcP/Xby+C5jLIuLAf5LCl05iBLMf
+ 0yL5M1HVZdvW72E79PTFS+k4U3IHx01WtNMlVWHeZvqs9dtDEAsUNf2lMVw+l6PlWMPUtVy8zEm
+ GR//fK5+cBH7JPr6hLb46adA=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9ff5fbd1b53f1ea9;
+	Mon, 19 Oct 2026 01:02:30 +0000
+X-Mizu-Trace-ID: 9ff5fbd1b53f1ea9
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: samarth.colleges@gmail.com
+Cc: akpm@linux-foundation.org,
+	david@kernel.org,
+	xu.xin@linux.dev,
+	chengming.zhou@linux.dev,
+	peterx@redhat.com,
+	kas@kernel.org,
+	rppt@kernel.org,
+	lance.yang@linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/ksm: keep soft-dirty and uffd-wp when merging a page
+Date: Mon, 19 Oct 2026 09:02:24 +0800
+Message-ID: <20261019010224.69153-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261018122957.526467-1-samarth.colleges@gmail.com>
+References: <20261018122957.526467-1-samarth.colleges@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+On Sun, Oct 18, 2026 at 05:29:56AM -0700, Samarth Narang wrote:
+>replace_page() maps the KSM page with a PTE built from scratch, so the
+>soft-dirty and uffd bits of the PTE it replaces are lost. Due to this, a
+>write before the merge no longer shows as soft-dirty, the next write to
+>a uffd-wp page raises no write-protect fault, and because the page is
+>mapped with the VMA's normal permissions, on a uffd-rwp VMA the next
+>access raises no RWP fault.
+>
+>Copy the soft-dirty and uffd bits from the original PTE to the new PTE,
+>and restore PAGE_NONE for RWP VMAs, as try_to_map_unused_to_zeropage()
+>does.
+>
+>Fixes: 292924b26024 ("userfaultfd: wp: apply _PAGE_UFFD_WP bit")
+>Fixes: 0f8975ec4db2 ("mm: soft-dirty bits for user memory changes tracking")
+>Fixes: 763f43865fc4 ("mm: preserve RWP marker across PTE rewrites")
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Shouldn't we use these two instead?
 
-- [Medium] The fix clears the outer-TCP GSO metadata only on the head
-  skb.
+Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
 
---
+At 292924b26024, WP registration still returns -EINVAL. RWP registration
+isn't enabled at 763f43865fc4 either.
 
-xfrm: esp: reset outer TCP GSO metadata on espintcp input
+Fixes: 0f8975ec4db2 ("mm: soft-dirty bits for user memory changes tracking")
 
-This patch clears the stale outer TCP GSO metadata (gso_size, gso_segs,
-gso_type) on espintcp packets. It does this at the skip_cow label in
-esp_input() and esp6_input(), where the skb is no longer cloned. The goal
-is to stop skb_segment() from hitting BUG_ON(!list_skb->head_frag) when a
-decrypted inner packet with a strparser-built frag_list is forwarded.
+As for soft-dirty, the tag looks fine to me :)
 
-> diff --git a/net/ipv4/esp4.c b/net/ipv4/esp4.c
-> index e76db5817e78e..416638c990825 100644
-> --- a/net/ipv4/esp4.c
-> +++ b/net/ipv4/esp4.c
-> @@ -900,6 +900,9 @@ static int esp_input(struct xfrm_state *x, struct sk_buff *skb)
->  	nfrags = err;
->  
->  skip_cow:
-> +	if (x->encap && x->encap->encap_type == TCP_ENCAP_ESPINTCP)
-> +		skb_gso_reset(skb);
-> +
+>Cc: stable@vger.kernel.org
+>Assisted-by: LLM
+>Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+>---
+> mm/ksm.c | 13 +++++++++++++
+> 1 file changed, 13 insertions(+)
+>
+>diff --git a/mm/ksm.c b/mm/ksm.c
+>index dbfb8f98b189..b0d0555aa1b5 100644
+>--- a/mm/ksm.c
+>+++ b/mm/ksm.c
+>@@ -34,6 +34,7 @@
+> #include <linux/memory.h>
+> #include <linux/mmu_notifier.h>
+> #include <linux/swap.h>
+>+#include <linux/userfaultfd_k.h>
+> #include <linux/ksm.h>
+> #include <linux/hashtable.h>
+> #include <linux/freezer.h>
+>@@ -1463,6 +1464,18 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
+> 		dec_mm_counter(mm, MM_ANONPAGES);
+> 	}
+> 
+>+	/*
+>+	 * The old PTE may carry soft-dirty and uffd-wp state that tracks writes
+>+	 * to this address. Make sure to preserve these bits in the new PTE.
+>+	 * On a uffd-rwp VMA, also restore PAGE_NONE.
+>+	 */
 
-[Severity: Medium]
+Nit: the uffd bit also carries RWP state, so "tracks writes" doesn't quite
+cover it.
 
-Does this reset only reach the head skb? skb_gso_reset() writes to
-skb_shinfo(skb) only, and the frag_list members seem to keep the outer
-TCP GSO state.
+Maybe:
 
-In the case the commit message describes, strparser chains a cloned
-spillover member onto frag_list. skb_cow_data() then replaces that member
-with skb_copy(), and skb_copy_header() copies the GSO fields over from
-the shared outer TCP shinfo:
+/*
+ * Preserve soft-dirty and uffd bits when replacing the page.
+ * Restore PAGE_NONE for RWP-protected PTEs.
+ */
 
-net/core/skbuff.c:skb_copy_header() {
-    ...
-	skb_shinfo(new)->gso_size = skb_shinfo(old)->gso_size;
-	skb_shinfo(new)->gso_segs = skb_shinfo(old)->gso_segs;
-	skb_shinfo(new)->gso_type = skb_shinfo(old)->gso_type;
-}
+Otherwise, LGTM, thanks!
 
-So after decryption the member still has, for example, SKB_GSO_TCPV4 with
-gso_size set to the outer MSS.
+Tested-by: Lance Yang <lance.yang@linux.dev>
 
-The head is no longer GSO after this patch. Take a forwarded inner IPv4
-packet with DF clear that is larger than the egress MTU. It passes
-ip_forward(), since ip_exceeds_mtu() is false when DF is clear. It then
-goes through ip_fragment() instead of ip_finish_output_gso():
+Cheers, Lance
 
-__ip_finish_output()
-  ip_fragment()
-    ip_do_fragment()            /* frag_list fast path */
-      ip_fraglist_prepare()     /* CHECKSUM_NONE, gso_* left as is */
-...
-validate_xmit_skb()
-  netif_needs_gso()             /* true for each such fragment */
-    skb_gso_segment()
-      inet_gso_segment()
-        tcp4_gso_segment()
-
-The fast path is taken when the head payload is a multiple of 8 and fits
-the mtu, each member fits the mtu, there is enough headroom, and nothing
-is shared or cloned.
-
-Take an inner TCP packet over an IPv4 outer stream. tcp4_gso_segment()
-accepts the stale SKB_GSO_TCPV4, clears th->check, and writes a
-pseudo-header checksum into what is really fragment payload.
-tcp_gso_segment() then either returns -EINVAL and the fragment is dropped
-(payload <= stale MSS), or splits the payload into garbage segments.
-
-With an IPv6 outer stream (stale SKB_GSO_TCPV6) or an inner UDP packet,
-the gso_type check fails and the fragment is dropped with -EINVAL. The
-same applies to esp6_input(). An inner IPv4 packet arriving over an IPv6
-espintcp SA can reach ip_do_fragment() with stale SKB_GSO_TCPV6 on its
-members.
-
-In either case, would the forwarded datagram fail to reassemble at the
-destination? This path does not seem able to reach the skb_segment()
-BUG_ON from the commit message, because the members are standalone linear
-skbs by then. But the outer TCP GSO state is still set on them, so the
-reset described in the subject is only partly done.
-
-Could the GSO fields also be cleared on each skb_walk_frags() member at
-skip_cow, in both esp_input() and esp6_input()? The members should be
-private there, because skb_cow_data() copies every cloned or nonlinear
-member.
-
->  	err = -ENOMEM;
->  	tmp = esp_alloc_tmp(aead, nfrags, seqhilen);
->  	if (!tmp)
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261018005218.53267-1-yangguoshuai%40gmail.com
+>+	if (pte_soft_dirty(orig_pte))
+>+		newpte = pte_mksoft_dirty(newpte);
+>+	if (pte_uffd(orig_pte))
+>+		newpte = pte_mkuffd(newpte);
+>+	if (pte_uffd(orig_pte) && userfaultfd_rwp(vma))
+>+		newpte = pte_modify(newpte, PAGE_NONE);
+>+
+> 	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
+> 	/*
+> 	 * No need to notify as we are replacing a read only page with another
+>
+>base-commit: 48fe11c8d0f1e4e59426a3606f20ac1130b6d8dc
+>-- 
+>2.53.0
+>
+>
