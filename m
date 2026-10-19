@@ -1,87 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792434578;
-	b=Myrye4HGWAmm9hDYzGg0t7vZoYexGZz4P8N/QrTLSRVR2+K2mSh6z0h3KblAL8DW+Tea
-	 EXGp9tbeKjnzR8CUclahMSpInbJbqhAOBIEeO4f7JojnZRXC1bBPw8/tAMJ28Uz2x/k1j
-	 +335gbMzHp5FS5qIjCxOFsyYiVzJVEERAyRK8d9S4pEloGSzZwrleD/8ghVNkbJ1m/JEl
-	 P8WS1Jsu1JfQ3PNyPhq474akMbU8DqhR//+f6wY1UglO+S/U/YTbCfZW6y9uaBPc5KCZ4
-	 JSFW+9j9nnkmbMM0ioFsLs1k6WuafRYASEhlbK/hQw8a8R35GT9G2+X538yBbmgd+Cw==
+	t=1792434955;
+	b=Ev46xZEImOp4B+AiWyKIhcBixu25Lvxf2g1iiFpROzIGljylzgOEhLBsEn0IyChK6Ejz
+	 L+NKqRTFhBySluOU6vz9yOCTYqvR/MII0n/Ca3EjIq0TSkYbIJa+V59NzA38Lcx4o0Lia
+	 jv2LkztNBfnXFDxR/2zl6CFMyam+nCRJA/Z6fTpQOoJHvAArEu2Ofo5dz2BesE/w5bfLh
+	 3nkK1+ofIIi+lFOHHDoAU4mqGVhKjLQeAxxesWMzWroQTycn+RNcWK/9BoOKAwDJO2Emi
+	 x0ZJA/Dy76yti3vKCIEAi19vSrYGNkMcTN4PC0gQ1xBHXQRkEvWDm6MkPOIjCr9ZIVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792434578;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=jSBiV7ul+0Ul9MLE/H5BpAaYAk0aqMfUljP7X5tbwpw=;
-	b=FHbEp/GRSdGHdYJwJGhUBk7zvXAmqWC5VYd/RrqQAOVBXCj7igLu2kwJZGWcADQBX/Zl
-	 +mPGxTC6dWSISY0px/wHKzMOJ6e7TU6eiJuTw1V4q0EYLkISNnp/p13uehjqxv8tgAQkn
-	 /HKqkTCu5+axiDTrNYS2e6H/H1zN9ZWOyBT43lTc1AdBKzR10YULS1kqQv1XBPY3aQ45E
-	 aJJY4IttK9XARc1RRHkiNTFB1sw3isUjZ7gqaKyIZDA7VpXbOmRehmnrtRmxb2jHAhG+Y
-	 Zjj4fk14kbL18uiamzjSp1RfCjGUTDMkR9mBe9n6blSvN2N3Othbon3rirFdydSoPhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792434955;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:Organization:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=HtU5t8clX9EXULWRUX2QQaE+7ub6ZBB+2MMQTbN7iWw=;
+	b=wwNgphknUgM3y2iU9ifwlim/OwOioJXvW/TjagAWRy6GLHRsG3yiHqk/ia26ZUzMZAe8
+	 hJ5F04Bawch9jsTvbSFcaHif73dXsIMbrRjxV47jDdMUdSAS/qUyAA2DGQyUqnR9sJ2VL
+	 /wkj5KqVfy4TZmZhZHrqz7D5Ldnk5ApSTUKrG2jfGWYFLNt5IDCWLVZ/UXo60RllimoMT
+	 e0nE3nSEZ0dprlL8eVb7doTFVZkkws0j4MHiUMLQ9JTGs3r19VXY60yF6B8Yd7FondOOL
+	 FKmXXJthZvjRx5ZByU8DgTtIp23PjyZEjwiW3cbYSKYa7RUd4Ihmh9JtRtoErXdHYJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YKfHipk3;
-	arc=none smtp.remote-ip=209.85.214.172
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bF/kAeQ3";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92966606A31D
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 18:29:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92966606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F29606A324;
+	Mon, 19 Oct 2026 18:35:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YKfHipk3
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e985106c0cso16251535ad.2
-        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 11:29:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792434578; x=1793039378; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jSBiV7ul+0Ul9MLE/H5BpAaYAk0aqMfUljP7X5tbwpw=;
-        b=YKfHipk3Wi83rizz/EWO30DPPheCuy9J9OmvthKmNGtuEoK8Pb+EucZUTJGGRn4dmP
-         XQjRPbdI79HzDEzEQkBXytw17phqWORjxadrbkdTHmtJfjIryM2ouBGzm61Lw0Y0l7D4
-         +hRsjXIILWMmTh2dolAE6rytJuZiWp4IuxQFnzkX34dgvJc/sCiNJxG6PNHpWtnJb3IH
-         /2T1R4UcYnCqkTL6boWGXAn/0fVLsHc7F1q6p9Mj7J53QitfvH3J+TanMP2+ZaO6amd9
-         t7Q6dwkDbulWee5RHD7pLmxGEu9nVLtlOawdRhjKYD9BV4ZWOuzz1Aq8L7lZ5zJXRxAS
-         EcoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792434578; x=1793039378;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jSBiV7ul+0Ul9MLE/H5BpAaYAk0aqMfUljP7X5tbwpw=;
-        b=Azbk1Mw+RNTboaMXDO9dupb8LTs2u1g8aTK6y2EFkGBVd74HtaU6BIbq/K4TlN+0bi
-         h3SNE/+g3MXKNvhHKfnfcSGmGz8Cp5mRWfj6jHAdHDYKZ1EqeZ8xM2BTTxMCruivUbIV
-         cTKQ/1EQxrtEs2swcSuPhg7DRNOQdaYovm585MUsA0n0B0Yd5h6eZjHRUfZBiZ0yLW6O
-         buK68L6fK5JyJh5BBwn3SCiGG+fmvcFvXhqybK/zMDi9DTf/5YgPY8lQr5qmiPLGSyqd
-         VjjZMt5xktRkqUGDZm9T3Ucy+zDUaRm8fHk5k1oURAEiHgJKIlrvUEFpis7yf8iJrKLl
-         xOCg==
-X-Forwarded-Encrypted: i=1; AKwUvBwPqqVmuV559fNTcCoIbXaCyjLIMz3I4YLzjDML8ey1/h27sapSzS6d5NKvVNz7DlQZbTd1aUg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKjaEMVgMIao0YMGnx7AWxD8l6SIsACvHRcZyjAweTSBMyW+uJO
-	uzUusef6XvKpYvnSkhhoVKcv80cYTdFxNJdXHUKsxlbgc7O7zS0H0ltF
-X-Gm-Gg: AYBFou0e83BZ6X5Y/SCVxvIiPbSyIGlLKxcHccX0rFH+ImuNv4TZo5pA81noCu792uR
-	/draDbUcI88oMtTPPG31O6qxk9FrE2RFkjLJw322c8GWdb9J6dlxGfx8UeKEWxa0+/GDP4S+xZx
-	IuOvmaAUsVq3Sr45q4Ch91I4pUFuy1LrNXMH2exdUpyQH4c6BnecqELgJPb4B13lMedIWFaXzRS
-	eQ7UJ31z9kfwcli6F2ONx3/hxsZm/rLaLh2HTVf4CviRphFZ3HpOZ1nB+rNvtSooitpQM84lJG5
-	ORCSC9qXuju3Z3T5HVR9BC81PWUkKfRJh9/ycHaXNPPuBLg0j35RkZ2wxDXCo7x74P7hIke3aXV
-	3vKUZyrhGov9FJ7w2vy152iATAKEJUWE9wwUn9uU8u/B2+zzLX3R4S655cMDGNMLtepMXkOT/O1
-	gLBmTH2ZTaEYuJuzw3YPNsuIH3Imt4fWcht9ylHq+cJ7W3RHqis+APHY9zdFYOcdZMgfCkRm2Qx
-	fBuFHtKL3cxg46uhf/ZfRwB
-X-Received: by 2002:a17:902:f546:b0:2dd:ad73:c938 with SMTP id d9443c01a7336-2e9a6d40f02mr71830455ad.25.1792434577572;
-        Mon, 19 Oct 2026 11:29:37 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea13c7ddc9sm5303515ad.0.2026.10.19.11.29.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 11:29:36 -0700 (PDT)
-Message-ID: <8bef225d-f3aa-403c-aab4-f629aa197b3a@gmail.com>
-Date: Mon, 19 Oct 2026 11:29:34 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bF/kAeQ3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D0921F000C4;
+	Mon, 19 Oct 2026 18:35:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792434955;
+	bh=HtU5t8clX9EXULWRUX2QQaE+7ub6ZBB+2MMQTbN7iWw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=bF/kAeQ3o1jpkgrSluOX4NxfpMu5CnfnJaiad2j86vtV3kuMAYIdSxITgDXcjZ5rW
+	 Bkbs9yrtmrQc9WOIRFeG6X/QVSdmCurYNkccgEx8jugVqNL/1T+jJGxjsjbcIRH58X
+	 Jzmpkr3NVkWKMri+8LVcz16avSim8Ki6klVU5THGNiLxRtxnxI+8oK1qsr2063gyZf
+	 3yy8Mo3mV/DqD4hSz3Hj6uPL/yENR2Qnzo4GftxCX9Qa97yNVw/KX6tZTvdPCHgEzb
+	 dMG9yIl5m28Zm7SOm8wXxr0PF1pITkwmYjls3Z4JyfmMmtUe8WRDbGcdW5EZjSJQ8R
+	 W59mX4+Y1vwfg==
+Message-ID: <0c1f23e0-3574-4582-a271-59a6ec86ad81@kernel.org>
+Date: Mon, 19 Oct 2026 20:35:51 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,45 +51,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 00/52] 6.18.58-rc1 review
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH 6.12 212/869] mptcp: move the whole rx path under msk
+ socket lock protection
+Content-Language: fr
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261017155104.830766652@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20261017155104.830766652@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Cc: patches@lists.linux.dev, Paolo Abeni <pabeni@redhat.com>,
+ Mat Martineau <martineau@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Sasha Levin <sashal@kernel.org>
+References: <20261017160036.979869304@linuxfoundation.org>
+ <20261017160042.490038561@linuxfoundation.org>
+From: Matthieu Baerts <matttbe@kernel.org>
+Autocrypt: addr=matttbe@kernel.org; keydata=
+ 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
+ lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
+Organization: NGI0 Core
+In-Reply-To: <20261017160042.490038561@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/17/26 08:54, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.58 release.
-> There are 52 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Mon, 19 Oct 2026 15:50:51 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.58-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Hi Greg, Sasha,
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+On 17/10/2026 17:50, Greg Kroah-Hartman wrote:
+> 6.12-stable review patch.  If anyone has any objections, please let me know.
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+I do!
+
+> From: Paolo Abeni <pabeni@redhat.com>
+> 
+> [ Upstream commit bc68b0efa1bf923cef1294a631d8e7416c7e06e4 ]
+
+It looks like this commit is causing troubles when running the MPTCP
+selftests:
+
+https://github.com/multipath-tcp/mptcp_net-next/actions/runs/39279118402#summary-118153494823
+
+not ok 1 test: selftest_mptcp_connect # FAIL
+not ok 1 test: selftest_mptcp_connect_checksum # FAIL
+not ok 1 test: selftest_mptcp_connect_sendfile # FAIL
+
+Is it possible to drop it, please?
+
+I guess a few other patches are linked to that one:
+
+ - mptcp: cleanup mem accounting
+ - mptcp: leverage skb deferral free
+ - mptcp: add eat_recv_skb helper
+ - mptcp: fix soft lockup in mptcp_recvmsg()
+
+Cheers,
+Matt
 -- 
-Florian
+Sponsored by the NGI0 Core fund.
+
