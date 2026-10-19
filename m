@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792428896;
-	b=cy78rD4YLfZ7dc5p/L/4YXKdVd36dhWtqv5SOmWLSXq3tyoyJrltdlaT9Fua2MGcnnqr
-	 zVR4k3cQFUcPkQzR3gB8yP3CHStrBTQFgKmb7auJVo4+ccnYdhAjlmrmKF3/C4WrKDYKX
-	 YZLYVu/2Q3UXcu5Ni/kRh0ZBlbmQrbquDzJNVjS68YZFVgQBDnogZ8fvfs6HD+87Xo7da
-	 eNaEfbunOMr81Ky961Ft4R+YLlBJLOyUrKuGyEHnjseq6B3YMn742sEVwctYWypNwA5k7
-	 KzTqYQummp3RyZLJI5vWpyUyr+MOof2TQS38r8Yj4zTxwYAk32aZAW/ZSycg+OzW8VA==
+	t=1792428893;
+	b=3X68IsiPDu0Kt7tLeJLrkYGoL/iqFZDUAsppJ83p/BlpDKOu3CclT7L1bT5wF0zzooJT
+	 Zz9Jd33uutwkkvY7rVcCtJ3SJJ+urZQ5SKsiJyElAFazRGAwJqE3gLPeVsaVs838dx9A9
+	 rxsb01efBF4/qgN/aolNIDCCWGsLAVxBDRGWLw60phET3PhoMjTP0LUKxLYa+wWGKDNQo
+	 NrD1A43JKu7UWSCQ1fiQNzToRXUNJIgihiVA8mSUfZb1izI5w2gljCF+nK2HOSF4k70nN
+	 CaWg7xFaM86uvXlrt3gmy42xYHnCJa2VCdPBhmh7opNM3cmIRwe0wdJDdkQlCBQ3nyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792428896;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792428893;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=lxpRwCCvswaeNGSGCQHd9d171tlIucfRlQKacrxY3lE=;
-	b=18v2LCKgluOsH8LwdtPxBQD1AYlZQ5z8ifH8ig5NFnv0wUv6zmO1siQomeZpX9R+TZ2d
-	 J3y7nmkBccrxUIfXsHYizccQLRHATCyNfcNESoZiIYnwasZcSLFc3Xwmb2l7UcvJtitEB
-	 3QTOEum7ZsvzbgTKLPP6e1gxrpRamV+31dQe6cN1ZShrfDgcj7cPPYpReah4xCT2t4iTL
-	 C2uWaS3Q1o47XuWXPu31uSWbpcXSpfbRHHhBtih13b0BUxzC+gAO2TlIUBnlnfn35Uuua
-	 AYd6nIS1lLfN6mUmFxp6fwez3O6uhTRRPOkU5C0WZW/1Fo26x/J9o2jTp6DY01kEfNg==
+	bh=/vWn8vyFir5R6D0iFD0/omUM4kYSgdHlE4Y2WEwH1hQ=;
+	b=NtUHQatUUZo9aBgTJptI6wKvwi54HwaL//eAbOt92pWjNk0b9K5aCjdltAgYnl67xzv3
+	 YT+TVQiOaUiXYuxKTvUmayIoGdY44DuYPCr9fol+8qPSiNZte7NVwyMUOwRqxZWcr4fH1
+	 VJoD5yO32UGhbAvRfoa2avVSCM7OtTSkZHDyclDfnicDeHT/OHfRMX+okJhrk/7QXsPEw
+	 hbreJv1Qz4O6b4Rp/9LwClNIBz6SwFb1TrJne19kXIAcTGVzED+ny6EbgeVcuVoSJjzak
+	 Z97ADsBoPzos7HIiPGWWlZQfEoJjeHYz1xH1yHEkpnSqLMK1mvNz6DD/RTl9/LJUT2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b2rYqsDr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aUsL7JXh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF601606A319;
-	Mon, 19 Oct 2026 16:54:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b2rYqsDr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4638B1F000D0;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A9D606A332;
 	Mon, 19 Oct 2026 16:54:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aUsL7JXh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E85A1F000C6;
+	Mon, 19 Oct 2026 16:54:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792428895;
-	bh=lxpRwCCvswaeNGSGCQHd9d171tlIucfRlQKacrxY3lE=;
+	s=k20260515; t=1792428893;
+	bh=/vWn8vyFir5R6D0iFD0/omUM4kYSgdHlE4Y2WEwH1hQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=b2rYqsDrXbsudWK1jprqgKIduEB7qdnTuytEWMnNbk2SW1oqb8A4vmProxtilvcNW
-	 tCRliMFqN1ItvKHMsksSk+jnXQR/VtfxLqILpW07rpSPODNwcoaCiYE0Tud5/ocAIQ
-	 iJg9n8Y4s5A+za9iTWf0O9DlSZJG2P44lPg7WVAOH1xd08igNg82zEtOiX1lMqP3kQ
-	 E6sg5ZlUSz9h/ZxNsqljVksYb7HQrmI+f+96M1Xpp+Gu6YHoWEpeESXhe7H0DIO+ps
-	 FL4L2Wuvp5xWn63C6JeSYuCBYpiiAKmYmsJiZcSrlym3Etq9cGC+Q+iudgA6HZf3e5
-	 uZ8JaiSWfUMIA==
+	b=aUsL7JXhSwWYZ8nngR0rJvFbPIbPuUPgYUWubdyMYHF4eoLJyI3GPuKsP7f7G8rnC
+	 YYDmSApE7GztVlFDHQhUgLASXfJvmSd2tsC1ifWq0gcys516klEZFXYc6HuakPnyPx
+	 ++OBMKyNuKdO4+DE/0jhrtcupIWhghHGybkyy4vg3yQCkorqtgwTm5LbjaEUTnwLxg
+	 zEg0x4YlgkI++Gtvd/yezp73HGNFYy5ZrfyVle0R5X4YRaucJ/u2e+/DANiBZJdpJR
+	 6wfnY6CXHld03m94Ofsa5AwQd+NGv0WpfL8dndNwj02Mob5eNXeoIl5byucqp0jPdx
+	 xSE5HhT5yk0hA==
 From: Sasha Levin <sashal@kernel.org>
 To: Stefano Garzarella <sgarzare@redhat.com>
 Cc: Sasha Levin <sashal@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	stable@vger.kernel.org,
-	stable-commits@vger.kernel.org,
-	edumazet@kernel.org,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	patches@lists.linux.dev,
+	Eric Dumazet <edumazet@google.com>,
+	Arseniy Krasnov <AVKrasnov@sberdevices.ru>,
 	Stefan Hajnoczi <stefanha@redhat.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Subject: Re: Patch "vsock/virtio: fix potential unbounded skb queue" has been added to the 6.1-stable tree
-Date: Mon, 19 Oct 2026 12:54:33 -0400
-Message-ID: <rc-reply-0005-759883b4df64@kernel.org>
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowang@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	virtualization@lists.linux.dev,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: Re: [PATCH 6.6 1008/1674] vsock/virtio: fix potential unbounded skb queue
+Date: Mon, 19 Oct 2026 12:54:32 -0400
+Message-ID: <rc-reply-0004-be6cedb2b118@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <atYeWYox-fcuEHX0@sgarzare-redhat>
-References: <20261018131321.3798770-1-sashal@kernel.org> <atYeWYox-fcuEHX0@sgarzare-redhat>
+In-Reply-To: <atYgJz85081YBziv@sgarzare-redhat>
+References: <20261017160431.119607952@linuxfoundation.org> <20261017160457.007728876@linuxfoundation.org> <atYgJz85081YBziv@sgarzare-redhat>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,15 +73,23 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 03:48:24PM +0200, Stefano Garzarella wrote:
+On Mon, Oct 19, 2026 at 03:51:21PM +0200, Stefano Garzarella wrote:
 > Be careful with this patch, this caused data loss. It's fixed upstream
 > by commits:
 [...]
 > So if you want to backport this patch, I strongly recommend that you
 > include these others as well in the same backport.
 
-Thanks. Dropped from the 6.1 queue. c6087c5aaad6 and 2a12c05aef21 don't
-apply to 6.1 without rework, so the full set can't be taken there as-is.
+Thanks. I dropped 059b7dbd20a6 ("vsock/virtio: fix potential unbounded
+skb queue") from the 6.6 queue, together with its two prerequisites that
+were queued only for it:
+
+  - 0df7cd3c13e4 ("vsock/virtio/vhost: read data from non-linear skb")
+  - 45ca7e9f0730 ("vsock/virtio: fix `rx_bytes` accounting for stream
+    sockets")
+
+It is dropped from 6.1 as well. If it comes back to 6.6, it will be with
+the complete set of fixes.
 
 -- 
 Thanks,
