@@ -1,91 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792442102;
-	b=XT49GsOM8Cw+q2MuKVKddFpk7D95Db8nrtFyfpqQxpee1jwbJ1gNQ1ybjYSDHB10Nqic
-	 B4ai9/6ONivpa5gya2arEOCzJM9Ux6lnyxqeGG6OnGDBNSsV9S5bLosnxXjnFAdLk6u4i
-	 sZJQ1Wq6ueW34LX4l9sL4IE5xUAQ92yBdjC+lO9jGvHimI9GZS/2zR5ifQtkGfWydml0S
-	 LV9nQbzShqJ6TZHBLYejJ4LPdA9qDNcL8d4nO8JkZDoFHEo5G64rUSFXXQ9oiC+/ftdW7
-	 8qv4UdDT8/w/b6vgwba2WawF/rQw3JITIlRpZFVkR2l9kWGeQ9V+3e6rBSz2Bymfnfg==
+	t=1792442248;
+	b=rCvdGEd3rFX08A2HeiDviYe0vjboungdin2NXlyk13E7wMcws/ruy+8h41QBZQV9H+yH
+	 /xpFOHLUFnqegOuoqMd5W5v29vx1RAPiTrMeyGQfhHGRwurtP9E67N6EhcyYwtWLgP6zF
+	 sO/QOwvwB+5vShM+ZNrAYkIZiMtE1nAEGAbmufqI1xe5597ysa33A3GklmDdLZ7ZQcMeq
+	 ucLsljHl7mkX/TyDJh8ls75QwoW7+HvXdYNN8uameQ8dWWZ3Y7U4U/DD0AVfa6lY5/KiC
+	 JuSvfnYE27Hwuq2xW2JEDIIpd42+dkF0tlUL63WSokQSs4UvtdA0pjjVlsyiku/jMsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792442102;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792442248;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=QiKFKvXps967wwyLmEJ59eoTg+fbLeK6RWK4w7bM5/w=;
-	b=wkZGs6SIdznKjB/JGqHUvszTVJVh/jXD+OUQjluI/IQ+fCeDJ95ofziVX/dasp8u3jgj
-	 FL3pqjJgzdVGrGXHoIT0QUwlNQ0GxSeJh0D61/KIV4xlqJDcqnGic+KDKlOMTYp8wZ4kK
-	 YwWG8gCxEeThjgJ19x40HIkg0ZenIeqsQmrHFLAjie8dmLRvLh4oaVsFege1ZazYG5EKs
-	 1FX+FfID9hZTiBkQ2VuZauD1x4sYqdSHGdjTvrhwOjt6xQECQMot3fz82HazRzaj41gmf
-	 C8GDyXjGeBLPLbXmq8tD1tkN7QqQX4i26j3YP6s+QMV4Q/FZdj8AqRvHxKo09I1cFFg==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=OlQWf86SXokSuh4SBBMFiqlQD7tg29+MR0deKhyYBLU=;
+	b=fLbsidpPotZvkcvPjqQoYm3bnzVOwZIvFnaZ4dfUA7t/0co5aAK+LmL0R6nL8ZCRIZzc
+	 wTl/NZfBH/nnYQEgA/HzXZd+0IRFrwvIqdUKa6ltBhTzP8NW8CEu47vYDG+2WWEM4R/e6
+	 BG2SmTZqwceg5fZli3xS7U1i+zeRw8AFRUlD1zkNxOvEsEKEnizgkG+zX8jPhwqqOxxpB
+	 PJT+DTPz/3uBTAJIYVSYLftq4oxwoJQqW1nAIamvr6AO297YjA9Coe5pyw+/aybELAhKs
+	 sGvjU2XtGtd4dRXYCgo+b1WsD1ZgdGwOUSsOv/97tKUpDY7t3noH4ulWzne6SwzVMLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BZk3+FV5;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C954D606A331
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 20:35:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C954D606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030C0606A322
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 20:37:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 030C0606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BZk3+FV5
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so19193165e9.0
-        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 13:35:01 -0700 (PDT)
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a180fbeef5so19313795e9.1
+        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 13:37:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792442100; x=1793046900; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QiKFKvXps967wwyLmEJ59eoTg+fbLeK6RWK4w7bM5/w=;
-        b=BZk3+FV5sP7TvpXJf9JI4+NIrngTAnbwPLj5823EEz1Z0X5cG+mkg9zSiurXIUT7oG
-         jTRhyO7gBRMCKOJZvPC37cDLRbenfqi/xkzVh5VU6UqfsX6qSrHtAhN1J5qJisRGQB8R
-         ai2jRPg61ASl7Ys8//+9Ry1aGySqhbXR9hH1X2UdV+2jheAhovhf0sYxgK8lmS3kj3F5
-         4mEMFCBGQfbqD5inyct3EVbTiznmcU8UbYSPjol/pmTNiRURmX/zEZuAa8L+0Kp5WmLv
-         E2GbDFsdFbmlCx+95Pboyf/+atdik0lAnXIpYs0Y+a1W4TMOhrKe1eV4bR390Zpz+gx0
-         PfqA==
+        d=gmail.com; s=20251104; t=1792442241; x=1793047041; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OlQWf86SXokSuh4SBBMFiqlQD7tg29+MR0deKhyYBLU=;
+        b=TbdVKbnQRRp9vEsLOXaAXOe8RCtxTDKUbwKg9QY2mqDPSPar/3P4WhNaodDxDY+BkL
+         z5fhNg+9YEHPJPYwu73YuJ24D3oaA7K6HDZKf5aH+c1Pe/B7GdlWJdKoI7eTwRUs+eNR
+         XWTT2Bvx1AyIFnoplHVTcghLleDAmLt5NYnTajZ7eY321BIDTd3dT989KlGwDKD9NDGP
+         cr4C9uSJVWcYwgvwncn6c7MjZTP1GInixxG1DDJuJeIPCWhUwBxCX3CPl8BcL+65FzdA
+         UkvSpS6m+3pS+D/8aBkplRzK1r/Qv+7uSg5JACP5SEL+A+he8lOE68px7ghnG77sVgpW
+         fEuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792442100; x=1793046900;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QiKFKvXps967wwyLmEJ59eoTg+fbLeK6RWK4w7bM5/w=;
-        b=yMfXkSkT11/EdpHWRY6gqqiDvE/q4ODZXZ9GVCT7+5ZtFCWgnNrl+PEV1ff3jOGhgq
-         LcLlaStP4hwaLlKBuzmEOxKHocZwkWqYk39WUhr9HckIl7vW7QQ1WrHOHLCWSGo4zr7u
-         cDtbfp01jyVU86v/IZuhl4Znxz+PJRGdizS6wJYxKPbUdavB8nddvpW61IHBGvvctd9z
-         dgLSdowHOvvFUKWc9fzkTZys57/d2cFXwK83fWb9UwwcMXwj0PWwmcF4845bgITYnGpu
-         LucGw5IcyJhEwf9cvWcgS/6G8ihtPhUzezJV29GtpWKa7St5txltf+SyCgvlu0ES96YB
-         CQDw==
-X-Forwarded-Encrypted: i=1; AKwUvBxgr/DmQrZPFWBBsmjs2h5pdgkcGl6m9HV4CqLsi34E7y7yit/QATZ7jAhx82tSnCOds+ZMBZM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIAUcaSkagWaGLDJArC/SoY4eVf8Gr0UHMCDcH5i8vLDRG04HDq
-	IgrJgDHdBInO736hHNm1tt/0YQEplg/f+QZk8hgp7fipTpXFhGw0LEXgbVvn
-X-Gm-Gg: AYBFou0ty5HA0tEbNweXion6Ub6D6EVHGoK89zqCyNvv9ZopVynEkzLIOQ0u9lfPkES
-	+0R3+NJLs0bkbcjS6H3dL/rzTqygAwUHos8/T3Ha8FKBrfeJl8U0anJlTuSfY2SMTrcBs2WfPzz
-	+lKyci0XD7JlfZiUji0NFO+LxJTb88vS7ZxpQmxdx6Dl7ioeIiWpHFwt2Er11DficF7Oup4PXu0
-	rSbnGiGYSC7Pq/bwbicPBXep08+2ahrWiE9mxD3H/H+7ee9u+Vv8XTrMcWcWGUAfx3OpUVrHfSX
-	SlTPR3ZuNV1aCpgblDU9nkJpsJZ9ZijZoVNYDhXKwYnM470mo01e4tZK31xG3g2ynY36SRIZj2m
-	EOpvYifuNWCE2Lrg7kotTz1qHsrcW+AT7TOuEX1isGWrZEJJ67/nm4lRFpc7Nd1FURKzDMOkmq8
-	KWjElArBkipI4DwH8KShrFJRtYZMGTW7Z+BF7xZgM=
-X-Received: by 2002:a05:600c:6217:b0:4a1:dda8:eb73 with SMTP id 5b1f17b1804b1-4a1dda8eca9mr131113225e9.27.1792442099905;
-        Mon, 19 Oct 2026 13:34:59 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2d43242sm15802805e9.9.2026.10.19.13.34.58
+        d=1e100.net; s=20260707; t=1792442241; x=1793047041;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OlQWf86SXokSuh4SBBMFiqlQD7tg29+MR0deKhyYBLU=;
+        b=VMqEkiI/skkuOBW3uDiGKqFmR6YpAOkvYsR+EhYHcPGziuGSF7JPbwtvpcc9Bcfw63
+         O5u9qAtqdPbR/zy+WnTEgun16rT7equAMiicycXU+WbEHbPFVIBtPd7/f/p2+JNaR9c7
+         LeuoZK69m9oBKg/EBSapyKCokUi1/Nfxb8hw6HBS0z9v7FH/MFmlrenyQE7M7r5QdZyG
+         GVi/iPqjuz2J+o1QV3SNIoh6xns+IYY1/1qdqCPpQL08+a43LFtmWCQcKucPWwktPaXF
+         3fHzk7XjVZho6m3lmfUWZRquWbgaF/AFNyTLn4VQzxDFwKFZJJXIAZr8RbK7rCdcJycK
+         27+A==
+X-Forwarded-Encrypted: i=1; AKwUvBz3q5hMch6DJjcqGz/NdcKsLhbjkbXMwU9TEYx5AmfvXi1Vshy8ZYV6AJUTiTt7OPKhKwBF8JM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIW91SLYa9McY/RgfAS74ZWpNkOWEdHLsjdPk5C5vfJVut8Ex3H
+	poLMrqmwciof1VlJN4ZjPT4RlfTltvj/NE9by4NIdBednXpVIhYSdxBS
+X-Gm-Gg: AYBFou2hlHCZ8/UJaFCwccUeF9v4kVY2b5B0fHTHq92ZcHE5V2+zN9NX3F3t+wcj2Q8
+	5jECEem1gIEaJbVIZuAanMLjqyQENiNkwaQA9T+zmbLdX9KzWXG7F5rxGlyJ/H9geAwIg9/HoGV
+	xR2QDz86JilKsPz+35IkEjfcRpitig+MsGCcqDauk3ya+FwnAHQIustUq1A8RvWg7aSEyjRw24l
+	qpHAuTbDopEwM9Eg8xJEui8JwFvpfOgo1ObOZhz4AHv5W+anCGdD6UEZvmqBTk088bi28hCNqCn
+	xIdfUkUBgE9ndHMNN7YLKrU9d4NioQ5/nAS1aNVQ/yC6rxsnbN1KpWwnWuz7VvJvL8pbX/5j2nV
+	vC7t6ZMTxi1ZpVs9tJrnP08R3oDymUhN7bZV6qvHmdVBt5OP7ZgflJI7dPii2WDspLfa9HQn2az
+	wpP1DEuI4GRYCZJFrvMSozqTncbMtfI6M00bdT3VwNeLsjIxxGKMnX5UplmtNq9sqZquLNwnreO
+	h7kWfdA5JtSM3NrsGtERws7aExdBOU8zot8YzFfNwMUdUGEdc+lwhWEwZvYwr0zDfqqOjqd7Pga
+	rKnE+RR2qLH24/dh5WMqsp1uXNW65KVTNP4RHK0T4qRnjw3PRx73FV2oxG8MG4tsIsPh06Fh0Sm
+	l0OuFlETI
+X-Received: by 2002:a05:600c:3e85:b0:4a1:d798:b08a with SMTP id 5b1f17b1804b1-4a1d798b0d4mr175531195e9.21.1792442241144;
+        Mon, 19 Oct 2026 13:37:21 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-a4e0-4601-c43a-536a-04a3-af7d.310.pool.telefonica.de. [2a02:3100:a4e0:4601:c43a:536a:4a3:af7d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2c9e9c3sm15967405e9.3.2026.10.19.13.37.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 13:34:59 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-To: Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>
-Cc: Stefan Bader <shbader@de.ibm.com>,
-	linux-s390@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH] s390/tape: cancel delayed work before freeing device
-Date: Mon, 19 Oct 2026 20:34:57 +0000
-Message-ID: <20261019203458.1365046-1-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
+        Mon, 19 Oct 2026 13:37:20 -0700 (PDT)
+Date: Mon, 19 Oct 2026 22:37:17 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Siddharth Vadapalli <s-vadapalli@ti.com>
+Cc: netdev@vger.kernel.org, Roger Quadros <rogerq@kernel.org>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Keerthy <j-keerthy@ti.com>, Kevin Hao <haokexin@gmail.com>, 
+	Alexander Sverdlin <alex@sverdlin.org>, Arnd Bergmann <arnd@arndb.de>, linux-omap@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v2] net: cpsw: fix netdev cleanup on probe failure
+Message-ID: <atZ8lCW0VVPzoHwb@gmail.com>
+References: <20261019060430.33254-1-kmehltretter@gmail.com>
+ <c20d708a-f4d6-4e66-a516-056d93264825@ti.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,38 +99,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c20d708a-f4d6-4e66-a516-056d93264825@ti.com>
 
-From: Tristan Madani <tristan@talencesecurity.com>
+On Mon, Oct 19, 2026 at 12:19:11PM +0100, Siddharth Vadapalli wrote:
+> > +		unregister_netdev(ndev);
+> > +		disable_work_sync(&priv->rx_mode_work);
+> 
+> Although the above code is a refactor, it appears to me that the correct
+> sequence should be:
+> 	disable_work_sync(&priv->rx_mode_work);
+> 	unregister_netdev(ndev);
+> RX Mode work (cpsw_ndo_set_rx_mode_work) does have a 'netif_running' check
+> so it might still be fine if the sequence isn't followed.
+> 
+> Please correct me if I am mistaken regarding the above. Rest of the patch
+> looks good to me.
+> 
 
-tape_put_device() frees the tape_device on the final reference drop
-without cancelling the pending delayed work tape_dnr. If
-tape_delayed_next_request() is still scheduled or running when the
-struct is freed, the work function accesses freed memory via
-container_of().
+Both orders are safe here. The worker and unregister_netdev() serialize
+on RTNL, so a worker running after unregister exits at !netif_running().
 
-Add cancel_delayed_work_sync() before kfree() to ensure the work is
-fully completed before the struct is freed.
+This matches cpsw_new, so I'd keep the current order.
 
-Fixes: 4111796d89b8c ("[PATCH] s390: channel tape fixes")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
- drivers/s390/char/tape_core.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/s390/char/tape_core.c b/drivers/s390/char/tape_core.c
-index bd8e3deb11993..e3aacfab2cc7a 100644
---- a/drivers/s390/char/tape_core.c
-+++ b/drivers/s390/char/tape_core.c
-@@ -532,6 +532,7 @@ tape_put_device(struct tape_device *device)
- 	DBF_EVENT(4, "tape_put_device(%p) -> %i\n", device, count);
- 	BUG_ON(count < 0);
- 	if (count == 0) {
-+		cancel_delayed_work_sync(&device->tape_dnr);
- 		kfree(device->modeset_byte);
- 		kfree(device);
- 	}
--- 
-2.47.3
-
+Thanks,
+Karl
