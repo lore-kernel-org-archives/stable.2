@@ -1,137 +1,524 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6725083F8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE43D5083FE;
 	Mon, 19 Oct 2026 14:03:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418610; cv=none; b=J8bkG7E9T61vLqi/wwALS8vFyiMQ68OlYGGF4KdSZPeolHTU1JSbNJprM6E6WqvJzQi0oKhoJenegdWtia4mLNtM0DsXpvv4oge05rCmLbIBxAFRVfyVyJ5m2vaOXyeVKI7nFddzE83+2dZW+NlnF7bXJZxzwlT5o2Gw54EJifI=
+	t=1792418611; cv=none; b=VVpm++Qva9zFVsr9H7YzlT0LSen6AisNX5WmWD09MWMKGxf5FwOrGQUGKDCNn73ZxkUos5vQVuYPAhhv6DkntzD7eh/fyxDE1c539hPwwfPBPrggG3g6kBcbAEbr2DSYkrmr3W9x5sfP3RlfkSP1RZ7jEfiZBWm4mm5XhYcfUdY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418610; c=relaxed/simple;
-	bh=XPZO7HjYOKL9Yfs7tTkWDW0J3Tks2Vf6ojTnd+zeTJI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EtCfl9b2FbIbGjqGQXQqDNqI7NFomkKFHPmJNlIrRaJlhus4hW03VD3GDEMs5cshGoN+Z7x4T3OPYqhvr6Tn97x2m2u1weI07WdbR6E6afq4tdBtQ3W6wOz0GE12eGj+YA2ZR8NSUkBsHuftHCKfRT9kUfTxNaPFbR8hNk2CzjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Gr9xehgo; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1792418611; c=relaxed/simple;
+	bh=fd/bxe7wJdzTg1O/9SJP3qKvIIqctdYH8nMkYq3bv4M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sYHCEArFWiKLUNEs1VDcwkpSK5cfr3YYhCE1G4cr3K4g5kVqJ5xndTZWQNdwCCsoMy/RbeAJ6GaqvbzbM+SqpRPqYzLgM6kzgPpc1P30wb8R+2f9z99GNs8t40+tNa5XGWXdW6A9nC12elFWwb5kQOVYVnLVCCnNaasZ4xx8U4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YhyzRa7O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Gr9xehgo"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8iAeA3449258;
-	Mon, 19 Oct 2026 14:03:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=q2KlCQ
-	jcbNERGhm3X6pdqmvS8YP3HykJrntbNaEE0I0=; b=Gr9xehgoJR2ZuoIegRL5tW
-	rCD9PeSHiyPF3pOzR/gxBX36XWu485Zyr8KyIHaW3avGCyJAOiibUbwjnRtujFGf
-	NipN/n8+ED1uWTRbhgIRrV0x8ehjBHhqhgIyO4KmjRHO5JF5zrC1lyNX4NdDH1Nw
-	M8J5BHx0OFGEwzY6/ngqLjYbglX6fxiXFLDyh+FH86JTpDbFY8L6aP4ljjVUU4tp
-	asD0cyjsAmxCLOsgUz2D/Dlbao64f2q+hIhax4Fa6dNVrJhPlcn9HY0zxmTkuYwM
-	tgSP4J/M06j22ewjpr81p2PmlpDdgWa02I2bVz6dNVw7V4QeFpqDm01vhKCU4BCA
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hc0h5bm75-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 19 Oct 2026 14:03:19 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69JCapfo2651406;
-	Mon, 19 Oct 2026 14:03:19 GMT
-Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hcnjgwt3u-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 19 Oct 2026 14:03:18 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
-	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69JE3Hsa39191068
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 19 Oct 2026 14:03:17 GMT
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 20B6858056;
-	Mon, 19 Oct 2026 14:03:17 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F169658052;
-	Mon, 19 Oct 2026 14:03:10 +0000 (GMT)
-Received: from [9.39.16.145] (unknown [9.39.16.145])
-	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 19 Oct 2026 14:03:10 +0000 (GMT)
-Message-ID: <e97615d0-23ed-413e-976d-2caf8588599c@linux.ibm.com>
-Date: Mon, 19 Oct 2026 19:33:08 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YhyzRa7O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E34511F000C6;
+	Mon, 19 Oct 2026 14:03:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792418607;
+	bh=Do2LNX96jLUZh2wnCuc2oBWreyYBE+BtVT124PVt374=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YhyzRa7OsUmjYdbxClRnPcF/bRtDziOxJ0CNuhTLgw7awzrpFRjP9GmNNHgTMDYdg
+	 ywa1m7KJfls53sP7VOSrpywSBBCq1YFo/pSKundjcx/GGTHX3j/GTZZ0FsKd9rXtPU
+	 SpL6sKdCpDUhkUm8B+7AraR1l4Nd/fqoRqxhAf8Xxq5nklud1lOPrw1ZFZo2NowCnx
+	 zVvdN4exS+PwLlvd5/9RtGBW3TcjZbttRPvHgWViPR6LCrdS0Bup+ayJ/ItoTJseJq
+	 c8JC9nSkBEyxymd0ZRRF0Id9Unu7/VWknsVLPMpgiPsDrkk/C2JaNtHHJKx2MVOuGS
+	 EP0rtF0bSEn+Q==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Linus Walleij <linusw@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-5.10] pinctrl: sx150x: add missing MODULE_DEVICE_TABLE()
+Date: Mon, 19 Oct 2026 09:51:00 -0400
+Message-ID: <20261019135441.1420968-369-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
+References: <20261019135441.1420968-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v12] net/smc: fix lgr/lnk lifetime vs diag reader race
-To: netdev-bot+sinfo@kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-        kuba@kernel.org, pabeni@redhat.com, alibuda@linux.alibaba.com,
-        dust.li@linux.alibaba.com, sidraya@linux.ibm.com,
-        hidayath@linux.ibm.com, pasic@linux.ibm.com, horms@kernel.org,
-        tonylu@linux.alibaba.com, guwen@linux.alibaba.com,
-        stable@vger.kernel.org, netdev@vger.kernel.org,
-        linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
-References: <20261019111008.3367567-1-mjambigi@linux.ibm.com>
- <179240839082.3290.14556767471721761174@kernel.org>
-Content-Language: en-US
-From: Mahanta Jambigi <mjambigi@linux.ibm.com>
-In-Reply-To: <179240839082.3290.14556767471721761174@kernel.org>
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA1NCBTYWx0ZWRfX4+BQLsN8so4q
- GNEKAy1pG2/j4xtAbL/ptccPEKtjSVPAz4StFRyjg7GVStErpR4qBv1/8vY3JlkYJKp34tqilXf
- 8Jjy+uCwuikLK8lURpRKLKK7v/hjtzs=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA1NCBTYWx0ZWRfXw8uxNidnDBOf
- DwEhJ9CeqaOZth5EVMtPoL9HJrt9xjpfcS1dL75w2erkdU2tXL6Hs78iljD3WajcsXkOXK7FPjc
- Fjc/annPn0KikpOOruDS5DtQCzAKbJjMqBl7+fnCDGm0L+Xfzd6uSkq2cPIOvwmzKQ3XdUB351Y
- i351PHsORn1zXk8dAZETi6ln987FlwmTjNjAHke6eKC/YMwETVPHuw9LSZLjXPzavZxj4UJUaLa
- G6x3cXFuLkMxH8tFZ0om9q+qEtjoHwBFX+J2rF6JMqhhM1Czwk2okH83tQkzUotlraa9t8X159X
- wvbu8Kqn3JJPKZmAjZOUZnQenhPreZpykf1RytKS3p2Ctr2GLbUXJb13llS4bfrePFawVFklh4F
- hzI6UUGgmKfjaCwk0Qwc2qeqijeyX7PEKjBB1Fz40prgA88XtFFn6sSA3T87z55EtQ3gCPJTGXh
- QgQ654eHZa/yjaEmdJA==
-X-Proofpoint-ORIG-GUID: oXkWv0V-r3HmhpF52qX_lUtFc0QZcgLX
-X-Proofpoint-GUID: mw5TCMOVyXpa9x8j6m5-aXT6fAu0Pbqf
-X-Authority-Analysis: v=2.4 cv=KujYSmWN c=1 sm=1 tr=0 ts=6ad62328 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
- a=8WImSUdLa4LpenjYlHkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 malwarescore=0
- clxscore=1015 lowpriorityscore=0 spamscore=0 phishscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190054
 
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
+[ Upstream commit 5fe4b12c087db3e565f53b87f1dafdf2f0d1ee0f ]
 
-On 19/10/26 4:43 pm, netdev-bot+sinfo@kernel.org wrote:
-> Hi!
-> 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
+The driver has a match table for the i2c bus wired into its driver
+structure, but the table is not exported with MODULE_DEVICE_TABLE().
 
-The issue was found by manual code inspection while reviewing the diag
-dump path in net/smc/smc_diag.c.
+Add the missing MODULE_DEVICE_TABLE() entry so module alias information
+is generated for automatic module loading.
 
-> 
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
+This is a source-level fix.  It does not claim dynamic hardware
+reproduction; the evidence is the driver-owned match table, its use by
+the driver registration structure, and the missing module alias
+publication.
 
-The races are theoretical — none of the three windows were triggered in
-practice. The smc_conn_kill() / smcd_buf_detach() race requires an
-active smcss poll to coincide with an SMC-D lgr termination on the
-dmb_nocopy path; the smc_close_active_abort() and
-smc_close_passive_work() races require a concurrent diag dump during the
-narrow teardown window between sk_state = SMC_CLOSED and
-smc_conn_free(). No stack trace or error message is available since the
-bugs were not hit in a running system.
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+
+LLM Generated explanations, may be completely bogus:
+
+I have enough to judge this: a one-line I2C alias export on a driver
+that is modular in this tree, with OF autoload already working.
+
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+**Step 1.1: PARSE THE SUBJECT LINE**
+
+Record: **[pinctrl/sx150x] [add] [export the existing I2C match table
+via MODULE_DEVICE_TABLE() so module aliases are generated]**
+
+- Subsystem prefix: `pinctrl: sx150x:`
+- Action verb: **add**
+- Claimed intent: publish missing I2C module aliases for automatic
+  loading
+
+**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
+
+Commit: `5fe4b12c087db3e565f53b87f1dafdf2f0d1ee0f`
+
+Record:
+- **Fixes:** none (expected)
+- **Reported-by:** none
+- **Tested-by:** none
+- **Reviewed-by:** none
+- **Acked-by:** none
+- **Link:** none in the git commit (lore exists; see Phase 4)
+- **Cc: stable:** none (expected)
+- **Signed-off-by:** Pengpeng Hou `<pengpeng@iscas.ac.cn>` (author);
+  Linus Walleij `<linusw@kernel.org>` (pinctrl maintainer)
+- Ignored pipeline markers: none present on this commit
+
+Notable pattern: no user/syzbot report; maintainer SOB only.
+
+**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
+
+Record:
+- **Bug:** `sx150x_id[]` is wired as `sx150x_driver.id_table` but not
+  exported with `MODULE_DEVICE_TABLE(i2c, ...)`.
+- **Symptom:** depmod/udev never get `i2c:sx1501q` … `i2c:sx1509q`
+  aliases, so the module does not autoload for I2C-name instantiation.
+- **Version info:** none in the message.
+- **Root cause (author):** match table is used at registration but not
+  published for `file2alias` / modules.alias.
+- Author states this is a **source-level** finding with **no hardware
+  reproduction**.
+
+**Step 1.4: DETECT HIDDEN BUG FIXES**
+
+Record: **Not a disguised cleanup.** It is an explicit autoload/metadata
+fix. The “source-level” wording means the author inferred the bug from
+the missing macro, not from a crash.
+
+---
+
+## PHASE 2: DIFF ANALYSIS
+
+**Step 2.1: INVENTORY THE CHANGES**
+
+Record:
+- File: `drivers/pinctrl/pinctrl-sx150x.c` — **+1 / −0**
+- Function/data: none; one statement after `sx150x_id[]`
+- Scope: **single-file surgical fix**
+
+```850:856:drivers/pinctrl/pinctrl-sx150x.c
+        { .name = "sx1509q", .driver_data =
+(kernel_ulong_t)&sx1509q_device_data },
+        { }
+};
+MODULE_DEVICE_TABLE(i2c, sx150x_id);
+```
+
+**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
+
+Record:
+- **Before:** OF table already had `MODULE_DEVICE_TABLE(of,
+  sx150x_of_match)`. I2C table was registered via `.id_table` but not
+  aliased.
+- **After:** `scripts/mod/file2alias.c` `do_i2c_entry()` emits
+  `i2c:<name>` aliases (`I2C_MODULE_PREFIX` is `"i2c:"`).
+- Path affected: **module build / depmod / udev autoload**, not
+  probe/runtime logic.
+
+**Step 2.3: IDENTIFY THE BUG MECHANISM**
+
+Record:
+- **Category:** hardware enablement / module autoload (same family as
+  device-ID publication)
+- **Mechanism:** without `MODULE_DEVICE_TABLE(i2c, sx150x_id)`,
+  `file2alias` never sees the I2C table. DT devices still autoload via
+  OF aliases (`i2c_device_uevent()` prefers
+  `of_device_uevent_modalias()`). Non-DT instantiation (`new_device`,
+  i2c-USB, board info) emits `MODALIAS=i2c:<name>` and would fail to
+  autoload.
+
+**Step 2.4: ASSESS THE FIX QUALITY**
+
+Record:
+- Obviously correct: matches `Documentation/i2c/writing-clients.rst`.
+- Minimal: one line, no API/locking/data-structure change.
+- Regression risk: **very low** (modinfo aliases only; no runtime path
+  change).
+- Red flags: none.
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
+
+**Step 3.1: BLAME THE CHANGED LINES**
+
+Record:
+- `sx150x_id[]` introduced in `9e80f9064e73f` (**2016**, v4.10-era):
+  “pinctrl: Add SX150X GPIO Extender Pinctrl Driver”. That commit
+  **removed** `MODULE_DEVICE_TABLE` because the driver was `bool`
+  (citing gpio-sx150x `module.h` cleanup).
+- I2C `MODULE_DEVICE_TABLE` added only by this commit (`5fe4b12c087db`,
+  2026-07-10).
+- Modularization: `fe2e8f17a56fe` (2025-08-19) made `PINCTRL_SX150X`
+  **tristate** and added **only** `MODULE_DEVICE_TABLE(of, ...)`.
+
+**Step 3.2: FOLLOW THE FIXES: TAG**
+
+Record: **No Fixes: tag.** Buggy omission is from `fe2e8f17a56fe`
+(incomplete modularization), not from a tagged regression.
+`fe2e8f17a56fe` is an ancestor of this HEAD.
+
+**Step 3.3: CHECK FILE HISTORY**
+
+Record:
+- Related: `fe2e8f17a56fe` (tristate + OF aliases); `dbbb19b8e412f`
+  (allow `depends on I2C` so it can be `=m` when I2C is a module, landed
+  later in 7.3).
+- Standalone one-liner; not patch X/Y.
+- Prerequisite for *meaning*: driver must be buildable as a module
+  (`fe2e8f17a56fe`). That is in this tree.
+
+**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
+
+Record: Pengpeng Hou is **not** the pinctrl maintainer. Large sweep of
+“add missing MODULE_DEVICE_TABLE()” across
+rtc/vdpa/watchdog/clk/soc/etc. This is a systematic metadata sweep,
+applied here by Linus Walleij.
+
+**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
+
+Record: No new helpers. Applies anywhere `sx150x_id[]` exists (since
+2016). Standalone. User-visible only when `PINCTRL_SX150X=m`.
+
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
+
+Record:
+- **Lore:**
+  https://patch.msgid.link/20260704152230.51188-1-pengpeng@iscas.ac.cn
+- **Revisions:** v1 only (`b4 dig -a`)
+- Thread (mbox via `b4 dig -m`): submission + Linus Walleij **“Patch
+  applied!”**
+- No NAK, no review changes, **no Cc: stable** from author or maintainer
+- WebFetch of lore.kernel.org returned **403**; discussion read from the
+  saved mbox instead
+
+**Step 4.2: CHECK WHO REVIEWED THE PATCH**
+
+Record (`b4 dig -w`): To Linus Walleij; Cc linux-gpio, linux-kernel.
+Maintainer applied it. No other reviewers.
+
+**Step 4.3: SEARCH FOR THE BUG REPORT**
+
+Record: **No bugzilla/syzbot/user report.** Author: source-level only.
+
+**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
+
+Record: Standalone v1. Same author has many sibling MODULE_DEVICE_TABLE
+patches; none are prerequisites for this hunk.
+
+**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
+
+Record: **UNVERIFIED** on lore.kernel.org/stable (HTTP 403). No `Cc:
+stable` in commit or mbox.
+
+---
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+**Step 5.1: KEY FUNCTIONS**
+
+Record: No functions changed. Touches `sx150x_id[]` publication.
+Related: `sx150x_driver`, `sx150x_init()` → `i2c_add_driver()`.
+
+**Step 5.2: TRACE CALLERS**
+
+Record:
+- `sx150x_init()` is `subsys_initcall` / module init; only caller of
+  `i2c_add_driver(&sx150x_driver)`.
+- `sx150x_probe()` is the I2C probe (line 1123). Bound via OF match or
+  `id_table`.
+- Not IRQ/hot-path; device enumeration / module autoload.
+
+**Step 5.3: TRACE CALLEES**
+
+Record: `MODULE_DEVICE_TABLE` is a build-time alias for `file2alias`. No
+allocations, locks, or I/O.
+
+**Step 5.4: FOLLOW THE CALL CHAIN**
+
+Record:
+- DT boards (qcs615-ride, imx8mp-aristainetos3, kirkwood-l-50,
+  vf610-zii, at91-natte, …): uevent uses **OF** modalias; already
+  covered.
+- Non-DT: `i2c_device_uevent()` falls through to
+  `MODALIAS=i2c:<client->name>`. Original 2016 commit tested **x86_64
+  I2C-USB** as well as BeagleBone DT — that path needs I2C aliases.
+- Userspace `new_device` can also trigger it.
+- Reachable: yes, from device enumeration / sysfs, not a syscall crash
+  path.
+
+**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
+
+Record: Same missing-macro pattern across many drivers in this cycle. OF
+table in this file already had the macro; I2C table was the gap.
+
+semcode MCP: **not available**; used git/grep/read.
+
+---
+
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+
+**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
+
+Record:
+- Local tree: **`v7.3-rc4-27-gf0100363d8c37`**, `make kernelversion` =
+  **7.3.0-rc4**, detached HEAD on mainline.
+- Driver file present; Kconfig is `tristate`; both MODULE_DEVICE_TABLE
+  lines present **because this commit is already in HEAD**.
+- Bug existed in this lineage from `fe2e8f17a56fe` (in v6.18) until
+  `5fe4b12c087db` (first in **v7.3-rc1**).
+- `git merge-base --is-ancestor 5fe4b12c087db HEAD` → **yes**.
+
+**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
+
+Record: **Clean apply.** Single line after `sx150x_id[]`. Pre-fix parent
+still has the table and OF `MODULE_DEVICE_TABLE`. Context around named
+initializers (`84c0fe4a2085f`) does not affect the added line.
+
+**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+
+Record: OF aliases already added by `fe2e8f17a56fe`. No other I2C alias
+fix. This is the remaining hole, not a duplicate.
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+**Step 7.1: SUBSYSTEM AND CRITICALITY**
+
+Record: **pinctrl / I2C GPIO expander driver**
+(`drivers/pinctrl/pinctrl-sx150x.c`). Criticality: **PERIPHERAL**
+(specific Semtech SX150x chips on a handful of boards). Not mm/fs/net
+core.
+
+**Step 7.2: SUBSYSTEM ACTIVITY**
+
+Record: pinctrl is actively developed (frequent 7.3 merges). This driver
+is mature (2016); the modularization is recent (6.18).
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+**Step 8.1: WHO IS AFFECTED**
+
+Record: **Driver-specific / config-specific:**
+`CONFIG_PINCTRL_SX150X=m`, and instantiation **without** a working OF
+(or ACPI) modalias — I2C name match. DT users already autoload via OF.
+
+**Step 8.2: TRIGGER CONDITIONS**
+
+Record:
+- Trigger: module not loaded; I2C client named `sx1501q`…`sx1509q`
+  appears (sysfs `new_device`, non-DT board, I2C-USB).
+- Commonness: **low** on in-tree DT boards; **real** for the non-OF path
+  the driver was written to support.
+- Unprivileged trigger: no (needs device creation / root sysfs).
+
+**Step 8.3: FAILURE MODE SEVERITY**
+
+Record:
+- Failure: GPIO/pinctrl expander **does not bind** until manual
+  `modprobe`. No oops, deadlock, or corruption.
+- Severity: **MEDIUM** for affected modular non-DT users; **LOW** for
+  typical DT boards.
+- Not CRITICAL.
+
+**Step 8.4: RISK-BENEFIT RATIO**
+
+Record:
+- **Benefit:** modest — restores I2C autoload for a modular driver that
+  documents non-OF use.
+- **Risk:** very low — one compile-time alias line.
+- **Ratio:** favorable. Same class as publishing device IDs.
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+**Step 9.1: COMPILE THE EVIDENCE**
+
+**FOR backporting:**
+- Real autoload bug once the driver is a module (this tree: tristate).
+- One line, obviously correct, maintainer-applied.
+- Zero runtime regression risk.
+- Same user-visible class as device-ID additions (module aliases).
+- I2C `id_table` is actually used (`.id_table = sx150x_id`); OF aliases
+  do not cover the i2c: modalias path.
+- Original driver was tested on non-OF x86 I2C-USB.
+
+**AGAINST:**
+- Not a crash/UAF/security/corruption/deadlock issue.
+- No user report; author says source-level only.
+- DT autoload already works via OF `MODULE_DEVICE_TABLE`.
+- Peripheral expander, small user set.
+- Automated MODULE_DEVICE_TABLE sweep, not a targeted production
+  incident.
+
+**UNRESOLVED:**
+- Whether stable@ already discussed this (lore 403).
+- How many distros set `PINCTRL_SX150X=m` vs `=y`.
+
+**Step 9.2: STABLE RULES CHECKLIST**
+
+1. Obviously correct and tested? **PASS** — correct by construction;
+   maintainer applied. Hardware test not claimed.
+2. Fixes a real bug that affects users? **PASS** — missing I2C aliases
+   prevent autoload for non-DT / `i2c:` modalias.
+3. Important issue? **PASS** (as device-ID / enablement, not as crash).
+   User-visible: device never probes until manual modprobe. Stable text
+   allows “add a device ID”; this publishes existing IDs.
+4. Small and contained? **PASS** — +1 line, one file.
+5. No new features or APIs? **PASS**
+6. Can apply to the local tree? **PASS** — applies cleanly; this
+   checkout already contains the equivalent change.
+
+**Step 9.3: EXCEPTION CATEGORIES**
+
+Record: **Device ID / module alias publication** (not a new driver).
+Closest exception: adding/exporting IDs on an existing driver so
+hardware binds automatically.
+
+**Step 9.4: DECISION**
+
+This tree is **7.3-rc4 mainline**, where `PINCTRL_SX150X` is tristate
+and the I2C table is live. The patch does not change runtime logic; it
+only emits the aliases `file2alias` needs for `i2c:sx150*q`. That is a
+real, contained autoload fix with essentially no regression risk. DT
+boards already worked; the I2C table still matters for the non-OF path
+this driver has supported since 2016.
+
+It meets stable rules as a small, obviously correct hardware-binding
+fix, not as a crash fix.
+
+---
+
+### What the commit solves (for this tree)
+
+When built as a module, udev/modprobe cannot match
+`MODALIAS=i2c:sx1509q` (and siblings) because those aliases were never
+generated. Probe itself was fine if the module was loaded by hand or via
+OF. The one-line `MODULE_DEVICE_TABLE(i2c, sx150x_id)` closes that gap.
+
+### Risk vs benefit
+
+Benefit is autoload for modular, non-DT (or sysfs-instantiated) SX150x
+users. Risk is negligible. That trade-off is acceptable for stable.
+
+### Concerns
+
+No `Fixes:`/`Cc: stable` (not a negative by itself). Impact is not a
+panic. Prerequisite modularization is already in this lineage. No
+backport rework needed.
+
+---
+
+### Verification
+
+- **[Phase 1]** Parsed `5fe4b12c087db`: subject/body/SOBs; no
+  Fixes/Reported-by/stable Cc
+- **[Phase 2]** Diff: +1 `MODULE_DEVICE_TABLE(i2c, sx150x_id)` in
+  `pinctrl-sx150x.c`
+- **[Phase 2]** Confirmed OF table already has `MODULE_DEVICE_TABLE(of,
+  sx150x_of_match)` (line 870)
+- **[Phase 2]** Confirmed `.id_table = sx150x_id` (line 1281)
+- **[Phase 3]** `git blame`: table from `9e80f9064e73f` (2016); OF macro
+  from `fe2e8f17a56fe`; I2C macro from this commit
+- **[Phase 3]** `git show fe2e8f17a56fe`: tristate + OF
+  MODULE_DEVICE_TABLE + MODULE_LICENSE; I2C table omitted
+- **[Phase 3]** `git log --author=Pengpeng Hou`: many sibling
+  MODULE_DEVICE_TABLE commits
+- **[Phase 4]** `b4 dig -c 5fe4b12c087db`: lore msgid
+  `20260704152230.51188-1-pengpeng@iscas.ac.cn`
+- **[Phase 4]** `b4 dig -a`: v1 only
+- **[Phase 4]** `b4 dig -w`: Linus Walleij + linux-gpio
+- **[Phase 4]** mbox: “Patch applied!”; no NAK; no stable nomination
+- **[Phase 4]** WebFetch lore/stable: **403 UNVERIFIED**
+- **[Phase 5]** `i2c_device_uevent`: OF, then ACPI, then `i2c:` name
+  (`drivers/i2c/i2c-core-base.c:163-176`)
+- **[Phase 5]** `do_i2c_entry` emits `i2c:%s`
+  (`scripts/mod/file2alias.c:855-860`)
+- **[Phase 5]** In-tree DTS uses `semtech,sx150xq` compatibles
+- **[Phase 5]** No ACPI table in this driver
+- **[Phase 6]** `git describe HEAD` = `v7.3-rc4-27-gf0100363d8c37`;
+  `kernelversion` 7.3.0-rc4
+- **[Phase 6]** `git merge-base --is-ancestor 5fe4b12c087db HEAD` → yes
+- **[Phase 6]** Tags: fix first in v7.3-rc1; tristate in v6.18; missing
+  in v7.2
+- **[Phase 6]** Kconfig in this tree: `tristate` `depends on I2C`
+- **[Phase 8]** Failure mode: module not autoloaded; severity
+  MEDIUM/LOW, not crash
+- **UNVERIFIED:** stable@ archive discussion; distro `=m` vs `=y`
+  prevalence
+- **UNVERIFIED:** semcode MCP not present
+
+The fix is small, surgical, and meets stable criteria as module-alias /
+device-ID enablement.
+
+**YES**
+
+ drivers/pinctrl/pinctrl-sx150x.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/pinctrl/pinctrl-sx150x.c b/drivers/pinctrl/pinctrl-sx150x.c
+index 1d6760ffe809a..f1647d9114e3b 100644
+--- a/drivers/pinctrl/pinctrl-sx150x.c
++++ b/drivers/pinctrl/pinctrl-sx150x.c
+@@ -850,6 +850,7 @@ static const struct i2c_device_id sx150x_id[] = {
+ 	{"sx1509q", (kernel_ulong_t) &sx1509q_device_data },
+ 	{}
+ };
++MODULE_DEVICE_TABLE(i2c, sx150x_id);
+ 
+ static const struct of_device_id sx150x_of_match[] = {
+ 	{ .compatible = "semtech,sx1501q", .data = &sx1501q_device_data },
+-- 
+2.53.0
+
