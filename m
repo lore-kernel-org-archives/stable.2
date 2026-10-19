@@ -1,59 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792443350;
-	b=ssk0USOjjs70ZjPBDwD+yJSXXn3iS/ILFXeN5bi/4vebQUxYz/55L/DY0FNpt6gWG3q1
-	 wv9MoxuABHAwZ53Eo9vEmHxCcu0x48RS3prHnH3+lGh1JBPsz30lS51+tKgPZRn5s70m5
-	 yoREWfzD8P3B6frk6DMTsBTJLRPk3Hxasu7xv4M3EB68HAdBGRw385Y3ogo7q4OH9Tnqq
-	 moZkXyQEZ0T9hWqkecPCC3RcqRavaWdYQdBDaxBSO038CEjPPbL1Q5mbXN2xUzW2eUPPy
-	 N2/6dP3Iw4mHL8BC6TnkdvZ01Mo/UVphJqpUoV2LkC64+waJXJZkEyGX2odHBb+KSBg==
+	t=1792443352;
+	b=kNy8yVkJpf9MNfa0X8LPl+oupCn2+FmWTlilLRfrrBuezMYViVBXDYCsk0jyOaHC3Jlx
+	 GkB1AjhudENWaBMmoiE7bmcyAFVMZiLB7AnVV7LCPAL+zMh8ufUC+9h5d35qnfyNtDrXf
+	 0t7Nei5o5J8ShFJjPxIcEZS4HluINBwPKWkN5cG5O20Z7EITuMOuTczvtcsIy8dc5elRg
+	 9xTx5aKlf1R8gDY8y5KzHUm7o+VYDbD0bVfAM5tJevARQLoKis/90XxTIi7wMOb+XStwl
+	 ILgjg5uCLZ3SAlGoCpaz+9uhry1137Qvs93ch/e9xo4nXx13vs6EPn4oMn3Avew8ijQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792443350;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443352;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rMxdImEr4JU1Ce1Xp+TIMLaP/oLFwxQ3dFnni3rGpH8=;
-	b=AwOl+w9Ymn6ebzeis0+Qs5EmQi68/k3O5umY7ka8/UKD9pQWJsitahTmLkzCCBeM9oYU
-	 BmaiZFDNdn7xj8NQ0D0fsRXxLuVBM1CU9LkkU17k1HPz5P94Uu0lXXTVCuTH3DHQhgG5E
-	 dN1BNBfGd4uHQIAFfs/Z6Qo4y6I2HyoiQLW9TNvRIF30U6maCSZ9SPxtHnyXhvycGaD4/
-	 tPiI549WvxlJVB1NohPIWCONawNQi1nObgpjazxSGNcMqBPY0uwzgMQ4NNli2wLjQQKsG
-	 M2x+/kUXoWfo9/u7LUPQt0ZxllpGEs/hM1vGERK0PbNgFuhZZxVuSY0KuyXIpE3aYcQ==
+	bh=sIGyzX3B4y5JmTSJFG3fHckTLqX8QVWJboA+EMd/w/U=;
+	b=MktLmt1bvvJZ7FdMgafYIZoVB/jmi2pu/y+/2Yuy0o9tn+5Ky0UjlEjVBTxsznm6EQ1D
+	 oOutoIaP8ki/bsH203DcRh0RhcJbjbkJbbQCdlOrTaAqRMWLCVyEFl8mtEg7z90XIHop6
+	 sf3zh5Ty8JSsSu8+j1bVunUdn86qQPtQ+lrLLw5tIUK8HqftT8jG9iI08P2l5ZlfhTx9k
+	 B64tBP+6l9Lm512lZbV4ERGC104727Ga71EigvYY273t2zV8uDK/4QnpZq9h+nr0j0y7U
+	 0qB+tRofcrGQJ9h83CWZKpEG+KAAfNK6wag7vEqx0+UiQbOoU99DsPGO5/iGzuoj41w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mio3yAAR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Jr0nD/C4";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE47606A31A;
-	Mon, 19 Oct 2026 20:55:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A117606A31F
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 20:55:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mio3yAAR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4044B1F000C4;
-	Mon, 19 Oct 2026 20:55:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jr0nD/C4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F1FE1F000C7;
+	Mon, 19 Oct 2026 20:55:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792443350;
-	bh=rMxdImEr4JU1Ce1Xp+TIMLaP/oLFwxQ3dFnni3rGpH8=;
+	s=k20260515; t=1792443351;
+	bh=sIGyzX3B4y5JmTSJFG3fHckTLqX8QVWJboA+EMd/w/U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Mio3yAARvbSfF93P0br7LSxP4LLYrad5K8r+4AcJzJGrBO94A3JZnsrdYOEtEArmE
-	 YIXuqjcceLLTePYZBrSHLVM8+h/7nZ7LzPnQHO59ymE6uDwNEukqCaCKsuMmORRA/w
-	 lizgSfjHeKu8lZP43cNfrWwhOR6pox331GXnjrH1R+3hQIKXGTR7IHgNYyxn0enmMp
-	 AJmPp3l6PsVyRHmAfXIfBYzyw8GdWSJsFiHRi1IZhjhCo8GeCdP3wjQPeyt4+2eRfa
-	 c5cvzryslNN/8RrYpOBs3z4tCcwMHxDEGjRRKsgSxzHJaXdTVfrLpNQnHO3B3iPXsO
-	 otMISZ1vln0rA==
+	b=Jr0nD/C4vt36bRYbcd8Fsz+oRZZw/Zv0vfmYKNyfcYFWd1satfZ6Wd2PBRrvPjxX3
+	 Dokvm+GhskSe10i7j75rn0lrOHfP9ug+IIincGl1xqmbBOHMOIcTbRB09pSQfgyP7P
+	 RpXnFyzRSugWJ/WRe5t4hRauiDh/YlHAszRzDwXJ2+RoRSVCkL0LcEg8T4gtXVfTn4
+	 OqphB2wfwHXmMliCV/VYmEFWeE8Aqr2osnmHs0JKQnO/qkmJKa7yXsxxzpxxpy32sb
+	 EMT0HOweSdGQBzCioam6ITZZCr9ysVwSnYXl3ihooC7lL01NvasrHan2iahdf4V5M0
+	 VV4YoYvBZ9hkA==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Greg KH <gregkh@linuxfoundation.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	axboe@kernel.dk,
-	kbusch@kernel.org,
-	kch@nvidia.com,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Artem Dinaburg <artem@trailofbits.com>
-Subject: Re: [PATCH 6.6.y 0/2] CVE-2026-64017: backport fix series
-Date: Mon, 19 Oct 2026 16:55:27 -0400
-Message-ID: <2026-10-19-1-daily-reply-0001-blk-mq-cached-rq-6-6@kernel.org>
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Vadim Nikitushkin <bub4z0r@gmail.com>,
+	stable@vger.kernel.org,
+	thomas.hellstrom@linux.intel.com,
+	dri-devel@lists.freedesktop.org,
+	skainsworth@gmail.com,
+	Dave Airlie <airlied@gmail.com>
+Subject: Re: [PATCH 7.2.y] drm/ttm: fix swapped-out resources never leaving their bulk_move range
+Date: Mon, 19 Oct 2026 16:55:28 -0400
+Message-ID: <2026-10-19-1-daily-reply-0002-ttm-bulk-move-6-18@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016184753.27189-1-artem@trailofbits.com>
-References: <20261016184753.27189-1-artem@trailofbits.com>
+In-Reply-To: <CAPM=9twsgnL_SPf7hi+mnPUgJTyGVDFyQdbOSNhQZXSSoxZmNQ@mail.gmail.com>
+References: <CAPM=9twsgnL_SPf7hi+mnPUgJTyGVDFyQdbOSNhQZXSSoxZmNQ@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,9 +66,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Please consider this backport series for CVE-2026-64017 to 6.6.y.
+> So can we just apply the patch in this thread to stable, the squash
+> fixes the stupid in master, or apply both patches to stable and leave
+> the stupid.
 
-Queued the series for 6.6, thanks.
+Queued for 6.18, thanks. I took the patch from this thread, since neither
+mainline commit applies to 6.18 on its own.
 
 -- 
 Thanks,
