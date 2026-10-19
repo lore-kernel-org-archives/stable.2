@@ -1,157 +1,243 @@
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF46485508;
-	Mon, 19 Oct 2026 08:36:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.149.25
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792398971; cv=fail; b=nNH08ipzwO6lgrfQJsonp46ZjJX9Cgx5enNxRVQquw6ERs0pzDHu6/Tnm77J3F21nHVArp+ypfjmPY6a4+xcof/D4jxi16nhyf5LmqnZW8+w5Y7tV0eyQOjLHUwgx+3sPrQ49+M8bPiI7v+FE5s0W4l+vzpQaZgRLP4fBt6g2xE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792398971; c=relaxed/simple;
-	bh=6xjIpB63KuwN8kBvE8Vd37UZT55KRBDLvmFtC07AR68=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D7BiWFY4hbs0S/EX042/7wkYarNwFTTE24Eu59Bq5CrleztZm9W/3UK3iOcNtuLo8G6eSoAq49SsD8jB4UVAkW2+f1+0TXrtvTZDH6YLptHdNMhsOK9Uz4Hgakg0bs4jt2FEONm9wRYnqxALcJkFuNcZMUBEZiGW1sAQUVl6gjU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=X4WC+g9V; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=KXKulwUL; arc=fail smtp.client-ip=67.231.149.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B6604A3F1A
+	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 08:36:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792399002; cv=none; b=svIsHRJ/dUo6ki4fDQhZKy9AOMyMz+mRrWhIicN6a820cjCsR4Ij7Gbq+xzFX4JjEtyHMJNfOJS0YqBUsmce0wQ32vqW+TWzM1VQ3MrpEtxMEmZAb8ClAlTlx5MpfUnrSktEbSCmkSwteONuDqOko76/KE+JHyw02xC+FSjQC10=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792399002; c=relaxed/simple;
+	bh=wopnKdIWquQ/19iqJ+7yuXZ+uNue8zlPP3xAl38VlP0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QZixbygwRprJurd6pVugCHpQ+9m7RI0pud/8/ce7q5k1LgZ/UMwnfr0jbLuxaZglGB93qHnaj3wnXlMFmTDdStvHz9PPhnr7W9+AvR/7XuTL4/S48piySU96FA0D1df/zGeNnYPtLEmwOBHfa0onEKxMKKY8IomXQGSuZoT16yc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=cbMwav/M; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="X4WC+g9V";
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="KXKulwUL"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J5qW7O3213457;
-	Mon, 19 Oct 2026 03:35:55 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	PODMain02222019; bh=acpgoR+mTZ6H3QBgbWx+tqOC15ajJ4XCcj+XiOiZojc=; b=
-	X4WC+g9V81iFG6eXEUExJrHVYzfaj/8UwozPvSq2eSmPucw4bW2vuIEl1kzlOtLa
-	dDkX7ixFGxL4CUBXcL/LhNd9nFbwzawovtnvz7LExNi5OH+w/Y74LEo7mUBsJ+Ta
-	q4GgkIydSqCO/21ZunUssz32YML7/jdsg+e848i667lX2wR30FCfI9mcqxv8KCgo
-	yGUBwhLgjdGSTQLy8iT9jw/qlmywUOyatiVyoU/LuWpSKxnH6PbnXsq9ql2QfASG
-	RA4QsgB9IoDTW6UPskLKLoJZbolDwOODB93tdkYPEs3gQ3xnKDpnWfxv8F3Kmg1/
-	tnSXrmThscOfaHXpTy1zfw==
-Received: from sn4pr2101cu001.outbound.protection.outlook.com (mail-southcentralusazon11022142.outbound.protection.outlook.com [40.93.195.142])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4hcpts128t-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 19 Oct 2026 03:35:54 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oz5VAv68RdMO4j2Xn6JW2oPDeqYewmzSISqQLpt4uKWHfFnlAMIVFnWB5an2FokXIr+xim9/ffqhXmi9LfkIPSOktsOMtUOeC+AlozYmL6NsaRl3n3vbIFC5ULEOumC1L6kceAJip6STIxYKO23tS+db3qulop3i5farYH7zyM7J3hzFtu4zo0ffAmQlsFeah+LKcWNMSJztBd/sVIUxnRxz3sJG1fjZz7AczuwCquIeATfCvP/USkcjHoYfumAix3dAjZIqZXt0m+qrSnKjguRw72iLoaIYmYheES+qVGoFjTIBgSOT2LjJNqFDMSuaBWV4sOkg9WhP4VG/8QFLig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=acpgoR+mTZ6H3QBgbWx+tqOC15ajJ4XCcj+XiOiZojc=;
- b=oLF6XLKeBlusxPGFJGzPmBAsa+M5VFYvrUHNO+yI/hxmiNY53hF7RuE0hHGF2ViQIYK6Lin2uAWJFlVoFgULHgE45GGj2tgX64qQ5NACooSsZiKMUQcTBqP8cFYOUlfDy+doQyOfYZMs1ig9fUJsxcVXAK7GtHIXZlHl/jTiBFPTb1TPwzCtsjLI1IYn2Aee81FYYP0p5OplXchiqXU7m5USlMOYbF+IhO4af1R4K+39l0Gtm3rBcjpdtHr1GXcH7AkFmkZCKc44I5YX4CWioHMuxM60/6XCSBJaX7J7HY1BCVCmDm+ZW7thpBt2pLSj1csv/YIV5fxjVF05K2+ivA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=gmail.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="cbMwav/M"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e5fb79ce82so8940305ad.0
+        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 01:36:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=acpgoR+mTZ6H3QBgbWx+tqOC15ajJ4XCcj+XiOiZojc=;
- b=KXKulwULgTla50lfpmTF+f0SNzkq3jCIap1j3oWhfGaakMcfF8ROrnbXG16XnmUNWXFOlKHLGFgUX+3Jg70k3m7gMUz7sfK3J2qupmJeNbrXzxmze7QVcCc/obvsU6yRLmCl0YKZc3g85FbZB8iul6jVxHDfSjLerSBsFeYt17A=
-Received: from SJ0PR05CA0055.namprd05.prod.outlook.com (2603:10b6:a03:33f::30)
- by DS3PR19MB9222.namprd19.prod.outlook.com (2603:10b6:8:2e2::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 08:33:48 +0000
-Received: from SJ1PEPF000037AE.namprd03.prod.outlook.com
- (2603:10b6:a03:33f:cafe::5e) by SJ0PR05CA0055.outlook.office365.com
- (2603:10b6:a03:33f::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Mon,
- 19 Oct 2026 08:33:48 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
- IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- SJ1PEPF000037AE.mail.protection.outlook.com (10.167.244.183) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.6
- via Frontend Transport; Mon, 19 Oct 2026 08:33:47 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id AE76B406540;
-	Mon, 19 Oct 2026 08:33:45 +0000 (UTC)
-Received: from [198.90.208.11] (ediswws06.ad.cirrus.com [198.90.208.11])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 91995822556;
-	Mon, 19 Oct 2026 08:33:45 +0000 (UTC)
-Message-ID: <ed897167-5a7e-4d1b-a76b-efc5bbb60e79@opensource.cirrus.com>
-Date: Mon, 19 Oct 2026 09:33:45 +0100
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792398998; x=1793003798; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XHO8V/wDfiBEINRArRhvsbbx6Jsua2LG1hGVoz5r0fs=;
+        b=cbMwav/MduEe4QE+8peVSBdNdzulLpla3wI2ZY4h/2+ET8qgncd8zbm9wMcuiPKy15
+         CMCjqDYi47hyd8wsvbxDtEcSL23Iv7WXQpaIYhNLPNMJ7MF5MXZEqB/OcKvgUhZjc9Gy
+         Va311ZGojuT4Z0Aq0Wvt2Xd0rodzNhlJCj/WbKq0vVu5e0T25dn3rW0iZDGMvmXORSQf
+         9AeVc5NMosU9NpgwPpWvDmvOLTxfKqWWYWB1Obd5Tw3tw59f40vbVLhGimVMyhdlZ2AP
+         STI+bhxkpcLBtnAsxVZk0ZM1WhMU69BHjI/WCqAN2cP+B8lURw8cQgjHrt4CDllDrC/a
+         QuVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792398998; x=1793003798;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XHO8V/wDfiBEINRArRhvsbbx6Jsua2LG1hGVoz5r0fs=;
+        b=PwG4hyNOEKS/giwAUAixRCwJrNMCk1fpJoCLygd1IwzgxM4lT3t6ZqOArFD2J6k3G6
+         4lOHJ9lH90rQqT0Q6Lz0iCXkI8Vx9tnaLGsQcRMrV70BkGCPHxrprzQpZvD83nd93mco
+         ls5VluamQBKk6AoQuJmmOkR+/4+aFgPfAmaLQtH+bBhoTDqVdESoQHCpKl2x0HJG5ICu
+         Sfk68RU14Rw3XeKaAkH/RV49zcSwpWoWvkg4TxYV1wEbnHYP77lliTAhJ7jUPvTpzblv
+         F68DJwyJ1TG7ko64YZVGM5/YNA3XtyCT3aegHzlmGZzW8YMN9KiNDTSe9CdTq0S35zBe
+         mfYA==
+X-Forwarded-Encrypted: i=1; AKwUvBwOuFbizdLeXL+my++hXDj72o9tI/mmK24aerONMCKJiAB8tSeUgxP+5v3BaBwCWyi4kCYPekc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLupa4jpVulUdheHfYQ1CsBRibkGxv+jOVJ0NaQH4pVTBF0TEqB
+	wXCHw1CHUq3jnJ9fI1D1TNcyG5AJ2I/MxvrKQvdJEI7N124E2+XwDv3S0wNL0tD1pqk=
+X-Gm-Gg: AYBFou3N0Z51XCYT1MgR94S/kI6eiQ/NJzY1omJpcNI0z8LJiHlyCvLx7xVgEW4e0zv
+	mV0cmenQ1gk/1aJZDOiA3YsujWV3H7xJutT+wXXHgxQyYihXueVM1t0U4ZRQ7aE/T/P2iKULlHz
+	4+ExYJcj65G3tOtJ6+wru/uwTq7wC1tbQdGg3n/crd1iaPcpPTfcENX4JS/Pmk+Y8ud624bZ4J2
+	kYhlsNaW8N4yWDntbvmOFKlmSRI5m2qB/gbvcQh0MD/TFqv6tv4SAnOOzyVnVxkFrFjCVI7nq2g
+	WRmrNf4RG56fSaKiR824fEOuJ/HMfHgdz0HtzPsE4pWiCBsE+f6mv6s0KTSmMhUfSj8php/TqCh
+	Xu7UQa/tzFxMvcnTMVNLUc70DgP2PiE58qU/T+YHv/P3f/o+5hSLF7Jz4nTeb6bdG1GMk2t2W0L
+	BfyvZq3p9mkoJydPhGKKc2upI9dcmD5wadGApuKd1fhgzY32ZzUoCqbhJQakH/MpSVpZULA5scO
+	QLg4ieV/E8SKQxS
+X-Received: by 2002:a17:902:e84c:b0:2e9:6b5b:3db6 with SMTP id d9443c01a7336-2e9a69e93d4mr64066135ad.30.1792398998323;
+        Mon, 19 Oct 2026 01:36:38 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e804c11sm35469425ad.22.2026.10.19.01.36.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 01:36:37 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: skashyap@marvell.com,
+	jhasan@marvell.com,
+	mkp@kernel.org,
+	James.Bottomley@HansenPartnership.com
+Cc: GR-QLogic-Storage-Upstream@marvell.com,
+	mrangankar@marvell.com,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH] scsi: qedf: bound the unsolicited frame length the firmware reports
+Date: Mon, 19 Oct 2026 17:36:22 +0900
+Message-ID: <20261019083622.718838-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION 7.2.11] ASoC: sdw_utils: cs35l56-ot25 DAI not
- registered, no sound card
-To: Connor Stevens <ooglie05@gmail.com>, stable@vger.kernel.org
-Cc: regressions@lists.linux.dev, broonie@kernel.org, sashal@kernel.org
-References: <CAF50T1myMs2LSPUsTAPKyJutxzqQihyxbY3=iVGpxenRbnXxKQ@mail.gmail.com>
-Content-Language: en-GB
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <CAF50T1myMs2LSPUsTAPKyJutxzqQihyxbY3=iVGpxenRbnXxKQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037AE:EE_|DS3PR19MB9222:EE_
-X-MS-Office365-Filtering-Correlation-Id: d8d9a323-5730-42f2-2c10-08df2dbbb1b7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|376014|61400799027|18002099003|22082099003|16102099003|13003099007|10067099003|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	15EVymUh+Zfw5TCA+7Fupta9TwqIXvQMMk6TmuGSqBnEZrVexlm/zAiNCJllBeDqL+SzC8ICNMGnO941eKwPB0wOU0tFSKO/wTL8KyUTqs9sUKeQp1hOmIhfpSqeKqKLEEvn2oUEqAnWD7cW1/d+MGT2H4plL4WdC0z7g+1yUUA7Xp4Cypw4A3bY52bY59CUk7hS4m4OKeX+lvXkdSA9rlkMj7bPD3Y/kaxFFUT+KK5M+kyUQUlPV5VH1V7klE8uAeY5xNA6DZoAGX0LK/u+2wkvvgzTRRWxJ/vtCm4B6qYzl7t1AjZlSfM1hSkDwS36afj7yZlCPTjjUcKNBdmk7dOyDJEa+WHSTDbKCtumzzaBJm0ec9MqfQTtKgUDros74HENNPFKFfgvnY6l/DvMxk0NCg4UvEAJhGuy1ii5Q4/R6BO2iGAzvT8ZG7agFIHw0pY+uJ/ywqE693/Bv5m4vDhPB0DMlfnK4sW1U4NUAqNFONWFoSzHAiTLAeFYWJyaDB+0vFPWkL6sl2k6cpMkEy1Na05X6WpQa/ADbi9jGyw1CIXX0EJ/H4mLCyT02dM8B7WYjJDBMNoCMhiuaqkjRKJuyYvLTEMgspWmo2EtoasiRBFgQnJqhPDMEEQrhj5n+Dqx+b810rylRG1E+Pf0KA==
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(61400799027)(18002099003)(22082099003)(16102099003)(13003099007)(10067099003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	AO3nWU0YaxYGppBdPtbsOGLCIq78x37j41QgHQO+zpvH5dLzlgSZDtkUFgYgIsTqvCcmJUlwp30PiKPokOrPNLPcfyZaLMxWakeiCe7aK74EAwvPjTB0QHY8adhqcseRbmN41WRZ1U9A/hfsInwMpW+0NE8o/901HURURPTDqIkTZyoof47Qys1P+cqCxYc7T6xsYDN3aiwI311YeIVllFDmGkmbZXQoH7NGUO76bSe8FoL6JHYsrB1RKvZrISvKtnZD7xEY4XlBqidRJ7KDQTldoXB3112GE+y5dcmGmYMWEFwS0Od+l0cj11auCbbHnvEHsSALrgH15VdQLGyHqM29TiZJEY/MbFLAVyfEhDHCV1Qkm7sWkcU2BQUb/fFkc4Vtp+uc3kOl2LgYwoCb6CrP8BW4ZK+CtTgjY75bwwI19KjoSrx7K/Aawcex928h
-X-Exchange-RoutingPolicyChecked:
-	tGRfFzAxcDGBVc66Skek5dwWZVAkI4IAp2dwdye986Ag/jLcgT5e5QfVxHqhN7zTvJrtzDtSHGttonBQA59P/Fc9UmwY1VJLb3TR+T66/okbmv4E82m250Kzn9uNLUYKxtq52sLGbETZRrFytwxPvQ6viIR05XQ1VTrkqimvVuEscUC9J2GRAHKT+wZZUcE+oIHDWep8zFKVfuoI0w1+Us0YjarGy+jWqlSOtcXYBnFmJpR93PoSqGnWPHfj1O5qfa0hCFKrsjqjq3a7CX2CqgTsVOoMSrzQFe29zR2divL4vPgH6M7xxFRuXWlbhsvpc0+kmx8htyYJ4hbibWhkkw==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 08:33:47.0443
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8d9a323-5730-42f2-2c10-08df2dbbb1b7
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-SJ1PEPF000037AE.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS3PR19MB9222
-X-Authority-Analysis: v=2.4 cv=QM391QLL c=1 sm=1 tr=0 ts=6ad5d66a cx=c_pps
- a=JRl+IjCvVGCyytsd+wv0WQ==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
- a=VwQbUJbxAAAA:8 a=w1d2syhTAAAA:8 a=2UBwMtoTQ2vo7Y6c5O8A:9 a=QEXdDO2ut3YA:10
- a=zgiPjhLxNE0A:10
-X-Proofpoint-ORIG-GUID: su6Xt669zJELwM0R83Yn3G2pNmC-j_ml
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDAzMyBTYWx0ZWRfX5GLEH+bHS3N5
- iY8GIWYAuqA0qnrRMHfTlZkctEriY3r+eib2VCRonUEnlnHlCV9MMixrPWYxW14S61xHUN924+g
- yWTKBNQ5a/TsO3SYHrfdZ+3x+W9Gysg=
-X-Proofpoint-GUID: su6Xt669zJELwM0R83Yn3G2pNmC-j_ml
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDAzMyBTYWx0ZWRfXw8Asl0mfMyHA
- vE/m59IwoOx7gp2nNyMhJ15lmnE966PFg2ZYvhG2pR41GqStzP1gtGDTpYOXE88uIeXqZRoOgiA
- JEup97BsP7RK78iLI4Z2fmQuS319B/74pUBEii46mqrLS6VhgY23gXSybdXbP2VO72L3XFbERkA
- uv1MyeuR8CUnQIwbvubqExuqWXpe8RX4+Sb4hT1u9G6noE40CvQpFHDlQI+DTBBGa9OEBXtWa1y
- 73BeY6Qy69xMAC0PyJRQwcxniSbaXYEclpGqi4pfRIqxh2l7o8Vc4LgPuYOPHAMwgYKs+4rhDSr
- 3f5CrVFx+8so1hRysLC+iC+AoQ5PotbthSlLzsEq/y9TQkGF1NJRlKpRAjZgo6yssWEi7gvDGDq
- kKnlVOa5gCnw/x7UES5e2TcKC8ay2XNDVsMr/kuOD5iPgryD+BQEjPiI03HV1lFg+DaI4TTI8P8
- XwSu6cKTCS9gNuJPYpA==
-X-Proofpoint-Spam-Reason: safe
+Content-Transfer-Encoding: 8bit
 
-On 18/10/2026 11:41 pm, Connor Stevens wrote:
-> Hi,
-> 
-> Since 7.2.11 the sound card is missing on a Dell XPS 14 DA14260 (Panther
-> Lake, subsystem 1028:0db9, CS35L57 amps on SoundWire):
-> 
->    sof_sdw sof_sdw: ASoC: CODEC DAI cs35l56-ot25 not registered
+qedf_process_unsol_compl() takes the length of an unsolicited FCoE frame
+out of the completion queue entry and copies that many bytes out of the BDQ
+buffer the firmware put the frame in:
 
-Already 
-reported:https://lore.kernel.org/linux-sound/20261005155235.1386525-1-rf@opensource.cirrus.com/T/#m420ea27d936f1fd9cec79c988120a11caa8d428e
+	uint16_t pktlen = cqe->cqe_info.unsolic_info.pkt_len;
+	...
+	bdq_addr = qedf->bdq[bdq_idx].buf_addr;
+	if (!bdq_addr) {
+	...
+	memcpy(fh, (void *)bdq_addr, pktlen);
+
+The BDQ index and a NULL buffer are both checked; the length is not.  A BDQ
+buffer is a QEDF_BDQ_BUF_SIZE coherent DMA allocation and pkt_len is a
+__le16, so a frame the firmware reports as longer than 2072 bytes reads up
+to 63 KiB past the end of one.  The print_hex_dump() under qedf_dump_frames
+a few lines earlier reads the same length out of the same buffer.
+
+The destination is not where this goes wrong.  fc_frame_alloc() is handed
+pktlen - sizeof(struct fc_frame_header) and sets the frame length to that
+plus the header again, so there is room for exactly pktlen bytes from
+fc_frame_header_get() onwards.  Only the source runs off the end.
+
+How much room there is was the driver's decision in the first place: it
+advertises QEDF_BDQ_BUF_SIZE to the firmware as rq_buffer_size while
+setting up its PF parameters, and allocates every BDQ buffer at exactly
+that size. A pkt_len above it contradicts the size the driver itself handed
+over, so there is nothing to be gained by trying to honour it.
+
+A lower bound belongs with the upper one, and not merely for tidiness.
+payload_len underflows for any length below an FC header, and
+fc_frame_alloc() then takes the fc_frame_alloc_fill() path whenever the
+result is not a multiple of four.  That passes payload_len + fill on to
+_fc_frame_alloc(), where alloc_skb_fclone() and skb_put() both take an
+unsigned int and quietly truncate it, so the allocation succeeds at a few
+dozen bytes while payload_len stays at 0xffffffff.  The
+
+	memset((char *) fr_hdr(fp) + payload_len, 0, fill);
+
+that follows then writes a byte roughly 4 GiB past the frame.
+
+Drop such a frame rather than clamping it.  A truncated FC frame is not
+something libfc can do anything useful with, and the out-of-range cases
+this handler already has take the increment_prod exit so that the producer
+index still advances and the BDQ entry goes back to the firmware.
+
+Driving the handler with a reported length one byte past a BDQ buffer shows
+the copy running off the source.  The harness is a KUnit test that is not
+part of this patch; it calls the real handler with the BDQ buffer swapped
+for kmalloc() of the same size, because coherent DMA allocations are page
+granular and KASAN does not track them:
+
+  BUG: KASAN: slab-out-of-bounds in qedf_process_unsol_compl+0x336/0x10b0
+  Read of size 2073 at addr 00000000627ca000 by task kunit_try_catch/25
+  
+  CPU: 0 UID: 0 PID: 25 Comm: kunit_try_catch Tainted: G                 N  7.3.0-rc7-g58161ead29e5-dirty #3 VOLUNTARY
+  Tainted: [N]=TEST
+  Stack:
+   6133bca2 00000000 00000000 00000000
+   ffffff00 6133bca2 61343506 627ca000
+   613d1680 600c3c61 62893d00 6004301e
+  Call Trace:
+   [<600c3c61>] ? dump_stack_lvl+0x5e/0x7a
+   [<6004301e>] ? _printk+0x0/0xd7
+   [<6004fc1a>] ? print_report+0x14b/0x517
+   [<603b68e4>] ? __kmalloc_node_track_caller_noprof+0x1a4/0x3c0
+   [<60ada41d>] ? __alloc_skb+0x1bd/0x9c0
+   [<603b6740>] ? __kmalloc_node_track_caller_noprof+0x0/0x3c0
+   [<6004301e>] ? _printk+0x0/0xd7
+   [<609437f6>] ? qedf_process_unsol_compl+0x336/0x10b0
+   [<603e0d0b>] ? kasan_report+0x11b/0x160
+   [<609437f6>] ? qedf_process_unsol_compl+0x336/0x10b0
+   [<60932a10>] ? qedf_test_pool_alloc+0x0/0x30
+   [<603e1cc0>] ? kasan_check_range+0x0/0x1c0
+   [<603e1e0e>] ? kasan_check_range+0x14e/0x1c0
+   [<603e2891>] ? __asan_memcpy+0x31/0x80
+   [<609437f6>] ? qedf_process_unsol_compl+0x336/0x10b0
+   [<600e147d>] ? os_nsecs+0x2d/0x40
+   [<60944ec1>] ? qedf_unsol_oob_2073+0xc1/0x260
+   [<602453a0>] ? ktime_get_ts64+0x0/0x2c0
+   [<6071e2ac>] ? kunit_try_run_case+0x1bc/0x310
+   [<6071e0f0>] ? kunit_try_run_case+0x0/0x310
+   [<601d9b30>] ? sched_setscheduler_nocheck+0x180/0x220
+   [<600e0e70>] ? um_set_signals+0x0/0x60
+   [<600e0e70>] ? um_set_signals+0x0/0x60
+   [<6016021d>] ? __kthread_parkme+0xdd/0x1c0
+   [<6071e0f0>] ? kunit_try_run_case+0x0/0x310
+   [<60724370>] ? kunit_generic_run_threadfn_adapter+0x0/0x100
+   [<607243ec>] ? kunit_generic_run_threadfn_adapter+0x7c/0x100
+   [<6016649e>] ? kthread+0x36e/0x560
+   [<60166130>] ? kthread+0x0/0x560
+   [<600c80de>] ? new_thread_handler+0xce/0x130
+  
+  The buggy address belongs to the object at 00000000627ca000
+   which belongs to the cache kmalloc-4k of size 4096
+  The buggy address is located 0 bytes inside of
+   allocated 2072-byte region [00000000627ca000, 00000000627ca818)
+  
+  The buggy address belongs to the physical page:
+  page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x27c8
+  head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+  flags: 0x40(head|zone=0)
+  page_type: f5(slab)
+  raw: 0000000000000040 0000000061802140 0000000000000122 0000000000000000
+  raw: 0000000000000000 0000000000040004 00000000f5000000
+  head: 0000000000000040 0000000061802140 0000000000000122 0000000000000000
+  head: 0000000000000000 0000000000040004 00000000f5000000 0000000000000003
+  head: 000000009f28b3c1 00000000ffffffff 00000000ffffffff 0000000000000000
+  head: 0000000000000000 00000000ffffffff
+  page dumped because: kasan: bad access detected
+  
+  Memory state around the buggy address:
+   00000000627ca700: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+   00000000627ca780: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  >00000000627ca800: 00 00 00 fc fc fc fc fc fc fc fc fc fc fc fc fc
+                              ^
+   00000000627ca880: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+   00000000627ca900: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+  ==================================================================
+
+Reported lengths of 4097 and 65535 report the same way at their own sizes.
+A reported length of 23 takes the kernel down instead, with
+fc_frame_alloc_fill() and qedf_process_unsol_compl() the two frames above
+memset_orig in the trace and payload_len still in RBX:
+
+  RIP: 0033:memset_orig+0x81/0xaf
+  RSP: 00000000628c3d68  EFLAGS: 00010246
+  RAX: 0000000000000000 RBX: 00000000ffffffff RCX: 0000000000000000
+  RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000161a2439f
+  RBP: 00000000628a2c00 R08: 0000000000000001 R09: 0000000000000007
+  R10: 0000000161a2439f R11: 00000000609128c0 R12: 0000000000000001
+  R13: 0000000062740608 R14: 00000000611f1d40 R15: 00000000628c8000
+  Kernel panic - not syncing: Segfault with no mm
+
+With the length checked, the three over-reads and the panic all go away,
+while a frame that fills a BDQ buffer exactly and an ordinary small one are
+both still handed to libfc.
+
+Fixes: 61d8658b4a43 ("scsi: qedf: Add QLogic FastLinQ offload FCoE driver framework.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+diff --git a/drivers/scsi/qedf/qedf_io.c b/drivers/scsi/qedf/qedf_io.c
+index a120f0e37a644..807202f575499 100644
+--- a/drivers/scsi/qedf/qedf_io.c
++++ b/drivers/scsi/qedf/qedf_io.c
+@@ -2504,6 +2504,15 @@ void qedf_process_unsol_compl(struct qedf_ctx *qedf, uint16_t que_idx,
+ 		  le32_to_cpu(p_bd_info->opaque.fcoe_opaque.lo),
+ 		  qedf->bdq_prod_idx, pktlen);
+ 
++	/* The firmware can only have filled the buffer it was given. */
++	if (pktlen < sizeof(struct fc_frame_header) ||
++	    pktlen > QEDF_BDQ_BUF_SIZE) {
++		QEDF_ERR(&qedf->dbg_ctx,
++			 "pkt_len %u out of range, dropping unsolicited frame.\n",
++			 pktlen);
++		goto increment_prod;
++	}
++
+ 	bdq_idx = le32_to_cpu(p_bd_info->opaque.fcoe_opaque.lo);
+ 	if (bdq_idx >= QEDF_BDQ_SIZE) {
+ 		QEDF_ERR(&(qedf->dbg_ctx), "bdq_idx is out of range %d.\n",
