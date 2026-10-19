@@ -1,149 +1,210 @@
-Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E1434E06CA
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 11:00:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E384E0B8A;
+	Mon, 19 Oct 2026 11:02:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792407639; cv=none; b=Sy8CIjnSUpjoqwCUUXr9kkwBIVEznU9YC70F1xekP03LDVitbZsnRtqArR2r7pEZ+pXCy5FxZ9ftkZCCuJuOTgvXuZA6ORLyRNjQ3vc0uFTL6BSVNu8jkZcyejrFJJRC7nLaM9mW7vAj29ay+jmxrT6/1jnl+EcxWtIbYgWsCO0=
+	t=1792407758; cv=none; b=fUS44Qzw1edOL9xXaGMGP6AZwIJr2V415iA84N4aMn3XTk8XjohcsGS+qEt6CNq216Xx8gV4zorOA14f0od1MDz5mwvcyGikz0YeyfsSOilX5HeEFrrloPw/Wu+pIDgvuFD0vtlcBxnhVU9pi/zDldmRbufv7zqGOQz7tBNV5Vo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792407639; c=relaxed/simple;
-	bh=DEeG+OVMM7oDWOAXVmwXanuReBLaFCkXTAgJYET078o=;
-	h=References:Message-Id:Mime-Version:Date:In-Reply-To:To:Cc:From:
-	 Subject:Content-Type; b=UZeVnPXxhv/SN9f7jfchUFjp5Purt9MBnU7YsDBC4S0BEA9q2siiEWGTY6zUNDrM4WBwEksWzt2/2s5nB1dy9rtr+y7T8Etx8Gpj5Rl2kt2M/jzbxnkF4bNd/3X3L4zJM7bVoWrmmBmPPWjinhNC3UQChLA3kPtTtMhfwBvv5Io=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=ZCXDas2z; arc=none smtp.client-ip=209.127.230.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1792407758; c=relaxed/simple;
+	bh=GHQthElYodFukO8Wk4FyIQVeVUz/66AOdJQjwFPw9Rg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TO3X21C4xcbqmPCt5xXLzwTwnJtapUr7VpxDo/+xGKTYtGHA3qC1MpPRCK7JqSJAGE1WiuwpM7IzaiRuJSBaByxP6wGgSLsm+pxwlVysC9VuBwd/dWZshXX45cgSih7kpRVNiOoZIBNERLUyhmIJx7skFfFlhTN0WPHH5eYVcjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=oEgtmEoU; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=dZky7Hn6; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ObkBXr+a; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=SRZFtaS+; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="ZCXDas2z"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1792407631; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=aqCubf153Xb14OUZAVhvSybo4PNvwko2u4wMBzcpbD0=;
- b=ZCXDas2zUMX8Pg5jCxshqcCAUlYxiXOt2BZj6EHawlcqdU1EpVCEXOO+h2IafVyc3zz6wi
- UpwAxEwmu6H0wguzE0H6jeea1yvWTWAo+9+/yOxspJ/ywfDjnK3TNC79Ij0tIUrp0s5PPe
- q7q0374RS2jHvyCuoKQkWyc8lu7NmvODJRLfQ97X7vrc5duR8PxdrcW8sjIQ/2cieUDSbQ
- Hpy1ScG3bd6Es7JrJPAvcNJH+8AY4ItwbewGNvoDkeic0okC1nT4A9GeA+osRV/rdMuTUk
- AKwroIkdLPkm+KulcDWw5k7eASuYpLaZwbxZ18LjWTCBkwSG3sxQ+RC7YPBOqg==
-References: <20261017160431.119607952@linuxfoundation.org> <20261017160456.871872142@linuxfoundation.org> <68c00b4f-d74e-4e2d-a7bc-9af44beeb25e@bytedance.com> <2026101913-unicycle-fancy-0adc@gregkh>
-Content-Transfer-Encoding: 7bit
-Message-Id: <1822c44e-60d1-4df3-81c5-f6720dfbcbce@bytedance.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="oEgtmEoU";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="dZky7Hn6";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ObkBXr+a";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="SRZFtaS+"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 392AD21CC7;
+	Mon, 19 Oct 2026 11:02:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792407754; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=By1KvhKOe++xK8+cQtNPfkcJ4RuE0S7F5y5fKPhCy1Q=;
+	b=oEgtmEoUxWmnkFfjWOGKbjUgw8UTSUpF4//h1vgUgNKfmLVXH4QLH3hJSP3ci0n/cv8m2v
+	AdKLeTVFB9i/Xj76eOnxAHn+T1YtXTQ4yeCM+xMhm6I2sJeKyUZRki+3pQqm71B8/SSmtO
+	1loXs8mBPAbzCQjS3pWxxjrdGF0jc1Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792407754;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=By1KvhKOe++xK8+cQtNPfkcJ4RuE0S7F5y5fKPhCy1Q=;
+	b=dZky7Hn6PJWHZwPp92pFY/fiBjuzD4REA+tXAdgIW5M1qZ032u2Qk1L0T7RmQOtctSmQ2y
+	HXCH7PCFKfBGXbCw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792407753; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=By1KvhKOe++xK8+cQtNPfkcJ4RuE0S7F5y5fKPhCy1Q=;
+	b=ObkBXr+a9ioSeSfgUltkShj5WGp/pRb3txCDmczYjXXaPrE5TBzR4NHi8FRLEo+wG7Blmv
+	xzqLivu+YBm7nhXoAfMEqsIzo/d3WbDd9ZTZzkFcpRw2AKftRZTY24p1bJItnfVTstUI2X
+	Tr5mdEtnp8cUeuJR7bntc9B8/dmjMOk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792407753;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=By1KvhKOe++xK8+cQtNPfkcJ4RuE0S7F5y5fKPhCy1Q=;
+	b=SRZFtaS+t08DlqSVh/CHauw1Ny+qb3seSc21mIsutCuA98PAusY8pkJewAyTEO9i/ds6/X
+	cbDV1GRxux7tsoDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 11A3A134B3;
+	Mon, 19 Oct 2026 11:02:33 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id t5cTOsj41WrIDQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 19 Oct 2026 11:02:33 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 9A0CEA1413; Mon, 19 Oct 2026 13:02:32 +0200 (CEST)
+Date: Mon, 19 Oct 2026 13:02:32 +0200
+From: Jan Kara <jack@suse.cz>
+To: guolingxing <guolingxing@tju.edu.cn>
+Cc: Theodore Ts'o <tytso@mit.edu>, 
+	Andreas Dilger <adilger.kernel@dilger.ca>, "Aneesh Kumar K . V" <aneesh.kumar@linux.vnet.ibm.com>, 
+	Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
+	Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] ext4: record writeback error when discarding pages on
+ failed delalloc
+Message-ID: <nxmkmipb4fu6ig7rznmupixugfv2cbbusjd2hu6tttpabv5yko@2fx7k6oqdlen>
+References: <20261016101605.4039217-1-guolingxing@tju.edu.cn>
+ <20261016110311.71391-1-guolingxing@tju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26ad5f84d+fcd451+vger.kernel.org+zhengqi.arch@bytedance.com>
-User-Agent: Mozilla Thunderbird
-Date: Mon, 19 Oct 2026 18:59:27 +0800
-In-Reply-To: <2026101913-unicycle-fancy-0adc@gregkh>
-X-Original-From: Qi Zheng <zhengqi.arch@bytedance.com>
-To: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>
-Cc: <stable@vger.kernel.org>, <patches@lists.linux.dev>, 
-	"Muchun Song" <songmuchun@bytedance.com>, 
-	"Christian Brauner" <brauner@kernel.org>, "Chuck Lever" <cel@kernel.org>, 
-	"Darrick J. Wong" <djwong@kernel.org>, 
-	"Dave Chinner" <david@fromorbit.com>, "Kirill Tkhai" <tkhai@ya.ru>, 
-	"Paul E. McKenney" <paulmck@kernel.org>, 
-	"Roman Gushchin" <roman.gushchin@linux.dev>, 
-	"Sergey Senozhatsky" <senozhatsky@chromium.org>, 
-	"Steven Price" <steven.price@arm.com>, "Theodore Tso" <tytso@mit.edu>, 
-	"Vlastimil Babka" <vbabka@suse.cz>, 
-	"Abhinav Kumar" <quic_abhinavk@quicinc.com>, 
-	"Alasdair Kergon" <agk@redhat.com>, 
-	"Alexander Viro" <viro@zeniv.linux.org.uk>, 
-	"Alyssa Rosenzweig" <alyssa.rosenzweig@collabora.com>, 
-	"Andreas Dilger" <adilger.kernel@dilger.ca>, 
-	"Andreas Gruenbacher" <agruenba@redhat.com>, 
-	"Anna Schumaker" <anna@kernel.org>, "Arnd Bergmann" <arnd@arndb.de>, 
-	"Bob Peterson" <rpeterso@redhat.com>, "Borislav Petkov" <bp@alien8.de>, 
-	"Carlos Llamas" <cmllamas@google.com>, 
-	"Chandan Babu R" <chandan.babu@oracle.com>, "Chao Yu" <chao@kernel.org>, 
-	"Chris Mason" <clm@fb.com>, 
-	"Christian Koenig" <christian.koenig@amd.com>, 
-	"Coly Li" <colyli@suse.de>, "Dai Ngo" <Dai.Ngo@oracle.com>, 
-	"Daniel Vetter" <daniel@ffwll.ch>, 
-	"Daniel Vetter" <daniel.vetter@ffwll.ch>, 
-	"Dave Hansen" <dave.hansen@linux.intel.com>, 
-	"David Airlie" <airlied@gmail.com>, 
-	"David Hildenbrand" <david@redhat.com>, 
-	"David Sterba" <dsterba@suse.com>, 
-	"Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>, 
-	"Gao Xiang" <hsiangkao@linux.alibaba.com>, 
-	"Huang Rui" <ray.huang@amd.com>, "Ingo Molnar" <mingo@redhat.com>, 
-	"Jaegeuk Kim" <jaegeuk@kernel.org>, 
-	"Jani Nikula" <jani.nikula@linux.intel.com>, "Jan Kara" <jack@suse.cz>, 
-	"Jason Wang" <jasowang@redhat.com>, "Jeff Layton" <jlayton@kernel.org>, 
-	"Jeffle Xu" <jefflexu@linux.alibaba.com>, 
-	"Joel Fernandes (Google)" <joel@joelfernandes.org>, 
-	"Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>, 
-	"Josef Bacik" <josef@toxicpanda.com>, "Juergen Gross" <jgross@suse.com>, 
-	"Kent Overstreet" <kent.overstreet@gmail.com>, 
-	"Marijn Suijten" <marijn.suijten@somainline.org>, 
-	"Michael S. Tsirkin" <mst@redhat.com>, 
-	"Mike Snitzer" <snitzer@kernel.org>, "Minchan Kim" <minchan@kernel.org>, 
-	"Nadav Amit" <namit@vmware.com>, "Neil Brown" <neilb@suse.de>, 
-	"Oleksandr Tyshchenko" <oleksandr_tyshchenko@epam.com>, 
-	"Olga Kornievskaia" <kolga@netapp.com>, 
-	"Richard Weinberger" <richard@nod.at>, "Rob Clark" <robdclark@gmail.com>, 
-	"Rob Herring" <robh@kernel.org>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>, 
-	"Sean Paul" <sean@poorly.run>, "Song Liu" <song@kernel.org>, 
-	"Stefano Stabellini" <sstabellini@kernel.org>, 
-	"Thomas Gleixner" <tglx@linutronix.de>, 
-	"Tomeu Vizoso" <tomeu.vizoso@collabora.com>, 
-	"Tom Talpey" <tom@talpey.com>, 
-	"Trond Myklebust" <trond.myklebust@hammerspace.com>, 
-	"Tvrtko Ursulin" <tvrtko.ursulin@linux.intel.com>, 
-	"Xuan Zhuo" <xuanzhuo@linux.alibaba.com>, "Yue Hu" <huyue2@coolpad.com>, 
-	"Andrew Morton" <akpm@linux-foundation.org>, 
-	"Sasha Levin" <sashal@kernel.org>
-From: "Qi Zheng" <zhengqi.arch@bytedance.com>
-Subject: Re: [PATCH 6.6 1003/1674] mm: shrinker: add infrastructure for dynamically allocating shrinker
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016110311.71391-1-guolingxing@tju.edu.cn>
+X-Spamd-Result: default: False [-2.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	TAGGED_RCPT(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.vnet.ibm.com,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.com:email,imap1.dmz-prg2.suse.org:helo,tju.edu.cn:email]
+X-Spam-Score: -2.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On 10/19/26 5:44 PM, Greg Kroah-Hartman wrote:
-> On Mon, Oct 19, 2026 at 05:01:07PM +0800, Qi Zheng wrote:
->> Hi Greg,
->>
->> Backporting just this patch alone doesn't seem to fix any actual issue.
->> Why was it backported to v6.6?
+On Fri 16-10-26 11:03:11, guolingxing wrote:
+> When mpage_map_and_submit_extent() gives up on a failed block mapping,
+> it sets give_up_on_write so that mpage_release_unused_pages() discards
+> the remaining dirty folios. However, the error is not recorded in the
+> mapping's writeback error state.
 > 
-> Because:
+> If this happens during background writeback, a later fsync() may
+> report success even though the dirty data was discarded and never
+> written. Returning the error from ext4_writepages() is not sufficient
+> to notify a later fsync(). In addition, ext4_do_writepages() may clear
+> -ENOSPC when committing the journal and retrying, even after the
+> affected dirty folios have been discarded.
 > 
->>> Stable-dep-of: d227786ab111 ("fs/mbcache: cancel shrink work before destroying the cache")
+> Call mapping_set_error() when deciding to give up on the write,
+> before the dirty folios are invalidated, so that fsync() can report
+> the writeback failure through the mapping's error state.
 > 
-> this.  Is that not ok?
-
-Got it. But I don't think it's necessary to introduce new shrinker
-infrastructure just for this fix patch.
-
-If we do end up backporting this, please also note the following:
-
- >    * Add a shrinker callback to be called from the vm.
- >    */
- > diff --git a/mm/shrinker_debug.c b/mm/shrinker_debug.c
- > index fcdef821147c1..694acc2b63740 100644
- > --- a/mm/shrinker_debug.c
- > +++ b/mm/shrinker_debug.c
- > @@ -239,9 +239,6 @@ struct dentry *shrinker_debugfs_detach(struct 
-shrinker *shrinker,
- >
- >   	lockdep_assert_held(&shrinker_rwsem);
- >
- > -	kfree_const(shrinker->name);
- > -	shrinker->name = NULL;
-
-This was mistakenly dropped in this patch.
-
-If the entire patchset isn't being backported, this shouldn't be
-included either.
-
-Thanks,
-Qi
-
+> The give_up_on_write flag also persists across writeback loop
+> iterations. After a fatal -ENOSPC failure sets it, ext4_do_writepages()
+> may commit the journal and retry without clearing the flag. If a
+> subsequent iteration encounters a transient error and leaves dirty
+> folios pending, mpage_release_unused_pages() invalidates them instead
+> of preserving them for retry. Initialize give_up_on_write inside the
+> loop so that only a fatal failure in the current iteration causes
+> the remaining dirty folios to be discarded.
 > 
-> thanks,
+> Fixes: c4a0c46ec92c ("ext4: invalidate pages if delalloc block allocation fails.")
+> Fixes: cb530541182b ("ext4: fix up error handling for mpage_map_and_submit_extent()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+
+I agree this is a bug but the kernel will complain very loudly to the log
+(as this generally means filesystem corruption) so the practical impact of
+this is very low. With that reservation feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
+> ---
+> Changes since v1:
+> - Initialize give_up_on_write in each writeback iteration to prevent
+>   a stale value from invalidating dirty folios after an ENOSPC retry.
+> - Update the commit message and add the corresponding Fixes tag.
 > 
-> greg k-h
+>  fs/ext4/inode.c | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+> index 26f0f9714f03..ae54212e0a7d 100644
+> --- a/fs/ext4/inode.c
+> +++ b/fs/ext4/inode.c
+> @@ -2505,6 +2505,12 @@ static int mpage_map_and_submit_extent(handle_t *handle,
+>  				ext4_print_free_blocks(inode);
+>  		invalidate_dirty_pages:
+>  			*give_up_on_write = true;
+> +			/*
+> +			 * Record the error so that a subsequent fsync()
+> +			 * / errseq check can observe the data loss that
+> +			 * discarding these dirty pages implies.
+> +			 */
+> +			mapping_set_error(inode->i_mapping, err);
+>  			return err;
+>  		}
+>  		progress = 1;
+> @@ -2774,7 +2780,6 @@ static int ext4_do_writepages(struct mpage_da_data *mpd)
+>  	int needed_blocks, rsv_blocks = 0, ret = 0;
+>  	struct ext4_sb_info *sbi = EXT4_SB(mapping->host->i_sb);
+>  	struct blk_plug plug;
+> -	bool give_up_on_write = false;
+>  
+>  	trace_ext4_writepages(inode, wbc);
+>  
+> @@ -2892,6 +2897,8 @@ static int ext4_do_writepages(struct mpage_da_data *mpd)
+>  		goto unplug;
+>  
+>  	while (!mpd->scanned_until_end && wbc->nr_to_write > 0) {
+> +		bool give_up_on_write = false;
+> +
+>  		/* For each extent of pages we use new io_end */
+>  		mpd->io_submit.io_end = ext4_init_io_end(inode, GFP_KERNEL);
+>  		if (!mpd->io_submit.io_end) {
+> -- 
+> 2.34.1
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
