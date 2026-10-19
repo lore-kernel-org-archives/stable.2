@@ -1,58 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792443371;
-	b=bmIujMtJBnWXDz/9N0wvaEIdQDaQGEJ4C6dGSMiPaxzpwxYImH4cPYNaecW7ZFFM6MyV
-	 Jh5nH6gfkOXn+iMrcO7QcXBqX8cS1hrJt56D3ae5vaMRfG0GIuRyrG0ZaW4T7tQVbiOYG
-	 FDbqOnIrHZdEFgkOgI0A8BhCy5zvRhRHtip8OsaYAISdCE5CiOxqIdoD6iKrl6HbDwxuP
-	 8/xAm412gMYs8U2O0LTv/SiO9WgmtMfxFMklJDo65FR05f0uBOEyF2rVwZ6vVWUhZeihF
-	 ZjI9N257+lFVV5E4H048bKgNhMw9WBkj+q5oIX9Z8jfGdoX5D+whWQJvfIgRadPgK1w==
+	t=1792443366;
+	b=Q/N1UMxX3fORImyXcdSRI0328terT511oBYAls3/D14+kmuO6ckgnkDXNLU7UhM/CAbB
+	 OfjreCTiejjtQJPNFD0ruKwA/iXW6LLv+JCNdZEapoYD/70VFcAS0BRpsAUnCQjFo7d4a
+	 SJ40KAWmwg7US1gjiBiH/nk7oFjhJnR3VNWOiTiJSC/7JIzkwvZgbXEyW2Tp0jfEwTCLH
+	 GY39/siUMZatuanXt16vIgZIO+qbtc3EzLl00OUPRN7Cg0r+Ync+7W+m2kEGegPw7hLU4
+	 e6lw17FJauFqSynZGvUjBoxeQGUgN9/ULNXu9U+75fXCdPkkgz+lwuWGUneHUDv8jcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792443371;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443366;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1sSRiuhUT2L7YQelzzyVYy5ejFQRJw0I95rCZ397zT0=;
-	b=5bK9J63JeYqGH4pBOgKPHCjlW/TD2aZPANJu6MPLrWQqTzI7Ww+EQaq8c0sYeNxpc2DW
-	 /Q7cgREAahR3HNc8Yt7IEzzzSjZQ9ejI+aytC2DIj3wzUyRTr1rioOUAI4/3vhALBJWEW
-	 PXvnzM7O92gIh+vp81R4Dixd6VXmjaKJzaNPuQyVFLs3uIf+Un5A2zbpG7TWmXvX0P18j
-	 pcz7nDG59T83a1KgsJ26O6WMM5Qk0PzpqzW/ZeWslYfQVRo84sxB6CrXNxrk/2/GZCN0d
-	 0HCpVRI/CmHTgDoomgtIvFG1uhnGCw8fL6QouFuemv/Xl4zY7XX3EZxiD8u/2zMPEKA==
+	bh=BjZVrzg3rsf7XbY7jaOkZkV6KS8iKu7zuHPhPhRa91E=;
+	b=NQzxsEE2f7JhR5SKQjvwsH96XQyHYqvSYbg6BpN4HLnF+Il/huiE1QNUgxBSX8A+Xj4r
+	 pbTQ0Ne8jhFh2EQfXpeNyPIPCMVKHXPC4AkaT+it+Cx8VO1PlnZMS/daGP/yaZRJbADpt
+	 /dPMOJiE2KVrzbGZcc5dlD8dS6+F9oxOTfKxm8hx2g1s+llIGK3uNIaQz1wnrJ2jNPZqW
+	 jNDlJeSQatksLij1uwBrpGecdE8lxro+V2JJumunL2G0TVZRXfSGfDGOKwu1VFf3KvqvA
+	 i0yEswoJ1iT3mDTc7jDL15Tr4hGn0v6Z9PercazZ4HqvosWBkwCl0VezaNckTRip+1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Icym+B/Z";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AaqOCt87;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D5F606A32D
-	for <stable@vger.kernel.org>; Mon, 19 Oct 2026 20:56:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05437606A31A;
+	Mon, 19 Oct 2026 20:56:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Icym+B/Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DFDE1F000C5;
-	Mon, 19 Oct 2026 20:56:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AaqOCt87
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B435A1F000C4;
+	Mon, 19 Oct 2026 20:56:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792443370;
-	bh=1sSRiuhUT2L7YQelzzyVYy5ejFQRJw0I95rCZ397zT0=;
+	s=k20260515; t=1792443365;
+	bh=BjZVrzg3rsf7XbY7jaOkZkV6KS8iKu7zuHPhPhRa91E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Icym+B/ZO1LgMsTVtV/0rWQI2vzYcUjbHGsacdF12PoDgUzlmV8m104Djel301NOg
-	 b2+ud4GFaI8A+NQHEuNuynKNmOyqVK+1CIZ4ASu6i38IkKeBszpDGoWmwsXRUGpUy7
-	 ZiHinyjLKQMgG1jw+Za9iGxr6kOHpv+HxvmPs1+1OoJ54pOSpwo30SiBsDTdASUeRj
-	 Qg7iq+uMv9wc0foAyEWgj4cVq45eoC6NwwgKotoBvZFGaplVJaMyc2Rr83MGNK5UZ4
-	 NgTQtDzL53GVJCRUTYx/5+BpjXLbzYlD9WhZdzmZihB+uVjtmtYA6tRbjv5ZYwnska
-	 GRrtnJ9So0yYQ==
+	b=AaqOCt87uid4jy9SNYadhhhufQD2OkEVYLeIo7wWintbkPMxDFt5hE094B0UN7vP4
+	 wtWaGcX5VWIhD2E9cKYa9k5DgB1K4t72apgufNGpoDikiPAAoosP3Fsbf0WhJcPlxy
+	 hX1WftopX9o+g1zUt7Qv1z0px45podZKK44kBo+r2YMJuxqJExsqHpZgHdTyLSdygs
+	 phh5+ftZaBVa1JwLYi4GUXNXoTaok9DvC52ALGtSmRhE4E5dFVKj27ux2V/2D/1mla
+	 O8Tu3RZ7yOXwFvYMkr/EusQCC5LivmSa62msVHKDIMf2hpVjEkSIy1Bfg2at/pI0Zh
+	 1aTrmPNfNCYmg==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Daniel J Blueman <daniel@quora.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Benjamin Robin <benjamin.robin@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	"Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Subject: Re: [PATCH 5.15.y] bpf: fix potential 32-bit overflow when accessing ARRAY map element
-Date: Mon, 19 Oct 2026 16:55:44 -0400
-Message-ID: <2026-10-19-1-daily-reply-0019-bpf-array-overflow-5-15@kernel.org>
+	Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Manikanta Mylavarapu <quic_mmanikan@quicinc.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	linux-i2c@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] i2c: qcom-geni: restore tSCL with 32MHz I2C fast-mode
+Date: Mon, 19 Oct 2026 16:55:40 -0400
+Message-ID: <2026-10-19-1-daily-reply-0015-i2c-qcom-geni-clk-policy-7-2-6-18@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261019-cve-2022-50167-v1-1-965ab366b9b6@bootlin.com>
-References: <20261019-cve-2022-50167-v1-1-965ab366b9b6@bootlin.com>
+In-Reply-To: <eaa6f116-7556-4791-857d-cd50c504528d@oss.qualcomm.com>
+References: <eaa6f116-7556-4791-857d-cd50c504528d@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,10 +68,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> If BPF array map is bigger than 4GB, element pointer calculation can
-> overflow because both index and elem_size are u32.
+> On 9/30/2026 3:01 PM, Daniel J Blueman wrote:
+> > If you can get the final values into a patch for the next -rc instead
+> > of my fix here, that would be the minimal path for everyone.
 
-Queued for 5.15, thanks.
+Queued the mainline fix, "i2c: qcom-geni: Restore the source-clock
+selection policy", for 7.2 and 6.18, thanks.
 
 -- 
 Thanks,
