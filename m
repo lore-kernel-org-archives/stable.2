@@ -1,54 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792502995;
-	b=ceHD+waGn2uQkQjOQEZpzaBeolpkA8wccOrgr2jaaeg6x/yUvCxPphO9SJmMoBwTeBy4
-	 w988NlR6+1/DK58oEfC7OxMj6tsN8IXFekBJAzYlpsK1wGywErO5d73IMpsBdhXcrFT/3
-	 5Va+Q35rrRZksqT9Ac8/fWhmb7U2vVZwoN1CVW0HTU6ZUWP3niA4wMEusMt3R1nmvYHKy
-	 pj7zEq1/b/zt5NEKDtr7sB+LH4zWBkhHVOdmlisR5FynsLhbcEcufW5F9XleoTD/InmOh
-	 vMVK+vJ2IIqYp6itVcc7JmLIpm1wBHGzeqkU1YRNSq391AT6Zto2FRJqTvYnBVnCukw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792502995;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=CYMqg4ekhN+H2mR8y56+Gn4spdCq36SruBSB9+jht0c=;
-	b=NkwdjsHEQIWHC2jB58Ed17hv+UR2qKshYsM9JJY8WO68NXUWrc8vA9TP+k8HOJPz7AWl
-	 rnrk7+qHHnLbUMUIXHXsEbxRq3Dw9xtXJkkMfzf2cStKvkctZEqXllzaYqjoGtbSGN7Sj
-	 MmduCFPolt7pp7QUwyBCWmIrUsuPUyK5uceIqF0RSh4cxkY+OQI9re0AE94SJ34DuEzko
-	 xZbZT4xru6iIQ46NJuOWzV58n/aiXWj0nyCHniatVYSd2YdEJfEwllkRh5VJxOLEC3LL3
-	 UcfMjSrvk76ioQO79YkZmp5l8qsch75nvOOaKtHo0yV5zsKXw4hV24n6gr1OCpomlPw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=foZdgH0v;
-	arc=none smtp.remote-ip=91.218.175.178
-Received: from mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792503053;
+	b=h0KBkkHM7CyBSxisivKItUPznXZZtoW1JGyBfBjqVwfb48PdVg4ko2aYRaeyWK5Tk2mN
+	 jYBqK1iK1xNZ+1l0q4ThmoNmkDgJl10GHoUhAox3+hOVO4hEb+0CJGXuL1y7MRscP3hcF
+	 UxRqq5sUaR4Ar09vGVImQb1au665JT5cpzobx/54mAIt3S9S5VSw+HTjXa9fd8oG74O8n
+	 kYIpqmyRTRvB10ziOc288+WmU7j4Ruwg8ZCefksojSnm2HvKQ+upfMQfeZf5c9akUusHr
+	 aMdZDifr04OYVL3zSbA6nGVpzMYniqvkqy4TXox683q5Ltq7kbP659+S1bSh3Kml+dA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792503053;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=ESoHVz7AZTa5EVNN5T+aPazedHc4CD5AOeW7iz5qXwo=;
+	b=jHgbh76IhY+Z1w2NqDI94B5cT1f4zgVWFYuLk4o1bklI9Jfi0VxA+ySr3KT727q7F74F
+	 4zNy2eXIbqT2s7e4EgVrdSmp0MvHEmcUgCqVT8gPAtGgoeaUQDbpP1EGSAcowZOVcrXON
+	 lId9rdyP4at/TOdEbIjE3clKSD7r8FfGPGUToseRaW0sMy8M9Fo7KsMakLgnuAoDepZ/p
+	 6/j3QtsH5EwkjfzzmBFRbYw7JGwOpwLJJUwgBoa67WCIleWlv1n0Zyp11C/P7wHwJw6A7
+	 7pbp825OyzIjDsy+L7YNtPzy9wyADZ36vyn0CEdEErApxoyfLOHQlKxTt/2mhUdw19w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h14oUdPo;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F3B606A322;
+	Tue, 20 Oct 2026 13:30:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h14oUdPo
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792503053;
+	b=R14Ps0vi+2q0Wm/L5AS+Q2zhPmT9q7Vwtv9JflaVYwFpL7h0TbeGC9H02/JX3J7DnuKI
+	 ml6apPUnpu1BveAZP8mIlAAk/30BWKk6T6KlPRfpQfqqiqcu9zrTuE2gxGzOL+T5bUdOQ
+	 0uL+567LACBCFsQthMb7Xz7chgwvUIsYMFI+evrnifXl8yvqLl0bGKXkv3w4349iktr7o
+	 DDNBA2Kj4ICVupgLKy4LlmiLOhhliJu2MN5K/Cr9bqRlo42jv55U9NzyDsBcJoe091MLO
+	 Pi/oC36urRH5YjQfyvmns4Wi7jAJPgvvlPDgefIcitqiBrJGQETBxKS529nJsg13wNg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792503053;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=ESoHVz7AZTa5EVNN5T+aPazedHc4CD5AOeW7iz5qXwo=;
+	b=mR/lqNlun1HSVJYqv/nkmowGuDfcXLBuOq00seA22W0iLmMh3MOvg/hnKjrQHOXompUj
+	 QaCoHqSNaf5fZP6nLImv5+N7xOFfImKIbRIiEzxIfz8y2r3f9dKnKwGw1AN087dCkJPgv
+	 fyyFib5FOJBVcRjy2MFfLVoNUKuXzmTap18LdBqgCriAOeAoZ+DOCvgaWl+/P2/Hcs9cT
+	 Cp+aEsPj60+Y67D6VZ6hO5XP+eC0fcpK0BPaC0vDbL2fEpjrzgy8PakOvj1CIGwdyIZaL
+	 pRmCos5nsa+mHSZ1nkcxIJhtoJReF28F6cA18W4KkyC4hnMRDKepWEPY4StNZfs3+LQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0235F60A2609
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 13:29:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0235F60A2609
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=foZdgH0v
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=IKmZlEGfS2yeIgifNi1WabbugRXmrQXpvhboXkIucAc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792502993; v=1; x=1793107793;
- b=foZdgH0vzJ1Ry6v+DDc52BOnhdPefzLWppgUV2qWM0BlMmNHPu4cjGGzHWW1fKkpK+sybq19
- KZ+QEzvQHp4KqjdWw0mz6IqMXKH6QYK+jd0bm6LtODNziAxzL8Dx+xHiehSwOPlU6JoYE/cCF+K
- bt2me+wteS6F8MU/rxKMWQI0=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7f2e75a512db9909;
-	Tue, 20 Oct 2026 13:29:53 +0000
-X-Mizu-Trace-ID: 7f2e75a512db9909
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <f6bdf823-be42-4184-87d2-fc7c128f4786@linux.dev>
-Date: Tue, 20 Oct 2026 21:29:40 +0800
+	by smtp.kernel.org (Postfix) with ESMTPS id 2EAD31F000C5;
+	Tue, 20 Oct 2026 13:30:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792503053;
+	bh=ESoHVz7AZTa5EVNN5T+aPazedHc4CD5AOeW7iz5qXwo=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=h14oUdPoRtfgL8U7obcYeyWtoVD1EggxYMRjMqnk/hl+M2tNxWnBMVgfi2NzCrT4G
+	 qZyKqCODbm64tZhGlzjVAS3M04dPn9Ky8kegRmK1SBw8utsAfhrEdk9ux4JiY/GNrk
+	 DgktpU8IoB0hDEuwHj9hQOD0Z8BEyWfZqdmwIIbtaL65pOqI8B7qlr7wFapR3heIwR
+	 4IjoslVjiTM3pxyJw+98eOckPjD6wc5wpBn1oEeowLOPt2B4qmmDrJu6AOHVXHObq0
+	 gGTLt6YPDvRutaW/W5AlmojjdyDVJ/pyhzeiK9B0I9dGWQ7FXQd7oMS0QbIrliukWC
+	 ng58H5g19U2Fg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 7F0EB43178;
+	Tue, 20 Oct 2026 13:30:51 +0000 (UTC)
+From: =?utf-8?q?St=C3=A9phane_Grosjean_via_B4_Relay?= <devnull+s.grosjean.peak-system.fr@kernel.org>
+Subject: [PATCH v5 00/10] can: peak_usb: fixes, cleanup and input
+ validation hardening
+Date: Tue, 20 Oct 2026 15:30:39 +0200
+Message-Id: <20261020-canfd_check_channel_idx-v5-0-a62b35b867f0@peak-system.fr>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,132 +84,131 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/ksm: keep soft-dirty and uffd-wp when merging a
- page
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: samarth.colleges@gmail.com, akpm@linux-foundation.org, xu.xin@linux.dev,
- chengming.zhou@linux.dev, peterx@redhat.com, kas@kernel.org,
- rppt@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <efa6a28c-f0f9-4d1e-9cce-fec2c08e7d9f@kernel.org>
- <20261020055518.36087-1-lance.yang@linux.dev>
- <3da45e6d-2b46-4fff-9ff3-241f70d68296@kernel.org>
-Content-Language: en-US
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <3da45e6d-2b46-4fff-9ff3-241f70d68296@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43NUWvDIBQF4L9SfJ5DjdmNe9r/GCVc9bq4dmnRN
+ LSU/Pdpx6CwBvZ44JzvXFmmFCmz182VJZpjjoexhPZpw9yA4wfx6EtmSqgXKQRwh2PwvRvI7fr
+ aGGnfR3/mqD2gREkEnpX1MVGI55v8vv3J+WQ/yU2Vq40h5umQLrfrWdbe70u3+jJLLrjAxtpOB
+ U3CvB0Jdzxf8kRfzyGxejWre8ysY6pgASyAMsqAkQ+x5g5TYh1rCgbaS3AttsbQQ0z/E9MFs8F
+ 66mToLNo/2LIs36s9rvi8AQAA
+X-Change-ID: 20261007-canfd_check_channel_idx-a4d7a1a1ee7d
+To: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>, Dan Carpenter <error27@gmail.com>, 
+ Wolfgang Grandegger <wg@grandegger.com>
+Cc: =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
+ linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Stefan_G=C3=BCnther?= <stefangun@pm.me>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792503050; l=4489;
+ i=s.grosjean@peak-system.fr; s=20261020; h=from:subject:message-id;
+ bh=wZ2HZ+zMm5V2T6Bd7WCF/RbuqkDZvPvZrcAS0O2FTlQ=;
+ b=63l4J/Z1VkV6vWFD+ni/7D26oAsb/49pmdXqiRsQ9j3qoLbxGLNiBwOaSifmywefd3M9i6MDE
+ 4a05HEUuUx5BdXpomFE6q2gJ+enxl9fLK16wKA1YbhGbVZYhto0Sjx9
+X-Developer-Key: i=s.grosjean@peak-system.fr; a=ed25519;
+ pk=bP7QV2zvvAKAfConZlUOGKGEcXL64SNUpVUm++Ai+/c=
+X-Endpoint-Received: by B4 Relay for s.grosjean@peak-system.fr/20261020
+ with auth_id=1250
+X-Original-From: =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>
+Reply-To: s.grosjean@peak-system.fr
 
+This series contains bug fixes, cleanups and input validation
+improvements for the PEAK-System USB CAN drivers.
 
+Patch 1 fixes CAN error frame generation, where CAN_ERR_CNT overwrote
+previously set CAN error flags.
 
-On 2026/10/20 21:03, David Hildenbrand (Arm) wrote:
-> On 10/20/26 07:55, Lance Yang wrote:
->>
->> On Mon, Oct 19, 2026 at 03:24:11PM +0200, David Hildenbrand (Arm) wrote:
->>> On 10/19/26 03:09, Samarth Narang wrote:
->>>> replace_page() maps the KSM page with a PTE built from scratch, so the
->>>> soft-dirty and uffd bits of the PTE it replaces are lost. Due to this, a
->>>> write before the merge no longer shows as soft-dirty, the next write to
->>>> a uffd-wp page raises no write-protect fault, and because the page is
->>>> mapped with the VMA's normal permissions, on a uffd-rwp VMA the next
->>>> access raises no RWP fault.
->>>>
->>>> Copy the soft-dirty and uffd bits from the original PTE to the new PTE,
->>>> and restore PAGE_NONE for RWP VMAs, as try_to_map_unused_to_zeropage()
->>>> does.
->>>>
->>>> Fixes: 0f8975ec4db2 ("mm: soft-dirty bits for user memory changes tracking")
->>>> Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
->>>> Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
->>>
->>> I would actually split that up into separate patches.
->>>
->>> Over-indicating soft-dirty (as raised by Sashiko) is in general not a problem.
->>
->> Right.
->>
->>> Losing WP bits is.
->>>
->>> UFFD, the gift that keeps on giving.
->>
->> Haha, yeah, I stared at the code a bit. Say we arm RWP on an existing KSM
->> mapping, then do MADV_UNMERGEABLE. We're just replacing the shared page
->> with a private copy. That shouldn't count as an access to the mapping ...
->> no?
->>
->> But the protnone check sends us to do_uffd_rwp() before the
->> FAULT_FLAG_UNSHARE handling. No FAULT_FLAG_ALLOW_RETRY here, so sync RWP
->> gives us VM_FAULT_SIGBUS. Then break_ksm() does this:
->>
->> static int break_ksm(struct vm_area_struct *vma, unsigned long addr,
->> 		unsigned long end, bool lock_vma)
->> {
->> 	vm_fault_t ret = 0;
->> ...
->> 	do {
->> ...
->> 		ret = handle_mm_fault(vma, addr,
->> 				      FAULT_FLAG_UNSHARE | FAULT_FLAG_REMOTE,
->> 				      NULL);
->> 	} while (!(ret & (VM_FAULT_SIGBUS | VM_FAULT_SIGSEGV | VM_FAULT_OOM)));
->> ...
->> 	return (ret & VM_FAULT_OOM) ? -ENOMEM : 0;
->> }
->>
->> So we report success with the page still merged. Async RWP does unshare
->> it, but only after clearing the uffd bit.
->>
->> I'd let FAULT_FLAG_UNSHARE skip do_uffd_rwp(). We'd still need to carry
->> PAGE_NONE over in wp_page_copy(), though. That PTE is rebuilt from
->> vma->vm_page_prot, so the uffd bit alone won't stop reads.
->>
->>> How to deal RWP properly is a good question (see Sashiko review). I feel like
->>> some more stuff might be missing there to handle this correctly.
->>
->> Tested, this is what I had in mind:
->>
->> ---8<---
->> diff --git a/mm/memory.c b/mm/memory.c
->> index 976cd03954e3..d99f5ef1dd8c 100644
->> --- a/mm/memory.c
->> +++ b/mm/memory.c
->> @@ -4119,8 +4119,11 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
->>   		if (unlikely(unshare)) {
->>   			if (pte_soft_dirty(vmf->orig_pte))
->>   				entry = pte_mksoft_dirty(entry);
->> -			if (pte_uffd(vmf->orig_pte))
->> +			if (pte_uffd(vmf->orig_pte)) {
->>   				entry = pte_mkuffd(entry);
->> +				if (userfaultfd_rwp(vma))
->> +					entry = pte_modify(entry, PAGE_NONE);
->> +			}
->>   		} else {
->>   			entry = maybe_mkwrite(pte_mkdirty(entry), vma);
->>   		}
->> @@ -6656,9 +6659,12 @@ static vm_fault_t handle_pte_fault(struct vm_fault *vmf)
->>   		 * VM_UFFD_RWP VMA, a protnone PTE without the uffd bit is
->>   		 * NUMA hinting and must still fall through to do_numa_page().
->>   		 */
->> -		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte))
->> -			return do_uffd_rwp(vmf);
->> -		return do_numa_page(vmf);
->> +		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte)) {
->> +			if (!(vmf->flags & FAULT_FLAG_UNSHARE))
->> +				return do_uffd_rwp(vmf);
->> +		} else {
->> +			return do_numa_page(vmf);
->> +		}
->>   	}
-> 
-> Looks like a reasonable direction (without looking into all the details).
-> 
-> I've been also wondering whether KSM should simply skip these uffd regions, they
-> it never worked properly ... but I'm sure we'd run into issue with leftover uffd
+Patches 2, 3 and 5 are cleanups: make a public header self-contained,
+sort the CAN_CTRLMODE_* flags in ctrlmode_supported, and replace
+open-coded bitmask operations with bitops. Patch 5 also makes the
+state flag updates atomic, which patch 6 relies on.
 
-+1. Did it ever actually work there :) Why not just skip them and
-call it a day :D
+Patch 4 adds bounds checks to the PCAN-USB RX parser, so that
+truncated or malformed records are rejected instead of being read
+beyond the received data.
 
-> pte bits :(
-> 
+Patch 6 validates the channel numbers received from PCAN-USB FD
+devices, rejects records for channels that are not set up, and stops
+RX on all channels before they are released, on disconnect as well as
+on probe failure.
+
+Patch 7 fixes the RX parsing of self-received RTR frames with SRR set,
+which left the RX cursor one byte behind.
+
+Patches 8 to 10 fix related issues found while reviewing the above:
+the same channel slot check in the PCAN-USB Pro driver, the netdevs
+being registered before their channels are initialized, and the dump of
+stale RX buffer bytes on decode errors.
+
+---
+Changes in v5:
+- Register the netdevs only once all the channels of the interface are
+  initialized, since they share resources during the init of a sibling
+  (patch 9).
+- Link to v4: https://lore.kernel.org/r/20261020-canfd_check_channel_idx-v4-0-bfbde81f8bab@peak-system.fr
+
+Changes in v4:
+- Register the netdev only once the channel is initialized, instead of
+  only reordering unregister_candev() and dev_free() on probe failure
+  (patch 9).
+- Link to v3: https://lore.kernel.org/r/20261020-canfd_check_channel_idx-v3-0-74d17c5a599e@peak-system.fr
+
+Changes in v3:
+- Fix out-of-bounds read of the error counters in PCAN-USB bus events.
+- Harden channel handling in PCAN-USB FD: publish/read channel slots
+  with smp_store_release()/READ_ONCE(), clear them on teardown, stop RX
+  on all channels on disconnect and on the siblings on probe failure,
+  and reject ndo_open() once disconnected.
+- Fix RX cursor desync for self-received RTR frames with SRR.
+- Replace open-coded bitmask operations with bitops.
+- Add channel slot checks to PCAN-USB Pro.
+- Unregister the netdev before dev_free() on probe failure.
+- Only dump received bytes, rate limited, on decode error.
+- Link to v2: https://patch.msgid.link/20261009-canfd_check_channel_idx-v2-0-f7b772929791@peak-system.fr
+
+Changes in v2:
+- Kill all pending RX URBs before unregistering sibling netdevs.
+- Reject records targeting unavailable channels during device
+  initialization in rare corner cases involving malformed device
+  input.
+- Link to v1: https://patch.msgid.link/20261008-canfd_check_channel_idx-v1-0-0a3bb82f4e09@peak-system.fr
+
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Vincent Mailhol <mailhol@kernel.org>
+To: Dan Carpenter <error27@gmail.com>
+To: Wolfgang Grandegger <wg@grandegger.com>
+Cc: Stéphane Grosjean <s.grosjean@peak-system.fr>
+Cc: linux-can@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Marc Kleine-Budde (1):
+      can: peak_usb: add missing includes
+
+Stefan Günther (1):
+      can: peak_usb: fix missing CAN_ERR_FLAG when reporting error counters
+
+Stéphane Grosjean (8):
+      can: peak_usb: sort ctrlmode_supported flags
+      can: peak_usb: harden PCAN-USB message validation
+      can: peak_usb: replace open-coded bitmask operations with bitops
+      can: peak_usb: harden channel handling in PCAN-USB FD
+      can: peak_usb: fix RX cursor desync for self-received RTR frames with SRR
+      can: peak_usb: reject records for unset channels in PCAN-USB Pro
+      can: peak_usb: register the netdevs only once all channels are set up
+      can: peak_usb: only dump received bytes on decode error
+
+ drivers/net/can/usb/peak_usb/pcan_usb.c      | 51 ++++++++++-----
+ drivers/net/can/usb/peak_usb/pcan_usb_core.c | 91 ++++++++++++++++++--------
+ drivers/net/can/usb/peak_usb/pcan_usb_core.h | 16 ++++-
+ drivers/net/can/usb/peak_usb/pcan_usb_fd.c   | 96 ++++++++++++++++++++--------
+ drivers/net/can/usb/peak_usb/pcan_usb_pro.c  | 29 +++++++--
+ 5 files changed, 201 insertions(+), 82 deletions(-)
+---
+base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
+change-id: 20261007-canfd_check_channel_idx-a4d7a1a1ee7d
+
+Best regards,
+-- 
+Stéphane Grosjean <s.grosjean@peak-system.fr>
+
 
