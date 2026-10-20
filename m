@@ -1,87 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.114
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792459396;
-	b=TYi3o0IesuryAO5O8NxGWCcHT/Yy+ehHRWSk18q5eC85iwhwWXEqSS0Iou3s2ngufYEe
-	 NI8CtMzdkeRkklnGzjIQYIIp7Mt61ij93wggrahSOdJ5YcJPQ4Zrh3mB+WskACSxeVXNY
-	 eiQ6egzlsC/htoPgXtfvMGCfC1Iedtc58XOPbrZWZ8uek2j5qGtnoYCh8UBnEciYcHqYR
-	 evGyT26ipowaL7Ho35Ajj+lMHvKPgV6GmEQB13LsOuwDmIGKLXG3WOMF48nBY6EgE1BvE
-	 EJMRhkUY+Jnj6zNO7kVvHIE1y3fmcG8dvioSBWt75A6NncUqTwN4S5ClD2TVyaJ5ASA==
+	t=1792459695;
+	b=wbBN/YwQJAK5XXQ63ghgTHwTSByQrHiWd5MVHkOhnuKrtiWhAYx8Ib8+ib1cCNgU/ita
+	 ZQkpF/1NtVBW73wr8Kma59SLB58OTYGIVeVlUaWWRx35YI0JkkzGeLhceFpnIFl2hcGdY
+	 /6bNqdjE5Kx7GEqgnf3D1xcCT8xwa80NxXjsACw+s/wzyVlSh4M8slYdCkiv3mT2geR4I
+	 TT1XAkUrDg/lVoC1qkTzw4skBRZIw2shy/enHOtR002Cgcp31NB+InLG7PntLec8x9tLu
+	 kxqwPum1E+moNRvNwAz6fyuoWuqWwd7z0Dli3qLch2FSCKTOncVxWCYQzZUCm3UlMew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792459396;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=df+72LAtxdjU5yqYctiMIQug27OaJJKNFKp3UtgKQf4=;
-	b=GPb0IR/PCjDYtIre3fDMRn6sQPV/wEUKZG8HKwUTtkfGfbpufMmPd8DLOUoilnmSJdzg
-	 jrvJA4TddOAlETwz9YytbNZKRtL3N0uguAkQpPpUMnJGLq4NMuWZTzudQOcsY5oH/QXal
-	 l0HoY1n6Fd8tYceFcy4BuvrGSU0EbiE6Y1b2z2OYPsBJVEoMjhQHPqEI+OyclELbqMmL7
-	 /kqSgiq1FT79uPyulq/Wrzb43KPWiJB7h/C6a7GvJW3cSLDvLxWBfoEzoUQnIl8LPBIWy
-	 DMY+4rSYqgqc2m4qk1GqNvdQnAQmovVmUM9nLl8jzjF+INvGvHDbo3Eb/+hl8aAmz0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792459695;
+	h=DMARC-Filter:DKIM-Signature:Date:Subject:In-Reply-To:
+	 X-Lms-Return-Path:Content-Type:Message-Id:To:Cc:From:Mime-Version:
+	 References:Content-Transfer-Encoding;
+	bh=4S3cXrB/vXEKNb24NBt0+619h+5BULgdtniLLJ8T2X0=;
+	b=rz6HBDwk5fxyMHJNhIiVThrFVyzsiBG0ytLBj+DCgDd9xaTCmvSh7h8pfK5UPA2VH6Hm
+	 qcM9eork2gLNi4XB/vxissg9x+ZXq2bsGwHt8rfDIh3E/r2r1iGFksB4U8jYlkafnjKjM
+	 Rkbf9CVLIxXaTCr3kxRGoiQtK0Z+fiAjbRQ9J0Gv9hu4OlN/RHXhiwxp7XqHDGAvNh92z
+	 XlmnpfaOUiXQTMa0LOL/GPIdwv2ym7wwNeT4+jQAeIXdtFTijXe+wOlEAGTrvO5uarDn6
+	 kH8OiWGnDGHl+cXDIdcfmx7bWntwAOvjmOOcCVhqnPNb3TlpZfS4L/7qIMzGDKIZ3zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=FykZU5hY;
-	arc=none smtp.remote-ip=209.85.210.51
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b="RGzo/fS1";
+	arc=none smtp.remote-ip=209.127.230.114
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DAF1606A319
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 01:23:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DAF1606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A185606A319
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 01:28:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A185606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=FykZU5hY
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7fccba9c675so343787a34.0
-        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 18:23:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792459394; x=1793064194; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=df+72LAtxdjU5yqYctiMIQug27OaJJKNFKp3UtgKQf4=;
-        b=FykZU5hYld6g/fiSOZubNgxx/gA0GRszrDob1YkMimN+YEkuo0ab5LnoDUVwhh+Io1
-         SxxvVjbPIyf1323wDoUhd2bZ7bbR6LRZ/OgJdXDYMgwR0hVWeVil6bTIyYiwYG/xWrDJ
-         oEuh1o7Fig4V/7t3QEU9YxZP7lszhI1dMcmGzN3s3D4YUis6dagcNni9D4g6R5zCjgNq
-         pDAD7wA9r/+XM1RzITVGmqM9UBJL0EqPAq3K4YnYGsxIF7VrfLzAiopNWGtGuEjw/cCc
-         +hO6EfpzZO0lWCSi+Ps+QWENt1jaVmyBdcjX0KRpP/tpvxgv3zFpm8IrAousTr6nE7U7
-         MQPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792459394; x=1793064194;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=df+72LAtxdjU5yqYctiMIQug27OaJJKNFKp3UtgKQf4=;
-        b=fBfNzTiE5v8ir9OxYKYAkHqcnQ/Rabp++3C8KSkzZpwaubIS1EyLYqHvF5wVg5rsQV
-         exCZWhz8ufBSdLOsHy+z08y168eJu0+BPytsmG0noaXloEGoV9TVoyauPXq35gxKOfbL
-         f/zJ9hTKCfK6jTz6cUMNMIXlRNBe2w7nKjUwU4NnlrxzCRYGnnryHgYoCuvxJD6bm8OL
-         iQxKfDWwcA1tLE/UrovScxIJ17VijtUExd5NGJ1EopGcFCqgFqWN+dzq4Z9FqgVKXQZV
-         Glho17hgRZZgZonshmo9+1Tjjx46lDUM9KOTn55CSDxOnMCoiiJ+Z6OYZO2vEti/wco5
-         NFAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzNTDPp32ncEnP4NSx2pz5myJdjF6oCrgZpn95QIMhvbEvW49Yu4WLhCZB+jM/YoROQrSRVwdI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7XP2Qwhh7j2cHVDsLYXZ3J/Twyl/4vXXyGe0fa1k3GxQA9Yrj
-	7/bd0wp1B1Qz5IhF37k+UQYMzgEzUC52Ym2sWKtP8q8nDmpfOoWsk5eyUV57305W9h4=
-X-Gm-Gg: AYBFou0eUNJy6Q6O4xiQ0TLa0s+oUNRoadGbvdRfV84uztlnsIIBYI1DQGMDVuEQ/JS
-	SMT7Hz8tixHFd04h165s47gZTfwl+P0VjY16unhaMLIEwMwmTdFcZzJU//0yyAs946DnMnNCQ/3
-	ue0/W+TYRL9Bdjakmx83WWpSPZsKJcx4gTosj49PhH+8bWXii1nJMezp//EErCkOLfdhM4DFx76
-	BfkOvp939VEvGm9UO4tE5pAu0J2+2M4aS4ng5GnQtjOtqsWJeSs6n+F/WrcY+GCLnN7xpf08CTZ
-	Y/0OYj3Fe5G4KnaN1EeSgOzVAXPqZZBzx6/j9TKwuosXd1RcJPw3E2y42XRlwPVIJZvW3DJMlCQ
-	1uVEz7lGMTk4RMr7vUYujv32/P7oDI2FxC6hGaBaypgpXJqEK8d3esKOO7NQjuk3Xd9eSEV5ajP
-	3ezoI189BLgAAB7r12d/KhFyqNjXVRwONi5MbpfSGbFgvaNpdpQFizpo1UdXgbeUoyBp1u0cOrm
-	hJ9UPUGHemzDkBv8Xanmz+BgXUaH2irO7wpbqSweke9F3lI1xBHZUw5ZQ==
-X-Received: by 2002:a05:6830:3352:b0:818:a1fb:8fbf with SMTP id 46e09a7af769-84b7878b574mr435399a34.29.1792459393990;
-        Mon, 19 Oct 2026 18:23:13 -0700 (PDT)
-Received: from [192.168.1.106] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-849859184easm3988307a34.23.2026.10.19.18.23.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 18:23:13 -0700 (PDT)
-Message-ID: <3ede4588-ffac-42ec-8058-b37c241b6830@kernel.dk>
-Date: Mon, 19 Oct 2026 19:23:12 -0600
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=RGzo/fS1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1792459686; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=4S3cXrB/vXEKNb24NBt0+619h+5BULgdtniLLJ8T2X0=;
+ b=RGzo/fS1EeFTf7od0ELYU58Xnw6V5qIST6VydJBZ/bRbeTnyUhKmxtUoIncjGU9eXJhouh
+ 415fY4kr0VsriT97ao08V4PaHFRwA6X1DwJ/cmO8Z5nY/QE6EFelSkpEgHPDFlq3sUIUrc
+ fOBwXjH7UZhNhkcX0tj9w628VemBzlPrd/qLzWdhD3QM/aedAO359JFmxSFPYBbCudqk3d
+ CWtbiuw9GONdW1Ov+FKtvLTnttajNo9pTOZKizHxzUJiaqyogRmNHdzLPUmuKF8757O3bF
+ nU1FLlfA/QPfkdsspAFKSbJL89VBPCda6fqvazUs8ZbGGUE3wHV/pGXB2VfWng==
+Date: Tue, 20 Oct 2026 09:28:02 +0800
+Subject: Re: [PATCH v2 1/2] x86/fpu: Fix memory leak with dynamic fpstate and exec()
+In-Reply-To: <d28dc497-a74b-4c52-bb6c-8b9010f9ee2d@intel.com>
+X-Lms-Return-Path: <lba+16ad6c3a4+ee62d3+vger.kernel.org+weiguixiong@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Message-Id: <451788d5e97cba38274e663d2b7952c593e959be.c973812f.b02a.403f.801f.b484a31094d0@bytedance.com>
+To: "Chang S. Bae" <chang.seok.bae@intel.com>
+Cc: <x86@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>, 
+	"Ingo Molnar" <mingo@redhat.com>, "Borislav Petkov" <bp@alien8.de>, 
+	"Dave Hansen" <dave.hansen@linux.intel.com>, 
+	"H . Peter Anvin" <hpa@zytor.com>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>, "Guixiong Wei" <weiguixiong@bytedance.com>
+From: "Guixiong Wei" <weiguixiong@bytedance.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,74 +64,144 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] loop, nbd: drop partitions left behind by the
- GD_NEED_PART_SCAN removal
-To: Cyril Brulebois <kibi@debian.org>, daan@amutable.com
-Cc: Christian Brauner <brauner@kernel.org>, Josef Bacik
- <josef@toxicpanda.com>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, nbd@other.debian.org,
- Christoph Hellwig <hch@infradead.org>, Bart Van Assche <bvanassche@acm.org>,
- Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>, stable@vger.kernel.org
-References: <20260824-b4-loop-nbd-stale-partitions-v2-0-9815a577cebd@amutable.com>
- <20261019233109.55q3cd266dfmkpa2@mraw.org>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <20261019233109.55q3cd266dfmkpa2@mraw.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <cover.1791428412.git.weiguixiong@bytedance.com> <b9277cad5e1098d3e60d5c0f025c58061df10af0.1791428412.git.weiguixiong@bytedance.com>
+	<d28dc497-a74b-4c52-bb6c-8b9010f9ee2d@intel.com>
+Content-Transfer-Encoding: quoted-printable
 
-On 10/19/26 5:31 PM, Cyril Brulebois wrote:
-> Hi,
-> 
-> Daan De Meyer via B4 Relay <devnull+daan.amutable.com@kernel.org> (2026-08-24):
->> Commit 267ec4d7223a ("loop: fix partition scan race between udev and
->> loop_reread_partitions()") stopped disk_force_media_change() from setting
->> GD_NEED_PART_SCAN. The caller audit in that commit only considered the bit
->> as a request to rescan partitions, but it did more than that:
->> bdev_disk_changed() drops every entry in disk->part_tbl before it consults
->> disk_has_partscan(), and only the re-adding half is gated on partition
->> scanning being enabled. The lazy scan on the next open was therefore also
->> the only thing removing partitions from a device that has partitions but
->> no partition scanning.
->>
->> Loop devices without LO_FLAGS_PARTSCAN are exactly such devices, and they
->> are not unusual. bdev_add_partition() only rejects GENHD_FL_NO_PART disks,
->> so BLKPG_ADD_PARTITION works while GD_SUPPRESS_PART_SCAN is set, and
->> parted, libfdisk and systemd all fall back to BLKPG when BLKRRPART fails
->> with -EINVAL, which is what a loop device without LO_FLAGS_PARTSCAN
->> returns.
->>
->> Commit c4f4c0fc551c ("loop: remove manually added partitions on detach")
->> fixed the detach path after this was reported as loop devices picking up
->> partition devices from a previously built image:
->>
->>   https://bugs.debian.org/1141434
->>
->> These two patches fix the two remaining places that relied on the same
->> lazy cleanup, LOOP_CHANGE_FD and NBD_CLEAR_SOCK.
->>
->> Regression tests for both paths have been submitted to blktests:
->>
->>   https://github.com/linux-blktests/blktests/pull/259
->>   https://github.com/linux-blktests/blktests/pull/260
->>
->> Signed-off-by: Daan De Meyer <daan@amutable.com>
->> ---
->> Changes in v2:
->> - Rewrap the comments added by both patches so they fit in 80 columns
->>   (Christoph Hellwig).
->> - No functional change, so the review and test tags from v1 were carried
->>   over.
->> - Link to v1: https://patch.msgid.link/20260806-b4-loop-nbd-stale-partitions-v1-0-67bb75a8d7be@amutable.com
-> 
-> It would be nice if those fixes could get picked up eventually. They
-> received a few Reviewed-by and Tested-by already, and that v2 is only
-> about line wrapping anyway.
 
-They need a respin.
+> From: "Chang S. Bae"<chang.seok.bae@intel.com>
+> Date:=C2=A0 Thu, Oct 15, 2026, 08:19
+> Subject:=C2=A0 Re: [PATCH v2 1/2] x86/fpu: Fix memory leak with dynamic f=
+pstate and exec()
+> To: "Guixiong Wei"<weiguixiong@bytedance.com>, <x86@kernel.org>
+> Cc: "Thomas Gleixner"<tglx@kernel.org>, "Ingo Molnar"<mingo@redhat.com>, =
+"Borislav Petkov"<bp@alien8.de>, "Dave Hansen"<dave.hansen@linux.intel.com>=
+, "H . Peter Anvin"<hpa@zytor.com>, <linux-kernel@vger.kernel.org>, <stable=
+@vger.kernel.org>
+> On 10/7/2026 10:59 PM, Guixiong Wei wrote:
+> > The fpstate embedded in struct fpu only accommodates the default
+> > xfeatures. After a task obtains permission for an XFD-controlled
+> > xfeature, its first use raises #NM. The handler calls
+> > __xfd_enable_feature(), which uses fpstate_realloc() to install a large=
+r
+> > fpstate allocated with vzalloc().
+> >=C2=A0
+> > On exec(), fpu_flush_thread() calls fpstate_reset(), which overwrites
+> > fpu->fpstate with the embedded fpstate. This leaks the dynamic
+> > allocation because arch_release_task_struct() cannot free it when the
+> > task exits.
+>=C2=A0
+> Hmm, I'd start with Dave's wording here, or tweak it slightly.
+Will do. v3 will picks up Dave's phrasing for the opening paragraphs
+describing how the dynamic fpstate is allocated and leaked.
 
--- 
-Jens Axboe
+>=C2=A0
+> > Make fpstate_reset() own the complete lifetime transition. Preserve the
+> > old pointer, install and initialize the embedded fpstate, and then free
+> > the old allocation. This detaches the allocation from fpu->fpstate
+> > before freeing it and makes future reset callers release dynamic state
+> > automatically.
+>=C2=A0
+> I'm not sure what the intended argument is here. Does this mean the old=
+=C2=A0
+> allocation cannot or should not be freed at the beginning of=C2=A0
+> fpstate_reset()? If so, please explain functional issues. Otherwise, I'd=
+=C2=A0
+> simply follow Dave earlier suggestion.
+Agreed, no functional reason. Will free at the beginning of
+fpstate_reset() in v3.
 
+>=C2=A0
+> > On an AMX-capable KVM guest, 1000 iterations left 1000 dynamic fpstate
+> > allocations on an unfixed kernel and none with this change.
+>=C2=A0
+> Since the selftest can reproduce the issue without KVM, I'm not sure why
+> the KVM guest is relevant here. In any case, the entire sentence could=C2=
+=A0
+> be dropped if the problem description is clear enough.
+>=C2=A0
+Will do. Dropped in v3;=C2=A0
+
+> > =C2=A0=C2=A0
+> > =C2=A0 void fpstate_reset(struct fpu *fpu)
+> > =C2=A0 {
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0struct fpstate *oldfpstate =3D fpu->fpstat=
+e;
+> > +
+>=C2=A0
+> Hmm, again, why not just call fpstate_free(fpu->fpstate) here?
+>=C2=A0
+> I see Dave also noted this comment along the lines:
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Free dynamic fpstate (if any) before reset=
+ting pointer: */
+>=C2=A0
+Will do.
+
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Set the fpstate pointer to the de=
+fault fpstate */
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 fpu->fpstate =3D &fpu->__fpstate;
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 __fpstate_reset(fpu->fpstate);
+> > @@ -610,6 +612,8 @@ void fpstate_reset(struct fpu *fpu)
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* guest FPUs, which allows for=
+ common guest and userspace ABI.
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*/
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 fpu->guest_perm.__user_state_size =
+=3D fpu_user_cfg.default_size;
+> > +
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0fpstate_free(oldfpstate);
+> > =C2=A0 }
+>=C2=A0
+>=C2=A0
+> > @@ -670,6 +674,7 @@ int fpu_clone(struct task_struct *dst, u64 clone_fl=
+ags, bool minimal,
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* The new task's FPU state cannot b=
+e valid in the hardware. */
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 dst_fpu->last_cpu =3D -1;
+> > =C2=A0=C2=A0
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0dst_fpu->fpstate =3D NULL;
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 fpstate_reset(dst_fpu);
+>=C2=A0
+> Dave also suggested adding a comment here:
+>=C2=A0
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Break the link to the other FPU's fp=
+state: =C2=A0*/
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dst_fpu->fpstate =3D NULL;
+>=C2=A0
+Will do.
+
+> > =C2=A0=C2=A0
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!cpu_feature_enabled(X86_FEATURE=
+_FPU))
+> > diff --git a/arch/x86/kernel/fpu/xstate.c b/arch/x86/kernel/fpu/xstate.=
+c
+> > index a7b6524a9dea2..ea3736a74fd43 100644
+> > --- a/arch/x86/kernel/fpu/xstate.c
+> > +++ b/arch/x86/kernel/fpu/xstate.c
+> > @@ -1556,10 +1556,10 @@ static int __init xfd_update_static_branch(void=
+)
+> > =C2=A0 }
+> > =C2=A0 arch_initcall(xfd_update_static_branch)
+> > =C2=A0=C2=A0
+> > -void fpstate_free(struct fpu *fpu)
+> > +void fpstate_free(struct fpstate *fpstate)
+> > =C2=A0 {
+> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0if (fpu->fpstate && fpu->fpstate !=3D &fpu=
+->__fpstate)
+> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0vfree(fpu->fps=
+tate);
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (fpstate && fpstate->is_valloc)
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0vfree(fpstate)=
+;
+> > =C2=A0 }
+>=C2=A0
+> Shouldn't is_valloc be cleared here, or when fpstate_reset() replaces=C2=
+=A0
+> fpu->fpstate with the embedded fpstate?
+>=C2=A0
+No need: is_valloc lives inside the vmalloc'ed buffer itself, so
+vfree() releases the flag together with the storage.
+
+> Thanks,
+> Chang
+>=C2=A0
