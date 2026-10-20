@@ -1,56 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792492903;
-	b=MYCryRbSFxvdVcruPtPpuMRmu+AksbR1gh0SGDbmYwUFru8LEykt/dg7iyElo1+KEdXO
-	 u4hDnxbgjhU7vzconweUp0rD5OJl4Bsnw/F+yTbxA3YHnjmKp/cQ3i0TmuqtAjNWv8Pcx
-	 meAhviQAOVIMrgIMwPe+hDg5/+oZjzbOb9bDkHSXhw0Dc3NtbOzbyRMtJHXV+4O+C4iI1
-	 4CDT/ZcYarMs4Vmw9A1UjgkXjyexL6L0Dk6K/gNiGzQ7MBPPJzOIiFaijFtZp7KyIirJj
-	 1ImLX2sdWIMDI5RazSLpz2VdmkvZCStKUj2+yYlinv/k8lflDHDsPEZmE8gzAktpvQA==
+	t=1792493094;
+	b=CW4Eojn/30Lku/mV2BvMMjc11qPBeHvdHCOMGwb8my9pj6gYDelzMt4oZSvMQ0JZv3Y/
+	 jBJAY0sFd1n1wJ8Hn6tdu8UKV3CFOhW4FWhPG1YngxdwAADWbnXx4qhROfLihGVu5MyId
+	 cX3iK4cZjNfDD9GJOr7DDByfVrpfrf/HEF1kPoYxfhWDr9q9UQv5ewUdfF48o89UVZEtL
+	 6CtW36E8zTgly0k4DBVF5IPXbjW73uqs9xcF+bLUpieA8+NpoBGdBKBpruGqJTMquzciw
+	 XW7aClFUDVrASl7xtr7ErGfW2o05RPtt8kIAjlMDTw2FzkoyFucSUIoDn3CHC71pHiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792492903;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=xxbuQ7YnwKJRiO0qCRVlDpGTsW4CQx/KBY872s2d53w=;
-	b=xdhKx22MjRqqmKXVefUNgBkkcjiZYu+aMIpnVngTSmVYecIEJzk3YJTpHJ7RmQRrInGT
-	 dKoorDOIkzBaj52kAb6Il4Jb5VWruOjmt35v6XxuJMfAVDTJQe62y3RFYc+87vPXGmzse
-	 JJT0CUB3whpKXPIMORuHfrTfEzqZdPSs37O3ahUdjQUxzpgll1itqnXTdLq96l+6HTxkt
-	 oPjyq0doYNGyzvvIO//4sQB7ZkbdDo3s3+djzdORRp4gFfV742AmsbpAz7/12nEuw7vIQ
-	 FnkKO3PdB8d2QAzmO/QZRt4PoKUq66gc7cf9IYOldZLWSbtjVbmgk1Qw2zM940v3PNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792493094;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Last-TLS-Session-Version;
+	bh=bdJJB61QYkq9ho1geehldCQFWiuq7JKEc41jyjNyIL4=;
+	b=E8ZlQ4LbheZAKevfP8oCg2Dkq7IzAVQK9Ggw9rPD+NNhLJWWxKHVAAH47ThkHcuLD5+y
+	 YaLbjJLwexlu1hrpxe7nybtbc+vTXe5yMi5QpGEUOOCDUrRoPYaemrcAbVIljZ9+piIH3
+	 vkX5U1/zlBsit3kAbrfthHvsYMbCeM8R3SiGfIj2PwDe7QkJVsnYafLAuGYGh89OdwWhA
+	 jA+ZyF4oYQSBzGg/GH3rcehmHf4WND7+w2bp1x6oNPTvIT14gP8UpLghxt6mdj5JkvkP5
+	 fUdLbiyeJHf3lBVABhGuSrsl5Wf3TNL6JZndacXKZcGsgwf18ke2Pv4RUPGu3eDX9/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=free.fr;
-	spf=pass smtp.mailfrom=free.fr;
-	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b="FVvQ/Ubp";
-	arc=none smtp.remote-ip=212.27.42.6
-Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b="DCOO5/22";
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB778606A31C;
-	Tue, 20 Oct 2026 10:41:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB778606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 038EB606A319;
+	Tue, 20 Oct 2026 10:44:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 038EB606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=FVvQ/Ubp
-Received: from [127.0.1.1] (unknown [82.96.140.143])
-	(Authenticated sender: stephane.grosjean@free.fr)
-	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 7457E780509;
-	Tue, 20 Oct 2026 12:41:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1792492901;
-	bh=tE3vJC0W8o3NwDoEDj1/qPH9HQAmDSOArZ3MVdoGzgA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=FVvQ/UbpHcn8GSlZwPG6275AiMYLkJ4VLJ/JypQhqSg5UCHBQZnWX9gkqA7X9AB3A
-	 eo8etTttCnFmcp+PmM/E6XgSEh/DMTyUVp1Rz9L6VNCzCa0sJwY8TGRgPDC2ZXyBkt
-	 fTQoKaHFXjYeTPPsQu+XKqHHequYTZW4KtgUsreMorOC122haMApml1up+1aUQHmrO
-	 7P5FZSOJuVYAbq4SS9F0c3Pt8AQvLGPAZV8WlYJfgsutrJK4jZ2tk/OUdK5HAkVZ/Q
-	 jITyr07MRypwn1WGq/jPnw+6s9skNEnw8Z4fbrDuda42zQuFgLlJf1pY22PvrrzEno
-	 JHe0wqQriQdQw==
-From: =?utf-8?q?St=C3=A9phane_Grosjean?= <stephane.grosjean@free.fr>
-Date: Tue, 20 Oct 2026 12:40:22 +0200
-Subject: [PATCH v4 07/10] can: peak_usb: fix RX cursor desync for
- self-received RTR frames with SRR
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=DCOO5/22
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D0E3710A191;
+	Tue, 20 Oct 2026 12:44:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1792493087;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=bdJJB61QYkq9ho1geehldCQFWiuq7JKEc41jyjNyIL4=;
+	b=DCOO5/22Gl9KfNSqwY48J5lKB7WtjuIhPFeLxra+LcYvjDAYexZIxbnOlRSlyOKK6N1SET
+	QYkJHOB9Ln6w/AW7reV37FO1ikbagwR72dy7EQXw47OAB2xifZt1o2BAfKG5W1V92SDDgY
+	oi8vYPgkj5scj5SEGFszAAzMV0Mcyodeu/pdlF4vJFf9FdRK/WUP9OszcrOc9WH0smUIz7
+	OpBBXTO1MHt/b+iIZOC1FW3RFngwaxN8BK8ugR4Zftpg6AC8dWV4dEz9lPlvvSe3M0XLfG
+	Uh1qbKxGCY7DpIzhQDsJgQbc9Z8Us+wsKvF7BU/tYPaqvAH1fSzyd9iDcFbgmg==
+Date: Tue, 20 Oct 2026 12:44:42 +0200
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 000/858] 6.12.114-rc2 review
+Message-ID: <atdGGiG2IGBo036a@duo.ucw.cz>
+References: <20261020075246.861837975@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,76 +67,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261020-canfd_check_channel_idx-v4-7-bfbde81f8bab@peak-system.fr>
-References: <20261020-canfd_check_channel_idx-v4-0-bfbde81f8bab@peak-system.fr>
-In-Reply-To: <20261020-canfd_check_channel_idx-v4-0-bfbde81f8bab@peak-system.fr>
-To: Marc Kleine-Budde <mkl@pengutronix.de>, 
- Vincent Mailhol <mailhol@kernel.org>, Dan Carpenter <error27@gmail.com>, 
- Wolfgang Grandegger <wg@grandegger.com>
-Cc: =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
- linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="1zhbme+XSnVkHJxz"
+Content-Disposition: inline
+In-Reply-To: <20261020075246.861837975@linuxfoundation.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Stéphane Grosjean <s.grosjean@peak-system.fr>
 
-pcan_usb_encode_msg() appends a one-byte "writer id" whenever
-PCAN_USB_TX_SRR is set in can_id_flags, for both RTR and non-RTR
-frames: the data block and the SRR writer id byte are two independent,
-unconditional steps.
+--1zhbme+XSnVkHJxz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-pcan_usb_decode_data() only consumed that extra byte in the non-RTR
-branch, inside the same conditional block that reads the CAN data
-payload. A self-received RTR frame with the SRR bit set (e.g. a
-loopback echo with CAN_CTRLMODE_LOOPBACK) therefore left the RX cursor
-one byte short, causing the private id byte to be misparsed as the
-next record's status/len byte and the rest of the URB to be misparsed
-or rejected.
+Hi!
 
-Move the private id byte skip out of the RTR/non-RTR branch so it is
-applied whenever SRR is set, matching the encoder's layout.
+> This is the start of the stable review cycle for the 6.12.114 release.
+> There are 858 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Fixes: 3a7939495ce8 ("can: peak_usb: PCAN-USB: add support of loopback and one-shot mode")
-Cc: stable@vger.kernel.org
-Signed-off-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
----
- drivers/net/can/usb/peak_usb/pcan_usb.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
+CIP testing did not find any problems here:
 
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
-index 93da0fd4f10e..4c8cfed31634 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
-@@ -697,16 +697,19 @@ static int pcan_usb_decode_data(struct pcan_usb_msg_context *mc, u8 status_len)
- 		memcpy(cf->data, mc->ptr, cf->len);
- 		mc->ptr += rec_len;
- 
--		/* Ignore next byte (client private id) if SRR bit is set */
--		if (can_id_flags & PCAN_USB_TX_SRR) {
--			if ((mc->ptr + 1) > mc->end)
--				goto decode_failed;
--			mc->ptr++;
--		}
--
- 		/* update statistics */
- 		mc->netdev->stats.rx_bytes += cf->len;
- 	}
-+
-+	/* Ignore next byte (client private id) if SRR bit is set.
-+	 * Note: this test must be done even when the frame is an RTR frame.
-+	 */
-+	if (can_id_flags & PCAN_USB_TX_SRR) {
-+		if ((mc->ptr + 1) > mc->end)
-+			goto decode_failed;
-+		mc->ptr++;
-+	}
-+
- 	mc->netdev->stats.rx_packets++;
- 
- 	/* convert timestamp into kernel time */
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-6.12.y
 
--- 
-2.53.0
+Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
 
+Best regards,
+                                                                Pavel
+
+--1zhbme+XSnVkHJxz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCatdGGgAKCRAw5/Bqldv6
+8ivNAKCrjCkUaH21SbegCMc2Yz9wqx3J3QCgi3A5EZqXQUJOhTTUJxQtjqEv0mM=
+=S7FM
+-----END PGP SIGNATURE-----
+
+--1zhbme+XSnVkHJxz--
