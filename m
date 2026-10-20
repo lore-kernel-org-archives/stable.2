@@ -1,108 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792493286;
-	b=o+ceEYbTGjOnl+h7A/TnYYbkeAhIGivrr/2q3hsxt03ZGyDwotAKx2Kz06MK2psuViFO
-	 p08+BnMcNP5gMV9xqSxcFkazxR0iWkADrMVpfCJ75MIOhahLCkUjo9fV1TUpv/Yuc2Le8
-	 Gu98kHZ8x66e40VvsktttSblx7mr2HBTAcDNlqybL/DE8ohtCxyQKW9C82tUwP5hHsmUq
-	 lVGFbtjW2z41J3DooTy3pkRfNprRKdUxcB+LsmgnVeVb2pk0PxxEEYcVziw6l4Euwpupb
-	 CJGy9zN3AKHeKq7HSkwzvNDl7kXMEVU1qU7IQQdcEpfNs7s2v0S1VhAe6LuKEacv/OA==
+	t=1792493438;
+	b=l0Rwk4ZaFx5ZFcBFtlgyQ/UutqYRA60yXmInlaYUpgBcU+5MiCsyuTbgYdgdlZ0fwBLc
+	 f0xnVAKC8XxQGV8Rem7T8oBMjf0FT7FQguJ8BnOEuYl5qK0je9IdqfGqunrUV4s8cZ4Sv
+	 BjC9TF5/hHD8zAUVF0eQxUcYmRReU6J8AlJF3RrvcYIBWyHHFQjByexIpzc+Qsq4/06G/
+	 1mgy2ar8j/qGul7u21iK4tbYA47rXpXFn1eqvTb2I3g7P6yE+og2KQRRnYA/RgWW9lC3J
+	 Fb35YXsZNop/6l4L364qzfFLtfZM1wdmgCEZ7rzHiJRg9wOMWMXcEmP7/RFxNsLsziA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792493286;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792493438;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6I3hZn5IrrtMWEjXHuQurKyJm+2cM5wqnfTX9gelMt0=;
-	b=alfvoLqANwC2ef37aeshHW8AHEXJk/m/bRWLJTBvQ+zhyIUJN1C75Fx/yYYMs1PuKFTe
-	 /0UlRmx/7MRAd8e9VIjYtBq90jCsXkG2FCpNg3PhMDN27O6oqzjUzSv/A+LRC6I1EeGFK
-	 fMOPNpzFkmqu5SyKkLWfvpzzABFEuoCWOqpJ8zgCtOZ/LgYCKmdoYfbDXQ8yP6Q4i/FL1
-	 1uumZSmfdbJ7rOZHUB0MoWhYhrzT/+uVOk86Mpi/Jg2OZYrNPcdHA7ZV2dAFBLB+A0wk2
-	 I1XuEo+A+nsZs5cFJzlortXKWLCGS40NdktBIjWBKz6CbcC+VmB4PW1G/RRQnWUTH2Q==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=MhMu5FEtXkntHOOeoX3WjHhxNQ8l3+u41N1zcltWVZs=;
+	b=UQg17SUr4zcpbxez6KNjYVYpGULesyO4CE5WCqPMk2Jtklg4gfMmheA3RFhXRrJymThR
+	 CqqGVBc/ipw0Xi3LPgSMFijBU2rjZVY6FK5g3bKpp/1HTioBuD4ergF7wr21RI5K2ElaI
+	 vzp75cnyOp8USe3W/kbfxtUTlHGfSjB1A160ZY1LAOlAwMm73Bf1LmYrIpOVl6ibE9Im3
+	 XFGGfiFHHFBEUMmeFYPzrNwXCrqJouZZXdN8BpaxaStjqJSScVIuL/Sj1kFKea/xeUA9/
+	 2jNk1eCAFDFmWuyvwRJu6EG8wb/DrHSXBevIIIkoGY/j8XwM5b1TBjhme+35DHsMhdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fiGsEbWV;
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	dmarc=pass header.from=bobrowski.net;
+	spf=pass smtp.mailfrom=bobrowski.net;
+	dkim=pass header.d=bobrowski.net header.i=@bobrowski.net header.a=rsa-sha256 header.s=google header.b=n+VfWZJI;
+	arc=none smtp.remote-ip=209.85.216.51
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3163860A260F
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 10:48:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3163860A260F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A726D60A262E
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 10:50:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A726D60A262E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bobrowski.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bobrowski.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fiGsEbWV
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-35c76e9614aso5750657eec.0
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 03:48:05 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=bobrowski.net header.i=@bobrowski.net header.a=rsa-sha256 header.s=google header.b=n+VfWZJI
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ab4178ee33so2273274a91.3
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 03:50:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792493285; x=1793098085; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6I3hZn5IrrtMWEjXHuQurKyJm+2cM5wqnfTX9gelMt0=;
-        b=fiGsEbWV8Q8RM6j7ZxuVSvjNOICcG6msaUt4ksLEKv+iwv6d8mxyjI+a+1OU0I2GKw
-         F6luj7kc9MNOSHVKmv+62GQZAdeQzjs0durajglBeRLj++pSzmkAq961oZr4j8SXZELj
-         JXdXl+6PIKVfjB48KQKvWRtyW8qHoTRIiGHSLRi5EVhek3fVAbfA/y6+onr+iY2O/bHx
-         KMmmpB8oRIDXzcsu3MVc8a1X9tfsNan5xDoWsVMKchyzXgoTALcRdTArn7Q0oDFxM1fp
-         glTTGMeSvFQkiHXwWmnRf74xc/RdAusZLhgtR0DICZDjNauabVu08HwZiM4jWCxGQ19J
-         SS/g==
+        d=bobrowski.net; s=google; t=1792493437; x=1793098237; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MhMu5FEtXkntHOOeoX3WjHhxNQ8l3+u41N1zcltWVZs=;
+        b=n+VfWZJIKH/eHZfmEe72UdQhnBP9Je9qNV4IRjnamQjgVdBQhPN9njTJVunf0jOrP6
+         oYbRpWsnOoeTevf0f/rjBxqKCdsWFINxEEZI79dSqk3R4Yyudue2Ks6o+EbPdSnADKWN
+         vDd9NZskb8KiLYgFUu10H3DsdkBofXbMl8JgNtb0j4e0ms70854zd8g0gCy+5zqLOb0T
+         3o4yrg0G4k+pJSzQiZ8Buupx7mDS8oRYfi1TEBlMDZ26NshhM4qoX6RaO0MUIlmYZtcI
+         uLZ8P/FtRFJOJ3EqY+p2tI1qJnPZgP5tXs2fu1vLAYm4iD3Mv69nNPVojREEGl2EgQEa
+         kkoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792493285; x=1793098085;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6I3hZn5IrrtMWEjXHuQurKyJm+2cM5wqnfTX9gelMt0=;
-        b=AtqMD80/GckneXL6vDRlEA9Pxf8buyKj0fEvAC0BH6raR/qoDsfbP4h7BgtcYF/Ff7
-         HZT8ZcjDgzzqzzCILbCjexO0OZlOfpaa1QsGL07Hr+nqQ8xqBw8JCZmU1DAPaOOpIn5u
-         MtVUGtG+a7D9jwdHQqqOkJu2w/4gDdjvPj+f75ACp9jIIbdAI/onUCdGA3gqpXzTVN0x
-         LERz0sKK3RnYd9QD4LQrGsqhwDtAIoo+6N7L+hbGFTXJ1pOXE5lhkBv4+Oe87yd0V0HL
-         onR0Yp20vA+WPORg5UfofZC7cSj3tb1ZhL3XbfqGJK8W1W0GnWTLKj0ugiavNm9ObVqo
-         7A6w==
-X-Forwarded-Encrypted: i=1; AKwUvBzIFasM10AqKbFjPDk9rHMdJv+Em7Vytm3V+Wtc6ln6WBmD9gaCzJPRUiLqBdZCMeMh18QQ7B4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIpiVNZV0UlS5jcwZkiDB9AUyYdZuy4z5aCmP+uoIZ6NKno0pL4
-	ob2AKhj54jk8umLE3TlWlYgZJRnUGSTYHuFpEPOr2jIFenQcbvLqakYH
-X-Gm-Gg: AYBFou0VdSTepNbRUaYBV2pCDqDlvoLGFJMf3PiMItpuCGSFPbwShsAo1iSHeNaoTfX
-	UkDgmBX502QxmfGQNIrCFz5PGvodXynvI3/t6gtrapb2ZqsXdIA0sXqC5wcMu6bVzYJ3f8/d7n2
-	hXSiw0O0M6R0l/3WINo4TZIhhhmy3Ks0zyvyAYnZnHiBhvJt1fa4okpOkeWnM4jh0dkJ1OCMpdn
-	CE+5PQ8C7HfbNBG7ELYRjjbnN+MwWpOkTJOtMG87xTqcMDChqgWAJL8Xnbuh7JjhIwJ/rIoHKsX
-	k7FbO+cb/an+8ci7chrButvXzn42r0WCRo87DY2LyfuoUlYCGyQDUDfe12WzYPhmgVA0Brf5JoV
-	CDQO4rRFOiq8O/winYn2ijoBUyd2phb8WahVe0Hqj5escqDpy19nx0q4kivgZrvbRYTt2LbZ/wq
-	4lbxxHkKwAwjUE22Wl3niIprxBnsXljDHvMIffIUuhHWaSFBHRyiVK5fm39QGrOQEIH4S5QC3pS
-	9pwGzpP2JkrBcQnmoMOyZqbrWOWlRPfTFhSzBuySkotVzIDhw+gCAc+fIUhLSg8h5d/BAI8qhh5
-	7OPYMeU=
-X-Received: by 2002:a05:7301:4305:b0:35f:227b:f8bc with SMTP id 5a478bee46e88-361a1465355mr13074342eec.11.1792493285129;
-        Tue, 20 Oct 2026 03:48:05 -0700 (PDT)
-Received: from MaquinaLab.. ([179.179.238.247])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36081bafa7asm39596320eec.14.2026.10.20.03.48.00
+        d=1e100.net; s=20260707; t=1792493437; x=1793098237;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MhMu5FEtXkntHOOeoX3WjHhxNQ8l3+u41N1zcltWVZs=;
+        b=xblR48RQmT9Qnye2INXo0qVggm6qeTFXLmrlkTs0cCCvEz90yW1k1DL9zUVkwOQCRk
+         LKVPFKsIT0fLhCe1QzxTH2ArcVLjGxn+XczcfWhGWaLh9CDcQKGjj7h06yRfwhJEgcGd
+         PLT53P9sUyauAqLbnGB1Azcecu3C+B+Vu74g0Sfj/VS0R+/xaRMPSCInoeLbTG2rZV0D
+         kQCL+SQhXHpB3IckcQzeiqqnJlrHjUsilqrTeycj/vhcbV/NCg0equbzN83z5H2EApYd
+         Yz1RLNG1P6xw1gAWComhUoNKc+ogoGU+oG0DB/ESwwSBwXgNj5SUsnXq1KX14ucMdMu1
+         /2yQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx5NxlfCpHhuiBkcaz9rUeRAg5wbqyqeU+D0GObwd+Vc66VAVxyyVKkeedARTtBJK7Z0Vc4r6g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLXIFcet/c2o9zK+w9zdyMgVtH1u9FZL0sEkvUh2bOjiHTc0g7d
+	2HD9S9ap/bC9LTR20xm1c+efj+johDdJFi3uphkFT4UCwGbx/gDVxa0KfpxrsQRDkUKj
+X-Gm-Gg: AYBFou0X334/sIk6vZavdCLIViRqUMXfICH88fvvpE21DArt626bhPflF0QQNcIcFDT
+	+vC4FaAZ417AXC/bgpe0HRmxzNEAQSbg5ZN2eGcqkLq4FQNwIpl79L/qXI5FAKjVt35L/Q9LVS3
+	TrYVcSjRgJQ5h8yBTxFuIpDbS+v2XAXJ+mLcIWD3DvI6huN7SrFNvGfTZHcmXgvtWwXNfBm1ame
+	cl5u8NdFY6mfeW2v3mx8m9nPrbhuvGNc8z4jQY/wQLZnz9RplY8zq9u4+qsW7GxqV5XG7Mk/fru
+	6pWpfoyh4CU1/5qRDrF6+HZaF8O26BqIWIH6z3D85eRefhK2drxwuEMiICxiQTQM0orcHPuxD9N
+	MeiisPiR3VrSeOG0rc9LHFGbpOBGrMQ5gTpIphZ57jHYfict3XrsxIp3CC1SJ8Q+coZgTjC5j/b
+	7N7AiPW6kfiRbur6ZLvASY+aQbFAACooQ+ImeYGSx8znZsLq9ZCPt16zLZDEX5BzKsNHxzgNtjy
+	havokTnGUrmSy4BzsaPaCfvtlLZlFPZX6ViwT/TYrawpBDYitn3GWS5
+X-Received: by 2002:a17:90b:5109:b0:3a7:ef4:164b with SMTP id 98e67ed59e1d1-3acee2958cdmr7889908a91.2.1792493437009;
+        Tue, 20 Oct 2026 03:50:37 -0700 (PDT)
+Received: from workstation.. (163-53-146-70.ip4.superloop.au. [163.53.146.70])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad60f36a5asm3487902a91.9.2026.10.20.03.50.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 03:48:04 -0700 (PDT)
-From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-serial@vger.kernel.org,
-	gregkh@linuxfoundation.org,
-	jirislaby@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>,
+        Tue, 20 Oct 2026 03:50:36 -0700 (PDT)
+From: Matt Bobrowski <matt@bobrowski.net>
+To: bpf@vger.kernel.org
+Cc: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	Matt Bobrowski <matt@bobrowski.net>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook when DLF is present
-Date: Tue, 20 Oct 2026 07:47:53 -0300
-Message-ID: <20261020104753.28703-1-vinicius.eduardo.pedrosa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <atcrpTI_R4kRM8pb@ashevche-desk.local>
-References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <atcrpTI_R4kRM8pb@ashevche-desk.local>
+Subject: [PATCH bpf-next 1/2] bpf: fix crash in bpf_path_d_path() for exiting tasks
+Date: Tue, 20 Oct 2026 21:50:13 +1100
+Message-ID: <20261020105014.97985-2-matt@bobrowski.net>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261020105014.97985-1-matt@bobrowski.net>
+References: <20261020105014.97985-1-matt@bobrowski.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,42 +111,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Andy,
+bpf_path_d_path() passes its path to d_path(), which resolves it
+against current->fs through get_fs_root_rcu() without checking that
+the calling task still has one. An exiting task does not. do_exit()
+calls exit_fs(), which clears tsk->fs, before exit_task_work(), and a
+file whose last reference the task drops in exit_files() has its final
+__fput() deferred to that task work.
 
-On Tue, 20 Oct 2026, Andy Shevchenko wrote:
+A BPF LSM program attached to security_file_release, which may pass
+file->f_path to bpf_path_d_path() as a trusted argument, dereferences a
+NULL fs whenever a task exits with a file still open:
 
-> > +		/* Keep a hook the driver has already installed */
-> > +		if (!p->set_divisor)
-> > +			p->set_divisor = dw8250_set_divisor;
->
-> On top of my previous reply, why is this hunk needed?
+  Call trace:
+   lock_acquire+0x8c/0x218
+   d_path+0x270/0x378
+   bpf_path_d_path+0x28/0x80
+   bpf_prog_9801cf2b982f05b2_file_release+0x1d0/0xc60
+   bpf_trampoline_6442515074+0x7c/0x100
+   bpf_lsm_file_release+0x8/0x20
+   security_file_release+0x58/0x90
+   __fput+0xcc/0x320
+   ____fput+0x1c/0x30
+   task_work_run+0x88/0x100
+   do_exit+0x210/0x3e8
+   do_group_exit+0x3c/0xa0
+   __arm64_sys_exit_group+0x20/0x30
 
-dw8250_probe() installs the BUSY-safe dw8250_set_divisor() before
-dw8250_setup_port() runs. Without the !p->set_divisor check, detecting
-DLF replaces it with the dwlib setter, which is the BUSY problem
-described in the commit message.
+With lockdep enabled the fault is taken in lock_acquire(), from the
+seqcount read in get_fs_root_rcu(); without it, on the read of
+fs->seq itself.
 
-> In the case of existing _set_divisor, do we want to keep the possible set
-> _get_divisor as well? Shouldn't we introduce a respective _get_divisor in
-> 8250_dw.c?
+Fix this by returning -EINVAL from bpf_path_d_path() when current->fs
+is NULL. Only the task itself clears its fs, in exit_fs(), so the check
+cannot race with that.
 
-8250_dw.c doesn't install a get_divisor, so there's no existing getter
-to preserve. The dwlib getter is still needed when DLF is present,
-because it computes the fractional part used by the preserved BUSY-safe
-setter.
+Fixes: d08e2045ebf0 ("bpf: introduce new VFS based BPF kfuncs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Matt Bobrowski <matt@bobrowski.net>
+---
+ fs/bpf_fs_kfuncs.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-> But now I see that we have same function name in two files. Can we rename
-> those in dwlib to, for example,
-> dw8250_get_divisor --> dw8250_get_dfl_divisor
-> dw8250_set_divisor --> dw8250_set_dfl_divisor
+diff --git a/fs/bpf_fs_kfuncs.c b/fs/bpf_fs_kfuncs.c
+index 08f0847c4970..6665a78218e1 100644
+--- a/fs/bpf_fs_kfuncs.c
++++ b/fs/bpf_fs_kfuncs.c
+@@ -87,6 +87,14 @@ __bpf_kfunc int bpf_path_d_path(const struct path *path, char *buf, size_t buf__
+ 	if (!buf__sz)
+ 		return -EINVAL;
+ 
++	/*
++	 * An exiting task releases its last files from exit_task_work(), after
++	 * exit_fs() has already dropped its ->fs, which d_path() uses to
++	 * resolve against.
++	 */
++	if (!current->fs)
++		return -EINVAL;
++
+ 	ret = d_path(path, buf, buf__sz);
+ 	if (IS_ERR(ret))
+ 		return PTR_ERR(ret);
+-- 
+2.47.3
 
-I'll also clean up the naming in v3: dw8250_update_dlf() with a frac
-parameter, static inline after dw8250_writel_ext(), and the dwlib-local
-helpers renamed to dw8250_get_dlf_divisor() and
-dw8250_set_dlf_divisor().
-
-Thanks,
-Vinicius
