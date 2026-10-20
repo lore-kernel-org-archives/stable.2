@@ -1,66 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792505634;
-	b=Rc6DGp1rKEf1ALktGzgu16Yv6FnQcIm8iYPW2FC2zhWbtzEA7b45B28pZpZTKy2OkcY7
-	 6MOiqqJ85AdkzNBssFmRWKDQfaswkztVEkfO/1Kkc/Yf2mbR52foEVBHqkWvxKdxy3lJA
-	 7XlgHbMsKb8fPA98QOTrLl6asfIEOmT09cyhLXorCb/XV6bcB8XUtYE/JDlbEphSY6gam
-	 b+gkqpGTn50gu38ppvZOWnm+S9arNRnfEYU7zg1CIXJ5iQgajdAX8tQvYGCFrk6JpaLrG
-	 g0Oq6Ciuut0Zf8V0PgS7nRsxH2d8JcBKGQWoaJRvGVYFuKA3TRczm08LQYa6ZKORAqA==
+	t=1792505966;
+	b=iH/shcQAMb/RiDmMnEWhPmZNuN2SfaRUu+HgMdYKMPsYJw+/0DR7/i0XOdxYrr67yiss
+	 5UHbX1TjU3yk1tWbP7QgO9xL1vb4oGkp4W6xrrvGz9snrLchO5J7+LiLlcacJ/xEAoc55
+	 tpV/mru4siMfuwZhhn5iCFsT4JouI+a6QHVEFFCkEv6D0qxgGbYCXmm+BXo1LfW8go7M/
+	 RngzZ005a+6XvPVEuF5VsiSuH5MIhmsQKvurChJalHhg8W/4qTSNxwNERk3vl283VReEw
+	 w5swUw5D3IKgJjqHiUoCBU4lix59Jce5KWTgbbvw9ByJtCYr2H7Yh0HZC9I+nQ6iLHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505634;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=0v3Ik65mA2myeZ8UQbSdAK5cmAWsfMkci64Pp6vYgMs=;
-	b=tLYey1yiYN7FCikcjz82rOMlxTL7z/CijIiEXotPSAq74j5FNrSQp7bDkcmf8awz67Uj
-	 7OqT1zhCpAUkAUcEJKM8LwZSDUbHHyyW31wIdd5gk5Xm7H4IBLn0K7em3U7BoV+TyX2G9
-	 TQ8V0OrCEqnJlDk/k7w/xD4xWtHxxyCFZq4W4iqZEFVQoPOxx6arN1C7vvdHrIx1zfDj0
-	 IHeghF3zfwq+kFON8Iu/4HZ7B0zY428DKkJ+bhnjwISuE3xkMgOZDcZZyTZzHMS798j4N
-	 5ivyxbMYW/EP4C31y/6lYhN0i3Td493Z+xVnxmjzw6S/53hkSl/0j5TrGsDmyiTUSkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505966;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Message-ID:
+	 In-Reply-To:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-Mailer:
+	 X-Authenticated-User;
+	bh=kqnEF+q2yzunlljkCgMnTGrBrqEf3TIoC9fVf9hGPjM=;
+	b=BA4NF1Pc5TTHiiDFluM2Onf0ky5C2b6B5BB51iP96xZycvtWzjNdBsTC+YzHtaaJFOYr
+	 ELdNuic0V6TPj4bUCIkwaNzgMr+znytAKptfhb/RTv/bkYUEPlqBEs6dRufA41YTcLeWk
+	 Ni577s75Qp+HDcbNRZwnO44DXn45pypMojokao/zTv05DrPjlNEXdBT57jubygXd3n4LC
+	 iQKFdX2KBHCgCVQNqnR3FyyfeS9RB6cYy5I4wcNGRZRHIzW+zWi9gY8drOE/n8qvf8QxH
+	 cp4SQrZzQMqbDO/Vda5+yiZitP2zIubR3lXfurCsffAGIGtuP11+dzwnvK/eEpWMQuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=nk8NITfE;
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	dmarc=pass header.from=free.fr;
+	spf=pass smtp.mailfrom=free.fr;
+	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=bp42wrWC;
+	arc=none smtp.remote-ip=212.27.42.3
+Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 002F9606AA05;
-	Tue, 20 Oct 2026 14:13:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 002F9606AA05
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFEED606A320;
+	Tue, 20 Oct 2026 14:19:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFEED606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=nk8NITfE
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4j8Dt86cHHz1XM4Tl;
-	Tue, 20 Oct 2026 14:13:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1792505630; x=1795097631; bh=0v3Ik65mA2myeZ8UQbSdAK5c
-	mAWsfMkci64Pp6vYgMs=; b=nk8NITfE8WWUIozey+Tnrek+jTviIvMCH3qZYNB4
-	rGf+ihwicZOHjxz8SMwDqTeu5Bk5+BzYbl5f1jYR64M+ZXv2NaECsz5V/7Ay9lrR
-	HzDvJvmso6Y1Bs6+sae1CBWPt1mCBkhKeqiuG4pbCMB5UKDNM7iAQHIgocAC4zo6
-	HtijzH7VJmzJgc8+i6wfljKv1cQsnad0EIEEX+rPmySP0sEdkWA0SZX2vUVJHGLx
-	R2dRiRVezDX+UkzMxPW7jUoOVrPmDrBa5JFA6s0gkqEFQM+mKmOAUl3UkwM7sjYz
-	aCVmr4YaukSvQyZa8uFS/bQJmQvfmg1ZRDOLW+BUMVIyVw==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id W0JCPRt0UIGD; Tue, 20 Oct 2026 14:13:50 +0000 (UTC)
-Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4j8Dt52nhCz1XM4Tn;
-	Tue, 20 Oct 2026 14:13:49 +0000 (UTC)
-Message-ID: <ff516ed8-d4b0-463d-952b-14cf110ec8da@acm.org>
-Date: Tue, 20 Oct 2026 07:13:46 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=bp42wrWC
+Received: from zimbra65-e11.priv.proxad.net (unknown [172.20.243.215])
+	by smtp3-g21.free.fr (Postfix) with ESMTP id E269214095D;
+	Tue, 20 Oct 2026 16:19:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1792505957;
+	bh=H1/mP/b1Njxs6cmNY/GEagmuoC+DP9CLfbABpipPGxw=;
+	h=Date:From:To:Cc:In-Reply-To:Subject:From;
+	b=bp42wrWCKRh0RX9w32gnS3nFbPhJO+wJGUHq/1c/YcpJ6dPC7jLsv3Raxzpz2/phd
+	 GV39WFPY+fZQtCHCyZHWhkFVKoW9nGEePVF7pDzWWhnrNWvr4ev/l7WNdOFGEcMgUM
+	 qASKW914X2F0tJrgLwqBfQ55hwL3E3IqSmnh2b7GRPHANCV4DRcnnMA8vtS4vouFKw
+	 CYskQgzuKbZxUdLg07N53za/W7EaKmfcfs5BWMoqdY2HmhxY28KHwthpED76guW+oJ
+	 Qc0sOuQzb/ZNcuRcUhy+hPa1E2ghHbthysle6Q5k/0NXWQKT8ZnZBhikws9QAjXmQw
+	 tgYWdBBQC6Oxg==
+Date: Tue, 20 Oct 2026 16:19:16 +0200 (CEST)
+From: =?utf-8?Q?St=C3=A9phane?= Grosjean <stephane.grosjean@free.fr>
+To: Dan Carpenter <error27@gmail.com>
+Cc: Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol <mailhol@kernel.org>, 
+	Wolfgang Grandegger <wg@grandegger.com>, linux-can@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Stefan =?utf-8?Q?G=C3=BCnther?= <stefangun@pm.me>, 
+	stable@vger.kernel.org, s grosjean <s.grosjean@peak-system.fr>
+Message-ID: <899587980.1227073500.1792505956589.JavaMail.root@zimbra65-e11.priv.proxad.net>
+In-Reply-To: <atdybEUQ9EUdZ9A4@stanley.mountain>
+Subject: Re: [PATCH v5 00/10] can: peak_usb: fixes, cleanup and input
+ validation hardening
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,36 +68,25 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] blk-mq: clear stale inactive flag on hctx reuse
-To: Nirmoy Das <nirmoyd@nvidia.com>, axboe@kernel.dk
-Cc: ming.lei@redhat.com, hare@suse.de, dwagner@suse.de,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261020125129.430600-1-nirmoyd@nvidia.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261020125129.430600-1-nirmoyd@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Zimbra 7.2.0-GA2598 (ZimbraWebClient - GC154 (Linux)/7.2.0-GA2598)
+X-Authenticated-User: stephane.grosjean@free.fr
 
-On 10/20/26 5:51 AM, Nirmoy Das wrote:
-> diff --git a/block/blk-mq.c b/block/blk-mq.c
-> index 025a799f35b924d..00b75eb95dd943a 100644
-> --- a/block/blk-mq.c
-> +++ b/block/blk-mq.c
-> @@ -4002,6 +4002,7 @@ static int blk_mq_init_hctx(struct request_queue *q,
->   		goto fail;
->   
->   	hctx->queue_num = hctx_idx;
-> +	clear_bit(BLK_MQ_S_INACTIVE, &hctx->state);
->   
->   	hctx->tags = set->tags[hctx_idx];
+Sorry about that, and thanks for the reminder. I'll wait at least
+24 hours between postings from now on.
 
-Why clear_bit() instead of __clear_bit()?
+Regards,
+St=C3=A9phane
 
-Thanks,
-
-Bart.
-
-
+----- Mail original -----
+> Could you please slow down.  Only resend once per day.  Otherwise
+> it's
+> a bit like involuntary pair programming for people who are on the
+> list.
+>=20
+> regards,
+> dan carpenter
+>=20
+>=20
+>=20
