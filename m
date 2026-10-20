@@ -1,49 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792475194;
-	b=zYAXhQuP7XaPFdAxcayA8MZdFYNZ+DcobR4sZzB8jv6XuCiowdYF6dpJYovZYeQJZ+R2
-	 VyWZADsunIDGwKro6gLBLvn5zL7onZdsZsXDsuvNW8mmhhLf4mOVWfYUNfU7bEGOOa3z/
-	 Ebo05orx9SXm/t5Ba1O7uMDr6G/DqIAxSykgkkqnSgHNALx3JyDyDbMIlJtJGqSjJDm2/
-	 WsElW89/gU0LGJglg91p7O2EBDhIoWZaS5Mt/3Kd762hG7owfn+UmVTG+/Xhxr+SrhpXw
-	 jW6NHys85kBpt8Pk+TjYq0E3R7DVBM4m86CJkjhS81BKRBDshbJINERjloiIMl3MaMA==
+	t=1792475756;
+	b=HOuYN/+eb9Q25T5J8Taqa3IdKMrgPdW04MLBm0FsPSHYnfaYOTFvlmZxU+mtF8wAhkqq
+	 GqfchOap4IOpxLflkZzXgUCnqVQGT2ymIIh5p+dGfx3DNT5OwAmAzB0tNnPD6lZAKV7VQ
+	 qOWS2d+JH3ZbnWT7gyFvSOhTeD9WwuWRAIHOT1fZZYX/sBsohY6A0blsIyXQavDGJd8JI
+	 tghlVamdL7+4sCV0QQr1ZJSh40IX4bOD7qUmhFVXPP7iRpgu/DLEMf/pkIS4/HIjXuIGv
+	 6dTWWmEhbTohFjugY3cOBgJSEbrNlVQwQWpXR8ci44to61/obAVlJkPxqnJXS3Vm8cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792475194;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=y0chtX6tIwgn1dLWkWqccPdNlQoh26u5Xeo4JUKjcCQ=;
-	b=1OgtmzUxlYxYkqjXjNHg5Isf9QkZCXey2SkQzG2hanGMjXEznhO+6oFiIDlVm6zwcxLQ
-	 U/tk+yKM0Td1SFpFSPHjg5+GRObs6GRxqadFaqdvErFvio0jlHm8V20PShr6zPBqyedwz
-	 FfcsmMG/qdLJloE4pWXGt8Sqf0+zw1fHIQYk8TutZwPcEBVhL6/ASXv5bCcsSxSk/4Q9Z
-	 +NQQ0ciHw6QMmsvR1DHddAa+uD40joT8c2up0oht/FY+xbvy34B4ZfYDXqsmQ8qSJgQVm
-	 EYmQPuoPqYDrOuY0ctEW4drKXJMtpIePXw4WmPTcK3em5mFMfPazLgyWaBZgTZ/EIlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792475756;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=IJw3AdrV3TppvzYxPg9enasdEBHkQYF0+BiTA1BbFVE=;
+	b=YjQGBEgcAj7UMSNQ5e/ndclw8M2SqxVJGlnex4LhLAqYPbvH9yCZzXfISsMpb4BkkbpH
+	 vx5qNVvpQczJkF3sryz8RsaPA+gkJdwfU0TDwoYQ9XJmghsOjTJbUCVzNTJAbBVITYOma
+	 9FcKFOvEA0btfhWSo02BDnN5rrH/8d1B/gbKSKd2k9sQx/468eKk0Es5TSIKxgO1/xerm
+	 Mu/gLKcPckDAyf3Q/Un8g7/xXO7deeu8ddU2RLnQRjwdGPojHN2+OaeuSVVDYsHkdtL3v
+	 ay78l7rvBlIg/yOJRiYpNULcQ9boiFog56eJEhTVTmqyMvbtdZmDlBtf9jqp6plTmLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dwfqJAs6;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ADF64606A319;
-	Tue, 20 Oct 2026 05:46:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADF64606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OA98AGbt;
+	arc=none smtp.remote-ip=91.218.175.12
+Received: from mta0.migadu.com (out-12.mta0.migadu.com [91.218.175.12])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06911606A319
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 05:55:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06911606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dwfqJAs6
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 991F41596;
-	Mon, 19 Oct 2026 22:46:29 -0700 (PDT)
-Received: from [10.164.19.55] (unknown [10.164.19.55])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7484A3F7B4;
-	Mon, 19 Oct 2026 22:46:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792475192; bh=6MH14FQoqKoODm67ieo7VWOqi+pN1/b38AYnFNefCj8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=dwfqJAs6p8aW3p62AnWh7qhHl/tyGFnBgGdlRyOcqpHIL8nXNBDc1bmzf29sP/OA5
-	 A5HHdp54t+72+Es/lCd53fYgu2iOxl9gyjfx9KHlZ7NDtZ6aeFVopA8MB05grdand9
-	 10nRdNALxu7jmfVpE1YCx7pLskuRlgbE0Sf6sx9E=
-Message-ID: <dcad793e-8814-4bbf-8b31-3ec9d0bb9ede@arm.com>
-Date: Tue, 20 Oct 2026 11:16:24 +0530
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OA98AGbt
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=C5+9nPezz3Sstm3YSed1zRvKh9tUg6y9C6lbamjjq9w=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792475748; v=1; x=1793080548;
+ b=OA98AGbtIfY5XBIGuSMq8+vlqHpIOJB1fDta1cKabP3pipVVZmTy7Y26rrgtZvamhwedyY+g
+ kB93BFdL+7MK3/PhumgkUZ86s6cyGKDwxGvvXuiycdwCAyL79MZ2ozUE6KMbzorn8dz/sgJL6QW
+ jAkhBd+KEQLr6sOB6zGfL6f8=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6cfc978d2090e393;
+	Tue, 20 Oct 2026 05:55:26 +0000
+X-Mizu-Trace-ID: 6cfc978d2090e393
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org
+Cc: samarth.colleges@gmail.com,
+	akpm@linux-foundation.org,
+	xu.xin@linux.dev,
+	chengming.zhou@linux.dev,
+	peterx@redhat.com,
+	kas@kernel.org,
+	rppt@kernel.org,
+	lance.yang@linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/ksm: keep soft-dirty and uffd-wp when merging a page
+Date: Tue, 20 Oct 2026 13:55:18 +0800
+Message-ID: <20261020055518.36087-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <efa6a28c-f0f9-4d1e-9cce-fec2c08e7d9f@kernel.org>
+References: <efa6a28c-f0f9-4d1e-9cce-fec2c08e7d9f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,150 +75,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/5] mm/vmalloc: undo partial mappings inside the
- mapping functions
-To: Hao Ge <hao.ge@linux.dev>, Suren Baghdasaryan <surenb@google.com>,
- Uladzislau Rezki <urezki@gmail.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
- Dmitry Vyukov <dvyukov@google.com>, Andrew Morton
- <akpm@linux-foundation.org>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-mm@kvack.org,
- Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20261019054531.87652-1-hao.ge@linux.dev>
- <20261019054531.87652-4-hao.ge@linux.dev>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <20261019054531.87652-4-hao.ge@linux.dev>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 
+On Mon, Oct 19, 2026 at 03:24:11PM +0200, David Hildenbrand (Arm) wrote:
+>On 10/19/26 03:09, Samarth Narang wrote:
+>> replace_page() maps the KSM page with a PTE built from scratch, so the
+>> soft-dirty and uffd bits of the PTE it replaces are lost. Due to this, a
+>> write before the merge no longer shows as soft-dirty, the next write to
+>> a uffd-wp page raises no write-protect fault, and because the page is
+>> mapped with the VMA's normal permissions, on a uffd-rwp VMA the next
+>> access raises no RWP fault.
+>> 
+>> Copy the soft-dirty and uffd bits from the original PTE to the new PTE,
+>> and restore PAGE_NONE for RWP VMAs, as try_to_map_unused_to_zeropage()
+>> does.
+>> 
+>> Fixes: 0f8975ec4db2 ("mm: soft-dirty bits for user memory changes tracking")
+>> Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+>> Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
+>
+>I would actually split that up into separate patches.
+>
+>Over-indicating soft-dirty (as raised by Sashiko) is in general not a problem.
 
-On 19/10/26 11:15 am, Hao Ge wrote:
-> __vmap_pages_range_noflush() and friends can install some PTEs before
-> failing and leave them mapped, and the kernel callers do not agree on
-> who cleans them up. pcpu_map_pages() and kmsan_ioremap_page_range()
-> roll back what they mapped before the failure, while
-> vm_module_tags_populate() and the __GFP_NOFAIL retry loop in
-> __vmalloc_area_node() rely on the mapping functions cleaning up and
-> do not call anything like vunmap_range() themselves. When the same
-> range is mapped again, the attempt hits the leftovers and fails, with
-> a BUG() in vmap_pte_range() for huge mappings and a warning on the
-> small-page path.
-> 
-> After discussing with Suren and Ulad, we decided to put the rollback
-> into the entry points of the vmap API rather than into every low-level
-> helper. __vmap_pages_range_noflush() undoes the whole range it was
-> asked to map when it fails, and vmap_page_range() undoes its range
-> for the ioremap-style mappings.
-> 
-> The rollback is __vunmap_range_noflush(), it only clears the PTEs,
-> no TLB flush, nothing has touched these mappings.
-> vmap_pages_range_noflush() drops the KMSAN metadata when the data
-> mapping fails, and an empty range bails out with -EINVAL now, which
-> used to BUG_ON() on the small-page path and map nothing at all on
-> the huge-page one.
-> 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Suggested-by: Uladyslau Rezki <urezki@gmail.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> ---
->  mm/vmalloc.c | 44 ++++++++++++++++++++++++++++++++------------
->  1 file changed, 32 insertions(+), 12 deletions(-)
-> 
-> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-> index 44e0eb32708f..75aa5acf5566 100644
-> --- a/mm/vmalloc.c
-> +++ b/mm/vmalloc.c
-> @@ -363,6 +363,9 @@ int vmap_page_range(unsigned long addr, unsigned long end,
->  	if (!err)
->  		err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
->  					       ioremap_max_page_shift);
-> +	if (err)
-> +		__vunmap_range_noflush(addr, end);
-> +
->  	return err;
->  }
->  
-> @@ -683,27 +686,35 @@ int __vmap_pages_range_noflush(unsigned long addr, unsigned long end,
->  		pgprot_t prot, struct page **pages, unsigned int page_shift)
->  {
->  	unsigned int i, nr = (end - addr) >> PAGE_SHIFT;
-> +	unsigned long start = addr;
-> +	int err = 0;
-> +
-> +	if (WARN_ON_ONCE(addr >= end))
-> +		return -EINVAL;
+Right.
 
-IIUC this is a general change independent of this patch? Caller could pass
-addr >= end and if we take the huge mapping path, we lose the sanity check.
+>Losing WP bits is.
+>
+>UFFD, the gift that keeps on giving.
 
-So this could become a separate patch.
+Haha, yeah, I stared at the code a bit. Say we arm RWP on an existing KSM
+mapping, then do MADV_UNMERGEABLE. We're just replacing the shared page
+with a private copy. That shouldn't count as an access to the mapping ...
+no?
 
+But the protnone check sends us to do_uffd_rwp() before the
+FAULT_FLAG_UNSHARE handling. No FAULT_FLAG_ALLOW_RETRY here, so sync RWP
+gives us VM_FAULT_SIGBUS. Then break_ksm() does this:
 
->  
->  	if (WARN_ON_ONCE(page_shift < PAGE_SHIFT))
->  		return -EINVAL;
->  
->  	if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC) ||
-> -			page_shift == PAGE_SHIFT)
-> -		return vmap_small_pages_range_noflush(addr, end, prot, pages);
-> -
-> -	for (i = 0; i < nr; i += 1U << (page_shift - PAGE_SHIFT)) {
-> -		int err;
-> -
-> -		err = vmap_range_noflush(addr, addr + (1UL << page_shift),
-> +			page_shift == PAGE_SHIFT) {
-> +		err = vmap_small_pages_range_noflush(addr, end, prot, pages);
-> +	} else {
-> +		for (i = 0; i < nr; i += 1U << (page_shift - PAGE_SHIFT)) {
-> +			err = vmap_range_noflush(addr, addr + (1UL << page_shift),
->  					page_to_phys(pages[i]), prot,
->  					page_shift);
-> -		if (err)
-> -			return err;
-> +			if (err)
-> +				break;
->  
-> -		addr += 1UL << page_shift;
-> +			addr += 1UL << page_shift;
-> +		}
->  	}
->  
-> -	return 0;
-> +	/* Undo the PTEs installed before the failure. */
-> +	if (err)
-> +		__vunmap_range_noflush(start, end);
-> +
-> +	return err;
->  }
->  
->  int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
-> @@ -715,7 +726,16 @@ int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
->  
->  	if (ret)
->  		return ret;
-> -	return __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
-> +
-> +	ret = __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
-> +	/*
-> +	 * The page tables undo themselves on failure. Tear down the
-> +	 * metadata that was fully set up before the mapping failed.
-> +	 */
-> +	if (ret)
-> +		kmsan_vunmap_range_noflush(addr, end);
-> +
-> +	return ret;
->  }
->  
->  static int __vmap_pages_range(unsigned long addr, unsigned long end,
+static int break_ksm(struct vm_area_struct *vma, unsigned long addr,
+		unsigned long end, bool lock_vma)
+{
+	vm_fault_t ret = 0;
+...
+	do {
+...
+		ret = handle_mm_fault(vma, addr,
+				      FAULT_FLAG_UNSHARE | FAULT_FLAG_REMOTE,
+				      NULL);
+	} while (!(ret & (VM_FAULT_SIGBUS | VM_FAULT_SIGSEGV | VM_FAULT_OOM)));
+...
+	return (ret & VM_FAULT_OOM) ? -ENOMEM : 0;
+}
 
+So we report success with the page still merged. Async RWP does unshare
+it, but only after clearing the uffd bit.
+
+I'd let FAULT_FLAG_UNSHARE skip do_uffd_rwp(). We'd still need to carry
+PAGE_NONE over in wp_page_copy(), though. That PTE is rebuilt from
+vma->vm_page_prot, so the uffd bit alone won't stop reads.
+
+>How to deal RWP properly is a good question (see Sashiko review). I feel like
+>some more stuff might be missing there to handle this correctly.
+
+Tested, this is what I had in mind:
+
+---8<---
+diff --git a/mm/memory.c b/mm/memory.c
+index 976cd03954e3..d99f5ef1dd8c 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -4119,8 +4119,11 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
+ 		if (unlikely(unshare)) {
+ 			if (pte_soft_dirty(vmf->orig_pte))
+ 				entry = pte_mksoft_dirty(entry);
+-			if (pte_uffd(vmf->orig_pte))
++			if (pte_uffd(vmf->orig_pte)) {
+ 				entry = pte_mkuffd(entry);
++				if (userfaultfd_rwp(vma))
++					entry = pte_modify(entry, PAGE_NONE);
++			}
+ 		} else {
+ 			entry = maybe_mkwrite(pte_mkdirty(entry), vma);
+ 		}
+@@ -6656,9 +6659,12 @@ static vm_fault_t handle_pte_fault(struct vm_fault *vmf)
+ 		 * VM_UFFD_RWP VMA, a protnone PTE without the uffd bit is
+ 		 * NUMA hinting and must still fall through to do_numa_page().
+ 		 */
+-		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte))
+-			return do_uffd_rwp(vmf);
+-		return do_numa_page(vmf);
++		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte)) {
++			if (!(vmf->flags & FAULT_FLAG_UNSHARE))
++				return do_uffd_rwp(vmf);
++		} else {
++			return do_numa_page(vmf);
++		}
+ 	}
+
+ 	spin_lock(vmf->ptl);
+--
+
+Cheers, Lance
