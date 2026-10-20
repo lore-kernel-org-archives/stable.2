@@ -1,64 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792504600;
-	b=EEopc2Al8jNIcyxUKEhyLHX304GAKKgluxDXpOZffrMyutxF2cnz9j6RpPvGUPVdBINV
-	 nm7hoqUtnr/IXFC9yem5nod8v/8/+AHnOf5bvbXgFcQLl4cnDj4i827DoXTYBdydaMGtJ
-	 YWcp+xGAgGEXlnFcKFXGH/aFXx+IhzFIeim0cn5WhLWMgT/utS2ESRKHRVa4Uh8704lf3
-	 bMHMoU33vtx4n/S/PptoH27Rkdf6apkKT/8I+lMixomp/78sw3A1oGZHSgC1smekJw+UY
-	 aOpgc9oSNJhDOEP56qoKcHy7dFHL/F4OPxEbVyKCBjoqAcveSuPiL+iKOZE1cVI5BrQ==
+	t=1792504745;
+	b=go25BYLgVZTxN6xZYUM+4go4LXJWbKzzRa1/sZPG0deM57LbyoUX0d+h8Bm6y0huYN4T
+	 o2aZyvZ7RXAgUfkD3gyoR0vWmC9l/BZMCYesiCguYb9r7ApZv6LLYAh3+orcSrMRaa5i4
+	 cBhtyFWYgm1ix1soyhYeVAh0NCQrvQVBOWxWl9xq1H0gmxwDf/rbKfAixyRw9tqtuJblv
+	 tL4qVdzihlpFKVq+n65vKh+Ed9rXpWT7T82IHnSDQBSw8yZ0sRG4i33wh2mQLtH0xHwui
+	 1OIQpMS7ZEAxckI912BEuM/EWhWv3HdFe+Em7UZ+Exzl7gZiyPdtC08Isqw1S7Ds/vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792504600;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=HYCpdEa0CjagDkIoEI9c3ElxA1vOooGlVLR/xOXvad8=;
-	b=ccqvsXnh1YjkjlSbsbi6FLzNl7+yY1/IYbDUeY2z3bziPgenFgZWgJZ8mSg/EWaP2nfb
-	 3MgtAAfdvS30ReJc6ocTtOWPlBkfcNcj+wTFcPJBwg2/mtXHgXxHJawc42lvxMQL6aq4Q
-	 FV+4ZhZTRk+FminzNaVZZnA3TtBaaIMIEfjE2S2Iwrt4TT4fUduC+uSXZA2i8X13mmBzL
-	 4uul2AJy9/a76EB8fpNTtXI9iyEzsguHJc5AywxxoRoKzPKLKnirx8gqK/uHUFwBkzpki
-	 cm2NHnV0qmHJBgRZE/62j0xCoumAIJBEwXGt3nkCM+E4SRDbijb9bh0p3+jWiEuM9Qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792504745;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=mqd/bQR1q3ufJ1VUmS/hoCYa+/lLgiY4VdTm7nb2aUA=;
+	b=WjcA+x72b3H5nOz0zoxjhgYKAc1Rp81rIelYC7CThgX/myOpNsGKOB8Ay96ERB3aD/sp
+	 XPWNt8GF1WxX59KUKpR95SSsGUTx1tXJ1YGyLhLVZR9qqKh8WW2cs1/AFmuv6um4XUbxQ
+	 R8/zOTDAqvEizZKlExFNBDKEr05L9f2FvqyY4hqyPOvJDMS0v9zsKQ9C9q81WCtWP2Xmd
+	 xgUZ/iUrJ5tQS+erxMW6n0/SUpixlVEPGu0aUi/5p8SXRpafGLRevjfM9wjVcgEjBEmFh
+	 pJbDhvlTuxlUpkFLyfW3/DM+uL6Hh49grXOoYHOX2aRrBDBKQ/lxamC47Slpm4KbJ5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=hdu87VDv;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=VbKuJqoR;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA8C606A319;
-	Tue, 20 Oct 2026 13:56:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BA8C606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7CA0606A31B;
+	Tue, 20 Oct 2026 13:59:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7CA0606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=hdu87VDv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=HY
-	CpdEa0CjagDkIoEI9c3ElxA1vOooGlVLR/xOXvad8=; b=hdu87VDvYUaeZ5u34U
-	VT1VuHXx33f34jw4PdosOs3vNYS2jLDIYUV5WCWHN7QUILrZn9s7EkrYSrhr0yGP
-	yH6qfTcza8A0+bSBThz7nUMql/1LnTs9bh5sr04S3Nj4FS9IBRntv0Vp0UqhGU2a
-	8/FObYLUdmavPUbrL+9IGH/uU=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgD3YQntctdquSfMAw--.51436S2;
-	Tue, 20 Oct 2026 21:55:58 +0800 (CST)
-From: Xia Yan <yana06070@163.com>
-To: netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	horms@kernel.org,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	pabeni@redhat.com,
-	shuah@kernel.org,
-	yana06070@163.com,
-	stable@vger.kernel.org
-Subject: [PATCH net v2 1/2] veth: keep carrier off when resizing channels with a down peer
-Date: Tue, 20 Oct 2026 21:55:43 +0800
-Message-Id: <20261020135544.24441-1-yana06070@163.com>
-X-Mailer: git-send-email 2.33.0
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=VbKuJqoR
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 4F3661A1291;
+	Tue, 20 Oct 2026 13:59:03 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1A1FE60393;
+	Tue, 20 Oct 2026 13:59:03 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DFC7710328C52;
+	Tue, 20 Oct 2026 15:58:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792504737; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=mqd/bQR1q3ufJ1VUmS/hoCYa+/lLgiY4VdTm7nb2aUA=;
+	b=VbKuJqoRJ3pULJxeFEOS68iDJzlgi4lEfLYK4c/4ylEEsBifG64bZoFd+m2bqnyYyOL3wG
+	G9QA6/5QwO/Ttp4oMhWMe4UtkgNrD69t6dy1gd69yehSwsMGC16VaZKhNewq6msQmqwir6
+	THtEkEeEsrFrxjU2Ndt6kwVW3q1HAGO2Z66siuw948x3ghQNfP2oWL0OY3X4mzf04ZWsxT
+	E6GjvQYGCzsWOPIiDUXIdfkrx+nJRmxleeZv4DPSG5E3+XQSK+b5rkaqyHbC05xQTqSJ+I
+	dB+Hht8ExDz0tMStpJSMMuB0pA/vTy/is+GldyCkZKWPuWLQExkD7xPvVTC6Yw==
+Date: Tue, 20 Oct 2026 15:58:41 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+ "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li
+ <Frank.li@oss.nxp.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Linus Walleij
+ <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Uwe
+ =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Geert Uytterhoeven <geert@linux-m68k.org>,
+ Leonardo Costa <leonardo.costa@toradex.com>, Frieder Schrempf
+ <frieder.schrempf@kontron.de>, devicetree@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, Ernest Van Hoecke
+ <ernest.vanhoecke@toradex.com>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
+ <u.kleine-koenig@baylibre.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/8] of: base: Fix stack overflow in
+ of_parse_phandle_with_args_map()
+Message-ID: <20261020155841.59037c99@bootlin.com>
+In-Reply-To: <20261020-fw-devlink-nexus-ready-v3-1-fd6f1c17e16d@toradex.com>
+References: <20261020-fw-devlink-nexus-ready-v3-0-fd6f1c17e16d@toradex.com>
+	<20261020-fw-devlink-nexus-ready-v3-1-fd6f1c17e16d@toradex.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,62 +85,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:PSgvCgD3YQntctdquSfMAw--.51436S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7uF4rZF1rAFWxJr47WFy3urg_yoW8Ar4kpF
-	4ftFW5Cry0qF47ta1vqayUZFyrJa1xX34agF9Yk3yruw1UtF95Xr4Fy34j9F1UKFZYqF42
-	vrW09r1Dua4DZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piPCztUUUUU=
-X-CM-SenderInfo: p1dqtiawqxiqqrwthudrp/xtbC3w5o7mrXcu7V-gAA3d
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-veth_set_channels() temporarily turns carrier off while reconfiguring a
-running interface. It then turns carrier on for both ends without
-checking whether the peer is administratively up. If only one end is up,
-changing its channel counts therefore reports LOWER_UP even though the
-peer remains down.
+Hi Ernest,
 
-For example, after creating a pair with two RX and TX queues per end:
+On Tue, 20 Oct 2026 15:00:12 +0200
+Ernest Van Hoecke <ernestvanhoecke@gmail.com> wrote:
 
-  ip link set vca up
-  ethtool -L vca rx 1 tx 1
+> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> 
+> of_parse_phandle_with_args_map() reads the #<stem>-cells property of the
+> provider referenced by the consumer into list_size. It then copies that
+> many cells of the consumer's specifier from out_args->args[] into the
+> on-stack initial_match_array[]. Both arrays hold MAX_PHANDLE_ARGS cells,
+> but list_size is never checked against that limit. A malformed
+> Devicetree with a larger cell count therefore makes the copy read past
+> out_args->args[] and write past initial_match_array[].
+> 
+> The cell count of each provider selected by a <stem>-map entry is
+> already rejected when it exceeds MAX_PHANDLE_ARGS. Apply the same limit
+> to the provider referenced by the consumer.
+> 
+> A plain reference to such a provider, without a map, now also fails.
+> Previously it succeeded with the specifier truncated to MAX_PHANDLE_ARGS
+> cells by __of_parse_phandle_with_args().
+> 
+> Fixes: bd6f2fd5a1d5 ("of: Support parsing phandle argument lists through a nexus node")
+> Suggested-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
+> Link: https://lore.kernel.org/all/aq1CSswlo57jZpMH@monoceros/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> ---
+> v3: New patch (Uwe)
+> ---
+>  drivers/of/base.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/of/base.c b/drivers/of/base.c
+> index f63a9486b130..5abadab22392 100644
+> --- a/drivers/of/base.c
+> +++ b/drivers/of/base.c
+> @@ -1587,6 +1587,11 @@ int of_parse_phandle_with_args_map(const struct device_node *np,
+>  	if (ret < 0)
+>  		goto put;
+>  
+> +	if (list_size > MAX_PHANDLE_ARGS) {
+> +		ret = -EINVAL;
+> +		goto put;
+> +	}
+> +
 
-vca incorrectly reports LOWER_UP while vcb is still down.
+I would be stricter here and avoid the usage of MAX_PHANDLE_ARGS.
 
-Only restore carrier when the peer has IFF_UP, matching veth_open().
-The local interface is already known to be running at this point.
+First I would check the arrays size to be sure that they are consistent and
+then check list_size against the array size.
 
-Found during LLM-assisted source review and reproduced with a veth pair
-in a network namespace. Built and booted UML kernels before and after
-the fix; the accompanying test fails in the four mixed up/down cases
-before the fix and passes all six cases after it.
+--- 8< ---
+	BUILD_BUG_ON(ARRAY_SIZE(initial_match_array) != ARRAY_SIZE(out_args->args))
+	if (list_size > ARRAY_SIZE(initial_match_array)) {
+		ret = -EINVAL;
+		goto put;
+	}
+--- 8< ---
 
-Fixes: 4752eeb3d891 ("veth: implement support for set_channel ethtool op")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Xia Yan <yana06070@163.com>
----
- drivers/net/veth.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+IMHO, this is more robust against modification of the 'args' field
+definition in struct of_phandle_args or modification of the MAX_PHANDLE_ARGS
+value which could lead to some inconsistencies.
 
-diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-index 643b97d..4e75830 100644
---- a/drivers/net/veth.c
-+++ b/drivers/net/veth.c
-@@ -1372,9 +1372,10 @@ static int veth_set_channels(struct net_device *dev,
- 		 * to identify the range we have to disable
- 		 */
- 		veth_disable_range_safe(dev, new_rx_count, old_rx_count);
--		netif_carrier_on(dev);
--		if (peer)
-+		if (peer && (peer->flags & IFF_UP)) {
-+			netif_carrier_on(dev);
- 			netif_carrier_on(peer);
-+		}
- 	}
- 
- 	/* update XDP supported features */
-
-base-commit: 513444cc62e231a11c9b15ea88de0890da9b2b4f
--- 
-2.43.0
-
+Best regards,
+Hervé
