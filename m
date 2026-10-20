@@ -1,59 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792516328;
-	b=h1ZFgARaf5trEpPC+MYgxUhL0BSs/22e7ndGzYwfc5TCW52lXThN0uDCoNWuKY7qmbXO
-	 WR5NewXP6tkeXyTiG0IsB3Jactk6TaTCzkxhMMN9QZX3qVBi2CzDGYAfGukBsqjgIamdE
-	 ntHDws8K30uWHLhVtvgrC97RLW/LtUnUso2YXES/67d5QU4602Z5JAvXaaLEun/IvkbIK
-	 4IRmyA8UmixfwA3h3VfV7yo6DDlcMYyzPw8c8DiyalixxD42gd8M93ccUduCHtMrsAQ7f
-	 Jcbl+v3mso6/P6hs93aWqluwiM/Hqsqaa1YpNZCMQwhWPPmJ+S9qUMvfFTOrmPflGVg==
+	t=1792516370;
+	b=CnNr6U1inKLjhxl8BIohK5HbMLZ4Wl5kpnhgojye8ioQPYWTN+AzoXODIZGeF2I2MNi7
+	 JqQno6sxi+OfPANlSctL0b4QLM+jIEfvBd+afN3edAB8nDKe2d3tAnqg++7W81OK5kB/a
+	 0f3JQ1LCyQSOa4EGF71v+IDkVJzo2nbjTbp22/Op7LDSwnHz1jghsybLhNeFEqE716YTB
+	 Q4ICfY0VhMOJchAsvGw24/ufesM1lEMk/j+EP22NGyuhNUmu5Q6/O8TViBbfU0z82+0VQ
+	 EFft+Kw8SO0O8iDPmquNw/MgriUaPFcRf0sjLWpffw+nu5yDtm3aPrK0DzUc/zz/JQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792516328;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=o3WJRJcePloVZq4AExePZBL3lYY5STJ5wC5g0j9QDrc=;
-	b=nPH45SKAPuy04uGJusyarTeDPqIZ1dp1/sSv4VTYKBkxourv0RhjDUxhLkLyTOD4pKpE
-	 UdNWKSQexJtLmbTvyGqS1kvQpJSc6TK7Quq4PpZ+7PXH35oMI0x2C/A4Wc4pzSJA8BHa1
-	 wUIrWmq4k8PBiMJaiXCw6ORCAe05g1/LWiOY5BPqLvsOvXoPzxZcYpsRVTfPmsyGW3itc
-	 ns7lCMhq798NgLnGa5aGr1p4kBd8ovBPipqec0E8vIrNRLrt3OyTETcHvxWufUqzl/5pb
-	 b/vEBer5OCGpplLnpGleW+52Vk9eTXOQZI2igsTewErk2lCVCo1r3JCw/qttKAUF3dQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792516370;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=fhqQPB4XMnfyiI2uq0u1TLnRiFnbRNlZrECWOidHles=;
+	b=NkWHXmKQeGfx59xhWJayYAdiHMOPSlAkfwCJnz0XEQzHIwe+PcuFRUiOgo6WoyuGo51H
+	 IMmZcOApJChCd6zfPr20kLYlJLBsjnJwdBYi4w1UFt0OnmP45A2pM//MJUeVTSJ9KZSiv
+	 RyhCU5yDAtMuQozYENXdDXpXQA7tgq9tB4dSilbuZ++4oy7fVVcyeUezD/zt5j6NVnamW
+	 1OGcKPZYHCs+PvcD/jfL1JwcztpbqSJ5ey3qBgAXYtsf77J003ciq1/MoQy6OFZ2hSDoM
+	 JjnxoHVWrkJbZkXgksBsCDNP3pv0jmIbSbQirFnJsqbYI6r4drP6zDXvTSC1/pIdxNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YfuCXTLE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=CYVeJVEJ;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9088606A336;
-	Tue, 20 Oct 2026 17:12:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45D4C60A2612
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 17:12:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45D4C60A2612
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YfuCXTLE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE63A1F000C9;
-	Tue, 20 Oct 2026 17:12:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792516327;
-	bh=o3WJRJcePloVZq4AExePZBL3lYY5STJ5wC5g0j9QDrc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=YfuCXTLEJo5Auvh+BJQePp4Hi1Q1e+SQiXY4c0RnpEqIJUvljLBA59Dmej+qkrTCn
-	 uyxr6l5IXgexqoM2kH5TKf0oYulDUTooMyfTaEuY35IAmjH5ckZktU0RkRR2fGGtXM
-	 yg/+cWAjwcIbVANWF7+5rs6b5VrUmkma+CEYh4tlVEc+1uwkh9T8XMj8565mJIm5nP
-	 MGwz+WkB3DRpGc7EvoMaWf3VdMqK7DWesZpUV2k8QX/aFfusO02zFtUIB/UFcC6YUl
-	 QGsQO5Eumtonm1722ohiW8bEsm6bWBDbun5BWM2+7DH7QH4uNyG7/PAYw2Ogsh00AD
-	 PRrVJURMxz+vA==
-Subject: Re: [PATCH net-next 11/11] can: protect the receive lists with a
- per-device lock
-From: netdev-bot+sashiko@kernel.org
-To: mkl@pengutronix.de
-Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
- linux-can@vger.kernel.org, kernel@pengutronix.de, 1579567540@qq.com,
- stable@vger.kernel.org, mailhol@kernel.org
-Date: Tue, 20 Oct 2026 17:11:39 +0000
-Message-ID: <179251629957.3135.180755777057921325@kernel.org>
-In-Reply-To: <20261019170834.1727150-12-mkl@pengutronix.de>
-References: <20261019170834.1727150-12-mkl@pengutronix.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=CYVeJVEJ
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso8179745eec.1
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 10:12:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792516368; x=1793121168; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fhqQPB4XMnfyiI2uq0u1TLnRiFnbRNlZrECWOidHles=;
+        b=CYVeJVEJ1KM+wdsacNjapsabYjwSWLhrAOboaZh1EUNsCdZm4ANjhiP8hRfRgf5wTF
+         N+CFAOmyiu2cF1qIfxLLwrZ30eyjlyVhX54fAoyZe8ss+yD2y40evJEYW/u6gV9bLndQ
+         eGVDc6dnrRDjlgTdywWaMn9lqkzQ3lg8ILHErGTFLTaD30EpbJfjX0IZXj8YM/q98LXA
+         HlQP5EN7wyiIwWgJqUAhykBSm+ZfsjLsuLTrQwi35q4duwu1vT0zO7aRbHQGXEJA2ect
+         mSRjIKmRetP6lOtY20H9QtB/5Ip2Le7xOFY/ca48RWTLr+6YQL5jQd8BlJ3kbyw9tOUE
+         Tleg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792516368; x=1793121168;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:to:from:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fhqQPB4XMnfyiI2uq0u1TLnRiFnbRNlZrECWOidHles=;
+        b=QEW1Rtkw5NVa79PXgG/lIoviPyHoXz2ZAvwBQPcrtb511zVR7mThQctVXAEp6eMLac
+         42nut1dQCGsdrPkqhlwBmF5EH4u5+cjK6A+HE0omP4pKbW2WBKOevPGXGCvl3t70ZJS3
+         ++1zx+CJr/h87+0ZZYUlrOCMve7MuJez6YHAyIAzPtnicPXgwaSishu0+k4NBa0uNXpk
+         SR1CuKjw3w5krjry9BpRNnV6jTn7EZOiGyVnCp6hNhutEGR3O3T0FM5xrojnhhH3ltHb
+         8KKsMemDhhus7lE+ll0JqkZzrTbAxVUSGP9sqfYA2VbahP9OGRooOG1oTNjm3yxewuTw
+         jNWg==
+X-Forwarded-Encrypted: i=1; AKwUvBwSeikj7rG6p9zblWeJs2b8SDAczHYrkqfb3It7Yb66ETC3lf6D0G52Ub9pt91idrPx7ZoB5EU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLppbootfL5h9E3kB5VbRHxYFARveHmnLatbNHMKQ8Z5Gk3kV0G
+	zSjPJN8a3iel2LWL2rWItGChVcHwj/2V1TO7VlGXaIiTFWUb3xJjIOMYq0p+Vmfj9Yk=
+X-Gm-Gg: AYBFou36lREzheD6wtCP4cw944S5/4LWodjHlnn0cGJWQUhtqGUrZ5k4JJlcGXpBMly
+	alXn1NAcRD+fuy2zyWEa077u9sAqjExcJOnCR8qC8tnPtMoeKoWetheqcAW4yrrEGdQRhWRlAe4
+	swRXT7oNYJywAhsuA1Wv23tQV50it0eYOZlZmkWmKvq5/Zy6fNtRNLv+73v1sSzpJ0pP0hl+oVn
+	uoiKOqjG8miSrutRFnzoKrOvLGgt3sisjs+vuyoum11x6edlfQrXG/nTkSRB5O4Yy4wJIzEz22H
+	996yK9/P4WIxt+s4OgT34mTAESPWiMtzYk/jXldjm1hqIPUCSMEKObcWuMGL/IVNveAzUN5/VBu
+	39pTXOKb8hBrD6SC3SC6kebfxCg+/g8wgjVkI8VSv1w1PXYYznsccQfNXZiRGseqgztDQghf6Pz
+	3x5CzKhmv/WC2+bgo8T0/nnq1u8H3eDdnF9tGkp7Bfnp/nn9xbismfEu5E+X3gbqkwDFtJQbRl4
+	nB4foCfjjEE1nNQR22/uDvKL1csXopkO2gzVwHcb2eysggMigvW+KnhTP1UmArOfgmYmsU3hjY=
+X-Received: by 2002:a05:7301:430c:b0:358:8f02:e0ca with SMTP id 5a478bee46e88-361a1668b25mr15610910eec.9.1792516368276;
+        Tue, 20 Oct 2026 10:12:48 -0700 (PDT)
+Received: from xps16.local ([155.98.132.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367405ec6c3sm30711eec.7.2026.10.20.10.12.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 10:12:47 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: viro@zeniv.linux.org.uk, tz2294@columbia.edu, stable@vger.kernel.org, 
+ l1za0.sec@gmail.com, kbusch@kernel.org, hch@lst.de, hare@kernel.org, 
+ 4ncienth@gmail.com, linux-block@vger.kernel.org, 
+ Andrew Morton <akpm@linux-foundation.org>
+In-Reply-To: <20261020170250.014BD1F000C9@smtp.kernel.org>
+References: <20261020170250.014BD1F000C9@smtp.kernel.org>
+Subject: Re: [patch 1/1] block: restore the iterator when rejecting a
+ misaligned bio
+Message-Id: <179251636729.3425887.10424065373314430369.b4-ty@b4>
+Date: Tue, 20 Oct 2026 11:12:47 -0600
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,200 +97,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 2
+On Tue, 20 Oct 2026 10:02:19 -0700, Andrew Morton wrote:
+> bio_iov_iter_get_pages() can extract some iovecs before encountering a
+> misaligned one.  It releases the pages and rejects the entire bio, but
+> leaves the supplied iterator advanced.
+> 
+> An iomap direct-I/O caller may subsequently reexpand the iterator's
+> byte count and fall back to buffered I/O.  The reexpanded count then
+> includes bytes before the iterator's current segment, potentially
+> causing iterate_iovec() to read beyond the imported iovec array.
+> 
+> [...]
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Applied, thanks!
 
-- [Medium] raw_bind() no longer holds RTNL, so the socket can miss a
-  NETDEV_DOWN that arrives while it is binding.
-- [Low] The commit message says "the callers pass the namespace that has
-  been used for can_rx_register()", and the new kernel-doc of…
-- [Low] The new comment on netns_can.rcvlists_lock in
-  include/net/netns/can.h says it "protects rcv_lists_stats".
+[1/1] block: restore the iterator when rejecting a misaligned bio
+      commit: 40d070cbb1906896d6fd65c39722d2411830ed9f
 
---
-
-can: protect the receive lists with a per-device lock
-
-This commit adds a spinlock to struct can_dev_rcv_lists. The receive lists
-of a CAN device are now protected per device instead of by the per-netns
-rcvlists_lock, so can_rx_unregister() still finds subscriptions after the
-device has moved to another namespace. It also drops RTNL from raw_bind(),
-raw_setsockopt(), raw_release(), isotp_bind() and isotp_release(), and
-relies on lock_sock() plus a device pointer published inside the RCU
-lookup to serialize with the netdev notifiers.
-
-Link: https://lore.kernel.org/linux-can/CEA6A38A-2646-4ADA-95B4-CBAE2F301A8E@doyensec.com/
-Link: https://patch.msgid.link/20261019152741.54854-6-socketcan@hartkopp.net
-
-> diff --git a/include/net/netns/can.h b/include/net/netns/can.h
-> index 48b79f7e6236..ef7aefdf7b23 100644
-> --- a/include/net/netns/can.h
-> +++ b/include/net/netns/can.h
-> @@ -29,7 +29,7 @@ struct netns_can {
->  
->  	/* receive filters subscribed for 'all' CAN devices */
->  	struct can_dev_rcv_lists *rx_alldev_list;
-> -	spinlock_t rcvlists_lock;
-> +	spinlock_t rcvlists_lock; /* protects rcv_lists_stats */
-
-[Severity: Low]
-This isn't a bug, but is this comment accurate? The lock only serializes
-the rcv_entries and rcv_entries_max updates in can_rx_register() and
-can_rx_unregister().
-
-can_init_stats() in net/can/proc.c updates other fields of the same
-structure without taking rcvlists_lock. It runs from the stats timer, or
-from the reset_stats proc read when the timer is disabled:
-
-net/can/proc.c:can_init_stats() {
-    ...
-	rcv_lists_stats->stats_reset++;
-
-	if (user_reset) {
-		user_reset = 0;
-		rcv_lists_stats->user_reset++;
-	}
-}
-
-can_stats_proc_show() also reads these counters without the lock.
-
-Could the comment name rcv_entries and rcv_entries_max specifically?
-
-[ ... ]
-
-> diff --git a/net/can/af_can.c b/net/can/af_can.c
-> index d97f85fc3232..bf612c4b983d 100644
-> --- a/net/can/af_can.c
-> +++ b/net/can/af_can.c
-
-[ ... ]
-
-> @@ -509,6 +513,13 @@ static void can_rx_delete_receiver(struct rcu_head *rp)
->   *
->   * Description:
->   *  Removes subscription entry depending on given (subscription) values.
-> + *  The receive lists of a CAN device are protected by a per-device lock,
-> + *  so the subscription is found even when the device has been moved to
-> + *  another network namespace after can_rx_register(). The caller has to
-> + *  ensure that @dev stays valid, e.g. by holding a reference to @dev or
-> + *  RTNL. @net is the namespace that has been used for can_rx_register().
-> + *  It selects the 'any' CAN device lists for @dev == NULL and is used for
-> + *  the receive list statistics.
->   */
-
-[Severity: Low]
-The new kernel-doc says @net is the namespace that was used for
-can_rx_register(). The commit message says the same: "the callers pass
-the namespace that has been used for can_rx_register()".
-
-Does j1939 follow this? It reads dev_net(ndev) again at unregister time:
-
-net/can/j1939/main.c:j1939_can_rx_register() {
-    ...
-	ret = can_rx_register(dev_net(ndev), ndev, J1939_CAN_ID, J1939_CAN_MASK,
-			      j1939_can_recv, priv, 0, NULL);
-    ...
-}
-
-net/can/j1939/main.c:j1939_can_rx_unregister() {
-    ...
-	can_rx_unregister(dev_net(ndev), ndev, J1939_CAN_ID, J1939_CAN_MASK,
-			  j1939_can_recv, priv);
-    ...
-}
-
-A j1939 registration can outlive a namespace move. j1939_sk_bind() does
-not hold RTNL. It calls j1939_netdev_start(), which registers with the old
-namespace, before it calls j1939_jsk_add().
-
-Suppose the NETDEV_UNREGISTER from __dev_change_net_namespace() runs
-j1939_sk_netdev_event_unregister() in that window. The socket is not
-J1939_SOCK_BOUND yet, so it is skipped and the registration survives the
-move. The final release then passes the new namespace:
-
-j1939_netdev_stop()
-  __j1939_rx_release()
-    j1939_can_rx_unregister()
-      can_rx_unregister(dev_net(ndev), ...)
-
-The receiver is still found through the per-device lists. However,
-rcv_entries is decremented in the new namespace's rcv_lists_stats
-(clamped at 0) and stays elevated in the old one. This accounting matches
-the behaviour before the patch.
-
-Should j1939_priv store the registration namespace (with a netns
-reference)? Or should the kernel-doc and commit message describe a looser
-rule?
-
-[ ... ]
-
-> diff --git a/net/can/raw.c b/net/can/raw.c
-> index dfea48768b23..0d8edfa772fb 100644
-> --- a/net/can/raw.c
-> +++ b/net/can/raw.c
-
-[ ... ]
-
-> @@ -305,16 +309,28 @@ static void raw_notify(struct raw_sock *ro, unsigned long msg,
->  		       struct net_device *dev)
->  {
->  	struct sock *sk = &ro->sk;
-> +	struct net_device *bind_dev;
->  
->  	if (!net_eq(dev_net(dev), sock_net(sk)))
->  		return;
->  
-> -	if (ro->dev != dev)
-> +	/* Lockless fast path, ro->bind_dev covers a concurrent bind().
-> +	 * Read it before ro->dev, pairs with smp_store_release() in
-> +	 * raw_bind(). A stale ro->bind_dev only costs a lock_sock().
-> +	 */
-> +	bind_dev = smp_load_acquire(&ro->bind_dev);
-> +	if (READ_ONCE(ro->dev) != dev &&
-> +	    (msg != NETDEV_UNREGISTER || bind_dev != dev))
->  		return;
-
-[Severity: Medium]
-Can a NETDEV_DOWN be lost while raw_bind() is running? The bind_dev hint
-is only checked for NETDEV_UNREGISTER, and raw_bind() no longer holds
-RTNL.
-
-raw_bind() now runs these steps in order:
-
-    smp_store_release(&ro->bind_dev, dev);
-    ...
-    if (!(READ_ONCE(dev->flags) & IFF_UP))   /* device still up here */
-        notify_enetdown = 1;
-    ...
-    err = raw_enable_allfilters(sock_net(sk), dev, sk);  /* cond_resched() */
-    ...
-    WRITE_ONCE(ro->dev, dev);
-
-Suppose dev_close() runs after the IFF_UP check but before ro->dev is
-published. raw_notifier()->raw_notify() then sees ro->dev != dev with
-msg == NETDEV_DOWN, so it returns at the check above and never reaches
-case NETDEV_DOWN. raw_bind() finishes with notify_enetdown == 0.
-
-The socket ends up bound to a down interface, and sk_err = ENETDOWN /
-sk_error_report() is never raised. Before this patch, rtnl_lock() in
-raw_bind() kept dev_close() out of this window.
-
-isotp_bind() publishes so->dev before it reads IFF_UP, so it does not seem
-to have this problem.
-
-Could raw_notify() also check bind_dev for NETDEV_DOWN? Alternatively,
-raw_bind() could publish ro->dev before the IFF_UP check.
-
-[ ... ]
-
+Best regards,
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261019170834.1727150-2-mkl%40pengutronix.de
+Jens Axboe
+
+
+
