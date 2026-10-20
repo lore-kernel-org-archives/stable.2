@@ -1,105 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.8
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792486498;
-	b=xwiuIFjbcCOHDcQbBIerl4c7OFF/2YryN95LftVst7IKJN5ERZO5+dGq0kzlT+8XRi2o
-	 L92YnHuwM6tYL9J0Z5uyuyVnczB4UIztoth+sqyHhsb+5B3aCAn+R9hoxrGFgZXKyMLBY
-	 QYVC+awn63wMLVvISzZngc8Cmo2uGAguqcLqfnX28GL/NoIaw5xfWXcG9cLZR/BnZeip4
-	 iKDanAoKZ5q5o3ArlgIuGZ5XTnDa8ZLQh/DoKeAK3FULkbYn7/LUmlctLpnx6Awckr9iS
-	 t6fA15mXp9h5Ie++b5VNc2txXsidU3OHFrVQ4mCmAgctFsqPaRN3qfcelSy8JgRGgkw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792486498;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Ah055MuUD0C6B1dAYun3nbxELChx3aUY//F37qF2gZg=;
-	b=E35zs0rUnOS9K8vG9Uyd240zJxI/rP2f0S7ZXkEOzIMrJjGUP9z4qYnlNqmbr2PO6ZqI
-	 Nis3BoNc/V7GQTbbIRfCsvgzeCWfzNjTPOErtVSJ/XoZAhetPIcT9fwG4RDpzdIR+cFqa
-	 vJTEn8KgrIDYFa+x+jg/4TnCRgYj5lLMAzubTnzCfNGfYd052FT/OUFCwHKsA2NTeB5Mn
-	 wkdRZWAz8eKny3MUVU5vk+y9eeGi5DPWT5SMN17nqqHGYTQV/LfEZKjHX896w6ToW0hW9
-	 E5fLeTVZiEtv6OdPNVh3lVT4hRKZQiF6T2iAJoN3fpOIAEnA2rJzUvNRPALgybmb1ig==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TEO7fG0G;
-	arc=none smtp.remote-ip=74.125.228.8
-Received: from mail-pz2-f8.google.com (mail-pz2-f8.google.com [74.125.228.8])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.5
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792486565;
+	b=UcnxEuG1eITng592ONykx6V8zrJ4xdvEUqTlHzZGOw1KaTBYDFtIbCspVm6KZpuK0xF3
+	 VrIu44MI7vEq7b5mjZc7x8AVvR9R6rIEYmNS0XJcK1ml7MY8pT/PpHzT4ECerOLNN37E/
+	 F6TacIqrm/oB7TFk2uctBXg+TWQvZKfnKOEBW8bv/G81De9qbd5tvIVyD9eMrEhmB8oXO
+	 NU7XAJwY0HJ+RJezHcj624JY7jxyTDSJUGM9igF+bRAeDmt7PSGRxPhJDKabbpnvKFji8
+	 CJCS/Fq8MN+sQdHRoLCAfUULJgTdc0252Urs4JBGlCpZnMppcoJw53OImJM7iR8E9pA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792486565;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Date:From:To:CC:Subject:Message-ID:In-Reply-To:
+	 References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-NV-OnPremToCloud:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=cIpZyNVYXmILukAUgZqSzfPwWfI2Ag6jz2J1V0odIfA=;
+	b=FVomO9z2Dpbx9qFN4TRNw/IuJ7nt4FqFSU8XiiZIKXyvOr2qyfwwqOiDaNEYJN3zj9+Q
+	 KTITVTTpx0/f7CsB+w3DPjWRW+NJoKII577gi7Q0W6o9cgoJlw57S0JGl8I7XrqsAwqS8
+	 OL9a3NB5FpVWe28JmxdKzzcN8ANfB99dPdTmShu8fVtsoYdt4HsGFddbx+RZ62L68hTbs
+	 Kr3bqtAOIl+a9kpkKmj/euNZT/klVOO1ImoqjXm3jJkD/pWB8yPpwnNNmL6gFJrvQhXub
+	 fxxyLq6aWwJk3SKHrzTJ3iSbV2D5ThAt/mPdJCOjoOqjmEmSRbh7vPxhiGGD/K2ztsA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=oOBBksCL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.5
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012005.outbound.protection.outlook.com [52.101.53.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB2D3606A320
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:54:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB2D3606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8803F606A330;
+	Tue, 20 Oct 2026 08:56:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8803F606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TEO7fG0G
-Received: by mail-pz2-f8.google.com with SMTP id 41be03b00d2f7-cd3da0e82daso633463a12.1
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 01:54:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792486496; x=1793091296; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ah055MuUD0C6B1dAYun3nbxELChx3aUY//F37qF2gZg=;
-        b=TEO7fG0G50Io5kgU/X0rvSixXyEC+pcbToqG5fnNyHELaBJOtK4A0yxYmWfBsrsJ2w
-         Dd39t5PNPAY37JgNOhLjqzqphQsE1JRT7LAHJ6PBt3yQ6TSTJ2a6ikTGaj4VzqV09Zd/
-         kvL0Ni7Kq5pdlHfiUY1/OFnhdlE7HrBRqTnS7wV/v/+NXiu9xgwphxpOczLZMxhvs92v
-         F41ipYiltv9JbjSQb+JAtpnHfhzxp0y53l4J4CUgz4mXaK2jU1Rlj0zqcb7X8oQTV7u5
-         4iWHwlH4F4iHg2UI6UdhXSOiWqYGl6rq8C01GHHJ8nSBf5Dl0NEBNAz39DiJVWrMa5Wo
-         4fYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792486496; x=1793091296;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ah055MuUD0C6B1dAYun3nbxELChx3aUY//F37qF2gZg=;
-        b=pYZDJdTD9ua2uCvAuWFo5/0Mii1Vjh34Bt5LK4vbT6/0SyOGkWaq07dKzRo3U/Z6Ax
-         V7jUx2Z8px8oXy5OOyqbDV9HttzRdWzOzalnzpXTN/M2e+Jc51VxmtpVzhiw5p9tvEfM
-         ohFpTUbZAA7yq6UtnAS6tY04FsydmN8vEE+8sjAw82UmKZcJDF5N/Rl4ha5ttYcKUcLJ
-         MPYpNXJhHKR2Olwgl9B0QZwkGBe6bOuaaO9hPcykZCcPpFDB9odFaIej8s/n/ZXc7+W6
-         uRzw0/ZAbRgYxQwFZKvRZ/6EZJD3bu/iDz8Sn8aUmEl0KR7MDssZKl69zVCUezTuvsxI
-         QOTw==
-X-Forwarded-Encrypted: i=1; AKwUvBzEAR2tMvTVnxfPKR9J+kEv7DbnxFIFz0WXoPEFWilGT5X6IzXB5pTl9HCCty/azzbpJPZJkN0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJwfe3Rc9mzIhM/HvcNGhnjCecQitQKPrqDygSJhPyfEbGGorRA
-	uguwZiGzYLiOPcQVQy/wspFKAye75sKVFKM25+17xaftfH/4ijEufoSj
-X-Gm-Gg: AYBFou3dYDu22XwEdh/ZK7GaqXu7zZ7gGYPIRRwR4/XslrOjJF24U/IPbFXSb225Z+g
-	QdQgJHKx5ponX49uZqVBTFqVmyvE9e7uMR8Xg1heuJ83xUCJI5B/Gnz2B/uqeuTZsv9V/1H8KoD
-	DCuQJhRmTBsGSTbWphLWhu7TP8k8w3G4gAGmKbErd+tYqQS5nSJ7CmiXljlpNwn1Wr6sbTKf12f
-	TUYd5431w+JbB098mTFHZKAgJ4MolaDQuyemCSyBL+aMoo0ldU4+Tb+lqf2jFDBv2e5OHv5DqPQ
-	Yqm62LalZlTGxfM5evfVS3ACFJtK8rGIIKTaL8EWscElfRkhOXBZPWjFpz2eQMYjdJIffLjEEqE
-	dBcxxCeK4XTTZCvqk70CfGLDrsie1PvDQQs31NjKP2X9kVPDRgicieUgMOvWyAkYTylSgXFhirv
-	8ou3DuVKvSTu4uoptl4hM72g8j4WUWJXU8b7yQa33jQpG+rD57bdIy915f2lLYhWcISOWI504t4
-	EEcNdCxJjJEKqCxCaELm/Qwa2F26sISjP/mo2U3EiFtUd219g==
-X-Received: by 2002:a05:6a00:929e:b0:880:a842:bb0a with SMTP id d2e1a72fcca58-8a04bf63014mr7973628b3a.9.1792486496166;
-        Tue, 20 Oct 2026 01:54:56 -0700 (PDT)
-Received: from HXDQXTDYHN.bytedance.net ([203.208.167.149])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f580173efsm4540237b3a.50.2026.10.20.01.54.50
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 20 Oct 2026 01:54:55 -0700 (PDT)
-From: Jinmeng Zhou <jinmengzhou22@gmail.com>
-To: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Feng Wu <feng.wu@intel.com>,
-	x86@kernel.org,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jinmeng Zhou <zhoujinmeng@bytedance.com>,
-	stable@vger.kernel.org,
-	Guixiong Wei <weiguixiong@bytedance.com>
-Subject: [PATCH v2 2/2] KVM: x86: Wake blocked vCPUs before offlining a CPU
-Date: Tue, 20 Oct 2026 16:54:01 +0800
-Message-Id: <20261020085401.80296-3-jinmengzhou22@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20261020085401.80296-1-jinmengzhou22@gmail.com>
-References: <20260924080648.51014-1-zhoujinmeng@bytedance.com>
- <20261020085401.80296-1-jinmengzhou22@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=oOBBksCL
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eeGAI7lQh9dE0fpEehf7z5dPByTDCLp13HTryM2AwPvrWjWgdbGvcVEBN7A4mrKd7gtJExfnSKC9X+9D5xf85mwKbvrsDDPLhC9ua4TPXWgcBwKANGdTMrXHk7G9sRLlytG7J1lRLneZfIP9YMHjsqszMYTapKaK5VxyqULOiw85LiD9tQOSczE9VJfCFmcWsNGWxJ71p751OyQq4dCk1ebWLjf95BojLnB9acuS/3JI1ngekLmKSxVqV8LP2hQFowa4bxP7WVIGOwyrXgIKWnWIrsbxSI9chdMjoe8YHoBszHDZa2mYneWyqghTAQ8QTxhuyyKdAAPZI/PYoo7C8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cIpZyNVYXmILukAUgZqSzfPwWfI2Ag6jz2J1V0odIfA=;
+ b=mRgpi15ewEU1No4b8rRso6EMZLjWNM4prfFtZHB5Q62tKQ6q6pUdmOVZfrmBjKfdDwVZBcUzKynVdoSiAEcYm/94OaEcw4LRsyH1o80CwkDaFHjB9ceF77EJh96upmn0DKO+h8uLwDWSVWnINsz6n47/r/NvxnuTJW55T7QJheEkSfKmw6XMgK3Pji4GtuRcJ44sKrcf8sVauidqQoP2/IDDDrYBY7qEcZ9hkk/Wwya/oa+TjhQDmuUCBwwPq+UezjMa0AvQpLrJJm3u53xhM1fbrGqK0bL5wkhShbZAbdI8EZ+UozgH0gppQYtnJzhlEiWoAKujae6Ja0dfsH1azA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cIpZyNVYXmILukAUgZqSzfPwWfI2Ag6jz2J1V0odIfA=;
+ b=oOBBksCLkE+AmuXqk0F9jPaYR2JPNm+mcLep7JrR4viuC8IFYVnoAiXwvLDzRrV1A+U3sOs2pN3xSisorSF4KxlQUjiK4DHK1tdtj5W1Vr1JoxGXKoNZXScPADINilEyXWuJYYffxIhupxf6OdRM3bc4e+kt9+LVzA5JVb4YqihP4ywL5Js7E4ibCxbONtIjQR2ilbXreiCcsQrHuThPRKUzj1QBE2XnbTTCZ82Bzh1YFOSLkuBHSEqzqs23bZXHCS53ma8m8Y0KdEcvodVe06hWGcYwluGqc54Schqs5hdernrPFQ8K2mD8KY0LUq/Ko7l1sVRW/UmPckqPDZCxbQ==
+Received: from SJ0PR13CA0128.namprd13.prod.outlook.com (2603:10b6:a03:2c6::13)
+ by PH8PR12MB6938.namprd12.prod.outlook.com (2603:10b6:510:1bd::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
+ 2026 08:55:59 +0000
+Received: from SJ1PEPF000037A0.namprd04.prod.outlook.com
+ (2603:10b6:a03:2c6:cafe::7d) by SJ0PR13CA0128.outlook.office365.com
+ (2603:10b6:a03:2c6::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.15 via Frontend Transport; Tue,
+ 20 Oct 2026 08:55:59 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ SJ1PEPF000037A0.mail.protection.outlook.com (10.167.244.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Tue, 20 Oct 2026 08:55:59 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 20 Oct
+ 2026 01:55:43 -0700
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 20 Oct
+ 2026 01:55:42 -0700
+Received: from inno-dell (10.127.8.11) by mail.nvidia.com (10.129.68.10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Tue, 20 Oct 2026 01:55:37 -0700
+Date: Tue, 20 Oct 2026 11:55:34 +0300
+From: Zhi Wang <zhiw@nvidia.com>
+To: Alice Ryhl <aliceryhl@google.com>
+CC: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
+	<gary@garyguo.net>, =?UTF-8?B?QmrDtnJu?= Roy Baron
+	<bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, "Danilo
+ Krummrich" <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+	<acourbot@nvidia.com>, Onur =?UTF-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, "Dave
+ Jiang" <dave.jiang@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, "Saeed
+ Mahameed" <saeedm@nvidia.com>, Jonathan Cameron <jic23@kernel.org>,
+	<rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Sami
+ Tolvanen" <samitolvanen@google.com>, <stable@vger.kernel.org>
+Subject: Re: [PATCH] rust: fwctl: declare cfi_encoding for fwctl_rpc_scope
+Message-ID: <20261020115534.1134f2b3@inno-dell>
+In-Reply-To: <20261020-fwctl-cfi-encoding-v1-1-ebb30d1500df@google.com>
+References: <20261020-fwctl-cfi-encoding-v1-1-ebb30d1500df@google.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -109,182 +124,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037A0:EE_|PH8PR12MB6938:EE_
+X-MS-Office365-Filtering-Correlation-Id: 11239bd1-23d6-4884-0365-08df2e87f626
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|36860700016|82310400026|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	WPppd+BSbzF5csKk1E3MdPrR1iOxtpPVpHRRxPk3OheM8576pMS5IT6vr+hTmS8+hGoYnLCcitZw+/fvKO0QzT6QlRSUGfhYBGpj523vEsTiInqpx/3zYuSrRPv3Sdf6QTPLFQ74L+WLuiZbfLRFPUCuS23T2nw5B/fPjYWg6PjTOzfI2fxLwHVsknqn6PHm91I4xOrhCDigYlCJEFBdhmmFq468U5VE1UPCzj7n0QPANH0c59v4L6bd29Am71mWvGo2Z5Nob6zxL7BeLzGdcp9QcGDYiqWvPYDKSCHk+LtSFDSssNFT1QbN8IJz8QfJiOuSbADsDK7Z9Ke2LUKg1OopnXIMhU9LmjnVNAVDQBZbQx+gLmPoUkDJ1lAPSCWV9fePYyEkPTmXhUbXNHN9E5k3+UEHoooHLIOKIxEFIYc5uWX18hIBJsMkahpKiBln8xm6ciS2Kh6k6e9kLzZtVC9vn8vX0PYN5nzBgiFeX9waHbkJtiqxMW+F+FJObj7SytO+Hx/exEqHiJ08hEbAtQ18doH1Engi9arKM37DF2sM0JUhDZxW9FahRCWumxv6sMe0SeRVfDlLxW+hYXCdxeF4ljgfVh+xBMTdJ9QX5pwuFQkoup8OGRnoN31xiYALocBRIzGqir5euE0ssggSAweKIHF+xM1ky5/K6p8x+qFOZ52yIknapStV+kXzx6r5DgSHycIH3EGkXA10UvOueQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(36860700016)(82310400026)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	wC0zy5l7l0TYQjLPf3HHc3HX5f36ejMaI0LHNWzCMwOS/MuT+xFOArJ7sRyc6XDCM4vNHKJQr4UE0qtXWYTU7pzI9JREv2avGYAboFRACaW4xVfD6SwxJufhOdKowut6aIRrxQuYa+EDimLTldgFxiL4gBaoV9b/VNNWReogQm6eaxlR46PBjfNDrWzwnV0sijxNcb7UyrRZJ0wM3VZzN3jcxHaEn7kRAhwtYHIN321O0UdQtWLZMvs+phUhbB4BuGLpF1lYbeCDdWxQa8O2RqiRQqgtvRjVVbKjNY+IPXDkdMYqB2nxTs/hZRp9hyLNV0iKHDokii+RfGLAvg16XcaJn8TfLShsHkEPLg8RuQbiC5F6YIufIE1ql2VJYK6MkQAoEIzQKHnclTNWro2+pTtiSYyfyFiY3/9qmknjnVi0nOW5HnF3V5T+zCXhKttK
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 08:55:59.4397
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 11239bd1-23d6-4884-0365-08df2e87f626
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000037A0.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6938
 
-From: Jinmeng Zhou <zhoujinmeng@bytedance.com>
+On Tue, 20 Oct 2026 08:28:37 +0000
+Alice Ryhl <aliceryhl@google.com> wrote:
 
-Posted-interrupt wakeup state is tied to the physical CPU on which a vCPU
-blocks.  When a CPU is offlined, sched_cpu_deactivate() removes it from the
-active mask, but a blocked vCPU stays on that CPU's wakeup list and its
-posted-interrupt descriptor still targets that CPU's APIC.
+> Currently, VTable::fw_rpc_callback() takes scope as a u32, whereas C
+> calls fwctl_ops::fw_rpc with enum fwctl_rpc_scope. With kCFI enabled,
+> enum types are encoded distinctly from integers, causing every fw_rpc
+> indirect call into a Rust fwctl driver to trip a CFI failure. Thus,
+> generate fwctl_rpc_scope as a newtype with a cfi_encoding attribute
+> and use it in fw_rpc_callback().
+>=20
 
-If a device posts an interrupt after the old CPU goes offline, the wakeup
-notification cannot make the blocked vCPU runnable.  The vCPU cannot fix
-the stale notification destination, because that happens only after the
-vCPU is scheduled back in.
+Thanks for the fix. Looks good to me.=20
 
-Add an optional x86 vendor cpu_offline() callback and call it from the
-CPUHP_AP_X86_KVM_ONLINE teardown.  That teardown runs after CPUHP_AP_ACTIVE
-has deactivated the CPU.  Have VMX wake every vCPU on the dying CPU's
-posted-interrupt wakeup list, so that the scheduler places the vCPU on an
-active CPU and vmx_vcpu_pi_load() rebuilds its wakeup list and
-posted-interrupt destination state.
+Reviewed-by: Zhi Wang <zhiw@nvidia.com>
 
-A single pass over the list is sufficient.  Once the CPU is inactive, the
-scheduler won't select it for a wakeup, and balance_push() moves any task
-that is switched in on it to an active CPU before the task can run.  Thus
-no vCPU can block on the CPU and add itself to the list after the walk.
+BTW: I saw this =E2=80=9Clru_status=E2=80=9D needs the same treatment, gues=
+s bindgen
+will someday automatically handle this?
 
-Use __kvm_vcpu_wake_up() rather than KVM_REQ_UNBLOCK.  A vCPU with no
-pending event goes back to the block loop after its posted-interrupt state
-has been migrated, and no spurious wakeup is reported to the guest.
+Z.
 
-Initialize the per-CPU posted-interrupt wakeup lists in vmx_init() before
-calling kvm_x86_vendor_init().  Once the CPU hotplug state is registered,
-a concurrent CPU offline can invoke the VMX callback, which must not walk
-an uninitialized list.
-
-Fixes: bf9f6ac8d749 ("KVM: Update Posted-Interrupts Descriptor when vCPU is blocked")
-Cc: stable@vger.kernel.org
-Co-developed-by: Guixiong Wei <weiguixiong@bytedance.com>
-Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
-Signed-off-by: Jinmeng Zhou <zhoujinmeng@bytedance.com>
----
- arch/x86/include/asm/kvm-x86-ops.h |  1 +
- arch/x86/include/asm/kvm_host.h    |  1 +
- arch/x86/kvm/vmx/main.c            |  1 +
- arch/x86/kvm/vmx/posted_intr.c     | 18 ++++++++++++++++++
- arch/x86/kvm/vmx/posted_intr.h     |  1 +
- arch/x86/kvm/vmx/vmx.c             | 16 ++++++++++------
- arch/x86/kvm/x86.c                 |  3 ++-
- 7 files changed, 34 insertions(+), 7 deletions(-)
-
-diff --git a/arch/x86/include/asm/kvm-x86-ops.h b/arch/x86/include/asm/kvm-x86-ops.h
-index e213c9ae3e301..f2a805783f045 100644
---- a/arch/x86/include/asm/kvm-x86-ops.h
-+++ b/arch/x86/include/asm/kvm-x86-ops.h
-@@ -17,6 +17,7 @@
- KVM_X86_OP(check_processor_compatibility)
- KVM_X86_OP(enable_virtualization_cpu)
- KVM_X86_OP(disable_virtualization_cpu)
-+KVM_X86_OP_OPTIONAL(cpu_offline)
- KVM_X86_OP(hardware_unsetup)
- KVM_X86_OP(has_emulated_msr)
- KVM_X86_OP(vcpu_after_set_cpuid)
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index 683bb8bf43a94..d47863ce2c5ae 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -1509,6 +1509,7 @@ struct kvm_x86_ops {
- 
- 	int (*enable_virtualization_cpu)(void);
- 	void (*disable_virtualization_cpu)(void);
-+	void (*cpu_offline)(unsigned int cpu);
- 	cpu_emergency_virt_cb *emergency_disable_virtualization_cpu;
- 
- 	void (*hardware_unsetup)(void);
-diff --git a/arch/x86/kvm/vmx/main.c b/arch/x86/kvm/vmx/main.c
-index 4c52ab8d07869..5a3f77f42d20d 100644
---- a/arch/x86/kvm/vmx/main.c
-+++ b/arch/x86/kvm/vmx/main.c
-@@ -894,6 +894,7 @@ struct kvm_x86_ops vt_x86_ops __initdata = {
- 
- 	.enable_virtualization_cpu = vmx_enable_virtualization_cpu,
- 	.disable_virtualization_cpu = vt_op(disable_virtualization_cpu),
-+	.cpu_offline = pi_cpu_offline,
- 	.emergency_disable_virtualization_cpu = vmx_emergency_disable_virtualization_cpu,
- 
- 	.has_emulated_msr = vt_op(has_emulated_msr),
-diff --git a/arch/x86/kvm/vmx/posted_intr.c b/arch/x86/kvm/vmx/posted_intr.c
-index 4a6d9a17da238..1905472b336d3 100644
---- a/arch/x86/kvm/vmx/posted_intr.c
-+++ b/arch/x86/kvm/vmx/posted_intr.c
-@@ -266,6 +266,24 @@ void pi_wakeup_handler(void)
- 	raw_spin_unlock(spinlock);
- }
- 
-+void pi_cpu_offline(unsigned int cpu)
-+{
-+	struct list_head *wakeup_list = &per_cpu(wakeup_vcpus_on_cpu, cpu);
-+	raw_spinlock_t *spinlock = &per_cpu(wakeup_vcpus_on_cpu_lock, cpu);
-+	struct vcpu_vt *vt;
-+	unsigned long flags;
-+
-+	/*
-+	 * CPUHP_AP_ACTIVE has already deactivated the CPU.  Wake blocked vCPUs
-+	 * so that they are scheduled on another CPU and rebuild their posted
-+	 * interrupt wakeup state in vmx_vcpu_pi_load().
-+	 */
-+	raw_spin_lock_irqsave(spinlock, flags);
-+	list_for_each_entry(vt, wakeup_list, pi_wakeup_list)
-+		__kvm_vcpu_wake_up(vt_to_vcpu(vt));
-+	raw_spin_unlock_irqrestore(spinlock, flags);
-+}
-+
- void __init pi_init_cpu(int cpu)
- {
- 	INIT_LIST_HEAD(&per_cpu(wakeup_vcpus_on_cpu, cpu));
-diff --git a/arch/x86/kvm/vmx/posted_intr.h b/arch/x86/kvm/vmx/posted_intr.h
-index a4af39948cf04..530f1347f8b0d 100644
---- a/arch/x86/kvm/vmx/posted_intr.h
-+++ b/arch/x86/kvm/vmx/posted_intr.h
-@@ -11,6 +11,7 @@
- void vmx_vcpu_pi_load(struct kvm_vcpu *vcpu, int cpu);
- void vmx_vcpu_pi_put(struct kvm_vcpu *vcpu);
- void pi_wakeup_handler(void);
-+void pi_cpu_offline(unsigned int cpu);
- void __init pi_init_cpu(int cpu);
- void pi_apicv_pre_state_restore(struct kvm_vcpu *vcpu);
- bool pi_has_pending_interrupt(struct kvm_vcpu *vcpu);
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index 612ab07d4100f..ff1a6ccbd043b 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -8889,6 +8889,16 @@ int __init vmx_init(void)
- 	if (setup_vmcs_config(&vmcs_config, &vmx_capability) < 0)
- 		return -EIO;
- 
-+	/*
-+	 * Initialize the per-CPU lists before common x86 init, which registers
-+	 * the CPU hotplug callbacks that walk the posted-interrupt wakeup lists.
-+	 */
-+	for_each_possible_cpu(cpu) {
-+		INIT_LIST_HEAD(&per_cpu(loaded_vmcss_on_cpu, cpu));
-+
-+		pi_init_cpu(cpu);
-+	}
-+
- 	r = kvm_x86_vendor_init(&vt_init_ops);
- 	if (r)
- 		return r;
-@@ -8898,12 +8908,6 @@ int __init vmx_init(void)
- 	if (r)
- 		goto err_l1d_flush;
- 
--	for_each_possible_cpu(cpu) {
--		INIT_LIST_HEAD(&per_cpu(loaded_vmcss_on_cpu, cpu));
--
--		pi_init_cpu(cpu);
--	}
--
- 	vmx_check_vmcs12_offsets();
- 
- 	return 0;
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index a08ae25f373fb..38bffe6ec9b4b 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -6823,8 +6823,9 @@ static int kvm_x86_cpu_online(unsigned int cpu)
- static int kvm_x86_cpu_offline(unsigned int cpu)
- {
- 	if (!boot_cpu_has(X86_FEATURE_CONSTANT_TSC))
--		return kvmclock_cpu_down_prep(cpu);
-+		kvmclock_cpu_down_prep(cpu);
- 
-+	kvm_x86_call(cpu_offline)(cpu);
- 	return 0;
- }
- 
--- 
-2.39.5
+> Cc: stable@vger.kernel.org
+> Fixes: e052daab94ee ("rust: introduce abstractions for fwctl")
+> Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+> ---
+>  rust/bindgen_parameters |  2 ++
+>  rust/kernel/fwctl.rs    | 12 ++++++------
+>  2 files changed, 8 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/rust/bindgen_parameters b/rust/bindgen_parameters
+> index 8402b0c93545..e4f8c07743a8 100644
+> --- a/rust/bindgen_parameters
+> +++ b/rust/bindgen_parameters
+> @@ -27,6 +27,8 @@
+>  --opaque-type spinlock
+> =20
+>  # enums that appear in indirect function calls should specify a cfi
+> type +--newtype-enum fwctl_rpc_scope
+> +--with-attribute-custom-enum=3Dfwctl_rpc_scope=3D'#[cfi_encoding=3D"15fw=
+ctl_rpc_scope"]'
+>  --newtype-enum lru_status
+>  --with-attribute-custom-enum=3Dlru_status=3D'#[cfi_encoding=3D"10lru_sta=
+tus"]'
+> =20
+> diff --git a/rust/kernel/fwctl.rs b/rust/kernel/fwctl.rs
+> index f29244fb0d1d..b7778e4d5ee0 100644
+> --- a/rust/kernel/fwctl.rs
+> +++ b/rust/kernel/fwctl.rs
+> @@ -53,13 +53,13 @@ pub enum DeviceType {
+>  #[derive(Copy, Clone, Debug, Eq, PartialEq)]
+>  pub enum RpcScope {
+>      /// Read/write access to device configuration.
+> -    Configuration =3D
+> bindings::fwctl_rpc_scope_FWCTL_RPC_CONFIGURATION,
+> +    Configuration =3D
+> bindings::fwctl_rpc_scope::FWCTL_RPC_CONFIGURATION.0, /// Read-only
+> access to debug information.
+> -    DebugReadOnly =3D
+> bindings::fwctl_rpc_scope_FWCTL_RPC_DEBUG_READ_ONLY,
+> +    DebugReadOnly =3D
+> bindings::fwctl_rpc_scope::FWCTL_RPC_DEBUG_READ_ONLY.0, /// Write
+> access to lockdown-compatible debug information.
+> -    DebugWrite =3D bindings::fwctl_rpc_scope_FWCTL_RPC_DEBUG_WRITE,
+> +    DebugWrite =3D bindings::fwctl_rpc_scope::FWCTL_RPC_DEBUG_WRITE.0,
+>      /// Full read/write access to all debug information (requires
+> `CAP_SYS_RAWIO`).
+> -    DebugWriteFull =3D
+> bindings::fwctl_rpc_scope_FWCTL_RPC_DEBUG_WRITE_FULL,
+> +    DebugWriteFull =3D
+> bindings::fwctl_rpc_scope::FWCTL_RPC_DEBUG_WRITE_FULL.0, }
+> =20
+>  impl TryFrom<u32> for RpcScope {
+> @@ -539,12 +539,12 @@ impl<T: Operations> VTable<T> {
+>      /// - `out_len` must be valid for reading and writing an
+> initialised `usize`. unsafe extern "C" fn fw_rpc_callback(
+>          uctx: *mut bindings::fwctl_uctx,
+> -        scope: u32,
+> +        scope: bindings::fwctl_rpc_scope,
+>          rpc_in: *mut ffi::c_void,
+>          in_len: usize,
+>          out_len: *mut usize,
+>      ) -> *mut ffi::c_void {
+> -        let scope =3D match RpcScope::try_from(scope) {
+> +        let scope =3D match RpcScope::try_from(scope.0) {
+>              Ok(s) =3D> s,
+>              Err(e) =3D> return Error::to_ptr(e),
+>          };
+>=20
+> ---
+> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+> change-id: 20261020-fwctl-cfi-encoding-70766ce0a03a
+>=20
+> Best regards,
 
