@@ -1,66 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.120.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792521811;
-	b=EexsDlq+0AK6bdJu2cPrkqjXuoNsYVgwh1nwJ4lbDnq3EVDJ9KaY9FyLQI+o385xZq12
-	 V5e/OQmezpZ0mQNdcSc24kwN6HyI4Q7h0YrEeSTbJBBD1lWiugRcok28yqD56+dHLt4j6
-	 H/yUb8tI4XzKqTJztuiKmJRYJEOrfCDjkP2XwhV+JHtpvXKOFTpX29Gb/xxv4Tqy6UK9B
-	 fEDO5IqYT5NfESX+aBHK+lyBTXq9AwNe+TDr+is7vGeHqU4uL3zJIFnLYmM1dxhTme0Ks
-	 9CXBsrBRlojLJgM5kiZXcmvi5X6edKsVJEmBOisQYOIqjdQNHVHW1kWcEG7GHaJVqzw==
+	t=1792522541;
+	b=dO1Tw+DKgk15SFMAYNy+JS850hW6ZpEynBiM6htyx7YvXMLtuXfzYyb3d4y/2kbhBk4y
+	 TXKo4ZY9OuxAsYvWMcyTgvmoYHXW3Prn1vhxRud/Gu7t2ANCj2GbhRgQQy7cadcOt4kao
+	 edTBLwuJY3qHfofTutCqixMh3hAFmULDvOIWMhImYIFWqsjjmWk2udrhLWxGSvkr8XVga
+	 Dqro8ilW/oFOheTdvUvzcc63N+h19IjVXALpzDjxZKAVxWhiyT4khdx4l57kEH2FKCkkS
+	 DsRXHVQrAfu/REbkGZ+vqxIAYZHwmTc6N/3sUxH4w3BsaqMTwXU3kJ4RHJJVO+7SqHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792521811;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Spam_score:X-Spam_bar;
-	bh=yW+ipQD8TDPwyrv1xvhhUuK9dyII7X9ovRSnpipOHa0=;
-	b=NymFQUyPnW27aA00ityDAxUE8fHT+gyE7j9y+iVhOwVzANhCKcUmD/kyS76zjthDa5wp
-	 N7Rl4JDiyrX5BE+ICsVJszfLa+dIJQAZLezqOhJ0B9DSV+85KtYh0LF3qu3P/HJEVO4za
-	 E8ijiMa2KQOhJD5aBY3z6sT2pX/1GnxwheCZi4S3SRaG5zfS3Ud4cGeTA2Mcdf4n6FFgq
-	 E3SDJzFKVzwjcGdcnWwrM3n1o6IaUM+NwEilkdj3oTMRp76MMFAWJ7BEyFdT+jnqUeVzK
-	 nTcGjO/9vLLJLRnL2IK0qx6BlTzMixqC2PQUIEzyuG2OFBlOr25rT7Zeu8YnjJ4Ws9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792522541;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=4PK2lzk2mI4nQc8YfV5A1vWK0eiPo0oKUX3U4tb8dEk=;
+	b=bH2hCEX+HwDC1NQGX1Sw2YjmZGwaZzCbJaCvj7fXKFurqxINeTxLQdA3N+GTXUawwyZ9
+	 NrUb/StD3zt5LEj/D1O/w2VnnznLBNfcMl4gvPlAOLy+Fw3cqHswFK7OsvLsPaa7QZvI9
+	 ap29idzrqrCzlx7/gsKxh8iUAikUhCeglalNbvEl6stZNKcbyNTReETj3AX3h4tDWEgpO
+	 sww9t9kpx/p2eWduXQ4/tfTE0eCNlIsE7CF4jM2yDQ3ZQlwUVSWbPcGaqyYEPKhlpT1le
+	 nT31X2+iHYBZQgMzOQj3hZ55mnZAOldQhEN6tITDmj+wpjfQCGhFfGY6Rr/j0KcaNig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hugovil.com;
-	spf=pass smtp.mailfrom=hugovil.com;
-	dkim=pass header.d=hugovil.com header.i=@hugovil.com header.a=rsa-sha256 header.s=default header.b=iTh6UXCV;
-	arc=none smtp.remote-ip=162.243.120.170
-Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ixrA1YXo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C144D60A2621;
-	Tue, 20 Oct 2026 18:43:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C144D60A2621
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48872606A319;
+	Tue, 20 Oct 2026 18:55:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=hugovil.com header.i=@hugovil.com header.a=rsa-sha256 header.s=default header.b=iTh6UXCV
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
-	; s=default; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject
-	:Cc:To:From:subject:date:message-id:reply-to;
-	bh=yW+ipQD8TDPwyrv1xvhhUuK9dyII7X9ovRSnpipOHa0=; b=iTh6UXCVgG5X+Klfar63MxPxpZ
-	Bwp7aRBA3oqdutDIVAeiMPnDZ9uUrEhRityJ2lWJXDuoFlM2c1mC+XUn66ExPvPgf+jtXputlJksN
-	cDBhVq2S1FSqkKtptIw22RXx11DCckAH0N6EFV/huKnyhA9qDcy0LtC7m8sWaD5fu0Kg=;
-Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
-	by mail.hugovil.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <hugo@hugovil.com>)
-	id 1xJEo1-000000000nG-1h4N;
-	Tue, 20 Oct 2026 14:43:23 -0400
-From: Hugo Villeneuve <hugo@hugovil.com>
-To: gregkh@linuxfoundation.org,
-	jirislaby@kernel.org,
-	alan@linux.intel.com
-Cc: hugo@hugovil.com,
-	gregkh@suse.de,
-	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ixrA1YXo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B95591F000C9;
+	Tue, 20 Oct 2026 18:55:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792522540;
+	bh=4PK2lzk2mI4nQc8YfV5A1vWK0eiPo0oKUX3U4tb8dEk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ixrA1YXoG1+qDDsa71ntE6lr2e2co5LFsNrTKt8FNl3m6zEf+qKK604id9y1tabd8
+	 14W+Z3DkFxcjCaLductg5BAFEYKUO/ziRrIBgad7TlD7Ux5YukQqYgpeulnSiaMR62
+	 N0aRHjT3HzxcpmuNxWh2VOoAmQgl4EOdXN8PUXHgSsGXT7AT/fKY45YiDCm8mZNXWR
+	 5E1OveQbNkOjLlxffgevQBqSit/uR6E5Gn2TBr9dhF7BshNAWk2hR7vV1c0HogUU4Q
+	 QsDZ+HUowwJwoEVGcYgikapOSOf2EUNvV5YE2kuXOITX6tvb6g3I6tsnyU6ACMGpUL
+	 ZMXY+v7EkiUFg==
+Date: Tue, 20 Oct 2026 19:55:36 +0100
+From: Simon Horman <horms@kernel.org>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Michal Simek <michal.simek@amd.com>, netdev@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 2/5] serial: core: clip out-of-range baud rate to min/max, not min+1/max-1
-Date: Tue, 20 Oct 2026 14:41:18 -0400
-Message-ID: <20261020184131.2893575-3-hugo@hugovil.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261020184131.2893575-1-hugo@hugovil.com>
-References: <20261020184131.2893575-1-hugo@hugovil.com>
+Subject: Re: [PATCH net] net: axienet: don't advance the TX ring head before
+ the descriptor is ready
+Message-ID: <20261020185536.GR503057@horms.kernel.org>
+References: <20261013-b4-axienet-dmaengine-ring-head-v1-1-7add24e74477@toxicpanda.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,53 +63,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam_score: -1.0
-X-Spam_bar: -
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013-b4-axienet-dmaengine-ring-head-v1-1-7add24e74477@toxicpanda.com>
 
-From: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+On Tue, Oct 13, 2026 at 06:25:06PM +0000, Josef Bacik wrote:
+> axienet_start_xmit_dmaengine() bumps lp->tx_ring_head before
+> skb_to_sgvec(), dma_map_sg() and device_prep_slave_sg(), and none of
+> their error paths undo it.  The skb is freed and nothing is submitted,
+> but the slot stays claimed.  axienet_dma_tx_cb() walks tx_ring_tail
+> once per completion, so the next completion lands on the abandoned slot
+> and dereferences whatever skb pointer is left there: NULL if the slot
+> was never used or was already completed, or a stale skb that gets
+> consumed a second time.  Every completion after that is accounted
+> against the wrong slot.
+> 
+> dma_map_sg() and device_prep_slave_sg() can fail at runtime, and so can
+> skb_to_sgvec() on a malformed skb.  Only advance tx_ring_head once
+> those have succeeded.  The completion callback can't run before
+> dmaengine_submit(), so claiming the slot just before that is fine.
+> 
+> dmaengine_submit() itself can also fail on xilinx_dma after a channel
+> error, and its return isn't checked either.  That's a separate problem
+> and isn't changed here.
+> 
+> This was found by the Sashiko AI review of the skbuff BUG_ON() series.
+> 
+> Fixes: 6a91b846af85 ("net: axienet: Introduce dmaengine support")
+> Link: https://lore.kernel.org/all/20261007-b4-skbuff-bug-on-v2-0-b9a5f732895b@toxicpanda.com/
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> ---
+> Compile-tested only, I don't have the hardware.  The bug is in the error
+> paths, which are easy to see from the diff: every goto after the old
+> increment returns without submitting anything.
 
-min and max values are valid baud rates, as the existing code in
-uart_get_baud_rate() already checks:
-
-    if (baud >= min && baud <= max)
-        return baud;
-
-I couldn't find any explanation in commit 16ae2a877bf4 ("serial: Fix crash
-if the minimum rate of the device is > 9600 baud") as to why this is
-clipped to min+1/max-1.
-
-Also, Sashiko identified a potential problem where clipping to min+1/max-1
-will be out of range when min == max. This would result in the loop exiting
-and returning a zero baud rate, triggering a Division by zero fault.
-
-Fix by clipping to min/max.
-
-Fixes: 16ae2a877bf4 ("serial: Fix crash if the minimum rate of the device is > 9600 baud")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
----
- drivers/tty/serial/serial_core.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index c3c1a1d76405d..0498a8524c6da 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -533,10 +533,10 @@ uart_get_baud_rate(struct uart_port *port, struct ktermios *termios,
- 		 * As a last resort, if the range cannot be met then clip to
- 		 * the nearest chip supported rate.
- 		 */
--		if (baud <= min)
--			baud = min + 1;
-+		if (baud < min)
-+			baud = min;
- 		else
--			baud = max - 1;
-+			baud = max;
- 
- 		tty_termios_encode_baud_rate(termios, baud, baud);
- 	}
--- 
-2.47.3
+Reviewed-by: Simon Horman <horms@kernel.org>
 
