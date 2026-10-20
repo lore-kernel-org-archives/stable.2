@@ -1,98 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792509881;
-	b=BFA2DuJ78NE43609wqYhrKTkyZEExby+smCzehC+HsgzY4CKOu6S3iRrY9JrnIwEf0E8
-	 cWow/ZA0jussl9F8hrmtRG7PFvrqF6yva6AXkj0IbtBBmKCxpPeyr/kPPpTL7tK8Gg9VY
-	 qrCYkQegEh36jifU8J9e5hkBFYSCsKWkcKvZI6riQo9B/KsxByupQxfNgFC0qwz7Ith5H
-	 xSuFofpL9q6jVyGbfQoA2wopMstdhSwiMgGBHuEvdmvJJoVsWVig7QjdWWarP8u332FNR
-	 YLEgy+dWeRxNWnn/EUcoK67SbsSv7+KyIalmc2ZwRxSk2KElHma+zsZhJoXBlQU8i0g==
+	t=1792509950;
+	b=ZQ/CAcy3lB/PHV23y61g7gTW2YkA34BWH/OS3D+/E+TqY3tICK/kulICF9DyZDFPimiL
+	 q+Qv92ZtvJihOqdu+MM+AZwu9FEA3sRlC/a6XW1dowHyl/U6TNM+XNUO6fAcIqfbk+5B/
+	 dPNqIsExAKndTzEZhOcJ6nVK3Nt7spFuUOsB0ZfGveHH3ntklwBC2rRwUGgWSeau8SAee
+	 jo3BTvizSnVGFmCOaQUCtpGCtXnbLyOA4CXpBVaGTkUVWFwTutLFeSM89C471GgTmrnBu
+	 fSMZ530rlHFzMOKwTVucSckN2JKQuInfMpvln6qFlY0A4ZjEbcSw2xCVFzqVvXVIJOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792509881;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=G5tN8cFWYKKQdXdrFLYLB4O03z7PGyAtAV81+AhWuws=;
-	b=3ttzrwuMHsUWiWoLPHo11z4HEIxnl9DdUZxtrb45Oa6YDzIdKRYlcaygKD68LEyQ+1pM
-	 +1IMU6P2ksZVPex82O3p65Q47Y97/iGQpP8R5B1BR2sajheh4X5oH7ZLA8G+lAxnSUxhp
-	 bBS9NpTRwo310xRNG4AgtyHX39RGzE+LObCjeYKl3ePoWL3DzimDNi1wogzQoyf1p3smQ
-	 aVqb7D8kpkAnlyirO7wnoDnOqKGaEs0L8FStW2SDg1keugHb/ls0tRcYN3LK1Gy9x3Ri1
-	 ew2HY6rkKwRAeqHmgZti7lGDTIIHn6iZxIF57B4sgS7J1ptd5xLniMtoqy4FJQWzVoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792509950;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=qnnKDDvmabqOsa4xKgNN1r+wBeLKSYF6UBFIXxksVrk=;
+	b=Nd/zLW0PcyCmX95YsXV/bcXpN3Kd5CN0aUx4JgESS0MNTqrhIYH9RmvxQPtcCb0bTrD9
+	 KBW9dzaRg+qvhSkL1OJM5EFRO8A8jAtDhp1pmJzACE0M8PR+sDjFi4E2Edb29q5Qbw+/q
+	 PopAM2ZLEFGRpCAUf88LYWcVdmKNEgLkGxEQ4JY6mVWUXhFUgk/JWPdhvkyetifwz1CnP
+	 mvx1b/Yu0UCaRTIB7hsXn9JwZ+oXJzGzCrp/BFWU0+ssnfvWqk+FBTFW9SeqKg2SlGgqW
+	 tigpuftVM2hipKf4RxuwK55Z6MH8PfhAuynfDIWQzsGR6kSMuomNsFln1IVKavr6tZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cX+NB3CG;
-	arc=none smtp.remote-ip=209.85.218.42
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="N/Ryh22H";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 926F8606A319
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 15:24:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 926F8606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF76B606A31A;
+	Tue, 20 Oct 2026 15:25:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cX+NB3CG
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c43fbcb4393so332855966b.0
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:24:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792509880; x=1793114680; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=G5tN8cFWYKKQdXdrFLYLB4O03z7PGyAtAV81+AhWuws=;
-        b=cX+NB3CG/dJQtaBpiupEdRyIh1uUSNZHmLzJ6mAkshlYKC0Bm6RPkBC71+QgjExV14
-         HMtI5uR7Mg7mKwwkeKRtU2aQ2vCRnhhVdc0n8/2+Nf8RFFVWuBxlg4xFCzhKfla1qkXc
-         q3lahx2LzV/gj4ynwbnOICeqD0kMLbtkdoXJhs8jeJubXNSEUVKpC3oJGHKKImOkCu5V
-         IkdFjg2hVUDbRUlXPBVsV19P+/RXSfAQw4p3jTSZ5bbXT+u21emOa58ZnUdB7Xta4OQy
-         4oPajs7sxNh7kJ2k55IQKWGV9ZJOEorie8EuH9wPX3AmW3p3oBuhY58qW7tIFP2wI9md
-         YFgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792509880; x=1793114680;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G5tN8cFWYKKQdXdrFLYLB4O03z7PGyAtAV81+AhWuws=;
-        b=XgRNI0j5x9Ukx1uqmhDD5keLTsndIeq+IV7o8hGFgbocqE/jV0nTaVytMMJf0B4QN4
-         1rQ99YFtucdEI3XFpWcLAG9rWnMZu5//AvmURcFMLPozjhOCKq6hq3GHQjSo3sgzuIvv
-         ENppcbKnmkrcvN457mTIz3Vdwm+NqLkzIX9bZ6ovEyktadAaWWbKT3+T9fQrr2riyrlT
-         scppY8snhqir+/kHNCx7fYW9JP5WTQLYxGikvOZvUxSyxCGckCzINe8pTd3CVRU04Z6R
-         M56xKfs1t+88RN/FkVZPpAolje3ibMETuYXeAJWxZ5LSFfUuzNhUFtGAbrOq9hL+Y2iu
-         2MKQ==
-X-Forwarded-Encrypted: i=1; AKwUvByZbgIFV6zgnISQl/C4ZAw/3Ju3dG3Lh4z4nrdCrrU6EG0zIMUHQY1KSHzK+w75hwTsfuTOVAk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIoZUouh+8lJ+k1f7wUv46+ORe5II8JRHe/7jDjD+kjyV9TPrxP
-	l5LsQzBCJfhJEU4LIXCw7zyURxeYTyXGT82jSY3UZcBoGATSj2EQg1Km
-X-Gm-Gg: AYBFou3AH0psgUXmz8NEJA3UdkGEgLMsVicd6LA0s+FYrMQCD82OTMbzoH8mZXNOVa7
-	yyJNvV/Yb90z2ZP8nAXUBAbNYUasvOzRDLTNg49W5ZQhJl1LB8axzUAhUyidMsjTlu554kJfnTK
-	MYQVNr22Sm0//BYnF201pLYM6IC/rQLPVg3ItmZ3/2NVlUnI6kX4ulb9FKq24G53m7GwjJDJdRW
-	iP1P3xtR9gu+ZPCCufdcAEewaya1nWdC9fmoHTMq9z1DrqaZmmYsymM+MNmqnfHSrdEZlPuQwmD
-	gayXn9485hDKOUqHDQBpQyd7YNOqy4oJ/ewE2TjpeM+M0TRouwi6TBfXZ12PWYYbN6tCeQwcgOb
-	+jF41NLnhGxmg+qM7SYcZenBA0EWib1NAXc3QRsS94i6oFsiC6bdhpJHTA4rlbi8jaTt0bZqmd7
-	+dlfl45sDPBFS19n139MFv7uepzgadfufS0ojQ21MnySic90JsQFRGjDnmTZAVgA1CI2vv2hK2x
-	ckJztKS2G24Pum9iZ+uYTtm1YJExcJ+GZien7RDzZ0hyRNhgpy+qMMxgXSGs8W/IRRzwy+t+06u
-	hmDWmqcDM5hCvSUAuB6B2ImGyRJXviF1
-X-Received: by 2002:a17:907:9693:b0:c2b:898e:24fd with SMTP id a640c23a62f3a-c419f90824amr855300766b.33.1792509879566;
-        Tue, 20 Oct 2026 08:24:39 -0700 (PDT)
-Received: from Martyna-s-A34.localdomain (ip-80-113-116-3.ip.prioritytelecom.net. [80.113.116.3])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40919bcfc5sm488110466b.59.2026.10.20.08.24.38
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 20 Oct 2026 08:24:39 -0700 (PDT)
-From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
-Cc: Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Mehmet Fide <mehmet.fide@gmail.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] wifi: ath9k: drop WMI command responses when no command is pending
-Date: Tue, 20 Oct 2026 17:24:12 +0200
-Message-ID: <20261020152412.95560-3-mike.michalo@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261020152412.95560-1-mike.michalo@gmail.com>
-References: <20261020152412.95560-1-mike.michalo@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N/Ryh22H
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 395A81F000C4;
+	Tue, 20 Oct 2026 15:25:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792509949;
+	bh=qnnKDDvmabqOsa4xKgNN1r+wBeLKSYF6UBFIXxksVrk=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=N/Ryh22H3bh2OekkLERS5+/ZNyR79Ait3mk83MBE58z5nY43sBxn8Q9mb70aqTRLT
+	 kdRkja4iI4E8nIbnMI6tw5NgjDFfu5AnqxuLQiDzEU7pet6JhegJxpupKTcC5FkjuY
+	 OTnTETl4hTWohoiYS2FZ87uIookOWSNwoPhWDP0n5NsraDyNgAbD+ru21uhbIfzPwI
+	 tl49VaWf4TvIpf347OiU6Ulfc/C4ylIsSLfjRvr9UT6MKCqLL8cd+VDS5z9kux/xGC
+	 Fg4i1KgYvbSS52K5qSC184y7iRf+pTkBa0CEiGQbDUk6pKRn3s2elqhj5rbtGUDScg
+	 69FDpahn/H8qw==
+Content-Type: multipart/mixed; boundary="===============4093518717466758589=="
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,120 +49,179 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <a9ee5ed21d9e00e36d2bc48f64d47422ccfa7f8d12575e63456ffb0f9decd400@mail.kernel.org>
+In-Reply-To: <20261020145059.2146170-6-utilityemal77@gmail.com>
+References: <20261020145059.2146170-6-utilityemal77@gmail.com>
+Subject: Re: [PATCH bpf-next v2 5/6] bpf: Bind iterator elements to their iterator
+From: bot+bpf-ci@kernel.org
+To: utilityemal77@gmail.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
+Cc: song@kernel.org,puranjay@kernel.org,bpf@vger.kernel.org,utilityemal77@gmail.com,stable@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 20 Oct 2026 15:25:49 +0000 (UTC)
 
-ath9k_wmi_ctrl_rx() accepts a command response whose sequence number
-matches wmi->last_seq_id and copies it to wmi->cmd_rsp_buf, which
-usually points into the stack frame of the ath9k_wmi_cmd() caller.
-Only the timeout path clears last_seq_id, since
-commit 8a2f35b98306 ("wifi: ath9k: Fix potential stack-out-of-bounds
-write in ath9k_wmi_rsp_callback()"). After a normal completion or a
-failed send the receive path stays armed, so a duplicate response from
-a buggy or malicious device is written into a stack frame that is gone,
-and its extra complete() makes the next command return before its own
-response arrives. Sequence number 0, which means "nothing pending", is
-also used for a command once tx_seq_id wraps.
+--===============4093518717466758589==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Keep the receive path armed only while a command is pending: disarm it
-once a response has been handled, on timeout and when sending fails,
-drop responses while nothing is pending, never use sequence number 0,
-and reinitialise the completion before each command is issued.
+> bpf: Bind iterator elements to their iterator
 
-Fixes: fb9987d0f748 ("ath9k_htc: Support for AR9271 chipset.")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+TL;DR:
+- Iterator elements may stay trusted after the next next() call drops them, so
+  the verifier may still accept use-after-free programs
+- Fixes: tag likely should be 4cc8c50c9abc
+
+>     bpf: Bind iterator elements to their iterator
+>
+>     An element returned by an iterator's next() kfunc is kept alive by the
+>     iterator alone. bpf_iter_task_vma_next() returns a snapshot that lives
+>     in the iterator's own allocation and holds the vma's vm_file reference
+>     only until the next step or destroy; bpf_iter_kmem_cache_next() and
+>     bpf_iter_dmabuf_next() hand out objects whose reference the iterator
+>     drops the same way. The verifier marks every such element PTR_TRUSTED
+>     with nothing tying it to the iterator, so a pointer saved across
+>     bpf_iter_<type>_destroy() stays fully trusted after the memory or the
+>     reference behind it is gone:
+>
+>     	bpf_iter_task_vma_new(&it, task, 0);
+>     	vma = bpf_iter_task_vma_next(&it);
+>     	file = vma->vm_file;			/* __safe_trusted_or_null */
+>     	bpf_iter_task_vma_destroy(&it);		/* frees snapshot, fput() */
+>     	start = vma->vm_start;			/* vma, file still trusted */
+>
+>     Set the element's parent_id to the iterator's reference id, as is
+>     already done for the PTR_TO_MEM elements of bpf_iter_num_next(), so
+>     that destroying the iterator invalidates the element together with
+>     every trusted field acquired from it. Elements of an RCU-protected
+>     iterator keep MEM_RCU and stay bounded by the critical section instead:
+>     they point at RCU-managed objects rather than iterator state.
+>
+>     Fixes: 4ac454682158 ("bpf: Introduce task_vma open-coded iterator kfuncs")
+>     Cc: stable@vger.kernel.org
+>     Signed-off-by: Justin Suess <utilityemal77@gmail.com>
+
+The Fixes: tag points at 4ac454682158 ("bpf: Introduce task_vma open-coded
+iterator kfuncs").  Did the problem described here exist at that commit?
+
+At 4ac454682158, check_kfunc_call() gave every kfunc-returned struct pointer,
+including the result of bpf_iter_task_vma_next(), a plain PTR_TO_BTF_ID
+without PTR_TRUSTED, so there was no trusted pointer to outlive the iterator.
+
+The PTR_TRUSTED marking of iter next() results (or MEM_RCU for
+KF_RCU_PROTECTED iterators) came with 4cc8c50c9abc ("bpf: Make the pointer
+returned by iter next method valid"), and that change affects all three
+iterators named in the commit message.  The kmem_cache (2e9a548009c2) and
+dmabuf (6eab7ac7c5ee) iterators were added after it, and task_vma only became
+affected through it.
+
+The task_vma snapshot and vm_file reference described in the commit message
+came later with 4cbee026db54 ("bpf: return VMA snapshot from task_vma
+iterator"), which itself carries a Fixes: tag pointing at 4ac454682158.
+
+Should this be:
+
+  Fixes: 4cc8c50c9abc ("bpf: Make the pointer returned by iter next method valid")
+
+> diff --git a/Documentation/bpf/bpf_iterators.rst b/Documentation/bpf/bpf_iterators.rst
+> index 189e3ec1c6c8..08c9c15b59ac 100644
+> --- a/Documentation/bpf/bpf_iterators.rst
+> +++ b/Documentation/bpf/bpf_iterators.rst
+> @@ -79,7 +79,11 @@ Constructor/next/destructor implementation contract is as follows:
+
+[ ... ]
+
+> -    NULL-returning kfunc, of course).
+> +    NULL-returning kfunc, of course). An element is only guaranteed to be
+> +    valid until the iterator is destroyed, so the verifier invalidates it,
+> +    and every trusted pointer derived from it, at `bpf_iter_<type>_destroy()`.
+> +    Elements of an RCU-protected iterator (see KF_RCU_PROTECTED) are instead
+> +    valid until the end of the RCU critical section.
+
+[ ... ]
+
+> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+> index 5d3deea1cdc7..869e8d4083c6 100644
+> --- a/kernel/bpf/verifier.c
+> +++ b/kernel/bpf/verifier.c
+> @@ -15762,6 +15762,19 @@ static int check_kfunc_call(struct bpf_verifier_env *env, struct bpf_insn *insn,
+>  			regs[BPF_REG_0].btf = desc_btf;
+>  			regs[BPF_REG_0].type = type;
+>  			regs[BPF_REG_0].btf_id = ptr_type_id;
+> +
+> +			/*
+> +			 * A trusted element is pinned by the iterator that
+> +			 * produced it and dies with it, like the memory
+> +			 * returned by bpf_iter_num_next() above. An RCU
+> +			 * element is bounded by the critical section instead.
+> +			 */
+> +			if (bpf_is_iter_next_kfunc(&meta) && (type & PTR_TRUSTED)) {
+> +				err = validate_ref_obj(env, &meta.ref_obj);
+> +				if (err)
+> +					return err;
+> +				regs[BPF_REG_0].parent_id = meta.ref_obj.id;
+> +			}
+>  		}
+
+Is this fix complete for the lifetime of the element?  The documentation
+hunk above and the new comment say the element is valid until
+bpf_iter_<type>_destroy(), but several next() kfuncs drop the previous
+element inside the following call to next(), not only at destroy.
+
+The commit message says as much for task_vma: "holds the vma's vm_file
+reference only until the next step or destroy".
+
+What the next() kfuncs do to the previous element:
+
+  bpf_iter_task_vma_next():
+      bpf_iter_task_vma_snapshot_reset() does fput(snap->vm_file) and then
+      overwrites the snapshot.  This runs before
+      bpf_iter_task_vma_find_next(), so it also runs on the call that
+      returns NULL.
+
+  bpf_iter_dmabuf_next() -> dma_buf_iter_next():
+      dma_buf_put() on the previous buffer.
+
+  bpf_iter_kmem_cache_next():
+      prev->refcount--, or kmem_cache_destroy(prev) if the refcount was 1.
+
+  bpf_iter_css_task_next() -> css_task_iter_next():
+      put_task_struct(it->cur_task).
+
+With this patch the element, and the trusted fields walked from it, keep
+parent_id equal to the iterator id and stay PTR_TRUSTED until destroy.  Would
+a program like this still verify?
+
+    bpf_iter_task_vma_new(&it, task, 0);
+    while ((vma = bpf_iter_task_vma_next(&it)))
+            if (vma->vm_file)
+                    file = vma->vm_file;   /* trusted, parent_id = iter */
+    /* the last next() returned NULL after fput(file) */
+    if (file)
+            ret = subprog_trusted_file(file);  /* still trusted */
+    bpf_iter_task_vma_destroy(&it);
+
+Once bpf_iter_task_vma_next() has called vma_end_read(), nothing stops the
+VMA from being unmapped concurrently.  Can the file then lose its last
+reference while the program still passes it to a trusted-argument kfunc?
+
+The kmem_cache and dmabuf cases look similar: an element saved from
+iteration N stays trusted in iteration N+1 after the iterator has put it.
+
+A later patch in the series, a51a1f92e627 ("selftests/bpf: Test iterator
+element invalidation on destroy"), covers only the destroy case, and nothing
+in the series invalidates the descendants of the iterator id at next().
+
+Should the verifier invalidate the registers whose parent_id is the iterator
+id at each next() call for PTR_TRUSTED elements?  If not, should the
+documentation, the comment and the commit message say that elements stop
+being valid at the next step rather than at destroy?
+
+This looks like a remaining gap in the fix rather than something this patch
+introduces.
+
+
 ---
- drivers/net/wireless/ath/ath9k/wmi.c | 33 +++++++++++++++++++++++-----
- 1 file changed, 28 insertions(+), 5 deletions(-)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/drivers/net/wireless/ath/ath9k/wmi.c b/drivers/net/wireless/ath/ath9k/wmi.c
-index 76c8dfcc53..5fd20923ad 100644
---- a/drivers/net/wireless/ath/ath9k/wmi.c
-+++ b/drivers/net/wireless/ath/ath9k/wmi.c
-@@ -202,6 +202,16 @@ void ath9k_fatal_work(struct work_struct *work)
- 	ath9k_htc_reset(priv);
- }
- 
-+/* No command is pending: drop all responses until the next one is issued. */
-+static void ath9k_wmi_cmd_disarm(struct wmi *wmi)
-+{
-+	lockdep_assert_held(&wmi->wmi_lock);
-+
-+	wmi->last_seq_id = 0;
-+	wmi->cmd_rsp_buf = NULL;
-+	wmi->cmd_rsp_len = 0;
-+}
-+
- static void ath9k_wmi_rsp_callback(struct wmi *wmi, struct sk_buff *skb)
- {
- 	u32 len;
-@@ -219,6 +229,9 @@ static void ath9k_wmi_rsp_callback(struct wmi *wmi, struct sk_buff *skb)
- 		memset(wmi->cmd_rsp_buf + len, 0, wmi->cmd_rsp_len - len);
- 	}
- 
-+	/* The command is done; drop any further (duplicate) response. */
-+	ath9k_wmi_cmd_disarm(wmi);
-+
- 	complete(&wmi->cmd_wait);
- }
- 
-@@ -248,9 +261,10 @@ static void ath9k_wmi_ctrl_rx(void *priv, struct sk_buff *skb,
- 		return;
- 	}
- 
--	/* Check if there has been a timeout. */
-+	/* Only accept the response to the pending command, if any. */
- 	spin_lock_irqsave(&wmi->wmi_lock, flags);
--	if (be16_to_cpu(hdr->seq_no) != wmi->last_seq_id) {
-+	if (!wmi->last_seq_id ||
-+	    be16_to_cpu(hdr->seq_no) != wmi->last_seq_id) {
- 		spin_unlock_irqrestore(&wmi->wmi_lock, flags);
- 		goto free_skb;
- 	}
-@@ -303,7 +317,10 @@ static int ath9k_wmi_cmd_issue(struct wmi *wmi,
- 
- 	hdr = skb_push(skb, sizeof(struct wmi_cmd_hdr));
- 	hdr->command_id = cpu_to_be16(cmd);
--	hdr->seq_no = cpu_to_be16(++wmi->tx_seq_id);
-+	/* Sequence number 0 means "no command pending", so never send it. */
-+	if (++wmi->tx_seq_id == 0)
-+		wmi->tx_seq_id = 1;
-+	hdr->seq_no = cpu_to_be16(wmi->tx_seq_id);
- 
- 	spin_lock_irqsave(&wmi->wmi_lock, flags);
- 
-@@ -311,6 +328,8 @@ static int ath9k_wmi_cmd_issue(struct wmi *wmi,
- 	wmi->cmd_rsp_buf = rsp_buf;
- 	wmi->cmd_rsp_len = rsp_len;
- 
-+	/* Drop any completion left over from an earlier response. */
-+	reinit_completion(&wmi->cmd_wait);
- 	wmi->last_seq_id = wmi->tx_seq_id;
- 	spin_unlock_irqrestore(&wmi->wmi_lock, flags);
- 
-@@ -352,15 +371,19 @@ int ath9k_wmi_cmd(struct wmi *wmi, enum wmi_cmd_id cmd_id,
- 	}
- 
- 	ret = ath9k_wmi_cmd_issue(wmi, skb, cmd_id, cmd_len, rsp_buf, rsp_len);
--	if (ret)
-+	if (ret) {
-+		spin_lock_irqsave(&wmi->wmi_lock, flags);
-+		ath9k_wmi_cmd_disarm(wmi);
-+		spin_unlock_irqrestore(&wmi->wmi_lock, flags);
- 		goto out;
-+	}
- 
- 	time_left = wait_for_completion_timeout(&wmi->cmd_wait, timeout);
- 	if (!time_left) {
- 		ath_dbg(common, WMI, "Timeout waiting for WMI command: %s\n",
- 			wmi_cmd_to_name(cmd_id));
- 		spin_lock_irqsave(&wmi->wmi_lock, flags);
--		wmi->last_seq_id = 0;
-+		ath9k_wmi_cmd_disarm(wmi);
- 		spin_unlock_irqrestore(&wmi->wmi_lock, flags);
- 		mutex_unlock(&wmi->op_mutex);
- 		return -ETIMEDOUT;
--- 
-2.43.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/39445554665
+--===============4093518717466758589==--
