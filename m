@@ -1,73 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792468680;
-	b=evf+SfYX3FFRYD6LAYu2sib/7tAXDgEBUM49mgEs7WQV/ClzthbvbUBBBiqd4WNhFETX
-	 JPVbIkJoEaCwXoi+lNzJaVAhhTO7B5zcjEMIKFS+kD4MTiWGdPKq2EaX6gnVTt8tVub8/
-	 wcauAEIWX/wScEDWnN7AoE3q09RaQyoKSi65xIkRUShkeAIablaaySlBInjswFr3jyiPJ
-	 fxmmv0kQA50u0rRw8XzcihI1Q4qfNKrSWyWUFDoJhRsoU0iRenodhjFVuE/CR2ZdkGTgi
-	 RISJt1lxCo4TURWQ97we1r3C+PsfS3bdbe6dvqr3H8Hhk3ThHRtpGywVhF8GQFt50mg==
+	t=1792468913;
+	b=br50xpyDtNS9SqZLM5+P3+MzlEQM3UxXhuBCYuMnQsqkcculgpNy1aj8qTQa3HtfFlkM
+	 JDgn2up+J/MspTCaQJ68V5VuDADZcrSNs+gEtXUkpaiIO/25VK+v7AfxEwpwFNmTTFB5j
+	 lahctHgXRq1hKTJgZ8AMWYyitmSMHCNIA8BLmN+ndpmwucdJx5jMaxAjGgpzjmiu0NeDg
+	 w2/5TaQnYL0ACe/Y7Gvgy25L+ISz4i0kJ5aSx6MJi8K3ZhbddFNvMfjSlaOZt/jbvx+L8
+	 oYiVd76Ykd0YEzdkNZHgY4e1OR4bWRcCEr3642GjJpjUFZ97qJPsIuPUVTUpODC2G3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792468680;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=tw36DOY+NKJEc0tW3hOU3drFnK2hugBKcc7rXv1MyG8=;
-	b=LVfVDT3YwJDEQUpz/QAmSEpL2OeBRYuSyyDGFUyglvN/oZxnBmNQUQUef+bPuHjenyK6
-	 +MT2kVbz1VmW+YqTMWkV0O1c2dDjaGz9R5Bv9TNNSqgiSaYdornoWuPd6sYR5aQf0vJOq
-	 mvN8OXByB+wzytVkL6tYnHoNo/clFesTQ1RbWeWmOYAdABVqRX8Du6NHyldeHSANoUXNv
-	 ZMKQntlTEcAxWWM6342Ru/jP/n/I4cLYUQWn3nDjcIgEPh5nunvhF8jBvO982jUlGg3Xa
-	 w19tJItyNkqDMvOv4rsFOJOaDqvujZ5JyJExrjp10PFilTmNzQswzynD2tthCf36ang==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792468913;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=Bt7XsJIgW4Lu6Mhb+nkalyGmIkyhNEANpu9bya4kirI=;
+	b=0Qazj9eh6R8gcLsJ3Fwt7gXaP3bceK2tpWh1wGY1xJJFYIceofp3es/97urUtwOMpSsT
+	 HoQXQyqfAW/RgftiGzfzygS6PN5JcjNMIhLHB/XYBmEsAynQ3VDS/GhgLZV0l3JJ81rup
+	 QfpMtEDhKgde6K/YvZXEgimv9nGbzGSJsyJU8ez0ixWF8TTElbvPL6SKKB0UXiaUXyn5o
+	 P12gOqCenr2nfhTcAxwAXuKZzW54FEAOdyrnE2bJAXoYbCBhl2oQxNTXqWZi544nl5TDq
+	 zkcDh3IUgy86m78LRvqRgBvDCZHKf974p9ceh/+30uFIg1nUXqbHCjwO7DDqytpOxCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=SjvJ10Z9;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CFA37606A31A;
-	Tue, 20 Oct 2026 03:57:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFA37606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="0D/GUNTu";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFE64606A319;
+	Tue, 20 Oct 2026 04:01:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=SjvJ10Z9
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=0D/GUNTu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ECB11F000C5;
+	Tue, 20 Oct 2026 04:01:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=SjvJ10Z9TRJuxyjxnxI9tShev4l58jQEhpLWfibiT56CdUf2f5Szw3nt6x3hj9Xm+Z7+fTLD97AOn
-	 5E9hOwy1Ji7vSS87sEBQgRbNhEeWl+tIt7HcybUv3rFGWiEXzL0oUvQA75af3NbPsZa387JSni/0+b
-	 nLBc6U/u6Do7HqZ8=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app02-12002 (RichMail) with SMTP id 2ee26ad6e6bb042-53e41;
-	Tue, 20 Oct 2026 11:57:49 +0800 (CST)
-X-RM-TRANSID:2ee26ad6e6bb042-53e41
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from desktop-c950f82eaac8410e-20260515094303939 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee26ad6e6ba206-bef8f;
-	Tue, 20 Oct 2026 11:57:49 +0800 (CST)
-X-RM-TRANSID:2ee26ad6e6ba206-bef8f
-From: Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
-To: mst@redhat.com,
-	david@kernel.org
-Cc: jasowangio@gmail.com,
-	eperezma@redhat.com,
-	xuanzhuo@linux.alibaba.com,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	syzbot+0f659760bac1ecb01812@syzkaller.appspotmail.com,
-	syzkaller-bugs@googlegroups.com,
-	stable@vger.kernel.org,
-	Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
-Subject: [PATCH v2] virtio_balloon: drain update works on probe error paths
-Date: Tue, 20 Oct 2026 11:57:44 +0800
-Message-ID: <20261020035744.1131-1-zhaimingbing@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.53.0.windows.1
-In-Reply-To: <20261019084406.162-1-zhaimingbing@cmss.chinamobile.com>
-References: <20261019084406.162-1-zhaimingbing@cmss.chinamobile.com>
+	d=linux-foundation.org; s=korg; t=1792468912;
+	bh=Bt7XsJIgW4Lu6Mhb+nkalyGmIkyhNEANpu9bya4kirI=;
+	h=Date:To:From:Subject;
+	b=0D/GUNTuMXWbuAW4NhmM9vZ6tX8zV4DJ6bbfeHfeyt9ZLOmW3K2V756KRxaKIpYvq
+	 FQGj+MWVz2nWSMrWbk9JGtOTHljYn7FRAip8wuYx2uxXzOnlkQGwpCyy2jJDdv0M8/
+	 PuCiLZITSh1+HBDPGCAthNRkfjBsFtOVxsaC6+SU=
+Date: Mon, 19 Oct 2026 21:01:51 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-damon-core-remove-unreachable-damos-charge_targetaddr_from.patch added to mm-unstable branch
+Message-Id: <20261020040152.5ECB11F000C5@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,114 +48,119 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-init_vqs() arms the stats virtqueue callback, so an update work can
-already be queued on the system freezable workqueue while
-virtballoon_probe() is still running.  If a later probe step fails, the
-error unwind deletes the virtqueues and frees vb without stopping the
-works, and the queued work runs after the balloon struct is gone:
 
-  BUG: KFENCE: use-after-free read in virtqueue_get_buf_ctx
-   update_balloon_stats_func+0x121/0x300
-   Workqueue: events_freezable update_balloon_stats_func
+The patch titled
+     Subject: mm/damon/core: remove unreachable damos charge_{target,addr}_from
+has been added to the -mm mm-unstable branch.  Its filename is
+     mm-damon-core-remove-unreachable-damos-charge_targetaddr_from.patch
 
-remove() already handles this via virtballoon_quiesce().  Factor the
-stopping of the update works out of it and run it on the probe error
-path as well, before the queues and vb go away.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-core-remove-unreachable-damos-charge_targetaddr_from.patch
 
-The same hole exists when init_vqs() itself fails after
-virtio_find_vqs() succeeded: the stats priming can fail with the queues
-up and the callback armed, yet probe jumps straight to out_free_vb and
-leaks the virtqueues while the queued work still references vb.  Unwind
-inside init_vqs() in that case, stopping the works before the queues
-are deleted.
+This patch will later appear in the mm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-The drained work takes vb->wakeup_lock in process_wakeup_event() and
-finish_wakeup_event(), so this depends on "virtio_balloon: initialize
-wakeup_lock before virtqueues are set up", which moves that
-spin_lock_init() to the top of probe.
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-Fixes: 1f34c71afe51 ("virtio: Fix scheduling while atomic in virtio_balloon stats")
-Reported-by: syzbot+0f659760bac1ecb01812@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=0f659760bac1ecb01812
-Signed-off-by: Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: SJ Park <sj@kernel.org>
+Subject: mm/damon/core: remove unreachable damos charge_{target,addr}_from
+Date: Mon, 19 Oct 2026 19:39:56 -0700
+
+damos_quota->charge_{target,addr}_from saves the target and region the
+scheme's quota limit is reached.  damos_skip_charged_region() skips the
+target and regions before the point.  The target that was assigned to
+charge_target_from could be dynamically removed from the context by the
+runtime parameters update (aka commit) feature.  In this case,
+damos_skip_charged_region() cannot find if the point is passed or not,
+so the scheme is effectively disabled.
+
+Similarly, the user could also remove all the regions of the target
+using the runtime parameters update feature.  It would be uncommon to do
+that, but it is a supported feature.  Because the skip pointer detection
+logic (damos_skip_charged_region()) works for each region of targets,
+this result in the logic is entirely skipped and the scheme is
+effectively disabled again.
+
+The user impact is that the DAMOS scheme could suddenly stop working
+under certain uses of the runtime parameters update feature.  It could
+surprise users. No crash or leak happens though.  Users could also
+simply work around by re-installing the scheme.
+
+Catch the corner cases in damos_adjust_quota() and reset the pointers.
+
+Link: https://lore.kernel.org/20261020023958.108276-1-sj@kernel.org
+Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Closes: https://sashiko.dev/#/bug/linux-cd0c55fc-0cc8-45d8-9637-3334811c49b8
+Cc: <stable@vger.kernel.org> # 5.19.x
 ---
 
-Changes in v2 (from sashiko review):
-- unwind inside init_vqs() when the stats priming fails after
-  virtio_find_vqs() succeeded, instead of leaking the virtqueues on the
-  out_free_vb path with the callback still armed.
-- spell out the dependency on the wakeup_lock initialization patch:
-  the drained work takes that lock.
+ mm/damon/core.c |   22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
- drivers/virtio/virtio_balloon.c | 29 ++++++++++++++++++++++++-----
- 1 file changed, 24 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
-index 8c1b47ec1..dd2056882 100644
---- a/drivers/virtio/virtio_balloon.c
-+++ b/drivers/virtio/virtio_balloon.c
-@@ -554,6 +554,17 @@ static void update_balloon_stats_func(struct work_struct *work)
- 	finish_wakeup_event(vb);
+--- a/mm/damon/core.c~mm-damon-core-remove-unreachable-damos-charge_targetaddr_from
++++ a/mm/damon/core.c
+@@ -3383,6 +3383,26 @@ static void damos_trace_esz(struct damon
+ 	trace_damos_esz(cidx, sidx, quota->esz);
  }
  
-+/* Stop queueing of and drain any pending balloon update works. */
-+static void virtballoon_stop_updates(struct virtio_balloon *vb)
++static void damos_fix_stale_charge_pointers(struct damon_ctx *c,
++		struct damos *s)
 +{
-+	spin_lock_irq(&vb->stop_update_lock);
-+	vb->stop_update = true;
-+	spin_unlock_irq(&vb->stop_update_lock);
++	struct damos_quota *quota;
++	struct damon_target *t;
 +
-+	cancel_work_sync(&vb->update_balloon_size_work);
-+	cancel_work_sync(&vb->update_balloon_stats_work);
++	quota = &s->quota;
++	if (!quota->charge_target_from)
++		return;
++	damon_for_each_target(t, c) {
++		if (t == quota->charge_target_from) {
++			if (damon_nr_regions(t) > 0)
++				return;
++			break;
++		}
++	}
++	quota->charge_target_from = NULL;
++	quota->charge_addr_from = 0;
 +}
 +
- static void update_balloon_size_func(struct work_struct *work)
+ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
  {
- 	struct virtio_balloon *vb;
-@@ -633,6 +644,12 @@ static int init_vqs(struct virtio_balloon *vb)
- 		if (err) {
- 			dev_warn(&vb->vdev->dev, "%s: add stat_vq failed\n",
- 				 __func__);
-+			/*
-+			 * The virtqueues are up and the stats callback is
-+			 * armed: stop the works and unwind the queues.
-+			 */
-+			virtballoon_stop_updates(vb);
-+			vb->vdev->config->del_vqs(vb->vdev);
- 			return err;
- 		}
- 		virtqueue_kick(vb->stats_vq);
-@@ -1075,6 +1092,12 @@ static int virtballoon_probe(struct virtio_device *vdev)
- 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
- 		destroy_workqueue(vb->balloon_wq);
- out_del_vqs:
-+	/*
-+	 * init_vqs() arms the stats virtqueue callback and primes the
-+	 * queue, so an update work may already be pending: stop queueing
-+	 * and drain it before the virtqueues and vb go away.
-+	 */
-+	virtballoon_stop_updates(vb);
- 	vdev->config->del_vqs(vdev);
- out_free_vb:
- 	mutex_destroy(&vb->balloon_lock);
-@@ -1115,11 +1138,7 @@ static void virtballoon_quiesce(struct virtio_balloon *vb)
- 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
- 		virtio_balloon_unregister_shrinker(vb);
+ 	struct damos_quota *quota = &s->quota;
+@@ -3418,6 +3438,8 @@ static void damos_adjust_quota(struct da
+ 			damos_trace_esz(c, s, quota);
+ 	}
  
--	spin_lock_irq(&vb->stop_update_lock);
--	vb->stop_update = true;
--	spin_unlock_irq(&vb->stop_update_lock);
--	cancel_work_sync(&vb->update_balloon_size_work);
--	cancel_work_sync(&vb->update_balloon_stats_work);
-+	virtballoon_stop_updates(vb);
- 
- 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
- 		cancel_work_sync(&vb->report_free_page_work);
--- 
-2.43.0
++	damos_fix_stale_charge_pointers(c, s);
++
+ 	if (damos_quota_is_full(quota, c->min_region_sz))
+ 		return;
+ 	if (!c->ops.get_scheme_score)
+_
 
+Patches currently in -mm which might be from sj@kernel.org are
 
+mm-damon-core-introduce-damos_quota_goal-complement.patch
+mm-damon-core-add-complement-argument-to-damos_new_quota_goal.patch
+mm-damon-sysfs-schemes-support-quota-goal-complement-flag.patch
+mm-damon-tests-core-kunit-test-quota_goal-complement-commit.patch
+selftests-damon-sysfssh-test-quota-goal-complement-flag-file.patch
+docs-mm-damon-design-document-damos-quota-goal-complement-flag.patch
+docs-admin-guide-mm-damon-usage-update-for-quota-goal-complement-file.patch
+docs-abi-damon-update-for-quota-goal-metric-complement-sysfs-file.patch
+mm-damon-core-filter-out-damos-address-filter-split-failed-region.patch
+mm-damon-core-remove-unreachable-damos-charge_targetaddr_from.patch
 
