@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792484479;
-	b=H+vEzC6Oo3GepaH4qvyqHCxp7yaxwdvuoyOxuMHXumC2GgdW8k8I0CtYbP3OMAqnN2+o
-	 /0tCDa/l9TTyHrx6pA4YRWULaiexbBp7GtR6YAuZ5FvgT3zlpWWTyWV/VIyl8nrGSNazd
-	 ys7GTdrNcdVAfB5hp3SOsLUd4I7l1WhWs6LJRRNCvDk9BIunOAC9clcAoK+tir02XUcfX
-	 w5FdXJzvfrLojb/WqJX3QjI66WfuKgQwJ8VLF9fhAJzhhOY23tYRZamsXh8279imDvUJF
-	 /EP05MdVnWeT51WUY4ggXPQWUNc20LIuHlyQeHe3z+wyvYtjKD/VOqhlSJyKDl/WoxA==
+	t=1792484481;
+	b=NDOr8PK3JTzLhhi1BzAa2Lf4tL2geTvMJ5i4gBcpOSAh4hXGiNVFEB9P28SK4laIGA5i
+	 DwkAjTUBQUXQDAgDoAkdsRMjqFjmB7k0489ZRFF7kZ5mFYNLLxUr2OlM5BK1EZwnItsJP
+	 gnqHvg/RdeqoCHLK4awpxP+PoiAjTecXhotpQSUDdiY1ssEVkgGxZX0vHCpcTKjVckfyC
+	 IiT5QSY7vIKNagl6/aSxGgs92QaoS4DYFN9ZrCsDCjXlJdH3c4tEyM+nA+Cms1+8hwDsi
+	 z+/sU6IRaipWh/PvC1EhMAmE59YzyeSIj6j/Fo++6ek8adF8Bdl6kfcpZddvjBxnXmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792484479;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792484481;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=YxDpnFYtRSSmHdlBVXg/Qu2h8PYtM96rKGEWJhj/F1M=;
-	b=jLakg/40qFWyfDALpl0/lz1jD7NAQMGSCAMzxPksig0oCN8GUm5qCMN//N5wgftYvSFR
-	 7FOC6XN8bKsOb6d60L0MNAmDkq4VzrC9+MSf6r4enir+1CiuOitjmII9ykJ6CD4WMSsgi
-	 crTQa3Nf2aynF+3CK3bGGY0fOJKV8dnel+Ffok0vTnPxi3tPMUuuZr7ZnvYaMJ9MbLOwZ
-	 DbLDYCpth5IjYAA6QnIFsGVlc16+ROuUmcHzvbR3epQp0Rxd9OfAgp6jo7vCnMwnDRh3B
-	 vVqEfXa8mps7w8EcOY/vHp7PV6ORZHGxy+lrbmNQ+A95wh8dW2cHWP511fH/H5AXb7g==
+	bh=kUb4PjDJE3jmbIXPSQFsF3M/wgWILtNCIkP/sO++VrQ=;
+	b=zdY7jjxcbfxgQ9vvUhq2geq2VWX+tFDn9sD5UP6tHPn5eB6XbnBFxe1abPGIrs5zZ39K
+	 xz95v//rkS326ZxmRCK+/SRt+/kiZVj+vvhhSUcdPyyRgmQwhwxQz/x6Tc5RZ+9s/GDbL
+	 0hzxnzRdHz41dVIaTQDWtJnISoJWmgVB5QndWi/PdqBo8Fnw+fuXm5l42vuc7h81vTrNd
+	 +P4hu49althOIfd5hYHyoNZTx1xEBhBXkueBzob6q4V1/pzdVyKvfbRwD5hbWIVYkKkxw
+	 t7rhu2pU/E/PuJI4r7XrPmzMGwFYy5nP1ba+5ipw2W+SSy63QMtlN2a893sG36p0MsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=WbRw7Z+N;
-	arc=none smtp.remote-ip=209.85.214.199
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=NWyv+XgA;
+	arc=none smtp.remote-ip=209.85.215.198
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B0B0606A33C
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:21:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B0B0606A33C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41BE1606A329
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:21:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41BE1606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=WbRw7Z+N
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e8ba4757baso28850195ad.0
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 01:21:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=NWyv+XgA
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cd5fd34fee0so1997720a12.3
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 01:21:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792484478; x=1793089278; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792484481; x=1793089281; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YxDpnFYtRSSmHdlBVXg/Qu2h8PYtM96rKGEWJhj/F1M=;
-        b=WbRw7Z+NXtM+d3xWOk+5VQMSiTpBVNPs4G60H4iECFH/kOXPQOl2/6qDzgUp73WmW8
-         e9+2PCZtyS2MFBqiRz1F5/z8J0Bwnvpna4bBKl6kATQAumVvGCodRToVSEwGDYx0OWqR
-         VbQA5Vj2NPRDlQW5YD5a1YJRfVsZ+B4o/VMDFwbcTx/DhUL5wl+Ps7AUi2yHJkSk9uA/
-         h1MGt3jl9euI0qi8JQmTMRX+IkIjMczMsT/UAQTIyZV2WUKGf6Gyu6ci9d5UthXx9yc+
-         Hh50XaPftGf0DnA6iJnKtT9ti+HzcxV0H4UhcnnWNLh1uutsGcwMD5ymFicEnE3h4bnK
-         eo/g==
+        bh=kUb4PjDJE3jmbIXPSQFsF3M/wgWILtNCIkP/sO++VrQ=;
+        b=NWyv+XgAyn89Cjyc1kpyFtEvrseSFaaSjvJKD00zUxxAqRwBDNLtDh7+0yKZ2rayjb
+         b7pJ4qSmGrbQs8tV8jYWtw8yzkEI7A7bjoBckHaNcEwjfmPmkk1L5aLmcxqeE1rYjqP1
+         GjemQvDzEjslx97UJ6jiiFrT94X5dPgIG2LlKYmx53KFctsNjEkcp2lN9Pfmn2IiUctL
+         AYxU+d1EO8dBOdNd1q+6cMeMAgXry2ZEBeVTxwP/3FC+17HXXMaQG487bl9K/lgwXfmB
+         lV3QGv/DxOmcV0LKaJhrjXJzA/uIn7PJku5X7L7Fzx/yo3nNx7+lB0j9lyqkLD/oN2UF
+         7y2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792484478; x=1793089278;
+        d=1e100.net; s=20260707; t=1792484481; x=1793089281;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YxDpnFYtRSSmHdlBVXg/Qu2h8PYtM96rKGEWJhj/F1M=;
-        b=xQZ0+HPKvBmJ8RRoQOzxMqGG3I2AXSQnHQouhsJhOqsAOGGlKgxbCQhCZH/uaaXMm8
-         hmM5l6Gz+N2JPvz01gwHaVan5JhoZokDIWUn8aR77s+MB6LxfZhHlwaLNul4r1ou/bQ9
-         Tgl1XjyfgvfNiDLYmnJkFuSOqIDBriFmUmjVDJ+kwjqzqkIsfz+NsuP8S5Owd226ZgjT
-         IE32QFO6gKEIExe09QykyjeZ4OyPn06IBqs8UsKP05BUMc73iSet3x1OVmU8gLfJ2S3o
-         88/izEjJO6D1bp6h6a9nhb4zrtP1J9Z3liZK0hYbxy6niO4MXE4u08HzFhD+MY7ZX4vG
-         cmKA==
-X-Forwarded-Encrypted: i=1; AKwUvBxnINS1mfmRV/GdjU1PIDkgTlbzSNqNZS+tgzkVEr9QFBA7i5/w9+LHtaXYI0w5NkCNnWRJcjM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJtvIl4QNOgkPV1oVro4yTfwsJd49SFu5bpkYM31CDhBbJmgj1q
-	x7jhC00JMHrFtkppWTCPGF/658CAHUSkm2gvT2h73kUr87kI7q5N3h6tGNmQl2JrcFl1JFJ8EDZ
-	mQcc/EhuztHAwxEp05V9NkA==
-X-Received: from plot23.prod.google.com ([2002:a17:902:8c97:b0:2e5:82f1:b868])
+        bh=kUb4PjDJE3jmbIXPSQFsF3M/wgWILtNCIkP/sO++VrQ=;
+        b=MnIgytM7thlzgLENmf5uKRG4i2Bke7+fcUKf5wzn8hnO75feZ/eT0S/wIWeaB1P+kd
+         ++bwggahti7XJ+iMONuZrtCPxRPdlIlU+QBpAJCOHxAYLs9P5FfrsLTPIen/zarumkrY
+         TCJpgJtoTeoEs6xLLV21CmClgcCcAqdXtFOacAIt1JK4kq9Pk0wOh/rEsVMtJX3GR9/a
+         /6MHT54pKlWtZiOTz8E92Q76v1RcDUeaoMJf322Oqcd5HaflaaiQXULYe6OvWwSfa16p
+         Nxmd2R+oUpXZYrWkY92QSSXKpK7A/yo4zO6rvYjvvLhsOmeOBOz88hmOggkX2QQghfxF
+         718w==
+X-Forwarded-Encrypted: i=1; AKwUvBw9408RCfYC7TYRuN7CtBkHRmSCwsPmDI9Od7G7TYXyPrUd/fdlILPkb0QnX4yAwITeymaGO/g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL1d2WqBkQA1JQZ1pqz8Gfb1ZNvgeDazNMkqpXAzMHz/D18RGSX
+	/kC2CD4iy/kKM4arH9bC2pkNIBCBYGSnnpj7I4mYUee6SqrPGvPlUB44UA+lF1fCutZHAyIKEy5
+	aL7nxbf1Ek5//7sS2xLrg4A==
+X-Received: from pfbct6.prod.google.com ([2002:a05:6a00:f86:b0:8a0:4085:d831])
  (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:1d1:b0:2dd:c100:80ba with SMTP id d9443c01a7336-2e9a6d36004mr84600175ad.53.1792484478330;
- Tue, 20 Oct 2026 01:21:18 -0700 (PDT)
-Date: Tue, 20 Oct 2026 16:21:06 +0800
+ 2002:a05:6a21:730c:b0:3e1:e757:205e with SMTP id adf61e73a8af0-3e225f9fd41mr8502692637.42.1792484480229;
+ Tue, 20 Oct 2026 01:21:20 -0700 (PDT)
+Date: Tue, 20 Oct 2026 16:21:07 +0800
 In-Reply-To: <20261020082110.3511797-1-stanleyjhu@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,8 +81,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261020082110.3511797-1-stanleyjhu@google.com>
 X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261020082110.3511797-4-stanleyjhu@google.com>
-Subject: [PATCH v3 3/7] scsi: ufs: core: Fix double completion in ufshcd_clear_lu_cmds()
+Message-ID: <20261020082110.3511797-5-stanleyjhu@google.com>
+Subject: [PATCH v3 4/7] scsi: ufs: core: Use ufshcd_clear_outstanding_reqs()
+ in ufshcd_eh_timed_out()
 From: Stanley Jhu <stanleyjhu@google.com>
 To: "Martin K . Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org
 Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, 
@@ -92,41 +93,36 @@ Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
 	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-In SDB mode, ufshcd_clear_lu_cmds() clears the request slot in the
-controller and completes the request, but leaves its bit set in
-hba->outstanding_reqs. ufshcd_poll() treats a request whose bit is set
-in hba->outstanding_reqs and clear in the doorbell register as finished,
-so the next ufshcd_poll() completes the same request again and unmaps
-its DMA buffers twice.
+ufshcd_eh_timed_out() has its own copy of the code that clears the
+timed-out tag in hba->outstanding_reqs. Use
+ufshcd_clear_outstanding_reqs() instead. No functional change.
 
-Clear the bit with ufshcd_clear_outstanding_reqs() before completing the
-request, and complete it only if the bit was still set. If ufshcd_poll()
-has already completed the request, the bit is already clear and
-ufshcd_clear_lu_cmds() skips it.
-
-Fixes: f18fac1e2b72 ("scsi: ufs: core: Rework ufshcd_eh_device_reset_handler()")
 Cc: stable@vger.kernel.org
 Reviewed-by: Bean Huo <beanhuo@micron.com>
 Reviewed-by: Peter Wang <peter.wang@mediatek.com>
 Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 ---
- drivers/ufs/core/ufshcd.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/ufs/core/ufshcd.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
 diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index 1b28dbba03a9..778932298e27 100644
+index 778932298e27..03efbd85bba9 100644
 --- a/drivers/ufs/core/ufshcd.c
 +++ b/drivers/ufs/core/ufshcd.c
-@@ -7978,7 +7978,8 @@ static bool ufshcd_clear_lu_cmds(struct request *req, void *priv)
- 		return true;
- 	}
+@@ -9651,12 +9651,9 @@ static enum scsi_timeout_action ufshcd_eh_timed_out(struct scsi_cmnd *scmd)
+ 	 */
+ 	if (!test_bit(SCMD_STATE_COMPLETE, &scmd->state)) {
+ 		if (!hba->mcq_enabled) {
+-			unsigned long flags;
+ 			struct request *rq = scsi_cmd_to_rq(scmd);
  
--	ufshcd_compl_one_cqe(hba, tag, NULL);
-+	if (ufshcd_clear_outstanding_reqs(hba, BIT(tag)))
-+		ufshcd_compl_one_cqe(hba, tag, NULL);
- 	return true;
- }
+-			spin_lock_irqsave(&hba->outstanding_lock, flags);
+-			__clear_bit(rq->tag, &hba->outstanding_reqs);
+-			spin_unlock_irqrestore(&hba->outstanding_lock, flags);
++			ufshcd_clear_outstanding_reqs(hba, BIT(rq->tag));
+ 		}
  
+ 		if (ufshcd_is_scsi_cmd(scmd)) {
 -- 
 2.56.0.212.g129ede20d9-goog
 
