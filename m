@@ -1,59 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792485139;
-	b=E/RQ79HVqbjGH9sHesSjUcMvZjUoD1Fz0Aw+uQeqqtns0aPMI6lMYqHus7tW8XerOyjL
-	 RD2mEahRbueg7Aul7gwRdRCokzYmnXvfY4rY5s5rt3USxKNSmW9CJLsiK7udFTe3UXNoI
-	 Fi9lW8a4KYqs67r3I6f49ulasJLltM21lNa9VZj4o6klaLpdyt6HuUSxIvIx/JQy8Nx3q
-	 HzCk2Jf5JyWH86iCHC1jRIb91bPOsbTmznTZzjSn/lQPZLmWBTN13C0RaEYBilEfyeHL3
-	 00kruNwjV0moZv7XaiDIqIjHDK07DY4Hn3H5zgGzok20gVBOQtWziIr2pve904BsDTg==
+	t=1792485137;
+	b=mOY1BmBIe5VHqarYSaAlArBj+d2vI4qLdSBpOBzVsXXtICgu+Ia2x/VBx/u88vraZSMn
+	 bcDkFxsPnRBUH5cc44NG3gFLikX/TVpE+kCJwMI/EjNCQchqlskZeEgxuFNHSn4saiUuE
+	 jJCj0cGod2FHKEzfcd58l12SMn4Q5l/jKlcdPUL7dVPLfle6ag7At5IHMDqs1rX8Kd0aU
+	 ETHxL2XACR6wEmID5GAPYi/OT9qsBTBZwoHKB9m7Tz/f3jY+ej2cO5PO5oHRkW/IlOm5D
+	 oVBc0HKZKOU7o0LXlUmIeOXWbF3S7VdH+ID4mryKMrVcKl9SZIkt5VTXbiVlOtafdQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485139;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
-	bh=SFguEddrmA88iw9wMAeTNrR0nfiHVOBL6aWH5vEPxEw=;
-	b=wgTxPRNIHpGv+2+Gxfj0I0VmlwzeTS9h0Z9SZQ40lVMf7LhNax1CxecKH/LiHG8pM1Yt
-	 MkjDJe9H5uumdV1mU+I7Yp7Td3x3HHVSCpUkSadQP2YxERPR110m3nOq5mz/PizP6qNRI
-	 EY4aS7hK5gg2UexlmDqURie9r/NHK6dRw+LxSaNnBxFqYm5tx7SE8VFvxLS6TZveKXpBs
-	 Gjr6ehGAO5jwh/AfGdOhsXrvBq0W5HYardUniKt9Imex8fegSn6rX+3AAU2BpN8RKKOIP
-	 1HtGRZYhwGbJzxriVvkKL6GQjblLUND7gM6EBW3M37+dvq2EfVmlBn1VL5sOo/PZuTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485137;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=WYwqUV0a09kbpatRxoseIFVv0mewCx3MSBetA+PMlF4=;
+	b=pJXOIzR7SZGyeorrrrp0qV9g4dIC+V4h4rzpp6THNrstbv06CwD+fCz/hYot9nY2dKvE
+	 p7kLhpQ+zPW2zOic+O5mb8sN1HSZ0xgQnFJB27xNhm68zwSJ3TciO5sCwLDS1VkvXs726
+	 RvDwKZkgyml4TRUZb1nOpC8sJUMT9xZAMpqwN8WW6X9swe3b7A2M/DfF6y/PknKWkZcYa
+	 /bkCzLXfiNOezIEWw+9Ltb/B3TtukzNHQX9YUpU93v1PzBKMkgiCnTIRHtpJ3+RABKEQH
+	 8V/mhbPINQAE4e8T8hijvYjFuzrDewIHiN2sJpsLkbYc3wz0tGG33z5hiCVWFeai+7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=WAn7UuyR;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=TXdb5k1g;
+	arc=none smtp.remote-ip=115.124.30.98
+Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEFD6606A31C
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:32:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEFD6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C091D606A319;
+	Tue, 20 Oct 2026 08:32:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C091D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=WAn7UuyR
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id ECCC1C63454;
-	Tue, 20 Oct 2026 08:33:14 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8270060393;
-	Tue, 20 Oct 2026 08:32:16 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EE7FA1032840C;
-	Tue, 20 Oct 2026 10:32:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792485135; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=SFguEddrmA88iw9wMAeTNrR0nfiHVOBL6aWH5vEPxEw=;
-	b=WAn7UuyR2zZzetiae+YFIXRseFD00ed8vobk0/5k9Cqrzq2ktbDMfYEP0IG9TQ4K7w436A
-	7O+4npuIwJlXQT0tXLPa2hKM68lQK9G0hx+ELVyZ+W3/kt0iCUzQFdat1An1bxYygLmNNA
-	OsMxyaj1uTRvNLJsQFXVQeXtWrb0W2p1NRcRNzie65QZNqioVQ5yh5Ntgqo96ZA1ui6+jv
-	xt8NskgN56RhQfkJUD0ooiKm+96Eg3wbaAGtVlhetG8SBYz9SdrwCLKDzc3imP40JNvxy7
-	gYLuX4H/xIUjhVUcbCA1D7VjhZh+zvL9qbmgy5pvEl6at4r8KjOxr/y9wq1fJg==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Tue, 20 Oct 2026 10:32:12 +0200
-Subject: [PATCH 5.15.y] bpf: Add BPF_PROG_TYPE_CGROUP_SKB attach type
- enforcement in BPF_LINK_CREATE
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=TXdb5k1g
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792485132; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=WYwqUV0a09kbpatRxoseIFVv0mewCx3MSBetA+PMlF4=;
+	b=TXdb5k1gEb105YVtipP1+Yer3QcgbQgdv05emH8KM5SAvBIEd1douqj0sQ/QqFu6+x0JtfQavdTWImN4UGrqBOD/1HB2LkNnKqqcA/BRr6d5GmJZfEysz+cY82kw/SM3DJGlHCHDgvl3nqrS0VpJJy3hEhzgSq1XijurKuE7NI4=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R881e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDCLk5f_1792485131;
+Received: from 30.221.145.25(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDCLk5f_1792485131 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 20 Oct 2026 16:32:11 +0800
+Message-ID: <27f03c8f-c41d-437a-aca7-e6aecbed45f8@linux.alibaba.com>
+Date: Tue, 20 Oct 2026 16:32:10 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,141 +53,185 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ocfs2/heartbeat: serialize concurrent writes to a
+ region's dev attribute
+To: Eklavya Singh <eklavyasingh2106@gmail.com>
+Cc: Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
+ Heming Zhao <heming.zhao@suse.com>, Andrew Morton
+ <akpm@linux-foundation.org>, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org,
+ syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com, stable@vger.kernel.org
+References: <20261018163121.128911-1-eklavyasingh2106@gmail.com>
+ <20261019072936.2279-1-eklavyasingh2106@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <20261019072936.2279-1-eklavyasingh2106@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-cve-2024-38564-5-15-v1-1-9c9412a9c0a7@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CQAyF4auQri2ZDhRHr2JcOKVoXaCZUaIh3
- N0Rlt9L3j9D1mSa4VjNkHSybI+xgHYVyO0yXhWtLwbvfEfOO5RJsaDFJnDXIiMxcpQoB9r7JgQ
- oz2fSwT5r9QRcE9dfOG97fse7yuufhGX5AUrEn7t/AAAA
-X-Change-ID: 20261020-cve-2024-38564-5-15-5bcbc9172388
-To: stable@vger.kernel.org
-Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Stanislav Fomichev <sdf@google.com>, 
- syzbot+838346b979830606c854@syzkaller.appspotmail.com, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Martin KaFai Lau <martin.lau@kernel.org>, Sasha Levin <sashal@kernel.org>, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792485133; l=3786;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=o8mTa8+0JN+ictHrdcM8Gk+zeTysxghhPHL8xd8oI7o=;
- b=NM/qVU2eYYV8o4grNECVcwXm7Ldhnz6WCkvhj8mkwEtko6EKlSvlNlCTfbCBvH19tBDmwZnCq
- T6AGqZqyu39DHjcF76m3dS/qNDPjpzggZ4U1jxILfPuhea83ST2u5hm
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
 
-From: Stanislav Fomichev <sdf@google.com>
 
-[ Upstream commit 543576ec15b17c0c93301ac8297333c7b6e84ac7 ]
 
-bpf_prog_attach uses attach_type_to_prog_type to enforce proper
-attach type for BPF_PROG_TYPE_CGROUP_SKB. link_create uses
-bpf_prog_get and relies on bpf_prog_attach_check_attach_type
-to properly verify prog_type <> attach_type association.
+On 10/19/26 3:29 PM, Eklavya Singh wrote:
+> o2hb_region_dev_store() checks reg->hr_bdev_file to see if the region
+> is already started, but nothing stops two writers from doing that at
+> the same time. configfs only serializes writes through the same open
+> file, so two processes that each open the dev attribute can both get
+> past the check:
+> 
+>   A: hr_bdev_file is NULL, opens file A, sets hr_bdev_file = A
+>   B: hr_bdev_file is NULL, opens file B, sets hr_bdev_file = B
+>   A: start fails, fput(hr_bdev_file) drops B, sets it to NULL
+>   B: start fails, fput(NULL)
+> 
+> Both calls also use the same hr_slots, hr_slot_data and hr_tmp_block,
+> so the error paths can free the slot data twice.
+> 
+> syzbot hit the fput(NULL) with an unbound loop device, where every
+> start fails with -EIO. With four threads doing the same thing on a
+> KASAN kernel I get both crashes within a second:
+> 
+>   BUG: KASAN: double-free in o2hb_unmap_slot_data+0x14d/0x2f0
+>   BUG: kernel NULL pointer dereference, address: 0000000000000158
+> 
+> Add a mutex to the region and hold it in dev_store(), in the
+> block_bytes, start_block and blocks stores, and in dev_show(), since
+> they all look at hr_bdev_file. dev_store() cleans up with goto, so it
+> takes the mutex in a small wrapper rather than with guard(). It sleeps
+> with the mutex held while it waits for the heartbeat thread. That is
+> fine because neither the thread nor the teardown paths take it.
+> 
+> With the patch the same test ran for 10 minutes with lockdep on and
+> nothing was reported.
+> 
+> Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+> Reported-by: syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=5d4e96acd0febccb5e87
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
+> ---
+> v2: take the mutex in a wrapper around dev_store() instead of with
+> guard(), since dev_store() uses goto for its cleanup. No other changes.
+> 
+> v1: https://lore.kernel.org/all/20261018163121.128911-1-eklavyasingh2106@gmail.com/
+> 
+>  fs/ocfs2/cluster/heartbeat.c | 32 ++++++++++++++++++++++++++------
+>  1 file changed, 26 insertions(+), 6 deletions(-)
+> 
+> diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
+> index 1c3def99bb0..003c398366e 100644
+> --- a/fs/ocfs2/cluster/heartbeat.c
+> +++ b/fs/ocfs2/cluster/heartbeat.c
+> @@ -269,6 +269,8 @@ struct o2hb_region {
+>  	struct list_head	hr_handler_list;
+>  	/* Serializes timeout arming against failed-start and teardown. */
+>  	struct mutex		hr_arming_mutex;
+> +	/* Serializes the region's configfs attributes against dev_store(). */
 
-Add missing attach_type enforcement for the link_create case.
-Otherwise, it's currently possible to attach cgroup_skb prog
-types to other cgroup hooks.
+Naming the covered 4 region's attributes would be clearer.
 
-[Added ptype variable declaration at the top of the function
-bpf_prog_attach_check_attach_type, and moved it under
-attach_type_to_prog_type (similar to what is done in
-3505cb9fa26cfec9512744466e754a8cbc2365b0 ("bpf: Add attach_type checks
-under bpf_prog_attach_check_attach_type") ]
+> +	struct mutex		hr_dev_mutex;
+>  	bool			hr_stopping;
+>  
+>  	/* last hb status, 0 for success, other value for error. */
+> @@ -1676,6 +1678,7 @@ static ssize_t o2hb_region_block_bytes_store(struct config_item *item,
+>  	unsigned long block_bytes;
+>  	unsigned int block_bits;
+>  
+> +	guard(mutex)(&reg->hr_dev_mutex);
+>  	if (reg->hr_bdev_file)
+>  		return -EINVAL;
+>  
+> @@ -1705,6 +1708,7 @@ static ssize_t o2hb_region_start_block_store(struct config_item *item,
+>  	char *p = (char *)page;
+>  	ssize_t ret;
+>  
+> +	guard(mutex)(&reg->hr_dev_mutex);
+>  	if (reg->hr_bdev_file)
+>  		return -EINVAL;
+>  
+> @@ -1731,6 +1735,7 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
+>  	char *p = (char *)page;
+>  	int ret;
+>  
+> +	guard(mutex)(&reg->hr_dev_mutex);
+>  	if (reg->hr_bdev_file)
+>  		return -EINVAL;
+>  
+> @@ -1748,10 +1753,12 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
+>  
+>  static ssize_t o2hb_region_dev_show(struct config_item *item, char *page)
+>  {
+> +	struct o2hb_region *reg = to_o2hb_region(item);
+>  	unsigned int ret = 0;
+>  
+> -	if (to_o2hb_region(item)->hr_bdev_file)
+> -		ret = sprintf(page, "%pg\n", reg_bdev(to_o2hb_region(item)));
+> +	guard(mutex)(&reg->hr_dev_mutex);
+> +	if (reg->hr_bdev_file)
+> +		ret = sprintf(page, "%pg\n", reg_bdev(reg));
+>  
+>  	return ret;
+>  }
+> @@ -1867,11 +1874,9 @@ static int o2hb_populate_slot_data(struct o2hb_region *reg)
+>   * this is acting as commit; we set up all of hr_bdev_file and hr_task or
+>   * nothing
+>   */
+> -static ssize_t o2hb_region_dev_store(struct config_item *item,
+> -				     const char *page,
+> -				     size_t count)
+> +static ssize_t __o2hb_region_dev_store(struct o2hb_region *reg,
+> +				       const char *page, size_t count)
+>  {
+> -	struct o2hb_region *reg = to_o2hb_region(item);
 
-Fixes: af6eea57437a ("bpf: Implement bpf_link-based cgroup BPF program attachment")
-Link: https://lore.kernel.org/bpf/0000000000004792a90615a1dde0@google.com/
-Reported-by: syzbot+838346b979830606c854@syzkaller.appspotmail.com
-Signed-off-by: Stanislav Fomichev <sdf@google.com>
-Acked-by: Eduard Zingerman <eddyz87@gmail.com>
-Link: https://lore.kernel.org/r/20240426231621.2716876-2-sdf@google.com
-Signed-off-by: Martin KaFai Lau <martin.lau@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
----
- kernel/bpf/syscall.c | 54 ++++++++++++++++++++++++++++++----------------------
- 1 file changed, 31 insertions(+), 23 deletions(-)
+Would it be worth recording that hr_dev_mutex must be held now?
 
-diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
-index b80d125dcea9..9765afbd1b1d 100644
---- a/kernel/bpf/syscall.c
-+++ b/kernel/bpf/syscall.c
-@@ -3131,29 +3131,6 @@ static int bpf_raw_tracepoint_open(const union bpf_attr *attr)
- 	return err;
- }
- 
--static int bpf_prog_attach_check_attach_type(const struct bpf_prog *prog,
--					     enum bpf_attach_type attach_type)
--{
--	switch (prog->type) {
--	case BPF_PROG_TYPE_CGROUP_SOCK:
--	case BPF_PROG_TYPE_CGROUP_SOCK_ADDR:
--	case BPF_PROG_TYPE_CGROUP_SOCKOPT:
--	case BPF_PROG_TYPE_SK_LOOKUP:
--		return attach_type == prog->expected_attach_type ? 0 : -EINVAL;
--	case BPF_PROG_TYPE_CGROUP_SKB:
--		if (!capable(CAP_NET_ADMIN))
--			/* cg-skb progs can be loaded by unpriv user.
--			 * check permissions at attach time.
--			 */
--			return -EPERM;
--		return prog->enforce_expected_attach_type &&
--			prog->expected_attach_type != attach_type ?
--			-EINVAL : 0;
--	default:
--		return 0;
--	}
--}
--
- static enum bpf_prog_type
- attach_type_to_prog_type(enum bpf_attach_type attach_type)
- {
-@@ -3209,6 +3186,37 @@ attach_type_to_prog_type(enum bpf_attach_type attach_type)
- 	}
- }
- 
-+static int bpf_prog_attach_check_attach_type(const struct bpf_prog *prog,
-+					     enum bpf_attach_type attach_type)
-+{
-+
-+	enum bpf_prog_type ptype;
-+
-+	switch (prog->type) {
-+	case BPF_PROG_TYPE_CGROUP_SOCK:
-+	case BPF_PROG_TYPE_CGROUP_SOCK_ADDR:
-+	case BPF_PROG_TYPE_CGROUP_SOCKOPT:
-+	case BPF_PROG_TYPE_SK_LOOKUP:
-+		return attach_type == prog->expected_attach_type ? 0 : -EINVAL;
-+	case BPF_PROG_TYPE_CGROUP_SKB:
-+		if (!capable(CAP_NET_ADMIN))
-+			/* cg-skb progs can be loaded by unpriv user.
-+			 * check permissions at attach time.
-+			 */
-+			return -EPERM;
-+
-+		ptype = attach_type_to_prog_type(attach_type);
-+		if (prog->type != ptype)
-+			return -EINVAL;
-+
-+		return prog->enforce_expected_attach_type &&
-+			prog->expected_attach_type != attach_type ?
-+			-EINVAL : 0;
-+	default:
-+		return 0;
-+	}
-+}
-+
- #define BPF_PROG_ATTACH_LAST_FIELD replace_bpf_fd
- 
- #define BPF_F_ATTACH_MASK \
+>  	struct task_struct *hb_task;
+>  	long fd;
+>  	int sectsize;
+> @@ -2032,6 +2037,20 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
+>  	return ret;
+>  }
+>  
+> +static ssize_t o2hb_region_dev_store(struct config_item *item,
+> +				     const char *page,
+> +				     size_t count)
+> +{
+> +	struct o2hb_region *reg = to_o2hb_region(item);
+> +	ssize_t ret;
+> +
+> +	mutex_lock(&reg->hr_dev_mutex);
+> +	ret = __o2hb_region_dev_store(reg, page, count);
+> +	mutex_unlock(&reg->hr_dev_mutex);
+> +
+> +	return ret;
+> +}
+> +
+The wrapper keeps hr_dev_mutex held across the whole start, including
+the wait for the thread:
 
----
-base-commit: 792fbe1537d8daeca9bd1917e84078b5432aadc2
-change-id: 20261020-cve-2024-38564-5-15-5bcbc9172388
+        ret = wait_event_interruptible(o2hb_steady_queue,
+                                atomic_read(&reg->hr_steady_iterations) == 0 ||
+                                reg->hr_node_deleted);
 
-Best regards,
---  
-Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+hr_timeout_ms is O2HB_REGION_TIMEOUT_MS, 2000, and hr_steady_iterations
+starts at O2HB_LIVE_THRESHOLD + 1, or one more doubling again when this
+is the only region and global heartbeat is active.  So a read of the dev
+attribute that races a start blocks for roughly six seconds, or ten for
+that first region, where it used to return at once.
+
+Thanks,
+Joseph
+
+>  static ssize_t o2hb_region_pid_show(struct config_item *item, char *page)
+>  {
+>  	struct o2hb_region *reg = to_o2hb_region(item);
+> @@ -2156,6 +2175,7 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
+>  	reg->hr_key = crc32_le(reg->hr_region_num + O2NM_MAX_REGIONS,
+>  		name, strlen(name));
+>  	mutex_init(&reg->hr_arming_mutex);
+> +	mutex_init(&reg->hr_dev_mutex);
+>  	reg->hr_stopping = true;
+>  	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
+>  	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
 
