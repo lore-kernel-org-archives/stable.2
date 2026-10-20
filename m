@@ -1,84 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792486316;
-	b=a3FAwOB6LWMPpdvUf2sXkyexIOnfTGn1QeIy4L+G+1q0dGSGJW+L8TLa5d8rz4rzWN9N
-	 POSpzxtb9omKNk8LYk4aGYNfR4XEah2eWndi210dJ1imtmDYK9DFTLcDLytplg2PIfgeV
-	 OZEZT9n3H3uESSpXGbDlsnzCXB6834LJUKFaSnslcr3h8le0dNe/cdsZoIblifEPEgD8W
-	 fJZceoXPAAGyMmRQ20URr6124CMojoo2UULJCjE46PLmwMcxiwCV2USeN0IHruBYpkbE4
-	 trdc2Iy4704DD2xb2Xi8dyT4di9NYW13+wq7j/O4PikzfXwS9f+MXx/ezgQouK//Rjw==
+	t=1792486490;
+	b=rdCJHmouOM7XHuy3/HzboM0IUwpq8uBM16/VJ6ioK2LDZcKf5Adj9xHflKONYJSPYvB3
+	 wjJRy0JU0E7gRBWxd91Sdg0V4ZCwszmbvCytW9NcA+KvexCHdOw+b6O3fKbZ5GBWpiMgc
+	 QgCxq2k2+GPZ6G4nrl3SmV/+D+hwP40+NK93bxrvAd3XRXp842JoOJQjVeEBkaSTlajtA
+	 IpfqVGPmH00DtG0c72LmXsxNYbB2WKZjFGn9jq9MsLrJHIHaLfw9c37vs/0+3MD6hWced
+	 WJZa8+lcfBI2UasAZGoTh34k/kFQgDYRLfhu2N1iMIZlv9ctizF6XKEnR5L1tdKsNdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792486316;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=K5zPCjhtiYgbSzoQkdk7jJnCY7I6uAqcp7kPNPB6WFM=;
-	b=eTmsshhlTgBpyl3qCsgS991kqQtda5k3lHgWDUcGgA7HY5pHKuJR5tBKP77jCiD/mkTR
-	 gaKWoqXLgd26g6e1k/ZRgn47W6TlfYz+qdFbTehcFtpGe6XenUDuScX8GA9lltGSMSBP4
-	 Vtan5i2sjb3pIbNDJ865EBk9mFP2relQGjwSSnFqVsDF6QdqIVveagYue7SGKJ4Z1uE41
-	 5RIHN03Phpssro4aDvnnZVzUJSqS4lk9vHmRx16pDSJ+xZYulO5oBA+sqd/ZPuiI2CRwO
-	 spm+8Cfj6InaPa7W91hO2Ol63R7jHXd6c3d5yok1inGf9NIjZaf/8fL9IIZei1rC27A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792486490;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=bcZcmvJ3NbIWoxlSM4Tt4ETiKqKGT1/tEngMkwZ/3VI=;
+	b=cCcSADwa44ySjz7/L/GJpKwEda0//BLkBTY0vBoFQ33aTqx0uQ/TydXEZ0WBBP5urw7D
+	 +Ng8pvy8kr+jTE0c1kcfr4lTzIxM20ItE7K5AyikeNcwH9GngSXGJvyrnR5nTqOye7q2f
+	 KBW13smfrCQ3tc5lsPapGFK+thJabKnUb2CIWLvCAEfiNUdeV+jtDbbWws+pvEsTW8cfP
+	 jIh81Yl70qyTiMZS3H8MhAghcsjFCcu0HuIAZYNtveawPvRGnRISF0zyYo/EgRLcECyO5
+	 hk4mcUbRFeeLgcVqEPkmlLoFt/4JccpF0g9ssvXJ4O0TwnvQ1HsWnbCfAldWJ0vYxjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mXBQFzVy;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=S7Epn4g3;
+	arc=none smtp.remote-ip=74.125.228.6
+Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 460CA606A31A;
-	Tue, 20 Oct 2026 08:51:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 460CA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E50606A31F
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:54:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76E50606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mXBQFzVy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792486316; x=1824022316;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=eKzxlT0yG5FunvgfNGhCleVugyVb5jhMClq+OxxbpME=;
-  b=mXBQFzVyzSEwwjARMT64iotOnCydBoSQKrHu4iiIVfelQh2qT90rIsn4
-   qzqLC6Wm2M12DevI5aJKBBye/+cmKbut+b3IbxsdO+izjTzaL7PDFZ8Q2
-   bOouABCrBF+yvJcG9KB7sZ7NcIXGFMgyis4UfIrS1s1JtPghehOvyQvHf
-   4UtOulHcPWIHd/cfEUHApwB7D+yTSGw2uRBLlLyBVwTnKwam1wGacqR16
-   e4lxZ89rMNuXN4IOnn76XFCFz/aTQwUpRxaoXXDWJb1iyQ/1CbrOo+pak
-   7dDsETqWOiOiCHooCNAwynjwZmDz1MKmHhP8WAel5oDPOILuiVqpO/aeI
-   A==;
-X-CSE-ConnectionGUID: NR250AvBSNKSHjiLE/Jo1Q==
-X-CSE-MsgGUID: W5HexXIOQ2O9GFn5Dewqog==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1285019"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1285019"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:51:56 -0700
-X-CSE-ConnectionGUID: FJ6CBaMOQmSasr/frxTWmA==
-X-CSE-MsgGUID: G7Vb0dqQQGu/0Txavvu7Ww==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="2823950"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.72])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:51:53 -0700
-Date: Tue, 20 Oct 2026 11:51:49 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-Cc: linux-serial@vger.kernel.org, gregkh@linuxfoundation.org,
-	jirislaby@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ilpo.jarvinen@linux.intel.com,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook
- when DLF is present
-Message-ID: <atcrpTI_R4kRM8pb@ashevche-desk.local>
-References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
- <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=S7Epn4g3
+Received: by mail-pz2-f6.google.com with SMTP id 41be03b00d2f7-cc75f2924abso2030751a12.1
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 01:54:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792486490; x=1793091290; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bcZcmvJ3NbIWoxlSM4Tt4ETiKqKGT1/tEngMkwZ/3VI=;
+        b=S7Epn4g3Y7S6ruUQfhlqpLpw3vllp9oRj1fl+HH89GSLWi8fTsWWjXg9PSIVBhI2AB
+         iYHwlPI2LkELNA2uhA/j3SrW5jehJmqofRfGDidzLsrWZ5c49khM+z9Rj6qqNMtjIz1t
+         lMwZdW/EoFWy7bVPaiKdw9uJytD9JzivucPxF4AUsNKfkj0EhcU/bYe19You4VgVsIbf
+         ow24mk3vErGhz9aasSIETqgXzzvegfuNW5sRAfzR31gG8dn0CZ0OmbHG1pr4X5PPOGAK
+         04BYKz6pvD2S2iDdmEvsqrTYPQk0tWWR8V5UhE62y2X7SoEFYclckc30u1iVHkCF+gu9
+         Hzsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792486490; x=1793091290;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bcZcmvJ3NbIWoxlSM4Tt4ETiKqKGT1/tEngMkwZ/3VI=;
+        b=efyhybAg8faKlyS6k8cyIS5Zrj9NLpypn5yksRfaFYSEEo9GsviakLQFde93+hs+tK
+         kkmGc9BteONOWGPatmF5Dv+/Y2KKnuchZlWDtpMjbJ3DcUwAD9jfUBsCeBkgIQFAY/qh
+         98JfQ8zjYHYtYogbaTpSdOdJ2lHpD0ljSUq8mD30BlbKvxV/spI66fIKSnWuEGdclt3C
+         TRodT0NiQ3xybuWLeMvCiWqZnWEniUolDhhUv1+ntDV96j7YGb2DbMhEKMkJqly3InIr
+         /Pi3QRxzvlhNGgFmELnJF7v2eWdmlacAzfmefsGb9xJpNsaHAuJgWfzURuYnCsWTImLL
+         ivGg==
+X-Forwarded-Encrypted: i=1; AKwUvBxTsQSprhIJ7f+lg+F8ZuLir6UGwMy9KMPSUg40GTxRFs9Yfg/SLWO8FmX6yjoypjpPHPLxLcY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJY3iMOmsybYVmUcaHfvhv6j0lswjKudxB6iE+CiVbCU/SCi8Gi
+	9ePF73dOSNj66EHbTSmd0l4uXmAKdPZiZupzT+90Irw0/OYFt0uAYdvW
+X-Gm-Gg: AYBFou3h4+IrtbIBPK5+AT9Eva7EnIRt/lbrOroaRetIwkVt72HnNxynkDNNliDKZre
+	/fEg8G93pW/M/qBJ8gT9glS4S1aHrdUlUsG5uHN8m9v8xjsXkzj3S5KuGvn1fVgrmGloex34qFE
+	kwJi/TB9abwDHaJyFUoDjZCw33PQU5UZVWpTQCMH2VDdkMdIxu60xPjoj58ED5SLHUt6ute9O8m
+	A6Od6KwlDaO0eFLXMtZjDdGHCY3LsNqhIqSbEa6ci/o0uv6rVG0CC5gdVIu047URofxDUzryH8f
+	ZA6PGb4mWDsrlHtuSp+qdDLYScGZpRYvNKrTICK3Ll/l02SMNbBAG/GakayD7aaG3CiF5Op+pqQ
+	Kgothz3+O7VcsbHkZrETDLn+XxEoAc5ZQCJonalKX2esBw0aHm8SSavN3lqiT29SCH+QXCOcalu
+	JsOag05dmwsZeqhBTqcQBySx+cW7mKIOMKqQKiKZrm5iymKL9tMFBvdHQ5c8ofuPCrwwOUdYaLP
+	ya8e1NECCqYOCImgEOZ5o5JucmaRRPl+PaqwA==
+X-Received: by 2002:a05:6a00:1394:b0:87d:3894:197b with SMTP id d2e1a72fcca58-8a04cb1ed84mr8394665b3a.59.1792486489688;
+        Tue, 20 Oct 2026 01:54:49 -0700 (PDT)
+Received: from HXDQXTDYHN.bytedance.net ([203.208.167.149])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f580173efsm4540237b3a.50.2026.10.20.01.54.43
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 20 Oct 2026 01:54:49 -0700 (PDT)
+From: Jinmeng Zhou <jinmengzhou22@gmail.com>
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Feng Wu <feng.wu@intel.com>,
+	x86@kernel.org,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jinmeng Zhou <zhoujinmeng@bytedance.com>,
+	stable@vger.kernel.org,
+	Guixiong Wei <weiguixiong@bytedance.com>
+Subject: [PATCH v2 1/2] KVM: x86: Make the kvmclock CPU hotplug state generic
+Date: Tue, 20 Oct 2026 16:54:00 +0800
+Message-Id: <20261020085401.80296-2-jinmengzhou22@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20261020085401.80296-1-jinmengzhou22@gmail.com>
+References: <20260924080648.51014-1-zhoujinmeng@bytedance.com>
+ <20261020085401.80296-1-jinmengzhou22@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,43 +109,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 05:06:10PM -0300, Vinicius Pedrosa wrote:
+From: Jinmeng Zhou <zhoujinmeng@bytedance.com>
 
-...
+Rename CPUHP_AP_X86_KVM_CLK_ONLINE to CPUHP_AP_X86_KVM_ONLINE so that the
+state can be used for any x86 KVM work that needs to run when a CPU comes
+online or goes offline, not just for kvmclock.
 
-> @@ -218,7 +228,9 @@ void dw8250_setup_port(struct uart_port *p)
->  	if (reg) {
->  		pd->dlf_size = fls(reg);
->  		p->get_divisor = dw8250_get_divisor;
+The state is currently registered by kvm_timer_init() only if the host
+lacks X86_FEATURE_CONSTANT_TSC, so it is never installed on modern CPUs.
+Register it unconditionally from kvm_x86_vendor_init(), and remove it from
+kvm_x86_vendor_exit().  Add kvm_x86_cpu_online() and kvm_x86_cpu_offline()
+wrappers that call the existing kvmclock helpers only on hosts without a
+constant TSC.
 
-In the case of existing _set_divisor, do we want to keep the possible set
-_get_divisor as well? Shouldn't we introduce a respective _get_divisor in 8250_dw.c?
+Keep the registration after kvm_timer_init() so that the cpufreq notifier
+is registered before kvmclock_cpu_online() samples the frequency of each
+online CPU.
 
-> -		p->set_divisor = dw8250_set_divisor;
-> +		/* Keep a hook the driver has already installed */
-> +		if (!p->set_divisor)
-> +			p->set_divisor = dw8250_set_divisor;
->  	}
+No functional change for kvmclock.  On hosts with a constant TSC, the
+state is now registered but its callbacks do nothing.
 
-On top of my previous reply, why is this hunk needed?
+Cc: stable@vger.kernel.org
+Co-developed-by: Guixiong Wei <weiguixiong@bytedance.com>
+Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
+Signed-off-by: Jinmeng Zhou <zhoujinmeng@bytedance.com>
+---
+ arch/x86/kvm/x86.c         | 29 +++++++++++++++++++++++++----
+ include/linux/cpuhotplug.h |  2 +-
+ 2 files changed, 26 insertions(+), 5 deletions(-)
 
-...
-
-But now I see that we have same function name in two files. Can we rename those
-in dwlib to, for example,
-dw8250_get_divisor --> dw8250_get_dfl_divisor
-dw8250_set_divisor --> dw8250_set_dfl_divisor
-
-?
-
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 79468ddfe4736..a08ae25f373fb 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -6812,6 +6812,22 @@ static int kvmclock_cpu_online(unsigned int cpu)
+ 	return 0;
+ }
+ 
++static int kvm_x86_cpu_online(unsigned int cpu)
++{
++	if (!boot_cpu_has(X86_FEATURE_CONSTANT_TSC))
++		return kvmclock_cpu_online(cpu);
++
++	return 0;
++}
++
++static int kvm_x86_cpu_offline(unsigned int cpu)
++{
++	if (!boot_cpu_has(X86_FEATURE_CONSTANT_TSC))
++		return kvmclock_cpu_down_prep(cpu);
++
++	return 0;
++}
++
+ static void kvm_timer_init(void)
+ {
+ 	if (!boot_cpu_has(X86_FEATURE_CONSTANT_TSC)) {
+@@ -6832,9 +6848,6 @@ static void kvm_timer_init(void)
+ 		}
+ 		cpufreq_register_notifier(&kvmclock_cpufreq_notifier_block,
+ 					  CPUFREQ_TRANSITION_NOTIFIER);
+-
+-		cpuhp_setup_state(CPUHP_AP_X86_KVM_CLK_ONLINE, "x86/kvm/clk:online",
+-				  kvmclock_cpu_online, kvmclock_cpu_down_prep);
+ 	}
+ }
+ 
+@@ -7109,6 +7122,13 @@ int kvm_x86_vendor_init(struct kvm_x86_init_ops *ops)
+ 	 */
+ 	kvm_timer_init();
+ 
++	/*
++	 * Register the CPU hotplug state after the cpufreq notifier so that
++	 * kvmclock_cpu_online() can't miss a frequency transition.
++	 */
++	cpuhp_setup_state(CPUHP_AP_X86_KVM_ONLINE, "x86/kvm:online",
++			  kvm_x86_cpu_online, kvm_x86_cpu_offline);
++
+ 	if (pi_inject_timer == -1)
+ 		pi_inject_timer = housekeeping_enabled(HK_TYPE_TIMER);
+ #ifdef CONFIG_X86_64
+@@ -7165,10 +7185,11 @@ void kvm_x86_vendor_exit(void)
+ #endif
+ 	kvm_lapic_exit();
+ 
++	cpuhp_remove_state_nocalls(CPUHP_AP_X86_KVM_ONLINE);
++
+ 	if (!boot_cpu_has(X86_FEATURE_CONSTANT_TSC)) {
+ 		cpufreq_unregister_notifier(&kvmclock_cpufreq_notifier_block,
+ 					    CPUFREQ_TRANSITION_NOTIFIER);
+-		cpuhp_remove_state_nocalls(CPUHP_AP_X86_KVM_CLK_ONLINE);
+ 	}
+ #ifdef CONFIG_X86_64
+ 	pvclock_gtod_unregister_notifier(&pvclock_gtod_notifier);
+diff --git a/include/linux/cpuhotplug.h b/include/linux/cpuhotplug.h
+index feb32949aeea6..91da42fd11161 100644
+--- a/include/linux/cpuhotplug.h
++++ b/include/linux/cpuhotplug.h
+@@ -241,7 +241,7 @@ enum cpuhp_state {
+ 	CPUHP_AP_ONLINE_DYN,
+ 	CPUHP_AP_ONLINE_DYN_END		= CPUHP_AP_ONLINE_DYN + 40,
+ 	CPUHP_AP_X86_HPET_ONLINE,
+-	CPUHP_AP_X86_KVM_CLK_ONLINE,
++	CPUHP_AP_X86_KVM_ONLINE,
+ 	CPUHP_AP_ACTIVE,
+ 	CPUHP_ONLINE,
+ };
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.39.5
 
