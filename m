@@ -1,47 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792490527;
-	b=iOLiEKMvl7K9Me7xUF4Kb2Y86igTZbY92uKtdN8Rk8dIyZWxVEVPlpVCZnTxXqAyytRz
-	 Y0X/X2ihSUhVUgeUhZcW8hYlKDMMCgjREkI2jP3eP4ddl02MIY/5mqVEQ/mWGLSX6Dd/4
-	 yXoSKAqu4sKnBoKt2hziG39a5dA96YfKPBLdJDaKwUCh9NSsROfCqWp3GqwqCjTPgORl7
-	 I/ZVfVQDmS9AWy8tdemSuhQVZbzG1eCUC1Bds8mAcmetlQT+ABnXwIfne22VNX9mTpQph
-	 ueCg1pcy/GyQ2mkJfMZUjENk8tIZpwnudPSJSsb1ebPF+8J7Fen4t8E/rHOq1pI8Amw==
+	t=1792490641;
+	b=26RNFdn4wu6Ie7rHWTCUNuUcNVh3HDQa24l6fRV2N4e6jpjz3ruzMZYdZI+6eGpPfZfz
+	 VcR0/+2ExR6lQH5gGdAu/q3VwzSnrC74YBZTugC6ww4DXZMpYRwHRwriSM0VCsbyIDgDh
+	 jv4h8Q2/I6c78WotJst/q+Ae/R3/OubXrxw8Cq9JyZ8wA69S1hGftSmjE5Stkxg/3w03o
+	 G4PH+UrnWYIoUukbqG/6jmXy0t/FRnKx8orpnTerpFfzwwkIiFvjksUgNsDmouRGzO3lQ
+	 T5DDpCfcvW0kRsq2Lch9Lp/h1ljA5aaBBzZLUXtwdsrta5mC3Hoin1YJYLtj/nBi8Iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792490527;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=34jo2lTPBFEDXI1aSdUvkUPUth9L8yOyLhTCG7rWYZM=;
-	b=aLj3yp1PXwNnfnXZGPcFQ9oG75k/1fXm4TvCa0h389Dav0iE50T+mgQWhWUgPaKVC7aP
-	 5yu4+C/SRXV7M8diRVA6ntsBjF5KmuAzKd95JaIxSraE7gV4XFJdviKnACd5Se6QlYo3/
-	 RjyllSaiuJDY55q3/32mP/riqRbKUjBZMJGFUbTVFE62lIgT0D2Nk2dIgvic4seiteFGy
-	 8EZsaMK3PlDUhMN3I0Qi0/sTopffvaKCAp+D2iN0ysFHuQepLfUJS30aiyKltPi6PcAvV
-	 tNz7oeSzsjLl5NTQqPScg4as8h5cXhrLjZvGkz6rCiShdfD3I7vE1nGdUc0Nw36DN4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792490641;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2xqJ7ego2cIVHaasX6cs9qwWsOg7oxEQGC5sNjYglzs=;
+	b=G1YGMoBYz92rbnQ7igrLCt18ghxPTrzt+jC1ueicWboFuUqBbHqtA41ap27VVU58cIqV
+	 v9FseyffIjo/IgqZlGw+Dx3Bo51FbIv/V2PQr2gCTiWaAiEP2LhIFbl14BFaBnZZtzmSo
+	 CK3QR1K5RE8lXSwSKNcvVolm0vceZtS0Rr1++e/44opUPi2GjNIADP5RV/6XnB9IutsIG
+	 4a43BB32Z67OP5HS5xTCAhBH2BqcR0bEMdDEOb4MzvHrrnCN5lUemAZRtHdekLi+aTz1V
+	 TE7S0kZSOStT+31XzBuTdzOmGe7kn0ec5+LjaWFI6ZPIX3zDDgyFdHf3fD5G4CTLxJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GDAqly89;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KcqkG6m+;
+	arc=none smtp.remote-ip=209.85.215.179
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB29F606A31D;
-	Tue, 20 Oct 2026 10:02:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B35606A31C
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 10:04:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08B35606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GDAqly89
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B78FD1F000C4;
-	Tue, 20 Oct 2026 10:02:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792490526;
-	bh=34jo2lTPBFEDXI1aSdUvkUPUth9L8yOyLhTCG7rWYZM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=GDAqly89F/GH8yY5EhL1wwCAlHSQ1x3pwskc+bkhbIsZ8HRGCxNNpO9+Hxc3k2IzQ
-	 YcOA5kV75DK7i08tKqUtrnU2C7yvmBBxI72+1b6zLYGfkFbxISwpQOtDQfIKK2+gDC
-	 0iSWEYVdJ4tfVAqXHm1g8Wu7rA6WJKqSuFK+ikFVpHiuMEfQnK9/tr8oIpL2t3M2gC
-	 Q9lincGUMOWlQBms4PTWH4SUg2PX8+Ow8Tsj3kdfDQCaS3efG70dPs+64nNk/5+QsA
-	 NIMa9ANXzjLvRd9GkzFa2y5pIWyR4lllJ18vpYeltIGgelooasDh8vi4zR2zRMZcrF
-	 ekgAf1uuGVzmQ==
-Message-ID: <f5e7b114-2bda-49e3-974f-170211501203@kernel.org>
-Date: Tue, 20 Oct 2026 12:02:01 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KcqkG6m+
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cd633ef819bso1157033a12.2
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 03:04:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792490640; x=1793095440; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2xqJ7ego2cIVHaasX6cs9qwWsOg7oxEQGC5sNjYglzs=;
+        b=KcqkG6m+FddXShT5NFcDWmnYQ0y0/jNU3IWdqux8C9SWGppxNhdg7QA4Wy7YdGot1y
+         zUgA+Rz+0JmMN/Uu3eSYc2j5zKpkW8Px/4Db5rl4225rLqyb5yt4IvbdupYzPZrhtms/
+         nfeLUZO03blFdLiLVm9l6viLKLjWpuhKNKz2no1Aocv0kIdy5asxv7ZNb9qWfBmj3Gvr
+         FLyDZ86MrWswryX4hGbktY/t5aBw0YZYZg9/SToU6N9a3xCGyHF7kcOxFw7OqEmjnfBf
+         a4VStnOc5jrB4COpFBZd/4644x8xJ0DsFrqVru44apl0Hr831a7nhRy6b+YrFWcv+CWG
+         cMsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792490640; x=1793095440;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2xqJ7ego2cIVHaasX6cs9qwWsOg7oxEQGC5sNjYglzs=;
+        b=cOeyBbASVWqySGrlSBNFL9FczvHamNLpntx3valv3GfBjc9gFalItxoRw9iejytgM1
+         BXKpHx7VR+u7vrtf+2VXlwhGK4V5Rr8DrxAwZI2Ib+d810qQwQpqkx6dPIoTqdz6p69F
+         Q+BYR7yJIIgpZNguLFeMoQopUX4sdxPWWUIBXsUHSvpJnYvYJwZO2ILO6ubhIDi8HtLJ
+         W0VxIaU+fjKKRDCl7v18CgIeLwMpeQFyhg6B60p3Xl1dSlGf1xQmcJBrrn2jLCK6SqRw
+         MqfZQUGf9b9cGmB8ygA93NSY/yg3kMI29UVdDchZots0XY/IadC19zSAw7TTZwO2sQUo
+         eSVA==
+X-Forwarded-Encrypted: i=1; AKwUvByqx9GpuHEHead5/tANCa4j1LrD+uzTOBYSivLzGT8LW8mogajmf/dQWhaGhMTjvD1cdiuDVRc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIpxf0FATKaDfnOjLcNd2c1GKUspjDezPwOk4aDPEGC7fGbzzVO
+	ZzFOPi1Y/vou7e8bs5wFXS336enYQ5d56SCKVUF1uR5HsDuqSDRyU66U
+X-Gm-Gg: AYBFou3rC7yAL4mXhollNLGmTYiEh30KafzZdHlK+skp//53DsTm7IwJb7bSZKQ7xG1
+	/rBhs076KxWfrkHg2Olnk8lwPaQEkOQ2tqwExI6WkunVKLS61iWdskwOmnxLRtEihNANA37NyCU
+	m2S09nY1uuIoWeNeZXJiWgCMm8U7ki+PNMVC2r+MIU3mOppEq9Rof70Ebjp9oYsCRcSwDEGCWPP
+	NPs92dVZNAYsZeN4L4Bg2I1Uby5tGW22jyIEgTy2ncQvty8yq+e1HJfuWdqhPYWgGIcJjt28YID
+	rWGATuAW16nqLAlur/XxINvX1khkHhoJMeVz3b+/F8zl5IoNwdE82ShzeXzPhDihrjCnzUuBgGP
+	ivTa/ePKAlLng4DUQPoHXNYiO3pyz5g5GsePvwnBsPu0IjatiT435lzSSdbQ7bnydlyRka2Es86
+	RWEr6kGISLkCt2FUujLMB7lCfzgwB81cC6KM2CExP4WDi+PxDVEQmzOUPgtjO5t0KTBDIvNBEBG
+	8zwQUNGHPA=
+X-Received: by 2002:a17:90b:582d:b0:3ab:c674:cad9 with SMTP id 98e67ed59e1d1-3acef519dddmr9226879a91.54.1792490640339;
+        Tue, 20 Oct 2026 03:04:00 -0700 (PDT)
+Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad5c72df56sm3203446a91.0.2026.10.20.03.03.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 03:03:59 -0700 (PDT)
+From: Daehyeon Ko <4ncienth@gmail.com>
+To: muchun.song@linux.dev,
+	osalvador@suse.de,
+	akpm@linux-foundation.org
+Cc: david@kernel.org,
+	tj@kernel.org,
+	linux-mm@kvack.org,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Daehyeon Ko <4ncienth@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] mm/hugetlb_cgroup: prevent use-after-free during cgroup offlining
+Date: Tue, 20 Oct 2026 19:03:45 +0900
+Message-ID: <20261020100345.1677643-1-4ncienth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,191 +100,129 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/page_alloc: skip shuffling and reporting for no-lock
- frees
-Content-Language: en-US
-To: Karl Mehltretter <kmehltretter@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Alexei Starovoitov <ast@kernel.org>,
- Alexander Duyck <alexanderduyck@fb.com>, David Hildenbrand
- <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Shakeel Butt <shakeel.butt@linux.dev>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261005063515.6312-1-kmehltretter@gmail.com>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20261005063515.6312-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/5/26 08:35, Karl Mehltretter wrote:
-> free_pages_nolock() may run in NMI context or while a raw spinlock is
-> held. When its zone trylock succeeds, __free_one_page() still reaches
-> optional work written for ordinary frees.
-> 
-> shuffle_pick_tail() can refill its random-bit cache through
-> get_random_u64(), which takes a per-CPU local lock.
-> page_reporting_notify_free() can queue delayed work. Both operations can
-> enter locking outside the trylock-or-defer mechanism used by no-lock
-> frees.
+A normal hugetlb charge obtains the current task's hugetlb cgroup with
+css_tryget(), charges its page counter, and drops the CSS reference before
+the folio is committed under hugetlb_lock.
 
-For page_reporting_notify_free() are any raw spinlocks bad or is it the
-scheduler locks?
+The task can be migrated while the allocation is in progress.  If the old
+CSS is then offlined, its final active-folio scan can finish before the
+charge becomes visible.  The allocation can subsequently charge that dying
+CSS and commit its pointer to the folio.  Once the CSS is freed, uncharging
+the folio accesses the freed hugetlb_cgroup, including its page counter and
+per-node usage.
 
-> An instrumented PREEMPT_RT lockdep run forced a random-bit cache refill
-> while calling free_pages_nolock() under a raw spinlock. The unpatched
-> allocator reported:
-> 
->     BUG: Invalid wait context
-> 
-> The attempted lock was batched_entropy_u64.lock in get_random_u64().
-> Lockdep showed the raw test lock and zone->lock both held.
+Keep the reference acquired by the charge until commit or cancellation.  At
+commit time, while holding hugetlb_lock, move an uncommitted charge out of
+each dying CSS to the first live ancestor.  The hierarchical charge already
+includes every ancestor, so moving it only requires canceling each dying
+CSS's local count.
 
-In slab we solved this by using prandom - commit a1e244a9f177 ("mm/slab: use
-prandom if !allow_spin")
-Could be better?
+This orders commit against the offline active-folio scan: either the scan
+runs after commit and reparents the folio, or commit observes the dying CSS
+after the scan and selects a live ancestor.  The retained reference also
+keeps the originally selected hugetlb_cgroup alive through this decision.
+Reservation charges retain their existing CSS lifetime and are not
+reparented.
 
-> Skip allocator shuffling and page-reporting notification for FPI_NOLOCK.
-> The freed page remains on the buddy list and can be collected by a later
-> reporting pass.
-> 
-> Trees from v6.15 through v7.2 call this flag FPI_TRYLOCK. Use
-> FPI_TRYLOCK in place of FPI_NOLOCK when backporting this change.
-> 
-> Fixes: 8c57b687e833 ("mm, bpf: Introduce free_pages_nolock()")
-> Cc: <stable@vger.kernel.org> # see patch description, needs adjustments for <= 7.2
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
-> This was found while auditing the no-lock paths discussed at:
-> https://lore.kernel.org/r/20260919171443.90512-1-kmehltretter@gmail.com
-> 
-> Tested on base e767a4ea70a3 in four-vCPU x86-64 QEMU TCG with
-> PREEMPT_RT, PROVE_LOCKING, PROVE_RAW_LOCK_NESTING,
-> SHUFFLE_PAGE_ALLOCATOR, PAGE_REPORTING and page_alloc.shuffle=1.
-> 
-> A temporary initcall registered page reporting and freed 65 maximum-order
-> allocations with free_pages_nolock() under a raw spinlock. This exhausts
-> shuffle_pick_tail()'s cache and forces a refill.
-> 
->                                              unpatched  patched
->   free_pages_nolock() calls                          65       65
->   __free_one_page() calls                           130      130
->   shuffle_pick_tail() calls                          65        0
->   page_reporting_notify_free() calls                130        0
->   reporting work pending                              1        0
->   invalid-wait-context reports                        1        0
-> 
-> Maximum-order splitting accounts for the 130 __free_one_page() calls.
-> Both guests powered off. The patched guest emitted no diagnostics. This
-> forced test does not measure normal frequency.
-> 
-> A second A/B used no test-only MM caller. A BPF arena program attached to
-> mm_page_free_batched requested 2,048 pages from a memcg-limited map. Partial
-> failures rolled allocated pages back through free_pages_nolock() while the
-> tracepoint held the per-CPU page-list lock. A virtio-balloon device provided
-> page reporting.
-> 
->                                       unpatched  patched
->   arena allocation attempts                  70       70
->   arena allocation failures                  70       70
->   shuffle calls from rollback                 9        0
->   get_random_u64() calls from shuffle         1        0
->   reporting notifications                    12        0
->   delayed-work queues                         5        0
-> 
-> Both guests powered off without a diagnostic. This confirms that an in-tree
-> caller reaches the optional operations. It did not reproduce a deadlock or
-> lockdep warning.
-> 
-> The upstream form applies to v7.3-rc1, mainline and next-20261002. The
-> FPI_TRYLOCK backport applies to v6.15 through v7.2. mm/page_alloc.o builds
-> on v6.18 and v7.2.7. Stable backports were not runtime tested.
-> 
->  mm/page_alloc.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> index 12fac9084c48..3e21dc90b858 100644
-> --- a/mm/page_alloc.c
-> +++ b/mm/page_alloc.c
-> @@ -89,7 +89,10 @@ typedef int __bitwise fpi_t;
->   */
->  #define FPI_TO_TAIL		((__force fpi_t)BIT(1))
->  
-> -/* Free the page without taking locks. Rely on trylock only. */
-> +/*
-> + * Request the no-lock free path. Use trylocks and skip optional operations
-> + * which can take other locks or queue work.
-> + */
->  #define FPI_NOLOCK		((__force fpi_t)BIT(2))
->  
->  /* free_pages_prepare() has already been called for page(s) being freed. */
-> @@ -1013,7 +1016,7 @@ static inline void __free_one_page(struct page *page,
->  
->  	if (fpi_flags & FPI_TO_TAIL)
->  		to_tail = true;
-> -	else if (is_shuffle_order(order))
-> +	else if (!(fpi_flags & FPI_NOLOCK) && is_shuffle_order(order))
+On an unmodified v7.3 kernel with a 128-page 2 MiB pool, a
+capability-free uid 1000 allocator racing administrator rmdir reproduced
+KASAN writes to a freed hugetlb_cgroup in three of three boots.  Controller
+disable reproduced the same fault.  With this change, 5,000 rmdir rounds
+with 1,075,055 successful faults and 2,000 controller-disable rounds with
+1,707,348 successful faults completed without KASAN, LOCKDEP, page-counter,
+or refcount reports.
 
-is_shuffle_order() should be checked first as it has
-CONFIG_SHUFFLE_PAGE_ALLOCATOR=n compole-time false variant, and static key.
+AI-assisted source review was used to identify the race and to help draft
+the reproducer and fix.  The interleaving and the resulting allocation,
+free, and use-after-free stacks were verified with tracefs and KASAN.
 
->  		to_tail = shuffle_pick_tail();
->  	else
->  		to_tail = buddy_merge_likely(pfn, buddy_pfn, page, order);
-> @@ -1021,7 +1024,7 @@ static inline void __free_one_page(struct page *page,
->  	__add_to_free_list(page, zone, order, migratetype, to_tail);
->  
->  	/* Notify page reporting subsystem of freed page */
-> -	if (!(fpi_flags & FPI_SKIP_REPORT_NOTIFY))
-> +	if (!(fpi_flags & (FPI_SKIP_REPORT_NOTIFY | FPI_NOLOCK)))
+Fixes: da1def55919f ("hugetlb/cgroup: add support for cgroup removal")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+---
+ mm/hugetlb_cgroup.c | 43 ++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 32 insertions(+), 11 deletions(-)
 
-Maybe add a comment why we check FPI_NOLOCK too?
-
->  		page_reporting_notify_free(order);
->  }
->  
-
+diff --git a/mm/hugetlb_cgroup.c b/mm/hugetlb_cgroup.c
+index 3fb41311e4c7d..1e0dec070b05f 100644
+--- a/mm/hugetlb_cgroup.c
++++ b/mm/hugetlb_cgroup.c
+@@ -310,11 +310,10 @@ static int __hugetlb_cgroup_charge_cgroup(int idx, unsigned long nr_pages,
+ 		css_put(&h_cg->css);
+ 		goto done;
+ 	}
+-	/* Reservations take a reference to the css because they do not get
+-	 * reparented.
++	/*
++	 * Hold the CSS reference until commit. Reservations keep it longer
++	 * because they are not reparented.
+ 	 */
+-	if (!rsvd)
+-		css_put(&h_cg->css);
+ done:
+ 	*ptr = h_cg;
+ 	return ret;
+@@ -337,9 +336,26 @@ static void __hugetlb_cgroup_commit_charge(int idx, unsigned long nr_pages,
+ 					   struct hugetlb_cgroup *h_cg,
+ 					   struct folio *folio, bool rsvd)
+ {
++	struct hugetlb_cgroup *charged_h_cg = h_cg;
++
+ 	if (hugetlb_cgroup_disabled() || !h_cg)
+-		return;
++		goto out;
+ 	lockdep_assert_held(&hugetlb_lock);
++
++	/*
++	 * A task can be migrated after selecting h_cg. Once offlining starts,
++	 * redirect the uncommitted charge to a live ancestor. hugetlb_lock
++	 * serializes this decision with the offline scan, which reparents
++	 * earlier commits.
++	 */
++	if (!rsvd) {
++		while (css_is_dying(&h_cg->css)) {
++			page_counter_cancel(&h_cg->hugepage[idx], nr_pages);
++			/* The root CSS never dies. */
++			h_cg = parent_hugetlb_cgroup(h_cg);
++		}
++	}
++
+ 	__set_hugetlb_cgroup(folio, h_cg, rsvd);
+ 	if (!rsvd) {
+ 		unsigned long usage =
+@@ -352,6 +368,9 @@ static void __hugetlb_cgroup_commit_charge(int idx, unsigned long nr_pages,
+ 		WRITE_ONCE(h_cg->nodeinfo[folio_nid(folio)]->usage[idx],
+ 			   usage + nr_pages);
+ 	}
++out:
++	if (!rsvd && charged_h_cg)
++		css_put(&charged_h_cg->css);
+ }
+ 
+ void hugetlb_cgroup_commit_charge(int idx, unsigned long nr_pages,
+@@ -419,15 +438,17 @@ static void __hugetlb_cgroup_uncharge_cgroup(int idx, unsigned long nr_pages,
+ 					     struct hugetlb_cgroup *h_cg,
+ 					     bool rsvd)
+ {
+-	if (hugetlb_cgroup_disabled() || !h_cg)
++	if (!h_cg)
+ 		return;
+ 
+-	page_counter_uncharge(__hugetlb_cgroup_counter_from_cgroup(h_cg, idx,
+-								   rsvd),
+-			      nr_pages);
++	if (!hugetlb_cgroup_disabled()) {
++		struct page_counter *counter;
+ 
+-	if (rsvd)
+-		css_put(&h_cg->css);
++		counter = __hugetlb_cgroup_counter_from_cgroup(h_cg, idx, rsvd);
++		page_counter_uncharge(counter, nr_pages);
++	}
++
++	css_put(&h_cg->css);
+ }
+ 
+ void hugetlb_cgroup_uncharge_cgroup(int idx, unsigned long nr_pages,
