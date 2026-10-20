@@ -1,124 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792481278;
-	b=2nBXleErpdWdQZf8/C9T+AiAtVeR+++NRYUlMgN3HjLsdQ6JdtOURdDW10n3JnMqK/+g
-	 KVDR1I2UH1EvYJWuz3wZkOeNjlQA9BIe5+ErveHIBxSCA1cSsZRVBwcXewmAQqNjiZJ2s
-	 4xi3N211DXNLLzVCpCX+02HvLpBGLSh78sFosvsSTvUzoD3gXr23fwuRLy3Uq4Dx78lB3
-	 WC9kpHUcUNQcp/5rWJ918Dg2jHFkYuGgAqhYt1igJcEwQf7b2U4pzcyyBJviFfF4ZUvyq
-	 DtAJlULizmyaPsYrfFhHscWFJ3gTIWE/jOn2i3ApNPoFqm9ZPdk7qB8TCzJ+T63D+Qw==
+	t=1792481397;
+	b=Z91vJy+cmGXK3w0pCEkFOHSTDvMgJTPSL721yLSnHMLl9bG2b4LzqjHsj5Y19Gd1KVYW
+	 Rjg0h3lBl7bLC4xtMsnjed9MBuBsFHFGZgoSlT1mPVTF+ioBCsbVvykv72Wpny/8oh1SI
+	 6R2El1NN350JBT3qWlc6a/hqVqDJXs/XvpczQV49CuHR2ZrDwlC6lnImK/u7WHwo7z1Ab
+	 sid4NYUt9hvqCn6bVN9hLF7YcrE5220g6grFGLhVAY3Vn+eTDC1pSAjh0ioi7QM4fFgRK
+	 Ci7GpH6WNoQhQjiNYXrxYbyb4idjpcgxdiv2qqddbjyICaZNSzw4CC4kY+36xEqXe6g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792481278;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=uryACFItQvoVSCXIDTmHDQJ1dZiVZTVi9wKR8Cs4A3k=;
-	b=NHfHx5oMqneR/V15OZ9u6ekTUSzAOfM6vhjEVmaldlNonp1VVoblJjGdWYEDjO73fyiz
-	 MpkdRAWZBzs1YZOD6yqzM0FNG54Ycl4SHDxbJgbA3DPxjvIiXpvMRDfg+vb2BGa+E52vI
-	 mmK31lx2xcigxHTwDeRwSHQzRwbS+NggbSoAAyrKm2Osn8WRN0dbdtZuJA3bvOszdj9Tq
-	 jkC7eqanu67K5lBx7nea0pgmgntn6bf3Qa9weEpGZxzgK63SLJk5I+EWb/2FFwnhHJFLI
-	 s8bBgxHRLH7JkGak6B8TvKYdQnO+xcVzCUF2x1D1rqFwCoZwqewPdQpn0TNNnUfdcQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792481397;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=DUpm1Avc0nkEXJ+1xf9Uuhznoyw2NJnoVeQzyuyKlAM=;
+	b=uutayXuNBdbu7rPEy64yeJQ4JhjGgPbrk0bGcGKMkIZGLlht0T2UCo86kMa8BSjzF/Th
+	 8vQMryLjuPPIt+q0hnTPXk5XsF5n4ln8ctTpR400nL9texVfUZ3QR2UJ9kDcsgW3RyYas
+	 kmzWhspfUp6NUjPzJxk0CYp0/aYbzV4QDKIAYlFX7vcS29J0EUp/gPpqV/YZ1uOqYSF5x
+	 b0WK44BuxSEeaUVXhULP2C7tjClaKleUYJsjS+dmjHGRmCuxxliFz+sBzA07fq+m1iXxP
+	 cUkbqrUx+O5SKX29indkfc8Mrp7pCKaC0hfu0+NlbEgTI/PJsquJfXTjYjvkG0X57mg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JGMTvWOl;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HsUUgMmk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ddJ5ebHb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE972606A328
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 07:27:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE972606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9660606A31B
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 07:29:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9660606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JGMTvWOl;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HsUUgMmk
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K4Eb8L1134443
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 07:27:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	uryACFItQvoVSCXIDTmHDQJ1dZiVZTVi9wKR8Cs4A3k=; b=JGMTvWOlYgDWwsR4
-	px87J5+exc88G4hmXIZIwtukYLxRO914Z4LsmKcoNegLaS2ElQ/TQ7t8F69p1CSe
-	Bm4DAxTy1ck9PbnyM1mSBympoFSqVOkR3XNjstFzb0Jddht29FnN0hdAb4n0dbIy
-	NpZTu0uBCXhwG2BXT9a3g8+9m1b7Futb5aSRY8x/W/R+Rb7wBK5HksyotzZBDvU1
-	9zj+xbfHza6SMMsKlck/LOuqY2APMA94D3G7jUIMT86nH/LS429AmPyqGd/dIT8j
-	ZmssFiysJeDA9oTvkU2c96rKltdnbkwBrh+ar+CgO/70aIW+1vz5XmB3+PlYwlZY
-	Al2OVw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5phdqw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 07:27:56 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93ecdc701a2so352417085a.3
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 00:27:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792481276; cv=none;
-        d=google.com; s=arc-20260327;
-        b=g01LIPOD50lZXzLNedh285kcDd/tL4i4e4lVe0W3GFM/7IkIYwCzRx7B0oOiKrB5Wb
-         l1VsZIbhKIw1O/twboRfkPAaJWibyZM2Uz0yS8yF0dC9+8sLuUIoghzjr9esFbucQehn
-         ynFcNSYSRtCMPshf4fi94EPjKrnF5gk7/3W4ywT2IO6F8+xnpd9eAAVaBUj8dXyGVXQM
-         6qHzzfEibE5ZgMA9mAQDMb2ordd9s8T2zFEB9dM5UNIIfC8/QN+tOy1gd13VlU6pl93U
-         FQU8oUCvTBnfTvjqFjkCl1YAEziokjppuyjjI3LusylC0n3BwmJtrO5n1Kw+LByENOWl
-         7kVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=uryACFItQvoVSCXIDTmHDQJ1dZiVZTVi9wKR8Cs4A3k=;
-        fh=0AhiTksTKefemW8t3tYaAiQLb69U9InfvQ+oEXakEeA=;
-        b=r/kFcaBIzNR83KXFpimFgeP9cXnwc/3Y/NnFAHkd5JDeuhlj3XDP2YdIYiX35lvDg5
-         IQ5YjNrMPfpWD74vdkylyE9BXd4fQCLSMTweQg2OnUwQSHQCFxa/cLvrxIihKIxphlNJ
-         mwClvpl63Ghv+DgQoheenA3foM0J/JEH3MyBd/eEIqhXDw1Y22KqiZwNjDslTG93Vf7N
-         sNrhCAvpixj5B35Ed6g5vjT7sCbNAeUmofyf1YtBLHQ6ek2d7LLBqQB66mLCniz8AOt2
-         cKbORVNGE2Kmqx9qOPdq78tQMjU/ZbjVDDjG2s6T0SLe2wINfOW4e14mrHFVGaDIfwq2
-         DpkQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792481276; x=1793086076; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uryACFItQvoVSCXIDTmHDQJ1dZiVZTVi9wKR8Cs4A3k=;
-        b=HsUUgMmk0b65hZxUGTsKmWWmrqC2vVSWE6HZ1B9CP5iTl6oH6q/SGCPnhWE0Py3czf
-         nnh1Q7Ppqk3mVCFbAXqGUA93GqAucPNjq8BlkUJv6b0CUEhDS3vTD/7Jo96E0FhRE5H3
-         nkTDlOw2GQZRVUV9lpXaj0mCYj1kaf1QAT7cJVi8VvgrLWXPhkGmesTWvKWHKLcXFao2
-         UciWKhuFo7baRbNavt+bRYBWz5Ek7hrYpIK7Nr43lUbsoO9Eehutw72gmOaMWxbjBrXo
-         jD4nL6ALeETVRi93zXkmtTuTDvnoPsTMtXU2YlfGnprkwze0/dEJbtSKVzpHfLUKvyf+
-         EeiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792481276; x=1793086076;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uryACFItQvoVSCXIDTmHDQJ1dZiVZTVi9wKR8Cs4A3k=;
-        b=Tcu7+b7+lyNrPj5iAJxdkyoSXs4FfnqzSjA/w0TOdJNdsHb2pKA+qA1lKaS0XlAlVk
-         qoNVobBflchHddQtuNWM8LXNQbe1RZ5C8Cu8O+1uKPbzgBVjic2pogdtjGH4q3bOm0XU
-         krEPY6zPnBqFp4s6n96mw7JoLCGvCY2JkmnhiVE6rmEgVNEQ6Vh5A/0uG3bLXMkiLfp9
-         FxJU9lDRCuu04F6YgdkdnjsufkISm6bfbPoKt3M/gK++BMfEAIdCjM2Q7basT5resrsX
-         RtLatcFnjk0hWh4jAzIkCGHLx4BsMtKttCS/ZRr2bWcvcQHTLdxmaKS/F+E78Ztt93UK
-         3l2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxWAltDcyivH+zhRV2kCG5/yDriZBdToJ9znq+5QVGL92J3dtFYJvyK1KijHft/Dt+4j5iJlMw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTJrbv6SPTkkyGLMFQ/Ub4BmhFHIhrUdqKXME1cLzqRvcYJOOY
-	AXp0kyq0PQVNo7iYOC3dUu0gxNNR+SnxVsNcPjRGgpWCP3kT6UJ2foV8BIQhi2IsM8o/My2zuXI
-	vfVT1Y4FvjIOG9jjnnnWq2bpfwcfSVmhGC4q4FjsF+UKVv/p0k62NCSU+epjl8V2jXXC3E59QRY
-	2wiZ0D/41o6f74aKNk6nvwwfp1iPJSawtQVQ==
-X-Gm-Gg: AYBFou03qZggA+nQvjBqCQuasjy6cXDuH49rmSYN/amzmsNGGTXN2YWu7KuRMvNP2Wv
-	kvaSWDNVW2XGKGHVIlAubA/WoDmP7JxbmIM1ubrTCIHhsn+FWPeZeZeyBcr+73gFqLmKH5Sg8wB
-	/CKGek5nC4OTvvXMNOKfDH8XLAOgsrGidt6hC6CM4m4Kw5g8bfffgrqkxrTg0xWsK4eDc4pKtaT
-	N7wS9bCVpyCZBWQG0ccWwShHLSFmfpfLkkV7pbkIe8r39NgryiCtGzF99oh4Fcp9WlVUBskRBs=
-X-Received: by 2002:a05:620a:2990:b0:93c:62c4:e2e2 with SMTP id af79cd13be357-93f29b7fa60mr1609173585a.12.1792481275964;
-        Tue, 20 Oct 2026 00:27:55 -0700 (PDT)
-X-Received: by 2002:a05:620a:2990:b0:93c:62c4:e2e2 with SMTP id
- af79cd13be357-93f29b7fa60mr1609170585a.12.1792481275371; Tue, 20 Oct 2026
- 00:27:55 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ddJ5ebHb
+Received: from mosel.fritz.box (unknown [IPv6:2a02:810a:88b:4f00:82ef:16f8:b54b:d8b])
+	(Authenticated sender: jre@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 1983D2021EE;
+	Tue, 20 Oct 2026 09:29:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792481393;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=DUpm1Avc0nkEXJ+1xf9Uuhznoyw2NJnoVeQzyuyKlAM=;
+	b=ddJ5ebHbPeEddy8azxBSzRmdold/ITK1Tu+v0drY5Q1U287TZiEKtv+tiZCdj6ZY3eG3J1
+	pkFDt4BofZ5gTTz+sm6WrX1s6fE9rAgVQkOKw6xPck7kNIBmQlYHB7qrTOBs8gNLyhf4js
+	7ASqnum2T/wXzamX9d6EGMdrgEYIWvlvQqxsvviH5YoqBMkBwHx5BbArj7cZs+k0n+gzal
+	k0K6h1NcymahfDuP6WMIOvQQDI2tCv7Y/L7ImVpuO5DKE/LQEIJPWuEQwHJ0qwruB9D46T
+	uoHDu9gwT857Cs/gG1EgAdA1djDnTXyKvwrWr8qElYa1VOLFng2XceBUfy80GQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792481393; a=rsa-sha256;
+	cv=none;
+	b=EyuJ7EFUAwPUYo40XhiObs6kX5Y+fVuEn8hM9YOBFRb3KTfd3bFXKDZH2cEK7tPyvlBrTA
+	BPr/Wxr/6k64ItVKbCS3cWT7HU5K5Dw1BnR+ciU7LcdUBJGpvoVnozjjcNitkc3Eo/r2MR
+	TI1lX/5TFIVN3931lsfdDuqCSKElP68Pa6Z+s2XMWbVx0zUmtiDivxrWd/+ird0Ct0rgJp
+	rP/bPcT4KGYiVKgAXqNTErjs2p0vo+2ZEAenTtdjlt3YWY9unt6trTV4FGV9uMqJaUQs6D
+	VAwVdqyzrvw8A55Vk3fP1pU/HKNFZTEw6YKtO3l7QR51S6Sziga93bwgazpq0A==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=jre@pengutronix.de smtp.mailfrom=jre@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792481393;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=DUpm1Avc0nkEXJ+1xf9Uuhznoyw2NJnoVeQzyuyKlAM=;
+	b=O+y8B2EiAwlw5UkI49daHKWlEqxItSTTO8m1hph3FHsLRA95TMbPSN4FafjWDhI45fXm9i
+	kwt3Sbwg1G+ljwdDKL/kGvSwNR0TTt6SP5eSEHTWDmgzuggojiB5Qv72+sTJAlf7wMzBt5
+	1BWNj6U1YLCj0IzBo+yAQ9bb/l0/A1nVLaEm43XHr4YP4JpWSJwcnE1GsbzLu38QRrcZMB
+	IrADgxWD97p8g2FrN8YDrsv5hDloD9yFjaU0lYkGxTHLu8oEXhrNwKX195TuSTYX8k433Z
+	tqglg4SqCbJbt0Hr1UjbedM/PlkNJumwTBHgayBJRgTLRC2sgIs1B2JOyEbylg==
+From: Jonas Rebmann <jre@pengutronix.de>
+To: ct@flyingcircus.io,
+	customers.flyingcircus@pengutronix.de
+Cc: Matt Fleming <mfleming@cloudflare.com>,
+	syzbot+c5b060ce82921a2fd500@syzkaller.appspotmail.com,
+	Zi Yan <ziy@nvidia.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Barry Song <baohua@kernel.org>,
+	Dave Chinner <david@fromorbit.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Kairui Song <ryncsn@gmail.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	Liam Howlett <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Nico Pache <npache@redhat.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	stable@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Jonas Rebmann <jre@pengutronix.de>
+Subject: [[PATCH stable 6.12]] mm/huge_memory: initialise workingset state before folio split
+Date: Tue, 20 Oct 2026 09:29:12 +0200
+Message-ID: <20261020072912.188953-1-jre@pengutronix.de>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -128,133 +105,113 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019055109.49922-1-slark_xiao@163.com> <CAFEp6-2XUE4AQPm5hinnRGyrrsHok2ftsFXragiHgDSKKtKWow@mail.gmail.com>
- <70714501.3175.1a157532149.Coremail.slark_xiao@163.com>
-In-Reply-To: <70714501.3175.1a157532149.Coremail.slark_xiao@163.com>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Tue, 20 Oct 2026 09:27:43 +0200
-X-Gm-Features: AclHuK-6GBMcAS-d0BXDcZveUx2q3Jcid6zCI09TYG0U3nhdIt1a8EQqHNimECY
-Message-ID: <CAFEp6-3o6gCb61hCQTJydiH2aD6CBVRa947tpmLe4L9j85Jg5w@mail.gmail.com>
-Subject: Re: Re: [PATCH] bus: mhi: host: pci_generic: Update the default
- autosuspend_delay_ms as 5000ms
-To: Slark Xiao <slark_xiao@163.com>
-Cc: mani@kernel.org, jeff.hugo@oss.qualcomm.com,
-        krishna.chundru@oss.qualcomm.com, mhi@lists.linux.dev,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=a7WlZkSF c=1 sm=1 tr=0 ts=6ad717fc cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8 a=Byx-y9mGAAAA:8 a=EUspDBNiAAAA:8
- a=8Bi4WqdHlDIZjTcgTq8A:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: XDnLgkeD_2rQBrcAootICZADLEdHUjmO
-X-Proofpoint-GUID: XDnLgkeD_2rQBrcAootICZADLEdHUjmO
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAyOSBTYWx0ZWRfX5MjyhRRiPoQw
- kBwxFP5B+9Fgako8wSl5ViR8/e9RY3smA9yobRCqNBsiY+yDwHsgNg8yIQOj5JTbQcUxMxn9BbZ
- LEEemlu1hElGvx+QJ0tyqj5jwc9l4oGPx61lJ7NfBKBD2JHVFsghk4E0rqN2iW/nhMTQe5T/gfp
- +PUsOrEUkTVXrvRa5iVbFjgqh0TirG6zAOzk4HrPiMSBxE7rIuzql+BeNoIM0z7TdUni4hP3vrK
- PWpOU8wuC8QDFOadPmJTB3E6uN9Qs5wOess9CRjUb1zsK/+86y25gmunc0pU5mkPfdLGHCfFcQ7
- +KiPMwbXopYPPOkekqkak78AVW4bNQfFd7fSe4hQ+eZvAp/e6wihkjuDM2iaXnQU0679Hna+sG2
- hzE5cWmiwj9IY6kRo9+A1G3jhw1RGCXd24lBLVghq1tYvrXTumoeAc9EReJJNnApRGBQwa5FTXm
- 3LnhDnHFpXR1kimxbBw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAyOSBTYWx0ZWRfXyelq162kMkBj
- KUGfoA/9ymptPeqfad0qW6NYy4vbEkEcrLlUkLxPTR7rTFg6ceWHP0Xir8tEca0kQh3MNdkOkE5
- eqKxNursknb6sDzFFRQW0ueEFsy1C8w=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015
- malwarescore=0 priorityscore=1501 adultscore=0 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200029
+Content-Transfer-Encoding: 8bit
 
-Hi Slark,
+From: Matt Fleming <mfleming@cloudflare.com>
 
-On Tue, Oct 20, 2026 at 5:20=E2=80=AFAM Slark Xiao <slark_xiao@163.com> wro=
-te:
->
->
-> At 2026-10-19 15:41:27, "Loic Poulain" <loic.poulain@oss.qualcomm.com> wr=
-ote:
-> >On Mon, Oct 19, 2026 at 7:52=E2=80=AFAM Slark Xiao <slark_xiao@163.com> =
-wrote:
-> >>
-> >> For some MHI devices in some specific scenario, the default value
-> >> of autosuspend_delay_ms may not enough to handle last wake event.
-> >> This may lead to some unexpected problems.
-> >>
-> >> Refer to the Qualcomm's Windows settings and we checked this with
-> >> Quaclomm over case, Qualcomm recommend us to set this as 5000ms.
-> >
-> >Qualcomm
-> >
-> >> Qualcomm also suggests us to update this for all MHI devices.
-> >> Since this setting has affected some existed kernel versions, it's
-> >> better to be applied to stable version.
-> >
-> >This looks more like a workaround than a proper fix. It would be
-> >helpful to describe the underlying issue, including the timing and
-> >sequence of events that make this necessary. In principle, either the
-> >device can be suspended at that point or it cannot. Relying on a
-> >delayed suspend feels fragile and may end up masking the real problem.
-> >
-> Hi Loic,
-> Honestly, Qualcomm has been analyzing for over 2 months and still hasn't
-> identified the root cause.
->
-> Actually I have explained the reasons behind the events to Mani in anothe=
-r
-> thread, you can refer to https://lore.kernel.org/mhi/20260919095506.9570-=
-1-slark_xiao@163.com/
->
-> From Qualcomm's perspective, 2 seconds is not enough for their default de=
-sign.
-> They recommended us to update this value to 5 seconds and Mani checked th=
-is
-> internally as well. So we decided to update this 5 seconds setting to all=
- MHI devices.
+[ Upstream commit aca1f2d5de17e138bc6c4859126b77e516b82541 ]
 
-Thanks. I'm really surprised we still don't have a more precise
-understanding or description of the underlying issue. That said, I
-think it's reasonable to proceed with this as an initial workaround.
+xas_try_split() adds __GFP_ACCOUNT for page-cache xa_nodes, but
+__folio_split() leaves the xa_state's xa_lru unset.  That lets a live,
+memcg-charged xa_node exist without being linked into the mapping's
+shadow_nodes list_lru; when reclaim later walks the list_lru it trips
+VM_WARN_ON(!css_is_dying()).
 
-Could you please send a v2 that introduces a define for the 5000 ms
-timeout? It would also be helpful to add a comment explaining that
-this value is required to accommodate the 'late wake-event issue'.
+Use mapping_set_update() to install both the workingset update callback
+and the shadow_nodes list_lru on the xa_state.
 
-Regards,
-Loic
+Link: https://lore.kernel.org/20260725101419.3938406-1-matt@readmodwrite.com
+Fixes: 58729c04cf10 ("mm/huge_memory: add buddy allocator like (non-uniform) folio_split()")
+Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
+Reported-by: syzbot+c5b060ce82921a2fd500@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=c5b060ce82921a2fd500
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Dave Chinner <david@fromorbit.com>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Kairui Song <ryncsn@gmail.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Liam Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Nico Pache <npache@redhat.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+[ Jonas Rebmann: move mapping_set_update to mm/internal.h as done in
+commit 62e72d2cf702 ("mm, madvise: fix potential workingset node
+list_lru leaks") upstream ]
+Signed-off-by: Jonas Rebmann <jre@pengutronix.de>
+---
+ mm/filemap.c     | 9 ---------
+ mm/huge_memory.c | 4 +++-
+ mm/internal.h    | 6 ++++++
+ 3 files changed, 9 insertions(+), 10 deletions(-)
 
->
-> Thanks
-> >>
-> >> Fixes: d3800c1dce24 ("bus: mhi: pci_generic: Add support for runtime P=
-M")
-> >> Cc: stable@vger.kernel.org
-> >> Signed-off-by: Slark Xiao <slark_xiao@163.com>
-> >> ---
-> >>  drivers/bus/mhi/host/pci_generic.c | 2 +-
-> >>  1 file changed, 1 insertion(+), 1 deletion(-)
-> >>
-> >> diff --git a/drivers/bus/mhi/host/pci_generic.c b/drivers/bus/mhi/host=
-/pci_generic.c
-> >> index 7193a384cca4..40735beb46cb 100644
-> >> --- a/drivers/bus/mhi/host/pci_generic.c
-> >> +++ b/drivers/bus/mhi/host/pci_generic.c
-> >> @@ -1483,7 +1483,7 @@ static int mhi_pci_probe(struct pci_dev *pdev, c=
-onst struct pci_device_id *id)
-> >>
-> >>         /* Allow runtime suspend only if both PME from D3Hot and M3 ar=
-e supported */
-> >>         if (pci_pme_capable(pdev, PCI_D3hot) && !(info->no_m3)) {
-> >> -               pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
-> >> +               pm_runtime_set_autosuspend_delay(&pdev->dev, 5000);
-> >>                 pm_runtime_use_autosuspend(&pdev->dev);
-> >>                 pm_runtime_mark_last_busy(&pdev->dev);
-> >>                 pm_runtime_put_noidle(&pdev->dev);
-> >> --
-> >> 2.53.0
-> >>
+diff --git a/mm/filemap.c b/mm/filemap.c
+index c2287a1d1c6b7..64c2325b92389 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -125,15 +125,6 @@
+  *    ->private_lock		(zap_pte_range->block_dirty_folio)
+  */
+ 
+-static void mapping_set_update(struct xa_state *xas,
+-		struct address_space *mapping)
+-{
+-	if (dax_mapping(mapping) || shmem_mapping(mapping))
+-		return;
+-	xas_set_update(xas, workingset_update_node);
+-	xas_set_lru(xas, &shadow_nodes);
+-}
+-
+ static void page_cache_delete(struct address_space *mapping,
+ 				   struct folio *folio, void *shadow)
+ {
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 1a76a21724d40..54778d7d06b2a 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -3513,7 +3513,7 @@ int split_huge_page_to_list_to_order(struct page *page, struct list_head *list,
+ 		gfp_t gfp;
+ 
+ 		mapping = folio->mapping;
+-		min_order = mapping_min_folio_order(folio->mapping);
++		min_order = mapping_min_folio_order(mapping);
+ 		if (new_order < min_order) {
+ 			VM_WARN_ONCE(1, "Cannot split mapped folio below min-order: %u",
+ 				     min_order);
+@@ -3521,6 +3521,8 @@ int split_huge_page_to_list_to_order(struct page *page, struct list_head *list,
+ 			goto out;
+ 		}
+ 
++		mapping_set_update(&xas, mapping);
++
+ 		gfp = current_gfp_context(mapping_gfp_mask(mapping) &
+ 							GFP_RECLAIM_MASK);
+ 
+diff --git a/mm/internal.h b/mm/internal.h
+index 9d277bc2c26e9..7aca909c54052 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -1526,6 +1526,12 @@ static inline void shrinker_debugfs_remove(struct dentry *debugfs_entry,
+ /* Only track the nodes of mappings with shadow entries */
+ void workingset_update_node(struct xa_node *node);
+ extern struct list_lru shadow_nodes;
++#define mapping_set_update(xas, mapping) do {			\
++	if (!dax_mapping(mapping) && !shmem_mapping(mapping)) {	\
++		xas_set_update(xas, workingset_update_node);	\
++		xas_set_lru(xas, &shadow_nodes);		\
++	}							\
++} while (0)
+ 
+ /* mremap.c */
+ unsigned long move_page_tables(struct vm_area_struct *vma,
+-- 
+2.56.0
+
