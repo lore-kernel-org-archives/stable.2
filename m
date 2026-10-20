@@ -1,52 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.73
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792489355;
-	b=LyXQ2HZqGUIGwKy0wRTR5pzy4lbn5C52wSh1jc3xUmEPJNnSpoDab3W0BXqPT0zaiNIk
-	 wpbL28vClELBoGSx9xxwo13j785rNVhoUhzeVzVwrEgepXxGeE5rbXjGatvdMENgoZb2d
-	 jWKTnjnYLOjdec3RHtuBqQCW3uPs+LCU52URLO4ryZHVlxXeaLPgOFQe/p4vZlRQslaDR
-	 UG4+qncfPX4WZTVAsPW6r0eSPcwJ4T+X97xkl33Md3hDjCC4oHnmMrNz1BiBSkZnaHrse
-	 G1vPvcd62vxJaLwRYMjXK9CVoK2Oe8KgrCt8NaEcOfjLlNpPLITTPoMdlMNd31LfjEQ==
+	t=1792489382;
+	b=JaRd/TQHa0/wLcWWeeZX7nt1nH5gvga3///dlnmI4w1JY6IoWTI0fIsD1gPkaNWGj7L2
+	 +b/QdxQgcWzX5FG0Hu8JGJgyZinK+s1xIQjS47+XK79+NH+hJ8N9yatY6RJUMhex14euP
+	 mubv09TGOE8cIDrxbtmuSbFGWBv/pNKZt/FAShlyIh0XJTMXwHpA1IPK5IsnT4xnP24Co
+	 Jy7kRm2WD0wWRR9NNs5wlB+6/25q//LRZHlMRdS3/gCoV4vDXMysAR1vCdrh9Cf89Had9
+	 uJ6Qb0r8TI2UeUPv8nQtPVRIehe4ltP/G+FO4P/GSy+JN91zF48krwd/wfGQYt5Dumg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792489355;
-	h=Received:DKIM-Signature:From:To:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=lr4OEtUoUXwCXIp40SXa42hGoKPd81OBcx60bQWkmAU=;
-	b=HoGwXO3Ou7M7UigGTeQ0AqMrNzPA+iU4se8ByJeAOvvJ5JyRwdt+iDUAx4QceJvg82Bb
-	 drcOnJa6LmXMbtOYIxD/ZhBFjJNbYQU+MpSwT6jcCjBR3UcR520pYC+Xgl7e34CrfXhnJ
-	 tL4R3fLnBZR0bIGiX0TxfIa3XdbuuedBXnadDJyPq1mOgvo4xcgc37C+DW8RxZ4EdkZ0+
-	 y8J8MSdkSE5GEF0WuM+r9xIjfzSzO3YcyEWMdN+MSgftV9exNSMlIHBPJbybUA4b7PdEe
-	 FBXlMhkIIBqWCoGaLJnyUDsobvHW4jqmv1HYoaHB650ZZNgK70aG4Vfhe5s1JKe4r3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792489382;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=fZUhw0CWQnff/DPaxOVvAeyjDYBTZif+6gSrN7s7hlM=;
+	b=02eP0Epj7fF4PLWZoEcxdnl9+hiKtP849yNixGThRkqajzR8KwKJgL47FVvpaq9B4Tga
+	 V94ZZKyPy/7wpxZNgjOnRDjgjftnvc2AVdDLBnGnFf4bd0y3xjcRtsj2AbTnMHonGwUDN
+	 IB73edVtFqAtz5jx0nvqHvibNdma36tdncYtLGsUJoTmtgkZtNcVI22LKh1t2bbZoCmdv
+	 VKzUryuwituk+fUxmxE6akoaLBZbr5opXjPRtb2iRUrKuWjkDRUF+JnJYIJ/rahNBprWu
+	 qnH2D214fJDp4+2vnrYYPJT6SpC+UDE+NtqKvcv655uFGQedFHC0CSfd/s72gYoXi0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QLxnhfua;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=DYvPlAHP;
+	arc=none smtp.remote-ip=115.124.28.73
+Received: from out28-73.mail.aliyun.com (out28-73.mail.aliyun.com [115.124.28.73])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37579606A32C
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 09:42:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97741606A321;
+	Tue, 20 Oct 2026 09:42:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97741606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QLxnhfua
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAA931F000C5;
-	Tue, 20 Oct 2026 09:42:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792489354;
-	bh=lr4OEtUoUXwCXIp40SXa42hGoKPd81OBcx60bQWkmAU=;
-	h=From:To:Subject:Date:In-Reply-To:References;
-	b=QLxnhfuaSEmUlTCmDlg2H+oTiid55Z8uuLpcWfd6CGYzdWhFTLVa5FpiXb8pY1sIn
-	 SCzhC5z1I+3zKFnFcqeSt4GE/5QcLkKnsQPqVZNhMjo5l/6HX4nEfahIMtiXrUARmX
-	 zd3Oz8EBmgtMe1jh42tbazdgHzMBk6NMZFfEB8yyWUtrr1O7Dge4rFYhOwHCP2qm3w
-	 o/Osk0sQ+sDhQumxJ2leHmKVLPu+9mZvDiktsDNjFzMFYj1cYKfR93mrCIR1GKqxKE
-	 hDCIYbEtr3hAPZPWTR482IAzlGmpHwsMT3Z8ITbwUyJpB5gi9stqcMn4Z3+Y3pulPN
-	 uqDhZDx9QBfcg==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: stable@vger.kernel.org
-Subject: [PATCH 6.12.y] mm/huge_memory: bypass THP tuneables for huge pfnmap mappings
-Date: Tue, 20 Oct 2026 10:42:30 +0100
-Message-ID: <20261020094231.759650-1-ljs@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <2026092200-parchment-pursuable-481f@gregkh>
-References: <2026092200-parchment-pursuable-481f@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=DYvPlAHP
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1792489376; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=fZUhw0CWQnff/DPaxOVvAeyjDYBTZif+6gSrN7s7hlM=;
+	b=DYvPlAHP4TsYGps2k/rIJ9FD+Xh3dPyn/3+1bxvOTnYdFlkwnIRuy5pmP7bEalmNVPKAuLxqv6wnaYbsZ4JkzMTwLIQ0NH4bXtZd2uObRydLPpyNjSKrmmBZ+be6eixlMrvPCTSsqS+X+dWI8SJiKBwKwjEbylJNfD5aYCy9ud4=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.0835114|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00524836-0.0014099-0.993342;FP=10105117881427270734|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam011083099174;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.jlb8AAG_1792489374;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jlb8AAG_1792489374 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 20 Oct 2026 17:42:55 +0800
+From: liuc63 <liuc63@xiaopeng.com>
+To: M Chetan Kumar <m.chetan.kumar@intel.com>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Fang Xieyan <fangxy@xiaopeng.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Liu Chao <liuc63@xiaopeng.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] net: wwan: iosm: validate msg_head before indexing msg_ring
+Date: Tue, 20 Oct 2026 17:42:49 +0800
+Message-ID: <20261020094254.4017726-1-liuc63@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,173 +67,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The sysfs THP tuneables at /sys/kernel/mm/transparent_huge_pages/ rather
-confusingly only control the behaviour of THP in some instances.
+From: Liu Chao <liuc63@xiaopeng.com>
 
-They are not applicable to MADV_COLLAPSE operations, nor to DAX mappings.
+ipc_protocol_free_msg_get() reads msg_head from shared memory and
+uses it directly as an index into msg_ring[]. If the head is out
+of range, the subsequent memset() writes beyond the message ring.
 
-Long-term, THP is predicated upon compaction being able to obtain large
-folios to populate THP ranges.
+Validate head against IPC_MEM_MSG_ENTRIES before using it as an
+index. The ring is a circular buffer, so a value outside the valid
+range indicates a corrupted head pointer; report the error and fail
+the allocation instead of writing out of bounds.
 
-However, vm_normal_folio() returns NULL for PFN map mappings, thus their
-reference count is maintained by the driver, not core mm.
-
-As a consequence, the folios are not subject to reclaim nor compaction, so
-are not truly part of the THP mechanism at all.
-
-However, since commit 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
-introduced the ability to establish huge PFN maps, they have been subject
-to THP tuneables.
-
-This is incorrect - if a huge PFN map is available (defined by
-vma->vm_ops->huge_fault being non-NULL for a VM_PFNMAP VMA), then it
-should be mapped huge upon fault-in.
-
-Correct this by explicitly checking for this while ensuring that smaps
-continues to accurately report THPeligible statistics.
-
-While here, abstract the entire file-backed THP check in
-vma_can_map_huge_file(), with sensible separation of logic into helper
-functions.
-
-Failing to map huge PFN maps has resulted in significant real-world
-performance degradation, see links for details.
-
-[ziy@nvidia.com: rename some functions]
-  Link: https://lore.kernel.org/DL1HIHWYJ7TB.1CY76SJS0V03L@nvidia.com
-Fixes: 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Zi Yan <ziy@nvidia.com>
-Reported-by: Cedric Le Goater <clg@redhat.com>
-Closes: https://lore.kernel.org/linux-mm/20260805055544.1568534-1-clg@redhat.com/
-Reported-by: Saravanan D <saravanand@crusoe.ai>
-Closes: https://lore.kernel.org/linux-mm/20260821070520.25759-1-saravanand@crusoe.ai/
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Tested-by: Saravanan D <saravanand@crusoe.ai>
-Tested-by: Lance Yang <lance.yang@linux.dev>
-Reviewed-by: SJ Park <sj@kernel.org>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-(cherry picked from commit e384abeb559d10d6505aec053ede9368d81d4c71)
-[ ljs - Converted to tva_flags, made file_thp_enabled() const in huge_mm.h
-   + other smaller changes. Updated commit msg to reflect. ]
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Fixes: 64516f633bfd ("net: iosm: protocol operations")
+Cc: stable@vger.kernel.org
+Reviewed-by: Fang Xieyan <fangxy@xiaopeng.com>
+Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
 ---
- include/linux/huge_mm.h |  2 +-
- mm/huge_memory.c        | 79 ++++++++++++++++++++++++++++++-----------
- 2 files changed, 59 insertions(+), 22 deletions(-)
+ drivers/net/wwan/iosm/iosm_ipc_protocol_ops.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/include/linux/huge_mm.h b/include/linux/huge_mm.h
-index bd34b70dd0cf..10e41e8b1634 100644
---- a/include/linux/huge_mm.h
-+++ b/include/linux/huge_mm.h
-@@ -254,7 +254,7 @@ static inline unsigned long thp_vma_suitable_orders(struct vm_area_struct *vma,
- 	return orders;
- }
+diff --git a/drivers/net/wwan/iosm/iosm_ipc_protocol_ops.c b/drivers/net/wwan/iosm/iosm_ipc_protocol_ops.c
+index f2f86f41fd10..004920068c45 100644
+--- a/drivers/net/wwan/iosm/iosm_ipc_protocol_ops.c
++++ b/drivers/net/wwan/iosm/iosm_ipc_protocol_ops.c
+@@ -14,6 +14,11 @@ ipc_protocol_free_msg_get(struct iosm_protocol *ipc_protocol, int *index)
+ 	u32 new_head = (head + 1) % IPC_MEM_MSG_ENTRIES;
+ 	union ipc_mem_msg_entry *msg;
  
--static inline bool file_thp_enabled(struct vm_area_struct *vma)
-+static inline bool file_thp_enabled(const struct vm_area_struct *vma)
- {
- 	struct inode *inode;
- 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 1a76a21724d4..2a7f42b8ca33 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -86,6 +86,62 @@ unsigned long huge_anon_orders_madvise __read_mostly;
- unsigned long huge_anon_orders_inherit __read_mostly;
- static bool anon_orders_configured __initdata;
- 
-+static bool vma_file_bypass_thp_tuneables(const struct vm_area_struct *vma,
-+		unsigned long tva_flags)
-+{
-+	const bool has_huge_fault = vma->vm_ops->huge_fault;
++	if (head >= IPC_MEM_MSG_ENTRIES) {
++		dev_err(ipc_protocol->dev, "invalid message head %u", head);
++		return NULL;
++	}
 +
-+	/* MADV_COLLAPSE ignores tuneables. */
-+	if (!(tva_flags & TVA_ENFORCE_SYSFS))
-+		return true;
-+	/* Huge PFN mappings are uncompactable so the policy doesn't apply. */
-+	if ((vma->vm_flags & VM_PFNMAP) && has_huge_fault)
-+		return true;
-+	return false;
-+}
-+
-+static bool vma_file_allow_thp_tuneables(vm_flags_t vm_flags)
-+{
-+	/* THP=always? */
-+	if (hugepage_global_always())
-+		return true;
-+	/* THP=madvise and marked MADV_HUGEPAGE? */
-+	if (hugepage_global_enabled() && (vm_flags & VM_HUGEPAGE))
-+		return true;
-+	return false;
-+}
-+
-+static bool vma_file_check_thp_tuneables(const struct vm_area_struct *vma,
-+		vm_flags_t vm_flags, unsigned long tva_flags)
-+{
-+	return vma_file_bypass_thp_tuneables(vma, tva_flags) ||
-+		vma_file_allow_thp_tuneables(vm_flags);
-+}
-+
-+static bool vma_can_map_huge_file(const struct vm_area_struct *vma,
-+		vm_flags_t vm_flags, unsigned long tva_flags)
-+{
-+	const bool has_huge_fault = vma->vm_ops->huge_fault;
-+
-+	/*
-+	 * Enforce THP collapse requirements as necessary. Anonymous vmas
-+	 * were already handled in thp_vma_allowable_orders().
-+	 */
-+	if (!vma_file_check_thp_tuneables(vma, vm_flags, tva_flags))
-+		return false;
-+
-+	/*
-+	 * Trust that ->huge_fault() handlers know what they are doing
-+	 * in fault path.
-+	 */
-+	if (tva_flags & TVA_IN_PF)
-+		return has_huge_fault;
-+	if ((tva_flags & TVA_SMAPS) && has_huge_fault)
-+		return true;
-+	/* Only regular file is valid in collapse path. */
-+	return file_thp_enabled(vma);
-+}
-+
- unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
- 					 unsigned long vm_flags,
- 					 unsigned long tva_flags,
-@@ -158,27 +214,8 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
- 						   vma, vma->vm_pgoff, 0,
- 						   !enforce_sysfs);
- 
--	if (!vma_is_anonymous(vma)) {
--		/*
--		 * Enforce sysfs THP requirements as necessary. Anonymous vmas
--		 * were already handled in thp_vma_allowable_orders().
--		 */
--		if (enforce_sysfs &&
--		    (!hugepage_global_enabled() || (!(vm_flags & VM_HUGEPAGE) &&
--						    !hugepage_global_always())))
--			return 0;
--
--		/*
--		 * Trust that ->huge_fault() handlers know what they are doing
--		 * in fault path.
--		 */
--		if (((in_pf || smaps)) && vma->vm_ops->huge_fault)
--			return orders;
--		/* Only regular file is valid in collapse path */
--		if (((!in_pf || smaps)) && file_thp_enabled(vma))
--			return orders;
--		return 0;
--	}
-+	if (!vma_is_anonymous(vma))
-+		return vma_can_map_huge_file(vma, vm_flags, tva_flags) ? orders : 0;
- 
- 	if (vma_is_temporary_stack(vma))
- 		return 0;
+ 	if (new_head == le32_to_cpu(ipc_protocol->p_ap_shm->msg_tail)) {
+ 		dev_err(ipc_protocol->dev, "message ring is full");
+ 		return NULL;
 -- 
-2.56.0
+2.50.1
 
