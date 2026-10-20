@@ -1,58 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792530028;
-	b=Zn+98jxxUGgI17si1f4jcpJUpmChrI4AK66mpk6XKqPu8ikf9MP7U3l/fhMwtS630QFn
-	 2o7qkw1Jl5nU24WGi6qhZJ8grid+BihV37uqcjnstT2XEsYBaEXfVNVFKZ1iJquQW0Pyp
-	 apwv6FR4Wf9Wg6C8xwEvVHTd7g/EOjxL1pQx8T/TRSY89R+nGTgw2eSUr3wNwHp27qowx
-	 sIK5s46clNUmAflYy/ZfHr1k7t+JYIDRF2u6bN47uOGo3bFC0kSrfHiOeWSm85jvIjQo5
-	 TYinzoMvgJvrvzmAj4UxuNPWYzSupkMB1G3jVLuP7Lj7fqkb5AoVBU7VRDyRQd3+h/g==
+	t=1792530056;
+	b=cU/ztnNzQrg3aax7SHg5E2siTImJS1tlK2qG0pUf5L1uEJWLQ/uxEPs1EH138vhVw5Vi
+	 RIOR1dbhKml24T/5bk+bfrfkvpsRaGKXaj39lUda+mNxIdXEIhiLGXuNL9yxrB3PNwm3p
+	 pLCz80bH5kgihbuDXcM6y3x2xBmzlLzEHNDJvwgm9E7YCwSnLeUZ5Xt689vLbir9MCxbL
+	 LZ1RIU0mbGIPlIX2oEllJUZ1y64i7V8pIfE5h1ZnQznQX1W666gqFtKIDVQG91Q4f6APQ
+	 Y6WkDaX0T2U2qHo9RVi+hkqPsaWyqmowAEft8gb8rxB/X5bwpWV3J2mMTjW1fQ2mWcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792530028;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
-	bh=Y+fJrmJptylg6LmetrQR9O6Ff+vDIRZl7nEW/rjgcls=;
-	b=I4L5pYWNSUn8okA9+CnNJVSrAa/ClYmDfwozT/Hf6GQQ1vybc6zxotClL7dJQKoLPcHa
-	 O9CiDHwgAa1mSWmy3vOj01Mq3P1xUHe5Xo2AnzCJbgYbwRhX5jnKnJeZKl4E7a1dkiqso
-	 I35Dns3Zo36ittEFnrIPNc/W49v7rwU/a377C6IggM73n2Fxm1YRAihqf7JShhEP63rPX
-	 anFfjNLArB72Ffi2qekLGqVYDAGS710PwgDIOQdddotmj/BQqWRTY36uEaE5YyOzQQg71
-	 IPAeaVwq+jQ9u9cyr2/NzD5hbrjZWxABjbLt+UXYDEcYHcOrykJ2JSSEHDcOTtaw6jw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792530056;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ChUOIQNUtXrtFdhA00nCLe7t8Y8/cC4syEz/n6o5XYU=;
+	b=aJsSCzXBHf1oqj2dVC//8CmnhzFPkmqfAfljW1SQu1SiiGntQGDr1OWMi8K8cAiwN8TE
+	 pfLBjGBnQDMQNYi6XtJPsTWfL1Qw1Hk4VHBV/xjLCDXiSnWkhcxoABL/EKZgtAG60nhA1
+	 EXEm9c5AKC6gR3okua0WUagAN7ru2qWwzBaT2jdWMwQ/8fcgyBmrhmhUlGdxpxxnLwtGN
+	 qajDaI1atCwyOEvJfs4+Q++Sb7AhcBpfZcxo81VPT+tPvCvhnGO5E26wnospACUHEHVds
+	 YoPcyqF3zIzjJXUV9ouYC8r6d4GQZQRE8jGO7DuPZ19RqhMBppdist4SfQmsG6wUHCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=WPDRrke5;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=EMGO2cU6;
+	arc=none smtp.remote-ip=109.224.244.18
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A01606A31C
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 21:00:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68A01606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA45606A31E
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 21:00:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EA45606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=WPDRrke5
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id C56FF4E41290;
-	Tue, 20 Oct 2026 21:00:25 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9A94A60393;
-	Tue, 20 Oct 2026 21:00:25 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CCCE810328934;
-	Tue, 20 Oct 2026 23:00:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792530020; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=Y+fJrmJptylg6LmetrQR9O6Ff+vDIRZl7nEW/rjgcls=;
-	b=WPDRrke5T8TB/wqbFEaz2+Agwqv4I01z6q+qookgRRzkGOjhgk10uXHl77DNtENs4C9tUT
-	NU41iagqie9GuxArEORIwEc1JboMtUG21YSGG5VOol7B49m4Pseo2CsUpkCP0lhwW/yr1n
-	+zMtKH8bzx03QqoYreAoKs9gVGIeRGV3H3oqIsO43Duk9FYJMPC27+TzqnY9p1FSgncxpp
-	gPyS6QuX4MRpcUcUHIzxvEnBNfn9IpXp0s6pq37zeeryGg3VyWuX7BcpRoryQ1t/sQ8XWL
-	9Mt2ANYPb9aaAQaKJ0CA7f6rRv1ONm7qXJHMzvNnPte0yTUhdbagEa+PY3UIEA==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Tue, 20 Oct 2026 23:00:06 +0200
-Subject: [PATCH 6.6.y] OPP: Fix race between OPP addition and lookup
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=EMGO2cU6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1792530048; x=1792789248;
+	bh=ChUOIQNUtXrtFdhA00nCLe7t8Y8/cC4syEz/n6o5XYU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=EMGO2cU68ukfaNZcc4irCWnoVMK9PEQe2KZutZSYuFH98ii1tX6U6ouPbowUh8hFW
+	 hHmanQF1HX0Ea094BIvzY1GZgJRTRZf5pbU1IUC1ucTVjVbwOzOC9cXBang3hOGXaW
+	 dtYvR2/zviLk5ErzIRUkWYJwe28ZJrxmm26ndvOn7eLPHrujUOQ+hquEKK0Pa58biX
+	 X6E+6QgJ/Jl0q6A2k3u87CQrjFJ1L0GcLKSwyi5/GsfjBQbxSm4jcinz5NgYZ4oto1
+	 2bcPNQNWoBFBzEPCy0WxEyTpiPnH1nRt1GJzaNg32uPxp/D5qzOjsEu029X2zyLlEP
+	 N5+SgkZ0/qXBg==
+Date: Tue, 20 Oct 2026 21:00:44 +0000
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+From: Birk Skyum <birk.skyum@pm.me>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Hungyu Lin <dennylin0707@gmail.com>, Stefan Schmidt <stefan.schmidt@linaro.org>, Hans Verkuil <hverkuil@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] media: qcom: iris: Wait for threaded IRQ completion during power-off
+Message-ID: <179253004057.67768.17541883604161296564@pm.me>
+In-Reply-To: <20261007-fix-disable-irq-safely-v1-2-45746f9a92de@oss.qualcomm.com>
+References: <20261007-fix-disable-irq-safely-v1-0-45746f9a92de@oss.qualcomm.com> <20261007-fix-disable-irq-safely-v1-2-45746f9a92de@oss.qualcomm.com>
+Feedback-ID: 21326998:user:proton
+X-Pm-Message-ID: 3696101d2f4746d805262ac4724b99604f31f80a
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,97 +64,20 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-cve-2026-74405-6-6-v1-1-cf8212266b3d@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQrCMBBFr1L+2inTkIzoVcRFm4w6LqoktSild
- zdV/up9eG9B0WxacGwWZJ2t2GOs0O0axFs/XpUsVYZjJx07pjgrbUB77zmQ1HlOhz5JCGFwqOI
- z68Xev+gJ0kr7wfl/l9dw1zhtQazrF+yhWAF9AAAA
-X-Change-ID: 20261020-cve-2026-74405-6-6-40d9ad6555b2
-To: stable@vger.kernel.org
-Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Di Shen <di.shen@unisoc.com>, Ling Xu <ling_ling.xu@unisoc.com>, 
- Viresh Kumar <viresh.kumar@linaro.org>, Sasha Levin <sashal@kernel.org>, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792530012; l=2503;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=g53gdTiczYQPgEOObo9GR+YdzfHQicKaWEYxIkpP7Ic=;
- b=dQZsoLbdpOTbRjIrdjo/mFpZXbJieKtYL5UJ9u/Q6NP0H2ns0hsuQEso6krdpSXmlhPqwj5R9
- ThE8WP6GMYaBQQeES0hBr2Bwz21yvodGEXPyd+mBY1mL/jOzY3RVXTg
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Di Shen <di.shen@unisoc.com>
+On Wed, 07 Oct 2026 17:01:06 +0530, Vishnu Reddy wrote:
+> Release core->lock before calling disable_irq() and reacquire it after th=
+e
+> handler completes.
 
-[ Upstream commit f5e1cc9a284bff2510981643a5bca4bc4c21b81a ]
+When I tested 1/2, this patch was left out because it does not apply to
+7.2.8. I have now backported it, with conflicts in context only, and
+tested both patches together on the Lenovo Yoga Slim 7x (X1E80100).
+qcom_iris unloaded and reloaded ten times in a row with a decode after
+each load, the decoder runtime suspended after each of 20 decodes, and
+the decoded frames match software decoding.
 
-A race exists between dev_pm_opp_add_dynamic() and
-dev_pm_opp_find_freq_exact():
-
-  CPU0 (add)                          CPU1 (lookup)
-  -------------------------------     ------------------------------
-  _opp_add()
-    mutex_lock()
-    list_add(&new_opp->node, head)
-    mutex_unlock()                    _opp_table_find_key()
-                                        mutex_lock()
-                                        dev_pm_opp_get(opp)
-                                          kref_get()
-                                        mutex_unlock()
-    kref_init(&new_opp->kref)
-                                      dev_pm_opp_put()
-                                        kref_put_mutex()
-
-The newly added OPP is inserted into the list before its kref is
-initialized. A concurrent lookup can find this OPP and increment its
-reference count while it is still uninitialized, leading to refcount
-corruption and a potential premature free.
-
-Fix this by initializing ->kref and ->opp_table before making the OPP
-visible via list_add(). This ensures any concurrent lookup observes a
-fully initialized object.
-
-Fixes: 7034764a1e4a (PM / OPP: Add 'struct kref' to struct dev_pm_opp)
-Co-developed-by: Ling Xu <ling_ling.xu@unisoc.com>
-Signed-off-by: Ling Xu <ling_ling.xu@unisoc.com>
-Signed-off-by: Di Shen <di.shen@unisoc.com>
-[ Viresh: Updated commit log ]
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
----
- drivers/opp/core.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/opp/core.c b/drivers/opp/core.c
-index 218cb2e7f360..50ae3c639250 100644
---- a/drivers/opp/core.c
-+++ b/drivers/opp/core.c
-@@ -1998,12 +1998,12 @@ int _opp_add(struct device *dev, struct dev_pm_opp *new_opp,
- 		return ret;
- 	}
- 
--	list_add(&new_opp->node, head);
--	mutex_unlock(&opp_table->lock);
--
- 	new_opp->opp_table = opp_table;
- 	kref_init(&new_opp->kref);
- 
-+	list_add(&new_opp->node, head);
-+	mutex_unlock(&opp_table->lock);
-+
- 	opp_debug_create_one(new_opp, opp_table);
- 
- 	if (!_opp_supported_by_regulators(new_opp, opp_table)) {
-
----
-base-commit: cecd39af8a1ab81373fd9fa765b2f7ab73becaad
-change-id: 20261020-cve-2026-74405-6-6-40d9ad6555b2
-
-Best regards,
---  
-Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+Tested-by: Birk Skyum <birk.skyum@pm.me> # Lenovo Yoga Slim 7x (X1E80100)
 
