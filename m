@@ -1,84 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792485011;
-	b=LiIuZVMFPTfjvLhr4JoJJjk8H2LnB0JUCnjs0ShRBY12kODIj+UMtVoCcqnRLAWL/CMS
-	 p69o6sSHXMnvfvIzHDPAUjvXB7Dn01hvg3UViRxvyEKI6Q09AfpAhBMAQ2GnB5QEEp868
-	 MsLexk+zhyzyXmWocKrdcSXJrDlYggOkgEgO7kxI4xXiNRLJJfejOWOnNOU7j2CbN2J0N
-	 TexEOu57gpRPTrx9ub1IEaP7CaSU9onnVz8ebts3+oaFfhgqMdATLMTQQgr14djfIIvhA
-	 aKf66GzpvOqMVO7BIhC2jalffgqMzspb9SHQI+S+hXGIwJJ68virXt0hep4BM7+3/1A==
+	t=1792485083;
+	b=h9cfdLX6Y8CVUuwfjRpbyNP1BpLiWpx1nAiz2D6e7/Vy4thMolD3TGTUzkes/1iCQGRP
+	 fn/jdjaTJPkJKWAYjvGbgsv2AINTQGVS+N+wBQrAt9oH6sLNpqaVEeWuzmibBq17vugJu
+	 Xg4fSvstsaMpHCv+/fP5evgEo4fPyx8wkpL94mwtLOlVJewU95ZwsC+R484k+LO6LIDv2
+	 x5R1rxwBzTsn/0AoJP7C6vvPXeQiXaL3i/oUCZKCUPZaGS/N4QRqfjcTTrviLX7qYYdKc
+	 gBySKtdvMR7Ak9/gZ5HWxl0c1u+TO0yYzvTYpI5Y4odRiVL+5ZEZCoMlxMD4Q0Fvmuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485011;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=SH4f7kSSSOqRKPp383w+nJEtgT8hrei7yyRtccIHY5A=;
-	b=c7IfCZRgCOznT+m69R+LRP93BhfBGEScHaWD2iWiqx2TQ+P7z/QM/L4vZQP5KM/wJ77z
-	 4V13Yqi2mVsWhg1nMuCFZUGCL9IqfaYOf8NOb9O5IJctDJZRQ7qLqTRwNmnT4R/MhM//x
-	 CW35D7L25y01UvXvIVHMz9n9J/WaS8cKINdyq6TInXbgHZ+Qr4fZTrxiF59KYfZnknZOb
-	 3tL/95uW9V6D28+GG/NLQl6PF/pyOS7GdtWbQJN70yKzjMoXdi/ryACcLd8e5k++xSmxg
-	 sfTGXi5hKywPXNkTR69ScsM8FRXC28K2V7YI7V3FvgugklpbMa+xTt2aKoZ96fTZDzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485083;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
+	bh=GgmyQreitXQ3eM+tXDefs/IIki0/zSir+S+PRm7R4nU=;
+	b=IwOxXB35Sg8IeeM8bmL5QfphCtqBjtJZuSRAEfpRgOh2TvTu1oKMZ3R0bk2FKS4qFihu
+	 +0JfeE5UVnJ0NyPIJCFC4dIsDQbSrzoutTiF/7yXvIHzuVp5Zqf68Shdjy+wokXaxFbPs
+	 k3DRTzb/3FdVqzJ8T0megSQPMEmP/xiKj0lVfXpPha1f+ayjtz52/tcz/7EmV2mWy6s6H
+	 96HPhxtUBzJKU4rRYSwDj9V/nQjWWDQeetCz/Wgi56EP16t4Iitz1ppvmzQqtSpNpe5sn
+	 zF9+RuUWHAiwnuhcYAgzrLAbnSphVsPITc1xNrmZdjVZxRI/b2sMynXyfxbTFhWx1Ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nPODbXxY;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Lq0r5m23;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1135B606A33F;
-	Tue, 20 Oct 2026 08:30:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1135B606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18CFB606A321
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:31:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18CFB606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nPODbXxY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792485011; x=1824021011;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Ut3G5c8rvGrpw6eB6UmvojAffaEPq4sehW3h0fIJ+hM=;
-  b=nPODbXxY7Il0teIcZLDwt/h4KNPU4Ay8+nsevQnXMGq4Euwt1Ayj1BLe
-   980zW91HImTS5UmBsCq0jHHbKNDs5sGMyJXsF+/IXtyXiLJDkDb/MCtpA
-   9pDHjdjyfIANTrkXGONWVSunRxLDWZS4JMqubKC33ex6N+ehmXeieaG8P
-   7oVEOrz2d76iuBbzivQJGI2JNNlPZ4k+Al2iftc+SsyeNZLzhM+tMR6O9
-   JX6o79c7pbUGV0KylqczS42XOK6ofuL6sR63Gkfo7wfswddVkEEqRht5D
-   t9m7GEmV24NIKMoEQVnRjj4mHkA2EFzHmCAaOgNUmLH5aOCOOp1j0nYEu
-   w==;
-X-CSE-ConnectionGUID: ORhGv6FtT9CDdGNvJspR0Q==
-X-CSE-MsgGUID: pUSA00DrQK6dSTyLaFNEpw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1075779"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1075779"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:30:10 -0700
-X-CSE-ConnectionGUID: ff4tx7z4RauaHg52GK7m4g==
-X-CSE-MsgGUID: OE45QHLrSziL2awgXk/q/A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="3086559"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.72])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:30:05 -0700
-Date: Tue, 20 Oct 2026 11:30:02 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-Cc: linux-serial@vger.kernel.org, gregkh@linuxfoundation.org,
-	jirislaby@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ilpo.jarvinen@linux.intel.com,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook
- when DLF is present
-Message-ID: <atcmiqfmoa6HoJpp@ashevche-desk.local>
-References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
- <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Lq0r5m23
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 79F981A12A4;
+	Tue, 20 Oct 2026 08:31:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4DB3160393;
+	Tue, 20 Oct 2026 08:31:20 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9BDC11032840C;
+	Tue, 20 Oct 2026 10:31:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792485079; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=GgmyQreitXQ3eM+tXDefs/IIki0/zSir+S+PRm7R4nU=;
+	b=Lq0r5m23DMl0lNOU3ICwQecv0viINh9NPiBhjtohO1D32B5A6gyOkrLVeW7/ezuzHHYXGy
+	/DNehV+Ht68/QLTOD94fkYquqmHj+0dBGTwkdXHyi6vMxXPc3XfFJQCEfvbpcI625+EMUw
+	bpoJRt6pqZiiJvGjRslr/VGE+yvQMBn8UcPidrHhnc7LhTSg6JmT1CcLQDWNSMf7vSYHP+
+	5D8K6LlXTZE3Kx70EgLfQ2kigNaasbwmuof2ZhLelSE8bOHMYqpd4RZrOFTu7szUv0Je9P
+	5K5ouK3hJiAsgaXGcHdUKo2gA+mDbT2qyjw1H+ilGjX3gRK2qkTTwPsCnJSdEw==
+From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Date: Tue, 20 Oct 2026 10:31:16 +0200
+Subject: [PATCH 5.10.y] bpf: Add BPF_PROG_TYPE_CGROUP_SKB attach type
+ enforcement in BPF_LINK_CREATE
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,63 +63,141 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261020-cve-2024-38564-5-10-v1-1-785c0999bf7e@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CQAyF4auQri1pRzpRr2JcSClaF2hmkGgId
+ 3fA5feS98+QLbllOFUzJJs8+3Mo4F0Fer8ON0PviiFQiEyBUCfDggb3B4kNCjJhr6KdHNvIHKE
+ 8X8l6/2zVM0jNVH/h8t/zu32YjmsSluUHfiVo5X8AAAA=
+X-Change-ID: 20261020-cve-2024-38564-5-10-fc5cd59b6116
+To: stable@vger.kernel.org
+Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Stanislav Fomichev <sdf@google.com>, 
+ syzbot+838346b979830606c854@syzkaller.appspotmail.com, 
+ Eduard Zingerman <eddyz87@gmail.com>, 
+ Martin KaFai Lau <martin.lau@kernel.org>, Sasha Levin <sashal@kernel.org>, 
+ "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792485077; l=3786;
+ i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
+ bh=Ahc7yLIZAfSfRC/cdQHXFW0Kx1RDabAZW9hRDposRLo=;
+ b=Sc22T78qQt28aVB4KCJv4Aqtzc8vsSb32qxA0aEvy3O+bsXFV+dq/g+iKhnC4vAtBj4AI5pXm
+ BAEEAQeioBYATZ0tVKQ0yUrwAKdURUg4COEaXvVvtLpz2FgMLYP17X9
+X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
+ pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Oct 19, 2026 at 05:06:10PM -0300, Vinicius Pedrosa wrote:
-> dw8250_probe() installs dw8250_set_divisor(), which brackets the
-> DLAB/DLL/DLH sequence with dw8250_idle_enter() and dw8250_idle_exit()
-> so a BUSY UART cannot drop the divisor LCR write.
-> 
-> dw8250_setup_port() runs afterwards and replaces that hook with the
-> dwlib divisor hook whenever it detects DLF. The dwlib hook programs the
-> divisor through serial8250_do_set_divisor() without entering idle,
-> leaving the LCR|DLAB write exposed to BUSY.
-> 
-> When termios changes while the UART is transmitting, that LCR|DLAB
-> write can be ignored and dw8250_check_lcr() retries it between
-> dw8250_idle_enter() and dw8250_idle_exit(). dw8250_idle_exit() then
-> restores IER while DLAB is still set, so the value lands in DLH. The
-> real IER stays at the zero written by dw8250_idle_enter(), and the port
-> gets no further TX or RX interrupts while up->ier says they're enabled.
-> 
-> Do not replace a divisor hook the driver has already installed. Program
-> DLF from the BUSY-safe hook, inside the idle section, through a dwlib
-> helper that checks dlf_size.
-> 
-> Observed on an Allwinner A733 (Radxa Cubie A7Z), where
-> dw8250_setup_port() mistakes the RS485 control register for DLF (see the
-> next patch): the first interactive tcsetattr() during console output
-> left hardware IER at 0 and up->ier at 0x07. The shell never printed its
-> prompt or read input. With this change alone the same boot reached the
-> prompt and echoed input, and hardware IER matched up->ier afterwards.
+From: Stanislav Fomichev <sdf@google.com>
 
-...
+[ Upstream commit 543576ec15b17c0c93301ac8297333c7b6e84ac7 ]
 
-> +/* Program the fractional part of the divisor, if the UART has one */
-> +void __dw8250_set_divisor(struct uart_port *p, unsigned int quot_frac)
+bpf_prog_attach uses attach_type_to_prog_type to enforce proper
+attach type for BPF_PROG_TYPE_CGROUP_SKB. link_create uses
+bpf_prog_get and relies on bpf_prog_attach_check_attach_type
+to properly verify prog_type <> attach_type association.
 
-Let's reduce amount of double underscore functions. Let's call it
-dw8250_update_dfl(). Also call the parameter just 'frac'.
+Add missing attach_type enforcement for the link_create case.
+Otherwise, it's currently possible to attach cgroup_skb prog
+types to other cgroup hooks.
 
-void dw8250_update_dfl(struct uart_port *p, unsigned int frac)
+[Added ptype variable declaration at the top of the function
+bpf_prog_attach_check_attach_type, and moved it under
+attach_type_to_prog_type (similar to what is done in
+3505cb9fa26cfec9512744466e754a8cbc2365b0 ("bpf: Add attach_type checks
+under bpf_prog_attach_check_attach_type") ]
 
-...
+Fixes: af6eea57437a ("bpf: Implement bpf_link-based cgroup BPF program attachment")
+Link: https://lore.kernel.org/bpf/0000000000004792a90615a1dde0@google.com/
+Reported-by: syzbot+838346b979830606c854@syzkaller.appspotmail.com
+Signed-off-by: Stanislav Fomichev <sdf@google.com>
+Acked-by: Eduard Zingerman <eddyz87@gmail.com>
+Link: https://lore.kernel.org/r/20240426231621.2716876-2-sdf@google.com
+Signed-off-by: Martin KaFai Lau <martin.lau@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+---
+ kernel/bpf/syscall.c | 54 ++++++++++++++++++++++++++++++----------------------
+ 1 file changed, 31 insertions(+), 23 deletions(-)
 
-> +++ b/drivers/tty/serial/8250/8250_dwlib.h
+diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
+index dc3d9a111cf1..9c611a715ed6 100644
+--- a/kernel/bpf/syscall.c
++++ b/kernel/bpf/syscall.c
+@@ -2934,29 +2934,6 @@ static int bpf_raw_tracepoint_open(const union bpf_attr *attr)
+ 	return err;
+ }
+ 
+-static int bpf_prog_attach_check_attach_type(const struct bpf_prog *prog,
+-					     enum bpf_attach_type attach_type)
+-{
+-	switch (prog->type) {
+-	case BPF_PROG_TYPE_CGROUP_SOCK:
+-	case BPF_PROG_TYPE_CGROUP_SOCK_ADDR:
+-	case BPF_PROG_TYPE_CGROUP_SOCKOPT:
+-	case BPF_PROG_TYPE_SK_LOOKUP:
+-		return attach_type == prog->expected_attach_type ? 0 : -EINVAL;
+-	case BPF_PROG_TYPE_CGROUP_SKB:
+-		if (!capable(CAP_NET_ADMIN))
+-			/* cg-skb progs can be loaded by unpriv user.
+-			 * check permissions at attach time.
+-			 */
+-			return -EPERM;
+-		return prog->enforce_expected_attach_type &&
+-			prog->expected_attach_type != attach_type ?
+-			-EINVAL : 0;
+-	default:
+-		return 0;
+-	}
+-}
+-
+ static enum bpf_prog_type
+ attach_type_to_prog_type(enum bpf_attach_type attach_type)
+ {
+@@ -3011,6 +2988,37 @@ attach_type_to_prog_type(enum bpf_attach_type attach_type)
+ 	}
+ }
+ 
++static int bpf_prog_attach_check_attach_type(const struct bpf_prog *prog,
++					     enum bpf_attach_type attach_type)
++{
++
++	enum bpf_prog_type ptype;
++
++	switch (prog->type) {
++	case BPF_PROG_TYPE_CGROUP_SOCK:
++	case BPF_PROG_TYPE_CGROUP_SOCK_ADDR:
++	case BPF_PROG_TYPE_CGROUP_SOCKOPT:
++	case BPF_PROG_TYPE_SK_LOOKUP:
++		return attach_type == prog->expected_attach_type ? 0 : -EINVAL;
++	case BPF_PROG_TYPE_CGROUP_SKB:
++		if (!capable(CAP_NET_ADMIN))
++			/* cg-skb progs can be loaded by unpriv user.
++			 * check permissions at attach time.
++			 */
++			return -EPERM;
++
++		ptype = attach_type_to_prog_type(attach_type);
++		if (prog->type != ptype)
++			return -EINVAL;
++
++		return prog->enforce_expected_attach_type &&
++			prog->expected_attach_type != attach_type ?
++			-EINVAL : 0;
++	default:
++		return 0;
++	}
++}
++
+ #define BPF_PROG_ATTACH_LAST_FIELD replace_bpf_fd
+ 
+ #define BPF_F_ATTACH_MASK \
 
->  void dw8250_do_set_termios(struct uart_port *p, struct ktermios *termios, const struct ktermios *old);
->  void dw8250_setup_port(struct uart_port *p);
-> +void __dw8250_set_divisor(struct uart_port *p, unsigned int quot_frac);
+---
+base-commit: aca95a35f1bcc0626c4fa4d1252bf2d4c990a1a2
+change-id: 20261020-cve-2024-38564-5-10-fc5cd59b6116
 
-Put it rather after _writel_ext() implementation, because it's just a small
-wrapper on top of it. Or even make it 'static inline' there.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Best regards,
+--  
+Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
 
