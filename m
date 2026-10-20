@@ -1,98 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792521723;
-	b=2ZRzpL+IPK3RLw6jVvxWcT2zR+BFmCIGYlxTh4UGoWZpZrGyIRJgM3FcjUGuoxN6OCw4
-	 AVYBeQzst6lYpVwwwN96h3ElXKhSyB5kAE+tQZW339rUJBNNgTgfmANM0E67n3x+NGaFN
-	 geWzZmlmJmVAs2QTaYehzRmbB6mi+8z9E8aUe3mVjq8gz1+HK6oruuuJELbVFmgA3Bn7J
-	 mRn3nyHU2i9ChmLru14jFQN9xnwxf2dPWGRTMZcJpJ7aJcKPstrGSnaz9yF8fLQQL/OPq
-	 cJGxZwI6Gf+0RTEQKM27CQIA5x4iSjLUBYK+S3KC6wLmPEiLHtTC6YnClZZMY7Na06g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792521723;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=YwvR0hqKgY0QppCDRqvS4E1+yFhDfD+NCtMbvNXlcGU=;
-	b=QMZ1yuYZykYLS9jvIF3q4X7sB7oRRKwcU7svjySHbs2gZhbIJW1TybvgS3lEfGozGSHE
-	 FW2FZRwpbcHmnaOF1SQBqlfVtipbu8pxGafbhY5mhZINFA69r3FTSQznxmqYUHNQFqAKH
-	 FkRP2XpFvmPrDE0djtD+gwtS7fWiMuntJVBlcsnv/cPH1zk7XJdugrkOVG84nB9PBgf+t
-	 LnunlggRydP0KvuXPB402AIoClp6ofMV6PedY1rQnbXSIp78z8BYiprqnvbiKfdg4AOWn
-	 nwEk5YojCaJtZaihQxBwvRQbUk/Om0jcrvZH3Bq8GIulfcqsFGCx7Plfp65eIvsdoLA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nexthop.ai;
-	spf=pass smtp.mailfrom=nexthop.ai;
-	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=QhL3ORmx;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.120.170
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792521807;
+	b=OUp66bA86ACCTFq4rMoNDdaqrsc26uSh3yh5W3iQlmMbNCw+xczHfFxqFIfsf7WmT8+H
+	 Qe4Cdr/Xm6uVdcOxcbCBjr7Ldfqs8rWXHwUwDjs3RCLPn13XkcXEqsxZZAEkmIYShICoQ
+	 uT9TF3UsXBOSIAkeevF1bvU7ViSC6e3Kl6G8E1NOD2yg2YNNUVvFyzpN6UpLDZbUzlKjp
+	 ZvejQR8e9iuG4I+M9jc8qVem4gtaTt2c66mqC1n9xiJzIEjt78OZUC6Uq7LJIG1rDzvFl
+	 /ELS6BhJs55KnRXw8MDJG9GAWjScL8e2DIPJFTY6ciihyONyzrg2jtNPLEJI93E0p6A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792521807;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Spam_score:X-Spam_bar;
+	bh=WZwvj7ut+USYDUgtwVCO9P11ZllQcMYIU3Z0c/E/KP4=;
+	b=g4R9LAKrFf23gfUySUCGTnKiDcX4ehnh/utQwDrwrSA1zZa2N7f7YCVqSyTrexPMWaBI
+	 WSbW/bXK8Y2JkGCGFJf/UOpIcE48OIKvXmaJhtaMH86z26J4bUDNqYP8YIDnngspcK8W+
+	 oF7sEOMkR8rvRTDs8dvWBUfsK3sJhADPaZuSTTN4jGShAtnIFSMXX/VR+MwvXMt1XU6Cn
+	 0OurExRFNnFcR7XnJ6LLOVabpxPfBX5Z0q1d52UgiI5fCMsG+uJpyl7wMOJ8zOlgtwTic
+	 tKUprvZQyu3hczaAN5vKRd9OnI7w6vj7Pxb6m7yV0YDQ4bdQx6jq+opgiofgnzdAsaQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=hugovil.com;
+	spf=pass smtp.mailfrom=hugovil.com;
+	dkim=pass header.d=hugovil.com header.i=@hugovil.com header.a=rsa-sha256 header.s=default header.b=cjuQnMjf;
+	arc=none smtp.remote-ip=162.243.120.170
+Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ADCA606A31D
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 18:42:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4ADCA606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EBC5606A320;
+	Tue, 20 Oct 2026 18:43:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EBC5606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=QhL3ORmx
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-35b2c599f43so1375992eec.0
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 11:42:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792521722; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GyawFrBYFxKZeIS1poFTf01ZoCUg7lGZUEN+3GMwpTxGYflm+RbAsCa7ko6wxCApJ8
-         r3k36XYWaC+adWLGcXwpX+SzHzVxBgdivCYTXSr5JufLzUkJrLrwcUurdn5NocDznvxk
-         y0bUqK/Kp67Y8siQE+S72ZszpbbqaNWPDTdlLrxpSo+uRwiIKlb2tG5Wqt6wysl0OU2v
-         GW5LkkASUgwF1tGlpycmH+Dy//rcxQ/t3ZMBMz/5J/SHe6I0Ot+/lBPh0ZPXu1xrSDkE
-         onQBZokIl8mqS56AJruq3Jt/KpxsBFKZWrKDG8q50rUqsziTDmFNmUVnXyWZYielB3Yf
-         2wdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=YwvR0hqKgY0QppCDRqvS4E1+yFhDfD+NCtMbvNXlcGU=;
-        fh=BhPfK1YOWC1PEHOuT23vQR6dA4vWeiUYMa/qy+Px2tc=;
-        b=B70PdVysT7EzStZ4CsdckXNAvI7jvIfP4ntS5zUSbu8W34GRd1qhCg5Ehtg32nbzSH
-         G1o57gjI+ynOBEn/fOQHiH4mUveIBuz1gTjm3BR5a317ZGier4vH/6ZsMraQLVRu7IaK
-         3W4FCvx8XqJu9KFZ20Ffjtu+OQjC5Onssqko7+Lhvkbq+c3AhNRwfz6voiiMnFFbLlo+
-         L3q440goPVKhgzj/oBrgFo588ecTAJO5TyYAPqjq0mYsdGvryOrZCRqvqXX7XVllh6gt
-         yg9vRxd3l5d4S7mSRkGngWtzVXpmii9wUvetUTnmY4tJWb8I8Du9mkuDoc+QQCn1HGYH
-         +zqw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1792521722; x=1793126522; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YwvR0hqKgY0QppCDRqvS4E1+yFhDfD+NCtMbvNXlcGU=;
-        b=QhL3ORmxarlU22wLJWF/w+12na8Bv71OTWBMGCmGh6nYC9t8oTNHCSpYbpB9jJB4YR
-         GBdR2i0YIkJojp3Am9+G0hz8WJa+YBWaXorEh2FXUQ0p8le9BWJ+B8AD6XbL6FkhQrSN
-         9/lKBLH1h1X6hcVGIAcGMhQKqoU+zafSQ4V1eQalLxZjojIbzPq6raCapl85AnGkyDqy
-         DLioSm/mFCaRbwZUCFHkIprUtREUgHZLbSDL4Anlu2RU1QSdrB15YxWHoLDbnVPJQffW
-         6X/VBZXKXfex4ImuB9fPqNJKtBKtKTILOjC8eSDID6H1LqmKXTAjYTm/t62pJEjeCuXw
-         4uaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792521722; x=1793126522;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YwvR0hqKgY0QppCDRqvS4E1+yFhDfD+NCtMbvNXlcGU=;
-        b=qT0u//bOd+YXb+BMsgOjJsLsfs86iEliiBIK0LzZGqAa2P4Ho8rohiIwm+z9GVA4hb
-         7COLbmQyzvl3ywh7xBDL18cpdtL8P5kDOZe7M+zgDfz17F5uCNEIabc8467QNW4pzjMe
-         p2z6QCuekumWpk4IFToyEl21M4glT1PehWZdOnFqTxBRqUgxvWVe2d+Ab2jXYLK/j532
-         +aVHqpjlVTXL+R4bJL2S0M2zLMv5c1gjQ29a9A48LDlaxp67E/7xLdSpvEvvJHkzP9Vo
-         kRgPqtJXyVe/shrduiEN0k9cWHCDCx4bSRMs+Wey3QERf8mFYBNrXEi/bVlv8AFk1IyB
-         2jAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy0VBDabvf9iX82C3/+8cV11r6N+mJslztRVt8fAcX0gnLLQolaxhyZFnsxWZ6KuWSzqiDAecw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLRBvhq4wd3WSGTynTuWnSa2QbMOkJnQODU0zFdpIlopvqso98e
-	fHYfcuIYJitJ80NBgbHv2BflEzMZLIJnE1o+bLOIq93M9+cDPjxNHzOhYRVmL9Y7z4csZfbLS/M
-	sWtsHXTAMuQSgDrggQtiTEtQsW0pVacUN4JjtypuaJw==
-X-Gm-Gg: AYBFou00CTXr4qz0P17eUBU8Z35/BmUI5UNUvhTMyaiWuG4qsYHFuAgzpjSiL1czp4s
-	1fz8ARGggDQyF1psFRjhct752dXL5szVSWhqvrXX1F5ICt+IEFnZ+7iqUK5czXZoeRcu0LlcnfI
-	+yMv2XX4PXN+xPPk1mHUk4ebovT801OVqif1O9+ctn//tkAt3+pIJ6w3N0zCkCbAHrhTRoW3mZC
-	EVVp+a31AsL+/tkY2SDfWJMLf2fqvfWHEYEnqkWv+2maLs5+rtf/7T2VXNY5TswU2stVEm5y1NR
-	Jzpb73nZwXeHoKb29fQ/L8f+wn8tNWmzV42Lsf+PMy93meg+o8EIzJLaaQ==
-X-Received: by 2002:a05:7300:c00e:10b0:35b:d329:9f3e with SMTP id
- 5a478bee46e88-3674e842a86mr135963eec.28.1792521721089; Tue, 20 Oct 2026
- 11:42:01 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=hugovil.com header.i=@hugovil.com header.a=rsa-sha256 header.s=default header.b=cjuQnMjf
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
+	; s=default; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject
+	:Cc:To:From:subject:date:message-id:reply-to;
+	bh=WZwvj7ut+USYDUgtwVCO9P11ZllQcMYIU3Z0c/E/KP4=; b=cjuQnMjfS8juJ1uDt8dtjyCHoi
+	v2vk6aBnmafw7NW0a8zGCSQl2e0CBXOGGx+WSFZ4xurZd/EtIM5lVgjDq4m4QzQ1N2fjCusoPIOJ6
+	maamZ3dQJbfNnN34JId/Adaa8tvlloXg1anQ1K2EuMTY+BpAcrHTJYdmvwxg/hoU3yok=;
+Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
+	by mail.hugovil.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <hugo@hugovil.com>)
+	id 1xJEo0-000000000nG-1lhU;
+	Tue, 20 Oct 2026 14:43:22 -0400
+From: Hugo Villeneuve <hugo@hugovil.com>
+To: gregkh@linuxfoundation.org,
+	jirislaby@kernel.org,
+	alan@linux.intel.com
+Cc: hugo@hugovil.com,
+	gregkh@suse.de,
+	linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	stable@vger.kernel.org,
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH 1/5] serial: core: fix division by zero if old termios is present but has invalid rate
+Date: Tue, 20 Oct 2026 14:41:17 -0400
+Message-ID: <20261020184131.2893575-2-hugo@hugovil.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261020184131.2893575-1-hugo@hugovil.com>
+References: <20261020184131.2893575-1-hugo@hugovil.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,30 +71,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261005-i2c-xiic-rx-fifo-v1-1-0177ac5f72d7@nexthop.ai>
-In-Reply-To: <20261005-i2c-xiic-rx-fifo-v1-1-0177ac5f72d7@nexthop.ai>
-From: Siddarth Chilukuri <siddarth@nexthop.ai>
-Date: Tue, 20 Oct 2026 11:41:50 -0700
-X-Gm-Features: AclHuK9vLMZF-AAKuV86zplYxOP7GeZc2vlcY3CCw4_yPy_9puJFU1MY3JTp13I
-Message-ID: <CABAykku7MDTF7jTg3OdY=AWCqrBUTS_sNAoVTHUBM6yM=NKjUw@mail.gmail.com>
-Subject: Re: [PATCH] i2c: xiic: don't fail a read whose data is already in the
- RX FIFO
-To: Michal Simek <michal.simek@amd.com>, Andi Shyti <andi.shyti@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Spam_score: -1.0
+X-Spam_bar: -
 
-On Mon, Oct 5, 2026 at 11:49 AM Siddarth Chilukuri via B4 Relay
-<devnull+siddarth.nexthop.ai@kernel.org> wrote:
-> When the controller is the master receiver, TX_ERROR is set once the
-> core has NACKed the last byte ("transmit complete" in PG090). We have
-> [...]
+From: Hugo Villeneuve <hvilleneuve@dimonoff.com>
 
-Hi Andi, Michal,
+If the old baud rate termios is present, it is implicitely assumed to be
+valid. However, if base_baud is lowered via TIOCSSERIAL, and the new
+max value is lower than the old baud rate, the later will become invalid,
+and uart_get_baud_rate() loop will exit, and return a baud rate of zero,
+causing this:
 
-Gentle ping on this one. We've been carrying it on our Xilinx AXI IIC
-based switches and it fixes the spurious read failures described in
-the commit message. Happy to rework it if anything needs changing.
+  WARNING: drivers/tty/serial/serial_core.c:547 at
+    uart_get_baud_rate+0x104/0x180, CPU#0: uart_baud_test/782
+  ...
+  Division by zero in kernel.
+  CPU: 0 UID: 0 PID: 782 Comm: uart_baud_test Tainted... 7.3.0-rc6-...
+  Tainted: [W]=WARN
+  Hardware name: Freescale i.MX6 Ultralite (Device Tree)
+  Call trace:
+   unwind_backtrace from show_stack+0x10/0x14
+   show_stack from dump_stack_lvl+0x50/0x64
+   dump_stack_lvl from Ldiv0_64+0x8/0x18
+   Ldiv0_64 from div64_u64+0xb0/0xd4
+   div64_u64 from uart_update_timeout+0x3c/0x44
+   uart_update_timeout from sc16is7xx_set_termios+0x308/0x428 [sc16is7xx]
+   sc16is7xx_set_termios [sc16is7xx] from uart_change_line_settings+0x34/0x1a8
+   uart_change_line_settings from uart_set_termios+0x98/0x13c
+   uart_set_termios from tty_set_termios+0x154/0x208
+   ...
 
-Thanks,
-Siddarth
+Reproducing scenario:
+  set serial port speed to B115200
+  set baud_base to 9600 via TIOCSSERIAL:
+    this will lower maximum allowed baud rate to 9600
+  call tcsetattr() with B57600 (old = B115200)
+    uart_get_baud_rate() will return 0
+
+Fix by running the loop an additional iteration, so to always make sure to
+return a valid (clipped) baud rate if old is present but invalid.
+
+Update confusing comments about @termios structure update: it will be
+updated only if the desired baud rate is invalid, and also if @old
+contained B0.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Reported-by: Hui Peng <benquike@gmail.com>
+Link: https://lore.kernel.org/all/20260930125901.778868-1-benquike@gmail.com/
+Signed-off-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+---
+ drivers/tty/serial/serial_core.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index c0deec0e6af41..c3c1a1d76405d 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -465,12 +465,9 @@ EXPORT_SYMBOL(uart_update_timeout);
+  * magic 38400 baud rate (with spd_* flags), and mapping the %B0 rate to 9600
+  * baud or min argument, whichever is greater.
+  *
+- * If the new baud rate is invalid, try the @old termios setting. If it's still
+- * invalid, clip to the nearest chip supported rate.
+- *
+- * The @termios structure is updated to reflect the baud rate we're actually
+- * going to be using. Don't do this for the case where B0 is requested ("hang
+- * up").
++ * If the desired baud rate is invalid, try the @old termios setting. If @old
++ * termios is absent or if it's still invalid, clip to the nearest chip
++ * supported rate. For these cases, @termios is updated with the fallback rate.
+  *
+  * Locking: caller dependent
+  */
+@@ -501,7 +498,7 @@ uart_get_baud_rate(struct uart_port *port, struct ktermios *termios,
+ 		break;
+ 	}
+ 
+-	for (try = 0; try < 2; try++) {
++	for (try = 0; try < 3; try++) {
+ 		baud = tty_termios_baud_rate(termios);
+ 
+ 		/*
+-- 
+2.47.3
+
