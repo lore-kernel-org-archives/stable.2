@@ -1,100 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.64
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792501186;
-	b=oEGL1sWX1R7nLxXDSb/lFyfgoEQ0+GMF7a4yc30vIgYCDOFzgU3uFdJpqQvG95/ylL22
-	 MAHKA9YR1OO13oxpIp024pIrI3eHAcG0iv4FOb7AphQbhAUHMi08E6+c783HjNM3Z8itN
-	 X44Qhc5UkMlTzN1MXr11mqJw2jSTXW6NFg+lhuSgyFqDnCZJNNuIhbB7DIGHgJyqPJZ4g
-	 I33zuD64hoeQ60sPHFQ6X6RcmIFLPFf1MqT9ZqcK2fsnMhUBKkZDIIi3rPRxgy7z23INl
-	 ZvDIsi8PfwfzKSNXP7/UGCiavl7QDB5cNtq7dqLMe54fus6oPcpp/7wsXR/jco09faQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792501186;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=id7jIwB19LdMVoHDpx9TH+hSZVUZj9h3QiMmI1aQF5s=;
-	b=4Skc383j4c0clHnFyWk+iMtxn62CqebH1YBUk4gzKaWSAii/mczCzQEE4TomCfSpA45r
-	 UpAVLjPFpru2R0E6nXYkKKIyyndkCmNY4D75h5WPLHDsLJp35lW8g0GUd6KWII1lC3QLV
-	 ZhDK2xNqrou2Ph41duD7xpL/I/AaQ76DifWqsbDv67CGi8KCtKr9ZusRBewBBHiLgawgO
-	 2ysIcQPQr5Yvtdld3OkgU+47gfCdhc7xqFXmyvG0osr5JHrU7Gi1faOBFPUdDkM8GKpPJ
-	 ubPNpUXBcSiGkLXtgGYVyS6ZHegowFTrApKp1rpE4K31DKEyEitfMHBz1lnuxb+fwNQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=NRwtdsWH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.64
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012064.outbound.protection.outlook.com [40.107.200.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792501219;
+	b=V5IjD+4OMjS4dOg4cHE/p5R2PujsgTjD53cMoDkxKljbukefaZyzCD4r10aECoFwwWPd
+	 o0s6dBIxPBUktYE5IYWeB4ISI5By7trNTyXXY83NcAcBUFVX0cYUZVjMxsJOpZUa+70RC
+	 ZHOi6JBTtv71xsoXmR9+WDSPb1PuvmS/N8xMcO8zKzifTrxFWr2gi2gDvFgjwTd1dAZGC
+	 hdMnDepBzUBJsoYsihBceDdXIOb5w1AvJ3ADreCqgZYmKKNdKOgORIS0ct7yVxWgpN+RW
+	 xqgjQ+h6RoJUlY9QIIjMZoR4w5fahHygeofiT+SOsgYnkzOYyScH7DndGZJ/ctKsu7g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792501219;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer;
+	bh=9QeKnjN3fahrLAJkByLZQh8qOdDYB3Kha5uuEza9RMU=;
+	b=a6nO6QO19JHWLjZ0Cb3D3PG4P31UCsBFFN533pr6vLu0ppY2klm3nnd9M99eds+5gMBR
+	 qhHOx+X1AZkzVuEAB9CepSbFTxcQwsCSNLIvO+DWcMrOSOw1CboscgyjVZoUr/gjMnBhD
+	 zimkxhgxDhuUWA0L6hkN+fVoJ7mB+DvI6A2vbVc9cM2S04yBoaQht/iQ22rYX7/wE273o
+	 z/XFSP08I/PbyiDXIAhLqzauIvO0IKlq+Sm1752Mv4N3nll6+pkRlAtGSTWvFc57s6Hl4
+	 hy7psqX732csjqz2QH+mZ3EIEaCu4zPER2xTikERD1bPXjrrLtyUwnViqG4Iy3xvGOA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U3RxUQoV;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA5D0606A323;
-	Tue, 20 Oct 2026 12:59:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA5D0606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3BA6606A32E
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 13:00:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3BA6606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=NRwtdsWH
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Apc1qXCO5ZZXLuHmHyjL7PBwgjeGlMmiHLMaVJZp3qt+vMbM+3+ZzR3dDZjl3DxWG+7aVxokM6nvkYqsoo+rm1JzJyvyQEUx5229w2jYosXZfOXJLFHa2wpr25ZWrml4LIuRwLdhPzsK6XMVXqEoaxVi12LqYcDuyFITfg6aXAULmBKRQGCtW7ZqfAKA9sRkyovbpByWo/1wXDViJbfPQQ4+ykjMXbJeEiv0fD5CYwYVPfOo1IxjDnkaa0nPNKAGGL35i6XTVOo8ob47FWJXixL22ytaKd4Y7HYiTmE0mJnmbUvK878f0fgaD8hWZo4gCoLDDQfBax48EcxSNAECKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=id7jIwB19LdMVoHDpx9TH+hSZVUZj9h3QiMmI1aQF5s=;
- b=mMhv9WTXvJAUw7zOtGN8oUld0C6eMyXbd3fD1VGl4ja20I/Cn1HKOPXHOqYARE7P5CBcRVQHOb066hN9wfU40FMSkbXE6gGh74D9c4aWpRjnH1HJ01x6OU3AinTp03ZudCvz0P7ijIlFzDKYiXLAVTmInBYgykE1JhwXkXYTZkIiHSJkUlqBAPo/mt04cp156hLUliBcE+IydxUehxU+8+uf8oEc3RaX9Ru/MdZephQ7ha7ajPe3zRn3XjJFNcBZu2UqiG8OOeRS3pfyZDjpGX5YsfXInfSUNd314r1zPgNuJfxOxMKQwhvGnQNKkCkdj367+basvtN2Lxz8qgqnjA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=id7jIwB19LdMVoHDpx9TH+hSZVUZj9h3QiMmI1aQF5s=;
- b=NRwtdsWH0h1TfWgfqvpxSCMWMaPIi4Zooc+WzDyImVKTnMu1kWZldxxv6o08kyAc9XWJSX8GlffcwhWsh728ahqUQ7hWp0tvaApnTO84pdZ1Y6/+PugQKfNQU2AuXLYGwvPzG5BbiUEI9nNjZ66p+fEVGOytbjl5LSiuZurXYFwNAqJF6IA7MSGvL6/jft90PDIur/7SKl11T4Y70V5YaJCL2CBfuiImm+byZe+ewYxtulmsVDHDbpL5aijtRkQgU0H51f09e2HIpxTTz5401UGYM+YfZ7whsAz9u1cABzlPIhNGpHPxnohRyhPYkmKg8xXweVycJ3hviTome/dTug==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH7PR12MB5974.namprd12.prod.outlook.com (2603:10b6:510:1d9::19)
- by CY8PR12MB7414.namprd12.prod.outlook.com (2603:10b6:930:5e::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
- 2026 12:59:39 +0000
-Received: from PH7PR12MB5974.namprd12.prod.outlook.com
- ([fe80::f5a5:bbc3:e9da:f8a0]) by PH7PR12MB5974.namprd12.prod.outlook.com
- ([fe80::f5a5:bbc3:e9da:f8a0%3]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 12:59:39 +0000
-From: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-To: Kent Gibson <warthog618@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Jia Jia <physicalmtea@gmail.com>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 6/6] gpiolib: let the character device free its IRQs first on chip removal
-Date: Tue, 20 Oct 2026 15:59:25 +0300
-Message-ID: <20261020125921.2896041-8-aambrozewicz@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261019090013.GA29798@rigel>
-References: <20261016-gpiolib-chip-removal-v2-0-aambrozewicz@nvidia.com> <20261016-gpiolib-chip-removal-v2-6-aambrozewicz@nvidia.com> <20261016134003.GA155960@rigel> <atXXi_EA6iROhK0C@ashevche-desk.local> <20261019090013.GA29798@rigel>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TL2P290CA0001.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:2::19) To PH7PR12MB5974.namprd12.prod.outlook.com
- (2603:10b6:510:1d9::19)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U3RxUQoV
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48b060ec084so2278796f8f.0
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 06:00:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792501217; x=1793106017; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=9QeKnjN3fahrLAJkByLZQh8qOdDYB3Kha5uuEza9RMU=;
+        b=U3RxUQoV3UWaylUpSvrRdSN3lQvvJw5Vhm2ixXthPF9Mxb0hTTiv0dRAqPNWXsnS7u
+         oc5+LTm9VN7ZMIAVmZpWWAu0dpNgwrojIPk494kkggvQfSNZxo0TVRssx6B0uwpnyyi+
+         PIpMarxonnycFsfG+8ogrN+TcHqBAMGPVgzWKhJizW8zhUxnZgF/HD/y6tccvv3dGti0
+         FlhGfwLzbNSVuZTQ+2j7W6DQ26ifX9xVrPDqbsSKP6tLOG5CSaHaqBGqtbpuysu3+dk9
+         uENvr94b3cjvpmv+lMOvySUC1EodWn3pxOtQZqIu1ruURXLPwUEU+iFrNP94o0OoRRN5
+         3TNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792501217; x=1793106017;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=9QeKnjN3fahrLAJkByLZQh8qOdDYB3Kha5uuEza9RMU=;
+        b=wVbCuJC1X6qTGnoDF0xEjIwHR0uNIXmMH/lJFrSv94+yen0R2LlUjD0c5ux8CvMVjL
+         ncqtNSq1gGdUrnG5OGUbZzdneArMtV90Kxs8ouu7cWTa+L7sbX2aho1sI9oizF4IFhQt
+         A7rSma0Ho3j6O+dG9gjNLPWl4tl6cm0mbN/Ve7hyxHBQcAVUJkba2rwBHPGqTfeaVUPT
+         GMrsdKoNED9PJXczwNSQlY4iRZwMr/ioMLjRBgYjkPrsnQsSgskPxvSc0BXXFXuSXYLt
+         W26A4/lopYMFvAHst+xXCi6aqO8uR/Wo9u39dolmF8RA2dRDlfiR6wI9Wwsm0RgnmDwp
+         fWMw==
+X-Forwarded-Encrypted: i=1; AKwUvBzIhz6w1GYaa/yDKn89dNCfW1lU3j4G1QCkmIZ28iXXotdfUpLsm/QevUtXmD3aMwFGP0gg/84=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJgwmLhfoHhH6eWrgm5LrKnGszKhiT460hAh3vGzFoCQhd7z3CI
+	0rW3ctFVJT9u1aqsD4OlB070POUyzqjGXc6uBZwG4bwbZVrhigfb3a0S
+X-Gm-Gg: AYBFou0Zz0oWCt6Q2FZMVBG7jViMDGiVZtcUTflxuCXIj/xYFfQIb+BlE7u/dg9PH88
+	HtOIo/Ys0ZZ53EDxPEtL2hHaq71Nshy0BA2YWmi7Gb6Lz1fWzMg2tzY2nO+9ruKgxBxgvWmryH+
+	+NOXzAx5NiA1KiHpM/91asvAMxP4+YfioCCdwJJbFcFR4sHuAnsH+v35S0ZQMY1dfnjVo+QL5sZ
+	EI65vtC/Q7wsjQ0k1y+lq1qx+iF5MNoZEjkqgsARkjXLZn1EojFK9Bc5DbnVExehOZsR70PlITo
+	SoFPRwcrCnybvAU1kN/JTlr8Dv5QKQegQSCOVdG121e1EIMz76T+1kR4qdRHTsi+IqU7oyqvJlP
+	ux2K44Qku6cZCtv2UFMlNmC4s9uY//CGtnKR+VjMhZ9F1JyZn2/okdMPJyJ2BUkWVDlqlrmUnXH
+	dHzBL9uw8lDA4KXfyqKcfxv7h+GoTAjw3pMrxhlLoi9sny3j54MZ+uzC0Ks84L3GTPKwXetUtIL
+	e6BsRpdSBWrax+VjCL/VPFkfJ9wFbOnKQ8X9UrsMBMTwgFz8FT9TpHyA+fYp1W235cwxSu/8g==
+X-Received: by 2002:a05:6000:490f:b0:48c:4f94:222f with SMTP id ffacd0b85a97d-48e07bbe52fmr21834139f8f.17.1792501216833;
+        Tue, 20 Oct 2026 06:00:16 -0700 (PDT)
+Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d830e91sm6114754f8f.54.2026.10.20.06.00.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 06:00:16 -0700 (PDT)
+From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Subject: [PATCH v3 0/8] of: property: Make fw_devlink follow GPIO, PWM and
+ clock nexus maps
+Date: Tue, 20 Oct 2026 15:00:11 +0200
+Message-Id: <20261020-fw-devlink-nexus-ready-v3-0-fd6f1c17e16d@toradex.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,73 +91,126 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5974:EE_|CY8PR12MB7414:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9be54482-79a0-401f-c2e4-08df2eaa0036
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|56012099006|4143699003|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	/KNUM4iPVq5tYa+F4drac3jhk8W3Yz1b6bbSPNmPkRJlImYN0LrYYbUBfE9TetlEBjFhMff+9Dp4+du+NLycXofFuS4il2uN0eknrExNy4EiSIr2ULHWGYn8TrH73z6TVdVsVq1EWa6d3FThaEJwfPQWAyuMuQcSsskYWv/ba6Hy14rZpQuV3jil9tScvhucfhgpS8RXQ+VFfiyKxhVPmOVjOlybBS3Ucavvr5xLoCa5IO84NPFf3syELe17XfyP7GwTQjMHcNG1K9bTaRxrZ74b+Xp9m9UtfoeSPZ7KzGMzBfcgJwCLTo+f4li630AcK2kVrMPBp5/CankgzZXIaO5xQMhewkt3Ph9yCehLled6cqNR9tTScPL3AJ/DeTC1/lqDJxlSS+nK29RiQWf6NkdTab7lVdLPBNgkZ0q0xZvLR0fjChv9NFkAsjqmDLq1QkRT2cggR6OhLcEzc58yiDxMXFIoCou+J0+LcjguCi3bvf0L+eB++aM4Hxf3Y9+8CcMrgSFaUMG5UEl1FYuUHqNa8jRA9jC2a24Vh3Mt59FpzfCwVf1NFFCUWoouqSMqR+DWVW45vwwIDrmAp6dFQ4gLtKqUHIZ9xXO8lz4+DSrm0PfxnNrcTvAlR//pt1Dcyf3DOpZ8boUPd4XpQNwTfRe3ck3GaDE2wz/gvVmGHOI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5974.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(56012099006)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?IdI4syc/6rrTFZD5jiXnT5pyRtCMZIn2QVhBFbzc/Mjn4LJ0ycX/kL7UXF/s?=
- =?us-ascii?Q?bE93Tb974KAdYzoCf6fcU3kNYbLVSOLrNnXgmfK2al2vEMd3QN0Nah1aC43d?=
- =?us-ascii?Q?zUj/+R13Lhi0wvuqLupe3IzUiZXRWqBvL9oEvfbJcrl2sMqgAWvhcPxrgXDS?=
- =?us-ascii?Q?TmXxWec928+QJgSH6Fcuy1esmQEctrr4wuBPsN4F4AE88NWQHjh/CQ/bZ0UG?=
- =?us-ascii?Q?pyi6w+ESFFGdX4klkCuWZXTRLDvwOxwleMbbjqHFUwS7k07PqlpSqaZek2EA?=
- =?us-ascii?Q?RYBvOuW2u7DJP5Vmd0MpIs28isis394YjFYAcnIAkHJOpZUUCjG3Ul7xLCTb?=
- =?us-ascii?Q?tYQVM09znRrv+gEGHE4BfczS0cQ5eyPCvfuC08CaLBG09OmKwTPSoMO/DLP6?=
- =?us-ascii?Q?7uw4Fsc0cJfon10lWJaMOYKqKuD44CyWUSZ0KikS2Q9Pq1zAb5LneuF0UuDR?=
- =?us-ascii?Q?GcI+JMASBv+pHRhuGH9HUw+3WivQa9X54fsO/p+z6rKk/VFndYAdE115briO?=
- =?us-ascii?Q?LZm5jlSsxQyy2P8s/+J+wwu31rf4AV+RneHjhJeSGrad5jtw2iJJpqYyEDoe?=
- =?us-ascii?Q?PjvK20PajlU7AZwCx03CZ3mHezGh6EaIkBaqaS79mIFN6cawX3pqVmJFvPuu?=
- =?us-ascii?Q?6EhrLHCw5dht3QqbDXqtrTBmgtLnuB+Bt5RVsFgGNRXXWzboehT3KzkX/xl+?=
- =?us-ascii?Q?nL06sMTK/dc+xSXcpgCMbMB+A85HwtzueuQF94dMdRSTDlY+dg0VnbzVq/eK?=
- =?us-ascii?Q?HYLXy1RHIxZk2tkzanIutOzLGfu+Gi17wP8YLc0z7vo3qhHbdyqHwhrIwJPS?=
- =?us-ascii?Q?ZUiwzXmaae3lOVllPZM0+ukCXC4Ck3zX8hFxwK/ElJK2KJEOQ7UAAFULn/NV?=
- =?us-ascii?Q?L4pUeseRwgAIJfd7rMdgYTexPIxCDx6AxXyw562f/kc5u0000HobJKrfZln+?=
- =?us-ascii?Q?Ek1ZNDuukLes19semdY1jikFO1TzwDPSDk2pIRzAmLKW1EPdJbAhFrNuMLtm?=
- =?us-ascii?Q?xQ66b3aGFTeGtUK6OVoCg075n/dnrGDn7Ndlp3RsHu73FlchiGdTWQFk7rR/?=
- =?us-ascii?Q?ZKQpTkDqJggU3tJVgky11GZwb/x96Pr80ZwfGdWpTECzGxct/gYcuPpVzqOj?=
- =?us-ascii?Q?OpBIf5Ut4qV2fXTYvzyMGHHASqBpXM/wRrM1eAbFmqEtTfFGQMRss4MAytL/?=
- =?us-ascii?Q?dyPE4pZFjKmphaMekUeBodyc2WVHwg+wwGLCq9wCKNHvsF4AhmMeXtVOtDBQ?=
- =?us-ascii?Q?LdkBTK3y83cZgH+asPOEnS+7P4cSWKPmyD6DWL6GU7rVrwx0arEjeV+hOsKs?=
- =?us-ascii?Q?k8sQV+OTwvvd5v19Np78x5p5iTAeBpjUbioVdwatYK/80n5izYkZnClLlT9W?=
- =?us-ascii?Q?fcU4HWPs4uiwgGvdWNcuABT8D+DjXWOD6PogAJFifUdr7WzZQi4pMxbsuXuc?=
- =?us-ascii?Q?7HmWOJw8da+mADvZlAUTCNvVTjyAiRx4o405EAl99QoYzu4rrqJvxv3FWBgq?=
- =?us-ascii?Q?2p1YwV7SV3PE1k57MAIEIkrcl9fX0ceGtZBTELsjJXEnOaqQJRSNkD/v/x1G?=
- =?us-ascii?Q?43JnNJCCFFjI+Q8CJ/PpJ/YLlB4UfKplU2vWknYfJPZ4Sfq2uZjAcTzyIq6R?=
- =?us-ascii?Q?xY5cexzzVgx25UqnJdMxtjPNa0V+eC6lv6vc01iCtfSq5xb+pxjiNG71LxpF?=
- =?us-ascii?Q?0ckp1kDWzqCEoqaFtEPwvmVRIfhKHoCYylJyKqk9lrhix1QzM92cnfxgV5R4?=
- =?us-ascii?Q?d+BQ3YOfCQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9be54482-79a0-401f-c2e4-08df2eaa0036
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5974.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 12:59:39.3557
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: G/Yuz2LwpwLL1aVownHRkPEKwFdJjwYqccOj33UmH+WqV0opFv1yW+TkY/AVFN7+4RL/TKd49aWLZrzqyIXcRw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7414
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANtl12oC/3XNQQ6CMBCF4auQrh3TjrG0rryHcVHaQRoVTKsVQ
+ ri7hcREFyz/l8w3I4sUPEV2KEYWKPnouzbHblMw25j2QuBdboYcJddcQP0GR+nm2yu01L8iBDJ
+ uAKv2uuSy4kI7lo8fgWrfL/DpnLvx8dmFYfmTxLx+SVwjkwAOUtUktJZUKnPMgnHUb213ZzOa8
+ AcSfBXCDInSWIWuIkT5D03T9AGhg9QbBwEAAA==
+To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
+Cc: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, 
+ Frank Li <Frank.li@oss.nxp.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Herve Codina <herve.codina@bootlin.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Leonardo Costa <leonardo.costa@toradex.com>, 
+ Frieder Schrempf <frieder.schrempf@kontron.de>, devicetree@vger.kernel.org, 
+ linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+ stable@vger.kernel.org, 
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.13.0
 
-On Mon, Oct 19, 2026 at 05:00:13PM +0800, Kent Gibson wrote:
-> This way is clearer given gc->to_irq() can return 0 - the <= condition
-> there is purely because of its possible return values.
-> Setting irq to either 0 or an negative error code, rather than just returning
-> on the spot, are both more confusing and pointless.
+This series fixes an fw_devlink supplier-resolution problem reported by
+Leonardo Costa while using a Devicetree nexus to describe GPIO and PWM
+resources routed through an LVDS connector. Consumers referencing the
+nexus could remain deferred because fw_devlink linked them to the nexus
+rather than to the providers selected by gpio-map and pwm-map. [1]
 
-Agreed. For v3 I plan to go back to that form (return when there is no
-->to_irq(), then return on irq <= 0) and to drop the comment in
-lineevent_free(), as you suggested.
+GPIO, PWM and clock consumer APIs use of_parse_phandle_with_args_map()
+to resolve specifiers through gpio-map, pwm-map and clock-map
+properties. The corresponding fw_devlink parsers use direct phandle
+parsing instead. Given a consumer which references a nexus, the consumer
+API and fw_devlink therefore resolve the reference to different nodes:
 
-Andy, shout if you still prefer the merged check.
+  consumer API:  consumer -> nexus -> mapped provider
+  fw_devlink:    consumer -> nexus
 
-Thanks for the review.
+A nexus is a translation node rather than the resource provider and need
+not have a driver. The link to it can consequently remain unresolved and
+defer the consumer even though the mapped provider is available.
 
-Adrian
+Make the fw_devlink GPIO, PWM and clock parsers use the same map-aware
+resolver as their consumer APIs. The resolver also handles valid direct
+references by returning the original provider when no map is present.
+Use dedicated exact-name and suffix declaration macros to opt these
+bindings into map-aware parsing without changing unrelated property
+parsers. Retain GPIO's existing exclusions and compatibility handling.
+
+Since fw_devlink runs the resolver for every consumer when its device is
+created, patch 1 first fixes a stack buffer overflow in the resolver
+when the provider referenced by the consumer has more than
+MAX_PHANDLE_ARGS cells.
+
+The regression tests call the OF add_links operation and verify that a
+mapped reference creates exactly one link to the provider selected by
+the referenced map entry, not to the nexus. They also cover valid direct
+references. The GPIO tests exercise all property spellings recognized by
+fw_devlink, including the deprecated singular and unprefixed forms.
+
+The clock patch fixes aacc54c67869 ("clk: Add support for clock nexus dt
+bindings"), which has been in clk-next and linux-next with the same hash
+since next-20260907. There is no build-time dependency on it, but the
+clock patch should not reach mainline before it. The series applies to
+next-20261014.
+
+Tested with:
+  - The CONFIG_OF_UNITTEST cases under QEMU/x86_64: all passed. With the
+    fw_devlink parser changes reverted, exactly the six mapped consumer
+    cases fail.
+  - W=1 builds of each patch on arm64, including the OF unittest data
+  - Toradex Verdin iMX8M Plus hardware using a connector nexus for the
+    display GPIO and PWM resources (v2, same fw_devlink changes): the
+    display probes successfully
+
+[1] https://lore.kernel.org/all/juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4jbauradujrre@gc5nbdhhixaf/
+
+Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+
+---
+Changes in v3:
+- New patch 1 fixing a stack overflow in
+  of_parse_phandle_with_args_map() (Uwe)
+- Tests: route map entries to different providers and reference a
+  non-first entry with non-zero cells (Herve)
+- Collected R-b tags
+- Rebased onto next-20261014
+- Link to v2: https://lore.kernel.org/r/20260910-fw-devlink-nexus-ready-v2-0-17ac82dbe226@toradex.com
+
+Changes in v2:
+- Split the unit tests into per-resource follow-up commits
+- Added clock nexus as well because the clock nexus series was merged:
+  https://lore.kernel.org/all/20260807-schneider-v7-2-rc1-eip201-upstream-v5-0-8785f9531cf0@bootlin.com/
+- Link to v1: https://lore.kernel.org/r/20260902-fw-devlink-nexus-ready-v1-0-68fe1996e78a@toradex.com
+
+---
+Ernest Van Hoecke (8):
+      of: base: Fix stack overflow in of_parse_phandle_with_args_map()
+      of: property: fw_devlink: Follow GPIO nexus maps
+      of: property: fw_devlink: Report unsupported supplier linking
+      of: unittest: Test fw_devlink with GPIO nexus maps
+      of: property: fw_devlink: Follow PWM nexus maps
+      of: unittest: Test fw_devlink with PWM nexus maps
+      of: property: fw_devlink: Follow clock nexus maps
+      of: unittest: Test fw_devlink with clock nexus maps
+
+ drivers/of/base.c                           |  5 ++
+ drivers/of/property.c                       | 53 ++++++++++++++-----
+ drivers/of/unittest-data/tests-phandle.dtsi | 81 +++++++++++++++++++++++++++++
+ drivers/of/unittest.c                       | 79 ++++++++++++++++++++++++++++
+ 4 files changed, 205 insertions(+), 13 deletions(-)
+---
+base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
+change-id: 20260901-fw-devlink-nexus-ready-c859706b019d
+
+Best regards,
+-- 
+Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+
