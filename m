@@ -1,96 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792490641;
-	b=26RNFdn4wu6Ie7rHWTCUNuUcNVh3HDQa24l6fRV2N4e6jpjz3ruzMZYdZI+6eGpPfZfz
-	 VcR0/+2ExR6lQH5gGdAu/q3VwzSnrC74YBZTugC6ww4DXZMpYRwHRwriSM0VCsbyIDgDh
-	 jv4h8Q2/I6c78WotJst/q+Ae/R3/OubXrxw8Cq9JyZ8wA69S1hGftSmjE5Stkxg/3w03o
-	 G4PH+UrnWYIoUukbqG/6jmXy0t/FRnKx8orpnTerpFfzwwkIiFvjksUgNsDmouRGzO3lQ
-	 T5DDpCfcvW0kRsq2Lch9Lp/h1ljA5aaBBzZLUXtwdsrta5mC3Hoin1YJYLtj/nBi8Iw==
+	t=1792490732;
+	b=Mi10RhLgyQazpE92H4bRqpkr8DUnfez7jKhJlnE91gryjTsPLCCP1f+UTmt1g2Y3MQex
+	 yhtl1kOAjY9PlD987EYCvlLxYMWByXJFZOjQy+ojppHTdTgaqhKJJ8nGVjLygaGl72fny
+	 oYAJGlevCnmfqcioG0/qXaYSfFSzqQpSyU5YufXLmRIkBHYBIBcWMtvuzkzMzAjXJ4nx/
+	 gRHxnJo+M88gSLaLCdWpk/ChONXDblEl3zeWLkJHKM7h0z7c8nSGKpuajVlddcKhxoNCj
+	 wgQxB8P7Lk7F2n3aXu/EqWDi7eMyT1g7DowduIglQIxKTFNsol3kJba5j1O4u9wcxSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792490641;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792490732;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=2xqJ7ego2cIVHaasX6cs9qwWsOg7oxEQGC5sNjYglzs=;
-	b=G1YGMoBYz92rbnQ7igrLCt18ghxPTrzt+jC1ueicWboFuUqBbHqtA41ap27VVU58cIqV
-	 v9FseyffIjo/IgqZlGw+Dx3Bo51FbIv/V2PQr2gCTiWaAiEP2LhIFbl14BFaBnZZtzmSo
-	 CK3QR1K5RE8lXSwSKNcvVolm0vceZtS0Rr1++e/44opUPi2GjNIADP5RV/6XnB9IutsIG
-	 4a43BB32Z67OP5HS5xTCAhBH2BqcR0bEMdDEOb4MzvHrrnCN5lUemAZRtHdekLi+aTz1V
-	 TE7S0kZSOStT+31XzBuTdzOmGe7kn0ec5+LjaWFI6ZPIX3zDDgyFdHf3fD5G4CTLxJA==
+	bh=Dvp4aasRz96lUnC1XJ9G7ciSSfe/u8ewG748bIPjK4A=;
+	b=4Hq3s6uspTIHWQiCfwFlj4/BGh3e4ZXXJrz2osWS1elzrUrpjdlVtCGlXsvhcQXfxIKk
+	 W4QLv8XMAUwQuqXG+Z9iE32pOD+zwIZHVm8s+YAP3w2v2WG1grPbvdCDiTtEav+GEdvhA
+	 KnCQga5+ojltDiXYzs3qipOKQp0RbKlmF55g1mTCd7Lp9P8G/+2WLUBaWB66PwzRO43Iu
+	 qLIlhy32z4oyxJfQRpkdp8kW3O8jU09IIU6tu9XcvY9yMbkACofqaxDwcBi43GmyhCROj
+	 TDJuUhwmUREu8RaeqIh1GgIi6R1ZQPaSO9RsPPZZfwveOalVxBfpPyZin03Ztle759A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KcqkG6m+;
-	arc=none smtp.remote-ip=209.85.215.179
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="YKoT3/ph";
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B35606A31C
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 10:04:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08B35606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57F7606A321
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 10:05:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B57F7606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KcqkG6m+
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cd633ef819bso1157033a12.2
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 03:04:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792490640; x=1793095440; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2xqJ7ego2cIVHaasX6cs9qwWsOg7oxEQGC5sNjYglzs=;
-        b=KcqkG6m+FddXShT5NFcDWmnYQ0y0/jNU3IWdqux8C9SWGppxNhdg7QA4Wy7YdGot1y
-         zUgA+Rz+0JmMN/Uu3eSYc2j5zKpkW8Px/4Db5rl4225rLqyb5yt4IvbdupYzPZrhtms/
-         nfeLUZO03blFdLiLVm9l6viLKLjWpuhKNKz2no1Aocv0kIdy5asxv7ZNb9qWfBmj3Gvr
-         FLyDZ86MrWswryX4hGbktY/t5aBw0YZYZg9/SToU6N9a3xCGyHF7kcOxFw7OqEmjnfBf
-         a4VStnOc5jrB4COpFBZd/4644x8xJ0DsFrqVru44apl0Hr831a7nhRy6b+YrFWcv+CWG
-         cMsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792490640; x=1793095440;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2xqJ7ego2cIVHaasX6cs9qwWsOg7oxEQGC5sNjYglzs=;
-        b=cOeyBbASVWqySGrlSBNFL9FczvHamNLpntx3valv3GfBjc9gFalItxoRw9iejytgM1
-         BXKpHx7VR+u7vrtf+2VXlwhGK4V5Rr8DrxAwZI2Ib+d810qQwQpqkx6dPIoTqdz6p69F
-         Q+BYR7yJIIgpZNguLFeMoQopUX4sdxPWWUIBXsUHSvpJnYvYJwZO2ILO6ubhIDi8HtLJ
-         W0VxIaU+fjKKRDCl7v18CgIeLwMpeQFyhg6B60p3Xl1dSlGf1xQmcJBrrn2jLCK6SqRw
-         MqfZQUGf9b9cGmB8ygA93NSY/yg3kMI29UVdDchZots0XY/IadC19zSAw7TTZwO2sQUo
-         eSVA==
-X-Forwarded-Encrypted: i=1; AKwUvByqx9GpuHEHead5/tANCa4j1LrD+uzTOBYSivLzGT8LW8mogajmf/dQWhaGhMTjvD1cdiuDVRc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIpxf0FATKaDfnOjLcNd2c1GKUspjDezPwOk4aDPEGC7fGbzzVO
-	ZzFOPi1Y/vou7e8bs5wFXS336enYQ5d56SCKVUF1uR5HsDuqSDRyU66U
-X-Gm-Gg: AYBFou3rC7yAL4mXhollNLGmTYiEh30KafzZdHlK+skp//53DsTm7IwJb7bSZKQ7xG1
-	/rBhs076KxWfrkHg2Olnk8lwPaQEkOQ2tqwExI6WkunVKLS61iWdskwOmnxLRtEihNANA37NyCU
-	m2S09nY1uuIoWeNeZXJiWgCMm8U7ki+PNMVC2r+MIU3mOppEq9Rof70Ebjp9oYsCRcSwDEGCWPP
-	NPs92dVZNAYsZeN4L4Bg2I1Uby5tGW22jyIEgTy2ncQvty8yq+e1HJfuWdqhPYWgGIcJjt28YID
-	rWGATuAW16nqLAlur/XxINvX1khkHhoJMeVz3b+/F8zl5IoNwdE82ShzeXzPhDihrjCnzUuBgGP
-	ivTa/ePKAlLng4DUQPoHXNYiO3pyz5g5GsePvwnBsPu0IjatiT435lzSSdbQ7bnydlyRka2Es86
-	RWEr6kGISLkCt2FUujLMB7lCfzgwB81cC6KM2CExP4WDi+PxDVEQmzOUPgtjO5t0KTBDIvNBEBG
-	8zwQUNGHPA=
-X-Received: by 2002:a17:90b:582d:b0:3ab:c674:cad9 with SMTP id 98e67ed59e1d1-3acef519dddmr9226879a91.54.1792490640339;
-        Tue, 20 Oct 2026 03:04:00 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad5c72df56sm3203446a91.0.2026.10.20.03.03.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 03:03:59 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: muchun.song@linux.dev,
-	osalvador@suse.de,
-	akpm@linux-foundation.org
-Cc: david@kernel.org,
-	tj@kernel.org,
-	linux-mm@kvack.org,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Daehyeon Ko <4ncienth@gmail.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YKoT3/ph
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792490732; x=1824026732;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=SJT/+gBJHlJD0VXTjaNN+IYFXoWI53OxK9KNOdxe4vI=;
+  b=YKoT3/phDLvj5Hpnr55QcDhJ6lnz6lcHPRV0PL/mykdgr/3hTolClcjz
+   6j91dez+ZTsSZ0JKayUUis2nNCPzQSiEYpCQkYHfSQXHeTlyza4mJQ9/r
+   v3WGwr+sc1byfCyde9BZC2neAzvLip184PwJT5gGx4hmm171QdMj+aRKR
+   Zy4K+86C0WY+77rt7LQoqtIhAFb+3ItkJD1RE73w8hmlcbbMCBlmn8oxv
+   JWTb+MlfYqeiIhEf1xjcfmWtoTLu48nzXMSd6+ri1xvjCejl7rkCzSS2R
+   I5xpMwZvZ+OEfa5Pjb29G7DEq34SZ4F0lEUEv73VTjWoSZejJ5aohwWui
+   g==;
+X-CSE-ConnectionGUID: ucWyM14HSiyKatF6vQAbnQ==
+X-CSE-MsgGUID: 6YHeJAq0QficB3w01aXXXg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1224790"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1224790"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 03:05:31 -0700
+X-CSE-ConnectionGUID: cEoAk2NCQ/2TR+dmwzZVzg==
+X-CSE-MsgGUID: Lt3eBeEJT3eam7z31OBOyA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="2778351"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO fedora) ([10.245.244.117])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 03:05:29 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Matthew Auld <matthew.auld@intel.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Natalie Vock <nat@pixelcluster.dev>,
+	Arun Pravin <arunpravin.paneerselvam@amd.com>,
+	dri-devel@lists.freedesktop.org,
 	stable@vger.kernel.org
-Subject: [PATCH] mm/hugetlb_cgroup: prevent use-after-free during cgroup offlining
-Date: Tue, 20 Oct 2026 19:03:45 +0900
-Message-ID: <20261020100345.1677643-1-4ncienth@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Subject: [PATCH] drm/ttm, drm/xe: Don't invoke the OOM killer when evicting VRAM at suspend
+Date: Tue, 20 Oct 2026 12:05:04 +0200
+Message-ID: <20261020100504.46684-1-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,129 +84,167 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-A normal hugetlb charge obtains the current task's hugetlb cgroup with
-css_tryget(), charges its page counter, and drops the CSS reference before
-the folio is committed under hugetlb_lock.
+When evicting user BOs from VRAM at suspend time, allocating system
+memory for the eviction may currently invoke the OOM killer. Under
+memory pressure it is preferable to abort the suspend and return
+-ENOMEM rather than killing processes.
 
-The task can be migrated while the allocation is in progress.  If the old
-CSS is then offlined, its final active-folio scan can finish before the
-charge becomes visible.  The allocation can subsequently charge that dying
-CSS and commit its pointer to the folio.  Once the CSS is freed, uncharging
-the folio accesses the freed hugetlb_cgroup, including its page counter and
-per-node usage.
+TTM's ttm_resource_manager_evict_all() uses a default operation
+context, which doesn't allow the caller to request
+__GFP_RETRY_MAYFAIL allocations. Introduce
+ttm_resource_manager_evict_all_ctx() taking a caller-supplied
+struct ttm_operation_ctx, keeping ttm_resource_manager_evict_all()
+as an exported wrapper using a default context so that existing
+users are unaffected. Also honor the ctx interruptible setting when
+waiting for the eviction fences.
 
-Keep the reference acquired by the charge until commit or cancellation.  At
-commit time, while holding hugetlb_lock, move an uncommitted charge out of
-each dying CSS to the first live ancestor.  The hierarchical charge already
-includes every ancestor, so moving it only requires canceling each dying
-CSS's local count.
+Use the new function from xe_bo_evict_all_user() with
+gfp_retry_mayfail set.
 
-This orders commit against the offline active-folio scan: either the scan
-runs after commit and reparents the folio, or commit observes the dying CSS
-after the scan and selects a live ancestor.  The retained reference also
-keeps the originally selected hugetlb_cgroup alive through this decision.
-Reservation charges retain their existing CSS lifetime and are not
-reparented.
+Note that the PM notifier eviction is best-effort and ignores errors.
+Any remaining BOs are evicted again from the .suspend() callback,
+where an -ENOMEM might then cause the suspend to be aborted.
 
-On an unmodified v7.3 kernel with a 128-page 2 MiB pool, a
-capability-free uid 1000 allocator racing administrator rmdir reproduced
-KASAN writes to a freed hugetlb_cgroup in three of three boots.  Controller
-disable reproduced the same fault.  With this change, 5,000 rmdir rounds
-with 1,075,055 successful faults and 2,000 controller-disable rounds with
-1,707,348 successful faults completed without KASAN, LOCKDEP, page-counter,
-or refcount reports.
-
-AI-assisted source review was used to identify the race and to help draft
-the reproducer and fix.  The interleaving and the resulting allocation,
-free, and use-after-free stacks were verified with tracefs and KASAN.
-
-Fixes: da1def55919f ("hugetlb/cgroup: add support for cgroup removal")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Fixes: c6a4d46ec1d7 ("drm/xe: evict user memory in PM notifier")
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Natalie Vock <nat@pixelcluster.dev>
+Cc: Arun Pravin <arunpravin.paneerselvam@amd.com>
+Cc: intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v6.16+
+Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9615
+Assisted-by: LLM
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- mm/hugetlb_cgroup.c | 43 ++++++++++++++++++++++++++++++++-----------
- 1 file changed, 32 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/ttm/ttm_resource.c | 37 +++++++++++++++++++++++-------
+ drivers/gpu/drm/xe/xe_bo_evict.c   |  5 +++-
+ include/drm/ttm/ttm_resource.h     |  5 ++++
+ 3 files changed, 38 insertions(+), 9 deletions(-)
 
-diff --git a/mm/hugetlb_cgroup.c b/mm/hugetlb_cgroup.c
-index 3fb41311e4c7d..1e0dec070b05f 100644
---- a/mm/hugetlb_cgroup.c
-+++ b/mm/hugetlb_cgroup.c
-@@ -310,11 +310,10 @@ static int __hugetlb_cgroup_charge_cgroup(int idx, unsigned long nr_pages,
- 		css_put(&h_cg->css);
- 		goto done;
- 	}
--	/* Reservations take a reference to the css because they do not get
--	 * reparented.
-+	/*
-+	 * Hold the CSS reference until commit. Reservations keep it longer
-+	 * because they are not reparented.
- 	 */
--	if (!rsvd)
--		css_put(&h_cg->css);
- done:
- 	*ptr = h_cg;
+diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
+index 4e6d3d658d85..5296b32a2e92 100644
+--- a/drivers/gpu/drm/ttm/ttm_resource.c
++++ b/drivers/gpu/drm/ttm/ttm_resource.c
+@@ -568,24 +568,26 @@ void ttm_resource_manager_init(struct ttm_resource_manager *man,
+ }
+ EXPORT_SYMBOL(ttm_resource_manager_init);
+ 
+-/*
+- * ttm_resource_manager_evict_all
+- *
++/**
++ * ttm_resource_manager_evict_all_ctx() - Evict all objects from a manager
+  * @bdev: device to use
+  * @man: manager to use
++ * @ctx: operation context for the eviction
+  *
+  * Evict all the objects out of a memory manager until it is empty.
+  * Part of memory manager cleanup sequence.
++ *
++ * Return: 0 on success, negative error code on failure.
+  */
+-int ttm_resource_manager_evict_all(struct ttm_device *bdev,
+-				   struct ttm_resource_manager *man)
++int ttm_resource_manager_evict_all_ctx(struct ttm_device *bdev,
++				       struct ttm_resource_manager *man,
++				       struct ttm_operation_ctx *ctx)
+ {
+-	struct ttm_operation_ctx ctx = { };
+ 	struct dma_fence *fence;
+ 	int ret, i;
+ 
+ 	do {
+-		ret = ttm_bo_evict_first(bdev, man, &ctx);
++		ret = ttm_bo_evict_first(bdev, man, ctx);
+ 		cond_resched();
+ 	} while (!ret);
+ 
+@@ -600,7 +602,7 @@ int ttm_resource_manager_evict_all(struct ttm_device *bdev,
+ 		if (fence && !dma_fence_is_signaled(fence)) {
+ 			dma_fence_get(fence);
+ 			spin_unlock(&man->eviction_lock);
+-			ret = dma_fence_wait(fence, false);
++			ret = dma_fence_wait(fence, ctx->interruptible);
+ 			dma_fence_put(fence);
+ 			if (ret)
+ 				return ret;
+@@ -611,6 +613,25 @@ int ttm_resource_manager_evict_all(struct ttm_device *bdev,
+ 
  	return ret;
-@@ -337,9 +336,26 @@ static void __hugetlb_cgroup_commit_charge(int idx, unsigned long nr_pages,
- 					   struct hugetlb_cgroup *h_cg,
- 					   struct folio *folio, bool rsvd)
- {
-+	struct hugetlb_cgroup *charged_h_cg = h_cg;
-+
- 	if (hugetlb_cgroup_disabled() || !h_cg)
--		return;
-+		goto out;
- 	lockdep_assert_held(&hugetlb_lock);
-+
-+	/*
-+	 * A task can be migrated after selecting h_cg. Once offlining starts,
-+	 * redirect the uncommitted charge to a live ancestor. hugetlb_lock
-+	 * serializes this decision with the offline scan, which reparents
-+	 * earlier commits.
-+	 */
-+	if (!rsvd) {
-+		while (css_is_dying(&h_cg->css)) {
-+			page_counter_cancel(&h_cg->hugepage[idx], nr_pages);
-+			/* The root CSS never dies. */
-+			h_cg = parent_hugetlb_cgroup(h_cg);
-+		}
-+	}
-+
- 	__set_hugetlb_cgroup(folio, h_cg, rsvd);
- 	if (!rsvd) {
- 		unsigned long usage =
-@@ -352,6 +368,9 @@ static void __hugetlb_cgroup_commit_charge(int idx, unsigned long nr_pages,
- 		WRITE_ONCE(h_cg->nodeinfo[folio_nid(folio)]->usage[idx],
- 			   usage + nr_pages);
- 	}
-+out:
-+	if (!rsvd && charged_h_cg)
-+		css_put(&charged_h_cg->css);
  }
- 
- void hugetlb_cgroup_commit_charge(int idx, unsigned long nr_pages,
-@@ -419,15 +438,17 @@ static void __hugetlb_cgroup_uncharge_cgroup(int idx, unsigned long nr_pages,
- 					     struct hugetlb_cgroup *h_cg,
- 					     bool rsvd)
- {
--	if (hugetlb_cgroup_disabled() || !h_cg)
-+	if (!h_cg)
- 		return;
- 
--	page_counter_uncharge(__hugetlb_cgroup_counter_from_cgroup(h_cg, idx,
--								   rsvd),
--			      nr_pages);
-+	if (!hugetlb_cgroup_disabled()) {
-+		struct page_counter *counter;
- 
--	if (rsvd)
--		css_put(&h_cg->css);
-+		counter = __hugetlb_cgroup_counter_from_cgroup(h_cg, idx, rsvd);
-+		page_counter_uncharge(counter, nr_pages);
-+	}
++EXPORT_SYMBOL(ttm_resource_manager_evict_all_ctx);
 +
-+	css_put(&h_cg->css);
- }
++/**
++ * ttm_resource_manager_evict_all() - Evict all objects from a manager
++ * @bdev: device to use
++ * @man: manager to use
++ *
++ * Same as ttm_resource_manager_evict_all_ctx() using a default,
++ * non-interruptible operation context.
++ *
++ * Return: 0 on success, negative error code on failure.
++ */
++int ttm_resource_manager_evict_all(struct ttm_device *bdev,
++				   struct ttm_resource_manager *man)
++{
++	struct ttm_operation_ctx ctx = { };
++
++	return ttm_resource_manager_evict_all_ctx(bdev, man, &ctx);
++}
+ EXPORT_SYMBOL(ttm_resource_manager_evict_all);
  
- void hugetlb_cgroup_uncharge_cgroup(int idx, unsigned long nr_pages,
+ /**
+diff --git a/drivers/gpu/drm/xe/xe_bo_evict.c b/drivers/gpu/drm/xe/xe_bo_evict.c
+index 7661fca7f278..a37316a27573 100644
+--- a/drivers/gpu/drm/xe/xe_bo_evict.c
++++ b/drivers/gpu/drm/xe/xe_bo_evict.c
+@@ -114,6 +114,9 @@ void xe_bo_notifier_unprepare_all_pinned(struct xe_device *xe)
+  */
+ int xe_bo_evict_all_user(struct xe_device *xe)
+ {
++	struct ttm_operation_ctx ctx = {
++		.gfp_retry_mayfail = true,
++	};
+ 	struct ttm_device *bdev = &xe->ttm;
+ 	u32 mem_type;
+ 	int ret;
+@@ -135,7 +138,7 @@ int xe_bo_evict_all_user(struct xe_device *xe)
+ 			continue;
+ 
+ 		if (man) {
+-			ret = ttm_resource_manager_evict_all(bdev, man);
++			ret = ttm_resource_manager_evict_all_ctx(bdev, man, &ctx);
+ 			if (ret)
+ 				return ret;
+ 		}
+diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
+index 714c533622c2..6cf9187a12eb 100644
+--- a/include/drm/ttm/ttm_resource.h
++++ b/include/drm/ttm/ttm_resource.h
+@@ -42,6 +42,7 @@ struct dmem_cgroup_device;
+ struct dmem_cgroup_region;
+ struct drm_printer;
+ struct ttm_device;
++struct ttm_operation_ctx;
+ struct ttm_resource_manager;
+ struct ttm_resource;
+ struct ttm_place;
+@@ -488,6 +489,10 @@ void ttm_resource_manager_set_dmem_region(struct ttm_resource_manager *man,
+ int ttm_resource_manager_dmem_reclaim(struct dmem_cgroup_pool_state *pool,
+ 				      u64 target_bytes, void *priv);
+ 
++int ttm_resource_manager_evict_all_ctx(struct ttm_device *bdev,
++				       struct ttm_resource_manager *man,
++				       struct ttm_operation_ctx *ctx);
++
+ int ttm_resource_manager_evict_all(struct ttm_device *bdev,
+ 				   struct ttm_resource_manager *man);
+ 
+-- 
+2.56.0
+
