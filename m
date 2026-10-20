@@ -1,45 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792518121;
-	b=hr7pBcQFSSJvvPKmT3cTW26HO1vNmYQ0KueZAUySCEWI2Z5YUEzpQH4yTSCllyhNRXSO
-	 22CT4OArPQvN4iMAXVdyAcUHd5TVRXBOquMJNpxX/OOTRXVH0YKuMtdYrAt2ga9KjdL4c
-	 8dcEbaE+C3JqX2A5IP2BD2N9Vo4smneXThiAobv8/gvW++8EG0VtUd6W4w5U3e1VR9qta
-	 Q9uEnVqW8NtDwFsTsf60p3Je1LHirEUil1uJNoWkOMfIAQseYR+APAdhQiBMhzADOjiQF
-	 nMZL9Xt/2FzYBxDWKDusct9bwD5cDmGZ+5pNvOC6ideNxMgcBxExPconKyo8p7sv0Rw==
+	t=1792518242;
+	b=BY2Oi+yijEvwwRiLh/EvS+wiAY98bu5WJu6E4rAO6vYOTuvEWS2pDlHa4t2C14Tp1tSf
+	 gL7LyUUQxZdvxtswfxLYsgWQVArDMb3ucV8WPSOL7sPmvv3cSDPJn8HSa2PxZWXV4rkN7
+	 nEEgd0IJVwM/j7bUhWqmM/k8WLph2596ENI+M+ajORWCLEF/NPLLAU6Um+vuovS0fJhDf
+	 yiKMQrsjHzPBRu8gNH31jsg1b/gQzJ5AZSjtOhUDma0kSgPRZrHv2Fy8un1dR0cFMoDL/
+	 gJXga049JXEdTokjveQ78bqCR8wTU6YWRnVNKrWtbFO/DJIAvo1wpfAqhI6TIXZ4D4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792518121;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=y9x1TIOy5neS+EZYUM0L8BjZDwzUbz3frkQwuPq8w8s=;
-	b=KlhLBOHuqvHJjtzWprXXm/ZOw7z+oGwU51kAJ9Rab60wHj1V/eXF9CFbjUbdU4rt7WBF
-	 hFVUDZq0bN4WRDw51d+bPmxdXG9ncd1W2OfpkuMnP5k/AF2KmJxcTTx6FtIXJu5iKpHyO
-	 7C33osecCtgF1sm1PPZAndHjANjQUMcTlvJO6xyPzxsQdxtdn00YKbkp4Q3jx1zZCSORK
-	 uUKCx3MnEMh3BpIZ+jdcaBDDejCTLYUSTvOr7WPfckCQ//eF6xnqEBclTIBBJpc0ySNOj
-	 sob35m2BAMECvUjJqv4bbItUT/z6XHBPF7V5ABDvBhuotjZoSP/jutkR/xoEArrDmUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792518242;
+	h=Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=J13Gii564LW2bB1NzdfkwHO2ZrxJK69Wn5jRIjqhhls=;
+	b=lH3duVT+Qv1E4qQE+dy/Wd3t86aNgMZRutWV7Ofl/U10vB55hNTEqm+4mQjjztZLsLpj
+	 y9GpsYH14UvjSm0u2fFo4UrpzFVzVD++ccfTHOLhZGqQBdvok0iLRlaOZsFjG9P67k+FR
+	 dCsZGqLhx1jjlX7qTWmTzr87ZEJsIgDtuuhMcg9QrtzSd6+hwR0kJpGPJc4Q/Dshx1gHk
+	 SQkodOFn0A11mlSBiDtsRaeTi8NnQ7r9rKF3ewsepWQBhdweQCeHkMhbQKqbBTFHu/BPm
+	 Ct7nd7Rru9SJ/c0QitpRtuLgUmGwswPhDcgnvz33QFKhJxEYEJHwt5N4xKa3YKbF8Ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=vSBOsi27;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9DF606A324;
-	Tue, 20 Oct 2026 17:42:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=vSBOsi27
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B8201F000C9;
-	Tue, 20 Oct 2026 17:42:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792518120;
-	bh=y9x1TIOy5neS+EZYUM0L8BjZDwzUbz3frkQwuPq8w8s=;
-	h=Date:To:From:Subject;
-	b=vSBOsi27e2yhBmzJBFsI+9Sy5J7Z9qqiNHZEq+hV1eHiwC31/cXqwmXSQJClJcrhv
-	 HV1n6IJRFxj+XyFXfgutLQb8YDcqTH4878nzYhD+t88lMG2I1zvDApH+T5sgAQ8Y98
-	 dRJKKRcIyhIq4FKkAgbOxvBovV4OygSftqd/mEF4=
-Date: Tue, 20 Oct 2026 10:41:30 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,shawnq1@163.com,rppt@linux.vnet.ibm.com,pfalcato@suse.de,peterx@redhat.com,liam@infradead.org,kas@kernel.org,jannh@google.com,gourry@gourry.net,david@kernel.org,ljs@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-vma-avoid-broken-uffd-merge-on-mremap.patch added to mm-unstable branch
-Message-Id: <20261020174200.5B8201F000C9@smtp.kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 7A949606A326;
+	Tue, 20 Oct 2026 17:44:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 9B9E91F000CA;
+	Tue, 20 Oct 2026 17:44:01 +0000 (UTC)
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: keyrings@vger.kernel.org,
+	Eric Biggers <ebiggers@kernel.org>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	stable@vger.kernel.org,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	linux-kernel@vger.kernel.org (open list),
+	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM)
+Subject: [PATCH v4 2/3] KEYS: Reject descriptions larger than KEY_MAX_DESC_SIZE
+Date: Tue, 20 Oct 2026 20:43:20 +0300
+Message-ID: <20261020174325.2229448-3-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261020174325.2229448-1-jarkko@kernel.org>
+References: <20261020174325.2229448-1-jarkko@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -48,163 +51,171 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+KEY_MAX_DESC_SIZE includes the trailing NULL character. Descriptions
+generated from payloads and in-kernel paths bypass the userspace limit.
 
-The patch titled
-     Subject: mm/vma: avoid broken uffd merge on mremap
-has been added to the -mm mm-unstable branch.  Its filename is
-     mm-vma-avoid-broken-uffd-merge-on-mremap.patch
+Reject descriptions at or above KEY_MAX_DESC_SIZE with -EINVAL at the
+following sites:
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-vma-avoid-broken-uffd-merge-on-mremap.patch
+- key_alloc(): before quota calculation
+- __key_create_or_update(): before key_set_index_key()
+- keyring_search(): before match_preparse
+- request_key_and_link(): before match_preparse
+- request_key_rcu(): before check_cached_key()
 
-This patch will later appear in the mm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: mm/vma: avoid broken uffd merge on mremap
-Date: Tue, 20 Oct 2026 15:55:30 +0100
-
-Userfaultfd often causes unexpected interactions within mm, and does so at
-the intersection of uffd, mremap() and VMA merging.
-
-When an mremap of a VMA occurs, copy_vma_and_data() calls
-mremap_userfaultfd_prep() to notify uffd of this.
-
-However, mremap_userfaultfd_prep() simply drops the UFFD context for the
-VMA if the user did not register it for remap, i.e. didn't specify the
-UFFD_FEATURE_EVENT_REMAP flag.
-
-This is OK for the VMA itself, as upon page table move, move_ptes() clears
-UFFD page table flags, using vma_has_uffd_without_event_remap() to
-determine whether to do so.
-
-However, this doesn't account for merging with adjacent VMAs, whose page
-tables won't have received this treatment, and thus latent UFFD markers
-will be left around.
-
-Worse, it'll break UFFD for any VMAs it is merged with. This is very
-surprising behaviour for a user, who will then simply not receive UFFD
-events for VMAs they ought to.
-
-Resolve the issue by explicitly checking for this case via
-vma_has_uffd_without_event_remap() in vma_merge_copied_range(), the merge
-function explicitly designated for mremap() operations.
-
-Also update the userland VMA tests accordingly.
-
-Link: https://lore.kernel.org/20261020-uffd-remap-fix-v1-1-0f34fc181f0a@kernel.org
-Fixes: 3cfd22be0ad6 ("userfaultfd: clear flag if remap event not enabled")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: shaos <shawnq1@163.com>
-Closes: https://lore.kernel.org/all/20261020110748.959870-1-shawnq1@163.com/
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Mike Rapoport <rppt@linux.vnet.ibm.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: <stable@vger.kernel.org>
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Fixes: f771fde82051 ("keys: Simplify key description management")
+Reviewed-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 ---
+ include/linux/key.h         |  3 +++
+ security/keys/key.c         | 10 +++++++++-
+ security/keys/keyctl.c      |  2 --
+ security/keys/keyring.c     |  7 ++++++-
+ security/keys/request_key.c | 14 ++++++++++++--
+ 5 files changed, 30 insertions(+), 6 deletions(-)
 
- mm/vma.c                          |    5 +++++
- tools/testing/vma/include/stubs.h |    5 +++++
- 2 files changed, 10 insertions(+)
-
---- a/mm/vma.c~mm-vma-avoid-broken-uffd-merge-on-mremap
-+++ a/mm/vma.c
-@@ -1211,6 +1211,11 @@ static struct vm_area_struct *vma_merge_
+diff --git a/include/linux/key.h b/include/linux/key.h
+index 26139c3adf62..3b8af14fb323 100644
+--- a/include/linux/key.h
++++ b/include/linux/key.h
+@@ -37,6 +37,9 @@ struct net;
  
- 	vmg->copied_from = vmg->middle;
- 	vmg->middle = NULL;
-+
-+	/* If not registered for remap, uffd context will be cleared. */
-+	if (vma_has_uffd_without_event_remap(vmg->copied_from))
-+		return NULL;
-+
- 	return vma_merge_new_range(vmg);
- }
+ #undef KEY_DEBUGGING
  
---- a/tools/testing/vma/include/stubs.h~mm-vma-avoid-broken-uffd-merge-on-mremap
-+++ a/tools/testing/vma/include/stubs.h
-@@ -386,6 +386,11 @@ static inline bool is_mergeable_vm_userf
- 	return true;
- }
- 
-+static inline bool vma_has_uffd_without_event_remap(struct vm_area_struct *vma)
-+{
-+	return false;
-+}
++/* Maximum length of a key description, including the trailing NUL */
++#define KEY_MAX_DESC_SIZE 4096
 +
- static inline bool anon_vma_name_eq(struct anon_vma_name *anon_name1,
- 				    struct anon_vma_name *anon_name2)
- {
-_
-
-Patches currently in -mm which might be from ljs@kernel.org are
-
-mm-vma-fix-mmap_prepare-file-handling-remove-file_doesnt_need_get.patch
-mm-vma-introduce-and-use-vma_can_merge.patch
-mm-consistently-validate-vma-state-after-mmap-hooks.patch
-mm-vma-ensure-mmap_prepare-doesnt-set-actions-on-a-mergeable-vma.patch
-mm-make-map_kernel_pages_-internal-and-unexported.patch
-mm-vma-tidy-up-map-kernel-pages-enum-values.patch
-mm-assert-mmap-lock-held-use-new-flags-api-in-vm_insert_page.patch
-mm-add-mmap-action-for-discontiguous-kernel-page-mapping.patch
-docs-filesystems-update-mmap_prepare-docs-for-discontig-kernel-pgs.patch
-drivers-usb-mon-update-to-use-mmap_prepare-map-kernel-pages.patch
-infiniband-update-hfi1-to-use-remap_vmalloc_range.patch
-selinux-reject-writable-opens-of-policy-file-drop-mmap-shared-write-check.patch
-alsa-pcm-use-vm_insert_page-to-map-pcm-status-page.patch
-bpf-arena-mark-arena_map_mmap-mappings-vm_mixedmap.patch
-mm-vma-add-vma_is_mm_managed-predicates.patch
-mm-vma-only-allow-mmap-to-clear-vma_maywrite_bit-if-not-mm-managed.patch
-mm-vma-add-and-use-vma__is_fixed_mapping.patch
-scsi-sg-convert-mmap-hook-to-mmap_prepare-and-rework.patch
-fbdev-defio-assert-fbinfo_virtfb-drop-vm_io-add-vm_mixedmap.patch
-hsi-cmt_speech-convert-mmap-hook-to-mmap_prepare-refactor.patch
-mm-gup-error-out-early-on-vma_mayread_bit-vmas.patch
-uprobes-remove-vm_io-set-vm_mixedmap-for-mapped-kernel-pages.patch
-mm-mlock-clear-vma_locked_mask-over-mmap-callback.patch
-mm-mlock-eliminate-weird-vma_io_bit-abuse-and-simplify.patch
-mm-vma-enforce-that-mm-managed-mappings-may-not-set-vma_io_bit.patch
-mm-remove-vma_io_bit-check-in-vma_is_mm_managed.patch
-mm-remove-hugetlb_inlineh.patch
-mm-rename-is_vm_hugetlb_page-to-vma_is_hugetlb.patch
-mm-drop-some-redundant-checks-around-hugetlb-vmas.patch
-mm-vma-introduce-vma_is_mm_backed.patch
-mm-madvise-update-is_valid_guard_vma-to-use-vma_is_mm_backed.patch
-mm-uffd-use-predicates-for-userfaultfd-checks.patch
-mm-madvise-use-predicates-for-madvise-madv_dofork.patch
-mm-eliminate-vma_special_flags-usage-when-hugetlb-explicitly-tested.patch
-mm-eliminate-vma_special_flags-check-in-lru_gen_look_around.patch
-mm-avoid-use-of-vma_special_flags-in-migrate_vma_setup.patch
-mm-eliminate-vm_special-vma_special_flags.patch
-fuse-dax-do-not-set-vm_mixedmap.patch
-mm-huge_memory-remove-vma_is_special_huge.patch
-mm-vma-const-ify-vma_assert_stabilised-and-associated-functions.patch
-mm-implement-and-use-vma_has_anon_rmap-silence-kcsan.patch
-mm-update-comments-to-refer-to-anon-rmap-rather-than-anon_vma.patch
-mm-vma-dont-remove-vma-from-rmap-if-pgoff-unchanged.patch
-mm-vma-avoid-spurious-write-locks-when-mm-mm_lock_seq-overflows.patch
-mm-mremap-populate-calculated-fields-in-vrm-state-correctly.patch
-mm-mremap-correctly-uncharge-accountable-vmas-in-error-path.patch
-mm-vma-avoid-broken-uffd-merge-on-mremap.patch
+ #define KEY_POS_VIEW	0x01000000	/* possessor can view a key's attributes */
+ #define KEY_POS_READ	0x02000000	/* possessor can read key payload / view keyring */
+ #define KEY_POS_WRITE	0x04000000	/* possessor can update key payload / add link to keyring */
+diff --git a/security/keys/key.c b/security/keys/key.c
+index 6ebb8691551f..e88548f1a704 100644
+--- a/security/keys/key.c
++++ b/security/keys/key.c
+@@ -245,6 +245,8 @@ struct key *key_alloc(struct key_type *type, const char *desc,
+ 	}
+ 
+ 	desclen = strlen(desc);
++	if (desclen >= KEY_MAX_DESC_SIZE)
++		goto error;
+ 	quotalen = desclen + 1 + type->def_datalen;
+ 
+ 	/* get hold of the key tracking for this user */
+@@ -829,6 +831,7 @@ static key_ref_t __key_create_or_update(key_ref_t keyring_ref,
+ 	key_ref_t key_ref;
+ 	int ret;
+ 	struct key_restriction *restrict_link = NULL;
++	size_t desclen;
+ 
+ 	/* look up the key type to see if it's one of the registered kernel
+ 	 * types */
+@@ -869,7 +872,12 @@ static key_ref_t __key_create_or_update(key_ref_t keyring_ref,
+ 		if (!index_key.description)
+ 			goto error_free_prep;
+ 	}
+-	index_key.desc_len = strlen(index_key.description);
++	desclen = strlen(index_key.description);
++	if (desclen >= KEY_MAX_DESC_SIZE) {
++		key_ref = ERR_PTR(-EINVAL);
++		goto error_free_prep;
++	}
++	index_key.desc_len = desclen;
+ 	key_set_index_key(&index_key);
+ 
+ 	ret = __key_link_lock(keyring, &index_key);
+diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
+index 36ffba0ebba6..d6b10fd67627 100644
+--- a/security/keys/keyctl.c
++++ b/security/keys/keyctl.c
+@@ -24,8 +24,6 @@
+ #include <keys/request_key_auth-type.h>
+ #include "internal.h"
+ 
+-#define KEY_MAX_DESC_SIZE 4096
+-
+ static const unsigned char keyrings_capabilities[2] = {
+ 	[0] = (KEYCTL_CAPS0_CAPABILITIES |
+ 	       (IS_ENABLED(CONFIG_PERSISTENT_KEYRINGS)	? KEYCTL_CAPS0_PERSISTENT_KEYRINGS : 0) |
+diff --git a/security/keys/keyring.c b/security/keys/keyring.c
+index 7143f3079d20..2c54f7f84c55 100644
+--- a/security/keys/keyring.c
++++ b/security/keys/keyring.c
+@@ -957,7 +957,6 @@ key_ref_t keyring_search(key_ref_t keyring,
+ 	struct keyring_search_context ctx = {
+ 		.index_key.type		= type,
+ 		.index_key.description	= description,
+-		.index_key.desc_len	= strlen(description),
+ 		.cred			= current_cred(),
+ 		.match_data.cmp		= key_default_cmp,
+ 		.match_data.raw_data	= description,
+@@ -965,8 +964,14 @@ key_ref_t keyring_search(key_ref_t keyring,
+ 		.flags			= KEYRING_SEARCH_DO_STATE_CHECK,
+ 	};
+ 	key_ref_t key;
++	size_t desclen;
+ 	int ret;
+ 
++	desclen = strlen(description);
++	if (desclen >= KEY_MAX_DESC_SIZE)
++		return ERR_PTR(-EINVAL);
++	ctx.index_key.desc_len = desclen;
++
+ 	if (recurse)
+ 		ctx.flags |= KEYRING_SEARCH_RECURSE;
+ 	if (type->match_preparse) {
+diff --git a/security/keys/request_key.c b/security/keys/request_key.c
+index fa2bb9f2f538..ef00c2b08fe0 100644
+--- a/security/keys/request_key.c
++++ b/security/keys/request_key.c
+@@ -584,7 +584,6 @@ struct key *request_key_and_link(struct key_type *type,
+ 		.index_key.type		= type,
+ 		.index_key.domain_tag	= domain_tag,
+ 		.index_key.description	= description,
+-		.index_key.desc_len	= strlen(description),
+ 		.cred			= current_cred(),
+ 		.match_data.cmp		= key_default_cmp,
+ 		.match_data.raw_data	= description,
+@@ -595,8 +594,14 @@ struct key *request_key_and_link(struct key_type *type,
+ 	};
+ 	struct key *key;
+ 	key_ref_t key_ref;
++	size_t desclen;
+ 	int ret;
+ 
++	desclen = strlen(description);
++	if (desclen >= KEY_MAX_DESC_SIZE)
++		return ERR_PTR(-EINVAL);
++	ctx.index_key.desc_len = desclen;
++
+ 	kenter("%s,%s,%p,%zu,%p,%p,%lx",
+ 	       ctx.index_key.type->name, ctx.index_key.description,
+ 	       callout_info, callout_len, aux, dest_keyring, flags);
+@@ -787,7 +792,6 @@ struct key *request_key_rcu(struct key_type *type,
+ 		.index_key.type		= type,
+ 		.index_key.domain_tag	= domain_tag,
+ 		.index_key.description	= description,
+-		.index_key.desc_len	= strlen(description),
+ 		.cred			= current_cred(),
+ 		.match_data.cmp		= key_default_cmp,
+ 		.match_data.raw_data	= description,
+@@ -797,6 +801,12 @@ struct key *request_key_rcu(struct key_type *type,
+ 	};
+ 	struct key *key;
+ 	key_ref_t key_ref;
++	size_t desclen;
++
++	desclen = strlen(description);
++	if (desclen >= KEY_MAX_DESC_SIZE)
++		return ERR_PTR(-EINVAL);
++	ctx.index_key.desc_len = desclen;
+ 
+ 	kenter("%s,%s", type->name, description);
+ 
+-- 
+2.47.3
 
