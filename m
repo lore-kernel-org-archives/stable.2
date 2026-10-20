@@ -1,78 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.165.235.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792494592;
-	b=fHd2sBlQl5hPeIElJzqKyNIzJNPGitn5jGk6FCFsbDIHNRh/hiYdCtHq4lNk8nhH++TH
-	 +rL6ISwGtZGZ/4RHGeZMAgkwfg0D48VgqcmemrD3GM4tSymtS/yHJ/qdJ+iKGW+WLc+GV
-	 lm/dDY9ZHIHdfr1+deZOUlcJ1fe5xp8V2WlthKRtOPA8TMzVPey796yZl6j2r+8POdKla
-	 7Nq+EsoW42wrbuuU/loUjwRoPMxiR7v16Sy59aVAVVuvdpCL8hebB0dFe2EeRzCHUlj6Q
-	 pMgNs/no+KSd52kTwMR8py9j6MuKw2pJKopHkXzeJFyEBGuhvW2ZmT46MDWse2Kr15A==
+	t=1792494833;
+	b=Ck5dp3EGMtOLBGJ48dk2d4wJ9rzFm/FaWY5JRECaVfJkIRPjciD6mz2q8f5EQZk0t27G
+	 BcV3glzU4hgt8ISm8WhsS9uUOEjqe2YnIq2OLRxd2nZ/0vVvlEEkfSyxk1BWE194gwR7S
+	 rJmnb/Nxo27UDexhhTcxy++JrEPQydcKNIY3X1rdukz9HuGE0U9mIXE1UCpIOeOkSMnkx
+	 u+eOYc3JGB6y0w49Q6AtVVAoQ7GAJeqPClArXvRoFZYpcOKABmX17rU3YJVc3wmRp031g
+	 VySFa0t1w8qWnCabSJwyOmTzrTTsg0zBajGwP+biE8Juxam2aqEtxfOEBbKDHJt/q3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792494592;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=qze9GsVDCuvc0w6qB++Wj9RPinmXFdwTA+6BdCxY1/M=;
-	b=2vjUxvmemqAareqxSDmyXhGOZmtfwvq3eE63+/NdzljTIyAW+AQEjy3BEjYcxDG4HZl6
-	 1r9Xg3c7oB7cT83dqW7CDtkLd3uuUpeg4A7iHWjfpCXwl5tfrj4s16kdn9Qo/FI4ekRi5
-	 NtF3gGP1lvUFqONa1VRvFkMg4Zv3/uQpnp5AEhdJT6H/0PqhkB86FqdknZXSZEOVhYr63
-	 IxuNmK65cWnJaJt4lrCqHYMGwidL/cyFVe9N/UTkWdnTPcXoNZcR0qRTfy0jcUA6FvXsl
-	 9s8CAZcFcdkl2d/kMmKuTXhaC8wRO1JKot9JkSArBn1sYrgS9Nms4tbkh0vXTQsmp3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792494833;
+	h=DMARC-Filter:From:DKIM-Signature:To:Cc:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=yQkQbbajxJs9ic68pd6bUQHnIJkpqAvbMwyFnVe+2yg=;
+	b=WV83hJ1UKYiN4PpvWX97o71FfFMyzC8PN3fEwXeG1pA1yZxy8N3+enfou1CWmmNptFeS
+	 j7K05iY6rdhYHsvvcgfwqld3HaX/kzW6V2zHKdgK2hHpioRw1GJC8yC2kU7q/X1jV6ERz
+	 ICAmnTg9isHdEB5gOLaJow0T6dE4hXgf9OP+K7LDwpEoe9zaVpQOcNwB0zpsyiYl56HR8
+	 6GN1uz+Z7VEL2UqWl8U0HDP0dRgevUb3z9t/Orm6FGIzkVHUrbA9i0dcNGAzB/Ej98z7R
+	 KQMhCtr3ooNZ3AoqBHRwtoDctjYEJq6aWWkzwxbJguqXS066ZcGWr4eBCAlg3F2pdkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=NmWXkX5k;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=QaPbA8Nk;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=mutemail.de;
+	spf=pass smtp.mailfrom=mutemail.de;
+	dkim=pass header.d=mutemail.de header.i=@mutemail.de header.a=rsa-sha256 header.s=2024 header.b=WpJSlUSP;
+	arc=none smtp.remote-ip=188.165.235.121
+Received: from mail.mutemail.de (mail.mutemail.de [188.165.235.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF00606A323;
-	Tue, 20 Oct 2026 11:09:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FF00606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E036606A31F
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 11:13:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E036606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mutemail.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mutemail.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=NmWXkX5k;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=QaPbA8Nk
-Date: Tue, 20 Oct 2026 13:09:48 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792494589;
+	dkim=pass (2048-bit key, unprotected) header.d=mutemail.de header.i=@mutemail.de header.a=rsa-sha256 header.s=2024 header.b=WpJSlUSP
+From: "Felix K." <fk@mutemail.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mutemail.de; s=2024;
+	t=1792494824;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qze9GsVDCuvc0w6qB++Wj9RPinmXFdwTA+6BdCxY1/M=;
-	b=NmWXkX5kiRg47zHcScMu4FDG96YeUHWrE1RYjqbPrQ1ZhB5vy01TKBsfKFr5mFWCPBJ899
-	MDXKEuI2g2g0aBFfFdSOkXqkc+QgKfYcDd6jBbrQfr1Y6Z2jKBKS0JjQzxbtXc5FGYteby
-	Z9JeX93y8BCaUd5vJpg4+9I3IYqT58hAikmwvmLgku0cyKEYCUCbCvENRTqqCHGPzWVRwX
-	a2druN3/XV93Uc8a9HhNkFyJ9/Ufi0TS4H5g4h672pvjDvsTxQLJTL3B5/HLFa/iopNwuw
-	BlPUlPEvgu97qvCqRqjQswP/pFcO5/0nooZPxNHGQIAyBLJXCClUO73jO2CZDg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792494589;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qze9GsVDCuvc0w6qB++Wj9RPinmXFdwTA+6BdCxY1/M=;
-	b=QaPbA8Nkwz1OAhyo1nPjOtN2F30jqrtsR5wGbN3Df2I5yvgZqmk1ZxKGT5qns2rGAB7zLC
-	mM//MeqmqRVENJCg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Alexander Duyck <alexanderduyck@fb.com>,
-	David Hildenbrand <david@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/page_alloc: skip shuffling and reporting for no-lock
- frees
-Message-ID: <20261020110948.wv_yGAhQ@linutronix.de>
-References: <20261005063515.6312-1-kmehltretter@gmail.com>
- <f5e7b114-2bda-49e3-974f-170211501203@kernel.org>
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=yQkQbbajxJs9ic68pd6bUQHnIJkpqAvbMwyFnVe+2yg=;
+	b=WpJSlUSPF2a0H9eZ3OLhsPdPoYThjXKRb/xPgB58g0bz3eCZkTNtRN46bnGj7C1/xn/b4h
+	IrdKn1v0/BskNa26jlQlCZukKdJWa/3JR9Q5I6fQ4HLuIbk8Rwx04H8ruHekRd79DvZl5Y
+	BnrxXRaH+zkaMDNUSs3fD1RD7zQ03Dcj0L4jocSQ4DaauwO2Du2muGZTfhSrcz+OlaFu8Y
+	KySPNx1A5Vw+st9o7gaA/E47300T8AYC27a+c/8DEOM0nUUhF9q3ovzLvyZZbswO49SA54
+	HhIGKm/SPhIBXt1Jg3XkXPmroIu6M137kWYE/Um49b53kTeHF06MeRm+Wp9oSA==
+Authentication-Results: ORIGINATING;
+	auth=pass smtp.auth=fk@mutemail.de smtp.mailfrom=fk@mutemail.de
+To: fk@mutemail.de
+Cc: stable@vger.kernel.org
+Subject: [PATCH] wifi: ath9k: fix beacon slot selection once TSF exceeds 2^39 us
+Date: Tue, 20 Oct 2026 13:13:24 +0200
+Message-ID: <20261020111324.3499372-1-fk@mutemail.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,25 +60,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <f5e7b114-2bda-49e3-974f-170211501203@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-20 12:02:01 [+0200], Vlastimil Babka (SUSE) wrote:
-> > An instrumented PREEMPT_RT lockdep run forced a random-bit cache refill
-> > while calling free_pages_nolock() under a raw spinlock. The unpatched
-> > allocator reported:
-> > 
-> >     BUG: Invalid wait context
-> > 
-> > The attempted lock was batched_entropy_u64.lock in get_random_u64().
-> > Lockdep showed the raw test lock and zone->lock both held.
-> 
-> In slab we solved this by using prandom - commit a1e244a9f177 ("mm/slab: use
-> prandom if !allow_spin")
-> Could be better?
+ath9k_beacon_choose_slot() derives the staggered beacon slot from the
+TSF as
 
-I hated it at first but now that I looked longer at it, it is not that
-bad.
+	tsftu = TSF_TO_TU((tsf * ATH_BCBUF) >> 32, tsf * ATH_BCBUF);
+	slot = (tsftu % (intval * ATH_BCBUF)) / intval;
 
-Sebastian
+TSF_TO_TU() truncates its result to 32 bits, so tsftu is
+(tsf / 128) mod 2^32 and wraps every 2^39 us (~6.36 days). 2^32 is not
+a multiple of intval * ATH_BCBUF (800 for the default beacon interval
+of 100 TU, 2^32 mod 800 = 96), so every wrap shifts the computed
+position within the beacon interval by 96/100 of a slot.
+
+After the first wrap the SWBA handler therefore picks the vif of the
+previous slot: every BSS sends its beacon one slot (12.8 ms) late,
+while its timestamp is still corrected by the tsf_adjust of its own
+slot, so clients see the beacon 12.8 ms after their expected TBTT.
+After n wraps the beacons are n slots late (up to 89.6 ms), until the
+error wraps around after 8 wraps (~51 days). This affects every AP or
+mesh setup, also with a single vif, since 8 slots are always used.
+
+Internal resets (e.g. on stuck beacon) preserve the TSF, so the state
+only recovers when the interface is restarted and ath9k_start() resets
+the TSF.
+
+Compute the offset within the beacon interval from the 64-bit TSF
+instead. For TSF values below 2^39 us the result is identical to the
+old calculation.
+
+Observed on a TP-Link Archer C7 v2 (QCA9558, AHB) running OpenWrt
+25.12.5 (backports 6.18.26) with three AP interfaces on 2.4 GHz. The
+TSF was set via debugfs (regidx/regval 0x804c/0x8050) followed by
+"echo 1 > ath9k/reset", and beacons were captured with a second device
+in monitor mode. Beacon timestamp modulo beacon interval, identical for
+all three BSS:
+
+  TSF                       offset
+  3.40 days  (0 wraps)        384 us
+  6.36 days  (1 wrap)       13184 us
+  25.45 days (4 wraps)      51584 us
+  44.54 days (7 wraps)      89984 us
+  50.90 days (8 wraps)        384 us
+
+With the beacons 89.6 ms late, a power saving IoT client (EV charger
+controller) went from 40 ms to 1.4 s average ping RTT (max 7.2 s) with
+1.9% packet loss within 9 minutes. Most other clients were not visibly
+affected in that time.
+
+Tested with this patch applied on the same device, using the same
+debugfs TSF method: the beacons are no longer delayed. The offset stays
+at 384 us for all three BSS with the TSF set to 0, 1, 4 and 7 wraps,
+and with the TSF set to 7 wraps the EV charger controller stayed at
+40 ms average ping RTT (max 117 ms, no loss) over 5 minutes.
+
+ath9k_htc_choose_bslot() in htc_drv_beacon.c uses a similar 32-bit
+TU conversion (wrapping every 2^42 us, ~50.9 days); it is not changed
+here as I cannot test it.
+
+Fixes: dd347f2fb2dd ("ath9k: fix beacon timer handling issues")
+Cc: stable@vger.kernel.org
+Signed-off-by: Felix K. <fk@mutemail.de>
+---
+ drivers/net/wireless/ath/ath9k/beacon.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/wireless/ath/ath9k/beacon.c b/drivers/net/wireless/ath/ath9k/beacon.c
+index 4a27e3753..8a9bd23d3 100644
+--- a/drivers/net/wireless/ath/ath9k/beacon.c
++++ b/drivers/net/wireless/ath/ath9k/beacon.c
+@@ -308,7 +308,7 @@ static int ath9k_beacon_choose_slot(struct ath_softc *sc)
+ 	struct ath_common *common = ath9k_hw_common(sc->sc_ah);
+ 	struct ath_beacon_config *cur_conf = &sc->cur_chan->beacon;
+ 	u16 intval;
+-	u32 tsftu;
++	u32 offset;
+ 	u64 tsf;
+ 	int slot;
+ 
+@@ -322,11 +322,11 @@ static int ath9k_beacon_choose_slot(struct ath_softc *sc)
+ 	intval = cur_conf->beacon_interval ? : ATH_DEFAULT_BINTVAL;
+ 	tsf = ath9k_hw_gettsf64(sc->sc_ah);
+ 	tsf += TU_TO_USEC(sc->sc_ah->config.sw_beacon_response_time);
+-	tsftu = TSF_TO_TU((tsf * ATH_BCBUF) >>32, tsf * ATH_BCBUF);
+-	slot = (tsftu % (intval * ATH_BCBUF)) / intval;
++	div_u64_rem(tsf, TU_TO_USEC(intval), &offset);
++	slot = offset * ATH_BCBUF / TU_TO_USEC(intval);
+ 
+-	ath_dbg(common, BEACON, "slot: %d tsf: %llu tsftu: %u\n",
+-		slot, tsf, tsftu / ATH_BCBUF);
++	ath_dbg(common, BEACON, "slot: %d tsf: %llu offset: %u\n",
++		slot, tsf, offset);
+ 
+ 	return slot;
+ }
+-- 
+2.53.0
+
