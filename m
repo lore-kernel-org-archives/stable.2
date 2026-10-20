@@ -1,81 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792467843;
-	b=Gc9pPD5/TQ1CnFhCOhOwtJvc09+LzSa67su0evhphhPe+Cb77x6E4Rh0OkC7lHbzncLT
-	 geeGQIYTT/PbgKhEdSSj6dE6gvetqYD5hOGRrMDbOjB59P25qF637WGG9kBRmbYnD5lY3
-	 rvkEPsdTggnhrTkaLcddkbd01SrGC48w88lsGZgia2z34SVQEiG5y0LV61KRt0E2wHom3
-	 yzof+yabzLYGdq//qxumdz+xiZtEqil+1JvznpuKXOT4VoEDM23nYPRHb8RLbH5AkzW89
-	 w7CnELyAH1DWhm/XlKm/DPSSPzzcrkmt61KYAAlis5FOdzxUnFuhfO8DMsRs6j1T9Vg==
+	t=1792467847;
+	b=0B+rlfTTZUNoCXHEjzBsFrc9BVHKWGM8EE03MDjLM+36zt90INg1u/Bspz+X+s8yW+xt
+	 xrWAK0tj/YYpkHZqJ/JPcI7/hmgVdfn4Y1DfqUdJUUmBISaNtDc9n2KufC2VBw9CSBg92
+	 1CwAfLUKlMyrNTso8DWlifq3GVDWtYcv8Cwow9HwF0YjxLHvJpz1XKualiJgu2BoNuK6T
+	 /i12xfzFmxzxjFLRWP33IB5K+eadCGSWvqe171lLsIhlpbUrzxDBi/PUdLqAdBe81Af3e
+	 W4lVmKE2Cc6//94I7lRSKRk9xygbohB6jXMsKo+QVTxsWCwhYGHnDaE43n4zfVJsXrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792467843;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792467847;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=7G78s70fxYPpMVHiegw9OWYXdiOyfEaNVnOA7iPMn0o=;
-	b=W35fZ9/CupsHnTlU1LkiSapPRhluqs64Y0rKqHuHKvi+Qi+YclhXb+txSOxjP6CyVWX9
-	 sNN42+kpmsJgH+IGfWOYtIGzlJSA53nZaDoDEmfkVmFm6v5Wlu3y34x0UinboUgC6ilbr
-	 IxQvGKfAY2tml02B3vbLdVZHpekruWD4RZcQS+7MLnwZH3ANp8YDIKnJSHuNwh3jZlcYq
-	 ntlymc6X6V8HFVSbANzzlwsUWornctXDPP8geVyqhsO/FKz7SW+OjaLFZcOknb/AL2hax
-	 GQeGlc+wnwG65cPBsGIPSaBOCK9wrJiOyQ9bdQxmB9MT9x0oE8yymXvshYglpvRCVkw==
+	bh=w90pHw3fGNmejRxHV3IQ5d0u+flhYgOFmkRKLGlwKUY=;
+	b=lskzrYgJPGhDDB0TsbOpX8EXaC3SnWB4LypWKmfjZVozYmJPI/Csoy2/tKWsW33qTRgB
+	 4+NNIK+kA03oc3//rk5G26hQxDSt7Wc9W4jwLQ6uU2RJdGrQtn3+zw10i98LU2ZEEs3IO
+	 bQAPefsaT6lW+rNURAHV2II/TNUoPi0DUeiYT+gbYqJ65XmxV9Geiy9N8deIW/0EUk96h
+	 UQIqjlWGHWTteIRv2xO+14qoIPOyjJg9yJ5Gdy4t4oNJBjFBlkDHlzfHGH+02HicpkkOD
+	 tBPl7AF/QZNBsgZgLqpO6FtqG11vMbPBAiPvtVLL6tK62g3cby2gTvsFWGL4+ntasqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QxdxLcwE;
-	arc=none smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jKYUKJe1;
+	arc=none smtp.remote-ip=209.85.214.174
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A04606A322
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 03:44:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10A04606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB694606A338
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 03:44:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB694606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QxdxLcwE
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e9eb579c0eso9837725ad.3
-        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 20:44:02 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jKYUKJe1
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e8b20a899fso13717945ad.1
+        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 20:44:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792467842; x=1793072642; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792467846; x=1793072646; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7G78s70fxYPpMVHiegw9OWYXdiOyfEaNVnOA7iPMn0o=;
-        b=QxdxLcwEeWMvjduRGpzcP6a3D/tOlaVDvcweoSssiqKrpCwgaZ7Dry4gd8p9KSOeB8
-         FjN/ePsBGdYXg49LW+flhw9xi0EZGOZ/22o0AXu9xbbN69FqBR/ffZPKzGPlK00BWnx2
-         UsnsPW3taPnE+uh6yK8YOR1rToF4SkYbwh2aHr3G4D9c8gwxtCqgbA0hJPfLetjaT+Nt
-         MaP7TgfEzNzyRQcs+WX5sb04Da7afaMJiAw7cvf5H+M01kayh4uUCIlZk/G2+1xLapwY
-         Oc920uxI5lRaCspUJTxYm6lBpYWWjlbf2gxToRxATZIGRgApgXzXCv2EdmYMiMMmct0p
-         HpaQ==
+        bh=w90pHw3fGNmejRxHV3IQ5d0u+flhYgOFmkRKLGlwKUY=;
+        b=jKYUKJe1Qxu3OEvXl+CyKhrb1gysrHVihdVulnoLL39qaO9RJmO6ZZGFSWsNpJ9tTp
+         q3MGx3yk/C4W/loq3ecbZZa8SBnRpMnqya2hLCJfkvHFRPKA9jFh8ul7rl6OrO/llfLW
+         i1RcjOxJjGUhWkgCETfb7uab1oKAcCTft7lettkw2I29eXYLuMMyJTYwSqJJAgmQN2xI
+         1mu2kNuhujB/uPJTp+pns+aCp24ExiXR0JITQJ3MLoxttWpVHcwmzsJsbqw/SmnM+Ytc
+         3KvMeCRJkBXFfMWgWtLkB72qUOGzXzStX0WqbCYzXaKpYnNtRdO0DSnVAYCoN6dMs9ex
+         llZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792467842; x=1793072642;
+        d=1e100.net; s=20260707; t=1792467846; x=1793072646;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7G78s70fxYPpMVHiegw9OWYXdiOyfEaNVnOA7iPMn0o=;
-        b=yHWF7ko8yhyn8RlKM6MH6Kut6jIEJKLKfvnM7CtLKegoXFJRt+g8gRr+SR+ca9GUaH
-         MsKhVwLVPO3wAHXB+TnM867w1yNOWzg5rn6yqj5/2qYhkq90QvwI3P9L2lqS/rqBevXH
-         9h1KcaMQ3QG+Arb2kaM+X5NpO9WXF+1dXg6FvhEHcVwyrdkhV9fcWB9DRHlchB4sWINC
-         9/sF5CdjQ5vtsIX0Jle2PDrNipOO8CUCiLyWc2UsldlMS7nvZfgGoiw/3iUVhm5dKMHV
-         amvJSj49687nBFOp/ZMJw65ybeJge+AnY4PY6NMnDO6zNFWvpg/OndnZKZS+nZurzVgD
-         KoEg==
-X-Forwarded-Encrypted: i=1; AKwUvBw5M6dAkcToge3wL0IH0IGsUDhDXWvnPWpVi5F53Y30BMBLrYGm3VtrId3dgB98yiHxtqd6Grg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJhwHdD6h2DTBHiBwnZE0/mWA7luPg6Qw69XEB1h0ZI1AhORlk0
-	Vw2B0aL0L/QNCMRYYIuKnaPEGe/PeosGLw096+AqCOo3EIY5y843yXgt
-X-Gm-Gg: AYBFou3g5s+xGpHwvLJwM66zDsK17MSp9peYbHIoVh9zveCNy72lz5ZI8pLHh4eHt4c
-	tadwpLxTleJEFZgF9NARjyX/o+AN68Sea/tCvdbEZnminWV3FrsjYjgMA5fFvVTfNJNC6IL2Hr5
-	w2RQE4hnNTjBLiWaC6zZkxpPehuHGHQHPePui7y+M9Cp52ULJ1u5IppS9ZVJIC0OI1JY9YoBHIl
-	v/5sZnexK+8QeGu/EhAy6hAP6UzsZvGZP/cpF+TOCf4sWcCoOCzHCblTUrqlrbeVsFS0LGnsMi9
-	mKFrNE9f+lmiVkgUr2hD2cXt1EKmFYTdy/zKclV9J62KLBg7P+H9oYEo9tVIXSLcXqhpohV+5Ph
-	k01cM8c/larHamPBJmxF2TeyGgS7jbvYxiZJEHzJzIP971/UlmY71d6mr6kZxwX1rbl/vt6sJun
-	5NWEiTv1VX+fX4AbgyvFqz673BXgADo9elp/xiKwGs1VI9rv5CL3R61IoFxCg3gXGRDA==
-X-Received: by 2002:a17:902:f693:b0:2e9:5b20:1c2b with SMTP id d9443c01a7336-2e9a682f478mr79240345ad.5.1792467842240;
-        Mon, 19 Oct 2026 20:44:02 -0700 (PDT)
+        bh=w90pHw3fGNmejRxHV3IQ5d0u+flhYgOFmkRKLGlwKUY=;
+        b=wnBREloZ30I/+Iskz0sbRCsXXb1Xvx3UeByfSe81waWUPZPFAeQL5R112rfTnmuBqh
+         u1BiFKlffU0yAFVpOguwux16K1zZ04faZ5HOFNpIMuYsg0CH1OisqBQbsmgkyOdY2QsY
+         l11xPJe9JcEACMfoPB5gS/cEk30Kt7QqmcJFDMMhn1NfW7hmsSkAE9+aVU1gmDVCDDh7
+         vXhIpOWR8rhkFJE20z6t7G4AOitbqa9YsQCkwDYyzXn+f20vs3aQSYmyAQkpPg+G1jX5
+         X/+jgMBD4qbgJTuICKItG4/Mq+pNS4aKw+7tdubOqDM57uQibw4fQHaVlfGyqXsiiR5E
+         DuGw==
+X-Forwarded-Encrypted: i=1; AKwUvBxz0q1RikwNNEPiHBkGfhfPhkxwCSJbqC251KIFIkPGla+mXx52Ti5TABdEBK8bhqamCyUDcDY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKf2vEr6P0NW7MZYSJXu67urWZ+H4ONeCgYXlpU5+uRYHvrUCkm
+	rW36z2EIJ9mwYvWJVXC+zE6N36Z6ChkNs8PQRKatJk36u73NDJTT4irv
+X-Gm-Gg: AYBFou0FPAtIO9Z0U1zslb49Skp7+/haquMPAt/NgoTjKjPm/2+9JmdAmDLtxU9KJRJ
+	wBshMCie8Tzd90MxLzQypddRAcTHSROHomDtHq3qPoPZTG0jGoRxsVzHJlkoiYRilBM1yyU1+Td
+	VosDs6UKaDIwLqVkCHUwfnQW+3GFOImKiGpNRgXinJJMssZqPxH9DdKnX9WHxoOuWr2L1v2+j8Z
+	Yil1FXrnHChl+epsA3sw7K7AiSQnbx665VIa5eFtL5dM/kJAs57LI0Ky9ICV6noKggCaKIAGrrs
+	CY+wtsJ9L/vVUc6P0cDpv8rqcO3lOs1sBuF0wme/OEeqEwDtvKjqFEIcUIgCni1xwqiYNmMZVNu
+	JyqXr35z6wZ2ZElEyIPxGn7A9vQbQfmmraGthDzLcc5gYqHJbbx+E5n3G9ofuHT1JR2puUjJ9G8
+	brEgd6xoKekRS9I9dbxPSA09q0p6LkxGBl9G150LsOTktpIR9+/MKjHOiQXwXMEpPxHQ==
+X-Received: by 2002:a17:902:c40a:b0:2e5:e1de:9c3c with SMTP id d9443c01a7336-2e9a6d2b9b3mr84139745ad.47.1792467846122;
+        Mon, 19 Oct 2026 20:44:06 -0700 (PDT)
 Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea14caa857sm8143885ad.12.2026.10.19.20.43.59
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea14caa857sm8143885ad.12.2026.10.19.20.44.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 20:44:01 -0700 (PDT)
+        Mon, 19 Oct 2026 20:44:05 -0700 (PDT)
 From: Cen Zhang <zzzccc427@gmail.com>
 To: mark@fasheh.com,
 	jlbec@evilplan.org,
@@ -87,9 +87,9 @@ Cc: heming.zhao@suse.com,
 	baijiaju1990@gmail.com,
 	jjzuming@gmail.com,
 	zzzccc427@gmail.com
-Subject: [PATCH v3 1/2] ocfs2: snapshot dentry names in file-operation traces
-Date: Tue, 20 Oct 2026 11:43:51 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0088-v6-d3056754af7e660155d9-1@gmail.com>
+Subject: [PATCH v3 2/2] ocfs2: snapshot the dentry name while tracing file release
+Date: Tue, 20 Oct 2026 11:43:52 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0088-v6-d3056754af7e660155d9-2@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <pm-ocfs2-objects-candidate-0088-v6-d3056754af7e660155d9-0@gmail.com>
 References: <pm-ocfs2-objects-candidate-0088-v6-d3056754af7e660155d9-0@gmail.com>
@@ -104,248 +104,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The open, fsync, read, write and splice-read trace calls pass the live
-dentry name and length to the shared ocfs2__file_ops event class. A
-file reference pins the dentry, but not the external allocation backing
-an individual name. The event needs those bytes when sizing its
-__string field and when copying the string into the trace record.
+ocfs2_file_release() passes the live dentry name and length to a
+trace event while holding oi->ip_lock. That lock protects the open
+count, but it does not serialize dentry name changes during rename.
+The ocfs2__file_ops event sizes and copies its __string separately,
+so a concurrently rewritten inline name need not remain consistent
+between those operations. The separately loaded length may also
+describe a different name.
 
-With the relevant event enabled, a caller can be preempted after
-evaluating its name argument. A concurrent long-to-short rename of
-the same dentry can replace and reclaim the external name before
-the trace callback uses it, provided no other snapshot retains it:
+  Release trace                        Renamer
+  -------------                        -------
+  hold oi->ip_lock
+  size the inline name
+                                       rewrite the inline name
+                                       under dentry->d_lock
+  copy the changed name
 
-  File-operation caller                Renamer
-  ---------------------                -------
-  load d_name.name
-  <preempted>
-                                       vfs_rename()
-                                         ocfs2_rename()
-                                           ocfs2_dentry_move()
-                                             d_move()/copy_name()
-                                       release rename name snapshot
-                                       RCU reclamation completes
-  trace callback sizes/copies
-    through the old name pointer
-
-The pointer argument is evaluated before the trace wrapper protects
-probe execution, so that protection does not cover the old name
-across this window. Inline names and separately read lengths can also
-change while the event is being recorded.
-
-Take a dentry name snapshot around each of these five trace calls and
-pass both the string and its length from the snapshot. Inline names
-are copied and external names stay referenced until the trace call
-finishes. Check each event-enabled flag before taking a snapshot so
-disabled tracing does not incur snapshot work. The trace event class
-and its format stay unchanged.
-
-The report below is from the read path; the other four call sites
-have the same unprotected name argument.
-
-KASAN report as below:
-
-    BUG: KASAN: slab-use-after-free in strlen+0x85/0xa0
-    Read of size 1 at addr ffff88810a5b2b18 by task python3/496
-
-    [CPU and host details omitted.]
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? strlen+0x85/0xa0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20e/0x420
-     ? strlen+0x85/0xa0
-     kasan_report+0xe0/0x110
-     ? strlen+0x85/0xa0
-     strlen+0x85/0xa0
-     trace_event_raw_event_ocfs2__file_ops+0xf0/0x480
-     ? __pfx_trace_event_raw_event_ocfs2__file_ops+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? pmbd_probe_hit_cookie+0xe7/0x1c0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
-     ocfs2_file_read_iter+0x6cd/0xb30
-     ? __pfx_ocfs2_file_read_iter+0x10/0x10
-     ? selinux_file_permission+0x11d/0x540
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? security_file_permission+0x26/0x80
-     vfs_read+0x7d2/0xc20
-     ? __pfx_vfs_read+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_do_sys_openat2+0x10/0x10
-     ksys_read+0x111/0x200
-     ? __pfx_ksys_read+0x10/0x10
-     ? irqentry_exit+0xbe/0x820
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? trace_hardirqs_on_prepare+0x11d/0x150
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    [User register dump omitted.]
-     </TASK>
-
-    Allocated by task 489:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_noprof+0x2de/0x780
-     __d_alloc+0x5fc/0x8c0
-     d_alloc_parallel+0x106/0x11d0
-     lookup_open+0x3ff/0x13e0
-     path_openat+0x95e/0x2020
-     do_file_open+0x21e/0x470
-     do_sys_openat2+0xf4/0x1b0
-     __x64_sys_openat+0x136/0x1e0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-    Freed by task 0:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     __rcu_free_sheaf_prepare+0x65/0x2a0
-     rcu_free_sheaf_nobarn+0x1d/0x50
-     rcu_core+0x6be/0x1ed0
-     handle_softirqs+0x1fa/0x8d0
-     __irq_exit_rcu+0x113/0x1e0
-     irq_exit_rcu+0xe/0x20
-     sysvec_apic_timer_interrupt+0x6c/0x80
-     asm_sysvec_apic_timer_interrupt+0x1a/0x20
-
-    The buggy address belongs to the object at ffff88810a5b2b00
-     which belongs to the cache kmalloc-rcl-192 of size 192
-    The buggy address is located 24 bytes inside of
-     freed 192-byte region [ffff88810a5b2b00, ffff88810a5b2bc0)
-
-    [Page and shadow-memory dumps omitted.]
+Take a name snapshot before acquiring oi->ip_lock and release it
+after dropping the lock. Keep the trace call and open-count argument
+inside the original critical section. Cache the event-enabled check
+so the snapshot is paired even if tracing is toggled meanwhile.
+The snapshot keeps the trace name stable without extending the
+inode lock over snapshot acquisition.
 
 Fixes: 468eedde23d6 ("ocfs2: Remove mlog(0) from fs/ocfs2/file.c")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 ---
- fs/ocfs2/file.c | 79 ++++++++++++++++++++++++++++++++++---------------
- 1 file changed, 55 insertions(+), 24 deletions(-)
+ fs/ocfs2/file.c | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
 
 diff --git a/fs/ocfs2/file.c b/fs/ocfs2/file.c
-index d6e977ba6565..3c4637b32c09 100644
+index 3c4637b32c09..8da73d0707ce 100644
 --- a/fs/ocfs2/file.c
 +++ b/fs/ocfs2/file.c
-@@ -85,10 +85,17 @@ static int ocfs2_file_open(struct inode *inode, struct file *file)
- 	int mode = file->f_flags;
+@@ -141,18 +141,26 @@ static int ocfs2_file_open(struct inode *inode, struct file *file)
+ static int ocfs2_file_release(struct inode *inode, struct file *file)
+ {
  	struct ocfs2_inode_info *oi = OCFS2_I(inode);
- 
--	trace_ocfs2_file_open(inode, file, file->f_path.dentry,
--			      (unsigned long long)oi->ip_blkno,
--			      file->f_path.dentry->d_name.len,
--			      file->f_path.dentry->d_name.name, mode);
-+	if (trace_ocfs2_file_open_enabled()) {
-+		struct dentry *dentry = file->f_path.dentry;
-+		struct name_snapshot name;
++	struct dentry *dentry = file->f_path.dentry;
++	struct name_snapshot name;
++	bool trace_enabled = trace_ocfs2_file_release_enabled();
 +
++	if (trace_enabled)
 +		take_dentry_name_snapshot(&name, dentry);
-+		trace_ocfs2_file_open(inode, file, dentry,
-+				      oi->ip_blkno,
-+				      name.name.len, name.name.name,
-+				      mode);
+ 
+ 	spin_lock(&oi->ip_lock);
+ 	if (!--oi->ip_open_count)
+ 		oi->ip_flags &= ~OCFS2_INODE_OPEN_DIRECT;
+ 
+-	trace_ocfs2_file_release(inode, file, file->f_path.dentry,
+-				 oi->ip_blkno,
+-				 file->f_path.dentry->d_name.len,
+-				 file->f_path.dentry->d_name.name,
+-				 oi->ip_open_count);
++	if (trace_enabled)
++		trace_ocfs2_file_release(inode, file, dentry,
++					 oi->ip_blkno, name.name.len,
++					 name.name.name, oi->ip_open_count);
+ 	spin_unlock(&oi->ip_lock);
+ 
++	if (trace_enabled)
 +		release_dentry_name_snapshot(&name);
-+	}
- 
- 	if (file->f_mode & FMODE_WRITE) {
- 		status = dquot_initialize(inode);
-@@ -174,11 +181,17 @@ static int ocfs2_sync_file(struct file *file, loff_t start, loff_t end,
- 	tid_t commit_tid;
- 	bool needs_barrier = false;
- 
--	trace_ocfs2_sync_file(inode, file, file->f_path.dentry,
--			      oi->ip_blkno,
--			      file->f_path.dentry->d_name.len,
--			      file->f_path.dentry->d_name.name,
--			      (unsigned long long)datasync);
-+	if (trace_ocfs2_sync_file_enabled()) {
-+		struct dentry *dentry = file->f_path.dentry;
-+		struct name_snapshot name;
 +
-+		take_dentry_name_snapshot(&name, dentry);
-+		trace_ocfs2_sync_file(inode, file, dentry,
-+				      oi->ip_blkno,
-+				      name.name.len, name.name.name,
-+				      (unsigned long long)datasync);
-+		release_dentry_name_snapshot(&name);
-+	}
+ 	ocfs2_free_file_private(inode, file);
  
- 	if (unlikely(ocfs2_emergency_state(osb)))
- 		return -EROFS;
-@@ -2392,11 +2405,17 @@ static ssize_t ocfs2_file_write_iter(struct kiocb *iocb,
- 	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
- 	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
- 
--	trace_ocfs2_file_write_iter(inode, file, file->f_path.dentry,
--		(unsigned long long)OCFS2_I(inode)->ip_blkno,
--		file->f_path.dentry->d_name.len,
--		file->f_path.dentry->d_name.name,
--		(unsigned int)from->nr_segs);	/* GRRRRR */
-+	if (trace_ocfs2_file_write_iter_enabled()) {
-+		struct dentry *dentry = file->f_path.dentry;
-+		struct name_snapshot name;
-+
-+		take_dentry_name_snapshot(&name, dentry);
-+		trace_ocfs2_file_write_iter(inode, file, dentry,
-+					    OCFS2_I(inode)->ip_blkno,
-+					    name.name.len, name.name.name,
-+					    (unsigned int)from->nr_segs);
-+		release_dentry_name_snapshot(&name);
-+	}
- 
- 	if (!direct_io && nowait)
- 		return -EOPNOTSUPP;
-@@ -2542,11 +2561,17 @@ static ssize_t ocfs2_file_read_iter(struct kiocb *iocb,
- 	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
- 	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
- 
--	trace_ocfs2_file_read_iter(inode, filp, filp->f_path.dentry,
--			(unsigned long long)OCFS2_I(inode)->ip_blkno,
--			filp->f_path.dentry->d_name.len,
--			filp->f_path.dentry->d_name.name,
--			to->nr_segs);	/* GRRRRR */
-+	if (trace_ocfs2_file_read_iter_enabled()) {
-+		struct dentry *dentry = filp->f_path.dentry;
-+		struct name_snapshot name;
-+
-+		take_dentry_name_snapshot(&name, dentry);
-+		trace_ocfs2_file_read_iter(inode, filp, dentry,
-+					   OCFS2_I(inode)->ip_blkno,
-+					   name.name.len, name.name.name,
-+					   to->nr_segs);
-+		release_dentry_name_snapshot(&name);
-+	}
- 
- 
- 	if (!inode) {
-@@ -2624,11 +2649,17 @@ static ssize_t ocfs2_file_splice_read(struct file *in, loff_t *ppos,
- 	ssize_t ret = 0;
- 	int lock_level = 0;
- 
--	trace_ocfs2_file_splice_read(inode, in, in->f_path.dentry,
--				     (unsigned long long)OCFS2_I(inode)->ip_blkno,
--				     in->f_path.dentry->d_name.len,
--				     in->f_path.dentry->d_name.name,
--				     flags);
-+	if (trace_ocfs2_file_splice_read_enabled()) {
-+		struct dentry *dentry = in->f_path.dentry;
-+		struct name_snapshot name;
-+
-+		take_dentry_name_snapshot(&name, dentry);
-+		trace_ocfs2_file_splice_read(inode, in, dentry,
-+					     OCFS2_I(inode)->ip_blkno,
-+					     name.name.len, name.name.name,
-+					     flags);
-+		release_dentry_name_snapshot(&name);
-+	}
- 
- 	/*
- 	 * We're fine letting folks race truncates and extending writes with
-
+ 	return 0;
