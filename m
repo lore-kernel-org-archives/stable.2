@@ -1,58 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792530239;
-	b=w31VwMQNwbTsRddy8pacC5K3GmCRgpnvUAbh9/l3UJFut9F8pg7JEyDSK+n3AEEDx5b8
-	 lwv59hQuP+FAEIXjLBXQNeE1YCCg8ImljX2epcw1JbDI64SYgdU+Cp/o/oQzJpBZ2f7Fd
-	 h3JSexG4C1YwC5HPBXuN0PoPZfyQEWXwQ8qK4p7ow9OU0EWhKTde7UuS09GQXPEiTjxR5
-	 wYBXt3umQ9BI4TRKpvnkSPDlYxQlTm1PZV20H82xqaOHzsgBcrADkzgjz//j87M8YS5tr
-	 prpyEdQ3EddC4a3c/QBqjrQS8BIBYameHATcEcCtyJgPqk3oZZM11wnbK9YRO0cKXeQ==
+	t=1792530403;
+	b=pNlzLfqUT7KDG2j73UzKzd+qtUndWmrTOKyYWyMOWSsTWVxdfjTXNRKk5Ym2ntxKtrZs
+	 qCGOhsweZ631PSF7RZFa/G3QJDVK6A8TIuS2UYjjtcZivrbc/CGv/wQNNR59wgXkgMVNk
+	 vF5KdJl/XiMivjcDbRNOYIguIXbTJ0l+s56ABeatCv1X7orbRL8HTe7RqtPbNLseAyZx+
+	 gXv8dVV8LvdRu8XKHdwMJ98ef+2FKLYKPdRUuJckB8BgpFLAQEwVx5fL45j9SULOL1PaZ
+	 2PSQ08Njkw5jFHzdcOrGCK+rijDDohVqkR2g0ls1V9GqNbdOMzrc4HA40r1e0Jr8wXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792530239;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
-	bh=KB2GZPV8p53+dXyweYj9mbh8j9qRPtiURUJQ9M6nrdE=;
-	b=nZaVWclHOTixUcF3zI1hVF6HrllUhMW4UIp1RTp++ZfEmqbHGamolWbVJJBfhtK3ILch
-	 EFX1VesU8BQ4fE1dbytJKncT/JjFiUa9vjPnNjONIyR0zDWHmBhTgtgLaWvCKPxUaNtgg
-	 7vT6vm7WbB0QWO3BZLEAl/sX+60scu9Sn0hQ+CURRdEvTEr1L/I6+C3uy5j9zfpgEXdMQ
-	 RUpxq1JyakrPQUX5qB23W9yrjHHbXsRsU4hFFxrTRkZPOULMrMq8oVdPGlhYUA5aAgCal
-	 AZB9HvHgPy9S0rJL9+vI/K57wCuNj2kwz8o4nAWCZO2157ECnMH2IZCqteRg38uB6CQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792530403;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=+d6eEbZKJ/aNP1yn+6FnJEHBwBfqiaSaba+IM01vpDY=;
+	b=R5/k579CIwZeDicdT1PtIYpgbAW+DpI3XWOWk+qqYqghj1gU9JpvJ4ftjsPhSx0h4FGC
+	 +gUvyc2tpuN/MHwW6RQSpEjYkF2FzidtSOGSUgubCv8Fdx+YsL8Nyn2/HnOcGMdt7trw8
+	 Urwk6QNW9J9xxDjv4EtfltpBe/SkcQOUTzdRkJcnQ3bvxoXRKLK6Lyx+Ns59ToQkw4Ase
+	 1Cn/VDsZYsNgwIg0AeWi4V8zK/bmMgd0eHXZ0PyW02QGeXoLxg+4JaIXDqeC6OGSyiM7k
+	 d/NAmk3SShCLjWG8VjQIKd7Ol2fof/SZgP8RcnzPWLMn5Yw8XqC6Iq7JWgk0lVO0ljg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kzOtrDmg;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LvzNWWQw;
+	arc=none smtp.remote-ip=74.125.229.135
+Received: from mail-dl2-f7.google.com (mail-dl2-f7.google.com [74.125.229.135])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB77606A31C
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 21:03:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEB77606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1D7B606A31F
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 21:06:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1D7B606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kzOtrDmg
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id B0317C5CD67;
-	Tue, 20 Oct 2026 21:04:54 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E002B60393;
-	Tue, 20 Oct 2026 21:03:55 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E0E4910328934;
-	Tue, 20 Oct 2026 23:03:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792530230; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=KB2GZPV8p53+dXyweYj9mbh8j9qRPtiURUJQ9M6nrdE=;
-	b=kzOtrDmgPwixnfn7RoqOE3+XdZl+vbcs3RMGJeC5jwckLX2JHZT7Se9qMwrDZTq69BLqSc
-	tpLpY6x4WuqAfTEv4XVeMldx3nZ7eZPVMTvG0dSGCNuX5LZSYN1nh0FsfdskQvcMHAwmuf
-	L3fxV9F0FLL2Sec3G122fOPlI1CfULUm5bebW4/2aDuJZ3oZzhX69qlB7rbmcb/pqHaumC
-	K3W1mqhhtKWsK/m56upelssgIPP7SAROcobnPa5KKAMuvZL0V4tIkiS0PkdiXuiv33HS9w
-	wWYEPSWneWBrLnBqMNNxoM7mnn6WHjjMvdojleoTjikIjswb/CrXeMB5Jw11zw==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Tue, 20 Oct 2026 23:03:38 +0200
-Subject: [PATCH 5.15.y] OPP: Fix race between OPP addition and lookup
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LvzNWWQw
+Received: by mail-dl2-f7.google.com with SMTP id a92af1059eb24-1433e7b05b0so3258c88.1
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 14:06:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792530402; x=1793135202; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+d6eEbZKJ/aNP1yn+6FnJEHBwBfqiaSaba+IM01vpDY=;
+        b=LvzNWWQwUrnlVEXkdxA1pQnsUttbPFEoCibBVemm1J2KWDVc9LAjs08388l95wtvNY
+         C9nsApf9w0rfW33dyL9NJiZ+wTnHPWqyWuU2xw6q82oWMW2JcifkTYP75TUgUyJLPcNL
+         atwsqngnfR5TiRmKRHtzA7IsKLYRze9YSvpdamh2O/2OMpgPj6tQb9dpEFSu/sNBs6oS
+         gvJz9eqNQsmmpk4DC07BukVzEWdmNO2GbGPn5h7936WTPrAhLr5NlSSkBS4MCKvl47pR
+         ixsq2XKLrj3SGn8wwejV421oTHkuXB15XzqAh0dFnPfJGv4V/WKt77wiyzCa/bGuyoeQ
+         2AsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792530402; x=1793135202;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+d6eEbZKJ/aNP1yn+6FnJEHBwBfqiaSaba+IM01vpDY=;
+        b=V1GnNuXd4wT1cJ/9FizFo9tGjOBDpar+tAHqJkYhitcJZmRthsBvQji2QktK6JAXQm
+         eUxS7jHwAmnuNSnecWMhmreeD+tC7NF5lp1jp4ui/wLAvFz97mM4PVeNg4960IoXtpHb
+         tD+z17FZQnxS0lUvbNks5GiVbzNUTT6oqp2UUyEGNOPaSpViBYzJT7FA1CZJPAHmjNjN
+         WVkG+bUfpK43so8I1Nu8nzcSKUPnl9i/FS3bB1qVVzj7ZK716orNuKbsuAa4fuuKGMCv
+         tsLRz+/EQxGrAaOjUYFP+jpbcAmwhNjEhTZWgo+XZWlGUgnNoO+qrwlHYeyInXMAqgNF
+         af+w==
+X-Forwarded-Encrypted: i=1; AKwUvBzWBmxy1A3sVPHSe+tJzV2NFytlSu7mKXgTul68KCv01qLe54TG4BDSg93MdsmFNiGu+MLtrQw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKVrIBWT+Uofq+JE3+h3z2FmrsE3D2DiZ2cxfnGNDLHfObIBi+a
+	yM/rss41Hial8z1VYVJiC3phS87jm5GUA9m7dyF6q1PSJf4hKSbNV3BP
+X-Gm-Gg: AYBFou1xFaPTXRiy+CfTspKP9HWyw3gOUZEK3JyRcB5IxrWuCte99E3dUfPy3sNq6Cw
+	LM9n/v7KpRaqFAQGK8UfdmrXXRspXam0njS2Ozt4NyGhkGkyC1OqF0GLZ0k7LBbSGAuTxOaPICn
+	dFwMLMM6TX/QVF1P/R9pi0r9d4CYBdJ9kXCRIEXXMWdBvEb9fh485si8Mnnvd60+Xi1u7+s0iJ+
+	Qilu8RYB2JEUKqYvLaTCvl3sR6OLOO2w8Ei8X0NAfuypSi6YWSngaYrLiB/S3vCxkUF7HjbTqtk
+	BH9nearu30YqUkgqP+gO8BtCziGtGt2MIPlXn0szJSaf4Qdi4aYR4QAOzQASJcN+fmP8I961AHG
+	MdvPKfyc9pDcEfRKcyzqE4jscljIUwX0h1c9iaJAR6rVr4t9bAeS4HnmuBQcgvjvcbSFJplWejD
+	M75VV1AlCLbQ/FTAxF+scAQP3fMxeENMSLvE9ppfdXZaSmxXB/rdNNLVvNKOZzkuheZhyHzb4LK
+	zETYT8TKxwsB2+B0g+sGtYxqA==
+X-Received: by 2002:a05:7301:4549:b0:366:9f06:3c4c with SMTP id 5a478bee46e88-3674df47e40mr439488eec.32.1792530401643;
+        Tue, 20 Oct 2026 14:06:41 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3673e15353csm1703196eec.2.2026.10.20.14.06.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 14:06:41 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: arnd@arndb.de
+Cc: akpm@linux-foundation.org,
+	tglx@kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH] compat: Avoid double rounding in times()
+Date: Tue, 20 Oct 2026 21:01:57 +0000
+Message-ID: <20261020210157.52057-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,97 +96,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-cve-2026-74405-5-15-v1-1-d71668a66800@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQrCMBBFr1L+2imTmETwKuIijqOOiypJLUrp3
- U118+F9eG9G1WJase9mFJ2s2mNo4DYd5JaHq5KdG8OzT449k0xKK9AuBI4UybWRJD5wytuQ0cx
- n0Yu9f9UDYu9i/8Hx/9fX6a4yrkksyxeKGXgqfwAAAA==
-X-Change-ID: 20261020-cve-2026-74405-5-15-5c6c2406a34a
-To: stable@vger.kernel.org
-Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Di Shen <di.shen@unisoc.com>, Ling Xu <ling_ling.xu@unisoc.com>, 
- Viresh Kumar <viresh.kumar@linaro.org>, Sasha Levin <sashal@kernel.org>, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792530223; l=2504;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=bKmAwy/CSyzfn3FlNpvpsj1T3Hbt/oc43Y/1LY6vLoQ=;
- b=TPoGR/gVuprYFCRtlg+lBYQc57azV6NuxEnDCWLDHEZdvhABzL96wxisctqUDXfvAo6KMyLWy
- y1dlGrD2KYrDpaROrccdqv9wPh+iGC/iZXR1nGGpwLQkXgjjtaV/Ed8
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-From: Di Shen <di.shen@unisoc.com>
+do_sys_times() already converts CPU time to USER_HZ ticks. The compat
+path converts each value back to jiffies before converting it to
+COMPAT_USER_HZ. This round trip can lose precision even when the two
+userspace rates match.
 
-[ Upstream commit f5e1cc9a284bff2510981643a5bca4bc4c21b81a ]
+With HZ=250 and USER_HZ=COMPAT_USER_HZ=100, one user tick becomes two
+jiffies and then zero compat ticks. Every odd tick count loses one
+tick, so any of the four tms fields can underreport CPU time by an
+additional 10 ms.
 
-A race exists between dev_pm_opp_add_dynamic() and
-dev_pm_opp_find_freq_exact():
+Return the value directly when the native and compat units match. Keep
+the existing conversion for differing rates.
 
-  CPU0 (add)                          CPU1 (lookup)
-  -------------------------------     ------------------------------
-  _opp_add()
-    mutex_lock()
-    list_add(&new_opp->node, head)
-    mutex_unlock()                    _opp_table_find_key()
-                                        mutex_lock()
-                                        dev_pm_opp_get(opp)
-                                          kref_get()
-                                        mutex_unlock()
-    kref_init(&new_opp->kref)
-                                      dev_pm_opp_put()
-                                        kref_put_mutex()
-
-The newly added OPP is inserted into the list before its kref is
-initialized. A concurrent lookup can find this OPP and increment its
-reference count while it is still uninitialized, leading to refcount
-corruption and a potential premature free.
-
-Fix this by initializing ->kref and ->opp_table before making the OPP
-visible via list_add(). This ensures any concurrent lookup observes a
-fully initialized object.
-
-Fixes: 7034764a1e4a (PM / OPP: Add 'struct kref' to struct dev_pm_opp)
-Co-developed-by: Ling Xu <ling_ling.xu@unisoc.com>
-Signed-off-by: Ling Xu <ling_ling.xu@unisoc.com>
-Signed-off-by: Di Shen <di.shen@unisoc.com>
-[ Viresh: Updated commit log ]
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+Fixes: f06febc96ba8 ("timers: fix itimer/many thread hang")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 ---
- drivers/opp/core.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ kernel/sys.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/opp/core.c b/drivers/opp/core.c
-index dbd69d8e44e4..4bcea866954a 100644
---- a/drivers/opp/core.c
-+++ b/drivers/opp/core.c
-@@ -1720,12 +1720,12 @@ int _opp_add(struct device *dev, struct dev_pm_opp *new_opp,
- 		return ret;
- 	}
- 
--	list_add(&new_opp->node, head);
--	mutex_unlock(&opp_table->lock);
--
- 	new_opp->opp_table = opp_table;
- 	kref_init(&new_opp->kref);
- 
-+	list_add(&new_opp->node, head);
-+	mutex_unlock(&opp_table->lock);
+diff --git a/kernel/sys.c b/kernel/sys.c
+index 35b538ba843c..755bfa5ccd92 100644
+--- a/kernel/sys.c
++++ b/kernel/sys.c
+@@ -1077,6 +1077,9 @@ SYSCALL_DEFINE1(times, struct tms __user *, tbuf)
+ #ifdef CONFIG_COMPAT
+ static compat_clock_t clock_t_to_compat_clock_t(clock_t x)
+ {
++	if (USER_HZ == COMPAT_USER_HZ)
++		return x;
 +
- 	opp_debug_create_one(new_opp, opp_table);
+ 	return compat_jiffies_to_clock_t(clock_t_to_jiffies(x));
+ }
  
- 	if (!_opp_supported_by_regulators(new_opp, opp_table)) {
 
----
-base-commit: 792fbe1537d8daeca9bd1917e84078b5432aadc2
-change-id: 20261020-cve-2026-74405-5-15-5c6c2406a34a
-
-Best regards,
---  
-Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+base-commit: f47d223627f80cb7a1eb14c585fe6cb35de5e984
+-- 
+2.43.0
 
