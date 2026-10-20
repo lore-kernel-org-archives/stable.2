@@ -1,107 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.14.118.250
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792493446;
-	b=AJ5K/YOMv6etn3iWe8SUmAEk1xk173cdQLcIWPEYCjoL0Q94gaxPNZKgWgOE5+sms2YL
-	 9es4IqReqYvGvjvZ5b6VaOYVc06KoQPCYskOeSJp/JYpwcZzLo/p3+KJHpUiLOtAtPlVJ
-	 nI4uBk1DdvNuX1U3Uwhde9vKHrq8bfpwLA4Zb92li7+iProapnvoezuWLTgE7zTODqhYX
-	 r5LTEYd9o4xWciHPnob4lfh1d6HPyzpnd4ZhD97BhtNM7JU7u5zJChyk4M6e65KfInLkJ
-	 U76L7Xh1MHsCW6FPDqykRtBsSW1zF5N87HfOZL/wKzVHk2vnyjxPE9RpSjpQ5XDRCNg==
+	t=1792493551;
+	b=FYMNwlvW7WylkZxq/1VQbKl32gx8QY1TiOZUMIGlOWHM6l9pJWAQZ0AWrCflCicmjqM8
+	 qzQjMyjqsz8xgxbpehXUNpNmj1w24rXWlX03B990Wg1rDWPIqYN0nVxIM50CvBmJ5tt+P
+	 FRYkJdiU73Ori3l7vUWndAtybLTDbBROK81AhxXgdL5/J/ggTvG0gDrr+qin96Tn5PEtg
+	 ppyAfJjxnwjFBMkrQozMqW0cACDGBNOp4JvJeQ38vkhztkiR6MojVectI3WQwpelphy37
+	 3I5xzHzdfnIveUfhGUoay8N5TJzHq8yQsPvgEo+U+unwsBe0DB5YKvyvYvuSJooC7qA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792493446;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ijPSVZtN0wV/FObkbQ5coj1GUsZLgW/HlOlDTeZNmFI=;
-	b=S5/iTMXRT4LOwkbF1ypaWAQnQNVoggx0QmwLGPMEyXkMVMo9CX+O/Upf3dqo9fvw7S5/
-	 cMG/OLCwmqlybfGd991LsYCi3a7Unfu45S2aUX4s3wqXmbzqeqGrpMc3+r1/aGQMdAHls
-	 Xpq2/XkIWNETSSDehvXgXyoBKmtQBP+/4r+2n3iF4fHwIG08FY2gpUZGQxP5RmyLh+Hzg
-	 eC5H+thuN3mRj9/fGzdNZg4UwvZo/DCeaSHkIC0hSpF/miMfXFT6MTpZBwt9IIL3GySdR
-	 vbCPgtrDFWh47qse1yT/OmqdxVdLCVTa49ftnI7bH0lA57MhCu+2tTcpTC7AHlb/qCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792493551;
+	h=DMARC-Filter:Received:Content-Transfer-Encoding:Content-Type:
+	 DKIM-Signature:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:X-Originating-IP:X-ClientProxiedBy:X-Sophos-OBS:
+	 X-SASI-Version:X-SASI-RCODE:X-SASI-SpamProbability:X-SASI-Hits;
+	bh=nzDqId7rohNd7F8gR0YI1rYGcZuf65PaJTN3QFstVP8=;
+	b=ryfN2HSHcGpVY0P9jDq1w+AIgSFNzM7XKOCkr99pxQYuDCqjNdP/aP5RJMXenxat1cNF
+	 Pj930h2vcGZ8+J9PwObRh+L1leKj+zt61kgZH9MS7LYI9CBMPqd6/ngM4R5ZjtrsSmmsy
+	 9tp2I7tiuzNolvjOzUfc3NTu99w/qs1ePzhzIUtVtgA+tMvbiPiXknW6m7rWn/BbGq5BV
+	 4KfPulCCe5hTtUl84bcFAvEC55G/7cJ0rP71CR5muib9ZCf5MDpdDGnUD/+zrrcgX+xgJ
+	 Vm66SD/ex1huPqsRh0AAzaZLfe3bxHy22ir1+XM/wxPtdbkLd/QBCIyf8HhFGjng3yQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bobrowski.net;
-	spf=pass smtp.mailfrom=bobrowski.net;
-	dkim=pass header.d=bobrowski.net header.i=@bobrowski.net header.a=rsa-sha256 header.s=google header.b=CpFjF7HH;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=fiveco.ch;
+	spf=pass smtp.mailfrom=fiveco.ch;
+	dkim=pass header.d=fiveco.ch header.i=@fiveco.ch header.a=rsa-sha256 header.s=fiveco header.b=BCCe+bGP;
+	arc=none smtp.remote-ip=46.14.118.250
+Received: from remote.fiveco.ch (remote.fiveco.ch [46.14.118.250])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8C1B606A31B
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 10:50:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8C1B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bobrowski.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bobrowski.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6204460A380A
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 10:52:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6204460A380A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiveco.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bobrowski.net header.i=@bobrowski.net header.a=rsa-sha256 header.s=google header.b=CpFjF7HH
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3a4b3ac8fb7so1677156a91.0
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 03:50:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bobrowski.net; s=google; t=1792493445; x=1793098245; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ijPSVZtN0wV/FObkbQ5coj1GUsZLgW/HlOlDTeZNmFI=;
-        b=CpFjF7HHjiBPEyxhDRihQ3nc60Cyw7biDO8DewrQJDjFdKjSR2q77jdcI1CmwnPdMZ
-         o4ylYaenRJ0i0c2ZUC37IwuqhT1jiKsZg0pxehLaIZdv3mEKzVRbkM3sLlY5gimJvxgz
-         hFrpy4bSAjXp2Ej4If0TH7VypNFaIOAUlKAk8IXr3sQMpNZ0OMq6UTYk+GK3l4acuY2r
-         D6wCZ7JWOXgS45XELV+UcEMeFsCo296qi5jaHfg8fWnqpwj6x0SZb8deUrJ10uat0gm7
-         8ehHCsjjtnf22GSXcc5xYv6kU7rudfhKMJlroNQb861zFTQbpmk0cC293LYzjq9zUOnd
-         wSBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792493445; x=1793098245;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ijPSVZtN0wV/FObkbQ5coj1GUsZLgW/HlOlDTeZNmFI=;
-        b=1iB+Tn+Kr2L7De6OrbDJXpbhg9rFCjwNrEwK6daH/3PO2HJxWJMcHVoOFK6FL+fOdn
-         9y9hCaZlP1MCXDWbk78yoiBOlV3Zqv9/lyU2q7Kc7ip8wpzJNF9qlEUtij9sRGK7TdHT
-         +alOuToABqYKzDu7046okHupQk/5pjOjdSB7bZoT4+Ltrf1+rHJJ1vOQ4zAGtBVGVUbD
-         SmVgsseXCafIHM7vpxBaq7nar8YUoC56z2W+se+QWu18fAs4S6Tip8kXzRMSOLetOdbZ
-         W9Dnr7gBE5v9d4pvTahB9hvFOCOiyZmEkOS+km2c1q9RGHrU4+6z/2yofQ5FHj1q2NC2
-         c5KQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxo2eK+oqIbrIaQvjinmZWQSvYKtvISFqR+B6UmpFBNVCRWp2hdeBAy4VHTHng/3kpq/ww5rwY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKaP1KV8QeoJs0QfGkYLMyMt3Cl+Y/ymALzypOs4mRW3KgHVQa3
-	4P2iDfPfXbO52CRjv7QBxfnhSFhSMxpWS0khiM8YIDc9Rzw/BTlPm2AD8JAxctujh1Q2
-X-Gm-Gg: AYBFou2T0iogbufmn9hwQrKTUeG0v5ecqmq24fHnIXI5+EIInlFIvpVOJ0Yx2VU6vs+
-	5gzp/hXZ/DFK/BpSg64sUaNXgZ1RKtwkLS7QZMftzEG075s4YCJZQ6AfDkgdan6JV3RKZBe4gIW
-	087Nyfjw5Ek4hO/RnyLH5olCacMYVHLSOfbdZQkdWoDmYMSqGBNrFnkN43oXpOl3SGsmyzI55c5
-	l1TQAzEUlXlAk/VJbdBGTjn2GeQMw8YtjD5qjlC3RNFLmPpw07s+4r16ECOe7baCB24XohwKxCy
-	YRj6wMdFuKlnQ71H+TGTlNeoZprhygl7rBPCMItzvSwzNIN654G9Vj6q/OyfpdNUHYRX2L5jbmz
-	gDuD0zBL/u3bGxAXHSt6csXtJE21vZPs3r4sBKfTh7dohdP1t8uPyAAbNlKMlTTveYbezgCQaZ7
-	tyeUa45j6pNFOqhFPCs0Iag02Yp6qLKtbIFggEv02Yw0tmC/Zq6u4HzE79tnLj6eyp77cSkyKgl
-	jiUVclGrJWZ81OwM0SWY5i3R5v59xEp5+lxVv6iNxW5aQ==
-X-Received: by 2002:a17:90b:5743:b0:3ac:9d14:feb2 with SMTP id 98e67ed59e1d1-3acef14fe3bmr8737797a91.35.1792493445059;
-        Tue, 20 Oct 2026 03:50:45 -0700 (PDT)
-Received: from workstation.. (163-53-146-70.ip4.superloop.au. [163.53.146.70])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad60f36a5asm3487902a91.9.2026.10.20.03.50.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 03:50:44 -0700 (PDT)
-From: Matt Bobrowski <matt@bobrowski.net>
-To: bpf@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org,
-	Matt Bobrowski <matt@bobrowski.net>,
-	stable@vger.kernel.org
-Subject: [PATCH bpf-next 2/2] selftests/bpf: test bpf_path_d_path() on a file released at task exit
-Date: Tue, 20 Oct 2026 21:50:14 +1100
-Message-ID: <20261020105014.97985-3-matt@bobrowski.net>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261020105014.97985-1-matt@bobrowski.net>
-References: <20261020105014.97985-1-matt@bobrowski.net>
+	dkim=pass (1024-bit key, unprotected) header.d=fiveco.ch header.i=@fiveco.ch header.a=rsa-sha256 header.s=fiveco header.b=BCCe+bGP
+Received: from [192.168.16.44] (port=17412 helo=remote.fiveco.ch)
+	by remote.fiveco.ch with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.96)
+	(envelope-from <valentin.kindschi@fiveco.ch>)
+	id 1xJ7Rq-000000002AK-2qQ3;
+	Tue, 20 Oct 2026 12:52:02 +0200
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+DKIM-Signature: v=1; a=rsa-sha256; d=fiveco.ch; s=fiveco; c=simple/simple;
+	t=1792493522; h=from:subject:to:date:message-id;
+	bh=1xBBu1FERZbXbIeZlyLgOta86H3Ud+NDUuigX/nq814=;
+	b=BCCe+bGPWvcMWwUEFZgUb4AswlYNpqKV1yT+rh53+DPEb3o3z9tN+8GhKGwxomNjWCL18cztxM6
+	ATDetnC9+nmLlZfMZSyBTI0utOiOq0BKoPjHWzegZzS0nVJZ8RUccaOD7RAw06Hai16brYJGmtGUi
+	o5ws1R66p5w01vsO43s=
+Received: from fiveco-vm-vk1.fiveco.local (192.168.16.29) by
+ FIVECO-MX01.fiveco.local (192.168.16.44) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.61; Tue, 20 Oct 2026 12:52:02 +0200
+From: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+To: <linux-bluetooth@vger.kernel.org>
+CC: <marcel@holtmann.org>, <johan.hedberg@gmail.com>, <luiz.dentz@gmail.com>,
+	<linux-kernel@vger.kernel.org>, Valentin Kindschi
+	<valentin.kindschi@fiveco.ch>, <stable@vger.kernel.org>
+Subject: [PATCH v8 1/2] Bluetooth: hci_sync: re-enable legacy advertising on resume
+Date: Tue, 20 Oct 2026 12:51:49 +0200
+Message-ID: <20261020105150.2863631-1-valentin.kindschi@fiveco.ch>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,148 +70,139 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FIVECO-MX01.fiveco.local (192.168.16.44) To
+ FIVECO-MX01.fiveco.local (192.168.16.44)
+X-Sophos-OBS: success
+X-SASI-Version: Antispam-Engine: 6.0.0.1, AntispamData: 2026.10.20.95719
+X-SASI-RCODE: 200
+X-SASI-SpamProbability: 8%
+X-SASI-Hits: BODY_SIZE_4000_4999 0.000000, BODY_SIZE_5000_LESS 0.000000,
+ BODY_SIZE_7000_LESS 0.000000, CTE_8BIT 0.000000, DKIM_ALIGNS 0.000000,
+ DKIM_SIGNATURE 0.000000, HTML_00_01 0.050000, HTML_00_10 0.050000,
+ MULTIPLE_RCPTS 0.100000, NO_CTA_URI_FOUND 0.000000, NO_FUR_HEADER 0.000000,
+ NO_URI_HTTPS 0.000000, OUTBOUND 0.000000, OUTBOUND_SOPHOS 0.000000,
+ SENDER_NO_AUTH 0.000000, WEBMAIL_SOURCE 0.000000, WEBMAIL_XOIP 0.000000,
+ WEBMAIL_X_IP_HDR 0.000000, __ANY_URI 0.000000, __BODY_NO_MAILTO 0.000000,
+ __BODY_VOICEMAIL 0.000000, __BULK_NEGATE 0.000000, __CC_NAME 0.000000,
+ __CC_NAME_DIFF_FROM_ACC 0.000000, __CC_REAL_NAMES 0.000000, __CT 0.000000,
+ __CTE 0.000000, __CT_TEXT_PLAIN 0.000000, __DKIM_ALIGNS_1 0.000000,
+ __DKIM_ALIGNS_2 0.000000, __DQ_NEG_DOMAIN 0.000000, __DQ_NEG_HEUR 0.000000,
+ __DQ_NEG_IP 0.000000, __FUR_RDNS_SOPHOS 0.000000, __HAS_CC_HDR 0.000000,
+ __HAS_FROM 0.000000, __HAS_MSGID 0.000000, __HAS_XOIP 0.000000,
+ __HAS_X_MAILER 0.000000, __INVOICE_MULTILINGUAL 0.000000,
+ __MIME_TEXT_ONLY 0.000000, __MIME_TEXT_P 0.000000, __MIME_TEXT_P1 0.000000,
+ __MIME_VERSION 0.000000, __MULTIPLE_RCPTS_CC_X2 0.000000,
+ __NO_HTML_TAG_RAW 0.000000, __OUTBOUND_SOPHOS_FUR 0.000000,
+ __OUTBOUND_SOPHOS_FUR_IP 0.000000, __OUTBOUND_SOPHOS_FUR_RDNS 0.000000,
+ __RCVD_CTE 0.000000, __RCVD_EXIM_4_96_AES_128 0.000000,
+ __RCVD_FROM_HOMEUSER 0.000000, __SANE_MSGID 0.000000, __SL_HEAVY 0.000000,
+ __SL_LIGHT 0.000000, __SUBJ_ALPHA_END 0.000000,
+ __SUBJ_STARTS_S_BRACKETS 0.000000, __TO_MALFORMED_2 0.000000,
+ __TO_NO_NAME 0.000000, __URI_MAILTO 0.000000, __URI_NO_WWW 0.000000,
+ __URI_NS 0.000000
 
-Add a fs_kfuncs subtest for the crash fixed by the previous commit. A
-child opens a file and exits without closing it, so exit_files() drops
-the last reference and the file is released from exit_task_work(),
-after exit_fs() has cleared the task's fs. A file_release program calls
-bpf_path_d_path() on that release, matched by the file's inode number,
-and records what it returned.
+hci_resume_advertising_sync() never re-enables advertising on a
+controller without extended advertising.
 
-Without the fix the subtest crashes the kernel in d_path(). With it,
-bpf_path_d_path() returns -EINVAL.
+It restores HCI_ADVERTISING from advertising_old_state, then calls
+hci_schedule_adv_instance_sync(), which starts with:
 
-Fixes: d08e2045ebf0 ("bpf: introduce new VFS based BPF kfuncs")
+  if (hci_dev_test_flag(hdev, HCI_ADVERTISING) && !ext_adv_capable(hdev))
+          return -EPERM;
+
+The flag it tests was set a few lines earlier by the resume itself, so
+the call returns -EPERM without sending anything. The return value is
+discarded by every caller, so the failure is silent: advertising_paused
+is cleared, HCI_ADVERTISING is set, and the controller is not
+advertising.
+
+Observed on a BCM43455 (no extended advertising) after an active scan:
+btmon shows the pause disabling advertising and no re-enable in the ten
+seconds that follow, the device does not appear in another controller's
+scan, and btmgmt info still reports "advertising" in current settings.
+
+Enable instance 0x00 directly in that case, the way reenable_adv_sync()
+already does for the same situation. Instances continue to go through
+hci_schedule_adv_instance_sync() so the software rotation loop is
+rearmed.
+
+This affects every caller of hci_resume_advertising_sync(), not only the
+scan path: address resolution changes, accept list updates, discovery
+stop, suspend/resume and the end of an LE connection attempt all leave
+advertising disabled on such a controller today.
+
+The resume does nothing when the controller is already advertising, as
+it is after directed advertising was started for a peripheral
+connection, so it does not replace that advertising.
+
+err is initialised because the extended branch leaves it unset when
+adv_instances is empty and HCI_LE_ADV_0 is clear.
+
+Fixes: ad383c2c65a5 ("Bluetooth: hci_sync: Enable advertising when LL privacy is enabled")
 Cc: stable@vger.kernel.org
-Signed-off-by: Matt Bobrowski <matt@bobrowski.net>
+Assisted-by: Claude:claude-opus-5.5 btmon
+Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
 ---
- .../selftests/bpf/prog_tests/fs_kfuncs.c      | 51 +++++++++++++++++++
- .../selftests/bpf/progs/test_path_d_path.c    | 35 +++++++++++++
- 2 files changed, 86 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/progs/test_path_d_path.c
+Changes in v8:
+- Do not restart advertising on resume when HCI_LE_ADV is already set.
+  With HCI_ADVERTISING set, a peripheral connection starts directed
+  advertising and the resume then replaced it with undirected
+  advertising; the l2cap-tester "Direct Advertising" tests failed in
+  CI.
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/fs_kfuncs.c b/tools/testing/selftests/bpf/prog_tests/fs_kfuncs.c
-index 43a26ec69a8e..510cf11c8bd8 100644
---- a/tools/testing/selftests/bpf/prog_tests/fs_kfuncs.c
-+++ b/tools/testing/selftests/bpf/prog_tests/fs_kfuncs.c
-@@ -4,12 +4,15 @@
- #include <stdlib.h>
- #include <sys/types.h>
- #include <sys/xattr.h>
-+#include <sys/stat.h>
-+#include <sys/wait.h>
- #include <linux/fsverity.h>
- #include <unistd.h>
- #include <test_progs.h>
- #include "test_get_xattr.skel.h"
- #include "test_set_remove_xattr.skel.h"
- #include "test_fsverity.skel.h"
-+#include "test_path_d_path.skel.h"
- 
- static const char testfile[] = "/tmp/test_progs_fs_kfuncs";
- 
-@@ -268,6 +271,51 @@ static void test_fsverity(void)
- 	remove(testfile);
- }
- 
-+static void test_path_d_path_on_exit(void)
-+{
-+	struct test_path_d_path *skel = NULL;
-+	struct stat st;
-+	int fd, status;
-+	pid_t pid;
-+
-+	fd = open(testfile, O_CREAT | O_RDONLY, 0644);
-+	if (!ASSERT_GE(fd, 0, "create_file"))
-+		return;
-+	close(fd);
-+
-+	if (!ASSERT_OK(stat(testfile, &st), "stat"))
-+		goto out;
-+
-+	skel = test_path_d_path__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "test_path_d_path__open_and_load"))
-+		goto out;
-+
-+	skel->bss->monitored_ino = st.st_ino;
-+
-+	if (!ASSERT_OK(test_path_d_path__attach(skel), "test_path_d_path__attach"))
-+		goto out;
-+
-+	/*
-+	 * The child exits with testfile still open, so exit_files() drops
-+	 * the last reference and the file is released from exit_task_work(),
-+	 * after exit_fs().
-+	 */
-+	pid = fork();
-+	if (!ASSERT_GE(pid, 0, "fork"))
-+		goto out;
-+	if (pid == 0)
-+		_exit(open(testfile, O_RDONLY) < 0);
-+
-+	if (!ASSERT_EQ(waitpid(pid, &status, 0), pid, "waitpid"))
-+		goto out;
-+	ASSERT_TRUE(WIFEXITED(status) && !WEXITSTATUS(status), "child_open");
-+	ASSERT_EQ(skel->bss->called, 1, "called");
-+	ASSERT_EQ(skel->bss->ret, -EINVAL, "bpf_path_d_path");
-+out:
-+	test_path_d_path__destroy(skel);
-+	remove(testfile);
-+}
-+
- void test_fs_kfuncs(void)
+Changes in v7:
+- Enable instance 0x00 only when HCI_ADVERTISING was restored from the
+  state before the pause. Without that check, removing the numbered
+  instance that was advertising while paused reset cur_adv_instance to
+  0x00 and the resume started advertising that was not running before.
+  Reported by Sashiko.
+
+Changes in v6:
+- No change; resent as part of the series.
+
+Changes in v5:
+- New patch. v4 of the scan fix resumed advertising through
+  hci_schedule_adv_instance_sync(), which refuses HCI_ADVERTISING on a
+  controller without extended advertising, so the resume never sent
+  anything. Patch 2 depends on this.
+
+ net/bluetooth/hci_sync.c | 10 +++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index 7ac26daba..d215432db 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -2733,7 +2733,7 @@ static int hci_pause_advertising_sync(struct hci_dev *hdev)
+ static int hci_resume_advertising_sync(struct hci_dev *hdev)
  {
- 	/* Matches xattr_names in progs/test_get_xattr.c */
-@@ -288,4 +336,7 @@ void test_fs_kfuncs(void)
+ 	struct adv_info *adv, *tmp;
+-	int err;
++	int err = 0;
  
- 	if (test__start_subtest("fsverity"))
- 		test_fsverity();
-+
-+	if (test__start_subtest("path_d_path_on_exit"))
-+		test_path_d_path_on_exit();
- }
-diff --git a/tools/testing/selftests/bpf/progs/test_path_d_path.c b/tools/testing/selftests/bpf/progs/test_path_d_path.c
-new file mode 100644
-index 000000000000..4ea50a067819
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/test_path_d_path.c
-@@ -0,0 +1,35 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include "vmlinux.h"
-+#include <errno.h>
-+#include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_tracing.h>
-+#include "bpf_misc.h"
-+#include "bpf_experimental.h"
-+
-+#define PF_EXITING 0x00000004
-+
-+char _license[] SEC("license") = "GPL";
-+
-+__u64 monitored_ino;
-+int called;
-+int ret;
-+
-+/*
-+ * A task that exits with a file still open releases it from
-+ * exit_task_work(), after exit_fs() has already cleared its fs.
-+ */
-+SEC("lsm/file_release")
-+int BPF_PROG(path_d_path_on_exit, struct file *file)
-+{
-+	struct task_struct *task = bpf_get_current_task_btf();
-+	char buf[64];
-+
-+	if (file->f_inode->i_ino != monitored_ino ||
-+	    !(task->flags & PF_EXITING))
-+		return 0;
-+
-+	ret = bpf_path_d_path(&file->f_path, buf, sizeof(buf));
-+	called = 1;
-+	return 0;
-+}
+ 	/* If advertising has not been paused there is nothing  to do. */
+ 	if (!hdev->advertising_paused)
+@@ -2766,13 +2766,19 @@ static int hci_resume_advertising_sync(struct hci_dev *hdev)
+ 		 */
+ 		if (hci_dev_test_and_clear_flag(hdev, HCI_LE_ADV_0))
+ 			err = hci_enable_ext_advertising_sync(hdev, 0x00);
+-	} else {
++	} else if (hdev->cur_adv_instance) {
+ 		/* Schedule for most recent instance to be restarted and begin
+ 		 * the software rotation loop
+ 		 */
+ 		err = hci_schedule_adv_instance_sync(hdev,
+ 						     hdev->cur_adv_instance,
+ 						     true);
++	} else if (hci_dev_test_flag(hdev, HCI_ADVERTISING) &&
++		   !hci_dev_test_flag(hdev, HCI_LE_ADV)) {
++		/* hci_schedule_adv_instance_sync() rejects instance 0x00 while
++		 * HCI_ADVERTISING is set, so enable it directly.
++		 */
++		err = hci_start_adv_sync(hdev, 0x00);
+ 	}
+ 
+ 	hdev->advertising_paused = false;
 -- 
-2.47.3
+2.34.1
 
