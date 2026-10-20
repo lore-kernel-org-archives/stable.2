@@ -1,91 +1,35 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.83.222.60
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792515568;
-	b=3dhvZocJ4oHqPsJ9T/e+Pud09nzz1cT5XX8KFoYcnuk++QqWx6UzSmSdwSY6DijJufrS
-	 YhkPs2VA50HsvrBEQ8zW/azivl9flCWISSi2pveN4xPu+YZfYHUNek2sny+ykW8oqAF8y
-	 3L6kpGlXNlydZ4fHpVQBO4Hcnf9EwRUA7RXO5A+xKwJ1xJ7E0MqZR1qo+rMa9KsRWlK4r
-	 Vl/dhA4APILTpiwPfX4wYPYpQJpsjZRRsw2V3whwp9Rs8FjMhZxcmbzyT8wEkgkEdxvMM
-	 gt9ArnyPpE7swToLEBUlLe1NpPKVIuU5Gzl8mS01NbPnpqIGo9aRGiIM1V/mvLyl57Q==
+	t=1792515771;
+	b=Id268nuGysiPgT56UBJ0tAMQTk8THp5BuNOoAc7uC1nS9KcXBXmfkLjAruw49aJFth56
+	 ENFs6107HSSN1Nl438EfT3ePGCMies+7vzSkFZ4g4yIWTl4g32ZFAPuXrN9FKM/sVPRb0
+	 G9OyH9Sf7jtatVC2yuaugJVfNs8DcK/q6MLb2HlSMcHpMh3MgSzUPc8feNHN/uMbXSpjB
+	 vEUykCOs0KlmA+HJ8nOdqST0XL5VFcNVMZypELO0rJ5mQDzAz+ao1IE3KR5nkjg5ohe1L
+	 u4BcSLpr7OM8K3gp0afPar3kZOHM24+0JBH3gLLQzQfATBlzejX159zj6D5lTsQJo0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792515568;
-	h=DMARC-Filter:X-Sender-Id:Received:Received:X-Sender-Id:X-MC-Relay:
-	 X-MailChannels-SenderId:X-MailChannels-Auth-Id:X-Illegal-White:
-	 X-MC-Loop-Signature:X-MC-Ingress-Time:Received:Received:
-	 DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=lsWi/+vV7HXNVefv/HtjTalVTQdcLmOCgb3JgZq0tdU=;
-	b=0YyGQ9g7N0zHyPx+N4+Wu/EDBI4PjUJEPALL+TM7n3ZzE1vcHC8g7I1AgApIxHFVgj3W
-	 1u06Xb7/WDmtz/DCtKPywZjW/SECbdaxzynD26F32dDLEsFhpqUUYEKH1urrVxflyYdPE
-	 1fslABTdIpglo7nEpPYXCsNLjfBenXbrZLaa+6Qj4mjefYR3RDOnhu/aN8964s6R62RgJ
-	 V8sC5b5/ch/HTkM0QFtIrj/OXIHK89wzHFUEvs4NUckSrsvblUM1DvyWnxzChYS5HejhS
-	 /H53kTfWp0z35x8DXFODW/+plmOGY+LCwxVAupX8P+zZQ1fedZUYjXMXQ7NF/UFH7yg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792515771;
+	h=Received:Date:To:From:Subject:Message-Id;
+	bh=4xfhOuk4fAlufgZQ81Jax6/icLSHwd6Prm1rRP2LfnI=;
+	b=pnZHdoFUH4qX+1x5uWgAlk3tLTmMAGw30JPBoGwEY+PKiLqW5A6Py21SCmIP13T9h6YM
+	 3sEA3mTrhe8yMXwYEHrReutS6kJS5LeM5cFbToc8PyEmLLTswB9gXeJ/Yx2N0fDRd74Ll
+	 iYL+kWR0/hPwx40C3yFMlm+DXew8pxJHOboCFzxXt6oOEPKsNOfZCxLtyfYy4vZkGa00o
+	 vudx+yg6VYZuBlDs+z1eEMzH76zovyQApq8o77HozuRYeWhA5DWz/5DzjTmNSf+KSjppk
+	 GWRLqlfT1XmeO1vOpPnYgmjjCAXVlZm01gGBTArvKR5Kr95M/hOMQliGTOXZcTeZFZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=stgolabs.net;
-	spf=fail smtp.mailfrom=stgolabs.net;
-	dkim=pass header.d=stgolabs.net header.i=@stgolabs.net header.a=rsa-sha256 header.s=dreamhost header.b=oO+pji7m;
-	arc=none smtp.remote-ip=23.83.222.60
-Received: from flamingo.ash.relay.mailchannels.net (flamingo.ash.relay.mailchannels.net [23.83.222.60])
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A0F606A31A;
-	Tue, 20 Oct 2026 16:59:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0A0F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=stgolabs.net header.i=@stgolabs.net header.a=rsa-sha256 header.s=dreamhost header.b=oO+pji7m
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 5D4144E1526;
-	Tue, 20 Oct 2026 16:59:21 +0000 (UTC)
-Received: from pdx1-sub0-mail-a252.dreamhost.com (trex-green-4.trex.outbound.svc.cluster.local [100.96.14.12])
-	(Authenticated sender: dreamhost)
-	by relay.mailchannels.net (Postfix) with ESMTPA id 0784D4E2152;
-	Tue, 20 Oct 2026 16:59:21 +0000 (UTC)
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
-X-MailChannels-Auth-Id: dreamhost
-X-Illegal-White: 046881b50e36c100_1792515561217_47232638
-X-MC-Loop-Signature: 1792515561217:39543921
-X-MC-Ingress-Time: 1792515561217
-Received: from pdx1-sub0-mail-a252.dreamhost.com (pop.dreamhost.com
- [64.90.62.162])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.96.14.12 (trex/8.0.2);
-	Tue, 20 Oct 2026 16:59:21 +0000
-Received: from offworld (unknown [76.167.199.67])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: dave@stgolabs.net)
-	by pdx1-sub0-mail-a252.dreamhost.com (Postfix) with ESMTPSA id 4j8JY362KGz102x;
-	Tue, 20 Oct 2026 09:59:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
-	s=dreamhost; t=1792515560;
-	bh=lsWi/+vV7HXNVefv/HtjTalVTQdcLmOCgb3JgZq0tdU=;
-	h=Date:From:To:Cc:Subject:Content-Type;
-	b=oO+pji7mYjxFCtP5HeJroc1ODXuNr+hSmiBedjFzv+CkBkdC4rXtomtMA8pYA411L
-	 Y4KYhZI9YuLsMR5JuKet/LVeKpDI1e/mvhnASaxXJlGNUtZEuCf6N9RyuJTAqhVNMy
-	 svK6XA9lxXnHHQif44dKKTJpn3keotg0Fadrttv3Aen9PhLg5P7iDGeHkgh26V6+ra
-	 bhATCmru40mhEIAg6PEOmw7J/5D9pdob2Xt+ncEmh/lLcAwV/v/o0yE0GqHRLSGAwc
-	 clt4tfkkZtfmBLje5J4Z13wNA+k+uoq4a+VZxlqkCzEGZmHA7grLgZ2lLJ6jmI+gDF
-	 cMg++eo1SGvIg==
-Date: Tue, 20 Oct 2026 09:59:16 -0700
-From: Davidlohr Bueso <dave@stgolabs.net>
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
-	akpm@linux-foundation.org, kasong@tencent.com, qi.zheng@linux.dev,
-	shakeel.butt@linux.dev, baohua@kernel.org, axelrasmussen@google.com,
-	yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev,
-	baolin.wang@linux.alibaba.com, hannes@cmpxchg.org, david@kernel.org,
-	mhocko@kernel.org, ljs@kernel.org, roman.gushchin@linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/vmscan: reclaim every zone in per-node proactive
- reclaim
-Message-ID: <20261020165916.pf4gxd2rulrqmdso@offworld>
-References: <20261019185002.3428594-1-gourry@gourry.net>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83F48606A336;
+	Tue, 20 Oct 2026 17:02:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 014BD1F000C9;
+	Tue, 20 Oct 2026 17:02:49 +0000 (UTC)
+Date: Tue, 20 Oct 2026 10:02:19 -0700
+To: viro@zeniv.linux.org.uk,tz2294@columbia.edu,stable@vger.kernel.org,l1za0.sec@gmail.com,kbusch@kernel.org,hch@lst.de,hare@kernel.org,4ncienth@gmail.com,akpm@linux-foundation.org,linux-block@vger.kernel.org,axboe@kernel.dk
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [patch 1/1] block: restore the iterator when rejecting a misaligned bio
+Message-Id: <20261020170250.014BD1F000C9@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,54 +38,81 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20261019185002.3428594-1-gourry@gourry.net>
-User-Agent: NeoMutt/20220429
 
-On Mon, 19 Oct 2026, Gregory Price (Meta) wrote:
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: block: restore the iterator when rejecting a misaligned bio
+Date: Sun, 18 Oct 2026 17:30:00 -0700
 
->user_proactive_reclaim() limits per-node reclaim to
->gfp_zone(GFP_KERNEL), which is ZONE_NORMAL. Proactive reclaim serves no
->allocation, but that limit makes shrink_node() skip every ZONE_MOVABLE
->folio, so writing to /sys/devices/system/node/nodeN/reclaim never
->reclaims a node's movable memory. A movable-only node, such as dax/kmem
->or hotplugged memory onlined movable, reclaims nothing and fails with
->-EAGAIN.
->
->To reproduce, fill a movable-only node with clean page cache and write
->200M to its nodeN/reclaim: the write fails with -EAGAIN and the page
->cache stays. The same write to a ZONE_NORMAL node frees 200MB.
->
->Scan every zone, as memory.reclaim does.
->
->Fixes: b980077899ea4 ("mm: introduce per-node proactive reclaim interface")
->Cc: stable@vger.kernel.org
->Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+bio_iov_iter_get_pages() can extract some iovecs before encountering a
+misaligned one.  It releases the pages and rejects the entire bio, but
+leaves the supplied iterator advanced.
 
-This makes sense - sorry for the trouble but at least glad to see
-people using this interface.
+An iomap direct-I/O caller may subsequently reexpand the iterator's
+byte count and fall back to buffered I/O.  The reexpanded count then
+includes bytes before the iterator's current segment, potentially
+causing iterate_iovec() to read beyond the imported iovec array.
 
-Acked-by: Davidlohr Bueso <dave@stgolabs.net>
+In a reproducer using an initial empty iovec followed by 10-byte and
+1015-byte segments, writev() returned 1015 instead of 1025 and KASAN
+reported an 8-byte read beyond the nine-element iovec allocation.
+Saving and restoring the iterator on the rejected-bio path makes
+writev() return 1025 and eliminates the KASAN report.
 
->---
-> mm/vmscan.c | 2 +-
-> 1 file changed, 1 insertion(+), 1 deletion(-)
->
->diff --git a/mm/vmscan.c b/mm/vmscan.c
->index e82ba737c028d..90f7a7bf4e426 100644
->--- a/mm/vmscan.c
->+++ b/mm/vmscan.c
->@@ -8180,7 +8180,7 @@ int user_proactive_reclaim(char *buf,
-> 		} else {
-> 			struct scan_control sc = {
-> 				.gfp_mask = current_gfp_context(gfp_mask),
->-				.reclaim_idx = gfp_zone(gfp_mask),
->+				.reclaim_idx = MAX_NR_ZONES - 1,
-> 				.proactive_swappiness = swappiness == -1 ? NULL : &swappiness,
-> 				.priority = DEF_PRIORITY,
-> 				.may_writepage = 1,
->-- 
->2.53.0-Meta
->
+Restore the entire iterator rather than reverting a byte count:
+advancing past an empty segment changes its position without consuming
+any bytes.
+
+Leave successful and partially accepted bio paths unchanged.
+
+Fixes: 14b007e17881 ("block: validate user space vectors during extraction")
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Haocheng Yu <l1za0.sec@gmail.com>
+Closes: https://lore.kernel.org/20261018081203.2431035-1-l1za0.sec@gmail.com
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Keith Busch <kbusch@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Tal Zussman <tz2294@columbia.edu>
+Cc: Daehyeon Ko <4ncienth@gmail.com>
+Cc: Al Viro <viro@zeniv.linux.org.uk>
+Cc: Hannes Reinecke <hare@kernel.org>
+Cc: <stable@vger.kernel.org>
+---
+Testing on x86-64 QEMU/KVM with generic KASAN:
+- Before: the ext4 writev() reproducer returned 1015 instead of 1025
+  and triggered an 8-byte slab out-of-bounds read.
+- After: 100 consecutive reproducer runs returned 1025 without KASAN;
+  60-second buffered and direct ext4 fio runs passed.
+- Daehyeon's alignment patch independently avoids the reproducer.
+
+Tal Zussman's pending atomic-write changes introduce another rejected-bio
+cleanup path. If both patches are combined, restore the iterator there too.
+ block/bio.c |    3 +++
+ 1 file changed, 3 insertions(+)
+
+--- a/block/bio.c~block-restore-the-iterator-when-rejecting-a-misaligned-bio
++++ a/block/bio.c
+@@ -1285,6 +1285,7 @@ int bio_iov_iter_get_pages(struct bio *b
+ 			   unsigned mem_align_mask, unsigned len_align_mask)
+ {
+ 	iov_iter_extraction_t flags = 0;
++	struct iov_iter saved_iter;
+ 
+ 	if (WARN_ON_ONCE(bio_flagged(bio, BIO_CLONED)))
+ 		return -EIO;
+@@ -1303,6 +1304,7 @@ int bio_iov_iter_get_pages(struct bio *b
+ 	if (bio->bi_bdev && blk_queue_pci_p2pdma(bio->bi_bdev->bd_disk->queue))
+ 		flags |= ITER_ALLOW_P2PDMA;
+ 
++	saved_iter = *iter;
+ 	do {
+ 		ssize_t ret;
+ 
+@@ -1320,6 +1322,7 @@ int bio_iov_iter_get_pages(struct bio *b
+ 				bio_release_pages(bio, false);
+ 				bio_clear_flag(bio, BIO_PAGE_PINNED);
+ 				bio->bi_vcnt = 0;
++				*iter = saved_iter;
+ 			}
+ 			if (!bio->bi_vcnt)
+ 				return ret;
+_
