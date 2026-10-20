@@ -1,106 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792465406;
-	b=1Iaq0Ceve+KdIEgQ32axFI5LusUmKKES8ihSVr+wLPk0+agyG4Hoc0X829SuYr/IqPXh
-	 yjkqMaVnsyAM+U4OQs3ABukl+xuF6vZ2n1CV+kr3/9gSZiqa3SlbyxtZRzhXzWXc0osfd
-	 L6w1VIHGlFxswe8oAbvw9P0ENiairw/rnJBD66NhKCqnmD9++9TnoIgb5QA+JkLNjtbFs
-	 uF6oeyyHDGjPqcdXWPTT1UEf2Y0cZ0VYrNdibMbgNI3VDFObQSPYe2ZxjOKne5vqymTyd
-	 kCKyLdBzZhToniPdS01gUPpV4vI5Pav07eHfK3bkMaybdd7lW73o34NunbId9/6IgCQ==
+	t=1792465456;
+	b=IRFAk16pSpZUXj8hf2gsGiSlPtK7xNPohqANCBgNsTRGZikXIo4s17QGlYu2n5aK/HdF
+	 1Ii/KGqcuJnsG0+eov2+yp3UJ/AxjhycRt70iGEIkw7otsoxKjc8bXHldO3vsoEcDC2rq
+	 VSgk5SIo9ifWsK3sK6UYg9j384QyCajLvv1IhmBZkW34C8wB13miaBKTuUjcua9d9HDeS
+	 HEyLBZEvdgtNdgdT54Gy2tjSbM+F0LRPiVnjdUOectrDcwLjWQKWc/4EGc3kRMO7F9YgW
+	 NbJOXW9UQCTaNUy4y2gSu1FOy+tOOPUW2QviIrSUrAgFp9p/aR215u27Lgn23mxHvhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792465406;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792465456;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=7iKM8EwoaojoyuTFakOaMxaMyLliXbiGe3dN6S9YDMY=;
-	b=EouRwoGDGacSK0GEnDcWSB3gL+LIYnyTVEUbHjst9QndTENghPbALu7oUlZfT2oc6hry
-	 4tIkGyDWd95zyJoAoYOaXdue2cLjhAz4gLTkdEj44SMMUYtcbymv0hV2bnBtT1XldYf3L
-	 yjR+z1aGJgh8c0pWGETFQYouxOh14wWBAW1ba698z8dLo05zN2DhSsFEyy/ODUKBtrDCl
-	 ADXA6YtViFn89bzMZivMyDJieQpW81z831JPHPApX7w+ta0fIBfZf1B7oFN61JHXO6CGJ
-	 xTgvCD9CtdNspESEe84KKIjVQf8goBiXDA/+A2NfjbK6o221GfFaS/MiebA3CjIGuTw==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=FvpcUWOMJRPh8Fi2Ngt6U54Np2NRjnE0G0LmqIgTo0M=;
+	b=OWqvH/AE4G/zuO0uCEWbcijRxPEw4POf6FnpRY1fYho5Stu2fm9QfDmBENtAsUcLjsga
+	 EY6PgnPgbkKnA433y1WOdgNSxtKBGulzTnRSVh6EPKbi+/7Gxa3Fu69XZUyTu8httujOt
+	 eWinSYqvgRuG3Ng/8XRmfHvGbopmy01bAXpscJDMRfbY7xurq4wG3+QkW3nrkIgHaqV8T
+	 EvA0WUPkfj18opmYn1UhbRGL7q2HKgr3rUbU0p6uCNa4MZ3DEK+k7X6V7gsZIb7wNwhjt
+	 aKdDn1pN5QBnPnYYAJjmoUCRxsxz7l8rnjOYs6eZOMYdqLeKesAVKLcyNKPn1yqW4GQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YkYiYCQN;
-	arc=none smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Rzv0PZ11;
+	arc=none smtp.remote-ip=209.85.222.182
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E48606A319
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 03:03:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89E48606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FAA4606A31D
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 03:04:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FAA4606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YkYiYCQN
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ac677668a9so2380808a91.2
-        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 20:03:26 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Rzv0PZ11
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93f1cf92c9eso281997885a.0
+        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 20:04:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792465406; x=1793070206; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=gourry.net; s=google; t=1792465455; x=1793070255; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=7iKM8EwoaojoyuTFakOaMxaMyLliXbiGe3dN6S9YDMY=;
-        b=YkYiYCQNhIREwubHqRXjpJhIVLCmen08ktmOr/IDht2Mu0NDdDzkeStxyUqonSytNf
-         NOLbZ++Nt7V5JnCVSAURZdnUHuBkGppvaArpkmC5EtySpmzRNMQYd9nwO3zsPN2eK0Jt
-         ToIiOPVq2Gc0VOov9KpToQPQOmOGHk8ozyaZTkW4LVu9hsMFTGKlYL2OryBvMwpSVT1O
-         omtRVAVVY2VwnWo+Te45Lt3acnvdgEfnAD5cm6ap9SEu7XJWcfvQZeu+AHZEnxAziZ+r
-         0Ym21wMmptonI813GOS0BSJmyeQ/v550S/JYDvcMyTMAE23nuF6R5NIHSrHTRvtxkMt0
-         m8tg==
+        bh=FvpcUWOMJRPh8Fi2Ngt6U54Np2NRjnE0G0LmqIgTo0M=;
+        b=Rzv0PZ11amlZCBHSQbI4tLaoQRJGFkTwgDTozpYth43bGQNLv/XgH1xNcWB7xJcKTX
+         xNDuN+zQmcKHGzGII7v6lro3YCzTRCY4wGzBaYNzK4gumG8CGE+WlLi6oWc2MMetIcjz
+         LdfPsKZbQLsgpOX6XztwWzeLGKLyu4MwkyLxxXFKdQh6QuBzFBkNjUYqN+NjjimDsV7j
+         hakRQ2///8iSro4qBTbiWCFKcGAFfBeZ6CSV+xyp5uMemxJNSr29O6y+6OT+Ei6z+Kro
+         Jz3NhYi78jjRoLREQFfO50TeHi5ZGSsSivKR3bsvHXoayJ436aGTNy3uE8YBDNGLTfV3
+         Y/xQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792465406; x=1793070206;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1792465455; x=1793070255;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7iKM8EwoaojoyuTFakOaMxaMyLliXbiGe3dN6S9YDMY=;
-        b=e96sNi1ynFfo7xFz7f30fXUFFG3frf2Dba2PFtUesJziXJ3p2O/4oN725SanU6jf+c
-         ePqPQfcj9RCCfZ0CAAnCLdaqOym5fET15XWspNUvkRrwzN0dWG4qrDEdtAFkRgqHrplY
-         JC5ED/Zv9sCY49xV7DqRPnVcfjVAr9msfTeEmn5prDaNp3wkDBV0CybQ6MQ0AU8bex6Q
-         E5ygQ47KK2HsyYLp2ShnYfY/D5v94NDyEF2xbdpVjpkuVQSdkIBXvVlCgwVwE+UmBj4Z
-         5HDIXmHvS5H6qG64KJT2aax9u5gwtySdqOsP6Go/1W/JXQjB3QIOa7vhgF6G994e2hqf
-         2ksA==
-X-Forwarded-Encrypted: i=1; AKwUvBx3/inEjggrqtaG9MvjE1Uhfgv5c7e5XG/VXjyUqf4klrwhVfissEGHSacJZBaGIhDLmkdNXZM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJZtGgvARAWuXKMc3JIgsGaOOlx5kHE/LBfW3NthtP43R1+wXs8
-	j4UgO5ap6blUFj38+oaLSYux9wSWSLjVnx7z/obzT3BlNtvn4dtztKgc
-X-Gm-Gg: AYBFou3eNtfzUzZhHKWAmzbhif6zZUS8soQ9FsSxMr/ku5sYeOVFkTXtSxiBLx14eCh
-	mk6zuI9odpZH0enq0zynTi6bihUNRRs70mLAEsYwrNK6w1OpkHRRQyp92M8FFlehhEvcv0qD1M5
-	v5pB38jRwylaPJzClUFPlBHQW2a7u7zpduQ/Vw6RJP554GlYyaOi7Rlk05FF4k2BSc4e6wtr4Jt
-	2OBSowIpNizM8ku6V8U/Ewd0RDRQyKHYmJfgV+S4t/wbQ5Fsd0ZYua7aJSaWgN47LhXN6T0LS7r
-	1wZaYmxNeh+dfWzESS6EoIrQNEk9OCisZUQ3c3V6a3ZgLp8D8l2OsodIQg3R/WreFRTlru4GX6H
-	dZzXpRQSpCaOJJUPSc+vPRAiSlGfNE9kA7kaFdzGGhRa8qwbzWNh52rmCOnVwg1j31JxX78pua5
-	zpS6VqGrbsgkQb/GYDD8QUVL2hkWIqxuwgcmIDAxV+6B+QQZ8nLfslE0mR2sFua2mKD0Ff8rRN0
-	AkRiMEqM2tq2oCF+OqQipHqMooD0rVEWJ0cKL0MWYlKG9G6SwS4NoVChkD7vQevEXVmK5ggqUtD
-	Idbl/pWwrUD89R0SRjXPP30dFykNnDsU
-X-Received: by 2002:a17:90b:582f:b0:3a6:f1d2:57f3 with SMTP id 98e67ed59e1d1-3acef542fa9mr8451695a91.58.1792465405825;
-        Mon, 19 Oct 2026 20:03:25 -0700 (PDT)
-Received: from localhost.localdomain (ip67.244-167-222.hkg.ten111.net. [222.167.244.67])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad5d4005b1sm2215884a91.6.2026.10.19.20.03.21
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 19 Oct 2026 20:03:25 -0700 (PDT)
-From: "=?UTF-8?q?=E6=9D=A8=E5=9B=BD=E5=B8=85?=" <yangguoshuai@gmail.com>
-X-Google-Original-From: =?UTF-8?q?=E6=9D=A8=E5=9B=BD=E5=B8=85?= <ygs@cgcal.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: Guoshuai Yang <yangguoshuai@gmail.com>,
-	Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH ipsec] xfrm: esp: reset outer TCP GSO metadata on espintcp input
-Date: Tue, 20 Oct 2026 11:03:18 +0800
-Message-ID: <20261020030318.6471-1-ygs@cgcal.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <179237120528.3135.16925112275068010433@kernel.org>
-References: <20261018005218.53267-1-yangguoshuai@gmail.com> <179237120528.3135.16925112275068010433@kernel.org>
+        bh=FvpcUWOMJRPh8Fi2Ngt6U54Np2NRjnE0G0LmqIgTo0M=;
+        b=P+uuZRRR1DBsNlAam1NlA3/xdCye61+2sZSbVFqp15kYW9kFGsiZesBBZMZXPJ/3Rv
+         1okiQnzmsy9r9R5QzVeuQ8hoRJTPneKgmKTyQiT/I2XhE2DyglqPcbECevfNv0mALhxm
+         HVmlH0xFGtICGyBVkHHTrVUWB5AZR4WhpWyGHYFRc5K5H2GkSAbACMMRcufuz/AgtxOX
+         BCrzWk5nMY/wYLK6jo6LlXkwyIADBb8TrMDunyZInLPk20w6rYJlYo44LZGNpAx/aXg8
+         OfU4s2RM9w5FZ/kytua+FcTAQej81gey93cta3ADjI80z5IUz8RhwKWW/JZZh9oBT8D/
+         F+/A==
+X-Forwarded-Encrypted: i=1; AKwUvBwR5uucKekjSsyR8yKfD9S2I17YKHCuEWjCAxeK5UMJBfz+bQsk+9n1mzHzldR3knPPyPrT7io=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBG3ecULy0NbNWLRzmVxq7J2zM5BXnTsbMAW0PZfXhFoEi9IqU
+	oV70jXcTioFFEV3fQjUDoEcDT3+Uhq+kHNQ01mhNU4XfQMqchSK6pi35zMo4FQKfGkU=
+X-Gm-Gg: AYBFou0ffGg1iQJDrlCz4Qy7/tdfBPnrgXGDO7K72AEDcSSMtVbX8Lcbyb3c4CZlkjV
+	bGbjplXgXj/8l1js3e3vtjkTT9AvYinph+jpYIjfxAVoC0uoOYYAAB47rW5+h9a1Aaek7BD7VSn
+	vFm6UYBsz4gYfijMBDGYwAlGdzhE1zYp6z+tTyBjke7mvmo0nH3voMHDljXzKaoJEiRooTYnGWK
+	rr6SYeCpqvEiOWficp4vaVmsx7x183oXJ/T7TAuOeAmalnq2qWQ2OwtCdpkKcuSbHHX/gNW9eL6
+	WE4lOTCXb/7ekwgoz8ZxmeNsUKpZ5+o87LzurEwJmldkpdlySauybYKfE07QUm8Psf9S1PQ1Xd1
+	IplmZyDiGFZATtTb0S5YglS9J2zcHUBQG7RnyBuI10Mz7kDiM1IpFEgZsQKLMiuRGWoDC8x8brf
+	YgBYByvkMlDM8VoNsqbMAk2oIYw2hc7lxyRPX2YXMStwauRhtBBxXiE00U5zy+SibWuLzwqIIc7
+	GzTD0cvEOteFgRJOW88EbAvmd76ypPn+PpXCjIInimequQZWE4Ml6E=
+X-Received: by 2002:a05:620a:28c6:b0:93f:3565:813 with SMTP id af79cd13be357-93f3565089bmr1140582985a.9.1792465454862;
+        Mon, 19 Oct 2026 20:04:14 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f4b0c4f1asm114948985a.33.2026.10.19.20.04.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 20:04:14 -0700 (PDT)
+Date: Mon, 19 Oct 2026 23:04:12 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Balbir Singh <balbirs@nvidia.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, kasong@tencent.com, qi.zheng@linux.dev, shakeel.butt@linux.dev, 
+	baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com, 
+	baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, hannes@cmpxchg.org, 
+	david@kernel.org, mhocko@kernel.org, ljs@kernel.org, dave@stgolabs.net, 
+	roman.gushchin@linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/vmscan: reclaim every zone in per-node proactive
+ reclaim
+Message-ID: <atbZyUYli9Ioy5O6@gourry-fedora-PF4VCD3F>
+References: <20261019185002.3428594-1-gourry@gourry.net>
+ <b7aab691-ae63-498c-8d0c-1696592eea60@nvidia.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -110,35 +101,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b7aab691-ae63-498c-8d0c-1696592eea60@nvidia.com>
 
-From: Guoshuai Yang <yangguoshuai@gmail.com>
-
-On Mon, Oct 19, 2026 at 12:53:25AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> [Severity: Medium]
+On Tue, Oct 20, 2026 at 12:49:37PM +1100, Balbir Singh wrote:
+> > diff --git a/mm/vmscan.c b/mm/vmscan.c
+> > index e82ba737c028d..90f7a7bf4e426 100644
+> > --- a/mm/vmscan.c
+> > +++ b/mm/vmscan.c
+> > @@ -8180,7 +8180,7 @@ int user_proactive_reclaim(char *buf,
+> >  		} else {
+> >  			struct scan_control sc = {
+> >  				.gfp_mask = current_gfp_context(gfp_mask),
+> > -				.reclaim_idx = gfp_zone(gfp_mask),
+> > +				.reclaim_idx = MAX_NR_ZONES - 1,
+> >  				.proactive_swappiness = swappiness == -1 ? NULL : &swappiness,
+> >  				.priority = DEF_PRIORITY,
+> >  				.may_writepage = 1,
 > 
-> Does this reset only reach the head skb? skb_gso_reset() writes to
-> skb_shinfo(skb) only, and the frag_list members seem to keep the outer
-> TCP GSO state.
 > 
-> In the case the commit message describes, strparser chains a cloned
-> spillover member onto frag_list. skb_cow_data() then replaces that member
-> with skb_copy(), and skb_copy_header() copies the GSO fields over from
-> the shared outer TCP shinfo:
-...
-> Could the GSO fields also be cleared on each skb_walk_frags() member at
-> skip_cow, in both esp_input() and esp6_input()? The members should be
-> private there, because skb_cow_data() copies every cloned or nonlinear
-> member.
+> I just noticed some other issues with this code, in terms of honouring
+> zone_reclaim_node (not related to this patch). I'll send out fixes, for
+> this patch.
 
-Good catch. Indeed, skb_cow_data() copies cloned frag_list members via
-skb_copy() -> skb_copy_header(), which preserves the outer TCP GSO
-fields on those members. If the decrypted inner packet later takes the
-ip_do_fragment() frag_list fast path, each detached member still carries
-stale outer GSO metadata when reaching validate_xmit_skb().
+I'm shocked, I tell you, shocked!
 
-I will send a v2 that also clears the GSO state on each skb_walk_frags()
-member at skip_cow in both esp_input() and esp6_input().
+These are all things I accidentally ran into by just uh... using the
+interface.  I'm absolutely positive these interfaces are full of bugs.
 
-pw-bot: cr
+~Gregory
