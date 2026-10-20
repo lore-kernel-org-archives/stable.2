@@ -1,108 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.61
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.51
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792518313;
-	b=aQhw5PrOGmFZYylaFOaGjX5J9cxiLOGN5YfdquBK1koYzC5WmjNtMl0pBkZnBObC/BzI
-	 vVd7YO7IRgyl5UeDZIbD3rOE2cjf2WrtpwHSgf7Hr5Zd+h9bGRNO9n4DLY7YjQMk4Yc0w
-	 en/9cz55o9yUdeRv+/ne/ZqU1JHAUHN5ydGedycJqv1xaf9K+/7tOopx8Jkwkzlwa5eTd
-	 fhFenB/xp4YzfRBVLr7o/1Gij7Uhmee0h7lSrUJNcCeygFIgkX7Nk7c0cr2+LzT2tKYj8
-	 pTJX+iU1vMaUWF/2IS07D3eFLkzGpfER+eppwy1YUtru3NwQaIqOoQclexOSjgqR7bA==
+	t=1792518714;
+	b=mm9Osgsf3Ps4ijAxb1Ul0zz0sZ+UG1R8x5aAXYT6Jh0gXaQ/NE7JQ7nEE1bvp6UeAunF
+	 sbwOuKNnrwwY3/Jpts1tjgKIeaiNn3TUGIUsbcHY7D4kQc6MyVOg1XXxvRVX7LbO+bEL2
+	 gBN2yAr3lhmEac5qG3DzVKHTPDGPqnRjun1yQwgrAAW/mY6QCH8FHhCYwTWmI/GmD4Tv5
+	 vfZdgGv4Odii7doQtMYptFeFe7TuEZqkNOTRv2xpNFfd76WXqsXrVZV4YB3pHOCxqrih5
+	 nckFkvLMdmuLZho4LySnJ+8Y/vErDzlGuAHoWzAS9+X/wcF6v6bVtTIkDZMdGupwnoA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792518313;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=zIyyElv2m6umGHiKh/H31yhFq3QG1yIED142cg/Cxsk=;
-	b=xgaxYpdu2GSsiULVkFXc0fjjWdSNClgvIyDtZ7Oan6gkUPTHKLfjZpqN8bwe0hV/AXKt
-	 5yjFqfYdz6NKFY60qTVQYxQt3nyp078cyXRbD09FLIE096ydVBZRY2BG3jCu4sqezS9fG
-	 qRfWgPDw/vdFAqoSh9Vi4VAKj63yAb8/mZtVyNK1ivJEk0MJhdN1JX45LWBHQLAk5/a52
-	 6tXGTltX4IDcZqlFn+lFKJW3eVK3nUMFmzk0hIA+gOMEBTJrnpscC359JOWag4dW6dhfj
-	 52HKFQJF5y9M/GyRN1UUhdHGXPJbgk9bx5/Xh89AilIFQsty6UciNM1QR6Fz8eAGofg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792518714;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=/lWhkwvW5Kg+2rQ8alcge5uahNeabNpwNFOn2oIPdwY=;
+	b=QIIxMrA9VopjkwBRf+otiWfWI8ceLcAps9iT53fTrvo5xGS1Ad7tvrCF680YXPUaWObz
+	 tNylgBEv89dtyrESNujSQCkmzHlemGtbG3/aT+Hrv2+kPl49Mk14pHkGZoBZg+MEkTpaw
+	 o9NWZr+6TI93akphtKsXMGIfjqY81seddtjbHIeGWSOIRlmgQkdfD4uFNYczQqY5Nh80C
+	 2Ygez7atny2K3TNgf2Dve81RveW7ZhcKzVYW3BihABrxvsM5OXhyXYa/IisrVFg7d2+0M
+	 PsL4hq8PxKbAOhJvqFfLQp2kK2BD0Q/Um2mH4MxAbSC7/vVBNDXjMA0sCJ1XqCZjrmg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pUSacKQi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.61
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011061.outbound.protection.outlook.com [40.93.194.61])
+	dmarc=pass header.from=hartkopp.net;
+	spf=fail smtp.mailfrom=hartkopp.net;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=qsrdJ736;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=PpKCZH2l;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.51
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6120606A322;
-	Tue, 20 Oct 2026 17:45:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6120606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F218D606A319;
+	Tue, 20 Oct 2026 17:51:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F218D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pUSacKQi
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jUmZ0pFwzF3+0PO65Z7sDjq/EFjW134NiHg7PO+zE3HpliGgwjPBiQHCbZ0AF7fltTGFoqOKZIvnuwYpO/rNEu3CQhf6MXipUuXEqCcMUxW2l1pA8d2nwGMhZzHOnH/bevfLbEklijBz5LenG+oej5x6VmO+Jzw/Zo6V5wOBQRZ+B28xdeLOMQwydYl+5ITTefqZrKVAkTFehhVDu9JhOean0igVRhYuwxz71K5JFQsLt4R8fFJLslAd5rI6Su8HqaLQ2N+3DYkhC6+g+DaHIEBvlQhUqU+OfEFXR+mjIGpBMSzzcAVNxqeZjzPD7Niru3FXkKNOEsjJ/XR2h74r5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zIyyElv2m6umGHiKh/H31yhFq3QG1yIED142cg/Cxsk=;
- b=owCu8kBihfg1zswOL10brtXTp8sgsEE6jjpd8vpZejuvO5I4NjKTyV4mWHPqaXNd6jVkXQQhHuTqX2/iUUcqcpkcCXLA+SX3b1ZpTkPrE1j4M9tT1/HU4NEDziDsIWmgfUfrZhPw1i8IQgZV+AeeYq+OJ4UlzjQjooioP2gJab31wyw5DfwQF0mf6CIp8dgoLzUtPdCSzHakZEGMGKL3fc0vyKSClY6Q9W3dis+8qw4NXjgNOG5Vo7MJ5X4y5VPqr6nRgVFyMwAy8WRadwh/dvfXOt454pPf/con3nR0Gz5Vg2VZKi51a9Ddn9ObJBEsq6LY559OmxTUNckGjKAfZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.dk smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zIyyElv2m6umGHiKh/H31yhFq3QG1yIED142cg/Cxsk=;
- b=pUSacKQicSsVX00B4zwr9b3T0bSEWON2PTQeUi3HPCziYjF2WSsYEk7aIj2A+Bmhwiz1RGRYWOfpmnoUwEM1uVJCKjlcjj7fjE+tRJivZzRcFS88UTJod9zuFsPf7Jc2dLjWvdPmbDKB9UHD18luc7zGfJXcPybmNxZ6VvveKNPxnacd5BsYRtqAOPv2kLfPbHKKzSJvcQLLzKqoX8Fm8mVRggUDdmS6p8JKdhEFsikhCBA5N0ua9yd+IjHabdQ6rjo03AmGQtSca3uk+gzs/1yVezl8MrNZBdZUzFIWYn38zRpsJ3nGg9cC3ReX+dJna2Atj4CSssE1Xnvcf3qD4A==
-Received: from MW4PR04CA0094.namprd04.prod.outlook.com (2603:10b6:303:83::9)
- by DS4PR12MB634945.namprd12.prod.outlook.com (2603:10b6:8:514::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 17:45:08 +0000
-Received: from SJ1PEPF000026C8.namprd04.prod.outlook.com
- (2603:10b6:303:83:cafe::49) by MW4PR04CA0094.outlook.office365.com
- (2603:10b6:303:83::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.20 via Frontend Transport; Tue,
- 20 Oct 2026 17:45:08 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- SJ1PEPF000026C8.mail.protection.outlook.com (10.167.244.105) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Tue, 20 Oct 2026 17:45:07 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 20 Oct
- 2026 10:44:48 -0700
-Received: from 82875d6-lcedt.nvidia.com (10.126.231.37) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 20 Oct 2026 10:44:47 -0700
-From: Nirmoy Das <nirmoyd@nvidia.com>
-To: <axboe@kernel.dk>
-CC: <lev@zadarastorage.com>, <kbusch@kernel.org>, <tom.leiming@gmail.com>,
-	<yukuai@fygo.io>, <linux-block@vger.kernel.org>,
-	<linux-nvme@lists.infradead.org>, <regressions@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, Nirmoy Das <nirmoyd@nvidia.com>,
-	<stable@vger.kernel.org>
-Subject: [PATCH] blk-mq: restore shared-tag flag after hctx reallocation
-Date: Tue, 20 Oct 2026 10:44:35 -0700
-Message-ID: <20261020174435.1527425-1-nirmoyd@nvidia.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=hartkopp.net header.i=@hartkopp.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=qsrdJ736;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=PpKCZH2l
+ARC-Seal: i=1; a=rsa-sha256; t=1792518639; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=PoIdf2JB6Bga4xLIk3/OkYraJUbzqEoQ7tA6TuPPTq77/Z7VRc/8JZq+4R4G18r5E0
+    fw6xnQLGyGjKou5zY4CYfh4mAyDtyL9wUYvN/TthEIGbGJnwJJWQEazfyGcAOJlhHtIz
+    IV05/s9T+v/H/r4Dkmvred00QbslQOdAnwaLf0m1mqiy7je4PwZ+R0NVunfQApvkcjRi
+    aoNo0VFhekvVbJqqPEn9Qd7oNd5A0bX5sfiv6m+uBmG6M3TGOBWvaNpyYRHAuCG1Jl9z
+    hmp5OJVwkt7oJDwg33fGI7SVPjYlpQt21FV0j2hhHCnST1tgL7b4rwASmioAJZE57snz
+    Y8xA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792518639;
+    s=strato-dkim-0002; d=strato.com;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=/lWhkwvW5Kg+2rQ8alcge5uahNeabNpwNFOn2oIPdwY=;
+    b=MCobCW37K0Aum5wzm/wa+G93um4P1G3NpUNi0tM0XIB4CqyydFsCylYu88aa1I+eo2
+    7wFDWvtDNZvayyScB1V3S8uKRRRSRN6uL+cWl1YZRK6bqwf1AfsxtahzijHf+oL5mPd5
+    VGVp24SV75MOiJqufcbVUqJkoKG8R1QPsEAQ3J8H6rHeaz1q8KQYyFytqW4rs3+VIl6P
+    1n/F0ARW7mY2rJ52pBp9vvpqfTSRrgS1SuYwuKI2Y1DolMXORU4IP5oi+aXMsQUksjCk
+    mXB3Fh4HV1shs3G2jzuxefaSQgYL6eNMEJciUj+O+A8Y8PYwbTeDPa+q0YHhQ+Lj+eGb
+    WQ5w==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792518639;
+    s=strato-dkim-0002; d=hartkopp.net;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=/lWhkwvW5Kg+2rQ8alcge5uahNeabNpwNFOn2oIPdwY=;
+    b=qsrdJ736iy5dxaPNpq4xzuhhjEVfHoD78VUZ9iCMUc9rGrb9MAuVEenzVcMWJIfKM0
+    TL/rY1PBRTn8leBE4mfKW8NfPH32WFjxhMT5FYbE5FWohM8WEIGR9SEzJpiE45OzsTcA
+    vCOhjtGmsr+SHjP4wpZBeEVSTB4oRIJaW+tpAk6wMCiZWVXXqBK+vC4VEdsTwcGLa/vO
+    SVTLVS7BYhCADDuDvPWfR35HSJkomMYCQ/T1vriIxYwjo3zaAvfzaI0dGw0dFHx5tQbR
+    +nZfkvBiubDDTLfHdjazDrNlelZWUso+3BjmcRx7DzrTtbCyKDFJi8QjixcXptfO9UHb
+    TgLw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792518639;
+    s=strato-dkim-0003; d=hartkopp.net;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=/lWhkwvW5Kg+2rQ8alcge5uahNeabNpwNFOn2oIPdwY=;
+    b=PpKCZH2lwbuVOO0agjMWUilNAChmp4BlDVe9Jv9H20x2bgiTqliGW7OYfcRplyybbb
+    QisLTwca1ne1IUSBneAg==
+X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
+Received: from [IPV6:2a00:6020:4a38:6810::989]
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Kfdf2a29KHobcw6
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Tue, 20 Oct 2026 19:50:37 +0200 (CEST)
+Message-ID: <508dfe04-805a-4872-a95c-c29d5fd4b4e6@hartkopp.net>
+Date: Tue, 20 Oct 2026 19:50:31 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,80 +95,167 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 10/11] can: replace ARPHRD_CAN type checks with
+ can_get_ml_priv()
+To: netdev-bot+sashiko@kernel.org, mkl@pengutronix.de
+Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
+ linux-can@vger.kernel.org, kernel@pengutronix.de, 1579567540@qq.com,
+ stable@vger.kernel.org, mailhol@kernel.org
+References: <20261019170834.1727150-11-mkl@pengutronix.de>
+ <179251627911.3135.5362969890074772101@kernel.org>
+Content-Language: en-US
+From: Oliver Hartkopp <socketcan@hartkopp.net>
+In-Reply-To: <179251627911.3135.5362969890074772101@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C8:EE_|DS4PR12MB634945:EE_
-X-MS-Office365-Filtering-Correlation-Id: d31cb993-3425-4f5e-5f14-08df2ed1e1c2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|36860700016|82310400026|56012099006|11063799006|5023799004|261009223027099003|10067099003|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	sjX8fQnp2BP0E5HZO06op/wWSWkSm/1wADnhctop+lBmB2Zk+ceZCc/g1NlTmtQQW4FI/o1iaI+M9WEt2hCeN+FvnW0PChFLOFx3OF5tnWIT5U/yphAx+7x1olYenemFU/1Ww56VDioA20DKXcyC+4I/txOCQxyaVsKvMVPERMLXXnusn/y+ZfZ6eDaynx0m3yhls1C6h52vmPWdzb6VsZAVU+UnJITzPRUdBTIKIbQSPiX/IJvWruySfEccJW0O4OZymcb/SOEnzUQ0rBK3o0oqjdvHaqsmMucnId/emWRpEkhYpxEXLkanL8749BAOr6BVIOhDe53sGxSOkeZ48jq735rUw9ocraU+WPEcY5CJSjzcPBaEL2HgvEU6C0HrQPTYZ3oi4b6e0wdkjuNKHzWVmALev/WNW6bNa00YgdIJhlWdsRslvjyodYYQ9M7nUQ4YT7W0wGkripi8/qLIaB+QBBvMROrQbOkddudPkZkGZSdcCoK0uota5wSbLtVto2z/DNfIUVVcu74N4k8ucjQm+P7iNaHZtmHVTr16tmkGj0DACKujI85hBqrJLYb9w1JYXuyzPkCXqpUifJVNOfp7f95rzlMu8jl9MjSnZ6B39zvlQd6csyWwpPGAuz471CctCyZEIsL6TgAXXRz/w17518d0ichBCpIfnaWgwTkPQlJ1Y/GJuHJnk92vNcv7+CnuTR3I8a5d6WwwtX8xEw==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(36860700016)(82310400026)(56012099006)(11063799006)(5023799004)(261009223027099003)(10067099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	dN56mt7Mp3c/1QCro8uxvKzE3BMyNZS7V5YW5MH8GatyKWFh2uqJkTStDrMCVZaLKgtFYeZxUz0cIVxn6ZQVLkR+xi23MoP449Xzn/mVVtHZS0kiIbsmujbg+ew6JKuDMjzs58rWPRJcXI7LzZrlTztcMRa14esswlW6n9GtXBhY7XaNUD37RyCOnkemSgkjAAVB7SZoCaHw1JPYe3OYWNBnJ0Ch8WkULvdIUrZevtBFu13e28TIwP3SCxC0jzIFrjJbYZokAYdAhI3b9GnsfiwZ5toeVue3LWS5GOaIX8UpgCRXr6rSChGbtvIGkcKoNhl45jKHXo0jgbqJo3OfPmiALmZT0IYN4JPQCwThqSMpjMLvOWFXvk0V4Ah7mUPaIQYO9qQcphMfsUUFDw+hWa20KKrGs10qUuKIdUz3pvIDlDphhHsMNZ8eyq9xkAwC
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 17:45:07.9243
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d31cb993-3425-4f5e-5f14-08df2ed1e1c2
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000026C8.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB634945
 
-__blk_mq_update_nr_hw_queues() reallocates the hctxs of queues already
-on set->tag_list, so blk_mq_add_queue_tag_set() never sets
-BLK_MQ_F_TAG_QUEUE_SHARED on them again. A new hctx starts without the
-bit and a reused hctx keeps whatever it had when it was parked. An
-NVMe/TCP controller reset goes through this path.
 
-With the bit clear and an I/O scheduler, blk_mq_mark_tag_wait() sets
-SCHED_RESTART without adding a tag waiter and relies on a completion on
-the same hctx to run the queue again. If other queues on the set hold
-all the driver tags, this hctx has nothing in flight. Once its
-submitters block on scheduler tags, nothing runs it again and I/O
-hangs.
 
-Reapply the tag set's shared state after reallocating the hctxs, while
-the queues are still frozen.
+On 20.10.26 19:11, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found more severe
+> issue(s) in other patches of this series. This mail is only an FYI, in case
+> you want to address the nit picks below when you respin.
+> 
+> Low priority / nit picks for your consideration:
+> 
+> - [Low] The commit message is inaccurate about where the crash happens.
+> 
+> Pre-existing issues:
+> - [Medium] This problem wasn't introduced by this patch, but isotp_bind()
+>    in net/can/isotp.c still ignores the return value of both…
+> 
+> --
+> 
+> can: replace ARPHRD_CAN type checks with can_get_ml_priv()
+> 
+> This patch replaces the remaining dev->type == ARPHRD_CAN checks in
+> af_can, bcm, gw, isotp and raw with can_get_ml_priv(). The TUNSETLINK
+> ioctl can switch a TUN/TAP device to ARPHRD_CAN while dev->ml_priv stays
+> NULL, and such a device passes the old type checks.
+> 
+> Link: https://patch.msgid.link/20261012164802.94113-1-socketcan@hartkopp.net
+> Link: https://patch.msgid.link/20261019152741.54854-5-socketcan@hartkopp.net
+> 
+>> The TUNSETLINK ioctl allows a down TUN/TAP device to set its hardware
+>> type to ARPHRD_CAN while dev->ml_priv remains NULL. Such a repurposed
+>> netdevice passes the ARPHRD_CAN checks and triggers a NULL pointer
+>> dereference when CAN filters are created and when they are removed,
+>> e.g. by the CAN protocols' netdevice notifier handlers.
+> 
+> [Severity: Low]
+> Is the "when CAN filters are created" part accurate for this tree?
+> 
+> Commit 8aa59e3559494 ("can: af_can: fix NULL pointer dereference in
+> can_rx_register()") already made can_rx_register() reject devices
+> without ml_priv:
+> 
+>      if (dev && (dev->type != ARPHRD_CAN || !can_get_ml_priv(dev)))
+>          return -ENODEV;
 
-Reproduced on v7.3 in an arm64 QEMU/KVM guest with a loopback NVMe/TCP
-target, four namespaces and mq-deadline. After one controller reset all
-four namespaces lost TAG_QUEUE_SHARED and fio stalled. With this change
-the bit survives five resets, and fio completes after a reset.
+The commit message refers to the CAN filter register/unregister
+procedure as a whole, not to a single code path in a specific tree.
 
-Fixes: 868f2f0b7206 ("blk-mq: dynamic h/w context count")
-Reported-by: Lev <lev@zadarastorage.com>
-Closes: https://lore.kernel.org/all/00cb01dd3099$c82b66c0$58823440$@zadarastorage.com/
-Cc: stable@vger.kernel.org
-Assisted-by: LLM Specula
-Signed-off-by: Nirmoy Das <nirmoyd@nvidia.com>
----
- block/blk-mq.c | 1 +
- 1 file changed, 1 insertion(+)
+Commit 8aa59e3559494 only added the ml_priv check to can_rx_register().
+can_rx_unregister() and the CAN protocols kept checking dev->type only.
+So that commit fixed the problem only partially, and the NULL pointer
+dereference is still reachable on the unregister side.
 
-diff --git a/block/blk-mq.c b/block/blk-mq.c
-index 00b75eb95dd943a..ec3a7e5300d0e31 100644
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -5188,6 +5188,7 @@ static void __blk_mq_update_nr_hw_queues(struct blk_mq_tag_set *set,
- 			set->nr_hw_queues = prev_nr_hw_queues;
- 			goto fallback;
- 		}
-+		queue_set_hctx_shared(q, set->flags & BLK_MQ_F_TAG_QUEUE_SHARED);
- 		blk_mq_map_swqueue(q);
- 	}
- switch_back:
--- 
-2.43.0
+This patch completes that fix. It uses can_get_ml_priv() as the only
+criterion for a real CAN device in all register/unregister paths and in
+the protocols' bind/notifier code. It no longer relies on each caller
+handling the can_rx_register() return value correctly.
+
+> 
+> raw, bcm, gw (through cgw_register_filter()) and isotp all create filters
+> through can_rx_register(). So creating a filter can't reach the NULL
+> ml_priv.
+> 
+> The only dereference left seems to be on removal. can_rx_unregister()
+> checked only dev->type, and then can_dev_rcv_lists_find() does:
+> 
+>      struct can_ml_priv *can_ml = can_get_ml_priv(dev);
+>      return &can_ml->dev_rcv_lists;
+> 
+> The spin_lock_bh() on dev_rcv_lists->lock then goes through a near-NULL
+> pointer.
+> 
+> The path that actually gets there looks like isotp. isotp_bind() ignores
+> the -ENODEV from both can_rx_register() calls and sets so->bound = 1
+> anyway. Later, unregistering the filters crashes:
+> 
+> isotp_bind()
+>      can_rx_register() -> -ENODEV, ignored
+>      so->bound = 1
+> 
+> isotp_release() or isotp_notify(NETDEV_UNREGISTER)
+>      can_rx_unregister()
+>          can_dev_rcv_lists_find()
+>          spin_lock_bh(&dev_rcv_lists->lock)
+> 
+> The code change itself looks correct. Could the commit message describe
+> the crash on removal and the isotp path instead? That would show stable
+> backporters which code is affected.
+> 
+>> diff --git a/net/can/isotp.c b/net/can/isotp.c
+>> index 64ff203a37f4..5e1c3971ebfc 100644
+>> --- a/net/can/isotp.c
+>> +++ b/net/can/isotp.c
+> 
+> [ ... ]
+> 
+>> @@ -1618,7 +1619,7 @@ static int isotp_bind(struct socket *sock, struct sockaddr_unsized *uaddr, int l
+>>   		err = -ENODEV;
+>>   		goto out;
+>>   	}
+>> -	if (dev->type != ARPHRD_CAN) {
+>> +	if (!can_get_ml_priv(dev)) {
+>>   		err = -ENODEV;
+>>   		goto out_put_dev;
+>>   	}
+> 
+> [Severity: Medium]
+> This is a pre-existing issue and was not introduced by this patch.
+> Further down in isotp_bind(), the return values of both can_rx_register()
+> calls are still ignored:
+
+Right. That's a separate issue, and it doesn't belong to this patch. The
+missing error handling in isotp_bind() will be addressed in a separate
+patch.
+
+Best regards,
+Oliver
+
+> 
+> 	if (isotp_register_rxid(so))
+> 		can_rx_register(net, dev, rx_id, SINGLE_MASK(rx_id),
+> 				isotp_rcv, sk, sock_i_ino(sk), sk);
+> 	...
+> 	can_rx_register(net, dev, tx_id, SINGLE_MASK(tx_id),
+> 			isotp_rcv_echo, sk, sock_i_ino(sk), sk);
+> 
+> 	/* switch to new settings */
+> 	...
+> 	so->bound = 1;
+> 
+> The new can_get_ml_priv() check rules out the -ENODEV cases. However,
+> can_rx_register() can still return -ENOMEM:
+> 
+> 	rcv = kmem_cache_alloc(rcv_cache, GFP_KERNEL);
+> 	if (!rcv)
+> 		return -ENOMEM;
+> 
+> In that case, does bind() report success even though the socket has no RX
+> receiver, no echo receiver, or neither? RX frames would be dropped without
+> any error, and isotp TX would wait for echo frames that never arrive.
+> 
+> A later isotp_release() or isotp_notify() for NETDEV_UNREGISTER would
+> only print "receive list entry not found" from can_rx_unregister(). It
+> would not crash.
+> 
+> Other CAN protocols handle this: raw_enable_filters() rolls back on error,
+> and bcm_rx_setup() checks err. Should isotp_bind() check these results and
+> unwind too? The last patch in this series ("can: protect the receive lists
+> with a per-device lock") still leaves both calls unchecked.
+> 
 
