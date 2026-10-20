@@ -1,97 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792504836;
-	b=RT3MxEh7LrZxytCtoFoslZJ9aSOBLriw4ASgAk81gHX1Yzjyv1aQ4YUyxrskiZTXTsCV
-	 0AwD7t+4Sp4mbSTVmC09A0ppjcPzi/P+CPbGrZRPGL86KrwLD1C9+Rz8HPlR6Jr/x5E0w
-	 J3saJ0m4P6eDdcb0tOR8lLcsym4+dXYp5NT6f9qCGX9WmL+vUhtpqdOvV5ORYBhpdQP5B
-	 8eKsFocQN2lwHfaMcKUeDA6/Faie9BjnzGd5Y7kG8hiSFSOlxemorls8HXZ/JA0k+hfkV
-	 KYAYSma5x7a7iNd9Nx3EE3Ex65SM/7pzvq2wSfQa9JXhVAxunvSZj3cd+4CLmOskvXA==
+	t=1792505505;
+	b=pvCN1owJty5x8a9Wh+S7JPcHmHPYvwW5bwn+FQoieSvinnibf8u7W4yHU+6sC6FK9gCp
+	 Y2oP6ZrxsGELthCheQ0Ycp/c0rLlH9RDGAsod4F0Jk6YEHAYDiXyiNiJC+Ro81JvlXsYS
+	 uNiA6SFj3G+oMUpfiq6KGf3SY699tC33Ax9vKWW/ZvkBbsANN6U4Rt68XnMN1Qoub4YRi
+	 fsqzEfi8eKW2MmlHajbO0RrsUqq7MRrjklKwbQ7vAPn+lp5GpDDMyQDJC9f/9Kl/p6K/u
+	 qkAfAO6KvE8S7ygCiB/ogUnlc/mAqH9NfFxiSfvahgy6iYTqiSuld64kbVUYBh6vGpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792504836;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505505;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=pvvWiB/HIs4H59vNoAsA0sD6AI7vR7sZ6M7N6d5Xgws=;
-	b=J86+Hg57dVPVPPCkF6ThlTiorqTvxIh31JhDR/INEaOhpCfppMFrHoqm3/WuuB1lT3ov
-	 LwW/PYYiEuuXo2l0Blt+rZ08pr39TnCwhYGzwJY6wXAOHEGqF4tyxYAsa7QODagGAWIPg
-	 M7uUpiJz6XxQn71/AahfbREp6feKYpOyyuHY7pZSAoWVTMEvpT7rloPcMXlcpuDo119uh
-	 R9Z1qt5iVYo3iCWI9lpDUO08wUllLw1FW1fcpqpIqzpshsFwX/0GbepYxqKSLodaejv5o
-	 dGBjlu/bXbk0IXi0DHtfvFkgv10bFsHIsjuL95gpQlE0RG7+pu36j/R9KdWDwJyZedQ==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=phh2bd3K2u8/kNcJb+pNLZuDiJF2bTQud6vADUqieMI=;
+	b=nLk21tEYDSqCAb6vc4j2VcVtQgouCrYqFn0BCBY3hJJWIu9cml/vvzdNnHJ4tktDGydm
+	 Pjexy38ZVvjmFky+PfezyqxFEXsTIZonvIGVUJx3CSGCgYUE2dblwxmYyjnfE+ao+rxrl
+	 Q5Kg2+NnE1G/0bvRi2Gi8zsUZGhjQBzxU6u3Pcom/AvPEjF8jKlbRmy6lXFbYtBdSheS1
+	 wOafHRQnWQI+psiT9HaW4yalts1zeB3T09TiJQg91VNflWHqhGqGsNYSPxsyRSMhecrY3
+	 Cbb0ZlaN51EFKVpPetLi3kvAJqgc4C9CjwNuPNcRKI8KaRVDKaUBE8+0BLqdu1dZvzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=spStT64T;
-	arc=none smtp.remote-ip=209.85.208.48
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=CQqZm4Qq;
+	arc=none smtp.remote-ip=209.85.222.171
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9164160A263F
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 14:00:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9164160A263F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BC560A2614
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 14:11:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51BC560A2614
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=spStT64T
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6af8620a7d2so3689824a12.0
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 07:00:36 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=CQqZm4Qq
+Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-93f1ca4132bso295702585a.0
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 07:11:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792504835; x=1793109635; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pvvWiB/HIs4H59vNoAsA0sD6AI7vR7sZ6M7N6d5Xgws=;
-        b=spStT64TSdX9HNwicqMbVM8oRQSavile+EArNF1PJmJM5guZBb5z331MenwaNSGI+h
-         Fwx00CGIghbLZ2Kms8oTkCLDQ3G+djkxMGWX1MIbd0ftStBUZaSZQg9rYNYvPmCON4lD
-         P9A3oyDZEdeZ/QozuU13RBOh9zXUP8EVrTVnnLrjSV7KyXKpHkb2qqLLC1n/D4zCaqC3
-         mY72cQZ2Ll96uqONMO3UEiZawQ4Kdg1JgraQt0Gpd0mdJJnDE/RNrRTSy/aRokPc56Rh
-         mcU7nvVCV8BHtum4PuVWw+ANTq5p5e09x9l0PMv7+dLYfHNJ9Zn95sV9a9F9ZfSRm+ns
-         d8Hg==
+        d=rowland.harvard.edu; s=google; t=1792505504; x=1793110304; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=phh2bd3K2u8/kNcJb+pNLZuDiJF2bTQud6vADUqieMI=;
+        b=CQqZm4QqzQBrGwRTNeTgjajTHWY5MaTuXaVA+ATI86hSLgiW1FB774vgWc3O4miO5t
+         fu41DHQSSTmYMD85XbQQElBqDVXE7y1HvgWF2Jnyn9+tI8gPRSkb5b5emYx+EvwCQEkg
+         EIUtsg7/v32JJRMZaanidELXfEvOYzZLx3LdxawrZ31IoABDmkiXrX14xkm2e4ZVZzN2
+         10ce2wsbzecI0sAzpvZnMoBjlaIAUTWDQvssIUFvmK1nZgrPFZmue7SkHG2a0RSAdD6P
+         bkHTA74GoHxzI2exBgb7i6elGN8KPdFaJ3ZAq1enl1BGDRTl21oSlZ6rGxb/3xY081Rw
+         17UA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792504835; x=1793109635;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pvvWiB/HIs4H59vNoAsA0sD6AI7vR7sZ6M7N6d5Xgws=;
-        b=LlvyYUfwvoZKRVESWWyD8FlKebEGa7YgnrraO+lD2M/VCJUlb7/ja+DPjaPp5auata
-         XJKkZkz3knST9ZIOUcJe3HW3eUHzngr+ny4Og1243vEH5tG+ToZ9T+JKxoBNb0qbpUxg
-         tlmuZAd3bkcXdq0tO8KNeM2VVeXUSviZ8ndDZKrfH7EjkY9jvyScjPptGHlIRwzhkJL8
-         fZd8HSpcUShBpcPS3gs6sXsnVDU+T1D+meBIxT0hIej2ZC/eichB0QNfSFUHXTAF+sUG
-         lfEF5feaq6bIBGb4xJp89OkrpjE2yfwW9MTGpZw1eCAVbfK080qYpxVvHtW7pDSuxfvO
-         Ya6A==
-X-Forwarded-Encrypted: i=1; AKwUvBxmJHe9lGLNL/BCeWZpnObEmobHENb6eWG0yPAZ01ZmiRpvpzHoOiuRGYozmEK9+LgHJIIxAyY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLyREDmgab1CRGN94j2Oe098/Mwy7rMDYRpCT3esY+OpTo/qp0H
-	sfcgdSzA9JfAqgcE6p9N79aSEEQJ5xoh4jazu00TjnxX7aor8bc+qs4r
-X-Gm-Gg: AYBFou0Wyr0khCGlCQHbqK68MMB6RSynr4yI4WM0bnvtGP6l0OyNOh7XeKG+6pePdzT
-	GyfBEVhplN5yYWdwzjxq5izEGz2rf4bwS1PAzjKiK25s7NmzsWgmNPu3BN+Gdpa2V2q7ZGQHsp+
-	k3xdtyesdOqnQ4STTKDGg02kp8rdQQjWlBsGrWAf18h8CwDMq+DYo7j7sD5aD9T01wYCnU3gHmI
-	hvloQrFSA1QBnuxBCPci8vGtBkhkfYmmCjnYeUL/QlU+7V954fz7VoJ9Lrzx1yF/XF78zbhEpk0
-	tbA3bLykSGdQBLFZKO3n1vyKgxfYFcWqyWgfF6TWvQuIS0ZBapR0+XAWE+Q7y1GqPS4IqBkBKsc
-	JiUoBxHvcoQP66iLXcpYD287rmUKtrBZBavnGW8BZaT0PCmgk0FHEXTHVFnE12yfFeoeQ2AZ5QQ
-	JsJTnX/yMpFGA/0vC5N4zE0urOs3vMN6cVuP4Ti485nn3e6gnxzE/u3+VTGOe+41/zT4SRIZ37+
-	mXvKqx90yRBd61vUvQKj7boT3sHfelzQXXFGGLkMz4Hqapgr7z0mEjkHo9yteG8CWuKoUq5To+R
-	pIWObcujrb6oZvXFmcy5kAxPHgySrSH/uUd9ka1cZYA=
-X-Received: by 2002:a05:6402:249c:b0:6b3:bca6:b480 with SMTP id 4fb4d7f45d1cf-6b3bca6bacfmr6223968a12.44.1792504834506;
-        Tue, 20 Oct 2026 07:00:34 -0700 (PDT)
-Received: from Martyna-s-A34.localdomain (ip-80-113-116-3.ip.prioritytelecom.net. [80.113.116.3])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1c6364sm5431458a12.14.2026.10.20.07.00.32
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 20 Oct 2026 07:00:34 -0700 (PDT)
-From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-To: John Johansen <john.johansen@canonical.com>,
-	Georgia Garcia <georgia.garcia@canonical.com>
-Cc: apparmor@lists.ubuntu.com,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
+        d=1e100.net; s=20260707; t=1792505504; x=1793110304;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=phh2bd3K2u8/kNcJb+pNLZuDiJF2bTQud6vADUqieMI=;
+        b=xFhS02T1mhsBCojzq2GZ3ewyw3wzHCRARgBhPhVrFyvCOWJwMG02QVyhV8txNlWkJg
+         c+RBZZ5l/oZ+1ZNlU1G4+LrtP5W08vgFmaSBfSz9Dt0vEA5qTHBEHELzfbROEym7oyjs
+         PJEQ+eY5//OF+wp/ZRr8BYTfznXAe8laaFp2mA2pM0TkefLO34YEfQe8JqeEm9SVTCGj
+         4P0Ht/ojGJk/gl9fUpRFbtw+MKkqsQwNu3pHFnqby+MkrXYT5oWsabtJf+Gz+6NkDGS7
+         N3Ii8sLPO3ca6Krbayqfxra3bzSkTBcNC9sLN0U3+M5KoTzolAV00LErAQKtHYBk7g12
+         vC3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwJ8Exkb0KN8x154M1uo/qgCL6Y7E/3uCNl9o5O9B0wJjTgtEnIGWlpj9cjqTXSoCVN5GdoIPc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIuVgA4wf0dHjq6O8IFxJtlATlUIMUe0zeSdv3gMxEU8eyjS/Ur
+	hpbb9fs1IZREdXlcxC8armFQvoN4Dk1Fm1UodjFJEvEHFMX7/Xh1Mhf+mdyGtpNCw4Sr3ilVPlE
+	YJj3DqQ==
+X-Gm-Gg: AYBFou2P2jOfQ8/iN9X1AbCZ1R/niuJSOtk9syMI3QFUpkV3KvBPNwGBjBz+migtVlJ
+	o+MIBrAnLC4/XBJnzraB/M1nhi8gJ1XLYlhnl2Pv4xVQbhGVP/QU7Z17pYYBjF2XUTTyn78Jgwz
+	8Gu92ElodilO54HMPSY8BK8OEtkC8CdbCVwLGNm7cNWQfn98c1LgdCCz1h83a3dqhh/l0c5sT0R
+	/z4gKVd5yU2cYk3SSP01XnbGwCAvq8uxcATjr0S2n4F6taoMVYbwWXF2RAwQZ4J2rIEegRXb01X
+	18PdypC1nrsKBhA2FigWE1/gPbC6Mm8tG4GCM70+yrslm2i2jOmV1tN/Hnsa/h/DFblEHx0QsEy
+	g6V5nsM4WTE1gh4ED0Ap3Fo7+9+P30fSK4ZWLtlqfKRG9mIzC0uUlc3gxV+sVbnlY6T5CEIWMlC
+	3frWddoRsN2uzSNh/1Pww+RICRkHQ3YZgGDnsxi0aAD5YtR82CYsOuOOJQzkTW39R3ytxEHt8=
+X-Received: by 2002:a05:620a:4042:b0:93e:920c:c012 with SMTP id af79cd13be357-93f29b7f9e9mr1754715285a.10.1792505503808;
+        Tue, 20 Oct 2026 07:11:43 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::4791])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f4b05e2f3sm228265585a.8.2026.10.20.07.11.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 07:11:43 -0700 (PDT)
+Date: Tue, 20 Oct 2026 10:11:40 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Yu Zhang <yuz08559@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] apparmor: check address length before reading AF_UNSPEC bind address
-Date: Tue, 20 Oct 2026 16:00:30 +0200
-Message-ID: <20261020140030.92643-1-mike.michalo@gmail.com>
-X-Mailer: git-send-email 2.56.0
+Subject: Re: [PATCH v2] usb: gadget: f_mass_storage: take filesem in nofua
+ store to fix backing-file UAF
+Message-ID: <3f13c0d1-0e3a-4a62-a149-4c719ee3cab5@rowland.harvard.edu>
+References: <20261018130519.65850-1-yuz08559@gmail.com>
+ <20261020023050.87701-1-yuz08559@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,54 +98,137 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020023050.87701-1-yuz08559@gmail.com>
 
-bind_map_addr() handles AF_UNSPEC on an IPv4 socket by reading
-addr4->sin_addr.s_addr to check for INADDR_ANY. At that point the only
-length check done is addrlen >= offsetofend(struct sockaddr, sa_family),
-i.e. 2 bytes, while sin_addr sits at offset 4. move_addr_to_kernel()
-copies only addrlen bytes into the on-stack sockaddr_storage, so a
-bind() with a short AF_UNSPEC address makes AppArmor branch on bytes the
-caller never supplied.
+On Tue, Oct 20, 2026 at 12:30:50PM +1000, Yu Zhang wrote:
+> fsg_store_nofua() syncs the LUN's backing file when switching from async
+> to sync mode:
+> 
+> 	if (!nofua && curlun->nofua)
+> 		fsg_lun_fsync_sub(curlun);
+> 
+> fsg_lun_fsync_sub() dereferences curlun->filp (vfs_fsync(filp)). Unlike
+> every other store that touches the backing file -- fsg_store_ro() and
+> fsg_store_cdrom() (down_read), fsg_store_file() (down_write) --
+> fsg_store_nofua() holds no filesem while doing so.
+> 
+> A concurrent close of the backing file runs under down_write(filesem) and
+> does fput(curlun->filp) in fsg_lun_close() (fsg_store_file() with an empty
+> path, the SCSI START_STOP eject in do_start_stop(), or forced_eject), so
+> it can free the file while fsg_store_nofua() is dereferencing it:
+> 
+> 	BUG: KASAN: slab-use-after-free in vfs_fsync+0x20/0xe0
+> 	 vfs_fsync+0x20/0xe0
+> 	 fsg_lun_fsync_sub+0xa0/0xd0
+> 	 fsg_store_nofua+0x138/0x160
+> 	 configfs_write_iter+0x1a7/0x250
+> 	 vfs_write+0x5df/0x940
+> 	Allocated by task 3459:
+> 	 fsg_store_file+0x150/0x1f0
+> 	 configfs_write_iter+0x1a7/0x250
+> 	Freed by task 3459:
+> 	 __fput+0x456/0x6c0
+> 	 __fput_deferred+0x10d/0x330
+> 	 fsg_store_file+0x9e/0x1f0
+> 	 configfs_write_iter+0x1a7/0x250
+> 
+> Hold filesem for read around the fsync in fsg_store_nofua() so the backing
+> file cannot be closed underneath it. The lock is only needed when the
+> fsync actually runs, so it is taken only in that branch.
+> 
+> Reproduced on a mass_storage gadget over dummy_hcd by writing lun.N/nofua
+> (1 then 0) from one task while another task rewrites and clears lun.N/file.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+> ---
+> v2:
+>  - Use guard(rwsem_read) instead of a bare down_read()/up_read() pair
+>    (Greg KH).
+>  - Take filesem only inside the branch that actually calls
+>    fsg_lun_fsync_sub(), not around the whole function / the
+>    curlun->nofua assignment, since the lock is only needed for the sync
+>    (Alan Stern).
+> 
+> v1: https://lore.kernel.org/all/20261018130519.65850-1-yuz08559@gmail.com/
+> 
+>  drivers/usb/gadget/function/f_mass_storage.c | 8 ++++++--
+>  drivers/usb/gadget/function/storage_common.c | 7 +++++--
+>  drivers/usb/gadget/function/storage_common.h | 3 ++-
+>  3 files changed, 13 insertions(+), 5 deletions(-)
 
-Depending on those bytes, a confined task gets -EAFNOSUPPORT instead of
-the -EINVAL that inet_bind_sk() returns for the same request. Kernels
-built with CONFIG_INIT_STACK_ALL_ZERO read zeroes and happen to behave
-correctly.
+Acked-by: Alan Stern <stern@rowland.harvard.edu>
 
-Check the length first, as inet_bind_sk() does, and as the AF_INET6
-case above already does for inet6_bind_sk().
-
-Fixes: 89ac6aa752ec ("apparmor: push inet mediation into profile callbacks, and improve auditing")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
----
-Tested on v7.3 built with CONFIG_INIT_STACK_NONE in QEMU, with a task
-confined by a profile allowing all network access, calling bind() on an
-AF_INET UDP socket with {.sa_family = AF_UNSPEC} and addrlen 2 and 4
-(200 times each, after leaving a non-zero address in the kernel buffer):
-unpatched returns -EAFNOSUPPORT every time, patched returns -EINVAL
-every time, matching unconfined tasks. Other AF_UNSPEC, AF_INET and
-AF_INET6 bind cases behave identically with and without the patch.
----
- security/apparmor/af_inet.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/security/apparmor/af_inet.c b/security/apparmor/af_inet.c
-index 516c9016537c..a617f8058634 100644
---- a/security/apparmor/af_inet.c
-+++ b/security/apparmor/af_inet.c
-@@ -196,6 +196,9 @@ static int bind_map_addr(const struct sock *sk, struct sockaddr *addr,
- 		 * AF_UNSPEC if the address is INADDR_ANY
- 		 */
- 		addr4 = (struct sockaddr_in *)addr;
-+		/* Length check from inet_bind_sk() */
-+		if (addrlen < sizeof(struct sockaddr_in))
-+			return -EINVAL;
- 		if (addr4->sin_addr.s_addr != htonl(INADDR_ANY))
- 			return -EAFNOSUPPORT;
- 		family = AF_INET;
--- 
-2.56.0
-
+> 
+> diff --git a/drivers/usb/gadget/function/f_mass_storage.c b/drivers/usb/gadget/function/f_mass_storage.c
+> index b7b06cb..6712566 100644
+> --- a/drivers/usb/gadget/function/f_mass_storage.c
+> +++ b/drivers/usb/gadget/function/f_mass_storage.c
+> @@ -2663,8 +2663,9 @@ static ssize_t nofua_store(struct device *dev, struct device_attribute *attr,
+>  			   const char *buf, size_t count)
+>  {
+>  	struct fsg_lun		*curlun = fsg_lun_from_dev(dev);
+> +	struct rw_semaphore	*filesem = dev_get_drvdata(dev);
+>  
+> -	return fsg_store_nofua(curlun, buf, count);
+> +	return fsg_store_nofua(curlun, filesem, buf, count);
+>  }
+>  
+>  static ssize_t file_store(struct device *dev, struct device_attribute *attr,
+> @@ -3239,7 +3240,10 @@ static ssize_t fsg_lun_opts_nofua_show(struct config_item *item, char *page)
+>  static ssize_t fsg_lun_opts_nofua_store(struct config_item *item,
+>  				       const char *page, size_t len)
+>  {
+> -	return fsg_store_nofua(to_fsg_lun_opts(item)->lun, page, len);
+> +	struct fsg_lun_opts *opts = to_fsg_lun_opts(item);
+> +	struct fsg_opts *fsg_opts = to_fsg_opts(opts->group.cg_item.ci_parent);
+> +
+> +	return fsg_store_nofua(opts->lun, &fsg_opts->common->filesem, page, len);
+>  }
+>  
+>  CONFIGFS_ATTR(fsg_lun_opts_, nofua);
+> diff --git a/drivers/usb/gadget/function/storage_common.c b/drivers/usb/gadget/function/storage_common.c
+> index 75831f2..51a70f2 100644
+> --- a/drivers/usb/gadget/function/storage_common.c
+> +++ b/drivers/usb/gadget/function/storage_common.c
+> @@ -415,7 +415,8 @@ ssize_t fsg_store_ro(struct fsg_lun *curlun, struct rw_semaphore *filesem,
+>  }
+>  EXPORT_SYMBOL_GPL(fsg_store_ro);
+>  
+> -ssize_t fsg_store_nofua(struct fsg_lun *curlun, const char *buf, size_t count)
+> +ssize_t fsg_store_nofua(struct fsg_lun *curlun, struct rw_semaphore *filesem,
+> +			const char *buf, size_t count)
+>  {
+>  	bool		nofua;
+>  	int		ret;
+> @@ -425,8 +426,10 @@ ssize_t fsg_store_nofua(struct fsg_lun *curlun, const char *buf, size_t count)
+>  		return ret;
+>  
+>  	/* Sync data when switching from async mode to sync */
+> -	if (!nofua && curlun->nofua)
+> +	if (!nofua && curlun->nofua) {
+> +		guard(rwsem_read)(filesem);
+>  		fsg_lun_fsync_sub(curlun);
+> +	}
+>  
+>  	curlun->nofua = nofua;
+>  
+> diff --git a/drivers/usb/gadget/function/storage_common.h b/drivers/usb/gadget/function/storage_common.h
+> index 11ac785..347a86b 100644
+> --- a/drivers/usb/gadget/function/storage_common.h
+> +++ b/drivers/usb/gadget/function/storage_common.h
+> @@ -210,7 +210,8 @@ ssize_t fsg_show_cdrom(struct fsg_lun *curlun, char *buf);
+>  ssize_t fsg_show_removable(struct fsg_lun *curlun, char *buf);
+>  ssize_t fsg_store_ro(struct fsg_lun *curlun, struct rw_semaphore *filesem,
+>  		     const char *buf, size_t count);
+> -ssize_t fsg_store_nofua(struct fsg_lun *curlun, const char *buf, size_t count);
+> +ssize_t fsg_store_nofua(struct fsg_lun *curlun, struct rw_semaphore *filesem,
+> +			const char *buf, size_t count);
+>  ssize_t fsg_store_file(struct fsg_lun *curlun, struct rw_semaphore *filesem,
+>  		       const char *buf, size_t count);
+>  ssize_t fsg_store_cdrom(struct fsg_lun *curlun, struct rw_semaphore *filesem,
+> -- 
+> 2.43.0
+> 
