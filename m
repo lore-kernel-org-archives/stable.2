@@ -1,45 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792458160;
-	b=eIXK0ZGrgIjRV0lJ+WndAfwswgGiof89ZcOVOXmwZlaj0vLrG5TXlCE+z9eIrNH7+JHx
-	 y4nEL9iEFCZ8I30mumxVeKbZPxfkwURPSS85I29aapwbhb3y0awrPbxeiVmKjWFcwdphk
-	 X8TKZA/u8NiHAEy6hikn/W1S/Ke0SGNMoZEI3fM2XPoQo+8jx/lIR/NjScYKTcJ59EeXa
-	 53p6IJzm3YwtUJkr97pNfDBEyaiDiMDiOnHjz4Pk2s5ClJw9g4s8aek3z8E9MrwhJx/TQ
-	 9EsJNik+y2ra3G6V0cM1GQoz83u/TrwSfcOMJAzYEwW0cp59cAEf39VBRkRV/06G/+Q==
+	t=1792458271;
+	b=exqkabM+d1arLyfjf2HdA1MxtlYf8SNTOmd7a0jnNnBWUhzjT+rQAemo4vrVxQ4n6Qe5
+	 m9AtbqODE06JcKkvpX1Y03hKthWuPNSKPLoCrWe4eTlbZoco/rvVOVfqBC3xzFBhZgZqT
+	 AiKJGhTC61HAFgNPCr9yBL5TSjRNTNiEYEoGY1Q0pG1lsBBfhwtDdpzZ+7heshZQgr9Vq
+	 gG0Er06ZVrIpaC9AqyG8jlckOkJm6XONY+lvRj7UtKz+sIl9NezAgJRcxkGxsu9aKanpR
+	 hDvhOxP5W0Js/bSnsV3PUBE8zHItVHiou/qKHKbVfD+gdA8UklxjkWS5ARzocZGqYvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792458160;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=vA9HrIlYy80oAx3dOJ8vBQKkZAANJTZdkbS+jz0zzy8=;
-	b=EDwgk031yOZkrnhB3Ll9o/D0yr/+R1VkvniApikcosoAL9Q/NIyxjqeg5Z4aul4b2BGS
-	 aH7UjiuWGAxWGfGh3To51coLtO7wjRaNUed05THVD7V7nImW8sHaCvw9WkL2SDcDa4W2G
-	 DXasv1TdKnEvZ72AWKtgSqQXIeE6q+OGmU4j+m7bKTpWDSA2X8/koZG4fuS3h74KiW0Ga
-	 +55gtnVK6USP/hDJW4uyORR9/7hbU2lrvnPNhyAe/Vky2lUKI845vGRhshPiPvRQrbT9O
-	 hawC21KYg9NgOdrCWn71x+0SkT2WIQ5eXUHRiJ+LwcIg1SA7L5riFH+qj7WCC2Wa5qA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792458271;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=l/hNaEYX7pwjnbOy9kQT5DzXVQgH4HbRFHOPYgj+TYc=;
+	b=TyCxurwd1Gf61eaPxGxFxQ7QOiNlli4ZUKJvDEX2pu8dNwR7klM+qY0D3Mk8Wqm+pv4v
+	 Ywc8xHKdRjx4kTMGPJBQhY/cFV6Ehq/UU03b2wb/yQx9xT2eQQNuT2MLn22FIPf9uY1JI
+	 hCKjiMJ7Oc0BOCz6FKFELohU30h/iDQ09JOWxMRNE7dyVsYtRGnJCcuFUc6Marxc2+C1Y
+	 SGB6asZcZLsUwvXHuOr9HXxlgSieXj+1u0GE7F9dQnUWFZBENlgfD1qUmtOcCKynv1XAG
+	 f1wzHtjPy69xfWNAgXuSFdt3K47brF9ZNoEPpbtWHA3/0SEIEEpW/LnEZI6amP+DZLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=0L61nKTj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=s1jvQjTY;
+	arc=none smtp.remote-ip=115.124.30.118
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F278606A319;
-	Tue, 20 Oct 2026 01:02:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7628D606A31A;
+	Tue, 20 Oct 2026 01:04:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7628D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=0L61nKTj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD95F1F000C4;
-	Tue, 20 Oct 2026 01:02:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792458160;
-	bh=vA9HrIlYy80oAx3dOJ8vBQKkZAANJTZdkbS+jz0zzy8=;
-	h=Date:To:From:Subject;
-	b=0L61nKTjNSD51NYbC4ZAvFU59Bb0uvxTAy+ixT1vtInrXGNBtXpMhozmziHiOFaef
-	 5eoFymapiMHm9kiExfuUyD9BFeVWb5RZSh0o05dmSduJe2YNdl52FYpH/dwylpPqRq
-	 BoWVe6r3KOJ1GXAVNOphdl5qqyVMzPB0Aq3furWg=
-Date: Mon, 19 Oct 2026 18:02:39 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-damon-core-filter-out-damos-address-filter-split-failed-region.patch added to mm-unstable branch
-Message-Id: <20261020010239.DD95F1F000C4@smtp.kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=s1jvQjTY
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792458261; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=l/hNaEYX7pwjnbOy9kQT5DzXVQgH4HbRFHOPYgj+TYc=;
+	b=s1jvQjTYnZhmePGm0bkEKOZ5/y1N7l4MVPuI80gB8d9ywoio2DJirxlHSoOrL2I6Jzp9dpIPgJsLgZHyTIbrZIhknc48rLQy526y5fK/c5zTDXm7A6CiX8CBi2QTMi+wd64tgTXkivR9Gj0SB1LesNr8brNj/U6Znmk0LTCD6f4=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XDAoyyL_1792458259;
+Received: from 30.221.145.25(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDAoyyL_1792458259 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 20 Oct 2026 09:04:20 +0800
+Message-ID: <1beb38aa-e068-456c-a4d8-6590f2bd1266@linux.alibaba.com>
+Date: Tue, 20 Oct 2026 09:04:19 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -48,181 +52,130 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ocfs2: drain quorum work before removing the cluster
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
+ akpm@linux-foundation.org, christophe.jaillet@wanadoo.fr, blum@kernel.org,
+ kees@kernel.org, sunil.mushran@oracle.com, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-objects-candidate-0064-v4-51daf51db746eedf7533@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-objects-candidate-0064-v4-51daf51db746eedf7533@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
-The patch titled
-     Subject: mm/damon/core: filter out damos address filter-split failed region
-has been added to the -mm mm-unstable branch.  Its filename is
-     mm-damon-core-filter-out-damos-address-filter-split-failed-region.patch
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-core-filter-out-damos-address-filter-split-failed-region.patch
+On 10/16/26 12:57 AM, Cen Zhang wrote:
+> The configured cluster must remain available until an in-flight quorum
+> decision has finished using its fencing method. o2quo_make_decision()
+> drops qs_lock before calling o2quo_fence_self(), which marks heartbeat
+> regions for unclean stop and then reads
+> o2nm_single_cluster->cl_fence_method. Cluster removal clears the
+> singleton without waiting for this independent system-workqueue item.
+> 
+> When a failed-quorum decision overlaps removal of the heartbeat regions,
+> nodes and cluster through configfs, the worker can be preempted after
+> marking the regions and resume after the singleton has been cleared:
+> 
+>   Quorum worker                     Configfs removal
+>   select fence; drop qs_lock
+>   o2hb_stop_all_regions()
+>                                     remove regions; join heartbeat threads
+>                                     remove nodes; stop o2net
+>                                     clear singleton; release cluster
+>   read cl_fence_method
+> 
+> The resumed read dereferences NULL instead of applying the configured
+> fencing method. The heartbeat thread's dependency protects the local
+> node only until the thread exits, and draining o2net does not wait for
+> qs_work.
+> 
+> Call the existing o2quo_exit() flush before clearing the singleton in
+> o2nm_cluster_group_drop_item(). By this point the heartbeat regions and
+> nodes have been removed, so their work publishers are stopped. The
+> flush lets any pending or running decision finish while the cluster is
+> still available. It introduces no new state or locking; the worker does
+> not acquire the configfs mutex held by the removal path.
+> 
+> KASAN report as below:
+> 
+>     Oops: general protection fault, probably for non-canonical address 0xdffffc000000011b: 0000 [#1] SMP KASAN NOPTI
+>     KASAN: null-ptr-deref in range [0x00000000000008d8-0x00000000000008df]
+>     CPU: 0 UID: 0 PID: 72 Comm: kworker/0:2 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
+>     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+>     Workqueue: events o2quo_make_decision
+>     RIP: 0010:o2quo_fence_self+0x65/0x200
+> 
+> Register dump omitted.
+> 
+>     Call Trace:
+>      <TASK>
+>      o2quo_make_decision+0x345/0x3a0
+>      ? __pfx_o2quo_make_decision+0x10/0x10
+>      ? process_one_work+0x834/0x1b40
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? lock_release+0xc8/0x290
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      process_one_work+0x9a8/0x1b40
+>      ? __pfx_process_one_work+0x10/0x10
+>      ? lock_acquire+0x190/0x300
+>      ? lock_is_held_type+0x8f/0x100
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      worker_thread+0x65c/0xe40
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __kthread_parkme+0x177/0x220
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx_worker_thread+0x10/0x10
+>      kthread+0x351/0x460
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx_kthread+0x10/0x10
+>      ret_from_fork+0x659/0x940
+>      ? __pfx_ret_from_fork+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __switch_to+0x74f/0xf70
+>      ? __pfx_kthread+0x10/0x10
+>      ret_from_fork_asm+0x1a/0x30
+>      </TASK>
+>     Modules linked in:
+>     ---[ end trace 0000000000000000 ]---
+> 
+> Fixes: f6656d26d17b ("ocfs2/cluster: Make fence method configurable - v2")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> Assisted-by: LLM
+> 
+> ---
+> diff --git a/fs/ocfs2/cluster/nodemanager.c b/fs/ocfs2/cluster/nodemanager.c
+> index e08850a5d736..13d7f579047f 100644
+> --- a/fs/ocfs2/cluster/nodemanager.c
+> +++ b/fs/ocfs2/cluster/nodemanager.c
+> @@ -12,6 +12,7 @@
+>  #include "tcp.h"
+>  #include "nodemanager.h"
+>  #include "heartbeat.h"
+> +#include "quorum.h"
+>  #include "masklog.h"
+>  #include "sys.h"
+>  
+> @@ -740,6 +741,8 @@ static void o2nm_cluster_group_drop_item(struct config_group *group, struct conf
+>  	struct o2nm_cluster *cluster = to_o2nm_cluster(item);
+>  
+>  	BUG_ON(o2nm_single_cluster != cluster);
+> +	/* Drain quorum work before it loses access to the cluster. */
+> +	o2quo_exit();
+>  	o2nm_single_cluster = NULL;
+>  
+>  	configfs_remove_default_groups(&cluster->cl_group);
+------------------------------------------------------------------------
+o2quo_exit() is the counterpart of o2quo_init(), and it is called from
+o2net_exit() when the module goes away.
 
-This patch will later appear in the mm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+I'd like a separate drain helper, say o2quo_flush_work(), to describe
+this better than reusing the exit function.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: SJ Park <sj@kernel.org>
-Subject: mm/damon/core: filter out damos address filter-split failed region
-Date: Mon, 19 Oct 2026 17:41:18 -0700
-
-When an address type DAMOS filter is configured, DAMOS tries to split the
-region for the filter range, and apply DAMOS action to the filter-in
-region.  The split operation (damon_split_region_at()) could fail from
-allocation failure under extreme memory pressure.  In the case, DAMOS
-action could be applied more or less than expected, ignoring the address
-filter.
-
-The issue only rarely happens under extreme memory pressure.  No crash or
-leak happens.  Occasionally not applying the action to a few regions
-shouldn't be a real problem.  But applying the action to a region that the
-user has excluded via address filter could be a surprise depending on the
-use case.  It is only theoretical.  No such real case is found yet.
-
-Filter out the entire region if the split is failed.  Update
-damos_filter_match() signature to receive the error from split.  Also
-update kunit tests for the updated signature.
-
-The issue was discovered [1] by sashiko.
-
-Link: https://lore.kernel.org/20261020004119.106690-1-sj@kernel.org
-Link: https://lore.kernel.org/20260801203121.117449-1-sj@kernel.org [1]
-Fixes: ab9bda001b68 ("mm/damon/core: introduce address range type damos filter")
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: <stable@vger.kernel.org> # 6.6.x
----
-
- mm/damon/core.c             |   16 ++++++++++++----
- mm/damon/tests/core-kunit.h |   11 ++++++-----
- 2 files changed, 18 insertions(+), 9 deletions(-)
-
---- a/mm/damon/core.c~mm-damon-core-filter-out-damos-address-filter-split-failed-region
-+++ a/mm/damon/core.c
-@@ -2551,13 +2551,14 @@ static void damos_update_stat(struct dam
- 
- static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
- 		struct damon_region *r, struct damos_filter *filter,
--		unsigned long min_region_sz)
-+		unsigned long min_region_sz, int *err)
- {
- 	bool matched = false;
- 	struct damon_target *ti;
- 	int target_idx = 0;
- 	unsigned long start, end, wsum;
- 
-+	*err = 0;
- 	switch (filter->type) {
- 	case DAMOS_FILTER_TYPE_TARGET:
- 		damon_for_each_target(ti, ctx) {
-@@ -2583,12 +2584,13 @@ static bool damos_filter_match(struct da
- 		}
- 		/* start before the range and overlap */
- 		if (r->ar.start < start) {
--			damon_split_region_at(t, r, start - r->ar.start);
-+			*err = damon_split_region_at(t, r,
-+					start - r->ar.start);
- 			matched = false;
- 			break;
- 		}
- 		/* start inside the range */
--		damon_split_region_at(t, r, end - r->ar.start);
-+		*err = damon_split_region_at(t, r, end - r->ar.start);
- 		matched = true;
- 		break;
- 	case DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:
-@@ -2607,10 +2609,16 @@ static bool damos_core_filter_out(struct
- 		struct damon_region *r, struct damos *s)
- {
- 	struct damos_filter *filter;
-+	bool matching;
-+	int err;
- 
- 	s->core_filters_allowed = false;
- 	damos_for_each_core_filter(filter, s) {
--		if (damos_filter_match(ctx, t, r, filter, ctx->min_region_sz)) {
-+		matching = damos_filter_match(ctx, t, r, filter,
-+				ctx->min_region_sz, &err);
-+		if (err)
-+			return true;
-+		if (matching) {
- 			if (filter->allow)
- 				s->core_filters_allowed = true;
- 			return !filter->allow;
---- a/mm/damon/tests/core-kunit.h~mm-damon-core-filter-out-damos-address-filter-split-failed-region
-+++ a/mm/damon/tests/core-kunit.h
-@@ -1783,6 +1783,7 @@ static void damos_test_filter_out(struct
- 	struct damon_target *t;
- 	struct damon_region *r, *r2;
- 	struct damos_filter *f;
-+	int err;
- 
- 	f = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true, false);
- 	if (!f)
-@@ -1803,27 +1804,27 @@ static void damos_test_filter_out(struct
- 	damon_add_region(r, t);
- 
- 	/* region in the range */
--	KUNIT_EXPECT_TRUE(test, damos_filter_match(NULL, t, r, f, 1));
-+	KUNIT_EXPECT_TRUE(test, damos_filter_match(NULL, t, r, f, 1, &err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region before the range */
- 	r->ar.start = 1;
- 	r->ar.end = 2;
- 	KUNIT_EXPECT_FALSE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(NULL, t, r, f, 1, &err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region after the range */
- 	r->ar.start = 6;
- 	r->ar.end = 8;
- 	KUNIT_EXPECT_FALSE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(NULL, t, r, f, 1, &err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region started before the range */
- 	r->ar.start = 1;
- 	r->ar.end = 4;
--	KUNIT_EXPECT_FALSE(test, damos_filter_match(NULL, t, r, f, 1));
-+	KUNIT_EXPECT_FALSE(test, damos_filter_match(NULL, t, r, f, 1, &err));
- 	/* filter should have split the region */
- 	KUNIT_EXPECT_EQ(test, r->ar.start, 1);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, 2);
-@@ -1839,7 +1840,7 @@ static void damos_test_filter_out(struct
- 	r->ar.start = 2;
- 	r->ar.end = 8;
- 	KUNIT_EXPECT_TRUE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(NULL, t, r, f, 1, &err));
- 	/* filter should have split the region */
- 	KUNIT_EXPECT_EQ(test, r->ar.start, 2);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, 6);
-_
-
-Patches currently in -mm which might be from sj@kernel.org are
-
-mm-damon-core-introduce-damos_quota_goal-complement.patch
-mm-damon-core-add-complement-argument-to-damos_new_quota_goal.patch
-mm-damon-sysfs-schemes-support-quota-goal-complement-flag.patch
-mm-damon-tests-core-kunit-test-quota_goal-complement-commit.patch
-selftests-damon-sysfssh-test-quota-goal-complement-flag-file.patch
-docs-mm-damon-design-document-damos-quota-goal-complement-flag.patch
-docs-admin-guide-mm-damon-usage-update-for-quota-goal-complement-file.patch
-docs-abi-damon-update-for-quota-goal-metric-complement-sysfs-file.patch
-mm-damon-core-filter-out-damos-address-filter-split-failed-region.patch
-
+Thanks,
+Joseph
