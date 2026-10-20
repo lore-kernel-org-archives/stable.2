@@ -1,75 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792483993;
-	b=kQqszbT7ky+WFQB5RHckwpNd4oi/wdSYbncfJxPQyoqnnd4M5TSsndrk+zMWT3TDUNyO
-	 fgX0noCHCBu8wRHOKNkwFgDzJm733nkwMEcGbeegZRvBycEdvICBzTWIDJAwcnaqiwKgP
-	 XBz/xxUys0CkzR/z0dI5MBCVchwqBUIXGcEQRFYrLj4rbvV4eHSPKVCzdOOWY7n2Aha1o
-	 I8AkvvnkH9EnM/iy8BspS1CMR3b62HtOPeHP35xJuGuxcsaRVXwTtzcoPuRw9Po7gcraV
-	 2YU5WSXFlxMqettF7p8XPIe1eeIZtgezNjgGwsqGatw3tDCfphcrf5eXSa987gNa+6A==
+	t=1792484440;
+	b=HmKxT1IpsZi0vx/0PsVxJok5mhU9gybyQFdREdOoXBQf3KMHj+2fj8yEVDjyIJSiGf2g
+	 7OD5DRAxtTxtVxDfL2/3I4QNboSwoIxFqcTJ8+TFEB09Og0bTotu80yX8GymbVaXAPKK0
+	 k1Viwn33nt4APScZHE5gwlwxoSNivlH+TrJAh96Vj3bgiitQfdTxoMeM1lonRfcgvSkyb
+	 A3L4/ij6J5K3KvR9+D/gwODHz05cavT0NHE6iN7pgFQxw/soFX9hnp0V/OS3dnq8svSLe
+	 dCXjb4MEDafuO0Eh6l6sHI/N+cde1ix3EpsM9dONtsUzyTccxE1LxOANvBRi+4REQ6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792483993;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=TsTwpzFLaL87CUGnKEpNBjiUo0nCAy+dGY5mjA4Yxa4=;
-	b=nx1W8vbe5deLK7sZCEJ+mcvfexrmO9NTMOtW7nmgkGwEt+d3G4i4BZmyGs1QoO7UzRPf
-	 /Bdi2XEUMmQ30Ci+0FgRaO9AWh/SZkE13oxvOTGtHAjvMqcWoyFcAVWK9nhxCCp2ocZ1X
-	 wO+p6Cpiq8Crpz4ok0JuQeaQd2ynGpcZTBXhXGvanHStSrOWDmexVd/U2mZNVOxtE3zuh
-	 DaLZ7qtBaEEKd4Ee9ATrXS+mbuWiQhc1SFspzxAXfWECjvEF3smuBPtdNYJl9rQHQiRs+
-	 XNkmCBiJTu7NoWY98BrnJu7pkcYKXKQVt1nbPJcYPMWPU45dpR3Rgh37KuK6tJoWPwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792484440;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
+	bh=gw+BWflLHCBFzthayOlMnIYIaUbwH5DQLgkmA/dcpOs=;
+	b=WrFAhUhb9P0j7FmqYRaEVjmzIH6AfLhLFZ+wZtUIiUgSD90PukEfiQt/Csxh2rrXQnSk
+	 aQkVUiqcrlMpd06S+czV9CohzuUlkfuX8iDzqs/j7kHZQvc3oQAeJjGXPAaiA579FJ8ud
+	 XkhzbE6T0L5WCdaOVaiX3stSYV4E2varwj8RZrVT8s4sGv0wRQa3dagngjfkdQI+tIM/u
+	 T4JkPFZew48CGyghv3cZLCqUKOKk/159va3c+JwfH69WRky4tKDad1jW014MpS/qDydkZ
+	 GRNdIg5DBojlLYTMMg9CZ/mb4u4Dk3JP3+z2oJmmQIxhwdub334SrWFi06hmnQUrRtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=VGbBsq55;
-	arc=none smtp.remote-ip=209.85.208.69
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=NfEBNQ5m;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 301EC606A31B
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:13:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 301EC606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9B6606A31C
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:20:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC9B6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=VGbBsq55
-Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6afa6850207so3876301a12.1
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 01:13:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792483991; x=1793088791; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TsTwpzFLaL87CUGnKEpNBjiUo0nCAy+dGY5mjA4Yxa4=;
-        b=VGbBsq55SxMht3O1sFL/JYhDoUB1lktVionTe2hmEWeoz6nsvvNHdD4vuxO4EZ5VBk
-         I/ykPxUt/pVq3kzNQgQyy1bcLYXwxSvhJbpvJXriWtSEq2xHTJLOUWDAFm5GFmKXzUKU
-         zeQBf+1swtzmV6w5L41uWwYVRDI1Q5mrimf1EfENQOEGIF3TYEXUhcJNQSDB84BT7p2k
-         IvJW1mNG6gsgso6x4r/2S8pXx1o+c3sH7wMfMUmWB65O6rwESMhS8iNG6vpMGx81Q/Jw
-         oBATHwmSWWFs+gBdvOQg6BKlDe7FapxC+zmaUSwRwJZ3YnenOf/bWAs53FPtNREsDBiO
-         CK/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792483991; x=1793088791;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TsTwpzFLaL87CUGnKEpNBjiUo0nCAy+dGY5mjA4Yxa4=;
-        b=zQlXMjs8y3zHQMGyAqQMpbRYMF5y1wO/HBdkWzq1IHkzJp9UBsV64m8i2Z1v25ahj1
-         4LA2siAoMzYwKuveEDQ+KCOR7RQYXR9+4i1KeU1XwDBO+2Wr2UnrPSZc28HVHsO4YRtr
-         +9DUvdAgY87FhpnsP06otaXMYRlh579CD92M/zIMJ0mX3oDaeImcbRVqMPkSDvMH+/CW
-         EqR37pGjum4Ior7YcCVi/HepwxV7SkUQ2ZAqm5kLDL/fd9euZkKK6iJcS9/NwR8/N0QZ
-         OULZsuzmppyS2QLs4Hug37qzxysyO29t8AHZ87G3q8mZWt+o9gT7WU/x8blCpyTbdTD9
-         eYzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy/xzMWvVRKQtDZGUHxBtJiv6xF6e+jnT/5cuT3ezVitOI7P1s3kffF8IdbVxcDIeqqPclHWrs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKwffqbW/QVjHo7qSusm0s0lDSUopubCrhbMY5W1rysQldzuvyp
-	/RxelZrDV0vKExsZCXJFHlK4//meAcikpcsFtXT1Hu+CYNVi5eQ++U85TaV9Lw19/7uFb4a77jL
-	IklZDYNcqv2MKeAR/PQ==
-X-Received: from edt3.prod.google.com ([2002:a05:6402:4543:b0:6aa:ff76:b1f6])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:aa7:d803:0:b0:6b1:e474:e0e2 with SMTP id 4fb4d7f45d1cf-6b3a81dea57mr4861388a12.43.1792483991214;
- Tue, 20 Oct 2026 01:13:11 -0700 (PDT)
-Date: Tue, 20 Oct 2026 08:13:06 +0000
-In-Reply-To: <20261019-rust-cfi-fixes-v1-3-9503472ba738@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=NfEBNQ5m
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 60BAE4E4128D;
+	Tue, 20 Oct 2026 08:20:37 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2DA6F60393;
+	Tue, 20 Oct 2026 08:20:37 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B42E310328A45;
+	Tue, 20 Oct 2026 10:20:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792484436; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=gw+BWflLHCBFzthayOlMnIYIaUbwH5DQLgkmA/dcpOs=;
+	b=NfEBNQ5mC0HCPQtKBcLrsfthSb8lL7aGFVaTgD13bmoosGv5TbTxwC6V/GoFz6yR9d8el4
+	hl7QsWswNAYjfbaZi0UtUs6Yi19n70Dz1Ituy2oVo19yCTeyCNgfgEBexYVW+vPvSOK2lH
+	sgAvYrjhqzQ9h9XVcje/kD73OA+WPD9f0b4jIUOrDcdNlvS2PrugX24v8JhCLvzuS+2DWq
+	a9aGZz9YaF1Zvc4DyUNNjJ3mjggjZSLYDfgf7eHzZPmXfmI6KPnpMASkAUEOZWfAzfJ0rt
+	aGg8AbF/wURudfyOzWnWLexEM5zreKohyd7+tv+CGtui7NH4H4tpPQmLyHP7yQ==
+From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Date: Tue, 20 Oct 2026 10:20:32 +0200
+Subject: [PATCH 6.1.y] bpf: Add BPF_PROG_TYPE_CGROUP_SKB attach type
+ enforcement in BPF_LINK_CREATE
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,46 +62,150 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261019-rust-cfi-fixes-v1-0-9503472ba738@google.com> <20261019-rust-cfi-fixes-v1-3-9503472ba738@google.com>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261020081308.1768290-1-aliceryhl@google.com>
-Subject: Re: [PATCH 3/3] rust: dma: declare cfi_encoding for dma_data_direction
-From: Alice Ryhl <aliceryhl@google.com>
-To: Sami Tolvanen <samitolvanen@google.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	"=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, FUJITA Tomonori <fujita.tomonori@gmail.com>, 
-	Frederic Weisbecker <frederic@kernel.org>, Lyude Paul <lyude@redhat.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Anna-Maria Behnsen <anna-maria@linutronix.de>, 
-	John Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Abdiel Janulgue <abdiel.janulgue@gmail.com>, Robin Murphy <robin.murphy@arm.com>, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	driver-core@lists.linux.dev, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261020-cve-2024-38564-v1-1-0f8b454b9ef6@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vchc3YJi7SxvorxIHXQ9YCmRaIhv
+ LtVj98k8y/ITMaMfbUgcbZs97FANxXi9TReKHYuRtu0XhsNEmdKQSfbnfOdREcfejeEoEQ5PRI
+ He/2CB/ha6zeO/zk/+xvj9I1hXT8XpDJWeQAAAA==
+X-Change-ID: 20261019-cve-2024-38564-c5e69b5f991e
+To: stable@vger.kernel.org
+Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Stanislav Fomichev <sdf@google.com>, 
+ syzbot+838346b979830606c854@syzkaller.appspotmail.com, 
+ Eduard Zingerman <eddyz87@gmail.com>, 
+ Martin KaFai Lau <martin.lau@kernel.org>, Sasha Levin <sashal@kernel.org>, 
+ "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792484434; l=4125;
+ i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
+ bh=o5dsTVSaRd1rOJQI39PbWpLWalk7hp2FVLk4sokhrlY=;
+ b=SLTbjX+Ejl6ZOpgkcYGI2ccVHujki3C0glcTiby1V2cpxZngmCE6gIFQ8Gl+zDxU+zzjKIuC3
+ eNDw98gtTf5A6UgjnwKPUKCFInZDUuVOm0h0Gvpwn6xifaTq6HuXiln
+X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
+ pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Oct 19, 2026 at 11:34:39PM +0000, Sami Tolvanen wrote:
-> bindgen generates bindings::dma_data_direction as an integer by default,
-> while C callback tables such as dma_buf_ops declare the parameter as
-> enum dma_data_direction. kCFI encodes enum types by name even with
-> integer normalization, so the type ids would not match when C calls into
-> a Rust callback taking bindings::dma_data_direction.
-> 
-> Generate dma_data_direction as a newtype with a cfi_encoding, as is done
-> for lru_status, and convert DataDirection through the newtype's
-> constants.
-> 
-> Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+From: Stanislav Fomichev <sdf@google.com>
 
-Perhaps also add:
+[ Upstream commit 543576ec15b17c0c93301ac8297333c7b6e84ac7 ]
 
-Cc: stable@vger.kernel.org
-Fixes: c2437c43cfb1 ("rust: dma: implement DataDirection")
+bpf_prog_attach uses attach_type_to_prog_type to enforce proper
+attach type for BPF_PROG_TYPE_CGROUP_SKB. link_create uses
+bpf_prog_get and relies on bpf_prog_attach_check_attach_type
+to properly verify prog_type <> attach_type association.
 
-so this gets tracked alongside patches 1 and 2 for `6.18.y` backports.
+Add missing attach_type enforcement for the link_create case.
+Otherwise, it's currently possible to attach cgroup_skb prog
+types to other cgroup hooks.
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+[Added ptype variable declaration at the top of the function
+bpf_prog_attach_check_attach_type, and moved it under
+attach_type_to_prog_type (similar to what is done in
+3505cb9fa26cfec9512744466e754a8cbc2365b0 ("bpf: Add attach_type checks
+under bpf_prog_attach_check_attach_type") ]
+
+Fixes: af6eea57437a ("bpf: Implement bpf_link-based cgroup BPF program attachment")
+Link: https://lore.kernel.org/bpf/0000000000004792a90615a1dde0@google.com/
+Reported-by: syzbot+838346b979830606c854@syzkaller.appspotmail.com
+Signed-off-by: Stanislav Fomichev <sdf@google.com>
+Acked-by: Eduard Zingerman <eddyz87@gmail.com>
+Link: https://lore.kernel.org/r/20240426231621.2716876-2-sdf@google.com
+Signed-off-by: Martin KaFai Lau <martin.lau@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+---
+ kernel/bpf/syscall.c | 62 +++++++++++++++++++++++++++++-----------------------
+ 1 file changed, 35 insertions(+), 27 deletions(-)
+
+diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
+index d630d1665c6b..6cbed5a3aaf4 100644
+--- a/kernel/bpf/syscall.c
++++ b/kernel/bpf/syscall.c
+@@ -3427,33 +3427,6 @@ static int bpf_raw_tracepoint_open(const union bpf_attr *attr)
+ 	return fd;
+ }
+ 
+-static int bpf_prog_attach_check_attach_type(const struct bpf_prog *prog,
+-					     enum bpf_attach_type attach_type)
+-{
+-	switch (prog->type) {
+-	case BPF_PROG_TYPE_CGROUP_SOCK:
+-	case BPF_PROG_TYPE_CGROUP_SOCK_ADDR:
+-	case BPF_PROG_TYPE_CGROUP_SOCKOPT:
+-	case BPF_PROG_TYPE_SK_LOOKUP:
+-		return attach_type == prog->expected_attach_type ? 0 : -EINVAL;
+-	case BPF_PROG_TYPE_CGROUP_SKB:
+-		if (!capable(CAP_NET_ADMIN))
+-			/* cg-skb progs can be loaded by unpriv user.
+-			 * check permissions at attach time.
+-			 */
+-			return -EPERM;
+-		return prog->enforce_expected_attach_type &&
+-			prog->expected_attach_type != attach_type ?
+-			-EINVAL : 0;
+-	case BPF_PROG_TYPE_KPROBE:
+-		if (prog->expected_attach_type == BPF_TRACE_KPROBE_MULTI &&
+-		    attach_type != BPF_TRACE_KPROBE_MULTI)
+-			return -EINVAL;
+-		return 0;
+-	default:
+-		return 0;
+-	}
+-}
+ 
+ static enum bpf_prog_type
+ attach_type_to_prog_type(enum bpf_attach_type attach_type)
+@@ -3518,6 +3491,41 @@ attach_type_to_prog_type(enum bpf_attach_type attach_type)
+ 	}
+ }
+ 
++static int bpf_prog_attach_check_attach_type(const struct bpf_prog *prog,
++					     enum bpf_attach_type attach_type)
++{
++	enum bpf_prog_type ptype;
++
++	switch (prog->type) {
++	case BPF_PROG_TYPE_CGROUP_SOCK:
++	case BPF_PROG_TYPE_CGROUP_SOCK_ADDR:
++	case BPF_PROG_TYPE_CGROUP_SOCKOPT:
++	case BPF_PROG_TYPE_SK_LOOKUP:
++		return attach_type == prog->expected_attach_type ? 0 : -EINVAL;
++	case BPF_PROG_TYPE_CGROUP_SKB:
++		if (!capable(CAP_NET_ADMIN))
++			/* cg-skb progs can be loaded by unpriv user.
++			 * check permissions at attach time.
++			 */
++			return -EPERM;
++
++		ptype = attach_type_to_prog_type(attach_type);
++		if (prog->type != ptype)
++			return -EINVAL;
++
++		return prog->enforce_expected_attach_type &&
++			prog->expected_attach_type != attach_type ?
++			-EINVAL : 0;
++	case BPF_PROG_TYPE_KPROBE:
++		if (prog->expected_attach_type == BPF_TRACE_KPROBE_MULTI &&
++		    attach_type != BPF_TRACE_KPROBE_MULTI)
++			return -EINVAL;
++		return 0;
++	default:
++		return 0;
++	}
++}
++
+ #define BPF_PROG_ATTACH_LAST_FIELD replace_bpf_fd
+ 
+ #define BPF_F_ATTACH_MASK \
+
+---
+base-commit: 79807e970724c1f90cee1316361d61b80db4eef6
+change-id: 20261019-cve-2024-38564-c5e69b5f991e
+
+Best regards,
+--  
+Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+
