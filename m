@@ -1,92 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.17
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792496408;
-	b=KZYIhEgL/wFMJBrdrmFj4IwQc8Zz8RCjzXWoPN9E2/ezm8UmEwDDlT8mwf9ZOF1fHdd+
-	 F2KAP5pfusglmK0oyySH/EyoFwFaSj0Rx0H8H2SossOCI6xb+NpeerDdAN/U3a1HrYnGF
-	 IXpOKkmGrBNOFXYHlsHbdPFEnTlIoKKcSrXoFh20TGdWO1ai8al4bNcxeiRWVDancoBN2
-	 OlWedoZVjJKL+uTG1DfEXOu+kt6YKskIHtfxWod8aneKv8P8UuuM6WVaBPQ2SHaTg/TTu
-	 46n/EGfTDNywvLr5ydVj0EsR/x3/kzhHu6sm/qMn9MboHvzYjdHBX7wn3DtYh1XyTnw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792496408;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=4K3+mJO6L6vdgx0TxdKmZ+KvwF6/gC77ZE1nB+uzjRE=;
-	b=ct2xYP2yYlZcKAFp+unsHandZNu54NKqqrqL5LLS5nxZYDSKQxNlNy3DzgU+a9Gp0q/T
-	 O0rwwrTsDyJzCVSQDQJmVySKyZsa9AHYaAVwjk4LDmieZ/EBOoTJfSkgLP+LP0ZrU+SFU
-	 s5fRqdvtDEBFjgcRzoqhFwCHQ0DzzLMWriKamek2cvDHAPo8QbiATpcaNRJdMTgEVWpQl
-	 L1OZ688SZ1Z0tSOkFZl13WyShx9Ty3YYdzdDbpW+B98mncy0gHI4iWMosAHjfOS+kACzE
-	 ahO015jrSqB4E2hSknYoAhUZ6sD6QpgCoOcElbQbaMVOMX73Ln57T3Er8qRDXth3/kA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=LP32gAKk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.17
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011017.outbound.protection.outlook.com [52.101.57.17])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792496455;
+	b=QTQTGWBopJ/CK1XWVT5+LSmyaLS+f+lO0WZLDvOn/HR5qjSytgfvgvWlYkkGctXVDH4l
+	 3+1xKOaqoqx/IMED3z9rEvIIlkv//yw+kcaPJxsf0EwuFmoZkAxMbrVamSO5xr0B0vcQd
+	 KGSsSwOWMUi4FvZSL6Z1UhixZMCSkSZoXfSiz1cw2hY5N89ZrikVz/23T5c7A9OWtS7lw
+	 Hx88TgsnhtPTBqm/u5wDeWmZdhvKiiPx1hbJ3ako5dV+hRf67wFansE/AnYJ4pI1Ma7Cb
+	 4KSg2A6HwL2yQVcyGJpTVrHLPBmTx1myiAepJNLX+ZbOlz/EPg1gJmIcCgtIVlFDD7Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792496455;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Flag:
+	 X-Spam-Score:X-Spam-Level:X-Spamd-Result;
+	bh=1tuZyV44t4P69kcVnXl66QFtZQO9JF1Ph9e8Q8cwgIE=;
+	b=ryyGdfhl34TcpCCWYoLQvKGp+qF5RzuMfiw/s+Oon0BMpkpVfEn9ke+POCkOxkR0nHrL
+	 633HdWpe+i2vuhNNGkHWpQ3bkTzmtYkEFmfmKHzNmtmum8SRR+LsHjNoCzBkAcoUXDkJ5
+	 TWdH+0B97JnVh5cmVR+j++mDTZx1NTzsEI4WJKXmuyJBCxn7nnsIp69oKenHTN796rgcJ
+	 Y3UmoSducll4cLG73uwru2xLuRX7ybEd56WEAychewpOX4LYMvUHLK0u/nvJTfbsTTKcW
+	 VycFSxpFevLzMg6TEAM9uS6jPshKgDdlMzPMv6xfCZKEVU9f9s/OUaEIuhSTkZvuRJQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oMZTZiUt;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nEJTvPJ0;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oMZTZiUt;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nEJTvPJ0;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15128606A31A
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 11:40:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15128606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E536606A324
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 11:40:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E536606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=LP32gAKk
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uvRU46ckHqIeqVd99kCUpPX7JBh+Nw2RNNd8DjHJm0lcf2vN1NfSLBIhiTGpORhYjYHEuJnL+h5WrYT0mPEFtJ/PdEdKPE4Ha64O1q3QDON6DW+LoNbdhtMo7ivClzf1oYNNKGzEZLLmfZRANx1uilyYG/0uu5dD/SRA7/dn58Onlf198VAX8Zc75FP1o8xXWyp+mvIaPFOBFBgxMj6awbTzWG+1Gk4Y6inbbTpbRotJJAa8EiakJeyQf2DCtK3aBS4UnBElcBPgeHr/0zbMfo27GjCOAbGJeZU3unQKtp6/7N/ZE+n8TYbimz20zoxo/EnN1Q0HW5UV3RHZTYhqtg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4K3+mJO6L6vdgx0TxdKmZ+KvwF6/gC77ZE1nB+uzjRE=;
- b=beoOweod1Cwia/YsabOCfgZNdREd89raxfwFfw1kfVUOdmGBWjAJSqly8lieYjzpiqTW2IKw8gneTn3fUB3hl2jMFUAAudzI8Loskn1uBsFizxcJt/kVzhPrjkoPkcTskzSPt+r0Ji2wkk94zJJXWcdtvQTYdCe6LmLrkS/at6zr9jGRQVFegYzo/ivrj9qpH7N2n8Wwi2MeE2I80vh+FBgfyOy1u0/R7wo18yoivRGx31ovhsGZEPtsn54DcspZrL240jzbsyU5wBEAkRLbuvlR6R7qdCXShoA2ZSIadskPd7p0V92tnyVA2WcQXMnw1Kkgk1hwjb9kMrQAcZEkJA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4K3+mJO6L6vdgx0TxdKmZ+KvwF6/gC77ZE1nB+uzjRE=;
- b=LP32gAKkrqKDbjrR2WN4a5HRRxyylS5/lhw9Ugc6NP1X+XE5h8pGy7xoDRBer8tEiHL/dbzsncBbABC+2ByO/yDBI99WJot33AwF3PHG1JhF11wdCQiLMEkYWqUhnNHLcJn47jBely9VF9XOYouR/0ezEirFTvadIpsfJJAJm58=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB8574.namprd12.prod.outlook.com (2603:10b6:8:166::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
- 2026 11:39:57 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
- 11:39:57 +0000
-Message-ID: <36edbff3-fb61-4bc9-ac2f-0ba549ffe248@amd.com>
-Date: Tue, 20 Oct 2026 13:39:53 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu/gmc6: restore FB location and HDP non-surface
- programming
-To: drury.brad@gmail.com, Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org
-References: <20261020-gmc6-writes-only-v3-v1-1-70730a302504@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261020-gmc6-writes-only-v3-v1-1-70730a302504@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0135.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b9::20) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oMZTZiUt;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nEJTvPJ0;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oMZTZiUt;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nEJTvPJ0
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 666751F79E;
+	Tue, 20 Oct 2026 11:40:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792496445; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=1tuZyV44t4P69kcVnXl66QFtZQO9JF1Ph9e8Q8cwgIE=;
+	b=oMZTZiUtqRTMwP2ImRD1ja7hn9PaLPxQjg4GEwt1yhwYDQkzbptvhdnPF7dTYJBP1k1aop
+	8b+oCo9TISXscQrEs5BV0m6NZnm8diYAG3gG7J4Y6G30VBspfOR4QECD+aM9lKVABvGbm/
+	YkOO64+OL7aqsajkJcjTE3r5+pJqj9s=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792496445;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=1tuZyV44t4P69kcVnXl66QFtZQO9JF1Ph9e8Q8cwgIE=;
+	b=nEJTvPJ04pvnLGmDZZqAKfTyJNUYY2/k179V5yUUJ05c1UbFLEfqM3vlyvFs1D5+oZ5jvP
+	s75ww03ph1292VBg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792496445; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=1tuZyV44t4P69kcVnXl66QFtZQO9JF1Ph9e8Q8cwgIE=;
+	b=oMZTZiUtqRTMwP2ImRD1ja7hn9PaLPxQjg4GEwt1yhwYDQkzbptvhdnPF7dTYJBP1k1aop
+	8b+oCo9TISXscQrEs5BV0m6NZnm8diYAG3gG7J4Y6G30VBspfOR4QECD+aM9lKVABvGbm/
+	YkOO64+OL7aqsajkJcjTE3r5+pJqj9s=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792496445;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=1tuZyV44t4P69kcVnXl66QFtZQO9JF1Ph9e8Q8cwgIE=;
+	b=nEJTvPJ04pvnLGmDZZqAKfTyJNUYY2/k179V5yUUJ05c1UbFLEfqM3vlyvFs1D5+oZ5jvP
+	s75ww03ph1292VBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0E863136C6;
+	Tue, 20 Oct 2026 11:40:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id X/A/KjxT12oSDQAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Tue, 20 Oct 2026 11:40:44 +0000
+Message-ID: <d2490a35-df4e-450f-955a-0491529a3772@suse.de>
+Date: Tue, 20 Oct 2026 13:40:44 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,184 +106,148 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB8574:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee5ad20e-bc99-4f76-40ec-08df2e9edd8f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|6133799003|18002099003|22082099003|10067099003|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	BrjA4TZcfhSFah1d60VKxRdSEUws+dOvprDN9Qc70Ugwa7tm5eQOzqQFepmmOp/xCbH9mvE3rA7ZUgOU3VIDAVAvJh0YNEKWAsfKtraZIlssjxmlVye67XY3yWyoscPsKt3QXwVsnXfVeW6cxk7wufJDU47tewAPBBWVyucesraXOycRNYMpadE/Rzh5E/ueW6Tv5M0VILCz65BSk7L2O+7O6PBdNV9gjgnfTodYWPWo0HaLZ8nfcU8YyRJS65ZGq7j2iML62N2aUIdWs3btsAWPSFpS6GgLAcPF916Ay0bgj5i/PLpa0oquy5DDXf5U2YmQKekk8Knji2PA8cU6R+vuVwhEjF4EzrvV2bROEHT8jNLvC8H3sVEiuFwdncatWgrap60aHMCS4y+XyN3t9DwN82vOinz9gmUAK6TtWQs6I6nLW7GVBWMKXdpFWJq4qrHYFDeElupRYQ9Ub3LUxnGXZHRJQlQzUIWeuNfheMJnUMfE9ShNehooNlB+7Ftzw3dVWxLNGpFM5etXZTgeUcWnpjaBt4D0IL2/NtNrOBf5kTXaalSa1Uxp2MFOz6uEwBU0VGxw2hfxQo9Yr8nVu+TrBxNqDKfftVQYscUfrIBBFt2Zt3zo3qTRV7gE9k+6BTl8SOfxm4WL2niln0yOHyANOd2dVc+QA/SxkJ4J0wg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(6133799003)(18002099003)(22082099003)(10067099003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UXVDaTlxV2NpWnJmZmRobTltVjcyMXZzR0xMYWFBd0dpRzNhaWFVSGJTU1Zn?=
- =?utf-8?B?WHNxUkwvU2U4TFRkbzlyNDlGckhSYnVZaXFmK0pCZ3M2amNMelZWWW1DbVpH?=
- =?utf-8?B?K1FTbnBCY3lpSTFkNmJiTUVOWHo2TlBRN2p1UzB1S3hOZ0hTbmJ0UmlmZ25a?=
- =?utf-8?B?elQyTEpmbnJqb3o4TnN0azEycWdiUlAwNHZ1KzNyanRRNGVlNnZEVktldEFl?=
- =?utf-8?B?cXFSMjlVNmZmNldQVm5WN3I5R0tSTlNnRGF3clN5NHJ5MGdMcmc1eEh5SWda?=
- =?utf-8?B?MDFVUmV1MEFlR3l1MzlkYXA4bnlxSi9PWVdKR29rUE42d09icHZ3UTJXcGdR?=
- =?utf-8?B?RU0rY2dzaFJYYjFIR0c2M2ZtbjF4WmdqUUx1dlJLT0R4S0xPUlhtd1lXWGRh?=
- =?utf-8?B?ZWhIQmc0eWZIMkU1dkxwcVJNd0dBTW5FdzI1bFR2dDYweXo1SlYyaHdJL2x3?=
- =?utf-8?B?R1NnQ2hKMUhlUTkxenFTWUxSZEwrOU1oeTdSemNGVDJ2YmQ5bzljcElRSHVh?=
- =?utf-8?B?SGVGOURzY3U3L0V3Ung5Ymp3Y1A1L3BHbHI3U2FnSDFkTC83WURNMXBEUy9F?=
- =?utf-8?B?dStVbHpFSzVHNWRSR3lSdGxCa0Y5Y0xUK2Zvd1c4ZWswZTRnakpRYVRmOVRs?=
- =?utf-8?B?am1ISVo4Tjl5V1lUREZYUnJYRE1pRmk0WGxNOXcwV1BQVUFNWkM5Z0lvV0k1?=
- =?utf-8?B?SDVuaWtYT2UzdW0yMFNRQjBDR3J5VnFuYmQ4aVQya0FDV3o2a3FQOGlsSmI3?=
- =?utf-8?B?WGxFL1U2OUNTM1pSU29FN3F0eW9tZUlMUVdrcmlhbmZobUZXZjlLK3gwZmdu?=
- =?utf-8?B?KzVjQjNZVFFkSkVLQlZSR3pIckhsdU9UajBybUdoVTRJYU1LcTBVUUx6Z01O?=
- =?utf-8?B?SjhzV2hZcERiWDZsVUhBdVJuSWdkaVJwWVlIL2Y5TFVvNGlTbDFUcVZMMUto?=
- =?utf-8?B?cVhVL1hkTUZiZnJHeUFmZ09vUHFRR1NRQ0RZTkZ3ZkdhZ0NBTkdHQVJWMm9v?=
- =?utf-8?B?NVBMQ2pkQU1oWEQzR0Z3Y3pWeSsxQmtuREwzM0N5dFVONjBGeGJmOFI3b0VQ?=
- =?utf-8?B?MVdYQkxlemRIZTM4NWt4anpSMzc2eHFnbkVucHRIcjBzdjhwcWZEeVJISkM2?=
- =?utf-8?B?YWZ0ck9YeHgxcTY1UytncGMzcWRQTEVUUi9qZWxhaTgyVjZYemtYTzg1L2RS?=
- =?utf-8?B?dUlsQTlIdW5OKzdoTklnS2phNWlJMndvRHN5NGN0cy95THg1Z3l0YkZjd2xK?=
- =?utf-8?B?cjhoKzBYRWFhZUlRaVRwaXltYjlzVzBEbkxVMmtsYzJxRCtlK3dyb2RaN3lw?=
- =?utf-8?B?K0FTZlJCRFRrVGxsVUJ1R0xwbVZkMnRUKzY0UEd2Qmx6NnhacFVUVEt2b05l?=
- =?utf-8?B?eU1WWHlYM1BMQjJmZzlRSk05eXNNU2ROVTJKVGdEcnZOUjFDNGZqZGFjRUR5?=
- =?utf-8?B?cS9aOTBMOGx1bS92VDVPV0JWU0l1Z0hjS2liN1ZUZmxISGNLUlRWR203Mitv?=
- =?utf-8?B?aHdtYWJ4TXlza1liTzI3bGFveGpCQjR6THJqZS92elFjaHBFUlh1Nmw4REU4?=
- =?utf-8?B?a1YySFJ5Zk5CYzZTVnB1ZWh6UTQ1dU1CSVVVMVZXMzE3alAwTEx0c0xGbVFk?=
- =?utf-8?B?QkdLTnJPd0pQT3crbUF5MFNlV0N5VWZvelZQNXpteFd2V1psd2t4TjAxYkIv?=
- =?utf-8?B?ZmN6SDZEMjQza3huaDZuc1hrdXNtV1QxS0J4b0J6QnUyblpqM3pFc3ZuN3Q5?=
- =?utf-8?B?NUtvV1pYZ082WEplN1g2UUttRHZ1K0ZiOXc1Yi95SlVHMkZ1anhuSVp2Y2w2?=
- =?utf-8?B?SG9xMm9kOGVyYnVmTWd0Z3U3b1RubFpnMktMbGRzampFY2R0SmMyMHFLMkdJ?=
- =?utf-8?B?TnNwTHRGWlFRZlZuRjZNdlEweWtJek4xdldJeGFoeTNNLzFRVE9EdzJybWs1?=
- =?utf-8?B?Vm44OTg4Vjc1eDI3VDVRbmE3VGw5ZXlxRVRua1FRQUhqbEduVSt4N21tMUI4?=
- =?utf-8?B?a2lnenVWN2liMlZndnVGVStaTzZGRUE4dmw5UEsyUi9ob0ZjYS8wWnlGN1VH?=
- =?utf-8?B?MnlhV2xIRGN0Uk5NUlRGSXB2SkJWNm1oMUtONE9YUlRUeG9TMkJCVGJrV1B0?=
- =?utf-8?B?Y2w2dXpYWE1mZk1Da3p0QTVMRGNhaUE1UmpEQ1VyQ0VEUXdrdU9pZTV5WXZR?=
- =?utf-8?B?UFhyWVFjMk9rWTMxU2FmTStQaTYvVFhuTk8ybFc1WWRUbDYvWFV1VjNuSDl5?=
- =?utf-8?B?MDdsckVqVGxpVW5NeS9IVGJxYk01enM1bHliWFVLMVErbHdFWVh4d1NvSW5Y?=
- =?utf-8?Q?9gvVx1zNSXe+hklqTQ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee5ad20e-bc99-4f76-40ec-08df2e9edd8f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 11:39:56.8956
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AknfWeciFLXFTkVF3aZwpIQP2Xg8T0tpkc7XXJxUiGsIBmLfkIkp0bSjqxP7bpdy
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8574
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fbdev: bitblit: Fix glyph clipping when fbcon pans
+To: CatMe0w <CatMe0w@live.cn>, Helge Deller <deller@gmx.de>,
+ Simona Vetter <simona@ffwll.ch>,
+ Albin Babu Varghese <albinbabuvarghese20@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <TYYP301MB1525C03FE71D47908263EBFCF69A2@TYYP301MB1525.JPNP301.PROD.OUTLOOK.COM>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <TYYP301MB1525C03FE71D47908263EBFCF69A2@TYYP301MB1525.JPNP301.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Score: -4.29
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.29 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[live.cn,gmx.de,ffwll.ch,gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de,live.cn];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.com:url,imap1.dmz-prg2.suse.org:helo]
 
-On 10/20/26 10:40, Brad Drury via B4 Relay wrote:
-> From: Brad Drury <drury.brad@gmail.com>
-> 
-> On a MacBookPro11,5 (Radeon R9 M370X, Verde, PCI 1002:6821), used as a
-> headless PRIME offload GPU with the panel on i915, every S3 resume with
-> amdgpu fails:
-> 
->   amdgpu 0000:01:00.0: [drm] ring gfx test failed (-110)
->   amdgpu 0000:01:00.0: resume of IP block <gfx_v6_0> failed -110
-> 
-> followed by SDMA timeouts and a failed GPU recovery.  The GPU stays
-> unusable until reboot.  radeon resumes the same card fine.
-> 
-> Instrumenting the resume path with a write/read-back VRAM probe through
-> MM_INDEX/MM_DATA shows that VRAM is still intact after the driver
-> re-POSTs the card and at the start of gmc_v6_0_hw_init(), but is corrupt
-> at the end of it.  The gfx ring test failure is a consequence.
-> 
-> Commit 71086a3e8470 ("drm/amdgpu/gmc6: drop fb location programming")
-> removed the MC_VM_FB_LOCATION and HDP_NONSURFACE_* writes from
-> gmc_v6_0_mc_program(), on the grounds that the vbios sets these up.
-> That holds after the system firmware POSTs the card at boot, but it does
-> not appear to hold after S3, where the card is only re-POSTed via
-> asic_init.  radeon's si_mc_program() still writes them on every init and
-> resume.
-> 
-> Write them again, with the same values as radeon, after the AGP aperture
-> registers.  gmc_v8_0_mc_program() already does the same for SR-IOV VFs.
-> 
-> Unlike radeon and the code removed by 71086a3e8470, this does not black
-> out the MC around the writes.  The old gmc_v6_0_mc_stop() relied on
-> amdgpu_display_stop_mc_access() to blank the CRTCs first, and that was
-> removed by commit e4f6b39e8bcd ("drm/amdgpu: remove *_mc_access from
-> display funcs"), so restoring the blackout now would stop the MC under a
-> live scanout.  On this machine the writes alone fix resume; a variant that
-> also restored the blackout behaved the same.
+Hi
 
-Yeah that is exactly the reason why this approach here doesn't work.
-
-We can't stop the MC access nor the EFI access to the PCI MMIO BAR. So what you try to do here is inherently dangerous.
-
-I think we just need to do an ASIC reset on load like we do for other Macs as well so that the FB config matches what the VBIOS programmed it to.
-
-Alex any opinion on that?
-
-Regards,
-Christian.
-
-> 
-> It is not established which of these writes is the one that matters.
-> At boot on this machine FB_LOCATION and HDP_NONSURFACE_BASE already hold
-> the values written here, but HDP_NONSURFACE_INFO/SIZE do not.  The
-> register state on a failing resume could not be captured.
-> 
-> Tested on linux 7.3-rc7, MacBookPro11,5, amdgpu.si_support=1
-> radeon.si_support=0, mem_sleep=deep, with this change alone on top of
-> the stock driver:
->  - 7/7 S3 cycles clean, from a few seconds to 10 h 49 min asleep, on
->    battery and on AC, including two back-to-back cycles woken by the
->    RTC alarm
->  - DRI_PRIME=1 glxinfo (radeonsi), glxgears and vkcube (RADV) work
->    after each resume; no ring, -110 or reset errors in the log
->  - cold boot unaffected
-> 
-> The variant with the MC blackout passed a further 6/6 cycles, up to
-> 9 h 40 min asleep.
-> 
-> This patch applies to amd-staging-drm-next with only a line offset from
-> the tested 7.3-rc7 change and has been build-tested there.
-> 
-> Not tested: other SI parts (Tahiti, Pitcairn, Oland, Hainan), and an SI
-> dGPU that drives a display.
-> 
-> Fixes: 71086a3e8470 ("drm/amdgpu/gmc6: drop fb location programming")
+Am 17.10.26 um 10:53 schrieb CatMe0w:
+> Commit 3637d34b35b2 ("fbdev: Add bounds checking in bit_putcs to fix
+> vmalloc-out-of-bounds") made bit_putcs() clip glyphs to var.yres. When
+> fbcon scrolls by panning, it draws text rows up to var.yres_virtual,
+> so after the first pan most new text is not drawn until the next full
+> redraw. This affects fbdev drivers that set FBINFO_HWACCEL_YPAN or
+> FBINFO_HWACCEL_YWRAP, such as vesafb with the ypan option, when
+> CONFIG_FRAMEBUFFER_CONSOLE_LEGACY_ACCELERATION=y.
+>
+> Clip to GETVYRES() instead, which fbcon_ud.c and fbcon_ccw.c already
+> use as the drawing area height. When fbcon does not pan, GETVYRES()
+> returns var.yres, keeping the existing bound. When fbcon pans, it
+> returns var.yres_virtual, which the framebuffer memory must cover
+> anyway for panning to work.
+>
+> Fixes: 3637d34b35b2 ("fbdev: Add bounds checking in bit_putcs to fix vmalloc-out-of-bounds")
 > Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Brad Drury <drury.brad@gmail.com>
+> Signed-off-by: CatMe0w <CatMe0w@live.cn>
+
+This patch restores fbcon on my test system with sisfb.
+
+Tested-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reported-by: Thomas Zimmermann <tzimmermann@suse.de>
+Closes: 
+https://lore.kernel.org/linux-fbdev/b8b52ffd-ecec-4fba-b432-ba32135c2f99@suse.de/
+
+Best regards
+Thomas
+
+
 > ---
-> I can run further tests on this machine (MacBookPro11,5, R9 M370X /
-> Verde) if that would help, e.g. register dumps or other variants.
-> ---
->  drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> index a7c353d1a..d6e315f4b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> @@ -223,6 +223,17 @@ static void gmc_v6_0_mc_program(struct amdgpu_device *adev)
->  	WREG32(mmMC_VM_AGP_BASE, 0);
->  	WREG32(mmMC_VM_AGP_TOP, adev->gmc.agp_end >> 22);
->  	WREG32(mmMC_VM_AGP_BOT, adev->gmc.agp_start >> 22);
-> +	/*
-> +	 * Don't rely on the vbios having set these up.  After S3 the card is
-> +	 * only re-POSTed with asic_init, and without these (as written by
-> +	 * radeon's si_mc_program()) VRAM is corrupt by the end of hw_init.
-> +	 */
-> +	WREG32(mmMC_VM_FB_LOCATION,
-> +	       (((adev->gmc.vram_end >> 24) & 0xFFFF) << 16) |
-> +	       ((adev->gmc.vram_start >> 24) & 0xFFFF));
-> +	WREG32(mmHDP_NONSURFACE_BASE, adev->gmc.vram_start >> 8);
-> +	WREG32(mmHDP_NONSURFACE_INFO, (2 << 7) | (1 << 30));
-> +	WREG32(mmHDP_NONSURFACE_SIZE, 0x3FFFFFFF);
->  
->  	if (gmc_v6_0_wait_for_idle(ip_block))
->  		dev_warn(adev->dev, "Wait for MC idle timedout !\n");
-> 
-> ---
-> base-commit: f307e9d20cc7bd6dd54a3fd8c2af767dd7ef2931
-> change-id: 20261020-gmc6-writes-only-v3-33151aacabfb
-> 
-> Best regards,
-> --  
-> Brad Drury <drury.brad@gmail.com>
-> 
-> 
+>   drivers/video/fbdev/core/bitblit.c | 7 +++++--
+>   1 file changed, 5 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/video/fbdev/core/bitblit.c b/drivers/video/fbdev/core/bitblit.c
+> index 39f44258d793..323a9e79a684 100644
+> --- a/drivers/video/fbdev/core/bitblit.c
+> +++ b/drivers/video/fbdev/core/bitblit.c
+> @@ -18,6 +18,7 @@
+>   #include <linux/console.h>
+>   #include <asm/types.h>
+>   #include "fbcon.h"
+> +#include "fbcon_rotate.h"
+>   
+>   /*
+>    * Accelerated handlers.
+> @@ -150,7 +151,9 @@ static void bit_putcs(struct vc_data *vc, struct fb_info *info,
+>   		      const unsigned short *s, int count, int yy, int xx,
+>   		      int fg, int bg)
+>   {
+> +	struct fbcon_par *par = info->fbcon_par;
+>   	struct fb_image image;
+> +	u32 vyres = GETVYRES(par->p, info);
+>   	u32 width = DIV_ROUND_UP(vc->vc_font.width, 8);
+>   	u32 cellsize = width * vc->vc_font.height;
+>   	u32 maxcnt = info->pixmap.size/cellsize;
+> @@ -167,10 +170,10 @@ static void bit_putcs(struct vc_data *vc, struct fb_info *info,
+>   	image.height = vc->vc_font.height;
+>   	image.depth = 1;
+>   
+> -	if (image.dy >= info->var.yres)
+> +	if (image.dy >= vyres)
+>   		return;
+>   
+> -	image.height = min(image.height, info->var.yres - image.dy);
+> +	image.height = min(image.height, vyres - image.dy);
+>   
+>   	if (attribute) {
+>   		buf = kmalloc(cellsize, GFP_ATOMIC);
+>
+> base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
 
