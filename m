@@ -1,98 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792492716;
-	b=sdNGvB5CwLUN+oH8cutMfJpE6eJ0U2jhuU6IqbIAzRef5XiEIk7RFfuN5A7VCMvXuY5B
-	 VGZYtL52DgqLzLaa7VRaMQPr37gN0mxoUzfdSB4jkBN+I4f3FwGiCJQSW3rX+cedrNf2o
-	 SBabn7jpw7ikDcP97ri6p6PACbtV12USXPQLVo8I+NN3aI+qKtSxVkUNXSo0uCRAKool7
-	 BAjoZWCkmwGY+z0cxwBuyCHNOLjHUB6es9ACwnhdtjZvJ2+yMYUPaFNfgJMZUoBC9IdhL
-	 GTkUXtTc6LfxS6H7wObXJ6WGeo2ZEH5GeeqW8pboEyb+VGPapy5NyEI0hCFbJ/7bnGw==
+	t=1792492845;
+	b=vigtUGNW1nLcUX27VzK3kh/rLxr8L2YUoKS27+Z450Bw9zYEQ0eFIFJP3hJPbKj5Znk8
+	 Q3KEkVvQIn7qy2vXcatn080m33hWqQAkTOivkxHEEU3e6imoFeAnQCqWhEJIVQrhPoMMx
+	 GtJRgjWsgYlsJuuUGL0/Faa3Jr1pn2XhPiCqSvib0DW141+upIBUHMN1mJLKxOtRp4Iej
+	 1/Y9o4EAHjuu/JqZKCaJ8OzIXGDvHx3p1s0FnYZIhNRFFZBwJtPtjOtFKJtcZP15XDnkV
+	 Ibq/BTt+AW95LP9KRqaJIrUTODA1IvPxNcse3ykI7sDdumxUBgtGh5JSwvR0uXvsHdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792492716;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=szEWv1HNLVZ5mm2G563EJn2Ompg5wLmZpZr1jwSri6M=;
-	b=FTC1KWoWUnpIvMk8giot9+n9UVCygYbS0vSKTC/mxbkqfmziEs3z9J4GQd1F04tUjOaN
-	 0OSOdE0mE2fJV+koTF9Y9BXJdwH9Fx69QqTW1eZQQL5XFoxqxZvBjmcn7ZZGdj/atqOYu
-	 b6DP15m/jmsIOMoLkjXMrvdHekd7lxpoCMi+les+XUcnDi1RySAX+k1yICKsywe/qBTdK
-	 5zsv9uq2M4To9NiKPmscYdZlqBNUY97uyJOGs7JmhipeL2FxryRYLrlESt+D0fMa0sgLz
-	 VFskBYBOY8jFH3g5F3zCLojVYJDvWZaN0cnXHj1ASdyvh81vbCwNtwx2PM7ogysg+gQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792492845;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer;
+	bh=n5EK0ziT9t6q1rI6T9BkNUVCku9SDwzvpj86BSyOcUg=;
+	b=yAA1DSE7Dn6P7u7i8bwcJ52PBp3OD6ssoFWwfTtP2RnZWKr0fZwQOda4kmb6QyJPSlX4
+	 vhDV0sNme/nZuPOqrCkZc3sliKHVilhtVqnQ44xt7T1PLC5owVEwSj++0oKEmWTo72ppo
+	 4w2hM9LTqGoVqx5StneWfsDTYWlhMDdGcKgL8xRhiOTWwlP3M2b7LWM4aiItzttMx1tRg
+	 0t226d9juqCPUZyQMSO1We+ORA3HmS99lMFODUH0CrfEk7TO0nPF0RQd+guOyXSJjYcFL
+	 eQdgeDXOfYVOnQqQJBk7yPP7uCrdA7t1QMn7bMVIi4ZHzsxMUqXrIS3REQ2Di73wTIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mojatatu.com;
-	spf=none smtp.mailfrom=mojatatu.com;
-	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=bSOuHo0V;
-	arc=none smtp.remote-ip=209.85.219.48
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=free.fr;
+	spf=pass smtp.mailfrom=free.fr;
+	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=FTzVZRTC;
+	arc=none smtp.remote-ip=212.27.42.6
+Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF06606A32A
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 10:38:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FF06606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A893E606A31A;
+	Tue, 20 Oct 2026 10:40:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A893E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=bSOuHo0V
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-917997ab0d9so26660036d6.3
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 03:38:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1792492715; x=1793097515; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=szEWv1HNLVZ5mm2G563EJn2Ompg5wLmZpZr1jwSri6M=;
-        b=bSOuHo0VChRuxXqgAqzeZ5y5gJVxqIMp9ZUNOXlpSfpjdXjV0a9DjNVCEJYWxcuhLg
-         vCzguybR+vrrH6srLzXrJecE+HIKY2UKqNibv0H0Y+iZAfKjP3YQUrHXBzPp4X3eFUpo
-         8hnwPnGusRZ8KdiA43s39Lwwzl2BeoGdEeUxk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792492715; x=1793097515;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=szEWv1HNLVZ5mm2G563EJn2Ompg5wLmZpZr1jwSri6M=;
-        b=odZlmqkayYJ338hRhyQa1HET1q9PVML34h/TeoCH5pY+3GNHWeLav/LHTFYylS7vMj
-         gHimgJX7KvWS7FFeHOomW1Zj9OhiLKzV23Zl/Q24ZVo+sDi1zJxxlbpOYyPmtAYEVOzq
-         i34QYJ2NhlEw3Ev/ak9EVxUTK16bhmxRmZ+0Dwo4ZxG58PhmwxZdCUBfS0eFFWlJOsCW
-         w2Dc3ETv3KFgCVPcKIiETfiL8Rg/MM2LGYmiA63ne4Y+1cxi2Ge0Dr5k+9S1s4S8jOiR
-         tXyaaGWIvpYpWgndSNA6fQawpL/oy5n5HHDRSvRYer8w2XlxJFMa7B6kthzxlINQC3d2
-         1pIw==
-X-Forwarded-Encrypted: i=1; AKwUvBxf/bLAfHQkD13chTjig93aWOfWlf/ky0Se070UvsiuaNHifud8KB/Ts/tWTQGov/98y6WiHvQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKbztG+UUIUpg8ogGaIfBDrd7ChLuwDh4SGJEp9TufTYljz2trk
-	rataUeAHIeDXHBct2gAjH9QbxwYwAyswIhn8/KYHM9FRz91Z2d8lBf+jZ9dCvAO/0Q==
-X-Gm-Gg: AYBFou3BERP9lio0v42nZJPrfmw2FRtHCy/sKmnfiedvx4RIFaXmyBVpokOePFrVDba
-	SMxfce7mAbfZa61lYevhI0bX3qmcHYub1DFkU410P2MHRVvqWPvB21bWZynr7YZ/+PAfOA9UYnd
-	tNxOWKBEtUxPv8btnHEMNYSP9THn/RBR3C7Aj4S0FsLbvC8Z28RKmDbh8ntufQXUJEOebzXZyTG
-	UTijDLMw6az+1AqU1ZWsvT2FjuJ65gi/rbXW4BgCikqRcDPWDsfI20poSMzkRJl5BYnS98vpYFY
-	hBsZAECgEb/w8GPOcmzw5lEQ4ZUFlrKwttU4bWaPtMRXopnT+7z0Qy+CPqtIOKweyTB9oYC3Gxt
-	A8d3PvZAJzMlX8ALEe+o5etleki0xDQFuI19gmPOdK1tULHU7G3PlMx1pMesalL+1tR7s5feTSn
-	/uHzCe6dYg3SuVls3kgtBloWVtei4mukWhRtskFLfvNB+JTogDPwzBi0mGekEGVpuyIHkAdco6e
-	NFSPELmGxwG+qnUuGiVLuRSDrv/dhfV9dM/5iLEmbPf+C1Nk33OVLYiUoq+WEqqPTHqZbjj/pfE
-	iDvJW7pkYlmGAjP3XlRy4SIXL3K2ZkRAmNFcdb08WcmGM/g=
-X-Received: by 2002:a05:6214:d87:b0:91b:a948:fbab with SMTP id 6a1803df08f44-91bdec2ea1cmr184223406d6.6.1792492715479;
-        Tue, 20 Oct 2026 03:38:35 -0700 (PDT)
-Received: from mbili.waya ([64.203.83.2])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c040b4915sm23275556d6.26.2026.10.20.03.38.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 03:38:34 -0700 (PDT)
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-To: netdev@vger.kernel.org
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	Victor Nogueira <victor@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH net 2/2 repost2] net/sched: sch_teql: keep skb->dev consistent on the arp-queue path
-Date: Tue, 20 Oct 2026 06:38:27 -0400
-Message-Id: <QDISC-6HS9.v1.r2.20261020051718-2@mojatatu.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <QDISC-6HS9.v1.r2.20261020051718-1@mojatatu.com>
-References: <QDISC-6HS9.v1.r2.20261020051718@mojatatu.com> <QDISC-6HS9.v1.r2.20261020051718-1@mojatatu.com>
+	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=FTzVZRTC
+Received: from [127.0.1.1] (unknown [82.96.140.143])
+	(Authenticated sender: stephane.grosjean@free.fr)
+	by smtp6-g21.free.fr (Postfix) with ESMTPSA id CF4B3780316;
+	Tue, 20 Oct 2026 12:40:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1792492842;
+	bh=OcGHRTOxPh+n4knMtjMfIiF/9+USpuNlAmnTEgR4g0k=;
+	h=From:Subject:Date:To:Cc:From;
+	b=FTzVZRTCqbfANl9T2vgl+iQmcsvQD9HgTMBi8jT6+313VbB1qxVB/+LqJq4NGpY7T
+	 KwQ3u5raUKatm77WRlRSTdH0el38EPWYfAINazok7VoQ54zZkLJ4Ckt+yeuIz6QtVb
+	 e/x2cnvOSk5gxwYfKenDZ8r+TZl16wv7B2cnRNZNKWlG7bsk8aXAQmYUtbtJpLb3xf
+	 5gitZyzpf9f0k4TrcDhex9/7a85N24yVx8djIH8GfN9Wiu0LQ8rigoKD0r0z1uiE/X
+	 dcot1gohtY5XF8STmbyyvDxg/Gop3PHtiXdhqzNV33bd7VZd+7GELQpzWYa6ktyrox
+	 DxYtkOiXDGbcg==
+From: =?utf-8?q?St=C3=A9phane_Grosjean?= <stephane.grosjean@free.fr>
+Subject: [PATCH v4 00/10] can: peak_usb: fixes, cleanup and input
+ validation hardening
+Date: Tue, 20 Oct 2026 12:40:15 +0200
+Message-Id: <20261020-canfd_check_channel_idx-v4-0-bfbde81f8bab@peak-system.fr>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,85 +61,113 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XN0QrCIBgF4FcJrzPUrf7ZVe8RMZz+NlttQ9coY
+ u+eFkFQuzxwznceJKB3GMh28SAeRxdc18aQLxdE16o9InUmZiKY2HDGgGrVWlPqGnVTpkaL59K
+ ZG1W5AcUVRwRD4rr3aN3tJe8P7xyu1Qn1kLjUqF0YOn9/XY889T4vxezLyCmjTGVVVQibI5O7H
+ lVDwz0MeFlZT9LVKL4xOY+JiFmoAIQUEiT/i2VfmGDzWBYxyA0HvVZrKfEHm6bpCcdRvxdvAQA
+ A
+X-Change-ID: 20261007-canfd_check_channel_idx-a4d7a1a1ee7d
+To: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>, Dan Carpenter <error27@gmail.com>, 
+ Wolfgang Grandegger <wg@grandegger.com>
+Cc: =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
+ linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Stefan_G=C3=BCnther?= <stefangun@pm.me>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
 
-teql_master_xmit() sets skb->dev = slave only right before calling the
-slave's ndo_start_xmit(). When the slave has no resolved neighbour,
-teql_resolve() hands the skb to neigh_event_send(), which queues it on
-the slave's neighbour arp_queue while skb->dev still points at the
-teql* master. skb->dev takes no netdev reference, and the master is
-freed unconditionally on teql_exit() while the slave is still alive, so
-a queued skb that runs the ARP retransmit path can dereference a freed
-device.
+This series contains bug fixes, cleanups and input validation
+improvements for the PEAK-System USB CAN drivers.
 
-Move the assignment to before teql_resolve(), so a skb parked on the
-slave's arp_queue carries the slave's device and is flushed with it.
+Patch 1 fixes CAN error frame generation, where CAN_ERR_CNT overwrote
+previously set CAN error flags.
 
-That alone is not enough: when the neighbour resolves,
-neigh_update_process_arp_queue() re-looks-up the top-level neighbour so
-shaper, eql and teql can be re-entered, but it calls n1->output()
-without restoring skb->dev. A skb that was parked with skb->dev set to
-the slave then leaves through the slave directly, skipping
-teql_master_xmit() and the dev_hard_header() call that builds the
-slave's link-layer header, and is transmitted headerless. Restore
-skb->dev = n1->dev at the reinjection point; this is the identity for
-every other parker (neigh_resolve_output() parks with skb->dev ==
-neigh->dev, ndisc probes carry no skb) and the needed repair for teql.
+Patches 2, 3 and 5 are cleanups: make a public header self-contained,
+sort the CAN_CTRLMODE_* flags in ctrlmode_supported, and replace
+open-coded bitmask operations with bitops. Patch 5 also makes the
+state flag updates atomic, which patch 6 relies on.
 
-This is a follow-up to commit dc4b95b8fee9 ("net/sched: sch_teql:
-restore skb->dev on the slave failure path"), which restored skb->dev
-to the master after each slave iteration but left the master-vs-slave
-mismatch on the neighbour/ARP-queue path, and left the queued skb
-naming the master rather than the device whose neighbour took it.
+Patch 4 adds bounds checks to the PCAN-USB RX parser, so that
+truncated or malformed records are rejected instead of being read
+beyond the received data.
 
-Conditions to recreate the bug: a teql master with a slave whose
-neighbour is unresolved; send one packet through the master so the skb
-parks on the slave's arp_queue. On the unfixed tree the parked skb
-names the master (kprobe on __neigh_event_send shows skb->dev=teql0);
-with only the first hunk applied, the parked packet is delivered to the
-slave's peer without a link-layer header when ARP completes.
+Patch 6 validates the channel numbers received from PCAN-USB FD
+devices, rejects records for channels that are not set up, and stops
+RX on all channels before they are released, on disconnect as well as
+on probe failure.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko (nipa) <sashiko-bot@kernel.org>
-Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824115928.4099988-1-victor@mojatatu.com
-Link: https://lore.kernel.org/netdev/20260824115928.4099988-1-victor@mojatatu.com/
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Patch 7 fixes the RX parsing of self-received RTR frames with SRR set,
+which left the RX cursor one byte behind.
+
+Patches 8 to 10 fix related issues found while reviewing the above:
+the same channel slot check in the PCAN-USB Pro driver, the netdev
+being registered before its channel is initialized, and the dump of
+stale RX buffer bytes on decode errors.
+
 ---
- net/core/neighbour.c | 1 +
- net/sched/sch_teql.c | 2 +-
- 2 files changed, 2 insertions(+), 1 deletion(-)
+Changes in v4:
+- Register the netdev only once the channel is initialized, instead of
+  only reordering unregister_candev() and dev_free() on probe failure
+  (patch 9).
+- Link to v3: https://lore.kernel.org/r/20261020-canfd_check_channel_idx-v3-0-74d17c5a599e@peak-system.fr
 
-diff --git a/net/core/neighbour.c b/net/core/neighbour.c
-index 7448320f7ad5..5823f5007812 100644
---- a/net/core/neighbour.c
-+++ b/net/core/neighbour.c
-@@ -1336,6 +1336,7 @@ static void neigh_update_process_arp_queue(struct neighbour *neigh)
- 			if (n2)
- 				n1 = n2;
- 		}
-+		skb->dev = n1->dev;
- 		READ_ONCE(n1->output)(n1, skb);
- 		if (n2)
- 			neigh_release(n2);
-diff --git a/net/sched/sch_teql.c b/net/sched/sch_teql.c
-index acd03f9afc6b..3fbd5af10028 100644
---- a/net/sched/sch_teql.c
-+++ b/net/sched/sch_teql.c
-@@ -348,12 +348,12 @@ static netdev_tx_t teql_master_xmit(struct sk_buff *skb, struct net_device *dev)
- 			continue;
- 		}
- 
-+		skb->dev = slave;
- 		switch (teql_resolve(skb, skb_res, slave, slave_txq, &hlen)) {
- 		case 0:
- 			if (__netif_tx_trylock(slave_txq)) {
- 				unsigned int length = qdisc_pkt_len(skb);
- 
--				skb->dev = slave;
- 				if (!netif_xmit_frozen_or_stopped(slave_txq) &&
- 				    netdev_start_xmit(skb, slave, slave_txq, false) ==
- 				    NETDEV_TX_OK) {
+Changes in v3:
+- Fix out-of-bounds read of the error counters in PCAN-USB bus events.
+- Harden channel handling in PCAN-USB FD: publish/read channel slots
+  with smp_store_release()/READ_ONCE(), clear them on teardown, stop RX
+  on all channels on disconnect and on the siblings on probe failure,
+  and reject ndo_open() once disconnected.
+- Fix RX cursor desync for self-received RTR frames with SRR.
+- Replace open-coded bitmask operations with bitops.
+- Add channel slot checks to PCAN-USB Pro.
+- Unregister the netdev before dev_free() on probe failure.
+- Only dump received bytes, rate limited, on decode error.
+- Link to v2: https://patch.msgid.link/20261009-canfd_check_channel_idx-v2-0-f7b772929791@peak-system.fr
+
+Changes in v2:
+- Kill all pending RX URBs before unregistering sibling netdevs.
+- Reject records targeting unavailable channels during device
+  initialization in rare corner cases involving malformed device
+  input.
+- Link to v1: https://patch.msgid.link/20261008-canfd_check_channel_idx-v1-0-0a3bb82f4e09@peak-system.fr
+
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Vincent Mailhol <mailhol@kernel.org>
+To: Dan Carpenter <error27@gmail.com>
+To: Wolfgang Grandegger <wg@grandegger.com>
+Cc: Stéphane Grosjean <s.grosjean@peak-system.fr>
+Cc: linux-can@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Marc Kleine-Budde (1):
+      can: peak_usb: add missing includes
+
+Stefan Günther (1):
+      can: peak_usb: fix missing CAN_ERR_FLAG when reporting error counters
+
+Stéphane Grosjean (8):
+      can: peak_usb: sort ctrlmode_supported flags
+      can: peak_usb: harden PCAN-USB message validation
+      can: peak_usb: replace open-coded bitmask operations with bitops
+      can: peak_usb: harden channel handling in PCAN-USB FD
+      can: peak_usb: fix RX cursor desync for self-received RTR frames with SRR
+      can: peak_usb: reject records for unset channels in PCAN-USB Pro
+      can: peak_usb: register the netdev only once the channel is set up
+      can: peak_usb: only dump received bytes on decode error
+
+ drivers/net/can/usb/peak_usb/pcan_usb.c      | 51 ++++++++++-----
+ drivers/net/can/usb/peak_usb/pcan_usb_core.c | 68 ++++++++++++++------
+ drivers/net/can/usb/peak_usb/pcan_usb_core.h | 15 ++++-
+ drivers/net/can/usb/peak_usb/pcan_usb_fd.c   | 96 ++++++++++++++++++++--------
+ drivers/net/can/usb/peak_usb/pcan_usb_pro.c  | 29 +++++++--
+ 5 files changed, 183 insertions(+), 76 deletions(-)
+---
+base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
+change-id: 20261007-canfd_check_channel_idx-a4d7a1a1ee7d
+
+Best regards,
 -- 
-2.43.0
+Stéphane Grosjean <s.grosjean@peak-system.fr>
 
