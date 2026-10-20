@@ -1,96 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792501978;
-	b=QDHqZNpvNA9Uji1GMLvcvVIzyEREFFMsxXX1NCtHcRpISdzHLtInm9FyxciOmIovIT8k
-	 ibg86gnnDQJn1x2Q19pIh5Zge52cmvfy4fy2lnkA81W4mF1RojL30Klf6k6aLCxzpwcpl
-	 FuVBygLW1uOxcUJlCguJcTHawsaVh/nlZaHTLd9VNv89Dz7NuBvYlwgcF2P90P+zqCYb4
-	 x9Frtb07clNHfGye3ulGnoNa/P+aw9atop0ciBle7slvDlXd3pSahq9xKzQoa+qDpxk2C
-	 YXa93aLBQiZA+ouzDYmXF4Nfe146nNGZx8qlTf7n0bOqPI657XgscsOcnIoBOLY/RXA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792501978;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792501987;
+	b=MLHLZprgN+zXqWd+1K/8mbuINejzq8LL9nJDdWjb9xjB9J/9kR4Po00/6CvGcVJuT762
+	 /5v2Ur8vGEpb/wzbO36pf9mJ765bHg5BOOR/f5FlisYYt12tbRVK/oJBu+K9NxdzrZwdw
+	 XvN6L8myi7OncXvTv40VqRICNIE/wdTp8G0D+1XhnR2rjeueqEe9S4SQwYS/ijJgnu7UH
+	 JNOmzB1Nc55qpn4srP8vg1ytBJkexayb5vcliP3vY9G985Js9nYp3UpzmxA6b+6WBQ4AE
+	 g+br6q3MrtPvncEe1MfKV8KNHSF/Le4hO66kEe5LA3tuNRjtNl/8qOSWdGM5cfiHlIw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792501987;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=GXRYtUbRh38fe0NTnBbIezCa9WUPMrbWF4pq21pcnKs=;
-	b=UeyFxiSvRyCeadk9vqPBi7hVSz1YOwUpOzsoJbvB2GPRv/dTbH4o2iM4Q7OKojEnEMPA
-	 +cwmX0aMudq50ClaqZG3nGggFPbmyHijQwbQGLPjSbcBC/sYI8S75eqE3JeslldkfUi+z
-	 Jl/MebwnlYi8QX6bISnlY25+dAneiUMRuEOoLvxjrMTnyJT+4YUbYbJbOndP0Fc16Yzt9
-	 J6Hw45sy2z50hWjRgIQM2z+rExjSEhGPyBtnLtBpiGbX87lU8QsS21UWzSXkqFk8PUCkA
-	 UVRZbvnERdNmI8H6WKI2jaL7qIf7vhWrjvxkYTlFsKdc6SfFtxIT6+vhhAvs8bl6awQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Zm0NOGDk+3cS5Mg2C1v6yh0sZgFnVUEDDk4kvHgijW4=;
+	b=kSm63/cd3+ClMxyjEo5orFBbmMxMHom23gpTtAmRsUVltGLHrLFRKKSBQZXmqjAOAr+L
+	 BbdYrtPKpk1MLO7uh9Uiq3KKmjWZpO7kJaOBQn8lMm7Yi+C0wXHuwC/XE8TWipst4+URB
+	 2Fji+MSBh4dBU4SyupW8ihBCbS3hy99z87btbZGaSEU0DTdIWCmgZk4NcLW/eq6o2rDJg
+	 pua0/2aTaiZwZ1LQWbNuvhR5t/lKa9KRCcWIs9V4dyp2MZ3ldLzbkkDW2/zxhRtioK4PS
+	 0tFyPlN1oz/0r+ialYgnIpgpHCtoCLlzN905tshtKR3K8N9fgEKK+vZR2CCdCwsL7eg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oUq+JnEs;
-	arc=none smtp.remote-ip=209.85.214.181
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=e0bDWaKX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64658606A31A
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 13:12:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64658606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C475C606A31D
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 13:13:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C475C606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oUq+JnEs
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2db80fcdf8bso18727695ad.2
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 06:12:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=e0bDWaKX
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1d484b4a9so41205075e9.0
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 06:13:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792501985; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UheKxYJt5WTyxP8F4qwlVMH93FaddgTzumvDZ0am2t93T1znDQQnumAgrj29hOKQad
+         FQ78stXQKrDdQi+9t46cmnPBvtLx0XooWWGWNjsiGnx7HgCa+52sRCePO6ZV+Ai1aOqf
+         H+UYHHYtBqoOKDgbKE9h0GZvW3/wEqa8zXVtlvQbyPuK3DgANsOMH2nm1YMKQpxdEqYx
+         apxgX4QKHFDSK72sbGBUMURu39OAhLxfPINlDZDEtduzYWkfsb6adruC8sWXHDiTI/hg
+         PaaYwGPpdBI4mwBIFSM+RoI9IELGqsomhsGqQ/CbO8r98WrETnwdoKc6h+n+3l3gN0SO
+         00zQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Zm0NOGDk+3cS5Mg2C1v6yh0sZgFnVUEDDk4kvHgijW4=;
+        fh=BuJGYpUDItO+uVf8Is7WZHb30t6OGBBtHE6EIEq1kSA=;
+        b=DLRsT3Y060TjMTYKVuzS0N1h346aFAkDkcTE1QdxgQg+XNc8BbAKwTosIh485tqBM3
+         7UNgXpmsWRPD9b1T0wUR6lto63dIRqPJ3R9eTZuztdPjeo3ppIqSKPbLJhcj0zx9fvyB
+         AaG9bitD5RCRAVSTRvx8BeMVoIxPQ9XB37dXDNwO2MjIhbkqHzHFljrQh+6jMvxqm7+1
+         0uzX4V4gKRRxErOEQ67payfUl1VKBIW1IOWHm/zbyuTBRjgHoEGv+6qU41nULtmiWiEJ
+         KtXJmNpsYGsNGDfHyhP9ciD6dGbfguQHxg2t5ldQh1lobdz6RV9Fz+V6DuqB5H4JPdt1
+         d6OA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792501978; x=1793106778; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GXRYtUbRh38fe0NTnBbIezCa9WUPMrbWF4pq21pcnKs=;
-        b=oUq+JnEsT9zLvoGgGln+QAzgtsRurE/AWDahFSqRFQC2Zo8TVxN/bRKe7p8Zzaqpt5
-         kpNsDbMLaUgUS9weHnC812QG0gCnjnEQ12yEpmv3Z+H+cGG4IS82mvxApayxFVjR6sHd
-         Lzi/UgyGTjZ6mBHpwcC6LhYb/bwc2xhWLRBYI53m13qPqxO1q1CpHAxnbAFlh+OQSzSB
-         ChJ3uTp3OGgsYBWrIjdfBvxiGtwslcXLc3HKrvLJ8eRUEufdhvBA5SlIXkWrLwP2LRgf
-         ezcaXdsU/QC77FatEfL3thKrQCZKn5lcpEwBoUo+6Q3WogNBw0wHZ1aSPiP8a7Y79Vgh
-         vxDA==
+        d=gmail.com; s=20251104; t=1792501985; x=1793106785; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Zm0NOGDk+3cS5Mg2C1v6yh0sZgFnVUEDDk4kvHgijW4=;
+        b=e0bDWaKXJM9dccxuU72bmtMeBLCiqXf/S4VLaVDa+BdcueDfL4I/e5b+0YIH89CqeW
+         Nyq1Qk3zel3lTehD25QUQJ/Ekg+Qd0t0TMkoLmqzNzVCtqRfogv+tKRA/mE7+cYfN8Hm
+         4E7yYPY2QG4mFvrPN7o9kuapBbATXjPL5NQkJKFaLP6zVFfx2wtnLydRcH2TrICG4C3k
+         CWrOXvrr+2ftCt+R6EiKCxhwDumK4etgvT+8TkK+Lgyuc9EHsiIkcbmqiBZLV0XvbQvq
+         MMH0erCeZs+zzrq73EjtB6r1+4zdrIqG4LP9PLsONDg/4nSvI3e5MoUXJND7euKCr65u
+         xxsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792501978; x=1793106778;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GXRYtUbRh38fe0NTnBbIezCa9WUPMrbWF4pq21pcnKs=;
-        b=ooSw3DSs/G6p8SPR7imxDIWYq6aBUlQ3SJLIMH+ci4H8unlJ4mwKgZiT7lWumOckQQ
-         i1NGLW8mU45ABLYv6mQWVmOdwWNyXK2oKPG2+c5zxls8eS5+0SPgItRrOpQkV5JPsGDK
-         3Y58PbtujfdnJNFMZ5UfZGzpVcNbmKxq9cy9lWN58npoo3+BRr9GxkTL+JmB6g4Tab5t
-         eG3IiFkV2r7ySTP4nTRSlaxy1OTusf4hAa+x2bCkIM63QcS0P8LX0E/S1Q7QI/1awz4n
-         rohng6KGEaSzhmN24c6LS41VLJjjfY6iBeeS4h3n8v8z+9UbuCuVmb2H/d2D3znBnsOB
-         kRfg==
-X-Forwarded-Encrypted: i=1; AKwUvBzteytOdeJxihAVXHgT5CZHoplXVe25fHGQ5RaChnu1CWKTw5X8jAA+qZKlWcdF/BYHuIwC1PA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKlaZ8D7G32zjEHjbwhyFh8KixQTQdrCEd79Pj/yngYmctDVOkE
-	Ukccvmwcb1cOEa7jnqOVrDSu048H7Z4RTXGozeudTTU9G03arWEBJhW3
-X-Gm-Gg: AYBFou1XB2X4Hgi5P/AJWmosvuV1p8dPgT0LGdJV0s+L0FCa3EC1KDQzurWH3igF42m
-	1eqVA6PcfgK/GyckCGdVHsFwpU6OXEm/HR2y6QPwyXwXxxznMNOhtxi1uykZfhnbxFauHHs1l8B
-	qEiEm2v3aclq1UZ4LZE5rzYrUaY5zK6Pqm5E+LHYxAE3Iaw5MsVVst2BvaUN8/Nv/O/zv8uoc/I
-	jNeIfmZIAqUfz848qzw3txvnJDe7cO7+CFXqiR1ofV80mY2NSWOw6qiKjryvL9goINl/AlfRXMz
-	VNWEbv6UUWV2wtClSPc9nLyJyur4oIM5pyL1F4it++P9J/1fSDsFpFfb6FxV8MZlsQlbXFt1462
-	ZkreZ6Tbcy3uVak0wcWcfjRI8spje6l26kzkjNChiBMlyBns1GFwalwU7QdL8HKoklMV1JagUcb
-	qsNCsfWPif2HanNpgh5ybVWSpA4d9pANlfv7RtG8VS9wRGM5pmlymB4q8xdIPvM1Sww1UDjw5m/
-	Ejmhg==
-X-Received: by 2002:a17:903:1a2b:b0:2e6:13b1:e196 with SMTP id d9443c01a7336-2e9a73571b7mr84573785ad.74.1792501977648;
-        Tue, 20 Oct 2026 06:12:57 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea1502d425sm11910725ad.49.2026.10.20.06.12.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 06:12:57 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com
-Cc: heming.zhao@suse.com,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] ocfs2/cluster: remove zero-address nodes from IP tree on teardown
-Date: Tue, 20 Oct 2026 21:12:50 +0800
-Message-Id: <pm-ocfs2-node-ip-rbtree-zero-address-uaf-v5-e7f64be16b7c3b0988d1@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20260707; t=1792501985; x=1793106785;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Zm0NOGDk+3cS5Mg2C1v6yh0sZgFnVUEDDk4kvHgijW4=;
+        b=flqHl2XZ0nwhvzMxUcFCV3IVRymimCbFBhVIaoJkHXw0Msj/5tc9mfXx8eAdgbEL0z
+         QIN4jwX8p3dc1QWFQfllwgEG3IYJrUmP7TkdDstL6OzsKIjLzqfjzqo62QAH/ettrXT0
+         YFtlP3wn/DDl5Fz2TIIHinoD3ssaF+CipNIOOVFD4VLRhyOYBv0t2Kmg4mLrveZtCm3A
+         7N/Bx+IR+zicqZfJDow/5VTJIOYlc7w6RlOIUgMnIvOsGIoDE+52sMXZfvxywB46fqCi
+         427mR6M2qAG+cLFZV4tHWum5Dli29PeCyf63QgLJsliKiq29+e+cvdJ6vlSOEstqQPdB
+         n53A==
+X-Forwarded-Encrypted: i=1; AKwUvBwSnIHJQLdI95jILkY4S0rxfVM27FFuoL7TExEj/TKUb7FxbBw3TcyGZNcR3V5rQjRApooRJ6k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIiCVz5exeGKM0yvTJKoBrGyc+XkcZPdrwX2a1iPxmmW1BQQXXJ
+	5w8mchKxMhxeNw6ZlwG/HtfGUq0iI+s1vqSsAxBk+qA9CvDzo5dYHx4MnuJLDfKDuTRNB5fdSHQ
+	EBu/DLcwt44Nc1llN/W/Fq/9ZTshOFc1LAxqURTnbsg==
+X-Gm-Gg: AYBFou2OYemBGzIx7Ud6UnwFu0K05M5Dx/nMU4GBOGtUxeB0XTGD/bKS/35vL6MwhTi
+	o1rtUvFdkRrWY5He9LpA6ujwEZFcJ05fbIBOFGhQeqKF1bpX6Nw8M2N0avoy2UzMHj3c/dmWq4U
+	B6UQ/Qmu+Brz2LaGMuZaRPzYlDi6yc8UBb+Z14cwFo2CSpWQwA+1Qr0mkduEhJtNd8zNXfi+bTf
+	9osxdyaSfXGMUmSFp7corYlfjyR2QxMDiIodUdQ7MI02XtROGiMtQBr+u1eefxAhAoZZPWh0Pd6
+	A23buVnppvlTKoUUOjpApweIfJ0QpiBsoIP3DxuIkAbTJdRTE/keptBovONOAObYGfEdlwC4WtL
+	GkrgZ+NbluBIvbkl2+vzkHxQcnLCSceMGYwO/kDGWfsnLKiuqSe3qyU/zTccIEOJBDHwNjROWuk
+	a43ktmKw==
+X-Received: by 2002:a05:600c:8219:b0:4a0:108:3b48 with SMTP id
+ 5b1f17b1804b1-4a1d760746amr244503685e9.7.1792501984828; Tue, 20 Oct 2026
+ 06:13:04 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,47 +105,145 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261019160615.2348500-1-nphamcs@gmail.com> <atcRLYvKavedT6Hs@yjaykim-PowerEdge-T330>
+In-Reply-To: <atcRLYvKavedT6Hs@yjaykim-PowerEdge-T330>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Tue, 20 Oct 2026 06:12:53 -0700
+X-Gm-Features: AclHuK-KWlwJ6jupfQN2upeYH99aX1_31TwAq1vK8qUCAkH6OCtgeWVRSWcg6oQ
+Message-ID: <CAKEwX=MRvzzd0Fn=UX+LcRo+K9wuqCWSB42NNn7rvZkZukRRrg@mail.gmail.com>
+Subject: Re: [PATCH] mm, swap: revalidate populated clusters before scanning
+To: Youngjun Park <youngjun.park@lge.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-o2nm_node_ipv4_address_store() accepts 0.0.0.0. It sets
-O2NM_NODE_ATTR_ADDRESS and links nd_ip_node into cl_node_ip_tree under
-cl_nodes_lock, but o2nm_node_group_drop_item() uses nd_ipv4_address as a
-membership test. A zero address therefore leaves the rbtree node linked
-when config_item_put() releases and frees struct o2nm_node. A later
-address store or IP lookup can then walk the stale node and dereference
-freed memory.
+On Mon, Oct 19, 2026 at 11:58=E2=80=AFPM Youngjun Park <youngjun.park@lge.c=
+om> wrote:
+>
+> On Mon, Oct 19, 2026 at 09:06:15AM -0700, Nhat Pham wrote:
+> > swap_cluster_populate() can publish a cluster's table with the cluster
+> > lock dropped. A cached allocator can use and empty it before the
+> > populating allocator reacquires the lock. The resumed scan can then
+> > dereference a NULL table.
+> >
+> > For example, CPU1 can retain a cached cluster offset on an SSD with
+> > per-page discard disabled:
+> >
+> >     CPU0                          CPU1
+> >     ----                          ----
+> >     swap_cluster_populate()
+> >       swap_cluster_alloc_table() fails
+> >       spin_unlock(&ci->lock)
+> >       local_unlock(&percpu_swap_cluster.lock)
+> >       swap_cluster_alloc_table()
+> >         rcu_assign_pointer(ci->table, table)
+> >                                   swap_alloc_fast()
+> >                                   local_unlock(&percpu_swap_cluster.loc=
+k)
+> >                                   mem_cgroup_try_charge_swap() fails
+> >                                   swap_cache_del_folio()
+> >                                     __swap_cluster_free_entries()
+> >                                       free_cluster()
+> >                                         __free_cluster()
+> >                                           swap_cluster_free_table()
+> >                                             rcu_assign_pointer(..., NUL=
+L)
+> >       local_lock(&percpu_swap_cluster.lock)
+> >       spin_lock(&ci->lock)
+> >       return ci
+> >     alloc_swap_scan_cluster()
+> >       cluster_scan_range()
+> >         __swap_table_get()
+>
+> Hello Nhat.
+>
+> Good catch!
+>
+> > Reject an unusable cluster under its lock before scanning it. Relocate
+> > it only while its table is present.
+> >
+> > Fixes: cdd77f84d966 ("mm, swap: consolidate cluster allocation helpers"=
+)
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Nhat Pham <nphamcs@gmail.com>
+> > ---
+> >  mm/swapfile.c | 7 ++++++-
+> >  1 file changed, 6 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/mm/swapfile.c b/mm/swapfile.c
+> > index c3288910b3e3..988b7316e0a1 100644
+> > --- a/mm/swapfile.c
+> > +++ b/mm/swapfile.c
+> > @@ -981,7 +981,11 @@ static unsigned int alloc_swap_scan_cluster(struct=
+ swap_info_struct *si,
+> >       bool need_reclaim, ret, usable;
+> >
+> >       lockdep_assert_held(&ci->lock);
+> > -     VM_WARN_ON(!cluster_is_usable(ci, order));
+> > +     if (!cluster_is_usable(ci, order)) {
+> > +             if (cluster_table_is_alloced(ci))
+> > +                     relocate_cluster(si, ci);
+> > +             goto out_unlock;
+> > +     }
+>
+> If this patch is applied as bloew, does it prevent the issue described he=
+re?
+>
+> https://lore.kernel.org/linux-mm/20260720071342.50742-2-shikemeng@huaweic=
+loud.com/
+> (This patch publishes cluster table after lock acquired.)
+>
+> This patch is chagned the way I suggested during review... :(
 
-During teardown, drop_item takes cl_nodes_lock, skips rb_erase()
-for the zero key, and then calls config_item_put(). A later
-o2nm_node_ipv4_address_store() duplicate check or o2nm_get_node_by_ip()
-lookup takes the same lock and walks the stale cl_node_ip_tree entry. Use
-O2NM_NODE_ATTR_ADDRESS for teardown so every published nd_ip_node is
-erased before configfs can release the node, without rejecting 0.0.0.0
-or changing lookup semantics.
+Ah I missed that patch series and your review! What happened to it?
+Did we just never land it?
 
-Fixes: 0c83ed8eeb28 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
- fs/ocfs2/cluster/nodemanager.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+Looks like we are still doing neither Keming's approach (table
+copying) nor your approach (publishing at the end of
+swap_cluster_alloc_table()).
 
-diff --git a/fs/ocfs2/cluster/nodemanager.c b/fs/ocfs2/cluster/nodemanager.c
-index e08850a5d736..be184c5ad54d 100644
---- a/fs/ocfs2/cluster/nodemanager.c
-+++ b/fs/ocfs2/cluster/nodemanager.c
-@@ -626,8 +626,11 @@ static void o2nm_node_group_drop_item(struct config_group *group,
- 
- 	write_lock(&cluster->cl_nodes_lock);
- 
--	/* XXX sloppy */
--	if (node->nd_ipv4_address)
-+	/*
-+	 * 0.0.0.0 is a valid configured address, so nd_ipv4_address does
-+	 * not tell us whether nd_ip_node was published in the IP tree.
-+	 */
-+	if (test_bit(O2NM_NODE_ATTR_ADDRESS, &node->nd_set_attributes))
- 		rb_erase(&node->nd_ip_node, &cluster->cl_node_ip_tree);
- 
- 	/* nd_num might be 0 if the node number hasn't been set.. */
+>
+> As you pointed out, another context can free the table
+> without alloc context knwoing this situation.
+> I missed this situation.
+
+Yeah I feel like it's still not safe with your approach...
+swap_cluster_alloc_table() does not hold nor acquire cluster's lock.
+Between its publishing of the table and the subsequent lock
+acquisition in its caller (swap_cluster_populate()), someone can still
+come in and free the table.
+
+It's tricky. We do not have an explicit contract for the metadata's
+lifetime, so it's a bit of reading the tea leaves for me...
+
+I think this is the last gap, and it's rare enough, so this simple
+check should suffice to cover the edgiest of the edge cases :) But who
+knows :) If bugs re-surfaced again, I think we can spend a bit more
+time ironcladding the lifetime of clusters/tables:
+
+1. Allocate outside of lock context, but make swap_cluster_populate()
+lock the cluster, check cluster's status, and only then publish the
+table (and return with the cluster locked). Basically Keming's
+approach.
+
+2. Carefully enforce metadata's lifetime. Perhaps we can add a refcnt?
+In addition to occupied slots holding cluster's refcnt, we can allow
+for temporary holders. As long as we can acquire a refcnt, we know for
+sure the metadata is not freed under us. This is my approach for the
+old vswap patch series, but it's tricky, especially with caching in
+the picture.
+
+>
+> IMHO, Publishing the table only after reacquiring the cluster lock, as Ke=
+meng
+> suggested, and rejecting an unusable cluster under the lock as in this
+> patch both look correct to me!
+>
+> Reviewed-by: Youngjun Park <youngjun.park@lge.com>
+
+Thanks for the review, Youngjun!
+
+>
