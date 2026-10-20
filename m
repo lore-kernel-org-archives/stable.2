@@ -1,53 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.77.92
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792506830;
-	b=Assnra6oPAW/uU40Pvajs5UBmFlgqPbDpAw3uq288Ziy5PuC2VsGumR8V+WVd/G/yW5V
-	 sPHORDRaYQ79lM/qfFmwqxJ27CxMuYt6kMhvkkfo9dOgibuGTkmecjuYjTYRCh39zkzaX
-	 q/GENRDMJBwhTOYMkxJ+MH9xFeuv6PRkQMZZ0HQH/7dRcQhxvCZWKCmlmvd7WjLlWZo2P
-	 3CqjNYjBtRe6st31XQKejvApn2sKblPHQYne9Asxr+C0P2WE6A6Dl19Wbx+Zk8nRqpHM9
-	 A57QrQxRrKSyN52crJo+RR0uNsp7rLCvW5WNxJHdAHH9nyy+iHSO3PaGliFriTDgk0w==
+	t=1792507072;
+	b=KImeShoUe5RMPtV0gO0OSwyq0V5KwIsb0hP/MRuqNWBwO7MPLXtqF2RelEmqmttCQnhp
+	 dJ4MhrOrfe8UiAB/VrfFzklAcU2HeCrSWC/RprnnOzlwTXrBI9PACW+4KaSbGaXRy/qFO
+	 mvN0Jwjp/S8l8pacPgLWSeeg2l70r6vsXzqNcaqHz6bQNpckjbZsIWhlNuEZj2rB7E98D
+	 swhfOCVDMN+u7qrkUqUSefr9QeouxgJAPuW5Lv0cqxrHOKUbJzEDZr72mo1/m2BeA9RY+
+	 Z5B4KQZ6Qb32unOxA3VEXYVvvcmG0SOwApVsE4JIiCXjFERXGw+OFwZZ8o2ld1LObgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792506830;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
-	bh=MvXYGUokLQK9Dpvt3WU6+mLNEmr/sUmdQTAq+bivxy0=;
-	b=3narDKk+bDoECJZ1kKjG0yE7gdS7NmuCuSlq09Tzkw0cpgG9NQH2iSdynXBiizZYXgsx
-	 DAebDAqYXJMLw8ZqlnY8fvXIpemAJ24FoiRPmYoz8LR0wvB+clE1WBFQJKUBzmxyZOvWI
-	 QoD1I+6AsZ014Cxed2WQd4jC+Qfqg2ZRbemkvE1bwzq8yYsSKjw8tLrDmPVQniLeMJ7Rv
-	 4Gum4yFV5gNeMyWYkp58MQQcTnZORhquNyC/L30TBb3TKEaQKB9X5qJsX2qYH2HDvvsLZ
-	 gf44dpKOwzvWZYMHLygaF8UzYFM4ALl3D3ged5wHLQyNKwyvfpPG1mCr9KZdEPbSGzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792507072;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=5LRGHN8ntoxFrPJWrn1Xk1SCNt11RbrFeIIOupsDSQM=;
+	b=lj7O/4JIhS+nzEHeerYgvyU54i93icfwRDoDvTl9wkwA9O72uTw0PTj+62po5CZYjN1C
+	 P2tkGYrOfm1OHywm11D/GqXv985ijNgZCnyQ1CwcsJZIPrCisIr0GQTCvY8wuYNO+aY6X
+	 mCC3uhTRS+Wg39TWlZ8WVJoy3Xh4bmZAabQdfTyubecGX9LO6nhWNGJ9q9BLp1kYbB55Y
+	 KDdZqtjr21+3NtXL07HVhx4dDk/tKbmrCYH6VoCjvfv2iva1+CGnMBxbg/yrrkGJkunlU
+	 M1n4tZG29a45S2K81bdqSTEYgRzfA9pgipien8Q6dGcOvCld7UyDLigUkHvL/eCBK/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b="M/jU848e";
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=VwsdkBBp;
+	arc=none smtp.remote-ip=44.246.77.92
+Received: from pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.77.92])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BE63606A334;
-	Tue, 20 Oct 2026 14:33:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BE63606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D3E606A321;
+	Tue, 20 Oct 2026 14:37:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00D3E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=M/jU848e
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 88898A1627;
-	Tue, 20 Oct 2026 16:33:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792506827; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=MvXYGUokLQK9Dpvt3WU6+mLNEmr/sUmdQTAq+bivxy0=;
-	b=M/jU848eDL1eex6rULHc6nDPa68O6M5l+EE1eZ0Ug8fblu1k+y5bUGC/N7wJ27yor5iG6o
-	Xfm+yAJqV9L46bXxiGAm7B2tkRESGRoMu1csK9E38oZGCM8d0k3F13LFZ+HqMTxFRkeXTn
-	9e0K57WLLFfUgB2VK5klk+54Jnq/RL3m9MYiYjVFgqzSJSO7AcY+ajEa4N5cvO9I2Fam9O
-	6Gv2F4GO6xtNpYHJ6d1OIH4+jqm0ZGSwipEfFN0pjNW7MqEAIvqsearnQsvABzNrndqh27
-	V+TvaCWHFTHph/BWH/SmXpULWmO40JvGJ56BYRsjQvJPBhhHmkEEn1wz/v+Fug==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Tue, 20 Oct 2026 16:33:40 +0200
-Subject: [PATCH 3/4] usb: usbtmc: add Rigol DP800 and DS1000Z to the packet
- I/O quirk table
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=VwsdkBBp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1792507071; x=1824043071;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=5LRGHN8ntoxFrPJWrn1Xk1SCNt11RbrFeIIOupsDSQM=;
+  b=VwsdkBBpuN+I7Fdmb31hkVRQG7S3shPV/IxRWL/u4Tl63rs9GH37ZAZm
+   EOUEgj6x1npPQcWPma1iIRR35OAV1K4stZ1pwwYkfHb8l5vtzsAsS8v7F
+   vZznuc/nw7TVBPzfuNrf8ZFRndqkOOz5YaalL+ZiOOKt5sZscZB18BEbn
+   68McxU9CmNjuLOXoijm0w5Iw6q1dCi+Himo6BWDN8LvAKB4WsC1Sf3Pzs
+   9BcyswT7VqHy3Qrc0C76a0t9S4Z9kO2ExtQuY+M/XPac4k1BQIvZ52GGj
+   WYtQrUj6hG8gm6uImunDYmusEL2eBVlY3aLRY/2vy17f4noE9rVxMiliO
+   A==;
+X-CSE-ConnectionGUID: ECEm+QCsSqCyXSgn9k7Kuw==
+X-CSE-MsgGUID: zvOFRcvFQQSX/LtWEJd9qg==
+X-IronPort-AV: E=Sophos;i="6.27,168,1787011200"; 
+   d="scan'208";a="31743108"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 14:37:49 +0000
+Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.182:11916]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.54.1:2525] with esmtp (Farcaster)
+ id a382078a-ae68-482a-a6ab-df5e639d8f90; Tue, 20 Oct 2026 14:37:49 +0000 (UTC)
+X-Farcaster-Flow-ID: a382078a-ae68-482a-a6ab-df5e639d8f90
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA001.ant.amazon.com (10.250.64.204) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Tue, 20 Oct 2026 14:37:48 +0000
+Received: from dev-dsk-avivb.amazon.com (172.19.102.34) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53;
+ Tue, 20 Oct 2026 14:37:47 +0000
+From: Aviv Bakal <avivb@amazon.com>
+To: <sashal@kernel.org>, <patches@lists.linux.dev>, <stable@vger.kernel.org>
+CC: <robin.murphy@arm.com>, <ilkka@os.amperecomputing.com>, <will@kernel.org>,
+	<mark.rutland@arm.com>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH AUTOSEL 6.18] perf/arm-cmn: Add workarounds for CMN-S3 on Graviton5
+Date: Tue, 20 Oct 2026 17:37:45 +0300
+Message-ID: <179250706537.3484860.18363532452101434862@amazon.com>
+In-Reply-To: <20261019135441.1420968-145-sashal@kernel.org>
+References: <20261019135441.1420968-1-sashal@kernel.org> <20261019135441.1420968-145-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,48 +84,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-fix-usbtmc-short-packets-v1-3-903f4d029193@tipi-net.de>
-References: <20261020-fix-usbtmc-short-packets-v1-0-903f4d029193@tipi-net.de>
-In-Reply-To: <20261020-fix-usbtmc-short-packets-v1-0-903f4d029193@tipi-net.de>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Steve Bayless <steve_bayless@keysight.com>, 
- Guido Kiener <guido@kiener-muenchen.de>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Nicolai Buchwitz <nb@tipi-net.de>, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-The Rigol DP800 power supply and DS1000Z oscilloscope families also
-advertise 64-byte bulk endpoints at high speed. Replies are cut off
-after the first packet, and writes larger than 64 bytes fail on the
-DP800:
+Please drop this from AUTOSEL -- it's new-silicon enablement, and its
+parent commit 56603c28d916 isn't in 6.18.y, so the static_assert in
+arm-cmn.c would fail.
 
-  usbtmc 1-1.3:1.0: Unable to send data, error -71
-
-Tested on a DP832A and a DS1054Z.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
----
- drivers/usb/class/usbtmc.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/usb/class/usbtmc.c b/drivers/usb/class/usbtmc.c
-index 679ab5908e203..861913b9de918 100644
---- a/drivers/usb/class/usbtmc.c
-+++ b/drivers/usb/class/usbtmc.c
-@@ -60,6 +60,8 @@ MODULE_DEVICE_TABLE(usb, usbtmc_devices);
-  * device's packet boundaries are preserved.
-  */
- static const struct usb_device_id usbtmc_packet_io_devices[] = {
-+	{ USB_DEVICE(0x1ab1, 0x04ce) },	/* Rigol DS1000Z family */
-+	{ USB_DEVICE(0x1ab1, 0x0e11) },	/* Rigol DP800 family */
- 	{ USB_DEVICE(0xf4ec, 0x1220) },	/* Siglent SDM4065A-SC */
- 	{ } /* terminating entry */
- };
-
--- 
-2.53.0
-
+Thanks,
+Aviv
