@@ -1,45 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792458305;
-	b=OYGOYDPVad0IEA+NgAZMR7yy0wIj3LB7cPyXTqI3mqZDeoG3dxKYUnS5PUODsos1W3Kq
-	 PdlBnmSWuB53QUg/Er4wCbEUO54PVvjcGclVmpoVzkDmfIqJcDo95LC4Wxu5mUDPcEkKT
-	 H9St1AEwLNZ4vr/nyEGvWNgxd0rMa5TNXCwlDxJfZAjMDdjJCs8Rx8g63XbBuYddcEkVC
-	 rAz6V0VDW7xxU11supDJEzBme6r3hJgUDpeLGEXyToYWq8qLjgFQUBA6OAuvy2fVNpQSk
-	 iMnIF2Fi9KqcyKjYCkPPtE2Xi43ib1FvI9pb+GhhboKpS5dNE0ZZbY9osE/gQKqI2ag==
+	t=1792458744;
+	b=2YvgCsEUh+viDq+ieP57y1TUcppZyubUYMpVFDaaODIpxJ0aYPMdXeonyAD3X/6QxUTi
+	 b+FVu3tFhBRidjPOitVmDheNl2+mzN7fiA7U4LZGWpBaIxOR0b/xKKbxPpPfq/1QwAiFA
+	 T2A06DE7+xFUoFLDEApE1IzsMOBGqbzNI9U+17vKCrh3Zuwezatvb7t2kLm8o8QUNsvCl
+	 KtDvxVCkvG6Ha7arKDpEuQS3bT1E1AKAFE/Bu+0tRho4Z/TqeN2M9klPBPUwmZ90l730y
+	 3pPP61lqFpecOUUJYG/eVmAkjML6Qia8C17c7gK0dPmPRAeKE5lU+8QYDJG02hqg8Pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792458305;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=2Cp761GZx7EN8uZcWBFhe53Fn0HcZV08pSFIe6ffJa8=;
-	b=KXiOOv6PRm+pETfYLlwT1+D85QIhb4WrfJ2yDYglpJ8tQPo+842Uu/amiTjFdjFJHOCB
-	 MHparluWmgYc8GY/txw9Wzv5sxTE+ivR2seJbcOi2LHoJdGIJuQWL8Mj8a5sPnavyxT7J
-	 f+Ke760pILntLGt3wuaHsrEAanuIYyY/XAfAYZoJe5ZDU/xGaU3ukp97dk23sE4QxPQHs
-	 Gkxg30lkxoehQeFQ22uMlhfsr8mBhvMf0zC8GX/oz8EWALcXP21SQ7ET0PJ0e+NEqZHWS
-	 eoBEV12wsPUIGnRS1MfQP+62IzMfhiTRSYRzYLS6hkwDJVeYdPovWLt0FXqNEtC5sug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792458744;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=gkztiRa4rmEUyRx1tOg3Q57r8P48/+lMWD280TOtrgo=;
+	b=KXmne3V/nyJsIVcV4KGS7wSvA9h0OWALSVmNKnaSaSy1jXJAX1dcfuxLJ8Zl8NvK+XdK
+	 qgdEIljoIILBPNFJK/F0NhYAxN+t5y8+rChAnWCVsd8BG+0eEpowdmKuSWhC1xQDgAh3B
+	 AjaryFow90zpuXtPEKPsfiZHrM3oarC0ZN7zmq5cQgN5xGkd9Ah8Pj9D6nJeLAW6yawm4
+	 7qJ0EM9XLGrrSj7IR+rVE4lqCS4BS+ecuSgG60HGgyv9LRS4xS0/5HGGPw7xLt39ZCL38
+	 8wmQpEhqPq6EEajCnCD7rrEQO1iJ4818KzlNXpyTmt5OTYnlGCht1Z18y1L6630iYMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=mGvf29vk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=S4Ybn0Qr;
+	arc=none smtp.remote-ip=113.46.200.219
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A606B606A321;
-	Tue, 20 Oct 2026 01:05:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8744606A319;
+	Tue, 20 Oct 2026 01:12:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8744606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=mGvf29vk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23DBD1F000C4;
-	Tue, 20 Oct 2026 01:05:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792458304;
-	bh=2Cp761GZx7EN8uZcWBFhe53Fn0HcZV08pSFIe6ffJa8=;
-	h=Date:To:From:Subject;
-	b=mGvf29vk8uMxWvIySpsapNsJM/xznDiMhXcYgSk/qyv88rAZ8R1XTK2Cwe1sZD2PF
-	 tuU4s8TxH6AUeN/iV+VNQLZUkDrEIyUpknhXWbJiJUQAn/K5OitAMlMH/BTsdOD0S1
-	 4E4DeBPrUREYO5Z4Eri4HXNXj+yM6vSM6wVblwBE=
-Date: Mon, 19 Oct 2026 18:05:03 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,usama.anjum@arm.com,stable@vger.kernel.org,pfalcato@suse.de,ljs@kernel.org,liam@infradead.org,jannh@google.com,ngocquy0700@gmail.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + fs-proc-task_mmu-pin-mm_users-in-do_pagemap_scan.patch added to mm-unstable branch
-Message-Id: <20261020010504.23DBD1F000C4@smtp.kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=S4Ybn0Qr
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=gkztiRa4rmEUyRx1tOg3Q57r8P48/+lMWD280TOtrgo=;
+	b=S4Ybn0QrRqvtioDlcTH9hrRH7L61Jz42yMo6DiG+7Ribu3FOLdv6YZxebVghx9ylaS9jsIP7c
+	D+nvLaJKftShjXXxqnZZ5tM2QVIyGcd6hUPWvxI+Ur8oJjA6rGx5YHycYZND1b+dlACdnP3Y67J
+	lxXvxDye8YiN1HmmQN0/PbY=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4j7vXC5xzrz1prMk;
+	Tue, 20 Oct 2026 09:12:11 +0800 (CST)
+Received: from kwepemf100013.china.huawei.com (unknown [7.202.181.12])
+	by mail.maildlp.com (Postfix) with ESMTPS id E57C440577;
+	Tue, 20 Oct 2026 09:12:14 +0800 (CST)
+Received: from DESKTOP-62GVMTR.china.huawei.com (10.174.189.38) by
+ kwepemf100013.china.huawei.com (7.202.181.12) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 20 Oct 2026 09:12:13 +0800
+From: Fan Gong <gongfan1@huawei.com>
+To: <bigeasy@linutronix.de>
+CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@kernel.org>,
+	<gongfan1@huawei.com>, <guoxin09@huawei.com>, <gur.stavi@huawei.com>,
+	<kuba@kernel.org>, <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+	<pabeni@redhat.com>, <stable@vger.kernel.org>, <yhlee@isslab.korea.ac.kr>
+Subject: Re: [PATCH net] hinic3: bound the Rx fragment count to MAX_SKB_FRAGS
+Date: Tue, 20 Oct 2026 09:12:09 +0800
+Message-ID: <20261020011209.13736-1-gongfan1@huawei.com>
+X-Mailer: git-send-email 2.50.1.windows.1
+In-Reply-To: <20261019221306.d6dfPY_y@linutronix.de>
+References: <20261019221306.d6dfPY_y@linutronix.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -48,114 +71,67 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemf100013.china.huawei.com (7.202.181.12)
 
-
-The patch titled
-     Subject: fs/proc/task_mmu: pin mm_users in do_pagemap_scan()
-has been added to the -mm mm-unstable branch.  Its filename is
-     fs-proc-task_mmu-pin-mm_users-in-do_pagemap_scan.patch
-
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/fs-proc-task_mmu-pin-mm_users-in-do_pagemap_scan.patch
-
-This patch will later appear in the mm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Ngoc Quy <ngocquy0700@gmail.com>
-Subject: fs/proc/task_mmu: pin mm_users in do_pagemap_scan()
-Date: Wed, 14 Oct 2026 16:55:40 +0700
-
-The PAGEMAP_SCAN ioctl takes mmap_read_lock() on an mm obtained from
-/proc/<pid>/pagemap without holding a reference to mm_users.
-
-proc_mem_open() deliberately grabs only mm_count, so a consumer that
-touches the address space has to call mmget_not_zero() first.  Every other
-consumer in this file does -- m_start(), do_procmap_query(),
-show_smaps_rollup() and pagemap_read() -- but do_pagemap_scan() does not.
-
-Without that reference the target can reach exit_mmap() concurrently, and
-exit_mmap() calls unmap_vmas() while holding mmap_lock only for reading,
-which does not exclude the scanner.  For ordinary VMAs this is harmless,
-as free_pgtables() and remove_vma() run afterwards under mmap_write_lock. 
-A shared hugetlb VMA is different: __hugetlb_zap_end() frees the VMA's
-hugetlb_vma_lock inside the read-locked phase.
-
-walk_hugetlb_range() can therefore load vma->vm_private_data, have the
-lock freed underneath it, and then down_read() a freed rw_semaphore.  The
-load happens before the freeing side clears the pointer, so this is a
-use-after-free and not a NULL dereference.  Any unprivileged user can
-reach it with no huge pages configured, as hugetlb_reserve_pages()
-allocates the lock before the VM_NORESERVE early return.
-
-Pin mm_users across the scan, the way the other consumers do.  mmput()
-from the exiting task can then no longer reach exit_mmap() while a walk is
-in progress.
-
-Link: https://lore.kernel.org/20261014095540.3261469-1-ngocquy0700@gmail.com
-Fixes: 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and optionally clear info about PTEs")
-Signed-off-by: Ngoc Quy <ngocquy0700@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Assisted-by: Claude:claude-opus-5
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Muhammad Usama Anjum <usama.anjum@arm.com>
-Cc: <stable@vger.kernel.org>
----
-
- fs/proc/task_mmu.c |    9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
---- a/fs/proc/task_mmu.c~fs-proc-task_mmu-pin-mm_users-in-do_pagemap_scan
-+++ a/fs/proc/task_mmu.c
-@@ -3125,15 +3125,18 @@ static long do_pagemap_scan(struct mm_st
- 	size_t n_ranges_out = 0;
- 	int ret;
- 
-+	if (!mm || !mmget_not_zero(mm))
-+		return -ESRCH;
-+
- 	ret = pagemap_scan_get_args(&p.arg, uarg);
- 	if (ret)
--		return ret;
-+		goto out_mmput;
- 
- 	p.masks_of_interest = p.arg.category_mask | p.arg.category_anyof_mask |
- 			      p.arg.return_mask;
- 	ret = pagemap_scan_init_bounce_buffer(&p);
- 	if (ret)
--		return ret;
-+		goto out_mmput;
- 
- 	for (walk_start = p.arg.start; walk_start < p.arg.end;
- 			walk_start = p.arg.walk_end) {
-@@ -3188,6 +3191,8 @@ static long do_pagemap_scan(struct mm_st
- 		ret = -EFAULT;
- 
- 	kfree(p.vec_buf);
-+out_mmput:
-+	mmput(mm);
- 	return ret;
- }
- 
-_
-
-Patches currently in -mm which might be from ngocquy0700@gmail.com are
-
-fs-proc-task_mmu-pin-mm_users-in-do_pagemap_scan.patch
-
+> On 2026-10-19 09:10:37 [+0900], Yehyeong Lee wrote:=0D
+> > Thanks for the review.=0D
+> >=0D
+> > A well-behaved device can't reach it. rx_buf_len is fixed at 2048=0D
+> > regardless of MTU, so the frag count is ceil(pkt_len / 2048): a max-MTU=
+=0D
+> > frame (9600) is 5 frags, and LRO -- off by default, capped at 32K when=
+=0D
+> > enabled -- is at most 16, both below the 17 the array holds. Only the=0D
+> > 16-bit length field in the completion descriptor (RQ_CQE_SGE_LEN_MASK)=
+=0D
+> > lets a device claim up to 65535 bytes, i.e. 32 frags. So it takes a=0D
+> > device reporting a bogus length, i.e. broken or malicious firmware,=0D
+> > which is why I treated it as a robustness fix -- I should have said so=
+=0D
+> > in the changelog.=0D
+>=0D
+> If this is something that in general opinion never can be reached then=0D
+> it might be something to target net-next and not net looking like a fix.=
+=0D
+>=0D
+> > I found it by code inspection, not in the field, and I don't have a=0D
+> > hinic3 card, so it's untested on real hardware; I reproduced it by=0D
+> > injecting an out-of-range length to get the KASAN splat in the=0D
+> > changelog. The netdev bot asked for these same two things, so this=0D
+> > answers it as well.=0D
+>=0D
+> I see. That KASAN splat makes it look like something that was really=0D
+> reproduced. I assumed jumbo frames and aggregation at HW level.=0D
+> Just because a field is 16 bit wide, it does not mean the hardware will=0D
+> utilise all its fields.=0D
+>=0D
+> > You're right that the bare drop is unhelpful. It only surfaces as=0D
+> > rx_dropped via ndo_get_stats64, not in ethtool -S -- hinic3 has no=0D
+> > get_ethtool_stats, and the stats series in net-next doesn't export=0D
+> > dropped either. I'm happy to add a net_warn_ratelimited() on the=0D
+> > discard path in v2; it only fires for a misbehaving device, so it won't=
+=0D
+> > spam a healthy system. Let me know if you'd like that.=0D
+>=0D
+> I would suggest to target net-next if this can not be reached and is=0D
+> just there to address a possible overflow. Maybe a warning if it was=0D
+> reached after all. Fan has probably an opinion here.=0D
+>=0D
+> > For reference, eea does the same thing -- it drops once nr_frags=0D
+> > reaches MAX_SKB_FRAGS.=0D
+> >=0D
+> > Thanks,=0D
+> > Yehyeong=0D
+=0D
+Thank you very much, Yehyeong and Sebastian Andrzej Siewior, for your=0D
+investigation into this issue. The current hinic3 driver is a basic=0D
+version that does not yet enable Large Receive Offload (LRO); under the=0D
+current configuration, no out-of-bounds behavior will occur. For packet=0D
+sizes reaching 32 KB or even 60 KB, we have a complete solution that will=0D
+be enabled in upcoming submissions. If Yehyeong's issue is urgent, could=0D
+you please provide more background information so we can assist you in=0D
+resolving it.=0D
