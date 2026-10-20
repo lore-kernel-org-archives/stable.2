@@ -1,61 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792484447;
-	b=Gm/OZGpq7xBv89eSh41RyiFFIlB971adhUW6Bfqre7c7wraqoFUQqnPHBEV4OlN7UEP5
-	 KeXYdWPpoJ0hpBMfAaYQK3GsKQSpYgpJglL/hwwRk3rjANpvNCs3RpTah/lIyDD2rmlF7
-	 WI1vQIYU0j1/3LhLmYRF0eo0qSEgNr+QiEAXiLJr22TOEXbNZrqpIeUJoUsV5p2AJuaJ5
-	 wBIHtX6PdcXxuJTEJSCXeDjBW2qQv/dyMLj+HIpSSIXTq3iPs7jgHTFmbOurxO5v8QfDU
-	 Ung20DbPsoh1QyZFEqWp49RA/+fhfyo6k+nc/CZn+96Js7GtCNINZH+/4Q+SkXETgUQ==
+	t=1792484475;
+	b=uoz03xd441Rb+7FQddhSKcvDg/7Bpbqe6NujJCzPeE5TW5BNWCS0A7tkyPsgYoMpndWP
+	 LhQSYFx0NLSPBeJ1k+HRmHBjijqBlQ1ScrBe1fv0OAWdkDAflo2qkIspxslTQWT+81Z1M
+	 EvPKeTk8kXh8qq2O6BcaKkKsiGDui3O1yH4stGrbKvT6BsalEhXEMJILzqquD5p57tWYG
+	 9wd01FXcd9dZZ+KphD3O5waHAAL+vcw/RA5suB958ekBTDcYRZ3l7ZyfoQuSuJesnvYtk
+	 flpTBnbC5ihigupXyUU8RiLuxgVwuPJEQ/M7E0hBdBQQXAACHJmg5WzCOkDDk048lDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792484447;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
-	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=kKIkBo5KGbrigOoOGFBrL+Ie2szW3g61E8oJn61TwLY=;
-	b=axOW3sSrwXj35YidrPW5LcDOekcip88E5fZ6mbIvAFMAck1Lqm0CKvGcSvyv9nNZlGmR
-	 MJZ9Nnou69NcLVZU1OsF99/6lNCDd8T9fDVxrQXMhm+dmzoLpZRlBw6Lv5nxAzjEm/bek
-	 E8KmzLFNdefqY53FR3xw9zy4Tv2b8IR1tj2mLqFF/AWnUDhvQH85oYO4EmCNz/4AUOSEa
-	 LUqzzW2A2Sd5KSaOEWqaFeBqnGm2OwtorQtU2s1tyhdcpTuPY9l+gASO+m12yXuylvDB3
-	 Xsi+aXd5ZZ8vHnTULhuHhRgCWwSoisD/Q2qrV9S/9iKBNHkCJqSeJsLAq3ti2zEljzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792484475;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=Ab3Ppi5U2ZBtscUyANpv309FwIIv3hXfnmRHZqkMu2E=;
+	b=w3wbbQsybUcH6+1pV+G07ocu+a6CSKk3vt0pit+eyi02NivwovU6cYxM2uCe+zBPFhRM
+	 BVnHBuN/Z/EzKQ1lAXlZ4L6DRxTxgsOp1xm7chsMX3dmrfD9GrZs5lBlcLHZCra2Qqb55
+	 IryGxen5KVGBFogLhH5nWzH0gl/GMSzyupKj7jE6zkmSZxOP5W+K+U6ZB0s2EcpMs9uNX
+	 MODOgcNEFrBKCXzVPiXYVqGKBRIN1FY6Sxrn3YzLfddLIGb5OHd1oUzzPmQe2gAT5zyVN
+	 /8hmMNwdLAkebGFmkzs9o1HBVM4RxPVQRmHDnYnk/FyHWJupdp0+p+q61uxxAOSgJYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c6lBqTfG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nGgmHFlG;
+	arc=none smtp.remote-ip=209.85.216.69
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDB8A606A31B
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:20:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED948606A332
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:21:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED948606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c6lBqTfG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 635831F000C8
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:20:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792484446;
-	bh=kKIkBo5KGbrigOoOGFBrL+Ie2szW3g61E8oJn61TwLY=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=c6lBqTfGQbD7J9aWnxvxHxkgCZR19XPuTqOlwDbH8HHDJf4kSl9xPUNYTR+4iJCvv
-	 8bcCgI706nA8r9oK5fxcR9AuJ+cY4LU0yMxXpSGnqyQPoRGxj7s7IUbIoQhYuMEOxI
-	 EPR/i0BT8ufguhN8ZeClkIxcrKYB15+10TisgEj9n/0QJsKBfbRFbSmESJTU5UdI3p
-	 L/j08Ql9+HbWnGssufKXYQS00X8LrwWFxOCzcziz0WNo9pvHfEcvzoFKHVEgTZxQFE
-	 T2WKZASEuL4q/H4L0gDri7fbe5CrSkBwgQ2cDA7lXANWpm9ua/IHNeDRdMe2W8R5EG
-	 yrlsdZb1mjeKQ==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5bcb0f245e0so2075313e87.3
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 01:20:46 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzGumifI4xQkghLygKWbMnjKLrw7vj3Mykq0qkYNu9BbZDjQtHyVBAmVy0MYvExaALLUcu6gYk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI/qGI7hr249c/TxTHDfeQWkfSHjNURr0Na7rjSOY2BbyaHDCty
-	8ZNo0TDLlKrzyQfwQ2+GeHMucvRUwCkXyqcta0goxufZTdZUt0difpFQvVyEqB/vVw7O0qHUCKx
-	HNykxf54jQHyVxOngVX6jG+Ee+KLgK0R5wzbWCCrV9Q==
-X-Received: by 2002:a05:6512:31d5:b0:5be:55b6:7a92 with SMTP id
- 2adb3069b0e04-5be55b67a9fmr2509119e87.30.1792484445158; Tue, 20 Oct 2026
- 01:20:45 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 20 Oct 2026 03:20:43 -0500
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 20 Oct 2026 03:20:43 -0500
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261019-qce-fixes-skcipher-v12-0-046e6be9bd83@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nGgmHFlG
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ab926c236aso2920221a91.0
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 01:21:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792484474; x=1793089274; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ab3Ppi5U2ZBtscUyANpv309FwIIv3hXfnmRHZqkMu2E=;
+        b=nGgmHFlGOHR/4CdMZ9jRrEtoCBGol5VD2dAbWN9yFfQhpgsZaXtFMH7yOTkmmfS2Nt
+         I0BZUsdfeim80nDPaju41SSmHv1KiU1Ly9Fz3P8e4y5ZftrH0iFWzxg8tuhgdG7Ux1tB
+         /Xju31a7cc96C5aBB+DFKXop4o94CNo05NUZfCmEqBPBcSN7V7CsNzpGwDo+7Xmdsb2E
+         F+H/BzYfOCXRIxnfwBfSnBw+M2CtwxDhq06PI7EVCbG5PI7DvtYrRa+8WmxV9t5xo1eC
+         gUyKduYKozgxFeB+2uckyvSOo12NgY9NFKalozeufUynOX5SoSafwrSMfSizp9l81Ab3
+         jdbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792484474; x=1793089274;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ab3Ppi5U2ZBtscUyANpv309FwIIv3hXfnmRHZqkMu2E=;
+        b=m83NS9AI3cZTLgGTczpneZEfWmnfYzbA0QeVkeOOd+sU3/xhN0TzgNc2cx2e3+cGJw
+         UK3Dw3XE+pMlJMIBM+haEQWQO8RqmE/vs9oz7W9Vuzeamaz0xm8yRMUwb0W0H8VD03z0
+         3AB85kpHArC3JKF88JhHA8gk3C8JYsxKYxauSbllrENGSF7sK7qBULUlyVaWksReqn3g
+         yMfhZjPJqMQrM8HDfViYmp0AAtcK3gSmlWHhGuv1awIS1I+m+17E7j0cq/gkTS0WEEyU
+         qICPQ5sqTuHej2d1V141m/rx6EoylOlutARyagQ5WBIR0fWTS4ng1V9gGb+MZZTEhUpc
+         FtlA==
+X-Forwarded-Encrypted: i=1; AKwUvBxtV44fabAJ9i1hmUz/X628baCOeklu5to4GnXfkTtx6GacEbxgpvqcDLS0x9nQiuxWZIjVhwk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL1SSkHw+Puj6HKtoMa8eM7YpO9ni0A7zv5ACJPABmGv+pmKXPr
+	eSdefL7QoskcTAmLg86Cvc+WHiIDxmNHc+U1lQ1vq6JjMUvSoc/SRdPeFiytMp2lD8wO9dspiZC
+	Peau0vO3+VagrAc4rCvK3rA==
+X-Received: from pjbpb2.prod.google.com ([2002:a17:90b:3c02:b0:3ab:54fb:2a3d])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:4d0d:b0:3aa:fdad:7d6c with SMTP id 98e67ed59e1d1-3acef5b08bamr8689912a91.58.1792484474134;
+ Tue, 20 Oct 2026 01:21:14 -0700 (PDT)
+Date: Tue, 20 Oct 2026 16:21:04 +0800
+In-Reply-To: <20261020082110.3511797-1-stanleyjhu@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,32 +78,47 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261019-qce-fixes-skcipher-v12-0-046e6be9bd83@oss.qualcomm.com>
-Date: Tue, 20 Oct 2026 03:20:43 -0500
-X-Gmail-Original-Message-ID: <CAMRc=Mfw+gy4wiQNH9wCY3UeyHa37ZWf2FPHi=30dccfenqY2Q@mail.gmail.com>
-X-Gm-Features: AclHuK_I405DPm3BS8wwZk1JHxnrPGnEzBl9zhK4ySt7lFNe8JQMTPDxLEmJBRU
-Message-ID: <CAMRc=Mfw+gy4wiQNH9wCY3UeyHa37ZWf2FPHi=30dccfenqY2Q@mail.gmail.com>
-Subject: Re: [PATCH v12 0/4] crypto: qce - fix self-test issues in skcipher
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Pankaj Patil <pankaj.patil@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
-	Eneas U de Queiroz <cotequeiroz@gmail.com>, Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, 
-	Eric Biggers <ebiggers@kernel.org>, Demi Marie Obenour <demiobenour@gmail.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Russell King <linux@armlinux.org.uk>, Abel Vesa <abelvesa@kernel.org>
+Mime-Version: 1.0
+References: <20261020082110.3511797-1-stanleyjhu@google.com>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261020082110.3511797-2-stanleyjhu@google.com>
+Subject: [PATCH v3 1/7] scsi: ufs: core: Remove an always-false WARN_ONCE()
+From: Stanley Jhu <stanleyjhu@google.com>
+To: "Martin K . Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Bean Huo <beanhuo@micron.com>, Peter Wang <peter.wang@mediatek.com>, 
+	Can Guo <can.guo@oss.qualcomm.com>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 19 Oct 2026 16:46:04 +0200, Bartosz Golaszewski
-<bartosz.golaszewski@oss.qualcomm.com> said:
-> This iteration will hopefully fix the final remaining comment from
-> sashiko.
->
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
+The WARN_ONCE() in ufshcd_poll() can never fire. completed_reqs is set
+to ~tr_doorbell & hba->outstanding_reqs on the line above, and
+hba->outstanding_reqs cannot change in between because ufshcd_poll()
+holds hba->outstanding_lock. So completed_reqs & ~hba->outstanding_reqs
+is always zero. Remove it. No functional change.
 
-Phew, no comments from sashiko finally.
+Reviewed-by: Bean Huo <beanhuo@micron.com>
+Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+---
+ drivers/ufs/core/ufshcd.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-Bart
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index bcc2512bf34b..12aafcf1f9b3 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -6072,9 +6072,6 @@ static int ufshcd_poll(struct Scsi_Host *shost, unsigned int queue_num)
+ 	spin_lock_irqsave(&hba->outstanding_lock, flags);
+ 	tr_doorbell = ufshcd_readl(hba, REG_UTP_TRANSFER_REQ_DOOR_BELL);
+ 	completed_reqs = ~tr_doorbell & hba->outstanding_reqs;
+-	WARN_ONCE(completed_reqs & ~hba->outstanding_reqs,
+-		  "completed: %#lx; outstanding: %#lx\n", completed_reqs,
+-		  hba->outstanding_reqs);
+ 	if (queue_num == UFSHCD_POLL_FROM_INTERRUPT_CONTEXT) {
+ 		/* Do not complete polled requests from interrupt context. */
+ 		ufshcd_clear_polled(hba, &completed_reqs);
+-- 
+2.56.0.212.g129ede20d9-goog
+
