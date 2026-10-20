@@ -1,74 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792497916;
-	b=sr9Cu/ubKSGYZLm+sYFr1/5/D8n6wZQOy0enyEYEAWlecCwML1+OVOindTihcGegylCg
-	 lsCRzT1oNIAzAzrHW0VSVK+gK/I8xS3q/0e3R5RkVO7n/MLaYWMd3Bkz4utXSUmPHmTse
-	 Bi472LSEMn70PXPRJQzxbAEQBDKtnq4Ll/iS67H3FVxs8JS3dfxqCZkRD2TSWwk+SoRwK
-	 vzzrxmSNhj8Uk7kiLf9491ZWmE3tTJwHiefgmmqhJ5Tmfegr/QXocaa501B8kOo7cx5lz
-	 kB78V1UsBowRfHFDXR5FaXvqd8Yze+wkH7A2yN1xUZVeHThikVT0gY7b968bF/uJNyQ==
+	t=1792497920;
+	b=e4UojtnesfGYPlQNobF2jLmRpdvCGdY5JezZCiPNhy+mhwLKZxENMZkaZixfqmVG+Yfo
+	 ouCvph2I6PBWDWS+PKKQEZ2XeIdBPsWXjgHWDVebfUy3uUhcw1Qirpeu6eLUMMG8zEwg4
+	 BRZFqAFZoJYXdSq09lENpvJbBLUOkuqBhgkVKG217xQFfv5w5ERmujuSE31p/kTSlZITA
+	 8uOmbVmr2Oyxza5ZgRmqy+sV4++s97qoq4AKnGZ2vBRz+RTG1/+pdFA7vnz3iy3r0/U+k
+	 pibfP3zjGbtS7wL9hnOkja83lnWlLTe1yjVqVTDT7RWg/F3AyunFLqzFB9QxVad+4Fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792497916;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=3rUGvuaVTTy+ZOb7QiqULfTKmRQxwC5KzfroeU94W3c=;
-	b=LoeG6ME/ZWm5z6FJB3bI8c8lXiJtR5VI5HRIX+IAm70qlO9JtRk/FdgV0eSVbxLuY+DD
-	 ARdRfGfitv+5OubVXq4yfekYxENyaMj0MdjiFD0QY4Jk7C37FDeMCizC9PX5B74RayAoh
-	 lPZFE0j4yhHjSa/EwwVv2OXXbmAHFZ5ELZfoN8JFU7Tsg0qZmTijYnPbiOGP73EYfOeNx
-	 6CUEr2HkW1PPxn14cl3Lbwd7PzBWieCjQoXBglUuG+V9eKahufxfVFbZklnclcMvXuOIn
-	 Q3Pb8ZMfdCyIVhmzv1yhG+JScVR10OQQjwGGwkOsdL6Aw732CkxwBRUgkJWNA5mb/vg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792497920;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=037It5JgAOu4z9VMKcMbYkeaMZRVptrSOJrPIu7UqgY=;
+	b=B2r1VdN7n4oUjFpske6Hz+puIJhXhNg5Tnw5BF1nrDI4+D/HWqlrK/6QAuX6jE2hFULT
+	 y4ulB5sE3bDtO84nnWIF+XYZTS1EH40ZIhaRuBZUfVRHsMp8lZN2LY5L2LdqdIMVA38iI
+	 chro82c0QH6fr+TY7a3nSDedazVxs/OwL0FBLzzqwJfnofcVrn3uiN4V/PrXhpH3uTp5t
+	 0GQJO+clH7QIrwYLjFxbSxA84fj/v53zBNEOfZlbSF+MSa8esqR+N/w9cqsBA3+ShYRwe
+	 pr4JwuxO3zChGjuohYcF0oKfEctxwiSrpZ1ppCaX2uc3Tl8OD2b0QbZl6IGf/skbc2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iSv62ugK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=NApZQGOH;
+	arc=none smtp.remote-ip=115.124.30.98
+Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC905606A31A;
-	Tue, 20 Oct 2026 12:05:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC500606A31E;
+	Tue, 20 Oct 2026 12:05:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC500606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iSv62ugK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 271851F000C6;
-	Tue, 20 Oct 2026 12:05:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792497915;
-	bh=3rUGvuaVTTy+ZOb7QiqULfTKmRQxwC5KzfroeU94W3c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iSv62ugK666I+rMSJ2KdftrD5ohEdfUYkw/dR1CzFfDtijTXtsc9QJFpCRxA91Lv4
-	 hoFWMtlvJNQ3zi5AVQNs54HxJ9YkYvyHk8djA48iX9NDcoAZIz6NemKAWy70JX9Sf8
-	 aRGYsVzkYM0Te2EJ8x/Go9bVL8XtdBgm5/PprTgHZ21Yg4L+Rvi9QX3CPhXs/TlVlw
-	 oe8MnlVfCNLNTnp5AuLplj18Yfs9e7Wh0pWHeSfb8buxkescVy9gVlXTcKdQOu+Cr7
-	 aGL9BVfraXpP6KipeYu6UYAjYHCZ7RxaOhh9gKMAiVu6c1FHhGGeco5Mo2LO9PhtoZ
-	 UVnOXvy8uTy6Q==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id C324D1AC57D0; Tue, 20 Oct 2026 13:05:11 +0100 (BST)
-Date: Tue, 20 Oct 2026 13:05:11 +0100
-From: Mark Brown <broonie@kernel.org>
-To: =?iso-8859-1?Q?Iv=E1n?= Ezequiel Rodriguez <ivanrwcm25@gmail.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Mark Rutland <mark.rutland@arm.com>,
-	Deepak Gupta <debug@rivosinc.com>, Alexandre Ghiti <alex@ghiti.fr>,
-	Albert Ou <aou@eecs.berkeley.edu>, Shuah Khan <shuah@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	James Morse <james.morse@arm.com>,
-	Yury Khrustalev <yury.khrustalev@arm.com>,
-	Thiago Jung Bauermann <thiago.bauermann@linaro.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Zong Li <zong.li@sifive.com>,
-	Charlie Jenkins <thecharlesjenkins@gmail.com>,
-	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
-	Zishun Yi <vulab@iscas.ac.cn>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/4] arm64/gcs: release GCS on failed fork
-Message-ID: <atdY90gcVwbHu2sc@sirena.co.uk>
-References: <cover.1792179433.git.ivanrwcm25@gmail.com>
- <2539f61f79a6053e2a33a1d1ae9df09013c04bd8.1792179433.git.ivanrwcm25@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=NApZQGOH
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792497916; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=037It5JgAOu4z9VMKcMbYkeaMZRVptrSOJrPIu7UqgY=;
+	b=NApZQGOHBBTy9cGr4Nsiq6EF2M0qrLExdlkDTU0Pz/32rncqOj1cXGH88zGdTPN1jNgnbz0AXanQUoQaRdyfeym79X3Q8qwo1gIwGUSyKOAo4+SvmcNT13BfsaW1IDSP5zOOU5/9FUkDgx5q0S3+Vw4DliZ5RIboI6Vjrr8Wbe0=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R641e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDDJQnq_1792497915;
+Received: from 30.221.145.25(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDDJQnq_1792497915 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 20 Oct 2026 20:05:15 +0800
+Message-ID: <018d8feb-2e63-4a73-ba36-10a5f94f3341@linux.alibaba.com>
+Date: Tue, 20 Oct 2026 20:05:14 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,71 +53,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gxc4xle/qhZ2446+"
-Content-Disposition: inline
-In-Reply-To: <2539f61f79a6053e2a33a1d1ae9df09013c04bd8.1792179433.git.ivanrwcm25@gmail.com>
-X-Cookie: You buttered your bread, now lie in it.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ocfs2: Cache the mount context for dentry lock
+ callbacks
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-objects-candidate-0012-v6-17b58652a3505eeecb0c@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-objects-candidate-0012-v6-17b58652a3505eeecb0c@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
---gxc4xle/qhZ2446+
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 16, 2026 at 04:46:00PM -0300, Iv=E1n Ezequiel Rodriguez wrote:
+On 10/19/26 9:49 PM, Cen Zhang wrote:
+> ocfs2_drop_dentry_lock() drops the inode reference before releasing the
+> DENTRY lock. This lets inode eviction release the local inode and open
+> locks before a remote unlink can proceed past the DENTRY lock.
+> 
+> A DLM callback can still arrive before the DENTRY lock has been dropped.
+> ocfs2_get_dentry_osb() obtains the mount context through dl_inode->i_sb,
+> which can access a freed inode when the downconvert thread drops the
+> last inode reference in its post-unlock callback:
+> 
+>   Downconvert thread                     DLM callback thread
+>   ------------------                     -------------------
+>   ocfs2_process_blocked_lock()
+>     ocfs2_dentry_post_unlock()
+>       ocfs2_dentry_lock_put()
+>         ocfs2_drop_dentry_lock()
+>           iput(dl->dl_inode)
+>           [inode reclaimed after RCU]
+>                                          ocfs2_blocking_ast()
+>                                            ocfs2_get_dentry_osb()
+>                                              dl->dl_inode->i_sb
+>           ocfs2_simple_drop_lockres()
+> 
+> Store the mount context in the DENTRY lock resource's l_priv field and
+> use the default mount-context lookup. Recover the containing dentry
+> lock with container_of(), as already done for refcount locks, and remove
+> ocfs2_get_dentry_osb(). ocfs2_dismount_volume() shuts down the DLM before
+> freeing the mount context, so callbacks can use it without accessing the
+> inode. Preserve the existing iput-before-unlock order to avoid delaying
+> local inode and open lock release until after the DENTRY lock is released.
+> 
 
-> Select HAVE_EXIT_THREAD and free the child's GCS from
-> exit_thread(). gcs_free() already ignores a cleared base and a
-> different mm, so the usual exit path (deactivate_mm() then this) is
-> a no-op the second time. copy_thread_gcs() zeros the inherited
-> tracking before a user-thread allocation, so an allocation error
-> still skips exit_thread() with nothing to unmap.
+ocfs2_dentry_convert_worker() still reaches the inode via
+OCFS2_I(dl->dl_inode) and writes oi->ip_flags |= OCFS2_INODE_MAYBE_ORPHANED
+before its OCFS2_LOCK_FREEING/dl_count guard, and ocfs2_unblock_lock()
+invokes the worker without testing OCFS2_LOCK_FREEING.
 
-This makes sense and mirrors the handling on x86 which had an existing
-exit_thread().  There was a lot of pain finding the right places to hook
-in here, there's far too many routes through this code :/ .
-
-> A kthread copies the caller's GCS fields via arch_dup_task_struct().
-> kernel_thread() uses CLONE_VM, so during a failed copy_process()
-> the child still shares the caller's mm and gcs_free()'s mm check
-> does not save us. Clear the inherited tracking as part of kthread
-> setup.
-
-I'm not spotting an equivalent path on x86, it's entirely possible I'm
-missing something here but if I'm not then I expect they need the same
-fix?  They use a similar memcpy() for the arch data and I'm not seeing a
-reset anywhere.
-
-> @@ -503,6 +513,17 @@ int copy_thread(struct task_struct *p, const struct =
-kernel_clone_args *args)
-> =20
->  		p->thread.cpu_context.x19 =3D (unsigned long)args->fn;
->  		p->thread.cpu_context.x20 =3D (unsigned long)args->fn_arg;
-> +#ifdef CONFIG_ARM64_GCS
-> +		/*
-> +		 * kernel_thread() uses CLONE_VM, so a failed
-> +		 * copy_process() still shares the caller's mm.
-> +		 * Inherited GCS tracking would then look like a
-> +		 * child mapping to gcs_free().
-> +		 */
-> +		p->thread.gcs_base =3D 0;
-> +		p->thread.gcs_size =3D 0;
-> +		p->thread.gcspr_el0 =3D 0;
-> +#endif
-
-I think it'd be a bit more idiomatic to have a function to reset the GCS
-state that gets an empty stub with !CONFIG_GCS=20
-
---gxc4xle/qhZ2446+
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCatdY9AAKCRAv73Ows9A4
-iWTwAQC7iQAwJ8AvSpT4za/gdMW9NJKIrjii+W62TxSlegpBlwEA0ZL335q7PnHL
-KBKZVvTQfALmAMz+nHizc7SQa5fSOwg=
-=NmUr
------END PGP SIGNATURE-----
-
---gxc4xle/qhZ2446+--
+Thanks,
+Joseph
