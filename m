@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792460364;
-	b=cEQgPJfFTGU8hECfIWTVY+/ZQpb0eUGnGLnX0xejhacmsvpPqup3zKqKdNGYGgwcLBAY
-	 AS7INcJvBRRIR2D91o4z85L3ENEXlCFGYskIBvEE/f4DIsed0e+BPFfAR8lNss2gvHJLd
-	 pQIEatlztkxHka3wbo7Avc/V+QDyBLrOGUMGY6zk3UMM1JducCL0E9Y5+1a1aEEX3PHzC
-	 XWJVqIq9TeET/n/OIG+Ollss2opqXNp+yar+Z7W8laKzVVvI2MJimjA1IoR5fQC5sxrCR
-	 rKOU3VHkqlb+F3/yKJJRNnTlGatWwAFNMOaOb3NNVMw1uaR0MjTmfXukLjV3VTjqprw==
+	t=1792460361;
+	b=0UWXM8A7sSDnn4YbPO4h5Hy0hflboDuk9PqrJMJyl4y2ITI4X4m4SzrHS3yI1Az81Ktu
+	 YYzzDD0K9PowgqP8Ei3OSD5J9Qvo7DlBR23vqJ5jdcSWvevD7XitnJfDlVheo63J6ptD8
+	 rrJyQe4WrRuEF7sxv+mR6OVJvM5QYDysQxLfmxO8r6WPwiclZSAhGJ3NyHi+b7QTJrEv8
+	 +ERnA0dBktORCdaQGcuC+2H6ll583M9MkfAnktcwvlOCLnJin7xP7/09lVw+6S1GYqnuh
+	 Uch+ZTUvH1YE9ZSKYpDahzhpgzmvPWhQYs+yHURrTb2/0WAiV9VPZrOxtSFx7pJb7Ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792460364;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792460361;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=c8HLZiQwinILcb8NHotneX73qYTCfJXD1L2tSseW6Ug=;
-	b=NCmCuNbtruOKHn76bQJhIHCI/dDJCZUwy0di1Mo3Aw5NL06n1odaAikArA6j39TCN69Q
-	 NhY/HwjBvV9ZR0kwtAM/dSpM3QapIcliB0N7PfWF5Vlqmz8Wj44l0p9wk4rZBTbVmprMC
-	 t18vH0GZ+ek88BEVFzxm50/Alnc/ZPe+NxhaokSqH7DnbLdWM1CtOLyYbmUWQ9+2BDM3H
-	 1CJMZWTFmGt6lNY/MchMCtKom/MY/5MZWiTJSd+oFTm/Qk4xCVFj40DMRLyMU3+8X/R+P
-	 KcololfU6dLmQyVg6AF8E0fmsIxA4phVowZ+bHaWU4sF15e2YGl+63VRCiYgxZrXvCw==
+	bh=psGVTUYIsS0oYc2CZwBJkku7/c/lOtk1cT1WkJOmJmw=;
+	b=O2PC0CaTzsq3Zh108ewehJqkya0V1vkYm2iKdZWxSs7h3d4DgBpxWfTJkGJRxaSpwYER
+	 /aOJ+laQHk4a5C+bvqSTIo7BAchuFG1sFE64aOhey9UR6PLDYW0VPCjcFgroaq0mm3krg
+	 xoPSNmwEq4dFmHtvG++rJJWYvF8rSMS9YrPG9yxSLczaRwfL3LsVJ9NmsQjsknkS3d4zN
+	 tmOzEV7GZ1Ui1BZIse0Mh1/4fGSWZAWavebhvOHL44if3KY1mo0Rhe6I3HIYsGcW6+XeF
+	 Nryad8McZGLtQ9wtHE0hLB/wHUJPNPz15x8BZ8lxdL3hpOlRMqteN90aIs1hVc7+qQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QWxlEMXw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hkNOFHFT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 9E1DC606A33D;
-	Tue, 20 Oct 2026 01:39:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C0936606A32E;
+	Tue, 20 Oct 2026 01:39:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QWxlEMXw
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EFAFA1F000CB;
-	Tue, 20 Oct 2026 01:39:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hkNOFHFT
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D31221F000C4;
+	Tue, 20 Oct 2026 01:39:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792460364;
-	bh=c8HLZiQwinILcb8NHotneX73qYTCfJXD1L2tSseW6Ug=;
+	s=k20260515; t=1792460360;
+	bh=psGVTUYIsS0oYc2CZwBJkku7/c/lOtk1cT1WkJOmJmw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QWxlEMXwNH8raa3urVkoyKULJtf9a615bycG98eky7T7XHpylDFueKgPeXYgB7Hoh
-	 whbeUP2TAUJKXxu8FBU689UkSalPDO8uoCrvLZFstTELeOXZP7juif7OXlmDrmbvWS
-	 tIr2oeCNGFuQ5xCKBx+nXafoFHkMiLTluILWHvYLKuGtdDPVgRtvohhYxPuqSh57lj
-	 SrDLEcUH6b1UHtnkorNk2Xdv3mqNKAyYzkIAXph3JaP3Wz1qM43TjKlM/cOMAG9v+T
-	 n+ILlXcq8AtIOeCIh+FA+WMmt1GVeEsbw0RMJ0q27ESOWNNZgYJefO9QwUtzD3/F/Q
-	 d/G0l0kk1w3FQ==
+	b=hkNOFHFT18al5zoou4LGLid0BekDOeiv1v3RYldl/30eS9RZndt+f2jpzA+LIQ/NJ
+	 T4m0MTT6DFHx/dFpUmPtQM/Y6u4JdOVPWL2e1HH56kvv+wvyZ5otSZbOu/JyWBdtxd
+	 E40WOy8jqSVv1Na87eRRnU2uonjfCqY6jvLgKgNHxnZKhIJ1lxbNodoFazexdg4948
+	 pr2W56tOG2WOdHfjlLteSKNEJhuO4y8ib9fnfDW6eXpVlxP72982UWvWJNLWC4rzbQ
+	 FeD4rZIxG/WV23yhs4DWj7e9blj5omxhprdExMdVEX03Rc1qcbbqMa5ss80u4GeGIi
+	 zRiRaNKn8xBMA==
 From: Jarkko Sakkinen <jarkko@kernel.org>
 To: David Howells <dhowells@redhat.com>
 Cc: keyrings@vger.kernel.org,
@@ -48,11 +48,11 @@ Cc: keyrings@vger.kernel.org,
 	Paul Moore <paul@paul-moore.com>,
 	James Morris <jmorris@namei.org>,
 	"Serge E. Hallyn" <serge@hallyn.com>,
-	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v3 3/3] KEYS: Verify the key identity in __key_unlink_begin
-Date: Tue, 20 Oct 2026 04:38:57 +0300
-Message-ID: <20261020013903.1244157-4-jarkko@kernel.org>
+	linux-kernel@vger.kernel.org (open list),
+	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM)
+Subject: [PATCH v3 2/3] KEYS: Reject @desclen values >= KEY_MAX_DESC_SIZE in key_alloc()
+Date: Tue, 20 Oct 2026 04:38:56 +0300
+Message-ID: <20261020013903.1244157-3-jarkko@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261020013903.1244157-1-jarkko@kernel.org>
 References: <20261020013903.1244157-1-jarkko@kernel.org>
@@ -67,59 +67,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When two keys have identical type and description, linking the second key
-replaces the first in a keyring. However, attempting to unlink the first
-key (no longer in the keyring) unlinks the second key.
+@desclen in key_alloc() is saved to the 16-bit wide desc_len field in
+struct keyring_index_key.
 
-This happens because __key_unlink_begin() calls assoc_array_delete() with
-&key->index_key, matching only on type and description rather than the
-key's identity.
-
-Example:
-
-  keyctl new_session >/dev/null
-  keyctl newring ring_a @s
-  keyctl newring ring_b @s
-  A=$(keyctl add user A ss %:ring_a)
-  B=$(keyctl add user A qq %:ring_b)
-  keyctl newring R @s
-  keyctl link $A %:R
-  keyctl link $B %:R
-  keyctl unlink $A %:R
-  keyctl show
-
-Verify the key identity before unlinking, and return -ENOENT on mismatch,
-instead of unlinking the key with the wrong identity.
+Reject @desclen values at or above KEY_MAX_DESC_SIZE with -EINVAL in order
+to match the userspace limit. The constraints inherits from the one byte
+required for the NULL character.
 
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Fixes: b2a4df200d57 ("KEYS: Expand the capacity of a keyring")
+Fixes: f771fde82051 ("keys: Simplify key description management")
 Reviewed-by: David Howells <dhowells@redhat.com>
 Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 ---
- security/keys/keyring.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ include/linux/key.h    | 2 ++
+ security/keys/key.c    | 2 ++
+ security/keys/keyctl.c | 2 --
+ 3 files changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/security/keys/keyring.c b/security/keys/keyring.c
-index 7143f3079d20..b025331488c5 100644
---- a/security/keys/keyring.c
-+++ b/security/keys/keyring.c
-@@ -1501,9 +1501,15 @@ static int __key_unlink_begin(struct key *keyring, struct key *key,
- 			      struct assoc_array_edit **_edit)
- {
- 	struct assoc_array_edit *edit;
-+	const void *object;
+diff --git a/include/linux/key.h b/include/linux/key.h
+index 26139c3adf62..fa88de9b5a9b 100644
+--- a/include/linux/key.h
++++ b/include/linux/key.h
+@@ -37,6 +37,8 @@ struct net;
  
- 	BUG_ON(*_edit != NULL);
+ #undef KEY_DEBUGGING
  
-+	object = assoc_array_find(&keyring->keys, &keyring_assoc_array_ops,
-+				  &key->index_key);
-+	if (!object || keyring_ptr_to_key(object) != key)
-+		return -ENOENT;
++#define KEY_MAX_DESC_SIZE 4096
 +
- 	edit = assoc_array_delete(&keyring->keys, &keyring_assoc_array_ops,
- 				  &key->index_key);
- 	if (IS_ERR(edit))
+ #define KEY_POS_VIEW	0x01000000	/* possessor can view a key's attributes */
+ #define KEY_POS_READ	0x02000000	/* possessor can read key payload / view keyring */
+ #define KEY_POS_WRITE	0x04000000	/* possessor can update key payload / add link to keyring */
+diff --git a/security/keys/key.c b/security/keys/key.c
+index 6ebb8691551f..e9f8cacf00c8 100644
+--- a/security/keys/key.c
++++ b/security/keys/key.c
+@@ -245,6 +245,8 @@ struct key *key_alloc(struct key_type *type, const char *desc,
+ 	}
+ 
+ 	desclen = strlen(desc);
++	if (desclen >= KEY_MAX_DESC_SIZE)
++		goto error;
+ 	quotalen = desclen + 1 + type->def_datalen;
+ 
+ 	/* get hold of the key tracking for this user */
+diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
+index 36ffba0ebba6..d6b10fd67627 100644
+--- a/security/keys/keyctl.c
++++ b/security/keys/keyctl.c
+@@ -24,8 +24,6 @@
+ #include <keys/request_key_auth-type.h>
+ #include "internal.h"
+ 
+-#define KEY_MAX_DESC_SIZE 4096
+-
+ static const unsigned char keyrings_capabilities[2] = {
+ 	[0] = (KEYCTL_CAPS0_CAPABILITIES |
+ 	       (IS_ENABLED(CONFIG_PERSISTENT_KEYRINGS)	? KEYCTL_CAPS0_PERSISTENT_KEYRINGS : 0) |
 -- 
 2.47.3
 
