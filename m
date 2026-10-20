@@ -1,50 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.132
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792512596;
-	b=mGrZWJyz1+CmJYsf98KA8E5LPaJKPHqEfL8m4kTYNue9PIsMxCTtilhm8kUPZJ3AyenQ
-	 hhh9rTyRLrU+bgahoP7w1OMs+/IULweWmd6PG/I3B7WVHt3MzNyabF0DWZgLY4GBlcxxf
-	 oFMVtIiAag06+vGO9s83B1aaWSIay6Zl+kNQKGH2qGPwhsxM70rmHNHYJtzOvOwI1Knym
-	 XAQKynaL6yvfS2Hy09bzWmxPSZvBF9Na91EW2gjmUQC67psPeLUJY6u7H6PippQ53qVwZ
-	 k1akKAnwLBXAN7UUfBcToSn+yv0Hj+PuFGO1gn8t2Reh2Es83pcnYk91ZNsjK/t6BtA==
+	t=1792512688;
+	b=ZgTGBPZyG2xcGf3zcJTNVS0nbGAtEVRNK08Rd5gKbKHiQN29onOwq/kFKoMQ98dou3zQ
+	 iSWOzPZyvzlCkWqcWGfE4rrdk2dvA4gnBdS19MEEsAMBdfunmEQXS7SWwuCnS+LrJ6oIe
+	 xpDb4mNbrYGXKSAjMIjtpWO9omglHHQKA3gS8bGgGvrMijCjWL3Q9n+j9qG4WuY69gali
+	 31MW3vAZJ+Jjm4JqIimjVm4IjkhhET/P6CQxp4mvkwPT4/CJhhxao/D+d7tyOKJTvot9o
+	 jXfLskGlF+7sdTZXnYDYGhT5tSTzG2vesQshWvLJ3dYMaUWRznd8RdcXvhMPON3F1QA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792512596;
-	h=Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=SkddLdbYxFjr6f3gV2lglxwsCWBWEgg7C72bs+eqvCA=;
-	b=y4pvfk1dg/ErYVZl3yI9w/qX4tuvdeDnwtzN0S71XIewxzWUBT9SYzo+XSV9GMtVJiTD
-	 xS6IY90T3ijvRMQtnG2KjX9yYtcz67v+Ldb8/Nk16dt8YEXSiGS39vZWqJZIY+UVdnLR7
-	 TCcNpuICeteQpt00LZyOl/7eqdRLca6BOZFwWxBG0NCTexdRzfUWBlDqAb02PI+Of2AJD
-	 u/QAHLuY5eKe4Trz5M3qEPLWFl/CbfoyHWIGPPDLcghBb11JtQjDzaBpTti2CtUnK0kEP
-	 3FvFy2JtoZC7QXGnWMK8xIcwCf1nLYA/mEmGYkxer00DA5As0QBdVx4R6uSnZydBYXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792512688;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Message-ID:
+	 Subject:In-Reply-To:References:MIME-Version:Date:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=FdKpeXgyqOVEtVxGXAfcleh4j7jtKB2IC4Gxgl29KOA=;
+	b=M3T0AQmZlq7D4vC6I+5tcqf3S+UZxhoHbO0gmtyWwq1rzpaJPonIkGjgrPbWO6zUPbE/
+	 eOFJH2VNiDTKJg5moZ/inGyHTWL/JSg8dY/S38ADIXkZqNaY7AZPh0oC8fhXObrz1ALzV
+	 Gtg6aAKnAmMzkF0IEmYYvn+6sgeORqjwr9bwyzTnIM40dTrv0xv5kZSEX1pTIVqKqBYAF
+	 H+oTS/zY3yz+YwFBTTCQ1YgqLpgfERV6P9oIUvVFZOsEicbYp8NItR7SDU9v6Z2dwKOFv
+	 w5gYY1ntV9znJcJ1uUHEJ54XBrquMO61BMOXIwLaeGjdPQPigNd0dzTBmqli25X5+oA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CuoxquBo;
+	arc=none smtp.remote-ip=74.125.227.132
+Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 5A259606A319;
-	Tue, 20 Oct 2026 16:09:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 6CB671F000C4;
-	Tue, 20 Oct 2026 16:09:55 +0000 (UTC)
-Date: Tue, 20 Oct 2026 19:09:27 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	stable@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
-Subject: Re: [PATCH v3 2/3] KEYS: Reject @desclen values >= KEY_MAX_DESC_SIZE
- in key_alloc()
-Message-ID: <ateSNxKG_G6WSK1N@kernel.org>
-References: <20261020013903.1244157-1-jarkko@kernel.org>
- <20261020013903.1244157-3-jarkko@kernel.org>
- <atbIP003h_YHofQb@kernel.org>
- <20261020022832.GA3727@sol>
- <atdJC3-PsaNh9PCA@kernel.org>
- <atdl74PtEpLxVPdd@kernel.org>
- <20261020155013.GB699485@google.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B61F606A323
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 16:11:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B61F606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CuoxquBo
+Received: by mail-pj2-f4.google.com with SMTP id 98e67ed59e1d1-3ac96ba6a4eso510517a91.0
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 09:11:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792512683; x=1793117483; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:date:mime-version:references
+         :in-reply-to:subject:message-id:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FdKpeXgyqOVEtVxGXAfcleh4j7jtKB2IC4Gxgl29KOA=;
+        b=CuoxquBor9JijeH/KHLFj9U+Vm2XSz4NWdqU/UEtZjgpCp042Q+FKc9oHx5beK6lq1
+         F+KUUtXSUbuywmeVZzCi0yNbz5gi8JlNgjS2O0aNWvURzdjmnVuATAaaAwq+6Kjaksml
+         AkO1vHHkWEQTN6X3f92YpcaGjf9drKfVY6s4iCtH4vyEzUOpq9nk0T/VfZsIxsibvidE
+         YpJA2Ei5PUqfCsQTsh8K309I8M5yEl96bwEX19Q5CvhXsbhaAgukW7JXAEUhOOb63lms
+         C0nFzmcoYPivqysdbuEtoTRB4BDOA11gaNA4vkrMtArBxzfJjFOIZsgT3RoMGeo0VMVw
+         rjTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792512683; x=1793117483;
+        h=content-transfer-encoding:content-type:date:mime-version:references
+         :in-reply-to:subject:message-id:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FdKpeXgyqOVEtVxGXAfcleh4j7jtKB2IC4Gxgl29KOA=;
+        b=eCvHlB8mqrb/1AeXopjdccNValzUiFXGdUFFBByp7iYyYFCdwJVNk0X6h2Z0ORZZIK
+         GX7+oETRSxIdPYACr0MzJM28JnfEijMIBUxPbAO4YlWV7+aeHxJrgtV/PWcrCzia4UeW
+         tGIurYmbU5iMiSV0a2Bl24PD1lCgCfWuaGDRDolpr6tvq0Ql3ew4veMfgpmaNciePOrG
+         7s7QsTpsRbCGSqcSzFdui8vOLjP7qdMUoYXqyw+UIMNe2jNGjlbNZtadKWGAeR0APbqZ
+         iaZRISDRq5F/q5ycmdFDTbarbCW0BrYuobOeozM33WVksVBVE3yaLl+svNVtog39xMb2
+         yOUg==
+X-Gm-Message-State: AFq9FYI0EF/z10DpKIYX8uaiuMoeYnyfqkXx/QvNkZToisz1vYUQK9PK
+	MnHDxCg8RjCLuAAJ2IyDhq6CE+rYJs5FbQUjOvmekosqtqZpUHPwv+TK
+X-Gm-Gg: AYBFou3bCRVeEwdcl20Wp6PstZa6IC1GRY9a6U9H/a6K9u//MW0HpMVkSbyf5FUl6Rc
+	gdCl630rP3Gj0AXPV9ez9omJuswVvGmEo+fyvnrYJk6gPh6RJsBbwdXkTr5dvjcT5nvY7PIeplC
+	yxt/D0Hd3mI+A3LFAq0b2OK8i+ubNFUOjUy0SsrnQdbCLPbBl43lcALss82gEJa6hKP64MCDXnj
+	gZLGu8SOIpOBzbImu0fQ8vGesfcpbmiDJ3LTa2koQ1S07kw2M0fmchErBesCupBcC0Lw1+qfdO/
+	h57rFspCLVjCqBsT6z0TSVf9L9lxhnyV365iFnsp0IXuxTvqFOxtf0vaZ4tsPSqAnP8wZDCu1fa
+	Fd6Xe00NxDAgOKg6CjDSMG4GgUB4ydZL1R0qbvTOhuLW6s/4L1vCXCy3Y3S+zrYQpcKobGjeKAV
+	ybhetW3dxPiyhgqx3ZdI9lMztxa3tvrVy2lBjtfon760Nqr0sMFbn94Nt41i3/y8MuZv4EcTcsx
+	t6jD4mm63tQbola0IWwzyS14qh8mmOTcK08UCjLBF54yb7UIMRfsFglxMjE0l2DgeWFCNde
+X-Received: by 2002:a17:90b:5345:b0:3ab:be66:ddd3 with SMTP id 98e67ed59e1d1-3ad64bd668amr1739707a91.32.1792512682581;
+        Tue, 20 Oct 2026 09:11:22 -0700 (PDT)
+Received: from localhost (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc9942956sm8903911a91.1.2026.10.20.09.11.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 09:11:22 -0700 (PDT)
+From: Aveline Noir <jm5905938@gmail.com>
+To: SJ Park <sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
+Cc: stable@vger.kernel.org, damon@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Message-ID: <179251032453.2.9019098760697634552.damon-quota@gmail.com>
+Subject:
+ Re: [PATCH] mm/damon/core: remove unreachable damos charge_{target,addr}_from
+In-Reply-To: <20261020023958.108276-1-sj@kernel.org>
+References: <20261020023958.108276-1-sj@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,56 +95,20 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020155013.GB699485@google.com>
+Date: Wed, 21 Oct 2026 00:07:00 +0800
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 20, 2026 at 03:50:13PM +0000, Eric Biggers wrote:
-> On Tue, Oct 20, 2026 at 04:00:31PM +0300, Jarkko Sakkinen wrote:
-> > On Tue, Oct 20, 2026 at 01:57:19PM +0300, Jarkko Sakkinen wrote:
-> > > > Sure, this fix is still incomplete though, as I mentioned.
-> > > > 
-> > > > Turns out Sashiko found this too; see the comment on
-> > > > https://sashiko.dev/#/patchset/20261020013903.1244157-1-jarkko%40kernel.org
-> > > 
-> > > I did not ignore what you said honestly but I overlooked generated
-> > > descriptions.
-> > > 
-> > > By comparing your v2 response and Sashiko's response and going through the
-> > > code this is the list that I have where similar check should be placed:
-> > > 
-> > > - key_alloc(): before quota calculation (in place)
-> > > - __key_create_or_update():  before assigning index_key.desc_len
-> > > - keyring_search(): before match_preparse
-> > > - request_key_and_link(): before match_preparse 
-> > > - request_key_rcu(): before check_cached_key()
-> > > 
-> > > Some sites might require some minor changes I just wrote the around the
-> > > ballpark locations.
-> > > 
-> > > Did I miss any site that you are aware of?
-> 
-> It looks okay to me.
-> 
-> > - Would it make sense to wrap strlen + check into key_is_valid_desc()?
-> 
-> I don't think it would be very helpful.
+Hi SJ,
 
-I tend to agree.
+> Catch the corner cases in damos_adjust_quota() and reset the pointers.
 
-> 
-> > - Would it make sense as a safe-guard to use strnlen(), which is capped
-> >   to KEY_MAX_DESC_SIZE?
-> 
-> Not really needed.  They are NUL-terminated strings anyway.
 
-This is what I thought based on that in all of the sites I could
-determine where the string is create/sourced.
+The patch looks good to me. I tested DAMON_RECLAIM stop/start after
+filling the quota on x86-64 KVM and everything goes well :)
 
-Just wanted to sanity check so that this does not require too
-many additional iterations.
+Reviewed-by: Aveline Noir <jm5905938@gmail.com>
+Tested-by: Aveline Noir <jm5905938@gmail.com>
 
-> 
-> - Eric
-
-Br, Jarkko
+Thanks,
+Aveline Noir
