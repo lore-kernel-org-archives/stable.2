@@ -1,79 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792472473;
-	b=b/CTBY3y1xox+OXYuAag8DUuz24NVaql9ndTE9GFUAunwKV13ElE4QQAxLoPuX84Tc9e
-	 bEwPasKYiBqcvl6FZPbQBjaxhXNA+zEhWZJyEa8cJOJ6KOHHiSfe1omw8Qn0aVyMbfvV+
-	 I+cUDxpmxLvHx4wfQnNoFBWtehVsjuWLyiBhdgOMZQVOKiAtYGPNe/4aol9zVEKNuQReo
-	 EBgH+8DBaHkyNP/GhbDELq1woyztSTmLB0Fyvj7V1BY7g0/QDgCqcSIOvVE4fLWmzSAAK
-	 ruVUuZpboF+P9EIXg7td0HjDBt3etCDYd09jmHDyTKT2M3wKnCpQWBJzsYuJPkl4t+w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792472473;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=0KzQIeeEq1j7KvnUgGUgtRVgM+dNg9zHgc1sfHL32Fk=;
-	b=13ZxoFl5HrbECxOWPIhnfUD9nnT9CSEHl9PPFpbhYAEzIbN+Rt46sGQif0Uli38RFC61
-	 v/3uYHc21laEGtI8y1yRJIApXz/qLwZ8LZIwDvOpmmrVIkhd4v0Z36s9twxbyliLYrxIT
-	 YJwifP9jZGqgSyUv8yzHyxyXuv5OjmK/zhCfSuzYH/fjeBSqlTbXuNeDjiYaJ3jelSXaY
-	 i9Mpx4No2QJSSvwgLxjBHdN/Wy3G7O5y1vl8E9wKaXi4TnzgMh5PR2hg18RhElAJZmoyV
-	 GdJasNPoZe375CzK8AsVHqc3rLTPGtnTTaTHqoJuTyQqh8X+/btk1iAVMwaaHlbyipA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f3d8WS2Q;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2A47606A31A;
-	Tue, 20 Oct 2026 05:01:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f3d8WS2Q
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792472472;
-	b=NCHjbVvFd37J0ujlyRi5g4m2lTYqSWmvpFOzazxAW5Ga8jU6CYxpw+KHZm9ooMJrImbD
-	 SZb2V0hBrzuKfYeYaZd5yO0Ddb1QbtZV74zJtxxhhgZYP0gkbsdbQZMcrRH++8BumSeis
-	 vlL5l6w7PWccjOAxMO1wzDAeIUCP/ytt8RQ6YtsvA7x9xT5fuNsierqtx5M8MRDqrKmzg
-	 UmOwFzBacthlyCBEEy44f+BjFsJfeFqB0V586CnOkm9En9q/ccaG+4+jiPqOUVCzSTYnL
-	 mmi6m8ClFQwB+HjsFcJgr1JRn+8Rl63DTRLGoZiM5HVWvaI5rE4HMU0dZtnDcBXmIeQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792472472;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792473294;
+	b=f3G9xOUP9uT2GK8Mv6fD49suaJjOyJpX72+U/Ox1SCTo/193qBW8uHG3gjjQwWFiV3jl
+	 kcBYJ/WBq/nE9Qn/pLjdY4Mjxl4ELM3Gy+e7KYfqw8asNFMIq1uVUIVBXC0RlK1bC/yLk
+	 a0TRN+wNHZvBqbWlHJl4T2+Uj1BCXC6wjoOqEmv8QCX3edzQGtNa+Gy6aoFstuiHWV5s0
+	 jZ78qLy+HPJiISTHE8X6l4ikwFwqzryrK+BDmUFiHux+RsOzkEArCPUS/dytC/z+n+F/8
+	 rxRgdasId85BZNr5CER8+BUNdVCv6n234gZaTbyQBuCHsxkZA4BTahBQkQ4kSR1uoRw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792473294;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=0KzQIeeEq1j7KvnUgGUgtRVgM+dNg9zHgc1sfHL32Fk=;
-	b=FFKCi32XmEs1k/uopyVLiq26+ykSyQfnXyDrNZwshhxsTEvO5mMGDfUltVpYS3BOgoiz
-	 BNjIjD3vfHbp4p0LBo+734mDYpvJMwiL1h3i4mVmOP1JMDE0U5bpvn3d8DfpglEfsuLY7
-	 HEfJCJx9Xd+FkvKzpJtUUkJboqyBQ0iJEbJ3e3tWUZPQl7s2I3lQ+ypFUaTbsfK5pQZ42
-	 pz1rTyy1fw72DuRk4W9qNovZrhHSb1d47vU30CUuBNN5wgsKe58+qxtaaVGH3oS8Z/C64
-	 UVkoFg++K9/XeRERa8ueciSJi1rNunFf2BNeen1hsdtAR0/CkMAwFlM6yeK1SASXO4Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	bh=TrZLjxuUWkEymBh2PSVn3/lyI3kENtzx2QTXaKgS9MY=;
+	b=5CA0jNnrMBno0yAPnF+wQJODW7VIGNU9AHi3Uy8VH3UG1hd3MjovSr73JvYyBKar7N4v
+	 bdAjBQ7XlJrq0hhsWUo8pjCQWXQL7y0oyFV6Oh1AGKCKi+E4O4zEzPpsVg+qPyeTmx4uf
+	 DkwA4uYxz8ND0h35pvvC3TvoRz9HFvVl08lt40w6XPSd1/0ud6Vkyzj9d5fOkQbFm+DY/
+	 PKYnRbYgtYk0JQhdqQw6BgqIsWB9olwRG7qTTvxTH37zoXZohA1PbLp7oQbzP20q/06YC
+	 g9M2B9xsqLSCGQDEwIfNDVYIv3iLhY3l4zCLtgHMou/fpzDu3fQE+d0vR/nq5nV2WAQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="pj/U+8sT";
+	arc=none smtp.remote-ip=209.85.216.51
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id CF5651F000C4;
-	Tue, 20 Oct 2026 05:01:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792472472;
-	bh=0KzQIeeEq1j7KvnUgGUgtRVgM+dNg9zHgc1sfHL32Fk=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=f3d8WS2QBplI3EscgQuAek2ESS8xkBK7IGDsU58vHKdONd8EER39vVV+eDXbZI6D4
-	 HD4RAe8FQVKB8Oz7b0USKxpP/ZzJiJ48Lle9fHCsqOQO2WnhBpwx6OEqvOm+E+zFtE
-	 MRF/Gn0wJPnKYYzc+BT1dOGsZk1OGKUAAXxVUhqNzEAeRJKUKwovSAx7usk2q6eTDo
-	 QQRYK9pkmJsijOqtnJ/UHygTTOxnbQXuZ6aCYoiuJfj0Z9BSFGDpyxqKaW4dDKrHfk
-	 JndFD1XUFTC0LZd4cGAJv0kEpoIAaXSNU6C6l5wmq4AuHO66IQfklE23BfoyMU14D+
-	 sBcb2zYI/oXzQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2E164406D4;
-	Tue, 20 Oct 2026 05:01:11 +0000 (UTC)
-From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
-Date: Tue, 20 Oct 2026 14:01:11 +0900
-Subject: [PATCH] NFSv4.1: Return NFS4ERR_DELAY when a referring call wait
- times out
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1CE7606A31A
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 05:14:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1CE7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pj/U+8sT
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ac7c7b3a90so1325250a91.3
+        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 22:14:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792473293; x=1793078093; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TrZLjxuUWkEymBh2PSVn3/lyI3kENtzx2QTXaKgS9MY=;
+        b=pj/U+8sT7PblrBdJkCpGeL6ASX2udgplnUPFcQFKQG3BPcwrOXWHzlHAFPQOJcZJZI
+         uNRbdtAb2pIPDl2pyRPQVH9WQLhw91c6oE2QvhkPt7a3ToJmcaSFeZNPwzcaqYE0BT4X
+         2CKHmJTb3voGDHNfKyWPzvb+diIMoXnbmzA5ovxp5ESExbdEqQeu1ZL9gnI1qYRTD+dN
+         VD4TZm4wJGbuzZpWJA9Vh8lwPexwq5w/2UEBytdfr6ommumrhGiBbFy2XpEwc8DLsnem
+         5T5MNWq4sz32gXflMK+dJ0NHSkx9CoocrkMrgA6bVN+ceyTVrC1+giRjTHG4vPZBBc7I
+         qBVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792473293; x=1793078093;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TrZLjxuUWkEymBh2PSVn3/lyI3kENtzx2QTXaKgS9MY=;
+        b=jkyShSePO5GitxZecCCqwCsLbFnY9uPInLGm8271E+0U/+A+y1xn70M+Y2I0WWT17f
+         570gjxAJyTxhq7tCiyS21q959rkD9pWjL5KGZ0Kr77wzSKkn/r0GKDzqGfQzVdhpYIv3
+         0NfQT7Mj88IArcVru0+Q2xgaF2nx7OF9mTbpSx6RxlI2dKSN2lJjhfSVM7uXCYJ0viLK
+         Y0ki4FPscetLMejPcEs67RX3+frldM33PamuFjpDnrm+lHmXY1BpPdyCv83g5Ut7eCbp
+         VDkFjdqOJqMFYn4b4fAhmkrnQOmPlvIhOO2sJvr5CSoFk054vJkbffjCR3Kj6GHG/nyZ
+         qhGw==
+X-Forwarded-Encrypted: i=1; AKwUvBwhJmCjMwA522lw5E1Gde+7fnPPX8S89E5e0KMGOaxK7kmfHLNrAA+FVYd384yPbFPfaB0NQwg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKM7U7OE/nGt3dCOBOW289JhK922nNa4N0m4qVxOog78SsuxwIK
+	T+50SrvXbkad+rYbU/cXPde9pqhEeYAYyS+hVKM4Vw7Pu6XxZPF+IMvD
+X-Gm-Gg: AYBFou22WbzJxqVqoGpnpg8VK7Zamwb0T5QyAKlob/mXWZ3NYwm419DhXZciCsLKBqc
+	AFKHOT9BDsEGxyuqJZz1Xi+WDHqfX6/AK03En63mV+t6ESD3m7GIcDI4juH+O45Y/CNqcYEztIz
+	EzVMI7OrCf+GcgJ00rlQflvoPw8erQ2CF8rhbFOZiwgPSzWt+c5bu1HDzbiJ2bwVfw+W8a6SplK
+	P1l6XPO+m7b0JSqxu5iCH7EefJbUWDKX4XhtdWBMVyAgIdpTrkGcU4y6HC04Enl4ambKgFZ3u3y
+	3V7+q9Hx5y0GkEPPKEub/Xwf1N59oZPceTk0NRcJdRjrCwZTEGI13gdXRia2ohAlqESwJUOykOq
+	YHHakknQ6UJ7mpK/mnfIT7dOw3sCN4VoxcA9JFnm64FCbpQX2XfXucCdqd6binL9ERsF4cBJM95
+	Ph+IV94cXy1GiuGHkZjCT8SPddGZcRrRRNgIV878kbd/h7NJ3LZA70TkoHUCfjJdpevUhqf1NZy
+	crSD+o0iSMnJV9B36s/LVwYoDk39ASV3WEyHd4NLD0NJo8Lqf5url8FKqC9ODgumf3FLSfaw8/r
+	yOvS0BxVAIk3rrrFzRz2nQZWsCsVmGoa/+fVCO9HvyroTUHS
+X-Received: by 2002:a17:90b:5448:b0:3ab:2d17:51c5 with SMTP id 98e67ed59e1d1-3acee98db60mr7985189a91.6.1792473292926;
+        Mon, 19 Oct 2026 22:14:52 -0700 (PDT)
+Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.249])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad64273f6csm1843353a91.15.2026.10.19.22.14.50
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 19 Oct 2026 22:14:52 -0700 (PDT)
+From: Yu Zhang <yuz08559@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yu Zhang <yuz08559@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] usb: gadget: f_hid: avoid copy_from_user() under get_report_spinlock
+Date: Tue, 20 Oct 2026 15:14:46 +1000
+Message-ID: <20261020051446.92179-1-yuz08559@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,119 +96,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261020-nfs-referring-call-delay-v1-1-0be8f0608f7c@samsung.com>
-X-B4-Tracking: v=1; b=H4sIAJb11moC/x2MQQqAMAzAviI9W9imVPAr4mFsVQtjSgeiiH93e
- AwkeaCwChcYmweUTymy5wq2bSBsPq+MEiuDM46scQbzUlB5YVXJKwafEkZO/kbqBrI9RW86gpo
- f1ZLrX0/z+36wK4BiagAAAA==
-To: Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>
-Cc: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
- Olga Kornievskaia <okorniev@redhat.com>, 
- Benjamin Coddington <ben.coddington@hammerspace.com>, 
- linux-nfs@vger.kernel.org, stable@vger.kernel.org, 
- Daejun Park <daejun7.park@samsung.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792472470; l=4242;
- i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
- bh=02LTmI/rckeyrcaFfqhLpIKa7n4ZNNpxGuJF72qSrHU=;
- b=fixfIzdcyuiXmZyiDH2FDbN0cdQRRWBrv/ep1P4uOFnwOkbh1Q31406/iWHYD0VOz9H5P3jBv
- w8dfkjDhysGCi81Eqfzxqwl7WNTCzD3UIovVYvnby3/HZwfOLHujptw
-X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
- pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
-X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
- auth_id=1122
-X-Original-From: Daejun Park <daejun7.park@samsung.com>
-Reply-To: daejun7.park@samsung.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Daejun Park <daejun7.park@samsung.com>
+f_hidg_get_report() copies the userspace report into a freshly allocated
+'entry' before taking get_report_spinlock.  When the report id is already
+present in the list it then copies the same userspace buffer a second
+time into the existing entry, this time while holding get_report_spinlock
+(acquired with spin_lock_irqsave()):
 
-Commit 045d2a6d076a ("NFSv4.1: Delay callback processing when there
-are referring triples") made nfs4_callback_sequence() wait up to half
-a second for each request named in the referring call lists and answer
-NFS4ERR_DELAY if one is still outstanding, so that the server sends
-the callback again later (RFC 8881 section 2.10.6.3).
+	spin_lock_irqsave(&hidg->get_report_spinlock, flags);
+	ptr = f_hidg_search_for_report(hidg, report_id);
+	if (ptr) {
+		if (copy_from_user(&ptr->report_data, buffer,
+				sizeof(struct usb_hidg_report))) {
 
-Commit 8618289c4655 ("NFSv4: Fix a sleep in atomic context in
-nfs4_callback_sequence()") turned referring_call_exists() from bool
-into int and made the caller test for a negative value, but kept
+copy_from_user() may fault and sleep, which is not allowed while holding
+a spinlock with interrupts disabled:
 
-	status = nfs4_slot_wait_on_seqid(...) < 0;
+	BUG: sleeping function called from invalid context at ./include/linux/uaccess.h:169
+	in_atomic(): 1, irqs_disabled(): 1, non_block: 0, pid: 3481, name: hidg_getreport
+	 __might_fault+0x4d/0x60
+	 f_hidg_get_report+0x155/0x310
+	 f_hidg_ioctl+0xbd/0xe0
+	 __x64_sys_ioctl+0x120/0x170
+	 do_syscall_64+0xf9/0x540
 
-A timeout stores 1, referring_call_exists() never returns a negative
-value, and the callback is processed as if the request had completed.
+This is reached by issuing GADGET_HID_WRITE_GET_REPORT twice for the same
+report id (the first call inserts the entry, the second takes the update
+path).  On a non-debug kernel a userspace buffer crafted to fault (e.g.
+via userfaultfd) would sleep with the spinlock held and interrupts
+disabled.
 
-nfsd has named the COPY in CB_OFFLOAD since commit b53a42970fa4
-("NFSD: Record each NFSv4 call's session slot index"). "NFSD: Send
-referring calls with CB_RECALL" [1], queued for v7.4, also names the
-OPEN that granted a delegation in a recall of it, and expects
-NFS4ERR_DELAY until the client has recorded the delegation. A client
-that has not recorded it within half a second answers
-NFS4ERR_BADHANDLE instead. nfsd sends the recall once more two seconds
-later, and if that is answered the same way, it gives up: a
-conflicting open then waits until the delegation is revoked when the
-lease time has passed.
+The data has already been copied into 'entry' before the lock is taken,
+so reuse it instead of copying from userspace again under the lock.  This
+also drops a redundant second read of the user buffer.
 
-Keep the error from nfs4_slot_wait_on_seqid(). A server that names a
-request the client has not finished with now gets NFS4ERR_DELAY until
-the client has, however long that takes, where the callback used to
-be processed after half a second. Each resend answered this way holds
-a callback thread for half a second; by default there is one callback
-thread per minor version, shared by all servers.
-
-With [1] on the server and a test-only sleep of five seconds before
-the client records a delegation, opening for write, on the server, a
-file that the client had just opened read-only took 90 to 92 seconds
-in five runs (lease time 90 seconds): both recalls were answered with
-NFS4ERR_BADHANDLE and the delegation was not returned. With this patch
-the client answered NFS4ERR_DELAY twice and then returned the
-delegation, and the open took 5.1 seconds in each of five runs.
-
-Fixes: 8618289c4655 ("NFSv4: Fix a sleep in atomic context in nfs4_callback_sequence()")
+Fixes: a139c98f760e ("USB: gadget: f_hid: Add GET_REPORT via userspace IOCTL")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/20260802-nfsd-deleg-destroy-badhandle-v1-9-323aa7196055@kernel.org # [1]
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+Signed-off-by: Yu Zhang <yuz08559@gmail.com>
 ---
-The patch applies unchanged to v7.3, next-20261019 and the stable
-branches back to linux-5.10.y. Before v6.8 referring_call_exists()
-returns status itself and the caller already tests it for a negative
-value, so the change has the same effect there. [1] is queued for
-v7.4, so this would be good to have in v7.4 too.
+ drivers/usb/gadget/function/f_hid.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-Tested in QEMU guests with Chuck's nfsd-testing b4e06bef3884 (based on
-v7.3-rc6, contains [1]) as client and server kernel; its NFS client
-callback, session and OPEN code is the same as in v7.3. KASAN and
-lockdep on, NFSv4.2, the export on XFS, nfsv4leasetime 90. The
-test-only sleep is a module parameter that makes
-nfs4_process_delegation() sleep before it records the delegation,
-while the OPEN still holds its slot. It is not part of this patch.
-Without the sleep the recall was answered at once with and without
-this patch (five runs each), and three async COPYs of 64 MiB completed
-with CB_OFFLOAD answered NFS4_OK in both.
----
- fs/nfs/callback_proc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/nfs/callback_proc.c b/fs/nfs/callback_proc.c
-index 3fb10c8e42..f4ccfa50a0 100644
---- a/fs/nfs/callback_proc.c
-+++ b/fs/nfs/callback_proc.c
-@@ -489,7 +489,7 @@ static int referring_call_exists(struct nfs_client *clp,
- 			ref = &rclist->rcl_refcalls[j];
- 			spin_unlock(lock);
- 			status = nfs4_slot_wait_on_seqid(tbl, ref->rc_slotid,
--					ref->rc_sequenceid, HZ >> 1) < 0;
-+					ref->rc_sequenceid, HZ >> 1);
- 			spin_lock(lock);
- 			if (status)
- 				goto out;
-
----
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20261020-nfs-referring-call-delay-6376146da036
-
-Best regards,
+diff --git a/drivers/usb/gadget/function/f_hid.c b/drivers/usb/gadget/function/f_hid.c
+index 3c6b43d..520892b 100644
+--- a/drivers/usb/gadget/function/f_hid.c
++++ b/drivers/usb/gadget/function/f_hid.c
+@@ -668,13 +668,7 @@ static int f_hidg_get_report(struct file *file, struct usb_hidg_report __user *b
+ 
+ 	if (ptr) {
+ 		/* Report already exists in list - update it */
+-		if (copy_from_user(&ptr->report_data, buffer,
+-				sizeof(struct usb_hidg_report))) {
+-			spin_unlock_irqrestore(&hidg->get_report_spinlock, flags);
+-			ERROR(cdev, "copy_from_user error\n");
+-			kfree(entry);
+-			return -EINVAL;
+-		}
++		ptr->report_data = entry->report_data;
+ 		kfree(entry);
+ 	} else {
+ 		/* Report does not exist in list - add it */
 -- 
-Daejun Park <daejun7.park@samsung.com>
-
+2.43.0
 
