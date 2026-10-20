@@ -1,90 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792509797;
-	b=WkC16pI9aHVWP6PZsljMDZE7Ok8c7dgv5/KDj9D+G8ezl4gL5bYK6IlIvjU07rQ97T7q
-	 wvi7GabnUI6zDEmVGP+k272APgbeEzb3SRfWzOmTTcNtw/GkRzjK01YKUuIgGgln5a45k
-	 zuSABBPWnLQUl/z0l1fiQdSnkQ1lxKv7BSCMIJumvnXTz2k2waeXHmSqueXf21KNptXvq
-	 A8x134RkHZYDAk92KHRRwncol6HLlAF4R0ggN/kVhCYGl36hP4XUpBeFq9UdxZvgqJxH5
-	 tyt+x03iZ7iM4W8stL+SDTyStGV57tsDzMQC7339/S4BhTCzRlJXwQn72PL4xIgPulg==
+	t=1792509880;
+	b=XKNyXfKDoeaglzRtSWZCgShPnk+PJYqjsN76zQY9UmCotVPcqWaQS6DcN5+v+pcMKruI
+	 5yXn9IURt9i+XSUBiROAp5jBfj584V2ivtJXXGnBxEmYWNH0QcnpDbJq9mTglYN99n4w2
+	 WUy3Wu9sUroCuTSXS7DEkPGDh+ebgl3qr+ATYhkGVHtJKnWVAZlCsquivGgLZBQg6yhn4
+	 sSbqOsTNv7f4gZhXApmCzitb8RFlmqUOCj9TKZOTy0FMMXFSOI39WJUk4WzmaKFgmH+eF
+	 juNO3d4x0Qnr2+XJFCIXl+HDvU3FQ0JRjOKBbY7wmO3IH/In8n0NoSH3wZ2xTJ4scAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792509797;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792509880;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=gRK1N06gC7y4lklCZOXSgRG5jNtEwJRUHirNfgb2kAs=;
-	b=ikkRxgCtTI81cnHSDgFlP3Z3SLUIpk4LLBaX2EAa8PiDlj8lU3sCisvbXEqrh+xS5lrN
-	 lZDsez30fap8A/lwAYLntI+boFVB2tC4J7nIfyjORgpv0QCyUz75i2PNXZWzfciVYDJOy
-	 Zxeuv+CUiEo1kz73zHRTks25bCDGvpPdILSrMqW8oZnxniLkYk0IX2b+crPb1fLrLnfxg
-	 3OfiK0tz1XeuVKQJEDd9Bo2i0IKX63d+8dqvAFEt+yLmS/KMYIXWqn60jCQ5h6N/E2NZJ
-	 PAqQfj0slOFnJSat5uiDDmor8sIrVNQcMyD6zOmDY2Goxz+Z39y0XYUdHf//uB99Oug==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=FFKFYTGpTq110qX3OBusAjjcUsko+0b14MxACIod3aE=;
+	b=hsfe0ab0Doo/LFrPUDuLXztmv9Zu9+6KZIaMFNiqwpQHLirsDbgGBPOv8XZ5IPNUaxy0
+	 nYra04hVVNwLDdgB3FqaV+yahZKrcUD/5UA3omGApLCoRMwPcWqbnjivpnnzFZyIBY+Bx
+	 Hh9otMFwsfJOgyxK1YOZQYGniZALqpeMduCCuqnfBs733c8Xzksgj1GSIyuwcXkbE2prw
+	 pO7SI6MrvBGEghXLH8J1YtegNTV7Ez/XC4XRIimH/XChZdlXRcj3gsQEycsYORFWsu9Gz
+	 qYNj2Z5Ge5AkxSLl8UGIsV/UgfPkU1uiG+cf30USqGregi1HDiWrejniEqoNL+/YGbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=dkPslbGk;
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VlqAK4+O;
+	arc=none smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC5C606A31C
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 15:23:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EC5C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D31A0606A334
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 15:24:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D31A0606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=dkPslbGk
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-35f036b17easo1302646eec.1
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:23:16 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VlqAK4+O
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c40e30c26a4so130817566b.0
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:24:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792509795; x=1793114595; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gRK1N06gC7y4lklCZOXSgRG5jNtEwJRUHirNfgb2kAs=;
-        b=dkPslbGkC1nueqKNXl755MPhADryHbix1NVdewPX8G0v9UdD7ZfloAWtp9AAN7zC5/
-         vaYuCEQu3zOAobsJcIgqUtf2wYzeZwthITqkeWWuj15jPJASH2wlHWmNoxpvWu6LHzWX
-         pL4Cz7cFTpzkQ6kEDymUiK2vJpxXPX62Ob7r7tJb5oqf5bHEiNDpj+vDwbTRL6iD5CnZ
-         +/vTZ6N4iowAvPU+hwW3vGLftpHfs7Z8U8fOkmCqAtbeN7lyo1IY8O4KrI1pJ4k4x21k
-         tPgoO+JyoZSiG5fgtaAFynGDBmqqeXrNIOYbilx19pq1K07EMW5CyFNpGsVuNdmFuf8Y
-         tGRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792509795; x=1793114595;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792509878; x=1793114678; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gRK1N06gC7y4lklCZOXSgRG5jNtEwJRUHirNfgb2kAs=;
-        b=aKVsi5URu+eYjwmgZBHnceBq8NOQ/l/Sc27rm/0ritf5GXV+c6jWfM+XKowwh+fLqi
-         XY0JNVGuSM0qbBLffOqTWmYCIqp5ERmHSxhsmnbahGcMSt3xnL0qHP8arrKlhmBOtAi8
-         zkUpxKzgwnT6kDx43eC/iTrTFZeOfsmVbz9QGhiO1s3K8jvxHc09iVQYrPpAKDt1ADvY
-         NRgELehLvqY2Xy7ERYAVx/gC7pbaTfkqTduYaKGRcu2QHW7NCXOKIZdI9yeDlS4K3ewS
-         psbFySI9OnqSdcrH2sMHqgWd4NH/ubQXllsKVRVfDeEh8ZHz+cLC7Y7ty3Sqdw4vtfqw
-         hlqg==
-X-Forwarded-Encrypted: i=1; AKwUvBxYlSc7kKv/SVbYTngMuA4syIKurgzCTM3YqYrZxvtGSKA964SuMKFBeFVdXUHZ+vbGNzHdBbE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIu6gAMs2JlRDLpfuOwI/Vn1BnHBfa848DYuk9UBrIHw7dBc/M5
-	e8s7Xb/Qk60HAu31D6627cB/GAEI5ER2eGNSDSonyZVRWOwMj52+uXf7EeufFQrMbKzH81x43mS
-	sHFxfox8=
-X-Gm-Gg: AYBFou21QIWDH7JXUcGciGoArPCcJCQ54NMyrfLpXz9+5gJz1I+FZX/RFqH01+tZ0xb
-	WQLRVO5i9DgLT/MbQOOg1P2OXvHMVTIi2oPrrDMuXq1yuGhWkq3LbI2y8pHlN48Eh7APrJJfku6
-	i/OwcIW3AUETgONDTUcSitul0s8+P3YuenE9FuuKHE8wvqWcZGxvj/jrqiau5W/X5r21vMxoN2D
-	WJpX33D1s8AD7soJNrLWBaiGZSyODENHKoHcFp/lPjtCgyYwCT1Mx3/Dxfi1MPjUQIlOBUztamx
-	lPLRNgU+XpRdv6D9jAHoo8e9qMo2gv87zqLYWweirrXAXdT2WzCjT2x/shf8IKsmxXY6IzDLC4T
-	tcVaLpivTjiAm6u1OX3JnXPWGt6UXn7aRnmvby9qcTQzSgrTaSA8LzE8i/nhxDq855lk5NPyG2M
-	txtfLzsDV574mE0lquIC/jGF0KbHC//kQoddvo5ujzioAECJXmA3B02HfPblqFMzC7C72j/P0xz
-	1gZ2Rc7sbD8LnRzZWRVw5mL0V0lofwoEKETmWagCU8qb8URu0u1A8etwEiPwAhq3vRBqO63gGYV
-	IBkRLb8ih7i+AeuxZj20tjsoPpZLuyYqBdAqgyLhUUU2fNAHljQ1QAc/qFQLoJqrkzxfZUxvHxn
-	r7nw0
-X-Received: by 2002:a05:693c:62c2:b0:35f:f0:8ed1 with SMTP id 5a478bee46e88-361a2a3f147mr13596612eec.36.1792509795251;
-        Tue, 20 Oct 2026 08:23:15 -0700 (PDT)
-Received: from [10.61.8.29] ([155.98.132.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b6ca5sm39540410eec.9.2026.10.20.08.23.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 08:23:12 -0700 (PDT)
-Message-ID: <694b548c-5f34-48f2-8ccc-5aa020c76939@kernel.dk>
-Date: Tue, 20 Oct 2026 09:23:10 -0600
+        bh=FFKFYTGpTq110qX3OBusAjjcUsko+0b14MxACIod3aE=;
+        b=VlqAK4+O4fAoKvoSRcPhhIDlfI6ZETlAY1GhZGMpDgijp3VIjQBeYdZuvyteCw8E4O
+         853q8UMeEao9ukn5oQwcsp3eowxyyzyoErFlCdXzlxweUWWBDJxJgFT9id2as/FHfuPs
+         /dqRQLeo/+nY7v0F1DW8Y2HJA8B81gjWdXN6TNBYQi4kVT8cYSGTddJok78G18DXME3i
+         fMqXM0C9yFsx2O0PbdeNgsvtyqwJjvLLGmjMaDAzeYqJM2KvYWT4e2qEdzW8ZEXFOX7y
+         hU5r5JUNqRH9lQT4pfeEfvZVVCYrDOd7vdrTNwL7bSRcwEVeTNtof7rzFxu/LfOxVLRQ
+         8/1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792509878; x=1793114678;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FFKFYTGpTq110qX3OBusAjjcUsko+0b14MxACIod3aE=;
+        b=ZuJ1FxtnUzyo84JXHyzhwTxla4NazPdecoP4rAZjKLuMypgrv30NtcWkaCvuNaIGDQ
+         vruPludFFIDn5TXQgh9a5vWpcFoWu88ODKvPARq8VbBiVNNo2rZTE/wDuHaMYRForMXS
+         Unjof7ZivtD7wPjUKlXJJ1yhIwheJ7GrpeB8bG08OiMXpqWh4phR9byj206A8sEkLBA8
+         JRa3rADfst4B1VoYu6iaPVEkYyMNcPHdfJCQjhsiMNIwzquyxn34p92E8aUbAphWJ9Ud
+         NzQ4hK/LSPbYQ/67laeXjUtim5r7zRmYtcmdiFpTJeapbK0D6urjs2XMlyd4VVXQQDYY
+         9UUw==
+X-Forwarded-Encrypted: i=1; AKwUvBy+lfLgpzm9MKer8NvMz9m+natxnlauL+DAu7BcOYOD34uwsyUS47f1VTRuEXVdiw+VQlkKSbE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJiF1Ti2sCmGMV+gPYVkKJZjQrQGsyTu9nzFvR1o93BKV7HRmnA
+	h0pm9R8bYtIHR339Bf8YxSL6jh5PTtNzMq36oxUQII2pzsJd0ZGDNJIh
+X-Gm-Gg: AYBFou20kTgiZl5gjmyrq9yf0vOc5dETUSmoBL1F/uKUtWM/NHZZ1s48fzujGDPoenA
+	tEj0gnnKCTbb7THkIW5xbscVQlvosP2F3hUaHfirIMeIr16qUNCiTKuiQQf01NgYGZj0lcPYi1T
+	wLj5diynBSka23kUovYykD2yiSQ3TP5Yu8BYlnpjZLzc3IUrmEkmwSrCulvvS8oH7l6mAZCBWB/
+	XdhHbzgONnwoknLJW6BDWZDtj9RcLhE0cjnbNGPs+rM/435sDwznc7BBOkIsbsZ+9VuJLMkROZw
+	SY9FGZRxXwb2Z0Xf6tHmRiOArHmKtBqss5TD/bMdqqeKcNIMNcdVHVbaAuJr/BRuqif3hV+f/lL
+	bj7panDsJ2b3L/jX94XyRCc9aEDG2Zg476QfjsR8WTSrbVgy3NyUnlAfwsLv7YvbRyuzfxdTwlq
+	FJmvnctnsCfr+r3Pp0stHvRmo1VGbuIjx09ekI7UNx5MI+2rWYBK9vQZOhiIDdziHnZBUaWCl4F
+	OIBNKd6RMGHHU/v7E70ExUJFXaVgxrUyILhtd3hjWYaRMQ/kEMPTUB8FKojmvL6l7oUqBZ96Yut
+	99495W5NkUfqIFGdYLrU1j4PWgFhSKnssw==
+X-Received: by 2002:a17:907:60d6:b0:c2e:616b:6763 with SMTP id a640c23a62f3a-c4600c87ff6mr231572266b.3.1792509877921;
+        Tue, 20 Oct 2026 08:24:37 -0700 (PDT)
+Received: from Martyna-s-A34.localdomain (ip-80-113-116-3.ip.prioritytelecom.net. [80.113.116.3])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40919bcfc5sm488110466b.59.2026.10.20.08.24.37
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 20 Oct 2026 08:24:37 -0700 (PDT)
+From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
+Cc: Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Mehmet Fide <mehmet.fide@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] wifi: ath9k: don't read past short WMI command responses
+Date: Tue, 20 Oct 2026 17:24:11 +0200
+Message-ID: <20261020152412.95560-2-mike.michalo@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261020152412.95560-1-mike.michalo@gmail.com>
+References: <20261020152412.95560-1-mike.michalo@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,49 +102,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] blk-mq: dispatch kworker to housekeeping CPU when hctx
- cpumask is empty
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: tom.leiming@gmail.com, hare@suse.de, dwagner@suse.de,
- frederic@kernel.org, tj@kernel.org, sean@ashe.io,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261016052203.489760-1-atomlin@atomlin.com>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <20261016052203.489760-1-atomlin@atomlin.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/15/26 11:22 PM, Aaron Tomlin wrote:
-> diff --git a/block/blk-mq.c b/block/blk-mq.c
-> index 025a799f35b9..1a113679f15b 100644
-> --- a/block/blk-mq.c
-> +++ b/block/blk-mq.c
-> @@ -2241,6 +2241,21 @@ static bool blk_mq_hctx_empty_cpumask(struct blk_mq_hw_ctx *hctx)
->          return hctx->next_cpu >= nr_cpu_ids;
->  }
->  
-> +static inline int blk_mq_hctx_unbound_cpu(void)
-> +{
-> +	if (cpu_is_isolated(raw_smp_processor_id())) {
-> +		int cpu;
-> +
-> +		guard(rcu)();
-> +
-> +		cpu = cpumask_any_and_distribute(housekeeping_cpumask(HK_TYPE_DOMAIN),
-> +						 cpu_online_mask);
-> +		if (cpu < nr_cpu_ids)
-> +			return cpu;
-> +	}
-> +	return WORK_CPU_UNBOUND;
-> +}
+ath9k_wmi_rsp_callback() copies cmd_rsp_len bytes from the response
+without checking how many bytes the device sent. A short or empty
+response makes it copy stale bytes from the uninitialised USB REG_IN
+buffer into the caller's buffer, e.g. into the value returned by
+ath9k_regread().
 
-Not opposed to this, but let's please think about making the
-common case the fast path. CPU isolation is not the common
-path. That might mean annotating the hctx itself.
+Commit 93ce8ea70451 ("wifi: ath9k: reject short WMI command responses")
+failed such responses with -EMSGSIZE, but AR9271 firmware answers
+commands that return nothing with an empty response, so that broke
+normal operation and was reverted by commit 90201351a862 ("wifi: atk9k:
+Revert "wifi: ath9k: reject short WMI command responses"").
 
+Copy only the bytes that were received and zero the rest of the
+caller's buffer instead. Empty responses keep completing successfully,
+and callers no longer see bytes the device never sent.
+
+Fixes: fb9987d0f748 ("ath9k_htc: Support for AR9271 chipset.")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+---
+ drivers/net/wireless/ath/ath9k/wmi.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/wireless/ath/ath9k/wmi.c b/drivers/net/wireless/ath/ath9k/wmi.c
+index 44e91815a1..76c8dfcc53 100644
+--- a/drivers/net/wireless/ath/ath9k/wmi.c
++++ b/drivers/net/wireless/ath/ath9k/wmi.c
+@@ -204,10 +204,20 @@ void ath9k_fatal_work(struct work_struct *work)
+ 
+ static void ath9k_wmi_rsp_callback(struct wmi *wmi, struct sk_buff *skb)
+ {
++	u32 len;
++
+ 	skb_pull(skb, sizeof(struct wmi_cmd_hdr));
+ 
+-	if (wmi->cmd_rsp_buf != NULL && wmi->cmd_rsp_len != 0)
+-		memcpy(wmi->cmd_rsp_buf, skb->data, wmi->cmd_rsp_len);
++	if (wmi->cmd_rsp_buf != NULL && wmi->cmd_rsp_len != 0) {
++		/*
++		 * The firmware may send a shorter (even empty) response than
++		 * the caller's buffer, e.g. for commands that return nothing.
++		 * Copy only what was received and zero the rest.
++		 */
++		len = min(skb->len, wmi->cmd_rsp_len);
++		memcpy(wmi->cmd_rsp_buf, skb->data, len);
++		memset(wmi->cmd_rsp_buf + len, 0, wmi->cmd_rsp_len - len);
++	}
+ 
+ 	complete(&wmi->cmd_wait);
+ }
 -- 
-Jens Axboe
+2.43.0
 
