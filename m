@@ -1,97 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792492528;
-	b=Zf0/u0wE3AzfE0RMEHW3AbXIb+yo5TCl/9bIJu0omNWGdEHL+12zyjSPMfThTA9bgWFL
-	 SqnfQ52eF7a+wXBshuRIkh24+5E3PMLD6gOCZp5+o1CCzqCsKttzmuneZTgcOXPGQ13tc
-	 rPTTuEGUDKU6xeA7Mcu7u5W/BDg+APnuEGJBFS1Dv8tHZrddURYIFE0YCmW9rx0Q9nYTD
-	 JjWcZtgQmRqu6XQNqcyOwhxvPtSXqGVQEQEcPG3WVLcLQfKEQSKiGGg0Pl57yy1+SKgo+
-	 TlHruuc5INDH3EhCF6dcNStaDxhGi2M5x15XC2Kyov15yOQr1vxn9PI3nkqKak05VSw==
+	t=1792492712;
+	b=k8tGKrBw6SfXllGQlbwcaZE2KsHAhYcinWK9lxHRasPDWnRXe84W6GOAJO5JAL7RqJsI
+	 UTdPERMm3A7DoukPwmasLkDVN7uPps8RnrqxLjieon3K+UKLQbP0PIqx81Q2pNZ+Bcwmo
+	 NT5InqTcuxAK0mhqcVP4/I9Vz2U0v4YQBew6hOsNg3bFnaioNn1ck5wd1iIt3QM/AXvIs
+	 nTTfESReHHgQ/yKpjw0gSzbK+C8w5BlnbWsMD7RGY4SIKLgbTGeLMacInuxKnTYH+oM3T
+	 iS2GSbWjWQ3uA+cKis1XVRiGfiaoNvKmERh4ZpqP9px8uIKk1tdI98nd7TqPRR5iAHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792492528;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792492712;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=b6vl8DhBKNBBeDdXDarV+k7b4TukYYKqz3C8gKFsMSM=;
-	b=KW6noPbV39pplGZZHysvn1phXzs/X/dxCLrIlh1LHNRoiDh7dM9o27eZGza9QVl1Rfpl
-	 YeB3+sW9uGftGjzvUnCQVDRxjPPUjUtBfUdkqJNmGg/Ni76Lm5kI9V/OkQvPRH1TH/k0C
-	 3YDykv1oetBbemSFpLwn0C4WI0qQumlCCRU8Pa0G+Z5TEGsXu7v+So671F9cUz30B5k0P
-	 p1akri1Y/yPh0aNO/91Hg6g24QaGbM2DmCZFGt7RI2jFN4c0vwmiqMG0oAIzPeLo1wxs4
-	 Fx5qbLQOCRvAjz6T7Gmdl25CasNLDuM9wl1octdfp5vcZGwgvfyCqk/k29/9amDA05A==
+	bh=2zmwZoifCxESn5tFMPkCRwr0daLGLZtL5qkvBzc0DLA=;
+	b=rH5n8R5EbRbrOG7vj5dJY1gH1xiyz3oQtfId4Kp8BddW/XyaSGsIAet7uALEZH6yf5DX
+	 uoAGIUFM9HeY1nx0QdEpcOTIPUir0ZTiuyo5XUOVhPJk8d7Ycn19vrYIEqnLw2sdTTgiR
+	 5XaUYYQ0cCivu2sHJsQc4ay48m1jMIMeqsRAyMIXqZsE5foLiSgyy6fNwASCFXKmC463p
+	 oHok1b1Pumf6MUXi9nKIaDUCPlDjUkg5VMRqTcpM+QF1K7K0c6U5Ldd9aXYdOQ13ebb4F
+	 xmyPoOFQshVozC3JQLPtryGt7r29O9YOsAH1jkdsNdnEcLXk4XYuy98HkRhNDPlGPyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Tfy8gPpg;
-	arc=none smtp.remote-ip=209.85.218.49
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	dmarc=none header.from=mojatatu.com;
+	spf=none smtp.mailfrom=mojatatu.com;
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=IqFYPZ2W;
+	arc=none smtp.remote-ip=209.85.219.44
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E66606A31C
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 10:35:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6E66606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03FA5606A319
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 10:38:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03FA5606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Tfy8gPpg
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c413dea9ca6so476489266b.2
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 03:35:27 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=IqFYPZ2W
+Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-91b63bd2030so25181796d6.3
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 03:38:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792492526; x=1793097326; darn=vger.kernel.org;
+        d=mojatatu.com; s=google; t=1792492711; x=1793097511; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b6vl8DhBKNBBeDdXDarV+k7b4TukYYKqz3C8gKFsMSM=;
-        b=Tfy8gPpgNea4NWmTe/7uKj8VWr03aU0uep+R7u3EFHcdUFS3ae+coI/B/Hu3NW78CT
-         y/GZGFdeUTthHmMrLVJpyb/zB/r4//qrjlRALruWMwv0M1SzyvyrhWc7grCEz1dnNnhi
-         tjeLbdjlPXE7NqLWScuqc3+OfFtRubc7ukA+lUkYNxyqZ+Hj9HkupJjDRflce8aUJBuB
-         wkX8xo5uJOktCCHq9WcXGb5wf/9aI1Uio7EBxdeo37XyAJuGLw0btJme7AOZv4iQrQ2u
-         COI/cssbwIY9TtKbVd+2oS8KG+8xAcJrqb3Tj9iT65FxEaCV/PLkyfddaxYrw44i94hU
-         uFnw==
+        bh=2zmwZoifCxESn5tFMPkCRwr0daLGLZtL5qkvBzc0DLA=;
+        b=IqFYPZ2Wi7GonAxMyMFIoibl+jVi76AxveoOfJHNVhz+99JjfPl23C/KRYMZPlz8XJ
+         IS+bkmRZZ86mXGhGNtCQaXfUfX/G3vWcf4N/zh+Y+cfi/t6nRPpASQ23XFnfwROEY+nw
+         8Vin2AFY1MPIFRhqnHqx1rVm+teL1mnn54pmQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792492526; x=1793097326;
+        d=1e100.net; s=20260707; t=1792492711; x=1793097511;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=b6vl8DhBKNBBeDdXDarV+k7b4TukYYKqz3C8gKFsMSM=;
-        b=GKsr/Z3fXb5hrAABNb9ZXbcUIcr4gwXRAhHvu932BlVtJQcPBnCSuvPRKPpRUXKXm8
-         0hdql1Vj88ybOFB6V4In+pbY1UAJgTVI5SRIG0Y0b/zV4kuMd2/1qFltvsHfEVxkmYxq
-         tOfzQjuejhQ6yZRDrV4QXQFHfux8h0nDTH53aUBdBv1bO40P9j7gbEAcY7XhNxcgzaVM
-         cyKuqLaKKv4+CHNc5n7AKR/lGwXhgBWh9sfcGvpQ8p5w/WCfZUSlNfsX9mJ9qoxrHTxz
-         3bankIpb1Izg9yvTH9LJfodgXGsReiviihxCTeE4EgZ72QZTCors7i4Gwovn06FNeb75
-         kgYg==
-X-Forwarded-Encrypted: i=1; AKwUvByXhbweKbAE4LjMCQ+7O2TC6lfICeNDkbyuy+lNKc4104oPRfGbNgEz5k6WluX9EvavhC/C0AQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIruBX8cP8FrfA4kxxbS75JE3FrP2xJbnJql3bMSd474FnIG/KY
-	7iLDEAyBMle0dybJ4GbuhZ/QJIkU8BxN9eC15v8W7u2WHp+YKqgmFXGJ
-X-Gm-Gg: AYBFou3rpncMvEG9N7kHh6NA5Mv4PuJ91zXb0Jjhby43nkmRHPKPyFALzfe8Ex/T/2T
-	XHvPIOTFHbPuf9wwX7Iz3z67XEzU/6NBywDWQ5Hgfmc4Xt/GRqMlmMAu21ogNCPKveYdXUbQWzl
-	Mv4N/Ek/CfKH6vxSSV9RUOx5RmllqSyw6p1zCDggEAaeckI4UAOMEyP7/qS/UYXmxs0di9+z5+w
-	OzwButgh68aOQPyePyx/d/DohnWSl5rME078dOETjeR7PXP1C/jw2gk3id9ZuIHCVf2B/8bzf3p
-	JYbXhNxhOUwdPl4o3WHonihPMwlUvPb+Pz4SWAqx8amZmm8xoGmQuuUKYBa7sZAKh6dIp6rRfCt
-	rEADEKHqcPhBmqUeRiAWvRss098XVGR1ymIU7JlQt79vQ5OtCYtD2B2gPdCOyhaLeX/b02h9g1e
-	5Out4wlKYPmGpHBMxkRQn3kOe/dPLnLFicvlWjY5GzrbEpTqN5o5koXi3Agef02TKZi7TRAfzZu
-	5Lv59BlVZg/3wqwCYRTDatJ6NnJWcCh7ktHfF2DMAhj+bAX3VYEQAYPPzkxTiQrX6H0CIUfNXy/
-	IJSrRCDazgD1jsEZJR7MNf722ihFsQ==
-X-Received: by 2002:a17:907:60c8:b0:c43:a881:3f4b with SMTP id a640c23a62f3a-c43a8814361mr595412366b.47.1792492526023;
-        Tue, 20 Oct 2026 03:35:26 -0700 (PDT)
-Received: from localhost.localdomain (ip-80-113-117-72.ip.prioritytelecom.net. [80.113.117.72])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40919bcae3sm479893666b.57.2026.10.20.03.35.25
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 20 Oct 2026 03:35:25 -0700 (PDT)
-From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>
-Cc: Phil Sutter <phil@nwl.cc>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
-	syzbot+521f7e7e2b974abde99a@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH nf] netfilter: flowtable: extend ct timeout of offloaded GRE flows
-Date: Tue, 20 Oct 2026 12:35:20 +0200
-Message-ID: <20261020103520.76439-1-mike.michalo@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        bh=2zmwZoifCxESn5tFMPkCRwr0daLGLZtL5qkvBzc0DLA=;
+        b=rA4RdoRrRDWn9oEkaWydeKneAen6fVIifScqXN8HBuRgpTwOW4bodLuhx23H+YnNYB
+         XN5MPoFh3pMhraxLvZjStaCNxf7xhVaVwgyJ+2qF1BA+mfW+QXNIxJEuNYKGULKdeccF
+         YebnTuViw45GGmDOAJmZl+rvE9eqbjFh0j49xe41JrNqd7glM6qHqZ2kYwUXVIThj1CL
+         T0gFfL9+oxTUHtWOFH6uzhOzH22+w66LL9QyVQYEOZx0CS5mdkjHKI1HiDwqI50SOdfe
+         OQHRJ97xcRXs5VLmvHXFjRpgjrQD6QwZ2RJQqp2f29DxWTvMfwSq9JrK2J0o8pSsYav/
+         dZgw==
+X-Forwarded-Encrypted: i=1; AKwUvBy9zOYkqdk3AK+rZ6orOCnHBHVRFcka8mtlyjN3Yn3T/mgufxFiFzLVsowshsnm4MxVode9Pko=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIciTvY37h7z6HUggbyGuAKzswKe4xHiCK+kMkwZyDJPhLfv7JF
+	7UiQMn+MHEZrP06sCswI2KgosRhIsjI24/+ulri8A1lGEnkYML6nwviuxjdf501NAg==
+X-Gm-Gg: AYBFou1jRYRBlpgKBV9j4pn57N/KVNkecnXLE+ZZ4GHurGNtAEv2n333KfxcsFDTphi
+	osnYNKzFQ7eRj6Pue4qg8OSPRZPcmRnDWBA+1ekmo3BBFPKrv1dAeuhz0ou5GtMrdIl6/QoZyoM
+	LVmVfsLcpADtVfCq5FUmBaB+vwkJVzMm/rTcBdEGi3TaekimBshe5MMJjHJ1pilVGJAqzUdCxC/
+	r64evfh2q8Ew7KmI2pF2c0Yo6D22IKIgGJKrs460yJa+4acAvFDUHaHJQpof8vOaBDJmCm4fxdJ
+	iOElvfnLdKnKJ3W9yVEozUxBy9D917Q2tLAbec8chiLw2rurZqhUxnJn80KeOvWalpRTq6XVzmU
+	r8SH4jTYEbxUFUOIGWuzSozLkFh8VhGZqHzXKVgUSmbwE2rvdlKQJ0dJb2+7fyKzN8ZsWPGXqKN
+	dJ+k2Gw9UZWEEQbElR0ymZxL3jSIDgpc5Y46IcS6VvopkfZKn+jrrC6/J7R4w8iygdi/Rl3arFQ
+	xSSpjdT7OW4HqDFs9V9kLA1ehoWeMKDChwFAPm6XqDU
+X-Received: by 2002:ad4:5d41:0:b0:91b:8aad:79da with SMTP id 6a1803df08f44-91bdf127c4cmr175945416d6.28.1792492710804;
+        Tue, 20 Oct 2026 03:38:30 -0700 (PDT)
+Received: from mbili.waya ([64.203.83.2])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c040b4915sm23275556d6.26.2026.10.20.03.38.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 03:38:30 -0700 (PDT)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+To: netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Victor Nogueira <victor@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	stable@vger.kernel.org,
+	sashiko-bot@kernel.org
+Subject: [PATCH net 0/2 repost2] net/sched: sch_teql: fix shared headroom and header strip
+Date: Tue, 20 Oct 2026 06:38:25 -0400
+Message-Id: <QDISC-6HS9.v1.r2.20261020051718@mojatatu.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,85 +100,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since commit 03428ca5cee9 ("netfilter: conntrack: rework offload nf_conn
-timeout extension logic"), the flowtable gc worker extends the timeout
-of an offloaded conntrack entry from nf_flow_table_extend_ct_timeout()
-once it falls below 5 minutes. That function only knows about TCP and
-UDP and hits WARN_ON_ONCE() for any other layer 4 protocol. However,
-GRE flows can be offloaded too, both via nft_flow_offload and act_ct,
-since commit 4e8d9584d154 ("netfilter: flowtable: Support GRE").
+Two pre-existing defects on the teql transmit path, both around
+teql_master_xmit() -> teql_resolve().  The first makes the slave's
+headroom write corrupt a shared skb and strips a userspace-supplied link
+header on retry; the second leaves skb->dev pointing at the teql master
+while the skb is parked on a slave's neighbour arp_queue.
 
-The timeout of an offloaded GRE entry drops below that threshold as soon
-as a packet of the flow still goes through conntrack. With ip6gre
-tunnels using the default encapsulation limit this is ordinary traffic:
-the flowtable does not parse the Destination Options header in front of
-GRE, so every packet of the flow takes the classic forwarding path. It
-also happens for a packet with ttl <= 1, which the flowtable fast path
-passes up to the classic forwarding path. nf_conntrack_gre_packet() then
-refreshes ct->timeout to the GRE stream timeout (180 seconds by default),
-and the next gc run triggers, as reported by syzbot:
+Patch 1 fixes the shared-headroom write and the header-strip on retry,
+tracking the header length the slave actually added.
+Patch 2 moves skb->dev = slave ahead of teql_resolve() and restores
+skb->dev at the arp-queue reinjection point, so a parked skb names the
+device whose neighbour took it and is delivered with a link header.
 
-  WARNING: net/netfilter/nf_flow_table_core.c:553 at nf_flow_table_extend_ct_timeout+0x1ee/0x2f0
-  Workqueue: events_power_efficient nf_flow_offload_work_gc
-  Call Trace:
-   nf_flow_offload_gc_step+0x545/0x7b0
-   nf_flow_table_iterate+0x13c/0x1f0
-   nf_flow_offload_work_gc+0x22/0x70
-   process_scheduled_works+0xc3d/0x1630
-   worker_thread+0xa47/0xfb0
-   kthread+0x38b/0x480
+Both are follow-ups to commit dc4b95b8fee9 ("net/sched: sch_teql: restore
+skb->dev on the slave failure path").
 
-Besides the splat, which panics the machine with panic_on_warn, the
-default branch sets the new timeout to 1 jiffy, so the conntrack entry
-expires right away and the offloaded flow is torn down.
+This is a repost of the same two patches; there is no code change.  The
+previous posting went out unthreaded (patch 2 was not a reply to patch 1),
+so this posting is sent as one threaded series: cover -> patch 1 ->
+patch 2.
 
-Handle GRE like UDP and extend the timeout to NF_CT_DAY. GRE conntrack
-has no protocol state to take into account, and NF_CT_DAY is also what
-flow_offload_add() already sets for every offloaded entry, GRE included.
-This also restores the behaviour from before commit 03428ca5cee9, when
-the conntrack gc worker extended offloaded entries of any protocol to
-NF_CT_DAY.
+Changes since repost1:
+- re-threaded as a single series (no code change).
 
-Fixes: 03428ca5cee9 ("netfilter: conntrack: rework offload nf_conn timeout extension logic")
-Reported-by: syzbot+521f7e7e2b974abde99a@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=521f7e7e2b974abde99a
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
----
-Tested on v7.3 in QEMU, with and without KASAN, lockdep and
-DEBUG_OBJECTS, using netns topologies where a router namespace
-offloads GRE flows to a flowtable:
+Jamal Hadi Salim (2):
+  net/sched: sch_teql: fix shared headroom and header strip on slave
+    retry
+  net/sched: sch_teql: keep skb->dev consistent on the arp-queue path
 
- - nft "flow add" and tc act_ct, each with IPv4 GRE and ip6gre
- - ip6gre with the default encapsulation limit (plain pings), and
-   ttl=1 GRE packets for IPv4
- - 120s stress runs: 6 GRE tunnels plus TCP/UDP traffic, ttl=1
-   packets, flowtable deleted and re-added every ~20s
+ net/core/neighbour.c |  1 +
+ net/sched/sch_teql.c | 34 ++++++++++++++++++++++++++++------
+ 2 files changed, 29 insertions(+), 6 deletions(-)
 
-Without this patch every run hits the WARN above and the GRE
-conntrack entries are torn down and recreated over and over (hundreds
-of NEW events in the stress run); with panic_on_warn=1 the kernel
-panics. With it there is no WARN, GRE entries stay offloaded with a
-~1 day timeout, and TCP/UDP behave as before. The nft_flowtable.sh,
-nft_offload.sh and nft_interface_stress.sh selftests give the same
-results with and without this patch.
-
- net/netfilter/nf_flow_table_core.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/net/netfilter/nf_flow_table_core.c b/net/netfilter/nf_flow_table_core.c
-index 36bbc7be2f..94502c97ba 100644
---- a/net/netfilter/nf_flow_table_core.c
-+++ b/net/netfilter/nf_flow_table_core.c
-@@ -544,6 +544,7 @@ static void nf_flow_table_extend_ct_timeout(struct nf_conn *ct)
- 
- 		switch (l4proto) {
- 		case IPPROTO_UDP:
-+		case IPPROTO_GRE:
- 			new_timeout = NF_CT_DAY;
- 			break;
- 		case IPPROTO_TCP:
 -- 
 2.43.0
-
