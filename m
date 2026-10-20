@@ -1,48 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792518116;
-	b=im+4c37EO9Ki9pViip0OdsPGrAWLf5fxgiMM4X+GQcItwV8VQGW6IWqhgWHi1Fdh7bt3
-	 2XAbXowfXP8sqlBQjDSRsJTU9qn0XkH0l0eLpjUiL9zGJ/uQULnJc9VJyOcj0uT5HbpFI
-	 Gv4vVbUo7WU12wQT9PlDKydFnYnvctXuqNxbqG8THm3FrpxnN2D808nlU+fH2d2P1HOJQ
-	 7wm5s7wDqq2RaYf8Lot+fYFIpkoPhql13w1Vpk4GS/guJYvv3GGJyTKQjqOdythxNI+9o
-	 8d3+x1WDlpvVzl04mBhXzU3ByNbEsLfF0GE3gKWxtCjNtvgAWJaYh2IMsAecKUlVglg==
+	t=1792518121;
+	b=hr7pBcQFSSJvvPKmT3cTW26HO1vNmYQ0KueZAUySCEWI2Z5YUEzpQH4yTSCllyhNRXSO
+	 22CT4OArPQvN4iMAXVdyAcUHd5TVRXBOquMJNpxX/OOTRXVH0YKuMtdYrAt2ga9KjdL4c
+	 8dcEbaE+C3JqX2A5IP2BD2N9Vo4smneXThiAobv8/gvW++8EG0VtUd6W4w5U3e1VR9qta
+	 Q9uEnVqW8NtDwFsTsf60p3Je1LHirEUil1uJNoWkOMfIAQseYR+APAdhQiBMhzADOjiQF
+	 nMZL9Xt/2FzYBxDWKDusct9bwD5cDmGZ+5pNvOC6ideNxMgcBxExPconKyo8p7sv0Rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792518116;
-	h=Received:Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 X-sashiko-severity:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=7kHsNvX7qhi13hNAheORWGGXQJ977zoh3p67QbCteZs=;
-	b=ZOmk327MLX5tG1SSTl9k9eFIct5y+VxQM9sxqB4e/EJPQxv0hFLA54WLXEmICeQrFWVK
-	 WBhXAMQ0DlEbV1suoNZeG3WVGGanOuUySa0NEk+VZc+qzLROmodGJNSRBN+Rd3Kb6c4m0
-	 E5oMDMSPdRY2VrHt/F8RcUug2tucJ84643Vd9K6ye5MyLbop6MZzvNux/ercCX80gB7zl
-	 nvbgfdvvI25mV6mwOitPgxdeSdsd0V0di9sIBHnQsAwGYhmNUZQ5znww4fX3M7SHC+ThE
-	 f1bRfPqwAObgGT4X92aqIbF4pP5jZVzzxapqNcVgw0WfcrVD+RPg4dvusI5z23+7BUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792518121;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=y9x1TIOy5neS+EZYUM0L8BjZDwzUbz3frkQwuPq8w8s=;
+	b=KlhLBOHuqvHJjtzWprXXm/ZOw7z+oGwU51kAJ9Rab60wHj1V/eXF9CFbjUbdU4rt7WBF
+	 hFVUDZq0bN4WRDw51d+bPmxdXG9ncd1W2OfpkuMnP5k/AF2KmJxcTTx6FtIXJu5iKpHyO
+	 7C33osecCtgF1sm1PPZAndHjANjQUMcTlvJO6xyPzxsQdxtdn00YKbkp4Q3jx1zZCSORK
+	 uUKCx3MnEMh3BpIZ+jdcaBDDejCTLYUSTvOr7WPfckCQ//eF6xnqEBclTIBBJpc0ySNOj
+	 sob35m2BAMECvUjJqv4bbItUT/z6XHBPF7V5ABDvBhuotjZoSP/jutkR/xoEArrDmUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=vSBOsi27;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14755606A31C;
-	Tue, 20 Oct 2026 17:41:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6C951F000C9;
-	Tue, 20 Oct 2026 17:41:54 +0000 (UTC)
-Subject:
- Re: [PATCH net] net: gso: complete partial checksums of fraglist segments
-From: netdev-bot+sashiko@kernel.org
-To: pylaterreur@gmail.com
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, ncardwell@google.com, kuniyu@google.com,
- steffen.klassert@secunet.com, willemb@google.com, nbd@nbd.name,
- dsahern@kernel.org, alice.kernel@fastmail.im, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 20 Oct 2026 17:41:24 +0000
-Message-ID: <179251808436.3135.4663009008988261682@kernel.org>
-In-Reply-To: <20261016-fraglist-csum-v1-1-93945be7bb5d@gmail.com>
-References: <20261016-fraglist-csum-v1-1-93945be7bb5d@gmail.com>
-X-sashiko-severity: Critical
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9DF606A324;
+	Tue, 20 Oct 2026 17:42:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=vSBOsi27
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B8201F000C9;
+	Tue, 20 Oct 2026 17:42:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792518120;
+	bh=y9x1TIOy5neS+EZYUM0L8BjZDwzUbz3frkQwuPq8w8s=;
+	h=Date:To:From:Subject;
+	b=vSBOsi27e2yhBmzJBFsI+9Sy5J7Z9qqiNHZEq+hV1eHiwC31/cXqwmXSQJClJcrhv
+	 HV1n6IJRFxj+XyFXfgutLQb8YDcqTH4878nzYhD+t88lMG2I1zvDApH+T5sgAQ8Y98
+	 dRJKKRcIyhIq4FKkAgbOxvBovV4OygSftqd/mEF4=
+Date: Tue, 20 Oct 2026 10:41:30 -0700
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,shawnq1@163.com,rppt@linux.vnet.ibm.com,pfalcato@suse.de,peterx@redhat.com,liam@infradead.org,kas@kernel.org,jannh@google.com,gourry@gourry.net,david@kernel.org,ljs@kernel.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-vma-avoid-broken-uffd-merge-on-mremap.patch added to mm-unstable branch
+Message-Id: <20261020174200.5B8201F000C9@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,222 +48,163 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
 
-Critical: 1 · High: 0 · Medium: 2 · Low: 1
+The patch titled
+     Subject: mm/vma: avoid broken uffd merge on mremap
+has been added to the -mm mm-unstable branch.  Its filename is
+     mm-vma-avoid-broken-uffd-merge-on-mremap.patch
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-vma-avoid-broken-uffd-merge-on-mremap.patch
 
-- [Critical] skb_segment_list_csum_help() runs software checksum
-  completion on the head segment while that skb is shared.
-- [Medium] skb_segment_list_csum_help() completes each segment's checksum
-  using the csum_start/csum_offset that skb_segment_list() copied from…
-- [Medium] On a segmentation failure, udp_rcv_segment() counts drops with
-  `drop_count = skb_shinfo(skb)->gso_segs`, then calls sk_drops_add()…
-- [Low] The kerneldoc of skb_segment_list_csum_help() ('Segments that are
-  GSO packets themselves (TCP fraglist GRO can chain those) are left…
+This patch will later appear in the mm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
---
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-net: gso: complete partial checksums of fraglist segments
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-This patch adds skb_segment_list_csum_help(). When the output features
-can't offload the checksum, it completes the CHECKSUM_PARTIAL checksums of
-the segments built by skb_segment_list(). The UDP and TCP (v4/v6) fraglist
-GSO paths call it after the protocol code has fixed up the segment
-headers.
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
-Closes: https://github.com/Ysurac/openmptcprouter/issues/4402
+------------------------------------------------------
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: mm/vma: avoid broken uffd merge on mremap
+Date: Tue, 20 Oct 2026 15:55:30 +0100
 
-> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-> index 41beaf625421a..be3fa938e1da2 100644
-> --- a/net/core/skbuff.c
-> +++ b/net/core/skbuff.c
-> @@ -4782,6 +4782,46 @@ struct sk_buff *skb_segment_list(struct sk_buff *skb,
->  }
->  EXPORT_SYMBOL_GPL(skb_segment_list);
->  
-> +/**
-> + * skb_segment_list_csum_help - finish the checksums of fraglist segments
+Userfaultfd often causes unexpected interactions within mm, and does so at
+the intersection of uffd, mremap() and VMA merging.
 
-[ ... ]
+When an mremap of a VMA occurs, copy_vma_and_data() calls
+mremap_userfaultfd_prep() to notify uffd of this.
 
-> + * Segments that are GSO packets themselves (TCP fraglist GRO can chain
-> + * those) are left alone, as skb_checksum_help() can't handle them.
+However, mremap_userfaultfd_prep() simply drops the UFFD context for the
+VMA if the user did not register it for remap, i.e. didn't specify the
+UFFD_FEATURE_EVENT_REMAP flag.
 
-[Severity: Low]
-Is this still true on the base tree? Commit 66817a979426 ("net: gro: Fix
-nesting of TCP GSO SKBs in skb_gro_receive_list()") changed
-tcp4_check_fraglist_gro() and tcp6_check_fraglist_gro() so that only
-non-GSO skbs start an flist flow:
+This is OK for the VMA itself, as upon page table move, move_ptes() clears
+UFFD page table flags, using vma_has_uffd_without_event_remap() to
+determine whether to do so.
 
-	NAPI_GRO_CB(skb)->is_flist = !sk && !skb_is_gso(skb);
+However, this doesn't account for merging with adjacent VMAs, whose page
+tables won't have received this treatment, and thus latent UFFD markers
+will be left around.
 
-When a GSO skb meets an flist head, it falls back to regular GRO, and
-tcp_gro_receive() flushes when the is_flist values differ. skb_segment_list()
-also calls skb_gso_reset() on the head. Put together, skb_segment_list()
-doesn't appear to produce GSO segments, so the skb_is_gso() skip below
-would be dead code on mainline.
+Worse, it'll break UFFD for any VMAs it is merged with. This is very
+surprising behaviour for a user, who will then simply not receive UFFD
+events for VMAs they ought to.
 
-The changelog gives the same reason:
+Resolve the issue by explicitly checking for this case via
+vma_has_uffd_without_event_remap() in vma_merge_copied_range(), the merge
+function explicitly designated for mremap() operations.
 
-  Segments that are GSO packets themselves, which TCP fraglist GRO can
-  chain, are left as they were: skb_checksum_help() refuses GSO packets.
+Also update the userland VMA tests accordingly.
 
-The test in the notes with a TSO veth sender can't exercise this skip
-either, because TSO packets never become flist on this tree.
+Link: https://lore.kernel.org/20261020-uffd-remap-fix-v1-1-0f34fc181f0a@kernel.org
+Fixes: 3cfd22be0ad6 ("userfaultfd: clear flag if remap event not enabled")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: shaos <shawnq1@163.com>
+Closes: https://lore.kernel.org/all/20261020110748.959870-1-shawnq1@163.com/
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Mike Rapoport <rppt@linux.vnet.ibm.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: <stable@vger.kernel.org>
+---
 
-Could the comment and changelog describe the skip as defensive, or mention
-66817a979426? This patch is tagged for stable. On stable trees that don't
-have that commit, the skipped GSO members would still go out with only the
-pseudo-header sum.
+ mm/vma.c                          |    5 +++++
+ tools/testing/vma/include/stubs.h |    5 +++++
+ 2 files changed, 10 insertions(+)
 
-> + *
-> + * Return: @segs, or an error pointer after freeing the segments.
-> + */
-> +struct sk_buff *skb_segment_list_csum_help(struct sk_buff *segs,
-> +					   netdev_features_t features)
-> +{
-> +	struct sk_buff *seg;
-> +	int err;
-> +
-> +	if (segs->ip_summed != CHECKSUM_PARTIAL)
-> +		return segs;
-> +
-> +	for (seg = segs; seg; seg = seg->next) {
-> +		if (skb_is_gso(seg))
-> +			continue;
-> +
-> +		err = skb_csum_hwoffload_help(seg, features);
+--- a/mm/vma.c~mm-vma-avoid-broken-uffd-merge-on-mremap
++++ a/mm/vma.c
+@@ -1211,6 +1211,11 @@ static struct vm_area_struct *vma_merge_
+ 
+ 	vmg->copied_from = vmg->middle;
+ 	vmg->middle = NULL;
++
++	/* If not registered for remap, uffd context will be cleared. */
++	if (vma_has_uffd_without_event_remap(vmg->copied_from))
++		return NULL;
++
+ 	return vma_merge_new_range(vmg);
+ }
+ 
+--- a/tools/testing/vma/include/stubs.h~mm-vma-avoid-broken-uffd-merge-on-mremap
++++ a/tools/testing/vma/include/stubs.h
+@@ -386,6 +386,11 @@ static inline bool is_mergeable_vm_userf
+ 	return true;
+ }
+ 
++static inline bool vma_has_uffd_without_event_remap(struct vm_area_struct *vma)
++{
++	return false;
++}
++
+ static inline bool anon_vma_name_eq(struct anon_vma_name *anon_name1,
+ 				    struct anon_vma_name *anon_name2)
+ {
+_
 
-[Severity: Critical]
-Can this hit BUG_ON(skb_shared(skb)) in pskb_expand_head() for the head
-segment?
+Patches currently in -mm which might be from ljs@kernel.org are
 
-skb_segment_list() returns the head with an extra reference:
+mm-vma-fix-mmap_prepare-file-handling-remove-file_doesnt_need_get.patch
+mm-vma-introduce-and-use-vma_can_merge.patch
+mm-consistently-validate-vma-state-after-mmap-hooks.patch
+mm-vma-ensure-mmap_prepare-doesnt-set-actions-on-a-mergeable-vma.patch
+mm-make-map_kernel_pages_-internal-and-unexported.patch
+mm-vma-tidy-up-map-kernel-pages-enum-values.patch
+mm-assert-mmap-lock-held-use-new-flags-api-in-vm_insert_page.patch
+mm-add-mmap-action-for-discontiguous-kernel-page-mapping.patch
+docs-filesystems-update-mmap_prepare-docs-for-discontig-kernel-pgs.patch
+drivers-usb-mon-update-to-use-mmap_prepare-map-kernel-pages.patch
+infiniband-update-hfi1-to-use-remap_vmalloc_range.patch
+selinux-reject-writable-opens-of-policy-file-drop-mmap-shared-write-check.patch
+alsa-pcm-use-vm_insert_page-to-map-pcm-status-page.patch
+bpf-arena-mark-arena_map_mmap-mappings-vm_mixedmap.patch
+mm-vma-add-vma_is_mm_managed-predicates.patch
+mm-vma-only-allow-mmap-to-clear-vma_maywrite_bit-if-not-mm-managed.patch
+mm-vma-add-and-use-vma__is_fixed_mapping.patch
+scsi-sg-convert-mmap-hook-to-mmap_prepare-and-rework.patch
+fbdev-defio-assert-fbinfo_virtfb-drop-vm_io-add-vm_mixedmap.patch
+hsi-cmt_speech-convert-mmap-hook-to-mmap_prepare-refactor.patch
+mm-gup-error-out-early-on-vma_mayread_bit-vmas.patch
+uprobes-remove-vm_io-set-vm_mixedmap-for-mapped-kernel-pages.patch
+mm-mlock-clear-vma_locked_mask-over-mmap-callback.patch
+mm-mlock-eliminate-weird-vma_io_bit-abuse-and-simplify.patch
+mm-vma-enforce-that-mm-managed-mappings-may-not-set-vma_io_bit.patch
+mm-remove-vma_io_bit-check-in-vma_is_mm_managed.patch
+mm-remove-hugetlb_inlineh.patch
+mm-rename-is_vm_hugetlb_page-to-vma_is_hugetlb.patch
+mm-drop-some-redundant-checks-around-hugetlb-vmas.patch
+mm-vma-introduce-vma_is_mm_backed.patch
+mm-madvise-update-is_valid_guard_vma-to-use-vma_is_mm_backed.patch
+mm-uffd-use-predicates-for-userfaultfd-checks.patch
+mm-madvise-use-predicates-for-madvise-madv_dofork.patch
+mm-eliminate-vma_special_flags-usage-when-hugetlb-explicitly-tested.patch
+mm-eliminate-vma_special_flags-check-in-lru_gen_look_around.patch
+mm-avoid-use-of-vma_special_flags-in-migrate_vma_setup.patch
+mm-eliminate-vm_special-vma_special_flags.patch
+fuse-dax-do-not-set-vm_mixedmap.patch
+mm-huge_memory-remove-vma_is_special_huge.patch
+mm-vma-const-ify-vma_assert_stabilised-and-associated-functions.patch
+mm-implement-and-use-vma_has_anon_rmap-silence-kcsan.patch
+mm-update-comments-to-refer-to-anon-rmap-rather-than-anon_vma.patch
+mm-vma-dont-remove-vma-from-rmap-if-pgoff-unchanged.patch
+mm-vma-avoid-spurious-write-locks-when-mm-mm_lock_seq-overflows.patch
+mm-mremap-populate-calculated-fields-in-vrm-state-correctly.patch
+mm-mremap-correctly-uncharge-accountable-vmas-in-error-path.patch
+mm-vma-avoid-broken-uffd-merge-on-mremap.patch
 
-	skb_get(skb);
-
-	return skb;
-
-So the first entry of segs has users == 2 when this loop runs.
-skb_gso_reset() has already cleared its gso_size, so the skb_is_gso() skip
-doesn't apply to it.
-
-If features have no checksum offload that fits the packet,
-skb_csum_hwoffload_help() falls through to skb_checksum_help(), which
-does:
-
-	if (skb_has_shared_frag(skb)) {
-		ret = __skb_linearize(skb);
-
-skb_segment_list() only linearizes the head when NETIF_F_SG is missing, so
-with SG set the head can still have page frags. skb_gro_receive_list()
-copies SKBFL_SHARED_FRAG from every aggregated member onto the head, and
-MSG_SPLICE_PAGES senders (sendfile/splice over TCP or UDP) set that flag.
-
-The resulting chain would be:
-
-validate_xmit_skb()
-  __skb_gso_segment()
-    __udp_gso_segment_list() / __tcp{4,6}_gso_segment_list()
-      skb_segment_list()             /* skb_get(), users == 2 */
-      skb_segment_list_csum_help()
-        skb_csum_hwoffload_help()
-          skb_checksum_help()
-            __skb_linearize()
-              __pskb_pull_tail()
-                pskb_expand_head()   /* BUG_ON(skb_shared(skb)) */
-
-Two cases look like they reach this. The first is forwarding to a tun
-device without TUN_F_CSUM, since tun keeps NETIF_F_SG | NETIF_F_FRAGLIST.
-The second is udp_rcv_segment() for a socket using IP_CHECKSUM, where
-features == NETIF_F_SG.
-
-skb_segment() doesn't have this problem because its segments are freshly
-allocated with a refcount of 1. Would it work to complete or linearize the
-head before skb_get() in skb_segment_list(), or to handle the head
-separately?
-
-[Severity: Medium]
-Do csum_start and csum_offset on each segment always point at that
-segment's L4 check field here?
-
-skb_segment_list() copies them from the head with __copy_skb_header().
-skb_headers_offset_update() then only shifts them by the headroom
-difference.
-
-The fraglist GRO path never normalizes them:
-__virtio_net_hdr_to_skb() accepts any csum_start/csum_offset that fits in
-that packet's own linear data. The is_flist branches of
-udp4_gro_complete() and tcp4_gro_complete() also don't reset them the way
-udp_gro_complete_segment() and tcp_gro_complete() do.
-
-tcp_gso_segment() rejects such packets with:
-
-	if (unlikely(skb_checksum_start(skb) != skb_transport_header(skb)))
-
-__udp_gso_segment() has the same check, but exempts SKB_GSO_FRAGLIST.
-
-Suppose the head has a large csum_offset and is followed by a shorter
-member. Could skb_checksum_help() then hit:
-
-	if (unlikely(offset + sizeof(__sum16) > skb_headlen(skb))) {
-		DO_ONCE_LITE(skb_dump, KERN_ERR, skb, false);
-		WARN_ONCE(true, "offset+2 (%zu) > skb_headlen() (%u)\n",
-
-and drop the whole aggregate with -EINVAL? For members where the offset
-does fit, the folded checksum would be written into payload bytes instead
-of the TCP or UDP check field.
-
-Crafted vnet headers written to a tap opened with IFF_NAPI | IFF_VNET_HDR
-with rx-gro-list on seem enough to trigger this. That is the reproducer
-setup from the notes.
-
-Should each segment's checksum start be checked against its transport
-header, or reset to it, before skb_csum_hwoffload_help() is called?
-
-> +		if (err) {
-> +			kfree_skb_list(segs->next);
-> +			segs->next = NULL;
-> +			/* drop the extra reference skb_segment_list() took */
-> +			kfree_skb(segs);
-> +			return ERR_PTR(err);
-
-[Severity: Medium]
-Does this error path leave the UDP drop counters at zero?
-
-After a failure, udp_rcv_segment() counts drops using the head:
-
-	segs = __skb_gso_segment(skb, features, false);
-	if (IS_ERR_OR_NULL(segs)) {
-		drop_count = skb_shinfo(skb)->gso_segs;
-		goto drop;
-
-skb_segment_list() has already called skb_gso_reset() on that head before
-skb_segment_list_csum_help() runs, so gso_segs is 0 at this point. All the
-aggregated datagrams are freed here, but sk_drops and UDP_MIB_INERRORS go
-up by 0.
-
-This can happen on receive for a socket using IP_CHECKSUM, or when IPv6
-extension headers force the software checksum. skb_checksum_help() can
-fail there with -ENOMEM, or with -EINVAL from the csum offset problem
-above.
-
-The existing late __skb_linearize() failure in skb_segment_list() has the
-same accounting gap. This patch adds a new trigger that is easier to reach.
-
-> +		}
-> +	}
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016-fraglist-csum-v1-1-93945be7bb5d%40gmail.com
