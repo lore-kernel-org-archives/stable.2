@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792468913;
-	b=br50xpyDtNS9SqZLM5+P3+MzlEQM3UxXhuBCYuMnQsqkcculgpNy1aj8qTQa3HtfFlkM
-	 JDgn2up+J/MspTCaQJ68V5VuDADZcrSNs+gEtXUkpaiIO/25VK+v7AfxEwpwFNmTTFB5j
-	 lahctHgXRq1hKTJgZ8AMWYyitmSMHCNIA8BLmN+ndpmwucdJx5jMaxAjGgpzjmiu0NeDg
-	 w2/5TaQnYL0ACe/Y7Gvgy25L+ISz4i0kJ5aSx6MJi8K3ZhbddFNvMfjSlaOZt/jbvx+L8
-	 oYiVd76Ykd0YEzdkNZHgY4e1OR4bWRcCEr3642GjJpjUFZ97qJPsIuPUVTUpODC2G3A==
+	t=1792469190;
+	b=ZiR8Hajp00ca31Y+d/ivrLGAAY1TBa755yx/outPBltYAlnHRQdcdXiPLq3qzeXWVSBK
+	 Qge6FZRjiJkAslyUc8A1OSUH+Hxzig2DLJK/dlC0JYLYIJgDmc2CSKpN7vAcXwj3oEuJY
+	 M868YS+spTvS5bJ/VJqAQ3dxcsPsHM69soYGzXqKrxoFyCewRfpgob+RpNFMKj/7OFSM0
+	 6p+ObaUo2FOeQ0cnDxdMGW6AGfXRPM/nLTIugPg0bMbozxTXdQw0QjuIB213+r2JgrwCx
+	 1YU0TRDOdmddQ7ZYSb6iXBp2f6aw0fhHpQUY9WuqDGgQ7xiVcADLkALAKzAFvEM60Ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792468913;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792469190;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=Bt7XsJIgW4Lu6Mhb+nkalyGmIkyhNEANpu9bya4kirI=;
-	b=0Qazj9eh6R8gcLsJ3Fwt7gXaP3bceK2tpWh1wGY1xJJFYIceofp3es/97urUtwOMpSsT
-	 HoQXQyqfAW/RgftiGzfzygS6PN5JcjNMIhLHB/XYBmEsAynQ3VDS/GhgLZV0l3JJ81rup
-	 QfpMtEDhKgde6K/YvZXEgimv9nGbzGSJsyJU8ez0ixWF8TTElbvPL6SKKB0UXiaUXyn5o
-	 P12gOqCenr2nfhTcAxwAXuKZzW54FEAOdyrnE2bJAXoYbCBhl2oQxNTXqWZi544nl5TDq
-	 zkcDh3IUgy86m78LRvqRgBvDCZHKf974p9ceh/+30uFIg1nUXqbHCjwO7DDqytpOxCw==
+	bh=Rw3WTCfzr5tJ+o80s3+ES6ASulrkLzXMOK1uMc6FTXM=;
+	b=PIOhcEC+svHNHsWfhHdSVyrFZLgKXdkaqufxSo6SlbsmRnhNX1zFwXjGteNhCUuhiKiE
+	 Qe3by6FLhpTYkUomEmR5yjXNEatj77xfDmARBUX06/l8SAovsqUb2LihmEx5G2sQfm4cM
+	 H0qirzygW2sSzO6Ghn5n4MSwSioihAvL5nlz9uqijluQaUKXFDfKDo1Iu9b6DJwtyFHF4
+	 oPkKPnVRJjRIQuvsvErPLj/00MKwkNrvOqxqCDGGA48Ngt6hNYLfh5QlLCdIgdggNDSbF
+	 OCUtKbryTnwYiES9dF7KWHVYfj8zUdpUb/uToBw1OdIrDmyQ29m2xSyfvafbNJRdlAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="0D/GUNTu";
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=cX2EfIK7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFE64606A319;
-	Tue, 20 Oct 2026 04:01:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C8C606A32E;
+	Tue, 20 Oct 2026 04:06:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=0D/GUNTu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ECB11F000C5;
-	Tue, 20 Oct 2026 04:01:52 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=cX2EfIK7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AC341F000C5;
+	Tue, 20 Oct 2026 04:06:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792468912;
-	bh=Bt7XsJIgW4Lu6Mhb+nkalyGmIkyhNEANpu9bya4kirI=;
+	d=linux-foundation.org; s=korg; t=1792469189;
+	bh=Rw3WTCfzr5tJ+o80s3+ES6ASulrkLzXMOK1uMc6FTXM=;
 	h=Date:To:From:Subject;
-	b=0D/GUNTuMXWbuAW4NhmM9vZ6tX8zV4DJ6bbfeHfeyt9ZLOmW3K2V756KRxaKIpYvq
-	 FQGj+MWVz2nWSMrWbk9JGtOTHljYn7FRAip8wuYx2uxXzOnlkQGwpCyy2jJDdv0M8/
-	 PuCiLZITSh1+HBDPGCAthNRkfjBsFtOVxsaC6+SU=
-Date: Mon, 19 Oct 2026 21:01:51 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
+	b=cX2EfIK79qowIBwB74v+Hp1Swqib98uGaWt05DakkblJLFMdPFMqvNAVc+ewdRVHB
+	 pqx7jbO/XPNyp+Cz9IhjTm/qnvUE9tRdae5bXWKsSShtu/qMImeXmfaoN267lyt6Sm
+	 C+HlKb9L9IPF2NRLJ2+A90rSQ4F8i7FrnrQMbPBc=
+Date: Mon, 19 Oct 2026 21:06:29 -0700
+To: mm-commits@vger.kernel.org,sunil.mushran@oracle.com,stable@vger.kernel.org,mark@fasheh.com,kmehltretter@gmail.com,kees@kernel.org,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,heming.zhao@suse.com,ericterminal@gmail.com,christophe.jaillet@wanadoo.fr,baijiaju1990@gmail.com,zzzccc427@gmail.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-damon-core-remove-unreachable-damos-charge_targetaddr_from.patch added to mm-unstable branch
-Message-Id: <20261020040152.5ECB11F000C5@smtp.kernel.org>
+Subject: + ocfs2-cluster-initialize-heartbeat-regions-before-publishing-them.patch added to mm-nonmm-unstable branch
+Message-Id: <20261020040629.8AC341F000C5@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,14 +51,14 @@ Precedence: list
 
 
 The patch titled
-     Subject: mm/damon/core: remove unreachable damos charge_{target,addr}_from
-has been added to the -mm mm-unstable branch.  Its filename is
-     mm-damon-core-remove-unreachable-damos-charge_targetaddr_from.patch
+     Subject: ocfs2/cluster: Initialize heartbeat regions before publishing them
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     ocfs2-cluster-initialize-heartbeat-regions-before-publishing-them.patch
 
 This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-core-remove-unreachable-damos-charge_targetaddr_from.patch
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-cluster-initialize-heartbeat-regions-before-publishing-them.patch
 
-This patch will later appear in the mm-unstable branch at
+This patch will later appear in the mm-nonmm-unstable branch at
     git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 Before you just go and hit "reply", please:
@@ -74,93 +74,199 @@ branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 and is updated there most days
 
 ------------------------------------------------------
-From: SJ Park <sj@kernel.org>
-Subject: mm/damon/core: remove unreachable damos charge_{target,addr}_from
-Date: Mon, 19 Oct 2026 19:39:56 -0700
+From: Cen Zhang <zzzccc427@gmail.com>
+Subject: ocfs2/cluster: Initialize heartbeat regions before publishing them
+Date: Fri, 16 Oct 2026 00:58:38 +0800
 
-damos_quota->charge_{target,addr}_from saves the target and region the
-scheme's quota limit is reached.  damos_skip_charged_region() skips the
-target and regions before the point.  The target that was assigned to
-charge_target_from could be dynamically removed from the context by the
-runtime parameters update (aka commit) feature.  In this case,
-damos_skip_charged_region() cannot find if the point is passed or not,
-so the scheme is effectively disabled.
+A region on o2hb_all_regions must have an initialized config item and
+name. o2hb_heartbeat_group_make_item() currently links the zeroed region
+under o2hb_live_lock, drops the lock, and only then initializes hr_item.
+The lock therefore protects the list without protecting initialization
+from readers of the published item.
 
-Similarly, the user could also remove all the regions of the target
-using the runtime parameters update feature.  It would be uncommon to do
-that, but it is a supported feature.  Because the skip pointer detection
-logic (damos_skip_charged_region()) works for each region of targets,
-this result in the logic is entirely skipped and the scheme is
-effectively disabled again.
+With global heartbeat enabled, a DLM_QUERY_REGION from the current
+joining node can pass the existing-domain and protocol checks while a
+configfs mkdir creates another region. The DLM locks are not taken by
+the constructor, and the network worker does not take the configfs
+subsystem mutex. The following ordering is possible:
 
-The user impact is that the DAMOS scheme could suddenly stop working
-under certain uses of the runtime parameters update feature.  It could
-surprise users. No crash or leak happens though.  Users could also
-simply work around by re-installing the scheme.
+  Configfs mkdir                     O2net receive worker
+  --------------                     --------------------
+  Allocate reg
+  Lock o2hb_live_lock
+  Link into o2hb_all_regions
+  Unlock o2hb_live_lock
+                                     dlm_query_region_handler()
+                                       dlm_match_regions()
+                                         o2hb_get_all_regions()
+                                           Lock o2hb_live_lock
+                                           Copy 32 bytes from NULL name
+                                           Unlock o2hb_live_lock
+  config_item_init_type_name()
 
-Catch the corner cases in damos_adjust_quota() and reset the pointers.
+The query thus dereferences NULL. Initialize hr_item before linking the
+region so the existing list lock also orders name initialization before
+any reader. Reject a failed name allocation, since the initialization
+helper does not propagate that error.
 
-Link: https://lore.kernel.org/20261020023958.108276-1-sj@kernel.org
-Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
-Signed-off-by: SJ Park <sj@kernel.org>
+Use config_item_put() on initialized constructor failures to release the
+name and respect references retained by o2hb_region_pin(). Initialize
+the list heads, mutex and delayed works needed by o2hb_region_release()
+before any such put, and leave the list node self-linked after rollback.
+Keep the existing handler drain before removing a failed published item.
+
+KASAN report as below:
+
+    ==================================================================
+    BUG: KASAN: null-ptr-deref in o2hb_get_all_regions+0xbb/0x1f0
+    Read of size 32 at addr 0000000000000000 by task kworker/u16:1/14
+
+    CPU: 2 UID: 0 PID: 14 Comm: kworker/u16:1 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    Workqueue: o2net o2net_rx_until_empty
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     kasan_report+0xe0/0x110
+     ? o2hb_get_all_regions+0xbb/0x1f0
+     kasan_check_range+0x105/0x1b0
+     __asan_memcpy+0x23/0x60
+     o2hb_get_all_regions+0xbb/0x1f0
+     dlm_query_region_handler+0x4c2/0xc20
+     ? __pfx_dlm_query_region_handler+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? trace_hardirqs_on+0x18/0x160
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? kvm_clock_get_cycles+0x31/0x60
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_dlm_query_region_handler+0x10/0x10
+     o2net_rx_until_empty+0x1a50/0x3200
+     ? reacquire_held_locks+0xdd/0x200
+     ? __pfx_o2net_rx_until_empty+0x10/0x10
+     ? lock_acquire+0x190/0x300
+     ? process_one_work+0x935/0x1b40
+     ? process_one_work+0x834/0x1b40
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x290
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     process_one_work+0x9a8/0x1b40
+     ? __pfx_process_one_work+0x10/0x10
+     ? lock_acquire+0x190/0x300
+     ? lock_is_held_type+0x8f/0x100
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     worker_thread+0x65c/0xe40
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __kthread_parkme+0x177/0x220
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_worker_thread+0x10/0x10
+     kthread+0x351/0x460
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork+0x659/0x940
+     ? __pfx_ret_from_fork+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __switch_to+0x74f/0xf70
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork_asm+0x1a/0x30
+     </TASK>
+    ==================================================================
+
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0079-v5-f931a29339cadc0a2a70@gmail.com
+Fixes: 536f0741f324 ("ocfs2/cluster: Track number of global heartbeat regions")
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Closes: https://sashiko.dev/#/bug/linux-cd0c55fc-0cc8-45d8-9637-3334811c49b8
-Cc: <stable@vger.kernel.org> # 5.19.x
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Assisted-by: LLM
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Yufan Chen <ericterminal@gmail.com>
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Cc: Kees Cook <kees@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Sunil Mushran <sunil.mushran@oracle.com>
+Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
+Cc: <jjzuming@gmail.com>
+Cc: <stable@vger.kernel.org>
 ---
 
- mm/damon/core.c |   22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ fs/ocfs2/cluster/heartbeat.c |   26 +++++++++++++++++---------
+ 1 file changed, 17 insertions(+), 9 deletions(-)
 
---- a/mm/damon/core.c~mm-damon-core-remove-unreachable-damos-charge_targetaddr_from
-+++ a/mm/damon/core.c
-@@ -3383,6 +3383,26 @@ static void damos_trace_esz(struct damon
- 	trace_damos_esz(cidx, sidx, quota->esz);
- }
- 
-+static void damos_fix_stale_charge_pointers(struct damon_ctx *c,
-+		struct damos *s)
-+{
-+	struct damos_quota *quota;
-+	struct damon_target *t;
-+
-+	quota = &s->quota;
-+	if (!quota->charge_target_from)
-+		return;
-+	damon_for_each_target(t, c) {
-+		if (t == quota->charge_target_from) {
-+			if (damon_nr_regions(t) > 0)
-+				return;
-+			break;
-+		}
-+	}
-+	quota->charge_target_from = NULL;
-+	quota->charge_addr_from = 0;
-+}
-+
- static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
- {
- 	struct damos_quota *quota = &s->quota;
-@@ -3418,6 +3438,8 @@ static void damos_adjust_quota(struct da
- 			damos_trace_esz(c, s, quota);
+--- a/fs/ocfs2/cluster/heartbeat.c~ocfs2-cluster-initialize-heartbeat-regions-before-publishing-them
++++ a/fs/ocfs2/cluster/heartbeat.c
+@@ -2140,6 +2140,18 @@ static struct config_item *o2hb_heartbea
  	}
+ 	reg->hr_node_num = O2NM_MAX_NODES;
  
-+	damos_fix_stale_charge_pointers(c, s);
++	INIT_LIST_HEAD(&reg->hr_all_item);
++	mutex_init(&reg->hr_arming_mutex);
++	reg->hr_stopping = true;
++	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
++	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
++	INIT_LIST_HEAD(&reg->hr_handler_list);
++	config_item_init_type_name(&reg->hr_item, name, &o2hb_region_type);
++	if (!config_item_name(&reg->hr_item)) {
++		ret = -ENOMEM;
++		goto put_item;
++	}
 +
- 	if (damos_quota_is_full(quota, c->min_region_sz))
- 		return;
- 	if (!c->ops.get_scheme_score)
+ 	spin_lock(&o2hb_live_lock);
+ 	reg->hr_region_num = 0;
+ 	if (o2hb_global_heartbeat_active()) {
+@@ -2148,26 +2160,19 @@ static struct config_item *o2hb_heartbea
+ 		if (reg->hr_region_num >= O2NM_MAX_REGIONS) {
+ 			spin_unlock(&o2hb_live_lock);
+ 			ret = -EFBIG;
+-			goto free;
++			goto put_item;
+ 		}
+ 		set_bit(reg->hr_region_num, o2hb_region_bitmap);
+ 	}
+ 	list_add_tail(&reg->hr_all_item, &o2hb_all_regions);
+ 	spin_unlock(&o2hb_live_lock);
+ 
+-	config_item_init_type_name(&reg->hr_item, name, &o2hb_region_type);
+-
+ 	/* this is the same way to generate msg key as dlm, for local heartbeat,
+ 	 * name is also the same, so make initial crc value different to avoid
+ 	 * message key conflict.
+ 	 */
+ 	reg->hr_key = crc32_le(reg->hr_region_num + O2NM_MAX_REGIONS,
+ 		name, strlen(name));
+-	mutex_init(&reg->hr_arming_mutex);
+-	reg->hr_stopping = true;
+-	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
+-	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
+-	INIT_LIST_HEAD(&reg->hr_handler_list);
+ 	ret = o2net_register_handler(O2HB_NEGO_TIMEOUT_MSG, reg->hr_key,
+ 			sizeof(struct o2hb_nego_msg),
+ 			o2hb_nego_timeout_handler,
+@@ -2190,10 +2195,13 @@ unregister_handler:
+ 	o2net_unregister_and_flush_handler_list(&reg->hr_handler_list);
+ remove_item:
+ 	spin_lock(&o2hb_live_lock);
+-	list_del(&reg->hr_all_item);
++	list_del_init(&reg->hr_all_item);
+ 	if (o2hb_global_heartbeat_active())
+ 		clear_bit(reg->hr_region_num, o2hb_region_bitmap);
+ 	spin_unlock(&o2hb_live_lock);
++put_item:
++	config_item_put(&reg->hr_item);
++	return ERR_PTR(ret);
+ free:
+ 	kfree(reg);
+ 	return ERR_PTR(ret);
 _
 
-Patches currently in -mm which might be from sj@kernel.org are
+Patches currently in -mm which might be from zzzccc427@gmail.com are
 
-mm-damon-core-introduce-damos_quota_goal-complement.patch
-mm-damon-core-add-complement-argument-to-damos_new_quota_goal.patch
-mm-damon-sysfs-schemes-support-quota-goal-complement-flag.patch
-mm-damon-tests-core-kunit-test-quota_goal-complement-commit.patch
-selftests-damon-sysfssh-test-quota-goal-complement-flag-file.patch
-docs-mm-damon-design-document-damos-quota-goal-complement-flag.patch
-docs-admin-guide-mm-damon-usage-update-for-quota-goal-complement-file.patch
-docs-abi-damon-update-for-quota-goal-metric-complement-sysfs-file.patch
-mm-damon-core-filter-out-damos-address-filter-split-failed-region.patch
-mm-damon-core-remove-unreachable-damos-charge_targetaddr_from.patch
+ocfs2-heartbeat-unlink-live-slots-when-their-node-is-missing.patch
+ocfs2-initialize-status-waiters-before-publishing-them.patch
+ocfs2-publish-the-filecheck-owner-before-adding-sysfs-attributes.patch
+ocfs2-dlm-hold-a-lock-reference-across-grant-ast-enqueue.patch
+ocfs2-cancel-quota-sync-work-before-freeing-quota-info.patch
+ocfs2-pin-refcount-trees-before-dropping-the-lookup-lock.patch
+ocfs2-cluster-initialize-heartbeat-regions-before-publishing-them.patch
 
