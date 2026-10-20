@@ -1,95 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792487724;
-	b=HcR6iKpNdTGiplSEGqxDabbHAPiF0x3E7/bEHwA0ABp493C2SZC9cZwy0zN56ZMA12L7
-	 6ja1ZlFnXsjTl51rQU2KSCNXF7pxsayGAcyRBzjNAFgOUBAc0wGLK8w5lY5pnNCayMa4p
-	 xUSsMsaSZWpIMW6EtJK4eDpdS7ZqSO+boldN+k5sQ9dme8vsdoHy7b5MBep27q0XkGngS
-	 ERhy8sUNf+yjlytYv5QpFbmRW6b1injUdTCmn4rYBf9E3HQZj3aRDnGlE5ZLYjTNLtsoh
-	 PI+0+Hk1W3+YZMQxQ5Wzgek8jt5WXjPOUyv4RtDmo2G4u6t8pfM5EQ1FlqpiDGuDOQg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792487724;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=1kBfD8tmNb5GKz9dcvc12Kx2gF2AlpDqKRVcvnJg4Ds=;
-	b=SI2TRwFKnOkTxZGzxPomIsWPQbbkIuU84mN1y4KlbA8dww7hq/8B+JSfXfEgHksGqIf/
-	 LG7RKfXZTLYCizLufl5RpgncH4typGgwpyKqVgH2luZ0q8PrNVjA2jV9EmGDKIXcPc32L
-	 9TkFp3a9iVbmmmRoEU0oVjFmDR4KVvQurnvDNrfl2k1nOQEhHjDrf/89u52Vgn8kiC0nP
-	 focqKrPPNeuqwIFj9TNKTkbqLrmnbzh4W2HFfIzIfSpS7+TRtArCOvQueosbWtYq8mw7Q
-	 4AuTjjEVvNtcl9U8I/38nrqCDuIZ2/r3rktK5NXi9smlVG6SHm5A6KymRLfsT9MebBw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=renesas.com;
-	spf=pass smtp.mailfrom=renesas.com;
-	dkim=pass header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=NO4qTmsy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.52
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011052.outbound.protection.outlook.com [52.101.125.52])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792487978;
+	b=kk4ZlrIVLK1NCOVlG/NMD+CQmFRRzZQrnMxiXjZm9aZQVpyYSO96ikPBVCL8EQ+4ZQh9
+	 wqdp4kywLWeEuPHmPnw8ZaCaUjWiYd5Se3vHpBnkYwkrh0XNSGz6Jq6pXTAn0tFVspmdv
+	 dZL2YyKZPzrYFbzugunwE+QN/outeUTvz1eTPgaAOHxO2pXi/kOnX2V3yfGNOv3q+Teo6
+	 CwIhlTo0GwFDqP3K/qFjoOAty7jvsSas55PwBmhNb77HjUd/wwd0UP5zc7U+3wGkYc/yM
+	 FagKtLob3bMZCVqk+okUikSl9Ih8140av1rECx3wkIYTiYmYiz9kI5XFs2yJJZwVP5A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792487978;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=JGq046gGXw4XcOdGnSEHgJIR2O0gujEWvtIf5Ag1ia0=;
+	b=EDkgVECGZq2nPWiaNAW9SAryH7I87fckfbkdVkC0k3nkQ70RA2n5I6u9Bdc8t2jqndpN
+	 b46Flk3vPrIbrnkgW0uZDcq9ZulwfB3ZqQAK4yvJ6eCQSTl2CkeAotIUljewlXfA6wc2A
+	 d0H+92xbBlpvOcB14HT90dJ/qEF9jO+bEscOVePcfgSigkTGjvJ6mjzzsU4x3VqikJNnC
+	 hbnispBm+Qezryeog0lpKAQOR7Vri33v9/iLIsDmO44X0QSxzwczZxWBH8Dq5a+Dc/O8b
+	 waC1VWDkiRPkNB0I5zsz4uYNh5Li+41rJMWnMiAyeQOs4i4azLGnasIxw/UAyKVPfew==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="ZvoC/0Hj";
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44129606A32C;
-	Tue, 20 Oct 2026 09:15:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44129606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19EC4606A31D
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 09:19:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19EC4606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=NO4qTmsy
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r0gePKQYKCzMkmn4n4NuEFUfVJZSn8rS4O/ulPU7q/V4fs8HRs/204dyHJQw0nkb1vPrZCxWNYPvn5pB8zzFDdUhO2zeWuPiDJVkPE4cCOCU6A6j5lG1mPjdogERNZmLWCn6NUZK88+ws+GlLb9elYQvJR/mvYXrJNj3MicoNV62UJo+nRsF99wGQZjEXcxPkIvUcyLVCoylOl8FwCV+M6i+Jj/4GHYt+hIfl6gnIKG/+OH6Vcf0C6w9FMJgkZocdcU97x3ydqCzuCUamcnFklBSYBDSw7z6pUSndouX2ZbVMOWT68TWMW1KBaeDZJdtsx63VIxRAJa3VXCPkoG8/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1kBfD8tmNb5GKz9dcvc12Kx2gF2AlpDqKRVcvnJg4Ds=;
- b=YWjTUlFZdBxTCfsTT5stc3rYPZqLdihDIJi4JPEfTZwNll95pSRMOBJJ2OgjVmBimlUAdzc6qU0/4FT6IrlM2Z2y5RHQ/SGWmr69O38eX84gof7d9dO89uopElN4/PyeDk8JfIoqWBmUvjm6ioEpHPmLdSGNB3vNOgHwDsDfY/qc4q0qXqYGHdwMi/V1Ou2zFCJwvwDTjLpSzpR3Flml95vmZmIv8rfcISmSj+SGFFqueBwwc2E5OCMSRmgpt2DuponqVFmKPD3lmKvI4rY0ByqkPEPaSyF/RgyIxtjLqZpanzA0UJHoRBdPaqKLWESjGOnT7st6YQBQBDlJfaQqdw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 8.62.32.50) smtp.rcpttodomain=baylibre.com smtp.mailfrom=renesas.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1kBfD8tmNb5GKz9dcvc12Kx2gF2AlpDqKRVcvnJg4Ds=;
- b=NO4qTmsyuNRHzyg3xf8SoFjKnuipyU4SAdEZ3/p4Pak4nBHu1c+57rw1hgxnHYlibAg8yrMA9PkoN8RZ4KQZ6YTVrZJ4c4SopGZ4gMbATwhv7v0avfVpPPNZnroyQ42XW3RMvlNHjRcWtYh7hLAGA/pv1GvHpglzVTF2CZro2a0=
-Received: from SY4P282CA0018.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:a0::28) by
- TYCPR01MB8141.jpnprd01.prod.outlook.com (2603:1096:400:102::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.19; Tue, 20 Oct 2026 09:15:20 +0000
-Received: from TY1PEPF0000BAD9.JPNP286.PROD.OUTLOOK.COM
- (2603:10c6:10:a0:cafe::17) by SY4P282CA0018.outlook.office365.com
- (2603:10c6:10:a0::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Tue,
- 20 Oct 2026 09:15:19 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 8.62.32.50) smtp.mailfrom=renesas.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=renesas.com;
-Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
- 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
- client-ip=8.62.32.50; helo=ejcrelay005p.adwin.renesas.com; pr=E
-Received: from ejcrelay005p.adwin.renesas.com (8.62.32.50) by
- TY1PEPF0000BAD9.mail.protection.outlook.com (10.167.240.38) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.15
- via Frontend Transport; Tue, 20 Oct 2026 09:15:17 +0000
-Received: from [192.168.1.82] (unknown [10.226.92.108])
-	by ejcrelay005p.adwin.renesas.com (Postfix) with ESMTP id EF5E53000274;
-	Tue, 20 Oct 2026 18:15:10 +0900 (JST)
-From: Diogo Ivo <diogo.ivo.sx@renesas.com>
-Date: Tue, 20 Oct 2026 10:14:55 +0100
-Subject: [PATCH 1/8] i3c: renesas: Fix zero I2C SCL rate on pure I3C buses
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ZvoC/0Hj
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48df54150dfso2293325f8f.0
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 02:19:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792487976; x=1793092776; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JGq046gGXw4XcOdGnSEHgJIR2O0gujEWvtIf5Ag1ia0=;
+        b=ZvoC/0HjoWQBe6v4RhWlvN8gU1HwGS3CXsFeZbO9CKrYN76M87wee0pPAkvi3zWerB
+         5gbyQCOC4M32KxMEbgF11ebqOvSHUnLNEK3oGaKiw/XUY6VdqRMHSijI2S0xJu6e/6n2
+         4QI4NicD7mO6c51s6t8+jOaoGHYam10T2WhM4xRO9RpH/CZC+SHMlZRilh0pbhkT4koW
+         Icn25SHGSLXG2rV6FXIoSwoROrRtXxGnufkJqNquKjOVxPzC+bwaXpYZNNEBm4sPtinz
+         nwjDdZXQduUeK8bzZPNxIuBsFxCR/YDyVYtsWi9HpsCPzAZjw5A86NjCDccgQeav4zik
+         tn/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792487976; x=1793092776;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JGq046gGXw4XcOdGnSEHgJIR2O0gujEWvtIf5Ag1ia0=;
+        b=Y3ApH6xrSvUjoqeiKuw4gF8R+wxwcfMbKEwZHqBpd7J4M2kb+myr+StW+SFKpa9RtU
+         Wh4eYZYD1b6NLBoJtb5trzS7SYPIAmzU5rRhVeLa9Db3uC8slJTb/bh5cv3DW86EKyKz
+         sOL30S+Fv7DBIbpWgqVvyMwDTW8+/9hJwWOTNv+mFVGEoKRPUZr/mh55xIrcm/Pm9c7n
+         YQRiTMR+PxkmPZJzOg9+CPoBWXXiLy/teA3VTVwTouvS6c3QK+IiVo6dtJu1TuMSAzqa
+         xKlPHVnD0paxygiKqfMwf3mIAieFOWJnhx4ssT7FJu3K7/4Gu0HtWnuAdHA1fVBkp87y
+         OZTw==
+X-Forwarded-Encrypted: i=1; AKwUvBzTrM8HORaUuJDXfEIirFNSUWLmGcdhXGX9mMxSHtYvi9y5R063ZI7ipHJPoa6EzDsSiEfqZms=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKOnOaFXRc/fUbNwhEujhHQ3UXdV8+hlEUB/UOeh/1LwgDQu4yw
+	8NjIdUDvawFlFxk7tee6AGBliewtX8uxl2ObQtPE4JLToaA5kNctmvPdZpDBT9MysfcvmxrseK2
+	iWAG/
+X-Gm-Gg: AYBFou1MN3zqQCfZw9id3RXiysLHOap9RS7f3uaaXk2s83hHizNwzwVzfCIr1VtNDCm
+	Z7V6JF39kzit4v2a5v+YouplcR7paQlWd1HW01S/c27wzyimDGuUuozVTyH9YN15WA2LMrAAyLV
+	c+l+5DsFklaUlQ82kpEczuP2byaghvM1WXL08JHAxdIjRzpEyygKiiSpYBlvwyfxyJYJ4wdwtVl
+	ZAlXXZk050DB8pE1KFdlCpWanJFKPHZX0cWho+ruinol4StpxOQ+STY+qQYzJWDVMXWvftJ+L/m
+	ncYHuavZfJg11olEOf4L1Z4rlPYGjHFZtLJrAeGt8N5I+k7rWoVUp3Y6ETOVk6kwAkJ0Grtbfnq
+	WhaiYErdU/sKyHZLW6o/y/kcl6n69tHcqgfYNc05Ic5i7XD31o9Ii+BHFhh8XqRTf7Fl4GlwuSi
+	M7nvNjuYIPQtd3O+jePubYBE32hgN0Xw/59ydSOHM+S1+kUm2ufaiUaY9qihW7KFDKzmRI49tQ0
+	mkrePEIS584LB0Jp9UV7xo2QXZMY7bjZ1BZloGfW91glW3ifsdv0Q==
+X-Received: by 2002:adf:e19a:0:b0:48e:6f:a9c1 with SMTP id ffacd0b85a97d-48e07fa6ffamr21235031f8f.54.1792487976218;
+        Tue, 20 Oct 2026 02:19:36 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:e3a1:1a65:a394:be54? ([2a01:e0a:106d:1080:e3a1:1a65:a394:be54])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d8208b1sm5114545f8f.33.2026.10.20.02.19.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 02:19:35 -0700 (PDT)
+Message-ID: <9bf6d1b1-d287-49bf-9755-a3ce42b85823@linaro.org>
+Date: Tue, 20 Oct 2026 11:19:34 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,101 +92,129 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 4/4] ASoC: codecs: wcd939x: fix ref leak and NULL deref
+ with USB-C audio
+To: Val Packett <val@packett.cool>, Srinivas Kandagatla <srini@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261020082631.1509275-1-val@packett.cool>
+ <20261020082631.1509275-5-val@packett.cool>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261020082631.1509275-5-val@packett.cool>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-divo-ssgrlpcsrc-2966-i3c-v1-1-30a47f25e515@renesas.com>
-References: <20261020-divo-ssgrlpcsrc-2966-i3c-v1-0-30a47f25e515@renesas.com>
-In-Reply-To: <20261020-divo-ssgrlpcsrc-2966-i3c-v1-0-30a47f25e515@renesas.com>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Linus Walleij <linusw@kernel.org>
-Cc: linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
- Diogo Ivo <diogo.ivo.sx@renesas.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792487702; l=1775;
- i=diogo.ivo.sx@renesas.com; s=20240529; h=from:subject:message-id;
- bh=DVrBUX0Qt9EcEADAiFPg1E0pKuScHKLjVfZNCV2qjN0=;
- b=j111WSgYHwOqnaOVgLL1bKGVbeOBoSdNdfS2JYvThhKPX3Y+oBldR4h03GS1Vqp5pENTA+XlK
- e0mwWx05IXDCImGNcpOcNoTXQGEcrOKBEwBKkXeRere7njVV8pGvneE
-X-Developer-Key: i=diogo.ivo.sx@renesas.com; a=ed25519;
- pk=BRGXhMh1q5KDlZ9y2B8SodFFY8FGupal+NMtJPwRpUQ=
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY1PEPF0000BAD9:EE_|TYCPR01MB8141:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3e4fb111-1f33-4cb0-b274-08df2e8aa8a4
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|376014|7416014|1800799024|23010399003|921020|18002099003|10067099003|22082099003|261009223027099003|11063799006|261009221227099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	N6cx7r8dyKSHhevcX5Zquww96qekiSUIWUACnOewqilLI7AMIUYrR7auUNBDcWE1+oeyE0HVvYaLm7JsIKmjz0o+SXG2JO1APXaIg84ijjgdTsN5bX/t4NyOF6Wlx+oXEJG0q6Bmgt+ICyzLG0YEFAxri6ilmwQFQkqJRVLUZAUiXjKf0/Gte2Cjs+wlimOKt0cEWTzvcva7G+ruzhtmTSzG9CySj9YSQ/e8WOjgkpmpS/Wgc+oXfT7K+Z9KTb2yrz36cQXflz85xXIvp1Y8N0rcGs2+YUbuxRE2w69bLiTDlyZ6SLehQNxfyDkZGDxSfYlj8oxUGYqAWPt1Cp9Nl3P52fE2xZwbCN1yAdWa/v+qqee8C9gtuUQ+67PhlRHeXvJvYzC/qYWT0DlRZFJLnpIrB7HOxvxLrq9x/JQG9uy7oordG9JxhUU5hn4YxbYaIr+bexwszXYte9WZmTo0xAy+pP+HbFMmofW126eRQmTZnaJHOgQ+/YhtiqJ/XklbOclcSSUMSFWHbrcsqT0Uj1O43YxHGFp2xy/iXeCosiyJZmh+v0Onb3obUfJvcq3PKFNWCWC1IdLkFobLZAt13M1vcqcdzZBe6Lw38V4qs9B10g4lMZ3Xom5Vt4GJFs94X7KQSHbe9G+Quju9dYxi5w2kB70ohHQUsnNESEAjffScqTmq90WevjOnKytJLG/VkMUNytocjAZJPUZAm4ccoSIZdQ7D64s2F0aItNPtIT+p997iKPtlMfLDne6qBcCa
-X-Forefront-Antispam-Report:
-	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay005p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(7416014)(1800799024)(23010399003)(921020)(18002099003)(10067099003)(22082099003)(261009223027099003)(11063799006)(261009221227099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	di3Daw8SA/j9M7IDobwfhRHCoKtXDa2yADRL9IeKKMGeKHyfat8KAHh8a6odiHHkoEm8JAOKfkj1D7SbAf1kSZbgC3F/o818eDCtaAtx1m46A4NZMoEf4VKoQQms7lBr+JUA5tysaO7d1XHPg5a1Mm/VfSY5KNEflANkmb9YOVgAxfDHv9AJj7CoO6Grmlg07PilK1z0+VcQ803upeAKTvOvFpsA6BddxOSUNL2zCH25S/yze2mxAw6/hL0pq5MqhMQY2FPDaBYyn6/hpvcPr9z6nUyRew8qlcI/XJ6DaYUAYSuqnNowIjFhVU/lpjA0G6qpjEhNT0Lo7Bg6UXltWTMzmzTPHuaKCi0MgsMKAm0dlGv8qlioRHz5vvRVMks4gJoRVYVSxfw/o74mJjbSPc1R124crvBAdpDSTs9oXFj/275m2MiBfXqadEA8LxCJ
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 09:15:17.9128
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e4fb111-1f33-4cb0-b274-08df2e8aa8a4
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay005p.adwin.renesas.com]
-X-MS-Exchange-CrossTenant-AuthSource: TY1PEPF0000BAD9.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB8141
 
-On a pure I3C bus there are no I2C devices, so the I3C core leaves
-bus->scl_rate.i2c at zero if i2c-scl-hz is not specified in DT.
-Deriving i2c_total_ticks from that zero rate programs a zero-width
-open-drain SCL into the STDBR open-drain fields, which are still used
-in pure I3C mode for example in DAA.
+On 10/20/26 10:26, Val Packett wrote:
+> Some code issues were found during review of a port of typec code from
+> wcd939x to wcd937x, pointed out by sashiko-bot:
+> 
+> * wcd939x->wcd_mbhc may be accessed by the typec callbacks which are
+>    independent of the ASoC codec lifecycle, don't leave it as NULL/PTR_ERR;
+> * wcd939x->typec_switch reference was leaked on unbind, put it there;
+> * the device_node reference returned by of_graph_get_remote_node() was
+>    being leaked, add a __free annotation to the declaration.
+> 
+> Fix them in wcd939x as well.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 10f514bd172a ("ASoC: codecs: Add WCD939x Codec driver")
+> Signed-off-by: Val Packett <val@packett.cool>
+> ---
+>   sound/soc/codecs/wcd939x.c | 18 ++++++++++++++----
+>   1 file changed, 14 insertions(+), 4 deletions(-)
+> 
+> diff --git a/sound/soc/codecs/wcd939x.c b/sound/soc/codecs/wcd939x.c
+> index 26fe0b6313cd..56e041e70fd4 100644
+> --- a/sound/soc/codecs/wcd939x.c
+> +++ b/sound/soc/codecs/wcd939x.c
+> @@ -2466,6 +2466,7 @@ static int wcd939x_mbhc_init(struct snd_soc_component *component)
+>   {
+>   	struct wcd939x_priv *wcd939x = snd_soc_component_get_drvdata(component);
+>   	struct wcd_mbhc_intr *intr_ids = &wcd939x->intr_ids;
+> +	struct wcd_mbhc *mbhc;
+>   
+>   	intr_ids->mbhc_sw_intr = regmap_irq_get_virq(wcd939x->irq_chip,
+>   						     WCD939X_IRQ_MBHC_SW_DET);
+> @@ -2482,9 +2483,12 @@ static int wcd939x_mbhc_init(struct snd_soc_component *component)
+>   	intr_ids->hph_right_ocp = regmap_irq_get_virq(wcd939x->irq_chip,
+>   						      WCD939X_IRQ_HPHR_OCP_INT);
+>   
+> -	wcd939x->wcd_mbhc = wcd_mbhc_init(component, &mbhc_cb, intr_ids, wcd_mbhc_fields, true);
+> -	if (IS_ERR(wcd939x->wcd_mbhc))
+> -		return PTR_ERR(wcd939x->wcd_mbhc);
+> +	mbhc = wcd_mbhc_init(component, &mbhc_cb, intr_ids, wcd_mbhc_fields, true);
+> +	if (IS_ERR(mbhc))
+> +		return PTR_ERR(mbhc);
+> +
+> +	/* May be accessed by platform dev typec callbacks, only set if valid */
+> +	wcd939x->wcd_mbhc = mbhc;
+>   
+>   	snd_soc_add_component_controls(component, impedance_detect_controls,
+>   				       ARRAY_SIZE(impedance_detect_controls));
+> @@ -2499,6 +2503,8 @@ static void wcd939x_mbhc_deinit(struct snd_soc_component *component)
+>   	struct wcd939x_priv *wcd939x = snd_soc_component_get_drvdata(component);
+>   
+>   	wcd_mbhc_deinit(wcd939x->wcd_mbhc);
+> +	/* May be accessed by platform dev typec callbacks, clear */
+> +	wcd939x->wcd_mbhc = NULL;
+>   }
+>   
+>   /* END MBHC */
+> @@ -3171,7 +3177,7 @@ static int wcd939x_populate_dt_data(struct wcd939x_priv *wcd939x, struct device
+>   {
+>   	struct wcd_mbhc_config *cfg = &wcd939x->mbhc_cfg;
+>   #if IS_ENABLED(CONFIG_TYPEC)
+> -	struct device_node *np;
+> +	struct device_node *np __free(device_node);
+>   #endif /* CONFIG_TYPEC */
+>   	int ret;
+>   
+> @@ -3434,6 +3440,10 @@ static void wcd939x_unbind(struct device *dev)
+>   	put_device(wcd939x->txdev);
+>   	put_device(wcd939x->rxdev);
+>   	component_unbind_all(dev, wcd939x);
+> +#if IS_ENABLED(CONFIG_TYPEC)
+> +	if (wcd939x->typec_analog_mux)
+> +		typec_switch_put(wcd939x->typec_switch);
+> +#endif /* CONFIG_TYPEC */
+>   }
+>   
+>   static const struct component_master_ops wcd939x_comp_ops = {
 
-Fall back to the 1 MHz FM+ limit instead, the fastest rate an I2C
-device could have, so that a sane open-drain timing is programmed.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Fixes: d028219a9f14 ("i3c: master: Add basic driver for the Renesas I3C controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
----
- drivers/i3c/master/renesas-i3c.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/i3c/master/renesas-i3c.c b/drivers/i3c/master/renesas-i3c.c
-index 8b264f72e55c..1fa115bdab6b 100644
---- a/drivers/i3c/master/renesas-i3c.c
-+++ b/drivers/i3c/master/renesas-i3c.c
-@@ -579,7 +579,18 @@ static int renesas_i3c_bus_init(struct i3c_master_controller *m)
- 	if (!i3c->rate)
- 		return -EINVAL;
- 
--	i2c_total_ticks = DIV_ROUND_UP(i3c->rate, bus->scl_rate.i2c);
-+	/*
-+	 * A pure I3C bus has no I2C devices, so the I3C core leaves
-+	 * scl_rate.i2c at zero if not explicitly defined in DT. The
-+	 * open-drain SCL fields of STDBR, which are used for the DAA
-+	 * pending read, are derived from it though, so fall back to
-+	 * the 1 MHz FM+ limit instead of programming a zero-width clock.
-+	 */
-+	if (!bus->scl_rate.i2c)
-+		i2c_total_ticks = DIV_ROUND_UP(i3c->rate, I3C_BUS_I2C_FM_PLUS_SCL_MAX_RATE);
-+	else
-+		i2c_total_ticks = DIV_ROUND_UP(i3c->rate, bus->scl_rate.i2c);
-+
- 	i3c_total_ticks = DIV_ROUND_UP(i3c->rate, bus->scl_rate.i3c);
- 
- 	i2c_parse_fw_timings(&m->dev, &t, true);
-
--- 
-2.56.0
-
+Thanks,
+Neil
