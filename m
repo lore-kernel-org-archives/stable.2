@@ -1,112 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792500443;
-	b=r7L+Yf1fGVpVids7AYrSLWN6rDfCILdYUREVdpxqZ9KC0M6HWe3BIKnQqVj9e2395MON
-	 VEdoyJWkqqhvNGLPCd4D8XjNgdDQsscDPp/5Z50ZUnHKoLgxSkyBFIV0jBE76LGPrb6sh
-	 KymWWvqmcxxlAFT/7HrVjTTQ8bKITeWPENREa6U/GKKREPbadAPkKo6vvjeX6SskdCtDQ
-	 00ogXNReKD+Ca3hACuy4nWwIr6A/4tqRD3DGmdd/BQLPoAXeGZIUP4i+Ley5NNpiQz8W0
-	 1mU13bAbchxtByTF3QALay2I3pRKARCLnsDKvQFzN4ykKxeKs/hPQzOHs4YmjgWWaQQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792500443;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=MBZ9SltNnSEtWttBakHmryjxyNCeNxHEQsRo4iElg+Q=;
-	b=jnSUtEfWdGmYtvmPzjJpI15N6eFcK8lMENyqctPcQQr85+jRzDPCTUGTC1YeTjIYt9LI
-	 hhstJdurwbtIJKW46bpem9TaqMrwY4V1ex+cqrR6hTRA5rKMoBjEolO7ZMy0Q52lCtaTR
-	 F1NjVe/XVFm0MbddHBTxnsdIQMVrF84iD0oNC5mws5i7P9c8ESl2hQQWroSQqX9hYdxsS
-	 02ge61rpW+bvme+Q1nit+uzPTNvn6XkTRPbFZ1h83EKtqHZLesgqurcMUZ/cc7GxgCj+j
-	 RF+iYb1FTf4UPDA31+cBwOTIOEUeqGQSp/1hX3HlPe3kA5hEgiPnFQzvg6teH+4TwXA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a36XYnRr;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZoeRwSob;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792500636;
+	b=HCnr0EgUw57u8CvjjmEo6dQ9OqWCt1YNpRwy0A8Y+vD7U+cddtSOil/m87oyVwJ0IbYL
+	 b7/Yns1uPJTGIW8BBRKfpqk0PZ5MVQrwRNaRdZ4LUoFb0wS6xs/Wj2wXZnX7Fn0m9VKJT
+	 3iUnVhr4vO0cnHH819eeX/dcnxblhcRO8m8I25Wu2sbhThNKoqXlR7vQiUDw06z4qGJ3C
+	 lQNB8t4BtsxSzs/oJ5VkSgzeC9sy0Omn9sVgD+QRMEous9AbR65/482JTlBso39ibsGO9
+	 NSxPSAtY8AiN+sxddW9fjVVALoGT0H0RSQ7hV8E/BiImYFI14/vhQWzC4PFzdqBE1bA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792500636;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=r2GFX3sHh1KRCB1444YP2uLVlY4It4wzUFS+sYA9Cdw=;
+	b=qZrQX/1RqlUeBPSVosoNyLbm91ZGJE+u3exSOkym21cFDbR4USUDW4NfK1weEum4VcQg
+	 ZDQE3rRXa5ySfmCVIeelAJLQNnACjKOS94rKW6POJ+8J63SUsmZYzCijCFtjiSXGjL0A/
+	 q/spdotR9SGmOvpQQ1TGznSmwgVcORTFScsiKnmZhkwP20Hvo5raonvDeeYKQz5Ccye1m
+	 jFw/AkkdKngBe1bEJlB35k0yU2Jb5WsO6jPNX+U3X49NmmtM6DjnoBjvnBOw1ti0Qf5BI
+	 ZpRLQBi6vhNcNWs+aBd1hFGMV/OYQV43AUyalWlNZCueKkw/Q2e6iIjFMBqTRYxi1qA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UfF90Vim;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5BE460A2604
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 12:47:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5BE460A2604
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A83606A335
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 12:50:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59A83606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a36XYnRr;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZoeRwSob
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KAxKe51145596
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 12:47:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	MBZ9SltNnSEtWttBakHmryjxyNCeNxHEQsRo4iElg+Q=; b=a36XYnRr7DAWLo/4
-	rN6kCOdoa8cLS1ozt44HWJVnQJOLobAB92/kAecm1eEP28BpaBQqCBmNKf6zn0zN
-	8/gOiWE4VN4Cn4xfnkZEV0WcG4gIk1Po6ZmfF+14PbhKwE7XH/3FBjsIW8jaWedd
-	dMlN8eh/V19GCQjJ751c661blOVhbCw7I26hY5/QzzJg0oyuuVB6rbGkq33oEYnW
-	Jfe0kSysRWw3EGPY7BIyYGwa/6vPWKtKBUIRTE5LIjxl1WOMvtnS9K63atHa8Xo7
-	7mJUZl2NHUrALmLqJP4O4sL7ymSVv8OrO7CQW5HfE3vb1YsB2ChkcEoMyRnXv25y
-	PhYfiA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5qafn7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 12:47:21 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f3969a2a7so376315185a.2
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 05:47:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UfF90Vim
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-34c522572bfso326684eec.3
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 05:50:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792500635; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Th/xNI3X38bL/Fo3BpEduQEHSP0rrbZSh9z2pNf+UtlTSW8yJMi4NH5wEnxTPQWb7D
+         FctGCPchUxPA3BOoD1tDCr3REQ23NMo2BmJ6qsBOptQ9MSo3AnI6NBuuZdPXC5z9x1VO
+         aCSnQi8kMgKgZbwQ4N0jxIei/fnhPobnYIdsgOJEDDdNuFbkF81PEIuTqM0+XH9PNhCV
+         pmhaNhX1Rkrm7RDnitPmfWNsvVIPwFm96Qe2OGYgLBRVqQfeGvRMzMLeAlzNFU+TD7De
+         4kvkfSULqLZbNFPvJICnWFUO8i4x0+dtu6A/6+Tsx4vyZFwxfsOPuqGUW4jMXwDpi4If
+         z6VA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=r2GFX3sHh1KRCB1444YP2uLVlY4It4wzUFS+sYA9Cdw=;
+        fh=bSM/cFDLz8Y9Ai8R6aTPeL9m0NNt998e0SnLtbLowoQ=;
+        b=byx53eEtF7jLqT/peRUKO2Jkjfc4eTW60TJnJlprZ0+KP41XFnrpdBkgtsT/vmPhiR
+         Q84QIpzWuR2VUTYzE3vg1udEh0UzOk+pKcFqndB1fskgP9y+Y7HD8DvLgzVOIQpxigS3
+         t4nUDC8nj+rouEmUbL8FdGEoqVADslz66+qxlGJQ3x40ZR7XjelOeuNJLhS2AiMBB4am
+         xtLT2j95MV9CibSVcRM+mYePYllkUrtGs2zt/qgiSfIIWSGWNK+5gHHZ+zViDeaEeOww
+         YyvLNoYYO9uJn0HNXOu8hPimHTPZ90cv9LkP5TCj0mf+Qk4mvSLuYKcSs5N7sCLO4zdz
+         HASw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792500441; x=1793105241; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MBZ9SltNnSEtWttBakHmryjxyNCeNxHEQsRo4iElg+Q=;
-        b=ZoeRwSobSeR3Bmy+sPSG63v9hvG+BbGKqhU4IIs1gZGeegjjcqd1pilqQcQjT76a8E
-         RgJvRVnAc7Fz0OYGVGJ9lJVzh3HpW5j8CUBb9/UMLAMmMd3AKfdSeITmhpq+ify5OvYw
-         aXUxuRiHDBGURM/HgxlXnPv7L+LPqVhJJkwIw8ueh4URmWs2VMl+Dh+0wsjUowAbhq4D
-         VJJkhVQGNIo7WklgDKYoaqpYwewGd4DqOZL6p4l+ST9jRhZ21PX9tTeFYQdKlblkztes
-         BOTSKQMIiM1UEmejJiMQMP28Om7huCKJzGYgiVaX5goK7/gZymYH28skZtOkwrsf1TwO
-         cUIw==
+        d=gmail.com; s=20251104; t=1792500635; x=1793105435; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=r2GFX3sHh1KRCB1444YP2uLVlY4It4wzUFS+sYA9Cdw=;
+        b=UfF90VimWdm3xhQ+Qya5e7krz1MMQku5aBvIMYxiW+RhS+0/VG/8/e5xBBNc2OV9tK
+         nywUtcKCE0QrGLsWE/tGVSYnbH7fPF+wQLJ6nyteb5edVT+WZtpgpZdbiP2FBEZCr+Ix
+         SSa4ec78aByv5DO2418oUp8u4SsIsBkxtcR65+Y7f/IeeTAFO8R3G0c9UPo+1zWcSheZ
+         6/ipqVyF/vY6cC0u6eZcBcZzMdUQK7j5JWjPf7tGuN8BZ6ZhhxvhoujwV2Y/0S8MtXGw
+         6KqTEV2MpfXP6RPomemgqVf2PEXsfTirVH8p6/A0ZOz2CSH9O+TGHT5A9iMLFchuksml
+         YwFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792500441; x=1793105241;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1792500635; x=1793105435;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MBZ9SltNnSEtWttBakHmryjxyNCeNxHEQsRo4iElg+Q=;
-        b=qBTVZ3JZOY7pilfIHCN6z4XwtJ2i40WEEUqOKcAwxFD52TEJNY+ZN8PAf596Maj+aL
-         VcQLpnFt5phV5iUm+uGv3sFq/O4eF9kT1P0n+mSHCXRDwFnnLl87rIv0FHhBFBxiy6+T
-         XKDqiOy6HeeVJpmjhMOcHFPvEdOAy+3v9k7ieDIrL9w4njkp/HN17lByjDUVMJCwYwBK
-         TuAAir5q6cTbhxjuRd+vD3NcfJ/0aQiOe2+dsPYJ8h1TkmeibqbEZBDUNC2m6nvmoiN3
-         Uy63r5xlzEimjj+y6RDfC3I7BL3h3wSsm2Apq6eJBne9qBdA/iujjUWLaODeZiVna/8k
-         yh5w==
-X-Forwarded-Encrypted: i=1; AKwUvBzanGpxkvFejn01uV1xCUTJ6Xd9UKo+MHUbI/J9AxzqdOBvn8E3m8SJX0rL6h+KKjACW2wy3QM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLMksMqbfx9vXiiVU02rCK+fvAfLAErfFjlBtqFPg3JASnt23jq
-	bdnu1REGhNMR5BfJByyWw+wwXWQMRW+s98di4Fu40u+CIuZv+sNY30gul6PQNBaUfiz8k+0QEiY
-	Vr5M1aSkrA8V7HJrO44crWoGC3ITEMtQ2CQ4X1ELF/ICIIHkgco4pguXUAxM=
-X-Gm-Gg: AYBFou1XQuUtPmbIAIIJZPpubN/2TDN1UMY7uDjjGaUj0DNbY7Z6V+0mwcmT9OeueCg
-	wiKTOgMbuZ6vDuJm3pwdsx+U3bgqm0H72Qb5Icyblil210zUcf+jCzUSR/0RMzxiGN3aU3v6xSv
-	Mr3odGU0rPFOLOMIyaVf2uPrA6ZcT5CGXplH4GuqlwhmDCZFqvlcdqT24+Zkpbd7sx/05O/yEgT
-	DhcC/oW88Pp6bQxNRW2UwgnR8tZUqnFvkFRcc929Y2RCwkiSgqThRCWMaFah0vXuUB2K0uM+flR
-	2ayWgfvgXtUR54OeyCj173G1qP5oLimtxSJKUuOy0sAFdNcbU8pa2/MKtGuF5ufHtfbBLy06UDi
-	TPpii94oQhNCM9nu0QLgsYis1P302
-X-Received: by 2002:a05:620a:1997:b0:93e:84e5:3c66 with SMTP id af79cd13be357-93f29d4e1acmr1847488985a.40.1792500440870;
-        Tue, 20 Oct 2026 05:47:20 -0700 (PDT)
-X-Received: by 2002:a05:620a:1997:b0:93e:84e5:3c66 with SMTP id af79cd13be357-93f29d4e1acmr1847484885a.40.1792500440391;
-        Tue, 20 Oct 2026 05:47:20 -0700 (PDT)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d82456asm6544253f8f.42.2026.10.20.05.47.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 05:47:18 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Tue, 20 Oct 2026 14:47:03 +0200
-Subject: [PATCH v12 3/3] crypto: qce - Use fallback for CCM with a
- fragmented payload
+        bh=r2GFX3sHh1KRCB1444YP2uLVlY4It4wzUFS+sYA9Cdw=;
+        b=U8me1sWKDusoj3DRPWmRPTrAUoLTo6LO0Br3Hzlxi2X02Fi9p9fzF6PQVYvqDZDJsf
+         lXUNLPsVIy/r3XsibW7O4D9izB1HzseidvKFNFmcAF4jU217ZvKTQnt3cNe+VUkCv08o
+         u9f5w5SwjrX5V6poE+/RKV+vIPxUHsPviCba5xTH5aPlLVQUCTdYY1Pap6FXE1sPeOuu
+         VQCQwlWjQ47BY9YsxFp0nqxHFw9f6JtpBgLNJn2p6vyuSxl2SaqzAS3KT+IqphL4YdF0
+         L7O+Cj0sn+eHIMI8EQnCGSPlA2swh7CUIIf7RLbSKQNKn63nUWvvg2p4ks2+Jr3EqExO
+         12zg==
+X-Forwarded-Encrypted: i=1; AKwUvBzRDe1rIhroU4Qib7dPzLgOO5PMaFhMMLosQDKE7bYagOwfLQHsgZUomFZMowgJ0CBnJCp9cFw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKmmduYi69ZLKUr66U2HmRHA1DSmsQIFFyN9+tm/zp99gAHBV8J
+	1PCYqCDuR/BY0XqxPOUuK0hUIol9szxlJq4wHbgpzAL3CW6ch50tAuwRmAKh7beDn9aoFy8JLRY
+	nzbI4ipL/oVIa9XSBdgAwmRMSvMYYpyKzsuwioOw=
+X-Gm-Gg: AYBFou1oybeCtj8qxOBzVP6IOJvwae9nF3glf8dZJj7KlhfRrpNRORilyyeYh/xuQFo
+	7cOe9xaHYTbWzVhRIihP9u5tr+99cppqwqgStTfRjqh8DDXgxLqZkjPOSorXQ/hdVQns+whX7s8
+	598+u6G6ynfzouDC11DFM3HKgHA+PIKCUjb1bSSw1CVOtrMt4OG9IN9ZeqTWwwxrn+fjmiAFF5u
+	llHVeTRxkRrqRheczIemrcBgVde8HuQOwtC0Gk0tZYdrPQi/Uy53MkHjfJSEFJ6R4G4njnnr9ew
+	zmtGftEH5Ng3mEc9DP1z4hcvPW+7Mi1EKihGKswcvXcJC2SZngScW3gzMMWtvgtwLtABzgLWBN/
+	aveOjFBsRu2HdAAiqkhOO6ziYxohGsGaNn2m9c2FIjXqNYOxOLNNejeaABI0GBmZxv1cu1dHA/X
+	tmZ4cSCHu3LXu2kCrl60jkpcy+tw+I+BNe5KnQQ8n6KoaP
+X-Received: by 2002:a05:701b:455c:20b0:14b:edb2:c3bc with SMTP id
+ a92af1059eb24-18506e5ac63mr23192173c88.0.1792500635306; Tue, 20 Oct 2026
+ 05:50:35 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -116,136 +105,157 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-qce-fixes-aead-v12-3-77a2e09abd0c@oss.qualcomm.com>
-References: <20261020-qce-fixes-aead-v12-0-77a2e09abd0c@oss.qualcomm.com>
-In-Reply-To: <20261020-qce-fixes-aead-v12-0-77a2e09abd0c@oss.qualcomm.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-        Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eneas U de Queiroz <cotequeiroz@gmail.com>,
-        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-        Eric Biggers <ebiggers@kernel.org>,
-        Demi Marie Obenour <demiobenour@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Russell King <linux@armlinux.org.uk>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        stable@vger.kernel.org, Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2870;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=AsBxpvoPqBx8HskvDXDG+rPpRtLziH3BRXM3FeA2dBk=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq12LL76Dfs7XlcOj9kts95kgKasuDVb03TksNy
- aS3QKz85paJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCatdiywAKCRAFnS7L/zaE
- wy5ED/45pU/hGaIXGKuq+YmcyCr6NvMBlU130xKNXPmOd2rIYdd3uTlIEgv+TG/Zw37DRsx4IgU
- lm42hZLI8S4FvC8czY/bsjC+yvBv9QIMeMGQSirTPk/PZIV/mIZqWmgf+dcYYBQdW3s1jXxvftc
- 2JgdT33jadUiO39cJbVEMbIVEwLr+ejcAa2bqAkNAOYKiXxy/h7ccvSB9PKTEMBaBuwI4EIkDGw
- jVfs7UoE2VQKeShPKZ2N7EVeRGusLRVbTDdv+lUJH1PdINQQwuXfM8kVKHgU7/Y+mmrTO8ibdcB
- MH82L1y69BfaZwP/qOpDI4eKgP02YIqeGdAKDR0Ov9Z7ygZNGW+EGsii+3SxirJUGir/39ojsq0
- GJafh/x5kdscIlu0Vl5tAWDM7QFONJHjtExhJb/HzHP8iiHdFSoYzdK5nvfQ/SBQKQeuJ+2Ex9d
- gGmayt0eH/t3WoUH1o/SGjERHQy1AU06iGk2Nzb3lZpQ5uuVfCmku4UfUi9lLx8f1dXyPrqWKAu
- qwDzz5YiO6G694xHfzE8I4gmbvnz2ancToowKcw9R0DKWGs/KSq1ALenGUwv/VmM2FqZQT4r8wn
- YzpsYGPj1Bl9sls1/3YjV5b991rfqn2ddrwGx1CUnOENFNXiqmkl4ztpv/MKSZVhD/GoAkpEji0
- yo9IhgPLxXjCH6g==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-ORIG-GUID: w-QvCmeBqGgKVA8TpsOMN07hIgBt4vtw
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA1MCBTYWx0ZWRfX3SbuSE487hpP
- hhy5dyJ5zfk69nRuY/nz6pxZlPq5eh1r2mT00iI8NALRvtQO5ElK1iCi6foGTI8wvG8lKkD600q
- F1DdmZnYUe77xiOEpFjIt3EJVsnE689ujKxZTI+x2DjLAW2aTlerc/KVP+DDk1EMk8iph2iuC6g
- xcCMhqNDtG+PL5rfO4NHx/g+gL1JkGoOSodmQgj0pGKGlZ2M0uudjsIH/sWzTrQp9+tg+u2m5Xu
- Vblco+bGhyJcXzgCLgRu3n+uCeR6opCBB455YcvXF/cVCiDQSSmjkZ76LUgZObZF3snNuusg6qE
- bg0REKzof2j9twjB5QLUuOl5v7agCv1T5i8kcdZNcyLbhv1mmJbiErnllJ71YS7Fd/tM7313uwI
- +i41ac+Hcl1VzuVRjhmySA+v5ZCx+DmiA/MujQpIth4YI10D/WYgUCT3oljrmdPIa9Tq//cSXtK
- pNF1Eh5LZGdBpdDWuQQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA1MCBTYWx0ZWRfX0Cz29gAsCX7w
- k/EPONTiTPZo7yy7pX0rLk27cSF43ua/cIQZyFIIfLKVT+m+MD0nJcEBXwwSlsEQT0tU16YTmgy
- FqldV7aChROmFX95okTHAeEc5yXLgwU=
-X-Authority-Analysis: v=2.4 cv=LpcHWXdc c=1 sm=1 tr=0 ts=6ad762d9 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=phyxH6jkQibGXiXynFEA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: w-QvCmeBqGgKVA8TpsOMN07hIgBt4vtw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 phishscore=0 clxscore=1015 impostorscore=0
- malwarescore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610200050
+References: <20261020-gmc6-writes-only-v3-v1-1-70730a302504@gmail.com> <36edbff3-fb61-4bc9-ac2f-0ba549ffe248@amd.com>
+In-Reply-To: <36edbff3-fb61-4bc9-ac2f-0ba549ffe248@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 20 Oct 2026 08:50:20 -0400
+X-Gm-Features: AclHuK_rWC3C1b3gKg4AIEaR0gHppx4UYjUcnHdBYSrohQh-2dJwkEjnWtvuzTI
+Message-ID: <CADnq5_PtxMPr41RgUEeEDOeXQDWVvse8=3WayZcHHE85NFj+jA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/gmc6: restore FB location and HDP non-surface programming
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: drury.brad@gmail.com, Alex Deucher <alexander.deucher@amd.com>, 
+	amd-gfx@lists.freedesktop.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The crypto engine reliably processes CCM only when the message payload
-is a single contiguous buffer. The associated data is already linearized
-into a bounce buffer before being submitted, but when the payload itself
-is split across multiple scatterlist entries the engine stalls waiting
-for input and the request fails with a hardware operation error. This
-was uncovered by the crypto self-tests, which feed the algorithms
-randomly fragmented buffers.
+On Tue, Oct 20, 2026 at 7:40=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 10/20/26 10:40, Brad Drury via B4 Relay wrote:
+> > From: Brad Drury <drury.brad@gmail.com>
+> >
+> > On a MacBookPro11,5 (Radeon R9 M370X, Verde, PCI 1002:6821), used as a
+> > headless PRIME offload GPU with the panel on i915, every S3 resume with
+> > amdgpu fails:
+> >
+> >   amdgpu 0000:01:00.0: [drm] ring gfx test failed (-110)
+> >   amdgpu 0000:01:00.0: resume of IP block <gfx_v6_0> failed -110
+> >
+> > followed by SDMA timeouts and a failed GPU recovery.  The GPU stays
+> > unusable until reboot.  radeon resumes the same card fine.
+> >
+> > Instrumenting the resume path with a write/read-back VRAM probe through
+> > MM_INDEX/MM_DATA shows that VRAM is still intact after the driver
+> > re-POSTs the card and at the start of gmc_v6_0_hw_init(), but is corrup=
+t
+> > at the end of it.  The gfx ring test failure is a consequence.
+> >
+> > Commit 71086a3e8470 ("drm/amdgpu/gmc6: drop fb location programming")
+> > removed the MC_VM_FB_LOCATION and HDP_NONSURFACE_* writes from
+> > gmc_v6_0_mc_program(), on the grounds that the vbios sets these up.
+> > That holds after the system firmware POSTs the card at boot, but it doe=
+s
+> > not appear to hold after S3, where the card is only re-POSTed via
+> > asic_init.  radeon's si_mc_program() still writes them on every init an=
+d
+> > resume.
+> >
+> > Write them again, with the same values as radeon, after the AGP apertur=
+e
+> > registers.  gmc_v8_0_mc_program() already does the same for SR-IOV VFs.
+> >
+> > Unlike radeon and the code removed by 71086a3e8470, this does not black
+> > out the MC around the writes.  The old gmc_v6_0_mc_stop() relied on
+> > amdgpu_display_stop_mc_access() to blank the CRTCs first, and that was
+> > removed by commit e4f6b39e8bcd ("drm/amdgpu: remove *_mc_access from
+> > display funcs"), so restoring the blackout now would stop the MC under =
+a
+> > live scanout.  On this machine the writes alone fix resume; a variant t=
+hat
+> > also restored the blackout behaved the same.
+>
+> Yeah that is exactly the reason why this approach here doesn't work.
+>
+> We can't stop the MC access nor the EFI access to the PCI MMIO BAR. So wh=
+at you try to do here is inherently dangerous.
+>
+> I think we just need to do an ASIC reset on load like we do for other Mac=
+s as well so that the FB config matches what the VBIOS programmed it to.
+>
+> Alex any opinion on that?
 
-Detect a payload that spans more than one scatterlist entry (in either
-the source or the destination, skipping past the associated data) and
-route the request to the software fallback.
+Should already be fixed with this patch:
+https://lists.freedesktop.org/archives/amd-gfx/2026-October/154974.html
 
-Cc: stable@vger.kernel.org
-Fixes: 9363efb4181c ("crypto: qce - Add support for AEAD algorithms")
-Tested-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Tested-by: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
----
- drivers/crypto/qce/aead.c | 24 +++++++++++++++++++++++-
- 1 file changed, 23 insertions(+), 1 deletion(-)
+Alex
 
-diff --git a/drivers/crypto/qce/aead.c b/drivers/crypto/qce/aead.c
-index 19d7e92aaeda0df1072114fa0435dc40e1eb6849..8ce1a9f3c9d80ba46d5c074cc3ef45c69acf52ce 100644
---- a/drivers/crypto/qce/aead.c
-+++ b/drivers/crypto/qce/aead.c
-@@ -498,7 +498,8 @@ static int qce_aead_crypt(struct aead_request *req, int encrypt)
- 	struct qce_aead_reqctx *rctx = aead_request_ctx_dma(req);
- 	struct qce_aead_ctx *ctx = crypto_aead_ctx(tfm);
- 	struct qce_alg_template *tmpl = to_aead_tmpl(tfm);
--	unsigned int blocksize = crypto_aead_blocksize(tfm);
-+	unsigned int blocksize = crypto_aead_blocksize(tfm), authsize;
-+	struct scatterlist __sg[2], *msg_sg;
- 	bool fallback = ctx->need_fallback;
- 
- 	rctx->flags  = tmpl->alg_flags;
-@@ -523,6 +524,27 @@ static int qce_aead_crypt(struct aead_request *req, int encrypt)
- 	if (IS_CCM(rctx->flags) && !IS_ALIGNED(rctx->cryptlen, AES_BLOCK_SIZE))
- 		fallback = true;
- 
-+	/*
-+	 * The CE reliably processes CCM only when the message payload is a
-+	 * single contiguous buffer. The associated data is linearized into a
-+	 * bounce buffer before being handed to the engine, but a fragmented
-+	 * payload makes the engine stall waiting for input, so route those
-+	 * requests to the fallback.
-+	 */
-+	if (IS_CCM(rctx->flags)) {
-+		authsize = ctx->authsize;
-+
-+		msg_sg = scatterwalk_ffwd(__sg, req->src, req->assoclen);
-+		if (sg_nents_for_len(msg_sg, rctx->cryptlen +
-+				     (encrypt ? 0 : authsize)) > 1)
-+			fallback = true;
-+
-+		msg_sg = scatterwalk_ffwd(__sg, req->dst, req->assoclen);
-+		if (sg_nents_for_len(msg_sg, rctx->cryptlen +
-+				     (encrypt ? authsize : 0)) > 1)
-+			fallback = true;
-+	}
-+
- 	/* If fallback is needed, schedule and exit */
- 	if (fallback) {
- 		aead_request_set_tfm(&rctx->fallback_req, ctx->fallback);
-
--- 
-2.47.3
-
+>
+> Regards,
+> Christian.
+>
+> >
+> > It is not established which of these writes is the one that matters.
+> > At boot on this machine FB_LOCATION and HDP_NONSURFACE_BASE already hol=
+d
+> > the values written here, but HDP_NONSURFACE_INFO/SIZE do not.  The
+> > register state on a failing resume could not be captured.
+> >
+> > Tested on linux 7.3-rc7, MacBookPro11,5, amdgpu.si_support=3D1
+> > radeon.si_support=3D0, mem_sleep=3Ddeep, with this change alone on top =
+of
+> > the stock driver:
+> >  - 7/7 S3 cycles clean, from a few seconds to 10 h 49 min asleep, on
+> >    battery and on AC, including two back-to-back cycles woken by the
+> >    RTC alarm
+> >  - DRI_PRIME=3D1 glxinfo (radeonsi), glxgears and vkcube (RADV) work
+> >    after each resume; no ring, -110 or reset errors in the log
+> >  - cold boot unaffected
+> >
+> > The variant with the MC blackout passed a further 6/6 cycles, up to
+> > 9 h 40 min asleep.
+> >
+> > This patch applies to amd-staging-drm-next with only a line offset from
+> > the tested 7.3-rc7 change and has been build-tested there.
+> >
+> > Not tested: other SI parts (Tahiti, Pitcairn, Oland, Hainan), and an SI
+> > dGPU that drives a display.
+> >
+> > Fixes: 71086a3e8470 ("drm/amdgpu/gmc6: drop fb location programming")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: Claude:claude-opus-5-5
+> > Signed-off-by: Brad Drury <drury.brad@gmail.com>
+> > ---
+> > I can run further tests on this machine (MacBookPro11,5, R9 M370X /
+> > Verde) if that would help, e.g. register dumps or other variants.
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c | 11 +++++++++++
+> >  1 file changed, 11 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/am=
+d/amdgpu/gmc_v6_0.c
+> > index a7c353d1a..d6e315f4b 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> > @@ -223,6 +223,17 @@ static void gmc_v6_0_mc_program(struct amdgpu_devi=
+ce *adev)
+> >       WREG32(mmMC_VM_AGP_BASE, 0);
+> >       WREG32(mmMC_VM_AGP_TOP, adev->gmc.agp_end >> 22);
+> >       WREG32(mmMC_VM_AGP_BOT, adev->gmc.agp_start >> 22);
+> > +     /*
+> > +      * Don't rely on the vbios having set these up.  After S3 the car=
+d is
+> > +      * only re-POSTed with asic_init, and without these (as written b=
+y
+> > +      * radeon's si_mc_program()) VRAM is corrupt by the end of hw_ini=
+t.
+> > +      */
+> > +     WREG32(mmMC_VM_FB_LOCATION,
+> > +            (((adev->gmc.vram_end >> 24) & 0xFFFF) << 16) |
+> > +            ((adev->gmc.vram_start >> 24) & 0xFFFF));
+> > +     WREG32(mmHDP_NONSURFACE_BASE, adev->gmc.vram_start >> 8);
+> > +     WREG32(mmHDP_NONSURFACE_INFO, (2 << 7) | (1 << 30));
+> > +     WREG32(mmHDP_NONSURFACE_SIZE, 0x3FFFFFFF);
+> >
+> >       if (gmc_v6_0_wait_for_idle(ip_block))
+> >               dev_warn(adev->dev, "Wait for MC idle timedout !\n");
+> >
+> > ---
+> > base-commit: f307e9d20cc7bd6dd54a3fd8c2af767dd7ef2931
+> > change-id: 20261020-gmc6-writes-only-v3-33151aacabfb
+> >
+> > Best regards,
+> > --
+> > Brad Drury <drury.brad@gmail.com>
+> >
+> >
+>
