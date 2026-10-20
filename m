@@ -1,101 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.9
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792500636;
-	b=HCnr0EgUw57u8CvjjmEo6dQ9OqWCt1YNpRwy0A8Y+vD7U+cddtSOil/m87oyVwJ0IbYL
-	 b7/Yns1uPJTGIW8BBRKfpqk0PZ5MVQrwRNaRdZ4LUoFb0wS6xs/Wj2wXZnX7Fn0m9VKJT
-	 3iUnVhr4vO0cnHH819eeX/dcnxblhcRO8m8I25Wu2sbhThNKoqXlR7vQiUDw06z4qGJ3C
-	 lQNB8t4BtsxSzs/oJ5VkSgzeC9sy0Omn9sVgD+QRMEous9AbR65/482JTlBso39ibsGO9
-	 NSxPSAtY8AiN+sxddW9fjVVALoGT0H0RSQ7hV8E/BiImYFI14/vhQWzC4PFzdqBE1bA==
+	t=1792500749;
+	b=ZArUZ7xZ3TYn+FDuihbiMLLIIL2TT7wnH+dsF810CTHk8sdRBMChhlIVlBe3pQJEzkD2
+	 wJT73oXPkRzz2jaGEAIDIoBo1JcRdswEjiFQ21E6IXmfMVzDoAB5Huk30SYqVWm6t+8Qr
+	 iyQQvBzkU/1kObndSaQO4nktYdeG8VG7x6vSAdYNM+2JkosAsKUrdyt65mUg3sN7ueM4E
+	 lgNVNiFF7prz2jF9XmsIJ9BbeKWfrdwWtY4D3o23XuSLonTNjQes14lMt3LG0RCrpp5G5
+	 mx1WBN67hw/eiN0cFdkUBHQ6VDSdGgVe2fw0vNhta6ezeBpD19aBtFQXH4dZL3TDkig==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792500636;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=r2GFX3sHh1KRCB1444YP2uLVlY4It4wzUFS+sYA9Cdw=;
-	b=qZrQX/1RqlUeBPSVosoNyLbm91ZGJE+u3exSOkym21cFDbR4USUDW4NfK1weEum4VcQg
-	 ZDQE3rRXa5ySfmCVIeelAJLQNnACjKOS94rKW6POJ+8J63SUsmZYzCijCFtjiSXGjL0A/
-	 q/spdotR9SGmOvpQQ1TGznSmwgVcORTFScsiKnmZhkwP20Hvo5raonvDeeYKQz5Ccye1m
-	 jFw/AkkdKngBe1bEJlB35k0yU2Jb5WsO6jPNX+U3X49NmmtM6DjnoBjvnBOw1ti0Qf5BI
-	 ZpRLQBi6vhNcNWs+aBd1hFGMV/OYQV43AUyalWlNZCueKkw/Q2e6iIjFMBqTRYxi1qA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792500749;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Z9syTPfiC6hEWHcnLPr8tzi+ECDO4j0WuanQxl4vpJE=;
+	b=cK9tPHw3f3d4v/Ai2PIPtZIoSoyFz8q7kV6DsCdxE8hq40CK91hLDq7nz16gwnDzL5Ec
+	 sn9VdTt1e7mRvMLJ+RVqCBmlT02DXWVoN59RzPpbX9L4vbXZlwyPYr44CoStpHXrUbMUv
+	 3lhMhRr4G4sfgg7k1zvts975pgXHRl9mD0FTQ6gQId5Rr3Jx1Xh5TR0rnVi1dQDdTy80v
+	 IYsCfjXkQ8qplIs0aYDirvYm3T0xDFXtU2GNfcMHhUTiFR4G7KbNEZH1SY0+YQmE4ImAv
+	 e6JxJGi5YPirglZhStPNqHuQ4xE8MyR5Ul2Z/kds+S7g3/aPONCE31xZPwKiIJomYdw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UfF90Vim;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Q4+CzYPh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.9
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011009.outbound.protection.outlook.com [52.101.52.9])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A83606A335
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 12:50:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59A83606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47B06606A31D;
+	Tue, 20 Oct 2026 12:52:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47B06606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UfF90Vim
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-34c522572bfso326684eec.3
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 05:50:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792500635; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Th/xNI3X38bL/Fo3BpEduQEHSP0rrbZSh9z2pNf+UtlTSW8yJMi4NH5wEnxTPQWb7D
-         FctGCPchUxPA3BOoD1tDCr3REQ23NMo2BmJ6qsBOptQ9MSo3AnI6NBuuZdPXC5z9x1VO
-         aCSnQi8kMgKgZbwQ4N0jxIei/fnhPobnYIdsgOJEDDdNuFbkF81PEIuTqM0+XH9PNhCV
-         pmhaNhX1Rkrm7RDnitPmfWNsvVIPwFm96Qe2OGYgLBRVqQfeGvRMzMLeAlzNFU+TD7De
-         4kvkfSULqLZbNFPvJICnWFUO8i4x0+dtu6A/6+Tsx4vyZFwxfsOPuqGUW4jMXwDpi4If
-         z6VA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=r2GFX3sHh1KRCB1444YP2uLVlY4It4wzUFS+sYA9Cdw=;
-        fh=bSM/cFDLz8Y9Ai8R6aTPeL9m0NNt998e0SnLtbLowoQ=;
-        b=byx53eEtF7jLqT/peRUKO2Jkjfc4eTW60TJnJlprZ0+KP41XFnrpdBkgtsT/vmPhiR
-         Q84QIpzWuR2VUTYzE3vg1udEh0UzOk+pKcFqndB1fskgP9y+Y7HD8DvLgzVOIQpxigS3
-         t4nUDC8nj+rouEmUbL8FdGEoqVADslz66+qxlGJQ3x40ZR7XjelOeuNJLhS2AiMBB4am
-         xtLT2j95MV9CibSVcRM+mYePYllkUrtGs2zt/qgiSfIIWSGWNK+5gHHZ+zViDeaEeOww
-         YyvLNoYYO9uJn0HNXOu8hPimHTPZ90cv9LkP5TCj0mf+Qk4mvSLuYKcSs5N7sCLO4zdz
-         HASw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792500635; x=1793105435; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=r2GFX3sHh1KRCB1444YP2uLVlY4It4wzUFS+sYA9Cdw=;
-        b=UfF90VimWdm3xhQ+Qya5e7krz1MMQku5aBvIMYxiW+RhS+0/VG/8/e5xBBNc2OV9tK
-         nywUtcKCE0QrGLsWE/tGVSYnbH7fPF+wQLJ6nyteb5edVT+WZtpgpZdbiP2FBEZCr+Ix
-         SSa4ec78aByv5DO2418oUp8u4SsIsBkxtcR65+Y7f/IeeTAFO8R3G0c9UPo+1zWcSheZ
-         6/ipqVyF/vY6cC0u6eZcBcZzMdUQK7j5JWjPf7tGuN8BZ6ZhhxvhoujwV2Y/0S8MtXGw
-         6KqTEV2MpfXP6RPomemgqVf2PEXsfTirVH8p6/A0ZOz2CSH9O+TGHT5A9iMLFchuksml
-         YwFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792500635; x=1793105435;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r2GFX3sHh1KRCB1444YP2uLVlY4It4wzUFS+sYA9Cdw=;
-        b=U8me1sWKDusoj3DRPWmRPTrAUoLTo6LO0Br3Hzlxi2X02Fi9p9fzF6PQVYvqDZDJsf
-         lXUNLPsVIy/r3XsibW7O4D9izB1HzseidvKFNFmcAF4jU217ZvKTQnt3cNe+VUkCv08o
-         u9f5w5SwjrX5V6poE+/RKV+vIPxUHsPviCba5xTH5aPlLVQUCTdYY1Pap6FXE1sPeOuu
-         VQCQwlWjQ47BY9YsxFp0nqxHFw9f6JtpBgLNJn2p6vyuSxl2SaqzAS3KT+IqphL4YdF0
-         L7O+Cj0sn+eHIMI8EQnCGSPlA2swh7CUIIf7RLbSKQNKn63nUWvvg2p4ks2+Jr3EqExO
-         12zg==
-X-Forwarded-Encrypted: i=1; AKwUvBzRDe1rIhroU4Qib7dPzLgOO5PMaFhMMLosQDKE7bYagOwfLQHsgZUomFZMowgJ0CBnJCp9cFw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKmmduYi69ZLKUr66U2HmRHA1DSmsQIFFyN9+tm/zp99gAHBV8J
-	1PCYqCDuR/BY0XqxPOUuK0hUIol9szxlJq4wHbgpzAL3CW6ch50tAuwRmAKh7beDn9aoFy8JLRY
-	nzbI4ipL/oVIa9XSBdgAwmRMSvMYYpyKzsuwioOw=
-X-Gm-Gg: AYBFou1oybeCtj8qxOBzVP6IOJvwae9nF3glf8dZJj7KlhfRrpNRORilyyeYh/xuQFo
-	7cOe9xaHYTbWzVhRIihP9u5tr+99cppqwqgStTfRjqh8DDXgxLqZkjPOSorXQ/hdVQns+whX7s8
-	598+u6G6ynfzouDC11DFM3HKgHA+PIKCUjb1bSSw1CVOtrMt4OG9IN9ZeqTWwwxrn+fjmiAFF5u
-	llHVeTRxkRrqRheczIemrcBgVde8HuQOwtC0Gk0tZYdrPQi/Uy53MkHjfJSEFJ6R4G4njnnr9ew
-	zmtGftEH5Ng3mEc9DP1z4hcvPW+7Mi1EKihGKswcvXcJC2SZngScW3gzMMWtvgtwLtABzgLWBN/
-	aveOjFBsRu2HdAAiqkhOO6ziYxohGsGaNn2m9c2FIjXqNYOxOLNNejeaABI0GBmZxv1cu1dHA/X
-	tmZ4cSCHu3LXu2kCrl60jkpcy+tw+I+BNe5KnQQ8n6KoaP
-X-Received: by 2002:a05:701b:455c:20b0:14b:edb2:c3bc with SMTP id
- a92af1059eb24-18506e5ac63mr23192173c88.0.1792500635306; Tue, 20 Oct 2026
- 05:50:35 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Q4+CzYPh
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eGRfWjcLtl1P0+ymn3zTuQVaoo/ENkhMDmhoO2Lrd+oP86EYRpl0oqw5mlDbb2OPakPxorxtCw6Nb/FPxz5vz6K5FIkrQFJqQS1xmveAa3RdiWLIsBcD9h6HLgy83qw6v8zeWMIH/7VmCdWDkbZifjZQfWmZaLm1xdAlbpoEChfI2wz0tiO8+zo0+W2AK8+kTKOapbsb0dIK3wn5ZgE1Q2q+seYB/VNhbhyGznT52gPbXBovp9Hf7lSgLpVUXI/mxbWC55lxNRmIWFm3aLuIMbit0YhVa5DuUm0qmISpOzCMNvAAi4s6qc4UbeDQSFjcE/a3C1Yi7zVNVZ/VqO+FBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Z9syTPfiC6hEWHcnLPr8tzi+ECDO4j0WuanQxl4vpJE=;
+ b=cdu1wYiEjqMipCA+qY0kzPb8mno1NK9zkzp54O9LwFbkDZevzBKXY6EckrtN3B7tSfhb4Ms6EATj5PYhu9Jl1dJ6d/KxZVHjOFz7O7BhSrIaW0cKwVn/dOL7pZjXTg1jbuJYiB2aNNIipBcDCLQ9cs13AsCet3lcvFZTsArVyPWdXt7G/eMoGnDTvdwM6xySpbx1K3+/Y1ox6sv9ZQSCCEqn0Ysl/WgFt7tHqMWRO59HHQ5qXmyc7xzTlI7C8nGoDhr+75HRX3wY9ghCeLbEO66/uqwdzbEKcsS5QUar2hoTMrb6T72Wp1GDQotYa3cx3B5TcBKLO6dYAK+JIPn4Rw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.dk smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Z9syTPfiC6hEWHcnLPr8tzi+ECDO4j0WuanQxl4vpJE=;
+ b=Q4+CzYPh0hvdHddtsBxeMZvlz1Aw3sEOiDeCwDXZKUHpy257EFXAQJj4CpljV3OULB3kwAwGKth5f6IlCnNydS6mgf8OjyohqT+nSg22bXWkAhH3/S9jU7b9ZJ9coPM8mUv9py+7LQtohLOF+BxoUq/dx4nK1YEBHgTZ7mP6BHJ4TYPiSoYLU2OD96OnVp4BvG59qjkCckJt7NRE2SpBB3CAzJ/E+eIQZAt6CksSQC1QnFh7wK+yYg9EBdjRpx/tRXj+X3wTLaFLIb6zOV6zF64GABGd4HczjjwoKf4nA3LZoAzosViPGWeqgzpl3ljmJaZi3eX3KCLJaX6vnExrtg==
+Received: from DS1PR03CA0014.namprd03.prod.outlook.com (2603:10b6:8:450::11)
+ by IA1PR12MB8310.namprd12.prod.outlook.com (2603:10b6:208:3ff::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
+ 2026 12:52:26 +0000
+Received: from DS2PEPF00006E1F.namprd05.prod.outlook.com
+ (2603:10b6:8:450:cafe::65) by DS1PR03CA0014.outlook.office365.com
+ (2603:10b6:8:450::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.20 via Frontend Transport; Tue,
+ 20 Oct 2026 12:52:25 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ DS2PEPF00006E1F.mail.protection.outlook.com (10.167.23.212) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Tue, 20 Oct 2026 12:52:25 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 20 Oct
+ 2026 05:52:06 -0700
+Received: from 82875d6-lcedt.nvidia.com (10.126.230.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 20 Oct 2026 05:52:05 -0700
+From: Nirmoy Das <nirmoyd@nvidia.com>
+To: <axboe@kernel.dk>
+CC: <ming.lei@redhat.com>, <hare@suse.de>, <dwagner@suse.de>,
+	<linux-block@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Nirmoy Das
+	<nirmoyd@nvidia.com>, <stable@vger.kernel.org>
+Subject: [PATCH] blk-mq: clear stale inactive flag on hctx reuse
+Date: Tue, 20 Oct 2026 05:51:29 -0700
+Message-ID: <20261020125129.430600-1-nirmoyd@nvidia.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,157 +110,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020-gmc6-writes-only-v3-v1-1-70730a302504@gmail.com> <36edbff3-fb61-4bc9-ac2f-0ba549ffe248@amd.com>
-In-Reply-To: <36edbff3-fb61-4bc9-ac2f-0ba549ffe248@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 20 Oct 2026 08:50:20 -0400
-X-Gm-Features: AclHuK_rWC3C1b3gKg4AIEaR0gHppx4UYjUcnHdBYSrohQh-2dJwkEjnWtvuzTI
-Message-ID: <CADnq5_PtxMPr41RgUEeEDOeXQDWVvse8=3WayZcHHE85NFj+jA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/gmc6: restore FB location and HDP non-surface programming
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: drury.brad@gmail.com, Alex Deucher <alexander.deucher@amd.com>, 
-	amd-gfx@lists.freedesktop.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF00006E1F:EE_|IA1PR12MB8310:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1ad27586-d7cd-4105-40ca-08df2ea8fdda
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|23010399003|36860700016|1800799024|18002099003|10067099003|261009223027099003|11063799006|5023799004|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	j3n3uQCoTZP8WTe18BtS1r8JgK4dZqZ08tUpdpsFwCm7fnq+685dFGc4+DDJmI2GMoAvM9rUX3JwSOiisLKg70dxIs33kvtKEMw1pxNvgifRDjS1kwkKuNihmcH2d6ihhhgLHx2u5IJfYrnKi9iANg4LF1pL96o/M5SD6LsJImW8RSSpwGNTIU35xRdnMwom5mQb8Q2yiDOM80uD2sBzTt9EpPDqQQc+bWxu8mUESHP5xWIbBi6a7RqFOqywr6zesvaXaWXbFYLPQYYMCjwFNW4FjipOKYHB2a9K18IIOtZ7oh6Tj/QaAuiEHBlMIpNhn0mE7I/umnwHfvaCIuVmCH4Y7RhjKCiGsgpDB/bt0P2eR5mVBggsmRjrvvUxXBwHlsUlHdNHcsmBL5lihoeMIYQx13mNYwAStjExq9Bb7xsFWlIBfWDnPdQuRWEbyTNg8su6CORlHn2EN2EeCBIvuBNQ4sk4gMqUP9CoaOrF9+gTfhX//dhIXt3dxYW8j4/G/11sTUZrPJwlCcC6VWNRTUJqaB9e96DYp30tIZpUa9fwyoUE8wuABedUhi1OSwQDVu+uYbzb2X+ADiI/aOgHAVk4EuJG89ZuoTHFgbQH1ZhDFXu6gftFplqU/8LSOH+32VkGKTRUD28KkLIKdq92Ilk04H7jSnRBWqI39sENXfy70ePvk/IYkDHXepdua1l3W6co1PJ94PLI85NClDwEUg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(376014)(23010399003)(36860700016)(1800799024)(18002099003)(10067099003)(261009223027099003)(11063799006)(5023799004)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	oUa3YA7N3vU9y1sImCrsq4gYKgTwhX6KARUlXHcBFBFGRBZrmCxlfs9Sx8J2qaYUCCTOzHvYSMXtA5LV+hCJm2Sokpo9mniFwBRRCpd195A7qp7hzlqi+R14WVmoAE3renHJW+lUpl2Jtx7WqZFcX5md1Q3tfaCwcKuAwThf/gvX+SWtP7Iv2z2A2UwBbtZN/nDE4TbO7yVPspOHa4rJkOn/Q+vwZP3tICkWpZuZDKg5flyycHZNhpIBa9YHn+9LQN+FEQ3R5JLZOxlKayqGU5apFpPb7jjqVxQfYKtjx1NSK+DZ28OfiJ/uaNA9BK1k270eTvGMhqA908/B2J1/aLIf0Ws8NqR6qon0R8eaqDi65VlSSKoaNEz/KEbOuK4rZSfiBj1wHlZxUTi2vy2MBme3/WbSwFViAMVgt0jRBfUBm/SDJSevFCkGrvLXxv5n
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 12:52:25.5957
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ad27586-d7cd-4105-40ca-08df2ea8fdda
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS2PEPF00006E1F.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8310
 
-On Tue, Oct 20, 2026 at 7:40=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> On 10/20/26 10:40, Brad Drury via B4 Relay wrote:
-> > From: Brad Drury <drury.brad@gmail.com>
-> >
-> > On a MacBookPro11,5 (Radeon R9 M370X, Verde, PCI 1002:6821), used as a
-> > headless PRIME offload GPU with the panel on i915, every S3 resume with
-> > amdgpu fails:
-> >
-> >   amdgpu 0000:01:00.0: [drm] ring gfx test failed (-110)
-> >   amdgpu 0000:01:00.0: resume of IP block <gfx_v6_0> failed -110
-> >
-> > followed by SDMA timeouts and a failed GPU recovery.  The GPU stays
-> > unusable until reboot.  radeon resumes the same card fine.
-> >
-> > Instrumenting the resume path with a write/read-back VRAM probe through
-> > MM_INDEX/MM_DATA shows that VRAM is still intact after the driver
-> > re-POSTs the card and at the start of gmc_v6_0_hw_init(), but is corrup=
-t
-> > at the end of it.  The gfx ring test failure is a consequence.
-> >
-> > Commit 71086a3e8470 ("drm/amdgpu/gmc6: drop fb location programming")
-> > removed the MC_VM_FB_LOCATION and HDP_NONSURFACE_* writes from
-> > gmc_v6_0_mc_program(), on the grounds that the vbios sets these up.
-> > That holds after the system firmware POSTs the card at boot, but it doe=
-s
-> > not appear to hold after S3, where the card is only re-POSTed via
-> > asic_init.  radeon's si_mc_program() still writes them on every init an=
-d
-> > resume.
-> >
-> > Write them again, with the same values as radeon, after the AGP apertur=
-e
-> > registers.  gmc_v8_0_mc_program() already does the same for SR-IOV VFs.
-> >
-> > Unlike radeon and the code removed by 71086a3e8470, this does not black
-> > out the MC around the writes.  The old gmc_v6_0_mc_stop() relied on
-> > amdgpu_display_stop_mc_access() to blank the CRTCs first, and that was
-> > removed by commit e4f6b39e8bcd ("drm/amdgpu: remove *_mc_access from
-> > display funcs"), so restoring the blackout now would stop the MC under =
-a
-> > live scanout.  On this machine the writes alone fix resume; a variant t=
-hat
-> > also restored the blackout behaved the same.
->
-> Yeah that is exactly the reason why this approach here doesn't work.
->
-> We can't stop the MC access nor the EFI access to the PCI MMIO BAR. So wh=
-at you try to do here is inherently dangerous.
->
-> I think we just need to do an ASIC reset on load like we do for other Mac=
-s as well so that the FB config matches what the VBIOS programmed it to.
->
-> Alex any opinion on that?
+When the last CPU mapped to an hctx goes offline,
+blk_mq_hctx_notify_offline() sets BLK_MQ_S_INACTIVE. Updating the
+number of hardware queues exits every hctx and parks it on
+q->unused_hctx_list. A later update can reuse a parked hctx through
+blk_mq_alloc_and_init_hctx(), at any queue index, and nothing clears
+the flag.
 
-Should already be fixed with this patch:
-https://lists.freedesktop.org/archives/amd-gfx/2026-October/154974.html
+If the reused hctx is mapped to an online CPU, blk_mq_get_tag() keeps
+returning BLK_MQ_NO_TAG for it. __blk_mq_alloc_requests() sleeps and
+retries, expecting CPU hotplug to move the task to another CPU, so a
+task that stays on that CPU never gets a tag. Onlining the original CPU
+doesn't recover it either, because blk_mq_hctx_notify_online() only
+clears the flag on the hctx that CPU now maps to.
 
-Alex
+Clear BLK_MQ_S_INACTIVE in blk_mq_init_hctx() so a reused hctx starts
+like a freshly allocated one. A reused hctx has no cpuhp instances at
+that point, so the offline callback can't set the flag again before
+blk_mq_add_hw_queues_cpuhp() registers it. Clearing the flag in
+blk_mq_exit_hctx() is not enough, because a parked hctx keeps its cpuhp
+instances until blk_mq_remove_hw_queues_cpuhp(). Preserve the other
+hctx state flags.
 
->
-> Regards,
-> Christian.
->
-> >
-> > It is not established which of these writes is the one that matters.
-> > At boot on this machine FB_LOCATION and HDP_NONSURFACE_BASE already hol=
-d
-> > the values written here, but HDP_NONSURFACE_INFO/SIZE do not.  The
-> > register state on a failing resume could not be captured.
-> >
-> > Tested on linux 7.3-rc7, MacBookPro11,5, amdgpu.si_support=3D1
-> > radeon.si_support=3D0, mem_sleep=3Ddeep, with this change alone on top =
-of
-> > the stock driver:
-> >  - 7/7 S3 cycles clean, from a few seconds to 10 h 49 min asleep, on
-> >    battery and on AC, including two back-to-back cycles woken by the
-> >    RTC alarm
-> >  - DRI_PRIME=3D1 glxinfo (radeonsi), glxgears and vkcube (RADV) work
-> >    after each resume; no ring, -110 or reset errors in the log
-> >  - cold boot unaffected
-> >
-> > The variant with the MC blackout passed a further 6/6 cycles, up to
-> > 9 h 40 min asleep.
-> >
-> > This patch applies to amd-staging-drm-next with only a line offset from
-> > the tested 7.3-rc7 change and has been build-tested there.
-> >
-> > Not tested: other SI parts (Tahiti, Pitcairn, Oland, Hainan), and an SI
-> > dGPU that drives a display.
-> >
-> > Fixes: 71086a3e8470 ("drm/amdgpu/gmc6: drop fb location programming")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: Claude:claude-opus-5-5
-> > Signed-off-by: Brad Drury <drury.brad@gmail.com>
-> > ---
-> > I can run further tests on this machine (MacBookPro11,5, R9 M370X /
-> > Verde) if that would help, e.g. register dumps or other variants.
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c | 11 +++++++++++
-> >  1 file changed, 11 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/am=
-d/amdgpu/gmc_v6_0.c
-> > index a7c353d1a..d6e315f4b 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> > @@ -223,6 +223,17 @@ static void gmc_v6_0_mc_program(struct amdgpu_devi=
-ce *adev)
-> >       WREG32(mmMC_VM_AGP_BASE, 0);
-> >       WREG32(mmMC_VM_AGP_TOP, adev->gmc.agp_end >> 22);
-> >       WREG32(mmMC_VM_AGP_BOT, adev->gmc.agp_start >> 22);
-> > +     /*
-> > +      * Don't rely on the vbios having set these up.  After S3 the car=
-d is
-> > +      * only re-POSTed with asic_init, and without these (as written b=
-y
-> > +      * radeon's si_mc_program()) VRAM is corrupt by the end of hw_ini=
-t.
-> > +      */
-> > +     WREG32(mmMC_VM_FB_LOCATION,
-> > +            (((adev->gmc.vram_end >> 24) & 0xFFFF) << 16) |
-> > +            ((adev->gmc.vram_start >> 24) & 0xFFFF));
-> > +     WREG32(mmHDP_NONSURFACE_BASE, adev->gmc.vram_start >> 8);
-> > +     WREG32(mmHDP_NONSURFACE_INFO, (2 << 7) | (1 << 30));
-> > +     WREG32(mmHDP_NONSURFACE_SIZE, 0x3FFFFFFF);
-> >
-> >       if (gmc_v6_0_wait_for_idle(ip_block))
-> >               dev_warn(adev->dev, "Wait for MC idle timedout !\n");
-> >
-> > ---
-> > base-commit: f307e9d20cc7bd6dd54a3fd8c2af767dd7ef2931
-> > change-id: 20261020-gmc6-writes-only-v3-33151aacabfb
-> >
-> > Best regards,
-> > --
-> > Brad Drury <drury.brad@gmail.com>
-> >
-> >
->
+Reproduced with null_blk on v7.3 in a four-vCPU arm64 QEMU/KVM guest:
+
+  modprobe null_blk nr_devices=0
+  mkdir /sys/kernel/config/nullb/nullb0
+  cd /sys/kernel/config/nullb/nullb0
+  echo 4 > submit_queues; echo 1 > memory_backed; echo 16 > size
+  echo 1 > power
+  echo 0 > /sys/devices/system/cpu/cpu3/online
+  echo 2 > submit_queues
+  echo 4 > submit_queues
+
+Offlining CPU3 marks hctx3 inactive. After the two updates it comes back
+as hctx1 and is mapped to CPU0:
+
+  # cat /sys/block/nullb0/mq/1/cpu_list
+  0
+  # cat /sys/kernel/debug/block/nullb0/hctx1/state
+  INACTIVE
+
+A 4K O_DIRECT read pinned to CPU0 hangs in D state, while the same read
+on CPU1 and CPU2 completes. Onlining CPU3 again leaves hctx1 inactive
+and the CPU0 read still hangs. With this change hctx1 state is empty and
+the reads on CPU0, CPU1 and CPU2 complete, before and after onlining
+CPU3.
+
+Fixes: bf0beec0607d ("blk-mq: drain I/O when all CPUs in a hctx are offline")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Nirmoy Das <nirmoyd@nvidia.com>
+---
+ block/blk-mq.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/block/blk-mq.c b/block/blk-mq.c
+index 025a799f35b924d..00b75eb95dd943a 100644
+--- a/block/blk-mq.c
++++ b/block/blk-mq.c
+@@ -4002,6 +4002,7 @@ static int blk_mq_init_hctx(struct request_queue *q,
+ 		goto fail;
+ 
+ 	hctx->queue_num = hctx_idx;
++	clear_bit(BLK_MQ_S_INACTIVE, &hctx->state);
+ 
+ 	hctx->tags = set->tags[hctx_idx];
+ 
+-- 
+2.43.0
+
