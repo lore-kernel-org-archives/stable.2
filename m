@@ -1,84 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792528072;
-	b=0/iEM06IU/oaLL+suKYHfAgwbNhwZ5Tk3cwRgkNqhmS2ErPp4elHhxvakMc2MHpUrS9g
-	 /9KOHysbpFLTMIweuQwJxiEF5PzGSAH+XvNOKRd1puulL96WgWX7QdKNPifdpSgt+0eTD
-	 OSl5aFt82t/OWTXYAxffnRiq7lJi0Sjbc5KHcMUwF1Ri2+SylHeFa/sNYSKjHBKHZwJZw
-	 KVMwp9sG2916OYCOnr2VJw3SfdAFornOTDkudi3kvrJ5HLpRZiacyYP6ahJS1ehW5cbU/
-	 +20rym6iL7lIl7GTxok9SGKN0urjBZKFqUza6yPJXskSyQsXe+mWzMhvNNa9zgO8VWA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792528072;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=j1azJ827J4napxY8pkAKVpOgDxEHSu+Tz2FVu6oeb9k=;
-	b=Xon3uOTQJ1YgYB2Si6eN8yxnu9TItBQ3uLneKFJNNIx0mkNk9TYKNeyKtFHm+L2ZTt2L
-	 t+pLIVmgiJfAIoHzH4A9W5NL0Enlb3WLDVV18NC2iZ2tmNhN0BRc1r2/nt2ssZAdmstri
-	 nJU3Wdx5wBDfD3YrUD09daEqaa/NKnGlc2IE/bThIGrm4ouW/6tOZlaOAkFJT00XMIY5D
-	 ao3nYBi1vH1bPSxYd2XYCutHtrURp9bu4GrPjOKgD8QPF1vBb6h5cZDdRyDmlFzTXBrHs
-	 mhcD31Ny/l9oa1dodmpuU7hzbKkypMktFbCiRdQgU0c0P41FAeMaEEqVYETdLYR5Kxg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=B1b7AuxV;
-	arc=none smtp.remote-ip=209.85.160.170
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=81.169.146.163
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792528397;
+	b=etWNOPVEfMOi6eisA8CKm2IU6EKYdNLoI7q545tmRf6C+HikomlUZdHjP5Bw15o1Eziy
+	 RuqKeXZ54quyqk78ksSK5wT8FWxKUIs1+iNFA6P4bT49Ecoi62e5b2GbCYmM6qJluzEkz
+	 1N1/CkKSw/Lnmmru2idCxfuY88bUK/3zZyHfYEDh6AV9n4j5SjVj4PYVkcYAWyMf9bIG9
+	 /zfDSgSn4VmkqT8A+4ibGfWMVzAig3jYkZ7O58queqKDKO34sy2pjJX8mSTff/Zu5tJjm
+	 uvi1MOWbWHrNiw7+TArL+C41cx+A8uZbLEIkVOj9b0ob6ZuFmTVZugqT+M8dZe79GWw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792528397;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=nIXVAY1OU1D7ohN1HEmJkRT/3xMBDrW5js7tDESAf4A=;
+	b=ChpR35FPdZG3DejdUf2/pYV9QxA3pIczKrJNDviOsEVYsjjvhWnI9kfCsTK4My76owih
+	 /qngjyGMh45Unkvggii6UaFl04K1GPFXrLpw7UpSkrp2Xcnvh3WHD5RDUkpRSQe4rrsEg
+	 aIDsO611sa4lnHvycFDOppJYITcsUHGD9azfgzDW3hUsNdhhrbjtqHKRsOq6+WOzEfdD5
+	 XAoq3CTAF8V9wW5Hujz/GFiuLx7+4KeS0WtvgcLPzB8kL0a6AZPX1OWozVQBjKqXxt5b1
+	 wWa6mpYVRfbaFE3GfKHB4N8Y0LDsUAZROS+xK69qjz5zWLUWPbUOjqvXofqk7bKjO/g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=hartkopp.net;
+	spf=fail smtp.mailfrom=hartkopp.net;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=jzxEvLy1;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=iSIF32Xy;
+	arc=fail smtp.remote-ip=81.169.146.163
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [81.169.146.163])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DC85606A319
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 20:27:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DC85606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3311606A323;
+	Tue, 20 Oct 2026 20:33:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3311606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=B1b7AuxV
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-53653e30353so791741cf.2
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 13:27:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792528071; x=1793132871; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=j1azJ827J4napxY8pkAKVpOgDxEHSu+Tz2FVu6oeb9k=;
-        b=B1b7AuxVwOZ9otHwRxe150bvOC4s2T7c0Xx2cDRxW2SkBo7s9YLCe5WlFOKwczA4sP
-         fvARxR5uiLfOFLHA6PeNc8I6D0TXye0f6rBcbgqTBWmY7AThtfA8p4uJgt/EL7iL6nJh
-         ArFBs29ueub12pInvsVyeGCFHCYhPZhCP9OroLjzbVs8yJjIvHjEF/a5Swev1xSQP3mL
-         MwRtb+Jc3+F3uwiQ2+nD0fZtmdriHTQjDsiI3CKZtcjRx1+lCb4MNCHOttOPl6QkF4LC
-         VLjFNHzOdXdRx7eeghQvxg74iT7awWlYz/UUIV4U9S0B1CVibW0CDzn0clpjCht6q/q/
-         BrIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792528071; x=1793132871;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j1azJ827J4napxY8pkAKVpOgDxEHSu+Tz2FVu6oeb9k=;
-        b=Ru6URExeW7YU1exOxvqSsQQszTH0IUR6x2a28VGYLHkOGiLgG/rUtqinXJDoGt2HI1
-         OvHakaNvAtoUzbk2/UmgxHcVeQ/Hg9bCP93+GdCyyw3Efe5d9hIVpvAT1GSvER3Tt6z1
-         4/T41zfng6+IeUHZCDvZMDRd5D3bb+qfX2YSJpvt5V3Jzo3T0ohZi51qodB/aa9TpKYm
-         Tjx+jSiKJJ9OZya/kvtohoAMsa/e1NNn+5/azCoQ0EXpkf91aqkqXp+HPWgH4xLr0ZPe
-         WEmMqasJ76Om2PaMBtYZFrCj9mf2qY4dbcGd5HQxfzTTZFcC5P2k1lEpGluz8kzoXUxB
-         EOwQ==
-X-Forwarded-Encrypted: i=1; AKwUvByLLlFbokX+QsnrwiuBU/sgnUGRgmuuk7YPl2G6NV58H+oLE7tYXhs5+JvaLZRrMHN1tujGzxE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKepu4rPTXjGzlsmXEq15Xg4KofQnrWmU68TxMxtu7JABvr4Nkq
-	lky80XoSA3SbdHk8aU3AG0W+2/ol9Jm6LyzWUaEH3jxJZFi/7mWK+19NNmEtFddrGuw=
-X-Gm-Gg: AYBFou3zhKYrRx6GL5HP7hl3romxnut1mPDppeYAYFVUINk43vkCEr6LlyGXD5hmn2W
-	rB1YjrxohhmwANggfYWQUwm/K6E53F9ybL+uwCEly00RjhOELbJrp6P14hXC3XOLPW5WsVkyTEQ
-	D6zGoH7AxW9SRLOSx6FMLCodtt4c3h2Vp9/YxBufH4TXbeMNSTl86o+sB94P4DS7UAS88mBw+KH
-	infZnKu8PYjjhs3HoTvTDBfQ3p0m+7nCmE2BMIWyxIZkfQLfdhPkZsQGe/lNqBkip036z/kmxrB
-	VqAowiBhIua2ir9th6JXHg0aqlr55562ExbqzB4nTQRuR+WCaSxmDVcR9zHGk4r09678tQWgKuH
-	2x1hhFyyPH9vLtBDTU+Jakqd9pwj4y8D65Iacnzwp/L6zUizVUBJDaj1MsUQTno3dqsZrqhACn5
-	r0TikVrOlX9CdHXgU0+x/PaLc5zbC7ORu4HE2WOiW45Mhu+rp2luJpwQ3KktP4KqjcGfYWfeNQ9
-	7F+QS1j1XgmCzNr9i4IBlz5YsdA3Uadq9G4cMhXUP/On8hN93InDasQYekoEVUNG9MFa4oMVKk+
-	LC1ozuGaO4T+4R3BzVqSExr1ZjXsC3kp99Rk7Gc7icmt1vwE
-X-Received: by 2002:ac8:5d0e:0:b0:530:8853:1be5 with SMTP id d75a77b69052e-53645c32ef4mr200533381cf.10.1792528071192;
-        Tue, 20 Oct 2026 13:27:51 -0700 (PDT)
-Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53698bb8234sm4300751cf.24.2026.10.20.13.27.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 13:27:50 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=hartkopp.net header.i=@hartkopp.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=jzxEvLy1;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=iSIF32Xy
+ARC-Seal: i=1; a=rsa-sha256; t=1792528385; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=Om02ZkDRxQGpcJAkuyvlfsBXKd72EUUDRWwUsIVXidBNvLuBxXCd8Gihd3qQDtPP0N
+    ehEU5cPrc6gmiY9Z4QccpUqaDwbA5XTXnImTphPmQUHT4a8tHNlO68sBx1z3LZ76AczO
+    hAoGYnwcUnZTBFUBIm8oq1Xqy10XmnKSmaMQ/WKkVg5T5ZEkfL236JSvfS/2dvxmCxTx
+    Hl9bL+16J9x8Zdv8LQh5ZjxsBC3RuJU75HJC1eaWgaOqYQdOdkJ8UFgs+lVJOV3gD/hw
+    6XfkFnwoSkUKvMMEHHy8jo2ewZW9VdMUfiYze8EYazNzwQgxFfXR7QGGMHDSrAeKGXWp
+    zwUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792528385;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=nIXVAY1OU1D7ohN1HEmJkRT/3xMBDrW5js7tDESAf4A=;
+    b=YR9eJfWOfjWsjbN3hAm8Mze+GfX0IxbGH4qclOuWgCutzm/UY3pAffVtc5pAtvly2w
+    gPFlqdIBC58VBbDgJ4QoJXCACXhX/x39ugWxzaoizb53Un3UMBBCdUeCzpooteVM8sYu
+    vMdZHyiBUew2bPptVihBKsR9aayx+SgY6lHXtRjXl0JPODcD3ZfqWPTVBat/W44NdTAb
+    tytNd2tA4xKPe+q6eyNsAQSEKj195sAZKBT34oNi13zuyfPUc56jSvVJAXm0Jyrn8LFj
+    +2QWlW8oeRT7FRa/xUM4GUHpLLl77SnVFJobrOdZL5TbvPBJzD6ozzcuDYG8EsT4+u+i
+    Lnzw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792528385;
+    s=strato-dkim-0002; d=hartkopp.net;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=nIXVAY1OU1D7ohN1HEmJkRT/3xMBDrW5js7tDESAf4A=;
+    b=jzxEvLy1GqVgLwvKbr/BidBeJirtgpdYZnE4oMVm+YQV3Xn32yPAffepLuMXJ4Lpr+
+    rNTf2zOqoucB51CCgzQyp3lWKio/U1f9AT6egvhBXSvEt5L+aTGyDUKbpG+2vSv/DjP8
+    Ioodzl2SsV6dZUqKCI9OZgKP4ZtcALQ4gf6bt/sI638HtYWpTZ/C53FahxOZvnNLPQXr
+    jNxmBJ7Th3h7jiyUHjWRLR0UaVy0AS5SunUeTLm4P3J6sF9VxV/8sknY1kuNjHPujz6p
+    v336L1mtOWdJu2VWAHAawMMvLmt7pv7eJQyPYkEjwKOPDjDPP0Y6aYGZ6DrGqv3t7oKn
+    OigA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792528385;
+    s=strato-dkim-0003; d=hartkopp.net;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=nIXVAY1OU1D7ohN1HEmJkRT/3xMBDrW5js7tDESAf4A=;
+    b=iSIF32XyUxm3vsJsEVApeuCVQvqQuGpv3OwMbbAmzkSVtf9NhGXsXfuz2KROT585Po
+    JqW4579/UROL10Js/oBA==
+X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
+Received: from vivo.lan
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Kfdf2a29KKX4dMp
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Tue, 20 Oct 2026 22:33:04 +0200 (CEST)
+From: Oliver Hartkopp <socketcan@hartkopp.net>
+To: linux-can@vger.kernel.org
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	stable@vger.kernel.org,
+	Oliver Hartkopp <socketcan@hartkopp.net>
+Subject: [PATCH can-next v5 1/5] can: proc: reset pkg_stats atomics individually
+Date: Tue, 20 Oct 2026 22:32:53 +0200
+Message-ID: <20261020203257.230955-2-socketcan@hartkopp.net>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261020203257.230955-1-socketcan@hartkopp.net>
+References: <20261020203257.230955-1-socketcan@hartkopp.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,40 +103,138 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 2/5] mm/page_alloc: validate zonelist slots against
- concurrent rebuilds
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, kernel-team@meta.com, 
- akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
- liam@infradead.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
- brendan.jackman@linux.dev, hannes@cmpxchg.org, ziy@nvidia.com, 
- mgorman@techsingularity.net, jiang.liu@huawei.com, Bessel.Wang@huawei.com, 
- stable@vger.kernel.org
-In-Reply-To: <45ef34c7-eea5-4813-b54f-3e34675697b5@kernel.org>
-References: <20261019172346.3344005-1-gourry@gourry.net>
- <20261019172346.3344005-3-gourry@gourry.net>
- <45ef34c7-eea5-4813-b54f-3e34675697b5@kernel.org>
-Date: Tue, 20 Oct 2026 16:27:47 -0400
-Message-Id: <179252806771.851873.10455974025763071382.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
-On 2026-10-20 17:22 +0200, Vlastimil Babka (SUSE) wrote:
-> On 10/19/26 19:23, Gregory Price (Meta) wrote:
-> Furthermore, since we have the zonelist_update_seq anyway, wouldn't it be
-> better to use it to avoid these kinds of races rather than the more tricky
-> way of relying on what exact updates in what order can derail the allocator
-> side and trying to protect against those specifically?
-> 
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-Sorry also meant to note that from my reading, zonelist_update_seq
-presently only gets checked on failure, but maybe we could re-use it on
-success?  Let me see.
+Commit 80b5f90158d1 ("can: statistics: use atomic access in hot path")
+converted several members of struct can_pkg_stats to atomic_long_t and
+updated the hot TX/RX and procfs read paths to use atomic_long_*()
+helpers. However, can_init_stats() still clears the whole struct with
+memset().
 
-~Gregory
+can_init_stats() is reached from can_stat_update() in timer context and
+also from the procfs reset path. Those paths can run while the TX/RX hot
+paths are concurrently updating rx_frames, tx_frames, matches and their
+*_delta counters. Hitting the whole-struct memset() in that window
+performs plain writes to fields that otherwise follow an atomic_long_t
+access contract, which can lose or mix live statistics updates.
 
+This issue was found by source-level API-misuse analysis looking for
+whole-object resets left behind after atomic_long_t conversions, then
+manually audited on Linux v6.18.21.
+
+Replace the whole-struct memset() with a helper that resets the
+atomic_long_t counters via atomic_long_set() and clears the derived
+scalar statistics explicitly. This preserves the existing reset
+semantics for scalar fields while restoring atomic access discipline for
+the live counters.
+
+Build-tested by compiling net/can/proc.o on x86_64 netdev/main.
+Runtime-tested with a QEMU + vcan setup on Linux v6.18.21 by driving
+concurrent traffic and reset_stats reads, which reproduced inconsistent
+exported statistics before the fix.
+
+[Hartkopp] can_stat_update() also read the *_delta counters at the
+beginning and cleared them with atomic_long_set() at the end. Increments
+from the hot path in between were lost for both the current and the next
+interval. Use atomic_long_xchg() to fetch and clear the *_delta counters
+in one atomic step instead.
+
+Fixes: 80b5f90158d1 ("can: statistics: use atomic access in hot path")
+Cc: stable@vger.kernel.org
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Acked-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
+---
+ net/can/proc.c | 39 +++++++++++++++++++++++++++++----------
+ 1 file changed, 29 insertions(+), 10 deletions(-)
+
+diff --git a/net/can/proc.c b/net/can/proc.c
+index de4d05ae3459..70104f13077e 100644
+--- a/net/can/proc.c
++++ b/net/can/proc.c
+@@ -74,20 +74,43 @@ static const char rx_list_name[][8] = {
+ 
+ /*
+  * af_can statistics stuff
+  */
+ 
++static void can_reset_pkg_stats(struct can_pkg_stats *pkg_stats)
++{
++	atomic_long_set(&pkg_stats->rx_frames, 0);
++	atomic_long_set(&pkg_stats->tx_frames, 0);
++	atomic_long_set(&pkg_stats->matches, 0);
++
++	pkg_stats->total_rx_rate = 0;
++	pkg_stats->total_tx_rate = 0;
++	pkg_stats->total_rx_match_ratio = 0;
++
++	pkg_stats->current_rx_rate = 0;
++	pkg_stats->current_tx_rate = 0;
++	pkg_stats->current_rx_match_ratio = 0;
++
++	pkg_stats->max_rx_rate = 0;
++	pkg_stats->max_tx_rate = 0;
++	pkg_stats->max_rx_match_ratio = 0;
++
++	atomic_long_set(&pkg_stats->rx_frames_delta, 0);
++	atomic_long_set(&pkg_stats->tx_frames_delta, 0);
++	atomic_long_set(&pkg_stats->matches_delta, 0);
++}
++
+ static void can_init_stats(struct net *net)
+ {
+ 	struct can_pkg_stats *pkg_stats = net->can.pkg_stats;
+ 	struct can_rcv_lists_stats *rcv_lists_stats = net->can.rcv_lists_stats;
+ 	/*
+-	 * This memset function is called from a timer context (when
++	 * This stats reset is called from a timer context (when
+ 	 * can_stattimer is active which is the default) OR in a process
+ 	 * context (reading the proc_fs when can_stattimer is disabled).
+ 	 */
+-	memset(pkg_stats, 0, sizeof(struct can_pkg_stats));
++	can_reset_pkg_stats(pkg_stats);
+ 	pkg_stats->jiffies_init = jiffies;
+ 
+ 	rcv_lists_stats->stats_reset++;
+ 
+ 	if (user_reset) {
+@@ -119,13 +142,14 @@ void can_stat_update(struct timer_list *t)
+ 	unsigned long j = jiffies; /* snapshot */
+ 
+ 	long rx_frames = atomic_long_read(&pkg_stats->rx_frames);
+ 	long tx_frames = atomic_long_read(&pkg_stats->tx_frames);
+ 	long matches = atomic_long_read(&pkg_stats->matches);
+-	long rx_frames_delta = atomic_long_read(&pkg_stats->rx_frames_delta);
+-	long tx_frames_delta = atomic_long_read(&pkg_stats->tx_frames_delta);
+-	long matches_delta = atomic_long_read(&pkg_stats->matches_delta);
++	/* fetch and clear values for 'current rate' calculation */
++	long rx_frames_delta = atomic_long_xchg(&pkg_stats->rx_frames_delta, 0);
++	long tx_frames_delta = atomic_long_xchg(&pkg_stats->tx_frames_delta, 0);
++	long matches_delta = atomic_long_xchg(&pkg_stats->matches_delta, 0);
+ 
+ 	/* restart counting in timer context on user request */
+ 	if (user_reset)
+ 		can_init_stats(net);
+ 
+@@ -170,15 +194,10 @@ void can_stat_update(struct timer_list *t)
+ 		pkg_stats->max_rx_rate = pkg_stats->current_rx_rate;
+ 
+ 	if (pkg_stats->max_rx_match_ratio < pkg_stats->current_rx_match_ratio)
+ 		pkg_stats->max_rx_match_ratio = pkg_stats->current_rx_match_ratio;
+ 
+-	/* clear values for 'current rate' calculation */
+-	atomic_long_set(&pkg_stats->tx_frames_delta, 0);
+-	atomic_long_set(&pkg_stats->rx_frames_delta, 0);
+-	atomic_long_set(&pkg_stats->matches_delta, 0);
+-
+ 	/* restart timer (one second) */
+ 	mod_timer(&net->can.stattimer, round_jiffies(jiffies + HZ));
+ }
+ 
+ /*
 -- 
-Gregory Price (Meta) <gourry@gourry.net>
+2.43.0
+
