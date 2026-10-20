@@ -1,72 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792502971;
-	b=n9VCMdA61voW9AT8Nkc1MS6pSpmuV3yf0iGrLiSgMm5WG1/C8UR1x0h4HEmF8BvKV7lc
-	 cSjnCyeTaFnOY0qCw++uhAQ+L8OXm8MnqLC5c61EjFL/Z/c8mjG/j5F7ZTNC4tN/zgbVh
-	 dhYtkLaRw5bo0IEFBFoDlYgjNb+7wwD22c4eUiZ+iBuif/e61AnwxSd46FrjKbkLoBPIv
-	 1c/npNUOXgXJDYT7rBOtuhxWBlfsJ5ivLTtNBOw0mdvnp+hIWJw5FeUIDnv5r1LW/cvW3
-	 KekxXLRtQdYdOSFmjh9PITVPnpk6cLDb1FjMrhiITDJfkK9QOTPZc552vADTc6FMTfw==
+	t=1792502995;
+	b=ceHD+waGn2uQkQjOQEZpzaBeolpkA8wccOrgr2jaaeg6x/yUvCxPphO9SJmMoBwTeBy4
+	 w988NlR6+1/DK58oEfC7OxMj6tsN8IXFekBJAzYlpsK1wGywErO5d73IMpsBdhXcrFT/3
+	 5Va+Q35rrRZksqT9Ac8/fWhmb7U2vVZwoN1CVW0HTU6ZUWP3niA4wMEusMt3R1nmvYHKy
+	 pj7zEq1/b/zt5NEKDtr7sB+LH4zWBkhHVOdmlisR5FynsLhbcEcufW5F9XleoTD/InmOh
+	 vMVK+vJ2IIqYp6itVcc7JmLIpm1wBHGzeqkU1YRNSq391AT6Zto2FRJqTvYnBVnCukw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792502971;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hM+QEoi1JNt5tNwKnk3qY5QT2eSGNCwRsdv4CdlCerk=;
-	b=3mqbPMPnKNPyEEtUUyBTp17PNv9jnbjJBmq8Qni4e4TV2TznL69Z1p9CVH8Rc6DYJk1X
-	 rav6n/u4ZvzD101jqBL1HH4ZWJcLQamTkeCn6leDoQkp4gJP5MA6/EutWs89UPVMw6onG
-	 YHFwwYqYoBgRqyUTqc/WIy00qqIYhccIEayl5p1Ea8VaPJAXdJoxq5XtCdfgJfVuVdevE
-	 mR4HYhT4GltihHBLVP6gtZDF/bulNn/ultzDFWIvR+jKwTEB9YWzMBFL2+61ixSUtQXOG
-	 v2+ENBcYdVdYUX1FYbmnmnlzuYIE3Q6a4rp1qro2Wbpon8hvVMcO5HG91wn7Y3oYbsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792502995;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=CYMqg4ekhN+H2mR8y56+Gn4spdCq36SruBSB9+jht0c=;
+	b=NkwdjsHEQIWHC2jB58Ed17hv+UR2qKshYsM9JJY8WO68NXUWrc8vA9TP+k8HOJPz7AWl
+	 rnrk7+qHHnLbUMUIXHXsEbxRq3Dw9xtXJkkMfzf2cStKvkctZEqXllzaYqjoGtbSGN7Sj
+	 MmduCFPolt7pp7QUwyBCWmIrUsuPUyK5uceIqF0RSh4cxkY+OQI9re0AE94SJ34DuEzko
+	 xZbZT4xru6iIQ46NJuOWzV58n/aiXWj0nyCHniatVYSd2YdEJfEwllkRh5VJxOLEC3LL3
+	 UcfMjSrvk76ioQO79YkZmp5l8qsch75nvOOaKtHo0yV5zsKXw4hV24n6gr1OCpomlPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CrBTN5D2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=foZdgH0v;
+	arc=none smtp.remote-ip=91.218.175.178
+Received: from mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72FBA606A31C;
-	Tue, 20 Oct 2026 13:29:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0235F60A2609
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 13:29:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0235F60A2609
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CrBTN5D2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 151B11F000C5;
-	Tue, 20 Oct 2026 13:29:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792502971;
-	bh=hM+QEoi1JNt5tNwKnk3qY5QT2eSGNCwRsdv4CdlCerk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CrBTN5D2G6KM60kMBXONbLkThCc9IAxQ7svdwAzTLH1GmAP4bqYpxgbkq6NxU5PjZ
-	 YyS1gx0udNNmEft5MjYmmm+1damjJF7PUuwOp13ARnMsGz1TbxDcmGSeGPQDYaoZSX
-	 PGWZAZQEUr2EIlUfRRog6fYKjevebSf9k2EDlgvWKnufr9ZE9Bkj5xKWUZqiRq5kIU
-	 ejTgKQnEKb2yMfY6MxnMNihMo0cJqRYtfeYulY30M3WzXUVDvKHISTAWQ75Q5L336F
-	 CAZZGzqNFRT/YrpGPor6Jx2m9VOVpvUPIGAuK2ePBfjtaczbLw16bM9hkOluO6MxkW
-	 vE0dWCqz3c4wg==
-From: Sasha Levin <sashal@kernel.org>
-To: Bradley Morgan <brads@mainlining.org>
-Cc: broonie@kernel.org,
-	corbet@lwn.net,
-	error27@gmail.com,
-	geert@linux-m68k.org,
-	gregkh@linuxfoundation.org,
-	kees@kernel.org,
-	konstantin@linuxfoundation.org,
-	ksummit@lists.linux.dev,
-	laurent.pinchart@ideasonboard.com,
-	leon@kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux@leemhuis.info,
-	mst@redhat.com,
-	ojeda@kernel.org,
-	rdunlap@infradead.org,
-	skhan@linuxfoundation.org,
-	tytso@mit.edu,
-	workflows@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 3/7] docs: stable-kernel-rules: drop rules the stable trees do not apply
-Date: Tue, 20 Oct 2026 09:29:27 -0400
-Message-ID: <20261020132927.3149027-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <DF061D87-D1A3-42F6-AA3C-C288D3CB6BF3@mainlining.org>
-References: <20261016152828.3765695-1-sashal@kernel.org> <20261016152828.3765695-4-sashal@kernel.org> <DF061D87-D1A3-42F6-AA3C-C288D3CB6BF3@mainlining.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=foZdgH0v
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=IKmZlEGfS2yeIgifNi1WabbugRXmrQXpvhboXkIucAc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792502993; v=1; x=1793107793;
+ b=foZdgH0vzJ1Ry6v+DDc52BOnhdPefzLWppgUV2qWM0BlMmNHPu4cjGGzHWW1fKkpK+sybq19
+ KZ+QEzvQHp4KqjdWw0mz6IqMXKH6QYK+jd0bm6LtODNziAxzL8Dx+xHiehSwOPlU6JoYE/cCF+K
+ bt2me+wteS6F8MU/rxKMWQI0=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7f2e75a512db9909;
+	Tue, 20 Oct 2026 13:29:53 +0000
+X-Mizu-Trace-ID: 7f2e75a512db9909
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f6bdf823-be42-4184-87d2-fc7c128f4786@linux.dev>
+Date: Tue, 20 Oct 2026 21:29:40 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,54 +58,132 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm/ksm: keep soft-dirty and uffd-wp when merging a
+ page
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: samarth.colleges@gmail.com, akpm@linux-foundation.org, xu.xin@linux.dev,
+ chengming.zhou@linux.dev, peterx@redhat.com, kas@kernel.org,
+ rppt@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <efa6a28c-f0f9-4d1e-9cce-fec2c08e7d9f@kernel.org>
+ <20261020055518.36087-1-lance.yang@linux.dev>
+ <3da45e6d-2b46-4fff-9ff3-241f70d68296@kernel.org>
+Content-Language: en-US
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <3da45e6d-2b46-4fff-9ff3-241f70d68296@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 16, 2026 at 05:01:54PM +0100, Bradley Morgan wrote:
->On 16 October 2026 16:28:23 BST, Sasha Levin <sashal@kernel.org> wrote:
->>-- It must be obviously correct and tested.
->>-- It cannot be bigger than 100 lines, with context.
->>+- It must be correct and tested.
->
->s/tested/fully tested ?
->
->'Tested" to agents would be just a basic compile test, maybe we could
->define here what you want the agent to do?
->
->E.g: a W1? A QEMU repro? And others.
 
-This rule applies to every stable patch, and the right testing differs a
-lot between, say, a driver fix and an mm change, so I'd rather not pin it
-down here. For agents, coding-assistants.rst already covers it: the fix
-has to be checked with the reproducer or a full re-analysis, and the
-agent has to say explicitly when it could not be built or tested.
 
->>   - No "trivial" fixes without benefit for users (spelling changes, whitespace
->>     cleanups, etc).
->
->What I tend to do when I use AI on my own projects to find bugs are to get
->it to "verify" what it finds to be a good enough bug. Could you refer to
->the security document here? That could help very well for AI agents to
->find proper bugs.
+On 2026/10/20 21:03, David Hildenbrand (Arm) wrote:
+> On 10/20/26 07:55, Lance Yang wrote:
+>>
+>> On Mon, Oct 19, 2026 at 03:24:11PM +0200, David Hildenbrand (Arm) wrote:
+>>> On 10/19/26 03:09, Samarth Narang wrote:
+>>>> replace_page() maps the KSM page with a PTE built from scratch, so the
+>>>> soft-dirty and uffd bits of the PTE it replaces are lost. Due to this, a
+>>>> write before the merge no longer shows as soft-dirty, the next write to
+>>>> a uffd-wp page raises no write-protect fault, and because the page is
+>>>> mapped with the VMA's normal permissions, on a uffd-rwp VMA the next
+>>>> access raises no RWP fault.
+>>>>
+>>>> Copy the soft-dirty and uffd bits from the original PTE to the new PTE,
+>>>> and restore PAGE_NONE for RWP VMAs, as try_to_map_unused_to_zeropage()
+>>>> does.
+>>>>
+>>>> Fixes: 0f8975ec4db2 ("mm: soft-dirty bits for user memory changes tracking")
+>>>> Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+>>>> Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
+>>>
+>>> I would actually split that up into separate patches.
+>>>
+>>> Over-indicating soft-dirty (as raised by Sashiko) is in general not a problem.
+>>
+>> Right.
+>>
+>>> Losing WP bits is.
+>>>
+>>> UFFD, the gift that keeps on giving.
+>>
+>> Haha, yeah, I stared at the code a bit. Say we arm RWP on an existing KSM
+>> mapping, then do MADV_UNMERGEABLE. We're just replacing the shared page
+>> with a private copy. That shouldn't count as an access to the mapping ...
+>> no?
+>>
+>> But the protnone check sends us to do_uffd_rwp() before the
+>> FAULT_FLAG_UNSHARE handling. No FAULT_FLAG_ALLOW_RETRY here, so sync RWP
+>> gives us VM_FAULT_SIGBUS. Then break_ksm() does this:
+>>
+>> static int break_ksm(struct vm_area_struct *vma, unsigned long addr,
+>> 		unsigned long end, bool lock_vma)
+>> {
+>> 	vm_fault_t ret = 0;
+>> ...
+>> 	do {
+>> ...
+>> 		ret = handle_mm_fault(vma, addr,
+>> 				      FAULT_FLAG_UNSHARE | FAULT_FLAG_REMOTE,
+>> 				      NULL);
+>> 	} while (!(ret & (VM_FAULT_SIGBUS | VM_FAULT_SIGSEGV | VM_FAULT_OOM)));
+>> ...
+>> 	return (ret & VM_FAULT_OOM) ? -ENOMEM : 0;
+>> }
+>>
+>> So we report success with the page still merged. Async RWP does unshare
+>> it, but only after clearing the uffd bit.
+>>
+>> I'd let FAULT_FLAG_UNSHARE skip do_uffd_rwp(). We'd still need to carry
+>> PAGE_NONE over in wp_page_copy(), though. That PTE is rebuilt from
+>> vma->vm_page_prot, so the uffd bit alone won't stop reads.
+>>
+>>> How to deal RWP properly is a good question (see Sashiko review). I feel like
+>>> some more stuff might be missing there to handle this correctly.
+>>
+>> Tested, this is what I had in mind:
+>>
+>> ---8<---
+>> diff --git a/mm/memory.c b/mm/memory.c
+>> index 976cd03954e3..d99f5ef1dd8c 100644
+>> --- a/mm/memory.c
+>> +++ b/mm/memory.c
+>> @@ -4119,8 +4119,11 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
+>>   		if (unlikely(unshare)) {
+>>   			if (pte_soft_dirty(vmf->orig_pte))
+>>   				entry = pte_mksoft_dirty(entry);
+>> -			if (pte_uffd(vmf->orig_pte))
+>> +			if (pte_uffd(vmf->orig_pte)) {
+>>   				entry = pte_mkuffd(entry);
+>> +				if (userfaultfd_rwp(vma))
+>> +					entry = pte_modify(entry, PAGE_NONE);
+>> +			}
+>>   		} else {
+>>   			entry = maybe_mkwrite(pte_mkdirty(entry), vma);
+>>   		}
+>> @@ -6656,9 +6659,12 @@ static vm_fault_t handle_pte_fault(struct vm_fault *vmf)
+>>   		 * VM_UFFD_RWP VMA, a protnone PTE without the uffd bit is
+>>   		 * NUMA hinting and must still fall through to do_numa_page().
+>>   		 */
+>> -		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte))
+>> -			return do_uffd_rwp(vmf);
+>> -		return do_numa_page(vmf);
+>> +		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte)) {
+>> +			if (!(vmf->flags & FAULT_FLAG_UNSHARE))
+>> +				return do_uffd_rwp(vmf);
+>> +		} else {
+>> +			return do_numa_page(vmf);
+>> +		}
+>>   	}
+> 
+> Looks like a reasonable direction (without looking into all the details).
+> 
+> I've been also wondering whether KSM should simply skip these uffd regions, they
+> it never worked properly ... but I'm sure we'd run into issue with leftover uffd
 
-stable-kernel-rules.rst already points security fixes at
-security-bugs.rst, and coding-assistants.rst has agents read
-threat-model.rst to decide whether a bug is a vulnerability.
++1. Did it ever actually work there :) Why not just skip them and
+call it a day :D
 
->Id also suggest that perhaps you *could* make a new patch saying that
->
->"When finding bugs, you need to verify that this bug is severe enough to
->need stable backporting or a CVE, if you reckon it is not severe enough
->for them, if it's not reproducible, eliminate the bug from the results"
+> pte bits :(
+> 
 
-I'd rather not. A bug that doesn't qualify for stable still needs a fix
-in mainline, and many real bugs, races in particular, are hard to
-reproduce; that is why this patch drops the "theoretical race" rule. CVEs
-are assigned by the CVE team once a fix is in a stable tree, so the
-finder doesn't need to decide that.
-
-Confirming that a bug is real before reporting it is the part that
-matters, and coding-assistants.rst already asks for a reproducer.
-
--- 
-Thanks,
-Sasha
