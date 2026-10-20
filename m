@@ -1,94 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.171
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792505505;
-	b=pvCN1owJty5x8a9Wh+S7JPcHmHPYvwW5bwn+FQoieSvinnibf8u7W4yHU+6sC6FK9gCp
-	 Y2oP6ZrxsGELthCheQ0Ycp/c0rLlH9RDGAsod4F0Jk6YEHAYDiXyiNiJC+Ro81JvlXsYS
-	 uNiA6SFj3G+oMUpfiq6KGf3SY699tC33Ax9vKWW/ZvkBbsANN6U4Rt68XnMN1Qoub4YRi
-	 fsqzEfi8eKW2MmlHajbO0RrsUqq7MRrjklKwbQ7vAPn+lp5GpDDMyQDJC9f/9Kl/p6K/u
-	 qkAfAO6KvE8S7ygCiB/ogUnlc/mAqH9NfFxiSfvahgy6iYTqiSuld64kbVUYBh6vGpA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505505;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=phh2bd3K2u8/kNcJb+pNLZuDiJF2bTQud6vADUqieMI=;
-	b=nLk21tEYDSqCAb6vc4j2VcVtQgouCrYqFn0BCBY3hJJWIu9cml/vvzdNnHJ4tktDGydm
-	 Pjexy38ZVvjmFky+PfezyqxFEXsTIZonvIGVUJx3CSGCgYUE2dblwxmYyjnfE+ao+rxrl
-	 Q5Kg2+NnE1G/0bvRi2Gi8zsUZGhjQBzxU6u3Pcom/AvPEjF8jKlbRmy6lXFbYtBdSheS1
-	 wOafHRQnWQI+psiT9HaW4yalts1zeB3T09TiJQg91VNflWHqhGqGsNYSPxsyRSMhecrY3
-	 Cbb0ZlaN51EFKVpPetLi3kvAJqgc4C9CjwNuPNcRKI8KaRVDKaUBE8+0BLqdu1dZvzA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=CQqZm4Qq;
-	arc=none smtp.remote-ip=209.85.222.171
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.58
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792505607;
+	b=mRTCkM3hdeYNANWRpLBgdTUsYe8O6kBx093hiS/7RhSlgWZkveYjTNmIL7LQRYLjkZkv
+	 lFt9BfuMWVD1AejUMNoo0KZs1sjQ1124BQL0quz2JZBXgBDINl3ynPflrIbgFESnem8f1
+	 YJq4I0KlJL501s0JFd4zX0rz5xKlwcpvYTPE2Ryyuk6jFRUNzrpq22BxH6o9NT4sy3bGq
+	 IRIaRVWlox4cS1ESHPSV+7v3oViuIaUHNaytix4wT1IF2E0inSSy1cQvujrJdA1FfNhkp
+	 SM/TO7+ustTMT0JVNAgwZnrF/i9EdauQekKVvBBFFYNZn7rUKuIIkzdQDbj8u4sfZoA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505607;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Kxr0nhqtQIO/3hUHg1GyihSJWJiBv6AMeP9ii4uTwnw=;
+	b=VMHXqRB8YXS54ZZ/NP8VTVkRtgs7/HXQ20JnwAALbQUVMgIDNBywW6/TXMV8Akn7nzEZ
+	 NIn1RuerB1e9MQAvla5OXwS+ZRcbvoVo9pmEXv3CCFw6hHFV/eMc3sUMiNkYJ/rb4yIV8
+	 8b5LPzzU2AvZi5ak1pAd3Aul47cPBv9jOuOtaYssvWSzAlywKw7cSLRHe6vNHxAr9MvU6
+	 /T1zpC23HtaS313LwdJy/cy+TKPtwkHOS/PQydvYRj24fITmg6Oar9YGkpp+iFoFVpPYH
+	 k4vET6hjjjGOdbp63JRHOlua8T6dbQNyBvm6HaJPg0R/Z0CqWm4uPdgAU2Px2NqEPfg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=renesas.com;
+	spf=pass smtp.mailfrom=renesas.com;
+	dkim=pass header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=ps1Sms4n;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.58
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010058.outbound.protection.outlook.com [52.101.228.58])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BC560A2614
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 14:11:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51BC560A2614
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A42C606C200;
+	Tue, 20 Oct 2026 14:13:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A42C606C200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=CQqZm4Qq
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-93f1ca4132bso295702585a.0
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 07:11:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1792505504; x=1793110304; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=phh2bd3K2u8/kNcJb+pNLZuDiJF2bTQud6vADUqieMI=;
-        b=CQqZm4QqzQBrGwRTNeTgjajTHWY5MaTuXaVA+ATI86hSLgiW1FB774vgWc3O4miO5t
-         fu41DHQSSTmYMD85XbQQElBqDVXE7y1HvgWF2Jnyn9+tI8gPRSkb5b5emYx+EvwCQEkg
-         EIUtsg7/v32JJRMZaanidELXfEvOYzZLx3LdxawrZ31IoABDmkiXrX14xkm2e4ZVZzN2
-         10ce2wsbzecI0sAzpvZnMoBjlaIAUTWDQvssIUFvmK1nZgrPFZmue7SkHG2a0RSAdD6P
-         bkHTA74GoHxzI2exBgb7i6elGN8KPdFaJ3ZAq1enl1BGDRTl21oSlZ6rGxb/3xY081Rw
-         17UA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792505504; x=1793110304;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=phh2bd3K2u8/kNcJb+pNLZuDiJF2bTQud6vADUqieMI=;
-        b=xFhS02T1mhsBCojzq2GZ3ewyw3wzHCRARgBhPhVrFyvCOWJwMG02QVyhV8txNlWkJg
-         c+RBZZ5l/oZ+1ZNlU1G4+LrtP5W08vgFmaSBfSz9Dt0vEA5qTHBEHELzfbROEym7oyjs
-         PJEQ+eY5//OF+wp/ZRr8BYTfznXAe8laaFp2mA2pM0TkefLO34YEfQe8JqeEm9SVTCGj
-         4P0Ht/ojGJk/gl9fUpRFbtw+MKkqsQwNu3pHFnqby+MkrXYT5oWsabtJf+Gz+6NkDGS7
-         N3Ii8sLPO3ca6Krbayqfxra3bzSkTBcNC9sLN0U3+M5KoTzolAV00LErAQKtHYBk7g12
-         vC3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwJ8Exkb0KN8x154M1uo/qgCL6Y7E/3uCNl9o5O9B0wJjTgtEnIGWlpj9cjqTXSoCVN5GdoIPc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIuVgA4wf0dHjq6O8IFxJtlATlUIMUe0zeSdv3gMxEU8eyjS/Ur
-	hpbb9fs1IZREdXlcxC8armFQvoN4Dk1Fm1UodjFJEvEHFMX7/Xh1Mhf+mdyGtpNCw4Sr3ilVPlE
-	YJj3DqQ==
-X-Gm-Gg: AYBFou2P2jOfQ8/iN9X1AbCZ1R/niuJSOtk9syMI3QFUpkV3KvBPNwGBjBz+migtVlJ
-	o+MIBrAnLC4/XBJnzraB/M1nhi8gJ1XLYlhnl2Pv4xVQbhGVP/QU7Z17pYYBjF2XUTTyn78Jgwz
-	8Gu92ElodilO54HMPSY8BK8OEtkC8CdbCVwLGNm7cNWQfn98c1LgdCCz1h83a3dqhh/l0c5sT0R
-	/z4gKVd5yU2cYk3SSP01XnbGwCAvq8uxcATjr0S2n4F6taoMVYbwWXF2RAwQZ4J2rIEegRXb01X
-	18PdypC1nrsKBhA2FigWE1/gPbC6Mm8tG4GCM70+yrslm2i2jOmV1tN/Hnsa/h/DFblEHx0QsEy
-	g6V5nsM4WTE1gh4ED0Ap3Fo7+9+P30fSK4ZWLtlqfKRG9mIzC0uUlc3gxV+sVbnlY6T5CEIWMlC
-	3frWddoRsN2uzSNh/1Pww+RICRkHQ3YZgGDnsxi0aAD5YtR82CYsOuOOJQzkTW39R3ytxEHt8=
-X-Received: by 2002:a05:620a:4042:b0:93e:920c:c012 with SMTP id af79cd13be357-93f29b7f9e9mr1754715285a.10.1792505503808;
-        Tue, 20 Oct 2026 07:11:43 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::4791])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f4b05e2f3sm228265585a.8.2026.10.20.07.11.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 07:11:43 -0700 (PDT)
-Date: Tue, 20 Oct 2026 10:11:40 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Yu Zhang <yuz08559@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] usb: gadget: f_mass_storage: take filesem in nofua
- store to fix backing-file UAF
-Message-ID: <3f13c0d1-0e3a-4a62-a149-4c719ee3cab5@rowland.harvard.edu>
-References: <20261018130519.65850-1-yuz08559@gmail.com>
- <20261020023050.87701-1-yuz08559@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=ps1Sms4n
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wSeXiEkZxo6BNg6RFPwoM76pRoIuDAXmVr57H2fiG5BPMIuXF29G8RQDMLX4+4HYQPJWhzJQLII2phhWr5DtjujQU8zxHeoB/LyNAwKGFzt4D2espxgK5RcDjYnj/4aFpAXZpikV4GxA0GNNgGH6GzlMYtF2DTwa9Tr9TgLzAawu1aCP6WZC2mZfaeswcHQxW1IgkVjoUSAWg82bei63i7Rs0vSaM3OTFh43rnW6f6MDk7Hg6w3DgH2p5LasQpNQNGGG6vUu5hAybMOroCp7IL9mrmGe0yu9xSfE72sE+fRvmTq/v0xS0sjGxxLFoyG+IZiUa5eVTpt9HhY/1ILCsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Kxr0nhqtQIO/3hUHg1GyihSJWJiBv6AMeP9ii4uTwnw=;
+ b=ZP+7/D+okDIVjHWGodW1tNHbfbisHBX3D6ihOJyMlg8hDYqJMVYfF0+0oQqTH8UTT0r/Nrexfvdl5OmEAyNpIlF0qX8NE8AmXML3F7n2CREYwMaOA0WKo16tDDPy1cg7Wzrgfo4QSr/sKLl2J8Rr4WOtyGVf3o/xXpuuahOyslU4LXIHoC+8oRSjO7yXhkQ8n5b1uviC7aOgoRX038naY+vPD2F/Z2sHDfVRixgAaqq+GTSDnsrWOWbTvvHfPA45yKLnDl8zt9lft26BFY9GTm5FV20hvn+qCZ3Dds1ZHinZKkcvlmPEgtVFrtcQZwQ/n9j2S1oakctBN++6l3uO+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Kxr0nhqtQIO/3hUHg1GyihSJWJiBv6AMeP9ii4uTwnw=;
+ b=ps1Sms4n82e8HanUCUS58eLxDmcL7uP/wloDPrtcsAg61nywXhnbzPrvgm0nYalgXEPmH+2AulMJyA4g+k4rbQxFg/Vdp59cEnop71D8HJxdVEByIEK+OP2OT6gLmxMOWgn6QBI5Fx1t3vFqjDxtSugozBFtVXs53+jtJUcNAak=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TYYPR01MB15118.jpnprd01.prod.outlook.com
+ (2603:1096:405:1a1::11) by OSOPR01MB12410.jpnprd01.prod.outlook.com
+ (2603:1096:604:2d6::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
+ 2026 14:13:20 +0000
+Received: from TYYPR01MB15118.jpnprd01.prod.outlook.com
+ ([fe80::1116:d56:8164:63b4]) by TYYPR01MB15118.jpnprd01.prod.outlook.com
+ ([fe80::1116:d56:8164:63b4%6]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
+ 14:13:19 +0000
+Message-ID: <c4677ed8-d682-4d05-afbb-d517e59de391@renesas.com>
+Date: Tue, 20 Oct 2026 15:13:07 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/8] i3c: renesas: Fix zero I2C SCL rate on pure I3C buses
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Linus Walleij <linusw@kernel.org>,
+ linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, stable@vger.kernel.org
+References: <20261020-divo-ssgrlpcsrc-2966-i3c-v1-0-30a47f25e515@renesas.com>
+ <20261020-divo-ssgrlpcsrc-2966-i3c-v1-1-30a47f25e515@renesas.com>
+ <CAMuHMdWt8KV02C+N1dj=gcdJwX4s-_=+zRpsh+Za+f0HeHOkuw@mail.gmail.com>
+Content-Language: en-US
+From: Diogo Ivo <diogo.ivo.sx@renesas.com>
+In-Reply-To: <CAMuHMdWt8KV02C+N1dj=gcdJwX4s-_=+zRpsh+Za+f0HeHOkuw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: ZR0P278CA0154.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:41::9) To TYYPR01MB15118.jpnprd01.prod.outlook.com
+ (2603:1096:405:1a1::11)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,137 +109,134 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020023050.87701-1-yuz08559@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYYPR01MB15118:EE_|OSOPR01MB12410:EE_
+X-MS-Office365-Filtering-Correlation-Id: bc855cbe-2237-46a9-0656-08df2eb44acc
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|366016|56012099006|4143699003|11063799006|261009223027099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	gjto73ifIC8j454DdpYMGqik7W2tXF1125gKqDchDBDjhEXDN/r7zXfkDwY2ry/nH1ZI9AlRMubeZVdXc/+UvIJ2TeZdppjdWP7mhbpZ7gCGYPqMWoV6Sb8qQc+j7S9e9zkdNU+BZYTbIkd3DQSNBB63C+NT3WsPOYwGkru5SDLQh6O3dmAK5FOXZr2JCp4mo7TjpYOKHcV7m3sR2bq0ZsxMhdVpusxT9xmjrefC5NR32K1I5BRNMa/8G/LMJkf/nStvD6uh3OQovx9LEv//4jiSi8anf7Qxr8d652AGhMLR7g+CXvKHrY8PgI18C65n8rKYcFGXnX9a6cKgQGi4lWzt3oSSxtwNYMXxZH+nzHaGUnJCm6Y3FyQqYWwtmoqwYFG61kv5Q0tfZ69elj97sjCYMo5okKa3h3zFM+UbqLo704piJywf3kG+76OAv9F4IqM/O85MIDFwqx8I+cghxfHM7/x6u5V7X4ip0E0pkhStrWIqrSre/VvnzOFs1oTYGUG3zsnAV5yHoc4jutx0zSsvzU5qu/+N5Ulw1eujQPO174ZyOWJYOj9yTMggl9jrCAXM7HMP4K/4xEoGdxp/T67xhiSpbUP5dsynGCkqr+q+QQBsVPer7omlFBwBw0fGHsIZbI4DLZgTHDm+9V6us/JYhL//YhKB1PW615fMIio=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYPR01MB15118.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(56012099006)(4143699003)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QklOY0QydWRObFhzL3c4b0VXZzk5ZlpnUGtHSDJZQW5UV2FDT3ZxSy9FWU9a?=
+ =?utf-8?B?WWFFK1dDc0lzUUk1VVBoUy9NelM0VFJjL2l5MHNFSFpBZ3Z4YTlGVGVzbGw1?=
+ =?utf-8?B?V3RDYUxxYTJ4QmFOWk4xb0JxUnB1a1hNckFuclRqZnRIS3hvNzBXdmNZVm1l?=
+ =?utf-8?B?VE5PRmtUUUc4bk5STWt6MTFvVWFSdEhTSHNoaFRvUUZ3Zm80NC9GcmpDZTJU?=
+ =?utf-8?B?TlNVMzlCejRkcEFQT3cxc0ZOVzdoaEJuZG5OUEpVWjRkaWRQNHFaM1BncmxB?=
+ =?utf-8?B?NDNTYVdmN1pWTkFMR3N1TU84UkZvUVhjN1V0SHNqbExsYzkrNlJqWUNUOVRh?=
+ =?utf-8?B?Q1dUSXBKeG9oRlozVE5kcmlUQXVwOFI3U1J5Ulh5VG56ek9EU09TTEttT1pG?=
+ =?utf-8?B?Um9PTDgxays2WHFiY0x3M1NBaC9VaGN2ZXVoVDVtcm5HS1NxU0hpRG5aSStL?=
+ =?utf-8?B?Z01CWlZwajFDQWhDdm5EbEJUK2M0R2k1WDk3RnZCT2ZBSWRyNFhjbklIVTlC?=
+ =?utf-8?B?TFBpSG91V2l0dnFmc1FqRGh5cWtXQkkvYnZrZ0pBdi9lZmtXQWtjNndzeng5?=
+ =?utf-8?B?aUViZ3BENFlRZ0RyWHcxWG5MTk04SEJ6ZHRwaklSQzFJeHhXL0RlNzdwRGVU?=
+ =?utf-8?B?OUYrbFR0NnphT0ZoRkhhbVBJa1AyUmZpNjhIQnVxOTk1dm1XMnFhVkM1YUxF?=
+ =?utf-8?B?MjQyYy81MXZodkJwNjA1MFNTQWJVU0RZd1hHR0pLZGJYQmx4UTROZ1gzU0dR?=
+ =?utf-8?B?SENmNnV1Q1c3VEhneVZqK2c3c3lUbHlkNlpvR0pCbjBKVTV4M2huY0xIM2g3?=
+ =?utf-8?B?dDFia1RoQ2NJaFNaQzV6VjdUdFl4ak5iVVZ0SzJadE1tZjhQc3d4ZHVabXpL?=
+ =?utf-8?B?bUtjSkdHUVA3MHN1akxQRmJFNjRTUUFlbm9ybXFPV0dBNE14eG9ubStxU2w1?=
+ =?utf-8?B?RnF3QjZxSTlLc1B3a3VBTE54OFVIM0MxS2JtdGJPeWtaOCt5d2dOM0ZxNWdu?=
+ =?utf-8?B?QStKNzU1MVZqVVM5SDFHK0xWVWtDWEl1d0k0OFBVajJnRFBOVmxKcnBjckJZ?=
+ =?utf-8?B?S1lFUEVoaDA2azBSWmZUVkdaQk9MMXVMZFBDaWZlamZsZFJIWGI3WnlOR1RG?=
+ =?utf-8?B?Mm5xaWVSVWFENCs1VEp3VFI3R2VJeG5nS0h6MnFSSlQ0QTlRN044RHhobzc0?=
+ =?utf-8?B?YVZZcGhkZ1hDTUVLM1lxRzd6YjNEdDRKMVVhWkRZWkRPZ0p0WGtSUEYxLzV4?=
+ =?utf-8?B?dmFzUVgvMDhZNTJ1bEJSV1hVbktVMWpWUlNwVWlLRFBhTGF2YUcvbVcvL1Ir?=
+ =?utf-8?B?NVVhWkZDd1RSSnVOVlo1RlFWOXcrSVE4akw2L3JPaDJJZlhtQ0J6TUk4NTFa?=
+ =?utf-8?B?dUsvT0JITWwxZEVLMm02c2Vpbld5RHVCK3VKTFlpdWJIUkthZVczL00xcVla?=
+ =?utf-8?B?R2ZoVUpWM3plQk43K3YxemRXemx1SFoxZ3FUdk1mQW43UzJmUmJpNlUvdWUw?=
+ =?utf-8?B?V3hkTlBaWnM3OWRtZGlyR1J6bkJQNXpBNmExcmQ1ODVXSmNmYXRMRUl6akwv?=
+ =?utf-8?B?ZkV3SkhzU1FmT1NWQ0g1emVRMnh1SytHbm1XOXByWVJMemE0Nyt1dGxYcGVU?=
+ =?utf-8?B?UWt2N0N4SkNpbGdwQlpSaVI5bWM2LzZqRldzVGhqV3hzb1VxVktxWk9Helpr?=
+ =?utf-8?B?S1hrbVRxdHNHY20zNDVpL0ltNytIRmNsQXBDdUkzeU8rTEF3MDYyYlRwaThU?=
+ =?utf-8?B?ZHFCdEsyRFhxSGxreVM0VUlZNml1Mkk4Rk5ZWVZhNDAyazhNcUYzRk9yVEFz?=
+ =?utf-8?B?UWNPUHVld0w5TWw4aDdySTVNaTZ4bHAyVTFpMlByb2t3bC9yeUEycEtnN0FQ?=
+ =?utf-8?B?T1pvWjYrRnRTUkVncU41VVpUWTY3N2NEM3JzeWhYOUlaYmxpdG1wbXl5a3Fj?=
+ =?utf-8?B?RVZ1MDBnZ2NETHBEM2NQc2ZEWXRxMUxQRXJZSERCL1AvRWJUeVpILzJJQmlW?=
+ =?utf-8?B?NUR4R2t3b01yY0poanRaWmtpd2hmczR2WVJOcEN2NEJmSWszSkxwZUJ1TVlZ?=
+ =?utf-8?B?M25xU3U2VGxSNGVsWGk0bXEyZEViZkJhQ1ZiWE5WbFQ4b1BTVjhwOEtJT3dj?=
+ =?utf-8?B?bW9qKzZyVG5FSEdkazZFcG1ERys4eWhiTDhRYW9lSkF6MVVieG5MYVdQTFo1?=
+ =?utf-8?B?d2dTR2Z0SUgyeVlpRTJGTkhrMkR1eEZUYkR2SC85Z1Fna0pYeFdDY1VNdzdY?=
+ =?utf-8?B?OGJ2QUJYMDI2cEV2ZHdiTFp3bHNYM2lXWUhIMGMrd1NaYm5Ob1Q4eDFqWkZm?=
+ =?utf-8?B?VnAyUkUvZkorUVp2R0hRQ0NzVzFGVWtNZFZCcDFuL2pyU2tDY0NBdz09?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc855cbe-2237-46a9-0656-08df2eb44acc
+X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB15118.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 14:13:19.7204
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YIep8+acIbn6lHubU+EW0HLQu2rFP4BT4kDKg5O/fkyvQOutISHLPeBY4Pfu+y58T1arZ/MXOH9BrZZZSE9yGJ+GSWyH0kMcALoG1qh6hUI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSOPR01MB12410
 
-On Tue, Oct 20, 2026 at 12:30:50PM +1000, Yu Zhang wrote:
-> fsg_store_nofua() syncs the LUN's backing file when switching from async
-> to sync mode:
-> 
-> 	if (!nofua && curlun->nofua)
-> 		fsg_lun_fsync_sub(curlun);
-> 
-> fsg_lun_fsync_sub() dereferences curlun->filp (vfs_fsync(filp)). Unlike
-> every other store that touches the backing file -- fsg_store_ro() and
-> fsg_store_cdrom() (down_read), fsg_store_file() (down_write) --
-> fsg_store_nofua() holds no filesem while doing so.
-> 
-> A concurrent close of the backing file runs under down_write(filesem) and
-> does fput(curlun->filp) in fsg_lun_close() (fsg_store_file() with an empty
-> path, the SCSI START_STOP eject in do_start_stop(), or forced_eject), so
-> it can free the file while fsg_store_nofua() is dereferencing it:
-> 
-> 	BUG: KASAN: slab-use-after-free in vfs_fsync+0x20/0xe0
-> 	 vfs_fsync+0x20/0xe0
-> 	 fsg_lun_fsync_sub+0xa0/0xd0
-> 	 fsg_store_nofua+0x138/0x160
-> 	 configfs_write_iter+0x1a7/0x250
-> 	 vfs_write+0x5df/0x940
-> 	Allocated by task 3459:
-> 	 fsg_store_file+0x150/0x1f0
-> 	 configfs_write_iter+0x1a7/0x250
-> 	Freed by task 3459:
-> 	 __fput+0x456/0x6c0
-> 	 __fput_deferred+0x10d/0x330
-> 	 fsg_store_file+0x9e/0x1f0
-> 	 configfs_write_iter+0x1a7/0x250
-> 
-> Hold filesem for read around the fsync in fsg_store_nofua() so the backing
-> file cannot be closed underneath it. The lock is only needed when the
-> fsync actually runs, so it is taken only in that branch.
-> 
-> Reproduced on a mass_storage gadget over dummy_hcd by writing lun.N/nofua
-> (1 then 0) from one task while another task rewrites and clears lun.N/file.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yu Zhang <yuz08559@gmail.com>
-> ---
-> v2:
->  - Use guard(rwsem_read) instead of a bare down_read()/up_read() pair
->    (Greg KH).
->  - Take filesem only inside the branch that actually calls
->    fsg_lun_fsync_sub(), not around the whole function / the
->    curlun->nofua assignment, since the lock is only needed for the sync
->    (Alan Stern).
-> 
-> v1: https://lore.kernel.org/all/20261018130519.65850-1-yuz08559@gmail.com/
-> 
->  drivers/usb/gadget/function/f_mass_storage.c | 8 ++++++--
->  drivers/usb/gadget/function/storage_common.c | 7 +++++--
->  drivers/usb/gadget/function/storage_common.h | 3 ++-
->  3 files changed, 13 insertions(+), 5 deletions(-)
+Hi Geert,
 
-Acked-by: Alan Stern <stern@rowland.harvard.edu>
+On 10/20/2026 10:27 AM, Geert Uytterhoeven wrote:
+> 
+> Hi Diogo,
+> 
+> On Tue, 20 Oct 2026 at 11:15, Diogo Ivo <diogo.ivo.sx@renesas.com> wrote:
+>> On a pure I3C bus there are no I2C devices, so the I3C core leaves
+>> bus->scl_rate.i2c at zero if i2c-scl-hz is not specified in DT.
+>> Deriving i2c_total_ticks from that zero rate programs a zero-width
+>> open-drain SCL into the STDBR open-drain fields, which are still used
+>> in pure I3C mode for example in DAA.
+>>
+>> Fall back to the 1 MHz FM+ limit instead, the fastest rate an I2C
+>> device could have, so that a sane open-drain timing is programmed.
+>>
+>> Fixes: d028219a9f14 ("i3c: master: Add basic driver for the Renesas I3C controller")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
+> 
+> Thanks for your patch!
+> 
+>> --- a/drivers/i3c/master/renesas-i3c.c
+>> +++ b/drivers/i3c/master/renesas-i3c.c
+>> @@ -579,7 +579,18 @@ static int renesas_i3c_bus_init(struct i3c_master_controller *m)
+>>          if (!i3c->rate)
+>>                  return -EINVAL;
+>>
+>> -       i2c_total_ticks = DIV_ROUND_UP(i3c->rate, bus->scl_rate.i2c);
+>> +       /*
+>> +        * A pure I3C bus has no I2C devices, so the I3C core leaves
+>> +        * scl_rate.i2c at zero if not explicitly defined in DT. The
+>> +        * open-drain SCL fields of STDBR, which are used for the DAA
+>> +        * pending read, are derived from it though, so fall back to
+>> +        * the 1 MHz FM+ limit instead of programming a zero-width clock.
+>> +        */
+>> +       if (!bus->scl_rate.i2c)
+>> +               i2c_total_ticks = DIV_ROUND_UP(i3c->rate, I3C_BUS_I2C_FM_PLUS_SCL_MAX_RATE);
+>> +       else
+>> +               i2c_total_ticks = DIV_ROUND_UP(i3c->rate, bus->scl_rate.i2c);
+>> +
+>>          i3c_total_ticks = DIV_ROUND_UP(i3c->rate, bus->scl_rate.i3c);
+> 
+> This looks like a good opportunity to use the shortened tertiary ?:-operator:
+> 
+>      bus->scl_rate.i2c ?: I3C_BUS_I2C_FM_PLUS_SCL_MAX_RATE
 
+Ack, will change in v2.
+
+Thanks for the review,
+Diogo
+
+>>
+>>          i2c_parse_fw_timings(&m->dev, &t, true);
 > 
-> diff --git a/drivers/usb/gadget/function/f_mass_storage.c b/drivers/usb/gadget/function/f_mass_storage.c
-> index b7b06cb..6712566 100644
-> --- a/drivers/usb/gadget/function/f_mass_storage.c
-> +++ b/drivers/usb/gadget/function/f_mass_storage.c
-> @@ -2663,8 +2663,9 @@ static ssize_t nofua_store(struct device *dev, struct device_attribute *attr,
->  			   const char *buf, size_t count)
->  {
->  	struct fsg_lun		*curlun = fsg_lun_from_dev(dev);
-> +	struct rw_semaphore	*filesem = dev_get_drvdata(dev);
->  
-> -	return fsg_store_nofua(curlun, buf, count);
-> +	return fsg_store_nofua(curlun, filesem, buf, count);
->  }
->  
->  static ssize_t file_store(struct device *dev, struct device_attribute *attr,
-> @@ -3239,7 +3240,10 @@ static ssize_t fsg_lun_opts_nofua_show(struct config_item *item, char *page)
->  static ssize_t fsg_lun_opts_nofua_store(struct config_item *item,
->  				       const char *page, size_t len)
->  {
-> -	return fsg_store_nofua(to_fsg_lun_opts(item)->lun, page, len);
-> +	struct fsg_lun_opts *opts = to_fsg_lun_opts(item);
-> +	struct fsg_opts *fsg_opts = to_fsg_opts(opts->group.cg_item.ci_parent);
-> +
-> +	return fsg_store_nofua(opts->lun, &fsg_opts->common->filesem, page, len);
->  }
->  
->  CONFIGFS_ATTR(fsg_lun_opts_, nofua);
-> diff --git a/drivers/usb/gadget/function/storage_common.c b/drivers/usb/gadget/function/storage_common.c
-> index 75831f2..51a70f2 100644
-> --- a/drivers/usb/gadget/function/storage_common.c
-> +++ b/drivers/usb/gadget/function/storage_common.c
-> @@ -415,7 +415,8 @@ ssize_t fsg_store_ro(struct fsg_lun *curlun, struct rw_semaphore *filesem,
->  }
->  EXPORT_SYMBOL_GPL(fsg_store_ro);
->  
-> -ssize_t fsg_store_nofua(struct fsg_lun *curlun, const char *buf, size_t count)
-> +ssize_t fsg_store_nofua(struct fsg_lun *curlun, struct rw_semaphore *filesem,
-> +			const char *buf, size_t count)
->  {
->  	bool		nofua;
->  	int		ret;
-> @@ -425,8 +426,10 @@ ssize_t fsg_store_nofua(struct fsg_lun *curlun, const char *buf, size_t count)
->  		return ret;
->  
->  	/* Sync data when switching from async mode to sync */
-> -	if (!nofua && curlun->nofua)
-> +	if (!nofua && curlun->nofua) {
-> +		guard(rwsem_read)(filesem);
->  		fsg_lun_fsync_sub(curlun);
-> +	}
->  
->  	curlun->nofua = nofua;
->  
-> diff --git a/drivers/usb/gadget/function/storage_common.h b/drivers/usb/gadget/function/storage_common.h
-> index 11ac785..347a86b 100644
-> --- a/drivers/usb/gadget/function/storage_common.h
-> +++ b/drivers/usb/gadget/function/storage_common.h
-> @@ -210,7 +210,8 @@ ssize_t fsg_show_cdrom(struct fsg_lun *curlun, char *buf);
->  ssize_t fsg_show_removable(struct fsg_lun *curlun, char *buf);
->  ssize_t fsg_store_ro(struct fsg_lun *curlun, struct rw_semaphore *filesem,
->  		     const char *buf, size_t count);
-> -ssize_t fsg_store_nofua(struct fsg_lun *curlun, const char *buf, size_t count);
-> +ssize_t fsg_store_nofua(struct fsg_lun *curlun, struct rw_semaphore *filesem,
-> +			const char *buf, size_t count);
->  ssize_t fsg_store_file(struct fsg_lun *curlun, struct rw_semaphore *filesem,
->  		       const char *buf, size_t count);
->  ssize_t fsg_store_cdrom(struct fsg_lun *curlun, struct rw_semaphore *filesem,
-> -- 
-> 2.43.0
+> Gr{oetje,eeting}s,
 > 
+>                          Geert
+> 
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> 
+> In personal conversations with technical people, I call myself a hacker. But
+> when I'm talking to journalists I just say "programmer" or something like that.
+>                                  -- Linus Torvalds
+
