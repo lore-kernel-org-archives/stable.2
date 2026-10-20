@@ -1,75 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792484483;
-	b=wu2CJYYwnVKycs5udWLvgTEaMcdMaWxsdCQ7OcLybK+4yQ01UDZbkYBuarRJbad/Ottl
-	 gKrnLwtxEYFTo6ZXnDToYpy9arHuOTEDiOP9ookJTX2VkMDmq5X3yrM/Ml9Sw8erKpEeJ
-	 3R6v5OLdBbLX8o2THp3+qa8sPROdhLaXMDS3eAKw7soSzDz7SvFgDZT27oe/wQ0PJsN4f
-	 9mmwCLx2k0i9e4EyW2hn5GpWt2C/7RNky8PlTPnIJ67xAejK7ch5IzKMfWg4WqGGMqJXy
-	 dqcioMTXJ5jwrZLFgxfjulahM5PHkPRcPj4K9WEnD0YqmHeQg00VW0QbB2FBZVwIH3A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792484483;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792484508;
+	b=UeZfA9qg5bRA1Hv2mpSGkhy/CUxUa1o3GerznGR6e0CUbXQ6LyFnA+k/8oBaQGd7qItk
+	 Uf4AxRTYkUCHWoLWSGLSwfV8Ct0nWXC79+5ECu2tvMBKMnXrTJ5ahsSzglapMgdkKXf8M
+	 KkscJ4JrZzDkCWf1YqRztQQzXR6sQ1tr/qzG8yfC3VSyap2TMX6A/xU6rquwRT4vKtN9o
+	 Son30nWt6/uCiydokOEy3iaanMwYnQREY4GL1lXbDcNBgOu7ERjbHM/nOtdV8hQqIPeDR
+	 X80hJAYMLLekrbcNNCHMsMgPSH9WXrb5tzkUHsXRhBgJk6X8NFV6YBS+B5tM8DB8LkQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792484508;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=Y0S2/1HTQXjT7j6wQIYRpSV26ZEjZ5U4TjqBh9LMm6s=;
-	b=EI4vXAYGmbHjL6k806RBeA94Oq7JbQB0sZjoHPjX7wC+2pYlknjCKj4yjkaovBe4RDX+
-	 7A4mlLHyLJVje+CoBCot2i7XaPf+5pZY5y0JiHxTDUGRXKy17C2BeLxmm057GSn/6JikC
-	 Q8AVsnaUtJABB1DEsfM2KeJdfPnUoZWdqFMBhTwrXZmzK8MGvtqQPNny63x3tKr9sfc+Z
-	 /PffflH2kbkbXeT7FCy/tSJBqR1BnPQrxuAqecum3UeamtN8Z0ANHwvMnmvItDJCXbYEB
-	 cEuDiRppZdaXMTn2aGgr2TqXL19spTUFmzCKd8cMsuLCv08g5Ci7kIQtwzOgOruxTNw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=NIlruYmw;
-	arc=none smtp.remote-ip=209.85.210.198
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=7TrZi46+bzFzU9yGi+5LBKjzX2gZ2wzymm4R8mV+ebE=;
+	b=expfuMgY2vuW0sjSIbxyIgDzjoFaAjRPf6cID3XBzl4YMwnpp2q8SuiVB/Uuk4YRQDy8
+	 93qlhJ+tHGvOpxhG+xzf+K3Q5kYvvCmoGKxvrBDkhnalL4YoQOTlJwsl9pv7p90rNgyay
+	 nmUE2OnpbZVprJunsvce05URt8snv3yvYFmtAwNEhYd6jIE0BSzTiq25M1sncw8uB+cf+
+	 59Az7ctME7Vva00T93Vx8HrnAlCL/8PL6IuLvHISPMKW5Yx2FGttmz2aNvTxu5pcOtk/y
+	 BYJY1IcWi4uMtBVAn/XKwR2EsQOlsqPOr58wCYm+L5eTn8cNtZPHAUTKbMJII3rSNqw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=O0fzRnoe;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.43
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D7E060A261B
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:21:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D7E060A261B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF778606A319
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:21:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF778606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=NIlruYmw
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-88c768885b4so3848397b3a.0
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 01:21:23 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=O0fzRnoe
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ac6794fe45so2485004a91.0
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 01:21:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792484506; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OyB8I5TNMQ0G9rYxp3a2La/M6X26aIZv2EjrdXmsdSv4fm7QhR7VuCYHUSIG4srgJ7
+         PjyVAQRHCV9p8vh+veukSbCP3ZZt8o0B2F55xIhtXCh1aZvIMVGTvjuDvvS4dpERRGwD
+         6ygUHf03dYeALu18oIXFdg33nXsBtSjl4ijUmAsd9WNwEDNU9Ekm9REkeLRGxXGA1W/x
+         4uRHl/VWl00WLDDinPpYSe091j811qdPWdIVZqSyTTefDbUOPcuvqe5Jpzzo5nG1yw7o
+         RZhsk6qvjp5zWZhY+z1UtqIqpV48Le5Y2yeAGcMFgyhtskCZiDyvgEEnqZBwmwufRbXk
+         rTwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7TrZi46+bzFzU9yGi+5LBKjzX2gZ2wzymm4R8mV+ebE=;
+        fh=VGduj0LdK26pCZo3EzlTy5dBQAfNAwpHiS+Y8M2WfBY=;
+        b=LXYlSjAbbK0UE1y7GxKNwW9oJBK6oJtOrwSR6gLZbdvN7KghTbyGIMj07fd+e6gSHg
+         VFo2Lukqk6/QVcmiJkdOEH/t6G59fVOvQzGVf4tRAxgL/udsoJcZma6OPnZYAZLy1NjG
+         nrv9c+q5iwR5GLPA7G++fvTSDH7f9UJ39Yp6SMY3B02dFZx5wegJQPqw0QAiCJRybJlG
+         AIBJn19yTHSl3+4T0c0N8E34KEXWJLfC3Dt30JXnUFsf0p2qGZ4O9pewWF0u7tzCK68V
+         p6crdnozAVwLIHB/DNAhBCo66OuKVJWLuYA82uOTH9O/yEmf0Z4p6wfoWex6QUrQLeP1
+         RsLg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792484483; x=1793089283; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y0S2/1HTQXjT7j6wQIYRpSV26ZEjZ5U4TjqBh9LMm6s=;
-        b=NIlruYmwjbEE6hjnJ33S+zXOLPmcQLJDErdhDRBEDCb3kF2A9sX7NUITVUGIL5TNDW
-         ecTIMM6NdFKmyJT7aVJ4YLansxWpZL9v7YBlfVimFCN3jjyFgUjV+gpsEMJ7jGO6aPAo
-         xW4sMgoeE9fQ9yZI6SFiHx35epu3MZoSUPByg/BTM7yQkScU6czeOWzlJQHj2KbQ5GxL
-         uN8iTk/WikJDiMI863/+SOhBQCabPHFuGXUEh/4zx1FKxEBg9k3V9Fpx4aGcs+dRTr43
-         ufEI40eNlrcYwUNEitEQ50Su+DlCI3LvoHtvANmsOeG5+s7tDdTD/AsTDsh8IWGco/vK
-         vz0A==
+        d=chromium.org; s=google; t=1792484506; x=1793089306; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7TrZi46+bzFzU9yGi+5LBKjzX2gZ2wzymm4R8mV+ebE=;
+        b=O0fzRnoeVxfQbQIYUo7PeUK+SRH4bVQ+dJAQOjiPcpswyJ8YUvQCFvZrS2BImII5DJ
+         SSiQXUnw3wnHjbHaSgjLXKBiw7o5RovbadDG9K6GYYtV6uZiPlzNO3ivfRxG11jj/kCc
+         zmtBHMZHJ37bR/RrrqWe9KMsqXvXg29muDYIg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792484483; x=1793089283;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y0S2/1HTQXjT7j6wQIYRpSV26ZEjZ5U4TjqBh9LMm6s=;
-        b=vmXfbNDf+AE9hjNtqMcKsxEdmoALh6FiRBNpob7GJ+bWZzBb+hbz10IbO9A6Yo10ss
-         L7U54qP9+h9OETkIxJHg2y5Jv0FRtqxPNnGzswuya9Elk8NVYegMCcrDPtW7ubsN9J+w
-         DtE9pJifeheQAPaJ5pgT9BzkBkavNBLmyQW4hszfPMp7s+TjN+c+BjU5h0DowedDgsWM
-         IrYRaYYsitWcOI2mhhsFUVgK73U5N8xalWTrEly2pOf3Y0Ed3ar+vS7R5Utsy0mDDpBU
-         KLAtw/+AGXbPC++PKOmRQQMH6HjZeXp/pcHGHC3nr4LNroMJYqTZPNC2QA//BZmckKMj
-         DMhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzBCIHSeO4ly/+2SGlGwH1/wVLfcA6uJVkYPmu055ljFwiCUmNYbsAWnZ2MTCmsi1uUi1EgXuk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKxtY8OuzVICNqC5C5/0NOkfM09bZMPGjsAn3UIomz+KAfZQExF
-	LFruop4jyIAwWenLsBjC8NrV81ze4ZWXro4Jbym05uyh2gVEvuj3RtEJAL0yhtk4RNc4vztwuAV
-	m9atoBpKPpHkmNMNiJ7AMgA==
-X-Received: from pfbhw24.prod.google.com ([2002:a05:6a00:8918:b0:89e:a4f5:3f5])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:8009:b0:882:8aea:fbc with SMTP id d2e1a72fcca58-8a04ba04bcdmr8600296b3a.16.1792484482530;
- Tue, 20 Oct 2026 01:21:22 -0700 (PDT)
-Date: Tue, 20 Oct 2026 16:21:08 +0800
-In-Reply-To: <20261020082110.3511797-1-stanleyjhu@google.com>
+        d=1e100.net; s=20260707; t=1792484506; x=1793089306;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7TrZi46+bzFzU9yGi+5LBKjzX2gZ2wzymm4R8mV+ebE=;
+        b=zVEFUtv19MRLC99t8+Rxom/DMM0w6j1V7OV+4R+IEsep2deYlomSdEY2bSDgpgqWdh
+         k1jaHq+8f8WClP5HBLOYxCdXQ+B7Ipl5uJiSa/B3hLq2VhzxdE/01ZH7v/yDbMtoH0DY
+         CjJeKulrPFiNsk1jklD0R9SKsV7p6IgF6VZ14u5+kti3NHpM/4QC1gEEj55/mg4UMoi1
+         snZqQBB1juwJlc+71kmKcXg5JyaDUTlqT78NVag9qvauAKteABK/SjxqiPD++k2NzdXo
+         JNT76ZigQCpdZSLZxgjsix+9Hm7aOaBdjXXujAvKk0o1rRZaP2cxXdVe161S9p2vZveb
+         Nc0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzNuwGdG1ggfJHBpdZEdkGmFCZzSAeYiLKwRw5Ol2JOd/YE4bsBzEl1XNMmJHgNuAyNMTJXW9s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKAoW2DkPPP088SYZ1kteuTfn9S9xVVV3r2WafDhTgcDqai/2jT
+	LfBPE07l7NVnVzuqH1eQaiUX71BqpxjV1uX+rTPzBS9si5YCmg08KmF8UiV5bfPyBH7EJvuwtrY
+	8kFTnWc5FpFiKMtKDSASHkJdGP4T6q8f1tSD3F03p
+X-Gm-Gg: AYBFou0+AyrH5ZdbOQFD+xLAFyY3UsqMi9kEFFl4aKs1YjFlgeRQA3Cu05FEM6K4RlV
+	9wu1KVVmCEMutmH0s4AFZdblQWly9prVMDxwPkwrqJzPRoQLs2/+9JDKaUtiXw3rdnrOAtS98uo
+	W7A9solcqIzkH/XMhgQ5yRFrk4Ngwi0zy3XN4qsvXSakLGAAdhuJXAV3A7UaBr97A/gfUFlP4PA
+	GD+9oDya8NOe+6uBIMdX28az/fd9CI2C1dKq/mo89KZ00MPff4FnpcgMvuT8l8xqnN83uKZH+Ov
+	Bq7+7Fo1Kh/wXQp7BNljcjbMCjnoUkzmnM1lsFeXcN/5qwEpPzoS/LBl8S+/Fq3UfY27tPeyjXc
+	9/C392U26Shm36A==
+X-Received: by 2002:a17:90b:3d48:b0:3ac:9df3:6b07 with SMTP id
+ 98e67ed59e1d1-3acef0c8753mr8694175a91.24.1792484506389; Tue, 20 Oct 2026
+ 01:21:46 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,56 +100,71 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261020082110.3511797-1-stanleyjhu@google.com>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261020082110.3511797-6-stanleyjhu@google.com>
-Subject: [PATCH v3 5/7] scsi: ufs: core: Fix double release in ufshcd_eh_timed_out()
-From: Stanley Jhu <stanleyjhu@google.com>
-To: "Martin K . Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org
-Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, 
-	Bart Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Bean Huo <beanhuo@micron.com>, Peter Wang <peter.wang@mediatek.com>, 
-	Can Guo <can.guo@oss.qualcomm.com>, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
+MIME-Version: 1.0
+References: <20261018023438.3902617-1-mhun512@gmail.com>
+In-Reply-To: <20261018023438.3902617-1-mhun512@gmail.com>
+From: Andrei Kuchynski <akuchynski@chromium.org>
+Date: Tue, 20 Oct 2026 10:21:35 +0200
+X-Gm-Features: AclHuK9Cw9XpcnOw9Jqd7JDgzHfajpSJvRQRnH2xODkxZsXKOnuVOr2__XvG8-k
+Message-ID: <CAMMMRMcBT1TgmOYyYO8dJsLsdzqBiyUU4=S7XzE2zhYh_hpP_A@mail.gmail.com>
+Subject: Re: [PATCH v3] platform/chrome: cros_ec_typec: Stop altmode work
+ during partner removal
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Benson Leung <bleung@chromium.org>, 
+	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>, Jameson Thies <jthies@google.com>, 
+	Tzung-Bi Shih <tzungbi@kernel.org>, Guenter Roeck <groeck@chromium.org>, 
+	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In SDB mode, a command that times out during a power management
-operation can be released twice:
+On Sun, Oct 18, 2026 at 4:34=E2=80=AFAM Myeonghun Pak <mhun512@gmail.com> w=
+rote:
+>
+> DisplayPort and Thunderbolt port altmodes queue work to deliver VDM
+> responses to partner drivers. Partner altmode unregistration does not
+> drain this work, so it can run while the partner driver is being removed
+> and access released driver data.
+>
+> Look up the corresponding port altmode with typec_altmode_get_partner()
+> and disable its work before unregistering the partner altmode. Keep the
+> work disabled while the partner driver is removed, then clear pending
+> response and DP status state before re-enabling it for a new connection.
+> Use the same cleanup when list-node allocation fails after registering
+> an altmode.
+>
+> This issue was identified as part of our ongoing research while
+> reviewing kernel code.
+>
+> Fixes: dbb3fc0ffa95 ("platform/chrome: cros_ec_typec: Displayport support=
+")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 
-1. The command times out while its normal completion is running.
-2. The completion path clears BIT(rq->tag) in hba->outstanding_reqs and
-   releases the command. It has not called scsi_done() yet, so
-   SCMD_STATE_COMPLETE is still clear.
-3. ufshcd_eh_timed_out() recovers the link, sees SCMD_STATE_COMPLETE
-   clear, clears BIT(rq->tag) in hba->outstanding_reqs without checking
-   whether it was still set, and releases the same command a second
-   time.
-
-Return SCSI_EH_DONE when ufshcd_clear_outstanding_reqs() returns 0, as
-another path has already claimed the command.
-
-Fixes: 01d5e237b339 ("scsi: ufs: core: Handle PM commands timeout before SCSI EH")
-Cc: stable@vger.kernel.org
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+Tested-by: Andrei Kuchynski <akuchynski@chromium.org>
 ---
- drivers/ufs/core/ufshcd.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+> +void cros_typec_enable_altmode(const struct typec_altmode *alt, bool ena=
+ble)
+> +{
+> +       struct cros_typec_altmode_data *adata =3D dev_get_drvdata(&alt->d=
+ev);
+> +       struct cros_typec_dp_data *dp_data;
+> +
+> +       /* An altmode without its optional implementation has no work. */
+> +       if (!adata)
+> +               return;
+> +
+> +       if (!enable) {
+> +               disable_work_sync(&adata->work);
+> +               return;
+> +       }
+> +
+> +       mutex_lock(&adata->lock);
 
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index 03efbd85bba9..111f5805f178 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -9653,7 +9653,8 @@ static enum scsi_timeout_action ufshcd_eh_timed_out(struct scsi_cmnd *scmd)
- 		if (!hba->mcq_enabled) {
- 			struct request *rq = scsi_cmd_to_rq(scmd);
- 
--			ufshcd_clear_outstanding_reqs(hba, BIT(rq->tag));
-+			if (!ufshcd_clear_outstanding_reqs(hba, BIT(rq->tag)))
-+				return SCSI_EH_DONE;
- 		}
- 
- 		if (ufshcd_is_scsi_cmd(scmd)) {
--- 
-2.56.0.212.g129ede20d9-goog
+That won't be necessary, as there is no activity at the moment.
 
+Thanks,
+Andrei
