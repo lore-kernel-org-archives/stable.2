@@ -1,59 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792527912;
-	b=YpVdBn1drMNSlmKr/I+q1/qxqPpTERKwzxVNXFbFM1y1T5z7LXTaDNaFLQDwxNBEclJR
-	 eStHLQmETcd6wTKfRxmT4BEYUDtsKteoY/yUOQxnm6RSWstcpgrvAtJZaerFrVWk76UNC
-	 7Bq8lmdWNX7Xn7QX/EJ+NUFohXmdnooVDD9/TLnbZSL9Y90kbkOMWuSvCW0ZyUDWqn+wF
-	 Eb+86ZK4NovkkMUJc+bPINW5zvJ2JLAND5+0ciq5XQXFtSpUFHtD0JcmXsO1U1oirykOZ
-	 9XvZL6yXRo6O5zpPtOytEt2KP3QByg/59Q/Eh2Tls2RhgK3yqLBYDdEkg+uvBgfagJQ==
+	t=1792528043;
+	b=qs1tCRZ+Z5JvCesyql0uIcCiBNZFJ/m/v//Ig6UrnQGfvgaBobyz5VMRLKMjujxtdKXN
+	 SkpRg4wGLeKIQHAXf0JjR5V5H60IJTOOE9pR6Ju9h/OEKKPpAO8V90WpWPMHM94Vww6RH
+	 /Dhm+/L6zQLqUP/wb7mzRMxkrDKIIor+Pb2584lmWcztHOCKOVw2/3V9TLglu0AqONje2
+	 cWWj0DZsJFKv2YTkoey9KDSZRBy+lDCbrBT7vU2VYpzQ/9yQM5x08WWArlbnDITPcGYQ7
+	 mhdmD4kfmj7N9wMzIVPqp3mSGHWdOsNDwPwqtsIm6qvH8W/OxXKA1+OAjXGLyGi9QYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792527912;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792528043;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
-	bh=9jwjEa/Cjtxu9fBrnz4xAlY8KFwcNbg6ufNDqICcUGI=;
-	b=0fcLxvDllthqRGp0Aq+4C/4O1gEDhMAcsd1LyrvF0bdc878Omt/DZUTJCvqjnE1DAejD
-	 0KVfYhQt0iOdlGflTxfcZqI2nRP3IZM6F5ukItEF8v5Aq7iNL/SCV7f+872D6AMumon7F
-	 XdW/VfRMMgK7ct4jmlcE7LoRJHHZtaICokm2GXWAsM5w2w1nXY3a8ECL6bRloo6liQBjW
-	 qcaEApvK3KHZMCjVxRP6mzjLOFvAEXfF/IFCidJfP8dQ5uM7HHq53NrE8Ad3i+RgN4aYK
-	 75hTuRxJupWylb3K2RoWSkxodSrEV9sfroH0KXLhpgBS8FOeXBIdF+VFAzHgm6BTJsg==
+	bh=pozseQb4WC7A1P13dfxO2zH3hVpjW8dCUT3pdYQ074U=;
+	b=n3SAh2nk4F/H29/WTWrBdSm8BD8xxHgRsKiXb4FxdeBqZHXCufDAmv1H0Zb+dl0W07uh
+	 K6EIYyW61egvy3RbdNr/CqOkkAlvKrGHhGhIUrWW0q1EsisYUnaHDrghurlE1DUXSJ3pR
+	 OwQ+Kl2gQkhGkwIwPXywfO0anol4E5jCTDANGavKW8DoQn9bFHe8QVCLxK5OpzGSFrJAy
+	 hdMkUBhVZXr+45Yw77fohBFnX8vuCYLRg3aKj5X5kGVLJ7g9XcF3cEG1QZXo1z87v6vll
+	 DPoO3RT8rk186Z1EtXRw+0gAWpXyvif+eo/QTa3NC9S+uZ4Z5xeZWrWYwZddVDCGKIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=1R5spU2b;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=MsQnSWTC;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC291606A31B
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 20:25:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC291606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B112606A32C
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 20:27:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B112606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=1R5spU2b
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=MsQnSWTC
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 338EE4E41290;
-	Tue, 20 Oct 2026 20:25:08 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id E6050C5CD64;
+	Tue, 20 Oct 2026 20:28:18 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D8B7760393;
-	Tue, 20 Oct 2026 20:25:07 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9236910328DF9;
-	Tue, 20 Oct 2026 22:25:00 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4994360393;
+	Tue, 20 Oct 2026 20:27:20 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8551610328E34;
+	Tue, 20 Oct 2026 22:27:02 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792527903; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=9jwjEa/Cjtxu9fBrnz4xAlY8KFwcNbg6ufNDqICcUGI=;
-	b=1R5spU2bpmnK6iO5VGpu8IoE3vWCutNtYQAMr61WJ2AxjhSY1c/CaSV3nUA/jRifNgN9Wq
-	BuFnx3B0peEuaO1mU/f+8NmfkbukTjc+5ZLmxj+tzGmfzz3DWSrIdXww9P9OM85JycOa+C
-	SDWHwsr6WQUNMHGX8pAew/4ntl7M8rGYwPMxvInHlK1F1V82SpfLXrPcUVYZZqw6GhSuAa
-	eX49QmrdwrWfAtbLBO9q2OCq6Z3RmxXe3RRL1YR3UnoWf5oE+IJeXsxd4LuKJ3bjRvhJIB
-	faU3XYa7sTrgmsL5Cfxe0x8iHa2Hj+MzYhugxlTld3/5hnT5oPnkixHjFueJVg==
+	t=1792528039; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=pozseQb4WC7A1P13dfxO2zH3hVpjW8dCUT3pdYQ074U=;
+	b=MsQnSWTC4RSL8xBqvuWKkBWxEPb/X0VN1wCIpRidK+tnlmf6gahOeDOZVgylH1LTA8Aeyk
+	c+xyhAecudB65T+kf2nXtNy08Hiiq3PuBZ6iEgeu1JnpSBmQVF3nyB+XrH4cumsByXrJjx
+	j9MfT69MJE/gbz9YPYAE8YbrSprKGbaNbb07//UHYGapMv6uMHr80DyNobDWTnjfatF5in
+	SowLz3aujPfPhbmJDmAeWif5pDrsQRP5LrB/YcIdihzznmLjd14BEhJmhwVytY5iXSUjVC
+	c1fiFFDbYmH42PQyeFHJWN3GgT+1YfUluAvWsDF4UWGcBqCTQaagvoPag/mqSA==
 From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Tue, 20 Oct 2026 22:24:58 +0200
-Subject: [PATCH 5.15.y] net/sched: cls_u32: skip hash tables in
- u32_bind_class()
+Date: Tue, 20 Oct 2026 22:26:36 +0200
+Subject: [PATCH] net/sched: cls_u32: skip hash tables in u32_bind_class()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,11 +64,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-cve-2026-74739-v1-1-f63ae6c92cfd@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vchc2ZJWyxNeRXiwdZV1wOaFgmE8
- O4WPX6TzL8hcxLO6KsNiWfJ8hoLdF0hPi7jnUmuxTDKdFoZRXFmOkDu5FpP3nfOtjYoHSLK6Z3
- 4JssvOMA22jYrzv89f8KT43TUsO9f+r8OAHoAAAA=
-X-Change-ID: 20261020-cve-2026-74739-9967535b01bc
+Message-Id: <20261020-cve-2026-74739-5-10-v1-1-c4b65c36f234@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ6DMAxA0asgz1hKYiApV0EdIBhwB1olFCGh3
+ J3Qjm/4/4TIQThCW5wQeJco7zVDlwX4pV9nRhmzwSjTaGUU+p3xBtrK0gNr1App8DXZkZxzBLn
+ 8BJ7k+F2759/xO7zYb/cKUroACw4b1HcAAAA=
+X-Change-ID: 20261020-cve-2026-74739-5-10-3bc537d38883
 To: stable@vger.kernel.org
 Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
@@ -78,11 +77,11 @@ Cc: Benjamin Robin <benjamin.robin@bootlin.com>,
  Sasha Levin <sashal@kernel.org>, 
  "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792527900; l=1960;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792528017; l=1965;
  i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=jgoXXB8H33Z3xRymMqIUudkbVFtuqCP4zCoagmspP0I=;
- b=P0VvIetMC19D6TufkTYUIJd2UJF17bL+jsgfAE+nBZyJGHDTylNPEtJZxIOkOqUSpoV1pI21x
- Cgoi+0ynltfARyGiNG46SQoNIxfDNBF0D16ytKIhBldTj1SBen6F3rY
+ bh=C5m7oNXli4kbXFHbyFnrNOBmo3bf0rn4QfSO8scql2A=;
+ b=auB3KMIzdX4uCm+CYd3e/RvRGJaYA8xOlxjmxTEHqoZEgNKaeDUtkJgdkILmcokd7s0CSWyBX
+ No+/yEQn9XfCwKeTm4zojJOsZeWe92oIvYShWPNu+2zArd/YVBqRWY9
 X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
  pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
 X-Last-TLS-Session-Version: TLSv1.3
@@ -118,10 +117,10 @@ Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
  1 file changed, 3 insertions(+)
 
 diff --git a/net/sched/cls_u32.c b/net/sched/cls_u32.c
-index 23f9e2b5f3b6..4e623c5c9bec 100644
+index e501390ccd75..dfdd6fbe3787 100644
 --- a/net/sched/cls_u32.c
 +++ b/net/sched/cls_u32.c
-@@ -1298,6 +1298,9 @@ static void u32_bind_class(void *fh, u32 classid, unsigned long cl, void *q,
+@@ -1303,6 +1303,9 @@ static void u32_bind_class(void *fh, u32 classid, unsigned long cl, void *q,
  {
  	struct tc_u_knode *n = fh;
  
@@ -133,8 +132,8 @@ index 23f9e2b5f3b6..4e623c5c9bec 100644
  			__tcf_bind_filter(q, &n->res, base);
 
 ---
-base-commit: 792fbe1537d8daeca9bd1917e84078b5432aadc2
-change-id: 20261020-cve-2026-74739-9967535b01bc
+base-commit: aca95a35f1bcc0626c4fa4d1252bf2d4c990a1a2
+change-id: 20261020-cve-2026-74739-5-10-3bc537d38883
 
 Best regards,
 --  
