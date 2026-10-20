@@ -1,45 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792509950;
-	b=ZQ/CAcy3lB/PHV23y61g7gTW2YkA34BWH/OS3D+/E+TqY3tICK/kulICF9DyZDFPimiL
-	 q+Qv92ZtvJihOqdu+MM+AZwu9FEA3sRlC/a6XW1dowHyl/U6TNM+XNUO6fAcIqfbk+5B/
-	 dPNqIsExAKndTzEZhOcJ6nVK3Nt7spFuUOsB0ZfGveHH3ntklwBC2rRwUGgWSeau8SAee
-	 jo3BTvizSnVGFmCOaQUCtpGCtXnbLyOA4CXpBVaGTkUVWFwTutLFeSM89C471GgTmrnBu
-	 fSMZ530rlHFzMOKwTVucSckN2JKQuInfMpvln6qFlY0A4ZjEbcSw2xCVFzqVvXVIJOQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792509950;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=qnnKDDvmabqOsa4xKgNN1r+wBeLKSYF6UBFIXxksVrk=;
-	b=Nd/zLW0PcyCmX95YsXV/bcXpN3Kd5CN0aUx4JgESS0MNTqrhIYH9RmvxQPtcCb0bTrD9
-	 KBW9dzaRg+qvhSkL1OJM5EFRO8A8jAtDhp1pmJzACE0M8PR+sDjFi4E2Edb29q5Qbw+/q
-	 PopAM2ZLEFGRpCAUf88LYWcVdmKNEgLkGxEQ4JY6mVWUXhFUgk/JWPdhvkyetifwz1CnP
-	 mvx1b/Yu0UCaRTIB7hsXn9JwZ+oXJzGzCrp/BFWU0+ssnfvWqk+FBTFW9SeqKg2SlGgqW
-	 tigpuftVM2hipKf4RxuwK55Z6MH8PfhAuynfDIWQzsGR6kSMuomNsFln1IVKavr6tZA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="N/Ryh22H";
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792509967;
+	b=01qENe8nMwjR49ul3MBqCsheBs0gtb/Nxq6KUpuQn0abFdnQceZU1jxOTFZhpOMJoG/o
+	 G+1gz8nZ4yOek40rit8wCB2HrAzA8HneZQFaOk11HK2NnUdx1CfoKG5oPiOYGPsneRDeQ
+	 RSxT6onNpIppwsX6f/R87SRhB+Swxl2tVFiYC7igPRK1kthVnrQRXljbj26tFTQlbGGQ6
+	 tzWo0wlKNUtTT+vtc5tBq3pVXTPyooOBLdtJGKTNBtCNF54411oU42s1DxZrfOjIa4Svp
+	 sUx7mBTd+IKDsP4eh3DcB68pWSzr3de2CuSRUgd+CKa3QKMtQQ6sgk9InSFEXqyFZvQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792509967;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=XB+26I9RQacuPIWnRjHF6pEOgxNT2RHWSFWP6LggIsg=;
+	b=BGKQWtp62g6M4O3Cb33PlrfWEU5xaiZN0l1KDy65B0IafyG+0Xxhd+MkPWR4UJiAQsLz
+	 tiSxBcxdUg7iRR0qGL1i8lAu9U2soJpSoAxdocD1GrjUCu5ehD3oy1h8Ndwh9uGv/hAwK
+	 iwJrwzPbf68GviEVHZDPS9bWgNQg3Rmb9QtZ0I1y9ws9mTYNHT1RSF3SISQ8Q+bBiLp0r
+	 pruCAJ9fVr8L21YBsw2bhwWcZZ6107gEajV9rbjRf1YlpXnDA/J/8imUQHyYhNQpKkLeW
+	 QTrOBCV7N+RZsNG1r7isMZaFYl1Bo49y7OtyjzSPzHz199In9i2ixQZLcNMiiG2CN6g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=axKbDNdI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF76B606A31A;
-	Tue, 20 Oct 2026 15:25:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66663606A31B;
+	Tue, 20 Oct 2026 15:26:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N/Ryh22H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 395A81F000C4;
-	Tue, 20 Oct 2026 15:25:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=axKbDNdI
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792509965;
+	b=pxVmygMeW6h9dNfxNAIllE4BSwN3qxc0cUoOb4ZIivM64cT3jV2Kze2IvBAW/DsCG2Hk
+	 QB5tcPWHvrHMbZ6eeZcR9faMaJoPWqj6ClnXcd9WZy5oCDfcP1MeoXKerdmgsAOCACrK7
+	 WMxSzu/VfToJqlut0QKmWe9xEEFmQiiqI+8JrWOuNjW8LVsRwvyIZ5qdtt0tyAJMF/xAr
+	 oSsaeQ11uIgxjwQcpfFcvCEmHL1Utu1S2raqtlL8+6xxgAHVJQTAaj2OJGXMybwGfHKxy
+	 dA+pN2mz/kZgeHfLp9G5koVXcHoV98btlHw06W/UVPoreJMvgzqYvy3BeH3ilKtNkrw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792509965;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=XB+26I9RQacuPIWnRjHF6pEOgxNT2RHWSFWP6LggIsg=;
+	b=S4DnTk3apJnHs2Xu9W0Y1TFqzlRpKPXFF2XXkU9wFImEPJAyqEgGUKcbMHKWsPdXGlex
+	 1/GB1e2lkJ7dhoinsHW93t3HT9oM1GMzGDIZVi8NxO5nav645A+sNRkGMl6SPWapZzEhp
+	 30X79tHlvHkEnEJXG6Aw32Hl6MfJa77qC8nGd/2S5MatlHo8QAPrtrgzKvblJQbZEUIYx
+	 q7LRn8rJVEP7nbgjhMO58vh0VARoVqG8mlYab24MhrhJYfs6Aj4/ejTvukB7lUv2UABy+
+	 I3QObBW0g0foW2BKtTa8PVm3+aIt6pNxl4gOLVPlQNXqKJxOW9POB1JyFHOoqqKTBhQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 569161F000C4;
+	Tue, 20 Oct 2026 15:26:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792509949;
-	bh=qnnKDDvmabqOsa4xKgNN1r+wBeLKSYF6UBFIXxksVrk=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=N/Ryh22H3bh2OekkLERS5+/ZNyR79Ait3mk83MBE58z5nY43sBxn8Q9mb70aqTRLT
-	 kdRkja4iI4E8nIbnMI6tw5NgjDFfu5AnqxuLQiDzEU7pet6JhegJxpupKTcC5FkjuY
-	 OTnTETl4hTWohoiYS2FZ87uIookOWSNwoPhWDP0n5NsraDyNgAbD+ru21uhbIfzPwI
-	 tl49VaWf4TvIpf347OiU6Ulfc/C4ylIsSLfjRvr9UT6MKCqLL8cd+VDS5z9kux/xGC
-	 Fg4i1KgYvbSS52K5qSC184y7iRf+pTkBa0CEiGQbDUk6pKRn3s2elqhj5rbtGUDScg
-	 69FDpahn/H8qw==
-Content-Type: multipart/mixed; boundary="===============4093518717466758589=="
+	s=k20260515; t=1792509965;
+	bh=XB+26I9RQacuPIWnRjHF6pEOgxNT2RHWSFWP6LggIsg=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=axKbDNdIrE6PWnixL1ykpsDc5q3vPLtw6R6WkhOfCC5DljXxKczVbQwkGU2AoKKZK
+	 B9gFHWZnlMCWSH2XN19rnNeLoezBOe1nrUmA780/2Yf/oGjjqwzuJ4QnyKeUAGaG7A
+	 blbeSoMCLK4O63rkHHNQhRDdZnKVGdY0EJMTXAdKXuhioJEhbQ4wJmNsXsbk7Xboid
+	 eZnc3gKEB3GlYLROKzRrU+ZhnF0EatS5+j588WQhVoU1wPzceAoTduS7wsqybE5aoF
+	 POHDs8wbpr0+RpblHwUmCTJZWOqiyw7Kf+o57no8+cKifeidtQV+eAs4a7nrc5OK/2
+	 PfXW5HlkkxR5g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id AB4BF405FF;
+	Tue, 20 Oct 2026 15:26:04 +0000 (UTC)
+From: Jean-Baptiste Maneyrol via B4 Relay <devnull+jean-baptiste.maneyrol.tdk.com@kernel.org>
+Date: Tue, 20 Oct 2026 17:26:00 +0200
+Subject: [PATCH] iio: inv_sensors: prevent timestamps going back in time in
+ transitions
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -49,179 +83,122 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <a9ee5ed21d9e00e36d2bc48f64d47422ccfa7f8d12575e63456ffb0f9decd400@mail.kernel.org>
-In-Reply-To: <20261020145059.2146170-6-utilityemal77@gmail.com>
-References: <20261020145059.2146170-6-utilityemal77@gmail.com>
-Subject: Re: [PATCH bpf-next v2 5/6] bpf: Bind iterator elements to their iterator
-From: bot+bpf-ci@kernel.org
-To: utilityemal77@gmail.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
-Cc: song@kernel.org,puranjay@kernel.org,bpf@vger.kernel.org,utilityemal77@gmail.com,stable@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue, 20 Oct 2026 15:25:49 +0000 (UTC)
-
---===============4093518717466758589==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261020-iio-common-inv-sensors-fixes-for-preventing-timestamp-in-past-v1-1-c27be451b287@tdk.com>
+X-B4-Tracking: v=1; b=H4sIAAeI12oC/yWNwQrCMBBEf6Xs2YWkSon+iniI7baukE3IxiKU/
+ rurXgYezMzbQKkyKVy6DSqtrJzFwB86GB9RFkKejKF3/eBd75A545hTyoIsKyqJ5qo485ssc8V
+ iNySNZcHGibTFVKyKJWrDMEV/nodwdOEE5rDyb2mK6+3P+ro/aWxfKez7Bw3903GhAAAA
+X-Change-ID: 20261020-iio-common-inv-sensors-fixes-for-preventing-timestamp-in-past-8da19f683084
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jonathan Cameron <jic23@kernel.org>, stable@vger.kernel.org, 
+ Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792509964; l=3507;
+ i=jean-baptiste.maneyrol@tdk.com; s=20240923; h=from:subject:message-id;
+ bh=SKRCGdHQ3/TSi0j/AnCYzWp+4z8JacqTdI3yvmeaYFE=;
+ b=3UVAS7YsWlCyaqey1MfHrpDdIzft+npqsEh1GeWkEd2LHGvRRicxbJ6cP/WTedQI8XG/1r7Je
+ bIuNz3L6ALlDMF1GPQQDjK3cbMM+RejEYNDuerAtpznFcRniqE6AtJ6
+X-Developer-Key: i=jean-baptiste.maneyrol@tdk.com; a=ed25519;
+ pk=bRqF1WYk0hR3qrnAithOLXSD0LvSu8DUd+quKLxCicI=
+X-Endpoint-Received: by B4 Relay for
+ jean-baptiste.maneyrol@tdk.com/20240923 with auth_id=218
+X-Original-From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+Reply-To: jean-baptiste.maneyrol@tdk.com
 Content-Transfer-Encoding: 7bit
 
-> bpf: Bind iterator elements to their iterator
+From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
 
-TL;DR:
-- Iterator elements may stay trusted after the next next() call drops them, so
-  the verifier may still accept use-after-free programs
-- Fixes: tag likely should be 4cc8c50c9abc
+Ensure when computing first timestamp and when applying odr change,
+that the next timestamp will not be lower than the previous one.
 
->     bpf: Bind iterator elements to their iterator
->
->     An element returned by an iterator's next() kfunc is kept alive by the
->     iterator alone. bpf_iter_task_vma_next() returns a snapshot that lives
->     in the iterator's own allocation and holds the vma's vm_file reference
->     only until the next step or destroy; bpf_iter_kmem_cache_next() and
->     bpf_iter_dmabuf_next() hand out objects whose reference the iterator
->     drops the same way. The verifier marks every such element PTR_TRUSTED
->     with nothing tying it to the iterator, so a pointer saved across
->     bpf_iter_<type>_destroy() stays fully trusted after the memory or the
->     reference behind it is gone:
->
->     	bpf_iter_task_vma_new(&it, task, 0);
->     	vma = bpf_iter_task_vma_next(&it);
->     	file = vma->vm_file;			/* __safe_trusted_or_null */
->     	bpf_iter_task_vma_destroy(&it);		/* frees snapshot, fput() */
->     	start = vma->vm_start;			/* vma, file still trusted */
->
->     Set the element's parent_id to the iterator's reference id, as is
->     already done for the PTR_TO_MEM elements of bpf_iter_num_next(), so
->     that destroying the iterator invalidates the element together with
->     every trusted field acquired from it. Elements of an RCU-protected
->     iterator keep MEM_RCU and stay bounded by the critical section instead:
->     they point at RCU-managed objects rather than iterator state.
->
->     Fixes: 4ac454682158 ("bpf: Introduce task_vma open-coded iterator kfuncs")
->     Cc: stable@vger.kernel.org
->     Signed-off-by: Justin Suess <utilityemal77@gmail.com>
+This way there is no risk to have a timestamp going back in time, meaning
+being lower than the previous one. It already can never happen without
+a transition because we are generating timestamps by adding the period
+to the last timestamp.
 
-The Fixes: tag points at 4ac454682158 ("bpf: Introduce task_vma open-coded
-iterator kfuncs").  Did the problem described here exist at that commit?
+Fixes: 0ecc363ccea7 ("iio: make invensense timestamp module generic")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+---
+ drivers/iio/common/inv_sensors/inv_sensors_timestamp.c | 16 ++++++++++++----
+ include/linux/iio/common/inv_sensors_timestamp.h       |  3 ++-
+ 2 files changed, 14 insertions(+), 5 deletions(-)
 
-At 4ac454682158, check_kfunc_call() gave every kfunc-returned struct pointer,
-including the result of bpf_iter_task_vma_next(), a plain PTR_TO_BTF_ID
-without PTR_TRUSTED, so there was no trusted pointer to outlive the iterator.
-
-The PTR_TRUSTED marking of iter next() results (or MEM_RCU for
-KF_RCU_PROTECTED iterators) came with 4cc8c50c9abc ("bpf: Make the pointer
-returned by iter next method valid"), and that change affects all three
-iterators named in the commit message.  The kmem_cache (2e9a548009c2) and
-dmabuf (6eab7ac7c5ee) iterators were added after it, and task_vma only became
-affected through it.
-
-The task_vma snapshot and vm_file reference described in the commit message
-came later with 4cbee026db54 ("bpf: return VMA snapshot from task_vma
-iterator"), which itself carries a Fixes: tag pointing at 4ac454682158.
-
-Should this be:
-
-  Fixes: 4cc8c50c9abc ("bpf: Make the pointer returned by iter next method valid")
-
-> diff --git a/Documentation/bpf/bpf_iterators.rst b/Documentation/bpf/bpf_iterators.rst
-> index 189e3ec1c6c8..08c9c15b59ac 100644
-> --- a/Documentation/bpf/bpf_iterators.rst
-> +++ b/Documentation/bpf/bpf_iterators.rst
-> @@ -79,7 +79,11 @@ Constructor/next/destructor implementation contract is as follows:
-
-[ ... ]
-
-> -    NULL-returning kfunc, of course).
-> +    NULL-returning kfunc, of course). An element is only guaranteed to be
-> +    valid until the iterator is destroyed, so the verifier invalidates it,
-> +    and every trusted pointer derived from it, at `bpf_iter_<type>_destroy()`.
-> +    Elements of an RCU-protected iterator (see KF_RCU_PROTECTED) are instead
-> +    valid until the end of the RCU critical section.
-
-[ ... ]
-
-> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-> index 5d3deea1cdc7..869e8d4083c6 100644
-> --- a/kernel/bpf/verifier.c
-> +++ b/kernel/bpf/verifier.c
-> @@ -15762,6 +15762,19 @@ static int check_kfunc_call(struct bpf_verifier_env *env, struct bpf_insn *insn,
->  			regs[BPF_REG_0].btf = desc_btf;
->  			regs[BPF_REG_0].type = type;
->  			regs[BPF_REG_0].btf_id = ptr_type_id;
-> +
-> +			/*
-> +			 * A trusted element is pinned by the iterator that
-> +			 * produced it and dies with it, like the memory
-> +			 * returned by bpf_iter_num_next() above. An RCU
-> +			 * element is bounded by the critical section instead.
-> +			 */
-> +			if (bpf_is_iter_next_kfunc(&meta) && (type & PTR_TRUSTED)) {
-> +				err = validate_ref_obj(env, &meta.ref_obj);
-> +				if (err)
-> +					return err;
-> +				regs[BPF_REG_0].parent_id = meta.ref_obj.id;
-> +			}
->  		}
-
-Is this fix complete for the lifetime of the element?  The documentation
-hunk above and the new comment say the element is valid until
-bpf_iter_<type>_destroy(), but several next() kfuncs drop the previous
-element inside the following call to next(), not only at destroy.
-
-The commit message says as much for task_vma: "holds the vma's vm_file
-reference only until the next step or destroy".
-
-What the next() kfuncs do to the previous element:
-
-  bpf_iter_task_vma_next():
-      bpf_iter_task_vma_snapshot_reset() does fput(snap->vm_file) and then
-      overwrites the snapshot.  This runs before
-      bpf_iter_task_vma_find_next(), so it also runs on the call that
-      returns NULL.
-
-  bpf_iter_dmabuf_next() -> dma_buf_iter_next():
-      dma_buf_put() on the previous buffer.
-
-  bpf_iter_kmem_cache_next():
-      prev->refcount--, or kmem_cache_destroy(prev) if the refcount was 1.
-
-  bpf_iter_css_task_next() -> css_task_iter_next():
-      put_task_struct(it->cur_task).
-
-With this patch the element, and the trusted fields walked from it, keep
-parent_id equal to the iterator id and stay PTR_TRUSTED until destroy.  Would
-a program like this still verify?
-
-    bpf_iter_task_vma_new(&it, task, 0);
-    while ((vma = bpf_iter_task_vma_next(&it)))
-            if (vma->vm_file)
-                    file = vma->vm_file;   /* trusted, parent_id = iter */
-    /* the last next() returned NULL after fput(file) */
-    if (file)
-            ret = subprog_trusted_file(file);  /* still trusted */
-    bpf_iter_task_vma_destroy(&it);
-
-Once bpf_iter_task_vma_next() has called vma_end_read(), nothing stops the
-VMA from being unmapped concurrently.  Can the file then lose its last
-reference while the program still passes it to a trusted-argument kfunc?
-
-The kmem_cache and dmabuf cases look similar: an element saved from
-iteration N stays trusted in iteration N+1 after the iterator has put it.
-
-A later patch in the series, a51a1f92e627 ("selftests/bpf: Test iterator
-element invalidation on destroy"), covers only the destroy case, and nothing
-in the series invalidates the descendants of the iterator id at next().
-
-Should the verifier invalidate the registers whose parent_id is the iterator
-id at each next() call for PTR_TRUSTED elements?  If not, should the
-documentation, the comment and the commit message say that elements stop
-being valid at the next step rather than at destroy?
-
-This looks like a remaining gap in the fix rather than something this patch
-introduces.
-
+diff --git a/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c b/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
+index 8c9e81a77e68..9040da80f0c7 100644
+--- a/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
++++ b/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
+@@ -133,10 +133,15 @@ void inv_sensors_timestamp_interrupt(struct inv_sensors_timestamp *ts,
+ 		return;
+ 
+ 	/* no previous data, compute theoretical value from interrupt */
+-	if (ts->timestamp == 0) {
++	if (!ts->init) {
+ 		/* elapsed time: sensor period * sensor samples number */
+ 		interval = (s64)ts->period * (s64)sample_nb;
+-		ts->timestamp = timestamp - interval;
++		delta = timestamp - interval;
++		/* prevent next timestamp to be lower than the last one */
++		if ((delta + ts->period) > ts->timestamp)
++			ts->timestamp = delta;
++		ts->init = true;
++
+ 	}
+ 
+ 	/* update delta timestamps and estimated period */
+@@ -184,7 +189,7 @@ void inv_sensors_timestamp_apply_odr(struct inv_sensors_timestamp *ts,
+ 				     u32 fifo_period, size_t fifo_nb,
+ 				     unsigned int fifo_no)
+ {
+-	s64 interval;
++	s64 interval, timestamp;
+ 	u32 fifo_mult;
+ 
+ 	if (ts->new_mult == 0)
+@@ -207,7 +212,10 @@ void inv_sensors_timestamp_apply_odr(struct inv_sensors_timestamp *ts,
+ 		fifo_period = fifo_mult * ts->chip_period.val;
+ 		/* computes time interval between interrupt and this sample */
+ 		interval = (s64)(fifo_nb - fifo_no) * (s64)fifo_period;
+-		ts->timestamp = ts->it.up - interval;
++		timestamp = ts->it.up - interval;
++		/* prevent next timestamp to be lower than current one */
++		if ((timestamp + ts->period) > ts->timestamp)
++			ts->timestamp = timestamp;
+ 	}
+ }
+ EXPORT_SYMBOL_NS_GPL(inv_sensors_timestamp_apply_odr, "IIO_INV_SENSORS_TIMESTAMP");
+diff --git a/include/linux/iio/common/inv_sensors_timestamp.h b/include/linux/iio/common/inv_sensors_timestamp.h
+index 4f08204ede3b..91690778ae88 100644
+--- a/include/linux/iio/common/inv_sensors_timestamp.h
++++ b/include/linux/iio/common/inv_sensors_timestamp.h
+@@ -66,6 +66,7 @@ struct inv_sensors_timestamp {
+ 	u32 new_mult;
+ 	u32 period;
+ 	struct inv_sensors_timestamp_acc chip_period;
++	bool init;
+ };
+ 
+ void inv_sensors_timestamp_init(struct inv_sensors_timestamp *ts,
+@@ -94,7 +95,7 @@ static inline void inv_sensors_timestamp_reset(struct inv_sensors_timestamp *ts)
+ 	ts->it = interval_init;
+ 	ts->delta = interval_init;
+ 	ts->delta_counter = 0;
+-	ts->timestamp = 0;
++	ts->init = false;
+ }
+ 
+ #endif
 
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+base-commit: 43ffda3c7f8456bbe641ae8249a077a361b97880
+change-id: 20261020-iio-common-inv-sensors-fixes-for-preventing-timestamp-in-past-8da19f683084
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/39445554665
---===============4093518717466758589==--
+Best regards,
+--  
+Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+
+
