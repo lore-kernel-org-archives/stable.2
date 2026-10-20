@@ -1,76 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792481397;
-	b=Z91vJy+cmGXK3w0pCEkFOHSTDvMgJTPSL721yLSnHMLl9bG2b4LzqjHsj5Y19Gd1KVYW
-	 Rjg0h3lBl7bLC4xtMsnjed9MBuBsFHFGZgoSlT1mPVTF+ioBCsbVvykv72Wpny/8oh1SI
-	 6R2El1NN350JBT3qWlc6a/hqVqDJXs/XvpczQV49CuHR2ZrDwlC6lnImK/u7WHwo7z1Ab
-	 sid4NYUt9hvqCn6bVN9hLF7YcrE5220g6grFGLhVAY3Vn+eTDC1pSAjh0ioi7QM4fFgRK
-	 Ci7GpH6WNoQhQjiNYXrxYbyb4idjpcgxdiv2qqddbjyICaZNSzw4CC4kY+36xEqXe6g==
+	t=1792481487;
+	b=qrgyEv55RZGzYFx648eNkQOTr1FfMk2Xd5rJupVXaCZl3xc1v3SRciwTfXvuUfJepBs+
+	 +Ev3qp1Dk6m1Dt06iDsWiaUoHK6931WOR2x3CMrMRHeA6UDVXdVetnpFbUwb1URM3HQ8K
+	 OPc0v1dhbfzSj/VRg5ti7kHFGiMZvp0ooD+4LnW0om+g7E0i2V0N6LJ3RdbG21KE/fY58
+	 IVyTUnDwzOPbKMCcpn7RRbplbUodoR6s692IxE0n5dIgIS3CeMw1iMcM/w9VO6537h0RG
+	 ptej+v9aTvMMoiMlCcqs/h9g5t7lGkWyWzgTiNB9KOmXM5SV/qEE1B1WGr8hAJs0wVA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792481397;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792481487;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
 	bh=DUpm1Avc0nkEXJ+1xf9Uuhznoyw2NJnoVeQzyuyKlAM=;
-	b=uutayXuNBdbu7rPEy64yeJQ4JhjGgPbrk0bGcGKMkIZGLlht0T2UCo86kMa8BSjzF/Th
-	 8vQMryLjuPPIt+q0hnTPXk5XsF5n4ln8ctTpR400nL9texVfUZ3QR2UJ9kDcsgW3RyYas
-	 kmzWhspfUp6NUjPzJxk0CYp0/aYbzV4QDKIAYlFX7vcS29J0EUp/gPpqV/YZ1uOqYSF5x
-	 b0WK44BuxSEeaUVXhULP2C7tjClaKleUYJsjS+dmjHGRmCuxxliFz+sBzA07fq+m1iXxP
-	 cUkbqrUx+O5SKX29indkfc8Mrp7pCKaC0hfu0+NlbEgTI/PJsquJfXTjYjvkG0X57mg==
+	b=ShGuUSk2Gv25fydy3X6kurDcTf00cLkm4D3sVN9i6Dq1VruZeV4/HkJ+SGEVSH++SCVN
+	 dTyUF7RAw4cL+fuvUmpA7jTQ955n4z/fEfMx3wbGDJCQjJBpbeEeGwS/Q93xzVPMpDt0d
+	 tBuAUwhXnO0097wadvLEuNvZQD5ash2Wo0Uyo3VNpTU1r038SZXpn7kauLlHlb6S6bj/u
+	 n/fj+wWT6Hdltci2/qlV8deE4lXcjEidmICl6N5O01Y6tN95yub7f46UhY0MuBDua/rXi
+	 vrXp/qK+0L4M3wnTccQEc7p6VZ03s4DqrsyOydpTFpSHIwOT8JLUmQwQNRRYtGrxqUg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ddJ5ebHb;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=eRVdLYJL;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9660606A31B
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 07:29:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9660606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BDE8606A319
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 07:31:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BDE8606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ddJ5ebHb
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=eRVdLYJL
 Received: from mosel.fritz.box (unknown [IPv6:2a02:810a:88b:4f00:82ef:16f8:b54b:d8b])
 	(Authenticated sender: jre@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 1983D2021EE;
-	Tue, 20 Oct 2026 09:29:53 +0200 (CEST)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id F2A3A202285;
+	Tue, 20 Oct 2026 09:31:23 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792481393;
+	s=20260414; t=1792481484;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding;
 	bh=DUpm1Avc0nkEXJ+1xf9Uuhznoyw2NJnoVeQzyuyKlAM=;
-	b=ddJ5ebHbPeEddy8azxBSzRmdold/ITK1Tu+v0drY5Q1U287TZiEKtv+tiZCdj6ZY3eG3J1
-	pkFDt4BofZ5gTTz+sm6WrX1s6fE9rAgVQkOKw6xPck7kNIBmQlYHB7qrTOBs8gNLyhf4js
-	7ASqnum2T/wXzamX9d6EGMdrgEYIWvlvQqxsvviH5YoqBMkBwHx5BbArj7cZs+k0n+gzal
-	k0K6h1NcymahfDuP6WMIOvQQDI2tCv7Y/L7ImVpuO5DKE/LQEIJPWuEQwHJ0qwruB9D46T
-	uoHDu9gwT857Cs/gG1EgAdA1djDnTXyKvwrWr8qElYa1VOLFng2XceBUfy80GQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792481393; a=rsa-sha256;
+	b=eRVdLYJLkDnRSJUK1hSCCMaorSmvSF+joCRB5hetIi4+3uxIaRhulVdJQd/1gJurOgTOWA
+	JSYMoA4Byd+DM1TCAeVbSwVkXX3wzJdeCvrYj7TXdX00bDWL6LckmFd0O+0y5bMco5KfqY
+	uwSs3/fEksmNiXLwbQSbQlupLgvM2jqaLHqFUd01eNRpqJyyTwQaxJv1cEIj95jam5SOpb
+	4VeREKBEpEVzwdgx1dpXw/Pv8+j3aYUlZkwfbW4KHuuV5bIhIoF2MqtTqREnIB7iZaQrOz
+	t2AnfqwWGLyiFc0dKOPpnXszMahIpIwdsIFGKlbQ4UvsZf742CDaeymK1KrVCw==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792481484; a=rsa-sha256;
 	cv=none;
-	b=EyuJ7EFUAwPUYo40XhiObs6kX5Y+fVuEn8hM9YOBFRb3KTfd3bFXKDZH2cEK7tPyvlBrTA
-	BPr/Wxr/6k64ItVKbCS3cWT7HU5K5Dw1BnR+ciU7LcdUBJGpvoVnozjjcNitkc3Eo/r2MR
-	TI1lX/5TFIVN3931lsfdDuqCSKElP68Pa6Z+s2XMWbVx0zUmtiDivxrWd/+ird0Ct0rgJp
-	rP/bPcT4KGYiVKgAXqNTErjs2p0vo+2ZEAenTtdjlt3YWY9unt6trTV4FGV9uMqJaUQs6D
-	VAwVdqyzrvw8A55Vk3fP1pU/HKNFZTEw6YKtO3l7QR51S6Sziga93bwgazpq0A==
+	b=Gy16M7b776uu+4goT+LEsSobjJpQfbkBaZ2xo0gi1QFx09JoDSPFjic7vDFUmknD7LQMUb
+	91EXOHbCs5ioeAYRe9mfEH0ZrcMj/cuFrNayhrkJPlrt+xUFgxWGhMrHTR79QT21Qh2Lby
+	QJcltp3s8sbLvEXSo85J+08EfhPLmXlKpKkPJFcDmNyvw1N9pLomthGYfqWi8uMRPPVi6b
+	ZlY67KKQ9WH6yuELZN32h/HsRQsOu4HVpDsUdT4HujimhRYteZZAlrswz2nC1whkPQkYSC
+	UqPiGx9IyILPfLMNfMITpH/tfJpuPPPWSwm9AlNxP+UZquKwnqgTmkYb0gAoFA==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=jre@pengutronix.de smtp.mailfrom=jre@pengutronix.de
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792481393;
+	s=20260414; t=1792481484;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding;
 	bh=DUpm1Avc0nkEXJ+1xf9Uuhznoyw2NJnoVeQzyuyKlAM=;
-	b=O+y8B2EiAwlw5UkI49daHKWlEqxItSTTO8m1hph3FHsLRA95TMbPSN4FafjWDhI45fXm9i
-	kwt3Sbwg1G+ljwdDKL/kGvSwNR0TTt6SP5eSEHTWDmgzuggojiB5Qv72+sTJAlf7wMzBt5
-	1BWNj6U1YLCj0IzBo+yAQ9bb/l0/A1nVLaEm43XHr4YP4JpWSJwcnE1GsbzLu38QRrcZMB
-	IrADgxWD97p8g2FrN8YDrsv5hDloD9yFjaU0lYkGxTHLu8oEXhrNwKX195TuSTYX8k433Z
-	tqglg4SqCbJbt0Hr1UjbedM/PlkNJumwTBHgayBJRgTLRC2sgIs1B2JOyEbylg==
+	b=MmYofbNobTDVCYmKhcTLpGs5DnTa2LkhbdpWT0aLnmvvDHqNlZSpO6gl7KcO4xYYHBGrzX
+	t38jFhjE3AcjegRksFKwHH/UeoSpb7/TIT21zH996WeNwxly7wvzsJDRDK+aoiLgIfOPlO
+	GCnp/9hpEZJ14adIxsCKatNSuxrtXqBCAgKM7vQaG7wDe6fVGH1ImcneC9rDPOVwfFepz/
+	TOIUzJgllZsuXorKwUIL1HVDQCbF1UGjiShbB2DHf1pOwnViNgnHoYKKYnBx697wtGbxBS
+	hkaxKRfccmo9M7rrznt8OgyHfyhM0fS+/opHkUUNGdumJKGv9Bd05nP1Nc5jeA==
 From: Jonas Rebmann <jre@pengutronix.de>
-To: ct@flyingcircus.io,
-	customers.flyingcircus@pengutronix.de
+To: jre@pengutronix.de
 Cc: Matt Fleming <mfleming@cloudflare.com>,
 	syzbot+c5b060ce82921a2fd500@syzkaller.appspotmail.com,
 	Zi Yan <ziy@nvidia.com>,
@@ -90,11 +89,10 @@ Cc: Matt Fleming <mfleming@cloudflare.com>,
 	Ryan Roberts <ryan.roberts@arm.com>,
 	Shakeel Butt <shakeel.butt@linux.dev>,
 	stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Jonas Rebmann <jre@pengutronix.de>
+	Andrew Morton <akpm@linux-foundation.org>
 Subject: [[PATCH stable 6.12]] mm/huge_memory: initialise workingset state before folio split
-Date: Tue, 20 Oct 2026 09:29:12 +0200
-Message-ID: <20261020072912.188953-1-jre@pengutronix.de>
+Date: Tue, 20 Oct 2026 09:31:21 +0200
+Message-ID: <20261020073121.190190-1-jre@pengutronix.de>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
