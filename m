@@ -1,88 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792511080;
-	b=QaFwPSyiHj52Nt+WbsINIeIzGa2wBuWU6jV8ujA6YhlC+PC3no6fJdEfcJpcsO1xqdVv
-	 rPAKARXQJY8uMhHXmdQWvSQgDY/NQ+oETtwTz1JJK61KDJV3te0dHRQQDyYn1MuJfb0C2
-	 /TBIJ+ozX490TVPTCwUPyJD3Fue2QvqEX0MwjgEZ48hyqr4trXy/1IGW3PawewCcanZf7
-	 4xO76guyleOz4UToODgekMpJzNrPhLRd+zpXHit026IlKVoZqdoZ/ZUVZV2Luc1MT/Yki
-	 tRz6RqzlT1W+Qn5T7ykDAzG8Y6nhMIKU+BMLwRuZD/U1mdm8VjbrROn8s6apYrO2j1Q==
+	t=1792511177;
+	b=W9gPBTV/YBkI72BOYk3RaBbcxoHNc4IJHs7Vy9Mst6iPjT1fEASmXOUOhyrviOv9yzVk
+	 cMJPMKqMFs2w6I4PVYEavgfIrGM8mWYll/YfAeR5oBmWeaGff6rqADjlftTaN5OSQa5cn
+	 8jDDkGarvE8KzeY9nXybLA3Cf59+xbfPG+1kWOULqOkQ03VnZpFX6QJqOsT65LzDBnhW/
+	 QxkLXyTdgvuVpv0sbMe/lntbwIWKXvejKJiMpdu9ju64OcZJOOZoUv3kcpobsXAr9/0Ii
+	 uGEZ9RNruuImxEM7MVT/f6hz0JyVnnE4N57nUTepHdJCpCyAcp1ZHodEtHlfP3k52WQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792511080;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-Reinject:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=iRELXzO7m9kSgGv8YZd/fKnsAUdJpPZMK6ooUW2tEbk=;
-	b=bvDYKZZqf/4Hkl1ftDgmTFUk+03i+1I1QRjdImODbXr0Un+N2LwNGtpHz2NXmAa+AyWV
-	 foclko1DEgqjgY+91PuHMrGb4Xn6i70K9LRLhy4/ztnPewd3Mp7v4BN5Wy7NSErRWo/Qs
-	 tIW16n9yincT56QrA0mTsBQk7DRWHacx2xNQ2AvG7QYkd8GHsjcCckNt2chve7yywQ7O7
-	 WSj55/kd7xNxCow7SsENjN7268/XKaDFfLGez42qxMitw3f6+G/5cpnwOszqd8UkrN+Th
-	 cgNHGQyqRU7ELKCJk3FSFUP4vA+zPFbHMdQ9eipP8hC+9rZoc5FzMevZ/LybNThQszw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792511177;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=c4KdIyx5wd3lW7yQNQkMYWV0DoFONhgCwEzOBtMGwk4=;
+	b=ezgDZS5tWuIg+jSYMuPqoEyB0XPQa8gTETIh1BC0ZF21b3gzLkYDgCGP3a8NNAQcXBde
+	 rgzfJUXezGuBfc1Vg6DLao4f/k+M9Xw3O9oIPqIJ1B6p8Y2Pmx5xkMrSFJaDN96l2doCk
+	 KiaOgjHlMYdXgqbGfyuNRGHDg68m6f9MM36HZoU5LzhEFKemszcNUJcZnyRWTPNZljkJW
+	 k5gmUZuyuEla4/EN90Ybe56+8sAGr+MM3Z18QDxbe9UQ7KqWocjHr7pjkqPw7oqh7t515
+	 rLOQp0Ao9mJ4N/GBAqvvW2sxGlfjI7Klp6M0FWnJ5eM2JUycHyd+VeODc5FY0m0U9yA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=mRXh+bAZ;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=pqshield.com;
+	spf=pass smtp.mailfrom=pqshield.com;
+	dkim=pass header.d=pqshield.com header.i=@pqshield.com header.a=rsa-sha256 header.s=google header.b=E38VOoas;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82530606A31D;
-	Tue, 20 Oct 2026 15:44:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82530606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCC86606A326
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 15:46:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCC86606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=pqshield.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pqshield.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=mRXh+bAZ
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KDEFgU870693;
-	Tue, 20 Oct 2026 15:44:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=iRELXzO7m9kSgGv8YZd/fKnsAUdJpP
-	ZMK6ooUW2tEbk=; b=mRXh+bAZU4+GgxVOYzMyMsm+YfXy50JOpXgnJjvd/1A1Hw
-	LMnI9bZI5t3WNiTa+nIOYC45grdw/aWI7SvvfIKOD/n1AlvTQiCgtV/GdrI0GLp2
-	kjsXy+IZlQYAaBInjkA8CR9coS3vCwMfhqTVBt5M645/2+jLw+xPBZDsC2neWpbz
-	MrssQ7zz03YTqLdbGBYg13L9eMMSZk/H6yQN24L3SXJdNBTIRVJS7MV5+1/Um7yT
-	J3d2+52tP9vocwEwzMaCLuTOaBntxIfr5nXucOOXtpxaTZ9e+JZsbp8W4Qh7UYdz
-	W+iow87nKlIyNf14XLo/oAuSYEXnH40IVL0ryqpQ==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw5bbr7n-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 20 Oct 2026 15:44:30 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69KDJrTk1500996;
-	Tue, 20 Oct 2026 15:44:30 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4he7bs0u1q-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 20 Oct 2026 15:44:29 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69KFiQvf50987414
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 20 Oct 2026 15:44:26 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 067882004B;
-	Tue, 20 Oct 2026 15:44:26 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B193620040;
-	Tue, 20 Oct 2026 15:44:25 +0000 (GMT)
-Received: from osiris (unknown [9.111.79.24])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Tue, 20 Oct 2026 15:44:25 +0000 (GMT)
-Date: Tue, 20 Oct 2026 17:44:24 +0200
-From: Heiko Carstens <hca@linux.ibm.com>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: Vasily Gorbik <gor@linux.ibm.com>, linux-s390@vger.kernel.org,
-        stable@vger.kernel.org, Tristan Madani <tristan@talencesecurity.com>,
-        Jan Hoeppner <hoeppner@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>
-Subject: Re: [PATCH v2] s390/tape: cancel delayed work on device removal
-Message-ID: <20261020154424.11179A48-hca@linux.ibm.com>
-References: <20261019225606.1864082-1-tristmd@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=pqshield.com header.i=@pqshield.com header.a=rsa-sha256 header.s=google header.b=E38VOoas
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso2105939f8f.2
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:46:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=pqshield.com; s=google; t=1792511175; x=1793115975; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c4KdIyx5wd3lW7yQNQkMYWV0DoFONhgCwEzOBtMGwk4=;
+        b=E38VOoasEpWAnLvnZ8WivNqYKBz0bimAwdacr+8ZuIcKJ7k3AW3YwjK9DUIuxdy8W8
+         SZudXCakreIjQc7lFLgEm+Sz+i/ZJ9SA9Cu8TvgP4anK7YLb2sJwx7auHAHjegDvC2Ua
+         aM/yI8rNmkNr89B+Lt++Id3WKJYSiI2IfxsA9UKEfPo5/uKWvfnen22hsctlYbk1Kjhs
+         fGsiVBZXNN/vXWOyK46A7URtAoaXh/Ix7zmDKvgZ+TM2T4A/8+7qyi9DOv38vEvmJs56
+         qa5IKadnUwLUQLK5FDkyHjxpGL27OsG2taw5UBBJo9MybCN5GP2B5NV/sHU0yymHo14K
+         TQXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792511175; x=1793115975;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c4KdIyx5wd3lW7yQNQkMYWV0DoFONhgCwEzOBtMGwk4=;
+        b=OMHy4koNucttodPSIDolgjYTx3JrV6CmW21+clI/DHnrqVZfuMPvlO9Rwf7zNLjOWQ
+         OFk18HP29+3v97c1BgqOxQNZU/TA3cY4ewbKzO5Q/yDGC4Ryuza11Wk0v/E/BNJyP0bt
+         FkbxNwZvKYbmpSm9X3gayW/cVh10gi3m4pbNlfGhtoNT7VVwRrjrA/7fg4wnT++g/BIo
+         fSaR8FugLt3G5wMB9KSp5i4Gin/9Bx3eSKcRj68nA/Fx+jaGPVyZT9d1jIoHQDchX1Xe
+         2pD6RktVuBCfmy1bf1oeHcQv6V3eU+6jZzGuOdYUP+xOjSNqtOKCiojRY1nCxw7UkJCf
+         GgBg==
+X-Forwarded-Encrypted: i=1; AKwUvByG90xMqK2Um/RPP5idZGPR9zn9dQO0NjFERw9jc+nwPsglbgdNEBa+HoPKIhMpRCoEj9/Y6nw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYISaVvF4uBSANBOwBycFrvChGPuFS2P62Or6dxOlTU8esNdmqMv
+	XDnyTkabcGlyJVDY3N6/55IQKCOSaaf8tRFj+BU3/ijeVx7fK50vDogU0kCXTzOQ5t9H9Q1x8cw
+	Ew9qmL/QbZA16UJY=
+X-Gm-Gg: AYBFou1RU8JIQxdOXWNtaos0CJq1lkPfEHCzODlgRgVw3QghedEshxuQ1/vFCtKY8bs
+	dW4bEhGx3sMoYUu4UOgrYjeeDA89540fbtEQ1y/4DVmXMaSuWYSmbigblhDh+2lfN7kXJXbBX1g
+	cQkAR8RgUJzINen/V+3HgFmlIczRx1WridiNsUunq94pxbB6kbtUiFv4DlXoHiDbn1c0dx+5bQe
+	Zz9edAcbhpfu8tyy5tqTieuT7AHvt4L8vRJVEhUDP+DkER90/29+Ot+vRPRAm1KKUqGm5Fj+nD5
+	jcLPhGWupK7zfXkHrUL7FFJc5ETp3xDIXrIr8XNs50GX5QEYMdOFBX2kldHlymmBw2ZU4YfV5mg
+	2QYM3BFd4SzRT+LdYlMLxSEvF6ePBj0bkLcqwHhlAKMJNITDNeOIKVpJT6giVkCQCW8EmKKHCt8
+	YuDhPwSRRq/y/Xr3S2JjdkfQ43HdpqZDzdETYVGcWcTtRmKEKO0cU/LklhKEfNKxxfK5LwCURHi
+	1IATjrOzV+g2hNYzX1+xCCDjAxQOg==
+X-Received: by 2002:a05:6000:605:b0:488:89c7:31aa with SMTP id ffacd0b85a97d-48e07fa5687mr25408992f8f.39.1792511175008;
+        Tue, 20 Oct 2026 08:46:15 -0700 (PDT)
+Received: from lucas-pascal-pqshield.home ([2a01:cb14:182f:5c00:2ff6:a03b:2ad7:1e40])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d82e23asm7291445f8f.50.2026.10.20.08.46.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 08:46:14 -0700 (PDT)
+From: Lucas Pascal <lucas.pascal@pqshield.com>
+To: Shuah Khan <skhan@linuxfoundation.org>
+Cc: Valentina Manea <valentina.manea.m@gmail.com>,
+	Hongren Zheng <i@zenithal.me>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] usbip: vhci_hcd: store seqnums as u32 to fix lost unlinks after 2^31
+Date: Tue, 20 Oct 2026 17:45:57 +0200
+Message-ID: <20261020154557.597177-1-lucas.pascal@pqshield.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <3237a1ae-c38c-4544-97c9-0dfaf0a0bc94@linuxfoundation.org>
+References: <20261019151537.112304-1-lucas.pascal@pqshield.com> <3237a1ae-c38c-4544-97c9-0dfaf0a0bc94@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,87 +100,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019225606.1864082-1-tristmd@gmail.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: q4Nsocebnq12uBN_x8eXUjFn_4IfsPlZ
-X-Proofpoint-ORIG-GUID: uPohOZ3M8s2GzHMkn8y74xzP51OgZGLS
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA2MiBTYWx0ZWRfX10mq3McSe6Rm
- ys5zq3MVjYiekdU60yh7axc+GejGgn2QpLh6gQswp3qNzGrrbPSwB02xQzO/M2MjgZdCJ+GIr2Y
- yrdspkXPgS3Hic0WaCNelBjvN6KRNNE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA2MiBTYWx0ZWRfX1sDFhXajdop9
- lbK8ehdpCKTxdhdYCbnwdU841DBhtqcqArB7mmrJJuuLrInJ/q8UsTr8Cf881ouEATbPrVg6oBQ
- KESi0gLO5c3LQn+csHJZ180Mmeq/BkphimeY6JYgNYmR+PcuP9PRtg494JY9/RdZiqKhQnnqh6I
- 97A3OytaD2PTJBS/rTXzZkcHnKXKIxd1S3tqgK0jwVQTmL8P+NL+F97gQ6wXS4ZAwSQ7nUslehO
- PJlUFP9apnkdXTbZ1bKYLn+FEwcDV3cNAozr+0Fh1Oe5PYHopbQSoLqJ3E5GGpYq33jdHg2BoiZ
- DMY/BFQzhRpAH4NbUX5nE0n9yNlSP415Lzb807Vg53adg2+AoTTL4dKE9OsNtRM0fZqgh8Z+Zog
- yyRkoOboM9qkSildApy/wvGyR3exrCIe5N+h6DNU/hzxtT0mkGshJCXv96/8zu+weNcVT/l5aTj
- oJNMfxrpqA/F7ryzceg==
-X-Authority-Analysis: v=2.4 cv=Gb2CDgXL c=1 sm=1 tr=0 ts=6ad78c5f cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=J_-Nd1mkAAAA:8
- a=VwQbUJbxAAAA:8 a=lsLW7AkFJFRMs5hC4yMA:9 a=CjuIK1q_8ugA:10
- a=n8ForQn92ZFaZtFqRdMw:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_02,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 malwarescore=0 spamscore=0 phishscore=0
- clxscore=1011 bulkscore=0 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610200062
+Content-Transfer-Encoding: 8bit
 
-Jan, this is for you, I would guess.
+Hi Shuah,
 
-[full quote below]
+Sorry for the duplicates: my earlier replies went to you only, or were
+sent with HTML bits by Gmail and rejected by the list. This is a
+(hopefully right) plain-text resend to everyone.
 
-On Mon, Oct 19, 2026 at 10:56:06PM +0000, Tristan Madani wrote:
-> From: Tristan Madani <tristan@talencesecurity.com>
-> 
-> tape_generic_remove() drops the device reference without cancelling
-> the pending delayed work tape_dnr. If tape_delayed_next_request() is
-> still scheduled or running when the struct is freed on the final
-> reference drop, the work function dereferences freed memory.
-> 
-> The cancel cannot go in tape_put_device() because that function is
-> called from atomic context (under get_ccwdev_lock with interrupts
-> disabled) and from within the work function itself, both of which
-> would deadlock or sleep in atomic context with cancel_delayed_work_sync().
-> 
-> Add cancel_delayed_work_sync() in tape_generic_remove() after
-> dev_set_drvdata() clears the device pointer and before dropping the
-> final reference. At this point the spinlock is not held and the device
-> is no longer reachable for new operations.
-> 
-> Fixes: 4111796d89b8c ("[PATCH] s390: channel tape fixes")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
-> ---
-> Changes in v2:
-> - Moved cancel from tape_put_device() to tape_generic_remove().
->   tape_put_device() is called from atomic context (under spinlock with
->   IRQs disabled) and from within tape_delayed_next_request() itself,
->   so cancel_delayed_work_sync() there would deadlock or sleep in atomic.
->   tape_generic_remove() runs in process context with no locks held.
->  drivers/s390/char/tape_core.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/s390/char/tape_core.c b/drivers/s390/char/tape_core.c
-> index bd8e3deb11993..cb5db2cabd21a 100644
-> --- a/drivers/s390/char/tape_core.c
-> +++ b/drivers/s390/char/tape_core.c
-> @@ -662,6 +662,7 @@ tape_generic_remove(struct ccw_device *cdev)
->  	if (device) {
->  		sysfs_remove_group(&cdev->dev.kobj, &tape_attr_group);
->  		dev_set_drvdata(&cdev->dev, NULL);
-> +		cancel_delayed_work_sync(&device->tape_dnr);
->  		tape_put_device(device);
->  	}
->  }
-> -- 
-> 2.47.3
-> 
+On Mon, 19 Oct 2026 at 21:06, Shuah Khan <skhan@linuxfoundation.org> wrote:
+> Can you reproduce this with usbip_host and client exchanging messages?
+
+The QEMU test I mentioned may cover that already. It goes as follows:
+- dummy_hcd is activated and g_zero is "plugged into" it.
+- Host side: usbipd + "usbip bind" hand the device to usbip_host.
+- Client side: "usbip attach -r 127.0.0.1" imports it through
+  vhci_hcd.
+- Transport: the real usbip_host <-> vhci_hcd protocol over TCP
+  (loopback), no simulated peer. Same setup as the production machine
+  where I hit the bug.
+- Traffic test itself: I reused the usbtest test case 11 (unlink reads)
+  with 3000 iterations:
+  /opt/testusb -D /dev/bus/usb/<M>/<N> -t 11 -s 512 -c 3000
+- As I modified vhci_hcd->seqnum at INT_MAX - 2000, the test crosses
+  2^31 within seconds.
+
+From there I can think of other tests:
+- using another test case which does not focus on unlinks (case 1, 2?),
+- host and client on different machines.
+
+Would either be helpful?
+
+> have you noticed "seqnum max" messages in dmesg while you were running
+> tests?
+
+Not in the QEMU before/after test itself. seqnum starts at
+INT_MAX - 2000, above 0xffff, so given the driver code it won't trigger
+the message:
+
+  if (priv->seqnum == 0xffff)
+      dev_info(&urb->dev->dev, "seqnum max\n");
+
+However I did see it on the production runner server, ~20m after it
+booted. The counter then kept going until it crossed 2^31 a month later:
+
+2026-09-15T16:01:36+01:00 fwtest35 kernel: Linux version 7.0.0-31-generic (buildd@lcy02-amd64-060) (x86_64-linux-gnu-gcc-13 (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #31~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Mon Aug 10 09:38:02 UTC 2 (Ubuntu 7.0.0-31.31~24.04.1-generic 7.0.14)
+[...]
+2026-09-15T16:24:45+01:00 fwtest35 kernel: vhci_hcd: unlink->seqnum 37862
+2026-09-15T16:24:45+01:00 fwtest35 kernel: vhci_hcd: urb->status -104
+2026-09-15T16:24:45+01:00 fwtest35 kernel: vhci_hcd: unlink->seqnum 37865
+2026-09-15T16:24:45+01:00 fwtest35 kernel: vhci_hcd: urb->status -104
+2026-09-15T16:24:45+01:00 fwtest35 kernel: vhci_hcd: unlink->seqnum 37867
+2026-09-15T16:24:45+01:00 fwtest35 kernel: vhci_hcd: urb->status -104
+2026-09-15T16:24:48+01:00 fwtest35 kernel: usb 5-5: seqnum max
+2026-09-15T16:24:49+01:00 fwtest35 kernel: vhci_hcd: unlink->seqnum 75555
+2026-09-15T16:24:49+01:00 fwtest35 kernel: vhci_hcd: urb->status -104
+2026-09-15T16:24:49+01:00 fwtest35 kernel: vhci_hcd: unlink->seqnum 75556
+2026-09-15T16:24:49+01:00 fwtest35 kernel: vhci_hcd: urb->status -104
+2026-09-15T16:24:49+01:00 fwtest35 kernel: vhci_hcd: unlink->seqnum 75557
+[...]
+2026-10-15T17:31:35+01:00 fwtest35 kernel: vhci_hcd: unlink->seqnum 2147467545
+2026-10-15T17:31:35+01:00 fwtest35 kernel: vhci_hcd: urb->status -104
+2026-10-15T17:31:35+01:00 fwtest35 kernel: vhci_hcd: unlink->seqnum 2147467547
+2026-10-15T17:31:35+01:00 fwtest35 kernel: vhci_hcd: urb->status -104
+2026-10-15T17:31:35+01:00 fwtest35 kernel: vhci_hcd: unlink->seqnum 2147467551
+2026-10-15T17:31:35+01:00 fwtest35 kernel: vhci_hcd: urb->status -104
+2026-10-15T17:31:39+01:00 fwtest35 kernel: vhci_hcd: unlink->seqnum 18446744071562096407
+2026-10-15T17:31:39+01:00 fwtest35 kernel: vhci_hcd: cannot find the pending unlink 2147512087
+2026-10-15T17:31:39+01:00 fwtest35 kernel: vhci_hcd: unlink->seqnum 18446744071562096629
+2026-10-15T17:31:39+01:00 fwtest35 kernel: vhci_hcd: cannot find the pending unlink 2147512309
+
+These last numbers show the bug:
+- 2147467551 = 0x7fffc11f, < 0x80000000 - the bug doesn't trigger before
+  2^31,
+- 18446744071562096629 = 0xffffffff80006ff5 - the bug triggers,
+  seqnum > 2^31 are sign-extended with 0xffffffff,
+- 2147512309 = 0x80006ff5 - the expected seqnum.
+
+Thank you,
+Lucas
