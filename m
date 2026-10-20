@@ -1,104 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792496942;
-	b=bJfZB/60+LqwsB0hEMGqtNW75+476iLxEEvZhFmFUGiiuxhOrfb0Q+0cvb0TgG6Je9Vt
-	 /JgIivEGutR6fmRcLG2wJy3B3Ggbjbh8fFnZUJz0CTRnL1Al3axxVR9u1C+mKAOr4pbuw
-	 uHxMsvAkAmVziTv8AJU87RCUM0utFB3e7MiZAgZn/RtoVRWiwMz8FbPRg9iZ9wY4QqFbO
-	 L1yaORX51uF29gJ+C4xv0hgUglHA78IGv/j7zzKesfWXxn0+KMkUNyi085/uMUjLoZHOS
-	 iTvYEHNShWl2EE2yL+QQJBmlwEHvnZ3RHtdaZG7GphXS/yG8lToxeJ6xsE8F6cCJzuQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792496942;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Rspamd-Action:
-	 X-Spam-Score:X-Spam-Flag:X-Spamd-Result:X-Spam-Level:
-	 X-Rspamd-Queue-Id:X-Rspamd-Server;
-	bh=BOrAALLZoUH5TBAvtzXGTVCs0YUIrfQziVPbeH0AYZk=;
-	b=03FPPXRDdgDCkbZ12Jh0RTzdXLTcxrU3VjFS5UtRx3PAPnVItTB5Ggu0dmgbWRGmRmFO
-	 KP2dnhZH+GMHTg3PSLV0fjB0taHPq5wMQXMJvZD91EpXOnR3Fa8rsO8RbmWtYSwfX3E21
-	 cvIZx+d2i6C7QN9ENU4hbv/7bNXqRdWrFsXAyShFEXJYE/L6CLBIX80OhH4H65Tc4yGEW
-	 a1CNsDTayNR9pe85bXv6JQEJpdbzi6+mSMIjdnfG4gt5st7D56/tm6d/cwfunY7ZT82lY
-	 W4L3QC7N6llwIwYXPYDOyTMDQZ3okpmqF7+Pmenrv0Q8TYtvfAL2mXufGC79ZXMjSTw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QWbpmRRS;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=NWsxM4Sg;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QWbpmRRS;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=NWsxM4Sg;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792496978;
+	b=ebtU5L68KCimFIq5IqDiv1HVPLZvwHGpE+yrh/siCOtL9/q/0ReMAIi4tYL7yXX8LJ36
+	 lyaUSdIX/oDbyPg1U3KCKPft1UzUzOke4BsLWb0eMFkVy/Kp+7eAH5Dw5XkKF5fnHnyiC
+	 62vtpOik/crz10e5Pwr+zdHFgdCjP0cdZqDsYFJ9D4wMdPdGhutyz77EcE8cCzFXHnVpD
+	 b+lSxX8b/ouBuELz1X94UL20Y9aq8T8oCnuYFy6YQzvAsR6HiqnADQ/rUp1J7+mvBlAF/
+	 JQMjsjB0EcHvgJuwG2GXG9f/KCKopqi0ImI3uy3RyEwpKSs+N604QtbV2KwVL3/h80A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792496978;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=AuQikB9GTZdM8oalpWKa+S5dRjJdaHN51O/4Z8pHB4Y=;
+	b=gqlAsE562XsQFv+Xg+g5pZzafbeut7fiIG52E73nvPAYmm5S1z9WrzNtFGjoWKqPuKb9
+	 q2BUL8TbNQImmlF6sXTcbJS3pDBxkZGLEtJ2PKy57tKtw0eYHW4+6ELGVkWU6W+BgV0FF
+	 8ho00eq58HJXtdREIQ/M0tI73Cz9mg9h28YviGUpd5spR1nZp+VeYAbDJBnarE6G9yk0a
+	 N5W7sEIBuiyWMowpjIgqA6TRmzmATkoGeUr5Vg3M0v70hnYiDDX1XaPUD7MyepM5bz1uX
+	 hlEJE/gpjfz7iry2dftG1ouvEVZ/sB2PzhIuboiKS7GeLwbZO1DEcSmpM9O8tGEJVlQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=WWcae0ae;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.18
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012018.outbound.protection.outlook.com [52.101.48.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 303E0606A31A;
-	Tue, 20 Oct 2026 11:49:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 303E0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B55D606A319
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 11:49:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B55D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QWbpmRRS;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=NWsxM4Sg;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QWbpmRRS;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=NWsxM4Sg
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 41E931F7B4;
-	Tue, 20 Oct 2026 11:48:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792496939; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=BOrAALLZoUH5TBAvtzXGTVCs0YUIrfQziVPbeH0AYZk=;
-	b=QWbpmRRS6AZN1XbgMF67CO6zRLIGk3FbX838PcCZJheIReioFfgmBNG/5MkLUMPrXrh2Ms
-	GZl2mnT6WaCXzggpy06xuCg/siK5UYxPgejnZ8d6M3vrmT35H3KJJ6oziBWJUz5AaKxgrO
-	4mAR9HiRp08IAB5bApN3XiW4A/0eNTI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792496939;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=BOrAALLZoUH5TBAvtzXGTVCs0YUIrfQziVPbeH0AYZk=;
-	b=NWsxM4SgtbiWEMavfVNSLcG5rXgAfzcsgVlokyXN6tDVPccsyhRnL3H4IuapXZ6RNovIUS
-	6tY+GkdltGbMS0Dw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=QWbpmRRS;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=NWsxM4Sg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792496939; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=BOrAALLZoUH5TBAvtzXGTVCs0YUIrfQziVPbeH0AYZk=;
-	b=QWbpmRRS6AZN1XbgMF67CO6zRLIGk3FbX838PcCZJheIReioFfgmBNG/5MkLUMPrXrh2Ms
-	GZl2mnT6WaCXzggpy06xuCg/siK5UYxPgejnZ8d6M3vrmT35H3KJJ6oziBWJUz5AaKxgrO
-	4mAR9HiRp08IAB5bApN3XiW4A/0eNTI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792496939;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=BOrAALLZoUH5TBAvtzXGTVCs0YUIrfQziVPbeH0AYZk=;
-	b=NWsxM4SgtbiWEMavfVNSLcG5rXgAfzcsgVlokyXN6tDVPccsyhRnL3H4IuapXZ6RNovIUS
-	6tY+GkdltGbMS0Dw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CDF39136C6;
-	Tue, 20 Oct 2026 11:48:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id jLRhKipV12rCFQAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Tue, 20 Oct 2026 11:48:58 +0000
-Message-ID: <3a4c4a4d-6ab4-42b6-8ae6-7ca0730b8069@suse.de>
-Date: Tue, 20 Oct 2026 13:48:58 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=WWcae0ae
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Gh41G9H81IK6zpFgBguMlioG7sK585ViTjL1HLR/UjvbyBRvDaZ1R27Fx0x9Or4BJKiFuvk+C59Ge0vp6FYgQ8YXhI5ceDSGxHi3fpfVoCb2mvzZRWijJdEw5HH/P5geItJy8RtxIxqpba9jvvxW4911zm+OIwrDgqI8MTRdxMono/B2yZiNwAW6Bwp6mPwzfBowoLFfn+Pov7+Gtv9uCJ/kq1y7raU3BYef0U7obUeEpXxSEwG9SFccbuyNpB/BKUxLoBOJaZttREcPgAwe/NfxAqse1ih3m15VPPxXOAHvO/+440jTM/rtiVCNb0hlIjpJDrfBfQAWU8XTLrhZbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AuQikB9GTZdM8oalpWKa+S5dRjJdaHN51O/4Z8pHB4Y=;
+ b=J1CZrwNzIJVzpjI8O5BRHT4NB35AzyfpimF3vu8w91+dTQ69L2rY+nTUNF9cc3x4Om2X7UKZdY1LukHSzJ3r9sPhAqyMjMVylp9Eh+EBrE6ZLfxK/XG1ZTslpnlVU1WIxd5AHVAFd4qTpCK+a9GYx7vQteze9l1z5pcIq7tF4oUB4HVlubvwYpW5q2zCcOtjgsf5VsbOm9IsxHryKj+G0UMUpGIq39BxjUmG/iCM5lCqe2oChGTB6M4tCK7gYT4Gtsgpe13wBQFCbFP5Y96qx43Ec7wMy6pBLMTqYYmZRtdTscuGs42bt6OH7ikBhN/MlsID644Ttax+daoeuCFg7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AuQikB9GTZdM8oalpWKa+S5dRjJdaHN51O/4Z8pHB4Y=;
+ b=WWcae0ae6eLUkjsYmHYTQ5puX5sIkKNY6rVOqq5i5O78Nii+36mld2Fw2Ty2biMDZFzQEshyPJfqs3Ue1WbeN/Ku6AZpkL7w9Yopje7pOvYnS93Yy02f8OGWmQAb3Y1SvW3/1naJ95+bbsViacr95M2Qdghs8m6TAzDCMYqp5QA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
+ by MW6PR12MB9019.namprd12.prod.outlook.com (2603:10b6:303:23f::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
+ 2026 11:49:35 +0000
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d%4]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
+ 11:49:34 +0000
+Message-ID: <325057ab-3eaa-4095-8799-5a568fc599d7@amd.com>
+Date: Tue, 20 Oct 2026 17:19:28 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] gpu/buddy: do not pass caller list to
+ __alloc_contig_try_harder()
+To: Matthew Auld <matthew.auld@intel.com>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Shashiko <sashiko-bot@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+References: <20261006110706.1636971-2-matthew.auld@intel.com>
+ <DM4PR12MB5039955C1A48C78942896415E4672@DM4PR12MB5039.namprd12.prod.outlook.com>
+ <281c6c14-2692-40d4-b812-e41c3a2acaf5@intel.com>
+Content-Language: en-US
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <281c6c14-2692-40d4-b812-e41c3a2acaf5@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5PR01CA0126.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d5::7) To DM4PR12MB5039.namprd12.prod.outlook.com
+ (2603:10b6:5:38a::18)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -108,193 +101,187 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/hyperv: add a parameter to disable the vblank timer
-To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-Cc: Lanfeng Wei <xlfylawarthur@gmail.com>, airlied@gmail.com,
- decui@microsoft.com, dri-devel@lists.freedesktop.org,
- linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- longli@microsoft.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- regressions@lists.linux.dev, simona@ffwll.ch, ssengar@linux.microsoft.com,
- stable@vger.kernel.org
-References: <c238f4ff-d5d8-4a9a-8773-793bd9056c9b@suse.de>
- <20261019154121.6257-1-xlfylawarthur@gmail.com>
- <8e91baa4-1ca5-43b8-bb04-9b5e3630bc2b@suse.de>
- <atZjtSlZAocUWYBS@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <atZjtSlZAocUWYBS@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Spam-Score: -4.50
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.50 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	MID_RHS_MATCH_FROM(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,microsoft.com,lists.freedesktop.org,vger.kernel.org,linux.intel.com,kernel.org,lists.linux.dev,ffwll.ch,linux.microsoft.com];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,bootlin.com:url];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 41E931F7B4
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|MW6PR12MB9019:EE_
+X-MS-Office365-Filtering-Correlation-Id: d4f914c9-4d1a-4c3f-80ff-08df2ea035ef
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|22082099003|18002099003|10067099003|11063799006|4143699003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	qDQPv8tAAOpX0OCARGEOBmHb7t9U2FeasanT11UCBb/cVeE6/n9JXtNdTCIG1TDuU0atL7HHsIgofWvRL5jKkyEubUrxtPDk4r/iy8rVpGRr/+6Gron7HTz4J1glmTb6Xtv1i0soJcZRRiXk8FYi9FFE9TNe7DBGZcdomYSfSccJFfToovLyRPRQQq1aOxfbHAYwQhFrIZfn4rlOpxsqB8Hh6puWwop8/fVyy10MvPjTv7TEsGShF9DCLgr0trCpz/Y88mzGDUR1EW6W6Lf0VPQ2IIlq6BD+GBkZpMUhbS06ygclAXjQeIx5dwA8tBk5gxgvpwci2oSn1zhebGS6u76GRCYwcum6tmJD7sEV2LCp3mfh+SfmNjN18HijdEOY2ZbRjEF5wYhs0KYVWMeIos7tea9oEVdU80n7nAzDEstApZFh/nTw41L5d+thmJLIzRsUcP+odZD6LBs6pthzVjAFy5kxW0c47ZaL2T7X0DHxafFjTzMOp+1nvCwt2TMz1QvkKx0wl0/Ds5lX9RBcUX0HI10XiZ6kb+ZOikx0ldJiVdWZDW1WLaiRNTdAMEvuIKuUuW3/XcJdYN7nXEPBpmkeEi3gA0gPelSyM2T0634=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB5039.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(22082099003)(18002099003)(10067099003)(11063799006)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cDJtU2ZOOVdiQnB0eFMzWXN3RkhYZU9SZjh3a2dlZjMyOWtvUUdBQ0grbUJO?=
+ =?utf-8?B?bE5jVjNwc3ByTFpBcWdDeHh5QTlqQ1dSSHBGZzc2b2c2WGw2NmlmdWc4aUEw?=
+ =?utf-8?B?a3F5cVdNS0EwZm9wTUVoMm9Ob0JkbGxDbG1ObjdDRmJlbVVKVWZzNUVjRjNv?=
+ =?utf-8?B?RjQycjk3V2o0SkdqZ1F1aG54NHlqR3NMNUxSZ3VpclErV2Erb2lrWUxnVFlz?=
+ =?utf-8?B?a285N3RRaG9UZ0x6Q3BvaUU3b3VpL1dzQXVrTi9lMWRxMEV1TzB4QkF1YnJk?=
+ =?utf-8?B?dlB6dFRCby92Nm5MakZNWmQ5em1MNUxNZUtraGNpWGRRcUExQzhVc1MrMWsv?=
+ =?utf-8?B?bFlKZXNUdm8rL3hlL2psTWVZbSt4TmxXQWNqRXNWcVhpT2pLQlJlMnUzODNY?=
+ =?utf-8?B?NFdqcFhXK2ZJTldrWVpyb1lJNDNYMm5XeU1ta0RRQVR5MGlwRjdVeU1qN2VB?=
+ =?utf-8?B?SElZdm5YZ3NGRStyVHJjdE5SVmxzelpvU3Y0Zyt3S2RGOTVidUEzQmFmWm5L?=
+ =?utf-8?B?S1lFRmM4dmNCWVp6eGY4UGVZbFJYcE9lNW84RERkY1k3U1VwVnI0MGlMalI1?=
+ =?utf-8?B?MzE2ekRiTzZOSm9XN3N1dzhHYS9qWjVKSEFpeWg5QzcvTGJHa2tQZC9NSzRL?=
+ =?utf-8?B?eFAzNURjR3NVWThZenllVS9NZEhWekpNZU9hQWJxSm1EMGZOdHlhVDA4aHN0?=
+ =?utf-8?B?c042ZS9xbEI1K0FuOHJ0Tkl6NTNaNEgyWm4wWFJYS1lVVnNFd3lpSXJxOFlX?=
+ =?utf-8?B?algycmlycXhjVTVBZ0s1YUIxNzVjL2lNaVU1VWdGbE85bEEwUGcxRHZyVFBJ?=
+ =?utf-8?B?a3dkSVphQjZtTGNyd21WUjhxMmRpZElnUlVrNU5acVVmU2NLZzJON3R6ejFU?=
+ =?utf-8?B?Z2ZTZ2I4VEo5eE45WUY2ZU5GY1BqL01PQlZURmhmdXdLdEZoY1RmUHFRZDVM?=
+ =?utf-8?B?dlJzZERHQkJOK3RBaDV2czJDUyswNDJCeUUydVlqN09NTjcxNHFzNnk3Wkdj?=
+ =?utf-8?B?TTlER1IydUJiNzMrN3FVZmxVc1pvVDh5QnhqT1RPdHFOYTFJN2dYL2dhMjFo?=
+ =?utf-8?B?OFBwRkcrOVFmdjloUEtFVkxIY3lYaHdxOFB5T0VFZ3lua2xsc3lTT0NhMllq?=
+ =?utf-8?B?WGpvV3lTTE55N3VTQk9MYzZJMU5zcnNjZndMZXYvNGpFSFVGVWFMUTdFWXVp?=
+ =?utf-8?B?L2toelJmYmNOREhmeXdTK2hRTGExS1NBRFBkN011aHozdFRKa0ZKb25senoy?=
+ =?utf-8?B?YjNyL3FEbHQrdlJtcWR6Qkh2MGFKUVlLSVovMjV5WFJKN2ZCbW10UFErV1ox?=
+ =?utf-8?B?K2N5WFZPNnFPY3hsQU9GTFdxb1U4NzNwQjZrMStEWHhkL0w4dUxTQ0tpamNP?=
+ =?utf-8?B?L3YvQUJCZjFEeDJQcTd3VmN4SCtWQnkyZGl2aDRocmIrSGk2LzV3STYwc245?=
+ =?utf-8?B?dHduYnhXeVh0UnhaYmVGMWZ4ZlE4N0lzSklYOTBtMXQ4M1ZicjRRNHMvZkdo?=
+ =?utf-8?B?L1ZoVU1QZ0VQMktKdTBsWFZ0Q1doamQ2QUdTWmxBRVFJc1VEY2owRFNUY2dm?=
+ =?utf-8?B?cWlMTlVlNUJrbk9DbmFhTm1BY2NyTnVLUHZwd1VyUlprTEg5TEJPczNsbXNL?=
+ =?utf-8?B?V3M3SUV1TE9kMVYzVndIbm0zL0oySzlZT3ZYOElSd0RiWnNUMzVGRzRUQTFa?=
+ =?utf-8?B?ZDkwL0pQU3NydVhMZ0tkbEYwU3hBaytrM3YyZEQreEFZUUFXR294Qy9NN3Iv?=
+ =?utf-8?B?WjhvU1Z3UUU0NkUwUTloK0JiUW9nZG1uZDZCNm4yZEppcmJrcW9QMW9PTmFq?=
+ =?utf-8?B?TERzNXZBS1QrTi9FVllVUFZuRWh2OGY4bTh6emhRWXNtYWZLWWhReThyYURT?=
+ =?utf-8?B?dis1NE5QeDJCb2xPQ0JGeFNoNjJMS3JraFJtVGI5TFVxOEMrNGdMZGdBQS9l?=
+ =?utf-8?B?cGlRa0NiMGV3R1BzWjV1TmFIZ3BiRWxVNHA4bWVPM0FlV3k0RXErV3dCZ3hx?=
+ =?utf-8?B?SDdOckRnT1U1M0FhZHVraUZMckI1c3c5RzVTcTJtR2xwRitQVlYrREFNR3VN?=
+ =?utf-8?B?enZMV2hFUUFXZTdlL254VFphdWxGSmxkZVNlVUpCcjlETmpNT3NKMGZEUlM3?=
+ =?utf-8?B?bWE1TzVhVTBENERlK2pCb0VZQ0RjOS9LQUJLU1plQXlFMEhvVGZxSVZ3K2Rp?=
+ =?utf-8?B?R2VHZnhrWWVqNWlqZGw4ZkpIaGVzWWxRcklwckpvdTNKNVdNUmN3Z3VyU2da?=
+ =?utf-8?B?VEVBcjdBTk04dXpJRVZGeVBFek9jcDUvYytqYVVnbldrckNlM1BpWHNtUGI5?=
+ =?utf-8?B?YmR2UDgxaGJpSk13VFVFczQ1Rmg0c1p5TTZWbEFBVVo5eENoa3JmZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4f914c9-4d1a-4c3f-80ff-08df2ea035ef
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5039.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 11:49:34.5481
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Itsv/uND4qiEqpSgWpvDBFROmNy7vQcd1J5INfacG5BcnMoxog2hv1i8XUzYLTkXHN9z4FkhnUgxz/nIjZ3ibA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB9019
 
-Hi
 
-Am 19.10.26 um 20:38 schrieb Hamza Mahfooz:
-> On Mon, Oct 19, 2026 at 06:03:55PM +0200, Thomas Zimmermann wrote:
->> Hi
+
+On 10/20/2026 4:47 PM, Matthew Auld wrote:
+> On 20/10/2026 07:06, Paneer Selvam, Arunpravin wrote:
+>> AMD General
 >>
->> Am 19.10.26 um 17:40 schrieb Lanfeng Wei:
->>> Hi Thomas,
->>>
->>>> Yeah, what's the cause of it? Switching off features does not fix any
->>>> bugs or improve the status quo.
->>> You are right that the module parameter is only a workaround for users
->>> affected; it does not fix the underlying scheduling problem.
->>>
->>> The cause is that the synthetic vblank timer is used to pace completion
->>> of atomic updates triggered by dirtyfb, in addition to providing
->>> synthetic vblank events. In Xorg's software-cursor path, pointer motion
->>> damages the primary framebuffer and the damage is instantly submitted
->>> via DRM_IOCTL_MODE_DIRTYFB. The Hyper-V dirtyfb path performs a
->>> synchronous atomic commit, and with the vblank timer enabled that commit
->>> can wait for the next simulated vblank. Under continuous pointer motion,
->>> these commits dominate the update path and delay normal client updates,
->>> resulting in sever frame-rate drops.
->>>
->>> This particular regression results from the combination of the blocking
->>> dirtyfb path, synthetic vblank pacing, and the absence of a Linux DRM
->>> cursor plane in Hyper-V. While the Hyper-V video protocol does have a
->>> hardware-cursor command path, the upstream hyperv_drm driver currently
->>> exposes only a primary plane. Cursor plane support was deferred during
->>> the initial upstreaming [1]. Without a cursor plane, Xorg has to fall
->>> back to software cursor-rendering path and it competes with periodic
->>> graphical updates on the primary plane.
->>>
->>> So the proper long-term fix could be adding cursor plane support in the
->>> Hyper-V DRM driver, which may take some time. Providing that the stated
->>> purpose of the offending commit is to rate-limit display updates, while
->>> its current implementation regresses the existing software-cursor path,
->>> I think adding a switch or reverting the commit until the requested
->>> features in the driver is ready, is a reasonable short-term fix.
->> The problem is that module parameters are impossible to remove in practice.
->> Once in place, someone always depends on it. They also increase the number
->> of states to test.  Avoiding them is usually a good idea. Especially as
->> workarounds for bug or regressions.
->>
->>
->> I'm not familiar with the Hyper-V protocol, so I have a question. Why is it
->> hard to implement cursors? From the link at [1], I assume that cursor
->> support was left out because the simple-kms pipeline did not support cursor
->> planes. This has long been resolved: the simple-kms pipeline is gone and
->> hyperv_drm runs on the regular DRM framework.  Unless there's anything
->> special with the Hyper-V protocol, cursor-plane support should be do-able in
->> a single patch. [^1]
->>
-> I actually have been working on cursor plane support for hyperv-drm.
-> I'll post a patch soon.
-
-Awesome! Even if it doesn't fix the reported bug, it is still an 
-improvement for everyone.
-
-To fix the bug, you *might* have to implement atomic_async_update. [1]  
-It allows legacy cursor updates to jump ahead of the commits and change 
-the cursor without vblank synchronization. It's a little-used feature 
-and semi-deprecated, but maybe necessary in case.  (Make it a separate 
-patch, I'd say.)  There's existing support in other drivers to see how 
-it works.
-
-[1] 
-https://elixir.bootlin.com/linux/v7.3/source/include/drm/drm_modeset_helper_vtables.h#L1406
-
-Best regards
-Thomas
-
+>> Reviewed-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 >
-> Hamza
+> Thanks. I assume you will merge this?
+Yes, I will merge.
+
+Regards,
+Arun.
 >
->> Best regards
->> Thomas
 >>
->> [^1] See https://elixir.bootlin.com/linux/v7.2.11/source/drivers/gpu/drm/ast/ast_cursor.c
->> for an example of how this looks. Most of it is hardware-related, but hyperv
->> would likely be similar in concept.
+>> -----Original Message-----
+>> From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On Behalf 
+>> Of Matthew Auld
+>> Sent: Tuesday, October 6, 2026 4:37 PM
+>> To: intel-xe@lists.freedesktop.org
+>> Cc: dri-devel@lists.freedesktop.org; Shashiko 
+>> <sashiko-bot@kernel.org>; Paneer Selvam, Arunpravin 
+>> <Arunpravin.PaneerSelvam@amd.com>; Joel Fernandes 
+>> <joelagnelf@nvidia.com>; stable@vger.kernel.org
+>> Subject: [PATCH] gpu/buddy: do not pass caller list to 
+>> __alloc_contig_try_harder()
 >>
->>>> We had another fix for a problem with vblank timers:
->>>>
->>>> https://lore.kernel.org/dri-devel/20260914110004.211027-1-tzimmermann@suse.de/
->>>>
->>>> Did you validate that this fix is unrelated?
->>> Yes I tested that fix and confirmed that it is irrelevant. It solves
->>> issues with excessively long frame durations, however this problem is
->>> found in normal frame updates (in my case 60Hz / 16.7 ms per frame, way
->>> below INT_MAX).
->>>
->>> Best regards,
->>>
->>> Lanfeng Wei
->>>
->>> [1] https://lore.kernel.org/dri-devel/20200622110623.113546-1-drawat.floss@gmail.com/
+>> If the caller passes a non-empty blocks list, 
+>> __alloc_contig_try_harder() unconditionally frees it on failure or 
+>> during retry.
+>>
+>> Pass the local allocated list instead and only splice it onto the 
+>> caller's list upon success.
+>>
+>> Assisted-by: LLM
+>> Reported-by: Shashiko <sashiko-bot@kernel.org>
+>> Closes: 
+>> https://sashiko.dev/#/bug/linux-fa721daf-7333-48b5-a26b-624c7f5791d7
+>> Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
+>> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+>> Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+>> Cc: Joel Fernandes <joelagnelf@nvidia.com>
+>> Cc: <stable@vger.kernel.org>
+>> ---
+>>   drivers/gpu/buddy.c                | 20 ++++++++++++++------
+>>   drivers/gpu/tests/gpu_buddy_test.c |  9 +++++++++
+>>   2 files changed, 23 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c index 
+>> 2f2aaadafe35..a86f454fbb40 100644
+>> --- a/drivers/gpu/buddy.c
+>> +++ b/drivers/gpu/buddy.c
+>> @@ -2022,10 +2022,16 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+>>
+>>          if (order > mm->max_order || size > mm->size) {
+>>                  if ((flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) &&
+>> -                   !(flags & GPU_BUDDY_RANGE_ALLOCATION))
+>> -                       return __alloc_contig_try_harder(mm, 
+>> original_size,
+>> - original_min_size,
+>> -                                                        flags, blocks);
+>> +                   !(flags & GPU_BUDDY_RANGE_ALLOCATION)) {
+>> +                       err = __alloc_contig_try_harder(mm, 
+>> original_size,
+>> + original_min_size,
+>> +                                                       flags, 
+>> &allocated);
+>> +                       if (err)
+>> +                               return err;
+>> +
+>> +                       list_splice_tail(&allocated, blocks);
+>> +                       return 0;
+>> +               }
+>>
+>>                  return -EINVAL;
+>>          }
+>> @@ -2064,9 +2070,11 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+>> original_size,
+>> original_min_size,
+>> flags,
+>> - blocks);
+>> -                               if (!err)
+>> + &allocated);
+>> +                               if (!err) {
+>> + list_splice_tail(&allocated, blocks);
+>>                                          return 0;
+>> +                               }
+>>                                  if (err != -ENOSPC)
+>>                                          return err;
+>>                                  goto err_free;
+>> diff --git a/drivers/gpu/tests/gpu_buddy_test.c 
+>> b/drivers/gpu/tests/gpu_buddy_test.c
+>> index b75d32ca6ca0..2c6f1da1a6d1 100644
+>> --- a/drivers/gpu/tests/gpu_buddy_test.c
+>> +++ b/drivers/gpu/tests/gpu_buddy_test.c
+>> @@ -1235,6 +1235,15 @@ static void 
+>> gpu_test_buddy_alloc_contiguous(struct kunit *test)
+>> GPU_BUDDY_CONTIGUOUS_ALLOCATION),
+>>                                 "buddy_alloc hit an error 
+>> size=%lu\n", 2 * ps);
+>>
+>> +       /*
+>> +        * A failed contiguous allocation with a non-empty blocks list
+>> +        * must NOT corrupt or free pre-existing blocks.
+>> +        */
+>> +       KUNIT_EXPECT_TRUE(test, gpu_buddy_alloc_blocks(&mm, 0, mm_size,
+>> +                                                      3 * ps, ps, 
+>> &allocated,
+>> + GPU_BUDDY_CONTIGUOUS_ALLOCATION));
+>> +       KUNIT_EXPECT_FALSE(test, list_empty(&allocated));
+>> +
+>>          gpu_buddy_free_list(&mm, &left, 0);
+>>          KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_alloc_blocks(&mm, 0, 
+>> mm_size,
+>>                                                              3 * ps, 
+>> ps, &allocated,
 >> -- 
->> --
->> Thomas Zimmermann
->> Graphics Driver Developer
->> SUSE Software Solutions Germany GmbH
->> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
->> GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
->>
->>
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
+>> 2.55.0
+>
 
