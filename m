@@ -1,78 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792515893;
-	b=J84OqU052I7rwRChyD5BrDDgwxip3C4CLLkASafTbe2vmmvqn31Kqr7xSlc0vyxmp1cE
-	 4tPm9/4yFQ5SJ0aBVCirSiYe7d6OPkmGNLv3ocA9rQHYz6GMvr0wWQ1AX/jUpLXBCCM49
-	 U2jj2rgmL7ndlrVVc6klF+icyZdoRPqpqMN6u9Eke2D7A/8JCqIL5je1QEzdBUACrPUaz
-	 dO9bDtQKEL/4+zUFwWfyW6E/0h8sTPNEuyhgwDLO/7+JhqyddGZbDZU9aOW7+SHP8dDn+
-	 9qhZ3uKRMEdpg1InmLThDl6oqyKv1avRq/p/ZUTsArB8Qsc+5+j+c9sgUYMdzvrV70w==
+	t=1792516045;
+	b=D73ls/lFI+X3NXRiQ8IB8fulGXkR+rCxFhYrCSez7ov+P6NYUCparPLReuP2/IhmNw3G
+	 7hOxDZgavJbnUmPAWTJMXOb4QmjJwHpB4vgwIcDavJ33p2aPRHsV6/6qd1ld6AglyIld0
+	 BnpYUVcrc14ubYyb8N8ZLchmgq6MgG1UpvpXdzVxK47tPVAIZQnxqpLlyn3XOCquGlJF0
+	 IQwAbhM3SA+q1QRUohWcDhK4hPf4UjBxJ7nad832DbyRv0enhdwZZ97gRUaJ9RT78ZDh9
+	 37aPlBisRXfoLXtWIUZ7957kc0L7G6L/46r0wc2aUe2QGnd+cT599gFl/ISNBm76agA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792515893;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=g6BHAtXDtqS3qwymeQ1ylIwxTTGg3fcGGSyK8Ln5I4g=;
-	b=3Ha+7ta77/oApH0IvmETONpgwSYrM3G+fuQSKsO1e1SsPBGStQlfkqqanbo/wWL0sGaY
-	 vplJDsEb2Ta2Ss04GfhXnZJNEhSFhLhKVp8Oq+bZ7Qtr3RtN6QBxUPfSfLyJ1x+ja9rga
-	 lBN7ABWDeMp3a67A46eLlxlQOeiWv2qp0MRUo7/sMUBpXdjpQ9J5AD154NYZBt9oYn0D6
-	 k6NxIvD4AtEth1zS/1xKSyrrrfsSJhq0HFdnITqDj13RL3MOU4EL/9o6F3Is4gFZkBYhS
-	 erOkUY/tXVuRWZxxSAJWJMJ/m/TEBP9X0Lfn5TjcfuWJNJYC4bRqb6wwTqxSIXJcQ0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792516045;
+	h=Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=9/l68fSQm/RuZObxkeWmD9P0V6B9tkMkoAUEJkdJXq0=;
+	b=OePukrZABgwSLc87tuTC+gaTYhNRepVkOyG6WeE7jMvyMBVPAxcEic9eGcBF3CUJ9huG
+	 urwlHvfiahj2sL9Nw2lgTfOUnCsm2gN+X/fEhdG1Bm8BMF24YLdbqXwVkaHWRu+S3UyjK
+	 J84MNA1ptkplIvivxmhvYsnHio1ayGZGK0CDQQNGqyD2qDGcyoc9CXqbfsRED1TFmmqgx
+	 2qe/2ez03xo8CHjq/OtG1eqgARjbXYTpb1YGx85VZUPbMOU6yEL8vO1XdzzIbh+b/pbLF
+	 0eCTX/g5AQ5TlnMt4ioqjpek5q3Ig2jTpfOaod37XsqdV2nreKwc4xL7DnV3sHBABwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=packett.cool;
-	spf=pass smtp.mailfrom=packett.cool;
-	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=wD5hn0Vu;
-	arc=none smtp.remote-ip=91.218.175.131
-Received: from mta0.migadu.com (out-131.mta0.migadu.com [91.218.175.131])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 035FA606A32A
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 17:04:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 035FA606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=wD5hn0Vu
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=8p+QRqsqhWdNRDD7c+z0AwDj4JxdBoUKJNtnFvxOOAE=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792515891; v=1; x=1793120691;
- b=wD5hn0VuDCl+RlTly7BUc27UAOrwe1XKl7UWVEu7JE/PYUuLhyaaxklyflwPvp+1fP/+f+o9
- Gb/hNQppfZjG6vUNQM6aRH5u6F4LRDYYbjcgxxeRpMhElpvnfvj9EN2IG2TH2wGqZ1ZD0qn9xE8
- DK/TL1ZcWwVSBWh44mi+RrLr8nXKGzFNmobaCVx+KZfTFcLoZTSc9MIms4TJOU2w1faCPdscPEu
- l1lMTQ7BQpeGqectwWculPfQAgDDZqRV3BTvUgCSJbxvVvZBB8uKaAcvN320HD/5l98FZwTyaHF
- uuGkdTCAYG1/caVaL1vVxhte7j2IjmxO+gmoo+9D2rl6Q==
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d9d4934bb3e1d275;
-	Tue, 20 Oct 2026 17:04:51 +0000
-X-Mizu-Trace-ID: d9d4934bb3e1d275
-X-Migadu-Flow: FLOW_OUT
-From: Val Packett <val@packett.cool>
-To: Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Val Packett <val@packett.cool>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	~postmarketos/upstreaming@lists.sr.ht,
-	phone-devel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3 4/4] ASoC: codecs: wcd939x: fix ref leak and NULL deref with USB-C audio
-Date: Tue, 20 Oct 2026 14:03:28 -0300
-Message-ID: <20261020170341.1641325-5-val@packett.cool>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261020170341.1641325-1-val@packett.cool>
-References: <20261020170341.1641325-1-val@packett.cool>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F4A7606A31A;
+	Tue, 20 Oct 2026 17:07:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28B891F000C9;
+	Tue, 20 Oct 2026 17:07:22 +0000 (UTC)
+Date: Tue, 20 Oct 2026 18:06:49 +0100
+From: Simon Horman <horms@kernel.org>
+To: Paul Moses <p@1g4.org>
+Cc: netdev-bot+sashiko@kernel.org, anthony.l.nguyen@intel.com,
+	przemyslaw.kitszel@intel.com, intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+	aleksandr.loktionov@intel.com, maciej.fijalkowski@intel.com,
+	avigailx.dahan@intel.com, stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2] igc: only strip RX timestamp header from first
+ buffer
+Message-ID: <20261020170649.GQ503057@horms.kernel.org>
+References: <20261013010854.4068874-1-p@1g4.org>
+ <179194315897.434549.3743742848544230715@kernel.org>
+ <Z4u97qIiSB-8nYCRmd03ddR4OFMcrpNVUcTHSoOADzNQcLvQVIQotijZpukYAO4AzV4r6j11nGS_lWTwyh709u_USu516VJmvffbjukcAs0=@1g4.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,87 +52,173 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <Z4u97qIiSB-8nYCRmd03ddR4OFMcrpNVUcTHSoOADzNQcLvQVIQotijZpukYAO4AzV4r6j11nGS_lWTwyh709u_USu516VJmvffbjukcAs0=@1g4.org>
 
-Some code issues were found during review of a port of typec code from
-wcd939x to wcd937x, pointed out by sashiko-bot:
+On Wed, Oct 14, 2026 at 05:43:10AM +0000, Paul Moses wrote:
+> On Tuesday, October 13th, 2026 at 8:59 PM, netdev-bot+sashiko@kernel.org <netdev-bot+sashiko@kernel.org> wrote:
+> 
+> > Thank you for your contribution! Sashiko AI review found 2 potential
+> > issue(s) to consider.
+> > 
+> > Critical: 0 · High: 2 · Medium: 0 · Low: 0
+> > 
+> > If you believe none of the issues are legitimate, please reply to each
+> > issue of Medium severity or higher and explain why the AI is wrong.
+> > If any of them are legitimate and you plan to respin, please let patchwork
+> > know by including "pw-bot: cr" as a separate line at the end of your reply
+> > (one such reply per series is enough).
+> > 
+> > - [High] The patch fixes the TSIP length underflow only in
+> >   igc_clean_rx_irq().
+> > - [High] In igc_clean_rx_irq(), the new condition `if (!skb &&
+> >   igc_test_staterr(rx_desc, IGC_RXDADV_STAT_TSIP))` uses `!skb` to mean…
+> > 
+> > --
+> > 
+> > igc: only strip RX timestamp header from first buffer
+> > 
+> > This patch changes igc_clean_rx_irq() so the 16-byte inline RX timestamp
+> > header is only stripped when no skb is in progress. Before, a continuation
+> > buffer shorter than 16 bytes could underflow the unsigned length and
+> > produce a skb fragment of almost 4 GiB.
+> > 
+> > > diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/ethernet/intel/igc/igc_main.c
+> > > index 1fb5f3cbe93c5..41b293dc10c3a 100644
+> > > --- a/drivers/net/ethernet/intel/igc/igc_main.c
+> > > +++ b/drivers/net/ethernet/intel/igc/igc_main.c
+> > > @@ -2639,7 +2639,8 @@ static int igc_clean_rx_irq(struct igc_q_vector *q_vector, const int budget)
+> > >
+> > >  		pktbuf = page_address(rx_buffer->page) + rx_buffer->page_offset;
+> > >
+> > > -		if (igc_test_staterr(rx_desc, IGC_RXDADV_STAT_TSIP)) {
+> > > +		if (!skb &&
+> > > +		    igc_test_staterr(rx_desc, IGC_RXDADV_STAT_TSIP)) {
+> > 
+> > [Severity: High]
+> > Is !skb a reliable first-buffer test when an XDP program is attached?
+> > 
+> > Suppose the XDP program returns a non-PASS verdict (CONSUMED, TX or
+> > REDIRECT) for the first, non-EOP buffer of a multi-descriptor frame. No skb
+> > gets built, and the loop moves on with skb still NULL:
+> > 
+> > 		/* fetch next buffer in frame if non-eop */
+> > 		if (igc_is_non_eop(rx_ring, rx_desc))
+> > 			continue;
+> > 
+> > On the next continuation descriptor, !skb is still true, so the TSIP branch
+> > subtracts IGC_TS_HDR_LEN again. If that continuation holds fewer than 16
+> > bytes, size wraps.
+> > 
+> > The wrapped size then goes to xdp_prepare_buff(), and the continuation is
+> > run through XDP as a new frame with data_end before data. On XDP_PASS, both
+> > igc_build_skb() and igc_construct_skb() compute:
+> > 
+> > 	unsigned int size = xdp->data_end - xdp->data;
+> > 
+> > That comes out to about 4 GiB:
+> > 
+> > - igc_build_skb() passes it to __skb_put(). On PAGE_SIZE >= 8192,
+> >   igc_get_rx_frame_truesize() also wraps to a tiny truesize, so
+> >   napi_build_skb() would place skb_shared_info inside the packet data.
+> > - igc_construct_skb() turns it into a fragment of almost 4 GiB. That looks
+> >   like the same corrupted skb the commit message describes.
+> > 
+> > Can this be reached from the wire? On PAGE_SIZE >= 8192, igc_set_rx_mode()
+> > never clamps RLPML:
+> > 
+> > #if (PAGE_SIZE < 8192)
+> > 	if (adapter->max_frame_size <= IGC_MAX_FRAME_BUILD_SKB)
+> > 		rlpml = IGC_MAX_FRAME_BUILD_SKB;
+> > #endif
+> > 	wr32(IGC_RLPML, rlpml);
+> > 
+> > So the hardware still accepts jumbo frames even though XDP limits the MTU to
+> > 1500, and with XDP the ring uses 3072-byte buffers. A remote frame that
+> > leaves 1 to 15 bytes in the second descriptor would hit this.
+> > 
+> > Would it be safer to track start-of-frame explicitly, or to drop the rest of
+> > the frame's descriptors after a non-PASS verdict? Another option is to
+> > reject size < IGC_TS_HDR_LEN before the subtraction.
+> > 
+> > >  			ctx.rx_ts = pktbuf;
+> > >  			pkt_offset = IGC_TS_HDR_LEN;
+> > >  			size -= IGC_TS_HDR_LEN;
+> > 
+> > [Severity: High]
+> > The same unchecked subtraction is still present in the AF_XDP zero-copy
+> > path. igc_clean_rx_irq_zc() strips the header from every descriptor with
+> > TSIP set. There is no first-buffer gate and no size check:
+> > 
+> > 		if (igc_test_staterr(desc, IGC_RXDADV_STAT_TSIP)) {
+> > 			ctx->rx_ts = bi->xdp->data;
+> > 
+> > 			bi->xdp->data += IGC_TS_HDR_LEN;
+> > 			...
+> > 			size -= IGC_TS_HDR_LEN;
+> > 		} else {
+> > 			ctx->rx_ts = NULL;
+> > 		}
+> > 
+> > 		bi->xdp->data_end = bi->xdp->data + size;
+> > 
+> > Can zero-copy frames span descriptors at MTU 1500?
+> > igc_configure_rx_ring() programs the XSK frame size through
+> > IGC_SRRCTL_BSIZEPKT(), which is (x) / 1024. With 2048-byte chunks the frame
+> > size is 1792, so the hardware buffer becomes 1 KB.
+> > 
+> > igc_xdp_enable_pool() only checks:
+> > 
+> > 	if (frame_size < ETH_FRAME_LEN + VLAN_HLEN * 2) {
+> > 
+> > That accepts 1792 without allowing for the 1 KB rounding or the 16-byte
+> > inline timestamp, even though the comment there says frames should not
+> > span multiple buffers.
+> > 
+> > On 4K pages RLPML is IGC_MAX_FRAME_BUILD_SKB. A received frame of about
+> > 1009 to 1023 bytes, plus the timestamp header, would leave 1 to 15 bytes in
+> > a second descriptor.
+> > 
+> > The reproduction in the commit message suggests TSIP is set on such
+> > continuation descriptors. If so, size wraps here and data_end ends up about
+> > 4 GiB past the XSK chunk.
+> > 
+> > Wouldn't that let the XDP program's packet bounds checks pass for offsets
+> > past the chunk? On XDP_REDIRECT, it would also report a bogus length to the
+> > XSK socket.
+> > 
+> > Should igc_clean_rx_irq_zc() get a similar fix? Should
+> > igc_xdp_enable_pool() also account for the 1 KB SRRCTL granularity and the
+> > inline timestamp?
+> > 
+> > --
+> > Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013010854.4068874-1-p%401g4.org
+> > 
+> 
+> Yes, there's work needed elsewhere, but it's entirely independent of my fix. It's 
+> questionable how much of this is even reachable and if any impact whatsoever. 
+> 
+> Here's what I can reproduce with and without kasan and what my patch fixes. You are on your 
+> own on the rest.
+> 
+> I'm sorry, if only there were more time...
+> 
+> Good luck.
 
-* wcd939x->wcd_mbhc may be accessed by the typec callbacks which are
-  independent of the ASoC codec lifecycle, don't leave it as NULL/PTR_ERR;
-* wcd939x->typec_switch reference was leaked on unbind, put it there;
-* the device_node reference returned by of_graph_get_remote_node() was
-  leaked, add a __free annotation to the declaration.
+Hi Paul,
 
-Fix them in wcd939x as well.
+Thanks a lot for your patch.
 
-Cc: stable@vger.kernel.org
-Fixes: 10f514bd172a ("ASoC: codecs: Add WCD939x Codec driver")
-Signed-off-by: Val Packett <val@packett.cool>
----
- sound/soc/codecs/wcd939x.c | 21 ++++++++++++++++-----
- 1 file changed, 16 insertions(+), 5 deletions(-)
+I  do accept that there are some pre-existing issues in the AI-generated
+review that are not strictly related to this patch.
 
-diff --git a/sound/soc/codecs/wcd939x.c b/sound/soc/codecs/wcd939x.c
-index 2d463f062e6d..b0b09468f98a 100644
---- a/sound/soc/codecs/wcd939x.c
-+++ b/sound/soc/codecs/wcd939x.c
-@@ -2470,6 +2470,7 @@ static int wcd939x_mbhc_init(struct snd_soc_component *component)
- {
- 	struct wcd939x_priv *wcd939x = snd_soc_component_get_drvdata(component);
- 	struct wcd_mbhc_intr *intr_ids = &wcd939x->intr_ids;
-+	struct wcd_mbhc *mbhc;
- 
- 	intr_ids->mbhc_sw_intr = regmap_irq_get_virq(wcd939x->irq_chip,
- 						     WCD939X_IRQ_MBHC_SW_DET);
-@@ -2486,9 +2487,12 @@ static int wcd939x_mbhc_init(struct snd_soc_component *component)
- 	intr_ids->hph_right_ocp = regmap_irq_get_virq(wcd939x->irq_chip,
- 						      WCD939X_IRQ_HPHR_OCP_INT);
- 
--	wcd939x->wcd_mbhc = wcd_mbhc_init(component, &mbhc_cb, intr_ids, wcd_mbhc_fields, true);
--	if (IS_ERR(wcd939x->wcd_mbhc))
--		return PTR_ERR(wcd939x->wcd_mbhc);
-+	mbhc = wcd_mbhc_init(component, &mbhc_cb, intr_ids, wcd_mbhc_fields, true);
-+	if (IS_ERR(mbhc))
-+		return PTR_ERR(mbhc);
-+
-+	/* May be accessed by platform dev typec callbacks, only set if valid */
-+	wcd939x->wcd_mbhc = mbhc;
- 
- 	snd_soc_add_component_controls(component, impedance_detect_controls,
- 				       ARRAY_SIZE(impedance_detect_controls));
-@@ -2501,8 +2505,11 @@ static int wcd939x_mbhc_init(struct snd_soc_component *component)
- static void wcd939x_mbhc_deinit(struct snd_soc_component *component)
- {
- 	struct wcd939x_priv *wcd939x = snd_soc_component_get_drvdata(component);
-+	struct wcd_mbhc *mbhc = wcd939x->wcd_mbhc;
- 
--	wcd_mbhc_deinit(wcd939x->wcd_mbhc);
-+	/* May be accessed by platform dev typec callbacks, clear it first */
-+	wcd939x->wcd_mbhc = NULL;
-+	wcd_mbhc_deinit(mbhc);
- }
- 
- /* END MBHC */
-@@ -3175,7 +3182,7 @@ static int wcd939x_populate_dt_data(struct wcd939x_priv *wcd939x, struct device
- {
- 	struct wcd_mbhc_config *cfg = &wcd939x->mbhc_cfg;
- #if IS_ENABLED(CONFIG_TYPEC)
--	struct device_node *np;
-+	struct device_node *np __free(device_node) = NULL;
- #endif /* CONFIG_TYPEC */
- 	int ret;
- 
-@@ -3438,6 +3445,10 @@ static void wcd939x_unbind(struct device *dev)
- 	put_device(wcd939x->txdev);
- 	put_device(wcd939x->rxdev);
- 	component_unbind_all(dev, wcd939x);
-+#if IS_ENABLED(CONFIG_TYPEC)
-+	if (wcd939x->typec_analog_mux)
-+		typec_switch_put(wcd939x->typec_switch);
-+#endif /* CONFIG_TYPEC */
- }
- 
- static const struct component_master_ops wcd939x_comp_ops = {
--- 
-2.55.0
+But I do think that it would be best to make this patch more complete
+in so far as preventing the overrun described by making a wider guard
+for calling igc_test_staterr().
 
+And including igc_clean_rx_irq_zc() in the fix.
+
+My slight preference would be for explicitly tracking the first buffer.
+But perhaps that degrades performance.
