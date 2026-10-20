@@ -1,48 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.218.36.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792491907;
-	b=ZzkKtK2zZkBM5GjooOOvOe6lJumIBv4LryrD0LfaMTq/HVWFOM4UKDyobucj/cR1u8rw
-	 T+R0fVvsAV9vtuij22nm4tB5RhhP4aW11abT25MMoal6ehVBtvBgbe17VriKQRTmpLntV
-	 fVhmcBgNQSctKdb1HuBu63tOkYKL0Hr6XpkzEpAERLELaeEvHy7oU0IGMWTsRLxACuA/r
-	 cTfEj0Q067ThbGCR3OKdGaYXsRe3AixmED+Unlr8FslKZOSDU/sFWdKUXfM4aQPRGKNte
-	 8i210fIUf1tkI9+XHjsFtfPIKJAiPnZ/r6AJCqSo4Fw7wmgWgD/XW9wIz4Vg3RODE4w==
+	t=1792491938;
+	b=QFUk3+ueJcwHKZ1jxs3sPKTn26qaHTh+V5Jr8QpJ0UOoIPtslM52pkZvL/mDwLOwAjVz
+	 qnSutyV2nK/VjixEhDqPbhLpqgEpK6JDXTIrGjGwBWvl0MshjhBMPg6MFl8TKrTB5WRf4
+	 UDtKHScX9lBpw1lOewK1siSnLGZiLia1y7tdnlnkJbaNtYgXqcjigpzKX1e/nbaQ3Z+XH
+	 NukTnH7MUE3RjHeSR8fXl/snVRgMsRa8z6S7vqIgVWqVwd7atnpaEw52mZ+rSquU2jTuO
+	 hJcf0Aew2PTD56Iq1hzQRWyLrc90B6+6bwAVEPvvXbA53wgWxSRow4ib1LQ/QjEQkGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792491907;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:From:Content-Language:To:Cc:Subject:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=8g/OFL5UVyVXc0FjEvvApKVC6NGiltcUoF3yC6VVRC8=;
-	b=37V8V0YOYNW12TJhLSYEYbNKe05pGW4a+dSMywOlTpzf4k7yuGaIYC7Mya7aGH/usQ+B
-	 h9sDwITUPNUA/AgTB3XpP7blbqp2BvLHpAqwGXB1V0/q5nsckACkHtcoaoOmZvRw+01/s
-	 XOTiL/DVubrAZ6lmYjrO0IBkhXqamb2GnMu/aJoRKd2Pz0MFtX+0Qzb3mNi+d3mf82Xmk
-	 Q7JjPphmMrVggHgrNbr5Liog6f10LxhBwGPPBaTdSZYuxCG1L5+ef34t1eF+3mpC7GrsN
-	 Eb+iAsljnOll1WloW3JMY/jesroqSeNe6Xgk6OilKevVHFUqcJbkpr0py/w3kXQ6Pfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792491938;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=cHpYZ52UlepWCCzp3epNsk2Lp6gJWZ9lC0T9fNQNApo=;
+	b=dKhzDAcsiLdVg9stSQyfvoNg4b6Qo6TKVUvSlkvP0ONJrTWAoaD/9rp34Qkik81BgnKi
+	 TT76i583FQt21L6DNHdfV1Ei/iiR7cQ6oXwCiY0WShbeTpU4n6AmQ/i04tKw/Ae91giZ6
+	 ovyw6pPmxRc2WoIiz4cxbLMdcTwNpfeGDDePgUYSwWy9CSUPTIr5wApmkheqqOFgxnTQf
+	 qH7983M5dvprmyNwnuGgI+hirOboC1Vg0NK+2gblWDM77zQBXGQebZqv5DiIooXQ+s8dT
+	 K0TKplwBZfFl8RFZs15lqNmVJRwne/3ephE/KWhdjSHajlFzVBRCgvjOqnFepNdnJ8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=maich.gr;
-	spf=pass smtp.mailfrom=maich.gr;
-	arc=none smtp.remote-ip=193.218.36.5
-Received: from mx.maich.gr (mx.maich.gr [193.218.36.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=bobrowski.net;
+	spf=pass smtp.mailfrom=bobrowski.net;
+	dkim=pass header.d=bobrowski.net header.i=@bobrowski.net header.a=rsa-sha256 header.s=google header.b=QhS9xQXG;
+	arc=none smtp.remote-ip=209.85.210.172
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA55606A319;
-	Tue, 20 Oct 2026 10:24:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BA55606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=maich.gr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=maich.gr
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3440B7BC1912;
-	Tue, 20 Oct 2026 13:24:44 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=maich.gr; s=dkim;
-	t=1792491887; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language;
-	bh=8g/OFL5UVyVXc0FjEvvApKVC6NGiltcUoF3yC6VVRC8=;
-	b=ElrfHpvXBgAotjwZhOKZ40JJGadD7F6scC+Lgoik9Cq6rqwAlSfiia/YPs6TJaBrMao9TF
-	EHW7xn7gZK7uqlR2rxgJxyGJo+h2cL/41b7sn5ekRe8Oy92L0Wg+MSjX3K5qhdVuxoVCrf
-	k1cN6UaV6TKc0gx5qY+015gdYhbQ1+R0XFkUrH9YT8XnAiMdCGRS248+o8TwKXCw/hkbzk
-	uMWtGVihMv2py0VlFZMomR1wosH2Gn1+v9EJuBxQDu0HJNj9v5gNUzsa2QfvHLweXo0mzU
-	empWbNtyL5TxCtplLTERpij0JmQ4I3KCwPr2/UQmnmIYrJ6XyKudz1xi/+SiRA==
-Message-ID: <29f6c901-5209-4681-81cc-ff768cd405f4@maich.gr>
-Date: Tue, 20 Oct 2026 13:23:03 +0300
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B187606A325
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 10:25:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B187606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bobrowski.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bobrowski.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=bobrowski.net header.i=@bobrowski.net header.a=rsa-sha256 header.s=google header.b=QhS9xQXG
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8a07025cce4so1070018b3a.2
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 03:25:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bobrowski.net; s=google; t=1792491936; x=1793096736; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cHpYZ52UlepWCCzp3epNsk2Lp6gJWZ9lC0T9fNQNApo=;
+        b=QhS9xQXGcURWB8O1hsAFYwP7r8XTFjs+7lvY4tJ9nF7kIgNZulxzbGNNBnBWwdpPXm
+         7cnNdIxde6Tb1ymESnWc6T3gbqkZPMp8U0SLSRZpS5jI0ORmhan1shml24RDdm5Ql4dI
+         C/B42JwzdUez40vOZiZ8gY1U6aogOBToJ6CaKFwDfcBUOUbcHmQWFJlu7o2KUTItjTE2
+         YOFApG+WGPcMsg700cwYfZrZAMh7tGo0QzUex/Ytp7cN+/TYGWRaFK0biJ5NXHRq7Yvb
+         me9EGl4P+DSpgH6jRUOPkqRXRaVJbHWIECbejhW68/TXh5NudvUFd0Hmdti8HH+/P6FZ
+         aqZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792491936; x=1793096736;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cHpYZ52UlepWCCzp3epNsk2Lp6gJWZ9lC0T9fNQNApo=;
+        b=Dn9EsT4Cbggcf7U5jF7/6ogcTqeTKM2IN6r3++d/A43kUt/cWlLFm1MTtSqjCafVUK
+         yQDpxGz27JuUN+FvSY3xJ/ZzH2cj8gzlJMT/9D+uareP6MNqL+yasO4ohY3yGVBRKyrp
+         sM9M9QAB3V2HcJ1c5rnVessw6gJdd3ZPpuR4w8JGECv4+3R+plgF02UUVy2exA/1HqfJ
+         AO6RmSe1xbhtWjY5rItVlMjLDwkobNRUM4eB9XRIxNZ14qvkD440qm2esC0hIq5vjhUK
+         Ycsk3XlZVaq8rxRbpiGoDssJlfYPfWjD9zIpLLDSU2YfWekzJTpdVseE/0hT3ejrInI6
+         My/A==
+X-Forwarded-Encrypted: i=1; AKwUvBy28JIAQ48yKA80c+s9JMDXPJYG/yFEjgTEXQI5vjxkM5/bL5TsWiM8UhlGtZtOlJhm6OfQLLE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLSMHK1hj8ZO0VckyDPn9bXpAP9/csiCg4tvjk03q1p3H73zfl6
+	bwtdeYrzdwS5JDRUgxnW0JK2qSajTDS8WD/VXEPsHSC2ZRsWc2CFpZRt5OKMRcfvPoOl
+X-Gm-Gg: AYBFou1MOzszObXMXZm+ICBORRVcopiKB27rlbGhKFQtO6fzQv/jYyiFwWdmIBpRr6I
+	Iqd5wdB+4mhTtn9eleJcVCUnApdg62Z/v0ppkrw0+cxI3IlzHVZB6FMTN1KL11Z4PZ6hBpZkzzm
+	4rox9A6MuqD0zM2A2+5XWLKg42UZEirkY+e9bEp06hekTe3ri5TTyR/+Mf6A0DLLT8GW7CaJjFY
+	LtcZFBOlCKsOp8q72EQfMo4LEFiXNZOLidp0/HLXvjdyiGtJbx8mh+4bGMG015PexZQ2LR38vON
+	tLanjoFHjvgKa9g6Q5wyrfm0D1JrUaa3MqnAURAobOVsw3gO0j4s8peK5vOZzHfu27SNOOMELRE
+	aEBh2qORSPkQF5QJBBTAqKKd8OW0WvHSS5IA5G9FwXI0cEBmcBf8jMvF6Ou5HSUv52bey83xVfb
+	9cU9egx7FYrnWbitsxuMVnGL+CLfoXMsrQx8ejSwx5Tr2ET779KGReA4qOzx1Sh2lpAaLoPPKg2
+	4207MJzNRTUt944PrPS6NjRRFhllPC/lBWlaapVE5KYvtX4nKa95OzrcVbc7GfEPl7dXjXaL01w
+	QJ84snKv3aqiod+M9xHZMsJNQkL9
+X-Received: by 2002:a05:6a21:3284:b0:3e2:6f90:b54b with SMTP id adf61e73a8af0-3e26f90b718mr1762156637.35.1792491936486;
+        Tue, 20 Oct 2026 03:25:36 -0700 (PDT)
+Received: from workstation.. (163-53-146-70.ip4.superloop.au. [163.53.146.70])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f57452b16sm4574976b3a.29.2026.10.20.03.25.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 03:25:36 -0700 (PDT)
+From: Matt Bobrowski <matt@bobrowski.net>
+To: mbobrowski@mbobrowski.org
+Cc: Matt Bobrowski <matt@bobrowski.net>,
+	stable@vger.kernel.org
+Subject: [PATCH bpf-next 1/2] bpf: fix crash in bpf_path_d_path() for exiting tasks
+Date: Tue, 20 Oct 2026 21:25:09 +1100
+Message-ID: <20261020102510.96685-2-matt@bobrowski.net>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261020102510.96685-1-matt@bobrowski.net>
+References: <20261020102510.96685-1-matt@bobrowski.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,147 +97,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Alexander Antonakakis <alexis@maich.gr>
-Content-Language: en-US, el-en
-To: stable@vger.kernel.org
-Cc: regressions@lists.linux.dev, linux-scsi@vger.kernel.org,
- gregkh@linuxfoundation.org, sashal@kernel.org
-Subject: [REGRESSION] 6.1.178+: lpfc: boot hang due to use-after-free of mboxq
- in lpfc_sli4_driver_resource_setup() backport
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
+bpf_path_d_path() passes its path to d_path(), which resolves it
+against current->fs through get_fs_root_rcu() without checking that
+the calling task still has one. An exiting task does not. do_exit()
+calls exit_fs(), which clears tsk->fs, before exit_task_work(), and a
+file whose last reference the task drops in exit_files() has its final
+__fput() deferred to that task work. So a BPF LSM program attached to
+file_release, which may pass file->f_path to bpf_path_d_path() as a
+trusted argument, dereferences a NULL fs whenever a task exits with a
+file still open:
 
-Hello,
+  Call trace:
+   lock_acquire+0x8c/0x218
+   d_path+0x270/0x378
+   bpf_path_d_path+0x28/0x80
+   bpf_prog_9801cf2b982f05b2_file_release+0x1d0/0xc60
+   bpf_trampoline_6442515074+0x7c/0x100
+   bpf_lsm_file_release+0x8/0x20
+   security_file_release+0x58/0x90
+   __fput+0xcc/0x320
+   ____fput+0x1c/0x30
+   task_work_run+0x88/0x100
+   do_exit+0x210/0x3e8
+   do_group_exit+0x3c/0xa0
+   __arm64_sys_exit_group+0x20/0x30
 
-Since 6.1.178, servers with an Emulex SLI-4 Fibre Channel HBA hang
-during boot when the lpfc driver initializes. 6.1.177 works.
-6.1.180, 6.1.187 and 6.1.190 (Debian 12 kernels 6.1.0-52 to -54)
-all hang in the same way.
+With lockdep enabled the fault is taken in lock_acquire(), from the
+seqcount read in get_fs_root_rcu(); without it, on the read of
+fs->seq itself.
 
-Hardware:
- =C2=A0 Emulex LPe31000/LPe32000 Series 16Gb/32Gb Fibre Channel Adapter
- =C2=A0 Firmware 14.4.322.17, sli-4:2:c
- =C2=A0 lpfc 14.2.0.7
+Fix this by returning -EINVAL from bpf_path_d_path() when current->fs
+is NULL. Only the task itself clears its fs, in exit_fs(), so the check
+cannot race with that.
 
-The cause appears to be the 6.1.y backport of:
+Fixes: d08e2045ebf0 ("bpf: introduce new VFS based BPF kfuncs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Matt Bobrowski <matt@bobrowski.net>
+---
+ fs/bpf_fs_kfuncs.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-299f5baa1321 ("scsi: lpfc: Fix memory leak in=20
-lpfc_sli4_driver_resource_setup()")
-
-upstream commit 1bd28625e25be549ee7c47532e7c3ef91c682410
-
-In mainline, the new mempool_free(mboxq, ...) is placed after the
-call to lpfc_get_sli4_parameters(phba, mboxq) and its error check.
-In the 6.1.y backport it landed before that call. In
-drivers/scsi/lpfc/lpfc_init.c at v6.1.178:
-
-8178:=C2=A0 mempool_free(mboxq, phba->mbox_mem_pool);
-8187:=C2=A0 rc =3D lpfc_get_sli4_parameters(phba, mboxq);
-8200:=C2=A0 mempool_free(mboxq, phba->mbox_mem_pool);=C2=A0 /* error path */
-8207:=C2=A0 mempool_free(mboxq, phba->mbox_mem_pool);=C2=A0 /* error path */
-
-So mboxq is freed, then used for a mailbox command to the HBA
-(use-after-free), and may be freed again on the error paths
-(double free). This runs on every SLI-4 HBA probe, which matches
-the hang about 2 seconds into boot.
-
-Moving the mempool_free() at line 8178 to after the
-lpfc_get_sli4_parameters() call and its error handling, as in
-mainline, should fix it. Other stable branches that took this
-backport may be worth checking for the same placement.
-
-Downstream report: https://bugs.debian.org/1151377
-
-#regzbot introduced: 299f5baa1321a0951cc3ebbacc72b67433a65391
-
-This is a production server, so I can only test during maintenance
-windows, but I am happy to test a fix.
-
-Regards,
-Alexander Antonakakis
-
---=20
-Alexander Antonakakis
-Information Systems Department
-Mediterranean Agronomic Institute of Chania (MAICh)
-Alsyllio Agrokepiou, 1 Makedonias str, Chania, Crete, 73100 GREECE
-=CE=A4. +30 28210 35000 ext.718 | =CE=95. antonakakis@maich.gr
-
---
-=CE=94=CE=B9=CE=B5=CF=85=CE=BA=CF=81=CE=AF=CE=BD=CE=B9=CF=83=CE=B7 =CE=B7=CE=
-=BB=CE=B5=CE=BA=CF=84=CF=81=CE=BF=CE=BD=CE=B9=CE=BA=CE=BF=CF=8D =CF=84=CE=B1=
-=CF=87=CF=85=CE=B4=CF=81=CE=BF=CE=BC=CE=B5=CE=AF=CE=BF=CF=85
-=CE=9F=CE=B9 =CF=80=CE=BB=CE=B7=CF=81=CE=BF=CF=86=CE=BF=CF=81=CE=AF=CE=B5=CF=
-=82 =CF=80=CE=BF=CF=85 =CF=83=CF=85=CE=BC=CF=80=CE=B5=CF=81=CE=B9=CE=BB=CE=B1=
-=CE=BC=CE=B2=CE=AC=CE=BD=CE=BF=CE=BD=CF=84=CE=B1=CE=B9 =CF=83=CE=B5 =CE=B1=CF=
-=85=CF=84=CF=8C =CF=84=CE=BF =CE=BC=CE=AE=CE=BD=CF=85=CE=BC=CE=B1 =CE=B5=CE=AF=
-=CE=BD=CE=B1=CE=B9 =CE=B5=CE=BC=CF=80=CE=B9=CF=83=CF=84=CE=B5=CF=85=CF=84=CE=
-=B9=CE=BA=CE=AD=CF=82 =CE=BA=CE=B1=CE=B9 =CE=B7 =CF=87=CF=81=CE=AE=CF=83=CE=B7 =
-=CF=84=CE=BF=CF=85=CF=82
-=CE=B5=CF=80=CE=B9=CF=84=CF=81=CE=AD=CF=80=CE=B5=CF=84=CE=B1=CE=B9 =CE=BC=CF=
-=8C=CE=BD=CE=BF=CE=BD =CE=B1=CF=80=CF=8C =CF=84=CE=BF=CE=BD =CE=B1=CE=BD=CE=B1=
-=CF=86=CE=B5=CF=81=CF=8C=CE=BC=CE=B5=CE=BD=CE=BF =CF=80=CE=B1=CF=81=CE=B1=CE=
-=BB=CE=AE=CF=80=CF=84=CE=B7. =CE=95=CE=AC=CE=BD =CE=AD=CF=87=CE=B5=CF=84=CE=B5 =
-=CE=BB=CE=AC=CE=B2=CE=B5=CE=B9 =CF=84=CE=BF =CF=80=CE=B1=CF=81=CF=8C=CE=BD =CE=
-=BC=CE=AE=CE=BD=CF=85=CE=BC=CE=B1 =CE=B1=CF=80=CF=8C =CE=BB=CE=AC=CE=B8=CE=BF=
-=CF=82 =CE=BA=CE=B1=CE=B9 =CE=B4=CE=B5=CE=BD
-=CE=B5=CE=AF=CF=83=CF=84=CE=B5 =CE=BF =CF=80=CF=81=CE=BF=CE=BF=CF=81=CE=B9=CE=
-=B6=CF=8C=CE=BC=CE=B5=CE=BD=CE=BF=CF=82 =CF=80=CE=B1=CF=81=CE=B1=CE=BB=CE=AE=
-=CF=80=CF=84=CE=B7=CF=82, =CF=83=CE=B1=CF=82 =CE=B5=CE=BD=CE=B7=CE=BC=CE=B5=CF=
-=81=CF=8E=CE=BD=CE=BF=CF=85=CE=BC=CE=B5 =CF=8C=CF=84=CE=B9 =CE=B1=CF=80=CE=BF=
-=CE=BA=CE=AC=CE=BB=CF=85=CF=88=CE=B7, =CE=B1=CE=BD=CE=B1=CF=80=CE=B1=CF=81=CE=
-=B1=CE=B3=CF=89=CE=B3=CE=AE, =CE=B4=CE=B9=CE=B1=CE=BD=CE=BF=CE=BC=CE=AE =CE=AE =
-=CE=BF=CF=80=CE=BF=CE=B9=CE=B1=CF=83=CE=B4=CE=AE=CF=80=CE=BF=CF=84=CE=B5
-=CE=AC=CE=BB=CE=BB=CE=B7=CF=82 =CE=BC=CE=BF=CF=81=CF=86=CE=AE=CF=82 =CF=87=CF=
-=81=CE=AE=CF=83=CE=B7 =CF=84=CF=89=CE=BD =CF=80=CE=B5=CF=81=CE=B9=CE=B5=CF=87=
-=CE=BF=CE=BC=CE=AD=CE=BD=CF=89=CE=BD =CF=84=CE=BF=CF=85 =CF=80=CE=B1=CF=81=CF=
-=8C=CE=BD=CF=84=CE=BF=CF=82 =CE=BC=CE=B7=CE=BD=CF=8D=CE=BC=CE=B1=CF=84=CE=BF=
-=CF=82 =CE=B1=CF=80=CE=B1=CE=B3=CE=BF=CF=81=CE=B5=CF=8D=CE=B5=CF=84=CE=B1=CE=
-=B9. =CE=95=CF=80=CE=AF=CF=83=CE=B7=CF=82 =CF=80=CE=B1=CF=81=CE=B1=CE=BA=CE=B1=
-=CE=BB=CE=B5=CE=AF=CF=83=CE=B8=CE=B5 =CE=BD=CE=B1
-=CE=B1=CF=80=CE=BF=CF=83=CF=84=CE=B5=CE=AF=CE=BB=CE=B5=CF=84=CE=B5 =CF=84=CE=
-=BF =CE=B1=CF=81=CF=87=CE=B9=CE=BA=CF=8C =CE=BC=CE=AE=CE=BD=CF=85=CE=BC=CE=B1 =
-=CF=83=CF=84=CE=B7=CE=BD =CE=B4=CE=B9=CE=B5=CF=8D=CE=B8=CF=85=CE=BD=CF=83=CE=
-=B7 =CF=84=CE=BF=CF=85 =CE=B1=CF=80=CE=BF=CF=83=CF=84=CE=BF=CE=BB=CE=AD=CE=B1, =
-=CE=BA=CE=B1=CE=B8=CF=8E=CF=82 =CE=BA=CE=B1=CE=B9 =CF=83=CF=84=CE=B7 =CF=83=CF=
-=85=CE=BD=CE=AD=CF=87=CE=B5=CE=B9=CE=B1 =CE=BD=CE=B1 =CE=B4=CE=B9=CE=B1=CE=B3=
-=CF=81=CE=AC=CF=88=CE=B5=CF=84=CE=B5 =CF=84=CE=BF
-=CE=BC=CE=AE=CE=BD=CF=85=CE=BC=CE=B1 =CE=B1=CF=80=CF=8C =CF=84=CE=BF =CF=83=CF=
-=8D=CF=83=CF=84=CE=B7=CE=BC=CE=AC =CF=83=CE=B1=CF=82.
-=CE=97 =CE=B5=CF=80=CE=B9=CE=BA=CE=BF=CE=B9=CE=BD=CF=89=CE=BD=CE=AF=CE=B1 =CE=
-=BC=CE=AD=CF=83=CF=89 Internet =CE=B4=CE=B5=CE=BD =CE=B5=CE=AF=CE=BD=CE=B1=CE=
-=B9 =CE=B1=CF=83=CF=86=CE=B1=CE=BB=CE=AE=CF=82 =CE=BA=CE=B1=CE=B9 =CE=B5=CF=80=
-=CE=BF=CE=BC=CE=AD=CE=BD=CF=89=CF=82 =CF=84=CE=BF =CE=9C=CE=91=CE=99=CE=A7 =CE=
-=B4=CE=B5=CE=BD =CF=86=CE=AD=CF=81=CE=B5=CE=B9 =CE=B5=CF=85=CE=B8=CF=8D=CE=BD=
-=CE=B7 =CE=B3=CE=B9=CE=B1 =CE=BF=CF=80=CE=BF=CE=B9=CE=B1=CE=B4=CE=AE=CF=80=CE=
-=BF=CF=84=CE=B5
-=CE=B8=CE=B5=CF=84=CE=B9=CE=BA=CE=AE =CE=AE =CE=B1=CF=80=CE=BF=CE=B8=CE=B5=CF=
-=84=CE=B9=CE=BA=CE=AE =CE=B6=CE=B7=CE=BC=CE=B9=CE=AC =CF=80=CE=BF=CF=85 =CF=80=
-=CF=81=CE=BF=CE=BA=CE=BB=CE=AE=CE=B8=CE=B7=CE=BA=CE=B5 =CE=B1=CF=80=CF=8C =CF=
-=84=CE=B7=CE=BD =CF=87=CF=81=CE=AE=CF=83=CE=B7 =CF=84=CE=BF=CF=85 =CF=80=CE=B1=
-=CF=81=CF=8C=CE=BD=CF=84=CE=BF=CF=82 =CE=AE =CF=84=CF=89=CE=BD =CF=83=CF=85=CE=
-=BD=CE=B7=CE=BC=CE=BC=CE=AD=CE=BD=CF=89=CE=BD =CF=84=CE=BF=CF=85 =CE=BB=CF=8C=
-=CE=B3=CF=89 =CE=B9=CF=8E=CE=BD =CF=80=CE=BF=CF=85
-=CE=AD=CF=87=CE=BF=CF=85=CE=BD =CF=80=CE=B5=CF=81=CE=AC=CF=83=CE=B5=CE=B9 =CF=
-=83=CE=B5 =CE=B1=CF=85=CF=84=CE=AC.
-
-Email Disclaimer
-The information in this email is confidential and is intended solely for the ad=
-dressee(s). If you have
-received this transmission in error, and you are not an intended recipient, be =
-aware that any
-disclosure, copying, distribution or use of this transmission or its contents i=
-s prohibited.
-Furthermore, you are kindly requested to send us back the original message to t=
-he sender=E2=80=99s address and
-delete the message from your system immediately.
-Internet communications are not secure and therefore MAICh does not accept lega=
-l responsibility for the
-contents of this message and for any damage whatsoever that is caused by viruse=
-s being passed.
-
-
+diff --git a/fs/bpf_fs_kfuncs.c b/fs/bpf_fs_kfuncs.c
+index 08f0847c4970..6665a78218e1 100644
+--- a/fs/bpf_fs_kfuncs.c
++++ b/fs/bpf_fs_kfuncs.c
+@@ -87,6 +87,14 @@ __bpf_kfunc int bpf_path_d_path(const struct path *path, char *buf, size_t buf__
+ 	if (!buf__sz)
+ 		return -EINVAL;
+ 
++	/*
++	 * An exiting task releases its last files from exit_task_work(), after
++	 * exit_fs() has already dropped its ->fs, which d_path() uses to
++	 * resolve against.
++	 */
++	if (!current->fs)
++		return -EINVAL;
++
+ 	ret = d_path(path, buf, buf__sz);
+ 	if (IS_ERR(ret))
+ 		return PTR_ERR(ret);
+-- 
+2.47.3
 
