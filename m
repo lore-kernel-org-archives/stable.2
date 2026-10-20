@@ -1,79 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792490732;
-	b=Mi10RhLgyQazpE92H4bRqpkr8DUnfez7jKhJlnE91gryjTsPLCCP1f+UTmt1g2Y3MQex
-	 yhtl1kOAjY9PlD987EYCvlLxYMWByXJFZOjQy+ojppHTdTgaqhKJJ8nGVjLygaGl72fny
-	 oYAJGlevCnmfqcioG0/qXaYSfFSzqQpSyU5YufXLmRIkBHYBIBcWMtvuzkzMzAjXJ4nx/
-	 gRHxnJo+M88gSLaLCdWpk/ChONXDblEl3zeWLkJHKM7h0z7c8nSGKpuajVlddcKhxoNCj
-	 wgQxB8P7Lk7F2n3aXu/EqWDi7eMyT1g7DowduIglQIxKTFNsol3kJba5j1O4u9wcxSw==
+	t=1792490774;
+	b=grJOQfaalMEIga/Pfj0jMsJWveE8abDt6+bJO6vFQRic+0szEsRU0oHBlU8R3oejdfWK
+	 HVhRgzfkl8CWedTQDekFdy2xcl/CfcpwfgiceOq36gJzmWppHTrr/dWmF1CWwsteeup64
+	 4JX5GRLb1+wvAAIVPt2dxIHqqBwEuurFGoALhP0SSwhlMuPb8i8LBwTPc7dJoIdRPw03V
+	 i3g1Rfh8CdkYhZPhySA/l1+m2I/KhgxU4YueRNctADfIJtpm5BDaVRh9W4oV0GWXgECKS
+	 b7lLGRxsXGQLxuqQAYyrqIcauLkGKQuE1tNTDWXUFAbt5UJIXPC3VoMmiirZGqfeJOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792490732;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792490774;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=Dvp4aasRz96lUnC1XJ9G7ciSSfe/u8ewG748bIPjK4A=;
-	b=4Hq3s6uspTIHWQiCfwFlj4/BGh3e4ZXXJrz2osWS1elzrUrpjdlVtCGlXsvhcQXfxIKk
-	 W4QLv8XMAUwQuqXG+Z9iE32pOD+zwIZHVm8s+YAP3w2v2WG1grPbvdCDiTtEav+GEdvhA
-	 KnCQga5+ojltDiXYzs3qipOKQp0RbKlmF55g1mTCd7Lp9P8G/+2WLUBaWB66PwzRO43Iu
-	 qLIlhy32z4oyxJfQRpkdp8kW3O8jU09IIU6tu9XcvY9yMbkACofqaxDwcBi43GmyhCROj
-	 TDJuUhwmUREu8RaeqIh1GgIi6R1ZQPaSO9RsPPZZfwveOalVxBfpPyZin03Ztle759A==
+	bh=iRxSR+4fRQLej6TOIvAsY+nQOj/Ngzq1621z8+mGblo=;
+	b=eAwmi70cemwnpbU8RMHVOss9nh+/kIoOSzfF+uuxrzzv5NdS3pJ0PH85ZrLVySKQjD3w
+	 3WnOP4oUrH7v7oHsJBn0r8+AlXUcXwfyfo9CC0iBRFbqXfh4f5oiL4ghCn5flY/AiLbFh
+	 9PXsQNj8p0f+YDVIew2r0NvhV4Hu+g9YpNWHOJk/TX6RG7HNxD0NGwQa63tiqPzRBH7XB
+	 zX2XCM1IilSYzeXj6nZL5dvQiID2zHS84mrlEyTNdTvXaLLqJw9pm2SYAVqlGU/90qnBt
+	 QhBcXjpX912/Ey7j4R1wMwc3GbXrW7Yuhhwn60g7KwmbIMA6QRI+LXTG9eT7q2yLKFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="YKoT3/ph";
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bAaYOIPO;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57F7606A321
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 10:05:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B57F7606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B12B606A31B
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 10:06:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B12B606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YKoT3/ph
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bAaYOIPO
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792490732; x=1824026732;
+  t=1792490774; x=1824026774;
   h=from:to:cc:subject:date:message-id:mime-version:
    content-transfer-encoding;
-  bh=SJT/+gBJHlJD0VXTjaNN+IYFXoWI53OxK9KNOdxe4vI=;
-  b=YKoT3/phDLvj5Hpnr55QcDhJ6lnz6lcHPRV0PL/mykdgr/3hTolClcjz
-   6j91dez+ZTsSZ0JKayUUis2nNCPzQSiEYpCQkYHfSQXHeTlyza4mJQ9/r
-   v3WGwr+sc1byfCyde9BZC2neAzvLip184PwJT5gGx4hmm171QdMj+aRKR
-   Zy4K+86C0WY+77rt7LQoqtIhAFb+3ItkJD1RE73w8hmlcbbMCBlmn8oxv
-   JWTb+MlfYqeiIhEf1xjcfmWtoTLu48nzXMSd6+ri1xvjCejl7rkCzSS2R
-   I5xpMwZvZ+OEfa5Pjb29G7DEq34SZ4F0lEUEv73VTjWoSZejJ5aohwWui
-   g==;
-X-CSE-ConnectionGUID: ucWyM14HSiyKatF6vQAbnQ==
-X-CSE-MsgGUID: 6YHeJAq0QficB3w01aXXXg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1224790"
+  bh=P9qmvMICNbNzcg0hoAKj6GtNRTe3bKBCLMXFRMhWMBU=;
+  b=bAaYOIPOmnsP61G0QIxzTlozVB0iwb2v7O9sWdaQdeYSP5cpMxVTd7N0
+   8M6YwLkktlWPmkqzggPhLEylHqavqWdWez9x3fea4og7t/ZlIoJDYrQoB
+   ibn5qiXqzVKaXS/AdaulgD5wDU5/vzcwrKZ1KvebuxJ3vKUOL8meh160X
+   J4zqYzOcXJkelZvxbVomPShmCQON+ReeZXzTbPCfgiQ4flGTi3SxqOadU
+   mt27KIg1WtOIS+8RzCknjhnyROgKBGHAYJ17QTEis1H1x1MlOuRXulLFL
+   NfUe/1CW/zQagxWyiaRgE1T2jFhMnFPIGJOFk3OFgl1GO/RIy7xVSDe5u
+   w==;
+X-CSE-ConnectionGUID: pyh6MzdiRoWbWBplj7AhGg==
+X-CSE-MsgGUID: GS6JzRUTSUKy42y5FpDbUA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1291786"
 X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1224790"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 03:05:31 -0700
-X-CSE-ConnectionGUID: cEoAk2NCQ/2TR+dmwzZVzg==
-X-CSE-MsgGUID: Lt3eBeEJT3eam7z31OBOyA==
+   d="scan'208";a="1291786"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 03:06:13 -0700
+X-CSE-ConnectionGUID: Dyc/mZz9Tse5HK/Fa3xHDw==
+X-CSE-MsgGUID: XbZ8EXV3QxKXg1Zf6xyCnA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="2778351"
+   d="scan'208";a="3179357"
 Received: from abityuts-desk1.ger.corp.intel.com (HELO fedora) ([10.245.244.117])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 03:05:29 -0700
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 03:06:11 -0700
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Matthew Auld <matthew.auld@intel.com>,
 	Matthew Brost <matthew.brost@intel.com>,
 	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Natalie Vock <nat@pixelcluster.dev>,
-	Arun Pravin <arunpravin.paneerselvam@amd.com>,
-	dri-devel@lists.freedesktop.org,
 	stable@vger.kernel.org
-Subject: [PATCH] drm/ttm, drm/xe: Don't invoke the OOM killer when evicting VRAM at suspend
-Date: Tue, 20 Oct 2026 12:05:04 +0200
-Message-ID: <20261020100504.46684-1-thomas.hellstrom@linux.intel.com>
+Subject: [PATCH] drm/xe: Don't fail runtime suspend permanently on VRAM eviction -ENOMEM
+Date: Tue, 20 Oct 2026 12:05:45 +0200
+Message-ID: <20261020100545.46715-1-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -87,164 +83,51 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When evicting user BOs from VRAM at suspend time, allocating system
-memory for the eviction may currently invoke the OOM killer. Under
-memory pressure it is preferable to abort the suspend and return
--ENOMEM rather than killing processes.
+If evicting VRAM to system memory fails with -ENOMEM during runtime
+suspend to D3cold, the error is returned to the runtime PM core.
+Runtime PM treats any error other than -EAGAIN or -EBUSY from the
+->runtime_suspend() callback as fatal, records it in
+dev->power.runtime_error, and refuses further runtime PM operations
+on the device until the error is cleared.
 
-TTM's ttm_resource_manager_evict_all() uses a default operation
-context, which doesn't allow the caller to request
-__GFP_RETRY_MAYFAIL allocations. Introduce
-ttm_resource_manager_evict_all_ctx() taking a caller-supplied
-struct ttm_operation_ctx, keeping ttm_resource_manager_evict_all()
-as an exported wrapper using a default context so that existing
-users are unaffected. Also honor the ctx interruptible setting when
-waiting for the eviction fences.
+Memory shortage is a transient condition, and with eviction now using
+__GFP_RETRY_MAYFAIL it is also more likely to occur. Convert -ENOMEM
+from the eviction to -EAGAIN so that the device stays active and
+runtime suspend is retried at a later idle transition.
 
-Use the new function from xe_bo_evict_all_user() with
-gfp_retry_mayfail set.
-
-Note that the PM notifier eviction is best-effort and ignores errors.
-Any remaining BOs are evicted again from the .suspend() callback,
-where an -ENOMEM might then cause the suspend to be aborted.
-
-Fixes: c6a4d46ec1d7 ("drm/xe: evict user memory in PM notifier")
-Cc: Matthew Auld <matthew.auld@intel.com>
+Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Natalie Vock <nat@pixelcluster.dev>
-Cc: Arun Pravin <arunpravin.paneerselvam@amd.com>
 Cc: intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.16+
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9615
+Cc: <stable@vger.kernel.org> # v6.8+
 Assisted-by: LLM
 Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/ttm/ttm_resource.c | 37 +++++++++++++++++++++++-------
- drivers/gpu/drm/xe/xe_bo_evict.c   |  5 +++-
- include/drm/ttm/ttm_resource.h     |  5 ++++
- 3 files changed, 38 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/xe/xe_pm.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
-index 4e6d3d658d85..5296b32a2e92 100644
---- a/drivers/gpu/drm/ttm/ttm_resource.c
-+++ b/drivers/gpu/drm/ttm/ttm_resource.c
-@@ -568,24 +568,26 @@ void ttm_resource_manager_init(struct ttm_resource_manager *man,
- }
- EXPORT_SYMBOL(ttm_resource_manager_init);
+diff --git a/drivers/gpu/drm/xe/xe_pm.c b/drivers/gpu/drm/xe/xe_pm.c
+index daa7ba2df317..9bf57ed1ea59 100644
+--- a/drivers/gpu/drm/xe/xe_pm.c
++++ b/drivers/gpu/drm/xe/xe_pm.c
+@@ -649,8 +649,16 @@ int xe_pm_runtime_suspend(struct xe_device *xe)
  
--/*
-- * ttm_resource_manager_evict_all
-- *
-+/**
-+ * ttm_resource_manager_evict_all_ctx() - Evict all objects from a manager
-  * @bdev: device to use
-  * @man: manager to use
-+ * @ctx: operation context for the eviction
-  *
-  * Evict all the objects out of a memory manager until it is empty.
-  * Part of memory manager cleanup sequence.
-+ *
-+ * Return: 0 on success, negative error code on failure.
-  */
--int ttm_resource_manager_evict_all(struct ttm_device *bdev,
--				   struct ttm_resource_manager *man)
-+int ttm_resource_manager_evict_all_ctx(struct ttm_device *bdev,
-+				       struct ttm_resource_manager *man,
-+				       struct ttm_operation_ctx *ctx)
- {
--	struct ttm_operation_ctx ctx = { };
- 	struct dma_fence *fence;
- 	int ret, i;
+ 	if (xe->d3cold.allowed) {
+ 		err = xe_bo_evict_all(xe);
+-		if (err)
++		if (err) {
++			/*
++			 * Runtime PM treats errors other than -EAGAIN and
++			 * -EBUSY as fatal, so report memory shortage as
++			 * transient to allow a later retry.
++			 */
++			if (err == -ENOMEM)
++				err = -EAGAIN;
+ 			goto out_resume;
++		}
+ 	}
  
- 	do {
--		ret = ttm_bo_evict_first(bdev, man, &ctx);
-+		ret = ttm_bo_evict_first(bdev, man, ctx);
- 		cond_resched();
- 	} while (!ret);
- 
-@@ -600,7 +602,7 @@ int ttm_resource_manager_evict_all(struct ttm_device *bdev,
- 		if (fence && !dma_fence_is_signaled(fence)) {
- 			dma_fence_get(fence);
- 			spin_unlock(&man->eviction_lock);
--			ret = dma_fence_wait(fence, false);
-+			ret = dma_fence_wait(fence, ctx->interruptible);
- 			dma_fence_put(fence);
- 			if (ret)
- 				return ret;
-@@ -611,6 +613,25 @@ int ttm_resource_manager_evict_all(struct ttm_device *bdev,
- 
- 	return ret;
- }
-+EXPORT_SYMBOL(ttm_resource_manager_evict_all_ctx);
-+
-+/**
-+ * ttm_resource_manager_evict_all() - Evict all objects from a manager
-+ * @bdev: device to use
-+ * @man: manager to use
-+ *
-+ * Same as ttm_resource_manager_evict_all_ctx() using a default,
-+ * non-interruptible operation context.
-+ *
-+ * Return: 0 on success, negative error code on failure.
-+ */
-+int ttm_resource_manager_evict_all(struct ttm_device *bdev,
-+				   struct ttm_resource_manager *man)
-+{
-+	struct ttm_operation_ctx ctx = { };
-+
-+	return ttm_resource_manager_evict_all_ctx(bdev, man, &ctx);
-+}
- EXPORT_SYMBOL(ttm_resource_manager_evict_all);
- 
- /**
-diff --git a/drivers/gpu/drm/xe/xe_bo_evict.c b/drivers/gpu/drm/xe/xe_bo_evict.c
-index 7661fca7f278..a37316a27573 100644
---- a/drivers/gpu/drm/xe/xe_bo_evict.c
-+++ b/drivers/gpu/drm/xe/xe_bo_evict.c
-@@ -114,6 +114,9 @@ void xe_bo_notifier_unprepare_all_pinned(struct xe_device *xe)
-  */
- int xe_bo_evict_all_user(struct xe_device *xe)
- {
-+	struct ttm_operation_ctx ctx = {
-+		.gfp_retry_mayfail = true,
-+	};
- 	struct ttm_device *bdev = &xe->ttm;
- 	u32 mem_type;
- 	int ret;
-@@ -135,7 +138,7 @@ int xe_bo_evict_all_user(struct xe_device *xe)
- 			continue;
- 
- 		if (man) {
--			ret = ttm_resource_manager_evict_all(bdev, man);
-+			ret = ttm_resource_manager_evict_all_ctx(bdev, man, &ctx);
- 			if (ret)
- 				return ret;
- 		}
-diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
-index 714c533622c2..6cf9187a12eb 100644
---- a/include/drm/ttm/ttm_resource.h
-+++ b/include/drm/ttm/ttm_resource.h
-@@ -42,6 +42,7 @@ struct dmem_cgroup_device;
- struct dmem_cgroup_region;
- struct drm_printer;
- struct ttm_device;
-+struct ttm_operation_ctx;
- struct ttm_resource_manager;
- struct ttm_resource;
- struct ttm_place;
-@@ -488,6 +489,10 @@ void ttm_resource_manager_set_dmem_region(struct ttm_resource_manager *man,
- int ttm_resource_manager_dmem_reclaim(struct dmem_cgroup_pool_state *pool,
- 				      u64 target_bytes, void *priv);
- 
-+int ttm_resource_manager_evict_all_ctx(struct ttm_device *bdev,
-+				       struct ttm_resource_manager *man,
-+				       struct ttm_operation_ctx *ctx);
-+
- int ttm_resource_manager_evict_all(struct ttm_device *bdev,
- 				   struct ttm_resource_manager *man);
- 
+ 	for_each_gt(gt, xe, id) {
 -- 
 2.56.0
 
