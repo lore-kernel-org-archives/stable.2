@@ -1,53 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792483164;
-	b=IRPUm7OhLZfbMYvLWv1Duqd6Aefnx1YaAn9D065PKQ2V7XWuPiJCslHU3qRxahi4rLJj
-	 XI2zr6M9uk+6luV4ZZbK6fLPBP+Ox77G7tLOCrlBxwo02dXUfpufJX2fEXBtigk55vu+H
-	 V2xTSb82Yv+YcqKSgZFgWM03tkRzkPeaYpXG3FC+P9M5+K964364LHES2TXrqJCEKbaf2
-	 HUCh3/boYOpWHWV+x9fb2+knJd7PH+1Pv0SfdOJH4K+7XxEG2Wy4jh6DoYNaqCs5uNlPc
-	 sLjbQqP3EaE+SIjdi4pmLodPdyXuM93PMBnkUsiPVB8Sja6YBrI4baa5Yg/6QSiN2ag==
+	t=1792483350;
+	b=WroulXWq6VzbKfOSozQojfz6GTnX2BHm7Nu3ncCd7U6S1ytxKOMIBxozfqsNv//0HEqj
+	 B0P0WS228tKxLhBCzDWFYC74rwfyZOilSk+0IafykKB2U9DXaTZ1SITqGLN3Z0xQ9f82I
+	 dFonkny+BayqvH8OPX9mqocCgRMfVoK/eJz6aMbpehU/xfYb1UQiVtvbuuKKm4Ks+wPJS
+	 xbae8CCHEmYoyFoCtJjROvKU44HQlMXphjBsDVQBqmTuPAjZE/Ej+KRBMuqydPnd3o3ei
+	 QrCJZu3HbEX67dd9WhPpciHi8S7sjyNzAdiasE3vOPpRO/s8qoEjnyO0W70edDXTvig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792483164;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=8cC4QJi5qQ7UiYXlnci9YUO582OttEU/b+y84GEos4o=;
-	b=Vihh8tQfvi+dSS5xJI/5lk6zJc0LAqNOo3M5Wtt1YLbkIBtRjSt4D3JKjSdu8H07z4cJ
-	 i+2ajciWryeusL3AGsFfhBZf1BnSi+b93dfdc7sXAgPqdKFgzCyocYdYkMWYQhjQN4gWQ
-	 yhpbLfhVNU1YqihZYeHiPlPJJ2X2qAhy+TxNfPLUadpkK4gfxxZSWwzNU2ixY1OT8pvhg
-	 jE+dSiGNbiJ81JFB8xHZgIcRSsAGY0pN1XW490oa6++6fbv1CF/5izO9rAJY8eNO4xlQJ
-	 yjwD5jIrg6lk7/DmOVw22EarRjLRpwOHFYC/bM/T1FU1SSr31QwlG0EDLv94ylqKOcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792483350;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=Fo3vwrE7fHnIYVTUYb0Nag0rB104aRrYkLus86COehs=;
+	b=B368DiJx1g6w1zM0t+ket3fOVCD+HiqHiaa1FJZYr4YsbEF0KisSLKE3cLTNdTDKb8QW
+	 IngmR9dQxQZLcAd+aVWnXgSJBi8neIrY4VgQ1rxUv9GkwQPHZ/0u1ayXlHl1UbIzWg2NN
+	 zBe5oax1OkgweNeBdLhi23/1UCzuXzt6pRs2+qPQPD/UHSHyK2BLWktamcOCShNCrqM4l
+	 qeu0X/k94oYlN8pIiEZyP3pTvAZ7wunSGgwFSYV6qNu6zOIGlyBQpKHQOv7d3MOW8hPG6
+	 94fAg2gxRG5gm27dq5w/ndbVTlyjvyZdedk1yLJIsMLnd2o/7Of8FCnaU3ips8CxGkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=E4aSCSxz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=GgQIGnOX;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE13A606A319;
-	Tue, 20 Oct 2026 07:59:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8CA3606A319
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:02:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8CA3606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=E4aSCSxz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7CF91F000C4;
-	Tue, 20 Oct 2026 07:59:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792483163;
-	bh=8cC4QJi5qQ7UiYXlnci9YUO582OttEU/b+y84GEos4o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E4aSCSxzk4px2ZLNOscdSGFluayf3W/2+DbIG6SVGNmN+JNFlOEBSkx3PvZR109AP
-	 DlSBCC/9LWdr7ovIV48BB9TjC2o9j1583yXfEIpyuWwYYPDUWMzLSeiedJS4X4eQDs
-	 n2y38QA3KFjmSUopDRwjWJWfOrDzBJ8LHuEkb6bU=
-Date: Tue, 20 Oct 2026 09:59:21 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Alexander Martyniuk <alexevgmart@gmail.com>
-Cc: co+0ea1ac045375cf05@bugs.sh, davem@davemloft.net, edumazet@google.com,
-	horms@kernel.org, kuba@kernel.org, linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org, netdev@vger.kernel.org,
-	pabeni@redhat.com, stable@vger.kernel.org, xmei5@asu.edu
-Subject: Re: [PATCH 5.10/5.15/6.1/6.6] vlan: require the MAC header to be
- present in __vlan_insert_inner_tag()
-Message-ID: <2026102010-hazy-clear-1f06@gregkh>
-References: <20261012163331.45783-1-alexevgmart@gmail.com>
- <20261020074534.277692-1-alexevgmart@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=GgQIGnOX
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 89F34C63454;
+	Tue, 20 Oct 2026 08:03:25 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1E90460393;
+	Tue, 20 Oct 2026 08:02:27 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D54501032840C;
+	Tue, 20 Oct 2026 10:02:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792483344; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Fo3vwrE7fHnIYVTUYb0Nag0rB104aRrYkLus86COehs=;
+	b=GgQIGnOXA18Lmuu9VwsgPu8TONd4flhmla/Re1KJ7Ha+IXljck3OYIDdKLz7mzkYfLPB87
+	hJfbMwtlU9RJ68ggMah+xs9Uth0a9iJvmQZiGVGY8H2EPnQ+GQnnBnDcFfgohNjND3RvNJ
+	tBBVVhUHNYgTsbKxVarlSvbkbsNlOPE46zOOKOcx0+6RFWD1/yd1foT75IkdgB/TD0LH7y
+	GceC46n793POCNUBXCQwH+VXnYWU8v/e08ZFYwi9gbVdso+dTXlo//JoMm63u5Mib9hdNh
+	4GHoWw1nLfmhu83ItJVURSHcgzGB7ZVJ4tAL+7EpJc8K+qORaUL2Yg5UqzeD7g==
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,15 +58,47 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020074534.277692-1-alexevgmart@gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 20 Oct 2026 10:02:22 +0200
+Message-Id: <DM9IBBKOPUC2.2TAO8GMMX63MV@bootlin.com>
+Cc: "Tzung-Bi Shih" <tzungbi@kernel.org>, <linux-watchdog@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <stable@vger.kernel.org>, "kernel test
+ robot" <lkp@intel.com>
+Subject: Re: [PATCH v4 0/6] watchdog: w83627hf_wdt: Convert driver to the
+ driver model and add minute support
+From: "Paul Louvel" <paul.louvel@bootlin.com>
+To: "Guenter Roeck" <linux@roeck-us.net>, "Paul Louvel"
+ <paul.louvel@bootlin.com>, "Wim Van Sebroeck" <wim@linux-watchdog.org>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261013-w83627hf_wdt-improvements-v4-0-b6f6b60a9566@bootlin.com> <3e233439-d05b-4d65-a527-882043d64d7e@roeck-us.net>
+In-Reply-To: <3e233439-d05b-4d65-a527-882043d64d7e@roeck-us.net>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Oct 20, 2026 at 10:45:33AM +0300, Alexander Martyniuk wrote:
-> just a friendly reminder
-> 
+On Tue Oct 20, 2026 at 4:00 AM CEST, Guenter Roeck wrote:
+> On 10/13/26 06:58, Paul Louvel wrote:
+>> Hi,
+>>=20
+>> This series aims to improve driver readability and convert it to the
+>> Linux driver model by means of a platform driver.
+>> Furthermore, support for minute-based counting has been added to allow
+>> timeout values longer than 255 seconds. When setting a timeout value
+>> that is not a multiple of 60 seconds, the value is rounded up to the
+>> nearest multiple.
+>>=20
+>
+> Please address the issues reported by Tzung-Bi.
+>
+> Thanks,
+> Guenter
 
-Of what?
+Will do.
 
-There's no context here...
+Thanks,
+--=20
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
