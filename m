@@ -1,73 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792484931;
-	b=F20Fx7fy9c/aTvdur0ECvb0F9ZzR72z4G5czI/yieQ1SyOeeGVBcaUof69AbUjA7odFh
-	 Fbin9ntWWPrJN3BA3T/7Y4HVtm8hQGTdmyEq2DLjOxoQsvf2C8bKDKU1IBX9xaAXEUXqm
-	 f+7tPSmDV7cFFcH34COeL+5q804CV211uLPdxMvjTQMbz6uk3F2YEbpM+Tg2ifJPD5p/V
-	 d6pqlELMunCH/gKiZPOlUPFrDqUgErdaRMtE+lW4uv66TU+a/cPEYXkAHiG8YGhUppMEY
-	 YFCPkSWtP6EsItEIcaJ1jNnB8umpgmv8t2ddpO5GCM4YlGVgiyoLgNBQFfbvemns/sw==
+	t=1792485011;
+	b=LiIuZVMFPTfjvLhr4JoJJjk8H2LnB0JUCnjs0ShRBY12kODIj+UMtVoCcqnRLAWL/CMS
+	 p69o6sSHXMnvfvIzHDPAUjvXB7Dn01hvg3UViRxvyEKI6Q09AfpAhBMAQ2GnB5QEEp868
+	 MsLexk+zhyzyXmWocKrdcSXJrDlYggOkgEgO7kxI4xXiNRLJJfejOWOnNOU7j2CbN2J0N
+	 TexEOu57gpRPTrx9ub1IEaP7CaSU9onnVz8ebts3+oaFfhgqMdATLMTQQgr14djfIIvhA
+	 aKf66GzpvOqMVO7BIhC2jalffgqMzspb9SHQI+S+hXGIwJJ68virXt0hep4BM7+3/1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792484931;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-B4-Tracking:X-Change-Id:X-Developer-Key:X-Developer-Signature:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=V2g7pl//bRYOezc7U12uFpcQJT5vXcVW3O60hvJjYx8=;
-	b=NhufA7wTQyli1THp+cTea1vR2esPe6DMWIfl7hQEsFlYrooP8BYxcj6ElFBJr8c8nXaM
-	 4D/e/0idrXC6XRDRbzxvjCvgLUe9lScokSKfJFEJxEXQa1A3Nqxo4sz/JxKMS6h840Zt4
-	 /9b01hBkRqElFgV+Sp2OHeStOvGz4WPLoDkmNL6DsfUoTLva4yBuH4Cg1IF3VwfHni6ih
-	 REX8Kj6UeMNEG9nhR6TGgwOYsZa1m49dK/zv1QO82DHAOvGKpAm8+ciDobtnhx18qmgYV
-	 frPgba4hFj6rFeryIffxHeY1KpEsFW4uY5i0mnZiCtMJXkNc9+Hw1Tw7KUJuBsIvNMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485011;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=SH4f7kSSSOqRKPp383w+nJEtgT8hrei7yyRtccIHY5A=;
+	b=c7IfCZRgCOznT+m69R+LRP93BhfBGEScHaWD2iWiqx2TQ+P7z/QM/L4vZQP5KM/wJ77z
+	 4V13Yqi2mVsWhg1nMuCFZUGCL9IqfaYOf8NOb9O5IJctDJZRQ7qLqTRwNmnT4R/MhM//x
+	 CW35D7L25y01UvXvIVHMz9n9J/WaS8cKINdyq6TInXbgHZ+Qr4fZTrxiF59KYfZnknZOb
+	 3tL/95uW9V6D28+GG/NLQl6PF/pyOS7GdtWbQJN70yKzjMoXdi/ryACcLd8e5k++xSmxg
+	 sfTGXi5hKywPXNkTR69ScsM8FRXC28K2V7YI7V3FvgugklpbMa+xTt2aKoZ96fTZDzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=aWx7wiq+;
-	arc=none smtp.remote-ip=209.85.218.70
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nPODbXxY;
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D25D8606A31B
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:28:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D25D8606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1135B606A33F;
+	Tue, 20 Oct 2026 08:30:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1135B606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=aWx7wiq+
-Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c3613c35145so317841766b.3
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 01:28:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792484929; x=1793089729; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V2g7pl//bRYOezc7U12uFpcQJT5vXcVW3O60hvJjYx8=;
-        b=aWx7wiq+/DasFoQT5M8519XstD7g7rHGmFqLXXHdq8UD18VN9WqjYyA34BoF3bviQk
-         B4vvUdvpU1nBOVOREmo/lGovnmsq5GOEYTlp0gi0+dCNgmjND/0tELpEXF5B6CaDrOzf
-         6GyOIQnac4Qor8u0mLpD7RGet+FS+RdigYT7YL8G1kXru0m6uwW7tYVoApw+/OUZP23T
-         2YEeef/FlcNPtoqsCNMdJ8DYahu+lJYagijueQiyz3REb+omSUsWSIy1dn2sIZHMIbV6
-         achWG0sNI5isjwq+U6cbpUGIycUIMLysuIq7Nje8co+27sgva0Rmu4jk29uFVT3Fwr+B
-         mk3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792484929; x=1793089729;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=V2g7pl//bRYOezc7U12uFpcQJT5vXcVW3O60hvJjYx8=;
-        b=v959Zb3WKC9re8zR2SvyqliFU77OLmoMm3zU9eKt6y1Sflqu6EUq+EfPcJ4VbiBr0B
-         jcbq0uy+TLnLNGdBE9yMVHxVoNC3GvXoDyHqn5sqMApvuXIc0C4xMSJ4o+987yu/A/c1
-         u4u7Gqzoncs4DSPbPcn9N4PQHurh9fxkVCuKHm+Qm/F6f1ArFvadPqeUMyazblshvJP6
-         sd3S1YwRarP7hTIypErqgO4TpXqZKcAImq/IBjeFJ9Eov60YtiK2P5BMXBEKW798u7b1
-         D64TYnxm2kqvKHx7XXcChFtSfDQd9vlDzIi1e9PJR+wJtAskqEqBtRGluHfh69riBiCd
-         cX1w==
-X-Forwarded-Encrypted: i=1; AKwUvBw28QaC7GoFbgRdPspf9yZuLq9XHYtepEONoNN4aT3CfDJr/uh37oK6x4RoRd6/phIMcLT1i8Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLpWcbzUYh73gccb3Ww4DQQdlCAz0GxjI+K73fC5etmY3RDm58F
-	55hzz4ktO4RwLPcgLhsD0R4Wuld9LELfpGgeupjRB4j7J+zBAK+ukb68SB6x/5cvkHU0i0rw7K7
-	+4WJAdt8WcWFUdPNeCg==
-X-Received: from edqi6.prod.google.com ([2002:aa7:c706:0:b0:6ae:1861:6a4b])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:906:f583:b0:c2e:52d6:1fb7 with SMTP id a640c23a62f3a-c419e63d14fmr694939266b.22.1792484927900;
- Tue, 20 Oct 2026 01:28:47 -0700 (PDT)
-Date: Tue, 20 Oct 2026 08:28:37 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nPODbXxY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792485011; x=1824021011;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Ut3G5c8rvGrpw6eB6UmvojAffaEPq4sehW3h0fIJ+hM=;
+  b=nPODbXxY7Il0teIcZLDwt/h4KNPU4Ay8+nsevQnXMGq4Euwt1Ayj1BLe
+   980zW91HImTS5UmBsCq0jHHbKNDs5sGMyJXsF+/IXtyXiLJDkDb/MCtpA
+   9pDHjdjyfIANTrkXGONWVSunRxLDWZS4JMqubKC33ex6N+ehmXeieaG8P
+   7oVEOrz2d76iuBbzivQJGI2JNNlPZ4k+Al2iftc+SsyeNZLzhM+tMR6O9
+   JX6o79c7pbUGV0KylqczS42XOK6ofuL6sR63Gkfo7wfswddVkEEqRht5D
+   t9m7GEmV24NIKMoEQVnRjj4mHkA2EFzHmCAaOgNUmLH5aOCOOp1j0nYEu
+   w==;
+X-CSE-ConnectionGUID: ORhGv6FtT9CDdGNvJspR0Q==
+X-CSE-MsgGUID: pUSA00DrQK6dSTyLaFNEpw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1075779"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1075779"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:30:10 -0700
+X-CSE-ConnectionGUID: ff4tx7z4RauaHg52GK7m4g==
+X-CSE-MsgGUID: OE45QHLrSziL2awgXk/q/A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="3086559"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.72])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:30:05 -0700
+Date: Tue, 20 Oct 2026 11:30:02 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+Cc: linux-serial@vger.kernel.org, gregkh@linuxfoundation.org,
+	jirislaby@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, ilpo.jarvinen@linux.intel.com,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	Andre Przywara <andre.przywara@arm.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook
+ when DLF is present
+Message-ID: <atcmiqfmoa6HoJpp@ashevche-desk.local>
+References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
+ <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,112 +87,64 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIADQm12oC/x3MMQqAMAxA0auUzAZihQpeRRxKTDUgVVpRQXp3i
- +Mb/n8hS1LJMJgXklyadY8VbWOAVx8XQZ2rwZJ1LVnCcPO5IQdFibzPGhfsqXeOhTx1Hmp4JAn 6/NNxKuUDO8/rdmQAAAA=
-X-Change-Id: 20261020-fwctl-cfi-encoding-70766ce0a03a
-X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3125; i=aliceryhl@google.com;
- h=from:subject:message-id; bh=Rk+J0lAUscPPohWGJvG/cv0f/YYZw8raSTrEMula37c=;
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBq1yY6KvWn2YmrQl+P2uToSiXlz+Tw9B8f8Vp2f
- JJ4S+QCG+eJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCatcmOgAKCRAEWL7uWMY5
- RmKpD/9vmUdmYXdWFu4sxnhmjYGpEa/8KUAAPN5eTas3arHAO6iEHKznNk2FbhezzCVJ+g51T1y
- tqavjmoRtuwFxTQiSSsMKuWrS22j9AjOZIrbIGc5whhovmn4ZgSIXl62woNPbtd6xhAzU67u/ag
- TYAa1bgpObC1VJyQfVuPIFKkpF0QyUnGI8pEYvUIWyJnQ6KrfpzK7zTD2rWGIEMQH56IdGWqVjD
- vmS06VZGJ4aLLuNwfxLv81UbJLp/yVDoB0+nvbzRLXwgHAk6n1uaRLPSCrLiEcmVMIM+eYlIy5Z
- MnAbuv+95H4EWHTQuyrADqknsijLkCoaN3Mwaw154jKjxMqZmpI7H8CrpxXgJzfZc3LQatk/Uci
- YXwA7tO/eiWxGGzusDNnL8BAEkmJpat2f/I0OI+YdcKCFgoVtv930Wh2UGT9IY8rDAHUbQLcojW
- JfFbCXJnhA34sq/tInGOpTWYNNdCJiFO/gTbxvEUQyGPfguALE0PIcE2VCct1jBK/rNg9nQphLF
- WIe8S5uSBIVEs5P60gf0ICdy54Y6uFRLF3vuVzD3xIKytasfcvYN7D51cxxoL5gc3bgx2kYgvEU
- jc+eQzDxXXf3ZmkzDW4l3G7vk8ipfZFJWCox2JKuaaGDYWXy1nuVGA/tO4E8aGHThjUSaI74UCl 19zcIugQEmSgilw==
-X-Mailer: b4 0.14.3
-Message-ID: <20261020-fwctl-cfi-encoding-v1-1-ebb30d1500df@google.com>
-Subject: [PATCH] rust: fwctl: declare cfi_encoding for fwctl_rpc_scope
-From: Alice Ryhl <aliceryhl@google.com>
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	"=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, Dave Jiang <dave.jiang@intel.com>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Saeed Mahameed <saeedm@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
-	Jonathan Cameron <jic23@kernel.org>
-Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Sami Tolvanen <samitolvanen@google.com>, stable@vger.kernel.org, 
-	Alice Ryhl <aliceryhl@google.com>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Currently, VTable::fw_rpc_callback() takes scope as a u32, whereas C
-calls fwctl_ops::fw_rpc with enum fwctl_rpc_scope. With kCFI enabled,
-enum types are encoded distinctly from integers, causing every fw_rpc
-indirect call into a Rust fwctl driver to trip a CFI failure. Thus,
-generate fwctl_rpc_scope as a newtype with a cfi_encoding attribute and
-use it in fw_rpc_callback().
+On Mon, Oct 19, 2026 at 05:06:10PM -0300, Vinicius Pedrosa wrote:
+> dw8250_probe() installs dw8250_set_divisor(), which brackets the
+> DLAB/DLL/DLH sequence with dw8250_idle_enter() and dw8250_idle_exit()
+> so a BUSY UART cannot drop the divisor LCR write.
+> 
+> dw8250_setup_port() runs afterwards and replaces that hook with the
+> dwlib divisor hook whenever it detects DLF. The dwlib hook programs the
+> divisor through serial8250_do_set_divisor() without entering idle,
+> leaving the LCR|DLAB write exposed to BUSY.
+> 
+> When termios changes while the UART is transmitting, that LCR|DLAB
+> write can be ignored and dw8250_check_lcr() retries it between
+> dw8250_idle_enter() and dw8250_idle_exit(). dw8250_idle_exit() then
+> restores IER while DLAB is still set, so the value lands in DLH. The
+> real IER stays at the zero written by dw8250_idle_enter(), and the port
+> gets no further TX or RX interrupts while up->ier says they're enabled.
+> 
+> Do not replace a divisor hook the driver has already installed. Program
+> DLF from the BUSY-safe hook, inside the idle section, through a dwlib
+> helper that checks dlf_size.
+> 
+> Observed on an Allwinner A733 (Radxa Cubie A7Z), where
+> dw8250_setup_port() mistakes the RS485 control register for DLF (see the
+> next patch): the first interactive tcsetattr() during console output
+> left hardware IER at 0 and up->ier at 0x07. The shell never printed its
+> prompt or read input. With this change alone the same boot reached the
+> prompt and echoed input, and hardware IER matched up->ier afterwards.
 
-Cc: stable@vger.kernel.org
-Fixes: e052daab94ee ("rust: introduce abstractions for fwctl")
-Signed-off-by: Alice Ryhl <aliceryhl@google.com>
----
- rust/bindgen_parameters |  2 ++
- rust/kernel/fwctl.rs    | 12 ++++++------
- 2 files changed, 8 insertions(+), 6 deletions(-)
+...
 
-diff --git a/rust/bindgen_parameters b/rust/bindgen_parameters
-index 8402b0c93545..e4f8c07743a8 100644
---- a/rust/bindgen_parameters
-+++ b/rust/bindgen_parameters
-@@ -27,6 +27,8 @@
- --opaque-type spinlock
- 
- # enums that appear in indirect function calls should specify a cfi type
-+--newtype-enum fwctl_rpc_scope
-+--with-attribute-custom-enum=fwctl_rpc_scope='#[cfi_encoding="15fwctl_rpc_scope"]'
- --newtype-enum lru_status
- --with-attribute-custom-enum=lru_status='#[cfi_encoding="10lru_status"]'
- 
-diff --git a/rust/kernel/fwctl.rs b/rust/kernel/fwctl.rs
-index f29244fb0d1d..b7778e4d5ee0 100644
---- a/rust/kernel/fwctl.rs
-+++ b/rust/kernel/fwctl.rs
-@@ -53,13 +53,13 @@ pub enum DeviceType {
- #[derive(Copy, Clone, Debug, Eq, PartialEq)]
- pub enum RpcScope {
-     /// Read/write access to device configuration.
--    Configuration = bindings::fwctl_rpc_scope_FWCTL_RPC_CONFIGURATION,
-+    Configuration = bindings::fwctl_rpc_scope::FWCTL_RPC_CONFIGURATION.0,
-     /// Read-only access to debug information.
--    DebugReadOnly = bindings::fwctl_rpc_scope_FWCTL_RPC_DEBUG_READ_ONLY,
-+    DebugReadOnly = bindings::fwctl_rpc_scope::FWCTL_RPC_DEBUG_READ_ONLY.0,
-     /// Write access to lockdown-compatible debug information.
--    DebugWrite = bindings::fwctl_rpc_scope_FWCTL_RPC_DEBUG_WRITE,
-+    DebugWrite = bindings::fwctl_rpc_scope::FWCTL_RPC_DEBUG_WRITE.0,
-     /// Full read/write access to all debug information (requires `CAP_SYS_RAWIO`).
--    DebugWriteFull = bindings::fwctl_rpc_scope_FWCTL_RPC_DEBUG_WRITE_FULL,
-+    DebugWriteFull = bindings::fwctl_rpc_scope::FWCTL_RPC_DEBUG_WRITE_FULL.0,
- }
- 
- impl TryFrom<u32> for RpcScope {
-@@ -539,12 +539,12 @@ impl<T: Operations> VTable<T> {
-     /// - `out_len` must be valid for reading and writing an initialised `usize`.
-     unsafe extern "C" fn fw_rpc_callback(
-         uctx: *mut bindings::fwctl_uctx,
--        scope: u32,
-+        scope: bindings::fwctl_rpc_scope,
-         rpc_in: *mut ffi::c_void,
-         in_len: usize,
-         out_len: *mut usize,
-     ) -> *mut ffi::c_void {
--        let scope = match RpcScope::try_from(scope) {
-+        let scope = match RpcScope::try_from(scope.0) {
-             Ok(s) => s,
-             Err(e) => return Error::to_ptr(e),
-         };
+> +/* Program the fractional part of the divisor, if the UART has one */
+> +void __dw8250_set_divisor(struct uart_port *p, unsigned int quot_frac)
 
----
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20261020-fwctl-cfi-encoding-70766ce0a03a
+Let's reduce amount of double underscore functions. Let's call it
+dw8250_update_dfl(). Also call the parameter just 'frac'.
 
-Best regards,
+void dw8250_update_dfl(struct uart_port *p, unsigned int frac)
+
+...
+
+> +++ b/drivers/tty/serial/8250/8250_dwlib.h
+
+>  void dw8250_do_set_termios(struct uart_port *p, struct ktermios *termios, const struct ktermios *old);
+>  void dw8250_setup_port(struct uart_port *p);
+> +void __dw8250_set_divisor(struct uart_port *p, unsigned int quot_frac);
+
+Put it rather after _writel_ext() implementation, because it's just a small
+wrapper on top of it. Or even make it 'static inline' there.
+
 -- 
-Alice Ryhl <aliceryhl@google.com>
+With Best Regards,
+Andy Shevchenko
+
 
