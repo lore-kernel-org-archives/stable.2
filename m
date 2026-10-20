@@ -1,98 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792465498;
-	b=pq/BEY30poh5B3UMWO0RRS9dOlYqjB0cH/Pv5xDiuZ8HF0QB/cQCFgoTPd82txvuG1Bw
-	 UfUJHEl9NsWUoRQNIIOq7S4hZmY6beOYzaZLkwvgHSMmgC6sHtMPwcwOeD14bU2kPcoUN
-	 TcJsnMw94NMY70G1TTZDxNPRkdVyT00p1WnNp54wDHNBQjCWYqGkF7glyflMlZOlUXyOw
-	 IjilaZzKobhi+kyl0au/UloRk8SyhWzU4rJxZQQqf5RACPI35O80IF18RBZZuaDIy5GzR
-	 eKNN/3FvXmJw+EQH1LWHDXKAhvRxNx3ZsjgWIQfnO3YpKIjsQalrtqmVeyacQ7RZd/A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792465498;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Pm54GtLoc9Ls0ofX4mP3XCN3sjH8BR9wUxBcQ7EXzFE=;
-	b=EadoFGAkG6O0cfRF5HftdYx9IrslWIrM6kLnAtPbzLtIIx3oS+twGUBWWbke1aij+Dsv
-	 7U/1qo58i9QH550PEE7YMCPONbAIikCanBBxjAE+Ol3uxK5yw3tOVqZYNG+slVQ8S1uRA
-	 07bHgA1flUjwE4620wmFz0Jw36VC7cROsFeDhkBBau3Nhvbwp5ZD4OcXKv0OW4G8RC0Jm
-	 sHnLsLaKYmIuuU4krm9yAGk4miWyrChgPbKtISp4gEgKdRwTVL/vo4Bqae9GvrLjflD+m
-	 vK6faf/EAGArEnp0KdRVpJpfMoVZaVF8/33Q+Z/ofZL3A3BHK4lDJDrfylKuuv+aUnw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fkj345uK;
-	arc=none smtp.remote-ip=209.85.216.43
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792465727;
+	b=OcWKAsoRilmD9ElhVEGN3QPnw1LgTrMgquSpU2DGoSRVfaFulqAt1iaxvaEZ/q35YXZw
+	 h9RZvOy/1fSFNRJ65Xrz06kG0PAUvKIAvftkRnoFMyyLzRO5RP9OOfkfuOcTQPyZUpCDa
+	 BkYk8EmNxNYXKEqj8+iP06SRPZOosbXLt1U9Zd9mg9T0EkqDndWCZlCoCGZiBfR1Nqo2n
+	 i61ovcseAJ/PgtHIHN8qP6032SKcQEZPRFd/+jiMfO97YvmsfkvmLv0taYPUBkN/y3s56
+	 SsINJ0dSGEATOyf3t/jFY8wGIeW3sAJcZf5++y1rH1vgY7vP0r2v7cBqPyC175AvVZg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792465727;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=G2L/X3CIPKlN15SbNUbi09Xh+FGzqt4hwVimMbVxPrk=;
+	b=3y7Llh6aWZI5fRAYunQos7o1g3PKdS9ofH1glRjdxV4V409O07QIdz+Bq5DkPlDJu6v/
+	 h7w1NlQU8f6jUNtLEt6SJkgSZYcfL8l02YRaGR9R5xaM4tGpzrBDvqH9sbsznqs8EEwi4
+	 E9CcOYkEoo2viAmJk3bsTA0wWdQhFF70jVaW+IbrnbY3f0VT8MtILYdFIELp+UyYXqM1G
+	 pikEtTZF2jRc8FH6xQWnwF5LqXIxnCwYeZVCsvspOIj7IByQblNLMwij4EPE6o60Z36ca
+	 MXilPrVL9TidLyPR7ZccajGlbwckUrWKwOOXhnwGOVdECY4ZBxo40Lp0gBW5JeN7q9Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SgRYcbXO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DC72606A326;
+	Tue, 20 Oct 2026 03:08:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SgRYcbXO
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792465727;
+	b=pSgWlFjNg/B6BsUhvcNld1hz+cCBtkZ+K76JjS7n6GNrrMU/VRlkDYIwwc8ZJhMYrs04
+	 +7kiC8fKo/7dobN3vHL9cZLsgujuMn2kbT3GVhsomqOPnZlTji9JhIc33paGFDFTzCREs
+	 +d/0gvi+Oz2UDYu1Kb+TVvPxMW6KHFoGXPAKAIzji/2grlRrtRA1keWAh0tzwUsHwsUe9
+	 9GGZGO0Q4E5LQhYYzWPtddeDMNX1jMIx377zD+QvYsVDbOuPZHBl2q69SkQNWZBdqI2TS
+	 KVV7UJupIui2VOsaUeYLuV7csu+giw1W1IvRtvt75jC2Cyl1JLvPsMe1aOXhXYBGIfw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792465727;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=G2L/X3CIPKlN15SbNUbi09Xh+FGzqt4hwVimMbVxPrk=;
+	b=MuuIBzxddoLhOcOVITIS1LxLrMIUFtRmO7/pKNcOzoOmOQH2YGq7TN6GtEzCtcZ6bP/d
+	 VamnhYpNGe7P91sjjAIOBa0nZlIlQ/N6pW8oBMMF4AndclmIYC3Si1/j+efNsE6UAaSdq
+	 FJa2YFR0yYcmcAuqy3iOYXPXeMhJxxQfsTLAkZ7QubhBNHfWB5RijdTBjn4VtN974MTox
+	 T69OhCczneEf/yMKzbNWk3olmpFztbggpPtLjZXCntEyqTugqoc7H6jZ2PgSKjHgxQawm
+	 m65xX+/VR5eJ9+qhrunRiwdLt0MiSQZk4c1geL+O+J11ZFU25lkFchcvx3XIc9Dyj9g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92DEE606A319
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 03:04:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92DEE606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fkj345uK
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ab9268d90eso1618056a91.3
-        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 20:04:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792465497; x=1793070297; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Pm54GtLoc9Ls0ofX4mP3XCN3sjH8BR9wUxBcQ7EXzFE=;
-        b=fkj345uKHxlY1zp+L646DsGbiQCi4nncGEY+opVpYR1ADxZ7pgziCLhYFDqttQU8d6
-         odIEkEVwT/kQHCYYKNBAfksIGO0FiP9VKFgjHEn6YGa5X8+RwsuwOtdN201t+wnsHRyL
-         6JUEzjUU3XYuMTpf+CJ/wFp9eu3qlMcDHjjeWDHt5o+rOrVxnhV1roP6liSGzS4knz89
-         JpNFXTG7f6gAuoDRAI0PNDCGr/Y5F7rO5zVvqnbpA81oaPMGgVJOPegW/NtcklIg8Ffz
-         mhajwchBAyRtR9wIOA/3w2yyGp6TUB9l8Xd65pY5ZBaLxCMO1Pk4u8gW3Q5nu/RUkcCn
-         dlFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792465497; x=1793070297;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Pm54GtLoc9Ls0ofX4mP3XCN3sjH8BR9wUxBcQ7EXzFE=;
-        b=VEfMTLZGqIYs2kM8KlrFXwD3LZgrZuA+7lgniXDdnEU8dzZOowvBvKn63HxG7U+io6
-         WcOKxh/Nz/GtDpK46t6uEi3kCt+lMTEo7va9P9BHjrxv1eW4Uczscl2L0js+Pcou81cS
-         vD4VJG0OoQjjJS39e0BOOb8WFYq4yvqgTGSazDiVSaA7qfnuTu6liySsSZ9RJ1T6VRT2
-         qnjLRngDJ7ZoVal3biBIKbB0mDVkJICdJHMJ+/z7yNZrSe6gmqzKGytSW/agooejZZHd
-         qGUwOGaky/fgSwQw0GQH2oorTnJz9DrHj1ZqgEJE5DqRpncGlKIXQX073Np2b7lqe23A
-         hNtw==
-X-Forwarded-Encrypted: i=1; AKwUvBxf7EAXX+ZowOuC0kTu29359XKQifZr1UB7BMK1XCEbzIvKEuvPsgBRApA1VaNuCQQex6pCwNs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhVaTSlLTD7+tr55KYf44rbKL0vBnX8A00PdyCYYqdcT0+PfLd
-	MR19EGtGyiRDZYQkGWgdrbnxNrdrsW5c5bgZhrKDhkh1kDg4gPplYgzS
-X-Gm-Gg: AYBFou1DNzZmB6Na4etQhWZYpRli58fL6ZQBFFZ7Rbu0O9+6xGeGNfr7kg8dlvbVNe5
-	RT9x8r6pH6k8db2y16TOXgJdAGcDXDPi5f42LE/yuG/2jRACM50zI0CsiTp+S0KVdrG3TughI9l
-	CY/SE3PUQ4Q0BN5C8xPVM5d2TGldjf/VwSdlendFtvWSozsMFsWimIERuGqndnymIyro6+pOHdI
-	858NqHwaDnQFl4R9z640s1aIF1XxlWcwJbnfLk16ejxM6V0zhtGcnL178SrT8hHQO1vkyjVISaH
-	3SoIMIqzdXQk8Tk6OyKdIYOvTwYy6WP86jDQo3GxMugRxBDb3MTrwNFovHZNDycZ8XN7GTYZwBr
-	6RNjHid4T0QOJjpfoqsGp2sRhHf+o5FqpGuQuiqFcVkWoBaaihxT2gWgtQtNDhHGJ5WxHjvku2/
-	G9+I200iUv5vDnP/jchNxTQpeb0il+B4MQdF0zkT9AKv8jxqAQL8xPLuzwtLK5e1TrkDXmdnyfW
-	5xxePAcJpUUl/b4iNLk5ew22a04+fwvaB8urqrYWSShRGznzSs1W3I9GcqQel4=
-X-Received: by 2002:a17:90b:3b46:b0:3a8:c0cd:57f3 with SMTP id 98e67ed59e1d1-3aceebc55e4mr7918127a91.18.1792465496890;
-        Mon, 19 Oct 2026 20:04:56 -0700 (PDT)
-Received: from localhost.localdomain (ip67.244-167-222.hkg.ten111.net. [222.167.244.67])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd05c9255sm9545638a91.2.2026.10.19.20.04.53
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 19 Oct 2026 20:04:56 -0700 (PDT)
-From: Guoshuai Yang <yangguoshuai@gmail.com>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Sabrina Dubroca <sd@queasysnail.net>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Guoshuai Yang <yangguoshuai@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] xfrm: esp: reset outer TCP GSO metadata on espintcp input
-Date: Tue, 20 Oct 2026 11:04:50 +0800
-Message-ID: <20261020030450.7170-1-yangguoshuai@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 830281F000C7;
+	Tue, 20 Oct 2026 03:08:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792465727;
+	bh=G2L/X3CIPKlN15SbNUbi09Xh+FGzqt4hwVimMbVxPrk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=SgRYcbXOV99QV1K2c08PY6KfiYO6O8tDb8m8CVf2L9Lw6/gq1BewkAZMlpP5V5zcQ
+	 5s2fN0EV9j8c/CJs0NNid+C3er1SAIvpif0atUSO7Fqfu/8z9454IhKpQ/6gS72Zh9
+	 X+XlS/4qn7izgTR/kfiEzrZhzWL/aLhQomr2kuIzjPYjmftx+Q5c7wsNq475TlV5tD
+	 g3RvlkS7mdAJc+byFK0RubOunsE0alQ2A5MA/E8T4rCd0nz/IyWYdTzJmm8ErQKVOu
+	 PSS5yUtEpIDfCwKBIOsVO1zk9+Lt4wxs/gTcEcKXnTC07+EJYrIW//b+iHgWQ/dYKo
+	 51ClWE4KcVRDw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id DF7434071E;
+	Tue, 20 Oct 2026 03:08:44 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Date: Tue, 20 Oct 2026 12:08:45 +0900
+Subject: [PATCH v4 2/9] xfs: add a flag to convert unwritten extents
+ without allocating blocks
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,121 +83,142 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261020-xfs-pnfs-batch-v4-2-9230fa2ca4a4@samsung.com>
+References: <20261020-xfs-pnfs-batch-v4-0-9230fa2ca4a4@samsung.com>
+In-Reply-To: <20261020-xfs-pnfs-batch-v4-0-9230fa2ca4a4@samsung.com>
+To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
+Cc: Christoph Hellwig <hch@lst.de>, "Darrick J. Wong" <djwong@kernel.org>, 
+ Dave Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>, 
+ Jeff Layton <jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>, 
+ Sergey Bashirov <sergeybashirov@gmail.com>, 
+ Andrey Albershteyn <aalbersh@kernel.org>, linux-nfs@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792465723; l=4281;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=LMdiz7cgREAvupMlKqMsckhym0R5xHQMlfoCvJZGlCU=;
+ b=uE/Q778ZlOAYYo2B0/PNLMhX5/oAOfSxbofWQIC7VXvCsaYPaMTFAdFwj1iJUNpAhgAuAYijQ
+ Qx4YUXjT6HUDgEQ+5v8dAA0N1rl+y0trrPfvUmcekRWbWDstcpNWVVK
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
+Content-Transfer-Encoding: 7bit
 
-When ESP packets are received over TCP (RFC 8229 espintcp), strparser
-slices individual length-prefixed ESP records from the outer TCP stream by
-cloning the incoming TCP skb(s) in __strp_recv().
+From: Daejun Park <daejun7.park@samsung.com>
 
-If the outer TCP skb was GRO-coalesced before reaching strparser, its
-skb_shinfo carries the outer TCP stream's GSO metadata (gso_size, gso_segs,
-and gso_type). When an ESP record spans two outer TCP segments, strparser
-chains the spillover clone onto skb_shinfo(head)->frag_list.
+xfs_bmapi_write() with XFS_BMAPI_CONVERT converts unwritten extents to
+written ones, and allocates blocks for any hole or delalloc extent it
+finds in the range. A caller that may only convert blocks that are
+already allocated has to look at the mapping first, and the mapping can
+change once the ILOCK is dropped.
 
-Subsequently in esp_input() and esp6_input(), skb_cow_data() unshares the
-head skb via pskb_expand_head() (preserving the outer TCP gso_size and
-gso_type in the new private skb_shinfo) and calls skb_copy() on each cloned
-frag_list member, which copies the outer TCP GSO fields via
-skb_copy_header() onto a linear frag_list child skb allocated from slab
-with head_frag == 0.
+Add XFS_BMAPI_CONVERT_ONLY. With it, xfs_bmapi_write() stops at a hole
+or a delalloc extent instead of allocating blocks and returns the
+mappings that it converted before it. If the range starts with a hole or
+a delalloc extent, it returns -ENOSR, as it does when a delalloc
+conversion maps nothing in the range. Nothing has been changed then, and
+the caller decides what to do with its transaction.
 
-After ESP decryption and header removal, the resulting single inner packet
-still has skb_is_gso(skb) == true with the stale outer TCP gso_size, while
-skb_headlen(head_skb) is now smaller than that gso_size due to stripping
-the outer framing and ESP header. When this packet passes through
-gro_cells_receive() (which flushes frag_list packets via GRO_NORMAL
-without resetting gso_size) and is forwarded, validate_xmit_skb() invokes
-tcp_gso_segment() -> skb_segment(). Because head_skb is shorter than the
-stale gso_size and SKB_GSO_DODGY is not set, skb_segment() attempts to map
-the slab-backed frag_list member as a scatter-gather page fragment and hits
-BUG_ON(!list_skb->head_frag):
+A flag of this name was removed by commit 26b91c728b2d ("xfs: make COW
+fork unwritten extent conversions more robust"). That one skipped the
+allocation and still mapped the hole; this one stops before it.
 
-  Internal error: Oops - undefined instruction: 0 [#1] SMP ARM
-  PC is at skb_segment+0x574/0xd20
-  LR is at skb_segment+0x884/0xd20
-  Call trace:
-   skb_segment from tcp_gso_segment
-   tcp_gso_segment from inet_gso_segment
-   inet_gso_segment from skb_mac_gso_segment
-   skb_mac_gso_segment from __skb_gso_segment
-   __skb_gso_segment from validate_xmit_skb
-   validate_xmit_skb from __dev_queue_xmit
-   __dev_queue_xmit from ip_finish_output2
-   ip_finish_output2 from ip_output
-   ip_output from ip_sublist_rcv_finish
-   ip_sublist_rcv_finish from ip_sublist_rcv
-   ip_list_rcv from __netif_receive_skb_list_core
-   __netif_receive_skb_list_core from __netif_receive_skb_list
-   __netif_receive_skb_list from gro_normal_list
-   gro_normal_list from gro_cell_poll
+"xfs: refuse a pNFS LAYOUTCOMMIT of a range without blocks" uses it,
+which is why this is marked for stable.
 
-Furthermore, if a decrypted inner packet with a frag_list later takes the
-ip_do_fragment() frag_list fast path, each detached frag_list member is
-transmitted as a standalone IP fragment and would still carry the stale
-outer TCP GSO state when reaching validate_xmit_skb(). And even when an
-ESP record does not have a frag_list, leaving the stale outer TCP gso_size
-on the decrypted inner skb prevents dev_gro_receive() from initializing
-gso_size to the inner packet's skb_gro_len().
-
-We cannot reset GSO state earlier in espintcp_rcv() / handle_esp() because
-the skb is still a clone sharing skb_shinfo with the outer TCP skb held by
-strparser. Instead, call skb_gso_reset() on both the head skb and each
-skb_walk_frags() member at skip_cow in esp_input() and esp6_input(), where
-the head skb and all frag_list members are guaranteed to be uncloned with
-private skb_shinfo.
-
-Fixes: e27cca96cd68 ("xfrm: add espintcp (RFC 8229)")
+Suggested-by: Christoph Hellwig <hch@lst.de>
+Link: https://lore.kernel.org/r/20261013120359.GB2944@lst.de
 Cc: stable@vger.kernel.org
-Signed-off-by: Guoshuai Yang <yangguoshuai@gmail.com>
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 ---
-v2:
-  - Also call skb_gso_reset() on each skb_walk_frags() member at skip_cow
-    in esp_input() and esp6_input() so detached frag_list members on the
-    ip_do_fragment() fast path do not retain stale outer TCP GSO state.
-  - Specify target tree 'net' in subject prefix.
-  - Link to v1: https://lore.kernel.org/netdev/20261018005218.53267-1-yangguoshuai@gmail.com/
- net/ipv4/esp4.c | 8 ++++++++
- net/ipv6/esp6.c | 8 ++++++++
- 2 files changed, 16 insertions(+)
+ fs/xfs/libxfs/xfs_bmap.c | 14 ++++++++++++--
+ fs/xfs/libxfs/xfs_bmap.h | 10 +++++++++-
+ 2 files changed, 21 insertions(+), 3 deletions(-)
 
-diff --git a/net/ipv4/esp4.c b/net/ipv4/esp4.c
-index e76db58..012b59f 100644
---- a/net/ipv4/esp4.c
-+++ b/net/ipv4/esp4.c
-@@ -900,6 +900,14 @@ static int esp_input(struct xfrm_state *x, struct sk_buff *skb)
- 	nfrags = err;
+diff --git a/fs/xfs/libxfs/xfs_bmap.c b/fs/xfs/libxfs/xfs_bmap.c
+index ca49bf4a50..95c0178b44 100644
+--- a/fs/xfs/libxfs/xfs_bmap.c
++++ b/fs/xfs/libxfs/xfs_bmap.c
+@@ -4130,6 +4130,8 @@ xfs_bmapi_finish(
+  * Returns a negative error code on failure, including -ENOSPC when it could not
+  * allocate any blocks and -ENOSR when it did allocate blocks to convert a
+  * delalloc range, but those blocks were before the passed in range.
++ * With XFS_BMAPI_CONVERT_ONLY, it stops at a hole or a delalloc extent instead
++ * of allocating blocks, and returns -ENOSR if it stops before mapping anything.
+  */
+ int
+ xfs_bmapi_write(
+@@ -4189,6 +4191,8 @@ xfs_bmapi_write(
+ 	 */
+ 	ASSERT((flags & (XFS_BMAPI_PREALLOC | XFS_BMAPI_ZERO)) !=
+ 			(XFS_BMAPI_PREALLOC | XFS_BMAPI_ZERO));
++	ASSERT(!(flags & XFS_BMAPI_CONVERT_ONLY) ||
++	       (flags & XFS_BMAPI_CONVERT));
  
- skip_cow:
-+	if (x->encap && x->encap->encap_type == TCP_ENCAP_ESPINTCP) {
-+		struct sk_buff *iter;
+ 	if (XFS_IS_CORRUPT(mp, !xfs_ifork_has_extents(ifp)) ||
+ 	    XFS_TEST_ERROR(mp, XFS_ERRTAG_BMAPIFORMAT)) {
+@@ -4237,6 +4241,9 @@ xfs_bmapi_write(
+ 		 * that we found, if any.
+ 		 */
+ 		if (need_alloc || wasdelay) {
++			if (flags & XFS_BMAPI_CONVERT_ONLY)
++				break;
 +
-+		skb_gso_reset(skb);
-+		skb_walk_frags(skb, iter)
-+			skb_gso_reset(iter);
-+	}
-+
- 	err = -ENOMEM;
- 	tmp = esp_alloc_tmp(aead, nfrags, seqhilen);
- 	if (!tmp)
-diff --git a/net/ipv6/esp6.c b/net/ipv6/esp6.c
-index b1c9b36..b08cc1c 100644
---- a/net/ipv6/esp6.c
-+++ b/net/ipv6/esp6.c
-@@ -943,6 +943,14 @@ static int esp6_input(struct xfrm_state *x, struct sk_buff *skb)
+ 			bma.eof = eof;
+ 			bma.conv = !!(flags & XFS_BMAPI_CONVERT);
+ 			bma.wasdel = wasdelay;
+@@ -4332,10 +4339,13 @@ xfs_bmapi_write(
+ 	 *
+ 	 * To avoid a successful return with *nmap set to 0, return the magic
+ 	 * -ENOSR error code for this particular case so that the caller can
+-	 * handle it.
++	 * handle it. The same goes for XFS_BMAPI_CONVERT_ONLY stopping at a
++	 * hole or a delalloc extent at the start of the range, in which case
++	 * nothing has been changed.
+ 	 */
+ 	if (!n) {
+-		ASSERT(bma.nallocs >= *nmap);
++		ASSERT(bma.nallocs >= *nmap ||
++		       (flags & XFS_BMAPI_CONVERT_ONLY));
+ 		return -ENOSR;
  	}
+ 	*nmap = n;
+diff --git a/fs/xfs/libxfs/xfs_bmap.h b/fs/xfs/libxfs/xfs_bmap.h
+index e9f5416e4c..fb7481e819 100644
+--- a/fs/xfs/libxfs/xfs_bmap.h
++++ b/fs/xfs/libxfs/xfs_bmap.h
+@@ -90,6 +90,13 @@ struct xfs_bmalloca {
+ /* Try to align allocations to the extent size hint */
+ #define XFS_BMAPI_EXTSZALIGN	(1u << 11)
  
- skip_cow:
-+	if (x->encap && x->encap->encap_type == TCP_ENCAP_ESPINTCP) {
-+		struct sk_buff *iter;
++/*
++ * Use with XFS_BMAPI_CONVERT to convert unwritten extents without allocating
++ * blocks. Stop at a hole or a delalloc extent: return the mappings found so
++ * far, or -ENOSR if there are none.
++ */
++#define XFS_BMAPI_CONVERT_ONLY	(1u << 12)
 +
-+		skb_gso_reset(skb);
-+		skb_walk_frags(skb, iter)
-+			skb_gso_reset(iter);
-+	}
-+
- 	ret = -ENOMEM;
- 	tmp = esp_alloc_tmp(aead, nfrags, seqhilen);
- 	if (!tmp)
+ #define XFS_BMAPI_FLAGS \
+ 	{ XFS_BMAPI_ENTIRE,	"ENTIRE" }, \
+ 	{ XFS_BMAPI_METADATA,	"METADATA" }, \
+@@ -102,7 +109,8 @@ struct xfs_bmalloca {
+ 	{ XFS_BMAPI_COWFORK,	"COWFORK" }, \
+ 	{ XFS_BMAPI_NODISCARD,	"NODISCARD" }, \
+ 	{ XFS_BMAPI_NORMAP,	"NORMAP" },\
+-	{ XFS_BMAPI_EXTSZALIGN,	"EXTSZALIGN" }
++	{ XFS_BMAPI_EXTSZALIGN,	"EXTSZALIGN" }, \
++	{ XFS_BMAPI_CONVERT_ONLY,	"CONVERT_ONLY" }
+ 
+ 
+ static inline int xfs_bmapi_aflag(int w)
+
 -- 
-2.54.0 (Apple Git-157)
+2.43.0
+
 
