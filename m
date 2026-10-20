@@ -1,97 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792527622;
-	b=oZzGgwpSH0U3rYanEC6i9/Ifhr5F9GtSanxS9fM0hNDGRmrEKaja4kcSz6sSpV9JdoEe
-	 R3GmoV0VU4Andqm5ZBHldid2FYAkKUEQm0+Ble9+OPBOuTGZWfWCqozCtAJb7gOKpQ4j9
-	 RRz7bUtczwvFb48RfHskAY0wg3XOAfLWNHW4/RB0uw8Dsd7QU2Yx2juV+fVmaXlsUJfmP
-	 pxSHD8e9UEqO8d3ge4oWCm/osVwg+rBUsrQz1BoBtzJ+H9ag6ylHypA/XqZClGXNxXbjA
-	 anLT9WerhgKzeIkF8hYIJRyASv5D3BVBOzlG9qtkgnbsRuU8pHZyKFX26ShdO2E/5Uw==
+	t=1792527786;
+	b=eBAQCUSCu6SESXXPGz1ApM2P7eJPQnL3bBBMw3CLdL04pbhK0SJTgWe1UUOJrbmw76M2
+	 sH+SDJt4X/Bcf5PAUT1phNcWzDpuUKY6d43ufcMCbxxaIdwaTsbWj0CGi051OMMmjNZRk
+	 rH8z2ngw+46po3kw1dw18He66CcJaPJtw9an2vjR7RsRvCAekg+4ftuMDdsCUTOKDkk8M
+	 YdoZWkAOGEA0jzp+WKJ/qdS5TazVH8HAqUm0UAcSjmzZjFiTEQJ/k9Zw1aQVjNYoCc8I+
+	 c3HC8M8mSZo1YkGAuCdGejPLlKlxscsbAGqBUUPjo6AhDel6tG1Aejp702Z3QEKbYkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792527622;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=EPIXAJZkQDCcHbLvbKTfW5OnsdsgE9PbSQDDg/rz3K0=;
-	b=5ErI8mYjZ6PcpCoVZiOK2hwohRNJv250eXTKJOtwVzePOPAfmvpCZ5xchPEIHKoVHsUu
-	 sb9lr+ILA2hgxN3P4rdmMxFFkA+1MFBP0CHnr79vSTA290RJWZmkR5tMuUgPTG8mzAxum
-	 32FmncfQ5K6CPFwjk3tmaaIYrGfJ3U58K2JJzKuz7cXwklx3H9b3Kuol4t22+RWC+kQ6N
-	 KcXPYuhL/Os9H4zSn7mKyuX3pZhU5gFvrXWFt3E+igKRlfIdNNdQWd7QMH6uix56o8R5m
-	 rQtInQ7bBw69KOZyPp9xYDLkFNDVe9wnWL9cyJ04NQeqZzmLKgoXg5Afr+zngOw5j8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792527786;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:
+	 References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=n5elWTo4Gr/AcWLbIXuiNBGXz1a8BX2Xbm0Ac3PsmY0=;
+	b=SfL78w6yJa7oqG88lHNbeNRLYPIwo7k3NzwNoTjft6LwaQbDG5fM6zCPNaPc7DT54CA1
+	 UqupQVOJ/cgzG4fH/CdVFDWLerymxldlqSr6npY8jAQctpNxXyYimtdetYg5ut2lTi5qv
+	 kKFjzXC5HhbgbaxCQMgwXvaobKqPCVda1K6WoLjLBpFAFyY82iZa9q8KwR42rEF0ImHyN
+	 +LKZp+f+fMPqh8T//r+bLWqJZL66KoSUD0HokiBywcky+4dDEX9gLskXErqbsJKsb79rI
+	 o2rXZt0ACifWqHSKsWl1fLY680XiI+sIe3BaOv2vLCgYkVRruP/7rFGrx80GP1TKGgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=bOuwAPAt;
-	arc=none smtp.remote-ip=209.85.160.175
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b="Cr2/0DOi";
+	arc=none smtp.remote-ip=199.89.1.14
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55ECF606A319
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 20:20:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55ECF606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF86606A319;
+	Tue, 20 Oct 2026 20:23:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFF86606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=bOuwAPAt
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-53394bffe0fso10809861cf.1
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 13:20:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792527620; x=1793132420; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EPIXAJZkQDCcHbLvbKTfW5OnsdsgE9PbSQDDg/rz3K0=;
-        b=bOuwAPAtKcczF949cnW6uJfDZ/2l/cCmLn+ov2hnEvuK9ipVEuATvir0+R/tI61RoB
-         soOQIQDSpc3SvMKXxS/62liN3mKS5xrLoX+NQXjFs9mJhAUUiEyRtHMoWFNLbtO2yAif
-         w6RHxusWHz//MD+hoAClMBf+j1tog7m3yLj7ovK1LrQUyrJj7BmY6AVPyqvxVunjQWOJ
-         b7hztBmvXapUs26J3IJ4uwI9xOQALKLEgGzQCHa/FxZZjs/TBQrdMWJmEXx5z97AxC4b
-         EvR3hnWVutU1HEBTIyUaUPKVr7sjKRa1Zlwr9/ch5CIhG7QFeHShwPbNoAorRWtF630E
-         gdfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792527620; x=1793132420;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EPIXAJZkQDCcHbLvbKTfW5OnsdsgE9PbSQDDg/rz3K0=;
-        b=AEL6PodRL6cYP2GYiCFUiTaTXptEFtdfJ8G5AG8VfMbsqeESMkPUCVMN/xxbu9KXAn
-         Inz80PrKrgIeAviP6P5W3M9BVtZl6buYz+B7j8FAvueJTpoQLucAwfEaNOX2aCOB64VW
-         +kI5BepB6F/0yI7ykJoAbPvS0V/tv1V0PH2sRvfWdDU9RALE430P+Rb1fhEsT5xS3qa1
-         xwCCL/xShuf7BQ/fdwM+XmvyMhZNahcJYs7ebRI5UygKZOMDRfGmp2TVY/CzgQv5mooh
-         YHoqJ0j8DFwG/100SeHZLn8c96554J1EUaFujIX9NMR4AcDo8YqtV6QtsCWJ7Q+lwQ1f
-         TQCg==
-X-Forwarded-Encrypted: i=1; AKwUvBzHhhs/xnGdJTGlSMIs+gE4HXocl5X5nxnkP86BQTyq2Tj3DaZd+zO/ltqWxrJ00bNj/D9G0Xs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKmQf5Sauy3W64qqkSSKWD3QHR2HqAgTiQJXMFd+nWBpdi6WGaS
-	E/a8k6GJ5k2QpB0Xddpp6US26ryPfdd9sei4bZpfuQ53Q7kC6GZRRCP0nkn90/uq2KI=
-X-Gm-Gg: AYBFou07pLsLCHZXlCEgu6jv/PGESateg8AkhpqPg+sZo6JTff7QKMAiminqkNX12Ut
-	gi4DtoGHFoXVSqsm8rAwEC0E9zHr3ibIwXuBtE3p4CGOqoKsJQ4OPmsZLJSSMY/vIksECtlEjkb
-	bmjpDJKhlP2RXmOXXd4BKmhiYO0B1pCWyLl9YSBa15WvstoB7+Y0vJtrAl0kokxDKccwANavu0V
-	5fjHqwC8GdGxJa13fREJviQPC/RlSuuRWyvSu21kfGyuqbCHQZCH651KU4qxnnDtedws48C1tzB
-	ZjvtNHOQ5zNp0zc5H8GLAnJiyK6Qme3p20ucqmBcGXOv2B4nfMCprMyZTA1bb1uiIc5wLCnMc5O
-	3R/Ro0975QEwMI/A5rsUKTSgGJMPIZvcwczxfUJlXC4wfKcd5Tarm4kovcm4AcIahW7JVsC0JOg
-	h1TklAo2UehFMWvshIgDKermJH5CZTQWok+y2GskT7p4CPM9dD8PaezTvJfN83Xxbwj7KlvzJvS
-	ZgKXOgwNqKwYmBze1y4+bUS3xrB6rZMnVPHwZH2RFvqqhNMs2QeXA26ASHMKQeEtA==
-X-Received: by 2002:a05:620a:44c1:b0:93e:c173:f690 with SMTP id af79cd13be357-93f57fa664amr59174285a.36.1792527620137;
-        Tue, 20 Oct 2026 13:20:20 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56e30610sm68153885a.43.2026.10.20.13.20.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 13:20:19 -0700 (PDT)
-Date: Tue, 20 Oct 2026 16:20:17 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, liam@infradead.org, 
-	rppt@kernel.org, surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev, 
-	hannes@cmpxchg.org, ziy@nvidia.com, mgorman@techsingularity.net, 
-	jiang.liu@huawei.com, Bessel.Wang@huawei.com, stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/5] mm/page_alloc: validate zonelist slots against
- concurrent rebuilds
-Message-ID: <atfLxfuFm-c8pKnP@gourry-fedora-PF4VCD3F>
-References: <20261019172346.3344005-1-gourry@gourry.net>
- <20261019172346.3344005-3-gourry@gourry.net>
- <45ef34c7-eea5-4813-b54f-3e34675697b5@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=Cr2/0DOi
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4j8P493Hllz1XM4Tn;
+	Tue, 20 Oct 2026 20:23:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:content-language:references:from:from:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1792527781; x=1795119782; bh=n5elWTo4Gr/AcWLbIXuiNBGX
+	z1a8BX2Xbm0Ac3PsmY0=; b=Cr2/0DOicVJ/BYpViOxIU2LO8ew6AILP2+Evy+71
+	+GEYbayeHOBwJJCUdVlQc/X+JHgBlQOXIxmkpJpCnvr8j6MxCBnc3zQCDuOjxfvX
+	zwo9PaqYVK694DasVGetBuArMZ8q6LPGMbVQ4wMuthaSO5cifKt1+Rl4CHUsa3eM
+	xdzaujo2o1bmiYe4ru04z9WujfjKuJ07ENaPWC3hZdDcnbPUJnv0zeh22IgslFex
+	lT4nrPC+1xMQargEymrfd61kefUU4VL9GKvSKGkI3rZv7tHrmjgjye6ZRRldfhwj
+	xbsnVcvbwduyMyWW74eSim1dA5KEJJMaLXUmh0l3G3yXMg==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id 1KcBPbR2dg_8; Tue, 20 Oct 2026 20:23:01 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4j8P4405Hpz1XM4Tl;
+	Tue, 20 Oct 2026 20:22:59 +0000 (UTC)
+Message-ID: <12223e71-cf78-41ac-bddd-f7efabc5aed1@acm.org>
+Date: Tue, 20 Oct 2026 13:22:59 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,43 +70,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <45ef34c7-eea5-4813-b54f-3e34675697b5@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/4] scsi: ufs: core: Factor hba->outstanding_reqs
+ helper and fix double completion
+From: Bart Van Assche <bvanassche@acm.org>
+To: Peter Wang <peter.wang@mediatek.com>, Bean Huo <beanhuo@iokpp.de>,
+ Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen" <mkp@kernel.org>,
+ linux-scsi@vger.kernel.org
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Bean Huo <beanhuo@micron.com>,
+ Can Guo <can.guo@oss.qualcomm.com>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261017084403.875420-1-stanleyjhu@google.com>
+ <2e042211ca0ebc974ad5ec4c0de9f3f93b3c75c0.camel@iokpp.de>
+ <2060a8da-581b-46d1-a510-779f4df716cd@acm.org>
+ <78888420b7c60d2d5177cbf76f5efba04fab5d7b.camel@mediatek.com>
+ <c2de51a1-cfbd-4f96-ab02-f6d55c563ec7@acm.org>
+Content-Language: en-US
+In-Reply-To: <c2de51a1-cfbd-4f96-ab02-f6d55c563ec7@acm.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 20, 2026 at 05:22:11PM +0200, Vlastimil Babka (SUSE) wrote:
-> On 10/19/26 19:23, Gregory Price (Meta) wrote:
-> > Onlining the first block of a zone rebuilds every zonelist in place,
-> > shifting the slots after the new zone. An in-flight walk can use a
-> > zone it previously filtered. e.g.:
-> >   - a GFP_KERNEL request can land in ZONE_MOVABLE,
-> >   - a node not in the nodemask can have its zones selected.
-> > 
-> > With kprobes holding the walk across the online, I was able to get this
-> > zone/node misplacement to happen consistently across hotplug events.
-> > 
-> > The iterator approves a slot by its zone index and node, and the
-> > allocator then loads the zone pointer from the slot again:
-> > 
-> >   CPU 0                             CPU 1
-> >   first_zones_zonelist(nodemask {1})
-> >     slot 0 (NORMAL1) approved
-> >                                     online_pages()
-> >                                       build_all_zonelists()
-> >                                         [NORMAL1, NORMAL2, ...]
-> >                                         -> [MOVABLE1, NORMAL1, ...]
-> >   get_page_from_freelist()
-> >     zone = zonelist_zone(slot 0)    /* MOVABLE1 */
-> 
-> Since the zonelist_zone_valid() checks you're adding happen before the
-> "zone = zonelist_zone(slot 0)" part, I don't understand how they can be
-> helping here. Aren't we just reapproving slot 0 when CPU 1 can mess it up
-> between that reapproval and load? Am I missing something?
->
+On 10/20/26 9:46 AM, Bart Van Assche wrote:
+> On 10/19/26 8:16 PM, Peter Wang wrote:
+>> So, should we remove the call to __ufshcd_transfer_req_compl from
+>> ufshcd_abort, which was added by commit=E2=80=AF
+>> 64180742605f (=E2=80=9Cscsi: ufs: Fix the SCSI abort handler=E2=80=9D)=
+?
+ >
+> Removing the __ufshcd_transfer_req_compl() call from ufshcd_abort()
+> sounds good to me.
+(replying to my above email)
 
-Heh, see patch 3.
+Please ignore what I wrote - the __ufshcd_transfer_req_compl() call
+should be retained in ufshcd_abort().
 
-patch 2 and 3 should probably be re-ordered, or maybe just squashed
-together?
-
-~Gregory
+Bart.
