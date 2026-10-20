@@ -1,53 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792523850;
-	b=v6pPWxEa4QQ4mIPVQwBvRp4r15PuhLbsQXz2xBWi8KOyKsqA02cNh8b0JBphutXuN7je
-	 KdOhn+k5CZJ0Ti4edRI03yqoDXl9NNXP277nhQ9bXobFviFUecUoc9lm29b+wF6JDI1nI
-	 H6SVPMdu3S1s1Akon9l3z5NXBtp/PIuxmvPatVVCuL0+WACYwAE7GLUo1TSXFL/KHOfcF
-	 ZlXQzbmFCteUVh0vFfTX99agvP6pV0DPoc3TZ+NuFDRRRTDYo4L+J6YOneKKvNIS7lWOl
-	 q50RCF/6V6tQE0654wTUPphU+DZmb+n89HaA3xCCICASYxmAnynqf9vgLqeRf4vxchg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792523850;
-	h=Received:DKIM-Signature:Date:From:To:Subject:Message-Id:In-Reply-To:
-	 References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ff3sLRxeUDMugyE2S/4/TFkGvIfGSSqcHfHI+ezBKqU=;
-	b=R7Y7jLzhJy1hUgF/Wn3FTPZG268qjgItGUVNeU2QAakOY2X1iRckgG5LSYUBIv8vbVzJ
-	 EtEQFxdQsAvJ2NWBugWEqdP96l0XbN2aFxjLlkX0GraiE7v4xZOrR5xqlXGxx2wLTjXsy
-	 SFe7kOo8IoNz3fYGsjaaf4jwpeeEO9nTyzmtbIJymvCB9YpMHcufTx7OqO0AG7Xef13fN
-	 hMQrkPvp5FPz0UeY4y6hk0GKi49jTtsRx3u/xUu9YvUZW6niCYl0+944eZHNmRoglWSP1
-	 6i2rVpPkWETW1HKtkWkJstoksPnsK8My/gEr1EK8WoDe+3VhRUtIG0raIJE65nq28wA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=xv4ST6Na;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792523911;
+	b=cEWHFR6O8X7ufDFOe/Jux7TXA9FFWQJcEXSpfVN88Gg0gieQbHAtBMKbvF2oLEFbwcmV
+	 x6KU6Q5Tg255LfUIXsQ/92w0uFBRKELDUtv6tZKbABfZD51vil9qb+7j0ABCIUEdgFAAU
+	 DkZhD63jUAPh3rULxaZFdi0mT7etYVBTCF0zsEOpzRFAISkVVlz57c4FjFGbxOHFjLBCJ
+	 LkQ/pIh257/0JGgBuP1TsRjZqnPDuJJoQ/ILg+BMQ8BPcrtpY6ay6jxFVGg2w66sA0mBm
+	 u1ebOUyG2kKoiKq0aTd/P/3k2NGdTkhuLkCWtlRMBgezp2iNrcB2K2QOwfiLX7XQuAQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792523911;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=uP+Xmd9fBdjVfeg0RV451Ru7HMLulpVu6IyYqGTomKw=;
+	b=3nDsOPhk7qL5QqL04DDMnCz1DMEgp3g3prEw85h1vvLJV678lkv3nZv6zLLUNXuzaSvn
+	 ACvnmHtw/UbOezC59v1P8kIpsJ3153dpew1H3ZNt9d94SeKNYAsJW8EBYgFS0+AVccnvs
+	 viEQc+F8PcJRaNUo7vyYVI1K8UwxVfDdKsL+PX0LpjK69mMbhbwEwLoxZwvxj6k61aLzS
+	 1lEKtDYpvTuGaCUpA2L4uWabt+PWZEZALcYMzmFps7UWZvYYJZpgX+Bjus2UTkzEi1NVK
+	 BokvhR9Z3W/x3W6mheaJM8UxvKIAhkdASpPiee0jRQ6MZSWCuWMKRqpYgb3r4VOn97g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bL08k4dd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 495DE606A31A;
-	Tue, 20 Oct 2026 19:17:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE25F606A319;
+	Tue, 20 Oct 2026 19:18:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=xv4ST6Na
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 997771F000C9;
-	Tue, 20 Oct 2026 19:17:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792523850;
-	bh=ff3sLRxeUDMugyE2S/4/TFkGvIfGSSqcHfHI+ezBKqU=;
-	h=Date:From:To:Subject:In-Reply-To:References;
-	b=xv4ST6Nag88oAYWpyv551AfI9zpUzNZnCzAOte4Fkk0QN5SR5UiGfBs7y3poGsY8x
-	 50jXMk07bN5t6PwTsisiPC8i1e6w9OB5APuv4+cElGui3enOywnmjiNnwDZSsMELqd
-	 64dYGIszYbjodDfFuyo+OVUC+sexvxnBkeP93Bs4=
-Date: Tue, 20 Oct 2026 12:17:29 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: viro@zeniv.linux.org.uk, tz2294@columbia.edu, stable@vger.kernel.org,
- l1za0.sec@gmail.com, kbusch@kernel.org, hch@lst.de, hare@kernel.org,
- 4ncienth@gmail.com, linux-block@vger.kernel.org, axboe@kernel.dk
-Subject: Re: [patch 1/1] iov_iter: validate extracted segment for bvec
- alignment
-Message-Id: <20261020121729.20f67583f23babed12f998ee@linux-foundation.org>
-In-Reply-To: <20261020184333.19AAA1F01573@smtp.kernel.org>
-References: <20261020184333.19AAA1F01573@smtp.kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bL08k4dd
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792523910;
+	b=EgeByC5CddRqJV4LV8r6nqCkcT2ArK2BBtTM4ngFOTdrL30HkO1dngEPJWe9RFIc1l7d
+	 owIe4cZ5afzKWk2NntwBdRachyyT9MtS9eMIBH3QAzyeH3NxmzRKxNGqp7aN7QZj88JwE
+	 TCfoReJLffNggBxXACA6IlleuYoPDUhnOxhJOAZOcQwB/AJ5WqZyFeNUxuXv62/P8/EjC
+	 7KfAAkd63BgZq3/8eTd7+3SnSO5Os7B1Q1rOQTqyVlZnfrfs3sZKVAocm4j2qgdVYWJF1
+	 vGXeAAXu1Fvj3nEOK4R7DvE33fVqDvBGQm8GjvjDPmvh6rt0e7Pc0CweV0uRol8Rpmw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792523910;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=uP+Xmd9fBdjVfeg0RV451Ru7HMLulpVu6IyYqGTomKw=;
+	b=GXLAu4dPvadE/lXh4ljBRAP/fdL1etpfSWjGk/VbwDsjNRlTUOSPGp5xpL3DHE6/jzk8
+	 9vJ0oMOE/RkqAkthvKECjVQPrYvPPHz2c0QfjP9xRURZVGdSX7ESAwSuMyNGUFWt9YXQ2
+	 OCw7o1F1cZDw69nFWZijjFYQe0iWcTW7z/SDWE39kbLuBKOL7BptvV+sucLgynOplvylL
+	 Ah/2GDyD72WTze8huZnwz2nRScGme8XA3PUvpcCOyv2JALeipK4TvZCagLwYBYr19PM8m
+	 Kz7/YZsp7Ys3Szj+sm382IOGbXOocgMtTqnoHzJ+wZfBroU2m0uu/tosdpUZGXR6goQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 0AD891F000C9;
+	Tue, 20 Oct 2026 19:18:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792523910;
+	bh=uP+Xmd9fBdjVfeg0RV451Ru7HMLulpVu6IyYqGTomKw=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=bL08k4ddy2AN02eB1oQTTxVwhOIal2GdrS/X6YMhy/hW71jxausI7fEPivSFw9j+X
+	 rO+tKTrzUSHGAi9Vptu+XempFIKfG3v+iYxHfsNczmLpBZ1UiBMD6VTTbIabXwDQbY
+	 ja6xMbm8IeyMcn/9xnokU/EAgZsTYqXjZX4CABCGAV7YlDxz9kH8TNzvqidO7KGMka
+	 p5ze77436xtHE4GT24+lC1yHtgVDVD+Uv4yQpF2tHXNLiPvAodPOFd5VTd93hOHIRM
+	 SwCeAtEQqGc6P1NWtmuz3n3PqAN8gAleJC+lMlt/+BmM2yoobJQwDnIaOn9ziI3Ff4
+	 4sSZqrMGafepQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 90E384322E;
+	Tue, 20 Oct 2026 19:18:29 +0000 (UTC)
+From: Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org>
+Date: Tue, 20 Oct 2026 21:18:26 +0200
+Subject: [PATCH] thermal/drivers/tegra/soctherm: Program throttrip with hot
+ trip temperature
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,53 +82,90 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261020-upstream-soctherm-throttrip-v1-1-c67f8a02ec3b@tsv-stahl-riesa.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQrCMAwA0F8ZORvoCnbMXxEPXRdthK0lyUQY+
+ 3erHt/l7aAkTAqXbgehFyuXtaE/dZByXB+EPDeDdz70zjvcqppQXFBLskyyoGUpZsIV4xzGcB6
+ HYQoJ2lCF7vz+7dfb37pNT0r2LeE4PrY5N+l/AAAA
+X-Change-ID: 20261020-upstream-soctherm-throttrip-ad6965977b6c
+To: "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>
+Cc: Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
+ linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Svyatoslav Ryhel <clamor95@gmail.com>, 
+ stable@vger.kernel.org, Patrick Fischer <admin@tsv-stahl-riesa.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792523909; l=2148;
+ i=admin@tsv-stahl-riesa.de; s=20261020; h=from:subject:message-id;
+ bh=RYgQxo1Q07jpqk6tE6wjPPC841A4mk8ZdJMQnRXuUBo=;
+ b=m+kV5YsJ2VgwipWiC2LRknxKcOCe0vnTOfvlAi1qcANkDyhbRNLWXXlz744RW9VoCNU36PzzD
+ ZHRsW+KATFUCWJrcFeXl20/r2ZpMQFT8NFRZNIe0bow92jA3+f4MJNT
+X-Developer-Key: i=admin@tsv-stahl-riesa.de; a=ed25519;
+ pk=D+v6EloYcEY9PIUHFyTM5sqcGIU/fIXzLUdkR8vjAtk=
+X-Endpoint-Received: by B4 Relay for admin@tsv-stahl-riesa.de/20261020 with
+ auth_id=1251
+X-Original-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+Reply-To: admin@tsv-stahl-riesa.de
 Content-Transfer-Encoding: 7bit
 
-On Tue, 20 Oct 2026 11:43:32 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
+From: Patrick Fischer <admin@tsv-stahl-riesa.de>
 
-> From: Daehyeon Ko <4ncienth@gmail.com>
-> Subject: iov_iter: validate extracted segment for bvec alignment
-> Date: Thu, 15 Oct 2026 15:19:07 +0900
-> 
-> iov_iter_extract_bvecs() validates iter_iov_addr() and iter_iov_len()
-> before iov_iter_extract_pages() selects the first nonempty segment and
-> limits it by iter->count.  The checks can therefore cover a different
-> range after a leading empty segment or iov_iter_truncate().
-> 
-> An unprivileged O_DIRECT preadv() reproduced the empty-segment case: an
-> aligned empty segment followed by a misaligned one completed 4096 bytes
-> instead of returning -EINVAL.  A truncated iterator has the same mismatch
-> when its full segment length is aligned but its remaining count is not.
-> 
-> The worst effect I have confirmed is an alignment-contract bypass.  An
-> unprivileged O_DIRECT preadv() produced bvecs with offset/length pairs
-> (1, 4095) and (0, 1).  The bio reached brd_submit_bio(), and the read
-> completed 4096 bytes instead of failing with -EINVAL.
-> 
-> I have not demonstrated harmful behavior on real DMA hardware.  For a
-> normal blk-mq target, blk_mq_submit_bio() calls
-> __bio_split_to_limits(), where bio_split_io_at() rejects the misaligned
-> bvec before queue_rq().  Virtio-blk and loop both returned -EINVAL in
-> my controls.
-> 
-> So a bio-based driver can receive a bvec which violates its advertised
-> dma_alignment, but any further effect is driver-specific.  I have not
-> reproduced memory corruption or a crash on real hardware.
-> 
-> Bound the normal fast-path length by iter->count.  Keep
-> first_iovec_segment() for leading empty segments so validation covers the
-> remaining portion of the segment available for extraction.
+tegra_soctherm_set_hwtrips() is supposed to program the hardware
+throttle trip (throttrip) with the temperature of the thermal zone's
+hot trip point. Since commit 735a968d2fea ("thermal/drivers/tegra: Use
+generic thermal_zone_get_trip() function"), get_hot_temp() only looks
+up the hot trip and no longer stores its temperature, and the later
+conversion to get_hot_trip() kept that behaviour. throttrip_program()
+is therefore called with the value still left in 'temperature', which
+is the thermtrip or critical temperature that was just used for
+thermtrip_program().
 
-I guess I should have added
+As a result, hardware throttling only starts at the shutdown
+temperature instead of at the hot trip. On the NVIDIA Tegra Note 7
+(P1640, Tegra114), where tegra114.dtsi defines the hot trips at 100 C
+and the critical trips at 102 C, soctherm reports:
 
-Tested-by: Andrew Morton <akpm@linux-foundation.org>	#writev() only
+  throttrip: will throttle when cpu reaches 102000 mC
 
+instead of 100000 mC. Svyatoslav Ryhel observed the same on the ASUS
+Transformer Pad TF701T (Tegra114) and the Xiaomi Mi Pad (Tegra124).
+All boards using soctherm with a hot trip bound to a throttle cooling
+device are affected.
 
-I tested this against the ext4 writev() KASAN reproducer.  The
-unpatched kernel triggered a slab out-of-bounds read and returned 1015
-bytes.  With the patch applied, writev() returned the expected 1025
-bytes without a KASAN report.  But I didn't test the preadv() path.
+Use the temperature of the hot trip for throttrip_program() again.
+
+Fixes: 735a968d2fea ("thermal/drivers/tegra: Use generic thermal_zone_get_trip() function")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Tested-by: Svyatoslav Ryhel <clamor95@gmail.com>
+Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
+---
+ drivers/thermal/tegra/soctherm.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/thermal/tegra/soctherm.c b/drivers/thermal/tegra/soctherm.c
+index f74acf13b24d..903215502606 100644
+--- a/drivers/thermal/tegra/soctherm.c
++++ b/drivers/thermal/tegra/soctherm.c
+@@ -765,6 +765,8 @@ static int tegra_soctherm_set_hwtrips(struct device *dev,
+ 		return 0;
+ 	}
+ 
++	temperature = hot_trip->temperature;
++
+ 	for (i = 0; i < THROTTLE_OC1; i++) {
+ 		struct thermal_cooling_device *cdev;
+ 
+
+---
+base-commit: f47d223627f80cb7a1eb14c585fe6cb35de5e984
+change-id: 20261020-upstream-soctherm-throttrip-ad6965977b6c
+
+Best regards,
+--  
+Patrick Fischer <admin@tsv-stahl-riesa.de>
 
 
