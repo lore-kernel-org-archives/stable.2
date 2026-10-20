@@ -1,79 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792485663;
-	b=hdXGwhXP9zlfp5i6mzmY/d1du6K19aN5KT7VOMSW4m51dt3ngEOoYGTQvbuz55Pg+qMc
-	 G9RHsug7DmWDxy4/cR+aDcY4dEBf+hZoHCWcOfhFXOXBjsXMSk7XUsiRXUi9FTmdxF51k
-	 Y17XTWJzlxS0trW2XuZujIOhB8ABd1kZHLpmbggT1wdYzsxJi3vSOTH/pzUW13esr51A1
-	 /7YQqs8paA4gKNeJr2Z5cYnph1Lc+VqL/Tksx37M+R1HZEQZz/jc50m6wGptGbMu4kGv+
-	 MmhaxNxFT9UE/WNgdTOYwbw7uxSSu8s0E+BkLDLo2Gm0L2g0w/cyfKYvAOODFLmZcug==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485663;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=pffISxaztRWKYcckfYU/SHcbK5rMl4mTn1LIc62eib4=;
-	b=lts3gNfp2qzmtUMGAk4XYx3gJjYpraJnlxu1YCpz9WFqfuXhBJdhqox9Y1EDAzA6VHrL
-	 I0IiLICwdlURc7y22u2biEppA4KHVNfs8PuGgNglegvHDT6sLGPC4YcaORn82K/nfxqtI
-	 x+vy0uGfyii4+iFh+9YDiShWxTqFPZjytl7vpQrOa39Gp4YJG05vY+ZqHkBQmLaAjkeFG
-	 RNgGMS76H+43D2K2jGTVqYTHY9FvykkMLUM9fFVSDHg3it5E1P8pDvU217+P5P/mQhuDR
-	 pKGjVepFj+44jypF28+ZaARsHgMQWa7Qz2/QHEmODjuT9uGYUq4XYKHV2xWphEbckag==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=amjw9E6n;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82EEE606A31B
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:41:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=amjw9E6n
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792485663;
-	b=lATvxu5zRBPW5YGwz3mY5aSlpW496rRmlY0Qq20HpBwoTjHDQ0aNzcctmxTGmReLUjht
-	 OitHKgSk9ZPkhYTVvzCBq6vdmH8tUTXhTXPEZJ0obvVUikTT0LpIwCbKE1XVkVJ7vvd+q
-	 gN7ZT60F8owIS0XBCm3CEg+etwWw2To5DIo6eBtv3bDtKffPCGTuuYAKzZDCQ5ijBB3K5
-	 Bq7o0o6UW1tZSil5OsX0BRbnlC/is2EtWpEl393oYObrCl6sHhau0C0jLrFbWp03nr7O9
-	 Ep7Fnc66FrcRjc3kEOLk1HA6Wfv1/j+yG7cfhJPHZaExrddIapopXgK04xzjZeEGdNw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792485663;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=pffISxaztRWKYcckfYU/SHcbK5rMl4mTn1LIc62eib4=;
-	b=VTuS6D52uWpNN7oliJGp1p+BM8pfdgCtznJtzVnLJ0EU5PFARni7N7DFxYc2UBD4UkJv
-	 2q2NGUPf4QFflrItgiaTGmy6tWEEZu7IP3KF/41AixY2IenXnnJcnwkz0R/5mbLMjn0Zm
-	 p2dUBk3WqfG6roveAEV4JzuT6y7zojgRDITS2mRUk0QqBaw3koxq7q/sIBGiD6+/WULlH
-	 iVZdjJqx697S85GB5vqdWYFftUMD8dtqfFwP9sh8zugQ+9K4T6/efKKSTSwp58f9DGUpz
-	 j2DtFX6Qjz2FIY57LLbE3AxRsW+3hv8xmEjYOSn78UhQH5Es/Dyc6C21gVKXR1hJgFg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.147
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792486032;
+	b=TCxuNCBRzM7Gh9i1CzugzHZpTTAAovvzH0qHzpZBAUHXEmyqrmibfMzV/9rH4w0CpIDm
+	 WtyRdwPx1EioU7d6RM0mCpxhMHf5eix/IPF/eEKs7eDQbEwPsJaWLzC5+ll0BDmz5gqT2
+	 9C3aHjR4iXtIMesM2+GtPW59lJ1DR7868N4o7GhWQ+AqfPn9Tvz/j6Q1oOb3il3b1M+xi
+	 CpjNLl99QDfNDT11DnlCDwK106kchMsJa815M4+c613HxNSpc2B4/84IIYc/mpQl2cr6B
+	 jdjEMD171gdM53WKBoTUSCaFLSTOo4gE/joz+0LtstePQ3DQEF5zqb0RRrZ3xnDAfJA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792486032;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=54htZqDx8IcPvoQ5GW/HM2qiVh5OPSFZJzSyn6By+zs=;
+	b=Csi9lWRKJ6zoy/aispupxPpegKPetWBOgnzkIoAfu70fL1G1e+eDRbpxErpF4a/4pvnQ
+	 lBoibmGnA9Gf0vQf1IwM2kxDQIBcDj5cwE9dja33KCmE3/sMbBnJ2qzxkttKFVSRNLPFW
+	 a6AJaJBHSNp0HxG0FyQfSBIwcZBMfyC87PxnT8WUrwVVBx84Z7xUJjwLioHtAHZe3Ie2u
+	 Mcvgiu8rU9hVfeH8x2oar47/Flp//xpxfCnFa/j4T2/aFRWOr4iE6RSiL2nCVj4DIuG0N
+	 seEExK/srob5BbkLz1h/4QKAnciw6uvkw72K19q1XD7hLmhozuDQ/it1JSN50AWZsjg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=F0ZLLANj;
+	arc=none smtp.remote-ip=95.215.58.147
+Received: from mta1.migadu.com (out-147.mta1.migadu.com [95.215.58.147])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A12CC1F000C5;
-	Tue, 20 Oct 2026 08:41:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792485663;
-	bh=pffISxaztRWKYcckfYU/SHcbK5rMl4mTn1LIc62eib4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=amjw9E6nYdyLVAXKCnnxnRvzxRirinV44nZdfj31XQcTbuvGcnxZR7iB/EiE1Sd+M
-	 ZxmZnyYHOx6qL3MrVvb9hIDDv1lhqfuQCB6IDLiiRiMSw/9wYyl7P6kkoowebQN4dj
-	 jbNq8PbaxPE22TrOKTIXEqWjk6O62WpEt2Ha/S2czV1igoaCovIdBCAf+QM3zwBlpb
-	 dCkvdA1R2ZjdCEHpQUpPFPJxvYELTsVqwfvZAzCv0m/kFxcbtYVzMZ/iebG2h3eFEf
-	 iJBYlj8pCM4HhpKZajy83DiBbT99dkHWyNkexvLC2zQfjlIcbLVhJ/0aZ0gTp2hKFm
-	 AiJoY/3o8XvHw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 05D8A40612;
-	Tue, 20 Oct 2026 08:41:02 +0000 (UTC)
-From: Brad Drury via B4 Relay <devnull+drury.brad.gmail.com@kernel.org>
-Date: Tue, 20 Oct 2026 16:40:59 +0800
-Subject: [PATCH] drm/amdgpu/gmc6: restore FB location and HDP non-surface
- programming
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28E2960A2601
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:47:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28E2960A2601
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=F0ZLLANj
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=xCCvVkqwA/gvOvrWt1gYYjIKWBs4Cqg/yh1DeergSOg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792486029; v=1; x=1793090829;
+ b=F0ZLLANjY9iV2f894FrY3RftmNVEagi5f688G6PpzyHhwgrvb/kkks/0tOr3s3dyY5ua7PRB
+ Z6CtLd8aLSsedz8fNapTFcjaZcxc33qFfbrhXpgKSx6TxxbbmBw/VSpqO6E20BkWceiH3RCEOdB
+ pDRvDcY8YKhg0ixYqt34RRHA=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b46a699f94547d5f;
+	Tue, 20 Oct 2026 08:47:09 +0000
+X-Mizu-Trace-ID: b46a699f94547d5f
+X-Migadu-Flow: FLOW_OUT
+From: Hongfu Li <hongfu.li@linux.dev>
+Date: Tue, 20 Oct 2026 16:46:30 +0800
+Subject: [PATCH] mm/hugetlb: charge hugetlb cgroup and memcg in
+ alloc_hugetlb_folio_reserve()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,129 +61,137 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261020-gmc6-writes-only-v3-v1-1-70730a302504@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMPQ6DMAxA4asgz7WUH8HAVVCHJBgwglDFQIsQd
- ydtx2947wShxCRQFyck2ll4iRn6UUAYXOwJuc0Go0yllVHYz6HCd+KVBJc4HbhbtFaX2rngfOc
- hl69EHX9+1+b5t2x+pLB+V3BdN2T+Y1l3AAAA
-X-Change-ID: 20261020-gmc6-writes-only-v3-33151aacabfb
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org, 
- Brad Drury <drury.brad@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792485661; l=4500;
- i=drury.brad@gmail.com; s=20261020; h=from:subject:message-id;
- bh=raIwOSTMc66p8OsMKySvOqV197RJo30SgKnIRMjJUaQ=;
- b=qlVrHHTaGlVubwyQsxPbVgSl3AaxIXEaz/lqwKoS7+P5x50WLXNJ14ZTm1bfd+0lrSqB2kgjn
- OIMTgBeU860A32iXHLG698uljaE/S7HWIQmJB7CfWs59s23lcMRNWAn
-X-Developer-Key: i=drury.brad@gmail.com; a=ed25519;
- pk=vbLeVFkpkhLWuDhWMxes9in024/YW681CJos0eosnVQ=
-X-Endpoint-Received: by B4 Relay for drury.brad@gmail.com/20261020 with
- auth_id=1247
-X-Original-From: Brad Drury <drury.brad@gmail.com>
-Reply-To: drury.brad@gmail.com
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261020-for-alloc_hugetlb-1020-v1-1-e6eac82dd754@kylinos.cn>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM4QpAMBSG4VvR+W11tkK5FUmzHRwt04aU3Lvh5
+ /PV914QKTBFqLMLAh0c2S8JMs/ATHoZSbBNBoWqlKhQDD4I7Zw33bSPtLlefDMiKWsrXZRWQjq
+ vgQY+v3DT/o57P5PZ3hrc9wNf+nEpegAAAA==
+X-Change-ID: 20261020-for-alloc_hugetlb-1020-00e2dd7a56d1
+To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Hildenbrand <david@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ Steve Sistare <steven.sistare@oracle.com>
+Cc: hongfu.li@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Hongfu Li <lihongfu@kylinos.cn>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792486026; l=3395;
+ i=lihongfu@kylinos.cn; s=20260915; h=from:subject:message-id;
+ bh=smxh7KjhK+88XH3fNI2hv0AD+wsJkhBDxzNm2aVgsW8=;
+ b=mtTAju+8iai/GzL9RcaM34UF7B+nDlXEw6LQEc+TwcOFbxGA0v4acni9RBgeuHdmIFG1iesKY
+ Vb0qrWq2EhaBF53Ewq4gnMFh5NcmbaO4S/c+DDATLwivzCytr3UuxNu
+X-Developer-Key: i=lihongfu@kylinos.cn; a=ed25519;
+ pk=rUpDSpB3neoNZRlGG6dHlFb3RepiJakcev+ucyqaZzw=
 
-From: Brad Drury <drury.brad@gmail.com>
+From: Hongfu Li <lihongfu@kylinos.cn>
 
-On a MacBookPro11,5 (Radeon R9 M370X, Verde, PCI 1002:6821), used as a
-headless PRIME offload GPU with the panel on i915, every S3 resume with
-amdgpu fails:
+alloc_hugetlb_folio_reserve() hands out a folio from the hugetlb pool and
+consumes a global reservation, but unlike the fault path it never charged
+the folio to the hugetlb cgroup or to the memcg.  Folios allocated for
+memfd_pin_folios() through memfd_alloc_folio() were therefore silently
+bypassing the accounting: they are never charged to the hugetlb cgroup
+usage counter (hugetlb.<size>.current) nor to the memcg (memory.current),
+so both limits (hugetlb.<size>.max, memory.max) are bypassed.
 
-  amdgpu 0000:01:00.0: [drm] ring gfx test failed (-110)
-  amdgpu 0000:01:00.0: resume of IP block <gfx_v6_0> failed -110
+Charge the folios to both the hugetlb cgroup and the memcg, just like
+hugetlb_alloc_folio() does.
 
-followed by SDMA timeouts and a failed GPU recovery.  The GPU stays
-unusable until reboot.  radeon resumes the same card fine.
+Test with a process that creates a hugetlb memfd and pins pages through
+UDMABUF_CREATE. The counters were read while the folio was still pinned:
 
-Instrumenting the resume path with a write/read-back VRAM probe through
-MM_INDEX/MM_DATA shows that VRAM is still intact after the driver
-re-POSTs the card and at the start of gmc_v6_0_hw_init(), but is corrupt
-at the end of it.  The gfx ring test failure is a consequence.
+Before this patch:
+$ echo $$ > /sys/fs/cgroup/test/cgroup.procs
+$ ./memfd-alloc-folio 1 &
+$ cat /sys/fs/cgroup/test/hugetlb.2MB.current
+0
+$ cat /sys/fs/cgroup/test/memory.current
+1351680
+$
 
-Commit 71086a3e8470 ("drm/amdgpu/gmc6: drop fb location programming")
-removed the MC_VM_FB_LOCATION and HDP_NONSURFACE_* writes from
-gmc_v6_0_mc_program(), on the grounds that the vbios sets these up.
-That holds after the system firmware POSTs the card at boot, but it does
-not appear to hold after S3, where the card is only re-POSTed via
-asic_init.  radeon's si_mc_program() still writes them on every init and
-resume.
+After this patch:
+$ echo $$ > /sys/fs/cgroup/test/cgroup.procs
+$ ./memfd-alloc-folio 1 &
+$ cat /sys/fs/cgroup/test/hugetlb.2MB.current
+2097152
+$ cat /sys/fs/cgroup/test/memory.current
+3313664
+$
 
-Write them again, with the same values as radeon, after the AGP aperture
-registers.  gmc_v8_0_mc_program() already does the same for SR-IOV VFs.
-
-Unlike radeon and the code removed by 71086a3e8470, this does not black
-out the MC around the writes.  The old gmc_v6_0_mc_stop() relied on
-amdgpu_display_stop_mc_access() to blank the CRTCs first, and that was
-removed by commit e4f6b39e8bcd ("drm/amdgpu: remove *_mc_access from
-display funcs"), so restoring the blackout now would stop the MC under a
-live scanout.  On this machine the writes alone fix resume; a variant that
-also restored the blackout behaved the same.
-
-It is not established which of these writes is the one that matters.
-At boot on this machine FB_LOCATION and HDP_NONSURFACE_BASE already hold
-the values written here, but HDP_NONSURFACE_INFO/SIZE do not.  The
-register state on a failing resume could not be captured.
-
-Tested on linux 7.3-rc7, MacBookPro11,5, amdgpu.si_support=1
-radeon.si_support=0, mem_sleep=deep, with this change alone on top of
-the stock driver:
- - 7/7 S3 cycles clean, from a few seconds to 10 h 49 min asleep, on
-   battery and on AC, including two back-to-back cycles woken by the
-   RTC alarm
- - DRI_PRIME=1 glxinfo (radeonsi), glxgears and vkcube (RADV) work
-   after each resume; no ring, -110 or reset errors in the log
- - cold boot unaffected
-
-The variant with the MC blackout passed a further 6/6 cycles, up to
-9 h 40 min asleep.
-
-This patch applies to amd-staging-drm-next with only a line offset from
-the tested 7.3-rc7 change and has been build-tested there.
-
-Not tested: other SI parts (Tahiti, Pitcairn, Oland, Hainan), and an SI
-dGPU that drives a display.
-
-Fixes: 71086a3e8470 ("drm/amdgpu/gmc6: drop fb location programming")
+Fixes: 26a8ea80929c ("mm/hugetlb: fix memfd_pin_folios resv_huge_pages leak")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Brad Drury <drury.brad@gmail.com>
+Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
 ---
-I can run further tests on this machine (MacBookPro11,5, R9 M370X /
-Verde) if that would help, e.g. register dumps or other variants.
----
- drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ mm/hugetlb.c | 33 +++++++++++++++++++++++++++++----
+ 1 file changed, 29 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-index a7c353d1a..d6e315f4b 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-@@ -223,6 +223,17 @@ static void gmc_v6_0_mc_program(struct amdgpu_device *adev)
- 	WREG32(mmMC_VM_AGP_BASE, 0);
- 	WREG32(mmMC_VM_AGP_TOP, adev->gmc.agp_end >> 22);
- 	WREG32(mmMC_VM_AGP_BOT, adev->gmc.agp_start >> 22);
-+	/*
-+	 * Don't rely on the vbios having set these up.  After S3 the card is
-+	 * only re-POSTed with asic_init, and without these (as written by
-+	 * radeon's si_mc_program()) VRAM is corrupt by the end of hw_init.
-+	 */
-+	WREG32(mmMC_VM_FB_LOCATION,
-+	       (((adev->gmc.vram_end >> 24) & 0xFFFF) << 16) |
-+	       ((adev->gmc.vram_start >> 24) & 0xFFFF));
-+	WREG32(mmHDP_NONSURFACE_BASE, adev->gmc.vram_start >> 8);
-+	WREG32(mmHDP_NONSURFACE_INFO, (2 << 7) | (1 << 30));
-+	WREG32(mmHDP_NONSURFACE_SIZE, 0x3FFFFFFF);
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index b37d7d0db7fc..62b819b84faa 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -2193,12 +2193,19 @@ struct folio *alloc_buddy_hugetlb_folio(struct hstate *h,
+ struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
+ 		nodemask_t *nmask, gfp_t gfp_mask)
+ {
++	struct hugetlb_cgroup *h_cg = NULL;
++	size_t nr_pages = pages_per_huge_page(h);
+ 	struct folio *folio;
++	int idx = hstate_index(h);
++	int ret;
++
++	if (hugetlb_cgroup_charge_cgroup(idx, nr_pages, &h_cg))
++		return NULL;
  
- 	if (gmc_v6_0_wait_for_idle(ip_block))
- 		dev_warn(adev->dev, "Wait for MC idle timedout !\n");
+ 	spin_lock_irq(&hugetlb_lock);
+ 	if (!h->resv_huge_pages) {
+ 		spin_unlock_irq(&hugetlb_lock);
+-		return NULL;
++		goto err_uncharge_hugetlb_cgroup;
+ 	}
+ 
+ 	folio = dequeue_hugetlb_folio_nodemask(h, gfp_mask, preferred_nid,
+@@ -2206,15 +2213,33 @@ struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
+ 	if (folio) {
+ 		folio_set_hugetlb_restore_reserve(folio);
+ 		h->resv_huge_pages--;
++		hugetlb_cgroup_commit_charge(idx, nr_pages, h_cg, folio);
+ 	}
+ 
+ 	spin_unlock_irq(&hugetlb_lock);
+ 
+-	if (folio)
+-		lruvec_stat_mod_folio(folio, NR_HUGETLB,
+-				      folio_nr_pages(folio));
++	if (!folio)
++		goto err_uncharge_hugetlb_cgroup;
++
++	ret = mem_cgroup_charge_hugetlb(folio, current->mm,
++					gfp_mask | __GFP_RETRY_MAYFAIL);
++	/*
++	 * Unconditionally increment NR_HUGETLB here because if
++	 * mem_cgroup_charge_hugetlb failed, freeing the page will
++	 * decrement NR_HUGETLB.
++	 */
++	lruvec_stat_mod_folio(folio, NR_HUGETLB, nr_pages);
++
++	if (ret) {
++		folio_put(folio);
++		return NULL;
++	}
+ 
+ 	return folio;
++
++err_uncharge_hugetlb_cgroup:
++	hugetlb_cgroup_uncharge_cgroup(idx, nr_pages, h_cg);
++	return NULL;
+ }
+ 
+ /* folio migration callback function */
 
 ---
-base-commit: f307e9d20cc7bd6dd54a3fd8c2af767dd7ef2931
-change-id: 20261020-gmc6-writes-only-v3-33151aacabfb
+base-commit: 2887e63d2e8e0cf55402612d8996ce955a2c3e55
+change-id: 20261020-for-alloc_hugetlb-1020-00e2dd7a56d1
 
 Best regards,
 --  
-Brad Drury <drury.brad@gmail.com>
-
+Hongfu Li <lihongfu@kylinos.cn>
 
