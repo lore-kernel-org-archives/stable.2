@@ -1,78 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792484856;
-	b=BuuSYmayCnVpRWSWKZMAAIV+d3JuuAYXcqi+VpmMgyMHPvhjhay4o7/J+10oYw8ANSz0
-	 HJN76H0uDJdMo90CuQ+cqkmBq+awV292QZwtQHcikzJwqE2mxBVXB34u4g4aroHLxsm15
-	 CDlWRA7eaFd9cp+WbjManBI2A/x6HG6vnEaqdhaC3f4a5o6Qb+sCREginomgq9GiA25sL
-	 49QihQfwvcT1kPrruyQ8AlpbGFX9QwfQxSSH6OlBWJYe6hvIr4LN4ERnibdje+V7vYxk7
-	 mk0JNlqeBx0J2HWEMg38GJ+DW+IdD9Y6JDXICI8+yPsfKJWiuQEnKoAjKecB4Vz8Pqg==
+	t=1792484931;
+	b=F20Fx7fy9c/aTvdur0ECvb0F9ZzR72z4G5czI/yieQ1SyOeeGVBcaUof69AbUjA7odFh
+	 Fbin9ntWWPrJN3BA3T/7Y4HVtm8hQGTdmyEq2DLjOxoQsvf2C8bKDKU1IBX9xaAXEUXqm
+	 f+7tPSmDV7cFFcH34COeL+5q804CV211uLPdxMvjTQMbz6uk3F2YEbpM+Tg2ifJPD5p/V
+	 d6pqlELMunCH/gKiZPOlUPFrDqUgErdaRMtE+lW4uv66TU+a/cPEYXkAHiG8YGhUppMEY
+	 YFCPkSWtP6EsItEIcaJ1jNnB8umpgmv8t2ddpO5GCM4YlGVgiyoLgNBQFfbvemns/sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792484856;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=guE7ZJZ3qLp7RsghCUoXrScsS8RkMWxfffDe/dOb2Ac=;
-	b=O6wi0Iphw5EJkDFptkZ9t2TJ5AscqRiRaPMWTKs+Dk4DdYRqQbtNT0FTtL9pH2d7PmcO
-	 g0a1X/oqrM3uFQm7dM1QQfSB04N1FbUKs9ZYQgWn9MlqD369FKjRV9m5X1db2ShpBe5oH
-	 1KXjyGfFaiS8o6cOkQzRaJ5PUQsJy53KUSESqMW9bBavGELFOg/U6yxNWkjXVHLtAJ1X0
-	 OFRpMV6E9U61lIt24klGD1iilWdFZcaVC65u2R9Xobd98fCl2Ent1a2cXMCFFsapNby4N
-	 0NbWWbIT8tcbNyZpJrFOj0VrKNEgEHRUoRb7boA8jvNCzxqnGI1BDqUbioz+4o8grJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792484931;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-B4-Tracking:X-Change-Id:X-Developer-Key:X-Developer-Signature:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=V2g7pl//bRYOezc7U12uFpcQJT5vXcVW3O60hvJjYx8=;
+	b=NhufA7wTQyli1THp+cTea1vR2esPe6DMWIfl7hQEsFlYrooP8BYxcj6ElFBJr8c8nXaM
+	 4D/e/0idrXC6XRDRbzxvjCvgLUe9lScokSKfJFEJxEXQa1A3Nqxo4sz/JxKMS6h840Zt4
+	 /9b01hBkRqElFgV+Sp2OHeStOvGz4WPLoDkmNL6DsfUoTLva4yBuH4Cg1IF3VwfHni6ih
+	 REX8Kj6UeMNEG9nhR6TGgwOYsZa1m49dK/zv1QO82DHAOvGKpAm8+ciDobtnhx18qmgYV
+	 frPgba4hFj6rFeryIffxHeY1KpEsFW4uY5i0mnZiCtMJXkNc9+Hw1Tw7KUJuBsIvNMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=packett.cool;
-	spf=pass smtp.mailfrom=packett.cool;
-	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=AGFUYe9G;
-	arc=none smtp.remote-ip=91.218.175.112
-Received: from mta0.migadu.com (out-112.mta0.migadu.com [91.218.175.112])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=aWx7wiq+;
+	arc=none smtp.remote-ip=209.85.218.70
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D93A7606A33D
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:27:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D93A7606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D25D8606A31B
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 08:28:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D25D8606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=AGFUYe9G
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1VR5x+ugKPEt0b9SEHSYjBwUNYlANCVfeg67lrVVgdg=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792484853; v=1; x=1793089653;
- b=AGFUYe9GpRlVhE9nlzvo13UF5KTU2V93loI0eYip8n/rMyuIbHaqkW3ByvxxiuVH/JVBq/5X
- FisurBgG15DkPS14VlE6r86cz+kSinJqGl9XwlOovTS//67zN5EtDnt/hGrwIXjaEGiubWJd/qy
- h5kNakn76vKOEpavUP115DMk1v2BNy7GV1LuxAHl1vrYdlhAJ8CAr5t3utJf41xmgGqeoSi5Am0
- kDvkI8kFktUCi5CMSYDJMX6ncmsIqbSNVxMEwv41AlOVIM8OvBqBgzD7NGYoriy/GbLQrIau8yr
- IPqpWsjBB9wsN4voyB260+AvYa89M499upDFKz5F2FNbg==
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bf7a3a9bbbdbd63e;
-	Tue, 20 Oct 2026 08:27:32 +0000
-X-Mizu-Trace-ID: bf7a3a9bbbdbd63e
-X-Migadu-Flow: FLOW_OUT
-From: Val Packett <val@packett.cool>
-To: Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Val Packett <val@packett.cool>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	~postmarketos/upstreaming@lists.sr.ht,
-	phone-devel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2 4/4] ASoC: codecs: wcd939x: fix ref leak and NULL deref with USB-C audio
-Date: Tue, 20 Oct 2026 05:26:26 -0300
-Message-ID: <20261020082631.1509275-5-val@packett.cool>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261020082631.1509275-1-val@packett.cool>
-References: <20261020082631.1509275-1-val@packett.cool>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=aWx7wiq+
+Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c3613c35145so317841766b.3
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 01:28:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792484929; x=1793089729; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V2g7pl//bRYOezc7U12uFpcQJT5vXcVW3O60hvJjYx8=;
+        b=aWx7wiq+/DasFoQT5M8519XstD7g7rHGmFqLXXHdq8UD18VN9WqjYyA34BoF3bviQk
+         B4vvUdvpU1nBOVOREmo/lGovnmsq5GOEYTlp0gi0+dCNgmjND/0tELpEXF5B6CaDrOzf
+         6GyOIQnac4Qor8u0mLpD7RGet+FS+RdigYT7YL8G1kXru0m6uwW7tYVoApw+/OUZP23T
+         2YEeef/FlcNPtoqsCNMdJ8DYahu+lJYagijueQiyz3REb+omSUsWSIy1dn2sIZHMIbV6
+         achWG0sNI5isjwq+U6cbpUGIycUIMLysuIq7Nje8co+27sgva0Rmu4jk29uFVT3Fwr+B
+         mk3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792484929; x=1793089729;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V2g7pl//bRYOezc7U12uFpcQJT5vXcVW3O60hvJjYx8=;
+        b=v959Zb3WKC9re8zR2SvyqliFU77OLmoMm3zU9eKt6y1Sflqu6EUq+EfPcJ4VbiBr0B
+         jcbq0uy+TLnLNGdBE9yMVHxVoNC3GvXoDyHqn5sqMApvuXIc0C4xMSJ4o+987yu/A/c1
+         u4u7Gqzoncs4DSPbPcn9N4PQHurh9fxkVCuKHm+Qm/F6f1ArFvadPqeUMyazblshvJP6
+         sd3S1YwRarP7hTIypErqgO4TpXqZKcAImq/IBjeFJ9Eov60YtiK2P5BMXBEKW798u7b1
+         D64TYnxm2kqvKHx7XXcChFtSfDQd9vlDzIi1e9PJR+wJtAskqEqBtRGluHfh69riBiCd
+         cX1w==
+X-Forwarded-Encrypted: i=1; AKwUvBw28QaC7GoFbgRdPspf9yZuLq9XHYtepEONoNN4aT3CfDJr/uh37oK6x4RoRd6/phIMcLT1i8Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLpWcbzUYh73gccb3Ww4DQQdlCAz0GxjI+K73fC5etmY3RDm58F
+	55hzz4ktO4RwLPcgLhsD0R4Wuld9LELfpGgeupjRB4j7J+zBAK+ukb68SB6x/5cvkHU0i0rw7K7
+	+4WJAdt8WcWFUdPNeCg==
+X-Received: from edqi6.prod.google.com ([2002:aa7:c706:0:b0:6ae:1861:6a4b])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:906:f583:b0:c2e:52d6:1fb7 with SMTP id a640c23a62f3a-c419e63d14fmr694939266b.22.1792484927900;
+ Tue, 20 Oct 2026 01:28:47 -0700 (PDT)
+Date: Tue, 20 Oct 2026 08:28:37 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,84 +76,112 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIADQm12oC/x3MMQqAMAxA0auUzAZihQpeRRxKTDUgVVpRQXp3i
+ +Mb/n8hS1LJMJgXklyadY8VbWOAVx8XQZ2rwZJ1LVnCcPO5IQdFibzPGhfsqXeOhTx1Hmp4JAn 6/NNxKuUDO8/rdmQAAAA=
+X-Change-Id: 20261020-fwctl-cfi-encoding-70766ce0a03a
+X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3125; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=Rk+J0lAUscPPohWGJvG/cv0f/YYZw8raSTrEMula37c=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBq1yY6KvWn2YmrQl+P2uToSiXlz+Tw9B8f8Vp2f
+ JJ4S+QCG+eJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCatcmOgAKCRAEWL7uWMY5
+ RmKpD/9vmUdmYXdWFu4sxnhmjYGpEa/8KUAAPN5eTas3arHAO6iEHKznNk2FbhezzCVJ+g51T1y
+ tqavjmoRtuwFxTQiSSsMKuWrS22j9AjOZIrbIGc5whhovmn4ZgSIXl62woNPbtd6xhAzU67u/ag
+ TYAa1bgpObC1VJyQfVuPIFKkpF0QyUnGI8pEYvUIWyJnQ6KrfpzK7zTD2rWGIEMQH56IdGWqVjD
+ vmS06VZGJ4aLLuNwfxLv81UbJLp/yVDoB0+nvbzRLXwgHAk6n1uaRLPSCrLiEcmVMIM+eYlIy5Z
+ MnAbuv+95H4EWHTQuyrADqknsijLkCoaN3Mwaw154jKjxMqZmpI7H8CrpxXgJzfZc3LQatk/Uci
+ YXwA7tO/eiWxGGzusDNnL8BAEkmJpat2f/I0OI+YdcKCFgoVtv930Wh2UGT9IY8rDAHUbQLcojW
+ JfFbCXJnhA34sq/tInGOpTWYNNdCJiFO/gTbxvEUQyGPfguALE0PIcE2VCct1jBK/rNg9nQphLF
+ WIe8S5uSBIVEs5P60gf0ICdy54Y6uFRLF3vuVzD3xIKytasfcvYN7D51cxxoL5gc3bgx2kYgvEU
+ jc+eQzDxXXf3ZmkzDW4l3G7vk8ipfZFJWCox2JKuaaGDYWXy1nuVGA/tO4E8aGHThjUSaI74UCl 19zcIugQEmSgilw==
+X-Mailer: b4 0.14.3
+Message-ID: <20261020-fwctl-cfi-encoding-v1-1-ebb30d1500df@google.com>
+Subject: [PATCH] rust: fwctl: declare cfi_encoding for fwctl_rpc_scope
+From: Alice Ryhl <aliceryhl@google.com>
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	"=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, Dave Jiang <dave.jiang@intel.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Saeed Mahameed <saeedm@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
+	Jonathan Cameron <jic23@kernel.org>
+Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sami Tolvanen <samitolvanen@google.com>, stable@vger.kernel.org, 
+	Alice Ryhl <aliceryhl@google.com>
+Content-Type: text/plain; charset="utf-8"
 
-Some code issues were found during review of a port of typec code from
-wcd939x to wcd937x, pointed out by sashiko-bot:
-
-* wcd939x->wcd_mbhc may be accessed by the typec callbacks which are
-  independent of the ASoC codec lifecycle, don't leave it as NULL/PTR_ERR;
-* wcd939x->typec_switch reference was leaked on unbind, put it there;
-* the device_node reference returned by of_graph_get_remote_node() was
-  being leaked, add a __free annotation to the declaration.
-
-Fix them in wcd939x as well.
+Currently, VTable::fw_rpc_callback() takes scope as a u32, whereas C
+calls fwctl_ops::fw_rpc with enum fwctl_rpc_scope. With kCFI enabled,
+enum types are encoded distinctly from integers, causing every fw_rpc
+indirect call into a Rust fwctl driver to trip a CFI failure. Thus,
+generate fwctl_rpc_scope as a newtype with a cfi_encoding attribute and
+use it in fw_rpc_callback().
 
 Cc: stable@vger.kernel.org
-Fixes: 10f514bd172a ("ASoC: codecs: Add WCD939x Codec driver")
-Signed-off-by: Val Packett <val@packett.cool>
+Fixes: e052daab94ee ("rust: introduce abstractions for fwctl")
+Signed-off-by: Alice Ryhl <aliceryhl@google.com>
 ---
- sound/soc/codecs/wcd939x.c | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
+ rust/bindgen_parameters |  2 ++
+ rust/kernel/fwctl.rs    | 12 ++++++------
+ 2 files changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/codecs/wcd939x.c b/sound/soc/codecs/wcd939x.c
-index 26fe0b6313cd..56e041e70fd4 100644
---- a/sound/soc/codecs/wcd939x.c
-+++ b/sound/soc/codecs/wcd939x.c
-@@ -2466,6 +2466,7 @@ static int wcd939x_mbhc_init(struct snd_soc_component *component)
- {
- 	struct wcd939x_priv *wcd939x = snd_soc_component_get_drvdata(component);
- 	struct wcd_mbhc_intr *intr_ids = &wcd939x->intr_ids;
-+	struct wcd_mbhc *mbhc;
+diff --git a/rust/bindgen_parameters b/rust/bindgen_parameters
+index 8402b0c93545..e4f8c07743a8 100644
+--- a/rust/bindgen_parameters
++++ b/rust/bindgen_parameters
+@@ -27,6 +27,8 @@
+ --opaque-type spinlock
  
- 	intr_ids->mbhc_sw_intr = regmap_irq_get_virq(wcd939x->irq_chip,
- 						     WCD939X_IRQ_MBHC_SW_DET);
-@@ -2482,9 +2483,12 @@ static int wcd939x_mbhc_init(struct snd_soc_component *component)
- 	intr_ids->hph_right_ocp = regmap_irq_get_virq(wcd939x->irq_chip,
- 						      WCD939X_IRQ_HPHR_OCP_INT);
+ # enums that appear in indirect function calls should specify a cfi type
++--newtype-enum fwctl_rpc_scope
++--with-attribute-custom-enum=fwctl_rpc_scope='#[cfi_encoding="15fwctl_rpc_scope"]'
+ --newtype-enum lru_status
+ --with-attribute-custom-enum=lru_status='#[cfi_encoding="10lru_status"]'
  
--	wcd939x->wcd_mbhc = wcd_mbhc_init(component, &mbhc_cb, intr_ids, wcd_mbhc_fields, true);
--	if (IS_ERR(wcd939x->wcd_mbhc))
--		return PTR_ERR(wcd939x->wcd_mbhc);
-+	mbhc = wcd_mbhc_init(component, &mbhc_cb, intr_ids, wcd_mbhc_fields, true);
-+	if (IS_ERR(mbhc))
-+		return PTR_ERR(mbhc);
-+
-+	/* May be accessed by platform dev typec callbacks, only set if valid */
-+	wcd939x->wcd_mbhc = mbhc;
- 
- 	snd_soc_add_component_controls(component, impedance_detect_controls,
- 				       ARRAY_SIZE(impedance_detect_controls));
-@@ -2499,6 +2503,8 @@ static void wcd939x_mbhc_deinit(struct snd_soc_component *component)
- 	struct wcd939x_priv *wcd939x = snd_soc_component_get_drvdata(component);
- 
- 	wcd_mbhc_deinit(wcd939x->wcd_mbhc);
-+	/* May be accessed by platform dev typec callbacks, clear */
-+	wcd939x->wcd_mbhc = NULL;
+diff --git a/rust/kernel/fwctl.rs b/rust/kernel/fwctl.rs
+index f29244fb0d1d..b7778e4d5ee0 100644
+--- a/rust/kernel/fwctl.rs
++++ b/rust/kernel/fwctl.rs
+@@ -53,13 +53,13 @@ pub enum DeviceType {
+ #[derive(Copy, Clone, Debug, Eq, PartialEq)]
+ pub enum RpcScope {
+     /// Read/write access to device configuration.
+-    Configuration = bindings::fwctl_rpc_scope_FWCTL_RPC_CONFIGURATION,
++    Configuration = bindings::fwctl_rpc_scope::FWCTL_RPC_CONFIGURATION.0,
+     /// Read-only access to debug information.
+-    DebugReadOnly = bindings::fwctl_rpc_scope_FWCTL_RPC_DEBUG_READ_ONLY,
++    DebugReadOnly = bindings::fwctl_rpc_scope::FWCTL_RPC_DEBUG_READ_ONLY.0,
+     /// Write access to lockdown-compatible debug information.
+-    DebugWrite = bindings::fwctl_rpc_scope_FWCTL_RPC_DEBUG_WRITE,
++    DebugWrite = bindings::fwctl_rpc_scope::FWCTL_RPC_DEBUG_WRITE.0,
+     /// Full read/write access to all debug information (requires `CAP_SYS_RAWIO`).
+-    DebugWriteFull = bindings::fwctl_rpc_scope_FWCTL_RPC_DEBUG_WRITE_FULL,
++    DebugWriteFull = bindings::fwctl_rpc_scope::FWCTL_RPC_DEBUG_WRITE_FULL.0,
  }
  
- /* END MBHC */
-@@ -3171,7 +3177,7 @@ static int wcd939x_populate_dt_data(struct wcd939x_priv *wcd939x, struct device
- {
- 	struct wcd_mbhc_config *cfg = &wcd939x->mbhc_cfg;
- #if IS_ENABLED(CONFIG_TYPEC)
--	struct device_node *np;
-+	struct device_node *np __free(device_node);
- #endif /* CONFIG_TYPEC */
- 	int ret;
- 
-@@ -3434,6 +3440,10 @@ static void wcd939x_unbind(struct device *dev)
- 	put_device(wcd939x->txdev);
- 	put_device(wcd939x->rxdev);
- 	component_unbind_all(dev, wcd939x);
-+#if IS_ENABLED(CONFIG_TYPEC)
-+	if (wcd939x->typec_analog_mux)
-+		typec_switch_put(wcd939x->typec_switch);
-+#endif /* CONFIG_TYPEC */
- }
- 
- static const struct component_master_ops wcd939x_comp_ops = {
+ impl TryFrom<u32> for RpcScope {
+@@ -539,12 +539,12 @@ impl<T: Operations> VTable<T> {
+     /// - `out_len` must be valid for reading and writing an initialised `usize`.
+     unsafe extern "C" fn fw_rpc_callback(
+         uctx: *mut bindings::fwctl_uctx,
+-        scope: u32,
++        scope: bindings::fwctl_rpc_scope,
+         rpc_in: *mut ffi::c_void,
+         in_len: usize,
+         out_len: *mut usize,
+     ) -> *mut ffi::c_void {
+-        let scope = match RpcScope::try_from(scope) {
++        let scope = match RpcScope::try_from(scope.0) {
+             Ok(s) => s,
+             Err(e) => return Error::to_ptr(e),
+         };
+
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261020-fwctl-cfi-encoding-70766ce0a03a
+
+Best regards,
 -- 
-2.55.0
+Alice Ryhl <aliceryhl@google.com>
 
