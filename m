@@ -1,52 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792473585;
-	b=I+7LsIDP2L7mIiOJvwikvgK2FsCHF7v1AKI55DNr2nDijy7WROmM5g0tNYtyQQyjX9Rs
-	 l1+Fro+4AFCVrQba8gZpHvl8sV8MpwbzhfbH4gCLZlBmrEvdozXz6kzisGltb5UrDITBG
-	 ZYY0fBY8ikyJvTqpLo9MOFlLKk8kJeMftujDQG6hdMIeBVRQ+EGMNVbsG2I46sNPCbcvI
-	 UThkyQvAr3o8ongEQXne2sUSKRznfdySOOfUX6sdhffqI5vLNcRoJkfXPsQuxplRvFtOf
-	 3bdsbjS4FSosw7NRa1jhCyPZNxDUTxt9KUJKVtjtSHmvW5uHiaMARcGuWx40qnjy43w==
+	t=1792473720;
+	b=ttMdPZW7nj6+ewrsARB/jleA+SbH2s8UixrekyQRZsCbYL7+iVJv0IAOuQYv2Dudv2YC
+	 07UoyQb2NTRpC6le3pQjV9gW+zXJknXdNGo9feS9DiqE7bdBwSlPu/UUcYOCWsZyyiAHY
+	 BLf5DhTSx1NXjr9s4SeHt9qMlriJaa+Ih5oGASQ+0CaF+LJrQe9mNvp5gUA91LdX1xkI0
+	 wDGvMycJhiUzsTPzZVhBKMkJ07OT5zKz/lrj67sMZL8u1MODQMajlS7bUHIkHXVZCiyzv
+	 zxo3IUxNpFFaAwEpeUzLAgOxi2A2TXUIDmkZZomtbsDc7ZJ04Ez18MbwWhgo5PLL97Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792473585;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=BgiA92Rw3GBP5F1shghCZ2z8YmAbZXNEejKdnMhHo/k=;
-	b=Gd+KiSF/Zolbkq+innRnunpcl8t+IshDwlc2sXs9jSn+AFxtZUSWQvsJ3QnS+NQ+xfUT
-	 vd3OTQfKUmRWNzY+YK2X+QU+Xu3KF4NqWknAxy0lnVNjWoXFSsmihw6uwGVT/f/ZG4kwQ
-	 A79wCHpPatl2rlbBpPug1wQO4y0QnQctSW81JhxFN3XOvZ+sriIdaNI0Bmr/uSLoqnc80
-	 0TPYgJRYPnno4xtGJf6Yu7K3PvjOlEEapL6gXNkLaeQ2yrh4DgmfJasSQ1+zFGAXjE3al
-	 udsGhIYCtKbs6pCW8RqTRBsRw+CFSRvZS+p049eegpz9Yc5C0wj4nyevJyaH7tj5D8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792473720;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=8MIsDqFQ3ihoPCDCZv6W7JkqazHoCN4iCAhc1qoiKLY=;
+	b=q36/YOpj98W6bjjaURpl4KFgySDytONvwqmCW9XEgPrrvqMhIz8QQ/rcH2VwWbPQXfKS
+	 GqrwJHfJBsMfPLrp5A7o36LwdiOrih79w2d5a2kAwGGJRxVujW1d+ylaVGuaJN+vp6+BP
+	 fvjuwVfft4iXZVzDlfXw7ppBWu/lnLkwrNkeJWDAfJl8fZ+/hJ9Iem7wYnMc3MXmQeIV/
+	 r/MQJVc8yfHUMvAS6lwOo+JNdPaj4O/FCkixk4FDBfGpG1KioNpxMztQTgkN/ZNKP17V5
+	 yTNGEs0cZKV2pTv/uZE4EoTkLX6JtxxO7rYX9bTvd1bl2o+HPqx6sk5eIm+61oEPGew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D1C606A319
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 05:19:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFBAA1F000D4
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 05:19:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792473578;
-	bh=BgiA92Rw3GBP5F1shghCZ2z8YmAbZXNEejKdnMhHo/k=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=UMWCj16OBuVk0U88Aunr2hcNay/tMEVe6sCKWnZWHUOCWlPoZ+vy0CkCwTJXjGBsC
-	 pUa8wBJtW4t+MJ5+UOARI4G5IneAjBe77CMR8zJGM4CIr+dqyU8VozbKkWRBrmIFe8
-	 kRh3PZFiC3vuGVQLUOI5bEHKdiyjPrCrxfqieh7RDSukTJyaXgbh+kc2bU9zBP8fFW
-	 kLhl3q2xpKuk6BKQ4xgCll1VHSTAEO7q2/iQOivJFK6dLVn8mVFgjxsD8u/e30ucyr
-	 vt2db4Vol7IA4qF0LV3M9Oa/2F5xtU6I2Pw2FbjrezgNUcvLA3TT/3syeCcMruarhb
-	 ThIaMnm7xB3qw==
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-93efc0452b5so181561185a.0
-        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 22:19:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw/ZMqfPDycgkz0mF/pTDXJeo3kqU/xPQcsiCSISYX2UAylqdcguJZ+CRSWmCHHAhSLUfmAN5A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+UC2kufmq7h2aEnftgg17tisdUDnBTjrM2OwXc49VAqm46b4Y
-	KVbi32nxrYvbbJ3Fgasvnv5Q1jbE8VUAp82uRwsUQoniXLDrh4+FsoE2xDjCv6cExmOsTCrgxMV
-	SeJ6DyPYzvVVskHOsXvnzum8U0il2vVQ=
-X-Received: by 2002:a05:620a:17aa:b0:93f:1ed3:a9ce with SMTP id
- af79cd13be357-93f29db7ae8mr1618788285a.70.1792473578195; Mon, 19 Oct 2026
- 22:19:38 -0700 (PDT)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=nBgmagcy;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 98C5C606A319;
+	Tue, 20 Oct 2026 05:21:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98C5C606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=nBgmagcy
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 52A6D1596;
+	Mon, 19 Oct 2026 22:21:54 -0700 (PDT)
+Received: from [10.164.19.55] (unknown [10.164.19.55])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3DAF03F7B4;
+	Mon, 19 Oct 2026 22:21:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792473717; bh=1o8mKDhc+h5Omef+qHo/0xtyFQGZ0v3bKBCuB7AmPEc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=nBgmagcy6gXNs2r1qVZzAn2A046/Ya8MlDRVZ4VZN5idWhICsLIq++TgG70EeFiNq
+	 ORlW0zUDtNd+geIAAi2Tc6ir6HXcZhsoT/NBksqLegc8kN9ihaCN/9C9MVxoDlOUtg
+	 hWmz/Zweg7lkaK0sv34MJs5RR55TwGm5mKk0sZn8=
+Message-ID: <bd7c7fd5-8543-429c-8618-4fb881723890@arm.com>
+Date: Tue, 20 Oct 2026 10:51:48 +0530
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,40 +53,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261017050928.128582-1-sidchintamaneni@gmail.com>
- <20261017050928.128582-2-sidchintamaneni@gmail.com> <CAGsJ_4wGq9oc05=-g4aWptLdCbTwUjMjXk4Rd6KjJ6x=tzMm+g@mail.gmail.com>
- <CAE5sdEhGFtGF6LC4xNkMwGj3vTxLOW=GNBXnk3-JmsgjntXx0Q@mail.gmail.com>
- <CAGsJ_4wmvBvEn_vXu8-c6BRAnRewYmTs8iUd8T7KRx7_svZrwg@mail.gmail.com>
- <CAE5sdEiq3bY1kgMUQ6x7RRJCx0JH4sQ9Z_a9_YQSM5FKNwpk8A@mail.gmail.com>
- <CAGsJ_4yZ3rueVMaRJ_+25Nnab0WH5ZLQeLjporWAFj7xJnJFHA@mail.gmail.com>
- <CAE5sdEjFgVoQbWw12=+AKdCOB9cWm-akxzbX7hJzvyO3vpCtgw@mail.gmail.com>
- <CAGsJ_4yrAosgxnxqc18qXyeJQHszYOdTxJw4TzSJqp10YQWjag@mail.gmail.com> <CAE5sdEj9biuOuXp7aej7pV1Zyjc0kqcH12Oi6gLyJCeuihF6Hw@mail.gmail.com>
-In-Reply-To: <CAE5sdEj9biuOuXp7aej7pV1Zyjc0kqcH12Oi6gLyJCeuihF6Hw@mail.gmail.com>
-From: Barry Song <baohua@kernel.org>
-Date: Tue, 20 Oct 2026 13:19:26 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4yApi_o0HdYokaanRAtQXFQLJ2qiCRfRdBVG3=SZ6MxzA@mail.gmail.com>
-X-Gm-Features: AclHuK-bqRkpB4GJrWRBWTc8leo0NsW47GnrpMNZ80hWNmfMyMEJyA6ae-ZLPgU
-Message-ID: <CAGsJ_4yApi_o0HdYokaanRAtQXFQLJ2qiCRfRdBVG3=SZ6MxzA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] mm: multi-gen LRU: fix NULL lruvec->pgdat deref in get_lruvec()
-To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, david@kernel.org, 
-	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org, 
-	kasong@tencent.com, axelrasmussen@google.com, yuanchu@google.com, 
-	weixugc@google.com, baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, 
-	yuzhao@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	apais@microsoft.com, rlmenge@gmail.com, stable@vger.kernel.org, 
-	Hardik Garg <hargar@linux.microsoft.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/5] mm/kmsan: skip vunmap_range_noflush when KMSAN is
+ disabled
+To: Hao Ge <hao.ge@linux.dev>, Suren Baghdasaryan <surenb@google.com>,
+ Uladzislau Rezki <urezki@gmail.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
+ Dmitry Vyukov <dvyukov@google.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-mm@kvack.org,
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20261019054531.87652-1-hao.ge@linux.dev>
+ <20261019054531.87652-3-hao.ge@linux.dev>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <20261019054531.87652-3-hao.ge@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 20, 2026 at 9:37=E2=80=AFAM Siddharth Chintamaneni
-<sidchintamaneni@gmail.com> wrote:
-[..]
->
-> If that is the case, do we still need this patch?
->
 
-yes. We need it as cleanup patches. not bug fixes.
 
-Best Regards
-Barry
+On 19/10/26 11:15 am, Hao Ge wrote:
+> kmsan_vmap_pages_range_noflush() returns 0 when kmsan_enabled is
+> false.  The unmap side does not, so it still walks the shadow and
+> origin page tables even though KMSAN never installed any metadata
+> there.
+> 
+> Add the matching early return.
+> 
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+> ---
+
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+
+
+>  mm/kmsan/hooks.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/mm/kmsan/hooks.c b/mm/kmsan/hooks.c
+> index a706666db097..107f66841274 100644
+> --- a/mm/kmsan/hooks.c
+> +++ b/mm/kmsan/hooks.c
+> @@ -138,6 +138,9 @@ static unsigned long vmalloc_origin(unsigned long addr)
+>  
+>  void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end)
+>  {
+> +	if (!kmsan_enabled)
+> +		return;
+> +
+>  	__vunmap_range_noflush(vmalloc_shadow(start), vmalloc_shadow(end));
+>  	__vunmap_range_noflush(vmalloc_origin(start), vmalloc_origin(end));
+>  	flush_cache_vmap(vmalloc_shadow(start), vmalloc_shadow(end));
+
