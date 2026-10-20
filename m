@@ -1,96 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792463463;
-	b=C2LFePDb0TjiVqPc4nDITxz/vyNgsahDbL5GrO52w8ucUGcudWygIPBvroIkpgAylkYB
-	 B/81VxgSLAccLRUCgijhfN98GiGcOEGDh2i5xdxxCvebpjnOmD31iDn1sjZUOmreFv56f
-	 Dz91M0aYcdaSUtVRIPNEgpahs/E04GPZZ9xZemWbjc+l+7ZBd3R2Qn31/nw1QVFvYFgbk
-	 RBPM3tbrTGyP9dWfViM7cXD7bLhPyzoficorqMXkbLWXSRJljoSE2NDFLpRJ5HpT0qNrp
-	 i0cwaqL5286XBFoo6Gsxls5WoX1/Q573fJhbsblXt6p0hU+SNfwVLrJSpznbm72DSlA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792463463;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=z/vG9lhLAbzBSmalPB1KRTByeJKg03MlRPENHQr0Oec=;
-	b=JN11VMJcQd1g34khmEaV1BJqO5K21YrVICTis6argUriT0B6UuGHriqtbLCWkLuOSp7+
-	 cFN7ocPDHoNTVE2ODkK5qhEAHaVdnRueCnFGsjQngTuVNTZbjyeOqOw95SRByHcpCkYwY
-	 A4zgbrtc+GEEsXLlnsIVfnHM0f4tnBpg2olEgKThZLylVEnp+90a9mixhyAqBntzjT8mt
-	 iAJz+OQ7CKqpc/tukL6GByxcOeXlMixexJQu32rsde4eN1eFCcwAOD6bakJ1bxIwGkgAB
-	 uWIbY46O0b95Pf0t0kgtjOFk6ZaFFGC9OeP1jsuKI9hfQhWt/mu6FPhHc/87n+6sMmg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LpDGRBHf;
-	arc=none smtp.remote-ip=209.85.215.181
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.94
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792463743;
+	b=bQuxc1iLFDXs4jRjZcNSnCklkpMoUAXOGOyjzewYCMPRtTWKum0ZK8nn6pd/wLI7Cv5m
+	 vbtGOJ0bzu1/Zq9yHu4TPpVFdTmRzP9ZlZfAj5pC5fFT2HsmeVkL+ymM7rl2tuRNakkaE
+	 cLN1pqmNEXF0/FUMANK9hq9OFhejfORCGlvXZQWt9mYHfuaxUop5dcjothH8V2n+zb1It
+	 R2dlAlrM+y+7EV6agNNqxykxy/gyyAW57otLGjoTHM1gNzrEO4aXTapur7dIUsZHZ4srU
+	 Z+dGVK70jBGF/qJMMrHfBMUWx3EL1aPXZ3tPru4zvytucnOwmdhuSBaz/MJAFNXMITQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792463743;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:Feedback-ID:X-Zoho-CM-AccountID:
+	 X-ZohoMailClient;
+	bh=Oshdmag92sYPa4AKVOD9e8ufzckyZrK4kOUMn0bjT54=;
+	b=h2b+lh0yKhMI0de0WWbzOHWoussBfF849u3VujMUY8t1V82xFxMqgxhabYrWYUXjVmbL
+	 Wm+j0Oqf+fz6i5yxfD9Ttpk7HSvX7CyId3dwZg0x2c8qdFYpIOUuIA0HV34wEbLFcD5AC
+	 MBD+rw3s11crSf1pD5TaNQNLIoW/2FenHEN+DiuQ9Arne2BT4DjHtwY2X9FjwNCE5/Jdc
+	 fnMy8hz8wDe8yqcxsnXcm++7wJDUGAbTbP6nj5tF7TXnMsolu01WicUjaGVZn867F9u9X
+	 X2k9LR1VSjfD04sY4g8dOskccDrDJV1bFMLhevwvNy0X7Ywn7gdm5XnMrW02QVW8gZg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=zohomail.com;
+	spf=pass smtp.mailfrom=zohomail.com;
+	dkim=pass header.d=zohomail.com header.i=ming.li@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=YOizeYqK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.94
+Received: from sender5-pp-o94.zoho.com (sender5-pp-o94.zoho.com [165.173.182.94])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1632606A319
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 02:31:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1632606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C7B606A319;
+	Tue, 20 Oct 2026 02:35:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7C7B606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LpDGRBHf
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cd69954c755so143201a12.3
-        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 19:31:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792463462; x=1793068262; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z/vG9lhLAbzBSmalPB1KRTByeJKg03MlRPENHQr0Oec=;
-        b=LpDGRBHf3uON9gQ8I+QVqgkXFmokcdnBMj4m4DQ/DJ1wgHVjlOGmFAhWgqsTqllLPP
-         G690Hq38eN3HAqRcu2xRHmsrescQzYCo1GHaFqvtquCZnwhcDlqUkdhzDAetYhhITviV
-         9ApAQU1RC2YqB6WQqP1dM9AI+Gm/AZZfv+Roy280B3FVgRi5HmaDzYg7k7YRxPdu1u0x
-         +5vlI7KgqOq+j2zCEZAdeMMN3/5bY/KBvVHPWGUJpDLxqHQ3GDizZatgnD1G6f+6Rca9
-         3zvfGCMbncwZ3hb3TZrw4FClqZhnmipyzY8+3Y7UIT7515vSA0UByN8CLkNOMLiiws5S
-         Aygg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792463462; x=1793068262;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z/vG9lhLAbzBSmalPB1KRTByeJKg03MlRPENHQr0Oec=;
-        b=ifG4yTum/cSdM4Bvc2P4G6L8aChUBExgUwCx11xnrOhr/YeuO8CrbZ3aQzBvKztZAe
-         LvAMgn5Lr3B9t9XNgAxaSP7klRM6fAJT8VaVfzuQ+VhnN2q7eKofZN9j0eJCi0FMU7Pd
-         16xqSEtlQlT8UREd/Ae0axX0tU/jjkyF+KkP0OG+Zv0WbEfCWVOJ+U2J560Fi8misDvh
-         EJgCNIGcq0n49cPI+WRXHC+7xCK++PZEuT0E35Gn+plzQdlDXovMYvhtTmoiD5rUkKDC
-         a1Rp4iTV3WMFTrYOWYMlEVjD9+iZqe+/ldEqj3fY/vg00vpf8ywZQRfA6eFfnuiNY7hG
-         0j0A==
-X-Forwarded-Encrypted: i=1; AKwUvBzrMQSFT3S8JqKvV0QcyusyRjN34JLl0no+krVgBEZrq1msD1XRjyJzdtpKz/tCfo/gAedO8FE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLScoAn1Bnr8QVaaODa9MTZ/STiSSbJTLk58KsdaqQyYGK92NF9
-	QBCw/mL0ws05REg4ZWD1OcsUsnPLwcQUEMBAPA8roBLFcnnB6BXvk6pH
-X-Gm-Gg: AYBFou16v5lcTSP+VCGJQX3By3iGfZ/sC2i0uuVVX4tCOh/qTZNew9qLP79Aa/RHrrk
-	6xGNLGxYJuK/bWiMiX/yueJZ+K+lVL7PZ3j+gs6IIoRDgo4VpQ2bF5PjDqGBFZZEEYv4SrgIecy
-	AOuksJlOEirqHF0PziRZU6qqLry5XWpb4eXFSNf0q/7p59L91VLTGsFUSSTZFCTEA6Nmoa+0eSa
-	KmgkioQ8gYhlIPcbbezeWUrZVs02+LvVU2e7Fil2b5NrRh+LqVQMBSomm+ruljltRPZxj9Iq0r7
-	A7pFvSPmb72yZbAxb+TgiCxiRHi9oScUSPjx+5CBV/if7qf8EgDTIqN2Mph71Rn6q/4s6j1od2E
-	zvh7H496JzcypoR6yRwNuduMqsKgGSlEU1oP+K9D0W8VSSpVfyUQ0Qgr0DjxSQ2lXRdxHdvzBZc
-	LzjRBCn0fi7KBXkDCjvv2Edmv1ctYP7nLVyaxP7FQS+79tu5pc6SUykwiME9tn1dcvhcieb9vO3
-	djpZmk4a1lFBL/TrMyS0/p1T96t1xb1VsR2kBCxZtmj0H0SgCbmRa5WfsOkp0VQdCXq7JEGklPm
-	E1dhvVFIboz2+SgheaJ2lGTwW4MycbwOGo14696VUlxWlDFezzioFXr6aBb0
-X-Received: by 2002:a05:6a20:9e0e:b0:3e1:d72f:1587 with SMTP id adf61e73a8af0-3e26bda45bfmr1140976637.34.1792463462139;
-        Mon, 19 Oct 2026 19:31:02 -0700 (PDT)
-Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.249])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89febdc2209sm3958456b3a.33.2026.10.19.19.30.57
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 19 Oct 2026 19:31:00 -0700 (PDT)
-From: Yu Zhang <yuz08559@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Alan Stern <stern@rowland.harvard.edu>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yu Zhang <yuz08559@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] usb: gadget: f_mass_storage: take filesem in nofua store to fix backing-file UAF
-Date: Tue, 20 Oct 2026 12:30:50 +1000
-Message-ID: <20261020023050.87701-1-yuz08559@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261018130519.65850-1-yuz08559@gmail.com>
-References: <20261018130519.65850-1-yuz08559@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=zohomail.com header.i=ming.li@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=YOizeYqK
+ARC-Seal: i=1; a=rsa-sha256; t=1792463730; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Bus5DKuSyjkOpB4sqTsSW3sDJ8eIJvtd2TBemq+FOikWerhd2vpljXgWf6V+HefHB6T2MS/qLWSOMNZTqmV90VU3VBca70FuPuOrfgcUNpjYGaXvSo+j2rYbTCX7Z1Oho66GbG1O8xuy+labeLwS2koVR6Shs8/M/5210TbQ7/c=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792463730; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Oshdmag92sYPa4AKVOD9e8ufzckyZrK4kOUMn0bjT54=; 
+	b=EHXqWCLJfwcDAo4xrILyi9TWhkk4MIp1XzIyQbnsunUDrW0fKdG9PIAnXGYpe1wVc40fyDxR7w8Kn8Uv06XDekoNfZtBLvZN8ssEivhp7TttWi3MeuiPmydasjoqk072x8VaCI3RkTLZw2M5MAt7DG2BmSTVgLPFE8qceOn78RM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
+	dmarc=pass header.from=<ming.li@zohomail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792463730;
+	s=zm2022; d=zohomail.com; i=ming.li@zohomail.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
+	bh=Oshdmag92sYPa4AKVOD9e8ufzckyZrK4kOUMn0bjT54=;
+	b=YOizeYqKrCcNrP4+GlWqNuebU1DTg12219dtEeyrFGoGog/yKJhuPbgxUqcwSZlm
+	VqwzoSWsJJSot8TgVJSAg+AJnAFd1qCAfJ6iGKjkL4wnuLGxyVks4KCyCdfqaireDaW
+	2Gc4EWDyfObhnQfKR1A9mDhUsU7ZiY3rJADr/YJI=
+Received: by smtp.zohomail.com with SMTPS id 1792463728202780.2472059512872;
+	Mon, 19 Oct 2026 19:35:28 -0700 (PDT)
+Message-ID: <ada418ab-e8a6-46f1-8640-f33a7dac3028@zohomail.com>
+Date: Tue, 20 Oct 2026 10:35:23 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,131 +65,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] cxl/mbox: Treat unknown device return codes as errors
+To: Alison Schofield <alison.schofield@intel.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>,
+ Dave Jiang <dave.jiang@intel.com>, Vishal Verma <vishal.l.verma@intel.com>,
+ Ira Weiny <iweiny@kernel.org>, Richard Cheng <icheng@nvidia.com>,
+ linux-cxl@vger.kernel.org, Gaobin Huang <huanggaobin23@semi.ac.cn>,
+ stable@vger.kernel.org
+References: <cover.1791949910.git.alison.schofield@intel.com>
+ <3ed8f5db3f21c937d8783f31ee6faca3703ba72a.1791949910.git.alison.schofield@intel.com>
+ <4bcc00ea-1586-471e-a51e-01a0d3f762df@zohomail.com>
+ <ataFNPeoHJjiHj3V@aschofie-mobl2.lan>
+From: Li Ming <ming.li@zohomail.com>
+In-Reply-To: <ataFNPeoHJjiHj3V@aschofie-mobl2.lan>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Feedback-ID: zu08011227c76c875fbc25410f2197970700005ac268b6dc53f1f67be34437c6994ea861c35ef39a09b7aa37:ZohoMail
+X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
+X-ZohoMailClient: External
 
-fsg_store_nofua() syncs the LUN's backing file when switching from async
-to sync mode:
 
-	if (!nofua && curlun->nofua)
-		fsg_lun_fsync_sub(curlun);
+在 2026/10/20 05:01, Alison Schofield 写道:
+> On Thu, Oct 15, 2026 at 05:22:02PM +0800, Li Ming wrote:
+>> 在 2026/10/14 12:17, Alison Schofield 写道:
+>>> From: Gaobin Huang <huanggaobin23@semi.ac.cn>
+>>>
+>>> cxl_mbox_cmd_rc2errno() and cxl_mbox_cmd_rc2str() use the device's 16-bit
+>>> return code to index cxl_mbox_cmd_rctable[]. A return code outside the
+>>> table's range causes an out-of-bounds read, potentially allowing a failed
+>>> command to be reported as successful.
+>>>
+>>> Check the return code against the table size. Report unknown codes as
+>>> -ENXIO, the errno used for most device-reported errors, and describe them
+>>> as "unknown return code".
+>>>
+>>> Found with a QEMU Type-3 device returning codes 001Fh and 0020h, which are defined in CXL 4.0 but not yet recognized by Linux [1].
+>>>
+>>> [1] https://lore.kernel.org/linux-cxl/20260929060747.3550005-1-huanggaobin23@semi.ac.cn/
+>>>
+>>> Fixes: 92fcc1abab09 ("cxl/mbox: Improve handling of mbox_cmd hw return codes")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Gaobin Huang <huanggaobin23@semi.ac.cn>
+>>> Co-developed-by: Alison Schofield <alison.schofield@intel.com>
+>>> Signed-off-by: Alison Schofield <alison.schofield@intel.com>
+>> Reviewed-by: Li Ming <ming.li@zohomail.com>
+>>
+>>
+>> The issue is not related this patch, but I found it during reviewing this
+>> patchset.
+>>
+>> I noticed that the default errno of CXL_MBOX_CMD_RC_BACKGROUND is -ENXIO,
+>> but description is "background cmd started successfully", I checked no any
+>> driver code checks/uses this CXL_MBOX_CMD_RC_BACKGROUND's errno, maybe we
+>> should set to 0 like CXL_MBOX_CMD_RC_SUCCESS?
+>>
+> Hi Ming,
+>
+> Agree. Fixing it to 0 seems like a separate cleanup, not for this
+> series. Can you send a separate patch for that?
 
-fsg_lun_fsync_sub() dereferences curlun->filp (vfs_fsync(filp)). Unlike
-every other store that touches the backing file -- fsg_store_ro() and
-fsg_store_cdrom() (down_read), fsg_store_file() (down_write) --
-fsg_store_nofua() holds no filesem while doing so.
+Sure, Will do.
 
-A concurrent close of the backing file runs under down_write(filesem) and
-does fput(curlun->filp) in fsg_lun_close() (fsg_store_file() with an empty
-path, the SCSI START_STOP eject in do_start_stop(), or forced_eject), so
-it can free the file while fsg_store_nofua() is dereferencing it:
 
-	BUG: KASAN: slab-use-after-free in vfs_fsync+0x20/0xe0
-	 vfs_fsync+0x20/0xe0
-	 fsg_lun_fsync_sub+0xa0/0xd0
-	 fsg_store_nofua+0x138/0x160
-	 configfs_write_iter+0x1a7/0x250
-	 vfs_write+0x5df/0x940
-	Allocated by task 3459:
-	 fsg_store_file+0x150/0x1f0
-	 configfs_write_iter+0x1a7/0x250
-	Freed by task 3459:
-	 __fput+0x456/0x6c0
-	 __fput_deferred+0x10d/0x330
-	 fsg_store_file+0x9e/0x1f0
-	 configfs_write_iter+0x1a7/0x250
+Ming
 
-Hold filesem for read around the fsync in fsg_store_nofua() so the backing
-file cannot be closed underneath it. The lock is only needed when the
-fsync actually runs, so it is taken only in that branch.
-
-Reproduced on a mass_storage gadget over dummy_hcd by writing lun.N/nofua
-(1 then 0) from one task while another task rewrites and clears lun.N/file.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Yu Zhang <yuz08559@gmail.com>
----
-v2:
- - Use guard(rwsem_read) instead of a bare down_read()/up_read() pair
-   (Greg KH).
- - Take filesem only inside the branch that actually calls
-   fsg_lun_fsync_sub(), not around the whole function / the
-   curlun->nofua assignment, since the lock is only needed for the sync
-   (Alan Stern).
-
-v1: https://lore.kernel.org/all/20261018130519.65850-1-yuz08559@gmail.com/
-
- drivers/usb/gadget/function/f_mass_storage.c | 8 ++++++--
- drivers/usb/gadget/function/storage_common.c | 7 +++++--
- drivers/usb/gadget/function/storage_common.h | 3 ++-
- 3 files changed, 13 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/usb/gadget/function/f_mass_storage.c b/drivers/usb/gadget/function/f_mass_storage.c
-index b7b06cb..6712566 100644
---- a/drivers/usb/gadget/function/f_mass_storage.c
-+++ b/drivers/usb/gadget/function/f_mass_storage.c
-@@ -2663,8 +2663,9 @@ static ssize_t nofua_store(struct device *dev, struct device_attribute *attr,
- 			   const char *buf, size_t count)
- {
- 	struct fsg_lun		*curlun = fsg_lun_from_dev(dev);
-+	struct rw_semaphore	*filesem = dev_get_drvdata(dev);
- 
--	return fsg_store_nofua(curlun, buf, count);
-+	return fsg_store_nofua(curlun, filesem, buf, count);
- }
- 
- static ssize_t file_store(struct device *dev, struct device_attribute *attr,
-@@ -3239,7 +3240,10 @@ static ssize_t fsg_lun_opts_nofua_show(struct config_item *item, char *page)
- static ssize_t fsg_lun_opts_nofua_store(struct config_item *item,
- 				       const char *page, size_t len)
- {
--	return fsg_store_nofua(to_fsg_lun_opts(item)->lun, page, len);
-+	struct fsg_lun_opts *opts = to_fsg_lun_opts(item);
-+	struct fsg_opts *fsg_opts = to_fsg_opts(opts->group.cg_item.ci_parent);
-+
-+	return fsg_store_nofua(opts->lun, &fsg_opts->common->filesem, page, len);
- }
- 
- CONFIGFS_ATTR(fsg_lun_opts_, nofua);
-diff --git a/drivers/usb/gadget/function/storage_common.c b/drivers/usb/gadget/function/storage_common.c
-index 75831f2..51a70f2 100644
---- a/drivers/usb/gadget/function/storage_common.c
-+++ b/drivers/usb/gadget/function/storage_common.c
-@@ -415,7 +415,8 @@ ssize_t fsg_store_ro(struct fsg_lun *curlun, struct rw_semaphore *filesem,
- }
- EXPORT_SYMBOL_GPL(fsg_store_ro);
- 
--ssize_t fsg_store_nofua(struct fsg_lun *curlun, const char *buf, size_t count)
-+ssize_t fsg_store_nofua(struct fsg_lun *curlun, struct rw_semaphore *filesem,
-+			const char *buf, size_t count)
- {
- 	bool		nofua;
- 	int		ret;
-@@ -425,8 +426,10 @@ ssize_t fsg_store_nofua(struct fsg_lun *curlun, const char *buf, size_t count)
- 		return ret;
- 
- 	/* Sync data when switching from async mode to sync */
--	if (!nofua && curlun->nofua)
-+	if (!nofua && curlun->nofua) {
-+		guard(rwsem_read)(filesem);
- 		fsg_lun_fsync_sub(curlun);
-+	}
- 
- 	curlun->nofua = nofua;
- 
-diff --git a/drivers/usb/gadget/function/storage_common.h b/drivers/usb/gadget/function/storage_common.h
-index 11ac785..347a86b 100644
---- a/drivers/usb/gadget/function/storage_common.h
-+++ b/drivers/usb/gadget/function/storage_common.h
-@@ -210,7 +210,8 @@ ssize_t fsg_show_cdrom(struct fsg_lun *curlun, char *buf);
- ssize_t fsg_show_removable(struct fsg_lun *curlun, char *buf);
- ssize_t fsg_store_ro(struct fsg_lun *curlun, struct rw_semaphore *filesem,
- 		     const char *buf, size_t count);
--ssize_t fsg_store_nofua(struct fsg_lun *curlun, const char *buf, size_t count);
-+ssize_t fsg_store_nofua(struct fsg_lun *curlun, struct rw_semaphore *filesem,
-+			const char *buf, size_t count);
- ssize_t fsg_store_file(struct fsg_lun *curlun, struct rw_semaphore *filesem,
- 		       const char *buf, size_t count);
- ssize_t fsg_store_cdrom(struct fsg_lun *curlun, struct rw_semaphore *filesem,
--- 
-2.43.0
-
+> -- Alison
+>
+>
+>   > ---
+>>> This patch is independently applicable and backportable. It is
+>>> intentionally introduced here as a lead in to the kunit patch
+>>> that backstops this fix.
+>>>
+>>>
+>>>    drivers/cxl/cxlmem.h | 6 ++++++
+>>>    1 file changed, 6 insertions(+)
+>>>
+>>> diff --git a/drivers/cxl/cxlmem.h b/drivers/cxl/cxlmem.h
+>>> index c401e3a1af06..357d0d873e87 100644
+>>> --- a/drivers/cxl/cxlmem.h
+>>> +++ b/drivers/cxl/cxlmem.h
+>>> @@ -6,6 +6,7 @@
+>>>    #include <linux/pci.h>
+>>>    #include <linux/cdev.h>
+>>>    #include <linux/uuid.h>
+>>> +#include <linux/array_size.h>
+>>>    #include <linux/node.h>
+>>>    #include <cxl/event.h>
+>>>    #include <cxl/mailbox.h>
+>>> @@ -205,13 +206,18 @@ static const
+>>>    struct cxl_mbox_cmd_rc cxl_mbox_cmd_rctable[] ={ CMD_CMD_RC_TABLE };
+>>>    #undef C
+>>> +/* The return code comes from the device and may be one this table lacks */
+>>>    static inline const char *cxl_mbox_cmd_rc2str(struct cxl_mbox_cmd *mbox_cmd)
+>>>    {
+>>> +	if (mbox_cmd->return_code >= ARRAY_SIZE(cxl_mbox_cmd_rctable))
+>>> +		return "unknown return code";
+>>>    	return cxl_mbox_cmd_rctable[mbox_cmd->return_code].desc;
+>>>    }
+>>>    static inline int cxl_mbox_cmd_rc2errno(struct cxl_mbox_cmd *mbox_cmd)
+>>>    {
+>>> +	if (mbox_cmd->return_code >= ARRAY_SIZE(cxl_mbox_cmd_rctable))
+>>> +		return -ENXIO;
+>>>    	return cxl_mbox_cmd_rctable[mbox_cmd->return_code].err;
+>>>    }
