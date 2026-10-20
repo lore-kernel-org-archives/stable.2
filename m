@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792506830;
-	b=HPiGcGOwUFcckhjvExcVTHqi/klFoQtgV3utgw8zWxR90QohDm62lA+GVgAA9NZTFPj9
-	 f00xqqYt9MAySmAS6XM61z0GsdNIsbP/AmfvH7SS1gATnWdlCjfSxf074rxwDo293FamX
-	 PdvSFDLJR4Ct7mrDfTizjtvwwalb6q4fJP3SsfEH9WBzXmMVgQDlq4N8GUre5x9t8gnwS
-	 EbfTbLm4iNwsXdNUtAIR5wmgyI73jBJ1JD3xZUCNuaekDQOU9vJ27thbQtRxbbjRUgJpX
-	 /sRU/eUza47vMptZtqzLF4e1MoRGGofmr8Ik9syixYEmyvGLXxM1gwm5ZTzQCeuulBg==
+	b=IH4GznRBUbNUPCIwg3guKBPl7jN7VLfU/2gTkAcXA8eCDJsh9LYgB1/OJlpAwC4jcebg
+	 dHA3R3SU+gR9BjfN/TQCjWXns0AmtDTYrrH290nI3fHNfnX8qIatGCEgG1T3IQDM/Mo3/
+	 HklDgQlCXrP1tMnw/tWQIXsrabuM4Iih9hax8zCUWB+Qp6cFaDeKvUL98AmB2Il2WqrS1
+	 0RYwbrKZEACrUOh2YKs0M7InO8/uj8QXUDQ6Rqbs2YJp2VB3aNPqDHqGxcQQrSDUySovN
+	 GEe9kF+uBjwsT6f5KhUyQt94VA7LAyOmEivTmLH3Jn1fg1LgC3Mg/ohojFP9IzKxOVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792506830;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
-	bh=x7Sl42yeepISEq0WkYmBoaeazxIEV8OKcTuneJ7Mktg=;
-	b=jq4MpIIpT1NcSV4OsFL62Oq4CKKCinNuCvoEXW2WnP4doPxMB2KY3g9jak1jd9ibu532
-	 WCWnClKuv/SFuoOtJkaa+teEaCgM8JlprEed2fJBCSUuylCwl07IwsGbBHn8yv9neM+4G
-	 LHSOTBxFZADEK1CerLeCMKIw+7ctb0wI0rN9Jl30Gx08VG2p9HWJTeI7TsrIR8sh00+tG
-	 4UkcKISvinb+vp7d7TTJfsm0Q2CmbgrrmdCydSllmBxX03kp1rVXb20Xs02rRqZUloPJj
-	 iD9xRULkVdvzaHikoQLHBR1WsQQMWiK0ClvPpBdJx3jDubJeeboK3SzJzvqVps8F6QA==
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=PgHaDmY2DOGMgpEhK+04XXO50J0625X+q5VCRHeKwHs=;
+	b=4CSIaWzI5CgCUJz/M9UsJ7EtdOi10doSfdnzM5Z0zghPqM6ULGOVKZJZsUmMCwtHV8Ve
+	 dCpoonTeUdYvGazlPTDsXZpT8a4VSLASDUS92CLSKzU75VH0+/3pTtN3wjMAQR2AXsf6v
+	 NWlWsQSFBJznXURilYeUvbR84mc5YOAjNH7MVmpVGvw/400jHQF/8tXzYu+Yee14hx+KB
+	 aOiz1LZSK6hX/xTJbA6Xy93KLJsw7Vn4dXVVRKXw9tHAH2QlJ6YCBDoWC/ropYGqB+RKS
+	 zSsWVF5Yw0PnskfFs3oWs6YUt9RN9OmuKs5iTCuUxU5W8nJ+1yK1kaMxGaR5CP8pf4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=tipi-net.de;
 	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=q3UNx2RS;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=ctTXmW1Q;
 	arc=none smtp.remote-ip=194.13.80.246
 Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1769606A326;
-	Tue, 20 Oct 2026 14:33:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1769606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1AFE606A33C;
+	Tue, 20 Oct 2026 14:33:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1AFE606A33C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=q3UNx2RS
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E293FA1579;
-	Tue, 20 Oct 2026 16:33:45 +0200 (CEST)
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=ctTXmW1Q
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E2EB6A1628;
+	Tue, 20 Oct 2026 16:33:47 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792506826; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=x7Sl42yeepISEq0WkYmBoaeazxIEV8OKcTuneJ7Mktg=;
-	b=q3UNx2RSDKB5JVCHsQm1Bxs5dD8ZQDrMyNO7WzdPsgRN/SXHForTIZ0DwBmpikGet04ywl
-	eehd+JVPgK7jyb78fPPNWY5fv9rk2oft9PkpzIT+tuFVOjrKdMg0dbldWzBx7T+iwjHAg/
-	boFs3rcj++NQGTVQK0S/hFntTWIZvO9cfqx8j11ol5WUMYRLZkfWZLkVNL0FIAVFwGr4wJ
-	pjr3a/LIu//CaGO0WfDyIh8pHA2w4QQGGC4Ves/9/HAe3Q3b8DbQ1N+wKan2NmI/z8dhkx
-	FFZYMMIitu4mR5rxOahsb9gchoeJmXeOgm74Scm64F80njwIbX3XkVcFqtc0oA==
+	t=1792506828; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=PgHaDmY2DOGMgpEhK+04XXO50J0625X+q5VCRHeKwHs=;
+	b=ctTXmW1QccVAMXb4Gg7ph98MtbASwU672qeqfkGEmduh0ADW5SbhTFKu4cxZb8ip8H0KSU
+	EQyPqnLKkLzgLUfGn7KSLKyoKde2jwdUiH4QiprkzVFmNnO8tTdu9K1j/qwdJdOXxFtCOr
+	orJMJYpiHDqpzpCFeCy2eyZpBcTqlAj8fKdv8tBC0AI4wEje/4Rn0Jm0n+fDpiOkG19q9c
+	DgxQ6PGANusHjjz/XyN9fQKwOUlc4Fi73/uLJDBWm+eXN+XhMeFZOwkSOoNRPT8Fi/ggmo
+	HbB88kEBS/c+ah2BFY3BuAsydaXOuqMiSscpDtDTXEDGKXK0aFOatM5bmhzefA==
 From: Nicolai Buchwitz <nb@tipi-net.de>
-Subject: [PATCH 0/4] usb: usbtmc: fix undersized high-speed bulk packets on
- xHCI
-Date: Tue, 20 Oct 2026 16:33:37 +0200
-Message-Id: <20261020-fix-usbtmc-short-packets-v1-0-903f4d029193@tipi-net.de>
+Date: Tue, 20 Oct 2026 16:33:41 +0200
+Subject: [PATCH 4/4] usb: usbtmc: send a ZLP after a full last packet in
+ packet I/O mode
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,10 +59,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QqCQBCF4VeRuW5gdxWFXiW6WKeTjpHKzhqB+
- O5tdfnBOf9OhqQwOlc7JbzUdJkL/KkiGeM8gPVWTMGF1rvg+K5v3qzPT2Ebl5R5jfJANvbSINR
- 1ROM6Kvc1oWx/6cv1b9v6CZK/PTqODxCrGBB8AAAA
-X-Change-ID: 20261020-fix-usbtmc-short-packets-1c4e233ae407
+Message-Id: <20261020-fix-usbtmc-short-packets-v1-4-903f4d029193@tipi-net.de>
+References: <20261020-fix-usbtmc-short-packets-v1-0-903f4d029193@tipi-net.de>
+In-Reply-To: <20261020-fix-usbtmc-short-packets-v1-0-903f4d029193@tipi-net.de>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  Steve Bayless <steve_bayless@keysight.com>, 
  Guido Kiener <guido@kiener-muenchen.de>
@@ -71,48 +70,46 @@ Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
 X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 
-The Siglent SDM4065A-SC, Rigol DP800 and Rigol DS1000Z (and probably
-others) advertise 64-byte bulk endpoints at high speed. USB 2.0 only
-allows 512, which xHCI correctly implements. Unfortunately this breaks
-usbtmc on these devices. Reads stop after the first packet, and longer
-writes also fail or hang the OUT endpoint until a USB reset:
+The Rigol DP800 waits for a short packet before it handles a command.
+A message that ends exactly on a 64-byte boundary is never processed.
+The read times out, and once the next message gets appended the device
+shows "command incorrect".
 
-  usb 1-1.3: config 1 interface 0 altsetting 0 bulk endpoint 0x81 has invalid maxpacket 64
-  usbtmc 1-1.3:1.0: Device sent too small first packet: 8 < 12
-  usbtmc 1-1.3:1.0: Unable to send data, error -110
+Send a zero-length packet after a full last packet in usbtmc_write()
+on quirked devices.
 
-We ran into this in our factory once we switched some test PCs from
-dwc2 based hardware to xHCI based ones. dwc2 uses the advertised 64
-bytes, so the devices worked fine before.
+Tested on a DP832A, a DS1054Z and an SDM4065A-SC.
 
-This series adds a quirk table to usbtmc and moves one packet per URB
-for the devices in it. The DP800 also wants a ZLP after a write that
-ends on a packet boundary. Only read() and write() change, the ioctls
-behave as before. More devices can go into the table as they turn up.
-
-The Rigols still have one issue I can't work around. They split replies
-over 500 bytes into several transfers, and a follow-on transfer that
-ends exactly on a packet boundary never arrives. Raw libusb shows the
-same, so I guess it's another firmware bug. Should be fine for most use
-cases though.
-
-Tested on a Raspberry Pi CM4S (BCM2711 xHCI) and a CM5 (RP1 xHCI).
-
+Cc: stable@vger.kernel.org
 Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
 ---
-Nicolai Buchwitz (4):
-      usb: usbtmc: handle undersized high-speed bulk IN packets
-      usb: usbtmc: handle undersized high-speed bulk OUT packets
-      usb: usbtmc: add Rigol DP800 and DS1000Z to the packet I/O quirk table
-      usb: usbtmc: send a ZLP after a full last packet in packet I/O mode
+ drivers/usb/class/usbtmc.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
- drivers/usb/class/usbtmc.c | 87 ++++++++++++++++++++++++++++++++++++++++------
- 1 file changed, 76 insertions(+), 11 deletions(-)
----
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-change-id: 20261020-fix-usbtmc-short-packets-1c4e233ae407
+diff --git a/drivers/usb/class/usbtmc.c b/drivers/usb/class/usbtmc.c
+index 861913b9de918..101d4f9fff6b5 100644
+--- a/drivers/usb/class/usbtmc.c
++++ b/drivers/usb/class/usbtmc.c
+@@ -1259,6 +1259,8 @@ static ssize_t usbtmc_generic_write(struct usbtmc_file_data *file_data,
+ 			usb_sndbulkpipe(data->usb_dev, data->bulk_out),
+ 			urb->transfer_buffer, aligned,
+ 			usbtmc_write_bulk_cb, file_data);
++		if (packet_mode && this_part == remaining)
++			urb->transfer_flags |= URB_ZERO_PACKET;
+ 
+ 		usb_anchor_urb(urb, &file_data->submitted);
+ 		retval = usb_submit_urb(urb, GFP_KERNEL);
+@@ -1666,6 +1668,9 @@ static ssize_t usbtmc_write(struct file *filp, const char __user *buf,
+ 		usb_sndbulkpipe(data->usb_dev, data->bulk_out),
+ 		urb->transfer_buffer, aligned,
+ 		usbtmc_write_bulk_cb, file_data);
++	/* Some devices only end a transfer on a short packet */
++	if (data->packet_io && transfersize == remaining)
++		urb->transfer_flags |= URB_ZERO_PACKET;
+ 
+ 	usb_anchor_urb(urb, &file_data->submitted);
+ 	retval = usb_submit_urb(urb, GFP_KERNEL);
 
-Best regards,
---  
-Nicolai Buchwitz <nb@tipi-net.de>
+-- 
+2.53.0
 
