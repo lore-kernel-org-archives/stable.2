@@ -1,83 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792517312;
-	b=vf6LX6Nm/Cb2t0rp4ATyg9q6PVm2v2hNMgzKQG111P1SuI/7cquSn/37z8TRQXnd6md1
-	 Q67WFGnvFXA4qlcWukyPankvgAVpBVZjDXaQB+YF/CUMfAYuyXHek/dXGIbH3W8O9QLLc
-	 q4WozwM2mWvF2lzkHh45JskV/BqFge6k8LzA/Z+DpPWjBsj8XsrQozl0/gc8A07XxAzxa
-	 aJiG2WF1bCgtJX6jzxcVR4ZpwUL/B5qdvVM5/qZIkoaz/S0qvtrwyPFg1K0krN8W/wZIE
-	 ixCVumIosX0If5uk1d86FL0wEELVbS98cOFmL4bU26vsfmH0vEZviUx4yssQRgtUr+w==
+	t=1792517465;
+	b=Q4mM2irgbiNRIBbPIDyqVvKBVnU1DT9MIEwSj3NhqDh7wQ9B5tj1et2rXzs+Cw16tyzB
+	 ITKHv+d+xz3fq82Dt2P2VuxkfQpol2p9/U05tU7Ql7KjTBi4qzUTf8tsAMfGgoG0ZM6qR
+	 xf4nF+JOheom3EMk5biQ6hCFNgKowgAc5MgKZSaRrbaKtQg/Yu9bqkkG+t+l7YZkio22W
+	 DcGcibTFNwPb+xBWBN9WwWA+WAERgmLHQltDveSne1TqvfUxSFFYevDnyyxr8zORGgGQ5
+	 9mrUlAZ66q2E2UvrA5ElHMX/YZJ8yQnfO2jbVFQ81tTFprtClIjegYuYMRJ6VxCS+Rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792517312;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=xd2xn7InKp+SrI7s/BHBhFnK8Dcvi3AeSU04cbSblZ4=;
-	b=LU8GD0BXuegtnQIAWYFw7A+Z9Z/jUaq22jbMg5rstjmD2EWEyYroJTbFULlz/6aiA8wp
-	 LX9IjY5SaP4mQx+9Cv8WNsbvjQREda2c7cU92unmrVHpvOi3bZLm+YJ9Ki78jwTMCJGEu
-	 otY/LowwZOQJRqLRWh7/Fuh6OcB+UkT/HNF+N3CmecpwMOBlcR7Q2BGh8oCap6rYr+AVI
-	 DCVhQpHrd2atoX9sPh7fHJ3gyQ+8N+YA/Hyxqf29je2nw8ONPKWlE3tNCpNH1xigPLTS1
-	 XqiJoQlDFO9QIRAn8mmHJD0lFCSGk6pfzXh9B2/AfZU8mqdoRJp07e5xhTPdVSiYSuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792517465;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=j+gbm0Z15tp8VKniuyUyyrqMzdRSHHdEh41Xgir5bIc=;
+	b=Q7YUgUrzKmOUyT65fUkz0/Xb/YWwkWk6coBbnM8bt+hVVBFsK3p/wqvx/AWNZ05FNg6g
+	 bmRIMyKfQwYS2LXtiR2aNz+Hxuro5+Mjgn8j3wCfqG2oi66rq9BV4BbXrpZ6nLyW/aAVi
+	 8EhZcxI5isVTBgYfjN9ECQjvgwsHwL1sze83tGEGTHD82CXtr6y6mMdAJuwvuQIG3UWFz
+	 FBHyF+XqozXKHn9VO1QEFIAqs8iRf7pW99+421piROvAo3lh2O/1yoN6EI0qX5kXYsRY8
+	 21kHy4vQbrv9nswN2BRhY/srDXpZLGfP3VTwvxGS+0Ee5XpQhhWXQ44QVelprMiZq9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=VqsPYUNx;
-	arc=none smtp.remote-ip=209.85.219.42
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="M2ANc/UE";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B66606A319
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 17:28:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7B66606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B56606A32E;
+	Tue, 20 Oct 2026 17:31:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=VqsPYUNx
-Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-91986c5cb75so36577726d6.0
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 10:28:31 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=M2ANc/UE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC97E1F000C9;
+	Tue, 20 Oct 2026 17:31:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792517310; x=1793122110; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=xd2xn7InKp+SrI7s/BHBhFnK8Dcvi3AeSU04cbSblZ4=;
-        b=VqsPYUNxILRhN2J6f0RkpSt9C41C0GtOBBGNy9lUh30TaoJ8cFmYnc4f7MV8RhbUEg
-         fjNikbxz7aba+FIbwa+l7rnSgJNEIiL6EIH59BHD65xXEDP+2saS2bc/9Kppla7eH2QR
-         LeqYrpotYAE/qFJMi7bLoTf/UX9YXThgcevkEAuelTTxdmRTq0ylvTmIYshex3BgAOXZ
-         O1Dxkk4PBQOqS4SeRTBfT6EAuuYeQ/sJpJ0rmoC4hRvvBQhon0LNYlzYQNSTZYSlI3bI
-         T5lLrq0bUcbca3AocUjYu1NJMofNMnrRn1vt6GVLPEQWt2HlcUHgUcWiEif/EQZhl4cL
-         VR5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792517310; x=1793122110;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xd2xn7InKp+SrI7s/BHBhFnK8Dcvi3AeSU04cbSblZ4=;
-        b=Ht2wMfLPV7LY+TV4wdjij9R4o5UA3T6eHTpzJ2dV7+/P1suvkEF2yF1RXXhMiFN76j
-         +eUgyPyJNRORpElvz1molEkddSHR2IIO0fVDRmqMWhaPVtHueAdIMFywAQAfiakDC3Ss
-         isBR11ZN3hYJ9NO2NAIfgH3r1YmRU8h2HA/170rGmxIv34gBUuR9b93qw/bpUlRBGj3R
-         maXupIiNUOg8uGu1ZcwCoMzQwIBCoYpJsSZCMkEzOwoEwZ56imHUE7jRsyvL+CdSumjR
-         KeNqT+6/PPGCIdjoY2rGVS3pskC02+bDvovVdE8SDxjcQLTijPPLOag18b9ZGjwT0VtE
-         aWsg==
-X-Forwarded-Encrypted: i=1; AKwUvBwJM5Blj17f+JqFZvUrYOUos7T46bKcJ6Qyx+/FOgBi09EdTAKuLg0wA6pn1g9mTXKqr+nI4Kw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLU/4W0lRw1GZxYqdbNOZ1iKP9f3LT9YT1ibsSz1RAQHLlxtybC
-	wwfWVMq8OVPv3pDXukEwW49wG/KFB1v5RJ5i03s8M04hoKR5SsLcWImVOOTeL1WHoNc=
-X-Gm-Gg: AYBFou2XHMq1ObhXQmyyCRg2wdgZhYMcgw4Yz7dP/8MV0cD5KtATnEOIHoUqLDyUI+l
-	enys4qMrCT2bdoxsBNtGmVs2h/ocuBDPIDUP9eakO0luDNT8yOaO0DqP7yYoIoRDoREPdS0SOg4
-	bcljdXDVDMa5ukXiEWjvyE9yYVY1bX2vs+2W3e2d9b+7tzE3IZj64gtZi208I5sSo3jA9nUZvH2
-	mb6gMxKdnMj5osb1HoqRt0BeBcV7kUpFMEm+fgVv49dbVQRYfxrM9cHSQdfU79JJRgoZtSJkVoD
-	2oD5P04clzNORY4T83DwSiYktyltWB7EFhcAHv1g2gXKUL2rIS3UfvEHS39RdhdfRw7DhHPTA/0
-	4mHGUbjYo/zpU/n5O75RE3Md5SaeOyBbSF0XunJ7TLif2VwDiB4vxs3YdidgQUpNunwHcVjlMrm
-	jYRSlVh0J6LnyCLVeQ15o3KT8lUuc8wGdJJ9xia7gICp8WdrW+thnIy4egBDfKIb9AD+UkzrHkj
-	fqpLp6JyoAiQs/b61lTPTSK/AdIn749pmRq/n281gjHDDALTW+mclxx
-X-Received: by 2002:a05:620a:44c3:b0:93e:c12c:9b70 with SMTP id af79cd13be357-93f29df45b9mr1944842885a.75.1792517310522;
-        Tue, 20 Oct 2026 10:28:30 -0700 (PDT)
-Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c10b72cfdsm3288526d6.12.2026.10.20.10.28.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 10:28:29 -0700 (PDT)
+	d=linux-foundation.org; s=korg; t=1792517464;
+	bh=j+gbm0Z15tp8VKniuyUyyrqMzdRSHHdEh41Xgir5bIc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=M2ANc/UEwP+2XoIwwV7civxb/e+s55KN4SazeS3hJt7uXujlnErwVMFFF7GG0xfkU
+	 pNOkQVehGnI9FjPiObPRMlruDigQp2Mlh7g3ZLbaDjE3SMSDzzvMGSRCInsf3nDc7v
+	 3RIFNVjJVJwqb3nKKb6Xb7IH2DPm9Uz7GJ2vtYmg=
+Date: Tue, 20 Oct 2026 10:30:57 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Daehyeon Ko <4ncienth@gmail.com>
+Cc: muchun.song@linux.dev, osalvador@suse.de, david@kernel.org,
+ tj@kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/hugetlb_cgroup: prevent use-after-free during cgroup
+ offlining
+Message-Id: <20261020103057.8066217f6f6fc5b3ed84c90b@linux-foundation.org>
+In-Reply-To: <20261020100345.1677643-1-4ncienth@gmail.com>
+References: <20261020100345.1677643-1-4ncienth@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,61 +57,84 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] mm/vma: avoid broken uffd merge on mremap
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- Mike Rapoport <rppt@linux.vnet.ibm.com>, Peter Xu <peterx@redhat.com>, 
- "David Hildenbrand (Arm)" <david@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, shaos <shawnq1@163.com>, 
- stable@vger.kernel.org
-In-Reply-To: <20261020-uffd-remap-fix-v1-1-0f34fc181f0a@kernel.org>
-References: <20261020-uffd-remap-fix-v1-1-0f34fc181f0a@kernel.org>
-Date: Tue, 20 Oct 2026 13:27:36 -0400
-Message-Id: <179251725685.2936366.12518786742522387392.b4-reply@b4>
-X-Mailer: b4 0.17-dev
 
-On 2026-10-20 15:55 +0100, Lorenzo Stoakes (ARM) wrote:
-> Userfaultfd often causes unexpected interactions within mm, and does so at
-> the intersection of uffd, mremap() and VMA merging.
-> 
-> When an mremap of a VMA occurs, copy_vma_and_data() calls
-> mremap_userfaultfd_prep() to notify uffd of this.
-> 
-> However, mremap_userfaultfd_prep() simply drops the UFFD context for the
-> VMA if the user did not register it for remap, i.e. didn't specify the
-> UFFD_FEATURE_EVENT_REMAP flag.
-> 
-> This is OK for the VMA itself, as upon page table move, move_ptes() clears
-> UFFD page table flags, using vma_has_uffd_without_event_remap() to
-> determine whether to do so.
-> 
-> However, this doesn't account for merging with adjacent VMAs, whose page
-> tables won't have received this treatment, and thus latent UFFD markers
-> will be left around.
-> 
-> Worse, it'll break UFFD for any VMAs it is merged with. This is very
-> surprising behaviour for a user, who will then simply not receive UFFD
-> events for VMAs they ought to.
-> 
-> Resolve the issue by explicitly checking for this case via
-> vma_has_uffd_without_event_remap() in vma_merge_copied_range(), the merge
-> function explicitly designated for mremap() operations.
-> 
-> Also update the userland VMA tests accordingly.
-> 
-> Reported-by: shaos <shawnq1@163.com>
-> Closes: https://lore.kernel.org/all/20261020110748.959870-1-shawnq1@163.com/
-> Fixes: 3cfd22be0ad6 ("userfaultfd: clear flag if remap event not enabled")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+On Tue, 20 Oct 2026 19:03:45 +0900 Daehyeon Ko <4ncienth@gmail.com> wrote:
 
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+> A normal hugetlb charge obtains the current task's hugetlb cgroup with
+> css_tryget(), charges its page counter, and drops the CSS reference before
+> the folio is committed under hugetlb_lock.
+> 
+> The task can be migrated while the allocation is in progress.  If the old
+> CSS is then offlined, its final active-folio scan can finish before the
+> charge becomes visible.  The allocation can subsequently charge that dying
+> CSS and commit its pointer to the folio.  Once the CSS is freed, uncharging
+> the folio accesses the freed hugetlb_cgroup, including its page counter and
+> per-node usage.
+> 
+> Keep the reference acquired by the charge until commit or cancellation.  At
+> commit time, while holding hugetlb_lock, move an uncommitted charge out of
+> each dying CSS to the first live ancestor.  The hierarchical charge already
+> includes every ancestor, so moving it only requires canceling each dying
+> CSS's local count.
+> 
+> This orders commit against the offline active-folio scan: either the scan
+> runs after commit and reparents the folio, or commit observes the dying CSS
+> after the scan and selects a live ancestor.  The retained reference also
+> keeps the originally selected hugetlb_cgroup alive through this decision.
+> Reservation charges retain their existing CSS lifetime and are not
+> reparented.
+> 
+> On an unmodified v7.3 kernel with a 128-page 2 MiB pool, a
+> capability-free uid 1000 allocator racing administrator rmdir reproduced
+> KASAN writes to a freed hugetlb_cgroup in three of three boots.  Controller
+> disable reproduced the same fault.  With this change, 5,000 rmdir rounds
+> with 1,075,055 successful faults and 2,000 controller-disable rounds with
+> 1,707,348 successful faults completed without KASAN, LOCKDEP, page-counter,
+> or refcount reports.
+> 
+> AI-assisted source review was used to identify the race and to help draft
+> the reproducer and fix.  The interleaving and the resulting allocation,
+> free, and use-after-free stacks were verified with tracefs and KASAN.
 
--- 
-Gregory Price (Meta) <gourry@gourry.net>
+Thanks.  I ran this through my evolving reviewbot.  It liked the change
+and agreed with it.
+
+One claim:
+
+>
+> ...
+>
+> @@ -419,15 +438,17 @@ static void __hugetlb_cgroup_uncharge_cgroup(int idx, unsigned long nr_pages,
+>  					     struct hugetlb_cgroup *h_cg,
+>  					     bool rsvd)
+>  {
+> -	if (hugetlb_cgroup_disabled() || !h_cg)
+> +	if (!h_cg)
+>  		return;
+>  
+> -	page_counter_uncharge(__hugetlb_cgroup_counter_from_cgroup(h_cg, idx,
+> -								   rsvd),
+> -			      nr_pages);
+> +	if (!hugetlb_cgroup_disabled()) {
+
+This test is unnecessary.  Once h_cg is non-NULL, a successful charge
+necessarily came from an enabled controller, and cgroup_disable= is a
+boot-time static-key setting.  Please just unconditionally call
+page_counter_uncharge() after the existing !h_cg check, followed by
+css_put().
+
+> +		struct page_counter *counter;
+>  
+> -	if (rsvd)
+> -		css_put(&h_cg->css);
+> +		counter = __hugetlb_cgroup_counter_from_cgroup(h_cg, idx, rsvd);
+> +		page_counter_uncharge(counter, nr_pages);
+> +	}
+> +
+> +	css_put(&h_cg->css);
+>  }
+>  
+>  void hugetlb_cgroup_uncharge_cgroup(int idx, unsigned long nr_pages,
