@@ -1,58 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792527420;
-	b=cvSDAsoicERbCe5KbU1AKH1lk3WCwtde739toBGibEMg8sidXdned3R+PI4BX7H4dBv9
-	 afnAJBA0KsFdAFaqRX2TK9F9iq/y3QkasyhO4g3NlgTPQxCip2Thq+c6Ek3eM2BW9o5ZX
-	 OVy5qvkBopBcAHxW66Ppqbn4zn41E8yy0IfBwkNI+9huYZRJa2RvwZJBfdFtKYVtkYFU5
-	 Afnl3rOJMt9N5bBnQl7ZJUl2FrSUJYx83fngbQfDDXyrNxAdM5k7pCJJ4VnIuHUQYHf2Y
-	 Di92SBcNIvsblomfPGOAOfpqoky45aR3O72UtnA69GrByYR3kWTTj+VA/hRS61lbtEQ==
+	t=1792527499;
+	b=46bmZErmRJUGSajPh2PJLCtvUTB7pVETs420+/QZerapKfM2j7CWYiqbLJH5ze116IvZ
+	 8Jo8Z5vx6a57M9lthc3+mgdVLaThkfl80SFE6KxGeWYAaLlParJoJOLDsQcFhVPirSYsm
+	 7fjDbNM0TGOg8BY9SX94KoLn0aoEifmvkwPYHHh6zb6OXBCbN/bKQn5GIWbA5XflyDMs+
+	 cST4RTNcspyxD56orVcPTJVqKjFvXZgPea8xR0kaqNjtLnKDySX4a6Br/SJoGoEZblpjk
+	 nFXt5nOh4HMQA+K0E08x+xwfey9UKCNjDiYG01dj7rn/Xe3CiWBdquBmoXbrNh3ouSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792527420;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792527499;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
-	bh=5ZyhxfnR/OMl6eSq4R/nmtSjioEkST4Al6ReoxZQXhk=;
-	b=idTFvI2BRzEFeAZY37/JDkk4o7K3ZICjRFi65mMsA4XBmP/hjr6wnDTgfRfMXPZ+B/a8
-	 8nATpjaovYdhv+9z4+ObItdj6b9TpUnRZr2FUU5Th4D3V8rFTuL73k/ERKLRfM3OiZXkp
-	 +QE6cUcTirpTEdNv9AEYsRkc7JYVGxpYHJyVokUvbCQeaRBY/bu0bXstmxCBUrPfxbTaL
-	 FYOufvZQhAnOARAYKLogi8v8cftkjYOiLrkNuVDuWyuEIfXq3pB7YCM8qAJ+HjdHjIV9Z
-	 e62puhlkLW6Hb7W/ld1/c0lkdc1UGyd+nnAttZJR0R0fF+jKTJAAYvwaQtGUN4EGrAA==
+	bh=S5Imp0ytI0QuZZ5aOAyocJYw5ldMPdPddBET+K/JAQU=;
+	b=S3bwN76i09ff+5bfMuL4QFuG5sNq9fzYaWmImUDhdcJll3IanOM2RFW4UP5fZ4splxLi
+	 uXjji1zlqZS5AexwmTZ2ROvabQAocT0rHwvQZY+oJ+yV1cVBGbxBscXtxvw76oRibfGK/
+	 i0/86Jz3Lw/uuuqvma05NnVkQ6zU3fPg5Eth9AxpPSQHTb8KASZtTZkWv16yCsHV95CLH
+	 VphbwQT5sB2xmZpg8qUawyQU2kPJertOxssPR+qEV6HDboq3+Y9T7u2otUQIF5VK7mbYX
+	 ANoJaPlMFw1QlHbbRKO6usGMyoD+Tnv6VCP7HchgUb9UjGc+HZUHsXQnrURWLQpwm/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=gL8fUvzo;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="zZvdUdr/";
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 160AE606A31F
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 20:16:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 160AE606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC1F606A323
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 20:18:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AC1F606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=gL8fUvzo
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=zZvdUdr/
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 788AD4E41290
-	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 20:16:56 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 2C6D71A1290;
+	Tue, 20 Oct 2026 20:18:11 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3EFE060393;
-	Tue, 20 Oct 2026 20:16:56 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8734B10328E09;
-	Tue, 20 Oct 2026 22:16:43 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id DA1DC60393;
+	Tue, 20 Oct 2026 20:18:10 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 31CE510328934;
+	Tue, 20 Oct 2026 22:18:02 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792527410; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=5ZyhxfnR/OMl6eSq4R/nmtSjioEkST4Al6ReoxZQXhk=;
-	b=gL8fUvzo9CAHLHRjFYmZdA4maLeKrrUC21Fg4nnNN6ieJMDIjBb6MEr+uSbLAvA+pIFvsx
-	M+CQYX2ArSTMrEG29qNr7ugIvRdUmfZsAAt/FNx3nCxI7OKkSwbF+5kAPDiXrGS89ZkZqu
-	xJMhvf2eODsnK66lqd93ckzGwYJzyGATqOVH2fcp8n6MqZS38IZ9TFmo59qfHuPSFpyDRB
-	PPMAyPhuDQRrhSmabX1Uwwt3BmAyNHJx2YA9x5fIumJBP+J8jTrI2vU+pMDhWKfhCb9+/6
-	YQqmJFxtuCzFSwFv7yRbi7QPR1HmLU7EigwXJH5Uqvf1b3C2CGgvQVk8OS/PyA==
+	t=1792527485; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=S5Imp0ytI0QuZZ5aOAyocJYw5ldMPdPddBET+K/JAQU=;
+	b=zZvdUdr/2W/zGI23P0M7CoHHIign8VaNvM+k+Rw6HvgkeKKGEo6SyWmlfwX0BWD7J0yxQf
+	mbW5vAW5aCgrgBGxIlBqK+xTrfVoLgMHrEyRqsVWpm7VkMEBj+i/6Mf79dtd05Nosmthuu
+	gid16ic4eat/8IjgbW+wCjlVlIho2CekDNXHNGafJNrgpa/qRt0QH30OWu3XAIjU1FBApn
+	l6662kjzRUUNR8DiGOWfme2PIoo68LtJFvOMqb8mRXciO+Nlft0L/+D9qGpo284XYzLPXb
+	yRujHM9Su908wfawJS7yXTKtHKcrBodRY4T2Bc9tX6dGa4ax4FdbQ9NhrHtRyA==
 From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Tue, 20 Oct 2026 22:16:42 +0200
-Subject: [PATCH 5.15.y] security/keys: fix missed RCU read section on
+Date: Tue, 20 Oct 2026 22:17:58 +0200
+Subject: [PATCH 5.10.y] security/keys: fix missed RCU read section on
  lookup
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -65,11 +65,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-cve-2026-64015-v1-1-6b1010633008@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vchc3ZJu2Gb6KsYD9ousBzQtEo0h
- He36PGbZP4VRbNpwalZkXWxYve5wh8axPE6D0qWqsGOg3fsKC5KOyh0zgsdhZN0nDiEiHp6ZO3
- t/QueIa2X9oPLfy+v26TxudewbV+Pih2IegAAAA==
-X-Change-ID: 20261020-cve-2026-64015-952d542d266c
+Message-Id: <20261020-cve-2026-64015-5-10-v1-1-e46094923660@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ7CMAxE0atUs8aVbUiKuApiAcEFsygogQpU9
+ e6ksHwjzZ9QLLsV7JoJ2UYvfh8qZNUgXY/DxcjP1VDWKKxMaTRaQHHDEiiQMMVOujX3qmZb1Oc
+ jW+/vX3WP0Aq3Hxz+e3mdbpaeSxLz/AVFGZ1LfwAAAA==
+X-Change-ID: 20261020-cve-2026-64015-5-10-671730f22ee8
 To: stable@vger.kernel.org
 Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
@@ -81,11 +81,11 @@ Cc: Benjamin Robin <benjamin.robin@bootlin.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792527403; l=1805;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792527481; l=1810;
  i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=QyKGSJa7dRA0USCYa/SNISet/TXgRI0+WtWKXABz2MA=;
- b=7+HvKkAzPfr1NoU/r+9eXSpoeavREdrYs62uJbnj/9gEwD5Xs2fDyP5ylXusvFEbzNKPt4YtD
- CzbP0I1yD3wBI4BYF1SDdx4l3askthj+DvU+x2JdRCH0/gPP89YM3ja
+ bh=OmruEB3wy9mmcrZWbKMxIIXQpCKqADTXVvafR22DtJA=;
+ b=MpDCczD+cGV5WmWsxmfrk9B6wnv6ZpE0ECHMNQs/yeqrgGcfJ9+3ofJQhe6J24ha2SPJ53RLb
+ rDczUN7HYCbDnaGnpctlV1hqLGJo5jvI34M2nYHADvuNkrGoHaeWTXx
 X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
  pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
 X-Last-TLS-Session-Version: TLSv1.3
@@ -123,7 +123,7 @@ Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/security/keys/keyring.c b/security/keys/keyring.c
-index fc26d339a962..5b366911aac5 100644
+index 8b938e61ecd8..241b96addcf3 100644
 --- a/security/keys/keyring.c
 +++ b/security/keys/keyring.c
 @@ -1105,6 +1105,7 @@ key_ref_t find_key_to_update(key_ref_t keyring_ref,
@@ -136,8 +136,8 @@ index fc26d339a962..5b366911aac5 100644
  
 
 ---
-base-commit: 792fbe1537d8daeca9bd1917e84078b5432aadc2
-change-id: 20261020-cve-2026-64015-952d542d266c
+base-commit: aca95a35f1bcc0626c4fa4d1252bf2d4c990a1a2
+change-id: 20261020-cve-2026-64015-5-10-671730f22ee8
 
 Best regards,
 --  
