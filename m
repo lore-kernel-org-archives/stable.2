@@ -1,61 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792490056;
-	b=CMOIFkK2pKxeFzrXkW38qVUFEGF+kr9jPAP4f1bJ0rnyq6jvH+3jeaUX/c3h/0xj2LXv
-	 QQ+iIgNP0hhk/vBceDBzVqKh/AZAOYDrWrZE5tuE4Ya+hlqR4moE/Z35P40w5Vy/k74Xe
-	 H3D2wgPfzLE8kOErXF54ElAFMX69GKQvtbTlxq1UyWLQ5gaecoCpc7dh9jAXktWidN5RD
-	 F4yFWYXWa9rBUCOySrEyKjRINPgfDrNjCwF+qjnXalqyU382iTVcCTHO5jOncrfh5WkzW
-	 DPanj38Xu5VEhsSw+Ee7Rf3DZtC9hqv6d5lni+WrnY5naRHv9htpuz5bWuHVDZqluUQ==
+	t=1792490527;
+	b=iOLiEKMvl7K9Me7xUF4Kb2Y86igTZbY92uKtdN8Rk8dIyZWxVEVPlpVCZnTxXqAyytRz
+	 Y0X/X2ihSUhVUgeUhZcW8hYlKDMMCgjREkI2jP3eP4ddl02MIY/5mqVEQ/mWGLSX6Dd/4
+	 yXoSKAqu4sKnBoKt2hziG39a5dA96YfKPBLdJDaKwUCh9NSsROfCqWp3GqwqCjTPgORl7
+	 I/ZVfVQDmS9AWy8tdemSuhQVZbzG1eCUC1Bds8mAcmetlQT+ABnXwIfne22VNX9mTpQph
+	 ueCg1pcy/GyQ2mkJfMZUjENk8tIZpwnudPSJSsb1ebPF+8J7Fen4t8E/rHOq1pI8Amw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792490056;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=artqVHYwLfA3rNS6curj70sxHdKIUF4ARsisg35C+BY=;
-	b=j6zhNmvPvtDY2f1bctQhYQl5wfGxN5KFqEPu0rJRV3zRIqcQzjWnkWx3gA1w3GYvYmoo
-	 esCcfMWnmEcG6GvY1hh4IbV8gtISO2S8f9SSud843XE7MkqiYSIRC75JQP5dOzYQjWUN7
-	 wkMzNTv9u3/XJyNxcSn8au9ujixbHjTXQAVJbvmMnZN9HXpgszqF6WxSfi2E/PSrmDaKX
-	 yo+OqJGCKMGR2IkbEnndCvUmmhOcVHKvUPEkgsj5FS46viUkwa8ekIUV8J1pi5WH8caMD
-	 0MTgtHCqMB3KepHqBBUfp/LMIgVLNCVDS2H5mjhyezdkmSw/1OUtiNkYu4ebKrdzhyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792490527;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=34jo2lTPBFEDXI1aSdUvkUPUth9L8yOyLhTCG7rWYZM=;
+	b=aLj3yp1PXwNnfnXZGPcFQ9oG75k/1fXm4TvCa0h389Dav0iE50T+mgQWhWUgPaKVC7aP
+	 5yu4+C/SRXV7M8diRVA6ntsBjF5KmuAzKd95JaIxSraE7gV4XFJdviKnACd5Se6QlYo3/
+	 RjyllSaiuJDY55q3/32mP/riqRbKUjBZMJGFUbTVFE62lIgT0D2Nk2dIgvic4seiteFGy
+	 8EZsaMK3PlDUhMN3I0Qi0/sTopffvaKCAp+D2iN0ysFHuQepLfUJS30aiyKltPi6PcAvV
+	 tNz7oeSzsjLl5NTQqPScg4as8h5cXhrLjZvGkz6rCiShdfD3I7vE1nGdUc0Nw36DN4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AovypkY5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GDAqly89;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE88606A31B;
-	Tue, 20 Oct 2026 09:54:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB29F606A31D;
+	Tue, 20 Oct 2026 10:02:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AovypkY5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 473E11F000C4;
-	Tue, 20 Oct 2026 09:54:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GDAqly89
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B78FD1F000C4;
+	Tue, 20 Oct 2026 10:02:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792490056;
-	bh=artqVHYwLfA3rNS6curj70sxHdKIUF4ARsisg35C+BY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AovypkY5UjrZtDb/MxxKugfxW2dDJq1XPk457GKOUEmDlJ4Bz2/PCJstKdumxm6KR
-	 tUNEtwmm0ynOXctcavOecCYpvlZgRwHf6gMZMVCYZ/UM6vjoz2XiRTZl6IzvCZ/bHh
-	 lF7UZr6TYg89GPljalCp+7BQlhTBbz/O2zUplUeWLnPrsOLtpe7OsWwk8nwblG5tzU
-	 o+jo5znQWx8QjWTaQGz180xSvZvbzXiRJQJ9CAuMJlGRNFLEZWk3y0bblMKLnl+w/S
-	 WbVUowhUp7YzF5RSLwf+dyb01/KNUgQu8ngPMziat9XOZ2+a3IQ8mxT86JN6XhZiOs
-	 4GYtVRcJun9QA==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1xJ6Xt-00000008kSy-2jqn;
-	Tue, 20 Oct 2026 11:54:13 +0200
-Date: Tue, 20 Oct 2026 11:54:13 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Hui Peng <benquike@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4] USB: serial: garmin_gps: validate packet data length
- in nat_receive()
-Message-ID: <atc6RV5iox6w-s-I@hovoldconsulting.com>
-References: <20260919112819.3885778-1-benquike@gmail.com>
- <2026092059-hacking-coveting-c629@gregkh>
- <20260930075247.471109-1-benquike@gmail.com>
- <ar9-ULmQkzUJ7-uh@hovoldconsulting.com>
+	s=k20260515; t=1792490526;
+	bh=34jo2lTPBFEDXI1aSdUvkUPUth9L8yOyLhTCG7rWYZM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=GDAqly89F/GH8yY5EhL1wwCAlHSQ1x3pwskc+bkhbIsZ8HRGCxNNpO9+Hxc3k2IzQ
+	 YcOA5kV75DK7i08tKqUtrnU2C7yvmBBxI72+1b6zLYGfkFbxISwpQOtDQfIKK2+gDC
+	 0iSWEYVdJ4tfVAqXHm1g8Wu7rA6WJKqSuFK+ikFVpHiuMEfQnK9/tr8oIpL2t3M2gC
+	 Q9lincGUMOWlQBms4PTWH4SUg2PX8+Ow8Tsj3kdfDQCaS3efG70dPs+64nNk/5+QsA
+	 NIMa9ANXzjLvRd9GkzFa2y5pIWyR4lllJ18vpYeltIGgelooasDh8vi4zR2zRMZcrF
+	 ekgAf1uuGVzmQ==
+Message-ID: <f5e7b114-2bda-49e3-974f-170211501203@kernel.org>
+Date: Tue, 20 Oct 2026 12:02:01 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,82 +51,191 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ar9-ULmQkzUJ7-uh@hovoldconsulting.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/page_alloc: skip shuffling and reporting for no-lock
+ frees
+Content-Language: en-US
+To: Karl Mehltretter <kmehltretter@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Alexei Starovoitov <ast@kernel.org>,
+ Alexander Duyck <alexanderduyck@fb.com>, David Hildenbrand
+ <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Shakeel Butt <shakeel.butt@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261005063515.6312-1-kmehltretter@gmail.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20261005063515.6312-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 02, 2026 at 11:50:08AM +0200, Johan Hovold wrote:
-> On Wed, Sep 30, 2026 at 07:52:47AM +0000, Hui Peng wrote:
-> > In nat_receive() (called from garmin_write() when userspace writes to
-> > /dev/ttyUSBn in MODE_NATIVE mode), while garmin_data_p->insize is less
-> > than GARMIN_PKTHDR_LENGTH (12), the loop copies up to 12 bytes into
-> > garmin_data_p->inbuffer. Once garmin_data_p->insize reaches
-> > GARMIN_PKTHDR_LENGTH, nat_receive() computes the total packet size as:
-> > 
-> >   len = GARMIN_PKTHDR_LENGTH + getDataLength(garmin_data_p->inbuffer);
-> > 
-> > Because getDataLength() returns a signed int from __le32_to_cpup(), a
-> > 12-byte header with a negative 32-bit length field (such as 0xfffffff5,
-> > i.e., -11) causes len to underflow to a small positive value (12 + (-11)
-> > = 1) without any bounds check at that point. Then garmin_data_p->insize
-> > >= len (12 >= 1) evaluates to true and nat_receive() calls
-> > garmin_write_bulk(port, inbuffer, 1, 0), which allocates a 1-byte slab
-> > buffer via kmemdup() and immediately reads 4 bytes from it in
-> > getLayerId(buffer) (and again in garmin_write_bulk_callback() when the
-> > URB completes):
+On 10/5/26 08:35, Karl Mehltretter wrote:
+> free_pages_nolock() may run in NMI context or while a raw spinlock is
+> held. When its zone trylock succeeds, __free_one_page() still reaches
+> optional work written for ordinary frees.
 > 
-> > Validate the unsigned 32-bit data length (dlen >= GPS_IN_BUFSIZ -
-> > GARMIN_PKTHDR_LENGTH, matching the existing len >= GPS_IN_BUFSIZ bound)
-> > in nat_receive() as soon as the 12-byte header is present, resetting
-> > insize and returning -EINVPKT on invalid lengths so garmin_write_bulk()
-> > is only ever called with a full valid packet header (12 <= len <
-> > GPS_IN_BUFSIZ).
+> shuffle_pick_tail() can refill its random-bit cache through
+> get_random_u64(), which takes a per-CPU local lock.
+> page_reporting_notify_free() can queue delayed work. Both operations can
+> enter locking outside the trylock-or-defer mechanism used by no-lock
+> frees.
+
+For page_reporting_notify_free() are any raw spinlocks bad or is it the
+scheduler locks?
+
+> An instrumented PREEMPT_RT lockdep run forced a random-bit cache refill
+> while calling free_pages_nolock() under a raw spinlock. The unpatched
+> allocator reported:
 > 
-> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: LLM
-> > Signed-off-by: Hui Peng <benquike@gmail.com>
-
-> >  drivers/usb/serial/garmin_gps.c | 10 ++++++++--
-> >  1 file changed, 8 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/usb/serial/garmin_gps.c b/drivers/usb/serial/garmin_gps.c
-> > index 8020149f5658..a3f599043a4d 100644
-> > --- a/drivers/usb/serial/garmin_gps.c
-> > +++ b/drivers/usb/serial/garmin_gps.c
-> > @@ -769,8 +769,14 @@ static int nat_receive(struct garmin_data *garmin_data_p,
-> >  
-> >  		/* do we have a complete packet ? */
-> >  		if (garmin_data_p->insize >= GARMIN_PKTHDR_LENGTH) {
-> > -			len = GARMIN_PKTHDR_LENGTH+
-> > -			   getDataLength(garmin_data_p->inbuffer);
-> > +			u32 dlen = getDataLength(garmin_data_p->inbuffer);
-> > +
-> > +			if (dlen >= GPS_IN_BUFSIZ - GARMIN_PKTHDR_LENGTH) {
-> > +				garmin_data_p->insize = 0;
-> > +				result = -EINVPKT;
-> > +				break;
-> > +			}
-> > +			len = GARMIN_PKTHDR_LENGTH + dlen;
+>     BUG: Invalid wait context
 > 
-> Shouldn't you fix the sanity check at the top of the loop instead so
-> that we never reach this conditional in case of a malformed header?
+> The attempted lock was batched_entropy_u64.lock in get_random_u64().
+> Lockdep showed the raw test lock and zone->lock both held.
 
-I took another look at this and this check needs to go here where you
-have it. The check at the start of loop now essentially become redundant
-however. I'll keep it as a safe guard (e.g. to not rely on the driver
-clearing the buffer when switching mode) but add a comment about it
-being redundant, while also moving the comment and dev_dbg().
+In slab we solved this by using prandom - commit a1e244a9f177 ("mm/slab: use
+prandom if !allow_spin")
+Could be better?
 
-> >  			if (garmin_data_p->insize >= len) {
-> >  				garmin_write_bulk(garmin_data_p->port,
-> >  						   garmin_data_p->inbuffer,
+> Skip allocator shuffling and page-reporting notification for FPI_NOLOCK.
+> The freed page remains on the buddy list and can be collected by a later
+> reporting pass.
+> 
+> Trees from v6.15 through v7.2 call this flag FPI_TRYLOCK. Use
+> FPI_TRYLOCK in place of FPI_NOLOCK when backporting this change.
+> 
+> Fixes: 8c57b687e833 ("mm, bpf: Introduce free_pages_nolock()")
+> Cc: <stable@vger.kernel.org> # see patch description, needs adjustments for <= 7.2
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+> This was found while auditing the no-lock paths discussed at:
+> https://lore.kernel.org/r/20260919171443.90512-1-kmehltretter@gmail.com
+> 
+> Tested on base e767a4ea70a3 in four-vCPU x86-64 QEMU TCG with
+> PREEMPT_RT, PROVE_LOCKING, PROVE_RAW_LOCK_NESTING,
+> SHUFFLE_PAGE_ALLOCATOR, PAGE_REPORTING and page_alloc.shuffle=1.
+> 
+> A temporary initcall registered page reporting and freed 65 maximum-order
+> allocations with free_pages_nolock() under a raw spinlock. This exhausts
+> shuffle_pick_tail()'s cache and forces a refill.
+> 
+>                                              unpatched  patched
+>   free_pages_nolock() calls                          65       65
+>   __free_one_page() calls                           130      130
+>   shuffle_pick_tail() calls                          65        0
+>   page_reporting_notify_free() calls                130        0
+>   reporting work pending                              1        0
+>   invalid-wait-context reports                        1        0
+> 
+> Maximum-order splitting accounts for the 130 __free_one_page() calls.
+> Both guests powered off. The patched guest emitted no diagnostics. This
+> forced test does not measure normal frequency.
+> 
+> A second A/B used no test-only MM caller. A BPF arena program attached to
+> mm_page_free_batched requested 2,048 pages from a memcg-limited map. Partial
+> failures rolled allocated pages back through free_pages_nolock() while the
+> tracepoint held the per-CPU page-list lock. A virtio-balloon device provided
+> page reporting.
+> 
+>                                       unpatched  patched
+>   arena allocation attempts                  70       70
+>   arena allocation failures                  70       70
+>   shuffle calls from rollback                 9        0
+>   get_random_u64() calls from shuffle         1        0
+>   reporting notifications                    12        0
+>   delayed-work queues                         5        0
+> 
+> Both guests powered off without a diagnostic. This confirms that an in-tree
+> caller reaches the optional operations. It did not reproduce a deadlock or
+> lockdep warning.
+> 
+> The upstream form applies to v7.3-rc1, mainline and next-20261002. The
+> FPI_TRYLOCK backport applies to v6.15 through v7.2. mm/page_alloc.o builds
+> on v6.18 and v7.2.7. Stable backports were not runtime tested.
+> 
+>  mm/page_alloc.c | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
+> 
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index 12fac9084c48..3e21dc90b858 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -89,7 +89,10 @@ typedef int __bitwise fpi_t;
+>   */
+>  #define FPI_TO_TAIL		((__force fpi_t)BIT(1))
+>  
+> -/* Free the page without taking locks. Rely on trylock only. */
+> +/*
+> + * Request the no-lock free path. Use trylocks and skip optional operations
+> + * which can take other locks or queue work.
+> + */
+>  #define FPI_NOLOCK		((__force fpi_t)BIT(2))
+>  
+>  /* free_pages_prepare() has already been called for page(s) being freed. */
+> @@ -1013,7 +1016,7 @@ static inline void __free_one_page(struct page *page,
+>  
+>  	if (fpi_flags & FPI_TO_TAIL)
+>  		to_tail = true;
+> -	else if (is_shuffle_order(order))
+> +	else if (!(fpi_flags & FPI_NOLOCK) && is_shuffle_order(order))
 
-I'll queue this one up with my amendments when the merge window closes
-this time.
+is_shuffle_order() should be checked first as it has
+CONFIG_SHUFFLE_PAGE_ALLOCATOR=n compole-time false variant, and static key.
 
-But in the future, don't spam the lists with dozens of LLM generated
-patches while ignoring review feedback for weeks, or your patches will
-just be treated as LLM generated reports.
- 
-Johan
+>  		to_tail = shuffle_pick_tail();
+>  	else
+>  		to_tail = buddy_merge_likely(pfn, buddy_pfn, page, order);
+> @@ -1021,7 +1024,7 @@ static inline void __free_one_page(struct page *page,
+>  	__add_to_free_list(page, zone, order, migratetype, to_tail);
+>  
+>  	/* Notify page reporting subsystem of freed page */
+> -	if (!(fpi_flags & FPI_SKIP_REPORT_NOTIFY))
+> +	if (!(fpi_flags & (FPI_SKIP_REPORT_NOTIFY | FPI_NOLOCK)))
+
+Maybe add a comment why we check FPI_NOLOCK too?
+
+>  		page_reporting_notify_free(order);
+>  }
+>  
+
