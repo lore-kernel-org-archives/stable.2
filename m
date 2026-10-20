@@ -1,45 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.120.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792521813;
-	b=kNkFYcrsKaFZBMLatPz1vcaxkFRsRLBDm/zVF6QuXGecUE1MkhsdyRHut3wO10JRoReP
-	 Pt0t4ODQySOws4X9gh59dbPv7Xb83EPHX6BTNYbj6x13OlYoRvuCWrAqbPf1VDCAXB9Tq
-	 r/BZdEm7NsblHRhjS1mbj4gQLr1EESyy5eE9CQ0/85X3fEksxEg84ow9oqPpJgKDjXS4K
-	 80kNG9oRDTjWkBav0vOaRaG+rwKywDSwLYAKSqD76NeKOqktA00YH5ArgpJAAIjKi8Cgf
-	 4SwcdJBWn9qR+ph4PH8IK4BQ9fVxqK7wfgmAntEFVuF7ABv4k5wtCb2VnWoKvsrf0oA==
+	t=1792521811;
+	b=EexsDlq+0AK6bdJu2cPrkqjXuoNsYVgwh1nwJ4lbDnq3EVDJ9KaY9FyLQI+o385xZq12
+	 V5e/OQmezpZ0mQNdcSc24kwN6HyI4Q7h0YrEeSTbJBBD1lWiugRcok28yqD56+dHLt4j6
+	 H/yUb8tI4XzKqTJztuiKmJRYJEOrfCDjkP2XwhV+JHtpvXKOFTpX29Gb/xxv4Tqy6UK9B
+	 fEDO5IqYT5NfESX+aBHK+lyBTXq9AwNe+TDr+is7vGeHqU4uL3zJIFnLYmM1dxhTme0Ks
+	 9CXBsrBRlojLJgM5kiZXcmvi5X6edKsVJEmBOisQYOIqjdQNHVHW1kWcEG7GHaJVqzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792521813;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=CUr4Y3OEV68Pj9vRqArQsmNSSXBjVB21zO1EU5jQW7o=;
-	b=oKQJkeMwoIMMHZVPmrF77APvu6llMVgGlKOS2phEosV9niqZs6+nGWZdABQTsDraOOMz
-	 SD4qOFcz19ATZjSOowwxsgTlohgT95OG1i2BJWmFlcLbkewlaEEAbvG9YaMDqKSWQKMf7
-	 FInII/ZEyxA+JPPVmZa1BWAPzafV6A8zVcH/f+7/JIlInZ1nuq6TnMYlhFv5SBU6vVjNw
-	 VzggwBTqKPdcWz+vFFTwXjP0uJrh+IN9Fzq01+Jo0oDw26LCxh9sXir90DePiEPk+JaU5
-	 dJJKpcFVjbZrOovhAi4DYGPY/KPQeWO4DV2qnJEZpbDQOOgBM8dkkhPp5dSFuvvlVeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792521811;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Spam_score:X-Spam_bar;
+	bh=yW+ipQD8TDPwyrv1xvhhUuK9dyII7X9ovRSnpipOHa0=;
+	b=NymFQUyPnW27aA00ityDAxUE8fHT+gyE7j9y+iVhOwVzANhCKcUmD/kyS76zjthDa5wp
+	 N7Rl4JDiyrX5BE+ICsVJszfLa+dIJQAZLezqOhJ0B9DSV+85KtYh0LF3qu3P/HJEVO4za
+	 E8ijiMa2KQOhJD5aBY3z6sT2pX/1GnxwheCZi4S3SRaG5zfS3Ud4cGeTA2Mcdf4n6FFgq
+	 E3SDJzFKVzwjcGdcnWwrM3n1o6IaUM+NwEilkdj3oTMRp76MMFAWJ7BEyFdT+jnqUeVzK
+	 nTcGjO/9vLLJLRnL2IK0qx6BlTzMixqC2PQUIEzyuG2OFBlOr25rT7Zeu8YnjJ4Ws9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=tgpwlpRh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=hugovil.com;
+	spf=pass smtp.mailfrom=hugovil.com;
+	dkim=pass header.d=hugovil.com header.i=@hugovil.com header.a=rsa-sha256 header.s=default header.b=iTh6UXCV;
+	arc=none smtp.remote-ip=162.243.120.170
+Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F0BF60A260C;
-	Tue, 20 Oct 2026 18:43:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C144D60A2621;
+	Tue, 20 Oct 2026 18:43:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C144D60A2621
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=tgpwlpRh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19AAA1F01573;
-	Tue, 20 Oct 2026 18:43:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792521813;
-	bh=CUr4Y3OEV68Pj9vRqArQsmNSSXBjVB21zO1EU5jQW7o=;
-	h=Date:To:From:Subject;
-	b=tgpwlpRhisktsfmX8dZldZROsUgZIgYbh5pd2SLyLGxrinb3CffJlhsVAF1Pj4Z6n
-	 AWX2u6WKIKxnk62cnpqi8JKGf/1kQ5q/2G/ZdP6QDf8A8lsLtA6yJjRKiYHGoecYMb
-	 UuCA2czhSzDR3rVzVHkipxUSaYNiJuGTsCAw8dW4=
-Date: Tue, 20 Oct 2026 11:43:32 -0700
-To: viro@zeniv.linux.org.uk,tz2294@columbia.edu,stable@vger.kernel.org,l1za0.sec@gmail.com,kbusch@kernel.org,hch@lst.de,hare@kernel.org,4ncienth@gmail.com,akpm@linux-foundation.org,linux-block@vger.kernel.org,axboe@kernel.dk
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [patch 1/1] iov_iter: validate extracted segment for bvec alignment
-Message-Id: <20261020184333.19AAA1F01573@smtp.kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=hugovil.com header.i=@hugovil.com header.a=rsa-sha256 header.s=default header.b=iTh6UXCV
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
+	; s=default; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject
+	:Cc:To:From:subject:date:message-id:reply-to;
+	bh=yW+ipQD8TDPwyrv1xvhhUuK9dyII7X9ovRSnpipOHa0=; b=iTh6UXCVgG5X+Klfar63MxPxpZ
+	Bwp7aRBA3oqdutDIVAeiMPnDZ9uUrEhRityJ2lWJXDuoFlM2c1mC+XUn66ExPvPgf+jtXputlJksN
+	cDBhVq2S1FSqkKtptIw22RXx11DCckAH0N6EFV/huKnyhA9qDcy0LtC7m8sWaD5fu0Kg=;
+Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
+	by mail.hugovil.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <hugo@hugovil.com>)
+	id 1xJEo1-000000000nG-1h4N;
+	Tue, 20 Oct 2026 14:43:23 -0400
+From: Hugo Villeneuve <hugo@hugovil.com>
+To: gregkh@linuxfoundation.org,
+	jirislaby@kernel.org,
+	alan@linux.intel.com
+Cc: hugo@hugovil.com,
+	gregkh@suse.de,
+	linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 2/5] serial: core: clip out-of-range baud rate to min/max, not min+1/max-1
+Date: Tue, 20 Oct 2026 14:41:18 -0400
+Message-ID: <20261020184131.2893575-3-hugo@hugovil.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261020184131.2893575-1-hugo@hugovil.com>
+References: <20261020184131.2893575-1-hugo@hugovil.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -48,83 +69,54 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Spam_score: -1.0
+X-Spam_bar: -
 
-From: Daehyeon Ko <4ncienth@gmail.com>
-Subject: iov_iter: validate extracted segment for bvec alignment
-Date: Thu, 15 Oct 2026 15:19:07 +0900
+From: Hugo Villeneuve <hvilleneuve@dimonoff.com>
 
-iov_iter_extract_bvecs() validates iter_iov_addr() and iter_iov_len()
-before iov_iter_extract_pages() selects the first nonempty segment and
-limits it by iter->count.  The checks can therefore cover a different
-range after a leading empty segment or iov_iter_truncate().
+min and max values are valid baud rates, as the existing code in
+uart_get_baud_rate() already checks:
 
-An unprivileged O_DIRECT preadv() reproduced the empty-segment case: an
-aligned empty segment followed by a misaligned one completed 4096 bytes
-instead of returning -EINVAL.  A truncated iterator has the same mismatch
-when its full segment length is aligned but its remaining count is not.
+    if (baud >= min && baud <= max)
+        return baud;
 
-The worst effect I have confirmed is an alignment-contract bypass.  An
-unprivileged O_DIRECT preadv() produced bvecs with offset/length pairs
-(1, 4095) and (0, 1).  The bio reached brd_submit_bio(), and the read
-completed 4096 bytes instead of failing with -EINVAL.
+I couldn't find any explanation in commit 16ae2a877bf4 ("serial: Fix crash
+if the minimum rate of the device is > 9600 baud") as to why this is
+clipped to min+1/max-1.
 
-I have not demonstrated harmful behavior on real DMA hardware.  For a
-normal blk-mq target, blk_mq_submit_bio() calls
-__bio_split_to_limits(), where bio_split_io_at() rejects the misaligned
-bvec before queue_rq().  Virtio-blk and loop both returned -EINVAL in
-my controls.
+Also, Sashiko identified a potential problem where clipping to min+1/max-1
+will be out of range when min == max. This would result in the loop exiting
+and returning a zero baud rate, triggering a Division by zero fault.
 
-So a bio-based driver can receive a bvec which violates its advertised
-dma_alignment, but any further effect is driver-specific.  I have not
-reproduced memory corruption or a crash on real hardware.
+Fix by clipping to min/max.
 
-Bound the normal fast-path length by iter->count.  Keep
-first_iovec_segment() for leading empty segments so validation covers the
-remaining portion of the segment available for extraction.
-
-Link: https://lore.kernel.org/20261015061907.2713943-1-4ncienth@gmail.com
-Fixes: 14b007e17881 ("block: validate user space vectors during extraction")
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Closes: https://lore.kernel.org/r/20261012065520.1089147-1-4ncienth@gmail.com
-Assisted-by: LLM
-Cc: Al Viro <viro@zeniv.linux.org.uk>
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Keith Busch <kbusch@kernel.org>
-Cc: Hannes Reinecke <hare@kernel.org>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Haocheng Yu <l1za0.sec@gmail.com>
-Cc: Tal Zussman <tz2294@columbia.edu>
-Cc: <stable@vger.kernel.org>
+Fixes: 16ae2a877bf4 ("serial: Fix crash if the minimum rate of the device is > 9600 baud")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
 ---
+ drivers/tty/serial/serial_core.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
- lib/iov_iter.c |    9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index c3c1a1d76405d..0498a8524c6da 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -533,10 +533,10 @@ uart_get_baud_rate(struct uart_port *port, struct ktermios *termios,
+ 		 * As a last resort, if the range cannot be met then clip to
+ 		 * the nearest chip supported rate.
+ 		 */
+-		if (baud <= min)
+-			baud = min + 1;
++		if (baud < min)
++			baud = min;
+ 		else
+-			baud = max - 1;
++			baud = max;
+ 
+ 		tty_termios_encode_baud_rate(termios, baud, baud);
+ 	}
+-- 
+2.47.3
 
---- a/lib/iov_iter.c~iov_iter-validate-extracted-segment-for-bvec-alignment
-+++ a/lib/iov_iter.c
-@@ -1022,7 +1022,7 @@ static ssize_t iter_xarray_get_pages(str
- 	return maxsize;
- }
- 
--/* must be done on non-empty ITER_UBUF or ITER_IOVEC one */
-+/* must be used on a non-empty ITER_UBUF, ITER_IOVEC or ITER_KVEC */
- static unsigned long first_iovec_segment(const struct iov_iter *i, size_t *size)
- {
- 	size_t skip;
-@@ -1938,8 +1938,13 @@ ssize_t iov_iter_extract_bvecs(struct io
- 		   iter_is_iovec(iter) ||
- 		   iov_iter_is_kvec(iter))) {
- 		unsigned long start = (unsigned long)iter_iov_addr(iter);
-+		size_t seg_size = min(iter_iov_len(iter), iter->count);
- 
--		if ((start | iter_iov_len(iter)) & mem_align_mask)
-+		if (unlikely(!seg_size && iter->count)) {
-+			seg_size = iter->count;
-+			start = first_iovec_segment(iter, &seg_size);
-+		}
-+		if ((start | seg_size) & mem_align_mask)
- 			return -EINVAL;
- 	} else if (iov_iter_alignment(iter) & mem_align_mask) {
- 		return -EINVAL;
-_
