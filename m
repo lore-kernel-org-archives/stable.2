@@ -1,111 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792486098;
-	b=ajGnh4D61mlPPr9pfXIcVLZ1wYlZoi6zwIHozx7YMUaCY3ZAKLaQ8S38SK1FzLcGPSRI
-	 VcTaaDSg6zRl6fMDeKMHXBvLQWFe5ae8FgbFIcelM2JowPShrqhBqXhfUb4JLPpnJuEN9
-	 Utq7Kly2EFjranGE5nYR0PLy+iWtoriEckMlM0+QwH4K1WjmVb89zqhQjHPqywhfusNwn
-	 6Vq52ZiPhiQdEOBTn8JvM0RxuLOXFRpx+1SWus2Vn6cyipFiLpib/wkgFgjL4k7rRXqsr
-	 2AUObTRZyUbvleRWaq4buG+rOJYNMDjdr0Qn+o8hBgzb6R4b3Rb8LK/PVMJeiwz4jMA==
+	t=1792486316;
+	b=a3FAwOB6LWMPpdvUf2sXkyexIOnfTGn1QeIy4L+G+1q0dGSGJW+L8TLa5d8rz4rzWN9N
+	 POSpzxtb9omKNk8LYk4aGYNfR4XEah2eWndi210dJ1imtmDYK9DFTLcDLytplg2PIfgeV
+	 OZEZT9n3H3uESSpXGbDlsnzCXB6834LJUKFaSnslcr3h8le0dNe/cdsZoIblifEPEgD8W
+	 fJZceoXPAAGyMmRQ20URr6124CMojoo2UULJCjE46PLmwMcxiwCV2USeN0IHruBYpkbE4
+	 trdc2Iy4704DD2xb2Xi8dyT4di9NYW13+wq7j/O4PikzfXwS9f+MXx/ezgQouK//Rjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792486098;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Rspamd-Server:X-Rspamd-Queue-Id:X-Rspamd-Action:X-Spam-Level:
-	 X-Spamd-Result:X-Spam-Flag:X-Spam-Score;
-	bh=tdqZXrnncHak6JxlpGASXKoBmmuBruuiWa+YDUskAZo=;
-	b=YJZIH3hpCyWLWgqOmd3RcAW5f4rbrV8KD69lv2mBBhwwM/xWzk/EX/NVDr2pysJjWaxf
-	 UrzJm3/Ry7+4ApZeReOM3mrroAPJX2+NK6e74AuvyDZy4kh2T0qjmzZenAjWWUBYB6gHx
-	 MDkyknoIEnfH4iok81uV9Jjf3Vd1LEwab0k/3YktYHp86EB0c+JXKUWij2nUeZuwnat9/
-	 xqGDUKG+Nx0472JWQCnCITodi8GD9itSO2VjyoHilVJRABWlsYcOjoGN1vBGDbwFAnzw8
-	 ROavMzwOezVXDMl80qlcYI/K7mpcEop45tNnO7qqrcgFZ64IX7gm3Y6nyPTFYkKXnEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792486316;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=K5zPCjhtiYgbSzoQkdk7jJnCY7I6uAqcp7kPNPB6WFM=;
+	b=eTmsshhlTgBpyl3qCsgS991kqQtda5k3lHgWDUcGgA7HY5pHKuJR5tBKP77jCiD/mkTR
+	 gaKWoqXLgd26g6e1k/ZRgn47W6TlfYz+qdFbTehcFtpGe6XenUDuScX8GA9lltGSMSBP4
+	 Vtan5i2sjb3pIbNDJ865EBk9mFP2relQGjwSSnFqVsDF6QdqIVveagYue7SGKJ4Z1uE41
+	 5RIHN03Phpssro4aDvnnZVzUJSqS4lk9vHmRx16pDSJ+xZYulO5oBA+sqd/ZPuiI2CRwO
+	 spm+8Cfj6InaPa7W91hO2Ol63R7jHXd6c3d5yok1inGf9NIjZaf/8fL9IIZei1rC27A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DROJXhbp;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="giJfUN/t";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DROJXhbp;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="giJfUN/t";
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mXBQFzVy;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B3860A2604;
-	Tue, 20 Oct 2026 08:48:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08B3860A2604
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 460CA606A31A;
+	Tue, 20 Oct 2026 08:51:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 460CA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DROJXhbp;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=giJfUN/t;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DROJXhbp;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=giJfUN/t
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 2CBA91F44E;
-	Tue, 20 Oct 2026 08:48:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792486096; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tdqZXrnncHak6JxlpGASXKoBmmuBruuiWa+YDUskAZo=;
-	b=DROJXhbpDrA8xV62Lkq9xKWj5p8hWjKLR3lwec+Qqxc4of7FHuoLbMCLVh6P4SSOiQvgJ3
-	Tbd7cXPoGstqA93ym0fMIp6VEkA6AJ3HRT3p8xhpbmbLdFwES3Sxd7gB1CyAoIJxcIypQu
-	aZhcPBIBAqH6juZzCT1cbDXDTcAOKKU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792486096;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tdqZXrnncHak6JxlpGASXKoBmmuBruuiWa+YDUskAZo=;
-	b=giJfUN/t72LOZv8foC/d+76VH3wkPqhEu10NSUFplKe5UMi5sFEplzGp+fPLizS6oWySfE
-	dfXW43OYi44zIpBA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=DROJXhbp;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="giJfUN/t"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792486096; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tdqZXrnncHak6JxlpGASXKoBmmuBruuiWa+YDUskAZo=;
-	b=DROJXhbpDrA8xV62Lkq9xKWj5p8hWjKLR3lwec+Qqxc4of7FHuoLbMCLVh6P4SSOiQvgJ3
-	Tbd7cXPoGstqA93ym0fMIp6VEkA6AJ3HRT3p8xhpbmbLdFwES3Sxd7gB1CyAoIJxcIypQu
-	aZhcPBIBAqH6juZzCT1cbDXDTcAOKKU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792486096;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tdqZXrnncHak6JxlpGASXKoBmmuBruuiWa+YDUskAZo=;
-	b=giJfUN/t72LOZv8foC/d+76VH3wkPqhEu10NSUFplKe5UMi5sFEplzGp+fPLizS6oWySfE
-	dfXW43OYi44zIpBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D0E2B136CC;
-	Tue, 20 Oct 2026 08:48:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id uF26Kc8q12qWUQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 20 Oct 2026 08:48:15 +0000
-Date: Tue, 20 Oct 2026 10:48:15 +0200
-Message-ID: <87bj8oiwq8.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Cc: vkoul@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	pierre-louis.bossart@linux.dev,
-	linux-sound@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/4] ALSA: compress: fix buffer handling and state validation
-In-Reply-To: <20261019144533.30665-1-peter.ujfalusi@linux.intel.com>
-References: <20261019144533.30665-1-peter.ujfalusi@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mXBQFzVy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792486316; x=1824022316;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=eKzxlT0yG5FunvgfNGhCleVugyVb5jhMClq+OxxbpME=;
+  b=mXBQFzVyzSEwwjARMT64iotOnCydBoSQKrHu4iiIVfelQh2qT90rIsn4
+   qzqLC6Wm2M12DevI5aJKBBye/+cmKbut+b3IbxsdO+izjTzaL7PDFZ8Q2
+   bOouABCrBF+yvJcG9KB7sZ7NcIXGFMgyis4UfIrS1s1JtPghehOvyQvHf
+   4UtOulHcPWIHd/cfEUHApwB7D+yTSGw2uRBLlLyBVwTnKwam1wGacqR16
+   e4lxZ89rMNuXN4IOnn76XFCFz/aTQwUpRxaoXXDWJb1iyQ/1CbrOo+pak
+   7dDsETqWOiOiCHooCNAwynjwZmDz1MKmHhP8WAel5oDPOILuiVqpO/aeI
+   A==;
+X-CSE-ConnectionGUID: NR250AvBSNKSHjiLE/Jo1Q==
+X-CSE-MsgGUID: W5HexXIOQ2O9GFn5Dewqog==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1285019"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1285019"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:51:56 -0700
+X-CSE-ConnectionGUID: FJ6CBaMOQmSasr/frxTWmA==
+X-CSE-MsgGUID: G7Vb0dqQQGu/0Txavvu7Ww==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="2823950"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.72])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:51:53 -0700
+Date: Tue, 20 Oct 2026 11:51:49 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+Cc: linux-serial@vger.kernel.org, gregkh@linuxfoundation.org,
+	jirislaby@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, ilpo.jarvinen@linux.intel.com,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	Andre Przywara <andre.przywara@arm.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook
+ when DLF is present
+Message-ID: <atcrpTI_R4kRM8pb@ashevche-desk.local>
+References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
+ <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -114,87 +87,44 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 2CBA91F44E
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
-X-Spam-Score: -3.51
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, 19 Oct 2026 16:45:29 +0200,
-Peter Ujfalusi wrote:
-> 
-> Hi,
-> 
-> Changes since v1:
-> - patch 1: do not free the old buffer in snd_compr_allocate_buffer().
->   SET_PARAMS can only be repeated in OPEN state after ops->set_params()
->   has failed, so release the framework-owned buffer on that error path
->   instead. The buffer is allocated once per successful SET_PARAMS and is
->   never replaced (Vinod, Takashi)
-> - patch 2: reworded the commit message: the buffer is set up once and the
->   next_track path does not re-allocate it. The geometry check is kept
->   because ops->set_params() would otherwise receive buffer parameters
->   that do not match the buffer in use. tinycompress always passes the
->   open-time fragment_size/fragments on next_track, so existing users are
->   not affected (Vinod)
-> - patches 3 and 4: added Acked-by from Vinod
-> 
-> The compress offload core has several edge cases in buffer management
-> and state validation.
-> 
-> A SET_PARAMS that the driver rejects leaves the framework-owned buffer
-> allocated while the stream stays in the OPEN state, so a following
-> SET_PARAMS overwrites the pointer and leaks the buffer. During gapless
-> playback, SET_PARAMS can also change the buffer geometry while the byte
-> counters still refer to the current buffer. Separately, SET_METADATA can
-> reach the driver before SET_PARAMS, and the origin_seqno task lookup can
-> restart a task that is still ACTIVE.
-> 
-> Address these cases by:
-> - releasing the framework-owned buffer when ops->set_params() fails, so
->   the buffer is allocated once per successful SET_PARAMS;
-> - not re-allocating the buffer on the gapless next_track path and
->   rejecting a buffer geometry change there;
-> - rejecting SET_METADATA while the stream is OPEN; and
-> - allowing origin_seqno to reuse IDLE or FINISHED tasks, but not ACTIVE
->   ones.
-> 
-> Regards,
-> Peter
-> ---
-> Peter Ujfalusi (4):
->   ALSA: compress: fix buffer leak on failed SET_PARAMS
->   ALSA: compress: reject buffer geometry change on gapless next_track
->   ALSA: compress: add missing OPEN-state gate to SET_METADATA
->   ALSA: compress: reject restarting an ACTIVE task via origin_seqno
+On Mon, Oct 19, 2026 at 05:06:10PM -0300, Vinicius Pedrosa wrote:
 
-Applied all four patches now.  Thanks.
+...
+
+> @@ -218,7 +228,9 @@ void dw8250_setup_port(struct uart_port *p)
+>  	if (reg) {
+>  		pd->dlf_size = fls(reg);
+>  		p->get_divisor = dw8250_get_divisor;
+
+In the case of existing _set_divisor, do we want to keep the possible set
+_get_divisor as well? Shouldn't we introduce a respective _get_divisor in 8250_dw.c?
+
+> -		p->set_divisor = dw8250_set_divisor;
+> +		/* Keep a hook the driver has already installed */
+> +		if (!p->set_divisor)
+> +			p->set_divisor = dw8250_set_divisor;
+>  	}
+
+On top of my previous reply, why is this hunk needed?
+
+...
+
+But now I see that we have same function name in two files. Can we rename those
+in dwlib to, for example,
+dw8250_get_divisor --> dw8250_get_dfl_divisor
+dw8250_set_divisor --> dw8250_set_dfl_divisor
+
+?
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-Takashi
