@@ -1,74 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792461731;
-	b=tpnuKAHJAkX6AKqHdFwYH8Apkollmk0YoqtA5cvBscsluhOQHYEylNygTnx6lc87/+VM
-	 Sm/FHEGlpfaqGqOyhpCUjcpcnh4ZZqy6z5ZyBbq5tng3rY/6PNHeq574VXvcXEvoEmBb1
-	 91aCce9lufsr2C1VwHyvRkpN5AvYN9RCWoDjxF3nKsIiZZ2LJIJNsSt8uSQutI2UXvcE7
-	 pn+Eq7i4Yh3k0+9bcp97L/u80rhUnZftFL2n+Nz4dSLeqjzNiaapiimCE3b3fFJG9Db8p
-	 0iAWYHZEV3FJbk2CwHPxMQnJ0zn8KKVWAj0S+DvTfU6Tw2qfBSAZhUbYfj87EkSrJDw==
+	t=1792461888;
+	b=IMBkefuNlDHsqmNOlkZTLS1sBHICHF2/wRVPff82Ic2howX4lJU01VP4k2DsNvPvzu1i
+	 hCGBqs3dlWaFKSa+7CDqTJHH4AtSUxxP3nBX/rrk08ksREorfY7xpRJjmD9SbQH4e8wGQ
+	 zd1YcZlUYE2TNCBsifM/31/EnQnNysYk2llj6xRI9Xk6hlxwFjD3Y+0p5g7FZu6WBzj/F
+	 akO4ntxxSIdkeBqUrHJu8OzEDdSHap0fTeqneKyhkiw0hagyw5Zb9W5rTvjOhrxA+TI/s
+	 fU0aMJLvMbg0PxVEBdg4GHm8CjOm58rcqtCPNGto+QE04XjoV3T3yKPOR2bZuhVRsnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792461731;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792461888;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=0E0Q82Is6zdEjs6jL2vNo7lRDKdCGLWZjluyuxDIQjY=;
-	b=XcF7+JbAZy2OM9LmT2AMGaFUB1vv3r6zv7kxyLNleJ5GJVIGcAEvTpZGF8ai8KknmCRB
-	 KecrQfYxTu+7XXlQgSPZNYdB//QT4GhB3tboJoYhuk4S9lUA7NAFmj/BAcg6DU6gud4p1
-	 z2urf2lVA9F+Mm8fOrxYjYfCwr3zrxRlqEU65thOmd6qm6vMPnhe6pDoJQYxLea75a0VR
-	 U3jj+6JyhAxlIgW3PnO0s/GTCMzpyD1HVVDsZ5snIW1/NP5DzCfMmYmaTVZLlusrpv4U2
-	 1OoxaQwrpnglGVsuqANZrm63TrSLR54xJNu9fweBOqBm90CwBmZUWP+DEVHyR/5KMSA==
+	bh=4pqVYn51yKmJj3+J36U8z23M9WpANCwAvq4Bsrx41SY=;
+	b=5HX5kQ9KbcM7X32HuYtghztWJyFEQnbo98iuTZ2/2R3SZXxoy5/wCvVO5GGYnVhTZaUW
+	 s+EPlzhL/bMYafYsz/n9uZjjV49b9UzMMPloKu9p1voXCAoe1Ezu7/+rEmzZFvB9qZEhb
+	 PzkjHD4koP4/6kI8TUhjdymvI9pd3jggxiCJK8NGD9NHzGAIyVo51C4gLQuRb2o8wksxd
+	 Hpk3acXFh7rOrCxP6hO8jCd1ZxCay+LLABvcccfUA4Qn/J8/J5/yakYqoYOwqgM/4xYiq
+	 c0LQJLehLjZ79U3+rUcKG3y0qjb3URl0Gy2tHvw6Brh43JA+BquUNE9p3ZhAB+K0KKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="IcD/Wkuw";
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EDBE0606A319;
-	Tue, 20 Oct 2026 02:02:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDBE0606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=FCd+9WKq;
+	arc=none smtp.remote-ip=209.85.216.54
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841D4606A31A
+	for <stable@vger.kernel.org>; Tue, 20 Oct 2026 02:04:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 841D4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=IcD/Wkuw
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=FCd+9WKq
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so159725a91.1
+        for <stable@vger.kernel.org>; Mon, 19 Oct 2026 19:04:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=IcD/Wkuwea181oj1+ZhQlsefMEZjCRnWU3t7K0zHabYpAXROemLoRAujzGGyCSu7baYhTD1K7oQTr
-	 u2LSDwtzzS2NKpBKpXmSeB0eoNPRnDj/LJH2ng3gNdImqWKKYCgLISYRou24eG2GGw6FnXFrf1AtbL
-	 pJfuCil0d6+pUJTE=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56ad6cb9609e-14724;
-	Tue, 20 Oct 2026 10:01:58 +0800 (CST)
-X-RM-TRANSID:2ee56ad6cb9609e-14724
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[223.108.79.99])
-	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66ad6cb95dba-ba9c2;
-	Tue, 20 Oct 2026 10:01:58 +0800 (CST)
-X-RM-TRANSID:2ee66ad6cb95dba-ba9c2
-From: yanxia <yanxia@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	hawk@kernel.org,
-	john.fastabend@gmail.com,
-	sdf@fomichev.me,
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792461886; x=1793066686; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4pqVYn51yKmJj3+J36U8z23M9WpANCwAvq4Bsrx41SY=;
+        b=FCd+9WKqa7y39CVwTgb8OduD4eca2G9Cwy7Ef+MhOLTpduEcN/x5Us3Bo21kBItazs
+         TvcrPVa2ZUfPo5lL2NvP04zyaRp4GK+8BpxfqDHjTMz/ikqAvU2vHv1ygnhHNRyUcj5K
+         /Gia2u0o5cEIjvXMRbeyJFwEXZeGg50zpg66Eo1dggUzkO96jiETrJF/yufXiKiafGEy
+         a8TAdnMcf4oYmALuKNjnnk1F9egedgIRFh+URtBPeWHDkAL2Oyj2abBP68MX2cBLl/lX
+         tDyGBY0rKalguSkjGq1DBrsMZOCpEOBo36Ne5Vzt8FYD/nuJgbDZO7C3yZPSeXTu8EeH
+         AEAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792461886; x=1793066686;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4pqVYn51yKmJj3+J36U8z23M9WpANCwAvq4Bsrx41SY=;
+        b=jrcUxtFZJqj9VggmI7CuLvq+XyVXBKRvdnRUbPnnYiokyP9+mW0e0NLwJuWjXi602A
+         c5Q/6Run31IqY5fv8vxAQmcKBLlAYRbr1TaYqT8BXzBkJSV3dSK+EETTcGpxK7jpvocm
+         rPEl/fuT0RbbdnO5jVenIqbDGa+FBpQdnEWghIqOHbLiHrgnnX9V/KSXGi1bQh7oyrGi
+         Qr1eesA+33DeGVZhU68qT6/X5MO110IP5HaqlfEf8vj9qXCfmbIMfOc7WoIM4xa6sByK
+         IdqL9EVIVj4JqzfQC5LCARNwgZIQrN/6u+M/UhBm7K9tkujsXB4hbIxoaym6wxjBI3Rn
+         Lwcg==
+X-Forwarded-Encrypted: i=1; AKwUvBzfka3eCrjxo4o55YQZHZywD7RduQaOSjQuB2Chj73gia9DTRf7SPsiQkR7Deo52Wr7LarSB4I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI1Xu09IQjIKC2EptViPsjCF9kNLc9AuXZ7zyBl6FEuC6jUToDe
+	pT+4XFVgzZIJV3gAGWfIPhVrYFIeIk/OoEWTQ+Tuz8tOERX7KByLTMQ/21cS9sh6V10=
+X-Gm-Gg: AYBFou38SZb9tLn9trfEOfiEUEDWnxc5e7gNGMBw/qcVUUg78r7BhfApXnl1fclncQ0
+	fjfB7FAfCkuBT32LwLeAur1bs4y5BgqIJGOqFoAk8lJ8lrxGcZ88sJbif+l+tFCWsCRjHVpWw/9
+	ZTz87mNciECEgcRfipja/a6lvmnYJUx4ATGVVUkM9OFc9hYjmiL9AR/vlnzz8kbKZ2A0831Rymu
+	oFRRjOD6lQss0ejAmIDAgmyR2D/Xuth9fW6Y1T2DbIW3eko/5KRetJ9N2Z8IOy6dzT3sBNI/X95
+	VWJqhoPwVv04NYwWQd6caHUkuXLBy0daiHijpx+KjhaBPTWleDX2Wzd96jDSVRyjsQNcrx+7lZw
+	SKtosVa0IWt5oqrOZHy2IBSW0kdC3WuQNTji38tUHxyRzHmkceSbld84fB1csMka+e+ZdHR404k
+	2kuH4bM0mCNB5/L1p1EIr96rkUegMeCES4167Y6eL6wskMNjE8Xg/UV9MCjgu/KkYULHURzd0xE
+	COYiv4GI+P1kgTH
+X-Received: by 2002:a17:90b:4407:b0:3ac:36c7:c144 with SMTP id 98e67ed59e1d1-3ad64bcc0d6mr488784a91.28.1792461886438;
+        Mon, 19 Oct 2026 19:04:46 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad5d564327sm1815184a91.8.2026.10.19.19.04.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 19:04:46 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: skashyap@marvell.com,
+	jhasan@marvell.com,
+	mkp@kernel.org,
+	James.Bottomley@HansenPartnership.com
+Cc: GR-QLogic-Storage-Upstream@marvell.com,
+	linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	lorenzo@kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net] veth: fix stale peer max_mtu on XDP program replacement
-Date: Tue, 20 Oct 2026 10:01:47 +0800
-Message-ID: <20261020020147.790274-1-yanxia@cmss.chinamobile.com>
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH] scsi: bnx2fc: drop unsolicited frames shorter than an FC header
+Date: Tue, 20 Oct 2026 11:04:33 +0900
+Message-ID: <20261020020433.1119739-1-yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,59 +101,92 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-veth_xdp_set() calculates the peer MTU limit from the incoming program's
-XDP fragment capability, but only stores it when no program was attached.
-Replacing a program with one having a different fragment capability
-therefore leaves the peer's max_mtu stale.
+bnx2fc_process_l2_frame_compl() works out the payload size of an
+unsolicited frame by subtracting the FC header from the length it was
+handed:
 
-Replacing a regular program with an xdp.frags program keeps rejecting
-otherwise valid jumbo MTUs. The opposite replacement leaves a larger
-limit in place and permits MTUs which a fresh attachment of the regular
-program would reject.
+	payload_len = frame_len - sizeof(struct fc_frame_header);
 
-Update peer->max_mtu after every successful attachment or replacement.
-Keep the GSO feature update conditional on the first attachment.
+	fp = fc_frame_alloc(lport, payload_len);
+	if (!fp) {
 
-Found during review of the XDP replacement path and confirmed with
-native XDP on an isolated veth pair. Before the fix, direct replacement
-rejects MTU 9000 after switching to xdp.frags, and accepts it after
-switching back to a regular program. Detaching and attaching instead
-produces the expected results in both directions.
+On the unsolicited completion path that length comes from the chip.
+bnx2fc_process_unsol_compl() takes it out of the work queue entry with
+FCOE_UNSOLICITED_CQE_PKT_LEN, a twelve bit field, and nothing requires it
+to be at least an FC header.  Below that the subtraction underflows and
+payload_len ends up close to 4 GiB.
 
-UML tests on net reproduce the problem before this change and match the
-detach/attach controls afterwards, with both devices up or down and
-with either endpoint receiving XDP. Failed replacements preserve the
-previous state; same-type replacements and detach also behave as
-expected. Small-frame traffic passes in the devices-up cases.
+fc_frame_alloc() does not refuse that.  When payload_len is not a multiple
+of four it goes by way of fc_frame_alloc_fill(), which hands payload_len +
+fill to _fc_frame_alloc(), where alloc_skb_fclone() and skb_put() both take
+an unsigned int and quietly truncate it.  The allocation then succeeds at a
+few dozen bytes while payload_len is still 0xffffffff, and the
 
-Fixes: 7cda76d858a4 ("veth: Allow jumbo frames in xdp mode")
+	memset((char *) fr_hdr(fp) + payload_len, 0, fill);
+
+that follows writes a byte roughly 4 GiB past the frame.  A frame_len of 23
+is enough.  The harness below is a KUnit test that is not part of this
+patch; it calls the real function with the frame buffer kmalloc()ed at the
+length under test, and fc_frame_alloc_fill() and
+bnx2fc_process_l2_frame_compl() are the two frames above memset_orig in the
+trace, with payload_len still in RBX:
+
+  RIP: 0033:memset_orig+0x81/0xaf
+  RSP: 0000000062893df8  EFLAGS: 00010246
+  RAX: 0000000000000000 RBX: 00000000ffffffff RCX: 0000000000000000
+  RDX: 0000000000000000 RSI: 0000000000000000 RDI: 00000001628a779f
+  RBP: 0000000062896e00 R08: 0000000000000001 R09: 0000000000000007
+  R10: 00000001628a779f R11: 0000000000000004 R12: 0000000000000001
+  R13: 00000000628b4000 R14: 0000000062887200 R15: 000000006272ba00
+  Kernel panic - not syncing: Segfault with no mm
+
+A length below the header that is a multiple of four does not panic, but it
+is not handled either.  _fc_frame_alloc() truncates the same way, the frame
+comes back with an fr_len() of four, and fc_frame_header_get() trips its
+WARN_ON() in fc_frame.h before the handler copies anything into it.  A
+frame_len of 20 produces that warning.
+
+Nothing here needs an upper bound.  The unsolicited path sizes the buffer
+it passes down from frame_len itself, rounded up to whole RQ entries, and
+bnx2fc_get_next_rqe() refuses a run that would wrap the ring, so the buffer
+always holds at least frame_len bytes.  Only the lower end is unchecked.
+
+Drop such a frame.  The other caller, the one in bnx2fc_l2_els_compl(),
+builds frame_len as sizeof(*fc_hdr) + resp_len and so can never be short,
+which leaves the check a no-op there.
+
+With it in place the panic and the warning both go, while a frame carrying
+an ELS request and one at an ordinary size are still allocated, copied and
+passed on.
+
+Fixes: 853e2bd2103a ("[SCSI] bnx2fc: Broadcom FCoE offload driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: yanxia <yanxia@cmss.chinamobile.com>
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- drivers/net/veth.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/scsi/bnx2fc/bnx2fc_hwi.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-index 643b97dc..7db389ae 100644
---- a/drivers/net/veth.c
-+++ b/drivers/net/veth.c
-@@ -1622,10 +1622,9 @@ static int veth_xdp_set(struct net_device *dev, struct bpf_prog *prog,
- 			}
- 		}
+diff --git a/drivers/scsi/bnx2fc/bnx2fc_hwi.c b/drivers/scsi/bnx2fc/bnx2fc_hwi.c
+index a5ecb87d5b2d7..fc6396ed00f62 100644
+--- a/drivers/scsi/bnx2fc/bnx2fc_hwi.c
++++ b/drivers/scsi/bnx2fc/bnx2fc_hwi.c
+@@ -570,6 +570,14 @@ void bnx2fc_process_l2_frame_compl(struct bnx2fc_rport *tgt,
+ 	BNX2FC_TGT_DBG(tgt, "l2_frame_compl l2_oxid = 0x%x, frame_len = %d\n",
+ 		l2_oxid, frame_len);
  
--		if (!old_prog) {
-+		if (!old_prog)
- 			peer->hw_features &= ~NETIF_F_GSO_SOFTWARE;
--			peer->max_mtu = max_mtu;
--		}
-+		peer->max_mtu = max_mtu;
++	/* Anything shorter underflows the subtraction below. */
++	if (frame_len < sizeof(struct fc_frame_header)) {
++		BNX2FC_TGT_DBG(tgt, "dropping short frame, frame_len = %d\n",
++			       frame_len);
++		kfree(unsol_els);
++		return;
++	}
++
+ 	payload_len = frame_len - sizeof(struct fc_frame_header);
  
- 		xdp_features_set_redirect_target(peer, true);
- 	}
+ 	fp = fc_frame_alloc(lport, payload_len);
 
-base-commit: 78731b46967e3e7102b5cd5062bef185f3404b5c
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
 -- 
 2.43.0
-
-
 
