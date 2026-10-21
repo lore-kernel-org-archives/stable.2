@@ -1,55 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792597712;
-	b=oKOgdoyMmHHzb2rzTRNPalIe6FHFH0a86V2l88rCW1NcUZFugkajTGNmSmH4gfBlYnsT
-	 p66eIJlwwvM/bVabW5TXNmN/dusuhe57U0i/sAnc6aoRJn7RR9rinGgahIaikffGwN5eu
-	 6zzHsMYlkzypS5naGL6rinnXSiYTEZ6CWsZ8a3dTjzGk9hfSi52HK4hAzrlLbWLFA0GH9
-	 o0v9Gedy66EYRnpDynaSnLgNpegL1WmWzL7kKJ1SRuek1d02a03Y2/lDOH6SfFRRVOQWO
-	 vVOXomiIZlpMs6XThoUx8WjIgRznOa8F1s2qm3adBQhDH978gLm/5FWDG3iOQ7BO3vA==
+	t=1792598020;
+	b=jW+JHUToA7Ljx4luYQLaUL7lAoIi4aoYLxTEbRNPu/20PpgQiME9DrMt2X5PbCMLcPuv
+	 k42JYDAWXng7ucXKevI+mHijpKOZrcCRVp8PH4AOw+HoGPMEq9ngwRhN+MK092RfdA3Sd
+	 XlPAMPNcwqb/ez7iXSNAchDU4j6TFsDaGWa3FFVjDTVw79fXOYwuojQ4GwcSt4T4IUa8i
+	 VElSNG529KjaBLf5BEmCQD4U91ILSXDd3GeG7VgxAIMpOWK8mQrQCwGiBuF4bk9FGDke/
+	 3QXNuiZgkj7Mqb+osbu5T4wetv8Lyj3U9kTX0XuTTv+7VPiwBW+OlxfciUSg6OGFC2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792597712;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=AwmKknXz0sTUB/m7/9PpaJdB0upPssE7OtCOik2zB64=;
-	b=4rv1kMhPDKNaLh4IKXyqG6dnkrMpbBGBve8Rbl6OY/AJOD/IZY2dFcx3UFHapQwJzYUa
-	 cEbE/QvR0XuJKk7aKs6o7g32DZaOcU9etFt/7bihV4OljhAFcDUVWTd36/7nyXV4Mp0+y
-	 GkJR2E2F+9JQF0MIaCVAg2J1SWRUXKQV8jHZa8uedNmWtocSvOD73yeDv70D/jrJ/lWIa
-	 3UKAO33956xDy02ySn3ds7s6wlV6uTWaoSmPRCPUwy7scRIWxFrU34IqX6ImmhAeSVMe7
-	 fPFKBF9AK+7/rJ1cBe/OqC0+NI/q83y7yYclkHTZbruuczPuZEnZAvnqnleWANtVEUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792598020;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=4CwkvaVkQWrBo1G3WsdyRIUlADdlnSOaTellY/lZOtM=;
+	b=U19NYLkrQ7kGQ2g+4/BJMDOK80zZt1++OAY2bukMm8UGyCfaz2uTNwJPVy0rVpd7hnPA
+	 Yszlu08A1MPeYFnes4vSWr6iUdQ9SWjgCIQ0GkBCIzZFyFO81uDXgkTbwCRtBBFVPUmVR
+	 tO+/jsdsto981Nyd6tRSu7K4P/0lBTS8sF/ame48ba4kUQU8YwGrjxhMO8wxbD/vbtwaT
+	 3pwJJ6cZh3lQUBH1hE+7JdDd1CAG4VLbOyypT4IF0v5zwYiwteyhYJUPDvG5zL/qKNIp7
+	 Gvq9K3tSXVNVCRhIX3OuiXMdaiFROQae+nGoFa1S6xwwtsTIVYk8AGQSwTOsgZZq5ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Quh14boO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=jDn0S+kG;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB183606A320
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:48:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DD93606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:53:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DD93606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Quh14boO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E18A51F000CE;
-	Wed, 21 Oct 2026 15:48:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792597711;
-	bh=AwmKknXz0sTUB/m7/9PpaJdB0upPssE7OtCOik2zB64=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Quh14boO9gXuqF7GSl5m7Z8dn1kBV286tHhpMuU5RzZV4PFB7pDGSO9ixTZ4nlzWv
-	 E9NuYwB4FqVtimmYZZX0o3wYAD/S3Pdsc+ANfGbbj1GQZ+kRnx5AYjEsksPgLPpmTp
-	 W3vY6K2pcYHzltPbpYyk28MM8vsaFUaGudWgHOUsqInGY6ZWP36pb6Zhn548USbTFZ
-	 ZMMp5/bxmJkQMD1/w1TbErKjfA/FYgYRs4IGXZ/WGQ5T4tgSYvFI7OuE61zQfpbjy7
-	 +PJAa9QAwDDvOI5lJjqqt6Uvj/ZnNK/rtvcdqkgmRsKHut8QyRz8j0FqCruu4WtYYk
-	 jcjYGSfbjIIJw==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=jDn0S+kG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792598019;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4CwkvaVkQWrBo1G3WsdyRIUlADdlnSOaTellY/lZOtM=;
+	b=jDn0S+kGES8cubW/pJujatSEr5HwU66veopMYCJiEeJMx3/Y6cRCNeMDAOq5SG6Hod0mcN
+	q5UtrHJ802hIXgLXsCe0kTcG+mt+nzUHyTXhqU61flnpfd+QVJRcZU2QqNS8uREj19IUxh
+	sD6RD8LxhYhQfK4sk9Lr3kTwc/DGm5Q=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-675-WmkyJPO7Md2Yz-SkEnAfwQ-1; Wed,
+ 21 Oct 2026 15:53:34 +0000
+X-MC-Unique: WmkyJPO7Md2Yz-SkEnAfwQ-1
+X-Mimecast-MFC-AGG-ID: WmkyJPO7Md2Yz-SkEnAfwQ_1792598013
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6A6E61800148;
+	Wed, 21 Oct 2026 15:53:32 +0000 (UTC)
+Received: from loberman-thinkpadp16gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9C605180029C;
+	Wed, 21 Oct 2026 15:53:30 +0000 (UTC)
+From: Laurence Oberman <loberman@redhat.com>
 To: stable@vger.kernel.org
-Cc: Jann Horn <jannh@google.com>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] futex: Fix mm reuse handling for FUT_OFF_MMSHARED
-Date: Wed, 21 Oct 2026 11:48:29 -0400
-Message-ID: <20261021154743.296641-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102123-unrated-shading-f030@gregkh>
-References: <2026102123-unrated-shading-f030@gregkh>
+Cc: jannh@google.com,
+	serge@hallyn.com,
+	paul@paul-moore.com,
+	brauner@kernel.org,
+	gnoack@google.com,
+	mic@digikod.net,
+	mkp@kernel.org
+Subject: Re: [PATCH 5.10.y 01/16] cred: clarify that task_struct::cred is only for the current task
+Date: Wed, 21 Oct 2026 11:53:27 -0400
+Message-ID: <20261021155327.2739540-1-loberman@redhat.com>
+In-Reply-To: <20261021154705.2737365-2-loberman@redhat.com>
+References: <20261021154705.2737365-2-loberman@redhat.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,241 +84,17 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-From: Jann Horn <jannh@google.com>
+Please ignore this patch and 02/16 ("ns: Free anonymous mount namespaces
+via ns_common_free()"). Both were sent by mistake, by a git send-email
+revision range picked up from the wrong tree; 03-16 were not sent.
 
-[ Upstream commit 3267512ad1c2cc0c7768c5b014dc2cceb398a801 ]
+The only intended patch in this thread is
+  [PATCH 5.10.y] scsi: st: Fix use-after-free race between st_remove() and st_open()
+  <20261021154705.2737365-1-loberman@redhat.com>
+which stands on its own.
 
-A FUT_OFF_MMSHARED futex is a shared futex that refers to an MM.
-It is possible for a process to wait on a shared futex with a different MM
-because a FUT_OFF_INODE waiter can be requeued onto a FUT_OFF_MMSHARED
-futex by another process.
-This can cause FUT_OFF_MMSHARED waiters on a freed MM to consume
-wakeups intended for a newly allocated MM at the same address.
-
-Fix it by keying FUT_OFF_MMSHARED using a unique 64-bit per-MM ID.
-Leave private futexes as before to avoid influencing the performance of the
-hotpath.
-
-(Multi-threaded processes typically implicitly use FUT_OFF_MMSHARED by
-setting clear_child_tid such that it points into anonymous memory, which
-causes mm_release() in a multi-threaded mm to perform FUTEX_WAKE.)
-
-Fixes: 222993395ed3 ("futex: Remove pointless mmgrap() + mmdrop()")
-Closes: https://lore.kernel.org/r/CAG48ez0dLBpc3QtbAhMMVNHwHL94iHh2G+h-=BVFR4dDuzZr1g@mail.gmail.com/
-Signed-off-by: Jann Horn <jannh@google.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://patch.msgid.link/20260929-futex-mmshared-fix-v1-1-262b1ffeb3d0@google.com
-Cc: stable@vger.kernel.org
-[ sashal: adapted mm->futex.unique_id access to mm->futex_unique_id because struct futex_mm_data is absent. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/linux/futex.h    | 18 ++++++----
- include/linux/mm_types.h |  3 ++
- kernel/futex/core.c      | 75 ++++++++++++++++++++++------------------
- 3 files changed, 56 insertions(+), 40 deletions(-)
-
-diff --git a/include/linux/futex.h b/include/linux/futex.h
-index e93f2be22779f..01febbc9ef1ee 100644
---- a/include/linux/futex.h
-+++ b/include/linux/futex.h
-@@ -23,28 +23,32 @@ struct task_struct;
-  *  01 : Shared futex (PTHREAD_PROCESS_SHARED)
-  *	mapped on a file (reference on the underlying inode)
-  *  10 : Shared futex (PTHREAD_PROCESS_SHARED)
-- *       (but private mapping on an mm, and reference taken on it)
-+ *       (but private mapping on an mm)
- */
- 
--#define FUT_OFF_INODE    1 /* We set bit 0 if key has a reference on inode */
--#define FUT_OFF_MMSHARED 2 /* We set bit 1 if key has a reference on mm */
-+#define FUT_OFF_INODE    1 /* We set bit 0 if shared key identifies an inode */
-+#define FUT_OFF_MMSHARED 2 /* We set bit 1 if shared key identifies an mm */
- 
- union futex_key {
-+	/* For FUT_OFF_INODE */
- 	struct {
- 		u64 i_seq;
- 		unsigned long pgoff;
- 		unsigned int offset;
- 		/* unsigned int node; */
- 	} shared;
-+
-+	/* For FUT_OFF_MMSHARED or private */
- 	struct {
- 		union {
--			struct mm_struct *mm;
--			u64 __tmp;
-+			struct mm_struct *mm; /* for private */
-+			u64 mm_seq; /* for FUT_OFF_MMSHARED */
- 		};
- 		unsigned long address;
- 		unsigned int offset;
- 		/* unsigned int node; */
- 	} private;
-+
- 	struct {
- 		u64 ptr;
- 		unsigned long word;
-@@ -83,15 +87,15 @@ long do_futex(u32 __user *uaddr, int op, u32 val, ktime_t *timeout,
- 	      u32 __user *uaddr2, u32 val2, u32 val3);
- int futex_hash_prctl(unsigned long arg2, unsigned long arg3, unsigned long arg4);
- 
-+int futex_mm_init(struct mm_struct *mm);
-+
- #ifdef CONFIG_FUTEX_PRIVATE_HASH
- int futex_hash_allocate_default(void);
- void futex_hash_free(struct mm_struct *mm);
--int futex_mm_init(struct mm_struct *mm);
- 
- #else /* !CONFIG_FUTEX_PRIVATE_HASH */
- static inline int futex_hash_allocate_default(void) { return 0; }
- static inline int futex_hash_free(struct mm_struct *mm) { return 0; }
--static inline int futex_mm_init(struct mm_struct *mm) { return 0; }
- #endif /* CONFIG_FUTEX_PRIVATE_HASH */
- 
- #else /* !CONFIG_FUTEX */
-diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-index f9c552744b71a..08495d38572f3 100644
---- a/include/linux/mm_types.h
-+++ b/include/linux/mm_types.h
-@@ -1079,6 +1079,9 @@ struct mm_struct {
- 		 */
- 		seqcount_t mm_lock_seq;
- #endif
-+#ifdef CONFIG_FUTEX
-+		atomic64_t			futex_unique_id;
-+#endif
- #ifdef CONFIG_FUTEX_PRIVATE_HASH
- 		struct mutex			futex_hash_lock;
- 		struct futex_private_hash	__rcu *futex_phash;
-diff --git a/kernel/futex/core.c b/kernel/futex/core.c
-index 69f340cddfd1f..e6fbeb2ac1901 100644
---- a/kernel/futex/core.c
-+++ b/kernel/futex/core.c
-@@ -441,45 +441,51 @@ futex_setup_timer(ktime_t *time, struct hrtimer_sleeper *timeout,
- }
- 
- /*
-- * Generate a machine wide unique identifier for this inode.
-+ * Generate a machine wide unique identifier for this object (inode or mm).
-  *
-  * This relies on u64 not wrapping in the life-time of the machine; which with
-  * 1ns resolution means almost 585 years.
-- *
-- * This further relies on the fact that a well formed program will not unmap
-- * the file while it has a (shared) futex waiting on it. This mapping will have
-- * a file reference which pins the mount and inode.
-- *
-- * If for some reason an inode gets evicted and read back in again, it will get
-- * a new sequence number and will _NOT_ match, even though it is the exact same
-- * file.
-- *
-- * It is important that futex_match() will never have a false-positive, esp.
-- * for PI futexes that can mess up the state. The above argues that false-negatives
-- * are only possible for malformed programs.
-  */
--static u64 get_inode_sequence_number(struct inode *inode)
-+static u64 get_object_id(atomic64_t *object_seq)
- {
--	static atomic64_t i_seq;
-+	static atomic64_t last_assigned_seq;
- 	u64 old;
- 
--	/* Does the inode already have a sequence number? */
--	old = atomic64_read(&inode->i_sequence);
-+	/* Does the object already have a sequence number? */
-+	old = atomic64_read(object_seq);
- 	if (likely(old))
- 		return old;
- 
- 	for (;;) {
--		u64 new = atomic64_inc_return(&i_seq);
-+		u64 new = atomic64_inc_return(&last_assigned_seq);
- 		if (WARN_ON_ONCE(!new))
- 			continue;
- 
- 		old = 0;
--		if (!atomic64_try_cmpxchg_relaxed(&inode->i_sequence, &old, new))
-+		if (!atomic64_try_cmpxchg_relaxed(object_seq, &old, new))
- 			return old;
- 		return new;
- 	}
- }
- 
-+/*
-+ * This relies on the fact that a well formed program will not unmap
-+ * the file while it has a (shared) futex waiting on it. This mapping will have
-+ * a file reference which pins the mount and inode.
-+ *
-+ * If for some reason an inode gets evicted and read back in again, it will get
-+ * a new sequence number and will _NOT_ match, even though it is the exact same
-+ * file.
-+ *
-+ * It is important that futex_match() will never have a false-positive, esp.
-+ * for PI futexes that can mess up the state. The above argues that false-negatives
-+ * are only possible for malformed programs.
-+ */
-+static u64 get_inode_sequence_number(struct inode *inode)
-+{
-+	return get_object_id(&inode->i_sequence);
-+}
-+
- /**
-  * get_futex_key() - Get parameters which are the keys for a futex
-  * @uaddr:	virtual address of the futex
-@@ -685,8 +691,8 @@ int get_futex_key(u32 __user *uaddr, unsigned int flags, union futex_key *key,
- 			goto out;
- 		}
- 
--		key->both.offset |= FUT_OFF_MMSHARED; /* ref taken on mm */
--		key->private.mm = mm;
-+		key->both.offset |= FUT_OFF_MMSHARED;
-+		key->private.mm_seq = get_object_id(&mm->futex_unique_id);
- 		key->private.address = address;
- 
- 	} else {
-@@ -1724,18 +1730,6 @@ static bool futex_ref_is_dead(struct futex_private_hash *fph)
- 	return atomic_long_read(&mm->futex_atomic) == 0;
- }
- 
--int futex_mm_init(struct mm_struct *mm)
--{
--	mutex_init(&mm->futex_hash_lock);
--	RCU_INIT_POINTER(mm->futex_phash, NULL);
--	mm->futex_phash_new = NULL;
--	/* futex-ref */
--	mm->futex_ref = NULL;
--	atomic_long_set(&mm->futex_atomic, 0);
--	mm->futex_batches = get_state_synchronize_rcu();
--	return 0;
--}
--
- void futex_hash_free(struct mm_struct *mm)
- {
- 	struct futex_private_hash *fph;
-@@ -1982,6 +1976,21 @@ static int futex_hash_get_slots(void)
- 
- #endif
- 
-+int futex_mm_init(struct mm_struct *mm)
-+{
-+	atomic64_set(&mm->futex_unique_id, 0);
-+#ifdef CONFIG_FUTEX_PRIVATE_HASH
-+	mutex_init(&mm->futex_hash_lock);
-+	RCU_INIT_POINTER(mm->futex_phash, NULL);
-+	mm->futex_phash_new = NULL;
-+	/* futex-ref */
-+	mm->futex_ref = NULL;
-+	atomic_long_set(&mm->futex_atomic, 0);
-+	mm->futex_batches = get_state_synchronize_rcu();
-+#endif
-+	return 0;
-+}
-+
- int futex_hash_prctl(unsigned long arg2, unsigned long arg3, unsigned long arg4)
- {
- 	unsigned int flags = FH_CUSTOM;
--- 
-2.53.0
+Sorry for the noise.
+Laurence
 
