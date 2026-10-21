@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792618588;
-	b=cmDY0CZQSnCYIw+4Y/+Jv/qK5+Z0EiKFHheH6rZELSw+7QNYmYDEkSA1EfEIeEg1At+1
-	 hJfk8F0eTPiZMX2xNz+ngSR9GBXwBLl02zxcSGSDY1XLkuCzFT9fAje0A/dEvmZtibZWg
-	 rIVaUxeibQvOPWTcRIJU9kjF6Iq23/ov7yqKCBCMslyKm3sq51xnVJs8p7xEYHX6dZgTv
-	 KK6TY1yXmoRovScqihek2DHtTzc9hRe+1ujb9KTqgYW4BYkx3SGWn7R9yAZLF8GYR56Am
-	 H964Kxf5vd1TrxqwqU3sKVB2nkF0N5MuQrrfeTSKYJ02QUsB1zigDVdTYfvU7CY856A==
+	t=1792618598;
+	b=JX9YKfelN8D8L4uFywilw1jbvvCIq09ATHDwKSFAGvIo/XIqGI1sn0+3lNvFlUYbDWbG
+	 keuXxOV6OqsWPx5zZGnSiEhvAEzeg/VlHUU/2aPegPe31h9KXMOO+rGIUo7yWNQtJ8AWQ
+	 1QGgNuFgkF41swNbYwShP96mGesTps2HHk07U3WvsnfV14cJ551NW+lbVp5pHHA8GbBLt
+	 X7IU4IJ/qP6ESbFan4lMi9jDgI39pVKTaXZqiQxmnTin3u7i2pEcGrpIesQDmSJfBK5P9
+	 7NDBHU+2WuvfjUA7rIvMRpcSPpJ4HLx/ci/TbCKbqDqcxqJGdsWSc3VXm4iQhDSZzWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792618588;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792618598;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mQZ6kO5kF5iP/GV5yLDaTH/FFcbyLZoXVZ1UBqWAlBs=;
-	b=QjP7/IeQR9m8XM/Guv0N79oFIiq4yddJH1nVvrEFk9FnhoWD5j2bIaextmcbMQPKUqNe
-	 qTYXKroLesT5e51LaCW22SWoVbtekpgrWRd+Qo9EMbZ4+/i5VQy6SgYKhXeB/I/8DsQNe
-	 1sulXaFyaWBMluTfsYl2dEZo/WNlYhnKg3JfzVoygwS358GtlWsvC2QL8iQW0uAcxjSog
-	 Sm9WWb3TeFqSfT8VHHxRiPtnu+lEPT2dhQUgIbPSxP+hFMe+VoTBDxWGIUrijK5U4livY
-	 2Dq9deXP4B5rnQWbFUr5/9Qodg0eKvZRQ2inkeKPJlyeElGK+8HIX85/zOHSp5QLVCQ==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=zqrg0nctncIsBOarxm/IHSE8QFUdYykk1wPGkmbbzz0=;
+	b=ZIqcPrBSeSLWILwtfXaB+PRkS/qoL6uhXEICffE9BHQH844Mt9QhEiYB/JUe1scJR05l
+	 ZG85zNDaZgwryPjbKlISx3GG550Dn/Gi3IeFr4dF0ZbsdUnmQeQ5HgWQWrfY0NolNvkxF
+	 5cBJ+RPPh5SflN6A99+TH1wqiXfBYYnzFOTacslGFcUTLzQB/tgnFw+uwWGp+pjy1g0a9
+	 pf7dRXrJonUJ2HnLp4UjinlGnGGkGgLUHLR30LWppkzMMwbY6/5Bt/0VTtFHyZZNff3mD
+	 8CCSX6hvinWD9minPAnbzIgWb84oTAArop0x28MhVzAfegH1PSNTqu86RDc94nacbng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=idTVXl1h;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="P/9Vwtb7";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453F2606A321
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 21:36:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A113606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 21:36:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=idTVXl1h
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B7181F000C7;
-	Wed, 21 Oct 2026 21:36:27 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P/9Vwtb7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A9FF1F000C1;
+	Wed, 21 Oct 2026 21:36:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792618588;
-	bh=mQZ6kO5kF5iP/GV5yLDaTH/FFcbyLZoXVZ1UBqWAlBs=;
+	s=k20260515; t=1792618597;
+	bh=zqrg0nctncIsBOarxm/IHSE8QFUdYykk1wPGkmbbzz0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=idTVXl1hk4TiclYlUfjGLgr9xU3qBILn03x7i4AbidDfBnAtVmrrvOzJIqW2Gwctg
-	 lJ1KDX11w2dU9Ew/u39srRYSCNfLvFV7leaqWwlNm/yZ8KVGYRiv5AbJGmTG/EdXBe
-	 wNXAX+hl+yBC9mUQQJM8k41Nn3dcAGP/tRohu+KlNESvaI5uZG5dy2VJ5QmHTBd03s
-	 E+XcLYp6Q7md5TtTKhEwOjdJPbFDn9761Vo2mn9PJgqGh5JrIJ8Uw0z+GeZljHdVBV
-	 IyxmSoI30ZTfg1dMDxCmiLgNkNpd6perdQm+LFXPovL7AKA5Z8BKaMK0C8+6i4pepL
-	 XVOi+pe/Fr1Cg==
+	b=P/9Vwtb70NwTZ2nKej5LQGY26dHGfjWy725r2GUbllacwt42J9yjGUWNj2z4fWP6D
+	 FjGSZd+R8N1287V8rVYwl8PdkX2bWoG/u/4saZ5G25H2jFv0K8t3DP4LFmQ66xab27
+	 PPnSgigYWdXSxOQjGPOau6f6vdUwAC8MMkycFygMsOnptLocqFw2St8c0m24LIoX7z
+	 7U+yIWdZ/u+yp3Zi1fUsRgIOCLc5t7/7AZ2ufmK3RlgWYo+xXXEFrj4mxkzsXym6Ku
+	 uFa7SdHxCywPOM58OODYSXdocJWSbpDJPwIjCsQmimWrx0O7nrTlOjfPgFGYjR4lLE
+	 iDCCA1T3fteKA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Wentao Liang <vulab@iscas.ac.cn>,
-	Andi Shyti <andi.shyti@kernel.org>,
+Cc: Prike Liang <Prike.Liang@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] i2c: viai2c-wmt: Fix clock leak in wmt_i2c_probe()
-Date: Wed, 21 Oct 2026 17:36:25 -0400
-Message-ID: <20261021213611.464346-2-sashal@kernel.org>
+Subject: [PATCH 7.2.y 1/2] drm/amdgpu: correct reservation fence slots for userq per-vm BOs eviction
+Date: Wed, 21 Oct 2026 17:36:34 -0400
+Message-ID: <20261021213614.467885-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261021213611.464346-1-sashal@kernel.org>
-References: <2026102101-rebirth-zealous-7d04@gregkh>
- <20261021213611.464346-1-sashal@kernel.org>
+In-Reply-To: <2026102137-thermos-preaching-3697@gregkh>
+References: <2026102137-thermos-preaching-3697@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,43 +61,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Wentao Liang <vulab@iscas.ac.cn>
+From: Prike Liang <Prike.Liang@amd.com>
 
-[ Upstream commit aaabefc79b0ff0018e8e3832169bbe359d0551fc ]
+[ Upstream commit 50b24a20be8c0d35f89f7d5c39533f69d84fe48e ]
 
-In wmt_i2c_probe(), i2c->clk is acquired using of_clk_get(). If any
-subsequent operation fails or when the module is unloaded, the clock
-reference count is never decremented via clk_put(), leading to a
-resource leak.
+It fixes both the move overflow and the eviction fence add for
+evicting these per-vm BOs.
 
-Switch to devm_clk_get() so that the clock is automatically managed
-and released.
-
-Fixes: 560746eb79d3 ("i2c: vt8500: Add support for I2C bus on Wondermedia SoCs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://patch.msgid.link/20260916070631.1965713-1-vulab@iscas.ac.cn
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Stable-dep-of: 32d0771ef4ca ("drm/amdgpu/userq: actually validate userq BOs")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/busses/i2c-viai2c-wmt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/i2c/busses/i2c-viai2c-wmt.c b/drivers/i2c/busses/i2c-viai2c-wmt.c
-index 133dc41fe387b..029473ef3fc50 100644
---- a/drivers/i2c/busses/i2c-viai2c-wmt.c
-+++ b/drivers/i2c/busses/i2c-viai2c-wmt.c
-@@ -117,7 +117,7 @@ static int wmt_i2c_probe(struct platform_device *pdev)
- 		return dev_err_probe(&pdev->dev, err,
- 				"failed to request irq %i\n", i2c->irq);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 0c3fa2d60555a..9352efa98bfa9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -948,7 +948,8 @@ amdgpu_userq_bo_validate(struct amdgpu_device *adev, struct drm_exec *exec,
+ 		spin_unlock(&vm->individual_lock);
  
--	i2c->clk = of_clk_get(np, 0);
-+	i2c->clk = devm_clk_get(&pdev->dev, NULL);
- 	if (IS_ERR(i2c->clk))
- 		return dev_err_probe(&pdev->dev, PTR_ERR(i2c->clk),
- 				     "unable to request clock\n");
+ 		bo = bo_va->base.bo;
+-		ret = drm_exec_prepare_obj(exec, &bo->tbo.base, 2);
++		ret = drm_exec_prepare_obj(exec, &bo->tbo.base,
++					   TTM_NUM_MOVE_FENCES + 1);
+ 		if (unlikely(ret))
+ 			return ret;
+ 
 -- 
 2.53.0
 
