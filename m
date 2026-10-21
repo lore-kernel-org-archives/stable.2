@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792597699;
-	b=ZJmS6R7p666PeFZboglYdjxifK0bxm7UrFfILFszBBZIdO+UsrTG1L9Df2yHvj1fg8PU
-	 AXRldMkexUtlq9bdOCoBpjLMmdrrQ0UXUu/fpbZcDyusjwx6wO7vJn21tYJtHHlbm9Zdh
-	 Tr6tiszSOvHXQ7FYYBHhQFplHmLutfrzaFUzlFeeKw15o1S9qbqQwsRzhJU8h/SweQDhK
-	 egwKYllMSfBNpGU18shwSI4G/VeDgprHJhn+geWGuYFvAqaUVll8vN55IqVrYDPfcD3XO
-	 gRqUU61GL04pQmHn3HT3cBhtSJhz3tMsdHy/nyUSYtukal9cS4xpMG5kUbJhPDPtneA==
+	t=1792597695;
+	b=GavLEixG7d5HVfSga75gjZik7e1JtDnFioQ5bY1bCUHZ2bQ0S2Bpu2OmNaAaZMRoBPbG
+	 4pl17actNQ+7pntKcjdOCg3w55Zx3mnGGmIJ5x76uG6oqe3dZs0RWazRQZaR3uT003GwZ
+	 rydOupohMcmQF1eEQBodOThvJqpmL9FA46Y6fUoyBxiFKfqupNgee59VUGxubbeLmcyQk
+	 bv7WTWGU6WTItMqpBYW8a9a/J3YiO5jd6stQs4MfQnLjML0hI+RoqTeW1tFGqZxCzaEw8
+	 sus2CSviwlzueJuWbn5vCeFUJ1BKu60lSSqVXpxCHW0zDIzvm6EGhSg7BJslnxlaa9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792597699;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792597695;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=IZpzJnxKh3w+OTjNcXecABBXii5XSw5j1B4o5PHMblU=;
-	b=Us/WMimTfA3Hfj+t3JkToMgn8nB7gc/1nAmMrIWPlSypCZTHDvvJBn166UvOwojt/ErF
-	 eugW5oRx1RLpoAO74RhGoB5c+OGXrq8gYKxerixujJsAraIW1h5Lp7vtxZaucgN9CQzKt
-	 Z+J8/D+4veG/G6uoS+iDqDhTirZPBg7C7Mj/BkAsgU+vruLbIF7Ey08ZJ/pUwDk7M+6f6
-	 rbp3u+ZDWL7JYSnvuPYOdESn5Uvk3D3U4o/rniOdXxtnNoAlxk7TEwCSFYn6Ma0smdtmB
-	 L4VhOyx9ik00b4eMQWtbW7nTcOULN6GVcbsBH03u2P+MJtr5M30b3mNgk224Mg36k4A==
+	bh=pVmPtQnfohqF6KvWdD7hK640VkjjGjCnIC271nP0U5U=;
+	b=Kp9BRmz2FvpbkM72znjbzFch0CYRzXYSpaoMwvG5/RTuNPnu/GKWbPzOK3c97p2vpLtu
+	 nGSbBMFdh1L5ezm5ANdiVT/KAJ3fuoMOhnswDUfA2oPPDoYW5viBAj53FAx2YC+6DYgwW
+	 W02v1W007N/HwOXy3euBr+nPRb2EaWEYjZBE3GmcsAMnYLAJa+3xClp5Yp8HHm7G1p8bd
+	 bXQCmfKHnFUxNtDLEyipD4zGFsimuuhsK0pZk2R5niIRv7fF4+gVyx/p4CAR1abLnq447
+	 uD41HLLKiOv+j+tG0jvm5Gjmox1cO7dVOuv3cw8Y9YJuMJ40kyNhAgr8L0DJNIAtg3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WwNjqQH1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S4OyM8fT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3BA4606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:48:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17FFE606A31D
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:48:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WwNjqQH1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FABA1F000C1;
-	Wed, 21 Oct 2026 15:48:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S4OyM8fT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 464391F000C1;
+	Wed, 21 Oct 2026 15:48:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792597699;
-	bh=IZpzJnxKh3w+OTjNcXecABBXii5XSw5j1B4o5PHMblU=;
+	s=k20260515; t=1792597694;
+	bh=pVmPtQnfohqF6KvWdD7hK640VkjjGjCnIC271nP0U5U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WwNjqQH1DsVR6yNiH3NlO7UEMWxZdlWgF+Qp0KTvCUir3ZvD8dBjpw/OOO6jI1PG4
-	 ItOUTMZRF0xs0TornaJK3aqAs6PovRU5QX3AFZVe4QHGoCFnJjM0Mk7Ic8tpl+V+Kq
-	 kso4fKQKds0h3orzqPcpyJJhNonRd+9iWRYdC9Jmb5ShHRtIla7IGiVwxXb9tzSuvP
-	 hfonLw7Z96vyT4Vo+4IluAoU0QhrsL0W8qhgG/c9RI07aJVGo2HA7eLSuoiq0rGeZU
-	 qH0iGrms6BLa0AMYvGeq5BUWDiXOnSDw32/VKSV9Og401gDJQJr6wmb8zCNeJQ+8ll
-	 lb1ezkUAhTRpg==
+	b=S4OyM8fT1PlzPhoppISg6ptaN+PcxGbP+zeeTP927nU9A8KGYsUtRDIkZwku39pH6
+	 SHVZyLfpvzHZMtFgi0nfeZ1PuReUZXi92UGa9xdodBlTF8oT9NwG/Fvx7DovigG0Xn
+	 ef5BSHY00jE3TSwgJyd4LHL1VMZNW4V19N4oOqDstiEsRB0m7voNbDxsdNb98M0AQQ
+	 2B1xIi7KzkUH8Itn5kVa+dzlV4wdy0KskwONnEqZ7DY5jq5yhxQURt0s2BOM064T/H
+	 C1ZvRkVTuWKbShQTtec8lRiNU1paTeY15Ms9gzrde54VF+8lqlYkxPJ5lZ3r1YHVJN
+	 pTjuGQq2pkU4w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jens Axboe <axboe@kernel.dk>,
-	Christian Brauner <brauner@kernel.org>,
+Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] exit: move core of do_wait() into helper
-Date: Wed, 21 Oct 2026 11:48:16 -0400
-Message-ID: <20261021154744.363841-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] ASoC: SOF: ipc4-topology: Fix shift-out-of-bounds for aggregated ALH capture
+Date: Wed, 21 Oct 2026 11:48:13 -0400
+Message-ID: <20261021154744.386960-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102100-lifter-velcro-2a2c@gregkh>
-References: <2026102100-lifter-velcro-2a2c@gregkh>
+In-Reply-To: <2026102125-stole-applied-92e5@gregkh>
+References: <2026102125-stole-applied-92e5@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,116 +62,64 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jens Axboe <axboe@kernel.dk>
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-[ Upstream commit 06a101ca45b296fe951692620b0bc49abf90c368 ]
+[ Upstream commit 746de48c3a250f0c264105dcbfcdf0c5001e970b ]
 
-Rather than have a maze of gotos, put the actual logic in __do_wait()
-and have do_wait() loop deal with waitqueue setup/teardown and whether
-to call __do_wait() again.
+When ch_count is smaller than blob->alh_cfg.device_count (e.g. a mono
+capture stream, such as a SmartMic, aggregated across multiple SDW
+links), step = ch_count / blob->alh_cfg.device_count truncates to 0.
+The subsequent GENMASK(step - 1, 0) then underflows step - 1 (u32) to
+UINT_MAX, causing GENMASK()'s internal shift to use an out-of-bounds
+exponent:
 
-No functional changes intended in this patch.
+  UBSAN: shift-out-of-bounds in sound/soc/sof/ipc4-topology.c:2363:13
+  shift exponent 18446744069414584384 is too large for 64-bit type 'long unsigned int'
 
-Acked-by: Christian Brauner <brauner@kernel.org>
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Stable-dep-of: 81933038f5e2 ("pid_namespace: make zap_pid_ns_processes() freezable")
+Treat ch_count < device_count the same way as the existing "channels
+equal to output reference channels" case: apply the same ch_mask to
+every aggregated device instead of trying to split channels that
+can't be evenly divided.
+
+Fixes: 0390a102cc18 ("ASoC: SOF: ipc4-topology: use different channel mask for each sdw amp feedback")
+Cc: stable@vger.kernel.org
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Link: https://patch.msgid.link/20261008090130.15135-1-peter.ujfalusi@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+[ sashal: used a standalone guard because the playback-specific conditional is absent ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/exit.c | 51 +++++++++++++++++++++++++++++++--------------------
- 1 file changed, 31 insertions(+), 20 deletions(-)
+ sound/soc/sof/ipc4-topology.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/exit.c b/kernel/exit.c
-index 413540df3e185..d4addbc7aff20 100644
---- a/kernel/exit.c
-+++ b/kernel/exit.c
-@@ -1588,16 +1588,10 @@ static int do_wait_pid(struct wait_opts *wo)
- 	return 0;
- }
+diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
+index 8911c075251ca..8e16ec8038382 100644
+--- a/sound/soc/sof/ipc4-topology.c
++++ b/sound/soc/sof/ipc4-topology.c
+@@ -1690,8 +1690,20 @@ sof_ipc4_prepare_copier_module(struct snd_sof_widget *swidget,
+ 				ch_map >>= 4;
+ 			}
  
--static long do_wait(struct wait_opts *wo)
-+static long __do_wait(struct wait_opts *wo)
- {
--	int retval;
--
--	trace_sched_process_wait(wo->wo_pid);
-+	long retval;
- 
--	init_waitqueue_func_entry(&wo->child_wait, child_wait_callback);
--	wo->child_wait.private = current;
--	add_wait_queue(&current->signal->wait_chldexit, &wo->child_wait);
--repeat:
- 	/*
- 	 * If there is nothing that can match our criteria, just get out.
- 	 * We will clear ->notask_error to zero if we see any child that
-@@ -1609,24 +1603,23 @@ static long do_wait(struct wait_opts *wo)
- 	   (!wo->wo_pid || !pid_has_task(wo->wo_pid, wo->wo_type)))
- 		goto notask;
- 
--	set_current_state(TASK_INTERRUPTIBLE);
- 	read_lock(&tasklist_lock);
- 
- 	if (wo->wo_type == PIDTYPE_PID) {
- 		retval = do_wait_pid(wo);
- 		if (retval)
--			goto end;
-+			return retval;
- 	} else {
- 		struct task_struct *tsk = current;
- 
- 		do {
- 			retval = do_wait_thread(wo, tsk);
- 			if (retval)
--				goto end;
-+				return retval;
- 
- 			retval = ptrace_do_wait(wo, tsk);
- 			if (retval)
--				goto end;
-+				return retval;
- 
- 			if (wo->wo_flags & __WNOTHREAD)
- 				break;
-@@ -1636,14 +1629,32 @@ static long do_wait(struct wait_opts *wo)
- 
- notask:
- 	retval = wo->notask_error;
--	if (!retval && !(wo->wo_flags & WNOHANG)) {
--		retval = -ERESTARTSYS;
--		if (!signal_pending(current)) {
--			schedule();
--			goto repeat;
--		}
--	}
--end:
-+	if (!retval && !(wo->wo_flags & WNOHANG))
-+		return -ERESTARTSYS;
+-			step = ch_count / blob->alh_cfg.device_count;
+-			mask =  GENMASK(step - 1, 0);
++			if (ch_count < blob->alh_cfg.device_count) {
++				/*
++				 * When there are fewer channels than aggregated devices
++				 * (e.g. a mono capture stream split across multiple links),
++				 * set step = 0 to ensure all the ch_mask is applied to all
++				 * alh mappings.
++				 */
++				mask = ch_mask;
++				step = 0;
++			} else {
++				step = ch_count / blob->alh_cfg.device_count;
++				mask =  GENMASK(step - 1, 0);
++			}
 +
-+	return retval;
-+}
-+
-+static long do_wait(struct wait_opts *wo)
-+{
-+	int retval;
-+
-+	trace_sched_process_wait(wo->wo_pid);
-+
-+	init_waitqueue_func_entry(&wo->child_wait, child_wait_callback);
-+	wo->child_wait.private = current;
-+	add_wait_queue(&current->signal->wait_chldexit, &wo->child_wait);
-+
-+	do {
-+		set_current_state(TASK_INTERRUPTIBLE);
-+		retval = __do_wait(wo);
-+		if (retval != -ERESTARTSYS)
-+			break;
-+		if (signal_pending(current))
-+			break;
-+		schedule();
-+	} while (1);
-+
- 	__set_current_state(TASK_RUNNING);
- 	remove_wait_queue(&current->signal->wait_chldexit, &wo->child_wait);
- 	return retval;
+ 			/*
+ 			 * Set each gtw_cfg.node_id to blob->alh_cfg.mapping[]
+ 			 * for all widgets with the same stream name
 -- 
 2.53.0
 
