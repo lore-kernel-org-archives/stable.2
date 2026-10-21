@@ -1,96 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.39
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792608180;
-	b=3BIaNb/Tugk1lNIVuoTE0g3CZdNQDE5fHBFvzdkAvyXEnNnG9TFsNbmriSp0gq/7rVdl
-	 5GI727lR0NpjfqDcGEuRQ1TLRPYGvPDOrJ+CqSGmOTEW9eU6UuD5omk5JBsUQUA5EX/zX
-	 wiF9GCowc1oh1ZwlySGRPKCHNiY9+iTdNC8LP/pq6C0AQ2qTU+FEiigrrMVsMAJie1g3U
-	 p8yRXTR5qxmGY0lH5ZsQlnOZmK0x2DBkO4V9xRrzmo7H+JPXLPZ20FaH5HsAugCY1xEAl
-	 rXdoBkyVcw0yS0qrl5PDT5BmEru8uc0cKi6ZvwDB9Ap8O8OnMqwikbDIaMesDkG+shA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792608180;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=vWTqbiKHqXrdvCjIjlAuFlbadZBAXvaeJ32YATNi1M4=;
-	b=eRXDumkA7E3d/nZgMDlRLi9NKppfda58+Cxss4nOcyhu+P5+JgmA1h1T/qMuCd4z0ove
-	 f+zx6ODoZcRq6XeVNnQfkDIQ0oiQ7RlyIZBASRZGCiOg5VtfqYzCoKUeKJKcgSpOUOjVK
-	 XpDFKrqRSP6ApgaBCFFPszWnw4CSXIf4YYzVX3qYJwwzVTAV+1IkjhFAAXnJSTPtfEaK5
-	 gXc88c9FkFMvmSZJPBUyT5hRW9Vjg67mTcC3ymCtGbx0D9gvZtVZV9ZnJ4Fvq/ZOkAytf
-	 4pZaHub1nq1tR9nEJUukjM8VMzyc0NdfRubpWGzAWgaim1/5xty284df3v53nj9j27w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2Z2hGk62;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.39
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013039.outbound.protection.outlook.com [40.93.196.39])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792608812;
+	b=eceTF4YvsEd6UmFnuRCWwuL3PvYgFs19AZ7p6myJ2gk4Nfp7SMbv13gcAyMmPbMhnyC/
+	 tD55NmuDp8qFMy+EDKkGXfnInVpgS5XKfi06JD1HEdMD9SL3PdM2mFzA7MxjcwcODX3zq
+	 WTx76/ZVJ/Q+Iz6fnbve2DpeLWq46gY1mCga1rt0wrIgYfqdChwGlefFRdwI1sWn6KJBH
+	 ZsMW3T8ygabOSRPgBcrhNcSXo9+8pcC9pjpQ2nbJUUBwahd2gWYAkTE6UoQ0WtLOOCVdi
+	 BXtG6/Qi6sEk1BTJaNg2TPX60Gp6e6JLMIp813PVjFbpvPkkG1OIw8Mb3yPZYeD/DNA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792608812;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=YjVYJxU5rZwZ4s2n4dDKWSpd20NJgYs+cHshoDxVvow=;
+	b=HjaEvQ2FYi2LzDwFJbjwsLKHI2SMObB2ZFDULG7MNU356f8AMzyI9rlGe2xPE9rTGAMR
+	 r8DFsxkodY0tVMA51XXkS4xNuQ6PJBHNVZdiZ5dxEyJWj2KJBrcHFAgL5MmXb+CgCP5ll
+	 fpLONyWcF/sNtNI5Cerq4DZJH6YmUZN0gF+fqEwaThaitKyczSvK7dC4eTgcxb6hUMdIA
+	 Kmj8lw91GD6+jjt6tSo9Iu5uKrYnHyIlEz0NTKbMshfsGucwD7ASKRG3oK0SOTLnp6TTN
+	 ZTVRM1vYeKfzKYvGMIORpcPKZww9ZAKhUkurYMXM5w/YBVwbpifFKCaAUvt1QT1e8bA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NP8y2kyI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE19606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 18:42:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAE19606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D589606A31A
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 18:53:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2Z2hGk62
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fxSvpk0t1C9FIukulOwSZK96rSoczf1I1f1BM49scBo+N78yoYiEcoP9DsI1tUAMKjE+hoo6hccgZR+dtNzM1mZkZt6BqsKPD04OGXZut75ja1+MXpf+6vP+nPWz9NUU3MTy+tvXiQPhgUSKbAIHptriS1C9ETEWJDe7EN5nha0/orrXIddkTSyKOayKWFyHELymosq1PlkkLbpLDBFNgdMXNuXpTYRbuCbF51boqRbFmmvKj2xWjH4jVOpSutw8RpGOk/1fgznj7sGYqCpPnGTx1Uj8ureKvM6BQe7UMLFu3fRbMwh2VsKK3UBzzeXBR2OKNRNOzpH+QJr7f57zWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vWTqbiKHqXrdvCjIjlAuFlbadZBAXvaeJ32YATNi1M4=;
- b=SkeSZNVM0xxHjqAyYMQ/jAnvm1R2ymnkODcsfBpMnQ77s+4ms7RvDexWo5K79VJCWJwM/V20aNxqQf01iLqSFBkyGIyh8yXBpEGaRozpk/cN3QhZmeZwESLeDdBe/Js5i+T+M+At6vcKuZXhv0p3v1rLgj+/rixOujXUFUpJmPgLqgCZOtwpy/q2s25RVW+1YQuHo9Q23IK1fM4zO31DVi4gZTNuDTooT7GkfddiXzss5awh4yOzxYiX6BNPSEBtRDl2hd0dioLKhhF8lAqWo2Xb4geQXjfIYg7XdMoC0jFsA5xKgClrqZnpsHE9uUlIOIv3aq0BP4Mt66JgzgklnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vWTqbiKHqXrdvCjIjlAuFlbadZBAXvaeJ32YATNi1M4=;
- b=2Z2hGk62ywRkn3tco+lCKV3ST9R7KLvINokEAdWL+9LQlFl1XjgZ9RTxGuq1wAOXjDr2se2QF2KgEbwlMrmYo9+iHiRwz7mxyQnZ9D44hFeVVZSocn1Fyj2Of457F0/octEczBjt12nnfvkcSDdl3brOJdXNQsxv0ASt1jqNP+A=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
- by IA1PR12MB7711.namprd12.prod.outlook.com (2603:10b6:208:421::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
- 2026 18:42:51 +0000
-Received: from DM4PR12MB5039.namprd12.prod.outlook.com
- ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
- ([fe80::762:6408:ca99:701d%4]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 18:42:50 +0000
-Message-ID: <88b8a710-7674-49b4-9bff-13958f97fe7c@amd.com>
-Date: Thu, 22 Oct 2026 00:12:45 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/ttm, drm/xe: Don't invoke the OOM killer when
- evicting VRAM at suspend
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Natalie Vock <nat@pixelcluster.dev>,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org
-References: <20261020100504.46684-1-thomas.hellstrom@linux.intel.com>
-Content-Language: en-US
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <20261020100504.46684-1-thomas.hellstrom@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0182.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1b6::17) To DM4PR12MB5039.namprd12.prod.outlook.com
- (2603:10b6:5:38a::18)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NP8y2kyI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 398051F000C1;
+	Wed, 21 Oct 2026 18:53:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792608811;
+	bh=YjVYJxU5rZwZ4s2n4dDKWSpd20NJgYs+cHshoDxVvow=;
+	h=Subject:To:Cc:From:Date;
+	b=NP8y2kyIlPjlpDZtrh4uNy7EJNlI1ndOJzMnWNSMj+lsIYRqZV+ECbQG7AQhUTlWg
+	 l/EEjRKPzoyJyeLYI7WY5dB7vJf4RupazIOWHEoXLHAs2OmIVk5EvaZC8qygwBwNnG
+	 O0ycKVPC169Ku+QTGdYHGr2Nl3/5mBZpq0bMujII=
+Subject: FAILED: patch "[PATCH] x86/kvm: Don't consume async #PF flags on a kernel #PF in NMI" failed to apply to 6.6-stable tree
+To: ejc3@meta.com,pbonzini@redhat.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 21 Oct 2026 20:50:14 +0200
+Message-ID: <2026102114-railroad-feisty-2a38@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,231 +51,154 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|IA1PR12MB7711:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7100afa3-f0dc-4843-72c3-08df2fa31c1b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|261021123027099003|56012099006|11063799006|5023799004|261009223027099003|22082099003|18002099003|10067099003|6133799003|261021121427099003;
-X-Microsoft-Antispam-Message-Info:
-	yFpjJuB0/bkCZYjpPusC/ft8hYDap5SluVzwEZZXGOTZb4PqjfciGdJipWDF46zM9N78v8NyxaXuZ0UNOPMf7nU5ClivZfLYq0oidNbf0CEQoDu6mcohI2xvxUJxrYJyVXuXScmsL9oYnmmsQp18k/wYEtpnq4tuCAsdq3BNquYUU2y7Ag4gTTAHmyj2XEn+qxX5T5zpARRU1NMHa0ke7JfY4PbfddqA61v/f414ZXUqjwZKVONvipF9Fy0yjXStui3Gsbl2usQMEqCNCnO2oVRtsL3yv24QcRbvTSGEi3WPesNXKNqqVXlExOs6zjdAWwmE+euvSFIU4qdfZd/R3UUHSFarTfaG4rb2g+WCc5CML2kWsA7rSDW4BbH5PTnf2uXvnlG5A2wrHgDCegGVIGxMBKGIswnLxQfBwAHpePXRJHWh+tf5VUVuE/li5Yh6aLlPle3k8VpkQXBM2rZr2x1HIB9dsyfpXAhXk6wDqDhK3rFxYllI7Q6h+2LHytuuUozhYXTuW7Yuq5NsiLlnxbmTf06kQePwFVArD94N/5hgqjl1B7QpnBZba+gErh9TX1qWqiNVeZkbA7zv+IL9UHfHzGz9Qyq9lS/PlMPDcGueIVa17TkWuPMhAS3dKj8c
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB5039.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(261021123027099003)(56012099006)(11063799006)(5023799004)(261009223027099003)(22082099003)(18002099003)(10067099003)(6133799003)(261021121427099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?S2Qrako3amtUZ2I2cUVMaER3di95RDVieVprbXhnMFhoaE1MeFR5d0hLY21G?=
- =?utf-8?B?eEVzRGpVZ2R1azUzdURZb3BLUmRFek5KczFLSVdzaHg1Nk1qNEZ0WmhhaFdU?=
- =?utf-8?B?aFR0dU9JYVVQRUpWR1BTczJBSisrNnR6UFlUQ2wvZjFwSFR3WHBvbUc0UXpR?=
- =?utf-8?B?VWpXQ1NFL0RWM2VmdTkzSG5aWWFudXFZSnFEYXZYUFRHRmZnRzNCK3NNNUky?=
- =?utf-8?B?UVpJS1BGQk9UNnc3QkVXWFh2a2Q3MnFjMWdLTWxUaFlKS25JLzZld1J0aklx?=
- =?utf-8?B?akdlQnlmTnVvY3pQYW9NTUN0bG92RmwwSDR3ODRYOXl1c0EzK3d3VndNTzJ1?=
- =?utf-8?B?MDNGY1dlZDhveVdlakVrend5YVNuSjlOdGIyWVdxVERQd2s1OHVOWnlsYVlp?=
- =?utf-8?B?ejNwLytLeDVYamIrYVVoSXRuaDFzQUpHOXVXbUd0b2NMcFBCNGY0em50Y1FI?=
- =?utf-8?B?R25kc0ZNRDVBaHNRTGtubXNpSFdNcjRVM1hPT2VBL3BkY2FnbFFWa2ZMcTFz?=
- =?utf-8?B?WTBVSndhQUc1SEczZ01NOS9sY2xMQjVwQVRCVEpRY1orWWFneFFhY29WNkpX?=
- =?utf-8?B?eFBsZmZpMzRhR0NPVkZKa3d5YlV5Q093SkdjMlJFb3ZxT1JSQWlLRXh2dm1O?=
- =?utf-8?B?clRLTkltTUdDSHlhNnVxSU12RXJOSEZZWnVQR09nYjR6SXIrM2RSSVd0Uldo?=
- =?utf-8?B?U090WWJOekt2OFc2TnJjUU1rTGlXWE9keDVkaEFJbndEVi9IQUJzM0lpbXNY?=
- =?utf-8?B?STlrNjVtZVBRMWRyMWJwRGcwK3l3Q0dNejgvUnhwdzN1bUNGcnFVUG55OGxF?=
- =?utf-8?B?ZzhWSzdBT1NYdVo4cXZ0Um9FaXNvVnE0Lzg2bS9Ib0FRbU9hVTBEb2VDYkow?=
- =?utf-8?B?RktXRktjUUFWMUVEcXBCQmloeWdvUjl4Sm44MDZCSng0WVdpeGFJYkJZbjdk?=
- =?utf-8?B?R2JRZThZSVVMQzhvOTJUc3R0RHJBZWJIdUpqWVVUZXhnTC9hd0VwRmJwbzVX?=
- =?utf-8?B?UE1Udjcxd2hwWjhqSVRnOXRxZmVIdWlvcHBhRWtITU1PZnh2dHVoMzEyVVV1?=
- =?utf-8?B?c3JTaUVONk51VlQrRE1YRXA3ZytmUk41U3NJMkpDUVYvbS91OXFEUFVnVGdQ?=
- =?utf-8?B?WThqYk9ySytJdWFNY1dUM3UzRlppckhFWVl4ZlJMYUZ4RlI4c0NlL2xJMG5R?=
- =?utf-8?B?TzFxMHBGSHloTFd4ZVliSWhHelU5RFFOWkxyZG0zQ2NXMUtwK0pUM1VQaHVz?=
- =?utf-8?B?YUc4QmhkVzFYaWhoRmxOZ1o1TitReVUrYTQrM0ZUNVY2OEtlMEtsbDZZSFox?=
- =?utf-8?B?bjhVMUEyK1ZYSThMbFFaSjJaOW0zTmlldWFHSys5R0J0ZVlmUUtSc0hpcmJl?=
- =?utf-8?B?VGJWSjRnMHFjZ2E3Nk9tbkxTaHcrQ1FhWkd6eE1MSk5QYnM3MWFnWEFRMHNQ?=
- =?utf-8?B?VXBIejU0SkY4TnFZZjVWdkdHNWlFYUpWVFV1K0hvalRzKzVIbHZVb011Y1p0?=
- =?utf-8?B?WmliaGVQalBJRmtMaFBoK3o2UVVyY1NlbXpRR2xOUFU4dVVLQ3lHcE1OempR?=
- =?utf-8?B?Y2VQcEhOWWN4TjJya0lRcnVpd013bHlJRDkzalFWMldFNE9ncEFzelJDdytv?=
- =?utf-8?B?K0llV3ArVk50ZWdWMHc1K0VMWk5rRlA1UVA1RjlGOVEvMkJBakVRSG1vWnpV?=
- =?utf-8?B?T3hld2tMYzlIK3Y1blNNeG5hejZqdytVN2hUbE9PUGIzckYyL1pHRTdPMjVV?=
- =?utf-8?B?UW1hWG9wdVBKMUpGL0lwT0d4S1hxWFY1SHZ1Q0dzekljaHUwTTFCUzZ3bVc0?=
- =?utf-8?B?c2NCa1pVN3IxQ1Q3UUN5bWNpR2ZkNHA1bTFobnc3dGRWM0pPNlY0dXo3T3A1?=
- =?utf-8?B?M3B3OVlDN1MvZ211Ymp2Z1hYbVExcFVvVVJIVGl2MTBVQ04vbFlmaE5oQWVx?=
- =?utf-8?B?RU9VZnFuM25qUGVMdXFRTk1LdEVFWGptajQwZUVxWVBhbWkxNTRUYUpkUjlK?=
- =?utf-8?B?QksvL3Rwb20rZERHb0V4allUZFh6djFWaFI0aHR6ejhoeklrL0FlS01TTWVQ?=
- =?utf-8?B?dHBWTFpoVWQ0RzBuaGVSendVek83aWNYb1lwYnNLZ2sxdzhwZExzL1cwb0Y4?=
- =?utf-8?B?NnQ5UmN1VHJHRnZOSUxhMmVwSm0yaU9CWDNrbTMxbWxDQ3VTUDB6ZmlPMWVn?=
- =?utf-8?B?VXN3YmthTkZUM0E5aCt2a21sSWJDODU4amZ3L1JYVlhhdVdWQlBUa3F6U3Ey?=
- =?utf-8?B?Z1JrcTRHaUM0NGxIWkZ1blo5TzJTd3FWUnJXdVZjWGNiSVZqa00vTll6a2xy?=
- =?utf-8?B?TjRreWVwSkl3ejdpcEdnTnNFQVVPbHQzNTA5Yytza2FUUkpyMzlFUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7100afa3-f0dc-4843-72c3-08df2fa31c1b
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5039.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 18:42:50.8786
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WZizapheuUSD30lYp9+MF2BvpGex3eB3T74j6OeMy0bJvFLeMWWzHwj9GVgIEDyWtMv7APuUi/BfT0ADd9uq/A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7711
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
+
+
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
+
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x 81d99abe2bd81379abfb595e403bbbee6fbfc624
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102114-railroad-feisty-2a38@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+
+Possible dependencies:
 
 
 
-On 10/20/2026 3:35 PM, Thomas Hellström wrote:
-> When evicting user BOs from VRAM at suspend time, allocating system
-> memory for the eviction may currently invoke the OOM killer. Under
-> memory pressure it is preferable to abort the suspend and return
-> -ENOMEM rather than killing processes.
->
-> TTM's ttm_resource_manager_evict_all() uses a default operation
-> context, which doesn't allow the caller to request
-> __GFP_RETRY_MAYFAIL allocations. Introduce
-> ttm_resource_manager_evict_all_ctx() taking a caller-supplied
-> struct ttm_operation_ctx, keeping ttm_resource_manager_evict_all()
-> as an exported wrapper using a default context so that existing
-> users are unaffected. Also honor the ctx interruptible setting when
-> waiting for the eviction fences.
->
-> Use the new function from xe_bo_evict_all_user() with
-> gfp_retry_mayfail set.
->
-> Note that the PM notifier eviction is best-effort and ignores errors.
-> Any remaining BOs are evicted again from the .suspend() callback,
-> where an -ENOMEM might then cause the suspend to be aborted.
->
-> Fixes: c6a4d46ec1d7 ("drm/xe: evict user memory in PM notifier")
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Cc: Natalie Vock <nat@pixelcluster.dev>
-> Cc: Arun Pravin <arunpravin.paneerselvam@amd.com>
-Reviewed-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+thanks,
 
-> Cc: intel-xe@lists.freedesktop.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: <stable@vger.kernel.org> # v6.16+
-> Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9615
-> Assisted-by: LLM
-> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> ---
->   drivers/gpu/drm/ttm/ttm_resource.c | 37 +++++++++++++++++++++++-------
->   drivers/gpu/drm/xe/xe_bo_evict.c   |  5 +++-
->   include/drm/ttm/ttm_resource.h     |  5 ++++
->   3 files changed, 38 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
-> index 4e6d3d658d85..5296b32a2e92 100644
-> --- a/drivers/gpu/drm/ttm/ttm_resource.c
-> +++ b/drivers/gpu/drm/ttm/ttm_resource.c
-> @@ -568,24 +568,26 @@ void ttm_resource_manager_init(struct ttm_resource_manager *man,
->   }
->   EXPORT_SYMBOL(ttm_resource_manager_init);
->   
-> -/*
-> - * ttm_resource_manager_evict_all
-> - *
-> +/**
-> + * ttm_resource_manager_evict_all_ctx() - Evict all objects from a manager
->    * @bdev: device to use
->    * @man: manager to use
-> + * @ctx: operation context for the eviction
->    *
->    * Evict all the objects out of a memory manager until it is empty.
->    * Part of memory manager cleanup sequence.
-> + *
-> + * Return: 0 on success, negative error code on failure.
->    */
-> -int ttm_resource_manager_evict_all(struct ttm_device *bdev,
-> -				   struct ttm_resource_manager *man)
-> +int ttm_resource_manager_evict_all_ctx(struct ttm_device *bdev,
-> +				       struct ttm_resource_manager *man,
-> +				       struct ttm_operation_ctx *ctx)
->   {
-> -	struct ttm_operation_ctx ctx = { };
->   	struct dma_fence *fence;
->   	int ret, i;
->   
->   	do {
-> -		ret = ttm_bo_evict_first(bdev, man, &ctx);
-> +		ret = ttm_bo_evict_first(bdev, man, ctx);
->   		cond_resched();
->   	} while (!ret);
->   
-> @@ -600,7 +602,7 @@ int ttm_resource_manager_evict_all(struct ttm_device *bdev,
->   		if (fence && !dma_fence_is_signaled(fence)) {
->   			dma_fence_get(fence);
->   			spin_unlock(&man->eviction_lock);
-> -			ret = dma_fence_wait(fence, false);
-> +			ret = dma_fence_wait(fence, ctx->interruptible);
->   			dma_fence_put(fence);
->   			if (ret)
->   				return ret;
-> @@ -611,6 +613,25 @@ int ttm_resource_manager_evict_all(struct ttm_device *bdev,
->   
->   	return ret;
->   }
-> +EXPORT_SYMBOL(ttm_resource_manager_evict_all_ctx);
-> +
-> +/**
-> + * ttm_resource_manager_evict_all() - Evict all objects from a manager
-> + * @bdev: device to use
-> + * @man: manager to use
-> + *
-> + * Same as ttm_resource_manager_evict_all_ctx() using a default,
-> + * non-interruptible operation context.
-> + *
-> + * Return: 0 on success, negative error code on failure.
-> + */
-> +int ttm_resource_manager_evict_all(struct ttm_device *bdev,
-> +				   struct ttm_resource_manager *man)
-> +{
-> +	struct ttm_operation_ctx ctx = { };
-> +
-> +	return ttm_resource_manager_evict_all_ctx(bdev, man, &ctx);
-> +}
->   EXPORT_SYMBOL(ttm_resource_manager_evict_all);
->   
->   /**
-> diff --git a/drivers/gpu/drm/xe/xe_bo_evict.c b/drivers/gpu/drm/xe/xe_bo_evict.c
-> index 7661fca7f278..a37316a27573 100644
-> --- a/drivers/gpu/drm/xe/xe_bo_evict.c
-> +++ b/drivers/gpu/drm/xe/xe_bo_evict.c
-> @@ -114,6 +114,9 @@ void xe_bo_notifier_unprepare_all_pinned(struct xe_device *xe)
->    */
->   int xe_bo_evict_all_user(struct xe_device *xe)
->   {
-> +	struct ttm_operation_ctx ctx = {
-> +		.gfp_retry_mayfail = true,
-> +	};
->   	struct ttm_device *bdev = &xe->ttm;
->   	u32 mem_type;
->   	int ret;
-> @@ -135,7 +138,7 @@ int xe_bo_evict_all_user(struct xe_device *xe)
->   			continue;
->   
->   		if (man) {
-> -			ret = ttm_resource_manager_evict_all(bdev, man);
-> +			ret = ttm_resource_manager_evict_all_ctx(bdev, man, &ctx);
->   			if (ret)
->   				return ret;
->   		}
-> diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
-> index 714c533622c2..6cf9187a12eb 100644
-> --- a/include/drm/ttm/ttm_resource.h
-> +++ b/include/drm/ttm/ttm_resource.h
-> @@ -42,6 +42,7 @@ struct dmem_cgroup_device;
->   struct dmem_cgroup_region;
->   struct drm_printer;
->   struct ttm_device;
-> +struct ttm_operation_ctx;
->   struct ttm_resource_manager;
->   struct ttm_resource;
->   struct ttm_place;
-> @@ -488,6 +489,10 @@ void ttm_resource_manager_set_dmem_region(struct ttm_resource_manager *man,
->   int ttm_resource_manager_dmem_reclaim(struct dmem_cgroup_pool_state *pool,
->   				      u64 target_bytes, void *priv);
->   
-> +int ttm_resource_manager_evict_all_ctx(struct ttm_device *bdev,
-> +				       struct ttm_resource_manager *man,
-> +				       struct ttm_operation_ctx *ctx);
-> +
->   int ttm_resource_manager_evict_all(struct ttm_device *bdev,
->   				   struct ttm_resource_manager *man);
->   
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 81d99abe2bd81379abfb595e403bbbee6fbfc624 Mon Sep 17 00:00:00 2001
+From: EJ Campbell <ejc3@meta.com>
+Date: Tue, 29 Sep 2026 11:12:32 -0700
+Subject: [PATCH] x86/kvm: Don't consume async #PF flags on a kernel #PF in NMI
+ context
+
+An async #PF "page not present" event arrives through the #PF vector,
+and its reason sits in the per-CPU apf_reason.flags until
+__kvm_handle_async_pf() reads and clears it. If an NMI arrives after
+the event is injected and before the #PF handler reads the flags, and
+the NMI handler itself takes a #PF, that fault reads and clears the
+flags belonging to the #PF it interrupted. It then finds interrupts
+disabled in the NMI context it interrupted, and panics:
+
+  Kernel panic - not syncing: Host injected async #PF in interrupt
+disabled region
+  Call Trace:
+   <NMI>
+   panic+0x52/0x60
+   __kvm_handle_async_pf+0xb0/0xb0
+   exc_page_fault+0x71/0xb0
+   asm_exc_page_fault+0x27/0x30
+  RIP: 0010:__get_user_nocheck_8+0x6/0x20
+   perf_callchain_user+0x147/0x1a0
+   get_perf_callchain+0x12d/0x1c0
+   ...
+   perf_event_nmi_handler+0x26/0x50
+   exc_nmi+0xe8/0x110
+  RIP: 0010:asm_exc_page_fault+0x0/0x30
+   </NMI>
+
+The last RIP line shows the NMI landing on the first instruction of
+the #PF entry. perf with user call chains takes such a fault: the
+sampling NMI walks the user stack with __get_user(), which faults when
+a saved frame pointer is not a valid user address or the walk runs off
+the top of the stack. The same window exists when KVM, running as an
+L1 hypervisor with DELIVERY_AS_PF_VMEXIT, reads the flags itself after
+a #PF VM-exit.
+
+The NMI entry code saves and restores CR2 for this nesting, but not the
+async #PF reason. Andy Lutomirski described the race, with perf as the
+example, when async #PF delivery was reworked in 2020 [1]. Saving and
+clearing the flags across the NMI, next to CR2, was discussed there but
+not merged.
+
+Since that rework, Linux has stopped setting KVM_ASYNC_PF_SEND_ALWAYS,
+so the host delivers "page not present" only for user mode faults and
+a kernel-mode fault in NMI context (including kernel-mode #MC and #DB)
+cannot be an async page fault.  In that case, return without touching
+the flags so that the interrupted handler finds them intact.
+
+Tested on v7.3-rc5 in a 4-vCPU, 2 GiB guest restored from a snapshot
+whose memory is served on demand through userfaultfd, so that reading
+it back takes async #PFs, while every thread samples hardware cycles
+with user call chains and points its frame pointer at an unmapped page.
+Without this patch the guest panicked as above in 3 of 3 runs. With it,
+the guest survived 3 of 3 runs of 60 seconds, and the host counted
+148,441 to 153,334 kvm_async_pf_not_present events in the first 20
+seconds of each. On 6.18.50 the results were the same: the guest
+panicked without the patch and survived with it.
+
+Link: https://lore.kernel.org/all/ed71d0967113a35f670a9625a058b8e6e0b2f104.1583547991.git.luto@kernel.org/ [1]
+Link: https://lore.kernel.org/all/20211126123145.2772-1-jiangshanlai@gmail.com/ [2]
+Cc: stable@vger.kernel.org # v5.9+
+Signed-off-by: EJ Campbell <ejc3@meta.com>
+Link: https://patch.msgid.link/CADkxfh-uQTca_6jB1JPDq1MsKffF_UKGQR339oQSJNcoV75GNQ@mail.gmail.com
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+
+diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
+index 6b0a5861ccb8..d8dd2cadcbf7 100644
+--- a/arch/x86/kernel/kvm.c
++++ b/arch/x86/kernel/kvm.c
+@@ -265,11 +265,39 @@ noinstr u32 kvm_read_and_reset_apf_flags(void)
+ }
+ EXPORT_SYMBOL_FOR_KVM(kvm_read_and_reset_apf_flags);
+ 
++static __always_inline bool kvm_apf_reason_pending(void)
++{
++	return __this_cpu_read(async_pf_enabled) &&
++	       __this_cpu_read(apf_reason.flags);
++}
++
+ noinstr bool __kvm_handle_async_pf(struct pt_regs *regs, u32 token)
+ {
+-	u32 flags = kvm_read_and_reset_apf_flags();
+ 	irqentry_state_t state;
++	u32 flags;
+ 
++	if (!kvm_apf_reason_pending())
++		return false;
++
++	/*
++	 * The guest does not enable KVM_ASYNC_PF_SEND_ALWAYS, so the host
++	 * delivers async #PF only to user mode (or as a #PF VM-exit, which KVM
++	 * reads itself). A #PF from kernel mode can still arrive between that
++	 * delivery and the read of the reason flags, inside an NMI that
++	 * interrupted it, for instance perf reading user memory for a call
++	 * chain. Such a fault is not async, so leave the async PF flags
++	 * untouched for the outer handler.  Outside NMI context, on the other
++	 * hand, async PF flags on a kernel-mode fault mean the host is broken.
++	 */
++	if (!user_mode(regs)) {
++		if (likely(in_nmi()))
++			return false;
++		state = irqentry_enter(regs);
++		instrumentation_begin();
++		panic("Host injected async #PF in kernel mode\n");
++	}
++
++	flags = kvm_read_and_reset_apf_flags();
+ 	if (!flags)
+ 		return false;
+ 
+@@ -285,8 +313,6 @@ noinstr bool __kvm_handle_async_pf(struct pt_regs *regs, u32 token)
+ 		panic("Host injected async #PF in interrupt disabled region\n");
+ 
+ 	if (flags & KVM_PV_REASON_PAGE_NOT_PRESENT) {
+-		if (unlikely(!(user_mode(regs))))
+-			panic("Host injected async #PF in kernel mode\n");
+ 		/* Page is swapped out by the host. */
+ 		kvm_async_pf_task_wait_schedule(token);
+ 	} else {
 
