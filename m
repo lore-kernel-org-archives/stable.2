@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792596577;
-	b=psHf2qfsABJESqmwsKkGI7oVKHyYxbsJ54FXPj8CrAFan8PMG2HjHUEobHpNSbTWp2V7
-	 GsKYKAoHSaChgt/OHo9ugu2v/Raj1fdE2u3FV/n16whM1UhE40rcOzfOWaXqzrPUCdopd
-	 00CYTAtvznIgHdvqmeVL7f+fsU7rZDHeHpabzAqgV93Rrd6YcIX9eOyzgz2mmOcmB7DYJ
-	 03ryYgvWcIotfiA8ak3dbIfjL9Q6D4/YbMVDTcDhhRSA27uG2af8GnMM7Mmbm7j9fz1Wu
-	 xfHlUuREmIFhBzUMxN+RtKWc55PdFY+8hayTehZz/kReEajqo8rSQtmgZaJtpIFoK0w==
+	t=1792596578;
+	b=ffk06posX1ns2MUjy9PZyeIH/ZSlfIV7vzh83yYBUnRQOq9iJ/OXNEXYES2WwzGkPkbM
+	 ytn7yjXINM9dlHyAtxzvbGd33ahkXTSEdJ1uh/vb2GchZVghs667VUTd5vOF8+EhmW1aD
+	 43zNjQFge7/CosvLwTLgjqAaAt3bn2HJ3yuYIRM852Q2Ta7bhoucuZf9KOes+8iyPjM3M
+	 TBqJaWIq9/zznttdqDoZUXn7exLTGJHF5cV2BtEaMy84m0x5lzZRhBInkISylQtxSFwA1
+	 fhxPuwnRcGd7C/V0cBQ2APf4idbj/HGkjM0wBBPGFrrKwmKTX6NEIdxANh/8vyIOVQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792596577;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792596578;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=+X3qCqixGgSGKfy3q1JWj3vUX17xbPi4tZjtXhGE22k=;
-	b=M3Vg/80lsaAIVPDRkuGiMY2O5Uf5q728vrELIOKStXWI17OuD+ROU0xie2lMjE5CEgQk
-	 A48vonAJZTie3vMp3DOiXLDfcUEddYH4tVtrOiKTEX7Lp3enrL85Qb/N1DlN4VbNJtC5O
-	 8mA1RZ5fwYeMnr9rtFwahf//lTbBxUaGOKpbDTEC9B9D+5yy/GWLTge82Tahn/fjIid0O
-	 85aEu2RSofgTuXiIM+oX5zdO8bjH8QEFxG7x2C/X09yo+IPZcg224OHygaJAesyT5rRwG
-	 KRb4gw4QmwyI4yLzsWMuur95bT6MZgLaB0hjk8c+uDgnQWBg3h+5kXE0p7bWks2Ftww==
+	bh=xYkc6xvAvPmM1EIpabb6mx140fCNDJvXa/qh5xrtnEU=;
+	b=wUNormRa3EhUva2xsb/vyAVXUJuA07fxlXJY2YcJNv2W5pSE7dkgwEEmV/bUd2obZzE0
+	 ot78VcvWdTN2l0uzwqsLWLx6J97OJokptwgnr5Avr7uf4yGuGbDeZHTuEgus0KAs7IyLX
+	 2CIrw8guEQKkc5/uMhxSegRv3nrV/lbAa67YifyOVJJJU3pR96zFdKgH72pXDo2nxbOE3
+	 Jg0PRdqBzEn8w+jcA6eA4fi9yRPQDgBWJ71mbMRb/TMnm+I7XiOckdxs6xYwPYnwSsh3T
+	 39yIIHEHLkl8z0Uhy4CpTWM0jrkgc6/i5lawWZ8kuEuvduOTj+GyeryVegHdTiVZKeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Iy6fUE6E;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LQViE9Aa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3695C606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:29:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE265606A31E
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:29:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Iy6fUE6E
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50D351F000C2;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LQViE9Aa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 143741F000C3;
 	Wed, 21 Oct 2026 15:29:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792596576;
-	bh=+X3qCqixGgSGKfy3q1JWj3vUX17xbPi4tZjtXhGE22k=;
+	s=k20260515; t=1792596577;
+	bh=xYkc6xvAvPmM1EIpabb6mx140fCNDJvXa/qh5xrtnEU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Iy6fUE6EVLykfW2/Uf7tVU4uvk9Z+j+Vwn/4ny4dC/1XiZ6S0Azrfh2nw72lKPwOl
-	 qxSSDDwijgtXFBTV54I6ao9OQnTkn3w63ZaMYnYJAH8UhoyEefFjd/fBFJKUp5FQ9v
-	 0oWhJtEadrVlI6oOx/ORkoRAg7B5bn/4UC64gzlPMttO59AJv/iu3I3Kt7Kz5VMxZt
-	 Io6eHPx1ZT5P24vUFr2jjOUw6w8sBparlOQMjrZihgtoW0gk7etOUxV7YfIJu06bsP
-	 0VzuxbuMqa1OGeuHxhrWLHM4hWuTh41zD713r0TLGqBO0uyZ4H/N88K462hEC8m/QI
-	 02+39e9llNUYA==
+	b=LQViE9Aaa2aXWkZkdBxyXGO79+bbISbjhncXADE7oQA90unXHNkfxmcXfhjS6sYwC
+	 EmyNRvogakdEGlVsu99gCwxavmkagyuckyW4EMhHkujsrqBFqhuzFcrhtiLWbWDEtS
+	 Wtf4JXDaN4a3kPWrntn/SAiAV2P+l1V97K4lorh7p/8DahV31NqUPX3quBeFLeFBbv
+	 JitBhcVnfA1jkJf665B9YU1K7yVBVSisMuJnYvSZ3FPCLU+0Z9P3H3VNXLqc1KnCcb
+	 mC17QGTAPuNAto4NoSLo0aNk65KFUFRpT5U/RsQCxuVEIxjH2y24a7TCXI0YWaUcq4
+	 TE1jfix76qubw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jens Axboe <axboe@kernel.dk>,
-	Christian Brauner <brauner@kernel.org>,
+Cc: Aviv Vaknin <vaknins33@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] exit: move core of do_wait() into helper
-Date: Wed, 21 Oct 2026 11:29:34 -0400
-Message-ID: <20261021152921.291520-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] pid_namespace: make zap_pid_ns_processes() freezable
+Date: Wed, 21 Oct 2026 11:29:35 -0400
+Message-ID: <20261021152921.291520-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102159-hunchback-poppy-cf49@gregkh>
+In-Reply-To: <20261021152921.291520-1-sashal@kernel.org>
 References: <2026102159-hunchback-poppy-cf49@gregkh>
+ <20261021152921.291520-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,116 +64,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jens Axboe <axboe@kernel.dk>
+From: Aviv Vaknin <vaknins33@gmail.com>
 
-[ Upstream commit 06a101ca45b296fe951692620b0bc49abf90c368 ]
+[ Upstream commit 81933038f5e273d17ed22792f906889393b204c5 ]
 
-Rather than have a maze of gotos, put the actual logic in __do_wait()
-and have do_wait() loop deal with waitqueue setup/teardown and whether
-to call __do_wait() again.
+When the init of a pid namespace exits, zap_pid_ns_processes() waits
+until all other pids in the namespace are freed. A tracer outside the
+namespace that does not reap its traced zombies keeps those pids
+allocated, so this wait has no upper bound, and while it lasts every
+suspend attempt fails:
 
-No functional changes intended in this patch.
+  Freezing user space processes failed after 20.006 seconds (2 tasks refusing to freeze, wq_busy=0):
 
-Acked-by: Christian Brauner <brauner@kernel.org>
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Stable-dep-of: 81933038f5e2 ("pid_namespace: make zap_pid_ns_processes() freezable")
+Neither wait is freezable. The first loop sleeps in do_wait(), which
+returns -ERESTARTSYS on the freezer's fake signal; the loop then clears
+TIF_SIGPENDING and waits again without ever freezing. The final loop
+sleeps in TASK_INTERRUPTIBLE, and since nothing clears TIF_SIGPENDING
+there, schedule() returns immediately after the first freeze attempt
+and the task spins until the wait ends.
+
+Sleep in TASK_INTERRUPTIBLE | TASK_FREEZABLE in do_wait(), so that the
+freezer can freeze tasks waiting there directly, and in TASK_IDLE |
+TASK_FREEZABLE in the final loop, like coredump_task_exit() does.
+
+This was hit with Chromium-based browsers: crashpad ptrace-attaches the
+threads of a crashed renderer, which is a pid namespace init, and does
+not reap those killed during the dump.
+
+Fixes: 3eb07c8c8adb ("pid namespaces: destroy pid namespace on init's death")
+Fixes: b9a985db9896 ("pid_ns: Sleep in TASK_INTERRUPTIBLE in zap_pid_ns_processes")
+Cc: stable@vger.kernel.org # 6.1+
+Suggested-by: Oleg Nesterov <oleg@redhat.com>
+Signed-off-by: Aviv Vaknin <vaknins33@gmail.com>
+Link: https://patch.msgid.link/20261002202820.3433318-1-vaknins33@gmail.com
+Acked-by: Oleg Nesterov <oleg@redhat.com>
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/exit.c | 51 +++++++++++++++++++++++++++++++--------------------
- 1 file changed, 31 insertions(+), 20 deletions(-)
+ kernel/exit.c          | 2 +-
+ kernel/pid_namespace.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/kernel/exit.c b/kernel/exit.c
-index 55a8aa868298f..07a17f0916107 100644
+index 07a17f0916107..e2dae48578d96 100644
 --- a/kernel/exit.c
 +++ b/kernel/exit.c
-@@ -1590,16 +1590,10 @@ static int do_wait_pid(struct wait_opts *wo)
- 	return 0;
- }
+@@ -1648,7 +1648,7 @@ static long do_wait(struct wait_opts *wo)
+ 	add_wait_queue(&current->signal->wait_chldexit, &wo->child_wait);
  
--static long do_wait(struct wait_opts *wo)
-+static long __do_wait(struct wait_opts *wo)
- {
--	int retval;
--
--	trace_sched_process_wait(wo->wo_pid);
-+	long retval;
- 
--	init_waitqueue_func_entry(&wo->child_wait, child_wait_callback);
--	wo->child_wait.private = current;
--	add_wait_queue(&current->signal->wait_chldexit, &wo->child_wait);
--repeat:
- 	/*
- 	 * If there is nothing that can match our criteria, just get out.
- 	 * We will clear ->notask_error to zero if we see any child that
-@@ -1611,24 +1605,23 @@ static long do_wait(struct wait_opts *wo)
- 	   (!wo->wo_pid || !pid_has_task(wo->wo_pid, wo->wo_type)))
- 		goto notask;
- 
--	set_current_state(TASK_INTERRUPTIBLE);
- 	read_lock(&tasklist_lock);
- 
- 	if (wo->wo_type == PIDTYPE_PID) {
- 		retval = do_wait_pid(wo);
- 		if (retval)
--			goto end;
-+			return retval;
- 	} else {
- 		struct task_struct *tsk = current;
- 
- 		do {
- 			retval = do_wait_thread(wo, tsk);
- 			if (retval)
--				goto end;
-+				return retval;
- 
- 			retval = ptrace_do_wait(wo, tsk);
- 			if (retval)
--				goto end;
-+				return retval;
- 
- 			if (wo->wo_flags & __WNOTHREAD)
- 				break;
-@@ -1638,14 +1631,32 @@ static long do_wait(struct wait_opts *wo)
- 
- notask:
- 	retval = wo->notask_error;
--	if (!retval && !(wo->wo_flags & WNOHANG)) {
--		retval = -ERESTARTSYS;
--		if (!signal_pending(current)) {
--			schedule();
--			goto repeat;
--		}
--	}
--end:
-+	if (!retval && !(wo->wo_flags & WNOHANG))
-+		return -ERESTARTSYS;
-+
-+	return retval;
-+}
-+
-+static long do_wait(struct wait_opts *wo)
-+{
-+	int retval;
-+
-+	trace_sched_process_wait(wo->wo_pid);
-+
-+	init_waitqueue_func_entry(&wo->child_wait, child_wait_callback);
-+	wo->child_wait.private = current;
-+	add_wait_queue(&current->signal->wait_chldexit, &wo->child_wait);
-+
-+	do {
-+		set_current_state(TASK_INTERRUPTIBLE);
-+		retval = __do_wait(wo);
-+		if (retval != -ERESTARTSYS)
-+			break;
-+		if (signal_pending(current))
-+			break;
-+		schedule();
-+	} while (1);
-+
- 	__set_current_state(TASK_RUNNING);
- 	remove_wait_queue(&current->signal->wait_chldexit, &wo->child_wait);
- 	return retval;
+ 	do {
+-		set_current_state(TASK_INTERRUPTIBLE);
++		set_current_state(TASK_INTERRUPTIBLE | TASK_FREEZABLE);
+ 		retval = __do_wait(wo);
+ 		if (retval != -ERESTARTSYS)
+ 			break;
+diff --git a/kernel/pid_namespace.c b/kernel/pid_namespace.c
+index e9b2bb260ee6c..eea15232f6690 100644
+--- a/kernel/pid_namespace.c
++++ b/kernel/pid_namespace.c
+@@ -245,7 +245,7 @@ void zap_pid_ns_processes(struct pid_namespace *pid_ns)
+ 	 * free_pid() will awaken this task.
+ 	 */
+ 	for (;;) {
+-		set_current_state(TASK_INTERRUPTIBLE);
++		set_current_state(TASK_IDLE | TASK_FREEZABLE);
+ 		if (pid_ns->pid_allocated == init_pids)
+ 			break;
+ 		/*
 -- 
 2.53.0
 
