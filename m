@@ -1,57 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792586098;
-	b=yjZ2vgPbunSdUUJEoI9ICyPchk76ynmPHT/rBVJ17BaVADSEkFQJU4LOkKoH+imrFlVd
-	 I69pDeGoryhZdOk+QejvYHdbzM58HNpGI+zg19//tawE6G5+Y5+b2Oaadk/m1KxvJ8rEx
-	 ZwdZcsZaW004mFlYXACdvkwNWbyrC8mVvM2bXdI6WcpuZQAUOd/zT7sibhzpIUHw4Ge9M
-	 Vi2WTrvAAeVVQxcDnbpHrXk+whzZDtWs7V4Khbf33U9YEWzhRhWgP7PBNObd59VWUXyJF
-	 gsGHExtv7CGu9KRCJgit6G0x1pKzZvnk0T9HNAOrDMHhsO8Rwr6wxHPTqB6MOslPxUg==
+	t=1792586104;
+	b=H10kY3Ugyk6QzTsHgNzRyT4fRaXB6FpO46PTCRqvjqHq+S4pjX9IcQ50foCgj9RICHNz
+	 DQH3qAqMo416A64fNVgGSMmV8pKv9KMVmA7g/6pWaBEleY0erSYl8knfOlLsBtG6YuR4E
+	 Tkl9SVA2xN8mIDumF/4I34sIgHnRB2uk576ib8jhk8gt2IXe1H/fdk0oleha2YK7L0/9H
+	 BI6Vr95vcEcQQX6KDB+1fdTvyBqCBNrVRmzhjtbp7XttCDoIXmB+ZpYOGPwccZa3Iory0
+	 3GO2BGigcGpZE8+jjoi+nNY0tX/2Rfk0hHY/sZjr3g5NotBf1mKW+mwt9vf6wJvKrbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792586098;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792586104;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=LpNJTSOvMtLLtZ7695vlyc9Z8uHqSLJQ+uBGS+day94=;
-	b=5PPlgnXom5voNjT3buEVxxLKzr+njVSLgrdkdk3ZrUCpra09vkquYI9F4HohKGstLLdU
-	 B9QRfQPzd450Z5yxQNFsnYCT+vqgZcc3mC3Jpr1F8fE3IH2oRGirYzetgzPWe/Ac6bYmh
-	 2+iqZEW16yW4+QmCXN5nARfClhBIf+lyXRgpaAAFjBZ25XfjsOBpFiYVmHejrQvAMlQuK
-	 TY9vdxeZ/3u8IFJt2pUpTV0H7M1VAGnl8BYVqSllYNK2b5eC/P6LkamPc0MRP9/RT3oP6
-	 JoU5wF0CUkZA+DUivAL7+AI8sMP2AMTDfxdKcHeM3tt02lU7YyYpuE0weibEsC8qHsw==
+	bh=4HHwPh4rEshU8o2SqCBOtfq1VQDPTtfMOkIFtYsIIX8=;
+	b=HQ1u8Ev/L138WT8Ry9hUkzR84VEy4gL9YE0drpDNnnqmz88TmJuXwJ9MvRbiE+fkCpCL
+	 +/nBkGSpf17P0pfHMdhIFKZl7bj96fkKPQ2OnFv+9Hi2+EacNlpleAts4hJBhlAD2IiFY
+	 YUxqPCxnZMCE94LbUxKZXgqceDF9uV30jH+70BK1C2HtTsdL5FTJZOnshM5biwCwSGV4Z
+	 dIzm4GPObEaHcTr5uiHgpHWqP4zT4VrYk/CSmH50jQ8uN9Mnb3qZNBr+mRLu/nArqnQS9
+	 T/letca9zEGrKqmz0CSm1j9BtD/ZmRLNOjSfFp79paSE6OMMAAYfxd3qpIAALU0d7tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G65XMEaj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XVieGYKr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C36D60A2613;
-	Wed, 21 Oct 2026 12:34:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E89860A4AD8;
+	Wed, 21 Oct 2026 12:35:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G65XMEaj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 696C91F000C4;
-	Wed, 21 Oct 2026 12:34:56 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XVieGYKr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E801D1F000C5;
+	Wed, 21 Oct 2026 12:35:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792586098;
-	bh=LpNJTSOvMtLLtZ7695vlyc9Z8uHqSLJQ+uBGS+day94=;
+	s=k20260515; t=1792586104;
+	bh=4HHwPh4rEshU8o2SqCBOtfq1VQDPTtfMOkIFtYsIIX8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G65XMEajKicms9TEsD6d8NacFfBhwfuf/e6yeIOta0kaI+cyU0RQr6nuUoM8Ni1yY
-	 UPTyPkE4Xl+rEZsacPTzfbFLmOA9MllVhBXzrohr0DyrwRORo22HoL5F3v6J+avLRE
-	 JTci4jkrpepqLALGhvtbtJ1767mP2EoZahNd2swNu3YsbkJ1d23fWtSlIBqqmsX3z8
-	 9PEsIPaIkBv+Og4AwTCMy7JsfYyLtLS3ZYjaaz2zYTxmEjUz8/Ldgoprr/XPGyPjyB
-	 JWx2qFLq1Djgcx/Ki7DQ3sXiew4zCFD9jLbGuXW5oYQA4exCKpIQ/+1qqgiQunYLSH
-	 W9KlVV2EydpBg==
+	b=XVieGYKrznQ+g0V1H1Lnm8B8cgMpC/EgAl9PBDICyh3YO9Pn5S7dykthf3BFPIVij
+	 rSvIFDJknCChR7v0dmyM7o7w6BCpq2FpS//kNXDzb1iOan05IoJrlUeGCqF5Ft6J0W
+	 6fhfbgaR4hdMnWteAldjqAckmRv+S8xQXppvyMtb4aRRTSKvRUDPQLVtPDpkx0bdKH
+	 qlRp910Z3/1co2ofXK7AMFhwaDFh4/Pmo5YbK1eUb8Tf96LCTz9WYt0cs2SSlNPidN
+	 27ePdrl/m1iduGBMfzqrn/g8rgfPh/4D51xrDgmh1QoTxsbXbsuJxxyegLQ9CiEQQN
+	 pk4Tq5C787S3w==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Pavel Machek <pavel@kernel.org>,
-	Ben Whitten <ben.whitten@gmail.com>,
-	Oliver Jowett <oliver@opencloud.com>,
-	Richard Purdie <rpurdie@openedhand.com>,
-	Jacek Anaszewski <jacek.anaszewski@gmail.com>,
+	Luca Weiss <luca@lucaweiss.eu>,
 	linux-leds@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 07/21] leds: trigger: netdev: Serialise work cancellation and state updates
-Date: Wed, 21 Oct 2026 12:32:16 +0000
-Message-ID: <20261021123406.3163547-8-lee@kernel.org>
+Subject: [PATCH 08/21] leds: sgm3140: Replace powerdown timer with delayed work
+Date: Wed, 21 Oct 2026 12:32:17 +0000
+Message-ID: <20261021123406.3163547-9-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
 In-Reply-To: <20261021123406.3163547-1-lee@kernel.org>
 References: <20261021123406.3163547-1-lee@kernel.org>
@@ -66,144 +63,112 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-set_device_name() and netdev_trig_notify() cancel trigger_data->work
-before acquiring trigger_data->lock, whilst netdev_led_attr_store() and
-interval_store() cancel trigger_data->work, update trigger_data state,
-and call set_baseline_state() without holding trigger_data->lock at all.
+sgm3140_powerdown_timer() runs in atomic timer softirq context and calls
+regulator_disable(), which acquires sleepable mutexes, as well as
+gpiod_set_value() on GPIOs that are otherwise driven via
+gpiod_set_value_cansleep().
 
-Because set_baseline_state() can re-arm trigger_data->work outside the
-lock, a concurrent notifier or sysfs store can re-schedule
-netdev_trig_work() after cancel_delayed_work_sync() has returned and
-whilst set_device_name() or netdev_trig_notify() is replacing or
-dropping trigger_data->net_dev, leading to a use-after-free in
-netdev_trig_work().
+Replace powerdown_timer with a delayed_work item so that the powerdown
+sequence executes in process context and can safely sleep when disabling
+the regulator and driving the GPIOs.
 
-Move cancel_delayed_work_sync() inside trigger_data->lock in
-set_device_name() and netdev_trig_notify(), and hold trigger_data->lock
-across work cancellation, state updates, and set_baseline_state() in
-netdev_led_attr_store() and interval_store().
-
-Fixes: 06f502f57d0d ("leds: trigger: Introduce a NETDEV trigger")
-Closes: https://sashiko.dev/#/bug/linux-b2b6c3bb-8017-4623-94d4-2999efa6a663
+Fixes: cef8ec8cbd21 ("leds: add sgm3140 driver")
+Closes: https://sashiko.dev/#/bug/linux-8c3788a3-17f9-49dc-89be-c9f5844b0b95
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/leds/trigger/ledtrig-netdev.c | 35 +++++++++++++++++++--------
- 1 file changed, 25 insertions(+), 10 deletions(-)
+ drivers/leds/flash/leds-sgm3140.c | 26 ++++++++++++++------------
+ 1 file changed, 14 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/leds/trigger/ledtrig-netdev.c b/drivers/leds/trigger/ledtrig-netdev.c
-index d69031bbd2b8..9fa56ac523c7 100644
---- a/drivers/leds/trigger/ledtrig-netdev.c
-+++ b/drivers/leds/trigger/ledtrig-netdev.c
-@@ -284,8 +284,6 @@ static int set_device_name(struct led_netdev_data *trigger_data,
- 	if (size >= IFNAMSIZ)
- 		return -EINVAL;
+diff --git a/drivers/leds/flash/leds-sgm3140.c b/drivers/leds/flash/leds-sgm3140.c
+index dc6840357370..478573da1d61 100644
+--- a/drivers/leds/flash/leds-sgm3140.c
++++ b/drivers/leds/flash/leds-sgm3140.c
+@@ -6,6 +6,7 @@
+ #include <linux/module.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/platform_device.h>
++#include <linux/workqueue.h>
  
--	cancel_delayed_work_sync(&trigger_data->work);
--
- 	memcpy(device_name, name, size);
- 	device_name[size] = 0;
- 	if (size > 0 && device_name[size - 1] == '\n')
-@@ -301,6 +299,8 @@ static int set_device_name(struct led_netdev_data *trigger_data,
- 	}
- 	mutex_lock(&trigger_data->lock);
+ #include <media/v4l2-flash-led-class.h>
  
-+	cancel_delayed_work_sync(&trigger_data->work);
-+
- 	dev_put(trigger_data->net_dev);
- 	trigger_data->net_dev = new_dev;
- 	strscpy(trigger_data->device_name, device_name);
-@@ -384,7 +384,7 @@ static ssize_t netdev_led_attr_store(struct device *dev, const char *buf,
+@@ -16,7 +17,7 @@ struct sgm3140 {
+ 	struct led_classdev_flash fled_cdev;
+ 	struct v4l2_flash *v4l2_flash;
+ 
+-	struct timer_list powerdown_timer;
++	struct delayed_work powerdown_work;
+ 
+ 	struct gpio_desc *flash_gpio;
+ 	struct gpio_desc *enable_gpio;
+@@ -52,10 +53,10 @@ static int sgm3140_strobe_set(struct led_classdev_flash *fled_cdev, bool state)
+ 		}
+ 		gpiod_set_value_cansleep(priv->flash_gpio, 1);
+ 		gpiod_set_value_cansleep(priv->enable_gpio, 1);
+-		mod_timer(&priv->powerdown_timer,
+-			  jiffies + usecs_to_jiffies(priv->timeout));
++		schedule_delayed_work(&priv->powerdown_work,
++				      usecs_to_jiffies(priv->timeout));
+ 	} else {
+-		timer_delete_sync(&priv->powerdown_timer);
++		cancel_delayed_work_sync(&priv->powerdown_work);
+ 		gpiod_set_value_cansleep(priv->enable_gpio, 0);
+ 		gpiod_set_value_cansleep(priv->flash_gpio, 0);
+ 		ret = regulator_disable(priv->vin_regulator);
+@@ -75,7 +76,7 @@ static int sgm3140_strobe_get(struct led_classdev_flash *fled_cdev, bool *state)
  {
- 	struct led_netdev_data *trigger_data = led_trigger_get_drvdata(dev);
- 	struct led_classdev *led_cdev = trigger_data->led_cdev;
--	unsigned long state, mode = trigger_data->mode;
-+	unsigned long state, mode;
- 	int ret;
- 	int bit;
+ 	struct sgm3140 *priv = flcdev_to_sgm3140(fled_cdev);
  
-@@ -416,6 +416,9 @@ static ssize_t netdev_led_attr_store(struct device *dev, const char *buf,
- 		return -EINVAL;
- 	}
+-	*state = timer_pending(&priv->powerdown_timer);
++	*state = delayed_work_pending(&priv->powerdown_work);
  
-+	mutex_lock(&trigger_data->lock);
-+
-+	mode = trigger_data->mode;
- 	assign_bit(bit, &mode, state);
- 
- 	if (test_bit(TRIGGER_NETDEV_LINK, &mode) &&
-@@ -428,8 +431,10 @@ static ssize_t netdev_led_attr_store(struct device *dev, const char *buf,
- 	     test_bit(TRIGGER_NETDEV_LINK_25000, &mode) ||
- 	     test_bit(TRIGGER_NETDEV_LINK_40000, &mode) ||
- 	     test_bit(TRIGGER_NETDEV_LINK_50000, &mode) ||
--	     test_bit(TRIGGER_NETDEV_LINK_100000, &mode)))
-+	     test_bit(TRIGGER_NETDEV_LINK_100000, &mode))) {
-+		mutex_unlock(&trigger_data->lock);
- 		return -EINVAL;
-+	}
- 
- 	cancel_delayed_work_sync(&trigger_data->work);
- 
-@@ -437,11 +442,15 @@ static ssize_t netdev_led_attr_store(struct device *dev, const char *buf,
- 	trigger_data->hw_control = can_hw_control(trigger_data);
- 
- 	if (!led_cdev->brightness_set && !led_cdev->brightness_set_blocking &&
--	    !trigger_data->hw_control)
-+	    !trigger_data->hw_control) {
-+		mutex_unlock(&trigger_data->lock);
- 		return -EOPNOTSUPP;
-+	}
- 
- 	set_baseline_state(trigger_data);
- 
-+	mutex_unlock(&trigger_data->lock);
-+
- 	return size;
+ 	return 0;
+ }
+@@ -117,7 +118,7 @@ static int sgm3140_brightness_set(struct led_classdev *led_cdev,
+ 		gpiod_set_value_cansleep(priv->flash_gpio, 0);
+ 		gpiod_set_value_cansleep(priv->enable_gpio, 1);
+ 	} else {
+-		timer_delete_sync(&priv->powerdown_timer);
++		cancel_delayed_work_sync(&priv->powerdown_work);
+ 		gpiod_set_value_cansleep(priv->flash_gpio, 0);
+ 		gpiod_set_value_cansleep(priv->enable_gpio, 0);
+ 		ret = regulator_disable(priv->vin_regulator);
+@@ -133,12 +134,13 @@ static int sgm3140_brightness_set(struct led_classdev *led_cdev,
+ 	return 0;
  }
  
-@@ -493,13 +502,17 @@ static ssize_t interval_store(struct device *dev,
- 	unsigned long value;
- 	int ret;
+-static void sgm3140_powerdown_timer(struct timer_list *t)
++static void sgm3140_powerdown_work(struct work_struct *work)
+ {
+-	struct sgm3140 *priv = timer_container_of(priv, t, powerdown_timer);
++	struct sgm3140 *priv = container_of(work, struct sgm3140,
++					    powerdown_work.work);
  
--	if (trigger_data->hw_control)
--		return -EINVAL;
--
- 	ret = kstrtoul(buf, 0, &value);
- 	if (ret)
- 		return ret;
+-	gpiod_set_value(priv->enable_gpio, 0);
+-	gpiod_set_value(priv->flash_gpio, 0);
++	gpiod_set_value_cansleep(priv->enable_gpio, 0);
++	gpiod_set_value_cansleep(priv->flash_gpio, 0);
+ 	regulator_disable(priv->vin_regulator);
  
-+	mutex_lock(&trigger_data->lock);
-+
-+	if (trigger_data->hw_control) {
-+		mutex_unlock(&trigger_data->lock);
-+		return -EINVAL;
-+	}
-+
- 	/* impose some basic bounds on the timer interval */
- 	if (value >= 5 && value <= 10000) {
- 		cancel_delayed_work_sync(&trigger_data->work);
-@@ -508,6 +521,8 @@ static ssize_t interval_store(struct device *dev,
- 		set_baseline_state(trigger_data);	/* resets timer */
- 	}
+ 	priv->enabled = false;
+@@ -235,7 +237,7 @@ static int sgm3140_probe(struct platform_device *pdev)
+ 	 */
+ 	priv->timeout = min(priv->max_timeout, FLASH_TIMEOUT_DEFAULT);
  
-+	mutex_unlock(&trigger_data->lock);
-+
- 	return size;
+-	timer_setup(&priv->powerdown_timer, sgm3140_powerdown_timer, 0);
++	INIT_DELAYED_WORK(&priv->powerdown_work, sgm3140_powerdown_work);
+ 
+ 	fled_cdev = &priv->fled_cdev;
+ 	led_cdev = &fled_cdev->led_cdev;
+@@ -284,7 +286,7 @@ static void sgm3140_remove(struct platform_device *pdev)
+ {
+ 	struct sgm3140 *priv = platform_get_drvdata(pdev);
+ 
+-	timer_delete_sync(&priv->powerdown_timer);
++	cancel_delayed_work_sync(&priv->powerdown_work);
+ 
+ 	v4l2_flash_release(priv->v4l2_flash);
  }
- 
-@@ -628,10 +643,10 @@ static int netdev_trig_notify(struct notifier_block *nb,
- 	      (evt == NETDEV_REGISTER && !strcmp(dev->name, trigger_data->device_name))))
- 		return NOTIFY_DONE;
- 
--	cancel_delayed_work_sync(&trigger_data->work);
--
- 	mutex_lock(&trigger_data->lock);
- 
-+	cancel_delayed_work_sync(&trigger_data->work);
-+
- 	trigger_data->carrier_link_up = false;
- 	trigger_data->link_speed = SPEED_UNKNOWN;
- 	trigger_data->duplex = DUPLEX_UNKNOWN;
 -- 
 2.56.0.218.g1ec904b173-goog
 
