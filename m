@@ -1,91 +1,144 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.171
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792619976;
-	b=DvtL8+sNVPXGwqLhE8BPzZfNNka70qxJCd7KG0Q/fjy5IlHExKlPApOz49N9UzSTlauf
-	 MqQHzKNdevQWFl5c8vbQpHtWFGU3dZ/8PeASMGu5FidClvkZfn3ToTiIdlDYSIplVYqUP
-	 ++dhee+s4KWpaHBbWv+7wGGQnOCrcpZx0MhJRii+cqX9k/Aj/Iwe3N0VGrIzX2pkRGyut
-	 7+0AsEl06Lhz8m/UK1ZMANZnslUQX4z+4LTSVQeFbT8IajsMryR53LKRVqmotlRfkoo6M
-	 CB+0/RxsoHM/PMrBoVdJCrxhB4Qps03AWIhBCzny3utSJaqLxFM32bE5TJVFTzS40rA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792619976;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=otw5itjN1AqmZN9yJF4MBF+r0zNY/Fkb/PotwLLomVw=;
-	b=V1tzcr+kvjHPJxLlxmjK9jQRNDbFOUkS2BxLgbyq9SgUMXo/+JQnHC8e3+/lWrrtBVo6
-	 8wHQ9RC0OZXA5YIAXRwbdGjNTTy7p+MFIIkGN4SXw0/1RTfkAQ5m2fTRwGT83GtmrgNV5
-	 z9okuA6CAupm5/jLnArmfuv5ID0aj+sx/s1i9OrmgAnNU5lnROfC8Xv5urkKCqOu0Razf
-	 LkaPw7TFpewqce+0dL242H7zYp3NVfOtwK7PKv7eOo6ex2VY3l/b4azbJFP4tpBjQFdWG
-	 ehp28rMGOXc5KzyqUzsTcYzJhfAWDccX/cNjARFfFDhPJLL5eAjld84wfvN5wAhLRqA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hartkopp.net;
-	spf=fail smtp.mailfrom=hartkopp.net;
-	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=bMH8+s5k;
-	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=4dFFAlA0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.171
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [81.169.146.171])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.169
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792621574;
+	b=sXEqVYBDZFKITzKuFnUzYPMHWWD1y/NowXfdQWbPJfB5j8AEFSvahOz5ZHnbGcfw/ird
+	 jE8bUXi5OG3p+KiOUzIZZGFpB4vSkyoa6P+QsoR6jKDQOpgoXRBonJwKaX0W12L3x0zSH
+	 icyJGFPxLowahMwQhjEm5cW3WP8KeWJN2xEAl5q1Z/rufJAUnGVwy5Gv4ZGXM6oOjNS3a
+	 88C7Ci4ERubdQWsb0eOP+JK2qezRv+U8Q+w/4gKrQoqerEyLpmdScShRI7LK9NrxBbqDI
+	 crx3x4Ke/uK9t+NQgmsrbI4KwdVtLyzNR5xUZrQYf3QwXO2JfOyjIhnDyDPeZVERIYg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792621574;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=NroIrz8qWTqeDCNildcP4OTICrkYNZIFAPA8lK5U2hw=;
+	b=VZgq3WV0gA0GuTap678B7+zNUWIE4Po0qwT9iOmYBOtYvgC04l6tBtmsMT728eL1kXv8
+	 WaMJPfPu4bMpQxTVChJvd46X51nw+nRXZ4C5yeqah8lByGBBcyv68jJ991pB6T3DIW+99
+	 1VI+61F5CfpFbJSnqlyv4UgRI8WR/vDGb2MBN2tN5g3woRbRtTem7iscvhuyU9/jtkfeU
+	 tG9e56IPtVrYjl+Tw7V+jzTSimzlVokopvGjW84Lx2rCC/LgHyDaIiK7jzKD1auuErwrA
+	 jWHVH8RPouI8SsLdgL0eshSHFzPxJKjTHwt7DNOh1bn1IEu5OO3mp8BP3YI8KFlYLow==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=dubeyko.com;
+	spf=pass smtp.mailfrom=dubeyko.com;
+	dkim=pass header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=hLdjX5hn;
+	arc=none smtp.remote-ip=209.85.128.169
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA09606A31A;
-	Wed, 21 Oct 2026 21:59:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CA09606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D96606A31A
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 22:26:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61D96606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hartkopp.net header.i=@hartkopp.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=bMH8+s5k;
-	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=4dFFAlA0
-ARC-Seal: i=1; a=rsa-sha256; t=1792619958; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=DR9N4KO1XqrdTXBpRxGNdoZso2YsuB8q3fz+dwN16s4CpRgmfdVKxTgFXHWYzkRECz
-    LjV9u+qltKlwLCcZieUGePWvbNthx0WSq+vsY7nrNOhI9eyA5WVpuyzbpSH6PxRw7Pc+
-    zFBXf6lfc6zgET4/vjyN2gk9WjfNPpuMfnZgHoqpU5S0vpbtJCrMVDyqdDbzFwKviEPz
-    q7IARSyQTBtuLCXRpMwHWb/fL3+IV0WIgp7CnHQNXOkcQ/VmeB8daef8EfYQ1gTHRC/p
-    PBVSn7JPrz+R+izMReYOBw8+JZSXN4ORI89YeML0DpAY1V9yJWrKAnA5f1Zhxzt3FAz9
-    nxGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792619958;
-    s=strato-dkim-0002; d=strato.com;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=otw5itjN1AqmZN9yJF4MBF+r0zNY/Fkb/PotwLLomVw=;
-    b=Qrfvx2aSdQ18622RvOu49fGR8EnKjZr6XWjukJsK6voJv9GUdYAe6GhHmORU84SsI3
-    Ql5e7+8hRY3NjCIMh2LKoYpK5mYzJeXBmzT97iqFrdwt4aEKlxl3dyCIcbJQYdxD5IRL
-    SEXZU6WbgSlTKQFkfAeb9SdA4RT6Z+N8hmhN7is86++2gAVQ0AVa4CFCgJECxzZ5L7ip
-    XZHKsDgdAWfQ5corUt65kpxFohkiSJAfDBLy8tIxxxNiYOuWUpGnedO/900HyDiEjkJe
-    zeWrmGxU39jcmqpczJtWhNtolBlk9vvmsnj/oxNYq5WPSJ1k8nEpBTHn+gTUFmmNUyrL
-    57aA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792619958;
-    s=strato-dkim-0002; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=otw5itjN1AqmZN9yJF4MBF+r0zNY/Fkb/PotwLLomVw=;
-    b=bMH8+s5kJ6wHt2dbbZho5bdGhtwTdfXutXTiEw6SpNEqROl5sab1sc48gXKGYFHbDJ
-    l44KhXCpk1od3Xne+jC12/ADzJErhtRXS3hQZjisxO1qdRH2xO+mW3jGmrB7coDfmZ5X
-    43sFFjTD2QgTP4AZPPAGyjIoxo+XrFqSaJTiRoK/1fzzM5GsV5zGlZLZAqGQSpoBjKAN
-    +aGX5GLe+R5s/idHJ2C/1lqhDXXBD71jG6pSZKDCUvxOzUJTPEKXC9Nyc0wsuWv2kXxE
-    QM616KkxrYT8e6FecTPA2+WAfj5rU9aB0PwSGlp/mVFTnPg8BhKSCY0sF3pdE9rLDaZ0
-    4dog==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792619958;
-    s=strato-dkim-0003; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=otw5itjN1AqmZN9yJF4MBF+r0zNY/Fkb/PotwLLomVw=;
-    b=4dFFAlA0nHMJ6ogsnzBp9PIYpOyxieeaKykr2l5gE+GfEmiWXlR0QAd/NLVvayz+zB
-    vm8wqctkGnbkQqPFNbCA==
-X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
-Received: from [IPV6:2a00:6020:4a38:6810::989]
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Kfdf2a29LLxHl65
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Wed, 21 Oct 2026 23:59:17 +0200 (CEST)
-Message-ID: <47b77a2a-ff3d-4189-b633-54b1fad3cd1a@hartkopp.net>
-Date: Wed, 21 Oct 2026 23:59:17 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=hLdjX5hn
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-8aea7b7ca0cso11235077b3.2
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:26:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1792621572; x=1793226372; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NroIrz8qWTqeDCNildcP4OTICrkYNZIFAPA8lK5U2hw=;
+        b=hLdjX5hn/+5D+RBXVWHNfzNA760vWbSaywCvvrfSX899MgR3yunT/occcWh7Xea7Gc
+         acspu806ck/QDcGEkYuzAW4HMUG7vEow+t9Af+/I5jjMt7nk1OP25FKd41ttWSFt49LQ
+         wf8XlxH8+B9ETe4SThIhXz9eokRsOEXHCxVJV36tsPmDm+zkjTQ/+h+3nwPM0zRQqazw
+         flPwTO7YBY/lI9tuSbW1YF9dup9I37nOgMDlR4HnUVQW67y6t71NlYcYP9CUavCxESYG
+         QzoTVhLUoEMEXjIEUXRhvU8q2ZKS8rfCgxCWzGL80Uk2NyPfv9TJjCnJvy0j9CrQt199
+         aLyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792621572; x=1793226372;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NroIrz8qWTqeDCNildcP4OTICrkYNZIFAPA8lK5U2hw=;
+        b=vTnq1CZizKRSnq29ptpQEeR/g7gs3Bqqyd19PYL96YYG3Iz0Z8fLugNwHX5CHWNrUm
+         U6ecM/sQ6pe/lwmLe8OPUmgP0EMzFKa/fFxTWCjNvoVB830XVLThakiErJL92WgS5YNa
+         IcTQd4BfAtCiJoJv/CACTA+1twvZxpdhM7rxxr5aKIn2xFkLmcLRck5Kny+lIPaSc7R/
+         xhrCBgfcb6BTV513YtraITBDhxd2En4ukUdBaGkhpLcajduVsBPqg83eHHFYMYKmgUMc
+         kgJkyS5N/zXiVOS/bBRwNYYTK5duIG7SaJCB/ZveIg0MwSVGSOV5UmaAwHOzwQEdlzFg
+         aZxg==
+X-Forwarded-Encrypted: i=1; AKwUvBzZ81KYNp561uj7FeBizOfUUdrGqvudv5aWFLvs5+EucOotouoqrugjR435x74R8SrcwpLWhrM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnY5TXrkAyoDHH8s5UDAklCVxIhDHskCECzRxbwB5DTwXnvIE4
+	M5gH56hHRqmwJ0M5t/Vb7oFcLp6XOIdPHVZ2pMOt6W+FWSpEmWlRiy6nlC30ePoHgyh4s2tqQs5
+	FU6UGpOE=
+X-Gm-Gg: AYBFou0w5EUKV2UE2C0eIB0FXYMxeLKFELtMUqmLfmMzTlDDLn7SLiSZWsUNvbQFZvW
+	IT97Z9u+Fni9ARZjqMFH3rc9pEZwLRGuu4iVh1ZLlYaHWBtoQohuyaT4+ohVpvhvAX8lMpn9DRf
+	ocGsDoUTCAq0CrDKM1QOsOFoOgiqXESSqB1pzC8kirQDmoXA4N+Jsisu1d00BsDs7ix4VjUKoMN
+	lPSCCOiagMoQ0wmNQcfY4ew7aoZmQCEFHeL+syHDCFUQwPLJ4re125ohsJvPVWNLTzwNNm/e4cS
+	UpMN56reKes1zEQ1MXKxnNjp20msNGszCl3vRUE7iGqgkekd/lVzrngxADBylme2v9w3JEX0LMf
+	LcG90aen2sQP9HoEBWzsUb5fvoKdG8U/px0klyQRj2pN8YhfGpClunVW4aHqCW6X9XeZFCRjO3x
+	L3xK3zCp17g+vmkvES5F8I4jNGaKonVb6782ParlySgOxqwI5Vq7qSMiCu9ei0s8eSS3g0QXcsW
+	PUHYSoT29cxR9YtNz7wkoTEBXPx7OR142Tdd+GedGNIhC6zbRsXRu2Mj6lNG8ZjRrQudAsFs9Qv
+	GsWOxfV44kDrJmH08CduPN+t/HF09K8QS6CcfvwJ/XOuybLKdjl4pPRg/GNR34+Prw0Jnj9ATn9
+	GTg5JgWW4
+X-Received: by 2002:a05:690c:962:b0:8b0:acc6:8e89 with SMTP id 00721157ae682-8b133fa1bc8mr16414697b3.11.1792621572385;
+        Wed, 21 Oct 2026 15:26:12 -0700 (PDT)
+Received: from pop-os.attlocal.net ([2600:1700:6476:1430:de6:d01d:526b:32a4])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b1300a7299sm18068657b3.16.2026.10.21.15.26.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 15:26:11 -0700 (PDT)
+Message-ID: <1797b66dee80c9553748d4a961470894c917bf5f.camel@dubeyko.com>
+Subject: Re: [PATCH] hfs: avoid reusing occupied CNIDs after deletion
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: glaubitz@physik.fu-berlin.de, frank.li@vivo.com, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Wed, 21 Oct 2026 15:26:10 -0700
+In-Reply-To: <20261021153141.311425-1-hengyul@cs.unc.edu>
+References: <b6f1cb66778d09015ad5862ff273edc37c44ef28.camel@dubeyko.com>
+	 <20261021153141.311425-1-hengyul@cs.unc.edu>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,273 +148,139 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 11/11] can: protect the receive lists with a
- per-device lock
-To: Jakub Kicinski <kuba@kernel.org>, mkl@pengutronix.de
-Cc: netdev@vger.kernel.org, davem@davemloft.net, linux-can@vger.kernel.org,
- kernel@pengutronix.de, runyu.xiao@seu.edu.cn, stable@vger.kernel.org
-References: <20261021102756.1900679-12-mkl@pengutronix.de>
- <20261021205534.1620083-1-kuba@kernel.org>
-Content-Language: en-US
-From: Oliver Hartkopp <socketcan@hartkopp.net>
-In-Reply-To: <20261021205534.1620083-1-kuba@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+On Wed, 2026-10-21 at 11:31 -0400, Hengyu Liang wrote:
+> Hi Slava,
+>=20
+> On Mon, Oct 19, 2026 at 04:29:16PM -0700, Viacheslav Dubeyko wrote:
+> > Frankly speaking, I don't see how your modification can fix
+> > anything.
+> > From my point of view, the current logic is correct. Probably, the
+> > call of this method is not in the proper place.
+>=20
+> Sorry, my description was not clear enough. Here is the reproducer
+> with the actual CNIDs, on a freshly formatted volume:
+>=20
+> =C2=A0=C2=A0=C2=A0 operation=C2=A0=C2=A0=C2=A0 allocated CNID=C2=A0=C2=A0=
+=C2=A0 next_id afterwards
+> =C2=A0=C2=A0=C2=A0 mkdir z=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 16=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 17
+> =C2=A0=C2=A0=C2=A0 create a=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 17=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 18
+> =C2=A0=C2=A0=C2=A0 create b=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 18=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 19
+>=20
+> rm b calls hfs_correct_next_unused_CNID() with cnid 18 and next_id
+> 19,
+> after b's file and thread records have been removed. The catalog leaf
+> records are then, in key order:
+>=20
+> =C2=A0=C2=A0=C2=A0 key=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 type=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CNID
+> =C2=A0=C2=A0=C2=A0 (1, "untitled")=C2=A0=C2=A0=C2=A0 dir=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 2
+> =C2=A0=C2=A0=C2=A0 (2, "")=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 dir thread
+> =C2=A0=C2=A0=C2=A0 (2, "a")=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 file=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 17
+> =C2=A0=C2=A0=C2=A0 (2, "z")=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 dir=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 16
+> =C2=A0=C2=A0=C2=A0 (16, "")=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 dir thread
+> =C2=A0=C2=A0=C2=A0 (17, "")=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 file thread
+>=20
 
+I think I see your point. So, I think that fix is much simpler. We need
+to add the thread records processing here [1]:
 
-On 21.10.26 22:55, Jakub Kicinski wrote:
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> ---
-> can: protect the receive lists with a per-device lock
-> 
-> This commit adds a spinlock to struct can_dev_rcv_lists. The receive lists
-> of a CAN device are now protected per device instead of by the per-netns
-> rcvlists_lock, so can_rx_unregister() can find subscriptions after the
-> device has moved to another namespace.
-> 
-> RTNL is dropped from raw_bind(), raw_setsockopt(), raw_release(),
-> isotp_bind() and isotp_release(). These paths now use lock_sock() and a
-> device pointer published under RCU to serialize against the netdev
-> notifier.
-> 
-> Link: https://lore.kernel.org/linux-can/CEA6A38A-2646-4ADA-95B4-CBAE2F301A8E@doyensec.com/
-> Link: https://patch.msgid.link/20261020203257.230955-6-socketcan@hartkopp.net
-> 
->> diff --git a/net/can/isotp.c b/net/can/isotp.c
->> index 5e1c3971ebfce..8ec37d252557e 100644
->> --- a/net/can/isotp.c
->> +++ b/net/can/isotp.c
-> 
-> [ ... ]
-> 
->> @@ -1614,7 +1612,17 @@ static int isotp_bind(struct socket *sock, struct sockaddr_unsized *uaddr, int l
->>   		goto out;
->>   	}
->>   
->> -	dev = dev_get_by_index(net, addr->can_ifindex);
->> +	/* Publish the device inside the RCU section of the lookup: When it
->> +	 * is unlisted concurrently, either isotp_notify() sees so->dev after
->> +	 * synchronize_net() or the lookup fails.
->> +	 */
->> +	rcu_read_lock();
->> +	dev = dev_get_by_index_rcu(net, addr->can_ifindex);
->> +	if (dev) {
->> +		dev_hold(dev);
->> +		WRITE_ONCE(so->dev, dev);
->> +	}
->> +	rcu_read_unlock();
->>   	if (!dev) {
->>   		err = -ENODEV;
->>   		goto out;
->> @@ -1627,7 +1635,12 @@ static int isotp_bind(struct socket *sock, struct sockaddr_unsized *uaddr, int l
->>   		err = -EINVAL;
->>   		goto out_put_dev;
->>   	}
-> 
-> [Severity: Low]
-> so->dev is now visible to the lockless check in isotp_notify() before the
-> remaining checks in isotp_bind() run, and before so->bound is set. The MTU
-> check can still fail the bind:
-> 
-> 	if (READ_ONCE(dev->mtu) < so->ll.mtu) {
-> 		err = -EINVAL;
-> 		goto out_put_dev;
-> 	}
-> 
-> so->dev is only cleared again at out_put_dev.
-> 
-> isotp_bind() no longer holds RTNL. Can a NETDEV_DOWN for the same device
-> run isotp_notifier()->isotp_notify() inside this window?
-> 
-> The NETDEV_DOWN case only checks READ_ONCE(so->dev) != dev. It does not
-> look at so->bound or recheck under lock_sock():
-> 
-> 	case NETDEV_DOWN:
-> 		sk->sk_err = ENETDOWN;
-> 		if (!sock_flag(sk, SOCK_DEAD))
-> 			sk_error_report(sk);
-> 		break;
-> 
-> Would this set a stale ENETDOWN on a socket that was never bound, whose
-> bind() then returns -EINVAL? A later successful bind() to another device
-> (after fixing ll.mtu with CAN_ISOTP_LL_OPTS) would then get that error from
-> the next recvmsg() or poll().
-> 
-> raw_bind() avoids this. It only publishes ro->bind_dev early, which
-> raw_notify() uses for NETDEV_UNREGISTER only, and it sets ro->dev after
-> success. Could isotp use the same approach?
-> 
+			if (rec.type =3D=3D HFS_CDR_DIR) {
+				found_cnid =3D
+be32_to_cpu(rec.dir.DirID);
+				hfs_dbg("found_cnid %u\n",
+found_cnid);
+				hfs_set_next_unused_CNID(sb, cnid,
+found_cnid);
+				hfs_bnode_put(node);
+				return 0;
+			} else if (rec.type =3D=3D HFS_CDR_FIL) {
+				found_cnid =3D
+be32_to_cpu(rec.file.FlNum);
+				hfs_dbg("found_cnid %u\n",
+found_cnid);
+				hfs_set_next_unused_CNID(sb, cnid,
+found_cnid);
+				hfs_bnode_put(node);
+				return 0;
+			}
 
-Yes, changing the order here to
+#define HFS_CDR_DIR		0x01	/* folder (directory) */
+#define HFS_CDR_FIL		0x02	/* file */
+#define HFS_CDR_THD		0x03	/* folder (directory) thread
+*/
+#define HFS_CDR_FTH		0x04	/* file thread */
 
-         rcu_read_lock();
-         dev = dev_get_by_index_rcu(net, addr->can_ifindex);
-         if (!dev || !can_get_ml_priv(dev))
-                 err = -ENODEV;
-         else if (READ_ONCE(dev->mtu) < so->ll.mtu)
-                 err = -EINVAL;
-         if (!err) {
-                 dev_hold(dev);
-                 WRITE_ONCE(so->dev, dev);
-         }
-         rcu_read_unlock();
-         if (err)
-                 goto out;
+The current logic simply misses the HFS_CDR_THD and HFS_CDR_FTH cases
+processing.
 
-is a good hint from sashiko-bot and follows the raw_bind() concept.
-@Jakub: I've sent a V6 only for this single patch 11/11 here:
+Thanks,
+Slava.
 
-Is this ok for you? I think Marc is offline and can not re-spin the PR 
-right now.
+> The backward scan skips the two thread records at the end and stops
+> at
+> z, so it changes next_id from 19 to 17, although a still uses 17. The
+> next create gets CNID 17, hfs_cat_create() finds a's thread record
+> and
+> returns -EEXIST. The correct value is 18.
+>=20
+> So the call site is not the problem: the records are already gone
+> when
+> the correction runs, and calling it earlier or later would not change
+> the result, because z still sorts last. The problem is that file and
+> directory records are ordered by (parent ID, name), not by their own
+> CNID, so the last one need not hold the largest remaining CNID. The
+> patch keeps the call where it is, so the drNxtCNID correction that
+> generic/736 needs stays, and only makes the scan take the maximum
+> over
+> all of them.
+>=20
+> The unpatched run in my previous mail matches this: the first create
+> of c failed, and the retry got CNID 18, so the failed attempt had
+> been
+> given 17.
+>=20
+> > I don't quite follow why do we need to change this check? If cnid +
+> > 1
+> > is smaller than the maximum one, then cnid + 1 is in use yet. We
+> > don't need to execute any additional logic. What am I missing here?
+>=20
+> Nothing; both checks return early in that case. !=3D additionally
+> returns early when cnid + 1 > next_id, where the cmpxchg in
+> hfs_set_next_unused_CNID() cannot succeed anyway. It is not needed
+> for
+> the fix (in the example both checks go on to the correction), and I
+> can drop it in v2.
+>=20
+> > Why do we need to check something for previous one? If the bigger
+> > cnid is in use, then we don't need to do anything here.
+>=20
+> The lookup only runs when cnid + 1 =3D=3D next_id, i.e. the deleted CNID
+> was the largest one allocated, so no bigger CNID is in use. If
+> cnid - 1 still exists, it is the largest remaining CNID, and next_id
+> can be set to cnid without walking the catalog: in the example,
+> deleting 18 finds 17 and sets next_id to 18. Because the fallback now
+> walks the whole catalog instead of stopping at the first record, this
+> keeps the common case cheap. Only if the lookup returns -ENOENT does
+> the patch scan all records, which also covers files without the
+> optional thread record.
+>=20
+> Thanks,
+> Hengyu
 
-https://lore.kernel.org/netdev/20261021215456.119268-1-socketcan@hartkopp.net/
-
->> @@ -1653,15 +1666,17 @@ static int isotp_bind(struct socket *sock, struct sockaddr_unsized *uaddr, int l
->>   	 * can safely reach the device later, even if a concurrent
->>   	 * NETDEV_UNREGISTER has already unlisted it by ifindex.
->>   	 */
->> -	so->dev = dev;
->>   	netdev_hold(so->dev, &so->dev_tracker, GFP_KERNEL);
-> 
-> [Severity: Low]
-> This isn't a bug introduced by this patch, but isotp_bind() ignores the
-> return values of both can_rx_register() calls just above this:
-> 
-> 	if (isotp_register_rxid(so))
-> 		can_rx_register(net, dev, rx_id, SINGLE_MASK(rx_id),
-> 				isotp_rcv, sk, sock_i_ino(sk), sk);
-> 	...
-> 	can_rx_register(net, dev, tx_id, SINGLE_MASK(tx_id),
-> 			isotp_rcv_echo, sk, sock_i_ino(sk), sk);
-> 
-> It then sets so->bound = 1 unconditionally.
-> 
-> can_rx_register() returns -ENOMEM if kmem_cache_alloc(rcv_cache,
-> GFP_KERNEL) fails. Can the socket then report a successful bind() while it
-> is missing its FC/RX receiver or its echo receiver?
-> 
-> Later, isotp_release() and isotp_notify() would call can_rx_unregister()
-> for an entry that was never added and hit the "receive list entry not
-> found" warning. raw_enable_filters() and bcm_rx_setup() check this return
-> value and unwind.
-> 
-> -ENODEV from the net_eq() check does not look reachable here.
-> isotp_notify() waits on lock_sock() for NETDEV_UNREGISTER, so dev_net(dev)
-> cannot change during the registrations. That leaves -ENOMEM as the only
-> error.
-> 
-> The earlier commit "can: replace ARPHRD_CAN type checks with
-> can_get_ml_priv()" in this series already notes that isotp_bind() ignores
-> these return values.
-
-Right.
-
-This is a pre-existing issue and will be fixed separately. With the
-can_get_ml_priv() check in isotp_bind() and the namespace change being
-serialized via lock_sock() against isotp_notify(), the only remaining
-error from can_rx_register() is -ENOMEM from the GFP_KERNEL allocation
-of the receiver. The fix will be addressed in the next net-next cycle.
-As this is an improvement for a very unlikely allocation failure, it is
-not intended for stable.
-
-> 
-> [ ... ]
-> 
->> diff --git a/net/can/raw.c b/net/can/raw.c
->> index dfea48768b231..d07f3bb68cd5c 100644
->> --- a/net/can/raw.c
->> +++ b/net/can/raw.c
-> 
-> [ ... ]
-> 
->> @@ -750,18 +772,47 @@ static int raw_setsockopt(struct socket *sock, int level, int optname,
->>   			  sockptr_t optval, unsigned int optlen)
->>   {
->>   	struct sock *sk = sock->sk;
-> 
-> [ ... ]
-> 
->> -	rtnl_lock();
->> +	if (optname == CAN_RAW_FILTER) {
->> +		/* Copy the filters before lock_sock(), so a stalled copy can
->> +		 * not block raw_notify() waiting for lock_sock() under RTNL.
->> +		 */
-> 
-> [ ... ]
-> 
->> +	}
->> +
->>   	lock_sock(sk);
->>   
->> -	err = raw_setsockopt_locked(sock, optname, optval, optlen);
->> +	err = raw_setsockopt_locked(sock, optname, optval, optlen,
->> +				    filter, &sfilter, count);
-> 
-> [Severity: Medium]
-> The comment says a stalled copy must not block raw_notify() while it waits
-> for lock_sock() under RTNL. The early copy only covers CAN_RAW_FILTER,
-> though. Do the other options still copy from user memory with lock_sock()
-> held?
-> 
-> In raw_setsockopt_locked(), CAN_RAW_ERR_FILTER still does:
-> 
-> 	if (copy_from_sockptr(&err_mask, optval, optlen))
-> 		return -EFAULT;
-> 
-> CAN_RAW_LOOPBACK, CAN_RAW_RECV_OWN_MSGS, CAN_RAW_FD_FRAMES,
-> CAN_RAW_XL_FRAMES, CAN_RAW_XL_VCID_OPTS and CAN_RAW_JOIN_FILTERS do the
-> same after lock_sock(sk) is taken here.
-> 
-> raw_getsockopt(CAN_RAW_FILTER) also writes to the user buffer with
-> lock_sock() held:
-> 
-> 	lock_sock(sk);
-> 	...
-> 		if (copy_to_iter(ro->filter, len,
-> 				 &opt->iter_out) != len)
-> 			err = -EFAULT;
-> 
-> Suppose one of these copies stalls on a FUSE-backed mapping while the
-> socket is bound, or while ro->bind_dev matches the device. Would a
-> NETDEV_UNREGISTER of that device then leave raw_notify() sleeping in
-> lock_sock() with RTNL held?
-> 
-> raw_notifier()
->    raw_notify()
->      lock_sock(sk)   <- waits for the stalled setsockopt/getsockopt
-> 
-> The unregister could come from ip link del of a vcan device in the user's
-> own network namespace, a namespace move, or a USB unplug.
-> 
-> The new ro->bind_dev hint also adds cases where raw_notify() takes
-> lock_sock(): a stale bind_dev that matches the unregistered device leads
-> there too.
-> 
-> Before this patch, raw_setsockopt() held rtnl_lock() itself across these
-> copies, so overall exposure is lower than before. The new design relies on
-> lock_sock() never being held across a user copy, though. Should the
-> remaining copies in raw_setsockopt_locked() and raw_getsockopt() also move
-> out of the locked section?
-> 
-> isotp_setsockopt() has the same pattern against isotp_notify(), since every
-> option is copied under lock_sock():
-> 
-> 	lock_sock(sk);
-> 	ret = isotp_setsockopt_locked(sock, level, optname, optval, optlen);
-> 	release_sock(sk);
-> 
-> That code predates this patch. With RTNL gone from isotp_bind(), however,
-> bind relies on lock_sock() alone to serialize with isotp_notify().
-
-Right, the early copy in raw_setsockopt() only covers CAN_RAW_FILTER.
-Before this patch, raw_setsockopt() held RTNL itself across all user
-space copies, so this patch already improves the current situation. The
-complete rework that moves all remaining user space copies in raw.c and
-isotp.c out of lock_sock() will be addressed in the next net-next cycle.
-This is an improvement and not intended for stable.
-
-Best regards,
-Oliver
+[1] https://elixir.bootlin.com/linux/v7.3/source/fs/hfs/catalog.c#L349
