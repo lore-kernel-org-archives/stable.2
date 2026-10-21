@@ -1,98 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792541311;
-	b=VvAyqkIFOeinXPs20VXxpiB6f2fXbQtwRTYkCKKwW/bxRbpui3DpGfoW8GsBDWF3IgY1
-	 dCx2Qnw3Al3JytZBbPrSDA7kFkmIdzG0nh36YmSHPkK4jjR8Uqi/ATT5axRg8KQWRuteO
-	 rvlujihXBtPwV9jksGqumPFxHRPlZMXU9Z+LAiAz0Qmf31psRjqWYeguGgHw8etG5E831
-	 u4CybPj5aFJZrsk4FRH7IcMxaf03qYbjMy9swyrjX76S9yTKMgzoBpkPXjxcQrJUv+NN3
-	 fjaxR6/hPqze2JYX73klY5exffz2SBZRUo+IKqiADeTMMz5FVHzE/lPvRa1lN44+vJw==
+	t=1792541410;
+	b=MC1ztqXvXw3pn1PaIDTn7+U38GQCwPJ89tH3GTEq8yXW6mmzZpFpWMNSamGmWsin365d
+	 2UpRKnHQWWwqwJ1UX1qBRX+HG+mAd9n46CqHfmGGVlh7dmcaafq5Xp86BCFZRZVueLtth
+	 72wa/iQhcntjC+dkFn4k16g/ggX6NEgHz4tUiKuhRdd/DMbuuu6tudjluaIg2PHDBJ/Tn
+	 gnq49LW+NmyihCeeeFcJgcyh5yWYLvZ3+djELsJfAvJa8lxfLG6DPRgRkF2TfIld5IPze
+	 gfSohTPw91nbCvoeUBektsI4YGKhg0//SP6FDp43FFLNZPf9dDTtpxRVoPXjZZnbQgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792541311;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:From:To:Subject:Date:Cc:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=q76fPd6I+9oLgbQ4WW7J9EoxVAQOgPqIoUvr4JNR1bA=;
-	b=N6el5llIIRbjuqQZxQYWLL12rOMPMfi09LfBEl5K83up6Mt9GCEl/PZqPvMe3r6/Juld
-	 gDPHiSCHcfBtqIVfelIjPcip+N67hEJbw+lp/lGyxOj/B/5tzCb+BA6Ig1bjLJo9T9CZH
-	 CIqajyLkzb/Y7NYawD9648Nn6FdrMDlERHx5O2OLKvNKgoSzpJtFwNHZ5p9luPwc3darg
-	 4+KzSFXe1fLSHW+/1BNQhL55Kw6bnJaDuQREvQVD3JXyr3CtaeDoKrL7u/uO5NC2jzjSQ
-	 ORxAiNM3GN4AqrGKBE6Xfsf7etE4C5ZP5bi2DGb8AjSPScOATVxTTKD/ylT6AYfVtng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792541410;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=05lribV4NV3OWO+0tVMTv2HUQueTrBb/nttz5DVQP9U=;
+	b=ryvNJW+Cq/5UaRC61CU3j7pk2kdhhHO3Bg1BBOaA5Y102GCq5qTkYNvY1aW/+umH4qEc
+	 UdDXVuqhnT7aHLBAZXynacSpi7ONVVsGSIpvcshHhOdcTDOkIfo7/OQF7o86bHPBf1U5N
+	 w7DCYp72miVPJ7p+Ba+gCzPPP2gQ9tERn2V7r3Oqm3QWrV29amtvNW9jdZ2M1EqYDq5DA
+	 BgIWbIG13w7aqAoBNS7Rp9QiJsEedsFOT61M4B93RlO9m0Vv6rqxyadDWN2GldIevD8eZ
+	 0qZ7+05OUMJ2mQlAmXNe1RWtgY2m9sPuoudQssZp3l1PrhemvveePvO9xTcZuvHcI5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=utexas.edu;
-	spf=pass smtp.mailfrom=utexas.edu;
-	dkim=pass header.d=utexas.edu header.i=@utexas.edu header.a=rsa-sha256 header.s=google header.b="il6YDP/4";
-	arc=none smtp.remote-ip=209.85.210.41
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f8CDNFVX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D45606A320
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 00:08:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00D45606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=utexas.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=utexas.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C05C606A31B
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 00:10:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=utexas.edu header.i=@utexas.edu header.a=rsa-sha256 header.s=google header.b=il6YDP/4
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-843cf077f10so250520a34.1
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 17:08:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=utexas.edu; s=google; t=1792541309; x=1793146109; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:cc:date:subject
-         :to:from:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q76fPd6I+9oLgbQ4WW7J9EoxVAQOgPqIoUvr4JNR1bA=;
-        b=il6YDP/4MWTaE9oOQd29crSa0vn02P2eqibmeGX38ROUktudUqJdcUa95VncnY3tVB
-         aOyJfnJETgKmVcdlTdlB9BZS7lyCuGws4QsAthBzdIOAwtzYbEpfUAzL+pnZ0g5QRh70
-         b7YOIKlilcoeaAEevpULEfolsuQObT1IwmCIp1MYMvNg8KY6zaIWpp3K2zF2JFJU4rch
-         glgy2kUenOxtK843TFra8hKMVm7g87U1B/x+7EzJd7CeMnh46pKMo/14EpaMjGU5IdkN
-         i0EEFF7disU8PCdSgTZSv+YnrWca8T6XHvrNKiHHK6gHE6r3SA8c4lkbKtBHVcqysAdg
-         3SeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792541309; x=1793146109;
-        h=mime-version:content-transfer-encoding:content-type:cc:date:subject
-         :to:from:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=q76fPd6I+9oLgbQ4WW7J9EoxVAQOgPqIoUvr4JNR1bA=;
-        b=P6vjGuoq0pldD7m/ly4RHENAk8cgZuy1/AxiMDBwnSXR1n5ai4/4SB8YVPJTXOVt+w
-         1sy9YYMR2pUOIsiPe8vzmisAAIelQz8kzZKOnVB3KbGBI2i1z4816lA/qlr2KmxIfOXt
-         KQe6t/V7NEvGohrv+UPoXiGTBzt1F2OGUw1urfUWsPQD4HtQ6oPfan52A/tS7NCFf0sj
-         o0k/5DHXPBUnt1Lt+QLDGIblFDoNNU5XWv36I0mow7kdOGN1NSHxXxxiCvbJbdrA3BtN
-         rsFfnYMWH7wBShXAy6Ep5OOT5YI7/Mph1mW5WSYv28aF6hU8klO5X12VqdBD0LWIZnMk
-         1yHg==
-X-Forwarded-Encrypted: i=1; AKwUvByGpQtC7I1xJasEGrhnhs/p+mXnyOtBjIEapXQxSJ/yOeht3EF3KCUTtDOUhznkpvSCn4JDLfw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLlDZldoT49yrk4X5gk85j/2d6nwaN5d7p1ZqEQDYUxdJLON3ps
-	JExSxX/g4hTItN2UOV1VVMc/dUdPS06XXHTCIUahxvDVEy7ShCPiLKvJBpvqSsBA23Q=
-X-Gm-Gg: AYBFou2/eq+pdazyBmz8LuoJh56NGqwv7wDKRwwANJbNieANCjL3BM3IqJgtZoq7maE
-	ZKyYL+hABl8Jrw53R4D4N6+zS7V0hwJYaK2kBhVDUeNmPEnIsLiSMtDAiu9bx7R1Dca0o8woOlz
-	H4dZl9AnXfveyx05FnEsNSlOTq24ndJeKLTsYNTakSfT/Ba6vrAvDqeQiDR2a6HYUCqcpa/C+2D
-	wwKo9Y7THAIWfzWiePtrtvlSac0YkyTHAvvRZSVcOxQ+Jpx31VC/GgbxdFFWNa11vMBkCIb9DWN
-	v7fwznRov3IjJk+EpMhij1MN/Bar4630vuJG6Jizp667o+bh/oui2Ef1XxzWToDIBORkIEI/Nze
-	hrrbOhHRstvRgv8gKUE4B0CPMjc+1Caez5T3VTVXRVYUiN9nKT4LI+U8FtBEi1LyuMU5kJGxk1D
-	XShGgJVLVDgbUg6q4gxHUqmfBv6/xRBlAKGYSVPggidwKwUDNPMB7tbGlNhCgyHoYez6edxIpzN
-	CwIM50Ur3rARfFwspeAufn+bpFe2bTzHzFiwNxraeR+WIKEStEThXTsUZwk0gssnSViztNbNjeY
-	i8pX0GzVYPwsizGBra6TrXTDEUiTJXsYWYPSrBXIJhC/KgFkJx8xmkkpw2cZCRVzoxW1Xz1lJG+
-	XoLg3vbk01lrlqUEVQQTkj/65wyqdcc7TRYaI0xcSbTWc5KXh0srHEmHk1zdsY8Sxj6cmICGgzE
-	s6RURqULYSKbjc6eTWIg==
-X-Received: by 2002:a05:6830:4425:b0:81c:37e2:2012 with SMTP id 46e09a7af769-84d07f09896mr256325a34.15.1792541308869;
-        Tue, 20 Oct 2026 17:08:28 -0700 (PDT)
-Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([173.174.112.101])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-84cbd7d4431sm955195a34.19.2026.10.20.17.08.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 17:08:28 -0700 (PDT)
-Message-ID: <6ad8027c.7f7fe2b9.10c6e4.4073@mx.google.com>
-From: karim.sabar@utexas.edu
-To: Matthew Brost <matthew.brost@intel.com>,
- Thomas =?utf-8?q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH] drm/xe: Use kvmalloc for the VMA ops page-table update array
-Date: Tue, 20 Oct 2026 19:08:27 -0500
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Karim Sabar <karim.sabar@utexas.edu>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f8CDNFVX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC77B1F000C9
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 00:10:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792541409;
+	bh=05lribV4NV3OWO+0tVMTv2HUQueTrBb/nttz5DVQP9U=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=f8CDNFVXm3sa4GeYYf798z9A+61sIuWTEnPxSu89aCJovOWy3HhHE9/Cpe3A4FlwH
+	 3j8N3/9A/IydpvuByCnsk2QNTpIxBBDJ3ai5gM3xtYrEU9gJMjjrUz21Aho2sDEgG7
+	 bDiEnbaXuf+x5mpgEZqrUtTjn3H241Ustwvpo+MJkvWfmAc6s7JvQe9CooZPYFA+iG
+	 BCW1nLjpC6OcqgcIPq1VkO36ShrDPuxfrt5MX1EASAfoB0UDqXzyg8OyFEvumE9eZY
+	 KbSWgRYIlMYYGNxtVfnXduMhqQ9NTs/JY4WYlRyFu+yyo9bIjdUah0MalxZs0e29z3
+	 +cdgv3Rmw0WZQ==
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-533797e72e8so1507321cf.2
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 17:10:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBztU0eDUJZN0/WBFVKWhtkEpAqAB3TXiS4mDklXKAK3RjRTU9626J1m5y9JA+Klff2s3uEAIII=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLMZCAjK4cCNZ0jLb8umq+L2me2mOuA3NGaIFe1kaCeouDEDSdY
+	N+BB49SMXHDGfpHzoFkN9OxaMEMj7EMHyRDPviOchAHQzo5kQYdJxm9sLm+AH9iNGnoOy/lY8Wl
+	6+zhtxItc2ujqiW7lx0U5CSSpdxMEzgE=
+X-Received: by 2002:a05:620a:a999:20b0:93f:5810:4360 with SMTP id
+ af79cd13be357-93f581048bcmr101203485a.70.1792541408984; Tue, 20 Oct 2026
+ 17:10:08 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,90 +59,167 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261020234535.3182385-1-jmattson@google.com> <20261020234535.3182385-2-jmattson@google.com>
+In-Reply-To: <20261020234535.3182385-2-jmattson@google.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Tue, 20 Oct 2026 17:09:56 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zNy+r=dZFYthHQzOprD2xnMZ0OuC1SG_xJt10fs5iMjmw@mail.gmail.com>
+X-Gm-Features: AclHuK9GI3q5u3lVyze3mKLtA3Qj5S7uUtn8jDBL9ab-K3kt3v9qS9jcHsJmPqg
+Message-ID: <CAO9r8zNy+r=dZFYthHQzOprD2xnMZ0OuC1SG_xJt10fs5iMjmw@mail.gmail.com>
+Subject: Re: [PATCH 1/4] KVM: SVM: Always update LBR MSR intercepts on full
+ MSR intercept recalc
+To: Jim Mattson <jmattson@google.com>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Like Xu <likexu@tencent.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Karim Sabar <karim.sabar@utexas.edu>
+On Tue, Oct 20, 2026 at 4:45=E2=80=AFPM Jim Mattson <jmattson@google.com> w=
+rote:
+>
+> Split the "already up-to-date" check out of the code that writes the LBR
+> MSR intercepts, and write the intercepts unconditionally from
+> svm_recalc_msr_intercepts(), so that changes to userspace MSR filters are
+> reflected in the MSR permissions map.
+>
+> svm_recalc_msr_intercepts() is invoked in response to
+> KVM_REQ_RECALC_INTERCEPTS, which is raised on MSR filter updates.  But
+> svm->lbr_msrs_intercepted tracks only the interception KVM wants, not
+> what is actually in the bitmap after the filter is applied.  If the LBR
+> MSRs are passed through when userspace installs a filter that denies
+> them, the early return leaves them passed through, and the guest can
+> access them without exiting to userspace.  Conversely, if a filter
+> forced interception when LBR virtualization was enabled, relaxing the
+> filter leaves the MSRs needlessly intercepted.  Either way, the bitmap
+> remains stale until the next change to LBR_CTL.
+>
+> Full intercept recalculations are rare (e.g. on RESET/INIT, EFER.SVME
+> toggles, and CPUID, PERF_CAPABILITIES, and MSR filter updates), and
+> never happen on nested VMRUN or #VMEXIT, so writing the intercepts there
+> does not reintroduce the redundant per-VMRUN bitmap updates that the
+> check was added to avoid.  And because svm_recalc_msr_intercepts()
+> already unconditionally writes the intercepts for many other MSRs (and
+> thus marks Hyper-V's nested enlightenments dirty), writing the LBR MSR
+> intercepts there doesn't introduce any new invalidations.
+>
+> Add a comment to clarify that lbr_msrs_intercepted reflects KVM's
+> desired interception, not necessarily the state of the bitmap.
+>
+> Fixes: 3fa05f96fc08 ("KVM: SVM: Fix redundant updates of LBR MSR intercep=
+ts")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jim Mattson <jmattson@google.com>
+> ---
+>  arch/x86/kvm/svm/svm.c | 28 +++++++++++++++++++++++-----
+>  arch/x86/kvm/svm/svm.h |  6 ++++++
+>  2 files changed, 29 insertions(+), 5 deletions(-)
+>
+> diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+> index fe0cba4731b2..55b3ee840365 100644
+> --- a/arch/x86/kvm/svm/svm.c
+> +++ b/arch/x86/kvm/svm/svm.c
+> @@ -721,14 +721,11 @@ void *svm_alloc_permissions_map(unsigned long size,=
+ gfp_t gfp_mask)
+>         return pm;
+>  }
+>
+> -static void svm_recalc_lbr_msr_intercepts(struct kvm_vcpu *vcpu)
+> +static void svm_set_lbr_msr_intercepts(struct kvm_vcpu *vcpu)
+>  {
+>         struct vcpu_svm *svm =3D to_svm(vcpu);
+>         bool intercept =3D !(svm->vmcb->control.misc_ctl2 & SVM_MISC2_ENA=
+BLE_V_LBR);
+>
+> -       if (intercept =3D=3D svm->lbr_msrs_intercepted)
+> -               return;
+> -
+>         svm_set_intercept_for_msr(vcpu, MSR_IA32_LASTBRANCHFROMIP, MSR_TY=
+PE_RW, intercept);
+>         svm_set_intercept_for_msr(vcpu, MSR_IA32_LASTBRANCHTOIP, MSR_TYPE=
+_RW, intercept);
+>         svm_set_intercept_for_msr(vcpu, MSR_IA32_LASTINTFROMIP, MSR_TYPE_=
+RW, intercept);
+> @@ -740,6 +737,22 @@ static void svm_recalc_lbr_msr_intercepts(struct kvm=
+_vcpu *vcpu)
+>         svm->lbr_msrs_intercepted =3D intercept;
 
-Big games die after every s2idle resume on flat-CCS iGPUs. The exec
-ioctl keeps returning -ENOMEM even with 11-16 GB of RAM free.
+Hmm I was going to ask if we can set svm->lbr_msrs_intercepted based
+on whether or not svm_set_intercept_for_msr() actually set the
+intercept, so that it also captures intercepts due to MSR filtering. I
+assume that we didn't do this because MSR filters can result in
+different interception status for different LBR MSRs, and we don't
+want to track them individually?
 
-On suspend xe_bo_evict_all_user() evicts every user BO in XE_PL_TT on
-these parts. On resume the first exec rebinds every VMA in one go and
-xe_vma_ops_alloc() kmallocs one 384-byte op per VMA as a single array.
-Final Fantasy VII Rebirth has about 33,500 VMAs which means a 12.9 MB
-array. It's over the 4 MB KMALLOC_MAX_SIZE and can never succeed.
-__GFP_NOWARN keeps it out of dmesg.
+Hmm even if we do track them individually (e.g. as a bitmap), it would
+add a bit of complexity here because we'll need to plumb that into
+svm_set_intercept_for_msr(), right?
 
-Data from a Panther Lake handheld (SteamOS kernel 7.2.7), kretprobes
-after resume:
-  xe_vma_ops_alloc  -ENOMEM on 63 of 63 attempts
-  xe_vm_rebind      -ENOMEM on 63 of 63 attempts
-  BO validate, TTM populate, PT prepare  never failed
+I suppose if we go with "lbr_msrs_intercepted just means KVM wants to
+intercept", then we should probably rename it accordingly?
 
-The array is only used by the CPU and doesn't need to be contiguous.
-This switches it to kvmalloc and kvfree.
-
-With the same change applied as a module on that kernel, the game
-survives every sleep I tried with zero ENOMEM. The biggest array was
-30,753 ops (11.8 MB).
-
-drm-xe-next already does this through commit 0e33330f1238 ("drm/xe: Add
-struct xe_pt_job_ops"), but that's part of a big series that won't go
-to stable.
-
-I tracked this down and tested it on my own device. I used an AI
-assistant to help with the debugging, i.e the kprobe tracing and
-reading through the xe code. I ran every test, picked the fix and
-reviewed the change myself.
-
-What I couldn't do: this is build-tested on drm-xe-fixes but only
-run-tested on the SteamOS 7.2.7 kernel through an equivalent module,
-not on a mainline kernel.
-
-Fixes: 2e524668c440 ("drm/xe: Add xe_vm_pgtable_update_op to xe_vma_ops")
-Cc: stable@vger.kernel.org # v6.11+
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Karim Sabar <karim.sabar@utexas.edu>
----
-Downstream SteamOS report with the same data: https://github.com/ValveSoftwar=
-e/SteamOS/issues/2962
----
- drivers/gpu/drm/xe/xe_vm.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index 99e42bd29..5caef443b 100644
---- a/drivers/gpu/drm/xe/xe_vm.c
-+++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -703,9 +703,9 @@ static int xe_vma_ops_alloc(struct xe_vma_ops *vops, bool=
- array_of_binds)
- 			continue;
-=20
- 		vops->pt_update_ops[i].ops =3D
--			kmalloc_objs(*vops->pt_update_ops[i].ops,
--				     vops->pt_update_ops[i].num_ops,
--				     GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
-+			kvmalloc_objs(*vops->pt_update_ops[i].ops,
-+				      vops->pt_update_ops[i].num_ops,
-+				      GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
- 		if (!vops->pt_update_ops[i].ops)
- 			return array_of_binds ? -ENOBUFS : -ENOMEM;
- 	}
-@@ -742,7 +742,7 @@ static void xe_vma_ops_fini(struct xe_vma_ops *vops)
- 	xe_vma_svm_prefetch_ops_fini(vops);
-=20
- 	for (i =3D 0; i < XE_MAX_TILES_PER_DEVICE; ++i)
--		kfree(vops->pt_update_ops[i].ops);
-+		kvfree(vops->pt_update_ops[i].ops);
- }
-=20
- static void xe_vma_ops_incr_pt_update_ops(struct xe_vma_ops *vops, u8 tile_m=
-ask, int inc_val)
-
----
-base-commit: d2ce8fcd778ee6d92748c92d23a56d4416c29d86
-change-id: 20261020-xe-kvmalloc-vma-ops-2637ebf81cfd
-
-Best regards,
--- =20
-Karim Sabar <karim.sabar@utexas.edu>
-
+>  }
+>
+> +static void svm_recalc_lbr_msr_intercepts(struct kvm_vcpu *vcpu)
+> +{
+> +       struct vcpu_svm *svm =3D to_svm(vcpu);
+> +       bool intercept =3D !(svm->vmcb->control.misc_ctl2 & SVM_MISC2_ENA=
+BLE_V_LBR);
+> +
+> +       /*
+> +        * Skip redundant updates from svm_update_lbrv(), e.g. on every n=
+ested
+> +        * VMRUN and #VMEXIT.  Note, svm_recalc_msr_intercepts() updates =
+the
+> +        * bitmap unconditionally, as userspace MSR filters may have chan=
+ged.
+> +        */
+> +       if (intercept =3D=3D svm->lbr_msrs_intercepted)
+> +               return;
+> +
+> +       svm_set_lbr_msr_intercepts(vcpu);
+> +}
+> +
+>  void svm_vcpu_free_msrpm(void *msrpm)
+>  {
+>         __free_pages(virt_to_page(msrpm), get_order(MSRPM_SIZE));
+> @@ -795,8 +808,13 @@ static void svm_recalc_msr_intercepts(struct kvm_vcp=
+u *vcpu)
+>         svm_disable_intercept_for_msr(vcpu, MSR_SYSCALL_MASK, MSR_TYPE_RW=
+);
+>  #endif
+>
+> +       /*
+> +        * Unconditionally refresh the LBR MSR intercepts, as userspace M=
+SR
+> +        * filters may have changed, in which case the bitmap may be stal=
+e even
+> +        * if KVM's desired interception hasn't changed.
+> +        */
+>         if (lbrv)
+> -               svm_recalc_lbr_msr_intercepts(vcpu);
+> +               svm_set_lbr_msr_intercepts(vcpu);
+>
+>         if (cpu_feature_enabled(X86_FEATURE_IBPB))
+>                 svm_set_intercept_for_msr(vcpu, MSR_IA32_PRED_CMD, MSR_TY=
+PE_W,
+> diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
+> index 84f19026d3e8..62e08d6d4706 100644
+> --- a/arch/x86/kvm/svm/svm.h
+> +++ b/arch/x86/kvm/svm/svm.h
+> @@ -364,6 +364,12 @@ struct vcpu_svm {
+>
+>         bool avic_irq_window;
+>         bool x2avic_msrs_intercepted;
+> +
+> +       /*
+> +        * True if KVM wants the LBR MSRs to be intercepted.  Note, users=
+pace MSR
+> +        * filters may force interception regardless, i.e. this doesn't
+> +        * necessarily reflect the state of the MSR bitmap.
+> +        */
+>         bool lbr_msrs_intercepted;
+>
+>         /* Guest GIF value, used when vGIF is not enabled */
+> --
+> 2.56.0.212.g129ede20d9-goog
+>
