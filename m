@@ -1,55 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.29
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792600713;
-	b=hrHMrAPxh/ILMh0+voH4O98mvrfrx+mIrQW6fuB7DQSU6j8iA6+pC3F4xvJAflLBK9df
-	 AYGwlC0HObEs8Wa8s1O4At4/mzdbQ+UUSiN5N31NLdEd2MrcOdR3v/KU+VAv21e00x0C9
-	 6riJM2brVQsCD0ffR36wv7VQ8bL1OvWKycIRzG7GjtLFbzFW2OHPGHIlKYggvtDWgCLJg
-	 IfgGuV4ZlETE/t/yqGVK7xSZjgixF5yhxhQZvkE6n8s35YXXnfPStymB3F0MElqv8zX7k
-	 uocDMkNVKHg5b67c8whDlqz4s9NRQd37cdTcAO9LuVfPqbY9BsKRn3u3e2f1KQENgTg==
+	t=1792601085;
+	b=NqMpBTzpSPK7VVkT96dhiZBNMdwv/UeoeaNKgs5WrPH1+dzzr03wb88m5E6euypHHVzb
+	 A0HrobaICXy5dbFZXD8akawkJZn1DJVwmVfVz1NXXFRxMCJAAldscMYeqDMsBygVvny5W
+	 AtfW1ZFX9N/G+uiPLADDwiom+xg+iHgxOkYwEijmmn01YeqTGO7AHgVW5ebwK+mpmpvBv
+	 FmZ0B3CMaYNkX4wTBj6xw+TuzyfabEkypyu8lQxns5TGAkVTcS/7SRn9w48bhp8Qlz1Cl
+	 Gf8ADU7y0x7jIB99YW6lYm3VS/99iOmIDvSgWvAlPT9OslWOgj8fyRvFszEAcADYQMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792600713;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
-	bh=C2WIUAy49gs6vfvzT/Qt5wlTvvXfJdz0ejU2p9NvaAc=;
-	b=JFAAam3svpDYUaYwWRGWLWuNV948hZlQVkxryADLjw73Ar3z1eg0+/f91jac/Wzpiexo
-	 7kYWxLCK/C53C2HrdqFhks2b0FzxkSKyUi1OiigmoXjTu8gm2H8IIAqpcLhZJn5sSYz5/
-	 u0v+UVGhhZZeTUvWErByCZH4l8I9b5q6nIGwhTe1uDC/Va3ZDD2XbIi+dmZvlvnYwbobF
-	 p9BC8kOq4I8nB9yK15fAcoOUKLPN0Z6OYmsSppp8yXbzs6CNySmMwTWY7aU2JV8tO0AJF
-	 qBLYJPjXhexE0opjHAxMc+fST4tbO4NvUdh2+gqyezexW2ZZu5CiCOueIt61tZ96dpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792601085;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=sF2WgK8kQja2/TCLOQWF9mZEvN3dP13/o7DoaVwiz+E=;
+	b=TJi4gsSM0fPVx6rbQVlAi5GLh4N/wKXeQGWBJwCB5c1Vl9kDZAeSHADF/23knXYzgcNe
+	 TuJE1/N0cRqL0HuEfDCQpvI5+VQUjFLoF/fkO72kwK3YJ5Hmpu7NwZtGzndOppY5IuUu3
+	 tTLhCnrkQtrMJKnQQifuw13IZDy/JgO8bI5oQ2bJwf6clU2loVsD+E0Z3fvkm7YfFmVdN
+	 pWD0EPMj5RLlxo4gn/uRgDiIocphVbZdi1XDX8h+V2rRpGCYO7FNEf1kx6Dc/NSWOn5WS
+	 vniA7cHawqThTHYqxUXAnjB2z7CQYgXj/TBJ20ASSWUfQOMK2mbaxp676i5iWyHZjzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=VugT8O2x;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=eAGI52zg;
+	arc=none smtp.remote-ip=79.135.106.29
+Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch [79.135.106.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3CED606A31A
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 16:38:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3CED606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A46F0606A31A
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 16:44:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A46F0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=VugT8O2x
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 00FE0C5CD40;
-	Wed, 21 Oct 2026 16:39:28 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E3392606E3;
-	Wed, 21 Oct 2026 16:38:28 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A3ED2103289F5;
-	Wed, 21 Oct 2026 18:38:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792600707; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=C2WIUAy49gs6vfvzT/Qt5wlTvvXfJdz0ejU2p9NvaAc=;
-	b=VugT8O2x9nWAg/rEXGCa17ZUQ6lahSz+Sl2WieyEiJ5IxxzVbP6J1H5lLIC78yFSJKFVHh
-	oPSXnqtRW6U6/nqUSg0ivNHBFQTeSYF5EU7FNHOkPf4vAUD528T4grFxWzoUVHgGDijnff
-	DiJoyGIa83mUIW5AR9CTfjl2gJaPFz4wEX1++7CmOMQz6/LyYTM7M3Wur1puttKXJCkCi7
-	u9HrDApj4JeLpKGr3HDAzggZ1bt5AbjOImw6jDskwkRyQewuTJS8FmItZzhKTMTGUw6vzV
-	ltaAmn17PKXcbCSe/4MOK+V6JD4eUlg3jwtQE7HKNKQe5sYwcnhdo9sa87AJAQ==
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=eAGI52zg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1792601081; x=1792860281;
+	bh=sF2WgK8kQja2/TCLOQWF9mZEvN3dP13/o7DoaVwiz+E=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=eAGI52zgXiCnFEdHpLNEetEFydnXmAkH3srKqtDjzkdi4u7+QkyLFd3WhcH6rFyzr
+	 hYM194XuN4D5HgldWHzVF8Sc1bXVK+RtcstbS2GaR8nhC9p6/72136AsjqEjVH15Tn
+	 9vkR8a7a5pMOgTkaEEMDDZ8Mr8W6bsPiSzV4f3oiwJ78ehDEo6NagBk6fm8RWJTHQs
+	 Z9cHetvTx2vFniPZy+zX7QUhQcZbiOg5luxOczrbXzQWZcZX14sDx9yRWcJJBvdjPY
+	 f1Cwwo5HeENkSOSx2vFDr5XS/tV7nfsL+KBdvuerLkl8o2wtuP9jBvEVsmqAmfA2Ao
+	 GC9tcqq8bxRAQ==
+Date: Wed, 21 Oct 2026 16:44:35 +0000
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+From: Mikkel Sejdelin <mikkel.sejdelin@proton.me>
+Cc: "stable@vger.kernel.org" <stable@vger.kernel.org>, "regressions@lists.linux.dev" <regressions@lists.linux.dev>, "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, "rafael@kernel.org" <rafael@kernel.org>, "sashal@kernel.org" <sashal@kernel.org>
+Subject: Sv: Re: [REGRESSION] 6.18.57: resume from s2idle triggers poweroff and hangs when tiny_power_button is built as a module
+Message-ID: <725HsmAf_bFINWdMxvCiH7SJLNdQs2iY1BiueqlOgIFrbkyv0Anc_2XPYLlkH_l0UVA5IueS_SeZFAe78qbvO-DjcR38vtRixBZTK_jmf1U=@proton.me>
+In-Reply-To: <e8e153c8-2c09-4b86-8991-a8eed56526cb@leemhuis.info>
+References: <1kU98bgDqqEMGUcpGahaBYlaPiP2ssSCZj1uIKq1MEaGpNv2exGeJc3VWzXxB8-VJQ1Uk62W19oByt2KC-v1bSA4Sux9fBhnlA_IHWjV2Zw=@proton.me> <e8e153c8-2c09-4b86-8991-a8eed56526cb@leemhuis.info>
+Feedback-ID: 151291767:user:proton
+X-Pm-Message-ID: dd500dd4ad8dbdc1d41ebb52ee9dbacf3c24a56d
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,64 +64,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 09/28] mfd: cgbc: Zero-initialise version buffer in
- cgbc_get_version()
-From: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Thomas Richard <thomas.richard@bootlin.com>, mfd@lists.linux.dev, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261021121245.3111563-9-lee@kernel.org>
-References: <20261021121245.3111563-1-lee@kernel.org>
- <20261021121245.3111563-9-lee@kernel.org>
-Date: Wed, 21 Oct 2026 18:38:18 +0200
-Message-Id: <179260069841.1125687.16461366525950099809.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-> If the Board Controller returns a short response to the firmware
-> revision query in cgbc_get_version(), cgbc_command() can succeed
-> without populating all bytes of the stack-allocated data buffer.
-> Those uninitialised stack bytes are then copied into cgbc->version
-> and exposed to userspace via the cgbc_version sysfs attribute.
-> 
-> Zero-initialise the data buffer on the stack to prevent leaking
-> uninitialised kernel stack memory.
-> 
-> Fixes: 6f1067cfbee7 ("mfd: Add Congatec Board Controller driver")
-> Closes: https://sashiko.dev/#/bug/linux-8c473713-527e-4619-8404-689f28c7654d
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
->
-> diff --git a/drivers/mfd/cgbc-core.c b/drivers/mfd/cgbc-core.c
-> index edfac2b60718..7513ba42eb96 100644
-> --- a/drivers/mfd/cgbc-core.c
-> +++ b/drivers/mfd/cgbc-core.c
-> @@ -461,7 +461,7 @@ ATTRIBUTE_GROUPS(cgbc);
->  static int cgbc_get_version(struct cgbc_device_data *cgbc)
->  {
->  	u8 cmd = CGBC_CMD_GET_FW_REV;
-> -	u8 data[4];
-> +	u8 data[4] = {};
->  	int ret;
->  
->  	ret = cgbc_command(cgbc, &cmd, 1, &data, sizeof(data), NULL);
+On 10/21/26 15:53, Thorsten Leemhuis wrote:
+> Maybe your request to pick up f4203ec64e1155 ("ACPI: tiny-power-button:
+> Convert the driver to a platform one") is enough to make the stable team
+> pick this up for 6.18.y. Ideally you would try if this really fix this;
+> or have you and I missed this in your mail?
 
-Yes Sashiko complained multiple times even if I already explained it cannot
-happen if cgbc_command succeeds. Anyway I agree that things can be improved
-but I would prefer in a generic way:
-- add macros for cmd resp size (eg CGBC_CMD_GET_FW_REV_RESP_SIZE) in all cgbc
-  drivers
-- cgbc_command() should return an error if data buffer size doesn't match
-  the number of bytes returned by the hardware, it is not the case today [1].
+I had not tested it yet, now I have: f4203ec64e1155 alone on top of
+6.18.57 fixes it. It applies cleanly.
 
-[1] https://elixir.bootlin.com/linux/v7.3/source/drivers/mfd/cgbc-core.c#L194-L195
+6.18.57 + f4203ec64e1155, tiny_power_button loaded (not blacklisted):
 
-I'll prepare a series if you are okay.
+  /sys/bus/platform/devices/PNP0C0C:00/driver -> acpi-button
+  /sys/bus/platform/drivers/acpi-tiny-power-button/ -> (no devices)
 
-Best Regards,
-Thomas
+  3/3 suspend/resume cycles OK (lid close, systemctl suspend woken by
+  the power button, systemctl suspend woken by the keyboard). No
+  SIGRTMIN+4, no poweroff, no hang.
 
--- 
-Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
+With both drivers on the platform bus they compete for PNP0C0C:00 again and=
+ only button binds, as it did in 6.18.56.
+
+So please pick up for 6.18.y:
+
+  f4203ec64e11 ("ACPI: tiny-power-button: Convert the driver to a platform =
+one")
+
+6.18.58 is still affected (no ACPI changes in it).
+
+Thanks,
+Mikkel
