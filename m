@@ -1,76 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.194
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792576122;
-	b=OxAf2WnX1OwQJ+IOZLszGYLWJBmJGlYuxziNV/+65OmiNPGADdQZDOtqsZSveqQGoUzW
-	 olR+eYMskvkxH3Y2lL3Zd4x+2Z7QjbtzvALnjis5aW1iKkHH8Yt5I8V6EBwk/64Sm20qR
-	 gP6b23qdegTj/UTbIGHBDvGYWkh1JYxisCg0/TkSmNqpHg6krsILlJa3A5SAfNFN6d5dC
-	 sVrL1JE/KE0AXaYMy+4gD/k0iySrbpTgLIlQCqzCIaTmZ3/RPLrv0xg0Dqo0daFVTN1Ze
-	 Q07PNCTHsaGrdwPkVKw8hZTG5kyUgPsCpXCCOzTunTiORuArJjRvaPDbtOr255fwjsA==
+	t=1792576203;
+	b=qcHfV5smb1EddOHbhL49rDIDGlNxJVaRvsdmyJJhHfXBe7AytOMjCnuKNTM3UYtK1+96
+	 aTrdkls5rBxsRy9+f7uC8ZZNbqxtsj6AahthtXmoRD2S9Z99ssAGeJo8GgtFmezTBGpe5
+	 GE7rCm9uUpTuibKMUBIFuSVxeYckvNh7p+J72WAYIZY6ncIYPOBfRswBpCSTeYWQ88z1X
+	 g8UrScPUO+n99SlORKVG211VxYLpJgNGlW5Q6y7b8T20u7RtiH7LhzB1+6GwzKcHFy1R/
+	 NhvcG3NGdEqrmXBgsOjt6ESBZOTTrcPD8/G3RMSQQWVVYulfyCs3vw3Mv6qgqCMgTMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792576122;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=Xm+Ve/tXN2PYHWw15Ga7Gmdc7Cs7sLZm518+G2Vxh1Q=;
-	b=uL7ReUofGhFmvAIPLR2NFSF8NC/G2u3g5KKpKkT1MaaZZfPgtA9KRPGSYR0oF51KmRjq
-	 LTjiJXm3buZIINvCa6639q3/q3w/c03XTKIaLuWoIcpQBN/nQS6kq1zk5H1Ixu5+PDFrt
-	 lWzwbU00W2nmpiM5t8trhMPftkqqBK7viWYa3SzcLRMud5Nuarj8OZfyK+Va99//6T17t
-	 HnxRtTmnva97LPOoPJxKJOwZ6S6iqf4Y8+kiRbIIZkV5qyD+DQBRFPUhoabbGiGsecRjc
-	 lreZl7w67qomiybollSdgIfe4TmPYQctGKQHsTFuBYju4YKn0u6WffwZzeJJBEneVFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792576203;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=G53IIIXhDfjfjxT9ZDHI2vAikXwb38otkA5QxpRYrN8=;
+	b=T8uxsgD1VZiVk1jo4W7PpXa82T+n0umwYe+hhwp1gD8ZHI9Nttyflyr3O4wIGN9Y6qyR
+	 AbtyL2OHk+rEuOGEozJHQX2xzkf6AyI1YJREqSl+lOf5iCsxvw9x6ZbxvBMT+RmRAxaYT
+	 3r6vOynUh2CH0oR65pQ2ZFIHVpuS721tOZ0wGn83NnIDURFY1SIZ2wwiWlaqLklMlpW3S
+	 krzEDFLw6ohnWIC/M6ak5KKzvoHh1PdGRwhSQOxVryQ5dY6QnK96XRgVZBO6eHLP/ImvZ
+	 0oZ+cdVOr/wwvPN+IEE+CPVKIlubrDtA8t3wbjARiHTUrTrxpwSDzTvQju97F6YMNBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gXQbmU4B;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HhledqBj;
+	arc=none smtp.remote-ip=95.215.58.194
+Received: from mta1.migadu.com (out-194.mta1.migadu.com [95.215.58.194])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECAE2606A319;
-	Wed, 21 Oct 2026 09:48:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECAE2606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46738606A31E
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 09:50:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46738606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gXQbmU4B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792576122; x=1824112122;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=mYqES3D0TXPYP1B4ikr75vrMtc0qw0j02MmovWZ+a6Y=;
-  b=gXQbmU4BmgayKc8F/Ob5aCBT/T2fJnSTkkrwhy4IVLndzuWTTQDsWdzL
-   N6UePy6A0bkJBbs3Qnzwey4LrzRKqZffi+utaE/9NGUrejAp4401OsZpd
-   jlSkn5YUZPliSBlmbvepcmMllNyF0P2sqSHZC+XgPoNgVg7mIrZrJxM3h
-   g+vEk1BiWhBSh310OkAm9CR+V573xC45Xo/nHBCDa6QC4n3sUH6qbdbte
-   LlBGCEe3B1yMBhNSf8jjFRR2Er6uFhLftHvAQ9RQKldsC5zDwQi1tN/Dx
-   Tij9ETqMr3ZrojD3vResCQDmD1e9qlvSZsNxxyMp3cev+haMwnZAW7k7H
-   Q==;
-X-CSE-ConnectionGUID: l+wBijV8S0qHAb1yFPa7HA==
-X-CSE-MsgGUID: Z9VthFNOQcqPhKaNIdAREA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1194603"
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="1194603"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 02:48:42 -0700
-X-CSE-ConnectionGUID: JMNunso3RSWEVRtxj0YqSw==
-X-CSE-MsgGUID: bf5g+90CQ5aaoqBy82Hpbw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="3039664"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.75])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 02:48:38 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 21 Oct 2026 12:48:32 +0300 (EEST)
-To: Wentao Liang <vulab@iscas.ac.cn>
-cc: Hans de Goede <hansg@kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
-    luzmaximilian@gmail.com, platform-driver-x86@vger.kernel.org, 
-    stable@vger.kernel.org
-Subject: Re: [PATCH] platform/surface: aggregator: Fix use-after-free in
- ssh_ptl_shutdown()
-In-Reply-To: <20260917135607.2154130-1-vulab@iscas.ac.cn>
-Message-ID: <8cddfc6f-c357-c5f8-dc4d-8209d3c31668@linux.intel.com>
-References: <20260917135607.2154130-1-vulab@iscas.ac.cn>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HhledqBj
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=VR9I6eMpxuCj5V9ollyYvyPkLG3wtvmTCmYpBpxiZ2o=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792576200; v=1; x=1793181000;
+ b=HhledqBjzKKur4GB7XnhRqxlnismylTJ8jxijNG+tr+PiZQp4dR7vte5aP1DJJr0sA58plYC
+ fEiUbQHlfeMJ0k7QO6LY0whr+P/ngEVJ4X014VCRQp9ybqIf7vLTK9enKYJDeFO9Luht01YROek
+ 8wZvAIMyHaV9l4hZbijp1OZw=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 83e3e21a2d7caf67;
+	Wed, 21 Oct 2026 09:50:00 +0000
+X-Mizu-Trace-ID: 83e3e21a2d7caf67
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <2329ee64-f9be-4826-a496-65344e9a9c18@linux.dev>
+Date: Wed, 21 Oct 2026 17:49:51 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,57 +58,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm/ksm: keep soft-dirty and uffd-wp when merging a
+ page
+To: Kiryl Shutsemau <kas@kernel.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: samarth.colleges@gmail.com, akpm@linux-foundation.org, xu.xin@linux.dev,
+ chengming.zhou@linux.dev, peterx@redhat.com, rppt@kernel.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <efa6a28c-f0f9-4d1e-9cce-fec2c08e7d9f@kernel.org>
+ <20261020055518.36087-1-lance.yang@linux.dev>
+ <3da45e6d-2b46-4fff-9ff3-241f70d68296@kernel.org>
+ <f6bdf823-be42-4184-87d2-fc7c128f4786@linux.dev>
+ <68f17ee7-d272-4475-8a59-645442e2c210@kernel.org>
+ <ath8JTlITYcXsyLg@thinkstation>
+Content-Language: en-US
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <ath8JTlITYcXsyLg@thinkstation>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, 17 Sep 2026, Wentao Liang wrote:
 
-> ssh_packet_put() is called on the loop variable of both
-> list_for_each_entry() loops in ssh_ptl_shutdown(), freeing the packet
-> before the iterator advances past it. Use list_for_each_entry_safe()
-> and move pending packets to complete_p, as their links use
-> pending_node, so that each loop walks a single list.
 
-It sounds like there are two independent issues as per your description, 
-so two patches would be needed.
+On 2026/10/21 16:55, Kiryl Shutsemau wrote:
+> On Wed, Oct 21, 2026 at 10:21:53AM +0200, David Hildenbrand (Arm) wrote:
+>>> +1. Did it ever actually work there :) Why not just skip them and
+>>> call it a day :D
+>>
+>> I think QEMU just always sets MADV_MERGABLE and later activates uffd. So that
+>> needs some care to not disable them. So let's rather try to get it fixed properly.
+>>
+>> Can you send out proper patches? Thanks!
 
-> Fixes: c167b9c7e3d6 ("platform/surface: Add Surface Aggregator subsystem")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/platform/surface/aggregator/ssh_packet_layer.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+Thanks David! Will take it over next week and get proper patches out :)
+
 > 
-> diff --git a/drivers/platform/surface/aggregator/ssh_packet_layer.c b/drivers/platform/surface/aggregator/ssh_packet_layer.c
-> index 3dd22856570f..871780828419 100644
-> --- a/drivers/platform/surface/aggregator/ssh_packet_layer.c
-> +++ b/drivers/platform/surface/aggregator/ssh_packet_layer.c
-> @@ -1983,13 +1983,13 @@ void ssh_ptl_shutdown(struct ssh_ptl *ptl)
->  		smp_mb__before_atomic();
->  		clear_bit(SSH_PACKET_SF_PENDING_BIT, &p->state);
->  
-> -		list_move_tail(&p->pending_node, &complete_q);
-> +		list_move_tail(&p->pending_node, &complete_p);
->  	}
->  	atomic_set(&ptl->pending.count, 0);
->  	spin_unlock(&ptl->pending.lock);
->  
->  	/* Complete and drop packets on complete_q. */
-> -	list_for_each_entry(p, &complete_q, queue_node) {
-> +	list_for_each_entry_safe(p, n, &complete_q, queue_node) {
->  		if (!test_and_set_bit(SSH_PACKET_SF_COMPLETED_BIT, &p->state))
->  			__ssh_ptl_complete(p, -ESHUTDOWN);
->  
-> @@ -1997,7 +1997,7 @@ void ssh_ptl_shutdown(struct ssh_ptl *ptl)
->  	}
->  
->  	/* Complete and drop packets on complete_p. */
-> -	list_for_each_entry(p, &complete_p, pending_node) {
-> +	list_for_each_entry_safe(p, n, &complete_p, pending_node) {
->  		if (!test_and_set_bit(SSH_PACKET_SF_COMPLETED_BIT, &p->state))
->  			__ssh_ptl_complete(p, -ESHUTDOWN);
->  
+> +1.
 > 
+> Lance's direction is right. Unsharing is not an access: do_wp_page()
+> already skips the uffd-wp fault on FAULT_FLAG_UNSHARE, and RWP should do
+> the same.
 
--- 
- i.
+Thanks Kiryl! Will take a close look at that :)
+
+Cheers, Lance
 
