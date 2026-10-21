@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594208;
-	b=3f1kizvJNU1PoSJZxmLQ1G+exxzTg3mF56sHebl6en2B53iurHQ8z5ZQlyUQbPwg5ufi
-	 YrltGiYHc3fdNf4rtdeIXzkqL/sEIKVq/Bii2CVrBAn9l0VQYnK+EnouA0z6qqgXRSbCO
-	 xwrbLFyVLEF8wKRxDq856ZU2+RLfBbOtqBb66jHb1NU58Aefij1LvWXMmlZPSV7fB/l1m
-	 H7f6xGcRs0YBmV7gMIF07bjEaKzxhKGL/STOioWl7eoVEpCVrqj7EPtnu5ursXayQaH1E
-	 gsFalqfccRb1zl5LVNjqwJ4qKRNZKzLDZrUg2tL6/5TA1SBKPObZ9+lnyxfIlQUrTuw==
+	t=1792594210;
+	b=DWYEc+Mzx5tGnsv2qD7L4UbJeHEM5v9nuNMfOqwbhDL6R4jMJ5x/5Ee79fur9V6vqZH5
+	 Ou5qEtf3N0l9pyFEMb76n/z/162YRTReAzociDg2bsiMjdnYb/nWvOu7zUki5fjXYyNNS
+	 M2A8DIBvdA5jN9eJzqxArXGA3Q3XBxFMxu2p1gkeRNc8zWNrgPag9xUL8DCchvVX5tQFR
+	 GCfJPtAeuwyxGsvEkxVpaFBTt8WYx0HHcLDGSj1Amwrmj9+HJhqUdkf4XzWmB8XYS2xvB
+	 tlkt6hsNkCbvnTwVVFhfi6IA/lFeB6Zu65vBMz99OGTBxTOcg/6g/63OmdEwUmwLxKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594208;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594210;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5VnN9UrPCse3bCNPvgenqnkERXiKKTYrjm3T+DmGMbQ=;
-	b=R3xH7d4t72LiIUs30qrn6prbxp9Ga0wpQiwT6YVZdlVMk1UmzEXk0kTslWI3Spge4eqj
-	 rki+pO7D4MaCf2DWC7KdSuu8yu23I4FPA9niv281GW24FUdCf1q+PsuMlVxC7IKv0pG7o
-	 XzFeuUr6Yx0DWPoed6NaGH5at3oRNK73dFVQwHnuFzeFkXdfCCsRR+gOuCEBSp8OUYCFS
-	 12FmuB5pOrHX62XinZ2rFvhFJsU8/iKdZaR4mpyZVlwJYDoZNGZSf1gGU/cTn+uBnhxce
-	 AEfj+/1dTFZR38HVJvqI7WIzpGKXcMcBJgi51tSKGtnvFx+EuVd1ed5NaRZvvbQtJPQ==
+	bh=quPH/buHGqCSLK0wie4b+Wxkf54Ja9JHsO/JOdidgIo=;
+	b=xYOQcwAjUOXZAxH49D/qwEm8DJNNtkzowJEUl/OIeFizp5DwhL5fEykNlxkOrRrT4dQh
+	 vyJ/s2ajVqaYOc9U1VMo93HjDP7yHlR33frzYFhzMfNcNXcAbTw7nEfrqPc2GBKGfNHq/
+	 e3WJXs/fHSQXA7Cs4ZE++4ZbaDpVL+NeCV+e3AsQN1rDRJmN9myC+XTjUb4vi/vbTrAlk
+	 1hLbEhH0lmG7dbZr9J+FLiC6zg3mKLQ4YDSFKOo/lDVHtE2UONQF2KwTzZAELIROLjkq6
+	 lBLJbYOwSRsFfDvnpIsOXU9MS9ASvz1wClDANZUF/14a9nIgWvv3KNeW3PYnnmGlc2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hae6XVqv;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nj6zBgmy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B73E3606A330
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:50:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 768CF606A325
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:50:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hae6XVqv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD3821F000C3;
-	Wed, 21 Oct 2026 14:50:06 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nj6zBgmy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A8391F000C1;
+	Wed, 21 Oct 2026 14:50:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594207;
-	bh=5VnN9UrPCse3bCNPvgenqnkERXiKKTYrjm3T+DmGMbQ=;
+	s=korg; t=1792594210;
+	bh=quPH/buHGqCSLK0wie4b+Wxkf54Ja9JHsO/JOdidgIo=;
 	h=Subject:To:Cc:From:Date;
-	b=hae6XVqvZPWjezAX8CfzXlcDWj8gXPg929eJteVwYVyFBT8SoEYGsB6eW5YXLNxDz
-	 UQYhMxfuQ70O1B1DXO5UJa/t7AEbteJAwv164vMxG29gNYourkoTWhYpIS2gib7pH9
-	 WGugGU40YYnwMwUuN90O1cah2svU1TV/zIIOL5yw=
-Subject: FAILED: patch "[PATCH] futex: Fix mm reuse handling for FUT_OFF_MMSHARED" failed to apply to 5.15-stable tree
-To: jannh@google.com,peterz@infradead.org
+	b=nj6zBgmyhg2kF1aks7SGqbpDcfijvBCrJKPy1XWXKa04cY10VlHgn0ICbRGfqjltl
+	 WjgQLYpzLspQMDsHkj1f10OB3276OL6/+7CZFZVZKb1LEWW+dUKKbReJe0135eDju3
+	 Yb3A2HiJtCEndS34S3Umkid0TWQLj0QzM2zwb+5k=
+Subject: FAILED: patch "[PATCH] lib/crypto: arm64: Fix lost Poly1305 carry when resuming NEON" failed to apply to 6.12-stable tree
+To: Jeremy.Jean@oss.cyber.gouv.fr,Jason@zx2c4.com,ebiggers@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 16:40:25 +0200
-Message-ID: <2026102125-action-scroll-7041@gregkh>
+Date: Wed, 21 Oct 2026 16:40:37 +0200
+Message-ID: <2026102137-contently-unshaven-7da4@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,23 +51,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3267512ad1c2cc0c7768c5b014dc2cceb398a801
+git cherry-pick -x 24f07e8c07a0c0dd275331cbb41c79a78741eef9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102125-action-scroll-7041@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102137-contently-unshaven-7da4@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,199 +79,82 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3267512ad1c2cc0c7768c5b014dc2cceb398a801 Mon Sep 17 00:00:00 2001
-From: Jann Horn <jannh@google.com>
-Date: Tue, 29 Sep 2026 18:31:32 +0200
-Subject: [PATCH] futex: Fix mm reuse handling for FUT_OFF_MMSHARED
+From 24f07e8c07a0c0dd275331cbb41c79a78741eef9 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Date: Fri, 9 Oct 2026 14:53:53 +0200
+Subject: [PATCH] lib/crypto: arm64: Fix lost Poly1305 carry when resuming NEON
+ state
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-A FUT_OFF_MMSHARED futex is a shared futex that refers to an MM.
-It is possible for a process to wait on a shared futex with a different MM
-because a FUT_OFF_INODE waiter can be requeued onto a FUT_OFF_MMSHARED
-futex by another process.
-This can cause FUT_OFF_MMSHARED waiters on a freed MM to consume
-wakeups intended for a newly allocated MM at the same address.
+When poly1305_blocks_neon() resumes from a base 2^26 accumulator and the
+next update contains an odd number of full 16-byte blocks, it processes
+one leading block through poly1305_mult() so that the remaining NEON
+work has an even block count.  That requires converting the accumulator
+to the base 2^64 form used by poly1305_mult().  The final ADC of that
+conversion stores the carry into d2, but the following accumulation and
+poly1305_mult() use h2.  If the conversion carries across bit 128, the
+carry is dropped and the emitted tag is wrong.
 
-Fix it by keying FUT_OFF_MMSHARED using a unique 64-bit per-MM ID.
-Leave private futexes as before to avoid influencing the performance of the
-hotpath.
+This was introduced by Cryptogams commit 03dc4adf91c8
+("arm/poly1305-armv*.pl: optimize branches."), which removed the
+reduction that consumed d2 shortly before Linux imported the code.
+OpenSSL's copy did not take that change.
 
-(Multi-threaded processes typically implicitly use FUT_OFF_MMSHARED by
-setting clear_child_tid such that it points into anonymous memory, which
-causes mm_release() in a multi-threaded mm to perform FUTEX_WAKE.)
+The carry is possible because the NEON code stores the accumulator [h0,
+h1, h2, h3, h4] in a lazily reduced, redundant base 2^26 form: its final
+carry chain leaves h0, h2, h3 < 2^26, but h1 and h4 may slightly exceed
+2^26 - 1.  For example, the reachable state
 
-Fixes: 222993395ed3 ("futex: Remove pointless mmgrap() + mmdrop()")
-Closes: https://lore.kernel.org/r/CAG48ez0dLBpc3QtbAhMMVNHwHL94iHh2G+h-=BVFR4dDuzZr1g@mail.gmail.com/
-Signed-off-by: Jann Horn <jannh@google.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://patch.msgid.link/20260929-futex-mmshared-fix-v1-1-262b1ffeb3d0@google.com
+  h0 = 4
+  h1 = 2^26
+  h2 = 2^26 - 1
+  h3 = 2^26 - 1
+  h4 = 2^24 - 1
+
+represents 4 + 2^26*2^26 + (2^26-1)*2^52 + (2^26-1)*2^78 +
+(2^24-1)*2^104 = 2^128 + 4, despite the bit representing the 2^128 term
+(bit 24 of h4) not being set; the extra comes from the h1 limb being
+above the normal base 2^26 range.  When this value is converted into the
+non-redundant base 2^64 form, a carry into the new 2^128 bit (in bit 0
+of h2) is necessary to preserve the value.
+
+Given the above bounds, a carry into bit 128 happens exactly when
+h1 >= 2^26, h2 = h3 = 2^26 - 1, and h4 mod 2^24 = 2^24 - 1.
+
+Store the carry into h2, matching the other base 2^26 to base 2^64
+conversions in poly1305_blocks() and poly1305_emit().
+
+This bug causes an incorrect tag to be emitted.  However, this is
+unlikely to happen in practice where Poly1305 is used with a random key,
+since the random key tends to distribute the accumulator values
+throughout their valid range.  There isn't an obvious way for an
+attacker without knowledge of the r_key to cause [h0, h1, h2, h3, h4] to
+land on the precise values where this bug occurs.
+
+[EB: Rewrote the commit message to more clearly describe the bug and
+ its impact, and simplified explanation about why there's a carry bit.]
+
+Fixes: f569ca164751 ("crypto: arm64/poly1305 - incorporate OpenSSL/CRYPTOGAMS NEON implementation")
 Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Reviewed-by: Jason A. Donenfeld <Jason@zx2c4.com>
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Link: https://patch.msgid.link/20261009125354.315476-2-ebiggers@kernel.org
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 
-diff --git a/include/linux/futex.h b/include/linux/futex.h
-index 18ed18d5cbc1..a895d8c69d66 100644
---- a/include/linux/futex.h
-+++ b/include/linux/futex.h
-@@ -23,28 +23,32 @@ struct task_struct;
-  *  01 : Shared futex (PTHREAD_PROCESS_SHARED)
-  *	mapped on a file (reference on the underlying inode)
-  *  10 : Shared futex (PTHREAD_PROCESS_SHARED)
-- *       (but private mapping on an mm, and reference taken on it)
-+ *       (but private mapping on an mm)
- */
+diff --git a/lib/crypto/arm64/poly1305-armv8.pl b/lib/crypto/arm64/poly1305-armv8.pl
+index f1930c6b55ce..234398ff6b60 100644
+--- a/lib/crypto/arm64/poly1305-armv8.pl
++++ b/lib/crypto/arm64/poly1305-armv8.pl
+@@ -375,7 +375,7 @@ poly1305_blocks_neon:
+ 	adc	$h1,$h1,xzr
+ 	lsr	$h2,x14,#24
+ 	adds	$h1,$h1,x14,lsl#40
+-	adc	$d2,$h2,xzr		// can be partially reduced...
++	adc	$h2,$h2,xzr		// preserve carry into top limb
  
--#define FUT_OFF_INODE    1 /* We set bit 0 if key has a reference on inode */
--#define FUT_OFF_MMSHARED 2 /* We set bit 1 if key has a reference on mm */
-+#define FUT_OFF_INODE    1 /* We set bit 0 if shared key identifies an inode */
-+#define FUT_OFF_MMSHARED 2 /* We set bit 1 if shared key identifies an mm */
- 
- union futex_key {
-+	/* For FUT_OFF_INODE */
- 	struct {
- 		u64 i_seq;
- 		unsigned long pgoff;
- 		unsigned int offset;
- 		/* unsigned int node; */
- 	} shared;
-+
-+	/* For FUT_OFF_MMSHARED or private */
- 	struct {
- 		union {
--			struct mm_struct *mm;
--			u64 __tmp;
-+			struct mm_struct *mm; /* for private */
-+			u64 mm_seq; /* for FUT_OFF_MMSHARED */
- 		};
- 		unsigned long address;
- 		unsigned int offset;
- 		/* unsigned int node; */
- 	} private;
-+
- 	struct {
- 		u64 ptr;
- 		unsigned long word;
-@@ -152,11 +156,10 @@ static inline void futex_set_vdso_cs_range(struct futex_mm_data *fd, unsigned in
- static inline void futex_fixup_robust_unlock(struct pt_regs *regs) { }
- #endif /* !CONFIG_FUTEX_ROBUST_UNLOCK */
- 
--
--#if defined(CONFIG_FUTEX_PRIVATE_HASH) || defined(CONFIG_FUTEX_ROBUST_UNLOCK)
-+#ifdef CONFIG_FUTEX
- void futex_mm_init(struct mm_struct *mm);
- #else
- static inline void futex_mm_init(struct mm_struct *mm) { }
--#endif
-+#endif /* !CONFIG_FUTEX */
- 
- #endif /* _LINUX_FUTEX_H */
-diff --git a/include/linux/futex_types.h b/include/linux/futex_types.h
-index d320c0571f0c..34b16f2828e7 100644
---- a/include/linux/futex_types.h
-+++ b/include/linux/futex_types.h
-@@ -85,10 +85,12 @@ struct futex_unlock_cs_ranges { };
-  * struct futex_mm_data - Futex related per MM data
-  * @phash:	Futex private hash related data
-  * @unlock:	Futex unlock VDSO critical sections
-+ * @unique_id:	Unique ID of the MM, for FUT_OFF_MMSHARED futexes
-  */
- struct futex_mm_data {
- 	struct futex_mm_phash		phash;
- 	struct futex_unlock_cs_ranges	unlock;
-+	atomic64_t			unique_id;
- };
- #else  /* CONFIG_FUTEX */
- struct futex_sched_data { };
-diff --git a/kernel/futex/core.c b/kernel/futex/core.c
-index 095f9fe440e3..a240638f69e5 100644
---- a/kernel/futex/core.c
-+++ b/kernel/futex/core.c
-@@ -439,12 +439,35 @@ struct hrtimer_sleeper *futex_setup_timer(ktime_t *time, struct hrtimer_sleeper
- }
- 
- /*
-- * Generate a machine wide unique identifier for this inode.
-+ * Generate a machine wide unique identifier for this object (inode or mm).
-  *
-  * This relies on u64 not wrapping in the life-time of the machine; which with
-  * 1ns resolution means almost 585 years.
-- *
-- * This further relies on the fact that a well formed program will not unmap
-+ */
-+static u64 get_object_id(atomic64_t *object_seq)
-+{
-+	static atomic64_t last_assigned_seq;
-+	u64 old;
-+
-+	/* Does the object already have a sequence number? */
-+	old = atomic64_read(object_seq);
-+	if (likely(old))
-+		return old;
-+
-+	for (;;) {
-+		u64 new = atomic64_inc_return(&last_assigned_seq);
-+		if (WARN_ON_ONCE(!new))
-+			continue;
-+
-+		old = 0;
-+		if (!atomic64_try_cmpxchg_relaxed(object_seq, &old, new))
-+			return old;
-+		return new;
-+	}
-+}
-+
-+/*
-+ * This relies on the fact that a well formed program will not unmap
-  * the file while it has a (shared) futex waiting on it. This mapping will have
-  * a file reference which pins the mount and inode.
-  *
-@@ -458,24 +481,7 @@ struct hrtimer_sleeper *futex_setup_timer(ktime_t *time, struct hrtimer_sleeper
-  */
- static u64 get_inode_sequence_number(struct inode *inode)
- {
--	static atomic64_t i_seq;
--	u64 old;
--
--	/* Does the inode already have a sequence number? */
--	old = atomic64_read(&inode->i_sequence);
--	if (likely(old))
--		return old;
--
--	for (;;) {
--		u64 new = atomic64_inc_return(&i_seq);
--		if (WARN_ON_ONCE(!new))
--			continue;
--
--		old = 0;
--		if (!atomic64_try_cmpxchg_relaxed(&inode->i_sequence, &old, new))
--			return old;
--		return new;
--	}
-+	return get_object_id(&inode->i_sequence);
- }
- 
- /**
-@@ -683,8 +689,8 @@ int get_futex_key(u32 __user *uaddr, unsigned int flags, union futex_key *key,
- 			goto out;
- 		}
- 
--		key->both.offset |= FUT_OFF_MMSHARED; /* ref taken on mm */
--		key->private.mm = mm;
-+		key->both.offset |= FUT_OFF_MMSHARED;
-+		key->private.mm_seq = get_object_id(&mm->futex.unique_id);
- 		key->private.address = address;
- 
- 	} else {
-@@ -2055,13 +2061,12 @@ static void futex_robust_unlock_init_mm(struct futex_mm_data *fd)
- static inline void futex_robust_unlock_init_mm(struct futex_mm_data *fd) { }
- #endif /* !CONFIG_FUTEX_ROBUST_UNLOCK */
- 
--#if defined(CONFIG_FUTEX_PRIVATE_HASH) || defined(CONFIG_FUTEX_ROBUST_UNLOCK)
- void futex_mm_init(struct mm_struct *mm)
- {
-+	atomic64_set(&mm->futex.unique_id, 0);
- 	futex_hash_init_mm(&mm->futex);
- 	futex_robust_unlock_init_mm(&mm->futex);
- }
--#endif
- 
- int futex_hash_prctl(unsigned long arg2, unsigned long arg3, unsigned long arg4)
- {
+ 	ldp	$d0,$d1,[$inp],#16	// load input
+ 	sub	$len,$len,#16
 
