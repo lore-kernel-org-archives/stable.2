@@ -1,47 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792605788;
-	b=AhCjjaQfNju9UMtgKp/+37oe54eVm8WmjtU/iYGdIjNBmoYk6KdiBMuPSMdcW4gjEzie
-	 pgESum4KqFUhQmTgNP8uydN1/JR91ZE6VaglG/1Z3ExCwwUJXxTK6hB5QRJKj1e/WxyQk
-	 jn4w7p4+hYRlLZ3ZSdQl6C1KA6q2HoC3b62lGDoDkZhY6XSni8fMZqXwRrEFCTYzqdAye
-	 tDD2IxZHa192/EogUao2epg01E6m5+vfndCM7Iaa8Fq0WKzvD4VYKPgBrYzkl7K5l9GcR
-	 YZO5z+fZG5FmI0h43LDfEZArm+O/WkJV9OZsztvuEdiTuFxrId85gXHJOj0nIXKLSzA==
+	t=1792606047;
+	b=bpwM7YXa9oBxgUustl4Ubt83h/AtcRVF0BRwLcvzKv+OBYiMju3HAnBI1H/hIsvubCdn
+	 EnynBF4jZ/ruhselSsdGmxiQvowEm1o5qrCKa+O2J/K29/be1OrI7TSjZTfgfXJyWgcQo
+	 x9MRBRBFvT4arXmOGBAyueSlFdfO6l52GOCs+ghx4SlvxidcWi4zotFBQi7R4RdgvcyVT
+	 lTUST2vg2NCI+KldZc3nJs8idwvsyMdWQHKXozW5MwDe8vZrQQAqF0uAxIFaKfMuzSOLI
+	 beIvX5h8xjxEUt00LIvfdjZSEGnphsjjXaf0u0iQF9kJtEvgu1w4qTII2iZnmba+F6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792605788;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792606047;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=l+SH2SM27bhPUmCiQf6auNDgCCfHP4HYU7JjuSfnkSw=;
-	b=T6AptlANQPudBn4pdlOsZvZPYTPtu4KN0uYSH9ZNpYImcpaTY1ayEkcnQIM4fGwPMzkS
-	 yjbKth6ofUc4tv1Lr0+aDz+7P5VZgplf4D4dUb+wdAHfeT0AZOxoiEVHTFAVg9LdyD96/
-	 BGGFbw+gErmuh5+r9O6i8a2/o500ySVJXT3KKgjwIgmJMhus8s2z8QPyDLD+yeuW00e94
-	 n1qKxqgxZwZ7WaB12bfS8kom4un3wcyHo8aidyEkolDnWh5djU3vFXdvMSpQNldBvuMbF
-	 I3TqGNg8mH7RbDNGLFoiQZcwe7MHg/jXqOBc96MUTOq9S6VA6hBmlslWiJbQdbJce8Q==
+	bh=BD3PH8sn/SG/F7DO7wxZvYQbvmrfrsBI3sjtEwqgqnY=;
+	b=zth2wtVdJX8VqNCSJhqh2Oxvd/9IGIGBvFoXgZ3EWua3NWYWe0ejI1rKEc2a31tbxvc1
+	 pr2bFQiR7sWE/eytJJbdHx4w6HiaWaMFJYd6GYqGA4m893F0Be6577UPMKKponb1TbcVJ
+	 wcRvJnQBmvG58OC1p+o9cmu7lFgdwhseGwWyez31aOKKGtKND/to9ejcmaLuKDVrV9saY
+	 8ZndKa84zvUkFjPqji1Q/J8rhDxeZklwQ+wgT20TlUvTP5X3RZ57V6ygBlZ6/uuvDiLav
+	 rQyc4PfF5VyNt6rmvyrfJ9dPPdpqeAqV/IjYtJU6E2hnEXHfVZtq6Wy8f5ET+CXquzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cXTNXIkU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jmPuaxZx;
+	arc=none smtp.remote-ip=209.85.221.180
+Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3590606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 18:03:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562BB606A31F
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 18:07:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 562BB606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cXTNXIkU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49A1B1F000C1;
-	Wed, 21 Oct 2026 18:03:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792605787;
-	bh=l+SH2SM27bhPUmCiQf6auNDgCCfHP4HYU7JjuSfnkSw=;
-	h=Subject:To:Cc:From:Date;
-	b=cXTNXIkURTd+XTPRgn3XHDKeJVKv2s1HMER4fApz/6SQt4CmRYfW0mO5s822GLa89
-	 L3mCuJZ2s9lF6m8tJFtZ6axSp5nfjEeFA8JfB7v8/DgkGlDtsBCRdafrwuUtaVnUPo
-	 6vY0XNPJH52AqPcq7Z70Ny/N8W71WcXq2iiWnSik=
-Subject: FAILED: patch "[PATCH] tracing: Fix NULL dereference when copying keys for a field" failed to apply to 6.6-stable tree
-To: donggeunyoo.kernel@gmail.com,rostedt@goodmis.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 20:01:23 +0200
-Message-ID: <2026102123-crushable-fragrance-1b92@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jmPuaxZx
+Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5ead4026fe6so402637e0c.2
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 11:07:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792606046; x=1793210846; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BD3PH8sn/SG/F7DO7wxZvYQbvmrfrsBI3sjtEwqgqnY=;
+        b=jmPuaxZxGSuX2iUAkX5etUFc8l3rPMvgto8XSo5wtZwb/bT/7hXZd5zXz76Q3zTryw
+         AHoQ+fHEfCnELueNC6j6PX5Fnc4K2VpLXakAFunBe+Mpc3uphKEEaJacETiZEaTxZZy+
+         e2sKCGJviofNwT48s5JFb8OqqmXNunlx7Ty0tftUlJMIVauQaexhNpF67R8w8uEvVXIx
+         N8dG1+T2D4Bp0ksb5ZmHMTflDJg4/I5YuUcP/iAGYZeZ0fdISC0jX82sJbCMoU0xlxhZ
+         OqdwJicC/jegzyXcMpNBV17k1XuIQq3PE6tqJCnMnD1ulnQ7w0qBvYPGCkJ9hV+PjTge
+         loxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792606046; x=1793210846;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BD3PH8sn/SG/F7DO7wxZvYQbvmrfrsBI3sjtEwqgqnY=;
+        b=0IUfcZcW0ldBr5TpGK4TDZgg2Q4aLKtIWlMbu2DcrRH/89036Wex8eoc8ouDt3HFDE
+         XLHwuklZeF6eOkG37ltvBYMAiVEpBMjQy7MTbIqPTgEs9rUDym9aeW8SEvcVZJ+u7mQa
+         f98FTHMmf8U4oaxZYSktflxjPgAYK3gTZNQ86/yCcK+vkH0mHF5qqxex1Vkp1MOEhNv2
+         gAjgzHkEsij2xUf5Ucau548QJg2c5nrkIhkff13wk+Xzl7qobaQk8IwQONpf0HpDcCP4
+         cvEGr9TiiXWsMZRbzZIRMNFSPpvU1D4R01qLqOmIl74i5MqDEVEF8vAZFtw2+Mzzc6E/
+         55Lg==
+X-Forwarded-Encrypted: i=1; AKwUvByHa7tW0KczZ4nINUQXlCnQ9j6x6n+yFHtUzCRw+eCw4CyrnkNK8X57hVrhIZPLQpTSld4zY2A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnCGEs1sR5wuca0Vqv9i1TkBeTQ89isErz6mrbivVElmuzGOkk
+	N2tO2ZkIxYyJ2NAvkTsEoeVJKUeW9HKcA3Ueb6netpZ50rPn6VtZg8i/
+X-Gm-Gg: AYBFou2sStCOhFuK5J/wQTo/6pVOWnZALUNLFr+2rYv6gR7M9YCZ6C4CbWjnEKJGEoz
+	Lya7VvCQ2uOCOWnyuI4vCopAe6sy+LFPAQygPFdXBG9o9UmlxtZ7yzMHLGHu9uCMl9zSPWnBLet
+	+kpgnOOIRW7Yn8wIdvqkHw5MeNopqMQAFAOwq9vME+o0xuqV84CRRb2+K5IZNRgsQ16dvAi14kd
+	M2lfrtebu8az2yzo4QvWvafCOgFmwKINE704/fUxtCw4WFCThcYGfyk6JPmlNRxUt55BblV9twt
+	cBvdIwfTehWwxQxcAf46vH9Uk7HZNdkpe4w6k+glFxfhAZCW8zpOY2A/FFPatNWJwtYZ30OXO69
+	lo7m1jUn6bzwn/bu+EjPO92LoDg755eGdqI8F3clutOayGjJSzBvb2eQQ7yhksA3Zs/56u3E2mL
+	AE93uZ50cnKXCwJbF3j3ozv1bDwzjLCtk+axBSGzxtbHTTa6OfRQAU5EgWMazorO21eA5rNy6E1
+	rJXQbZgnRHvRiaGPDJqjiSrUIKeWxwQVTOSJnMLLbPQa9Lk/aR4V59jbXzxiqWV/Xy9PdfqxfsG
+	L8s02TTit6bjzFkx3sQwNLF6wDtVgYjNG+BOlv2NVoPnHycUq/2+w4M2a7p75FJF
+X-Received: by 2002:a05:6123:6d:b0:5d2:4a4c:ad83 with SMTP id 71dfb90a1353d-5eaebefa0bemr1334431e0c.23.1792606046270;
+        Wed, 21 Oct 2026 11:07:26 -0700 (PDT)
+Received: from MaquinaLab.. ([179.179.238.247])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eae9697814sm4054490e0c.1.2026.10.21.11.07.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 11:07:25 -0700 (PDT)
+From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: linux-serial@vger.kernel.org,
+	gregkh@linuxfoundation.org,
+	jirislaby@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	Andre Przywara <andre.przywara@arm.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook when DLF is present
+Date: Wed, 21 Oct 2026 15:07:14 -0300
+Message-ID: <20261021180714.473749-1-vinicius.eduardo.pedrosa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <atj0iRFTxHKmhxVG@ashevche-desk.local>
+References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <20261020104753.28703-1-vinicius.eduardo.pedrosa@gmail.com> <athe0QikG2mzCAtd@ashevche-desk.local> <20261021100049.16504-1-vinicius.eduardo.pedrosa@gmail.com> <atjB-BnXclL3FcUm@ashevche-desk.local> <20261021153732.1978410-1-vinicius.eduardo.pedrosa@gmail.com> <atjqZPuAbHDdaexv@ashevche-desk.local> <20261021170403.2052449-1-vinicius.eduardo.pedrosa@gmail.com> <atj0iRFTxHKmhxVG@ashevche-desk.local>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,97 +112,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+Hi Andy,
 
-The patch below does not apply to the 6.6-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+On Wed, 21 Oct 2026, Andy Shevchenko wrote:
 
-To reproduce the conflict and resubmit, you may use the following commands:
+> Yes. but is it only a single device/platform affected or a big class of the
+> devices? I assume only narrow part of them which unfortunately use DFL register
+> offset for something else in their RTL.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-git checkout FETCH_HEAD
-git cherry-pick -x a0777b9e53157f1f6848a0fd0650f5465391ea81
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102123-crushable-fragrance-1b92@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+The A733 is the only case I've seen, and the false DLF is what exposed
+it. But I don't think the BUSY problem depends on the DLF offset being
+reused: with a real DLF on a UART that isn't 16550-compatible,
+dw8250_setup_port() also replaces the BUSY-safe setter with the dwlib
+one, so the same path exists. I haven't confirmed that on hardware.
 
-Possible dependencies:
+With patch 2 the A733 no longer takes that path.
 
+> It all depends on the outcome of the above discussion. Maybe others can share
+> their opinions, but I lean towards a series-as-a-fix rather than a bit ugly fix
+> + proper refactoring on top.
 
+I'm fine with a series-as-a-fix, and with deferring the deduplication
+patch.
 
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From a0777b9e53157f1f6848a0fd0650f5465391ea81 Mon Sep 17 00:00:00 2001
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Date: Mon, 14 Sep 2026 14:34:43 +0900
-Subject: [PATCH] tracing: Fix NULL dereference when copying keys for a field
- variable
-
-In event_hist_trigger_parse() where it needs to create actions like
-"onmatch", it calls:
-
-  event_hist_trigger_parse() {
-    create_actions() {
-      action_create() {
-        trace_action_create() {
-          trace_action_create_field_var() {
-            create_field_var_hist()
-
-Where create_field_var_hist() does a loop on the hist_data
-representing the keys. The issue is, if the keys uses one of the
-pseudo field types (like common_cpu), the hist_data field element
-will have NULL for its field member causing a NULL pointer
-dereference when accessing the key_field->field->name.
-
-  # echo 'hist:keys=common_cpu:ts0=common_timestamp.usecs' > \
-      events/sched/sched_waking/trigger
-  # echo 'my_synth u64 lat; int prio' > synthetic_events
-  # echo 'hist:keys=common_cpu:wakeup_lat=common_timestamp.usecs-$ts0:\
-      onmatch(sched.sched_waking).my_synth($wakeup_lat,prio)' > \
-      events/sched/sched_switch/trigger
-
-  KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
-  RIP: 0010:create_field_var_hist+0x771/0x1380
-  Call Trace:
-   trace_action_create_field_var+0x360/0x600
-   trace_action_create+0x393/0xe80
-   event_hist_trigger_parse+0x3e47/0x69e0
-   trigger_process_regex+0x1a6/0x250
-   event_trigger_write+0xce/0x160
-
-Instead of accessing it directly, use the proper handler
-expr_field_str() to get the name.
-
-The three previous patches are prerequisites: without them a .buckets
-key and a common_stacktrace key each render into a command that cannot
-be parsed back.
-
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260914053443.981201-5-donggeunyoo.kernel@gmail.com
-Fixes: 02205a6752f2 ("tracing: Add support for 'field variables'")
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 8af97fd4ee2d..b3df8862855f 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -3090,7 +3090,7 @@ create_field_var_hist(struct hist_trigger_data *target_hist_data,
- 		key_field = hist_data->fields[i];
- 		if (!first)
- 			seq_buf_putc(&s, ',');
--		seq_buf_puts(&s, key_field->field->name);
-+		expr_field_str(key_field, &s);
- 		first = false;
- 	}
- 
-
+Thanks,
+Vinicius
