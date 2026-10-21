@@ -1,108 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792602257;
-	b=rLtUaMuZYCne+aQiPTIOPf8WpZuG/NlJPRd1zYLi+B+VsbqCw094sYwYk4AC0/X4ffI1
-	 JKgAGDnBwzXIVH3P3dBaIL81ZfuEdiQSuY4MFEfS/m169QUlxL2hj46GGOtaSVhALmeYQ
-	 DFLKuXlVRdVT9VlTRiuCP2jLwfWkYO7fxbzdbfnIC+RdJn65+LYVZKHpIss6wzCf9/aLM
-	 Y988nZmO0VWgT0zNOK0+codE47lh2P5Ga4BZgbxQtB6EgYfsEJCYtNB+D2kXZnZzEjAI/
-	 WYdthtIUE1wvNS1f/9vLRBOSE5Do6pkIQftjg8GLj47gy5XxNLjWwTfh7XaTrO3ExYg==
+	t=1792602391;
+	b=FoVFqQXifz5TaSVjrlGaZsQ8Drddy9jLZVAz3F1yh4C8P5nS4n6NgfmvgBmR8VXDBcMi
+	 GHpV+wSfpZp3OZE2gwdr8+S9WMFM37Ipe96Z9tmGOSRzlsGycy5KOdPiUR3vrN2zNKhSi
+	 ZmUMCnHpk9pRQDHDQG2mkpAP2oc+PTP5zdwtOvCC/Wl21hhrhRMDS6nf0aBhUbmXZEJg3
+	 ET0MZXRpe8o4P4mlOialYeKhSx6NpOnXPp0AVDcFIklYvngTi0b2dggK5UXZHuGcr/45Q
+	 CgnsR3LgUq+lXIm0LyY8zJcnS7Kgucy36guqqaq2+IQ7S/TsQRvvyYAOR/2JQPn5xfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602257;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Jz1PsVKfLByVoOLZveZuQnHIhjOghHzTozlXRwWyQFY=;
-	b=SsHp/J+WvfGzTe/LfPBZvqJrYIAksFKpbE2mtHXNEE17TImXVQBJg0Hr1UGqeufIVhAM
-	 bm94cbSPTPVY8yE9alAYR/Nz8f3FANQVd+Fh0N3MpUY93cASyaw8+TLeaFiYzLe+lAuRo
-	 Sr1neohdzderg+p8qH9Zf9fs/NmYgN7bH3N5JSitEcRlsEepfP/xb5AYt/+hBd7Sa5Pnu
-	 wuzM/tSEwH0VbbEH/TfGQc8Jqmpe3iEUkRAGwghlhrccWHuDGAcCrpnoULtuS7bmtNCbn
-	 8ZaY481hfGkrrsRQn/y5taeNQJ2e4RKN1BHiTwta9nGcETwQZ4sQ6P5JdFrY0Q3tdhw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792602391;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=rkKKVnZv/kHJBrv3uwIvqeZA4Aam5alns9BT/D3usA8=;
+	b=uReTjyG0sK5telvFrn7pcrA8ucoM9xWhwkgRS0TX0tE+pa1e9wEA0ysSR/om8nfsf9UA
+	 sPz85zCTZ2nMsE0MZjoGdygHQoKtSiSmoXzky/6DxV2QOlPSvb96f8QDe+2G7H/13pPGz
+	 y7+J5Fs6mkT8jfp8mAj+nCFAu39EojBhnlEiB0j56pKbzcRrY0TJsMwlEfzEhCN4eI4tX
+	 KC3QxXNvOlVeR/Wi4lmzyUb+BDnVlW43Pc8Kp9t8NVvVDlPuVIloDng7bl2VbJOkWzyKB
+	 lSWZ/irmwVekNUwq1K3e8BNyNpfDcRI1yq/IIciC2EpnTyl+O7tEvjUyx6Eez2cVdsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XhTlCR7v;
-	arc=none smtp.remote-ip=209.85.221.181
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.25
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E21D606A321
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 17:04:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E21D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XhTlCR7v
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5eabf243d05so382252e0c.2
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 10:04:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792602256; x=1793207056; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Jz1PsVKfLByVoOLZveZuQnHIhjOghHzTozlXRwWyQFY=;
-        b=XhTlCR7vSdYc6xYIXY+4YWo5PctxS/eg+nF0tTI68R0wVdyxDVGBrzKBf/vP34pSvJ
-         XAznc7rukb2wtB1NqGIS5vQeaCB9MBnXyvKRfs83ldM1IPeXlB79qnKE6vXs3lHq95u+
-         ogvPuri41Rl7agULw8/F7KE8DKjinlMy2SkfjdDfTwRNcxWRaoptKoTfhw692uooupYf
-         HyD6hwViiseOQyCZWc8633SnsTVBIYggx/vZpkyCnhr6pmhXkmCNT85aqgpnLHEz6cRZ
-         Q8nKtiMcg7X/Eu9Xtswr36jVhpGiPY3wkZz7dmRtvVd/clbcMzf2UcmXk+ZgzlfO2ekM
-         ucAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792602256; x=1793207056;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Jz1PsVKfLByVoOLZveZuQnHIhjOghHzTozlXRwWyQFY=;
-        b=ekWb30m4WN7sRIkdAIXsUgU9r6d/1CgkzOU4COLbF1wBuACPM50HWsC+/d4ng+KXMQ
-         t76GqeovMQ9So/snrhcTipOnK1f1lB/eLrAR47FsEoLjnQ2CpFaY+q0zgBn9A1myC7IP
-         9j1Q6XovTrzGclTJXpcPi9Gv1eRxyVreIBcah3ZimIr1zvwwboIKXKGDDbD/hHo1wuLY
-         2u4Zdx12OnnMMyDamgLE644F9sMIqJZi/1XNACL14j1m3Rt7R7PcrHI4CowzvAacGAhC
-         gyqdRZXWgLwKKqh9fDXJ0W5RjqoNDwMi+x0L9vPDUKi2exBpPnqixQ1y3GjKNK+GrL4c
-         4AGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw90hBiSCnM4xAiUZbffKmwUpL8y2PXibgLzm2clQ9Hp11RsIik9LGWnLI/rm18uzABbtAJp+s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKxtEU9KpVtlavbi3sMDJcFm9wQuiUKl+BNvPN6ZODXx5Eo29Kt
-	ljkWLHdMn0q4MfPvGodnexs08xZ88CgSZR378BvYy6e8a8nIr+/6P2w8
-X-Gm-Gg: AYBFou2oELu2eB132Trcb35c/xldIP0L9WWt9urBEFJp75h7ZqYVojpsSdOX18IAtYv
-	eq0XAHclp5cVsl9BrVGh1JZWd85YIROSjM2GAxdolHO8f+XyJNZQ7ChAJTyNCr8JgQ7gAPQ48iF
-	nYIqz/bdMozmSP3hrUxNxQ6Ylfotry71s6UZ91W/DQp5dG2HlI2mH8/VcAwgUEmLqhvejO+Ztj5
-	jwgvkMe0Ud5ewwY+LwAcZEVwpqTWfmJbMBgsQZNWwIeGHQyettVWF/TiE0fdTz07XvCaB9qtDln
-	FewHC0HKSsAftUi3YsJ/Fway/zFc6iUohFb4CA5WrTAeD3AI1qTFeihc/EUYMZan/BNWuXVjXaB
-	+Jl0ZIKRVQGLdgHGJ7HRtlx7DyneBcazaWCS2Hc/Y96btGeTXzoYNjKEERKeKHhdSNTJ8ucJ//F
-	vWipXMZ4bA3ENs2DjkQv7Zg05ahB9DrPYmThHWj4votPoJSmIJ2q+6H606LC4KmvXCw+wvZUdvD
-	XqTIL2Tv+7aOaMDKH6IfL/r0gPXDBre77dKLdBK/YebGVnim+UYvDK22hyp3ukj30hVvICeH5fw
-	3mu+bJ/mohENf7FAQOMBq2zKdlIg3o8RWpkKwA+eDFWeTJ5yTlk85zVXeGK0umI=
-X-Received: by 2002:a05:6102:149e:b0:7cc:9d46:f091 with SMTP id ada2fe7eead31-7cc9d470bbamr602076137.24.1792602256305;
-        Wed, 21 Oct 2026 10:04:16 -0700 (PDT)
-Received: from MaquinaLab.. ([179.179.238.247])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cc924348c4sm3367159137.11.2026.10.21.10.04.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 10:04:15 -0700 (PDT)
-From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-serial@vger.kernel.org,
-	gregkh@linuxfoundation.org,
-	jirislaby@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	devicetree@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A72606A320;
+	Wed, 21 Oct 2026 17:06:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32A72606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from ar (unknown [42.86.112.99])
+	by APP-05 (Coremail) with SMTP id zQCowABnzzkF8dhqtPUEDA--.14779S2;
+	Thu, 22 Oct 2026 01:06:15 +0800 (CST)
+From: Sun Yuechi <sunyuechi@iscas.ac.cn>
+To: idryomov@gmail.com,
+	xiubo.li@clyso.com,
+	amarkuze@redhat.com
+Cc: slava@dubeyko.com,
+	ceph-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>,
+	Sun Yuechi <sunyuechi@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook when DLF is present
-Date: Wed, 21 Oct 2026 14:04:03 -0300
-Message-ID: <20261021170403.2052449-1-vinicius.eduardo.pedrosa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <atjqZPuAbHDdaexv@ashevche-desk.local>
-References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <20261020104753.28703-1-vinicius.eduardo.pedrosa@gmail.com> <athe0QikG2mzCAtd@ashevche-desk.local> <20261021100049.16504-1-vinicius.eduardo.pedrosa@gmail.com> <atjB-BnXclL3FcUm@ashevche-desk.local> <20261021153732.1978410-1-vinicius.eduardo.pedrosa@gmail.com> <atjqZPuAbHDdaexv@ashevche-desk.local>
+Subject: [PATCH] ceph: reconnect on peer reset even if the mdsmap says the MDS is active
+Date: Wed, 21 Oct 2026 10:06:13 -0700
+Message-ID: <20261021170613.1144381-1-sunyuechi@iscas.ac.cn>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,45 +55,172 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABnzzkF8dhqtPUEDA--.14779S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3Ary7ZF1kCF47Xw1UAF1xAFb_yoW7Cw1kpr
+	Zaka93Gr4kAw1xtrZrJa4DuFyvkr15ua13JrW0qF95Ga45ur1ftFWvyw1vgasrJr97Ca1F
+	9FW2qFZ5Aa1jv37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
+	AVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
+	v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkG
+	c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4U
+	MIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUbSfO7UUUU
+	U==
+X-CM-SenderInfo: 5vxq53phfkxq5lvft2wodfhubq/1tbiCRUHAmrYx7xX1AAAsT
 
-Hi Andy,
+Since commit 39fe30315893 ("ceph: harden send_mds_reconnect and handle
+active-MDS peer reset"), mds_peer_reset() tears the session down instead
+of reconnecting when our mdsmap shows the rank past RECONNECT.
 
-On Wed, 21 Oct 2026, Andy Shevchenko wrote:
+That map can be stale.  An MDS killed and restarted on the same address
+resets our connection before the monitors report the rank as failed, so
+the session is torn down while the map still says active.  When a
+standby then takes over the rank in up:reconnect, check_new_map() has
+no session left to reconnect, the new MDS evicts and blocklists us
+after mds_reconnect_timeout, and the mount returns EACCES until it is
+unmounted:
 
-> No, just pass that as a 'bool autoconf' to it, and assign those callbacks
-> there, while calling dw8250_setup_port() unconditionally from _probe().
+  libceph: mds0 (2)10.89.20.12:6800 session reset
+  ceph: [...]: mds0 closed our session
+  (mds) evicting unresponsive client ceph-c1 (14900), after waiting
+        49.7175 seconds during MDS startup
 
-I think the autoconf approach works for Octeon as long as everything
-dw8250_setup_port() probes today stays under it, including the RS485
-detection and UART_CAP_NOTEMT, not just DLF/CPR. With autoconf=false it
-would only install the common divisor setter.
+Send the reconnect and let the MDS decide, as before that commit.  A
+daemon restarted on the old address has a new nonce, so the reconnect
+does not get through, and check_new_map() reconnects once a map carries
+the rank's new address.  An MDS that really is active replies with
+CLOSE, and handle_session() unregisters the session so that new
+requests open a fresh one, which is what that commit intended.
 
-> I think it would be less flexible, also it will add an additional branch
-> (actually two) each time the set_divisor is called (not that it's critical
-> but just wanted to mentioned that).
+Skip the warning for -ESTALE and -ENOENT: send_mds_reconnect() already
+logs those, and the removed code was silent for closed and rejected
+sessions.
 
-The idle callbacks have to come from the drivers, since the
-dw8250_idle_*() functions are static in 8250_dw.c. Stubs for LPSS are
-fine with me.
+Tested on riscv64 (7.2.6 kernel, Ceph 21, one active MDS with a
+standby-replay): SIGKILL the active MDS while dropping the client's
+monitor traffic until it logs "closed our session".  Evicted in 4 of 4
+runs without the patch, "reconnect success" in 3 of 3 with it.  Eviction
+by an active MDS without blocklist still recovers with a new session,
+2 of 2 runs.
 
-> I dunno, I prefer just a longer solution, but I don't know how big this issue
-> is that we need to backport in that way (and not taking the whole series as a
-> fix).
+Fixes: 39fe30315893 ("ceph: harden send_mds_reconnect and handle active-MDS peer reset")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sun Yuechi <sunyuechi@iscas.ac.cn>
+---
+ fs/ceph/mds_client.c | 84 +++++---------------------------------------
+ 1 file changed, 9 insertions(+), 75 deletions(-)
 
-On the severity: the IER restore comes from a7b9ce39fbe4. On the A733 I
-saw hardware IER left at 0 and the console stop taking TX/RX
-interrupts. I haven't tested this on hardware with a real DLF.
+diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
+index d4ef8a355a48..d23250af0750 100644
+--- a/fs/ceph/mds_client.c
++++ b/fs/ceph/mds_client.c
+@@ -7236,7 +7236,7 @@ static void mds_peer_reset(struct ceph_connection *con)
+ {
+ 	struct ceph_mds_session *s = con->private;
+ 	struct ceph_mds_client *mdsc = s->s_mdsc;
+-	int session_state;
++	int rc;
+ 
+ 	pr_warn_client(mdsc->fsc->client, "mds%d closed our session\n",
+ 		       s->s_mds);
+@@ -7246,82 +7246,16 @@ static void mds_peer_reset(struct ceph_connection *con)
+ 		return;
+ 
+ 	/*
+-	 * Only reconnect if MDS is in its RECONNECT phase.  An MDS past
+-	 * RECONNECT (REJOIN, CLIENTREPLAY, ACTIVE) will reject reconnect
+-	 * attempts, so those states fall through to session teardown below.
++	 * Our mdsmap may be stale: an MDS restarted on the same address
++	 * resets the connection before we learn that the rank failed.
++	 * Send the reconnect and let the MDS decide; one that is past
++	 * RECONNECT replies with CLOSE and handle_session() closes the
++	 * session so that new requests open a fresh one.
+ 	 */
+-	if (ceph_mdsmap_get_state(mdsc->mdsmap, s->s_mds) == CEPH_MDS_STATE_RECONNECT) {
+-		int rc = send_mds_reconnect(mdsc, s);
+-
+-		if (rc)
+-			pr_warn_client(mdsc->fsc->client,
+-				       "mds%d reconnect failed: %d\n",
+-				       s->s_mds, rc);
+-		return;
+-	}
+-
+-	/*
+-	 * MDS is active (past RECONNECT).  It will not accept a
+-	 * CLIENT_RECONNECT from us, so tear the session down locally
+-	 * and let new requests re-open a fresh session.
+-	 *
+-	 * Snapshot session state with READ_ONCE, then revalidate under
+-	 * mdsc->mutex before acting.  The subsequent mdsc->mutex
+-	 * section rechecks s_state to catch concurrent transitions, so
+-	 * the lockless snapshot here is safe.  s->s_mutex is taken
+-	 * separately for cleanup after unregistration, which avoids
+-	 * introducing a new s->s_mutex + mdsc->mutex nesting.
+-	 */
+-	session_state = READ_ONCE(s->s_state);
+-
+-	switch (session_state) {
+-	case CEPH_MDS_SESSION_RESTARTING:
+-	case CEPH_MDS_SESSION_RECONNECTING:
+-	case CEPH_MDS_SESSION_CLOSING:
+-	case CEPH_MDS_SESSION_OPEN:
+-	case CEPH_MDS_SESSION_HUNG:
+-	case CEPH_MDS_SESSION_OPENING:
+-		mutex_lock(&mdsc->mutex);
+-		if (s->s_mds >= mdsc->max_sessions ||
+-		    mdsc->sessions[s->s_mds] != s ||
+-		    s->s_state != session_state) {
+-			pr_info_client(mdsc->fsc->client,
+-				       "mds%d state changed to %s during peer reset\n",
+-				       s->s_mds,
+-				       ceph_session_state_name(s->s_state));
+-			mutex_unlock(&mdsc->mutex);
+-			return;
+-		}
+-
+-		ceph_get_mds_session(s);
+-		s->s_state = CEPH_MDS_SESSION_CLOSED;
+-		__unregister_session(mdsc, s);
+-		__wake_requests(mdsc, &s->s_waiting);
+-		mutex_unlock(&mdsc->mutex);
+-
+-		mutex_lock(&s->s_mutex);
+-		cleanup_session_requests(mdsc, s);
+-		remove_session_caps(s);
+-		mutex_unlock(&s->s_mutex);
+-
+-		wake_up_all(&mdsc->session_close_wq);
+-
+-		mutex_lock(&mdsc->mutex);
+-		kick_requests(mdsc, s->s_mds);
+-		mutex_unlock(&mdsc->mutex);
+-
+-		ceph_put_mds_session(s);
+-		break;
+-	case CEPH_MDS_SESSION_CLOSED:
+-	case CEPH_MDS_SESSION_REJECTED:
+-		break;
+-	default:
++	rc = send_mds_reconnect(mdsc, s);
++	if (rc && rc != -ESTALE && rc != -ENOENT)
+ 		pr_warn_client(mdsc->fsc->client,
+-			       "mds%d peer reset in unexpected state %s\n",
+-			       s->s_mds,
+-			       ceph_session_state_name(session_state));
+-		break;
+-	}
++			       "mds%d reconnect failed: %d\n", s->s_mds, rc);
+ }
+ 
+ static void mds_dispatch(struct ceph_connection *con, struct ceph_msg *msg)
+-- 
+2.56.0
 
-Given that, how about keeping the small fix as patch 1 with the stable
-tag, and putting the refactoring after it in the same series? That would
-keep the fix independently backportable if needed, while mainline would
-still end up with the structure you proposed.
-
-> I have Intel Galileo board that uses 8250_lpss.
-
-The Galileo should be useful for checking the LPSS path.
-
-Thanks,
-Vinicius
