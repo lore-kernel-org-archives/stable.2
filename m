@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595541;
-	b=LOuQLg+68mtTQvva2sakjzQU9kqXLGXcEdTsSAivc/7kjx8JgHrkSF/eAmk1sGdHFyq4
-	 +J2nDyOxeW6LKxxfZxBIhHwiPqZflWKnWI9ZUMOejyqIknxPYsK4GMp2yQ+B/nmGov84Y
-	 new7RBKYpF7XfHlnvVZ+C8e7LDhavoqPjyInc0N486IPuAcigzvk1PIeuy7g7Elw/N3+6
-	 wiar9ySoXlR+lo7jEEl/tHyDdFl7kS2juLHruWZlw2fQ5vwYo/HnshmBf90mRNnIML0H+
-	 cNqiU6Zl1KyDFHQP5dbSQDM+lwLDIqFvMcFT729CvHW64E/+LZyNj8PBMM0vADF2cOw==
+	t=1792595544;
+	b=sGPC5C0wnLFJ49ZN+LZkc8c3eXn+N8+2SU2GqUAAdpH4DsW9HqKPoREa6r87LAQB2CAB
+	 3kftXQE6b/d758y4MwH+GQzkXcZLFbYOEJtapOBp+d/p54PFbFSnSDgQQI9KSSKfMN/9R
+	 kj/IW98+W8tBMdBhtm2FvyGLs4YC5aa8w82e7n7T+sborCcCwPvf9dwzgZU5AKOHu42JW
+	 nJuYE3IXpGyx0p9X/LkQASg+bh2Nw49UwYruKQR1vyexB3EtkwDQXXB9z61t5VtncZT/R
+	 YUuR+INR+FiqmWKFq5RiWagOfY//pqDaph20j5+9+yDQkz0GYXP5wYM7Q1f+tmgbHZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595541;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595544;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=MY+Cje2Mr0xqGWQX2oZ5IqmavZDfOPm0dXS9J0UNG4c=;
-	b=q54q+1qH4dTxgAUbbcIvb8B4MhLdBtFIN8WKCLj3xV+p0ouN1C1GZ1KuBUmjcqyNd680
-	 JB3aeMY7G5SWV0TdARngLHt26glamFl2wYbMNakdN/qZd1VBpYV7691mQP7sms7DadL4f
-	 MYIGpQcYp5JJbQMmyb22EIPkZ/EWjEUWGCB2dwnWlDTU6DC5th8vPGBR2UeBkRqwCUA+B
-	 kK+Fl0yY7NRB4Y48MtWX65Itav8Bj1c9NoDpJQdmqvDImvY1XPJB5Rd86RkdAaeDzAzGq
-	 1vCoOs9Pjzl/0hiZvceLrJc8miGWqT1J1ic8XXRBWGyyXSkLHnu191gwsTuvGTD+/kg==
+	bh=o4XR9xROqukzXraLnUCfzdfJeLe//TtTcJ3PO+9sHvo=;
+	b=ki09eQ45yGomM4xv+hgGDM0pooz1qqTrPbpOosA07Xlw5H4s2Ie7AUNdIwcsRO41g3Td
+	 nrBp1oA0R4pPNio9qqkJ3eTtsfeYffLCrHBez05lKNDPjEXlZEInQ1S2NqqvUI946kbop
+	 +RQyByUiFMpyrIaVSMJnyM7eB5yDk2SwX2Cvcagxqf/P1lpX2y4XY7as2czdtGvdzap/c
+	 LtYeGBKU4nzmjPRS+zlv8MZ8j+wxCbwDypooAU8DJtnTdRuEA2WTulrQto8FUo2oGjSyZ
+	 KGZbFpkYtGgQcc8Uc2jm7SgHHFyS+NThJRSg6zLWQWsLoeMxhU8kohrzXbQlvuICBpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IDDSzUU5;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="IHk4/yPt";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A1B1606A31D
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:12:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8130606A31E
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:12:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IDDSzUU5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75ECA1F000C1;
-	Wed, 21 Oct 2026 15:12:20 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IHk4/yPt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 490201F000C1;
+	Wed, 21 Oct 2026 15:12:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792595541;
-	bh=MY+Cje2Mr0xqGWQX2oZ5IqmavZDfOPm0dXS9J0UNG4c=;
+	s=korg; t=1792595543;
+	bh=o4XR9xROqukzXraLnUCfzdfJeLe//TtTcJ3PO+9sHvo=;
 	h=Subject:To:Cc:From:Date;
-	b=IDDSzUU5VkwPW907y/DxfDZFsWYp3M5Nhe9BcdzwvF9/5YGi41IpYcmbqlDjvDd9Q
-	 IqlPbih4OFTjIGZ9jrN7Fa6GrDK5CLEzlAiJtdTdWJb7riq45MOujCx+u9+/NnJOZP
-	 UwTPNxw4srjjiXVUNkSVR64OQbOOW/HD6q11REDY=
-Subject: FAILED: patch "[PATCH] dm-integrity: fix infinite loop on discard with large tag" failed to apply to 5.15-stable tree
+	b=IHk4/yPtfO8s4hGUijdxLuZFCbyVWyGfIIhSuErOj3xfuAAhhnnsrlsTJ7W6J+qCB
+	 KISwI5hzw4dHZYpIFjGv9zeIIOwvc6VnVnpj8JRSAQoYFTUFRrUop9iX+LZeGZDOiv
+	 sbANIdcb87efdjzsN5A0W2H5d+FRsAw2xGOQIpCU=
+Subject: FAILED: patch "[PATCH] dm-integrity: fix infinite loop on discard with large tag" failed to apply to 5.10-stable tree
 To: ben@cressey.dev,jose.fernandez@linux.dev,mpatocka@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 17:07:07 +0200
-Message-ID: <2026102107-handled-starlight-f1cb@gregkh>
+Date: Wed, 21 Oct 2026 17:07:08 +0200
+Message-ID: <2026102108-cahoots-counting-9b8e@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 18d80c77b4c7dd20699e81cedfbbff4e9d198f28
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102107-handled-starlight-f1cb@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102108-cahoots-counting-9b8e@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
