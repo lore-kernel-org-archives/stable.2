@@ -1,96 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792605250;
-	b=ad2LIl5ScjiPnYRFpi4Kt+MXeDnZi20HboTW1hJXMF/fqtYR+dNrk4kbE2wLp0JhRzyU
-	 iT1e/qCL50fMRonk96a3voib5Ed7KL0rC73LXCOyYSjjUaJSiDaBaAn7Z/KjRnNw95oQZ
-	 H4ID9oHFyGnQlTkj1Uv0pbsc8Mz9GmU5E6EZTwt3Dk+Tcs6ehvTT1Tm8bLBOY31aJ/ezP
-	 V04DPeXmu/sabMdCIRFJbTClBt4SW9D9td9P6YPwCDNk8JWXBX1Wvrww1gi7WNvciNOIg
-	 x3hHPIe4DHNGJMutJkSrYsrfmstHoxHAaqYAb558AFkP4NruO7p3NLDWJ9dD04dzGgw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792605250;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.171
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792605277;
+	b=Ln9WiL0hQH2i56QOqllq8yRXbDsBCGGQZRyY1uybEeGoPIAumccjLhr7/xv4L/FzlEvX
+	 G96WlJ9k/IlyWNNIOwb1U/RkzBIslmZ76+mwMV8E8JM9QgSdSDQ5RFlkTco/g7QC7hE7A
+	 3efAFEpFRF7WxiMs4mbZxzFdPTSgwst0JgetifBhaCNY7bE7G//6l5GtKCJZ9X6ev9FaD
+	 huw0uAK8/vYRgbm72nJaY2SenAxrmKAC+Kb+y3vM0PHM+zKyltdH5oQPeQ1DHN8/SrwS0
+	 rA9C/Q6H+XfmD8Cx3oNdoYEO8tyTHKcALeug6N0svyXbNe7eLI6vdKlps2pxV0/YKbQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792605277;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=5PqjLYJUgUiokTOvnfFlSVLgSp4XVLZwVNOD0zgcVgw=;
-	b=I80ICpesImT9oua+OY/hy1ZVE4ppB4pNqX3KA2ns/RnxdN0XsY1LDPuMvqRnkKkeKFKf
-	 h8o4+8q1sYmCqHnZ+m54CpUvwrsr+1gtBlVEFgdsH+0Wjmu4arzhtZc4DQ8dV/LVWslx1
-	 o047EHbbl5XIHb2mtT7XOTeUEKd4w5jxEwypf1sBRD/sO8f6L+cq0hpel8s4mcA0iaqmJ
-	 JZwlTsrsa6sueDRRO5hG92ARLayZthpWJkmJzeEE97u5VjP4FfSoY8C9QsAvxetC+l8+N
-	 BAEQimpDOC3+KUduE1lB6NHJaorKf0H3fnwQ1mSsImsp9Vv167mxm+39bIWtXfsHXCA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=trailofbits.com;
-	spf=pass smtp.mailfrom=trailofbits.com;
-	dkim=pass header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=JcpocVIS;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=bnSgzKVlIwUx1mAdgm8G7itOWlMwTusQYmRJS/QwgdQ=;
+	b=ps0ip7FEoGtZpJ6vQzaejt/2tm5yIULP5pmCvJPi/91kEcRLYtxP4yqj6osVLPGHLHpg
+	 K3GzXv5IV2H1lplhVZ8oFmQcYzJNHHaJWZeJT8rUnDo07Tu2JNgzAz/PYUMJ6eNKfQPdk
+	 Yy0ITowLxgdWpgpAgYz2tnlXbLG0WQsspR7qBM1sLK8ShNQfHElkEjjMIj8OE+UFnikLe
+	 1vEl/PQwkmRVWUWI9p/F1dYAPpYDHlLgk1UYcEdfijS4gl701IhhLcbW525DLSuGRQgz9
+	 oWcbzhJhV4tF/CgbVd8l6ywZmqY7YflQYA7H+62vC3Xgf3XRerUDm/uIi7dzMUaqN9A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="YspD/xZY";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.171
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B47E8606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 17:54:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B47E8606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 115B7606A31A
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 17:54:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 115B7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=JcpocVIS
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3535a54bed9so1355100eec.1
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 10:54:09 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=YspD/xZY
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2db33db4de9so6935ad.0
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 10:54:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792605276; cv=none;
+        d=google.com; s=arc-20260327;
+        b=EaN6Nhxj6HPF9z98NUpxLvLhOIz8hq5GuDSIU/hPX1K+7YstlI2A2t0iAOWy8n0ylm
+         R4GEPh4JM0Yj6DHAJcvpWF5YN8/NJ6dCzfm3zFbZXnPwckw+AFe2VXgZxGfy1ezTzrK9
+         GUKMX+m9EfWWruK4tCH7Br+ytfYaNB0be1l+dDoRz7ORIMNVcU8PYOPjyLL5hgzj75Up
+         i1jTjQ4EU2F/GhdrMt8XbQzRPBjlnomHO+SK/dxEHnGBsifWXh6sEVGsJ/QpJHHWbwLz
+         zhOf/4HZ4sllyIpfRlkQz8DSJJuuxm4wSnX7/RgZ3RvNZbBlsqTI33n96YbgF83UjRY2
+         KGHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bnSgzKVlIwUx1mAdgm8G7itOWlMwTusQYmRJS/QwgdQ=;
+        fh=Tr73vS0JLbWLGw5xoovgHPxo75WBUQfMjjHpKOLoL/4=;
+        b=Fva5RmZruqSakzw4925BBKzR0r2A2P8Kavapn22Mv2I4h6Vr3B9Xk8FzC3FbQnmBze
+         D3jPPzjB8je+YAee9QnrZululbBYsHUByRXGwPAkVW2t1iEromDWonYkrmxzoCY1GoUU
+         dGrYoUeXclDDUKTdWZbGZ2ZMoauEOB4b7N4LH2S+N6he+rnws1BvQ/yX5HgFZQS4wTGA
+         lTp8aFJUhbozVVdTxNGafhEqsNMhbC+bRDlpyWIJfqGkTqxePIKHbgl6+MFI87JSa7qC
+         Q5hxoXcWcWvgsVMl6R82EUk1rc3EAhmtbvYCzU+2S46fUlM4DeXqPyxqz4RMm88ePTv6
+         8BjA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1792605249; x=1793210049; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5PqjLYJUgUiokTOvnfFlSVLgSp4XVLZwVNOD0zgcVgw=;
-        b=JcpocVISGPYKnrqPOePf1IjPWVkOdMt+vqMiqK6675evji8SrVn43ad1vly8ipbMKk
-         ioH3OmdSkiYoRTq6bTJ0nasbwHTF7cxKPKLWLhYu+AUkTMYd4h8hdnIpfnXzzG7laeqs
-         SImsnVR2K6ziy8+63x9g7rmLQY5xdzxSTk8lZG7E1BHnFpqwLVXwv/tRmLYn611qDpKk
-         8PuKs6IldcLrfv6QnuOJgK5t+38ZMwnEJ3aKY+9sTNYXyyQ1rm2T+Kag6tpIaAwomBQA
-         IwHYp4JJqh1/hOgTPbmnRQhkq1pbxkxks5QbB/W33gNVmMfitcS+/l3pS/2rt91GInG1
-         31ig==
+        d=google.com; s=20251104; t=1792605276; x=1793210076; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bnSgzKVlIwUx1mAdgm8G7itOWlMwTusQYmRJS/QwgdQ=;
+        b=YspD/xZY44fFV+FFHSZjF/1RlmBvUNuSfWoWWuFHud6JXIClp37+f+OlnoJN1eKOFv
+         MQwoRZ1P9DqC2Qp2kHPovo9qAd0TufADjD0onPwpW7vRQHd7e4lfy43i9RbNf9+IekNM
+         zlMvCbl+Gs+EP66/kfLB2hUtRPMo0cNKL27WtWxfeIRVgl1aztbKh+i3BhpMc8WkQmRQ
+         OU8c6q+GZActMQnlEzInHLDDUC/nt438pE2N47e+HQN3Bbw84i7dNsQh0+pxRanzfcRC
+         8HL2Vby3lni04TIOBHrddKZ7sdcx8H6SsjQP1K0p1tG5Sribwas8GMu1gQZTpsDxi+xT
+         rVAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792605249; x=1793210049;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5PqjLYJUgUiokTOvnfFlSVLgSp4XVLZwVNOD0zgcVgw=;
-        b=cY1qCHanricvo2BDzbj3NeS12Ns8jlS5aXnr126LE/HF8WVXdrLC9pfb7YGnv3v+CG
-         Gugbsxa67ICXO2iyTTiFIswpzwXiLLS4uCUhBsFu7EyApDDKytQgNsxk1bRooXOEE8g0
-         M2sGTZYdFyCdg7MNWyIiagG60xkYD8QsRmGFgWZ+e6UTxdVJcTdW8s5wA5ZscgtyHHgC
-         rUAYBW2voLt/xPBlE9Erz7Rbyn160r7NSxB8qqZdCw6WF2ymROmMwiGhRbfIGro+BYQc
-         us8yKRnToTU+qx/zM5vsSjXMXucCfNdTia026EsF/CdFsylRTA9Lh+cgwA7nWz16jT3E
-         PqDg==
-X-Gm-Message-State: AFq9FYIiGapkvNLTnW1j013Fj9RedB17vngQDffBtVNuukg4hNFDBy7Q
-	IhUy6blTUEtAN0O0RHkTMh35hJ3ggU0aLaMkbtf/h8ArrbgCxNwns8g/YP2V/6PIZxc4JcgSey9
-	rDKxCPl0Tbg==
-X-Gm-Gg: AYBFou3cWCMny0/AQLpGiFTV0V4hEk70LiQB3T2fy0FvT8munQpd21mZYuKj/AiSChk
-	TZBoR5MQ0RSbg5JU4UUhCHz/7VzfinFwVEovLKyKo4e9/FAeVD4MPPKoCx+KK/xlTW8jq46B5Ya
-	7hBaXMKess+3Sg99d0giIidJ2a6erB4OTXTa7w/6dR34qIXgzx6RzyzMJncmO852dD6Uy+0R9Wi
-	i/e4KhBEc9W3UMIKnPT815CcybF7ZpPJbOcDom1DCaODkRp394tBp9uXzVtH7fBlskwK9o8hln4
-	7yC/Lg4IsAoc+zfdbDI0/ko5vVS4Ku28rTk5h5JGDyugyXjhpTCNl3PqyF727kPczXG3lTs7Qof
-	6U5JdtzA5tPAJYKpWrkkwd5nEEUvXgKc/UAv2BR+NHhxz98ipz5Q4bAtBeRBMtG0AK5z7NsVf2W
-	Y5PYtZCKSp7sciAqzmVZMidyCHPsg4lnv3eUiqvq4xJkZflOuMfApFaHJ3AaUbeEoVQ+cDSyVxn
-	7OMWwrk2o4ZKoUjo6rqkBzjCFsDHLERhBTZj/3n4ZzXXXQy2oGdwkrsd/Eyp+M106sGrr3AV0YU
-	8f3UAXRcJldKiiGMxLwoUaPekeYkM2JQGAyuDaPDzaxnF3sa7+OU
-X-Received: by 2002:a05:693c:42d9:b0:367:e68b:c047 with SMTP id 5a478bee46e88-367e68bc08cmr2811480eec.40.1792605248757;
-        Wed, 21 Oct 2026 10:54:08 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:d059:e601:becb:a5ad])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-368b4b8e9c6sm17395eec.1.2026.10.21.10.54.07
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 21 Oct 2026 10:54:08 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: davem@davemloft.net,
-	herbert@gondor.apana.org.au,
-	ldy3087146292@gmail.com,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	n05ec@lzu.edu.cn,
-	tomapufckgml@gmail.com,
-	yifanwucs@gmail.com,
-	yuantan098@gmail.com
-Subject: [PATCH 6.6.y] crypto: af_alg - limit RX SG extraction by receive buffer budget
-Date: Wed, 21 Oct 2026 13:54:05 -0400
-Message-ID: <20261021175405.1542-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1792605276; x=1793210076;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bnSgzKVlIwUx1mAdgm8G7itOWlMwTusQYmRJS/QwgdQ=;
+        b=gD/LR1riyIdit3DBFn++ZHauKPMQk+go03GARSjShKvGPJjijMXjGm9ENXtDmCtdDu
+         UWi8dvShCBO2D5cEw/21puqcZ4GdiNqWt+3Yq0msLbRu6Zc+SKLjrQLkIw8MhLffHQhn
+         ywHDgTNj7mLZnv4Nx87l3VU/gL5gS+EKJnJoxiLE8kGaw5H1/VmZSN7D3vzTpeZlgQ/+
+         I2LwDmdisdwx7suQfmpJKfE7ogHqbOnBOSQJCitGufYhgXTFscGC83hCy6YPSjBYdN8G
+         UyF5Ycd5WUXbBtiCtXsoOJNxQt9w8Fos+pXMqehUkoXOfhpSgCgOlrkZtGfNEnk2bSHK
+         oQQA==
+X-Forwarded-Encrypted: i=1; AKwUvBx/2OKl8S6wjk8nhIRCRcn+/kA44XnnNl9ZDHm1uVdjq4yB2ruPlB8tti3DKp7PhEu3fvx5LmM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLUR2ZrbZKx8jL47pIhGGk1ZiEYLMtsqPmEN9ea+xjPnPwPUR0G
+	xsZIy7LTcmG8QM2Y9VcjfcSFWxpkXnkVxTQsyj0pujb+KwSRVZLWGHuIC+yGbh6nBDqaJFHTmxd
+	MCxHtQNpkNdjkH03r1FWwsbkQSCWvDNI74T7l3KLP
+X-Gm-Gg: AYBFou1GQuqnwJjl9bP+uVQOwGRrzYInZQ8YpHjgYTouJl5nzLpg90oeZnNQyuinS/x
+	pdOK9L3Ri6mwcrwKKMQ+S93E5pzFsicyztwFEJc92ejEHY7ARmbP6oLyYJVP1GynctfQfhvoSl8
+	I0MxwebcBV0pOYMOkjI1VE94cHVBBePVT0/TiB7+EkAYFd17FDeiJzMDqnC7sv6aWv4VzJaIYOL
+	/dWEBua8jrn8d6SyzQWSi+/IfTrfbLb17uiRtN+sOicr+b82VLubeL4/GXj3NkBG3G5Jo+MPFqj
+	sRg0/YySWyoqQeyr1nB/naBNK/8eQCva80kwczWE15z9nwcB/fxup+ZN4cwfWXGNe1GJ8XsvxwS
+	wSH7KfVm6Rjj/UOSwRP6fxQ4RY0wvJGTEtXeuNcMBnSwgji1dThg1YM8bw1QDPvqbL3Nsbu0Hh8
+	kKeihLsVpCH+X9ATEj52IevpXqzCskkxTZlesP
+X-Received: by 2002:a17:903:1c9:b0:2e6:f400:5655 with SMTP id
+ d9443c01a7336-2ea1ad93c36mr12625325ad.3.1792605275821; Wed, 21 Oct 2026
+ 10:54:35 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,88 +105,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <AS8P251MB0001135AF3233180DC42DCD1C8672@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+In-Reply-To: <AS8P251MB0001135AF3233180DC42DCD1C8672@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+From: Harshitha Ramamurthy <hramamurthy@google.com>
+Date: Wed, 21 Oct 2026 10:54:24 -0700
+X-Gm-Features: AclHuK8DF4cNZdOlsLxmOPiqNQYOfIZsIcUlIaWsQRwFpFNtX7VrcLCvRlNCrbM
+Message-ID: <CAEAWyHeByLa9ONLzb+NiaavjVSpuNHbEgM_u9uzyVGV3w2zaHw@mail.gmail.com>
+Subject: Re: [PATCH net] gve: fix out-of-bounds read in gve_get_flow_rule_entry()
+To: Aamir Ahmed <elb12345@hotmail.co.uk>
+Cc: netdev@vger.kernel.org, Joshua Washington <joshwash@google.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Douya Le <ldy3087146292@gmail.com>
+On Tue, Oct 20, 2026 at 3:33=E2=80=AFPM Aamir Ahmed <elb12345@hotmail.co.uk=
+> wrote:
+>
+> gve_get_flow_rule_entry() checks the requested location against the
+> first and last cached rules, but rules_cache_num can be 0 while
+> rules_cache_synced is true: GVE_FLOW_RULE_QUERY_RULES returns the rules
+> from the requested location onwards, so a request past the last
+> installed rule - or any request when no rules are installed - returns
+> zero rules, which the driver accepts and marks as synced.
+>
+> The next query evaluates rules_cache[*cache_num - 1] with
+> *cache_num =3D=3D 0. The zero-initialised cache does not trip the earlier
+> comparison, *cache_num - 1 wraps to 0xFFFFFFFF in u32, and the read
+> faults about 352 GiB past the cache. ETHTOOL_GRXCLSRULE needs no
+> capability, so an unprivileged user can trigger it:
+>
+>     BUG: unable to handle page fault for address: ff240996c4c64fa8
+>     #PF: supervisor read access in kernel mode
+>     RIP: gve_get_flow_rule_entry+0xd4/0x110 [gve]
+>
+> Treat an empty cache as a cache miss and re-query.
+>
+> Fixes: 6f3bc487565d ("gve: Add flow steering ethtool support")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
 
-[ Upstream commit 8eceab19eba9dcbfd2a0daec72e1bf48aa100170 ]
+Thanks for the patch!
+Reviewed-by: Harshitha Ramamurthy <hramamurthy@google.com>
 
-Make af_alg_get_rsgl() limit each RX scatterlist extraction to the
-remaining receive buffer budget.
-
-af_alg_get_rsgl() currently uses af_alg_readable() only as a gate
-before extracting data into the RX scatterlist. Limit each extraction
-to the remaining af_alg_rcvbuf(sk) budget so that receive-side
-accounting matches the amount of data attached to the request.
-
-If skcipher cannot obtain enough RX space for at least one chunk while
-more data remains to be processed, reject the recvmsg call instead of
-rounding the request length down to zero.
-
-Fixes: e870456d8e7c8d57c059ea479b5aadbb55ff4c3a ("crypto: algif_skcipher - overhaul memory management")
-Reported-by: Yifan Wu <yifanwucs@gmail.com>
-Reported-by: Juefei Pu <tomapufckgml@gmail.com>
-Co-developed-by: Yuan Tan <yuantan098@gmail.com>
-Signed-off-by: Yuan Tan <yuantan098@gmail.com>
-Suggested-by: Xin Liu <bird@lzu.edu.cn>
-Signed-off-by: Douya Le <ldy3087146292@gmail.com>
-Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-Assisted-by: LLM
-[ Backport to 6.6.y: Add braces to the older block-size conditional so the
-  new short-block error check and existing rounding remain under the same
-  condition. ]
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Hi,
-
-Please consider this backport of the fix for CVE-2026-31677 to 6.6.y.
-
-The code changes match upstream, with braces added to the older block-size
-conditional. See the bracketed backport note above.
-
-The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
-
-Build-tested only as part of a cumulative 6.6.y series on x86_64
-(allmodconfig, CONFIG_WERROR=y); no runtime testing.
-
-Thanks,
-Artem Dinaburg
-
- crypto/af_alg.c         |    2 ++
- crypto/algif_skcipher.c |    8 +++++++-
- 2 files changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/crypto/af_alg.c b/crypto/af_alg.c
-index e7fea668473d9ede47c7d0e2005c333d34147b29..e6e94b34e0afe78f4d2a8a60c6a194bd0a958beb 100644
---- a/crypto/af_alg.c
-+++ b/crypto/af_alg.c
-@@ -1207,6 +1207,8 @@ int af_alg_get_rsgl(struct sock *sk, struct msghdr *msg, int flags,
- 
- 		seglen = min_t(size_t, (maxsize - len),
- 			       msg_data_left(msg));
-+		/* Never pin more pages than the remaining RX accounting budget. */
-+		seglen = min_t(size_t, seglen, af_alg_rcvbuf(sk));
- 
- 		if (list_empty(&areq->rsgl_list)) {
- 			rsgl = &areq->first_rsgl;
-diff --git a/crypto/algif_skcipher.c b/crypto/algif_skcipher.c
-index b12df4544d0bbba3f3d156f0e279ac896cd81ec0..8729ef268d9d83cea537abaf23c6cdbb45f59ccd 100644
---- a/crypto/algif_skcipher.c
-+++ b/crypto/algif_skcipher.c
-@@ -82,8 +82,14 @@ static int _skcipher_recvmsg(struct socket *sock, struct msghdr *msg,
- 	 * If more buffers are to be expected to be processed, process only
- 	 * full block size buffers.
- 	 */
--	if (ctx->more || len < ctx->used)
-+	if (ctx->more || len < ctx->used) {
-+		if (len < bs) {
-+			err = -EINVAL;
-+			goto free;
-+		}
-+
- 		len -= len % bs;
-+	}
- 
- 	/*
- 	 * Create a per request TX SGL for this request which tracks the
+> ---
+> Reproducer available on request.
+>
+>  drivers/net/ethernet/google/gve/gve_flow_rule.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/net/ethernet/google/gve/gve_flow_rule.c b/drivers/ne=
+t/ethernet/google/gve/gve_flow_rule.c
+> index 2c80cda..db8b9a3 100644
+> --- a/drivers/net/ethernet/google/gve/gve_flow_rule.c
+> +++ b/drivers/net/ethernet/google/gve/gve_flow_rule.c
+> @@ -206,6 +206,7 @@ int gve_get_flow_rule_entry(struct gve_priv *priv, st=
+ruct ethtool_rxnfc *cmd)
+>                 return -EOPNOTSUPP;
+>
+>         if (!priv->flow_rules_cache.rules_cache_synced ||
+> +           !*cache_num ||
+>             fsp->location < be32_to_cpu(rules_cache[0].location) ||
+>             fsp->location > be32_to_cpu(rules_cache[*cache_num - 1].locat=
+ion)) {
+>                 err =3D gve_adminq_query_flow_rules(priv, GVE_FLOW_RULE_Q=
+UERY_RULES, fsp->location);
+> --
+> 2.55.0
+>
