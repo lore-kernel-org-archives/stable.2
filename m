@@ -1,100 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792602991;
-	b=S7UdaWVkgiXfGesKbIH70RgqQXgawBfIjIo4O82cqkMOY2X3LIaaJWmjFdCu5Kf7rmd6
-	 j5taWUv3IFa8l9ww/dhLAIa+nZUwBbzlHyezqlCQ7PZFFPQ2vQhN7lMVWi54n89aIAYBF
-	 eu9eVkdMFlx+iu4sBAKCLhJCWePrrXHi+1ttvTiQJNrMdVoFIphvvCdWYlc06/hLgg/kX
-	 dHbAwX6Nj+5RoG82lantP4Ew88kt5LHri/LR+jbPuL1xqt0C+La791RUASDKMySeE3dlD
-	 JLdMuMwKkzmkm+ItGUApPvJl8VhFNbxaf5Snq0mLcGwcUl+MwlbsbAcD0BzPXJr8yjQ==
+	t=1792603073;
+	b=vaFdP5bXmbGlbe9NQCxSURsnVcG203eZe/ecSys2P9JCT997VIymoO27U6wThSlcHCvg
+	 10OBr1bfd9xpNkFMf4/23EkzIfRypQsuIEpX+3LNGvY4V+t36biqqyOCto+8XzCDmko6d
+	 57CxrGNXIQsDsk4gtHnUprvdGqiRwCszn6LHW7tW5zOPh/dBGKfZVnjFJHqkDE79jzzhl
+	 odp6augLpPYfA+PAm5jDxOMNfC51oVfqR0PEib+xTlVwPVVuUmGqkQ4u2IVm9YAVYDcCh
+	 BBxWqupxGrlqO7ENoq1edZp6vJJwYoxYZDo7zR1HQ8KfBQA90jTj2kNOyYhdn5iKsHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602991;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792603073;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=B9xTWWD9mfzJtMcAru9lP6tSUbC9S1bscJnItCWs39w=;
-	b=gBe6R2SQDfJjykEJWkyZ2SzuaGdduCGHn/gMWNfmNXVVIHIfpQ2th6YuyQiFfGyXx6f+
-	 qr6LEfGN0mOXvR2LYpfKfByYtmMxvSbYqSoGZCKOiFewC1T30fzn7y56lMiM3VF0YtXQi
-	 5siIaQ2UmQC0AxOiMRW4OsKjwinkXQsYcT92f3+uMj/I8L8SHF74MgGHR+QGSSVyeaUCf
-	 2ZydLdvg3H4/KdueNp6uuN0VvzhE6fSA3k74AL4xVmpwufWLpZ/yTQS9xiK3w4Y60wwUT
-	 RSlWnr8i3PXEM39rgcwnSIndHaj2PZt00+YNXY4SIThHbl4oePqqHSYChpf3QV1HjLQ==
+	bh=s18p6ABSRGJ/UxVSqWCBTz6bx2WQqcF10z8V9BS39Q8=;
+	b=S6sHOxqRBUBy7lUCde1lEZZuth1hGv30r6rY/UDZbPIU3lbwS4YLN3/NQE1XGo0VQ4q/
+	 nwvuKm7qZXdTugdMN1DjwIiclQ+7DoRzIbSNnFgJfgQUKd1JDw/KdDjUPZ93opUUtuV03
+	 7wVm5TWLz8rIjCTuuEzLIuRA9cxZu35vY6yHl5MzD4gUzQpTvPnWqmtDmsiVJPeVnzw08
+	 rEuz1+VeqMRTe0Vj8tn7h/1a54BJDfQ8UAjk8PoiOEdYFbzfrHARlsAKsUddsX9vB1pZ4
+	 gNjMczkUD3ypc6mbrNzBTUF2X6DhyrbyT98LDJ1ivfGl6nrQ/qq7FAWqgktJiyYdkgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=trailofbits.com;
 	spf=pass smtp.mailfrom=trailofbits.com;
-	dkim=pass header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=f5amWmm1;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	dkim=pass header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=Jz5VKkJ5;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B829606A31F
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 17:16:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B829606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 213B6606A332
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 17:17:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 213B6606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=f5amWmm1
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-170135e43c7so903436c88.0
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 10:16:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=Jz5VKkJ5
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso1847363eec.1
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 10:17:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1792602989; x=1793207789; darn=vger.kernel.org;
+        d=trailofbits.com; s=google; t=1792603066; x=1793207866; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B9xTWWD9mfzJtMcAru9lP6tSUbC9S1bscJnItCWs39w=;
-        b=f5amWmm1rM7SwpLLXKz2K+o6DHbLZHwpLVXk6EryPZsEbT8GBgDBGLsGk5nqeXShGB
-         h7dSo9hGdeZuxhJ+5uTl7kUcYMYrnCCUhv6w7LandIJoFUnSHGeuMk+q/bLvv5BEW2Z2
-         o//QDUb7cXaEXBIg4js5X9+vEFJpS3sThCQHAmy8eePIzGzIK6vAY2iVp8DBIiRvS0h2
-         NST6tbFgsTm7F30uH/0ZSa7JuAMZA4pkpXBG4TfVmbqqcFxbViwBJaCozcdxNFGErRdZ
-         GyyJNi+3oCazMrFJJbNYJOVYQqywnL51/mt22X+A4Z6vwRH/nxZqUabVBKrAh8eYYhEQ
-         i+TQ==
+        bh=s18p6ABSRGJ/UxVSqWCBTz6bx2WQqcF10z8V9BS39Q8=;
+        b=Jz5VKkJ5ki1POVc0ACWEJ+WCtbCo14qie6gLDrZc2KlkQLBROIfXQ8NuX66MUvAIlI
+         hq6wIPUQcbcO6fJy3Ob0V0Pa9PpzPmSkBKu1kP1y5NvredHIYviXEQqulk3f9TVbyBEC
+         m2W01IFBGi18VKS1/c0by3+YIjfTag07ELRegp9PeqQoQv/W1F9pHZ/BWn6FjTwWCrX+
+         6HFgJeL+6xhkHNYqhn3EGL7eMm0TSLBR4OPVFm73RQifYPTpdzhJp+0LyUJYxh+J+Rif
+         epCI1INPp9a3i+fgbkYpZYB0M64+dmY7wu411aRwVReuxRAEJ6WJCLDpAba3V3kot9EL
+         wxxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792602989; x=1793207789;
+        d=1e100.net; s=20260707; t=1792603066; x=1793207866;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=B9xTWWD9mfzJtMcAru9lP6tSUbC9S1bscJnItCWs39w=;
-        b=qjisTAT0w45CLTk6MNOXPjxJ3t52XvFAH5Rg+qNpswkcLZ+w3mhUMUYaPN1jIUQkNL
-         P4dxrEevmgXKeidn86b4MGE1OxO61DanauOu8Iu2AOKVyiBviNBa6m8w5U6Q2y9Fkhlq
-         OgOjrhXxF2+LXyy2GyGvV/zSsGfySllFyMyh0kIEX3FIB4fWfT3xeefkqR+sF3pSadje
-         o8XYwP3DSlcCu60gGBR5X/U7TqmL4JsIMt0NsGw+HkZmkmqPODgoBiYNtSvkGP9yCFdz
-         iNxyG9LYK7mmt7uQXzc6axbVTlMYJDJ6rWe94Sz9f3bic6XwB8Bg+wMzN6tBzLYFCHwe
-         oldA==
-X-Gm-Message-State: AFq9FYKXB5vUn6BiM+zB8ktgwELdmuOIWfFkcFWw5p6FFZSM/HAvcP+g
-	mhepN3i5nrounUKGwDGl3T6m+n05DEuxwL+I97HYUjVt0SXxmZfWJe16AJnmMc1TcZ2BHShiUAP
-	6T24SbOPXIw==
-X-Gm-Gg: AYBFou1fP/vHzJd+M+RoQTSm1x5wXpaqoEA1jsIANj5xez8XYjeVeO09p9+/u1PSjsK
-	8hcjWu0zoq8HmOC7TUK7JE2RZRlsNda8AAnLYUq1t85956noYGrkIQioPfZRdZuz5e+GZzFUYyV
-	45TmkUu5bqOQG6xcGXlN9Qhxc8O+M8GwMVuAjmiHmjYhAhYTgHw0xzeVoR94JiNRWAk1WTeR3Ys
-	UrD6wFxB1tbjNtj/b9aJ9DLZQIcNV/mOgraLnPYyYZVJg7e740zv99ImFxEUTQ1PfIX0vYjiF0K
-	n7M5/9Qu4Xsnp+CXA+gfodz2Pe3Uz31CvlICjsrlbS5jCQcrFHwDYIuQ7IcoVr+TToJnlFClOQL
-	I7TBEEU0jbUTz7MzF07kWFcrVJ2wMe2FnzE4XWzilWufC8rw9+ZaQETKo0q5J2O4tECz37s9wpU
-	Orj8Mf7iR96iu83G+fcGS02w/Syu02ilHht5qvYB2ULhcmKz4ZmeBkfrC74eG5M/81chWLHoRIF
-	7XZ2wM7+ox07QNUQFE4zRMYMW7EtQiiJkG3MQm2gorYlEcThMG24F2v26ljs/IwGAvbRZDxoFgG
-	lgW8QfICPi+AY74Uoys+CyyP7TUXzmxSbB7jHp4xb023fiwQJac2
-X-Received: by 2002:a05:7022:3f09:b0:18b:bce0:a227 with SMTP id a92af1059eb24-190a6adcd36mr3737924c88.15.1792602988593;
-        Wed, 21 Oct 2026 10:16:28 -0700 (PDT)
+        bh=s18p6ABSRGJ/UxVSqWCBTz6bx2WQqcF10z8V9BS39Q8=;
+        b=mLK7KodaEtU3gZrgyT43tes4z7Bn0Pue2fI4B0DV689WKvVAHB+ORQek7SkLdss0ay
+         CMQdbdOQ2fa3RB6MmNvyvxQemi7SmOQGqyz8rdTCgomRYj1p5diw3diJholPvfG2ZEOT
+         GarvV8NfFaK5pJbIwpluwbcd5BHP7QkNNbDTyNueH+Oq4vD+puz0hFNQhFbeY0mEZmW2
+         i4F0FxprjR8dC6Kxjn6ZDAATx3tWuN2a6vSmhkl/Km/kduGpp+9efp+uDEQAyRkNI1Q4
+         GltyyyAdl9p52UvTcfRbICqP5aR2tm6fy+YaCtesQ9TuXdB1MH1fUH7y79NCtklecAUz
+         O+5A==
+X-Gm-Message-State: AFq9FYLg9o4j9R3BjecXqKG7ghFdF9Co1FSQnWG32TrJ++bSkSAUGnea
+	xS4qsCzEzc16UkqQB33M3YQPk6dPZ2isA2hBkDx1sZ2z0H02Cg7ZoQAjmYhQzda40Vwizox08um
+	uN/hCy1pKXQ==
+X-Gm-Gg: AYBFou3Y2imWkY+uqvFk4PJ0p4701rdNeoB9QRXwHj2DfneMwRg7k5NIK2ZvOAsg872
+	b4oXnADIrYhGOCZNU092eUjxBF3GfgIo8Focq7XpAJvtGCNrtjWj1sg9eKmkgo/+obVVm1P6vta
+	06BGk5pWmYHF7KN57+wzi/tI3lYM4clAVar6dmNSzvcINt6gN5ugL1cOZXHZxUOaHfR6AS5ovl9
+	3KVG8kt1bBRuKOYYywCOtMFt7m6LBs38moFs3yxWJcZs7dtjqL0IIA1DeSZy4HXUtATurDAVXZ3
+	oSXJzzJ9UHym0f7cII4GdjLVy2KSeGJccSVgLeLSrwe14feTw/boVuOf2s6jdaAlSJ6ZtcoAxIK
+	lJ3TDYVixqBzUYqcaKzoRMA8ntSP5rbklR0oNg40eHJLZ4xJUFa9wFaxv6nDtklFyHugM8HCv1J
+	0UrB6wZ7MjcpgHL3PR0bCe7WK5fiRAfoiSh2U8+1U2HCgbpOKIlox+L/InD9V9QOpYmnRGAWKV9
+	mgmnuYuHpJcm0dhAt+9Mxw3j4OAAs7RhwUHCY04YaJ6Vek6+xTFZxmvmJBNB3T8KiVEEff1ykry
+	M4Z0DzY/L4RqFhDHlBCU95ngaTyssog/k0rnhmKRnzQl6sGr/a18c6KgFQljGip5GXCB7KaeNA=
+	=
+X-Received: by 2002:a05:7300:a206:b0:35d:8c39:b314 with SMTP id 5a478bee46e88-3674f22497bmr3602008eec.37.1792603066175;
+        Wed, 21 Oct 2026 10:17:46 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:d059:e601:becb:a5ad])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903aefe90asm7392775c88.9.2026.10.21.10.16.27
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367412b24e3sm7811387eec.19.2026.10.21.10.17.44
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 21 Oct 2026 10:16:28 -0700 (PDT)
+        Wed, 21 Oct 2026 10:17:45 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
 Cc: andrii@kernel.org,
 	ast@kernel.org,
 	bpf@vger.kernel.org,
-	contact@arnaud-lcm.com,
+	catalin.marinas@arm.com,
 	daniel@iogearbox.net,
 	eddyz87@gmail.com,
 	emil@etsalapatis.com,
+	fuad.tabba@linux.dev,
 	ihor.solodrai@linux.dev,
 	jolsa@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
+	mark.rutland@arm.com,
 	martin.lau@linux.dev,
 	memxor@gmail.com,
+	puranjay@kernel.org,
 	song@kernel.org,
+	will@kernel.org,
+	xukuohai@huaweicloud.com,
 	yonghong.song@linux.dev
-Subject: [PATCH 6.6.y] bpf: Fix stackmap overflow check in __bpf_get_stackid()
-Date: Wed, 21 Oct 2026 13:16:25 -0400
-Message-ID: <20261021171625.206-1-artem@trailofbits.com>
+Subject: [PATCH 6.6.y] bpf, arm64: Force 8-byte alignment for JIT buffer to prevent atomic tearing
+Date: Wed, 21 Oct 2026 13:17:42 -0400
+Message-ID: <20261021171742.310-1-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -107,102 +114,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Arnaud Lecomte <contact@arnaud-lcm.com>
+From: Fuad Tabba <tabba@google.com>
 
-[ Upstream commit 23f852daa4bab4d579110e034e4d513f7d490846 ]
+[ Upstream commit ef06fd16d48704eac868441d98d4ef083d8f3d07 ]
 
-Syzkaller reported a KASAN slab-out-of-bounds write in __bpf_get_stackid()
-when copying stack trace data. The issue occurs when the perf trace
- contains more stack entries than the stack map bucket can hold,
- leading to an out-of-bounds write in the bucket's data array.
+struct bpf_plt contains a u64 target field. Currently, the BPF JIT
+allocator requests an alignment of 4 bytes (sizeof(u32)) for the JIT
+buffer.
 
-Fixes: ee2a098851bf ("bpf: Adjust BPF stack helper functions to accommodate skip > 0")
-Reported-by: syzbot+c9b724fbb41cf2538b7b@syzkaller.appspotmail.com
-Signed-off-by: Arnaud Lecomte <contact@arnaud-lcm.com>
-Signed-off-by: Andrii Nakryiko <andrii@kernel.org>
-Acked-by: Yonghong Song <yonghong.song@linux.dev>
-Acked-by: Song Liu <song@kernel.org>
-Link: https://lore.kernel.org/bpf/20251025192941.1500-1-contact@arnaud-lcm.com
+Because the base address of the JIT buffer can be 4-byte aligned (e.g.,
+ending in 0x4 or 0xc), the relative padding logic in build_plt() fails
+to ensure that target lands on an 8-byte boundary.
 
-Closes: https://syzkaller.appspot.com/bug?extid=c9b724fbb41cf2538b7b
+This leads to two issues:
+1. UBSAN reports misaligned-access warnings when dereferencing the
+   structure.
+2. More critically, target is updated concurrently via WRITE_ONCE() in
+   bpf_arch_text_poke() while the JIT'd code executes ldr. On arm64,
+   64-bit loads/stores are only guaranteed to be single-copy atomic if
+   they are 64-bit aligned. A misaligned target risks a torn read,
+   causing the JIT to jump to a corrupted address.
+
+Fix this by increasing the allocation alignment requirement to 8 bytes
+(sizeof(u64)) in bpf_jit_binary_pack_alloc(). This anchors the base of
+the JIT buffer to an 8-byte boundary, allowing the relative padding math
+in build_plt() to correctly align the target field.
+
+Fixes: b2ad54e1533e ("bpf, arm64: Implement bpf_arch_text_poke() for arm64")
+Signed-off-by: Fuad Tabba <tabba@google.com>
+Acked-by: Will Deacon <will@kernel.org>
+Link: https://lore.kernel.org/r/20260226075525.233321-1-tabba@google.com
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
 Assisted-by: LLM
-[ Backport to 6.6.y: stack_map_calculate_max_depth() was introduced by
-  e17d62fedd10 ("bpf: Refactor stack map trace depth calculation into
-  helper function"), which is not in 6.6.y; open-code the same
-  computation in __bpf_get_stackid(). ]
+[ Backport to 6.6.y: Request eight-byte image alignment from
+  bpf_jit_binary_alloc(); this target does not use the upstream pack
+  allocator. ]
 Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
 Hi,
 
-Please consider this backport of the fix for CVE-2025-68378 to 6.6.y.
+Please consider this backport of the fix for CVE-2026-23383 to 6.6.y.
 
-The only difference from upstream is that the
-stack_map_calculate_max_depth() helper, which 6.6.y lacks, is
-open-coded in __bpf_get_stackid().
+The backport requests the same eight-byte JIT image alignment from the
+older allocator. See the bracketed backport note above.
 
 The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
 
-Build-tested only as part of a cumulative 6.6.y series on x86_64
-(allmodconfig, CONFIG_WERROR=y); no runtime testing.
+Build-tested only as part of a cumulative 6.6.y series: the ARM64 JIT
+object with BPF_SYSCALL=y, BPF_JIT=y and WERROR=y; no runtime testing.
 
 Thanks,
 Artem Dinaburg
 
- kernel/bpf/stackmap.c |   20 +++++++++++++-------
- 1 file changed, 13 insertions(+), 7 deletions(-)
+ arch/arm64/net/bpf_jit_comp.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/bpf/stackmap.c b/kernel/bpf/stackmap.c
---- a/kernel/bpf/stackmap.c
-+++ b/kernel/bpf/stackmap.c
-@@ -216,7 +216,8 @@
- 	struct bpf_stack_map *smap = container_of(map, struct bpf_stack_map, map);
- 	struct stack_map_bucket *bucket, *new_bucket, *old_bucket;
- 	u32 skip = flags & BPF_F_SKIP_FIELD_MASK;
--	u32 hash, id, trace_nr, trace_len;
-+	u32 hash, id, trace_nr, trace_len, max_depth;
-+	u32 curr_sysctl_max_stack;
- 	bool user = flags & BPF_F_USER_STACK;
- 	u64 *ips;
- 	bool hash_matches;
-@@ -225,7 +226,12 @@
- 		/* skipping more than usable stack trace */
- 		return -EFAULT;
- 
--	trace_nr = trace->nr - skip;
-+	curr_sysctl_max_stack = READ_ONCE(sysctl_perf_event_max_stack);
-+	max_depth = map->value_size / stack_map_data_size(map);
-+	max_depth += skip;
-+	if (max_depth > curr_sysctl_max_stack)
-+		max_depth = curr_sysctl_max_stack;
-+	trace_nr = min_t(u32, trace->nr - skip, max_depth - skip);
- 	trace_len = trace_nr * sizeof(u64);
- 	ips = trace->ip + skip;
- 	hash = jhash2((u32 *)ips, trace_len / sizeof(u32), 0);
-@@ -354,15 +360,11 @@
- 		return -EFAULT;
- 
- 	nr_kernel = count_kernel_ip(trace);
-+	__u64 nr = trace->nr; /* save original */
- 
- 	if (kernel) {
--		__u64 nr = trace->nr;
--
- 		trace->nr = nr_kernel;
- 		ret = __bpf_get_stackid(map, trace, flags);
--
--		/* restore nr */
--		trace->nr = nr;
- 	} else { /* user */
- 		u64 skip = flags & BPF_F_SKIP_FIELD_MASK;
- 
-@@ -373,6 +375,10 @@
- 		flags = (flags & ~BPF_F_SKIP_FIELD_MASK) | skip;
- 		ret = __bpf_get_stackid(map, trace, flags);
- 	}
-+
-+	/* restore nr */
-+	trace->nr = nr;
-+
- 	return ret;
- }
- 
+diff --git a/arch/arm64/net/bpf_jit_comp.c b/arch/arm64/net/bpf_jit_comp.c
+index 9fd0b658e4602bec2be466665d880a355e5bac1a..c5f7276ad1af7e32b69eb9bb5c0f14c3feaa74e8 100644
+--- a/arch/arm64/net/bpf_jit_comp.c
++++ b/arch/arm64/net/bpf_jit_comp.c
+@@ -1648,7 +1648,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_prog *prog)
+ 	extable_offset = round_up(prog_size + PLT_TARGET_SIZE, extable_align);
+ 	image_size = extable_offset + extable_size;
+ 	header = bpf_jit_binary_alloc(image_size, &image_ptr,
+-				      sizeof(u32), jit_fill_hole);
++				      sizeof(u64), jit_fill_hole);
+ 	if (header == NULL) {
+ 		prog = orig_prog;
+ 		goto out_off;
