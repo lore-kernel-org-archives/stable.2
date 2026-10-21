@@ -1,97 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792573007;
-	b=bsDJs+hgFrDzn4dnAJs4ADsl1CivEhbb19eiCRazQhYliGldDenADvvTSBUUAs4qJ/VO
-	 GO5Q+7bU/tbxO4ghJ3g2wXMyW9RFudrJ/kziEjHNqgVCr/zdUW+0xQ0mcVhjF0Fm+kGEX
-	 txqAaKgquXCQE9qUX8JInVXoaQqEQ7PtW4j4ew3VBN9n7wz6YsZXpV0MaepA7JzBiIlEl
-	 s0tW2y5rFOXfGAgApz6O03SxTQHYLox1mtkInTBex10CILOierkFvy4SZsBlGc+Yg5e9o
-	 NVfDEz/m34S4wPDlkcSSwO98hlpzfQuvy6gRyw1SD0dttu4JEPZhvWQhsrdhi+F3TPQ==
+	t=1792573183;
+	b=TyHFWaTMWTy0CmTXBIkpUHsmI1/e8NBUpYyEAu/sjXDT5TL2JbmowMJqxVkW49LD3vJg
+	 bfXyHyVpqiwu98P6Jv7cVAARhj8yaCKbUCa3DL+ya4eNs5x0aFMrzUI+OmjzKNu/h/D+c
+	 DWsepZ7JHGQFdWRflw0GUEqJyr/RyaqRgp5EMOstl4zz+nsoRKR/oKdVXOx0FKpxyN+HC
+	 0lqoam/bNUO4aPL1I0YfbbKNc4ypzvRtz2A1MkWEqS+zHQMy0ZsETxaQFz6Vv6pMp6a2p
+	 OSt3JYqJ7AjsI/PSMkhzT45/l2jMbPepiWgTj9XJ4uCnFXC7SA9eTIk/5mBi74Bta+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792573007;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=EbKXyleNFY9/8wO9jUa8etPnmUJItO82wpWtCoS+TCw=;
-	b=WHY3babKRCWcKhCwnM/0mbyBVZlbBKkDM/LdTym63JYFzK0d/DsE1RWiqVlF0Ih2qLnB
-	 q4J+FrGUP5pOj7U6Plvaq7dfkq4YPEmZDIzkgXLwofpYdykM3qhEIsTRAzRGijyPrOPwH
-	 WJ5nbJGw7QysJ4sQg/BqPEa/Fv+rTPCXarC1NmldJgkCNI6/28CL1Nvt3L2m+8Ggzi2vF
-	 4cTVVukT9UDC3S8PBWPoEYKlBWhjUx1AFkO9LHcart8Pz4rwgQmnyGd4tXHw+XwJ106EN
-	 GW8gq1zTEdUNmVN7b6eihgriiWyKWAyqywCqLHrgnZfNeeQk3riaeKOY2FV9QgNfPxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792573183;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Rspamd-Action:X-Spam-Score:X-Spam-Flag:X-Spamd-Result:X-Spam-Level:
+	 X-Rspamd-Queue-Id:X-Rspamd-Server;
+	bh=cyNTbNEiAoIwsJLTz99M7oLLSoGo+m07kKcOdYkr6Ls=;
+	b=xcWqWh4tlKybSt2It1VndsN6NO/CJ/piKvu5fvrg30x5gYJ2CQbNMYnYprqWl2PUY/lh
+	 pc2hIEhvHMnkOZ0QUPzEi/nr0T5J2w2pyxY/qpxVjS3rZWLuOQQmBpsqw4qNG0zRsh1M0
+	 pWOGHuHGCsIgIdBdeYib6xmuDaKOHZ1PNwXF8wnKaa+NwbZSGcV91PpHYD+WMgs73shk3
+	 sUWkn9Elsv1rQ6vl2HIPaj5JLvFBp83gabs3ufRxppiAAaHGLqV2SuObulZDXzZeJHtfE
+	 qJ/GS9CEquBy/wGevuCjda3YaYz4YOYEFdVJN4it7vmeTkBiHrlKvqmR5Qst4WAQkKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fvWzPODK;
-	arc=none smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=pnavB1YQ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FvXr7lmg;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=UoEaZvBI;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=727llxKI;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A81B0606A31A
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 08:56:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A81B0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC760606A31B;
+	Wed, 21 Oct 2026 08:59:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC760606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fvWzPODK
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e98798cbddso2327625ad.0
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 01:56:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792573006; x=1793177806; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EbKXyleNFY9/8wO9jUa8etPnmUJItO82wpWtCoS+TCw=;
-        b=fvWzPODKAaR1ZepcYCr4Kqnj8cfIodJG78eH5l7FhHOvNA79KP9MkM8zHh09kywfF1
-         iP+u0Bdv4FkQGSHItaZieRNGU0q3Y1ZhcuBLmD6bCWYr4YWkzK0eBEZ1C1y8XVWUjO+P
-         fz+oQDwmE9NVKZQoz0R0/nZ3yNf2Jmd2b/MzPO29SpseRLye1/a1ooORC7eKuZJgzJtX
-         zvBeAhNlngPrLndmGii9iNklOd167rGKjHSdjFob0H5VxpdZJtsx4K0941wZnXWBnBSL
-         CXcfopI7YRtqE23T+wETOfXxU3FLGgt2sqinvPb5CXJ8fZhFWcIhSS1humAN9+Dpd/VP
-         qMGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792573006; x=1793177806;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EbKXyleNFY9/8wO9jUa8etPnmUJItO82wpWtCoS+TCw=;
-        b=VKvulwjMtWFetjxrhivY2CInBBxYlVPKfZfKHvUjLqJD5S4KL+RK12AwqenvNTl1tc
-         Ng1/kRjtl9ll2A8YUayXP0Moc0mDVIMcS/bLfjLVSok9tSRm3Egcg263uXq45fKMY1rk
-         ePDsinVmaZ0wTsvwL6lo1UUWSlZxCANDDavP6vEkHMAA2kjz/qFHjMUiXzP04izmqSfF
-         IaJIr9BEYnjpRTTg6FaVYBfM76bT9Fa1teVAf72xy9OA5/pA4IGR/Uppqf9viU/2fmz9
-         NxPZulGSHMSvT/Drskj0XwhoCMWzdNwJ9TMjzxyOrFkHhjVZxZVQoVJXTVxroDqybvKy
-         OsVQ==
-X-Forwarded-Encrypted: i=1; AKwUvByl9XHHepRdq2fsZNbFQV3yIHWPViodsvInmmFG3rnRwmwZmuoFmbjrfJZm9PAugEZ5Z2HZyBc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIuCo5R7fT81vMmEx4EyjrdtwgGqMIOMYaMBv5y1mF05JV1vZc5
-	9XICTjLZHixk3+06js3eKosftP2DUmkW8dt1cro/WBm1vyXiRVZ5MiZd
-X-Gm-Gg: AYBFou28KrhJ8yT2gch0sSl7iZsZ22WxyrWvogRCeIMrvSPvn7ekeg2RZK9Dxz4lg84
-	TFWh2vWooKD3TmADp6BTqUTO0ILMKv9Hbc+lzUYBJz1iHXAC3GPjaHv0Psd/bn20RsWWlTPQTY6
-	6KNT3HVKvrQr7Rq5yBKHmCFl0u6XmrUo9QsbU8BYcX12PhLJR71O+h8wRD+vYOIZa/Sh+Lglgid
-	sJWqWPoM1X/OZFX+DdcNC5yfkB30I9lwM02o6Spqr2D/pfRU/ZW+kl7fEUrPFXYpamaBHmDLzAp
-	o5fa341m21vLerp1RGDwV5HiH3RzEj7uUmuCf3+Y+KD+BvsX6Z2jEx81GyUn+Viyzxshq7Pdi4S
-	oFsPQDs2oQwISQGDxjvdq8d8ugkDiDUujG9AMo9EhMv8zJFhjMp/QcBod1ycXW6PZtPp2oWweau
-	b0Z45Vtn2bQDGXKLljJFbe7/g241xsztAs9/+l/um7a5HH7K9AjNQBOjBDV0OuulLeg4oIuXQ2k
-	BVidcqs4Sap4P6UlSnG247HO9Mh4IsYw+Zxi7XwzAjbdkZ1ZZiP0QQNJdi2dLSQmpk=
-X-Received: by 2002:a17:902:ce01:b0:2e6:1a6c:abcd with SMTP id d9443c01a7336-2ea4391f99dmr10699345ad.3.1792573005536;
-        Wed, 21 Oct 2026 01:56:45 -0700 (PDT)
-Received: from ustb520lab-MS-7E07.. ([115.25.44.221])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea3b411067sm8420785ad.23.2026.10.21.01.56.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 01:56:44 -0700 (PDT)
-From: Jiaming Zhang <r772577952@gmail.com>
-To: jack@suse.cz,
-	linux-ext4@vger.kernel.org,
-	tytso@mit.edu,
-	adilger.kernel@dilger.ca
-Cc: libaokun@linux.alibaba.com,
-	linux-kernel@vger.kernel.org,
-	ojaswin@linux.ibm.com,
-	r772577952@gmail.com,
-	ritesh.list@gmail.com,
-	stable@vger.kernel.org,
-	yi.zhang@huawei.com
-Subject: [PATCH v2] ext4: clear in-inode xattr space before adding the first xattr
-Date: Wed, 21 Oct 2026 16:56:35 +0800
-Message-ID: <20261021085635.3633692-1-r772577952@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=pnavB1YQ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FvXr7lmg;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=UoEaZvBI;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=727llxKI
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id C1FC51F7C4;
+	Wed, 21 Oct 2026 08:59:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792573181; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cyNTbNEiAoIwsJLTz99M7oLLSoGo+m07kKcOdYkr6Ls=;
+	b=pnavB1YQO92YCXlsmfLgPQlFLOchvVuqwTo2ajJLqepdfRUOBFx5ITgy9XePlpZzpJde5x
+	fVBWqLzNiiY3q5gLrkzDwoMHlXZ/vzvqU06/hGlf0jIeX9vy2Z+KOe7lOiG91DXcqOnRG2
+	UGt17PnI5H0NliV7W5mrIazW8CsU0Kc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792573181;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cyNTbNEiAoIwsJLTz99M7oLLSoGo+m07kKcOdYkr6Ls=;
+	b=FvXr7lmgduEM4f1zUlczE8sZehIlX7cFxP9SH6s6t/M9J/jAU2y9ZFoArxQ4niIJZdmaUk
+	g4Kfe2q0lh7qGgCg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=UoEaZvBI;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=727llxKI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792573180; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cyNTbNEiAoIwsJLTz99M7oLLSoGo+m07kKcOdYkr6Ls=;
+	b=UoEaZvBIYvNjeyOVnoDwBMxQOPbsHfhnGvhB00+vUP8fKbq3HAsu0hAelcUrCH8SmuXUXm
+	1LPS+5Q95gPwvLqZXm0bWGfjKJbMoFGAy4uw/Ih94bydbmBPMtc7QOF1r1kSeQ6CTn7X3v
+	ufhEyuYqHIs27JM4g+IUSjHYc2m59v8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792573180;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cyNTbNEiAoIwsJLTz99M7oLLSoGo+m07kKcOdYkr6Ls=;
+	b=727llxKInczBYWntWyAIXyZoudCLsm0TQzPi38ueWwpbBENZvC51lILZrrqXE3cv6Or2Cl
+	CfxIgoVnxNjHlgCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 87022134A5;
+	Wed, 21 Oct 2026 08:59:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id U8xSGPx+2GoXdAAAD6G6ig
+	(envelope-from <dwagner@suse.de>); Wed, 21 Oct 2026 08:59:40 +0000
+Date: Wed, 21 Oct 2026 10:59:39 +0200
+From: Daniel Wagner <dwagner@suse.de>
+To: Aaron Tomlin <atomlin@atomlin.com>
+Cc: axboe@kernel.dk, tom.leiming@gmail.com, hare@suse.de, 
+	frederic@kernel.org, tj@kernel.org, sean@ashe.io, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3] blk-mq: dispatch kworker to housekeeping CPU when
+ hctx cpumask is empty
+Message-ID: <63c7810b-b893-43be-b108-4fcc05773492@flourine.local>
+References: <20261016052203.489760-1-atomlin@atomlin.com>
+ <a6b3d7c6-64fd-4b92-8428-964a863ea9e8@flourine.local>
+ <zpheefzacmmkz362qm342gfxhluovh4d35numrweqn2ajnxhog@ucus4k2prn6o>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,82 +113,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <zpheefzacmmkz362qm342gfxhluovh4d35numrweqn2ajnxhog@ucus4k2prn6o>
+X-Rspamd-Action: no action
+X-Spam-Score: -3.01
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[kernel.dk,gmail.com,suse.de,kernel.org,ashe.io,vger.kernel.org];
+	DKIM_TRACE(0.00)[suse.de:+];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	TAGGED_RCPT(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: C1FC51F7C4
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-An inode can hold extended attributes in the space that follows its extra
-fields, whose size is given by i_extra_isize.  When ext4 loads an inode,
-ext4_iget_extra_inode() validates that space only if it starts with the
-xattr magic, and only then sets EXT4_STATE_XATTR.  Without the magic, the
-space is treated as empty and is not checked.
+> While your nvme/070 test targets NVMe fabrics connect and passthrough
+> request allocation, this fix is in core blk-mq (blk_mq_hctx_next_cpu) and
+> affects deferred workqueue execution across all block devices. Using a new
+> test based on null_blk would allow us to:
+> 
+>     1.  Target infrastructure for generic blk-mq workqueue placement testing
+> 
+>     2.  Easily configure a shallow queue depth or inject tag
+>         exhaustion/busy conditions to reliably trigger asynchronous queue
+>         dispatch (&hctx->run_work)
+> 
+>     3.  Trace workqueue:workqueue_execute_start to assert that no kblockd
+>         worker executes on the isolated core
+> 
+> I'll put together a test case for tests/block/.
 
-ext4_xattr_ibody_set() passes the space to ext4_xattr_set_entry() whether
-or not EXT4_STATE_XATTR is set.  ext4_xattr_set_entry() walks the entries
-there to find min_offs, the lowest value offset.  That offset decides
-whether the new value fits and where the value is copied:
-
-	free = min_offs - ((void *)last - s->base) - sizeof(__u32);
-	...
-	void *val = s->base + min_offs - new_size;
-
-A crafted image can leave non-zero bytes in that space without the magic
-where ext4 looks for it, for example by shrinking i_extra_isize.  Those
-bytes are parsed as entries, and an entry that claims an in-inode value at
-offset 0 sets min_offs to 0.  Because free is a size_t, the subtraction
-then wraps around to a huge value, and the free space check passes although
-the value does not fit.  The value is copied new_size bytes before the
-start of the space, over the inode's own fields and, for a large value, the
-memory in front of the inode.
-
-On a kernel without KASAN, the copy corrupts memory: it overwrites the
-inode's own fields and, for a large value, also the memory in front of the
-inode.  The bytes and their length are decided by the setxattr() caller.
-Nothing is freed and reused here, so the use-after-free in the report only
-reflects where the write happened to land.
-
-Triggering this issue requires mounting a crafted image, which needs
-CAP_SYS_ADMIN or automounting of removable media; after that, any
-setxattr() on the file reaches this path.  The issue was found by fuzzing
-and has not been seen in production; a reproducer is available in the
-linked report.
-
-When EXT4_STATE_XATTR is not set, zero the first 32 bits of the space in
-ext4_xattr_ibody_set() before calling ext4_xattr_set_entry().  These are
-the bits IS_LAST_ENTRY() reads, so the space is treated as empty and the
-walk stops before reading any stale entry.
-
-Fixes: ac27a0ec112a ("[PATCH] ext4: initial copy of files from ext3")
-Closes: https://lore.kernel.org/lkml/CANypQFZzxTAH=4QRRDoqH6VAw1daAq88NDWiQKoM7QTOnP40sg@mail.gmail.com/
-Cc: stable@vger.kernel.org
-Assisted-by: Claude Code:claude-opus-5-5
-Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
----
-Changes in v2:
-- Zero only the first 32 bits space instead of the whole space.
-- Add a comment above the check.
-- v1: https://lore.kernel.org/lkml/20260916084723.877552-1-r772577952@gmail.com/
-
- fs/ext4/xattr.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/fs/ext4/xattr.c b/fs/ext4/xattr.c
-index 5c310747b965..8e1fd26329d3 100644
---- a/fs/ext4/xattr.c
-+++ b/fs/ext4/xattr.c
-@@ -2274,6 +2274,14 @@ int ext4_xattr_ibody_set(handle_t *handle, struct inode *inode,
- 		if (IS_ERR(ea_inode))
- 			return PTR_ERR(ea_inode);
- 	}
-+
-+	/*
-+	 * Make sure xattr space is properly initialized so that
-+	 * IS_LAST_ENTRY() returns true for its first entry
-+	 */
-+	if (!ext4_test_inode_state(inode, EXT4_STATE_XATTR))
-+		*(__u32 *)s->first = 0;
-+
- 	error = ext4_xattr_set_entry(i, s, handle, inode, ea_inode,
- 				     false /* is_block */);
- 	if (error) {
--- 
-2.43.0
-
+Sounds good to me! Thanks.
