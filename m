@@ -1,100 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792549349;
-	b=Vc6mONtonBCYzlOoaFuINoByIQVi3gKCBQQvL5rQ4zUWCEUOOneANkwd55CHje6FYe81
-	 71l38ZDJyFfvmWaiG/ZxbIZXATL25OtQbbZmvtJjntSFq+E/2ANFm31KQ2BYFI7n1k4oQ
-	 RGSxIOt/Uv2zlRfwAFlKMwfov+/sxkpWaFfcoASGDfzPjgNQbAcXESlGmn/+FmJJAiStq
-	 FDTIQ0rRCY9iAggkk7A3+q7ckf7qHls0JwLUssH/aCCAQHLNeV5U9nKu4G2gjNaiqrjmL
-	 SEwfJBSZw9O5F0JRXK+BFIPMsmDJiTSCbFMZH5BDnKByFZn+i0eLCVHGSNHqq5r31lw==
+	t=1792550181;
+	b=zaLys2t9EeakJWWkzXuyTCdZjR95rGtp0vsOJmghb28GE0fajuzQ4ZMCrmbG8lTvWLqh
+	 EDD+LrORhTIqzEuEHirkK7h8JcM8upWNbmbVr2tcT7E8Zc3ONYmuutXFBVC86WaYRj86/
+	 mqjSC5rHEwz8/xkLivWDy51AeJnoVkN7Uvr+eG8y/1YPVQwNtmSjCBU+ja6oCAZNT+Qd7
+	 7nFR31kYC1/8HX685s8A9dmbnQ5nQ3JWjXdYYSnIWg9A5uWgobuOp+AQSF1l8oR0C65nW
+	 i+e0zNOuN7nrJxmlPMK7jk1Aup0WBAB4on3kMePHqihSKgYs7BISbz7OCYC+0bK7+Aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792549349;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=4Hvt/B3J52Gjx7+kaJxyB0SdGwJ2youU0SIAHrXEJjM=;
-	b=2+sx9Do8nmIySf8iTYB2Rf+TjO5Q+dFtNalepKfDBc0nk8p9CAyijpk0ipePdvhN0qQx
-	 +geYSy/clsjX5Ws/CTd7ZpTiseICZUb4VkKnceOoPUHU5efTJNPSHe/5Z8KpRoU/w0tTd
-	 YOBFgp8agjJAS1AFmca3/M2xWB+FjuRJEH+lnw+eAV9E9xu7dHoNuqf/vTs9RlxU92huD
-	 G7abbLt+R8mZTo+JibYsDTXnPFHjplWAX9WkjKrscC8jloPSnno7e3OHvP6mhL9XBkkO4
-	 HnSx3b+cL5NFGhSgCdvnVP0X1lyqGwRMMgkhcFL4fOZlGsd4SM1aKuRc5lDyjHHYJ4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792550181;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Date:From:To:
+	 Cc:Reply-To:Message-ID:Subject:X-Mailer:MIME-Version:
+	 x-aliyun-im-through:References:x-aliyun-mail-creator:In-Reply-To:
+	 x-aliyun-mailtrack:Content-Type:Content-Transfer-Encoding;
+	bh=qsyXpazAhUZahGiFpi6Kdein5RX8nnD9Y+xPSXfamaU=;
+	b=WfHfm/SDazAhMpTjbF6kyGPftkdWmossaOTDKrU0iSiCveoOkJ6PpYITq1XKvh2cDvBJ
+	 UnHy8lBnRS+0ae8dE/OOlj0wnL290KVjC2G0XOMs6oKmeZgo/1m0ulKgIOSJ7MDwV/q3X
+	 PzbuBg0hxMZ7WhTRt5YHteRfwmEmkjS0sAcyloKqk+hlvShrZQnMvvkN+FJoGiEQ6womv
+	 v3PkRfdeMF9XfX8QuN+fsYb9xesMkcZURSiuN8wWXN2Y1jwJbBA3ZrohsIHXYtIUTsYB/
+	 D/RVkprUMUU/JnYyE/2YGxZbvA5C6Y7Rsi9WRdsp2ZNEOJM/N9GH/pD2/Wh0Js3h4zA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=GAFUvu+x;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=yinhe.ht;
+	spf=pass smtp.mailfrom=yinhe.ht;
+	dkim=pass header.d=yinhe.ht header.i=@yinhe.ht header.a=rsa-sha256 header.s=default header.b=RhpaX4dv;
+	arc=none smtp.remote-ip=115.124.28.49
+Received: from out28-49.mail.aliyun.com (out28-49.mail.aliyun.com [115.124.28.49])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5561606A323
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 02:22:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5561606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13493606A319;
+	Wed, 21 Oct 2026 02:36:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13493606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yinhe.ht
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yinhe.ht
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=GAFUvu+x
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3a0aaa0fd13so162478a91.2
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 19:22:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792549347; x=1793154147; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4Hvt/B3J52Gjx7+kaJxyB0SdGwJ2youU0SIAHrXEJjM=;
-        b=GAFUvu+x6bI5xXmiBdwqYiRbtfk2X5g7QOYuJp5kVp0kJM0uvI6XWOy8jHPTxpSQGZ
-         cMj6sC/9Rr1J8RVAlq+lTSvoXYERsrwv+s9O2FGpLap/bly1iNE8Ix7UUtDmWqRK35JT
-         GGIKMWEJ3sxPNlnaVg2LOJrd2djForOBKvd2da2lVRCLPpCHj+4F+xs23aL5SlEj0zpg
-         0n3nCIUHU3UMfn+McvJL+ICwtS15Hib/1h8hsEuoGlZwiw7MmZjoSJ9vz+r4V+VzeLHd
-         aEjWh0OYk1EeOVh4tp+eVo4uQYX3DiDnqIq1EfeE7/ksdVIlLDBTKFRufr6+uLunrYZL
-         Pgsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792549347; x=1793154147;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4Hvt/B3J52Gjx7+kaJxyB0SdGwJ2youU0SIAHrXEJjM=;
-        b=WHNzw2GPASwVaa7B1rVCd3uiJnt/LsfcopsHS2ByaHeTaQNLWA18huJV+oDujkr5gl
-         MLiC53mUMQTVzEmNP0tptLwJ95k6T9A8IzI6wDnl1R7LZBPdj/vEHSd9F3q/a0U8mUzp
-         sW1LfG0VW5MKmFxpukSn5/kGnN2gxTtum17mXAuJzqhxHmtu1c0PXKJH98gz9n6GEQj4
-         Mp3xt/ZXgSMoDKIfQsz2k8s1an0dyeklfUxi+ZPdRa3M44EFFAZ3dNW1cJ36/gXHpo9L
-         V2pk8x/r2E49lo5QwYgw8cefFm1b8Ccwb0gQdNZ1YkPAX36U2/KhVcYBLU86We2gJNJo
-         ikOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwpvshO+iwI9ftQ62Je/j00h2lYqf9FOly+p5Jzc5MnCuXH0oA8HBk6vPy58MFSqBEnGoBa/I8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKy4iz2NZmmPYNCagwKRxGKyfjOZ3vM5ssVKa5RAOq/Mqxyzp19
-	l+48oGrJaPXfjncEW1MoZVL4E705IgJmWiDkBNGAgUP5N5PlirkyuVFkLrX3WBlHYcTKhAUie5Z
-	Di3Xl
-X-Gm-Gg: AYBFou0E/NHLNxyaT9Sv0iCUJwhqFPgO8JSTGjK7VUpJ3mwb12FBbV+1TPqXkZWD0w1
-	P6jZO+PjrU7/zMVJnrJYwQNZNgqRrQgzqrXdVeAzXzTzImSc7GK0LLFLwI5p+zlpdiBIkXHrDwr
-	oZ+SXDODhVroHpGk8EJ48kEdhb9upht9/4v8nKmeqhsYdlh7gAoW3n+dzZibieZ0NwpeRuZBINZ
-	ypSvhi09sOam0HaPwFIymFzvo2Z7lbkJp57JQelxDjfTMmCz73H5YufAXx9C0REmZ/xW7sBFkQI
-	OMi4s8jYNG6bsU1AYeuSb1rnIttttdAABxSJg+qo0Sh7B4ZmUggPetXp5f56FIB354oxl8WReG3
-	J5w8TY1x/I72rI52bTVIqFg1CEKoHDT5D/I06AE8Lri2Gx4XJ+FW2/u50g9FsfPF5O2R0LXhmS3
-	M6wBRS04ZcEEVaxKx5sqC32YvxlTIKd4/5kRwqrs6TfILLBEPWjYMPJghhXhj/OL+phigvzvSuE
-	D9+xyP9BXMqQCivRd2keUsQ1eMTlY+8C/ehaTUXsTNpGksWpSUd1HQyMMmElABQXC8jeinxfh+J
-	IJmceU2Im1vTFN+/QEM7s8E=
-X-Received: by 2002:a17:90a:dc83:b0:3ad:8769:8741 with SMTP id 98e67ed59e1d1-3ad87698883mr361612a91.4.1792549346782;
-        Tue, 20 Oct 2026 19:22:26 -0700 (PDT)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:e416:85ef:f22:6c5d])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad8021ac2dsm1930614a91.5.2026.10.20.19.22.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 19:22:26 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Ram Vegesna <ram.vegesna@broadcom.com>,
-	Daniel Wagner <dwagner@suse.de>,
-	"Martin K . Petersen" <mkp@kernel.org>
-Cc: James Smart <jsmart2021@gmail.com>,
-	Hannes Reinecke <hare@suse.de>,
-	Mike Christie <michael.christie@oracle.com>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH] scsi: elx: efct: hold a node reference across asynchronous session setup
-Date: Wed, 21 Oct 2026 11:22:09 +0900
-Message-ID: <20261021022209.2580332-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=yinhe.ht header.i=@yinhe.ht header.a=rsa-sha256 header.s=default header.b=RhpaX4dv
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=yinhe.ht; s=default;
+	t=1792550172; h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type;
+	bh=qsyXpazAhUZahGiFpi6Kdein5RX8nnD9Y+xPSXfamaU=;
+	b=RhpaX4dvHbil6vsch3SGXYrIaC0u+Rgz7QNJScYebvvlqc8AuJ1t4+HsIyLWwPG7+8XAqCyfrAmWeOSCmgQE50aVK8Bi1+taHKWa8hq3KiPIXJ7HgIee3VIGRC2JE+vKkJ8ax/lWv+KbDtrRy/y/+3pt45T1REpPxXOQD39gJ6ly2NbGgo4OmiKes1Bq1WHvCBHZrnRDMqYsoUZXEBZJvBkm8R5PT13utR/Z4DLGu3aAMnczGwfOv/L6cZUUhi1TRwyhPGcqi+Fy/injSJhpnCeDGxC/aRe24laQq7uJqNYvSNMmE12TW7IpyIa5ant9P1hqG6Fm2j8R1M6iBJvCeQ==
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1351674|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_social|0.124289-0.00160616-0.874105;FP=16487930044646701978|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam011083099174;MF=chunyuzhiqiang@yinhe.ht;NM=1;PH=DW;RN=10;RT=10;SR=0;TI=W4_0.2.3_21251D6C_1792550167118_o7001c1047;
+Received: from WS-web (chunyuzhiqiang@yinhe.ht[W4_0.2.3_21251D6C_1792550167118_o7001c1047] cluster:ay29) at Wed, 21 Oct 2026 10:36:07 +0800
+Date: Wed, 21 Oct 2026 10:36:07 +0800
+From: "=?UTF-8?B?5rez5LqO5pm65by6?=" <chunyuzhiqiang@yinhe.ht>
+To: "Marc Kleine-Budde" <mkl@pengutronix.de>,
+  "Vincent Mailhol" <mailhol@kernel.org>
+Cc: "netdev-bot+sinfo" <netdev-bot+sinfo@kernel.org>,
+  "netdev" <netdev@vger.kernel.org>,
+  "linux-can" <linux-can@vger.kernel.org>,
+  "kernel" <kernel@pengutronix.de>,
+  "haibo.chen" <haibo.chen@oss.nxp.com>,
+  "shawnguo" <shawnguo@kernel.org>,
+  "imx" <imx@lists.linux.dev>,
+  "stable" <stable@vger.kernel.org>
+Reply-To: "=?UTF-8?B?5rez5LqO5pm65by6?=" <chunyuzhiqiang@yinhe.ht>
+Message-ID: <04ea1d30-9b6b-4cc9-b92d-a6151084ef0e.chunyuzhiqiang@yinhe.ht>
+Subject: =?UTF-8?B?UkXvvJpbUEFUQ0ggdjVdIGNhbjogZGV2OiBjYW5fZmlsbF9pbmZvKCk6IGRvbid0IHdha2Ug?=
+  =?UTF-8?B?dXAgY29udHJvbGxlciBpZiBpbnRlcmZhY2UgaXMgZG93bg==?=
+X-Mailer: [Alimail-Mailagent revision 74][W4_0.2.3][null][Chrome]
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,271 +67,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+x-aliyun-im-through: {"version":"v1.0"}
+References: <20261018101744.93657-1-chunyuzhiqiang@yinhe.ht> <20261020075340.417899-1-chunyuzhiqiang@yinhe.ht> <CAMZ6RqKpP62XS5tPR714wUmwf6QkdY4V5fb7c4rTFSyoDc+DAA@mail.gmail.com> <20261020-precise-panther-of-symmetry-db65f4-mkl@pengutronix.de>,<20261020-nebulous-meaty-guillemot-bb7589-mkl@pengutronix.de>
+x-aliyun-mail-creator: W4_0.2.3_null_QuNTW96aWxsYS81LjAgKFdpbmRvd3MgTlQgNi4xOyBXT1c2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzEwOS4wLjU0MTQuMTIwIFNhZmFyaS81MzcuMzYgZGluZ3RhbGstd2luLzEuMC4wIG53KDAuMTQuNykgRGluZ1RhbGsoOC4xLjAtUmVsZWFzZS42MDIxMTAxKSBNb2pvLzEuMC4wIE5hdGl2ZSBBcHBUeXBlKHJlbGVhc2UpIENoYW5uZWwvMjAyMTAwIChMaW51eDYuMTIuMTAwK2RlYjEzLWFtZDY0OC4xLjAtUmVsZWFzZS42MDIxMTAxKQ==uM
+In-Reply-To: <20261020-nebulous-meaty-guillemot-bb7589-mkl@pengutronix.de>
+x-aliyun-mailtrack: {"foreign-track":"0"}
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
-efct_scsi_new_initiator() hands a bare struct efc_node pointer to lio_wq
-and returns EFC_SCSI_CALL_ASYNC, so the node state machine keeps running
-while efct_lio_setup_session() is still queued. The work item then
-dereferences that pointer on both sides of a sleeping call.
-efct_get_vport_tpg() reads node->nport before target_setup_session(),
-efct_session_cb() reads it from inside that call, and node->tgt_node is
-read after it returns.
-
-Nothing keeps the node alive across that window. efc_node_alloc() takes
-a single reference and efc_node_free() drops it as the last step of a
-node shutdown. A shutdown posted from efc_nport_shutdown(), which an FC
-link down, a domain or fabric change, a fabric that rejects FLOGI or
-FDISC, or target teardown can all reach, unwinds through
-efc_node_post_event() and returns the node to efc->node_pool while the
-work item is in flight. The pool is created with curr_nr == min_nr, so
-mempool_free() calls kfree() instead of refilling the reserve and the
-work item reads freed slab memory:
-
-  BUG: KASAN: slab-use-after-free in efct_lio_setup_session+0xad2/0xda0
-  Read of size 8 at addr ffff8880029dd060 by task kworker/u4:1/27
-
-  CPU: 0 UID: 0 PID: 27 Comm: kworker/u4:1 Tainted: G                 N  7.3.0-00342-g5b8610135c8d-dirty #2 PREEMPT(lazy)
-  Tainted: [N]=TEST
-  Workqueue: efct-kunit-wq efct_lio_setup_session
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x3f/0x50
-   print_report+0xcd/0x620
-   ? kfree+0xdd/0x300
-   ? __pfx_mempool_kfree+0x10/0x10
-   ? efct_lio_setup_session+0xad2/0xda0
-   kasan_report+0xd9/0x110
-   ? efct_lio_setup_session+0xad2/0xda0
-   efct_lio_setup_session+0xad2/0xda0
-   ? __pfx_try_to_wake_up+0x10/0x10
-   ? __pfx_rpm_suspend+0x10/0x10
-   ? __pfx_efct_lio_setup_session+0x10/0x10
-   ? __dequeue_entity+0xe9a/0x20a0
-   process_one_work+0x6b9/0x1160
-   ? __pfx_process_one_work+0x10/0x10
-   ? mutex_unlock+0x8f/0xf0
-   ? __pfx_efct_lio_setup_session+0x10/0x10
-   ? assign_work+0x11d/0x370
-   worker_thread+0x575/0xf50
-   ? __kthread_parkme+0x56/0x1a0
-   ? __pfx_worker_thread+0x10/0x10
-   kthread+0x33b/0x4a0
-   ? __pfx_kthread+0x10/0x10
-   ret_from_fork+0x347/0x620
-   ? __pfx_ret_from_fork+0x10/0x10
-   ? __switch_to+0x22/0xbd0
-   ? __pfx_kthread+0x10/0x10
-   ret_from_fork_asm+0x19/0x30
-   </TASK>
-
-  Allocated by task 32:
-   kasan_save_stack+0x33/0x60
-   kasan_save_track+0x14/0x30
-   __kasan_kmalloc+0x8f/0xa0
-   __kmalloc_noprof+0x19b/0x330
-   mempool_alloc_noprof+0x131/0x210
-   efct_kt_node_alloc.isra.0+0x38/0x460
-   efct_kt_uaf_after_cb+0x7a/0x370
-   kunit_try_run_case+0x1ca/0x4b0
-   kunit_generic_run_threadfn_adapter+0x7b/0xe0
-   kthread+0x33b/0x4a0
-   ret_from_fork+0x347/0x620
-   ret_from_fork_asm+0x19/0x30
-
-  Freed by task 27:
-   kasan_save_stack+0x33/0x60
-   kasan_save_track+0x14/0x30
-   kasan_save_free_info+0x3b/0x60
-   __kasan_slab_free+0x43/0x70
-   kfree+0xdd/0x300
-   mempool_free+0xbc/0x100
-   efc_node_free+0x308/0x4a0
-   efct_lio_setup_session+0x93f/0xda0
-   process_one_work+0x6b9/0x1160
-   worker_thread+0x575/0xf50
-   kthread+0x33b/0x4a0
-   ret_from_fork+0x347/0x620
-   ret_from_fork_asm+0x19/0x30
-
-  The buggy address belongs to the object at ffff8880029dd000
-   which belongs to the cache kmalloc-1k of size 1024
-  The buggy address is located 96 bytes inside of
-   freed 1024-byte region [ffff8880029dd000, ffff8880029dd400)
-
-Take a reference on the node before queuing the work and drop it when the
-work finishes, so the slab stays valid. Re-check under efc->lock, which
-efc_node_free() holds while it clears node->nport and sets node->req_free,
-that the node is still live before using it, and bail otherwise.
-efct_session_cb() makes the same check, so a session is registered only for
-a live node and efct_scsi_del_initiator() removes exactly those.
-
-The lookup store moves under efc->lock and therefore to GFP_ATOMIC, and
-the two early returns that leaked wq_data now share the common exit.
-
-The KUnit harness used to order the free against the work item is not
-part of this patch.
-
-Fixes: 692e5d73a811 ("scsi: elx: efct: LIO backend interface routines")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
- drivers/scsi/elx/efct/efct_lio.c | 63 ++++++++++++++++++++++++++++++--
- 1 file changed, 59 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/scsi/elx/efct/efct_lio.c b/drivers/scsi/elx/efct/efct_lio.c
-index 67d686dd6fb33..add939366bc6a 100644
---- a/drivers/scsi/elx/efct/efct_lio.c
-+++ b/drivers/scsi/elx/efct/efct_lio.c
-@@ -1062,17 +1062,42 @@ _efct_tgt_node_free(struct kref *arg)
- 	kfree(tgt_node);
- }
- 
-+/*
-+ * Report whether the node state machine may still have a session registered
-+ * for @node. The caller must hold efc->lock, which is also held by the paths
-+ * that shut a node down.
-+ */
-+static bool efct_node_registrable(struct efc_node *node)
-+{
-+	return node->nport && !node->req_free;
-+}
-+
- static int efct_session_cb(struct se_portal_group *se_tpg,
- 			   struct se_session *se_sess, void *private)
- {
- 	struct efc_node *node = private;
- 	struct efct_node *tgt_node;
- 	struct efct *efct = node->efc->base;
-+	unsigned long flags;
- 
- 	tgt_node = kzalloc_obj(*tgt_node);
- 	if (!tgt_node)
- 		return -ENOMEM;
- 
-+	/*
-+	 * target_setup_session() sleeps, so the node may have entered
-+	 * shutdown since it was called. Refuse the session in that case:
-+	 * efct_scsi_del_initiator() only queues the removal work once
-+	 * node->tgt_node is set, so either it sees the session below or
-+	 * there is no session to remove at all.
-+	 */
-+	spin_lock_irqsave(&node->efc->lock, flags);
-+	if (!efct_node_registrable(node)) {
-+		spin_unlock_irqrestore(&node->efc->lock, flags);
-+		kfree(tgt_node);
-+		return -ENODEV;
-+	}
-+
- 	kref_init(&tgt_node->ref);
- 	tgt_node->release = _efct_tgt_node_free;
- 
-@@ -1086,6 +1111,7 @@ static int efct_session_cb(struct se_portal_group *se_tpg,
- 	tgt_node->port_fc_id = node->nport->fc_id;
- 	tgt_node->vpi = node->nport->indicator;
- 	tgt_node->rpi = node->rnode.indicator;
-+	spin_unlock_irqrestore(&node->efc->lock, flags);
- 
- 	spin_lock_init(&tgt_node->active_ios_lock);
- 	INIT_LIST_HEAD(&tgt_node->active_ios);
-@@ -1157,15 +1183,25 @@ static void efct_lio_setup_session(struct work_struct *work)
- 		container_of(work, struct efct_lio_wq_data, work);
- 	struct efct *efct = wq_data->efct;
- 	struct efc_node *node = wq_data->ptr;
-+	struct efc *efc = node->efc;
- 	char wwpn[WWN_NAME_LEN];
- 	struct efct_lio_tpg *tpg;
- 	struct efct_node *tgt_node;
- 	struct se_portal_group *se_tpg;
- 	struct se_session *se_sess;
-+	unsigned long flags;
- 	int watermark;
- 	int ini_count;
- 	u64 id;
- 
-+	spin_lock_irqsave(&efc->lock, flags);
-+	if (!efct_node_registrable(node)) {
-+		spin_unlock_irqrestore(&efc->lock, flags);
-+		efc_log_debug(efct, "node %p shut down before session setup\n",
-+			      node);
-+		goto done;
-+	}
-+
- 	/* Check to see if it's belongs to vport,
- 	 * if not get physical port
- 	 */
-@@ -1176,8 +1212,9 @@ static void efct_lio_setup_session(struct work_struct *work)
- 		tpg = efct->tgt_efct.tpg;
- 		se_tpg = &tpg->tpg;
- 	} else {
-+		spin_unlock_irqrestore(&efc->lock, flags);
- 		efc_log_err(efct, "failed to init session\n");
--		return;
-+		goto done;
- 	}
- 
- 	/*
-@@ -1186,14 +1223,28 @@ static void efct_lio_setup_session(struct work_struct *work)
- 	 * ConfigFS NodeACLs.
- 	 */
- 	efct_format_wwn(wwpn, sizeof(wwpn), "",	efc_node_get_wwpn(node));
-+	spin_unlock_irqrestore(&efc->lock, flags);
- 
- 	se_sess = target_setup_session(se_tpg, 0, 0, TARGET_PROT_NORMAL, wwpn,
- 				       node, efct_session_cb);
- 	if (IS_ERR(se_sess)) {
- 		efc_log_err(efct, "failed to setup session\n");
--		kfree(wq_data);
-+		spin_lock_irqsave(&efc->lock, flags);
-+		if (!efct_node_registrable(node)) {
-+			spin_unlock_irqrestore(&efc->lock, flags);
-+			goto done;
-+		}
-+		spin_unlock_irqrestore(&efc->lock, flags);
- 		efc_scsi_sess_reg_complete(node, -EIO);
--		return;
-+		goto done;
-+	}
-+
-+	spin_lock_irqsave(&efc->lock, flags);
-+	if (!efct_node_registrable(node)) {
-+		spin_unlock_irqrestore(&efc->lock, flags);
-+		efc_log_debug(efct, "node %p shut down during session setup\n",
-+			      node);
-+		goto done;
- 	}
- 
- 	tgt_node = node->tgt_node;
-@@ -1202,8 +1253,9 @@ static void efct_lio_setup_session(struct work_struct *work)
- 	efc_log_debug(efct, "new initiator sess=%p node=%p id: %llx\n",
- 		      se_sess, node, id);
- 
--	if (xa_err(xa_store(&efct->lookup, id, tgt_node, GFP_KERNEL)))
-+	if (xa_err(xa_store(&efct->lookup, id, tgt_node, GFP_ATOMIC)))
- 		efc_log_err(efct, "Node lookup store failed\n");
-+	spin_unlock_irqrestore(&efc->lock, flags);
- 
- 	efc_scsi_sess_reg_complete(node, 0);
- 
-@@ -1215,7 +1267,9 @@ static void efct_lio_setup_session(struct work_struct *work)
- 			efct->tgt_efct.watermark_min : watermark;
- 	atomic_set(&efct->tgt_efct.io_high_watermark, watermark);
- 
-+done:
- 	kfree(wq_data);
-+	kref_put(&node->ref, node->release);
- }
- 
- int efct_scsi_new_initiator(struct efc *efc, struct efc_node *node)
-@@ -1231,6 +1285,7 @@ int efct_scsi_new_initiator(struct efc *efc, struct efc_node *node)
- 	if (!wq_data)
- 		return -ENOMEM;
- 
-+	kref_get(&node->ref);
- 	wq_data->ptr = node;
- 	wq_data->efct = efct;
- 	INIT_WORK(&wq_data->work, efct_lio_setup_session);
-
-base-commit: f47d223627f80cb7a1eb14c585fe6cb35de5e984
--- 
-2.43.0
-
+SGkgVmluY2VudCwgTWFyYywKCj4gVGhlIENBTiBUREMgcGFyYW1ldGVycyBhcmUgc3RpbGwgbWVh
+bmluZ2Z1bCB3aGVuIHRoZSBpbnRlcmZhY2UgaXMgZG93bi4KPgo+IEFDSwo+Cj4gQWxsIHRoZSBv
+dGhlciBUREMgcGFyYW1ldGVycyBzaG91bGQgc3RpbGwgYmUgYXZhaWxhYmxlIHdoZW4gdGhlCj4g
+aW50ZXJmYWNlIGlzIGRvd24sIHNvIGp1c3QgZ2F0aW5nIHRoZSBhdXRvIHRkY3YgaXMgZW5vdWdo
+IEkgdGhpbmsuCj4KPiBZZXMsIHRoZSBjYWxsIHRvIGRidF9wYXJhbXMtPmRvX2dldF9hdXRvX3Rk
+Y3YoKSBzaG91bGQgYmUgZ2F0ZWQuIEFsc28KPiBjaGVjayBpZiB0aGUgc2l6ZSBjYWxjdWxhdGlv
+biBoYXMgdG8gYmUgYWRqdXN0ZWQuCgpBZ3JlZWQsIGdhdGluZyB0aGUgd2hvbGUgY2FuX3RkY19m
+aWxsX2luZm8oKSB3YXMgdG9vIGJyb2FkLiB2NiBvbmx5IGdhdGVzCmRvX2dldF9hdXRvX3RkY3Yo
+KSBvbiBuZXRpZl9ydW5uaW5nKCksIHNvIHRoZSBzdGF0aWMgVERDIHBhcmFtZXRlcnMgYW5kCnRo
+ZSBtYW51YWwgVERDViBhcmUgc3RpbGwgcmVwb3J0ZWQgZm9yIGRvd24gaW50ZXJmYWNlcy4KCkZv
+ciB0aGUgc2l6ZSBjYWxjdWxhdGlvbiwgY2FuX3RkY19nZXRfc2l6ZSgpIG5vdyB0YWtlcyBhbgph
+dXRvX3RkY3ZfcnVubmluZyBhcmd1bWVudCBhbmQgb25seSBza2lwcyB0aGUgSUZMQV9DQU5fVERD
+ViBzaXplIHdoZW4gdGhlCmludGVyZmFjZSBpcyBkb3duIGFuZCB0aGUgZHJpdmVyIHVzZXMgZG9f
+Z2V0X2F1dG9fdGRjdigpLiBUaGUgcmVzdCBvZiB0aGUKVERDIHNpemUgaXMgdW5jaGFuZ2VkLgoK
+VGhlIGJlcnItY291bnRlciBnYXRpbmcgc3RheXMgYXMgaXMuCgpUaGFua3MsCkNodW5ZdVpoaVFp
+YW5n
