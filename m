@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594139;
-	b=opI6fMtGmfQ2dJ87iOQN7C7OWRzBSq2pXmpGZ4JRaDIAIJ2kE04438jV9QuW7inzwkgJ
-	 AeXWvf5tTtFGAf8F3swF0j9yb7bm7vYuZ5rwF2TjuZQUrhTZhBw3OywmCH1LoXiwUAxYp
-	 43dHcbaeS15MDgBYf1zXARzk+LbCYNGjant4RHLIb5rdcTlJGdPy1SmOwO+U+He/yuXCP
-	 6jiHuUKwoNjRqi49FPQhGWCKx1X+oKoeIuTCO4rs2epK9p/6isEUkWPx3kOP3g8RPKXgd
-	 +i3A+/ICBLx/sK0J/pvQbuhEaB9VjIQuItQCSbtaMI6wWsop99k1sneCjMO27KdXfhA==
+	t=1792594145;
+	b=CC07V0ljxxDkhZtoWTsOuBIjZeLDq71/WSmVH7sH8dCKLGY+MoIp43PHIQwaH9xKpb7P
+	 Zr71cpkmlR9gAmJ4L6BTL0JJzPNCe9SAziX0ghLeUjW+7upllxx2bITCcLXApdS5POvqJ
+	 ZOhRXOsOv0KHg8CoEoucrTy+FevhcLpc21FqO0LC1FEblCuCeSo1Ehn4blWpUIvwNjqTC
+	 z+WIJ0estzsQWHPueQTZ2iX5arrYj30X/XUekkDcGLCOF0r3g4meCHdX9WfIFkSl4FQ9C
+	 nemrana7PIkynZtnBv9wN2HGghj6U2z78iuuu4R2wiRKFQp6MYG0hCnIk9DGh1MRu+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594139;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594145;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=BnO9ggs+OLTRcHA98zrmKleAC6MsyzgiSsQGY475bcg=;
-	b=SjUDag7VonZc/zC5sIgBxAgNsTT5v1NTlhxBJ5iloVcuA9uaxvowRH+Flb4nCmotr//V
-	 zQvyz9aHl+nSXbrDWVMIDxMFaMIY1JGZiD4dTC9MczWPT6zF+qzIa/++J9M7SM81S0TXx
-	 3D3PEeL7gp9yPtoW8IByM3J9/NVZrqaCInA5MRTWpQvgNJBQz0KLk8EVr2iv+RampXJSo
-	 k2Axs25zgk8qPP+gPf+VkVzSfrc0NLVs3xTkL5G454TXtKRliECENR19xdNoDnCxlNKCV
-	 P+bNsEyahiCQeRVe3LmEO4G2QVpvfFaCMj6kzVeoTPbthfqhb+CzT/RpSRL88rwVXEQ==
+	bh=LZPi2xDWexqM9ZrMcE6WpyAjnh6bbQVGZUpbeUW/oVo=;
+	b=sFnbafP2Vseo8wnifXjJ9r4J3lxo0y28W9bvkqxTZkwuQvgfK3N0bK6/mB5OgKGUpcaA
+	 YnnHmCSAj5HEtxYcr2JliflPLM5fccxonsJSr5vtBEQ/+CSpLRn+i6KedHd16vtA/Ve7f
+	 8yVzjgpX8QyqrwzswhPoBg134vJwL4H5We7v4Fsgs9NZ67okw3q7Lwchs6Bb7IjkydW6i
+	 mZ8InkQKHU3U/68+FQtP7Ct7sSnkcKDmziKdvRCfKhNcvKaSAL2gY7CObH/0OIqBsz3eW
+	 M6O/MUD83ay8QUqEUl9UVs149hCZFF25ZhLS/cc+CNzNJSDafe6oRIMLsPU+LTBf/xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xlzJQo1o;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C8mAsMDh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F7C9606A327
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:48:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF53606A32C
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:49:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xlzJQo1o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6144B1F000C2;
-	Wed, 21 Oct 2026 14:48:58 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C8mAsMDh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 099A91F000C2;
+	Wed, 21 Oct 2026 14:49:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594138;
-	bh=BnO9ggs+OLTRcHA98zrmKleAC6MsyzgiSsQGY475bcg=;
+	s=korg; t=1792594144;
+	bh=LZPi2xDWexqM9ZrMcE6WpyAjnh6bbQVGZUpbeUW/oVo=;
 	h=Subject:To:Cc:From:Date;
-	b=xlzJQo1oHeWb6I3qeveunmIJlNGRj1OpCjM82hOCrsD11z4MFpllYvF7aagnNHtr4
-	 lgae+bCyHaRVFMFIiKwFjlTGS21t6e96sUXTabk4T6nQDmp8J0Lso+f92r92ZkZ4Lb
-	 lPJH+CzZXNkitOlM0tde+TMyHPfNMF70jb4AH/g0=
-Subject: FAILED: patch "[PATCH] wifi: atk9k: Revert "wifi: ath9k: reject short WMI command" failed to apply to 6.18-stable tree
-To: toke@toke.dk,mehmet.fide@gmail.com,torvalds@linux-foundation.org
+	b=C8mAsMDhAMkj6NA6WOgUbvq0mzJENM0EOVsQIgQ3QMongulx4LBKm8fenhM2N4zk4
+	 LVMsEAEDV8pCpYP2n8uJz1fuxpNOv9Pv4SK38daOafivVnMeEMGyaHZk2bB1xMEzsQ
+	 j2GXkCt/73Ba2I/G0DvjAO05rP2v+IzaQufGg32Q=
+Subject: FAILED: patch "[PATCH] KVM: x86/mmu: Cope with the SS bit being set in #NPF exit" failed to apply to 7.2-stable tree
+To: pbonzini@redhat.com,seanjc@google.com,simonp.git@mailbox.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 16:34:50 +0200
-Message-ID: <2026102150-alias-scorecard-d1e1@gregkh>
+Date: Wed, 21 Oct 2026 16:35:58 +0200
+Message-ID: <2026102158-waffle-tactless-d396@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,23 +51,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 90201351a862182bdabfc1ad1c97b1e1b6ed5931
+git cherry-pick -x e90ab3669181c6469e3647ef2b30ae408275f496
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102150-alias-scorecard-d1e1@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102158-waffle-tactless-d396@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,81 +79,105 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 90201351a862182bdabfc1ad1c97b1e1b6ed5931 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
-Date: Fri, 16 Oct 2026 10:50:11 +0200
-Subject: [PATCH] wifi: atk9k: Revert "wifi: ath9k: reject short WMI command
- responses"
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From e90ab3669181c6469e3647ef2b30ae408275f496 Mon Sep 17 00:00:00 2001
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Fri, 9 Oct 2026 14:37:10 +0200
+Subject: [PATCH] KVM: x86/mmu: Cope with the SS bit being set in #NPF exit
+ codes
 
-This reverts commit 93ce8ea70451e800601bc9444aa33043de15d67b.
+When running Hyper-V from Windows 11, KVM is seeing the SS bit set
+in nested page fault error codes produced for shadowed NPT.  The AMD
+manual is unclear about when SS is set, including whether it can be set
+when SupervisorShadowStackEn (bit 6) is not set in the MISC_CTL field
+of the VMCB.
 
-Mehmet reported that the offending commit breaks his AR9271 USB adapter
-which uses zero-length replies to commands that don't return a value.
-Revert the whole thing to restore the functionality.
+Nevertheless, the unexpected SS bit causes out of bounds accesses in
+permission_fault(), seen as either WARNs or UBSAN reports:
 
-Cc: stable@vger.kernel.org # the offending commit is in 6.12.113
-Reported-by: Mehmet Fide <mehmet.fide@gmail.com>
-Signed-off-by: Toke Høiland-Jørgensen <toke@toke.dk>
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+  kernel: UBSAN: array-index-out-of-bounds in arch/x86/kvm/mmu.h:225:27
+  kernel: index 34 is out of range for type 'u16 [16]'
 
-diff --git a/drivers/net/wireless/ath/ath9k/wmi.c b/drivers/net/wireless/ath/ath9k/wmi.c
-index 4a08babb6d9d..44e91815a159 100644
---- a/drivers/net/wireless/ath/ath9k/wmi.c
-+++ b/drivers/net/wireless/ath/ath9k/wmi.c
-@@ -206,16 +206,9 @@ static void ath9k_wmi_rsp_callback(struct wmi *wmi, struct sk_buff *skb)
+(in this case, the page fault error code is 34*2=0x44, i.e. SS|U; the
+report shows SS|U|W happening as well).  Fix the handling of unknown
+error codes by dropping SS and (with a WARN) any bits not among those
+that permission_fault() expects to receive.
+
+At the same time, given the uncertainty about when hardware sets SS,
+follow the processor's behavior when constructing the fault's error
+code, and preserve the SS bit as passed to FNAME(walk_addr_generic).
+While the behavior is surprising, there's a possibility that Hyper-V
+expects it (Hyper-V does not even enable CET unless it finds MBEC/GMET!),
+so retain the information when reflecting the fault to L1 instead of
+unconditionally discarding it.
+
+Bisection shows that this started happening with commit 687ee95c1b6d ("KVM:
+nSVM: enable GMET for guests"), even though SHSTK was available to guests
+since Linux 6.18.  However, this is not because bit 1 of MISC_CTL (GMET)
+somehow enables reporting the SS bit; rather, it's simply that Hyper-V
+never uses CET unless GMET is also present.  The WARN is reproducible
+even with gmet=0, with some hacking of kvm-unit-tests's cet.c testcase
+to ensure that the first access to the shadow stack triggers a page fault.
+
+Reported-by: SimonP <simonp.git@mailbox.org>
+Fixes: 8db428fd5229 ("KVM: SVM: Enable shadow stack virtualization for SVM")
+Cc: stable@vger.kernel.org
+Reviewed-by: Sean Christopherson <seanjc@google.com>
+Closes: https://lore.kernel.org/all/asUqYEisPp9MJ8mQ@rika.bernkas.tel
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+
+diff --git a/arch/x86/kvm/mmu.h b/arch/x86/kvm/mmu.h
+index 2ae7f9ed4cf8..b2a295a9f084 100644
+--- a/arch/x86/kvm/mmu.h
++++ b/arch/x86/kvm/mmu.h
+@@ -275,8 +275,18 @@ static inline u8 permission_fault(struct kvm_vcpu *vcpu, struct kvm_pagewalk *w,
+ 				  unsigned pte_access, unsigned pte_pkey,
+ 				  u64 access)
  {
- 	skb_pull(skb, sizeof(struct wmi_cmd_hdr));
+-	/* strip nested paging fault error codes */
+-	unsigned int pfec = access;
++	/*
++	 * Of the error codes that do not contribute to the index in
++	 * fmt->permissions, PK and SS are not supported by shadow paging
++	 * and also not provided to EPT violations, but SS *is* included
++	 * in the NPT exit code.  RSVD faults are handled elsewhere.
++	 */
++	unsigned int pfec = access & ~PFERR_SS_MASK;
++	if (WARN_ON_ONCE(pfec & ~(PFERR_PRESENT_MASK | PFERR_WRITE_MASK |
++				  PFERR_USER_MASK | PFERR_FETCH_MASK)))
++		pfec &= (PFERR_PRESENT_MASK | PFERR_WRITE_MASK |
++			 PFERR_USER_MASK | PFERR_FETCH_MASK);
++
+ 	unsigned long rflags = kvm_x86_call(get_rflags)(vcpu);
  
--	if (wmi->cmd_rsp_buf && wmi->cmd_rsp_len) {
--		if (skb->len < wmi->cmd_rsp_len) {
--			wmi->cmd_rsp_status = -EMSGSIZE;
--			goto complete;
--		}
-+	if (wmi->cmd_rsp_buf != NULL && wmi->cmd_rsp_len != 0)
- 		memcpy(wmi->cmd_rsp_buf, skb->data, wmi->cmd_rsp_len);
--	}
--	wmi->cmd_rsp_status = 0;
+ 	/*
+@@ -301,8 +311,6 @@ static inline u8 permission_fault(struct kvm_vcpu *vcpu, struct kvm_pagewalk *w,
+ 	kvm_mmu_refresh_passthrough_bits(vcpu, w);
  
--complete:
- 	complete(&wmi->cmd_wait);
- }
- 
-@@ -307,7 +300,6 @@ static int ath9k_wmi_cmd_issue(struct wmi *wmi,
- 	/* record the rsp buffer and length */
- 	wmi->cmd_rsp_buf = rsp_buf;
- 	wmi->cmd_rsp_len = rsp_len;
--	wmi->cmd_rsp_status = 0;
- 
- 	wmi->last_seq_id = wmi->tx_seq_id;
- 	spin_unlock_irqrestore(&wmi->wmi_lock, flags);
-@@ -364,13 +356,9 @@ int ath9k_wmi_cmd(struct wmi *wmi, enum wmi_cmd_id cmd_id,
- 		return -ETIMEDOUT;
- 	}
- 
--	spin_lock_irqsave(&wmi->wmi_lock, flags);
--	ret = wmi->cmd_rsp_status;
--	spin_unlock_irqrestore(&wmi->wmi_lock, flags);
+ 	fault = (fmt->permissions[index] >> pte_access) & 1;
 -
- 	mutex_unlock(&wmi->op_mutex);
+-	WARN_ON_ONCE(pfec & (PFERR_PK_MASK | PFERR_SS_MASK | PFERR_RSVD_MASK));
+ 	if (unlikely(fmt->pkru_mask)) {
+ 		u32 pkru_bits, offset;
  
--	return ret;
-+	return 0;
+diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
+index 27427e7f22fa..e5450faa669e 100644
+--- a/arch/x86/kvm/mmu/paging_tmpl.h
++++ b/arch/x86/kvm/mmu/paging_tmpl.h
+@@ -328,7 +328,6 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
+ 	int offset;
+ 	u64 walk_nx_mask = 0;
+ 	const int write_fault = access & PFERR_WRITE_MASK;
+-	const int user_fault  = access & PFERR_USER_MASK;
+ 	const int fetch_fault = access & PFERR_FETCH_MASK;
+ 	/*
+ 	 * Note! Track the error_code that's common to legacy shadow paging
+@@ -486,7 +485,7 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
+ 	return 1;
  
- out:
- 	ath_dbg(common, WMI, "WMI failure for: %s\n", wmi_cmd_to_name(cmd_id));
-diff --git a/drivers/net/wireless/ath/ath9k/wmi.h b/drivers/net/wireless/ath/ath9k/wmi.h
-index 0bb9d31f1a1c..5c3b710b8f31 100644
---- a/drivers/net/wireless/ath/ath9k/wmi.h
-+++ b/drivers/net/wireless/ath/ath9k/wmi.h
-@@ -157,7 +157,6 @@ struct wmi {
- 	u16 tx_seq_id;
- 	u8 *cmd_rsp_buf;
- 	u32 cmd_rsp_len;
--	int cmd_rsp_status;
- 	bool stopped;
+ error:
+-	errcode |= write_fault | user_fault;
++	errcode |= access & (PFERR_WRITE_MASK | PFERR_USER_MASK | PFERR_SS_MASK);
+ 	if (fetch_fault && has_pferr_fetch(w))
+ 		errcode |= PFERR_FETCH_MASK;
  
- 	struct list_head pending_tx_events;
 
