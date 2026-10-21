@@ -1,56 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792597365;
-	b=vErF1v9lhSUKq5q5hvseR+8VYB5O4e32zbDkcYyoAiM3Lss04/TUtdfdHxHAw7/adZo1
-	 NK2v4J0zctDUZWwqWJb3tIIvX2Un2DkTMiBbRNK85gZ80clDb0hswKT5elAEx4YBNtaus
-	 yaeHP53kwkiODsRPageAtPn31vnHzQBEWCGGsodbPrHI+yEwneO7j2NvnVEApW1P8fqXU
-	 MiHbhuE92kJtjl0TN787+sChGXkWbbUk7pVvrfHvyrGIHROBBne+euQwNbIhVSKypO04J
-	 AB8UOHLL/dxPPGUTIPZ8QEs+E8KpTQGfb/jpKT8Xtnj5osLDEA/ueiN8KJ3GmcwJddA==
+	t=1792597366;
+	b=ILp0xnpj4TP3VlibpgwIXShDKKLu65VLW2KL+c+/lQMUuorOkMh+cC1g0zNVkrBEckXJ
+	 wolTTAjoH3jEvZBpEYHpVvGtHJnyh7grCQpx/EualUiDVcRBS7IvkoIQAN2UOcHanqSuJ
+	 uBPhomJmuHdiRs4YUzJ057OB/rCjiYxMs1CWOMKYs9hvT52cnwzQvpQE27MZl4lwBvFAe
+	 XieFgLZfb7rSfT93bFN+PTEBMOuzjnvC8cr5DN5S/t9WpQiGb34sQ4+3IiyA71Pyld9vc
+	 GqJ/2Ek94z4LsV2Wm/gvpvunxRAUxsffUT7uIF2xQ8RZ+IFuKwZ52WM1GtRSCOhAoUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792597365;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792597366;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zoFSiI2A+to+sHHd2fTP6tYoknTvQoEBWMuC9CNRE3Q=;
-	b=p7DBD42P2XQMtcJL3cKSNdQMYBu8xgdNatJqo5KtZ7KSkUzg1/Jnz2bVa2lQopiLvFgT
-	 I83BQEbvko9W4XhDjMNHEDDK/pSvdqGGlw5ctMfeDku+4H/MLGzTsuQgBwmmtpXYr5y9F
-	 CEr+rGDapgSwowPSr96Dsce8mYnHGSV7slrHY3cWxIcrutzuWx0/ZYQSEAL2z9cG3WgSj
-	 QF2yOKHhr5b3DIfW52Q+0lAkOrNBeuYnETId5skL7Gr6ASKwSlLtwYo8FjMXgP4uOlk9G
-	 3tQZV2GndD+j/l2Fq7+GTisgSQAot477a359JePKHmjIbq/ZTd2Cl2te87PKr1ml+mQ==
+	bh=UpzJOxslNgjGEQcWy6GofmMdygicxpvnZYVwLnMByMs=;
+	b=vlDrSJ7H91ZwLqwc76vTUqKoj/L5q0pLtKhWmxCd2I9Og3Af7EczyvtP93yXyw4Wzicn
+	 x5tDwO3UMqJ0xtxTpd8Wt1HwNsGjx7OMly1r3vomovacTp7/6oCZsrrR9jPphNznTCgY4
+	 LtIGlz2ftqchneRsmrtzw+4fGCcwhYI0Ne4H5kSUfQmZEdVJHMCTjBJ9OCiZvtSHYvuNV
+	 NTqsbtBi9KPjdRhHWvH1sUC6QQyPWRrdQs0bCxHbHXYbK0dbvNI7tedDfg8PYNo4CpqhK
+	 7ZMxL8fAHf6rYdAgt6JbB/vaqO1opVB8cVheblGDoWxEbFi6HpToBU+jiyU1yQ6Jtlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bQGXsIKa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q9vZfTRP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22BE7606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:42:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDA7B606A31D
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:42:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bQGXsIKa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32BAE1F000C4;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q9vZfTRP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09CA81F000C1;
 	Wed, 21 Oct 2026 15:42:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792597364;
-	bh=zoFSiI2A+to+sHHd2fTP6tYoknTvQoEBWMuC9CNRE3Q=;
+	s=k20260515; t=1792597365;
+	bh=UpzJOxslNgjGEQcWy6GofmMdygicxpvnZYVwLnMByMs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bQGXsIKaL08IzOjTHz8V1QvuCjuZyg88lFslgUgSL635nUaWGaoXL4xUdjbPdZ+fM
-	 iqZtlVzlwfs8J+MoBEnmt609I0YYUANhb4pPYI3K3G8CnCczJ2V8BwQ3AaY+1wDXaS
-	 cHLFwSjtM/pNJsX0nV89H6yPumadDOAxl+903MkvPeJF3Jz8bKVLtajPGXrxTDhZWO
-	 zv0P13BtmIoyBoW3v7LpZH0pNMLiHLaS70Q81XIC8GpL0ZyNaOyv2vUDzDA8SwIl9O
-	 W2h1ECbo8VvgDyG1hKLdHvMG5MA7fDYwP0Nx9V/roHiR9/WeLJnjimvvlJnGIr13pB
-	 zbImMzggHu7tw==
+	b=Q9vZfTRPqBgcyNd3EetE3ZmCO3q/NiP8vQRS6V252e8PFApgR2Q7BrDWtVLrRtikc
+	 W+95pAGDonjBj95GfVbkgisa5c0fSQQieuWuf5eg16GkdtSYSEXFdJzyzjD7rTVnWe
+	 dT76GQoryU3koh1KOyGXC0bzpxnjxUdhJfNGy2SPY7lrInKBpye5pgGrTh1DVy7h+e
+	 Bt8u0ONrToTQCEZtStrwd+bLkAvcxPd+HdzTDCt1kZGljAXXs+kLXRREcao7u7DeKP
+	 9CP22SVAUuWiSRAhANWAf/VP4mWbbwn6ii6t19dLe8RiAZBzWHT5L6NogO3R3gjMAK
+	 LiUIv7HnMFuYQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: K Prateek Nayak <kprateek.nayak@amd.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
+Cc: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>,
+	"Dae R. Jeong" <threeearcat@gmail.com>,
+	AutonomousCodeSecurity@microsoft.com,
+	Bradley Morgan <brads@mainlining.org>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] kernel/watch_queue: Use pipe_buf() to retrieve the pipe buffer
-Date: Wed, 21 Oct 2026 11:42:42 -0400
-Message-ID: <20261021154232.364295-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] watch_queue: Fix note pool publication race in watch_queue_set_size()
+Date: Wed, 21 Oct 2026 11:42:43 -0400
+Message-ID: <20261021154232.364295-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102121-dial-citric-080a@gregkh>
+In-Reply-To: <20261021154232.364295-1-sashal@kernel.org>
 References: <2026102121-dial-citric-080a@gregkh>
+ <20261021154232.364295-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,59 +65,92 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: K Prateek Nayak <kprateek.nayak@amd.com>
+From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
 
-[ Upstream commit 547476063e123e73fc3aea8432104ab092ffea84 ]
+[ Upstream commit 5e531d62f1f8834faf7a4eed0d41105cf6570a8f ]
 
-Use pipe_buf() helper to retrieve the pipe buffer in
-post_one_notification() replacing the open-coded the logic.
+There is a race between watch_queue_set_size() and post_one_notification().
+watch_queue_set_size() publishes wqueue->notes, notes_bitmap, nr_pages and
+nr_notes with plain stores, and post_one_notification() reads them with
+plain loads under a different lock, so nothing orders the four stores
+against the poster's loads: depending on the build, notes can be stored
+last (gcc 14 on x86-64 does this).  Since keyctl_watch_key() lets a watch
+attach to a queue before it is sized, post_one_notification() can already
+be running on another CPU at that moment: it reads nr_notes > 0, passes
+its bounds check, and then reads notes while it is still NULL,
+dereferencing notes[0].
 
-Suggested-by: Oleg Nesterov <oleg@redhat.com>
-Signed-off-by: K Prateek Nayak <kprateek.nayak@amd.com>
-Link: https://lore.kernel.org/r/20250307052919.34542-3-kprateek.nayak@amd.com
-Signed-off-by: Christian Brauner <brauner@kernel.org>
-Stable-dep-of: 5e531d62f1f8 ("watch_queue: Fix note pool publication race in watch_queue_set_size()")
+An unprivileged user triggers this reliably by watching one of its own
+keys through a notification pipe and racing ioctl(IOC_WATCH_QUEUE_SET_SIZE)
+on that pipe against keyctl(KEYCTL_SETPERM) on the key from another CPU,
+triggering:
+
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:post_one_notification.isra.0+0xa2/0x1e0
+  Call Trace:
+   __post_watch_notification+0x148/0x180
+   keyctl_setperm_key+0x119/0x130
+   do_syscall_64+0x108/0x4c0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  Kernel panic - not syncing: Fatal exception in interrupt
+
+Fix this by publishing nr_notes last with smp_store_release(), and by
+reading it once with smp_load_acquire() in post_one_notification() before
+the bitmap and the page array are touched.  A poster that observes a
+non-zero nr_notes then also observes the pool behind it; one that observes
+zero drops the notification as before.
+
+Fixes: c73be61cede5 ("pipe: Add general notification queue support")
+Reported-by: Dae R. Jeong <threeearcat@gmail.com>
+Closes: https://lore.kernel.org/all/ZT-S8Q7tyutcvu_q@dragonet/
+Reported-by: AutonomousCodeSecurity@microsoft.com
+Suggested-by: Dae R. Jeong <threeearcat@gmail.com>
+Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
+Link: https://patch.msgid.link/20261009224715.46121-1-cenzhang@linux.microsoft.com
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/watch_queue.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ kernel/watch_queue.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
 diff --git a/kernel/watch_queue.c b/kernel/watch_queue.c
-index 17254597accd4..0840603c91e37 100644
+index 0840603c91e37..d5a76a5efd204 100644
 --- a/kernel/watch_queue.c
 +++ b/kernel/watch_queue.c
-@@ -101,12 +101,11 @@ static bool post_one_notification(struct watch_queue *wqueue,
+@@ -101,7 +101,7 @@ static bool post_one_notification(struct watch_queue *wqueue,
  	struct pipe_inode_info *pipe = wqueue->pipe;
  	struct pipe_buffer *buf;
  	struct page *page;
--	unsigned int head, tail, mask, note, offset, len;
-+	unsigned int head, tail, note, offset, len;
+-	unsigned int head, tail, note, offset, len;
++	unsigned int head, tail, note, offset, len, nr_notes;
  	bool done = false;
  
  	spin_lock_irq(&pipe->rd_wait.lock);
- 
--	mask = pipe->ring_size - 1;
- 	head = pipe->head;
- 	tail = pipe->tail;
+@@ -111,8 +111,10 @@ static bool post_one_notification(struct watch_queue *wqueue,
  	if (pipe_full(head, tail, pipe->ring_size))
-@@ -124,7 +123,7 @@ static bool post_one_notification(struct watch_queue *wqueue,
- 	memcpy(p + offset, n, len);
- 	kunmap_atomic(p);
+ 		goto lost;
  
--	buf = &pipe->bufs[head & mask];
-+	buf = pipe_buf(pipe, head);
- 	buf->page = page;
- 	buf->private = (unsigned long)wqueue;
- 	buf->ops = &watch_queue_pipe_buf_ops;
-@@ -147,7 +146,7 @@ static bool post_one_notification(struct watch_queue *wqueue,
- 	return done;
+-	note = find_first_bit(wqueue->notes_bitmap, wqueue->nr_notes);
+-	if (note >= wqueue->nr_notes)
++	/* Pairs with the smp_store_release() in watch_queue_set_size(). */
++	nr_notes = smp_load_acquire(&wqueue->nr_notes);
++	note = find_first_bit(wqueue->notes_bitmap, nr_notes);
++	if (note >= nr_notes)
+ 		goto lost;
  
- lost:
--	buf = &pipe->bufs[(head - 1) & mask];
-+	buf = pipe_buf(pipe, head - 1);
- 	buf->flags |= PIPE_BUF_FLAG_LOSS;
- 	goto out;
- }
+ 	page = wqueue->notes[note / WATCH_QUEUE_NOTES_PER_PAGE];
+@@ -297,7 +299,8 @@ long watch_queue_set_size(struct pipe_inode_info *pipe, unsigned int nr_notes)
+ 	wqueue->notes = pages;
+ 	wqueue->notes_bitmap = bitmap;
+ 	wqueue->nr_pages = nr_pages;
+-	wqueue->nr_notes = nr_notes;
++	/* Pairs with the smp_load_acquire() in post_one_notification(). */
++	smp_store_release(&wqueue->nr_notes, nr_notes);
+ 	return 0;
+ 
+ error_p:
 -- 
 2.53.0
 
