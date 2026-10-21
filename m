@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792598283;
-	b=4veHtRqmQyla/8vW6jXUIxSZKoxdjEZxO7fwT+LHf6nTFfyVN8HQg9E2nhoGHF7qPmGH
-	 2gDTmXNQGaRn7+bx2FHpcUAELA9BDQOcWQlH32cfEGWkZKnQ/2dNpU5o3nYCR7T678Ita
-	 gPHDS/aUYP0OCFdfrtvri6G+agzD16qcMhvcYj7ZWdVx2cQFWmqjv4I11mOlDhlLHirKZ
-	 Uts1tMqXJIdE6w1DhJHp64+h5W/0bQV8Hl3QGiS0cTrveHu2bNmQNPeRL+fdJZx8JbEUW
-	 8W26WUqxWYbV1nFnKDA4n6QK/jFNrhO+GQ4I9dcW1ervGrnOJtqUHL83ej9NzOxdqYw==
+	t=1792598682;
+	b=4K1Pfl1U4U5Yw8E5gpAHKRp0gxE6+rf72XLPGH0I5k80JMlJNDzc3MwyZxY8eBqsBGf1
+	 ZQDwAeSRCzVeU6E4YEsOCI3SDul1BcEvHo9gvqexF51YTk9dISNcJBVuNebPn+VgSnFqC
+	 3QRn4zd6TZmRvzjjkpT0F4UHnvy0sz/Z1/9jqsylfw5t4nG7d50kSeJAiu2kbaKGKhAo1
+	 mnd1O9VyPCYclmnv6t39pzS+vcQFV7DPBWY4pd1sWijVkaswKtrpsHiaz6bVtdddGoNQv
+	 OWZ9W5qwATIFNsaJVw5Ny+WkPDnEVjgcJ2CiBJxJ3eYQrufdGgkNkF2p3Q0Jg2SRHww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792598283;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792598682;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Y6fK5qQkXJdM7t48Ec0dy3qgESFMByBl0yDan3TfSzs=;
-	b=OTC5oJMPkcLI6hRDGtmta00hYnXEK5nn+yqk798fbX31sNyEbNHYUdxb8wzq/uJGUEl/
-	 /McyCcx4b7igDIsu92UOPIOJ8FSDmbwVBgigzc3MP5fCxCPsY1wGYhVL6YtaK+ME02Yn8
-	 iC261myAROg008Y5pfJtkv1iHm2lR+fyLBZF+ktFostVXYNHB9RujCHfj7zEkgf3u8cqu
-	 xPZqRcHrWRYTjbkQS+UZCWiaLj6KKhp/WqDXcfkmmGcS5m2xmwboEBu2LQjsM1cGt0wEQ
-	 4Ex7NFiyNz9JIeKDqaSFkPfMPq7TSoMtWm9zLvnAsHp1uttvb/77wS85RdymLX71jmw==
+	bh=ZOHYatrWZCPP1Qy+PsesX/GTnVaLhGuZ+L/HuBP9aS8=;
+	b=FA5wIv8CLodeHrpH1cn1N7WPl0WhQ6/ztI6n5/+2W3jzCNLo1u9T0UefbcDIVPsWKs3x
+	 7zGxD9SbpQScCAeNG0kSyBW7sYEAV6qaWorxMArgtcDaJY14r37GFky+vQw9UBK+M3tMw
+	 v83LhnVWltQ9dTJRrmCUV2+Z4HcBMhoErtsCRoPhujCmwCosGfnnbIJm81y9UCEn0uQ/r
+	 QP+5iPDR0/7e1sUF0lscKRoP9yRs03O3OZNRPWFKrlh4n/AimTwDtK7gC1czbZUc8p1It
+	 Df5rX+jmGNU8Z+Agb9xSwoblGc6+X25+wVzP/ADFprjjQ+NR2920n/J1lt38F2qln2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYsyZo+B;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uzclr3Se;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25970606A31B
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:58:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC858606A31D
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 16:04:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYsyZo+B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46E751F000C1;
-	Wed, 21 Oct 2026 15:58:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uzclr3Se
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5EDC1F000C1;
+	Wed, 21 Oct 2026 16:04:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792598282;
-	bh=Y6fK5qQkXJdM7t48Ec0dy3qgESFMByBl0yDan3TfSzs=;
+	s=k20260515; t=1792598681;
+	bh=ZOHYatrWZCPP1Qy+PsesX/GTnVaLhGuZ+L/HuBP9aS8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EYsyZo+BfANJu4GQRt5yZCfUb0nb6QJD52seSnH6PviNsXzoxXpkp8+2/EYlTA4IV
-	 O2Hyc5QSMIzZbNClv+jHmcStnFzwxC+kQLQD8tXSolOdU4hNfzPS/bPVIIufda0gh4
-	 g6IILY1z76vQjVXPXMGYCshnYTZqdxkXXfKGrA0OyLRJfyU4+MpJcB2rGAEXWYoLiG
-	 4MshLAXsCeSOaXXWOqgmRa6H32j4p6otB/BFOKpGsTRDploAs+lG3bS6qYKM1Xw3bB
-	 QCh3pTo9OA11+HX6gqYHWHDflhh4DkN6OVSMBFxj0pT3hkUmnO5yk2rHTUUWfHgVfw
-	 rCpQFFtxczcfw==
+	b=Uzclr3Se1gwuJnc3H/NVbEogSu31p3Q33m/O0qLTI33o9q312sQ2DE+Z5Uy9QRu+3
+	 7dSbkIuH/L5RHFsQtIho9sks6aU1R7aBRI9yrUE+e8Mts+/1/Wz823CqW+J9hAea8w
+	 1cm64vyfS++sjAMocfM/MPxQlL825eaxTCJMdIX8yq/MKiPxXKKo+F7SR5NkTib/wN
+	 3Q6wgVHNRlwykmd+9YRSyoio9Sib861knjF5pLwoKC7MBSqO7CRgfhZryncxEoqrGc
+	 40cVA4DZfUL7zJUFbFYZwkKg9RoQ1OB2UKfA+ABTr13bRbCHP5K4h2gX6RyP0r6xF6
+	 nGtZDGRgeVQGA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] ntfs3: free the sbi after a grace period
-Date: Wed, 21 Oct 2026 11:58:01 -0400
-Message-ID: <20261021155742.369544-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] unicode: free the map after a grace period
+Date: Wed, 21 Oct 2026 12:04:39 -0400
+Message-ID: <20261021160417.288393-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102158-quantum-annex-72cd@gregkh>
-References: <2026102158-quantum-annex-72cd@gregkh>
+In-Reply-To: <2026102112-reprocess-growl-c2b7@gregkh>
+References: <2026102112-reprocess-growl-c2b7@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,158 +62,114 @@ Content-Transfer-Encoding: 8bit
 
 From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit c01b091b06412d3b1b53d8c2925f6de586c8a2fc ]
+[ Upstream commit a96c5299bd7305eb984377681eb3222a57376405 ]
 
-If the "nocase" mount option ntfs3 uses custom hash and dentry compare
-functions. Both access ntfs3 superblock private information in rcu
-pathwalk. ntfs_put_super() and ntfs3_kill_sb() drop the info without any
-rcu delay. A lookup that's still inside the filesystem when the last
-reference to the mount is dropped causes a UAF. With a pathwalk held up
-in ntfs_d_hash() while the last reference to the mount goes away:
+generic_ci_d_hash() and generic_ci_d_compare() read sb->s_encoding and
+dereference the unicode map while a pathwalk in rcu mode holds nothing
+but rcu_read_lock(). The filesystems that use them, ext4, f2fs and
+tmpfs, drop the map with utf8_unload() from ->put_super(), which runs
+when the last reference to the mount goes away. A lookup that is still
+inside such a filesystem at that point reads a freed map.
 
-  BUG: KASAN: slab-use-after-free in ntfs_nls_to_utf16+0x752/0x940
-  Read of size 8 at addr ff1100010453c850 by task walker/99
+With a pathwalk held up in utf8_casefold_hash() while the last reference
+to a casefolded tmpfs goes away:
+
+  BUG: KASAN: slab-use-after-free in utf8nlookup+0x74c/0x950
+  Read of size 8 at addr ff110001030fe658 by task walker/98
   Call Trace:
    <TASK>
-   ntfs_nls_to_utf16+0x752/0x940
-   ntfs_d_hash+0x22b/0x500
+   utf8nlookup+0x74c/0x950
+   utf8byte+0x160/0x1560
+   utf8_casefold_hash+0x167/0x230
+   generic_ci_d_hash+0xdd/0x1c0
    link_path_walk+0x11ad/0x1d30
    path_lookupat+0x63/0xb00
    filename_lookup+0x1f1/0x5b0
    vfs_statx+0xd7/0x3b0
   [...]
-  Allocated by task 95:
+  Allocated by task 94:
    __kmalloc_cache_noprof+0x249/0x560
-   ntfs_init_fs_context+0x2db/0x5a0
-   alloc_fs_context+0x52e/0xc70
+   utf8_load+0x4e/0x570
+   shmem_parse_opt_casefold.isra.0+0x92/0x270
   [...]
-  Freed by task 98:
+  Freed by task 97:
    kfree+0x1db/0x5b0
+   shmem_put_super+0x72/0x170
+   generic_shutdown_super+0x14c/0x530
+   kill_anon_super+0x3a/0x60
    deactivate_locked_super+0x9c/0xf0
    cleanup_mnt+0x9f/0x130
-   task_work_run+0x131/0x250
 
-The bug is currently masked by the grace period in namespace_unlock()
-for umount(2). Keep the necessary information until the filesystem
-private info is freed and free it with an rcu delay.
+So far that has been hard to hit. umount(2) waits for a grace period
+in namespace_unlock() before it drops the mount, so only a mount whose
+last reference goes away elsewhere, like the close of a file or a chdir
+out of a lazily unmounted directory, can race a walker. So it is
+reachable.
 
-ntfs3_free_sbi() now runs from an rcu callback and drops the upcase
-table via ntfs_put_shared(). So switch s_shared_lock over to
-spin_lock_bh(). Otherwise the callback can deadlock against a task
-holding the lock on the same cpu.
+Delay the free until a grace period has passed. The map and the data
+table it holds a reference to then outlive any pathwalk that found the
+superblock before the mount went away. The reference on the data table
+module is dropped from the rcu callback as well. utf8-core is built in
+whenever CONFIG_UNICODE is set, so there is no module exit that would
+have to wait for the callbacks.
 
-Fixes: a3a956c78efa ("fs/ntfs3: Add option "nocase"")
+Overlayfs points the s_encoding of an overlay at the map of its first
+layer without taking a reference of its own. That stays correct. The
+layer is held by the overlay, so its map is dropped only after the
+overlay is gone.
+
+Fixes: b886ee3e778e ("ext4: Support case-insensitive file name lookups")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261009-work-fixes-rcu-v1-7-7446d2d335e6@kernel.org
+Link: https://patch.msgid.link/20261009-work-fixes-rcu-v1-6-7446d2d335e6@kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: Adjusted ntfs_put_super() context because the early mount-options cleanup block was already absent. ]
+[ sashal: Replaced the custom RCU callback with kfree_rcu() because built-in Unicode tables need no module reference release. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ntfs3/ntfs_fs.h |  1 +
- fs/ntfs3/super.c   | 29 ++++++++++++++++++++++-------
- 2 files changed, 23 insertions(+), 7 deletions(-)
+ fs/unicode/utf8-core.c  | 9 ++++++++-
+ include/linux/unicode.h | 1 +
+ 2 files changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
-index 11be9a6f041cf..934dcb136d6da 100644
---- a/fs/ntfs3/ntfs_fs.h
-+++ b/fs/ntfs3/ntfs_fs.h
-@@ -209,6 +209,7 @@ struct ntfs_index {
- /* Ntfs file system in-core superblock data. */
- struct ntfs_sb_info {
- 	struct super_block *sb;
+diff --git a/fs/unicode/utf8-core.c b/fs/unicode/utf8-core.c
+index dc25823bfed96..d946ccfd90181 100644
+--- a/fs/unicode/utf8-core.c
++++ b/fs/unicode/utf8-core.c
+@@ -3,6 +3,7 @@
+ #include <linux/kernel.h>
+ #include <linux/string.h>
+ #include <linux/slab.h>
++#include <linux/rcupdate.h>
+ #include <linux/parser.h>
+ #include <linux/errno.h>
+ #include <linux/unicode.h>
+@@ -227,9 +228,15 @@ struct unicode_map *utf8_load(const char *version)
+ }
+ EXPORT_SYMBOL(utf8_load);
+ 
++/*
++ * A pathwalk in rcu mode may still be in ->d_hash() or ->d_compare() of a
++ * filesystem that is being torn down and read the map through its
++ * superblock, so the map has to outlive the grace period.
++ */
+ void utf8_unload(struct unicode_map *um)
+ {
+-	kfree(um);
++	if (um)
++		kfree_rcu(um, rcu);
+ }
+ EXPORT_SYMBOL(utf8_unload);
+ 
+diff --git a/include/linux/unicode.h b/include/linux/unicode.h
+index 74484d44c7554..b82625a023688 100644
+--- a/include/linux/unicode.h
++++ b/include/linux/unicode.h
+@@ -8,6 +8,7 @@
+ struct unicode_map {
+ 	const char *charset;
+ 	int version;
 +	struct rcu_head rcu;
+ };
  
- 	u32 discard_granularity;
- 	u64 discard_granularity_mask_inv; // ~(discard_granularity_mask_inv-1)
-diff --git a/fs/ntfs3/super.c b/fs/ntfs3/super.c
-index 4b1941e3f3a67..c7c1896acc2c5 100644
---- a/fs/ntfs3/super.c
-+++ b/fs/ntfs3/super.c
-@@ -187,7 +187,7 @@ void *ntfs_set_shared(void *ptr, u32 bytes)
- 	void *ret = NULL;
- 	int i, j = -1;
- 
--	spin_lock(&s_shared_lock);
-+	spin_lock_bh(&s_shared_lock);
- 	for (i = 0; i < ARRAY_SIZE(s_shared); i++) {
- 		if (!s_shared[i].cnt) {
- 			j = i;
-@@ -205,7 +205,7 @@ void *ntfs_set_shared(void *ptr, u32 bytes)
- 		s_shared[j].cnt = 1;
- 		ret = ptr;
- 	}
--	spin_unlock(&s_shared_lock);
-+	spin_unlock_bh(&s_shared_lock);
- 
- 	return ret;
- }
-@@ -222,7 +222,7 @@ void *ntfs_put_shared(void *ptr)
- 	void *ret = ptr;
- 	int i;
- 
--	spin_lock(&s_shared_lock);
-+	spin_lock_bh(&s_shared_lock);
- 	for (i = 0; i < ARRAY_SIZE(s_shared); i++) {
- 		if (s_shared[i].cnt && s_shared[i].ptr == ptr) {
- 			if (--s_shared[i].cnt)
-@@ -230,7 +230,7 @@ void *ntfs_put_shared(void *ptr)
- 			break;
- 		}
- 	}
--	spin_unlock(&s_shared_lock);
-+	spin_unlock_bh(&s_shared_lock);
- 
- 	return ret;
- }
-@@ -630,6 +630,8 @@ static noinline void ntfs3_put_sbi(struct ntfs_sb_info *sbi)
- 
- static void ntfs3_free_sbi(struct ntfs_sb_info *sbi)
- {
-+	if (sbi->options)
-+		put_mount_options(sbi->options);
- 	kfree(sbi->new_rec);
- 	kvfree(ntfs_put_shared(sbi->upcase));
- 	kvfree(sbi->def_table);
-@@ -641,6 +643,11 @@ static void ntfs3_free_sbi(struct ntfs_sb_info *sbi)
- 	kfree(sbi);
- }
- 
-+static void ntfs3_free_sbi_rcu(struct rcu_head *head)
-+{
-+	ntfs3_free_sbi(container_of(head, struct ntfs_sb_info, rcu));
-+}
-+
- static void ntfs_put_super(struct super_block *sb)
- {
- 	struct ntfs_sb_info *sbi = sb->s_fs_info;
-@@ -657,6 +664,12 @@ static void ntfs_put_super(struct super_block *sb)
- 
- 	/* Mark rw ntfs as clear, if possible. */
- 	ntfs_set_state(sbi, NTFS_DIRTY_CLEAR);
-+
-+	/*
-+	 * The mount options stay until the sbi is freed: ->d_hash() and
-+	 * ->d_compare() of a pathwalk in rcu mode read the nls table through
-+	 * them.
-+	 */
- 	ntfs3_put_sbi(sbi);
- }
- 
-@@ -1806,9 +1819,11 @@ static void ntfs3_kill_sb(struct super_block *sb)
- 
- 	kill_block_super(sb);
- 
--	if (sbi->options)
--		put_mount_options(sbi->options);
--	ntfs3_free_sbi(sbi);
-+	/*
-+	 * A pathwalk in rcu mode may still be in ->d_hash() or ->d_compare()
-+	 * and read the upcase table and the nls table through the sbi.
-+	 */
-+	call_rcu(&sbi->rcu, ntfs3_free_sbi_rcu);
- }
- 
- // clang-format off
+ int utf8_validate(const struct unicode_map *um, const struct qstr *str);
 -- 
 2.53.0
 
