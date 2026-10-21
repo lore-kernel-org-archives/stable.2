@@ -1,80 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595296;
-	b=rQoYrxsR8pJudDfy7cEr7hKIIclIUlyyF2OU6xJPyPXCq8YeOrlKIR6RA0FYZQ0sTWTp
-	 96yptiKm+Lyl2+JN7XmBE+18WE2T2/vAAunMlV+wBpfIjZaTzE9i81llXg/2s8rlUYF2s
-	 WlMHfqFmjYIP7xc4h8laI4GL4A396DkWl9mFR3GtLBmv9zg4UhIMnyHPeUpn0nTZANoDN
-	 mN5O7iAgP5imi8Im6Pvb17j0rsjy8eQrJbMa/irKRxbTbdxjtMa2hYgUb1bJuM92D8lma
-	 RoXkCJ49bdOTDEnBVgIG/YTsxMWgAxbzp3I5eC5UWIIUPM2jY6nB5i4BIJ1//LUZnlg==
+	t=1792595297;
+	b=nl7e3yu++OFKwM/sXSk7DRdgAB9LvlZREazDCnf2/kfvjumOCq0AZPOFICr/2N2SDYSO
+	 RtXAbpuJ+JcSoxaR6a6XK0UeAStT7RGemq/X3WZH/XSE9+22OQbDBsA1uZtrG5flo2rqn
+	 jSmQthDHU45FsiEg9oouUMCDbflJl93WtVE8Tpx+I8aMhmiXvF3Oev1/lVb4rwaZg0udg
+	 toG8Gj5zOpBI2cxqBdwVf+d1XYv+Sb+dmsBXgBiUSwuqIv017c+r4bae16ix6bHLiPSWB
+	 Wasds4+S68e8UFFCIHay5xo2Ra53HIvNkWjYdKUkhJYVxOGPcYJumoQxXW5kqpX/1FA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595296;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595297;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=NWFTTPgr6a+7/Xni+URiPpkEFmXv3aUFnA25E/9kZnA=;
-	b=FH6r3G3wUW4qjjcVEyCKvpuryG2TyUmSVvI40ZcRi1G5u4R3jD02gcg7gXKl/HYKfOKb
-	 V8CxC9g+iloDJCjPn4CeLfv0+IQJ+iLS2YiwbdUSlouzjBC2eISNA6v5JZ9eFa39GNWxj
-	 jcxgXAeLVOvSk5eH6DevWIeKxSdN8/XQbeEiPyDhtvqzMrAcz7fbuJWKctaD9atHe9GMv
-	 MGQv4VgxzYg1lEnao2jbbkawN1Z4870HiR4Ug8MdfktTFGca/e0Jx5OTxZhWGeFAnsQEF
-	 04QU7N6R/WvsJ9PhE7Jt8cOpmG1X3nxqcnt8ix2plmMa9M3CP8rAxXdDa24e2nC2kSA==
+	bh=nX+gP2drifdU2o+OF+ySLEpKlcNDTqHvU5zt6uKwARU=;
+	b=Ww3UbFYqv89U5FGqaSl6U+0eumwNJwaEVAGtTnNsR6azz+CkQ4maafaj/lkvuPbTWuou
+	 ufl+d3JwMErHaOi1tzrEtB/sF0hkLKqPVRnQN8HNI/pNG3UsEo31ipOYs+6WcwPS/TWwU
+	 /SQKYdixA/lHfOib4hO2SuO3ix5suKKq9pdEXVPFGGrmCM1lh2UR0ijAJTx9FDXYhbgMP
+	 O5hCGt6wxlCKznCaGC88n0YD60m20qP7DcHJvu7OaTRMinUzjRuvtbzV9pOThv3JH0Nbd
+	 zFB9P818xkKfgR7bqSMMsaUUH33y8QggRXel22lc8ofSCJdvZh6aiUQ8S6vmfn+wltA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="VRw9ap/L";
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=oVC2S4B7;
 	arc=none smtp.remote-ip=209.85.167.177
 Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com [209.85.167.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D89606A32E
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:08:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81D89606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68BF6606A33F
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:08:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68BF6606A33F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=VRw9ap/L
-Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-53a448f86e0so440717b6e.1
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 08:08:15 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=oVC2S4B7
+Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-4b28d7c729fso427180b6e.0
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 08:08:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792595294; x=1793200094; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1792595296; x=1793200096; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NWFTTPgr6a+7/Xni+URiPpkEFmXv3aUFnA25E/9kZnA=;
-        b=VRw9ap/L2nzXSpfuVECaED5SiGKzFhRhiTN8tirM7SB1f0HWTYkpdgSAZPsJlITzBP
-         s5TLr1myTR7vjGhRCcE7JrsVe4tZF0dOpUW8R0e9Aru3+qD7fNZsaj6G4A5Ne2e8Rv5+
-         9D5qhSNtI5e5t8o1S8GmlkNuYZ+4S1SNUDSAs=
+        bh=nX+gP2drifdU2o+OF+ySLEpKlcNDTqHvU5zt6uKwARU=;
+        b=oVC2S4B7NFJNQTrSito4yJfEumKFdCgmaWTW1R8xRymEe+S9WdzW5tinIY4IOobWb5
+         NQxBC4YgeLe2VNjzyzR+jYDQN+hf0aOFqnAL5RroVOYue/nVYJXrCremCd9qZD8Af0M3
+         p1iWgRi6XHyNYyirbChTYVvH3G5LthAyLYQng=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792595294; x=1793200094;
+        d=1e100.net; s=20260707; t=1792595296; x=1793200096;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NWFTTPgr6a+7/Xni+URiPpkEFmXv3aUFnA25E/9kZnA=;
-        b=bSviBxFzOVdeFdFrigtZd72c3pJCGpH42iT8/YGd+/8tVHL+ADH0ezUUB5IKBAhQ18
-         gyj2Y8lO/QETkXbp9hCqxDCsgL8j8qNWQKuWDoYPJLXWyKRF9gyxutraFxVZkx1R+kNk
-         U38ryelz/U/VESUvVK396vCxS+ohSsaVSYqEloZWmX6/3LngcQujmhmiOP/r/ECFVXit
-         KZLIrnk3lxXrOGGYHOQ4KqfZI1GcQTPIoj7umwe4ldU2UOUyTcu+lEzhRMwXo18Mj6oY
-         nh1vcPGFT4DmiJBa6jJ48Pdt5OwL4BTq+R1dnkX/5bn2ezQilEtgoXi6MksATOPtnF9v
-         unEg==
-X-Forwarded-Encrypted: i=1; AKwUvBx9hHqZg1+B8WN8bn1uGkf7T/YazfB2Ut1IdhOCMrnFXmWSygUZQTP63pQPuGCuugOwqGDg5C4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLds7cq+3B+4w4Kvb/rOzcw/k3VVSqdU0MAeqPB8VEaZsIyd1y6
-	AUUy77kfL7e3xBkYzOVbspzxfkLxuW94ugzXoDfqoVHFQbvIi7pFjLcVFAwGtym7+w==
-X-Gm-Gg: AYBFou02L5h4YBVLNlc/iK/7e6y/9w0M/1Zr+1JpOdvY2n/dCmy/AaYOgGfGCjuekNC
-	+1YLfLRfY9VJfyiI7isNCHILAabWrqz0+yAgJb476LBnfqBOJLpST1FuZfROaLqCI1+ONs6b8q/
-	j3Br+JMXfIUlcAlh6oMWo9RE5yfsvldyZ6Ylyg2/fLNG8JKu/M3EkxxLk567hd3yxtuHZv7/SLz
-	vgHr5WSlTaDoEOoIgq1CXYozHG9N7XHONP29/S77Ar9KAfipkpc8w/tanZFxmOztiv4Ej4UIpYG
-	vfqQlIl4uTF6FWrVRHDHgBRx2JXZFBcC/V5JH3OLbofBJ9gM3zdro4SJyzrp+40oz/1T9DpNr0+
-	X4T1sgEGZs1AD5RNGibggyfS0LtzkcEFsg664mSiPh4t8Fv5aby3xImD4eOyHdaQrniFIvLetjx
-	n9LQElPlk/jrzpLS7eemHtY+ZTw32aWmPihuBtUIdXVR4eWaEBNl/ci6GVIeGyW98dDNkGz+IR6
-	9dVXVsWrewcbV4zMhOAqhNlnBzl7bYpuUyigGzNI709khCRDmvbgAGlp7BSSlQz6KXux1QxPNAH
-	X1nShqCSAOa9xBXdlL83kFa1H0EBpyLIIJKtUaL2zF1A
-X-Received: by 2002:a05:6808:1715:b0:4bb:ac05:9ebf with SMTP id 5614622812f47-5535d4e12bemr1568864b6e.14.1792595294486;
-        Wed, 21 Oct 2026 08:08:14 -0700 (PDT)
+        bh=nX+gP2drifdU2o+OF+ySLEpKlcNDTqHvU5zt6uKwARU=;
+        b=Lu+vbbPALetAFjWhso+tZdZ4JwQORf8CdCszblsKCiua5VeOBzvj6SnGLWzv2OdOR7
+         H0FbPnMf7tLVQYdoVKCSK+977mysf6f1d6BjtA8WAM2YN5IW7ggr3MVWT7VgYB20QUli
+         TC66I5coily56jD/LB4mW2SUOKqViuOPF7wXGtZv6Z1zkTloNJ0RamE0mRml5tSgQEaD
+         5KSvWIm4STOegtutVBXUc60Tf8WWfdeJS/r5UXH5C4ILdahMFe8OA/lwJGrstoMqpAAT
+         QpTFSh+VXhi8yfs5Jk1gcfhwok65YjCHUxMNSkegAsp2K3x5v3nzTA9V4f7mL99lmke2
+         nXgg==
+X-Forwarded-Encrypted: i=1; AKwUvBy9AgMi5R130ZrBBOEnPnVsqCaeyo8SJhtpWgebZ2+vMcAceKlzJzWW9m72iey6q/eaHtr/aho=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYMTxnEgcBTBm13fMDsOx1cwVHGvCBC4rR0gjBlJm9NO2+1xXb
+	CNbZ6UVMweLRiClyYfeP7qMyXrrwibN36ru8K9fzxHMzYanCq+V+uZ/xAcb9epgYBw==
+X-Gm-Gg: AYBFou23YhtlJsjCrpMVOWP2LTb3F6ay/g57IlIuYcd37lUib+LI4HCz4PNtTAJ3TZ9
+	Mcv9PGyZhVyw/kY26QuQkjc+rJmhveU6WvA5Tx/c+kDL5wvK3OcpeV8I7vhI2od79YjIMAzMYcU
+	cPqO0/7t8NYDb5jGQ0W8nc6GO8SteS1T2ZkVjZdRjAWx4TfEcOaYGWpQ/b2uEFYFcO0jLV0Elkr
+	fEAkHnjTbGMecd1tUCFKaZaTxSBFZnfKhaU8VV9O5PBKT1TuqnTitd2RYJYVac8IFEIDMKy7kyz
+	ctPfzK0vAG9qYsD9gJaeaR9v+b567kdE6jfDBTdztDYqmQqI/xWhosaOClkvvWvKMn1C6LU3J/w
+	WvNMFK3nAIe20A2ls5mtnhlL0LRB4D2we+4+Hkf5DO+0V8X1QWzCqCqNopjtzuUvqZnqs3Tlfc/
+	xuYkOqls1RnaMfGjGUU3crHx4wlUAlpvuzBexyR27pfnqDgaTakRn1XYISVBA+muZPNQWD2tVXf
+	aLxuVtJCXujQz6uhPNFIbwPHQ8ihUPiOx9uyvHeKbs+636LaIeZ/wzg+qOIbQHU3O1wHpM5BdCV
+	tbthdG22MqYxh6US2G2kLgCKLbeFf7/F4z70Izsrdwje
+X-Received: by 2002:a05:6808:148e:b0:4ea:5e0e:7dab with SMTP id 5614622812f47-5535818f4edmr1498560b6e.37.1792595295749;
+        Wed, 21 Oct 2026 08:08:15 -0700 (PDT)
 Received: from rrangel.c.googlers.com.com (202.168.136.34.bc.googleusercontent.com. [34.136.168.202])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-552b400bd39sm2023922b6e.6.2026.10.21.08.08.13
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-552b400bd39sm2023922b6e.6.2026.10.21.08.08.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 08:08:13 -0700 (PDT)
+        Wed, 21 Oct 2026 08:08:15 -0700 (PDT)
 From: Raul E Rangel <rrangel@chromium.org>
 To: Valentina Manea <valentina.manea.m@gmail.com>,
 	Shuah Khan <shuah@kernel.org>,
@@ -84,10 +84,10 @@ Cc: Hongren Zheng <i@zenithal.me>,
 	linux-usb@vger.kernel.org,
 	Raul E Rangel <rrangel@chromium.org>,
 	stable@vger.kernel.org,
-	Suwan Kim <suwan.kim027@gmail.com>
-Subject: [PATCH 4/6] usbip: vhci_hcd: clear URB_DMA_MAP_SG on all giveback paths
-Date: Wed, 21 Oct 2026 09:06:59 -0600
-Message-ID: <20261021150704.3129446-5-rrangel@chromium.org>
+	"Brian G. Merrell" <bgmerrell@novell.com>
+Subject: [PATCH 5/6] usbip: vhci_hcd: allocate vhci_priv outside lock and handle ENOMEM
+Date: Wed, 21 Oct 2026 09:07:00 -0600
+Message-ID: <20261021150704.3129446-6-rrangel@chromium.org>
 X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
 In-Reply-To: <20261021150704.3129446-1-rrangel@chromium.org>
 References: <20261021150704.3129446-1-rrangel@chromium.org>
@@ -102,83 +102,129 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In vhci_send_cmd_submit(), URB_DMA_MAP_SG is set on urb->transfer_flags
-when urb->num_sgs is non-zero so that setup_cmd_submit_pdu() packs
-USBIP_URB_DMA_MAP_SG into the wire PDU, even though vhci_hcd never maps
-the scatterlist with dma_map_sg().
+In vhci_urb_enqueue(), usb_hcd_link_urb_to_ep() links the URB onto the
+endpoint before calling vhci_tx_urb(), which allocates struct vhci_priv
+with GFP_ATOMIC while holding vhci->lock. If that allocation fails,
+vhci_tx_urb() triggers VDEV_EVENT_ERROR_MALLOC and returns while
+vhci_urb_enqueue() still returns 0, leaving urb->hcpriv NULL and the URB
+linked on ep->urb_list where vhci_urb_dequeue() rejects it with -EIDRM.
+Moreover, failing a single URB submission should return -ENOMEM to the
+caller rather than tearing down the entire USB/IP connection.
 
-Currently, only vhci_recv_ret_submit() clears URB_DMA_MAP_SG before
-calling usb_hcd_giveback_urb(). If an URB with scatter-gather entries
-is instead given back via vhci_recv_ret_unlink(),
-vhci_cleanup_unlink_list(), vhci_cleanup_priv_list(), or
-vhci_urb_dequeue(), __usb_hcd_giveback_urb() invokes
-usb_hcd_unmap_urb_for_dma(), which sees URB_DMA_MAP_SG and calls
-dma_unmap_sg() on an unmapped scatterlist.
+Allocate struct vhci_priv in vhci_urb_enqueue() using the caller's
+mem_flags before acquiring vhci->lock, pass it to vhci_tx_urb(), and
+free it on early-exit and non-transmit paths.
 
-Move the URB_DMA_MAP_SG clearing from vhci_recv_ret_submit() into
-pickup_urb_and_free_priv() (covering vhci_recv_ret_submit(),
-vhci_recv_ret_unlink(), and vhci_cleanup_unlink_list()), and also clear
-URB_DMA_MAP_SG in vhci_urb_dequeue() and vhci_cleanup_priv_list() so all
-URB giveback paths clear the flag.
+In vhci_urb_dequeue(), if allocating struct vhci_unlink fails after
+usb_hcd_check_unlink_urb() has already marked urb->unlinked, return 0
+after triggering VDEV_EVENT_ERROR_MALLOC so callers know the unlink was
+accepted and connection teardown will drain priv_rx and give back the
+URB.
 
-Fixes: ea44d190764b ("usbip: Implement SG support to vhci-hcd and stub driver")
+Fixes: 04679b3489e0 ("Staging: USB/IP: add client driver")
 Cc: stable@vger.kernel.org
 Assisted-by: Gemini
 Signed-off-by: Raul E Rangel <rrangel@chromium.org>
 ---
 
- drivers/usb/usbip/vhci_hcd.c | 6 ++++++
- drivers/usb/usbip/vhci_rx.c  | 6 +++---
- 2 files changed, 9 insertions(+), 3 deletions(-)
+ drivers/usb/usbip/vhci_hcd.c | 30 ++++++++++++++++++++----------
+ 1 file changed, 20 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/usb/usbip/vhci_hcd.c b/drivers/usb/usbip/vhci_hcd.c
-index 78ea1fc7906e..522cbaa6eb0a 100644
+index 522cbaa6eb0a..27dba51392b7 100644
 --- a/drivers/usb/usbip/vhci_hcd.c
 +++ b/drivers/usb/usbip/vhci_hcd.c
-@@ -934,6 +934,9 @@ static int vhci_urb_dequeue(struct usb_hcd *hcd, struct urb *urb, int status)
- 	 * CMD_UNLINK is needed.
- 	 */
- 	if (!vdev->ud.tcp_socket || !priv->submitted) {
-+		if (urb->num_sgs)
-+			urb->transfer_flags &= ~URB_DMA_MAP_SG;
-+
- 		list_del(&priv->list);
- 		kfree(priv);
- 		urb->hcpriv = NULL;
-@@ -1045,6 +1048,9 @@ static void vhci_cleanup_priv_list(struct vhci_device *vdev,
- 		priv = list_first_entry(priv_list, struct vhci_priv, list);
- 		urb = priv->urb;
+@@ -665,18 +665,12 @@ static int vhci_hub_control(struct usb_hcd *hcd, u16 typeReq, u16 wValue,
+ 	return retval;
+ }
  
-+		if (urb->num_sgs)
-+			urb->transfer_flags &= ~URB_DMA_MAP_SG;
+-static void vhci_tx_urb(struct urb *urb, struct vhci_device *vdev)
++static void vhci_tx_urb(struct urb *urb, struct vhci_device *vdev,
++			struct vhci_priv *priv)
+ {
+-	struct vhci_priv *priv;
+ 	struct vhci_hcd *vhci_hcd = vdev_to_vhci_hcd(vdev);
+ 	unsigned long flags;
+ 
+-	priv = kzalloc_obj(struct vhci_priv, GFP_ATOMIC);
+-	if (!priv) {
+-		usbip_event_add(&vdev->ud, VDEV_EVENT_ERROR_MALLOC);
+-		return;
+-	}
+-
+ 	spin_lock_irqsave(&vdev->priv_lock, flags);
+ 
+ 	priv->seqnum = (u32)atomic_inc_return(&vhci_hcd->seqnum);
+@@ -702,6 +696,7 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
+ 	u8 portnum = urb->dev->portnum;
+ 	int ret = 0;
+ 	struct vhci_device *vdev;
++	struct vhci_priv *priv;
+ 	unsigned long flags;
+ 
+ 	if (!portnum || portnum > VHCI_HC_PORTS) {
+@@ -716,11 +711,16 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
+ 		return -EINVAL;
+ 	}
+ 
++	priv = kzalloc_obj(struct vhci_priv, mem_flags);
++	if (!priv)
++		return -ENOMEM;
 +
- 		list_del(&priv->list);
- 		kfree(priv);
- 		urb->hcpriv = NULL;
-diff --git a/drivers/usb/usbip/vhci_rx.c b/drivers/usb/usbip/vhci_rx.c
-index a678e7c89837..7e69e4b1bace 100644
---- a/drivers/usb/usbip/vhci_rx.c
-+++ b/drivers/usb/usbip/vhci_rx.c
-@@ -42,6 +42,9 @@ struct urb *pickup_urb_and_free_priv(struct vhci_device *vdev, __u32 seqnum)
- 				 seqnum, status);
+ 	spin_lock_irqsave(&vhci->lock, flags);
+ 
+ 	if (urb->status != -EINPROGRESS) {
+ 		dev_err(dev, "URB already unlinked!, status %d\n", urb->status);
+ 		spin_unlock_irqrestore(&vhci->lock, flags);
++		kfree(priv);
+ 		return urb->status;
+ 	}
+ 
+@@ -734,6 +734,7 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
+ 				    vdev->rhport);
+ 		spin_unlock(&vdev->ud.lock);
+ 		spin_unlock_irqrestore(&vhci->lock, flags);
++		kfree(priv);
+ 		return -ENODEV;
+ 	}
+ 	spin_unlock(&vdev->ud.lock);
+@@ -829,7 +830,7 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
+ 	}
+ 
+ out:
+-	vhci_tx_urb(urb, vdev);
++	vhci_tx_urb(urb, vdev, priv);
+ 	spin_unlock_irqrestore(&vhci->lock, flags);
+ 
+ 	return 0;
+@@ -837,6 +838,7 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
+ no_need_xmit:
+ 	usb_hcd_unlink_urb_from_ep(hcd, urb);
+ no_need_unlink:
++	kfree(priv);
+ 	if (!ret) {
+ 		/* usb_hcd_giveback_urb() should be called with
+ 		 * irqs disabled
+@@ -956,10 +958,18 @@ static int vhci_urb_dequeue(struct usb_hcd *hcd, struct urb *urb, int status)
+ 		/* setup CMD_UNLINK pdu */
+ 		unlink = kzalloc_obj(struct vhci_unlink, GFP_ATOMIC);
+ 		if (!unlink) {
++			/*
++			 * Leave urb->unlinked set and return 0 so callers know
++			 * the unlink was accepted and usb_hcd_flush_endpoint()
++			 * does not busy-spin retrying unlink1(); the shutdown
++			 * triggered below (assuming usbip_event_add() can
++			 * allocate its event node) will drain priv_rx and give
++			 * back the URB.
++			 */
+ 			spin_unlock(&vdev->priv_lock);
+ 			spin_unlock_irqrestore(&vhci->lock, flags);
+ 			usbip_event_add(&vdev->ud, VDEV_EVENT_ERROR_MALLOC);
+-			return -ENOMEM;
++			return 0;
  		}
  
-+		if (urb->num_sgs)
-+			urb->transfer_flags &= ~URB_DMA_MAP_SG;
-+
- 		list_del(&priv->list);
- 		kfree(priv);
- 		urb->hcpriv = NULL;
-@@ -95,9 +98,6 @@ static void vhci_recv_ret_submit(struct vhci_device *vdev,
- 	if (usbip_dbg_flag_vhci_rx)
- 		usbip_dump_urb(urb);
- 
--	if (urb->num_sgs)
--		urb->transfer_flags &= ~URB_DMA_MAP_SG;
--
- 	usbip_dbg_vhci_rx("now giveback urb %u\n", pdu->base.seqnum);
- 
- 	spin_lock_irqsave(&vhci->lock, flags);
+ 		unlink->seqnum = atomic_inc_return(&vhci_hcd->seqnum);
 -- 
 2.56.0.212.g129ede20d9-goog
 
