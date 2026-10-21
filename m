@@ -1,110 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792596342;
-	b=j//4b8cUkqHQki+aaUhpxVOQzTTY/e6p3zSShLvcdzQbgy6HEuoN4mnfaXkdlklfac8Q
-	 hmApE+/BLObvbVNh+ieuSTnDy3vniwwOzdU2612htc9WWukliiJPhM/bTR+L+FfNTUyOg
-	 tVHc56nbC0W5O3q1BAroI2W4uq6fCJkUmA8e1l3ezwVzXHALZ1ofSsKSGwXuV14mNCIG4
-	 2hzJJ70Y5hJpzT04qvcafzFATXJmze4+n9dyVU/1dVFyth6fAO7gaHDMvTtfqMpAHpLQY
-	 KZXaoFK3UPROKZdmi+vWjQB1yqWxDdfdlqN6BDRY7CnZUqFcYTDLJx4zsVtYhUAo1uA==
+	t=1792596487;
+	b=AXeQbG5PrNyuZK5fK5kCvPexSs2yIA/FOIlKKP5Do7DtqwpB+Fk+xsFdbEjymLHba8GH
+	 y6CHODE76yC4Znd8ptQS/ZWqRYdsOuBdlebwI3kBAQnnvqgSnQl46Z3ZrFSJT7q+0cFsN
+	 zsH83Ky8OIOg6v8/zxOGQYroZgIcl6lri8DBa+Ovey+O5vSNOxqOQKZix1V0XB2geBsF6
+	 DaigbFxeM591jSvP32mQ822gv25QObD9x7VTC755el+2qoA8hk6+Xn1cod57mgrEfpiib
+	 cnSjsc3As231F9EnCufalAeU7Kt27obbH8tdCTn8IB0kGetCbeyxNk1696NTSwvTffQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792596342;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:
-	 X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=m7G3t+0twhzwcxbrBBvWEnkEAKgpilMXDhMbgtxEqL8=;
-	b=bx7dZgG2hfyT7DSr+2ZHd9fDCJ1+59edBLz6sK6zFlQizN1BeeYTG1XcQ5gf5d4oSzHN
-	 MLPQwpbLsEMkwmr0UjEVa3fX57jqx516AKdvfKU5XuE9ZzQ9WVOpY506vRQheAXzEF+l6
-	 VE7vHnw0B51fWx0Uqgv+QYu2jwwFykUNLBRjH++/Ow9upNVepIkEUDPagIOyhbs9lv4ua
-	 kq5hvOZAGD8R+9rj9cdUV8pqSAjdY9DbDYSyHgCXt0PvgJH5BL8/rKgBi1avuCYiB432b
-	 4gkLZ4j10N4/ehnKZXNargWaXkSB7Lsmu3VrAJDcYa4RQw6ZLAlwFAcO4cQ/6E14Phw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792596487;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=J7iM+yhWKMhlaRTv9Dtyn+iVYrKHxFutAHJMBB4EGzM=;
+	b=E58A8JRis9D7mELZLKLGw5VlKpSkNX2BWWuqIR2ij5E3P9cZrBIm6mbiMZQm0EInDP9n
+	 sHCLZGFwn31dlwZxdfqdsTQWJDNZv/WQj1FlrehW7n5SQHutaa/cVrjfjaDQpZcICxRHT
+	 xx35+8Np1wXx+OyagoqdK3/9i4hGaO3+jkrCyA/hFY21O++6G7+61FN0kNTahHc6ObgjG
+	 B8cBHzkTRY0CElfzCaGyLFBIv03ENtFZ5x/AAz69d1QJOChICrKrDfeYO1SkMSTERFz00
+	 UYEsbgaPLPFIHomQbokalhOdIHE3P5RPDsDLA5G3lLS0kPX7s7mUrEsLRuGTRaCK8jQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ztTEx3yV;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rXncpbw+;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ztTEx3yV;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rXncpbw+;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=NjkSxdlR;
+	arc=none smtp.remote-ip=209.85.219.45
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FBDA60A3822;
-	Wed, 21 Oct 2026 15:25:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FBDA60A3822
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D0DC606A31D
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:28:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D0DC606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ztTEx3yV;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rXncpbw+;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ztTEx3yV;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rXncpbw+
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 0B5711FB2A;
-	Wed, 21 Oct 2026 15:25:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792596334; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=m7G3t+0twhzwcxbrBBvWEnkEAKgpilMXDhMbgtxEqL8=;
-	b=ztTEx3yVw0NQySRnicT0gWazUDORFKee0iLmtPZwq9+yp1cSkouP7dXFayqFYw59pQTqrB
-	h2tq6bDhtdCDLFW6iffPsTlKLY+602gbWR4D3h4jNME4N5Od8Q6E/iuHcoLpFJD6wE0HN/
-	A+ZoAmWAWPCStVsbFf30DqtStOWh4hU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792596334;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=m7G3t+0twhzwcxbrBBvWEnkEAKgpilMXDhMbgtxEqL8=;
-	b=rXncpbw+tAOXohKHUvjcRXJU81bt0cbpD0OROGUSusvH4vOmaliQwcdGtq2Ptsx2yjXfRS
-	FuFxB0lyBWSGf1Bw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=ztTEx3yV;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=rXncpbw+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792596334; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=m7G3t+0twhzwcxbrBBvWEnkEAKgpilMXDhMbgtxEqL8=;
-	b=ztTEx3yVw0NQySRnicT0gWazUDORFKee0iLmtPZwq9+yp1cSkouP7dXFayqFYw59pQTqrB
-	h2tq6bDhtdCDLFW6iffPsTlKLY+602gbWR4D3h4jNME4N5Od8Q6E/iuHcoLpFJD6wE0HN/
-	A+ZoAmWAWPCStVsbFf30DqtStOWh4hU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792596334;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=m7G3t+0twhzwcxbrBBvWEnkEAKgpilMXDhMbgtxEqL8=;
-	b=rXncpbw+tAOXohKHUvjcRXJU81bt0cbpD0OROGUSusvH4vOmaliQwcdGtq2Ptsx2yjXfRS
-	FuFxB0lyBWSGf1Bw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D4994134A5;
-	Wed, 21 Oct 2026 15:25:33 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id exIjLG3Z2GoUEAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 21 Oct 2026 15:25:33 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 623ACA1418; Wed, 21 Oct 2026 17:25:33 +0200 (CEST)
-Date: Wed, 21 Oct 2026 17:25:33 +0200
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Miklos Szeredi <mszeredi@redhat.com>, 
-	Jeff Layton <jlayton@kernel.org>, shaos <shawnq1@163.com>, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 3/6] listmount: don't wrap around with a U64_MAX cursor
-Message-ID: <4kwugonfxrc44htf7ar7xtrkun4h4ekpbap22c74fuhcgr337q@ylguygvysipm>
-References: <20261021-work-mount-statmount_listns_fixes-v1-0-8917a4c1bd14@kernel.org>
- <20261021-work-mount-statmount_listns_fixes-v1-3-8917a4c1bd14@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=NjkSxdlR
+Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-917b78dfe30so12176066d6.0
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 08:28:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1792596485; x=1793201285; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=J7iM+yhWKMhlaRTv9Dtyn+iVYrKHxFutAHJMBB4EGzM=;
+        b=NjkSxdlRV0YeVz9c7b6C/ObSO3CV0F/hk+ur2ybp4U3aMmAsWcP+bU7/dNr90v16f4
+         lzE1t8ilfOMbXED2Faep7Yp5B95D2uUr/qMIEx5Oyw95DKLXGoh3caabdUt2LHq+Fi0j
+         vSya0ZD3VKvWY/eLMka4vEoMzAqmA7visb1VKBind7HuYq2Q86IXrdGSvBvLC4hjJMO4
+         aZXCGMpGcQKicHLpdJvPEmLzWgdSH16GK3pwIzAwfObU1r7I4EGPOadc8keV1VdF0i4+
+         KqPkYtVuJ9RYGRLHuNTHl+cgUIe3yW4bKzYvltjnytDJ3oAKPykNIzKqUiWhpgU+lh6v
+         376w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792596485; x=1793201285;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=J7iM+yhWKMhlaRTv9Dtyn+iVYrKHxFutAHJMBB4EGzM=;
+        b=k/q6Aq/sLFg/mafKmUS/9eAp2uTx0koK21WJhfSL1LYKD6drLP4nvlxKoifNi4oyGt
+         QX/8zG8U/qGeujkwtCUivi/IL95rPhc48RZ2rcjfRuQEZmqep1P59JnBkINEjfscjsks
+         XzdLisA/bkAvtMvocLgc8fnqBvWTo7oNKFQdvMeeaw5N+eMhKlsl9x1OaYeDCyu3dDkm
+         hp2KQOZbyL1KAaRnNzu8NtPphoxq4F/cbiLmHjnMsF9OE5L83RanCSwgXT+EZMCOlhGr
+         k9WXSDRPr3j6xtBOZGN0Evj0czZpI7v4SEVlTLE6e6VIcuk0tvBl/4jv8BoQt5qBldkx
+         oHMw==
+X-Forwarded-Encrypted: i=1; AKwUvBzuL7rzxvkcXiEQuEJWS5wy+/ZFFSRvotMJ6nzkDg6tmaNjf0m3CWrwGM/r+d8Cww8fHcWTYAg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKF5n1mfylATTgaKYhv+gpaohrstUni5/RLCPFqc327/5hCtIPl
+	btk33YfwRCCdSOrnKQEGwfPKdpb5FVpFv+JFtfIkK7Mq3ZVJqUZDM2S72xqgHNGOJ2TJO0hB/mY
+	wGTay
+X-Gm-Gg: AYBFou3C+pGgP/A7ZsRlDyAxKn/Ft55w+wWqGqiss13Vqz37zB51urKtH+ffhbTfEtT
+	Qq7xcMkL7+CbCTWX+sEV+M893oH1C+Biz18wZpihcnAD6HoAaHRophEtNCHeCkoCTs/BS9zEbIZ
+	p7HfEdbISq4sMYEzSqKX/jwR3Yydlm2r4TOQYk92N2diWCer7+dHLRXkxk+2zF6wZWtObzvYLkX
+	+taUbYv4RC+ZBlsIojFJlkVMXUpgqs2GagBBpunjsqwKJH1vFq/qpo1WgByVsVRmQpO1QjocZrp
+	JW9njZDMZb6lQ8Aq5uoHkSChbQQa1+zeOekNGBH1vfb241KNL8bHoPOeRXiqNepWQcyFaIeTJht
+	Qs7uibjg1+FK31mJUngWJw4HdpWr+YbpxjPORZzPzzgkSqMWqZREPBYWZiTZqrnsB9JEIZs90FG
+	wxC2W7YCsWTXY2gZLNcgdzebm1mv65RC5VRgrI8ar4MdCpG/7V7BsDfRRCxAi7M5xwj08TQq8QO
+	2TpdZIi2KIRRyJb9IsthboOCh6dRzVIEW5NNPxLqH79796BEYsytAk5cyyxut1Gypft7WGR5dH3
+	6IiBIw3ngFIaXqJA8AnBFgXJH0S0UZpSk0G0
+X-Received: by 2002:a05:6214:3a8c:b0:91b:d5d7:8c85 with SMTP id 6a1803df08f44-91c12eff3e3mr44319236d6.33.1792596485317;
+        Wed, 21 Oct 2026 08:28:05 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c10c3b500sm27151986d6.35.2026.10.21.08.28.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 08:28:04 -0700 (PDT)
+Date: Wed, 21 Oct 2026 11:28:03 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: akpm@linux-foundation.org, willy@infradead.org, jack@suse.cz, 
+	shr@devkernel.io, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/page-writeback: avoid 32-bit overflow in dirty
+ threshold shares
+Message-ID: <atjZ6yadzSeqjozA@gourry-fedora-PF4VCD3F>
+References: <20261021060654.27855-1-dennylin0707@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -116,141 +101,25 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261021-work-mount-statmount_listns_fixes-v1-3-8917a4c1bd14@kernel.org>
-X-Rspamd-Queue-Id: 0B5711FB2A
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[163.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,zeniv.linux.org.uk,suse.cz,redhat.com,kernel.org,163.com];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim,suse.cz:email,suse.com:email]
-X-Spam-Score: -13.01
+In-Reply-To: <20261021060654.27855-1-dennylin0707@gmail.com>
 
-On Wed 21-10-26 13:46:56, Christian Brauner wrote:
-> do_listmount() takes the last mount id the caller saw and looks up the
-> first mount after it by searching for last_mnt_id + 1. With U64_MAX
-> that wraps around to zero and the search finds the first mount in the
-> namespace. So a cursor at the largest possible id restarts the listing
-> from the beginning instead of ending it. A cursor of U64_MAX - 1
-> correctly returns nothing.
+On Wed, Oct 21, 2026 at 06:06:54AM +0000, Hungyu Lin wrote:
+> The ratios used by __wb_calc_thresh() are scaled to parts per million,
+> but the threshold and ratio operands are unsigned long. On 32-bit
+> kernels, their multiplication can wrap before the result is assigned
+> to u64.
 > 
-> No mount will ever have that id. Mount ids come from a counter that
-> starts at MNT_UNIQUE_ID_OFFSET + 1 and a caller that only feeds back
-> ids it got from us can't hit this. It's still wrong. Nothing can come
-> after the largest possible id so return no entries for it, just like
-> for any other cursor past the last mount.
+> For example, with a threshold of 25600 pages and the default maximum
+> ratio of 1000000, wb_max_thresh becomes 4125 pages instead of 25600.
+> The shared threshold and minimum share calculations can overflow in
+> the same way, producing incorrect per-writeback dirty limits.
 > 
-> The reverse direction isn't affected. A cursor of zero is special-cased
-> and anything else is larger than MNT_UNIQUE_ID_OFFSET so last_mnt_id - 1
-> can't underflow.
+> Use a u64 threshold for the three ratio multiplications and div_u64()
+> to retain the existing division order and rounding.
 > 
-> Reproducer, unprivileged:
-> 
->     #define _GNU_SOURCE
->     #include <errno.h>
->     #include <stdint.h>
->     #include <stdio.h>
->     #include <sys/syscall.h>
->     #include <unistd.h>
->     #define LSMT_ROOT 0xffffffffffffffffULL
->     struct mnt_id_req {
->     	uint32_t size, mnt_ns_fd;
->     	uint64_t mnt_id, param, mnt_ns_id;
->     };
->     static void list(uint64_t cursor)
->     {
->     	struct mnt_id_req req = {
->     		.size = sizeof(req), .mnt_id = LSMT_ROOT, .param = cursor,
->     	};
->     	uint64_t ids[8];
->     	long ret;
->     	errno = 0;
->     	ret = syscall(__NR_listmount, &req, ids, 8, 0);
->     	printf("cursor %llu: ret %ld errno %d", (unsigned long long)cursor,
->     	       ret, errno);
->     	for (long i = 0; i < ret && i < 1; i++)
->     		printf("%s%llu", i ? "," : " ids ", (unsigned long long)ids[i]);
->     	printf("%s\n", ret > 1 ? ",..." : "");
->     }
->     int main(void)
->     {
->     	list(0);
->     	list(UINT64_MAX - 1);
->     	list(UINT64_MAX);
->     	return 0;
->     }
-> 
-> Before, on 7.3.0-rc7-00252-g4e3259b08c54 (vfs.fixes) in a VM:
-> 
->     cursor 0: ret 5 errno 0 ids 2147483651,...
->     cursor 18446744073709551614: ret 0 errno 0
->     cursor 18446744073709551615: ret 5 errno 0 ids 2147483651,...
-> 
-> After:
-> 
->     cursor 0: ret 5 errno 0 ids 2147483651,...
->     cursor 18446744073709551614: ret 0 errno 0
->     cursor 18446744073709551615: ret 0 errno 0
-> 
-> Reported-by: shaos <shawnq1@163.com>
-> Link: https://lore.kernel.org/r/20261020110732.959552-1-shawnq1@163.com
-> Fixes: b4c2bea8ceaa ("add listmount(2) syscall")
+> Fixes: ae82291e9ca4 ("mm: use part per 1000000 for bdi ratios")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 
-Looks good. Feel free to add:
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
-> ---
->  fs/namespace.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/fs/namespace.c b/fs/namespace.c
-> index 6c9c0cdbe890..dd60123a0cb0 100644
-> --- a/fs/namespace.c
-> +++ b/fs/namespace.c
-> @@ -6253,6 +6253,8 @@ static ssize_t do_listmount(struct klistmount *kls, bool reverse)
->  	} else {
->  		if (reverse)
->  			first = mnt_find_id_at_reverse(ns, last_mnt_id - 1);
-> +		else if (last_mnt_id == U64_MAX)
-> +			first = NULL; /* nothing comes after the largest id */
->  		else
->  			first = mnt_find_id_at(ns, last_mnt_id + 1);
->  	}
-> 
-> -- 
-> 2.53.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
