@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594302;
-	b=nSFNt8QS/YjFqYV7W1+l04p8161yKRRNQCgE5AiDfnThbsE8duM0Qgmbr2Km0SSjO7ND
-	 aVPAywMZDgNkYAyL+zKN9D3HNUH6axfGGd62mojRY6SuYXsSvciieAfOev2+1STacYher
-	 lNAq0FoGy5XXOcD8xqRuKbi5tOijBv4Vo4Pd9SE5tMLLF/a7qVWDT7MRXswi3B7YBh+fV
-	 j3DfdIYdyVPmqqwQUiAQ3UPEmq+6MCNofBtdFkygsAAySUCUEDjYahuAuaYonUvj+PQ9i
-	 las+okW7COFklLyiI4HZlQ1um/BzVx85VlNSKkg97xYLDMjzZeEFCK+/VMEuZb2wTCA==
+	t=1792594305;
+	b=5EHdRyp8PNtN5DmRRJI1fTyaJWFO+leWEU885LcFR+FUX+Sf75DCR2HuCuL2voarzV44
+	 QHnOIccFe2VEgk7iaHKjEeFngbVOFEJHo5dJ0VHexSpQih4aezY9TOP+0kqZ3d0DD1Id1
+	 TZSkHMv+tQLP6w0dUacuZB3j80KKno1ryVbCH8mcrkDXxh3J3g2JmhXlfOiXzxiFHz4rB
+	 GYipCKNqp8Cco2KuT8HWpECtcKenR7BLFS0+cgMHELuV/gkJGw2bGg5LQaBqgQIf9fUUB
+	 84C/hAoXKEUAPoJXvAAWlti9RMk2AAZrwaSf+cpsh2I0tTBzm6nD6O94zKCQbtJ7Q4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594302;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594305;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=POWXmCEbIBpYC1ykWozcap4CRsnBMEc1ZEoiE94rij4=;
-	b=cWrapf1Rf2MpbLPccDOqGItwTOvbTOYu/F9gebEEgyh+/j2FJmJHo9AajQ+fPUkAvyvp
-	 kgxIEXnjIwUEAyKZdkV4IDy6cVV2Oi4oUUNyg8/66EPyFnyDGwLeNf/Q6nnbisQJhNGBV
-	 GTTXFoPS+MyLYmYlYX/9/Suaqo8rI4zRHSnRSe19J34Ep+JdAXl3aa+5kx4H+kfQ7V2M1
-	 2fiDrEgid0zOKkhSOa7v9dbJNvI3GtJIbzqNsG5NvaIZBD9uWlhuOUty6mkzQdXt95zAC
-	 kXJmyALmZbkYqoCO6K/Mj8G5MrMhg49fpsXkXidE/NiVA729BjovbABQJ+QJa8DbdBQ==
+	bh=S2hihoaKFCYYWKz4vA6mnJsDS/ZxKlIxLRp0bIN1RiY=;
+	b=xNaeqrrTJW0JW8fvh9/Q/xhDPmW1pVK7tO3/8WEeoGasKMNUhcOR4U6Fi/W9fp7rGbH7
+	 GnC4l3Mtn6P7V6ohgIbeJ4jjprJExG1qbx/WeAyt6hoVXLWDrG8ZOH9HEX/voZrpoiF7l
+	 uqentL9Hrv8X9LlGl7vt8PqsZlWyNuN17nyDL3gvzypQsDj08CkcONHVt8SWdq6RIr4+N
+	 0B6iKJuY2VheFqNlIR20n/DE3wagiRR6A/ZbWKc7pLRgcDStbxBFPZqOPqqPR+6DZlA3x
+	 sQPb8qqJAdxUtFwPnTYSR0wAhNB+iaAUMoKqZKaYTKAA8ujfeHxokVfCCqp7Mf0Tq5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dToCP9E3;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Vk1eyVYH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D0A606A324
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:51:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F4DE606A31A
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:51:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dToCP9E3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CCDB1F000C1;
-	Wed, 21 Oct 2026 14:51:41 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Vk1eyVYH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DE3D1F000C2;
+	Wed, 21 Oct 2026 14:51:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594302;
-	bh=POWXmCEbIBpYC1ykWozcap4CRsnBMEc1ZEoiE94rij4=;
+	s=korg; t=1792594305;
+	bh=S2hihoaKFCYYWKz4vA6mnJsDS/ZxKlIxLRp0bIN1RiY=;
 	h=Subject:To:Cc:From:Date;
-	b=dToCP9E36XMqQ6GolRwnJIjbhUILNPnbF2n93rltaHhO/ah3xDfftMg4K/t7PmZqT
-	 2zlYnaHoOKN+rSDGtvlPcNTd4wwtpKoYtVST3if6b8EMEeXCXN4nm4JvIZmntpHh/c
-	 xZUnxgnjgxHjPIjUvcuFdOh62+R2yLUtjsoArQNk=
-Subject: FAILED: patch "[PATCH] drm/amdgpu: free the userptr ranges when a CS fails after" failed to apply to 6.6-stable tree
+	b=Vk1eyVYHFG/4YYd+cVVTGpWKYfG4gVlXZoVtJqGESp5vWpGuLyGO/d/+qfbm7kdgx
+	 mmiq7W7dwZPlnlSl0cuXEEnN1iyy3F+7M0XMbfRt8nOrE09zICjrgyZ/vbrPWVKEFQ
+	 5n2GM7FJY29LnxmGuUtOQhC89XVqflQMT4certPc=
+Subject: FAILED: patch "[PATCH] drm/amdgpu: free the userptr ranges when a CS fails after" failed to apply to 6.12-stable tree
 To: Jesse.Zhang@amd.com,alexander.deucher@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 21 Oct 2026 16:46:30 +0200
-Message-ID: <2026102130-unworn-juggling-1cdf@gregkh>
+Message-ID: <2026102130-uncaring-epilepsy-5ad9@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 1b4da805a0ba354a549ce07459c871c17dd94fe0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102130-unworn-juggling-1cdf@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102130-uncaring-epilepsy-5ad9@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
