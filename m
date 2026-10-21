@@ -1,105 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792580318;
-	b=29+6mVCKKro7Hi8njs60TeX2JQWHi57Q33J43IDbiJ2pVFB8QHto8Gu3pd5hF9AQcz+x
-	 EEBwu9rapJkdLivsNBa3etsVAoxjKefCZx1+eacQEZ0nQHGi6Su1IbU3IJYaR8pShpyFV
-	 RxvHnx7zBypXtF1vdsCkLHUDPsxO7iCpy08jdVJoPvFIp+jvn5E1t45ArLpMaTPOYElyE
-	 +UuQxt9hrSQjNg44jQuyQw3hob7XA0xFo/e3zYG5R/bqeBdXXQu0/9TNrSounlGt1SwHq
-	 og9UQ3qXDZkDEOjY1rJ4ZU84Jza1fgHumtRguil1gjMti9pQbhMMsisUrZbrrpOLYcQ==
+	t=1792580347;
+	b=ZUVJUjIcOpyJPAMHn6lKxtMOfEplJFtftoj/qokKzV7M1RDz8qIErUjtf0GFmHlAki+W
+	 ts/H/zLNOZViD8HKLo7rnnjo3gED4CuquzRnlqO5vw5FHBuY+70de45stek2UbBfsOFjL
+	 /dRSgSsFP053S7GQCzooRI+dxJ3ThGXZfFNwNQHW3Fcfaj3iT5Ats344wk2htYCK68i1E
+	 q+NLfN2Ox+n7yY5Yp/B/irm6+5iIVkGvoz97KDmMJ+y8LNC1CC/+6LLABtg4pOQ/nlmz7
+	 pDI8Vr/aXdwZ/nDRl3AQoIOL1JiOfCgeMYjQDCOeWTb+kYNuZQWZRJ5SPMINQRQJGkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792580318;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792580347;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=t/rAtuw8L0JVO1MzbBUMP/K+LGokTIDtHsowAZbEJHg=;
-	b=W6+R8lB7j/yxjdIMYhZL9ClViwO58LEmXlX9oPTAuB/IpsP4344TxLN6okiyy+SMgH8j
-	 N8ebcT44qMk310Q1w0BuwVGIQbPi3YHZ/gaqSptqnhFC9gfdMK63nRqBek5W9ZolTv0L0
-	 20Y+1yuXt2xKmIcKtwUR7XtRCo+tAmWGlhEbZMHvFPOqeKYdPUckvshOjtRC6CfWz2Zdv
-	 9dqUrWUlIu9AiMpSHuEe9ldGBRZmR2tNmxP1e7fcIFECIg1AVFY7PXP/gG7fCZ3BCffEk
-	 JnsnSV5bW8P4rNwYnyyEkMxJnfrO1WdWHjySBxUfgAhU6B0Tbl3XOtnngFJ0owfExTw==
+	 Content-Type:MIME-Version:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:Reply-To:Date:Message-ID;
+	bh=+6DqmLcffIJ4zXqo73wDStwtJ+XJU97CzviAZxX2Wys=;
+	b=anZOxmS2Zzg2yaCN4LfGwk/yG+DwZ4cAzqaz2qVTiXCcdpjs5sXODeFCZrOVVXSeYhGf
+	 1NkQP8CKkMIrh68gakVfuNq285XxEmTMuIjKx1+h/KfF/NrWB+5T/a+bnbjYBlsaNTgIo
+	 fR3quPioZXt2nZ5UvFiLDOdZKaEn7cri69LnK8bR2NF6cuZDxO3ifeT94XD/j2trAflkm
+	 RWZKSS5dWK3LTkmgGAgIMkk//5o/AlsZa9MT8Ql94EgeXtSRH48rnwfSuKfslYk1RC4mD
+	 k+ZWfQUK2NgchVT7xEKui1By1QU0iL3uabPhWa47w0QVfycqjnbwF/CyTFvUCezRYSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bobrowski.net;
-	spf=pass smtp.mailfrom=bobrowski.net;
-	dkim=pass header.d=bobrowski.net header.i=@bobrowski.net header.a=rsa-sha256 header.s=google header.b=HHNDkB5Z;
-	arc=none smtp.remote-ip=209.85.210.175
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	dmarc=pass header.from=kernelci.org;
+	spf=pass smtp.mailfrom=kernelci.org;
+	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=NAzoW6At;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4941606A31A
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 10:58:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4941606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bobrowski.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bobrowski.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B62A7606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 10:59:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B62A7606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bobrowski.net header.i=@bobrowski.net header.a=rsa-sha256 header.s=google header.b=HHNDkB5Z
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8a05b210703so243652b3a.0
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 03:58:37 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=NAzoW6At
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-366421dc8ebso1043426eec.1
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 03:59:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bobrowski.net; s=google; t=1792580317; x=1793185117; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=t/rAtuw8L0JVO1MzbBUMP/K+LGokTIDtHsowAZbEJHg=;
-        b=HHNDkB5ZzLBhcoftqluBfZzfk4FH8wqvFihietVucu3AcUZ2N8eU/TTlxfrIw6DLfj
-         1a8W/7mx/j8/kp4xIxcA21hhjb0fB9pr5EZZX7iBMO/KKIP/GGfzgLjAt2gZalRQcKM7
-         AnH11A5NWmfD7vXByk1SGh2GmRnXVcG5XI9Rza+srIZzailb/5tz+lK6qrKO+NUYDLT4
-         JHFj3HB9npVsefJH3zwmWSvy+HReCVoSn7l9cR04PABVYFzHOxZy5OpxGRdN37QaJ8oD
-         N84LLbssL3LEgR7A0kyTlogxWFxWLY4kLkv9wkhzmI1PFjr84+c2+MTuIPc+Rjz9oO/v
-         Jc7Q==
+        d=kernelci.org; s=google; t=1792580346; x=1793185146; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+6DqmLcffIJ4zXqo73wDStwtJ+XJU97CzviAZxX2Wys=;
+        b=NAzoW6AtGJfu1fVPolKVJjo0VvlxBtwcRPThX+nIjyjqjJ3rFaaaUXHS9Tgzo6Fn9A
+         eNLLcY3a9avzwHPL9j2mfNUIOCDgIhrctjaLX48xqBFKQsRjS6GF86K1eIaIbP+hu8q9
+         B4iElnz/SEXrYw8MdkiBfN0KDXNI00U3V6xKzV/sp0ib28ts0yKIxNy/CAyyq6ghf43F
+         miVPu+EJqixBVC8u6DpDRbg9tQ8J4ZkkVXPocQtkAFBnva7aYy0L0xv/7OmZpHw6soP5
+         K8zmGsNc+wAoBGcECghbgvHFICnLf14MJdFNOVUePdzgPZwohk9/rmMzay5mpyt4ej2I
+         moRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792580317; x=1793185117;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1792580346; x=1793185146;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=t/rAtuw8L0JVO1MzbBUMP/K+LGokTIDtHsowAZbEJHg=;
-        b=qPn1jaP4oBr31zGgSm+reGstpd0NhbMXt2cJUKkI+2fyycxN8RITnQCwUyQwP604mf
-         KaXxhy4RDh9OurGDWy8pF2rpMoAVpsIEPcCQrVu/6f+RNgAM2ApZkyCWIZSFZ2fGoaEq
-         fxXFV3761zEvGL4dPzcKgZXjldQ9CMVGYcq2VxeePvUPF4aaFoMkAMHjlOel9qpIOBhG
-         808ynGxAdrkFuNiuH6VXAk0Qfd59gRvWCMIlNf3fb9HFnpPZdaJlvaDfNHZvYTpyykq1
-         8wz5724g/BLTQhdjKb3JVs7yrCIy2Eih/96eU0ntH1m1nB3bN/nkJRpltJriqSr+dsJ2
-         bmyA==
-X-Forwarded-Encrypted: i=1; AKwUvBxVZZxXPoxkNPUMfavVgqwj9vqTNH6kAikq+YUoDcnKTR3DHp7pEai8Aw+xz897rBX7i7W/+fQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBj5FFKKfVS0D9RtohPXgCqqOtowj2mj5mEhGjBzyxvhr6ByTq
-	mEcYF2x4mCGcVGVH8Go3vXS46frYFNGHYWARI68R4HejhcHESZid/DXAoiCOhyxWCFWU
-X-Gm-Gg: AYBFou3BKWFQ3gmM/TPlBw2DXQppiw8oLyHcQk4li7TUldQzRa6j4VgNFZmPNKiagTx
-	0nNzZqDvQuwKaDbsItEfPosyU0eMQVCeyewaouFSwiPyeKprn+yM6nG/XpDePfWKelaxwZArxf/
-	cZc98BuNFgqNIrZkkKXrTjkgndzg4Dk+N40r24ixTlHuWo7jMi8eJbZf2Q06pJr9QgghUf4+YWI
-	6OBMcxb1TK9qsxYa/mofOC/wjdJQo0xVnzvSh1bQLoP4hkN3OKiemmAuhcwiyMwiOy5Xu5Tasfa
-	oMv2N8zgQcmfSyYtWikYXI01PWXOAFArBf8etvYmWYURKwY2c/d8gpa81itUrqAKRxSMAIZfdJV
-	Bfm7NFHpRJMWCSq0nwCTQ5CZEx4WJ2CxFz9B6ia4pbOw6AGsFBLQ/auJ2o0EnbmFWkwORv+lcH3
-	kIPkU54BwIsIEIrE3mbkSfhclL2zbXXPMEytjzZ+8raMJnFXLX2WylQDv0Fw6vFyoiDRXAJaZrc
-	gKdMuYa9XYJKUaIigmRyE9knYm0AfMe6DRvKdUyecgDXwAVqyhfqAIWEAQzZ5S1zusD5zVUm5a8
-	j14ZX9/XlDmF2CrWmRj2PcbzRvidQDs=
-X-Received: by 2002:a05:6a00:3d11:b0:89e:9c7e:fd51 with SMTP id d2e1a72fcca58-8a089d0783dmr1174185b3a.10.1792580315723;
-        Wed, 21 Oct 2026 03:58:35 -0700 (PDT)
-Received: from lima-development (163-53-146-70.ip4.superloop.au. [163.53.146.70])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a0894b49dcsm730783b3a.16.2026.10.21.03.58.29
+        bh=+6DqmLcffIJ4zXqo73wDStwtJ+XJU97CzviAZxX2Wys=;
+        b=hU1EjR1Xn9VjsqdpOlyWHyIkf6UuyHjmcLgG2MFFM6y834ZOff7n/dNX+FrHMUdD/A
+         /ULf2UnyI4WkfWpEfH7CbUAdr0foqg3+mcNjYwP+CM3TeRrJZANwRaYZAkSkmKqjdk/F
+         tbBYjMtV1hYXrElTw/4nM1aX87uitVQcR3E9PCCt+RiZvfo7HLW1GS6PaX5BZryhsZsA
+         53MbWW2jS5uhXxIqHZA+CXbzDGpoqAZTjLc5vUEiDU3FhrwbyOPHdVnHaAYRDYysvTMy
+         4KJ1bQ14wfjWNUsLojcidRgCp6t1EFFmFDIXL7tCvK739JgsITpVgKOToLeZ4NhbTWO0
+         C06g==
+X-Forwarded-Encrypted: i=1; AKwUvBwIGUNM2UsRAsv3waiiJrw9d8echpON+w+24/oDpgItOu2yiyw9P5MUEJZjjo0zqLoPg3BG1+U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhSwTw8UkThfY7QsI3iFXd9Qbz9zVzGemBkpvk7Fmlxm+dvlM6
+	wnNfRkPh16pOJx52g3vjcpHgtZNwGshoLUqTz54QQpZWjT8aZMEr76yBpfPDR7gPI5o=
+X-Gm-Gg: AYBFou3CJFB2lQm84+8YvOIx7ZqGDgGwqWZfpt4DgCXe4XDrszV2ddRIcsuZNPEmgp3
+	AJt30jv3m56H6L1IIgSlzluabJIf7lRWrNnXHiD/1ZkYlc21sFHImSl/DPhzvtNd7f1anq72eEz
+	sNDIxiGuF1nZw3ToVzh9cmnSrKmFMa5F3vkmb51h5B2Yhi/EN5CSkKFVEwmABweUdkrdC3ToqwZ
+	j6lvOJ+iWZW1w2bVztAwdnula+MWUC/xx5a9ITJu0Ek9Pw1FIUlMxXssqM6sNW4tZru0CAFYX7S
+	jgc5INfp/rZofIu2FA6LMSWifpG+C4hxekA+47w8m1xnFb1hSDurlhCEoBd+924lY4i2GU722Qh
+	UGnS0AESd5yRcIi+pb31SKeNAlOKWAanOMIUNtV+iGkix8OV7Lqo+WPsRyhsD8ZNfCtjLLTK44u
+	W1JOohm8n7b8NiF2djL2F5+s+CBce17hbiyqpyEMWZfQSxy16PTPGyToA6l4gT92/KnDF5AhAo9
+	XrbvJC+s+5TN37RXufrFRlTBQK7h03vhrmg8bCucO3FXh0w
+X-Received: by 2002:a05:7300:e825:b0:366:42ad:7074 with SMTP id 5a478bee46e88-36642ad7654mr8064603eec.22.1792580345630;
+        Wed, 21 Oct 2026 03:59:05 -0700 (PDT)
+Received: from 6e52bff8000c ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3674198fb21sm6387219eec.23.2026.10.21.03.59.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 03:58:35 -0700 (PDT)
-Date: Wed, 21 Oct 2026 21:58:09 +1100
-From: Matt Bobrowski <matt@bobrowski.net>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: bpf@vger.kernel.org, Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH bpf-next 1/2] bpf: fix crash in bpf_path_d_path() for
- exiting tasks
-Message-ID: <atiawbBo6WRPA6QA@lima-development>
-References: <20261020105014.97985-1-matt@bobrowski.net>
- <20261020105014.97985-2-matt@bobrowski.net>
- <DM9VJTFJGVXB.3GH9LO3NGV5PO@gmail.com>
+        Wed, 21 Oct 2026 03:59:05 -0700 (PDT)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -109,96 +88,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DM9VJTFJGVXB.3GH9LO3NGV5PO@gmail.com>
+Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?q?=5BREGRESSION=5D_stable/linux-6=2E12=2Ey=3A_=28build=29request_for?=
+ =?utf-8?q?_member_=E2=80=98f=E2=80=99_in_something_not_a_structure_or_union?=
+ =?utf-8?q?_in_arc=2E=2E=2E?=
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
+Cc: regressions@lists.linux.dev, stable@vger.kernel.org
+Reply-To: kernelci@lists.linux.dev
+Date: Wed, 21 Oct 2026 10:59:04 -0000
+Message-ID: <179258034449.241924.15241097267562754477@kernelci.org>
 
-On Tue, Oct 20, 2026 at 06:24:42PM +0000, Alexei Starovoitov wrote:
-> On Tue, Oct 20, 2026 at 03:50 AM Matt Bobrowski <matt@bobrowski.net> wrote:
-> > Fix this by returning -EINVAL from bpf_path_d_path() when current->fs
-> > is NULL. Only the task itself clears its fs, in exit_fs(), so the check
-> > cannot race with that.
-> 
-> The crash is gone, but so is the path. file_release progs will get
-> -EINVAL for every file that a task still has open when it exits.
-> 
-> It also breaks what works today. The d_dname branch in d_path() returns
-> before it looks at current->fs, so at task exit a pipe or a socket
-> resolves to "pipe:[123]" now and to -EINVAL with this patch.
-> 
-> And it's not specific to bpf. The comment in fs/cachefiles/namei.c says
-> that current->fs == NULL in do_exit() breaks d_path() called from ext4
-> open.
-> 
-> can we fix it in d_path() instead ?
-> With an empty root prepend_path() goes up to the global root, the same
-> way d_absolute_path() does. Then the check in bpf_path_d_path() is not
-> needed and the selftest can expect the path. A chrooted task gets the
-> path from the global root, but it doesn't have a root anymore.
-> 
-> Something like this (compile tested only):
+New build issue found on stable/linux-6.12.y:
 
-Prior to sending out the fix, I also considered addressing this directly
-within d_path(), much like you've proposed here, but decided against
-it. d_path()'s contract is to build a pathname relative to the current
-root. It does fall back to a root-independent name when the path isn't
-reachable from that root, but that fallback still presupposes the caller
-has a root to measure against. An exiting task past exit_fs() has no
-root, so d_path() has no correct answer to give in that state, and I'm
-not convinced we should invent one for it.  That's what
-d_absolute_path() is for.
+---
+request for member ‘f’ in something not a structure or union in arch/s390/mm/fault.o (arch/s390/mm/fault.c) [logspec:kbuild,kbuild.compiler.error]
+---
 
-You're right that my patch regresses the d_dname case though, since
-pipes and sockets resolve today without ever looking at current->fs.
-Rather than replicating the d_dname check in bpf_path_d_path(), which
-would mean duplicating VFS logic such as the mounted pseudo-inode
-special case, I think the cleaner fix is to move the "no root, no
-answer" check into d_path() itself, after the d_dname branch:
+Log excerpt:
+=====================================================
+/tmp/kci/linux/arch/s390/mm/fault.c:448:59: error: request for member ‘f’ in something not a structure or union
+  448 |                         clear_bit(PG_arch_1, &folio->flags.f);
+      |                                                           ^
 
-	if (unlikely(!current->fs))
-		return ERR_PTR(-ENOENT);
+=====================================================
 
-That keeps d_path()'s semantics intact, keeps pipe:[N] and socket:[N]
-working at exit, and turns the oops into an error for every caller,
-including the ext4 open path you mentioned. Nothing that works today
-changes behaviour; only calls that currently oops are affected.  Callers
-that want a name in that state then have to choose one explicitly, which
-I take to be Al's point.
+When fixing this issue, please attribute this report according to the
+patch submission rules:
 
-For BPF, that choice could be a new BPF kfunc wrapping
-d_absolute_path(), so programs can pick whichever semantics they actually
-want, and file_release programs that need a name at exit get one whose
-format doesn't depend on how far the task got through do_exit(). I'd
-prefer that over silently falling back to d_absolute_path() inside
-bpf_path_d_path(), which would return chroot-relative names before
-exit_fs() and absolute ones after, and still wouldn't help pipes and
-sockets since d_absolute_path() rejects internal mounts.
+Reported-by: kernelci.org bot <bot@kernelci.org>
+Link: https://lore.kernel.org/all/179258034449.241924.15241097267562754477@kernelci.org/
 
-Al, would a check like the above in d_path() be acceptable to you?
+For complete logs and details about the environment used, see the issue
+on the KernelCI dashboard:
 
-> diff --git a/fs/d_path.c b/fs/d_path.c
-> index c253090..ea49d33 100644
-> --- a/fs/d_path.c
-> +++ b/fs/d_path.c
-> @@ -265,7 +265,7 @@ static void get_fs_root_rcu(struct fs_struct *fs, struct path *root)
->  char *d_path(const struct path *path, char *buf, int buflen)
->  {
->  	DECLARE_BUFFER(b, buf, buflen);
-> -	struct path root;
-> +	struct path root = {};
-> 
->  	/*
->  	 * We have various synthetic filesystems that never get mounted.  On
-> @@ -284,7 +284,9 @@ char *d_path(const struct path *path, char *buf, int buflen)
->  		return path->dentry->d_op->d_dname(path->dentry, buf, buflen);
-> 
->  	rcu_read_lock();
-> -	get_fs_root_rcu(current->fs, &root);
-> +	/* Past exit_fs() there is no root to stop at, go up to the global one. */
-> +	if (current->fs)
-> +		get_fs_root_rcu(current->fs, &root);
->  	if (unlikely(d_unlinked(path->dentry)))
->  		prepend(&b, " (deleted)", 11);
->  	else
-> 
-> pw-bot: cr
+- dashboard: https://d.kernelci.org/i/maestro:07763fcc4cc009398ef2249ab57bfbb01900bd79
+- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+- commit HEAD:  85d82e0d7c2dfd3e75d34f35b7ebbf41f45c9c4e
+- tags: v6.12.114
+
+# Builds where the incident occurred:
+
+## defconfig on (s390):
+- compiler: gcc-14
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6ad8885055fda5076059d734
+
+#regzbot introduced: 7fdb7c1824a1f9979d648d7ae28ac446bcee9c6e..85d82e0d7c2dfd3e75d34f35b7ebbf41f45c9c4e
+#regzbot link: https://d.kernelci.org/i/maestro:07763fcc4cc009398ef2249ab57bfbb01900bd79
+
+#kernelci issue maestro:07763fcc4cc009398ef2249ab57bfbb01900bd79
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
