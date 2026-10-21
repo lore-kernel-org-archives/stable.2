@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595519;
-	b=or1/yyMy23EZbY+IrxEGYRAFX67poUx050mD32+9uqcSIgioWXImf7Ba6nRaJMe3u3oK
-	 0bvFmg5ZmQFnA2YBjMTKtJ6xG7DkNfIpm2zGBTdqP+utKYBo59KxPZoPi2N9ahNTk3ak1
-	 V3ZPllhs0lmIjgTqZKTKYBGUaLPExX7jhJF2N/IwxX4IIoCHFywUTIWl72AEqx8c2K7xW
-	 /syEBbN2gmaeFguLqEipsdKXI5ycrBFPm1WUVCtjP4Y6Wa9TDx/I/6SmcuU68ZAPw35NH
-	 PMtelCe/qTA1MDO/ipA+4oX3zHIQlNFUKUbVtXw6sReC4uD7KZcgkeH8NyRL1Otf6bw==
+	t=1792595522;
+	b=JMNGEAOMXE76zgfpWcMe9bfiVqAuqTC9SFfKFJ9pW9EITgKXYlpVd8an7UnblAQ+VKCh
+	 thkBVmxwnt1oPwTR3u14JbCJiOnG1AuJ7tDa9TZP/Yub/4ehwCs30wlfhG1RLC8zrtFBd
+	 9mV5WQlEV9Y70qlbLUmhCQSAQZhU3+7JaV59SCA7ykwnRaGKE1EzfTlZVKwncL+y8q2xz
+	 gN+X/GvNn4VO/nb5ejNV+HgR2KPYy77edBLYxat6X9olny9rZiZ9XCQg9iAI8IqH4RB2N
+	 hbI6tj0vQIuGDiwBlzYw5tRyHy7MzvM8wXP94WwJ6W/wt/j/NnE3dfFz6NPNJe/7nNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595519;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595522;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=gp/moyNjniM0UAUcgVazb/yPi78Mu0RaDBcKNrhXCxg=;
-	b=Ho40M0+l8ntl3iuScVCDDpNN6li/PXnHEP4ka/3ky7Uo8a15RUly9uOzWcrkAv4fwLlU
-	 YUeG7yIofwHuglS0qo+Z1vSQFv55U7WkUh9MMPGm+NHFYHETYT6pK/SbZq5Jw6BqVjv82
-	 NtJn0dNapRpjYttKTcRQIUG+Bh4aO11WRD532LP5zQAxtoRVtAvlIotv9sYekVXRr6ljk
-	 0CryiSQcXkyA3ZsQ2OcWcUGsj39rnTU4mRU3vG6MSQLmbN0y6QPrB9M4pnbva2hHRlrqp
-	 KSOguPVFA42ki4fTp4oIZ618gXlbSHE8d3s4JRKlyZePWt4CwqeGfuAI4DT2eSOF+3g==
+	bh=5tY/jAR5f/2BMAHQS+KK9G1TAfpxkI0MWx6FtErTn4c=;
+	b=HDe8Zo59FL0J/x4GqElCueOfvMAwx5jHAF7Y1U4AcLgoSGP5VvZOeJtthF81hqCaD1Wk
+	 s4Xh8dbeo1p2f81WeJsrZV6Nqds4Set/jQi5iiQJnNiuRKTx4r0p8wxXmz2gMvUa9Uhkp
+	 TxNjWIQWjhqVBl04RhHXUveKVQZOoCCVLudNMezoJb/DW3sutw2ntU7rMaOuDHBAGvzp5
+	 KN3YQPhnrS0YIKngULz1Wuo7yZ9waGyIwajBb75N3PJysWHnzT5oIl3LjiyP9AlgOnNCW
+	 XjmK/oQqDs2Hyr1w2psVagy0W47MjW9E3g6Rw+Rz1ESqRWtd+1wzehLgVfBpqxLxFOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Dq037jn9;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hFAwXM0I;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A267F606A31B
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:11:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51CC8606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:12:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Dq037jn9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B26141F000C1;
-	Wed, 21 Oct 2026 15:11:58 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hFAwXM0I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CE501F000C1;
+	Wed, 21 Oct 2026 15:12:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792595519;
-	bh=gp/moyNjniM0UAUcgVazb/yPi78Mu0RaDBcKNrhXCxg=;
+	s=korg; t=1792595522;
+	bh=5tY/jAR5f/2BMAHQS+KK9G1TAfpxkI0MWx6FtErTn4c=;
 	h=Subject:To:Cc:From:Date;
-	b=Dq037jn98DMuolLdwzYG8D984ZOl8ONQF8g8oXFRR93oPii26/kg2hVCS3XaVLm89
-	 3QcgCH6NlrawQQ8xujCkXZofKnbjYeIheOPU11li0r8d5IBAdNJNI6sL7zp80HdPST
-	 n30xnWss6Pp3k4YYS6LRu9JgNOSFGI2A62s2VBX8=
-Subject: FAILED: patch "[PATCH] cifs: add revalidation on FSCTL failure in" failed to apply to 6.18-stable tree
+	b=hFAwXM0Ipurotj8ymuzCxqNfD5L7hyjBfRZ/yTrz/NzLEXD7mWszBznS9PL6kS7lo
+	 7MlPMdtWpLeYpPaTcfyv545Er+Iy/hpm0cBks8CfYnn6tfWuYSClS0SzpmPNJXMBT1
+	 qNyvJqWMaZ+0KW3AI3fRDeo688CAu2pA1bh98aqU=
+Subject: FAILED: patch "[PATCH] cifs: add revalidation on FSCTL failure in" failed to apply to 6.1-stable tree
 To: sorenson@redhat.com,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 17:06:14 +0200
-Message-ID: <2026102114-sincere-numerate-a8df@gregkh>
+Date: Wed, 21 Oct 2026 17:06:15 +0200
+Message-ID: <2026102115-attempt-pointless-b976@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 53676a5e28231186c9f56d87b7998b640699bc15
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102114-sincere-numerate-a8df@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102115-attempt-pointless-b976@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
