@@ -1,71 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.177.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.106
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792599106;
-	b=QrofS5I2i3qRB79WZaOrT3Mx2foEVvutQN7R64/uRanmxiYsC38c+xtv3winPtHTpwTS
-	 BfrCUVzo3T/q7RgsRMGzDLufP1xfrgZxkm+hBQC+Mue9VJFhXf/wDL+US77rKrKBYryCo
-	 0+6sul9twfwf+EQmo5okuGivdd4Yn3fC68pB0a8R+Qz4FwNtbKhcqIZTZdh3lSdALizd4
-	 MnhFBCIe8hvyjG9qddjFGjWkmSlOj+Ft/QUNG7JjiRHhD67m/uBgIPhvS5SlzjwwYHt7E
-	 yN7kawGP4Ivq4ROS4C/P9SidMVXJ9unmg0zzb/sDJZEapDN3OVxpZ9DvPFbdstrmxtQ==
+	t=1792599170;
+	b=mAfoZY/yWnC1w1SGEKYkUAsqJ3lUUcScjf2ojA1OMDbpylS3wSvDrsdMDS8ZsOSjZI6m
+	 jbpWC/IixJJPtQ9UHhCHjL/hzxQLFoqrU2ysQ/2oEcre1r2sOMxPodBxuE82/4xqT2rsj
+	 bkgB2wBlWgfsDkx6slC2leWL90jnEZOkxtfJh5lvX/ItopZ/AzdpvfTrq3cyPFRMKBL4j
+	 NCeCSo4A0KejYQuCpEPsrlJtu7CBNSzJgXqMUkIcQv5z2umnv+4lBVIwMlS8SJbYauzb5
+	 7zOB5crxjg7Oqotm23ft+bKmUIP5cqQTWELcl9A6ZwPmY/er0PqtOn/wwVtcpat/RLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792599106;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Reinject:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID;
-	bh=ZgPm3j48OhkmU0/nOyw0pk18bjZECBcGo+qJzz6e7t4=;
-	b=JfiMxX6VJ34c3tw17AquhhyQpXYV9Iqc2kSm0Vu9o/Wi2BbjMqw0C2NlK9kox1ea43Pe
-	 8T0HXGEwvdC7A7FdKPub1AWhBE8HmQJabrqr2CAj5u44wL3wdproFNPVu5pTkUEU2NY28
-	 NZIeTYVC3EOhmRKSjKqmkKgdspt8IGLCaz5+4k8jSU0cK/gV5x31ZID3agI4q3MN6EmH6
-	 MdmIr50QkSP/5XLabImPYByo8Q3XeYqw2EhBqNWRwXbrY3ocdmXWv0XuMdzW/7IdJW+LA
-	 MsYxccyxAJ1GKgsSROiPPdubAtuTAEaKg40P+rGd+KWzXDF8VMafd9fgC50uZt1+gDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792599170;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:From:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=fWCXC5NTHDGlDclEH2O75YYSkPzzTN8RMoYOZpRdROY=;
+	b=pCewytvvdwzT90rT689yYPw2SfXnMtnkIciDtO1GtbRcl/dZKNG92wxIEgOMyStZnKl7
+	 yY3Bo/QoNNvOL81C4orz3nEEvZY3bE5OQryhtT33liNJN8/I3V48PuDD6qo6R8OFIJlH1
+	 4K4BGUxPp1u5FcbtT61pJrJFMqWccnO7tD8xr9d8RzwMDXMMCEyIH1b55lVIgTytEzKiU
+	 swiw02MoHaaOfxAAM0ggw2pM1aNq13+J5Ekx9N95Ij5fEm5H8jkAagM5mRMFxB9v5syl2
+	 qFx3ciVDh63a7q2/zqclF5C/ImpspkidAhdrrSG2jheXQ3MXB+XnT9ula1W9dEDgsSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oracle.com;
-	spf=pass smtp.mailfrom=oracle.com;
-	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=BowZ2Sef;
-	arc=none smtp.remote-ip=205.220.177.32
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TBRFoX8I;
+	arc=none smtp.remote-ip=91.218.175.106
+Received: from mta0.migadu.com (out-106.mta0.migadu.com [91.218.175.106])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10F7C606A31D
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 16:11:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10F7C606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C99C606E53E
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 16:12:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C99C606E53E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=BowZ2Sef
-Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LDN6a22885571
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 16:11:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=corp-2025-04-25; bh=ZgPm3j48OhkmU0/n
-	Oyw0pk18bjZECBcGo+qJzz6e7t4=; b=BowZ2SefjVH3Ny5W4hcw9W0rPMNrWrVK
-	Mbcw0KTenzCy7rnqd003Ywyat2Tq392Z3/NKLUo6LERnRSyn06Ij+gkUSxeMTNbr
-	bNilEcWQvszuRlVnBH20Ch5Jsvad8eyOvfLGHA4fKui992zZcYcQWxorqDGSRBHu
-	+A43g5aH/OVm3maeebtqVXQwHxkO5Glkw3Ow6j5+Ha0bbUqKZ6YwPqtrs6T1vzxV
-	lYaQSQVly0RFCrDW/KaEdrkDUFCFdhyidHfR3Yq7X7epde0DvKRQAnOmI5gaqkUJ
-	4TBM5JbQemD/NGL8GqNIgYRX8Lf7frnnN1xX9V96vpJkWaIua0iCxw==
-Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4hdw4fjtqh-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK)
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 16:11:43 +0000 (GMT)
-Received: from pps.filterd (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 69LG8pTk2983821
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 16:11:42 GMT
-Received: from lab61.no.oracle.com (lab61.no.oracle.com [10.172.144.82])
-	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id 4hf0nm82ya-1;
-	Wed, 21 Oct 2026 16:11:42 +0000 (GMT)
-From: =?UTF-8?q?H=C3=A5kon=20Bugge?= <haakon.bugge@oracle.com>
-To: Keith Lucas <keith.lucas@oracle.com>
-Cc: =?UTF-8?q?H=C3=A5kon=20Bugge?= <haakon.bugge@oracle.com>,
-        stable@vger.kernel.org
-Subject: [PATCH for-next] RDMA/ionic: Fix GSI QP ID release
-Date: Wed, 21 Oct 2026 18:11:39 +0200
-Message-ID: <20261021161139.4019822-1-haakon.bugge@oracle.com>
-X-Mailer: git-send-email 2.43.5
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TBRFoX8I
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=E7cWh+ZF7GRhp7QeoNOeMiC4IRFKXkLJvJ6m7Tdn1+M=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792599167; v=1; x=1793203967;
+ b=TBRFoX8IfarmXP3muakvbtwd0Fnn3QkkD4ckj09YU7HdTxPcPh89Uos/XU2JNQ/FoCS4cfxi
+ jY9el39vZ3+nuLjJejOVLV8ZO2aZZ+v2Q7EtY8BM/ASk7vXopV+beNHyiGno7OoNKsaIm/rlV5T
+ e0/6T1gBLeK5+yVvR090buvk=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d1bddb8955e5cc6b;
+	Wed, 21 Oct 2026 16:12:47 +0000
+X-Mizu-Trace-ID: d1bddb8955e5cc6b
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <167a14f0-6a6f-4db1-a34b-905a33d5290d@linux.dev>
+Date: Thu, 22 Oct 2026 00:12:32 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,99 +58,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-21_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 mlxscore=0 mlxlogscore=999 phishscore=0 spamscore=0
- malwarescore=0 adultscore=0 suspectscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610210064
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA2NCBTYWx0ZWRfX1NEwewGQKJuI
- WfrHoP1Ojgfqwv4OWWNvzZZIHPE5HUmndRFLmyAn4ZTFe10NhfR8pZUF2t2+A2se1v45pOfOE+i
- fa1z9yHScR9fJP7HIF+kIBkHXvKsOSUK6r5yQhlCVymYpW3Chr9w
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA2NCBTYWx0ZWRfXy388MJDk66ly
- cQ5/2v3zBAKlCKIUfquMhbnuGJVMcGKQrsiBxRTuywgvLlRQFhbsMHF8/r/0AqmJpttnsXLHIn8
- 96FEbrb1eWoOyt9OSAQOWVeufXrdALK4NjVKc19moVBWgWu8HTDIw1fe7/XuVnOhDi+dTSiADd2
- 6tQE1aKes+GHKKKRP2otj+Ls9+q5D5+25gS+M9D9Upm9v4mlF4tpgtXCyxyV1NYw4Vtiqbav3CZ
- WmEc1DcRTftgWb15JpqqNEBbp3UBnU1xJI8BfnDXFnrfp7Ib790/DVvzuA3nL2QcdzA9Kf7knfZ
- qjTiZitA85/IyyC1d1lzdr//WVfy1oHdMKIG5x9uhDvfzGTPfJ+41OEDEPBFnAFs4ncWfKcvWrS
- PiUhtRZUC7Sm8761xT+lBgr7UYf14nvGTfRT6OxTgh5JfQS9VSlE5Tt34XOCxKRd5UBL/7kbUro
- 5x8S9fY4pNpHKRC0eRw==
-X-Authority-Analysis: v=2.4 cv=cfNHPXDM c=1 sm=1 tr=0 ts=6ad8e43f cx=c_pps
- a=XiAAW1AwiKB2Y8Wsi+sD2Q==:117 a=XiAAW1AwiKB2Y8Wsi+sD2Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=M51BFTxLslgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22 a=o5oIOnhZENCTenyL_yNV:22
- a=VwQbUJbxAAAA:8 a=yPCof4ZbAAAA:8 a=sG8J6-wLveFn0xi-oGcA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: PdImcDR6lBcCxy3CHAKes-AyTLtdTqy2
-X-Proofpoint-ORIG-GUID: PdImcDR6lBcCxy3CHAKes-AyTLtdTqy2
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm/ksm: keep soft-dirty and uffd-wp when merging a
+ page
+From: Lance Yang <lance.yang@linux.dev>
+To: samarth.colleges@gmail.com
+Cc: akpm@linux-foundation.org, xu.xin@linux.dev,
+ Kiryl Shutsemau <kas@kernel.org>, chengming.zhou@linux.dev,
+ peterx@redhat.com, rppt@kernel.org,
+ "David Hildenbrand (Arm)" <david@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <efa6a28c-f0f9-4d1e-9cce-fec2c08e7d9f@kernel.org>
+ <20261020055518.36087-1-lance.yang@linux.dev>
+ <3da45e6d-2b46-4fff-9ff3-241f70d68296@kernel.org>
+ <f6bdf823-be42-4184-87d2-fc7c128f4786@linux.dev>
+ <68f17ee7-d272-4475-8a59-645442e2c210@kernel.org>
+ <ath8JTlITYcXsyLg@thinkstation>
+ <2329ee64-f9be-4826-a496-65344e9a9c18@linux.dev>
+Content-Language: en-US
+In-Reply-To: <2329ee64-f9be-4826-a496-65344e9a9c18@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-QPID allocation differs between ordinary QPs and GSI QPs. If GSI QP
-creation fails after allocating its QPID, or is destroyed, we see in
-the log (trimmed for brevity):
+Hi Samarth,
 
-kernel: ida_free called for id=32 which is not allocated.
-kernel: WARNING: CPU: 47 PID: 6673 at lib/idr.c:527 ida_free+0xde/0x140
-kernel: CPU: 47 UID: 0 PID: 6673 Comm: modprobe Not tainted 6.12.0+ #18
-kernel: RIP: 0010:ida_free+0xde/0x140
-kernel: Call Trace:
-kernel: <TASK>
-kernel: ionic_create_qp+0x4f5/0xbe0 [ionic_rdma]
-kernel: create_qp+0x19a/0x290 [ib_core]
-kernel: ib_create_qp_kernel+0x3a/0xe0 [ib_core]
-kernel: create_mad_qp+0x8e/0xd6 [ib_core]
-kernel: ib_mad_port_open+0x268/0x3f2 [ib_core]
+Could you send a v3 with just the soft-dirty fix, as David
+suggested? Leave the uffd-wp/RWP bits to me (I'll take
+a closer look).
 
-GSI QPs reserve allocator ID IB_QPT_GSI directly, whereas ordinary QPs
-encode the allocated ID in the QPID. Calling ionic_put_qpid() for a
-GSI QP incorrectly applies the ordinary QPID conversion and releases
-an unallocated ID.
-
-Release IB_QPT_GSI directly in both the creation error path and the
-destruction path.
-
-Fixes: e8521822c733 ("RDMA/ionic: Register device ops for control path")
-Cc: <stable@vger.kernel.org>
-Reported-by: Keith Lucas <keith.lucas@oracle.com>
-Signed-off-by: Håkon Bugge <haakon.bugge@oracle.com>
-Tested-by: Keith Lucas <keith.lucas@oracle.com>
----
- drivers/infiniband/hw/ionic/ionic_controlpath.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/infiniband/hw/ionic/ionic_controlpath.c b/drivers/infiniband/hw/ionic/ionic_controlpath.c
-index a70ef59a8064e..cd623f1de38a3 100644
---- a/drivers/infiniband/hw/ionic/ionic_controlpath.c
-+++ b/drivers/infiniband/hw/ionic/ionic_controlpath.c
-@@ -2450,7 +2450,11 @@ int ionic_create_qp(struct ib_qp *ibqp, struct ib_qp_init_attr *attr,
- err_ahid:
- 	kfree(qp->hdr);
- err_ah_alloc:
--	ionic_put_qpid(dev, qp->qpid);
-+	if (attr->qp_type == IB_QPT_GSI)
-+		ionic_resid_put(&dev->inuse_qpid, IB_QPT_GSI);
-+	else
-+		ionic_put_qpid(dev, qp->qpid);
-+
- 	return rc;
- }
- 
-@@ -2762,7 +2766,10 @@ int ionic_destroy_qp(struct ib_qp *ibqp, struct ib_udata *udata)
- 		ionic_put_ahid(dev, qp->ahid);
- 		kfree(qp->hdr);
- 	}
--	ionic_put_qpid(dev, qp->qpid);
-+	if (qp->qpid == IB_QPT_GSI)
-+		ionic_resid_put(&dev->inuse_qpid, IB_QPT_GSI);
-+	else
-+		ionic_put_qpid(dev, qp->qpid);
- 
- 	return 0;
- }
--- 
-2.43.5
+On 2026/10/21 17:49, Lance Yang wrote:
+> 
+> 
+> On 2026/10/21 16:55, Kiryl Shutsemau wrote:
+>> On Wed, Oct 21, 2026 at 10:21:53AM +0200, David Hildenbrand (Arm) wrote:
+>>>> +1. Did it ever actually work there :) Why not just skip them and
+>>>> call it a day :D
+>>>
+>>> I think QEMU just always sets MADV_MERGABLE and later activates uffd. 
+>>> So that
+>>> needs some care to not disable them. So let's rather try to get it 
+>>> fixed properly.
+>>>
+>>> Can you send out proper patches? Thanks!
+> 
+> Thanks David! Will take it over next week and get proper patches out :)
+> 
+>>
+>> +1.
+>>
+>> Lance's direction is right. Unsharing is not an access: do_wp_page()
+>> already skips the uffd-wp fault on FAULT_FLAG_UNSHARE, and RWP should do
+>> the same.
+> 
+> Thanks Kiryl! Will take a close look at that :)
+> 
+> Cheers, Lance
+> 
 
