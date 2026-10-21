@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792583543;
-	b=goX9R6h1clD9ApRiNA9lEJzh07MwoTcRPChJIkKfl04yLcdk/Oft9pqmVkjaBvpPyx9F
-	 gqECmprLNiee66eV+6QoaFOG+DdvwvLONZuCyQ8mAo/r6h5slYYeq1iRRz7lnD2HktrVQ
-	 ystOrDOnbb1Sg8wAbGzYfF6yeikg/ccSYcr31uzxQDDedx+uGTs1svOFsaiBEi+aCWsF7
-	 Rq59cmsOEvUQcPpJIABxvUy05JOB24358QHq0acJ3TkeLyzB4mUNcekSaSc8tJPXK9ZS+
-	 AgzM3tYvgL8ZSuxGUJIBvh2/Zy74EXXSjL3EX4UAFL3MXC7QQ+rVrX7XMvpjnp2rAYw==
+	t=1792583564;
+	b=FjoRfoPynpv29LWThv9LIDlJtQUsP2Kq7aoZgHb/IvDYKepBJx+7yDPvtU5PFQsbaaic
+	 OUNNgX3Z/I/Z97L1m8OqH5fnoSSmDOaTCoxLU/iK24YultUVQAi5BcsUxqMdDQEXVBbUJ
+	 tIGWcnzPOtI1bRYYE2I3u8PBc6lDzDRDsmzCfz9Gmf7LOk9zl63s422gswuaq1WmqElf7
+	 lVuvAmbtyWgpF3LJskmUHsFW3etGdKP6RBd2rVTEyKaIjJE36y/f5tetzBbvJhj5jCxh/
+	 m7mHGIfrbcoxGW0pauIkDl2OB7/lmPRpSRFMbt1KpNs+5P9BU9PlsuplDqH7HjVHmGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792583543;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792583564;
 	h=Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:Date:
 	 In-Reply-To:References:Autocrypt:Content-Type:
 	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=IHSZbV5TczZFeFQCvfZv7YXKOzc+c62w1zySB/Eo4/w=;
-	b=ZrULyIEHm4smoPGKFvBD4D/RNHqbbLiKl7rLrAGdr4qA2DvNgLC+YX6n7pAHhk9g/bYu
-	 34ZCov0hckgKN6SFDjq/QdnzI0+QP4291GKj6mFjKTniMwaaz72xoMlqak2M4W1iuzoWC
-	 SB+AGlvXK7KxqpcmFSlaqnyEpY1I3pi5rR0+ty8WoWGj+8HmyAhO1D0mOeoddfnqnsI+S
-	 KdfDi2nyNBZdgtgzPuoM2pLJULW9714x0ECKhiK2wh2cFPrJnn/UwAPCPinqE6IkqJDaB
-	 +0HgtrmAPJdyadhW6wzbBORwy1nXiYrsq1Zg6KWd4YwJhoJUwzynYBXPSIkriBRtRBw==
+	bh=ajkYgKvzH5kIT0dP+u4ZTQ6JdKUYzJv2pfQkDSv/NQQ=;
+	b=HlMOmv7Q1bI3EkeToWJnDuLmFtfbApeDfyAAwQVnLIMhTHHJbcH5n1u6AemNzV+VTt6P
+	 PoFhba2YYXbIF0JFGQqFB4oUznt7Y6TMRGSVek0ztQfjeqD6Z9H/Fe3WrWs2KGuqhuUwA
+	 hHCbWa7DLlPzQIS2SMzY8km8zGsWUig/Wzf6/DmIifDEdg9onohmOHreJIxKw20K0VUjT
+	 rH5U5+nqXpa+vDtX2T1Sf9R1wH20ZgII5WzTVCYk5R1zhUmC0q/K2NGcXxFh+lZ2WVzEX
+	 wSXeHKmUFZt4TzDK/hQNC/3AfYRK3vWit52MTO7nmToCiDgCbqoHU6UdTOItLdl394w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vsw7UmzM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XTZXOyx0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1547A606A319;
-	Wed, 21 Oct 2026 11:52:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3454A606A33E;
+	Wed, 21 Oct 2026 11:52:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vsw7UmzM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 446CE1F000C4;
-	Wed, 21 Oct 2026 11:52:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XTZXOyx0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 456CA1F000CF;
+	Wed, 21 Oct 2026 11:52:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792583542;
-	bh=IHSZbV5TczZFeFQCvfZv7YXKOzc+c62w1zySB/Eo4/w=;
+	s=k20260515; t=1792583563;
+	bh=ajkYgKvzH5kIT0dP+u4ZTQ6JdKUYzJv2pfQkDSv/NQQ=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Vsw7UmzMynG64z7oivvLQHL35z+zjmfkxTrRacwPNkDuXo4ottYyEXch1vuEKK0HQ
-	 fflEeNEad3F/koeaQSBrNN4Z6dsWpTO6NZDf5548tPvNz05xWY2Sy0CQ8+y2e678Al
-	 /88FRc9MfCw3FD477G5ZV10Azcbw1LSgILy7W69+BTv6Ii0HEV9780Y924s6NdgN6Q
-	 Pa3jt9YQwA6aAGX7FjCKc5TCliAxMvgTvKEstzYQwILCCbyUmps7ahoKAjvmd6zstc
-	 TDn4JGFb4ZA3/w3MR2R9xbj9YHVcZpRA1eisDHaKrUWqNJu5JNpkDqLpDks1uaVwrv
-	 W9dIXGIb1es3w==
-Message-ID: <d75565c427f8d4d1a77897fbafa0abea77d0fced.camel@kernel.org>
-Subject: Re: [PATCH 1/6] statmount: don't copy the reserved empty string
- past the buffer
+	b=XTZXOyx0ULb8VzKkfU2ag8JsvG6YuLsQad2gbg+qEM6DYWuqrypDNvVlYmDNmRby/
+	 PJ+sYJPnxbWIgmPQmqIXoozbov7mOHIt/cLUmKYagV7RQb+uZtaXoWLoLUnzXmOMvh
+	 BAuILsQk18XEWev9uPQ1+efaI5FkPiMbFAKaWlIANpI7bHjVAnY7CpYMXSB/4TnjJV
+	 cD8TNGkd3mSBT0o5BzXuAbBMES7sRjtDkukFXBcu0EFfr/n+2W49zLv8eu0qlwM6Gp
+	 rM+PGD16g8dWTHGxf7iEIUlCasx6dIJou1jS6HZSo3DFmSvePGZ0z55WLj/cKGoLlU
+	 G142Q8CmAD3Hg==
+Message-ID: <b559a65c2858d3046a6a92c1b78c7d40c14368a6.camel@kernel.org>
+Subject: Re: [PATCH 3/6] listmount: don't wrap around with a U64_MAX cursor
 From: Jeff Layton <jlayton@kernel.org>
 To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
 Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
  Miklos Szeredi <mszeredi@redhat.com>, shaos <shawnq1@163.com>,
  linux-kernel@vger.kernel.org, 	stable@vger.kernel.org
-Date: Wed, 21 Oct 2026 07:52:20 -0400
-In-Reply-To: <20261021-work-mount-statmount_listns_fixes-v1-1-8917a4c1bd14@kernel.org>
+Date: Wed, 21 Oct 2026 07:52:41 -0400
+In-Reply-To: <20261021-work-mount-statmount_listns_fixes-v1-3-8917a4c1bd14@kernel.org>
 References: 
 	<20261021-work-mount-statmount_listns_fixes-v1-0-8917a4c1bd14@kernel.org>
-	 <20261021-work-mount-statmount_listns_fixes-v1-1-8917a4c1bd14@kernel.org>
+	 <20261021-work-mount-statmount_listns_fixes-v1-3-8917a4c1bd14@kernel.org>
 Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
  keydata=mQINBE6V0TwBEADXhJg7s8wFDwBMEvn0qyhAnzFLTOCHooMZyx7XO7dAiIhDSi7G1NPxw
  n8jdFUQMCR/GlpozMFlSFiZXiObE7sef9rTtM68ukUyZM4pJ9l0KjQNgDJ6Fr342Htkjxu/kFV1Wv
@@ -141,136 +140,93 @@ Precedence: list
 MIME-Version: 1.0
 
 On Wed, 2026-10-21 at 13:46 +0200, Christian Brauner wrote:
-> statmount_string() reserves an empty string at the start of the seq
-> buffer before it calls the handler for the requested string. That's
-> what the offsets of unset strings point to since commit e52e97f09fb6
-> ("statmount: let unset strings be empty").
+> do_listmount() takes the last mount id the caller saw and looks up the
+> first mount after it by searching for last_mnt_id + 1. With U64_MAX
+> that wraps around to zero and the search finds the first mount in the
+> namespace. So a cursor at the largest possible id restarts the listing
+> from the beginning instead of ending it. A cursor of U64_MAX - 1
+> correctly returns nothing.
 >=20
-> If the handler emits nothing the early return from commit 75ead69a7173
-> ("fs: don't let statmount return empty strings") skips the size check
-> against the caller's buffer. Back then an empty emission meant an empty
-> seq buffer and there was nothing to copy. Now the reserved NUL byte is
-> there and copy_statmount_to_user() copies it to buf + sizeof(struct
-> statmount) no matter how small bufsize is.
+> No mount will ever have that id. Mount ids come from a counter that
+> starts at MNT_UNIQUE_ID_OFFSET + 1 and a caller that only feeds back
+> ids it got from us can't hit this. It's still wrong. Nothing can come
+> after the largest possible id so return no entries for it, just like
+> for any other cursor past the last mount.
 >=20
-> So request a string that may turn out empty with a buffer that's
-> smaller than struct statmount and the kernel writes one zero byte past
-> the caller's buffer and reports a size that's larger than the buffer.
-> STATMOUNT_MNT_UIDMAP or STATMOUNT_MNT_GIDMAP on a mount that isn't
-> idmapped will do, so will STATMOUNT_FS_SUBTYPE on anything but fuse or
-> STATMOUNT_OPT_ARRAY on a filesystem without ->show_options(). None of
-> this needs privileges. The byte only lands in the caller's own address
-> space but that's still not ok.
+> The reverse direction isn't affected. A cursor of zero is special-cased
+> and anything else is larger than MNT_UNIQUE_ID_OFFSET so last_mnt_id - 1
+> can't underflow.
 >=20
-> prepare_kstatmount() already refuses a buffer of exactly sizeof(struct
-> statmount) for string requests. A smaller buffer can't hold a string
-> either and it can't even hold the reserved empty string. So refuse any
-> buffer that isn't larger than the fixed part. That's also what the uapi
-> header says: string requests need space after the fixed part of the
-> structure.
->=20
-> Reproducer, unprivileged, on any mount that isn't idmapped:
+> Reproducer, unprivileged:
 >=20
 >     #define _GNU_SOURCE
 >     #include <errno.h>
->     #include <fcntl.h>
 >     #include <stdint.h>
 >     #include <stdio.h>
->     #include <string.h>
->     #include <sys/mman.h>
 >     #include <sys/syscall.h>
 >     #include <unistd.h>
->     #define STATMOUNT_FS_SUBTYPE	0x00000100U
->     #define STATMOUNT_MNT_UIDMAP	0x00002000U
->     #define STATX_MNT_ID_UNIQUE	0x00004000U
->     #define SM_SIZE			512 /* sizeof(struct statmount) */
+>     #define LSMT_ROOT 0xffffffffffffffffULL
 >     struct mnt_id_req {
 >     	uint32_t size, mnt_ns_fd;
 >     	uint64_t mnt_id, param, mnt_ns_id;
 >     };
->     static uint64_t root_mnt_id(void)
->     {
->     	unsigned char stx[256]; /* struct statx, stx_mnt_id at offset 144 */
->     	uint64_t id;
->     	if (syscall(__NR_statx, AT_FDCWD, "/", 0, STATX_MNT_ID_UNIQUE, stx))
->     		_exit(1);
->     	memcpy(&id, stx + 144, sizeof(id));
->     	return id;
->     }
->     static void probe(uint64_t mnt_id, uint64_t mask, int guard)
+>     static void list(uint64_t cursor)
 >     {
 >     	struct mnt_id_req req =3D {
->     		.size =3D sizeof(req), .mnt_id =3D mnt_id, .param =3D mask,
+>     		.size =3D sizeof(req), .mnt_id =3D LSMT_ROOT, .param =3D cursor,
 >     	};
->     	long page =3D sysconf(_SC_PAGESIZE);
->     	unsigned char *map, *buf;
->     	uint32_t size;
+>     	uint64_t ids[8];
 >     	long ret;
->     	map =3D mmap(NULL, 2 * page, PROT_READ | PROT_WRITE,
->     		   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
->     	memset(map, 0xaa, 2 * page);
->     	/* 100 byte buffer ending right at the page boundary */
->     	buf =3D map + page - 100;
->     	if (guard)
->     		mprotect(map + page, page, PROT_NONE);
 >     	errno =3D 0;
->     	ret =3D syscall(__NR_statmount, &req, buf, 100, 0);
->     	printf("mask 0x%04llx%s: ret %ld errno %d", (unsigned long long)mask=
-,
->     	       guard ? " guard page" : "", ret, errno);
->     	if (!guard) {
->     		memcpy(&size, buf, sizeof(size));
->     		printf(", size 0x%x, byte[%d] 0x%02x", size, SM_SIZE,
->     		       buf[SM_SIZE]);
->     	}
->     	printf("\n");
->     	munmap(map, 2 * page);
+>     	ret =3D syscall(__NR_listmount, &req, ids, 8, 0);
+>     	printf("cursor %llu: ret %ld errno %d", (unsigned long long)cursor,
+>     	       ret, errno);
+>     	for (long i =3D 0; i < ret && i < 1; i++)
+>     		printf("%s%llu", i ? "," : " ids ", (unsigned long long)ids[i]);
+>     	printf("%s\n", ret > 1 ? ",..." : "");
 >     }
 >     int main(void)
 >     {
->     	uint64_t id =3D root_mnt_id();
->     	probe(id, STATMOUNT_MNT_UIDMAP, 0);
->     	probe(id, STATMOUNT_FS_SUBTYPE, 0);
->     	probe(id, STATMOUNT_MNT_UIDMAP, 1);
+>     	list(0);
+>     	list(UINT64_MAX - 1);
+>     	list(UINT64_MAX);
 >     	return 0;
 >     }
 >=20
-> Before, on 7.3.0-rc7-00252-g4e3259b08c54 (vfs.fixes) in a VM, the
-> same on a distro 7.1.13:
+> Before, on 7.3.0-rc7-00252-g4e3259b08c54 (vfs.fixes) in a VM:
 >=20
->     mask 0x2000: ret 0 errno 0, size 0x65, byte[512] 0x00
->     mask 0x0100: ret 0 errno 0, size 0x65, byte[512] 0x00
->     mask 0x2000 guard page: ret -1 errno 14
+>     cursor 0: ret 5 errno 0 ids 2147483651,...
+>     cursor 18446744073709551614: ret 0 errno 0
+>     cursor 18446744073709551615: ret 5 errno 0 ids 2147483651,...
 >=20
 > After:
 >=20
->     mask 0x2000: ret -1 errno 75, size 0xaaaaaaaa, byte[512] 0xaa
->     mask 0x0100: ret -1 errno 75, size 0xaaaaaaaa, byte[512] 0xaa
->     mask 0x2000 guard page: ret -1 errno 75
+>     cursor 0: ret 5 errno 0 ids 2147483651,...
+>     cursor 18446744073709551614: ret 0 errno 0
+>     cursor 18446744073709551615: ret 0 errno 0
 >=20
 > Reported-by: shaos <shawnq1@163.com>
-> Link: https://lore.kernel.org/r/20261020110747.959829-1-shawnq1@163.com
-> Fixes: e52e97f09fb6 ("statmount: let unset strings be empty")
+> Link: https://lore.kernel.org/r/20261020110732.959552-1-shawnq1@163.com
+> Fixes: b4c2bea8ceaa ("add listmount(2) syscall")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 > ---
->  fs/namespace.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>  fs/namespace.c | 2 ++
+>  1 file changed, 2 insertions(+)
 >=20
 > diff --git a/fs/namespace.c b/fs/namespace.c
-> index c30f063742f4..6c9c0cdbe890 100644
+> index 6c9c0cdbe890..dd60123a0cb0 100644
 > --- a/fs/namespace.c
 > +++ b/fs/namespace.c
-> @@ -6058,7 +6058,8 @@ static int prepare_kstatmount(struct kstatmount *ks=
-, struct mnt_id_req *kreq,
->  	ks->bufsize =3D bufsize;
-> =20
->  	if (ks->mask & STATMOUNT_STRING_REQ) {
-> -		if (bufsize =3D=3D sizeof(ks->sm))
-> +		/* Even the reserved empty string needs room past the fixed part. */
-> +		if (bufsize <=3D sizeof(ks->sm))
->  			return -EOVERFLOW;
-> =20
->  		ks->seq.buf =3D kvmalloc(seq_size, GFP_KERNEL_ACCOUNT);
+> @@ -6253,6 +6253,8 @@ static ssize_t do_listmount(struct klistmount *kls,=
+ bool reverse)
+>  	} else {
+>  		if (reverse)
+>  			first =3D mnt_find_id_at_reverse(ns, last_mnt_id - 1);
+> +		else if (last_mnt_id =3D=3D U64_MAX)
+> +			first =3D NULL; /* nothing comes after the largest id */
+>  		else
+>  			first =3D mnt_find_id_at(ns, last_mnt_id + 1);
+>  	}
 
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
