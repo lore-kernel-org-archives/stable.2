@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792566444;
-	b=QBeaRlHDqwEi7yPyMk5cPEBB4UasD4RRI01+euzA1NvB1xnNHgKbfzf6dcZVXhAsU+cO
-	 3Plmswch52Wkytf1zn3vvFvKfqIBR4/4r+kRr3Mlm18cphqzYKw2Vlu+NTFpK8DTXLU3d
-	 Aq5ECwHJLj/gAFWcoWh9lo0cVb17Xx0joXpp37ngtN+drcfnu8A0VkB3jWnlX8BDwUfIJ
-	 VbZpmIpD5dz9vjmRlT+xWckMDxpdTEwv3wgWulLgSsL8qeNnc7U4HAHEXYMRrmBhkRZiE
-	 zF1Tmh4zLniOLbikiI+VyEi28wALiM6X0HhtiJQ8K/AmWyHMmUar88XjdFFEzGm9bGg==
+	t=1792566445;
+	b=D2mgwCwygJ5wgboRAm7kv+IqTL2mA4ZpIpez6RBdNK5aJYuouTNUZkxvQU3L7YiuU29O
+	 wf8AhAmUg9XwM+TYfxn33a1UACXCr24Z7+uXINjKT/AoEisFOSa8dH2O6UbeAi3n89F5B
+	 hB7sWM3QMFbDUXVPtHB8bL5jzTF9XfLeCLiIRdOLpv/GRE9eU6xRrF1R9p9C29GUTD4fG
+	 pZxPvsNzbjjanachf55CUw0+oAo63kePV6pIvvg+ovMv/3NtOORy6fmiBJAurh7e8OMJd
+	 U7x2wRyieQ/gh9S6/tVZbE9TeWYPdXw8xlp0LiHcTVU6s2WiZOejb2qWZx1+AQguG5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792566444;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792566445;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=eldH1GwkcfIm86iPHajdVBfVY+XR1al5845OKT/WHts=;
-	b=C2R5Nbgb9daN2VjDVh1ot5kB9/3S+4fWM6VsM37duZzXSpaj9N0oUZ2k3p3OvOw8IF+G
-	 V2lLbVgzu+YmpWlh/qkyfKxBqy/yRZXOnRe4DAHRR5M5OiFs3ClJZTOr7xhpaxhTNeVRl
-	 Dt8TqSUxuUF3HzK0Jpfo61Ci8Sn6sw0fTJF18aSzuRjHCUhbXSK2Gs0BU2tWdZ2wNfpsB
-	 7cNZTGZPSAhBRBnWIxI9c9lFpJYZqy5U1f4JEV2iQlDrJrFCYPfJ07D0itZ72/yVuu+j+
-	 Xj3wZy3mBvdS6xW/mX94enVQQfvzk1eFIE/cZcw/qnC3OJikDcsDanahNYk30fRfwlQ==
+	bh=NAeuNFyN6QMNmsh01D0dKl/tXHrfHFrWz1E8kDoow9Y=;
+	b=yESg5RWUdiq6bTSEJDTjqEiZFCJP0nei24RkEG13mT8/FYdQR0pD55tAJFvJtNw+S8oR
+	 zWP1TQyEvF3rTqVgJzyWfQrOkg1ATrB5WdHm/+X8teHYiErkEKn0stj5+kPY9TGXV0DZ/
+	 2cFAZMXhd9gcay0x+flUcORbVnqzY14NN0u6OddB+y7AgNzW8TS3t81vrwBI/i9cEDckd
+	 45vLENTVf6kwt0t+WIz/ZSaMCodvvHB6WRYaoEav4assvvjejAMsYC6pATN+EgQHYB9j6
+	 3wRhFHPhT7JgBM7fAGg0P9++My72ByGe9qRf3muJtEioPLsEN7zRobO4g6U3nADFgKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gQhR9hjJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F6EGkxBI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B35606A31E;
-	Wed, 21 Oct 2026 07:07:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD196606A323;
+	Wed, 21 Oct 2026 07:07:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gQhR9hjJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E56A1F000C9;
-	Wed, 21 Oct 2026 07:07:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F6EGkxBI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CD811F000CA;
+	Wed, 21 Oct 2026 07:07:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792566443;
-	bh=eldH1GwkcfIm86iPHajdVBfVY+XR1al5845OKT/WHts=;
+	s=k20260515; t=1792566444;
+	bh=NAeuNFyN6QMNmsh01D0dKl/tXHrfHFrWz1E8kDoow9Y=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=gQhR9hjJXBr0e7SR/yp8mZbovgntvu5XYHS6SYLPIQjrHMWpMiH/RcqOYC1RxV3tG
-	 /vyypnsefQsjTOfO8mZMobXBAbZ8Irh8hhCszzTYglqQFB7fcmhuGa6KyPLilEWnPF
-	 5MZ8llLb5H+NaZZ7nyr8AeN/o4BYBtR5Lo2SrZIn6ROQqKXOk42W55WX+TSWzOrQEV
-	 Ofte5/GhbanHxOTD6faxJqNBgNcRnSU51/LP6dCx/V5FDLH3J/4SHp09gEwFZpV07h
-	 SJYooaxv0gMKV/qb2szthgXWC8yb3JKlEZ6yJUr7VNdyya5ojNn5a5VMqcf4x8BW+O
-	 Tsh4bOjqatLLg==
-Subject: Re: [PATCH mptcp-net v2 1/2] mptcp: pm: in-kernel: fullmesh: skip
- closed subflows
+	b=F6EGkxBI3vnKXRv+hq/hsO6z9pLhelk7e26sDGf7EK2hJ/6NSQYwDnAO0IbDeDoYS
+	 8UnixyVgXSUtBZTLopDMzb8sexkUSqzojM5i7k3FnifVK1p7bUHrMiwB0jArE3cNT5
+	 MOTsZpczEsAJOO7c17sW9L9sXk4qPG/6HWxeJShdJTY3Xbe55H9hqXUBOsRy272JnJ
+	 Zv5CVGy2eRsPz8LhLgYYoR68+tZEYW5lus48U0yCrfGFaaAxT8+dSEp3MkJ/wNalKa
+	 Cn5kqqGXtkUvefSChf0RFJ7BTTPleqgN1RkAy+pQQkrLXhsDDIwEf2y2ZwB2JAUe2n
+	 hHPRGtyMzpGSw==
+Subject: Re: [PATCH mptcp-net v2 2/2] selftests: mptcp: join: re-add the
+ initial subflow endp with fullmesh
 From: netdev-bot+sashiko@kernel.org
 To: w453y.me@gmail.com
 Cc: mptcp@lists.linux.dev, matttbe@kernel.org, martineau@kernel.org,
  geliang@kernel.org, pabeni@redhat.com, stable@vger.kernel.org,
  kuba@kernel.org
-Date: Wed, 21 Oct 2026 07:07:22 +0000
-Message-ID: <179256644257.3133.14974655979345931917@kernel.org>
-In-Reply-To: <20261019180306.382039-2-w453y.me@gmail.com>
-References: <20261019180306.382039-2-w453y.me@gmail.com>
+Date: Wed, 21 Oct 2026 07:07:23 +0000
+Message-ID: <179256644378.3133.9526185067620358472@kernel.org>
+In-Reply-To: <20261019180306.382039-3-w453y.me@gmail.com>
+References: <20261019180306.382039-3-w453y.me@gmail.com>
 X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -64,10 +64,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 3 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
+Critical: 0 · High: 1 · Medium: 1 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -75,158 +75,173 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] The fix is incomplete, and it adds a regression when no other
-  subflow is still alive.
-- [Low] The commit message describes the state of a reset initial subflow
-  incorrectly.
+- [High] The new "delete and re-add, fullmesh, after reset" test in
+  endpoint_tests()…
+- [Medium] The "delete and re-add, fullmesh, after reset" test depends on
+  the `nft` binary and on IPv4 nf_tables reject support, but declares…
+- [Low] Even if the nft rule were installed, the "after reset" test never
+  checks that the initial subflow was actually reset before its endpoint…
 
 --
 
-mptcp: pm: in-kernel: fullmesh: skip closed subflows
+selftests: mptcp: join: re-add the initial subflow endp with fullmesh
 
-This patch makes fill_remote_addresses_fullmesh() skip subflows that are
-closing or in TCP_CLOSE state. The skip applies both when building the
-bitmap of remote IDs already in use and when picking remote addresses.
-The goal is to let the fullmesh endpoint of the initial subflow create
-new subflows again after it is removed and re-added.
+This adds two subtests to endpoint_tests() in mptcp_join.sh. Both delete
+and re-add the endpoint used by the initial subflow with the fullmesh
+flag. The second one first resets the initial subflow with an nft reject
+rule, to validate the previous fix for 045e9d812868.
 
-> If it was already in TCP_CLOSE,
-> e.g. after a reset, it is disconnected and its context is reset: the
-> 'closing' flag and the remote ID are cleared, and its remote address
-> and port are zeroed. It is then picked as a remote address, with the
-> address 0.0.0.0, the port 0 and the ID 0, which also marks the remote
-> ID 0 as unavailable.
-
-[Severity: Low]
-Is the statement that the remote address is zeroed accurate?
-
-On the TCP_CLOSE path, __mptcp_subflow_disconnect() does:
-
-    WARN_ON_ONCE(tcp_disconnect(ssk, 0));
-    mptcp_subflow_ctx_reset(subflow);
-
-tcp_disconnect() only clears the destination port and the source
-addresses:
-
-    inet->inet_dport = 0;
-
-    inet_bhash2_reset_saddr(sk);
-
-inet_bhash2_reset_saddr() ends up in inet_reset_saddr(). That only
-touches inet_saddr and inet_rcv_saddr, plus the IPv6 equivalents.
-
-mptcp_subflow_ctx_reset() only clears the reset struct_group and sets
-local_id to -1. Neither path clears skc_daddr or skc_v6_daddr.
-
-So mptcp_remote_address() on that subflow would return the real peer
-address with port 0 and ID 0, not 0.0.0.0. Could the commit message be
-updated to say so?
-
-> diff --git a/net/mptcp/pm_kernel.c b/net/mptcp/pm_kernel.c
-> index 1a7750813235..24cdb170ba62 100644
-> --- a/net/mptcp/pm_kernel.c
-> +++ b/net/mptcp/pm_kernel.c
-> @@ -199,6 +199,16 @@ fill_remote_addr(struct mptcp_sock *msk, struct mptcp_addr_info *local,
->  	return 1;
->  }
->  
-> +/* Closed subflows can stay in the conn_list, e.g. the initial one: their
-> + * addresses and IDs are not reliable, possibly even reset.
-> + */
-> +static bool mptcp_subflow_is_closed(struct mptcp_subflow_context *subflow)
-> +{
-> +	struct sock *ssk = mptcp_subflow_tcp_sock(subflow);
-> +
-> +	return subflow->closing || inet_sk_state_load(ssk) == TCP_CLOSE;
-> +}
-> +
->  static unsigned int
->  fill_remote_addresses_fullmesh(struct mptcp_sock *msk,
->  			       struct mptcp_addr_info *local,
-> @@ -216,11 +226,18 @@ fill_remote_addresses_fullmesh(struct mptcp_sock *msk,
+> diff --git a/tools/testing/selftests/net/mptcp/mptcp_join.sh b/tools/testing/selftests/net/mptcp/mptcp_join.sh
+> index 18ce7136a2b0..0fa69aa2e9b8 100755
+> --- a/tools/testing/selftests/net/mptcp/mptcp_join.sh
+> +++ b/tools/testing/selftests/net/mptcp/mptcp_join.sh
+> @@ -4445,6 +4445,70 @@ endpoint_tests()
 
 [ ... ]
 
->  	mptcp_for_each_subflow(msk, subflow) {
-> +		if (mptcp_subflow_is_closed(subflow))
-> +			continue;
+> +	# same, but the initial subflow is reset before removing its endpoint
+> +	if reset_with_events "delete and re-add, fullmesh, after reset" &&
+> +	   continue_if mptcp_lib_kallsyms_has "subflow_rebuild_header$"; then
+> +		pm_nl_set_limits $ns1 0 2
+> +		pm_nl_set_limits $ns2 0 2
+> +		pm_nl_add_endpoint $ns2 10.0.1.2 id 1 dev ns2eth1 flags subflow,fullmesh
+> +		pm_nl_add_endpoint $ns2 10.0.2.2 id 2 dev ns2eth2 flags subflow,fullmesh
+> +		{ timeout_test=120 test_linkfail=128 speed=5 \
+> +			run_tests $ns1 $ns2 10.0.1.1 & } 2>/dev/null
+> +		local tests_pid=$!
 > +
->  		ssk = mptcp_subflow_tcp_sock(subflow);
->  		mptcp_remote_address((struct sock_common *)ssk, &addrs[i]);
->  		addrs[i].id = READ_ONCE(subflow->remote_id);
+> +		wait_event ns2 MPTCP_LIB_EVENT_ESTABLISHED 1
+> +		wait_mpj 1
+> +		chk_subflow_nr "before reset" 2
+> +
+> +		init_nftables
+> +		if ip netns exec "${ns1}" nft add rule ip filter INPUT \
+> +				ip saddr "10.0.1.2" meta l4proto tcp \
+> +				reject with tcp reset; then
 
 [Severity: High]
-What happens when the closed initial subflow (msk->first) is the only
-entry left in conn_list?
+Where is init_nftables() defined? A grep over tools/testing/selftests/
+finds only this call site. There is no definition in mptcp_join.sh,
+mptcp_lib.sh or net/lib.sh. The script doesn't use set -e, so bash
+would print "command not found" and keep going.
 
-Both loops skip it, so fill_remote_addresses_fullmesh() returns 0.
-fill_remote_addr() takes the address from the msk, but this function has
-no such fallback:
+Without that helper, does anything create the ip filter table and its
+INPUT chain in ns1? Each test gets a fresh netns from
+reset()->init_partial()->mptcp_lib_ns_init, and this test runs no other
+iptables or nft command in ns1.
 
-    mptcp_remote_address((struct sock_common *)sk, &remote);
+If so, the nft add rule always fails and the whole body of this if is
+skipped: the SUB_CLOSED wait, the endpoint delete and re-add, wait_mpj 2
+and chk_mptcp_info.
 
-By that point, mptcp_pm_create_subflow_or_signal_addr() has already
-consumed the endpoint ID:
+The unconditional chk_join_nr 2 2 2 further down would then see only the
+single MP_JOIN from the id 2 subflow. Wouldn't this subtest then fail on
+every kernel, with or without the previous fix?
 
-    __clear_bit(local.addr.id, msk->pm.id_avail_bitmap);
-    ...
-    nr = fill_remote_addresses_vec(msk, &local.addr, fullmesh,
-                                   addrs, ARRAY_SIZE(addrs));
-    if (nr == 0)
-        continue;
+It also means this part of the commit message isn't actually validated:
 
-As a result, no subflow is created and the endpoint stays marked as used
-for this msk.
+  Do the same with the fullmesh flag, and also after a reset of the
+  initial subflow, before the removal of its endpoint.
 
-Two cases seem to reach this.
+The TCP_CLOSE branch of mptcp_subflow_is_closed() added by the previous
+patch would stay untested.
 
-The first is the case from the commit message, when the initial
-subflow's endpoint was the only live one. An example is a single
-fullmesh endpoint and a peer with a single address, where the endpoint
-is removed and then re-added. Nothing is created, and the msk is closed
-once the timeout started in __mptcp_close_ssk() expires:
+Was a helper hunk dropped from this submission? The existing reset in
+userspace_tests() uses iptables and needs no extra helper:
 
-    if (list_is_singular(&msk->conn_list) && msk->first &&
-        inet_sk_state_load(msk->first) == TCP_CLOSE) {
-        if (sk->sk_state != TCP_ESTABLISHED ||
-            msk->in_accept_queue || sock_flag(sk, SOCK_DEAD)) {
-            ...
-        } else {
-            mptcp_start_tout_timer(sk);
+		if ip netns exec "${ns1}" ${iptables} -A INPUT -s "10.0.1.2" \
+		      -p tcp --tcp-option 30 -j REJECT --reject-with tcp-reset &&
 
-The second case looks like a regression from this patch. The initial
-subflow's endpoint is removed, then a different fullmesh endpoint
-(ID != 0) is added while msk->first is still closing gracefully.
+> +			wait_event ns2 MPTCP_LIB_EVENT_SUB_CLOSED 1
+> +			ip netns exec "${ns1}" nft flush chain ip filter INPUT
+> +
+> +			pm_nl_del_endpoint $ns2 1 10.0.1.2
 
-Removing the endpoint goes through:
+[Severity: Low]
+Once the rule can be installed, does anything confirm that the initial
+subflow was actually reset before its endpoint is deleted?
 
-pm_nl_del_endpoint()
-  mptcp_nl_remove_subflow_and_signal_addr()
-    mptcp_pm_rm_addr_or_subflow()
-      mptcp_close_ssk()
-        __mptcp_close_ssk()
+wait_event() polls up to 100 times. If the count is not reached it just
+leaves the loop, without calling fail_test:
 
-That path sets subflow->closing. msk->first is not disposed, so
-__mptcp_subflow_disconnect() only calls tcp_shutdown(ssk, SEND_SHUTDOWN).
-The subflow stays in FIN_WAIT1/FIN_WAIT2 and keeps a valid daddr, dport
-and remote_id 0.
+mptcp_join.sh:wait_event() {
+	...
+	for _ in $(seq 100); do
+		count=$(grep -cw "type:${evt}" "${evts}")
+		[ "${count}" -ge "${exp}" ] && break
+		sleep 0.1
+	done
+}
 
-Before this patch, the first loop did not mark that subflow, since
-local_id 0 differs from the new ID. The second loop then picked it as
-remote ID 0 with a valid address and port, and the new endpoint created
-a subflow.
+The checks that follow, chk_mptcp_info subflows 2 subflows 2 and
+chk_join_nr 2 2 2, give the same result whether the initial subflow was
+reset or simply closed by pm_nl_del_endpoint. The reason is that
+mptcp_pm_subflow_check_next() only updates the counter for join
+subflows:
 
-Now mptcp_subflow_is_closed() skips it. Does the new endpoint still
-create anything for this msk?
+net/mptcp/pm.c:mptcp_pm_subflow_check_next() {
+	...
+	update_subflows = subflow->request_join || subflow->mp_join;
+	...
+}
 
-The non-fullmesh path recovers in both cases, because fill_remote_addr()
-uses the msk's remote address. Would it make sense to fall back to the
-msk remote address here (ID 0, subject to deny_id0) when it is not
-already in use?
+If no reset happens, wouldn't this reduce to the preceding fullmesh
+re-add test and still pass?
 
-The selftest in this series ("selftests: mptcp: join: re-add the initial
-subflow endp with fullmesh") always keeps a second endpoint (id 2) with
-a live subflow. As far as I can tell, it covers neither case.
+The userspace reset test asserts the event explicitly:
+
+			chk_evt_nr ns2 MPTCP_LIB_EVENT_SUB_CLOSED 2 error 2
+
+Could a similar chk_evt_nr ns2 MPTCP_LIB_EVENT_SUB_CLOSED check be added
+here?
+
+> +			pm_nl_add_endpoint $ns2 10.0.1.2 id 1 dev ns2eth1 flags subflow,fullmesh
+> +			wait_mpj 2
+> +			chk_mptcp_info subflows 2 subflows 2
+> +		fi
+> +
+> +		mptcp_lib_kill_group_wait $tests_pid
+> +		kill_events_pids
+> +
+> +		chk_join_nr 2 2 2
+
+[Severity: Medium]
+Even once init_nftables() exists, should this test be skipped rather
+than failed when the nft rule can't be loaded?
+
+The new rule needs three things: the nft binary, an ip family table
+(CONFIG_NF_TABLES_IPV4), and reject support (CONFIG_NFT_REJECT and
+NFT_REJECT_IPV4). tools/testing/selftests/net/mptcp/config only enables
+these nftables options:
+
+CONFIG_NF_TABLES=m
+CONFIG_NF_TABLES_INET=y
+CONFIG_NFT_COMPAT=m
+CONFIG_NFT_SOCKET=m
+CONFIG_NFT_TPROXY=m
+
+NF_TABLES_IPV4 has no default. NFT_REJECT defaults to m only when
+NETFILTER_ADVANCED=n, and this config sets NETFILTER_ADVANCED=y.
+
+init() also doesn't check for nft:
+
+	mptcp_lib_check_tools ip tc ss "${iptables}" "${ip6tables}"
+
+The if block has no else branch, and chk_join_nr 2 2 2 runs on both
+paths. A missing dependency therefore shows up as a hard failure (1 join
+instead of the expected 2) rather than a skip.
+
+reset_with_tcp_filter() handles the same situation like this:
+
+		mark_as_skipped "unable to set the filter rules"
+
+Would switching to the iptables idiom, or adding a skip path like this
+one, avoid the false failure?
+
+> +	fi
+> +
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261019180306.382039-1-w453y.me%40gmail.com
