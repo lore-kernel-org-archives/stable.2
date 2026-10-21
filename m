@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595567;
-	b=FkfpNdGilyn2XcEajX8JvuoL6UGsI42Kt2FF9sIbmQS+/E/fVSI5w606rta6Fh1CYy/9
-	 bNtRxSR9ostgMWn/s74sX1PFx5WDn+bzsNjJZlIlSZ6M7/szcKhqeHLPyckCTW92FZnWU
-	 aiboC0qAsVNhNBaWVf7qysuCDxVvKlBHu435hhOKcE6F8Ezyy4l/VF+Yo5B1F8PZmynyz
-	 tEofgSPlZY4QoJZv/1Dj3MgOc1CiTlL06eqI4B4yCAV6Qq8HukLwMxQmKCC59iv/I3z/9
-	 z4AJtLcRP1q+M7twgFmZTIpWSUvlHLliLnCsw+rpmv8UKl5txXcghkUzLC/sTXQMOxA==
+	t=1792595570;
+	b=0FMK3rlJ65z1s9+jadTbJp7VeJxPWfC+3+I3jVkgO/pvGNwxk2dTEU7ViGZjfrvGc+kR
+	 QzBnUBqGfHoJPkm5mok1Sb9Pf+SHyI/WU8dtWKRjrHz0S8Mxzhk16p6fyKO9SgL1UDUs5
+	 P07DhE7eGIvOdG6emhikcbfO+sVvx7n3r1otqdCRq+GsvTdHoHN51nA+JsyBl5q0Rzj6B
+	 kSeAIzH+Q8PPNdA9iiObj5Z8mrxZzFDFDacAIqJlnD9lj9NE02KUqiOl9rgaD5PuBN4Qd
+	 11VxomZwr/s++9aUmp4CWHWp8IlddkMkIxXoBaLnZqM4J3etv+scylW4bIW0Nn2JcSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595567;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595570;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=WHRYB1ZEEJ+x43nKIoWdQKzJHNQfukdhg9INMqJAzcg=;
-	b=Ijg5qSv1JLWEqja9LrDHy5WsEvZ7zGLRff+Q+4b5EIACgK/d7pPdvP1UI/1bFQ21y3QM
-	 uYchnZBm6oDJkLYD2AsNV3rC8eR7SKbBvhdddX2ljKKurzqe0KmEP49bf+8282ZjWyUuq
-	 J6Juuqwll1Ji/yaRUFrcjX3yP8pPWL8k5tn2H4J22QIj5lpQfEwnks7CSMkYRt0gqIqeH
-	 Zh9sHu3y/eI6gvW4K3GNUGEbeyUqKQYNC/ox9uSvU5jwMwN7j+FSsV9VSAdxfqKOSImxc
-	 9Ueg9tQRbhlo4RQB4gvKvrt7eRq929Y6TST6JtOsnDS+Xz1gnEKJIFqKF5mE0XOQAVg==
+	bh=QLcQ1tBqS5DinI5f3P7TjIdaPybeySgnXNS3tmIeGxc=;
+	b=rDWEjFr1fALTU6bbgQVm8sKtS3p982kY2zTbGz+SEXjv0RHf7wRW2o/vnHmhvOcW2RmA
+	 IVgo/O28U2wL4/BJfmkieKmLpLpuYOwnkNhpM5/OuhttXZBBFY/I0RUHOxei+7oaCzOKh
+	 XUm2i8VBM/Zpmrs0lyIxAm3Dv7MMZv7WMq6a9QvmKMtpdj43fYFJIY/iPr9utgUKnSBe+
+	 ZZlBckPrRqTPEqDzv525euGE/1EAf0Yc2Kpzp8vXEU6RdthhhhWTYzvsUXq65Ka+qxRbH
+	 B2URLYPo7dwJXCLBNfkxkwZqWb8LFqs9C7DQFcZLeBJNVRjXtqiA9X3M4xKPqss3iXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fn3Sf6xG;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zwIdS70K;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C90606A31A
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:12:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B91C606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:12:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fn3Sf6xG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7479B1F000C1;
-	Wed, 21 Oct 2026 15:12:46 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zwIdS70K
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 992231F000C1;
+	Wed, 21 Oct 2026 15:12:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792595567;
-	bh=WHRYB1ZEEJ+x43nKIoWdQKzJHNQfukdhg9INMqJAzcg=;
+	s=korg; t=1792595570;
+	bh=QLcQ1tBqS5DinI5f3P7TjIdaPybeySgnXNS3tmIeGxc=;
 	h=Subject:To:Cc:From:Date;
-	b=fn3Sf6xGgMDKggYU1CHwiiCFOj5Yx6VcKx7KzJyNG7elaQyjTTaHrkMjGkwjZZMXX
-	 cJgYAdv2Eg18XrxCt9y/lQQydx8Q9f81aX4hVnBSAYWrYikeM91Y/eueLYWqBZesDe
-	 z/xFaUKQrj/z5jU5SUFPIY1wUG4jcjkm7/GVbCWE=
-Subject: FAILED: patch "[PATCH] xfs: don't hold buffer locks across sync transaction commit" failed to apply to 6.12-stable tree
+	b=zwIdS70KFotAwcZUnFom6ruOlz2NKGbOJMd92P0t7kCsPg1U3eI+HzXsiD/1ERqns
+	 AOqXKM6cPiuj+5EgwerlR3C7uaOSQsPrec6gghcDkQMqA2ssgd3wim6tc44G9M+Jha
+	 gzkDYgUkDNtohAW3T+ZdYL00qxM9/4kYD/AQY5JU=
+Subject: FAILED: patch "[PATCH] xfs: don't hold buffer locks across sync transaction commit" failed to apply to 5.10-stable tree
 To: yun.zhou@windriver.com,cem@kernel.org,hch@lst.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 17:08:21 +0200
-Message-ID: <2026102120-monogram-unstable-a679@gregkh>
+Date: Wed, 21 Oct 2026 17:08:22 +0200
+Message-ID: <2026102122-mural-modulator-6339@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 41a28c865d1d5843f8cb9e0af17a8f4d9e2961ff
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102120-monogram-unstable-a679@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102122-mural-modulator-6339@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
