@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594259;
-	b=XKRbtXJydQwN3ervGfCCvfA6M7V/6OHu+Hox3365zWrojgXkI1v1i2GW7tonm0BiOAbn
-	 KBUkgGl+JsFzanc0OesjnipiTggVc571P8+cKI3YDC+QFZFzhgIiBgESlXjbzVoLsfS93
-	 VsYhH50Ozo8BzulKFIf/+PYcQiZhDNwxHJGYke25hnWLLOs8HhtKCg+cmDSFG4bt3n7Km
-	 RuFNak1kmyP1b+Wvq9nesTBKSkk1s/ZqBnNDkCD4kR0FixazoL6HOml/caEmFZz5GW/VA
-	 zH6wkdu+S94mda/ZhFD1LNHRfgln/y/wrF51IH9KvRS9n9PozHKKVOv6CMzV40Ci/0A==
+	t=1792594262;
+	b=Pqkh2abuVQowr2u7VMmNe9zu6HSlI6sthQomGMwqHzmI8QSw2+jI5Z4GeYr4WQd1BwZp
+	 I9IVmzVR+86oPUsb3dxBf90qmqrtKnUnOPxQ6XKW/NHfYn+1LMEJexWn8MWjnPVeNs06K
+	 ppGSJ/rgMDN41aGCmAEKv93CRHvy+zICugfcD8DzH+xoi1JP0ywU96rIz4kfYYOrZj3Qc
+	 Sk7YzpsD1Cf9371KkamthQtSBfzC629S3c+IJWIf+QrM3C7qRArZT0AEhAMTUNbIqEQ2P
+	 cRJpC0Bm/E/+dw25EOqVUYi9uup3wtLYDWzvLRce8tiD7A9uwa4zziOIPwlClFw02Mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594259;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594262;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=wsI/CfQTpLvzWOyvI4e9MwAf6BBw3xAacNQluOHekX4=;
-	b=bXyIAVLHirPC4DS8qUOuEwNT+bTiNfJabmySNdIHkoLqiP0QIaOVDUylp+03/UeEJGU7
-	 xa6P8cf5Xb22t98bvur5WQKNqt1dL/+LTgONxe0yXBrJ9IM/tb1CYJvDfbmnjfPTx91xj
-	 9qY3yILuDORFgfF3GGtkJAsGj72n7OwBxD3I7orwT0rOU6BTtgY6ZRukjjaKzbOR6TMXj
-	 mkYh/1qPaTMagUPfsOr1/mZgqxCDjNJibvTnQmSznUiUfrDIHJiIX+nQl2hG3WDgLm7rH
-	 CViur0L3LMbyfAh4YJyOeWOIOq8OyU1NZDOK0ePeSq8goO0iD3MEdnhUfvBtGc7CmMQ==
+	bh=5ZyrN70pIIZSOdyjVnRNE/80t0rqv6XKlTOUdWsuyB8=;
+	b=OdNviOFbwODrkH4GSI5IQ5csina6RXpzJ3SZpYD4yVDOB24OItiQaAzA1sMscqmICcUM
+	 cMDqiN8jHv1kYuL2KOLe7PnrlNhskHzgROmmoMjYz2Tk/G5kVL3zAtDpr0uEmiyU9GKCg
+	 I1sR7QixEy6bNeDqWnT/Y07WldLO4wpPmM4MS1E6fsXii0cFxkQ+MsLycjHOjbeF3HFBV
+	 +pnzHSTBIv+PpRSnjTtOQTamZhjMv852tenJyK2crBiodBob3qBlSj9uO930e9uUiGo41
+	 Ca2fgMf6oYWYNwsQJ1mlgWKC5tkMc6GVgX7EBD1tu/ABgXQODUMVpqrhMxHqRrehEoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ccXUtDjK;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SRPAxZt9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F5E3606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:50:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9D9B606A31D
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:51:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ccXUtDjK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A9B11F000C3;
-	Wed, 21 Oct 2026 14:50:58 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SRPAxZt9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F1931F000C1;
+	Wed, 21 Oct 2026 14:51:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594258;
-	bh=wsI/CfQTpLvzWOyvI4e9MwAf6BBw3xAacNQluOHekX4=;
+	s=korg; t=1792594261;
+	bh=5ZyrN70pIIZSOdyjVnRNE/80t0rqv6XKlTOUdWsuyB8=;
 	h=Subject:To:Cc:From:Date;
-	b=ccXUtDjK0a6zhVMuhdEhuJ2r3TXl1vfaWHhOYr7vNWK7o9VhFotNRTHUOXPLPVV2a
-	 NrEq8j/PV7r01b9pD/q2/Ev2iZlP8jFx6q01rMH4oiyZkvQSc34YhC0Xv1p/XjN4ya
-	 wt+JlcKi9l0XVr2JK9etY59LwEpXmO+FgCtldj74=
-Subject: FAILED: patch "[PATCH] i2c: viai2c-wmt: Fix clock leak in wmt_i2c_probe()" failed to apply to 5.10-stable tree
+	b=SRPAxZt98QvOK+9a63kMZDLO91qMUmvitBp/btTrdj9vHGRZEaS1JKii3r4rA4Y8F
+	 LBqrxmNzQDkVNhOAMKw9qeEcIvNKg/XEobYubU1JC/4JpE7vHLlHD3Bl8mKXgerftO
+	 WKgCSC/Fl1k+kJToEEeqMBkQney0bQ8ruNLL318A=
+Subject: FAILED: patch "[PATCH] i2c: viai2c-wmt: Fix clock leak in wmt_i2c_probe()" failed to apply to 5.15-stable tree
 To: vulab@iscas.ac.cn,andi.shyti@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 21 Oct 2026 16:43:02 +0200
-Message-ID: <2026102102-plasma-vividly-b482@gregkh>
+Message-ID: <2026102102-unafraid-triumph-de54@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x aaabefc79b0ff0018e8e3832169bbe359d0551fc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102102-plasma-vividly-b482@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102102-unafraid-triumph-de54@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
