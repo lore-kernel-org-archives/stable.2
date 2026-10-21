@@ -1,57 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792579665;
-	b=1+vGE4g2/xGFz0EyBD1FwCkfIKGp3kH4FEix8zR81UMHKnxGLLoThY4Jn/PMYi1ktkDE
-	 +oOdJx40MA9iuZ/rffnOw/Bt/bofM2rkqA0ynT7as1YSHxrjMui/3QxDtRuWKkrFdn+m2
-	 U6oFeX2g4pbOw/nSlXuTYEVtrOMQCZXBvYPSMShXM2TdztUSokTi9a641MaKGP6zBPOUn
-	 4yQKho1Pjp0FCmVlAY1lnjF27Wxz5nBl426uNh/lKnbd6m51N53liXVqc14+5Zf+KprZ2
-	 djxgnmZ8jSjPTgsZ9VXG0FtrkWWhrFvo/53lyJfVR5nOdbmrnZ9NrApofhKqvLjYabg==
+	t=1792579666;
+	b=EXyUX6tLG1/azRt0qfn9FRxJcyq4THvpLb3KOBkFURRj/NeJXQspkHqaMnSZ8XeB4UKH
+	 xYt4yOmVvjSW4WWHOPy0MryLXGBsVxK/uNOr8kliDaUQCi6C4eTV1dLDGb8QqZTegDVXO
+	 T8jBR59qRLpu/avdefVOHnxVyEfCRl3hbxNCVt3Q7aUjBGw1z1mA9mXCO5MN3ckAcrgak
+	 BT47jGvqXmzem/pR2eNzV7jDWkxPwRZjP99iR1fbNu+LvcXqupC+MpZJeVnq/cEbxbaou
+	 sw6DH4ZC3JB3X88RHVAaKBwI2UJYuT/fX568ANs2YEMGe/ZwDy296uNOTEYrz5eB8KA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792579665;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792579666;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=/Yh6b/SsZOJBDx4OSHpxtjQiQ5dN3xdal/mXss6FdVI=;
-	b=yQkywx9w0sCwZ+KK6eCX7W8/f44K616zFs2tbvFQUJTwnmrTOpIs5pbtTCb7rdfuc3kw
-	 7p+DiFVS+9B9SlUCQ+lyFSjgNOtBumDL6FPJc/ZfLcKV6q6gFzWQl6diRuiQL5ETlJsZy
-	 jLH1UUPHuSZp3Fw0XSZGkjehuHZ22B9EfDFEdnMqeMdGL/0ERMYfTEfdb5zzFhb9NejJe
-	 KATvtSGcavHTKTVQ/a6XAhevbpn7i7yLgCLmPjLCMwF2poLfC4FUNgf0OsmwoehEE4F54
-	 b3vnism6dYW2A6ON3c5EorKtf7bzUIcMf0b5BV1mwt9pt6QGWp1A+1AURIdOHjoEYJg==
+	bh=8rjo9E5I5jUw2GRnY9ilROcz1Nwl5H/IPAT/yzyrHdM=;
+	b=ZguISssDQBNL9gy50Yt8ByfAVh9Z6pDEp6pDkH9Sehc0K2cypvag/9tbs9OolhCcqHYX
+	 aM+WG36Dg385yLzuHWQWuaOXd3wFvWkmLoGY1BaTxN4LSr/aLhEVDRxf6IjdR22hM9/j+
+	 yixacX5tHkq84TNZHivfvgOuW0PvpJ/FELG1BOxTADkY6YGqvLlrsvo0Y6ifyM5QJEWQx
+	 rSt6GT++5r6zLnUAOLtb5Dx+8hx+gK1kF0NgAtkEGCDXA+wB48tl8mjcEoZoczlEso0aZ
+	 1CMrcF7+zUpGTpI7SjOlRP0ZeC5gGtPKfiWQVd4xTjwU8mQeEeGNokj1ybBwXiCA52w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=pk3gdYEH;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=keeLRbDN;
+	arc=none smtp.remote-ip=117.135.210.2
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F85606A329;
-	Wed, 21 Oct 2026 10:47:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71F85606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03BDF606A320;
+	Wed, 21 Oct 2026 10:47:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03BDF606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=pk3gdYEH
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=keeLRbDN
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=/Y
-	h6b/SsZOJBDx4OSHpxtjQiQ5dN3xdal/mXss6FdVI=; b=pk3gdYEH3/33iineDs
-	tsH0pxabz1INhNNEdbZVeQg1XQJE2pN3sZYEy3rnsTNI9zslpn7vBq784KxO0/5C
-	ppsP7YH85ULzkkKiPp+HaWb19gWZ27Qp1Ro2t3aTI+UCiO1k0m+S/gdkqYkSYSn4
-	0hBQYDU97Oo4khHvVkkDFAprc=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=8r
+	jo9E5I5jUw2GRnY9ilROcz1Nwl5H/IPAT/yzyrHdM=; b=keeLRbDNGVOdaUCCEY
+	UDev274CypOiPvrdx9VKF8HolPrD66p7MmIxZkmjzIdrVM2HQfBpmPBwZeMG6Y3J
+	RXsYnPB4ej5Lzo1Utiq6AYaHkJjL51lcsrQzrI1n8VOk6lr/WYJuyUVF6MkRCnkr
+	AOECxd/UgaxK79n5yHj3Fc0i0=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDX3xM5mNhq3MNSBw--.27855S5;
-	Wed, 21 Oct 2026 18:47:24 +0800 (CST)
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDX3xM5mNhq3MNSBw--.27855S6;
+	Wed, 21 Oct 2026 18:47:25 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Mathias Nyman <mathias.nyman@intel.com>,
+To: Chunfeng Yun <chunfeng.yun@mediatek.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	linux-usb@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 3/4] xhci: debugfs: initialize command buffer
-Date: Wed, 21 Oct 2026 18:47:18 +0800
-Message-Id: <20261021104720.4106961-4-yaojiale02@163.com>
+Subject: [PATCH 4/4] usb: mtu3: initialize debugfs command buffer
+Date: Wed, 21 Oct 2026 18:47:19 +0800
+Message-Id: <20261021104720.4106961-5-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261021104720.4106961-1-yaojiale02@163.com>
 References: <20261021104720.4106961-1-yaojiale02@163.com>
@@ -65,39 +67,39 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDX3xM5mNhq3MNSBw--.27855S5
-X-Coremail-Antispam: 1Uf129KBjvdXoWrtrWUCrW7Kw4ftF15Jw4kXrb_yoWkGFcE93
-	say348W34DCFWFvr1xAr4YvFW2ga4UXrn29Fna9rnxGwsrX3WF9Fs7urn7XF45Wa15t34D
-	C39xWr1rK3WjkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU0mNt7UUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRwGQGrYmDwqEAAA37
+X-CM-TRANSID:_____wDX3xM5mNhq3MNSBw--.27855S6
+X-Coremail-Antispam: 1Uf129KBjvdXoWrtrWUXw4kXrykKFy5ZrWkWFg_yoWkGFcEqw
+	1IkrWxJr1vyayjkr1xCrWqvayfK3W5Xrn5ZFnavasxAanFqrnYvws2grn7Zr4UXFW5Ja4D
+	Cr9rXrykWa10gjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU0YhF7UUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzh0GQGrYmD2HowAA3m
 
-xhci_port_write() copies user input into an uninitialized stack buffer
-and compares ten bytes against the compliance command. A short matching
+ssusb_mode_write() copies user input into an uninitialized stack buffer
+and compares fixed command lengths. A short write matching a command
 prefix can make strncmp() inspect bytes that were not initialized.
 
 Zero-initialize the buffer so the copied input is always terminated.
 
-Fixes: 87a03802184c ("xhci: debugfs: add debugfs interface to enable compliance mode for a port")
+Fixes: 4aab6ad24a10 ("usb: mtu3: move vbus and mode debugfs interfaces into mtu3_debugfs.c")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/usb/host/xhci-debugfs.c | 2 +-
+ drivers/usb/mtu3/mtu3_debugfs.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/usb/host/xhci-debugfs.c b/drivers/usb/host/xhci-debugfs.c
-index 2aa01d99f23d..a020cbab9674 100644
---- a/drivers/usb/host/xhci-debugfs.c
-+++ b/drivers/usb/host/xhci-debugfs.c
-@@ -347,7 +347,7 @@ static ssize_t xhci_port_write(struct file *file,  const char __user *ubuf,
- 	struct seq_file         *s = file->private_data;
- 	struct xhci_port	*port = s->private;
- 	struct xhci_hcd		*xhci = hcd_to_xhci(port->rhub->hcd);
--	char                    buf[32];
-+	char                    buf[32] = { };
- 	u32			portsc;
- 	unsigned long		flags;
+diff --git a/drivers/usb/mtu3/mtu3_debugfs.c b/drivers/usb/mtu3/mtu3_debugfs.c
+index c003049bafbf..8976dbfaa585 100644
+--- a/drivers/usb/mtu3/mtu3_debugfs.c
++++ b/drivers/usb/mtu3/mtu3_debugfs.c
+@@ -423,7 +423,7 @@ static ssize_t ssusb_mode_write(struct file *file, const char __user *ubuf,
+ {
+ 	struct seq_file *sf = file->private_data;
+ 	struct ssusb_mtk *ssusb = sf->private;
+-	char buf[16];
++	char buf[16] = { };
  
+ 	if (copy_from_user(&buf, ubuf, min_t(size_t, sizeof(buf) - 1, count)))
+ 		return -EFAULT;
 -- 
 2.34.1
 
