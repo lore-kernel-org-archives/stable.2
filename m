@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792586085;
-	b=Qkh2fLNxjP8KXtaTkatYXXVXWSo66cyziLFSafPmw409IMfCUigo82BkQs53joY9v3j3
-	 8OudiLexE0a3ILiiwp0mpEekfiX9zdXva3cG4QBBgfk+DAJg0WenQZ+RXPLuGZCKlKXbC
-	 XJjI1uJ8bV/Ez0C6SlfQpegikUk6zbFmwD2HGllKp3Ff4p44J8UJ+vU0sGpd8XaodL9F5
-	 PNxQMyjoJLcjJNPYGGjAdA4dqJDaozF06w6xpBPn7RKbx2hKWyZu3Gjs+FwAoJ96wa/g+
-	 zrONFvgmAJN7cgYWVuvgXWOnQJZawT4wvCNphPPX/G9jmjvqHnz+ijxOn/OYFeTAE3A==
+	t=1792586092;
+	b=qmcvgvU6w32HE1KIi+clNakArOjnEx2WAws5CgShrT1inAKScp3NhKC8rzhstfamGNzx
+	 sMzRBkeLetpqdFrSA9RYFMuQ3frpwJyxBetkaTjiQ0TU96pNx9Vus616QUTc4+hHPZycQ
+	 fmqz97NGyHv2+Mwf2FKMc648xnlQMYcwqzUqDVtQPHxF2/8j3BH9kgDIqNWCx6WljvbOw
+	 QY6ZEue8Jp97VbvbehHgG8ttLlNRQ3i/iFNmG7qj8DaLAWSnt7sNJ9CYQNlScg4kHBMn5
+	 NUZOGCpAnUgD1SKjH7ITSQU0cB55UppiFHnh6q2JObGQqZF3/l3uFwxB9Ja6zYG8uhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792586085;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792586092;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=YQK6CVJp2LKnOa9Ab80qPaliuqBiGmu+2pIqiPQQ6/k=;
-	b=VG+BMGX7gkg5eXuYSuG6rXjwd4LUA5zf6jrI6UdEzKjjv4LevNEH3q5lJgbxD/Y+E8/o
-	 iLhv035j3eZrkqpVbR55+BRzJx3QzKDUXZ++xoqQOBNYWKRfdWzhJNzdh2X2r9ZnMb/kT
-	 arPGFZJFx+y6kp6YyuyhEpYg/BEnsCXEMCf0H9xgaAJPyH0QbGCoOUK6g+NZPDldsiE89
-	 tjcH0a3O+HR0SeRNNGApaQ7xWq7QPIs/D0vCLEDkn8Yw2WG4citP9OVcPj4TW5J7Z79HX
-	 ByVRq7zkcX44P3ochR7jf7IX6MvGWevkGU+4eYwBmdtlkoB9T2zWXo7FehWSHNcgy2w==
+	bh=e/QfgozP2vXxIZvOVOcyEn7HvGO1Srpjw1CtBTPsH2o=;
+	b=e61YRJufx619RiuomT83MxvX7Z8jgvbHXj8FCP5nV2mC16ZlDNhSpvulTbC+2hyNRZJb
+	 1mnm3o9248zDiqkc5MZRppTGKcEZaAtXRl9HIfGmpbHS9eZWeTDlPGrMi2P48L34YbBeQ
+	 4EADE7fxx6yPZoMLBJWJE0kwNzWz35i+rwA3/tWjqXTHsy1ZHFxzM0G+YqPKtatnNRCGl
+	 kYfOwBChkXcIekLA5fCLgi4o3iKfwHyocpiVugwBqTo9jACgaUqqQ5CaV/wkyHvUwVry2
+	 6hYEPg8x7V+/YPYkBrfMTf696wPBFwmYHTXSGaOb9wvAA2PNbSTc4295tCurT2jSghA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lLniGBo5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZpcLnWUW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 391D2606A32A;
-	Wed, 21 Oct 2026 12:34:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C0C60A380D;
+	Wed, 21 Oct 2026 12:34:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lLniGBo5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B284C1F000CF;
-	Wed, 21 Oct 2026 12:34:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZpcLnWUW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC3951F000C6;
+	Wed, 21 Oct 2026 12:34:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792586085;
-	bh=YQK6CVJp2LKnOa9Ab80qPaliuqBiGmu+2pIqiPQQ6/k=;
+	s=k20260515; t=1792586091;
+	bh=e/QfgozP2vXxIZvOVOcyEn7HvGO1Srpjw1CtBTPsH2o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lLniGBo5Ti6cEUqm06S1v3LjcuiVwZ2xejpGXvox2201Kb5vvWKsDJNS5FWGKGp1o
-	 umjU7oqzwqCHaI+sjpw/f7TqzH9yE+RY7Bd3tdc9vXtPvch8joDOc9vkYQJLqK11rQ
-	 d4RSEIy+vPtSM1LWWTnY4q5EWQHp0rOUm97RL8iJkXHQncSII3jo966ptjipKwfDzU
-	 Qf56ZuQQyPjuFjjVp3ucIvabDJZE6aZKCkQujtR8xKRaIOUGa31UMHbwnEl97ElAWv
-	 a57uOBeQycgNJ3DsY5wfWEuH4wqIynV2UWoiaXoM/cmXwgunBlnraz2kAZuDz5Mg/n
-	 zV1v2b4qVHhqg==
+	b=ZpcLnWUWExV+XvJDSGWTeXGBtz9rIL8Njlkm8dfMQOf9x1pqYDQO7dNJhkFYDnZn3
+	 +rt32sGZTpqXYIzsoTwiXR/u2/YefW6DyTLhfll0oJJGcxEwx8zaIvcFZGLWpqyYZp
+	 cNYlkAmITz4AwZ6jnUQL7CQcRNv311hfaSJ4Nd8sPhREUyn5YeeMIMzAkW15pbxwgR
+	 zk1a5s/57JtG3MxpfjAFQ2QT1un29bs8wk/BE+kENVVe85RpunJ9i3nyLgAEMw87It
+	 yPgq95+dB/QsHdDiZKQtlETuvoV0B62Cq+TXesXu0mMceC8+/aN0Z81x9M8lTGN3an
+	 niGm/pZ0RbkkA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Pavel Machek <pavel@kernel.org>,
-	Nate Case <ncase@xes-inc.com>,
-	Eddie James <eajames@linux.ibm.com>,
+	Christian Hitz <christian.hitz@bbv.ch>,
+	Dan Murphy <dmurphy@ti.com>,
+	Jacek Anaszewski <jacek.anaszewski@gmail.com>,
 	linux-leds@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 05/21] leds: pca955x: Take a reference on the child firmware node
-Date: Wed, 21 Oct 2026 12:32:14 +0000
-Message-ID: <20261021123406.3163547-6-lee@kernel.org>
+Subject: [PATCH 06/21] leds: lp50xx: Guard sub-LED count in lp50xx_probe_dt()
+Date: Wed, 21 Oct 2026 12:32:15 +0000
+Message-ID: <20261021123406.3163547-7-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
 In-Reply-To: <20261021123406.3163547-1-lee@kernel.org>
 References: <20261021123406.3163547-1-lee@kernel.org>
@@ -64,77 +65,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-pca955x_get_pdata() caches each child fwnode in led->fwnode while
-iterating over the device's child nodes with
-device_for_each_child_node(), which drops its reference on each child
-node when advancing to the next iteration or finishing the loop.
-Because the LED core stores init_data.fwnode via device_set_node()
-without taking an additional reference of its own, dynamically
-allocated firmware nodes can be freed before or while the LED class
-device uses them.
+lp50xx_probe_dt() allocates mc_led_info with LP50XX_LEDS_PER_MODULE (3)
+elements and increments num_colors for each sub-LED child node without
+checking whether num_colors has already reached LP50XX_LEDS_PER_MODULE.
+If a device tree specifies more than three sub-LED child nodes with
+valid reg properties, led->mc_cdev.num_colors exceeds the capacity of
+the subled_info array, causing out-of-bounds accesses during brightness
+and intensity updates.
 
-Acquire a reference with fwnode_handle_get() when caching child in
-led->fwnode and register a devm action to release it when the device is
-unbound or probe fails.
+Return -EINVAL if num_colors reaches LP50XX_LEDS_PER_MODULE when
+iterating over sub-LED child nodes.
 
-Fixes: 7c4815929276 ("leds: pca955x: Let the core process the fwnode")
-Closes: https://sashiko.dev/#/bug/linux-a78a30d3-e8c1-43eb-af6c-c26279dc21e7
+Fixes: 242b81170fb8 ("leds: lp50xx: Add the LP50XX family of the RGB LED driver")
+Closes: https://sashiko.dev/#/bug/linux-a0c116ab-2f34-4f53-a007-d7a42f28677b
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/leds/leds-pca955x.c | 19 ++++++++++++++++---
- 1 file changed, 16 insertions(+), 3 deletions(-)
+ drivers/leds/leds-lp50xx.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-pca955x.c
-index 273383351ba0..70043e0e6f08 100644
---- a/drivers/leds/leds-pca955x.c
-+++ b/drivers/leds/leds-pca955x.c
-@@ -530,12 +530,16 @@ static int pca955x_gpio_direction_output(struct gpio_chip *gc,
- }
- #endif /* CONFIG_LEDS_PCA955X_GPIO */
+diff --git a/drivers/leds/leds-lp50xx.c b/drivers/leds/leds-lp50xx.c
+index 20bfb315bda1..32b0d802d474 100644
+--- a/drivers/leds/leds-lp50xx.c
++++ b/drivers/leds/leds-lp50xx.c
+@@ -507,6 +507,14 @@ static int lp50xx_probe_dt(struct lp50xx *priv)
  
-+static void pca955x_fwnode_put(void *data)
-+{
-+	fwnode_handle_put(data);
-+}
+ 		fwnode_for_each_child_node(child, led_node) {
+ 			int multi_index;
 +
- static struct pca955x_platform_data *
- pca955x_get_pdata(struct i2c_client *client, const struct pca955x_chipdef *chip)
- {
- 	struct pca955x_platform_data *pdata;
- 	struct pca955x_led *led;
--	struct fwnode_handle *child;
- 	int count;
- 
- 	count = device_get_child_node_count(&client->dev);
-@@ -552,7 +556,7 @@ pca955x_get_pdata(struct i2c_client *client, const struct pca955x_chipdef *chip)
- 	if (!pdata->leds)
- 		return ERR_PTR(-ENOMEM);
- 
--	device_for_each_child_node(&client->dev, child) {
-+	device_for_each_child_node_scoped(&client->dev, child) {
- 		u32 reg;
- 		int res;
- 
-@@ -561,8 +565,17 @@ pca955x_get_pdata(struct i2c_client *client, const struct pca955x_chipdef *chip)
- 			continue;
- 
- 		led = &pdata->leds[reg];
-+		if (led->fwnode)
-+			devm_release_action(&client->dev, pca955x_fwnode_put,
-+					    led->fwnode);
- 		led->type = PCA955X_TYPE_LED;
--		led->fwnode = child;
-+		led->fwnode = fwnode_handle_get(child);
++			if (num_colors >= LP50XX_LEDS_PER_MODULE) {
++				fwnode_handle_put(led_node);
++				return dev_err_probe(priv->dev, -EINVAL,
++						     "Too many sub-LEDs (max %d)\n",
++						     LP50XX_LEDS_PER_MODULE);
++			}
 +
-+		res = devm_add_action_or_reset(&client->dev, pca955x_fwnode_put,
-+					       led->fwnode);
-+		if (res)
-+			return ERR_PTR(res);
-+
- 		led->default_state = led_init_default_state_get(child);
- 
- 		fwnode_property_read_u32(child, "type", &led->type);
+ 			ret = fwnode_property_read_u32(led_node, "color",
+ 						       &color_id);
+ 			if (ret) {
 -- 
 2.56.0.218.g1ec904b173-goog
 
