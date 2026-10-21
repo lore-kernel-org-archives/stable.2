@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594316;
-	b=5KIfWs4bI1s75KNh9e/H6l/0seGIhEimYJR0O5VMoJnVjbqGxR5l9BlhgqSHKzOVZlkT
-	 NtnCqOjfHCxx9KejDaGyh1LII1We+Z6qmBbx5BbCsc+oFZu1xpNAzQTawBpwkalJYGuoW
-	 drjkLfxf6sQJfwnatWDtLOI5AeH0dggUb5tkf0HvQMdn1ntJAlFYB22zdHrG49RGkVy2l
-	 GLWFU7kro6d+FVTaAzXWbdYlcbiOneQ3DpUPJOkYd0spk+ouJUXMg9tF1W8IKx05QKEwR
-	 nrDdE6oDZFJ1WGJFTMP+p7kh2cpvbN/aVcJdwfVlv+FgJWmPqn7GP9/RSinVbrqxOdA==
+	t=1792594319;
+	b=lwnVtOtUq+xO7fTw0XbJoQ0d1/zYnZMXHkohquLRDroSrqWOH6YsnuPM/QJc9rJFhS7j
+	 UVvXqo2rQzkuzeUgAbiWdihBjDMlltlXR+xs5r5HwUb/vTrRf7UHF13cZWQDEBkyJB556
+	 P98DUrdAFx99kyKYdfJSpWzHtdOdlML3lWluFEfdc08VuWF5nyhLtXC0B8mqP5KuoFnY5
+	 soNs9uOHI7LR+Syq4Oj0MN/rrHXJaTnQZdeZ4Q+oZ2Hhr9lH+fmV6mT4MLvrn73pZwxdA
+	 ITm7rLTNug6vHDbiTLbzHRERCrU1wkKICuK/iT3FMkt6twbGvIJPit6CAKes1Hdq1Qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594316;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594319;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=m25YpkPIBzGesDQM9rAnFNREFdjlOxpTBHzA7K5n7AU=;
-	b=hbNL0vjuscf/vEEyei0M2qhPYvn8tIa7yBnEFcOvgpnsr2lc7dznbj7wnYTHRYduLMAx
-	 AmDEIYFaztOg67zHskjHIecFq8XsYZfHZLL23ULQKRp+W8SxkojYqDWGCwWvcWxltVh4C
-	 n/Pzf8fRP96NRLv1+53grN+2Or29pVcNmaTocL35/hXXQTKjfNH1t6Rugs/QXLiDjgUh+
-	 yljwu2qdSFmoA8JiNr03GjGH0wU05vnOIpU8+P0N1GJl5Mz77wd0lbx47Hw22ftfQaTLD
-	 lhUcjYZXv00c27LTZAHM/YYA7QMwHdPcqrzRpE4XnNsORRHSR929BQY3A5DcmjTcJQA==
+	bh=1v247zy4qVhQVkuJuSQU4bvLyv1/AaSAwEWPX9pKZkw=;
+	b=yd9Vc++iQ5JpaGgE8EcnNzvK8NaJLIXUnawMjBInThUKg3aCQoNVIEiq1xdzqGG2m5Ym
+	 LRLl38dxlxDt7kfu8NwOHF0AKLd2fqcmaZSLPgUjGMncusvIl9laMSTWI14SDTJR6+ffe
+	 UEX/xhrtDoidQLRizCkxQRUnvcWRz7oTkC+EQytdPWpIT8M2FQoancZtOZzp1X6niTgHH
+	 cf6OKMgZ1mMFdzvlEYybhNEXS6VXbSq24IH0ee/eNGe1XHd9MYddk70Nj9fz68gJIP5sN
+	 IZoIeUZW3cY52Uppl5/hIMo8CWpQWYfVzmci0LTJzH2co3URj3kOfdWfqfhN4F/pSCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=i5Qj4K1q;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lPhX9yck;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F1BD606A31D
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:51:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94D87606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:51:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=i5Qj4K1q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 838421F000C1;
-	Wed, 21 Oct 2026 14:51:55 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lPhX9yck
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C38881F000C1;
+	Wed, 21 Oct 2026 14:51:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594316;
-	bh=m25YpkPIBzGesDQM9rAnFNREFdjlOxpTBHzA7K5n7AU=;
+	s=korg; t=1792594319;
+	bh=1v247zy4qVhQVkuJuSQU4bvLyv1/AaSAwEWPX9pKZkw=;
 	h=Subject:To:Cc:From:Date;
-	b=i5Qj4K1qMX8rrzGXL9EOfLqEjwhY8xx9qCb92LEW9dmt+wkknA1tMmJOg1bLjHfsh
-	 i6nXMEOj9kCUejZsMQII3IchW5OuvKxD1149AlY4Y8QYN8MpUnpB+CUdWrZaY5Wfyv
-	 a9fHyEoKaMYZoQPVDJCKgNInypPJWvdQQU3Ry/q8=
-Subject: FAILED: patch "[PATCH] drm/i915/dmc: Harden DMC firmware payload parsing" failed to apply to 6.12-stable tree
+	b=lPhX9yckzOO1bGqdCEgMUhDUVdEJSwdPrIzMOIfW8gKU72gTW1g9DX3k/BYpmSfPj
+	 rz66YnJK7qrnbjvdQf90bdTxuiCjPm88GphnTVALpztKzkJkdP51Tqu11HcjcR3jN0
+	 RGT7NLTyHtDpeuiHbRyT8DlrZeIRJIXA+ZDOSSCI=
+Subject: FAILED: patch "[PATCH] drm/i915/dmc: Harden DMC firmware payload parsing" failed to apply to 7.2-stable tree
 To: dibin.moolakadan.subrahmanian@intel.com,ankit.k.nautiyal@intel.com,joonas.lahtinen@linux.intel.com,mitulkumar.ajitkumar.golani@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 21 Oct 2026 16:47:10 +0200
-Message-ID: <2026102110-spry-excursion-fbc9@gregkh>
+Message-ID: <2026102110-duct-scaling-e1b3@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
 git cherry-pick -x 8bb1858db453cd4250e3b633f5d2d09206024ca6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102110-spry-excursion-fbc9@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102110-duct-scaling-e1b3@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
