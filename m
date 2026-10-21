@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594334;
-	b=OTfCweh7EX3fwy7NpTG6HU10tMROrkcotfL0nCdW8pDaTjNXS8OZw2ZOqXQNHTHglBO1
-	 VVlPOGEUBLiG9jRv5SfatD0lyzfaT9iyAtYHb+9ftsgdCPq69h6sEtYSMSeGlh9JUuNNp
-	 aeT57AN2di/JXwsp5u0vlVL3tCw1DZ6HgjGWPV2e/2BH5QuXhaU5l5ag2b8z8PNCVCiea
-	 5oC4onSU8cDYh/1b3utD7RnwDKzfXXlJY3/IRZc3s4CS3OwLkNZvQqQGad+nfefar4bvU
-	 bC+YYHlHW+sjxgZJANmw3sSDwkvMUhtFT+ECCgVmc3nsYfagPaQPBatWKndT8J7mK1Q==
+	t=1792594336;
+	b=sYIPgbiRuYLvHvM3Qf4Sv50/FNBmlhkqwKSgMv0h640v/yQ/g+GNBFBuJANMR+T56ft9
+	 7Zyarj6EmxwT9CTTjOdkAYS9g5lXVTieYS170iJZyqX1bWSKqRUlkJYtuJTsnzmi9TJTQ
+	 1CgK5B3UsyJiOQ2ToYLMPYPqSTwG92C7RCPZ6hNr43MjkwNlkbDgEiF0xXItpsiPU3ok/
+	 MilfDZNoY4L6Hb9Firc2gg3TfaFN342WoVf25yIE9zYBVJlMUeRtdRTbSDr9d0tljS0gJ
+	 t0inj0qxzugyBKRmDtrtBdkBAdKhFJ3yehiKZsilL87S0MrnP9abt9YVnOM+m6rsnAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594334;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594336;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=d3tShKGOI/LZcPg1MFnzww4mAQ6zIziry3a98OhxP2E=;
-	b=ZtY9a2zcjroIkhp86DMGXf0f68qI63lLdWMo8JWebyxSAHpHtevHCDgCo5jMf8OuVbFA
-	 ZMXTXOCzoGwsiESYbaPLqwudTqPWf3KENSDOSQUt/Gj5zdkE6kjwEOnoEWY0pAq6N6azH
-	 NOt82YUY7SxAR+XN8/twVtd+QlNVC9rW4AL3butH7KLdfiDfuWUnty1bDhLYkzJZjeOS0
-	 vv60l/9XsMRI+RD/NPYC/6GBDMgeZS6c4v62KmNuRBdaLg3+gwHHcK6fYyQegjzxrJo3P
-	 DZUCGeo+fPuELM3KrAkI9VFLQvUgxbQmz+/B9jtxs1RuoOlamJQiGD8xBemeXl6aF5g==
+	bh=9pGzucEDNjm1SslTodrmM5QJDZaF4pflB1GX0pPihb4=;
+	b=b/YCen4RYXEJGvANMg+Yh1eYGob70czegcpB0FLiYn6kwD7f1BlVm6SMODQSrnnvWcei
+	 mXmGWAnGkjQVaJv9ZA7hGkx4t3AcGpCe2LJW44S/rV8XZhhnU9WitKoqUtH9HrkWBy8u4
+	 0AiEDaYhM9XYmTocPk8Ie3RDoGgvDHh1T7Pc4dvL4lrzzN+MflGc63VNmZQkpuYrkKQxE
+	 66lUgSh39Wnst/w57XzJwVH/4PnZKcZkW3Gj/jhPZIjn6Qw8Ax3mEWGb7A5GlBD6yBMy1
+	 oO113L8i0nD/5T6GVpfwB+hOGZXFYNhfUok8z8TdnCYHJFzwqM+ZiIEcZ4ZufbmaDQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sV8tofuw;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=z1kcENJL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B46B3606A31A
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:52:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86150606A31A
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:52:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sV8tofuw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 122471F000C1;
-	Wed, 21 Oct 2026 14:52:12 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=z1kcENJL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7FD81F000C1;
+	Wed, 21 Oct 2026 14:52:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594333;
-	bh=d3tShKGOI/LZcPg1MFnzww4mAQ6zIziry3a98OhxP2E=;
+	s=korg; t=1792594336;
+	bh=9pGzucEDNjm1SslTodrmM5QJDZaF4pflB1GX0pPihb4=;
 	h=Subject:To:Cc:From:Date;
-	b=sV8tofuwMIAI+nN3kE/aTJNubWQS9WOdXGZUiNaNG27RIo7uC9l0YGHGPjNLPcsWG
-	 XF/ZpDUj2pWNbPESilWATOaJG2/XhXF0e6LsFTc+i0ESqVUAFocakIiDPov7rCJEcN
-	 FWZyezNOHbIAjPmyVk15lQx5xBdRcKlWUrYg3lpQ=
-Subject: FAILED: patch "[PATCH] drm/virtio: Reset device before deleting virtqueues on freeze" failed to apply to 7.2-stable tree
-To: oss.patchbox@gmail.com,dmitry.osipenko@collabora.com
+	b=z1kcENJL+fAGactHvydn3IQw7ARIvLDdLaSzCDGSVW61nkfvgZaw4hyd9umPQ7Maz
+	 T1d2Q1cIGWCZhKagPI8L06wDl+Ay4rXxJ34NkQl4m4naosd19VLPGWg1f4EOiW8Z9f
+	 sUByb2p3mI0YEI2oy7pgx4m16eldnC+MLHrYR4wQ=
+Subject: FAILED: patch "[PATCH] drm/xe: Bump LRU for external objects on exec and rebind" failed to apply to 6.12-stable tree
+To: thomas.hellstrom@linux.intel.com,matthew.auld@intel.com,matthew.brost@intel.com,rodrigo.vivi@intel.com,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 16:47:22 +0200
-Message-ID: <2026102122-pounce-posted-bd6e@gregkh>
+Date: Wed, 21 Oct 2026 16:47:32 +0200
+Message-ID: <2026102132-gab-disarm-872d@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,23 +51,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8907eb42c08b8eebe0f81fee256b34b5675d0e5a
+git cherry-pick -x d2ce8fcd778ee6d92748c92d23a56d4416c29d86
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102122-pounce-posted-bd6e@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102132-gab-disarm-872d@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,39 +79,117 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8907eb42c08b8eebe0f81fee256b34b5675d0e5a Mon Sep 17 00:00:00 2001
-From: Yuho Choi <oss.patchbox@gmail.com>
-Date: Sat, 26 Sep 2026 16:20:27 -0400
-Subject: [PATCH] drm/virtio: Reset device before deleting virtqueues on freeze
+From d2ce8fcd778ee6d92748c92d23a56d4416c29d86 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Date: Mon, 12 Oct 2026 15:26:07 +0200
+Subject: [PATCH] drm/xe: Bump LRU for external objects on exec and rebind
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-virtgpu_freeze() waits for the control and cursor queues to drain and
-then deletes the virtqueues, but nothing tells the device to stop first.
-del_vqs() frees the vring backing, but does not provide a generic device
-quiesce operation. In particular, modern virtio-pci keeps enabled queues
-active until the device is reset, so the device is left DRIVER_OK with
-its queues pointing at memory that has been freed and may be reused while
-the guest is suspended. virtio_device_restore() only resets the device
-later, on resume.
+The VM's private BOs get their LRU position refreshed in bulk via
+ttm_lru_bulk_move_tail() on vm->lru_bulk_move, both after a successful
+non-LR exec and after the LR preempt-fence rebind worker runs. External
+objects (BOs potentially shared across VMs) are never added to that
+per-VM bulk move list, so their LRU position is never refreshed by
+either path. This makes external objects in active use look more
+evictable than they are.
 
-Reset the device before deleting the virtqueues, the way
-virtio_gpu_deinit() already does on removal.
+Add xe_vm_bump_lru(), which, under a single lru_lock critical section,
+performs the bulk move of the VM's private BOs and bumps each external
+object locked by the drm_exec transaction. Use it from both the non-LR
+exec path and the LR rebind worker, replacing the open-coded bulk move.
 
-Fixes: cad6a879a7fb ("drm/virtio: Freeze and restore hooks to support suspend and resume")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Link: https://patch.msgid.link/20260926202040.1313385-1-oss.patchbox@gmail.com
+Fixes: d490ecf57790 ("drm/xe: Rework xe_exec and the VM rebind worker to use the drm_exec helper")
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: <stable@vger.kernel.org> # v6.8+
+Assisted-by: LLM
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Link: https://patch.msgid.link/20261012132607.21387-1-thomas.hellstrom@linux.intel.com
+(cherry picked from commit 324ba30cca180c2e1d02090743dd78ccb15b9e4a)
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
-index 2aaa7cb08085..52c174f9bff7 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-@@ -225,6 +225,7 @@ static int virtgpu_freeze(struct virtio_device *vdev)
- 		goto err_resume;
- 	}
+diff --git a/drivers/gpu/drm/xe/xe_exec.c b/drivers/gpu/drm/xe/xe_exec.c
+index d5293bc33a67..7dc9a0a1f569 100644
+--- a/drivers/gpu/drm/xe/xe_exec.c
++++ b/drivers/gpu/drm/xe/xe_exec.c
+@@ -346,11 +346,8 @@ int xe_exec_ioctl(struct drm_device *dev, void *data, struct drm_file *file)
+ 	xe_sched_job_push(job);
+ 	xe_vm_reactivate_rebind(vm);
  
-+	virtio_reset_device(vdev);
- 	vdev->config->del_vqs(vdev);
+-	if (!err && !xe_vm_in_lr_mode(vm)) {
+-		spin_lock(&xe->ttm.lru_lock);
+-		ttm_lru_bulk_move_tail(&vm->lru_bulk_move);
+-		spin_unlock(&xe->ttm.lru_lock);
+-	}
++	if (!err && !xe_vm_in_lr_mode(vm))
++		xe_vm_bump_lru(vm, exec);
  
+ 	if (mode == EXEC_MODE_LR)
+ 		xe_hw_engine_group_resume_faulting_lr_jobs(group);
+diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+index ef20e205a734..99e42bd29e79 100644
+--- a/drivers/gpu/drm/xe/xe_vm.c
++++ b/drivers/gpu/drm/xe/xe_vm.c
+@@ -410,6 +410,33 @@ int xe_vm_validate_rebind(struct xe_vm *vm, struct drm_exec *exec,
  	return 0;
+ }
+ 
++/**
++ * xe_vm_bump_lru() - Bump the LRU position of BOs used by a submission
++ * @vm: The vm for which we are bumping LRUs.
++ * @exec: The struct drm_exec with the locked GEM objects.
++ *
++ * Move the VM's private BOs, and all external objects locked by @exec,
++ * to the LRU tail. Private BOs are moved in bulk using @vm's
++ * &xe_vm.lru_bulk_move. External objects, which may be shared with other
++ * VMs, are not part of that bulk move and are bumped individually.
++ */
++void xe_vm_bump_lru(struct xe_vm *vm, struct drm_exec *exec)
++{
++	spinlock_t *lru_lock = &vm->xe->ttm.lru_lock;
++	struct drm_gem_object *obj;
++
++	spin_lock(lru_lock);
++	ttm_lru_bulk_move_tail(&vm->lru_bulk_move);
++	drm_exec_for_each_locked_object(exec, obj) {
++		if (!drm_gpuvm_is_extobj(&vm->gpuvm, obj))
++			continue;
++
++		ttm_bo_move_to_lru_tail(&gem_to_xe_bo(obj)->ttm);
++		cond_resched_lock(lru_lock);
++	}
++	spin_unlock(lru_lock);
++}
++
+ static int xe_preempt_work_begin(struct drm_exec *exec, struct xe_vm *vm,
+ 				 bool *done)
+ {
+@@ -560,9 +587,7 @@ static void preempt_rebind_work_func(struct work_struct *w)
+ 
+ #undef retry_required
+ 
+-	spin_lock(&vm->xe->ttm.lru_lock);
+-	ttm_lru_bulk_move_tail(&vm->lru_bulk_move);
+-	spin_unlock(&vm->xe->ttm.lru_lock);
++	xe_vm_bump_lru(vm, &exec);
+ 
+ 	/* Point of no return. */
+ 	arm_preempt_fences(vm, &preempt_fences);
+diff --git a/drivers/gpu/drm/xe/xe_vm.h b/drivers/gpu/drm/xe/xe_vm.h
+index c5b900f38ded..4b606445799c 100644
+--- a/drivers/gpu/drm/xe/xe_vm.h
++++ b/drivers/gpu/drm/xe/xe_vm.h
+@@ -284,6 +284,8 @@ int xe_vm_lock_vma(struct drm_exec *exec, struct xe_vma *vma);
+ int xe_vm_validate_rebind(struct xe_vm *vm, struct drm_exec *exec,
+ 			  unsigned int num_fences);
+ 
++void xe_vm_bump_lru(struct xe_vm *vm, struct drm_exec *exec);
++
+ struct dma_fence *xe_vm_bind_kernel_bo(struct xe_vm *vm, struct xe_bo *bo,
+ 				       struct xe_exec_queue *q, u64 addr,
+ 				       enum xe_cache_level cache_lvl);
 
