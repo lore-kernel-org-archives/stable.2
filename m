@@ -1,61 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792615348;
-	b=Qthmi9SrAEVIw2RnhwBzMWbni8P1jGTwgJHsNbQrE1djw8G7LV/y9lOm6+pwfHmSF13E
-	 JdGhxRMb8MePLQy0XwpEHNxRXyePkZnzeThOrdr3bd8+CE512m1LVKNBj8Mv/L/cmexzO
-	 IWVv0D7Yjwg1o2FLqlVWb+kWVLIZytG/wo6kcRhm4DNHVBSCzj2lWxhquW53PXsGJdY5p
-	 jDJyLKeIlk43FxvbDe8+GDV7Nf8+O02kzlqPYSCkjVO1NZmyPslfwuGIHOc+NkAcqMiri
-	 618Jka+jZ1sW12+4W9qzCrbfhcBrD/cnkBP9u894m+oC0wx5jIAz4AdmbhtLqnLr4yg==
+	t=1792615394;
+	b=1etMaZXVMGCch1gjVQwbe4CfIMaa8ZW+gJvuQ3BUk/0aih5LZlbh+H41zrcxtUmHpDlz
+	 0ZxIdVVT+B0FVqczoNrLlSTyhaX5DaIEnxa3VfZgMwsG95g5OXZWDin2YSJ/E0A9yVZqm
+	 4MyQ6SArqttiDDkES3+KqNSBKEOeU35Vzua4w4KaDuR1Kz24q6X35uc4rLInCUY4kDW/V
+	 jnnn7NPcFEBGNzaG9sovFzaP8EOKrLjztu9KfuR7kFrMvcYKG1o+ilrfIKX/jaI+4Jx0r
+	 lQjVQt2Jbg/HbAGx4Pa+xc6fKtYNajQV8Ml0oSEsvJnTk6VIP3UkAAhV5lVNkPJM/5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792615348;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	b=34J7LbnzvQ5Zic/ndmCEyRFN7arij33O0IT72Ear8mGITZ8R+4NayiHb9B9jfAIrCJJf
-	 b6bCiMEn0nTLxrK+Ovvrg/FEtZX7Y6meq/HgVgFJBda7DRjiHR/g2dTTK56hbDoTF/Svh
-	 V5YSBF4fOhm1bB8QfYlArVmF2eZzZuqdaCf4GAk4ixk6x+9wXqtk2ygUP/gV0i6qh78eD
-	 2aj5ZVIenzEnX+HvXLcn8XwGDuqcEFIzhFx14dP0hhBIoXH0Hifjxo0rf7XgGTbXZhbcO
-	 I5O7+6Ft/5CFyqbTwgS5yj5pf13lNai/4Q8spt8Wo67KYIeGXqw66WTOYf3iWGN4/pw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792615394;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=X+hgZpi6s8zitINqxdtV3NY32G2toc0s1ujAuu40Bds=;
+	b=JWsjWYs/6POFVc0FE2/auMT3d2UDTF/8v0JumvEsdEjShfelE04FPl0Un/FPefxgbDVR
+	 60gT6LKUSTa4LQqmzqsb2e4cSACyGUFoashCfPIOcpc24M82lp73R4ZHQaewQOjYx0Cm+
+	 5SJJd8sNpNG+DooXvQ6yYwpJs8jOEjce6V8tsuFEIFyZlTYtFbKZvIRzsIXQLyVE4pnM3
+	 hmg8IMGp31FH6FnqadBcl031ygjS7fMsF6s4afk0iWkSgEfFfHmKw97YXjYONqFYhmsMG
+	 hxEJfXLytJ9c7RWQgkkCz1Rokdf9Ck89U/S9ig/J5jWYwM4U2EV9ST3EEjWy8jetqvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hliodYKD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WCvT85l+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 089F9606A31D;
-	Wed, 21 Oct 2026 20:42:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA901606A31A;
+	Wed, 21 Oct 2026 20:43:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hliodYKD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D54C1F000C1;
-	Wed, 21 Oct 2026 20:42:27 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WCvT85l+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C56C61F000C1;
+	Wed, 21 Oct 2026 20:43:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792615347;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hliodYKDGdw3vIrDwEXiJRZLczydcEIg7WHMAfXTJhZBYe3erVdcMWClgLhc/XP/S
-	 RUN5dkVRAUWHov6fvvgpwHmNgfuRqXh0cNq91rQPya5Btt1I37ggywHMA4xrApkLXP
-	 7+rP1ecJ40W+cgVTyKNkpiutsszOOz9/VTwxbDtaX/+wzG9QIhTMQDPXfUbWtkQ9z3
-	 plkoFzQpdM+p9+8HK9CNihwu8oLMJSDGkdT+kt2fl/7CU/FC/YfUyf1kpfD2Zj+A3+
-	 lL+N0wHSSn/va5RG5QVXXM9GmNVdPaos6cFMuArrpsUp/+HMVK6yknR+OjxpBJ3vMI
-	 ETawwS5UatGJg==
-From: netdev-bot+sinfo@kernel.org
-To: Giorgi Kobakhia <gkobakhi@asu.edu>
-Cc: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
- NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>,
- Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
- Xiang Mei <xmei5@asu.edu>, linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: 
- Re: [PATCH] svcrdma: bound check rc_curpage in svc_rdma_build_read_segment
-Date: Wed, 21 Oct 2026 20:42:26 +0000
-Message-ID: <179261534659.3290.17346208401833249303@kernel.org>
-In-Reply-To: <20261021203817.3898293-1-gkobakhi@asu.edu>
-References: <20261021203817.3898293-1-gkobakhi@asu.edu>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1792615393;
+	bh=X+hgZpi6s8zitINqxdtV3NY32G2toc0s1ujAuu40Bds=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WCvT85l+M7vTXVdOSjvWu80mi6GWub+PZZf3lI8wNnsP/A/vd2Xa6CnSvLHJF1lYJ
+	 ldFG4vYTZ4hx0b0/Uu0Iz19+/9418gCW0jP79P/LMsCtGL4YnMULwet2uEGibn1jh8
+	 pbjUcYUH424ZeWdOvaP0RHhndcc6u7bQnNKyzAOAunAUt8/xRIqQHYbc77/eKe46wD
+	 o6b8akppup4YR0drKqecUYAaRet3P9REgqiSo+CzN/r7TUHmdZe7HSFqvCkxbnpCoZ
+	 KCp1zteSv40HEZNvYL+U6u4dhQtinkxeKoHLjN1O0P0bB0gduZ9PAAMY0MAfPrUb2v
+	 9wOy2B/bMwq0g==
+Date: Wed, 21 Oct 2026 14:43:11 -0600
+From: Keith Busch <kbusch@kernel.org>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Christoph Hellwig <hch@lst.de>, Breno Leitao <leitao@debian.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Lee Duncan <lduncan@suse.com>, Hannes Reinecke <hare@suse.com>,
+	Nicholas Bellinger <nab@linux-iscsi.org>,
+	linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH v6 0/4] nvmet: avoid recursive configfs open
+Message-ID: <atkj3yg7e_ff1vt2@kbusch-mbp>
+References: <20260926092148.128937-1-runyu.xiao@seu.edu.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,21 +65,24 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260926092148.128937-1-runyu.xiao@seu.edu.cn>
 
-Hi!
+On Sat, Sep 26, 2026 at 05:21:44PM +0800, Runyu Xiao wrote:
+> Several configfs store callbacks open user-configured paths while holding
+> the item's frag_sem.  If a configured path resolves into configfs, the open
+> can re-enter __configfs_open_file() and try to acquire the same
+> non-recursive semaphore again.
+> 
+> Add helpers in configfs for opening non-configfs paths, then use them in the
+> nvmet file-backed namespace and passthru paths.  The series also pins the
+> target-core db_root path and uses the root-relative helper for ALUA and APTPL
+> metadata, so the helper has its target-core consumer in the same series.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+For the nvme changes:
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Acked-by: Keith Busch <kbusch@kernel.org>
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+The bulk of the series is outside nvme though, so probably should go
+through a different tree.
