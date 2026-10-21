@@ -1,55 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792586060;
-	b=XcCKliOgDIoHxnxYY9bMFtMzdXIh2tC8apock0k65kAhw4hq8ASNNMZUUBo4PBi/UYgp
-	 W+A+xvkVOhNWxfDrQu7n3i2KsWGnL3MWK4wQMmBsh+10S1l4BTX4w5kwhhXAAzbF470ZF
-	 eMth0dh3Eve9ndtP2dVlu/LN7CfSV/9DvyUnOluAu7sIGS2h20vFBFAJi+z38pI6GtyPe
-	 yV5Rha/ksl52fZfVfm+6iK1GOjN2anK/e00xiobalqPwU+GQe02DZSORFc5n7uf+ZDyrH
-	 HnvCP/XeCEwynTLz0ilc8xeiknGsNaC4M7njNQVvVvvI4IC17MBXgyZPZhmtzNFlMMg==
+	t=1792586073;
+	b=Dt28G3IpEQ+drb9jnkMNHSD+eVp8K4xdMxqoedcW4grU0bwkLc8Gl8L5OLL3vLEqI1lR
+	 4HVRLLrl2Q+ugVYkE4Koc2Ef/SlrkMpz5j+yKUCVR1Q/UfUjbjgLN01MNXn5hE2qm0wzG
+	 HqLbzTHCtmKh/5cFInEVxIOp8FuOW2Dm0+XrD8EhImkj3qzhKrQ2GtNn6JpUmFGIidwba
+	 D8MhA8jgQOGUmWl6865UE3rPPzjpYMfmOIIJQMEH7eY3yZEddU9Gt14NZ1ULIRb+zeY4P
+	 qa4jFctJ5G1iLDT7AAMYDPqP/G0N8Ps+HxEEbhUnqjZevf0ciI4PQpAhJiptRgqd87w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792586060;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792586073;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=wenmE0YAn8+JyMp89qN8fVPurYYawYryf969l+sg++o=;
-	b=njLGCpflKG274ubEpDDoknASv4hXoU/OhYiqKinG2tZ+PVTXf2dTB7LB9GYsH7SCHduF
-	 QpHSf9A26H1fQXvsHgjlUSOr0XgqVRX+JpNwZZMZmzOWmjQidoLBfC0SFUl5Vupd1JwQy
-	 gudJ9yK1+LUFcvdl9btttp4s/Vb9maY13HmBpFT6BEEC/ZEtvnQlV+icsIBDdxEUwuVPB
-	 QbcZkSyOMX6RztslPus086FPJh7R4svcrRPt5nUWJoNq48+wAN/TxbwMo4qzBj5K8cRrI
-	 VuD+VGBfBgyc8DC4b4WkZ+d2p1d7rtCTvdHXbvL4xPXe0NV2Gblwb00qklB+Qk9+lEw==
+	bh=HoenyfuYG/Fzd7K0ktejvOFJ7xwOTPV0x5uHk8iV1OU=;
+	b=UG8gtXx3QHn+5hLOZp7HxGbEOAIwBB9TBfavzS3J2wPPCTeY5wHt60zOLlXv98KQFLOx
+	 oOhfwAYD7WtzEGffw0R/APWTMA+xE19Y/hj8F8D7tChHfqeuJizmFFvetCKjhhVN+Rh/8
+	 /S3OqTi7Bm6dCRew7LtWOPljQ4aiQETE+Qk8/Y0ATGwFZgeAPrnpiI3de3XjVci5Y67pF
+	 Po31R1bd/w/l8utopv/24SN9u12of/pw8PlmARXAl6dzAKVdHcDkXN0p1yqsczEi3Tnh2
+	 m8uwY6AI/l49DsBZLRrCsyG3KLw8gpPrM0KDODLrZAA/JIeSidiHRWnQn2iotncpQWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Qt1vMh/a";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X+tlu9Uo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3336A606A322;
-	Wed, 21 Oct 2026 12:34:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35393606A31E;
+	Wed, 21 Oct 2026 12:34:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qt1vMh/a
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CE5E1F000C5;
-	Wed, 21 Oct 2026 12:34:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X+tlu9Uo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C871E1F000C4;
+	Wed, 21 Oct 2026 12:34:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792586059;
-	bh=wenmE0YAn8+JyMp89qN8fVPurYYawYryf969l+sg++o=;
+	s=k20260515; t=1792586072;
+	bh=HoenyfuYG/Fzd7K0ktejvOFJ7xwOTPV0x5uHk8iV1OU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Qt1vMh/aQcHSD2Tg6vJ8MIRMuZ5seJTBWwJF62bQZhz8sNU9eBtLto5xKBBnj2zgC
-	 FMTDTkdCEu6/CNCwfMRoSUNnDyhOELHxfvW3u+MiGz+GfumsqYgzA1q1qDRKg3zt64
-	 d2JjsKZeQeVqdTW2FkukSSiI1mWB+loSQwFM+1f0WWI7GdjsdQKRdJEwXfZyuwSaVC
-	 +bMm2s3Qircf/zFCgfpmlZ5W9OnIU8hekvsutEBTu4bmI290m8Yz7TBOWXqq8rLhKO
-	 f3uEhssJBK3gIyZixTbpmkKPSOvQ4bp6JxHHDG6MyNflWOcazOEi74XWow9JDuCBW3
-	 ljYFI7izPuCYQ==
+	b=X+tlu9UoJYTky3n1RAbnaT3bn81ij5E/yiQsympqDY7bZ5UVsOrug/bUBIYcliE4w
+	 NEHZ4YaNPtlMe8Yfdu8+XVG1HII3aKBi/gutoO+lrf510YV5ACkpUz91GgHDEBFty1
+	 CaBEvXbwY0C1qUw37D84H1O9NSB0QDzV3HD7Za2d09JyWEVl1N9GduaINZTWtQA1kD
+	 EcgiTdhiyBcIC9CW0xp/vyA1HWrVfbfGxJxM4PFhCq5otvueyc35AKzxoNVBQDvHnJ
+	 S8Lnnb5KV0CFe9f497Er2zQA5C0gCVAH2eFFW5I9kPUf7cXhFx6SiHZMv9rVWq8aXU
+	 G8QdHxLpAbDTA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Pavel Machek <pavel@kernel.org>,
-	Dan Murphy <dmurphy@ti.com>,
-	Jacek Anaszewski <jacek.anaszewski@gmail.com>,
+	Ben Whitten <ben.whitten@gmail.com>,
+	Oliver Jowett <oliver@opencloud.com>,
+	Richard Purdie <rpurdie@openedhand.com>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Andrew Lunn <andrew@lunn.ch>,
 	linux-leds@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 01/21] leds: lm3532: Propagate error from devm_regulator_get()
-Date: Wed, 21 Oct 2026 12:32:10 +0000
-Message-ID: <20261021123406.3163547-2-lee@kernel.org>
+Subject: [PATCH 03/21] leds: trigger: netdev: Hold RTNL lock across hw_control_get_device() in activate
+Date: Wed, 21 Oct 2026 12:32:12 +0000
+Message-ID: <20261021123406.3163547-4-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
 In-Reply-To: <20261021123406.3163547-1-lee@kernel.org>
 References: <20261021123406.3163547-1-lee@kernel.org>
@@ -64,39 +68,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-lm3532_parse_node() catches errors from devm_regulator_get() and sets
-priv->regulator to NULL.  Because devm_regulator_get() already returns a
-dummy regulator when the supply is omitted in Device Tree, an error
-pointer is only returned on a genuine failure such as -EPROBE_DEFER.
+In netdev_trig_activate(), hw_control_get_device() is invoked without
+holding rtnl_lock, and the returned struct device pointer is then
+dereferenced via dev_name() and passed into set_device_name().
 
-Masking that error as NULL both breaks probe deferral when a supply is
-specified and causes a NULL pointer dereference in regulator_enable()
-and regulator_disable() when the LED brightness is later modified via
-lm3532_led_enable() or lm3532_led_disable().
+Because implementations such as phy_led_hw_control_get_device() and DSA
+port LED callbacks return the embedded struct device of an attached
+net_device without incrementing its reference count, a concurrent
+network device unregistration or rename can detach and free the
+net_device (or its kobject name) before set_device_name() copies the
+name and acquires rtnl_lock, leading to a use-after-free.
 
-Propagate the error code from devm_regulator_get() instead.
+Move rtnl_lock acquisition to the callers of set_device_name() so that
+netdev_trig_activate() holds rtnl_lock across hw_control_get_device(),
+dev_name(), and set_device_name().
 
-Fixes: bc1b8492c764 ("leds: lm3532: Introduce the lm3532 LED driver")
-Closes: https://sashiko.dev/#/bug/linux-8836989c-356e-4601-ac4c-6db97861cb00
+Fixes: 0316cc5629d1 ("leds: trigger: netdev: init mode if hw control already active")
+Closes: https://sashiko.dev/#/bug/linux-ef006cc6-9a69-46b2-ae9f-8de934d37aff
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/leds/leds-lm3532.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/leds/trigger/ledtrig-netdev.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/leds/leds-lm3532.c b/drivers/leds/leds-lm3532.c
-index b51496910b08..7f849a166a92 100644
---- a/drivers/leds/leds-lm3532.c
-+++ b/drivers/leds/leds-lm3532.c
-@@ -570,7 +570,7 @@ static int lm3532_parse_node(struct lm3532_data *priv)
+diff --git a/drivers/leds/trigger/ledtrig-netdev.c b/drivers/leds/trigger/ledtrig-netdev.c
+index 5b0132484594..d69031bbd2b8 100644
+--- a/drivers/leds/trigger/ledtrig-netdev.c
++++ b/drivers/leds/trigger/ledtrig-netdev.c
+@@ -279,6 +279,8 @@ static int set_device_name(struct led_netdev_data *trigger_data,
+ 	struct net_device *new_dev = NULL;
+ 	char device_name[IFNAMSIZ];
  
- 	priv->regulator = devm_regulator_get(&priv->client->dev, "vin");
- 	if (IS_ERR(priv->regulator))
--		priv->regulator = NULL;
-+		return PTR_ERR(priv->regulator);
++	ASSERT_RTNL();
++
+ 	if (size >= IFNAMSIZ)
+ 		return -EINVAL;
  
- 	ret = device_property_read_u32(&priv->client->dev, "ramp-up-us",
- 				       &ramp_time);
+@@ -292,7 +294,6 @@ static int set_device_name(struct led_netdev_data *trigger_data,
+ 	/*
+ 	 * Lock order: rtnl_lock -> netdev instance lock -> trigger_data lock.
+ 	 */
+-	rtnl_lock();
+ 	if (device_name[0]) {
+ 		new_dev = dev_get_by_name(&init_net, device_name);
+ 		if (new_dev)
+@@ -319,7 +320,6 @@ static int set_device_name(struct led_netdev_data *trigger_data,
+ 	mutex_unlock(&trigger_data->lock);
+ 	if (new_dev)
+ 		netdev_unlock_ops(new_dev);
+-	rtnl_unlock();
+ 
+ 	return 0;
+ }
+@@ -331,7 +331,9 @@ static ssize_t device_name_store(struct device *dev,
+ 	struct led_netdev_data *trigger_data = led_trigger_get_drvdata(dev);
+ 	int ret;
+ 
++	rtnl_lock();
+ 	ret = set_device_name(trigger_data, buf, size);
++	rtnl_unlock();
+ 
+ 	if (ret < 0)
+ 		return ret;
+@@ -760,6 +762,7 @@ static int netdev_trig_activate(struct led_classdev *led_cdev)
+ 	 * Init already enabled mode in hw control.
+ 	 */
+ 	if (supports_hw_control(led_cdev)) {
++		rtnl_lock();
+ 		dev = led_cdev->hw_control_get_device(led_cdev);
+ 		if (dev) {
+ 			const char *name = dev_name(dev);
+@@ -771,6 +774,7 @@ static int netdev_trig_activate(struct led_classdev *led_cdev)
+ 			if (!rc)
+ 				trigger_data->mode = mode;
+ 		}
++		rtnl_unlock();
+ 	}
+ 
+ 	led_set_trigger_data(led_cdev, trigger_data);
 -- 
 2.56.0.218.g1ec904b173-goog
 
