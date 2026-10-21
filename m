@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792608812;
-	b=eceTF4YvsEd6UmFnuRCWwuL3PvYgFs19AZ7p6myJ2gk4Nfp7SMbv13gcAyMmPbMhnyC/
-	 tD55NmuDp8qFMy+EDKkGXfnInVpgS5XKfi06JD1HEdMD9SL3PdM2mFzA7MxjcwcODX3zq
-	 WTx76/ZVJ/Q+Iz6fnbve2DpeLWq46gY1mCga1rt0wrIgYfqdChwGlefFRdwI1sWn6KJBH
-	 ZsMW3T8ygabOSRPgBcrhNcSXo9+8pcC9pjpQ2nbJUUBwahd2gWYAkTE6UoQ0WtLOOCVdi
-	 BXtG6/Qi6sEk1BTJaNg2TPX60Gp6e6JLMIp813PVjFbpvPkkG1OIw8Mb3yPZYeD/DNA==
+	t=1792608815;
+	b=zguP3QIn1v45yKzfFUlZPH4SY5z5aqGUwET2nflwY1exEYYG07wJiy7VUtsthfMLD4Q+
+	 WlzSI74hR+BKhT973fhxLvt82ve6wsKpPbx4hnkdsK0pYUadInDvPWgkfoG3P8oRSHtTW
+	 5rqOX1P/3r7KduH+hZiZzjzKWeU5l9orMXSP/7vk7hG0rEBO/LIKeVZQ4OvYtVz4FVoNY
+	 48LYe6JVyxWGD5/xIkKRyQBUpfcKkJ34Iib9ruFVbTFjRSHnGdIAPB/cDzC3A7nXy2YCe
+	 1w6B1J0sHWatisDWtp26cok18BB7omxyx8hXn3MqZ27FC7QfNsUp8HQnMudg+E/CSGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792608812;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792608815;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=YjVYJxU5rZwZ4s2n4dDKWSpd20NJgYs+cHshoDxVvow=;
-	b=HjaEvQ2FYi2LzDwFJbjwsLKHI2SMObB2ZFDULG7MNU356f8AMzyI9rlGe2xPE9rTGAMR
-	 r8DFsxkodY0tVMA51XXkS4xNuQ6PJBHNVZdiZ5dxEyJWj2KJBrcHFAgL5MmXb+CgCP5ll
-	 fpLONyWcF/sNtNI5Cerq4DZJH6YmUZN0gF+fqEwaThaitKyczSvK7dC4eTgcxb6hUMdIA
-	 Kmj8lw91GD6+jjt6tSo9Iu5uKrYnHyIlEz0NTKbMshfsGucwD7ASKRG3oK0SOTLnp6TTN
-	 ZTVRM1vYeKfzKYvGMIORpcPKZww9ZAKhUkurYMXM5w/YBVwbpifFKCaAUvt1QT1e8bA==
+	bh=MwM1jDiGFXGz7WkyABxnWue4nvX51qTunpgsMfBndy8=;
+	b=CHwHx8nNCW5Es4GPO0TMZeATCv1eCxfcATJKnEtqudYIow0PB6qCkfzJF97cjFAJe3u8
+	 bG7nT3Q+8RWtNTj8hOxVXKSqavIm3Hlk8lJwQiFCZdTa54BYYAgHUFLEFAjNDWPgRXC3N
+	 GEAGf6f88n7sZ8E46NcTyYj9KZVGP8XtqE9lHvbI1j9NGSM5tSjQl9jP2tCgY4poJMV9v
+	 kFPG6tSvKV3SgDJLoLU0BsTsy7ped84qVJItNaUO3YAnJevBryz62HGXOz9VJ1GBUFQGi
+	 aJXhXl1uklWu4J/woeRQpsBpBq85JoLgW+x2ggW8MJIkUCBmVAdUm8JkwCpx3ASW1/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NP8y2kyI;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=N0iqbdQQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D589606A31A
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 18:53:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C422606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 18:53:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NP8y2kyI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 398051F000C1;
-	Wed, 21 Oct 2026 18:53:31 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=N0iqbdQQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0980D1F000C1;
+	Wed, 21 Oct 2026 18:53:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792608811;
-	bh=YjVYJxU5rZwZ4s2n4dDKWSpd20NJgYs+cHshoDxVvow=;
+	s=korg; t=1792608814;
+	bh=MwM1jDiGFXGz7WkyABxnWue4nvX51qTunpgsMfBndy8=;
 	h=Subject:To:Cc:From:Date;
-	b=NP8y2kyIlPjlpDZtrh4uNy7EJNlI1ndOJzMnWNSMj+lsIYRqZV+ECbQG7AQhUTlWg
-	 l/EEjRKPzoyJyeLYI7WY5dB7vJf4RupazIOWHEoXLHAs2OmIVk5EvaZC8qygwBwNnG
-	 O0ycKVPC169Ku+QTGdYHGr2Nl3/5mBZpq0bMujII=
-Subject: FAILED: patch "[PATCH] x86/kvm: Don't consume async #PF flags on a kernel #PF in NMI" failed to apply to 6.6-stable tree
+	b=N0iqbdQQIfNr9UvtN0f578PNlLKshW2oabEnjbIV0JRmLCai8h3sGqkqYcj31EBPW
+	 /85JmpsCZa6xiZquFxy7kjoPoiJNmsl0nAwgUtIAS2h2TWzg+hlrPy/DRxd2iW599z
+	 +4R45pq9FfwUQyMKYGMoVSx9q+Zq8pXND/kUcel4=
+Subject: FAILED: patch "[PATCH] x86/kvm: Don't consume async #PF flags on a kernel #PF in NMI" failed to apply to 6.1-stable tree
 To: ejc3@meta.com,pbonzini@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 20:50:14 +0200
-Message-ID: <2026102114-railroad-feisty-2a38@gregkh>
+Date: Wed, 21 Oct 2026 20:50:15 +0200
+Message-ID: <2026102115-flatterer-resolute-532f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 81d99abe2bd81379abfb595e403bbbee6fbfc624
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102114-railroad-feisty-2a38@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102115-flatterer-resolute-532f@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
