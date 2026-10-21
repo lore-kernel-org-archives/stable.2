@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594287;
-	b=0QA7yDh6bNxwaCXSjtv9do7EJaiHOx6cc2khPSProi0yZXAAdC/pBdYQ/SzsIwBG4IWT
-	 o3tIk/9HPL2mo8Vwuel3Vi5ECt1TSXJ6NmD0YK4EdXGWy4Te+Ns+XGEtAB0rbgnTPX2+R
-	 86ilLBtFLH1BGhwrRyJ2yy4xiNLnTN5cify3jNDXnbAmzr3KkbkwBw8OSs8ww8h9Qfv++
-	 zVnSX8QxylbvM2rhZQj4AqDFV0+1gK/wiUXNkIM48x1vXdgKSHOUCPVNCWvN3J8eTV2Hj
-	 lOK0bK7m4wEMjlJ2BYEqjfYWcYi27DyCycnbRUDSZikADQ5vEhpuCuEfFnSaQmR1+rw==
+	t=1792594290;
+	b=Lh64QwVk/4EYipq8W9POWkPMmKLXHdRB9dE2jmCcOs4w/bidWCJ/TuIUOze7QrRoe8vo
+	 ksNYusISOOkNfjtJSrLKGMLDEpAD04LLOWyYYEZEOJq71LmLi2sIX+VfAfwP7qTBb8Bi7
+	 5Mn3CvZ5lhR60B4pHkDqoJbUaUgpk4k830MrV/1WHPY4RJFnTkBPwYNKLlkLENkIJyeJE
+	 aWS9IzF2xluAnsdhWubSYP/AkOEVZ7uDbh2+E5XtX9yydkc5GskEuEHMCLCO3HxWnbIaV
+	 OtEPYS4zumS0VQib7BZGJq3okkx+Np04v22uLJrdlQWD6QTwEU2HVLrWX8LRWDo8KKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594287;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594290;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=oguaxEgPEC3eKI/cdgZmXXHzO1/yNTxKPNxn/1tgtYU=;
-	b=Bo7A5k6bwk0vCeUE3C4BaF9xkKk1hGRBhltBpEl0jAQsShMdiiOgyPYTutI19Unpwxfk
-	 8//CSekKFadt/DT+WqLRn04kjVNhKZRsZvf9iUHeTURdiJQS4AobIKxJjMf2N1Yqxy/EF
-	 4PQUZuNsumU66DDoqhOSBkh62Z0z4f4H6twy8b80dtS82lT3C3Mi+RCWHYFUWmDSa1tFm
-	 /0HjZtCIrb+AhYBPPRrHkPrBWjvU0MoP9Hit3hs1yMQsuorYeDZ81VMkQOnmgeKHdkrxu
-	 tPFaV3rt9gtJjV+np46DDPwDkPebrrp5AnTtrcdV2H2yPgnRhcl1OjIZN0fuda6g6vQ==
+	bh=5Rlpp/DiW/fB+FTnDVCSFI114HJnrEwjYbC1/9evv+k=;
+	b=hPplYhifXAo0tRD1UXUrmOjYmquz9tiSAzKKZ0mkXLSXa/p6cTON4pcjFg0TBUeqrrpB
+	 dHccRm2BeG9fFXrioT7cj/aGYLCGnMjHSey3F0n5GSq/7tEX2BB9NnsuZZVpNfJdJKyqo
+	 Yk4loOSG7Dnb8nBRpscteo8YL7zk9TLsvF2Q7QNQBv/SunDz14lf17D/2fewc6lODTi4l
+	 HznqBCq5s8j960KpQRmPZ7gcYg7p9LDZImuuzQA6V+icOBcBCCRMxQz7YJDAEHhjyALfl
+	 98G15SA+kY8YAg7bGyYd7bm1jpMwGNRj/+nHTuZl2F9kUXfmWLE/7Ks1EmZMbAadagQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hJTsBqrE;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RwvAMJLP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66185606A31A
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:51:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C504606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:51:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hJTsBqrE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B10651F000C1;
-	Wed, 21 Oct 2026 14:51:26 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RwvAMJLP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A762F1F000C1;
+	Wed, 21 Oct 2026 14:51:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594287;
-	bh=oguaxEgPEC3eKI/cdgZmXXHzO1/yNTxKPNxn/1tgtYU=;
+	s=korg; t=1792594290;
+	bh=5Rlpp/DiW/fB+FTnDVCSFI114HJnrEwjYbC1/9evv+k=;
 	h=Subject:To:Cc:From:Date;
-	b=hJTsBqrEMvjvTOL9iMFZNqGB4V8KkKR6FQZLN6qan7Xs+565HBGTo7yAsE5Rs0qmd
-	 sTqJVvcFjJHkQLjvxOdEtEtTgH+J16wQe2pgdLTiTMOCI2s4nsXgspgfjjgwLQNG1Z
-	 4ju4JievZUp3hLTOPOyyMRuo+jkHTFYpLa+wtUhA=
-Subject: FAILED: patch "[PATCH] scsi: st: Fix use-after-free race between st_remove() and" failed to apply to 5.15-stable tree
-To: loberman@redhat.com,dingiso.kernel@gmail.com,mkp@kernel.org
+	b=RwvAMJLPHBlWTzaK7Np4hEKU/taRfEaTBzScGRN82vwFrdzsa198oowXnSKoybiQ+
+	 pE0ItidMERG1V+sDrezAlqqspi7CKHoHFynTDfEatZhUNKQH3DCRiZFD/b6jT20SF6
+	 fw7NFZbyt0HmPUv7FiWBJLX131tl4wpJyKDLhXa0=
+Subject: FAILED: patch "[PATCH] drm/amdgpu/userq: actually validate userq BOs" failed to apply to 7.2-stable tree
+To: benjamin.cheng@amd.com,alexander.deucher@amd.com,christian.koenig@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 16:44:31 +0200
-Message-ID: <2026102131-preview-unlovely-f4ad@gregkh>
+Date: Wed, 21 Oct 2026 16:45:37 +0200
+Message-ID: <2026102137-thermos-preaching-3697@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,23 +51,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 71caf7f84bd62a4bf91cc95abd2de690afb8d15f
+git cherry-pick -x 32d0771ef4ca69c30a1db3aefa34dd177cd2a047
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102131-preview-unlovely-f4ad@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102137-thermos-preaching-3697@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,67 +79,58 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 71caf7f84bd62a4bf91cc95abd2de690afb8d15f Mon Sep 17 00:00:00 2001
-From: Laurence Oberman <loberman@redhat.com>
-Date: Tue, 13 Oct 2026 16:25:48 -0400
-Subject: [PATCH] scsi: st: Fix use-after-free race between st_remove() and
- st_open()
+From 32d0771ef4ca69c30a1db3aefa34dd177cd2a047 Mon Sep 17 00:00:00 2001
+From: Benjamin Cheng <benjamin.cheng@amd.com>
+Date: Fri, 9 Oct 2026 09:31:42 -0400
+Subject: [PATCH] drm/amdgpu/userq: actually validate userq BOs
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-st_remove() drops the probe reference on the scsi_tape with kref_put()
-and only afterwards removes its index from st_index_idr. If that was the
-last reference, scsi_tape_release() frees the structure while it is
-still published in the idr.
+This was supposed to loop over the individual evicted list, as the
+kernel and always_valid evicted lists were already handled in
+amdgpu_vm_validate.
 
-scsi_tape_get(), called from st_open(), looks up the tape in
-st_index_idr and takes a reference under st_ref_mutex and
-st_index_lock. remove_cdevs() does not wait for opens that are already
-past chrdev_open(), so an open that is blocked on st_ref_mutex while
-st_remove() holds it can take the mutex as soon as st_remove() drops it,
-find the freed tpnt in the idr and call kref_get() on it:
+Without this, BOs that were created and evicted before a userq was made
+would never end up in an eviction fence rearm.
 
-  BUG: KASAN: slab-use-after-free in st_open
-  Write of size 4 ...
-   st_open (drivers/scsi/st.c:254 drivers/scsi/st.c:1291)
-   chrdev_open
-  ...
-  Freed by task ...:
-   kfree
-   st_remove (drivers/scsi/st.c:4512)
+Also add the missing ref to the BO before drm_exec locks and refs it.
 
-Remove the index from the idr before dropping the reference, all under
-st_ref_mutex. A concurrent scsi_tape_get() now either runs first and
-holds a valid reference that keeps the tape alive, or runs afterwards
-and finds nothing, so st_open() fails with -ENXIO.
-
-This restores the ordering st_remove() had before the conversion to
-st_index_idr, where the tape was unpublished from scsi_tapes[] before
-the final kref_put().
-
-Fixes: 6c648d95a6af ("[SCSI] st: get rid of scsi_tapes array")
+Fixes: 4cdbba5a16aa ("drm/amdgpu: restructure VM state machine v4")
+Signed-off-by: Benjamin Cheng <benjamin.cheng@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 18decfc9e8cc0fa70b6de9944cc27a37729edfbd)
 Cc: stable@vger.kernel.org
-Reported-by: Dingisoul <dingiso.kernel@gmail.com>
-Closes: https://lore.kernel.org/linux-scsi/20261007211520.1428497-1-dingiso.kernel@gmail.com/
-Tested-by: Dingisoul <dingiso.kernel@gmail.com>
-Signed-off-by: Laurence Oberman <loberman@redhat.com>
-Link: https://patch.msgid.link/20261013202548.249628-1-loberman@redhat.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 
-diff --git a/drivers/scsi/st.c b/drivers/scsi/st.c
-index cab8aa73969c..a757646c8dc6 100644
---- a/drivers/scsi/st.c
-+++ b/drivers/scsi/st.c
-@@ -4515,11 +4515,11 @@ static void st_remove(struct scsi_device *SDp)
- 	remove_cdevs(tpnt);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 9316423f9340..b3dc5dd49a64 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -980,19 +980,21 @@ amdgpu_userq_bo_validate(struct amdgpu_device *adev, struct drm_exec *exec,
+ {
+ 	struct ttm_operation_ctx ctx = { false, false };
+ 	struct amdgpu_bo_va *bo_va;
+-	struct amdgpu_bo *bo;
++	struct amdgpu_bo *bo, *tmp;
+ 	int ret;
  
- 	mutex_lock(&st_ref_mutex);
--	kref_put(&tpnt->kref, scsi_tape_release);
--	mutex_unlock(&st_ref_mutex);
- 	spin_lock(&st_index_lock);
- 	idr_remove(&st_index_idr, index);
- 	spin_unlock(&st_index_lock);
-+	kref_put(&tpnt->kref, scsi_tape_release);
-+	mutex_unlock(&st_ref_mutex);
- }
+ 	spin_lock(&vm->individual_lock);
+-	while (!list_empty(&vm->always_valid.evicted)) {
+-		bo_va = list_first_entry(&vm->always_valid.evicted,
++	while (!list_empty(&vm->individual.evicted)) {
++		bo_va = list_first_entry(&vm->individual.evicted,
+ 					 struct amdgpu_bo_va,
+ 					 base.vm_status);
++		bo = bo_va->base.bo;
++		tmp = amdgpu_bo_ref(bo);
+ 		spin_unlock(&vm->individual_lock);
  
- /**
+-		bo = bo_va->base.bo;
+ 		ret = drm_exec_prepare_obj(exec, &bo->tbo.base,
+ 					   TTM_NUM_MOVE_FENCES + 1);
++		amdgpu_bo_unref(&tmp);
+ 		if (unlikely(ret))
+ 			return ret;
+ 
 
