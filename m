@@ -1,108 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.117.225.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792606047;
-	b=bpwM7YXa9oBxgUustl4Ubt83h/AtcRVF0BRwLcvzKv+OBYiMju3HAnBI1H/hIsvubCdn
-	 EnynBF4jZ/ruhselSsdGmxiQvowEm1o5qrCKa+O2J/K29/be1OrI7TSjZTfgfXJyWgcQo
-	 x9MRBRBFvT4arXmOGBAyueSlFdfO6l52GOCs+ghx4SlvxidcWi4zotFBQi7R4RdgvcyVT
-	 lTUST2vg2NCI+KldZc3nJs8idwvsyMdWQHKXozW5MwDe8vZrQQAqF0uAxIFaKfMuzSOLI
-	 beIvX5h8xjxEUt00LIvfdjZSEGnphsjjXaf0u0iQF9kJtEvgu1w4qTII2iZnmba+F6Q==
+	t=1792606274;
+	b=EfizN+zw7Ig5Jll/YDo5gye2AHfHoYcbeW3HjmCU/r5ISbiuDjhbPLxa2EAV2Azc//4+
+	 nPNazTGlFqs97xMgdX26z6hCgJd2fMlhMK9g38BJSdIKSplQ1y++kuUAODaGQnHHXy9j5
+	 T1rWnRW7kNOOhe6pI0NvUfvAHf/714RwzQj3cltPRjbjXPduG50+lbupriCAXQTT1uO4c
+	 +L5OUI59rvSop98fVB5BIhLDkb/46vs3u360IA7StuZ2dRgnnvzTqzm8GWSCPV4hhb9p4
+	 +5UKnXOQc7ili8a2qPWTMsg1HYetl+R1OP/cuYEVOrM8wJjchK9VunFx5B5IrWofViA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792606047;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=BD3PH8sn/SG/F7DO7wxZvYQbvmrfrsBI3sjtEwqgqnY=;
-	b=zth2wtVdJX8VqNCSJhqh2Oxvd/9IGIGBvFoXgZ3EWua3NWYWe0ejI1rKEc2a31tbxvc1
-	 pr2bFQiR7sWE/eytJJbdHx4w6HiaWaMFJYd6GYqGA4m893F0Be6577UPMKKponb1TbcVJ
-	 wcRvJnQBmvG58OC1p+o9cmu7lFgdwhseGwWyez31aOKKGtKND/to9ejcmaLuKDVrV9saY
-	 8ZndKa84zvUkFjPqji1Q/J8rhDxeZklwQ+wgT20TlUvTP5X3RZ57V6ygBlZ6/uuvDiLav
-	 rQyc4PfF5VyNt6rmvyrfJ9dPPdpqeAqV/IjYtJU6E2hnEXHfVZtq6Wy8f5ET+CXquzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792606274;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=SBcAfdk1AvTqfXhE/cLVYMH0/26jRBw6wDx068f64L8=;
+	b=VACkkpfC8ac7TrkRvqidGY/oIlozWWyA6EfD1xY4u6jcsYkl+6fPd9DlRJoWxvG9EHwH
+	 jQwmzL8xkQxrK+JKl+VMPycf6QwGnsfwImxuvf2+/RZS9Vt5HzkI+dP4DrD4XzJ9KN+YU
+	 NFsiRPkwJdr3h+jc8L0NgKG5EjPjnGTq7nYzc8HCmFT3F8KUeOWYmr/QN6tlzhW3HRYP5
+	 rKnxl97y3Mj+9jLcLFnPqjlNqY+WbQQGbsEZBzkSgY47YHVlkgLzWvzN598FSqgk7nOQH
+	 TMq4yv//d4pzqp7Kl+wXNdLEozfEewHVY4YnooFTdQZtD4F98geewTTce9qlshXlJ1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jmPuaxZx;
-	arc=none smtp.remote-ip=209.85.221.180
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=virtuozzo.com;
+	spf=pass smtp.mailfrom=virtuozzo.com;
+	dkim=pass header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=Y0nGvAzD;
+	arc=none smtp.remote-ip=130.117.225.111
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562BB606A31F
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 18:07:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 562BB606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 636DD606A31D;
+	Wed, 21 Oct 2026 18:11:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 636DD606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jmPuaxZx
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5ead4026fe6so402637e0c.2
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 11:07:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792606046; x=1793210846; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BD3PH8sn/SG/F7DO7wxZvYQbvmrfrsBI3sjtEwqgqnY=;
-        b=jmPuaxZxGSuX2iUAkX5etUFc8l3rPMvgto8XSo5wtZwb/bT/7hXZd5zXz76Q3zTryw
-         AHoQ+fHEfCnELueNC6j6PX5Fnc4K2VpLXakAFunBe+Mpc3uphKEEaJacETiZEaTxZZy+
-         e2sKCGJviofNwT48s5JFb8OqqmXNunlx7Ty0tftUlJMIVauQaexhNpF67R8w8uEvVXIx
-         N8dG1+T2D4Bp0ksb5ZmHMTflDJg4/I5YuUcP/iAGYZeZ0fdISC0jX82sJbCMoU0xlxhZ
-         OqdwJicC/jegzyXcMpNBV17k1XuIQq3PE6tqJCnMnD1ulnQ7w0qBvYPGCkJ9hV+PjTge
-         loxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792606046; x=1793210846;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BD3PH8sn/SG/F7DO7wxZvYQbvmrfrsBI3sjtEwqgqnY=;
-        b=0IUfcZcW0ldBr5TpGK4TDZgg2Q4aLKtIWlMbu2DcrRH/89036Wex8eoc8ouDt3HFDE
-         XLHwuklZeF6eOkG37ltvBYMAiVEpBMjQy7MTbIqPTgEs9rUDym9aeW8SEvcVZJ+u7mQa
-         f98FTHMmf8U4oaxZYSktflxjPgAYK3gTZNQ86/yCcK+vkH0mHF5qqxex1Vkp1MOEhNv2
-         gAjgzHkEsij2xUf5Ucau548QJg2c5nrkIhkff13wk+Xzl7qobaQk8IwQONpf0HpDcCP4
-         cvEGr9TiiXWsMZRbzZIRMNFSPpvU1D4R01qLqOmIl74i5MqDEVEF8vAZFtw2+Mzzc6E/
-         55Lg==
-X-Forwarded-Encrypted: i=1; AKwUvByHa7tW0KczZ4nINUQXlCnQ9j6x6n+yFHtUzCRw+eCw4CyrnkNK8X57hVrhIZPLQpTSld4zY2A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLnCGEs1sR5wuca0Vqv9i1TkBeTQ89isErz6mrbivVElmuzGOkk
-	N2tO2ZkIxYyJ2NAvkTsEoeVJKUeW9HKcA3Ueb6netpZ50rPn6VtZg8i/
-X-Gm-Gg: AYBFou2sStCOhFuK5J/wQTo/6pVOWnZALUNLFr+2rYv6gR7M9YCZ6C4CbWjnEKJGEoz
-	Lya7VvCQ2uOCOWnyuI4vCopAe6sy+LFPAQygPFdXBG9o9UmlxtZ7yzMHLGHu9uCMl9zSPWnBLet
-	+kpgnOOIRW7Yn8wIdvqkHw5MeNopqMQAFAOwq9vME+o0xuqV84CRRb2+K5IZNRgsQ16dvAi14kd
-	M2lfrtebu8az2yzo4QvWvafCOgFmwKINE704/fUxtCw4WFCThcYGfyk6JPmlNRxUt55BblV9twt
-	cBvdIwfTehWwxQxcAf46vH9Uk7HZNdkpe4w6k+glFxfhAZCW8zpOY2A/FFPatNWJwtYZ30OXO69
-	lo7m1jUn6bzwn/bu+EjPO92LoDg755eGdqI8F3clutOayGjJSzBvb2eQQ7yhksA3Zs/56u3E2mL
-	AE93uZ50cnKXCwJbF3j3ozv1bDwzjLCtk+axBSGzxtbHTTa6OfRQAU5EgWMazorO21eA5rNy6E1
-	rJXQbZgnRHvRiaGPDJqjiSrUIKeWxwQVTOSJnMLLbPQa9Lk/aR4V59jbXzxiqWV/Xy9PdfqxfsG
-	L8s02TTit6bjzFkx3sQwNLF6wDtVgYjNG+BOlv2NVoPnHycUq/2+w4M2a7p75FJF
-X-Received: by 2002:a05:6123:6d:b0:5d2:4a4c:ad83 with SMTP id 71dfb90a1353d-5eaebefa0bemr1334431e0c.23.1792606046270;
-        Wed, 21 Oct 2026 11:07:26 -0700 (PDT)
-Received: from MaquinaLab.. ([179.179.238.247])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eae9697814sm4054490e0c.1.2026.10.21.11.07.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 11:07:25 -0700 (PDT)
-From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-serial@vger.kernel.org,
-	gregkh@linuxfoundation.org,
-	jirislaby@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook when DLF is present
-Date: Wed, 21 Oct 2026 15:07:14 -0300
-Message-ID: <20261021180714.473749-1-vinicius.eduardo.pedrosa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <atj0iRFTxHKmhxVG@ashevche-desk.local>
-References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <20261020104753.28703-1-vinicius.eduardo.pedrosa@gmail.com> <athe0QikG2mzCAtd@ashevche-desk.local> <20261021100049.16504-1-vinicius.eduardo.pedrosa@gmail.com> <atjB-BnXclL3FcUm@ashevche-desk.local> <20261021153732.1978410-1-vinicius.eduardo.pedrosa@gmail.com> <atjqZPuAbHDdaexv@ashevche-desk.local> <20261021170403.2052449-1-vinicius.eduardo.pedrosa@gmail.com> <atj0iRFTxHKmhxVG@ashevche-desk.local>
+	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=Y0nGvAzD
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=virtuozzo.com; s=relay; h=Content-Type:MIME-Version:Message-Id:Date:Subject
+	:From; bh=SBcAfdk1AvTqfXhE/cLVYMH0/26jRBw6wDx068f64L8=; b=Y0nGvAzD9q/QlX076wT
+	H2f//OoLXdbANexbqcrmpWSPR9oNkB2XZrtg3dQZ8y6KGI0BdpYPef7z2Ujb2z17R8ODE4V+DSrO5
+	tQUXQC8uEKqI0mFKvHnexfbZdrKcepz4y9BniXxAqTq6ynhhPsZPsDoAtf5/DaxO5Nq0k+R4mZxmL
+	/NZlV5D8yyq+YS+7AxmP2s1/zi0GcK7GDnNGarXWPNCoXA3Fvu0eV6ZXJzSBLXa2TSpJtjVmqS0Ww
+	a1OvwhBIqvdJqudA8D5dJrfDxBEhdgCyvE3slHgCYGHijsAI07Rzk2YdKzYHmvJzKUD84Wn0vPcmL
+	YiDq4MV/zjlikIg==;
+Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
+	by relay.virtuozzo.com with esmtp (Exim 4.96)
+	(envelope-from <khorenko@virtuozzo.com>)
+	id 1xJaif-00ANvl-0p;
+	Wed, 21 Oct 2026 20:11:04 +0200
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+Subject: [PATCH 0/2] mm/huge_memory: take a reference on a device DAX PUD
+ copied by fork
+Date: Wed, 21 Oct 2026 20:10:52 +0200
+Message-Id: <20261021-vstor-150143-copy_huge_pud-folio-refcount-v1-0-8bd88551f9be@virtuozzo.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,31 +60,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACwA2WoC/yXNWwrCMBCF4a2UeXYgiRovWylSajptRyQTcilK6
+ d6N+vhx4PwrJIpMCa7NCpEWTiy+Qu8acHPvJ0IeqsEoY7UyGpeUJaI+Kn3Yo5Pw7uYyURfKgKM
+ 8WTDS6KT4jNQbeyFrz+akoP6FuvDr12pvf6dyf5DL3wBs2weyRX6cjQAAAA==
+X-Change-ID: 20261021-vstor-150143-copy_huge_pud-folio-refcount-ea269e668270
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Alistair Popple <apopple@nvidia.com>, Dan Williams <djbw@kernel.org>
+Cc: linux-mm@kvack.org, nvdimm@lists.linux.dev, 
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Konstantin Khorenko <khorenko@virtuozzo.com>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2640;
+ i=khorenko@virtuozzo.com; h=from:subject:message-id;
+ bh=u9/28GqAiRcjxN3gSB/+og/EEsQKnoWl2BqSCLQbuXw=;
+ b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBq2QA38h+Jm/HpSxjoZpvbreseAaPuYo90VD7VG
+ Wcb5XtQjcqJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCatkANwAKCRBRlgpH+WFc
+ Kg4lEADGj9dohxRIf7msa+ab+qR251KQGQWsoZ160OAxzAbbcuxLeuNED8iLrada1ekOGqlIALq
+ 9TeT8csTn+1QtEppLfRD3T7G9aM7gSGsdfe7u0qgXj8d37mer0svdAirPkw97VXbAf8nVEtuH2i
+ 5+Dj1pBnuIUG3oRyLz7Lvmp7WNGmNFlfjnT8NpSMoAc6b7b+2Ws2EVokRSwghtZ5L0ufxWQ+uzr
+ 7Pe7/Lm4sTM6C9EwY6W+8xP7epOz/wm7d/RiMDd6zkAww7CZvU8lPXW3ZRm0FAza0YgWa3oqQE5
+ lZ8uPyun37txmrB/e/3kngt3VLlpwnphMBYYWqoSs3LJfGh4JfWsRM7c4lHwP4uvRi3CfXfZTAq
+ RaNeTW1IXsIJP7edjxZb2LcadEhXbq7gbmgE+ix9l3kAOPtXdyL+5re75E9o0QF/uAh28AFDNYD
+ 0dfO53P/W3BcEsRwCaUP/QoLPHwX+b44oONpstxfEGeN76Ho52xzm9HGVNijxF/sFcPh8zbYUyI
+ X1OdK/NYrbs8hRsjwRRS0xdOcW6vZnG0/tJUpH/nGT3cinC88aIuGwV7b3uv6Y9mCmIDu9zTFdQ
+ RB96wlBCgdyrUwX0UC7Itu172JsXEcaUXbCkitF71D4WJ1oJDp+G/XYHa3p2lWg6Bq05MRSY9gc
+ B7qrnxk3a0hPLUg==
+X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
+ fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
 
-Hi Andy,
+copy_huge_pud() copies a device DAX PUD into the child without the
+reference, rmap and counter that vmf_insert_folio_pud() took, so the
+child's unmap takes them from the parent. fork copies a device DAX VMA
+once it has a guard region, so it takes no more than:
 
-On Wed, 21 Oct 2026, Andy Shevchenko wrote:
+1. map a devdax instance with 1 GiB alignment and fault in a PUD;
+2. MADV_GUARD_INSTALL a page elsewhere in the VMA;
+3. fork, and let the child exit.
 
-> Yes. but is it only a single device/platform affected or a big class of the
-> devices? I assume only narrow part of them which unfortunately use DFL register
-> offset for something else in their RTL.
+Patch 1 is the fix, patch 2 a selftest for it. I found it while
+reworking copy_huge_pmd() for fork after David's review [1]; it is
+independent of that series and applies to v7.3-rc7 on its own.
 
-The A733 is the only case I've seen, and the false DLF is what exposed
-it. But I don't think the BUSY problem depends on the DLF offset being
-reused: with a real DLF on a UART that isn't 16550-compatible,
-dw8250_setup_port() also replaces the BUSY-safe setter with the dwlib
-one, so the same path exists. I haven't confirmed that on hardware.
+Testing
+=======
 
-With patch 2 the A733 no longer takes that path.
+ * v7.3-rc7 x86_64 KVM guest with CONFIG_DEBUG_VM
+ * pmem from memmap=3G!4G
+ * devdax made with "ndctl create-namespace -m devdax -a 1G":
 
-> It all depends on the outcome of the above discussion. Maybe others can share
-> their opinions, but I lean towards a series-as-a-fix rather than a bit ugly fix
-> + proper refactoring on top.
+  kernel              fork_dax_pud   log
+  7.3-rc7             not ok         BUG: Bad rss-counter state mm:...
+                                     type:MM_FILEPAGES val:-262144
+  7.3-rc7 + patch 1   ok             clean
 
-I'm fine with a series-as-a-fix, and with deferring the deduplication
-patch.
+A variant that writes to the device and forks three times also hit,
+on 7.3-rc7:
 
-Thanks,
-Vinicius
+  WARNING: ./include/linux/rmap.h:159 at
+  __folio_large_mapcount_sanity_checks+0x90/0x150
+
+The selftest only runs on a device given in FORK_DAX_PUD_DEVICE or
+argv[1], as on an unfixed kernel it leaves that device's folio with a
+mapcount below zero. On pmem emulated in RAM, with
+CONFIG_X86_PMEM_LEGACY and CONFIG_DEV_DAX_PMEM:
+
+  boot with memmap=3G!4G
+  ndctl create-namespace -f -e namespace0.0 -m devdax -a 1G
+  FORK_DAX_PUD_DEVICE=/dev/dax0.0 ./fork_dax_pud
+
+[1] https://lore.kernel.org/linux-mm/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com/
+
+Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+---
+Konstantin Khorenko (2):
+      mm/huge_memory: take a reference on a folio PUD copied by fork
+      selftests/mm: test fork of a device DAX PUD
+
+ MAINTAINERS                               |   1 +
+ include/linux/huge_mm.h                   |   2 +-
+ include/linux/rmap.h                      |  22 +++++
+ mm/huge_memory.c                          |  13 ++-
+ mm/memory.c                               |   4 +-
+ tools/testing/selftests/mm/Makefile       |   1 +
+ tools/testing/selftests/mm/fork_dax_pud.c | 136 ++++++++++++++++++++++++++++++
+ tools/testing/selftests/mm/run_vmtests.sh |   1 +
+ 8 files changed, 175 insertions(+), 5 deletions(-)
+---
+base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
+change-id: 20261021-vstor-150143-copy_huge_pud-folio-refcount-ea269e668270
+
+Best regards,
+--  
+Konstantin Khorenko,
+Virtuozzo Linux Kernel Team
+
