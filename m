@@ -1,60 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792584992;
-	b=d8iYrQO9QtKwC3OYgE00jn1U3j9qRu8RCfLQ7NrvHpPLXeRP9uwQMxE3b71dIa9GByI0
-	 EElXwz7vti8+9CNZfci9Co1cFZBocCqP0pllVtqb2GW2IrP/L79BRYZ2U1YslcbSR6kv1
-	 wcqNV5U2Y7U1Ltnf/fFNOCHxcYMK+AmH+SaBWkXbor3JF/DHxhClGHU+Ez3rnmWDAYhSD
-	 2BSsVyxTxTuQBMqsZdyxlWnuo5f57JT/2+cjtkZaDZjQmQPPlvbdiQmeuwqccMzTxfXWG
-	 Jf1BTWkjMQ7un3XjOUbg/xDV5z9qL8JDEf/fMe2+mq1bZzBR4VM1/4OWppVkD7qf8WQ==
+	t=1792585005;
+	b=e47YTe1xhdYQPtKCPfbccGaoRSa2bXzCEGXd4iAK0p5/CZEGS7fwQuG9IqvN6CxJpsZr
+	 zlwYlikvvQdIhAQH51FsFBQjmnh3hkFBoXboD9iheMIk95MKPspTbUYzTOb7/t0WJWHbq
+	 qa47lnt5Ohs9MwNNKAJt9kEngONcd/1qn735mw1/83Fw765MjBfZRuIttjTA0rmUNLihV
+	 EK6uCqKRsj2rm2Eq0uwGD65MD2v0WN/GcGkjSLQBlvG14jZsjCRpLnJfXnR181JbAAmJw
+	 m6dG4NEyCPa+ZcEE0m6iZQfpax6h+TRK/wiUGim3r/20SOiwo/9yFOxZFJMD5qe54yA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792584992;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792585005;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=47JPxnKtn88z3FWrX9k+DRLaFxM6US7BskZPlDapUxU=;
-	b=gLSQEsiOm40TLyGhmiIwyTgnyomIz05u3etOCyReAHDgLnm8Jwr/vxwZ3MK5EFwGTdbc
-	 hIPIJaKroUpL9opSWBruaNsPo/oI3blTuzUDU90Qv2kYTinDoCzPjeIrAWWsK9RHt4hmn
-	 HtJbqnWtk+M//gbqoPQmc3PZLHh0RtwjDtD4RQ16kIaUSBj3FvPidI/ytHC8GIQcc1PLx
-	 38veuN6i36GNEDQE+hBEid4ad811oCG2OkBNTpdTx1MMDXQLnytVe+OCvfuMxLiS5Nt9b
-	 zxstXWtCAM5WckBXs2KjrNfhq+hp06C9cD7HJqtSHHoFCAjK9ncqQm3vMPzZ6sQUGlA==
+	bh=WhNgb12bmkpmtNiDfvB9a1bGebOiAzBKY22qKyemjR4=;
+	b=cIJt+zl++xqdYb8Bnif+9ouG1xjL2LtoBQLwoFS9Xf4peo9Km+o33VyT8+4OYU5CR2Hy
+	 /lzz5h77Ao3fGqNvcDcGy1u3mVq94nIBEWGzGXYEFKtaMUoTqf3rrcPOCZcS0Nqj4KcY0
+	 7SVXwGNMi0TBzXcdiBHkmnVDK/fsrPLbU+Tbrfhxty0nODTZ2on34E8BPI/k/NWYfwa7l
+	 83uDZP2XPw7knZXVM3e8nIFtiSiyilY5HJZsaGVqrGVmxc1ve5H3MKtEntMFSdv3RuxCM
+	 Mm9laMwuYWACQNtgl9D/JYVQUOPnWbko07Zd/2nj5ZveGaZmAQ5wMuuP212Ev15FyLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HTiFI/gR";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VaXHEf0y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 826F8606A319;
-	Wed, 21 Oct 2026 12:16:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E4060A6F72;
+	Wed, 21 Oct 2026 12:16:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HTiFI/gR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BC531F000C4;
-	Wed, 21 Oct 2026 12:16:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VaXHEf0y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C260E1F000C5;
+	Wed, 21 Oct 2026 12:16:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792584992;
-	bh=47JPxnKtn88z3FWrX9k+DRLaFxM6US7BskZPlDapUxU=;
+	s=k20260515; t=1792585005;
+	bh=WhNgb12bmkpmtNiDfvB9a1bGebOiAzBKY22qKyemjR4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HTiFI/gRAcXJTgd7xuiXoBfiPSvqelwO/3RGk7rZqNg9NEI06XjAWsSMka1CZWFeq
-	 Oda3v69dDUnNcFSn8LTRVg06ujoNhH5JZH7FgG7PKjMckKMz+LYx2GrGH/+pOMTloO
-	 wsR6Ov/rFgIamo696hV23UrspCuwcexBH9nSoEST4GbaxoZTRXmgHgLv+GEBff7E/C
-	 iknsZ3pM2HH7E+6p4sf5mZNYPYOJhx8tUz2LAoKTxb1Fz4tNNesUL4l8Oq9r6FnIYh
-	 UZ8Gb467kxSKG6wa3kG9sO95Pwvm3ZaeElzfUDeYRBYYJaNnabtu6gta6/T3O4gJ4o
-	 CFmpji5cAy1jA==
+	b=VaXHEf0y8d+f0YELTloNrW7Y/82Vbp9IaGc/JFlu0Q3AzpFU7ahYiQLRAu3l8KY8r
+	 Mi1VAzUg5sMlwWmwWjOw8dtImHy5MdKDu1G7jFPbxqTB70Zu531mwUycohkZgvoTR/
+	 ZmHLO21q8pwfzEvnuCr9nF7sl8Sj42c/iziz+4Lj4yQCeFwCdUl2hGAbTJXOEtfEm+
+	 bQNpJf9mjxG30CQ4NJcHEPS432r7Uvxc/NZIFPK0EUqfzkMoyvwqsTE9PZ/GI5U2u1
+	 UZZfw9TF6GssDtrUtFV9TaytbhW9bBDDhs+M+bIgS9W98j7lCsYRA0T0INvKvoR3pE
+	 /OkYsP03H+37A==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Tony Lindgren <tony@atomide.com>,
-	AnilKumar Ch <anilkumar@ti.com>,
-	Milo Kim <woogyom.kim@gmail.com>,
-	linux-omap@vger.kernel.org,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
 	mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 24/28] mfd: tps65217: Manage IRQ domain teardown via devres
-Date: Wed, 21 Oct 2026 12:09:46 +0000
-Message-ID: <20261021121245.3111563-24-lee@kernel.org>
+Subject: [PATCH 25/28] mfd: mt6397: Manage IRQ domain lifecycle with devres
+Date: Wed, 21 Oct 2026 12:09:47 +0000
+Message-ID: <20261021121245.3111563-25-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
 In-Reply-To: <20261021121245.3111563-1-lee@kernel.org>
 References: <20261021121245.3111563-1-lee@kernel.org>
@@ -69,110 +66,127 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tps65217_irq_init() creates tps->irq_domain with an unmanaged call and
-requests the parent interrupt via devm_request_threaded_irq(), while
-tps65217_remove() manually disposes mappings and removes
-tps->irq_domain.  Because tps65217_remove() executes before devres
-teardown, the IRQ domain is destroyed while tps65217_irq_thread() and
-child MFD devices are still active, allowing a concurrent interrupt to
-dereference a freed or NULL domain.  Furthermore, if probe fails after
-irq_domain_create_linear() or if tps65217_irq_init() fails, the IRQ
-domain is leaked, and if the device is probed without an interrupt
-(client->irq == 0), tps65217_remove() unconditionally passes a NULL
-tps->irq_domain to irq_domain_remove().
+mt6397_irq_init() and mt6358_irq_init() create chip->irq_domain with
+irq_domain_create_linear() before registering the parent interrupt via
+devm_request_threaded_irq().  If devm_mfd_add_devices() fails in
+mt6397_probe(), irq_domain_remove() is called before devres frees the
+threaded IRQ and without disposing child IRQ mappings, allowing an
+in-flight interrupt handler or late IRQ lookup to dereference the
+removed domain.  Conversely, when the driver is unbound, the IRQ
+mappings and domain are never removed at all.
 
-Register a devres action to tear down the IRQ domain in
-tps65217_irq_init() prior to devm_request_threaded_irq(), propagate
-errors from tps65217_irq_init() in tps65217_probe(), and drop
-tps65217_remove().
+Register a devres action immediately after irq_domain_create_linear() to
+dispose all mapped hardware interrupts and remove chip->irq_domain so
+that the domain is torn down after child MFD devices and the managed IRQ
+handler have been released on both probe failure and unbind.
 
-Fixes: 40a50f8b307d ("mfd: tps65217: Fix page fault on unloading modules")
-Closes: https://sashiko.dev/#/bug/linux-7e358c08-6d75-48be-87d2-35dc037ea953
+Fixes: 6df8dd5c185b ("mfd: Add support for the MediaTek MT6397 PMIC")
+Closes: https://sashiko.dev/#/bug/linux-b296fbe4-6e83-40c0-91c7-2c31e8d226d0
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/mfd/tps65217.c | 40 ++++++++++++++++++++++------------------
- 1 file changed, 22 insertions(+), 18 deletions(-)
+ drivers/mfd/mt6358-irq.c  | 17 ++++++++++++++++-
+ drivers/mfd/mt6397-core.c |  4 +---
+ drivers/mfd/mt6397-irq.c  | 16 +++++++++++++++-
+ 3 files changed, 32 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/mfd/tps65217.c b/drivers/mfd/tps65217.c
-index c240fac0ede7..a1e9b9e22d82 100644
---- a/drivers/mfd/tps65217.c
-+++ b/drivers/mfd/tps65217.c
-@@ -146,6 +146,21 @@ static const struct irq_domain_ops tps65217_irq_domain_ops = {
- 	.map = tps65217_irq_map,
+diff --git a/drivers/mfd/mt6358-irq.c b/drivers/mfd/mt6358-irq.c
+index 74cf20843044..c747cae909ea 100644
+--- a/drivers/mfd/mt6358-irq.c
++++ b/drivers/mfd/mt6358-irq.c
+@@ -224,6 +224,17 @@ static const struct irq_domain_ops mt6358_irq_domain_ops = {
+ 	.xlate = irq_domain_xlate_twocell,
  };
  
-+static void tps65217_irq_exit(void *data)
++static void mt6358_irq_domain_remove(void *data)
 +{
-+	struct tps65217 *tps = data;
-+	unsigned int virq;
++	struct mt6397_chip *chip = data;
++	struct pmic_irq_data *irqd = chip->irq_data;
 +
-+	for (int i = 0; i < TPS65217_NUM_IRQ; i++) {
-+		virq = irq_find_mapping(tps->irq_domain, i);
-+		if (virq)
-+			irq_dispose_mapping(virq);
-+	}
++	for (unsigned int hwirq = 0; hwirq < irqd->num_pmic_irqs; hwirq++)
++		irq_dispose_mapping(irq_find_mapping(chip->irq_domain, hwirq));
 +
-+	irq_domain_remove(tps->irq_domain);
-+	tps->irq_domain = NULL;
++	irq_domain_remove(chip->irq_domain);
 +}
 +
- static int tps65217_irq_init(struct tps65217 *tps, int irq)
+ int mt6358_irq_init(struct mt6397_chip *chip)
  {
- 	int ret;
-@@ -165,6 +180,10 @@ static int tps65217_irq_init(struct tps65217 *tps, int irq)
- 		return -ENOMEM;
+ 	int i, j, ret;
+@@ -279,13 +290,17 @@ int mt6358_irq_init(struct mt6397_chip *chip)
+ 		return -ENODEV;
  	}
  
-+	ret = devm_add_action_or_reset(tps->dev, tps65217_irq_exit, tps);
++	ret = devm_add_action_or_reset(chip->dev, mt6358_irq_domain_remove,
++				       chip);
 +	if (ret)
 +		return ret;
 +
- 	ret = devm_request_threaded_irq(tps->dev, irq, NULL,
- 					tps65217_irq_thread, IRQF_ONESHOT,
- 					"tps65217-irq", tps);
-@@ -333,7 +352,9 @@ static int tps65217_probe(struct i2c_client *client)
+ 	ret = devm_request_threaded_irq(chip->dev, chip->irq, NULL,
+ 					mt6358_irq_handler, IRQF_ONESHOT,
+ 					mt6358_irq_chip.name, chip);
+ 	if (ret) {
+ 		dev_err(chip->dev, "Failed to register IRQ=%d, ret=%d\n",
+ 			chip->irq, ret);
+-		irq_domain_remove(chip->irq_domain);
+ 		return ret;
  	}
  
- 	if (client->irq) {
--		tps65217_irq_init(tps, client->irq);
-+		ret = tps65217_irq_init(tps, client->irq);
-+		if (ret)
-+			return ret;
- 	} else {
- 		int i;
+diff --git a/drivers/mfd/mt6397-core.c b/drivers/mfd/mt6397-core.c
+index 9ec951996588..e94e37cba249 100644
+--- a/drivers/mfd/mt6397-core.c
++++ b/drivers/mfd/mt6397-core.c
+@@ -395,10 +395,8 @@ static int mt6397_probe(struct platform_device *pdev)
+ 	ret = devm_mfd_add_devices(&pdev->dev, PLATFORM_DEVID_NONE,
+ 				   pmic_core->cells, pmic_core->cell_size,
+ 				   NULL, 0, pmic->irq_domain);
+-	if (ret) {
+-		irq_domain_remove(pmic->irq_domain);
++	if (ret)
+ 		dev_err(&pdev->dev, "failed to add child devices: %d\n", ret);
+-	}
  
-@@ -373,22 +394,6 @@ static int tps65217_probe(struct i2c_client *client)
- 	return 0;
+ 	return ret;
+ }
+diff --git a/drivers/mfd/mt6397-irq.c b/drivers/mfd/mt6397-irq.c
+index 5d2e5459f744..58645dbd8095 100644
+--- a/drivers/mfd/mt6397-irq.c
++++ b/drivers/mfd/mt6397-irq.c
+@@ -169,6 +169,16 @@ static int mt6397_irq_pm_notifier(struct notifier_block *notifier,
+ 	return NOTIFY_DONE;
  }
  
--static void tps65217_remove(struct i2c_client *client)
--{
--	struct tps65217 *tps = i2c_get_clientdata(client);
--	unsigned int virq;
--	int i;
--
--	for (i = 0; i < TPS65217_NUM_IRQ; i++) {
--		virq = irq_find_mapping(tps->irq_domain, i);
--		if (virq)
--			irq_dispose_mapping(virq);
--	}
--
--	irq_domain_remove(tps->irq_domain);
--	tps->irq_domain = NULL;
--}
--
- static const struct i2c_device_id tps65217_id_table[] = {
- 	{"tps65217", TPS65217},
- 	{ /* sentinel */ }
-@@ -402,7 +407,6 @@ static struct i2c_driver tps65217_driver = {
- 	},
- 	.id_table	= tps65217_id_table,
- 	.probe		= tps65217_probe,
--	.remove		= tps65217_remove,
- };
++static void mt6397_irq_domain_remove(void *data)
++{
++	struct mt6397_chip *chip = data;
++
++	for (int hwirq = 0; hwirq < MT6397_IRQ_NR; hwirq++)
++		irq_dispose_mapping(irq_find_mapping(chip->irq_domain, hwirq));
++
++	irq_domain_remove(chip->irq_domain);
++}
++
+ int mt6397_irq_init(struct mt6397_chip *chip)
+ {
+ 	int ret;
+@@ -223,13 +233,17 @@ int mt6397_irq_init(struct mt6397_chip *chip)
+ 		return -ENOMEM;
+ 	}
  
- static int __init tps65217_init(void)
++	ret = devm_add_action_or_reset(chip->dev, mt6397_irq_domain_remove,
++				       chip);
++	if (ret)
++		return ret;
++
+ 	ret = devm_request_threaded_irq(chip->dev, chip->irq, NULL,
+ 					mt6397_irq_thread, IRQF_ONESHOT,
+ 					"mt6397-pmic", chip);
+ 	if (ret) {
+ 		dev_err(chip->dev, "failed to register irq=%d; err: %d\n",
+ 			chip->irq, ret);
+-		irq_domain_remove(chip->irq_domain);
+ 		return ret;
+ 	}
+ 
 -- 
 2.56.0.218.g1ec904b173-goog
 
