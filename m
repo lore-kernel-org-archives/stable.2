@@ -1,55 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792571999;
-	b=nnHsM/y8U+D9GL8FgMj4xl1UytxOqnrikYsmuT1x9YVsW8j7+IAFlVbPOHeLiycGryYd
-	 kw7a9Tnt1pVwr9I7O9fHubtoKX7NeSl5ixjgAq0N2sBAWsh00nzIykoC+RK2QIoccBmmZ
-	 78jVL/EM6V6UEzh8fVXxzuACtsjMu4EtdkvSWBzE7bCrptX0PLNkf0lvvbMOWRPcugE+/
-	 luyx8N0aGIEPJa9YwqzS9lEUoE7dXZcZJO3RsbmQwpMFcnHj6VlKiaBckQBDNHBw4Kp6o
-	 lNf92SuWNl6v2BIy/ZVBk5uLZiyr1y/KlFqfbv/8lmoF6y3cXtQU3EJblgmZ3DPCdLg==
+	t=1792572005;
+	b=XMUACpZZDsXmzmXgxKw+4/9p4IzXQ+zI1F/7NzGKQ3yvuSIRrFSzwQTvbXD4Q0MUpTRp
+	 AKcS36ONjlKxUjEFj6fkXDVGAxoOXHnI43AnlPm+ZvTR7bXWsOiLh7ZC0YvbM9yshpJD8
+	 vp3mWmYSkN5auBIWt3QUN4LLtpdjPxQRDQlTy4VJDzcXqpEf7/+cgII0aYTeJLk08qoNp
+	 hvhYC9Ck7k9dKhFixaZ/5ro5E4hdLpgluR2zLZyvA2A7BP1r7vvLHaWz3d0UCBGicaiYs
+	 Wjv1mv9GmYAMmdSrwqxhdXRD5iQL7sFgi71F2anrNrN5kFK7Dgs6SXcMbpZmb4w5MdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792571999;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=m7nXAhBSANFwou7XyEWSGPuwaW1KeR9xos7aUOqEP/s=;
-	b=4tBpqATgXsz7RjUH2OiEEox/3ai6eYFiNa6ajCyxfY4sgYvLCeN98OVx9Ai+kbYxTe8f
-	 L+hlqNZ0mfirNDlx23L/m2ll8GA/esCn5cjnT6Xx7/SGo+VHEIFVfYMtc9MtKmmF3YgiM
-	 LG5JRDLAFOcmffpyny6ssoXyJoq9BJ4051AvS+xqlh0Xt/y+C9Kf4Q7jNfmthgQ3Q+EnQ
-	 mFocBpOzPCao/EOQsI1XHposVM8dl/kW2A21YnLYYXnaXt9wkT2xmsdNp7/GKAkjZSW2f
-	 UuNeGtLN7R6cIZ8Kkm1DvKBd4Z64KFBl31BuVRP3JJHD9Z5tfRBEiPzQuEafwgFVvhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792572005;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=R3wC1JPd18KvPMWWOaNn6dj8NYQPZH/iR9+7PTFAozg=;
+	b=a4VXRHI2kOAhODL5o3J1O4c3yzT3y7o708tz0idcEvQF7GMNJ3LPzjgH3zQiPnVWz7/B
+	 F/4SE3SIuD3Nq6rcJYVxxXtOoO14KLt/Y/AEG2fnGSGJPPYNOEE+I2P1KgPPhDidURBBj
+	 AISzePho9I7QUvlnNy9oSoeKUOUSmhCHxLTLPsnVlshy8SUdp36BHmLLeDL60oTYB5y0x
+	 F9HJbeWe1Zk7+c01sUagp+xSswu2ltJjAC7KKqw/tjUWcxcsA4zzbiwLZMNn7NsLaRR1m
+	 AECXfbwfGsjhCeW0F+HZMIv0lnXoEPsvimGgC8vS+ut/S0+dko9zIsxPBSgaopDb3Ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xTsQu9Dd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=invisiblethingslab.com;
+	spf=pass smtp.mailfrom=invisiblethingslab.com;
+	dkim=pass header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2 header.b=RrD+Fnjt;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=qBgqKCYl;
+	arc=none smtp.remote-ip=103.168.172.144
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28AB606A326;
-	Wed, 21 Oct 2026 08:39:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE5360A381E
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 08:40:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEE5360A381E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=invisiblethingslab.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xTsQu9Dd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A13A91F000CC;
-	Wed, 21 Oct 2026 08:39:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792571998;
-	bh=m7nXAhBSANFwou7XyEWSGPuwaW1KeR9xos7aUOqEP/s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=xTsQu9Ddl49Fzdzb6yqZWMDFTqB4/keLgJdnmKVsLAahAznmbuvYdD6qyNxlL3Hu+
-	 Aey+3jXhzWoLGl33a9ghmzQVxdRP16ATKB0jvwUrUBkKHMD1Efr1b9vJJMTp+9kk0k
-	 O4Dd7Lywqyr+6WgtttyO/HOglEjE6rZtjvJZKYVY=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org,
-	torvalds@linux-foundation.org,
+	dkim=pass (2048-bit key, unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2 header.b=RrD+Fnjt;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=qBgqKCYl
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfout.phl.internal (Postfix) with ESMTP id 14B31EC0236
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 04:40:04 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-09.internal (MEProxy); Wed, 21 Oct 2026 04:40:04 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1792572004; x=1792658404; bh=R3wC1JPd18
+	KvPMWWOaNn6dj8NYQPZH/iR9+7PTFAozg=; b=RrD+Fnjt702H5uTiBWvupeXSZj
+	qTdyIvI4zz1GeM7WzQiSIky0Aul9mzU2HviWFZCDPZBXxDUyrSdi0HCwDahPxuBb
+	RmZbxwvvEbRrgPaosKThAfBpG0CeyC6lj8B0q+Ph6uu1VBYqdaIEben64OUIORE1
+	nN5hjlggnMKOtJMkbV5njmgV/wkBnoLpHDUwvJXu722i3k3mGoP8S5IQ3JRPtskL
+	TBxFOmz/2Fdw+s5bT1jx6YzUA5XhsZVqQKO79ROZ115rHMg/eRfsUf49EKa/hi6r
+	379E8lTEKiUK6v7I3jmXco64Kr/TXSr0htl8DwjW+dimmWYxBKbHq/gy7ZrQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792572004; x=
+	1792658404; bh=R3wC1JPd18KvPMWWOaNn6dj8NYQPZH/iR9+7PTFAozg=; b=q
+	BgqKCYlP/QpRKUTOJcxDIDbuHLKa+TDNXnyuunR1PZMe68qbGJCFjeubrc+AeFRo
+	Wreyw0eR17heWm8+dvvK7PP8qfAkhG630ere3WI2u095nub9bx27AGJudMZe51AE
+	FpX4SdCo/92YhG/YtrgXeNRDF8gqGtE6SW8HQnenDUcNAHzePaCskDYzMzU/OQL7
+	JKgWZ8WDBZfSjRoTVb78qEjwgrm/f/Uf6+3nTliUH7F3KnBdZ9P+4poxoN9gXt1a
+	r6hRshnWSnCrDWcA9GKit3x2dViCKolnzzVqmQYa40uyVqujKcddYpt2DIKjuQIx
+	2G1/foMEGUU4G1dhB1ezA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=invisiblethingslab.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792572004; d=invisiblethingslab.com;
+	mf=PHZhbEBpbnZpc2libGV0aGluZ3NsYWIuY29tPg==;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:b93P21DRnhUturZCgHZcndhUyFA0Mc1LVgbw2B2o7bCLYph
+	NZ0dULO6Jcu4EgG9IYAAgaPnS+Yxvk9lz7A+fAR8LoQ0b0T7M3K16thP82zilI21
+	OTaL/GlSt+D3zeK7L4Mswwy8fDLnF/mpP9SmYqc1/lryPn3Nc2OQFyFSnUAnsDZ/
+	oFp4dOWUxy79ZtwHfa67A1m+AaMgSv4jKyFdLb9dwzelr5klAHW5fEYDDS6gsqnw
+	W8fYOQqpr7ROgIG8Pwf5mdbYQo9OaNCzSPFwJzyvZZNvhAycNLGXtT2ZfsUok712
+	MX94Kn+pjh97v6AZU1zcWEdruNuEFLH5zX6qR/g==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:y26MGpA102mWR2TadjRDKL1Mv+2OFyq71aY+/6228Qc=:a4kf+vVraiqrr1PQbOh4rjyht/6Hl0n1XbpxcyRmQbY=;
+X-ME-Sender: <xms:Y3rYasNt3gWyGEymAOeCJcEkrOLFirTPmtmIIiRa3HWSakAsUijgOA>
+    <xme:Y3rYatD4_zibLhLwnpvdKiG-bnwB_D4QHvB3sL_taE_aY9sRdiMEBKstgWOrDtDKx
+    Pdj-CMSsXz_D0p0xuFnxWjAdMGJSvR-PDMMZAssgt8Xf0A_Tx7a>
+X-ME-Received: <xmr:Y3rYaoMc8gvQTyH1MyfsvjQ9W_wv-MVMAEvgv3r-cdQfmcFoLIuWTJuJGL0u-WqWlmDUE1_gfYRfydGyRbPJ6Sj5uEVhiMUZqUjNL9bRWAmMPTrnNXWo2k2NiQYfkA>
+X-ME-Proxy-Cause: dmFkZTEPpr9PTmsu9mAqZaSuT5MxI2aubm3CsxGChrzKRK91OcndI/l7tJu+NMEFJuF0DZ
+    GIiG+h5CR2GBKlA0T/mp1bK1eBlDsJyhFQghHgjGPJfWYZdhrTajibc3jm8S6Oux7G0ma1
+    rqzQ2K5cDJrtFRlHSZ6HqUynScBfpM0jZYeQjV2P472PAQel6yNLh5LOSuLqRkCVXa+OcW
+    6BEdzTV6wF3MCTJQ7+niRd+bRSEMLL21FPX1EAjFDCQqxTUOlBoYC3NrdTEhVBgQ1sGASo
+    YJvaNNZQyZowva7JsrV36YyECAepm1VSeuwjTLpifU9a7/8IIN9f6oPhmhrkB4GkQTMXc+
+    9fxZv+qBLXsS10fDy+9tbFT/wSmfwiQ3K0IkB6M4VK+q6uK0Wo0J9O7U0CprHzp5+majco
+    4mhA+LxWbAL03Il8PU0dIYFegZjLGdsjFmTwbxX3BCRN0fiDOoQSDOkORtv3Hg3pv2VC04
+    +uxHK7PcSg4r+glfexNPOsI512jurmnTBWWaETwx8eACwmps269eZZinLYXAYiI40PCMyr
+    ocVFchvE8Q6lopsx4a2oENuCVve/R3oJnbwyTcJvkPV3oHxoXCqaFo0j0gMl/X+7pzLrso
+    qFhKZc4TVnFDXNd/GG11Oto6XTWfiF3+mPa+tO612T1TpV9nJUJqrhGOGFjg
+X-ME-Proxy: <xmx:Y3rYase4Zfh2QIGcdVn19qr9dIhRkpVcLiAPXd428GieotQAemiZvA>
+    <xmx:Y3rYah5qjK6Y-oFesMZE1iP-zL8ZIIylEbR26RabU5T1VBISgSvS1w>
+    <xmx:Y3rYamJwPxhICz5VeN_UEhmz6neeaPUhNDXNlleA0tU2k0wd71_1yg>
+    <xmx:Y3rYajUt0xjIJciussFxJTb42_lt_9-5iWyQFT2ObNfzifgHyxaSUA>
+    <xmx:ZHrYaoVs9OfgGCQzYodvXhDgaOmW_YDXKoWffSp6hb4lqHR6zRA7_Gxo>
+Feedback-ID: i001e48d0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 21 Oct 2026 04:40:01 -0400 (EDT)
+From: Val Packett <val@invisiblethingslab.com>
+To: Gerd Hoffmann <kraxel@redhat.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Dongwon Kim <dongwon.kim@intel.com>
+Cc: Val Packett <val@invisiblethingslab.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: lwn@lwn.net,
-	jslaby@suse.cz,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: Linux 7.2.12
-Date: Wed, 21 Oct 2026 10:38:27 +0200
-Message-ID: <2026102127-hangout-outright-f5fe@gregkh>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <2026102127-ambulance-outplayed-835a@gregkh>
-References: <2026102127-ambulance-outplayed-835a@gregkh>
+Subject: [PATCH v2 1/2] udmabuf: Fix list length overflow check
+Date: Wed, 21 Oct 2026 05:39:11 -0300
+Message-ID: <20261021083933.1983894-2-val@invisiblethingslab.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261021083933.1983894-1-val@invisiblethingslab.com>
+References: <20261021083933.1983894-1-val@invisiblethingslab.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,795 +134,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-diff --git a/Makefile b/Makefile
-index 4b60c83ab75c..a550506403fe 100644
---- a/Makefile
-+++ b/Makefile
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
- VERSION = 7
- PATCHLEVEL = 2
--SUBLEVEL = 11
-+SUBLEVEL = 12
- EXTRAVERSION =
- NAME = Baby Opossum Posse
+The udmabuf list length limit was made configurable, creating the
+possibility for integer overflow that was not properly detected.
+If the system administrator set the udmabuf.list_limit tunable to
+a large value like INT_MAX, that would allow udmabuf users to submit
+a list whose length would overflow the u32 length variable.
+
+Use memdup_array_user() instead of raw memdup_user() to make the length
+calculation an overflow-checked multiplication.
+
+Cc: stable@vger.kernel.org
+Fixes: 2e717a55982a ("udmabuf: configurable list_limit and size_limit_mb")
+Suggested-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Val Packett <val@invisiblethingslab.com>
+---
+ drivers/dma-buf/udmabuf.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index df6dd0046242..654ebe7f6b3f 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -470,14 +470,13 @@ static long udmabuf_ioctl_create_list(struct file *filp, unsigned long arg)
+ 	struct udmabuf_create_list head;
+ 	struct udmabuf_create_item *list;
+ 	int ret = -EINVAL;
+-	u32 lsize;
  
-diff --git a/arch/x86/kvm/x86.h b/arch/x86/kvm/x86.h
-index 9973f905955a..ded77a4c8069 100644
---- a/arch/x86/kvm/x86.h
-+++ b/arch/x86/kvm/x86.h
-@@ -313,7 +313,7 @@ static inline bool is_noncanonical_invlpg_address(u64 la, struct kvm_vcpu *vcpu)
- static inline void vcpu_cache_mmio_info(struct kvm_vcpu *vcpu,
- 					gva_t gva, gfn_t gfn, unsigned access)
- {
--	u64 gen = kvm_memslots(vcpu->kvm)->generation;
-+	u64 gen = kvm_vcpu_memslots(vcpu)->generation;
- 
- 	if (unlikely(gen & KVM_MEMSLOT_GEN_UPDATE_IN_PROGRESS))
- 		return;
-@@ -330,7 +330,7 @@ static inline void vcpu_cache_mmio_info(struct kvm_vcpu *vcpu,
- 
- static inline bool vcpu_match_mmio_gen(struct kvm_vcpu *vcpu)
- {
--	return vcpu->arch.mmio_gen == kvm_memslots(vcpu->kvm)->generation;
-+	return vcpu->arch.mmio_gen == kvm_vcpu_memslots(vcpu)->generation;
- }
- 
- /*
-diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
-index 4bda7b5dba1a..3b36f4b8ec67 100644
---- a/drivers/md/dm-integrity.c
-+++ b/drivers/md/dm-integrity.c
-@@ -180,6 +180,7 @@ struct dm_integrity_c {
- 	struct dm_bufio_client *bufio;
- 	struct workqueue_struct *metadata_wq;
- 	struct superblock *sb;
-+	struct superblock *sb_copy;
- 	unsigned int journal_pages;
- 	unsigned int n_bitmap_blocks;
- 
-@@ -3857,6 +3858,35 @@ static void dm_integrity_postsuspend(struct dm_target *ti)
- 	ic->journal_uptodate = true;
- }
- 
-+/*
-+ * The superblock is re-read from the device on every resume, so that we pick
-+ * up the flags and the recalculate position. The geometry described by the
-+ * superblock must not change though - the in-memory structures (and the
-+ * journal in particular) were sized according to the superblock that was
-+ * validated in the constructor. Reject a superblock that was modified behind
-+ * our back.
-+ *
-+ * Only the fields that the driver never rewrites may be tested here. In
-+ * particular, "version" is recalculated by sb_set_version on every superblock
-+ * write and it depends on SB_FLAG_RECALCULATING and SB_FLAG_DIRTY_BITMAP, and
-+ * SB_FLAG_DISCARD_KEYED may be set by dm_integrity_resume itself.
-+ */
-+static bool superblock_changed(struct dm_integrity_c *ic)
-+{
-+	const __le32 immutable_flags = cpu_to_le32(SB_FLAG_HAVE_JOURNAL_MAC |
-+						   SB_FLAG_FIXED_PADDING |
-+						   SB_FLAG_FIXED_HMAC |
-+						   SB_FLAG_INLINE);
-+
-+	return memcmp(ic->sb->magic, ic->sb_copy->magic, sizeof(ic->sb->magic)) != 0 ||
-+	       ic->sb->log2_interleave_sectors != ic->sb_copy->log2_interleave_sectors ||
-+	       ic->sb->integrity_tag_size != ic->sb_copy->integrity_tag_size ||
-+	       ic->sb->journal_sections != ic->sb_copy->journal_sections ||
-+	       ic->sb->log2_sectors_per_block != ic->sb_copy->log2_sectors_per_block ||
-+	       ((ic->sb->flags ^ ic->sb_copy->flags) & immutable_flags) != 0 ||
-+	       memcmp(ic->sb->salt, ic->sb_copy->salt, SALT_SIZE) != 0;
-+}
-+
- static void dm_integrity_resume(struct dm_target *ti)
- {
- 	struct dm_integrity_c *ic = ti->private;
-@@ -3874,6 +3904,22 @@ static void dm_integrity_resume(struct dm_target *ti)
- 	r = sync_rw_sb(ic, REQ_OP_READ);
- 	if (r)
- 		dm_integrity_io_error(ic, "reading superblock", r);
-+
-+	if (unlikely(superblock_changed(ic))) {
-+		/*
-+		 * Restore the superblock that we validated in the constructor,
-+		 * so that the rest of the driver doesn't operate on values
-+		 * that don't match the in-memory structures.
-+		 */
-+		memcpy(ic->sb, ic->sb_copy, sizeof(struct superblock));
-+		DMERR("The superblock was changed while the device was suspended");
-+		dm_integrity_io_error(ic, "superblock check", -EINVAL);
-+		goto skip_writes;
-+	}
-+
-+	if (ic->mode == 'R')
-+		goto skip_writes;
-+
- 	if ((ic->sb->flags & flags) != flags) {
- 		ic->sb->flags |= flags;
- 		r = sync_rw_sb(ic, REQ_OP_WRITE | REQ_FUA);
-@@ -3983,6 +4029,7 @@ static void dm_integrity_resume(struct dm_target *ti)
- 		}
- 	}
- 
-+skip_writes:
- 	ic->reboot_notifier.notifier_call = dm_integrity_reboot;
- 	ic->reboot_notifier.next = NULL;
- 	ic->reboot_notifier.priority = INT_MAX - 1;	/* be notified after md and before hardware drivers */
-@@ -5416,6 +5463,13 @@ static int dm_integrity_ctr(struct dm_target *ti, unsigned int argc, char **argv
- 		ic->just_formatted = true;
- 	}
- 
-+	ic->sb_copy = kmemdup(ic->sb, sizeof(struct superblock), GFP_KERNEL);
-+	if (!ic->sb_copy) {
-+		ti->error = "Cannot allocate superblock copy";
-+		r = -ENOMEM;
-+		goto bad;
-+	}
-+
- 	if (!ic->meta_dev && ic->mode != 'I') {
- 		r = dm_set_target_max_io_len(ti, 1U << ic->sb->log2_interleave_sectors);
- 		if (r)
-@@ -5514,6 +5568,7 @@ static void dm_integrity_dtr(struct dm_target *ti)
- 	kvfree(ic->journal_tree);
- 	if (ic->sb)
- 		free_pages_exact(ic->sb, SB_SECTORS << SECTOR_SHIFT);
-+	kfree(ic->sb_copy);
- 
- 	if (ic->internal_shash)
- 		crypto_free_shash(ic->internal_shash);
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_bpf.c b/drivers/net/ethernet/microsoft/mana/mana_bpf.c
-index 5c9961ee9747..b27fd9b8c4f6 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_bpf.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_bpf.c
-@@ -91,7 +91,7 @@ u32 mana_run_xdp(struct net_device *ndev, struct mana_rxq *rxq,
- 		goto out;
- 
- 	xdp_init_buff(xdp, PAGE_SIZE, &rxq->xdp_rxq);
--	xdp_prepare_buff(xdp, buf_va, XDP_PACKET_HEADROOM, pkt_len, true);
-+	xdp_prepare_buff(xdp, buf_va, rxq->headroom, pkt_len, true);
- 
- 	act = bpf_prog_run_xdp(prog, xdp);
- 
-@@ -183,9 +183,9 @@ static int mana_xdp_set(struct net_device *ndev, struct bpf_prog *prog,
- 	if (!old_prog && !prog)
- 		return 0;
- 
--	if (prog && ndev->mtu > MANA_XDP_MTU_MAX) {
-+	if (prog && ndev->mtu > MANA_XDP_MTU_MAX(ndev)) {
- 		netdev_err(ndev, "XDP: mtu:%u too large, mtu_max:%lu\n",
--			   ndev->mtu, MANA_XDP_MTU_MAX);
-+			   ndev->mtu, MANA_XDP_MTU_MAX(ndev));
- 		NL_SET_ERR_MSG_MOD(extack, "XDP: mtu too large");
- 
- 		return -EOPNOTSUPP;
-@@ -238,7 +238,7 @@ static int mana_xdp_set(struct net_device *ndev, struct bpf_prog *prog,
- 		bpf_prog_put(old_prog);
- 
- 	if (prog)
--		ndev->max_mtu = min_t(unsigned int, MANA_XDP_MTU_MAX,
-+		ndev->max_mtu = min_t(unsigned int, MANA_XDP_MTU_MAX(ndev),
- 				      gc->adapter_mtu - ETH_HLEN);
- 	else
- 		ndev->max_mtu = gc->adapter_mtu - ETH_HLEN;
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-index 8fb29dcddf8e..af5d4a4f56f1 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-@@ -755,26 +755,62 @@ static void *mana_get_rxbuf_pre(struct mana_rxq *rxq, dma_addr_t *da)
- 	return va;
- }
- 
--/* Get RX buffer's data size, alloc size, XDP headroom based on MTU */
-+/* Reserve enough headroom to satisfy the skb_cow() in ip_forward() and avoid
-+ * reallocation: the TX path keeps the SGE DMA mappings in struct mana_skb_head
-+ * at skb->head, so the port advertises ndev->needed_headroom = MANA_HEADROOM.
-+ */
-+static u32 mana_get_rxbuf_headroom(struct mana_port_context *apc)
-+{
-+	if (mana_xdp_get(apc))
-+		return mana_xdp_headroom(apc->ndev);
-+
-+	return LL_RESERVED_SPACE(apc->ndev);
-+}
-+
-+static u32 mana_get_rxbuf_size(struct mana_port_context *apc, u32 mtu)
-+{
-+	u32 len = SKB_DATA_ALIGN(mtu + MANA_RXBUF_PAD +
-+				 mana_get_rxbuf_headroom(apc));
-+
-+	return ALIGN(len, MANA_RX_FRAG_ALIGNMENT);
-+}
-+
-+/* Returns true when one RX buffer per page is already required by XDP or by
-+ * the buffer size implied by the MTU, i.e. regardless of the
-+ * MANA_PRIV_FLAG_USE_FULL_PAGE_RXBUF private flag.
-+ */
-+bool mana_single_rxbuf_per_page_forced(struct mana_port_context *apc, u32 mtu)
-+{
-+	/* For xdp make sure only one packet fits per page. */
-+	if (mana_xdp_get(apc))
-+		return true;
-+
-+	/* Only use the page_pool fragment path when at least two buffers,
-+	 * including the headroom each of them has to reserve, actually fit
-+	 * into one page. Otherwise the fragment path degenerates into one
-+	 * buffer per page while still paying the fragment accounting cost.
-+	 */
-+	return PAGE_SIZE / mana_get_rxbuf_size(apc, mtu) < 2;
-+}
-+
-+/* Get RX buffer's data size, alloc size, headroom and frag count based on MTU */
- static void mana_get_rxbuf_cfg(struct mana_port_context *apc,
- 			       int mtu, u32 *datasize, u32 *alloc_size,
- 			       u32 *headroom, u32 *frag_count)
- {
--	u32 len, buf_size;
-+	u32 buf_size;
- 
- 	/* Calculate datasize first (consistent across all cases) */
- 	*datasize = mtu + ETH_HLEN;
- 
--	/* For xdp and jumbo frames make sure only one packet fits per page */
--	if (mtu + MANA_RXBUF_PAD > PAGE_SIZE / 2 || mana_xdp_get(apc)) {
--		if (mana_xdp_get(apc)) {
--			*headroom = XDP_PACKET_HEADROOM;
-+	*headroom = mana_get_rxbuf_headroom(apc);
-+
-+	if (mana_single_rxbuf_per_page_forced(apc, mtu)) {
-+		if (mana_xdp_get(apc))
- 			*alloc_size = PAGE_SIZE;
--		} else {
--			*headroom = 0; /* no support for XDP */
-+		else
- 			*alloc_size = SKB_DATA_ALIGN(mtu + MANA_RXBUF_PAD +
- 						     *headroom);
--		}
- 
- 		*frag_count = 1;
- 
-@@ -788,11 +824,7 @@ static void mana_get_rxbuf_cfg(struct mana_port_context *apc,
- 	}
- 
- 	/* Standard MTU case - optimize for multiple packets per page */
--	*headroom = 0;
--
--	/* Calculate base buffer size needed */
--	len = SKB_DATA_ALIGN(mtu + MANA_RXBUF_PAD + *headroom);
--	buf_size = ALIGN(len, MANA_RX_FRAG_ALIGNMENT);
-+	buf_size = mana_get_rxbuf_size(apc, mtu);
- 
- 	/* Calculate how many packets can fit in a page */
- 	*frag_count = PAGE_SIZE / buf_size;
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-index 881df597d7f9..3531abfdaf43 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-@@ -138,53 +138,70 @@ static int mana_get_sset_count(struct net_device *ndev, int stringset)
- 	struct mana_port_context *apc = netdev_priv(ndev);
- 	unsigned int num_queues = apc->num_queues;
- 
--	if (stringset != ETH_SS_STATS)
-+	switch (stringset) {
-+	case ETH_SS_STATS:
-+		return ARRAY_SIZE(mana_eth_stats) +
-+		       ARRAY_SIZE(mana_phy_stats) +
-+		       ARRAY_SIZE(mana_hc_stats)  +
-+		       num_queues * (MANA_STATS_RX_COUNT + MANA_STATS_TX_COUNT);
-+	default:
+ 	if (copy_from_user(&head, (void __user *)arg, sizeof(head)))
+ 		return -EFAULT;
+ 	if (head.count > list_limit)
  		return -EINVAL;
--
--	return ARRAY_SIZE(mana_eth_stats) + ARRAY_SIZE(mana_phy_stats) + ARRAY_SIZE(mana_hc_stats) +
--			num_queues * (MANA_STATS_RX_COUNT + MANA_STATS_TX_COUNT);
-+	}
- }
+-	lsize = sizeof(struct udmabuf_create_item) * head.count;
+-	list = memdup_user((void __user *)(arg + sizeof(head)), lsize);
++	list = memdup_array_user((void __user *)(arg + sizeof(head)),
++				head.count, sizeof(struct udmabuf_create_item));
+ 	if (IS_ERR(list))
+ 		return PTR_ERR(list);
  
--static void mana_get_strings(struct net_device *ndev, u32 stringset, u8 *data)
-+static void mana_get_strings_stats(struct mana_port_context *apc, u8 **data)
- {
--	struct mana_port_context *apc = netdev_priv(ndev);
- 	unsigned int num_queues = apc->num_queues;
- 	int i, j;
- 
--	if (stringset != ETH_SS_STATS)
--		return;
- 	for (i = 0; i < ARRAY_SIZE(mana_eth_stats); i++)
--		ethtool_puts(&data, mana_eth_stats[i].name);
-+		ethtool_puts(data, mana_eth_stats[i].name);
- 
- 	for (i = 0; i < ARRAY_SIZE(mana_hc_stats); i++)
--		ethtool_puts(&data, mana_hc_stats[i].name);
-+		ethtool_puts(data, mana_hc_stats[i].name);
- 
- 	for (i = 0; i < ARRAY_SIZE(mana_phy_stats); i++)
--		ethtool_puts(&data, mana_phy_stats[i].name);
-+		ethtool_puts(data, mana_phy_stats[i].name);
- 
- 	for (i = 0; i < num_queues; i++) {
--		ethtool_sprintf(&data, "rx_%d_packets", i);
--		ethtool_sprintf(&data, "rx_%d_bytes", i);
--		ethtool_sprintf(&data, "rx_%d_xdp_drop", i);
--		ethtool_sprintf(&data, "rx_%d_xdp_tx", i);
--		ethtool_sprintf(&data, "rx_%d_xdp_redirect", i);
--		ethtool_sprintf(&data, "rx_%d_pkt_len0_err", i);
-+		ethtool_sprintf(data, "rx_%d_packets", i);
-+		ethtool_sprintf(data, "rx_%d_bytes", i);
-+		ethtool_sprintf(data, "rx_%d_xdp_drop", i);
-+		ethtool_sprintf(data, "rx_%d_xdp_tx", i);
-+		ethtool_sprintf(data, "rx_%d_xdp_redirect", i);
-+		ethtool_sprintf(data, "rx_%d_pkt_len0_err", i);
- 		for (j = 0; j < MANA_RXCOMP_OOB_NUM_PPI - 1; j++)
--			ethtool_sprintf(&data, "rx_%d_coalesced_cqe_%d", i, j + 2);
-+			ethtool_sprintf(data,
-+					"rx_%d_coalesced_cqe_%d",
-+					i,
-+					j + 2);
- 	}
- 
- 	for (i = 0; i < num_queues; i++) {
--		ethtool_sprintf(&data, "tx_%d_packets", i);
--		ethtool_sprintf(&data, "tx_%d_bytes", i);
--		ethtool_sprintf(&data, "tx_%d_xdp_xmit", i);
--		ethtool_sprintf(&data, "tx_%d_tso_packets", i);
--		ethtool_sprintf(&data, "tx_%d_tso_bytes", i);
--		ethtool_sprintf(&data, "tx_%d_tso_inner_packets", i);
--		ethtool_sprintf(&data, "tx_%d_tso_inner_bytes", i);
--		ethtool_sprintf(&data, "tx_%d_long_pkt_fmt", i);
--		ethtool_sprintf(&data, "tx_%d_short_pkt_fmt", i);
--		ethtool_sprintf(&data, "tx_%d_csum_partial", i);
--		ethtool_sprintf(&data, "tx_%d_mana_map_err", i);
-+		ethtool_sprintf(data, "tx_%d_packets", i);
-+		ethtool_sprintf(data, "tx_%d_bytes", i);
-+		ethtool_sprintf(data, "tx_%d_xdp_xmit", i);
-+		ethtool_sprintf(data, "tx_%d_tso_packets", i);
-+		ethtool_sprintf(data, "tx_%d_tso_bytes", i);
-+		ethtool_sprintf(data, "tx_%d_tso_inner_packets", i);
-+		ethtool_sprintf(data, "tx_%d_tso_inner_bytes", i);
-+		ethtool_sprintf(data, "tx_%d_long_pkt_fmt", i);
-+		ethtool_sprintf(data, "tx_%d_short_pkt_fmt", i);
-+		ethtool_sprintf(data, "tx_%d_csum_partial", i);
-+		ethtool_sprintf(data, "tx_%d_mana_map_err", i);
-+	}
-+}
-+
-+static void mana_get_strings(struct net_device *ndev, u32 stringset, u8 *data)
-+{
-+	struct mana_port_context *apc = netdev_priv(ndev);
-+
-+	switch (stringset) {
-+	case ETH_SS_STATS:
-+		mana_get_strings_stats(apc, &data);
-+		break;
-+	default:
-+		break;
- 	}
- }
- 
-diff --git a/drivers/net/wireless/ath/ath9k/wmi.c b/drivers/net/wireless/ath/ath9k/wmi.c
-index 4a08babb6d9d..44e91815a159 100644
---- a/drivers/net/wireless/ath/ath9k/wmi.c
-+++ b/drivers/net/wireless/ath/ath9k/wmi.c
-@@ -206,16 +206,9 @@ static void ath9k_wmi_rsp_callback(struct wmi *wmi, struct sk_buff *skb)
- {
- 	skb_pull(skb, sizeof(struct wmi_cmd_hdr));
- 
--	if (wmi->cmd_rsp_buf && wmi->cmd_rsp_len) {
--		if (skb->len < wmi->cmd_rsp_len) {
--			wmi->cmd_rsp_status = -EMSGSIZE;
--			goto complete;
--		}
-+	if (wmi->cmd_rsp_buf != NULL && wmi->cmd_rsp_len != 0)
- 		memcpy(wmi->cmd_rsp_buf, skb->data, wmi->cmd_rsp_len);
--	}
--	wmi->cmd_rsp_status = 0;
- 
--complete:
- 	complete(&wmi->cmd_wait);
- }
- 
-@@ -307,7 +300,6 @@ static int ath9k_wmi_cmd_issue(struct wmi *wmi,
- 	/* record the rsp buffer and length */
- 	wmi->cmd_rsp_buf = rsp_buf;
- 	wmi->cmd_rsp_len = rsp_len;
--	wmi->cmd_rsp_status = 0;
- 
- 	wmi->last_seq_id = wmi->tx_seq_id;
- 	spin_unlock_irqrestore(&wmi->wmi_lock, flags);
-@@ -364,13 +356,9 @@ int ath9k_wmi_cmd(struct wmi *wmi, enum wmi_cmd_id cmd_id,
- 		return -ETIMEDOUT;
- 	}
- 
--	spin_lock_irqsave(&wmi->wmi_lock, flags);
--	ret = wmi->cmd_rsp_status;
--	spin_unlock_irqrestore(&wmi->wmi_lock, flags);
--
- 	mutex_unlock(&wmi->op_mutex);
- 
--	return ret;
-+	return 0;
- 
- out:
- 	ath_dbg(common, WMI, "WMI failure for: %s\n", wmi_cmd_to_name(cmd_id));
-diff --git a/drivers/net/wireless/ath/ath9k/wmi.h b/drivers/net/wireless/ath/ath9k/wmi.h
-index 0bb9d31f1a1c..5c3b710b8f31 100644
---- a/drivers/net/wireless/ath/ath9k/wmi.h
-+++ b/drivers/net/wireless/ath/ath9k/wmi.h
-@@ -157,7 +157,6 @@ struct wmi {
- 	u16 tx_seq_id;
- 	u8 *cmd_rsp_buf;
- 	u32 cmd_rsp_len;
--	int cmd_rsp_status;
- 	bool stopped;
- 
- 	struct list_head pending_tx_events;
-diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
-index 939749709e41..7c29557962b0 100644
---- a/fs/nfsd/nfs4proc.c
-+++ b/fs/nfsd/nfs4proc.c
-@@ -2243,6 +2243,8 @@ nfsd4_copy(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
- 			goto out_dec_async_copy_err;
- 		memcpy(&result->cb_stateid, &async_copy->cp_stateid.cs_stid,
- 			sizeof(result->cb_stateid));
-+		memcpy(&async_copy->cp_res.cb_stateid, &async_copy->cp_stateid.cs_stid,
-+		       sizeof(async_copy->cp_res.cb_stateid));
- 		if ((READ_ONCE(copy->nf_dst->nf_file->f_mode) &
- 			       FMODE_NOCMTIME) != 0)
- 			async_copy->attr_update = true;
-diff --git a/fs/nullfs.c b/fs/nullfs.c
-index 20d3aa627a47..c89181daf208 100644
---- a/fs/nullfs.c
-+++ b/fs/nullfs.c
-@@ -8,6 +8,35 @@ static const struct super_operations nullfs_super_operations = {
- 	.statfs	= simple_statfs,
- };
- 
-+static loff_t nullfs_dir_llseek(struct file *file, loff_t offset, int whence)
-+{
-+	/* an empty directory has two entries . and .. at offsets 0 and 1 */
-+	return generic_file_llseek_size(file, offset, whence, 2, 2);
-+}
-+
-+static int nullfs_dir_readdir(struct file *file, struct dir_context *ctx)
-+{
-+	dir_emit_dots(file, ctx);
-+	return 0;
-+}
-+
-+/* the one inode of nullfs is shared by every holder, so no locks on it */
-+static int nullfs_nolock(struct file *file, int cmd, struct file_lock *fl)
-+{
-+	return -ENOLCK;
-+}
-+
-+/* what libfs gives an empty directory, plus the refusal of file locks */
-+static const struct file_operations nullfs_dir_operations = {
-+	.llseek		= nullfs_dir_llseek,
-+	.read		= generic_read_dir,
-+	.iterate_shared	= nullfs_dir_readdir,
-+	.fsync		= noop_fsync,
-+	.lock		= nullfs_nolock,
-+	.flock		= nullfs_nolock,
-+	.fop_flags	= FOP_IMMUTABLE,
-+};
-+
- static int nullfs_fs_fill_super(struct super_block *s, struct fs_context *fc)
- {
- 	struct inode *inode;
-@@ -28,6 +57,7 @@ static int nullfs_fs_fill_super(struct super_block *s, struct fs_context *fc)
- 
- 	/* nullfs is permanently empty... */
- 	make_empty_dir_inode(inode);
-+	inode->i_fop = &nullfs_dir_operations;
- 	simple_inode_init_ts(inode);
- 	inode->i_ino	= 1;
- 	/* ... and immutable, reading it leaves no trace either. */
-diff --git a/fs/readdir.c b/fs/readdir.c
-index 76bb1ae3a450..f2288841337a 100644
---- a/fs/readdir.c
-+++ b/fs/readdir.c
-@@ -87,6 +87,8 @@ EXPORT_SYMBOL(wrap_directory_iterator);
- int iterate_dir(struct file *file, struct dir_context *ctx)
- {
- 	struct inode *inode = file_inode(file);
-+	/* never an entry, never removed: nothing for the lock to keep still */
-+	bool locked = !(file->f_op->fop_flags & FOP_IMMUTABLE);
- 	int res = -ENOTDIR;
- 
- 	if (!file->f_op->iterate_shared)
-@@ -100,9 +102,11 @@ int iterate_dir(struct file *file, struct dir_context *ctx)
- 	if (res)
- 		goto out;
- 
--	res = down_read_killable(&inode->i_rwsem);
--	if (res)
--		goto out;
-+	if (locked) {
-+		res = down_read_killable(&inode->i_rwsem);
-+		if (res)
-+			goto out;
-+	}
- 
- 	res = -ENOENT;
- 	if (!IS_DEADDIR(inode)) {
-@@ -112,7 +116,8 @@ int iterate_dir(struct file *file, struct dir_context *ctx)
- 		fsnotify_access(file);
- 		file_accessed(file);
- 	}
--	inode_unlock_shared(inode);
-+	if (locked)
-+		inode_unlock_shared(inode);
- out:
- 	return res;
- }
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 07de36aac0bf..5f82dcd9a0b5 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -2098,7 +2098,7 @@ static int krb5_authenticate(struct ksmbd_work *work,
- 	in_len = le16_to_cpu(req->SecurityBufferLength);
- 	out_blob = (char *)&rsp->hdr.ProtocolId +
- 		le16_to_cpu(rsp->SecurityBufferOffset);
--	out_len = work->response_sz -
-+	out_len = work->response_sz - work->next_smb2_rsp_hdr_off -
- 		(le16_to_cpu(rsp->SecurityBufferOffset) + 4);
- 
- 	retval = ksmbd_krb5_authenticate(sess, in_blob, in_len,
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 09de7bf6f1d2..a07031fd4ae2 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -1980,6 +1980,8 @@ struct file_operations {
- #define FOP_ASYNC_LOCK		((__force fop_flags_t)(1 << 6))
- /* File system supports uncached read/write buffered IO */
- #define FOP_DONTCACHE		((__force fop_flags_t)(1 << 7))
-+/* Never changes and is never removed, readdir of a directory takes no lock */
-+#define FOP_IMMUTABLE		((__force fop_flags_t)(1 << 8))
- 
- /* Wrap a directory iterator that needs exclusive inode access */
- int wrap_directory_iterator(struct file *, struct dir_context *,
-diff --git a/include/net/mana/mana.h b/include/net/mana/mana.h
-index 04acb6791dbd..cd44856fa474 100644
---- a/include/net/mana/mana.h
-+++ b/include/net/mana/mana.h
-@@ -328,7 +328,18 @@ struct mana_recv_buf_oob {
- #define MANA_RXBUF_PAD (SKB_DATA_ALIGN(sizeof(struct skb_shared_info)) \
- 			+ ETH_HLEN)
- 
--#define MANA_XDP_MTU_MAX (PAGE_SIZE - MANA_RXBUF_PAD - XDP_PACKET_HEADROOM)
-+/* Headroom an RX buffer has to reserve while XDP is attached: the XDP program
-+ * needs XDP_PACKET_HEADROOM, and the TX path needs LL_RESERVED_SPACE() (see
-+ * mana_get_rxbuf_headroom()). LL_RESERVED_SPACE() grows with MAX_SKB_FRAGS and
-+ * exceeds XDP_PACKET_HEADROOM once CONFIG_MAX_SKB_FRAGS is 19 or more.
-+ */
-+static inline u32 mana_xdp_headroom(struct net_device *ndev)
-+{
-+	return max_t(u32, LL_RESERVED_SPACE(ndev), XDP_PACKET_HEADROOM);
-+}
-+
-+#define MANA_XDP_MTU_MAX(ndev) \
-+	(PAGE_SIZE - MANA_RXBUF_PAD - mana_xdp_headroom(ndev))
- 
- struct mana_rxq {
- 	struct gdma_queue *gdma_rq;
-@@ -625,6 +636,7 @@ int mana_query_link_cfg(struct mana_port_context *apc);
- int mana_set_bw_clamp(struct mana_port_context *apc, u32 speed,
- 		      int enable_clamping);
- void mana_query_phy_stats(struct mana_port_context *apc);
-+bool mana_single_rxbuf_per_page_forced(struct mana_port_context *apc, u32 mtu);
- int mana_pre_alloc_rxbufs(struct mana_port_context *apc, int mtu, int num_queues);
- void mana_pre_dealloc_rxbufs(struct mana_port_context *apc);
- void mana_unmap_skb(struct sk_buff *skb, struct mana_port_context *apc);
-diff --git a/include/sound/cs35l56.h b/include/sound/cs35l56.h
-index 2490b72c0a7a..07434e644b89 100644
---- a/include/sound/cs35l56.h
-+++ b/include/sound/cs35l56.h
-@@ -312,6 +312,7 @@ struct snd_ctl_elem_value;
- 
- #define CS35L56_SDW1_PLAYBACK_PORT			1
- #define CS35L56_SDW1_CAPTURE_PORT			3
-+#define CS35L56_OT25_CAPTURE_PORT			4
- 
- #define CS35L56_NUM_BULK_SUPPLIES			3
- #define CS35L56_NUM_DSP_REGIONS				5
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index a9f33e2b17ac..8d4992e7e012 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -2031,8 +2031,8 @@ static void set_task_runnable(struct rq *rq, struct task_struct *p)
- 	}
- 
- 	/*
--	 * list_add_tail() must be used. scx_bypass() depends on tasks being
--	 * appended to the runnable_list.
-+	 * list_add_tail() must be used. scx_bypass() and rq_offline_scx()
-+	 * depend on tasks being appended to the runnable_list.
- 	 */
- 	list_add_tail(&p->scx.runnable_node, &rq->scx.runnable_list);
- }
-@@ -2868,7 +2868,13 @@ scx_dispatch_sched(struct scx_sched *sch, struct rq *rq,
- #endif	/* CONFIG_EXT_SUB_SCHED */
- 	}
- 
--	if (unlikely(!SCX_HAS_OP(sch, dispatch)) || !scx_rq_online(rq))
-+	/*
-+	 * scx_rq_online() can't be used. Its cpu_active() test goes false
-+	 * before CPU hotplug waits for an RCU grace period, and
-+	 * rq_offline_scx() moves this CPU's tasks to the local DSQ only after
-+	 * the wait. The grace period can depend on those tasks running.
-+	 */
-+	if (unlikely(!SCX_HAS_OP(sch, dispatch)) || !(rq->scx.flags & SCX_RQ_ONLINE))
- 		return SCX_DSP_NONE;
- 
- 	dspc->rq = rq;
-@@ -3608,7 +3614,24 @@ static void rq_online_scx(struct rq *rq)
- 
- static void rq_offline_scx(struct rq *rq)
- {
-+	struct task_struct *p, *n;
-+
- 	rq->scx.flags &= ~SCX_RQ_ONLINE;
-+
-+	/* sched domain rebuilds call rq_offline with the CPU staying alive */
-+	if (cpu_active(cpu_of(rq)))
-+		return;
-+
-+	/*
-+	 * An offline CPU no longer calls ops.dispatch(). Re-enqueue its tasks
-+	 * onto the local DSQ so that they run here and balance_push() moves
-+	 * them off.
-+	 */
-+	list_for_each_entry_safe_reverse(p, n, &rq->scx.runnable_list, scx.runnable_node) {
-+		if (p->scx.dsq == &rq->scx.local_dsq)
-+			continue;
-+		guard(sched_change)(p, DEQUEUE_SAVE | DEQUEUE_MOVE | DEQUEUE_NOCLOCK);
-+	}
- }
- 
- static bool check_rq_for_timeouts(struct rq *rq)
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index a6c6f8165eec..d25defb116ca 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -4185,8 +4185,9 @@ extern void balance_callbacks(struct rq *rq, struct balance_callback *head);
-  * after which it is enqueued again.
-  *
-  * Typically this must be called while holding task_rq_lock, since most/all
-- * properties are serialized under those locks. There is currently one
-- * exception to this rule in sched/ext which only holds rq->lock.
-+ * properties are serialized under those locks. There are currently two
-+ * exceptions to this rule in sched/ext which only hold rq->lock: scx_bypass()
-+ * and rq_offline_scx().
-  */
- 
- /*
-diff --git a/sound/soc/codecs/cs35l56-sdw.c b/sound/soc/codecs/cs35l56-sdw.c
-index a3812ab4c022..d52209111fe2 100644
---- a/sound/soc/codecs/cs35l56-sdw.c
-+++ b/sound/soc/codecs/cs35l56-sdw.c
-@@ -295,11 +295,11 @@ static int cs35l56_sdw_read_prop(struct sdw_slave *peripheral)
- 	if (ret == 0)
- 		prop->clk_stop_mode1 = !!clock_stop_1;
- 
--	ports = devm_kcalloc(cs35l56->base.dev, 2, sizeof(*ports), GFP_KERNEL);
-+	ports = devm_kcalloc(cs35l56->base.dev, 3, sizeof(*ports), GFP_KERNEL);
- 	if (!ports)
- 		return -ENOMEM;
- 
--	prop->source_ports = BIT(CS35L56_SDW1_CAPTURE_PORT);
-+	prop->source_ports = BIT(CS35L56_SDW1_CAPTURE_PORT) | BIT(CS35L56_OT25_CAPTURE_PORT);
- 	prop->sink_ports = BIT(CS35L56_SDW1_PLAYBACK_PORT);
- 	prop->paging_support = true;
- 	prop->quirks = SDW_SLAVE_QUIRKS_INVALID_INITIAL_PARITY;
-@@ -315,6 +315,11 @@ static int cs35l56_sdw_read_prop(struct sdw_slave *peripheral)
- 	ports[1].num = CS35L56_SDW1_CAPTURE_PORT;
- 	ports[1].type = SDW_DPN_FULL;
- 	ports[1].ch_prep_timeout = 10;
-+
-+	/* DP4 - capture */
-+	ports[2].num = CS35L56_OT25_CAPTURE_PORT;
-+	ports[2].type = SDW_DPN_FULL;
-+	ports[2].ch_prep_timeout = 10;
- 	prop->src_dpn_prop = &ports[1];
- 
- 	dev_dbg(&peripheral->dev, "clock stop mode 1 supported: %s\n",
-diff --git a/sound/soc/codecs/cs35l56.c b/sound/soc/codecs/cs35l56.c
-index 8beef93ac467..79f0a39d12b9 100644
---- a/sound/soc/codecs/cs35l56.c
-+++ b/sound/soc/codecs/cs35l56.c
-@@ -32,6 +32,7 @@
- #include <sound/cs-amp-lib.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
-+#include <sound/sdw.h>
- #include <sound/soc.h>
- #include <sound/soc-dapm.h>
- #include <sound/tlv.h>
-@@ -323,6 +324,7 @@ static const struct snd_soc_dapm_widget cs35l56_dapm_widgets[] = {
- 	SND_SOC_DAPM_SIGGEN("VDDBMON ADC"),
- 	SND_SOC_DAPM_SIGGEN("VBSTMON ADC"),
- 	SND_SOC_DAPM_SIGGEN("TEMPMON ADC"),
-+	SND_SOC_DAPM_SIGGEN("OT25 Reference"),
- 
- 	SND_SOC_DAPM_INPUT("Calibrate"),
- };
-@@ -387,6 +389,8 @@ static const struct snd_soc_dapm_route cs35l56_audio_map[] = {
- 	{ "SDW1 Capture", NULL, "SDW1 TX2 Source" },
- 	{ "SDW1 Capture", NULL, "SDW1 TX3 Source" },
- 	{ "SDW1 Capture", NULL, "SDW1 TX4 Source" },
-+
-+	{ "OT25", NULL, "OT25 Reference" },
- };
- 
- static int cs35l56_dsp_event(struct snd_soc_dapm_widget *w,
-@@ -711,6 +715,37 @@ static int cs35l56_sdw_dai_set_stream(struct snd_soc_dai *dai,
- 	return 0;
- }
- 
-+static int cs35l56_ot25_dai_hw_params(struct snd_pcm_substream *substream,
-+				      struct snd_pcm_hw_params *params,
-+				      struct snd_soc_dai *dai)
-+{
-+	struct cs35l56_private *cs35l56 = snd_soc_component_get_drvdata(dai->component);
-+	struct sdw_stream_runtime *sdw_stream = snd_soc_dai_get_dma_data(dai, substream);
-+	struct sdw_stream_config sconfig = { };
-+	struct sdw_port_config pconfig = { };
-+	int ret;
-+
-+	dev_dbg(cs35l56->base.dev, "%s: rate %d\n", __func__, params_rate(params));
-+
-+	if (!cs35l56->base.init_done)
-+		return -ENODEV;
-+
-+	if (!sdw_stream)
-+		return -EINVAL;
-+
-+	snd_sdw_params_to_config(substream, params, &sconfig, &pconfig);
-+	pconfig.num = CS35L56_OT25_CAPTURE_PORT;
-+
-+	ret = sdw_stream_add_slave(cs35l56->sdw_peripheral, &sconfig, &pconfig,
-+				   1, sdw_stream);
-+	if (ret) {
-+		dev_err(dai->dev, "Failed to add OT25 stream: %d\n", ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
- static const struct snd_soc_dai_ops cs35l56_sdw_dai_ops = {
- 	.set_tdm_slot = cs35l56_sdw_dai_set_tdm_slot,
- 	.shutdown = cs35l56_sdw_dai_shutdown,
-@@ -719,6 +754,13 @@ static const struct snd_soc_dai_ops cs35l56_sdw_dai_ops = {
- 	.set_stream = cs35l56_sdw_dai_set_stream,
- };
- 
-+static const struct snd_soc_dai_ops cs35l56_ot25_dai_ops = {
-+	.shutdown = cs35l56_sdw_dai_shutdown,
-+	.hw_params = cs35l56_ot25_dai_hw_params,
-+	.hw_free = cs35l56_sdw_dai_hw_free,
-+	.set_stream = cs35l56_sdw_dai_set_stream,
-+};
-+
- static struct snd_soc_dai_driver cs35l56_dai[] = {
- 	{
- 		.name = "cs35l56-asp1",
-@@ -767,6 +809,18 @@ static struct snd_soc_dai_driver cs35l56_dai[] = {
- 		.symmetric_rate = 1,
- 		.ops = &cs35l56_sdw_dai_ops,
- 	},
-+	{
-+		.name = "cs35l56-ot25",
-+		.id = 3,
-+		.capture = {
-+			.stream_name = "OT25",
-+			.channels_min = 1,
-+			.channels_max = 2,
-+			.rates = CS35L56_RATES,
-+			.formats = CS35L56_TX_FORMATS,
-+		},
-+		.ops = &cs35l56_ot25_dai_ops,
-+	},
- };
- 
- static int cs35l56_write_cal(struct cs35l56_private *cs35l56)
+-- 
+2.55.0
+
