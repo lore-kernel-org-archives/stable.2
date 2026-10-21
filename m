@@ -1,55 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792584913;
-	b=X8zzfAVWTaVbVAH+2XdNYyCO3QjIUU+5FmXZCPMhbnO1DzkDxLO4NrVfi8cEgIMVPbRE
-	 mVqkAqOtxn3826FpokQFhoDp7vefSScJCRIC+thstibpd+rnZDkkciNNIIf54Gjva/C5O
-	 KBam0wj5MX0iCaAO0ORdk4qIbGdA7x+V2dq0jaNgKl52CiZb6ynMMuDzcizHdGbwHdOLB
-	 DJ4a4EY1ooFImWE0e+ov8HbL7SGIRUkwPLpbypmo1KZhVPiDZ0lsipAQ3SY8jTPvSVFQ/
-	 PNGecnFORTJX8nT0TTWf5jyy3OwLB3ADek4P8sLlTyI9BKnrcm0eKoGk7jDD2QfGo9A==
+	t=1792584918;
+	b=jCj79Cs0WZemE5L2zB03DFGx/q1vU+c7R8uVwdvxDvY/cM3FI+Uqr4Qgajpldf9Ur5ih
+	 lc9FHLJqt35d9WKD3hIgz9HEIwP+9umoKfRyhurbbRaFb30IDAovPn3nif+dUma/AYr8l
+	 +eaLPmtY+blNPJ8lwcu8hlM9VxMh/gW+BQnSy+UosH21XzF3E6UQd+2Ff2ZlWU9b+Czmr
+	 t/ypcWCNM7hN1P19DXY7YhiLjVQVCL2zRKzjDsvNwpmefRRLl7hw8bzMKDm558JkyqGGp
+	 4+Kdb+KbewL8OjwQbtXHhU0DqyjBdDb+ijd08DiWX49OzITeMbtcxPqR7UsTWrywPeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792584913;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792584918;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=PiYeFnzfwHlkjTQ+eA/0wscevPQtvBkPEp8lt8rq5bA=;
-	b=C1Ck3VNGP7dcfAws8pD7JaCS8i8VCczn6vcRqejRJCYvKBGaXhO3NkUoianrc0LQHWzZ
-	 NuyCpHQmqPq1nzv/IRma2FVi5320nEKes3SOPhzL8eYdrPz4rXyH/eERU4DPTy/UaJvF8
-	 OnbSEoM3hBPranlN7nOwFqTW9GLE5zkj0iLUrkCewWEL8d5uoX7ngN4+v8pi9wN0fpzS0
-	 KcG2w3NprBNovlRlOSlgzhlzTgXyrVaMHw6PPnRUUCuAAWEgkIyfRxrN6bf8ZCbLS7fAY
-	 7JJA6bSx7grdU0y4qUX5jQgPvadjJT4gmnalPkdlNYlFd8UCg0MMYSaK0Jxw8G9yObw==
+	bh=OQAQy8H2ZPsToCNPH++qnZ5B9B/4u/szFzQb7JQ/mYg=;
+	b=dIixMrfMA/Hp6fJ/HMncSM9KIC9x9076ZDzyem5KlaOV4v2acVkeVH/Iq7JFbPfqPLYd
+	 ZfwFOnUoXEXiu/m+TgFtq5A+80wfhjWDO1NKPSUnNRmyv6DWmPDuMxJC/SPhKIDoWGIrr
+	 EzztBV3zCMLtM7ptLSKoET8wAf0yJO2xdqc52ikgp9GoZK+pqe1h3QzJuqrKYtglHUirL
+	 HlPTZkFI2MVJoaaOLrPPhjIzvTJCo7Psqkv9qZiEahNCeJ3+fivk6TYeib9GgDvSRBRzk
+	 xFcwDB665lmY8nLSbyJEXFPcVgy3JkbcMNTlkC/muE6eB4VSdQpnLK61q0NuSnZdNOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f8Adj7eF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eZDR7JY+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F77160A4AFA;
-	Wed, 21 Oct 2026 12:15:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED0360A262C;
+	Wed, 21 Oct 2026 12:15:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f8Adj7eF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CABC71F000C4;
-	Wed, 21 Oct 2026 12:15:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eZDR7JY+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C91F91F000C4;
+	Wed, 21 Oct 2026 12:15:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792584911;
-	bh=PiYeFnzfwHlkjTQ+eA/0wscevPQtvBkPEp8lt8rq5bA=;
+	s=k20260515; t=1792584918;
+	bh=OQAQy8H2ZPsToCNPH++qnZ5B9B/4u/szFzQb7JQ/mYg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f8Adj7eFCqpdiOzX+nrgmViaHr2MGceEUk0xq8+EyfZeS6GapHiSZN0AcwCI9Rp8g
-	 0TfTs3BFLR94R/zQqWl+jbvrbwHioG6QqYVs0fr2TM/WIRfzrTQs/ayajM6jEysMlk
-	 och5mcI3/j3fERNQDI0VcEgKOayIqxKZq3Tx8OjqSgIeCpfkVBnUnfzwllvnehjv7y
-	 lgtqPAGBWSb02z4rj+o6jgnaUGU0MrUsry7WwiUBnbddfxGRJPXlyzYNWV6jalLjkO
-	 64Jy3zKmMwe/Hw0wtqcBQVkisjNm0Icn8OpDDZYfz3wPsv0dKaUQK2i7ReOx8R8PkR
-	 +PSg3c8+oYFgA==
+	b=eZDR7JY+OhK6f4i/zOPpfIjtvfXVwAc4jgsQlJ7z+JH/6jjgG6L0RgOkR+D24f/qn
+	 mdhGL69BRm5Cxlsf5ejg3O0FlVBs5W4+DhCRH5qI5MHrLKtMMWdURTgJaSaV5CffPO
+	 /l3KrgReoHUyJ1MC/I0WvX3M02/c6UsU/rEaXDq0X+TWud0ZLxRCP+GprqDTH4clbz
+	 DloZ23wEBEdpnGhh/jW4n31H0F+K+0X5ci/0TduvwEIztm3A74dx3jIWeW1ICJd5ka
+	 1E29x+E5jcLjYVJmh/8SnbGfQTBnyI9saJJ4HBb1xLMfmlk8s/UedgK+bJtto4q/fy
+	 MMndK4CPaMebw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Gyungoh Yoo <jack.yoo@maxim-ic.com>,
-	Samuel Ortiz <sameo@linux.intel.com>,
-	Stephen Warren <swarren@nvidia.com>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Tony Lindgren <tony@atomide.com>,
+	Kai Svahn <kai.svahn@nokia.com>,
+	syed khasim <x0khasim@ti.com>,
+	linux-omap@vger.kernel.org,
 	mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 12/28] mfd: max8907: Manage power-off handler via devm_register_sys_off_handler()
-Date: Wed, 21 Oct 2026 12:09:34 +0000
-Message-ID: <20261021121245.3111563-12-lee@kernel.org>
+Subject: [PATCH 13/28] mfd: twl-core: Clear pm_power_off callback in twl_remove()
+Date: Wed, 21 Oct 2026 12:09:35 +0000
+Message-ID: <20261021121245.3111563-13-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
 In-Reply-To: <20261021121245.3111563-1-lee@kernel.org>
 References: <20261021121245.3111563-1-lee@kernel.org>
@@ -64,84 +69,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When the MAX8907 device is configured as the system power controller,
-max8907_i2c_probe() assigns the devres-managed device context to
-max8907_pm_off and registers max8907_power_off() as the global
-pm_power_off handler.  However, max8907_i2c_remove() does not clear
-these pointers upon device unbind, leaving pm_power_off and
-max8907_pm_off dangling after devres frees the driver state.
+When a TWL6030-class device is configured as the system power
+controller, twl_probe() registers twl6030_power_off() as the global
+pm_power_off callback.  However, twl_remove() does not clear
+pm_power_off when tearing down the device on late probe failure or
+driver unbind, leaving a dangling callback that dereferences the freed
+twl_priv context during system shutdown.
 
-Convert max8907_power_off() to a sys_off_handler callback registered via
-devm_register_sys_off_handler() so the handler is automatically
-unregistered on device unbind and the global max8907_pm_off pointer can
-be dropped.
+Reset pm_power_off to NULL in twl_remove() when it points to
+twl6030_power_off().
 
-Fixes: 9582fdcb6fcf ("mfd: max8907: Add power off control")
-Closes: https://sashiko.dev/#/bug/linux-d73d6689-d160-447f-9b3c-710fd4c4b6fb
+Fixes: ca9414a1d087 ("mfd: twl-core: Add power off implementation for twl603x")
+Closes: https://sashiko.dev/#/bug/linux-f5847f26-c868-416a-b926-3fc3da57802d
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/mfd/max8907.c | 28 +++++++++++++++++++++-------
- 1 file changed, 21 insertions(+), 7 deletions(-)
+ drivers/mfd/twl-core.c | 29 ++++++++++++++++-------------
+ 1 file changed, 16 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/mfd/max8907.c b/drivers/mfd/max8907.c
-index 7bac1d651771..dab5706d4115 100644
---- a/drivers/mfd/max8907.c
-+++ b/drivers/mfd/max8907.c
-@@ -15,6 +15,7 @@
- #include <linux/mfd/max8907.h>
- #include <linux/module.h>
- #include <linux/of.h>
-+#include <linux/reboot.h>
- #include <linux/regmap.h>
- #include <linux/slab.h>
+diff --git a/drivers/mfd/twl-core.c b/drivers/mfd/twl-core.c
+index c024a28b057e..64b45fe79159 100644
+--- a/drivers/mfd/twl-core.c
++++ b/drivers/mfd/twl-core.c
+@@ -672,10 +672,26 @@ static void clocks_init(struct device *dev)
+ /*----------------------------------------------------------------------*/
  
-@@ -173,11 +174,14 @@ static const struct regmap_irq_chip max8907_rtc_irq_chip = {
- 	.num_irqs = ARRAY_SIZE(max8907_rtc_irqs),
- };
  
--static struct max8907 *max8907_pm_off;
--static void max8907_power_off(void)
-+static int max8907_power_off(struct sys_off_data *data)
++static void twl6030_power_off(void)
++{
++	int err;
++	u8 val;
++
++	err = twl_i2c_read_u8(TWL_MODULE_PM_MASTER, &val, TWL6030_PHOENIX_DEV_ON);
++	if (err)
++		return;
++
++	val |= TWL6030_APP_DEVOFF | TWL6030_CON_DEVOFF | TWL6030_MOD_DEVOFF;
++	twl_i2c_write_u8(TWL_MODULE_PM_MASTER, val, TWL6030_PHOENIX_DEV_ON);
++}
++
+ static void twl_remove(struct i2c_client *client)
  {
--	regmap_update_bits(max8907_pm_off->regmap_gen, MAX8907_REG_RESET_CNFG,
--			MAX8907_MASK_POWER_OFF, MAX8907_MASK_POWER_OFF);
-+	struct max8907 *max8907 = data->cb_data;
+ 	unsigned i, num_slaves;
+ 
++	if (pm_power_off == twl6030_power_off)
++		pm_power_off = NULL;
 +
-+	regmap_update_bits(max8907->regmap_gen, MAX8907_REG_RESET_CNFG,
-+			   MAX8907_MASK_POWER_OFF, MAX8907_MASK_POWER_OFF);
-+
-+	return NOTIFY_DONE;
+ 	if (twl_class_is_4030())
+ 		twl4030_exit_irq();
+ 	else
+@@ -692,19 +708,6 @@ static void twl_remove(struct i2c_client *client)
+ 	twl_priv->ready = false;
  }
  
- static int max8907_i2c_probe(struct i2c_client *i2c)
-@@ -256,13 +260,23 @@ static int max8907_i2c_probe(struct i2c_client *i2c)
- 		goto err_add_devices;
- 	}
+-static void twl6030_power_off(void)
+-{
+-	int err;
+-	u8 val;
+-
+-	err = twl_i2c_read_u8(TWL_MODULE_PM_MASTER, &val, TWL6030_PHOENIX_DEV_ON);
+-	if (err)
+-		return;
+-
+-	val |= TWL6030_APP_DEVOFF | TWL6030_CON_DEVOFF | TWL6030_MOD_DEVOFF;
+-	twl_i2c_write_u8(TWL_MODULE_PM_MASTER, val, TWL6030_PHOENIX_DEV_ON);
+-}
+-
  
--	if (pm_off && !pm_power_off) {
--		max8907_pm_off = max8907;
--		pm_power_off = max8907_power_off;
-+	if (pm_off) {
-+		ret = devm_register_sys_off_handler(&i2c->dev,
-+						    SYS_OFF_MODE_POWER_OFF,
-+						    SYS_OFF_PRIO_DEFAULT,
-+						    max8907_power_off, max8907);
-+		if (ret) {
-+			dev_err(&i2c->dev,
-+				"failed to register sys-off handler: %d\n",
-+				ret);
-+			goto err_sys_off;
-+		}
- 	}
- 
- 	return 0;
- 
-+err_sys_off:
-+	mfd_remove_devices(max8907->dev);
- err_add_devices:
- 	regmap_del_irq_chip(max8907->i2c_gen->irq, max8907->irqc_rtc);
- err_irqc_rtc:
+ static struct of_dev_auxdata twl_auxdata_lookup[] = {
+ 	OF_DEV_AUXDATA("ti,twl4030-gpio", 0, "twl4030-gpio", NULL),
 -- 
 2.56.0.218.g1ec904b173-goog
 
