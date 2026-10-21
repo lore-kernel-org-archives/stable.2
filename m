@@ -1,56 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792597039;
-	b=p+poqNDw2cqUeYANUAsTTcohMt+xkSGugIixpez7cvBoAHDVHjyprMP3yoQH3xC+duNU
-	 vBn9ZIJCzPjWHtMkJu3YX/o2EcqPbPI04efYwRfOa6ZDjZOqZR9o8xsuZtUTIwxWInIw1
-	 dRil2km/tyaY5mj92NC++1jVP2tjgoGFFuFJCxvfqzr48qQNd7KC4q6kqRVJLurSMAirj
-	 06pGqA2DhPiDSNyLMkv4PU2YtqBnivznYUNRFIVgN0jcKZhVG83L565OGeS9CkEg7IkU5
-	 xBTl1+xya0vvNIY8Fq4IOIBydHe7nodPwYCgxUfp+qjR8t0EEaPTfWmAcZ26Pex0YSA==
+	t=1792597056;
+	b=XSl6/IAEgFXbBGLSpiciH+r1Yps92unSOZ64Y0wS275aBI80AT/R00PGNlhdPhIgCVWv
+	 ikM4jFF2wYieh4hAxHtxI+JnYmvXom+2GVJkG+o93B58kabqWgr86q1qPBvlHJIK8uTFF
+	 Ct7rVuQew1JdlkESyhsflk4YKXonfnpmEtSoazGSSR6fzhnDyvsJHIT0nd5++lXkxJ7rq
+	 AntqaW679xlJkFVrM34UMN+WkHFSUa6h2b9dHsmRCI3kHB6uOOFmgLxevrwW5HF7nTE/O
+	 30mVTaW+SgWGK14mz6cFoTsAl33SJTGXtWR9dCRcjVqNhYPTJUGfbeDBKkHu+mpMMgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792597039;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/TAFCYmY1d6h1533UQpOgy7mkXVJ98JtODw5xZZ2twk=;
-	b=nqqhpfRAy1TkgP3DCPyLykrHHxe6HFMKQLYzuQ6YcA/oePcf1C9R6qgQV3icXmUluVF3
-	 63eSox3t9GMBDn7Pt0Jqhzvo5/cgs5nuYHpRKq2QnpkmwJyE/x+7RkfondYzEJrZ/L5+K
-	 KEBxpzMqsEJY4Dnv46MH10eYShFlB5yBX9MVgo4hqLioALa8OXawH/MaWGQ+yjfqaxTYG
-	 P2OTtUuwefqyTq3uFdBHCalp+8mRTWeVMvJTFeOXU+S746+UCjgbtou+qDBKUbO0W6oTh
-	 x0+NNfh0BWOfZgqKOuVY5kzRseLejzxyk19PpcRA8ec1vbYO9wWfBNdefSUcU26kBSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792597056;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=151osnyqTqNRy9yGvwwtrRpNABKKk4npuM+xHhPMEdc=;
+	b=b8dzw9jtgIxCED1TaP22ihIm4G5T0CvStACCPOBrfouFV/OCnOm8ruCOvYS6s7aE+S85
+	 wAPnivdyhUzExug80lcTCyQRRHTXX7EmmI5vnzEPTeVaTbwdzHhvsrZZ7x8qEZg3WIuYh
+	 /4qUUKF51gEWn2pksvZV8xxp5HcDj5xybeaQYTKHzBPD72nC84kI652KvHerVGUnJUnEG
+	 8QqeEot2YIPo94rif0vGDoMn3cQ0QcorrfhNRra6ACjV1qx6Jbga39g12Sv28ViGnTX92
+	 oXRmLg0Xb71UrFUajIrdUd0WnpHtrd0W5rVX44AXPow0JQYYvm1WECcdJdOhrprfpWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IlKLCenB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LZlUa8sk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 657B0606A31A
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:37:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1382606A319;
+	Wed, 21 Oct 2026 15:37:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IlKLCenB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D5AD1F000C2;
-	Wed, 21 Oct 2026 15:37:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LZlUa8sk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 490D41F000C1;
+	Wed, 21 Oct 2026 15:37:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792597039;
-	bh=/TAFCYmY1d6h1533UQpOgy7mkXVJ98JtODw5xZZ2twk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IlKLCenBs0WwOlA3FB3Q+h0uzYNT7cwpbK7DaSbolud21/UebZz4864CTTYVPUqW3
-	 Sq/pNaS7BuOmKnor8NJZwmkOcrDwGNVsDo75+7loHtKeIZvDWGnHPunrUsUbhf+EOZ
-	 g5DOsVg7IdMFr7TQZqgECZCY1wsxnrh7gt+xooDdgnCx0w1LBkx/m7vJBgFKzcoYCg
-	 5rvmCmaiRzMZYz+mfSfmUFhyWgf1Grj4nXn1fAsjGKOggN6Vn5ZRILs+7cIpGyF/oZ
-	 v2Aa6nBQrITkBauoLQlSWu50JyMQz4sANL0JzJCgdUPlc6kLh1tb86mq5FSWXuLWI3
-	 iaSKlGRwNnokQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Lee Jones <lee@kernel.org>,
-	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] tracing/histograms: Reject non-stacktrace fields for synthetic stacktrace fields
-Date: Wed, 21 Oct 2026 11:37:17 -0400
-Message-ID: <20261021153403.303474-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102125-surely-nastily-2d17@gregkh>
-References: <2026102125-surely-nastily-2d17@gregkh>
+	s=k20260515; t=1792597055;
+	bh=151osnyqTqNRy9yGvwwtrRpNABKKk4npuM+xHhPMEdc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=LZlUa8skphlwi4uXJ9gjrUnssf7gpReG91Bk/DKT+IMLa5CjHH4Sen2zDoYK7qxdi
+	 CGXBT+8RggG/CIIyN7YEHpJWjZiwZvmeAuvi0zv3QU8n+XAG2QjZEa0an89uKrEDNU
+	 Zh6vtp3lAx2xhPIwDGcYy/QNHWf0OVPAQft7yr9HtV/R5aYIhbHhTF7d3eeVV6+bSM
+	 oIFVo1tRZ+jQHFE6BVFfJvs1teBdUPEir8wBOnfjF0ffX0XX5tRgn/zai/656vWnun
+	 DVh7q6ismi/NsXhv0cJBFcPSt3VP2xqqMI2kns1H3uN6evQ35LB9/02YLHvf49f9JH
+	 69HXyicRfywFw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xJYNh-00000005jCk-1CgX;
+	Wed, 21 Oct 2026 15:37:33 +0000
+Date: Wed, 21 Oct 2026 16:37:32 +0100
+Message-ID: <86jynbyshv.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: oupton@kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	joey.gouly@arm.com,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	yuzenghui@huawei.com,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	kernel-team@android.com,
+	fuad.tabba@linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v1] KVM: arm64: pkvm: Clear GICv3 LRs in the hypervisor
+In-Reply-To: <atjWzRABsApbZ8CC@google.com>
+References: <20261021110000.508827-1-vdonnefort@google.com>
+	<86qzhjz1iz.wl-maz@kernel.org>
+	<ati1DrtmMd-63bIN@google.com>
+	<86pkx3yylb.wl-maz@kernel.org>
+	<atjWzRABsApbZ8CC@google.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,102 +81,71 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: vdonnefort@google.com, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, kernel-team@android.com, fuad.tabba@linux.dev, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-From: Lee Jones <lee@kernel.org>
+On Wed, 21 Oct 2026 16:14:21 +0100,
+Vincent Donnefort <vdonnefort@google.com> wrote:
+> 
+> On Wed, Oct 21, 2026 at 02:25:52PM +0100, Marc Zyngier wrote:
+> > On Wed, 21 Oct 2026 13:50:22 +0100,
+> > Vincent Donnefort <vdonnefort@google.com> wrote:
+> > > 
+> > > On Wed, Oct 21, 2026 at 01:22:28PM +0100, Marc Zyngier wrote:
+> > > > On Wed, 21 Oct 2026 12:00:00 +0100,
+> > > > Vincent Donnefort <vdonnefort@google.com> wrote:
+> > > > > 
+> > > > > The LR registers are architecturally UNKNOWN when the CPU boots or
+> > > > > resumes. However, in protected mode, only the used ones are reset.
+> > > > > During boot the HVC __vgic_v3_init_lrs() is never called because
+> > > > > vgic_present is only set in init_subsystems(), after cpu_hyp_init() was
+> > > > > called.
+> > > > 
+> > > > Why don't you fix this rather than making the init even more
+> > > > different?
+> > > 
+> > > Ack, I'll make a patch to fix that first.
+> > > 
+> > > > 
+> > > > > Also, the PM notifier isn't registered for pKVM and the HVC
+> > > > > becomes unavailable after the host is deprivileged.
+> > > > 
+> > > > Sanitising the LRs on PSCI_ON is probably the right thing to do, but I
+> > > > don't understand why resetting the LRs is out of reach from the host,
+> > > > given that the host is fully in charge of the interrupt injection, and
+> > > > therefore controls the LRs.
+> > > 
+> > > I suppose I could reinstantiate the pm callbacks for pkvm to at least reset the
+> > > LRs?
+> > 
+> > I think there are two different things:
+> > 
+> > - pKVM must not rely on the host resetting the LRs once it is
+> >   deprivileged (that's the PSCI_ON case)
+> 
+> Definitely not a hot path, but if we keep this one ^, isn't a shame of making
+> the host issue HVCs on CPU resume to reset the LRs if we know the hypervisor did
+> it anyway?
 
-[ Upstream commit a244c241593b5b38a08f0df2cb43c26574efbdcb ]
+The really annoying thing is that we have divergence between
+hypervisor backends that make the code fragile and harder to
+maintain. Specially as we add CCA to the mix.
 
-In check_synth_field(), when a synthetic event field is a stacktrace
-(field->is_stack) and the histogram field is not a "long[" stacktrace
-array, validation falls through to the generic size and signedness
-comparison.
+So my approach to this is to stop messing with the host code. It
+should do what it is notionally supposed to do, and the hypervisor
+code can do its own stuff. You can always optimise away the reset on
+PSCI_ON if you add some tracking.
 
-Because parse_synth_field() sets a stacktrace field's type to
-"__data_loc unsigned long[]", its size is sizeof(u64) and
-synth_field_signed() marks it as signed.  Consequently, any 8-byte
-signed scalar histogram field passes the fallback check, and its scalar
-value is subsequently dereferenced as a kernel stacktrace pointer in
-get_field_size() and trace_stack().
+Is it worth it? Absolutely not. But that's where the complexity should
+go.
 
-Furthermore, checking strstr(hist_field->type, "long[") is insufficient
-because tracepoint fields defined with __bitmask() or __rel_bitmask()
-also have type "__data_loc unsigned long[]" or "__rel_loc unsigned
-long[]", whilst create_hist_field() treats them as 4-byte scalar values
-without HIST_FIELD_FL_STACKTRACE.
+Thanks,
 
-Propagate HIST_FIELD_FL_STACKTRACE to variable references and field
-variables (whilst excluding variable aliases from per-element
-stacktrace capture), and reject any mismatch between
-HIST_FIELD_FL_STACKTRACE and field->is_stack in check_synth_field().
+	M.
 
-Cc: stable@vger.kernel.org
-Fixes: 00cf3d672a9d ("tracing: Allow synthetic events to pass around stacktraces")
-Link: https://patch.msgid.link/20261013112449.1006088-1-lee@kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
-Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-[ sashal: Retained string-only buffer conditions because histogram stacktrace-variable support is absent. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/trace/trace_events_hist.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
-
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 40d9de933fc85..f04037d01bdd7 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -2067,7 +2067,8 @@ static int init_var_ref(struct hist_field *ref_field,
- 	ref_field->size = var_field->size;
- 	ref_field->is_signed = var_field->is_signed;
- 	ref_field->flags |= var_field->flags &
--		(HIST_FIELD_FL_TIMESTAMP | HIST_FIELD_FL_TIMESTAMP_USECS);
-+		(HIST_FIELD_FL_TIMESTAMP | HIST_FIELD_FL_TIMESTAMP_USECS |
-+		 HIST_FIELD_FL_STACKTRACE);
- 
- 	if (system) {
- 		ref_field->system = kstrdup(system, GFP_KERNEL);
-@@ -3210,6 +3211,7 @@ static struct field_var *create_field_var(struct hist_trigger_data *hist_data,
- 		ret = PTR_ERR(var);
- 		goto err;
- 	}
-+	var->flags |= val->flags & HIST_FIELD_FL_STACKTRACE;
- 
- 	field_var = kzalloc(sizeof(struct field_var), GFP_KERNEL);
- 	if (!field_var) {
-@@ -3837,7 +3839,10 @@ static int check_synth_field(struct synth_event *event,
- 	    && field->is_dynamic)
- 		return 0;
- 
--	if (strstr(hist_field->type, "long[") && field->is_stack)
-+	if (!!(hist_field->flags & HIST_FIELD_FL_STACKTRACE) != field->is_stack)
-+		return -EINVAL;
-+
-+	if (field->is_stack)
- 		return 0;
- 
- 	if (strcmp(field->type, hist_field->type) != 0) {
-@@ -4360,7 +4365,8 @@ static int create_var_field(struct hist_trigger_data *hist_data,
- 	if (!ret && hist_data->fields[val_idx]->flags & HIST_FIELD_FL_EXECNAME)
- 		update_var_execname(hist_data->fields[val_idx]);
- 
--	if (!ret && hist_data->fields[val_idx]->flags & HIST_FIELD_FL_STRING)
-+	if (!ret && !(hist_data->fields[val_idx]->flags & HIST_FIELD_FL_ALIAS) &&
-+	    hist_data->fields[val_idx]->flags & HIST_FIELD_FL_STRING)
- 		hist_data->fields[val_idx]->var_str_idx = hist_data->n_var_str++;
- 
- 	return ret;
-@@ -5093,7 +5099,8 @@ static void hist_trigger_elt_update(struct hist_trigger_data *hist_data,
- 		if (hist_field->flags & HIST_FIELD_FL_VAR) {
- 			var_idx = hist_field->var.idx;
- 
--			if (hist_field->flags & HIST_FIELD_FL_STRING) {
-+			if (!(hist_field->flags & HIST_FIELD_FL_ALIAS) &&
-+			    hist_field->flags & HIST_FIELD_FL_STRING) {
- 				unsigned int str_start, var_str_idx, idx;
- 				char *str, *val_str;
- 				unsigned int size;
 -- 
-2.53.0
-
+Without deviation from the norm, progress is not possible.
