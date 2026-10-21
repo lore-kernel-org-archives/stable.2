@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594153;
-	b=kmUkTp5JlchjRlvgydNfCYjC8bhqhd0mfM1MvzD7hzqod72CzYKyE+iuX1VfeWsMI/F+
-	 7+wL4IJpPD+nsOCZmgoKbnGd7aWR0pcbHlkIK4YOD/gh/GUSiiLkGuHFelomqmoWYM4OQ
-	 t/DbAygl95udl5ag9fV/ioTbSUgzi4A36COm8sUUa6caLVpwo0u0myFvqKmWrHh0MG5eY
-	 4+5Xzrn6zgeOcrd3Ds5wRrC+soFkyUFttgYNGx8w/QcrWR0FbJWP8dx0dU2RViSj+6PWZ
-	 dzq2gccIdfepnd+JVo+2hAlQtzZ/w4TrxfM8S4lhcKxMuCz6oMzDML0S+8Yw+UjVEgA==
+	t=1792594156;
+	b=KO0Ygsg8KjRedOMWwlXwlp+izTROme0Ippug1HnIwKH9mry5gyFQvJxGyp80XWQOosGU
+	 zlOJHsgC8anek3uXbH9TmH7UjzXXXEsjY6mROb7YmZh0vRlDdOmgfeacg6gwtTp3G7HF4
+	 gxYgIv5ohJJC6daNcIgp0logTSYQLts6qMEmEb9c44gojrvVA/qTotA4QYB2r4g402RYM
+	 MXnWGCupfk/BZYRQzg5w9FiRploT2N+JtmGeVh6AK0u8LqhMFKbm9UjPtptR81IO5Ion3
+	 KICIlbOOOuta22+NR1rybF62kaxMvhsEcU+/KhG5L1zCnx81zVKJD8b5KFl7+DfJP1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594153;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594156;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Jz1FNPOnRSkqB0UUaFxmCP4cbIY2y9q/ggj+iAwjrNQ=;
-	b=dGt7OsPG6+oUAvxamH7IPD3DqL025rPzzT8n78bfgURxmLD690TvvPOxTVdDfiz8ny3y
-	 T1dajpJomCUAirrDYRqhwYu4f/oXcM1Z2VYJ0CLIDWxbfnGiUrSTkUs2J1HyQifDNfLyO
-	 0OXEUg2BCGVwotdLd7xqvayR8Ihc6gVPcChP7YHWYDpRM/ADQBxL2ew4uG7pbPQZVsDii
-	 TjPH8EgyDpMC4d5hK8mw7n4nbYn6cFwLGPggJZXG9LOJS+pK4zOAxoVrU3iLDJU8j2kaj
-	 XwMCv9HwdWE4cXleQD5PrRDfV2BVB4gmvU6emx850ACD6J0dLLHBJArgq/AEh+Y7TFA==
+	bh=kC/nhz3cWbqVyF7hwJRtkjqjrA4ddImW028zHLQsHMM=;
+	b=4pqEzjg5Dj0eKsDH5jRSslScz+AJ2D07nYYU4m0NILWp2sC9uccruxPyW04/tQjnaPuN
+	 VYeTp3K75+WqoXiEkBaFC5jVq5sFvfY9br0tK5UuPfseYSI7aEOdU6IuVdOcBn4xRgzs3
+	 IVN3dMKRbNufRYhSgdTyyj1FidpElMqfB/sAaxsiffHou3fUlsBCPKLCwQSwtKubmJF4O
+	 K8SeVJCDgEF3D2hINk/ngT8pCc6vMLK1+SOK/th1oST5DGRZUVREvm1LjnCu0ZzggXKUE
+	 brJEbA3HDfLyMQXpeWx29B+E6sZu1It/sYqZNxOHQMbilikAaQHne980ZaFD5kDzf8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OMOj4MhE;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uEJQzoPp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618DE606A321
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:49:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB0F606A321
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:49:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OMOj4MhE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CC7F1F000C3;
-	Wed, 21 Oct 2026 14:49:12 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uEJQzoPp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C8A71F000C1;
+	Wed, 21 Oct 2026 14:49:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594153;
-	bh=Jz1FNPOnRSkqB0UUaFxmCP4cbIY2y9q/ggj+iAwjrNQ=;
+	s=korg; t=1792594155;
+	bh=kC/nhz3cWbqVyF7hwJRtkjqjrA4ddImW028zHLQsHMM=;
 	h=Subject:To:Cc:From:Date;
-	b=OMOj4MhELVlu3maO0PwQLOCQPlWP9fGf4QErbUHSeXv5nVBwS1fd0YksjTGpKOiRl
-	 5sNn7rOX+NLLTtoInEf7ienTodzMmjPB+vOCWHBFQI9o9WQckJqu0h60vh48QKdaYI
-	 TZgkoklriAEtYhdWU3HuEUw8mVrk1EQq87PMWf84=
-Subject: FAILED: patch "[PATCH] pid_namespace: make zap_pid_ns_processes() freezable" failed to apply to 5.15-stable tree
+	b=uEJQzoPpiAZgn7r+wGRptfToP5LEQHjNZ8nR3DiqIdCrlDI8YdHJAg3tZuNxEZ2yJ
+	 /zuTpIHcNqS1umtiW//b5qPkAUcnjEsnKX9508OcBoPwRYX0GPQjqxQWP9orSBxv+s
+	 mvQdDNkFLwWc9AppcIjugq9T2pndO6snsmcPNDq8=
+Subject: FAILED: patch "[PATCH] pid_namespace: make zap_pid_ns_processes() freezable" failed to apply to 6.1-stable tree
 To: vaknins33@gmail.com,brads@mainlining.org,brauner@kernel.org,oleg@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 21 Oct 2026 16:37:00 +0200
-Message-ID: <2026102100-union-expediter-abb6@gregkh>
+Message-ID: <2026102100-lifter-velcro-2a2c@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 81933038f5e273d17ed22792f906889393b204c5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102100-union-expediter-abb6@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102100-lifter-velcro-2a2c@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
