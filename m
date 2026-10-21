@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594136;
-	b=XuAD0uMBHBn7v531VTWSTIbHZhizLH+7Xbu6H9B+dxW6nmbs9Qintu+X6zxiaiibwm4I
-	 KxIEmHhW+y4B4rLDUFnxh/L4igzOLCjbMckiNPVT0cHJK1J9z7Z6RJs6HzGa6pT7Co15c
-	 HbObQPRSPbH0Py4VBjrQRwp1Tci1lb7QMQVIDvaeeNBxjl7I71inwZGNjs4VvG9msQ5jV
-	 dQisNUILHPLINDQ67RhmJlQoYwTUoYvYwT4t8XLHWNad3VBzIT9obPNMiy9SabOBWcs+w
-	 T3bU1NxkI7JJkFOPBbv8BsdC6X7/qxhaV/mwCh/s3T3FhZ6BBGiTb4EdlEQv4yxnzgA==
+	t=1792594139;
+	b=opI6fMtGmfQ2dJ87iOQN7C7OWRzBSq2pXmpGZ4JRaDIAIJ2kE04438jV9QuW7inzwkgJ
+	 AeXWvf5tTtFGAf8F3swF0j9yb7bm7vYuZ5rwF2TjuZQUrhTZhBw3OywmCH1LoXiwUAxYp
+	 43dHcbaeS15MDgBYf1zXARzk+LbCYNGjant4RHLIb5rdcTlJGdPy1SmOwO+U+He/yuXCP
+	 6jiHuUKwoNjRqi49FPQhGWCKx1X+oKoeIuTCO4rs2epK9p/6isEUkWPx3kOP3g8RPKXgd
+	 +i3A+/ICBLx/sK0J/pvQbuhEaB9VjIQuItQCSbtaMI6wWsop99k1sneCjMO27KdXfhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594136;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594139;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=l3V6JrpMgWGnXOgR5+/PnO+i7koXWDpRhefi1TEjzBk=;
-	b=YBj900g2xckPKxiMWYJahMKSde2doNxLPkI/1CP19SI3asAl25mNAsHRSDiWjCUKBl8d
-	 Yj0hOOjfQYHf81IvIK7YaG3YaoF4w25K7Jw+yJYOanJDql5F9YfVGsAV6Dky+X6WylJQn
-	 fKbNzkHf+KiiqKMPBEE8jBiTis+W/4Ndo090ONKZ7xZ5C23CuWAXcJJ+h0J1YaKLsRlmU
-	 Ne7WNnwMn5AT926RwFYFqnSZB95Mo5DNyJGnDPEPcT9pxzJ49+v616yZ9rL8SaxmQrHLN
-	 fXHLBWHr2+9sOsLJy6BPCAkEIqMdLVm4P6zfKoUCxFTNSHqbKX0Dr9qZa9GoLsS95OQ==
+	bh=BnO9ggs+OLTRcHA98zrmKleAC6MsyzgiSsQGY475bcg=;
+	b=SjUDag7VonZc/zC5sIgBxAgNsTT5v1NTlhxBJ5iloVcuA9uaxvowRH+Flb4nCmotr//V
+	 zQvyz9aHl+nSXbrDWVMIDxMFaMIY1JGZiD4dTC9MczWPT6zF+qzIa/++J9M7SM81S0TXx
+	 3D3PEeL7gp9yPtoW8IByM3J9/NVZrqaCInA5MRTWpQvgNJBQz0KLk8EVr2iv+RampXJSo
+	 k2Axs25zgk8qPP+gPf+VkVzSfrc0NLVs3xTkL5G454TXtKRliECENR19xdNoDnCxlNKCV
+	 P+bNsEyahiCQeRVe3LmEO4G2QVpvfFaCMj6kzVeoTPbthfqhb+CzT/RpSRL88rwVXEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MMxg9FE7;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xlzJQo1o;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 469B8606A31D
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:48:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F7C9606A327
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:48:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MMxg9FE7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88BB51F000C1;
-	Wed, 21 Oct 2026 14:48:55 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xlzJQo1o
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6144B1F000C2;
+	Wed, 21 Oct 2026 14:48:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594136;
-	bh=l3V6JrpMgWGnXOgR5+/PnO+i7koXWDpRhefi1TEjzBk=;
+	s=korg; t=1792594138;
+	bh=BnO9ggs+OLTRcHA98zrmKleAC6MsyzgiSsQGY475bcg=;
 	h=Subject:To:Cc:From:Date;
-	b=MMxg9FE7xQQ0L15WJ2QtzEMJKbTyk+sM6UY+goeOxIUT3ozXTdY3iNFCJGyKHi9Pl
-	 u8PU0/o36GiVLcMHy3HusfHPlm0hPKVftta+L+8/9HIvxZ4WCaeeClcKsTbKl6E9+1
-	 MNFAefnaTJo2BXiFCeiHveR157ia72wNSFqu9OSM=
-Subject: FAILED: patch "[PATCH] wifi: atk9k: Revert "wifi: ath9k: reject short WMI command" failed to apply to 7.2-stable tree
+	b=xlzJQo1oHeWb6I3qeveunmIJlNGRj1OpCjM82hOCrsD11z4MFpllYvF7aagnNHtr4
+	 lgae+bCyHaRVFMFIiKwFjlTGS21t6e96sUXTabk4T6nQDmp8J0Lso+f92r92ZkZ4Lb
+	 lPJH+CzZXNkitOlM0tde+TMyHPfNMF70jb4AH/g0=
+Subject: FAILED: patch "[PATCH] wifi: atk9k: Revert "wifi: ath9k: reject short WMI command" failed to apply to 6.18-stable tree
 To: toke@toke.dk,mehmet.fide@gmail.com,torvalds@linux-foundation.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 16:34:49 +0200
-Message-ID: <2026102149-tranquil-moonwalk-bfc4@gregkh>
+Date: Wed, 21 Oct 2026 16:34:50 +0200
+Message-ID: <2026102150-alias-scorecard-d1e1@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 90201351a862182bdabfc1ad1c97b1e1b6ed5931
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102149-tranquil-moonwalk-bfc4@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102150-alias-scorecard-d1e1@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
