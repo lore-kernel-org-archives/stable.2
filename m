@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594116;
-	b=cmu6t9eNmmMf3xBeVB2em03Q+c9CdUAaSG08pLk850BnWHP/ZpUFlbRRBYwbAQ8GoMa2
-	 PjzJFc1eeDKfOplBHK8MUeG3VUCEWRC2+wkMipLTjJlkooAmepPoEbkb29Nk6VW2t/MTx
-	 pAkBVQBbqyMXSiDZimqbGU0cV9qpg5SCOIjswm193+b/YUMh6vO1MXrkGlCAPc1F0orvr
-	 EWnvDtj5Kk/OXSMS+h/sC+wlSBoS0DhVPSJh3pQybYWeNs5qBmHWhdd96B8AiTmU7O8RI
-	 Dv7sFqKdHDqiLT/hGEnGJtiKVXIB9ULLSSDddWWyeRt3KX9YtmiS7Kc9m4RuzXHZRAw==
+	t=1792594119;
+	b=PL5mjlNQI4xo0vZBLUFoSoemMwM2UWZgNlc2d1+pXbsNroJ7ky+KeaaVSLB3NCp+sr8x
+	 aRnIDvWRB3dap1Sz9cQuqLPQUuciH+TKfsG2wAw4ev22rUbdAByh3sQknJnrPSJqbpItL
+	 xDdjqArBgto0DxD3/tbig5R5Qu/ObLzKpUihnHVPM72JSmHue7s9K5iREzv4lGZPtB+kW
+	 9Zw1OGL7S/h7eEt3NUuPIUx1mSZo26oL9XRPeH4kfHOrW+/8tqDbUFeHJm1BkB3wJS4cl
+	 r/t/qMOKnU4xrjq6301vcnxVX5oiANRkc5RlEcwpLSixSSovVnII5MaDmD1aEaC1HYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594116;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594119;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=YIWbERfJTI1iBuL7X4yKjCyyLdCk72QrLmM0ntXAwsU=;
-	b=S8V/7KWp44kPh6PtD3X8l75f86sMs+7eHyrT64lGjw+dYVZ5Fmrp15rq7ChnJ6wEvOEg
-	 oZbkoO0+lsqcLq/61xZEd2FOl5iOAnLNcgCgrPKxPOfzhoSz1SXrnwaqE+unJM2uBNTm9
-	 rz3+gyE6pJ2z+QmHgz2pjN4R5vygC5z5+6qXNHwnKTqNgd10R9aA+Di+0C0dPC9VA6RlQ
-	 ik64qsCB53/KimQk2JCU9t1RegLgJ51oXttR+PctSqMyQZNO3NE6w30DH95xFdgn9vqpC
-	 SCGVgYPOzJnWlxomWIa8AoZbdy2d7Sxct6Wnrjl/tydSTT0zZLQFZ3tHe4Ze4eOt9eQ==
+	bh=WsFZ5sU62JSApb7dpz4cTMlNo6vxQGPJkNPsckKfYSg=;
+	b=Eo8CGH0HKkDXaMKS7N+thae8DItnwWiQ0UIZRRJ8NKwp4GFukdCvaVbmpjvdTDJWu4HV
+	 dwRNiPteyNls0XXu26WG7vQXhdWK+2KaqQqEBGTZQ8jcd014l4zErvt22lcy47gcy+c0x
+	 XbsvoGiqAAUG1LDggX9CudV1+hUYYeWLVGMZGASYKUdB9qjWUWBPgRtvU1IzyFH6N+SBx
+	 ZpHEh8FdnHxcdXNonkrNZNrxrGQFZPbRcsYh/VcwLv/6eE2HY6Wg27iEDCbF73CkD9gpN
+	 7gOIbjiLSuDYeB+UDZYKUxQcBRgSW7y+rLOTD2VyMS4NocjIxFZxFH7FQtH5Et1m+fQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=j48XsJ5j;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=po44TFdz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 941E3606A31F
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:48:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C931606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:48:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=j48XsJ5j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B82521F000C2;
-	Wed, 21 Oct 2026 14:48:35 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=po44TFdz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989E51F000C1;
+	Wed, 21 Oct 2026 14:48:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594116;
-	bh=YIWbERfJTI1iBuL7X4yKjCyyLdCk72QrLmM0ntXAwsU=;
+	s=korg; t=1792594119;
+	bh=WsFZ5sU62JSApb7dpz4cTMlNo6vxQGPJkNPsckKfYSg=;
 	h=Subject:To:Cc:From:Date;
-	b=j48XsJ5jN3aeOHxSUjl+Eb1CTtYrVu9MzX7uJ8E09cV10uiWSMjITwukv/51nIEzR
-	 mNEaWufv3QCJP+pY708QNaLaYwCB2Ym0W/Oldbip3iq7u4T5zbtMyvmjOpxuPQTmR1
-	 zwTNwSXjUSQ4XUXgIx7yU1kL0mebvIKvvJ/r558M=
-Subject: FAILED: patch "[PATCH] unicode: free the map after a grace period" failed to apply to 5.15-stable tree
+	b=po44TFdz2JMO9mMWLU3La6dtsbQcB7SoIKCG2b0WTe6RjYT2zKoN7M1ccfrIivAyg
+	 XOo2Hmuna7hr3A+BYVWD/MEx2p/r4+EWRoJb+12k/CmD+wtxUzbHt4P0rIDVQIuRfq
+	 XgAt5ZVt6MB8gvH3PQ3tN9u3ns6sOVtRxE/a/drw=
+Subject: FAILED: patch "[PATCH] unicode: free the map after a grace period" failed to apply to 5.10-stable tree
 To: brauner@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 16:33:12 +0200
-Message-ID: <2026102112-reprocess-growl-c2b7@gregkh>
+Date: Wed, 21 Oct 2026 16:33:13 +0200
+Message-ID: <2026102113-bobcat-angriness-3465@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x a96c5299bd7305eb984377681eb3222a57376405
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102112-reprocess-growl-c2b7@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102113-bobcat-angriness-3465@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
