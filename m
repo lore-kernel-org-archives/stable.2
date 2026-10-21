@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792597317;
-	b=fd4W+kBy/U3TbqIZDxojBMmCk+NL2/P0+y7jiTzIPd6C6W+dAlPkbHrrC6dTl+NccRo5
-	 NNQua3rYPgFewF9oyhD/77pKEmh0WYpSHzotGT/QInHWPlfqTa6/BnjWuU4QJMXKX65vG
-	 TIY6j2LKM9cibOB7rY+txpAgPmfLflgAwHIhcrXZmdsz8cV60rWAVyVlKRm6bUmoE+h1A
-	 pLdc4FLwWAfAlUOqoZPq9oTqEbs9Jj0WET4esAKhp2qTyPA2aY51Gk67FNr7tZCEOOsKB
-	 HhrBK+khanT7QXrs6JVtOdNZnjayo5hcEgVFk4CLFCfrMspCVSIF8d44QBBO4qJqS8Q==
+	t=1792597320;
+	b=JOWr1kz68EYngVrFrpwYd4nRP0trOMDtsxWUqEaZTxG1n46zcK7r61vyYjR8EP31+Nui
+	 g4RMuH/aIREXQU1/X23oJWrKgS1kvjWEaBuKCnlNvpCwdDedL78A6uqSDSJaCR149L/o0
+	 PzVlDOpfpv/TiA/+lJh2OJdVst0nbASZ6TCHmlIfNOnZvHth4N8aWma6iOV1C7a9wEoAM
+	 8EFp6PTVpfbrvzFzFOzJEqZ20DWKGxVi0davCVfhiHu3E9zykJNfIvvJKQKyagcc6TLTa
+	 mcmAm3ceyqKjdGimRFUjapldrDeHeSRSvAIZ59rS+4zZdO14W+MwM4yS7LdHp0iY/lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792597317;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792597320;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xyBeNG5PcaZb28n3YUwBhScY8f34Z2QYQewefMON6II=;
-	b=WV7ly2oSYS3GKA4WOLhOLnhE2Dwfkw1Z14udZ++Xfvh9LRuLdgB/DXFs0Xj0G2DBfauZ
-	 Yz6NFyCQvQRi4UO/++vsrcrz7OfVUGXK6D/y+mx7DPgpsKYSmXrfPBGOhFrNNiCzCRSWP
-	 9Mkaoysb2AX71YvfGzgzAfaKdKwAuQbcvor8K3bfJaM+GbIIrVQPG1hoO2troJkWxAhGs
-	 BvUmElzXp2yQQ7ojV1SsPSlPiuGvTStwpOeEYBfHhg8hP9VQoduv8rZFozxfxcapYCgQq
-	 NQYgYbDwHxaBNK1+lfaZCLn5UFORIZNxEDkckpxVIR/qRn9XMhJrRZKFTp3s40reAJQ==
+	bh=0GySrIwEk6cR5WCZGc+l2GxrLqygY0Qxb9dbFI4IoLs=;
+	b=El0kMQDjKpnvFXH3KPkmEb4P9PBlukCTp56p2UoOfzgxD7YerrPwWk+nwR4RHpwkQCEp
+	 s53VQTF/M24D8t+YUvW/GV2wjRLPLwd467izai6O3uW+jfUFAdnMMFa1F2g/6EcU8GRS8
+	 kzfpcPKHgrZu8zG80c0eEcWV/7WgdASbyeuamw2WgwYiL197BQNXm6l6x5g7lS1BLGF9+
+	 AAg4f3vCwkna19XEpiufKdN+2c+twT3QzxcNuGEspaDPhGHxV8oVJ+Ulh1g0JlZxNWYPM
+	 IFt3e7T9dF9vgwCXG18DHR0pSiUrbYmXFGOLGhh/mXgKXK9abJwUQ399884u6R6kHDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=K4r1i7KP;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wfYPjyFH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A09AE606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:41:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 550C8606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:42:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=K4r1i7KP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A24951F000C1;
-	Wed, 21 Oct 2026 15:41:56 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wfYPjyFH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FD1D1F000C1;
+	Wed, 21 Oct 2026 15:41:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792597317;
-	bh=xyBeNG5PcaZb28n3YUwBhScY8f34Z2QYQewefMON6II=;
+	s=korg; t=1792597320;
+	bh=0GySrIwEk6cR5WCZGc+l2GxrLqygY0Qxb9dbFI4IoLs=;
 	h=Subject:To:Cc:From:Date;
-	b=K4r1i7KPeKqFBQgyuxNXd2x00MY7kEvwDO/p4Ps1S8EtQVAlBGrE6PJNhPk6CT8wG
-	 Ug8AExmX+VfNt7Gi5mqdWcTeCW3ousw2Af2vlhqPzP/rGBk+iIOy3MTqxwS5d2m7wZ
-	 AiiTLBMMzS2Rnus/iikqKDlmqeYaiq01iO4+1MC0=
-Subject: FAILED: patch "[PATCH] ipv4: udp: Create exceptions before socket matching" failed to apply to 6.1-stable tree
+	b=wfYPjyFHHB+G/mCpmaBNea5KLgifV/G6gl7cJhr4F860K6vBRAHgqQVNgSmdhS6Nq
+	 1YzbkUWwdJqs+o9+iLr+nqVVU66/ATQEbslmCFjEEWE/QZByIDSJmyuc5Vu/WXNcWS
+	 IgylLjZaIkjgRIl8yaPhs1ZApcZ9XbT1mL4uTXdg=
+Subject: FAILED: patch "[PATCH] ipv4: udp: Create exceptions before socket matching" failed to apply to 5.15-stable tree
 To: idosch@nvidia.com,aksecurity@gmail.com,dsahern@kernel.org,kuba@kernel.org,noam.caspi@mail.huji.ac.il
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 17:39:23 +0200
-Message-ID: <2026102123-unroasted-manpower-c7ea@gregkh>
+Date: Wed, 21 Oct 2026 17:39:26 +0200
+Message-ID: <2026102125-annuity-hardcore-06cd@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 4c3499f79f8c7e8561266bcc220a18538cec0458
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102123-unroasted-manpower-c7ea@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102125-annuity-hardcore-06cd@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
