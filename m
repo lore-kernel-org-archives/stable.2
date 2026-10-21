@@ -1,76 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792589156;
-	b=chH+36+tcgH2db9ti3TNidZ+T3nSVXLMHBKSa074V/TzD1z7iWgriz0ockBtK2r8Xe7t
-	 UYZcvk09UUTIq/HbQCGdfrtI6Pxqy1YD27pFMnF2Gf3axzLhYxgydUlCpuN3LFzUbK0Y4
-	 SclN8yRFuCYog1CVOMpWfpxpX3cqL44V3PleN3HMnvC4/LFMhwJ01+AE2OnK1CSrCAADJ
-	 ITm6GwIs3wZeetVei19faEQoyJZKlQfj1REZgMmh6DuV8Xq2y1+YQPr88mCsULGzD9Gls
-	 fsXeh5KykpZqq33zBTi8VaOEHg++uHjYPs/sS2DOnMHf/fkbsw7LSoy8ocsf6MDAbPQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792589156;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=WmpDi7uAEvCBbE9BhvFq4d4HOMx3zfGqFapjUnsxTxk=;
-	b=IKZf8lWVmZz9w3Hy2VG1CSqfd6/9rPVAeSR39bCDnRgup9nmu6fS1lQ33Sbdt9OWrJIO
-	 8HyUgJ+BwmrsN0OXAooIlIxqN0e5SLefDNublPu9IVg3bwIagdhhjMwmoygRuujbZbWLu
-	 Z/u6MyX1JHLuAA49b3VGVcc6uE4H93Gx6VZAvA6LFIDyRWZi6mW0KnpX/jpUSy2LAaE9n
-	 fmS35xsbNJ9z1o1sQyCDs3B+6XQaeTGlY6ut0JJawwPQ2QkL0J4qv8g/49P1m0HrrMWom
-	 53CzjReKTaMV5PHlonmr3YRZlCd2XqD1ksaGHmqQ56YIZ3Rl9ECLKxmJ9+1kxQBWp2g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RZozsfb0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.175
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792589322;
+	b=lfeGwHz+ASm3mDihXKMv/XgBTsZc/Gj6MlnY6f61GPUrjAFkPCH89SisJkxDWsvECAqn
+	 lB+Uc9nlECJ9tWoGXBL41eexy7b+AIwGN4prYYLeNBqckTHnszvY59ldFRw8YkGXPLDdT
+	 N49ddchoqEi8YTKs4RvGTeIgmJ0bRGrZK/WlK4+WK6NKBEpari4YtQZkCeK9fJ+kU0VCi
+	 Jydj5WY/pU6zhUDI1XZYyDYKLFAFcuuZgHr0Cxl3Gfr6OPQQXbj3aW71yrn0rc9stZkU/
+	 i1awDyV0n+fCLs+PutGw354m4x6AEylR4+JyG+7lvMsVdyOg05LnAdxr1TAnE8c/5VQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792589322;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:In-Reply-To:References:MIME-Version:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=aHoL/xV+lJSptWn1pnj9SxRHcMCta8KU7nBOlsKicA8=;
+	b=GQs7K3/S9Cz+c85O/3nBFjzbqeg8w0h0yHwPmsDELqrnW+upC4THsI7ijNrXB8G0zF82
+	 YvYpMjV+T0lETn5MjEuu0COcW0DcftUWD6mHrZ2VgW6oepWpJSgwNEX+TapvGxLoxh0KA
+	 3f500JbhZ0aZ4mwOvDWPNNEvWAEkUwuKnoOj8xg7YtR0P3sx+AwgKw1dbalGam/ACTQo0
+	 sR+jDolrdIFmJzzzZVZ3g9HfZDjTi0FbTPtT+uOK2Dm+3emd67Cop+7BUVq8PDu3GKa7p
+	 ia5yt7QjbwWEKEz+BpxAqbVFKy9eZHkISdyZcc6R09SgoI2rrURybK8fS5wRZU9/tqQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ihyLRDDv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.175
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03C83606A31D;
-	Wed, 21 Oct 2026 13:25:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45845606A321
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 13:28:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45845606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RZozsfb0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A19F91F000C4;
-	Wed, 21 Oct 2026 13:25:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792589155;
-	bh=WmpDi7uAEvCBbE9BhvFq4d4HOMx3zfGqFapjUnsxTxk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=RZozsfb0ChtozlH8YnpQ1cvLafomzdAOPmTu3pessHUZEoHJL/MrAJMGUyG8k2Mau
-	 qgjn7jTqXt/flSpYgcfX+K+u9Rtt6WTRs7nnerWzG+lfXX72yz43wL50iwsPPJKrPh
-	 BurJWL0QMxEcsoqIxUtGh4HAtd6ygCCv05wCx3XJJauqJvLEW0V63lsqzdFt27ODpX
-	 Bokboc/Fk0G5plek7tBZwQnuhWbTRETuZcb9Pj5zyr7bs7jcgE9MJKUJ/M4lp74nFi
-	 H/wgoVGnz/lXgpcr+1zIM6WvSB0oSKy/kghjSMMLpQeMDAOk9W6jXM6IEP6nRJj+rO
-	 O8gs8ipyhpcBg==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xJWKH-00000005cet-0YFY;
-	Wed, 21 Oct 2026 13:25:53 +0000
-Date: Wed, 21 Oct 2026 14:25:52 +0100
-Message-ID: <86pkx3yylb.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: oupton@kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	yuzenghui@huawei.com,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	kernel-team@android.com,
-	fuad.tabba@linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v1] KVM: arm64: pkvm: Clear GICv3 LRs in the hypervisor
-In-Reply-To: <ati1DrtmMd-63bIN@google.com>
-References: <20261021110000.508827-1-vdonnefort@google.com>
-	<86qzhjz1iz.wl-maz@kernel.org>
-	<ati1DrtmMd-63bIN@google.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ihyLRDDv
+Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-535f598d126so254971cf.1
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 06:28:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792589321; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Du2SJEjKcoRw/JLnVo34L0gBcfEEjIl4fjyV8SgGAFSZBA8LfvDKfOS5qmV74Mny2G
+         bemZmnA15YEzcHDXfKLdJXIJs33ve7iSBjS/5L3/S4GMD7QtfcWKM/UnY2oE8XIkqNMY
+         wX0YmCvz3XHurERDMzhWJasJisxyyYtKjVLaWM7wjjhz9qxgrCd40DsnFBQKHwDhV5Zp
+         qoSUzv0lT9sNDon/Cg570p/cakj94uptbN9rRN8PDANVyJX3HF8TzZvJM1doXLWhH9UP
+         Pk0bbcR5tDwrXrp9qmmqIDq83M3QxEBe5Bu0L4gfKbwvXCLNEyaU/TVfDzV1W88Xsw4U
+         mLCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :mime-version:references:in-reply-to:dkim-signature;
+        bh=aHoL/xV+lJSptWn1pnj9SxRHcMCta8KU7nBOlsKicA8=;
+        fh=9fLKQ4JQx+J++s/tmdgAOSFUWcpTcFYk12X5BwbOSU0=;
+        b=YOZRWhQlXSzz71qwHSNtMiFYB4XN0yAR/QVB64z4b7n1TSvlJFG1jZ8X0E/vmKuQch
+         sLNJdYwDp812NdmScimxfntq73TBe3vdMvqUrnZoApNIIL8FzMSp9Wi+sccgsXq3s2BR
+         CpIdzyhJgE0uO8CnpG3bUWGhadeD4Gz4j/4zC6rsN0L4v1ihcqRtN19DgUoiXgobpTBf
+         rqtMv2sex8CWYa5am/RElwNo59wUBqabHSPwtWBdk32MsA0OC3EjNqqmo2lqLqsRYuHj
+         kJLEQ833A/tOos0lvV50HGivVfbBzOm0PdY8bmxdREoa++RhHq7fg0yRB9jmvJ4qylci
+         Nnbg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792589321; x=1793194121; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:references:in-reply-to:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aHoL/xV+lJSptWn1pnj9SxRHcMCta8KU7nBOlsKicA8=;
+        b=ihyLRDDvbYTaqBdY46anGqX/Vs0AIF82chcKzRQAE54w0CAOMr+AVgOSg6FalBjknK
+         7hC8Pp2HJbJer88B7T/fwg45cNh1q+IJ4R+kIBFJeTZP7iBPa4GIt2nTldiQT4opU6J/
+         AN8mU6nlMvKX8xaP0T1HE5WG9TR+aMq9HFRPNbYCCWSFpo1jKJ0adpoUMOKG9Ywb3IFi
+         oCT7RaV6Ej3SwRyetkv3IdR0UjhGmczHNnRT9aNNFWWwpwJK59Y//+VSQZ5kk8d8eyVU
+         mTezC3lqP+qG+2e/qUmLvgX3/xKM/6P6bB0yR8CA0/mJWvHGjFwCvOjNSfiJaWAZuAtY
+         HGJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792589321; x=1793194121;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:references:in-reply-to:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aHoL/xV+lJSptWn1pnj9SxRHcMCta8KU7nBOlsKicA8=;
+        b=yZxUwcYmUIYw4tX0hPncwDkzOxHP45YdepMVHf8J/KQOIehFh1IZWRlJTwJ8yn+6vc
+         tqQsWlzu3Y7ACPr8i3gRX1hNc1G4d1DW86oodYgXYFVLtzZZH2izYlmTW7llMOXvq4E4
+         wrHvYVXpNS8xwI4w2wiuJG27ZHE+3+5HiCp2GmAKRR50mvIYoZkXuM62+zATZueT6YN8
+         eB1PW4ZlMzB33neXgnzCktJFmfYPAvOAzWdE17tuvA+6yFHt/TwqMt9RK2lBzQ6g1ykc
+         X8nvnN+7OwUkNJDXXP+i/9SOkq0hRNrggentbQGXd0l1/KFhX/ZrG4Xix4orKVbrrq9G
+         75XQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwvfMS0fJZjeidSbdos49A/Fg/PsTTv6w7qqhyKZv95YRBxLic03wMSaOgoOoLGH/RWDR7wlqY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLCGaeskm7qw5c9nU80rs4PPknjTwh4G+5Acf9JnMyIAT9Ce1ll
+	HN2AiAeoTJTMIrA+3ZO2PDhGhr6lqYtOwo/1qE7txeFAcYvvlqDDZ/ULmQjO+3Mhhn3/sjzGybj
+	pgsYeAmMq0DHUlfgviBB5xWpd4cFdXH0VR2dWLNyS
+X-Gm-Gg: AYBFou36zJSKOvbXB9P3C/n6OoxZ/zXMCoM9CXehiG6GpoUjXpkRHXnSFURG8zCnCvE
+	ktKxmQjcudVTBrk++LnzoqzDPlMWGnBptFwjiyxbZzruhNqInBWIMLYb1WjnPQRKwQXw5pTxKHH
+	k/sHe0G9d6j7CEn5p6oUtAqnOp2Ub2YQMPmcP1uKnwd6IR72CjJzwueYlk6WXbccopXmj9nkHFP
+	rCE/dEbMwLP+wvUk2V5A84TaDctRd5ZlSYO6h8R/yTZpmgo2e3wA0RJ66HrTsyGNpOVZb0En0me
+	Ko34FlRph59ASc2zu5w95660kNnG6dzLEHrZmyqjxlUzZpTUYjMlGXArFcMJYx07Eo0pvqC+RBh
+	jnRbvXryFlBZJ56Kebx5/jQQ7mppqJlwJwysB2amCI8eevLJwjzwxTfNhNIatHaOi
+X-Received: by 2002:ac8:5dd0:0:b0:533:9731:f0f1 with SMTP id
+ d75a77b69052e-5368b32a9c3mr35503331cf.10.1792589320454; Wed, 21 Oct 2026
+ 06:28:40 -0700 (PDT)
+Received: from 913411032810 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 21 Oct 2026 08:28:39 -0500
+Received: from 913411032810 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 21 Oct 2026 08:28:20 -0500
+In-Reply-To: <db4d4e246ad6b4769f736db0d3d1678adf9d59cb.camel@mediatek.com>
+References: <20261021035450.3488805-1-stanleyjhu@google.com>
+	 <20261021040615.3566831-1-stanleyjhu@google.com>	 <20261021040615.3566831-3-stanleyjhu@google.com>
+ <db4d4e246ad6b4769f736db0d3d1678adf9d59cb.camel@mediatek.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,57 +111,38 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: vdonnefort@google.com, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, kernel-team@android.com, fuad.tabba@linux.dev, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+From: Stanley Jhu <stanleyjhu@google.com>
+Date: Wed, 21 Oct 2026 08:28:39 -0500
+X-Gm-Features: AclHuK_9yuJHTKtFtEEYtr3PTMFrReT2NVeEAvxb4V7BtW5ZNHdjV0Vtrr4xmu8
+Message-ID: <CAE14pdcR7NPqK3W6Pfy+FkRrXSXB9wFuweOhLyFtSye_Bg4vWw@mail.gmail.com>
+Subject: Re: [PATCH v4 5/6] scsi: ufs: core: Fix double release in ufshcd_abort()
+To: Peter Wang <peter.wang@mediatek.com>
+Cc: "Martin K . Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org, 
+	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Bean Huo <beanhuo@micron.com>, Can Guo <can.guo@oss.qualcomm.com>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 21 Oct 2026 13:50:22 +0100,
-Vincent Donnefort <vdonnefort@google.com> wrote:
-> 
-> On Wed, Oct 21, 2026 at 01:22:28PM +0100, Marc Zyngier wrote:
-> > On Wed, 21 Oct 2026 12:00:00 +0100,
-> > Vincent Donnefort <vdonnefort@google.com> wrote:
-> > > 
-> > > The LR registers are architecturally UNKNOWN when the CPU boots or
-> > > resumes. However, in protected mode, only the used ones are reset.
-> > > During boot the HVC __vgic_v3_init_lrs() is never called because
-> > > vgic_present is only set in init_subsystems(), after cpu_hyp_init() was
-> > > called.
-> > 
-> > Why don't you fix this rather than making the init even more
-> > different?
-> 
-> Ack, I'll make a patch to fix that first.
-> 
-> > 
-> > > Also, the PM notifier isn't registered for pKVM and the HVC
-> > > becomes unavailable after the host is deprivileged.
-> > 
-> > Sanitising the LRs on PSCI_ON is probably the right thing to do, but I
-> > don't understand why resetting the LRs is out of reach from the host,
-> > given that the host is fully in charge of the interrupt injection, and
-> > therefore controls the LRs.
-> 
-> I suppose I could reinstantiate the pm callbacks for pkvm to at least reset the
-> LRs?
+On Wed, 2026-10-21 at 21:12 +0800, Peter Wang wrote:
+> If ufshcd_clear_outstanding_reqs(hba, BIT(tag)) returns 0,
+> should we also set err =3D SUCCESS? Since the tag is already done
+> =E2=80=94 either by the ISR or by ufshcd_abort =E2=80=94 shouldn't both c=
+ases
+> be treated the same?
 
-I think there are two different things:
+A return value of 0 here means the completion path, rather than
+this abort path, has claimed the tag and may still be running
+ufshcd_release_scsi_cmd() after it dropped outstanding_lock.
+SUCCESS tells the SCSI error handler it can retry or finish the
+command right away, so a retry could map the same command again
+while the completion path is still unmapping it.
 
-- pKVM must not rely on the host resetting the LRs once it is
-  deprivileged (that's the PSCI_ON case)
-
-- pKVM must not prevent the host from resetting the LRs (that's the
-  "mind your own business" case).
-
-Both need addressing. If that means the LRs get reset twice because
-pKVM inherits the PM callbacks, so be it.
+Returning FAILED here also matches the check at the top of
+ufshcd_abort(), which already returns FAILED when the tag is no
+longer set in hba->outstanding_reqs.
 
 Thanks,
-
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
+Stanley
