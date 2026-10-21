@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792597274;
-	b=xE5nS36Lf9wVWtmYWVEMRUetLxjyGrkF/MdU9nqcdDZXEo0HqwU7ae9K93L2hsEzPMDr
-	 IM4K8NcIYSdpDy/Vw+ZknSOP6T9S50mgmLCRnoNsVpG3dIiFBS5EhmmirBgbDd1Ch3VNP
-	 C4zfFVox9rm/b3ceZm3qWFJdsvZZvxHkgpFdJEg43uLN2gD7RD3d8eaJoJEk8/WWDb6rE
-	 x/7TpIIansd3zyUZzJ7jG2CDESRHjJi93ChhXqzVv/vI1cjy503ZI1OYEIEEJKPZnN9M5
-	 AA0FFCqnDu8EV/W//1EWqTON/7tpNe1W8c913dVvLO8hU6v8R4vZxM6Y3MisF793+PQ==
+	t=1792597277;
+	b=FFMzqkP0W9X5fLc6hIfsBcWgJg/VLEyvJRytNbQK+9vUx4XQbRhibNb/iQoQFUEXIFRc
+	 l6Nn6t2IdoszPNibvmkhYeHI3ytxCg64wY0oSHFPxZUrwAaC2BbPM9Tg5Z15ouEpIq+yU
+	 CcNlJjYaVTsi/PZtnJx2uQ9d49ZvzoRryP+h4yCZ6QaGl1dVsMqMpON2Pjq6gkWc6/Tkk
+	 xtAWwni12rn9fJdrTyIbUnvqTiPa5BqA7dOXNDlFBjsMsjNCkhyxOG0wSonr0BsW9HvJw
+	 d0SsaeHR0nzmlwsyCXuKkg+x0x9tBLgjD/OEfmzlhJhzpZWZMuC8Sr3Nd+5I/sG5Aqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792597274;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792597277;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=YnC/Z/lgkcnL5iU7D04K3dYZLZy5OYebem9m4fN7SOk=;
-	b=pkYLjtfHtEJZCCnl4CRwGL5kra4EpTQtTO+1kaF7AK4ZTfeHqYVvJVPgQc53b44gZX5p
-	 f82A78oG1+vA8jx/1TPFXhw4K3m8EhrugWt6UMM1gYqv52egkAAewkXNOCbcyXMQaYCre
-	 cxWR7PDmOIZdlxpB7qfXjSe7e8qo4Inwt9OL3FmOh6RFMLaDstZ58Tp6qUYKlg0rVZIw+
-	 jdKrK6i3rJqCa2lWo7xsQPzOSwQbyTYl7MS46gsPxyeOf1PIH0gdt53iKHfQbTX5GRDos
-	 vvEWApHJ/vp8jpel3cYWo01y5x9uciwDdEydUNa3IENITvg/coF5nt/p/BE97TRoEoQ==
+	bh=yNLTDli8fZUiQF8HFUJEeeP9alBTF4bXstPBoT7AK+M=;
+	b=e5cmNHdL8tlPxQDvCyCrSK+rOvKAYoMG5Xgc/HS8YK3aL1JO5yPE9yDUGK4gaHwXzoQp
+	 e9Og/fV31mmtPv8aMy6WDFISnUErSxrz3h61OW8XMPj94BFJLoOroBccWRpaI9pzdOP4e
+	 F7uKqLOq3H4kkfGbfPHhYv/RcmCgyW6fZTdNKtkUoaSKqwk5HBbPo6wOkHIwaEfFDKE2o
+	 xg97VougA12ufHHY+IYFgswdadXKtqV6ObL+oP/Bn/KkoCbJZOCvVWLOSlMQKsbqS9pb5
+	 7d7BXKWwAFfOLS0ER5rvmP9O4mPntOy4Fa1Fp2wPOKmDWQvQERwMjWmxoUlOeQMT30A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2iY8QQYm;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uh7kuAs+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C8B2606A31A
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:41:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4201606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:41:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2iY8QQYm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D30B1F000C2;
-	Wed, 21 Oct 2026 15:41:12 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uh7kuAs+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C905E1F000C1;
+	Wed, 21 Oct 2026 15:41:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792597273;
-	bh=YnC/Z/lgkcnL5iU7D04K3dYZLZy5OYebem9m4fN7SOk=;
+	s=korg; t=1792597276;
+	bh=yNLTDli8fZUiQF8HFUJEeeP9alBTF4bXstPBoT7AK+M=;
 	h=Subject:To:Cc:From:Date;
-	b=2iY8QQYmFZx1fzhRMLMuLxBSAcUjCPV5Kj8d2vStY/Bjmh66SQjDjsNxTVroAfat8
-	 LePtg7ImmjP9JNds9MMk/KKBtRmhoEQfRmztkfbk4YiqEH8+d8k2Ueeo3bt8XnU3Ps
-	 yivMY3OizC2T9YzA2WmFP0MpymSrBSSrL2dQgi7Q=
-Subject: FAILED: patch "[PATCH] workqueue: Fix unbound pool lifetime for pending pwqs" failed to apply to 7.2-stable tree
+	b=uh7kuAs++TY9cgjiU4MqoPd9DRWwyuj9DgHEZENCbbzbOMgKoM1iOzRBZW/dLrIEo
+	 q8vNHRvoJUqgD/cSdSPxrrakaHdnrK6L/os6oA2ipdV0xS0czFgABwCt24Br6v3H76
+	 wnX0XTOqmD4KXYM+ElnivleJnaQp+F+r0dRH6Ojo=
+Subject: FAILED: patch "[PATCH] workqueue: Fix unbound pool lifetime for pending pwqs" failed to apply to 6.12-stable tree
 To: yaokai34@huawei.com,tj@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 17:35:47 +0200
-Message-ID: <2026102147-clatter-yen-51fa@gregkh>
+Date: Wed, 21 Oct 2026 17:35:48 +0200
+Message-ID: <2026102148-unadorned-icon-a748@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x cf9c8aaea0d47410df8708bec195889f3a85cd3c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102147-clatter-yen-51fa@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102148-unadorned-icon-a748@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
