@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594213;
-	b=3Y9CdqLPur4HOXbHZzsWGoUi9BXFrJadd3ZXTK25Zmag0XFiXO5Xj2sS/wAqIf+hXFkW
-	 2bP4hUY0tnFsqERIrBC7Y9NG8HSaoMvpSFtWJItVGCvqhRVQM3SLkXEc7F+VV9o45TNIC
-	 Hzh8cuzrRJvOHuwQa75g43I5aP90xHqjWcMPIOqUKbE6GSyMhCZB4D2eRcJCRJhCc2H9j
-	 1k+dlrSNXS8R5rt4h9CvFut57PS6pSqq95UU9Hai+7Rxdoub/HF7pDYZv4naiKsoUf/R1
-	 cD4daLzD/2w9k0j3m3IXNhPLQgnq90bvddZXScoi6usBPq5VOgwi/jMzJmcGuFjDQZg==
+	t=1792594216;
+	b=o0Gxp5Pxht7L4j2aGq66EqpudgwlKeEXEPkJIbsGHzbAEo2UY/Rc/Y2R6yAg1A6YR26H
+	 aHf38rV5fBvsF/xfzwdfaOYtf3UkXxOehByXLdmTr7br7GG3cG40bI2s351lX2AjZEHap
+	 V0SB3Jj5ICGmLn/ZPwbNIQW6O22m9u6GJUPSauxM00i1XVfLMWLg1nYmVyXEY288QpSNP
+	 R7MWYZXzui/rSN2gmTSk6zrMWsRpNeIRM53cTHqDtNcwaKL51Ld1Yip1N6kYwbh08vHdi
+	 7cotOvsxWxpPIAyft6BKH2LGbY0+nhzUH4Wxtm5qhkwtv6qwLLQ2GAG8Go5gUen2bfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594213;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594216;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=hTByYIuRfqQWW64Zwj0O7AdI/Y4aeZJk5xwZKXEeA9Y=;
-	b=Lv42QukTSGKr9TKJjas8MSla5h6c1O+lis+ZmtEsZUx5svzPnjKO1iUJffTabkyRDdcd
-	 QvXN8RmfhcToq47ozaUweKE1ZY5xOwRpB95F1Of9Ryknut3ryR1BSgEDT6TElxfAUqRMf
-	 B4yn8hhrN7pCv21BDECgHDFBnDmUbxPe66hv0SnRbVPrJ5gldzKkWMSmXpPAsCr4h9l/S
-	 xI/z03ZfTkPdgzM/jxWZQfjL97sGs+jHVza+d5O3UIvtkIxbHah72ZkimZDzOP+bbz5ah
-	 IPHC04spFL9mqtddZd9YmYITd+bVQM2qIIlJ5YSSAWTsrGNQQKHxDaKIOgT0ItDW0Bg==
+	bh=MhqmuUNn7Vhrm+TwFc1o4j/OtyqGnOZY5oTMNc94tKQ=;
+	b=dxh+5BrdZj7TYjzPj7/Pa43OzpgsdmAf8hhEgvFmv73pD5ySj3ER3zfsQVJQPhH2dGRi
+	 CxSdn+J2UNGsrzaVv1KYeEBNDv1ImAinGVqbwrt2a3qWua1fHNOX2MakA63R/U/mmQXrr
+	 UP8DBvaenBph22uUJaLTiF3ZpDXtKyw+A1knDKXxxaw2KtCWz2m4T6DwAq6/3/Ccowolj
+	 OxGRftjd2IF8x49/5v/UzCCO5Ws8IRA4ty9yPLYrJNrbgRtPu4vbMr2H/hncTVg3lqN7q
+	 g+DXbfZXe0FA3Ux34xg1SfQSWqRsmaze7YARuV5NlWP9xEZ2pvYlliEkMUzfRpO6mfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pqlfyrD8;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C8wEgWxE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08AC5606A31A
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:50:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 382B7606A324
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:50:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pqlfyrD8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AFAE1F000C3;
-	Wed, 21 Oct 2026 14:50:12 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C8wEgWxE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8014B1F000C1;
+	Wed, 21 Oct 2026 14:50:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594212;
-	bh=hTByYIuRfqQWW64Zwj0O7AdI/Y4aeZJk5xwZKXEeA9Y=;
+	s=korg; t=1792594216;
+	bh=MhqmuUNn7Vhrm+TwFc1o4j/OtyqGnOZY5oTMNc94tKQ=;
 	h=Subject:To:Cc:From:Date;
-	b=pqlfyrD8dJRaicvl1U7YO2gvO0MDFGCGUUSJAcJxkZ4jZXGceFHioW4d7BIc2vG32
-	 EezovAaBbF+Lc1qtbTMhY6CFx6u/E6H+6Ew9AdkLHwLcK3QhtZToWyGbbwodVMC0O2
-	 KhJZv0rDCh2I7jvXWhWEiuJ8lWzDEVn9UaOQVTSo=
-Subject: FAILED: patch "[PATCH] lib/crypto: arm64: Fix lost Poly1305 carry when resuming NEON" failed to apply to 6.6-stable tree
+	b=C8wEgWxEa2sET6IL6VkOSBBERwKsxPf+v2dP3W23gjXgmx7KQ3RRHXL/s/EDONb0Q
+	 93B+rBZHH1YJCulKbHZUbPF4qCfENoaTmF92HA7m/9GUq4K3/BZ1vuAv4gNhI6xcUE
+	 ViJouq9xHQStHMOfZDeSC9Z0aaKx3q4FtexGfKwQ=
+Subject: FAILED: patch "[PATCH] lib/crypto: arm64: Fix lost Poly1305 carry when resuming NEON" failed to apply to 6.1-stable tree
 To: Jeremy.Jean@oss.cyber.gouv.fr,Jason@zx2c4.com,ebiggers@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 16:40:38 +0200
-Message-ID: <2026102138-refute-refrain-994a@gregkh>
+Date: Wed, 21 Oct 2026 16:40:39 +0200
+Message-ID: <2026102139-boxcar-surprise-72e0@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 24f07e8c07a0c0dd275331cbb41c79a78741eef9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102138-refute-refrain-994a@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102139-boxcar-surprise-72e0@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
