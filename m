@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594182;
-	b=kOqKbcDji9YKjHoUhqAEzjnab5WmOLg0B/MwHQ8EGgViENgeHxqK0kcyuyDIHnX31n70
-	 hVWYeqbqVb9uobfgIOLNXEIXRft2rDSFKqfwgPqFCkt61K8xLBxyDe3UdrgSZ4dgAkDeh
-	 R3/9sRo2A7T+s6lo3bSK5HFz/yz5Mj5nMxCvqb0z9dI0+W55qR5BWNeA1Quan7i3HdriF
-	 Q5VBv0ZyAW4P+dzhbdIp0gcqvrrq8L80gK8NBlK57XKAfWDfq3xrMRXPiOk7z6W4RBSgn
-	 g4aa07wxJJx/IFOaA3Ol8JsYDfVPoomy3KEi6LsiRF4unBpZvL+OKMNlH9L0AkXmQkQ==
+	t=1792594185;
+	b=l622+sr8QZHAj0lZ5swhXkLkjESrWb6G6AQuCHytEjKBKTiZLd9UjzfyfQxlda7hEa1e
+	 vr2dYq92X+++I9lvUwFCC7uUOwA4FpAqJ2+A6nWGZcLAyrYRlQFdK279nrKV+2oY17tIh
+	 gT7I76c6WV8RtvTjwPm5EbU/mmLIkr2MtaPNS7I8akyqnKooXCiUJLHkNLInzCU7TZ+sy
+	 HV+QT/mTpA9jKwF3qlhih6YS0iticTuM+QbS6OEbZnedAugW8Rw+imI6DiHDZUoz4hKSQ
+	 GLzG2AHWXvYzmw/x3ezZTs3fp79/u9muSXBlDjCEB0uTXMgy199X16bBaJlwXvR+HuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594182;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594185;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=/5DdNdxA4dCVra91dXw9M664XrdHS36cA+Np3bsZKXQ=;
-	b=RgwXQvSs7SSzIKrXQC+MiACz6CjBC/JkObmFEy7/fpu+uaZPspk67v5geckgdUq0uiL8
-	 Z4DMBl8x6m51i2VGvrvp4X+r8YPiWFUqIoHXjXdmT1J87KQAY2CT+hd/zgZEFAqqyvhK0
-	 QnBqwX/MhBbGsIF1vqMSg0uNuPxADKPJJnBdxUIhgH4bE+Ufkg1F2dqdC/hl3rboxvaMk
-	 DihY4bX45JQX7rdwIRyoAc2kONc4l0gcswSGBXiB/cduzec01Efy4nvSXs72HA7xY4Ha3
-	 S9d6PXJRuhlQIZpRL+SpfmUQo7CUpWJ+1M6ulGh9Rtclusg9QsSGcGAeyn8z7XZiwaQ==
+	bh=jdt5fZ9qU6qKCuNUSPrJOW52FNpa1p7BsS9+NpANxKE=;
+	b=UyB9wsJlhN3e/WIUo8isRloJybsm6qssI2/gAKJHGh1cE8ySrKPUBSsODlAzg7+jo170
+	 0284p+vWGo23ZQ7mzujS8PnvQMef/jeHv8GACLTZbthePJAloLca7LRdjkUnBpqCXb0sv
+	 wd4MREXedAib7Sz+/v3Hz0gBNriMYX15BtAJscRwR0IHm592lxc32o5pgcMRURV2OnisR
+	 gyS8QDNZ57Iy1LjjN1laTqL74tQbhY2oRrBSaoCrexf/NvggG6H4ftVNE/660mD08owRN
+	 xpznjAagcAXAki2VUwmtxk77w+N1ugyzm+tyYM4v6MaPA2UIh8mjp2Mo3mCO8SrDemQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1DEATu0o;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="zeZpl/+H";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E02A9606A326
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:49:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFDA2606A323
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:49:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1DEATu0o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 087361F000C1;
-	Wed, 21 Oct 2026 14:49:40 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zeZpl/+H
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D32471F000C1;
+	Wed, 21 Oct 2026 14:49:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594181;
-	bh=/5DdNdxA4dCVra91dXw9M664XrdHS36cA+Np3bsZKXQ=;
+	s=korg; t=1792594184;
+	bh=jdt5fZ9qU6qKCuNUSPrJOW52FNpa1p7BsS9+NpANxKE=;
 	h=Subject:To:Cc:From:Date;
-	b=1DEATu0oB7Cv82Q7ve+X3yKp7c/T57glwwUZjnBKLcMtxUWanqJioryfCX5cy5r7m
-	 YpumKWM1ZhZdDhoOHucfdgNc6ibYBCEX+46UXPhXiWvfdnIaMPiSG+3EtBn8QHeOQ8
-	 vEJBysULmIzcEB8JFrMxz8m+SToYK79tYvGR9QSU=
-Subject: FAILED: patch "[PATCH] ntfs3: free replaced mount options after a grace period" failed to apply to 6.18-stable tree
+	b=zeZpl/+HcaXSZMenRyd8WMfTYM2tjSiMvL5+jGEeJorz3lLsX9g5B+D8Vd6ijzKsJ
+	 b5Gfe/NBYfJ1f+ofihPYs6VIs8DVKvJKhw/pih5gE/rY3CBLEJAPGZh1QMuu2c+p6k
+	 XDs4K+Dv46BEDyuWexRSJmmQFvjju9igTV1ZbbBQ=
+Subject: FAILED: patch "[PATCH] ntfs3: free replaced mount options after a grace period" failed to apply to 7.2-stable tree
 To: brauner@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 21 Oct 2026 16:39:07 +0200
-Message-ID: <2026102107-nineteen-superbowl-4509@gregkh>
+Message-ID: <2026102107-stilt-haste-457a@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
 git cherry-pick -x 56c3824de56b5275c02ff6b6aa27ddbacfbb9b25
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102107-nineteen-superbowl-4509@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102107-stilt-haste-457a@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
