@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792586181;
-	b=UwfnoOQ+2NHnStJOonyvaJkFNfHWOV6IsILvuJL5OSRh5Ai0RgZ+3P9BaJSGd79sGO/q
-	 Hw+7whKsHlDmIpu63KBKDaKdOBFqQSY9MEbExBL2Z8T05a1mTXNKzSZi7cjaIYcwNm3WP
-	 xRDcZNnYLHuNS/ip+RUkVIdXoF6uPRGgrYtZdKMJvAerN2eEU+qTex1ExbCNcd+gS6uv9
-	 XkLrP8cbo6lr5VMBJoWMULXiMaIt5KhHabgA9lx+3VO81wc8N5tALE/JfctHfSicZFYOk
-	 XWbTz8L91aP0HGhlFhJlRXIuop0BtBXNaZkpr5JgoU6hQ0aNsZrGU8/smQDFCEs+y2w==
+	t=1792586187;
+	b=HP7SNgdlc5p2r1ujD+PR7WgUhH1Myx9O5QTIu5LEQWxf/FqObfns4b1v9VLyTFG6I1q3
+	 etai/PGHtrwa/QYHxjTpPkNNngmRmYm1lTFJ37mY18XIIWXX3CfjeJuho1PwvXXB/8ySY
+	 QUIGBrTpbQdA+HkWRWN+ZNFTqYRarxyig5Qbn29k2QRs1Ap4xTmtXmb9WPsgu+or2HEfC
+	 9sLcLGUYslKvQLx7ATmFW4lUEWHOlZ0L+JX5wM/E8kgGsOA0NV+9R7KxEi6goNkf3MNBp
+	 XnAHs+Zt1J1h+zFMtHKB1DijUKpNFngOFX2uF6BxX3kJEf8+H5gMr9qHCufHgZYIg9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792586181;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792586187;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Xjld/NBg73CwWS+nkV/1581JmFygmKyQS9DEvNev1vg=;
-	b=Is9bu6yy88Uki+kIEMK6Qws29JyEOBJzToZav8JAa9rkmGlEVaqgOCGuJ2nAd2rVFQz0
-	 afwnhhGZ96gvJEN0/bfmNIZvABWoP7KqamLMFiBjM7pFTvjqpLEyGa1EQSemUdDm/O7Ju
-	 EWm6cFSkWLQHCcX9V5aL6A17vjft4YXeN4yk+tAR9bE3N5C5mL9KxTl6CiMIc6bI2OfrR
-	 s6NSYFv3qDecyBMd+s3klwkX+Rz+V/OdLCVdrGlCE1HyMcaOEwUeDfoRVUfNvutfcPgYm
-	 IkxvuXG01DAyDX5mnMOvbn1MxobfnRBkB5Ymj1TXhcuLzVnZdactermyuqdVmWsY4nQ==
+	bh=/ysTjV0GBjSJYji7PBboh+pSwqOHhnA/0a5rIMsM+RU=;
+	b=PeCktDRGysGviLvYhGnkRizjQcztRX78RyPyEYMe82zrbqF8IlTXkAnWM0xbYI7s6tRf
+	 W+0pC2aYHjPsnDnwXFg06S9mEprsMkFZKvK964QY5hAwE76UT4DDo89fsOtfRbd1T5vAK
+	 QyJ99KkzuxVMkO08U4uHvEtXMNR482yKEs1F5iIxKvGkCWTbHRM6Udm6zVod81VpOsRZX
+	 wj9gipQlvIGBU9Zehh5Ez4sot6rP7r/OTluAvhBQV10RJvAvRz4Scvw4BSZ9kiGKbLrub
+	 eEnWQUMILmCilDl4mGfAziloWArZ3kMHUtZVy979pG8CdXP75Rw4Wm1hBBthinUJ9Tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GIKhjIJE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U7PIVoKP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC2260A261C;
-	Wed, 21 Oct 2026 12:36:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 239C360A2630;
+	Wed, 21 Oct 2026 12:36:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GIKhjIJE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2984A1F000C5;
-	Wed, 21 Oct 2026 12:36:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U7PIVoKP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CDA31F000C4;
+	Wed, 21 Oct 2026 12:36:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792586180;
-	bh=Xjld/NBg73CwWS+nkV/1581JmFygmKyQS9DEvNev1vg=;
+	s=k20260515; t=1792586187;
+	bh=/ysTjV0GBjSJYji7PBboh+pSwqOHhnA/0a5rIMsM+RU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GIKhjIJE9TrR6wTt+YVcsP2TUlh46RejA0tY0fWLo9Qt5+eKuzaBEOdqt/GiA2bb/
-	 6GT3Kp2/D082ie2bnDsRJIm+nwobbgqVZ0OexaO4lNAzC4td6igT7+9YR0VMkfkkjN
-	 OL/jLVsPlXNMDvHnEEBQNHSYTMfdFD3nvwXpNaPKffKPn7KSk2UNiTKW7oJmhSc+ZB
-	 kNZdvphhZtqFtMak9SvUqLS9/oe1jiA2n3lQ/9cEDXcf99U/rSb40WKYF774g2dXQF
-	 4duCzzu2RHFC/35H45tEu7Pf6zpA59SA+Br6mXBxTsmqXmP/MGNORCje/tgDnhvbNI
-	 AZlIWy374ok6Q==
+	b=U7PIVoKPDlOqueJeSNwK1DxvSrkNaXhI18pqzPszsYFm1CcSmeXJDnSu976muqiGY
+	 uOuGRrLpHKaZpp+nVWGY+JHnH9T5li3zpjnryIP3LsMJPa2zPEfIqIPM+UzZX5bzlU
+	 NruXaO1NnHHqi+w5W1e1zzLeWEcd4ZilVjMiAM++gm1WDwfnzazGBMfdRyuBUqZKRG
+	 dRvbmBmYaNG59k5xYSWLk85TmgZeB42hDZz4LVClStZ22CBE3UOklcm8iF6q06zOXE
+	 nFXShF8mI/FYcoltDAf8Ys18GrOoBYUjIaHd9CmZjNQjYocTJt9kjg8m8Erzo8lHi5
+	 38A9WTsfPvf5w==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Pavel Machek <pavel@kernel.org>,
-	Dmitry Antipov <dmantipov@yandex.ru>,
-	Jacek Anaszewski <j.anaszewski@samsung.com>,
-	Bryan Wu <cooloney@gmail.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
+	Dan Murphy <dmurphy@ti.com>,
+	Jacek Anaszewski <jacek.anaszewski@gmail.com>,
 	linux-leds@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 20/21] leds: flash: Terminate sysfs_groups array with NULL
-Date: Wed, 21 Oct 2026 12:32:29 +0000
-Message-ID: <20261021123406.3163547-21-lee@kernel.org>
+Subject: [PATCH 21/21] leds: lm3692x: Use devm_mutex_init() to avoid premature mutex destruction
+Date: Wed, 21 Oct 2026 12:32:30 +0000
+Message-ID: <20261021123406.3163547-22-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
 In-Reply-To: <20261021123406.3163547-1-lee@kernel.org>
 References: <20261021123406.3163547-1-lee@kernel.org>
@@ -66,35 +64,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-led_flash_init_sysfs_groups() populates fled_cdev->sysfs_groups and
-assigns it to led_cdev->groups without writing a trailing NULL entry.
-If fled_cdev is not zero-initialised by the caller or is re-registered
-with fewer operations, device_add_groups() will read past the populated
-entries.
+lm3692x_probe() registers the LED class device using
+devm_led_classdev_register_ext(), so the LED is unregistered during
+devres release after lm3692x_remove() returns.  Calling mutex_destroy()
+in lm3692x_remove() destroys led->lock while the LED sysfs interface is
+still active and before devres unregistration turns off the LED via
+lm3692x_brightness_set().
 
-Explicitly NULL-terminate flash_groups at num_sysfs_groups.
+Initialise led->lock with devm_mutex_init() before registering the LED
+class device and drop mutex_destroy() from lm3692x_remove() so the mutex
+outlives the LED device.
 
-Fixes: 7aea8389a77a ("leds: Add LED Flash class extension to the LED subsystem")
-Closes: https://sashiko.dev/#/bug/linux-ad7bad43-ab12-40c5-addd-7d1f23d83391
+Fixes: 9699cb6bbef2 ("leds: lm3692x: Introduce LM3692x dual string driver")
+Closes: https://sashiko.dev/#/bug/linux-012e3698-2af6-4390-88c9-d8989d2dc2a6
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/leds/led-class-flash.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/leds/leds-lm3692x.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/leds/led-class-flash.c b/drivers/leds/led-class-flash.c
-index 16b3b6b9365b..90ae93f16193 100644
---- a/drivers/leds/led-class-flash.c
-+++ b/drivers/leds/led-class-flash.c
-@@ -273,6 +273,8 @@ static void led_flash_init_sysfs_groups(struct led_classdev_flash *fled_cdev)
- 	if (ops->fault_get)
- 		flash_groups[num_sysfs_groups++] = &led_flash_fault_group;
+diff --git a/drivers/leds/leds-lm3692x.c b/drivers/leds/leds-lm3692x.c
+index 9c58d54c5783..ec53f9d25654 100644
+--- a/drivers/leds/leds-lm3692x.c
++++ b/drivers/leds/leds-lm3692x.c
+@@ -470,7 +470,10 @@ static int lm3692x_probe(struct i2c_client *client)
+ 	if (!led)
+ 		return -ENOMEM;
  
-+	flash_groups[num_sysfs_groups] = NULL;
+-	mutex_init(&led->lock);
++	ret = devm_mutex_init(&client->dev, &led->lock);
++	if (ret)
++		return ret;
 +
- 	led_cdev->groups = flash_groups;
+ 	led->client = client;
+ 	led->led_dev.brightness_set_blocking = lm3692x_brightness_set;
+ 	led->model_id = id->driver_data;
+@@ -500,7 +503,6 @@ static void lm3692x_remove(struct i2c_client *client)
+ 	struct lm3692x_led *led = i2c_get_clientdata(client);
+ 
+ 	lm3692x_leds_disable(led);
+-	mutex_destroy(&led->lock);
  }
  
+ static const struct i2c_device_id lm3692x_id[] = {
 -- 
 2.56.0.218.g1ec904b173-goog
 
