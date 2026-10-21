@@ -1,55 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792596638;
-	b=I9BPtfmfmtvP+0AVBcnFFZsm9iVJ9L1Fws0Z0SHDgl6E2tIK0d5Z765LxS0JMqp+dMVA
-	 zB9gy1wJ1gpYqaHqgqeT8nzjdaUq1lQuDNSphJGRIaAnJ9qvv5J3xXj9/wuPtH4Wj0c33
-	 UfsrcyAbYXh+8FOi/XGH9gAtkgIiYSrkEK4ANEux4sUVN62mNpHpJ1+9dSF+NSs6xH78b
-	 Pr9XrrHTPpAvjvrOOgIWOzckXFdkNsBzVd/ihFSaMX02sHPZu8CGW5aD9GpLWNydPifqE
-	 iHEzp1mPHssIV2QxQ6m1/Afv95WjcIcpOoo/lnrAxjU5s9ilshRfOJjYE8MgwSpfWZg==
+	t=1792596719;
+	b=unN0xdfGmbNEHBpyZxag2dTCUAXj8lA2FlyJFunfV4h4vS2mcZcTjTmxfIss0fTNO3g4
+	 GInycVV7OdOEWV0fRZzOjNfXqNTzOCWCcykMGnjYqHxc/18rRe6YBgqZockTnSuKIpkSt
+	 oLiDH2v2fpWHKPSCXn6Cj9WglY4M2o6XVPXP3aUFzKYA/ww1dGxXhpd50HA20gtCf8EEf
+	 PTAgjEfGc25qJX+UHepUjZGY0WYsueqSoTVU1HS/0THKuXewpfFIOV3Alhw5QG+SFMHFj
+	 2x4tUXatcfebYD67LkM4lUBzto/VBz0SEjKydMdAcaajAAM+KpxNvigr14Tsu2Db60g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792596638;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=BLz38lA+12If20U7WojPMh+5D0jN5Rn14XUZ2GhAZek=;
-	b=l8yBnmL6E/lOz9+K4/Gz4mylxgqsXl87L8GED5SgRuuidujJPnFZ7pbRg/kyIkbk0Mnz
-	 qkhZGpCS8X/9PouZLiS/aKKtt74++jmB5+2wDIJmAxlyOP1mBF2LvcPfBidXhL371PYUM
-	 J+au8ACh/XCre7kJdcB/nfXRz3/5Rw4bfcN0f0pJP6gEgB7ZK8rN9V9CSu/qmSK6ylyQ7
-	 qaneHIAYKkYbJO1K0mAKxHO8FfQkwuY2FQdcJkFcFKjFVZZQcCcYiMBdqN/RJEAF/Rmxj
-	 Oh7gxhTtqGavNxOGZUa4M6Qq1ecY6IVyueXbPnqauhaDFIRMoODp2Fs9/wwVKumim1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792596719;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=U60Jt81TuPOI1PeKasuheW/i54eVEfO8tEZphtbeDLA=;
+	b=QpqOSc+bMPz7iftHnd0HdDoFHNkgSBUOpnCPJ3ABOAzSUWb6V7GdJhBf+CKbtr4lZx2R
+	 BJ1RLwAN80z0qcnY/Ik+HARyb9YT8WwG+rgRabhruc75t4QwdhSTd6CDG3V53NykKqK4H
+	 HAf2IbMwiccKr1aCIvGhyfL1pvqmM+3W+ZzJkZH0ad3UgLUZAKf8ZEWTTwpazqynHG5x9
+	 O7UmHtDgy0LD0uw/b/D3/OAuVB1WxskUo1uUIuMYAqxoa5ZdAWHH5v0an+XthY+v+EMAi
+	 LJHg4kjoQOSJHMVP3M9JIK8adVFSTPFjorS6WSXOhDlHD+p/aANkBlE4VE4VgsXY5Cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KHiv+ZXV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=GTCTxvWW;
+	arc=none smtp.remote-ip=209.85.128.179
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7670B606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:30:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F1DB606A31A
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:31:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F1DB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KHiv+ZXV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAEFB1F000C6;
-	Wed, 21 Oct 2026 15:30:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792596638;
-	bh=BLz38lA+12If20U7WojPMh+5D0jN5Rn14XUZ2GhAZek=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KHiv+ZXVFd9cFBN4gWER7r2CGeZEKGoeqNNn+1HbhvNwHHzFNSO3kbQNhHrVXhEFi
-	 dgW582rHJgMxfJeo6G8LcNSP/ZFoltwIUyyDSJCkQPBrsfzlEfBTqcPYSv/OQaVQfT
-	 6DevL8rfhLCvSWXEMCQClvHe0/3bPz95ghUIpuWlm3zVCaZy9asaXyW1NgzHAqLpDl
-	 kl4ZKpzdxndnK+v4nl3eAd8rI/xBVv1TefF6cSqKAkN6foTiqG5x6II66/K0w5UYRK
-	 fgr9JcJ0LvXZa5nCG1CElJR4DCyQS1mrA7E58BjEOok6wPVeNIq+D/d0PQuTP3+xnS
-	 aTgRUmX/7iQiA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 4/4] ntfs3: free the sbi after a grace period
-Date: Wed, 21 Oct 2026 11:30:33 -0400
-Message-ID: <20261021152930.293677-4-sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=GTCTxvWW
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b0dba37a7fso7389027b3.0
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 08:31:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1792596718; x=1793201518; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=U60Jt81TuPOI1PeKasuheW/i54eVEfO8tEZphtbeDLA=;
+        b=GTCTxvWWN6taIv1gq+jX+lLGYuJaKpoETO63WPtwNtbu2bYi++1sBLFKypCjniXV20
+         fdbTQP6tghJg8x7Xw/VynSmxQarpEr8On4ba8zvFZVAmLjqRgAsjehjgunr5S/guZBm4
+         N4QPCWQDWWwf2vNncf+jsqJPTkgDj31iYSWzYKk8twHGE2fpRQVtvUB5iZ7vznvRzEWu
+         XtKbhM21uT/+w4qNsXIq5WGI1k9Q2AYWX03tuTOFf2euJ/lv5AV+Iy1nmvkqQNVO+8kp
+         LH1nilrY77Fmz3H4kGoQB+L/IgfqeRe0g/knvHxgmBpWBngXIpuaUqqHwqxXIAF933SV
+         RNVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792596718; x=1793201518;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=U60Jt81TuPOI1PeKasuheW/i54eVEfO8tEZphtbeDLA=;
+        b=YY5oZdUuvO4mtsEDWByPqwTR5mFEdh6X2sizLzMhWh4Qgtoo1kzS7IyjRzgvIhi3dm
+         zyJq2nY7nyVQsABS5GBblxNL5HUadDEX8aGjcY3oNRpeTxJWMtdoBOf+TsxLvBNWmigF
+         Wp5g3TIMyQJTKJB9piXBQYKvugEFurzbvtk+rkRoxXcA+9f44yarsql7GFTT61rs5W3s
+         lNJo721uJhGJUUJrdQ64MFOZhqqVXOPoWGMcaeecLuwZ3E2Tm0bJhtCOdtsku5seYJOM
+         VgP1pvmZv5E2p09FvBYx/n4eDub+LAR76eblCFU4B/z5YfeQ9JJe1imhbaMFUh6qicA/
+         1WlQ==
+X-Forwarded-Encrypted: i=1; AKwUvByy+qsb7wCAoupRQfBE0JbMOFgIKXHrbYf1lLncTepF5S2qmf7T9umv4mYF3hKL05kUTCGE8kY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL2OVGX+R6g6BTwIVrXeYuJK6VyEcnCYXw24OSVkebB/Sgb9wPi
+	kApHFTVhfD+0Z6Z8pM+xyGwRPCktmY8tmOEVklwDSbbugnoUOKJ+3nZHmnL5UVh6sg==
+X-Gm-Gg: AYBFou2xrbY3Gi+hBbx8t2FfyEXdYCvpleY85F6N/BEyo45Z9e1Ulag69z/WNDEB638
+	i98/bap+d/kNiGJ+oHDJCAASQP1GvOtK3CG5DbaG1SJK1inM8/B1q6u5fMYW7u1/bTZRHRe5/ex
+	B4fJDvVfL+fIc3Y0bVfj0YDKacApS40R6QzTiubeCT6ACDpSA9a8ano9S3OW2oO880/e2swV0KG
+	qeLqwSyOgMdi5+KwmDW99dLi07xbuPsdDEC7ZMyGcNpZF6yszyv8AAeGQlVFX/7EO6O4fPd+ysZ
+	TOpmQXlZQ7OlH8Es8q4riAoJXHh6yuqBniMFuWGtAKl5mW9XClJy+krJqwXAojyWbgyVdDd1Lea
+	O67vEsq93gYVqpxOstZqQoegDfG9wY97QvygUkOUlOLvoQ98UsUHPtwuX4iqcGu3u29U85N3chU
+	+GLDmmLujyHyl0g1hbF2jL3WovJhUZTrNnSmeSMncSQHy+DhXWol92cizt8clp6P0KGYxvTkTYB
+	3azVS2G6bN8D+bHvo4UI0wJoZ3ArSk8Pyl39OuJzoXBubmgiQJLwdcto0AN+H/L7hlh/2LP5AvV
+	Ug==
+X-Received: by 2002:a05:690c:4804:b0:8b0:c673:993c with SMTP id 00721157ae682-8b133fa1b99mr11730777b3.21.1792596716533;
+        Wed, 21 Oct 2026 08:31:56 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b1300f3cfesm13054287b3.27.2026.10.21.08.31.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 08:31:55 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: glaubitz@physik.fu-berlin.de,
+	frank.li@vivo.com,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] hfs: avoid reusing occupied CNIDs after deletion
+Date: Wed, 21 Oct 2026 11:31:41 -0400
+Message-ID: <20261021153141.311425-1-hengyul@cs.unc.edu>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261021152930.293677-1-sashal@kernel.org>
-References: <2026102157-deuce-giblet-3fc8@gregkh>
- <20261021152930.293677-1-sashal@kernel.org>
+In-Reply-To: <b6f1cb66778d09015ad5862ff273edc37c44ef28.camel@dubeyko.com>
+References: <b6f1cb66778d09015ad5862ff273edc37c44ef28.camel@dubeyko.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,163 +102,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+Hi Slava,
 
-[ Upstream commit c01b091b06412d3b1b53d8c2925f6de586c8a2fc ]
+On Mon, Oct 19, 2026 at 04:29:16PM -0700, Viacheslav Dubeyko wrote:
+> Frankly speaking, I don't see how your modification can fix anything.
+> From my point of view, the current logic is correct. Probably, the
+> call of this method is not in the proper place.
 
-If the "nocase" mount option ntfs3 uses custom hash and dentry compare
-functions. Both access ntfs3 superblock private information in rcu
-pathwalk. ntfs_put_super() and ntfs3_kill_sb() drop the info without any
-rcu delay. A lookup that's still inside the filesystem when the last
-reference to the mount is dropped causes a UAF. With a pathwalk held up
-in ntfs_d_hash() while the last reference to the mount goes away:
+Sorry, my description was not clear enough. Here is the reproducer
+with the actual CNIDs, on a freshly formatted volume:
 
-  BUG: KASAN: slab-use-after-free in ntfs_nls_to_utf16+0x752/0x940
-  Read of size 8 at addr ff1100010453c850 by task walker/99
-  Call Trace:
-   <TASK>
-   ntfs_nls_to_utf16+0x752/0x940
-   ntfs_d_hash+0x22b/0x500
-   link_path_walk+0x11ad/0x1d30
-   path_lookupat+0x63/0xb00
-   filename_lookup+0x1f1/0x5b0
-   vfs_statx+0xd7/0x3b0
-  [...]
-  Allocated by task 95:
-   __kmalloc_cache_noprof+0x249/0x560
-   ntfs_init_fs_context+0x2db/0x5a0
-   alloc_fs_context+0x52e/0xc70
-  [...]
-  Freed by task 98:
-   kfree+0x1db/0x5b0
-   deactivate_locked_super+0x9c/0xf0
-   cleanup_mnt+0x9f/0x130
-   task_work_run+0x131/0x250
+    operation    allocated CNID    next_id afterwards
+    mkdir z            16                 17
+    create a           17                 18
+    create b           18                 19
 
-The bug is currently masked by the grace period in namespace_unlock()
-for umount(2). Keep the necessary information until the filesystem
-private info is freed and free it with an rcu delay.
+rm b calls hfs_correct_next_unused_CNID() with cnid 18 and next_id 19,
+after b's file and thread records have been removed. The catalog leaf
+records are then, in key order:
 
-ntfs3_free_sbi() now runs from an rcu callback and drops the upcase
-table via ntfs_put_shared(). So switch s_shared_lock over to
-spin_lock_bh(). Otherwise the callback can deadlock against a task
-holding the lock on the same cpu.
+    key                type           CNID
+    (1, "untitled")    dir              2
+    (2, "")            dir thread
+    (2, "a")           file            17
+    (2, "z")           dir             16
+    (16, "")           dir thread
+    (17, "")           file thread
 
-Fixes: a3a956c78efa ("fs/ntfs3: Add option "nocase"")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261009-work-fixes-rcu-v1-7-7446d2d335e6@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/ntfs3/ntfs_fs.h |  1 +
- fs/ntfs3/super.c   | 33 +++++++++++++++++++++------------
- 2 files changed, 22 insertions(+), 12 deletions(-)
+The backward scan skips the two thread records at the end and stops at
+z, so it changes next_id from 19 to 17, although a still uses 17. The
+next create gets CNID 17, hfs_cat_create() finds a's thread record and
+returns -EEXIST. The correct value is 18.
 
-diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
-index 99a78204b9865..9cacca3397055 100644
---- a/fs/ntfs3/ntfs_fs.h
-+++ b/fs/ntfs3/ntfs_fs.h
-@@ -209,6 +209,7 @@ struct ntfs_index {
- /* Ntfs file system in-core superblock data. */
- struct ntfs_sb_info {
- 	struct super_block *sb;
-+	struct rcu_head rcu;
- 
- 	u32 discard_granularity;
- 	u64 discard_granularity_mask_inv; // ~(discard_granularity_mask_inv-1)
-diff --git a/fs/ntfs3/super.c b/fs/ntfs3/super.c
-index 558f96db9019c..dc799ebc6c883 100644
---- a/fs/ntfs3/super.c
-+++ b/fs/ntfs3/super.c
-@@ -194,7 +194,7 @@ void *ntfs_set_shared(void *ptr, u32 bytes)
- 	void *ret = NULL;
- 	int i, j = -1;
- 
--	spin_lock(&s_shared_lock);
-+	spin_lock_bh(&s_shared_lock);
- 	for (i = 0; i < ARRAY_SIZE(s_shared); i++) {
- 		if (!s_shared[i].cnt) {
- 			j = i;
-@@ -212,7 +212,7 @@ void *ntfs_set_shared(void *ptr, u32 bytes)
- 		s_shared[j].cnt = 1;
- 		ret = ptr;
- 	}
--	spin_unlock(&s_shared_lock);
-+	spin_unlock_bh(&s_shared_lock);
- 
- 	return ret;
- }
-@@ -229,7 +229,7 @@ void *ntfs_put_shared(void *ptr)
- 	void *ret = ptr;
- 	int i;
- 
--	spin_lock(&s_shared_lock);
-+	spin_lock_bh(&s_shared_lock);
- 	for (i = 0; i < ARRAY_SIZE(s_shared); i++) {
- 		if (s_shared[i].cnt && s_shared[i].ptr == ptr) {
- 			if (--s_shared[i].cnt)
-@@ -237,7 +237,7 @@ void *ntfs_put_shared(void *ptr)
- 			break;
- 		}
- 	}
--	spin_unlock(&s_shared_lock);
-+	spin_unlock_bh(&s_shared_lock);
- 
- 	return ret;
- }
-@@ -684,6 +684,8 @@ static noinline void ntfs3_put_sbi(struct ntfs_sb_info *sbi)
- 
- static void ntfs3_free_sbi(struct ntfs_sb_info *sbi)
- {
-+	if (sbi->options)
-+		put_mount_options(sbi->options);
- 	kfree(sbi->new_rec);
- 	kvfree(ntfs_put_shared(sbi->upcase));
- 	kvfree(sbi->def_table);
-@@ -695,6 +697,11 @@ static void ntfs3_free_sbi(struct ntfs_sb_info *sbi)
- 	kfree(sbi);
- }
- 
-+static void ntfs3_free_sbi_rcu(struct rcu_head *head)
-+{
-+	ntfs3_free_sbi(container_of(head, struct ntfs_sb_info, rcu));
-+}
-+
- static void ntfs_put_super(struct super_block *sb)
- {
- 	struct ntfs_sb_info *sbi = sb->s_fs_info;
-@@ -704,11 +711,11 @@ static void ntfs_put_super(struct super_block *sb)
- 	/* Mark rw ntfs as clear, if possible. */
- 	ntfs_set_state(sbi, NTFS_DIRTY_CLEAR);
- 
--	if (sbi->options) {
--		put_mount_options(sbi->options);
--		sbi->options = NULL;
--	}
--
-+	/*
-+	 * The mount options stay until the sbi is freed: ->d_hash() and
-+	 * ->d_compare() of a pathwalk in rcu mode read the nls table through
-+	 * them.
-+	 */
- 	ntfs3_put_sbi(sbi);
- }
- 
-@@ -1865,9 +1872,11 @@ static void ntfs3_kill_sb(struct super_block *sb)
- 
- 	kill_block_super(sb);
- 
--	if (sbi->options)
--		put_mount_options(sbi->options);
--	ntfs3_free_sbi(sbi);
-+	/*
-+	 * A pathwalk in rcu mode may still be in ->d_hash() or ->d_compare()
-+	 * and read the upcase table and the nls table through the sbi.
-+	 */
-+	call_rcu(&sbi->rcu, ntfs3_free_sbi_rcu);
- }
- 
- // clang-format off
--- 
-2.53.0
+So the call site is not the problem: the records are already gone when
+the correction runs, and calling it earlier or later would not change
+the result, because z still sorts last. The problem is that file and
+directory records are ordered by (parent ID, name), not by their own
+CNID, so the last one need not hold the largest remaining CNID. The
+patch keeps the call where it is, so the drNxtCNID correction that
+generic/736 needs stays, and only makes the scan take the maximum over
+all of them.
 
+The unpatched run in my previous mail matches this: the first create
+of c failed, and the retry got CNID 18, so the failed attempt had been
+given 17.
+
+> I don't quite follow why do we need to change this check? If cnid + 1
+> is smaller than the maximum one, then cnid + 1 is in use yet. We
+> don't need to execute any additional logic. What am I missing here?
+
+Nothing; both checks return early in that case. != additionally
+returns early when cnid + 1 > next_id, where the cmpxchg in
+hfs_set_next_unused_CNID() cannot succeed anyway. It is not needed for
+the fix (in the example both checks go on to the correction), and I
+can drop it in v2.
+
+> Why do we need to check something for previous one? If the bigger
+> cnid is in use, then we don't need to do anything here.
+
+The lookup only runs when cnid + 1 == next_id, i.e. the deleted CNID
+was the largest one allocated, so no bigger CNID is in use. If
+cnid - 1 still exists, it is the largest remaining CNID, and next_id
+can be set to cnid without walking the catalog: in the example,
+deleting 18 finds 17 and sets next_id to 18. Because the fallback now
+walks the whole catalog instead of stopping at the first record, this
+keeps the common case cheap. Only if the lookup returns -ENOENT does
+the patch scan all records, which also covers files without the
+optional thread record.
+
+Thanks,
+Hengyu
