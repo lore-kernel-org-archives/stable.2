@@ -1,55 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792610730;
-	b=SF/926FdQQ3Fe+c6cjbcuOdo5/vyxg+VDtZp8HZ1Mi5Pb5cRsYJ8Xipy8OlNiHsdXAX+
-	 tddgAH0NA7NQL3aad57WhUwaldBBBNwtGyyB5Z93WhVts953mkvyAUvZ85AMBlEuTwM9T
-	 U2YdwT7RnXdiF3zOYezvak4R5cEVgD6cAOxRy5ocFeasGTeXl5ymhHXKKq/bXwDLRSrXc
-	 juS5+sjBiAQEo89W7ceeF8fPH6E/Qy28rtpI/LHD96xCcbL0dBhTs+b55dlnIvK5yCoZ6
-	 +V+EsD1DIDSTSa1fhs43Xex0n0HxRP46FAFcL2BpuiTTx22h/oliodQnw3Pk6AqZSQQ==
+	t=1792611134;
+	b=f+3HMC3CTP8MdFlOiWHEQePOs7HwnvzKD2Fj0ZTUg3WKq3eI/abkuCC4l/yFDlQmHE1f
+	 c8vy+B5XwB1A9O5ojiHPvAa+Gkewq4HG2vRC8jMQ4e7qwPrKMN/DNIYgmqf4OzyEXAuRD
+	 /RxckBT1gkoOW7p8dKiVJPiGuRWIxB6g4jA1JolQaAx7nThm9nGTqN4sUoY9etDTCQ/jz
+	 dz6BeKJs771ei+6HHNmpxxnt/Kn6vjwRm9ZnSVSu/LUX25W+Oi+L8TQlq2GjyECQQZb76
+	 QGyO9cySWNkglz1fieLLb3lxhW0e81G7fEXDErDXf6CQ53xHff014TN5RY/mKCZfQNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792610730;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=13JlhaqYxJCjN+cuAkptPbINZKXTwtVz6e6fXPFNqyI=;
-	b=E6JghHewkzWPvdN/uvSXqX9DQtrOZM6xS+KGGriush5ghGjsv3phLftctH9kxspFYC2l
-	 /44Jjl9ZkujE74J1+zZzWbGadRGcncy2tNIfTzl4rCCm3FGTDDYd3XK4tHDKC3kw/yPi+
-	 TeP+DVIADZNXJuVI3bA5WaDV8HeZzPKlOITFrCUsY4tmFc1S4DAeSxpNST16XpCfp5JTo
-	 AhhEBKyc10f9bLfSNRInT6ieYbOrEoWXIF62SaHA9eh6uGA8GFabmRVOE9yO7YPq34nHt
-	 Y+4kZgeUF0IEWdvDV+YBJbxHAeSh2PWQqKdu+8yjj71WLY7GSk9wwab5EYvXuUbFtzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792611134;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=glPt0q0sEevcWyTh7Wmw1AfhAylbAzS5O8HfQusylb4=;
+	b=LOWoedLXhkCNqHOgr6GztkzS6YMmpc1Sl/heEl01SWgQt2qhHdOUk1heSabDTe0a9eb+
+	 JBjvHbqdTMiQF1XoFBXJyJWOckCqQhi/cQewHdEgPtJgvq+IP2MKmw4x+6hp/IQ8AcypV
+	 EiT/rcph06hTa1qNkJOY+/+VAC/h0aw7fuP0M15mNBMed782f1L/qlo1xVZvu83b8qQWj
+	 qxZw9YofOqnESozwINaCR/LYjm6a4nhRExqS8o2Pmot4rcggwrq/YPfWMDBaMvfQciKwo
+	 JSP5gntRsy732oJOEw5ioWycllclLJrBkT9RSNsUcFVopOfnKUTaatC1jRfJItylUsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RzbCfRH0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=Jgok1qRk;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79FE7606A319;
-	Wed, 21 Oct 2026 19:25:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F991606A31A;
+	Wed, 21 Oct 2026 19:32:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F991606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RzbCfRH0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E60F91F000C1;
-	Wed, 21 Oct 2026 19:25:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792610730;
-	bh=13JlhaqYxJCjN+cuAkptPbINZKXTwtVz6e6fXPFNqyI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RzbCfRH0hlUx0GjnxzU4sorkeniJ/AdLZH7PWFrznz8T94unYOEaxgvaVUUSRdVoa
-	 m7bK5nUYxljavBdtdaab0fFrpmgOj++quO6G43kpIn89HDCO5tQLWf5/PdP9iKgRWE
-	 kVyTMD+U5DYe8yxY6tZ5RMxYUHBjemY6eJ1dNeBoLui6GqhL1TsdbcFeRaKBPRam65
-	 06SJGApyFyKjDSlQWBEBLLGoMmPyD8BIAhla8Y51mKT0+AdHTDNaDewo6JZfGA+q/c
-	 r0CBAD8WZJuf5LH9buE4gix2Cc20v73GGcyDhtVCdFdXe3lXeaPdgiENpQEKTPsdT2
-	 rlLZ1/hZOdhEA==
-From: Imre Kaloz <kaloz@kernel.org>
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	linux-mips@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=Jgok1qRk
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=glPt0q0sEevcWyTh7Wmw1AfhAylbAzS5O8HfQusylb4=; b=Jgok1qRka7m3Ny+nJm0meHOnkc
+	Nf0BBPjUNwHjm6T+aAYuIYZIpPyTM8FunG1zC+1wyvbB4ag7JeoDrIVhg52NxobRrt+Vn3hybOSVY
+	u15HIBQo22DpgilnRtzoTRoMG2/yQE5DTHaf2zi6U7FOyT6MgcBHN4pNanvpVewkgZg+pwsjFz6Av
+	L+QBUxDTh5CBQgPzbyF59Lbj2kAtON7vg3LJK9L0PvM9+oNS5Ups5qZietl6VvBS1K/KFv44iYPdD
+	IdMyOo1XrfmHoYyOKu+hTjKJ+sXLM2fu19cT9eA06IEtylNYQVrdco9rCnFBhn/3whjeKbGKEXMe5
+	phYK9zbg==;
+Received: from [151.115.150.205] (port=32912 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xJc2i-0000000DCTL-2bbn;
+	Wed, 21 Oct 2026 21:32:06 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Eric Dumazet <edumazet@kernel.org>,
+	Neal Cardwell <ncardwell@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
 	stable@vger.kernel.org
-Subject: [PATCH 2/4] MIPS: sgi-ip32: Leave MACE PCI control alone in config accesses
-Date: Wed, 21 Oct 2026 21:24:16 +0200
-Message-ID: <20261021192418.7246-3-kaloz@kernel.org>
+Subject: [PATCH] tcp: fix authentication bypass via unsupported TCP auth options
+Date: Wed, 21 Oct 2026 19:31:51 +0000
+Message-ID: <20261021193151.1819085-2-Jeremy.Jean@oss.cyber.gouv.fr>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261021192418.7246-1-kaloz@kernel.org>
-References: <20261021192418.7246-1-kaloz@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,99 +73,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-mace_pci_read_config() clears the master abort interrupt enable in the
-MACE PCI control register around each config read. A register read
-followed by two register writes can hang CRIME 1.1 under DMA load.
+tcp_inbound_hash() parses both TCP-MD5 and TCP-AO options when at
+least one of the two features is enabled. With TCP_MD5SIG=y and
+TCP_AO=n, a packet with an AO option reaches the disabled
+tcp_inbound_ao_hash() stub. That stub returns success, so sockets
+configured to require MD5 authentication end up accepting
+unauthenticated data.
 
-Ack master aborts in the error register instead, and follow every
-write with a read so back-to-back accesses cannot form that sequence.
+The inverse configuration with TCP_MD5SIG=n and TCP_AO=y has the same
+problem for an MD5 option on AO sockets.
 
-Fixes: c990081bf87b ("[MIPS] Fix IP32 breakage")
+Make the disabled stubs reject options for the unsupported
+authentication scheme.
+
+Fixes: 0a3a809089eb ("net/tcp: Verify inbound TCP-AO signed segments")
 Cc: stable@vger.kernel.org
-Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 ---
- arch/mips/pci/ops-mace.c | 26 +++++++++++++++++++-------
- arch/mips/pci/pci-ip32.c |  2 ++
- 2 files changed, 21 insertions(+), 7 deletions(-)
+ include/net/tcp_ao.h | 2 +-
+ net/ipv4/tcp.c       | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/mips/pci/ops-mace.c b/arch/mips/pci/ops-mace.c
-index 951d8070fb48..8827e5f2ea46 100644
---- a/arch/mips/pci/ops-mace.c
-+++ b/arch/mips/pci/ops-mace.c
-@@ -35,15 +35,27 @@ static inline int mkaddr(struct pci_bus *bus, unsigned int devfn,
- 		(reg & 0xfc);
+diff --git a/include/net/tcp_ao.h b/include/net/tcp_ao.h
+index 9a2333e62e994..bb249d6df8723 100644
+--- a/include/net/tcp_ao.h
++++ b/include/net/tcp_ao.h
+@@ -303,7 +303,7 @@ static inline enum skb_drop_reason tcp_inbound_ao_hash(struct sock *sk,
+ 		const struct request_sock *req, int l3index,
+ 		const struct tcp_ao_hdr *aoh)
+ {
+-	return SKB_NOT_DROPPED_YET;
++	return SKB_DROP_REASON_TCP_AOUNEXPECTED;
  }
  
-+/*
-+ * On CRIME 1.1, a MACE PCI register read followed by two register writes
-+ * can hang the machine under DMA load, so every register write in this
-+ * file is followed by a read.  Config cycles to empty slots end in a
-+ * master abort; ack it with interrupts still off so the bridge error
-+ * interrupt does not report it.
-+ */
-+static void mace_pci_ack_abort(void)
-+{
-+	u32 error = mace->pci.error;
-+
-+	if (error & MACEPCI_ERROR_MASTER_ABORT) {
-+		mace->pci.error = error & ~MACEPCI_ERROR_MASTER_ABORT;
-+		mace->pci.error;
-+	}
-+}
- 
- static int
- mace_pci_read_config(struct pci_bus *bus, unsigned int devfn,
- 		     int reg, int size, u32 *val)
+ static inline struct tcp_ao_key *tcp_ao_do_lookup(const struct sock *sk,
+diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+index 87ef6d5cbfeba..7d800b6283bd2 100644
+--- a/net/ipv4/tcp.c
++++ b/net/ipv4/tcp.c
+@@ -4962,7 +4962,7 @@ tcp_inbound_md5_hash(const struct sock *sk, const struct sk_buff *skb,
+ 		     const void *saddr, const void *daddr,
+ 		     int family, int l3index, const __u8 *hash_location)
  {
--	u32 control = mace->pci.control;
--
--	/* disable master aborts interrupts during config read */
--	mace->pci.control = control & ~MACEPCI_CONTROL_MAR_INT;
- 	mace->pci.config_addr = mkaddr(bus, devfn, reg);
- 	switch (size) {
- 	case 1:
-@@ -56,9 +68,7 @@ mace_pci_read_config(struct pci_bus *bus, unsigned int devfn,
- 		*val = mace->pci.config_data.l;
- 		break;
- 	}
--	/* ack possible master abort */
--	mace->pci.error &= ~MACEPCI_ERROR_MASTER_ABORT;
--	mace->pci.control = control;
-+	mace_pci_ack_abort();
- 	/*
- 	 * someone forgot to set the ultra bit for the onboard
- 	 * scsi chips; we fake it here
-@@ -77,6 +87,7 @@ mace_pci_write_config(struct pci_bus *bus, unsigned int devfn,
- 		      int reg, int size, u32 val)
- {
- 	mace->pci.config_addr = mkaddr(bus, devfn, reg);
-+	mace->pci.error;
- 	switch (size) {
- 	case 1:
- 		mace->pci.config_data.b[(reg & 3) ^ 3] = val;
-@@ -88,6 +99,7 @@ mace_pci_write_config(struct pci_bus *bus, unsigned int devfn,
- 		mace->pci.config_data.l = val;
- 		break;
- 	}
-+	mace_pci_ack_abort();
- 
- 	DPRINTK("write%d: reg=%08x,val=%02x\n", size * 8, reg, val);
- 
-diff --git a/arch/mips/pci/pci-ip32.c b/arch/mips/pci/pci-ip32.c
-index 30aca6f76563..41ec8453c865 100644
---- a/arch/mips/pci/pci-ip32.c
-+++ b/arch/mips/pci/pci-ip32.c
-@@ -77,6 +77,8 @@ static irqreturn_t macepci_error(int irq, void *dev)
- 	}
- 
- 	mace->pci.error = flags;
-+	/* follow the write with a read, see mace_pci_ack_abort() */
-+	mace->pci.error;
- 
- 	return IRQ_HANDLED;
+-	return SKB_NOT_DROPPED_YET;
++	return SKB_DROP_REASON_TCP_MD5UNEXPECTED;
  }
+ 
+ #endif
 -- 
 2.47.3
 
