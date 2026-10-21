@@ -1,73 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792597654;
-	b=fZP8wNSeuoTMaFnmU2oR8k/qZJuYJUCZkWXyO31kUUmuc80Gw5rJXRX0UuShbzGFYqpt
-	 x97diUp+6c69eGWZRLy5cvG04BdbnoyWYXO87gEYVUacAC4UnnS/y6Sv4ZS7Tw/dGRd0Z
-	 vnDAsMvOgjiNMZjhb1wWWxfqHxFNevE7IYtfjIW3+5P/tQhRBCjzLkn5N3ULZE3qYERQi
-	 7G7t+PvfLzkSOvXyc+u39DhG7mu6MTcdcaa/WbpUIIzs/e3VoQjyQk271xmDdzYsVKeTA
-	 Naw/EDi6XO3b84SPRseGD9iq2XdoddmZ7N+/UoJ0R94v4ws71Az/3P8QoTUsd+eW3dg==
+	t=1792597661;
+	b=LYYrTOA5rbq6L9xIzCHmj2ejPJxvRTzI1MTlOQihGGJxe3XU/qhygNsv8KeLv9mj2cvJ
+	 kdSIhMiJZh78Rpe06bYIvmQUGZTN2LfTTgGU5raDouRZFXYsNG7UdVe0dwDAetfDypdRk
+	 cpKQon0v8rM6JzFZGfSxjx/kkk7eEIslNnIgI5p8QbrpiudHBUuW4xDcSw6v8gL0zIDK8
+	 nzU8xx3rIIvsVSKYXMgGFXMcDvN8tyrsYEMUBXue52HWUER/NLIxCKPGRfc2SVWEf80m6
+	 H2haEGi/MkLMVdpaXso6na3HnDjhaADOosJodnb7KVo7RC9JJSDVmmSQPVfuOT5GCnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792597654;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792597661;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=qGmeNCDLQlJnxwGmUoF1LBpA1R4h4DtBiIgIdxz7k78=;
-	b=2Ou/JKcSm2PUZzXxorOC4e2kh5GcLsZaw6xlzBRTt116mxq/Gm8tgqh8sE0B9W1HvEgJ
-	 IxWbjiRd//I+2h2Lhgf/8FqbpVwyVFtFEm2CX2wFYUMpasTvhYpOHd8jm1S5i5vY1R3ZT
-	 l7R16wN/XGBJ0BT3Vw1FwEb+KrEYzhG1c9RVp4bNKnkZAyunGUNBOa9PvSDNukhELgs7M
-	 9uuKoP1yvABYSk23tt/H68O6qeU7O0QqDtBjF5GuKc3wOoLASZqD2MViz/EdPVhsRczZ5
-	 0oUhCpfHLEzHQxe5+fYJ2JyWNRDrd2MYHEep9Kbr8D/tY81DNQkEakUTQ4GTsyp7MIA==
+	bh=8qgA8w2sH2bh3z2kNuYay7MeLSP++FG6E6X3KcotEQA=;
+	b=l9GEXkY5Co7b2IBVgw2//h3P6HOgVunSjajgEBq+DcW2MDJlbpHNQe6oo3kmq3VhNDMR
+	 clB5xb4Egbmi9r8hPX5VCTyrFEcK8HjdrYzHFozOvg95Dqq+jFua2HqrYd7vxSjipnOG+
+	 jEiRrYyaElCDJQccRZvvDq9Rs+ulfpXdP0LDNIwH0DfrofnKXJFMr0f2mpLxW9BD5gyQN
+	 u3IhAxwQukJx1V3wmqd7qIOlOqn9ItzNjzo9it+RqFAG9nWsiuI3NppdtqMMlBBnYYVge
+	 H7RpaEzCOGKKNubq5+/7P6Emjc37ihx5xo6tEvMBHy2lSBejUbIlatI4w8nlWawbBLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OWyNzCya;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Bx9mWcma;
 	arc=none smtp.remote-ip=170.10.133.124
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25EF6606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:47:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25EF6606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD231606A31D
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:47:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD231606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OWyNzCya
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Bx9mWcma
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792597653;
+	s=mimecast20190719; t=1792597659;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=qGmeNCDLQlJnxwGmUoF1LBpA1R4h4DtBiIgIdxz7k78=;
-	b=OWyNzCyaMstyp6ifhaCnmA+0JPScg+OskXwsSMGhsVHK8ra/v1Y6zJXg4EQ4naB9kAmi2P
-	mYxea39E9nnZQa7qwz8z14WJp5cG6+j+DcAK6U4SlwKe8DA02c+NSpPAkGpv22ScO0jNAB
-	YtuzzLd6T6hjvrG3I3uudXJrWB9+ie4=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+	bh=8qgA8w2sH2bh3z2kNuYay7MeLSP++FG6E6X3KcotEQA=;
+	b=Bx9mWcmaWha6NzfnaDQyzjsGLPrrETd7vpg5wmSqbl+7LkSDwySv3HexqM6SD/aE/iOZ5H
+	EL/VEkCPwj90AuaNACM9Gggj0XgXSqodDn/uoa6NR58Z0k1KjMFr/z/VTNFYu5BbFP/WSL
+	1gqkkyoGszzeNOSbJ6udVEvrCZDvQWU=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-118-kMCyQc_0PROK3TIc_TM9xw-1; Wed,
- 21 Oct 2026 11:47:29 -0400
-X-MC-Unique: kMCyQc_0PROK3TIc_TM9xw-1
-X-Mimecast-MFC-AGG-ID: kMCyQc_0PROK3TIc_TM9xw_1792597648
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-484-sv1qX5g2NYa-Lyi2M27u-A-1; Wed,
+ 21 Oct 2026 15:47:37 +0000
+X-MC-Unique: sv1qX5g2NYa-Lyi2M27u-A-1
+X-Mimecast-MFC-AGG-ID: sv1qX5g2NYa-Lyi2M27u-A_1792597656
 Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id EBE7819560AD;
-	Wed, 21 Oct 2026 15:47:27 +0000 (UTC)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A931018004D2;
+	Wed, 21 Oct 2026 15:47:35 +0000 (UTC)
 Received: from loberman-thinkpadp16gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3CA0318005AD;
-	Wed, 21 Oct 2026 15:47:27 +0000 (UTC)
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7FD3B18002B1;
+	Wed, 21 Oct 2026 15:47:34 +0000 (UTC)
 From: Laurence Oberman <loberman@redhat.com>
 To: stable@vger.kernel.org
-Cc: Jann Horn <jannh@google.com>,
-	Serge Hallyn <serge@hallyn.com>,
-	Paul Moore <paul@paul-moore.com>
-Subject: [PATCH 5.10.y 01/16] cred: clarify that task_struct::cred is only for the current task
-Date: Wed, 21 Oct 2026 11:46:50 -0400
-Message-ID: <20261021154705.2737365-2-loberman@redhat.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
+	Paul Moore <paul@paul-moore.com>,
+	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+Subject: [PATCH 5.10.y 02/16] ns: Free anonymous mount namespaces via ns_common_free()
+Date: Wed, 21 Oct 2026 11:46:51 -0400
+Message-ID: <20261021154705.2737365-3-loberman@redhat.com>
 In-Reply-To: <20261021154705.2737365-1-loberman@redhat.com>
 References: <2026102131-walmart-preschool-d157@gregkh>
  <20261021154705.2737365-1-loberman@redhat.com>
@@ -80,159 +81,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-From: Jann Horn <jannh@google.com>
+From: Christian Brauner <brauner@kernel.org>
 
-The `cred` field in task_struct is currently marked as __rcu, but that's
-not true: It can point to credentials from access_override_creds(), which
-do not get freed with RCU delay.
+free_mnt_ns() skipped ns_common_free() for anonymous mount namespaces
+(the "if (!is_anon_ns(ns))" guard) because they carry the reserved inum
+MNT_NS_ANON_INO, which proc_free_inum() must never release.
 
-What actually protects task_struct::cred is that accessing it is only
-permitted for the current task (except for setting up a child during fork()
-or tearing down a dead process).
-(There is currently code in Smack that violates this rule, but that's a bug
-and causes UAF, I have sent a separate fix for that.)
+A following change needs ns_common_free() to run for every namespace, to
+release per-namespace state attached during __ns_common_init().  Move
+the reserved-inum decision into __ns_common_free() and let free_mnt_ns()
+call ns_common_free() unconditionally.
 
-Clarify this, remove the __rcu marker, and remove RCU helpers from all
-accesses to this field.
+__ns_common_free() is shared by all namespace types, so it gates
+proc_free_inum() on ns->inum > MNT_NS_INO_SPECIAL_MAX (a new alias for
+MNT_NS_ANON_INO) rather than the mount-specific is_anon_ns().  The
+reserved inums (MNT_NS_ANON_INO and the *_NS_INIT_INO values just above
+it) belong to namespaces that are never freed, except the anonymous
+mount namespace; dynamically allocated inums are >= PROC_DYNAMIC_FIRST.
+So the comparison frees every dynamic inum and skips exactly the
+anonymous mount namespace, matching the previous guard.
 
-Signed-off-by: Jann Horn <jannh@google.com>
-Reviewed-by: Serge Hallyn <serge@hallyn.com>
-[PM: style tweak in security_init(), applied fixup from JH]
+Cc: Günther Noack <gnoack@google.com>
+Cc: Paul Moore <paul@paul-moore.com>
+Signed-off-by: Christian Brauner <brauner@kernel.org>
+Co-developed-by: Mickaël Salaün <mic@digikod.net>
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
+Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Paul Moore <paul@paul-moore.com>
 ---
- include/linux/cred.h  | 17 +++++++++++------
- include/linux/sched.h |  8 ++++++--
- init/init_task.c      |  2 +-
- kernel/auditsc.c      |  5 +++--
- kernel/cred.c         |  2 +-
- security/lsm_init.c   |  3 +--
- 6 files changed, 23 insertions(+), 14 deletions(-)
+ fs/namespace.c            | 3 +--
+ include/uapi/linux/nsfs.h | 1 +
+ kernel/nscommon.c         | 3 ++-
+ 3 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/cred.h b/include/linux/cred.h
-index 6ef1750c93e2..49c26af37349 100644
---- a/include/linux/cred.h
-+++ b/include/linux/cred.h
-@@ -180,12 +180,18 @@ static inline bool cap_ambient_invariant_ok(const struct cred *cred)
+diff --git a/fs/namespace.c b/fs/namespace.c
+index 1ecd96c918b3..8d4009cfbf5b 100644
+--- a/fs/namespace.c
++++ b/fs/namespace.c
+@@ -4193,8 +4193,7 @@ static void dec_mnt_namespaces(struct ucounts *ucounts)
  
- static inline const struct cred *override_creds(const struct cred *override_cred)
+ static void free_mnt_ns(struct mnt_namespace *ns)
  {
--	return rcu_replace_pointer(current->cred, override_cred, 1);
-+	const struct cred *old = current->cred;
-+
-+	current->cred = override_cred;
-+	return old;
+-	if (!is_anon_ns(ns))
+-		ns_common_free(ns);
++	ns_common_free(ns);
+ 	dec_mnt_namespaces(ns->ucounts);
+ 	mnt_ns_tree_remove(ns);
+ }
+diff --git a/include/uapi/linux/nsfs.h b/include/uapi/linux/nsfs.h
+index 007fed5971b4..e5909266ec3f 100644
+--- a/include/uapi/linux/nsfs.h
++++ b/include/uapi/linux/nsfs.h
+@@ -55,6 +55,7 @@ enum init_ns_ino {
+ 	MNT_NS_INIT_INO		= 0xEFFFFFF8U,
+ #ifdef __KERNEL__
+ 	MNT_NS_ANON_INO		= 0xEFFFFFF7U,
++	MNT_NS_INO_SPECIAL_MAX	= MNT_NS_ANON_INO,
+ #endif
+ };
+ 
+diff --git a/kernel/nscommon.c b/kernel/nscommon.c
+index 3166c1fd844a..e6f623e1bc37 100644
+--- a/kernel/nscommon.c
++++ b/kernel/nscommon.c
+@@ -91,7 +91,8 @@ int __ns_common_init(struct ns_common *ns, u32 ns_type, const struct proc_ns_ope
+ 
+ void __ns_common_free(struct ns_common *ns)
+ {
+-	proc_free_inum(ns->inum);
++	if (ns->inum > MNT_NS_INO_SPECIAL_MAX)
++		proc_free_inum(ns->inum);
  }
  
- static inline const struct cred *revert_creds(const struct cred *revert_cred)
- {
--	return rcu_replace_pointer(current->cred, revert_cred, 1);
-+	const struct cred *override_cred = current->cred;
-+
-+	current->cred = revert_cred;
-+	return override_cred;
- }
- 
- DEFINE_CLASS(override_creds,
-@@ -293,11 +299,10 @@ DEFINE_FREE(put_cred, struct cred *, if (!IS_ERR_OR_NULL(_T)) put_cred(_T))
- /**
-  * current_cred - Access the current task's subjective credentials
-  *
-- * Access the subjective credentials of the current task.  RCU-safe,
-- * since nobody else can modify it.
-+ * Access the subjective credentials of the current task.
-+ * Nobody else can modify it.
-  */
--#define current_cred() \
--	rcu_dereference_protected(current->cred, 1)
-+#define current_cred() (current->cred)
- 
- /**
-  * current_real_cred - Access the current task's objective credentials
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 8b3d47a325cc..50c7157fee82 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -1172,8 +1172,12 @@ struct task_struct {
- 	/* Objective and real subjective task credentials (COW): */
- 	const struct cred __rcu		*real_cred;
- 
--	/* Effective (overridable) subjective task credentials (COW): */
--	const struct cred __rcu		*cred;
-+	/*
-+	 * Effective (overridable) subjective task credentials (COW).
-+	 * Only accessible for the current task and during task creation/freeing.
-+	 * This pointer is not managed by RCU!
-+	 */
-+	const struct cred		*cred;
- 
- #ifdef CONFIG_KEYS
- 	/* Cached requested key. */
-diff --git a/init/init_task.c b/init/init_task.c
-index adb207cd987c..ce7c2b07d855 100644
---- a/init/init_task.c
-+++ b/init/init_task.c
-@@ -160,7 +160,7 @@ struct task_struct init_task __aligned(L1_CACHE_BYTES) = {
- 	.sibling	= LIST_HEAD_INIT(init_task.sibling),
- 	.group_leader	= &init_task,
- 	RCU_POINTER_INITIALIZER(real_cred, &init_cred),
--	RCU_POINTER_INITIALIZER(cred, &init_cred),
-+	.cred		= &init_cred,
- 	.comm		= INIT_TASK_COMM,
- 	.thread		= INIT_THREAD,
- 	.real_fs	= &init_fs,
-diff --git a/kernel/auditsc.c b/kernel/auditsc.c
-index 2b9ce0b52511..1b9cf25291e0 100644
---- a/kernel/auditsc.c
-+++ b/kernel/auditsc.c
-@@ -459,7 +459,7 @@ static int audit_field_compare(struct task_struct *tsk,
-  *
-  * If task_creation is true, this is an explicit indication that we are
-  * filtering a task rule at task creation time.  This and tsk == current are
-- * the only situations where tsk->cred may be accessed without an rcu read lock.
-+ * the only situations where tsk->cred may be accessed.
-  */
- static int audit_filter_rules(struct task_struct *tsk,
- 			      struct audit_krule *rule,
-@@ -476,7 +476,8 @@ static int audit_filter_rules(struct task_struct *tsk,
- 	if (ctx && rule->prio <= ctx->prio)
- 		return 0;
- 
--	cred = rcu_dereference_check(tsk->cred, tsk == current || task_creation);
-+	WARN_ON(tsk != current && !task_creation);
-+	cred = tsk->cred;
- 
- 	for (i = 0; i < rule->field_count; i++) {
- 		struct audit_field *f = &rule->fields[i];
-diff --git a/kernel/cred.c b/kernel/cred.c
-index 3df4e15bd67f..0bd6a58bc12d 100644
---- a/kernel/cred.c
-+++ b/kernel/cred.c
-@@ -414,7 +414,7 @@ int commit_creds(struct cred *new)
- 		inc_rlimit_ucounts(new->ucounts, UCOUNT_RLIMIT_NPROC, 1);
- 
- 	rcu_assign_pointer(task->real_cred, new);
--	rcu_assign_pointer(task->cred, new);
-+	task->cred = new;
- 	if (new->user != old->user || new->user_ns != old->user_ns)
- 		dec_rlimit_ucounts(old->ucounts, UCOUNT_RLIMIT_NPROC, 1);
- 	if (new->user_ns != old->user_ns)
-diff --git a/security/lsm_init.c b/security/lsm_init.c
-index a1ad641811de..04b18d06ba59 100644
---- a/security/lsm_init.c
-+++ b/security/lsm_init.c
-@@ -476,8 +476,7 @@ int __init security_init(void)
- 						    blob_sizes.lbs_inode, 0,
- 						    SLAB_PANIC, NULL);
- 
--	if (lsm_cred_alloc((struct cred *)unrcu_pointer(current->cred),
--			   GFP_KERNEL))
-+	if (lsm_cred_alloc((struct cred *)current->cred, GFP_KERNEL))
- 		panic("early LSM cred alloc failed\n");
- 	if (lsm_task_alloc(current))
- 		panic("early LSM task alloc failed\n");
+ struct ns_common *__must_check ns_owner(struct ns_common *ns)
 -- 
 2.56.0
 
