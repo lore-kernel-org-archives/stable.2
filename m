@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594267;
-	b=CI8XQgfZiDjhC6tfGkzioGEVK+hqjx5ijKdmpn/s1/XHivXnsc27ksLcAw7Nw4tRCDRO
-	 g758Rr/fAanx7ar3BUFdWKuyRyekyot0g4CHWYgyw+AizcvxvFfgNlBXMZKONLW0MNwSh
-	 lwDQabBkvkVWWstjUhszsw2ZXsUjrHUt41jaKJ3ai5/+pedA5gbvXG279OTBN7omD6Q94
-	 48oI60dRZ8Utp4+LWKloXG8U1G9ejEdGGAnJ4ME4nMNqLW3jd9ZGTlmamd9QhB8RIGl0+
-	 jyHmQbqXHyLof5RX/niO5M36AB7J+bhyYQH2FJJ3G7VqMyTTVhBRywhdHPL00yxZhLw==
+	t=1792594270;
+	b=nn9DA47F3Mg7s/LMP6VQwLWpgtvlJva1Lljy6ZtTMkFhGRWTgrHkMlHuwNsoU5Tk2iAi
+	 iU0jhlVq8EUo3ZsvlYXKlYo+uZKehxseOGKkAeWQr4ADu+jo11QW8uKNz/IXhJcibjQAu
+	 bBTrIUFRnIviJnkkJh44RgnJwgq5eJaaGhrmXPhZyQZjdg+OASv6iJWkqjr/uWMBeQoff
+	 oRvux6YsDQDh4EaY+J1o6rwHHSdlrnk8/wNmLM+smaNBWbq4SIm6dGruHWAz32gqToKhg
+	 Ln/Z2UnvD1A5vl2BmY7i3oHVYw1jome4muK9Ujw04OqMqEGSbHCcwkbVUwFEH8fjihg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594267;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594270;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Tf2truVF0HJWt5aQe6XENxvc3Zf7LhrdjDkpDzoeZ2c=;
-	b=ofVOZ/whw29WewAGoNvfE2HOh6WMjabbl6ZdHnpLKq8Sh4TaS++YP5hT27ay4AEXwrF2
-	 BtLqzd44C0TtTpTa1kNXfJ9W4x5w3HJSpl4nuu6ThJLonEwUFfWYLKjnW3Fum8K9PwJeZ
-	 YQQTI8k31/JucDVHzIHzjT7nkiNFENftDdnm5159jQwEr1K8QyBKOp7T+nCiXom45qfQi
-	 s6G6cguSz6U/9IDvscRfhsDuQtyQbjzckF8TMq401/+Flk1JW0UhB/jsG/NXEqWmShCvd
-	 gx1dJuotWkxkRS+DZmIawH1AUuoI7pwiC6S6mzyFOBEjF73FxKjzhn76uw7Mt9bgXTA==
+	bh=oF2xz7N/lXxCU4d+6NsjYLOcLNiEACCoriSZaiavIoU=;
+	b=syq2le8bPTDg0BnddtM2vwaevSm8LNbG+vmFYGMh2ba0Z7RcEzh0ytJ8ABxTs4h5sQsf
+	 IYNO+JfBXPKgdSi3QKZsLRfvN6aew3dMNAB68VWqjpdMnUwmPIFBwa79bdz0isztzFJ0F
+	 x9jOeU+fesN0aGofl9WEAu1lSBNttVUczDNq/ecsgq/ufsxvm2AMKV/otc5ZIU4s1Tcw3
+	 lcOwUWgZwvYem+KuT+vS5I/VwmFmifaQC6kxtgsz2MVB6WKOFvWj/axSgEF63conVWkLD
+	 //wK1OSMNH2DZQ9jgCuw1BhEkRz74xX5P3Xg6Io+W/5bqVr8OKzrSilrqm1CCOJUIgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QmCIJP73;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xvjViZzv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55490606A320
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:51:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48FB6606A31A
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:51:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QmCIJP73
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A76E61F000C1;
-	Wed, 21 Oct 2026 14:51:06 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xvjViZzv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9286C1F000C1;
+	Wed, 21 Oct 2026 14:51:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594267;
-	bh=Tf2truVF0HJWt5aQe6XENxvc3Zf7LhrdjDkpDzoeZ2c=;
+	s=korg; t=1792594270;
+	bh=oF2xz7N/lXxCU4d+6NsjYLOcLNiEACCoriSZaiavIoU=;
 	h=Subject:To:Cc:From:Date;
-	b=QmCIJP733+dcXGHyBfE95p5A8DL2Lkm3o7/5prKwIPIwouRgdM226hLbNGnff5+6A
-	 nfprRlUB+WLcPdZcqCYAD85hnXdBvGiq4A9YvplyUHqKliMQO2LtyKXj3n59UDeBfe
-	 M6flwtOUa6rDpwEYTgcf9VlTBBDl9KGXNtZunNGg=
-Subject: FAILED: patch "[PATCH] perf: Track the perf mlock gift separately" failed to apply to 6.6-stable tree
-To: ljs@kernel.org,ameer.hamza@truenas.com,peterz@infradead.org
+	b=xvjViZzviFnSnVBjgarJQVEwtduSL4oO8BlIvGTpPQpEo71fjWI/eXIY8+7NMZEmL
+	 jZJG2zaLtO/32/28BTnkjHFwkosoo2WYpg9Mazr6vVZP6TN3uISn4ej5qQQ8hMg9Qg
+	 PW5r10XPIvHGMPb/FY71MHmXt7dQsJh2rB3lqxRU=
+Subject: FAILED: patch "[PATCH] scsi: bsg: Pass reply_len to bsg_setup_queue() to fit UFS" failed to apply to 6.6-stable tree
+To: stanleyjhu@google.com,mkp@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 16:43:18 +0200
-Message-ID: <2026102118-chip-silicon-40c5@gregkh>
+Date: Wed, 21 Oct 2026 16:44:08 +0200
+Message-ID: <2026102108-porous-stalling-71fc@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,10 +64,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 78436f3882fb8d848c823bf8cf754988202c5ca5
+git cherry-pick -x ec6b083915e8146e147314a5f4f1285d07b57bfc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102118-chip-silicon-40c5@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102108-porous-stalling-71fc@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,133 +79,189 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 78436f3882fb8d848c823bf8cf754988202c5ca5 Mon Sep 17 00:00:00 2001
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Sat, 3 Oct 2026 17:29:07 +0100
-Subject: [PATCH] perf: Track the perf mlock gift separately
+From ec6b083915e8146e147314a5f4f1285d07b57bfc Mon Sep 17 00:00:00 2001
+From: Stanley Jhu <stanleyjhu@google.com>
+Date: Tue, 13 Oct 2026 21:27:08 +0800
+Subject: [PATCH] scsi: bsg: Pass reply_len to bsg_setup_queue() to fit UFS
+ ARPMB replies
 
-The locked_vm field in struct user_struct was originally introduced by
-commit 789f90fcf6b0 ("perf_counter: per user mlock gift") to provide an
-mlock-like budget for perf measured against mm->pinned_vm (since 2011).
+bsg-lib allocates a 96-byte (SCSI_SENSE_BUFFERSIZE) reply buffer per
+job, but struct ufs_rpmb_reply is 104 bytes: a 40-byte struct
+ufs_bsg_reply followed by a 64-byte EHS. When an Advanced RPMB command
+returns an EHS, ufshcd_advanced_rpmb_req_handler() copies it right after
+the 40-byte header and writes 8 bytes past the end of the buffer.
 
-perf grants each user a 'gift' of perf_event_mlock_kb * online CPUs of
-buffer pages which is charged to user->locked_vm without any RLIMIT_MEMLOCK
-check.
+Let each BSG transport pass its reply buffer size to bsg_setup_queue()
+and have ufs_bsg request sizeof(struct ufs_rpmb_reply), so the full
+reply reaches user space. Other transports keep SCSI_SENSE_BUFFERSIZE.
 
-Only pages beyond the gift are checked against RLIMIT_MEMLOCK, per-mm, via
-mm->pinned_vm, which makes it different from the standard mlock() check,
-which is per-mm and made against RLIMIT_MEMLOCK.
-
-However, since this was introduced, a number of other components have
-utilised this field where a shared resource needed to be limited against
-RLIMIT_MEMLOCK.
-
-The other users are currently MSG_ZEROCOPY, io_uring, AF_XDP, iommufd,
-s390 KVM zPCI and most recently, secretmem in commit 97d34aa65c29
-("mm/secretmem: properly account locked pages").
-
-This field is shared between all of these, but because the gift is not
-checked against RLIMIT_MEMLOCK, user->locked_vm alone can exceed it - 16
-CPUs * 516 KiB is already more than the default 8 MiB - after which every
-other user of the field fails unconditionally.
-
-This was reported by a user who saw secretmem failing while running a
-simultaneous perf record.
-
-Resolve the issue by simply giving perf its own field separate from the
-rest.
-
-BPF used user->locked_vm up until commit 80ee81e0403c ("bpf: Eliminate
-rlimit-based memory accounting infra for bpf maps") which landed in 5.11.
-
-Thus also eliminate the now-defunct ifdef for CONFIG_BPF_SYSCALL for
-user->locked_vm.
-
-This issue exists between all of the components which use user->locked_vm
-and perf, however secretmem is the first user who has caused a report over
-many years and has been backported, so target the fix at that.
-
-Fixes: 97d34aa65c29 ("mm/secretmem: properly account locked pages")
-Closes: https://lore.kernel.org/20261002175651.811343-1-ameer.hamza@truenas.com
-Reported-by: Ameer Hamza <ameer.hamza@truenas.com>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Fixes: 6ff265fc5ef6 ("scsi: ufs: core: bsg: Add advanced RPMB support in ufs_bsg")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261003-perf-locked-vm-fix-v1-1-d214dcaf0d76@kernel.org
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+Link: https://patch.msgid.link/20261013132708.1669415-1-stanleyjhu@google.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 
-diff --git a/include/linux/sched/user.h b/include/linux/sched/user.h
-index 8d7e5521f7cd..ec262b605437 100644
---- a/include/linux/sched/user.h
-+++ b/include/linux/sched/user.h
-@@ -23,11 +23,13 @@ struct user_struct {
- 	struct hlist_node uidhash_node;
- 	kuid_t uid;
+diff --git a/block/bsg-lib.c b/block/bsg-lib.c
+index 895db30a7033..536cee4430a7 100644
+--- a/block/bsg-lib.c
++++ b/block/bsg-lib.c
+@@ -23,11 +23,14 @@ struct bsg_set {
+ 	struct bsg_device	*bd;
+ 	bsg_job_fn		*job_fn;
+ 	bsg_timeout_fn		*timeout_fn;
++	unsigned int		reply_len;
+ };
  
--#if defined(CONFIG_PERF_EVENTS) || defined(CONFIG_BPF_SYSCALL) || \
--	defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
-+#if defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
- 	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD) || \
- 	defined(CONFIG_SECRETMEM)
--	atomic_long_t locked_vm;
-+	atomic_long_t locked_vm;	/* pinned pages charged to RLIMIT_MEMLOCK */
-+#endif
-+#ifdef CONFIG_PERF_EVENTS
-+	atomic_long_t perf_mlock;	/* perf buffer pages within perf_event_mlock_kb */
- #endif
- #ifdef CONFIG_WATCH_QUEUE
- 	atomic_t nr_watches;	/* The number of watches this user currently has */
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 7846d70be57f..8b69d50fcbcb 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -7059,7 +7059,7 @@ static void perf_mmap_close(struct vm_area_struct *vma)
- 		perf_pmu_output_stop(event);
- 
- 		/* now it's safe to free the pages */
--		atomic_long_sub(rb->aux_nr_pages - rb->aux_mmap_locked, &mmap_user->locked_vm);
-+		atomic_long_sub(rb->aux_nr_pages - rb->aux_mmap_locked, &mmap_user->perf_mlock);
- 		atomic64_sub(rb->aux_mmap_locked, &vma->vm_mm->pinned_vm);
- 
- 		/* this has to be the last one */
-@@ -7242,11 +7242,11 @@ static bool perf_mmap_calc_limits(struct vm_area_struct *vma, long *user_extra,
- 	/* Increase the limit linearly with more CPUs */
- 	user_lock_limit *= num_online_cpus();
- 
--	user_locked = atomic_long_read(&user->locked_vm);
-+	user_locked = atomic_long_read(&user->perf_mlock);
- 
- 	/*
- 	 * sysctl_perf_event_mlock may have changed, so that
--	 *     user->locked_vm > user_lock_limit
-+	 *     user->perf_mlock > user_lock_limit
- 	 */
- 	if (user_locked > user_lock_limit)
- 		user_locked = user_lock_limit;
-@@ -7254,7 +7254,7 @@ static bool perf_mmap_calc_limits(struct vm_area_struct *vma, long *user_extra,
- 
- 	if (user_locked > user_lock_limit) {
- 		/*
--		 * charge locked_vm until it hits user_lock_limit;
-+		 * charge perf_mlock until it hits user_lock_limit;
- 		 * charge the rest from pinned_vm
- 		 */
- 		*extra = user_locked - user_lock_limit;
-@@ -7272,7 +7272,7 @@ static void perf_mmap_account(struct vm_area_struct *vma, long user_extra, long
+ static int bsg_transport_sg_io_fn(struct request_queue *q, struct sg_io_v4 *hdr,
+ 		bool open_for_write, unsigned int timeout)
  {
- 	struct user_struct *user = current_user();
++	struct bsg_set *bset =
++		container_of(q->tag_set, struct bsg_set, tag_set);
+ 	struct bsg_job *job;
+ 	struct request *rq;
+ 	struct bio *bio;
+@@ -50,7 +53,7 @@ static int bsg_transport_sg_io_fn(struct request_queue *q, struct sg_io_v4 *hdr,
+ 	reply = job->reply;
+ 	memset(job, 0, sizeof(*job));
+ 	job->reply = reply;
+-	job->reply_len = SCSI_SENSE_BUFFERSIZE;
++	job->reply_len = bset->reply_len;
+ 	job->dd_data = job + 1;
  
--	atomic_long_add(user_extra, &user->locked_vm);
-+	atomic_long_add(user_extra, &user->perf_mlock);
- 	atomic64_add(extra, &vma->vm_mm->pinned_vm);
- }
+ 	job->request_len = hdr->request_len;
+@@ -301,9 +304,10 @@ static blk_status_t bsg_queue_rq(struct blk_mq_hw_ctx *hctx,
+ static int bsg_init_rq(struct blk_mq_tag_set *set, struct request *req,
+ 		       unsigned int hctx_idx, int numa_node)
+ {
++	struct bsg_set *bset = container_of(set, struct bsg_set, tag_set);
+ 	struct bsg_job *job = blk_mq_rq_to_pdu(req);
  
-@@ -7281,7 +7281,7 @@ static void perf_mmap_unaccount(struct vm_area_struct *vma, struct perf_buffer *
- 	struct user_struct *user = rb->mmap_user;
+-	job->reply = kzalloc(SCSI_SENSE_BUFFERSIZE, GFP_KERNEL);
++	job->reply = kzalloc(bset->reply_len, GFP_KERNEL);
+ 	if (!job->reply)
+ 		return -ENOMEM;
+ 	return 0;
+@@ -358,10 +362,12 @@ static const struct blk_mq_ops bsg_mq_ops = {
+  * @job_fn: bsg job handler
+  * @timeout: timeout handler function pointer
+  * @dd_job_size: size of LLD data needed for each job
++ * @reply_len: size of the reply buffer needed for each job
+  */
+ struct request_queue *bsg_setup_queue(struct device *dev, const char *name,
+ 		struct queue_limits *lim, bsg_job_fn *job_fn,
+-		bsg_timeout_fn *timeout, int dd_job_size)
++		bsg_timeout_fn *timeout, int dd_job_size,
++		unsigned int reply_len)
+ {
+ 	struct bsg_set *bset;
+ 	struct blk_mq_tag_set *set;
+@@ -374,6 +380,7 @@ struct request_queue *bsg_setup_queue(struct device *dev, const char *name,
  
- 	atomic_long_sub((perf_data_size(rb) >> PAGE_SHIFT) + 1 - rb->mmap_locked,
--			&user->locked_vm);
-+			&user->perf_mlock);
- 	atomic64_sub(rb->mmap_locked, &vma->vm_mm->pinned_vm);
- }
+ 	bset->job_fn = job_fn;
+ 	bset->timeout_fn = timeout;
++	bset->reply_len = reply_len;
  
+ 	set = &bset->tag_set;
+ 	set->ops = &bsg_mq_ops;
+diff --git a/drivers/scsi/mpi3mr/mpi3mr_app.c b/drivers/scsi/mpi3mr/mpi3mr_app.c
+index 1353a8ff9c85..094490713d69 100644
+--- a/drivers/scsi/mpi3mr/mpi3mr_app.c
++++ b/drivers/scsi/mpi3mr/mpi3mr_app.c
+@@ -3053,7 +3053,7 @@ void mpi3mr_bsg_init(struct mpi3mr_ioc *mrioc)
+ 	}
+ 
+ 	q = bsg_setup_queue(bsg_dev, dev_name(bsg_dev), &lim,
+-			mpi3mr_bsg_request, NULL, 0);
++			mpi3mr_bsg_request, NULL, 0, SCSI_SENSE_BUFFERSIZE);
+ 	if (IS_ERR(q)) {
+ 		ioc_err(mrioc, "%s: bsg registration failed\n",
+ 		    dev_name(bsg_dev));
+diff --git a/drivers/scsi/scsi_transport_fc.c b/drivers/scsi/scsi_transport_fc.c
+index 173ed6373f04..b66365a382c7 100644
+--- a/drivers/scsi/scsi_transport_fc.c
++++ b/drivers/scsi/scsi_transport_fc.c
+@@ -4345,7 +4345,8 @@ fc_bsg_hostadd(struct Scsi_Host *shost, struct fc_host_attrs *fc_host)
+ 	scsi_init_limits(shost, &lim);
+ 	lim.max_segments = min_not_zero(lim.max_segments, i->f->max_bsg_segments);
+ 	q = bsg_setup_queue(dev, bsg_name, &lim, fc_bsg_dispatch,
+-			fc_bsg_job_timeout, i->f->dd_bsg_size);
++			fc_bsg_job_timeout, i->f->dd_bsg_size,
++			SCSI_SENSE_BUFFERSIZE);
+ 	if (IS_ERR(q)) {
+ 		dev_err(dev,
+ 			"fc_host%d: bsg interface failed to initialize - setup queue\n",
+@@ -4378,7 +4379,8 @@ fc_bsg_rportadd(struct Scsi_Host *shost, struct fc_rport *rport)
+ 	scsi_init_limits(shost, &lim);
+ 	lim.max_segments = min_not_zero(lim.max_segments, i->f->max_bsg_segments);
+ 	q = bsg_setup_queue(dev, dev_name(dev), &lim, fc_bsg_dispatch_prep,
+-				fc_bsg_job_timeout, i->f->dd_bsg_size);
++				fc_bsg_job_timeout, i->f->dd_bsg_size,
++				SCSI_SENSE_BUFFERSIZE);
+ 	if (IS_ERR(q)) {
+ 		dev_err(dev, "failed to setup bsg queue\n");
+ 		return PTR_ERR(q);
+diff --git a/drivers/scsi/scsi_transport_iscsi.c b/drivers/scsi/scsi_transport_iscsi.c
+index 8aa76f813bcd..b50ff8a1d0a9 100644
+--- a/drivers/scsi/scsi_transport_iscsi.c
++++ b/drivers/scsi/scsi_transport_iscsi.c
+@@ -1545,7 +1545,7 @@ iscsi_bsg_host_add(struct Scsi_Host *shost, struct iscsi_cls_host *ihost)
+ 	snprintf(bsg_name, sizeof(bsg_name), "iscsi_host%d", shost->host_no);
+ 	scsi_init_limits(shost, &lim);
+ 	q = bsg_setup_queue(dev, bsg_name, &lim, iscsi_bsg_host_dispatch, NULL,
+-			0);
++			0, SCSI_SENSE_BUFFERSIZE);
+ 	if (IS_ERR(q)) {
+ 		shost_printk(KERN_ERR, shost, "bsg interface failed to "
+ 			     "initialize - no request queue\n");
+diff --git a/drivers/scsi/scsi_transport_sas.c b/drivers/scsi/scsi_transport_sas.c
+index d689b9ed08a6..a825966f60e5 100644
+--- a/drivers/scsi/scsi_transport_sas.c
++++ b/drivers/scsi/scsi_transport_sas.c
+@@ -199,7 +199,8 @@ static int sas_bsg_initialize(struct Scsi_Host *shost, struct sas_rphy *rphy)
+ 
+ 	if (rphy) {
+ 		q = bsg_setup_queue(&rphy->dev, dev_name(&rphy->dev), NULL,
+-				sas_smp_dispatch, NULL, 0);
++				sas_smp_dispatch, NULL, 0,
++				SCSI_SENSE_BUFFERSIZE);
+ 		if (IS_ERR(q))
+ 			return PTR_ERR(q);
+ 		rphy->q = q;
+@@ -208,7 +209,8 @@ static int sas_bsg_initialize(struct Scsi_Host *shost, struct sas_rphy *rphy)
+ 
+ 		snprintf(name, sizeof(name), "sas_host%d", shost->host_no);
+ 		q = bsg_setup_queue(&shost->shost_gendev, name, NULL,
+-				sas_smp_dispatch, NULL, 0);
++				sas_smp_dispatch, NULL, 0,
++				SCSI_SENSE_BUFFERSIZE);
+ 		if (IS_ERR(q))
+ 			return PTR_ERR(q);
+ 		to_sas_host_attrs(shost)->q = q;
+diff --git a/drivers/ufs/core/ufs_bsg.c b/drivers/ufs/core/ufs_bsg.c
+index 7a66917b3fc0..156637dd76c8 100644
+--- a/drivers/ufs/core/ufs_bsg.c
++++ b/drivers/ufs/core/ufs_bsg.c
+@@ -258,7 +258,7 @@ int ufs_bsg_probe(struct ufs_hba *hba)
+ 		goto out;
+ 
+ 	q = bsg_setup_queue(bsg_dev, dev_name(bsg_dev), NULL, ufs_bsg_request,
+-			NULL, 0);
++			NULL, 0, sizeof(struct ufs_rpmb_reply));
+ 	if (IS_ERR(q)) {
+ 		ret = PTR_ERR(q);
+ 		device_del(bsg_dev);
+diff --git a/include/linux/bsg-lib.h b/include/linux/bsg-lib.h
+index 14fa93268630..a697246feeac 100644
+--- a/include/linux/bsg-lib.h
++++ b/include/linux/bsg-lib.h
+@@ -66,7 +66,8 @@ void bsg_job_done(struct bsg_job *job, int result,
+ 		  unsigned int reply_payload_rcv_len);
+ struct request_queue *bsg_setup_queue(struct device *dev, const char *name,
+ 		struct queue_limits *lim, bsg_job_fn *job_fn,
+-		bsg_timeout_fn *timeout, int dd_job_size);
++		bsg_timeout_fn *timeout, int dd_job_size,
++		unsigned int reply_len);
+ void bsg_remove_queue(struct request_queue *q);
+ void bsg_job_put(struct bsg_job *job);
+ int __must_check bsg_job_get(struct bsg_job *job);
 
