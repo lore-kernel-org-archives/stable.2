@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792583134;
-	b=qesGlIRIGTxoPD6BSXs6WgY5sBr5991VtIU+EmXuuIXFwFyFrsSZo2Z+WYtAdbDNzhE9
-	 QIbFAWS35vFbhjFeE5UGnPYU55++m0fgekAjeVNKivlAyKM4u8HHXHSBsobdSSnOX3dlc
-	 /pOTufdW7arsOK2uP3VL9kpCFLzlEG/4KrKEuNzd1mUUE5otxDQPTYaBwh/WI+cU+43PF
-	 DItf6aeA9tTN/fyd+fH/oL86vgIQsJaaGmtqO0P6VjXzA5Y9bkMaEI5q6bIsXmrSDtC46
-	 HD9WPV7/wm3NcdbatL2TZZQ+np0i+NKFcmr0yG6l3b1HxfD3L3tT7Fgw7C4q/3lE43Q==
+	t=1792583135;
+	b=Ih3r3uMXXSG5NKggx9xka1NLDeU96ITotNmAJ8J77EHbxV8eVDbe/nn3HdoFwIResiwN
+	 Q048KszvnCfEIB/OBO8kczpKlsys05pl1Z8iPtgo7U6Mxns/33mjjjnvSTiZWl0VPYHpz
+	 2wcnSKPHITc0AWuLuWiv5oxQQsDB24CWF2N/SSdCVceVzemXPK9V5/Ogr+mekOKM6GHW/
+	 VZ8yZonXq7rKM220M5ID7R7HlTS27vyQ25AOVmUXw0iZBrWe+OAJ10a8sBNISERBivHJT
+	 qh2QCjB+FL9L7EGeKdMPGbx5J0wuccX+SFHZJLNu1Jj4MWBxVnwFmiwtxNLl7FGSTew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792583134;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
-	bh=YXumx7zTrHr94qWuIde28XemX3sHJ1fMcOG+i6oYMSA=;
-	b=LROSmcamWfrWHVh9cnKlooJhwF9F9E7tscCTOIKOewygEYlvAqRAothGJk7z7zDrqxAW
-	 yI9STwej7pFvNnl5XW0VlzTMwXtdR/LOdTT9LJSKY9hiysrlXkJ/l3mkAml6/KmZIzVJf
-	 7qXYyf1T7X/JHKCwpFpsO5Dx0TJWKQNeawM3giiGT02eUyrtLY+euCYOzgUpu6CyriOoF
-	 Y5GdXcRqPrmZdKVWdoKgYBUu7hivFR892Y4eiucv364AUzAcLPM6o8CKW4vIeFUFGR0/3
-	 HtGmF++1XhoQBUwfhMJZEjLqgr+DDCU/dqrUFEFjsL203B/FzQN4pCkAel/rS8mofHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792583135;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=yRt4u9j182T5q3P0b2GaXBS03uQ3Jfu70UBYjUTMCCw=;
+	b=VaLr0BrtPPdDCbUWPDZmpIfU5gZUspOYeNbuxXjAUWMga6D8nxlM3nnGFYS4FYxTPtr3
+	 BOrfOkInckz2pz9zkrX8MVIjYobZ3mYm+FBcIWyMwub8SqlPoYVjV5zyifYDZAOucf+3H
+	 CaPmsLcuEBckVgBB3FPUyJQYWT8yffkcVIs1lovcvzHPyncBaYqxZ1Ua+MDPTVDt3X2P/
+	 rhh6VVoT7jql+IggB7CNbdD9xg5NWLKVj3Bes35HAwVZSeqx8kqeSX/OqWymLJTizfyBB
+	 1mOk5JdgcTOW0EbMNDUwhailG6Q5zytPMJV2K1M5PAd7JnMg6IeHexSw3lpPhhpZM+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=tipi-net.de;
 	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=gkJLLH9M;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=CukU3TLY;
 	arc=none smtp.remote-ip=194.13.80.246
 Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63F1606A321;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D30F606A320;
 	Wed, 21 Oct 2026 11:45:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B63F1606A321
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D30F606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=gkJLLH9M
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id ABB19A1626;
-	Wed, 21 Oct 2026 13:45:30 +0200 (CEST)
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=CukU3TLY
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 98F94A1624;
+	Wed, 21 Oct 2026 13:45:29 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
 	t=1792583130; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=YXumx7zTrHr94qWuIde28XemX3sHJ1fMcOG+i6oYMSA=;
-	b=gkJLLH9MgMRr6QtFERcHA97HdEJs7eubvmK2oH9Qz4QvlVnvYNHBiiUFVQab9BjcSroBw8
-	PxjcP1YWvCZQ5UIgv1aCoVBL2JO4cM4ymKvarwm4ZQoljqPGavb/nmE4rokl8Scw+2sQU/
-	3pO1Icz26tXFw7UlhkGXLfBxxpEx6UQlBRRSE1D/ryIhNIxTGSLYSo9hDaB23Lvdm6WOad
-	nirXl1EgASxdSyURt7i8gIt9Eg39teu3OR+ecC4TlNsV/2sfAvm4OQQglrwZ01CfRJTMz0
-	TbFpBHG6/mme7yBuo6b91rQMdWRYt9z/QjSpJIPuVpkV+kdFA3Yg9Nwg0sbDzw==
+	 content-transfer-encoding; bh=yRt4u9j182T5q3P0b2GaXBS03uQ3Jfu70UBYjUTMCCw=;
+	b=CukU3TLYO9HWcZFecSkWeW7dUh67urBkzlkz3f+ySXu8GaorxZNwk1FeJ5dCS3lfimpCKh
+	ATbSAR0CrN5uS/1Y++z47MIMpxaMJyDLiW8+fVh6lvCRs9kjd+XqryMyBniQiexerYBpi3
+	GqsRPinUL+j5LfFrU6qP4E68yv3HkiKx8wUbQLoNFvrCgpYJyWljB6QrNXtb/USK4g3sBY
+	+cK1lPcDTMqFkr1c0GYhDGLIgTusRpYEMBydUC5u/1PMT+QbMv98rQt8x5eaGO8/zpsgyu
+	ltDTxbwNVHYqJONun2a3n3h1zjliHdR/zZCuXajTL0ks1i46RLwsK1ZWWs3paw==
 From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Wed, 21 Oct 2026 13:45:22 +0200
-Subject: [PATCH v4 1/2] serial: amba-pl011: finish a transmission still
- running when RS485 is enabled
+Subject: [PATCH v4 0/2] serial: amba-pl011: fix RS485 state on enable and
+ reconfiguration
+Date: Wed, 21 Oct 2026 13:45:21 +0200
+Message-Id: <20261021-devel-nbuchwitz-pl011-rs485-reconfig-stall-v4-0-ed10e219159a@tipi-net.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,9 +59,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-devel-nbuchwitz-pl011-rs485-reconfig-stall-v4-1-ed10e219159a@tipi-net.de>
-References: <20261021-devel-nbuchwitz-pl011-rs485-reconfig-stall-v4-0-ed10e219159a@tipi-net.de>
-In-Reply-To: <20261021-devel-nbuchwitz-pl011-rs485-reconfig-stall-v4-0-ed10e219159a@tipi-net.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/53OwW7DIBAE0F+JOHcrwNgkPfU/ohwwLPFWFraAk
+ LSR/704uUTpKT2ONHozV5YwEib2sbmyiIUSTaEG9bZhdjDhiECuZia57AQXHTgsOELoT3Y4U/6
+ BeeRCQExq20JEOwVPR0jZjCN45VE12lprkFVwjujpchvbH+45nfovtHldWBsDpTzF79ubItbev
+ 4aLAA6ea6ec0UL1+JlpJgiY3x2ydbrIR1y/hMuKd1612gjEVuq/ePOI717Cm4pzLc3ObiWa9un
+ 5siy/3knwGrIBAAA=
+X-Change-ID: 20261016-devel-nbuchwitz-pl011-rs485-reconfig-stall-f4fe437cccae
 To: Russell King <linux@armlinux.org.uk>, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  Jiri Slaby <jirislaby@kernel.org>, Lino Sanfilippo <LinoSanfilippo@gmx.de>, 
@@ -71,124 +74,60 @@ Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
 X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 
-Disabling RS485 during a transmission keeps it running. If RS485 is
-enabled again before it ends, the state is OFF while data is still going
-out. The TX path does not end a transmission in state OFF, so nothing
-sets the idle RTS level afterwards and the transceiver keeps driving the
-bus.
+More RS485 fixes for pl011, on top of the ones already in tty-next.
+Together they are the groundwork for a series I plan to send next
+cycle, which refactors the RS485 code for better performance and
+reliability.
 
-Hand such a transmission back to RS485 when it is enabled on an open
-port. While PIO or DMA still feeds the FIFO, assert RTS and mark it as
-sending, so that the TX path ends it like any other. With only the FIFO
-left, drain it from trigger_stop_tx instead. Data that is queued but not
-started yet, for example while output is stopped, is not part of the
-transmission.
+Both patches fix changing the RS485 settings while data is going out.
+Patch 1 keeps the transceiver from driving the bus after the data is
+out when RS485 is enabled mid-transmission. Patch 2 keeps a
+reconfiguration from stalling the port.
 
-Fixes: 97f85204275a ("serial: amba-pl011: keep transmitter enabled when disabling RS485")
-Cc: stable@vger.kernel.org # 6.18.x: 1b6d660e038b: serial: amba-pl011: drive the bus during break in RS485 mode
-Cc: stable@vger.kernel.org # 6.18.x
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+Tested on a Raspberry Pi CM4 (PL011 on BCM2711) and a CM5 (PL011 on
+RP1, behind PCIe on BCM2712).
+
+Deliberately left for follow-ups:
+- pl011_rs485_config() sees the old settings, which are only stored
+  after it returns. Will be fixed in the RS485 rework.
+- A TX flush during DMA leaves the bus driven. Will be fixed by a
+  separate patch sent alongside.
+
 ---
- drivers/tty/serial/amba-pl011.c | 57 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 57 insertions(+)
+Changes in v4:
+- Patch 1: detect a running transmission from PIO or DMA activity, not
+  from queued data (sashiko)
+- Link to v3: https://patch.msgid.link/20261019-devel-nbuchwitz-pl011-rs485-reconfig-stall-v3-0-072a9c82ea5e@tipi-net.de
 
-diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
-index 79776a882ae35..1edbe75611e63 100644
---- a/drivers/tty/serial/amba-pl011.c
-+++ b/drivers/tty/serial/amba-pl011.c
-@@ -1285,6 +1285,11 @@ static inline bool pl011_dma_tx_queued(struct uart_amba_port *uap)
- 	return uap->dmatx.queued;
- }
- 
-+static inline bool pl011_dma_tx_active(struct uart_amba_port *uap)
-+{
-+	return uap->dmacr & UART011_TXDMAE;
-+}
-+
- #else
- /* Blank functions if the DMA engine is not available */
- static inline void pl011_dma_remove(struct uart_amba_port *uap)
-@@ -1341,6 +1346,11 @@ static inline bool pl011_dma_tx_queued(struct uart_amba_port *uap)
- 	return false;
- }
- 
-+static inline bool pl011_dma_tx_active(struct uart_amba_port *uap)
-+{
-+	return false;
-+}
-+
- #define pl011_dma_flush_buffer	NULL
- #endif
- 
-@@ -1734,6 +1744,12 @@ static unsigned int pl011_tx_empty(struct uart_port *port)
- 							0 : TIOCSER_TEMT;
- }
- 
-+/* PIO or DMA still feeds the FIFO */
-+static bool pl011_tx_active(struct uart_amba_port *uap)
-+{
-+	return (uap->im & UART011_TXIM) || pl011_dma_tx_active(uap);
-+}
-+
- static void pl011_maybe_set_bit(bool cond, unsigned int *ptr, unsigned int mask)
- {
- 	if (cond)
-@@ -2454,6 +2470,42 @@ static int pl011_verify_port(struct uart_port *port, struct serial_struct *ser)
- 	return ret;
- }
- 
-+/*
-+ * Data from before RS485 was enabled is still going out. Finish it as an
-+ * RS485 transmission, so that its end sets the idle level.
-+ */
-+static void pl011_rs485_tx_resume(struct uart_amba_port *uap,
-+				  const struct serial_rs485 *rs485)
-+{
-+	u32 cr = pl011_read(uap, REG_CR);
-+
-+	cr |= UART011_CR_TXE;
-+	if (!(rs485->flags & SER_RS485_RX_DURING_TX))
-+		cr &= ~UART011_CR_RXE;
-+	if (rs485->flags & SER_RS485_RTS_ON_SEND)
-+		cr &= ~UART011_CR_RTS;
-+	else
-+		cr |= UART011_CR_RTS;
-+	pl011_write(cr, uap, REG_CR);
-+
-+	/* pl011_break_ctl() ends the transmission when the break ends */
-+	if (pl011_read(uap, REG_LCRH_TX) & UART01x_LCRH_BRK) {
-+		uap->rs485_break = true;
-+		uap->rs485_tx_state = SEND;
-+		return;
-+	}
-+
-+	if (pl011_tx_active(uap)) {
-+		uap->rs485_tx_state = SEND;
-+		return;
-+	}
-+
-+	/* Only the FIFO is left. The timer drains it with the new settings */
-+	uap->rs485_tx_state = WAIT_AFTER_SEND;
-+	hrtimer_start(&uap->trigger_stop_tx, uap->rs485_tx_drain_interval,
-+		      HRTIMER_MODE_REL);
-+}
-+
- static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
- 			      struct serial_rs485 *rs485)
- {
-@@ -2483,6 +2535,11 @@ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
- 		if (tx_pending && !uart_tx_stopped(port) &&
- 		    !pl011_dma_tx_start(uap))
- 			pl011_start_tx_pio(uap);
-+	} else if ((rs485->flags & SER_RS485_ENABLED) &&
-+		   uap->rs485_tx_state == OFF &&
-+		   tty_port_initialized(&port->state->port) &&
-+		   (pl011_tx_active(uap) || !pl011_tx_empty(port))) {
-+		pl011_rs485_tx_resume(uap, rs485);
- 	} else if (port->rs485.flags & SER_RS485_ENABLED) {
- 		pl011_rs485_tx_stop(uap);
- 	}
+Changes in v3:
+- Patch 1: adopt an active break when resuming (sashiko)
+- Link to v2: https://patch.msgid.link/20261017-devel-nbuchwitz-pl011-rs485-reconfig-stall-v2-0-6f457a1ee527@tipi-net.de
 
--- 
-2.53.0
+Changes in v2:
+- Patch 1: only resume on an open port (sashiko)
+- Patch 1: handle stopped output and pause DMA first
+- Link to v1: https://patch.msgid.link/20261016-devel-nbuchwitz-pl011-rs485-reconfig-stall-v1-0-f07d4da714be@tipi-net.de
+
+To: Russell King <linux@armlinux.org.uk>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jiri Slaby <jirislaby@kernel.org>
+To: Nicolai Buchwitz <nb@tipi-net.de>
+To: Lino Sanfilippo <LinoSanfilippo@gmx.de>
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-serial@vger.kernel.org
+
+---
+Nicolai Buchwitz (2):
+      serial: amba-pl011: finish a transmission still running when RS485 is enabled
+      serial: amba-pl011: keep RS485 transmission running on reconfiguration
+
+ drivers/tty/serial/amba-pl011.c | 64 +++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 62 insertions(+), 2 deletions(-)
+---
+base-commit: 1184f87e2790e8af9be3116f608d2e86b4792d7d
+change-id: 20261016-devel-nbuchwitz-pl011-rs485-reconfig-stall-f4fe437cccae
+
+Best regards,
+--  
+Nicolai Buchwitz <nb@tipi-net.de>
 
