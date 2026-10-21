@@ -1,93 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792605050;
-	b=TgWeq1PpSC4uQwUTbS7U0xFI+o8/3oW+CB0l/FasJL96YA6ZVI63V+goFP4/ZhzCIZV5
-	 vbQ3a39U5PloS9vcWMrDPXoQ4Sba6HcLhDUIB8RQfdYe7A5ud7xyiCRHpRsSVU8I4VYJ1
-	 9fhxZ1BCe2NhAgHSeEoSdrmLG8wEwjAVRAVv/s4NC0p0lOEAwbWHHbRb5bjrcjNzA6TTi
-	 vsFjWu3oX/HVlI3Q2rZwoDwtW3+1zDFqv4QgoT4TD+h/fX8NbI1BKUIUQlhKgSsAlkIRZ
-	 wy8sx9M6l7q9dvLbWhH1bgRVca2ifl88fnlrY9MkEqWZ4QkJPGwGBGkuyERl2pgN5eg==
+	t=1792605250;
+	b=ad2LIl5ScjiPnYRFpi4Kt+MXeDnZi20HboTW1hJXMF/fqtYR+dNrk4kbE2wLp0JhRzyU
+	 iT1e/qCL50fMRonk96a3voib5Ed7KL0rC73LXCOyYSjjUaJSiDaBaAn7Z/KjRnNw95oQZ
+	 H4ID9oHFyGnQlTkj1Uv0pbsc8Mz9GmU5E6EZTwt3Dk+Tcs6ehvTT1Tm8bLBOY31aJ/ezP
+	 V04DPeXmu/sabMdCIRFJbTClBt4SW9D9td9P6YPwCDNk8JWXBX1Wvrww1gi7WNvciNOIg
+	 x3hHPIe4DHNGJMutJkSrYsrfmstHoxHAaqYAb558AFkP4NruO7p3NLDWJ9dD04dzGgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792605050;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792605250;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=mE9Ag/gCpQwpic9Sbpc9hGK5nNJZ45oi/KyynO+C5Ws=;
-	b=feCV/I/5oM3x3B3C7XjcxhqXy3P/icSBFhprn5J8HJe/H5KaBgtlf+aThMD9JAIckyqE
-	 H+mEQLT6L0NmKyK0SRA4BChJnC2XcnSC1U0MXCAzh+TKSvvxdOEvPxVs1aEuSuj9wKnP4
-	 uj/Q3ND+0vAIFyHh878VW19Ahhh85rf6EgP/eo6fnpj8pnT81KGPiQl9m/VxrJtrOT0K2
-	 deVp5VCWi+Hedy7AAFDqO2NgBOKJKku+ayLwlOvArmmW4L+U/Axd3UpAjrOPBrSQ8G2yd
-	 Hzul9RKOZzbynXWf1aAbC/lXBGy0cuJ+DJrW+01EaVAQVVyIUItK2EdBbhT0vTjYVoA==
+	bh=5PqjLYJUgUiokTOvnfFlSVLgSp4XVLZwVNOD0zgcVgw=;
+	b=I80ICpesImT9oua+OY/hy1ZVE4ppB4pNqX3KA2ns/RnxdN0XsY1LDPuMvqRnkKkeKFKf
+	 h8o4+8q1sYmCqHnZ+m54CpUvwrsr+1gtBlVEFgdsH+0Wjmu4arzhtZc4DQ8dV/LVWslx1
+	 o047EHbbl5XIHb2mtT7XOTeUEKd4w5jxEwypf1sBRD/sO8f6L+cq0hpel8s4mcA0iaqmJ
+	 JZwlTsrsa6sueDRRO5hG92ARLayZthpWJkmJzeEE97u5VjP4FfSoY8C9QsAvxetC+l8+N
+	 BAEQimpDOC3+KUduE1lB6NHJaorKf0H3fnwQ1mSsImsp9Vv167mxm+39bIWtXfsHXCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=trailofbits.com;
 	spf=pass smtp.mailfrom=trailofbits.com;
-	dkim=pass header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=AcdzYn+x;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	dkim=pass header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=JcpocVIS;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A4A606A31D
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 17:50:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48A4A606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B47E8606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 17:54:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B47E8606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=AcdzYn+x
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-33fb4680717so2438186eec.1
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 10:50:50 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=JcpocVIS
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3535a54bed9so1355100eec.1
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 10:54:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1792605049; x=1793209849; darn=vger.kernel.org;
+        d=trailofbits.com; s=google; t=1792605249; x=1793210049; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mE9Ag/gCpQwpic9Sbpc9hGK5nNJZ45oi/KyynO+C5Ws=;
-        b=AcdzYn+xJgZ24qhdgNzJ+znHcPBAcXz72e9f4fQNiIdR9DHJ88983AMvTE3ngzyFC7
-         SDCp43YiGEg2N4XU5y9IxSku8AVhcBQifpG6b+xFWQnuaUlWF9eKV6mIv1RvQan4ZlRi
-         A9tHlhTbISYlznruJmqYxa1i5DlWZ1i41oAkZUkiMLDZRtM51ZkD4+XEWQBcQnhAHTow
-         3uG185oH+MfhXlZiE12QtsqR6cagzCQoEmcGwZ9t3m3bGudFO8B9vNQh02gnj6beJXsG
-         HBNvvitmYn6+WQzRXLedcKF7QS4HnyyjH8bwxj1aB5uT88pEdpQBBl5Ih/61fj7fuIIF
-         Trxw==
+        bh=5PqjLYJUgUiokTOvnfFlSVLgSp4XVLZwVNOD0zgcVgw=;
+        b=JcpocVISGPYKnrqPOePf1IjPWVkOdMt+vqMiqK6675evji8SrVn43ad1vly8ipbMKk
+         ioH3OmdSkiYoRTq6bTJ0nasbwHTF7cxKPKLWLhYu+AUkTMYd4h8hdnIpfnXzzG7laeqs
+         SImsnVR2K6ziy8+63x9g7rmLQY5xdzxSTk8lZG7E1BHnFpqwLVXwv/tRmLYn611qDpKk
+         8PuKs6IldcLrfv6QnuOJgK5t+38ZMwnEJ3aKY+9sTNYXyyQ1rm2T+Kag6tpIaAwomBQA
+         IwHYp4JJqh1/hOgTPbmnRQhkq1pbxkxks5QbB/W33gNVmMfitcS+/l3pS/2rt91GInG1
+         31ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792605049; x=1793209849;
+        d=1e100.net; s=20260707; t=1792605249; x=1793210049;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mE9Ag/gCpQwpic9Sbpc9hGK5nNJZ45oi/KyynO+C5Ws=;
-        b=BvJAucg6IqDrkZpCYBzDfw8SDzSKJ+URp8hyxuHk/t8aVNfBVWV8PoD4P2tb78UrUJ
-         DTJuLpIItn+C1mdlQXoX1TJwsiuCG+A3lucTOJmqT2ywIErz2IpUNXsVQycdWXFX7Vkm
-         31qy+nFXOWTtqb+QmBUYTrijrxiZ6PgcHHfI1dk1hgwGdWsr9OUoCe9ohK3Z1J3PAjD9
-         ItwltQtS2ck1bM/WzoWx0PaSFrpBEles/yG+8CsmTKAFOb8spBgnKveFj4UyhM/ZMaI1
-         NvfWynXiAPmXPk1YuGo6F/Ck/RslDxFB4KTWT1fimWo7nuztaq6s8Q8S8TXa6uEVBvic
-         bX2A==
-X-Gm-Message-State: AFq9FYJCPDUCJ9bf+59zBtK6x/DwXYhYg+uEMBUqR+hgpZx+sESHPFoo
-	9BCo5YkGJoks8xa/zyOW6EjSvCnQBF1h4WhEVIQQh0irr3ujfUZEnf8g1YDPRO/utNjsmCD/ayr
-	97EHfr9uNfw==
-X-Gm-Gg: AYBFou3PJ1pCzXzAF1CGQ+ms+JwwkrTuajQIB9SnuVYl6MCL+0rna4a2Dwv+MADw/I8
-	s9mrcl3RoHRsAcitSryJVJFUwBcY0NI6t6ji2PdjoEVOqbPa+qh7pqP8pNB8TcMXMseRQ3w61bF
-	/ST0RWChjzDGRNIq/HaJkwnpXmwy14cd3w+WmkPHjHcy3fWJ9BVjShyPLQFKznjPHwZwQICneRR
-	ov9w15rpZS1XJNMqr/lmNxeqbR1/jjXbKU0jRZmJBWTHRSkRVJ0tZGP2jw2r7rfxzlp/TQrojRD
-	E2wfdWN6oLcz/ae16c+q9ZVpidguOqK2BevJArOLrnPG8Zm26ti3uHd8izAdd6EqbPJnoNuoku4
-	/RPIso9GIJmW1uMmr1nRIxogpqcY5IIeMYVIW9CtVzgq56oacYvJIfPOsuyCpiQqKb0DE/WmdpI
-	L8DTcnq18Sh60T9Dp7M/ComRdxxuTxaInTqoIYyj8WHBLDLlKhmSurTn84REGqulVXvP1h5nJqJ
-	Ky1vp889MC47BHhAX2l0FgPwExPfnsT6LePdyU834hPLhPFI7sq4fWhhFk/7W2y94FSeqs58W06
-	Y56tn/MJ7srBIPI49WvYnebJBL8prRZ/75YqSlgJq2K+gweDYFUh
-X-Received: by 2002:a05:701b:424e:20b0:143:298f:33b8 with SMTP id a92af1059eb24-190a7756cafmr3521892c88.44.1792605049249;
-        Wed, 21 Oct 2026 10:50:49 -0700 (PDT)
+        bh=5PqjLYJUgUiokTOvnfFlSVLgSp4XVLZwVNOD0zgcVgw=;
+        b=cY1qCHanricvo2BDzbj3NeS12Ns8jlS5aXnr126LE/HF8WVXdrLC9pfb7YGnv3v+CG
+         Gugbsxa67ICXO2iyTTiFIswpzwXiLLS4uCUhBsFu7EyApDDKytQgNsxk1bRooXOEE8g0
+         M2sGTZYdFyCdg7MNWyIiagG60xkYD8QsRmGFgWZ+e6UTxdVJcTdW8s5wA5ZscgtyHHgC
+         rUAYBW2voLt/xPBlE9Erz7Rbyn160r7NSxB8qqZdCw6WF2ymROmMwiGhRbfIGro+BYQc
+         us8yKRnToTU+qx/zM5vsSjXMXucCfNdTia026EsF/CdFsylRTA9Lh+cgwA7nWz16jT3E
+         PqDg==
+X-Gm-Message-State: AFq9FYIiGapkvNLTnW1j013Fj9RedB17vngQDffBtVNuukg4hNFDBy7Q
+	IhUy6blTUEtAN0O0RHkTMh35hJ3ggU0aLaMkbtf/h8ArrbgCxNwns8g/YP2V/6PIZxc4JcgSey9
+	rDKxCPl0Tbg==
+X-Gm-Gg: AYBFou3cWCMny0/AQLpGiFTV0V4hEk70LiQB3T2fy0FvT8munQpd21mZYuKj/AiSChk
+	TZBoR5MQ0RSbg5JU4UUhCHz/7VzfinFwVEovLKyKo4e9/FAeVD4MPPKoCx+KK/xlTW8jq46B5Ya
+	7hBaXMKess+3Sg99d0giIidJ2a6erB4OTXTa7w/6dR34qIXgzx6RzyzMJncmO852dD6Uy+0R9Wi
+	i/e4KhBEc9W3UMIKnPT815CcybF7ZpPJbOcDom1DCaODkRp394tBp9uXzVtH7fBlskwK9o8hln4
+	7yC/Lg4IsAoc+zfdbDI0/ko5vVS4Ku28rTk5h5JGDyugyXjhpTCNl3PqyF727kPczXG3lTs7Qof
+	6U5JdtzA5tPAJYKpWrkkwd5nEEUvXgKc/UAv2BR+NHhxz98ipz5Q4bAtBeRBMtG0AK5z7NsVf2W
+	Y5PYtZCKSp7sciAqzmVZMidyCHPsg4lnv3eUiqvq4xJkZflOuMfApFaHJ3AaUbeEoVQ+cDSyVxn
+	7OMWwrk2o4ZKoUjo6rqkBzjCFsDHLERhBTZj/3n4ZzXXXQy2oGdwkrsd/Eyp+M106sGrr3AV0YU
+	8f3UAXRcJldKiiGMxLwoUaPekeYkM2JQGAyuDaPDzaxnF3sa7+OU
+X-Received: by 2002:a05:693c:42d9:b0:367:e68b:c047 with SMTP id 5a478bee46e88-367e68bc08cmr2811480eec.40.1792605248757;
+        Wed, 21 Oct 2026 10:54:08 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:d059:e601:becb:a5ad])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903ca044d4sm8229754c88.17.2026.10.21.10.50.48
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-368b4b8e9c6sm17395eec.1.2026.10.21.10.54.07
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 21 Oct 2026 10:50:48 -0700 (PDT)
+        Wed, 21 Oct 2026 10:54:08 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
-Cc: cgroups@vger.kernel.org,
-	hannes@cmpxchg.org,
+Cc: davem@davemloft.net,
+	herbert@gondor.apana.org.au,
+	ldy3087146292@gmail.com,
+	linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	longman@redhat.com,
-	mkoutny@suse.com,
-	ridong.chen@linux.dev,
-	tj@kernel.org
-Subject: [PATCH 6.6.y] cgroup/cpuset: Make nr_deadline_tasks an atomic_t
-Date: Wed, 21 Oct 2026 13:50:45 -0400
-Message-ID: <20261021175045.1443-1-artem@trailofbits.com>
+	n05ec@lzu.edu.cn,
+	tomapufckgml@gmail.com,
+	yifanwucs@gmail.com,
+	yuantan098@gmail.com
+Subject: [PATCH 6.6.y] crypto: af_alg - limit RX SG extraction by receive buffer budget
+Date: Wed, 21 Oct 2026 13:54:05 -0400
+Message-ID: <20261021175405.1542-1-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -100,44 +102,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Waiman Long <longman@redhat.com>
+From: Douya Le <ldy3087146292@gmail.com>
 
-[ Upstream commit 95220e1f18f6321008f021abc7d6f581f64bcb82 ]
+[ Upstream commit 8eceab19eba9dcbfd2a0daec72e1bf48aa100170 ]
 
-The nr_deadline_tasks variable in the cpuset structure was introduced by
-commit 6c24849f5515 ("sched/cpuset: Keep track of SCHED_DEADLINE task
-in cpusets"). It is reported by sashiko [1] that nr_deadline_tasks
-can currently be modified by inc_dl_tasks_cs() under rq->lock and
-by cpuset_attach() under cpuset_mutex. So if both updates happen
-simultaneously, the nr_deadline_tasks variable can be corrupted leading
-to incorrect operations down the road.
+Make af_alg_get_rsgl() limit each RX scatterlist extraction to the
+remaining receive buffer budget.
 
-Fix that by changing its type to atomic_t so that nr_deadline_tasks
-are always atomically updated. This fix patch is a low hanging fruit.
-It can handle some of the races between a concurrent sched_setscheduler()
-and cpuset_can_attach()/cpuset_attach() calls, but not all of them like
-the other issue raised by sashiko [2]. This will be handled hopefully
-in a future follow up patch.
+af_alg_get_rsgl() currently uses af_alg_readable() only as a gate
+before extracting data into the RX scatterlist. Limit each extraction
+to the remaining af_alg_rcvbuf(sk) budget so that receive-side
+accounting matches the amount of data attached to the request.
 
-[1] https://sashiko.dev/#/patchset/20260626181923.133658-1-longman%40redhat.com
-[2] https://sashiko.dev/#/patchset/20260630033344.352702-1-longman%40redhat.com
+If skcipher cannot obtain enough RX space for at least one chunk while
+more data remains to be processed, reject the recvmsg call instead of
+rounding the request length down to zero.
 
-Fixes: 6c24849f5515 ("sched/cpuset: Keep track of SCHED_DEADLINE task in cpusets")
-Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
-Signed-off-by: Waiman Long <longman@redhat.com>
-Signed-off-by: Tejun Heo <tj@kernel.org>
+Fixes: e870456d8e7c8d57c059ea479b5aadbb55ff4c3a ("crypto: algif_skcipher - overhaul memory management")
+Reported-by: Yifan Wu <yifanwucs@gmail.com>
+Reported-by: Juefei Pu <tomapufckgml@gmail.com>
+Co-developed-by: Yuan Tan <yuantan098@gmail.com>
+Signed-off-by: Yuan Tan <yuantan098@gmail.com>
+Suggested-by: Xin Liu <bird@lzu.edu.cn>
+Signed-off-by: Douya Le <ldy3087146292@gmail.com>
+Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 Assisted-by: LLM
-[ Backport to 6.6.y: Apply the declaration change in
-  kernel/cgroup/cpuset.c; struct cpuset has not moved to
-  cpuset-internal.h. ]
+[ Backport to 6.6.y: Add braces to the older block-size conditional so the
+  new short-block error check and existing rounding remain under the same
+  condition. ]
 Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
 Hi,
 
-Please consider this backport of the fix for CVE-2026-93150 to 6.6.y.
+Please consider this backport of the fix for CVE-2026-31677 to 6.6.y.
 
-The code changes are identical to upstream, with the field declaration
-applied in cpuset.c. See the bracketed backport note above.
+The code changes match upstream, with braces added to the older block-size
+conditional. See the bracketed backport note above.
 
 The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
 
@@ -147,56 +148,40 @@ Build-tested only as part of a cumulative 6.6.y series on x86_64
 Thanks,
 Artem Dinaburg
 
- kernel/cgroup/cpuset.c |   12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ crypto/af_alg.c         |    2 ++
+ crypto/algif_skcipher.c |    8 +++++++-
+ 2 files changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index bb413045d174469d9f5f8187af2de50d3c4076fd..4dc4b326781a8ffb93f503255eb5a026180adb23 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -175,7 +175,7 @@ struct cpuset {
- 	 * number of SCHED_DEADLINE tasks attached to this cpuset, so that we
- 	 * know when to rebuild associated root domain bandwidth information.
+diff --git a/crypto/af_alg.c b/crypto/af_alg.c
+index e7fea668473d9ede47c7d0e2005c333d34147b29..e6e94b34e0afe78f4d2a8a60c6a194bd0a958beb 100644
+--- a/crypto/af_alg.c
++++ b/crypto/af_alg.c
+@@ -1207,6 +1207,8 @@ int af_alg_get_rsgl(struct sock *sk, struct msghdr *msg, int flags,
+ 
+ 		seglen = min_t(size_t, (maxsize - len),
+ 			       msg_data_left(msg));
++		/* Never pin more pages than the remaining RX accounting budget. */
++		seglen = min_t(size_t, seglen, af_alg_rcvbuf(sk));
+ 
+ 		if (list_empty(&areq->rsgl_list)) {
+ 			rsgl = &areq->first_rsgl;
+diff --git a/crypto/algif_skcipher.c b/crypto/algif_skcipher.c
+index b12df4544d0bbba3f3d156f0e279ac896cd81ec0..8729ef268d9d83cea537abaf23c6cdbb45f59ccd 100644
+--- a/crypto/algif_skcipher.c
++++ b/crypto/algif_skcipher.c
+@@ -82,8 +82,14 @@ static int _skcipher_recvmsg(struct socket *sock, struct msghdr *msg,
+ 	 * If more buffers are to be expected to be processed, process only
+ 	 * full block size buffers.
  	 */
--	int nr_deadline_tasks;
-+	atomic_t nr_deadline_tasks;
- 	int nr_migrate_dl_tasks;
- 	u64 sum_migrate_dl_bw;
+-	if (ctx->more || len < ctx->used)
++	if (ctx->more || len < ctx->used) {
++		if (len < bs) {
++			err = -EINVAL;
++			goto free;
++		}
++
+ 		len -= len % bs;
++	}
  
-@@ -235,14 +235,14 @@ void inc_dl_tasks_cs(struct task_struct *p)
- {
- 	struct cpuset *cs = task_cs(p);
- 
--	cs->nr_deadline_tasks++;
-+	atomic_inc(&cs->nr_deadline_tasks);
- }
- 
- void dec_dl_tasks_cs(struct task_struct *p)
- {
- 	struct cpuset *cs = task_cs(p);
- 
--	cs->nr_deadline_tasks--;
-+	atomic_dec(&cs->nr_deadline_tasks);
- }
- 
- /* bits in struct cpuset flags field */
-@@ -1091,7 +1091,7 @@ static void dl_update_tasks_root_domain(struct cpuset *cs)
- 	struct css_task_iter it;
- 	struct task_struct *task;
- 
--	if (cs->nr_deadline_tasks == 0)
-+	if (atomic_read(&cs->nr_deadline_tasks) == 0)
- 		return;
- 
- 	css_task_iter_start(&cs->css, 0, &it);
-@@ -2757,8 +2757,8 @@ out:
- 	cs->old_mems_allowed = cpuset_attach_nodemask_to;
- 
- 	if (cs->nr_migrate_dl_tasks) {
--		cs->nr_deadline_tasks += cs->nr_migrate_dl_tasks;
--		oldcs->nr_deadline_tasks -= cs->nr_migrate_dl_tasks;
-+		atomic_add(cs->nr_migrate_dl_tasks, &cs->nr_deadline_tasks);
-+		atomic_sub(cs->nr_migrate_dl_tasks, &oldcs->nr_deadline_tasks);
- 		reset_migrate_dl_data(cs);
- 	}
- 
+ 	/*
+ 	 * Create a per request TX SGL for this request which tracks the
