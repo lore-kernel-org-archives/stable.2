@@ -1,75 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792604136;
-	b=PQfyJtX+nLKIe3tagqFx4wjXnGHtARZ96b50Sna8vQngNhHle/5+0YdVmK7tDFt8InfX
-	 oq8AfzcaPbTnzZ1OU5d+FQJczHNw+S2DUlLRUKwAN5eMH3qsBz/W1D6C1EIRivz4+uTes
-	 nFjlXrxTYS1U9Msm+pk36bvHjP0mSfean5jHJx2M/WROt0LbzJoODS8MUmM3TCafxYhT3
-	 0MZWQOwe1Tastgrnnj00/fYF7zH+sLTWiNnZHyFaYKVK42SFFDqp/aR8LcqDAZ+GRVvRZ
-	 xZ4BzLW8Y7BAdaHJjPSxcblwFjgyF6W9FHZFpS1inlCSw+ZHflb5Ipqtgx2iDNZeK2A==
+	t=1792604671;
+	b=rMji4Blw3/WdyDg54SIbaWMbnxURMwSmLtHd/S/RXPqvTzY5xVI2E5zFQS3oH/QP0XRG
+	 49V759xvqyuYXq+KFi4OsfyrTHQbIuSo+DDzUu9VcF8VrO5JcJ8muJB2hgOY3UevO+tcd
+	 vZziFvMeBra3GbUT7Tk9pC+ORcSX1AB6v/EPJSrHqAuPXnmIAacgQgjq5nfZtwZgvjn1o
+	 oifpOJTgz5KsNXbTMXzIxZ9OURlvNfiU+jiT6BHdKnHvzfVN27as1DJ2oPCJINaF18/nU
+	 tvSPko8Wx6vkRK3+lABAzdhMqRd7qK9EjByazBLBAsDeihRehUSf7tbohSzRWWn/96w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792604136;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=oxoj2YGJZNtWF2GcnFYxZH0FxZtESaQb8g/zpGRT7HQ=;
-	b=Sea7ciVRw/VW215Ml6z8O1IDJuBG3K46d1BEl55IWThNgyVzJWC5/EbaTcdryuZaaq4q
-	 uDb7EVZCrNfGjKtAHhbkF0I9VohN9bMXEH5j4sBgQOqg/Yzg5da/0hbBcdQHCnhQwD63R
-	 c3BpOshA8CfreXCqquWC3Z/XDxZ3UXxphGvJyL9MSooCOYUxRO8TGx2gK8liwIgRV2Sdc
-	 NYPX0Ue93IUCDOhbECkypaJnnLQXyFGwhRSiOIB03cfuhMvub4/FNc3m+sTHPC+qSRhh/
-	 WG4GqKCF3qx1/0ACHWlnGbxEBQxlYcbZ3DO0Mq8BN50WBpqhu4W+y+9EXsq05jY1D3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792604671;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xWbmkTghQXBeOsr8TVyJjJbtbTKGSup92NsDqnjRdTo=;
+	b=ubRlIZJ+DY7UKRyJtHqDu4LfotZJ3vIrR3KgF46rnXcQclj10SH9JLrhTMtt8d4NkGfE
+	 JGzgS6sSk2ACIwfHGgVGa64pwKgohDKDROyztQpW/VJu/DrxAhcAh6meV4VMvEy8teQgc
+	 52Rb4v0XJvh+lGJL6p9f5Z0eHbzl/jGBfROE4kqdzDJYpnv6avKm1912KM1FvkKv+5z+8
+	 xQ5zKAwzSfqUXQAF7WAL6yXj2bRtweZhElPGXcH9knrBajbLlt09ObNZLndEuvgS5dPEF
+	 HnpKUnP1SxspGO6vvYfLdx4I/ortcGXzELZ6T93Bf7YZih0VcITFhdbpmfhU5DKaDhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--eugenehlee.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=a4xpCErp;
-	arc=none smtp.remote-ip=209.85.216.69
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Tscu8qTQ;
+	arc=none smtp.remote-ip=91.218.175.3
+Received: from mta0.migadu.com (out-3.mta0.migadu.com [91.218.175.3])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 958BE606A31A
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 17:35:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 958BE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--eugenehlee.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D02AB606A325
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 17:44:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D02AB606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=a4xpCErp
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3aaee1fc104so1235548a91.1
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 10:35:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792604135; x=1793208935; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oxoj2YGJZNtWF2GcnFYxZH0FxZtESaQb8g/zpGRT7HQ=;
-        b=a4xpCErp1BLm5cVDAZeTXOqvxyO1Ce69bhrKs/KQlPTKe/fahFoLk72UqNA5ZxFnPC
-         NX63q1bXJtvVttpmTLomSIg+qHk2FGu8H/oe9ykgBcX4Yg0Cj94oIYFtZyP5ZCOz0KES
-         qgcmofIt+RutPcpWo5eocgK4JG6RaoXvUC7g8G+CK5SEuJ0kuUrme0Ks+bM/ev0HPKl8
-         qvZ2VHVkp4ihFrbg/QRjpi/qdRI4kSj5GGSqPkbRM1a50u2jip4D5wBOrCExg2mKtxd9
-         W0DoqN3gw0J4gq4R/aI2tLw8s067GPyIiDUo+9FVe4VMmd/WA5UDy4l43KRNWOOWGm5n
-         +Q2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792604135; x=1793208935;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oxoj2YGJZNtWF2GcnFYxZH0FxZtESaQb8g/zpGRT7HQ=;
-        b=I0+AfPKqGU81QmjiKT7JDhIOKielQsczUqwxJGoz7lzQPKStKiULoiTbYfg5Hcw61u
-         6mPuPHp0DFOX8RVCeIpTVi+Jui4pXSfzXDgMRrQBfmuBRgTEfaKtmg3VdsnMbraiNjJy
-         DcAGamkHOxaS/fVClOWGPeZyFPMLwBY18v1bj/RuaSJMv5B+YEUDoPjykyPDQjellQtK
-         HWJcXLzTHxxpHM/2S8HlhYA0f0LlWz1liD16cSZdR2mmNcrRIR0AxNYJxhWj6eWBHQNU
-         LP4MMPO4/ZV7vFqIgNmPIUmy6O1nc8de9J35ZN9PNuGOT3nFH8q2FJebS8T/iQQw3D0H
-         felw==
-X-Forwarded-Encrypted: i=1; AKwUvBzdRaAyak5psllrNFwLc961ZvUFTl63ObZ5tDwmFk/D/7tuojZxE6hwzITpWre+wpUizCHgviQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJCJJHR/ZdN5IcbgdKwKbn5BQvzoJbN9D8xthmiVRpe8/BrqKxn
-	hjWFTy9lkuyWxURGg1nQwgvck64vAZBKfMk4KIG3HPppj5VVwB22m7HwjNeD+mYb+WNJqyDeDoB
-	mLx9VbEWRZ8fne0+1R1krLA==
-X-Received: from pgbj21-n1.prod.google.com ([2002:a05:6a02:61d5:10b0:cc7:8db3:268c])
- (user=eugenehlee job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:580d:b0:3aa:6b5d:a00a with SMTP id 98e67ed59e1d1-3ad86f690b3mr2475625a91.53.1792604134739;
- Wed, 21 Oct 2026 10:35:34 -0700 (PDT)
-Date: Wed, 21 Oct 2026 17:34:41 +0000
-In-Reply-To: <AS8P251MB0001135AF3233180DC42DCD1C8672@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Tscu8qTQ
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1E/Ah9c/xEmhiUW3Al9gJhcc0ql5iSclAZFrvguw7UU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792604668; v=1; x=1793209468;
+ b=Tscu8qTQSlPQvW9lHIVLkKySYQlLzQYWk0Mr4aZCds+v67/nLsKz7XrCOCF7r80s7np2lrKC
+ r7XP+0zeJlLLUi8WEtQSjCSo1bnw8ZUu6KXb+Z+L5qyvzsUN/p/eoa0axq8bjAtDHYK3Js8HOAb
+ fRALJfxaIpdnyd7GThroQqg4=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id dcdf2fc6b9d40495;
+	Wed, 21 Oct 2026 17:44:28 +0000
+X-Mizu-Trace-ID: dcdf2fc6b9d40495
+X-Migadu-Flow: FLOW_OUT
+From: Vineet Gupta <vineet.gupta@linux.dev>
+To: rostedt@goodmis.org,
+	mhiramat@kernel.org
+Cc: mark.rutland@arm.com,
+	mathieu.desnoyers@efficios.com,
+	andrii@kernel.org,
+	peterz@infradead.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	kernel-team@meta.com,
+	Vineet Gupta <vineet.gupta@linux.dev>,
+	stable@vger.kernel.org
+Subject: [PATCH v4 1/2] tracing: fgraph: allocate shadow stacks inline with GFP_NOWAIT
+Date: Wed, 21 Oct 2026 10:44:05 -0700
+Message-ID: <20261021174406.2891598-2-vineet.gupta@linux.dev>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261021174406.2891598-1-vineet.gupta@linux.dev>
+References: <20261021174406.2891598-1-vineet.gupta@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,41 +74,174 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <AS8P251MB0001135AF3233180DC42DCD1C8672@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
-Message-ID: <20261021173441.702884-1-eugenehlee@google.com>
-Subject: Re: [PATCH net] gve: fix out-of-bounds read in gve_get_flow_rule_entry()
-From: Eugene Lee <eugenehlee@google.com>
-To: elb12345@hotmail.co.uk
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
-	hramamurthy@google.com, jordanrhee@google.com, joshwash@google.com, 
-	kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	pabeni@redhat.com, stable@vger.kernel.org, Eugene Lee <eugenehlee@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-> gve_get_flow_rule_entry() checks the requested location against the
-> first and last cached rules, but rules_cache_num can be 0 while
-> rules_cache_synced is true: GVE_FLOW_RULE_QUERY_RULES returns the rules
-> from the requested location onwards, so a request past the last
-> installed rule - or any request when no rules are installed - returns
-> zero rules, which the driver accepts and marks as synced.
->
-> The next query evaluates rules_cache[*cache_num - 1] with
-> *cache_num == 0. The zero-initialised cache does not trip the earlier
-> comparison, *cache_num - 1 wraps to 0xFFFFFFFF in u32, and the read
-> faults about 352 GiB past the cache. ETHTOOL_GRXCLSRULE needs no
-> capability, so an unprivileged user can trigger it:
->
-> BUG: unable to handle page fault for address: ff240996c4c64fa8
-> #PF: supervisor read access in kernel mode
-> RIP: gve_get_flow_rule_entry+0xd4/0x110 [gve]
->
-> Treat an empty cache as a cache miss and re-query.
+When ftrace graphing is turned on, all tasks in the system missing
+return stack page are assigned one. This is done in a simplistic
+multi-sweep loop of FTRACE_RETSTACK_ALLOC_SIZE (currently 32) tasks
+at a time as follows:
 
-Patch looks great! I had this exact fix queued up internally along with
-a regression test after reproducing the crash.
+   start_graph_tracing()
+	do {
+		alloc_retstack_tasklist
+	} while (-EAGAIN);
 
-Reviewed-by: Eugene Lee <eugenehlee@google.com>
-Tested-by: Eugene Lee <eugenehlee@google.com>
+   alloc_retstack_tasklist()
+	alloc x32           # GFP_KERNEL, may sleep
+	rcu_read_lock()     # preempt off
+		for_each_process_thread    walk N_total, no cond_resched
+                     t->ret_stack = new_page
+	rcu_read_unlock()   # preempt enable but no explicit yield
+
+Each successive iteration of loop invokes for_each_process_thread()
+which doesn't support cursor based resume and always restarts from the
+init_task. Thus each successive loop needs to skip the tasks assigned
+ret_stack in prior sweeps and thus take longer and longer to find the
+candidate 32 tasks. And while the loop end calls rcu unlock,
+and re-enables preemption briefly, there is no explicit yield.
+
+The total number of iterations turn out to be
+
+	N_total * N_null / (2 * FTRACE_RETSTACK_ALLOC_SIZE)
+
+where N_total is the number of threads on the system and N_null the number
+of those whose ret_stack is still NULL. After boot with no fgraph user that
+is every thread.
+
+This is not a tracing-only path. Since commit 4346ba160409 ("fprobe:
+Rewrite fprobe on function-graph tracer") fprobe is built on fgraph,
+so an ordinary kprobe_multi BPF attach that flips ftrace_graph_active
+from 0 to 1 pays the whole cost inside one bpf() syscall. Commit
+2c67dc457bc6 ("tracing: fprobe: optimization for entry only case")
+narrows that to return and session probes but does not remove it.
+
+A host running hundreds of thousands of threads, with the current batch
+size of 32, turns the ftrace_graph_active 0 -> 1 transition into a
+multi-second, and eventually multi-minute, operation which showed up as
+RCU stall and softlockup_panic on heavily loaded Meta Fleet machines
+with preemption disabled.
+
+    rcu: INFO: rcu_sched self-detected stall on CPU
+    rcu: 0-....: (20718 ticks this GP) (t=21000 jiffies g=913 q=8 ncpus=8)
+    CPU: 0 UID: 0 PID: 160141 Comm: bpftrace
+     ___slab_alloc+0x549/0xa20
+     kmem_cache_alloc_noprof+0x16c/0x340
+     register_ftrace_graph+0x3d7/0x6c0
+     register_fprobe_ips+0x2d5/0x310
+     bpf_kprobe_multi_link_attach+0x218/0x7e0
+     __sys_bpf+0x267a/0x27a0
+
+Fix this by allocating inline with GFP_NOWAIT instead of pre-allocating
+a fixed batch. GFP_NOWAIT does not sleep, so it is legal inside the RCU
+read-side critical section.
+
+A single sweep now serves every task, so the walk becomes O(N) rather
+than O(N_total * N_null), and the retry loop is no longer the normal
+path.
+
+The pre-allocated array remains as the fallback when GFP_NOWAIT fails.
+The runs below never needed it, so it was exercised with failslab
+injection: at a 100% failure rate every task falls back and -EAGAIN
+retries ~1560 times for 50000 threads, with no stall or splat.
+
+The open-coded rcu_read_lock() and the goto unwind are kept as-is so
+this stays easy to backport; converting them to scope-based cleanup is
+left to a follow-up.
+
+smp_store_release() is a drop-in replacement for the smp_wmb() and
+plain store it replaces.
+
+Measured on a 60-core Sapphire Rapids machine running a PREEMPT_LAZY
+kernel (CONFIG_PREEMPT_DYNAMIC=y, mode lazy), timing the write that
+drives the ftrace_graph_active 0 -> 1 transition. Threads are spawned
+while fgraph is inactive so every one of them has ret_stack == NULL,
+and the loop was instrumented to count sweeps:
+
+	threads   before              after
+	          sweeps   time       sweeps   time
+	100000     3126     15.3 s      1       0.019 s
+	200000     6253     59.1 s      1       0.047 s
+	400000    12503    227.8 s      1       0.092 s
+
+The sweep count is 1 throughout. Time now scales linearly with the
+thread count at roughly 230 ns per task, which is the allocation and
+initialisation of one shadow stack.
+
+Fixes: f201ae2356c7 ("tracing/function-return-tracer: store return stack into task_struct and allocate it dynamically")
+Suggested-by: Peter Zijlstra <peterz@infradead.org>
+Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+Tested-by: Vineet Gupta <vineet.gupta@linux.dev>
+Cc: stable@vger.kernel.org
+---
+ kernel/trace/fgraph.c | 39 ++++++++++++++++++++++++---------------
+ 1 file changed, 24 insertions(+), 15 deletions(-)
+
+diff --git a/kernel/trace/fgraph.c b/kernel/trace/fgraph.c
+index ed455b53513b..4c74f1a15ad4 100644
+--- a/kernel/trace/fgraph.c
++++ b/kernel/trace/fgraph.c
+@@ -1033,13 +1033,16 @@ void ftrace_stub_graph(struct ftrace_graph_ret *trace, struct fgraph_ops *gops,
+ trace_func_graph_ret_t ftrace_graph_return = ftrace_stub_graph;
+ trace_func_graph_ent_t ftrace_graph_entry = ftrace_graph_entry_stub;
+ 
+-/* Try to assign a return stack array on FTRACE_RETSTACK_ALLOC_SIZE tasks. */
++/*
++ * Loop thru all the tasks in the system and assign ret_stack.
++ * The @ret_stack_list is a small pre-allocated fallback, in case
++ * the GFP_NOWAIT allocations here fail.
++ */
+ static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
+ {
+-	int i;
+-	int ret = 0;
+ 	int start = 0, end = FTRACE_RETSTACK_ALLOC_SIZE;
+ 	struct task_struct *g, *t;
++	int i, ret = 0;
+ 
+ 	if (WARN_ON_ONCE(!fgraph_stack_cachep))
+ 		return -ENOMEM;
+@@ -1056,20 +1059,26 @@ static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
+ 
+ 	rcu_read_lock();
+ 	for_each_process_thread(g, t) {
+-		if (start == end) {
+-			ret = -EAGAIN;
+-			goto unlock;
+-		}
++		unsigned long *rs;
+ 
+-		if (t->ret_stack == NULL) {
+-			atomic_set(&t->trace_overrun, 0);
+-			ret_stack_init_task_vars(ret_stack_list[start]);
+-			t->curr_ret_stack = 0;
+-			t->curr_ret_depth = -1;
+-			/* Make sure the tasks see the 0 first: */
+-			smp_wmb();
+-			t->ret_stack = ret_stack_list[start++];
++		if (t->ret_stack)
++			continue;
++
++		rs = kmem_cache_alloc(fgraph_stack_cachep, GFP_NOWAIT);
++		if (!rs) {
++			if (start == end) {
++				ret = -EAGAIN;
++				goto unlock;
++			}
++			rs = ret_stack_list[start++];
+ 		}
++
++		atomic_set(&t->trace_overrun, 0);
++		ret_stack_init_task_vars(rs);
++		t->curr_ret_stack = 0;
++		t->curr_ret_depth = -1;
++		/* Make sure the tasks see the 0 first: */
++		smp_store_release(&t->ret_stack, rs);
+ 	}
+ 
+ unlock:
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+-- 
+2.53.0-Meta
 
