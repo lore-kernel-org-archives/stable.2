@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594196;
-	b=aX7vKxsaF08wO7GxGLddxWNxjqNpdsmbmNebCNVeHQGFItjcDr0b0StCBcIhNqtpV3x4
-	 4sdFgX0G3RNrAxx50Yk2rjp112Z9yNMDas0OJfaEBrT+CWJ8Dw/UNiLjAAPpaxiKDGFes
-	 HrVMSRU/Hs/y7wz86D6Kf9eJvAN3DalfoRyP8SHYAZUK9MHNvlv1DZeTlkSSbmQjcHa/V
-	 adD6Lhn3Gt+Ec5WDaRg/qJ8I5Qtm6h5HDlwK/L5ZsxaEc2IinnqW2SDkhClNVUcV/V7RA
-	 IAdD9+OdgupNOt4d9RasrrRu63AhufXvtT8dGx6M3zpYt21vnY+8IcAZUZiW6vW5bzQ==
+	t=1792594199;
+	b=SEQGijTGMsa/abo/jSGBn2S0BOqwiKrRdtexeFM3OYnncDq65C+vwwbg56tVa3atiyvj
+	 iNIfwmFi4QYyTvIUPGrvxO/6VBa95q/4lhPpK6VkHEpKQuves+sE+s+IQkRVuqyFEiRjW
+	 GZx4ToprlJOWE+EnTwjrAU0xGVkXoNU+JnEHrzuVQ/Wzi4qeAjclWba+cjYgZeBdlwaBa
+	 WABg0wzIyXIEPQSuIDrkdrs2PdYRTroCyCYntsIW/PFLChUAGOffCE7/KXFEjG1UwgNBe
+	 wty1iKpNU3QtPiFyZCjALIDSKYj331scxkpshZcM50ZoOARxmJHX3xqB4YvyfI5+5zQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594196;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594199;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=X2hENNfRiF2uoR+SMOF7BzwT1TpYZMXmSwXuImCE7N8=;
-	b=QWgZHcUmAyWMpBkTCjbklORbQQW/gsKS5QZP3Rr3D4x4sJt44Wzs9WzB1my6NEsb1E+d
-	 OUWPNepKFyz6+JgF5FG6exv1HVJvcLr55IxIJuKEcmmb2noZPAjAQikdvbI+Tq+QMENmo
-	 jnB00C4JSHHWfqyYD0wvOtU3jxLuiZJs3qDytnGbhx0gKSYrURL8xwyZbQBOrptN4JdqM
-	 gQJL0CjBOFi5pjRMg4/0W0qA2JDeHboYx+200OSbJG9cfdvhv0ZybM/daRvz8tTL0H4wp
-	 qAJV6QRlOEGWIk0H+MbnbbnWqwDiuHGYCwPq/4R/mlRurIJOInSQL97ZmmlOnx2tYog==
+	bh=u/4vrZzSnkRiSArqXQzAlQvVhcAXGHZuUXW1uo/MrvE=;
+	b=nBnNQORwl7LiMHdVSyK3VKZnzeqZXUwNtkHYwQelLPQfaNnE/sya1gova6wWv7ZB+7TQ
+	 ekhpCeus37yA2xSP+9OrpGwOk54YWUwCr+gv4hblJ2/GUbRk1uALnCFrZ8Jj7VgluwIXI
+	 bo2Lcl4FcK1LhRvgIqQksq6SRBkepe6hV1akCu51KRcK4sq6+PAlx6pdl6rtqVQmo8vd9
+	 CeU7qVfTK4dRHTYk6DZD9OIkn/QxUIBxjZZwRp5B7xeYUr0AAFPfeHe/w7QyavShSznux
+	 5daLlVh8Hc1fKhRrWnAsAZy2lX0tsL6AQJXXsVSOEDsq4/XmCZW8JnL5zDVW0xS4UiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hVbHSgwh;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=F1CzgClX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A5B1606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:49:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 100E5606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:49:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hVbHSgwh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A5E71F000C1;
-	Wed, 21 Oct 2026 14:49:55 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=F1CzgClX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59F301F000C1;
+	Wed, 21 Oct 2026 14:49:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594196;
-	bh=X2hENNfRiF2uoR+SMOF7BzwT1TpYZMXmSwXuImCE7N8=;
+	s=korg; t=1792594198;
+	bh=u/4vrZzSnkRiSArqXQzAlQvVhcAXGHZuUXW1uo/MrvE=;
 	h=Subject:To:Cc:From:Date;
-	b=hVbHSgwhCNSduDOJJvTbCWxXFoplCHWoHbWsyAtqW9FiqBK8WL9ALjKUUm4IbN2fY
-	 G7qawGZuTxH5vvc9GiY+CLcjjshga0OI8eBdWele617mqNiWzgY3WiCrPwuQEav/OH
-	 eAXRg5fvECnjHs+3TT5wue29SxXOLP50w1vxKpc0=
-Subject: FAILED: patch "[PATCH] futex: Fix mm reuse handling for FUT_OFF_MMSHARED" failed to apply to 6.18-stable tree
+	b=F1CzgClXxbq2F5D1wav/ElTlQFxn+0CY8fJaiEaPztj5878l1GanPe/NF7BfR00+Y
+	 //ShOYuBlLX7n6DKbkLp9IWrHnIV5JuHGaRl8Su0Rv5DI8zw3DvDxnrlAuNTlkAOfB
+	 GR5F/roBRBvsYdA4a+U4qkfNAvE0Vccp8I1ceMk4=
+Subject: FAILED: patch "[PATCH] futex: Fix mm reuse handling for FUT_OFF_MMSHARED" failed to apply to 6.1-stable tree
 To: jannh@google.com,peterz@infradead.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 16:40:23 +0200
-Message-ID: <2026102123-unrated-shading-f030@gregkh>
+Date: Wed, 21 Oct 2026 16:40:24 +0200
+Message-ID: <2026102124-unpopular-ambush-652e@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 3267512ad1c2cc0c7768c5b014dc2cceb398a801
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102123-unrated-shading-f030@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102124-unpopular-ambush-652e@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
