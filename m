@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792596597;
-	b=IghCRhMALxEOE/6mF7g6xG0sfoyqxdYrk9kmH1z01kAdyhoh8/jV5jaH9qzy3yFThl7W
-	 fbjp8zcweIg2O+LUn843BgtpUmoyoNxY7bsYDqQqa90WQHZmBqFWZ4nmZeZa177FuREMa
-	 1GgTnUHCo2EAsj7UAvbuQwIzCzmgOFw3IbPssR6ir2WYLeH1cIOm2bUDLH1tHOFCBZUXP
-	 9wiWJV+J7xV/QfEi2whHJ7YCQ7/ABAbl8nqMywVqQn8fquHD5UZ8BH0MMhPsd9BWEe9TL
-	 +cBFK+w2/mvcsoEbx/nrvr6iIH1gXz7nnmyiwJuW3JukTYOVXWvY6gt8yTbD1kr1y8g==
+	t=1792596607;
+	b=cFGLn1PHHg+TuYcTw1J1Kejh5gT4jEBdGF+k1kcuOjY5HjANsMOOqJ9+bRatmgbFyQrB
+	 MG70DA3IJ8wOoyX9mQPw83QsZpS1to18ySsMoKxwU/0Vp4ean7vdw7z0pO/kRMWcypaBH
+	 KJws+9NwgfO0+yfr2JkEAXqgLo379P/aX0akpexa9zBx2LF/tDnWLGe5PPiYWKEPvPY0B
+	 0mp7iZLfqPDuDTAG3rqNTff6OFsgjCh3ZLDefWsYfFxN1FB4hpt9MGO4ssP44ygmIlmUO
+	 UKFTWQpQmJejFoHONTqhO7lMyF0vXGyjJ/R/nmpdbLZhJsiltnY149NvrzthEbkRJxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792596597;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792596607;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5n0gDyaEJNwm5DX2KoGvBK/FpXmEq1x8Hw2MMoFrhXw=;
-	b=w+lzNyvkdYC/EgQ8XjnShdaLXH1Tv/rfbIa4XLhZr19me38B+x5M+ojb6f5AThQwzYQa
-	 rRcttiDTY594o9TqVYCi7LVnVcM4XlvesSv1BO7k2lt3In6hMhNMAGK6toS1wjXCLFQ6W
-	 097maC+lFA/e91vXhtnfCLZBoZeVqipEXRxM2D+BIq5Lf0de6zgMzW3sr5INkyyq3uJys
-	 UEKEod0O0TF9yJQCISugBPhJACtt66e1GBYPllJYllA1/TOT+SVcyIcQK4dl4WEgBrDCW
-	 /UW2CihOLguxyTMHpfPb6QkUYS9GtJkxcn3sa/TgKrlSlq3hZCv1wtCHRwzvhcon3Zw==
+	bh=CTGAYgo0PIPxrhULx8V0vUzRak3L6VsgNLDXBFqgR6E=;
+	b=HWltvjGg8/w1DBiJ4LWppbsAitdpetsfNsnqbdXWhWRDRCxzk457rYRJ1mbwfepiViRd
+	 vuowjI7U3Z6JUK+PzRCJwLkv4J1WVezIcaZ8VwBm3IaZlBaVocFOoPJ7Bp3p3fmsckyu5
+	 0SBZThlc0RaFTlBL/swDdf4m6CdCqpJ6ibpEn2uucN6P+cz5wLCIEzbQPqY4jKI+aVJ0S
+	 gLb5GOPGtXfprMMtGn+stq3OesIrRArmo4EXIULkr0opHQjXlMNxF+VXag/vrQUV3vEd7
+	 3sEKcHjsuS1bmcfQvVbA5pJ2BwirIDa8FlM35U7YklDxcZT9pzy8UDdHBefZhCXwmrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Trq2glKA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJ+lOkXK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4967D606A31D
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:29:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94536606A320
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:30:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Trq2glKA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70EF31F000C1;
-	Wed, 21 Oct 2026 15:29:56 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJ+lOkXK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C37F1F000C1;
+	Wed, 21 Oct 2026 15:30:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792596597;
-	bh=5n0gDyaEJNwm5DX2KoGvBK/FpXmEq1x8Hw2MMoFrhXw=;
+	s=k20260515; t=1792596607;
+	bh=CTGAYgo0PIPxrhULx8V0vUzRak3L6VsgNLDXBFqgR6E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Trq2glKAQzX+p5M5c2qAsDxCZMK/qYkdsTMtZH9n8V5HNnAw2XQJodgP4+6XOihR1
-	 JZNY3vuhsld1xfldTh2VgyF6+/BLq4ftxA6fzI+NUFGFB2AMnC/+hGgyw1CFd6OuNt
-	 MEh/09XfTmCQ3Tx2LKEcW51H3bfs5YUCeKQwQtzmTft8rc2YjXo5ALuCwRef3JTa5y
-	 cFfE+OkP4fGEBBNGoWNNanSURax39mGCbWsRA+xS4KRKHUDCjMX2qU5W5XT/i0syb2
-	 4OOHbXkFIqdXKQD+B+EwG1oS3nLRbNK4kJYx1PwVnSwQZ6pyfp4kOF3Vaj11PgVmbD
-	 6QJr7qIF93EYA==
+	b=ZJ+lOkXK0I+px/ulGk9IIXEo0J8Unn5zdW7zqnliBZyA1t7vTBZRGdlHPPMwkXaBf
+	 KWo3ZmhAtt48nE0kngjRLfaV8e7IvBTPYTxHHn07yQxoLlhLOLechqAV4a5EeX3nrM
+	 JL5++/Gyt97oIEWdl+dpcHsdmtVB3DR+jPeRR4/Q3NDbpWUO/slkK9JjIPF1ksV7Xo
+	 V00qfykL7dvOJCq48ntJ+gFXb3JQzTIZeQ+gAzNimnKgFuKempfK2tFLFdocPhB6GM
+	 PqCh0G/ZJaf7FnE1+nrybgOdwfqlW6zrP9ApuVRGWnaJ67gL8mWT6xMAAI5N4dCF/P
+	 6x+LwGqD6MjxQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	SimonP <simonp.git@mailbox.org>,
+	Sean Christopherson <seanjc@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] ASoC: SOF: ipc4-topology: Fix shift-out-of-bounds for aggregated ALH capture
-Date: Wed, 21 Oct 2026 11:29:55 -0400
-Message-ID: <20261021152922.287978-1-sashal@kernel.org>
+Subject: [PATCH 7.2.y] KVM: x86/mmu: Cope with the SS bit being set in #NPF exit codes
+Date: Wed, 21 Oct 2026 11:30:05 -0400
+Message-ID: <20261021152923.290681-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102124-wisdom-print-3a6c@gregkh>
-References: <2026102124-wisdom-print-3a6c@gregkh>
+In-Reply-To: <2026102158-waffle-tactless-d396@gregkh>
+References: <2026102158-waffle-tactless-d396@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,64 +62,111 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
 
-[ Upstream commit 746de48c3a250f0c264105dcbfcdf0c5001e970b ]
+[ Upstream commit e90ab3669181c6469e3647ef2b30ae408275f496 ]
 
-When ch_count is smaller than blob->alh_cfg.device_count (e.g. a mono
-capture stream, such as a SmartMic, aggregated across multiple SDW
-links), step = ch_count / blob->alh_cfg.device_count truncates to 0.
-The subsequent GENMASK(step - 1, 0) then underflows step - 1 (u32) to
-UINT_MAX, causing GENMASK()'s internal shift to use an out-of-bounds
-exponent:
+When running Hyper-V from Windows 11, KVM is seeing the SS bit set
+in nested page fault error codes produced for shadowed NPT.  The AMD
+manual is unclear about when SS is set, including whether it can be set
+when SupervisorShadowStackEn (bit 6) is not set in the MISC_CTL field
+of the VMCB.
 
-  UBSAN: shift-out-of-bounds in sound/soc/sof/ipc4-topology.c:2363:13
-  shift exponent 18446744069414584384 is too large for 64-bit type 'long unsigned int'
+Nevertheless, the unexpected SS bit causes out of bounds accesses in
+permission_fault(), seen as either WARNs or UBSAN reports:
 
-Treat ch_count < device_count the same way as the existing "channels
-equal to output reference channels" case: apply the same ch_mask to
-every aggregated device instead of trying to split channels that
-can't be evenly divided.
+  kernel: UBSAN: array-index-out-of-bounds in arch/x86/kvm/mmu.h:225:27
+  kernel: index 34 is out of range for type 'u16 [16]'
 
-Fixes: 0390a102cc18 ("ASoC: SOF: ipc4-topology: use different channel mask for each sdw amp feedback")
+(in this case, the page fault error code is 34*2=0x44, i.e. SS|U; the
+report shows SS|U|W happening as well).  Fix the handling of unknown
+error codes by dropping SS and (with a WARN) any bits not among those
+that permission_fault() expects to receive.
+
+At the same time, given the uncertainty about when hardware sets SS,
+follow the processor's behavior when constructing the fault's error
+code, and preserve the SS bit as passed to FNAME(walk_addr_generic).
+While the behavior is surprising, there's a possibility that Hyper-V
+expects it (Hyper-V does not even enable CET unless it finds MBEC/GMET!),
+so retain the information when reflecting the fault to L1 instead of
+unconditionally discarding it.
+
+Bisection shows that this started happening with commit 687ee95c1b6d ("KVM:
+nSVM: enable GMET for guests"), even though SHSTK was available to guests
+since Linux 6.18.  However, this is not because bit 1 of MISC_CTL (GMET)
+somehow enables reporting the SS bit; rather, it's simply that Hyper-V
+never uses CET unless GMET is also present.  The WARN is reproducible
+even with gmet=0, with some hacking of kvm-unit-tests's cet.c testcase
+to ensure that the first access to the shadow stack triggers a page fault.
+
+Reported-by: SimonP <simonp.git@mailbox.org>
+Fixes: 8db428fd5229 ("KVM: SVM: Enable shadow stack virtualization for SVM")
 Cc: stable@vger.kernel.org
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Link: https://patch.msgid.link/20261008090130.15135-1-peter.ujfalusi@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-[ sashal: Added a standalone guard around the mask calculation because the upstream playback conditional is absent. ]
+Reviewed-by: Sean Christopherson <seanjc@google.com>
+Closes: https://lore.kernel.org/all/asUqYEisPp9MJ8mQ@rika.bernkas.tel
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+[ sashal: Adapted upstream w and fmt references to the existing mmu structure. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sof/ipc4-topology.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ arch/x86/kvm/mmu.h             | 16 ++++++++++++----
+ arch/x86/kvm/mmu/paging_tmpl.h |  3 +--
+ 2 files changed, 13 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index 5701e4d1ac130..7178279ddfb77 100644
---- a/sound/soc/sof/ipc4-topology.c
-+++ b/sound/soc/sof/ipc4-topology.c
-@@ -2286,8 +2286,20 @@ sof_ipc4_prepare_copier_module(struct snd_sof_widget *swidget,
- 				ch_map >>= 4;
- 			}
- 
--			step = ch_count / blob->alh_cfg.device_count;
--			mask =  GENMASK(step - 1, 0);
-+			if (ch_count < blob->alh_cfg.device_count) {
-+				/*
-+				 * When there are fewer channels than aggregated devices
-+				 * (e.g. a mono capture stream split across multiple links),
-+				 * set step = 0 to ensure all the ch_mask is applied to all
-+				 * alh mappings.
-+				 */
-+				mask = ch_mask;
-+				step = 0;
-+			} else {
-+				step = ch_count / blob->alh_cfg.device_count;
-+				mask =  GENMASK(step - 1, 0);
-+			}
+diff --git a/arch/x86/kvm/mmu.h b/arch/x86/kvm/mmu.h
+index bb6e018928527..522033d453558 100644
+--- a/arch/x86/kvm/mmu.h
++++ b/arch/x86/kvm/mmu.h
+@@ -198,8 +198,18 @@ static inline u8 permission_fault(struct kvm_vcpu *vcpu, struct kvm_mmu *mmu,
+ 				  unsigned pte_access, unsigned pte_pkey,
+ 				  u64 access)
+ {
+-	/* strip nested paging fault error codes */
+-	unsigned int pfec = access;
++	/*
++	 * Of the error codes that do not contribute to the index in
++	 * mmu->permissions, PK and SS are not supported by shadow paging
++	 * and also not provided to EPT violations, but SS *is* included
++	 * in the NPT exit code.  RSVD faults are handled elsewhere.
++	 */
++	unsigned int pfec = access & ~PFERR_SS_MASK;
++	if (WARN_ON_ONCE(pfec & ~(PFERR_PRESENT_MASK | PFERR_WRITE_MASK |
++				  PFERR_USER_MASK | PFERR_FETCH_MASK)))
++		pfec &= (PFERR_PRESENT_MASK | PFERR_WRITE_MASK |
++			 PFERR_USER_MASK | PFERR_FETCH_MASK);
 +
- 			/*
- 			 * Set each gtw_cfg.node_id to blob->alh_cfg.mapping[]
- 			 * for all widgets with the same stream name
+ 	unsigned long rflags = kvm_x86_call(get_rflags)(vcpu);
+ 
+ 	/*
+@@ -223,8 +233,6 @@ static inline u8 permission_fault(struct kvm_vcpu *vcpu, struct kvm_mmu *mmu,
+ 	kvm_mmu_refresh_passthrough_bits(vcpu, mmu);
+ 
+ 	fault = (mmu->permissions[index] >> pte_access) & 1;
+-
+-	WARN_ON_ONCE(pfec & (PFERR_PK_MASK | PFERR_SS_MASK | PFERR_RSVD_MASK));
+ 	if (unlikely(mmu->pkru_mask)) {
+ 		u32 pkru_bits, offset;
+ 
+diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
+index 8d2c46bc6c0fb..c4732dd5ad541 100644
+--- a/arch/x86/kvm/mmu/paging_tmpl.h
++++ b/arch/x86/kvm/mmu/paging_tmpl.h
+@@ -326,7 +326,6 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
+ 	int offset;
+ 	u64 walk_nx_mask = 0;
+ 	const int write_fault = access & PFERR_WRITE_MASK;
+-	const int user_fault  = access & PFERR_USER_MASK;
+ 	const int fetch_fault = access & PFERR_FETCH_MASK;
+ 	/*
+ 	 * Note! Track the error_code that's common to legacy shadow paging
+@@ -484,7 +483,7 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
+ 	return 1;
+ 
+ error:
+-	errcode |= write_fault | user_fault;
++	errcode |= access & (PFERR_WRITE_MASK | PFERR_USER_MASK | PFERR_SS_MASK);
+ 	if (fetch_fault && has_pferr_fetch(mmu))
+ 		errcode |= PFERR_FETCH_MASK;
+ 
 -- 
 2.53.0
 
