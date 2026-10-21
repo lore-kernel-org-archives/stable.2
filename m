@@ -1,67 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792602204;
-	b=QMaT3cTkldEIawBLSxOpgMrgb962uHIKl+vwMsfVOe7GEx/UfemGUNBnkqbInJUJAfQ6
-	 1lWzAx4/1Lo7JjSsEIbx1lcCTYXa76I01YyIodVig6i9p97pqSGo4ZwpiSp9QgZmxG1hz
-	 fRGM9gjy4eCQtaLdAUd4dG+MohRBXWGw0ESWIS02hxZTbhBbOCSdhDWCLzKqo1+7q8Mim
-	 HIcjM0sfTVP4VTlVzkNQQE8Pc8wzH28q5NppzyxYxZyHIGy6ErKXa6N7We2nsaOxTtvGG
-	 xYqmQiaDE7KaIBc+n2oy4bf+VT3fqfC/ypNiEnJiCewTTFtcqlDKd5MMo28fFEJrqHQ==
+	t=1792602257;
+	b=rLtUaMuZYCne+aQiPTIOPf8WpZuG/NlJPRd1zYLi+B+VsbqCw094sYwYk4AC0/X4ffI1
+	 JKgAGDnBwzXIVH3P3dBaIL81ZfuEdiQSuY4MFEfS/m169QUlxL2hj46GGOtaSVhALmeYQ
+	 DFLKuXlVRdVT9VlTRiuCP2jLwfWkYO7fxbzdbfnIC+RdJn65+LYVZKHpIss6wzCf9/aLM
+	 Y988nZmO0VWgT0zNOK0+codE47lh2P5Ga4BZgbxQtB6EgYfsEJCYtNB+D2kXZnZzEjAI/
+	 WYdthtIUE1wvNS1f/9vLRBOSE5Do6pkIQftjg8GLj47gy5XxNLjWwTfh7XaTrO3ExYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602204;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=V9oKbRIgS4pwxVZeeCa88Y3+8XRLveqA5R7QjFJXjVE=;
-	b=WE37z3I5H3P7d/5xBDrZfh0EzeQqnHLM60fKZJQ53dk/hJJOrX2GfQK+VHm2/l2RzhNp
-	 5Y4gyBMkmliV4Z5nTJMtWIEZQYeBzRjHgggcw5y8sGVu2SwcbmxW8USRSyGtHt6vgUK7A
-	 1v1B7EGysZ2Clzxv55XfMdRwiLP7FmpnlYfKJwBaYUAw+fYN8pxpshRsUYymUDEhRyUCv
-	 AL7XojZxH7CqyEI68chCJ0iLyKdkVS1m7B7poRFvyGBnuErca+hc2ee0R5yatjwdRZLdw
-	 Pm6H8ANjP5QuExcJc90NavRN3FYEzZmZ0W84aBGIDrKGw0971d7LqUpF9l1x02diJ8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792602257;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=Jz1PsVKfLByVoOLZveZuQnHIhjOghHzTozlXRwWyQFY=;
+	b=SsHp/J+WvfGzTe/LfPBZvqJrYIAksFKpbE2mtHXNEE17TImXVQBJg0Hr1UGqeufIVhAM
+	 bm94cbSPTPVY8yE9alAYR/Nz8f3FANQVd+Fh0N3MpUY93cASyaw8+TLeaFiYzLe+lAuRo
+	 Sr1neohdzderg+p8qH9Zf9fs/NmYgN7bH3N5JSitEcRlsEepfP/xb5AYt/+hBd7Sa5Pnu
+	 wuzM/tSEwH0VbbEH/TfGQc8Jqmpe3iEUkRAGwghlhrccWHuDGAcCrpnoULtuS7bmtNCbn
+	 8ZaY481hfGkrrsRQn/y5taeNQJ2e4RKN1BHiTwta9nGcETwQZ4sQ6P5JdFrY0Q3tdhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ce6277pA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XhTlCR7v;
+	arc=none smtp.remote-ip=209.85.221.181
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E342606A327;
-	Wed, 21 Oct 2026 17:03:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E21D606A321
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 17:04:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E21D606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ce6277pA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1B981F000C1;
-	Wed, 21 Oct 2026 17:03:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792602203;
-	bh=V9oKbRIgS4pwxVZeeCa88Y3+8XRLveqA5R7QjFJXjVE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ce6277pAdcGnf1xtHytlSgyb0IX0barbbXBYnMWF5ylVBrx54J5Lj5+0YdYf8RgFJ
-	 Hj7SIi9RKXwd5ypKOy0s6cDoGwa9J6i5QBGn1hySXzDZG29PmKhuvAc3NB1Y8AVGPv
-	 0sb/8NKf8BMGmDvEYjxkpsbMTmUDOqPc/35ke2aM5827hGf+44EzQz0Z2yQGyp80bU
-	 LnjJWnMiKk9HBNCRQFhEHD0ejbn3Dospb88Ff3vGVs84UJbazyzEU+ZVhvfHhyApUE
-	 lr57ZjTMPC5JLYWWRE1NvbTsU+DVtxupb7NkhTHclYkFj2qdUiB0a/nKurDv1z0xTY
-	 QOdYb1Sm++55w==
-Date: Wed, 21 Oct 2026 10:03:21 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	stable@vger.kernel.org, Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	"open list:COMMON INTERNET FILE SYSTEM CLIENT (CIFS and SMB3)" <linux-cifs@vger.kernel.org>,
-	"moderated list:COMMON INTERNET FILE SYSTEM CLIENT (CIFS and SMB3)" <samba-technical@lists.samba.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
-Subject: Re: [PATCH v4 1/3] KEYS: Expand key->{datalen,quotalen} to unsigned
- int
-Message-ID: <20261021170321.GC1879@quark>
-References: <20261020174325.2229448-1-jarkko@kernel.org>
- <20261020174325.2229448-2-jarkko@kernel.org>
- <atfT5WJU_ldjpQOM@kernel.org>
- <20261020214335.GE699485@google.com>
- <atfky30OZQ5vsNVs@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XhTlCR7v
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5eabf243d05so382252e0c.2
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 10:04:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792602256; x=1793207056; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Jz1PsVKfLByVoOLZveZuQnHIhjOghHzTozlXRwWyQFY=;
+        b=XhTlCR7vSdYc6xYIXY+4YWo5PctxS/eg+nF0tTI68R0wVdyxDVGBrzKBf/vP34pSvJ
+         XAznc7rukb2wtB1NqGIS5vQeaCB9MBnXyvKRfs83ldM1IPeXlB79qnKE6vXs3lHq95u+
+         ogvPuri41Rl7agULw8/F7KE8DKjinlMy2SkfjdDfTwRNcxWRaoptKoTfhw692uooupYf
+         HyD6hwViiseOQyCZWc8633SnsTVBIYggx/vZpkyCnhr6pmhXkmCNT85aqgpnLHEz6cRZ
+         Q8nKtiMcg7X/Eu9Xtswr36jVhpGiPY3wkZz7dmRtvVd/clbcMzf2UcmXk+ZgzlfO2ekM
+         ucAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792602256; x=1793207056;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Jz1PsVKfLByVoOLZveZuQnHIhjOghHzTozlXRwWyQFY=;
+        b=ekWb30m4WN7sRIkdAIXsUgU9r6d/1CgkzOU4COLbF1wBuACPM50HWsC+/d4ng+KXMQ
+         t76GqeovMQ9So/snrhcTipOnK1f1lB/eLrAR47FsEoLjnQ2CpFaY+q0zgBn9A1myC7IP
+         9j1Q6XovTrzGclTJXpcPi9Gv1eRxyVreIBcah3ZimIr1zvwwboIKXKGDDbD/hHo1wuLY
+         2u4Zdx12OnnMMyDamgLE644F9sMIqJZi/1XNACL14j1m3Rt7R7PcrHI4CowzvAacGAhC
+         gyqdRZXWgLwKKqh9fDXJ0W5RjqoNDwMi+x0L9vPDUKi2exBpPnqixQ1y3GjKNK+GrL4c
+         4AGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw90hBiSCnM4xAiUZbffKmwUpL8y2PXibgLzm2clQ9Hp11RsIik9LGWnLI/rm18uzABbtAJp+s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKxtEU9KpVtlavbi3sMDJcFm9wQuiUKl+BNvPN6ZODXx5Eo29Kt
+	ljkWLHdMn0q4MfPvGodnexs08xZ88CgSZR378BvYy6e8a8nIr+/6P2w8
+X-Gm-Gg: AYBFou2oELu2eB132Trcb35c/xldIP0L9WWt9urBEFJp75h7ZqYVojpsSdOX18IAtYv
+	eq0XAHclp5cVsl9BrVGh1JZWd85YIROSjM2GAxdolHO8f+XyJNZQ7ChAJTyNCr8JgQ7gAPQ48iF
+	nYIqz/bdMozmSP3hrUxNxQ6Ylfotry71s6UZ91W/DQp5dG2HlI2mH8/VcAwgUEmLqhvejO+Ztj5
+	jwgvkMe0Ud5ewwY+LwAcZEVwpqTWfmJbMBgsQZNWwIeGHQyettVWF/TiE0fdTz07XvCaB9qtDln
+	FewHC0HKSsAftUi3YsJ/Fway/zFc6iUohFb4CA5WrTAeD3AI1qTFeihc/EUYMZan/BNWuXVjXaB
+	+Jl0ZIKRVQGLdgHGJ7HRtlx7DyneBcazaWCS2Hc/Y96btGeTXzoYNjKEERKeKHhdSNTJ8ucJ//F
+	vWipXMZ4bA3ENs2DjkQv7Zg05ahB9DrPYmThHWj4votPoJSmIJ2q+6H606LC4KmvXCw+wvZUdvD
+	XqTIL2Tv+7aOaMDKH6IfL/r0gPXDBre77dKLdBK/YebGVnim+UYvDK22hyp3ukj30hVvICeH5fw
+	3mu+bJ/mohENf7FAQOMBq2zKdlIg3o8RWpkKwA+eDFWeTJ5yTlk85zVXeGK0umI=
+X-Received: by 2002:a05:6102:149e:b0:7cc:9d46:f091 with SMTP id ada2fe7eead31-7cc9d470bbamr602076137.24.1792602256305;
+        Wed, 21 Oct 2026 10:04:16 -0700 (PDT)
+Received: from MaquinaLab.. ([179.179.238.247])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cc924348c4sm3367159137.11.2026.10.21.10.04.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 10:04:15 -0700 (PDT)
+From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: linux-serial@vger.kernel.org,
+	gregkh@linuxfoundation.org,
+	jirislaby@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	Andre Przywara <andre.przywara@arm.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook when DLF is present
+Date: Wed, 21 Oct 2026 14:04:03 -0300
+Message-ID: <20261021170403.2052449-1-vinicius.eduardo.pedrosa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <atjqZPuAbHDdaexv@ashevche-desk.local>
+References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <20261020104753.28703-1-vinicius.eduardo.pedrosa@gmail.com> <athe0QikG2mzCAtd@ashevche-desk.local> <20261021100049.16504-1-vinicius.eduardo.pedrosa@gmail.com> <atjB-BnXclL3FcUm@ashevche-desk.local> <20261021153732.1978410-1-vinicius.eduardo.pedrosa@gmail.com> <atjqZPuAbHDdaexv@ashevche-desk.local>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,69 +112,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atfky30OZQ5vsNVs@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 01:01:47AM +0300, Jarkko Sakkinen wrote:
-> On Tue, Oct 20, 2026 at 09:43:35PM +0000, Eric Biggers wrote:
-> > On Tue, Oct 20, 2026 at 11:49:41PM +0300, Jarkko Sakkinen wrote:
-> > > For any kernel patches I've missed all Sashiko reviews so far and have
-> > > not taken the feedback into account in anything.
-> > > 
-> > > There is two issues:
-> > > 
-> > > 1. I was not subscribed to linux-security-module. I could be and have
-> > >    been but probably when I've changed my list subscriptions at some
-> > >    point otherwise, I happened not to be.
-> > > 2. Even if I was subscribed to linux-security-module, at least I'd
-> > >    like to get reviews Cc'd that concern my patches or patches
-> > >    sent to me.
-> > > 
-> > > Now that Eric pointed out Sashiko review I was able to look up this
-> > > via web browser:
-> > > 
-> > > https://lore.kernel.org/linux-security-module/20261020174325.2229448-1-jarkko@kernel.org/T/#mccc5900222fdad9d790be343fcec2a32540ed2fb
-> > > 
-> > > This is somewhat inconvenient though that it responds like that, and
-> > > not to the review thread.
-> > > 
-> > > Not actually sure how do you write a Sieve filter that automates
-> > > relevant-to-me Sashiko emails going into some specific folder but
-> > > I'm sure that is somehow possible. I guess I'll start by subscribing
-> > > to linux-security-module.
-> > 
-> > Well, the keyrings mailing list isn't currently opted into Sashiko
-> > monitoring or emails.  linux-security-modules is opted in, but it's set
-> > to have the Sashiko emails go to only that list.  See
-> > https://github.com/sashiko-dev/sashiko/blob/main/projects/linux/mailing_lists.toml
-> > 
-> >     ["linux-security-module@vger.kernel.org"]
-> >     reply_to = ["list"]
-> >     positive_review = "all"
-> > 
-> > (Sashiko defaults to no email, because unfortunately there hasn't yet
-> > been consensus in the kernel community to enable it everywhere yet.)
-> > 
-> > keyrings could be opted in by opening a GitHub pull request that edits
-> > that file.  Let me know if you want me to do it.
-> > 
-> > My preference is what I set the fscrypt and fsverity lists too: enable
-> > monitoring of the list and emails of issues found to everyone (but not
-> > the noisy positive reviews, i.e. "It looks great!"):
-> > 
-> >     ["linux-fscrypt@vger.kernel.org"]
-> >     reply_to = ["author", "list", "recipients"]
-> > 
-> > So for keyrings I suggest we add:
-> > 
-> >     ["keyrings@vger.kernel.org"]
-> >     reply_to = ["author", "list", "recipients"]
-> > 
-> > Do you agree with that?
-> 
-> Yeah, that would help, thanks :-)
+Hi Andy,
 
-FYI, it's merged now: https://github.com/sashiko-dev/sashiko/pull/719
+On Wed, 21 Oct 2026, Andy Shevchenko wrote:
 
-- Eric
+> No, just pass that as a 'bool autoconf' to it, and assign those callbacks
+> there, while calling dw8250_setup_port() unconditionally from _probe().
+
+I think the autoconf approach works for Octeon as long as everything
+dw8250_setup_port() probes today stays under it, including the RS485
+detection and UART_CAP_NOTEMT, not just DLF/CPR. With autoconf=false it
+would only install the common divisor setter.
+
+> I think it would be less flexible, also it will add an additional branch
+> (actually two) each time the set_divisor is called (not that it's critical
+> but just wanted to mentioned that).
+
+The idle callbacks have to come from the drivers, since the
+dw8250_idle_*() functions are static in 8250_dw.c. Stubs for LPSS are
+fine with me.
+
+> I dunno, I prefer just a longer solution, but I don't know how big this issue
+> is that we need to backport in that way (and not taking the whole series as a
+> fix).
+
+On the severity: the IER restore comes from a7b9ce39fbe4. On the A733 I
+saw hardware IER left at 0 and the console stop taking TX/RX
+interrupts. I haven't tested this on hardware with a real DLF.
+
+Given that, how about keeping the small fix as patch 1 with the stable
+tag, and putting the refactoring after it in the same series? That would
+keep the fix independently backportable if needed, while mainline would
+still end up with the structure you proposed.
+
+> I have Intel Galileo board that uses 8250_lpss.
+
+The Galileo should be useful for checking the LPSS path.
+
+Thanks,
+Vinicius
