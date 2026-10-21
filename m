@@ -1,55 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792618621;
-	b=DOFmEPw7otmaAOF3Ddcs/HofRUfUqBgJq3yQMAvh3FmXRkU8Md5IwiAI6OHwj+HzWn+t
-	 s8R2UZL5zCFGYnmuV31v4jqj8lg+xDQ0De9Lv33g7o63BCdBAvUNjJQ2nCtXJMjFRVtPT
-	 OdhhbizRzJFX+uZdauTAQ+7DXoyEwDYPDZNVrBfdYhdF/3KfBMScBn2O7bsmx42F8dmTv
-	 Of777L0nF1uDiRYJIKarUegD5NNULMhPtimXQmCK+KpxWQJXhCYRk4wOPvrsRIV+1PhNO
-	 6N24MRb7Iwu+s2MGoxMnYj6Qa7ASqUzl1F14zbEFBXCpdldDdMRcUPP33uXTAlhD9vg==
+	t=1792618627;
+	b=kJdFZh7MMnOMKOa/PYNyL7uDMFFS+4WYlSxEEvQgUTW2HRan3Ru5dnje2jqGbEUIpkUR
+	 8Sv0VKcfGvh3I7qphLcZVgt0r67mLVLgfN7bQvOMVyfVSD1pYOKZGjpf9kVUfoTCQN5s2
+	 Ay/fowHvtpN1YC+eL6y5Nf2fw6m06oI1kWaZE3MEMbUUq3L8sMV3RX9IZf7KZfm2D7GvX
+	 9TJ7+BPa3TRs8lYWikOZ59tFcxU01j8Nm5tMzH3verovF9Ksa2pEC+8wsQ5eyPsNc1lVe
+	 2ZVxXWkLZIR+nAegEbWqWk72PBQVxwsiEgMFWokWj2O3VbsYdXjVy1IG2LrGZyYqV5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792618621;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792618627;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=JXkSR1T6Kr6SE/9FT9OFuf2TmRF/rNLjQy5tagk7s6M=;
-	b=mz4cnD+vsJs8ww3XIDTYA8n+iLHxhZcnlCY+vIZA0RTx2+3rgyv9koEwO20SK2Pau4fS
-	 tlT61Cc4jYHMBcAbwBCXLTWntRmNuh4lMgm0roeTeST/DB7EasY6ZErCAa4cpZncOCCu6
-	 YZj4zxrE5TbAy5io72TKb8FWnhML0dI/n31Vxo8ksff43+wRKNb7kr4g/aGd6pr+wSis0
-	 al/XJNKa2Mxw43XoS6QOUW6mi8EvR2xs6nVlaf9iOSIZ85JPp5mkQ2p4IKIa2eP4DNfZO
-	 dOtd85TxJDA5DbFpjaKJtAa/8sWNYC4cwwbtIQoMtHqxL+s3bmYr4kt5rTZvcJngRXw==
+	bh=eXVHJTd+0f8g5yK17oFdrqJJ/k86XfURGYzspUztakM=;
+	b=uPU0QmTT5gz0r3XkBahM0+/Hvg4Jen574fULBNqsadf8LmwnXbnPAl79vcTV3fgYqQ3p
+	 P6wNu8N53iLzMi8iIP72w60nogYWAfctegHNKRuxCs7nVF4hq5O/zogW+TAb7BUi6LqNs
+	 E1+UMjDgXkac/oytl9dOHlqm1denCXNpP1/gcODt7PuKnCF5czDVJ3+Yu8Z4fWjUfEufn
+	 15ScBJPRycL3aiUG8t74zb3S7wM/rVivFXLkssBShi67/FV+6QRLWNI7sraGp/kWYJBuG
+	 p3cadMFso9gUl1mdA6MvmCeVTs7qWvB41iNV7SAsznFDmGEt+h7rR4lOPbSOlPd8cxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cS0MZSvt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MMfdCvXw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BEA6606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 21:37:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C25A606A323
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 21:37:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cS0MZSvt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 691FA1F000C3;
-	Wed, 21 Oct 2026 21:37:00 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MMfdCvXw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 288FC1F000C6;
+	Wed, 21 Oct 2026 21:37:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792618620;
-	bh=JXkSR1T6Kr6SE/9FT9OFuf2TmRF/rNLjQy5tagk7s6M=;
+	s=k20260515; t=1792618626;
+	bh=eXVHJTd+0f8g5yK17oFdrqJJ/k86XfURGYzspUztakM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cS0MZSvtwmp8t7rhp4Q1yB6CB2HlDAOJWrFIyiTPqrdmkia9vXNW8yz0JuT96/V2P
-	 f2aAx+22YsuxBabdw0COhIrqAlVrLQ3eDgEeDwX9OXgzbm+qY4QxcE+LMPaGfP1apr
-	 XUMH081UpOBCEiCiZOhxrR8H1gWF1gCMNxB8INFKdO4AOyc4frz+JU+FTxkUC805Dt
-	 yNy7BGksFioQimSpdDXdHenth29B9+aQWszaWRIka29F728evwJql2lcsnRA73c33q
-	 bqavfEJIlaBDkBLrbpBWbhVtRf0c9ilNBHH1TBtjfePYiWHdiHkDiMNLs00hxtnC87
-	 0PjBEB9fAwkOQ==
+	b=MMfdCvXwYNabTvfoIadKxEz2JjOmAchWWQ9Bh6U8E1zf/dXpYEE/nHDDR5Qlm9ROE
+	 yXJHh7f5brxN7jmBX5gihvSPCGFjRSNp72RodInCj+mUqDUXB0IWySqtYL3/vhya/O
+	 FM4bOu7OK6LnAEARABHZshe1eDf1TP08kL+JNWSefu4LiYVgQN97NRuGPQZxVZVkNL
+	 /DeTS2RrObjdRge9xG+mxivRMCeJWJ9LFemekUvDsyavHAWaPNhNijhFDU9sbj40PC
+	 xmhTlqQBXR3Komczwte47NrY2ix/mfTmwUWmVUFAGCmFg6Tp1N58aJBU27kFMaDdE8
+	 cExsZCeSEQKeg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Stanley Jhu <stanleyjhu@google.com>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+Cc: Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] scsi: bsg: Pass reply_len to bsg_setup_queue() to fit UFS ARPMB replies
-Date: Wed, 21 Oct 2026 17:36:59 -0400
-Message-ID: <20261021213614.465631-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] ntfs3: free the sbi after a grace period
+Date: Wed, 21 Oct 2026 17:37:05 -0400
+Message-ID: <20261021213615.470893-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102108-porous-stalling-71fc@gregkh>
-References: <2026102108-porous-stalling-71fc@gregkh>
+In-Reply-To: <2026102158-strife-renewable-5171@gregkh>
+References: <2026102158-strife-renewable-5171@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,200 +60,160 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Stanley Jhu <stanleyjhu@google.com>
+From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit ec6b083915e8146e147314a5f4f1285d07b57bfc ]
+[ Upstream commit c01b091b06412d3b1b53d8c2925f6de586c8a2fc ]
 
-bsg-lib allocates a 96-byte (SCSI_SENSE_BUFFERSIZE) reply buffer per
-job, but struct ufs_rpmb_reply is 104 bytes: a 40-byte struct
-ufs_bsg_reply followed by a 64-byte EHS. When an Advanced RPMB command
-returns an EHS, ufshcd_advanced_rpmb_req_handler() copies it right after
-the 40-byte header and writes 8 bytes past the end of the buffer.
+If the "nocase" mount option ntfs3 uses custom hash and dentry compare
+functions. Both access ntfs3 superblock private information in rcu
+pathwalk. ntfs_put_super() and ntfs3_kill_sb() drop the info without any
+rcu delay. A lookup that's still inside the filesystem when the last
+reference to the mount is dropped causes a UAF. With a pathwalk held up
+in ntfs_d_hash() while the last reference to the mount goes away:
 
-Let each BSG transport pass its reply buffer size to bsg_setup_queue()
-and have ufs_bsg request sizeof(struct ufs_rpmb_reply), so the full
-reply reaches user space. Other transports keep SCSI_SENSE_BUFFERSIZE.
+  BUG: KASAN: slab-use-after-free in ntfs_nls_to_utf16+0x752/0x940
+  Read of size 8 at addr ff1100010453c850 by task walker/99
+  Call Trace:
+   <TASK>
+   ntfs_nls_to_utf16+0x752/0x940
+   ntfs_d_hash+0x22b/0x500
+   link_path_walk+0x11ad/0x1d30
+   path_lookupat+0x63/0xb00
+   filename_lookup+0x1f1/0x5b0
+   vfs_statx+0xd7/0x3b0
+  [...]
+  Allocated by task 95:
+   __kmalloc_cache_noprof+0x249/0x560
+   ntfs_init_fs_context+0x2db/0x5a0
+   alloc_fs_context+0x52e/0xc70
+  [...]
+  Freed by task 98:
+   kfree+0x1db/0x5b0
+   deactivate_locked_super+0x9c/0xf0
+   cleanup_mnt+0x9f/0x130
+   task_work_run+0x131/0x250
 
-Fixes: 6ff265fc5ef6 ("scsi: ufs: core: bsg: Add advanced RPMB support in ufs_bsg")
+The bug is currently masked by the grace period in namespace_unlock()
+for umount(2). Keep the necessary information until the filesystem
+private info is freed and free it with an rcu delay.
+
+ntfs3_free_sbi() now runs from an rcu callback and drops the upcase
+table via ntfs_put_shared(). So switch s_shared_lock over to
+spin_lock_bh(). Otherwise the callback can deadlock against a task
+holding the lock on the same cpu.
+
+Fixes: a3a956c78efa ("fs/ntfs3: Add option "nocase"")
 Cc: stable@vger.kernel.org
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-Link: https://patch.msgid.link/20261013132708.1669415-1-stanleyjhu@google.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ sashal: Adapted bsg_setup_queue() and its callers to the existing interface without a queue-limits parameter. ]
+Link: https://patch.msgid.link/20261009-work-fixes-rcu-v1-7-7446d2d335e6@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: Omitted removal of mount-option cleanup already absent from ntfs_put_super(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- block/bsg-lib.c                     | 13 ++++++++++---
- drivers/scsi/mpi3mr/mpi3mr_app.c    |  2 +-
- drivers/scsi/scsi_transport_fc.c    |  5 +++--
- drivers/scsi/scsi_transport_iscsi.c |  3 ++-
- drivers/scsi/scsi_transport_sas.c   |  6 ++++--
- drivers/ufs/core/ufs_bsg.c          |  3 ++-
- include/linux/bsg-lib.h             |  3 ++-
- 7 files changed, 24 insertions(+), 11 deletions(-)
+ fs/ntfs3/ntfs_fs.h |  1 +
+ fs/ntfs3/super.c   | 29 ++++++++++++++++++++++-------
+ 2 files changed, 23 insertions(+), 7 deletions(-)
 
-diff --git a/block/bsg-lib.c b/block/bsg-lib.c
-index b3acdbdb6e7ea..5df816a0a58ee 100644
---- a/block/bsg-lib.c
-+++ b/block/bsg-lib.c
-@@ -23,11 +23,14 @@ struct bsg_set {
- 	struct bsg_device	*bd;
- 	bsg_job_fn		*job_fn;
- 	bsg_timeout_fn		*timeout_fn;
-+	unsigned int		reply_len;
- };
+diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
+index 5e7536ad0b94c..8850ee2b75b11 100644
+--- a/fs/ntfs3/ntfs_fs.h
++++ b/fs/ntfs3/ntfs_fs.h
+@@ -209,6 +209,7 @@ struct ntfs_index {
+ /* Ntfs file system in-core superblock data. */
+ struct ntfs_sb_info {
+ 	struct super_block *sb;
++	struct rcu_head rcu;
  
- static int bsg_transport_sg_io_fn(struct request_queue *q, struct sg_io_v4 *hdr,
- 		bool open_for_write, unsigned int timeout)
- {
-+	struct bsg_set *bset =
-+		container_of(q->tag_set, struct bsg_set, tag_set);
- 	struct bsg_job *job;
- 	struct request *rq;
- 	struct bio *bio;
-@@ -50,7 +53,7 @@ static int bsg_transport_sg_io_fn(struct request_queue *q, struct sg_io_v4 *hdr,
- 	reply = job->reply;
- 	memset(job, 0, sizeof(*job));
- 	job->reply = reply;
--	job->reply_len = SCSI_SENSE_BUFFERSIZE;
-+	job->reply_len = bset->reply_len;
- 	job->dd_data = job + 1;
+ 	u32 discard_granularity;
+ 	u64 discard_granularity_mask_inv; // ~(discard_granularity_mask_inv-1)
+diff --git a/fs/ntfs3/super.c b/fs/ntfs3/super.c
+index 15b1f2027b4ed..3b7731b188302 100644
+--- a/fs/ntfs3/super.c
++++ b/fs/ntfs3/super.c
+@@ -183,7 +183,7 @@ void *ntfs_set_shared(void *ptr, u32 bytes)
+ 	void *ret = NULL;
+ 	int i, j = -1;
  
- 	job->request_len = hdr->request_len;
-@@ -301,9 +304,10 @@ static blk_status_t bsg_queue_rq(struct blk_mq_hw_ctx *hctx,
- static int bsg_init_rq(struct blk_mq_tag_set *set, struct request *req,
- 		       unsigned int hctx_idx, unsigned int numa_node)
- {
-+	struct bsg_set *bset = container_of(set, struct bsg_set, tag_set);
- 	struct bsg_job *job = blk_mq_rq_to_pdu(req);
- 
--	job->reply = kzalloc(SCSI_SENSE_BUFFERSIZE, GFP_KERNEL);
-+	job->reply = kzalloc(bset->reply_len, GFP_KERNEL);
- 	if (!job->reply)
- 		return -ENOMEM;
- 	return 0;
-@@ -357,9 +361,11 @@ static const struct blk_mq_ops bsg_mq_ops = {
-  * @job_fn: bsg job handler
-  * @timeout: timeout handler function pointer
-  * @dd_job_size: size of LLD data needed for each job
-+ * @reply_len: size of the reply buffer needed for each job
-  */
- struct request_queue *bsg_setup_queue(struct device *dev, const char *name,
--		bsg_job_fn *job_fn, bsg_timeout_fn *timeout, int dd_job_size)
-+		bsg_job_fn *job_fn, bsg_timeout_fn *timeout, int dd_job_size,
-+		unsigned int reply_len)
- {
- 	struct bsg_set *bset;
- 	struct blk_mq_tag_set *set;
-@@ -372,6 +378,7 @@ struct request_queue *bsg_setup_queue(struct device *dev, const char *name,
- 
- 	bset->job_fn = job_fn;
- 	bset->timeout_fn = timeout;
-+	bset->reply_len = reply_len;
- 
- 	set = &bset->tag_set;
- 	set->ops = &bsg_mq_ops;
-diff --git a/drivers/scsi/mpi3mr/mpi3mr_app.c b/drivers/scsi/mpi3mr/mpi3mr_app.c
-index 27fcffa94713b..fdec01d4bcee3 100644
---- a/drivers/scsi/mpi3mr/mpi3mr_app.c
-+++ b/drivers/scsi/mpi3mr/mpi3mr_app.c
-@@ -1551,7 +1551,7 @@ void mpi3mr_bsg_init(struct mpi3mr_ioc *mrioc)
+-	spin_lock(&s_shared_lock);
++	spin_lock_bh(&s_shared_lock);
+ 	for (i = 0; i < ARRAY_SIZE(s_shared); i++) {
+ 		if (!s_shared[i].cnt) {
+ 			j = i;
+@@ -201,7 +201,7 @@ void *ntfs_set_shared(void *ptr, u32 bytes)
+ 		s_shared[j].cnt = 1;
+ 		ret = ptr;
  	}
+-	spin_unlock(&s_shared_lock);
++	spin_unlock_bh(&s_shared_lock);
  
- 	q = bsg_setup_queue(bsg_dev, dev_name(bsg_dev),
--			mpi3mr_bsg_request, NULL, 0);
-+			mpi3mr_bsg_request, NULL, 0, SCSI_SENSE_BUFFERSIZE);
- 	if (IS_ERR(q)) {
- 		ioc_err(mrioc, "%s: bsg registration failed\n",
- 		    dev_name(bsg_dev));
-diff --git a/drivers/scsi/scsi_transport_fc.c b/drivers/scsi/scsi_transport_fc.c
-index fd827e30556b1..8d53a6717da81 100644
---- a/drivers/scsi/scsi_transport_fc.c
-+++ b/drivers/scsi/scsi_transport_fc.c
-@@ -4293,7 +4293,7 @@ fc_bsg_hostadd(struct Scsi_Host *shost, struct fc_host_attrs *fc_host)
- 		 "fc_host%d", shost->host_no);
+ 	return ret;
+ }
+@@ -218,7 +218,7 @@ void *ntfs_put_shared(void *ptr)
+ 	void *ret = ptr;
+ 	int i;
  
- 	q = bsg_setup_queue(dev, bsg_name, fc_bsg_dispatch, fc_bsg_job_timeout,
--				i->f->dd_bsg_size);
-+				i->f->dd_bsg_size, SCSI_SENSE_BUFFERSIZE);
- 	if (IS_ERR(q)) {
- 		dev_err(dev,
- 			"fc_host%d: bsg interface failed to initialize - setup queue\n",
-@@ -4324,7 +4324,8 @@ fc_bsg_rportadd(struct Scsi_Host *shost, struct fc_rport *rport)
- 		return -ENOTSUPP;
+-	spin_lock(&s_shared_lock);
++	spin_lock_bh(&s_shared_lock);
+ 	for (i = 0; i < ARRAY_SIZE(s_shared); i++) {
+ 		if (s_shared[i].cnt && s_shared[i].ptr == ptr) {
+ 			if (--s_shared[i].cnt)
+@@ -226,7 +226,7 @@ void *ntfs_put_shared(void *ptr)
+ 			break;
+ 		}
+ 	}
+-	spin_unlock(&s_shared_lock);
++	spin_unlock_bh(&s_shared_lock);
  
- 	q = bsg_setup_queue(dev, dev_name(dev), fc_bsg_dispatch_prep,
--				fc_bsg_job_timeout, i->f->dd_bsg_size);
-+				fc_bsg_job_timeout, i->f->dd_bsg_size,
-+				SCSI_SENSE_BUFFERSIZE);
- 	if (IS_ERR(q)) {
- 		dev_err(dev, "failed to setup bsg queue\n");
- 		return PTR_ERR(q);
-diff --git a/drivers/scsi/scsi_transport_iscsi.c b/drivers/scsi/scsi_transport_iscsi.c
-index 22bec2453bac9..7cc99d213ce22 100644
---- a/drivers/scsi/scsi_transport_iscsi.c
-+++ b/drivers/scsi/scsi_transport_iscsi.c
-@@ -1542,7 +1542,8 @@ iscsi_bsg_host_add(struct Scsi_Host *shost, struct iscsi_cls_host *ihost)
- 		return -ENOTSUPP;
+ 	return ret;
+ }
+@@ -624,6 +624,8 @@ static noinline void ntfs3_put_sbi(struct ntfs_sb_info *sbi)
  
- 	snprintf(bsg_name, sizeof(bsg_name), "iscsi_host%d", shost->host_no);
--	q = bsg_setup_queue(dev, bsg_name, iscsi_bsg_host_dispatch, NULL, 0);
-+	q = bsg_setup_queue(dev, bsg_name, iscsi_bsg_host_dispatch, NULL, 0,
-+			SCSI_SENSE_BUFFERSIZE);
- 	if (IS_ERR(q)) {
- 		shost_printk(KERN_ERR, shost, "bsg interface failed to "
- 			     "initialize - no request queue\n");
-diff --git a/drivers/scsi/scsi_transport_sas.c b/drivers/scsi/scsi_transport_sas.c
-index ce69240accb28..edb9b853c938b 100644
---- a/drivers/scsi/scsi_transport_sas.c
-+++ b/drivers/scsi/scsi_transport_sas.c
-@@ -199,7 +199,8 @@ static int sas_bsg_initialize(struct Scsi_Host *shost, struct sas_rphy *rphy)
+ static void ntfs3_free_sbi(struct ntfs_sb_info *sbi)
+ {
++	if (sbi->options)
++		put_mount_options(sbi->options);
+ 	kfree(sbi->new_rec);
+ 	kvfree(ntfs_put_shared(sbi->upcase));
+ 	kvfree(sbi->def_table);
+@@ -635,6 +637,11 @@ static void ntfs3_free_sbi(struct ntfs_sb_info *sbi)
+ 	kfree(sbi);
+ }
  
- 	if (rphy) {
- 		q = bsg_setup_queue(&rphy->dev, dev_name(&rphy->dev),
--				sas_smp_dispatch, NULL, 0);
-+				sas_smp_dispatch, NULL, 0,
-+				SCSI_SENSE_BUFFERSIZE);
- 		if (IS_ERR(q))
- 			return PTR_ERR(q);
- 		rphy->q = q;
-@@ -208,7 +209,8 @@ static int sas_bsg_initialize(struct Scsi_Host *shost, struct sas_rphy *rphy)
++static void ntfs3_free_sbi_rcu(struct rcu_head *head)
++{
++	ntfs3_free_sbi(container_of(head, struct ntfs_sb_info, rcu));
++}
++
+ static void ntfs_put_super(struct super_block *sb)
+ {
+ 	struct ntfs_sb_info *sbi = sb->s_fs_info;
+@@ -651,6 +658,12 @@ static void ntfs_put_super(struct super_block *sb)
  
- 		snprintf(name, sizeof(name), "sas_host%d", shost->host_no);
- 		q = bsg_setup_queue(&shost->shost_gendev, name,
--				sas_smp_dispatch, NULL, 0);
-+				sas_smp_dispatch, NULL, 0,
-+				SCSI_SENSE_BUFFERSIZE);
- 		if (IS_ERR(q))
- 			return PTR_ERR(q);
- 		to_sas_host_attrs(shost)->q = q;
-diff --git a/drivers/ufs/core/ufs_bsg.c b/drivers/ufs/core/ufs_bsg.c
-index 0043d69077b64..df31f89b9666f 100644
---- a/drivers/ufs/core/ufs_bsg.c
-+++ b/drivers/ufs/core/ufs_bsg.c
-@@ -256,7 +256,8 @@ int ufs_bsg_probe(struct ufs_hba *hba)
- 	if (ret)
- 		goto out;
+ 	/* Mark rw ntfs as clear, if possible. */
+ 	ntfs_set_state(sbi, NTFS_DIRTY_CLEAR);
++
++	/*
++	 * The mount options stay until the sbi is freed: ->d_hash() and
++	 * ->d_compare() of a pathwalk in rcu mode read the nls table through
++	 * them.
++	 */
+ 	ntfs3_put_sbi(sbi);
+ }
  
--	q = bsg_setup_queue(bsg_dev, dev_name(bsg_dev), ufs_bsg_request, NULL, 0);
-+	q = bsg_setup_queue(bsg_dev, dev_name(bsg_dev), ufs_bsg_request, NULL, 0,
-+			sizeof(struct ufs_rpmb_reply));
- 	if (IS_ERR(q)) {
- 		ret = PTR_ERR(q);
- 		device_del(bsg_dev);
-diff --git a/include/linux/bsg-lib.h b/include/linux/bsg-lib.h
-index 9e97ced2896df..1c6b057c6412c 100644
---- a/include/linux/bsg-lib.h
-+++ b/include/linux/bsg-lib.h
-@@ -65,7 +65,8 @@ struct bsg_job {
- void bsg_job_done(struct bsg_job *job, int result,
- 		  unsigned int reply_payload_rcv_len);
- struct request_queue *bsg_setup_queue(struct device *dev, const char *name,
--		bsg_job_fn *job_fn, bsg_timeout_fn *timeout, int dd_job_size);
-+		bsg_job_fn *job_fn, bsg_timeout_fn *timeout, int dd_job_size,
-+		unsigned int reply_len);
- void bsg_remove_queue(struct request_queue *q);
- void bsg_job_put(struct bsg_job *job);
- int __must_check bsg_job_get(struct bsg_job *job);
+@@ -1807,9 +1820,11 @@ static void ntfs3_kill_sb(struct super_block *sb)
+ 
+ 	kill_block_super(sb);
+ 
+-	if (sbi->options)
+-		put_mount_options(sbi->options);
+-	ntfs3_free_sbi(sbi);
++	/*
++	 * A pathwalk in rcu mode may still be in ->d_hash() or ->d_compare()
++	 * and read the upcase table and the nls table through the sbi.
++	 */
++	call_rcu(&sbi->rcu, ntfs3_free_sbi_rcu);
+ }
+ 
+ // clang-format off
 -- 
 2.53.0
 
