@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792586149;
-	b=ErwcFGk2bPqPX4/GibK033g40IoWu8Dlmlk0g8hA+lHFuv9ElpXSI5BpEBfci2CWCdjt
-	 wDKAwXMOxpZovRb/BYKTis8VQYwBmTrmYgofeOib21hpIBwXlHwJ/MulrC9Z/714uwr+S
-	 Gb3dmg+6XSN8Te92RkBh88ZH/xbwnmom6wQZPSZMcSGYQRx56XkM50Wdw/gpbQ8qCdBdu
-	 7IPqHwRJYv/PqjGD0zDsUaiubzG/bkz6DQ1T1IYDCr5b9Zb0LWGCcdMd/oRS/9kyNSGb8
-	 VmRBQxw5KKihXH34S1BKand9pYJ4jhKVd+c5N76i7Emi0OxSxCp10/0SkFyUCG7O0QQ==
+	t=1792586156;
+	b=tbQDQ+63gDREDCNotfPln8YIE3CJOAXid5W5w8GAr4dQyOPBlJguYb6f6VG1dnjGNGR/
+	 Q1ysMyANvK78dND/TD+9fIru43rZFZdC9TIaVF2eijOwLG+qhjX+g3cJus3nWVYVi9nz0
+	 d0FBkzbw3K7GbiYH3jBCOIdMAnQCgUluMZ6iI9eLEqnVA6rT0IzIzMZEUzssPkkR1i12j
+	 Jl4FWniowQ7b2Z0/2VOfwR+AZdqz6xM/gJpSqcvc4O9csblvwxFWSFHOR8fURr9/w0VLe
+	 QSNgNDjgKGMl4xm8amN7qmrb4NoW/qxk90jsvJq2oVGPW8ezQe+MVoEWdqTRh2HYA/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792586149;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792586156;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=AZELaNsqUY1zY8qX4VQB7ia07pe12nJCXrkSAQxmaMY=;
-	b=LYDYtBBMD0+iozn1gMxp2WkYlT/Jg8N+KVvfxGKikTpdJVsOw0adbJ+AFSMqQziDWryM
-	 fcsP5AcQHzC7IKJIRkn/DeJIjCMy495hEzkoFi5A9Bd4/7HcxwahPx2yAG7a0vAZlFLMk
-	 vjUPLA+1U9WUr6Px48De+g3aDxW7/08ka8wl5H3yjn0REShYYMKCHND6alejAUdBMaNXX
-	 egbY6KfYhKTbyj61Z27XoEI85yi5c7hWwLOXbHtxTi5odPFNc+Va+o0U729yajY6xOOIn
-	 8cY27kO2QEmRwtZhk74rRx3ciOV8cFkPAFfokbzsy/BvfQ8W6LJr8C32rX3YC7Yccuw==
+	bh=QhyHOu089+UU44rYgvZ+971lrIFZgmG/SKe33HQUXJU=;
+	b=UYujKKh0ogZrZaiB0gmM5l8dFq/7S6Ff4G235yYBE3RJdpQXGeLuJHyYPef0lKVE9ZDk
+	 ebdSPYn/zooOZgJm8DEi8D8fkyQF7jrZdMGyjSfm5QPJVr4FRfIrY5lZIINYm75Jf1ei+
+	 m6dhRU7f0nDx9l6EmPipQdKRLRwgeDfVhMikgA1qz3iUzS6rHJS82Gn993yUnOPQtX8qI
+	 /IO2fAj9XJHqFcvo0cZ0CXYA48SPudT2sigm5zxrtZjBRuhx4IiWCOHAnTIh157MDFJFc
+	 EVXW76zlgj4mbM1hGqhxyAscp30XgWzskjO/x54EiCzsSEzo3zey98SviSJk2zPQfNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dvtk9Wam;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gIkb7dwe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820D660A3827;
-	Wed, 21 Oct 2026 12:35:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA08606B4E6;
+	Wed, 21 Oct 2026 12:35:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dvtk9Wam
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4A3F1F000CE;
-	Wed, 21 Oct 2026 12:35:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gIkb7dwe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24B511F000C4;
+	Wed, 21 Oct 2026 12:35:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792586149;
-	bh=AZELaNsqUY1zY8qX4VQB7ia07pe12nJCXrkSAQxmaMY=;
+	s=k20260515; t=1792586155;
+	bh=QhyHOu089+UU44rYgvZ+971lrIFZgmG/SKe33HQUXJU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Dvtk9Wamcb2cTkdAlw40Ol5yeVqjdeCmwOwNXevNAKkx33VxrBvNwmnOKfwOr9x0a
-	 e0TomlBQ24MxQGL8PC871okmV9nqMsYY9Catlev66fyjAkaQnWc/0mModX6aiOKU56
-	 8WLqiJds5jq9eRkn6G7qHivKzwTCwaR/Gz5PjFQNPWqWjESeR9Gg+HNjFRFAVxdQe2
-	 Bl5XksYM4oWEz3Ow9un2Hpqv1x9+hjs38vFWOZQ+sOItKrOvnYf0V8ByJ8972zitpK
-	 /GyDDscbDE1KrRuVkNxswmsX8MuZ9GgoHRPwMPrjrqT6rSqTIzrYwYeOVjlmshDSCT
-	 IxTJIYvL6mbag==
+	b=gIkb7dwerMcox8yBbQnQNVDsDkt0KAqm3l/9f3BN5WOY0iNkEXdxucLtPO6N98+O/
+	 s7pScyd0fhS8XQ3cI06qYFL7+fNKzBE7HxwF+1MjNe6gynfmy9K0PqI/d2AoTzWja7
+	 hkbyLFHgDsn1BjPGmQh5r6gyuh0xH8titG+Sz5VAOAf6jJ7QZf44llU4EJcHa1yKXK
+	 d0MWiUDQrLkdIhsKgZkqWofrJjHm4plz9Iwhe59CJrr0hH0nE4WoCkt9pE1tQdIb12
+	 iFfT4EPKdtdnrjgC3M7uQWyi/5YR1N2726d6gnKy/pV9Gz/AUw/VAnX8lBSYkDA2Y2
+	 bWdkrpHQDOURw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Pavel Machek <pavel@kernel.org>,
@@ -47,9 +47,9 @@ To: lee@kernel.org,
 	linux-leds@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 15/21] leds: lm3532: Validate LED string indices in lm3532_parse_node()
-Date: Wed, 21 Oct 2026 12:32:24 +0000
-Message-ID: <20261021123406.3163547-16-lee@kernel.org>
+Subject: [PATCH 16/21] leds: lm3532: Clamp full-scale current to minimum bound
+Date: Wed, 21 Oct 2026 12:32:25 +0000
+Message-ID: <20261021123406.3163547-17-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
 In-Reply-To: <20261021123406.3163547-1-lee@kernel.org>
 References: <20261021123406.3163547-1-lee@kernel.org>
@@ -64,40 +64,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-lm3532_parse_node() reads the led-sources property into led->led_strings
-without bounding the individual string indices.  If a firmware node
-specifies an index of LM3532_MAX_LED_STRINGS or greater,
-lm3532_init_registers() shifts beyond the hardware output configuration
-fields and, for values of 16 or greater, triggers a 32-bit
-shift-out-of-bounds.
+lm3532_parse_node() bounds led->full_scale_current to LM3532_FS_CURR_MAX
+using min(), but does not enforce the lower bound LM3532_FS_CURR_MIN.
+If a firmware node specifies led-max-microamp between 1 and
+LM3532_FS_CURR_MIN - 1, subtracting LM3532_FS_CURR_MIN in
+lm3532_init_registers() underflows and writes a corrupted full-scale
+current register value.
 
-Reject LED string indices >= LM3532_MAX_LED_STRINGS with -EINVAL when
-parsing the firmware node.
+Use clamp() when led-max-microamp is present so led->full_scale_current
+is bounded to [LM3532_FS_CURR_MIN, LM3532_FS_CURR_MAX].
 
-Fixes: bc1b8492c764 ("leds: lm3532: Introduce the lm3532 LED driver")
-Closes: https://sashiko.dev/#/bug/linux-f6f7a3f6-4dc4-46b4-84e3-c26fc9099572
+Fixes: 517ea49a7b23 ("leds: lm3532: Add full scale current configuration")
+Closes: https://sashiko.dev/#/bug/linux-114b6c69-6d76-4f4d-bb87-0980b1e15bbd
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/leds/leds-lm3532.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/leds/leds-lm3532.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/leds/leds-lm3532.c b/drivers/leds/leds-lm3532.c
-index cfad4e791e4b..6fe752889487 100644
+index 6fe752889487..327460de2ff8 100644
 --- a/drivers/leds/leds-lm3532.c
 +++ b/drivers/leds/leds-lm3532.c
-@@ -649,6 +649,11 @@ static int lm3532_parse_node(struct lm3532_data *priv)
+@@ -615,14 +615,16 @@ static int lm3532_parse_node(struct lm3532_data *priv)
  			return ret;
  		}
  
-+		for (int j = 0; j < led->num_leds; j++) {
-+			if (led->led_strings[j] >= LM3532_MAX_LED_STRINGS)
-+				return -EINVAL;
+-		if (fwnode_property_present(child, "led-max-microamp") &&
+-		    fwnode_property_read_u32(child, "led-max-microamp",
+-					     &led->full_scale_current))
+-			dev_err(&priv->client->dev,
+-				"Failed getting led-max-microamp\n");
+-		else
+-			led->full_scale_current = min(led->full_scale_current,
+-						      LM3532_FS_CURR_MAX);
++		if (fwnode_property_present(child, "led-max-microamp")) {
++			if (fwnode_property_read_u32(child, "led-max-microamp",
++						     &led->full_scale_current))
++				dev_err(&priv->client->dev,
++					"Failed getting led-max-microamp\n");
++			else
++				led->full_scale_current = clamp(led->full_scale_current,
++								LM3532_FS_CURR_MIN,
++								LM3532_FS_CURR_MAX);
 +		}
-+
- 		led->priv = priv;
- 		led->led_dev.brightness_set_blocking = lm3532_brightness_set;
  
+ 		if (led->mode == LM3532_BL_MODE_ALS) {
+ 			led->mode = LM3532_ALS_CTRL;
 -- 
 2.56.0.218.g1ec904b173-goog
 
