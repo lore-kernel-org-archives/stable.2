@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792597700;
-	b=vJDLH7pV5VRCQZtILe+89jfYuxHiuEiAq+kqRQqi6nR33WLyFIMJlM1IgVBJkoL7o2cr
-	 ZO7N4jY+KKB2lzqh0abfP6uP98YD8l9eYLsulcCLjmPFxLv9Ny07QLmkmV6N7ITPxP7Cb
-	 Kz2CPTqGDXj/DugxoFfPWthAISHGTCcyuaB9L0Meo0dfe4VUfnoJBe+HUJzK3df9WVpvn
-	 +h5kK8u9+wi4Gscv6ea2F0Ii5Vrfgffe1+pBHgWXxtVcfQ8gWcqORipX6+be11b6/TKil
-	 qAGbGhG5suny/+ikVR5xZKG1oxzFM9ltZCCs7HCCzAQMgD2goZSn2xOQeXJyWuJTG3A==
+	t=1792597712;
+	b=oKOgdoyMmHHzb2rzTRNPalIe6FHFH0a86V2l88rCW1NcUZFugkajTGNmSmH4gfBlYnsT
+	 p66eIJlwwvM/bVabW5TXNmN/dusuhe57U0i/sAnc6aoRJn7RR9rinGgahIaikffGwN5eu
+	 6zzHsMYlkzypS5naGL6rinnXSiYTEZ6CWsZ8a3dTjzGk9hfSi52HK4hAzrlLbWLFA0GH9
+	 o0v9Gedy66EYRnpDynaSnLgNpegL1WmWzL7kKJ1SRuek1d02a03Y2/lDOH6SfFRRVOQWO
+	 vVOXomiIZlpMs6XThoUx8WjIgRznOa8F1s2qm3adBQhDH978gLm/5FWDG3iOQ7BO3vA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792597700;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792597712;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Xh+U7WPlH5Wuw6i8c9IA/XbP3vmA07p//c9V/0TkTPU=;
-	b=yP1gibpK0CFARvX7SWAVFvU8MEIsTIBy4cZreTsjrgSvggmKfkJGPFAK0Wegjt8wThOX
-	 jsBPu90Vie2X8ACrdbJf3XAvxS2+Fy1s9Ph3T9l9u3/wkF747waF4U8W8/Ah7cy2thbJv
-	 2dJOGP04KBP/aO8BaZ7aN1RG1DgNV83Qfdx9aknBjJVC10UA02k1GnqUcj2+DkiuYvanH
-	 GzObr/nsF0EDuVzCc6eTUS1s5CB/E5WOTttYRXu8tOhxo086gBFBAffi4J+S9tLFaSVEj
-	 xhkvABzSR6SI8mSVWuUNE6KPDrvEq1guPetb+hiawSxLo4ajbhbzCMC9srqAWWt9c5A==
+	bh=AwmKknXz0sTUB/m7/9PpaJdB0upPssE7OtCOik2zB64=;
+	b=4rv1kMhPDKNaLh4IKXyqG6dnkrMpbBGBve8Rbl6OY/AJOD/IZY2dFcx3UFHapQwJzYUa
+	 cEbE/QvR0XuJKk7aKs6o7g32DZaOcU9etFt/7bihV4OljhAFcDUVWTd36/7nyXV4Mp0+y
+	 GkJR2E2F+9JQF0MIaCVAg2J1SWRUXKQV8jHZa8uedNmWtocSvOD73yeDv70D/jrJ/lWIa
+	 3UKAO33956xDy02ySn3ds7s6wlV6uTWaoSmPRCPUwy7scRIWxFrU34IqX6ImmhAeSVMe7
+	 fPFKBF9AK+7/rJ1cBe/OqC0+NI/q83y7yYclkHTZbruuczPuZEnZAvnqnleWANtVEUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="T8j/ZQWP";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Quh14boO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 523D6606A31E
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:48:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB183606A320
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:48:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T8j/ZQWP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F4201F000C5;
-	Wed, 21 Oct 2026 15:48:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Quh14boO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E18A51F000CE;
+	Wed, 21 Oct 2026 15:48:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792597700;
-	bh=Xh+U7WPlH5Wuw6i8c9IA/XbP3vmA07p//c9V/0TkTPU=;
+	s=k20260515; t=1792597711;
+	bh=AwmKknXz0sTUB/m7/9PpaJdB0upPssE7OtCOik2zB64=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=T8j/ZQWP35t6CWWwz6xqZ36zrf8O9sUDgT9r2Ow2WgV0qsNIHzeoiWT/HuO/xDCHo
-	 yshmWXo5kBHmV2TCeeFy2Wpv4ktRa2Ql1W1HIxC+WprimjCPoUJe2YuTwbCzozzUly
-	 gaxiqnvnTNpsGeGUrr++lfVXyA9OzWVGp/PCF6rrfw3iKUJa67S3JnTvTP/yVqzP6i
-	 Fi5ckSglWfITjElJOk7jrSsulcd5krYk+FM3jBceNWPTpt1gvvFYTj3RDZtkUaeIQ5
-	 1bwjck9c2lvEYT5vrpOMiAZtAuymKj3zwY4WzW5fefaYyQtDA2EEa3Jqgd9sxNoELJ
-	 S/bnljsqtvPEg==
+	b=Quh14boO9gXuqF7GSl5m7Z8dn1kBV286tHhpMuU5RzZV4PFB7pDGSO9ixTZ4nlzWv
+	 E9NuYwB4FqVtimmYZZX0o3wYAD/S3Pdsc+ANfGbbj1GQZ+kRnx5AYjEsksPgLPpmTp
+	 W3vY6K2pcYHzltPbpYyk28MM8vsaFUaGudWgHOUsqInGY6ZWP36pb6Zhn548USbTFZ
+	 ZMMp5/bxmJkQMD1/w1TbErKjfA/FYgYRs4IGXZ/WGQ5T4tgSYvFI7OuE61zQfpbjy7
+	 +PJAa9QAwDDvOI5lJjqqt6Uvj/ZnNK/rtvcdqkgmRsKHut8QyRz8j0FqCruu4WtYYk
+	 jcjYGSfbjIIJw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Aviv Vaknin <vaknins33@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Bradley Morgan <brads@mainlining.org>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+Cc: Jann Horn <jannh@google.com>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] pid_namespace: make zap_pid_ns_processes() freezable
-Date: Wed, 21 Oct 2026 11:48:17 -0400
-Message-ID: <20261021154744.363841-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y] futex: Fix mm reuse handling for FUT_OFF_MMSHARED
+Date: Wed, 21 Oct 2026 11:48:29 -0400
+Message-ID: <20261021154743.296641-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261021154744.363841-1-sashal@kernel.org>
-References: <2026102100-lifter-velcro-2a2c@gregkh>
- <20261021154744.363841-1-sashal@kernel.org>
+In-Reply-To: <2026102123-unrated-shading-f030@gregkh>
+References: <2026102123-unrated-shading-f030@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,74 +61,240 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Aviv Vaknin <vaknins33@gmail.com>
+From: Jann Horn <jannh@google.com>
 
-[ Upstream commit 81933038f5e273d17ed22792f906889393b204c5 ]
+[ Upstream commit 3267512ad1c2cc0c7768c5b014dc2cceb398a801 ]
 
-When the init of a pid namespace exits, zap_pid_ns_processes() waits
-until all other pids in the namespace are freed. A tracer outside the
-namespace that does not reap its traced zombies keeps those pids
-allocated, so this wait has no upper bound, and while it lasts every
-suspend attempt fails:
+A FUT_OFF_MMSHARED futex is a shared futex that refers to an MM.
+It is possible for a process to wait on a shared futex with a different MM
+because a FUT_OFF_INODE waiter can be requeued onto a FUT_OFF_MMSHARED
+futex by another process.
+This can cause FUT_OFF_MMSHARED waiters on a freed MM to consume
+wakeups intended for a newly allocated MM at the same address.
 
-  Freezing user space processes failed after 20.006 seconds (2 tasks refusing to freeze, wq_busy=0):
+Fix it by keying FUT_OFF_MMSHARED using a unique 64-bit per-MM ID.
+Leave private futexes as before to avoid influencing the performance of the
+hotpath.
 
-Neither wait is freezable. The first loop sleeps in do_wait(), which
-returns -ERESTARTSYS on the freezer's fake signal; the loop then clears
-TIF_SIGPENDING and waits again without ever freezing. The final loop
-sleeps in TASK_INTERRUPTIBLE, and since nothing clears TIF_SIGPENDING
-there, schedule() returns immediately after the first freeze attempt
-and the task spins until the wait ends.
+(Multi-threaded processes typically implicitly use FUT_OFF_MMSHARED by
+setting clear_child_tid such that it points into anonymous memory, which
+causes mm_release() in a multi-threaded mm to perform FUTEX_WAKE.)
 
-Sleep in TASK_INTERRUPTIBLE | TASK_FREEZABLE in do_wait(), so that the
-freezer can freeze tasks waiting there directly, and in TASK_IDLE |
-TASK_FREEZABLE in the final loop, like coredump_task_exit() does.
-
-This was hit with Chromium-based browsers: crashpad ptrace-attaches the
-threads of a crashed renderer, which is a pid namespace init, and does
-not reap those killed during the dump.
-
-Fixes: 3eb07c8c8adb ("pid namespaces: destroy pid namespace on init's death")
-Fixes: b9a985db9896 ("pid_ns: Sleep in TASK_INTERRUPTIBLE in zap_pid_ns_processes")
-Cc: stable@vger.kernel.org # 6.1+
-Suggested-by: Oleg Nesterov <oleg@redhat.com>
-Signed-off-by: Aviv Vaknin <vaknins33@gmail.com>
-Link: https://patch.msgid.link/20261002202820.3433318-1-vaknins33@gmail.com
-Acked-by: Oleg Nesterov <oleg@redhat.com>
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Fixes: 222993395ed3 ("futex: Remove pointless mmgrap() + mmdrop()")
+Closes: https://lore.kernel.org/r/CAG48ez0dLBpc3QtbAhMMVNHwHL94iHh2G+h-=BVFR4dDuzZr1g@mail.gmail.com/
+Signed-off-by: Jann Horn <jannh@google.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Link: https://patch.msgid.link/20260929-futex-mmshared-fix-v1-1-262b1ffeb3d0@google.com
+Cc: stable@vger.kernel.org
+[ sashal: adapted mm->futex.unique_id access to mm->futex_unique_id because struct futex_mm_data is absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/exit.c          | 2 +-
- kernel/pid_namespace.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ include/linux/futex.h    | 18 ++++++----
+ include/linux/mm_types.h |  3 ++
+ kernel/futex/core.c      | 75 ++++++++++++++++++++++------------------
+ 3 files changed, 56 insertions(+), 40 deletions(-)
 
-diff --git a/kernel/exit.c b/kernel/exit.c
-index d4addbc7aff20..b3cfeba72dc02 100644
---- a/kernel/exit.c
-+++ b/kernel/exit.c
-@@ -1646,7 +1646,7 @@ static long do_wait(struct wait_opts *wo)
- 	add_wait_queue(&current->signal->wait_chldexit, &wo->child_wait);
+diff --git a/include/linux/futex.h b/include/linux/futex.h
+index e93f2be22779f..01febbc9ef1ee 100644
+--- a/include/linux/futex.h
++++ b/include/linux/futex.h
+@@ -23,28 +23,32 @@ struct task_struct;
+  *  01 : Shared futex (PTHREAD_PROCESS_SHARED)
+  *	mapped on a file (reference on the underlying inode)
+  *  10 : Shared futex (PTHREAD_PROCESS_SHARED)
+- *       (but private mapping on an mm, and reference taken on it)
++ *       (but private mapping on an mm)
+ */
  
- 	do {
--		set_current_state(TASK_INTERRUPTIBLE);
-+		set_current_state(TASK_INTERRUPTIBLE | TASK_FREEZABLE);
- 		retval = __do_wait(wo);
- 		if (retval != -ERESTARTSYS)
- 			break;
-diff --git a/kernel/pid_namespace.c b/kernel/pid_namespace.c
-index a575fabf697eb..cd3ee747649db 100644
---- a/kernel/pid_namespace.c
-+++ b/kernel/pid_namespace.c
-@@ -242,7 +242,7 @@ void zap_pid_ns_processes(struct pid_namespace *pid_ns)
- 	 * free_pid() will awaken this task.
- 	 */
+-#define FUT_OFF_INODE    1 /* We set bit 0 if key has a reference on inode */
+-#define FUT_OFF_MMSHARED 2 /* We set bit 1 if key has a reference on mm */
++#define FUT_OFF_INODE    1 /* We set bit 0 if shared key identifies an inode */
++#define FUT_OFF_MMSHARED 2 /* We set bit 1 if shared key identifies an mm */
+ 
+ union futex_key {
++	/* For FUT_OFF_INODE */
+ 	struct {
+ 		u64 i_seq;
+ 		unsigned long pgoff;
+ 		unsigned int offset;
+ 		/* unsigned int node; */
+ 	} shared;
++
++	/* For FUT_OFF_MMSHARED or private */
+ 	struct {
+ 		union {
+-			struct mm_struct *mm;
+-			u64 __tmp;
++			struct mm_struct *mm; /* for private */
++			u64 mm_seq; /* for FUT_OFF_MMSHARED */
+ 		};
+ 		unsigned long address;
+ 		unsigned int offset;
+ 		/* unsigned int node; */
+ 	} private;
++
+ 	struct {
+ 		u64 ptr;
+ 		unsigned long word;
+@@ -83,15 +87,15 @@ long do_futex(u32 __user *uaddr, int op, u32 val, ktime_t *timeout,
+ 	      u32 __user *uaddr2, u32 val2, u32 val3);
+ int futex_hash_prctl(unsigned long arg2, unsigned long arg3, unsigned long arg4);
+ 
++int futex_mm_init(struct mm_struct *mm);
++
+ #ifdef CONFIG_FUTEX_PRIVATE_HASH
+ int futex_hash_allocate_default(void);
+ void futex_hash_free(struct mm_struct *mm);
+-int futex_mm_init(struct mm_struct *mm);
+ 
+ #else /* !CONFIG_FUTEX_PRIVATE_HASH */
+ static inline int futex_hash_allocate_default(void) { return 0; }
+ static inline int futex_hash_free(struct mm_struct *mm) { return 0; }
+-static inline int futex_mm_init(struct mm_struct *mm) { return 0; }
+ #endif /* CONFIG_FUTEX_PRIVATE_HASH */
+ 
+ #else /* !CONFIG_FUTEX */
+diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+index f9c552744b71a..08495d38572f3 100644
+--- a/include/linux/mm_types.h
++++ b/include/linux/mm_types.h
+@@ -1079,6 +1079,9 @@ struct mm_struct {
+ 		 */
+ 		seqcount_t mm_lock_seq;
+ #endif
++#ifdef CONFIG_FUTEX
++		atomic64_t			futex_unique_id;
++#endif
+ #ifdef CONFIG_FUTEX_PRIVATE_HASH
+ 		struct mutex			futex_hash_lock;
+ 		struct futex_private_hash	__rcu *futex_phash;
+diff --git a/kernel/futex/core.c b/kernel/futex/core.c
+index 69f340cddfd1f..e6fbeb2ac1901 100644
+--- a/kernel/futex/core.c
++++ b/kernel/futex/core.c
+@@ -441,45 +441,51 @@ futex_setup_timer(ktime_t *time, struct hrtimer_sleeper *timeout,
+ }
+ 
+ /*
+- * Generate a machine wide unique identifier for this inode.
++ * Generate a machine wide unique identifier for this object (inode or mm).
+  *
+  * This relies on u64 not wrapping in the life-time of the machine; which with
+  * 1ns resolution means almost 585 years.
+- *
+- * This further relies on the fact that a well formed program will not unmap
+- * the file while it has a (shared) futex waiting on it. This mapping will have
+- * a file reference which pins the mount and inode.
+- *
+- * If for some reason an inode gets evicted and read back in again, it will get
+- * a new sequence number and will _NOT_ match, even though it is the exact same
+- * file.
+- *
+- * It is important that futex_match() will never have a false-positive, esp.
+- * for PI futexes that can mess up the state. The above argues that false-negatives
+- * are only possible for malformed programs.
+  */
+-static u64 get_inode_sequence_number(struct inode *inode)
++static u64 get_object_id(atomic64_t *object_seq)
+ {
+-	static atomic64_t i_seq;
++	static atomic64_t last_assigned_seq;
+ 	u64 old;
+ 
+-	/* Does the inode already have a sequence number? */
+-	old = atomic64_read(&inode->i_sequence);
++	/* Does the object already have a sequence number? */
++	old = atomic64_read(object_seq);
+ 	if (likely(old))
+ 		return old;
+ 
  	for (;;) {
--		set_current_state(TASK_INTERRUPTIBLE);
-+		set_current_state(TASK_IDLE | TASK_FREEZABLE);
- 		if (pid_ns->pid_allocated == init_pids)
- 			break;
- 		/*
+-		u64 new = atomic64_inc_return(&i_seq);
++		u64 new = atomic64_inc_return(&last_assigned_seq);
+ 		if (WARN_ON_ONCE(!new))
+ 			continue;
+ 
+ 		old = 0;
+-		if (!atomic64_try_cmpxchg_relaxed(&inode->i_sequence, &old, new))
++		if (!atomic64_try_cmpxchg_relaxed(object_seq, &old, new))
+ 			return old;
+ 		return new;
+ 	}
+ }
+ 
++/*
++ * This relies on the fact that a well formed program will not unmap
++ * the file while it has a (shared) futex waiting on it. This mapping will have
++ * a file reference which pins the mount and inode.
++ *
++ * If for some reason an inode gets evicted and read back in again, it will get
++ * a new sequence number and will _NOT_ match, even though it is the exact same
++ * file.
++ *
++ * It is important that futex_match() will never have a false-positive, esp.
++ * for PI futexes that can mess up the state. The above argues that false-negatives
++ * are only possible for malformed programs.
++ */
++static u64 get_inode_sequence_number(struct inode *inode)
++{
++	return get_object_id(&inode->i_sequence);
++}
++
+ /**
+  * get_futex_key() - Get parameters which are the keys for a futex
+  * @uaddr:	virtual address of the futex
+@@ -685,8 +691,8 @@ int get_futex_key(u32 __user *uaddr, unsigned int flags, union futex_key *key,
+ 			goto out;
+ 		}
+ 
+-		key->both.offset |= FUT_OFF_MMSHARED; /* ref taken on mm */
+-		key->private.mm = mm;
++		key->both.offset |= FUT_OFF_MMSHARED;
++		key->private.mm_seq = get_object_id(&mm->futex_unique_id);
+ 		key->private.address = address;
+ 
+ 	} else {
+@@ -1724,18 +1730,6 @@ static bool futex_ref_is_dead(struct futex_private_hash *fph)
+ 	return atomic_long_read(&mm->futex_atomic) == 0;
+ }
+ 
+-int futex_mm_init(struct mm_struct *mm)
+-{
+-	mutex_init(&mm->futex_hash_lock);
+-	RCU_INIT_POINTER(mm->futex_phash, NULL);
+-	mm->futex_phash_new = NULL;
+-	/* futex-ref */
+-	mm->futex_ref = NULL;
+-	atomic_long_set(&mm->futex_atomic, 0);
+-	mm->futex_batches = get_state_synchronize_rcu();
+-	return 0;
+-}
+-
+ void futex_hash_free(struct mm_struct *mm)
+ {
+ 	struct futex_private_hash *fph;
+@@ -1982,6 +1976,21 @@ static int futex_hash_get_slots(void)
+ 
+ #endif
+ 
++int futex_mm_init(struct mm_struct *mm)
++{
++	atomic64_set(&mm->futex_unique_id, 0);
++#ifdef CONFIG_FUTEX_PRIVATE_HASH
++	mutex_init(&mm->futex_hash_lock);
++	RCU_INIT_POINTER(mm->futex_phash, NULL);
++	mm->futex_phash_new = NULL;
++	/* futex-ref */
++	mm->futex_ref = NULL;
++	atomic_long_set(&mm->futex_atomic, 0);
++	mm->futex_batches = get_state_synchronize_rcu();
++#endif
++	return 0;
++}
++
+ int futex_hash_prctl(unsigned long arg2, unsigned long arg3, unsigned long arg4)
+ {
+ 	unsigned int flags = FH_CUSTOM;
 -- 
 2.53.0
 
