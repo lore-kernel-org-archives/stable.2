@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594176;
-	b=bf4hjaT/tR1BxUgVsLRaeJRo7jGrOOoodS2E+csmeE43vqsPueAMHtVcuMHBqiJDL7D0
-	 Fjn2IaxgvjfEIXuXh72pAUmn3oRHCzEKwgjNJwgMG7A2l3tCW9jOKfmIQS4O17Q86kXlO
-	 sePKgnv2IWIze9AdTdyi02fK6bnVqHYcLZ/H/89k3NmGDe/YomEhrX5WfsxHHojn+wc3y
-	 WsHBv5XnbQAMV9RfqHzP76G/r3zJfd5PscvViHd63qQmgq1YxNXYDLwS6joV0Bh8llFCU
-	 79igpv8T7bke4hB9JwYrC3g1Mekr5J2Vo+2wVl5IPqzy0W2XYvmOrASHKuhGZw/JQgg==
+	t=1792594179;
+	b=H79ZfgrXD9e0PqPQPbDsg9SdHf6mXAyzFT1BiSih5Jx5XwEB5NEB2ICHT2Xa965qYXe1
+	 ST0go74pt06iZMVijQPztlMSn0glm43tpBUxMRvf8tyMlaw8zQudCArfNKByyWOh5v587
+	 n2rKCrBOeDEDH34GA+wna80SRpCjLYcT5e8kaARimlg5YOxvYdbQ0KFeZCeWRBTqSDy7d
+	 VAdjED937uNxE5B7wu6OZaXsHkNw+kddKHvkpzv7gFcGWwO2ng1+C7flYyVfCa5ZNJDWv
+	 N0Z/3NU3+qZyXB0lZiMYAu6GkuScvgQOiYyco7eSwjekteNGfriZHwnTaImIqR4pB6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594176;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594179;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=SKHUL88pAyY/T/uPqsjVKV6rUhXwK/fqzjGrEWnGpZw=;
-	b=z8WhJguD7thpW3cRd1o0DEYqYvudl0fkNcJdJc1ZjchrG5Upmumg/QGYyITs0Xj9YTi2
-	 TG1gjzJxhKuq/5yNv3MxvAqQotp/d8ySv+9tJWOKO6xvBu/K2Vf8wi+YQaYiBzFjHiFwI
-	 yo6gkl4vBbRPSxIvcpnN7ESGphTio8dbYNJmLI79p7Ywr7DZEn/uxBRVrryuQnckB4pKX
-	 mkAjYec1wr7AfCMj/uZMAAV6sjEGNZI3sPffW2sUiAak6QgG7un60P/JlUFWy6qheOV8f
-	 2DRT6NCSFB44PjqSExVAQnGQSNG/bJTcYS6hDyWhDkc9COup5N6uYtUWcomrmWNb1aQ==
+	bh=PlX6Mzg+s6aBOAa3enylLj0S3+jwKSK/p1uCFKeLQCo=;
+	b=yJI8yji7LGiWGQJA5sUXCiRBNPMQCiXYl1AX8g/peNPa3YoMi5vE+MyV3tLmP42fmWRm
+	 z4JtTD/vpG6eNdIOKBGzOhFU0DALQEOEyaeEoDY2PJatFF429kO4SN4mZTzqeBCT25Zy8
+	 Nr/y9gh1pGZxBW+17AGrLU6mmLrm+jlOD4yoWJV4D9j/yzTSPf+BkUmBLP9jAysv7rTU1
+	 FWa37ihGjPWSI9jtGNzTf7WUJGqzHUcl2aqL0A6QB0V1BYTTVQEMussmU0AhIhEgviGHt
+	 rlaT/xutDRb18VGWXK/5jEWf4SaYiZHZKBkGCs6KqbJ5PgUUmseGwgqBfFqAAh/MbIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jqmLh9tN;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Dsaoo4vm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 174C1606A335
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:49:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D035606A31F
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:49:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jqmLh9tN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 231F21F000C1;
-	Wed, 21 Oct 2026 14:49:34 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Dsaoo4vm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26A191F000C1;
+	Wed, 21 Oct 2026 14:49:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594175;
-	bh=SKHUL88pAyY/T/uPqsjVKV6rUhXwK/fqzjGrEWnGpZw=;
+	s=korg; t=1792594178;
+	bh=PlX6Mzg+s6aBOAa3enylLj0S3+jwKSK/p1uCFKeLQCo=;
 	h=Subject:To:Cc:From:Date;
-	b=jqmLh9tNI8eYKo5Jn5P5LzF64nCPCSPMWfCOo/lMJAuARcj//L/Yz6gbBXp45zXL5
-	 tDJPrXZ0rBuCoH2Vw2YjmWnPvTkd1kekF8OIQD6tSC3K2LA0e/SQevOxWwIPLElrDj
-	 hZtOvnX8UQeBZSIQU2Z6umb2WxVzHU2DJrgxNvkY=
-Subject: FAILED: patch "[PATCH] ntfs3: free the sbi after a grace period" failed to apply to 6.6-stable tree
+	b=Dsaoo4vmgPzZeiQN1XofeamLq4uauFodyoXkw9y3JetXwsIREUzyRzfBkoLS6zUJG
+	 vp66JgOel1pSTYTCuDGfWx/Qa6IVqTv3t952AJ5jOYtJVdyXdChHJzW2t6urTH8afN
+	 q6jHhGGxxHP7uxoCc+/qEhJlpafrxkuN5/lv5xnc=
+Subject: FAILED: patch "[PATCH] ntfs3: free the sbi after a grace period" failed to apply to 6.12-stable tree
 To: brauner@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 21 Oct 2026 16:38:58 +0200
-Message-ID: <2026102158-strife-renewable-5171@gregkh>
+Message-ID: <2026102158-quantum-annex-72cd@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x c01b091b06412d3b1b53d8c2925f6de586c8a2fc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102158-strife-renewable-5171@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102158-quantum-annex-72cd@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
