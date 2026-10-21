@@ -1,121 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792567803;
-	b=FhcpvfVX+WZwJLI+cRxBBSaGTElujB3dVZaRnuyIhRihQ/QQQ8sMF8A5F6FBSYZdNXni
-	 BBmVOfoKQB4CIP6xkdlSJocQcRujNN51tY8quDSgyl0Fw9qZgqR7BA+cyLNY67qKmIVCF
-	 NYsHZUdfPr7cEP9po2FcOidYJyGp5gahc5ng5crZdcAeCd5IAXcHXoAieFBD0wCvUejmM
-	 4SdZ4/F9MKWgj9L76sLY/hLIPYhCISt9Pxy335E7iRRyTFnfHLeIcbLB0TPM8k9Gh/phv
-	 tYTM6fdyegIBvkoiVrCIjXF7X1yJXnvsyv3zeTUG8rzEZ/nBCzWq9pBMgBEGximrp5g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792567803;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ruNbPegljZ2HSbDe2VgJL7losQAaVxHulyE93NG9OdQ=;
-	b=HDDOEgAneEVrfbTWt34Hf00ZrZC6UFOnnRizO0jA+FgqpLg/jrQgCWD3QY7SzqXe5X8V
-	 hEQE2rVUkyRmnB/boGa+3hZt71chkWT8JYGYHHl/udSc37Ze6WDEIvqRaDX3eVQWhdE+T
-	 Q5rheUqdOyDJ5vof2HL/yUVDBzjVSBOJzTKCX2yy+25bgQf72CxIVdOt3idJdmnAntnZK
-	 Kwzn+sg2dQUyDcYGbdwa5TMbRPD4NuuVvsdYkVzMedRLZXbnfVb+WsvJAJooZhSnoSWzf
-	 SDs47Vbp3umJhadBzzee/D8BlXCYCH+IQXK9ckAMvfBxBs+rLDCdNcV5CZruB6EC57Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MEo0p6wi;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=iPKj99OK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792568010;
+	b=odi/7EoIy5fwysP6STtj6/N7C6jhoIqCzAwysHDkJjJ0tWfm93uCqNShEAkUlLvOeA3L
+	 0j6CsGV6yDgCL0Nw2sOAwikStzXHl/9hA4tn43tCtyfIszpP6XAYfBb9TAhuVWJAcXzn5
+	 z1muJstObzpxobLfzCEqMJcyn7ZmhRqLx+GDDU+55SXzsLeN4dKciPF2RL8xKO0W+vZZD
+	 iJsM+wU107+xb7+no5xfs2ktW35mCAC2HlJpp8NAHKyirED4hbV4rsOwN/VrQEkgEwSq3
+	 X55dBSjS1xSJDhKM6U+ne/OpFoUB0FfwmSecAUaXuPLJV3p7jWeGsLcWKN7mtPLjD4g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792568010;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
+	 Mime-Version:Content-Type:Content-Transfer-Encoding;
+	bh=uVzGXGFEaDe1Jv5P3wq/EEUrc9Mo9DIHRPQwOT1ZGe8=;
+	b=y9nO3QJnplabp+ddRUvq3B6Ks+lMGouE2/j95PZtEZmPGOq8dAbLHx45wNjjFyrkQKQs
+	 OUpWKvOSBHd0/KX8mTBimrQ+pal9bfY9shfp97Ay5lX0q/VUX+VodwLYwxQMVspD1xVMx
+	 ABY9vAf9sttVjIrQ7SJjv/xcDGKOqRs1noho5XMvBl9nHHrCmThjPHNx4R1Bg5hZkh7++
+	 YiDj6da/lKkGpkFe5AJ38hXKocTL7m9cqXyLYPJQ17uUaSTC0R/jqviY2aWe8bYjByZ4w
+	 8raZLliDGTeNVs0RqOW1K4/TkxpY/N/9Q71otjaovexSwD7NxyeoNmD8r9uFaTJdb8A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=flapping.org;
+	spf=pass smtp.mailfrom=flapping.org;
+	dkim=pass header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=H2CZAlNU;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=MeoTVJvo;
+	arc=none smtp.remote-ip=103.168.172.144
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F84606A31F
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 07:30:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82F84606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9377606A31B
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 07:33:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9377606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MEo0p6wi;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=iPKj99OK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792567801;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ruNbPegljZ2HSbDe2VgJL7losQAaVxHulyE93NG9OdQ=;
-	b=MEo0p6wiV0/R/3nHv0Agn6BGUrhqJa+uywYRPZFlq/M0cClJEonQ+FFpq6WLkNWGVgpWdb
-	S2FnjkfHj2uAcqsUlCXxqr7bIOLV9xlDVAnLeP6MuVE4dGRbuB6elm8N5ogmYrALCYSi0o
-	ucKS4A/+IfSTynEDj0VRe5X2a+ffBpc=
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
- [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-53-OL4lyizbMNKeTXOqaGn3QA-1; Wed, 21 Oct 2026 03:29:59 -0400
-X-MC-Unique: OL4lyizbMNKeTXOqaGn3QA-1
-X-Mimecast-MFC-AGG-ID: OL4lyizbMNKeTXOqaGn3QA_1792567799
-Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-8b0da010661so7201717b3.3
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 00:29:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792567799; cv=none;
-        d=google.com; s=arc-20260327;
-        b=P8yNrFOQXbCzSCbF3qZqrF53d4Oi1PJjGTvfBCwbJ1XlZkCMyXKhHXRkow/+lPryio
-         p/dFv/n6NbTbQeGpavI0apbM98FjuB0ze60m+Td5n4RMnmtw1b8PZw4akwPSbL3ODeOg
-         VsgJ8Biw+wMsGEEBHFImI+JoyUfbeyukrb13xk9LnuCjOf4OzEnoVh+2m6TBIO9tD4Dv
-         4BQcynXGtEJ12f3Q+OtDxaDNuYrId4NlyI7dGo0pK8NZuVxReL9Q7+TxAJWNUXyhRB/1
-         6hGDB6ykkgw4J56uQlloIT83mL/O+bPR//X+BKu5X+KUDElay2ek/ZsqNkNq/r6aoDBI
-         AtAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ruNbPegljZ2HSbDe2VgJL7losQAaVxHulyE93NG9OdQ=;
-        fh=2/j14M38+KcCJe91lubnoHoQjywibBGTgGoSGVjxc4Q=;
-        b=US2pUiBkyenKcD2QoloK7md1BYSDrfW3yGWxQpLN194rR/hXchjZ+H3D9VCAKU4B6k
-         cQGpCAYy9RKaZXoL+W6BqGpo9Kbs3E6Y2L+ci28eWBVutGFQ28d8hlsGXI297zS2q/ff
-         oMWPd6lYg32p54enOeM+SqakeXnn6YJyBsjPxKhmJqBuiRgDuhAgidUihRoNkbPPPPGp
-         cH80FNEJFOsQsCUY6w3nh/hn5+xRDIcMA9LV0x0xDLlMYnF8ei9yyC36z3ZGgWzfi+6i
-         aCFru57CadnJDN8zxnD/KBabXM+qWL7W/11IWnvWBwzDynACE605Rlr9U8TT9JT6nrQi
-         S1Fw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792567799; x=1793172599; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ruNbPegljZ2HSbDe2VgJL7losQAaVxHulyE93NG9OdQ=;
-        b=iPKj99OKCYBLxKoFRZQf2Hg6XfmZny80yGZlMAmrHp5kx5XGo0TgWwOm1D8U1+QkFs
-         UERYQore2pDeV1iNLK/bRlznsPf785W4T+NrHK/BAf18mYAiDfpZM/nVmxT27tawAbFd
-         XsQVcFDBnTpT0wR8MAtQ9B/oS0eK085+i7rMB0YbRIyFnv7lD6qH+ZNDHWZeuKxmXnri
-         EboiCCaMxHi9C1T91+RZpQUHX2EfDuCBuWDo7KFZ7OLZdbcK5IpbHsC4PpR5r5GXnYzx
-         rT1z5IzF+foNu4wQnWwAjH9ek8D/VK41l8kXhSuAsNfYzEv/SS3IVpywD7hRuiA9z/rL
-         AJIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792567799; x=1793172599;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ruNbPegljZ2HSbDe2VgJL7losQAaVxHulyE93NG9OdQ=;
-        b=bGVwwCaWIU06p96QAmsOg6DWczytimd0M8zoTw2Al17oGA6oufx5/Lo7wlnFRMTasE
-         rBAC/Svx9HN/Kmq9KmuNr3W4HzMbyodM6NYx+ExezfQfWxhQWiFxp5h/dKOfkEBLzQdD
-         bCBNbf51Lm9W08QGZDXGcfe0ejwnOX+4dW8lhiJ12L9vokjYXH68FJRtRsVX37hb4jHq
-         qDZGYie0e0fTM0AKbAY5Ad8BuObiwYGHTqobncXoWxJzPcyQ8rDbqkNIEnFfqHPR0YYb
-         vs1zIvDV91FjJ3N4NUXpMWH66MFjSnt/RT3QB/p5KOIDgtKplrx9QnP5gRomhpUiW0hw
-         66VQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx2AW4kOW3Y/XSM5E6SS4UKDT82UtGmRHgsvd0xz/pKTfXtmRjzZ77K6ba04wVqJH+5llPu+UI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK1L1RHb+uByFt7tRb+Akce2Cxp0IrUhvx/kB6qJ9iT+Ysg4zeq
-	FIHEPlxXo+qAEGNyC7Y29ezLq2t5hII+OtOf9bq0RqBRqzOk2Mzqw+8WDsKnWBdYHaZJoCZwnhf
-	1vq9ItKDRcb7IYkl2shrwhn4CNhUTNZQdZ4lomoGx7XVvs2Z2oLYU1+2G1xZLBdlzDhbXyOjBEM
-	QKFV6UjATF/KrmNA7J0dJ+Fr/iPk0/ngZ5
-X-Gm-Gg: AYBFou2lCqoKruSMRdntX50qeSH8kI5Dk4Z+EHBuXhRJ35M57dRQCBuYu2XSnMeVL9u
-	qxDHySFHJ80T4PiU7Mci4aJA2UWYkpfOtHoYlzMeX8Jm5qVsmWaJTc+ENmCdYVXBXeOb4g9UMwC
-	8IseiksJ2H4OADhlDyd8rMUY0Ml13HzNRq6n91id/OBVr76zk4MgozHXyvPwIMH2oWwgo6DyExL
-	8iV4IjcTUOFItrGBqf4jfBXzj+XBq0eAhybzVpos/gxpnh8p2GH9QNEoRk=
-X-Received: by 2002:a05:690c:a909:10b0:8b0:e238:2719 with SMTP id 00721157ae682-8b133fff1d6mr5006447b3.31.1792567798949;
-        Wed, 21 Oct 2026 00:29:58 -0700 (PDT)
-X-Received: by 2002:a05:690c:a909:10b0:8b0:e238:2719 with SMTP id
- 00721157ae682-8b133fff1d6mr5006297b3.31.1792567798485; Wed, 21 Oct 2026
- 00:29:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=H2CZAlNU;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=MeoTVJvo
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.phl.internal (Postfix) with ESMTP id 58B6AEC01C0
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 03:33:29 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Wed, 21 Oct 2026 03:33:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792568008;
+	 x=1792654408; bh=uVzGXGFEaDe1Jv5P3wq/EEUrc9Mo9DIHRPQwOT1ZGe8=; b=
+	H2CZAlNU4dJN4nZ+deU/xL+rLNt40eM9yOaxC7LoCAEUdPRkldX21YR12nJ+XUr8
+	3DMKxEi7kNuDzLriFSZllXka9gGUOjbF/jobdAoHm1X8y+yeb6WCv50xto8eOuZq
+	MfRiuA3eyOYVMdHsLTMYmvnJ66WUswmi7bLyWgPKNEnb9Wq4TLC4dRjYCshqRx2T
+	eESh/Q+eU4B0ZLGXNhO81jgV31NxsmIJHlyYMZj5WetcngX+m3LLcJvwkpGwG5pR
+	y9B+72ASE8sdAzEUhE73wxnqvYK+jr3A3VrYgZUdy5nshO0sqW/Toaop8UHw6Qg8
+	aMyT9DiUNpNaCs4GWwxFVw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792568008; x=
+	1792654408; bh=uVzGXGFEaDe1Jv5P3wq/EEUrc9Mo9DIHRPQwOT1ZGe8=; b=M
+	eoTVJvoMSmfhJTi68FsgDFtBIPRrDKDuWAX3leqxy4fMbvGClEdkC7RBvOvqWkur
+	ca9rkNDo8bEsfq4uIlhNoSzxDX8/4LQXzdSJSPavLatUAeGNiA2cdW4EmTu+oD/u
+	6KI98tIHVnATZaQP2KZI3vutc242IoCPYfAlsJqxbbZZFOhigAvFzp28cdlQDTFg
+	C2Enm1Qv2qBKQYjoDfE2xh+l3TeMJqfMdNHocQHAe0cuIGOZAfTon+kcFBqDxx30
+	Cz4ssk+s8DHvy41TQVAZ+GGVr/W1DxPpZbTT24YMU+MpFGci2MWRplgXh1YzzmCG
+	nk9zGAmocLUsb22FfDzcQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=flapping.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792568008; d=flapping.org;
+	mf=PHRvbW9AZmxhcHBpbmcub3JnPg==;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:rmJIIDJ3z5aTBMKM1tE5EYmn0qbYJssRXdBRDdZ1p5gY8aH
+	hqzbuKVm5TJ7YQQBOSPajrzcSpww5a1GDo58Psewx5G3C6Majw2XW0b19R9Dze8H
+	Hkq9M5IJg5sJgozs/KpPgPLdUJmzerTW/Z/OwDKJCVzkqM5fVRUM23rInmU5mMTB
+	KpnrGixJN63cmUfglAs7ciqB1Zy4VxBhFhrpy09IZCvpm7PuVlqtEfcagz50McSs
+	3geaONeWwLYdjIZwViuoiImy/UbX42cjfSTguMv14K4HKzy7QM4mHfBfQqIn2Etr
+	feKJwVSnSrcyo0HbK1cr5UYh2XGIX/jaVC9ys0g==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:sE7oviaG2W9U03+NUO1ZCJgJ5kzaLF7Ubos/2J9o5AA=:aIxrJQw6byJSSpI7JG68txUCarZU1Hc6/3WckQFzdGc=;
+X-ME-Sender: <xms:yGrYage2hmGQ4G-an03e3gvYKy9AfCVIu5WbSu0gTLw7ukE9GiJlpw>
+    <xme:yGrYavoQNMHup-ZRl0i_Nl0LAvFFiFvkYwozl80MotUsNYVH-5k_n5kCV4GuQ7d8F
+    O0LUeEx8lkQjZGcPXqJsO-AHFAVnYdpzayerwV8aW0fnYYzh5cnpTLV>
+X-ME-Received: <xmr:yGrYaheSNJsJEpEBKQlG7lWCRiv2OjR01-BfOSJMuNPeH8wVnCOrjIc72gWJKvsQEQnMyyuaPZwA1I7_D1oGe_ij>
+X-ME-Proxy-Cause: dmFkZTGpVTHn+SydJJT+VRdoTPrvGprGGVNIRF+afNyksTljI/Xz7ouNtYDX7THXy9XbOF
+    JGB8Rol1p2S2ksGNH3skRUpPGxxs44MvhLa+/OyhtEeBcu5j5bRa+cVNNtZz5jmWl58RGz
+    hfJCyX8x7mn1S9MXhKBvzTZYRkP7Tq+4cVthmDwsOA5BzUbNhG9TVk84hAQDq3xMKEd1Rf
+    xm3XJuochdBuUcTdvClfqF/K49B3YJJ5o1n6zBZIgTW6o1rpwa9XaDDihmK9mmzsnGBq4m
+    tqxXHJ29g24JySuuiiOVHgUwmIWcZRskKzfvX47BXmuutqmStjXWTN8t/v1IDQT5Gr5yBv
+    IbbsOlJZ4cbWNBjVCOYa1qAbVz4TRJRd3tPVKSh7vQTQ916/jf581kV3OzXBS1UtYN0Aap
+    RdA0ire71HaAkF1igf2U1BQIofJGw70oV80d3UsrfsybdWclUIvSlSdC76TlEwAFdTwTcm
+    nJdmIfCaKGyxk+4T54+lF61F8D7qr+bzlmCPmofv1GV02iYrwL9kS1bW6oPWHIqRe3Um5Q
+    Up2W57m5l4QTBw2nGif0a54AZyK7y8GFHgcFhs1L4bRLnLabHmGJhBKvxdqOdWLUjCQKYa
+    rLM/9v4esMOAr+GS4xFx3wpGQrYwRarizTc81eNig2hL7ld/CJEnYAFryA1g
+X-ME-Proxy: <xmx:yGrYanl2G1ptoFiX593oJTYOnLd7XEq2CDDYMCNjN8FSiVaizO4xpw>
+    <xmx:yGrYast_clruEqrFMBFv3KJvIVdxfpcX74yWbqGKyQhMhRj2RqP2UQ>
+    <xmx:yGrYaiz9EiwnTP6rDnWon3ax5og12YoCNZcX8NwRtdAThlcDx211hA>
+    <xmx:yGrYavy87Klf-1Zw4c4YKRU77MsPTmBuaUfGAni7lPyQxLVYhUun-Q>
+    <xmx:yGrYalNcEYcYdl00-2zGjMBALGGtnnZ0_Yws_plbzRuYV_smyg9KPS5R>
+Feedback-ID: i51fe4b43:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 21 Oct 2026 03:33:22 -0400 (EDT)
+Date: Wed, 21 Oct 2026 16:33:20 +0900 (JST)
+Message-Id: <20261021.163320.943019405320974844.tomo@flapping.org>
+To: chenhan0017.work@gmail.com
+Cc: rust-for-linux@vger.kernel.org, a.hindborg@kernel.org,
+ boqun@kernel.org, fujita.tomonori@gmail.com, frederic@kernel.org,
+ lyude@redhat.com, tglx@kernel.org, anna-maria@linutronix.de,
+ jstultz@google.com, sboyd@kernel.org, ojeda@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, aliceryhl@google.com,
+ tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com,
+ tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev,
+ miguel.ojeda.sandonis@gmail.com, tomo@flapping.org,
+ georgeandrout13@gmail.com, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] rust: time: rename the rem_nanos() divisor
+From: FUJITA Tomonori <tomo@flapping.org>
+In-Reply-To: <20261017111134.22546-2-chenhan0017.work@gmail.com>
+References: <20261017111134.22546-1-chenhan0017.work@gmail.com>
+	<20261017111134.22546-2-chenhan0017.work@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -124,90 +132,23 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261020232956.99970-1-fangxy@xiaopeng.com>
-In-Reply-To: <20261020232956.99970-1-fangxy@xiaopeng.com>
-From: Eugenio Perez Martin <eperezma@redhat.com>
-Date: Wed, 21 Oct 2026 09:29:21 +0200
-X-Gm-Features: AclHuK-PqFWCN8ST8zFxglfpmVJtYh8ceAExLMaLATIvJ8UfZfghlr_8jg8ahUM
-Message-ID: <CAJaqyWdoQXHiWEh6aCGt7T+U4U4S8Z79hhp5=QYzzkODeDVyOw@mail.gmail.com>
-Subject: Re: [PATCH] vhost: fix used ring index wrap in vhost_add_used_n_in_order
-To: Fang Xieyan <fangxy@xiaopeng.com>
-Cc: "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@redhat.com>, 
-	virtualization@lists.linux.dev, kvm@vger.kernel.org, netdev@vger.kernel.org, 
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Weibin Liu <liuwb@xiaopeng.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 21, 2026 at 1:30=E2=80=AFAM Fang Xieyan <fangxy@xiaopeng.com> w=
-rote:
->
-> vhost_add_used_n_in_order() advances start by nheads[i] but wraps it
-> with a single subtraction.  If start + nheads[i] >=3D 2 * vq->num, start
-> can remain outside the ring.
->
-> With used-ring logging enabled, start > vq->num makes (vq->num - start)
-> underflow.  log_write() then sets bits beyond the dirty-log bitmap,
-> potentially corrupting adjacent userspace memory.  This is reachable on
-> the vhost-net TX path with VIRTIO_F_IN_ORDER: done_idx can reach
-> VHOST_NET_BATCH (64), triggering the issue with a 32-entry ring.
->
-> Wrap start with a mask to keep it within the ring.  VHOST_SET_VRING_NUM
-> enforces a nonzero power-of-two ring size, allowing start to be wrapped
-> using & (vq->num - 1).
->
-> Fixes: 67a873df0c41 ("vhost: basic in order support")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
-> Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
-> ---
-> Reproducer (verified on a kernel containing commit 67a873df0c41 with a
-> temporary WARN_ON_ONCE probe in log_used(); the probe is not part of
-> this patch):
->
-> With VIRTIO_F_IN_ORDER, num=3D32, and used-ring dirty logging enabled, th=
-e
-> TX batch reaches done_idx=3D64.
+On Sat, 17 Oct 2026 19:11:32 +0800
+chenhan <chenhan0017.work@gmail.com> wrote:
 
-Can you send the reproducer? I'm very curious about how vhost_net
-reaches to done_idx=3D64. It seems some bound needs to be added there
-too, isn't it?
+> The argument to rem_nanos() is the divisor, while self holds the
+> dividend. Rename the argument and correct the documentation. Drop the
+> architecture-specific implementation explanation from the public API
+> documentation; the argument type already states the divisor's width.
+> 
+> This does not change the function's type or behavior. It is a preparation
+> for documenting and checking the invalid divisors in the next patch.
+> 
+> Cc: stable@vger.kernel.org # prerequisite for the Delta division/remainder fix
+> Assisted-by: LLM
+> Signed-off-by: chenhan <chenhan0017.work@gmail.com>
 
-The patch itself looks good to me, even if we will need to modify it
-for packed vqs, so
-
-Acked-by: Eugenio P=C3=A9rez <eperezma@redhat.com>
-
->  In the observed run, the initial index is
-> 3, so the single subtraction leaves start=3D35.  The resulting length
-> calculation wraps to 34359738344 bytes, as confirmed by the log_used()
-> probe.
->
-> A 64-byte canary immediately after the 512-byte log bitmap changes from
-> 0xA5 to 0xFF, confirming the out-of-bounds write.  The used-ring canary
-> remains intact because vhost_put_used() runs before start is advanced;
-> the demonstrated corruption is in the dirty-log bitmap.
->
->  drivers/vhost/vhost.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->
-> diff --git a/drivers/vhost/vhost.c b/drivers/vhost/vhost.c
-> index 44cac11b68d2..0226c4c59709 100644
-> --- a/drivers/vhost/vhost.c
-> +++ b/drivers/vhost/vhost.c
-> @@ -3172,8 +3172,7 @@ static int vhost_add_used_n_in_order(struct vhost_v=
-irtqueue *vq,
->                 }
->                 start +=3D nheads[i];
->                 new +=3D nheads[i];
-> -               if (start >=3D vq->num)
-> -                       start -=3D vq->num;
-> +               start &=3D vq->num - 1;
->         }
->
->         if (unlikely(vq->log_used)) {
-> --
-> 2.50.1
->
-
+Reviewed-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
