@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594264;
-	b=m1YqNSgStLb0Rl9Nq7PUOdCyISqekbf27hw5By+LfmuzyYDz4EhQJ94WncIhWWpjLgJx
-	 ECBCYE6kAFdLj6YuMBTMb6ycBJRNH/xxQK9BJvjqnkoMClSuJsrV/c4+5D9kliiClnvSO
-	 OTWSVkFjJF1mjvNp6pIv1lASMbzDNggNocojcl3jHucGagBuFBfif/7HqsYsTiD56aoPg
-	 wxOvBQWp0W3dqe2AuylhOAigCqnQ+gp4atznBzu9PsOdb1wkZ4D0WRyH79FCao6QOc+eX
-	 AFWw/4ji+xZT/8ArJ7sUEev5ZYSfBICWmpINXCSi2N4aB2z1Bgyp/iNGabVMaJ58+PA==
+	t=1792594267;
+	b=CI8XQgfZiDjhC6tfGkzioGEVK+hqjx5ijKdmpn/s1/XHivXnsc27ksLcAw7Nw4tRCDRO
+	 g758Rr/fAanx7ar3BUFdWKuyRyekyot0g4CHWYgyw+AizcvxvFfgNlBXMZKONLW0MNwSh
+	 lwDQabBkvkVWWstjUhszsw2ZXsUjrHUt41jaKJ3ai5/+pedA5gbvXG279OTBN7omD6Q94
+	 48oI60dRZ8Utp4+LWKloXG8U1G9ejEdGGAnJ4ME4nMNqLW3jd9ZGTlmamd9QhB8RIGl0+
+	 jyHmQbqXHyLof5RX/niO5M36AB7J+bhyYQH2FJJ3G7VqMyTTVhBRywhdHPL00yxZhLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594264;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594267;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2yzQBF07UE1+yHA2scGWGmpqfL0LS/AWAm4esgyUqwE=;
-	b=pdMrsRNvVspPSlu8fTl9rnWGI7IoIsDLIvX6LPIAFyWq6LrScGZNJgpuj53MmI7go7Pp
-	 5Sizg6UVrx+D0rzEEYt2aBpWxkRsQlwrYo1vnkcrmUPF9kkvLa2ZCjMsP0+jYP6jsdYOH
-	 k9IQD0w1RbxF4vb3A/ac6hDKbCjhXQGWMGFasPzI6Htx+QQSgn136rK9DzDgutYVAJS5K
-	 1F1s5FLT113uvd/Z9zqu8OG6H0AY8JxOni+4cyokOrNw7QAoGXRlfkoalnOsNmDBb1tE8
-	 g+An92Umd8PzijkMeTGEc9WHP/ZLxsCmeob4LLzDus0xh7y9/B3U27qAQOdWgox+xwg==
+	bh=Tf2truVF0HJWt5aQe6XENxvc3Zf7LhrdjDkpDzoeZ2c=;
+	b=ofVOZ/whw29WewAGoNvfE2HOh6WMjabbl6ZdHnpLKq8Sh4TaS++YP5hT27ay4AEXwrF2
+	 BtLqzd44C0TtTpTa1kNXfJ9W4x5w3HJSpl4nuu6ThJLonEwUFfWYLKjnW3Fum8K9PwJeZ
+	 YQQTI8k31/JucDVHzIHzjT7nkiNFENftDdnm5159jQwEr1K8QyBKOp7T+nCiXom45qfQi
+	 s6G6cguSz6U/9IDvscRfhsDuQtyQbjzckF8TMq401/+Flk1JW0UhB/jsG/NXEqWmShCvd
+	 gx1dJuotWkxkRS+DZmIawH1AUuoI7pwiC6S6mzyFOBEjF73FxKjzhn76uw7Mt9bgXTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CS8w+h5S;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QmCIJP73;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 886E1606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:51:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55490606A320
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:51:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CS8w+h5S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6D1E1F000C3;
-	Wed, 21 Oct 2026 14:51:03 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QmCIJP73
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A76E61F000C1;
+	Wed, 21 Oct 2026 14:51:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594264;
-	bh=2yzQBF07UE1+yHA2scGWGmpqfL0LS/AWAm4esgyUqwE=;
+	s=korg; t=1792594267;
+	bh=Tf2truVF0HJWt5aQe6XENxvc3Zf7LhrdjDkpDzoeZ2c=;
 	h=Subject:To:Cc:From:Date;
-	b=CS8w+h5SNNQZMytycMdld2Ko3FRHUIlyAS+7GQdqc6IcdPNW2/8ga0JhS7WwjoUKg
-	 Sv5/+rBVNkW6VjIRx7Fgi53RRSgG4m3QuoXvkbsSXAkvl4ZEfbazCG4FoNSeViNUBa
-	 RjH7ou4SCJaVZ4zVdOlH2pUIwvTAp+q/IIj/RpGk=
-Subject: FAILED: patch "[PATCH] perf: Track the perf mlock gift separately" failed to apply to 6.12-stable tree
+	b=QmCIJP733+dcXGHyBfE95p5A8DL2Lkm3o7/5prKwIPIwouRgdM226hLbNGnff5+6A
+	 nfprRlUB+WLcPdZcqCYAD85hnXdBvGiq4A9YvplyUHqKliMQO2LtyKXj3n59UDeBfe
+	 M6flwtOUa6rDpwEYTgcf9VlTBBDl9KGXNtZunNGg=
+Subject: FAILED: patch "[PATCH] perf: Track the perf mlock gift separately" failed to apply to 6.6-stable tree
 To: ljs@kernel.org,ameer.hamza@truenas.com,peterz@infradead.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 16:43:17 +0200
-Message-ID: <2026102117-rethink-jaybird-bd86@gregkh>
+Date: Wed, 21 Oct 2026 16:43:18 +0200
+Message-ID: <2026102118-chip-silicon-40c5@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 78436f3882fb8d848c823bf8cf754988202c5ca5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102117-rethink-jaybird-bd86@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102118-chip-silicon-40c5@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
