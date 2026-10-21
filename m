@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594179;
-	b=H79ZfgrXD9e0PqPQPbDsg9SdHf6mXAyzFT1BiSih5Jx5XwEB5NEB2ICHT2Xa965qYXe1
-	 ST0go74pt06iZMVijQPztlMSn0glm43tpBUxMRvf8tyMlaw8zQudCArfNKByyWOh5v587
-	 n2rKCrBOeDEDH34GA+wna80SRpCjLYcT5e8kaARimlg5YOxvYdbQ0KFeZCeWRBTqSDy7d
-	 VAdjED937uNxE5B7wu6OZaXsHkNw+kddKHvkpzv7gFcGWwO2ng1+C7flYyVfCa5ZNJDWv
-	 N0Z/3NU3+qZyXB0lZiMYAu6GkuScvgQOiYyco7eSwjekteNGfriZHwnTaImIqR4pB6w==
+	t=1792594182;
+	b=kOqKbcDji9YKjHoUhqAEzjnab5WmOLg0B/MwHQ8EGgViENgeHxqK0kcyuyDIHnX31n70
+	 hVWYeqbqVb9uobfgIOLNXEIXRft2rDSFKqfwgPqFCkt61K8xLBxyDe3UdrgSZ4dgAkDeh
+	 R3/9sRo2A7T+s6lo3bSK5HFz/yz5Mj5nMxCvqb0z9dI0+W55qR5BWNeA1Quan7i3HdriF
+	 Q5VBv0ZyAW4P+dzhbdIp0gcqvrrq8L80gK8NBlK57XKAfWDfq3xrMRXPiOk7z6W4RBSgn
+	 g4aa07wxJJx/IFOaA3Ol8JsYDfVPoomy3KEi6LsiRF4unBpZvL+OKMNlH9L0AkXmQkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594179;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594182;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=PlX6Mzg+s6aBOAa3enylLj0S3+jwKSK/p1uCFKeLQCo=;
-	b=yJI8yji7LGiWGQJA5sUXCiRBNPMQCiXYl1AX8g/peNPa3YoMi5vE+MyV3tLmP42fmWRm
-	 z4JtTD/vpG6eNdIOKBGzOhFU0DALQEOEyaeEoDY2PJatFF429kO4SN4mZTzqeBCT25Zy8
-	 Nr/y9gh1pGZxBW+17AGrLU6mmLrm+jlOD4yoWJV4D9j/yzTSPf+BkUmBLP9jAysv7rTU1
-	 FWa37ihGjPWSI9jtGNzTf7WUJGqzHUcl2aqL0A6QB0V1BYTTVQEMussmU0AhIhEgviGHt
-	 rlaT/xutDRb18VGWXK/5jEWf4SaYiZHZKBkGCs6KqbJ5PgUUmseGwgqBfFqAAh/MbIQ==
+	bh=/5DdNdxA4dCVra91dXw9M664XrdHS36cA+Np3bsZKXQ=;
+	b=RgwXQvSs7SSzIKrXQC+MiACz6CjBC/JkObmFEy7/fpu+uaZPspk67v5geckgdUq0uiL8
+	 Z4DMBl8x6m51i2VGvrvp4X+r8YPiWFUqIoHXjXdmT1J87KQAY2CT+hd/zgZEFAqqyvhK0
+	 QnBqwX/MhBbGsIF1vqMSg0uNuPxADKPJJnBdxUIhgH4bE+Ufkg1F2dqdC/hl3rboxvaMk
+	 DihY4bX45JQX7rdwIRyoAc2kONc4l0gcswSGBXiB/cduzec01Efy4nvSXs72HA7xY4Ha3
+	 S9d6PXJRuhlQIZpRL+SpfmUQo7CUpWJ+1M6ulGh9Rtclusg9QsSGcGAeyn8z7XZiwaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Dsaoo4vm;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1DEATu0o;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D035606A31F
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:49:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E02A9606A326
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:49:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Dsaoo4vm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26A191F000C1;
-	Wed, 21 Oct 2026 14:49:37 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1DEATu0o
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 087361F000C1;
+	Wed, 21 Oct 2026 14:49:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594178;
-	bh=PlX6Mzg+s6aBOAa3enylLj0S3+jwKSK/p1uCFKeLQCo=;
+	s=korg; t=1792594181;
+	bh=/5DdNdxA4dCVra91dXw9M664XrdHS36cA+Np3bsZKXQ=;
 	h=Subject:To:Cc:From:Date;
-	b=Dsaoo4vmgPzZeiQN1XofeamLq4uauFodyoXkw9y3JetXwsIREUzyRzfBkoLS6zUJG
-	 vp66JgOel1pSTYTCuDGfWx/Qa6IVqTv3t952AJ5jOYtJVdyXdChHJzW2t6urTH8afN
-	 q6jHhGGxxHP7uxoCc+/qEhJlpafrxkuN5/lv5xnc=
-Subject: FAILED: patch "[PATCH] ntfs3: free the sbi after a grace period" failed to apply to 6.12-stable tree
+	b=1DEATu0oB7Cv82Q7ve+X3yKp7c/T57glwwUZjnBKLcMtxUWanqJioryfCX5cy5r7m
+	 YpumKWM1ZhZdDhoOHucfdgNc6ibYBCEX+46UXPhXiWvfdnIaMPiSG+3EtBn8QHeOQ8
+	 vEJBysULmIzcEB8JFrMxz8m+SToYK79tYvGR9QSU=
+Subject: FAILED: patch "[PATCH] ntfs3: free replaced mount options after a grace period" failed to apply to 6.18-stable tree
 To: brauner@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 16:38:58 +0200
-Message-ID: <2026102158-quantum-annex-72cd@gregkh>
+Date: Wed, 21 Oct 2026 16:39:07 +0200
+Message-ID: <2026102107-nineteen-superbowl-4509@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x c01b091b06412d3b1b53d8c2925f6de586c8a2fc
+git cherry-pick -x 56c3824de56b5275c02ff6b6aa27ddbacfbb9b25
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102158-quantum-annex-72cd@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102107-nineteen-superbowl-4509@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,23 +79,22 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From c01b091b06412d3b1b53d8c2925f6de586c8a2fc Mon Sep 17 00:00:00 2001
+From 56c3824de56b5275c02ff6b6aa27ddbacfbb9b25 Mon Sep 17 00:00:00 2001
 From: Christian Brauner <brauner@kernel.org>
-Date: Fri, 9 Oct 2026 23:51:57 +0200
-Subject: [PATCH] ntfs3: free the sbi after a grace period
+Date: Fri, 9 Oct 2026 23:51:58 +0200
+Subject: [PATCH] ntfs3: free replaced mount options after a grace period
 
-If the "nocase" mount option ntfs3 uses custom hash and dentry compare
-functions. Both access ntfs3 superblock private information in rcu
-pathwalk. ntfs_put_super() and ntfs3_kill_sb() drop the info without any
-rcu delay. A lookup that's still inside the filesystem when the last
-reference to the mount is dropped causes a UAF. With a pathwalk held up
-in ntfs_d_hash() while the last reference to the mount goes away:
+ntfs_fs_reconfigure() replaces the old mount options with new mount
+options in sbi->options. The old mount options land in fs_context and
+are freed as soon as remount returns. With a pathwalk held up in
+ntfs_nls_to_utf16() between loading sbi->options and dereferencing it
+while a remount replaces them:
 
-  BUG: KASAN: slab-use-after-free in ntfs_nls_to_utf16+0x752/0x940
-  Read of size 8 at addr ff1100010453c850 by task walker/99
+  BUG: KASAN: slab-use-after-free in ntfs_nls_to_utf16+0x7ae/0x7c0
+  Read of size 8 at addr ff110001044fd448 by task walker/98
   Call Trace:
    <TASK>
-   ntfs_nls_to_utf16+0x752/0x940
+   ntfs_nls_to_utf16+0x7ae/0x7c0
    ntfs_d_hash+0x22b/0x500
    link_path_walk+0x11ad/0x1d30
    path_lookupat+0x63/0xb00
@@ -103,133 +102,119 @@ in ntfs_d_hash() while the last reference to the mount goes away:
    vfs_statx+0xd7/0x3b0
   [...]
   Allocated by task 95:
-   __kmalloc_cache_noprof+0x249/0x560
-   ntfs_init_fs_context+0x2db/0x5a0
-   alloc_fs_context+0x52e/0xc70
+   __kmalloc_node_track_caller_noprof+0x2a2/0x730
+   kmemdup_noprof+0x25/0x50
+   ntfs_fill_super+0x1e5/0x4550
   [...]
-  Freed by task 98:
+  Freed by task 97:
    kfree+0x1db/0x5b0
-   deactivate_locked_super+0x9c/0xf0
-   cleanup_mnt+0x9f/0x130
-   task_work_run+0x131/0x250
+   put_fs_context+0x13c/0x7d0
+   path_mount+0x54a/0x2130
+   __x64_sys_mount+0x20c/0x270
 
-The bug is currently masked by the grace period in namespace_unlock()
-for umount(2). Keep the necessary information until the filesystem
-private info is freed and free it with an rcu delay.
+That info is needed in rcu lookup in the dentry hash and dentry compary
+methods for ntfs3 and causes a UAF today. Delay freeing with an rcu
+grace period.
 
-ntfs3_free_sbi() now runs from an rcu callback and drops the upcase
-table via ntfs_put_shared(). So switch s_shared_lock over to
-spin_lock_bh(). Otherwise the callback can deadlock against a task
-holding the lock on the same cpu.
+ntfs_nls_to_utf16() reads ->nls and ->ads once under rcu_read_lock() so
+the hooks pair with the release in ntfs_fs_reconfigure(). That also
+covers callers outside of rcu pathwalk such as ntfs_lookup(). They don't
+hold rcu_read_lock() themselves and wouldn't be protected by the grace
+period otherwise. Remount refuses to change the iocharset so ->nls stays
+valid after rcu_read_unlock().
 
 Fixes: a3a956c78efa ("fs/ntfs3: Add option "nocase"")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261009-work-fixes-rcu-v1-7-7446d2d335e6@kernel.org
+Link: https://patch.msgid.link/20261009-work-fixes-rcu-v1-8-7446d2d335e6@kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
+diff --git a/fs/ntfs3/dir.c b/fs/ntfs3/dir.c
+index eb9152e9fa22..14ca54e54578 100644
+--- a/fs/ntfs3/dir.c
++++ b/fs/ntfs3/dir.c
+@@ -186,11 +186,20 @@ int ntfs_nls_to_utf16(struct ntfs_sb_info *sbi, const u8 *name, u32 name_len,
+ {
+ 	int ret, slen, i;
+ 	const u8 *end;
+-	struct nls_table *nls = sbi->options->nls;
++	struct ntfs_mount_options *opts;
++	struct nls_table *nls;
++	bool ads;
+ 	u16 *uname = uni->name;
+ 
+ 	static_assert(sizeof(wchar_t) == sizeof(u16));
+ 
++	/* ntfs_fs_reconfigure() may replace the options, but not ->nls */
++	rcu_read_lock();
++	opts = READ_ONCE(sbi->options);
++	nls = opts->nls;
++	ads = opts->ads;
++	rcu_read_unlock();
++
+ 	if (!nls) {
+ 		/* utf8 -> utf16 */
+ 		ret = _utf8s_to_utf16s(name, name_len, endian, uname, max_ulen);
+@@ -230,7 +239,7 @@ int ntfs_nls_to_utf16(struct ntfs_sb_info *sbi, const u8 *name, u32 name_len,
+ 
+ 	uni->len = ret;
+ 	uni->ads_len = 0;
+-	if (ret > 0 && sbi->options->ads) {
++	if (ret > 0 && ads) {
+ 		uname = uni->name;
+ 		/* Find delimiter in range [1 : ret-2). */
+ 		for (i = 1; i + 1 < ret; i++) {
 diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
-index 5811d89d67b3..bbcd2e02bf63 100644
+index bbcd2e02bf63..44d59b444648 100644
 --- a/fs/ntfs3/ntfs_fs.h
 +++ b/fs/ntfs3/ntfs_fs.h
-@@ -211,6 +211,7 @@ struct ntfs_index {
- /* Ntfs file system in-core superblock data. */
- struct ntfs_sb_info {
- 	struct super_block *sb;
+@@ -91,6 +91,8 @@ enum utf16_endian;
+ struct ntfs_mount_options {
+ 	char *nls_name;
+ 	struct nls_table *nls;
++	/* ->d_hash() and ->d_compare() read the options in rcu pathwalk */
 +	struct rcu_head rcu;
  
- 	u32 discard_granularity;
- 	u64 discard_granularity_mask_inv; // ~(discard_granularity_mask_inv-1)
+ 	kuid_t fs_uid;
+ 	kgid_t fs_gid;
 diff --git a/fs/ntfs3/super.c b/fs/ntfs3/super.c
-index f4a42a0c73a4..841f9068d82f 100644
+index 841f9068d82f..58ef6be3286b 100644
 --- a/fs/ntfs3/super.c
 +++ b/fs/ntfs3/super.c
-@@ -196,7 +196,7 @@ void *ntfs_set_shared(void *ptr, u32 bytes)
- 	void *ret = NULL;
- 	int i, j = -1;
- 
--	spin_lock(&s_shared_lock);
-+	spin_lock_bh(&s_shared_lock);
- 	for (i = 0; i < ARRAY_SIZE(s_shared); i++) {
- 		if (!s_shared[i].cnt) {
- 			j = i;
-@@ -214,7 +214,7 @@ void *ntfs_set_shared(void *ptr, u32 bytes)
- 		s_shared[j].cnt = 1;
- 		ret = ptr;
- 	}
--	spin_unlock(&s_shared_lock);
-+	spin_unlock_bh(&s_shared_lock);
- 
- 	return ret;
- }
-@@ -231,7 +231,7 @@ void *ntfs_put_shared(void *ptr)
- 	void *ret = ptr;
- 	int i;
- 
--	spin_lock(&s_shared_lock);
-+	spin_lock_bh(&s_shared_lock);
- 	for (i = 0; i < ARRAY_SIZE(s_shared); i++) {
- 		if (s_shared[i].cnt && s_shared[i].ptr == ptr) {
- 			if (--s_shared[i].cnt)
-@@ -239,7 +239,7 @@ void *ntfs_put_shared(void *ptr)
- 			break;
- 		}
- 	}
--	spin_unlock(&s_shared_lock);
-+	spin_unlock_bh(&s_shared_lock);
- 
- 	return ret;
- }
-@@ -708,6 +708,8 @@ static noinline void ntfs3_put_sbi(struct ntfs_sb_info *sbi)
- 
- static void ntfs3_free_sbi(struct ntfs_sb_info *sbi)
- {
-+	if (sbi->options)
-+		put_mount_options(sbi->options);
- 	kfree(sbi->new_rec);
- 	kvfree(ntfs_put_shared(sbi->upcase));
- 	kvfree(sbi->def_table);
-@@ -719,6 +721,11 @@ static void ntfs3_free_sbi(struct ntfs_sb_info *sbi)
- 	kfree(sbi);
+@@ -251,6 +251,11 @@ static inline void put_mount_options(struct ntfs_mount_options *options)
+ 	kfree(options);
  }
  
-+static void ntfs3_free_sbi_rcu(struct rcu_head *head)
++static void put_mount_options_rcu(struct rcu_head *head)
 +{
-+	ntfs3_free_sbi(container_of(head, struct ntfs_sb_info, rcu));
++	put_mount_options(container_of(head, struct ntfs_mount_options, rcu));
 +}
 +
- static void ntfs_put_super(struct super_block *sb)
- {
+ enum Opt {
+ 	Opt_uid,
+ 	Opt_gid,
+@@ -444,6 +449,7 @@ static int ntfs_fs_reconfigure(struct fs_context *fc)
+ 	struct super_block *sb = fc->root->d_sb;
  	struct ntfs_sb_info *sbi = sb->s_fs_info;
-@@ -728,11 +735,11 @@ static void ntfs_put_super(struct super_block *sb)
- 	/* Mark rw ntfs as clear, if possible. */
- 	ntfs_set_state(sbi, NTFS_DIRTY_CLEAR);
+ 	struct ntfs_mount_options *new_opts = fc->fs_private;
++	struct ntfs_mount_options *old_opts;
+ 	int ro_rw;
  
--	if (sbi->options) {
--		put_mount_options(sbi->options);
--		sbi->options = NULL;
--	}
--
+ 	ro_rw = sb_rdonly(sb) && !(fc->sb_flags & SB_RDONLY);
+@@ -473,7 +479,15 @@ static int ntfs_fs_reconfigure(struct fs_context *fc)
+ 	}
+ 
+ 	sync_filesystem(sb);
+-	swap(sbi->options, fc->fs_private);
++	old_opts = sbi->options;
++	/* pairs with the READ_ONCE() in ntfs_nls_to_utf16() */
++	smp_store_release(&sbi->options, new_opts);
++	fc->fs_private = NULL;
 +	/*
-+	 * The mount options stay until the sbi is freed: ->d_hash() and
-+	 * ->d_compare() of a pathwalk in rcu mode read the nls table through
-+	 * them.
++	 * ntfs_d_hash() and ntfs_d_compare() of a pathwalk in rcu mode may
++	 * still read the old options through the sbi.
 +	 */
- 	ntfs3_put_sbi(sbi);
++	call_rcu(&old_opts->rcu, put_mount_options_rcu);
+ 
+ 	return 0;
  }
- 
-@@ -1939,9 +1946,11 @@ static void ntfs3_kill_sb(struct super_block *sb)
- 
- 	kill_block_super(sb);
- 
--	if (sbi->options)
--		put_mount_options(sbi->options);
--	ntfs3_free_sbi(sbi);
-+	/*
-+	 * A pathwalk in rcu mode may still be in ->d_hash() or ->d_compare()
-+	 * and read the upcase table and the nls table through the sbi.
-+	 */
-+	call_rcu(&sbi->rcu, ntfs3_free_sbi_rcu);
- }
- 
- // clang-format off
 
