@@ -1,100 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792605402;
-	b=4MlptjfPXQ60LH8I8WHbIufJEq/NH4VoBJkuEbZJ1KANe07GYdtQRrWRb9GqAxwHLmNQ
-	 NwbetyRhZWa0Qx6MThpq26t9f+PCjqJLg00tgNFstI1UZQ4QVM4tMMWBMjTICFAdStxqz
-	 gvSh8BoWOkNyn7ehvTjayMvg9JxH9ghCvE5fDKldlooxFDb+LNk2bEMHKMAm0L7m+ptVs
-	 vejPcagOay1QDw5iMbCDfYkMsRsVizRiHpnsBtCmkjZxMcJFtTfjw3oyD5mTsrMKWPvlK
-	 G0iNhOHWTapmHi+ExZBX4BsJmXnVXMv3IKcfFzcixi50+h3vMgvEwW2L/KUsyK9MGxQ==
+	t=1792605740;
+	b=pyWEt500zWlFOxtpyoELju1GpXDwlPXnMiD66nFEXWm48RlT6FoUK+zGgKkLOGlWWnSj
+	 H5fbh2ZIWPC2n8VCQyZHglch079sycHNC7+IVO+aBwtRSC6dOvpRn1PcLBXwBynTb5C8h
+	 s2aeec8RBwNyfOl2YhscCshHeIHf3AFOC6qB66OmiBPyE3uaAd+eIHmfABaxxL6A7WRpv
+	 fGuEYBSgx3KP17uVuKdfMVne0bwNfbAIknz4/eVtLXsZ9kIpV+vLr1drXLhekVDgCKQdP
+	 zycpALb1iIu5K3Bi3rV8QZF6QuXYmPvZ1fP8OxoiwJjxEWxH+mVcwd0oPiwf5vGVtiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792605402;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=8ILZGqeePK3tN5s5Fa4xyHKs3r5hIM8Fdn/roa97zOY=;
-	b=1oBbXlTuTF3ArhScZf2urP01SIsAH/RVDbYeE2FVQy25nl0LEX9u2oHNcLOMU8GMiN4B
-	 c+hYJvM8szTOBkc73z74rj7VJIJxzdKmBMdaCe2ELSCqmt18EeikL22LVM3PkTZ9nWDvb
-	 iddYZLz2JaUUm7lBsDEgHl6fkKIOVnzNNXBJ7l01FAifU1sc0CEfmMfdPacvRJ4faiY2R
-	 yHS7V+6z8+pJzzqESsfMmVzD5uOGn640cCE6LZzRPOMzLwtpRdY951Cb0UmkvGKL3X7Zq
-	 BxlxjSb86b1zjb5pbNP2B3mV186prjGH+1+azLblpzGfsSg6/mwwFhOwzJzgCtsr+og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792605740;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=CZ0RpRrq2nSW3sSSZyakC7djhxcPcGFzQemPF8KWlx4=;
+	b=Pbq8ngpEvTOZjkTpbxUheF4H+gcS3gAyqrRRI0uwIpd24WhE7ga2gO1e3zajcO3IGfmx
+	 sBO9BH1xJ1zI63XY5uMgL7Xd6+khdtXEYSzFDFh9iEfWuNuaKJEKiJMLVji77rdyH5WI+
+	 rLL90LJZFfjzg/mnb/m4kuNel7Keftlo50kKTEBOHrjN0aZP47MakMzgWrQyj90Y7e8rA
+	 8/bPPJcQyWt/wNULpoE2XlYcr21hlkvqn+MmRa6Qeo7oUSty5L6iujhUwXqUF0zxedSZC
+	 faDbkB4Xk55VxOzYrF2zRPbS0dh0qSDVtbAiCI5deGcUrdEeGYLnF0gQoA//Nh2pq9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=trailofbits.com;
-	spf=pass smtp.mailfrom=trailofbits.com;
-	dkim=pass header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=XQ8MzsJf;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Nn9AdWok;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B2A8606A31D
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 17:56:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B2A8606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACCA3606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 18:02:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=XQ8MzsJf
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-17bc533fda3so1222090c88.1
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 10:56:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1792605401; x=1793210201; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8ILZGqeePK3tN5s5Fa4xyHKs3r5hIM8Fdn/roa97zOY=;
-        b=XQ8MzsJfm7hVLaVVmJxcZ6cCv2OpnZhEPS/ixp+1iyeH7bdd67uqG1H1T22iN81Vpj
-         IqdFpLXy+hex8KLmaifYYxCctnfDmCSeb6G/AZ2ct0NJ7cUn6kLJdQhpKeFcQ0KzF1QO
-         MaQCpyPrutkdj7djQwJeI99nmLRhJMs07Kkrf+Y/qy+Vl6TpSthXMSA1odxP9ZiiAWfJ
-         jkVxSyB/XBfrqpb4OYXbXcDz52Ok2oaXNuR2p6KUICorES9mE3pSIOIZVbHrA+dpsHBI
-         /8OuhiCIh+NdJvgh0zzCsMwPSjQK1TE+TJk+8qxNr4sz5wUBSb29H8lSMda6j9GbB8EB
-         l/mA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792605401; x=1793210201;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8ILZGqeePK3tN5s5Fa4xyHKs3r5hIM8Fdn/roa97zOY=;
-        b=WWHELi9IT+xEQ1dlHB3fEhyIvo/Hyux6JXmPIpwqtYhklv61vv3+xtsFecxqXwhLQd
-         ClHfTv4TwmCNSGcw9djbXVZaoTJ1snXMhv6KxV4io5X5whiklcxpMCEVn7hhsSxfGJdo
-         q7DDG7V5RvvlC+O1nPAZq+xy0yWsBRSj5gYe94QSDrwLhjsFew8rt2kYIPNi/mOA26i5
-         4Nazdd1rFLJlEZxsjSFAhDaJ/3Q6Bn4WWnWWTvNFfUX93mp2iqvIzpI6Gq7VDPxxiI5v
-         JoxuLrSKAJr541a+7smmWBmO/LU0bWxPaHmojgrW92CjbpbDrMYP7Lksr7rhhlJhveWG
-         Gv+w==
-X-Gm-Message-State: AFq9FYLm+OnoD2uW255+fA7P0SVFQJp5UjmN3M9uvmi5zDsA/UWdCoiy
-	4pEkJL4Urca087TEbR5EL+eW7x9wo9JivwlVo46fES2NBxLd6N2tqfhDpWDbju8zfsHVQCrFlz6
-	2UJyc9m8vzA==
-X-Gm-Gg: AYBFou2WHTN8Vv4JhoQ63bGf1f2EHoKWGMtkEMT08DKVM7FlPIr5GTo9pyBF6fJBjBx
-	GKuSi2FKHxVWp5VVVnDrmpLEB36hzG9kLc1Rf7Wm8w8xKbi9kwau+EDp/EUvUE/czlCNoFURStj
-	hpooV2Oy5JTZYS/sze/funep0y50fimbuy+9NrNHF75nOPfBN+0Omj2EEhD0OFFKXL1zO2ZLRQc
-	alxx93YTadu78e0fwLHeaUrCNnouB1fes3TRLQ5o/61afrHf/GL54TCrPh6LxwOKpYpYhE6jzTu
-	uSs2opReKUYpZyObsCkT8FBEYwMrEXlGoDkREpm0FZu7Rp6PvEIqFyEacXn73Lm/zUsmozn5HbQ
-	ZXVSw7XbuQHMURoSAXkrdX9S7Kq1Zta2S0v9i1P1jREEscRACt2Hp4iK9HX0nsUKsTnSwM+NSfh
-	t1FWz3H82r62iho5P8a441P6nhlXnHJx8Q2gq/o6AX+6kgvb75ev4CwbrQfest0Km0JV3jxlWJv
-	cG/pBRrjBgdFO3TD9tHKTr5t9k6YIaukXPjkBVQOj/swCR+o9dUJV3M5c3MP0npekwLqVovAvgW
-	annz5k5/noMkyk9dSUEZu6Z56OrUs7e+Fqi20LnGs7irT2YnfmEJ
-X-Received: by 2002:a05:7022:928:b0:151:6e80:baa9 with SMTP id a92af1059eb24-190a4ffadbbmr4178212c88.12.1792605401167;
-        Wed, 21 Oct 2026 10:56:41 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:d059:e601:becb:a5ad])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903bf5d0a1sm7736763c88.14.2026.10.21.10.56.39
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 21 Oct 2026 10:56:40 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: alison.schofield@intel.com,
-	dave.jiang@intel.com,
-	dave@stgolabs.net,
-	djbw@kernel.org,
-	icheng@nvidia.com,
-	iweiny@kernel.org,
-	jic23@kernel.org,
-	kaihengf@nvidia.com,
-	kobak@nvidia.com,
-	linux-cxl@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ming.li@zohomail.com,
-	vishal.l.verma@intel.com
-Subject: [PATCH 6.6.y] cxl/mbox: Clamp mailbox output allocation to the payload size
-Date: Wed, 21 Oct 2026 13:56:37 -0400
-Message-ID: <20261021175637.1655-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Nn9AdWok
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 953FF1F000C1;
+	Wed, 21 Oct 2026 18:02:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792605739;
+	bh=CZ0RpRrq2nSW3sSSZyakC7djhxcPcGFzQemPF8KWlx4=;
+	h=Subject:To:Cc:From:Date;
+	b=Nn9AdWoktOeJOCuDCPcbleh1AufCoUC33VdPCviPYv1uGseV0qSUFpNbc6iUWRxWG
+	 Xa7EdgHjCL2B2syxJMsQwhUwSPyXVO2VtCJeQqnLgMbLCIZVsi9V0AUlSlsfTBQBtV
+	 AW2GXM9VWadi9V9iUoeFmXkFOkZeUHPzeISw0gR0=
+Subject: FAILED: patch "[PATCH] ipv4: udp: Create exceptions before socket matching" failed to apply to 7.2-stable tree
+To: idosch@nvidia.com,aksecurity@gmail.com,dsahern@kernel.org,kuba@kernel.org,noam.caspi@mail.huji.ac.il
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 21 Oct 2026 19:54:54 +0200
+Message-ID: <2026102154-unfiled-decorator-3b61@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,67 +51,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: Richard Cheng <icheng@nvidia.com>
 
-[ Upstream commit 8a13db9f899d149c3aab24abcb668121cfda5a4f ]
+The patch below does not apply to the 7.2-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-CXL_MEM_SEND_COMMAND bounds the user's in.size to the mailbox payload
-size but leaves out.size unbounded, then cxl_mbox_cmd_ctor() calls
-kvzalloc(out.size). A large out.size drives a huge allocation, above
-INT_MAX it WARNs and taints, and with panic_on_warn=1 it panics.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-The transport __cxl_pci_mbox_send_cmd() already clamps the response copy
-to min(out.size, payload_size, device len), so the output buffer is
-never written beyond payload_size. Clamp the allocation to payload_size
-too, matching the RAW path.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git checkout FETCH_HEAD
+git cherry-pick -x 4c3499f79f8c7e8561266bcc220a18538cec0458
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102154-unfiled-decorator-3b61@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
-Fixes: 583fa5e71cae ("cxl/mem: Add basic IOCTL interface")
-Reviewed-by: Kai-Heng Feng <kaihengf@nvidia.com>
-Reviewed-by: Koba Ko <kobak@nvidia.com>
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-Reviewed-by: Davidlohr Bueso <dave@stgolabs.net>
-Signed-off-by: Richard Cheng <icheng@nvidia.com>
-Link: https://patch.msgid.link/20260624144147.53997-1-icheng@nvidia.com
-Signed-off-by: Dave Jiang <dave.jiang@intel.com>
-Assisted-by: LLM
-[ Backport to 6.6.y: Use the target mbox and mds objects for the upstream
-  output-size clamp. ]
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Hi,
+Possible dependencies:
 
-Please consider this backport of the fix for CVE-2026-93186 to 6.6.y.
 
-The code changes match upstream with the target mailbox object names. See
-the bracketed backport note above.
 
-The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
+thanks,
 
-Build-tested only as part of a cumulative 6.6.y series on x86_64
-(allmodconfig, CONFIG_WERROR=y); no runtime testing.
+greg k-h
 
-Thanks,
-Artem Dinaburg
+------------------ original commit in Linus's tree ------------------
 
- drivers/cxl/core/mbox.c |    6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+From 4c3499f79f8c7e8561266bcc220a18538cec0458 Mon Sep 17 00:00:00 2001
+From: Ido Schimmel <idosch@nvidia.com>
+Date: Fri, 28 Aug 2026 22:23:42 +0300
+Subject: [PATCH] ipv4: udp: Create exceptions before socket matching
 
-diff --git a/drivers/cxl/core/mbox.c b/drivers/cxl/core/mbox.c
-index 059e95e086205a497eb5f6c863a4bfc29c1c16c9..278a11657d8b7516533749bc8c1ce3eb933848cf 100644
---- a/drivers/cxl/core/mbox.c
-+++ b/drivers/cxl/core/mbox.c
-@@ -359,11 +359,7 @@ static int cxl_mbox_cmd_ctor(struct cxl_mbox_cmd *mbox,
- 		}
- 	}
+Currently, when ICMP Fragmentation Needed and Redirect Message packets
+are locally delivered and quote a UDP packet, a FIB nexthop exception
+(FNHE) is only created if the kernel can match the UDP packet to an
+existing socket.
+
+This behavior allows off-path attackers to conduct a side-channel attack
+on the FNHE cache in order to discover the ephemeral port used by a
+connected UDP socket.
+
+Commit 6457378fe796 ("ipv4: use siphash instead of Jenkins in
+fnhe_hashfun()") and commit 67d6d681e15b ("ipv4: make exception cache
+less predictible") tried to mitigate such attacks by making it harder
+for attackers to discover hash collisions in the FNHE cache and by
+randomizing the number of exceptions a hash bucket can hold,
+respectively. Unfortunately, both of the mitigations can be bypassed.
+
+Instead, mitigate such attacks by always creating a FNHE, even before
+trying to find a matching socket. Do that by calling ipv4_update_pmtu()
+and ipv4_redirect(), the helpers used when the quoted packet did not
+originate from a socket.
+
+This means that guesses (right or wrong) from an off-path attacker will
+always result in a FNHE being created or updated in the cache that the
+attacker can observe.
+
+Pass an oif of 0, in a similar fashion to icmp_err(). This is also the
+oif used by the socket path for sockets that are not bound to a device.
+
+Note that this does not allow attackers to create FNHEs that they could
+not create before, as both helpers can already be reached with little to
+no validation. For example, by sending an ICMP error that quotes an ICMP
+Echo Reply or one that quotes a UDP source port that matches a wildcard
+socket.
+
+Also note that in the good case (matched socket) the above scheme comes
+at the cost of an extra route lookup, as the no socket helpers perform
+their own lookup before the one performed by ipv4_sk_update_pmtu() /
+ipv4_sk_redirect(). When the two resolve to different nexthops, it also
+results in two exceptions being created for the same destination IP. One
+in the FNHE cache of the nexthop resolved by the no socket helpers and
+another in the FNHE cache of the nexthop used by the socket.
+
+Fixes: 4895c771c7f0 ("ipv4: Add FIB nexthop exceptions.")
+Cc: stable@vger.kernel.org
+Reported-by: Amit Klein <aksecurity@gmail.com>
+Reported-by: Noam Caspi <noam.caspi@mail.huji.ac.il>
+Signed-off-by: Ido Schimmel <idosch@nvidia.com>
+Reviewed-by: David Ahern <dsahern@kernel.org>
+Link: https://patch.msgid.link/20260828192344.2596928-3-idosch@nvidia.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+
+diff --git a/net/ipv4/udp.c b/net/ipv4/udp.c
+index 6ff5670bf6ed..bb8cfc62cb00 100644
+--- a/net/ipv4/udp.c
++++ b/net/ipv4/udp.c
+@@ -900,6 +900,15 @@ static struct sock *__udp4_lib_err_encap(struct net *net,
+ 	return sk;
+ }
  
--	/* Prepare to handle a full payload for variable sized output */
--	if (out_size == CXL_VARIABLE_PAYLOAD)
--		mbox->size_out = mds->payload_size;
--	else
--		mbox->size_out = out_size;
-+	mbox->size_out = min_t(size_t, out_size, mds->payload_size);
++static void udp_err_update_exception(struct net *net, struct sk_buff *skb,
++				     int type, int code, u32 info)
++{
++	if (type == ICMP_DEST_UNREACH && code == ICMP_FRAG_NEEDED)
++		ipv4_update_pmtu(skb, net, info, 0, IPPROTO_UDP);
++	else if (type == ICMP_REDIRECT)
++		ipv4_redirect(skb, net, 0, IPPROTO_UDP);
++}
++
+ /*
+  * This routine is called by the ICMP module when it gets some
+  * sort of error condition.  If err < 0 then the socket should
+@@ -923,6 +932,8 @@ int udp_err(struct sk_buff *skb, u32 info)
+ 	int harderr;
+ 	int err;
  
- 	if (mbox->size_out) {
- 		mbox->payload_out = kvzalloc(mbox->size_out, GFP_KERNEL);
++	udp_err_update_exception(net, skb, type, code, info);
++
+ 	uh = (struct udphdr *)(skb->data + (iph->ihl << 2));
+ 	sk = __udp4_lib_lookup(net, iph->daddr, uh->dest,
+ 			       iph->saddr, uh->source, skb->dev->ifindex,
+
