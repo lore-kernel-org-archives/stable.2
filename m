@@ -1,61 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792550482;
-	b=UL11AMkHGnTR0jPdwwkuiM6/vEYV26Nv9osk+gCfKf/lpxHRIsIEb8RrqeTdbYJxOkEp
-	 OypVMTe9BLUbQ7k1XaqKvJoKJr0KWEs2k89PWP7w8pzubK8Q54cAuWiMCANx53URHds/L
-	 St8UDZjUtsriNcSuynwLqrSU5Kvh2PFkce5I1eZO7xHcgX4qUrxfn+1nlp2KjLxW6pKif
-	 zUc+z3YrYfNSm2WVo5/J/v4Rzm+TG5k40Xci9oScla6YeUd2IzWjv1+JSDfqZFXTjsCld
-	 J8x0yAjTjNT8fyHiqUtp+gQ6Be4/Ko97ryCuftMpFdLB+wQJp42aDfV0Y4wj14rGH7w==
+	t=1792550712;
+	b=o4MoE6nlNaa5O+inVj+9qUu/e4+L41AneFVYp2SbfgQoYyjRafj3Iw220JwaEXL1IQOR
+	 MIe8wqAXlO/6gruhnX0TtO434yAbCLnT2Aeg3xyVe+cHykZXcvsaft670rNWQPGrId7/x
+	 RT0WS6eaL/rREjhIsB+yH5xkZjpkb7yIBKFzPOTDq1px8TfgYp3AvgFzmy5XXiGn128p3
+	 K8LA64RPlSNjXGGFSJ98qO2ftqOtu+h3jk67Ck7agx2Vyg4g6MpFLRJ9/nQWnaY3iQa5F
+	 OgYjbeu3MCbcE0NsPBFeeUTANyIiLPCHsJe9MLwme2UxE48PzZnPapBqCOivRWTQlNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792550482;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=3FWIccO4+PqefYbmq8748pKuyoRonWMFOwYeYh13ZZs=;
-	b=KZJUbmslA8WmBdJqG6wU7/cpl/MXFGlkywSb1ULfunbdZAIkmg/mAE3PldvtJv45zGhB
-	 dVQNOWTx7VsX+3dpgq+TP7rfd26V9YBT1AFsYhTXW0YXCxDK+IqVBRvFRk6vSAUM5IIqa
-	 NUOf0b49HeGwN1P+dhR24VHZ11RjySVXqqrdEVEG+f8lk9wb+5KKWNVp1hMoWf3bQvhy6
-	 XghjpLcTrn1Kugt9zl8bDRmpkCtGOzJo+E1YZcTHBVsAtp7kWpCmlYiwYsZ3x7Viqyi+m
-	 R+rX6+jOJDzfC+tbBjO5UtJjgzVl+4inirVvLQRUDuW/nCLaBCf/xAS6LbhK3GjVWlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792550712;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Received:Reply-To:Date:Mime-Version:X-Mailer:
+	 Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=+tauiOqnCXDgcbvvq5Bl94S/eGCeAxzqV2Ktb1RLFsI=;
+	b=CnVuh71rMc0YKFNZaCxNw6c42BPtyID5m8nE62ySpQc+NxTJCnYwXyEG/rvXmhVXSEQH
+	 b2pcuSI+CgzLQx18zqeS9P7njh+KKaW99icWm23dbAcKdjqMc/kcg83g/A9v93+fBTexh
+	 gndvv4+QKvARJmn12WC6HdEMiFMLr+TmsHZPn+A7OWW5Q4qZ/WBHEKDDZAyJh8pmnH5lH
+	 HgRqs6YOxKG9hfaSGP2K6UM/QxOAr8rRf9ubHlweQVREErhz+rxo9JSGW+UL2tw8OPqbj
+	 L4An2IxC7/MnQz8+PNxsA59IB+5IuZfh5uV8ujjEHxOhvF1WI5MkdA+ye+zZwK+nwwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=EjZXGZtM;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=VhWPS872;
+	arc=none smtp.remote-ip=209.85.216.70
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4685606A319;
-	Wed, 21 Oct 2026 02:41:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4685606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28905606A322
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 02:45:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28905606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=EjZXGZtM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=3F
-	WIccO4+PqefYbmq8748pKuyoRonWMFOwYeYh13ZZs=; b=EjZXGZtMWmRTIUXZya
-	bmqH2aHRWwYadT7FKh2WyQ5H+ErPrsOLLFQaBrkmM//syXwKNLU1R3cOZZH2CnFu
-	BBsKCJqSR0yO78CyW8cQFEa/5PFU0IuWRYUBoJY5fc3mXWHa6WyG44pG6UZCdk9I
-	cVGxROXFM9z+pLRTHnmzCoQ70=
-Received: from jbd-ThinkPad-X1-Carbon-Gen-14 (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3P78oJthqvUvuBg--.49322S2;
-	Wed, 21 Oct 2026 10:40:42 +0800 (CST)
-From: Slark Xiao <slark_xiao@163.com>
-To: mani@kernel.org,
-	jeff.hugo@oss.qualcomm.com,
-	krishna.chundru@oss.qualcomm.com
-Cc: loic.poulain@oss.qualcomm.com,
-	mhi@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Slark Xiao <slark_xiao@163.com>
-Subject: [PATCH v2] bus: mhi: host: pci_generic: Update the default autosuspend_delay_ms as 5000ms
-Date: Wed, 21 Oct 2026 10:40:38 +0800
-Message-ID: <20261021024038.17127-1-slark_xiao@163.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=VhWPS872
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ac16335199so289425a91.1
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 19:45:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792550710; x=1793155510; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+tauiOqnCXDgcbvvq5Bl94S/eGCeAxzqV2Ktb1RLFsI=;
+        b=VhWPS872V3SaJwVsvLpovRvdXmv2n/b1pm+f2t4ZHPMT0W32bYjU1pIVoGtgR/7gQ1
+         /8M7E9K1Cq+3vlIVhNeV05VJMruyKTM65w0Uevy8v3dRzw+q7V3437mhXzYOtXUkPTAu
+         OcgcxU67faGioRy5a+mPK2lfv5ZuZScqImz2X8rjfNk34TkR9l+x8pIUWwNC+T0/GjJ1
+         yJqNu2hI7fTWCfBtdNk+dzRCiizJ4AdibZr4tsrOr7PUN6S5ZThm5/U7/e/BpNegSsnj
+         ruocIOJT8tF4QXG+7RwT84Nc1fdG1BHtQZr+6gF4aOatBAGqdp0NApxFPUwHtkNaK5g/
+         IKag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792550710; x=1793155510;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=+tauiOqnCXDgcbvvq5Bl94S/eGCeAxzqV2Ktb1RLFsI=;
+        b=BpXhR9yxShgcsQ3pUCQ66NFxATBeUNpjtf9gp81X3zEQUUg2oX9hbMr9KebEP8zuQ1
+         P29DFo4kw9MtpZKFwsKyasDZNU8Pa0pKfIJWw0ndYwmcQVo3V9zBNg01o/MU3KigaeAH
+         K0ZmW4X/KrzE9UuBqtQJ1sk/faUZwCQgkrfTMLqGY7+nCVCQl2NSx1rP/wEjNg/8v7mt
+         K5eJkFclga1pthcgUXphSEfDwK3gj7a2zB6XLZJnx0yb63JduKX3pZFKJv8m14q93KDB
+         v83/OvquF1e0FC7b+b0AK49udpFGXfdVL72pzMam7MmYbe14lL9d81+sVLdYb4Qd/llS
+         u92Q==
+X-Gm-Message-State: AFq9FYIUcL5S6IryPhK3ErXfNMBI/ABj8r0Tvm5A7RvJKrGwj2D8lmeY
+	EkRxPOYI6ATEfFBTB/RCeoGtay0Ks3QzrFuQtRcsYPqlYCWBfaDi2MCNgV3fuGjHTH2i7t2jVsQ
+	cvsvJLo71PjxQAaEXQXt5D/DZRfIAv/A+cdIxZSzNuuUcwDCh6QE5CCseNpwrh36XZAILVx15Pu
+	a5L+SeoWxAfbt/tSSIWEs7+b1Sz1+eo+IfzeVt
+X-Received: from pjwx12.prod.google.com ([2002:a17:90a:c2cc:b0:3a8:cbf9:5e52])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1847:b0:3aa:fdad:7d6c
+ with SMTP id 98e67ed59e1d1-3ad86d675a6mr596941a91.58.1792550709934; Tue, 20
+ Oct 2026 19:45:09 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Tue, 20 Oct 2026 19:45:03 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,57 +76,60 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3P78oJthqvUvuBg--.49322S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJr48tF4fXrW7XF1xur48WFg_yoW8CrW5pa
-	yF9ay5tr1rXr4jk3Wktw1DXry5W3y5GrW7KryDCw4F93s5tw1kKryvqryFgF10krZ3ZFsx
-	JF1jqay5Wr1UAa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piYFAJUUUUU=
-X-CM-SenderInfo: xvod2y5b0lt0i6rwjhhfrp/xtbC5wpkyGrYJiqkIAAA37
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
+Message-ID: <20261021024503.1732165-1-seanjc@google.com>
+Subject: [PATCH 6.12.y] KVM: x86/mmu: Preserve nested TDP shadow page tables
+ if they are used as roots
+From: Sean Christopherson <seanjc@google.com>
+To: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Sasha Levin <sashal@kernel.org>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Hyunwoo Kim <imv4bel@gmail.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Sean Christopherson <seanjc@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-For some MHI devices in some specific scenario, the default value
-of autosuspend_delay_ms may not enough to handle last wake event.
-This may lead to some unexpected problems.
+From: Hyunwoo Kim <imv4bel@gmail.com>
 
-Refer to the Qualcomm's Windows settings and we checked this with
-Quaclomm over case, Qualcomm recommend us to set this as 5000ms.
-Qualcomm also suggests us to update this for all MHI devices.
-Since this setting has affected some existed kernel versions, it's
-better to be applied to stable version.
+[ Upstream commit 7a2c70e777a00c32ebafd376a6fe31ebb91c5b20 ]
 
-Fixes: d3800c1dce24 ("bus: mhi: pci_generic: Add support for runtime PM")
-Cc: stable@vger.kernel.org
-Signed-off-by: Slark Xiao <slark_xiao@163.com>
+kvm_mmu_zap_oldest_mmu_pages() excludes a shadow page whose root_count
+is non-zero from top-level reclaim, because such a page cannot be
+freed. The path in mmu_page_zap_pte() that recursively zaps a parentless
+nested TDP child has no such check. As a result, a shadow page can
+be zapped even if the page itself can't be freed; as the comment in
+kvm_mmu_zap_oldest_mmu_pages() notes, zapping it will just force vCPUs
+to rebuild the page.
+
+As in top-level reclaim, do not recursively prepare zapping of a
+nested TDP child whose root_count is non-zero.
+
+Fixes: 2de4085cccea ("KVM: x86/MMU: Recursively zap nested TDP SPs when zapping last/only parent")
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+[sean: resolve minor conflict due to lack of lockless aging in 6.12]
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
-v2: define a autosuspend delay timeout and explain the reason
----
- drivers/bus/mhi/host/pci_generic.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ arch/x86/kvm/mmu/mmu.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/bus/mhi/host/pci_generic.c b/drivers/bus/mhi/host/pci_generic.c
-index 7193a384cca4..1f52542794d7 100644
---- a/drivers/bus/mhi/host/pci_generic.c
-+++ b/drivers/bus/mhi/host/pci_generic.c
-@@ -21,6 +21,9 @@
- 
- #define MHI_POST_RESET_DELAY_MS 2000
- 
-+/* Add define of  initial autosuspend_delay_ms to accommodate a potential 'late wake-event' issue */
-+#define MHI_AUTOSUSPEND_DELAY_MS 5000
-+
- #define HEALTH_CHECK_PERIOD (HZ * 2)
- 
- /* PCI VID definitions */
-@@ -1483,7 +1486,7 @@ static int mhi_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 
- 	/* Allow runtime suspend only if both PME from D3Hot and M3 are supported */
- 	if (pci_pme_capable(pdev, PCI_D3hot) && !(info->no_m3)) {
--		pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
-+		pm_runtime_set_autosuspend_delay(&pdev->dev, MHI_AUTOSUSPEND_DELAY_MS);
- 		pm_runtime_use_autosuspend(&pdev->dev);
- 		pm_runtime_mark_last_busy(&pdev->dev);
- 		pm_runtime_put_noidle(&pdev->dev);
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 1a4d5fa11922..9acd7225c0ac 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -2500,7 +2500,9 @@ static int mmu_page_zap_pte(struct kvm *kvm, struct kvm_mmu_page *sp,
+ 			 * avoids retaining a large number of stale nested SPs.
+ 			 */
+ 			if (tdp_enabled && invalid_list &&
+-			    child->role.guest_mode && !child->parent_ptes.val)
++			    child->role.guest_mode &&
++			    !child->root_count &&
++			    !child->parent_ptes.val)
+ 				return kvm_mmu_prepare_zap_page(kvm, child,
+ 								invalid_list);
+ 		}
+
+base-commit: 7fdb7c1824a1f9979d648d7ae28ac446bcee9c6e
 -- 
-2.53.0
+2.56.0.218.g1ec904b173-goog
 
