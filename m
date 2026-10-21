@@ -1,96 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792546586;
-	b=llgPv8XuGc1ejPuKZbTH95WkJFTDFXzAB/Mj1fhkGM6gIfMTwV1VgJx7DQ2jhhAVbQSy
-	 YG6AgVcF+5H2kgzn3EXgxeCutKYZvU6tGgVHOBmzG9+JtCVEa06HCuM3mxO8ZCyDrPafp
-	 6rKYtuIjNzNu/b7SCcN8HYY3qhg+WJTWDv8ZnovVFXfPLQB7pXUWdefr/9KYKRUx+jntI
-	 ZGo+MXDnsXcU9CF2b3jJA+vUEbjnfMsb0cOJYEyHhEf8aqL9EL6cnCnkxmkLROe/e8js7
-	 D8DxhZRTla+/LWIvb07obHrugl6zBIZF4cYoOBAE0Bo3Prt69hA8653b9Pxku+/LEGg==
+	t=1792546844;
+	b=rAXfYP4rCfBb4FPCDjDut5UxlIxtavEpCSILh7mUr9fLlw8oJBdtbydhbboLH9fmFAvY
+	 zcwIXcoaTHwIntdBhTQzXd0MCzrmCHYoDuKu6AE+/KIP3uC+zwsnBoQ9ihZU4g6aMboKJ
+	 FUu+mAqLe0KPEcu4BBanYRPSILiSPvwuieMuwTVs4jyzYKniUxyFy/JyI/1ixh7QLU6UY
+	 TxCeU4cmXkn4p1oCfushv6ulWTSVIN0TBLNAvF+u+MYRWAEwi4xoYI7YfDQBWVMehltCa
+	 knlwnYfYHyIi5+0IzvQKGoQwE0Af3T9Va5sz9AFLNeuJ/MFsEYrjrPZMoNlDAvk1iAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792546586;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Ax/MKBRp76FWn3h/ZPK32Hkl8AkiS00UsCUGIQD4n0E=;
-	b=3NS93ksrzFxQZ9YU7+YbCNQRM16CnaV4NEc5fLqudY2l3bPX2woQNNuTpvfj6sRW2/fs
-	 0sYRyHjvB3VKjnZK2yRq+FfxmS6X2ciwFJWlevc9ZDg4ATBREDHWngkot6oWtdAwo1T03
-	 k226OxF69yxgVZ6HMY9We0sJrG/P8DgkJnwWk3yPXMOGJ+xMwQqE4PfOkC1BKho+vLwm8
-	 d3LL1CrN5/fb7JjfNgjA2eI30ssvbJOuGg130/ugUfF9Z7E2EyUltdwrY0sCRysTtqaNu
-	 3OVshQ+OTmHuTdn4JcdoBt5l9AUeQGnI/gvdgjzBrYbIk2XKHsw6eodgctqrEsnCbGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792546844;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=HeDOc1a25yKZFHVErDRfWSX7GxV09UeyrppnQuDKie4=;
+	b=nXnJXuejgmC6vx/SB9jWqEaQdbZ8//wA43VA4wGlMhcGdVmNBX8AGqxTkmTFJ2OgY3N0
+	 AcjteZwnb9CpyW41iDQtJJuWkCqU9z+JzvbpyI6K/O51rmduR6xLtuRV3u1pLSqXJWTDr
+	 m4XiSDWVq/E2dCRCudnOq+1YZg9w3QchnGdtOhpRDm43wEX9YFOjENC57Au6GM5W8Z39v
+	 tH7lq4muup/PxccVw0EjNFqpjIlv6/LFT3bkOzhVEb88bTaA8Haud3MzlsPYVaIDgq0J0
+	 QjceDjPrLrL1loaOF3cfxliuLcxw63KeVcIRBM6UjbhyOrTPz+1gmKgFHP0/OAWBeug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ou9lYyav;
-	arc=none smtp.remote-ip=74.125.229.5
-Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=al5lKTVZ;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53AF5606A31B
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 01:36:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53AF5606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74FFE606A319;
+	Wed, 21 Oct 2026 01:40:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74FFE606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ou9lYyav
-Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-35dc2af1f2fso63031eec.0
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 18:36:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792546584; x=1793151384; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ax/MKBRp76FWn3h/ZPK32Hkl8AkiS00UsCUGIQD4n0E=;
-        b=Ou9lYyavZBg15vkdakrlmd0FU6/TQ0XKtiphUaKiLjVJYw8DX8HQImOgtJvkvpTOFb
-         WrnHn2nCKay6lGUOfRAdPwEAHJWLdLJG10TmCjutc6vj/n2K6rYmYf3gbMDYQL6NkTHj
-         tadho/B+QJqjY+k9jtTed01CVh9zhA4pQ2pD4Ho/MFmefusfa7rW/mkoBCVyrf7v8ujI
-         snd+7YP2pY2HzTs+NNNVUEhJiTCChcsXo1HsgiAqwgbMv7OlzIM8tZtdE53/jRMFyLE/
-         MRiglMdmSTh946wRJh+jcnwyBg+XLDpzVPydwo830LEZsNUt8XIh8wLm8kKXpXPkityE
-         4UwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792546584; x=1793151384;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ax/MKBRp76FWn3h/ZPK32Hkl8AkiS00UsCUGIQD4n0E=;
-        b=1vInhw0h/khG7cFpcE1CxF8Rbf6yzNtfzUhj6N6XB15moXegrFepnA4CZcSGhgfllV
-         a2Ubthoh52r67uTXyWgUsHrSYifXXNYsjvBjmBNDegpgX+AslF7ZMJGnJ4T+/GMZOKYK
-         XUDp+4MWqP4y8g4tsv2ZtgK4e8NVNa3A4mim5cCb44K5sAN4rsNNE4TLTt3SIFoZBHn5
-         WFdQ5Ea9RCBCsW1btUNloNgsrk9BaCuQtfNzER6FJvWLnLlyaT7Hka9WNU/Dtl4VIXuE
-         13dob7neD/vzA5OZVhcRS4woW7ffH6LujGA+CV5xFajxtmSlMUfETyZQ5Wl3uK+H0h+c
-         q0sw==
-X-Forwarded-Encrypted: i=1; AKwUvBwFTzlaYREJgHMsZZxExljIJALqp1V1PJMhbjbmQvZAOPVaA7cMpix1CT/ywAzbLzIx8mFuyXg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI4PzeTio7B4jfk4clUu2EwTvmbSKS5doBxm1DMy1zDl5lbUQFh
-	te9OCRPZXltz2KUpIFxCjUooInt/Se7qHJmP8Ema/bE73LTDMWXbobw+
-X-Gm-Gg: AYBFou3iD7HpXlOGBuyrw2mnL0pnKIyLXDVe/aehMJ4vx9+dstz1N96BheE6uHPfoHE
-	r9oxf8VaBRLIF+ociu0z+8aO6qBHlVuGtbXZP7J4E6CCeQdthuOJPfeiBEWgO+tiDsK6mBCCLEs
-	dVBY/Jvq9zk8I/+EFsY1Nagj3Muq+bxdfGz84mvGSLzhWmGntjY2naSgfpYtPjsOkM80czjBVuP
-	6Bflx5knPsjC/Bu4XOmDtXwyq9OcUVsXQoaU89tOWCKkNzt254+UkRAhBmzFxWBB+h7KHBM+C1/
-	Rsy6U1Bi2BnQuG0d2q9OeytFWFNuBGO7/2g5SdkoHrytvonNA5tdoobJxTl16zu7NODWPIY58fF
-	JOMOM8TkMSFEFGbyAcsXzMAFurFS0bfAQMtPAdkz4YZCb207Wi0lwpkAseia1A2QVVZaPiOjzRM
-	6uSGNUX+NNJ12PmxDEomGPdxTfz3wfyopnMI/F5n8chyrtua/JTxt2oAxFxhq7LmoRCZVmbCuiD
-	pDoHWyzgYcjCWhDqOz2DiqyPaCECdllJrVuJmeYrB4o/CJzLc2u1Ilxwq31I1mVOBMjmgwNdKIN
-	6FWnuxo=
-X-Received: by 2002:a05:7023:a8b:b0:143:72b1:9004 with SMTP id a92af1059eb24-190a87a3b70mr819537c88.45.1792546584157;
-        Tue, 20 Oct 2026 18:36:24 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903a275026sm2991870c88.5.2026.10.20.18.36.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 18:36:23 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: willy@infradead.org,
-	jack@suse.cz
-Cc: akpm@linux-foundation.org,
-	shr@devkernel.io,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=al5lKTVZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=He
+	DOc1a25yKZFHVErDRfWSX7GxV09UeyrppnQuDKie4=; b=al5lKTVZ0RGRiYmUsx
+	yc36VgQnurINXS1sNdNbgR8iZEuI/6NlEiV89e2uaG5gMRSQG/CNyKSvL2JcWKrm
+	NXDQj/egfcCXCeRnPmZEI5lK96KNLmpzrRrqPmcC3uDuJzfTEyIFlnrrR2j8EOO2
+	cnaf38+4eXc3VVzwmCNW44mK0=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgB345b7F9hqHjJlBA--.9484S2;
+	Wed, 21 Oct 2026 09:40:12 +0800 (CST)
+From: "Li Youhong" <dayou5941@163.com>
+To: song@kernel.org,
+	yukuai@fygo.io
+Cc: magiclinan@didiglobal.com,
+	xiao@kernel.org,
+	linux-raid@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] mm/page-writeback: avoid 32-bit overflow in dirty threshold shares
-Date: Wed, 21 Oct 2026 01:30:46 +0000
-Message-ID: <20261021013046.23997-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Li Youhong <liyouhong@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] md/raid5: use dedicated llist for stripe plug
+Date: Wed, 21 Oct 2026 09:40:09 +0800
+Message-Id: <20261021014009.1206807-1-dayou5941@163.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,57 +65,121 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:QCgvCgB345b7F9hqHjJlBA--.9484S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZw1fZF1fAr15ZF18uw1kAFb_yoWrXrWxpw
+	n8G3yY9rW8ur40vrWvqFWDuF9a9a1agryakrWFka4S9F1YvrW7ta43WFZ8CFn8AFZ5u3y3
+	Xwn09r17Gr45CrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jYMKZUUUUU=
+X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC3R3VhGrYF-2vvgAA3Y
 
-The ratios used by __wb_calc_thresh() are scaled to parts per million,
-but the threshold and ratio operands are unsigned long. On 32-bit
-kernels, their multiplication can wrap before the result is assigned
-to u64.
+From: Li Youhong <liyouhong@kylinos.cn>
 
-For example, with a threshold of 25600 pages and the default maximum
-ratio of 1000000, wb_max_thresh becomes 4125 pages instead of 25600.
-The shared threshold and minimum share calculations can overflow in
-the same way, producing incorrect per-writeback dirty limits.
+release_stripe_plug() and do_release_stripe() share sh->lru.
+release_stripe_plug() sets STRIPE_ON_UNPLUG_LIST and
+list_add_tail()s sh->lru onto raid5_plug_cb.list without
+device_lock. do_release_stripe() holds device_lock and, when the
+last reference drops, list_add()s the same lru onto a handle or
+inactive list.
 
-Promote the threshold before each ratio multiplication and use
-div_u64() to retain the existing division order and rounding.
+Two list_add()s on one node corrupt it. sh->lru can be
+reinitialized into a self-loop while raid5_plug_cb.list still
+points at that stripe. raid5_unplug() then walks the list under
+device_lock with IRQs disabled and never finishes. Other CPUs
+waiting for the same lock hard-lockup.
 
-Fixes: ae82291e9ca4 ("mm: use part per 1000000 for bdi ratios")
+Add a dedicated llist_node, unplug_list, to stripe_head, as
+release_list is used for released_stripes.
+
+Fixes: 8811b5968f62 ("raid5: make_request use batch stripe release")
+Suggested-by: Yu Kuai <yukuai@fygo.io>
 Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
 ---
- mm/page-writeback.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+v3:
+- Skip device_lock when llist_del_all() returns NULL. The plug
+  callback can still run with an empty list, and the check avoids
+  an unnecessary spin_lock.
+- v2: link: https://lore.kernel.org/linux-raid/20260922060928.3486799-1-dayou5941@163.com/
 
-diff --git a/mm/page-writeback.c b/mm/page-writeback.c
-index eeab25d6ce36..451750df8b74 100644
---- a/mm/page-writeback.c
-+++ b/mm/page-writeback.c
-@@ -894,13 +894,14 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
- 	fprop_fraction_percpu(&dom->completions, dtc->wb_completions,
- 			      &numerator, &denominator);
+v2:
+- Drop taking device_lock in release_stripe_plug(). Add a dedicated
+  unplug_list.
+- v1: link: https://lore.kernel.org/linux-raid/20260902095307.358569-1-dayou5941@163.com/
+
+---
+ drivers/md/raid5.c | 20 +++++++++++---------
+ drivers/md/raid5.h |  1 +
+ 2 files changed, 12 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
+index b91545ce090d..dbc6e6876509 100644
+--- a/drivers/md/raid5.c
++++ b/drivers/md/raid5.c
+@@ -5710,7 +5710,7 @@ static struct stripe_head *__get_priority_stripe(struct r5conf *conf, int group)
  
--	wb_thresh = (thresh * (100 * BDI_RATIO_SCALE - bdi_min_ratio)) / (100 * BDI_RATIO_SCALE);
-+	wb_thresh = div_u64((u64)thresh * (100 * BDI_RATIO_SCALE - bdi_min_ratio),
-+			    100 * BDI_RATIO_SCALE);
- 	wb_thresh *= numerator;
- 	wb_thresh = div64_ul(wb_thresh, denominator);
+ struct raid5_plug_cb {
+ 	struct blk_plug_cb	cb;
+-	struct list_head	list;
++	struct llist_head	unplug_list;
+ 	struct list_head	temp_inactive_list[NR_STRIPE_HASH_LOCKS];
+ };
  
- 	wb_min_max_ratio(wb, &wb_min_ratio, &wb_max_ratio);
+@@ -5718,17 +5718,18 @@ static void raid5_unplug(struct blk_plug_cb *blk_cb, bool from_schedule)
+ {
+ 	struct raid5_plug_cb *cb = container_of(
+ 		blk_cb, struct raid5_plug_cb, cb);
+-	struct stripe_head *sh;
++	struct stripe_head *sh, *tmp;
+ 	struct mddev *mddev = cb->cb.data;
+ 	struct r5conf *conf = mddev->private;
++	struct llist_node *head;
+ 	int cnt = 0;
+ 	int hash;
  
--	wb_thresh += (thresh * wb_min_ratio) / (100 * BDI_RATIO_SCALE);
-+	wb_thresh += div_u64((u64)thresh * wb_min_ratio, 100 * BDI_RATIO_SCALE);
+-	if (cb->list.next && !list_empty(&cb->list)) {
++	head = llist_del_all(&cb->unplug_list);
++	if (head) {
++		head = llist_reverse_order(head);
+ 		spin_lock_irq(&conf->device_lock);
+-		while (!list_empty(&cb->list)) {
+-			sh = list_first_entry(&cb->list, struct stripe_head, lru);
+-			list_del_init(&sh->lru);
++		llist_for_each_entry_safe(sh, tmp, head, unplug_list) {
+ 			/*
+ 			 * avoid race release_stripe_plug() sees
+ 			 * STRIPE_ON_UNPLUG_LIST clear but the stripe
+@@ -5768,15 +5769,16 @@ static void release_stripe_plug(struct mddev *mddev,
  
- 	/*
- 	 * It's very possible that wb_thresh is close to 0 not because the
-@@ -916,7 +917,7 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
- 			wb_thresh = max(wb_thresh, (thresh - dtc->dirty) / 8);
+ 	cb = container_of(blk_cb, struct raid5_plug_cb, cb);
+ 
+-	if (cb->list.next == NULL) {
++	if (!cb->temp_inactive_list[0].next) {
+ 		int i;
+-		INIT_LIST_HEAD(&cb->list);
++
++		init_llist_head(&cb->unplug_list);
+ 		for (i = 0; i < NR_STRIPE_HASH_LOCKS; i++)
+ 			INIT_LIST_HEAD(cb->temp_inactive_list + i);
  	}
  
--	wb_max_thresh = thresh * wb_max_ratio / (100 * BDI_RATIO_SCALE);
-+	wb_max_thresh = div_u64((u64)thresh * wb_max_ratio, 100 * BDI_RATIO_SCALE);
- 	if (wb_thresh > wb_max_thresh)
- 		wb_thresh = wb_max_thresh;
- 
+ 	if (!test_and_set_bit(STRIPE_ON_UNPLUG_LIST, &sh->state))
+-		list_add_tail(&sh->lru, &cb->list);
++		llist_add(&sh->unplug_list, &cb->unplug_list);
+ 	else
+ 		raid5_release_stripe(sh);
+ }
+diff --git a/drivers/md/raid5.h b/drivers/md/raid5.h
+index cb5feae04db2..e314f17eb949 100644
+--- a/drivers/md/raid5.h
++++ b/drivers/md/raid5.h
+@@ -201,6 +201,7 @@ struct stripe_head {
+ 	struct hlist_node	hash;
+ 	struct list_head	lru;	      /* inactive_list or handle_list */
+ 	struct llist_node	release_list;
++	struct llist_node	unplug_list;
+ 	struct r5conf		*raid_conf;
+ 	short			generation;	/* increments with every
+ 						 * reshape */
 -- 
-2.43.0
+2.25.1
 
