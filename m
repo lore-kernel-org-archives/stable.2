@@ -1,116 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792573465;
-	b=m2aUs0/6Dz+2Ogc5xxOLyFGfKjjNLHB1ZydoH1SwKHmsQR8Oxjy0kdFNRlfIO6wZktde
-	 2zayzq5aNdIgTFlueyO8a3yDb9xo1Z5uetI2QeMxgH9MWP+fkcDcKP1STx8/S6oX+5h7A
-	 BQKxGtiXbACAfvDZiWKRv2lvOYGawl65IbPlEmeqh+6SaOY1utriHTc7Z1+hAfPiqEfID
-	 2rSPs9L3wq+BZ6xE8ip7vGyUijefC93T2OKCGDkCY/VB4df0PeNcgGpDDlEddkwsBIHpL
-	 hMdlFFNr5FI9tkfsBAYCk6JfGUVDtKkUEwnAn6F4V7bG9L8rv+D/ZvASvKSYWwOtDYQ==
+	t=1792573548;
+	b=Tn11BVPYBgbjJBE5c4XOvQHlPJdCxtz6qS9lj4KhgTIT2BKgBnGZaonRXC12uxgiImIY
+	 w7LjcB4Q9qlKrpkqImP/6g6MQ358V6kBXtDIBZZ3tVX3NKAouA2iJSWX+MzGS3eJMGdrE
+	 49j2sY1k45+TGQb7+Y19TEOfCUD/WPI93FB0xI3AgU7/Fvpe3qEeZ8jPv19RBdx81M+OR
+	 bxqPrVjMgJWrjjlnYyod/ZNej+CfPin8gsAEvND1cyZWfzgtzVDbKT2s6x1N5/XcQxb8b
+	 Lidayuq9TbUbhYRYsX/CPD974mqOg9Savt6mj3GETaGD6JuVq2pxMb0HQXi6WG4LSdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792573465;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=csNOmpzOi9opi088UH5aVImfWx2YCUTo70s3xFwzQFM=;
-	b=OBaPbpsPm4WAE0oXVq6jo21y/7//8aipJSZBssJIVtRLA3Udd/G/FSDRyRiNciUN74+x
-	 /u+htWhvWDo1DvBPMnWzE01I0piQg/LN4O+xVLvGwXmAkQfVEyMxEdE1qrN2VbPRet1Un
-	 ux/kGgTRd5Da9Qf/GnxSPX7okriQmSiEZl/8TAGq5HB9wW1yJsNje9OUz4heWBxxk8btw
-	 SqBYrX18yWrS1KmfafNh1PVUMIyqQXRP5WPu0SSTPV6DmM2aVR4vaZKwgoYxohgRIlA+m
-	 aSbItR6h2CvF5rzn0SpbAHUUrEckwdZhlrh/QFT4JXIttCpzz9RJiHTQnQsXrz0TXtw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792573548;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=MDiV8Cg2qYD5w4v3RNhhR59ppcpCPG7oh6UM9oq7LWM=;
+	b=DNpS2VjnPWKVr3vnc89+gg036/OHe3+mc1HZXL+5t+nmcY/n6Swi1Wf63/tu4VOGRN+f
+	 uQW7pa071y+REiqL9QUuAeX9qu7Dmf6eClUQ3ZV963wON/GJaOkVoZkiiEIwZoDyGxN4J
+	 tEkE/1C7YucR1yiXaDGKTY159Os7/yF2EwQJZ2uAgDVSn0SVWPmdsQ0dWJn0bj7Hk+3rE
+	 rj5aX2gyYjMmyEax55vArc/yKw+wQtqbLBcwRKlv+rP6hMIFAV3PCbshWwf2R7MafVBEh
+	 nxglvAE++l1jfinXf4wsG5n+E2FRlU/iOHgMrO+K9WE01YWDarIWdpRUstEuERAA5hQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=queasysnail.net;
-	spf=pass smtp.mailfrom=queasysnail.net;
-	arc=none smtp.remote-ip=202.12.124.150
-Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Mrx0lhpi;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D767606A31B
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 09:04:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D767606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id BAD671D000E7
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 05:04:23 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Wed, 21 Oct 2026 05:04:23 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1792573462; x=
-	1792659862; bh=csNOmpzOi9opi088UH5aVImfWx2YCUTo70s3xFwzQFM=; b=o
-	meSON72QEHErjg7n+i2yeuPoD4JJO3wC0eQEUP670QY9jVILee30qzKmS4mOVKdh
-	peivkki6RAGkgrXSwPyFReTEuB2+aWZDnKuVFkTVbbhn2IRuPe5EeYiZwiaCXj5t
-	BWH64f724LqnDxwnUntOpa3zIYyNBDfQYtQHdLdokmn+my2gMwsWUEQY/OmWDJe7
-	EJnGJvBElhHJ0OAILgOBGI+yyTKyMjRknJIWe1ECfuY6xvFveHLyHxIAw4Tavkq4
-	RSk9rc/qmrqrc6+egbMBOmveywQYLX+4SUCet7HMTXriVVYcz3rn+0z2xmpE7vfg
-	B2L+2FrywVUryW31X7QbQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1792573462; x=1792659862; bh=csNOmpzOi9opi088UH5aVImfWx2YCUTo70s
-	3xFwzQFM=; b=nudGWP2WpJidpEIlgg3pDi5/YpEIj6ZF1hEBVngrs55d/rt2z2r
-	qVMvOlua5w007vKBlQhSkEwUT/a1btkc382XtH5ii4vJi15RO21GmxCu0XicxAb4
-	uQmUVMfqotwY7kcloF8ILjTkmORbIDWN8UcJ/xa/LrY6FUh4qZjrEpJG5yHQXfVE
-	ZbrqLfoUch8u1E6MsFiWlUcQrTjpuTlexzxZ37gfGwmyiU1fC25AYMzvtXKPjk9i
-	HQ+R/nnmVFfCSJOkjpgvfjt4CDcMArLIqdg5psbzaZwfOpdgPSqLOin8hzEOdnx5
-	YiuwnLQu0GyRO18SV0tdHtmV5O608ehqv/g==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=queasysnail.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792573462; d=queasysnail.net;
-	mf=PHNkQHF1ZWFzeXNuYWlsLm5ldD4=;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:heaa9uuAJtFWtkjAvjOEAEd4ZPko8UQvgDex9D9hqgg+FyD
-	DnD6MQjSjxilN4PxsDmrFGhhYilwSBCcgQh8XGzww4D+/KSnBkvOdQhUkzIypFUP
-	1cwf2JWaofykz1/UG3aD9jXXhg9xQy3gpS63mKQKSflGPghFASQmYhanxr+DgHhI
-	BHKo/PNvzNDGum4rAbWwzKmzZCWE/s1lYeSLk77cohUaKInRyrELJbrnmV0DGZxK
-	/yykBAxhtFFr/k/0v3gJu1MdOzBzFVGJSOULaLn1CRW/KaFZ64hdZH7/FH9nEP/O
-	ST8RWEntWQCow/bJyfQ+16pXiwkcB3eyDxh3VIg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:BPsFBW8hox1ARX6bqMlGNHye56oNNRkxjp5ruwYW0+0=:SN3lCVCm/+OtZcsJHcgkhERSa+yp3BYbsp+O1Bf8328=;
-X-ME-Sender: <xms:FYDYauMP4a6wy_N2vd6bl73-dVR2gJpMSg2ECRE9E7AoSIfCc0-ObQ>
-    <xme:FYDYai8tYAKVjeW7LlIJgoPvnHmhVc0ki5KINUUIhyzUh0WVk6yclIt0vAOyOSW_5
-    PpkMHEjLj_XNJuJfAHA8izGpTqAMAjbU3B3jFz2O-gPjHOZwRbIBf3A>
-X-ME-Received: <xmr:FYDYagHgn2hk1qgwWQ_s2nu5LBEYvscjvWc-lIkZ3WCp1ipFJudtLW93p1I>
-X-ME-Proxy-Cause: dmFkZTEu9GlWtHXe9v9ClB+erUmoDap8HNWDFhJJi5pP1RUgD8TZuRnUuCCBr1H8B0+f/F
-    xcfo+/mXnhan7i4FzLnwhbRZ1QUo3U6auOgMvtpuwR2wXwUsPO+dgsJWQse6rYu/MYGQEa
-    ad1sJrqX8ZWQOBJ6jfBeswqfi6sidebXP4/b8Bh79NYyEa9JUa5eD7EAXE7AC9a8j3kV2X
-    5MSXnED3dLH8vB0pOcMbwyTMEltKQRLJMoRGB6ZEVyDVa4L7LMImJcGM4lhXxaZEh407Aq
-    XCONGZqAuEXOSov9Vh9qXgV/z7vur5hiAvGh5U/Uw7Bo4UmHthK+M2P+GHo7tPi+cTERg9
-    XIdDkkS/xzWpx+dlIdz6guXu+8uWxwWTolp5QLOE0QqjzRZZU49Cenr04EKtkEtPSW/Ri3
-    DAsATrp2XrU6EkAqZbnespu9lj4RzsN2Xq0lCo5BPfLilXxT2ftpnlKihgY5oDR8pyvSQS
-    xkIOjMMw0kc8+vB8YGSgajmwODNIvlkJ3Toh4fp16CtxXFQgFDed4p2tYLsvQ3qcdivC6r
-    WD4E9l3vvEoaqaR1QWM3iACMvLwrMyeazLpwQ/jGvPOkWrVxtoX0NYe7oSUK+FNw+6lIXW
-    fA63JfweHR0DDhQiCL/GZCRyZ1kSzUB0fW6trlhpQAkO8nJSbNUaQDUHSjxg
-X-ME-Proxy: <xmx:FYDYahhXsVAlRoPfZxlYTlnuGVDc0p2cbNbubdbOVdIHS1xBAzyE0g>
-    <xmx:FYDYaltnXFMlSICTXpMrGUS5sT331VQrnoXPKTE19ku_RQsEJ4Jz8w>
-    <xmx:FYDYastJkBcNLiTvh6lv7qwqBeYpVOLZMtlUriOnvVgES6fl8axYcA>
-    <xmx:FYDYaiERLrOeTp1AA3BRNfh6dO_pV630xhxRy7QThbW2zWXYdQ6Otw>
-    <xmx:FoDYajcdDGLF-Dn0E_Z4KMbYXiTD9mw18eJF4PVv5YGZ6XLz4JvZC956>
-Feedback-ID: i934648bf:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 21 Oct 2026 05:04:21 -0400 (EDT)
-Date: Wed, 21 Oct 2026 11:04:19 +0200
-From: Sabrina Dubroca <sd@queasysnail.net>
-To: Rishikesh Jethwani <rjethwani@purestorage.com>
-Cc: netdev@vger.kernel.org, john.fastabend@gmail.com, kuba@kernel.org,
-	davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] tls: device: keep tls_sw_fallback() from encrypting
- its own output
-Message-ID: <atiAExld_bpR7sQm@krikkit>
-References: <20261019212651.733565-1-rjethwani@purestorage.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02117606A31A;
+	Wed, 21 Oct 2026 09:05:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02117606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Mrx0lhpi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792573548; x=1824109548;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=3bc6kI4G+m4pyFPZ8z/26MoCOdgMktIlpCdemjKJb20=;
+  b=Mrx0lhpikuGCSw25U3AR941mZUL75yNASpNpagGQo1wqOUShovZyzMUK
+   iVhKaOkFvegjCOMRTM4TogXwRPwpHoOcADqihvkLWlMg1pkEwFOO8D7/c
+   9E+s3r3bXBrerZS3o8W6fR6wPhs3NlOPrFLG7D+psHPt464OICjB25BFj
+   bipm3wx29h8NDsVBBYT4u4yoTMxFPZ+C6VVKsMjyg1nKsJJ1OZN+cE/nj
+   sOih2XzO0iid4f4/Bi7ZUYX+m7UX+RzpPtOBFfymzr9mpKmN08fQzg47g
+   qXpkGtjsPAyO4eK14bZOthgNKkgjzc4oHUgHxw/kTzujXbx5qisKySegn
+   Q==;
+X-CSE-ConnectionGUID: xPS2RVvYTqCKr1yjQcTAUQ==
+X-CSE-MsgGUID: 5Y3dYEaySe+GtF4Uc17gew==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1303247"
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="1303247"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 02:05:48 -0700
+X-CSE-ConnectionGUID: kq2bl2/3SRmAWc4968UjTQ==
+X-CSE-MsgGUID: TNG0Hco4Tc6jfhpl38N7+Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="3437346"
+Received: from alekseim-mobl.ger.corp.intel.com (HELO localhost) ([10.245.245.75])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 02:05:45 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 21 Oct 2026 12:05:40 +0300 (EEST)
+To: Muhammad Bilal <meatuni001@gmail.com>
+cc: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>, 
+    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    =?ISO-8859-15?Q?Thomas_Wei=DFschuh?= <linux@weissschuh.net>, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+    stable@vger.kernel.org
+Subject: Re: [PATCH v6] platform/x86: hp-bioscfg: fix heap OOB in
+ hp_enforce_single_line_input()
+In-Reply-To: <CADqcGBkV4iE_0j6usv6TvV3K9XGUa0L9J-ebUkTLsB0NBYzTHA@mail.gmail.com>
+Message-ID: <a905f45d-aec8-569f-d5bc-718896f7c9c9@linux.intel.com>
+References: <20261016025352.230535-1-meatuni001@gmail.com> <29c3e4a2-9d6a-60cf-d06d-85152a40a703@linux.intel.com> <CADqcGBkV4iE_0j6usv6TvV3K9XGUa0L9J-ebUkTLsB0NBYzTHA@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -120,103 +82,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261019212651.733565-1-rjethwani@purestorage.com>
+Content-Type: multipart/mixed; boundary="8323328-2130717885-1792573540=:1258"
 
-2026-10-19, 15:26:51 -0600, Rishikesh Jethwani wrote:
-> A socket offloaded through a bond has every skb validated twice, once
-> at the master and again at the slave. tls_validate_xmit_skb() passes
-> the master-level call through for that reason (netif_is_bond_master()),
-> but tls_validate_xmit_skb_sw(), the validator tls_device_down()
-> installs, calls tls_sw_fallback() unconditionally, so it encrypts the
-> master-level ciphertext a second time with the same rcd_sn and IV. This
-> cancels the CTR keystream and exposes plaintext on the wire. For a
-> complete record encrypted twice in one skb, the second pass also
-> generates a valid GCM tag, so the peer accepts corrupted data without
-> an authentication failure.
-> 
-> Guard on the content rather than the device. Offload plaintext always
-> carries the decrypted bit (tls_push_data() and
-> tls_device_write_space() send with MSG_SENDPAGE_DECRYPTED), so
-> tls_sw_fallback() can pass through any skb without it: such a skb needs
-> no offload encryption. complete_skb() now clears the bit that
-> skb_copy_header() copied from the plaintext original, so the fallback's
-> own output passes through any later validation pass untouched. This
-> also does not rely on every path validating a skb at both the master
-> and the slave.
-> 
-> Tested on two hosts back to back over a mlx5 port, the only slave of
-> a bond0 (balance-xor, layer3+4), so each transmit is validated at the
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-As in another patch, a couple of selftests for "offload over
-bond->NIC" would be good.
+--8323328-2130717885-1792573540=:1258
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-> master and again at the slave. Run from each host as sender, a TLS 1.2
-> AES-GCM-128 TX socket kept open across an administrative bounce of the
-> slave leaked every later record as plaintext before the fix; after it
-> each record is encrypted exactly once and the kTLS peer reads the
-> stream intact.
+On Wed, 21 Oct 2026, Muhammad Bilal wrote:
 
-The wording and verbosity of this section ("administrative bounce", 3
-lines to say "before it didn't work and now it does" which IMO
-shouldn't even have to be said) needs to be cleaned up. The rest of
-the commit message as well.
+> Hi Ilpo,
+>=20
+> > Why use n variant?
+> strnlen() keeps the read within count, which is the size of buf as far
+> as this helper knows, so it does not depend on the caller NUL
+> terminating the buffer. Both current callers pass a kstrdup() copy, so
+> strlen() works too. I can switch to it in v7 if you prefer.
 
-> Fixes: c55dcdd435aa ("net/tls: Fix use-after-free after the TLS device goes down and up")
-> Cc: stable@vger.kernel.org # needs commit fc6d80eb5044 ("tcp: prevent collapsing skbs across boundary in rtx queue")
-> Signed-off-by: Rishikesh Jethwani <rjethwani@purestorage.com>
-> ---
->  net/tls/tls_device_fallback.c | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
-> 
-> diff --git a/net/tls/tls_device_fallback.c b/net/tls/tls_device_fallback.c
-> index 3b7d0ab2bcf1..24fba12febd1 100644
-> --- a/net/tls/tls_device_fallback.c
-> +++ b/net/tls/tls_device_fallback.c
-> @@ -192,6 +192,14 @@ static void complete_skb(struct sk_buff *nskb, struct sk_buff *skb, int headln)
->  	skb->destructor = NULL;
->  	skb->sk = NULL;
->  
-> +	/* nskb carries ciphertext now, but skb_copy_header() inherited the
-> +	 * plaintext original's decrypted bit. Clear it so the bit keeps meaning
-> +	 * "still-plaintext, needs an encryptor": a requeued nskb would otherwise
-> +	 * be re-validated and encrypted a second time on any re-entry into
-> +	 * tls_sw_fallback().
-> +	 */
+As the contract here is the input must be a string, I don't see any need=20
+to limit the length with n variant so I do prefer strlen(). Also, we know=
+=20
+that it should not be longer than count anyway.
 
-"nskb is encrypted now" is enough. the rest of this comment (why it
-was set and what the bug would be) really doesn't belong here.
+--
+ i.
 
-> +	nskb->decrypted = 0;
-> +
->  	update_chksum(nskb, headln);
->  
->  	/* sock_efree means skb must gone through skb_orphan_partial() */
-> @@ -371,6 +379,17 @@ static struct sk_buff *tls_sw_fallback(struct sock *sk, struct sk_buff *skb)
->  	s32 sync_size = 0;
->  	u64 rcd_sn;
->  
-> +	/* Only skbs carrying the decrypted bit hold plaintext that awaits
-> +	 * offload encryption; anything else needs no work here. That
-> +	 * includes this function's own output (complete_skb() clears the
-> +	 * bit skb_copy_header() inherited), which is seen again when a skb
-> +	 * is validated a second time, e.g. a bond master handing it to a
-> +	 * slave via bond_dev_queue_xmit(). fill_sg_in() would map it back
-> +	 * onto its own record by tcp_seq, reusing rcd_sn and IV.
-> +	 */
-
-Sorry, I'm not reading all this. 0 or 1 line of comment here, nothing more.
-
-> +	if (!skb_is_decrypted(skb))
-> +		return skb;
-> +
->  	/* worst case is:
->  	 * MAX_SKB_FRAGS in tls_record_info
->  	 * MAX_SKB_FRAGS + 1 in SKB head and frags.
-> -- 
-> 2.50.1
-> 
-
--- 
-Sabrina
+> Thanks
+> Muhammad
+>=20
+> On Wed, Oct 21, 2026 at 2:19=E2=80=AFAM Ilpo J=C3=A4rvinen
+> <ilpo.jarvinen@linux.intel.com> wrote:
+> >
+> > On Fri, 16 Oct 2026, Muhammad Bilal wrote:
+> >
+> > > The input is copied with kstrdup(), which stops at the first NUL, but
+> > > the full write size is passed to hp_enforce_single_line_input(). With
+> > > an embedded NUL the helper reads, and can write one byte, past the
+> > > copy. Return -EINVAL if the input contains a NUL.
+> > >
+> > > Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.8): writing "A\0"
+> > > followed by 4093 bytes of "B" to current_password 100 times returns
+> > > -EINVAL every time, without reading into the heap.
+> > >
+> > > Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
+> > > Cc: stable@vger.kernel.org
+> > > Suggested-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+> > > Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+> > > ---
+> > > Changes in v6:
+> > >  - Return -EINVAL on embedded NUL instead of limiting the scan (Ilpo)
+> > >
+> > > v5: https://lore.kernel.org/all/20261007134711.473857-1-meatuni001@gm=
+ail.com/
+> > >
+> > >  drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 4 ++++
+> > >  1 file changed, 4 insertions(+)
+> > >
+> > > diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/p=
+latform/x86/hp/hp-bioscfg/bioscfg.c
+> > > index 876fc35d035b..e306bd8b1e72 100644
+> > > --- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+> > > +++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+> > > @@ -162,6 +162,10 @@ int hp_enforce_single_line_input(char *buf, size=
+_t count)
+> > >  {
+> > >       char *p;
+> > >
+> > > +     /* buf is a string, so a NUL before count is invalid input */
+> > > +     if (strnlen(buf, count) < count)
+> >
+> > Why use n variant?
+> >
+> > > +             return -EINVAL;
+> > > +
+> > >       p =3D memchr(buf, '\n', count);
+> > >
+> > >       if (p =3D=3D buf + count - 1)
+> > >
+> > > base-commit: 8667bd30fd033295b3038ce374c551d1059538ba
+> > >
+> >
+> > --
+> >  i.
+>=20
+--8323328-2130717885-1792573540=:1258--
