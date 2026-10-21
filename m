@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792585901;
-	b=EpufamDVDhsadIO+1ywMO64Gp5JJC1waFInT2TLrZianfzKNyTX0Luin96l2+qp016My
-	 8FbPyly0/pfMS7R1mRMNyCC6sZ3LUtss6j2AzZtRgKzuPvmxS5cyS8ASHWYDZvjZhf3bU
-	 AzHV8oIS2ruzO/q2egLnOnifXhDvEZNLG5zwRNp6VN8jMm0XzuefKEweTmnk5vhG2G2Vq
-	 Cnq0xAlng9bt+NjYaujyKteNBGuLSiBoJWC9poeoKkxb41rGicUbO10MMp8emhgjL/eQt
-	 EPtjdhtMlUssvfvBftggJ4YznXaIRYeE4JudOVs+8Yc0quh8W3yBT/bZo6ZrD5G00RA==
+	t=1792586060;
+	b=XcCKliOgDIoHxnxYY9bMFtMzdXIh2tC8apock0k65kAhw4hq8ASNNMZUUBo4PBi/UYgp
+	 W+A+xvkVOhNWxfDrQu7n3i2KsWGnL3MWK4wQMmBsh+10S1l4BTX4w5kwhhXAAzbF470ZF
+	 eMth0dh3Eve9ndtP2dVlu/LN7CfSV/9DvyUnOluAu7sIGS2h20vFBFAJi+z38pI6GtyPe
+	 yV5Rha/ksl52fZfVfm+6iK1GOjN2anK/e00xiobalqPwU+GQe02DZSORFc5n7uf+ZDyrH
+	 HnvCP/XeCEwynTLz0ilc8xeiknGsNaC4M7njNQVvVvvI4IC17MBXgyZPZhmtzNFlMMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792585901;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Qd4BaSzD1LGTx2Y2uGB3Eo4kEo7F1O6DGIb4zjdHo44=;
-	b=pqHkFfCi9EjEPm1bYhfSvj/kR5S48FNx7brlaZX2S+FtC+WBvLXICA2SFg8vTPu2zmmp
-	 8/rgNrmrhFxEZGkiHK1DqNk96+YDZX6OW0NJvSWjmhgF/m2fioK4BUbv3bQ+Z9arbIDF3
-	 xUPlRTFLqUv/zB+2QhHrty3WPO0B8Efn0yQSO4o/ZUOIzV9hXIKrn5ZC0ya9kyicW5vGE
-	 WRRlNC85o/dZ3DyGYX7nmkmbixKVXAu2rIanlSWp085DUGeiBiiUKip35XjecmSpj4wAs
-	 jqEeh7S5RpPN7R/NGakhU0F8COeE+R6SvNj/PxAC1GuxM/nbL9xHV9Aq1/RjdpD32Tg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792586060;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=wenmE0YAn8+JyMp89qN8fVPurYYawYryf969l+sg++o=;
+	b=njLGCpflKG274ubEpDDoknASv4hXoU/OhYiqKinG2tZ+PVTXf2dTB7LB9GYsH7SCHduF
+	 QpHSf9A26H1fQXvsHgjlUSOr0XgqVRX+JpNwZZMZmzOWmjQidoLBfC0SFUl5Vupd1JwQy
+	 gudJ9yK1+LUFcvdl9btttp4s/Vb9maY13HmBpFT6BEEC/ZEtvnQlV+icsIBDdxEUwuVPB
+	 QbcZkSyOMX6RztslPus086FPJh7R4svcrRPt5nUWJoNq48+wAN/TxbwMo4qzBj5K8cRrI
+	 VuD+VGBfBgyc8DC4b4WkZ+d2p1d7rtCTvdHXbvL4xPXe0NV2Gblwb00qklB+Qk9+lEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LLGp4/+8";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Qt1vMh/a";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB26606A319;
-	Wed, 21 Oct 2026 12:31:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3336A606A322;
+	Wed, 21 Oct 2026 12:34:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LLGp4/+8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACD001F000C4;
-	Wed, 21 Oct 2026 12:31:35 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qt1vMh/a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CE5E1F000C5;
+	Wed, 21 Oct 2026 12:34:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792585901;
-	bh=Qd4BaSzD1LGTx2Y2uGB3Eo4kEo7F1O6DGIb4zjdHo44=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LLGp4/+8kHfG3XaY9MW48NgLFV00TpK3bldoGF2u2IsEIe01KBpuQWuKk7hhMBjPQ
-	 JKhplgPH506WX1RmYtr3rcCl5N1uZ3qTepV2ikpQMkVY9e3Rsunc0Eq+MV8UYICgn2
-	 DHLP8HxsWjiTqDwOpxdHXt/gUcT33tnpkmWF+YtKYxsdJKFQq7GCA3942trBjm19N8
-	 /taG2iuEYzP4vgcD+YuryfApu1ijzfHoWtl8LIF55gFLsjNC10D0UMsrFWJD9psn61
-	 n+W38tnK2hhNLZ/93IcvdfnskEbM2fDBJ7wzh1SGJTF7dvupS3I395I70Ei5C3wXO2
-	 aAGqtsDFdVveQ==
-Date: Wed, 21 Oct 2026 13:31:32 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, kasong@tencent.com, qi.zheng@linux.dev, shakeel.butt@linux.dev, 
-	baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com, 
-	baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, hannes@cmpxchg.org, 
-	david@kernel.org, mhocko@kernel.org, dave@stgolabs.net, roman.gushchin@linux.dev, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/vmscan: reclaim every zone in per-node proactive
- reclaim
-Message-ID: <atiwhEIudhnK0pmQ@gremlin>
-References: <20261019185002.3428594-1-gourry@gourry.net>
+	s=k20260515; t=1792586059;
+	bh=wenmE0YAn8+JyMp89qN8fVPurYYawYryf969l+sg++o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Qt1vMh/aQcHSD2Tg6vJ8MIRMuZ5seJTBWwJF62bQZhz8sNU9eBtLto5xKBBnj2zgC
+	 FMTDTkdCEu6/CNCwfMRoSUNnDyhOELHxfvW3u+MiGz+GfumsqYgzA1q1qDRKg3zt64
+	 d2JjsKZeQeVqdTW2FkukSSiI1mWB+loSQwFM+1f0WWI7GdjsdQKRdJEwXfZyuwSaVC
+	 +bMm2s3Qircf/zFCgfpmlZ5W9OnIU8hekvsutEBTu4bmI290m8Yz7TBOWXqq8rLhKO
+	 f3uEhssJBK3gIyZixTbpmkKPSOvQ4bp6JxHHDG6MyNflWOcazOEi74XWow9JDuCBW3
+	 ljYFI7izPuCYQ==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Pavel Machek <pavel@kernel.org>,
+	Dan Murphy <dmurphy@ti.com>,
+	Jacek Anaszewski <jacek.anaszewski@gmail.com>,
+	linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 01/21] leds: lm3532: Propagate error from devm_regulator_get()
+Date: Wed, 21 Oct 2026 12:32:10 +0000
+Message-ID: <20261021123406.3163547-2-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
+In-Reply-To: <20261021123406.3163547-1-lee@kernel.org>
+References: <20261021123406.3163547-1-lee@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,54 +62,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019185002.3428594-1-gourry@gourry.net>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 02:50:02PM -0400, Gregory Price (Meta) wrote:
-> user_proactive_reclaim() limits per-node reclaim to
-> gfp_zone(GFP_KERNEL), which is ZONE_NORMAL. Proactive reclaim serves no
-> allocation, but that limit makes shrink_node() skip every ZONE_MOVABLE
-> folio, so writing to /sys/devices/system/node/nodeN/reclaim never
-> reclaims a node's movable memory. A movable-only node, such as dax/kmem
-> or hotplugged memory onlined movable, reclaims nothing and fails with
-> -EAGAIN.
->
-> To reproduce, fill a movable-only node with clean page cache and write
-> 200M to its nodeN/reclaim: the write fails with -EAGAIN and the page
-> cache stays. The same write to a ZONE_NORMAL node frees 200MB.
->
-> Scan every zone, as memory.reclaim does.
->
-> Fixes: b980077899ea4 ("mm: introduce per-node proactive reclaim interface")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+lm3532_parse_node() catches errors from devm_regulator_get() and sets
+priv->regulator to NULL.  Because devm_regulator_get() already returns a
+dummy regulator when the supply is omitted in Device Tree, an error
+pointer is only returned on a genuine failure such as -EPROBE_DEFER.
 
-Seems sensible to me, and since it's become the review of the ages (TM) let's
-try and get some kind of tag record here :P
+Masking that error as NULL both breaks probe deferral when a supply is
+specified and causes a NULL pointer dereference in regulator_enable()
+and regulator_disable() when the LED brightness is later modified via
+lm3532_led_enable() or lm3532_led_disable().
 
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Propagate the error code from devm_regulator_get() instead.
 
-> ---
->  mm/vmscan.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index e82ba737c028d..90f7a7bf4e426 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -8180,7 +8180,7 @@ int user_proactive_reclaim(char *buf,
->  		} else {
->  			struct scan_control sc = {
->  				.gfp_mask = current_gfp_context(gfp_mask),
-> -				.reclaim_idx = gfp_zone(gfp_mask),
-> +				.reclaim_idx = MAX_NR_ZONES - 1,
->  				.proactive_swappiness = swappiness == -1 ? NULL : &swappiness,
->  				.priority = DEF_PRIORITY,
->  				.may_writepage = 1,
-> --
-> 2.53.0-Meta
->
+Fixes: bc1b8492c764 ("leds: lm3532: Introduce the lm3532 LED driver")
+Closes: https://sashiko.dev/#/bug/linux-8836989c-356e-4601-ac4c-6db97861cb00
+Cc: stable@vger.kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
+ drivers/leds/leds-lm3532.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---
-Cheers, Lorenzo
+diff --git a/drivers/leds/leds-lm3532.c b/drivers/leds/leds-lm3532.c
+index b51496910b08..7f849a166a92 100644
+--- a/drivers/leds/leds-lm3532.c
++++ b/drivers/leds/leds-lm3532.c
+@@ -570,7 +570,7 @@ static int lm3532_parse_node(struct lm3532_data *priv)
+ 
+ 	priv->regulator = devm_regulator_get(&priv->client->dev, "vin");
+ 	if (IS_ERR(priv->regulator))
+-		priv->regulator = NULL;
++		return PTR_ERR(priv->regulator);
+ 
+ 	ret = device_property_read_u32(&priv->client->dev, "ramp-up-us",
+ 				       &ramp_time);
+-- 
+2.56.0.218.g1ec904b173-goog
+
