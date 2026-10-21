@@ -1,110 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.176
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792602443;
-	b=tULtrCQ1Eqr0MVeJFtZQxliPDfecL92giOwwFZn4TPjBnYtlRWKWnl7BPpHOn3hvh2T1
-	 gksYsOMRclkKADWb0bRqqD3fDEN1fVLBDTE298fNnsVTuBKHi0nmTVo9JLFXINpdKqiI7
-	 kaGXFVqm5TGM9o02xTOqwPlAs3B+JBq+db30vL4f7PtZTVkXMDgKRX1pVolZKJP3uOsSm
-	 N1rS1lNDeE2893spHzgq7zvZyOrBU/BzuHJPtixf2C05hxKoVgIag/WzUqZxyr7iXVjAT
-	 Nb6mMxVryeTUiRMiPrKrWtlJbKTWrdW6jfWBasstYGMYmDjmsBemqFLc159oZpzK8cw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602443;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=e0R5eQQgTdpSlU+oUfRU2hbSIpRyLJ1/Cjf8UXH8R78=;
-	b=hlfuyDyKjPG2aWSqn0OzBbbbnaV6KZivCy+vHRNyr6O1YOqspYW9Eo3cUx+RzywLKKb8
-	 l13X2QySVG4SAM2/lMXQCucMuoSIuanBiMAECiZlJs+/coALSTOWbTHIidzcijmVGcjid
-	 j4aVkT4PMNwEUogwbq5aKGRFeInD4x49IZms06nJ/f2d5kSmzXyKNzqHsa2lp6/oWfq7S
-	 SKY4n8+0DjKWaxqma6aDDFA8t1jRjCTG8U2v+ZSv0wLG2KMzqT6XnL43WHvXZiPNDXrDD
-	 5obcAkhExQtuNfR+EyV1J+SMDB89xOlWJOZuBq5wjD19s3SwZp4q59CRVkroTqwAdZg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=F9h0RjGL;
-	arc=none smtp.remote-ip=209.85.160.176
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792602471;
+	b=SL9+xs3Dk4PxLf639IFTRFene7zPRZgS7oc+M23tebZlX0b/0CMSMxuCvSQL5MMIr646
+	 r9dlzp1xVWr646eBPFvVmqgG9Go2SuvccDKuQmVjFrS3OUqj/mP94/MesVY2CNhqbQwMt
+	 axBnutR65wD13947E2w2gzkvHTAS0rc1LprHW5GDprlL17H3FyLncmk3cp9SRgKMZxXMH
+	 FWcY7saa8b44wfP/zV7dzsFL/zTkCeRwtKH4JPrmCgnXzJBZ1z/wTx/5oQks63LvQg5IQ
+	 4yuwDhnL7RXG2N/5dIUhjeE83gINboisjQzvqThrX65+4v86SvTmoiKGbnDq70pE5YQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792602471;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=ewNWW4yq+zdRnHiCXfYXjIRESaWIdaQs5Do6jN9BCYU=;
+	b=4CEcLb7X/tHJVIJarSIuZbi+Xr1fMrNpiyEixT9hueZ45hb+9z8pjnNuDUbzEWbP4Na3
+	 /ukgwFuKN/EPj+i58gyHpL5EMHZu5gGda/4XXqpFxgeJog8tCsru9x+8IRkm3KBZpQXf1
+	 PxFBR+02p0iNpQog2F6TJTeR18oRN98e5GlWipzws88KWQXatgMf+UmWrifaeR6L7h8Xk
+	 IUpkzHVV71/cZgAPP6erSIYRMm3Q81z4aSb4+ZJQHQxUBuCOjiMOCkZhlXGw2+ZrzCuwN
+	 Z9AtorhMaMC6MBrRBa2SYGGLDi9qG7wQX23m6x4mpMDmz4Z9VSm0a2AexFwYUG/qC9Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=dGAz0hrc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB2E606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 17:07:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDB2E606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7D76606A320;
+	Wed, 21 Oct 2026 17:07:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7D76606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=F9h0RjGL
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-53667180af3so9230601cf.2
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 10:07:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1792602442; x=1793207242; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=e0R5eQQgTdpSlU+oUfRU2hbSIpRyLJ1/Cjf8UXH8R78=;
-        b=F9h0RjGLS0HcXPP8Lzs70DqrmIbMaklOZic6JTfWxOKvcoT80HSKNpl88Y3z4SuFex
-         K0sa3BpTUNKpl1nH387ihAHymr8rCGkE8591JkZxYJkVv5IPpGOa6V6pm7y5aHUnOlwS
-         RzxzvOns3zn7OqUFZijDG3I4WyRyWlKE/VUG7FN+Qcg4gj7QJVVAx2CPJfP3sFcmHWsW
-         BH/NRLuL3cNa6l9chmS+FjCv7BZ9HyxAa+SBaLfVyfbIjBLpUwReKVmvkXYgk5cof3ei
-         Q1/wQMXNF++xOiXBYp3CVn4FKSvq5r//TZyig175cZxg64B61fmrRxj4cgi4jswVaO1Y
-         3M/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792602442; x=1793207242;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=e0R5eQQgTdpSlU+oUfRU2hbSIpRyLJ1/Cjf8UXH8R78=;
-        b=zdBNrJjCRaNsKHxXvC9Z4PUvhC0l3Lgs5VqkqgxgvML0WetUegCakrGUUIAME44X0F
-         mcmmUFyel5vI+mldHx9o3gVWA7eYPHgbpzimkTChQYEGhzOXSdF6A1kwTqpk4pNYKjCQ
-         0/0uGam1NWKLJjkw7im1TW0sqcn/8nj9Ifj8TItmrdYU9gm3Oy/ZelTjEzHkBuce2Edx
-         XR4ipduQzcPlinoNSQJly0m2xkD87Ye68EQBMffaLdjmnfS7219hLIYDLJsCS2HUijlI
-         /hcKnNR1mkr5x68D2UvN1P8hzjzyLXbHVBwQOMGZDByy/+ayZlqMeXyAB9y3P4hFu1wy
-         Z/ow==
-X-Forwarded-Encrypted: i=1; AKwUvBz3p+TL3DwKxyVbx6VsOLWdNCeBjYpmc1vN7ZNuDq7FRixHASdyAt85aweAjVE9qlWmHnjNmtk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJP57w3CPaNMi2SgaVWqctllo4qhebCxWu+taCP5pWEjcPl+cT6
-	rUoOGZKSZvfaUPNEFSdSOjDx7LWyAsYMm8eP+5xlhcYlZw+tKpvTwWPX9Yew/6Z+3g8=
-X-Gm-Gg: AYBFou0Blv9INlDT3Kvpf+UPm4CtTtCiOljwaNsuc39OYM2Q27sXkiq1AfioNFovt+b
-	tJAO/1Hp7kmJlYfpidfTRKKuiCoeg7dWPA6PZKNhi+UUJ50U2uioFjrrx30Ro71SqlQuSDE9BSa
-	jBuSaYVUIMstIfJV47FaUBq8CrRZL8e9T76RNWTVHuZfysvGOxZm5ZErCE7wNflu0KvTOl2m4nj
-	cIcUdPlVgdLbjSjVd+9QgW2kMQ0OwTFtgowNDpE5uEeqmsabW84QRNWiTkWdkO8wz1UkO19WuPz
-	X9LyOQEcaEMJkA7WXyIPtZ0amlwBmG0dDOKVzeGitxto+gCDX+cw4aP2h1ky1LXGfa83goiHCTR
-	26uENV04NSOg++mxpas8ykVUVrWlh90gTEREHJiaWcXNQeo+O4lhoGIEg5vYAyKw6vI9T9HmjbM
-	YJFdKhhLjdhAJtvu2pd/49/KvLVMeQ+WlK/r1rr7Y9pImuMSU2DB9hqe1ZqiCOGiaXIErtqcEyC
-	51W91bxwcvNzwKivSiCWJlEUsGxpV+9S/6TaZLiSuZUY07cIWys+Eu301odkjtTvqydnTjG2M4A
-	/+6ltfG5mYzqzeEfhG3Pr4r9mcWpP/4652fxVQsOp1fRyZkTraxrR5Zd2BY=
-X-Received: by 2002:a05:622a:e10b:10b0:536:43d6:2a94 with SMTP id d75a77b69052e-5369b813476mr30068181cf.34.1792602441721;
-        Wed, 21 Oct 2026 10:07:21 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-536ab7624c1sm4234501cf.19.2026.10.21.10.07.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 10:07:20 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xJZmZ-0000000E9s9-1fwu;
-	Wed, 21 Oct 2026 14:07:19 -0300
-Date: Wed, 21 Oct 2026 14:07:19 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Saeed Mahameed <saeedm@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
-	Jonathan Cameron <jic23@kernel.org>, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sami Tolvanen <samitolvanen@google.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] rust: fwctl: declare cfi_encoding for fwctl_rpc_scope
-Message-ID: <20261021170719.GU14213@ziepe.ca>
-References: <20261020-fwctl-cfi-encoding-v1-1-ebb30d1500df@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=dGAz0hrc
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 21E7C2009B1;
+	Wed, 21 Oct 2026 19:07:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792602465;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ewNWW4yq+zdRnHiCXfYXjIRESaWIdaQs5Do6jN9BCYU=;
+	b=dGAz0hrcyJMWm14/7Mupgi9t/aYsjkAbIur1vA6KMIr8xiJi/4+kgGV0iSlfODE/fBdEU8
+	ROXctmvagSPFKkJIvHFjrpKVpiAy2kcOeTBiHADBeBjmTRdGsEVTm0c4bneI3HPq8zhvBB
+	yf1rDKZSsDsF0X5AOubEqVo3bv0ZBawv9+3khfMl/35B8qMf3u/N2hXh1oN+SRegY3T4+k
+	/yxfdWWd4ISvlRfiAca3zUdL0WOgqRJDGQ35pY1dHJUy+gsY9ug0wYLw4uNeg9AKCDT0FI
+	YLDW2jp5x77N5L/6cpvc+7rTMkK9/OrM8amGjnKhzs3d4eSzv9CFpFrliNN/sQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792602465; a=rsa-sha256;
+	cv=none;
+	b=LyKFDBJJqv9p1VobVVD+4XmKL181HdqsvxrBRokFUY+Xp5JWLHM0VOaWygJN18QF8CnVYn
+	Cy+bUw6+MQXc9S7zz8n7glaZJQQTJlUcLxLmiGoyJLTwTixXlyHqy0LHz/4GnsdINHjqX8
+	wQYsSehF8jOqJGRW85aFLAglAADxS5edVjDYDqzbwrx739TnSb1u6kMfnCM/IoEAU9HAfW
+	s/+EHHkz17YVVWhk5g5tGuEgRChEKrwv/vnvWKWFNyw66giSUf54/U2GIFmoUTih6wt/4Y
+	4sZhjzMTWteFMfIC4Qd5C/W4GdrsnPwWGaygBzKkvw6OT9T8lkq9hTpSTUnMpw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792602465;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ewNWW4yq+zdRnHiCXfYXjIRESaWIdaQs5Do6jN9BCYU=;
+	b=NFYVEyTtl1tNosfP95h4JqgVgUyBfcbCY4kI4QIN6jniWP6DO7HVVHfUx8nNG5hhdkxlnV
+	wd3wVAINjjAywSIZXYkjP9ZhAC59EQ1ZqSYkwtb8Wn+S6WJuMFeRMoD5jygaO320zBSuBC
+	CAU5qBnAGrdnB3nEi0Tzl35WkpT0v9lCp7c5zNEg8QYv92K9YNsZO9KRYJOX+Nfxr8fBaa
+	GooLmCdSCqaEMza8i9RnJXgfvdWWIfPKzcw/aaV2x5stwn+PfG5DEpZ/wbrRkmpp1Yuo5T
+	cP42xLey3+EfCA6PebMZfk+TDMuTPkicAiwkVDY7OPNIdmJ6pgLuo5aIK4z97Q==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xJZmz-000aJ3-0A;
+	Wed, 21 Oct 2026 19:07:45 +0200
+Received: from hardanger.blackshift.org (195-200-20-154.mclarenap.oninferno.net [195.200.20.154])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 577CE5D0404;
+	Wed, 21 Oct 2026 17:07:44 +0000 (UTC)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -114,27 +94,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-fwctl-cfi-encoding-v1-1-ebb30d1500df@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH net v2] can: netlink: fix static FD-NON-ISO mode
+ validation
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Zhu Ling <zhuling0805@qq.com>
+Cc: linux-can@vger.kernel.org, mkl@pengutronix.de, mailhol@kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <tencent_3A964832542399A780E646D6A6246335C409@qq.com>
+References: <tencent_3A964832542399A780E646D6A6246335C409@qq.com>
+Date: Wed, 21 Oct 2026 19:07:35 +0200
+Message-Id: <179260245524.2007736.8770336947410997167.b4-review@b4>
+X-Mailer: b4 0.17-dev-d58fe
+X-Developer-Signature: v=1; a=openpgp-sha256; l=801; i=mkl@pengutronix.de;
+ h=from:subject:message-id; bh=GDIzyaNq14Zn+RBvhFkYPG1z+H+EcKQFJ0t3p3ajEps=;
+ b=owGbwMvMwCV2xirl17qZay8xnlZLYsi68THK7FWVlMbDD++zbtd8evfj+faDtzNfPLl0+oGzm
+ KdWI0/5jo5SFgYxLgZZMUWWpT9OKAoEOpT2vkyYBDOHlQlkCAMXpwBMJM+Z4X/cUefNQXebk7S8
+ l9X82nzaOOtRRK8p45815hJF+0VnOnMzMjxprP8yL+rWbTMey2//3ulcYXU2WbpyiuD5bN305Od
+ 8sTwA
+X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
+ fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
 
-On Tue, Oct 20, 2026 at 08:28:37AM +0000, Alice Ryhl wrote:
-> Currently, VTable::fw_rpc_callback() takes scope as a u32, whereas C
-> calls fwctl_ops::fw_rpc with enum fwctl_rpc_scope. With kCFI enabled,
-> enum types are encoded distinctly from integers, causing every fw_rpc
-> indirect call into a Rust fwctl driver to trip a CFI failure. Thus,
-> generate fwctl_rpc_scope as a newtype with a cfi_encoding attribute and
-> use it in fw_rpc_callback().
+On Sat, 05 Sep 2026 00:20:31 +0800, Zhu Ling <zhuling0805@qq.com> wrote:
+> The static CAN_CTRLMODE_FD_NON_ISO mode does not have to be specified when
+> CAN FD is disabled. Since commit 6742ca18cb41 ("can: netlink: add userland
+> error messages"), ctrlstatic_missing is calculated before applying this
+> exception. Disabling CAN FD on a controller with static FD-NON-ISO mode
+> therefore fails with -EOPNOTSUPP.
 > 
-> Cc: stable@vger.kernel.org
-> Fixes: e052daab94ee ("rust: introduce abstractions for fwctl")
-> Signed-off-by: Alice Ryhl <aliceryhl@google.com>
-> ---
->  rust/bindgen_parameters |  2 ++
->  rust/kernel/fwctl.rs    | 12 ++++++------
->  2 files changed, 8 insertions(+), 6 deletions(-)
+> Apply the exception to ctrlstatic_missing instead of modifying ctrlstatic.
+> Keep the original static mode mask and restore it after applying the
+> userspace mask, so a request that disables CAN FD cannot remove
+> CAN_CTRLMODE_FD_NON_ISO from priv->ctrlmode.
+> 
+> [...]
 
-Applied
+Reviewed-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
-Thanks,
-Jason
+-- 
+Marc Kleine-Budde <mkl@pengutronix.de>
