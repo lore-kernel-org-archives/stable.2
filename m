@@ -1,63 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792540950;
-	b=aSk8LF3a3RkM+qNXrnkTOFShkR3Yw3lV/l9bn1oKr/1mYy2Ye94C6iRn1IaPT67NfIhj
-	 icxr+WclPzS3n28OUIBbtAVJp9lDuqQeKXgwOivBEW5HiY43FlTrA78mCniLkd09MnBJK
-	 QAi/4Z09ItMaj2eEPnKOrkO5TOihcsncw/mV2GYlGs3Au+14B2rAYsEH7Pg3ksRhODcxK
-	 8ZX9//8IUVrYVpmaBUHLGQ17CaAv7/Nx873ifvxXR78kw0K6nCsgul6Q8So48UR7GtXaO
-	 tcrNUI/zKGbe37EbxB3PEy0LlZ6++oy+OriYsc5oUbSsf5loiRadXD13szgFnQkVbFA==
+	t=1792541309;
+	b=owlvBO087+GnG3f4Jb96reGOc9XoXN6DvsIZKjD9efZyNg0LE4m3sXT7vOIqDwYvaiBV
+	 yQdhoCDZM9ajCgy2bWdKnNvCAcaQWeauTmCT0dzB6nyVv5/Rx7HSkOVv39lCbaEP0RkmG
+	 wFoSMufDrpECYYXDNhCaDB9GEqLUGrfjnlFejdEqC3X1LgyXvDeAhZGETy1fBDbzH56FI
+	 LILdgTvoOr30RLPjTV3w382tgjYLxFB7sxSzqAH2UDstxKVpVl7i57R6MfY6tifShCG2z
+	 7l9J7UJH3P2kBZjxNvr+RD49pT8dl0owVV81q1mnMiQqp5cqYStDVOBxfj6tL6J+J9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792540950;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Date:From:To:
-	 Cc:Subject:Message-ID:Reply-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=L/iXX1PKqJsgt5/W9CiPqOLhRee36XHrCszd+bo5MDc=;
-	b=0FZ7JlGoNYGbudzrfnxbzWEwa/vrKVd6pll3lhSgXpIad9QvrqrnkWWvyUc+kHbVTEh7
-	 0YQJbxdV+KX3ti2OsjpuFkydtXN54I1g7s8Qz2HodWKN0R3PmVJPHbM5Vu9eAPW+yi0cf
-	 VSMM9tMO6a3gw/So5EPq8R3crgnx3i1EgZ72lecU9jyEYmIueT3lynnARg2omceyNIjdJ
-	 77ssXhW+QIzsa+sAZUaA9Q+3AVq7bAQhChzP2eAiFjr6dALAp0erh2VPxZv0zozLt5UDc
-	 hCNHNH3+KlfeHsG4uAVA9Cg4x9337XMVwWn9K3OmLm1+yuNHeImPdqryc+dm+386dGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792541309;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=jJXPzkd8XW3cpVL1uiArgr6YP7UgpuG3A0mQModnNqI=;
+	b=yKqv/GT/pE9fy1JStJX/Px5TtTR+642XfIYjSyyYlXXQr5uguRfrx5m2GlgAz+e+C2TU
+	 /xH+c80zCgZQ2wc/mvlTlqwGAxRJvqZ6Iw6xYWlJ8NxTBjD16AKtRhVjuC3TlwptJIOri
+	 9WuhsaR3R4//L7qAIeacKaZhnF/zYYzrDEWdUZuZ4tMnnKUxsYafttzjIGcAS/Sfu4rS/
+	 IhPEKHRBoG0Bp33pAYxzBbYUl8jJifxGd2oowZppY3KfHwudNpRqF7KnCHYuXhNWsTJ1L
+	 2vOvbXCzjhRSUa3Eo6AfO/JYITjPXfV2B7C07sXlE3lRTLRctqTJG0sN95SdmHYHn9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=DNhCiijw;
-	arc=none smtp.remote-ip=115.124.30.133
-Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gSGseXH2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58F55606A319;
-	Wed, 21 Oct 2026 00:02:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58F55606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F4C606A31A;
+	Wed, 21 Oct 2026 00:08:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=DNhCiijw
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792540945; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=L/iXX1PKqJsgt5/W9CiPqOLhRee36XHrCszd+bo5MDc=;
-	b=DNhCiijw2Qhkm6O0SfsW+PRNH5zaSM1+up0Va9dsDb1uYCCofEoegYD24kGYr98YxSNAey+soKYgmKBxvfmpoDBKP90Qgm6qEuzczXppZJ/E1sEchSdDYmQsD9/SOmAgNA5ZBu89MoMx3U60rfAoeQG9+k1gHMsqSbNumu0bsl4=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=dust.li@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XDERKvV_1792540943;
-Received: from localhost(mailfrom:dust.li@linux.alibaba.com fp:SMTPD_---0XDERKvV_1792540943 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 21 Oct 2026 08:02:24 +0800
-Date: Wed, 21 Oct 2026 08:02:23 +0800
-From: Dust Li <dust.li@linux.alibaba.com>
-To: Jakub Kicinski <kuba@kernel.org>, alibuda@linux.alibaba.com,
-	sidraya@linux.ibm.com, mjambigi@linux.ibm.com
-Cc: Chengfeng Ye <nicoyip.dev@gmail.com>, davem@davemloft.net,
-	edumazet@kernel.org, pabeni@redhat.com, tonylu@linux.alibaba.com,
-	guwen@linux.alibaba.com, horms@kernel.org,
-	linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v3 0/3] net/smc: fix link group scheduling,
- registration and work lifetime
-Message-ID: <atgBD0t0xHnMlwjX@linux.alibaba.com>
-Reply-To: dust.li@linux.alibaba.com
-References: <20261013091716.1210420-1-nicoyip.dev@gmail.com>
- <20261020125849.67c40566@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gSGseXH2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80C011F000C9;
+	Wed, 21 Oct 2026 00:08:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792541308;
+	bh=jJXPzkd8XW3cpVL1uiArgr6YP7UgpuG3A0mQModnNqI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gSGseXH2aPrlREkQA8yRXNzTOWZ8roFwh6IXr7h8Q8n5+6DIAVMNg2LRmGiWxcuTQ
+	 tGEZfSyq4chtKjCxNdeL9YGhF1S1P35Xt8qIAzXSlbygl6MXTqMeSb6A9BP4zTNFSI
+	 l/9SrCSUTYvMpkuk4wlRulU/DunO2o2dFaE3/TfMHyPHWy8IVsWvNvyQVtpkLuW0YQ
+	 Hvep5qxnUvcK0tTIxaRwC8eABmyOL91RGmk8xztCVa5JAkIX9tX6f6cWJG/3JAxX4T
+	 uhYSccvo6tuXdZbOL6zfS5Q18UqwcANOnNjCl+p22ixZxqZcg8E8QvokgKwOrvZJNK
+	 +znIKCqjd+Ajw==
+From: SJ Park <sj@kernel.org>
+To: Aveline Noir <jm5905938@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	stable@vger.kernel.org,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH] mm/damon/core: remove unreachable damos charge_{target,addr}_from
+Date: Tue, 20 Oct 2026 17:08:20 -0700
+Message-ID: <20261021000821.93515-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <179251032453.2.9019098760697634552.damon-quota@gmail.com>
+References: 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,30 +62,25 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020125849.67c40566@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-20 12:58:49, Jakub Kicinski wrote:
->On Tue, 13 Oct 2026 17:17:13 +0800 Chengfeng Ye wrote:
->> This revises the two-patch v2 series and adds a separate fix for the
->> running-free_work lifetime issue identified during review.
->
->SMC maintainers, please review.
+On Wed, 21 Oct 2026 00:07:00 +0800 Aveline Noir <jm5905938@gmail.com> wrote:
 
-Hi Jakub,
+> Hi SJ,
+> 
+> > Catch the corner cases in damos_adjust_quota() and reset the pointers.
+> 
+> 
+> The patch looks good to me. I tested DAMON_RECLAIM stop/start after
+> filling the quota on x86-64 KVM and everything goes well :)
+> 
+> Reviewed-by: Aveline Noir <jm5905938@gmail.com>
+> Tested-by: Aveline Noir <jm5905938@gmail.com>
 
-Since we usually require Sashiko's review comments to be addressed
-before merging, and we now have many more patches than before, I prefer
-to wait for its review before stepping in. That's why I always miss some
-patches.
+Appreciate reviews and tests to this and other patches, Aveline!
 
-However, Sashiko doesn't send any notifications when no issues are
-found. I was wondering if Sashiko could send us a signal (or
-notification) when it passes without issues so that we know it's ready
-for our review.
 
-Are there any guidelines or mechanisms that can help with this?
+Thanks,
+SJ
 
-Best regards,
-Dust
+[...]
