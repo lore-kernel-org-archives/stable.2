@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594145;
-	b=CC07V0ljxxDkhZtoWTsOuBIjZeLDq71/WSmVH7sH8dCKLGY+MoIp43PHIQwaH9xKpb7P
-	 Zr71cpkmlR9gAmJ4L6BTL0JJzPNCe9SAziX0ghLeUjW+7upllxx2bITCcLXApdS5POvqJ
-	 ZOhRXOsOv0KHg8CoEoucrTy+FevhcLpc21FqO0LC1FEblCuCeSo1Ehn4blWpUIvwNjqTC
-	 z+WIJ0estzsQWHPueQTZ2iX5arrYj30X/XUekkDcGLCOF0r3g4meCHdX9WfIFkSl4FQ9C
-	 nemrana7PIkynZtnBv9wN2HGghj6U2z78iuuu4R2wiRKFQp6MYG0hCnIk9DGh1MRu+g==
+	t=1792594147;
+	b=n5IpDX0zl1+OZb127DiO+mQ/GSSPgIkbTbM7zD4wTsa/Tbnwwlfm8e7I76FSpDhbs52j
+	 pUdvR6rLU2VLxLH+jsiUVyLdttXqVOwIh/qp184nT3oEr6s7vuItdYbim7q7hoNMWqpcF
+	 r/5L9IJdzm7a7zAzDEXgFMEZ0oqb8bIURHhkMBWlRoV5gPG07Q5Lt1tYPHjcYEcOxHqTS
+	 TY144yoRcG3RTlMRDP/iTztrWw6FlicbqDIqpdRK210gkU+dIBiaQHw8+SWbNbrcAeXtY
+	 0xqAJyWNGV94qqj3WNdRAyhjo7RfHPfYIKnKKdVVDsjW95YMFwBPkxm+Q8yIbcaZqAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594145;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594147;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=LZPi2xDWexqM9ZrMcE6WpyAjnh6bbQVGZUpbeUW/oVo=;
-	b=sFnbafP2Vseo8wnifXjJ9r4J3lxo0y28W9bvkqxTZkwuQvgfK3N0bK6/mB5OgKGUpcaA
-	 YnnHmCSAj5HEtxYcr2JliflPLM5fccxonsJSr5vtBEQ/+CSpLRn+i6KedHd16vtA/Ve7f
-	 8yVzjgpX8QyqrwzswhPoBg134vJwL4H5We7v4Fsgs9NZ67okw3q7Lwchs6Bb7IjkydW6i
-	 mZ8InkQKHU3U/68+FQtP7Ct7sSnkcKDmziKdvRCfKhNcvKaSAL2gY7CObH/0OIqBsz3eW
-	 M6O/MUD83ay8QUqEUl9UVs149hCZFF25ZhLS/cc+CNzNJSDafe6oRIMLsPU+LTBf/xg==
+	bh=2soW64OGfXkoZytjFO+U4K7qMhyo/RKdUMq6Qgsi4JE=;
+	b=BRopn7RkeifeznXd0DMacgSbPU6HZeEfkZjnwkhKZ/x1QdcmbrPGkjTJ6hk/Y1IPOI8a
+	 6/FRmlG7U7nOKQDVPz3X1vxBvbfila0U1aGkCJghbyiodPT3yxmKahKc86Fw/i76NTJke
+	 to710Rxlee4ukjd/ffN61Z5BBwNZdC8IrqY0svsgKdHM2lx8e/s1dsro07G+UAfERwrlI
+	 dSuHwoTYzAsmqg5sqN0tkXvmX/eKWiHh6/UpdVsWBni8KUSfYwrjUgiSI7AHhgcomsz2L
+	 KHqwthnnzKE1dpHVqVc+0TTbE14WFVItp8mSeSFd0tehw5Q/o0zczhGxJ+MxmgGmg1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C8mAsMDh;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qmFmorKL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF53606A32C
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:49:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7704D606A31E
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:49:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C8mAsMDh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 099A91F000C2;
-	Wed, 21 Oct 2026 14:49:03 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qmFmorKL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB74F1F000C7;
+	Wed, 21 Oct 2026 14:49:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594144;
-	bh=LZPi2xDWexqM9ZrMcE6WpyAjnh6bbQVGZUpbeUW/oVo=;
+	s=korg; t=1792594147;
+	bh=2soW64OGfXkoZytjFO+U4K7qMhyo/RKdUMq6Qgsi4JE=;
 	h=Subject:To:Cc:From:Date;
-	b=C8mAsMDhAMkj6NA6WOgUbvq0mzJENM0EOVsQIgQ3QMongulx4LBKm8fenhM2N4zk4
-	 LVMsEAEDV8pCpYP2n8uJz1fuxpNOv9Pv4SK38daOafivVnMeEMGyaHZk2bB1xMEzsQ
-	 j2GXkCt/73Ba2I/G0DvjAO05rP2v+IzaQufGg32Q=
-Subject: FAILED: patch "[PATCH] KVM: x86/mmu: Cope with the SS bit being set in #NPF exit" failed to apply to 7.2-stable tree
+	b=qmFmorKLLU05MKcCszgd+5028Tx4kbc7HLHP//tRS0wDj0XHi/gamqtlz2MsVECvq
+	 zfsu9l5nJWG6hn8hoXp/t4O5sVsMK1PET9tfp+UlIoL2eIE2W7eRvIL+Je0KPUCIle
+	 9TQRBv0RttlfKkj7BquNgs81blx1pnLJb219PmVo=
+Subject: FAILED: patch "[PATCH] KVM: x86/mmu: Cope with the SS bit being set in #NPF exit" failed to apply to 6.18-stable tree
 To: pbonzini@redhat.com,seanjc@google.com,simonp.git@mailbox.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 16:35:58 +0200
-Message-ID: <2026102158-waffle-tactless-d396@gregkh>
+Date: Wed, 21 Oct 2026 16:36:00 +0200
+Message-ID: <2026102100-dominion-poser-834f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x e90ab3669181c6469e3647ef2b30ae408275f496
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102158-waffle-tactless-d396@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102100-dominion-poser-834f@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
