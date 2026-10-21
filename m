@@ -1,59 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792583348;
-	b=ZtUeXkM/mOSXMGj5IRZ3itWqIOm7ISr2MGPvFLdyGNtYb+9dPCHGx3EemwJQmE6PIGM2
-	 UNuza+RX7UmRQDTUTndcAQA0DLYF79K0xwjFEsDEjqK+TnAGS4o03DLM6afe6VNm0Gpss
-	 J+iGOHVPoWz0GkI2NfrlpqNTxmBcgqRWSwJykaJskgnEDGplKqpDqi8+btKHulpdQ1MAU
-	 Te8hOlmEde5x1dIjJCVg2ChIaWNt8DzV5F3PnpP6QRqTTuWrRgHBRaXGYagGUMrUjJF4p
-	 pQjbNOCvSvxCuTI0+Jj/vxOlleJ9TNaIoypqdnvCjgLy6Xd6HH2thGaRvWQV3iRaTEw==
+	t=1792583390;
+	b=s2tWm8oeVgSfvoiPBjJehmzR0CSlwdgZi6YJfW2ksGxAua2t34nCT3A4A00Y6O6UCMOx
+	 EZO3zOekI0ntQOOtt6GbC+iwNYdqI5dUDGizj7jhM2dO38dQKXurg42T1Au12CfIqG/iJ
+	 6UmHrbrdwP3K9OCD3sGE/0shQG2bitbd92CzrNfSlCtBOiD9NhLvIl9tiUYiykjR2agWz
+	 53RcN9RbSGJ5fwhVV3FgQxFu4Qx8gN3mmLcu3A/0C59KA6Ax3MKdaJr9z2oWkI2zMvZBr
+	 XqHJqlubFzmvVMzZH5bXQg9xFIH/lPvjqoKJo0KhStrEtBXJRgwDhTpnGsFydG3sh0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792583348;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=dlLrJtFxJ/GpwFQraeE8og/Mz0Pa3MlpGavSBpIeY7U=;
-	b=pBhpV5mBY6dBv47by6qktgu431IP1WxVadRJJBUewputIRxn/FCJKxF2Ei87So4xNuRR
-	 ZgoG61vVOiYGFdZnK5KJxQQzGM458YSZTZSq0uDoyyq0UJ8WsjP0GCxxHXVMYxhANplFQ
-	 M0SSH9ghNvwBi7LJyjKGAsShDvuxwRarovfQdhL/0Qx5Cqey9FXuV5r665ViQ8IsME/4K
-	 qSMu+JKzPlvEF6cAINJa9/crWOtnZpibP9kVo2IkrnxH4CuTErYnMkc8a+oOJTwzSvqP5
-	 J4v93c30LR5cKDYqgX18+yaia4p7E8A4g0LTgLeQlF1TT/7O8T5e5Pc5csQ7852tF1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792583390;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=nJkc4Eg2iKm1ywBindOsMaZNtPl9hT8ESCn/EKIVbTo=;
+	b=bp8svF+5O3YuPcA+GM4Txp6nCylIUpQ9hg8bhLGaiLFhiim/21q9qYQzzQYL05WdXc3+
+	 e4uXaFqFBLnUM4JlvwPNtteyndWsrHlJTKFUKVeONscdrbqSOs/OVxRGlPouJz7fDNXSU
+	 WlEt9k+0KrN6yM+5JU888I/W+/bZ3Cm2vjjKykCvJ97lLGpVFvV4nFvo9wZRtyhb35haM
+	 JNbHzkbBmktc99j3WP1rMEcuEV9aaYcCZUTjNPtlMM4YZHuFY+vG9eQ9wO3dozl7vylOK
+	 24m497It6A2KEs4RXCnTre306TEgPPtA0RAd2t+Yqja4L6XixUqAp+RWXn4axZp9ETw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GktJL47x;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BkXDiVYP;
+	arc=none smtp.remote-ip=209.85.214.176
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF35160A260A;
-	Wed, 21 Oct 2026 11:49:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D372606A31B
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 11:49:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D372606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GktJL47x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33F601F000CC;
-	Wed, 21 Oct 2026 11:49:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792583347;
-	bh=dlLrJtFxJ/GpwFQraeE8og/Mz0Pa3MlpGavSBpIeY7U=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=GktJL47xgyfD31pXaCGC+JKi2Ubx3e4kpB1pRHiKLli8ugf3OHUsK9L6Ma2TQs60d
-	 0R8lr0xItaOYAQzqjSMYdjh3F7xeMPDtIf51hp610LW8EckQtZyUiH63fGoHEDhAio
-	 yyuQcks4Qbu0tCmd3FmEg5fpjd6u7Dr4N7frpiVqb9yDkYKrZieAGzkFbbRbYz6IV4
-	 ZV/p0a13K5jhlItr/2r+almZh6LRGTj+f4uFZg2fSJLA49PaHFI8f/qcPC5ZkFRZ+x
-	 hAeTmY8Rr1Kru+1137OMCdhSKALdUE75/JxfpNmp5w7dyKIk3JVIu1UOIihfxYMwNd
-	 nYdLuhY4h6Vbg==
-From: Christian Brauner <brauner@kernel.org>
-To: Danny@lightningiq.io, Al Viro <viro@zeniv.linux.org.uk>, 
- Amir Goldstein <amir73il@gmail.com>, Jeff Layton <jlayton@kernel.org>, 
- Chuck Lever <cel@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, linux-nfs@vger.kernel.org, 
- stable@vger.kernel.org, Danny Pidutti <danny_pidutti@hotmail.com>, 
- Danny Pidutti <danny@lightningiq.io>, 
- Benjamin Coddington <bcodding@hammerspace.com>
-In-Reply-To: <20261008140903.2784-1-cel@kernel.org>
-References: <20261008140903.2784-1-cel@kernel.org>
-Subject: Re: [PATCH v2] exportfs: Release the get_name() directory file
- synchronously
-Message-Id: <20261021-tabelle-akzeptabel-atheismus-b17a3f71f799@brauner>
-Date: Wed, 21 Oct 2026 13:49:01 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BkXDiVYP
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2dd76b1361dso4363375ad.1
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 04:49:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792583390; x=1793188190; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nJkc4Eg2iKm1ywBindOsMaZNtPl9hT8ESCn/EKIVbTo=;
+        b=BkXDiVYPZX3UTgGhN4ubLafLf37lPMOkH4+6qtYXfmXErob1g6lIiYOOWz1PN7gWJO
+         vB1Tr60E16RaPDtGltlJ+juiJoHDtnbGwWFCFExxY8CIldh/Y2K9duuZKN5tqS8x01WQ
+         snuXH3T46f0CqCYxbRJaDeBOD/nQoUPpjDnMxr9gtGFrhSsNKANHzS+PfJjmkGHkyi9S
+         NZKJ2tGRjg4C55VpFuOm5pqn0Cd8et0320WvXGQYemhgaZFv/2pMFS14fEHNRoEqFsI7
+         +pqeAV/VV6Dhe9y2u5PR5ZRscSCWK0vwxjpIejl6vxZxUL/DMeH5k5iQWxnhXG0BWjSv
+         4NQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792583390; x=1793188190;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nJkc4Eg2iKm1ywBindOsMaZNtPl9hT8ESCn/EKIVbTo=;
+        b=FmLGjvLate9b0MAyNKissBxBCDbHBuFth6vKjZLJMjnoW4Q4MU6IY1px962CZAKFGY
+         slN9HQkyt2fFflMDMeA9WCWa171miMSDSdaJ1hJNrqhkPSHPsLIEB4rXZYM3+dGpDaIJ
+         sLVbiDqgYX2kHGqxoFvLKDmt74Siox3+f+Zm5GTdlRcWOMEylQHKpC5ftuRWW6nnzkDi
+         1I/qt+ZStpAOlSuBAFKSPTuXKbV5mFwLwwO+EHOtzzsV/x+rmh8BZY7A/U0lUoOs5ARS
+         o9A+yo9Ky3AStvnLN/YbYSqqzu4WmmEEb/kG6Q40TRD/7pOVJwo209G9tg9b++nU3zlm
+         /zBQ==
+X-Forwarded-Encrypted: i=1; AKwUvByFoUbvytRdijl4XBEhh0100JlLuZmZXyKn/XdfphbwMJrbMdzSD3tOWl0nKX9tfZ5n6aATV4w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK3EYiUJEVtlSFWHVHXuo2fPVgNoMGyhongftIry6rb8/EqlFLE
+	czUSop8Eg8EShwPRVcmoJnezlaE3qkBGnsL+/gWem9/LdmmgY+JphJ1i
+X-Gm-Gg: AYBFou2rU7PtzO1beVPWoePHYjPsVESJx68Zr/Os1L5Ums4hAfHzI8Pd6mapACJMlAR
+	079lXux9q/B+hSvWwwYXlVrd1yZ4sjk8qSpNx6mb8kAFB4W6sa/akgvdrbn5hWUKvrA7KjB9oym
+	aFUh+h7Qs574UBdI17kyaorq5hTCgTl6AFtHhUzurA/CqXNhV5PzjSbSm+VODiqkcc74oyOv3zJ
+	WDbewqs3SueAUXWDNcNUSSpiCgoCGnUdJtQsOUonTpLeoK0W4JuRCUjv+Ww/hkNmj1ihJakKpqd
+	kIsHxv0iTPz9D8kvcUT2PoI9hfKe8M+lCqzRhju4REv0l+D9MJInuk5lW33AJqmcGDa9qeyzPZ1
+	HhH2eBIcdE5P0jJoy/oWK1v1jr5c4A6zxvrir9N5bmr9Z/4dUh67Jqs3YzYd8PuCEnnejV8RJm+
+	cFX+JKWsaXG+KuNZNsdMLjzrrIjI9AWGbVWU8bCyVWT/LBo0TRgIA4d9DYI0GlAfRrZ077CinG3
+	hdOU9m/fl3br09VG6QNpjSvn6OA/CvYGUPM9wz9+lfL+tCgzrObNK++Fi2omQH4An3X05KVjuXK
+	XzMIzABQMGRK0Q==
+X-Received: by 2002:a17:90b:28c8:b0:3a0:a912:e759 with SMTP id 98e67ed59e1d1-3ad86ed546amr1493685a91.25.1792583389514;
+        Wed, 21 Oct 2026 04:49:49 -0700 (PDT)
+Received: from localhost.localdomain ([14.22.11.168])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad802917c3sm4282086a91.7.2026.10.21.04.49.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 04:49:49 -0700 (PDT)
+From: Jianping Liu <frankljpliu@gmail.com>
+To: corey@minyard.net,
+	rocky.craig@hp.com,
+	akpm@osdl.org,
+	openipmi-developer@lists.sourceforge.net
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Jianping Liu <frankjpliu@tencent.com>
+Subject: [PATCH] ipmi: bt: Stop the unbounded reset loop in error_recovery()
+Date: Wed, 21 Oct 2026 19:49:34 +0800
+Message-ID: <20261021114934.1340838-1-frankljpliu@gmail.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,36 +98,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-3d1b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=897; i=brauner@kernel.org;
- h=from:subject:message-id; bh=YCYD8K5tz52OlKoV4PEmzLPuUZqoHDnahLMQJ6GRvEc=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTdWLb+d0S02/a7Rd21RjG1d26tKzyufk59yr4v1bM//
- 0ta98J+QUcpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBEinYz/C8WWul56XATS/IT
- u8Ln5f/zzpfe2PzE0MzfavOpmR4yMYkM/yw2e9o+inoyTSZnfr/Ze9Zp6jnf6zd+03M78c+GzSh
- 9JQMA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On Thu, 08 Oct 2026 10:09:03 -0400, Chuck Lever wrote:
-> exportfs: Release the get_name() directory file synchronously
+From: Jianping Liu <frankjpliu@tencent.com>
 
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
+When a BT transaction times out and the retry budget is exhausted,
+error_recovery() soft-resets the BMC instead of failing the request if
+the status register has been non-zero and bt->seq is small.
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+The reset path ends in BT_STATE_RESTART, which deliberately keeps
+bt->error_retries and bt->seq and restarts the same request.  If the BMC
+still does not answer, the next timeout re-enters error_recovery() with
+error_retries already past BT_CAP_retries and the same seq, so the reset
+branch is taken again.  Nothing in the loop changes either condition,
+so the request is never completed.
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+We hit this on a production machine whose BMC stopped responding while
+leaving H2B_ATN set.  The same three lines repeat every 11 seconds (the
+5 s request timeout plus the 6 s BT_RESET_DELAY), 27321 times over 3.5
+days, without a single "retries left" line:
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+  ipmi_si dmi-ipmi-si.0: IPMI BT: timeout in XACTION [ H2B ]
+  ipmi_si dmi-ipmi-si.0: failed 2 retries, sending error response
+  ipmi_si dmi-ipmi-si.0: BT reset (takes 5 secs)
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
+The state machine kept the same curr_msg throughout, with
+bt->error_retries at 3086544 against a BT_CAP_retries of 2.
 
-[1/1] exportfs: Release the get_name() directory file synchronously
-      https://git.kernel.org/vfs/vfs/c/9cd8c2a5bbaf
+Because the transaction never completes, intf->curr_msg is never
+released and every later request piles up on the xmit queue.  Each
+queued request holds a reference on its ipmi_user, and neither closing
+the device nor ipmi_timeout_handler() cancels locally queued messages,
+so the users of exited processes are never freed.  On that machine (a
+5.4-based kernel, where struct ipmi_user embeds a srcu_struct and is a
+52 KiB vmalloc) this left 552291 ipmi_user objects behind, 27.4 GiB or
+93.6% of all vmalloc'd pages, and the machine went into repeated OOM
+kills.
+
+Only take the reset branch once, at the moment the retry budget is
+exhausted.  If the request still fails after the reset, error_recovery()
+is entered with error_retries above BT_CAP_retries, skips the reset and
+falls through to force_result(), so the request completes with an error
+and the queue can move on.
+
+Fixes: 4d7cbac7c870 ("[PATCH] IPMI: Fix BT long busy")
+Signed-off-by: Jianping Liu <frankjpliu@tencent.com>
+---
+ drivers/char/ipmi/ipmi_bt_sm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/char/ipmi/ipmi_bt_sm.c b/drivers/char/ipmi/ipmi_bt_sm.c
+index f41f78972b9c..a8c181196f71 100644
+--- a/drivers/char/ipmi/ipmi_bt_sm.c
++++ b/drivers/char/ipmi/ipmi_bt_sm.c
+@@ -419,7 +419,8 @@ static enum si_sm_result error_recovery(struct si_sm_data *bt,
+ 		dev_err(bt->io->dev, "stuck, try power cycle\n");
+ 
+ 	/* this is most likely during insmod */
+-	else if (bt->seq <= (unsigned char)(bt->BT_CAP_retries & 0xFF)) {
++	else if (bt->error_retries == bt->BT_CAP_retries &&
++			bt->seq <= (unsigned char)(bt->BT_CAP_retries & 0xFF)) {
+ 		dev_warn(bt->io->dev, "BT reset (takes 5 secs)\n");
+ 		bt->state = BT_STATE_RESET1;
+ 		return SI_SM_CALL_WITHOUT_DELAY;
+-- 
+2.43.7
 
