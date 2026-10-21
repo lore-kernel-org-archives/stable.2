@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792586156;
-	b=tbQDQ+63gDREDCNotfPln8YIE3CJOAXid5W5w8GAr4dQyOPBlJguYb6f6VG1dnjGNGR/
-	 Q1ysMyANvK78dND/TD+9fIru43rZFZdC9TIaVF2eijOwLG+qhjX+g3cJus3nWVYVi9nz0
-	 d0FBkzbw3K7GbiYH3jBCOIdMAnQCgUluMZ6iI9eLEqnVA6rT0IzIzMZEUzssPkkR1i12j
-	 Jl4FWniowQ7b2Z0/2VOfwR+AZdqz6xM/gJpSqcvc4O9csblvwxFWSFHOR8fURr9/w0VLe
-	 QSNgNDjgKGMl4xm8amN7qmrb4NoW/qxk90jsvJq2oVGPW8ezQe+MVoEWdqTRh2HYA/w==
+	t=1792586162;
+	b=FvpuhTRYIlmmKtYt2ayLGDtmU92Mk7xheXx1nghgig9Fu/hC+38pwyNecXsRh73QQ/61
+	 iH0WY3A28NO12WiO0Z6XFmZFA++UQ0YbrFiQPgeeeAjw+cZuWeE6ljMV9kdSS0kJjBXx/
+	 pC43xLEiFKbqI6UQQAJokLX7yfntBvVxMcwDGlQWGj6bF/uuXkm3IMellGttF2va5jkAq
+	 cDETATZkPkFgg5hQDv2QyJn/6G4GiK/EhukyxGGt1qP8SS8nM7W/yXAAmp35VeJn5o8do
+	 aRrt+pinX4eq/+HrFwrO1W0SVvRiCTkAyFYgDZcZvTOHNkMS+pSA1UL0NLJr0GLUDog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792586156;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792586162;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=QhyHOu089+UU44rYgvZ+971lrIFZgmG/SKe33HQUXJU=;
-	b=UYujKKh0ogZrZaiB0gmM5l8dFq/7S6Ff4G235yYBE3RJdpQXGeLuJHyYPef0lKVE9ZDk
-	 ebdSPYn/zooOZgJm8DEi8D8fkyQF7jrZdMGyjSfm5QPJVr4FRfIrY5lZIINYm75Jf1ei+
-	 m6dhRU7f0nDx9l6EmPipQdKRLRwgeDfVhMikgA1qz3iUzS6rHJS82Gn993yUnOPQtX8qI
-	 /IO2fAj9XJHqFcvo0cZ0CXYA48SPudT2sigm5zxrtZjBRuhx4IiWCOHAnTIh157MDFJFc
-	 EVXW76zlgj4mbM1hGqhxyAscp30XgWzskjO/x54EiCzsSEzo3zey98SviSJk2zPQfNg==
+	bh=2K5S9w4cCwOySgftzPZG6nvIMBo591OI8YQ52/3vrBY=;
+	b=LlL6anbK15fDdSqLb+cnnwPSX0MrEtKzdRF8jPye5G0zZ2MPTWVNVfLo52MUepSrSoOA
+	 eGkoj3NnmMNtZyRBoIe337YvkmRrHahXVZkZXslZtqyvIcOsEMOA0HvFCdFDOT8KerSqy
+	 7dC9yyhG8jiJ82403VARuuHJTQEGJ9S9qvnF9R1mLs8ybw8E8ByIQOg5badNShaxeA5jn
+	 LDLRPMEx3SoyVkQDgAhv2NP7i1h6nyZ0erS8vSVnISAlS7qN34iMU/lW+je20tz1VldY+
+	 d6gRtGkEQjbUO3bfclOtwbaDRIfOvQDQFbxYN73Q3AUiY1suxpsRBDz9Pge6PUtkYXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gIkb7dwe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hYHLEZDw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA08606B4E6;
-	Wed, 21 Oct 2026 12:35:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D69606ABC2;
+	Wed, 21 Oct 2026 12:36:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gIkb7dwe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24B511F000C4;
-	Wed, 21 Oct 2026 12:35:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hYHLEZDw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 461CF1F000C5;
+	Wed, 21 Oct 2026 12:36:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792586155;
-	bh=QhyHOu089+UU44rYgvZ+971lrIFZgmG/SKe33HQUXJU=;
+	s=k20260515; t=1792586161;
+	bh=2K5S9w4cCwOySgftzPZG6nvIMBo591OI8YQ52/3vrBY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gIkb7dwerMcox8yBbQnQNVDsDkt0KAqm3l/9f3BN5WOY0iNkEXdxucLtPO6N98+O/
-	 s7pScyd0fhS8XQ3cI06qYFL7+fNKzBE7HxwF+1MjNe6gynfmy9K0PqI/d2AoTzWja7
-	 hkbyLFHgDsn1BjPGmQh5r6gyuh0xH8titG+Sz5VAOAf6jJ7QZf44llU4EJcHa1yKXK
-	 d0MWiUDQrLkdIhsKgZkqWofrJjHm4plz9Iwhe59CJrr0hH0nE4WoCkt9pE1tQdIb12
-	 iFfT4EPKdtdnrjgC3M7uQWyi/5YR1N2726d6gnKy/pV9Gz/AUw/VAnX8lBSYkDA2Y2
-	 bWdkrpHQDOURw==
+	b=hYHLEZDwknHKGybSJuNG12vUA++6+EAYqo5SR2+whWXrpez4u0a5p5peMcBzA2Tj6
+	 c8xjINYCvnQ4BCoboSd6cR9UPaDowH3LyNy8FxvlP6EGnx7Dyw32coG6LjCd1tHTZP
+	 WsRMCJJDWxLhV3jCoK5csxqXMiF9ia38DIQlYXYBCvyln7X+XRU+ztTWCQWc3fvLsy
+	 yFveVAu8t4L2BIJlNA3WbA8JQ1jNDAAHawL3vlaBp/4D7GvScTI/jvNzxzxmGKqEq0
+	 qDY22MQ1QEeEIC59ICrtS//BEsbp1cuUj8djZVxKwMtp0TpbM21A7LHjQfe0RDfSvh
+	 509zT0Af3wVcg==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Pavel Machek <pavel@kernel.org>,
-	Dan Murphy <dmurphy@ti.com>,
-	Jacek Anaszewski <jacek.anaszewski@gmail.com>,
+	Jacek Anaszewski <j.anaszewski@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Bryan Wu <cooloney@gmail.com>,
 	linux-leds@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 16/21] leds: lm3532: Clamp full-scale current to minimum bound
-Date: Wed, 21 Oct 2026 12:32:25 +0000
-Message-ID: <20261021123406.3163547-17-lee@kernel.org>
+Subject: [PATCH 17/21] leds: aat1290: Avoid leaking devres pinctrl handles on strobe source changes
+Date: Wed, 21 Oct 2026 12:32:26 +0000
+Message-ID: <20261021123406.3163547-18-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
 In-Reply-To: <20261021123406.3163547-1-lee@kernel.org>
 References: <20261021123406.3163547-1-lee@kernel.org>
@@ -64,53 +65,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-lm3532_parse_node() bounds led->full_scale_current to LM3532_FS_CURR_MAX
-using min(), but does not enforce the lower bound LM3532_FS_CURR_MIN.
-If a firmware node specifies led-max-microamp between 1 and
-LM3532_FS_CURR_MIN - 1, subtracting LM3532_FS_CURR_MIN in
-lm3532_init_registers() underflows and writes a corrupted full-scale
-current register value.
+aat1290_led_external_strobe_set() is a runtime V4L2 control callback
+that calls devm_pinctrl_get_select() every time the strobe source is
+switched.  Because devm_pinctrl_get() allocates a new devres entry and
+takes an additional pinctrl reference on each call, repeated updates to
+V4L2_CID_FLASH_STROBE_SOURCE leak memory and pinctrl references for the
+lifetime of the device.
 
-Use clamp() when led-max-microamp is present so led->full_scale_current
-is bounded to [LM3532_FS_CURR_MIN, LM3532_FS_CURR_MAX].
+Use pinctrl_get_select() followed by pinctrl_put() instead, as the
+device's underlying pinctrl instance is already held across the device
+lifetime.
 
-Fixes: 517ea49a7b23 ("leds: lm3532: Add full scale current configuration")
-Closes: https://sashiko.dev/#/bug/linux-114b6c69-6d76-4f4d-bb87-0980b1e15bbd
+Fixes: ac69b9038f82 ("leds: aat1290: add support for V4L2 Flash sub-device")
+Closes: https://sashiko.dev/#/bug/linux-e1e22682-0cb6-4dcc-9a7f-01993691f7b0
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/leds/leds-lm3532.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+ drivers/leds/flash/leds-aat1290.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/leds/leds-lm3532.c b/drivers/leds/leds-lm3532.c
-index 6fe752889487..327460de2ff8 100644
---- a/drivers/leds/leds-lm3532.c
-+++ b/drivers/leds/leds-lm3532.c
-@@ -615,14 +615,16 @@ static int lm3532_parse_node(struct lm3532_data *priv)
- 			return ret;
- 		}
+diff --git a/drivers/leds/flash/leds-aat1290.c b/drivers/leds/flash/leds-aat1290.c
+index 223bbba9114f..fc7904966183 100644
+--- a/drivers/leds/flash/leds-aat1290.c
++++ b/drivers/leds/flash/leds-aat1290.c
+@@ -413,13 +413,15 @@ static int aat1290_led_external_strobe_set(struct v4l2_flash *v4l2_flash,
+ 	led->movie_mode = false;
+ 	led_cdev->brightness = 0;
  
--		if (fwnode_property_present(child, "led-max-microamp") &&
--		    fwnode_property_read_u32(child, "led-max-microamp",
--					     &led->full_scale_current))
--			dev_err(&priv->client->dev,
--				"Failed getting led-max-microamp\n");
--		else
--			led->full_scale_current = min(led->full_scale_current,
--						      LM3532_FS_CURR_MAX);
-+		if (fwnode_property_present(child, "led-max-microamp")) {
-+			if (fwnode_property_read_u32(child, "led-max-microamp",
-+						     &led->full_scale_current))
-+				dev_err(&priv->client->dev,
-+					"Failed getting led-max-microamp\n");
-+			else
-+				led->full_scale_current = clamp(led->full_scale_current,
-+								LM3532_FS_CURR_MIN,
-+								LM3532_FS_CURR_MAX);
-+		}
+-	pinctrl = devm_pinctrl_get_select(&led->pdev->dev,
+-						enable ? "isp" : "host");
++	pinctrl = pinctrl_get_select(&led->pdev->dev,
++				     enable ? "isp" : "host");
+ 	if (IS_ERR(pinctrl)) {
+ 		dev_warn(&led->pdev->dev, "Unable to switch strobe source.\n");
+ 		return PTR_ERR(pinctrl);
+ 	}
  
- 		if (led->mode == LM3532_BL_MODE_ALS) {
- 			led->mode = LM3532_ALS_CTRL;
++	pinctrl_put(pinctrl);
++
+ 	return 0;
+ }
+ 
 -- 
 2.56.0.218.g1ec904b173-goog
 
