@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792605769;
-	b=hDpdWN6f/OZ3R+C4W5LEk2NQKpI0izjxsxSt/OAFICHZcAvo1l56ghFL5x9y2Vh6GVlg
-	 /2lyXhBEM7RMSaRFT5IDePwZYdBHZ2+OSgRKYtksHqdSBZZKukGGTM8VfPc7486+iOOtd
-	 XanJnIIarvO9s8mfnMMAEP1YITN1PCEujcwgq51KEsrnuC9GtpC1t4yJaKd9qBbtPkszN
-	 mych+L9qeTVS6zUjN4Dbkw/9LaB8kZFmlqH5Mx95xe6jN/Qwt0mKwnRxN0vmBO2uUfCv9
-	 uCj72+lm0z9x/2sawnzY8+y8U2O9rEzggn68ogVqm5hjT7nxde0mt33ZdV2OuPDHOcQ==
+	t=1792605780;
+	b=IXnEWt0AEjCcJ4RTdQUnlBmTmP9LvKPqliBG3aiW2yGT4hCC+WE5wQejvNm4ydVz54xd
+	 FAwIHz33tG58E7lUlUS9xQ7gDJih++LPq0Qfzw7SnEJGQIBchcYQUP1nhqT3r6bOiw0Cc
+	 52ERO1VyeUF4HV/06rZHoutkoZBy2sZ1L5UIVxFQjUleEs2jGqyNX7i+e4/Tks9m8u/IP
+	 vN9muIH6y2NMCDJkSaBA8FJk4JakZhN0agQu5qtBVpZNhw4j/gdRInxfStCuYh71BYeEA
+	 EdufzrKv7YsbnjzAWep/kESuDqx6ku7POUptVxXrea3IG0gMQouOXLDV2hKZRQK79wA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792605769;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792605780;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6Mfng5p0EjeXsknRKE3cc4p0j1ayFb2lQwxIwzkUGTw=;
-	b=AmxRu/zZbM4vPSIK8TgG6m9eWJoz0iuPoy9Idyajq/BOERXHLu/jOtPApHTEofP3CQyB
-	 JO1bQmM5o9ejZ2rtAOCGZ4YHTNQ+pwFTQ+GjGAXkJo3+yCxpRIA4AG4VvH+sYGql6JYhQ
-	 ssdPrVtFj8gr6rLrL5qL5b91VUaO18N1TiF2qmD7OEBDFZapQa+YrWWPOBgMG+K9Sa+f8
-	 Q3KJCidpMsTkW1iDCnQCMFLiEbrwY7kxpL11RCKmsMvQ1tXrbVKZLDYiDYJnutd3eUZF5
-	 Mghy3ZnzizKpITmGHIIcsF2Sqs2iu4Hq2UDEzdMyyx9NOTbKeuZuF77qQCUf15GxWrw==
+	bh=K8j4/rNiiTPP9dCOLEnbghgHdMcy/i11GtA2em6CvL0=;
+	b=Fhip5XfYhy3aLt0JOSYWU6XcVVQFavYqpDYaXC8JABMrYpFfKi/WyUWw7A0UpEKNV0m3
+	 q+9Vyv9Q27v7b9B98nynZcqJIo/L4Oitmh2zoK3o4imvaNJER6eMYuPil4mghOhkwS2Xo
+	 h8u/aGB+MKyt6Z1AmVZ2dg5sf+yUi8Ge8B2UjSZ0LJwKn9DhttlI0f7l7kT6nrgQUKmAZ
+	 mFd0iY0a+O4TRZMNRecKcZ7E+qfz7WcS8PDBWyQoV6KOdxhBYTf48Yq0yXSLoaKYZCBhB
+	 T19LoLHBwol9ndUqOkQLQ1jjeq7wRrxo8Efiuof05cDqnqbirlP+Sq55ZHLTI+EM/2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="U0Iw/sDj";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=g6lRo7rE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9972E606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 18:02:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A239606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 18:03:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U0Iw/sDj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2E811F000C1;
-	Wed, 21 Oct 2026 18:02:48 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=g6lRo7rE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 197021F000C1;
+	Wed, 21 Oct 2026 18:02:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792605769;
-	bh=6Mfng5p0EjeXsknRKE3cc4p0j1ayFb2lQwxIwzkUGTw=;
+	s=korg; t=1792605780;
+	bh=K8j4/rNiiTPP9dCOLEnbghgHdMcy/i11GtA2em6CvL0=;
 	h=Subject:To:Cc:From:Date;
-	b=U0Iw/sDjxNB/ILRtgG1GF73v67HIhK0kTV4NLONV37t3oUdi/xrz/4YfqpZFTXgS/
-	 OYuY5oRGlp1l2yDnuZLS7jY0n37w2om23XTLBeAShNEPu+wR2+J6/NtpficBPVll9Q
-	 iiywazrKhBSTcOshAPOsnrAjlpjGwKXmIOi+Z4Ms=
-Subject: FAILED: patch "[PATCH] tracing: Fix NULL dereference when copying keys for a field" failed to apply to 6.12-stable tree
+	b=g6lRo7rEg+6HIHEbspbdgTzKyX2uOXxKudbaK/M24kziefTYs+ZySKUjNYnTl6EB2
+	 /jBkk72DOVlkc6O7nkEJyIQ+pwVlKDRj9s1t2LgSU+2zfo7+iFEoaO1U5/bkjdN9Gc
+	 RFPKz4R2umefmFN5bHFUiyG5i78VOgx1FI8MTYCA=
+Subject: FAILED: patch "[PATCH] tracing: Fix NULL dereference when copying keys for a field" failed to apply to 6.18-stable tree
 To: donggeunyoo.kernel@gmail.com,rostedt@goodmis.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 21 Oct 2026 20:01:22 +0200
-Message-ID: <2026102122-sandy-lazy-aa40@gregkh>
+Message-ID: <2026102122-spinster-handler-2d56@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x a0777b9e53157f1f6848a0fd0650f5465391ea81
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102122-sandy-lazy-aa40@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102122-spinster-handler-2d56@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
