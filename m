@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792597300;
-	b=aaF8tVWzzFg1hKLNhrrdsqaZ93DQfu8KxrhDA3FpxQeaGJqpdtDEssaAmTi9oqtPwakc
-	 mCMqVFBfPeoyY82Pu5mebsS+xoy3JESAVIR601f1VBdXQ3lGkeoPsCCMPRZ0EC6V5L2po
-	 P/0wSNAO/gA9VrlWbsBDYATY9BhMjXC2IYeP9DfVOS7IHHDkq1kXKSbkWqNcE4Y3aEL9U
-	 kA1+6zfWB74ZSrEp1EozmxDZ6ATrDZNHtEKlKkFP+Yiy1pVXwbTYLQv9iUGijzUl8BTtS
-	 F4n8janqrTnJECTt7C8XJ5vvSNgZ/JleYMAHjElc597XwmbZzCPF+JhGoxo9Qxkh4Fw==
+	t=1792597303;
+	b=0NbEI/Lag60YPeXs5VYVjaGa11MZH2w8W5CUXgNEL+g5krWLaj2JCjKMtGUK+9ewH7di
+	 ka2JECyBIqueOczjhlRsChn1G7t6kgkybtx+FR8TIhxYG3tgJcdmjfHItT85zCVOcqARI
+	 yPbkzbD4jYHgWlJrnMgYcfgY7dETSneodj557PEEIc/K50q6fgOwTj5rAGLpdeSrOVdtR
+	 QufztUS9vnl/xtm/wd72HDcqyY0X9lFPJ+3sm6nhdCZZI7m5XqOukhSB8iK9+fY2Y1QG0
+	 rNOn1+KEya0C8UpTSwSwdZZFhf91ekAcspWbC/c4D6dPP1Skur/Xicy2/QiNgblEnsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792597300;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792597303;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5Q3QO+ywyotfs3S2yOIbdOYj+DPDY7eO0GwgL/84zGQ=;
-	b=olny3ET54f99Vlf2EN6Zk4WtT3qtLiCYiRf0cFrMGIqXuGo0yLwwHyIZnm8ZRu3asgxO
-	 JOFb1h/IF6nVMsoP9q0/36+I/vpE1+rSxj0lsWIMhzzd9Wplo6WhMEWRX//Gj6xn+qt1/
-	 lPlP7uoH+Fcqrh4aDWGTJ0WPHs+l9D6y2lzn4Nj81knfJV7uBRhEkeOnGoGVMkH4/A2lA
-	 yCgHtLqSQH9BfudZCNWJm4splpwH5QWmslvCabxrXVtRc3PRT8/hgB5oIpyPDtTiGEGUH
-	 v45BvajIV6TTrPx567Cjh8kZczZvk9Krg4Hkq2sXeyqqaz+kDQ9LUeGS+pBsbbWMmKA==
+	bh=ZUo0k7u6oeqN209HMB1vDJZ637Rg1brqfObwic47jlY=;
+	b=4TW1Ygw8f6G0teZUnpgGxdOC5zjRG5aIcuC0MOGNh94e0R7u7yoxxNGOTgAEbbUXKwy0
+	 2IRGnoJgGbb9v7pFCdN79kmOj1BziqMbAQJNeY0A9tGpOBMqgzTN5Tb1qWT+FWN7NR3NE
+	 fVEkFUr+M3cHGvQDu0gSEh3f+ohqpxJOB0zhYGAF/f6NXSqk2IWWOfL8vu+KuBfakz4Hh
+	 COGyDs9JRmFk+SDPR/ea3VRCYtRkzr8HkeWjoQplJggs09LYJ+w6q+62zbtGIc423gwhD
+	 wdke0jYXF6zrx9r8OU8k96FEmfYC+9EmzHaYeHn8v20WDEtjGbwVrS8lHK8Iqc7hp0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Aip2g5+G;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DFhSxc6+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481B5606A31F
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:41:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC41606A31B
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:41:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Aip2g5+G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 341B91F000C1;
-	Wed, 21 Oct 2026 15:41:39 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DFhSxc6+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 202D21F000C1;
+	Wed, 21 Oct 2026 15:41:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792597299;
-	bh=5Q3QO+ywyotfs3S2yOIbdOYj+DPDY7eO0GwgL/84zGQ=;
+	s=korg; t=1792597302;
+	bh=ZUo0k7u6oeqN209HMB1vDJZ637Rg1brqfObwic47jlY=;
 	h=Subject:To:Cc:From:Date;
-	b=Aip2g5+Gha6shHmUrsJ9lmF12WlJ1i9XIxpcFT/olaAPfkZrkd1C8OhI26cXMPBBB
-	 UGNja0UiFQjudRvcPPOUAt+pNAgZ07zDvwXknJvWgWB46g9V5TEt2IlVIJSrgrxaI4
-	 EfxlFX0/zWIYoHKMSnSbWkRd/JfAtGb/+CCKKMX0=
-Subject: FAILED: patch "[PATCH] vsock/virtio: validate packet source for connected sockets" failed to apply to 5.15-stable tree
+	b=DFhSxc6+JxtvGwM9kuYjNt1Eh6QmgtrrOLN3zabiYfFWT5j4UWnAptsh5j8hg8UjH
+	 oI/VJvJY1btTuBoCrmXa2TxVLFjM2p+rFO5ifly0xM5ybM6VfJAKueLQg+PqCdwlPL
+	 XLrYXb8ta/Is1zLQK6jsui5KdguTcippEiSlY4O0=
+Subject: FAILED: patch "[PATCH] vsock/virtio: validate packet source for connected sockets" failed to apply to 6.1-stable tree
 To: 4ncienth@gmail.com,bobbyeshleman@meta.com,kuba@kernel.org,sgarzare@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 21 Oct 2026 17:38:11 +0200
-Message-ID: <2026102111-scrimmage-preface-ffce@gregkh>
+Message-ID: <2026102111-patient-zit-1fa0@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x dee44f41f206becb41c492899c1996cfd7f82a1b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102111-scrimmage-preface-ffce@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102111-patient-zit-1fa0@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
