@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594147;
-	b=n5IpDX0zl1+OZb127DiO+mQ/GSSPgIkbTbM7zD4wTsa/Tbnwwlfm8e7I76FSpDhbs52j
-	 pUdvR6rLU2VLxLH+jsiUVyLdttXqVOwIh/qp184nT3oEr6s7vuItdYbim7q7hoNMWqpcF
-	 r/5L9IJdzm7a7zAzDEXgFMEZ0oqb8bIURHhkMBWlRoV5gPG07Q5Lt1tYPHjcYEcOxHqTS
-	 TY144yoRcG3RTlMRDP/iTztrWw6FlicbqDIqpdRK210gkU+dIBiaQHw8+SWbNbrcAeXtY
-	 0xqAJyWNGV94qqj3WNdRAyhjo7RfHPfYIKnKKdVVDsjW95YMFwBPkxm+Q8yIbcaZqAA==
+	t=1792594150;
+	b=P7qa2H2pYPdv5Qexpbc9rmoBETtMUNusZlOGmGSw4jE0SJBN8PWYlFFCsTT5udMMGbxf
+	 q8qG8svvJc6nqsuHJHrgpfHz3VgXCZZiglbuYanjXouZf5SG4muSDMRAD5PYHqke61b9g
+	 Tuh0nu7tsvPH5ZJfyMC78w42EqIWjcclImrFqZb+w4F2vzG9i1jgCcJF1dRPd9hdmlRRI
+	 1uinqhBVuGR3ZmTkYwvyeJHudIsswWPAgt2G7gCncp472MkjY9bdJYeaoilVElm/upTwF
+	 eWC2z8d1jCnQBGjGqnvAULxAxO9ArbITNjR4ezNCMc+4QyiK3HAPxKoey2rOT5jaitg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594147;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594150;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2soW64OGfXkoZytjFO+U4K7qMhyo/RKdUMq6Qgsi4JE=;
-	b=BRopn7RkeifeznXd0DMacgSbPU6HZeEfkZjnwkhKZ/x1QdcmbrPGkjTJ6hk/Y1IPOI8a
-	 6/FRmlG7U7nOKQDVPz3X1vxBvbfila0U1aGkCJghbyiodPT3yxmKahKc86Fw/i76NTJke
-	 to710Rxlee4ukjd/ffN61Z5BBwNZdC8IrqY0svsgKdHM2lx8e/s1dsro07G+UAfERwrlI
-	 dSuHwoTYzAsmqg5sqN0tkXvmX/eKWiHh6/UpdVsWBni8KUSfYwrjUgiSI7AHhgcomsz2L
-	 KHqwthnnzKE1dpHVqVc+0TTbE14WFVItp8mSeSFd0tehw5Q/o0zczhGxJ+MxmgGmg1w==
+	bh=kMg45BOjMLYWMhfx1TKvb07bTgv3vsYeVoYQLLHbfMY=;
+	b=QOJkEgJ/MNj9kkyCsRa/puE75mK4xLo6wK4q+Cv84pcvP+E8VR+lU4Niv+YU/jpvEXaU
+	 dAlN5tXkw1IflGMrD6/LnbLERnWWZUPTlQ3z+I/SwWICRfAYra7XDFDjx8vNanAtgAIXd
+	 iEIZT142KDDR13NjK98XJELEvb3lbCxy71Cr5hDgyur1uClVJvSMp9aUOXAWPanYUMRzO
+	 loXoeECx5x2AcqL1iLFCkHhu5DWvWIKoxMce3RxrtZiBpV8r4sqlBZho4TxbHzbuen+yc
+	 TXvKNGY0bR7G9St8un4wvzN1zxvKYfYHGAdbboDdRJ3dbR6rqylGu8s/IkdtcmpRBKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qmFmorKL;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IzSEkvMw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7704D606A31E
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:49:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481FE606A31A
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:49:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qmFmorKL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB74F1F000C7;
-	Wed, 21 Oct 2026 14:49:06 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IzSEkvMw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A31F1F000C4;
+	Wed, 21 Oct 2026 14:49:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594147;
-	bh=2soW64OGfXkoZytjFO+U4K7qMhyo/RKdUMq6Qgsi4JE=;
+	s=korg; t=1792594150;
+	bh=kMg45BOjMLYWMhfx1TKvb07bTgv3vsYeVoYQLLHbfMY=;
 	h=Subject:To:Cc:From:Date;
-	b=qmFmorKLLU05MKcCszgd+5028Tx4kbc7HLHP//tRS0wDj0XHi/gamqtlz2MsVECvq
-	 zfsu9l5nJWG6hn8hoXp/t4O5sVsMK1PET9tfp+UlIoL2eIE2W7eRvIL+Je0KPUCIle
-	 9TQRBv0RttlfKkj7BquNgs81blx1pnLJb219PmVo=
-Subject: FAILED: patch "[PATCH] KVM: x86/mmu: Cope with the SS bit being set in #NPF exit" failed to apply to 6.18-stable tree
-To: pbonzini@redhat.com,seanjc@google.com,simonp.git@mailbox.org
+	b=IzSEkvMwayfxkJYHW1ID5NQHrAgTPSeweiLiIw8hbcFYjt4tste+Lfcomcee2svef
+	 PGZuxIAitZfEICIjdHYgeoVwOCt20vTnJISxefSyDUVsQTVOh3wMaCaPM1Chnpu5hl
+	 KvrG9rg0ZMzg2YceXzILFJWW3xUWxMgTk+SXHj8k=
+Subject: FAILED: patch "[PATCH] pid_namespace: make zap_pid_ns_processes() freezable" failed to apply to 6.6-stable tree
+To: vaknins33@gmail.com,brads@mainlining.org,brauner@kernel.org,oleg@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 16:36:00 +0200
-Message-ID: <2026102100-dominion-poser-834f@gregkh>
+Date: Wed, 21 Oct 2026 16:36:59 +0200
+Message-ID: <2026102159-hunchback-poppy-cf49@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x e90ab3669181c6469e3647ef2b30ae408275f496
+git cherry-pick -x 81933038f5e273d17ed22792f906889393b204c5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102100-dominion-poser-834f@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102159-hunchback-poppy-cf49@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,105 +79,68 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e90ab3669181c6469e3647ef2b30ae408275f496 Mon Sep 17 00:00:00 2001
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Fri, 9 Oct 2026 14:37:10 +0200
-Subject: [PATCH] KVM: x86/mmu: Cope with the SS bit being set in #NPF exit
- codes
+From 81933038f5e273d17ed22792f906889393b204c5 Mon Sep 17 00:00:00 2001
+From: Aviv Vaknin <vaknins33@gmail.com>
+Date: Fri, 2 Oct 2026 23:28:20 +0300
+Subject: [PATCH] pid_namespace: make zap_pid_ns_processes() freezable
 
-When running Hyper-V from Windows 11, KVM is seeing the SS bit set
-in nested page fault error codes produced for shadowed NPT.  The AMD
-manual is unclear about when SS is set, including whether it can be set
-when SupervisorShadowStackEn (bit 6) is not set in the MISC_CTL field
-of the VMCB.
+When the init of a pid namespace exits, zap_pid_ns_processes() waits
+until all other pids in the namespace are freed. A tracer outside the
+namespace that does not reap its traced zombies keeps those pids
+allocated, so this wait has no upper bound, and while it lasts every
+suspend attempt fails:
 
-Nevertheless, the unexpected SS bit causes out of bounds accesses in
-permission_fault(), seen as either WARNs or UBSAN reports:
+  Freezing user space processes failed after 20.006 seconds (2 tasks refusing to freeze, wq_busy=0):
 
-  kernel: UBSAN: array-index-out-of-bounds in arch/x86/kvm/mmu.h:225:27
-  kernel: index 34 is out of range for type 'u16 [16]'
+Neither wait is freezable. The first loop sleeps in do_wait(), which
+returns -ERESTARTSYS on the freezer's fake signal; the loop then clears
+TIF_SIGPENDING and waits again without ever freezing. The final loop
+sleeps in TASK_INTERRUPTIBLE, and since nothing clears TIF_SIGPENDING
+there, schedule() returns immediately after the first freeze attempt
+and the task spins until the wait ends.
 
-(in this case, the page fault error code is 34*2=0x44, i.e. SS|U; the
-report shows SS|U|W happening as well).  Fix the handling of unknown
-error codes by dropping SS and (with a WARN) any bits not among those
-that permission_fault() expects to receive.
+Sleep in TASK_INTERRUPTIBLE | TASK_FREEZABLE in do_wait(), so that the
+freezer can freeze tasks waiting there directly, and in TASK_IDLE |
+TASK_FREEZABLE in the final loop, like coredump_task_exit() does.
 
-At the same time, given the uncertainty about when hardware sets SS,
-follow the processor's behavior when constructing the fault's error
-code, and preserve the SS bit as passed to FNAME(walk_addr_generic).
-While the behavior is surprising, there's a possibility that Hyper-V
-expects it (Hyper-V does not even enable CET unless it finds MBEC/GMET!),
-so retain the information when reflecting the fault to L1 instead of
-unconditionally discarding it.
+This was hit with Chromium-based browsers: crashpad ptrace-attaches the
+threads of a crashed renderer, which is a pid namespace init, and does
+not reap those killed during the dump.
 
-Bisection shows that this started happening with commit 687ee95c1b6d ("KVM:
-nSVM: enable GMET for guests"), even though SHSTK was available to guests
-since Linux 6.18.  However, this is not because bit 1 of MISC_CTL (GMET)
-somehow enables reporting the SS bit; rather, it's simply that Hyper-V
-never uses CET unless GMET is also present.  The WARN is reproducible
-even with gmet=0, with some hacking of kvm-unit-tests's cet.c testcase
-to ensure that the first access to the shadow stack triggers a page fault.
+Fixes: 3eb07c8c8adb ("pid namespaces: destroy pid namespace on init's death")
+Fixes: b9a985db9896 ("pid_ns: Sleep in TASK_INTERRUPTIBLE in zap_pid_ns_processes")
+Cc: stable@vger.kernel.org # 6.1+
+Suggested-by: Oleg Nesterov <oleg@redhat.com>
+Signed-off-by: Aviv Vaknin <vaknins33@gmail.com>
+Link: https://patch.msgid.link/20261002202820.3433318-1-vaknins33@gmail.com
+Acked-by: Oleg Nesterov <oleg@redhat.com>
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Reported-by: SimonP <simonp.git@mailbox.org>
-Fixes: 8db428fd5229 ("KVM: SVM: Enable shadow stack virtualization for SVM")
-Cc: stable@vger.kernel.org
-Reviewed-by: Sean Christopherson <seanjc@google.com>
-Closes: https://lore.kernel.org/all/asUqYEisPp9MJ8mQ@rika.bernkas.tel
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-
-diff --git a/arch/x86/kvm/mmu.h b/arch/x86/kvm/mmu.h
-index 2ae7f9ed4cf8..b2a295a9f084 100644
---- a/arch/x86/kvm/mmu.h
-+++ b/arch/x86/kvm/mmu.h
-@@ -275,8 +275,18 @@ static inline u8 permission_fault(struct kvm_vcpu *vcpu, struct kvm_pagewalk *w,
- 				  unsigned pte_access, unsigned pte_pkey,
- 				  u64 access)
- {
--	/* strip nested paging fault error codes */
--	unsigned int pfec = access;
-+	/*
-+	 * Of the error codes that do not contribute to the index in
-+	 * fmt->permissions, PK and SS are not supported by shadow paging
-+	 * and also not provided to EPT violations, but SS *is* included
-+	 * in the NPT exit code.  RSVD faults are handled elsewhere.
-+	 */
-+	unsigned int pfec = access & ~PFERR_SS_MASK;
-+	if (WARN_ON_ONCE(pfec & ~(PFERR_PRESENT_MASK | PFERR_WRITE_MASK |
-+				  PFERR_USER_MASK | PFERR_FETCH_MASK)))
-+		pfec &= (PFERR_PRESENT_MASK | PFERR_WRITE_MASK |
-+			 PFERR_USER_MASK | PFERR_FETCH_MASK);
-+
- 	unsigned long rflags = kvm_x86_call(get_rflags)(vcpu);
+diff --git a/kernel/exit.c b/kernel/exit.c
+index 282328d2b4cf..ba1469bea8fb 100644
+--- a/kernel/exit.c
++++ b/kernel/exit.c
+@@ -1729,7 +1729,7 @@ static long do_wait(struct wait_opts *wo)
+ 	add_wait_queue(&current->signal->wait_chldexit, &wo->child_wait);
  
- 	/*
-@@ -301,8 +311,6 @@ static inline u8 permission_fault(struct kvm_vcpu *vcpu, struct kvm_pagewalk *w,
- 	kvm_mmu_refresh_passthrough_bits(vcpu, w);
- 
- 	fault = (fmt->permissions[index] >> pte_access) & 1;
--
--	WARN_ON_ONCE(pfec & (PFERR_PK_MASK | PFERR_SS_MASK | PFERR_RSVD_MASK));
- 	if (unlikely(fmt->pkru_mask)) {
- 		u32 pkru_bits, offset;
- 
-diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
-index 27427e7f22fa..e5450faa669e 100644
---- a/arch/x86/kvm/mmu/paging_tmpl.h
-+++ b/arch/x86/kvm/mmu/paging_tmpl.h
-@@ -328,7 +328,6 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
- 	int offset;
- 	u64 walk_nx_mask = 0;
- 	const int write_fault = access & PFERR_WRITE_MASK;
--	const int user_fault  = access & PFERR_USER_MASK;
- 	const int fetch_fault = access & PFERR_FETCH_MASK;
- 	/*
- 	 * Note! Track the error_code that's common to legacy shadow paging
-@@ -486,7 +485,7 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
- 	return 1;
- 
- error:
--	errcode |= write_fault | user_fault;
-+	errcode |= access & (PFERR_WRITE_MASK | PFERR_USER_MASK | PFERR_SS_MASK);
- 	if (fetch_fault && has_pferr_fetch(w))
- 		errcode |= PFERR_FETCH_MASK;
- 
+ 	do {
+-		set_current_state(TASK_INTERRUPTIBLE);
++		set_current_state(TASK_INTERRUPTIBLE | TASK_FREEZABLE);
+ 		retval = __do_wait(wo);
+ 		if (retval != -ERESTARTSYS)
+ 			break;
+diff --git a/kernel/pid_namespace.c b/kernel/pid_namespace.c
+index d36afc58ee1d..4ade0f37ed54 100644
+--- a/kernel/pid_namespace.c
++++ b/kernel/pid_namespace.c
+@@ -268,7 +268,7 @@ void zap_pid_ns_processes(struct pid_namespace *pid_ns)
+ 	 * free_pid() will awaken this task.
+ 	 */
+ 	for (;;) {
+-		set_current_state(TASK_INTERRUPTIBLE);
++		set_current_state(TASK_IDLE | TASK_FREEZABLE);
+ 		if (pid_ns->pid_allocated == init_pids)
+ 			break;
+ 		schedule();
 
