@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595579;
-	b=gYtuP2zGSbobucpcAUi0urIhwKwWbclcNnzIvRDBGJPBfSkYli5jP5k1I3llPGL3ED9J
-	 QPYOmD+21HMeTAapPoxgrgvmMPFr+dd3czUVDrNQ2N1iptS38EhnaqJJZtZkuF9Mptx8b
-	 AhuK+GTmSmkf9H9FElcEb/gew+23YWGsqmRZLbsEpsB9fhjMsQsy35L9Oi4Au2WoxHnj+
-	 CatjVRuGU1O4N1tuF9RfzbStJpmymipnA3sGt6vMqx36/ymEiRitvfhFZQYlFBBR8rYig
-	 XNrrDgsfCm3JMcfp7NJ26Pgoz2zn9X4erlWLuffK8DUXN8+cvZ25eWf7TPxMV1y1U6g==
+	t=1792595581;
+	b=XsOSVxMi7NK+VwQt+iNvYjA9m6FIffjhT2qPURP1i6eVa1H5Q9PZ3h8jAob8tTkRw4us
+	 VUPdpkbZ0WxQbvHA3LmousOF1LVFipQTG4l7JCeBDU48XXgOg3PPFj7NiFxaQJCviSQV5
+	 RVuP+/bWAM/68IHQva1Tv6qMrZSMjvw71CwhxGdkqoHYwoUETjhsMrLsu/kxEzgjoKLqr
+	 AbNHPBX1NNeHlOFqXmWgHyymf1tHJndVpGsNl9vbNAqC8vXG3o8hk4aDbSEAvOYgmbQ9x
+	 D4ytw+DB8oee+Z2FR05n7l4gx4uNbJWvkmkSK0vAnD0i4Bn0e3xZ+WYTLf8dvkBv/yA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595579;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595581;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=eIymGksw5s6JqbYM+1LeODvPahD6TLeDfB+RhaldHY8=;
-	b=LTEXECGMrawoqhdTJ5Kb6a3uN/Y5zWYLauMb3tp/3Q3udZM8gP7AVFiOS7tWGxHdvPz7
-	 5VfEakXiHo1ZO5JPgViDGCcr4KQDU4jdJI51Fx5rL7oRiygW200v7q2gxaDHhQl6AT/Kp
-	 IFtKfNI8/2JYJxMnOiz+dIfPypE9A0Mb4F8qVCS3mjx1v3qgznngEXK3aRgAMKxhtLcvo
-	 2W7rlKyn4HNjEZVi08t8R/5a58b1a81NusdIht7yYWS7o7fRMTJCSb5IfKIZCE7E91ckJ
-	 dOhOrBKitxlk1hf3zCbO21UAAnQUyOFoE5IpnrGpgsEgE7962PMX2WNDL6YDQ3W4Bng==
+	bh=jEw/KdOfOErUW2SuDHV0LcQht8o2qarpcFTEkJy1enA=;
+	b=EM5dgEuNGGwX6p9H2J0Jo+3bhC0qV5U4gGgnPWh0upLihTudgIn7/70drksvYq73IycM
+	 2dBTnaJwvhdaQMLUG33qQHi9wTLStVF3xUj9vKhogqP+ZOCrQzXOrrwG4PygeERO/51jz
+	 nSsGf8UKa8AK3ddmO9r9284/9Ui0dgOpsqm7tB1EI+veUbznnnSELw9ueEtLptpghu0Zp
+	 xG/m/llu2ToCe6hoW1bqVIrrGdWCb0V3OusQb8dUDieR6UWKrOWYL78SjlXfI+LHdACIV
+	 yWh6Jl3uFx4/Tct53STyat0iUGVy8xx+KgwK4/GNkxfb6e3m2eVzrdIvouq44aV5XLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="B/2vKP2Q";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zgI5k8R8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D98606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:12:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70968606A31F
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:13:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=B/2vKP2Q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 009CC1F000C1;
-	Wed, 21 Oct 2026 15:12:57 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zgI5k8R8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2A141F000C1;
+	Wed, 21 Oct 2026 15:13:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792595578;
-	bh=eIymGksw5s6JqbYM+1LeODvPahD6TLeDfB+RhaldHY8=;
+	s=korg; t=1792595581;
+	bh=jEw/KdOfOErUW2SuDHV0LcQht8o2qarpcFTEkJy1enA=;
 	h=Subject:To:Cc:From:Date;
-	b=B/2vKP2QiUWanh9xji52g3ijrvcqMpZKDeZMWFIKWe09WH7W+MlLZicEe0QCzfMUd
-	 VJVaDQRq3kBj/b3ziqt0off339wfT0rlGTrfBp3YCGucDeHBD5sS2GBVhZlPbVRwlI
-	 rBQ+SOuWe4GK+ZdL+byAHT5Hqe8qCNCDAlwTKdnM=
-Subject: FAILED: patch "[PATCH] io_uring/cancel: don't spin on local work the task can't run" failed to apply to 6.6-stable tree
+	b=zgI5k8R8xtqTP8J0jrQUPnaV/0+iVDCaW8aH36qTvjS0jvuOEiY5nDPE7ltOQogiQ
+	 JCBRuJ0TbNxfTCfnjwLWSDIMMWl58awLSWEDAugijBrLOS8VL773KCZfBOH8ff2sUI
+	 2hSXX2lhHgwSrdGo78J2vE+QMJTRfqrC8uGNubnk=
+Subject: FAILED: patch "[PATCH] io_uring/cancel: don't spin on local work the task can't run" failed to apply to 6.12-stable tree
 To: cenzhang@linux.microsoft.com,axboe@kernel.dk
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 21 Oct 2026 17:10:28 +0200
-Message-ID: <2026102128-glutton-blaming-7e9e@gregkh>
+Message-ID: <2026102128-salvation-quack-0ba4@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x fddcf4c5321b3ea5f72166c3fd36a9d1c34f80c7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102128-glutton-blaming-7e9e@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102128-salvation-quack-0ba4@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
