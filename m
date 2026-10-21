@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792605757;
-	b=A4Xq8wZDZouDOHyAZz6hClZ/mgx7kPCiKMKI13UwA6zLFTIQbssHnKzlTPgdBUaurf+h
-	 KJ2jK3G0ypjDJULfSHp6MA/vcMCnicoAmNOKmbAtpW6qXG4vScJYXDuWyVuADIZ0FKV5v
-	 G9YyED77p+SiEyAIDPay3vSVqo5YgzZ89NUaBLPWd1WU98wYBR7MSRFG6RKF/cqgHWfVB
-	 7Nex6vwIfTacATuANsttas6aBIdQGN1ShYSsY4V8ASz41t+ooZSlTF/C8P8D8yIuduG9t
-	 O0W1MITCxNiECaieEfX7mEdYiIIcDsis4hgLoxKDHstNfd0g3Wm6ApBOG4YttNT2HLA==
+	t=1792605761;
+	b=1IecARK7K025BKCZwAXY4aobjgt9Lwn8P+glzL+TOaEIo3toN0EdF4nTSa2LJb52D9TJ
+	 6eiKPj6uqfUqP8dbZOTCMiq/zb5vduUNx3UDLyFDsoz3jXo2TXDV0G+7q00YXWyLOMVDZ
+	 RXuU4hiiPtqgGsnSrbVAQ+P1IXHUidi6N77tS45y/+InrQ02H4kgsLU4VLI8GEosfmgWP
+	 LCFimn4rwAYN8bFP9/KuOv58ZkvIouhzKFiq77gXR6FLrVgQPOcQZ0GLYJDPbfdftTnI3
+	 lIAcYPGrYAtMY7kS7yLMp4VqZOYOwLmtuJ/LtT+DahoeUVCHf6bLhx0NP0yfOR1xtZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792605757;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792605761;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ks6MCXF4kw1uJ9KOV5tu5k1O1a3yCCtaqvSQpP+SSEo=;
-	b=Xicj5mZN/AS8lYIbHlaM6fqnlo+pH8GFKPIOuapIMw2HImolfM68tdkInnLV3Ig29aFS
-	 8s1cV18pE8ofgKOf7mwUfbu2B63zK4VLg0sdOi4KleJneaM9e5a5NF9Z9amp4T7HzN7PI
-	 LyzJo5QwkpF6+mhI8tMKQpsHipSy4ojRMYPWCkjLtkGCL8TVVTqGK6O/zAexsDQ5NE35C
-	 6DikLZHUVhl1gsw9BbXMjLdUJdr3rOXxh4uTTjTpC1qxrVwbnOvuIDOWX8w9H0+2Z3qpy
-	 PuX9D1IzyxGUEUYsoArGSrjSXnEt68wjBP0jXUo6id42j5Rmr51mEtxqPuO07el36/w==
+	bh=e2alJIXSYK3LZK91rZBSjOS8qrL9zNkTpWnd8/jXosg=;
+	b=hZMYx+cpqsqCK6Yx6IiEn3whqTMSeC5e2aCntGzOuzIraMJ3aSTtEV5kl+DcO6sDFEug
+	 qvN0rHDWW+gIxRao7QQwgqJS+2HR+qKs3acURO3d+ZR7kncbNGorxgNw7rbKYklKbFfKw
+	 qzzWH3jO+dbNVwSBemcAeky4vI3dQAquf98I/Ay0ldUWCTaBFC4Pn89MQHn2vDUlXREHh
+	 U+ZPPlTSw931R0LOSx7kNen5At7El3WebxcU/gIJh4xo1Ka21qCJ9cHWRo8k0a+DNic4J
+	 7SCbN0Bv+zkkYepE3WEolT2As1JcYxyGXJgDmUZrL7v5hZEtVruGBmpAHXSgdKOm48Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jQDQQ0KX;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="LO64XtB/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F12F606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 18:02:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76F78606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 18:02:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jQDQQ0KX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C8F01F000C1;
-	Wed, 21 Oct 2026 18:02:36 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LO64XtB/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BCF31F000C1;
+	Wed, 21 Oct 2026 18:02:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792605757;
-	bh=ks6MCXF4kw1uJ9KOV5tu5k1O1a3yCCtaqvSQpP+SSEo=;
+	s=korg; t=1792605761;
+	bh=e2alJIXSYK3LZK91rZBSjOS8qrL9zNkTpWnd8/jXosg=;
 	h=Subject:To:Cc:From:Date;
-	b=jQDQQ0KXXM0FtMi0aCb+rEBoMM7+8VoDquTTxixrsXmn0PSeGd6Rhv4rvk1dRsjqF
-	 KLUtj0nkyJxLWoV+CDpWn/sWXX5Jp6g6eN68uIZIgQucyqV2r5I3EyNqeRx4fw+VWy
-	 uSUa3pI/MuE3fHWXq9wv7O0RaN054XFyFQkaxYbk=
-Subject: FAILED: patch "[PATCH] vsock/vmci: validate packet source for connected sockets" failed to apply to 5.15-stable tree
-To: 4ncienth@gmail.com,kuba@kernel.org,pabeni@redhat.com,sashiko-bot@kernel.org,sgarzare@redhat.com,vishnu.dasa@broadcom.com
+	b=LO64XtB/PC7twcKpszKEf7AUTfVdf369cBO6Q9HZmLIjg8guXdp4//Ush3L1pONli
+	 zJhHth8Yc15DHgbXthSttXrynFIaemZpDE6JtnPNk3G6GuNFAWtiL0p3yL1m1j/G7b
+	 5gIM36gzI8614FesA60ihBtJFjWAMTNxtOjoRSsw=
+Subject: FAILED: patch "[PATCH] tcp: fix use-after-free in do_tcp_getsockopt(TCP_CONGESTION)" failed to apply to 5.15-stable tree
+To: blbllhy@gmail.com,edumazet@google.com,jiayuan.chen@linux.dev,kuba@kernel.org,leitao@debian.org,matttbe@kernel.org,xmei5@asu.edu
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 19:56:23 +0200
-Message-ID: <2026102123-partake-lid-6095@gregkh>
+Date: Wed, 21 Oct 2026 19:57:27 +0200
+Message-ID: <2026102127-crept-debate-2807@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,10 +64,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x ad9a7da3fa39c2d616ec0dd3cf6e30531d032fe7
+git cherry-pick -x 5271b79b7ad68dcb222e893773f92bdabf7750f3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102123-partake-lid-6095@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102127-crept-debate-2807@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,123 +79,135 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ad9a7da3fa39c2d616ec0dd3cf6e30531d032fe7 Mon Sep 17 00:00:00 2001
-From: Daehyeon Ko <4ncienth@gmail.com>
-Date: Wed, 26 Aug 2026 09:39:28 +0900
-Subject: [PATCH] vsock/vmci: validate packet source for connected sockets
+From 5271b79b7ad68dcb222e893773f92bdabf7750f3 Mon Sep 17 00:00:00 2001
+From: "Cen Zhang (Microsoft Security FORGE Labs)" <blbllhy@gmail.com>
+Date: Thu, 27 Aug 2026 19:55:10 -0400
+Subject: [PATCH] tcp: fix use-after-free in do_tcp_getsockopt(TCP_CONGESTION)
 
-vmci_transport_recv_stream_cb() looks up sockets first by the full source
-and destination tuple, then by destination only in the bound table. The
-fallback can select a non-listening socket without checking whether the
-packet came from its stored peer.
+do_tcp_getsockopt() reads icsk->icsk_ca_ops->name without holding
+rcu_read_lock(). Since commit 0baf26b0fcd7 ("bpf: tcp: Support
+tcp_congestion_ops in bpf"), icsk_ca_ops can point to dynamically
+allocated BPF struct_ops memory that may be freed concurrently via
+setsockopt(TCP_CONGESTION), leading to a use-after-free.
 
-This was reproduced with two VMCI contexts. A RST from the context not
-stored in a TCP_SYN_SENT socket reset that socket after it was selected by
-the destination-only lookup.
+  BUG: KASAN: slab-use-after-free in _copy_to_user+0x37/0x60
+  Read of size 16 at addr ffff888013505260 by task exploit/149
+   _copy_to_user+0x37/0x60
+   do_tcp_getsockopt+0x158a/0x2460 (net/ipv4/tcp.c:4585)
+   tcp_getsockopt+0x91/0xf0
+   __sys_getsockopt+0xf7/0x170
 
-VMCI can process notification packets in bottom-half context when the
-socket is not owned by user context, or defer packets to a workqueue. Use
-vsock_check_source() after taking the socket lock in the bottom-half path,
-and recheck after lock_sock() in the workqueue path. Listening sockets
-continue to accept packets from any source.
+Fix this by holding rcu_read_lock() around the ca_ops->name access,
+using READ_ONCE() to load icsk_ca_ops, and copying the name to a
+stack buffer before releasing the lock. Also annotate the relevant
+icsk_ca_ops stores with WRITE_ONCE() to fix the accompanying KCSAN
+data-race issue.
 
-Reply with a RST addressed from the received packet before dropping a
-source that fails validation. This preserves the existing reset behavior
-for bound non-listening and concurrently closed sockets without directing
-the reset to a connected socket's stored peer.
-
-Fixes: d021c344051a ("VSOCK: Introduce VM Sockets")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/netdev/20260814121255.6B5001F000E9@smtp.kernel.org/
+Fixes: 0baf26b0fcd7 ("bpf: tcp: Support tcp_congestion_ops in bpf")
+Suggested-by: Eric Dumazet <edumazet@google.com>
+Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
+Link: https://lore.kernel.org/all/20260821182449.79785-2-blbllhy@gmail.com/
+Cc: AutonomousCodeSecurity@microsoft.com
 Cc: stable@vger.kernel.org
-Suggested-by: Stefano Garzarella <sgarzare@redhat.com>
-Suggested-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Reviewed-by: Vishnu Dasa <vishnu.dasa@broadcom.com>
-Link: https://patch.msgid.link/20260826003929.966160-3-4ncienth@gmail.com
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <blbllhy@gmail.com>
+Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Reviewed-by: Breno Leitao <leitao@debian.org>
+Link: https://patch.msgid.link/d3f97f1acbf0010898148be6e6406e4b8b4a5c84.1787870710.git.blbllhy@gmail.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/net/vmw_vsock/vmci_transport.c b/net/vmw_vsock/vmci_transport.c
-index 1c4ee039c166..1f186e8f8364 100644
---- a/net/vmw_vsock/vmci_transport.c
-+++ b/net/vmw_vsock/vmci_transport.c
-@@ -680,11 +680,13 @@ static int vmci_transport_recv_stream_cb(void *data, struct vmci_datagram *dg)
- 	struct vmci_transport_packet *pkt;
- 	struct vsock_sock *vsk;
- 	bool bh_process_pkt;
-+	bool drop_pkt;
- 	int err;
- 
- 	sk = NULL;
- 	err = VMCI_SUCCESS;
- 	bh_process_pkt = false;
-+	drop_pkt = false;
- 
- 	/* Ignore incoming packets from resources that aren't vsock
- 	 * implementations.
-@@ -765,17 +767,29 @@ static int vmci_transport_recv_stream_cb(void *data, struct vmci_datagram *dg)
- 	bh_lock_sock(sk);
- 
- 	if (!sock_owned_by_user(sk)) {
--		/* The local context ID may be out of date, update it. */
--		vsk->local_addr.svm_cid = dst.svm_cid;
-+		if (sk->sk_state != TCP_LISTEN &&
-+		    !vsock_check_source(vsk, &vmci_transport, &src)) {
-+			drop_pkt = true;
-+			err = VMCI_ERROR_NO_ACCESS;
-+		} else {
-+			/* The local context ID may be out of date, update it. */
-+			vsk->local_addr.svm_cid = dst.svm_cid;
- 
--		if (sk->sk_state == TCP_ESTABLISHED)
--			vmci_trans(vsk)->notify_ops->handle_notify_pkt(
--					sk, pkt, true, &dst, &src,
--					&bh_process_pkt);
-+			if (sk->sk_state == TCP_ESTABLISHED)
-+				vmci_trans(vsk)->notify_ops->handle_notify_pkt(sk, pkt, true,
-+									       &dst, &src,
-+									       &bh_process_pkt);
-+		}
- 	}
- 
- 	bh_unlock_sock(sk);
- 
-+	if (drop_pkt) {
-+		if (vmci_transport_send_reset_bh(&dst, &src, pkt) < 0)
-+			pr_err("unable to send reset\n");
-+		goto out;
-+	}
-+
- 	if (!bh_process_pkt) {
- 		struct vmci_transport_recv_pkt_info *recv_pkt_info;
- 
-@@ -900,6 +914,7 @@ static void vmci_transport_recv_pkt_work(struct work_struct *work)
- {
- 	struct vmci_transport_recv_pkt_info *recv_pkt_info;
- 	struct vmci_transport_packet *pkt;
-+	struct sockaddr_vm src;
- 	struct sock *sk;
- 
- 	recv_pkt_info =
-@@ -908,6 +923,12 @@ static void vmci_transport_recv_pkt_work(struct work_struct *work)
- 	pkt = &recv_pkt_info->pkt;
- 
- 	lock_sock(sk);
-+	vsock_addr_init(&src, pkt->dg.src.context, pkt->src_port);
-+	if (sk->sk_state != TCP_LISTEN &&
-+	    !vsock_check_source(vsock_sk(sk), &vmci_transport, &src)) {
-+		vmci_transport_reply_reset(pkt);
-+		goto out;
-+	}
- 
- 	/* The local context ID may be out of date. */
- 	vsock_sk(sk)->local_addr.svm_cid = pkt->dg.dst.context;
-@@ -937,6 +958,7 @@ static void vmci_transport_recv_pkt_work(struct work_struct *work)
+diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+index 93d723d8c109..740999c9efff 100644
+--- a/net/ipv4/tcp.c
++++ b/net/ipv4/tcp.c
+@@ -4576,16 +4576,24 @@ int do_tcp_getsockopt(struct sock *sk, int level,
+ 		val = !inet_csk_in_pingpong_mode(sk);
  		break;
- 	}
  
-+out:
- 	release_sock(sk);
- 	kfree(recv_pkt_info);
- 	/* Release reference obtained in the stream callback when we fetched
+-	case TCP_CONGESTION:
++	case TCP_CONGESTION: {
++		char ca_name[TCP_CA_NAME_MAX] = {};
++
+ 		if (copy_from_sockptr(&len, optlen, sizeof(int)))
+ 			return -EFAULT;
+ 		len = min_t(unsigned int, len, TCP_CA_NAME_MAX);
+ 		if (copy_to_sockptr(optlen, &len, sizeof(int)))
+ 			return -EFAULT;
+-		if (copy_to_sockptr(optval, icsk->icsk_ca_ops->name, len))
++
++		rcu_read_lock();
++		memcpy(ca_name, READ_ONCE(icsk->icsk_ca_ops)->name,
++		       sizeof(ca_name));
++		rcu_read_unlock();
++
++		if (copy_to_sockptr(optval, ca_name, len))
+ 			return -EFAULT;
+ 		return 0;
+-
++	}
+ 	case TCP_ULP:
+ 		if (copy_from_sockptr(&len, optlen, sizeof(int)))
+ 			return -EFAULT;
+diff --git a/net/ipv4/tcp_cong.c b/net/ipv4/tcp_cong.c
+index e9f6c77e0631..8e83ef81fc18 100644
+--- a/net/ipv4/tcp_cong.c
++++ b/net/ipv4/tcp_cong.c
+@@ -223,7 +223,7 @@ void tcp_assign_congestion_control(struct sock *sk)
+ 	ca = rcu_dereference(net->ipv4.tcp_congestion_control);
+ 	if (unlikely(!bpf_try_module_get(ca, ca->owner)))
+ 		ca = &tcp_reno;
+-	icsk->icsk_ca_ops = ca;
++	WRITE_ONCE(icsk->icsk_ca_ops, ca);
+ 	rcu_read_unlock();
+ 
+ 	memset(icsk->icsk_ca_priv, 0, sizeof(icsk->icsk_ca_priv));
+@@ -253,7 +253,7 @@ static void tcp_reinit_congestion_control(struct sock *sk,
+ 	struct inet_connection_sock *icsk = inet_csk(sk);
+ 
+ 	tcp_cleanup_congestion_control(sk);
+-	icsk->icsk_ca_ops = ca;
++	WRITE_ONCE(icsk->icsk_ca_ops, ca);
+ 	icsk->icsk_ca_setsockopt = 1;
+ 	memset(icsk->icsk_ca_priv, 0, sizeof(icsk->icsk_ca_priv));
+ 
+diff --git a/net/ipv4/tcp_dctcp.c b/net/ipv4/tcp_dctcp.c
+index 274e628e7cf8..99f68c2992d0 100644
+--- a/net/ipv4/tcp_dctcp.c
++++ b/net/ipv4/tcp_dctcp.c
+@@ -111,7 +111,7 @@ __bpf_kfunc static void dctcp_init(struct sock *sk)
+ 	/* No ECN support? Fall back to Reno. Also need to clear
+ 	 * ECT from sk since it is set during 3WHS for DCTCP.
+ 	 */
+-	inet_csk(sk)->icsk_ca_ops = &dctcp_reno;
++	WRITE_ONCE(inet_csk(sk)->icsk_ca_ops, &dctcp_reno);
+ 	INET_ECN_dontxmit(sk);
+ }
+ 
+diff --git a/net/ipv4/tcp_minisocks.c b/net/ipv4/tcp_minisocks.c
+index f3fa0b18eda0..0ddfd5af6e58 100644
+--- a/net/ipv4/tcp_minisocks.c
++++ b/net/ipv4/tcp_minisocks.c
+@@ -507,7 +507,7 @@ void tcp_ca_openreq_child(struct sock *sk, const struct dst_entry *dst)
+ 		ca = tcp_ca_find_key(ca_key);
+ 		if (likely(ca && bpf_try_module_get(ca, ca->owner))) {
+ 			icsk->icsk_ca_dst_locked = tcp_ca_dst_locked(dst);
+-			icsk->icsk_ca_ops = ca;
++			WRITE_ONCE(icsk->icsk_ca_ops, ca);
+ 			ca_got_dst = true;
+ 		}
+ 		rcu_read_unlock();
+diff --git a/net/ipv4/tcp_output.c b/net/ipv4/tcp_output.c
+index c5ffffee4349..d960e3de7d50 100644
+--- a/net/ipv4/tcp_output.c
++++ b/net/ipv4/tcp_output.c
+@@ -4092,7 +4092,7 @@ static void tcp_ca_dst_init(struct sock *sk, const struct dst_entry *dst)
+ 	if (likely(ca && bpf_try_module_get(ca, ca->owner))) {
+ 		bpf_module_put(icsk->icsk_ca_ops, icsk->icsk_ca_ops->owner);
+ 		icsk->icsk_ca_dst_locked = tcp_ca_dst_locked(dst);
+-		icsk->icsk_ca_ops = ca;
++		WRITE_ONCE(icsk->icsk_ca_ops, ca);
+ 	}
+ 	rcu_read_unlock();
+ }
 
