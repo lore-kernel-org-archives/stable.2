@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595457;
-	b=MuSBHJnGH4YQMbJfT+U3VReGDcZCpjyMe4E8Pot2FJ5avcGk+lsNCYk0X9yDC4A5mxt9
-	 wZ9MEmxIK4fw2YmfHYj4fMG5IRMpWLJYhIn459Xq+3ydoZNSxG0e2mj0gt49fiP7Hlju5
-	 Ox5XpcoJSSvVnHDA0pnPAo10KXRk7T7mgYC+KAFmK4saw22nzATIDiNgAjKhKu27PoW3q
-	 WwjXFvYPWbicuVeuEWGmoqb2aPuN9fpSRNAyj4X1AaiWLBzYqibfww8EejTVyUZZJfnfF
-	 eEcgeDsslMVPzOqLFxY/sBpHU85oVplVwEezozJ/NJC2m+KH3GYIsEuJ/8eheQDelKQ==
+	t=1792595460;
+	b=fIZo3mmWIB4E8SK89+A9Ca/V+ie4T90IeKPq0Qul/6/MfBpuZneghBZbli3Wa9orcUOU
+	 F9vSUA6DCaqOB/ms6barMDG5WMchj+nqZfHSZhoeboJwlMXPa0xVoqyLowRLwgsCNz6bf
+	 P6mInQKg+29N18hFVa9c5oGDFnh7SATXi3pQOo6gLmvFBxecbKcPvmB4EllIP5CU0fBRo
+	 /qY9W0i12bOlG80548Z3KU9H0/q59T76EgCQVFoxP5gQafX30EKjh3RIvr8y+pcPJ+EMa
+	 1Q/M9SUz2eLYLE+z+RedqSrUx4/5KUOlNFyy+C+NHgcE4feTMx+kUyM/eShTJYXxgaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595457;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595460;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=oUMrBN0zczT22+GQaXbHoCIMXIjDCYS3+diaWyHg758=;
-	b=Rg/HSMW1HxyLSoBdITDdmrLD8/C5qYaX3OHnw1F4DEry93sq6aZh5ATUH3HfroELL5K/
-	 4eh70CZyCv2U2gtdZDKj4g2AGLZeCzs3ckswowwP72YgaBKbxe/r3UbsuHEAOE67D9NeI
-	 FGLR6FAwnXBX8h1S+6ZAF2RdGMXtI5/zLG4wzCsCxSRFVv4kPTDdkIShk6IdyaWiUjRyP
-	 KvAzeslugOofESd+wvqi5kCMwBg7YIRWwj6hMW04vqznuZVqHliIBvWFMC6ZjF0m0vlFa
-	 NENtFUmoAlO7jd5iiOj9zniOO0G+cCq8wU0FkF3BJ6ViVCmZNTBuPK5QNvOE3OPHRTw==
+	bh=wMLVhHo64WBFe8eXGG9YVz0aoRl//z/iLZI53B7SbfY=;
+	b=zQ21g9nci6rbBNNi1TABZTzLfuRFeNxu5Lajpxs3C1mQGyUNqTCHuQBRvu2fb6JFBAoS
+	 Z2iPRO/4WbBtwVT2tEiUJF7i+NTfXVKBkWF+Hk0EYqj6TF9S8v1va8L3wOSTw6DBH3GyA
+	 SZ3Rj5b+V1GQNcOyUyIRX9t1rMbTPV4cBN5c86aeE9P9x05VyF22ztEBToCudR/pVoy0j
+	 0YG/TbiWxKKxlD5sMOaTycCsnjR51FvN4DhhAnFNuxWKx8WtDd+dD4oAOzlasA2KJJo9H
+	 WEKAQjGrONPWlljmJl4IXolRwFdHywhjmbdA39dWAxaKB/G6xbB93f2EdoCOC+EE2+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GzI0R6t5;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xu5mfZFn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD99606A31A
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:10:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8383F606A31E
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:10:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GzI0R6t5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBBD81F000C1;
-	Wed, 21 Oct 2026 15:10:55 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xu5mfZFn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A4C41F000C3;
+	Wed, 21 Oct 2026 15:10:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792595456;
-	bh=oUMrBN0zczT22+GQaXbHoCIMXIjDCYS3+diaWyHg758=;
+	s=korg; t=1792595459;
+	bh=wMLVhHo64WBFe8eXGG9YVz0aoRl//z/iLZI53B7SbfY=;
 	h=Subject:To:Cc:From:Date;
-	b=GzI0R6t5GEnl3UXyZa4N2JoL9/Fg3bGdVb0tzcb+4EtKPoUZGohtoJILlHIDhkd8F
-	 Ztq9KejptajmsICiMB3rW5YJ+vryH9CUgtrgvVs6prcTOm+v0CmnuYK8llLBY+DKIS
-	 9J3dFEAirZwuJUcQ/9DaZ3SmeYy5xb8mUohhkkDY=
-Subject: FAILED: patch "[PATCH] bpf: tcp: Support tcp_congestion_ops in bpf" failed to apply to 5.15-stable tree
+	b=xu5mfZFnyhNGPS79s/IXRa2UUrc2IhZ65uXbZTuTNS7EXTGirae3MIMhjbDtX62iX
+	 X+jY84VgaQs8dclnOJufdjSEu+b9BAar3nJ6Ubq9d7CN4r8SA3W3VEroQZ43Zk0kv4
+	 +qgwbKODknOIxUMccX/ekTObh8IfJzgcpwt368SU=
+Subject: FAILED: patch "[PATCH] bpf: tcp: Support tcp_congestion_ops in bpf" failed to apply to 5.10-stable tree
 To: kafai@fb.com,andriin@fb.com,ast@kernel.org,yhs@fb.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 17:02:06 +0200
-Message-ID: <2026102106-zips-balmy-2894@gregkh>
+Date: Wed, 21 Oct 2026 17:02:07 +0200
+Message-ID: <2026102107-augmented-cupbearer-7f31@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 0baf26b0fcd74bbfcef53c5d5e8bad2b99c8d0d2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102106-zips-balmy-2894@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102107-augmented-cupbearer-7f31@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
