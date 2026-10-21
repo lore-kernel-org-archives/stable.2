@@ -1,84 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792580347;
-	b=ZUVJUjIcOpyJPAMHn6lKxtMOfEplJFtftoj/qokKzV7M1RDz8qIErUjtf0GFmHlAki+W
-	 ts/H/zLNOZViD8HKLo7rnnjo3gED4CuquzRnlqO5vw5FHBuY+70de45stek2UbBfsOFjL
-	 /dRSgSsFP053S7GQCzooRI+dxJ3ThGXZfFNwNQHW3Fcfaj3iT5Ats344wk2htYCK68i1E
-	 q+NLfN2Ox+n7yY5Yp/B/irm6+5iIVkGvoz97KDmMJ+y8LNC1CC/+6LLABtg4pOQ/nlmz7
-	 pDI8Vr/aXdwZ/nDRl3AQoIOL1JiOfCgeMYjQDCOeWTb+kYNuZQWZRJ5SPMINQRQJGkQ==
+	t=1792580491;
+	b=I4ITWEDahz9Cgc1rok/uu8w4wfr8ZM34IDn2lTBA8QyOeKCU7TLnVSR13ueMo/auM1Z5
+	 d17+I42x1q0ZngftHy9mzQVb4jG/PR605JoRmpVip1LDBwqCcz4W2Wh1+MuDO39gJD3Ep
+	 5Opp0qTNtxFFRunj1JPBT/COuol/ilIraSFrDqSWqHj9E0wJUAN82EM51sl0yvYdyhsCo
+	 qmnOpg0JginuTmRYAwDRdIXJIs2fIBP0XbNQELhpo0k0LYJAbtGdbohtFIlZChQ1QOXj2
+	 2+pXiOFdM8gs9gSJywVJR1trF6Q2K0F1aZXzmzQp/CHtIDN81/FbiXSdmbAuL2lNfPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792580347;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792580491;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:MIME-Version:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:Reply-To:Date:Message-ID;
-	bh=+6DqmLcffIJ4zXqo73wDStwtJ+XJU97CzviAZxX2Wys=;
-	b=anZOxmS2Zzg2yaCN4LfGwk/yG+DwZ4cAzqaz2qVTiXCcdpjs5sXODeFCZrOVVXSeYhGf
-	 1NkQP8CKkMIrh68gakVfuNq285XxEmTMuIjKx1+h/KfF/NrWB+5T/a+bnbjYBlsaNTgIo
-	 fR3quPioZXt2nZ5UvFiLDOdZKaEn7cri69LnK8bR2NF6cuZDxO3ifeT94XD/j2trAflkm
-	 RWZKSS5dWK3LTkmgGAgIMkk//5o/AlsZa9MT8Ql94EgeXtSRH48rnwfSuKfslYk1RC4mD
-	 k+ZWfQUK2NgchVT7xEKui1By1QU0iL3uabPhWa47w0QVfycqjnbwF/CyTFvUCezRYSQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=HHIgomAuSYfj1cAFxx866cqVmlDtzOuB8qVUxKcbrHo=;
+	b=0L9pe1o6HlQkBy83R361Gkt+LTVP9x8dpSrPtKBzTPf6GjbUSk3W8UA6Zr2nc9PsSht3
+	 kMaNxXDRuMWrF027SdqlLgfx8UB803WOGY44wdQgtoZ1oFbKfkL6t0bdS91jeTYCmyUud
+	 YTmYdouA2tNlEppFUL0feDZBMxy+TFm25ucPQ58/2NkVHfGi+BQeISqP+busnsdQhN3dC
+	 I6Ir2u+B/uIN+VWOxFo/3b023S45PfTbu0+t0JBA/0ZoaAoIGtkQWlajc3kv3wHC6FiQ9
+	 rE5tgzVfuolh3joD1dQEXCVFXMT1epPuyLTpnDPVE9YYsfYKs2vd168DXVz0MLDNWCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kernelci.org;
-	spf=pass smtp.mailfrom=kernelci.org;
-	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=NAzoW6At;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=V9bpuW8U;
+	arc=none smtp.remote-ip=209.85.128.71
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B62A7606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 10:59:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B62A7606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB55606A32A
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 11:01:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EB55606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=NAzoW6At
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-366421dc8ebso1043426eec.1
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 03:59:06 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=V9bpuW8U
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a009f82bedso4320795e9.0
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 04:01:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1792580346; x=1793185146; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+6DqmLcffIJ4zXqo73wDStwtJ+XJU97CzviAZxX2Wys=;
-        b=NAzoW6AtGJfu1fVPolKVJjo0VvlxBtwcRPThX+nIjyjqjJ3rFaaaUXHS9Tgzo6Fn9A
-         eNLLcY3a9avzwHPL9j2mfNUIOCDgIhrctjaLX48xqBFKQsRjS6GF86K1eIaIbP+hu8q9
-         B4iElnz/SEXrYw8MdkiBfN0KDXNI00U3V6xKzV/sp0ib28ts0yKIxNy/CAyyq6ghf43F
-         miVPu+EJqixBVC8u6DpDRbg9tQ8J4ZkkVXPocQtkAFBnva7aYy0L0xv/7OmZpHw6soP5
-         K8zmGsNc+wAoBGcECghbgvHFICnLf14MJdFNOVUePdzgPZwohk9/rmMzay5mpyt4ej2I
-         moRg==
+        d=google.com; s=20251104; t=1792580489; x=1793185289; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HHIgomAuSYfj1cAFxx866cqVmlDtzOuB8qVUxKcbrHo=;
+        b=V9bpuW8UywYqiVSH/ybkQwLV9t3PUHOP3fGZBbJqgoPV0lRbzH8mK4zA4jgHnvGPr8
+         N7yiH5HQT0/j1wPqqVn+vqpsmswM8WhklWceiDc7GDJVik8kKukQvpSScxzq83JXlDj7
+         pi515AgTjacjMFigD2/XocZcEMYDDM6kEFy+WVbL4fovvQh3CJ1jcvNFT0l02d8fag6r
+         LwHqcMuODaO/2/bpe6VMdo/6B7Vs1UGBbzoh3/BUFK/jngVJ2+eXtcpXgf1rSf6a1Oeo
+         JmgEwkIqWEooLw36/hztOCdBLO5mKSXBzYqx8iYIxbN4uwPi3Jx3mF25a0NkLrFlWQlV
+         ewUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792580346; x=1793185146;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+        d=1e100.net; s=20260707; t=1792580489; x=1793185289;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+6DqmLcffIJ4zXqo73wDStwtJ+XJU97CzviAZxX2Wys=;
-        b=hU1EjR1Xn9VjsqdpOlyWHyIkf6UuyHjmcLgG2MFFM6y834ZOff7n/dNX+FrHMUdD/A
-         /ULf2UnyI4WkfWpEfH7CbUAdr0foqg3+mcNjYwP+CM3TeRrJZANwRaYZAkSkmKqjdk/F
-         tbBYjMtV1hYXrElTw/4nM1aX87uitVQcR3E9PCCt+RiZvfo7HLW1GS6PaX5BZryhsZsA
-         53MbWW2jS5uhXxIqHZA+CXbzDGpoqAZTjLc5vUEiDU3FhrwbyOPHdVnHaAYRDYysvTMy
-         4KJ1bQ14wfjWNUsLojcidRgCp6t1EFFmFDIXL7tCvK739JgsITpVgKOToLeZ4NhbTWO0
-         C06g==
-X-Forwarded-Encrypted: i=1; AKwUvBwIGUNM2UsRAsv3waiiJrw9d8echpON+w+24/oDpgItOu2yiyw9P5MUEJZjjo0zqLoPg3BG1+U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJhSwTw8UkThfY7QsI3iFXd9Qbz9zVzGemBkpvk7Fmlxm+dvlM6
-	wnNfRkPh16pOJx52g3vjcpHgtZNwGshoLUqTz54QQpZWjT8aZMEr76yBpfPDR7gPI5o=
-X-Gm-Gg: AYBFou3CJFB2lQm84+8YvOIx7ZqGDgGwqWZfpt4DgCXe4XDrszV2ddRIcsuZNPEmgp3
-	AJt30jv3m56H6L1IIgSlzluabJIf7lRWrNnXHiD/1ZkYlc21sFHImSl/DPhzvtNd7f1anq72eEz
-	sNDIxiGuF1nZw3ToVzh9cmnSrKmFMa5F3vkmb51h5B2Yhi/EN5CSkKFVEwmABweUdkrdC3ToqwZ
-	j6lvOJ+iWZW1w2bVztAwdnula+MWUC/xx5a9ITJu0Ek9Pw1FIUlMxXssqM6sNW4tZru0CAFYX7S
-	jgc5INfp/rZofIu2FA6LMSWifpG+C4hxekA+47w8m1xnFb1hSDurlhCEoBd+924lY4i2GU722Qh
-	UGnS0AESd5yRcIi+pb31SKeNAlOKWAanOMIUNtV+iGkix8OV7Lqo+WPsRyhsD8ZNfCtjLLTK44u
-	W1JOohm8n7b8NiF2djL2F5+s+CBce17hbiyqpyEMWZfQSxy16PTPGyToA6l4gT92/KnDF5AhAo9
-	XrbvJC+s+5TN37RXufrFRlTBQK7h03vhrmg8bCucO3FXh0w
-X-Received: by 2002:a05:7300:e825:b0:366:42ad:7074 with SMTP id 5a478bee46e88-36642ad7654mr8064603eec.22.1792580345630;
-        Wed, 21 Oct 2026 03:59:05 -0700 (PDT)
-Received: from 6e52bff8000c ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3674198fb21sm6387219eec.23.2026.10.21.03.59.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 03:59:05 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+        bh=HHIgomAuSYfj1cAFxx866cqVmlDtzOuB8qVUxKcbrHo=;
+        b=Fqk+PkO8EU3L2lKq3JAnPj1aOU7MublwlJZTifcyw5PaXW7ln61Iw2KgJXe2pBjGko
+         JhR2k6jWFkyx4LrD39Huqf8qunQuHRwJQ9InnFlwTyzJZX4nQI8pIcSkbiX1wiMdTqjn
+         w2kQ3LkUyqCm9hksx7KUAR5CfB8N1TyARgMIbCX1S4h4G9OqC2LCa4bPd3lgK/f4YUcS
+         OUl+I1xL2a7h4TksMy+CmoyqgEg6MdnydXPQUqLAHzA3zfE4/YiU2lqLaUdEYINr6A4E
+         hQH4PzJyNg8yZ35AVCj6uv10QcLwIVtQtvBE2eXGfeRJ3tbQ+zghiLAjktzopO1X3CIY
+         gRcw==
+X-Forwarded-Encrypted: i=1; AKwUvBxpZNEdKNHFsII0yfwaiNWjjsvfPR4FKYXO5CgG5uNe6Wcl2iyCtFxSl4UtjS2GOuJG1hW3Ny0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKX/t5QQ5IpdCtMNJ33xAt6M/EF7As949672Ir/AOfZ054meZ/3
+	D6DChrZrfhFEEQhsWWsybiB+iOXwmels+mlCFgpL5rVDLxLg2M/6LiUI5b8VL66wF3d3M9uAE63
+	mDCoEAKb+YdyHAqYeAOOpbQ==
+X-Received: from wrnv18.prod.google.com ([2002:adf:ebd2:0:b0:48d:f214:2440])
+ (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:3507:b0:4a1:96cd:2f73 with SMTP id 5b1f17b1804b1-4a1fd8cd9e8mr34109435e9.1.1792580489307;
+ Wed, 21 Oct 2026 04:01:29 -0700 (PDT)
+Date: Wed, 21 Oct 2026 12:00:00 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,61 +75,67 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: 
- =?utf-8?q?=5BREGRESSION=5D_stable/linux-6=2E12=2Ey=3A_=28build=29request_for?=
- =?utf-8?q?_member_=E2=80=98f=E2=80=99_in_something_not_a_structure_or_union?=
- =?utf-8?q?_in_arc=2E=2E=2E?=
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
-Cc: regressions@lists.linux.dev, stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Wed, 21 Oct 2026 10:59:04 -0000
-Message-ID: <179258034449.241924.15241097267562754477@kernelci.org>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261021110000.508827-1-vdonnefort@google.com>
+Subject: [PATCH v1] KVM: arm64: pkvm: Clear GICv3 LRs in the hypervisor
+From: Vincent Donnefort <vdonnefort@google.com>
+To: maz@kernel.org, oupton@kernel.org, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org
+Cc: joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, 
+	yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, 
+	kernel-team@android.com, fuad.tabba@linux.dev, 
+	Vincent Donnefort <vdonnefort@google.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-New build issue found on stable/linux-6.12.y:
+The LR registers are architecturally UNKNOWN when the CPU boots or
+resumes. However, in protected mode, only the used ones are reset.
+During boot the HVC __vgic_v3_init_lrs() is never called because
+vgic_present is only set in init_subsystems(), after cpu_hyp_init() was
+called. Also, the PM notifier isn't registered for pKVM and the HVC
+becomes unavailable after the host is deprivileged.
 
+Let the hypervisor itself clear those registers on CPU_ON, resume and
+before deprivileging the host.
+
+Cc: stable@vger.kernel.org
+Fixes: fa8c3d65538a ("KVM: arm64: Keep nVHE EL2 vector installed")
+Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 ---
-request for member ‘f’ in something not a structure or union in arch/s390/mm/fault.o (arch/s390/mm/fault.c) [logspec:kbuild,kbuild.compiler.error]
----
+ arch/arm64/kvm/hyp/nvhe/hyp-main.c   | 3 +++
+ arch/arm64/kvm/hyp/nvhe/psci-relay.c | 3 +++
+ 2 files changed, 6 insertions(+)
 
-Log excerpt:
-=====================================================
-/tmp/kci/linux/arch/s390/mm/fault.c:448:59: error: request for member ‘f’ in something not a structure or union
-  448 |                         clear_bit(PG_arch_1, &folio->flags.f);
-      |                                                           ^
+diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+index ac64a036b0a9..0e0ca29b224b 100644
+--- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
++++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+@@ -754,6 +754,9 @@ static void handle___pkvm_create_private_mapping(struct kvm_cpu_context *host_ct
+ 
+ static void handle___pkvm_prot_finalize(struct kvm_cpu_context *host_ctxt)
+ {
++	if (hyp_gicv3_nr_lr)
++		__vgic_v3_init_lrs();
++
+ 	cpu_reg(host_ctxt, 1) = __pkvm_prot_finalize();
+ }
+ 
+diff --git a/arch/arm64/kvm/hyp/nvhe/psci-relay.c b/arch/arm64/kvm/hyp/nvhe/psci-relay.c
+index e20db999e328..a0e17e416bb5 100644
+--- a/arch/arm64/kvm/hyp/nvhe/psci-relay.c
++++ b/arch/arm64/kvm/hyp/nvhe/psci-relay.c
+@@ -213,6 +213,9 @@ static void __noreturn __kvm_host_psci_cpu_entry(unsigned long pc, unsigned long
+ 	write_sysreg_el1(INIT_SCTLR_EL1_MMU_OFF, SYS_SCTLR);
+ 	write_sysreg(INIT_PSTATE_EL1, SPSR_EL2);
+ 
++	if (hyp_gicv3_nr_lr)
++		__vgic_v3_init_lrs();
++
+ 	trace_hyp_exit(host_ctxt, HYP_REASON_PSCI);
+ 	__host_enter(host_ctxt);
+ }
 
-=====================================================
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+-- 
+2.56.0.212.g129ede20d9-goog
 
-When fixing this issue, please attribute this report according to the
-patch submission rules:
-
-Reported-by: kernelci.org bot <bot@kernelci.org>
-Link: https://lore.kernel.org/all/179258034449.241924.15241097267562754477@kernelci.org/
-
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
-
-- dashboard: https://d.kernelci.org/i/maestro:07763fcc4cc009398ef2249ab57bfbb01900bd79
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-- commit HEAD:  85d82e0d7c2dfd3e75d34f35b7ebbf41f45c9c4e
-- tags: v6.12.114
-
-# Builds where the incident occurred:
-
-## defconfig on (s390):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6ad8885055fda5076059d734
-
-#regzbot introduced: 7fdb7c1824a1f9979d648d7ae28ac446bcee9c6e..85d82e0d7c2dfd3e75d34f35b7ebbf41f45c9c4e
-#regzbot link: https://d.kernelci.org/i/maestro:07763fcc4cc009398ef2249ab57bfbb01900bd79
-
-#kernelci issue maestro:07763fcc4cc009398ef2249ab57bfbb01900bd79
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
