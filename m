@@ -1,69 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792616522;
-	b=IGG6gtivzUlnF4B2kraVuFc5xqpjuQkD9EQZE9YVFrmehWn+WDAr40pG15k63OxNyaPX
-	 iOyVWp4j2CC08+iJ20QwvhlTUdxq9+vlASMGzC0/rH4FIMpzJmzYViAnQyOmmJjX8koV7
-	 a5Lq+3bV/LH9+oITY8ilYkOXx7NsQNSDrMEE56WC6hCX90zgXOL/adFuYxVfNPR+HC6KK
-	 Xkt1PkViyCF0nNQhq4ewEwjr04hFzWxXChTJstwiELEg8zkA6h54Oz0ivxQ4K/+1NafFx
-	 Uak8txFhticeXNzufzfcPlwYWbwmV/7kIGT+HwDXqjSyGiXhDsK/naGvc1+dbfYH/gQ==
+	t=1792616555;
+	b=2/nRmR80ICZvH0+ZHDr5WnOYpLWd4SGTwpceuDnkOhAJOjQpq9XeYJ4A6lwfsKCUKEIU
+	 ZkP5bRWF6fsqX5SU2eMl52i2UzaJcJ/++0biNPd8LAhE/clGrfC5FXXuUzjhlpyrKQGmb
+	 ImktxQkzMlbSpYlHdiKzArHZaPcAV7y/+lN9P0Q9gU8GEYGfj+4lo34ANpcwMDa8vpzU0
+	 ao5H4Epfmr3ci2wPbB3GVhMwmaG7zQxIuX7ZPN07a537yZCGtHt3E7nFirw+fZR0bqlDq
+	 qm38/hvJ0cm9USWdUGLQhSCZgKKO3yjhlStwKOw5ITYqw4fu1OmUkRZplxw/CBXXwWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792616522;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:User-Agent:MIME-Version:
-	 X-SRS-Rewrite;
-	bh=MeueggKi48gnff3VUrSjikCBY6bGfKJ4k9AzVge6EaE=;
-	b=JH4EWZ+LnvG+xpsBslRfpl7Gjumj/pT5b3NJAk6lqF3ha0FhgB5N3ZdOr94wHlGIgd9H
-	 jIpc1SXqwvnwFV6WY2FNaPig0BFO3JEJsBuPma2QI77md/qsJ7Bs1m3J/Rczcn9N8efbn
-	 jeZyHegRnXj4aA5vT896SlECYaVbDibzVy73r7/MMsIi3z604aRdIaR5VU3qdPFhWSOxY
-	 lTwJegft0zm5bA/mRc0WLtDHTI0TXBry5atLhPTzuQf+939Zm+ZRBmoNtvNOAbCNL2YCg
-	 OShH4Jbq5X27+6lso/kcu7nEokFDuTrB3mLlslEbimuA3hNwVlOOOuqe3ylXOyjvSxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792616555;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=XkFRux2cvcc2fwND4RnTaahs4/FvfgM3BDyZJBB2wsg=;
+	b=M8CI9eXqsp6f6GivOdJ9w2xmajHLrWMqu+t1KhLOEgonKixQQSa/uYXuUMbmGYBGCs1g
+	 rVuKgws8LuoozRvi7xXcUC340VxfjMzi+lnHjMiCNjA2E2uLXhtzzWTp9L3xDhLQbSmNt
+	 jB9kKuPTus+medRpHXb30pmp2JGFMOa/wUGSfbgInZeAz0e3qRcLA3/WpO2pODRGlKbpl
+	 NGB4W8fBABgu/YE/vPhmSZbyXu34hJqjIAEs1TuXQm8+gkryRZGaOSfBLHqn+ss6hXygp
+	 dVoa33E/n8C//uQiM987pSVFUlcKQ7pR27av8VHMixGIWTtz26OaEnKQsf6tmCXh3LA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=casper.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=EwmVP3EO;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=BXQxqPRt;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB4E606A319;
-	Wed, 21 Oct 2026 21:01:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AB4E606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEFF1606A321;
+	Wed, 21 Oct 2026 21:02:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEFF1606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=EwmVP3EO
+	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=BXQxqPRt
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=MeueggKi48gnff3VUrSjikCBY6bGfKJ4k9AzVge6EaE=; b=EwmVP3EOfz157ubzU1URKgigNK
-	ntVCnhC3ulFUUMkvtoWuyszhxPQvYI2nim0S8+IWTgGi9b1gZahZrwirV5h2Y3+5VGBh3xKj7cxlN
-	actYmQ89/h/NnrPymK0ptKXesKCMt0Z3Lzjdk41HVXLXMU0W76suT7ZT9K/IqEfJly3Is2kW1VM1K
-	Fg34OBm0rnrTMKykLbYSR0gbl6chuYdWCGz8++XSwLNEun+U+JfRY5BPc50I4T64kLSDzMR3PaXYt
-	aqsnR/81qYd8wGfR994P3aEC2gWKHLfbqvHODPadanFAoAoH8UGtDyvq0FVpRQ4B77IktOu+PLPU3
-	KK+AetGQ==;
-Received: from 54-240-197-233.amazon.com ([54.240.197.233] helo=u09cd745991455d.ant.amazon.com)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xJdRa-0000000Cfy1-1Ndp;
-	Wed, 21 Oct 2026 21:01:55 +0000
-Message-ID: <3bc2d742e0fa4944c5da6b4d2932225a1c1761d7.camel@infradead.org>
-Subject: Re: [PATCH AUTOSEL 6.18-6.6] KVM: x86/xen: Prevent runstate times
- from becoming negative
-From: David Woodhouse <dwmw2@infradead.org>
-To: Sean Christopherson <seanjc@google.com>, Sasha Levin <sashal@kernel.org>
-Cc: patches@lists.linux.dev, stable@vger.kernel.org, Paul Durrant
- <paul@xen.org>, 	pbonzini@redhat.com, tglx@kernel.org, mingo@redhat.com,
- bp@alien8.de, 	dave.hansen@linux.intel.com, x86@kernel.org,
- kvm@vger.kernel.org, 	linux-kernel@vger.kernel.org
-Date: Wed, 21 Oct 2026 22:01:53 +0100
-In-Reply-To: <atkdzsPJgcu123DO@google.com>
-References: <20261019135441.1420968-1-sashal@kernel.org>
-	 <20261019135441.1420968-127-sashal@kernel.org>
-	 <atkdzsPJgcu123DO@google.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-imuaOhcTB0QvbOwXTSlu"
-User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=XkFRux2cvcc2fwND4RnTaahs4/FvfgM3BDyZJBB2wsg=; b=BXQxqPRthdgJ2wRJewPDhHKdpY
+	61vzI3m2/gZ09FzrAlbPJCjc3ODRVDr54B8RbLtzKtWTJOlm6gG60VmnWhYwt/9bSk7K8wxW6G9VH
+	5TtBf3b6g6cGYQjgUtbtKvwAL3l5UEB4b18iNWzBn9sciMgGLQF7Jg9XCCv1sx1qD90Y+CoJkwR54
+	68A30kuK6Spl08v+OfySX3iHu7tNy5dbVpb0yCqu4ytaVCRdklgu3FBa15/QPF/6jT1/JCfwPiUIi
+	81U4xKxpAui/aXQI14QC4g50S26eqST7MXkFFtY+ABftr8SpEPmon8EyHZOllpLbrU1eC56nXV+H4
+	nrvcM8NQ==;
+Received: from [151.115.150.205] (port=53842 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xJdSF-0000000EZvy-0URC;
+	Wed, 21 Oct 2026 23:02:32 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Mimi Zohar <zohar@linux.ibm.com>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>
+Cc: Eric Snowberg <eric.snowberg@oracle.com>,
+	linux-integrity@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/2] ima: discard modsig when detached data cannot be supplied
+Date: Wed, 21 Oct 2026 21:01:46 +0000
+Message-ID: <20261021210145.1851396-4-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261021210145.1851396-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20261021210145.1851396-2-Jeremy.Jean@oss.cyber.gouv.fr>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,147 +77,191 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
+ima_collect_modsig() supplies the file contents to the parsed PKCS#7
+message as detached data. If the message already contains embedded data,
+pkcs7_supply_detached_data() returns -EINVAL, but IMA ignores the error.
+ima_modsig_verify() then verifies the embedded data instead of the file
+being appraised.
 
---=-imuaOhcTB0QvbOwXTSlu
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Make ima_collect_modsig() report whether the file data was supplied,
+and discard the modsig if it was not. 
 
-On Wed, 2026-10-21 at 13:17 -0700, Sean Christopherson wrote:
->=20
->=20
-> Two questions: do we care abou this specific flaw, and does anyone run Xe=
-n guests
-> with KVM using an LTS kernel?=C2=A0 I agree with AI's assessment that thi=
-s is low risk,
-> but unless this will actually benefit someone, I don't see the point.
+Fixes: 15588227e086 ("ima: Collect modsig")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
 
-I concur. Nobody runs KVM and expects steal time and clocks not to be
-entirely hosed once you start caring deeply about the details =E2=80=94 eve=
-n in
-upstream. You want this stuff to work, you carefully curate the kernel
-you're running.
+v1: https://lore.kernel.org/all/20260822082434.489470-2-Jeremy.Jean@oss.cyber.gouv.fr/
+v2: https://lore.kernel.org/all/20260924085516.3111521-2-Jeremy.Jean@oss.cyber.gouv.fr/
 
-Backporting this one to LTS kernels doesn't help anyone. The risk is
-low, but the benefit is lower.
+ Documentation/security/IMA-templates.rst  |  3 ++-
+ security/integrity/ima/ima.h              |  7 ++++---
+ security/integrity/ima/ima_api.c          | 10 +++++++---
+ security/integrity/ima/ima_main.c         |  2 +-
+ security/integrity/ima/ima_modsig.c       | 16 +++++++++++-----
+ security/integrity/ima/ima_template_lib.c |  4 ++--
+ 6 files changed, 27 insertions(+), 15 deletions(-)
 
-Those who care will already have it backported to 6.18 anyway.
+diff --git a/Documentation/security/IMA-templates.rst b/Documentation/security/IMA-templates.rst
+index 15b4add314fc..de7a3dfee33d 100644
+--- a/Documentation/security/IMA-templates.rst
++++ b/Documentation/security/IMA-templates.rst
+@@ -69,7 +69,8 @@ descriptors by adding their identifier to the format string
+    algorithm (field format: <hash algo>:digest);
+  - 'd-ngv2': same as d-ng, but prefixed with the "ima" or "verity" digest type
+    (field format: <digest type>:<hash algo>:digest);
+- - 'd-modsig': the digest of the event without the appended modsig;
++ - 'd-modsig': the digest of the event without the appended modsig, empty
++   when no signature digest can be exported;
+  - 'n-ng': the name of the event, without size limitations;
+  - 'sig': the file signature, based on either the file's/fsverity's digest[1],
+    or the EVM portable signature, if 'security.ima' contains a file hash.
+diff --git a/security/integrity/ima/ima.h b/security/integrity/ima/ima.h
+index 10214f73ca1e..62be9461de88 100644
+--- a/security/integrity/ima/ima.h
++++ b/security/integrity/ima/ima.h
+@@ -431,7 +431,7 @@ int ima_get_action(struct mnt_idmap *idmap, struct inode *inode,
+ int ima_must_measure(struct inode *inode, int mask, enum ima_hooks func);
+ int ima_collect_measurement(struct ima_iint_cache *iint, struct file *file,
+ 			    void *buf, loff_t size, enum hash_algo algo,
+-			    struct modsig *modsig);
++			    struct modsig **modsig);
+ void ima_store_measurement(struct ima_iint_cache *iint, struct file *file,
+ 			   const unsigned char *filename,
+ 			   struct evm_ima_xattr_data *xattr_value,
+@@ -559,7 +559,7 @@ static inline void __init init_ima_appraise_lsm(const struct lsm_id *lsmid)
+ #ifdef CONFIG_IMA_APPRAISE_MODSIG
+ int ima_read_modsig(enum ima_hooks func, const void *buf, loff_t buf_len,
+ 		    struct modsig **modsig);
+-void ima_collect_modsig(struct modsig *modsig, const void *buf, loff_t size);
++bool ima_collect_modsig(struct modsig *modsig, const void *buf, loff_t size);
+ int ima_get_modsig_digest(const struct modsig *modsig, enum hash_algo *algo,
+ 			  const u8 **digest, u32 *digest_size);
+ int ima_get_raw_modsig(const struct modsig *modsig, const void **data,
+@@ -572,9 +572,10 @@ static inline int ima_read_modsig(enum ima_hooks func, const void *buf,
+ 	return -EOPNOTSUPP;
+ }
+ 
+-static inline void ima_collect_modsig(struct modsig *modsig, const void *buf,
++static inline bool ima_collect_modsig(struct modsig *modsig, const void *buf,
+ 				      loff_t size)
+ {
++	return false;
+ }
+ 
+ static inline int ima_get_modsig_digest(const struct modsig *modsig,
+diff --git a/security/integrity/ima/ima_api.c b/security/integrity/ima/ima_api.c
+index 122d127e108d..00b83b4538ab 100644
+--- a/security/integrity/ima/ima_api.c
++++ b/security/integrity/ima/ima_api.c
+@@ -235,6 +235,8 @@ static bool ima_get_verity_digest(struct ima_iint_cache *iint,
+  *
+  * Calculate the file hash, if it doesn't already exist,
+  * storing the measurement and i_version in the iint.
++ * If modsig is provided, discard it when detached data cannot be supplied
++ * so ordinary measurement and xattr appraisal can proceed.
+  *
+  * Must be called with iint->mutex held.
+  *
+@@ -242,7 +244,7 @@ static bool ima_get_verity_digest(struct ima_iint_cache *iint,
+  */
+ int ima_collect_measurement(struct ima_iint_cache *iint, struct file *file,
+ 			    void *buf, loff_t size, enum hash_algo algo,
+-			    struct modsig *modsig)
++			    struct modsig **modsig)
+ {
+ 	const char *audit_cause = "failed";
+ 	struct inode *inode = file_inode(file);
+@@ -262,8 +264,10 @@ int ima_collect_measurement(struct ima_iint_cache *iint, struct file *file,
+ 	 * the file digest without collecting the modsig in a previous
+ 	 * measurement rule.
+ 	 */
+-	if (modsig)
+-		ima_collect_modsig(modsig, buf, size);
++	if (modsig && *modsig && !ima_collect_modsig(*modsig, buf, size)) {
++		ima_free_modsig(*modsig);
++		*modsig = NULL;
++	}
+ 
+ 	if (iint->flags & IMA_COLLECTED)
+ 		goto out;
+diff --git a/security/integrity/ima/ima_main.c b/security/integrity/ima/ima_main.c
+index ab1e53b3210d..561fbd976a91 100644
+--- a/security/integrity/ima/ima_main.c
++++ b/security/integrity/ima/ima_main.c
+@@ -422,7 +422,7 @@ static int process_measurement(struct file *file, const struct cred *cred,
+ 
+ 	hash_algo = ima_get_hash_algo(xattr_value, xattr_len);
+ 
+-	rc = ima_collect_measurement(iint, file, buf, size, hash_algo, modsig);
++	rc = ima_collect_measurement(iint, file, buf, size, hash_algo, &modsig);
+ 	if (rc != 0 && rc != -EBADF && rc != -EINVAL)
+ 		goto out_locked;
+ 
+diff --git a/security/integrity/ima/ima_modsig.c b/security/integrity/ima/ima_modsig.c
+index 632c746fd81e..f73d6f1b71c0 100644
+--- a/security/integrity/ima/ima_modsig.c
++++ b/security/integrity/ima/ima_modsig.c
+@@ -96,8 +96,12 @@ int ima_read_modsig(enum ima_hooks func, const void *buf, loff_t buf_len,
+  * Since the modsig is part of the file contents, the hash used in its signature
+  * isn't the same one ordinarily calculated by IMA. Therefore PKCS7 code
+  * calculates a separate one for signature verification.
++ *
++ * Digest export is best-effort; not all signatures expose a single digest.
++ *
++ * Return: true if the file data was supplied, false otherwise.
+  */
+-void ima_collect_modsig(struct modsig *modsig, const void *buf, loff_t size)
++bool ima_collect_modsig(struct modsig *modsig, const void *buf, loff_t size)
+ {
+ 	int rc;
+ 
+@@ -109,11 +113,13 @@ void ima_collect_modsig(struct modsig *modsig, const void *buf, loff_t size)
+ 		sizeof(struct module_signature);
+ 	rc = pkcs7_supply_detached_data(modsig->pkcs7_msg, buf, size);
+ 	if (rc)
+-		return;
++		return false;
++
++	/* Digest export failure does not preclude signature verification. */
++	pkcs7_get_digest(modsig->pkcs7_msg, &modsig->digest,
++			 &modsig->digest_size, &modsig->hash_algo);
+ 
+-	/* Ask the PKCS7 code to calculate the file hash. */
+-	rc = pkcs7_get_digest(modsig->pkcs7_msg, &modsig->digest,
+-			      &modsig->digest_size, &modsig->hash_algo);
++	return true;
+ }
+ 
+ int ima_modsig_verify(struct key *keyring, const struct modsig *modsig)
+diff --git a/security/integrity/ima/ima_template_lib.c b/security/integrity/ima/ima_template_lib.c
+index 8a89236f926c..1be78612394a 100644
+--- a/security/integrity/ima/ima_template_lib.c
++++ b/security/integrity/ima/ima_template_lib.c
+@@ -478,8 +478,8 @@ int ima_eventdigest_modsig_init(struct ima_event_data *event_data,
+ 		if (rc)
+ 			return rc;
+ 		else if (hash_algo == HASH_ALGO__LAST || cur_digestsize == 0)
+-			/* There was some error collecting the digest. */
+-			return -EINVAL;
++			/* Keep the ordinary measurement without an exported digest. */
++			return 0;
+ 	}
+ 
+ 	return ima_eventdigest_init_common(cur_digest, cur_digestsize,
+-- 
+2.47.3
 
---=-imuaOhcTB0QvbOwXTSlu
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
-ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
-MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
-AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
-DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
-q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
-S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
-Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
-72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
-CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
-mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
-h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
-CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
-GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
-AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
-v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
-CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
-b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
-Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
-A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
-vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
-0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
-jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
-FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
-HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
-IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
-MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
-MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
-sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
-tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
-EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
-6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
-ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
-bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
-Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
-02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
-sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
-ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
-JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
-LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
-BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
-LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
-hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
-SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
-c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
-RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
-AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
-EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
-ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
-+3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
-+icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
-McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
-LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
-nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
-gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
-Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
-CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
-QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
-Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
-YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
-kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
-pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
-v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
-vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
-PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
-REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
-lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
-aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
-D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
-bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
-MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
-oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
-TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
-bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
-BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
-MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
-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
-V0dBkh33bqcdw1/lbImlIgYAAAAAAAA=
-
-
---=-imuaOhcTB0QvbOwXTSlu--
