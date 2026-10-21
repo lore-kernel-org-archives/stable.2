@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594168;
-	b=37xhUbPhZE6RwHAWSIFiDcvFG8XRhiqcm5UNyPZls0XjdSMqEu1D5DRko574EcmySTtD
-	 MWSEa1xrRxLP+/P5IRAZvpSoY6T6Q7C/wRfvDXHPSkvDNsU10cwN8ssf2DU8udpWDGVqN
-	 KBBS58zQUJaKD2iPFlJXjsDzLUkUdH5JGqOVPaSPIqkXAkVQUkL4hj918WHe1d53ERmIg
-	 TG6B3qH3lCebs7e5jHJNUOJbgxwT+ZTqMZL24oLKHNYAwC3iTC1BgspYsTYs0DQ3FegrU
-	 o+YogwpFMY/H7xV4skPFnhoT2TvT/CfFcyP07R4Rairyj/jtW5myjxHIwLmRkaV2yyQ==
+	t=1792594170;
+	b=tHl85/AY3srgr4RdU9goP6/yBbtwLJVH3JxFq4A8ussPxUoCxixhDlNItAEy7Tig9Def
+	 A9q2RYCZGyME1e0UrB4GwDxZqWjtU3eVDBsDY4R9oXoBIb2nPbH7drvge8qITiuCj8Sjq
+	 QLf9WPdgG60CndoOvpM32/TIO/hhFYXVEOTYzbuMF7il1uJ4OoMOWN1AFLaeTqur69X95
+	 0Ywq0zQsu7d0E1DrH1VGcngVuOYJRORO+Gdgt+cObhtKScmy+fhiX7AgEW/ev0+dkVdAR
+	 yie10qTTiB9DRuAnxYb9ofQFaBH/DuqKzFjgAIJg+Zd46waGyhoj7XTvSjgh1MtdbuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594168;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594170;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ePKyqodRCelJe/wB57fTOHJ+51NlW8lNp7JPgnOG4lI=;
-	b=NYOJG0L+Y0UkBPJn9V+rw+l77j+R5Zkz9tXQoBYK5OeB0ZW2D6JMaTymGNYZzzi/1Q+s
-	 IcG+SDj9AnE5ZoSm9dQjcOUa+W/O8WEIz3/yPe+J5DNiWydsXX03B0dlkWm26C3E3zvcU
-	 p+U/Ivv4fIxpmqtfLpupa06SXk/kXIMqaU+eUpt8gM82SwY2XsP+2RLcg3tvDFvPqqAM5
-	 vBMDID9YaZkLqb9erLCTD6Vg75W5WKaf+FcwKB1E98290U3anvrsG9m6nb4R9gv/NKW5A
-	 UARacsKMF+rfDp3DNYQG8nRs9phUlf8/ylqZsfrKJ2gg4JmmxgfKRudHPaoYI17Ty7w==
+	bh=pgYkjYYcvOB/U2nRC4jBPMmHqeu8JfJV4CFEo4bBblk=;
+	b=3PpvXxHFh8pOQvRXUCoFoc/29AFSyMKrg60xiFkZ0QJPcVAIbFt7gC8k9gBlovgaEaK3
+	 aOcgDHx0KRV3UXgscyIRPzU3PATAexzAXqJ3cPsPSEeXHuC8AOOB2ObF7zrwxXXrKmTBU
+	 MPMrpb3oh2IiCc0A2qL9/vdfpxUie2kdxs68AjGBKZ/+TIeVPFvd5hpmrHFtGHUs5cXRL
+	 QvxljRHRwko6xQ0d4Hvmp4hTxsuQH7ao/aAbhBe8ilbSvPmo70TgS6RlutgJtKDxOBuvH
+	 yOCl8XngyEZnKeHf2336T/VCIxYwyE77DMre5BtB/NQmsWqAqvsPzWgP1vMNn/d2u6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZYHAEVCu;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RmdNbCW7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71A3606A31D
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:49:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40549606A31D
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:49:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZYHAEVCu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC3B11F000C2;
-	Wed, 21 Oct 2026 14:49:26 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RmdNbCW7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 945F71F000C2;
+	Wed, 21 Oct 2026 14:49:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594167;
-	bh=ePKyqodRCelJe/wB57fTOHJ+51NlW8lNp7JPgnOG4lI=;
+	s=korg; t=1792594170;
+	bh=pgYkjYYcvOB/U2nRC4jBPMmHqeu8JfJV4CFEo4bBblk=;
 	h=Subject:To:Cc:From:Date;
-	b=ZYHAEVCuk2fEXjcsFZOr0J6QVbt2QxKg9EsglxaK5ugOwm3ebPZTp7rCkmkzmlsEP
-	 YQjzp7WWCE7fKKBHUMYO2zH+p9LLPW0Sp54k9mPlxroaOj3RwdBhj5nAiZpEzKC/Uj
-	 yXNtL0uZbDvifVNh8zbvwY2oOlvvmHi1um5rTEn8=
-Subject: FAILED: patch "[PATCH] ext4: free the sbi after a grace period" failed to apply to 6.1-stable tree
+	b=RmdNbCW7Zx0JA/gM43Q2+NQiQ3NLKhpumx01CEXHm+bu26WYAOYeqPTeIkjnP4rC1
+	 5i+gQ/vRiO8cQr/Q8Bh4AmXcQvZZaLKrwYtOsFoKraNEj7BrLXs8q+taYXGzprq5ud
+	 MgRoaSX+J5MKbttuQr+fbmRRojFpmePjOtasuEjk=
+Subject: FAILED: patch "[PATCH] ext4: free the sbi after a grace period" failed to apply to 6.6-stable tree
 To: brauner@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 21 Oct 2026 16:38:04 +0200
-Message-ID: <2026102104-sensitive-overnight-fe0d@gregkh>
+Message-ID: <2026102104-stitch-grievous-60d8@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x c17b44266a1f9fcb49b894d4611d1254bf1aa313
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102104-sensitive-overnight-fe0d@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102104-stitch-grievous-60d8@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
