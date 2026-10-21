@@ -1,51 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792602391;
-	b=FoVFqQXifz5TaSVjrlGaZsQ8Drddy9jLZVAz3F1yh4C8P5nS4n6NgfmvgBmR8VXDBcMi
-	 GHpV+wSfpZp3OZE2gwdr8+S9WMFM37Ipe96Z9tmGOSRzlsGycy5KOdPiUR3vrN2zNKhSi
-	 ZmUMCnHpk9pRQDHDQG2mkpAP2oc+PTP5zdwtOvCC/Wl21hhrhRMDS6nf0aBhUbmXZEJg3
-	 ET0MZXRpe8o4P4mlOialYeKhSx6NpOnXPp0AVDcFIklYvngTi0b2dggK5UXZHuGcr/45Q
-	 CgnsR3LgUq+lXIm0LyY8zJcnS7Kgucy36guqqaq2+IQ7S/TsQRvvyYAOR/2JQPn5xfA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602391;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=rkKKVnZv/kHJBrv3uwIvqeZA4Aam5alns9BT/D3usA8=;
-	b=uReTjyG0sK5telvFrn7pcrA8ucoM9xWhwkgRS0TX0tE+pa1e9wEA0ysSR/om8nfsf9UA
-	 sPz85zCTZ2nMsE0MZjoGdygHQoKtSiSmoXzky/6DxV2QOlPSvb96f8QDe+2G7H/13pPGz
-	 y7+J5Fs6mkT8jfp8mAj+nCFAu39EojBhnlEiB0j56pKbzcRrY0TJsMwlEfzEhCN4eI4tX
-	 KC3QxXNvOlVeR/Wi4lmzyUb+BDnVlW43Pc8Kp9t8NVvVDlPuVIloDng7bl2VbJOkWzyKB
-	 lSWZ/irmwVekNUwq1K3e8BNyNpfDcRI1yq/IIciC2EpnTyl+O7tEvjUyx6Eez2cVdsQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.25
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792602427;
+	b=ylaX427aIkZNLjE9Dq8JINykM6loBAg9k7MAm+HccmMVj8jx4uPdJ0GEUyM6U7jm4+rv
+	 a1CjLogzJzlsnHpQAqdLfzUFx7VIrOMLysJJVo/7eRf5NgIPK4DVZlITTrIBU5cz7JF/i
+	 yDPsbradsQN3y29emvhVG2Oen5T3wkpilR4TfyF2SyvvK4O9BerlSl3Q1caZA3AmSifTu
+	 MT0YOB6NoYhR5uN7hs9z8cN8Ju3+RUwVt6Kf0KOgTL5hsnwEZvCTgdOz20kgtwkDhi8I0
+	 e/GxucH4D7f1cptf1X8pNLK9R8Rt/ErcpmX7bRTIhrBMLFfmBdxRlQbT0ZyWsOe++WA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792602427;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=O2e5QeVvQJVei6FmOAgnoWQkcImWa3J3udnQRClGO98=;
+	b=PJyTqAdwNladw1D/6XrrBegzvAHGgYd1teFEe9cphzjNGecE1lAxVONzq1hKtb9YRAJ1
+	 4L2EwNqpnptUB22x/hQ8NpAwhzEGa8WQtcImKAN9Hz7rXSGmq/nrBjFXMJAXBZK9s7bSd
+	 3rb8smy1C39d4xk6P+uGGa5lDWn8gsfwmNL3Sy0rYl9PeHMbdY+6uLq2qeUj05KV70uDE
+	 l8RWZ0ZKqh6mNXsuo2G9QIr1vDQoZRAa+TCbUm7xEmxoCONIANrQqvGW5QVj9umDRpyWB
+	 8Tpg3j6wmzbYRmYdoWihHaToElnapJEYsVciT6qIJI1hHAnQKQAmOnjUt0GkFjtR5zg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="JC/ZCuR9";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A72606A320;
-	Wed, 21 Oct 2026 17:06:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32A72606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from ar (unknown [42.86.112.99])
-	by APP-05 (Coremail) with SMTP id zQCowABnzzkF8dhqtPUEDA--.14779S2;
-	Thu, 22 Oct 2026 01:06:15 +0800 (CST)
-From: Sun Yuechi <sunyuechi@iscas.ac.cn>
-To: idryomov@gmail.com,
-	xiubo.li@clyso.com,
-	amarkuze@redhat.com
-Cc: slava@dubeyko.com,
-	ceph-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sun Yuechi <sunyuechi@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] ceph: reconnect on peer reset even if the mdsmap says the MDS is active
-Date: Wed, 21 Oct 2026 10:06:13 -0700
-Message-ID: <20261021170613.1144381-1-sunyuechi@iscas.ac.cn>
-X-Mailer: git-send-email 2.56.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328EF606A31D;
+	Wed, 21 Oct 2026 17:07:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 328EF606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=JC/ZCuR9
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 31FE2201E7D;
+	Wed, 21 Oct 2026 19:07:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792602420;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=O2e5QeVvQJVei6FmOAgnoWQkcImWa3J3udnQRClGO98=;
+	b=JC/ZCuR9lzusyYkssVccmK98BxzxaHdjImoiUG5mLK9pMpg/lCvKd+NjI3WQZDrw5DCIKm
+	9WijQwgoJbvn98GFRUkGFL9+AE4r7jF6nVb7HFpfV1hP+X3mdUQrPlzUgyV/OExra4LLOm
+	v+QQ2owGgtjSv5yrfVf2+4mD0oCalHf9R8tHtfOx0DSQR+JK/23Hya+zNSkUQe1A7e3p+1
+	WbvXHTMCOxw8bQ5Vt91UnEapI4OmBZ0lSPWi62ExSdSjhj72nUQC1Vi8mz9xlmyIw97Nlo
+	r7B98Ps3TFL7v5j1CdGVlOOpJ4cow/BN2g6m99tLQQUp3OdpZXBBYSRFOTVMGA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792602420; a=rsa-sha256;
+	cv=none;
+	b=G/l50+gdHjKI81+ZXmFMUDwBE1YXce3hO3r0mk9vBkj9VcooJEZ4+wwp7my1+0hSNmA15Y
+	xhWl2WGDG+QDpyQfqbfqvZ0Fr1wfS2A6Kl9QOZ33ShIAAVxUhMJzOvGvbNjxLnpFmE1AgN
+	Vc3VZEdQcxukOMo84PooOSu3bOwZytGjPFeGd7yDujGZqXmK+bxhTD2eJ3+iXTcYF7qobY
+	mLvsDa6jnvI5gLw78Ycp7S9E1ACXznVwcq0PZ2EqqtymG0S7VK79Q/QC4O/D7TXWy8NHs/
+	/86thz+a3Wu5bqQyMo506fUJySTcCLP6lSDziRv4md6JXP6GgHpnPhuMdZc6LA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792602420;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=O2e5QeVvQJVei6FmOAgnoWQkcImWa3J3udnQRClGO98=;
+	b=C4QXHIqsamW3NbSSHcKnVamZYhJ+0Kkk7p54D0KxkssG7YyXkaG550SiWCfiGmH+FD/ZSs
+	Vt7IllaEJ9LuGN+lRhBtFOua3ZCrkEBG08aZaZ1D3LrFPaTl6Cp9YrY84zZJ54imcAFBlQ
+	P72TVlaV9ebtI3450DRYDy/Drsxm/DMZxii/3MnIJ1E2sQjH7hW8WRWnTMmKrGaPziayJR
+	UQfTU2QXWcj0jWdApvqrOo/JKieL4yzCNx9gJkFgNOOrOi5zy4HOtKK/g2mf6cw+st+HXH
+	BKmojyMJjKivtqgeCc7N77+pvoYD6RwvrHwMKCtFouaKZq2x9reVtUEPQDH+RQ==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xJZmG-000aIy-0I;
+	Wed, 21 Oct 2026 19:07:00 +0200
+Received: from hardanger.blackshift.org (195-200-20-154.mclarenap.oninferno.net [195.200.20.154])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 3F0575D03FB;
+	Wed, 21 Oct 2026 17:06:59 +0000 (UTC)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,172 +94,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABnzzkF8dhqtPUEDA--.14779S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3Ary7ZF1kCF47Xw1UAF1xAFb_yoW7Cw1kpr
-	Zaka93Gr4kAw1xtrZrJa4DuFyvkr15ua13JrW0qF95Ga45ur1ftFWvyw1vgasrJr97Ca1F
-	9FW2qFZ5Aa1jv37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
-	AVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
-	v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkG
-	c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4U
-	MIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUbSfO7UUUU
-	U==
-X-CM-SenderInfo: 5vxq53phfkxq5lvft2wodfhubq/1tbiCRUHAmrYx7xX1AAAsT
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH net] can: netlink: fix CAN XL PWM attribute sizing
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Zhu Ling <zhuling0805@qq.com>
+Cc: linux-can@vger.kernel.org, mkl@pengutronix.de, mailhol@kernel.org, 
+ socketcan@hartkopp.net, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <tencent_9A525E0656A4F7D4CA9CFA1AB1A4BFC6D706@qq.com>
+References: <tencent_9A525E0656A4F7D4CA9CFA1AB1A4BFC6D706@qq.com>
+Date: Wed, 21 Oct 2026 19:06:50 +0200
+Message-Id: <179260241015.2007736.18110746301007705397.b4-review@b4>
+X-Mailer: b4 0.17-dev-d58fe
+X-Developer-Signature: v=1; a=openpgp-sha256; l=679; i=mkl@pengutronix.de;
+ h=from:subject:message-id; bh=xKUJIcl24xWsRm86t8lqAt7arJK/2S8nECNh620zhlc=;
+ b=owGbwMvMwCV2xirl17qZay8xnlZLYsi68VHvssCbu2pRou9crj1Vqizv2/7n2oST2r1dM9Yvu
+ P+vYHX5r45SFgYxLgZZMUWWpT9OKAoEOpT2vkyYBDOHlQlkCAMXpwBMRNaQkeHWyeZnP7c6SnBE
+ zc1bnWXLtNXwUqKJaZnL4eC+pGmbJgkx/GarSpV3tpV5pSbx4pjrVPuJ7XslFmRzKghbye3z3sz
+ mywQA
+X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
+ fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
 
-Since commit 39fe30315893 ("ceph: harden send_mds_reconnect and handle
-active-MDS peer reset"), mds_peer_reset() tears the session down instead
-of reconnecting when our mdsmap shows the rank past RECONNECT.
+On Fri, 04 Sep 2026 23:26:40 +0800, Zhu Ling <zhuling0805@qq.com> wrote:
+> can_pwm_fill_info() emits the PWM capability limits whenever pwm_const is
+> present, regardless of whether TMS is enabled. In contrast,
+> can_pwm_get_size() currently returns zero when TMS is disabled. It
+> therefore underestimates the required netlink message size by the nested
+> attribute header and six u32 attributes.
+> 
+> Always account for the PWM capability attributes when pwm_const is
+> present, and account for the three runtime PWM values only when TMS is
+> enabled.
+> 
+> [...]
 
-That map can be stale.  An MDS killed and restarted on the same address
-resets our connection before the monitors report the rank as failed, so
-the session is torn down while the map still says active.  When a
-standby then takes over the rank in up:reconnect, check_new_map() has
-no session left to reconnect, the new MDS evicts and blocklists us
-after mds_reconnect_timeout, and the mount returns EACCES until it is
-unmounted:
+Reviewed-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
-  libceph: mds0 (2)10.89.20.12:6800 session reset
-  ceph: [...]: mds0 closed our session
-  (mds) evicting unresponsive client ceph-c1 (14900), after waiting
-        49.7175 seconds during MDS startup
-
-Send the reconnect and let the MDS decide, as before that commit.  A
-daemon restarted on the old address has a new nonce, so the reconnect
-does not get through, and check_new_map() reconnects once a map carries
-the rank's new address.  An MDS that really is active replies with
-CLOSE, and handle_session() unregisters the session so that new
-requests open a fresh one, which is what that commit intended.
-
-Skip the warning for -ESTALE and -ENOENT: send_mds_reconnect() already
-logs those, and the removed code was silent for closed and rejected
-sessions.
-
-Tested on riscv64 (7.2.6 kernel, Ceph 21, one active MDS with a
-standby-replay): SIGKILL the active MDS while dropping the client's
-monitor traffic until it logs "closed our session".  Evicted in 4 of 4
-runs without the patch, "reconnect success" in 3 of 3 with it.  Eviction
-by an active MDS without blocklist still recovers with a new session,
-2 of 2 runs.
-
-Fixes: 39fe30315893 ("ceph: harden send_mds_reconnect and handle active-MDS peer reset")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sun Yuechi <sunyuechi@iscas.ac.cn>
----
- fs/ceph/mds_client.c | 84 +++++---------------------------------------
- 1 file changed, 9 insertions(+), 75 deletions(-)
-
-diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-index d4ef8a355a48..d23250af0750 100644
---- a/fs/ceph/mds_client.c
-+++ b/fs/ceph/mds_client.c
-@@ -7236,7 +7236,7 @@ static void mds_peer_reset(struct ceph_connection *con)
- {
- 	struct ceph_mds_session *s = con->private;
- 	struct ceph_mds_client *mdsc = s->s_mdsc;
--	int session_state;
-+	int rc;
- 
- 	pr_warn_client(mdsc->fsc->client, "mds%d closed our session\n",
- 		       s->s_mds);
-@@ -7246,82 +7246,16 @@ static void mds_peer_reset(struct ceph_connection *con)
- 		return;
- 
- 	/*
--	 * Only reconnect if MDS is in its RECONNECT phase.  An MDS past
--	 * RECONNECT (REJOIN, CLIENTREPLAY, ACTIVE) will reject reconnect
--	 * attempts, so those states fall through to session teardown below.
-+	 * Our mdsmap may be stale: an MDS restarted on the same address
-+	 * resets the connection before we learn that the rank failed.
-+	 * Send the reconnect and let the MDS decide; one that is past
-+	 * RECONNECT replies with CLOSE and handle_session() closes the
-+	 * session so that new requests open a fresh one.
- 	 */
--	if (ceph_mdsmap_get_state(mdsc->mdsmap, s->s_mds) == CEPH_MDS_STATE_RECONNECT) {
--		int rc = send_mds_reconnect(mdsc, s);
--
--		if (rc)
--			pr_warn_client(mdsc->fsc->client,
--				       "mds%d reconnect failed: %d\n",
--				       s->s_mds, rc);
--		return;
--	}
--
--	/*
--	 * MDS is active (past RECONNECT).  It will not accept a
--	 * CLIENT_RECONNECT from us, so tear the session down locally
--	 * and let new requests re-open a fresh session.
--	 *
--	 * Snapshot session state with READ_ONCE, then revalidate under
--	 * mdsc->mutex before acting.  The subsequent mdsc->mutex
--	 * section rechecks s_state to catch concurrent transitions, so
--	 * the lockless snapshot here is safe.  s->s_mutex is taken
--	 * separately for cleanup after unregistration, which avoids
--	 * introducing a new s->s_mutex + mdsc->mutex nesting.
--	 */
--	session_state = READ_ONCE(s->s_state);
--
--	switch (session_state) {
--	case CEPH_MDS_SESSION_RESTARTING:
--	case CEPH_MDS_SESSION_RECONNECTING:
--	case CEPH_MDS_SESSION_CLOSING:
--	case CEPH_MDS_SESSION_OPEN:
--	case CEPH_MDS_SESSION_HUNG:
--	case CEPH_MDS_SESSION_OPENING:
--		mutex_lock(&mdsc->mutex);
--		if (s->s_mds >= mdsc->max_sessions ||
--		    mdsc->sessions[s->s_mds] != s ||
--		    s->s_state != session_state) {
--			pr_info_client(mdsc->fsc->client,
--				       "mds%d state changed to %s during peer reset\n",
--				       s->s_mds,
--				       ceph_session_state_name(s->s_state));
--			mutex_unlock(&mdsc->mutex);
--			return;
--		}
--
--		ceph_get_mds_session(s);
--		s->s_state = CEPH_MDS_SESSION_CLOSED;
--		__unregister_session(mdsc, s);
--		__wake_requests(mdsc, &s->s_waiting);
--		mutex_unlock(&mdsc->mutex);
--
--		mutex_lock(&s->s_mutex);
--		cleanup_session_requests(mdsc, s);
--		remove_session_caps(s);
--		mutex_unlock(&s->s_mutex);
--
--		wake_up_all(&mdsc->session_close_wq);
--
--		mutex_lock(&mdsc->mutex);
--		kick_requests(mdsc, s->s_mds);
--		mutex_unlock(&mdsc->mutex);
--
--		ceph_put_mds_session(s);
--		break;
--	case CEPH_MDS_SESSION_CLOSED:
--	case CEPH_MDS_SESSION_REJECTED:
--		break;
--	default:
-+	rc = send_mds_reconnect(mdsc, s);
-+	if (rc && rc != -ESTALE && rc != -ENOENT)
- 		pr_warn_client(mdsc->fsc->client,
--			       "mds%d peer reset in unexpected state %s\n",
--			       s->s_mds,
--			       ceph_session_state_name(session_state));
--		break;
--	}
-+			       "mds%d reconnect failed: %d\n", s->s_mds, rc);
- }
- 
- static void mds_dispatch(struct ceph_connection *con, struct ceph_msg *msg)
 -- 
-2.56.0
-
+Marc Kleine-Budde <mkl@pengutronix.de>
