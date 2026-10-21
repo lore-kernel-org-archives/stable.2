@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792593172;
-	b=QuQJ26BMblPUT+SnEbDcmGMTcbyWKqxMNmlmg8rNG6p5iEVH7rV0UWVp8mTzf0f0yYOV
-	 qNuWRBXjNw3oDr2d/f4p8bmTKf0uMbN1LZGO8gUEp+81Ez2Sf/Ras/S+fm1Q3b3fBq2Xk
-	 Ovdd4hx78HuY+p6nCwcg7Z4tC9V7E1D354kJbxOsGELyRJ0m5yJKqHtmcxCR5708aReZn
-	 w+K30Tx/+jR8uWH0Zo8ey1BOEW8xye3H2nPGabUERgN3KFOgOfxdHt95e5v8FbTM+BRRO
-	 zb9OqRAhquotG93u3GOqmxs8CkCvO5EltH4Tfoa+nsJFq2CqwDauEsHpNvWH36RbIhg==
+	t=1792593175;
+	b=mtCLeiNwkpok3dRsTL6V/qNc9KdFlCrt9RPXkStrKpF70DQxWKAg32dx+zwloDSEVSm5
+	 bwjjBjTfhZEf3s9rQ8/tvRiPNpp/+o+wXc9W3WSQuR6fNuATo8VNrJlgXtG+FyXhFXMPr
+	 RrJtYLe47g2nx1QJkT8fiEv1rNSAP/nFEGRlf+1/NPz2ntZOwOudZQdGBMom4n5lxWasm
+	 lL/GIBlpUOUqb6+H43wPLUgQZusYLnosaXknI4dNTR9D5v0YIB0KlQDEdI90Bka8LGjiu
+	 GYKZKA2Xc4dL5g79Ezvax2JhmQe+LeSvT4BUMGplt1HPZHmydCzKukVLhpnvUd3HJrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792593172;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792593175;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=K8KxEj+5VC7eE/qNwbnMETj/0dj4LGxJD4TQcB0vuGA=;
-	b=LHdr+tsf/jgV73h7mg96E5UZtQJoAsRaTEBuQh2UeW6qh3tZRX5y5lb9b/2TPZiEbgFr
-	 ZU47bYnQnVjnBvbCzAOiseeLC1lJOQMaktpSggNUyFa3XCaoTkHuIvEer8fUiBfDP0a+r
-	 2h5yCkp+Xu5tLpCp0hrPXCfYl05RjjX726eWZVIppnCb1NX/fGPTBsQEyA78Y7LE/2RET
-	 04jobhH068YXnObLIay89RXPGlqyH38M5zLFJzF1oAb6y2B29puacZAUNlkJzzG4uY+Bk
-	 zrM9f7uQNrlLBi3tylphtPZltgiNIzqplaih7ERhxlCl9YIZYksKGuwwciDOMM9t34Q==
+	bh=DLvDwdNaNC8KYUMlhxryrvaZbX9GOSYKKrFfEzsmw6c=;
+	b=O+bOeN6b0YdJNxUOM1uw6q3T/IYmZ4Ry4piUOP/XCc81kuheqfZK0z0HV5FQ2wW634Xr
+	 YzDLC/rGO+TG7ss+v2ragi5JwmE5/ma2fv31H5dpCaf5kHTB/Nui+qvviCkWiHsKnKy1Y
+	 gl9jnXxmTWVsWyPcr4xVSJdsQsNmDPaM9Rajk/dxgFFY5Y67MNC04P4tJXDdjZ4MY32Hl
+	 M2nagEr4OXJRweMGajQpQswP1hQB/FtLsOH2fQpMsuPPpRoF+HcwkiIsSvPOhmHevkp8Z
+	 5FzPOxyLQquzRqjBY0XAUoKtor0xlBT+Ztq6ULElHoIhIs/icN46ZUvP7/0veErzhGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KGbWGbfC;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nOMCW7p6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C05606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:32:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9FA4606A31B
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:32:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KGbWGbfC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14A211F000C4;
-	Wed, 21 Oct 2026 14:32:50 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nOMCW7p6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D63131F000C4;
+	Wed, 21 Oct 2026 14:32:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792593171;
-	bh=K8KxEj+5VC7eE/qNwbnMETj/0dj4LGxJD4TQcB0vuGA=;
+	s=korg; t=1792593174;
+	bh=DLvDwdNaNC8KYUMlhxryrvaZbX9GOSYKKrFfEzsmw6c=;
 	h=Subject:To:Cc:From:Date;
-	b=KGbWGbfCMPpqT7fOomzdo4yYcR65Cd3X6xiG+iz8/16IAZz/CicgbbE8fLCkBUj+c
-	 JOI/CZBBSfwubGNAuJrBtmWhLmN9/LKDNZrMA7EkYA2tBk0zlqSInJLcVwB4SoW3JZ
-	 DMpNccoT6MLcZWa0NF+Msn8LztEv7J61a2ZJvWZY=
-Subject: FAILED: patch "[PATCH] ASoC: SOF: ipc4-topology: Fix shift-out-of-bounds for" failed to apply to 6.6-stable tree
+	b=nOMCW7p6eOzdbjmMKo2HK5KsWBH7rK1Hpy7tfzuc8KP1t9yXbniA4vsUuPxwCLB6l
+	 Vtbv3hqWvSMMFrbwq4dXYknKU2STsXM1DxUZPiQMwdZQtP6EG9dPPm7vMNeqnvrb9z
+	 NYnohi0WfisdZiNdtY+MRB+Cdlc0zViLDvlPpw8E=
+Subject: FAILED: patch "[PATCH] ASoC: SOF: ipc4-topology: Fix shift-out-of-bounds for" failed to apply to 6.18-stable tree
 To: peter.ujfalusi@linux.intel.com,broonie@kernel.org,yung-chuan.liao@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 21 Oct 2026 16:32:25 +0200
-Message-ID: <2026102125-stole-applied-92e5@gregkh>
+Message-ID: <2026102124-wisdom-print-3a6c@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 746de48c3a250f0c264105dcbfcdf0c5001e970b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102125-stole-applied-92e5@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102124-wisdom-print-3a6c@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
