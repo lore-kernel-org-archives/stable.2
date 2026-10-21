@@ -1,100 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792571109;
-	b=tGFr++6TVPj9VIaHpXdYLbhi8NQSl2RgbsfgD1tQ1yXEuo1b3gTelglIkGjk2aiKnZJ1
-	 Dtvdi6iTDcrcmXA9tSH9Sm3R8uXbBROCyS3JPiYV+Em8JD/l2+239aeTHtn6JS7t7wEqV
-	 KAyH1goQBc169RGOWxiyRptdudBLcWIATR9xxhBd32lQG5N1ClKBh4waiR//b9Yl0BNQr
-	 uAtNYaV+Y/RbMvza4v+cqX7WQgMC+DePrjPMTBmQg/wDKPN9XHJDBFTV8ofeb/x20DIkP
-	 n+WeG5m2S4q93AXmlvuDVYXcTQ5KLmV2w1eMqPLKu3aS1LHnj4jUIe9kSXR/JQCLlgQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792571109;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=h/hSC13tu4dTP+Bia0+DJf04N3hSWtGlShKyDnRL7mY=;
-	b=xAd5BfNq5kG+ZKjnzEbmk8JyTAEmd2/VA8rkvWpz7bCbeM7G4d+gG/NfNRd3zTWJkbop
-	 UVUPPVF++K1GjmvD5Zj0nNtAKCmMuFWfk8mjlrFFhvAGufWl9wk21CbOsqRNt7QsaWg86
-	 C/vQSW9pM5cZRQwlN5KhgpRcb3yjIa3029FpFgQt9xTU2vij8g7dWn87Myuab/T20ufOj
-	 BZ4h3L0nxhyV8MRYsfZKhcdwkZYV0C5ZJRcaTyrL/aX3JcGa5Kb9UC8jpWIP8jBjVIuBv
-	 eI+RUxsoVCdAlj/D0Kb30zfFtCZcXaVx6mmEyvaDSH6wCoPvkEwmrnZOq9tqhoXVRpA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ModqUn0U;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792571157;
+	b=GqzSjJIKyYz88VAMnlsst33clUTKe08JLESLmSWnKxhTV8qyUTqX+k/FikEskjq2rnP5
+	 woAxeDGctbg5gEtLMadfagPBICQDCtPkvFmt+Gi3Hka0P/iFXWcvXm6wf2wEaN6EA2gwC
+	 xg5R6f0w5Sg+Wv90dThkSxq0I833tNY0/2pULcqx5Rmnzwm5Sk3DyLQ5LFB8QwuP75FOR
+	 4aq2mfGAT5TWXm+KfqSl8lPRHcItNQu6HQ/FA/jFGqnGZPF3qyW52P6y404y6aGVT+y1I
+	 Z9smW6jWtGkjAa/Rlib1yJtr1xtLQB8cJcJST63rTuL2EJDdgV9d15vJkkIN3u3VGQQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792571157;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=DmkVgGiiuycD3Zkw95qjrssB4Fz//sKvvBksBV1H+/A=;
+	b=m7PGxV4Jt8RB/J0GoE0p+H96NePvbihaVNvl7mysg/kHc3p1RxO4rAdGDaQuQJEdJuxM
+	 SK7fZqNJtz6UQqhsma7b4Jrxcm2RWqyOuOyY53nKbA4OgTFeCRJ/LyCcwXxyZ4JbTRw8A
+	 h1UuRtJ5TYsvwCvgbhWwMSZqLoYDRa5VpGR3lLig+SFOQMGQxy7wuLOZlAy3vjJ10kDmy
+	 Hnt2nh4jafp4+eZ6r6Idz4xtJRiHY1//wD9YQ5D48fAn58++ItKwDwE+GDxLHLT57ft2w
+	 PZ/jrgB3wPSkiwdR3BFZBRWdZmgeoDzaMzwFTZeFTGAoTMp96Gy8WZmxkrlqKWC/4tg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dfEQ6o+z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAFB3606A319;
-	Wed, 21 Oct 2026 08:25:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAFB3606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B51A5606A326;
+	Wed, 21 Oct 2026 08:25:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ModqUn0U
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id BA7062017C1;
-	Wed, 21 Oct 2026 10:25:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792571105;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=h/hSC13tu4dTP+Bia0+DJf04N3hSWtGlShKyDnRL7mY=;
-	b=ModqUn0U7SvXLPIOvg59+ttcxnb+c4CE8d+IDpnr4PSUi36yuvWT3eu2PEg1faj87YhtJQ
-	qbXFSEWzYyEXafbsczgAFQWWwuqzDHxpowRhariajDufP0JisX4Be5yKhD8NmvCKwi/VFz
-	JdztHHP/R2gVt6LtS8lfB5IB9YSw3VlZ3y9GUFWYw2HXXLCvFPmZ33K/suan9OKeDFJj7F
-	XVjmsTuDf9Pfmg3DBxRSSQ+jpKkVzel5HxcFpRNtn8v2KxrfQTLK0LEgrIl+Iub8jf+V4I
-	atZjrZMKD4wftZNkRaegunjPeOHWs54DNfGCLnVxPeON09tbJmtrKhNNwOuyGg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792571105; a=rsa-sha256;
-	cv=none;
-	b=SKeytmx2kIxQFwEoUwR7R/voLGRQp0LHENS7evjTOEE2yGXeNLZ+W94ewy3bWOS8tT09eL
-	BFzVgfbIDn15fmSk2nWpc0syspUYgOAaAdLt866/Hn8l+5KKwafd4aWQ7tTaifuxld+VEh
-	nhCmmV4E4YFWlrzugkf9XKTdJRPt5VLBlh7Sy5ydu9xm+Cd21y8GYN5KAbBG5iTuq0j0/E
-	fRq3oOh05k5JGlxczL9jnRdwZELE+sYMXn6c/rSPMIhasR3wJ7ZHi6MtwLkRaLJzCWZnBQ
-	bS8Aguce46mclBJ1scbWlXpaSrEmct6eZDa5aF798wkjvwPXVkJzAApvIapAtw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792571105;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=h/hSC13tu4dTP+Bia0+DJf04N3hSWtGlShKyDnRL7mY=;
-	b=L/lSW23VUgXM7ErPE49WVAreysdIAVPGQSVZvBbS3m3gyyrZG8Z9Ae6HT/CGJ9fxd1liNw
-	jK+bJ+w3SSjXjttF69t7dZ+rRxysbRv9xYLZu1NWeVs+2fckYqypnJwUM6WR1Qrl7ldDhS
-	ypEGUUUdgXQE6DaywMEOqnFMDthrLQReGbdM2OZr1QUZZCmzQTn6jGUsPcXSz/9opMELex
-	t7/jH1QSqW/Pn2kD8dhMcThPYieQX11Pr6ZLW/NT27wvNhcURylrH9TsOB6zCH1LC+TuBi
-	s1lA9EumnhiUmxpFHthCBzkGS7S8Y6T4bGhUarzKxYLp75IyG3U7u6TgOnVk9g==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xJRdB-000Wuk-27;
-	Wed, 21 Oct 2026 10:25:05 +0200
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 5CCA05CADD0;
-	Wed, 21 Oct 2026 08:25:05 +0000 (UTC)
-Date: Wed, 21 Oct 2026 10:25:05 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: =?utf-8?B?5rez5LqO5pm65by6?= <chunyuzhiqiang@yinhe.ht>
-Cc: netdev-bot+sinfo <netdev-bot+sinfo@kernel.org>, 
-	netdev <netdev@vger.kernel.org>, linux-can <linux-can@vger.kernel.org>, 
-	kernel <kernel@pengutronix.de>, "haibo.chen" <haibo.chen@oss.nxp.com>, 
-	shawnguo <shawnguo@kernel.org>, imx <imx@lists.linux.dev>, stable <stable@vger.kernel.org>
-Subject: Re: =?utf-8?B?UkXvvJpbUEFUQ0ggdjZdIGNhbjogZGV2OiBjYW5fZmlsbF9p?=
- =?utf-8?B?bmZvKCk6?= don't wake up controller if interface is down
-Message-ID: <20261021-robust-electric-beaver-796542-mkl@pengutronix.de>
-References: <20261021023334.11803-1-chunyuzhiqiang@yinhe.ht>
- <20261021-romantic-jaybird-of-cookies-1ed8e1-mkl@pengutronix.de>
- <b9c8e7d7-584e-43d0-88a6-ee0ee6e6c700.chunyuzhiqiang@yinhe.ht>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dfEQ6o+z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4D0B1F000C9;
+	Wed, 21 Oct 2026 08:25:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792571156;
+	bh=DmkVgGiiuycD3Zkw95qjrssB4Fz//sKvvBksBV1H+/A=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=dfEQ6o+zBP/JJmcuy4xDtVp6NiQLWQegdRBnCcDSCH1IZo5lm05keg0zf7s6WXfvj
+	 6g+fVBKcU846gE8OpDkJomltdm7KGfFvAf+UtT8eHs0xzZox4HUXws3bNJqQg3gYBk
+	 3uXMCzIyzfh4h+IebMu/8w2wKHhrBb8MhDf3OjaVX26zd7Ikzz1UMET2eHrdTd6/1F
+	 8Xnr5nurhP0la9UMSxwC2/fXr91Sf8D2ahmhyLfoOvwXq3zm9CLKFTf6iVmd7y411G
+	 Hcu2wYjzMZ2WJA0PEsSs6blPajYLhX6iO5TvsGNLA955bJVuGqY5GdHqcjCVWCEPwz
+	 Apnhfr/ll3SGQ==
+Subject: Re: [PATCH mptcp-net v4 1/2] mptcp: pm: in-kernel: fullmesh: skip
+ closed subflows
+From: netdev-bot+sashiko@kernel.org
+To: w453y.me@gmail.com
+Cc: mptcp@lists.linux.dev, matttbe@kernel.org, martineau@kernel.org,
+ geliang@kernel.org, pabeni@redhat.com, stable@vger.kernel.org,
+ kuba@kernel.org
+Date: Wed, 21 Oct 2026 08:25:55 +0000
+Message-ID: <179257115537.3133.922491428640838750@kernel.org>
+In-Reply-To: <20261019190558.465270-2-w453y.me@gmail.com>
+References: <20261019190558.465270-2-w453y.me@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,60 +63,164 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="23cwxmzpbad3gume"
-Content-Disposition: inline
-In-Reply-To: <b9c8e7d7-584e-43d0-88a6-ee0ee6e6c700.chunyuzhiqiang@yinhe.ht>
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
---23cwxmzpbad3gume
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: =?utf-8?B?UkXvvJpbUEFUQ0ggdjZdIGNhbjogZGV2OiBjYW5fZmlsbF9p?=
- =?utf-8?B?bmZvKCk6?= don't wake up controller if interface is down
-MIME-Version: 1.0
+Critical: 0 · High: 1 · Medium: 0 · Low: 1
 
-On 21.10.2026 16:20:18, =E6=B7=B3=E4=BA=8E=E6=99=BA=E5=BC=BA wrote:
-> > This patch doesn't apply to current net-next/main branch. Please rebase,
-> > in particular you're missing commit e63281614747 ("can: netlink: add
-> > initial CAN XL support").
->
-> Understood, v6 was based on an NXP lf-6.18.y tree.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-:)
+- [High] The fix is incomplete, and it adds a regression in a transient
+  window.
+- [Low] The commit message is inaccurate.
 
-> I'll rebase onto
-> current net-next/main, including e63281614747, and rework the patch so
-> that both IFLA_CAN_TDC and IFLA_CAN_XL_TDC only skip the automatic TDCV
-> readback when the interface is down. The size calculation will be
-> adjusted for both paths as well.
->
-> I'll send v7 as a new, independent thread.
+--
 
-Thanks, As you're contributing regularly, using b4 [1] can safe you and the
-maintainers a lot of time.
+mptcp: pm: in-kernel: fullmesh: skip closed subflows
 
-regards,
-Marc
+With this commit, fill_remote_addresses_fullmesh() skips subflows that
+are closing or in TCP_CLOSE state. The skip applies both when collecting
+the remote IDs already in use and when picking remote addresses. The goal
+is to let the fullmesh endpoint used by the initial subflow create a new
+subflow after it is removed and added back.
 
-[1] https://b4.docs.kernel.org/en/latest/index.html
+> If it was already in TCP_CLOSE,
+> e.g. after a reset, it is disconnected and its context is reset: the
+> 'closing' flag and the remote ID are cleared, and its remote address
+> and port are zeroed. It is then picked as a remote address, with the
+> address 0.0.0.0, the port 0 and the ID 0, which also marks the remote
+> ID 0 as unavailable.
 
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+[Severity: Low]
+Is this description of the reset path accurate?
 
---23cwxmzpbad3gume
-Content-Type: application/pgp-signature; name="signature.asc"
+__mptcp_subflow_disconnect() calls tcp_disconnect() and then
+mptcp_subflow_ctx_reset(). tcp_disconnect() does:
 
------BEGIN PGP SIGNATURE-----
+net/ipv4/tcp.c:tcp_disconnect() {
+    ...
+	inet->inet_dport = 0;
 
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCath23gAKCRDMOmT6rpmt
-0mD/AP9Eh5XlKdXKOa2UiFUhZEc1UXRpmwnvIOx1SR9MsUjEwwEAlqpEJAiHMOue
-fWPjTyoVWe1ENIgRJBzOrAKw1c4OhgM=
-=B863
------END PGP SIGNATURE-----
+	inet_bhash2_reset_saddr(sk);
+    ...
+}
 
---23cwxmzpbad3gume--
+inet_reset_saddr() clears only the source addresses (inet_saddr,
+inet_rcv_saddr and the IPv6 equivalents). Nothing here seems to clear
+skc_daddr or skc_v6_daddr. So mptcp_remote_address() would return the
+peer's real address with port 0 and ID 0, not 0.0.0.0.
+
+The conclusion that remote ID 0 ends up marked unavailable still seems to
+hold. Could the message describe the mechanism more precisely?
+
+> diff --git a/net/mptcp/pm_kernel.c b/net/mptcp/pm_kernel.c
+> index 1a7750813235..24cdb170ba62 100644
+> --- a/net/mptcp/pm_kernel.c
+> +++ b/net/mptcp/pm_kernel.c
+> @@ -199,6 +199,16 @@ fill_remote_addr(struct mptcp_sock *msk, struct mptcp_addr_info *local,
+>  	return 1;
+>  }
+>  
+> +/* Closed subflows can stay in the conn_list, e.g. the initial one: their
+> + * addresses and IDs are not reliable, possibly even reset.
+> + */
+> +static bool mptcp_subflow_is_closed(struct mptcp_subflow_context *subflow)
+> +{
+> +	struct sock *ssk = mptcp_subflow_tcp_sock(subflow);
+> +
+> +	return subflow->closing || inet_sk_state_load(ssk) == TCP_CLOSE;
+> +}
+> +
+>  static unsigned int
+>  fill_remote_addresses_fullmesh(struct mptcp_sock *msk,
+>  			       struct mptcp_addr_info *local,
+> @@ -216,11 +226,18 @@ fill_remote_addresses_fullmesh(struct mptcp_sock *msk,
+>  	 * already created by incoming ADD_ADDR
+>  	 */
+>  	bitmap_zero(unavail_id, MPTCP_PM_MAX_ADDR_ID + 1);
+> -	mptcp_for_each_subflow(msk, subflow)
+> +	mptcp_for_each_subflow(msk, subflow) {
+> +		if (mptcp_subflow_is_closed(subflow))
+> +			continue;
+> +
+>  		if (READ_ONCE(subflow->local_id) == local->id)
+>  			__set_bit(subflow->remote_id, unavail_id);
+> +	}
+>  
+>  	mptcp_for_each_subflow(msk, subflow) {
+> +		if (mptcp_subflow_is_closed(subflow))
+> +			continue;
+> +
+>  		ssk = mptcp_subflow_tcp_sock(subflow);
+>  		mptcp_remote_address((struct sock_common *)ssk, &addrs[i]);
+>  		addrs[i].id = READ_ONCE(subflow->remote_id);
+
+[Severity: High]
+What happens here if the closed initial subflow was the only subflow
+toward the peer's ID 0 address?
+
+In the fullmesh path, this second loop is the only source of remote
+candidates. Unlike fill_remote_addr(), it never falls back to the msk's
+own remote address:
+
+net/mptcp/pm_kernel.c:fill_remote_addr() {
+    ...
+	mptcp_remote_address((struct sock_common *)sk, &remote);
+    ...
+}
+
+So when all such subflows are skipped, fill_remote_addresses_fullmesh()
+returns 0. By that point, mptcp_pm_create_subflow_or_signal_addr() has
+already consumed the endpoint:
+
+		__clear_bit(local.addr.id, msk->pm.id_avail_bitmap);
+		...
+			msk->pm.local_addr_used++;
+
+		nr = fill_remote_addresses_vec(msk, &local.addr, fullmesh,
+					       addrs, ARRAY_SIZE(addrs));
+		if (nr == 0)
+			continue;
+
+The endpoint is then never retried for this connection.
+
+This seems to affect two cases.
+
+First, the case in the commit message still looks reachable with a single
+fullmesh endpoint. Say the endpoint used by the initial subflow is
+removed and added back through mptcp_nl_add_subflow_or_signal_addr(),
+which sets mpc_endpoint_id so the local ID maps to 0. If no other live
+subflow carries remote ID 0, nr is still 0. The connection then has no
+subflow until the msk timeout started in __mptcp_close_ssk() fires.
+Before the patch nr was also 0 here. Does that mean the fix is incomplete
+for this case?
+
+Second, after a graceful close of the initial subflow, __mptcp_close_ssk()
+sets closing = 1, and __mptcp_subflow_disconnect() only does:
+
+	} else {
+		tcp_shutdown(ssk, SEND_SHUTDOWN);
+	}
+
+In FIN_WAIT1 or FIN_WAIT2, the subflow keeps its real daddr, dport and
+remote_id 0. Before this patch, adding a different fullmesh endpoint in
+that window created a working subflow to the peer. Now
+mptcp_subflow_is_closed() returns true because subflow->closing is set,
+so no subflow is created and the endpoint stays consumed. Is this a
+regression for that window? It can last as long as the peer does not
+send its FIN.
+
+The follow-up selftest seems to cover only the two-endpoint case, where a
+second live subflow carries remote ID 0. Neither case above is exercised.
+
+Could the fullmesh path also offer the msk's remote address for ID 0
+(still honoring deny_id0), as fill_remote_addr() does, when no live
+subflow carries it?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261019190558.465270-1-w453y.me%40gmail.com
