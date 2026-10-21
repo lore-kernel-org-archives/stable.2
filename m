@@ -1,97 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792584235;
-	b=T5rgV3QlKWcsA3As0cAwrBzSBAg/sXQuBOER/45ZxbjcYqAWT0mL6gsu36W1pxzuIGOA
-	 FjkR3ygkpBeUZFOMj0hk2zRuLXgIkd26H05btx7TnbdPFKrc86bk7SsWpsoNS+xdOwhbP
-	 mRVzrnHXWFlNNrhGy3JP/mjx2iyIf1JoyiCw1hC05Hm3UEmbzJIdfELwRrFgPtut8CZ4X
-	 CPzgqeIGO/baKEDC+uVl/QEFtq1i/WDTa0kplekHyjjVRPlK/ZAEbdEKGAlEjQrb3hIvw
-	 DVAGoUV1E16EDtEIXkbQypblhWtlsg1IoUbxAem8A0EB80BhthRHKzIoDHOOKWat2lg==
+	t=1792584279;
+	b=LFON9x5ojHdNA5IbbEZdiEzs3plRz2n8sNMbfdHH8PN+cvhsxNl6mqCPOl5HdbswfWbs
+	 PAcWW/ghd0sp2RMDvOFmItGrIpHLFlF1GfrKp9mfZmhCykAyZj8mXSO7CPuOOXd2vQLoi
+	 2v3FZ/kvmNqmKE6h/9L485XnAHpaI5FJkmX/ncjV0xd9AltchroiRTCkfekFBtOBfj8MZ
+	 R7dizofP+dopAxXlUOxU6wptPsAxiDMAd/AfkCJn6XJSzjfsnWmZjRM5iRwDCXClRR+LJ
+	 b6qrfUPDNyEeVY6eLnq7OHZo0eVyylyCmvk4PvEfnngeLZqdx+2Ga2cl7t17nph1LwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792584235;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=GK+opxzbNDvYLIX7cW8mwNi+aajSyz2/r7yxGFUzHOQ=;
-	b=aZETI1OtRsQyLQoDoqaf0Sr18M1wwZLgSEAIx+XOBYHizuDESzsemA5ZOV0avWeKv9AR
-	 aSDGNYbfH7jDJpF8G/7Nal4fDV7Nt3hbA0JsfrkuvBH57d48+LsiUW1p8JySnNqU/NtSE
-	 EDjNtVRgVUs4gwsG9MMm49G5UmmBZnFQkdpCb7Nfem2PEUg1ToSlpNWDZtaxBlK77tQO9
-	 qC9VNAdTbeNsH2WMtzzq8cFk+z6Q+Oa2F6M3MRbw0JlR+KUKRiZPQu54z+OKI0bwWaZBO
-	 faylx2n6rubOOK0gHqhVrGxnu9AGSk1t9Chuledsn7Co9/Csk0XCZ1wfqyn+xQwOmXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792584279;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=AwtIHnGzW3tKZfbYrcOGSQoJdi/ADFfIlP9FOFh7OYA=;
+	b=eANwNxhkniDWlvCOLAdAN7kANPDZairebtBXx7cevppJ9lfKGd9xoeGX1fInpGiSMZJ9
+	 efTWbRLX4DrGgSmwuECS5KvvXirk/bqS8kfmfaRaNIbqmzqN9NTWio86YNf9KNtfyr4De
+	 OWy0yEc40ZukG1bFWwgIrcuLTq+p/gcColUwu7G1Vvwwl+eGY0mkXOrKu+dZmaAqj6/pV
+	 76P8Yi6Corc8Jwqu7ODoPNVFHO7V6ot75pkmuOY5qsSJwhePt8UQq1RORXoOXnEePP6jw
+	 KsbHf4qd5z9P+oJ+dMDFB0LeE7vTDIzTBBcIdGYEFKnjozQo9ff1vQEPiQttWg4EqUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mojatatu.com;
-	spf=none smtp.mailfrom=mojatatu.com;
-	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b="qkt54zB/";
-	arc=none smtp.remote-ip=209.85.222.177
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=BeNh1aud;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95355606A31A
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 12:03:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95355606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFCD6606A319;
+	Wed, 21 Oct 2026 12:04:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFCD6606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=qkt54zB/
-Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-93f20b304c0so73133785a.3
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 05:03:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1792584233; x=1793189033; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GK+opxzbNDvYLIX7cW8mwNi+aajSyz2/r7yxGFUzHOQ=;
-        b=qkt54zB/ZzmRP4fJf97FZlKX2wQLBkLCPEMZ359Sr9wPvelXCDeL8i80gwAR0pbRqB
-         aooSSf91ZT+JaIo0aFgdy4Td01UTFsHVhN+bvnFxydhjX6XUi7iWpxff9PX2R6KUgNeZ
-         5fFJjgk55TSAJjP9+a4A14OtHIgbVN2SRpXw0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792584233; x=1793189033;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GK+opxzbNDvYLIX7cW8mwNi+aajSyz2/r7yxGFUzHOQ=;
-        b=YCu3f2dtaIzQpDRnQhts/3WZOnjD9wXLu53w39ZOm5z2YvG22j95bdewdwVe7ByBgN
-         XrynTS6+0NJTJUom5Wus2+tdHrrj+0SMyJ6O1GftZ2axzBCXhP2QynsodFaJd5znmB30
-         MdKpecXaEzMyFmtAfaInaKGScJa+WKQH2RaiaJw4hhsgT4GvtzmRVNo5exSlnp1LWSZW
-         BYJY9og48ULSVSNquoamcjPfoz/UnJLwYrozl46rJkRYmC+r1XbZ6Visc1gu2B+wE1TW
-         zlrr+7zrL0Il/UnLFbMdlQkE64R0GwEMlAsGQ4xuTmXHjpX6YASxYYTVpmt38NKeaVuz
-         ECCA==
-X-Forwarded-Encrypted: i=1; AKwUvBxHEejAlMUs1ka/O+wuMH17AdZ7PpAK0puv0ciQIOH1t5LZnPVu8M7QYSh4U57QBmQABPDxhbg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKDU269hrvif5cAumAhPqlAtdOqoPr9D5vE1TI+X4/7YqaH7rSk
-	ko2p1jlpiN6OsdLCmnCkyKHDU5dX8IUdqjf/x7aMSv3kGJKaOXjZvrns2jzK8+94GQ==
-X-Gm-Gg: AYBFou15Y+po4s1VuRlQFBTyKH2FuWTdH51wOhxEKVTzKTHwuYQkG2FJFrqQCHgCtT+
-	Dp0jaJ+7giOtU2NVCYL7Sh+0PW01RZr8zmu16Pwcws72AZ64wI/43heHgTtghCVkUeGlhXCkKkZ
-	N5y+7dc5q60daY1AXmb7G9jKljlaXszDh7T1Vz5rdsgczhnqtdBymdI3s34xWIIJJdyWYok+Ih2
-	alSQdO583gdPVgfkZOpaH2qG+mIvXpC5DO7fKAJ8m8ZnpnIK1gmRPffmJF177Wri9kEejUf2up7
-	J6VZHB5oQD2Tmq3ZdLfVilD32TgiCIaRNlJfCKn5Nou3p0R8krOcrUtR+qoLVDG2YL11m62pAOv
-	ib6b4JiR0IPsgrVhPNVPjvkX8YtNSVJExmywhsXIu4P5HuSuLgw+gQ+ydZfePL0yQnzwvwHipwZ
-	9Q25wxgyygfi2NZ1DIPRybN6NsmVQKGae7V5A2h6A2zKz5H6eTRAYiIb2JeMQGKdUSp9uPepYmp
-	XKS0fPb6rzOXRqVp8etgdywfDnV10v140nUIgj0mDIS8cQI8dBrFm1OdtW1yk8hvghsGDReIpf2
-	S/kQd0ds39raH/Sp9AmstLQrEQ==
-X-Received: by 2002:a05:620a:2781:b0:93e:8614:bbe7 with SMTP id af79cd13be357-93f57e45a64mr358244985a.12.1792584233263;
-        Wed, 21 Oct 2026 05:03:53 -0700 (PDT)
-Received: from mbili.waya ([64.203.83.2])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56e2bee2sm232953185a.42.2026.10.21.05.03.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 05:03:52 -0700 (PDT)
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-To: netdev@vger.kernel.org
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	Victor Nogueira <victor@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Sashiko <sashiko-bot@kernel.org>,
-	bpf@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v4] net/sched: clamp skb->queue_mapping before indexing the tx queue
-Date: Wed, 21 Oct 2026 08:03:48 -0400
-Message-Id: <QDISC-MD1X.v4.r0.20261021042722-1@mojatatu.com>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=BeNh1aud
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Aw
+	tIHnGzW3tKZfbYrcOGSQoJdi/ADFfIlP9FOFh7OYA=; b=BeNh1aud3QJiybpaL8
+	6BvRSQxrZ5uKr4tLK01heBjW6dx9K+jpbhFth6n7bfU2k3phCed9AMuzvFo7lTrH
+	vi+AaGZfJKbzGUg/abXqUgyan+bX2aCxpPGtuZ0m/qALns5tL/81hI/e2NaRHJDc
+	zvH7RhA4o8uJZnzzXH/P8s+qs=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3n9U5qthqkt7RBQ--.900S2;
+	Wed, 21 Oct 2026 20:04:10 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Aleksa Savic <savicaleksa83@gmail.com>,
+	Jack Doan <me@jackdoan.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2] hwmon: (aquacomputer_d5next) reject short status reports
+Date: Wed, 21 Oct 2026 20:04:07 +0800
+Message-Id: <20261021120408.48495-1-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -103,197 +63,228 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3n9U5qthqkt7RBQ--.900S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWfJr45Aw15Wr15ZrW7ArykAFb_yoWDAF4Up3
+	4DAF9xtFWUKFWI939xJFs8uw4FyrZrKa1UXrnrGw40gF98W34UCFWIvayqvryrZrZ5trZ8
+	K390qrWDAasxWF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jOJ5rUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhqJw2rYqjoydwAA35
 
-This issue was caught by Sashiko (nipa). A producer-side path cap is
-already merged (ea4d4b5dddb5); this patch adds the matching consumer-side
-cap.
+The HID raw_event callback runs before HID core validates the received
+report length. aqc_raw_event() reads device-specific status fields at fixed
+offsets, including multi-byte values, without first ensuring that the
+received buffer contains every field. A truncated report can therefore
+cause out-of-bounds reads and update hwmon state with unrelated data.
 
-The issue:
-The tx queue is picked and capped in netdev_core_pick_tx(), before the
-__dev_xmit_skb() qdisc enqueue path. A tc BPF program running inside
-egress qdisc (not clsact) can then change __sk_buff->queue_mapping;
-that store is never re-checked. bpf_convert_ctx_access() bounds it only
-by NO_QUEUE_MAPPING, not by the device's queue count.
+The required length differs between supported devices and cannot be
+derived from the HID report descriptor. Define the minimum length needed
+by each asynchronous status format, select it while configuring the
+device, and reject reports that do not contain the last field accessed by
+that format. Keep the published length zero until probe configuration is
+complete, which also excludes legacy devices whose status is retrieved
+through feature reports.
 
-On dequeue, qdisc_restart() calls netdev_get_tx_queue(), which
-indexes dev->_tx[] with that value. netdev_get_tx_queue() guards it with
-just a DEBUG_NET_WARN_ON_ONCE, so sch_direct_xmit() takes the out-of-bounds
-txq->_xmit_lock and writes txq->xmit_lock_owner past the end of the
-allocation on non-lltx devices such as ifb. Drivers that index their rings
-from skb_get_queue_mapping() (ex: ifb) go out of range the same way.
-
-The Fix:
-Cap the mapping at the consumer and write the capped value back, so both
-the qdisc's _tx[] lookup and any later driver read stay in range. The cap
-folds into the dequeue path instead of a separate walk over the returned
-list: dequeue_skb() caps the head, and each bulk helper caps the element it
-appends. netdev_cap_txqueue() already logs a ratelimited notice and selects
-queue 0.
-
-A TCQ_F_ONETXQUEUE qdisc is bound to a single tx queue: dequeue_skb() uses
-q->dev_queue for the frozen check, the BQL limit and the trace point, while
-qdisc_restart() transmits on the skb's queue. Capping an out-of-range
-mapping to queue 0 would therefore send a per-queue child's skb through a
-different queue than the one it was dequeued for. On mq, mqprio, taprio and
-htb offload children, a stopped queue 0 could then park the list in
-q->gso_skb, and the later wake would schedule queue 0's own child instead
-of this qdisc. Pin a TCQ_F_ONETXQUEUE mapping to the qdisc's own queue to
-keep the documented invariant.
-
-That also keeps a bulk list on one queue by construction: every element of
-a TCQ_F_ONETXQUEUE qdisc, including a follower changed by a filter, is
-pinned to q->dev_queue before it is appended. The fast bulk helper
-therefore needs no head comparison and no skb_bad_txq requeue; the slow
-helper, used only by non-ONETXQUEUE qdiscs, still compares and requeues a
-mismatched follower, where a wake on any queue reschedules q.
-
-Conditions to recreate the bug:
-Load a SCHED_CLS or SCHED_ACT program that stores __sk_buff->queue_mapping
-(a tc BPF action is enough), attach it to a transmit qdisc (for example a
-matchall filter on a prio root), and send a packet. With a 1-queue device a
-store of 1 indexes one past dev->_tx[]. Under KASAN with panic_on_warn=1
-the unfixed kernel faults with "BUG: KASAN: slab-out-of-bounds in
-sch_direct_xmit". Loading the program needs CAP_BPF/CAP_SYS_ADMIN, so the
-trigger is root.
-
-Fixes: 74e31ca850c1 ("bpf: add skb->queue_mapping write access from tc clsact")
-Reported-by: Sashiko (nipa) <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/netdev/179033713973.2160803.4914570693994398206@kernel.org/
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-9R8V.v2.20260924072708%40mojatatu.com
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-MD1X.v1.20261005193231%40mojatatu.com
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-MD1X.v3.r0.20261015165943-1%40mojatatu.com
-Link: https://lore.kernel.org/netdev/20261015125822.GH83879@horms.kernel.org/
+Suggested-by: Guenter Roeck <linux@roeck-us.net>
+Fixes: 0e35f63f7f4e ("hwmon: add driver for Aquacomputer D5 Next")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
-v3 -> v4:
-- Cap a TCQ_F_ONETXQUEUE mapping to the qdisc's own tx queue instead of
-  queue 0, so a per-queue child of mq, mqprio, taprio or htb offload keeps
-  the documented invariant between q->dev_queue and the transmitted queue.
-  Reported by Sashiko (nipa).
-- With every element pinned to q->dev_queue, the fast bulk helper no longer
-  needs a head comparison or a skb_bad_txq requeue; a mismatched follower
-  there could otherwise be stranded behind a stopped queue that cannot
-  reschedule this qdisc. Reported by Sashiko (nipa).
+Changes in v2:
+- Replace the HID descriptor length check with per-device minimum lengths
+  derived from the final field accessed.
+- Select each minimum length in the existing per-device probe branch.
+- Keep the published length zero until probe configuration is complete and
+  exclude legacy feature-report devices from the asynchronous parser.
+- Drop the inaccurate hid-asus comparison from the commit message.
 
-v2 -> v3:
-- Considered Comments from Simon Horman (hunk counts did not match the
-  diff content; patch did not apply):
-  https://lore.kernel.org/netdev/20261015125822.GH83879@horms.kernel.org/
+ drivers/hwmon/aquacomputer_d5next.c | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-v1 -> v2:
-- try_bulk_dequeue_skb(): the fast bulk helper (TCQ_F_ONETXQUEUE) capped
-  each follower but appended it without comparing it against the head, so
-  a mismatched follower was still sent under the head's txq lock. Compare
-  the capped follower with the head and requeue a mismatch to skb_bad_txq,
-  matching try_bulk_dequeue_skb_slow(). Reported by Sashiko (nipa).
-
- net/sched/sch_generic.c | 48 ++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 43 insertions(+), 5 deletions(-)
-
-diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
-index 6f6a6f0d5eb0..fdd070840cb5 100644
---- a/net/sched/sch_generic.c
-+++ b/net/sched/sch_generic.c
-@@ -96,9 +96,37 @@ static void qdisc_maybe_clear_missed(struct Qdisc *q,
+diff --git a/drivers/hwmon/aquacomputer_d5next.c b/drivers/hwmon/aquacomputer_d5next.c
+index 1ca70e726298..341cce4347e2 100644
+--- a/drivers/hwmon/aquacomputer_d5next.c
++++ b/drivers/hwmon/aquacomputer_d5next.c
+@@ -132,6 +132,7 @@ static u8 aquaero_secondary_ctrl_report[] = {
+ #define AQUAERO_FAN_CURRENT_OFFSET		0x06
+ #define AQUAERO_FAN_POWER_OFFSET		0x08
+ #define AQUAERO_FAN_SPEED_OFFSET		0x00
++#define AQUAERO_MIN_STATUS_REPORT_SIZE		(0x18B + AQUAERO_FAN_POWER_OFFSET + sizeof(u16))
+ static u16 aquaero_sensor_fan_offsets[] = { 0x167, 0x173, 0x17f, 0x18B };
  
- #define SKB_XOFF_MAGIC ((struct sk_buff *)1UL)
+ /* Control report offsets for the Aquaero fan controllers */
+@@ -155,6 +156,8 @@ static u16 aquaero_ctrl_fan_offsets[] = { 0x20c, 0x220, 0x234, 0x248 };
+ #define D5NEXT_5V_VOLTAGE		0x39
+ #define D5NEXT_12V_VOLTAGE		0x37
+ #define D5NEXT_VIRTUAL_SENSORS_START	0x3f
++#define D5NEXT_MIN_STATUS_REPORT_SIZE	(D5NEXT_PUMP_OFFSET + AQC_FAN_SPEED_OFFSET + \
++					 sizeof(u16))
+ static u16 d5next_sensor_fan_offsets[] = { D5NEXT_PUMP_OFFSET, D5NEXT_FAN_OFFSET };
  
-+/* A tc BPF program may change skb->queue_mapping after the tx queue
-+ * was picked, so re-cap it before use. A TCQ_F_ONETXQUEUE qdisc is
-+ * bound to a single tx queue, so pin the mapping to q->dev_queue.
-+ */
-+static u16 qdisc_cap_skb_tx_queue(struct Qdisc *q, struct sk_buff *skb)
-+{
-+	u16 queue = skb_get_queue_mapping(skb);
-+	struct net_device *dev = qdisc_dev(q);
-+	u16 capped;
-+
-+	if (q->flags & TCQ_F_ONETXQUEUE)
-+		capped = q->dev_queue - netdev_get_tx_queue(dev, 0);
-+	else
-+		capped = netdev_cap_txqueue(dev, queue);
-+
-+	if (unlikely(capped != queue))
-+		skb_set_queue_mapping(skb, capped);
-+
-+	return capped;
-+}
-+
-+static struct netdev_queue *skb_cap_tx_queue(struct Qdisc *q,
-+					     struct sk_buff *skb)
-+{
-+	return netdev_get_tx_queue(qdisc_dev(q),
-+				   qdisc_cap_skb_tx_queue(q, skb));
-+}
-+
- static inline struct sk_buff *__skb_dequeue_bad_txq(struct Qdisc *q)
+ /* Control report offsets for the D5 Next pump */
+@@ -179,11 +182,14 @@ static u16 d5next_ctrl_fan_offsets[] = { 0x97, 0x42 };	/* Pump and fan speed (fr
+ #define AQUASTREAMULT_FAN_CURRENT_OFFSET	0x00
+ #define AQUASTREAMULT_FAN_POWER_OFFSET		0x04
+ #define AQUASTREAMULT_FAN_SPEED_OFFSET		0x06
++#define AQUASTREAMULT_MIN_STATUS_REPORT_SIZE	(AQUASTREAMULT_PRESSURE_OFFSET + sizeof(u16))
+ static u16 aquastreamult_sensor_fan_offsets[] = { AQUASTREAMULT_FAN_OFFSET };
+ 
+ /* Spec and sensor report offset for the Farbwerk RGB controller */
+ #define FARBWERK_NUM_SENSORS		4
+ #define FARBWERK_SENSOR_START		0x2f
++#define FARBWERK_MIN_STATUS_REPORT_SIZE	(FARBWERK_SENSOR_START + \
++					 FARBWERK_NUM_SENSORS * AQC_SENSOR_SIZE)
+ 
+ /* Specs of the Farbwerk 360 RGB controller */
+ #define FARBWERK360_NUM_SENSORS			4
+@@ -193,6 +199,8 @@ static u16 aquastreamult_sensor_fan_offsets[] = { AQUASTREAMULT_FAN_OFFSET };
+ /* Sensor report offsets for the Farbwerk 360 */
+ #define FARBWERK360_SENSOR_START		0x32
+ #define FARBWERK360_VIRTUAL_SENSORS_START	0x3a
++#define FARBWERK360_MIN_STATUS_REPORT_SIZE	(FARBWERK360_VIRTUAL_SENSORS_START + \
++					 FARBWERK360_NUM_VIRTUAL_SENSORS * AQC_SENSOR_SIZE)
+ 
+ /* Control report offsets for the Farbwerk 360 */
+ #define FARBWERK360_TEMP_CTRL_OFFSET		0x8
+@@ -209,6 +217,7 @@ static u16 aquastreamult_sensor_fan_offsets[] = { AQUASTREAMULT_FAN_OFFSET };
+ #define OCTO_SENSOR_START		0x3D
+ #define OCTO_VIRTUAL_SENSORS_START	0x45
+ #define OCTO_FLOW_SENSOR_OFFSET		0x7B
++#define OCTO_MIN_STATUS_REPORT_SIZE	(0xD8 + AQC_FAN_SPEED_OFFSET + sizeof(u16))
+ static u16 octo_sensor_fan_offsets[] = { 0x7D, 0x8A, 0x97, 0xA4, 0xB1, 0xBE, 0xCB, 0xD8 };
+ 
+ /* Control report offsets for the Octo */
+@@ -229,6 +238,7 @@ static u16 octo_ctrl_fan_offsets[] = { 0x5B, 0xB0, 0x105, 0x15A, 0x1AF, 0x204, 0
+ #define QUADRO_SENSOR_START		0x34
+ #define QUADRO_VIRTUAL_SENSORS_START	0x3c
+ #define QUADRO_FLOW_SENSOR_OFFSET	0x6e
++#define QUADRO_MIN_STATUS_REPORT_SIZE	(0x97 + AQC_FAN_SPEED_OFFSET + sizeof(u16))
+ static u16 quadro_sensor_fan_offsets[] = { 0x70, 0x7D, 0x8A, 0x97 };
+ 
+ /* Control report offsets for the Quadro */
+@@ -248,6 +258,7 @@ static u16 quadro_ctrl_fan_offsets[] = { 0x37, 0x8c, 0xe1, 0x136 }; /* Fan speed
+ #define HIGHFLOWNEXT_CONDUCTIVITY	95
+ #define HIGHFLOWNEXT_5V_VOLTAGE		97
+ #define HIGHFLOWNEXT_5V_VOLTAGE_USB	99
++#define HIGHFLOWNEXT_MIN_STATUS_REPORT_SIZE	(HIGHFLOWNEXT_5V_VOLTAGE_USB + sizeof(u16))
+ 
+ /* Specs of the Leakshield */
+ #define LEAKSHIELD_NUM_SENSORS		2
+@@ -263,6 +274,7 @@ static u16 quadro_ctrl_fan_offsets[] = { 0x37, 0x8c, 0xe1, 0x136 }; /* Fan speed
+ #define LEAKSHIELD_FLOW_IN		111
+ #define LEAKSHIELD_RESERVOIR_VOLUME	313
+ #define LEAKSHIELD_RESERVOIR_FILLED	311
++#define LEAKSHIELD_MIN_STATUS_REPORT_SIZE	(LEAKSHIELD_RESERVOIR_VOLUME + sizeof(u16))
+ 
+ /* Specs of the Aquastream XT pump */
+ #define AQUASTREAMXT_SERIAL_START		0x3a
+@@ -554,6 +566,7 @@ struct aqc_data {
+ 	const char *name;
+ 
+ 	int status_report_id;	/* Used for legacy devices, report is stored in buffer */
++	u16 min_report_size;
+ 	int ctrl_report_id;
+ 	int secondary_ctrl_report_id;
+ 	int secondary_ctrl_report_size;
+@@ -1333,6 +1346,8 @@ static int aqc_raw_event(struct hid_device *hdev, struct hid_report *report, u8
+ 		return 0;
+ 
+ 	priv = hid_get_drvdata(hdev);
++	if (!priv->min_report_size || size < priv->min_report_size)
++		return 0;
+ 
+ 	/* Info provided with every report */
+ 	priv->serial_number[0] = get_unaligned_be16(data + priv->serial_number_start_offset);
+@@ -1518,6 +1533,7 @@ static void aqc_debugfs_init(struct aqc_data *priv)
+ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
  {
--	const struct netdev_queue *txq = q->dev_queue;
-+	const struct netdev_queue *txq;
- 	spinlock_t *lock = NULL;
- 	struct sk_buff *skb;
+ 	struct aqc_data *priv;
++	u16 min_report_size = 0;
+ 	int ret;
  
-@@ -110,7 +138,8 @@ static inline struct sk_buff *__skb_dequeue_bad_txq(struct Qdisc *q)
- 	skb = skb_peek(&q->skb_bad_txq);
- 	if (skb) {
- 		/* check the reason of requeuing without tx lock first */
--		txq = skb_get_tx_queue(txq->dev, skb);
-+		/* re-cap: real_num_tx_queues may have shrunk */
-+		txq = skb_cap_tx_queue(q, skb);
- 		if (!netif_xmit_frozen_or_stopped(txq)) {
- 			skb = __skb_dequeue(&q->skb_bad_txq);
- 			if (qdisc_is_percpu_stats(q)) {
-@@ -216,6 +245,10 @@ static void try_bulk_dequeue_skb(struct Qdisc *q,
- 		if (!nskb)
- 			break;
+ 	priv = devm_kzalloc(&hdev->dev, sizeof(*priv), GFP_KERNEL);
+@@ -1585,6 +1601,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		priv->power_label = label_fan_power;
+ 		priv->voltage_label = label_fan_voltage;
+ 		priv->current_label = label_fan_current;
++		min_report_size = AQUAERO_MIN_STATUS_REPORT_SIZE;
+ 		break;
+ 	case USB_PRODUCT_ID_D5NEXT:
+ 		priv->kind = d5next;
+@@ -1610,6 +1627,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		priv->power_label = label_d5next_power;
+ 		priv->voltage_label = label_d5next_voltages;
+ 		priv->current_label = label_d5next_current;
++		min_report_size = D5NEXT_MIN_STATUS_REPORT_SIZE;
+ 		break;
+ 	case USB_PRODUCT_ID_FARBWERK:
+ 		priv->kind = farbwerk;
+@@ -1620,6 +1638,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		priv->temp_sensor_start_offset = FARBWERK_SENSOR_START;
  
-+		/* The cap pins every element of a TCQ_F_ONETXQUEUE qdisc to
-+		 * q->dev_queue, so the list stays on the head's tx queue.
-+		 */
-+		qdisc_cap_skb_tx_queue(q, nskb);
- 		bytelimit -= nskb->len; /* covers GSO len */
- 		skb->next = nskb;
- 		skb = nskb;
-@@ -233,7 +266,6 @@ static void try_bulk_dequeue_skb_slow(struct Qdisc *q,
- 				      struct sk_buff *skb,
- 				      int *packets)
- {
--	int mapping = skb_get_queue_mapping(skb);
- 	struct sk_buff *nskb;
- 	int cnt = 0;
+ 		priv->temp_label = label_temp_sensors;
++		min_report_size = FARBWERK_MIN_STATUS_REPORT_SIZE;
+ 		break;
+ 	case USB_PRODUCT_ID_FARBWERK360:
+ 		priv->kind = farbwerk360;
+@@ -1636,6 +1655,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
  
-@@ -241,7 +273,11 @@ static void try_bulk_dequeue_skb_slow(struct Qdisc *q,
- 		nskb = q->dequeue(q);
- 		if (!nskb)
- 			break;
--		if (unlikely(skb_get_queue_mapping(nskb) != mapping)) {
-+		/* A tc BPF store may have changed the mapping after
-+		 * pick; cap it and keep the list on one tx queue.
-+		 */
-+		if (unlikely(qdisc_cap_skb_tx_queue(q, nskb) !=
-+			     skb_get_queue_mapping(skb))) {
- 			qdisc_enqueue_skb_bad_txq(q, nskb);
- 			break;
- 		}
-@@ -286,7 +322,7 @@ static struct sk_buff *dequeue_skb(struct Qdisc *q, bool *validate,
- 		if (xfrm_offload(skb))
- 			*validate = true;
- 		/* check the reason of requeuing without tx lock first */
--		txq = skb_get_tx_queue(txq->dev, skb);
-+		txq = skb_cap_tx_queue(q, skb);
- 		if (!netif_xmit_frozen_or_stopped(txq)) {
- 			skb = __skb_dequeue(&q->gso_skb);
- 			if (qdisc_is_percpu_stats(q)) {
-@@ -322,6 +358,8 @@ static struct sk_buff *dequeue_skb(struct Qdisc *q, bool *validate,
- 	skb = q->dequeue(q);
- 	if (skb) {
- bulk:
-+		/* cap the head; the bulk helpers cap every appended element */
-+		qdisc_cap_skb_tx_queue(q, skb);
- 		if (qdisc_may_bulk(q))
- 			try_bulk_dequeue_skb(q, skb, txq, packets, budget);
- 		else
+ 		priv->temp_label = label_temp_sensors;
+ 		priv->virtual_temp_label = label_virtual_temp_sensors;
++		min_report_size = FARBWERK360_MIN_STATUS_REPORT_SIZE;
+ 		break;
+ 	case USB_PRODUCT_ID_OCTO:
+ 		priv->kind = octo;
+@@ -1665,6 +1685,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		priv->power_label = label_fan_power;
+ 		priv->voltage_label = label_fan_voltage;
+ 		priv->current_label = label_fan_current;
++		min_report_size = OCTO_MIN_STATUS_REPORT_SIZE;
+ 		break;
+ 	case USB_PRODUCT_ID_QUADRO:
+ 		priv->kind = quadro;
+@@ -1694,6 +1715,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		priv->power_label = label_fan_power;
+ 		priv->voltage_label = label_fan_voltage;
+ 		priv->current_label = label_fan_current;
++		min_report_size = QUADRO_MIN_STATUS_REPORT_SIZE;
+ 		break;
+ 	case USB_PRODUCT_ID_HIGHFLOWNEXT:
+ 		priv->kind = highflownext;
+@@ -1711,6 +1733,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		priv->speed_label = label_highflownext_fan_speed;
+ 		priv->power_label = label_highflownext_power;
+ 		priv->voltage_label = label_highflownext_voltage;
++		min_report_size = HIGHFLOWNEXT_MIN_STATUS_REPORT_SIZE;
+ 		break;
+ 	case USB_PRODUCT_ID_LEAKSHIELD:
+ 		/*
+@@ -1730,6 +1753,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 
+ 		priv->temp_label = label_leakshield_temp_sensors;
+ 		priv->speed_label = label_leakshield_fan_speed;
++		min_report_size = LEAKSHIELD_MIN_STATUS_REPORT_SIZE;
+ 		break;
+ 	case USB_PRODUCT_ID_AQUASTREAMXT:
+ 		priv->kind = aquastreamxt;
+@@ -1760,6 +1784,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		priv->power_label = label_aquastreamult_power;
+ 		priv->voltage_label = label_aquastreamult_voltages;
+ 		priv->current_label = label_aquastreamult_current;
++		min_report_size = AQUASTREAMULT_MIN_STATUS_REPORT_SIZE;
+ 		break;
+ 	case USB_PRODUCT_ID_POWERADJUST3:
+ 		priv->kind = poweradjust3;
+@@ -1833,6 +1858,8 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		break;
+ 	}
+ 
++	priv->min_report_size = min_report_size;
++
+ 	if (priv->buffer_size != 0) {
+ 		priv->checksum_start = 0x01;
+ 		priv->checksum_length = priv->buffer_size - 3;
+
+base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
 -- 
-2.43.0
+2.34.1
 
