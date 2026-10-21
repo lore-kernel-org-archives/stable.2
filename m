@@ -1,82 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792555588;
-	b=AvaPKVF6qBpQulH8d4Dk4P0fwicz/oACtZMoNnlNCnA34pDKkuMod2K58EhiFVyItYMp
-	 YwBT08toOOEvu4SDnq7+HbPxSg4xpChJItOdVDbKsfwtD9ETrhXU7KZGn3EQTgmQ9Ibsv
-	 7YYCMxrHQQDclRd1CfpuCA9s3MTdEGbEBdOr+smCJ3xFV8r/LIlsMqngLwd1fRWsVTmyl
-	 BVrbeVnK2GPa4VtSfxN0EI5hXJmDuNNu+syDxjUWaBvZ9oTNwdggCy81WAN7ivYmUPyy+
-	 86uMOnLOAzRMaZ3DTl+NiYVeAH6cN1Dmg48KIBF/H2mtMEX55dTI+0OP3e2+XiKncXg==
+	t=1792555868;
+	b=jRrUwc4ZeIoEKzuCQkBti3bmJtc+OZSLJOLM4jhJrBhXGaaYF+Tfx2GZDx+TXLNwvBth
+	 uZpo2u3D1V0IlqKejGRpfmKkNG92ouxgJ0taTgwRUUUYNG/ruhhpJE4EDYvEAMkhbpTht
+	 2I63nOfokdy5VsvvcORe8oP7nja1gf36U0E4B1q9u64ysrLH0Dx2cu7YxSWTAtsAH8lyW
+	 pad+7QiDi9dU0ifkVhTozZERI6NyqKZ5MQzQK87zKGYNg3N+gGhk7UP2khQMVKo+W3yGQ
+	 AnDWOypaqn3AXix45+R7JEoMU9HMtRaqJzXdwu9pxa2vxA8IZVzUA/tiDZxDBQxLmZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792555588;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=h1VifQxHOvSIuRV3xF17NLPUJExYIFG+4qI3A3UN69U=;
-	b=VMtd1COff1R8koq7Hj1NXV8Eo+pIH9CPkE5JoLfJnqmF9Ok32/mk/2OPbnL7WuLetyeB
-	 ZRiV0MsOAbE9yil9iGz+Hhdf1WGlat3W3ZpbWCQo1FRDIo+dC4eb5CEk6NAZz+Zhm671/
-	 6BBPcintIaZ1T/3dxpkWFuILrF+B5IbvA4iZpZGQLJHflWx2Ai6OknKa0ZTITY9HR5+cd
-	 KPwZG31AbxslrejyD3PQLGalVabls/TjHET1w03i5mPW2BQs6xUwjcGed3OHaHpB8gHi+
-	 Pl8oPFqnFjbWgntJ4U9AH1HlXcRZ/X+sNP7w0dgRrYUHk5bltUfEJr9/J2xrFx/NwpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792555868;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=zhuJnKWcj8cUHo/PEz1Va/bf1tnOQvpmNsWA1F5i0cs=;
+	b=ht/AHh50LUhJpYUTjO8y+HneRqusbLuE5QLRgDPeewbjO4KMqoGNaiYwN2X8mhtSKnTL
+	 CbAjFjUo5SeeMJRPKaBWrO5bRdIOEjiwV45lD/vqCVGCuu2AnOLLr3i2HNS3u+ggtuLVK
+	 5IUhE2IivZ7XyGPUXOFrgaCpdmR9CVBbwn4YdUNUWJwxUywBoiw/lnD+iDtZmLBbeIbj0
+	 w1dxhLPFLfBKr/QLO+gBGlgWMtD+jo5EKjbwUd6SYGXtlOlIdpq50nNcQ+skvh2sca9c7
+	 Ons5Bd+ztDMDayFMTlBmYvH1bZDIp3xRvZbjVVi+FaIozqTm56rkHtbXFgOTNqRCnwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YlM3PfZl;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gk90BPHI;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=W5ESlgtM;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0835606A33E;
-	Wed, 21 Oct 2026 04:06:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0835606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74F95606A31A
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 04:11:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74F95606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YlM3PfZl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792555582; x=1824091582;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=cyChiOQQGkCpQKGhiB5E8ZyrnofaXhG+aYNotHbWR2A=;
-  b=YlM3PfZl8XQjkCdQU8dFfvZO9+o06iS9XvEAOSy6LJE5YoCZSdoiEP53
-   CHNx85uevew1x3+p002W9mg/9AtPEutRIGPPqTcmA0FXs+Fe9fGCmkhbu
-   TS720VjUEyLUNyAJKIWLKn/SnMegEo3tJ5u391pOSEMjVavRBc35dwH6I
-   xbux/2m9CC46MsbXVfKUL3sJhNE1hIRhSNeqKVYd9j75nKNc8Hq5ntccN
-   Wzii1QxMccwroFFAUCt9R4/KlvCFX8ebA219OVJpFCZuTgz4NyIG8AaoO
-   p/Pvhmnq39AgpH2LT7Nodg8AO/TTO1ELODMf9WSEaG0xByBH9OG+E+2Vv
-   g==;
-X-CSE-ConnectionGUID: qTGaVuS6QZaVO3uJAI3Kbw==
-X-CSE-MsgGUID: SDd+q9FCSS6F3Zm4QJeR1Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1263817"
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="1263817"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 21:06:22 -0700
-X-CSE-ConnectionGUID: xVxOU5uvTxmqcUXduAhXcg==
-X-CSE-MsgGUID: +yPgw3TjRp6qfbOfSYRFSA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="2867428"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa008.jf.intel.com with ESMTP; 20 Oct 2026 21:06:19 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xJNaj-00000000OwI-16Xl;
-	Wed, 21 Oct 2026 04:06:17 +0000
-Date: Wed, 21 Oct 2026 12:05:25 +0800
-From: kernel test robot <lkp@intel.com>
-To: Piotr Kubik <piotr@kubik.pl>, Johannes Berg <johannes@sipsolutions.net>
-Cc: oe-kbuild-all@lists.linux.dev,
-	Tamizh Chelvam Raja <tamizh.raja@oss.qualcomm.com>,
-	Muna Sinada <muna.sinada@oss.qualcomm.com>,
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Piotr Kubik <piotr@kubik.pl>, stable@vger.kernel.org
-Subject: Re: [PATCH wireless 2/2] wifi: mac80211: set the link addresses of a
- 4-address AP_VLAN before its links
-Message-ID: <202610211107.BOyMUaJh-lkp@intel.com>
-References: <20261020124446.188739-3-piotr@kubik.pl>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gk90BPHI;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=W5ESlgtM
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L2EvXg3469287
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 04:11:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=zhuJnKWcj8c
+	UHo/PEz1Va/bf1tnOQvpmNsWA1F5i0cs=; b=gk90BPHIPojeGzVUtpXoQJ8fPSK
+	uW171tR3eTqIBZrHbpUVJvjnKbpOQbRkKzancOWX7RE/QrR7Cyc1HVbY7LqK588D
+	ZyqYfW8bNIm/wKruUfmMEGDxD8gEjS7I7iba/VQ3Xqrhxej4IYnCW/7p1t1ir+z/
+	LR/sbwI0m0bsnTcR0l3+GFb6TINbVPvqNfZC5iKirvrXlIDlJxDIBJ3SaL7qSs/E
+	pSvUEtCOtrLsy8a3ZIidPEOSeftQxzUxeiWhXUMOpDjvhWrkXuWDjOdKKcingH3l
+	CLh5PY2Sgr/CGsUzWGVUB4/6jcRXI0cPz8XSk2UVrmliOFTgGQBk+GWAnDw==
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4he7h2bfxt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 04:11:07 +0000 (GMT)
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-155a75f91e1so873701c88.1
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 21:11:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792555867; x=1793160667; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zhuJnKWcj8cUHo/PEz1Va/bf1tnOQvpmNsWA1F5i0cs=;
+        b=W5ESlgtMrONpjJMsVy19YU7cjhfCbXxUh9awRGePlAnKTZMTvnLuznS1MUtuL1rxm1
+         wo8616lBFpekGJYQ1pfjpWl+M1s7kL1YvSl+i35EeymTgO4o63tPx7CAiMFm+kI+T9eJ
+         AStYbI9IzTNWzrnW6ywV+YQ2yxXQDtqaRmn9C7tKurTAaU0Wrqggtj5OE6cxVfuJn3bn
+         Wfkkj7YCpdEDVT0hw4x3Lbd9W9DZjX6HDRapqcxpsjVE0sakwekKwAxlVtgqyV0Mp2ju
+         tVMcbt/gT6GLCV/V7RMc/NAFoD/I8KLWPWkVcZGKPB8+95XvVao+1YA5g3ZCDH/rTNDb
+         kkfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792555867; x=1793160667;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zhuJnKWcj8cUHo/PEz1Va/bf1tnOQvpmNsWA1F5i0cs=;
+        b=iZGHimNMWCY2tASbhYVuqGZYOzykAtx6+vtvUvDThOvxuazZSGduS3t/2f3NBumgru
+         KQpUQ/KeUl5ZcuiCpUt2vXqLHRmNFXeVc5HJBIyUVPXKLtL2igAh4Z2QiaP6WFnKRoDK
+         rMxYS4VCotDtu2T59tFycdb4z55DgIzNcC0W7/a/BiWImFNs5m1nsdh1z5AvVyupDeMP
+         9YojA+49ci6VJxtKaGrpO/SvgpQRjCtQw+yq3tmKYyn8NqcaP92zC1ow0TIUmPzaU04Z
+         NROXeh/elgCfujc1XvRu59vgj1c/063SwJPQScYQvndUJNBU+4/KAapcT4x7Ub/d8XBT
+         /JdA==
+X-Forwarded-Encrypted: i=1; AKwUvBxdyA2bRcuq6a6UAGFE8+efYBNimG1c5bPu/ax1yHWNoYdzcTOXrPOiLvR4SKvjuVLLxbc9F1U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImWreyKKZNy1wJbCosC5B775fSu6uXA4AiiIl7HGQ+EeunLj2u
+	eswFAbcalzUqZA4D1efMNNqCZFfaRsrtg+4JAcTwg0cRUmuxpFnwh3gRK2Da0iy2eyKQceoTcI8
+	18qbntiq7aTdI7V94VtpDiP/OBxJ04k1h/xuXqrb/Q3OM2DsUgfK3V67wCH4=
+X-Gm-Gg: AYBFou3/C1FeA0Wzd/VI1ztNrzFx1aQpD4m369IxDrWjRi7iHoLEMkK3Y7JxUlfhiBL
+	z5nGglaMdhrwOEUi9cT+ES2i9izhqhNs1Dw5s7/PWnnJMDLzIHP65/IN+EhAIC7GwKod4W/CtNN
+	Oi0rXGsVE2J8CKB7oW+3YBpTOh9cM3QBIKmjyBCJrx+3bLRgWZ2+yn7i0477CYbGuBl/yRIyedE
+	OsGhsfM8ieVs23pEXN6XOkyWwqKUv1oEPVlnHsYVnpw1YHjILf2JUoIJSO3EqAPWYIhwwW6hLx3
+	sUOm2QLvPGbck+2gXI9NKf5IweNSJ6O/MLTF3DPaZH309yJNJQL8L/tK4abFuFpgRZcdHG5Ry9r
+	mC2YzOU9Jt/2/zZqqkk4OGMkaimgAa86aKgwSBArMgEJvBN9UouNwDb+hhL8=
+X-Received: by 2002:a05:701b:4584:b0:16f:1e21:7006 with SMTP id a92af1059eb24-18db7b92510mr4050322c88.1.1792555866919;
+        Tue, 20 Oct 2026 21:11:06 -0700 (PDT)
+X-Received: by 2002:a05:701b:4584:b0:16f:1e21:7006 with SMTP id a92af1059eb24-18db7b92510mr4050292c88.1.1792555866283;
+        Tue, 20 Oct 2026 21:11:06 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903e02901fsm2915427c88.22.2026.10.20.21.11.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 21:11:05 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>,
+        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>, stable@vger.kernel.org,
+        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Subject: [PATCH v2 1/3] ASoC: qcom: q6apm: Fix unmap regions response handling
+Date: Wed, 21 Oct 2026 12:10:42 +0800
+Message-ID: <20261021041044.2080369-2-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261021041044.2080369-1-shengchao.guo@oss.qualcomm.com>
+References: <20261021041044.2080369-1-shengchao.guo@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,103 +126,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020124446.188739-3-piotr@kubik.pl>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: QNrbKozCukz7sjo8SVpW2pRlw4_g6AX-
+X-Proofpoint-ORIG-GUID: QNrbKozCukz7sjo8SVpW2pRlw4_g6AX-
+X-Authority-Analysis: v=2.4 cv=EuJHPicA c=1 sm=1 tr=0 ts=6ad83b5b cx=c_pps
+ a=JYo30EpNSr/tUYqK9jHPoA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=RRt428QXv51Blb0ChN0A:9 a=Fk4IpSoW4aLDllm1B1p-:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAxNiBTYWx0ZWRfX95lfYcI3NUpI
+ JJUEUCQ3hK9HGF3qbxjRQJIcV1WeQkDuDRogGHI6MxOsIcxq5k2ZZc2C2VxTWkr5jJOnBS27lzj
+ YwbUdgp1Pd9XkFJjDFgJUKwC+TCCTtw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAxNiBTYWx0ZWRfX/At3W3iEXYPg
+ TmxHwWkD1pYgaJH8H70godIECBAKjOPE9Bo/330UEguOhddXSLvlcdbvyUuPQHpquE6V31oADmb
+ Nk/F20DZHtfry3YhgRPGFHQZcRadZc21vlxolTdBwOfMcasBAOa+4LftOwbF1ugEH4UgA6HYkSd
+ yVTlT5MwPK9XcThnethiDDT9HdyZXUSVJWVaibR3jwRbFkTjseEyq0HzODMNR1RVQOKFOENOzmE
+ JPwgR6rLGZaLrhXeRgtEuom8Tq4/YgmwlYr+vDDG87266ps4ROdKvVwMfu9S6oPVY/Gyr4Bxm7Q
+ Snm6zFMdtbvGCGguHWsQisXtojvXH900IbopG+CSvF/wXPB/YpJlxW8b2ITRS+41sYTXQJ5AJLs
+ b2AdOnuBqt5OMP8FAJ16kecJdz3EEhOsHDsl1eMvmL5GKQ6cHCUNbyixWEF2JpjI0lVM/q3dxKU
+ SxgJ3Kwrw/dnCPwTwbQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 clxscore=1015 spamscore=0 adultscore=0
+ priorityscore=1501 lowpriorityscore=0 suspectscore=0 phishscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210016
 
-Hi Piotr,
+The DSP acknowledges APM_CMD_SHARED_MEM_UNMAP_REGIONS with a
+GPR_BASIC_RSP_RESULT packet whose payload carries the acknowledged
+opcode and the status. apm_callback() stores hdr->opcode, i.e.
+GPR_BASIC_RSP_RESULT itself, as the result opcode, so
+audioreach_send_cmd_sync(), which waits for 0x0100100d, never sees a
+match and gives up after five seconds even though the DSP has already
+processed the command:
 
-kernel test robot noticed the following build warnings:
+  qcom-apm gprsvc:service:2:1: CMD timeout for [100100d] opcode
 
-[auto build test WARNING on wireless/main]
+Each mapped graph costs a five second stall on unmap, and the forced
+status of 0 also hides real DSP failures from the caller.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Piotr-Kubik/wifi-mac80211-change-the-links-of-an-AP_VLAN-station-through-its-AP/20261020-144445
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/wireless/wireless.git main
-patch link:    https://lore.kernel.org/r/20261020124446.188739-3-piotr%40kubik.pl
-patch subject: [PATCH wireless 2/2] wifi: mac80211: set the link addresses of a 4-address AP_VLAN before its links
-config: powerpc-randconfig-1001-20261021 (https://download.01.org/0day-ci/archive/20261021/202610211107.BOyMUaJh-lkp@intel.com/config)
-compiler: powerpc-linux-gcc (GCC) 15.3.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261021/202610211107.BOyMUaJh-lkp@intel.com/reproduce)
+Record the opcode and status from the response payload, like the other
+basic-result commands do, and only drop the cached mapping handle when
+the DSP reports success.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610211107.BOyMUaJh-lkp@intel.com/
+Fixes: 8ea6e25c8536 ("ASoC: qcom: q6apm: Add support for early buffer mapping on DSP")
+Cc: stable@vger.kernel.org
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+---
+ sound/soc/qcom/qdsp6/q6apm.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
-All warnings (new ones prefixed by >>):
+diff --git a/sound/soc/qcom/qdsp6/q6apm.c b/sound/soc/qcom/qdsp6/q6apm.c
+index b6b1ef6833b3..fa7f5dfca418 100644
+--- a/sound/soc/qcom/qdsp6/q6apm.c
++++ b/sound/soc/qcom/qdsp6/q6apm.c
+@@ -960,17 +960,16 @@ static int apm_callback(const struct gpr_resp_pkt *data, void *priv, int op)
+ 			wake_up(&apm->wait);
+ 			break;
+ 		case APM_CMD_SHARED_MEM_UNMAP_REGIONS:
+-			apm->result.opcode = hdr->opcode;
+-			apm->result.status = 0;
+-			rsp = data->payload;
+-
+-			info = idr_find(&apm->graph_info_idr, hdr->token);
+-			if (info)
+-				info->mem_map_handle = 0;
+-			else
++			apm->result.opcode = result->opcode;
++			apm->result.status = result->status;
++			if (result->status)
+ 				dev_err(dev, "Error (%d) Processing 0x%08x cmd\n", result->status,
+ 					result->opcode);
+ 
++			info = idr_find(&apm->graph_info_idr, hdr->token);
++			if (info && !result->status)
++				info->mem_map_handle = 0;
++
+ 			wake_up(&apm->wait);
+ 			break;
+ 		default:
+-- 
+2.43.0
 
-   net/mac80211/cfg.c: In function 'ieee80211_set_sta_4addr':
->> net/mac80211/cfg.c:2739:31: warning: unused variable 'vif' [-Wunused-variable]
-    2739 |         struct ieee80211_vif *vif = &sdata->vif;
-         |                               ^~~
-
-
-vim +/vif +2739 net/mac80211/cfg.c
-
-4fd6931ebe24640 Johannes Berg       2007-12-19  2734  
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2735  static int ieee80211_set_sta_4addr(struct ieee80211_local *local,
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2736  				   struct ieee80211_sub_if_data *sdata,
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2737  				   struct sta_info *sta)
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2738  {
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26 @2739  	struct ieee80211_vif *vif = &sdata->vif;
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2740  	struct wiphy *wiphy = local->hw.wiphy;
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2741  	struct ieee80211_sub_if_data *master;
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2742  	struct ieee80211_bss_conf *link_conf;
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2743  	struct wireless_dev *wdev;
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2744  	unsigned long master_iter;
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2745  	int link_id;
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2746  	int err;
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2747  
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2748  	lockdep_assert_wiphy(local->hw.wiphy);
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2749  
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2750  	if (sdata->u.vlan.sta)
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2751  		return -EBUSY;
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2752  
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2753  	wdev = &sdata->wdev;
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2754  	master = container_of(sdata->bss,
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2755  			      struct ieee80211_sub_if_data,
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2756  			      u.ap);
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2757  
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2758  	if (sta->sta.valid_links) {
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2759  		u16 sta_links = sta->sta.valid_links;
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2760  		u16 new_links = master->vif.valid_links & sta_links;
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2761  		u16 orig_links = wdev->valid_links;
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2762  
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2763  		wdev->valid_links = new_links;
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2764  
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2765  		master_iter = master->vif.valid_links;
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2766  
-5cb41f5375432b4 Piotr Kubik         2026-10-20  2767  		/* ieee80211_link_init() takes the address of a new link from
-5cb41f5375432b4 Piotr Kubik         2026-10-20  2768  		 * wdev->links, so set it before the links are added.
-5cb41f5375432b4 Piotr Kubik         2026-10-20  2769  		 */
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2770  		for_each_set_bit(link_id, &master_iter,
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2771  				 IEEE80211_MLD_MAX_NUM_LINKS) {
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2772  			if (!(sta_links & BIT(link_id))) {
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2773  				eth_zero_addr(wdev->links[link_id].addr);
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2774  			} else {
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2775  				link_conf = wiphy_dereference(wiphy,
-5cb41f5375432b4 Piotr Kubik         2026-10-20  2776  							      master->vif.link_conf[link_id]);
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2777  
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2778  				ether_addr_copy(wdev->links[link_id].addr,
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2779  						link_conf->bssid);
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2780  			}
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2781  		}
-5cb41f5375432b4 Piotr Kubik         2026-10-20  2782  
-5cb41f5375432b4 Piotr Kubik         2026-10-20  2783  		err = ieee80211_vif_set_links(sdata, new_links, 0);
-5cb41f5375432b4 Piotr Kubik         2026-10-20  2784  		if (err) {
-5cb41f5375432b4 Piotr Kubik         2026-10-20  2785  			wdev->valid_links = orig_links;
-5cb41f5375432b4 Piotr Kubik         2026-10-20  2786  			return err;
-5cb41f5375432b4 Piotr Kubik         2026-10-20  2787  		}
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2788  	}
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2789  
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2790  	rcu_assign_pointer(sdata->u.vlan.sta, sta);
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2791  	__ieee80211_check_fast_rx_iface(sdata);
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2792  	drv_sta_set_4addr(local, sta->sdata, &sta->sta, true);
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2793  
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2794  	return 0;
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2795  }
-469d5d5a3b7a133 Tamizh Chelvam Raja 2026-03-26  2796  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
