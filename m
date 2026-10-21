@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595547;
-	b=wwhbykemIo+Fc0cHGK/hkuZ50L8SSWn7W8zNmOXooPclH58jj15ChujSeNLmgqaPsbhY
-	 3nzc8V2BHsjqUaiKPTzKKvSzIhkkPBp1uHIELW+JgQ3ls0H0ajBjUtTvi2aXXUMkq+xR8
-	 tbLGYM9mUArlQfGYXVvjj1WhRzZqhioPZXzybP1ZVrbEAkWtsyyFsFtIXMKWHZsctdOFA
-	 ucG9/DQV8H3HKxKKB9kZTS6FyxlpmEbhvCPXUUcocriPz5CuQm//E2KzqpkwTLRJaqPEV
-	 V148JCn+cZ0QyCvgFxBDbLrRjff+83Yk6JFWvnbEKvIVe+AQ1fI0MNJjZwwlKV4uWNQ==
+	t=1792595550;
+	b=hanMMntL6hfX2qNNNumGfvlMww440ISKbjtmpcSZmI/S8OHfwE2O7u1NfmMnshHGsSqe
+	 rUuEOArgzBPNNhb8PsbWY53hHT4hnXTczG9ytLc0dlN8X0PB523TDXi9ULFfFxpT+PX4c
+	 8ju2X2dfUwB2IbkuIQiHZUoHcZaHA4f5x3lK3OWgqj1qbUnvQexPtH2vHEWu0IXJpcynJ
+	 /bCEwjk6IDijIU+qplaar/dn/vZFP+Cm/oaBRqbEoDvI9mwZJO2DmzyrVSk81bpFmTT+V
+	 khhmFTXc9sB8i5ey9UCJ/G41IgxhaKpgrfdfbmSYYU9q348Y66l8XhCTWo6xDEVwgAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595547;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595550;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=p9cKqWjoF4sJnombBEiNQxeR6huvXlaDRCQ1Y0nP6fI=;
-	b=uaIth63N07dqNwPSgxKV92Hiwso6EioYOd/vE2ziB1fCtj1XaR7FF7MWfSEKBUZjRcPS
-	 dqOe60eIzlQdEDrxU62au2XCtmeDTB2mqjCS2G1BLvJ+Q7clb45Bb0PgZfMW+JZZixs+R
-	 GIKHlvQCS2tHOVGvQY4fbB6Wt/I1yo4pF7cTsL3Z7MdjVJ/rij22H/PlxzXG2VyRUwgat
-	 LbG9ZmnKbsrddFaxSOrX+Wxe64gqYGijx84q5lDLd37L1tNfYMx+tUxsAJDizXDLbiU4B
-	 xvVsWkuhSqCPM34EslxA9obOAfgAQVP0gHZ/Oe/mj3VXZ2YvFWBQm9TvozENgWmseKQ==
+	bh=XXoc7CA9gV8tnv1a9xxa5IWstcLkuUI+zcl2WSj3WGk=;
+	b=dYIRY0leioMS01SUae8sm1VSJbroEW3NLtmYL2xP0rzmZvlifC6mNoLXfqMSYd1T6B0u
+	 yjWZmGLRKG6YGKYZrLKyX5/nuD0cFkdBMeNNDz4hvtMIv7p00gCG+cIuHMjFJ3TNtmykf
+	 SeLrQhQvXIedUZ2BSE6raQ85VjdZYgAGQA/YeDPZz+UeCJCmbZslkha5Id9HuWP4xgeUI
+	 7queCI3+wpgvV75LZceqlR01uHuJFrLG5ZoaCtmT7iTXq/xznxvkWI4VjkbGS/Af9twOd
+	 gYZVgSz9JADqEERamOs6PrCA0dzqz9yLWv2RLhPwJt/V6Cu7C3NiVs0KD1xW+arB3mA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZSMD53jQ;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="1iaKPln/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5AE5606A31E
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:12:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D28B606A31B
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:12:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZSMD53jQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 150EA1F000C1;
-	Wed, 21 Oct 2026 15:12:25 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1iaKPln/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2CBC1F000C1;
+	Wed, 21 Oct 2026 15:12:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792595546;
-	bh=p9cKqWjoF4sJnombBEiNQxeR6huvXlaDRCQ1Y0nP6fI=;
+	s=korg; t=1792595549;
+	bh=XXoc7CA9gV8tnv1a9xxa5IWstcLkuUI+zcl2WSj3WGk=;
 	h=Subject:To:Cc:From:Date;
-	b=ZSMD53jQHEFFNc6EI7UgLHeF+RoPj5PucpyXF4Whg5LhYP2Jmp+pvD667O9XTM4P0
-	 5YGWTDqwJFgI9XHGlJK3PTevIy99VukOPGBtTjBAsrSJetuEHgLEjs2WN0k/0+vEab
-	 /fcqdcmCMyXkvV5lkmzCD7on9QEW3fk2CpxmaFPw=
-Subject: FAILED: patch "[PATCH] dm-integrity: require stable writes for internal hash modes" failed to apply to 6.6-stable tree
+	b=1iaKPln/L4VIMTTQJKFW0+wHntJJIN3IZwNTneTnBPi+hNiG+x2cyrRgUT2TPIe0y
+	 /xak0zFGPwRS+XfoukQp9+/1uQAUNhYApQ0mqOa0/Pps1CD4bcKXMfNfeMjFyyb6T2
+	 +epjvnxDi9IFvwW7cveWib//w8VGTD6Of5RZ1Jcc=
+Subject: FAILED: patch "[PATCH] dm-integrity: require stable writes for internal hash modes" failed to apply to 5.15-stable tree
 To: chencheng@fnnas.com,mpatocka@redhat.com,sunyangkai@fygo.io
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 17:07:31 +0200
-Message-ID: <2026102131-plutonium-matriarch-1617@gregkh>
+Date: Wed, 21 Oct 2026 17:07:32 +0200
+Message-ID: <2026102132-emperor-geiger-a973@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x b2fd92f016e9d692fd3c8c08d0ee014e9212279d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102131-plutonium-matriarch-1617@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102132-emperor-geiger-a973@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
