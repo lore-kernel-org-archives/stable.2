@@ -1,98 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792548228;
-	b=yK68tPwz6QSLFrjLwTURqnMCzR6sglP30Rs1yztrYVkjFmM4di8S87sP3VaRcT2z3fGQ
-	 RezMOmY2drwYFeXPgdJlQYyO2faBQ73Cg9rgl5H8AxgkHm7YzSNlVvk3PrWKxUZ2kBVBa
-	 /sxARWQG5lH42C6+L1yefR2rM2TtPQllyUDdHTXFegmMnjdfRK8wVjyimuwmSKcvxxspE
-	 kq9DugKrfj5kL2VJf0UzurVSGugKvpofkPk3+SgluvQAl1omoDrm0dY0nhr6+5Wniy7ZI
-	 KJb3OOFHh/RTuOOgbVU8J9hlMgRzX9CH0KJo69oHW//plpF/wfJZ7pHNogEJYJx03rA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792548228;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=MO3SgQuzAg3V5kXrREryHNzNfwh74+uhBA2alimYoe0=;
-	b=jjzjjq2qSiAAX0sK4schhT+CKvgjLPkSt1SAwisvG5BFj4ivGIbQvQE/hBT+p9UqNrNo
-	 uxdzV0cKlj+r/whKu0AKJpDaU3z/NsxZBCP1nIoODhgFy5vUM1oZ/IEudemjy8fnLiILI
-	 oZVSXZ47gPDvBe4M5HlPYIn1AIv5qVqP//3XUc5ipKcQ0vZGkcAjuyqViPZ6A+9archPY
-	 l5V6aVlr8yVUazHFYBW8ln9PDT3VT6Hw6oRJjyjbSIov0tOIH7gVxrkr9bWbb+V49lgxt
-	 pgvQUZFzOJigF0V41yRwk/mzEMnp/2tQXHDFgVZvnrmUNd35y7zaOpyU6FB+E1apwVQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gt.tech.gov.sg;
-	spf=pass smtp.mailfrom=gt.tech.gov.sg;
-	dkim=pass header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.a=rsa-sha256 header.s=google header.b="h/m2fH6O";
-	arc=none smtp.remote-ip=209.85.216.43
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.40
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792548299;
+	b=fRQtq6+eG8TizMcyAXbB9FzIlxzgUgVcIBkotXuAg0lf6VJf9vvdHl4jlpew1bXSA5p3
+	 bGafB4JbTYVjXrRntPm02OTC1e1bAv3NtazEIPWGUlr00y8U5Bz4uxKd74jQ7A95KV/1n
+	 YW+2lBn5DDiv1ZdSYzNtJZAmex59MRASf9pcWLIiGMzsnCEtZURxDT4SuuWnn1xowjK/W
+	 o5Ua13hlDsCSMUQqgwWkRkYHv2/cNMxr+QMhVFwq3gH1GJgG/3isQRanS/5Y3wZK1YFxm
+	 ToNsOA2LIIh5y/0f0hgzn32VwjQ0A9b0Jissekq2CNnAEAYEV481/Qq7zoXtadegW6A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792548299;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:Content-Transfer-Encoding:
+	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=lB+jvg6oIqL9bfq+1Ij+kEFBGzuhIR5vwUL/6kM2glo=;
+	b=pvgRmH/TdLP+tc8LZn4DuUXFjAaV0LTWXFG12yWgJLILxou18/8CAmZCu3x8J6Sw/v4G
+	 e8NV9tdkgjMeIM2WuIVdLvxuCNlXe/JhY7gl7BqVn8LQ33819IuUzZLxtXsCB8yqKznvz
+	 8o0E9DiffY8nayxxjCAzj3h3aS5RrFEehdtxsw+AK1T/TzNs1EGzffNVVwYAKYV5rdS5D
+	 wyQ0s80yBuxD8ttZHMtSFpU8yvA5U/J4EmSPuu/SOQBtquq1K+dZf9gmczqH/CLQmN0XX
+	 Hg5wxWvPmSExItVii57wgTD+JY/2uE57fYSskUTqiIGypFwm4D7M/dtdL3DowHGnVZQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dDo1YRCU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.40
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011040.outbound.protection.outlook.com [40.107.208.40])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56630606A326
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 02:03:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56630606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gt.tech.gov.sg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gt.tech.gov.sg
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 043C2606A31B;
+	Wed, 21 Oct 2026 02:04:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 043C2606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.a=rsa-sha256 header.s=google header.b=h/m2fH6O
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3acb11973c3so192539a91.3
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 19:03:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gt.tech.gov.sg; s=google; t=1792548228; x=1793153028; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MO3SgQuzAg3V5kXrREryHNzNfwh74+uhBA2alimYoe0=;
-        b=h/m2fH6OaMEnC6tFW0u2SOm4dnJ4dQnTTGMGtxG3gBMRjJpIgeYI5Ph9/yGfHLuJHJ
-         l7DEoeCiqzQT8VtZedA4lPcgWm8kT617+FpU3o/RkURArUAMsXsyTQBykQWO8kfYGSZo
-         Soi15z+FgGAS5L/q8tkyr6VDOm1aeDpEZElc4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792548228; x=1793153028;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MO3SgQuzAg3V5kXrREryHNzNfwh74+uhBA2alimYoe0=;
-        b=hypcR1cYdGjyGjxd0k8AFEwtPNFy24G8zak5ozLwWjjtWThOxvv0NCqHk6Ee44KfnE
-         V3Bdw3Hj6YYZeUEKHeO0P6lWzPfhAALIbqZGb4kM31RXX/Rj64tVjdAnSy2I78KmkJvq
-         cgFjlfuQqH5Bl6F8Roqy0fCv8lmbeN+4RyQlwTqz8hZmYybYflL3+4IYxmiZpZ6s9/Ac
-         ZIhNh4TfmnagpkndFl+LUI8fO9cGUjVsTzxxvisbIekofaxLSpEzM3LTegcrZPt56oAL
-         w1knHXsbb1kvWVqjvaUu6cii8cznFnkcjAaqIWXqIfT8Kl51DZmxODu7zf+KfC6Nmm+e
-         564A==
-X-Forwarded-Encrypted: i=1; AKwUvBzlh/UNJH7Nwqu4Ulq//CtqTFfNQDwMvmYi+P5y7/8iRm/dgXCz3fFfgtdj3Jy0MT/KZyXxC+M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJVkOI8NK7KvrqU+CE9+1ncNRSMCRn0E3W4iyIC0XmwV1IOE+5s
-	W8odjOBe0YGVntxty/m6gXaKLhv3Id7unB6SC3Mst4pSckkGQS5lGdwJElZ1siWul7o=
-X-Gm-Gg: AYBFou3uOvrndvcI4idajwviJ29llTJl6ycBlF2epEjhpTGK3HQOBR/Au+nONcsDHqw
-	oLaH5zosjMQ1ielAM++c9k+iJ1rL7gCThtgH07ey+ZEfYfhvm3YYGA0Q28RGffUkT9be7ZFc3gt
-	cfZhLLDgejPa/nVQ5ZBOI1VL4woM0wrrGY9D/JCMAhyq/sYURiug7BQt9xHek3YOVLTsg0xgFju
-	QlJZVDkQA2KRvvlCZFbJyC37g7pr+nazBQwqSMdGs1187mbb9MYu7vu/zVw12+TKbe/WvTGeGrx
-	aEf4aPHDsqYsa0UB0eTIyKKuQ+FhTUaFlqEg6Nbsa9AcQeAqFq2cChgmi6sOL2NtcXehphhNOVe
-	ghbGU5D2ITSwTOcXMMs1xLw0jPY2WOnw0vZnQWv7UI81gFSaIocEG3WCDQdjA4GhTll1vYCmKkD
-	HtDlO0R6l7vlQEU46ts+JdL4pGwPJHByQovhXdGuixXMgHFV0o0zW3Z7tVqJ7FmCrtFn91PTY0c
-	6/mBTH4hzLQjh7AmQWo6wni5+dyN0Kj6DQJIBjQw+zEwI7DAURClSvX3UJUIcG5pR0dSNOtM1kA
-	xqM2K+h6Cg==
-X-Received: by 2002:a17:90b:380e:b0:3ab:2737:3395 with SMTP id 98e67ed59e1d1-3ad86f73897mr573324a91.42.1792548227728;
-        Tue, 20 Oct 2026 19:03:47 -0700 (PDT)
-Received: from LAPTOP-UUUVNN1I.localdomain ([203.125.131.137])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad8035a117sm1934124a91.16.2026.10.20.19.03.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 19:03:47 -0700 (PDT)
-From: Wei Jie Law <law.wei.jie@gt.tech.gov.sg>
-To: Petko Manolov <petkan@nucleusys.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wei Jie Law <98lawweijie@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2 2/2] net: usb: pegasus: check rx pkt_len against the received length
-Date: Wed, 21 Oct 2026 10:03:10 +0800
-Message-ID: <20261021020310.34045-3-law.wei.jie@gt.tech.gov.sg>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261021020310.34045-1-law.wei.jie@gt.tech.gov.sg>
-References: <20261021020310.34045-1-law.wei.jie@gt.tech.gov.sg>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dDo1YRCU
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=T0yTr5FpvhYvb5k4YF5xqkgRnNK+fauunADGat3HV3uXHmzBFl+3ZcVAp8ptYhIKQblA7UONJdYycAxszUIN+Gz2hhGdYd14PB6l1ssM6SpQeAjKwdHOiX00k/xfj86CfEMgCvDZEzn+WH/JCJpD+f3Vk0AVfeSNrFMDEF8rwj02KUVl3aLWdQQr/DFKEWX7Mr/9X9v9AYKkkN1veBnUa+oed7bZ1Rnv+Teygmo4E/27jmiCCInoQePjGJwK6dwh3y6x2hyFcRfZPs2Cj22vlEYXzfNXYvd87CgwO/Lk6wI4W8dNLqAzpbP7KhDTj62jpbk94YwTg+SyKfaF9yCPOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lB+jvg6oIqL9bfq+1Ij+kEFBGzuhIR5vwUL/6kM2glo=;
+ b=ur/6lkiwh9f0LiAn8rac28Jktlt80LRdxX5vZZlw7E7hvff6dZu10IzN+q5VdEfgt9+ICqe8ii7gRtehucOv9h7/d2Up+Ls9GJGDuYg5EupL6S8CvC8XhnLcJwTIf++SvnnGFFXtHGyJvdeHABMJAI5fTCYC2jrK6GganweKrgbaz41fvnHqreWg85R9vwV9wgA6b87ipVEdl/oexxRIxzZRiCQshSAhP8N6c66kafr6i1EMNZAxXdU0urBIg979FZzfC4PrLjc0KC44OG9BeftY7r0WbEBnfPyAAKlPZKavtbvHxlDMFKRV2zPeYG7kwcXOxlN4ToL2C2joQ1tALQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lB+jvg6oIqL9bfq+1Ij+kEFBGzuhIR5vwUL/6kM2glo=;
+ b=dDo1YRCUzUkJVzAaHioud81642Yt+aUbHf/Db1oRRJ12p/zuiT/wBAAS4Q72qZsB0aYZYk4U+DVlwf5tDLBnoVYRT6dJYFGdZbabuOWS1qOAxDAlnDLbkeK8OjPbUmcOwaGaSva6HDvjTrf1CmhFTShYSOqwKx10sNi9dA+MiIft+1AInl2xrc2YXY//ME1lvZcfZDGVF9fT2h/fDwF01ra+Kaflq8CSF3Kg7knkExIX0GTAQKVJjmw0aaW6Wj0rs3zHTyw+7et0rsQnLLFcurWPLnY5+Hqd9bJdcX7FdADl9GHTtReFjVRbHLt5LVzv9dfLhTfb/t8P3zGfgkBuJg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by DS0PR12MB8561.namprd12.prod.outlook.com (2603:10b6:8:166::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 02:04:54 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 02:04:54 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, stable@vger.kernel.org
+Cc: Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+ linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Svyatoslav Ryhel <clamor95@gmail.com>,
+ stable@vger.kernel.org, Patrick Fischer <admin@tsv-stahl-riesa.de>,
+ admin@tsv-stahl-riesa.de
+Subject:
+ Re: [PATCH] thermal/drivers/tegra/soctherm: Program throttrip with hot trip
+ temperature
+Date: Wed, 21 Oct 2026 11:04:50 +0900
+Message-ID: <5z1T3MJbRUWQUClLWuCCnw@nvidia.com>
+In-Reply-To:
+ <20261020-upstream-soctherm-throttrip-v1-1-c67f8a02ec3b@tsv-stahl-riesa.de>
+References:
+ <20261020-upstream-soctherm-throttrip-v1-1-c67f8a02ec3b@tsv-stahl-riesa.de>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: TYCP286CA0343.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:38e::11) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,72 +106,138 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DS0PR12MB8561:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9a805ed6-71e9-4ba7-3597-08df2f17b299
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|10070799003|23010399003|7416014|1800799024|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	XzyKF+zl5RVwMiQu7WJHEx64zlA3hmqECqDNdbaqp3MGAPGcc4pZuJiArbm6+xykDx4W2bnh3F7Qds1KZlupWbb2+0hfUcQat87azwMmfCLDUEuGQKRyyw0FYoC1KUUMlOCsJlRRkUacPId3AdUi12DlnTSDw2v7iy9o1B9LJO2YwUzBhL163d/zW/s8d8D+ZHJuynCQwGp/fPIlAxvmAxvZJ+QJSLYt+lvKEdkyVE7reJ8Ky3OmZEqwhPsvMjuxIDGMWEvncrwgtStOeg8oCoxQrBGCS3jDdXxDQw2t9084BWJT8ga/FAnxyBSGgvik01L6MmzlG7ymMIwq8Fca3cX4K5ZrD68f2AkoMqoIkEODqNUmZB0mRopPwyRE6XU3EdIdVDULvuU90q5M83+52uhafgphScwuXDW5yBqrpP/ZNHznippofasBKQ1vnH+crpme/9oRwUbDeAQAs8YSWg4ZaTdP3xWLYXeSA6h7kFXNnSTEN9OFTbpA7YKl6jKqMlzMrF0BdkYKO3DTrK8zHkA/5ygU7Aef1ZS8EO+qrbCSumB8EQDtAkifTZ3mjOs7ZQMl5gsxS6ucKvlmozafk5KPTidCJN17QfcvuyWTrsETLPJKPY2QpCdCGkzdmYRs15U+bDmUNgsp633BKS+fkM7eHU13bkPLCalr7XKiicQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(10070799003)(23010399003)(7416014)(1800799024)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SDdIdHJ4b25LVFRXWVV2ZW5zSVJsWFg3QXphTnI2b2YzYVptME1sRlJ5c3Rz?=
+ =?utf-8?B?blRBWVdCL3g1eGlsOVR5YmNHbHFtV1V2UUtYbE1iTUJzSWNWazlQSjlyTjRB?=
+ =?utf-8?B?Qm1iQ3NsWWVSQjB6Z1A0WDBkbThPSHVxWFlLVHNRWFUrK3MvelR0ZjNCQ1dK?=
+ =?utf-8?B?bUhCYldFRkgwS0xtN0gya0FNODJaUG1HVmZ0TEM4UE5aZXRucXpGbzBDQVZM?=
+ =?utf-8?B?bEUyZDg2MHR6eG5DTG5HZGo2SnQybDBNYjF6WmthQ08vMmxockRHN3hhMjlU?=
+ =?utf-8?B?VjY4RVVyTUNKdnpFY2J0SS84Qk5QaTFIblZkY2hmTFI1MllIcDR6bjBGMG1s?=
+ =?utf-8?B?ZitydWc3UUpMTnY0b041Z2tZWXlnU1ZKTFhnSkc5QzdnNGZJbStITmxFTDBx?=
+ =?utf-8?B?eGpTcU9lRTBaaGhXWFI1KzNFVGpYR2ZHQjNSNHh6TEoxV2lPZ2l1d2VZMGdl?=
+ =?utf-8?B?cjFqRVRaNjQvajg2VTJqNFZEZ2xKL1pKNnB0LzFkNVNvYWlYbU5pRHBUaXNl?=
+ =?utf-8?B?Q1d6WndGUVVuckFrL01YZ3pKTXhmVDQ2dGlIRGI3aTdPNFV0RW84b2hTUVgy?=
+ =?utf-8?B?V0dGQWhPNzBBM05ZU2szQ3VINGkrUFNkVEhQdDEzWGxWaFNuekJFdjgySWp5?=
+ =?utf-8?B?NUhCcTRlangrc3lqQTlqWStxZHV6U0NOR0dCV01KRCtDVGJoN01NbjFpZ2Ex?=
+ =?utf-8?B?UDRrcmIxM2ZibnVBOXR5Q3FtKzlsVTBoTWY3c2ZrV2dkaTR4L1RuUld5SFRT?=
+ =?utf-8?B?a0c3cVZxamw2ZS9nbjRjU252WFlLc0cvZFhDdTRWZjFxSFFjNlZtZmJRTFoz?=
+ =?utf-8?B?b2hoWklMSU9XZlA5MnE4bnNhaUNlZ3JucVJBMXNpRHNRcE5mRkp5V3NMandR?=
+ =?utf-8?B?M0EwRkJMdFl2WXE1eDJMcmQ1OGtyRWxRQ3RtQytESmFWVEU3Nm9ySm02am9J?=
+ =?utf-8?B?VW41NEVUZDU5SlBHSWpnT1E3MG9Ra1R2SmVxK0lDckhQRWhlcGRDREpFZG8z?=
+ =?utf-8?B?dGFXRnZXZUo5bGxBVFRqZWMyZlNLaUhXeDRFTTFvblVMRHpUZHVRb0pKRm5v?=
+ =?utf-8?B?MEI3MUdmN0FGeFJmNkloTExsVUNONlEvMS9ZSHMrTjBIUEpGaEpCV3lKRTIx?=
+ =?utf-8?B?K1lZdzJ4cVY3MTBPNTdacG9mdDVaWDFLQVdOWHViMTduK3l3K3dMaVJQL3JG?=
+ =?utf-8?B?RjN5b1YwZnNoekpQYjZWdkE0c0VjR1V0dnQ3ZG95dHFobWpmeHBIVWRxVFhD?=
+ =?utf-8?B?R25RM3VjTmZmc2RrOVprQnRlTHpkZU5kOW92TncyR2dUeTF5dXcwb0wvd1VP?=
+ =?utf-8?B?ZzhFOVhwT0ZieXpLUEJEWnhiS3hxMG9KdmtyUEQ5OTlDNUZkbTA5YlhSVUpi?=
+ =?utf-8?B?K0hYaFRjRjBMU0lBU0VSS0tBbG1INUZnV3NaKzU4K1d3SXorZnZXY1AvTk96?=
+ =?utf-8?B?dy9XZStYQnNpS1BjZk9IUkJIK2FOVThpRzN3RUJyNWFHdEYvYjZ6dUFSWkZu?=
+ =?utf-8?B?Uy9ZckdXd2tOcEFOelJucmNGeFpDRkx1QVhHVVFtaUFyWEJkWkJjRkxJM3hB?=
+ =?utf-8?B?OWl0dSt5MWxWVVVHWUh6UGZWcE5YKzdrNk5mK0p4TUI3WWxqRlgrdmFPenM4?=
+ =?utf-8?B?OHdsbzhGSU9NRVppVWd5dGFvVVFlUDlFNXM3RFMxOXF6REpCRzlOVHA2bStt?=
+ =?utf-8?B?bXJCTlJDU1BJVTlJL2ZoaFRLdFNJZGEvVUpaYVAzZGE2ekhFejY1RWdvbEFK?=
+ =?utf-8?B?dVdGWE5oUHNxcUx5ell5UmgrTWpSZkVsMWduZTVPbXJJYWRXZS9Gc29CelpC?=
+ =?utf-8?B?cjBxd2cvZVdNZG5UaHBDdmh2d2RhSWFFZTg0TTdYVWN3ZWdIaWIrRmxWR2k3?=
+ =?utf-8?B?QWZKM1J3SmRwb1JlMTFHN0xkUlBOUkxPck5oL0U5QVpOMWlOZk5keXR1M1Y3?=
+ =?utf-8?B?UUp3S2s5MWszWWJCMk92d3BDMVZ5Z0htMUgrWUlnQzF1Y2lEd0NJWjlSaVpJ?=
+ =?utf-8?B?RWJCOUhjblpGUkNHaWZFYkd5R2gzWDVhelI5ZzM1NkI1WHJnY1FBaEZkVm15?=
+ =?utf-8?B?MURXVEJEK3orZkVEMUJnK1F2NmhRTDU3dVd0TGhqQ3JURHptSmlwSW9mc0Mz?=
+ =?utf-8?B?Vm5qK2t1eC9qa1JvR1MzTkpjYVZUTkswelVzdHBVZ2M5enN0WjEySVdNN2hU?=
+ =?utf-8?B?U3BIQ1llZlRhRW9Kc2dsZG1Ua1hOWkczSXNYZlJlTnluMmFybzlUQkQ0TEtS?=
+ =?utf-8?B?K0lKeFFZTCtrbkRiR1lUczh6YjdhdXcwWWljZnRaR09xamgwUjV2TDdyR2lY?=
+ =?utf-8?B?dWc2OFFHbllnKzQxcERtM3c0Wi92cm5ROVVmZjU5RHdRZTRwNUVzZ3ppbk8w?=
+ =?utf-8?Q?oPNTLqAtTIk5EuE2WPycAvxBoQydpHBfmmWc4b5VKGHvB?=
+X-MS-Exchange-AntiSpam-MessageData-1: +oBsnsSn7lIKbQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a805ed6-71e9-4ba7-3597-08df2f17b299
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 02:04:53.9582
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zD2xs5iTuR25LOT3pOC9Q1b2ozoNQJj/f34SurBokaC1wmHzuVvmCRjWu0vcVYtlA+KHHXhFW9t7MNm0XoWbZw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8561
 
-read_bulk_callback() takes the frame length from the device, from the
-receive header on the 0x8513 and from the trailing status bytes on the
-other chips, and only checks it against PEGASUS_MTU before passing that
-many bytes up the stack. In two cases the stack then uses bytes that the
-device did not send:
+On Wednesday, October 21, 2026 4:18=E2=80=AFAM Patrick Fischer via B4 Relay=
+ wrote:
+> From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+>=20
+> tegra_soctherm_set_hwtrips() is supposed to program the hardware
+> throttle trip (throttrip) with the temperature of the thermal zone's
+> hot trip point. Since commit 735a968d2fea ("thermal/drivers/tegra: Use
+> generic thermal_zone_get_trip() function"), get_hot_temp() only looks
+> up the hot trip and no longer stores its temperature, and the later
+> conversion to get_hot_trip() kept that behaviour. throttrip_program()
+> is therefore called with the value still left in 'temperature', which
+> is the thermtrip or critical temperature that was just used for
+> thermtrip_program().
+>=20
+> As a result, hardware throttling only starts at the shutdown
+> temperature instead of at the hot trip. On the NVIDIA Tegra Note 7
+> (P1640, Tegra114), where tegra114.dtsi defines the hot trips at 100 C
+> and the critical trips at 102 C, soctherm reports:
+>=20
+>   throttrip: will throttle when cpu reaches 102000 mC
+>=20
+> instead of 100000 mC. Svyatoslav Ryhel observed the same on the ASUS
+> Transformer Pad TF701T (Tegra114) and the Xiaomi Mi Pad (Tegra124).
+> All boards using soctherm with a hot trip bound to a throttle cooling
+> device are affected.
+>=20
+> Use the temperature of the hot trip for throttrip_program() again.
+>=20
+> Fixes: 735a968d2fea ("thermal/drivers/tegra: Use generic thermal_zone_get=
+_trip() function")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Tested-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
+> ---
+>  drivers/thermal/tegra/soctherm.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>=20
+> diff --git a/drivers/thermal/tegra/soctherm.c b/drivers/thermal/tegra/soc=
+therm.c
+> index f74acf13b24d..903215502606 100644
+> --- a/drivers/thermal/tegra/soctherm.c
+> +++ b/drivers/thermal/tegra/soctherm.c
+> @@ -765,6 +765,8 @@ static int tegra_soctherm_set_hwtrips(struct device *=
+dev,
+>  		return 0;
+>  	}
+> =20
+> +	temperature =3D hot_trip->temperature;
+> +
+>  	for (i =3D 0; i < THROTTLE_OC1; i++) {
+>  		struct thermal_cooling_device *cdev;
+> =20
+>=20
+> ---
+> base-commit: f47d223627f80cb7a1eb14c585fe6cb35de5e984
+> change-id: 20261020-upstream-soctherm-throttrip-ad6965977b6c
+>=20
+> Best regards,
+> -- =20
+> Patrick Fischer <admin@tsv-stahl-riesa.de>
+>=20
+>=20
+>=20
 
-- A device that sends a short transfer but claims a long frame gets the
-  stale or uninitialized remainder of the receive skb delivered as
-  packet data.
+Reviewed-by: Mikko Perttunen <mperttunen@nvidia.com>
 
-- A device that claims a frame shorter than an Ethernet header gets
-  past the check as well. eth_type_trans() takes pkt_type from h_dest
-  and the protocol from h_proto without checking skb->len. If the
-  transfer is also short, those come from bytes left in the skb by an
-  earlier transfer, or from uninitialized memory.
 
-Drop frames shorter than ETH_HLEN, and frames whose claimed length, plus
-the 0x8513 header, does not fit in the bytes actually received, and
-count them as length errors. urb->actual_length never exceeds the
-PEGASUS_MTU sized transfer buffer, so this also covers the existing
-PEGASUS_MTU check. Valid Ethernet frames are at least 60 bytes long
-without the FCS, so they are not affected.
-
-Found by code review with LLM assistance. With an emulated USB device,
-a 101-byte transfer claiming a 1500-byte frame was passed up as a
-1500-byte packet before this change and is dropped after it, and
-frames claiming 0, 4 and 13 bytes were passed up and are now dropped
-and counted in rx_length_errors. The extra bytes happened to be zero
-in the first test, so disclosure of actual kernel data was not
-demonstrated.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Wei Jie Law <law.wei.jie@gt.tech.gov.sg>
----
- drivers/net/usb/pegasus.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/usb/pegasus.c b/drivers/net/usb/pegasus.c
-index 7c7d6b69998f..68e4b6658dd2 100644
---- a/drivers/net/usb/pegasus.c
-+++ b/drivers/net/usb/pegasus.c
-@@ -520,11 +520,17 @@ static void read_bulk_callback(struct urb *urb)
- 	}
- 
- 	/*
--	 * If the packet is unreasonably long, quietly drop it rather than
--	 * kernel panicing by calling skb_put.
-+	 * Drop frames shorter than an Ethernet header, because
-+	 * eth_type_trans() reads the header whatever the length, and frames
-+	 * longer than what was actually received. Passing either up would
-+	 * expose stale buffer contents, and skb_put() could panic on the
-+	 * latter. count is at most PEGASUS_MTU.
- 	 */
--	if (pkt_len > PEGASUS_MTU - rx_offset)
-+	if (pkt_len < ETH_HLEN || pkt_len + rx_offset > count) {
-+		net->stats.rx_errors++;
-+		net->stats.rx_length_errors++;
- 		goto goon;
-+	}
- 
- 	/*
- 	 * at this point we are sure pegasus->rx_skb != NULL
--- 
-2.43.0
 
