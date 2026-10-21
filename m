@@ -1,77 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.68
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792582239;
-	b=tPGgGegrcEZI4x90LPrub2Yulpj5Qq/OyWie3ktaxrvue8X/oM3YfkF4kalupVGXeM9+
-	 nAlteFu3kfrgkJKks4Wy+/lUoCsz+9HPJu3gq8GvbV4of7XHN911SBLju5KhYtupTe0qg
-	 h/SmDXxgRXWfOMj3Pbn/AplxZ7ZUbp1HxjxQKuvciklMrvrqpT2091sLvi8PtmvQZAJFC
-	 GT3zO2J2s+Us9fPkOZFGYvmiUZhW8wvnmOPjcsfGdZbw7kU9mpO0fyqeLYaA1APtY32Y5
-	 2YI9446SiW2OY7XGLwKwWGjgyKZmyJ2AtmnuGJjLk1oWVZJ9ewt5dJHZQEINKGmHX8g==
+	t=1792583134;
+	b=qesGlIRIGTxoPD6BSXs6WgY5sBr5991VtIU+EmXuuIXFwFyFrsSZo2Z+WYtAdbDNzhE9
+	 QIbFAWS35vFbhjFeE5UGnPYU55++m0fgekAjeVNKivlAyKM4u8HHXHSBsobdSSnOX3dlc
+	 /pOTufdW7arsOK2uP3VL9kpCFLzlEG/4KrKEuNzd1mUUE5otxDQPTYaBwh/WI+cU+43PF
+	 DItf6aeA9tTN/fyd+fH/oL86vgIQsJaaGmtqO0P6VjXzA5Y9bkMaEI5q6bIsXmrSDtC46
+	 HD9WPV7/wm3NcdbatL2TZZQ+np0i+NKFcmr0yG6l3b1HxfD3L3tT7Fgw7C4q/3lE43Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792582239;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=U+xSPnvmF/tO+Fgf3pJ9qhNAxgNa/gXXKtkwmbQs8oM=;
-	b=S3JQGqhCQksCOz95w63MKKlUO73qm/fDJVabFBGveFCKWdG1rLUTAs9T2rq3vvdoBtHF
-	 LCRNvGz2vgo36Nzns7YqWCwxW62RnnZF9gNKn917lF1mf1Dk8kF3WAPRKAruv8UaAuTzP
-	 K3wcsybH1ehWQtRfTb5W66Qt5EwgjO/gFQPH4LnwPadE7DxhtyJTfnDhe/gZko8ujns3d
-	 B9MQBPInTQFEeFXIeECru0a0NAZYC7ZPLkpTt3I8nKOY3yf4ASPRx34BDlmjnGvf5iknx
-	 5ZWIY+7jMJmh3NF2Bm59T4y4aJKZKLDQmohKyI7f/h+A50EhSdFRF6E04mtzQAdoK7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792583134;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=YXumx7zTrHr94qWuIde28XemX3sHJ1fMcOG+i6oYMSA=;
+	b=LROSmcamWfrWHVh9cnKlooJhwF9F9E7tscCTOIKOewygEYlvAqRAothGJk7z7zDrqxAW
+	 yI9STwej7pFvNnl5XW0VlzTMwXtdR/LOdTT9LJSKY9hiysrlXkJ/l3mkAml6/KmZIzVJf
+	 7qXYyf1T7X/JHKCwpFpsO5Dx0TJWKQNeawM3giiGT02eUyrtLY+euCYOzgUpu6CyriOoF
+	 Y5GdXcRqPrmZdKVWdoKgYBUu7hivFR892Y4eiucv364AUzAcLPM6o8CKW4vIeFUFGR0/3
+	 HtGmF++1XhoQBUwfhMJZEjLqgr+DDCU/dqrUFEFjsL203B/FzQN4pCkAel/rS8mofHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=peV2frh8;
-	arc=none smtp.remote-ip=95.215.58.68
-Received: from mta1.migadu.com (out-68.mta1.migadu.com [95.215.58.68])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=gkJLLH9M;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B1E5606A31A
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 11:30:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B1E5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63F1606A321;
+	Wed, 21 Oct 2026 11:45:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B63F1606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=peV2frh8
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ajoLYE5AD2heyAC44s3QWW8/SJdTozUgA/AhWcBRkvo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792582235; v=1; x=1793187035;
- b=peV2frh87rolLVSFnvECmmtCIKSTBix8AHi94IGRwH2+Zplz/8TmlcfbFbtgWK++PPc/FcIX
- LF4vX1JfVq8eQAPn3Km9B4spHNUfS/5G43hyqiZ3M2xqyrStXmaDXJ780crtyJQOZLG9IS6I3x8
- kHbmK8qsFXefL7HyACclAzCE=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 591aea82344d2dfa;
-	Wed, 21 Oct 2026 11:30:20 +0000
-X-Mizu-Trace-ID: 591aea82344d2dfa
-X-Migadu-Flow: FLOW_OUT
-From: Jinyu Tang <jinyu.tang@linux.dev>
-To: SeungJu Cheon <suunj1331@gmail.com>
-Cc: Jinyu Tang <jinyu.tang@linux.dev>,
-	anup@brainfault.org,
-	atish.patra@linux.dev,
-	tjytimi@163.com,
-	inochiama@gmail.com,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	andrew.jones@linux.dev,
-	pbonzini@redhat.com,
-	seanjc@google.com,
-	kvm-riscv@lists.infradead.org,
-	kvm@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] KVM: riscv: Set Accessed bit in dirty-log write fault fast path
-Date: Wed, 21 Oct 2026 19:30:10 +0800
-Message-ID: <20261021113010.2476783-1-jinyu.tang@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261016101458.221648-1-suunj1331@gmail.com>
-References: <20261016101458.221648-1-suunj1331@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=gkJLLH9M
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id ABB19A1626;
+	Wed, 21 Oct 2026 13:45:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1792583130; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=YXumx7zTrHr94qWuIde28XemX3sHJ1fMcOG+i6oYMSA=;
+	b=gkJLLH9MgMRr6QtFERcHA97HdEJs7eubvmK2oH9Qz4QvlVnvYNHBiiUFVQab9BjcSroBw8
+	PxjcP1YWvCZQ5UIgv1aCoVBL2JO4cM4ymKvarwm4ZQoljqPGavb/nmE4rokl8Scw+2sQU/
+	3pO1Icz26tXFw7UlhkGXLfBxxpEx6UQlBRRSE1D/ryIhNIxTGSLYSo9hDaB23Lvdm6WOad
+	nirXl1EgASxdSyURt7i8gIt9Eg39teu3OR+ecC4TlNsV/2sfAvm4OQQglrwZ01CfRJTMz0
+	TbFpBHG6/mme7yBuo6b91rQMdWRYt9z/QjSpJIPuVpkV+kdFA3Yg9Nwg0sbDzw==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+Date: Wed, 21 Oct 2026 13:45:22 +0200
+Subject: [PATCH v4 1/2] serial: amba-pl011: finish a transmission still
+ running when RS485 is enabled
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,33 +57,138 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261021-devel-nbuchwitz-pl011-rs485-reconfig-stall-v4-1-ed10e219159a@tipi-net.de>
+References: <20261021-devel-nbuchwitz-pl011-rs485-reconfig-stall-v4-0-ed10e219159a@tipi-net.de>
+In-Reply-To: <20261021-devel-nbuchwitz-pl011-rs485-reconfig-stall-v4-0-ed10e219159a@tipi-net.de>
+To: Russell King <linux@armlinux.org.uk>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Lino Sanfilippo <LinoSanfilippo@gmx.de>, 
+ Nicolai Buchwitz <nb@tipi-net.de>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Oct 16, 2026 at 07:14:58PM +0900, SeungJu Cheon wrote:
-> @@ -591,14 +591,15 @@ static bool kvm_riscv_mmu_dirty_log_write_fault_fast(struct kvm *kvm,
->  			dirty_marked = true;
->  		}
->  
-> -		if ((pte_val(old_pte) & (_PAGE_WRITE | _PAGE_DIRTY)) ==
-> -		    (_PAGE_WRITE | _PAGE_DIRTY)) {
-> +		if ((pte_val(old_pte) &
-> +		     (_PAGE_WRITE | _PAGE_DIRTY | _PAGE_ACCESSED)) ==
-> +		    (_PAGE_WRITE | _PAGE_DIRTY | _PAGE_ACCESSED)) {
->  			new_pte = old_pte;
->  			ret = true;
->  			break;
->  		}
->  
-> -		new_pte = pte_mkdirty(pte_mkwrite_novma(old_pte));
-> +		new_pte = pte_mkyoung(pte_mkdirty(pte_mkwrite_novma(old_pte)));
+Disabling RS485 during a transmission keeps it running. If RS485 is
+enabled again before it ends, the state is OFF while data is still going
+out. The TX path does not end a transmission in state OFF, so nothing
+sets the idle RTS level afterwards and the transceiver keeps driving the
+bus.
 
-I tested this on QEMU 10.2.1 with Svade enabled and Svadu disabled.
-With dirty logging enabled, the test clears A through page-idle tracking,
-write-protects the page with KVM_GET_DIRTY_LOG, and resumes the guest
-write. The unpatched kernel times out after 10 seconds, while the same
-test completes with this patch applied.
+Hand such a transmission back to RS485 when it is enabled on an open
+port. While PIO or DMA still feeds the FIFO, assert RTS and mark it as
+sending, so that the TX path ends it like any other. With only the FIFO
+left, drain it from trigger_stop_tx instead. Data that is queued but not
+started yet, for example while output is stopped, is not part of the
+transmission.
 
-Reviewed-by: Jinyu Tang <jinyu.tang@linux.dev>
+Fixes: 97f85204275a ("serial: amba-pl011: keep transmitter enabled when disabling RS485")
+Cc: stable@vger.kernel.org # 6.18.x: 1b6d660e038b: serial: amba-pl011: drive the bus during break in RS485 mode
+Cc: stable@vger.kernel.org # 6.18.x
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+---
+ drivers/tty/serial/amba-pl011.c | 57 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 57 insertions(+)
 
-Thanks,
-Jinyu
+diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
+index 79776a882ae35..1edbe75611e63 100644
+--- a/drivers/tty/serial/amba-pl011.c
++++ b/drivers/tty/serial/amba-pl011.c
+@@ -1285,6 +1285,11 @@ static inline bool pl011_dma_tx_queued(struct uart_amba_port *uap)
+ 	return uap->dmatx.queued;
+ }
+ 
++static inline bool pl011_dma_tx_active(struct uart_amba_port *uap)
++{
++	return uap->dmacr & UART011_TXDMAE;
++}
++
+ #else
+ /* Blank functions if the DMA engine is not available */
+ static inline void pl011_dma_remove(struct uart_amba_port *uap)
+@@ -1341,6 +1346,11 @@ static inline bool pl011_dma_tx_queued(struct uart_amba_port *uap)
+ 	return false;
+ }
+ 
++static inline bool pl011_dma_tx_active(struct uart_amba_port *uap)
++{
++	return false;
++}
++
+ #define pl011_dma_flush_buffer	NULL
+ #endif
+ 
+@@ -1734,6 +1744,12 @@ static unsigned int pl011_tx_empty(struct uart_port *port)
+ 							0 : TIOCSER_TEMT;
+ }
+ 
++/* PIO or DMA still feeds the FIFO */
++static bool pl011_tx_active(struct uart_amba_port *uap)
++{
++	return (uap->im & UART011_TXIM) || pl011_dma_tx_active(uap);
++}
++
+ static void pl011_maybe_set_bit(bool cond, unsigned int *ptr, unsigned int mask)
+ {
+ 	if (cond)
+@@ -2454,6 +2470,42 @@ static int pl011_verify_port(struct uart_port *port, struct serial_struct *ser)
+ 	return ret;
+ }
+ 
++/*
++ * Data from before RS485 was enabled is still going out. Finish it as an
++ * RS485 transmission, so that its end sets the idle level.
++ */
++static void pl011_rs485_tx_resume(struct uart_amba_port *uap,
++				  const struct serial_rs485 *rs485)
++{
++	u32 cr = pl011_read(uap, REG_CR);
++
++	cr |= UART011_CR_TXE;
++	if (!(rs485->flags & SER_RS485_RX_DURING_TX))
++		cr &= ~UART011_CR_RXE;
++	if (rs485->flags & SER_RS485_RTS_ON_SEND)
++		cr &= ~UART011_CR_RTS;
++	else
++		cr |= UART011_CR_RTS;
++	pl011_write(cr, uap, REG_CR);
++
++	/* pl011_break_ctl() ends the transmission when the break ends */
++	if (pl011_read(uap, REG_LCRH_TX) & UART01x_LCRH_BRK) {
++		uap->rs485_break = true;
++		uap->rs485_tx_state = SEND;
++		return;
++	}
++
++	if (pl011_tx_active(uap)) {
++		uap->rs485_tx_state = SEND;
++		return;
++	}
++
++	/* Only the FIFO is left. The timer drains it with the new settings */
++	uap->rs485_tx_state = WAIT_AFTER_SEND;
++	hrtimer_start(&uap->trigger_stop_tx, uap->rs485_tx_drain_interval,
++		      HRTIMER_MODE_REL);
++}
++
+ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
+ 			      struct serial_rs485 *rs485)
+ {
+@@ -2483,6 +2535,11 @@ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
+ 		if (tx_pending && !uart_tx_stopped(port) &&
+ 		    !pl011_dma_tx_start(uap))
+ 			pl011_start_tx_pio(uap);
++	} else if ((rs485->flags & SER_RS485_ENABLED) &&
++		   uap->rs485_tx_state == OFF &&
++		   tty_port_initialized(&port->state->port) &&
++		   (pl011_tx_active(uap) || !pl011_tx_empty(port))) {
++		pl011_rs485_tx_resume(uap, rs485);
+ 	} else if (port->rs485.flags & SER_RS485_ENABLED) {
+ 		pl011_rs485_tx_stop(uap);
+ 	}
+
+-- 
+2.53.0
+
