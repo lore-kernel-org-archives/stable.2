@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594190;
-	b=fLNql37tlD4+PrIYRrdyVvAgBLmZ+LFjLMwca8OceTjqqDfbYsslVcOfSyso1ldcq4uN
-	 AEaZolH6h8tYua49Vj1Kmmif613hWqSs8R3enh2BiuemqljJxOf8NGnv3vU19l1w4eYZD
-	 i2fTsiWZua4QmV3gcvCvtfcKJ6L2xKmQRbkaDwm+s6aS3eaEfkskZjJ7IXcJDYCKLEEkd
-	 wna1I+JAG8Cl6+PzslHwMrPmZeaKFt8OXvHqtfmi6UcfvNXhiTNRubqo3V/Il49mq63C0
-	 NwRXvyhr576HTkG0cii7YosWlRnfF/2HqbDK9zlCoTPtqTUX53kv73sujoltQtwS44Q==
+	t=1792594193;
+	b=E6e0E33HHf7tr4EwIkOS6x2pf7pF1a9XwKMlB1efU28hPzdCXnDOgtYOSHKIq94vQaLr
+	 QRvavhTgxJ3NyWT60RiVifKnXYwV4w+hWz3nPGuuJMH/N+b5zi5z8rRgfLcwW2arnCnoS
+	 lSA6BJtSB8jGB1y9Za63pOXdXCr0vBwc2VtM8m0TILi3xE9kYICVGMIvqoFhBLxI1mKRF
+	 njLypejXw25a/SoeDIzY/mt1oIdAW8v5MTnZgzSoKu8R8RIgehUiVUc6CzuDh+BrAZCST
+	 Rq83sHZhsBMC5sD4aXFt5NPb13+kl99DWKt6cvbixO/TC5izmQ4PSL+ltNYBSV0E6Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594190;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594193;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ZSHge7tIT9v2Vs5OrOh/PyyLD+NGfZ90met5gK0BWjQ=;
-	b=C9ZW7WzuAiHWu+ngBk81vxyqmecnJwVJdDctjA95wt6i6JtvB3y2IGlBSjQSG7Sdt7vQ
-	 Yr1FIh6T1NSvc43DjoxLxsTGNo/mBfmRKhDqolgJSw1c8sPgE+ZAZTAyizdjHaC8SutCf
-	 Nb22nNeRhGR3BE/yoquzq43VGPymQYF3ymenXy/o/zMZBL3BkGWPTb1j+oi/EAti644qe
-	 ZybUy9IrYFwFho30LpFh6b9Z0rUMxMflIjDiVMjkAWTWG7T+DdQ/SjM50IICd1IJHFCRI
-	 LitVx2h1QMGQPwQBE+NdTZL/0xAbSGON3Gbb0h5oa1glKGYv6P3mFyvYrp8vqzR5C8Q==
+	bh=VYx2sJ0NMv7t+CQu9R5bAp20uWFikRmecItpv002NSM=;
+	b=0oJRUw1gh6Dne/l2E7sw2e3YHeCN6V3k4d/BIRX3vn+lkUdJPV8sGOpUgSpLgLs4QYbG
+	 2gfw5BHVJMiDe9SDJSVnSIwxQFsmPoRzmnuu1X6jRY4jgKG/cjBgvZg184NnYrjkh91Mh
+	 /SqjgKk3FhEy70wvGF8+56KUgMNjWBPq4aPwMdULAbCkMEtrjH10zBx7qQc14eTM0QOGn
+	 V9Je5paTnR9KdR60lWFnlqdTnpUWGC9U88P4jmeehzr3ZdQQnz0H08KA8YLb6dsOXlRQy
+	 RfRJW+76XYDQoA/eAU6OHUSkx+cowhqFX+U2ViwpJ9XhfUAGJxTqk3yjxoh6ibCJKBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="MrZsa/1X";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Q7l84CZu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43BFE606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:49:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 405F4606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:49:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MrZsa/1X
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97D521F000C1;
-	Wed, 21 Oct 2026 14:49:49 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Q7l84CZu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 884CE1F000C1;
+	Wed, 21 Oct 2026 14:49:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594190;
-	bh=ZSHge7tIT9v2Vs5OrOh/PyyLD+NGfZ90met5gK0BWjQ=;
+	s=korg; t=1792594193;
+	bh=VYx2sJ0NMv7t+CQu9R5bAp20uWFikRmecItpv002NSM=;
 	h=Subject:To:Cc:From:Date;
-	b=MrZsa/1XDvTWaWQV2aj3j+vS1kx4ZZn/8dIaOw0fRlaUfBe7rwvCeoy8pOxBAVirF
-	 VmrrHinL5JJs64U4SQFd2wy2dGY9hdl3P2w5HjusIpwumNiKc8p+kHWB9Eq3xUr5Cm
-	 d/8XldthtYPX+4uRTiNvBkkyDft6aqZySCLHu50I=
-Subject: FAILED: patch "[PATCH] ntfs3: free replaced mount options after a grace period" failed to apply to 6.12-stable tree
-To: brauner@kernel.org
+	b=Q7l84CZuL/vBwm4ijxqtdbF5pTwI0lwvW+iQSRyu/A44OBkX2xzm/DNs5dx9bcHI8
+	 oNJU0BlokT4Kqc9Cj5hZpa80WRBP2byE8M4pAF7OGDN9zzz4idRnPsxz1Z7W9OMGSj
+	 /nL9kbs7n8gAOFo/y6ux6LUqbuLKmdGt4G5muZdY=
+Subject: FAILED: patch "[PATCH] futex: Fix mm reuse handling for FUT_OFF_MMSHARED" failed to apply to 6.12-stable tree
+To: jannh@google.com,peterz@infradead.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 16:39:08 +0200
-Message-ID: <2026102108-subsector-backhand-e189@gregkh>
+Date: Wed, 21 Oct 2026 16:40:23 +0200
+Message-ID: <2026102123-alumni-imprudent-06f0@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,10 +64,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 56c3824de56b5275c02ff6b6aa27ddbacfbb9b25
+git cherry-pick -x 3267512ad1c2cc0c7768c5b014dc2cceb398a801
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102108-subsector-backhand-e189@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102123-alumni-imprudent-06f0@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,142 +79,199 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 56c3824de56b5275c02ff6b6aa27ddbacfbb9b25 Mon Sep 17 00:00:00 2001
-From: Christian Brauner <brauner@kernel.org>
-Date: Fri, 9 Oct 2026 23:51:58 +0200
-Subject: [PATCH] ntfs3: free replaced mount options after a grace period
+From 3267512ad1c2cc0c7768c5b014dc2cceb398a801 Mon Sep 17 00:00:00 2001
+From: Jann Horn <jannh@google.com>
+Date: Tue, 29 Sep 2026 18:31:32 +0200
+Subject: [PATCH] futex: Fix mm reuse handling for FUT_OFF_MMSHARED
 
-ntfs_fs_reconfigure() replaces the old mount options with new mount
-options in sbi->options. The old mount options land in fs_context and
-are freed as soon as remount returns. With a pathwalk held up in
-ntfs_nls_to_utf16() between loading sbi->options and dereferencing it
-while a remount replaces them:
+A FUT_OFF_MMSHARED futex is a shared futex that refers to an MM.
+It is possible for a process to wait on a shared futex with a different MM
+because a FUT_OFF_INODE waiter can be requeued onto a FUT_OFF_MMSHARED
+futex by another process.
+This can cause FUT_OFF_MMSHARED waiters on a freed MM to consume
+wakeups intended for a newly allocated MM at the same address.
 
-  BUG: KASAN: slab-use-after-free in ntfs_nls_to_utf16+0x7ae/0x7c0
-  Read of size 8 at addr ff110001044fd448 by task walker/98
-  Call Trace:
-   <TASK>
-   ntfs_nls_to_utf16+0x7ae/0x7c0
-   ntfs_d_hash+0x22b/0x500
-   link_path_walk+0x11ad/0x1d30
-   path_lookupat+0x63/0xb00
-   filename_lookup+0x1f1/0x5b0
-   vfs_statx+0xd7/0x3b0
-  [...]
-  Allocated by task 95:
-   __kmalloc_node_track_caller_noprof+0x2a2/0x730
-   kmemdup_noprof+0x25/0x50
-   ntfs_fill_super+0x1e5/0x4550
-  [...]
-  Freed by task 97:
-   kfree+0x1db/0x5b0
-   put_fs_context+0x13c/0x7d0
-   path_mount+0x54a/0x2130
-   __x64_sys_mount+0x20c/0x270
+Fix it by keying FUT_OFF_MMSHARED using a unique 64-bit per-MM ID.
+Leave private futexes as before to avoid influencing the performance of the
+hotpath.
 
-That info is needed in rcu lookup in the dentry hash and dentry compary
-methods for ntfs3 and causes a UAF today. Delay freeing with an rcu
-grace period.
+(Multi-threaded processes typically implicitly use FUT_OFF_MMSHARED by
+setting clear_child_tid such that it points into anonymous memory, which
+causes mm_release() in a multi-threaded mm to perform FUTEX_WAKE.)
 
-ntfs_nls_to_utf16() reads ->nls and ->ads once under rcu_read_lock() so
-the hooks pair with the release in ntfs_fs_reconfigure(). That also
-covers callers outside of rcu pathwalk such as ntfs_lookup(). They don't
-hold rcu_read_lock() themselves and wouldn't be protected by the grace
-period otherwise. Remount refuses to change the iocharset so ->nls stays
-valid after rcu_read_unlock().
-
-Fixes: a3a956c78efa ("fs/ntfs3: Add option "nocase"")
+Fixes: 222993395ed3 ("futex: Remove pointless mmgrap() + mmdrop()")
+Closes: https://lore.kernel.org/r/CAG48ez0dLBpc3QtbAhMMVNHwHL94iHh2G+h-=BVFR4dDuzZr1g@mail.gmail.com/
+Signed-off-by: Jann Horn <jannh@google.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Link: https://patch.msgid.link/20260929-futex-mmshared-fix-v1-1-262b1ffeb3d0@google.com
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261009-work-fixes-rcu-v1-8-7446d2d335e6@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-diff --git a/fs/ntfs3/dir.c b/fs/ntfs3/dir.c
-index eb9152e9fa22..14ca54e54578 100644
---- a/fs/ntfs3/dir.c
-+++ b/fs/ntfs3/dir.c
-@@ -186,11 +186,20 @@ int ntfs_nls_to_utf16(struct ntfs_sb_info *sbi, const u8 *name, u32 name_len,
- {
- 	int ret, slen, i;
- 	const u8 *end;
--	struct nls_table *nls = sbi->options->nls;
-+	struct ntfs_mount_options *opts;
-+	struct nls_table *nls;
-+	bool ads;
- 	u16 *uname = uni->name;
+diff --git a/include/linux/futex.h b/include/linux/futex.h
+index 18ed18d5cbc1..a895d8c69d66 100644
+--- a/include/linux/futex.h
++++ b/include/linux/futex.h
+@@ -23,28 +23,32 @@ struct task_struct;
+  *  01 : Shared futex (PTHREAD_PROCESS_SHARED)
+  *	mapped on a file (reference on the underlying inode)
+  *  10 : Shared futex (PTHREAD_PROCESS_SHARED)
+- *       (but private mapping on an mm, and reference taken on it)
++ *       (but private mapping on an mm)
+ */
  
- 	static_assert(sizeof(wchar_t) == sizeof(u16));
+-#define FUT_OFF_INODE    1 /* We set bit 0 if key has a reference on inode */
+-#define FUT_OFF_MMSHARED 2 /* We set bit 1 if key has a reference on mm */
++#define FUT_OFF_INODE    1 /* We set bit 0 if shared key identifies an inode */
++#define FUT_OFF_MMSHARED 2 /* We set bit 1 if shared key identifies an mm */
  
-+	/* ntfs_fs_reconfigure() may replace the options, but not ->nls */
-+	rcu_read_lock();
-+	opts = READ_ONCE(sbi->options);
-+	nls = opts->nls;
-+	ads = opts->ads;
-+	rcu_read_unlock();
+ union futex_key {
++	/* For FUT_OFF_INODE */
+ 	struct {
+ 		u64 i_seq;
+ 		unsigned long pgoff;
+ 		unsigned int offset;
+ 		/* unsigned int node; */
+ 	} shared;
 +
- 	if (!nls) {
- 		/* utf8 -> utf16 */
- 		ret = _utf8s_to_utf16s(name, name_len, endian, uname, max_ulen);
-@@ -230,7 +239,7 @@ int ntfs_nls_to_utf16(struct ntfs_sb_info *sbi, const u8 *name, u32 name_len,
++	/* For FUT_OFF_MMSHARED or private */
+ 	struct {
+ 		union {
+-			struct mm_struct *mm;
+-			u64 __tmp;
++			struct mm_struct *mm; /* for private */
++			u64 mm_seq; /* for FUT_OFF_MMSHARED */
+ 		};
+ 		unsigned long address;
+ 		unsigned int offset;
+ 		/* unsigned int node; */
+ 	} private;
++
+ 	struct {
+ 		u64 ptr;
+ 		unsigned long word;
+@@ -152,11 +156,10 @@ static inline void futex_set_vdso_cs_range(struct futex_mm_data *fd, unsigned in
+ static inline void futex_fixup_robust_unlock(struct pt_regs *regs) { }
+ #endif /* !CONFIG_FUTEX_ROBUST_UNLOCK */
  
- 	uni->len = ret;
- 	uni->ads_len = 0;
--	if (ret > 0 && sbi->options->ads) {
-+	if (ret > 0 && ads) {
- 		uname = uni->name;
- 		/* Find delimiter in range [1 : ret-2). */
- 		for (i = 1; i + 1 < ret; i++) {
-diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
-index bbcd2e02bf63..44d59b444648 100644
---- a/fs/ntfs3/ntfs_fs.h
-+++ b/fs/ntfs3/ntfs_fs.h
-@@ -91,6 +91,8 @@ enum utf16_endian;
- struct ntfs_mount_options {
- 	char *nls_name;
- 	struct nls_table *nls;
-+	/* ->d_hash() and ->d_compare() read the options in rcu pathwalk */
-+	struct rcu_head rcu;
+-
+-#if defined(CONFIG_FUTEX_PRIVATE_HASH) || defined(CONFIG_FUTEX_ROBUST_UNLOCK)
++#ifdef CONFIG_FUTEX
+ void futex_mm_init(struct mm_struct *mm);
+ #else
+ static inline void futex_mm_init(struct mm_struct *mm) { }
+-#endif
++#endif /* !CONFIG_FUTEX */
  
- 	kuid_t fs_uid;
- 	kgid_t fs_gid;
-diff --git a/fs/ntfs3/super.c b/fs/ntfs3/super.c
-index 841f9068d82f..58ef6be3286b 100644
---- a/fs/ntfs3/super.c
-+++ b/fs/ntfs3/super.c
-@@ -251,6 +251,11 @@ static inline void put_mount_options(struct ntfs_mount_options *options)
- 	kfree(options);
+ #endif /* _LINUX_FUTEX_H */
+diff --git a/include/linux/futex_types.h b/include/linux/futex_types.h
+index d320c0571f0c..34b16f2828e7 100644
+--- a/include/linux/futex_types.h
++++ b/include/linux/futex_types.h
+@@ -85,10 +85,12 @@ struct futex_unlock_cs_ranges { };
+  * struct futex_mm_data - Futex related per MM data
+  * @phash:	Futex private hash related data
+  * @unlock:	Futex unlock VDSO critical sections
++ * @unique_id:	Unique ID of the MM, for FUT_OFF_MMSHARED futexes
+  */
+ struct futex_mm_data {
+ 	struct futex_mm_phash		phash;
+ 	struct futex_unlock_cs_ranges	unlock;
++	atomic64_t			unique_id;
+ };
+ #else  /* CONFIG_FUTEX */
+ struct futex_sched_data { };
+diff --git a/kernel/futex/core.c b/kernel/futex/core.c
+index 095f9fe440e3..a240638f69e5 100644
+--- a/kernel/futex/core.c
++++ b/kernel/futex/core.c
+@@ -439,12 +439,35 @@ struct hrtimer_sleeper *futex_setup_timer(ktime_t *time, struct hrtimer_sleeper
  }
  
-+static void put_mount_options_rcu(struct rcu_head *head)
+ /*
+- * Generate a machine wide unique identifier for this inode.
++ * Generate a machine wide unique identifier for this object (inode or mm).
+  *
+  * This relies on u64 not wrapping in the life-time of the machine; which with
+  * 1ns resolution means almost 585 years.
+- *
+- * This further relies on the fact that a well formed program will not unmap
++ */
++static u64 get_object_id(atomic64_t *object_seq)
 +{
-+	put_mount_options(container_of(head, struct ntfs_mount_options, rcu));
++	static atomic64_t last_assigned_seq;
++	u64 old;
++
++	/* Does the object already have a sequence number? */
++	old = atomic64_read(object_seq);
++	if (likely(old))
++		return old;
++
++	for (;;) {
++		u64 new = atomic64_inc_return(&last_assigned_seq);
++		if (WARN_ON_ONCE(!new))
++			continue;
++
++		old = 0;
++		if (!atomic64_try_cmpxchg_relaxed(object_seq, &old, new))
++			return old;
++		return new;
++	}
 +}
 +
- enum Opt {
- 	Opt_uid,
- 	Opt_gid,
-@@ -444,6 +449,7 @@ static int ntfs_fs_reconfigure(struct fs_context *fc)
- 	struct super_block *sb = fc->root->d_sb;
- 	struct ntfs_sb_info *sbi = sb->s_fs_info;
- 	struct ntfs_mount_options *new_opts = fc->fs_private;
-+	struct ntfs_mount_options *old_opts;
- 	int ro_rw;
- 
- 	ro_rw = sb_rdonly(sb) && !(fc->sb_flags & SB_RDONLY);
-@@ -473,7 +479,15 @@ static int ntfs_fs_reconfigure(struct fs_context *fc)
- 	}
- 
- 	sync_filesystem(sb);
--	swap(sbi->options, fc->fs_private);
-+	old_opts = sbi->options;
-+	/* pairs with the READ_ONCE() in ntfs_nls_to_utf16() */
-+	smp_store_release(&sbi->options, new_opts);
-+	fc->fs_private = NULL;
-+	/*
-+	 * ntfs_d_hash() and ntfs_d_compare() of a pathwalk in rcu mode may
-+	 * still read the old options through the sbi.
-+	 */
-+	call_rcu(&old_opts->rcu, put_mount_options_rcu);
- 
- 	return 0;
++/*
++ * This relies on the fact that a well formed program will not unmap
+  * the file while it has a (shared) futex waiting on it. This mapping will have
+  * a file reference which pins the mount and inode.
+  *
+@@ -458,24 +481,7 @@ struct hrtimer_sleeper *futex_setup_timer(ktime_t *time, struct hrtimer_sleeper
+  */
+ static u64 get_inode_sequence_number(struct inode *inode)
+ {
+-	static atomic64_t i_seq;
+-	u64 old;
+-
+-	/* Does the inode already have a sequence number? */
+-	old = atomic64_read(&inode->i_sequence);
+-	if (likely(old))
+-		return old;
+-
+-	for (;;) {
+-		u64 new = atomic64_inc_return(&i_seq);
+-		if (WARN_ON_ONCE(!new))
+-			continue;
+-
+-		old = 0;
+-		if (!atomic64_try_cmpxchg_relaxed(&inode->i_sequence, &old, new))
+-			return old;
+-		return new;
+-	}
++	return get_object_id(&inode->i_sequence);
  }
+ 
+ /**
+@@ -683,8 +689,8 @@ int get_futex_key(u32 __user *uaddr, unsigned int flags, union futex_key *key,
+ 			goto out;
+ 		}
+ 
+-		key->both.offset |= FUT_OFF_MMSHARED; /* ref taken on mm */
+-		key->private.mm = mm;
++		key->both.offset |= FUT_OFF_MMSHARED;
++		key->private.mm_seq = get_object_id(&mm->futex.unique_id);
+ 		key->private.address = address;
+ 
+ 	} else {
+@@ -2055,13 +2061,12 @@ static void futex_robust_unlock_init_mm(struct futex_mm_data *fd)
+ static inline void futex_robust_unlock_init_mm(struct futex_mm_data *fd) { }
+ #endif /* !CONFIG_FUTEX_ROBUST_UNLOCK */
+ 
+-#if defined(CONFIG_FUTEX_PRIVATE_HASH) || defined(CONFIG_FUTEX_ROBUST_UNLOCK)
+ void futex_mm_init(struct mm_struct *mm)
+ {
++	atomic64_set(&mm->futex.unique_id, 0);
+ 	futex_hash_init_mm(&mm->futex);
+ 	futex_robust_unlock_init_mm(&mm->futex);
+ }
+-#endif
+ 
+ int futex_hash_prctl(unsigned long arg2, unsigned long arg3, unsigned long arg4)
+ {
 
