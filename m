@@ -1,96 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595299;
-	b=gjyiOGOwGvt/HkUxQJm+gOME7v4l+pyX3e4ZlySmFNMZpw2RUjn6yERTbgkdVsBZqV9x
-	 TjYxxpvQFD9CpeFRjIH/w1IktYzyuoEOsI4UmBMnssuNHHbCghEfhPbmDco4eM0AIWSFC
-	 UrVADR56VkNPisHyfvkPWQOepXDIVF8/Lo1UUtUW5zyUSu8cKVIhwbnBtczyaac4AL9+c
-	 neV96gYnZwm5pb6XMByxGL1YXoA0qmHuGyUpJ6IQxacLrP+MlZEG8AGlG80euvLezmY4B
-	 u9odRRsdCV/jNt7AKmh8njt3298Lc4vCzqNbplcPKJLHYOWaSkP/lxQ3/NK4JJaAqig==
+	t=1792595457;
+	b=MuSBHJnGH4YQMbJfT+U3VReGDcZCpjyMe4E8Pot2FJ5avcGk+lsNCYk0X9yDC4A5mxt9
+	 wZ9MEmxIK4fw2YmfHYj4fMG5IRMpWLJYhIn459Xq+3ydoZNSxG0e2mj0gt49fiP7Hlju5
+	 Ox5XpcoJSSvVnHDA0pnPAo10KXRk7T7mgYC+KAFmK4saw22nzATIDiNgAjKhKu27PoW3q
+	 WwjXFvYPWbicuVeuEWGmoqb2aPuN9fpSRNAyj4X1AaiWLBzYqibfww8EejTVyUZZJfnfF
+	 eEcgeDsslMVPzOqLFxY/sBpHU85oVplVwEezozJ/NJC2m+KH3GYIsEuJ/8eheQDelKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595299;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=SKh8lPT5SEfMc99OwulIZQOlMHEzODfvv6gUt03pNys=;
-	b=GRor+wmL6M5sMaYgID8ycfW9YMYA3kHMtv3ZwUCI+cABJSKkm/bGhlnsAt78/v/b4IOX
-	 MMgi5JrBQDDTapRANN4evACyNbe142PfUQs+TlE5GBTkYzAasDpGTi+THEdKebEafEvMZ
-	 fOuIn3JsBMWTCsXr7ldvVu7yjVrw0FDW16VIQv/WyuSLEan+cl1hafvX4IJ7qVINS8jcb
-	 GS3NuQZhDGVMyrjGabCUpvciZ5jyaJ8nIFT7J/nSLFOdSMEwFuxJ6ngzsI0BRND6daBLy
-	 n5Fth29S/GvtefqaPidbOSNpE3VnKUvLH0SFoeaF1rxVWOvlRAXb3yueLfrHUKI2n/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595457;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=oUMrBN0zczT22+GQaXbHoCIMXIjDCYS3+diaWyHg758=;
+	b=Rg/HSMW1HxyLSoBdITDdmrLD8/C5qYaX3OHnw1F4DEry93sq6aZh5ATUH3HfroELL5K/
+	 4eh70CZyCv2U2gtdZDKj4g2AGLZeCzs3ckswowwP72YgaBKbxe/r3UbsuHEAOE67D9NeI
+	 FGLR6FAwnXBX8h1S+6ZAF2RdGMXtI5/zLG4wzCsCxSRFVv4kPTDdkIShk6IdyaWiUjRyP
+	 KvAzeslugOofESd+wvqi5kCMwBg7YIRWwj6hMW04vqznuZVqHliIBvWFMC6ZjF0m0vlFa
+	 NENtFUmoAlO7jd5iiOj9zniOO0G+cCq8wU0FkF3BJ6ViVCmZNTBuPK5QNvOE3OPHRTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=VJpeNPVz;
-	arc=none smtp.remote-ip=209.85.167.174
-Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com [209.85.167.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GzI0R6t5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B899D60A2605
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:08:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B899D60A2605
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD99606A31A
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:10:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=VJpeNPVz
-Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-54cd7de2d42so379101b6e.0
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 08:08:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792595298; x=1793200098; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SKh8lPT5SEfMc99OwulIZQOlMHEzODfvv6gUt03pNys=;
-        b=VJpeNPVzzW2m9IiLhWBOP6SQVFen0qc3AlMOAVzSp2Y+DLTEnxZzmTyRkWda+g5U4A
-         mp4KnQyGKOPH9pwQCWFtDjIVB3KbAQ58lrLDu/ilmQ3nKK/GWj5LF5himQIbPb9ZB627
-         v2KncJj/J6NMNZY+tZ4WPIwnPkR4wJyM470iQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792595298; x=1793200098;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SKh8lPT5SEfMc99OwulIZQOlMHEzODfvv6gUt03pNys=;
-        b=pFVKkuveZ6lOTkhjoFaeTqTufbi2buyXJ6zy/5XA2Y2hJ4FRnN5DZgvRqAqeV51hwB
-         bmjCjyWi4YnUhiH4pE56FlNp3ARStOY/dv8MevSxb8SSxNiJlBpbW7a2m9C69PAZj7rj
-         sOrJUaVuX6DX56iURqpVYVQGghp00+QgKXlZs9n+NY1PocpfRskJVWO6Zk0aYYtmgi2w
-         US0cA3Hb+WqgcIT1s2INwDQyUmOa+9+QBnw+r9MepvTc8Zdqn9rA3+v9+KwqOoWZ5lOK
-         HwRCy4EFW8kCGkrZ2k8IOs+k5OZd07j7PchNsJUYlr8WWPhP0T7FVf+3M4bNwTtKdXBX
-         ov9g==
-X-Forwarded-Encrypted: i=1; AKwUvBwb/A5M0gLaPbITwWrBSDYsvyR82rUzIkx44m5/M3voJtxpE8w+FpPlcR/ZtW68Dun352BNe04=@vger.kernel.org
-X-Gm-Message-State: AFq9FYINLdR8BtbOuQmvnVbZgEmprWtq/hjN41L/UidoizUrUr9v4AhV
-	UEP1YotUCxnmt8MWlC6QjcfaX3d98jOla+kUds3Zsxarazw4ffHlmO3kJyp3IX+Ebg==
-X-Gm-Gg: AYBFou2IqpOwzuW6kGdVlnFFNgucV2mDbSYSa7zjLQeaQ+tjIwiTVvI4JkZiZ+bfG8C
-	UxRb30CvpUlfdCqt6YjvINf1wAs+IAETIRLBY+BTjQ9aBnZrIGTVD3iNz7uDtY9D3bGC/bCtJz6
-	ctziLX9VnOQsXyVYOoDJev3sKaTC/qYkarqTqRda/16IXy+3oOrjwiK4pYPhsP/a5UbI2FGWlZl
-	h1TSzb+1qirE10PkgXKDZhF/iWUW4zyPX3cc6Cy72enbwmrppblEM3aMVpYKjHwQel7q9rebj5r
-	0HiKrE0ty0KQqp8NpA81ke2r2Yj/ZnBTurfzcUjg39FNuZfyXyYA/L0vO+bwbe81hfEGtJFkbe4
-	x/0nVT1cFmiuYwAnVo5wKZGN1l9fuhqoFLVtaRD6cXnGYxb5UI1UOvyzrTGsHynBfRHolh20iJi
-	QzeBeUKdjbye5ln9ywScJ4KrZMVi2nj2tARYtCR8p0ZZz/Mf6coqkLjs0zFpXqHa3iMqwhOLA63
-	3BjC7xIj2KfaXWr5DL0RTprZ4CeKE3YWCfFAYHbyWDhHpSzE4puSdZRJfMsGZBzsPtMe3n2YT9L
-	+b5b+C1vu6rurdeX9GPP9K2TCP8PlalmkWQFOpbyGXoW
-X-Received: by 2002:a05:6808:10cf:b0:53c:8f0e:ee21 with SMTP id 5614622812f47-5535876bca3mr1511006b6e.10.1792595297620;
-        Wed, 21 Oct 2026 08:08:17 -0700 (PDT)
-Received: from rrangel.c.googlers.com.com (202.168.136.34.bc.googleusercontent.com. [34.136.168.202])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-552b400bd39sm2023922b6e.6.2026.10.21.08.08.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 08:08:17 -0700 (PDT)
-From: Raul E Rangel <rrangel@chromium.org>
-To: Valentina Manea <valentina.manea.m@gmail.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Hongren Zheng <i@zenithal.me>,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	Raul E Rangel <rrangel@chromium.org>,
-	stable@vger.kernel.org,
-	"Brian G. Merrell" <bgmerrell@novell.com>
-Subject: [PATCH 6/6] usbip: vhci_hcd: reject URBs from stale usb_device after port re-attach
-Date: Wed, 21 Oct 2026 09:07:01 -0600
-Message-ID: <20261021150704.3129446-7-rrangel@chromium.org>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-In-Reply-To: <20261021150704.3129446-1-rrangel@chromium.org>
-References: <20261021150704.3129446-1-rrangel@chromium.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GzI0R6t5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBBD81F000C1;
+	Wed, 21 Oct 2026 15:10:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792595456;
+	bh=oUMrBN0zczT22+GQaXbHoCIMXIjDCYS3+diaWyHg758=;
+	h=Subject:To:Cc:From:Date;
+	b=GzI0R6t5GEnl3UXyZa4N2JoL9/Fg3bGdVb0tzcb+4EtKPoUZGohtoJILlHIDhkd8F
+	 Ztq9KejptajmsICiMB3rW5YJ+vryH9CUgtrgvVs6prcTOm+v0CmnuYK8llLBY+DKIS
+	 9J3dFEAirZwuJUcQ/9DaZ3SmeYy5xb8mUohhkkDY=
+Subject: FAILED: patch "[PATCH] bpf: tcp: Support tcp_congestion_ops in bpf" failed to apply to 5.15-stable tree
+To: kafai@fb.com,andriin@fb.com,ast@kernel.org,yhs@fb.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 21 Oct 2026 17:02:06 +0200
+Message-ID: <2026102106-zips-balmy-2894@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,176 +51,515 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-After vhci_shutdown_connection() runs, event_handler() immediately
-calls vhci_device_reset(), setting vdev->ud.status to VDEV_ST_NULL and
-clearing vdev->udev before usb_hub_wq finishes running usb_disconnect()
-on the detached usb_device.
 
-If attach_store() attaches a new connection to the same rhport before
-usb_hub_wq disconnects the old usb_device, vdev->ud.tcp_socket becomes
-non-NULL and vdev->ud.status becomes VDEV_ST_NOTASSIGNED. Because
-vhci_urb_enqueue() maps urb->dev->portnum to vdev without verifying that
-urb->dev matches vdev->udev, URBs submitted on the old usb_device pass
-the connection state checks and get sent to the new remote device (or,
-if a concurrent USBDEVFS_RESET resets the old usb_device to address 0,
-overwrite vdev->udev).
+The patch below does not apply to the 5.15-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Serialize vdev->udev clearing in vhci_device_reset() under vhci->lock
-and ud->lock (dropping old usb_device and socket references outside the
-spinlocks in both vhci_device_reset() and vhci_urb_enqueue()), and
-reject URBs in vhci_urb_enqueue() when urb->dev != vdev->udev and either
-usb_pipedevice(urb->pipe) != 0 or urb->dev is already registered
-(device_is_registered(&urb->dev->dev)). During initial enumeration and
-PORT_INIT_TRIES retries in hub_port_connect(), each candidate usb_device
-is unregistered until usb_new_device() runs after hub_port_init() has
-assigned vdev->udev, whereas an already-registered usb_device resetting
-via usb_reset_device() is only valid when urb->dev == vdev->udev.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Fixes: 04679b3489e0 ("Staging: USB/IP: add client driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Gemini
-Signed-off-by: Raul E Rangel <rrangel@chromium.org>
----
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git checkout FETCH_HEAD
+git cherry-pick -x 0baf26b0fcd74bbfcef53c5d5e8bad2b99c8d0d2
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102106-zips-balmy-2894@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
- drivers/usb/usbip/vhci_hcd.c | 44 +++++++++++++++++++++++++-----------
- 1 file changed, 31 insertions(+), 13 deletions(-)
+Possible dependencies:
 
-diff --git a/drivers/usb/usbip/vhci_hcd.c b/drivers/usb/usbip/vhci_hcd.c
-index 27dba51392b7..e8ff63c2276f 100644
---- a/drivers/usb/usbip/vhci_hcd.c
-+++ b/drivers/usb/usbip/vhci_hcd.c
-@@ -693,6 +693,7 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- 	struct vhci_hcd *vhci_hcd = hcd_to_vhci_hcd(hcd);
- 	struct vhci *vhci = vhci_hcd->vhci;
- 	struct device *dev = &urb->dev->dev;
-+	struct usb_device *old = NULL;
- 	u8 portnum = urb->dev->portnum;
- 	int ret = 0;
- 	struct vhci_device *vdev;
-@@ -737,6 +738,17 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- 		kfree(priv);
- 		return -ENODEV;
- 	}
-+	if ((usb_pipedevice(urb->pipe) != 0 ||
-+	     device_is_registered(&urb->dev->dev)) &&
-+	    urb->dev != vdev->udev) {
-+		dev_err_ratelimited(dev,
-+				    "enqueue from stale usb_device on port %d\n",
-+				    vdev->rhport);
-+		spin_unlock(&vdev->ud.lock);
-+		spin_unlock_irqrestore(&vhci->lock, flags);
-+		kfree(priv);
-+		return -ENODEV;
-+	}
- 	spin_unlock(&vdev->ud.lock);
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 0baf26b0fcd74bbfcef53c5d5e8bad2b99c8d0d2 Mon Sep 17 00:00:00 2001
+From: Martin KaFai Lau <kafai@fb.com>
+Date: Wed, 8 Jan 2020 16:35:08 -0800
+Subject: [PATCH] bpf: tcp: Support tcp_congestion_ops in bpf
+
+This patch makes "struct tcp_congestion_ops" to be the first user
+of BPF STRUCT_OPS.  It allows implementing a tcp_congestion_ops
+in bpf.
+
+The BPF implemented tcp_congestion_ops can be used like
+regular kernel tcp-cc through sysctl and setsockopt.  e.g.
+[root@arch-fb-vm1 bpf]# sysctl -a | egrep congestion
+net.ipv4.tcp_allowed_congestion_control = reno cubic bpf_cubic
+net.ipv4.tcp_available_congestion_control = reno bic cubic bpf_cubic
+net.ipv4.tcp_congestion_control = bpf_cubic
+
+There has been attempt to move the TCP CC to the user space
+(e.g. CCP in TCP).   The common arguments are faster turn around,
+get away from long-tail kernel versions in production...etc,
+which are legit points.
+
+BPF has been the continuous effort to join both kernel and
+userspace upsides together (e.g. XDP to gain the performance
+advantage without bypassing the kernel).  The recent BPF
+advancements (in particular BTF-aware verifier, BPF trampoline,
+BPF CO-RE...) made implementing kernel struct ops (e.g. tcp cc)
+possible in BPF.  It allows a faster turnaround for testing algorithm
+in the production while leveraging the existing (and continue growing)
+BPF feature/framework instead of building one specifically for
+userspace TCP CC.
+
+This patch allows write access to a few fields in tcp-sock
+(in bpf_tcp_ca_btf_struct_access()).
+
+The optional "get_info" is unsupported now.  It can be added
+later.  One possible way is to output the info with a btf-id
+to describe the content.
+
+Signed-off-by: Martin KaFai Lau <kafai@fb.com>
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+Acked-by: Andrii Nakryiko <andriin@fb.com>
+Acked-by: Yonghong Song <yhs@fb.com>
+Link: https://lore.kernel.org/bpf/20200109003508.3856115-1-kafai@fb.com
+
+diff --git a/include/linux/filter.h b/include/linux/filter.h
+index 70e6dd960bca..a366a0b64a57 100644
+--- a/include/linux/filter.h
++++ b/include/linux/filter.h
+@@ -843,6 +843,8 @@ int bpf_prog_create(struct bpf_prog **pfp, struct sock_fprog_kern *fprog);
+ int bpf_prog_create_from_user(struct bpf_prog **pfp, struct sock_fprog *fprog,
+ 			      bpf_aux_classic_check_t trans, bool save_orig);
+ void bpf_prog_destroy(struct bpf_prog *fp);
++const struct bpf_func_proto *
++bpf_base_func_proto(enum bpf_func_id func_id);
  
- 	ret = usb_hcd_link_urb_to_ep(hcd, urb);
-@@ -753,7 +765,6 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- 	 *
- 	 */
- 	if (usb_pipedevice(urb->pipe) == 0) {
--		struct usb_device *old;
- 		__u8 type = usb_pipetype(urb->pipe);
- 		struct usb_ctrlrequest *ctrlreq =
- 			(struct usb_ctrlrequest *) urb->setup_packet;
-@@ -764,13 +775,13 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- 			goto no_need_xmit;
- 		}
+ int sk_attach_filter(struct sock_fprog *fprog, struct sock *sk);
+ int sk_attach_bpf(u32 ufd, struct sock *sk);
+diff --git a/include/net/tcp.h b/include/net/tcp.h
+index 7df37e2fddca..9dd975be7fdf 100644
+--- a/include/net/tcp.h
++++ b/include/net/tcp.h
+@@ -1007,6 +1007,7 @@ enum tcp_ca_ack_event_flags {
+ #define TCP_CONG_NON_RESTRICTED 0x1
+ /* Requires ECN/ECT set on all packets */
+ #define TCP_CONG_NEEDS_ECN	0x2
++#define TCP_CONG_MASK	(TCP_CONG_NON_RESTRICTED | TCP_CONG_NEEDS_ECN)
  
--		old = vdev->udev;
- 		switch (ctrlreq->bRequest) {
- 		case USB_REQ_SET_ADDRESS:
- 			/* set_address may come when a device is reset */
- 			dev_info(dev, "SetAddress Request (%d) to port %d\n",
- 				 ctrlreq->wValue, vdev->rhport);
+ union tcp_cc_info;
  
-+			old = vdev->udev;
- 			vdev->udev = usb_get_dev(urb->dev);
- 			/*
- 			 * NOTE: A similar operation has been done via
-@@ -783,7 +794,6 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- 			 * should be dropped.
- 			 */
- 			dev_pm_syscore_device(&vdev->udev->dev, true);
--			usb_put_dev(old);
+@@ -1101,6 +1102,7 @@ u32 tcp_reno_undo_cwnd(struct sock *sk);
+ void tcp_reno_cong_avoid(struct sock *sk, u32 ack, u32 acked);
+ extern struct tcp_congestion_ops tcp_reno;
  
- 			spin_lock(&vdev->ud.lock);
- 			vdev->ud.status = VDEV_ST_USED;
-@@ -802,6 +812,7 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- 				usbip_dbg_vhci_hc(
- 					"Not yet?:Get_Descriptor to device 0 (get max pipe size)\n");
++struct tcp_congestion_ops *tcp_ca_find(const char *name);
+ struct tcp_congestion_ops *tcp_ca_find_key(u32 key);
+ u32 tcp_ca_get_key_by_name(struct net *net, const char *name, bool *ecn_ca);
+ #ifdef CONFIG_INET
+diff --git a/kernel/bpf/bpf_struct_ops_types.h b/kernel/bpf/bpf_struct_ops_types.h
+index 7bb13ff49ec2..066d83ea1c99 100644
+--- a/kernel/bpf/bpf_struct_ops_types.h
++++ b/kernel/bpf/bpf_struct_ops_types.h
+@@ -1,4 +1,9 @@
+ /* SPDX-License-Identifier: GPL-2.0 */
+ /* internal file - do not include directly */
  
-+			old = vdev->udev;
- 			vdev->udev = usb_get_dev(urb->dev);
- 			/*
- 			 * Set syscore PM flag for the virtually attached
-@@ -814,7 +825,6 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- 			 * on disconnect.
- 			 */
- 			dev_pm_syscore_device(&vdev->udev->dev, true);
--			usb_put_dev(old);
- 			goto out;
- 
- 		default:
-@@ -832,6 +842,7 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- out:
- 	vhci_tx_urb(urb, vdev, priv);
- 	spin_unlock_irqrestore(&vhci->lock, flags);
-+	usb_put_dev(old);
- 
- 	return 0;
- 
-@@ -848,6 +859,7 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- 		spin_lock(&vhci->lock);
- 	}
- 	spin_unlock_irqrestore(&vhci->lock, flags);
-+	usb_put_dev(old);
- 	return ret;
+-/* To be filled in a later patch */
++#ifdef CONFIG_BPF_JIT
++#ifdef CONFIG_INET
++#include <net/tcp.h>
++BPF_STRUCT_OPS_TYPE(tcp_congestion_ops)
++#endif
++#endif
+diff --git a/net/core/filter.c b/net/core/filter.c
+index 42fd17c48c5f..a702761ef369 100644
+--- a/net/core/filter.c
++++ b/net/core/filter.c
+@@ -5935,7 +5935,7 @@ bool bpf_helper_changes_pkt_data(void *func)
+ 	return false;
  }
  
-@@ -1156,25 +1168,31 @@ static void vhci_shutdown_connection(struct usbip_device *ud)
- static void vhci_device_reset(struct usbip_device *ud)
+-static const struct bpf_func_proto *
++const struct bpf_func_proto *
+ bpf_base_func_proto(enum bpf_func_id func_id)
  {
- 	struct vhci_device *vdev = container_of(ud, struct vhci_device, ud);
--	struct usb_device *old = vdev->udev;
-+	struct vhci *vhci = vdev_to_vhci_hcd(vdev)->vhci;
-+	struct usb_device *old;
-+	struct socket *socket;
- 	unsigned long flags;
+ 	switch (func_id) {
+diff --git a/net/ipv4/Makefile b/net/ipv4/Makefile
+index d57ecfaf89d4..9d97bace13c8 100644
+--- a/net/ipv4/Makefile
++++ b/net/ipv4/Makefile
+@@ -65,3 +65,7 @@ obj-$(CONFIG_NETLABEL) += cipso_ipv4.o
  
--	spin_lock_irqsave(&ud->lock, flags);
-+	spin_lock_irqsave(&vhci->lock, flags);
-+	spin_lock(&ud->lock);
- 
- 	vdev->speed  = 0;
- 	vdev->devid  = 0;
- 
-+	old = vdev->udev;
- 	vdev->udev = NULL;
--	usb_put_dev(old);
- 
--	if (ud->tcp_socket) {
--		sockfd_put(ud->tcp_socket);
--		ud->tcp_socket = NULL;
--		ud->sockfd = -1;
--	}
-+	socket = ud->tcp_socket;
-+	ud->tcp_socket = NULL;
-+	ud->sockfd = -1;
- 	ud->status = VDEV_ST_NULL;
- 
--	spin_unlock_irqrestore(&ud->lock, flags);
-+	spin_unlock(&ud->lock);
-+	spin_unlock_irqrestore(&vhci->lock, flags);
+ obj-$(CONFIG_XFRM) += xfrm4_policy.o xfrm4_state.o xfrm4_input.o \
+ 		      xfrm4_output.o xfrm4_protocol.o
 +
-+	usb_put_dev(old);
-+	if (socket)
-+		sockfd_put(socket);
++ifeq ($(CONFIG_BPF_JIT),y)
++obj-$(CONFIG_BPF_SYSCALL) += bpf_tcp_ca.o
++endif
+diff --git a/net/ipv4/bpf_tcp_ca.c b/net/ipv4/bpf_tcp_ca.c
+new file mode 100644
+index 000000000000..9c7745b958d7
+--- /dev/null
++++ b/net/ipv4/bpf_tcp_ca.c
+@@ -0,0 +1,230 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (c) 2019 Facebook  */
++
++#include <linux/types.h>
++#include <linux/bpf_verifier.h>
++#include <linux/bpf.h>
++#include <linux/btf.h>
++#include <linux/filter.h>
++#include <net/tcp.h>
++
++static u32 optional_ops[] = {
++	offsetof(struct tcp_congestion_ops, init),
++	offsetof(struct tcp_congestion_ops, release),
++	offsetof(struct tcp_congestion_ops, set_state),
++	offsetof(struct tcp_congestion_ops, cwnd_event),
++	offsetof(struct tcp_congestion_ops, in_ack_event),
++	offsetof(struct tcp_congestion_ops, pkts_acked),
++	offsetof(struct tcp_congestion_ops, min_tso_segs),
++	offsetof(struct tcp_congestion_ops, sndbuf_expand),
++	offsetof(struct tcp_congestion_ops, cong_control),
++};
++
++static u32 unsupported_ops[] = {
++	offsetof(struct tcp_congestion_ops, get_info),
++};
++
++static const struct btf_type *tcp_sock_type;
++static u32 tcp_sock_id, sock_id;
++
++static int bpf_tcp_ca_init(struct btf *btf)
++{
++	s32 type_id;
++
++	type_id = btf_find_by_name_kind(btf, "sock", BTF_KIND_STRUCT);
++	if (type_id < 0)
++		return -EINVAL;
++	sock_id = type_id;
++
++	type_id = btf_find_by_name_kind(btf, "tcp_sock", BTF_KIND_STRUCT);
++	if (type_id < 0)
++		return -EINVAL;
++	tcp_sock_id = type_id;
++	tcp_sock_type = btf_type_by_id(btf, tcp_sock_id);
++
++	return 0;
++}
++
++static bool is_optional(u32 member_offset)
++{
++	unsigned int i;
++
++	for (i = 0; i < ARRAY_SIZE(optional_ops); i++) {
++		if (member_offset == optional_ops[i])
++			return true;
++	}
++
++	return false;
++}
++
++static bool is_unsupported(u32 member_offset)
++{
++	unsigned int i;
++
++	for (i = 0; i < ARRAY_SIZE(unsupported_ops); i++) {
++		if (member_offset == unsupported_ops[i])
++			return true;
++	}
++
++	return false;
++}
++
++extern struct btf *btf_vmlinux;
++
++static bool bpf_tcp_ca_is_valid_access(int off, int size,
++				       enum bpf_access_type type,
++				       const struct bpf_prog *prog,
++				       struct bpf_insn_access_aux *info)
++{
++	if (off < 0 || off >= sizeof(__u64) * MAX_BPF_FUNC_ARGS)
++		return false;
++	if (type != BPF_READ)
++		return false;
++	if (off % size != 0)
++		return false;
++
++	if (!btf_ctx_access(off, size, type, prog, info))
++		return false;
++
++	if (info->reg_type == PTR_TO_BTF_ID && info->btf_id == sock_id)
++		/* promote it to tcp_sock */
++		info->btf_id = tcp_sock_id;
++
++	return true;
++}
++
++static int bpf_tcp_ca_btf_struct_access(struct bpf_verifier_log *log,
++					const struct btf_type *t, int off,
++					int size, enum bpf_access_type atype,
++					u32 *next_btf_id)
++{
++	size_t end;
++
++	if (atype == BPF_READ)
++		return btf_struct_access(log, t, off, size, atype, next_btf_id);
++
++	if (t != tcp_sock_type) {
++		bpf_log(log, "only read is supported\n");
++		return -EACCES;
++	}
++
++	switch (off) {
++	case bpf_ctx_range(struct inet_connection_sock, icsk_ca_priv):
++		end = offsetofend(struct inet_connection_sock, icsk_ca_priv);
++		break;
++	case offsetof(struct inet_connection_sock, icsk_ack.pending):
++		end = offsetofend(struct inet_connection_sock,
++				  icsk_ack.pending);
++		break;
++	case offsetof(struct tcp_sock, snd_cwnd):
++		end = offsetofend(struct tcp_sock, snd_cwnd);
++		break;
++	case offsetof(struct tcp_sock, snd_cwnd_cnt):
++		end = offsetofend(struct tcp_sock, snd_cwnd_cnt);
++		break;
++	case offsetof(struct tcp_sock, snd_ssthresh):
++		end = offsetofend(struct tcp_sock, snd_ssthresh);
++		break;
++	case offsetof(struct tcp_sock, ecn_flags):
++		end = offsetofend(struct tcp_sock, ecn_flags);
++		break;
++	default:
++		bpf_log(log, "no write support to tcp_sock at off %d\n", off);
++		return -EACCES;
++	}
++
++	if (off + size > end) {
++		bpf_log(log,
++			"write access at off %d with size %d beyond the member of tcp_sock ended at %zu\n",
++			off, size, end);
++		return -EACCES;
++	}
++
++	return NOT_INIT;
++}
++
++static const struct bpf_func_proto *
++bpf_tcp_ca_get_func_proto(enum bpf_func_id func_id,
++			  const struct bpf_prog *prog)
++{
++	return bpf_base_func_proto(func_id);
++}
++
++static const struct bpf_verifier_ops bpf_tcp_ca_verifier_ops = {
++	.get_func_proto		= bpf_tcp_ca_get_func_proto,
++	.is_valid_access	= bpf_tcp_ca_is_valid_access,
++	.btf_struct_access	= bpf_tcp_ca_btf_struct_access,
++};
++
++static int bpf_tcp_ca_init_member(const struct btf_type *t,
++				  const struct btf_member *member,
++				  void *kdata, const void *udata)
++{
++	const struct tcp_congestion_ops *utcp_ca;
++	struct tcp_congestion_ops *tcp_ca;
++	size_t tcp_ca_name_len;
++	int prog_fd;
++	u32 moff;
++
++	utcp_ca = (const struct tcp_congestion_ops *)udata;
++	tcp_ca = (struct tcp_congestion_ops *)kdata;
++
++	moff = btf_member_bit_offset(t, member) / 8;
++	switch (moff) {
++	case offsetof(struct tcp_congestion_ops, flags):
++		if (utcp_ca->flags & ~TCP_CONG_MASK)
++			return -EINVAL;
++		tcp_ca->flags = utcp_ca->flags;
++		return 1;
++	case offsetof(struct tcp_congestion_ops, name):
++		tcp_ca_name_len = strnlen(utcp_ca->name, sizeof(utcp_ca->name));
++		if (!tcp_ca_name_len ||
++		    tcp_ca_name_len == sizeof(utcp_ca->name))
++			return -EINVAL;
++		if (tcp_ca_find(utcp_ca->name))
++			return -EEXIST;
++		memcpy(tcp_ca->name, utcp_ca->name, sizeof(tcp_ca->name));
++		return 1;
++	}
++
++	if (!btf_type_resolve_func_ptr(btf_vmlinux, member->type, NULL))
++		return 0;
++
++	/* Ensure bpf_prog is provided for compulsory func ptr */
++	prog_fd = (int)(*(unsigned long *)(udata + moff));
++	if (!prog_fd && !is_optional(moff) && !is_unsupported(moff))
++		return -EINVAL;
++
++	return 0;
++}
++
++static int bpf_tcp_ca_check_member(const struct btf_type *t,
++				   const struct btf_member *member)
++{
++	if (is_unsupported(btf_member_bit_offset(t, member) / 8))
++		return -ENOTSUPP;
++	return 0;
++}
++
++static int bpf_tcp_ca_reg(void *kdata)
++{
++	return tcp_register_congestion_control(kdata);
++}
++
++static void bpf_tcp_ca_unreg(void *kdata)
++{
++	tcp_unregister_congestion_control(kdata);
++}
++
++/* Avoid sparse warning.  It is only used in bpf_struct_ops.c. */
++extern struct bpf_struct_ops bpf_tcp_congestion_ops;
++
++struct bpf_struct_ops bpf_tcp_congestion_ops = {
++	.verifier_ops = &bpf_tcp_ca_verifier_ops,
++	.reg = bpf_tcp_ca_reg,
++	.unreg = bpf_tcp_ca_unreg,
++	.check_member = bpf_tcp_ca_check_member,
++	.init_member = bpf_tcp_ca_init_member,
++	.init = bpf_tcp_ca_init,
++	.name = "tcp_congestion_ops",
++};
+diff --git a/net/ipv4/tcp_cong.c b/net/ipv4/tcp_cong.c
+index 3737ec096650..3172e31987be 100644
+--- a/net/ipv4/tcp_cong.c
++++ b/net/ipv4/tcp_cong.c
+@@ -21,7 +21,7 @@ static DEFINE_SPINLOCK(tcp_cong_list_lock);
+ static LIST_HEAD(tcp_cong_list);
+ 
+ /* Simple linear search, don't expect many entries! */
+-static struct tcp_congestion_ops *tcp_ca_find(const char *name)
++struct tcp_congestion_ops *tcp_ca_find(const char *name)
+ {
+ 	struct tcp_congestion_ops *e;
+ 
+@@ -162,7 +162,7 @@ void tcp_assign_congestion_control(struct sock *sk)
+ 
+ 	rcu_read_lock();
+ 	ca = rcu_dereference(net->ipv4.tcp_congestion_control);
+-	if (unlikely(!try_module_get(ca->owner)))
++	if (unlikely(!bpf_try_module_get(ca, ca->owner)))
+ 		ca = &tcp_reno;
+ 	icsk->icsk_ca_ops = ca;
+ 	rcu_read_unlock();
+@@ -208,7 +208,7 @@ void tcp_cleanup_congestion_control(struct sock *sk)
+ 
+ 	if (icsk->icsk_ca_ops->release)
+ 		icsk->icsk_ca_ops->release(sk);
+-	module_put(icsk->icsk_ca_ops->owner);
++	bpf_module_put(icsk->icsk_ca_ops, icsk->icsk_ca_ops->owner);
  }
  
- static void vhci_device_unusable(struct usbip_device *ud)
--- 
-2.56.0.212.g129ede20d9-goog
+ /* Used by sysctl to change default congestion control */
+@@ -222,12 +222,12 @@ int tcp_set_default_congestion_control(struct net *net, const char *name)
+ 	ca = tcp_ca_find_autoload(net, name);
+ 	if (!ca) {
+ 		ret = -ENOENT;
+-	} else if (!try_module_get(ca->owner)) {
++	} else if (!bpf_try_module_get(ca, ca->owner)) {
+ 		ret = -EBUSY;
+ 	} else {
+ 		prev = xchg(&net->ipv4.tcp_congestion_control, ca);
+ 		if (prev)
+-			module_put(prev->owner);
++			bpf_module_put(prev, prev->owner);
+ 
+ 		ca->flags |= TCP_CONG_NON_RESTRICTED;
+ 		ret = 0;
+@@ -366,19 +366,19 @@ int tcp_set_congestion_control(struct sock *sk, const char *name, bool load,
+ 	} else if (!load) {
+ 		const struct tcp_congestion_ops *old_ca = icsk->icsk_ca_ops;
+ 
+-		if (try_module_get(ca->owner)) {
++		if (bpf_try_module_get(ca, ca->owner)) {
+ 			if (reinit) {
+ 				tcp_reinit_congestion_control(sk, ca);
+ 			} else {
+ 				icsk->icsk_ca_ops = ca;
+-				module_put(old_ca->owner);
++				bpf_module_put(old_ca, old_ca->owner);
+ 			}
+ 		} else {
+ 			err = -EBUSY;
+ 		}
+ 	} else if (!((ca->flags & TCP_CONG_NON_RESTRICTED) || cap_net_admin)) {
+ 		err = -EPERM;
+-	} else if (!try_module_get(ca->owner)) {
++	} else if (!bpf_try_module_get(ca, ca->owner)) {
+ 		err = -EBUSY;
+ 	} else {
+ 		tcp_reinit_congestion_control(sk, ca);
+diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
+index 4adac9c75343..317ccca548a2 100644
+--- a/net/ipv4/tcp_ipv4.c
++++ b/net/ipv4/tcp_ipv4.c
+@@ -2678,7 +2678,8 @@ static void __net_exit tcp_sk_exit(struct net *net)
+ 	int cpu;
+ 
+ 	if (net->ipv4.tcp_congestion_control)
+-		module_put(net->ipv4.tcp_congestion_control->owner);
++		bpf_module_put(net->ipv4.tcp_congestion_control,
++			       net->ipv4.tcp_congestion_control->owner);
+ 
+ 	for_each_possible_cpu(cpu)
+ 		inet_ctl_sock_destroy(*per_cpu_ptr(net->ipv4.tcp_sk, cpu));
+@@ -2785,7 +2786,8 @@ static int __net_init tcp_sk_init(struct net *net)
+ 
+ 	/* Reno is always built in */
+ 	if (!net_eq(net, &init_net) &&
+-	    try_module_get(init_net.ipv4.tcp_congestion_control->owner))
++	    bpf_try_module_get(init_net.ipv4.tcp_congestion_control,
++			       init_net.ipv4.tcp_congestion_control->owner))
+ 		net->ipv4.tcp_congestion_control = init_net.ipv4.tcp_congestion_control;
+ 	else
+ 		net->ipv4.tcp_congestion_control = &tcp_reno;
+diff --git a/net/ipv4/tcp_minisocks.c b/net/ipv4/tcp_minisocks.c
+index c802bc80c400..ad3b56d9fa71 100644
+--- a/net/ipv4/tcp_minisocks.c
++++ b/net/ipv4/tcp_minisocks.c
+@@ -414,7 +414,7 @@ void tcp_ca_openreq_child(struct sock *sk, const struct dst_entry *dst)
+ 
+ 		rcu_read_lock();
+ 		ca = tcp_ca_find_key(ca_key);
+-		if (likely(ca && try_module_get(ca->owner))) {
++		if (likely(ca && bpf_try_module_get(ca, ca->owner))) {
+ 			icsk->icsk_ca_dst_locked = tcp_ca_dst_locked(dst);
+ 			icsk->icsk_ca_ops = ca;
+ 			ca_got_dst = true;
+@@ -425,7 +425,7 @@ void tcp_ca_openreq_child(struct sock *sk, const struct dst_entry *dst)
+ 	/* If no valid choice made yet, assign current system default ca. */
+ 	if (!ca_got_dst &&
+ 	    (!icsk->icsk_ca_setsockopt ||
+-	     !try_module_get(icsk->icsk_ca_ops->owner)))
++	     !bpf_try_module_get(icsk->icsk_ca_ops, icsk->icsk_ca_ops->owner)))
+ 		tcp_assign_congestion_control(sk);
+ 
+ 	tcp_set_ca_state(sk, TCP_CA_Open);
+diff --git a/net/ipv4/tcp_output.c b/net/ipv4/tcp_output.c
+index 58c92a7d671c..377cfab422df 100644
+--- a/net/ipv4/tcp_output.c
++++ b/net/ipv4/tcp_output.c
+@@ -3368,8 +3368,8 @@ static void tcp_ca_dst_init(struct sock *sk, const struct dst_entry *dst)
+ 
+ 	rcu_read_lock();
+ 	ca = tcp_ca_find_key(ca_key);
+-	if (likely(ca && try_module_get(ca->owner))) {
+-		module_put(icsk->icsk_ca_ops->owner);
++	if (likely(ca && bpf_try_module_get(ca, ca->owner))) {
++		bpf_module_put(icsk->icsk_ca_ops, icsk->icsk_ca_ops->owner);
+ 		icsk->icsk_ca_dst_locked = tcp_ca_dst_locked(dst);
+ 		icsk->icsk_ca_ops = ca;
+ 	}
 
