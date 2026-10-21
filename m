@@ -1,59 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792596588;
-	b=p2sRKSRU1gHAOP7fo/+PT23nSblf1c+tskPoA0VlD4fvx82ay5niUr3tqdLc9rCVt1vE
-	 ZJkI0W78wkB3RHnMpR7P9eI1mARTJbQaUG9WC2TDZxVfsP1JS6jxjVH60KHiDfiuH1Pei
-	 KsQQAhDT4coRhsKXsLcu0VE0PdNk/gB5t2fI0rf99L6Qu5SzaNVFxWThvixWYBDrwkW8L
-	 U4U1DdC/2jA4gz+QL52PEs8btTe8n7dSnbWI7gVUzwo5IEyXACYMzFiw0xxDTy37XLD2f
-	 1aefFyKeQT8//g/hQJLY3HK4DKVhWnIXZHKb6OYG/6AjdNsPSjQrODwra1TJzKypXCg==
+	t=1792596597;
+	b=IghCRhMALxEOE/6mF7g6xG0sfoyqxdYrk9kmH1z01kAdyhoh8/jV5jaH9qzy3yFThl7W
+	 fbjp8zcweIg2O+LUn843BgtpUmoyoNxY7bsYDqQqa90WQHZmBqFWZ4nmZeZa177FuREMa
+	 1GgTnUHCo2EAsj7UAvbuQwIzCzmgOFw3IbPssR6ir2WYLeH1cIOm2bUDLH1tHOFCBZUXP
+	 9wiWJV+J7xV/QfEi2whHJ7YCQ7/ABAbl8nqMywVqQn8fquHD5UZ8BH0MMhPsd9BWEe9TL
+	 +cBFK+w2/mvcsoEbx/nrvr6iIH1gXz7nnmyiwJuW3JukTYOVXWvY6gt8yTbD1kr1y8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792596588;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792596597;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=FVQDpr44eYLngX2WxrdQHG1E4iz8Ilkkjbc5bw5llxM=;
-	b=E0ofsY+ETi1O0b17r9f09ddhiVA6BpOmwOuq0EV+l1htCE5BwD15/J4SCcSaqjC3ukXD
-	 fUmJnoiSe3F3uXuTro2BXCEsXOfF3CKGHKHgit40l7F1Jg0cBOw518+LFcz/COJbdScq+
-	 vT64nOxnJSTQSY12Y6C8CmJa7ev1g9YYtMaSMhGVsoOKTwF4sNxUWsg0FzDKXFn1acfXR
-	 Zhgjeeh1zzEL8dBGPXlC+fIbUGXZnyz45oEjHbL0pDGG/C7SBh9Spmka/7p521SJu53ti
-	 CpV0lDlqs8KZe88Rm6tnk1gzq4fSAz4dkXul+uRTsP9zIJP8vlLNBKaWtwHr5w0uUig==
+	bh=5n0gDyaEJNwm5DX2KoGvBK/FpXmEq1x8Hw2MMoFrhXw=;
+	b=w+lzNyvkdYC/EgQ8XjnShdaLXH1Tv/rfbIa4XLhZr19me38B+x5M+ojb6f5AThQwzYQa
+	 rRcttiDTY594o9TqVYCi7LVnVcM4XlvesSv1BO7k2lt3In6hMhNMAGK6toS1wjXCLFQ6W
+	 097maC+lFA/e91vXhtnfCLZBoZeVqipEXRxM2D+BIq5Lf0de6zgMzW3sr5INkyyq3uJys
+	 UEKEod0O0TF9yJQCISugBPhJACtt66e1GBYPllJYllA1/TOT+SVcyIcQK4dl4WEgBrDCW
+	 /UW2CihOLguxyTMHpfPb6QkUYS9GtJkxcn3sa/TgKrlSlq3hZCv1wtCHRwzvhcon3Zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HNU2CobF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Trq2glKA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7693A606A31A
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:29:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4967D606A31D
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:29:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HNU2CobF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F5711F000C4;
-	Wed, 21 Oct 2026 15:29:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Trq2glKA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70EF31F000C1;
+	Wed, 21 Oct 2026 15:29:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792596588;
-	bh=FVQDpr44eYLngX2WxrdQHG1E4iz8Ilkkjbc5bw5llxM=;
+	s=k20260515; t=1792596597;
+	bh=5n0gDyaEJNwm5DX2KoGvBK/FpXmEq1x8Hw2MMoFrhXw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HNU2CobFXJVZvcXi9vfS1OwEnm4OU2yRjU5x0Ogg6qh09G3eQQnz02Tm9LuSdR8pe
-	 bo/KdGnC9niSdPUWnuNY/3Es6P9A+PVDHTJwkse15aBi4rXTfawsvmOAaNXInlrrbk
-	 5JwKNe8JdtSNKdnSTmbcWFyMMXYwx3FIia3PCfe6zl7jJpInwvhPI1gVq31A0h8DU7
-	 NeeQKu7lLTVdMSUo7kUHBBYaTGBUECP4kTIatIN5kw1tW6zNkjfchf9tURpxQFCAMH
-	 eZHYkEV04mlocC1Yi+ZPHb+0Hh7K3hmAA7WEXx1lxK/HNqIbmEZyi7VYM7EopuQU5p
-	 I1e6VOBQvq1KA==
+	b=Trq2glKAQzX+p5M5c2qAsDxCZMK/qYkdsTMtZH9n8V5HNnAw2XQJodgP4+6XOihR1
+	 JZNY3vuhsld1xfldTh2VgyF6+/BLq4ftxA6fzI+NUFGFB2AMnC/+hGgyw1CFd6OuNt
+	 MEh/09XfTmCQ3Tx2LKEcW51H3bfs5YUCeKQwQtzmTft8rc2YjXo5ALuCwRef3JTa5y
+	 cFfE+OkP4fGEBBNGoWNNanSURax39mGCbWsRA+xS4KRKHUDCjMX2qU5W5XT/i0syb2
+	 4OOHbXkFIqdXKQD+B+EwG1oS3nLRbNK4kJYx1PwVnSwQZ6pyfp4kOF3Vaj11PgVmbD
+	 6QJr7qIF93EYA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>,
-	"Dae R. Jeong" <threeearcat@gmail.com>,
-	AutonomousCodeSecurity@microsoft.com,
-	Bradley Morgan <brads@mainlining.org>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] watch_queue: Fix note pool publication race in watch_queue_set_size()
-Date: Wed, 21 Oct 2026 11:29:45 -0400
-Message-ID: <20261021152924.289040-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y] ASoC: SOF: ipc4-topology: Fix shift-out-of-bounds for aggregated ALH capture
+Date: Wed, 21 Oct 2026 11:29:55 -0400
+Message-ID: <20261021152922.287978-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261021152924.289040-1-sashal@kernel.org>
-References: <2026102119-suffocate-expensive-8655@gregkh>
- <20261021152924.289040-1-sashal@kernel.org>
+In-Reply-To: <2026102124-wisdom-print-3a6c@gregkh>
+References: <2026102124-wisdom-print-3a6c@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,92 +62,64 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-[ Upstream commit 5e531d62f1f8834faf7a4eed0d41105cf6570a8f ]
+[ Upstream commit 746de48c3a250f0c264105dcbfcdf0c5001e970b ]
 
-There is a race between watch_queue_set_size() and post_one_notification().
-watch_queue_set_size() publishes wqueue->notes, notes_bitmap, nr_pages and
-nr_notes with plain stores, and post_one_notification() reads them with
-plain loads under a different lock, so nothing orders the four stores
-against the poster's loads: depending on the build, notes can be stored
-last (gcc 14 on x86-64 does this).  Since keyctl_watch_key() lets a watch
-attach to a queue before it is sized, post_one_notification() can already
-be running on another CPU at that moment: it reads nr_notes > 0, passes
-its bounds check, and then reads notes while it is still NULL,
-dereferencing notes[0].
+When ch_count is smaller than blob->alh_cfg.device_count (e.g. a mono
+capture stream, such as a SmartMic, aggregated across multiple SDW
+links), step = ch_count / blob->alh_cfg.device_count truncates to 0.
+The subsequent GENMASK(step - 1, 0) then underflows step - 1 (u32) to
+UINT_MAX, causing GENMASK()'s internal shift to use an out-of-bounds
+exponent:
 
-An unprivileged user triggers this reliably by watching one of its own
-keys through a notification pipe and racing ioctl(IOC_WATCH_QUEUE_SET_SIZE)
-on that pipe against keyctl(KEYCTL_SETPERM) on the key from another CPU,
-triggering:
+  UBSAN: shift-out-of-bounds in sound/soc/sof/ipc4-topology.c:2363:13
+  shift exponent 18446744069414584384 is too large for 64-bit type 'long unsigned int'
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:post_one_notification.isra.0+0xa2/0x1e0
-  Call Trace:
-   __post_watch_notification+0x148/0x180
-   keyctl_setperm_key+0x119/0x130
-   do_syscall_64+0x108/0x4c0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-  Kernel panic - not syncing: Fatal exception in interrupt
+Treat ch_count < device_count the same way as the existing "channels
+equal to output reference channels" case: apply the same ch_mask to
+every aggregated device instead of trying to split channels that
+can't be evenly divided.
 
-Fix this by publishing nr_notes last with smp_store_release(), and by
-reading it once with smp_load_acquire() in post_one_notification() before
-the bitmap and the page array are touched.  A poster that observes a
-non-zero nr_notes then also observes the pool behind it; one that observes
-zero drops the notification as before.
-
-Fixes: c73be61cede5 ("pipe: Add general notification queue support")
-Reported-by: Dae R. Jeong <threeearcat@gmail.com>
-Closes: https://lore.kernel.org/all/ZT-S8Q7tyutcvu_q@dragonet/
-Reported-by: AutonomousCodeSecurity@microsoft.com
-Suggested-by: Dae R. Jeong <threeearcat@gmail.com>
-Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
-Link: https://patch.msgid.link/20261009224715.46121-1-cenzhang@linux.microsoft.com
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Fixes: 0390a102cc18 ("ASoC: SOF: ipc4-topology: use different channel mask for each sdw amp feedback")
+Cc: stable@vger.kernel.org
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Link: https://patch.msgid.link/20261008090130.15135-1-peter.ujfalusi@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+[ sashal: Added a standalone guard around the mask calculation because the upstream playback conditional is absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/watch_queue.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ sound/soc/sof/ipc4-topology.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/watch_queue.c b/kernel/watch_queue.c
-index 5da67a1047d00..8f809cc60c036 100644
---- a/kernel/watch_queue.c
-+++ b/kernel/watch_queue.c
-@@ -101,7 +101,7 @@ static bool post_one_notification(struct watch_queue *wqueue,
- 	struct pipe_inode_info *pipe = wqueue->pipe;
- 	struct pipe_buffer *buf;
- 	struct page *page;
--	unsigned int head, tail, note, offset, len;
-+	unsigned int head, tail, note, offset, len, nr_notes;
- 	bool done = false;
+diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
+index 5701e4d1ac130..7178279ddfb77 100644
+--- a/sound/soc/sof/ipc4-topology.c
++++ b/sound/soc/sof/ipc4-topology.c
+@@ -2286,8 +2286,20 @@ sof_ipc4_prepare_copier_module(struct snd_sof_widget *swidget,
+ 				ch_map >>= 4;
+ 			}
  
- 	spin_lock_irq(&pipe->rd_wait.lock);
-@@ -111,8 +111,10 @@ static bool post_one_notification(struct watch_queue *wqueue,
- 	if (pipe_full(head, tail, pipe->ring_size))
- 		goto lost;
- 
--	note = find_first_bit(wqueue->notes_bitmap, wqueue->nr_notes);
--	if (note >= wqueue->nr_notes)
-+	/* Pairs with the smp_store_release() in watch_queue_set_size(). */
-+	nr_notes = smp_load_acquire(&wqueue->nr_notes);
-+	note = find_first_bit(wqueue->notes_bitmap, nr_notes);
-+	if (note >= nr_notes)
- 		goto lost;
- 
- 	page = wqueue->notes[note / WATCH_QUEUE_NOTES_PER_PAGE];
-@@ -297,7 +299,8 @@ long watch_queue_set_size(struct pipe_inode_info *pipe, unsigned int nr_notes)
- 	wqueue->notes = pages;
- 	wqueue->notes_bitmap = bitmap;
- 	wqueue->nr_pages = nr_pages;
--	wqueue->nr_notes = nr_notes;
-+	/* Pairs with the smp_load_acquire() in post_one_notification(). */
-+	smp_store_release(&wqueue->nr_notes, nr_notes);
- 	return 0;
- 
- error_p:
+-			step = ch_count / blob->alh_cfg.device_count;
+-			mask =  GENMASK(step - 1, 0);
++			if (ch_count < blob->alh_cfg.device_count) {
++				/*
++				 * When there are fewer channels than aggregated devices
++				 * (e.g. a mono capture stream split across multiple links),
++				 * set step = 0 to ensure all the ch_mask is applied to all
++				 * alh mappings.
++				 */
++				mask = ch_mask;
++				step = 0;
++			} else {
++				step = ch_count / blob->alh_cfg.device_count;
++				mask =  GENMASK(step - 1, 0);
++			}
++
+ 			/*
+ 			 * Set each gtw_cfg.node_id to blob->alh_cfg.mapping[]
+ 			 * for all widgets with the same stream name
 -- 
 2.53.0
 
