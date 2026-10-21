@@ -1,47 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792593175;
-	b=mtCLeiNwkpok3dRsTL6V/qNc9KdFlCrt9RPXkStrKpF70DQxWKAg32dx+zwloDSEVSm5
-	 bwjjBjTfhZEf3s9rQ8/tvRiPNpp/+o+wXc9W3WSQuR6fNuATo8VNrJlgXtG+FyXhFXMPr
-	 RrJtYLe47g2nx1QJkT8fiEv1rNSAP/nFEGRlf+1/NPz2ntZOwOudZQdGBMom4n5lxWasm
-	 lL/GIBlpUOUqb6+H43wPLUgQZusYLnosaXknI4dNTR9D5v0YIB0KlQDEdI90Bka8LGjiu
-	 GYKZKA2Xc4dL5g79Ezvax2JhmQe+LeSvT4BUMGplt1HPZHmydCzKukVLhpnvUd3HJrg==
+	t=1792593238;
+	b=pCJOSgG53Ox3pUq2DmivSPvnyjPMbp/J6PVh0GVVySvr6j/DDAiJZwlkPtuKEC7N+8Vs
+	 t/g+bdMYpV4mC9BrcBacjn85xjzw1lRTbEiAvASbVYwE/XQtdtwSyzlEeR7RJy8C4jjaH
+	 gdq071Hc02kZzI+2MT3Jh+e94KRjdNasjqDd+Qbg/4TPGGmP+10Xlf2tHRO6qk8A8P6S9
+	 /OUEBTwtcgt2zoyFcMpTba6SQE3/s2QQBxT8rhAkkjZ18uee5EDfubI9yD0qW8pBTpodu
+	 bWW+6RtDGDtgbnol2KWXQEy/qU0ceJh8CdCFFSTmqYhvhsZzYTeS4NU1thw6HmOUrQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792593175;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=DLvDwdNaNC8KYUMlhxryrvaZbX9GOSYKKrFfEzsmw6c=;
-	b=O+bOeN6b0YdJNxUOM1uw6q3T/IYmZ4Ry4piUOP/XCc81kuheqfZK0z0HV5FQ2wW634Xr
-	 YzDLC/rGO+TG7ss+v2ragi5JwmE5/ma2fv31H5dpCaf5kHTB/Nui+qvviCkWiHsKnKy1Y
-	 gl9jnXxmTWVsWyPcr4xVSJdsQsNmDPaM9Rajk/dxgFFY5Y67MNC04P4tJXDdjZ4MY32Hl
-	 M2nagEr4OXJRweMGajQpQswP1hQB/FtLsOH2fQpMsuPPpRoF+HcwkiIsSvPOhmHevkp8Z
-	 5FzPOxyLQquzRqjBY0XAUoKtor0xlBT+Ztq6ULElHoIhIs/icN46ZUvP7/0veErzhGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792593238;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=0TbgbwPTcpHVBcw7avCcPBtAA6bSjHwtfQ+shaABXe8=;
+	b=okpakYCsfXRoyHXwA1f9Y/Cod4wGg61O1jcQiLABJN0TlJCx48XEsP6p6FD3BWCxXaQv
+	 xOvMDAmPbR3bPLVY8zBpkph6g2SWjr9Ug7GtWorPd23dYP3uc1s8xHhb37PitlB+PGPXO
+	 9XfcGvYHGKSPR29u2Xy8J/npKCzkXmCc9P+S+1sTW6L7+X9s8GKfr9JyMa2k0f64r0BOq
+	 vuQ9TsNuYZbr7OE7d2FxXYQab7s0cLzOa+MmMRSRm9TBRlIDHzgyL2OV6sEkHGZpMYjW2
+	 Iw2raE4siwysGPDUVx2fwCMmzoXETPSVinotf8aBp0Cf17oIhYo0BwZtE2TKhPK3bpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nOMCW7p6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=KP5LhAgd;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9FA4606A31B
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:32:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F25606A31E;
+	Wed, 21 Oct 2026 14:33:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0F25606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nOMCW7p6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D63131F000C4;
-	Wed, 21 Oct 2026 14:32:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792593174;
-	bh=DLvDwdNaNC8KYUMlhxryrvaZbX9GOSYKKrFfEzsmw6c=;
-	h=Subject:To:Cc:From:Date;
-	b=nOMCW7p6eOzdbjmMKo2HK5KsWBH7rK1Hpy7tfzuc8KP1t9yXbniA4vsUuPxwCLB6l
-	 Vtbv3hqWvSMMFrbwq4dXYknKU2STsXM1DxUZPiQMwdZQtP6EG9dPPm7vMNeqnvrb9z
-	 NYnohi0WfisdZiNdtY+MRB+Cdlc0zViLDvlPpw8E=
-Subject: FAILED: patch "[PATCH] ASoC: SOF: ipc4-topology: Fix shift-out-of-bounds for" failed to apply to 6.18-stable tree
-To: peter.ujfalusi@linux.intel.com,broonie@kernel.org,yung-chuan.liao@linux.intel.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 16:32:25 +0200
-Message-ID: <2026102124-wisdom-print-3a6c@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=KP5LhAgd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=0T
+	bgbwPTcpHVBcw7avCcPBtAA6bSjHwtfQ+shaABXe8=; b=KP5LhAgdrcQ6uHJww3
+	1Aftl6FDS3J8ti/1LdEQaBTISvofHWcik5e02UkqT8hHBUh4BU1BCwcW08D3im/Z
+	6sHQVYON8q4EkR2eN+Cspar7OyZznTXZe+hSerQSe/J3r/PPhbEn1bdTp0Gzcv1u
+	CDfjfJip1tIDuwJDw0EDbJKfA=
+Received: from pc.localdomain (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgDHt6Uzzdhqp3_gBA--.20120S3;
+	Wed, 21 Oct 2026 22:33:27 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Stephen Hemminger <stephen@networkplumber.org>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2 1/2] Drivers: hv: vmbus: prevent duplicate dynamic IDs
+Date: Wed, 21 Oct 2026 22:33:22 +0800
+Message-Id: <20261021143323.338146-2-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261021143323.338146-1-yaojiale02@163.com>
+References: <20261021143323.338146-1-yaojiale02@163.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,82 +68,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgDHt6Uzzdhqp3_gBA--.20120S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ur45XF4fJF15Xw43ZFyrJFb_yoW8ZrWxpa
+	1UurWayr18JF13WwnY9rWUAFyFv3yvg343CryDCas2vF1qyryq93yrJa4qvr9xK3y8uFnI
+	9F4Utr1rua1DZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UR7KsUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7xdRi2rYzTfZgQAA3y
 
+new_id_store() checks for an existing dynamic ID before calling
+vmbus_add_dynid(), but the check and insertion use separate critical
+sections. Two concurrent writers can therefore both observe that a GUID is
+absent and add duplicate entries. Removing the GUID once then leaves the
+duplicate active.
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Move the duplicate check into vmbus_add_dynid() so it is performed under
+the same lock as the list insertion.
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x 746de48c3a250f0c264105dcbfcdf0c5001e970b
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102124-wisdom-print-3a6c@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 746de48c3a250f0c264105dcbfcdf0c5001e970b Mon Sep 17 00:00:00 2001
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Date: Thu, 8 Oct 2026 12:01:30 +0300
-Subject: [PATCH] ASoC: SOF: ipc4-topology: Fix shift-out-of-bounds for
- aggregated ALH capture
-
-When ch_count is smaller than blob->alh_cfg.device_count (e.g. a mono
-capture stream, such as a SmartMic, aggregated across multiple SDW
-links), step = ch_count / blob->alh_cfg.device_count truncates to 0.
-The subsequent GENMASK(step - 1, 0) then underflows step - 1 (u32) to
-UINT_MAX, causing GENMASK()'s internal shift to use an out-of-bounds
-exponent:
-
-  UBSAN: shift-out-of-bounds in sound/soc/sof/ipc4-topology.c:2363:13
-  shift exponent 18446744069414584384 is too large for 64-bit type 'long unsigned int'
-
-Treat ch_count < device_count the same way as the existing "channels
-equal to output reference channels" case: apply the same ch_mask to
-every aggregated device instead of trying to split channels that
-can't be evenly divided.
-
-Fixes: 0390a102cc18 ("ASoC: SOF: ipc4-topology: use different channel mask for each sdw amp feedback")
+Fixes: fc76936d3ea5 ("vmbus: add support for dynamic device id's")
 Cc: stable@vger.kernel.org
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Link: https://patch.msgid.link/20261008090130.15135-1-peter.ujfalusi@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/hv/vmbus_drv.c | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index 24a1175dd690..22c15fbb93f2 100644
---- a/sound/soc/sof/ipc4-topology.c
-+++ b/sound/soc/sof/ipc4-topology.c
-@@ -2458,11 +2458,14 @@ _sof_ipc4_prepare_copier_module(struct snd_sof_widget *swidget,
- 				ch_map >>= 4;
- 			}
+diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
+index 4692687cdbf3..1037117e2d81 100644
+--- a/drivers/hv/vmbus_drv.c
++++ b/drivers/hv/vmbus_drv.c
+@@ -737,7 +737,7 @@ static const struct hv_vmbus_device_id *hv_vmbus_get_id(const struct hv_driver *
+  */
+ static int vmbus_add_dynid(struct hv_driver *drv, guid_t *guid)
+ {
+-	struct vmbus_dynid *dynid;
++	struct vmbus_dynid *dynid, *existing;
  
--			if (swidget->id == snd_soc_dapm_dai_in && ch_count == out_ref_channels) {
-+			if ((swidget->id == snd_soc_dapm_dai_in && ch_count == out_ref_channels) ||
-+			    ch_count < blob->alh_cfg.device_count) {
- 				/*
- 				 * For playback DAI widgets where the channel number is equal to
--				 * the output reference channels, set the step = 0 to ensure all
--				 * the ch_mask is applied to all alh mappings.
-+				 * the output reference channels, or when there are fewer
-+				 * channels than aggregated devices (e.g. a mono capture
-+				 * stream split across multiple links), set step = 0 to
-+				 * ensure all the ch_mask is applied to all alh mappings.
- 				 */
- 				mask = ch_mask;
- 				step = 0;
+ 	dynid = kzalloc_obj(*dynid);
+ 	if (!dynid)
+@@ -745,9 +745,16 @@ static int vmbus_add_dynid(struct hv_driver *drv, guid_t *guid)
+ 
+ 	dynid->id.guid = *guid;
+ 
+-	spin_lock(&drv->dynids.lock);
+-	list_add_tail(&dynid->node, &drv->dynids.list);
+-	spin_unlock(&drv->dynids.lock);
++	scoped_guard(spinlock, &drv->dynids.lock) {
++		list_for_each_entry(existing, &drv->dynids.list, node) {
++			if (guid_equal(&existing->id.guid, guid)) {
++				kfree(dynid);
++				return -EEXIST;
++			}
++		}
++
++		list_add_tail(&dynid->node, &drv->dynids.list);
++	}
+ 
+ 	return driver_attach(&drv->driver);
+ }
+@@ -780,9 +787,6 @@ static ssize_t new_id_store(struct device_driver *driver, const char *buf,
+ 	if (retval)
+ 		return retval;
+ 
+-	if (hv_vmbus_dynid_match(drv, &guid))
+-		return -EEXIST;
+-
+ 	retval = vmbus_add_dynid(drv, &guid);
+ 	if (retval)
+ 		return retval;
+-- 
+2.34.1
 
