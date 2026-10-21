@@ -1,100 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792592873;
-	b=K7Sq62Kj6k6KTIwVn3Q/cn3PcMfUWQZSS+yBCiAGeCpRQG6EPOTC9zC+m7V0T8BcrJNS
-	 013/vhJXWEdimle18vBzcAuApbnIdmkCSKmUSz5KjW7FSv6ml5Hy1iWwcJKuGkT7LfbmQ
-	 Hruse1X6LneXPaA4Es5UeSdZpYFkgCzNc9VkQLUVvqYAfHYNAFrQGYlD9EZ6DnSLAO65Q
-	 7igoiycSCFAI4dWgCtqdeuMFesFQIOL8ifg6wMjJ+4wsatCnw7MddYXXc0AuqAtUmz+Ci
-	 DazxTWtfRKuh1vp0OUAy3zsRYOZbxvNAg0HBjF47pUF/5NyzZbJ/XVSDXbXDVLBHwbA==
+	t=1792592920;
+	b=pJNBchV1GSvsuHdgcuFaccNdfEGZE28A2cKmGgIMpQYf5woJRD5wxHYkLE+xXZBf/LhS
+	 +KaXdmDur7QUHHy32ZR3N8Ro/TDqVgtmq18Y7I0vZBEP75w7br5qrMK1cX/9dFleSHff2
+	 Tk0voqn63/SPeJs0AEM1yUPWHV8Buhx1lh976leHGBvrlW2PhLUu0TnIeiNKTwxF0DLVa
+	 No0TUoVnmA0jLMcPSZcRWGYKquxbLEvycBPC+sq99CR/FeQdSz2RM8xbW3AS3TJyIe6PX
+	 jBlX5u3cT3/0OMu2X30QHbWgFw0buLpUcPCuOf5tRYpqJezCNVVYtKgxN7ffnLec7lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792592873;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792592920;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=vkcONsDFV2ul6YAc5qH7dmQUSmGutsUjBJHhqFZ3LGs=;
-	b=e46VW7H4TySVnU2qV+2ctDsUIR1lnDMl/NHw4n5+tYawukDwNYEmfktNWpdB+lYnHTdz
-	 h+GY9qKiQFFAfbAW2+T5NxS8O2IwCrHF/fifYdfcwsKCNq+UFM+H3dztl2h1hhsDW2Kad
-	 PgmJedL7JG6FpzuMC9B4RFDUbi4uvuxO5smG80tsjoRSb0EdSjCxOVI5xLEKpzzLtlsMl
-	 o+4wekQGRVjHaLf4iKnw/TX+PEiizBSLMt2W5gEulWgoEJdiwyefogeMX5R6Zg8rjWr9K
-	 8VpyAOKUO0FkiSmC68UP8TJZAK9q6cR1Slj0bV2EYOogaAgHfqxXoFlvBxXVsOs4fQQ==
+	bh=THQdWGmIhH0FTJ2AYWLaPXO0qgFc481igXA5oXACP+U=;
+	b=CtuiA2Ov/59/38swATkFnhP/m+DphEBFBkKo5RIxQEMjeFmI5LTHhS/c5KjAHMLKY2fQ
+	 s9i+1RvTBjFeIMtmZ2oY8Dxnvve5R10UqW8vTyHlDZ+vsq8wxK0MMNzcnr7PtaHVRyQgc
+	 giyHswT4E9+QeIDSNL2pdW5Gkyzo/hh7IWnRVR/s3ySCYM53IgdDzZV9GZrk8jRKwXrnP
+	 8Dhj9CcpvLVjr+yBp11vRSOUF9hkfPuX4Debg4kq1L7hMn34Ufg5YYduF1mkfYuIKLuSq
+	 el2tJSzxEYApVn8XY+chqdlxT48zsB/qB9H2Bo7X2RqPpvbBA8dldKWngG1ZOZwyWfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MBjYT9Gg;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=idNd4Eta;
+	arc=none smtp.remote-ip=209.85.214.178
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC451606A31A
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:27:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC451606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7482E606A31A
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:28:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7482E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MBjYT9Gg
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso1387165eec.0
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 07:27:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=idNd4Eta
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ea4f255ba1so1662505ad.2
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 07:28:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792592872; x=1793197672; darn=vger.kernel.org;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792592918; x=1793197718; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vkcONsDFV2ul6YAc5qH7dmQUSmGutsUjBJHhqFZ3LGs=;
-        b=MBjYT9GgGVm5YR4SEnmOVa6s5fnRSe6Ow91vonBNzthE6O19ZguTtAtu7O7oQCabQP
-         Dx1zH9N5VnnhLzsZUTQZnzuI2mD5C8f6oO61ARw5AWEEq/yZ3/bIW/9u5q9x54yvBJfe
-         Of8vvN6HYxt8qSZskp8+JjYtwzDgfwwF7HapUCqK67+FR1UFKn1Ku19nK6HrxjkCAFM0
-         fZ3Tgn7/bQQFUHd5cToSSGMEHhpjohMpLx9OxDEttwoCo1llqRxBImhoW5YUU/br5/kj
-         KjXPmg+WkXmf1GckbhQkkfWiXomDxR47GwcVDSocIzzvVS6FB/mtu9XeL4YVBjHkiuvW
-         pxPw==
+        bh=THQdWGmIhH0FTJ2AYWLaPXO0qgFc481igXA5oXACP+U=;
+        b=idNd4EtaIZdESBxBFQa7ZOi7u4V6s7qVUQsQoeW6KZ4FexN/vp3uxo4dc6jiDeQP6u
+         jwsLoUrylERmSk0250pwAPac3N/sLs+hE1IOf1FU0XtWP30qEY3NMb7kRJbWFYEm0obD
+         /nWRCsF2O7kFyW5fLS1Jpl6AdrQf8AvTIV5pBWzEyP+hRYp+bfXX3GgUQ2RQ4PGjR1WS
+         LwFCoqTuga5P8fdC6pe7/DkwoyL9hUMyY0gL3AoC3XAQvrVjXasM0OCQktFYmCq5egxB
+         99HoF0rDgSR1wfKJyafIc3p/PKrWv6cRWM/SPS3Gd4NleSKj3anWVmj1Nf7TodiTngsG
+         R1ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792592872; x=1793197672;
+        d=1e100.net; s=20260707; t=1792592918; x=1793197718;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vkcONsDFV2ul6YAc5qH7dmQUSmGutsUjBJHhqFZ3LGs=;
-        b=V8AefHW7N/yopCF6/NqEJtijj4kAkGWKthmIKPCP04RypxWseYOSRDkRpcYb6cZsu7
-         vs9Qisy+cq4gqI32ZpQXPq8KZ5YQbc+tRj/pSkn6mHzxgIHGD/pM7AeIMoFrFksJlzUe
-         tQ9cUCyrImVLdddc9j+YiwUv3HJqUFrEGOAk1pktGSL2wNMAYm8c26mT1XYcGsTHN4u3
-         vOWRwvb+GjVd1Lh5fxuci2LWoJl2t1VxriG+XGnSJmYhq6ha5QVK8k561Lm1kDD5XHTO
-         CEfM2oIyGyeOT79TL/Xn9G7Fi+6d4ckq9m5DU8oUHW9zIQVM8ylxrvRCbFOQFeoIL537
-         4kWw==
-X-Forwarded-Encrypted: i=1; AKwUvByLoXQbhYjkJ43B5uHS/BQp6EfqfVrpwbjo6oxOZTq8sduiGYmpdUQSG19vdiGBUzfng0n8ZEw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJUqLKj0wit1k1iijExrqXGmLv0p+Qc9u1W3/n+qUiUj8v/1ckg
-	B897LmPQ51PFf2l4aRCHjoiCEt+N9OFjzHMZGG2ABXwSUpxinnS5hwSr
-X-Gm-Gg: AYBFou3USlAdklJSSPM7qZ901Bsuxx+hMUg1Ra+28hLog9+MUD8Kp/rMpglzcnB7gO2
-	vyAdxjHs9RuhRV4ysJ57sXl5mNv2Dd+J3yXSj8/Hw2C9hU24DYhXZZ84Bi/iJv9lqV5Vq+dMJYU
-	h1SYX8QdHMS9dKBv3tQS+DMLzSvILF/hJyRZJbkCusuDV2vSnfSqJS3ZaU6sUIg3hEUrV+pZda6
-	QIaNOQcXbrCIfaW+Ghp1G4D0UDXmkHopNPPbKF4yEYMbpZrozUIvJERAv6XR+aEZKioCXCJPXWD
-	i4ClS4eTeicEC2L9L4oilIM77rxB/jBsLSkxme+Mv7oYdsj09nQY0NlZTs5A+ZqYWddwSOy5674
-	yyDDHWgTGisX+zb82XDvjf9ziBZ8936gG+MUnJQ3TK24iot1CuUM9P4/5rynfX6j7hBfXQUKvZq
-	8q2Sl+3KrrVti/y3dYxTO7qe1J/4KLGcXTjp9SBuamZFT855DbqpX8P+r/2zmHIiCi/IlcSXyLw
-	QISk8xMkyK2LKk19bcqXu/GkZ1lEl0JG6xe91SRuF8Kg2S1f4DQhGFsZxugAQpqqs/9pAGbQMiH
-	jlcOAwGcLBGTf+uWAP43RISzVW2KSB5EKEMPcp61LoXTauH2uQ==
-X-Received: by 2002:a05:693c:41d6:10b0:351:515b:4e85 with SMTP id 5a478bee46e88-3674d758112mr3565723eec.16.1792592871837;
-        Wed, 21 Oct 2026 07:27:51 -0700 (PDT)
-Received: from Terra.tail0ac356.ts.net ([198.176.50.208])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3673e15353csm14524660eec.2.2026.10.21.07.27.42
+        bh=THQdWGmIhH0FTJ2AYWLaPXO0qgFc481igXA5oXACP+U=;
+        b=iB237tFiGcyzQxlw10AXRRKBJOoLRGj7v5giVjiyqEt/IbNqph7I4pkrApecUVhd+/
+         6lt7Q1eU5i32SAVEssWG2aTiKySVDhLg2FO0pZSROdwM4vNzZ4pUx/D/BVBXpcSxcjdT
+         dhqJdWBHT3EjwO2w0XWXysP3wezYogES7Dat/getq8tVUO3z+dugOiPB1pKfQ0WeJsfC
+         ixUK9R+DRqgBzlC1cTHdyT5Q28aLbby7liS5ou+EWbEWVmPlaVPpyCxkGXLyu0mAoDXO
+         AfN3CBlhbFIKq8clvbbal18MbmD4nm/cHb0ZhNmwq/LwElj11BW5mBiV3APHXw/asNQX
+         C52A==
+X-Forwarded-Encrypted: i=1; AKwUvBy25sS9A1Bg9EsQWcEZK+u0segePrJAxMpkZpPHe1GwqPNo6xkBDOWrexxQI3ycgf3aJrzp8ao=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/Kebr8yFziiedvParr5zacSBqD9qkRdRaJovz6oO38UWQbAtP
+	7bNi9hnrXSVzL/3CQlpuNfD+bZfa2384qo3WiCu2td9YQOsC0oz+RZbA1PjGhbpyt90=
+X-Gm-Gg: AYBFou0oMFF6yzUOhOi7kOmFYOw771gbrhAdV2AS9LsN2+IjIsDIpqakuuSK+YEKGcU
+	LXQ0BXCTnHylDQejvOu71Y5gFnBum6OxXmy+188mmNzyZCbxRy7K+1+NwhXkIsRThxoNR2gZ/1Q
+	L/+O7l5419tk7dJuDxt/Ci7GcWBm5nkKPrAC6fvF6ZJmClS4EfIp+6X+b1CjyCSIWCXPeTDVoSQ
+	a60X67wNbuLMGtzAxFlmyzwg0JCvYZ+AdBspaVI40vcYVWLCZmByRPHy84w8ZAJVtI99MtB50sD
+	LZxGL2BevugO8LAx7SclulvjfSoeuXeIhNFHNywQf16ToSA8MoJcg2JzuOo+Z3nBZjUQ/qM7J/z
+	KQQMLQuVp1j88v6D8/31+/hw2neNDPjAIDKLO9X+Jpit816uFx7aFCIg34k8M1tYreNPhuL0QsQ
+	2hL2Mz7iYCtOanZUETSi8c+phtbj/I3dGqIxFTTIM74OFSaD4lgSEeHXm6oviHVeOvesMXrcyCX
+	XSLTQWYzUN60cKTHjkx7010lMcpAmyxbdJebVHb7Ec3J0BgKDL39z1Zg2xj0CDJsBHyzNa+E8tE
+	08Q=
+X-Received: by 2002:a17:903:2305:b0:2e2:f379:82b9 with SMTP id d9443c01a7336-2ea4402ba77mr16143635ad.61.1792592917350;
+        Wed, 21 Oct 2026 07:28:37 -0700 (PDT)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:2813:c015:8111:4bd6])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea3b49e5f6sm12498005ad.70.2026.10.21.07.28.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 07:27:50 -0700 (PDT)
-From: Weiming Shi <bestswngs@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>
-Cc: linux-cifs@vger.kernel.org,
+        Wed, 21 Oct 2026 07:28:36 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Ram Vegesna <ram.vegesna@broadcom.com>,
+	Daniel Wagner <dwagner@suse.de>,
+	"Martin K . Petersen" <mkp@kernel.org>
+Cc: James Smart <jsmart2021@gmail.com>,
+	Hannes Reinecke <hare@suse.de>,
+	Mike Christie <michael.christie@oracle.com>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Ronnie Sahlberg <lsahlber@redhat.com>,
-	Hyunchul Lee <hyc.lee@gmail.com>,
-	Steve French <stfrench@microsoft.com>,
-	co+d531129f2f9fbf88@bugs.sh,
-	Xiang Mei <xmei5@asu.edu>,
-	Weiming Shi <bestswngs@gmail.com>
-Subject: [PATCH v2] smb/server: prevent file publication after tree disconnect
-Date: Wed, 21 Oct 2026 07:17:57 -0700
-Message-ID: <20261021141757.3917073-2-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v3] scsi: elx: efct: fix target session lifetime against node teardown
+Date: Wed, 21 Oct 2026 23:28:18 +0900
+Message-ID: <20261021142818.2782104-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,344 +105,398 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-TREE_DISCONNECT closes the tree's published file handles before marking and
-removing the tree connection. A concurrent CREATE that already holds a tree
-reference can therefore publish its file after the close pass. When CREATE
-drops its reference, the tree can be freed while the published file still
-points to it.
+efct_scsi_new_initiator() hands a bare struct efc_node pointer to lio_wq
+and returns EFC_SCSI_CALL_ASYNC, so the node state machine keeps running
+while efct_lio_setup_session() is still queued. Three things go wrong
+over that window.
 
-Mark and remove the tree connection before closing its files, and serialize
-both new-open and durable-reconnect volatile ID publication with that state
-transition. An opener is then either published in time for the close pass
-or rejected after disconnect with STATUS_NETWORK_NAME_DELETED.
+The node itself can be freed under the work item. efc_node_alloc() takes
+a single reference and efc_node_free() drops it as the last step of a
+node shutdown, which a peer LOGO, an FC link down, a domain or fabric
+change or target teardown can all start. efct_get_vport_tpg() reads
+node->nport before target_setup_session(), efct_session_cb() reads it
+from inside that call, and node->tgt_node is read after it returns. The
+node pool is created with curr_nr == min_nr, so mempool_free() calls
+kfree() rather than refilling the reserve and the work item reads freed
+slab memory:
 
-Keep a tree reference while a file carries its tree pointer. This protects
-asynchronous users that can defer the file's final destruction past tree
-disconnect.
+  BUG: KASAN: slab-use-after-free in efct_lio_setup_session+0xd63/0xe20
+  Read of size 8 at addr ffff888002d538a0 by task kworker/u4:0/12
 
-The close pass can race the successful FP_NEW to FP_INITED transition.
-Take the opening request's file reference atomically with that transition.
-This keeps the file alive until request completion even if teardown removes
-the ID immediately.
-
-  BUG: KASAN: slab-use-after-free in proc_show_files (fs/smb/server/vfs_cache.c:126)
-  Read of size 4 at addr ff11000101540f80 by task poc/153
-
+  CPU: 0 UID: 0 PID: 12 Comm: kworker/u4:0 Tainted: G                 N  7.3.0-00343-g88d83015fdb1-dirty #5 PREEMPT(lazy)
+  Tainted: [N]=TEST
+  Workqueue: efct-kunit-wq efct_lio_setup_session
   Call Trace:
-    proc_show_files (fs/smb/server/vfs_cache.c:126)
-    seq_read_iter (fs/seq_file.c:231)
-    proc_reg_read_iter (fs/proc/inode.c:299)
-    vfs_read (fs/read_write.c:574)
-    ksys_read (fs/read_write.c:716)
-    do_syscall_64 (arch/x86/entry/syscall_64.c:84)
-    entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+   <TASK>
+   print_report+0xcd/0x620
+   ? efct_lio_setup_session+0xd63/0xe20
+   ? __virt_addr_valid+0x208/0x3f0
+   ? efct_lio_setup_session+0xd63/0xe20
+   kasan_report+0xfb/0x130
+   ? efct_lio_setup_session+0xd63/0xe20
+   efct_lio_setup_session+0xd63/0xe20
+   ? __pfx_efct_lio_setup_session+0x10/0x10
+   ? lock_acquire+0x100/0x2d0
+   ? process_one_work+0x835/0x1c40
+   ? process_one_work+0x735/0x1c40
+   ? lock_release+0xc3/0x250
+   process_one_work+0x88b/0x1c40
+   ? __pfx_process_one_work+0x10/0x10
+   ? lock_acquire+0x100/0x2d0
+   ? worker_thread+0x2c7/0x11b0
+   ? lock_is_held_type+0x84/0xf0
+   ? __pfx_efct_lio_setup_session+0x10/0x10
+   worker_thread+0x649/0x11b0
+   ? __pfx_worker_thread+0x10/0x10
+   kthread+0x3aa/0x550
+   ? _raw_spin_unlock_irq+0x23/0x40
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork+0x493/0x940
+   ? __pfx_ret_from_fork+0x10/0x10
+   ? __switch_to+0x22/0xdc0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork_asm+0x19/0x30
+   </TASK>
 
-  Allocated by:
-    ksmbd_tree_conn_connect (fs/smb/server/mgmt/tree_connect.c:35)
-    smb2_tree_connect (fs/smb/server/smb2pdu.c:2819)
-    handle_ksmbd_work (fs/smb/server/server.c:368)
+  Allocated by task 33:
+   kasan_save_stack+0x33/0x60
+   kasan_save_track+0x14/0x30
+   __kasan_kmalloc+0x8f/0xa0
+   __kmalloc_noprof+0x23b/0x580
+   mempool_alloc_noprof+0x143/0x230
+   efct_kt_node_alloc.isra.0+0x38/0x4b0
+   efct_kt_uaf_after_cb+0x7a/0x370
+   kunit_try_run_case+0x1ca/0x4c0
+   kunit_generic_run_threadfn_adapter+0x7b/0xe0
+   kthread+0x3aa/0x550
+   ret_from_fork+0x493/0x940
+   ret_from_fork_asm+0x19/0x30
 
-  Freed by:
-    kfree (mm/slub.c:6801)
-    handle_ksmbd_work (fs/smb/server/server.c:332)
+  Freed by task 12:
+   kasan_save_stack+0x33/0x60
+   kasan_save_track+0x14/0x30
+   kasan_save_free_info+0x3b/0x60
+   __kasan_slab_free+0x43/0x70
+   kfree+0x119/0x490
+   mempool_free+0xbc/0x100
+   efc_node_free+0x311/0x4a0
+   efct_lio_setup_session+0xa57/0xe20
+   process_one_work+0x88b/0x1c40
+   worker_thread+0x649/0x11b0
+   kthread+0x3aa/0x550
+   ret_from_fork+0x493/0x940
+   ret_from_fork_asm+0x19/0x30
 
-Fixes: f44158485826 ("cifsd: add file operations")
+  The buggy address belongs to the object at ffff888002d53800
+   which belongs to the cache kmalloc-1k of size 1024
+  The buggy address is located 160 bytes inside of
+   freed 1024-byte region [ffff888002d53800, ffff888002d53c00)
+
+Teardown can also run while the session does not exist yet.
+__efc_d_initiate_shutdown() moves the node to __efc_d_wait_del_node and
+only then calls efct_scsi_del_initiator(), which finds node->tgt_node
+still NULL and returns -EIO without queueing the removal work. The node
+waits there with node->nport set and node->req_free still clear, since
+req_free is only set later in __efc_node_shutdown(). The setup work
+therefore sees nothing wrong, registers a session, and nothing ever
+removes it: the se_session and the struct efct_node leak, and
+se_session->fabric_sess_ptr keeps pointing at a node that is freed
+moments later.
+
+Or teardown can run just after the session became visible.
+efct_session_cb() publishes node->tgt_node from inside
+target_setup_session(). If efct_scsi_del_initiator() runs between that
+and the end of the setup work it erases the efct->lookup entry and
+queues the removal work, and the tail of the setup work then puts the
+entry back. efct_lio_remove_session() frees the struct efct_node without
+erasing the key a second time, so efct->lookup keeps a freed pointer
+that efct_node_find() returns, and takes a reference on, for every
+inbound FCP or BLS frame. That is the case the comment above
+efct_node_find() states cannot happen.
+
+Give the node a reference for the life of the work item, and give the
+backend an explicit session state, read and written under efc->lock,
+which is the lock the node state machine holds when it calls in. The
+work claims EFCT_TGT_SESS_SETUP before it is queued and reaches
+EFCT_TGT_SESS_REGISTERED in the same critical section that stores the
+lookup entry, so a store can no longer follow an erase.
+
+efct_scsi_del_initiator() now decides from that state rather than from
+node->tgt_node. While a setup is in flight it marks the node
+EFCT_TGT_SESS_DELETE_PENDING and returns EFC_SCSI_CALL_ASYNC, so the
+node waits in __efc_d_wait_del_node instead of running ahead of the work
+that still holds the session. The work unwinds the session it built and
+then calls efc_scsi_del_initiator_complete(), which posts the
+EFC_EVT_NODE_DEL_INI_COMPLETE the node is parked on. Once the session is
+registered the existing removal path runs unchanged. Every exit from the
+work now reports exactly one completion, either that one or a session
+registration result, so no path leaves the node waiting.
+
+The same state closes a smaller hole next door. An initiator that
+repeats PRLI while registration is pending used to get a second session
+for one node, which left the first one unreachable.
+efct_scsi_new_initiator() now returns EFC_SCSI_CALL_ASYNC for the
+repeat, which is what the first PRLI already made the node wait for.
+
+Two earlier versions got the handshake wrong. v1 gated the work on
+node->nport and node->req_free, which is not enough, because req_free is
+only set well after efct_scsi_del_initiator() has run and returned. v2
+replaced that with the state above but reported the two races with
+EFC_SCSI_CALL_COMPLETE, which let efc_d_send_prli_rsp() and
+__efc_d_initiate_shutdown() advance the node while the work was still in
+flight, so this version reports them asynchronously instead.
+
+Fixes: 692e5d73a811 ("scsi: elx: efct: LIO backend interface routines")
 Cc: stable@vger.kernel.org
-Reported-by: <co+d531129f2f9fbf88@bugs.sh>
-Assisted-by: LLM
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
+ drivers/scsi/elx/efct/efct_lio.c | 98 +++++++++++++++++++++++++++++---
+ drivers/scsi/elx/efct/efct_lio.h |  9 +++
+ drivers/scsi/elx/libefc/efclib.h |  2 +
+ 3 files changed, 101 insertions(+), 8 deletions(-)
 
-Changes in v2:
-- Rebase onto ksmbd-for-next at f75c93278608.
-
- fs/smb/server/mgmt/tree_connect.c |  7 ++++
- fs/smb/server/mgmt/tree_connect.h |  2 ++
- fs/smb/server/smb2pdu.c           | 37 ++++++++++++++-----
- fs/smb/server/vfs_cache.c         | 60 +++++++++++++++++++++----------
- 4 files changed, 80 insertions(+), 26 deletions(-)
-
-diff --git a/fs/smb/server/mgmt/tree_connect.c b/fs/smb/server/mgmt/tree_connect.c
-index dd1db35..837175a 100644
---- a/fs/smb/server/mgmt/tree_connect.c
-+++ b/fs/smb/server/mgmt/tree_connect.c
-@@ -103,6 +103,13 @@ out_error:
- 	return status;
+diff --git a/drivers/scsi/elx/efct/efct_lio.c b/drivers/scsi/elx/efct/efct_lio.c
+index 67d686dd6fb33..9ddab907556da 100644
+--- a/drivers/scsi/elx/efct/efct_lio.c
++++ b/drivers/scsi/elx/efct/efct_lio.c
+@@ -1062,17 +1062,33 @@ _efct_tgt_node_free(struct kref *arg)
+ 	kfree(tgt_node);
  }
  
-+struct ksmbd_tree_connect *
-+ksmbd_tree_connect_get(struct ksmbd_tree_connect *tcon)
++/* True only while a setup is in flight. The caller holds efc->lock. */
++static bool efct_tgt_sess_may_register(struct efc_node *node)
 +{
-+	atomic_inc(&tcon->refcount);
-+	return tcon;
++	return node->tgt_sess_state == EFCT_TGT_SESS_SETUP &&
++	       node->nport && !node->req_free;
 +}
 +
- void ksmbd_tree_connect_put(struct ksmbd_tree_connect *tcon)
+ static int efct_session_cb(struct se_portal_group *se_tpg,
+ 			   struct se_session *se_sess, void *private)
  {
- 	if (atomic_dec_and_test(&tcon->refcount)) {
-diff --git a/fs/smb/server/mgmt/tree_connect.h b/fs/smb/server/mgmt/tree_connect.h
-index f0023d8..82891ff 100644
---- a/fs/smb/server/mgmt/tree_connect.h
-+++ b/fs/smb/server/mgmt/tree_connect.h
-@@ -51,6 +51,8 @@ struct ksmbd_session;
+ 	struct efc_node *node = private;
+ 	struct efct_node *tgt_node;
+ 	struct efct *efct = node->efc->base;
++	unsigned long flags;
  
- struct ksmbd_tree_conn_status
- ksmbd_tree_conn_connect(struct ksmbd_work *work, const char *share_name);
-+struct ksmbd_tree_connect *
-+ksmbd_tree_connect_get(struct ksmbd_tree_connect *tcon);
- void ksmbd_tree_connect_put(struct ksmbd_tree_connect *tcon);
+ 	tgt_node = kzalloc_obj(*tgt_node);
+ 	if (!tgt_node)
+ 		return -ENOMEM;
  
- int ksmbd_tree_conn_disconnect(struct ksmbd_session *sess,
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 4533649..da82d80 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -3175,9 +3175,10 @@ int smb2_tree_disconnect(struct ksmbd_work *work)
- 		goto err_out;
- 	}
- 
-+	err = ksmbd_tree_conn_disconnect(sess, tcon);
-+
- 	ksmbd_close_tree_conn_fds(work);
- 
--	err = ksmbd_tree_conn_disconnect(sess, tcon);
- 	if (err) {
- 		rsp->hdr.Status = STATUS_NETWORK_NAME_DELETED;
- 		goto err_out;
-@@ -4502,8 +4503,12 @@ int smb2_open(struct ksmbd_work *work)
- 				goto err_out2;
- 
- 			rc = ksmbd_reopen_durable_fd(work, dh_info.fp);
--			if (rc)
-+			if (rc) {
-+				if (rc == -ENOTCONN)
-+					rsp->hdr.Status =
-+						STATUS_NETWORK_NAME_DELETED;
- 				goto err_out2;
-+			}
- 
- 			fp = dh_info.fp;
- 
-@@ -4940,6 +4945,8 @@ resolve_path:
- 	if (IS_ERR(fp)) {
- 		fput(filp);
- 		rc = PTR_ERR(fp);
-+		if (rc == -ENOTCONN)
-+			rsp->hdr.Status = STATUS_NETWORK_NAME_DELETED;
- 		fp = NULL;
- 		goto err_out;
- 	}
-@@ -5544,11 +5551,20 @@ err_out1:
- 
- err_out2:
- 	if (!rc) {
--		if (!dh_info.replay)
-+		if (!dh_info.replay) {
-+			smb2_complete_request_open(work);
- 			rc = ksmbd_update_fstate(&work->sess->file_table, fp,
- 						 FP_INITED);
--		if (!rc)
-+			if (rc == -ENOENT)
-+				rsp->hdr.Status = STATUS_NETWORK_NAME_DELETED;
-+			if (!rc) {
-+				work->request_open = fp;
-+				work->request_open_chseq =
-+					smb3_hdr_channel_sequence(&req->hdr);
-+			}
-+		} else {
- 			rc = smb2_set_request_open(work, fp, &req->hdr, false, false);
-+		}
- 		if (!rc)
- 			rc = ksmbd_iov_pin_rsp(work, (void *)rsp, iov_len);
- 	}
-@@ -5563,8 +5579,7 @@ err_out2:
- 				rsp->hdr.Status = STATUS_PRIVILEGE_NOT_HELD;
- 			else
- 				rsp->hdr.Status = STATUS_ACCESS_DENIED;
--		}
--		else if (rc == -ENOENT)
-+		} else if (rc == -ENOENT && !rsp->hdr.Status)
- 			rsp->hdr.Status = STATUS_OBJECT_NAME_INVALID;
- 		else if (rc == -EPERM)
- 			rsp->hdr.Status = STATUS_SHARING_VIOLATION;
-@@ -5587,8 +5602,14 @@ err_out2:
- 		if (!rsp->hdr.Status)
- 			rsp->hdr.Status = STATUS_UNEXPECTED_IO_ERROR;
- 
--		if (fp && !dh_info.replay)
--			ksmbd_fd_put(work, fp);
-+		if (fp && !dh_info.replay) {
-+			if (work->request_open == fp) {
-+				ksmbd_close_fd(work, fp->volatile_id);
-+				smb2_complete_request_open(work);
-+			} else {
-+				ksmbd_fd_put(work, fp);
-+			}
-+		}
- 		smb2_set_err_rsp(work);
- 		ksmbd_debug(SMB, "Error response: %x\n", rsp->hdr.Status);
- 	}
-diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
-index 452ce05..7a0f132 100644
---- a/fs/smb/server/vfs_cache.c
-+++ b/fs/smb/server/vfs_cache.c
-@@ -919,16 +919,18 @@ static void __ksmbd_close_fd(struct ksmbd_file_table *ft, struct ksmbd_file *fp)
- 		fput(filp);
- 
- 	/*
--	 * Drop fp's strong reference on conn (taken in ksmbd_open_fd() /
--	 * ksmbd_reopen_durable_fd()).  Durable fps that reached the
--	 * scavenger have already had fp->conn cleared by session_fd_check(),
--	 * in which case there is nothing to drop here.
-+	 * Drop fp's strong connection references.  Durable fps that reached
-+	 * the scavenger have already had these cleared by session_fd_check().
- 	 */
- 	if (fp->conn) {
- 		atomic_dec(&fp->conn->stats.open_files_count);
- 		ksmbd_conn_put(fp->conn);
- 		fp->conn = NULL;
- 	}
-+	if (fp->tcon) {
-+		ksmbd_tree_connect_put(fp->tcon);
-+		fp->tcon = NULL;
++	/* target_setup_session() sleeps, so the node may be in teardown now */
++	spin_lock_irqsave(&node->efc->lock, flags);
++	if (!efct_tgt_sess_may_register(node)) {
++		spin_unlock_irqrestore(&node->efc->lock, flags);
++		kfree(tgt_node);
++		return -ENODEV;
 +	}
++
+ 	kref_init(&tgt_node->ref);
+ 	tgt_node->release = _efct_tgt_node_free;
  
- 	if (ksmbd_stream_fd(fp))
- 		kfree(fp->stream.name);
-@@ -1494,14 +1496,13 @@ struct ksmbd_file *ksmbd_open_fd(struct ksmbd_work *work, struct file *filp)
+@@ -1086,6 +1102,7 @@ static int efct_session_cb(struct se_portal_group *se_tpg,
+ 	tgt_node->port_fc_id = node->nport->fc_id;
+ 	tgt_node->vpi = node->nport->indicator;
+ 	tgt_node->rpi = node->rnode.indicator;
++	spin_unlock_irqrestore(&node->efc->lock, flags);
  
- 	fp->filp		= filp;
- 	/*
--	 * fp owns a strong reference on fp->conn for as long as fp->conn is
--	 * non-NULL, so session_fd_check() and __ksmbd_close_fd() never
--	 * dereference a dangling pointer.  Paired with ksmbd_conn_put() in
--	 * session_fd_check() (durable preserve), in __ksmbd_close_fd()
--	 * (final close), and on the error paths below.
-+	 * fp owns strong references on fp->conn and fp->tcon for as long as
-+	 * they are non-NULL.  Paired with the puts in session_fd_check()
-+	 * (durable preserve), in __ksmbd_close_fd() (final close), and on the
-+	 * error paths below.
+ 	spin_lock_init(&tgt_node->active_ios_lock);
+ 	INIT_LIST_HEAD(&tgt_node->active_ios);
+@@ -1157,15 +1174,28 @@ static void efct_lio_setup_session(struct work_struct *work)
+ 		container_of(work, struct efct_lio_wq_data, work);
+ 	struct efct *efct = wq_data->efct;
+ 	struct efc_node *node = wq_data->ptr;
++	struct efc *efc = node->efc;
+ 	char wwpn[WWN_NAME_LEN];
+ 	struct efct_lio_tpg *tpg;
+ 	struct efct_node *tgt_node;
+ 	struct se_portal_group *se_tpg;
+ 	struct se_session *se_sess;
++	unsigned long flags;
++	bool deleted = false;
+ 	int watermark;
+ 	int ini_count;
+ 	u64 id;
+ 
++	spin_lock_irqsave(&efc->lock, flags);
++	if (!efct_tgt_sess_may_register(node)) {
++		deleted = node->tgt_sess_state == EFCT_TGT_SESS_DELETE_PENDING;
++		node->tgt_sess_state = EFCT_TGT_SESS_NONE;
++		spin_unlock_irqrestore(&efc->lock, flags);
++		efc_log_debug(efct, "node %p torn down before session setup\n",
++			      node);
++		goto done;
++	}
++
+ 	/* Check to see if it's belongs to vport,
+ 	 * if not get physical port
  	 */
- 	fp->conn		= ksmbd_conn_get(work->conn);
--	fp->tcon		= work->tcon;
-+	fp->tcon		= ksmbd_tree_connect_get(work->tcon);
- 	fp->share_conf		= work->tcon->share_conf;
- 	atomic_inc(&fp->share_conf->refcount);
- 	fp->volatile_id		= KSMBD_NO_FID;
-@@ -1514,7 +1515,13 @@ struct ksmbd_file *ksmbd_open_fd(struct ksmbd_work *work, struct file *filp)
- 		goto err_out;
- 	}
- 
--	ret = __open_id(&work->sess->file_table, fp, OPEN_ID_TYPE_VOLATILE_ID);
-+	down_read(&work->sess->tree_conns_lock);
-+	if (work->tcon->t_state == TREE_CONNECTED)
-+		ret = __open_id(&work->sess->file_table, fp,
-+				OPEN_ID_TYPE_VOLATILE_ID);
-+	else
-+		ret = -ENOTCONN;
-+	up_read(&work->sess->tree_conns_lock);
- 	if (ret) {
- 		ksmbd_inode_put(fp->f_ci);
- 		goto err_out;
-@@ -1524,7 +1531,8 @@ struct ksmbd_file *ksmbd_open_fd(struct ksmbd_work *work, struct file *filp)
- 	return fp;
- 
- err_out:
--	/* fp->conn was set and refcounted before every branch here. */
-+	/* fp->conn and fp->tcon were refcounted before every branch here. */
-+	ksmbd_tree_connect_put(fp->tcon);
- 	ksmbd_conn_put(fp->conn);
- 	ksmbd_share_config_put(fp->share_conf);
- 	kmem_cache_free(filp_cache, fp);
-@@ -1541,8 +1549,9 @@ err_fd_limit:
-  *
-  * Return: 0 on success.  The FP_NEW -> FP_INITED transition is special:
-  * -ENOENT if teardown already unpublished @fp by advancing the state or
-- * clearing the volatile id.  Other state updates preserve the historical
-- * fire-and-forget behavior.
-+ * clearing the volatile id.  On success it also takes a reference for the
-+ * opening request, which must be released with ksmbd_fd_put().  Other state
-+ * updates preserve the historical fire-and-forget behavior.
-  */
- int ksmbd_update_fstate(struct ksmbd_file_table *ft, struct ksmbd_file *fp,
- 			unsigned int state)
-@@ -1558,6 +1567,8 @@ int ksmbd_update_fstate(struct ksmbd_file_table *ft, struct ksmbd_file *fp,
- 		ret = -ENOENT;
+@@ -1176,8 +1206,10 @@ static void efct_lio_setup_session(struct work_struct *work)
+ 		tpg = efct->tgt_efct.tpg;
+ 		se_tpg = &tpg->tpg;
  	} else {
- 		fp->f_state = state;
-+		if (state == FP_INITED)
-+			atomic_inc(&fp->refcount);
- 		ret = 0;
++		node->tgt_sess_state = EFCT_TGT_SESS_NONE;
++		spin_unlock_irqrestore(&efc->lock, flags);
+ 		efc_log_err(efct, "failed to init session\n");
+-		return;
++		goto done;
  	}
- 	write_unlock(&ft->lock);
-@@ -1977,6 +1988,7 @@ static bool session_fd_check(struct ksmbd_tree_connect *tcon,
- 	struct ksmbd_inode *ci;
- 	struct oplock_info *op;
- 	struct ksmbd_conn *conn;
-+	struct ksmbd_tree_connect *tree_conn;
  
- 	if (!is_reconnectable(fp))
- 		return false;
-@@ -1998,6 +2010,7 @@ static bool session_fd_check(struct ksmbd_tree_connect *tcon,
- 	ci = fp->f_ci;
- 	down_write(&ci->m_lock);
- 	conn = fp->conn;
-+	tree_conn = fp->tcon;
- 	list_for_each_entry_rcu(op, &ci->m_op_list, op_entry,
- 				lockdep_is_held(&ci->m_lock)) {
- 		if (op->o_fp != fp)
-@@ -2021,6 +2034,7 @@ static bool session_fd_check(struct ksmbd_tree_connect *tcon,
+ 	/*
+@@ -1186,14 +1218,38 @@ static void efct_lio_setup_session(struct work_struct *work)
+ 	 * ConfigFS NodeACLs.
+ 	 */
+ 	efct_format_wwn(wwpn, sizeof(wwpn), "",	efc_node_get_wwpn(node));
++	spin_unlock_irqrestore(&efc->lock, flags);
  
- 	/* Drop fp's own reference on conn. */
- 	ksmbd_conn_put(conn);
-+	ksmbd_tree_connect_put(tree_conn);
- 	return true;
+ 	se_sess = target_setup_session(se_tpg, 0, 0, TARGET_PROT_NORMAL, wwpn,
+ 				       node, efct_session_cb);
+ 	if (IS_ERR(se_sess)) {
+ 		efc_log_err(efct, "failed to setup session\n");
+-		kfree(wq_data);
+-		efc_scsi_sess_reg_complete(node, -EIO);
+-		return;
++		spin_lock_irqsave(&efc->lock, flags);
++		deleted = node->tgt_sess_state == EFCT_TGT_SESS_DELETE_PENDING;
++		node->tgt_sess_state = EFCT_TGT_SESS_NONE;
++		spin_unlock_irqrestore(&efc->lock, flags);
++		goto done;
++	}
++
++	spin_lock_irqsave(&efc->lock, flags);
++	if (!efct_tgt_sess_may_register(node)) {
++		deleted = node->tgt_sess_state == EFCT_TGT_SESS_DELETE_PENDING;
++		tgt_node = node->tgt_node;
++		node->tgt_node = NULL;
++		node->tgt_sess_state = EFCT_TGT_SESS_NONE;
++		spin_unlock_irqrestore(&efc->lock, flags);
++		/*
++		 * kfree() and not kref_put(), because the release would post a
++		 * second completion. Nothing else can reach tgt_node, it never
++		 * entered efct->lookup and node->tgt_node is clear.
++		 */
++		efc_log_debug(efct, "node %p torn down during session setup\n",
++			      node);
++		target_stop_session(se_sess);
++		target_wait_for_sess_cmds(se_sess);
++		target_remove_session(se_sess);
++		kfree(tgt_node);
++		goto done;
+ 	}
+ 
+ 	tgt_node = node->tgt_node;
+@@ -1202,8 +1258,10 @@ static void efct_lio_setup_session(struct work_struct *work)
+ 	efc_log_debug(efct, "new initiator sess=%p node=%p id: %llx\n",
+ 		      se_sess, node, id);
+ 
+-	if (xa_err(xa_store(&efct->lookup, id, tgt_node, GFP_KERNEL)))
++	if (xa_err(xa_store(&efct->lookup, id, tgt_node, GFP_ATOMIC)))
+ 		efc_log_err(efct, "Node lookup store failed\n");
++	node->tgt_sess_state = EFCT_TGT_SESS_REGISTERED;
++	spin_unlock_irqrestore(&efc->lock, flags);
+ 
+ 	efc_scsi_sess_reg_complete(node, 0);
+ 
+@@ -1216,6 +1274,17 @@ static void efct_lio_setup_session(struct work_struct *work)
+ 	atomic_set(&efct->tgt_efct.io_high_watermark, watermark);
+ 
+ 	kfree(wq_data);
++	kref_put(&node->ref, node->release);
++	return;
++
++done:
++	/* every exit owes the node exactly one completion */
++	if (deleted)
++		efc_scsi_del_initiator_complete(efc, node);
++	else
++		efc_scsi_sess_reg_complete(node, -EIO);
++	kfree(wq_data);
++	kref_put(&node->ref, node->release);
  }
  
-@@ -2133,7 +2147,8 @@ int ksmbd_reopen_durable_fd(struct ksmbd_work *work, struct ksmbd_file *fp)
- 	 * concurrent teardown that iterates the table can observe a valid
- 	 * volatile_id with fp->conn == NULL and preserve a
- 	 * partially-initialized fp.  fp owns a strong reference on the new
--	 * conn (see ksmbd_open_fd()); undo it on __open_id() failure.
-+	 * conn (see ksmbd_open_fd()); undo it on __open_id() failure.  Serialize
-+	 * publication with tree disconnect just as ksmbd_open_fd() does.
- 	 */
- 	spin_lock(&fp->f_lock);
- 	old_f_state = fp->f_state;
-@@ -2142,13 +2157,19 @@ int ksmbd_reopen_durable_fd(struct ksmbd_work *work, struct ksmbd_file *fp)
- 	fp->share_conf = work->tcon->share_conf;
- 	atomic_inc(&fp->share_conf->refcount);
- 	fp->conn = ksmbd_conn_get(conn);
--	fp->tcon = work->tcon;
-+	fp->tcon = ksmbd_tree_connect_get(work->tcon);
- 	spin_unlock(&fp->f_lock);
- 	atomic_inc(&conn->stats.open_files_count);
- 	write_unlock(&global_ft.lock);
+ int efct_scsi_new_initiator(struct efc *efc, struct efc_node *node)
+@@ -1223,6 +1292,10 @@ int efct_scsi_new_initiator(struct efc *efc, struct efc_node *node)
+ 	struct efct *efct = node->efc->base;
+ 	struct efct_lio_wq_data *wq_data;
  
--	__open_id(&work->sess->file_table, fp, OPEN_ID_TYPE_VOLATILE_ID);
--	if (!has_file_id(fp->volatile_id)) {
-+	down_read(&work->sess->tree_conns_lock);
-+	if (work->tcon->t_state == TREE_CONNECTED)
-+		ret = __open_id(&work->sess->file_table, fp,
-+				OPEN_ID_TYPE_VOLATILE_ID);
-+	else
-+		ret = -ENOTCONN;
-+	up_read(&work->sess->tree_conns_lock);
-+	if (ret) {
- 		write_lock(&global_ft.lock);
- 		spin_lock(&fp->f_lock);
- 		fp->conn = NULL;
-@@ -2159,7 +2180,10 @@ int ksmbd_reopen_durable_fd(struct ksmbd_work *work, struct ksmbd_file *fp)
- 		atomic_dec(&conn->stats.open_files_count);
- 		write_unlock(&global_ft.lock);
- 		ksmbd_conn_put(conn);
-+		ksmbd_tree_connect_put(work->tcon);
- 		ksmbd_share_config_put(work->tcon->share_conf);
-+		if (ret != -ENOTCONN)
-+			ret = -EBADF;
- 		goto out;
++	/* a repeated PRLI waits for the in-flight setup, it does not add one */
++	if (node->tgt_sess_state != EFCT_TGT_SESS_NONE)
++		return EFC_SCSI_CALL_ASYNC;
++
+ 	/*
+ 	 * Since LIO only supports initiator validation at thread level,
+ 	 * we are open minded and accept all callers.
+@@ -1231,6 +1304,10 @@ int efct_scsi_new_initiator(struct efc *efc, struct efc_node *node)
+ 	if (!wq_data)
+ 		return -ENOMEM;
+ 
++	/* the work outlives this call and undoes both of these */
++	kref_get(&node->ref);
++	node->tgt_sess_state = EFCT_TGT_SESS_SETUP;
++
+ 	wq_data->ptr = node;
+ 	wq_data->efct = efct;
+ 	INIT_WORK(&wq_data->work, efct_lio_setup_session);
+@@ -1287,17 +1364,22 @@ int efct_scsi_del_initiator(struct efc *efc, struct efc_node *node, int reason)
+ 	if (reason == EFCT_SCSI_INITIATOR_MISSING)
+ 		return EFC_SCSI_CALL_COMPLETE;
+ 
+-	if (!tgt_node) {
+-		efc_log_err(efct, "tgt_node is NULL\n");
+-		return -EIO;
++	if (node->tgt_sess_state == EFCT_TGT_SESS_SETUP) {
++		/* the setup work unwinds it and completes the delete */
++		node->tgt_sess_state = EFCT_TGT_SESS_DELETE_PENDING;
++		return EFC_SCSI_CALL_ASYNC;
  	}
  
++	if (node->tgt_sess_state != EFCT_TGT_SESS_REGISTERED || !tgt_node)
++		return EFC_SCSI_CALL_COMPLETE;
++
+ 	wq_data = kzalloc_obj(*wq_data, GFP_ATOMIC);
+ 	if (!wq_data)
+ 		return -ENOMEM;
+ 
+ 	id = (u64) tgt_node->port_fc_id << 32 | tgt_node->node_fc_id;
+ 	xa_erase(&efct->lookup, id);
++	node->tgt_sess_state = EFCT_TGT_SESS_NONE;
+ 
+ 	wq_data->ptr = node;
+ 	wq_data->efct = efct;
+diff --git a/drivers/scsi/elx/efct/efct_lio.h b/drivers/scsi/elx/efct/efct_lio.h
+index 569a0d4b1894c..8f550ad0e349b 100644
+--- a/drivers/scsi/elx/efct/efct_lio.h
++++ b/drivers/scsi/elx/efct/efct_lio.h
+@@ -65,6 +65,15 @@ struct efct_scsi_tgt_nport {
+ 	struct efct_lio_nport	*lio_nport;
+ };
+ 
++/* Target session state of a struct efc_node, kept under efc->lock. */
++enum efct_tgt_sess_state {
++	EFCT_TGT_SESS_NONE = 0,
++	EFCT_TGT_SESS_SETUP,
++	EFCT_TGT_SESS_REGISTERED,
++	/* teardown raced setup; the setup work must unwind it */
++	EFCT_TGT_SESS_DELETE_PENDING,
++};
++
+ struct efct_node {
+ 	struct list_head	list_entry;
+ 	struct kref		ref;
+diff --git a/drivers/scsi/elx/libefc/efclib.h b/drivers/scsi/elx/libefc/efclib.h
+index 57e3386128127..7c00a3fd79ad6 100644
+--- a/drivers/scsi/elx/libefc/efclib.h
++++ b/drivers/scsi/elx/libefc/efclib.h
+@@ -336,6 +336,8 @@ struct efc_node {
+ 	struct list_head	els_ios_list;
+ 	void			*ini_node;
+ 	void			*tgt_node;
++	/* enum efct_tgt_sess_state, private to the target backend */
++	u8			tgt_sess_state;
+ 
+ 	struct efc_remote_node	rnode;
+ 	/* Declarations private to FC trannport */
+
+base-commit: f47d223627f80cb7a1eb14c585fe6cb35de5e984
 -- 
-2.56.0
+2.43.0
 
