@@ -1,57 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792583803;
-	b=FDOZc1gbvX6GokQ9Z3GYua5siyahI4u/hDKDRClRJUyb6K3KJ5D3gZ7hpsjsqbpmxVE7
-	 M8g6UzCRki3X1/byAtemeCoW3anplPBbQxRD0mGYGzzAcwxDfrES0D5jkGIQwLYOFr1og
-	 IMehWaHG9PtzmYoMuRPmkX+iemUHYcoa/ZvmoMaKw+tDdEeTbDL1wSpuBfY9kRODYsSOh
-	 euCcXuXnZlky2nJfjW7pZzf3+M2FsHIDBj2jGx3enmFHezE3Rc1NaGu1kq8OmNlILchF2
-	 0muNxtdX/XLpEbos3qmyDD5p5e0lSDL96pmduz0Am6CQ8I0aMgnTSwWO9ttomDoEKLg==
+	t=1792583838;
+	b=mE/wSB2/zKTRo2zzqbfAFw3rRQAc4DZre6UrKREfmAC1HEls6069NWlwl3p8oSP7Xrul
+	 gIHfh0FrI1X1nGGJTZHvoIF/l5IMF9Hg+XDqyCc1YhfzFWXX+yjchP0CaJjwKPBeWugnQ
+	 ejrSVVDYOOaJpKN3R22+kUBTsajdLbS+lZiRTQQ5vpx61+J97mxFVTg0sdBfYrRC1G8fy
+	 y8xAi37FOT9UxYHdoyxRsqwB9iiD9/FDn+R3ZVT0l0cO/cNxP5z/Qqa4Wx40F+OE8opmR
+	 HIsgfHm43wlMI3CgQLslsFbHNfPu6aJmW4Rmz9saYJ36MP4ylUYPioAk/vmaKUqkY1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792583803;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=057g4fkzojSmZ2w31SqHnYt6IBK9egcTQ3a1+8LQlYo=;
-	b=Jfi4uSlgzmM38uU8V6NlIs67Vn6XeFPEGalivXBtxUtscOaWvl0rABt8tBZp4tVzEDWr
-	 qvSkr6POi+CMZs6Qe9swgZY8SrqDylnA8hZNRWMz6177B0Af0xaMg6guvi4bxZTNRTSnX
-	 P3FRL6UbrWm1yISX4C9RRJXUNQVvMuIFp5bYXC153LXoMIOGs44CC8tMzSE0Hpp+8mdqb
-	 +LJ4orDpSu4StNq++wODlFk0Pq6QLwxXmXjFHe6678emeQWc98dXcGCU/IFCQeq4TViFd
-	 OlYSGyql1eRUHpJ1UddFpI6zRgntkGEd1/cI5W/5r9vwBwpyz1wq8nsrQSzAG5V5/kw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792583838;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=+UMytylQ6mrojiHLcj3je07Z0OFvxutj7+E3X5FQ4SU=;
+	b=DRIjAqIhYdCFz1v/VWxgDKc8SW4XnvQUzOdOoNAhj38zh/MFHfo363fJ4KBvELiYcvRR
+	 EFa4KK89Kgwmn8a98mhcibIVjDFZw+g0UcpnJ7BTRppfln99VF8oV4dSOBH+Zc5kBSRAC
+	 D1oRJynyOGk4GRwsV3juN65k131+LcLzYPaS6AUxZl1dlvZ91gLyJOl3fKHMHyCKa1NhO
+	 HKTDCzw1XufM8v3bcg7uehc5fgeUQMXSt9d2+30fcd4XCyKWQgRr5a5iKNEafJs2jnkDB
+	 ugZIjeJqje/7L+ir+Z5quo0e/IZJd5ACyBCOMeHYZegJdt7+Se3FM+MCnk2MOTq4dPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ydt/0mHF";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=oOWLmY5b;
+	arc=none smtp.remote-ip=115.124.30.130
+Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E789A606A319;
-	Wed, 21 Oct 2026 11:56:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEEFF606A31A;
+	Wed, 21 Oct 2026 11:57:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEEFF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ydt/0mHF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5D9A1F000C5;
-	Wed, 21 Oct 2026 11:56:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792583802;
-	bh=057g4fkzojSmZ2w31SqHnYt6IBK9egcTQ3a1+8LQlYo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Ydt/0mHFXuuUnlKg0e53miPmv4SeXWaNYLSgFQtRU1iEp6v77etS6tX50CNHzM7/0
-	 ycIWfMsq+WE80qO/zFUnz1li+LWFKjZu0UXLNcYy/0PzpJmYpOuMMjX1oV2kzquHU9
-	 RdoF2dOIlk8t57tUH49Eb72f7nw1PIcXa4mWBkZ2+BLalv2OgrhU5F8vYEXOjLaEOl
-	 IFUfii0crzTjXdybBqa1WOlzaY3YX1AZTdZYxEN4iAWn9vOBtoSPyNQd75Smr9EfXD
-	 iUZaWC2RhSRlQLeC5FX/i6AZazZ/86HiK00WyB6+gSPLgw35nitBYu8hz0k7v1jnqL
-	 G6/LsoVK6jAkg==
-From: Christian Brauner <brauner@kernel.org>
-To: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Nikolaos Karaolidis <nick@karaolidis.com>
-Cc: Jan Kara <jack@suse.cz>, Zhihao Cheng <chengzhihao1@huawei.com>, 
- Mateusz Guzik <mjguzik@gmail.com>, linux-fsdevel@vger.kernel.org, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261009142431.713875-1-nick@karaolidis.com>
-References: <20261009142431.713875-1-nick@karaolidis.com>
-Subject: Re: [PATCH] fs: don't lose inodes that another LRU walker is
- isolating
-Message-Id: <20261021-lesbar-rosig-immer-78a7ce2261ab@brauner>
-Date: Wed, 21 Oct 2026 13:56:36 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=oOWLmY5b
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792583827; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=+UMytylQ6mrojiHLcj3je07Z0OFvxutj7+E3X5FQ4SU=;
+	b=oOWLmY5b19CixnXCwVq5DDikCvFckGDWo7X0h5PljUP6odrNhMMBwc1cqU7lfxDGNsQR6HQFFshVmOLMTL4Lig/vSush55RHXrBtlXv6Qkuqr4+D+twg3/bSeL4EdIZzExn7/2Eq9f8oICqnVk9j5++iDFytlM0rNa/URQchS7A=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R221e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDGHZKw_1792583825;
+Received: from 30.221.149.139(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDGHZKw_1792583825 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 21 Oct 2026 19:57:06 +0800
+Message-ID: <9e071e7d-ae86-4b55-8609-1f00a0deb913@linux.alibaba.com>
+Date: Wed, 21 Oct 2026 19:57:05 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,36 +53,252 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] ocfs2: snapshot dentry names in file-operation
+ traces
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-objects-candidate-0088-v6-d3056754af7e660155d9-0@gmail.com>
+ <pm-ocfs2-objects-candidate-0088-v6-d3056754af7e660155d9-1@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-objects-candidate-0088-v6-d3056754af7e660155d9-1@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-3d1b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=899; i=brauner@kernel.org;
- h=from:subject:message-id; bh=Y/iaCQhSTOToIAabGiKICrDvPJx2LEbcHo4TbLPi6hU=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTdWFGmptdVkBRQNFGq68ULPZVcA/sY3rAps16F12+Vq
- zptU1bZUcrCIMbFICumyOLQbhIut5ynYrNRpgbMHFYmkCEMXJwCMJHGVIY/HAKvud5tqbwg8P+/
- QlLB9U+lhXFG9/RnJpw+l+lfahHgwsjQ6/njyO9jYnsbN2dPuTkvaf4SdqXZX27+1tsRLDj7tfZ
- 9ZgA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On Fri, 09 Oct 2026 14:24:31 +0000, Nikolaos Karaolidis wrote:
-> fs: don't lose inodes that another LRU walker is isolating
 
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+On 10/20/26 11:43 AM, Cen Zhang wrote:
+> The open, fsync, read, write and splice-read trace calls pass the live
+> dentry name and length to the shared ocfs2__file_ops event class. A
+> file reference pins the dentry, but not the external allocation backing
+> an individual name. The event needs those bytes when sizing its
+> __string field and when copying the string into the trace record.
+> 
+> With the relevant event enabled, a caller can be preempted after
+> evaluating its name argument. A concurrent long-to-short rename of
+> the same dentry can replace and reclaim the external name before
+> the trace callback uses it, provided no other snapshot retains it:
+> 
+>   File-operation caller                Renamer
+>   ---------------------                -------
+>   load d_name.name
+>   <preempted>
+>                                        vfs_rename()
+>                                          ocfs2_rename()
+>                                            ocfs2_dentry_move()
+>                                              d_move()/copy_name()
+>                                        release rename name snapshot
+>                                        RCU reclamation completes
+>   trace callback sizes/copies
+>     through the old name pointer
+> 
+> The pointer argument is evaluated before the trace wrapper protects
+> probe execution, so that protection does not cover the old name
+> across this window. Inline names and separately read lengths can also
+> change while the event is being recorded.
+> 
+> Take a dentry name snapshot around each of these five trace calls and
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+Seems ocfs2_setattr() also risks the same race, and it is missed in last
+review comments.
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+> pass both the string and its length from the snapshot. Inline names
+> are copied and external names stay referenced until the trace call
+> finishes. Check each event-enabled flag before taking a snapshot so
+> disabled tracing does not incur snapshot work. The trace event class
+> and its format stay unchanged.
+> 
+> The report below is from the read path; the other four call sites
+> have the same unprotected name argument.
+> 
+> KASAN report as below:
+> 
+>     BUG: KASAN: slab-use-after-free in strlen+0x85/0xa0
+>     Read of size 1 at addr ffff88810a5b2b18 by task python3/496
+> 
+>     [CPU and host details omitted.]
+>     Call Trace:
+>      <TASK>
+>      dump_stack_lvl+0x93/0xd0
+>      print_report+0xce/0x630
+>      ? strlen+0x85/0xa0
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __virt_addr_valid+0x20e/0x420
+>      ? strlen+0x85/0xa0
+>      kasan_report+0xe0/0x110
+>      ? strlen+0x85/0xa0
+>      strlen+0x85/0xa0
+>      trace_event_raw_event_ocfs2__file_ops+0xf0/0x480
+>      ? __pfx_trace_event_raw_event_ocfs2__file_ops+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? pmbd_probe_hit_cookie+0xe7/0x1c0
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
+>      ocfs2_file_read_iter+0x6cd/0xb30
+>      ? __pfx_ocfs2_file_read_iter+0x10/0x10
+>      ? selinux_file_permission+0x11d/0x540
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? security_file_permission+0x26/0x80
+>      vfs_read+0x7d2/0xc20
+>      ? __pfx_vfs_read+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx_do_sys_openat2+0x10/0x10
+>      ksys_read+0x111/0x200
+>      ? __pfx_ksys_read+0x10/0x10
+>      ? irqentry_exit+0xbe/0x820
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? trace_hardirqs_on_prepare+0x11d/0x150
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>     [User register dump omitted.]
+>      </TASK>
+> 
+>     Allocated by task 489:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      __kasan_kmalloc+0xaa/0xb0
+>      __kmalloc_noprof+0x2de/0x780
+>      __d_alloc+0x5fc/0x8c0
+>      d_alloc_parallel+0x106/0x11d0
+>      lookup_open+0x3ff/0x13e0
+>      path_openat+0x95e/0x2020
+>      do_file_open+0x21e/0x470
+>      do_sys_openat2+0xf4/0x1b0
+>      __x64_sys_openat+0x136/0x1e0
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+>     Freed by task 0:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      kasan_save_free_info+0x3b/0x60
+>      __kasan_slab_free+0x5f/0x80
+>      __rcu_free_sheaf_prepare+0x65/0x2a0
+>      rcu_free_sheaf_nobarn+0x1d/0x50
+>      rcu_core+0x6be/0x1ed0
+>      handle_softirqs+0x1fa/0x8d0
+>      __irq_exit_rcu+0x113/0x1e0
+>      irq_exit_rcu+0xe/0x20
+>      sysvec_apic_timer_interrupt+0x6c/0x80
+>      asm_sysvec_apic_timer_interrupt+0x1a/0x20
+> 
+>     The buggy address belongs to the object at ffff88810a5b2b00
+>      which belongs to the cache kmalloc-rcl-192 of size 192
+>     The buggy address is located 24 bytes inside of
+>      freed 192-byte region [ffff88810a5b2b00, ffff88810a5b2bc0)
+> 
+>     [Page and shadow-memory dumps omitted.]
+> 
+> Fixes: 468eedde23d6 ("ocfs2: Remove mlog(0) from fs/ocfs2/file.c")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> ---
+>  fs/ocfs2/file.c | 79 ++++++++++++++++++++++++++++++++++---------------
+>  1 file changed, 55 insertions(+), 24 deletions(-)
+> 
+> diff --git a/fs/ocfs2/file.c b/fs/ocfs2/file.c
+> index d6e977ba6565..3c4637b32c09 100644
+> --- a/fs/ocfs2/file.c
+> +++ b/fs/ocfs2/file.c
+> @@ -85,10 +85,17 @@ static int ocfs2_file_open(struct inode *inode, struct file *file)
+>  	int mode = file->f_flags;
+>  	struct ocfs2_inode_info *oi = OCFS2_I(inode);
+>  
+> -	trace_ocfs2_file_open(inode, file, file->f_path.dentry,
+> -			      (unsigned long long)oi->ip_blkno,
+> -			      file->f_path.dentry->d_name.len,
+> -			      file->f_path.dentry->d_name.name, mode);
+> +	if (trace_ocfs2_file_open_enabled()) {
+> +		struct dentry *dentry = file->f_path.dentry;
+> +		struct name_snapshot name;
+> +
+> +		take_dentry_name_snapshot(&name, dentry);
+> +		trace_ocfs2_file_open(inode, file, dentry,
+> +				      oi->ip_blkno,
+> +				      name.name.len, name.name.name,
+> +				      mode);
+> +		release_dentry_name_snapshot(&name);
+> +	}
+>  
+>  	if (file->f_mode & FMODE_WRITE) {
+>  		status = dquot_initialize(inode);
+> @@ -174,11 +181,17 @@ static int ocfs2_sync_file(struct file *file, loff_t start, loff_t end,
+>  	tid_t commit_tid;
+>  	bool needs_barrier = false;
+>  
+> -	trace_ocfs2_sync_file(inode, file, file->f_path.dentry,
+> -			      oi->ip_blkno,
+> -			      file->f_path.dentry->d_name.len,
+> -			      file->f_path.dentry->d_name.name,
+> -			      (unsigned long long)datasync);
+> +	if (trace_ocfs2_sync_file_enabled()) {
+> +		struct dentry *dentry = file->f_path.dentry;
+> +		struct name_snapshot name;
+> +
+> +		take_dentry_name_snapshot(&name, dentry);
+> +		trace_ocfs2_sync_file(inode, file, dentry,
+> +				      oi->ip_blkno,
+> +				      name.name.len, name.name.name,
+> +				      (unsigned long long)datasync);
+> +		release_dentry_name_snapshot(&name);
+> +	}
+>  
+>  	if (unlikely(ocfs2_emergency_state(osb)))
+>  		return -EROFS;
+> @@ -2392,11 +2405,17 @@ static ssize_t ocfs2_file_write_iter(struct kiocb *iocb,
+>  	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
+>  	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
+>  
+> -	trace_ocfs2_file_write_iter(inode, file, file->f_path.dentry,
+> -		(unsigned long long)OCFS2_I(inode)->ip_blkno,
+> -		file->f_path.dentry->d_name.len,
+> -		file->f_path.dentry->d_name.name,
+> -		(unsigned int)from->nr_segs);	/* GRRRRR */
+> +	if (trace_ocfs2_file_write_iter_enabled()) {
+> +		struct dentry *dentry = file->f_path.dentry;
+> +		struct name_snapshot name;
+> +
+> +		take_dentry_name_snapshot(&name, dentry);
+> +		trace_ocfs2_file_write_iter(inode, file, dentry,
+> +					    OCFS2_I(inode)->ip_blkno,
+> +					    name.name.len, name.name.name,
+> +					    (unsigned int)from->nr_segs);
+> +		release_dentry_name_snapshot(&name);
+> +	}
+>  
+>  	if (!direct_io && nowait)
+>  		return -EOPNOTSUPP;
+> @@ -2542,11 +2561,17 @@ static ssize_t ocfs2_file_read_iter(struct kiocb *iocb,
+>  	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
+>  	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
+>  
+> -	trace_ocfs2_file_read_iter(inode, filp, filp->f_path.dentry,
+> -			(unsigned long long)OCFS2_I(inode)->ip_blkno,
+> -			filp->f_path.dentry->d_name.len,
+> -			filp->f_path.dentry->d_name.name,
+> -			to->nr_segs);	/* GRRRRR */
+> +	if (trace_ocfs2_file_read_iter_enabled()) {
+> +		struct dentry *dentry = filp->f_path.dentry;
+> +		struct name_snapshot name;
+> +
+> +		take_dentry_name_snapshot(&name, dentry);
+> +		trace_ocfs2_file_read_iter(inode, filp, dentry,
+> +					   OCFS2_I(inode)->ip_blkno,
+> +					   name.name.len, name.name.name,
+> +					   to->nr_segs);
+> +		release_dentry_name_snapshot(&name);
+> +	}
+>  
+>  
+>  	if (!inode) {
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
+This looks wried, the inode is dereferenced above in OCFS2_I(inode)->ip_blkno,
+but checked below.
+file_inode() returns filp->f_inode, so it seems inode is never NULL here.
 
-[1/1] fs: don't lose inodes that another LRU walker is isolating
-      https://git.kernel.org/vfs/vfs/c/3f54961ad92a
-
+Thanks,
+Joseph
