@@ -1,108 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792597071;
-	b=ZWU8+i+kC2qa1Wz9VseCPZLNAKpiur2syzrp/DQdnfl1e9JsSRtwWb5xIHKrxQiD+xR6
-	 tgup60ijcoIu6buH0Pkcu5l9cBfT0qjQR/n7lZE8/0QMjq+Q6nlKx78gPpuAG5/mJXiz8
-	 3fYrRkgSR7ikpQpXCW6QAyVPqyKa911q7/gBSj0if8faeENV5p/cvtWz7APlQbGSsFocl
-	 waHgNNkmchNDomCNAgb2D08bsF0YAumjXggKRyAMRBtex7mU4CjhnSbbyssmMO8XRvOu/
-	 FJkcfZcJj5VYQlLkdwVC0UKB11G2afHJYk5bDnugDViZxqhmUzxeIUzkalr8/6EpNHA==
+	t=1792597274;
+	b=xE5nS36Lf9wVWtmYWVEMRUetLxjyGrkF/MdU9nqcdDZXEo0HqwU7ae9K93L2hsEzPMDr
+	 IM4K8NcIYSdpDy/Vw+ZknSOP6T9S50mgmLCRnoNsVpG3dIiFBS5EhmmirBgbDd1Ch3VNP
+	 C4zfFVox9rm/b3ceZm3qWFJdsvZZvxHkgpFdJEg43uLN2gD7RD3d8eaJoJEk8/WWDb6rE
+	 x/7TpIIansd3zyUZzJ7jG2CDESRHjJi93ChhXqzVv/vI1cjy503ZI1OYEIEEJKPZnN9M5
+	 AA0FFCqnDu8EV/W//1EWqTON/7tpNe1W8c913dVvLO8hU6v8R4vZxM6Y3MisF793+PQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792597071;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792597274;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pcUJNAa1d5gYFOvrKvELkQqk+wRTOdmweUM3ujZu374=;
-	b=yS65GdgGlWWqmpSIXu0lJKUA+ZWpjht0DHR7dsjlj+NxuHPRg9RClJwNe/1exyrpxOsd
-	 3tNRL/4qJ0AK0lY9bGhP/rZ9Kc/Qg2vIlK5t2e7RZWxiHo31U+0bqVgK0fqeWbAALMqGa
-	 rdlXHRswLzSCWmjer8G7L9cmX/00+UeGSi4MLj/Sm0OWfJZObBUs0fn4sdACCBTCbTi59
-	 rvH9YLDhWDYO2Jm1t5kK6riMRbJZamqEiVSdypWhyo21hc1BjRx8Kmuz9bA0PGyRde14o
-	 x6BW/yydEljstlyaXTXG1Ye4plxWPdh/t0zheTP9b13IWyBxoPN8eFTnafWZTt4I/Jw==
+	bh=YnC/Z/lgkcnL5iU7D04K3dYZLZy5OYebem9m4fN7SOk=;
+	b=pkYLjtfHtEJZCCnl4CRwGL5kra4EpTQtTO+1kaF7AK4ZTfeHqYVvJVPgQc53b44gZX5p
+	 f82A78oG1+vA8jx/1TPFXhw4K3m8EhrugWt6UMM1gYqv52egkAAewkXNOCbcyXMQaYCre
+	 cxWR7PDmOIZdlxpB7qfXjSe7e8qo4Inwt9OL3FmOh6RFMLaDstZ58Tp6qUYKlg0rVZIw+
+	 jdKrK6i3rJqCa2lWo7xsQPzOSwQbyTYl7MS46gsPxyeOf1PIH0gdt53iKHfQbTX5GRDos
+	 vvEWApHJ/vp8jpel3cYWo01y5x9uciwDdEydUNa3IENITvg/coF5nt/p/BE97TRoEoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U8WOfcfn;
-	arc=none smtp.remote-ip=209.85.221.181
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2iY8QQYm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB67E606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:37:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB67E606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C8B2606A31A
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:41:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U8WOfcfn
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5eae12762c9so388616e0c.1
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 08:37:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792597070; x=1793201870; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pcUJNAa1d5gYFOvrKvELkQqk+wRTOdmweUM3ujZu374=;
-        b=U8WOfcfnMnpm6svYe5iJa9/W46YR4FzI8Nlj+7unkM7m0rftH2FoogDPMK26ILs3tw
-         ms9az8/IEBxBnq5+p+y8QpOkfxpbjyjMZpObKISMc1AlVpCtroY8L7HpWqaN9LJp7Av/
-         ikv7zKxySdsv74p2R/3OFIolqJNaymhzG9OFqPY65WDonlV5Pgagk71+wfZENoBDReGO
-         0Wi0rN+Y+MtHE2ZtMEgL2lJ1kLk0G8GP+JFXuGcKj/x824ojcSSn035B408ME33gWqMJ
-         ZSHXqIvQVikv3S5cRgsmonWb7b9tVLhoIH2cIzqoy0U/9rhbqQ6VhgYDS/9NOK7jFZHM
-         qLHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792597070; x=1793201870;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pcUJNAa1d5gYFOvrKvELkQqk+wRTOdmweUM3ujZu374=;
-        b=AdGp46KO0EWAOSXmUYbgdz6uxF0uUBVtIJAdMrfRhU8vR9VQSz2eKy3TGRMC1osgFM
-         OsA1sTaHdaWbBFBQKIyhVvh54s0LknyBKIi5tgBW9mYpausMmON3jpkMtkXx8f6CgGNC
-         bS4UKw61UpKC9mwgV9Asgy8McU/9nZay/Kaz+cUi9UwQqnfAvtYnibX8+7RHXPXQAdYS
-         s+is1HxPaBK1H99WIjwgQ9LgY7jFc3o07BjORVWC7qoaHUS7EpHm1JypANNWWnutn+D9
-         r1nGgpqRW94kwv10zn1Gs/m8CFAyXxkZQUUCBahiZf6gk4HOtCriWK0DipClCX7QshLk
-         nwlg==
-X-Forwarded-Encrypted: i=1; AKwUvBw6mDYwGdm4R2s6NM4xNhTQXS6q+Ak4Uh5OmSgkyFWpC98c9HFSz2vfYgOc1gsstoqPS2dBEiQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKnA8UPmpf2Ulp8aag2cT/mvIWLjw0mIVdMBxNYl+smYUs5aO5G
-	2DRSYM2LA3ds8Nud1WFB/ai8qZvdyT7KTXZaMcR4F0Lm6HW9riaxrFRE
-X-Gm-Gg: AYBFou1aLcSo11bU/mWuiTEnGnvGaL6F30rdmB32r5yaDmAFgvSeaY6L8UIN8/0YyPO
-	FUUKys3Sgb+VEwe0V2CN8UV2ZdqI714HkZIGrz/4JMlihS23rrPunpITkF+2Q1ODvBi6p2F4ewT
-	Vo+ktb1yNMZpBkMoWjeSpih3n988MNgGk0aULAYVpsnBjORrsCAqNWFY4cSjjQ+thw6zK7F4J9m
-	5Gri0ebR2qITfRcYVtP8Ip1tzARP4WOoPu2MEcr+lBvRznYGwZxeXOdjT/dkjoREIOx7aEiWIc5
-	0bA+vei4V8VSRtyPR69WlHXsodDcwGaW6sONl22ng+dFJQpPLHdgonpZ1iv3U8ZPLra1QGkBQbT
-	Mzpks6RQoEV7DNw8xI7cgaryzqMmHx+vY2syooUBqmNjnF8rYMkX3JaAWZLvrD43J6YaLjgdt3Z
-	wHyAeIlhfHi+KdpvL618O9FQe5OVgO8+c7YBMPZ7JyYYVhRCpiuD15cUd5qX4kWfpgIqczbXmvA
-	o+LGtRJdEDa35480h8XiZo08Jdr86E5xbhnBUQrirp75CcSyzUYNLItk03a1R5wamSeBO7w5Ngm
-	AYLINas+T+Bw7djUc4Cyb0QDEUNvfrIqS3YHtHfvf8SdBYgTMiZYla2UtNBZBBE=
-X-Received: by 2002:a05:6122:3122:b0:5ea:db3c:4a3f with SMTP id 71dfb90a1353d-5eaebc14cdemr1063889e0c.2.1792597069786;
-        Wed, 21 Oct 2026 08:37:49 -0700 (PDT)
-Received: from MaquinaLab.. ([179.179.238.247])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eae97f0a94sm3505688e0c.11.2026.10.21.08.37.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 08:37:49 -0700 (PDT)
-From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-serial@vger.kernel.org,
-	gregkh@linuxfoundation.org,
-	jirislaby@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook when DLF is present
-Date: Wed, 21 Oct 2026 12:37:32 -0300
-Message-ID: <20261021153732.1978410-1-vinicius.eduardo.pedrosa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <atjB-BnXclL3FcUm@ashevche-desk.local>
-References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <20261020104753.28703-1-vinicius.eduardo.pedrosa@gmail.com> <athe0QikG2mzCAtd@ashevche-desk.local> <20261021100049.16504-1-vinicius.eduardo.pedrosa@gmail.com> <atjB-BnXclL3FcUm@ashevche-desk.local>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2iY8QQYm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D30B1F000C2;
+	Wed, 21 Oct 2026 15:41:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792597273;
+	bh=YnC/Z/lgkcnL5iU7D04K3dYZLZy5OYebem9m4fN7SOk=;
+	h=Subject:To:Cc:From:Date;
+	b=2iY8QQYmFZx1fzhRMLMuLxBSAcUjCPV5Kj8d2vStY/Bjmh66SQjDjsNxTVroAfat8
+	 LePtg7ImmjP9JNds9MMk/KKBtRmhoEQfRmztkfbk4YiqEH8+d8k2Ueeo3bt8XnU3Ps
+	 yivMY3OizC2T9YzA2WmFP0MpymSrBSSrL2dQgi7Q=
+Subject: FAILED: patch "[PATCH] workqueue: Fix unbound pool lifetime for pending pwqs" failed to apply to 7.2-stable tree
+To: yaokai34@huawei.com,tj@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 21 Oct 2026 17:35:47 +0200
+Message-ID: <2026102147-clatter-yen-51fa@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,41 +51,120 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-Hi Andy,
 
-On Wed, 21 Oct 2026, Andy Shevchenko wrote:
+The patch below does not apply to the 7.2-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-> Ah, dw8250_idle_*() are already BUSY-functionality aware. So, what we need
-> is to provide dw8250_idlej_*() callbacks via struct dw8250_port_data and
-> make current 8250_dw::dw8250_set_divisor() to be part of dwlib.
->
-> Patch 1 (dwlib): Add callback definitions for dw8250_idle_*() to struct dw8250_port_data
-> Patch 2 (dw): Assign new callbacks and use them in dw8250_set_divisor()
-> Patch 3 (lpss): Introduce stubs and assign new callbacks to them
-> Patch 4 (dwlib): Use dw8250_idle_*() in dw8250_set_divisor()
-> Patch 5 (dw): Kill now duplicate code pieces
->
-> Would it work?
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Yes, I think the approach works. Two details from checking the call
-paths.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git checkout FETCH_HEAD
+git cherry-pick -x cf9c8aaea0d47410df8708bec195889f3a85cd3c
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102147-clatter-yen-51fa@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
-dw8250_setup_port() is skipped for Octeon (skip_autocfg), so 8250_dw
-would still have to install the setter from probe.
+Possible dependencies:
 
-For LPSS, I wonder if the idle callbacks could simply be optional.
-8250_dw would provide them and LPSS could leave them NULL, avoiding
-stubs and a separate LPSS patch. The common setter in dwlib would use
-them when present.
 
-I'd still prefer to keep patch 1 as the small fix with the stable tag
-and do the refactoring as a separate follow-up series. Would that work
-for you?
 
-I don't have LPSS hardware, but I can build-test the LPSS side.
+thanks,
 
-Thanks,
-Vinicius
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From cf9c8aaea0d47410df8708bec195889f3a85cd3c Mon Sep 17 00:00:00 2001
+From: Yao Kai <yaokai34@huawei.com>
+Date: Mon, 24 Aug 2026 11:58:52 +0800
+Subject: [PATCH] workqueue: Fix unbound pool lifetime for pending pwqs
+
+KASAN reports a use-after-free of an unbound worker_pool in
+node_activate_pending_pwq():
+
+  BUG: KASAN: slab-use-after-free in _raw_spin_trylock+0x6d/0x120
+  Read of size 4 at addr ffff8880089ce000 by task kworker/u22:0/318
+
+  CPU: 1 UID: 0 PID: 318 Comm: kworker/u22:0 Not tainted 7.2.0 #1 PREEMPT(lazy)
+  Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
+  Workqueue:  0x0 (flush-8:0)
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x53/0x70
+   print_report+0xce/0x610
+   kasan_report+0xce/0x100
+   _raw_spin_trylock+0x6d/0x120
+   pwq_dec_nr_in_flight+0x4b4/0xcb0
+   process_one_work+0x921/0x11a0
+   worker_thread+0x4d0/0xd20
+   kthread+0x2de/0x3c0
+   ret_from_fork+0x3aa/0x620
+   ret_from_fork_asm+0x1a/0x30
+   </TASK>
+
+  Allocated by task 311:
+   alloc_pwq+0x439/0xca0
+   apply_wqattrs_prepare+0x75e/0xd10
+   apply_workqueue_attrs_locked+0x44/0xa0
+   wq_nice_store+0x350/0x450
+
+  Freed by task 0:
+   kfree+0x127/0x3b0
+   rcu_core+0x523/0x1780
+   handle_softirqs+0x1b3/0x610
+
+  Last potentially related work creation:
+   put_unbound_pool+0x3f3/0x7d0
+   pwq_release_workfn+0x494/0x8e0
+   kthread_worker_fn+0x1ff/0x790
+
+Canceling the last inactive work skips pwq_dec_nr_active(), so an empty
+pwq can remain on pending_pwqs when its refcnt reaches zero.
+pwq_release_workfn() currently puts the pool before removing that pwq.
+If this drops the last pool reference, the pool can be RCU-freed while
+the pwq remains reachable, and node_activate_pending_pwq() may trylock
+the freed pool->lock.
+
+Remove the pwq from pending_pwqs before putting the pool.
+
+Fixes: 5797b1c18919 ("workqueue: Implement system-wide nr_active enforcement for unbound workqueues")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yao Kai <yaokai34@huawei.com>
+Signed-off-by: Tejun Heo <tj@kernel.org>
+
+diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+index f2aed36cf7c0..0ee73dcd4a14 100644
+--- a/kernel/workqueue.c
++++ b/kernel/workqueue.c
+@@ -5294,12 +5294,6 @@ static void pwq_release_workfn(struct kthread_work *work)
+ 		mutex_unlock(&wq->mutex);
+ 	}
+ 
+-	if (!is_percpu_pool(pool)) {
+-		mutex_lock(&wq_pool_mutex);
+-		put_unbound_pool(pool);
+-		mutex_unlock(&wq_pool_mutex);
+-	}
+-
+ 	if (!list_empty(&pwq->pending_node)) {
+ 		struct wq_node_nr_active *nna =
+ 			wq_node_nr_active(pwq->wq, pwq->pool->node);
+@@ -5309,6 +5303,12 @@ static void pwq_release_workfn(struct kthread_work *work)
+ 		raw_spin_unlock_irq(&nna->lock);
+ 	}
+ 
++	if (!is_percpu_pool(pool)) {
++		mutex_lock(&wq_pool_mutex);
++		put_unbound_pool(pool);
++		mutex_unlock(&wq_pool_mutex);
++	}
++
+ 	kfree_rcu(pwq, rcu);
+ 
+ 	/*
+
