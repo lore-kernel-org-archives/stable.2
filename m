@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594285;
-	b=dbdzuatcMLZnoIrNPVUHo0jJUnV7EdxGF4PJ3oc4rAF6IwU/JU2UA79OwJidYaPUYSPp
-	 owdlnpEpDw9VIBWt2z1tqWymCnQpy3jUumT09UofYWl4cDmHnsUSDg7yWQt0rtFaDQFm5
-	 TGpLucG3SD3LgjnxxGlRuX1+Tmc+tRyOfC60scpeTdFbYF4o5xyKVPcNKAsedu7kxnO0m
-	 Q27panVhfBiOMEFCCL14R+27lW2QiVsLdqXvGJIfAbvL9vMRR42ach222Tn1+W+Bl6INh
-	 pxfxX6NlD6lbotK53hquR7Gtv21tq/Za8gL+4Ext94MJKnTZGc11zPWYPOr/mA5pcNw==
+	t=1792594287;
+	b=0QA7yDh6bNxwaCXSjtv9do7EJaiHOx6cc2khPSProi0yZXAAdC/pBdYQ/SzsIwBG4IWT
+	 o3tIk/9HPL2mo8Vwuel3Vi5ECt1TSXJ6NmD0YK4EdXGWy4Te+Ns+XGEtAB0rbgnTPX2+R
+	 86ilLBtFLH1BGhwrRyJ2yy4xiNLnTN5cify3jNDXnbAmzr3KkbkwBw8OSs8ww8h9Qfv++
+	 zVnSX8QxylbvM2rhZQj4AqDFV0+1gK/wiUXNkIM48x1vXdgKSHOUCPVNCWvN3J8eTV2Hj
+	 lOK0bK7m4wEMjlJ2BYEqjfYWcYi27DyCycnbRUDSZikADQ5vEhpuCuEfFnSaQmR1+rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594285;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594287;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=kFtOL8D4P4NXRSYkssqCqkIjJY/bz8Jvy4fDNEqJlQw=;
-	b=3wwNWDawqfkzs3xVSzltM7HKlp/AtHPTpNUl68N+t4LF7i7UL4Y3YbfrLGeME0wltTTA
-	 kjqRPcIYBh+ADdqfVifh36wImxSpLz4ZQ8dM0FuaERYcpxE6Kk04x9gmuBsk0BTw74BkC
-	 r9pPFgmUoJtMoDxWoXcYkFBq/5c+NMVWRPzE9BZY1Ze0N2BeWiulW+PGP5FA1GBBUNcMZ
-	 4Syj8qQ/V0SXNh16Frwy7aZZD0WGm0ZvJOQOD4FR0Ha4e71mNV5CNh8L+pH8GhDEQ4LUz
-	 s6RgwzbDWo1L1xaChCmnjGlR2a/n3e9aEcW2GyNUpjydbdudUly4gsHTyFvlh9UxDuA==
+	bh=oguaxEgPEC3eKI/cdgZmXXHzO1/yNTxKPNxn/1tgtYU=;
+	b=Bo7A5k6bwk0vCeUE3C4BaF9xkKk1hGRBhltBpEl0jAQsShMdiiOgyPYTutI19Unpwxfk
+	 8//CSekKFadt/DT+WqLRn04kjVNhKZRsZvf9iUHeTURdiJQS4AobIKxJjMf2N1Yqxy/EF
+	 4PQUZuNsumU66DDoqhOSBkh62Z0z4f4H6twy8b80dtS82lT3C3Mi+RCWHYFUWmDSa1tFm
+	 /0HjZtCIrb+AhYBPPRrHkPrBWjvU0MoP9Hit3hs1yMQsuorYeDZ81VMkQOnmgeKHdkrxu
+	 tPFaV3rt9gtJjV+np46DDPwDkPebrrp5AnTtrcdV2H2yPgnRhcl1OjIZN0fuda6g6vQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=M0fJLvuK;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hJTsBqrE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2857606A31D
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:51:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66185606A31A
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:51:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=M0fJLvuK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C92B31F000C1;
-	Wed, 21 Oct 2026 14:51:23 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hJTsBqrE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B10651F000C1;
+	Wed, 21 Oct 2026 14:51:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594284;
-	bh=kFtOL8D4P4NXRSYkssqCqkIjJY/bz8Jvy4fDNEqJlQw=;
+	s=korg; t=1792594287;
+	bh=oguaxEgPEC3eKI/cdgZmXXHzO1/yNTxKPNxn/1tgtYU=;
 	h=Subject:To:Cc:From:Date;
-	b=M0fJLvuKj7/aQ4//zotTlEDWo3eEdF4/r4yDbMBU97BtPyyecq7d6WN9c9V332J3Z
-	 FO0rCWfrSJhe8lm6b06miWqWGx5XCVEGajRjr0L3K3jwZhCJspWd3goiaXL8NZLwzG
-	 viBNy4bH2JL5q/aBOkbhd6zKDFw7NrEn7fFBBxV8=
-Subject: FAILED: patch "[PATCH] scsi: st: Fix use-after-free race between st_remove() and" failed to apply to 5.10-stable tree
+	b=hJTsBqrEMvjvTOL9iMFZNqGB4V8KkKR6FQZLN6qan7Xs+565HBGTo7yAsE5Rs0qmd
+	 sTqJVvcFjJHkQLjvxOdEtEtTgH+J16wQe2pgdLTiTMOCI2s4nsXgspgfjjgwLQNG1Z
+	 4ju4JievZUp3hLTOPOyyMRuo+jkHTFYpLa+wtUhA=
+Subject: FAILED: patch "[PATCH] scsi: st: Fix use-after-free race between st_remove() and" failed to apply to 5.15-stable tree
 To: loberman@redhat.com,dingiso.kernel@gmail.com,mkp@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 21 Oct 2026 16:44:31 +0200
-Message-ID: <2026102131-walmart-preschool-d157@gregkh>
+Message-ID: <2026102131-preview-unlovely-f4ad@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 71caf7f84bd62a4bf91cc95abd2de690afb8d15f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102131-walmart-preschool-d157@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102131-preview-unlovely-f4ad@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
