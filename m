@@ -1,56 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792568762;
-	b=ZdiRhoxcwnv1DDZPCWhG1Kxo48Yb86+/XI2cAUtXEK1yMkBJN80+3RXmEKo6HN5Hlxb8
-	 1qIR4L1QvyuDHXvQtwTPUmDx2E3TOsxeM8N2mCy/Oa5+aeJx9e1Ir/a9Mekns1OaIgufN
-	 om/ixzt+FkqaF9hZLHW50hi5LiRW7xocHzy07rMIWaX4OPg+fpEIkMue9DQto9kDdxcDp
-	 3H6PKrqd+VNCorer3nnxxCrZN7jLatsaT/+HXd3ZJNkIrSZfsZK/q6X66cL+5haV3QN0m
-	 2IYy7VOjcZ7S+rqu8Oze+wRPmAZeu4FlWzG9WxAvTtlwJiLFZry1SyfX3kYq2AEVp4g==
+	t=1792568768;
+	b=iCvWEHiR3gSSQ29OShMHLAgyx36/gk1nD+aG5i7dz0NCwZP0WPHAe/4si5z3mc+kzA7w
+	 wYn+N7rEXvO9q2DAdH5Q7YcyFbHhc0QtG/d+LYWh/kr5UkGxklJKbFfoXxj0wAwbZIh54
+	 mVhYDcrAF9oiPkCeNrAn783sYOc4ip83GMvSjFeRHecj5UcYHFpwJfRUWrCRxi51L+vZj
+	 3TuMBbzxKIDOYE9VlhYNhh44ZmaMsLBTzdxB8Hx7rarlZv1DbZAXiUEkrUIjuQHDX+I++
+	 Tmlejr0QVuq6QRhS1cdvdkn35hfk99hvjTtxwGscSM4MuUtSXKJD7cNVjN44Zc36YJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792568762;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=SFN8gYn+RF8fPSaaK8mqyJ5ZeLixW3+cdNYTNRujQ4M=;
-	b=VC28TWzVcvVe67Y4xGkT1pyAu01KJ6goMJb0tzu0GBJYeAi5dcesRTDvQMen70RDpoW4
-	 P6N4KG5QngJQ3bBb9LEss5Cqgto0V+mcjJYq7lTv07X+Wyi2CwMoj1sgsL2unDHBooxz6
-	 +mtFPqa903Gdy+sm9kcG8xW/lR/CwHnUacb1/tK9gmuzVMnKI5sfhXrbAKa1Cz7jYnkcR
-	 0ANbf51B2Y+PivKBDQ9gxalYPO9KK7UzuOyvwFpx+npGJ7BknYaxG9/rzGf/ERsZYa1GR
-	 zNfvcuJjh79Jm1ngwsoKcoQFNNvd2akMdtkOgTMP84BiVOd2wY74QmDZRI/n6Xm/wjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792568768;
+	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
+	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=ET5rhTxwtX7fX9v6ABZB7zLXXFj1JkJDQQtcNe2GYf8=;
+	b=NrjPdlVrP3ZzmR2WNpxqmnpZL/iedvNEY0D0dtdavqhstlDiiHgXJEDantja4qNKZ5K3
+	 BByLuTB7AF5sAUNwtbqoVMfmwvm5umbtYeoTyEcMUfk5UQZUuDDX3jhvPNGrsuWPVwfCO
+	 Td5yT6Nsp2xHtTm1hF4wboQ5w9DaN3uDNgvQ8QSxBDKx38r8PRRMcqQVlmGoxo/lWfWVh
+	 8OMhSlXJ0uM4SWoycodlOpYr2U+H+XGkk9sHTYQZkILqmSk8J/FVffS0naJibziVnKiEU
+	 SqmDvVplY1JTGZ0bHDRdZ1dDVZjpFLqt+LMEID3TTcB4ULDS8UM7euMlMrddM2RSIQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZuWNFmzA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b="Ha9qLd/U";
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A32606A31C;
-	Wed, 21 Oct 2026 07:46:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98BB606A322;
+	Wed, 21 Oct 2026 07:46:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C98BB606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZuWNFmzA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB4A21F000C9;
-	Wed, 21 Oct 2026 07:46:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792568761;
-	bh=SFN8gYn+RF8fPSaaK8mqyJ5ZeLixW3+cdNYTNRujQ4M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZuWNFmzAE88AW5F68+RnmxHkF8zw17bwz0/kqqdOuNLDoFE/juDrGzCxoRS2tsVM8
-	 tfo7cDhYhyIArth896moOZg6icT4Saa3kTYH29v8p199U9rGO5XiTIaXN/+FhNQ38y
-	 Dq+Yv8/kzCtuPvPr0Go/C2ApEPE0UL7TBC8VtwGE=
-Date: Wed, 21 Oct 2026 09:45:16 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Florian Fainelli <f.fainelli@gmail.com>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.6 0000/1651] 6.6.160-rc2 review
-Message-ID: <2026102152-yield-ripping-7709@gregkh>
-References: <20261020075535.084584701@linuxfoundation.org>
- <beac545f-9a17-4a47-a4cd-7a705302a35c@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=Ha9qLd/U
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DD6D3A012B;
+	Wed, 21 Oct 2026 09:46:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1792568764; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=ET5rhTxwtX7fX9v6ABZB7zLXXFj1JkJDQQtcNe2GYf8=;
+	b=Ha9qLd/UsUBPMr6m+DXtbe7FdLef7AaGcFSe33AscKw98A4YdoRMRgGtDFxUDLZV2dPNeO
+	VxGLUktjHmlt4sp2xN/2vsTPBuNX8AZTiUCKtcmgffy5DDS60cvYqa+oheM0U5lVcRfa4v
+	K1sdhC8rZWvGY0Da77VYiFCtmMKSYQ69vDIR7LG6bc1l6oI7Rbz4haFraNqafzF9CBaYOQ
+	K1TVBp7UyNwhvE4tpvzrk18QH8EarudJYjExYqz6Af1MsIG4YwDeY3UDFOumJVPdFzcpSw
+	2VhlS6NGheoUy6/dBUOgV3dmn1ZuPRy5J7rGpXzLBvwF/LG85ybu0FmlPSsPPQ==
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,45 +53,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <beac545f-9a17-4a47-a4cd-7a705302a35c@gmail.com>
+Date: Wed, 21 Oct 2026 09:46:03 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: guido@kiener-muenchen.de
+Cc: Michal Pecio <michal.pecio@gmail.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Steve Bayless <steve_bayless@keysight.com>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH 0/4] usb: usbtmc: fix undersized high-speed bulk packets
+ on xHCI
+In-Reply-To: <d702d2b3b66d6229855515c2eed09636@kiener-muenchen.de>
+References: <20261020-fix-usbtmc-short-packets-v1-0-903f4d029193@tipi-net.de>
+ <20261020184244.69b78d5e.michal.pecio@gmail.com>
+ <a642dbc2e4ba0efc381c69e26821762a@tipi-net.de>
+ <d702d2b3b66d6229855515c2eed09636@kiener-muenchen.de>
+Message-ID: <bcb7b29468175cd13f08bdd363b8c733@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Oct 20, 2026 at 09:14:08AM -0700, Florian Fainelli wrote:
-> On 10/20/26 00:57, Greg Kroah-Hartman wrote:
-> > This is the start of the stable review cycle for the 6.6.160 release.
-> > There are 1651 patches in this series, all will be posted as a response
-> > to this one.  If anyone has any issues with these being applied, please
-> > let me know.
-> > 
-> > Responses should be made by Thu, 22 Oct 2026 07:53:04 +0000.
-> > Anything received after that time might be too late.
-> > 
-> > The whole patch series can be found in one patch at:
-> > 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.160-rc2.gz
-> > or in the git tree and branch at:
-> > 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
-> > and the diffstat can be found below.
-> > 
-> > thanks,
-> > 
-> > greg k-h
-> 
-> perf build issues are fixed, however we now we get the MIPS kernel to fail
-> building with:
-> 
-> arch/mips/kernel/ftrace.c: In function 'ftrace_dyn_arch_init_insns':
-> arch/mips/kernel/ftrace.c:62:6: error: implicit declaration of function
-> 'uasm_in_compat_space_p'; did you mean 'uasm_i_dsra_safe'?
-> [-Werror=implicit-function-declaration]
->   if (uasm_in_compat_space_p(MCOUNT_ADDR)) {
->       ^~~~~~~~~~~~~~~~~~~~~~
->       uasm_i_dsra_safe
-> cc1: some warnings being treated as errors
+Hi Guido,
 
-Looks like this is missing commit e9f98feb1720 ("mips: unhide
-uasm_in_compat_space_p() declaration"), so I'll go queue that up now,
+On 20.10.2026 23:12, guido@kiener-muenchen.de wrote:
+> [...] Therefore every manufacturer of USBTMC devices should
+> comply with the specification and cannot expect bugs in device firmware
+> to be fixed by patches to the USBTMC driver on Windows, Linux, or 
+> macOS.
+> [...] Otherwise I cannot support adding device‑specific patches to a
+> class driver.
 
-thanks.
+I agree, it would be a better world if every vendor stuck to the specs.
+Unfortunately reality is often different, and we are the ones stuck
+with the devices on the production line.
 
-greg k-h
+Anyway, I get your point about keeping quirks out of the driver. It
+looks like the maxpacket part can be fixed in xHCI instead, since ehci
+and dwc2 already accept HS bulk endpoints below 512 bytes (see the
+discussion with Michal). The ZLP issue of the Rigols can be worked
+around in the application. So I'll drop this series.
+
+Thanks,
+Nicolai
