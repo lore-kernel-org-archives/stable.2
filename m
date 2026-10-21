@@ -1,47 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792583319;
-	b=Ib9pAvOb1cW3xMLcg47QM7Gq8je84YhEkmKO0/AhbdbRQwIv436pTXAHvTFzjqZqhPGP
-	 BORCSJZY7zERh3mKjYKzwyq6Xm0NwRMJotFn7+BqH56LSf4Jdn0SOu1WjCfLTmD2qYMI3
-	 yZa2cDZnPteAM/OX2hUCBiCedAeywFU6Vffg4l82DCYg4/Nb2XshdOZaM/dBiCW5Vez5w
-	 4/J2iALUBj3MLyfCsRMCItlyEJdZr76dwnqkaqPQONub8A7GtD+VkMm7yQO8BJi9ZgdYa
-	 lu0ZUSbUhh+TE7jWYRjLVnYNJXBbxHR3gCGvRiJStEnfdCOc1K6mwbRujjZ4wi+02qA==
+	t=1792583348;
+	b=ZtUeXkM/mOSXMGj5IRZ3itWqIOm7ISr2MGPvFLdyGNtYb+9dPCHGx3EemwJQmE6PIGM2
+	 UNuza+RX7UmRQDTUTndcAQA0DLYF79K0xwjFEsDEjqK+TnAGS4o03DLM6afe6VNm0Gpss
+	 J+iGOHVPoWz0GkI2NfrlpqNTxmBcgqRWSwJykaJskgnEDGplKqpDqi8+btKHulpdQ1MAU
+	 Te8hOlmEde5x1dIjJCVg2ChIaWNt8DzV5F3PnpP6QRqTTuWrRgHBRaXGYagGUMrUjJF4p
+	 pQjbNOCvSvxCuTI0+Jj/vxOlleJ9TNaIoypqdnvCjgLy6Xd6HH2thGaRvWQV3iRaTEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792583319;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=P+P5ZMQTBAwifUc4og7voZXXPSPAoXdrR3ly/exkImc=;
-	b=1M+HlccLKEk2Ok5hJ1KRxVgsLCdP9DCj8kFhDXZLzMfgu6LQL0JKeQEu2Ud/xsapWLhz
-	 OyBWFXZxFVDA6RMWbiQxSQzrfFOYImw3ttuOlmvi+MexSADBjfcEHA6Em3VI1igcTvCgE
-	 /elXgpNYb+OKxq5L+/fctaVx29noRPMGaBFB5rXy366ec39GOaTnNx1z1+Iac6/P2vzim
-	 7S6RSjd3WYyxfth1iE6Wcc16Cq+YQmbbv2SeyLEb225lIN7U2ZIp9lXkZHnrdrIH75R3+
-	 53rZDBoRwQJmp8rbNw8eaiRkGJMtvclyTHp+pHn3NY2zI/QTwQM9YZbE4+9VDqiwEKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792583348;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=dlLrJtFxJ/GpwFQraeE8og/Mz0Pa3MlpGavSBpIeY7U=;
+	b=pBhpV5mBY6dBv47by6qktgu431IP1WxVadRJJBUewputIRxn/FCJKxF2Ei87So4xNuRR
+	 ZgoG61vVOiYGFdZnK5KJxQQzGM458YSZTZSq0uDoyyq0UJ8WsjP0GCxxHXVMYxhANplFQ
+	 M0SSH9ghNvwBi7LJyjKGAsShDvuxwRarovfQdhL/0Qx5Cqey9FXuV5r665ViQ8IsME/4K
+	 qSMu+JKzPlvEF6cAINJa9/crWOtnZpibP9kVo2IkrnxH4CuTErYnMkc8a+oOJTwzSvqP5
+	 J4v93c30LR5cKDYqgX18+yaia4p7E8A4g0LTgLeQlF1TT/7O8T5e5Pc5csQ7852tF1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UIAXE+9t;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GktJL47x;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E24606A328;
-	Wed, 21 Oct 2026 11:48:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF35160A260A;
+	Wed, 21 Oct 2026 11:49:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UIAXE+9t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56D641F000C4;
-	Wed, 21 Oct 2026 11:48:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GktJL47x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33F601F000CC;
+	Wed, 21 Oct 2026 11:49:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792583319;
-	bh=P+P5ZMQTBAwifUc4og7voZXXPSPAoXdrR3ly/exkImc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UIAXE+9twiE2YHeUN7Y9SD9H2FrwBPp0T+KEKufY7AGbTtLYv0cxySK0uYXAj57GO
-	 msSiSqwWKhvotgBfsZZoQjmD6r2bPxl0XbHoMSRl2KgtRbqqpZlF0SOh4QyDusDxbx
-	 OnxtNB983yISKBOeZ3EdQTbo/ofK9sqijAbC/S0n8sVuM5wiQBQS8ZHI5uRBpmg20M
-	 AekqusowJ0X3TLrQI3dQn6nZ/SkCQNViPQ1Uzy7RC0o7rxVkswn2HSGEMq/HUdRiN0
-	 IAme8nSXbSqXyXBuCLzYIm4IdtQA0Oc8gME2vigxscYgX+FRkZotMV3zQLcLCGL3eJ
-	 Jh4zjjvB+OJLw==
-Message-ID: <4ef66cfe-9ff8-4d26-87de-48485e9d4fa3@kernel.org>
-Date: Wed, 21 Oct 2026 13:48:35 +0200
+	s=k20260515; t=1792583347;
+	bh=dlLrJtFxJ/GpwFQraeE8og/Mz0Pa3MlpGavSBpIeY7U=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=GktJL47xgyfD31pXaCGC+JKi2Ubx3e4kpB1pRHiKLli8ugf3OHUsK9L6Ma2TQs60d
+	 0R8lr0xItaOYAQzqjSMYdjh3F7xeMPDtIf51hp610LW8EckQtZyUiH63fGoHEDhAio
+	 yyuQcks4Qbu0tCmd3FmEg5fpjd6u7Dr4N7frpiVqb9yDkYKrZieAGzkFbbRbYz6IV4
+	 ZV/p0a13K5jhlItr/2r+almZh6LRGTj+f4uFZg2fSJLA49PaHFI8f/qcPC5ZkFRZ+x
+	 hAeTmY8Rr1Kru+1137OMCdhSKALdUE75/JxfpNmp5w7dyKIk3JVIu1UOIihfxYMwNd
+	 nYdLuhY4h6Vbg==
+From: Christian Brauner <brauner@kernel.org>
+To: Danny@lightningiq.io, Al Viro <viro@zeniv.linux.org.uk>, 
+ Amir Goldstein <amir73il@gmail.com>, Jeff Layton <jlayton@kernel.org>, 
+ Chuck Lever <cel@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ stable@vger.kernel.org, Danny Pidutti <danny_pidutti@hotmail.com>, 
+ Danny Pidutti <danny@lightningiq.io>, 
+ Benjamin Coddington <bcodding@hammerspace.com>
+In-Reply-To: <20261008140903.2784-1-cel@kernel.org>
+References: <20261008140903.2784-1-cel@kernel.org>
+Subject: Re: [PATCH v2] exportfs: Release the get_name() directory file
+ synchronously
+Message-Id: <20261021-tabelle-akzeptabel-atheismus-b17a3f71f799@brauner>
+Date: Wed, 21 Oct 2026 13:49:01 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,106 +63,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6] can: dev: can_fill_info(): don't wake up controller if
- interface is down
-To: ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht>
-Cc: netdev@vger.kernel.org, linux-can@vger.kernel.org, mkl@pengutronix.de,
- kernel@pengutronix.de, haibo.chen@oss.nxp.com, shawnguo@kernel.org,
- imx@lists.linux.dev, stable@vger.kernel.org, netdev-bot+sinfo@kernel.org
-References: <20261021023334.11803-1-chunyuzhiqiang@yinhe.ht>
-From: Vincent Mailhol <mailhol@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=mailhol@kernel.org; keydata=
- xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
- JFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbEBrZXJuZWwub3JnPsKZBBMWCgBBFiEE7Y9wBXTm
- fyDldOjiq1/riG27mcIFAmdfB/kCGwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcC
- F4AACgkQq1/riG27mcKBHgEAygbvORJOfMHGlq5lQhZkDnaUXbpZhxirxkAHwTypHr4A/joI
- 2wLjgTCm5I2Z3zB8hqJu+OeFPXZFWGTuk0e2wT4JzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrb
- YZzu0JG5w8gxE6EtQe6LmxKMqP6EyR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDl
- dOjiq1/riG27mcIFAmceMvMCGwwFCQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8V
- zsZwr/S44HCzcz5+jkxnVVQ5LZ4BANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
-In-Reply-To: <20261021023334.11803-1-chunyuzhiqiang@yinhe.ht>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-3d1b8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=897; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=YCYD8K5tz52OlKoV4PEmzLPuUZqoHDnahLMQJ6GRvEc=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTdWLb+d0S02/a7Rd21RjG1d26tKzyufk59yr4v1bM//
+ 0ta98J+QUcpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBEinYz/C8WWul56XATS/IT
+ u8Ln5f/zzpfe2PzE0MzfavOpmR4yMYkM/yw2e9o+inoyTSZnfr/Ze9Zp6jnf6zd+03M78c+GzSh
+ 9JQMA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On 21/10/2026 at 04:33, ChunYuZhiQiang wrote:
-> If the interface is down, the CAN controller might be powered down, the
-> clock disabled, and/or its external reset asserted.
-> 
-> Don't call do_get_berr_counter() or do_get_auto_tdcv() to read the CAN
-> controller if the interface is down. This fixes a generic logic problem
-> that exists on all platforms.
-> 
-> As a result, IFLA_CAN_BERR_COUNTER is no longer reported for down
-> interfaces, and the automatic TDCV readback is skipped. The other TDC
-> parameters are still reported, as they are meaningful while the
-> interface is down. This is intentional: the counters and the automatic
-> TDCV are not meaningful in that state, and calling into the driver can
-> wake a runtime-suspended controller or touch registers whose clocks are
-> gated.
-> 
-> Fixes: ec56acfef2af1 ("can: flexcan: flexcan_get_berr_counter(): switch on clocks before accessing ecr register")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht>
-> ---
-> v6:
->  - Only gate do_get_auto_tdcv() on netif_running(), as suggested by
->    Vincent Mailhol and Marc Kleine-Budde. The other TDC parameters are
->    still reported for down interfaces.
->  - Adjust can_tdc_get_size() so that only the automatic TDCV size is
->    skipped when the interface is down.
->  - Keep the berr-counter gating unchanged.
-> ---
->  drivers/net/can/dev/netlink.c | 21 ++++++++++++---------
->  1 file changed, 12 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/net/can/dev/netlink.c b/drivers/net/can/dev/netlink.c
-> index 6f83b87d54fc..ae0cef791ef3 100644
-> --- a/drivers/net/can/dev/netlink.c
-> +++ b/drivers/net/can/dev/netlink.c
-> @@ -517,7 +517,7 @@ static int can_changelink(struct net_device *dev, struct nlattr *tb[],
->  }
->  
->  static size_t can_tdc_get_size(struct data_bittiming_params *dbt_params,
-> -			       u32 tdc_flags)
-> +			       u32 tdc_flags, bool auto_tdcv_running)
+On Thu, 08 Oct 2026 10:09:03 -0400, Chuck Lever wrote:
+> exportfs: Release the get_name() directory file synchronously
 
-Nitpick: I think it is slightly better to pass dev rather than
-auto_tdcv_running:
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
-	static size_t can_tdc_get_size(const struct net_device *dev,
-				       struct data_bittiming_params *dbt_params,
-				       u32 tdc_flags)
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-The reason is that by passing dev, it would be easier in the future if
-for whatever reason we need to retrieve other values. (And to be
-honest, I was not going to comment just for this, but because a v7 is
-needed anyway, I think you can add this small change while at it).
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
->  {
->  	bool tdc_manual = tdc_flags & CAN_CTRLMODE_TDC_MANUAL_MASK;
->  	size_t size;
-> @@ -538,7 +538,7 @@ static size_t can_tdc_get_size(struct data_bittiming_params *dbt_params,
->  	}
->  
->  	if (tdc_flags) {
-> -		if (tdc_manual || dbt_params->do_get_auto_tdcv)
-> +		if (tdc_manual || (dbt_params->do_get_auto_tdcv && auto_tdcv_running))
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
 
-And by passing dev, this becomes:
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
 
-		if (tdc_manual || (dbt_params->do_get_auto_tdcv && netif_running(dev)))
+[1/1] exportfs: Release the get_name() directory file synchronously
+      https://git.kernel.org/vfs/vfs/c/9cd8c2a5bbaf
 
-making the pattern slightly more consistent throughout the file.
-
->  			size += nla_total_size(sizeof(u32));	/* IFLA_CAN_TDCV */
->  		size += nla_total_size(sizeof(u32));		/* IFLA_CAN_TDCO */
->  		if (dbt_params->tdc_const->tdcf_max)
-> @@ -548,8 +548,9 @@ static size_t can_tdc_get_size(struct data_bittiming_params *dbt_params,
->  	return size;
->  }
-
-
-Yours sincerely,
-Vincent Mailhol
