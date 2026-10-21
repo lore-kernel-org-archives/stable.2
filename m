@@ -1,108 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.175
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792589322;
-	b=lfeGwHz+ASm3mDihXKMv/XgBTsZc/Gj6MlnY6f61GPUrjAFkPCH89SisJkxDWsvECAqn
-	 lB+Uc9nlECJ9tWoGXBL41eexy7b+AIwGN4prYYLeNBqckTHnszvY59ldFRw8YkGXPLDdT
-	 N49ddchoqEi8YTKs4RvGTeIgmJ0bRGrZK/WlK4+WK6NKBEpari4YtQZkCeK9fJ+kU0VCi
-	 Jydj5WY/pU6zhUDI1XZYyDYKLFAFcuuZgHr0Cxl3Gfr6OPQQXbj3aW71yrn0rc9stZkU/
-	 i1awDyV0n+fCLs+PutGw354m4x6AEylR4+JyG+7lvMsVdyOg05LnAdxr1TAnE8c/5VQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792589322;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792589927;
+	b=BxTeFlbtVuvA3G95kZJl7nCw6SamTewZqHpzEelXI6WUToWtgLWoRqL36KmSlGI4uIhR
+	 Sgqszw9IQBSKLpwbENU3WhhgKKz2tiHO7XdoyKVEKhSd9HVUTBAD3QmAt2zysRKj0GVZn
+	 rVGa+mEIzm7C4oxtst7pyEIzpw4rwYxFGUvQfL0+s3Kw8vabzzMQ/i8zgj22NT0WyEYAX
+	 jksdoNcB7WIlNm44idmwBt+mAvsbJ2ppW6+P4tpym07w2Q9W556WAGJ2fA2BTYaj+qQ4H
+	 Q2D6hfwOCqhWJ4X7gaeAqDT9mYT6UznBjzqbuYQ5eCr5dAenkE/pq4ws+ZeESEgWVwA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792589927;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:In-Reply-To:References:MIME-Version:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=aHoL/xV+lJSptWn1pnj9SxRHcMCta8KU7nBOlsKicA8=;
-	b=GQs7K3/S9Cz+c85O/3nBFjzbqeg8w0h0yHwPmsDELqrnW+upC4THsI7ijNrXB8G0zF82
-	 YvYpMjV+T0lETn5MjEuu0COcW0DcftUWD6mHrZ2VgW6oepWpJSgwNEX+TapvGxLoxh0KA
-	 3f500JbhZ0aZ4mwOvDWPNNEvWAEkUwuKnoOj8xg7YtR0P3sx+AwgKw1dbalGam/ACTQo0
-	 sR+jDolrdIFmJzzzZVZ3g9HfZDjTi0FbTPtT+uOK2Dm+3emd67Cop+7BUVq8PDu3GKa7p
-	 ia5yt7QjbwWEKEz+BpxAqbVFKy9eZHkISdyZcc6R09SgoI2rrURybK8fS5wRZU9/tqQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ihyLRDDv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.175
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=5c03wHQY/A8JbxeL/7g0tRvKNDHudBeP+rG9bb169uk=;
+	b=W3tkaBHrcwgsfc5DqNvNUsmhFKm2HjrduQd3Li9U4/3UOFKkPebKuBZquNYX+FxHOkiN
+	 t04YiytSbaCtX9uGpLJaj81g+Omr0+UF56yM+/Z1hZXlAI2LgVYdeGX2FiMiJ0e8R1cki
+	 3AcT+jxKCJtj9ey9JKTU/o7gp7+gTFoaT8G6k8S70Vqn+YPQI8JzFuWFthk3uMiyJfY9O
+	 JgN7gF2fyEsLwLGSvy9Yvymtmg7qVzSnaTCZRZAT8QHoO8mM/biRY0VukdCZUVwJNtNZj
+	 /sNlrRzu6FxQJK+FQOmfKFLhrspCu7/lgNJfBvMW5kw/HfRCcJPG48MwOF0OrCmgWSg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jXCMSsEE;
+	arc=none smtp.remote-ip=74.125.224.47
+Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45845606A321
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 13:28:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45845606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 192C1606A31D
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 13:38:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 192C1606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ihyLRDDv
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-535f598d126so254971cf.1
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 06:28:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792589321; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Du2SJEjKcoRw/JLnVo34L0gBcfEEjIl4fjyV8SgGAFSZBA8LfvDKfOS5qmV74Mny2G
-         bemZmnA15YEzcHDXfKLdJXIJs33ve7iSBjS/5L3/S4GMD7QtfcWKM/UnY2oE8XIkqNMY
-         wX0YmCvz3XHurERDMzhWJasJisxyyYtKjVLaWM7wjjhz9qxgrCd40DsnFBQKHwDhV5Zp
-         qoSUzv0lT9sNDon/Cg570p/cakj94uptbN9rRN8PDANVyJX3HF8TzZvJM1doXLWhH9UP
-         Pk0bbcR5tDwrXrp9qmmqIDq83M3QxEBe5Bu0L4gfKbwvXCLNEyaU/TVfDzV1W88Xsw4U
-         mLCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :mime-version:references:in-reply-to:dkim-signature;
-        bh=aHoL/xV+lJSptWn1pnj9SxRHcMCta8KU7nBOlsKicA8=;
-        fh=9fLKQ4JQx+J++s/tmdgAOSFUWcpTcFYk12X5BwbOSU0=;
-        b=YOZRWhQlXSzz71qwHSNtMiFYB4XN0yAR/QVB64z4b7n1TSvlJFG1jZ8X0E/vmKuQch
-         sLNJdYwDp812NdmScimxfntq73TBe3vdMvqUrnZoApNIIL8FzMSp9Wi+sccgsXq3s2BR
-         CpIdzyhJgE0uO8CnpG3bUWGhadeD4Gz4j/4zC6rsN0L4v1ihcqRtN19DgUoiXgobpTBf
-         rqtMv2sex8CWYa5am/RElwNo59wUBqabHSPwtWBdk32MsA0OC3EjNqqmo2lqLqsRYuHj
-         kJLEQ833A/tOos0lvV50HGivVfbBzOm0PdY8bmxdREoa++RhHq7fg0yRB9jmvJ4qylci
-         Nnbg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jXCMSsEE
+Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-66fca0709caso576634d50.1
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 06:38:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792589321; x=1793194121; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:references:in-reply-to:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1792589926; x=1793194726; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=aHoL/xV+lJSptWn1pnj9SxRHcMCta8KU7nBOlsKicA8=;
-        b=ihyLRDDvbYTaqBdY46anGqX/Vs0AIF82chcKzRQAE54w0CAOMr+AVgOSg6FalBjknK
-         7hC8Pp2HJbJer88B7T/fwg45cNh1q+IJ4R+kIBFJeTZP7iBPa4GIt2nTldiQT4opU6J/
-         AN8mU6nlMvKX8xaP0T1HE5WG9TR+aMq9HFRPNbYCCWSFpo1jKJ0adpoUMOKG9Ywb3IFi
-         oCT7RaV6Ej3SwRyetkv3IdR0UjhGmczHNnRT9aNNFWWwpwJK59Y//+VSQZ5kk8d8eyVU
-         mTezC3lqP+qG+2e/qUmLvgX3/xKM/6P6bB0yR8CA0/mJWvHGjFwCvOjNSfiJaWAZuAtY
-         HGJg==
+        bh=5c03wHQY/A8JbxeL/7g0tRvKNDHudBeP+rG9bb169uk=;
+        b=jXCMSsEESFZVjdjzfNi/bSWJKOk17XHYGmVTOCwIqZR8IXFZ6JaIxgj94S01mE6lUN
+         kq3GZopQP4XE3Aac2PnfcyXRLRPRbsLLJlSf0T32r8vh0qDFMoYAopIX+TKjG29ZXM4Y
+         zSN3qBw5x1XAQ0jrz5EGFddq+djTNyr7mu+NuNf3Ur43I54hi5uxGp5PO8CHc3EHyN2D
+         0y82te8fXM447P4Sc40m4ZsRGzrgXJrH0EneZrcrRHAfmJdkkg5hVh0O0HidBJREB09b
+         ctxtwOFsO1hWk+J6+BL8H+WgneHn54rwRdrGbnWvyYGAgknwA5yY1RVuSI55SmggxVAX
+         8U+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792589321; x=1793194121;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:references:in-reply-to:x-gm-gg
+        d=1e100.net; s=20260707; t=1792589926; x=1793194726;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=aHoL/xV+lJSptWn1pnj9SxRHcMCta8KU7nBOlsKicA8=;
-        b=yZxUwcYmUIYw4tX0hPncwDkzOxHP45YdepMVHf8J/KQOIehFh1IZWRlJTwJ8yn+6vc
-         tqQsWlzu3Y7ACPr8i3gRX1hNc1G4d1DW86oodYgXYFVLtzZZH2izYlmTW7llMOXvq4E4
-         wrHvYVXpNS8xwI4w2wiuJG27ZHE+3+5HiCp2GmAKRR50mvIYoZkXuM62+zATZueT6YN8
-         eB1PW4ZlMzB33neXgnzCktJFmfYPAvOAzWdE17tuvA+6yFHt/TwqMt9RK2lBzQ6g1ykc
-         X8nvnN+7OwUkNJDXXP+i/9SOkq0hRNrggentbQGXd0l1/KFhX/ZrG4Xix4orKVbrrq9G
-         75XQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwvfMS0fJZjeidSbdos49A/Fg/PsTTv6w7qqhyKZv95YRBxLic03wMSaOgoOoLGH/RWDR7wlqY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLCGaeskm7qw5c9nU80rs4PPknjTwh4G+5Acf9JnMyIAT9Ce1ll
-	HN2AiAeoTJTMIrA+3ZO2PDhGhr6lqYtOwo/1qE7txeFAcYvvlqDDZ/ULmQjO+3Mhhn3/sjzGybj
-	pgsYeAmMq0DHUlfgviBB5xWpd4cFdXH0VR2dWLNyS
-X-Gm-Gg: AYBFou36zJSKOvbXB9P3C/n6OoxZ/zXMCoM9CXehiG6GpoUjXpkRHXnSFURG8zCnCvE
-	ktKxmQjcudVTBrk++LnzoqzDPlMWGnBptFwjiyxbZzruhNqInBWIMLYb1WjnPQRKwQXw5pTxKHH
-	k/sHe0G9d6j7CEn5p6oUtAqnOp2Ub2YQMPmcP1uKnwd6IR72CjJzwueYlk6WXbccopXmj9nkHFP
-	rCE/dEbMwLP+wvUk2V5A84TaDctRd5ZlSYO6h8R/yTZpmgo2e3wA0RJ66HrTsyGNpOVZb0En0me
-	Ko34FlRph59ASc2zu5w95660kNnG6dzLEHrZmyqjxlUzZpTUYjMlGXArFcMJYx07Eo0pvqC+RBh
-	jnRbvXryFlBZJ56Kebx5/jQQ7mppqJlwJwysB2amCI8eevLJwjzwxTfNhNIatHaOi
-X-Received: by 2002:ac8:5dd0:0:b0:533:9731:f0f1 with SMTP id
- d75a77b69052e-5368b32a9c3mr35503331cf.10.1792589320454; Wed, 21 Oct 2026
- 06:28:40 -0700 (PDT)
-Received: from 913411032810 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 21 Oct 2026 08:28:39 -0500
-Received: from 913411032810 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 21 Oct 2026 08:28:20 -0500
-In-Reply-To: <db4d4e246ad6b4769f736db0d3d1678adf9d59cb.camel@mediatek.com>
-References: <20261021035450.3488805-1-stanleyjhu@google.com>
-	 <20261021040615.3566831-1-stanleyjhu@google.com>	 <20261021040615.3566831-3-stanleyjhu@google.com>
- <db4d4e246ad6b4769f736db0d3d1678adf9d59cb.camel@mediatek.com>
+        bh=5c03wHQY/A8JbxeL/7g0tRvKNDHudBeP+rG9bb169uk=;
+        b=Zu8/r9sNMgTnN2ivk+g8ZiWsRMhIxDvyZSb4rckAcfxohLn5viWDZ0NQNuZ2itx6S8
+         7/vEgdkiNJhuCiNrCJmGsrAY2Ote0ZMmPctekHzuLH0TmJXiJAEC2gx3GSBf+OqUPWS5
+         QrD68udL4XykHPD/664XNh1+Qu2yxwWPxGoA3hbROH2ylWhaDdbWfF/RZdy3KNmNt0eB
+         Erv3w/yd2l63QE65Wnyo40df3i3v2ThWSYRXDk7F8eR8RoRA/vXGxwhq0dowpgEQGGXa
+         sfXzD/f4lf94y70xH0o9uScX0Fn9dN99xbIiZOTbAzErJqq7/RecMwr6DTyJGsRArLR8
+         nerA==
+X-Forwarded-Encrypted: i=1; AKwUvBxhynL2KAdr/ttIF2z+vY+v4IRPAhHaRGNOciAer+VLNJypF9Q3HelVN9v3S2BVzsMSeP+Uzho=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnxIXeaJE2Qdm+CK6Y1ZKgdoHppOYi23+7+DJl1DSwO7LkXwgx
+	EBAjcWFpG9WORmFWAf2czSyzSQU/2SOIchfupj9oIGCxHugJyg+ffu5N
+X-Gm-Gg: AYBFou3bRxYJJ89u1RhWqg9vYq7N0B7W5ldTr5qyJiQu97PH9JVE6YuE/xynsWM+16W
+	ck/spLTezh1EdWHJ2k/Nt7oKHaKhEWw7vPcFmKBaXsJSssLFLFw6Q0dJ+P/4eu1zAHChFXItV2y
+	zIMWv89BfS1fKBfVI7Pqfj+vNXOXbvalztuusVpLWb74KOomhhmXFgovdseSr2tleVReExgOHJ/
+	f8FfeOBILd4mKnTnUx5QLfsuMMbLT2fNN8bM20+55M7U0Nq8k5QUtg6u4whu2itSiODZgFF0Lpv
+	Sk/s5SD6EmQsCFO/mBWrtv2IiWpmEafkx9FQkdeLmznNWX+6WSVD4iGuY4sZYfb6C8ZCekW81/J
+	o8mUdYYusqfAzXuhOM6pyEB+3FPrKXTlLSwvxIk2GsxH/KCPUHI37A1ZOn3TY2I5n+mWU00u24E
+	gJu/p0llcgDG85iSYLfuoTDl524QFjHmTUS88bYrolmEUtCT32pG1ryRlP8QtRbZR0eW5wPLJCb
+	Cps4arZK3XnbGF4f7si5IfbrWIjXGQo3+A6GCl8SGPswmtE3eUfBYnSBQcJKjDxOjZwIUeGvy6G
+	8zDbFAHGf362xmksqGYUXRr9PoOgXgoFY2OJFHO8Ss26oTA4ymuHn1zFYR65sw==
+X-Received: by 2002:a05:690e:d8b:b0:679:bf13:c01a with SMTP id 956f58d0204a3-67a0ddf103fmr945125d50.0.1792589925959;
+        Wed, 21 Oct 2026 06:38:45 -0700 (PDT)
+Received: from fedora-laptop ([172.245.82.59])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a0e501c01sm1052477d50.15.2026.10.21.06.38.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 06:38:45 -0700 (PDT)
+Date: Wed, 21 Oct 2026 08:38:37 -0500
+From: Ming Lei <tom.leiming@gmail.com>
+To: Aaron Tomlin <atomlin@atomlin.com>
+Cc: axboe@kernel.dk, hare@suse.de, dwagner@suse.de, frederic@kernel.org,
+	tj@kernel.org, sean@ashe.io, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3] blk-mq: dispatch kworker to housekeeping CPU when
+ hctx cpumask is empty
+Message-ID: <atjAXSTH2aRligiA@fedora-laptop>
+References: <20261016052203.489760-1-atomlin@atomlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,37 +98,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Stanley Jhu <stanleyjhu@google.com>
-Date: Wed, 21 Oct 2026 08:28:39 -0500
-X-Gm-Features: AclHuK_9yuJHTKtFtEEYtr3PTMFrReT2NVeEAvxb4V7BtW5ZNHdjV0Vtrr4xmu8
-Message-ID: <CAE14pdcR7NPqK3W6Pfy+FkRrXSXB9wFuweOhLyFtSye_Bg4vWw@mail.gmail.com>
-Subject: Re: [PATCH v4 5/6] scsi: ufs: core: Fix double release in ufshcd_abort()
-To: Peter Wang <peter.wang@mediatek.com>
-Cc: "Martin K . Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org, 
-	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	Bart Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Bean Huo <beanhuo@micron.com>, Can Guo <can.guo@oss.qualcomm.com>, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016052203.489760-1-atomlin@atomlin.com>
 
-On Wed, 2026-10-21 at 21:12 +0800, Peter Wang wrote:
-> If ufshcd_clear_outstanding_reqs(hba, BIT(tag)) returns 0,
-> should we also set err =3D SUCCESS? Since the tag is already done
-> =E2=80=94 either by the ISR or by ufshcd_abort =E2=80=94 shouldn't both c=
-ases
-> be treated the same?
+On Fri, Oct 16, 2026 at 01:22:03AM -0400, Aaron Tomlin wrote:
+> Commit a46c27026da1 ("blk-mq: don't schedule block kworker on isolated
+> CPUs") excluded isolated CPUs from hctx->cpumask to prevent worker
+> threads from executing block work on isolated CPUs. When all CPUs mapped
+> to a hardware queue are isolated (i.e. blk_mq_hctx_empty_cpumask(hctx)
+> evaluates to true), blk_mq_hctx_next_cpu() returns WORK_CPU_UNBOUND with
+> the intention of offloading execution.
+> 
+> However, kblockd_workqueue is allocated as a per-CPU workqueue
+> (WQ_PERCPU). When WORK_CPU_UNBOUND is queued on a per-CPU workqueue, the
+> workqueue core resolves the target CPU via raw_smp_processor_id().
+> Consequently, if a task executing on an isolated CPU submits I/O and
+> triggers an asynchronous queue dispatch with zero delay (e.g. upon
+> hardware queue congestion, tag/resource exhaustion returning
+> BLK_STS_RESOURCE, or plugging), &hctx->run_work is queued directly onto
+> the local isolated CPU's worker pool. This causes the local per-CPU
+> high-priority kworker (e.g. "kworker/6:1H-kblockd") to be scheduled on
+> the isolated CPU. In real-time environments, an active SCHED_FIFO workload
+> will starve this SCHED_NORMAL worker, causing hardware dispatch to stall,
+> in addition to introducing unwanted latency jitter on nohz_full cores,
+> thereby defeating the original objective of commit a46c27026da1.
+> 
+> Introduce blk_mq_hctx_unbound_cpu() to select an online housekeeping CPU
+> from housekeeping_cpumask(HK_TYPE_DOMAIN) via
+> cpumask_any_and_distribute() when executing on an isolated CPU, and
+> otherwise fall back to WORK_CPU_UNBOUND. Use this helper across the
+> unbound fallback paths in blk_mq_hctx_next_cpu()
+> 
+> This ensures that:
+>     1.  When executing on an isolated CPU, deferred queue work is
+>         cleanly offloaded to an online housekeeping CPU across single-queue
+>         devices, hardware queues with empty cpumasks, and offline CPU
+>         fallback paths.
+> 
+>     2.  The per-CPU high-priority kworker on the isolated CPU is not
+>         scheduled, avoiding priority inversion and latency jitter.
+> 
+>     3.  When executing on a non-isolated CPU, WORK_CPU_UNBOUND is
+>         preserved, maintaining optimal local execution with zero CPU
+>         bouncing.
+> 
+> Fixes: a46c27026da1 ("blk-mq: don't schedule block kworker on isolated CPUs")
 
-A return value of 0 here means the completion path, rather than
-this abort path, has claimed the tag and may still be running
-ufshcd_release_scsi_cmd() after it dropped outstanding_lock.
-SUCCESS tells the SCSI error handler it can retry or finish the
-command right away, so a retry could map the same command again
-while the completion path is still unmapping it.
+The current code follows behavior of schedule_work() and other related
+wq APIs. If you think it is wrong, care to fix schedule_work() too,
+otherwise it confuses people, IMHO.
 
-Returning FAILED here also matches the check at the top of
-ufshcd_abort(), which already returns FAILED when the tag is no
-longer set in hba->outstanding_reqs.
 
 Thanks,
-Stanley
+Ming
