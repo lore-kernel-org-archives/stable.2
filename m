@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594940;
-	b=CfuIYKUYACllpKl/8/axnnDNag9MtqgzKAbpKeM8X7UPm0qbwUxPNpScXS9I0WTqLba7
-	 Ss1bFMYKHGko0jnFhSqpiICqbnaAUKB6/UfRmhaP/h/LCqPaax6vOJE4z2MvzdyaP/3Mc
-	 xuvnHQ7LJmqPbIc0sxYLsA/KciAKFAWl8x0mYqwDLRTSxffs9zrbOfXO/7VMrCjeQkTmE
-	 jttnVSp1gohdd5MMVv8aFT8Pw/c64xW6XLhTYwv+BQl7OmYUpd7KLlmPM4gue8mcDWT8N
-	 5326kl4aaH8uYfrV1Seq+o5gbWyyrrOLqmOUusay+vzW7G0upRo2Fc0gYFUz3fScc4w==
+	t=1792594944;
+	b=dHqLuIVk4AfBpnV2NZLJEqIOyx37y33nZfp6M8UIs5kWG6GvJGvPU+PL5U4yfPbVgs1a
+	 gDwpWAC1eZGuHavM3nNyYtUywwwUCLU0ia2Q1f5iIfeu0fmILZ9Lr3jdjhKGS0CV/JPZe
+	 VyEWi5TvQdEz8BR14195EpPUOpoG4uNWq3GjxG4X9FDwXMjYPvFhVV9ND0FTO2rS8Uzg2
+	 qjyDB+vYvhhdI7jIiit0rXF4R8q8k40+ch2eJDcwLXOpyJ3pJPV4IZilwrgAbStwA+F6N
+	 3Vbz2QEjo+CcaoirPmorXI67uWJGhkvM35TfVPFsG1yC3vkhprPJD2BdmyAiY/3eMgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594940;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594944;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=sTQqxp6IRefhLdRym85ZR83lEh3ipXz8xToRrlODhGs=;
-	b=MxtBGwRX/1R9ytegt9HTfb1ZHbtxGbpXIC64JcnGsLNbKHcBX2o8AaC8i9eIqeJCSPhP
-	 1gAEUaRp6wyZ93+ukikd06z4MRy33EW2kd2PQydiOO6V7LvXZ5w/ODE0mg+5Lyl+cPTPG
-	 dRkY+tmkfsK7jqusHF3mQ3r1K/0LmqJESzZ+6p9tl1R8Tq2z2yy8lLeiPsSvXOKzrbWJa
-	 B6hbb9vjVAqCg7PDbg9uA0Xb9H8dFql5tG6fekEcU7tfLqGirEiaPYV3Vak4lVK8cB7i8
-	 HVlY6I0n+30RjKZiwGRbXCaMzMXGEe4Bi3JXe8RD93/hKDCh3GNqVJ9V99jmM0T51tQ==
+	bh=dUCIexEMswk1vb0PiDy1woNXfEZGAnUVt2t9E+tC2FM=;
+	b=ePLtTU8nX5/vxxl3E+0ZjVejtFCXzPKXNhRGGKni/k5SjQew6CYDu9j/Y2eQuWcJx8V6
+	 g1hflz1bJNYpWeihaon8dB6JMQ3SU8vTtEHKcOBOrIvZWMInJTmuRVd/EHQYz2SwT8k6T
+	 1Ioi7RakmhuVmKc2ZTEKDjZaX9B9aLU5RbklMq50n7GG6pxTRlHZrg2BPgGfAMMTwQDVl
+	 WPD8NOvUj237KyqAMr6a9/j0TOH9C5ER6ZItbNV6v+ehBaC7WHRVMroW2AlkywFNi+dEr
+	 DB3DH0BdHN+AZDBzca1KfZQ828GNpAAtsQ0a35jUkegUxuefdNWgGHbuL9K847FHBVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LIunwQK4;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=m8b1se+J;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 714AC606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:02:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3238B606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:02:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LIunwQK4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B61901F000C2;
-	Wed, 21 Oct 2026 15:02:19 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=m8b1se+J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53FD91F000C2;
+	Wed, 21 Oct 2026 15:02:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594940;
-	bh=sTQqxp6IRefhLdRym85ZR83lEh3ipXz8xToRrlODhGs=;
+	s=korg; t=1792594944;
+	bh=dUCIexEMswk1vb0PiDy1woNXfEZGAnUVt2t9E+tC2FM=;
 	h=Subject:To:Cc:From:Date;
-	b=LIunwQK4YV4fK2dtrGH2Btaf03nQQZksU31hGqFgBdQsv53ZlJdlJtdVFoKCOU4/4
-	 lMYBoXXBTzjApMgNqFMfY10gWsVllNNN2ZVaNvYOE6kUiEhmDUrin6/qQ6XlhNJnr/
-	 JXiMYMvJbbhuNhk6TOROx8rFxT0ULcUy6NvYrTxs=
-Subject: FAILED: patch "[PATCH] sched_ext: Fix the bypass dispatch claim for schedulers" failed to apply to 7.2-stable tree
-To: tj@kernel.org,arighi@nvidia.com
+	b=m8b1se+JT7kGC/ZRplzWnpnuPKCp7+fdieD5836TIhSzrrGLwnS9+OKDCKcxalbGC
+	 lRqAAZ8uCeBuNd2vxm9yPjTONtSwC/4yFiiURhBXhR59kYM67cxxVTV8AnZ+0FxZu4
+	 hQ7chB9VgcSmGduztrBlDZ3QTQOXBzhK2n+JbduQ=
+Subject: FAILED: patch "[PATCH] sched_ext: Wait for SCX_OPSS_DISPATCHING before moving tasks" failed to apply to 7.2-stable tree
+To: jpiecuch@google.com,arighi@nvidia.com,tj@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 16:50:05 +0200
-Message-ID: <2026102105-slicing-rupture-e72c@gregkh>
+Date: Wed, 21 Oct 2026 16:50:09 +0200
+Message-ID: <2026102109-rejoice-reboot-d810@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,10 +64,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5bdeca322a6f8d10acaf67cccab1f69747ee7be3
+git cherry-pick -x 2935062be77113c1c4565ca9d0c72180449aafee
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102105-slicing-rupture-e72c@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102109-rejoice-reboot-d810@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,98 +79,72 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5bdeca322a6f8d10acaf67cccab1f69747ee7be3 Mon Sep 17 00:00:00 2001
-From: Tejun Heo <tj@kernel.org>
-Date: Sun, 11 Oct 2026 11:35:12 -1000
-Subject: [PATCH] sched_ext: Fix the bypass dispatch claim for schedulers
- bypassed by an ancestor
+From 2935062be77113c1c4565ca9d0c72180449aafee Mon Sep 17 00:00:00 2001
+From: Kuba Piecuch <jpiecuch@google.com>
+Date: Mon, 12 Oct 2026 21:07:46 +0000
+Subject: [PATCH] sched_ext: Wait for SCX_OPSS_DISPATCHING before moving tasks
+ off DSQs
 
-scx_bypass() claims bypass dispatch when the scheduler's depth goes from
-zero to one and releases it when the depth returns to zero, but propagates
-only the depth to the descendants, not the claim. A descendant that starts
-bypassing with its ancestor never claims, and one whose own bypass ends
-under the ancestor's keeps its claim, as its depth does not return to zero.
+A task can be found on a non-local DSQ while the CPU which dispatched it
+is still running ops.dequeue() and hasn't cleared SCX_OPSS_DISPATCHING.
+The DSQ consume and move paths don't wait for the dispatch to finish and
+can operate on the task concurrently with the dispatcher.
 
-A sub-scheduler enable whose bypass ends under a PM suspend thus leaks its
-claim: the parent keeps hosting bypass dispatch and the sub-scheduler's next
-bypass trips the WARN_ON_ONCE() on the claim. A sub-scheduler disable that
-starts under a PM suspend has no claim, so once the resume lifts the root's
-bypass its tasks sit on the parent's bypass DSQs with nobody consuming them.
+Call scx_wait_dispatching() in scx_move_local_task_to_local_dsq(),
+unlink_dsq_and_switch_rq_lock() and move_task_between_dsqs() before they
+operate on the task. In scx_move_local_task_to_local_dsq(), wait before
+scx_resolve_local_dsq() as it may update p->scx.flags.
 
-Claim for every descendant whose depth goes from zero to one in the
-propagation and release every scheduler in the subtree whose depth returned
-to zero once the tasks have moved out of the bypass DSQs. A parent that is
-bypassing itself when a descendant claims consumes only its own bypass DSQs,
-empty until it leaves bypass and becomes the host.
-
-Fixes: aa2a0a19686c ("sched_ext: Separate bypass dispatch enabling from bypass depth tracking")
+Fixes: ebf1ccff79c4 ("sched_ext: Fix ops.dequeue() semantics")
+Fixes: cb86607ada73 ("sched_ext: Don't run ops.dequeue() with a DSQ lock held")
 Cc: stable@vger.kernel.org # v7.1+
-Signed-off-by: Tejun Heo <tj@kernel.org>
 Reviewed-by: Andrea Righi <arighi@nvidia.com>
+Assisted-by: Claude:claude-opus-5.5
+Signed-off-by: Kuba Piecuch <jpiecuch@google.com>
+Signed-off-by: Tejun Heo <tj@kernel.org>
 
 diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 3edb51bdd0ef..7303c2c45964 100644
+index cf6c9fead433..91120fc17d30 100644
 --- a/kernel/sched/ext/ext.c
 +++ b/kernel/sched/ext/ext.c
-@@ -6099,15 +6099,12 @@ static void enable_bypass_dsp(struct scx_sched *sch)
+@@ -2407,11 +2407,14 @@ static void wakeup_preempt_scx(struct rq *rq, struct task_struct *p, int wake_fl
+ void scx_move_local_task_to_local_dsq(struct scx_sched *sch, struct task_struct *p,
+ 				      u64 enq_flags, struct rq *dst_rq)
+ {
+-	struct scx_dispatch_q *dst_dsq = scx_resolve_local_dsq(sch, dst_rq, p, &enq_flags);
++	struct scx_dispatch_q *dst_dsq;
  
- 	/*
- 	 * When a sub-sched bypasses, its tasks are queued on the bypass DSQs of
--	 * the nearest non-bypassing ancestor or root. As enable_bypass_dsp() is
--	 * called iff @sch is not already bypassed due to an ancestor bypassing,
--	 * we can assume that the parent is not bypassing and thus will be the
--	 * host of the bypass DSQs.
--	 *
--	 * While the situation may change in the future, the following
--	 * guarantees that the nearest non-bypassing ancestor or root has bypass
--	 * dispatch enabled while a descendant is bypassing, which is all that's
--	 * required.
-+	 * the nearest non-bypassing ancestor or root. The parent hosts them
-+	 * unless it is bypassing too. Then they sit further up and the parent
-+	 * consumes only its own bypass DSQs, empty until it leaves bypass and
-+	 * becomes the host. Either way the nearest non-bypassing ancestor or
-+	 * root has bypass dispatch enabled while a descendant is bypassing,
-+	 * which is all that's required.
- 	 *
- 	 * scx_bypass_dsp_enabled() test is used to determine whether to enter
- 	 * the bypass dispatch handling path from both bypassing and hosting
-@@ -6232,16 +6229,19 @@ void scx_bypass(struct scx_sched *sch, bool bypass)
- 	 * Bypass state is propagated to all descendants - an scx_sched bypasses
- 	 * if itself or any of its ancestors are in bypass mode. A descendant's
- 	 * depth is the sum of its own bypasses and its ancestors', so every
--	 * call propagates whether or not @sch changed state.
-+	 * call propagates whether or not @sch changed state. The descendants'
-+	 * claims are released below with @sch's, after their tasks have moved.
- 	 */
- 	raw_spin_lock(&scx_sched_lock);
- 	scx_for_each_descendant_pre(pos, sch) {
- 		if (pos == sch)
- 			continue;
--		if (bypass)
--			inc_bypass_depth(pos);
--		else
-+		if (bypass) {
-+			if (inc_bypass_depth(pos))
-+				enable_bypass_dsp(pos);
-+		} else {
- 			dec_bypass_depth(pos);
-+		}
- 	}
- 	raw_spin_unlock(&scx_sched_lock);
+ 	lockdep_assert_rq_held(dst_rq);
  
-@@ -6330,8 +6330,12 @@ void scx_bypass(struct scx_sched *sch, bool bypass)
- 	}
+ 	WARN_ON_ONCE(p->scx.holding_cpu >= 0);
++	scx_wait_dispatching(p);
++
++	dst_dsq = scx_resolve_local_dsq(sch, dst_rq, p, &enq_flags);
  
- 	/* disarming must come after moving all tasks out of the bypass DSQs */
--	if (!bypass)
--		scx_disable_bypass_dsp(sch);
-+	if (!bypass) {
-+		guard(raw_spinlock)(&scx_sched_lock);
-+		scx_for_each_descendant_pre(pos, sch)
-+			if (!pos->bypass_depth)
-+				scx_disable_bypass_dsp(pos);
+ 	if (enq_flags & (SCX_ENQ_HEAD | SCX_ENQ_PREEMPT))
+ 		dsq_insert_head(dst_dsq, p);
+@@ -2591,8 +2594,12 @@ static bool unlink_dsq_and_switch_rq_lock(struct task_struct *p,
+ 	switch_rq_lock(locked_rq, src_rq);
+ 
+ 	/* task_rq couldn't have changed if we're still the holding cpu */
+-	return likely(p->scx.holding_cpu == cpu) &&
+-		!WARN_ON_ONCE(src_rq != task_rq(p));
++	if (likely(p->scx.holding_cpu == cpu) && !WARN_ON_ONCE(src_rq != task_rq(p))) {
++		scx_wait_dispatching(p);
++		return true;
 +	}
- unlock:
- 	raw_spin_unlock_irqrestore(&scx_bypass_lock, flags);
++
++	return false;
  }
+ 
+ static bool consume_remote_task(struct scx_sched *sch, struct rq *this_rq,
+@@ -2635,6 +2642,8 @@ static struct rq *move_task_between_dsqs(struct scx_sched *sch,
+ 	lockdep_assert_held(&src_dsq->lock);
+ 	lockdep_assert_rq_held(src_rq);
+ 
++	scx_wait_dispatching(p);
++
+ 	if (dst_dsq->id == SCX_DSQ_LOCAL) {
+ 		dst_rq = container_of(dst_dsq, struct rq, scx.local_dsq);
+ 		if (src_rq != dst_rq &&
 
