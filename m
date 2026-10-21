@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594131;
-	b=xiP3hNamPH8o9w6/SXjChwiQNbSy+RC9ODu1hJQJGlKXplUabc/Bw79x7NzhHgv75DXx
-	 +1pPura3opJV6/glXfQuHsg0UZjNdHHKufDeQq4lpfTcbWDXYrb4cISIe6dj02l1vDs8Q
-	 qLbiBgyfoY6SLuZ6wrNcP0sd+O3tETdwz0oGLplBrcyOYWL6Ou4lXV5QPiIyF3+oCNwSe
-	 klcnZGPH2eIw92ueeij2keIyLQumOASzkKN9sgwvdBvuylXCruJyyBq7iwP5MW73mf10b
-	 k7rp2TasGcqCjfVldwbOGOW9l5b7IoLvoMIwopSvwdFFHciSPiK3OkrTtbFEHl1fysw==
+	t=1792594133;
+	b=K8y/J3RWyGZa1QKLkjqj8PVZWtmc9K0AXbW7Fhee+ap6UNFlSEk8LU3gHNxHjcFJWIrV
+	 vCs6IDcTPcs2+yksha+9cBhn2UA2ewzFX+BYIz/vV/ZIFkfTkamJwAGK7o5K1OV1vk3QM
+	 ohHvsSqm1Q+AAciM0WlFhteLdzP59vsC9OEr9jA0qDtjwdsHzAKkR+hFBfWVgAp0yUgMx
+	 f4xZsnxmmurl0PPYCubatlCyr/0rlckXLpKypvkAmzDWrUkD6IGbpYTKCoRnlDi/R4ECJ
+	 UnFrRi/kKp8/H8eP8oZuFy/1iWDkoQjiUy4qDuOuZS2lR20up4CgILjV84NVOIDk5Ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594131;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594133;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=06Sj5+BuoBjwtbI9YvzZsfWWJ7wxbhserFprRqs7wD0=;
-	b=dKPlwAaO1CiA1dtcPNfFdpnHr4HMnU34xOpoUYgen93n3CMYd/6BDLTQXJr1eQrs5vKd
-	 OzZz1TxQ1SMu5C4OQtn6MyZOCWIj9HstTzMhb0POf5oAPl6nvPgq2Umhqre7hjZM7QQXu
-	 lgtA0a94MoVxBcTOxlQzXRzVMnuD280gLPjdU3QQwyQ63G9wJtMcuT9q9kHMUIbg+xWkR
-	 a6klA2iiyHnC7yyvuxOh9BtNU+TWif7Wt1Zlsm2UTxiHmJ3iNzSXx2qmKOKg3H55dJktH
-	 72wrmZwnYe3exRQ3fnCub7opVvzenGd1kMklBB0rvpTkstb3yekHjS6vULjURHQvROQ==
+	bh=YXKtKgTSNKgMG8YZTPM/kxryPwW9v0+pgavpxrlyOvY=;
+	b=lm8N1JqwDQ5r2sh9wqm5CBnapT+fJ8hSc2k0x3zEj0uE2QF6vSrFfxnVbYj5PThPPNKP
+	 EAVEOnI/lsjga3eIK8pGfnLQIDoDNp0uyTcEPqpfD55PzrXsOHylRBQhLtgalU7r6rGu/
+	 Ww5SZ4WQM2EyyAwfnbjR0ExnH1GQGK1wuHdzUoqtb2p6FcXVLE2MoXnTRmzbhHkpME4uG
+	 HoQuxAbzgPQ87yyPGCwK1rHsC0k7l/BoqmEmXqzjtTa5cT4XwomwL2A0tvAPHKYDcydoU
+	 VTpoPzEFqyXz+PYTZ0wOW4laGWHTDCkBBcfAQM2F1foe+g9jxeBUeZbbkonlWAx/fUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=15gr4NfH;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kNwBmnGU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAA91606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:48:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98CB6606A31F
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:48:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=15gr4NfH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1A3B1F000C1;
-	Wed, 21 Oct 2026 14:48:49 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kNwBmnGU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC8FB1F000C1;
+	Wed, 21 Oct 2026 14:48:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594130;
-	bh=06Sj5+BuoBjwtbI9YvzZsfWWJ7wxbhserFprRqs7wD0=;
+	s=korg; t=1792594133;
+	bh=YXKtKgTSNKgMG8YZTPM/kxryPwW9v0+pgavpxrlyOvY=;
 	h=Subject:To:Cc:From:Date;
-	b=15gr4NfHqi275S4DbN++FF8anfVfMbXviT6B0Tk0letk3PWhpeiIrKA4puM4PPXUP
-	 iKOc0hdDrDdgAh+xERlkv7fdldv3EwfKUXqtN3ygncFFrOYjK2g4be3GOLTvHXX7rq
-	 6+kHg1pYfVAVvVvx7/Co38seXLqIzbCWSYEU2P00=
-Subject: FAILED: patch "[PATCH] watch_queue: Fix note pool publication race in" failed to apply to 5.15-stable tree
+	b=kNwBmnGUdCd0i5hI+27GcRYIStejsSNT1nFz5Ts1iEQ9QBoWr/rtXdvIdQ17BtUzu
+	 r3o7KWMRpbS62PYjNOMvuzQcWjItNiEvnQ8F9En/glFEBtTMrzLJ5xjaCzrm3IUgoO
+	 pOpnlBZY/eWt5RFPZA8Jn8fG71qxYTWpmu+vmMb4=
+Subject: FAILED: patch "[PATCH] watch_queue: Fix note pool publication race in" failed to apply to 5.10-stable tree
 To: cenzhang@linux.microsoft.com,brads@mainlining.org,brauner@kernel.org,stable@vger.kernel.org,threeearcat@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 16:34:25 +0200
-Message-ID: <2026102125-proud-dial-e6e3@gregkh>
+Date: Wed, 21 Oct 2026 16:34:27 +0200
+Message-ID: <2026102127-refocus-parakeet-893f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 5e531d62f1f8834faf7a4eed0d41105cf6570a8f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102125-proud-dial-e6e3@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102127-refocus-parakeet-893f@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
