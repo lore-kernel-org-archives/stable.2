@@ -1,56 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792596607;
-	b=cFGLn1PHHg+TuYcTw1J1Kejh5gT4jEBdGF+k1kcuOjY5HjANsMOOqJ9+bRatmgbFyQrB
-	 MG70DA3IJ8wOoyX9mQPw83QsZpS1to18ySsMoKxwU/0Vp4ean7vdw7z0pO/kRMWcypaBH
-	 KJws+9NwgfO0+yfr2JkEAXqgLo379P/aX0akpexa9zBx2LF/tDnWLGe5PPiYWKEPvPY0B
-	 0mp7iZLfqPDuDTAG3rqNTff6OFsgjCh3ZLDefWsYfFxN1FB4hpt9MGO4ssP44ygmIlmUO
-	 UKFTWQpQmJejFoHONTqhO7lMyF0vXGyjJ/R/nmpdbLZhJsiltnY149NvrzthEbkRJxQ==
+	t=1792596608;
+	b=rJ8owpbfpIIvV1I+846GZT5VOOc31UtRBsSn4G7gYp+tYc3why9xidELu0BCcAE3m/Q4
+	 3cy9Zx0uc3sLWLM2FYnWHjxU0WTuRLRiuLsWxPK9+RBlCyd0oOi4HtmSb1PE2VDC95TNL
+	 YoGCZjsvfSPlRhIRohKsyTIFyyZagH7xnDQhNvN2I+xLmctCOS9YNn4i8SUunoDjI1Pjt
+	 pdl5rYhRcE8jMzgA9IS48QIcf9eQNX/+reD35biS20rFe7hoJ3qNdnjkdfrezqL7Lju65
+	 osZjCYbrqNDdV2yds+Q1ZtkLKh6MTz0XZ2AA1TE3xc0gYw5L95CXeWGM1r0OICN57EQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792596607;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792596608;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=CTGAYgo0PIPxrhULx8V0vUzRak3L6VsgNLDXBFqgR6E=;
-	b=HWltvjGg8/w1DBiJ4LWppbsAitdpetsfNsnqbdXWhWRDRCxzk457rYRJ1mbwfepiViRd
-	 vuowjI7U3Z6JUK+PzRCJwLkv4J1WVezIcaZ8VwBm3IaZlBaVocFOoPJ7Bp3p3fmsckyu5
-	 0SBZThlc0RaFTlBL/swDdf4m6CdCqpJ6ibpEn2uucN6P+cz5wLCIEzbQPqY4jKI+aVJ0S
-	 gLb5GOPGtXfprMMtGn+stq3OesIrRArmo4EXIULkr0opHQjXlMNxF+VXag/vrQUV3vEd7
-	 3sEKcHjsuS1bmcfQvVbA5pJ2BwirIDa8FlM35U7YklDxcZT9pzy8UDdHBefZhCXwmrA==
+	bh=uFNUCuGzA+hpEMxm4fgOgzmswLKTR2sZ91KsxskyeOk=;
+	b=bMurequghWyzGkjXgPm8q6XeIPaKmWWo42feaxfy8wz4te9Hksa4Zd7+v0mz/6ZcMkw6
+	 Spwfu/sPC+41on3+akZLT0vYoV4sx+t/xVWYL5SmJ7pjIYWWrSQCTmTk26cIOYzS9m8DJ
+	 /BOT74dqeAcDC8EJnY5v9XRWuzPKR2jfC3sMR2x7jVL86lGw9ESgvbE7kE50/m+VpRLck
+	 AjhyFOGS5sqwivTOSXcMYj0ZgW1l3Ezr+wOWDjjIzNEDyx1oR8hP/aFuNtiDDwn8lM5iq
+	 IY2+/OyErlnUc4F2LJ2eWwlJcPcZxFf+qiUVq148gUmXPJpuxQAjM1bqpuGfgseXbfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJ+lOkXK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nb0Uzriw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94536606A320
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:30:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39521606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:30:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJ+lOkXK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C37F1F000C1;
-	Wed, 21 Oct 2026 15:30:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nb0Uzriw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6D761F000C8;
+	Wed, 21 Oct 2026 15:30:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792596607;
-	bh=CTGAYgo0PIPxrhULx8V0vUzRak3L6VsgNLDXBFqgR6E=;
+	s=k20260515; t=1792596608;
+	bh=uFNUCuGzA+hpEMxm4fgOgzmswLKTR2sZ91KsxskyeOk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZJ+lOkXK0I+px/ulGk9IIXEo0J8Unn5zdW7zqnliBZyA1t7vTBZRGdlHPPMwkXaBf
-	 KWo3ZmhAtt48nE0kngjRLfaV8e7IvBTPYTxHHn07yQxoLlhLOLechqAV4a5EeX3nrM
-	 JL5++/Gyt97oIEWdl+dpcHsdmtVB3DR+jPeRR4/Q3NDbpWUO/slkK9JjIPF1ksV7Xo
-	 V00qfykL7dvOJCq48ntJ+gFXb3JQzTIZeQ+gAzNimnKgFuKempfK2tFLFdocPhB6GM
-	 PqCh0G/ZJaf7FnE1+nrybgOdwfqlW6zrP9ApuVRGWnaJ67gL8mWT6xMAAI5N4dCF/P
-	 6x+LwGqD6MjxQ==
+	b=nb0UzriwB+KDCvfcw/hDXPvdnSWQRXJ1p2t/BGrIsffgkvhRo+U0UjuyWLMAoGeSB
+	 4hidK91ZGQc6QHySHoZV1eCkloSs+w5ybhb77oW6u8rMDqpcZxeCUYDhqV4U2LM46e
+	 rWgUGD6UK6b8g0gqPONkhuHfQTMxSWCgwqgCpaOjnkSvriFN7aebzLwt2K2R+r1Xy4
+	 6ql4EOn6ivZGOcCbexp3xbqXYkexeNehQFzOtN7HMzkdpWXCMhARdsiM9b8hA+AlZr
+	 SenN9mQKHaQz4B82Dr3wVGohK5It5Yer6b09EpJDY0ExmcDRGvOgZDxaxqxnItkkSq
+	 Kx70Z/erF4lHw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
-	SimonP <simonp.git@mailbox.org>,
-	Sean Christopherson <seanjc@google.com>,
+Cc: Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y] KVM: x86/mmu: Cope with the SS bit being set in #NPF exit codes
-Date: Wed, 21 Oct 2026 11:30:05 -0400
-Message-ID: <20261021152923.290681-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] ext4: free the sbi after a grace period
+Date: Wed, 21 Oct 2026 11:30:06 -0400
+Message-ID: <20261021152924.292498-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102158-waffle-tactless-d396@gregkh>
-References: <2026102158-waffle-tactless-d396@gregkh>
+In-Reply-To: <2026102102-likewise-pointless-8de1@gregkh>
+References: <2026102102-likewise-pointless-8de1@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,111 +60,156 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paolo Bonzini <pbonzini@redhat.com>
+From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit e90ab3669181c6469e3647ef2b30ae408275f496 ]
+[ Upstream commit c17b44266a1f9fcb49b894d4611d1254bf1aa313 ]
 
-When running Hyper-V from Windows 11, KVM is seeing the SS bit set
-in nested page fault error codes produced for shadowed NPT.  The AMD
-manual is unclear about when SS is set, including whether it can be set
-when SupervisorShadowStackEn (bit 6) is not set in the MISC_CTL field
-of the VMCB.
+ext4_get_link() follows a symlink that keeps its target in a data block
+in rcu pathwalk mode with ext4_getblk(EXT4_GET_BLOCKS_CACHED_NOWAIT).
+That reads s_mount_state in the ASSERT() of ext4_getblk() and again in
+ext4_es_lookup_extent(), and the lookup bumps the extent status hit or
+miss counter, all through sb->s_fs_info.
 
-Nevertheless, the unexpected SS bit causes out of bounds accesses in
-permission_fault(), seen as either WARNs or UBSAN reports:
+ext4_put_super() destroys those counters, clears sb->s_fs_info and frees
+the sbi without waiting for a grace period. A pathwalk that is still in
+ext4_get_link() when the last reference to the mount goes away then
+dereferences a NULL s_fs_info, the freed sbi or the destroyed percpu
+counters.
 
-  kernel: UBSAN: array-index-out-of-bounds in arch/x86/kvm/mmu.h:225:27
-  kernel: index 34 is out of range for type 'u16 [16]'
+With a pathwalk held up in ext4_get_link() while the last reference
+goes away:
 
-(in this case, the page fault error code is 34*2=0x44, i.e. SS|U; the
-report shows SS|U|W happening as well).  Fix the handling of unknown
-error codes by dropping SS and (with a WARN) any bits not among those
-that permission_fault() expects to receive.
+  KASAN: null-ptr-deref in range [0x00000000000000a8-0x00000000000000af]
+  RIP: 0010:ext4_getblk+0xf0/0x640
+  Call Trace:
+   <TASK>
+   ext4_get_link+0x26c/0x410
+   pick_link+0xf96/0x1780
+   step_into_slowpath+0x9b8/0x1250
+   path_lookupat+0x484/0xb00
+   filename_lookup+0x1f1/0x5b0
+   vfs_statx+0xd7/0x3b0
+   vfs_fstatat+0x4d/0x90
+   __do_sys_newfstatat+0xa0/0x100
+   do_syscall_64+0x10e/0x5e0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-At the same time, given the uncertainty about when hardware sets SS,
-follow the processor's behavior when constructing the fault's error
-code, and preserve the SS bit as passed to FNAME(walk_addr_generic).
-While the behavior is surprising, there's a possibility that Hyper-V
-expects it (Hyper-V does not even enable CET unless it finds MBEC/GMET!),
-so retain the information when reflecting the fault to L1 instead of
-unconditionally discarding it.
+So far that has been hard to hit. umount(2) waits for a grace period in
+namespace_unlock() before it drops the mount, so only a mount whose last
+reference goes away elsewhere, like the close of a file or a chdir out of
+a lazily unmounted directory, can race a walker.
 
-Bisection shows that this started happening with commit 687ee95c1b6d ("KVM:
-nSVM: enable GMET for guests"), even though SHSTK was available to guests
-since Linux 6.18.  However, this is not because bit 1 of MISC_CTL (GMET)
-somehow enables reporting the SS bit; rather, it's simply that Hyper-V
-never uses CET unless GMET is also present.  The WARN is reproducible
-even with gmet=0, with some hacking of kvm-unit-tests's cet.c testcase
-to ensure that the first access to the shadow stack triggers a page fault.
+Keep sb->s_fs_info and free the sbi together with the extent status
+counters after a grace period. Split the counters out of
+ext4_es_unregister_shrinker() for that. The shrinker still gets wasted
+in ext4_put_super(), the counters go with the sbi.
 
-Reported-by: SimonP <simonp.git@mailbox.org>
-Fixes: 8db428fd5229 ("KVM: SVM: Enable shadow stack virtualization for SVM")
+Fixes: 6493792d3299 ("ext4: convert symlink external data block mapping to bdev")
 Cc: stable@vger.kernel.org
-Reviewed-by: Sean Christopherson <seanjc@google.com>
-Closes: https://lore.kernel.org/all/asUqYEisPp9MJ8mQ@rika.bernkas.tel
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-[ sashal: Adapted upstream w and fmt references to the existing mmu structure. ]
+Link: https://patch.msgid.link/20261009-work-fixes-rcu-v1-1-7446d2d335e6@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: Omitted changes tied to absent extent KUnit tests. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/mmu.h             | 16 ++++++++++++----
- arch/x86/kvm/mmu/paging_tmpl.h |  3 +--
- 2 files changed, 13 insertions(+), 6 deletions(-)
+ fs/ext4/ext4.h           |  2 ++
+ fs/ext4/extents_status.c |  7 ++++++-
+ fs/ext4/extents_status.h |  1 +
+ fs/ext4/super.c          | 13 +++++++++++--
+ 4 files changed, 20 insertions(+), 3 deletions(-)
 
-diff --git a/arch/x86/kvm/mmu.h b/arch/x86/kvm/mmu.h
-index bb6e018928527..522033d453558 100644
---- a/arch/x86/kvm/mmu.h
-+++ b/arch/x86/kvm/mmu.h
-@@ -198,8 +198,18 @@ static inline u8 permission_fault(struct kvm_vcpu *vcpu, struct kvm_mmu *mmu,
- 				  unsigned pte_access, unsigned pte_pkey,
- 				  u64 access)
- {
--	/* strip nested paging fault error codes */
--	unsigned int pfec = access;
-+	/*
-+	 * Of the error codes that do not contribute to the index in
-+	 * mmu->permissions, PK and SS are not supported by shadow paging
-+	 * and also not provided to EPT violations, but SS *is* included
-+	 * in the NPT exit code.  RSVD faults are handled elsewhere.
-+	 */
-+	unsigned int pfec = access & ~PFERR_SS_MASK;
-+	if (WARN_ON_ONCE(pfec & ~(PFERR_PRESENT_MASK | PFERR_WRITE_MASK |
-+				  PFERR_USER_MASK | PFERR_FETCH_MASK)))
-+		pfec &= (PFERR_PRESENT_MASK | PFERR_WRITE_MASK |
-+			 PFERR_USER_MASK | PFERR_FETCH_MASK);
+diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
+index da6428312c36b..dae7fb8bc598e 100644
+--- a/fs/ext4/ext4.h
++++ b/fs/ext4/ext4.h
+@@ -1694,6 +1694,8 @@ struct ext4_sb_info {
+ 	struct list_head s_es_list;	/* List of inodes with reclaimable extents */
+ 	long s_es_nr_inode;
+ 	struct ext4_es_stats s_es_stats;
++	/* ext4_get_link() reads the sbi in rcu pathwalk */
++	struct rcu_head s_rcu;
+ 	struct mb_cache *s_ea_block_cache;
+ 	struct mb_cache *s_ea_inode_cache;
+ 	spinlock_t s_es_lock ____cacheline_aligned_in_smp;
+diff --git a/fs/ext4/extents_status.c b/fs/ext4/extents_status.c
+index 31dc0496f8d0c..fbfd1937d07d0 100644
+--- a/fs/ext4/extents_status.c
++++ b/fs/ext4/extents_status.c
+@@ -1796,12 +1796,17 @@ int ext4_es_register_shrinker(struct ext4_sb_info *sbi)
+ }
+ 
+ void ext4_es_unregister_shrinker(struct ext4_sb_info *sbi)
++{
++	shrinker_free(sbi->s_es_shrinker);
++}
 +
- 	unsigned long rflags = kvm_x86_call(get_rflags)(vcpu);
++/* ext4_get_link() bumps the hit and miss counters in rcu pathwalk */
++void ext4_es_destroy_stats(struct ext4_sb_info *sbi)
+ {
+ 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_cache_hits);
+ 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_cache_misses);
+ 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_all_cnt);
+ 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_shk_cnt);
+-	shrinker_free(sbi->s_es_shrinker);
+ }
  
+ /*
+diff --git a/fs/ext4/extents_status.h b/fs/ext4/extents_status.h
+index 8f9c008d11e81..502d9110a73cc 100644
+--- a/fs/ext4/extents_status.h
++++ b/fs/ext4/extents_status.h
+@@ -238,6 +238,7 @@ static inline void ext4_es_store_pblock_status(struct extent_status *es,
+ 
+ extern int ext4_es_register_shrinker(struct ext4_sb_info *sbi);
+ extern void ext4_es_unregister_shrinker(struct ext4_sb_info *sbi);
++extern void ext4_es_destroy_stats(struct ext4_sb_info *sbi);
+ 
+ extern int ext4_seq_es_shrinker_info_show(struct seq_file *seq, void *v);
+ 
+diff --git a/fs/ext4/super.c b/fs/ext4/super.c
+index 9b45d27515f9f..3f5e9d825a5e6 100644
+--- a/fs/ext4/super.c
++++ b/fs/ext4/super.c
+@@ -1268,6 +1268,14 @@ static void ext4_flex_groups_free(struct ext4_sb_info *sbi)
+ 	}
+ }
+ 
++static void ext4_put_sbi_rcu(struct rcu_head *head)
++{
++	struct ext4_sb_info *sbi = container_of(head, struct ext4_sb_info, s_rcu);
++
++	ext4_es_destroy_stats(sbi);
++	kfree(sbi);
++}
++
+ static void ext4_put_super(struct super_block *sb)
+ {
+ 	struct ext4_sb_info *sbi = EXT4_SB(sb);
+@@ -1361,7 +1369,6 @@ static void ext4_put_super(struct super_block *sb)
+ 	ext4_stop_mmpd(sbi);
+ 
+ 	brelse(sbi->s_sbh);
+-	sb->s_fs_info = NULL;
  	/*
-@@ -223,8 +233,6 @@ static inline u8 permission_fault(struct kvm_vcpu *vcpu, struct kvm_mmu *mmu,
- 	kvm_mmu_refresh_passthrough_bits(vcpu, mmu);
+ 	 * Now that we are completely done shutting down the
+ 	 * superblock, we need to actually destroy the kobject.
+@@ -1374,7 +1381,8 @@ static void ext4_put_super(struct super_block *sb)
+ #if IS_ENABLED(CONFIG_UNICODE)
+ 	utf8_unload(sb->s_encoding);
+ #endif
+-	kfree(sbi);
++	/* ext4_get_link() reads the sbi and the counters in rcu pathwalk */
++	call_rcu(&sbi->s_rcu, ext4_put_sbi_rcu);
+ }
  
- 	fault = (mmu->permissions[index] >> pte_access) & 1;
--
--	WARN_ON_ONCE(pfec & (PFERR_PK_MASK | PFERR_SS_MASK | PFERR_RSVD_MASK));
- 	if (unlikely(mmu->pkru_mask)) {
- 		u32 pkru_bits, offset;
- 
-diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
-index 8d2c46bc6c0fb..c4732dd5ad541 100644
---- a/arch/x86/kvm/mmu/paging_tmpl.h
-+++ b/arch/x86/kvm/mmu/paging_tmpl.h
-@@ -326,7 +326,6 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
- 	int offset;
- 	u64 walk_nx_mask = 0;
- 	const int write_fault = access & PFERR_WRITE_MASK;
--	const int user_fault  = access & PFERR_USER_MASK;
- 	const int fetch_fault = access & PFERR_FETCH_MASK;
- 	/*
- 	 * Note! Track the error_code that's common to legacy shadow paging
-@@ -484,7 +483,7 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
- 	return 1;
- 
- error:
--	errcode |= write_fault | user_fault;
-+	errcode |= access & (PFERR_WRITE_MASK | PFERR_USER_MASK | PFERR_SS_MASK);
- 	if (fetch_fault && has_pferr_fetch(mmu))
- 		errcode |= PFERR_FETCH_MASK;
- 
+ static struct kmem_cache *ext4_inode_cachep;
+@@ -5692,6 +5700,7 @@ failed_mount8: __maybe_unused
+ 	}
+ failed_mount3a:
+ 	ext4_es_unregister_shrinker(sbi);
++	ext4_es_destroy_stats(sbi);
+ failed_mount3:
+ 	/* flush s_sb_upd_work before sbi destroy */
+ 	flush_work(&sbi->s_sb_upd_work);
 -- 
 2.53.0
 
