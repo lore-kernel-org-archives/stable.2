@@ -1,85 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792602121;
-	b=wVoeVkOk7UttZKIfwE1yZZKnhm4zh7v+QJLktTM5Tcb7WsiiCosWxXcldo3pnrI4gtC+
-	 a1G4HScqQToKucxuzemVgyRyBG/Mk5knxxWW1VcyKDPpCfqKDSNnvSQa2E1uGPCroYPcg
-	 FQyAsdXOW5FYI/QRfP2XJ0LDVgHlAcjaioUZCAmj37kvElvww5a3najdaxbT5F/Hnvrlu
-	 mPKazw+oEN5NkzRgN/mMbK6HtvKgq1IgMAMWSipN+32VysQY5C5nMm6kS8eKUr+61ebZb
-	 RtNTGN7AuLofzgJuAK9PXeaxsWDyAnyAOvwnArfm2v+gnCK4CfZvUJ6VN6yETicKbag==
+	t=1792602204;
+	b=QMaT3cTkldEIawBLSxOpgMrgb962uHIKl+vwMsfVOe7GEx/UfemGUNBnkqbInJUJAfQ6
+	 1lWzAx4/1Lo7JjSsEIbx1lcCTYXa76I01YyIodVig6i9p97pqSGo4ZwpiSp9QgZmxG1hz
+	 fRGM9gjy4eCQtaLdAUd4dG+MohRBXWGw0ESWIS02hxZTbhBbOCSdhDWCLzKqo1+7q8Mim
+	 HIcjM0sfTVP4VTlVzkNQQE8Pc8wzH28q5NppzyxYxZyHIGy6ErKXa6N7We2nsaOxTtvGG
+	 xYqmQiaDE7KaIBc+n2oy4bf+VT3fqfC/ypNiEnJiCewTTFtcqlDKd5MMo28fFEJrqHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602121;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=mePSPJATHsGdUfBbhs8qu+gZ9UWtO+tPw83R8tHqLNA=;
-	b=YxYvFMGkdZM32dxWsGs5KllAT++IAjBn31EYXcc14yBkNldkM8WBC5lSjPt7GG5VGQCx
-	 tip5rzjdSWpdcq+AbJjPYXWoZAMTrdov03rbO9QW+1RIhFiqNoiiCYlMIcNHnYf0oUwx/
-	 TdXy2eMU0AfEMTqt7YSdjaHaynbJp17X/kpZ19iaIrc77jU5CXjyiPpu/EFugP6jElDLt
-	 1OqgBgAoK0j+qlCIVrD9g/M/UUkAn+k8gahiNH+xhnBQZMdP0/F4/XEWMBY7Pja5MzWim
-	 BZg1t9olAXSr+6ozjeXiCHUMTHrA92r5dBHSRPoqC3dP2y87BYVG9ocs86gS+H5InQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792602204;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=V9oKbRIgS4pwxVZeeCa88Y3+8XRLveqA5R7QjFJXjVE=;
+	b=WE37z3I5H3P7d/5xBDrZfh0EzeQqnHLM60fKZJQ53dk/hJJOrX2GfQK+VHm2/l2RzhNp
+	 5Y4gyBMkmliV4Z5nTJMtWIEZQYeBzRjHgggcw5y8sGVu2SwcbmxW8USRSyGtHt6vgUK7A
+	 1v1B7EGysZ2Clzxv55XfMdRwiLP7FmpnlYfKJwBaYUAw+fYN8pxpshRsUYymUDEhRyUCv
+	 AL7XojZxH7CqyEI68chCJ0iLyKdkVS1m7B7poRFvyGBnuErca+hc2ee0R5yatjwdRZLdw
+	 Pm6H8ANjP5QuExcJc90NavRN3FYEzZmZ0W84aBGIDrKGw0971d7LqUpF9l1x02diJ8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=N+2zZgEv;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ce6277pA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B676B606A319;
-	Wed, 21 Oct 2026 17:02:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B676B606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E342606A327;
+	Wed, 21 Oct 2026 17:03:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=N+2zZgEv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792602121; x=1824138121;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=qampBoOPcfws+SCopvn4zE9DZ8QpoNbER85isk3vXMM=;
-  b=N+2zZgEvUXmacEeqaASTl8NdgBZzQXUzXQHyOT2bjMrFeJWY/u64125l
-   ctL0Phj2BuNr7NebzGrxS7JBXsS8FHi83al8TpC6Ipk8Bta0IBkLzhed7
-   l4OcTWo5eZ/QhRk4M5aJSfsZVgt7PhgYYvBIbKhen0UWhNE7q4Dkk6dZU
-   yAVUtU5qsX/QrQzlfkiR9sN+Gl4JE/dNCkEfNeNp8bDz5Umjn+o+hVIv4
-   jSXwx4oj/lamLk4pmXVVmrtObY3lUJ8HQQaNXDCBKWKC8aMbxxk3ukJtt
-   x6YNtKHszafKfdCLSiejx43wfMbuv7dxkbdtbwIwolwAAsNB0zbRPdQTO
-   A==;
-X-CSE-ConnectionGUID: Hhqw4JF7T0GFmLlrMUVejA==
-X-CSE-MsgGUID: tRIOgTi7RimuJKcjjxlfeg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1212378"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1212378"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 10:01:26 -0700
-X-CSE-ConnectionGUID: I0th04K1QUizFfkakI+r4Q==
-X-CSE-MsgGUID: 0v22F7vLRDu7pmlv3+91rA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="3083714"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 10:01:22 -0700
-Date: Wed, 21 Oct 2026 20:01:19 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Lee Jones <lee@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Philip Li <philip.li@intel.com>, lkp@intel.com
-Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Jarkko Nikula <jarkko.nikula@linux.intel.com>, mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 11/28] mfd: intel-lpss: Remove registered MFD child
- devices on probe failure
-Message-ID: <atjv3_Njp5gW7EUF@ashevche-desk.local>
-References: <20261021121245.3111563-1-lee@kernel.org>
- <20261021121245.3111563-11-lee@kernel.org>
- <atjFroYp0Cp7eN8c@ashevche-desk.local>
- <20261021163333.GH1795367@google.com>
- <atjtNCBf-geYL3yY@ashevche-desk.local>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ce6277pA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1B981F000C1;
+	Wed, 21 Oct 2026 17:03:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792602203;
+	bh=V9oKbRIgS4pwxVZeeCa88Y3+8XRLveqA5R7QjFJXjVE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ce6277pAdcGnf1xtHytlSgyb0IX0barbbXBYnMWF5ylVBrx54J5Lj5+0YdYf8RgFJ
+	 Hj7SIi9RKXwd5ypKOy0s6cDoGwa9J6i5QBGn1hySXzDZG29PmKhuvAc3NB1Y8AVGPv
+	 0sb/8NKf8BMGmDvEYjxkpsbMTmUDOqPc/35ke2aM5827hGf+44EzQz0Z2yQGyp80bU
+	 LnjJWnMiKk9HBNCRQFhEHD0ejbn3Dospb88Ff3vGVs84UJbazyzEU+ZVhvfHhyApUE
+	 lr57ZjTMPC5JLYWWRE1NvbTsU+DVtxupb7NkhTHclYkFj2qdUiB0a/nKurDv1z0xTY
+	 QOdYb1Sm++55w==
+Date: Wed, 21 Oct 2026 10:03:21 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
+	stable@vger.kernel.org, Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	"open list:COMMON INTERNET FILE SYSTEM CLIENT (CIFS and SMB3)" <linux-cifs@vger.kernel.org>,
+	"moderated list:COMMON INTERNET FILE SYSTEM CLIENT (CIFS and SMB3)" <samba-technical@lists.samba.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
+Subject: Re: [PATCH v4 1/3] KEYS: Expand key->{datalen,quotalen} to unsigned
+ int
+Message-ID: <20261021170321.GC1879@quark>
+References: <20261020174325.2229448-1-jarkko@kernel.org>
+ <20261020174325.2229448-2-jarkko@kernel.org>
+ <atfT5WJU_ldjpQOM@kernel.org>
+ <20261020214335.GE699485@google.com>
+ <atfky30OZQ5vsNVs@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,49 +73,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <atjtNCBf-geYL3yY@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <atfky30OZQ5vsNVs@kernel.org>
 
-+Cc: Documentation people, checkpatch maintainers, and Roman and LKP folks
-
-On Wed, Oct 21, 2026 at 07:50:00PM +0300, Andy Shevchenko wrote:
-> On Wed, Oct 21, 2026 at 05:33:33PM +0100, Lee Jones wrote:
-> > On Wed, 21 Oct 2026, Andy Shevchenko wrote:
-> > > On Wed, Oct 21, 2026 at 12:09:33PM +0000, Lee Jones wrote:
-> > > > When intel_lpss_has_idma() is true, intel_lpss_probe() registers the
-> > > > iDMA64 child device via mfd_add_devices() before registering the host
-> > > > controller cell.  If the second mfd_add_devices() call fails, the
-> > > > err_remove_ltr error path returns without calling mfd_remove_devices(),
-> > > > leaving the iDMA64 child device registered after the parent's
-> > > > device-managed resources are freed.
-> > > > 
-> > > > Call mfd_remove_devices() on the probe error path to clean up any
-> > > > previously registered MFD child devices, matching intel_lpss_remove().
+On Wed, Oct 21, 2026 at 01:01:47AM +0300, Jarkko Sakkinen wrote:
+> On Tue, Oct 20, 2026 at 09:43:35PM +0000, Eric Biggers wrote:
+> > On Tue, Oct 20, 2026 at 11:49:41PM +0300, Jarkko Sakkinen wrote:
+> > > For any kernel patches I've missed all Sashiko reviews so far and have
+> > > not taken the feedback into account in anything.
 > > > 
-> > > Good catch!
+> > > There is two issues:
 > > > 
-> > > Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> > > assuming you will add Reported-by: Sashiko...
+> > > 1. I was not subscribed to linux-security-module. I could be and have
+> > >    been but probably when I've changed my list subscriptions at some
+> > >    point otherwise, I happened not to be.
+> > > 2. Even if I was subscribed to linux-security-module, at least I'd
+> > >    like to get reviews Cc'd that concern my patches or patches
+> > >    sent to me.
+> > > 
+> > > Now that Eric pointed out Sashiko review I was able to look up this
+> > > via web browser:
+> > > 
+> > > https://lore.kernel.org/linux-security-module/20261020174325.2229448-1-jarkko@kernel.org/T/#mccc5900222fdad9d790be343fcec2a32540ed2fb
+> > > 
+> > > This is somewhat inconvenient though that it responds like that, and
+> > > not to the review thread.
+> > > 
+> > > Not actually sure how do you write a Sieve filter that automates
+> > > relevant-to-me Sashiko emails going into some specific folder but
+> > > I'm sure that is somehow possible. I guess I'll start by subscribing
+> > > to linux-security-module.
 > > 
-> > Roman suggested Closes:.
+> > Well, the keyrings mailing list isn't currently opted into Sashiko
+> > monitoring or emails.  linux-security-modules is opted in, but it's set
+> > to have the Sashiko emails go to only that list.  See
+> > https://github.com/sashiko-dev/sashiko/blob/main/projects/linux/mailing_lists.toml
+> > 
+> >     ["linux-security-module@vger.kernel.org"]
+> >     reply_to = ["list"]
+> >     positive_review = "all"
+> > 
+> > (Sashiko defaults to no email, because unfortunately there hasn't yet
+> > been consensus in the kernel community to enable it everywhere yet.)
+> > 
+> > keyrings could be opted in by opening a GitHub pull request that edits
+> > that file.  Let me know if you want me to do it.
+> > 
+> > My preference is what I set the fscrypt and fsverity lists too: enable
+> > monitoring of the list and emails of issues found to everyone (but not
+> > the noisy positive reviews, i.e. "It looks great!"):
+> > 
+> >     ["linux-fscrypt@vger.kernel.org"]
+> >     reply_to = ["author", "list", "recipients"]
+> > 
+> > So for keyrings I suggest we add:
+> > 
+> >     ["keyrings@vger.kernel.org"]
+> >     reply_to = ["author", "list", "recipients"]
+> > 
+> > Do you agree with that?
 > 
-> But Closes goes with Reported-by. The Submitting Patches says:
-> 
-> "The Reported-by tag gives credit to people who find bugs and report them and it
-> hopefully inspires them to help us again in the future. The tag is intended for
-> bugs; please do not use it to credit feature requests. The tag should be
-> followed by a Closes: tag pointing to the report, unless the report is not
-> available on the web."
-> 
-> Okay, you can argue on 'people', but the established practice includes 0day LKP
-> bot for a long time.
+> Yeah, that would help, thanks :-)
 
-OTOH, there are also examples for Closes: w/o Reported-by. I'm confused...
-So, what would be the best practice for all bots WRT Reported-by/Closes?
+FYI, it's merged now: https://github.com/sashiko-dev/sashiko/pull/719
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+- Eric
