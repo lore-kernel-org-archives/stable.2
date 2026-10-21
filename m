@@ -1,57 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792578399;
-	b=D6rirFXir8ESnoVs3m9V+EPNMd67y69OwKV9eYj3iLwBA1DusD1jzM5UUIYHMx5BhYEI
-	 3qeR1PfoBfKuoFNtawqmPerheihyD+/quqC0+ZHznidlyFXUsVe8ENGjx6kn29j1Sgo98
-	 AsvmkWq8cZUkrSf5vA5xiWz3VEzbjdF5l4Mq4yfMGZZC3Cwl2GwLte53M/FabWOqqHQO3
-	 3v5vpacKOApgpp0ythGWRD0CvVD+kGS2I6f/Ugd2ds2JYnMTPZdshN7pQ7S6IPvclTOK3
-	 CPtxMSQBZQftGXl/FNShT2nmhUAXyjpWNd9fhGI90vnSNIHV0d9jmux+nn2l9AkkPuw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792578399;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=XaHS5CUayuZ4u9kYgWWlcU+lZAuboyv4HW7QhXr3ncE=;
-	b=ivboHv2D5w5f+BxnxNe0Dk9lFA91Aw1tDNmY0ledVf67AHPy1bWWZTrntJ8yW8xGMRQ9
-	 SgKR8+M9R+yWmZLKsfeQ5lnmww48pnGvwJuIsHGj4cHYjwyHwmhAnR5hsoEFqWt9vGobr
-	 5lgJekgRIoE4W90VvvuwhfKjiyIH69LGrVPurKkdk/pKj4BLNwjZoBt0j7BXjmzt81H7Q
-	 xb3sEzyXyEJBF/w0iquM9IawJdlpRGE10Ff2EbPb4YXsJZFb7LmmzksZnwVyEHTSxEsma
-	 j4jnzAa1oqDZCQBNHynA7zjDHfeL606vTRPZUHEJcu/iE83hHEHU9CcVuouVQ8H0o1w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TGfrVpnG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792578484;
+	b=JVPWWob6vwAmZQytuxOyKASV6kTmpgQVAKP52s66IU7GhM6wsQzyIoehLtSUEoo2cnQg
+	 toGF4AH9k1N5unxroFlD0Lr0HGaGUCzsiSuRQTcFVCNxj+yshjXn4LY0mT315x4utQSqQ
+	 AQfW+CH67l8S6n2zmZCNosCvuge3Hy+BSUJri+CNdXtLADfqg31UOR1XLHT+seRGCS2Q9
+	 7DHMn76FfIdoobjqbHT0hbQaWBvrWZMsIcreVEnxVFJJWgyYIp3WYRsZGMEBr2iSnKVyW
+	 SczmQvaqjIrEqS6C3x3ZCd6ap+RB69R5iEODgTurjAWKuyoWpiNHcS9qbdQvmQ8wIfA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792578484;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=eALao68/H5C/VsMyz1IjAZA3Cs8TeVJx3ISpy1cycgI=;
+	b=JacTH2U0kMCmFLK+j/XW7eDR7CHwWIp7A9H/Lt1rFcNWIdsvaqjUqyFbbAQI++eoRQuX
+	 PKzJqisZ4M8WJOYbUuWJN2uN+rPoR4IEmFR+iYS0Z99iCqq0jbbTrPqSMGW7RRaw7joP1
+	 xqutfiqf3FBmOK0skbwwtiSBna12pMhMxMNLwFNYdgsSyZ7DLN2/r89pOUZjDOyu1Pe5I
+	 ml593UOcrHY/fGyUWthdBXUWoGlkWajsNH7Zj762taLF0Oo17P5dQ2dqO51/45b/7mo9O
+	 pD4sjHhJ6UuLABhP+mWvRIUcbqjrlWuDUP/lidxXahKyKH9DyDvV9aWKtmfgLjR0MoQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=C2rmy71d;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05EAA606A31D;
-	Wed, 21 Oct 2026 10:26:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0629D606A31B;
+	Wed, 21 Oct 2026 10:28:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0629D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TGfrVpnG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A15FA1F000CC;
-	Wed, 21 Oct 2026 10:26:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792578398;
-	bh=XaHS5CUayuZ4u9kYgWWlcU+lZAuboyv4HW7QhXr3ncE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=TGfrVpnGhhnz8+qNwr+F5pcYKC43Xf9ZcczIokuC0v1hPtmmCmJFr2xauE0qDt4pb
-	 XbK4/KakoluZiI6SwivbuUoXLiUyxZeRMjGm3hzKUHhpGkiK47M8vkn6F2pNst+AJL
-	 qRb1pXCujiW4DTLfmVmkaZseqovwIvkrK+iUzSWRMsPGkc8LNypyM7bWXBTTLOBES3
-	 Hu67TgcejmpIKFhHjJYnpD3I47/XGJcEob6IFWSUozEvlvlb5cndKjVztaUrTUbSGC
-	 2ZQcy7LeEu5ABVn81q7IkcFr0ZvtjkoIUvxfIO6VZQ+Wozc9hIDwbr4+BQ3IbYXdVy
-	 o9bpETxFMIQaw==
-From: Christian Brauner <brauner@kernel.org>
-To: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Nikolaos Karaolidis <nick@karaolidis.com>
-Cc: Jan Kara <jack@suse.cz>, Zhihao Cheng <chengzhihao1@huawei.com>, 
- Mateusz Guzik <mjguzik@gmail.com>, linux-fsdevel@vger.kernel.org, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261016102515.111285-1-nick@karaolidis.com>
-References: <20261016102515.111285-1-nick@karaolidis.com>
-Subject: Re: [PATCH] fs: rotate inodes whose page cache could not be
- dropped
-Message-Id: <20261021-geburt-heimlaufen-junitag-f8fc6bf55c5d@brauner>
-Date: Wed, 21 Oct 2026 12:26:32 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=C2rmy71d
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 7CA1A202921;
+	Wed, 21 Oct 2026 12:27:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792578479;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eALao68/H5C/VsMyz1IjAZA3Cs8TeVJx3ISpy1cycgI=;
+	b=C2rmy71dWSchwn+PnMJkOq2YtF+8SO+OOqqsWL3QpL3oi6ioxTAQERdN0yVTDU/rVqCrrO
+	jdwnBjdw9j0GkHq6TM3xd/u/b9YPhB3GtJ4FnYK3OYGi86Qwvur8X4sGH27uVypj3J6Wmu
+	T5FoDE3tp+R19JplTAOc5XcvOxVNNpEc3JPWzA6NmQYoW1heke16UQ/2w+R03MKEe8H9QI
+	HnAP2fgttuBjDWu/ogAOuJ/lE+HVcSH1mmHP9KcItbd51wu25SB0nyNvziZqcZARXh3lGn
+	AVojyMy9D/lBtRGqJizlC/W3YbLSEm08yfxnRxNcl8Gz9mBgyZEd1Ii/KApPtg==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792578479; a=rsa-sha256;
+	cv=none;
+	b=F36aI7gP3JXujlATdaWhlD43d3YyxpeqXWJtPSO2/WRdeSPQYR6kgIQyoFjElEVd/QB3gl
+	1gCDU1hB5vIJkyFu1g8IHONyHFtC3U+kSb0x0eqhkafNTFEzrBmz7f4P2zifndKzQvTPHM
+	KxVGGAoLXqFil59D92xwCWYsRCXMqv6vurN/qDrgfSyOw5N/yXGB1i0V+JVIzCsjgwDbsO
+	KknlK25eJ3OeMS3nDwNTwOFUDWu44cFXcKUR1V3cQ2ylkrrGlnsAJyOILNKVjDaL2uVlLr
+	0UerS1o5gzo+SjCHyACDGdTLJwS0SeJD2hlm4jCvS4w+Pji+wZLf0XTgl9qJTA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792578479;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eALao68/H5C/VsMyz1IjAZA3Cs8TeVJx3ISpy1cycgI=;
+	b=RTFbKFkptD8XRR2FNhlOGsuC2D9MIj5ykEeYOdx+N5C3WwU6hhZ6Pc045DVptSOdr+vRiz
+	kg5ufvK3axALmD1IzmnavoNsgmGQ57RGnsq67HrQH2UKpXNsWE0hCZusMatkrlyCyQ0gzk
+	HKSn2uKGmp3aAZONU1IGHzVGDD87A2CeGcfT3Xb1ZjZhxDTiE4R9KVTw5eDj91qXh28rrd
+	Imhi2LY4dhvGz/Tk6k6haNhPe3k01X+lR1bf5VNF/Prrt3uJA+uJqFkbnxvbKSCZJ4rGZK
+	8owIv4VYyVkXc5QMtLEY+z9iUaT73lE0uIJapMFyk7Q7Kzf/HodwV3lUSf1u2w==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xJTY7-000Xjl-1G;
+	Wed, 21 Oct 2026 12:27:59 +0200
+Received: from blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 24F595CAFDC;
+	Wed, 21 Oct 2026 10:27:59 +0000 (UTC)
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	kuba@kernel.org,
+	linux-can@vger.kernel.org,
+	kernel@pengutronix.de,
+	Kaixuan Li <kaixuanli0131@gmail.com>,
+	Oliver Hartkopp <socketcan@hartkopp.net>,
+	Quchaosheng <quchaosheng000406@163.com>,
+	stable@vger.kernel.org,
+	Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: [PATCH net-next 05/11] can: isotp: check the frame type, not just the length
+Date: Wed, 21 Oct 2026 12:24:36 +0200
+Message-ID: <20261021102756.1900679-6-mkl@pengutronix.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261021102756.1900679-1-mkl@pengutronix.de>
+References: <20261021102756.1900679-1-mkl@pengutronix.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,36 +110,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-3d1b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=893; i=brauner@kernel.org;
- h=from:subject:message-id; bh=ENKdDygeOB3ZkTFNXhwRYoQgyxPbVZNMT5pmJM216mA=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTdmBw1M21TvtRbzs1upidOfpL03edin8js9WqvfemUi
- bfPyez71VHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCR8DeMDA3TTBJz1WdP/nPG
- 3i4riePENdfJDDK77AVzjUyUn6zd0cjI8OjYpV2+LPrcLzY9Pf/sZ8GarxbbjCetkq2OT2epW1o
- swAcA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On Fri, 16 Oct 2026 10:25:15 +0000, Nikolaos Karaolidis wrote:
-> fs: rotate inodes whose page cache could not be dropped
+From: Kaixuan Li <kaixuanli0131@gmail.com>
 
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
+isotp_rcv() separates Classic CAN from CAN FD by skb->len alone:
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+	if (skb->len != so->ll.mtu)
+		return;
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+	cf = (struct canfd_frame *)skb->data;
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+A CAN XL frame with cxl->len 4 is CAN_MTU bytes, so it passes, and is then
+read as a canfd_frame whose len comes out of canxl_frame.flags: at least
+0x80.
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
+Of the paths that follow, only the flow control one uses that length
+without bounding it first, so check_pad() walks to 255 over a 16-byte
+frame and the caller reports EBADMSG on an unrelated socket.
 
-[1/1] fs: rotate inodes whose page cache could not be dropped
-      https://git.kernel.org/vfs/vfs/c/efe3ca110fdb
+bcm_rx_handler(), j1939_can_recv(), can_can_gw_rcv() and raw_rcv() check
+the frame type here, and can_dropped_invalid_skb() switches on
+skb->protocol on the transmit side. isotp_rcv() is the gap.
+
+Fixes: fb08cba12b52 ("can: canxl: update CAN infrastructure for CAN XL frames")
+Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
+Reviewed-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Acked-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Reviewed-by: Quchaosheng <quchaosheng000406@163.com>
+Link: https://patch.msgid.link/20260920035626.2581040-1-kaixuanli0131@gmail.com
+Cc: stable@vger.kernel.org
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ net/can/isotp.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/net/can/isotp.c b/net/can/isotp.c
+index f5dc9d04bd68..d3e43ab48425 100644
+--- a/net/can/isotp.c
++++ b/net/can/isotp.c
+@@ -755,6 +755,14 @@ static void isotp_rcv(struct sk_buff *skb, void *data)
+ 	if (skb->len != so->ll.mtu)
+ 		return;
+ 
++	/* check for correct CAN CC/FD frame content */
++	if (so->ll.mtu == CAN_MTU) {
++		if (!can_is_can_skb(skb))
++			return;
++	} else if (!can_is_canfd_skb(skb)) {
++		return;
++	}
++
+ 	cf = (struct canfd_frame *)skb->data;
+ 
+ 	/* if enabled: check reception of my configured extended address */
+-- 
+2.53.0
 
