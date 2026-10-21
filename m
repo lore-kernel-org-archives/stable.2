@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792584974;
-	b=pFM5CTwVQirTKHPFmcOu9+PXUFpRltAmzY+mm8uJa2Y0DLhzHAVI5w/XPHmTKNuX8ygV
-	 ddwPXwMVbZtglv7fYT4s2ErQCRk+rWGiTOzgla43h/SMNSjjGz/pp7aeX4vGExW+o+C4l
-	 wdtHHHh0wsUZNY/RDlfwB7AfaAQTcU2v1G662JmDsL+qag3tE4ifsSUJT7P6obAAKu8cK
-	 rGLd5QahIjYBlxWS9ZBnPiD0f5yD4hYG1vLCMUtUzAmVQxxij3swJ7it43m9fDkI9kqRU
-	 Lni3FN4B5DnNo6rsWog7v80a8w8TdGK3WaHmZ3xkyzQuGjSiypz/dvLYAKRVQ/Z2qLQ==
+	t=1792584980;
+	b=5LkMcKsMCsLvh3GGlLBQ8ild8K4y8mbKjI1R4wZepgTmIlLFoUTD5vkE+HE/DkNc2Os7
+	 HYgnRgMw8KWkAmk/CqS16mjgLt1X8Mrrq1jVwowuuOX17Eo8RPM76VlhD34JFoLdXum/Z
+	 JNFxDARlo7AM9wM0US4hDwHruPPCGEFXbptTJmf808ZXMML0IJ2HwQJISExmesa0bhXvo
+	 pKSLiReLnWcqsy4akRcnG4G9Mj1nug1YQCKYBbU6Uc7buTdfTpJ8S9AlYFH7LPbijQj0Y
+	 jP9m3N42LpK6o+nXhiPWbaGDz39oJIVqzuy4m1ybalKnfqkoQntq8MeV9ioSqlUB3eA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792584974;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792584980;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=14xqRJbBwPSTUwMpLNaEdMOdsXigfG/PZ5Nys6W811A=;
-	b=aCf5v13oFtLb/427Wfg6QEmfX6Z1Jx7+KQ8Q1DHFdLIdmKB/c4QaJs8FzzdbX7JOuaS0
-	 D3FcFmSaSvkWKNdbg0v/S/SghH/1QW1W/cv1CZXx5MrreCHzKFOH2MriVowG843RUqlGM
-	 GopY8KaPveZNwwslaD8H+qhUg6oiIQNNZvjU/yy9VojE8tEgEOad7wyn9E7CxRBe4LQdP
-	 TPlVl1DTzLkOGnPY1IiZonplHKu+og0MuuiP0IWQdCV8WilsqdE4MrvLZVWaSISlAITdo
-	 stE6kqHPJMYklnUOv8OT0d6YdK4lUEnYj09BrvONu4AKfLteMa2B7AkU7s+upmVjaUg==
+	bh=3sV2BVll+rmA+nzXI9MkZz3cUVSsRVhz3ZropH017dE=;
+	b=cdrdy3yPv9mvbzUstP64gIQwuKj6JOnrwWUKT7qtR4PMdmjkB47vmwfMXVYb4BfegXfY
+	 8kPXAD0CkzT33w49+a+W4GuIVH4oN+f9FGf7dNVWXam1W72JL4sfbAYXGZF8jFd6omieq
+	 v76zukE6Cwh//w82iqJyO9GOq1JHUkDGZAly+I5HisoTqghVXsBoe4F7uxA7zEQNN+bDu
+	 BhMZ186uEiK8gSS5Pdp7aT/ptqryhUAmCRdMGLTF+QcuT5Mf3NqLvcAk4fLhrlx0TZiif
+	 FK4ZV3WgxgHusKsm4fPvmDRrDAfkopbxGnroYISWc69UdTtoc5qenR3R206TGzxGiYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CySbTGku;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XgQaPU/t";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A2860A2612;
-	Wed, 21 Oct 2026 12:16:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C81A1606A31B;
+	Wed, 21 Oct 2026 12:16:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CySbTGku
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 518441F000C4;
-	Wed, 21 Oct 2026 12:16:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XgQaPU/t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 267711F000C4;
+	Wed, 21 Oct 2026 12:16:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792584973;
-	bh=14xqRJbBwPSTUwMpLNaEdMOdsXigfG/PZ5Nys6W811A=;
+	s=k20260515; t=1792584979;
+	bh=3sV2BVll+rmA+nzXI9MkZz3cUVSsRVhz3ZropH017dE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CySbTGku/p1XXOGUiHGHB2To7Jn1H2F49N+Nti9JYAJP5peQg75qm+Ctp4yZRi5Yl
-	 l0f2pw9KKz2xjhPLYMrTkdDQbUUFVoz3CXroH39JvnUs5IhBeMp5WqiyUmQDnRgpCr
-	 hbvpqF/R2/IYF/CjQWTY91k1EOblZM2XC+xMR+lcfK/GxVSaAXMuLqw1kLyVu6PnCq
-	 +kCXkIGbXoNBtuhQMxgWOZ4UqTILrEfeOrHVAmWW3j7YpGDQG2Dw9Jg/rUn90EgD36
-	 jtx9o9pSd3FGGGD/j3W9VhEJOE2xjtpOdXL2lbQTZEpNOqeYtf7m9oMzObrW2WhjA9
-	 pcN/0ooGXDRyw==
+	b=XgQaPU/tHQ9qG5+iV9rAw//oA7KdsmgdtJivOyAzjRyPRZhJyaUG8Qmo7JlBY5qTu
+	 nrTF6ZrnMzc5lpbtM2AwahvSfgGOFd/7DXE3cyMAJywI9mm5dfP9dJWWX8Nr9sl7iA
+	 rDxHBhN1UJDOsEFqj8feYfo5Xs8GFo+yfoqTCDsPzLph07QM3Zp5JKv4mcKtFT4OIe
+	 Nvxpvz3MrQVhSAjwNYErptApnZNz5Wj3egVYqWoTOsBicl06purDm7MYA2HL6BB1BU
+	 aMfM/E2CHHg1ZjCX3ERNx7fMVSBk+eZrG+nT+iS7Sdki1LWfiuSZJhdJyILcnKpgBq
+	 0aMsEnmmmHnqA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Qunqin Zhao <zhaoqunqin@loongson.cn>,
-	Yinggang Gu <guyinggang@loongson.cn>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	linux-crypto@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>,
+	Mattias Wallin <mattias.wallin@stericsson.com>,
+	Samuel Ortiz <sameo@linux.intel.com>,
+	linux-arm-kernel@lists.infradead.org,
 	mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 21/28] mfd: loongson-se: Validate engine ID, DMA buffer size, and IRQ registration
-Date: Wed, 21 Oct 2026 12:09:43 +0000
-Message-ID: <20261021121245.3111563-21-lee@kernel.org>
+Subject: [PATCH 22/28] mfd: abx500-core: Unregister device ops on devm release
+Date: Wed, 21 Oct 2026 12:09:44 +0000
+Message-ID: <20261021121245.3111563-22-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
 In-Reply-To: <20261021121245.3111563-1-lee@kernel.org>
 References: <20261021121245.3111563-1-lee@kernel.org>
@@ -65,97 +65,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Harden input and error checking in loongson_se_init_engine() and
-loongson_se_probe():
+abx500_register_ops() allocates struct abx500_device_entry via
+devm_kzalloc() and links it into the global abx500_list without
+registering a devres cleanup action.  If a caller's probe function
+subsequently fails, devres frees the entry while it remains linked in
+abx500_list, causing use-after-free and list corruption on later
+traversals.
 
-- Reject out-of-bounds engine IDs and engine 0 in
-  loongson_se_init_engine() before indexing se->engines.
-- Store dmam_size as u32 to match device_property_read_u32() and verify
-  that it is large enough to hold the command buffers of all engines
-  within engine 0's data region.
-- Propagate negative error codes from platform_irq_count(),
-  platform_get_irq(), and devm_request_irq() instead of ignoring IRQ
-  registration failures or masking -EPROBE_DEFER.
+Register a devm_add_action_or_reset() callback in abx500_register_ops()
+to remove the entry from abx500_list before devres frees it.
 
-Fixes: e551fa3159e3 ("mfd: Add support for Loongson Security Engine chip controller")
-Closes: https://sashiko.dev/#/bug/linux-89bf25f5-ecd9-40e3-bb4c-bd26d07c53a1
+Fixes: c211b6b9c014 ("mfd: abx500-core: Convert to managed resources for allocating memory")
+Closes: https://sashiko.dev/#/bug/linux-6a9c6b8b-8f89-4af5-8cb1-102822e44e6e
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/mfd/loongson-se.c | 23 ++++++++++++++++++-----
- 1 file changed, 18 insertions(+), 5 deletions(-)
+ drivers/mfd/abx500-core.c | 29 ++++++++++++++++++-----------
+ 1 file changed, 18 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/mfd/loongson-se.c b/drivers/mfd/loongson-se.c
-index bdbab4b91729..23af05d388aa 100644
---- a/drivers/mfd/loongson-se.c
-+++ b/drivers/mfd/loongson-se.c
-@@ -26,7 +26,7 @@ struct loongson_se {
- 	struct completion cmd_completion;
+diff --git a/drivers/mfd/abx500-core.c b/drivers/mfd/abx500-core.c
+index e896531d0354..5873e335c395 100644
+--- a/drivers/mfd/abx500-core.c
++++ b/drivers/mfd/abx500-core.c
+@@ -5,6 +5,7 @@
+  * Author: Mattias Wallin <mattias.wallin@stericsson.com>
+  */
  
- 	void *dmam_base;
--	int dmam_size;
-+	u32 dmam_size;
- 
- 	struct mutex engine_init_lock;
- 	struct loongson_se_engine engines[SE_ENGINE_MAX];
-@@ -101,8 +101,13 @@ EXPORT_SYMBOL_GPL(loongson_se_send_engine_cmd);
- struct loongson_se_engine *loongson_se_init_engine(struct device *dev, int id)
- {
- 	struct loongson_se *se = dev_get_drvdata(dev);
--	struct loongson_se_engine *engine = &se->engines[id];
- 	struct loongson_se_controller_cmd cmd = {};
-+	struct loongson_se_engine *engine;
-+
-+	if (id <= 0 || id >= SE_ENGINE_MAX)
-+		return NULL;
-+
-+	engine = &se->engines[id];
- 
- 	engine->se = se;
- 	engine->id = id;
-@@ -186,7 +191,7 @@ static void loongson_se_stop(void *data)
- 	mutex_unlock(&se->engine_init_lock);
++#include <linux/device.h>
+ #include <linux/list.h>
+ #include <linux/slab.h>
+ #include <linux/err.h>
+@@ -33,6 +34,21 @@ static void lookup_ops(struct device *dev, struct abx500_ops **ops)
+ 	}
  }
  
--static int loongson_se_init(struct loongson_se *se, dma_addr_t addr, int size)
-+static int loongson_se_init(struct loongson_se *se, dma_addr_t addr, u32 size)
++void abx500_remove_ops(struct device *dev)
++{
++	struct abx500_device_entry *dev_entry, *tmp;
++
++	list_for_each_entry_safe(dev_entry, tmp, &abx500_list, list)
++		if (dev_entry->dev == dev)
++			list_del(&dev_entry->list);
++}
++EXPORT_SYMBOL(abx500_remove_ops);
++
++static void abx500_unregister_ops(void *data)
++{
++	abx500_remove_ops(data);
++}
++
+ int abx500_register_ops(struct device *dev, struct abx500_ops *ops)
  {
- 	struct loongson_se_controller_cmd cmd = {};
- 	int err;
-@@ -249,6 +254,9 @@ static int loongson_se_probe(struct platform_device *pdev)
- 	if (device_property_read_u32(dev, "dmam_size", &se->dmam_size))
- 		return -ENODEV;
+ 	struct abx500_device_entry *dev_entry;
+@@ -45,20 +61,11 @@ int abx500_register_ops(struct device *dev, struct abx500_ops *ops)
+ 	memcpy(&dev_entry->ops, ops, sizeof(*ops));
  
-+	if ((se->dmam_size / SE_ENGINE_MAX) < (SE_ENGINE_MAX * 2 * SE_ENGINE_CMD_SIZE))
-+		return -EINVAL;
+ 	list_add_tail(&dev_entry->list, &abx500_list);
+-	return 0;
 +
- 	se->dmam_base = dmam_alloc_coherent(dev, se->dmam_size, &paddr, GFP_KERNEL);
- 	if (!se->dmam_base)
- 		return -ENOMEM;
-@@ -258,16 +266,21 @@ static int loongson_se_probe(struct platform_device *pdev)
- 		return PTR_ERR(se->base);
++	return devm_add_action_or_reset(dev, abx500_unregister_ops, dev);
+ }
+ EXPORT_SYMBOL(abx500_register_ops);
  
- 	nr_irq = platform_irq_count(pdev);
--	if (nr_irq <= 0)
-+	if (!nr_irq)
- 		return -ENODEV;
-+	if (nr_irq < 0)
-+		return nr_irq;
- 
- 	writel(SE_INT_ALL, se->base + SE_S2LINT_CL);
- 
- 	for (i = 0; i < nr_irq; i++) {
- 		irq = platform_get_irq(pdev, i);
-+		if (irq < 0)
-+			return irq;
-+
- 		err = devm_request_irq(dev, irq, se_irq_handler, 0, "loongson-se", se);
- 		if (err)
--			dev_err(dev, "failed to request IRQ: %d\n", irq);
-+			return dev_err_probe(dev, err, "Failed to request IRQ: %d\n", irq);
- 	}
- 
- 	writel(SE_INT_ALL, se->base + SE_S2LINT_EN);
+-void abx500_remove_ops(struct device *dev)
+-{
+-	struct abx500_device_entry *dev_entry, *tmp;
+-
+-	list_for_each_entry_safe(dev_entry, tmp, &abx500_list, list)
+-		if (dev_entry->dev == dev)
+-			list_del(&dev_entry->list);
+-}
+-EXPORT_SYMBOL(abx500_remove_ops);
+-
+ int abx500_set_register_interruptible(struct device *dev, u8 bank, u8 reg,
+ 	u8 value)
+ {
 -- 
 2.56.0.218.g1ec904b173-goog
 
