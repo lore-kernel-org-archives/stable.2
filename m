@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594930;
-	b=H7a1HqiRZ5cOwTnor8kbFu36GnubEfWXTe3cmfbe45dqv12Vq5EQuzps5kUou5cJrH/5
-	 nzNdJpffe4BAqDZ4PqYkti49zxhBhONdxMxN/oxSuuMwADOG+NuzjP6CMH8zno4vcs9Wp
-	 urgw0jQ3L3J/7PPszUPhZr80Oo/gR/rQkfpgX8DAOrl/F+JSmSVAFV8LYssBKGpEhttcx
-	 cL10xdbzuvl1uOaUkYPx76h9wuaXvbLcRNMfIZ6mgm0uuEg89xss1ydjzWkWStcJdGCUR
-	 LL0ONgWOT7Q7KdbbPwqgoWpAmsWjWmYeulp/n3Cm0lIWv8QfVtRfOrzhnmbluYnAoqA==
+	t=1792594934;
+	b=BUgXgehSAvvN6VwQIMls4zSlsHJyhwPyaiQcAxyrOKBnzfSuoseu5Uia3tDDPClQvIc+
+	 wA3ijDxlDHtdtCQLUb2KHWHMPXDcZnBn46sBVagIpyQy+LucnUvGgkXnKE4uFUyRECEwE
+	 FNWD354XpySzvncRgeMNIKCU8cyaM+gJ0SSMV+8Ymq28/aXk9E78huYg4GG/FUOWb23La
+	 /euNY9ThwkKtuImsbfcQbk0DmC38fCrRhOd62pRjoGm2eA0Zdm4XTj8oSMcE3bP0ywEJl
+	 RIoSVKNyKN4fwVlYpD+L6AtgChTB3yK+DwAfuYEzqWFPuqOboNOSg29sgzOARHpPldw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594930;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594934;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=m5opDp1HjAfpfkMkllqznqre0nxIAy0j6CwBzx76L/M=;
-	b=t7CDBJHkqHur9WD3orbpnljKRBj6NEJiUT7Q8sw/uKHOwToO2NaCaW1uD99VQGw4t3M6
-	 f5in7LNZK02k6OHMcXiExMrz6OIkYuOS06j6zk4XM8lqE0EekCWeajk/pbeR58vWnfwbL
-	 6WJojNiaOUPXs7I7GOkiogEoE+NcsMaVez9/5PbRLYQfvmJC74cx1A4H7MmMkx6htol3Z
-	 ctS6iuUBSh2sJHmJIDynnPjmucKKZO+C+ytBt1pDiNXiIrzRh6wEAjz6YB6nLQr8V973/
-	 sgyHSxiUXdOQieEQf5cAenzZr6mz/NLqcugbslHDQV+RlIeiDjdGQO+c+NzWHsFgcVA==
+	bh=rT0lcj78m3hKLq1gI4Qh637rM2DKuQ8cAxTfZ+P58Po=;
+	b=SzjfDHiBYrsLAJSL+oEVbKKCussw2PIQei2GafIworh0hSjgS1DEaHVxw2/EE49AGSZ6
+	 SlUCGRMO2hpFUXgSE5o2P0FQ0d7qEIaX307jSlXATqk1Ndx2ZSkdoQrz5jQretujv2Ljj
+	 JCM+ypDlF9u2RyyepZRfe7mBrCyDUR0DrqTbshOCZidrFSytRfmpPg8J4lj30esoQsMTP
+	 cdRuAmF6UVF+sLCFl/hBf4rOj5PwGNTKFebJDLcoXqDG2CSTPo1ZWZrL8i6vHQP29ROEM
+	 IBhjBDaxlWcozna7UFsFxXTtvtRFYhk3veFf996xXoXoDoFlkeYmscZwwqvTIQVRaGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fJBpTBai;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="dUh/9HPU";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C34606A31B
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:02:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2CCF606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:02:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fJBpTBai
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A1251F000C1;
-	Wed, 21 Oct 2026 15:02:09 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dUh/9HPU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E94C51F000C1;
+	Wed, 21 Oct 2026 15:02:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594930;
-	bh=m5opDp1HjAfpfkMkllqznqre0nxIAy0j6CwBzx76L/M=;
+	s=korg; t=1792594933;
+	bh=rT0lcj78m3hKLq1gI4Qh637rM2DKuQ8cAxTfZ+P58Po=;
 	h=Subject:To:Cc:From:Date;
-	b=fJBpTBairS5zmSQa2NK9FRVusR4NwfbC5NW9+js3ruJwOwlm8oXV64pOOanpdeUMd
-	 MQYAiJPrfZ90rT0/x7uMyjPYC0a9VpwTAlvORRFKD6t7oB2n9rrwxDctFuub8V2oz3
-	 Yzoe/X9kjLWXMbQxbRQ5eqjOihQHjGDBUCVVlebw=
-Subject: FAILED: patch "[PATCH] sched_ext: Fix stall when a task enqueued with SCX_ENQ_LAST" failed to apply to 7.2-stable tree
+	b=dUh/9HPU1jTd1sqKvtLfeJsqecpZpilhmQwGRl8u7luLv+v7V1/GcEu3i9jyHKaWW
+	 L0mWC8TlXCcYrQWkDcIkFnvx/MImexFkP5jQzx4g/IhHZNJN3jvJ0AfnDPFCq3ZTRg
+	 k2zvqhmXSDY7/N6t55K1pDUZ6qVdnFBjxt4CixSw=
+Subject: FAILED: patch "[PATCH] sched_ext: Fix stall when a task enqueued with SCX_ENQ_LAST" failed to apply to 6.12-stable tree
 To: tj@kernel.org,schatzberg.dan@gmail.com,xbu@meta.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 16:50:00 +0200
-Message-ID: <2026102100-retry-bullfight-49bf@gregkh>
+Date: Wed, 21 Oct 2026 16:50:01 +0200
+Message-ID: <2026102101-kilogram-periscope-454b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 7a9df76679633cf26e0fea882a684012c6ec245a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102100-retry-bullfight-49bf@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102101-kilogram-periscope-454b@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
