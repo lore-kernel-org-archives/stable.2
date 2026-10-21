@@ -1,78 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792573548;
-	b=Tn11BVPYBgbjJBE5c4XOvQHlPJdCxtz6qS9lj4KhgTIT2BKgBnGZaonRXC12uxgiImIY
-	 w7LjcB4Q9qlKrpkqImP/6g6MQ358V6kBXtDIBZZ3tVX3NKAouA2iJSWX+MzGS3eJMGdrE
-	 49j2sY1k45+TGQb7+Y19TEOfCUD/WPI93FB0xI3AgU7/Fvpe3qEeZ8jPv19RBdx81M+OR
-	 bxqPrVjMgJWrjjlnYyod/ZNej+CfPin8gsAEvND1cyZWfzgtzVDbKT2s6x1N5/XcQxb8b
-	 Lidayuq9TbUbhYRYsX/CPD974mqOg9Savt6mj3GETaGD6JuVq2pxMb0HQXi6WG4LSdQ==
+	t=1792574833;
+	b=UgcUM9BEd+Zh4LTGr7UPPWZ28PudxwJ3ykwvUjz1d8rOCu1r2PzerBmZM0NOPageZZl+
+	 nn4VB/fZVB6ivCS0iBs44wOxEkwXa+qt9Jah4fxVKiyzMTDV3AeEa/sSt77XROPKJIKQA
+	 2uFw1EQpJJlM1iT1Yb/EhiWMvPQKEIaKyy0QkSApxfU5SLaGCp4fVjj3Z3GI6/KSj2U4R
+	 8N7522zT7o79c9OrUw6SsdOZZlekduhrc61T/K0imOAwMaptqvWY10L/PPUIVCZd0SgKA
+	 uv9e1vNWqn6ZZm4ajRcnHx+cR4v0H+YQjWoirJop6KljYHdbHKoDBtQTHgakhZmfRsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792573548;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=MDiV8Cg2qYD5w4v3RNhhR59ppcpCPG7oh6UM9oq7LWM=;
-	b=DNpS2VjnPWKVr3vnc89+gg036/OHe3+mc1HZXL+5t+nmcY/n6Swi1Wf63/tu4VOGRN+f
-	 uQW7pa071y+REiqL9QUuAeX9qu7Dmf6eClUQ3ZV963wON/GJaOkVoZkiiEIwZoDyGxN4J
-	 tEkE/1C7YucR1yiXaDGKTY159Os7/yF2EwQJZ2uAgDVSn0SVWPmdsQ0dWJn0bj7Hk+3rE
-	 rj5aX2gyYjMmyEax55vArc/yKw+wQtqbLBcwRKlv+rP6hMIFAV3PCbshWwf2R7MafVBEh
-	 nxglvAE++l1jfinXf4wsG5n+E2FRlU/iOHgMrO+K9WE01YWDarIWdpRUstEuERAA5hQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792574833;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=9XQkh9lf7wElzJVQsyWKbD5l2m4uqHSi/59IR73vHTg=;
+	b=rG+FWK6abX2ygJYlWfNEdMdBWNAO6XZjCEhgJ0r/DSdlo182z1mwkh46/hCI0h6GmtMf
+	 jdVS/oq6E70vQ8ydsete7dF0NEJQhH00O5LRRfi62vpyg/oy1ygtt+uA02iHF6GangWWN
+	 ljvhn5Sm9CmwWg6pBNKfeL/63v9Ew95Tyeh+jibEhBoF7YmODYxbh1Ebq3simqhFhMNU0
+	 SM0eFtPRrlDGuVprPeM9tUC32OKV8KjbBw36SqP828/27KqQqXp+iWbfYfSnu0xY1ZvSh
+	 soF16YU3z9BbShnI1qVgiTEXrjEAJSxGOOm3x+0oz9BSYtRlfuzHCk9MstxBs6+cIlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Mrx0lhpi;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MIJrvosy;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02117606A31A;
-	Wed, 21 Oct 2026 09:05:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02117606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F35606A31F
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 09:27:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2F35606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Mrx0lhpi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792573548; x=1824109548;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=3bc6kI4G+m4pyFPZ8z/26MoCOdgMktIlpCdemjKJb20=;
-  b=Mrx0lhpikuGCSw25U3AR941mZUL75yNASpNpagGQo1wqOUShovZyzMUK
-   iVhKaOkFvegjCOMRTM4TogXwRPwpHoOcADqihvkLWlMg1pkEwFOO8D7/c
-   9E+s3r3bXBrerZS3o8W6fR6wPhs3NlOPrFLG7D+psHPt464OICjB25BFj
-   bipm3wx29h8NDsVBBYT4u4yoTMxFPZ+C6VVKsMjyg1nKsJJ1OZN+cE/nj
-   sOih2XzO0iid4f4/Bi7ZUYX+m7UX+RzpPtOBFfymzr9mpKmN08fQzg47g
-   qXpkGtjsPAyO4eK14bZOthgNKkgjzc4oHUgHxw/kTzujXbx5qisKySegn
-   Q==;
-X-CSE-ConnectionGUID: xPS2RVvYTqCKr1yjQcTAUQ==
-X-CSE-MsgGUID: 5Y3dYEaySe+GtF4Uc17gew==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1303247"
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="1303247"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 02:05:48 -0700
-X-CSE-ConnectionGUID: kq2bl2/3SRmAWc4968UjTQ==
-X-CSE-MsgGUID: TNG0Hco4Tc6jfhpl38N7+Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="3437346"
-Received: from alekseim-mobl.ger.corp.intel.com (HELO localhost) ([10.245.245.75])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 02:05:45 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 21 Oct 2026 12:05:40 +0300 (EEST)
-To: Muhammad Bilal <meatuni001@gmail.com>
-cc: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    =?ISO-8859-15?Q?Thomas_Wei=DFschuh?= <linux@weissschuh.net>, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-    stable@vger.kernel.org
-Subject: Re: [PATCH v6] platform/x86: hp-bioscfg: fix heap OOB in
- hp_enforce_single_line_input()
-In-Reply-To: <CADqcGBkV4iE_0j6usv6TvV3K9XGUa0L9J-ebUkTLsB0NBYzTHA@mail.gmail.com>
-Message-ID: <a905f45d-aec8-569f-d5bc-718896f7c9c9@linux.intel.com>
-References: <20261016025352.230535-1-meatuni001@gmail.com> <29c3e4a2-9d6a-60cf-d06d-85152a40a703@linux.intel.com> <CADqcGBkV4iE_0j6usv6TvV3K9XGUa0L9J-ebUkTLsB0NBYzTHA@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MIJrvosy
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a16af2a232so2833645e9.1
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 02:27:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792574831; x=1793179631; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9XQkh9lf7wElzJVQsyWKbD5l2m4uqHSi/59IR73vHTg=;
+        b=MIJrvosyhchoySA6M2ALuD2hK2i7sP5TXboHiwjpDDDnGVkv8xuog2A30lshVg1tY5
+         o64M3aBqnP9h8QfrR+V2mbwqpld/OzqnxelyWx7m5BqaVd1GMG/vWjeHbJO/HsAJguQp
+         4uaQZz13+TpRFNm70wAukTI7xNn2ieLfPJtaqrAv99DOsLWIDmud38yU+fczSnZw2G/Q
+         7upiFYKPYutM7qQO/kBDezbI4Rha80n3nViPTvlWRJz3vykLrq+wEK3+rMvmm96/K80A
+         ZimIIpqyqRA6z1HUiLd3+GlRNkLrLSm7/C6gEYBCl6LPKBqMuQL+ckk/yIRVBDD4NruJ
+         FiOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792574831; x=1793179631;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9XQkh9lf7wElzJVQsyWKbD5l2m4uqHSi/59IR73vHTg=;
+        b=qit4m0iYjUr8tCaYQeHAgKiJmhIqgBUNVrKl8aMaMsVSlnnraFHDv5VpqKbgFc/ahz
+         651wtOy3wGszGXXCSZaa/TlPPC6sXWqe9PFUx6M6x1v7ogIPKVNw6qQt254MiR6rAfQX
+         9qef1ArzrS11xGG1tU6VAUKd9QD5ymK55u3dTqToQ2QvLFnZX+THKw1RcDK4FcK2xx77
+         O9AsX8AQluRWdEu79f1RgyGVcqnSizYZFPEubYKoB0wqTW+OCBKbSN7Mbe1LTIsDz3fY
+         I3RVNhlnlX/VfnA7JRD6Rp3ZqxMdVvFflWcVB6Dvf1DRYBsTwsHid0BPkBUVs9lQqa4J
+         /Gkw==
+X-Forwarded-Encrypted: i=1; AKwUvBzh7Vja26lkDPBsoLoUClKvK6qvWPeAnvsfggkXXmrKUVxi8uFgMHwowUusJgyKdO8lTw0zbvk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPEjowG8x5Voa/flqq/pqWwgMoSrpvKU3JbuBX16dRZlvx7wl9
+	7JzO5ke1C8Ld9XGM89yXNoS+Fxgs6SeK2Ba9MyQ5u0r2qEerPq8fz9aY4sePuwyH
+X-Gm-Gg: AYBFou2BbTenHaSBdZa7j89o1Gj1sfN8yI00bzdDmEVG8p3qJkfIh9ax3mhBIM6toCr
+	3DZFBW4a14s7f63wTYRBw4c4a/qGb+7U35MqN7Wf9gwHEUtPm1mVjLEx9uzuen4zrOcl7FvF0sn
+	rx4JHYKNLvMXjcMjwoicHEHdHJ7W6oEIVzjb9GTyfmHjYVQF4KuRWcpCQy7hEGEAi7nzp0jMK+y
+	CHumWkh07NnZbwJwrhkrTw3V48pAeZ3S2F4Oh8BspS8ptYihMPic33OSxaf6rWxGznBh28/OM6G
+	IjfDT/1futetFUvGqjUv2EiMXNSbLG55zSLWS+8MLTAkGhVGRUh/j4SwHvhIdNW5xgiao8xH9qa
+	/gkcki+Bo8IZqn68ubLbCrHbz088dWxYe82WSvZAn9wqHB9LaVVGwihRkwlPtgucTqInMyVZkGB
+	1v6zyEQr4eubxB5VERahQj3aKBXg9QpEmv8tDhp0UqKsmpiPq3GS6qzJUtV89x5x2zBjS0CnZmh
+	yQMFXYofj+BFdv9OPska/0asJVx5fhEaTQZs5zUTlPHf6osGG95YwmuV7gFxZ2Z1Ww=
+X-Received: by 2002:a05:600c:34c4:b0:49f:ce78:3562 with SMTP id 5b1f17b1804b1-4a1fdd37971mr30903995e9.19.1792574830916;
+        Wed, 21 Oct 2026 02:27:10 -0700 (PDT)
+Received: from foxbook (bfd231.neoplus.adsl.tpnet.pl. [83.28.41.231])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2d1e8ebsm129038025e9.3.2026.10.21.02.27.09
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Wed, 21 Oct 2026 02:27:10 -0700 (PDT)
+Date: Wed, 21 Oct 2026 11:27:05 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Wen Xiong <wenxiong@linux.ibm.com>
+Cc: mathias.nyman@intel.com, gregkh@linuxfoundation.org,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, wenxiong@us.ibm.com, Brian King
+ <brking@linux.vnet.ibm.com>, Samuel Mendoza-Jonas <sam@mendozajonas.com>,
+ Joel Stanley <joel@jms.id.au>
+Subject: Re: [PATCH] xhci: Reset controller on xhci shutdown
+Message-ID: <20261021112705.19fd90b8.michal.pecio@gmail.com>
+In-Reply-To: <5510281a5d91bbd435d9920431a3fa75@linux.ibm.com>
+References: <20261001222527.11742-1-wenxiong@linux.ibm.com>
+	<20261002102931.3cb06009.michal.pecio@gmail.com>
+	<561d22493c3d078b26f547dd8f6f6f46@linux.ibm.com>
+	<20261002161828.365ff859.michal.pecio@gmail.com>
+	<55a53022d1c6f671a3ed549d8cf7cd1a@linux.ibm.com>
+	<20261006125546.10471489.michal.pecio@gmail.com>
+	<64515dfd9a6cd8c3f5665e72a6bf6b81@linux.ibm.com>
+	<20261015103307.3ba25345.michal.pecio@gmail.com>
+	<5510281a5d91bbd435d9920431a3fa75@linux.ibm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,89 +107,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-2130717885-1792573540=:1258"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Tue, 20 Oct 2026 15:40:24 -0500, Wen Xiong wrote:
+> Above patch is similar like my V1 patch.
+> It works fine and all usb devices are showed up after executing a kexec.
 
---8323328-2130717885-1792573540=:1258
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Thanks for testing. The big difference is that my patch does nothing
+if the preceding xhci_halt() completes successfully. So if it helps,
+this tells us that xhci_halt() fails and the chip most likely locks up
+right there, during xhci_shutdown().
 
-On Wed, 21 Oct 2026, Muhammad Bilal wrote:
+It probably fails due to some devices that are connected and haven't 
+been shut down normally; I suspect that nothing bad would happen if
+you disconnect all devices or unbind xhci_hcd before kexec, but we
+still need to cope with surprise shutdown somehow.
 
-> Hi Ilpo,
->=20
-> > Why use n variant?
-> strnlen() keeps the read within count, which is the size of buf as far
-> as this helper knows, so it does not depend on the caller NUL
-> terminating the buffer. Both current callers pass a kstrdup() copy, so
-> strlen() works too. I can switch to it in v7 if you prefer.
+In such case your suggestion to PCI reset may be the simplest way out.
+It seems we could either call it always on TI chips, or automatically
+as a fallback when xhci_shutdown() fails to halt the xHC.
 
-As the contract here is the input must be a string, I don't see any need=20
-to limit the length with n variant so I do prefer strlen(). Also, we know=
-=20
-that it should not be longer than count anyway.
+Mathias, any preferences?
 
---
- i.
+The latter is perhaps a bit cleaner and more generally useful, though
+I must say that I tested rebooting with a bunch of devices connected
+to a few different HCs and all of them passed through xhci_shutdown()
+successfully, so the issue isn't widespread. I don't have TUSB7340.
 
-> Thanks
-> Muhammad
->=20
-> On Wed, Oct 21, 2026 at 2:19=E2=80=AFAM Ilpo J=C3=A4rvinen
-> <ilpo.jarvinen@linux.intel.com> wrote:
-> >
-> > On Fri, 16 Oct 2026, Muhammad Bilal wrote:
-> >
-> > > The input is copied with kstrdup(), which stops at the first NUL, but
-> > > the full write size is passed to hp_enforce_single_line_input(). With
-> > > an embedded NUL the helper reads, and can write one byte, past the
-> > > copy. Return -EINVAL if the input contains a NUL.
-> > >
-> > > Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.8): writing "A\0"
-> > > followed by 4093 bytes of "B" to current_password 100 times returns
-> > > -EINVAL every time, without reading into the heap.
-> > >
-> > > Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
-> > > Cc: stable@vger.kernel.org
-> > > Suggested-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
-> > > Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-> > > ---
-> > > Changes in v6:
-> > >  - Return -EINVAL on embedded NUL instead of limiting the scan (Ilpo)
-> > >
-> > > v5: https://lore.kernel.org/all/20261007134711.473857-1-meatuni001@gm=
-ail.com/
-> > >
-> > >  drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 4 ++++
-> > >  1 file changed, 4 insertions(+)
-> > >
-> > > diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/p=
-latform/x86/hp/hp-bioscfg/bioscfg.c
-> > > index 876fc35d035b..e306bd8b1e72 100644
-> > > --- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-> > > +++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-> > > @@ -162,6 +162,10 @@ int hp_enforce_single_line_input(char *buf, size=
-_t count)
-> > >  {
-> > >       char *p;
-> > >
-> > > +     /* buf is a string, so a NUL before count is invalid input */
-> > > +     if (strnlen(buf, count) < count)
-> >
-> > Why use n variant?
-> >
-> > > +             return -EINVAL;
-> > > +
-> > >       p =3D memchr(buf, '\n', count);
-> > >
-> > >       if (p =3D=3D buf + count - 1)
-> > >
-> > > base-commit: 8667bd30fd033295b3038ce374c551d1059538ba
-> > >
-> >
-> > --
-> >  i.
->=20
---8323328-2130717885-1792573540=:1258--
+Regards,
+Michal
