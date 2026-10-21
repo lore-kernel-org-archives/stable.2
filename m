@@ -1,102 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792607385;
-	b=Jf4hlNbOWQx56a4DBMZ0qM4ug8Wi4+/8n534qdYU0Jo5fEoRjatJDjWPy+45rrRdgW05
-	 R92B3p0Ix7dnK43S3RiuzBw0VVgacyuzlsb9aRmbHL4OTlQVJlVkgG+Sh9lFjBKdB192D
-	 twCTyhecuI+mro35vZoYcz0ABTL/1nnmCaH4FLjLFqOp4bYrDi3NkdcgI0RqSZP24PsDk
-	 Ioe7GVT4BsTsEX4htWMRvc5A7OCgQE9quis6dbJ2+DWyy6I204QonE/FLX9P0qAXD7lES
-	 CXcaElCNMxgY66lropZo8bEbIBHQPbfTBCK//A/D6Z8oPSXpLH7dHebiiAf+uI/vd6w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792607385;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=zNzj/nwpT7sp/+0FKjS9bH1e9IBQXTtxz8PSLmwa0TQ=;
-	b=JLUR0rsGrH5bAESC3C2nrD+fCmhtYYiZa9x10cNyhRxvVwnymSBf9hDtQ4Icfaijya2E
-	 y31WfuV10460inQjIYasJXP6CzzMeg4pEVhZXAJE9dCP9MN2x7p5nAHLh25rH7vQKuH4c
-	 +SnjeeHF+Qvm5he/M/YGY6xUSMRwUBCY1O+GnmbV+R5d7VPx9wN4t312Nj+IfnMCC4FVT
-	 /WO/z537J0lPPM6eHZR+Bw+iTzF4FUbUXEgUN9rdQRV3beRnmIKri7ECuNlgEwT3Kh7xA
-	 cq2grNPKGRNtm+NM0Zph7xeBxjKgAo7WxjgGtSCHga2Ox0T6p8RH2SxryGL9yrePe7A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=uhEr+jKk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792607984;
+	b=wAKkrMHiEpXjgHnXRNXnwlYyIy8x2iwWPfOBigKs3z+hEBbSo2dfG8fzDpZnv7uRt/Ip
+	 3m2xbOzG4zE4RsqXG4+xp33wjdgHmkbw34umujgDvrhVeDivJH/yDTCmYwEnlv937viE/
+	 0eyYvx4Tj0ye9lc8cBQSt3HRjM/xBz+Gg38KWUmubmgYdKtt+2655aUtDdo0cI5k5rULv
+	 nv2cEr/gK2Q1Gi4V2eNrNqA07gUY1v0feCmmlHH4p+p+EreHypsmTvEv7+q4G0sk7O6jD
+	 GZkwfNkXPt9omPjZ3Hq2LG+TxK/r1QQPS84u/57jlH0U+Q36L9x3xs3aZ6dMlSnMpYA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792607984;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=R/cyaRzWC9pd6KDI+55QfQUjuj9Ehis3S52PJ74iJxE=;
+	b=iD3xE4xUNpm5WgPbqjcb5cMKD6AIllt8hDdey1AO0SscDQBs0ewRWw+iIO4RgBUnlUfP
+	 l+J4Be3Znk1LC4jGvSp5pYzoRNz211J0JMoWOQRQi4Q0ob5BQL8UTVYItEeDdPi1AqfrD
+	 VpN4fySTer7Bhj9JezhFV/wKbHJa9la1CJBMfhOvHePt0yQm5LPZ1TO/LQBB5+s4tMmZ8
+	 /z74TMrV5Hxdv9DFE7zXZ4iiHq6AMrRy6t5w+NosDUumEnoYxK37yRmvDcK6lUjrwnfqk
+	 rTnkwziqU2vLbUPNbTO7K2349u3T4/vaLPOJAqvav8rn8NIQWgOhCijCGXbxHhc6olQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=JL6HFLwr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2526606A31A
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 18:29:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2526606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F5C606A319;
+	Wed, 21 Oct 2026 18:39:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=uhEr+jKk
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48c4be28b82so954606f8f.2
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 11:29:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792607383; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lnXvMfw+U7kM6LmzqmiwlRZNFS48KYGlY5ZElZS/Oa5AkvmWSCvVN5DdNNShqvF90Q
-         xFR4KiXHGw0GEn6+0RgMNUkUlMWum/IgUs/dPJxnTh8nCZ7z3pxyEAoVX0XWL2JRnIqb
-         /9B8qbtzMIbsNH3Qkos16relegBNt8N/DbobMMVOYrGfHww8FhJG+A6vJe2nvMc3BPQ8
-         lwoK4WM/Tb3tJFRywd3V8OPUwQBOZzPYbOcWVzRsZLSt/FF3yIdSmCIgJXzL6Rx0mq+U
-         UiepZgtuw8GAoTe4YTIsxt/yxA9V8Uoa+mB3z8yMrbX3T2jAW1vBVNch4Og+Dwf9VK/5
-         qeqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=zNzj/nwpT7sp/+0FKjS9bH1e9IBQXTtxz8PSLmwa0TQ=;
-        fh=WlZfHtPL40E/5Z17rdx4ItbWfLtRWH4WTXR4P/msyEc=;
-        b=TpakIOfKCzTrZOPo6cMpKOly0UfYdUSoUhF4BXsr/DZLR9AXO6SljmHIGZ81erig6x
-         gox/I2EPTXoiuDy61Cci9CX9euEh/pVDTm0cJfD4bhZcFJmVjoJDuEoYhbKztVnMhbtb
-         R+HjPlsN77fHWvwCxN4eA5veAWTRuHRcf9ICbAagdee/N4frQ65MyIh1kZFUuAqZNUzq
-         rPRuf3xRp9odM7SmaI4q9P6IPBQk1xZ6j0f9aPV28cqn4NGSYuKYfIymFs3Um4ArYv1B
-         woBYolQqvydMzo1MnnKBRO1esyn0enf6SuzCZpIBO9wjy/hz542zlgfS6q9p/qGs83ma
-         +f4Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=JL6HFLwr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15E801F000C1;
+	Wed, 21 Oct 2026 18:39:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792607383; x=1793212183; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zNzj/nwpT7sp/+0FKjS9bH1e9IBQXTtxz8PSLmwa0TQ=;
-        b=uhEr+jKk96hzkTwObdC8c+APl616ShEbFaMN/hljBiXVKAJapK7ag+qgMNv4vZOI/j
-         s7S2Gv4mSQUzIdIGq9RSvJ2ltqCVM1nt/AOOB2IIuPZ/lOoWyCaXC6PbISKgNMK855Uu
-         ZYHCEGK0cCxtto+AsiZeVpKr9xeYkTv1VaveQvwKZtNWSSdY/yzBHRdGYBUGxXlPy1l9
-         dgkKSxm2HRnVtnT8mc285pX6F4GMae5XJCOXAMekfbhcH5HvOF4Xv0vBGhnh/MFvOraN
-         B6gcldVhTm4Z9gDsvKE0InacApMUWDiNofzJVql6pzqtXPsLnjrxAXSA/MfUbB1Kw7b9
-         1xTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792607383; x=1793212183;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zNzj/nwpT7sp/+0FKjS9bH1e9IBQXTtxz8PSLmwa0TQ=;
-        b=ekFhKqHsiQh1h/PNtvgIu3wpOh/AESnMZ5QMJgyDr2ayyI5Cgs8qzFkAx6hC1KTfnx
-         nHvWjk2GQG+zrVMsgv0zZVr0hC5wlqGXc0NlNRGpGKgU+vDtnVTQDIWYB/XFtJgUzB69
-         J/lvwINDbM51iCbVNG8aF6prqoLKAp2ZGTSjnp8K8sIH/OneUTo2P9tgAERNr1Qv+ytn
-         De9q+ZPhUvwf2ytzFX5FcJcJg0kz3+677cefb13k6cK8nHsLQ/fTEBL4vmIrJWaDkd/V
-         VFTJ4RXpJXCTozuVF4dTVa3yR1uUdMH31YC5u8t+E3LHl6ptTLjvUBVHAScQ+wDo+wZ0
-         SXTw==
-X-Forwarded-Encrypted: i=1; AKwUvBxNTr+OHq7vI3h8GSCmPAk0PkgvuyilBz8OpTimmjG4+QYDk3iR7UR2LZvDQIiSxDfaTT3dhSc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLJT/Gvt/tX8QDmXluE8LWRNh7knwPZVaznp2FJvlqi0skBJ8Wg
-	IXawyGte7WkDvg1Y6l5WkqC2B/lc6hAzYSxYnoANwfBNaNMB8Fl+E4vQ32wSyGAodIHxXEb5o4X
-	pp2oqDHpaivYW0DAViKBVJ/IzkuFOEzFK52+ClfM=
-X-Gm-Gg: AYBFou03R83X6PY+gGLbtyFsAEcnZlEwgQLxbvCJfJ619hRDsBld6aUkbZSdmm5RzYd
-	qGt3SwXIpxXoXFcQkePn3MbLCUj0HncT11gamwwu4dFufG2tIIFg8FAEzeLtW6ioQj5UHqgUYRT
-	h02Gr0z5/ZDFWJ+08KaMkcqnmZ73ArmKHzOo7V/hN1wtEC0pZQjKNKLle6yQ1gcsTKMpADyAnHI
-	7I7w65NPMD+pqMZLlhXYwr/vJpE+D0oTGFjiSWQMUcQNU9KyT+IMGou5XOfiM+sHuOPRtgZCh+g
-	iLE0KAQGSw56tuGuPTaOWPvRzsTvDN6DLiTKvUy1ZPet+W4DPvdJf0/ydEATR9n72NTbaxX/WBO
-	dUthrD3oZwypbpiDXVyrHMpmw6F5IIHc5CEymxqG7cy1BfjoBIo24vdC3dZanMwt5aOZvKl1y89
-	H3HY1gOzBF3Swr+xjeSyAvOSoAGFATsXhV/539I0Ab5mwZeSd+7lO2WVAncAYkdaatd9Fsy5PfI
-	nuEDTqMhG3kS+WYWcXN5iq8EFTeC4s+ySl+kaclK7grVNCkoD8U3mVzpTY8JdFeE3KppgIlK8Q=
-X-Received: by 2002:a05:6000:230b:b0:48e:d88:55e5 with SMTP id
- ffacd0b85a97d-48e26450055mr6466370f8f.6.1792607382625; Wed, 21 Oct 2026
- 11:29:42 -0700 (PDT)
+	d=linux-foundation.org; s=korg; t=1792607983;
+	bh=R/cyaRzWC9pd6KDI+55QfQUjuj9Ehis3S52PJ74iJxE=;
+	h=Date:To:From:Subject;
+	b=JL6HFLwrzsr6RLCbi06ldmbRTHHbx4/TWyX7KbvvebYj+rl1ofAcdMB2Y2U1JhKuC
+	 BN3yd4l61GMj36waQTg4v+YPebj9PDHosc8aLXJWo+EdbUYgWLX7rII7c+sSHV8Ib2
+	 QeGyJDFNLCqI5kKkrbUE3q6jakcdCBVOsLet26w8=
+Date: Wed, 21 Oct 2026 11:39:42 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mark@fasheh.com,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,heming.zhao@suse.com,baijiaju1990@gmail.com,zzzccc427@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + ocfs2-drain-quorum-work-before-removing-the-cluster.patch added to mm-nonmm-unstable branch
+Message-Id: <20261021183943.15E801F000C1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,87 +48,182 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261019080324.4147815-1-4ncienth@gmail.com>
-In-Reply-To: <20261019080324.4147815-1-4ncienth@gmail.com>
-From: John Stultz <jstultz@google.com>
-Date: Wed, 21 Oct 2026 11:29:30 -0700
-X-Gm-Features: AclHuK-WQNEEmHu8rKLAOcS4kdd24XhGHp0io995JGj81OD21sSnuH8TiknMehA
-Message-ID: <CANDhNCrZbw-JnmC6DLWp6FHe6Vait=q_0uwRE1HqdbDYjL0Zwg@mail.gmail.com>
-Subject: Re: [PATCH] timekeeping: Require permission to set auxiliary clocks
-To: Daehyeon Ko <4ncienth@gmail.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
-	Miroslav Lichvar <mlichvar@redhat.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 19, 2026 at 1:03=E2=80=AFAM Daehyeon Ko <4ncienth@gmail.com> wr=
-ote:
->
-> The generic clock_settime() entry point delegates permission checks to
-> each clock-specific callback. aux_clock_set() does not perform one. Once
-> an administrator enables an auxiliary clock, any local process can
-> therefore change the global clock offset.
->
-> A test process running as UID and GID 65534 with no effective, permitted,
-> inheritable, or ambient capabilities set CLOCK_AUX0 successfully, and a
-> separate process observed the new value. The same process was denied by
-> clock_adjtime(). An AppArmor profile denying sys_time also blocked
-> CLOCK_REALTIME changes but did not see the auxiliary clock operation.
->
-> Call security_settime64() before mutating the auxiliary timekeeper. This
-> matches CLOCK_REALTIME's permission model, enforces initial-user-namespac=
-e
-> CAP_SYS_TIME, and gives LSMs the settime hook while preserving authorized
-> clock changes.
->
-> Fixes: 60ecc26ec5af ("timekeeping: Provide time setter for auxiliary cloc=
-ks")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-> ---
-> AI assistance was used for source analysis, reproducer development, and
-> validation. The submitter reviewed the resulting change before signing it=
-.
->
->  kernel/time/timekeeping.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/kernel/time/timekeeping.c b/kernel/time/timekeeping.c
-> index ea2e6e55f37bf..1b342825bd8f1 100644
-> --- a/kernel/time/timekeeping.c
-> +++ b/kernel/time/timekeeping.c
-> @@ -14,6 +14,7 @@
->  #include <linux/random.h>
->  #include <linux/sched/clock.h>
->  #include <linux/sched/loadavg.h>
-> +#include <linux/security.h>
->  #include <linux/static_key.h>
->  #include <linux/stop_machine.h>
->  #include <linux/syscore_ops.h>
-> @@ -3215,11 +3216,15 @@ static int aux_clock_set(const clockid_t id, cons=
-t struct timespec64 *tnew)
->         struct tk_data *aux_tkd =3D aux_get_tk_data(id);
->         struct timekeeper *aux_tks;
->         ktime_t tnow, nsecs;
-> +       int ret;
->
->         if (!timespec64_valid_settod(tnew))
->                 return -EINVAL;
->         if (!aux_tkd)
->                 return -ENODEV;
-> +       ret =3D security_settime64(tnew, NULL);
-> +       if (ret)
-> +               return ret;
->
->         aux_tks =3D &aux_tkd->shadow_timekeeper;
 
-This looked a little odd adding the security_settime64() check in the
-core timekeeping.c where as is usually called closer to the syscall in
-time.c, but given the clock_aux k_clock is defined in timekeeping.c, I
-guess this makes it the best place to add the check.
+The patch titled
+     Subject: ocfs2: drain quorum work before removing the cluster
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     ocfs2-drain-quorum-work-before-removing-the-cluster.patch
 
-Acked-by: John Stultz <jstultz@google.com>
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-drain-quorum-work-before-removing-the-cluster.patch
 
-thanks
--john
+This patch will later appear in the mm-nonmm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Cen Zhang <zzzccc427@gmail.com>
+Subject: ocfs2: drain quorum work before removing the cluster
+Date: Tue, 20 Oct 2026 11:45:04 +0800
+
+The configured cluster must remain available until an in-flight quorum
+decision has finished using its fencing method.  o2quo_make_decision()
+drops qs_lock before calling o2quo_fence_self(), which marks heartbeat
+regions for unclean stop and then reads
+o2nm_single_cluster->cl_fence_method.  Cluster removal clears the
+singleton without waiting for this independent system-workqueue item.
+
+When a failed-quorum decision overlaps removal of the heartbeat regions,
+nodes and cluster through configfs, the worker can be preempted after
+marking the regions and resume after the singleton has been cleared:
+
+  Quorum worker                     Configfs removal
+  select fence; drop qs_lock
+  o2hb_stop_all_regions()
+                                    remove regions; join heartbeat threads
+                                    remove nodes; stop o2net
+                                    clear singleton; release cluster
+  read cl_fence_method
+
+The resumed read dereferences NULL instead of applying the configured
+fencing method. The heartbeat thread's dependency protects the local
+node only until the thread exits, and draining o2net does not wait for
+qs_work.
+
+Add o2quo_flush_work() to drain pending or running quorum decisions
+before clearing the singleton in o2nm_cluster_group_drop_item(). By
+this point the heartbeat regions and nodes have been removed, so their
+work publishers are stopped. The worker can finish while the cluster
+and its configured fencing method remain available. It does not acquire
+the configfs mutex held by the removal path.
+
+Keep o2quo_exit() as the counterpart of o2quo_init() for module teardown
+and initialization failure, and have it call the same drain helper.
+Cluster removal uses only the explicitly named drain operation.
+
+KASAN report as below:
+
+    Oops: general protection fault, probably for non-canonical address 0xdffffc000000011b: 0000 [#1] SMP KASAN NOPTI
+    KASAN: null-ptr-deref in range [0x00000000000008d8-0x00000000000008df]
+    CPU: 0 UID: 0 PID: 72 Comm: kworker/0:2 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    Workqueue: events o2quo_make_decision
+    RIP: 0010:o2quo_fence_self+0x65/0x200
+
+Register dump omitted.
+
+    Call Trace:
+     <TASK>
+     o2quo_make_decision+0x345/0x3a0
+     ? __pfx_o2quo_make_decision+0x10/0x10
+     ? process_one_work+0x834/0x1b40
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x290
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     process_one_work+0x9a8/0x1b40
+     ? __pfx_process_one_work+0x10/0x10
+     ? lock_acquire+0x190/0x300
+     ? lock_is_held_type+0x8f/0x100
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     worker_thread+0x65c/0xe40
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __kthread_parkme+0x177/0x220
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_worker_thread+0x10/0x10
+     kthread+0x351/0x460
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork+0x659/0x940
+     ? __pfx_ret_from_fork+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __switch_to+0x74f/0xf70
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork_asm+0x1a/0x30
+     </TASK>
+    Modules linked in:
+    ---[ end trace 0000000000000000 ]---
+
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0064-v5-e3870bf6571b80b07b52@gmail.com
+Fixes: f6656d26d17b ("ocfs2/cluster: Make fence method configurable - v2")
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Assisted-by: LLM
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
+Cc: <jjzuming@gmail.com>
+Cc: <stable@vger.kernel.org>
+---
+
+ fs/ocfs2/cluster/nodemanager.c |    3 +++
+ fs/ocfs2/cluster/quorum.c      |    7 ++++++-
+ fs/ocfs2/cluster/quorum.h      |    1 +
+ 3 files changed, 10 insertions(+), 1 deletion(-)
+
+--- a/fs/ocfs2/cluster/nodemanager.c~ocfs2-drain-quorum-work-before-removing-the-cluster
++++ a/fs/ocfs2/cluster/nodemanager.c
+@@ -12,6 +12,7 @@
+ #include "tcp.h"
+ #include "nodemanager.h"
+ #include "heartbeat.h"
++#include "quorum.h"
+ #include "masklog.h"
+ #include "sys.h"
+ 
+@@ -740,6 +741,8 @@ static void o2nm_cluster_group_drop_item
+ 	struct o2nm_cluster *cluster = to_o2nm_cluster(item);
+ 
+ 	BUG_ON(o2nm_single_cluster != cluster);
++	/* Drain quorum work before it loses access to the cluster. */
++	o2quo_flush_work();
+ 	o2nm_single_cluster = NULL;
+ 
+ 	configfs_remove_default_groups(&cluster->cl_group);
+--- a/fs/ocfs2/cluster/quorum.c~ocfs2-drain-quorum-work-before-removing-the-cluster
++++ a/fs/ocfs2/cluster/quorum.c
+@@ -318,9 +318,14 @@ void o2quo_init(void)
+ 	INIT_WORK(&qs->qs_work, o2quo_make_decision);
+ }
+ 
+-void o2quo_exit(void)
++void o2quo_flush_work(void)
+ {
+ 	struct o2quo_state *qs = &o2quo_state;
+ 
+ 	flush_work(&qs->qs_work);
+ }
++
++void o2quo_exit(void)
++{
++	o2quo_flush_work();
++}
+--- a/fs/ocfs2/cluster/quorum.h~ocfs2-drain-quorum-work-before-removing-the-cluster
++++ a/fs/ocfs2/cluster/quorum.h
+@@ -8,6 +8,7 @@
+ 
+ void o2quo_init(void);
+ void o2quo_exit(void);
++void o2quo_flush_work(void);
+ 
+ void o2quo_hb_up(u8 node);
+ void o2quo_hb_down(u8 node);
+_
+
+Patches currently in -mm which might be from zzzccc427@gmail.com are
+
+ocfs2-drain-quorum-work-before-removing-the-cluster.patch
+
