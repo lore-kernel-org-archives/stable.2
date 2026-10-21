@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792560649;
-	b=3nsMmxVFurmJquJPe+d6DXGIHDrNmDNCMaVLXHJmHA9IkRz/ntwH80KFh7M4IOUVYFcT
-	 UGVF9GxbzWeafwgA8kx1hlm2dyExn8cZbkdoEeFASjEhjKJwJ625FEQ7ua/g3MRD2pPGt
-	 nbWyteDYDHNfTxaw1wawHqKZ8Bk3HE+k9MTTo9Jwt2q8TfA3zDRzmw2l18KdJXrCx/uOf
-	 bKvfBKHT8ZSiIf0kmNrBN0itXCJiQwojaBjCRxbL8ZHT5pvKD3HyBQwW6dVzRUAXNzhCO
-	 +ZRGrppXGnHz37EmZabSVEY58E17MWxiXaOKU5khuLuSPlkuWEmf/wwmblbmXuLPevA==
+	t=1792560656;
+	b=1vvUtuIj+ActavDCefTCL1+u33uZyPs0hWa0BjruYqcV/DrvaUMxgDB+avmtgACr0STb
+	 U5ka/MXTKYs0nHodhrTHGGDQcYpY7wPxeEPK/aMRQqgtugPXGideqsdaZelbIk///k6Qn
+	 SQrhSfpSQnBieA49B4h9Z61Cyr/Pf+F0q6jMY04p8jj0eAPd2WusdHcSXMXzl6/YwnnRl
+	 DT34oPBMZtGXk/+j+1+Ty3XcpikWN0XNurn2ApDwdDVgz7eTodaEGMqMlvbvHh+LbI8Df
+	 0pN+xFT86RFO2FaB+JkoXcCo+tp3V7xy54FyB1vljtvRsbvSldWa77YtEHzxAE6YqNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792560649;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792560656;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=OCOqsgidbEEAalXpX/6/l38CH5vEHmg6hp1VOyex/6s=;
-	b=iQg9onE9MibYfBWAoYj5SzDy4Ek2mr6qMuD00JYvItvbBZltm9aK/rEO0N7Lpqd35IHo
-	 J36X2lgJO/NDY3P1r6YOOTWDJeXELsp9CB3rb0adb8v0wP32RVYB/U/DhkyNAdOEknIA7
-	 IcSH5H/wpSqKJV/X2OyX//07TSXix9MrbBfaRHk5HG0A9zlCvuP9hmCYq+TQCs0Bli2Yx
-	 1765bXtoXgk+n04HEM5Q3RcjtE80NWOxJ0TrMUahP/bErWZdUi5f3rkLezFUjSzcWl1Md
-	 3fPJ8UCq0mkmrzFIJ+XHVljvIE6E0NjQvwabPiJ8h33n5BmjTYwrHLdbR+b7wv+aWag==
+	bh=Zs/82n2WWiC+EBwD1NjFLNdOeeLjgnPd6TMkyhsHLSY=;
+	b=h1UBKQ8kFPUviuZRqzthj3xUTi4+lugBO2HnkkmjBpOtiyd/YB5bVMEV05VbN8f+snMb
+	 4pj7mS7bfVYAw4QfAw2v5MsbOmfWrow9qa3GpRkgVm/fqK6DZ3+mifEIZ3AOkZyMsAlv/
+	 dLy4xWoUgJsvndRFZNuB6xfmxRrEAA/9M27RVUGOuZUFODvsWPoSezE1NcHnk/Z59wuXN
+	 2svDJir+4Kzg1gZ7dKyxRj051OsDa2YB3wpI+n98Thi3+WBD+xU7LjBhpgVenKoWHlNyK
+	 Essx+DnpMkkqGiTWGj/M/KbwV7RwO0z6nx1kRr19voZ7r0pjmatAZxeJrKOQ/ZOgePQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=dN2TexAo;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=UnQJKucz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95041606A319;
-	Wed, 21 Oct 2026 05:30:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8765606A319;
+	Wed, 21 Oct 2026 05:30:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=dN2TexAo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 388BA1F000C9;
-	Wed, 21 Oct 2026 05:30:49 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=UnQJKucz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D4661F000CB;
+	Wed, 21 Oct 2026 05:30:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792560649;
-	bh=OCOqsgidbEEAalXpX/6/l38CH5vEHmg6hp1VOyex/6s=;
+	d=linux-foundation.org; s=korg; t=1792560655;
+	bh=Zs/82n2WWiC+EBwD1NjFLNdOeeLjgnPd6TMkyhsHLSY=;
 	h=Date:To:From:Subject;
-	b=dN2TexAoQwYYHA2olN/57uxsf0K39S3NbiXhiWgWYA9gtYpykOPGK+TM/2h/AaKPY
-	 6AdA3HyJ0O5yhnXRGVqQ0leW+wYcxxtVa1Ky+qZJoIGRxti9ffgXL73uh4QXZPFyQo
-	 965IIyP8UgKpCGb3XGQpeBzPbejMptpHiMoGisfA=
-Date: Tue, 20 Oct 2026 22:30:48 -0700
-To: mm-commits@vger.kernel.org,sunil.mushran@oracle.com,stable@vger.kernel.org,mark@fasheh.com,kees@kernel.org,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,heming.zhao@suse.com,baijiaju1990@gmail.com,zzzccc427@gmail.com,akpm@linux-foundation.org
+	b=UnQJKuczGW6ns+2sK1I77ejXBfQX49YuBRkcVVjMi8/UHoEWPq6c4tS/yOAn74nmE
+	 NLqfC8CpEytethmglpxPYgUZK6nkVq+kzFhhG/a/oH9xomGdMssyWZNwOEKKvzizm8
+	 8vPgCi+LZF8v1FQAFXMeqoBwzInu+L6+rd47FMXQ=
+Date: Tue, 20 Oct 2026 22:30:55 -0700
+To: mm-commits@vger.kernel.org,sunil.mushran@oracle.com,stable@vger.kernel.org,mark@fasheh.com,kmehltretter@gmail.com,kees@kernel.org,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,heming.zhao@suse.com,ericterminal@gmail.com,christophe.jaillet@wanadoo.fr,baijiaju1990@gmail.com,zzzccc427@gmail.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-nonmm-stable] ocfs2-dlm-hold-a-lock-reference-across-grant-ast-enqueue.patch removed from -mm tree
-Message-Id: <20261021053049.388BA1F000C9@smtp.kernel.org>
+Subject: [merged mm-nonmm-stable] ocfs2-cluster-initialize-heartbeat-regions-before-publishing-them.patch removed from -mm tree
+Message-Id: <20261021053055.8D4661F000CB@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,117 +51,82 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: ocfs2/dlm: hold a lock reference across grant AST enqueue
+     Subject: ocfs2/cluster: initialize heartbeat regions before publishing them
 has been removed from the -mm tree.  Its filename was
-     ocfs2-dlm-hold-a-lock-reference-across-grant-ast-enqueue.patch
+     ocfs2-cluster-initialize-heartbeat-regions-before-publishing-them.patch
 
 This patch was dropped because it was merged into the mm-nonmm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
 From: Cen Zhang <zzzccc427@gmail.com>
-Subject: ocfs2/dlm: hold a lock reference across grant AST enqueue
-Date: Tue, 13 Oct 2026 23:39:29 +0800
+Subject: ocfs2/cluster: initialize heartbeat regions before publishing them
+Date: Fri, 16 Oct 2026 00:58:38 +0800
 
-A newly granted remote lock must remain alive until its grant AST is
-queued.  dlmlock_master() publishes the lock on res->granted with its base
-and queue references, then drops res->spinlock before calling
-dlm_queue_ast().  The resource's reserved AST count does not retain the
-lock itself.
+A region on o2hb_all_regions must have an initialized config item and
+name. o2hb_heartbeat_group_make_item() currently links the zeroed region
+under o2hb_live_lock, drops the lock, and only then initializes hr_item.
+The lock therefore protects the list without protecting initialization
+from readers of the published item.
 
-This can fail when a peer dies with an immediately grantable CREATE
-buffered on its socket.  O2NET's node-down callback flushes receive work
-before DLM cleanup, but the flush only waits for work queued on entry.  A
-data-ready callback that already selected the socket container can queue
-new receive work after the flush advances its work color.  Socket shutdown
-does not discard bytes already queued for TCP receive.
+With global heartbeat enabled, a DLM_QUERY_REGION from the current
+joining node can pass the existing-domain and protocol checks while a
+configfs mkdir creates another region. The DLM locks are not taken by
+the constructor, and the network worker does not take the configfs
+subsystem mutex. The following ordering is possible:
 
-The late receive work and DLM node-down cleanup can interleave as
-follows (the lock reference operations shown are before this fix):
+  Configfs mkdir                     O2net receive worker
+  --------------                     --------------------
+  Allocate reg
+  Lock o2hb_live_lock
+  Link into o2hb_all_regions
+  Unlock o2hb_live_lock
+                                     dlm_query_region_handler()
+                                       dlm_match_regions()
+                                         o2hb_get_all_regions()
+                                           Lock o2hb_live_lock
+                                           Copy 32 bytes from NULL name
+                                           Unlock o2hb_live_lock
+  config_item_init_type_name()
 
-  Socket data-ready        Node-down thread         Receive worker
-  -----------------        ----------------         --------------
-  o2net_data_ready()
-    select sc under
-    callback read lock
-                           o2net_disconnect_node()
-                             queue shutdown
-                             begin flush; new color
-    queue sc_rx_work
-    in the new color
-    release callback lock
-                             shutdown socket
-                             flush returns
-                                                    read buffered CREATE
-                                                    dlmlock_master()
-                                                      lock res->spinlock
-                                                      add lock to granted
-                                                      unlock res->spinlock
-                           DLM node-down cleanup
-                             lock res->spinlock
-                             dlm_free_dead_locks()
-                               unlink lock
-                               put queue/base refs
-                               free lock
-                             unlock res->spinlock
-                                                    dlm_queue_ast()
-                                                      __dlm_queue_ast()
-                                                      read lock->lockres
-                                                      (use-after-free)
+The query thus dereferences NULL. Initialize hr_item before linking the
+region so the existing list lock also orders name initialization before
+any reader. Reject a failed name allocation, since the initialization
+helper does not propagate that error.
 
-DLM cleanup holds res->spinlock while dlm_free_dead_locks() drops the
-queue and base references.  The CREATE handler no longer holds that
-spinlock when __dlm_queue_ast() reads the lock, before taking its AST list
-reference.
-
-Take a temporary lock reference under res->spinlock when a grant AST will
-be queued, and drop it after dlm_queue_ast().  This keeps the lock alive
-across cleanup until the AST path has taken its own reference, without
-reversing the existing AST/resource lock order.
+Use config_item_put() on initialized constructor failures to release the
+name and respect references retained by o2hb_region_pin(). Initialize
+the list heads, mutex and delayed works needed by o2hb_region_release()
+before any such put, and leave the list node self-linked after rollback.
+Keep the existing handler drain before removing a failed published item.
 
 KASAN report as below:
 
-    BUG: KASAN: slab-use-after-free in __dlm_queue_ast+0x8a4/0xc00
-    Read of size 8 at addr ffff88810ead5940 by task kworker/u16:3/52
+    ==================================================================
+    BUG: KASAN: null-ptr-deref in o2hb_get_all_regions+0xbb/0x1f0
+    Read of size 32 at addr 0000000000000000 by task kworker/u16:1/14
 
-    CPU: 3 UID: 0 PID: 52 Comm: kworker/u16:3 Not tainted 7.3.0-rc4-next-20260921-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
+    CPU: 2 UID: 0 PID: 14 Comm: kworker/u16:1 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
     Workqueue: o2net o2net_rx_until_empty
     Call Trace:
      <TASK>
      dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? __dlm_queue_ast+0x8a4/0xc00
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20e/0x420
-     ? __dlm_queue_ast+0x8a4/0xc00
      kasan_report+0xe0/0x110
-     ? __dlm_queue_ast+0x8a4/0xc00
-     __dlm_queue_ast+0x8a4/0xc00
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? do_raw_spin_lock+0x130/0x270
-     ? __pfx___dlm_queue_ast+0x10/0x10
-     ? __pfx_do_raw_spin_lock+0x10/0x10
-     ? _raw_spin_unlock_irqrestore+0x45/0x60
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lockdep_hardirqs_on_prepare+0xeb/0x1a0
-     dlm_queue_ast+0x46/0x70
-     dlmlock_master+0x51f/0xf50
-     ? __pfx_dlmlock_master+0x10/0x10
-     ? dlm_create_lock_handler+0x2b2/0x870
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x290
-     dlm_create_lock_handler+0x35b/0x870
-     ? __pfx_dlm_create_lock_handler+0x10/0x10
+     ? o2hb_get_all_regions+0xbb/0x1f0
+     kasan_check_range+0x105/0x1b0
+     __asan_memcpy+0x23/0x60
+     o2hb_get_all_regions+0xbb/0x1f0
+     dlm_query_region_handler+0x4c2/0xc20
+     ? __pfx_dlm_query_region_handler+0x10/0x10
      ? srso_alias_return_thunk+0x5/0xfbef5
      ? srso_alias_return_thunk+0x5/0xfbef5
      ? trace_hardirqs_on+0x18/0x160
      ? srso_alias_return_thunk+0x5/0xfbef5
      ? kvm_clock_get_cycles+0x31/0x60
      ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_dlm_create_lock_handler+0x10/0x10
-     o2net_rx_until_empty+0x1dae/0x32c0
+     ? __pfx_dlm_query_region_handler+0x10/0x10
+     o2net_rx_until_empty+0x1a50/0x3200
      ? reacquire_held_locks+0xdd/0x200
      ? __pfx_o2net_rx_until_empty+0x10/0x10
      ? lock_acquire+0x190/0x300
@@ -190,47 +155,10 @@ KASAN report as below:
      ? __pfx_kthread+0x10/0x10
      ret_from_fork_asm+0x1a/0x30
      </TASK>
+    ==================================================================
 
-    Allocated by task 52:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_slab_alloc+0x89/0x90
-     kmem_cache_alloc_noprof+0x20b/0x5c0
-     dlm_new_lock+0x39/0x5f0
-     dlm_create_lock_handler+0x16e/0x870
-     o2net_rx_until_empty+0x1dae/0x32c0
-     process_one_work+0x9a8/0x1b40
-     worker_thread+0x65c/0xe40
-     kthread+0x351/0x460
-     ret_from_fork+0x659/0x940
-     ret_from_fork_asm+0x1a/0x30
-
-    Freed by task 603:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kmem_cache_free+0x242/0x580
-     dlm_lock_release+0x1df/0x2f0
-     dlm_lock_put+0x51/0x80
-     __dlm_hb_node_down+0x15be/0x2710
-     dlm_hb_node_down_cb+0x6c/0xa0
-     o2hb_run_event_list+0x34a/0x500
-     o2hb_do_disk_heartbeat+0x1a07/0x2950
-     o2hb_thread+0x1ed/0xdc0
-     kthread+0x351/0x460
-     ret_from_fork+0x659/0x940
-     ret_from_fork_asm+0x1a/0x30
-
-    The buggy address belongs to the object at ffff88810ead5900
-     which belongs to the cache o2dlm_lock of size 184
-    The buggy address is located 64 bytes inside of
-     freed 184-byte region [ffff88810ead5900, ffff88810ead59b8)
-
-    [Page and shadow memory dumps omitted.]
-
-Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0043-v5-1ad07df761ff49638789@gmail.com
-Fixes: 2c5c54aca9d0 ("ocfs2/dlm: Add missing dlm_lock_put()s")
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0079-v5-f931a29339cadc0a2a70@gmail.com
+Fixes: 536f0741f324 ("ocfs2/cluster: Track number of global heartbeat regions")
 Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
@@ -238,42 +166,83 @@ Assisted-by: LLM
 Cc: Mark Fasheh <mark@fasheh.com>
 Cc: Joel Becker <jlbec@evilplan.org>
 Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Yufan Chen <ericterminal@gmail.com>
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 Cc: Kees Cook <kees@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>
 Cc: Sunil Mushran <sunil.mushran@oracle.com>
 Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
 Cc: <jjzuming@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- fs/ocfs2/dlm/dlmlock.c |    8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ fs/ocfs2/cluster/heartbeat.c |   26 +++++++++++++++++---------
+ 1 file changed, 17 insertions(+), 9 deletions(-)
 
---- a/fs/ocfs2/dlm/dlmlock.c~ocfs2-dlm-hold-a-lock-reference-across-grant-ast-enqueue
-+++ a/fs/ocfs2/dlm/dlmlock.c
-@@ -138,6 +138,8 @@ static enum dlm_status dlmlock_master(st
- 					  res->lockname.len)) {
- 			kick_thread = 1;
- 			call_ast = 1;
-+			/* Keep the lock alive through AST enqueue. */
-+			dlm_lock_get(lock);
- 		} else {
- 			mlog(0, "%s: returning DLM_NORMAL to "
- 			     "node %u for reco lock\n", dlm->name,
-@@ -166,10 +168,12 @@ static enum dlm_status dlmlock_master(st
- 	wake_up(&res->wq);
+--- a/fs/ocfs2/cluster/heartbeat.c~ocfs2-cluster-initialize-heartbeat-regions-before-publishing-them
++++ a/fs/ocfs2/cluster/heartbeat.c
+@@ -2140,6 +2140,18 @@ static struct config_item *o2hb_heartbea
+ 	}
+ 	reg->hr_node_num = O2NM_MAX_NODES;
  
- 	/* either queue the ast or release it */
--	if (call_ast)
-+	if (call_ast) {
- 		dlm_queue_ast(dlm, lock);
--	else
-+		dlm_lock_put(lock);
-+	} else {
- 		dlm_lockres_release_ast(dlm, res);
++	INIT_LIST_HEAD(&reg->hr_all_item);
++	mutex_init(&reg->hr_arming_mutex);
++	reg->hr_stopping = true;
++	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
++	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
++	INIT_LIST_HEAD(&reg->hr_handler_list);
++	config_item_init_type_name(&reg->hr_item, name, &o2hb_region_type);
++	if (!config_item_name(&reg->hr_item)) {
++		ret = -ENOMEM;
++		goto put_item;
 +	}
++
+ 	spin_lock(&o2hb_live_lock);
+ 	reg->hr_region_num = 0;
+ 	if (o2hb_global_heartbeat_active()) {
+@@ -2148,26 +2160,19 @@ static struct config_item *o2hb_heartbea
+ 		if (reg->hr_region_num >= O2NM_MAX_REGIONS) {
+ 			spin_unlock(&o2hb_live_lock);
+ 			ret = -EFBIG;
+-			goto free;
++			goto put_item;
+ 		}
+ 		set_bit(reg->hr_region_num, o2hb_region_bitmap);
+ 	}
+ 	list_add_tail(&reg->hr_all_item, &o2hb_all_regions);
+ 	spin_unlock(&o2hb_live_lock);
  
- 	dlm_lockres_calc_usage(dlm, res);
- 	if (kick_thread)
+-	config_item_init_type_name(&reg->hr_item, name, &o2hb_region_type);
+-
+ 	/* this is the same way to generate msg key as dlm, for local heartbeat,
+ 	 * name is also the same, so make initial crc value different to avoid
+ 	 * message key conflict.
+ 	 */
+ 	reg->hr_key = crc32_le(reg->hr_region_num + O2NM_MAX_REGIONS,
+ 		name, strlen(name));
+-	mutex_init(&reg->hr_arming_mutex);
+-	reg->hr_stopping = true;
+-	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
+-	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
+-	INIT_LIST_HEAD(&reg->hr_handler_list);
+ 	ret = o2net_register_handler(O2HB_NEGO_TIMEOUT_MSG, reg->hr_key,
+ 			sizeof(struct o2hb_nego_msg),
+ 			o2hb_nego_timeout_handler,
+@@ -2190,10 +2195,13 @@ unregister_handler:
+ 	o2net_unregister_and_flush_handler_list(&reg->hr_handler_list);
+ remove_item:
+ 	spin_lock(&o2hb_live_lock);
+-	list_del(&reg->hr_all_item);
++	list_del_init(&reg->hr_all_item);
+ 	if (o2hb_global_heartbeat_active())
+ 		clear_bit(reg->hr_region_num, o2hb_region_bitmap);
+ 	spin_unlock(&o2hb_live_lock);
++put_item:
++	config_item_put(&reg->hr_item);
++	return ERR_PTR(ret);
+ free:
+ 	kfree(reg);
+ 	return ERR_PTR(ret);
 _
 
 Patches currently in -mm which might be from zzzccc427@gmail.com are
