@@ -1,59 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792569524;
-	b=gfoxmCABL8FFBP/mEmJZLb7PTxDi8jKEXU2vuz4HV3oIiDjDWNknv4jq8aYYP+/qlcm4
-	 ylnv10jNy2vGe9imWG3hRvZrQE/B6otSfcW0ptjRzj6tTM8pqsOxryPruuu4xALqhQX2i
-	 9miBdtHBbcwnPqLrO+TaXBR3QRE1EE2NTTQtwkBUz0YthLKm9K+P0ONrc3NpL8tLyPS+4
-	 Ahb9CyYCkIK207m59n1f62rLIqjEpxnc+VtDRY26mhTSuVtUAZGKGYn+51hojIYVMSNge
-	 KxYlbk4enFGnAwN6VzIxOgL70xjWYnYBcfbopu+yDyft1vswCu5wpags5rxDR3/MlFA==
+	t=1792570808;
+	b=Lx6C46o3W6FAG5ObaX8JHR+sEXBHS3YYg4+qtUrdaasDLNB2eijSgUo030AIsqGVZhqv
+	 QmEPlD7If+EuCqKH7fYIjfPy6TvMO9Tcp7fp8YXTRFrHQ4dbFVSPPql8A6UghTykcua0k
+	 FKABXu+fbKknyFvc3YqW4yaYqfPKWByV8T1EdBi4WtAXNVWHyDxtfvEhIJDM85n852uWI
+	 /VfmZjvjI9qiljQBiV+/RnAvSTLuUMZlAhEyyxkQoWegHOsl3qxL3a2aDrQCmmxo/EGg8
+	 mB+6AdoLquRL8RUjMbwi1G2wGhWPxQoCljAYLOXbIX0ZsIQ8lPLoiFe4xbsFQ9SibKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792569524;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=lV7WOwF2OwQk2cmb02V8IGhl7zWFcwougSeOwMgRMHE=;
-	b=rPB7wJeXRuw6U/KZ7lXjIEy9WIqbBeLpNm+KlGWhzYdjzrVUht8SXfOdBUE70UEe6aHM
-	 vPVIUNzjqJUPckWSwX2x9alGvvcBurOn4/N93S4uCtr7+seB61XBC9OAA3w0YgV58bjgA
-	 8uRIZuxQW/LYgEykQD9GIO5QMaHkgPhI9LpreGAnEmG7UIaDOodTnrlMwW3MyCApc4Muc
-	 Mq64x1kLSl775R+IevVD/2VETTOkzFvHYxoGjurbj+eTNTLM9QfcXBhS+SRtI1cnoAsGA
-	 gR93g+dMzVzpKI5SvsF9Ifz3dawlKDhPCk5+sMuDi2Xhy3T78rqi6bxO/3E3nDXoWxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792570808;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=yL8VqZDmmjINC1gZOAnpKGJOnANABO0NARhyENP7IpY=;
+	b=ExpaTdvw3J9dly0wrpQyoNjTkapR4EkBf6vyiVGeOjlj2LzLY5oS6JLs88oi0qunGcPg
+	 klq71+qYdFpe5jnnRkrhKLamoMdEAU8fvYChIl6rfDuPFPDsPvZgq5AEQ5+zZNvdy3EhM
+	 wmDX1F9r/tSdq8sSwN/fJASDE30MHw83SDbZ8EVj1gOhft4JQkZ5z48kOHAGNFLw+20db
+	 MYlUSIEyAozbXGysi0P80wq/8c92o5Ooo29rQWmm3dwIuw59BI42dXqEMPbK6V8IVuZLU
+	 MdSaC1VewbD3s4DQDeVfkFLvIWtMUjU5VKxJwxf5HsKkbFs/9f3puvgI7dc6a49B2tQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kCmQuifC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C43D2606A319;
-	Wed, 21 Oct 2026 07:58:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kCmQuifC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0933A1F000CA;
-	Wed, 21 Oct 2026 07:58:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792569523;
-	bh=lV7WOwF2OwQk2cmb02V8IGhl7zWFcwougSeOwMgRMHE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=kCmQuifC+jhxv9BjjoBIrpNVdjxIusI+4S5Tg04JIIDbfzl1VWp49Rgns1nGuL7I5
-	 obwrOnyusxfeQTXwLhaFSswzuPKDOicEkqBYKW5RutJ1AfXLiHttqK1fEL7L16YtaE
-	 whtqwJ/PVCiBemnzaGGjaICk6jQbKuMMgPE4od6JrUQl8/fkDh9XpYH+9w5Z8z3dHm
-	 R8xr/T+squ3woBRdEndyhiH1U7dyIBF2gUMGKxMLRIRiL7Z8k4HAW4fe2K/VVDhOn5
-	 Qg0A5CefgmJWQSRiv+l/svcPTqAMlY+88OOgG/+Me9cE3ZHMu1H1iRgBb3/6JkiV9G
-	 a4Uh1BG3tIjwQ==
-Subject: Re: [PATCH mptcp-net v3 2/2] selftests: mptcp: join: re-add the
- initial subflow endp with fullmesh
-From: netdev-bot+sashiko@kernel.org
-To: w453y.me@gmail.com
-Cc: mptcp@lists.linux.dev, matttbe@kernel.org, martineau@kernel.org,
- geliang@kernel.org, pabeni@redhat.com, stable@vger.kernel.org,
- kuba@kernel.org
-Date: Wed, 21 Oct 2026 07:58:42 +0000
-Message-ID: <179256952257.3133.17458157001507004926@kernel.org>
-In-Reply-To: <20261019185512.458313-3-w453y.me@gmail.com>
-References: <20261019185512.458313-3-w453y.me@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26DED606A31E
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 08:20:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26DED606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4e937c5bd4fso472947b6e.2
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 01:20:07 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792570807; x=1793175607;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=yL8VqZDmmjINC1gZOAnpKGJOnANABO0NARhyENP7IpY=;
+        b=iTRiCDSnM6wvjED+UywX2UbEKiif0s7JlKiuThyxdNUU4/9MOxJLBUd3r1hUMXkcXd
+         HXhYeyhpWAX88r6V2LyUR2yjIFxhZL0kqHs1K3F7s5Np/iiybMV57wraENEl9zhmqpcU
+         CNMe2aVvL/fKG7QHgy0Gj0iiNkL3zAqPXBX4cPHEg3gGXCGkKu6nToLauSo55Nr9vjP9
+         HTnsSwbDO0UBN0j1/mIj/eYBfeNYqXkWXTwp/HVVHN308PcpEkg14YrYn1ewtApZCzFD
+         9IjfyS+22/CkCkTJ9opyt2SOsA0wclMDlWBUq4cMIT9t/8oQx8MqUsK2r2lVInJhot9G
+         hLng==
+X-Forwarded-Encrypted: i=1; AKwUvBympKalREHxI7pGCfFuWWFgSCWUcDKCKID8ART546u4tEEZq9Roz8fxvvJ7eeGoQa/WRLOeHag=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ4FP51JvmvNS2Tlh9yYMixMi2wgJYhem3+IxRh1WoZYYdwUk0q
+	DxSOVKoUNbqdqDpl43uWSsZ0efCzBIW38JkAh2/kGSa0ttGlNQ3AT7Lzu8tFRNs38MpB4pKSqmP
+	k4JnnCzoihXYd8MI8rDqegulV5eKjYWEErjpAHXQBpxOwyyJZ1HFHs3PXBnw=
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,137 +58,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-Received: by 2002:a05:6808:1818:b0:4d6:90f3:74ae with SMTP id
+ 5614622812f47-5535a773ee7mr837497b6e.46.1792570806989; Wed, 21 Oct 2026
+ 01:20:06 -0700 (PDT)
+Date: Wed, 21 Oct 2026 01:20:06 -0700
+In-Reply-To: <20261019145624.309790-1-jarkko@kernel.org>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad875b6.e74039fe.1cb511.0000.GAE@google.com>
+Subject: [syzbot ci] Re: KEYS: Return user session keyring on lookup
+From: syzbot ci <syzbot+ci05eb01a9f28bbd7c@syzkaller.appspotmail.com>
+To: corbet@lwn.net, dhowells@redhat.com, ebiggers@kernel.org, jannh@google.com, 
+	jarkko@kernel.org, jmorris@namei.org, keyrings@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, paul@paul-moore.com, 
+	rdunlap@infradead.org, serge@hallyn.com, skhan@linuxfoundation.org, 
+	stable@vger.kernel.org
+Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+syzbot ci has tested the following series
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+[v2] KEYS: Return user session keyring on lookup
+https://lore.kernel.org/all/20261019145624.309790-1-jarkko@kernel.org
+* [PATCH v2 1/2] KEYS: Return user session keyring on lookup
+* [PATCH v2 2/2] KEYS: Reject keyring creation with overridden credentials
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+and found the following issue:
+general protection fault in keyctl_session_to_parent
 
-- [Medium] The new subtest "delete and re-add, fullmesh, after reset"
-  (endpoint_tests() in tools/testing/selftests/net/mptcp/mptcp_join.sh)…
-- [Low] In "delete and re-add, fullmesh, after reset" (endpoint_tests(),
-  mptcp_join.sh lines 4493-4507), the reset, the endpoint delete/re-add,…
+Full report is available here:
+https://ci.syzbot.org/series/7566814a-52ba-4f0b-b506-d7adf67fda29
 
---
+***
 
-selftests: mptcp: join: re-add the initial subflow endp with fullmesh
+general protection fault in keyctl_session_to_parent
 
-This commit adds two subtests to endpoint_tests() in mptcp_join.sh. Both
-delete and re-add the endpoint used by the initial subflow with the
-fullmesh flag set. The second one first resets the initial subflow, then
-removes its endpoint.
+tree:      linux-next
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/next/linux-next
+base:      17a7501b9612a52b38bc57e33c7b64636d438bc0
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/eee373c7-f447-49cf-a350-83830580c7b2/config
 
-> diff --git a/tools/testing/selftests/net/mptcp/mptcp_join.sh b/tools/testing/selftests/net/mptcp/mptcp_join.sh
-> index 18ce7136a2b0..d2d105cef4a9 100755
-> --- a/tools/testing/selftests/net/mptcp/mptcp_join.sh
-> +++ b/tools/testing/selftests/net/mptcp/mptcp_join.sh
-> @@ -4445,6 +4445,68 @@ endpoint_tests()
+Oops: general protection fault, probably for non-canonical address 0xdffffc000000001b: 0000 [#1] SMP KASAN PTI
+KASAN: null-ptr-deref in range [0x00000000000000d8-0x00000000000000df]
+CPU: 0 UID: 0 PID: 5730 Comm: syz.0.6 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+RIP: 0010:keyctl_session_to_parent+0x825/0xa30
+Code: 35 3b fd e9 fe fa ff ff e8 38 35 3b fd e9 f4 fa ff ff e8 2e 35 3b fd 48 8b 54 24 20 48 81 c2 d8 00 00 00 48 89 d0 48 c1 e8 03 <0f> b6 04 18 84 c0 0f 85 b2 01 00 00 8b 2a 89 ef 8b 5c 24 1c 89 de
+RSP: 0018:ffffc9000621fc70 EFLAGS: 00010006
+RAX: 000000000000001b RBX: dffffc0000000000 RCX: ffff88810b603c00
+RDX: 00000000000000d8 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000003 R09: 0000000000000004
+R10: dffffc0000000000 R11: fffff52000c43f7c R12: ffff88811a010000
+R13: 0000000000000000 R14: ffff88810c2631a8 R15: 0000000000000000
+FS:  00007f7f2068b6c0(0000) GS:ffff88818c4bf000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f7f2068aff8 CR3: 000000010cae8000 CR4: 00000000000006f0
+Call Trace:
+ <TASK>
+ __se_sys_keyctl+0x780/0x9d0
+ do_syscall_64+0x166/0x520
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f7f1f79f559
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f7f2068b028 EFLAGS: 00000246 ORIG_RAX: 00000000000000fa
+RAX: ffffffffffffffda RBX: 00007f7f1fa26270 RCX: 00007f7f1f79f559
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000012
+RBP: 00007f7f1f836b20 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f7f1fa26308 R14: 00007f7f1fa26270 R15: 00007ffe789f59b8
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:keyctl_session_to_parent+0x825/0xa30
+Code: 35 3b fd e9 fe fa ff ff e8 38 35 3b fd e9 f4 fa ff ff e8 2e 35 3b fd 48 8b 54 24 20 48 81 c2 d8 00 00 00 48 89 d0 48 c1 e8 03 <0f> b6 04 18 84 c0 0f 85 b2 01 00 00 8b 2a 89 ef 8b 5c 24 1c 89 de
+RSP: 0018:ffffc9000621fc70 EFLAGS: 00010006
+RAX: 000000000000001b RBX: dffffc0000000000 RCX: ffff88810b603c00
+RDX: 00000000000000d8 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000003 R09: 0000000000000004
+R10: dffffc0000000000 R11: fffff52000c43f7c R12: ffff88811a010000
+R13: 0000000000000000 R14: ffff88810c2631a8 R15: 0000000000000000
+FS:  00007f7f2068b6c0(0000) GS:ffff88818c4bf000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f7f2068aff8 CR3: 000000010cae8000 CR4: 00000000000006f0
 
-[ ... ]
 
-> +	# same, but the initial subflow is reset before removing its endpoint
-> +	if reset_with_events "delete and re-add, fullmesh, after reset" &&
-> +	   continue_if mptcp_lib_kallsyms_has "subflow_rebuild_header$"; then
-> +		pm_nl_set_limits $ns1 0 2
-> +		pm_nl_set_limits $ns2 0 2
-> +		pm_nl_add_endpoint $ns2 10.0.1.2 id 1 dev ns2eth1 flags subflow,fullmesh
-> +		pm_nl_add_endpoint $ns2 10.0.2.2 id 2 dev ns2eth2 flags subflow,fullmesh
-> +		{ timeout_test=120 test_linkfail=128 speed=5 \
-> +			run_tests $ns1 $ns2 10.0.1.1 & } 2>/dev/null
-> +		local tests_pid=$!
-> +
-> +		wait_event ns2 MPTCP_LIB_EVENT_ESTABLISHED 1
-> +		wait_mpj 1
-> +		chk_subflow_nr "before reset" 2
-> +
-> +		if ip netns exec "${ns1}" ${iptables} -A INPUT -s "10.0.1.2" \
-> +		      -p tcp --tcp-option 30 -j REJECT --reject-with tcp-reset; then
-> +			wait_event ns2 MPTCP_LIB_EVENT_SUB_CLOSED 1
-> +			ip netns exec "${ns1}" ${iptables} -F INPUT
-> +
-> +			pm_nl_del_endpoint $ns2 1 10.0.1.2
-> +			pm_nl_add_endpoint $ns2 10.0.1.2 id 1 dev ns2eth1 flags subflow,fullmesh
-> +			wait_mpj 2
-> +			chk_mptcp_info subflows 2 subflows 2
+***
 
-[Severity: Medium]
-Can this subtest pass even if the initial subflow was never reset?
+If these findings have caused you to resend the series or submit a
+separate fix, please add the following tag to your commit message:
+  Tested-by: syzbot@syzkaller.appspotmail.com
 
-wait_event() gives up after 100 polls and reports nothing to its caller,
-so a timeout looks the same as success:
+---
+This report is generated by a bot. It may contain errors.
+syzbot ci engineers can be reached at syzkaller@googlegroups.com.
 
-tools/testing/selftests/net/mptcp/mptcp_join.sh:wait_event() {
-    ...
-	for _ in $(seq 100); do
-		count=$(grep -cw "type:${evt}" "${evts}")
-		[ "${count}" -ge "${exp}" ] && break
-		sleep 0.1
-	done
-}
+To test a fix for this bug, please reply with `#syz test`
+(on a separate line) and attach the patch to the email.
 
-The REJECT rule only causes a reset if ns2 sends an option 30 packet
-from 10.0.1.2 while the rule is in place. Nothing forces traffic onto
-the initial subflow during that window.
-
-If no reset happens, the rule is flushed and the endpoint of a subflow
-that is still established gets deleted and re-added. That is the same
-scenario the previous "delete and re-add, fullmesh" subtest already
-covers.
-
-The later checks pass in that case as well. "chk_mptcp_info subflows 2
-subflows 2" holds because closing the initial subflow does not decrement
-extra_subflows, and the re-add adds one join. "chk_join_nr 2 2 2" holds
-too.
-
-So the TCP_CLOSE path in __mptcp_subflow_disconnect() in
-net/mptcp/protocol.c may never be reached:
-
-	if (((1 << ssk->sk_state) & (TCPF_CLOSE | TCPF_LISTEN)) ||
-	    fastclosing) {
-		WARN_ON_ONCE(tcp_disconnect(ssk, 0));
-		mptcp_subflow_ctx_reset(subflow);
-
-The commit message says this subtest covers that case ("also after a
-reset of the initial subflow, before the removal of its endpoint").
-
-"userspace pm no dup close events after error" follows its wait_event()
-with "chk_subflows_total 1 1" to confirm the reset happened. Could this
-subtest add a similar check after the SUB_CLOSED wait, for example
-chk_evt_nr ns2 MPTCP_LIB_EVENT_SUB_CLOSED 1 or chk_rst_nr?
-
-> +		fi
-> +
-> +		mptcp_lib_kill_group_wait $tests_pid
-> +		kill_events_pids
-> +
-> +		chk_join_nr 2 2 2
-
-[Severity: Low]
-Should this chk_join_nr be inside the iptables branch above?
-
-The if around the iptables command exists to tolerate a rule that cannot
-be installed. In that case endpoint id 1 is never re-added.
-
-Then only one MP_JOIN happens, from the id 2 fullmesh endpoint. The
-check here sits outside the branch, so it reports "got 1 JOIN[s] syn rx
-expected 2" and the subtest fails instead of being skipped.
-
-"userspace pm no dup close events after error" in userspace_tests() uses
-the same iptables guard but keeps every dependent check inside the
-branch. Also, reset_with_tcp_filter() calls mark_as_skipped when it
-cannot set a REJECT rule.
-
-> +	fi
-> +
->  	# remove and re-add
->  	if reset_with_events "delete re-add signal" &&
->  	   continue_if mptcp_lib_kallsyms_has "subflow_rebuild_header$"; then
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261019185512.458313-1-w453y.me%40gmail.com
+Notes:
+- The patch will be applied on top of the tested series (as an
+  incremental fix).
+- To test a new version of the whole series, please send it directly
+  to syzbot@lists.linux.dev.
+- Arguments like custom git repos and branches are not supported.
