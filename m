@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594245;
-	b=xFZF7A4Ihpaz5RTi0AkuEmi7Jfnc6IbmvwD9Cz69n7v0z+WSaCsR4LLLZEIRdSWWnFeB
-	 4e+SPGR7Ed+F29P7WtDeDoxP8yz9QYPwcJi4IK3GFbf7cpkyowBKMYSk22VzhDUozEOsR
-	 GPsta0e9DYqe1MrcUtwxi8o5J+dF3KTy6i4tPCkBH1lmaOp7u8o/3F/LfaVQI8rWvH0M+
-	 UgL7Jemm5nKmPAfmqM74B/itp7iY42RoyInka8vQHDC20RgjyKHz+q/wnZlwo1d96TTFg
-	 gWAzcEGSFDQs6buQk6EqNVZsvfpovhK43A01JO/5vjHm/RxZp/euO9HQ9EoDyuvE8jg==
+	t=1792594247;
+	b=euOmyKnr4JJtHSc15szaf3o5mn2PpfrFZ5VwBOFaIRkeq60VFmd5iN9SDrLzptuowdsM
+	 ANWoKPKFKxRqhreMqZ7QD1mmgvxBCYnZwz1YOXH7TJTR5wzA4mdJDbxjVrR3iKJOilwBl
+	 LvzqyNtlKyckmM5KswBN1XNtNtkl7DGrKp0DpD83cnulCB40tevBhLQOWcbTwdl88LvtW
+	 AoiqghbE96048gGbcu2M+VRyEjVx+NhEKG6rt0dNx5Oq4FZHO05gGm/p33ENrjgOhpm76
+	 nUU2Nqp2tIF3bRNDTT8NdMUowBWSVKRwj1/Hu9nHSkmIYCcRPLK3MdWL+V18mTQ5zrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594245;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594247;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=HJZrqCtFaIJ5K1XJe5cogI51gJQ/ccXqJluOn7jx+8Y=;
-	b=Cw6Q43Gt/ARPd8nAMRSiOT3iHBbD2ZG4BJOE2jo1uIi9ZhPLEC9tHlXsZIwOCU2bTnWl
-	 ulkw7c5CBRZGGe/SN6YsmRiR6iP0bzc7IGjNVCYNPHdRyty9wcVDZozvrBfBYtXMkKx/u
-	 5ZCReedJwV5QA2IdjgWXNP4v9ji8BF1atgaO6+1gwZkBgVGzO3mZZtiBb1QKnLdIFdUu7
-	 uePB61Ne9qdXazHzrxNGU8GbUoOXVZsHIDtXMnupAKT7SBndniNJMFJmUztXCtugdT6IT
-	 VWWca6tktPonVDo2FqhuIsREf+jkDbhDXZNGxIXg71eoFisvDekpmQI+onytwcJMTdA==
+	bh=n9Ir14eSKwEKGMTmwP/0uqmXxqQ7uJx5Rav2Y58V9/A=;
+	b=cmcxS0QTMp9jIWABdHOjALnauOoXdQ/rbLlE4SMtMiXp3BzlJtAjHiHVTWFIyOMZbwWh
+	 bQBgkocthuCeEM6pEI9DuCU7QSTWmnSmzmqSC5WrWNnMl3R6Bmmk621+O8UvuWDOdnXf8
+	 PotjLqKeaXzf9Whq3cRuTn6wl/EAf77TDTPsKG+SfalCh683xFu2eNsEu2UjNefkU2PXA
+	 iOQayyRVhMRLbtEAXFmFiD58DeYiWP0XpNLK1b3SfZfbAxAbdpqVEd3oIWciIb4yGLOMj
+	 FVqx8w68kExVlLDikavZVUiYUAseliBU8GRjpyHb0y8/lqH+3gJ+hMM1DPAbM+rUW6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZCZLqQGr;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZGDGu5Mw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E04AB606A31B
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:50:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DA0A606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:50:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZCZLqQGr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CD4D1F000C1;
-	Wed, 21 Oct 2026 14:50:44 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZGDGu5Mw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2C221F000C1;
+	Wed, 21 Oct 2026 14:50:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594244;
-	bh=HJZrqCtFaIJ5K1XJe5cogI51gJQ/ccXqJluOn7jx+8Y=;
+	s=korg; t=1792594247;
+	bh=n9Ir14eSKwEKGMTmwP/0uqmXxqQ7uJx5Rav2Y58V9/A=;
 	h=Subject:To:Cc:From:Date;
-	b=ZCZLqQGrLRRVlxhCTqLz4+tKu5J+4VL52Df7mBnV4n1YmASKACluGX2G4/bJRpIHG
-	 KwKuU4SxrFe36WBpLSR+fDGUHlI0aPBVjKvrnNoANM4SygMX/b8RZ2LgMzXZLTQeNK
-	 LQnm7pklvsMYjxu/h6hNBAMXaIwChjejrPIV9Tq8=
-Subject: FAILED: patch "[PATCH] tracing/histograms: Reject non-stacktrace fields for" failed to apply to 6.1-stable tree
+	b=ZGDGu5MwvqiEA3ZBPlhTnBwRaqh7+3UMQ0gFt2XTzKWOSChYnXarzKASezmBI761g
+	 Lhgk1q26cqCpWuTMlRJD89qDqmMX+sGLKjtPbDUxoHnDQW4D0PnyqfMNm6KRKcCPiT
+	 oWhmsaYe1OpBVga78fEaUmyP8BiLJ/WRBFsoXlns=
+Subject: FAILED: patch "[PATCH] tracing/histograms: Reject non-stacktrace fields for" failed to apply to 5.10-stable tree
 To: lee@kernel.org,mhiramat@kernel.org,rostedt@goodmis.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 21 Oct 2026 16:42:26 +0200
-Message-ID: <2026102125-surely-nastily-2d17@gregkh>
+Message-ID: <2026102126-groggy-doorknob-d4de@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x a244c241593b5b38a08f0df2cb43c26574efbdcb
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102125-surely-nastily-2d17@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102126-groggy-doorknob-d4de@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
