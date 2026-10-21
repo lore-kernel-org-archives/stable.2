@@ -1,100 +1,131 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792609066;
-	b=pPRfxlFIG3aBuk+4D6kyT94k9At9pYT00TyAOjxGqC9vhKcMgnAELOItHsJIUuBV2Dvm
-	 KulvVVuuhdNMzzHYTJFaDWUorVBihOEzc0VkpdIxI7h+5qEM4m7OhKuwZLMZi6uYCmgGG
-	 xC8tdc1h17mr8O+B8hLgKNUHTIl/H0wsrG4dVLC+BG2KDeAynimgtA8KgarldMWkDd1wl
-	 aph/kx36H2nrmaZgPF3FU5XTXGSmvMrYl2Ddc08OSb/QjL5bqyJ1+iSMUMLMxjffyGwUv
-	 NYF3Q/vWL3vQ6KLIPbTeoRGM2MsjNyJ+owzH+Yx+FRb72hQWvFnsVMUWqn7pL00ANmQ==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.16
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792609076;
+	b=BrwL3PJ3zk8Wc6135ykf+lNqkhlMAIcvbC4H7BilGHruHYWcnNyw+1lQ7LQAuuViY2ex
+	 Irqwp/DZzGZOfZeyxcimsHQnEyctG/w1WcKuZMHEq4tOYYVaDFx8JiP5c5QWqJYbfj4e2
+	 6vEuOWQQ6wE2rxNmfNHbfElGH+i2X9kovM6RLZuhai4st/YW5ETLlik+v1gz5vSIcnE/p
+	 AXjK/lA+xig73CtCBB7B4TssSu+gfxWRwA8KtrkCIQ1Whl+mZRsvngd8zwLyPEsl1ghcV
+	 OZaYLwaF9i96edszyhd8gmJ+ZM/NMrhI4Gb5pVb/T4TfFem+C4u1vU6RO7l1SaDLoAg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792609066;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=TyL9llcsal4SOiVQ33XFom8NGFxfymW1uiK43kazgp4=;
-	b=tVxvUth/dpjHo7xv9dzZE39I1IfILudfoObVwXsYLe1vRdtuILG1n7C9R97XJCXqbQAy
-	 OCe/Zf8j3Xq006aUINO0y91EKtybrRratzZZjAUQfImtpRSi8WPha6LCwvig+wSSD1D7v
-	 hssMta0thRAzLWzrt8dx3ekkxPhaOzVX91iaKNHukV/LTKcPyao9PV2tkIIk8bOI25sC4
-	 iMWS0yhaZEiwIu8N0XYomBXXJUMgseVC0SoEoIV+/ZykFmW/uMirePOu/bNIKRX9dQq2a
-	 HzWYx4BHf/UdgU8TOaFYpivVrxjvKKI+FXGM+bXd/Bc7xVzUK5e9K5OzoPOdnjJG0GQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792609076;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:In-Reply-To:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=t4Bx2Gf8ABTE7uIW4DpoKW3pt1AqsoA1UGHODkRyES0=;
+	b=XhaKxEZdaX/C7mMyUuu4ei8kRFw49H+4RVHxwWcWP3noVtMP/HfUMybgwEbwdzsgz+EN
+	 /SeW2wR+3w5q8In5wTMcyyaGvNh2DUFHGlvrfN3yhYBjN7GGtInlY8AB6eAibGXvELO3L
+	 pAPBkCCs+RGxgLmWK9LMbgpsN1cwKISaAgn8LtOnWHh4S8gkbp6NAZcepGgLFYPTm8wBt
+	 0Ks0aR68KWC+cIFoH9DiT6u57/DcGVJ6H46Zajrk390XZyVysXptAQXpXj54z+Sy8C1SV
+	 iojuINOpc086jTHjHXMohGUIcOPs89SxVUb11sraVDyVz+tJ5DiaUu3uL+JE/RsqJdQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kjGOALsu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.45
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fafxOR5p;
+	arc=fail smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59EE6606A31B
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 18:57:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59EE6606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 731ED606A325;
+	Wed, 21 Oct 2026 18:57:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 731ED606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kjGOALsu
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-91b8b456dbeso11035866d6.2
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 11:57:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792609065; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ByyqztjLEsr6cYzv1S8wFJKescaZUBxn5SHFJtirUUzScpuMf6QYs5MRtfGViVm8OE
-         31eHyaVk8c+x76QJ+lkP62pGevr+4T8zKPtZWXAdDD18tsPnqHvqh/JuJ9ZzSQF3yF9E
-         FZOy50yZSU1oTD6DaV4/5LZecTSp0GzU36jDP2fs5TDRmFcGUu16PnMvkECtlpT2PXDo
-         JqzIbJ5WOFZR+Qd4Cuz7SJXFo93ZqGFTq28cG54bJBZ5qIS+zEK/WyE1ccBmE8PP7uIZ
-         cFgMbtWVxTvjM9A3uCNnmHzPMwddL6GtyPp+hfc53GN9QS3f8wm4mSFvGHzvY78yxEJE
-         mWAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TyL9llcsal4SOiVQ33XFom8NGFxfymW1uiK43kazgp4=;
-        fh=FyIGMhZnz2brh4duGKyuWryVKtiE4OkF5T1BaRR/d90=;
-        b=Pk3vx2C5aIdYP7MPAPbv8ArhJVbDcBcPT0XLXqMdgEdiuYfTehDvgjieQtNVWGAULZ
-         7FUTT4s4a0miK6CGOKV8DExlJxkKTOHIVJSL3W7HZzmDzOeJFDCs9uQcfqoWxHaO4rDR
-         +qgiu35NBvtyO0439NxUhsW4GtlV+jAaIUikmrjfLibfifj9KrIsoCo1iMnjtMpey+7n
-         KGXK50FYYn83ep9/mbJJ/cUi+9oDR+telsBFwPfaMByBmk3JmTXn7Ubr7gsERPF3SMKZ
-         phoB5z1avDJjJJ7Lshea5BTrR4dYqe30UQQXYthTLkQEgOPe+pqsHdOsRkWsBZhWhhWp
-         SrAg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792609065; x=1793213865; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TyL9llcsal4SOiVQ33XFom8NGFxfymW1uiK43kazgp4=;
-        b=kjGOALsuRc96u0lbbBCHd+t/kSgHPs10UzG2JjaWN0A0JRVmmpjP+hr1FELaqqlIkc
-         a2VxPzU2BjzlRqvebHagLCCoTnlxIn+hRgVkVnmFUg6+KB9wRNBijyH9EWOdT1eWUHFi
-         d2sNdW29OMq6hggPg6S1bQUzcW+Vjgdb3ckPTvd70RuODMYSEtZl/s48Wcs2JBQh3yWB
-         AgmJwDXmuUPTMUinlm4I1FkxrxxrFyCqgZkRfF6ArqcIIVz7T+pl7eNLSdvLk0RE6o6f
-         k1KLciec+Qjw4Ope+zrjrSrXqtLdsmJX4PUgPOZAjf3vCcPQduHNzs7t31mMdnaf8Jwl
-         e12A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792609065; x=1793213865;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TyL9llcsal4SOiVQ33XFom8NGFxfymW1uiK43kazgp4=;
-        b=I5lkjTTr9lUIco5jw+dPl7dCiOw2dgNxmYLIi7d9/mGPUSz0uiRBpO4BNR1x5CWN8/
-         IHkMUHgueGhW3HPYfWJstWLCzggao37rugOJeoVt6GViEanc+rBPFI0bw8FrILalDfum
-         RHevwBcx7xEaK620QsGdnAKQ1W3O9BGUbEVSZJoHCCkPIwCDIlZlDu3Ges2X8pybsPUN
-         8UBW5NdYzVjyDfhfXj4Dlf4LgT4NUxAWsX1CT48Z7dowLhUMQsLg3855tNWyebaj9tG0
-         V7l3+DoEZaAttRhP60XX9Vc47vDFY8JFwnmL/sOQcOxdtpmDFLbW9S4I8xGP26iB6Kkf
-         leeg==
-X-Forwarded-Encrypted: i=1; AKwUvBxwW3/5IVhyTGcc3ExsIjXz0T+gSwXlBpwOcOMa9N2v79TSjFmqe8Cc3y6UxnXPvTgnMVJhXnU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLX0nr03tsZS8eFxaCJneH1Kzpii3f1IETaQhRwAuyPQF21qKr6
-	z64prPo+DwvJJBAtXaQkZUqMBitvmGaYYYq4s5pIz1dbzbOAnoOWeiPaGl3Rpnu5jQSgbQrZYYp
-	b/tqVa9lfaG9ZsKuME2tHtLu2P8UJWiE=
-X-Gm-Gg: AYBFou0u9EEr2GowPDo/ZnRjs3EE6+zszDw4L7hYGnBW21NlHPXPtEwX8eB20NMPf/M
-	eXQ/FAKJvTa1uFT5jGW3wUlbSkos8EiYD2iwJHHpnSPrV+YYBGoV843N3Mc1C6twdZh4YsK8yEV
-	yfL83TDcjVOUIplzdGwrnS42JvCueAeqq3CKIM7LyAHgiM3ulyewuVWTsX3bmwTKk3yg1j8l2XV
-	PqkcEz/K/Wrps1o2V0f/M6w9ZIXiuV8nY4ZtxzpGPCyYiYdiZlYsqOiVUqWS+anVlN3Qqckuc5B
-	qXpGsB53s2WgwrnLCQdzrhn87+eeXNSuQogAuR40UukcvJpt22nMywRYprggIdomfN9ddUVCbQj
-	IlE44/jDILnMCsCzPKTc+DcNMGC8N4+ZrYGQI
-X-Received: by 2002:a05:6214:2026:b0:91b:5d3a:4fcc with SMTP id
- 6a1803df08f44-91c12f57cd8mr50541036d6.57.1792609065159; Wed, 21 Oct 2026
- 11:57:45 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fafxOR5p
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792609074; x=1824145074;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=UrgewqVMrgxf3uRDYrR8jqwmWSq5Z2NVijNy6HT5pu4=;
+  b=fafxOR5pe81Ho2G3utJ14t+sGIRWnp6eUb0K770eMWLevNo1s5+NO43K
+   flHWwej85Hwojg2qGagSLCEpAlesQqBk/52WoqLN7N3cVwiAbI3js6fZr
+   klbwsFrkpSq3zDBtZ6R68sf3NNfHlLYm1MzNP5dXYRcOZGxsmpE2K0AXx
+   yU7QUhzH5yrMDeHPtoupxKnob64Wk1/Or2gLN2/74suRPx4Lw3RdX7WZe
+   tK1tkn611xB1Ai+ypo5DckCycerhqfzSCSbpC2OSD1FXVsCcnDX2sJZuC
+   4/dRn3OA//qGIYjSpXXNH1qOrDOHK1GmVVYqdpUzJM3uMnoIUMO6Zb3N7
+   w==;
+X-CSE-ConnectionGUID: zeZ3JZImR16mgOMd683zCw==
+X-CSE-MsgGUID: KGpbWTRcQpmMu7SrFlWnNA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1336807"
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="1336807"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 11:57:54 -0700
+X-CSE-ConnectionGUID: VLBhgZaeRm2z0eT/eDkbcw==
+X-CSE-MsgGUID: oKBLeGFrSQmmqc4DYxGCHQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="3562823"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 11:57:54 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 21 Oct 2026 11:57:53 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Wed, 21 Oct 2026 11:57:53 -0700
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.6) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 21 Oct 2026 11:57:53 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rUn+ejKyQac6XypVkbe2Ww90lFMSVf+9LEsHAjhv+sh5bAMj7H6uWH1IimRvyferTAUAhOmVi+WIV140S2uWhQO4EWh/xr1Hy3oae8V1gRSmOgigLXi4ubloQPNWWqp2Icu4VUYB/GXqy+4MCH+Vwe5v1rvb9gz1OxvN5qsrcNR0bbSBFp3SrqBf9ygKmnJUT/qJOJSqOUWqc0F6o4eybveaE06BZhBUdPNap3my1ccef+yBHKnIA2swpfCADOM8AnTe0XqceR+Vhy2NJfn9tnOJ8s5P4Xd7cQxkVHoFfrEQGQYL4UcAXjbIpMO13rbbOZl0gEv6AUZy54J6RpRf6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t4Bx2Gf8ABTE7uIW4DpoKW3pt1AqsoA1UGHODkRyES0=;
+ b=DEj1ic4CZy9qfgiR5OlFj8eS7Y6VEZGJYn2/uajTeyLtzeSKk6CYtYnpKoF/G5vzeAI92Tiejx6ChiS+8B8yW4MpWzZzaH/WFQeiLzrpj/KC0N6VACREvlk6J+7H7y08dHH+wgORXqCct4D5pqP4ipnETpYRRNY2/H0SB8bYy0jWZ/Y4mUKjk2h+3NxcqmF25tgQktBz21D/PLUgWg3iDVbXICpnwAJohJWXy6rg90RuS+4HVqltr8woiNKaEfTth+B5sj9uo5UYLnPPKf9/EYiwmep5JMKRmhQgqDqQ+1DOvF93QP6vK+h8FwsA67IZk7PynUE7K7NfCEdQkCLxdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
+ by SN7PR11MB7438.namprd11.prod.outlook.com (2603:10b6:806:32b::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Wed, 21 Oct
+ 2026 18:57:51 +0000
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 18:57:50 +0000
+Date: Wed, 21 Oct 2026 11:57:48 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: <karim.sabar@utexas.edu>
+CC: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, <intel-xe@lists.freedesktop.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+Subject: Re: [PATCH] drm/xe: Use kvmalloc for the VMA ops page-table update
+ array
+Message-ID: <atkLLH47Zd6vMX3B@gsse-cloud1.jf.intel.com>
+References: <6ad8027c.7f7fe2b9.10c6e4.4073@mx.google.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <6ad8027c.7f7fe2b9.10c6e4.4073@mx.google.com>
+X-ClientProxiedBy: MW4PR04CA0048.namprd04.prod.outlook.com
+ (2603:10b6:303:6a::23) To CO1PR11MB4787.namprd11.prod.outlook.com
+ (2603:10b6:303:95::23)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,117 +135,164 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260927041138.4112920-1-jinmo44.yang@gmail.com>
- <20261018124755.850888-1-jinmo44.yang@gmail.com> <20261018124755.850888-6-jinmo44.yang@gmail.com>
-In-Reply-To: <20261018124755.850888-6-jinmo44.yang@gmail.com>
-From: Jason Gerecke <killertofu@gmail.com>
-Date: Wed, 21 Oct 2026 11:57:34 -0700
-X-Gm-Features: AclHuK_ejuCq64puYEyVI0F5dBdnGQ6uXcliBiinZhl_jRQ73tHCVePIfkfF6W8
-Message-ID: <CANRwn3Sw1r6PWqZVynBdtqDC=T6SjF86y9VcNM7WYBhhX0LyJA@mail.gmail.com>
-Subject: Re: [PATCH v3 5/6] HID: wacom: add NULL input guards to Bamboo
- touch/button handlers
-To: Jinmo Yang <jinmo44.yang@gmail.com>
-Cc: ping.cheng@wacom.com, jason.gerecke@wacom.com, jikos@kernel.org, 
-	bentiss@kernel.org, dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	"Claude Opus 4.6" <noreply@anthropic.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|SN7PR11MB7438:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf65563f-79cc-4516-dfb4-08df2fa53420
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|18002099003|22082099003|10067099003|261021121427099003|261021123027099003|261009223027099003|11063799006|5023799004|56012099006;
+X-Microsoft-Antispam-Message-Info: 4PGsZaDUFE3+hdYwj+N0tf+tSgf/qQeQhil3tjq+dStqVZydmxrgMt4TOQtNmzK/EnAAbFIfpo8iT1c1S+MevVipI4HlUdTOgV0WfRZNdq5a10J4STLmWPQWShkGSvZkclbJKmXEagWsZc5chhcIcAbOzhWBgu4j8hZqD64xhT50B+wb+gKbSbrR+aEipR6HCi/e3UomkwnYfIKD2VNEXZfKDAmk9djejMJvzAuYh6mkdKqFWw84xJt3r83GOGYGZbhzz2JzsUEbgLAfmbHeuId0NctFsQW+E5srQLv0asD/j4h5AbOsbAnGTSkrxkiide5OcM5Fw9WM35nTysMmR8lNwVZH8sgKlftwu7DyoUhYYC3eNulPM4w2WrMlBx5e1ZHYkDgQ3A2r0VjSj5JeUoCm8O+TitnbNNz3jMiNnL7KCgEOBKewyESMm/sfgnNYyZauYNVrH/kZCTpDEvzYxvlXrRtNRUeIF4/7PC2YCyGWyg0agW418n4lWFOsd7ABRd5VgZB/4tEChE/qVOIXZ+0TTeMKxhqUfOhf2AaPuctpT+M9cYGDIFyyVV5RxEQPf4Xc+Wai3lKlWu7bxDE+GxDzprIrqGTdNA5/Qk8aEvuyZ9hfPzvQbarlgW/UFcnAw2EXtsXG61Vv7dU/tmXE5P4LUwTk/RIVy9PBbHQgJHI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR11MB4787.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(18002099003)(22082099003)(10067099003)(261021121427099003)(261021123027099003)(261009223027099003)(11063799006)(5023799004)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?aNzILbEODSBzDYtnYpKLbEaGZDw3JqOFs/pUSbh/nuMH1AMFH6ZmuoTcrzr2?=
+ =?us-ascii?Q?qh9SqgeU8bKesHaBZ3ZOJlLXJ31CHqXRxzbQONmaBUOx2gcTWXivyK7q+fpa?=
+ =?us-ascii?Q?LRBobxsx6EiJLfmMfsr21Ld+jrSvZ6WNz6Ep52jDumbaP+9clBwxAUeLCYl9?=
+ =?us-ascii?Q?JYCsP6/6UypGkJpliwa1+h7WVnlmkm0yrkgVm/qdaySiRCv+IIivT3R4yjv4?=
+ =?us-ascii?Q?dBf7wbPQv5rgdDoleNJAmxpkpw4hUUkRlQqIgEjXwaLb39UeuBmyhzRcIuQH?=
+ =?us-ascii?Q?bBP5/L4DieGisXlXh+8btQ02w949roTM4tDvxT66f13fG3yFhLkoebrJFUFU?=
+ =?us-ascii?Q?511NC96D68tXMYs3lJnMvbWx1CHkN9Eq7EywuyEfDCWgBW899C2Im18V69mc?=
+ =?us-ascii?Q?wDP0jVWiFMT3q63m2LXGvvhEV5ygQrMnZlh1Tejy8HWxIqn6Q6JMwzeah6cC?=
+ =?us-ascii?Q?ZZPngFruYB2gQljSayKfPdHijVHQowMjOZ+PB7huYsJN+Wk1849+MDfAFmxy?=
+ =?us-ascii?Q?G59vHgiCCLmX53TIkap7aswouEQKdxvxmn0nQiGBLZStXMU2+fNwMII39/Rj?=
+ =?us-ascii?Q?/KkMCW8I/VgBAmAG1W5X33qUkT6k5qdA3XI7ZGabPMpkaOhmFpxwNCWK53pd?=
+ =?us-ascii?Q?v0YCl1pDcVFkZWxUTvlsTqcMDbK/xFUah807KOhY8LKj+ECbBLYqaymqcM89?=
+ =?us-ascii?Q?Uv6bd7LX20n98bT8vpplBmtX8LvG6VfF1aRuQlYFfRNyD9GiTUiCGZ7MiS2L?=
+ =?us-ascii?Q?Gmh858ao9UBpuVQ1+BvX9RZUJ2W4kCj1j3ydOcKWi0DBiHcHnV/TLT/HeNAW?=
+ =?us-ascii?Q?ZT/tAJIYBp71fwjNEDQp754p0qaHLJDVzrpk7bw1QMapmM+imKW5cv0ozEHF?=
+ =?us-ascii?Q?DaKJjiWdaIFnL4aMSOJ2TgrYn9kwAc3NH9qPmUXWlF0LmtLNGV21z4nFldC1?=
+ =?us-ascii?Q?LcwdZaoKW3gVpD/Z0/kzDvO+9qndpQutMswUN1SoAawnhcNmJMKt4NJodnyo?=
+ =?us-ascii?Q?/U4GXqMoikY41m43uXXC7w4hg2FCjQ1jD9WLn3X6zfCEf7IFiR0Ur2BwHmeN?=
+ =?us-ascii?Q?I54t5Sc/fHqKGnPDS3WzISLwAd1wrSYS3G6HJV+cRv1sTs4oWmu7llg1VSkP?=
+ =?us-ascii?Q?SWvYz2u3E+DRcE4Wnpn6ToBg8TiOMHRDAyyjx3Ixhkktf0cPm90yiN/EB3RS?=
+ =?us-ascii?Q?s00p9dfxBc5xDtCUX/03+7hgnauIDjRFyVjYwNAWNTdNlKU7qjPnxqBLiCe0?=
+ =?us-ascii?Q?wewRnas+ZtTxuAU5ric+yGiUCHXCA27alQAKbmSFVLJcd4om205AwPX23Ykz?=
+ =?us-ascii?Q?gyRFjsxZVn1quFhNtTFI+Vg7KSM3OHBpjP1O9V7LCXELB6KrwmOiw64HPGon?=
+ =?us-ascii?Q?kdMC1P4G5lfcck+MTXOpUi3y0NAQnoqh8nD07Rb6Fu0GBOezB2UHwc1VLKpy?=
+ =?us-ascii?Q?k+seR1uxForyYqnFDNZZUYnGekVXLR5wGZhWd1ruWs0+/ckhlfW657FJOUa7?=
+ =?us-ascii?Q?6Ogvk9lhtbXkyldTsLRo6hEO+1V5+68p+geue9GjBl4U+/ImTvsV7gZirf0p?=
+ =?us-ascii?Q?FT0p5tanuLNUgzjPPSMGcYFjdbt5z9flLBS+He83hrcaOujMNTztYqFJnM0W?=
+ =?us-ascii?Q?SkragDS4O15O1o8OECSbRJHwEyBscpq1wle14NWBA+9NpN4O6ujL68Q1vSpQ?=
+ =?us-ascii?Q?wofqEEpWMrXkw1h43JJyuAnLO9RVHGOLYSSQXXJJj0CLIkIr1ZPM6Y68OsSU?=
+ =?us-ascii?Q?tPxYIhHvkQ=3D=3D?=
+X-Exchange-RoutingPolicyChecked: D0iAQmSiOFGliL8F4KX9QL131ug4hG4TiNgimaf/sQtNZ248g/kdv4rQqFp5/HyFwG5706T1bIXblYFlUNANyjccWt0wTTi4FLESFEc2JmxYmyfbwXJtpirXQGzyu0WZo5QCnH9vbTlRtstlYtUnlV4AwssEBAJbZdn7g5c8h3s7uTKUEg6AdAOnLfwNhHOMS60U9hc9lvAKWTHAtqYakk67dDgkm/rHQy/X4WaKOAp/xPUpbaZ2EKlXeMaEMvl7i4R5Uv96VdB8d4eSGapyz6D5hpOF+kZ9zEjzenUl2S8AICAJliO4JOKCcVxGh0ojPtAtsshref3M4TlGZMQFpw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf65563f-79cc-4516-dfb4-08df2fa53420
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 18:57:50.2180
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: J6OJS7esCYJ3LdnJqr5fDIWiSoZAtAa8nxbzJC2KW3BKxLUCWVQtMlzlPA8MTCcZlN0xL7Od8I0IoaqDHCzFug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB7438
+X-OriginatorOrg: intel.com
 
-On Sun, Oct 18, 2026 at 5:51=E2=80=AFAM Jinmo Yang <jinmo44.yang@gmail.com>=
- wrote:
->
-> wacom_bpt_touch() dereferences both touch_input and pad_input.
-> wacom_bpt3_touch_msg() dereferences touch_input.
-> wacom_bpt3_button_msg() dereferences pad_input.
->
-> All three can be NULL when the corresponding
-> wacom_setup_{touch,pad}_input_capabilities() returns -ENODEV during a
-> successful probe. Add per-function guards.
->
+On Tue, Oct 20, 2026 at 07:08:27PM -0500, karim.sabar@utexas.edu wrote:
+> From: Karim Sabar <karim.sabar@utexas.edu>
+> 
 
-Seems reasonable to also add a check in wacom_bpt_pen(), even if (in
-its current state) a null pen_input is not possible for these devices.
+Thanks for the patch. I do see the problem in the old code.
+Unfortunately, we will not be able to pull this into drm-xe-next or
+drm-xe-fixes, as 7.3 is already out and 0e33330f1238 is included in our
+7.4 PR. As a result, this would need to go directly to stable.
 
-Jason (she/they)
----
-Now instead of four in the eights place /
-you=E2=80=99ve got three, =E2=80=98Cause you added one  /
-(That is to say, eight) to the two,     /
-But you can=E2=80=99t take seven from three,    /
-So you look at the sixty-fours....
+There is also a risk that predates the series containing 0e33330f1238.
+If the bind has to run on the GPU, you can still get -ENOBUFS later in
+the bind pipeline if the bind is too large to fit into the
+migration-layer BB. If that occurs, the proper fix may actually be in
+xe_vm_validate_rebind(). If xe_vm_rebind() fails with -ENOBUFS or
+-ENOMEM, we could call a new function, such as xe_vm_rebind_iterative(),
+which would run each VMA requiring a rebind in its own job. This is
+effectively what Mesa does in userspace when a bind operation returns
+-ENOBUFS.
 
+We could probably still pull that approach into drm-xe-fixes + have
+naturally backport to stable, and it may ultimately be the better
+solution.
 
+Let me know what you think. I can give this an RB, but I'd like to hold
+off until we've settled on the solution we want to pursue here.
 
-> Fixes: 2a6cdbdd4cc0 ("HID: wacom: Introduce new 'touch_input' device")
-> Fixes: 862cf5535c0c ("HID: wacom: Introduce a new WACOM_DEVICETYPE_PAD de=
-vice_type")
-> Signed-off-by: Jinmo Yang <jinmo44.yang@gmail.com>
-> Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+Matt
+
+> Big games die after every s2idle resume on flat-CCS iGPUs. The exec
+> ioctl keeps returning -ENOMEM even with 11-16 GB of RAM free.
+> 
+> On suspend xe_bo_evict_all_user() evicts every user BO in XE_PL_TT on
+> these parts. On resume the first exec rebinds every VMA in one go and
+> xe_vma_ops_alloc() kmallocs one 384-byte op per VMA as a single array.
+> Final Fantasy VII Rebirth has about 33,500 VMAs which means a 12.9 MB
+> array. It's over the 4 MB KMALLOC_MAX_SIZE and can never succeed.
+> __GFP_NOWARN keeps it out of dmesg.
+> 
+> Data from a Panther Lake handheld (SteamOS kernel 7.2.7), kretprobes
+> after resume:
+>   xe_vma_ops_alloc  -ENOMEM on 63 of 63 attempts
+>   xe_vm_rebind      -ENOMEM on 63 of 63 attempts
+>   BO validate, TTM populate, PT prepare  never failed
+> 
+> The array is only used by the CPU and doesn't need to be contiguous.
+> This switches it to kvmalloc and kvfree.
+> 
+> With the same change applied as a module on that kernel, the game
+> survives every sleep I tried with zero ENOMEM. The biggest array was
+> 30,753 ops (11.8 MB).
+> 
+> drm-xe-next already does this through commit 0e33330f1238 ("drm/xe: Add
+> struct xe_pt_job_ops"), but that's part of a big series that won't go
+> to stable.
+> 
+> I tracked this down and tested it on my own device. I used an AI
+> assistant to help with the debugging, i.e the kprobe tracing and
+> reading through the xe code. I ran every test, picked the fix and
+> reviewed the change myself.
+> 
+> What I couldn't do: this is build-tested on drm-xe-fixes but only
+> run-tested on the SteamOS 7.2.7 kernel through an equivalent module,
+> not on a mainline kernel.
+> 
+> Fixes: 2e524668c440 ("drm/xe: Add xe_vm_pgtable_update_op to xe_vma_ops")
+> Cc: stable@vger.kernel.org # v6.11+
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Karim Sabar <karim.sabar@utexas.edu>
 > ---
->  drivers/hid/wacom_wac.c | 25 +++++++++++++++++++++++--
->  1 file changed, 23 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-> index e0bf03123cf9..a34db1505625 100644
-> --- a/drivers/hid/wacom_wac.c
-> +++ b/drivers/hid/wacom_wac.c
-> @@ -3151,6 +3151,12 @@ static int wacom_bpt_touch(struct wacom_wac *wacom=
-)
->         if (data[0] !=3D 0x02)
->             return 0;
->
-> +       if (!input || !pad_input) {
-> +               dev_warn_once(&container_of(wacom, struct wacom, wacom_wa=
-c)->hdev->dev,
-> +                             "%s: input is NULL\n", __func__);
-> +               return 0;
-> +       }
-> +
->         for (i =3D 0; i < 2; i++) {
->                 int offset =3D (data[1] & 0x80) ? (8 * i) : (9 * i);
->                 bool touch =3D report_touch_events(wacom)
-> @@ -3185,8 +3191,17 @@ static void wacom_bpt3_touch_msg(struct wacom_wac =
-*wacom, unsigned char *data)
->  {
->         struct wacom_features *features =3D &wacom->features;
->         struct input_dev *input =3D wacom->touch_input;
-> -       bool touch =3D data[1] & 0x80;
-> -       int slot =3D input_mt_get_slot_by_key(input, data[0]);
-> +       bool touch;
-> +       int slot;
-> +
-> +       if (!input) {
-> +               dev_warn_once(&container_of(wacom, struct wacom, wacom_wa=
-c)->hdev->dev,
-> +                             "%s: touch_input is NULL\n", __func__);
-> +               return;
-> +       }
-> +
-> +       touch =3D data[1] & 0x80;
-> +       slot =3D input_mt_get_slot_by_key(input, data[0]);
->
->         if (slot < 0)
->                 return;
-> @@ -3229,6 +3244,12 @@ static void wacom_bpt3_button_msg(struct wacom_wac=
- *wacom, unsigned char *data)
->         struct input_dev *input =3D wacom->pad_input;
->         struct wacom_features *features =3D &wacom->features;
->
-> +       if (!input) {
-> +               dev_warn_once(&container_of(wacom, struct wacom, wacom_wa=
-c)->hdev->dev,
-> +                             "%s: pad_input is NULL\n", __func__);
-> +               return;
-> +       }
-> +
->         if (features->type =3D=3D INTUOSHT || features->type =3D=3D INTUO=
-SHT2) {
->                 input_report_key(input, BTN_LEFT, (data[1] & 0x02) !=3D 0=
-);
->                 input_report_key(input, BTN_BACK, (data[1] & 0x08) !=3D 0=
-);
-> --
-> 2.53.0
->
->
+> Downstream SteamOS report with the same data: https://github.com/ValveSoftware/SteamOS/issues/2962
+> ---
+>  drivers/gpu/drm/xe/xe_vm.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+> index 99e42bd29..5caef443b 100644
+> --- a/drivers/gpu/drm/xe/xe_vm.c
+> +++ b/drivers/gpu/drm/xe/xe_vm.c
+> @@ -703,9 +703,9 @@ static int xe_vma_ops_alloc(struct xe_vma_ops *vops, bool array_of_binds)
+>  			continue;
+>  
+>  		vops->pt_update_ops[i].ops =
+> -			kmalloc_objs(*vops->pt_update_ops[i].ops,
+> -				     vops->pt_update_ops[i].num_ops,
+> -				     GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
+> +			kvmalloc_objs(*vops->pt_update_ops[i].ops,
+> +				      vops->pt_update_ops[i].num_ops,
+> +				      GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
+>  		if (!vops->pt_update_ops[i].ops)
+>  			return array_of_binds ? -ENOBUFS : -ENOMEM;
+>  	}
+> @@ -742,7 +742,7 @@ static void xe_vma_ops_fini(struct xe_vma_ops *vops)
+>  	xe_vma_svm_prefetch_ops_fini(vops);
+>  
+>  	for (i = 0; i < XE_MAX_TILES_PER_DEVICE; ++i)
+> -		kfree(vops->pt_update_ops[i].ops);
+> +		kvfree(vops->pt_update_ops[i].ops);
+>  }
+>  
+>  static void xe_vma_ops_incr_pt_update_ops(struct xe_vma_ops *vops, u8 tile_mask, int inc_val)
+> 
+> ---
+> base-commit: d2ce8fcd778ee6d92748c92d23a56d4416c29d86
+> change-id: 20261020-xe-kvmalloc-vma-ops-2637ebf81cfd
+> 
+> Best regards,
+> --  
+> Karim Sabar <karim.sabar@utexas.edu>
+> 
