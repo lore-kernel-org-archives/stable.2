@@ -1,63 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792579634;
-	b=cZ5ApoXlJ9Enw3DSbHYUQDvRUOUeGrJPqUdcMo7odCp4ko45ose8w/9HXCmcELoYIlk7
-	 ubVWzCVI9/JwaCna6ZviF7KmdZcICuk02+ulUBSE9HwPWSdtsDxj2E6U+AwJTxfmVRl+J
-	 HltwgdzNZsL5F4NBiLD5zilMxHBgsRRGckjX5uTnnv5cp1HH8DCuiz+E6ExjXyp77Co30
-	 HIOdIHAgOapS7kjPpgx7m5h9Fjtt5FLnk3cv2AbydbLfZxkt+jJD4XsJfpGTG67PEK0Fz
-	 H7khQ9b2cc2dflLfIPKsQfAxAbro2MLnzCZmT4s5c1j1dc9Dd+I7rG8txlexrVv9eAg==
+	t=1792579665;
+	b=1+vGE4g2/xGFz0EyBD1FwCkfIKGp3kH4FEix8zR81UMHKnxGLLoThY4Jn/PMYi1ktkDE
+	 +oOdJx40MA9iuZ/rffnOw/Bt/bofM2rkqA0ynT7as1YSHxrjMui/3QxDtRuWKkrFdn+m2
+	 U6oFeX2g4pbOw/nSlXuTYEVtrOMQCZXBvYPSMShXM2TdztUSokTi9a641MaKGP6zBPOUn
+	 4yQKho1Pjp0FCmVlAY1lnjF27Wxz5nBl426uNh/lKnbd6m51N53liXVqc14+5Zf+KprZ2
+	 djxgnmZ8jSjPTgsZ9VXG0FtrkWWhrFvo/53lyJfVR5nOdbmrnZ9NrApofhKqvLjYabg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792579634;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792579665;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=ncfvzB1bc0eLJbk4Rdy9TYoyW9z1qgFzqy9U8rNq/LM=;
-	b=zRlcIJuoBG7vrvIIi+oskRf7p8hAVSzQf6AcbPlRl1Fpldmez5iAN01WY0C9FFi8NO5Y
-	 lJ153FQ/9eVKZ4WZeB0f9dUC65Y7AOYx+7LNK2uIlyIifewP6KYauxSX5rxLa5ed2Y9sX
-	 uGf/2Aon8WtAok9GMCuHfBjM/5TLo8gi2IO3QdfgOSrOeIA1GKGlJG0NBUXR0YWmONZ1g
-	 XS7mbZ+KzwCwXZCRdua90YEuEBepxI1d68MGo4H9bg5b1p+H/3SZyNYitwSm0IiVj6GJX
-	 F9qRtFuY7Sle9Z+NF9+r5mA2ISiNp56QFHOLWHVnWXlnXjn+l9NfXRoXAsoMYIPP7xA==
+	bh=/Yh6b/SsZOJBDx4OSHpxtjQiQ5dN3xdal/mXss6FdVI=;
+	b=yQkywx9w0sCwZ+KK6eCX7W8/f44K616zFs2tbvFQUJTwnmrTOpIs5pbtTCb7rdfuc3kw
+	 7p+DiFVS+9B9SlUCQ+lyFSjgNOtBumDL6FPJc/ZfLcKV6q6gFzWQl6diRuiQL5ETlJsZy
+	 jLH1UUPHuSZp3Fw0XSZGkjehuHZ22B9EfDFEdnMqeMdGL/0ERMYfTEfdb5zzFhb9NejJe
+	 KATvtSGcavHTKTVQ/a6XAhevbpn7i7yLgCLmPjLCMwF2poLfC4FUNgf0OsmwoehEE4F54
+	 b3vnism6dYW2A6ON3c5EorKtf7bzUIcMf0b5BV1mwt9pt6QGWp1A+1AURIdOHjoEYJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=MizHYavd;
-	arc=none smtp.remote-ip=117.135.210.3
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=pk3gdYEH;
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D877606A31A;
-	Wed, 21 Oct 2026 10:47:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D877606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F85606A329;
+	Wed, 21 Oct 2026 10:47:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71F85606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=MizHYavd
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=pk3gdYEH
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=nc
-	fvzB1bc0eLJbk4Rdy9TYoyW9z1qgFzqy9U8rNq/LM=; b=MizHYavdTJPKlakzto
-	Xd5MBrWrRhsVlRC6iTnOkpvXxG7hFuoDAD48fJDP6D1iq5gOaL0l5/gpM9qW2SUz
-	p+hBBzU9ALckN37ILrL0VIU5kyJL8pwhVIA76HUvxJI/NxFM/fOVsHOrUvZJCD/W
-	rl9ssbAlLJZ62845nNjnN+qTs=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=/Y
+	h6b/SsZOJBDx4OSHpxtjQiQ5dN3xdal/mXss6FdVI=; b=pk3gdYEH3/33iineDs
+	tsH0pxabz1INhNNEdbZVeQg1XQJE2pN3sZYEy3rnsTNI9zslpn7vBq784KxO0/5C
+	ppsP7YH85ULzkkKiPp+HaWb19gWZ27Qp1Ro2t3aTI+UCiO1k0m+S/gdkqYkSYSn4
+	0hBQYDU97Oo4khHvVkkDFAprc=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDXXzcZmNhqXKxSBw--.62283S3;
-	Wed, 21 Oct 2026 18:46:51 +0800 (CST)
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDX3xM5mNhq3MNSBw--.27855S5;
+	Wed, 21 Oct 2026 18:47:24 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>,
-	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
-	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Tony Luck <tony.luck@intel.com>,
-	linux-edac@vger.kernel.org,
+To: Mathias Nyman <mathias.nyman@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 1/2] EDAC/versal: reserve space for injection input terminator
-Date: Wed, 21 Oct 2026 18:46:47 +0800
-Message-Id: <20261021104648.4105938-2-yaojiale02@163.com>
+Subject: [PATCH 3/4] xhci: debugfs: initialize command buffer
+Date: Wed, 21 Oct 2026 18:47:18 +0800
+Message-Id: <20261021104720.4106961-4-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261021104648.4105938-1-yaojiale02@163.com>
-References: <20261021104648.4105938-1-yaojiale02@163.com>
+In-Reply-To: <20261021104720.4106961-1-yaojiale02@163.com>
+References: <20261021104720.4106961-1-yaojiale02@163.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,38 +65,38 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXXzcZmNhqXKxSBw--.62283S3
-X-Coremail-Antispam: 1Uf129KBjvdXoW7Xr1xGr1rGw1rGry5uFykKrg_yoWDWFg_ua
-	ykXFy8WayDtF9Fyw1xCw17ZrWFy3W5Xr1kur1a9FW3GryjqFn5Xr95uF1DZw47urW8GryD
-	Kwnag34fGw47GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUn92-UUUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7xv8N2rYmBsZXwAA3I
+X-CM-TRANSID:_____wDX3xM5mNhq3MNSBw--.27855S5
+X-Coremail-Antispam: 1Uf129KBjvdXoWrtrWUCrW7Kw4ftF15Jw4kXrb_yoWkGFcE93
+	say348W34DCFWFvr1xAr4YvFW2ga4UXrn29Fna9rnxGwsrX3WF9Fs7urn7XF45Wa15t34D
+	C39xWr1rK3WjkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU0mNt7UUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRwGQGrYmDwqEAAA37
 
-inject_data_ue_store() caps the copy length at the full buffer size and
-then writes a terminating NUL at buf[len]. An input of six bytes or more
-therefore writes one byte beyond the stack buffer.
+xhci_port_write() copies user input into an uninitialized stack buffer
+and compares ten bytes against the compliance command. A short matching
+prefix can make strncmp() inspect bytes that were not initialized.
 
-Limit the copied input to one byte less than the buffer size.
+Zero-initialize the buffer so the copied input is always terminated.
 
-Fixes: 83bf24051a60 ("EDAC/versal: Make the bit position of injected errors configurable")
+Fixes: 87a03802184c ("xhci: debugfs: add debugfs interface to enable compliance mode for a port")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/edac/versal_edac.c | 2 +-
+ drivers/usb/host/xhci-debugfs.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/edac/versal_edac.c b/drivers/edac/versal_edac.c
-index 5a43b5d43ca2..917d7d1762aa 100644
---- a/drivers/edac/versal_edac.c
-+++ b/drivers/edac/versal_edac.c
-@@ -856,7 +856,7 @@ static ssize_t inject_data_ue_store(struct file *file, const char __user *data,
- 	u8 len, ue0, ue1;
- 	int i, ret;
- 
--	len = min_t(size_t, count, sizeof(buf));
-+	len = min_t(size_t, count, sizeof(buf) - 1);
- 	if (copy_from_user(buf, data, len))
- 		return -EFAULT;
+diff --git a/drivers/usb/host/xhci-debugfs.c b/drivers/usb/host/xhci-debugfs.c
+index 2aa01d99f23d..a020cbab9674 100644
+--- a/drivers/usb/host/xhci-debugfs.c
++++ b/drivers/usb/host/xhci-debugfs.c
+@@ -347,7 +347,7 @@ static ssize_t xhci_port_write(struct file *file,  const char __user *ubuf,
+ 	struct seq_file         *s = file->private_data;
+ 	struct xhci_port	*port = s->private;
+ 	struct xhci_hcd		*xhci = hcd_to_xhci(port->rhub->hcd);
+-	char                    buf[32];
++	char                    buf[32] = { };
+ 	u32			portsc;
+ 	unsigned long		flags;
  
 -- 
 2.34.1
