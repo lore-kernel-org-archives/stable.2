@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792610729;
-	b=SJzeYFSSPWjXAIWQWQVFWNbAiwEkw/WCv5mNVjBa7x2EKit8X8GTeDqI06ba96onXT/V
-	 SSRZYNxqyDgWcUyRDbucmPziKSIDJ112KHpYzJeJRhMzZY6tWSKX3wWFGUWD5tRdDumrC
-	 9+vit61788lb+j62L94U/liTqHMZgP7ogTyfq6rrhf85174NWLPlEVp+JMPz4npn7f4GW
-	 G37WUBtsahHfMK8WA0QtcJ7Q1Cbd2/xlcaNkbxiHx9mKfGrrh2o2H5QRZFVKl9qy4Pw6R
-	 jjGMpszO5dMPMdDWoFOfcrfm+ZuZT3dNdqV0hORFX/d5lQsORSkpPvIVBLvtsy/VHGg==
+	t=1792610730;
+	b=SF/926FdQQ3Fe+c6cjbcuOdo5/vyxg+VDtZp8HZ1Mi5Pb5cRsYJ8Xipy8OlNiHsdXAX+
+	 tddgAH0NA7NQL3aad57WhUwaldBBBNwtGyyB5Z93WhVts953mkvyAUvZ85AMBlEuTwM9T
+	 U2YdwT7RnXdiF3zOYezvak4R5cEVgD6cAOxRy5ocFeasGTeXl5ymhHXKKq/bXwDLRSrXc
+	 juS5+sjBiAQEo89W7ceeF8fPH6E/Qy28rtpI/LHD96xCcbL0dBhTs+b55dlnIvK5yCoZ6
+	 +V+EsD1DIDSTSa1fhs43Xex0n0HxRP46FAFcL2BpuiTTx22h/oliodQnw3Pk6AqZSQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792610729;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792610730;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=KSwASh3+nzVRN/nYBdatxNuVy06KpiX/R3rqyByNzCo=;
-	b=fNkRdRpV4lnSACYGpJtSbaduJ8t/Mx7sVlMypk8bz4q7UONx/kw5fUJZMwfz/z9bQp2p
-	 22pbiO624PRsWJSMBBhpXLj60eVd8xfz7a1LUV1D8F4UAtXkqA99JoISyvvEi/7Z2YDcU
-	 pLqsUnIPwiFLGJ6WgN5oCFf5qjjzXH9VxADlp/4bv7B9ssZzTRdtX0h9ZlqaP3j6GpS2v
-	 N6fGkopN4HpWqRaYVfd1i8fiOoyH1qL6SRYxJeTECM6G6puziao9rv3QiLxt+av0nnvLF
-	 N/MftRTM+fIuOrz5envQ5a2L2WYWpURA+3JayBVboVxyPne6UkQ+VNylrobFg3rDE/g==
+	bh=13JlhaqYxJCjN+cuAkptPbINZKXTwtVz6e6fXPFNqyI=;
+	b=E6JghHewkzWPvdN/uvSXqX9DQtrOZM6xS+KGGriush5ghGjsv3phLftctH9kxspFYC2l
+	 /44Jjl9ZkujE74J1+zZzWbGadRGcncy2tNIfTzl4rCCm3FGTDDYd3XK4tHDKC3kw/yPi+
+	 TeP+DVIADZNXJuVI3bA5WaDV8HeZzPKlOITFrCUsY4tmFc1S4DAeSxpNST16XpCfp5JTo
+	 AhhEBKyc10f9bLfSNRInT6ieYbOrEoWXIF62SaHA9eh6uGA8GFabmRVOE9yO7YPq34nHt
+	 Y+4kZgeUF0IEWdvDV+YBJbxHAeSh2PWQqKdu+8yjj71WLY7GSk9wwab5EYvXuUbFtzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RktqCIdr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RzbCfRH0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3CA9606A324;
-	Wed, 21 Oct 2026 19:25:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79FE7606A319;
+	Wed, 21 Oct 2026 19:25:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RktqCIdr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 425A81F000C2;
-	Wed, 21 Oct 2026 19:25:27 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RzbCfRH0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E60F91F000C1;
+	Wed, 21 Oct 2026 19:25:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792610728;
-	bh=KSwASh3+nzVRN/nYBdatxNuVy06KpiX/R3rqyByNzCo=;
+	s=k20260515; t=1792610730;
+	bh=13JlhaqYxJCjN+cuAkptPbINZKXTwtVz6e6fXPFNqyI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RktqCIdrpmze2315z674QeKhIDp8VvZDoSNiCx0udn02Y5wCh4nCgzJTBREEjl1nh
-	 7MKtUYo9GwfA0MHEIYBSI3w+DUyCqiUlLsRflW80RI6G+/OuLfr87Lab2Q5QEmcSzN
-	 NHP2bBY0CUW7JikBG5hPwG+yXb4QNWFILO7MGK0ka0yx9/3ZjcRMACWiPoPkyDRqBy
-	 wthofs1XhsnEWGQLAVuNdbIQNWWY6OCApCZWT96R70lw3ntq2ILUQ7cGbf7an8vbpL
-	 lScj6Y5K5QsqLR5uJowTxOMZbomlFN8XODJCShxpVV1GO78/Y8D63F8c63ttAfUuzv
-	 sxfep3DF6Jjhg==
+	b=RzbCfRH0hlUx0GjnxzU4sorkeniJ/AdLZH7PWFrznz8T94unYOEaxgvaVUUSRdVoa
+	 m7bK5nUYxljavBdtdaab0fFrpmgOj++quO6G43kpIn89HDCO5tQLWf5/PdP9iKgRWE
+	 kVyTMD+U5DYe8yxY6tZ5RMxYUHBjemY6eJ1dNeBoLui6GqhL1TsdbcFeRaKBPRam65
+	 06SJGApyFyKjDSlQWBEBLLGoMmPyD8BIAhla8Y51mKT0+AdHTDNaDewo6JZfGA+q/c
+	 r0CBAD8WZJuf5LH9buE4gix2Cc20v73GGcyDhtVCdFdXe3lXeaPdgiENpQEKTPsdT2
+	 rlLZ1/hZOdhEA==
 From: Imre Kaloz <kaloz@kernel.org>
 To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
 	linux-mips@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 1/4] MIPS: sgi-ip32: Mask MACE PCI interrupts in CRIME only
-Date: Wed, 21 Oct 2026 21:24:15 +0200
-Message-ID: <20261021192418.7246-2-kaloz@kernel.org>
+Subject: [PATCH 2/4] MIPS: sgi-ip32: Leave MACE PCI control alone in config accesses
+Date: Wed, 21 Oct 2026 21:24:16 +0200
+Message-ID: <20261021192418.7246-3-kaloz@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261021192418.7246-1-kaloz@kernel.org>
 References: <20261021192418.7246-1-kaloz@kernel.org>
@@ -61,115 +61,97 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Masking PCI interrupts in the MACE PCI control register overwrites the
-error and arbitration enables set at init, and a read-modify-write can
-hang CRIME 1.1 machines under DMA load. Enable the slot interrupts once
-and mask them in CRIME.
+mace_pci_read_config() clears the master abort interrupt enable in the
+MACE PCI control register around each config read. A register read
+followed by two register writes can hang CRIME 1.1 under DMA load.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Ack master aborts in the error register instead, and follow every
+write with a read so back-to-back accesses cannot form that sequence.
+
+Fixes: c990081bf87b ("[MIPS] Fix IP32 breakage")
 Cc: stable@vger.kernel.org
 Signed-off-by: Imre Kaloz <kaloz@kernel.org>
 ---
- arch/mips/pci/pci-ip32.c      |  7 ++++--
- arch/mips/sgi-ip32/ip32-irq.c | 45 +++--------------------------------
- 2 files changed, 8 insertions(+), 44 deletions(-)
+ arch/mips/pci/ops-mace.c | 26 +++++++++++++++++++-------
+ arch/mips/pci/pci-ip32.c |  2 ++
+ 2 files changed, 21 insertions(+), 7 deletions(-)
 
+diff --git a/arch/mips/pci/ops-mace.c b/arch/mips/pci/ops-mace.c
+index 951d8070fb48..8827e5f2ea46 100644
+--- a/arch/mips/pci/ops-mace.c
++++ b/arch/mips/pci/ops-mace.c
+@@ -35,15 +35,27 @@ static inline int mkaddr(struct pci_bus *bus, unsigned int devfn,
+ 		(reg & 0xfc);
+ }
+ 
++/*
++ * On CRIME 1.1, a MACE PCI register read followed by two register writes
++ * can hang the machine under DMA load, so every register write in this
++ * file is followed by a read.  Config cycles to empty slots end in a
++ * master abort; ack it with interrupts still off so the bridge error
++ * interrupt does not report it.
++ */
++static void mace_pci_ack_abort(void)
++{
++	u32 error = mace->pci.error;
++
++	if (error & MACEPCI_ERROR_MASTER_ABORT) {
++		mace->pci.error = error & ~MACEPCI_ERROR_MASTER_ABORT;
++		mace->pci.error;
++	}
++}
+ 
+ static int
+ mace_pci_read_config(struct pci_bus *bus, unsigned int devfn,
+ 		     int reg, int size, u32 *val)
+ {
+-	u32 control = mace->pci.control;
+-
+-	/* disable master aborts interrupts during config read */
+-	mace->pci.control = control & ~MACEPCI_CONTROL_MAR_INT;
+ 	mace->pci.config_addr = mkaddr(bus, devfn, reg);
+ 	switch (size) {
+ 	case 1:
+@@ -56,9 +68,7 @@ mace_pci_read_config(struct pci_bus *bus, unsigned int devfn,
+ 		*val = mace->pci.config_data.l;
+ 		break;
+ 	}
+-	/* ack possible master abort */
+-	mace->pci.error &= ~MACEPCI_ERROR_MASTER_ABORT;
+-	mace->pci.control = control;
++	mace_pci_ack_abort();
+ 	/*
+ 	 * someone forgot to set the ultra bit for the onboard
+ 	 * scsi chips; we fake it here
+@@ -77,6 +87,7 @@ mace_pci_write_config(struct pci_bus *bus, unsigned int devfn,
+ 		      int reg, int size, u32 val)
+ {
+ 	mace->pci.config_addr = mkaddr(bus, devfn, reg);
++	mace->pci.error;
+ 	switch (size) {
+ 	case 1:
+ 		mace->pci.config_data.b[(reg & 3) ^ 3] = val;
+@@ -88,6 +99,7 @@ mace_pci_write_config(struct pci_bus *bus, unsigned int devfn,
+ 		mace->pci.config_data.l = val;
+ 		break;
+ 	}
++	mace_pci_ack_abort();
+ 
+ 	DPRINTK("write%d: reg=%08x,val=%02x\n", size * 8, reg, val);
+ 
 diff --git a/arch/mips/pci/pci-ip32.c b/arch/mips/pci/pci-ip32.c
-index 7ae89d0c7099..30aca6f76563 100644
+index 30aca6f76563..41ec8453c865 100644
 --- a/arch/mips/pci/pci-ip32.c
 +++ b/arch/mips/pci/pci-ip32.c
-@@ -125,10 +125,13 @@ static int __init mace_init(void)
- {
- 	PCIBIOS_MIN_IO = 0x1000;
+@@ -77,6 +77,8 @@ static irqreturn_t macepci_error(int irq, void *dev)
+ 	}
  
--	/* Clear any outstanding errors and enable interrupts */
-+	/*
-+	 * Clear any outstanding errors and enable interrupts.  PCI interrupts
-+	 * are masked in CRIME, so the per-slot enables stay on.
-+	 */
- 	mace->pci.error_addr = 0;
- 	mace->pci.error = 0;
--	mace->pci.control = 0xff008500;
-+	mace->pci.control = 0xff0085ff;
+ 	mace->pci.error = flags;
++	/* follow the write with a read, see mace_pci_ack_abort() */
++	mace->pci.error;
  
- 	printk("MACE PCI rev %d\n", mace->pci.rev);
- 
-diff --git a/arch/mips/sgi-ip32/ip32-irq.c b/arch/mips/sgi-ip32/ip32-irq.c
-index 29d04468a06b..b9c72af481ed 100644
---- a/arch/mips/sgi-ip32/ip32-irq.c
-+++ b/arch/mips/sgi-ip32/ip32-irq.c
-@@ -160,38 +160,6 @@ static struct irq_chip crime_edge_interrupt = {
- 	.irq_unmask	= crime_enable_irq,
- };
- 
--/*
-- * This is for MACE PCI interrupts.  We can decrease bus traffic by masking
-- * as close to the source as possible.	This also means we can take the
-- * next chunk of the CRIME register in one piece.
-- */
--
--static unsigned long macepci_mask;
--
--static void enable_macepci_irq(struct irq_data *d)
--{
--	macepci_mask |= MACEPCI_CONTROL_INT(d->irq - MACEPCI_SCSI0_IRQ);
--	mace->pci.control = macepci_mask;
--	crime_mask |= 1 << (d->irq - CRIME_IRQ_BASE);
--	crime->imask = crime_mask;
--}
--
--static void disable_macepci_irq(struct irq_data *d)
--{
--	crime_mask &= ~(1 << (d->irq - CRIME_IRQ_BASE));
--	crime->imask = crime_mask;
--	flush_crime_bus();
--	macepci_mask &= ~MACEPCI_CONTROL_INT(d->irq - MACEPCI_SCSI0_IRQ);
--	mace->pci.control = macepci_mask;
--	flush_mace_bus();
--}
--
--static struct irq_chip ip32_macepci_interrupt = {
--	.name = "IP32 MACE PCI",
--	.irq_mask = disable_macepci_irq,
--	.irq_unmask = enable_macepci_irq,
--};
--
- /* This is used for MACE ISA interrupts.  That means bits 4-6 in the
-  * CRIME register.
-  */
-@@ -299,8 +267,8 @@ static struct irq_chip ip32_maceisa_edge_interrupt = {
- 	.irq_unmask	= enable_maceisa_irq,
- };
- 
--/* This is used for regular non-ISA, non-PCI MACE interrupts.  That means
-- * bits 0-3 and 7 in the CRIME register.
-+/* This is used for regular non-ISA MACE interrupts.  That means bits 0-3
-+ * and 7-15 in the CRIME register.
-  */
- 
- static void enable_mace_irq(struct irq_data *d)
-@@ -436,20 +404,13 @@ void __init arch_init_irq(void)
- 	mips_cpu_irq_init();
- 	for (irq = CRIME_IRQ_BASE; irq <= IP32_IRQ_MAX; irq++) {
- 		switch (irq) {
--		case MACE_VID_IN1_IRQ ... MACE_PCI_BRIDGE_IRQ:
-+		case MACE_VID_IN1_IRQ ... MACEPCI_SHARED2_IRQ:
- 			irq_set_chip_and_handler_name(irq,
- 						      &ip32_mace_interrupt,
- 						      handle_level_irq,
- 						      "level");
- 			break;
- 
--		case MACEPCI_SCSI0_IRQ ...  MACEPCI_SHARED2_IRQ:
--			irq_set_chip_and_handler_name(irq,
--						      &ip32_macepci_interrupt,
--						      handle_level_irq,
--						      "level");
--			break;
--
- 		case CRIME_CPUERR_IRQ:
- 		case CRIME_MEMERR_IRQ:
- 			irq_set_chip_and_handler_name(irq,
+ 	return IRQ_HANDLED;
+ }
 -- 
 2.47.3
 
