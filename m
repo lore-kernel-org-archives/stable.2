@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792598141;
-	b=0jwgZ4TmM9bAywTwDLTXMk/FRhPIB4L5qHovfLquQUqQDrMf6RUG3XcaGxoPl6Cg03UQ
-	 wv+ldZ/Anjdiyi5JyRfmQlubQ9uPbrW5PoqMuLIC0NsM2IsxGjIXyO3+twitvk31xvwid
-	 wY+Qsf+bQJrPdQ2j+237Cv5m8uFOpeGdPs0yTYXqcYnU7+stowo4GvobfCLh5ClvWi3uA
-	 exLkh4utIKx4rQLFtUUNLi5D8LIQkdsSC0outPHDGr5UzfEd3vum0hYfR/rMUIcx8c+NV
-	 uTtTnSUmiWZ/C7o0MGacG3Z2Hz2bJxF37ZEGViz6w0AjwJZl4R9wf+UkG5Qx57LhzCg==
+	t=1792598146;
+	b=Q9eLvnhQFtm38MmRxVv6tFJIYPKw/CRWNUkYuSdcrNUhQeIJI2mnii8EFz5XBycFVuPy
+	 i7kCXpFqWAtfMweEr3Kva0GfBbXuVBFTKIJYd66YFQ5WxBeGOp8obWAkms7WGhn11Hg7Y
+	 JPc4z6++0BgauWwgMnsJe+WuRYrkBw+q6ak21wGw4kfUX8B3uWLE/7c6iwxEQvSKp5oKA
+	 8boDUdSecmrWV0WOmXkYkSp0BumtnrufDRxfY8Oy/K7cx8u28y04Ofi5nZPEEfoaRzLS9
+	 qK+OWtC+koYLpDiQx4xRucKalw5x8xZjITtV1NRa9FGlYPsDnP+7WlA9+keY32ZHn3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792598141;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792598146;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=uYAmuL0fc7WcnN1KcI2+Qqndo13RcbstOobYG07WOcQ=;
-	b=baSrDzIsN1CynAjt4Q1vDQjboDItxSZUv5wFY5lcvJGPSBCLyEpz7RXWOrAL+35ZLTa8
-	 5Ck6fgTAGpU+rlFjBTwQQqsnu9t5Rinw1oUtKANQmrjdNeCTTw+pNc82GHU0VKolR5jFo
-	 FvLk4kD+oyPp3Q9C7Lw9m+NdbJtZemnmxlkXgTCoAUfHw42exo8J/jsGxiVdeyaa/cPTj
-	 /TWOE5OXaVlKk+aWXdhS8/y0N3Nujj/SQNTrKWwSCHJwg9eog47Z1xIBlInBA6FsnqlOZ
-	 voM4AURZALQKnzIC17n1sGjDLXKeQU4vRQVdMI3OGa4UA5OQFyUw4/P6/X4846Lo/KQ==
+	bh=i50wEGYXCLBVOGgmt9v4+hZIwNI4ZPAHYIYyfh4PdOY=;
+	b=SN2kO6oK7P2iQyWZU2JKg1zjm2SdWf0flp48vScmN9fMZXMWSCrJ9SjTEyTtx/CTd/3d
+	 BNdSADX9+9p+OlTJcKOkQl9XYa8VB9ACwLlI04+6dNeVy3b7GyUf6zCk+DGaExdmU6GML
+	 sJILkE55Bpj4guQV9XrReaJRpULxDzht3X/82XIMuVCqVN3GSUi3qEusRXfoU9ZHG8lFF
+	 4Do/0BWlg/Kjx5eAARKbbj1YeS3Dxjo11DoGwoNcoo/5BCyuVQ/jXG6zA1WzhaZL8yDPd
+	 O7YSDdQBj2VkBdI1WwyCpnJSRlYkxDnwndMVh9nyxydGaNBGhoULb2Zwl5mgRm052zQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BgGT4aE5;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bJPclUME;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F98B606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:55:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F98B606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11CD7606A320
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:55:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11CD7606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BgGT4aE5
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bJPclUME
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792598140;
+	s=mimecast20190719; t=1792598145;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=uYAmuL0fc7WcnN1KcI2+Qqndo13RcbstOobYG07WOcQ=;
-	b=BgGT4aE5gNh5vkVf8OhzAeI+CX7VguiThM2Ltsxdtk/KjuBHHu+KLa6a6VytNHV5VuyGF/
-	tVUDYVRlwwuX+wk/QuL+oWGt2yxCqXnlB/VXajSLGQD6VD4D1QMK09A40/rU0Tyxh+4jmC
-	ekEfHy1tS9Ban4aklHEEjaSQdY1JH3c=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+	bh=i50wEGYXCLBVOGgmt9v4+hZIwNI4ZPAHYIYyfh4PdOY=;
+	b=bJPclUMETi3ZH93lvxur36ar6dmWwk+ZIiN2ZcQchHlk6HtDeteYslvb9Ggyvb+xqVSNIW
+	EyW+nYZwgdrJSh1i8K/4R2CIX1NxESyB0S3oq6VtiH81rmrgN8ChMrF1omUe5DYho4OThv
+	TvR/57s/8p1saBgQuuv4SC4pYeHwjeI=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-649-eiXSlsF7POuCmFyjVFNDeQ-1; Wed,
- 21 Oct 2026 15:55:32 +0000
-X-MC-Unique: eiXSlsF7POuCmFyjVFNDeQ-1
-X-Mimecast-MFC-AGG-ID: eiXSlsF7POuCmFyjVFNDeQ_1792598132
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-410-UIVlsxmSOT-zXiKMWi4UlQ-1; Wed,
+ 21 Oct 2026 15:55:41 +0000
+X-MC-Unique: UIVlsxmSOT-zXiKMWi4UlQ-1
+X-Mimecast-MFC-AGG-ID: UIVlsxmSOT-zXiKMWi4UlQ_1792598140
 Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E661918007E9;
-	Wed, 21 Oct 2026 15:55:31 +0000 (UTC)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 688A819560AF;
+	Wed, 21 Oct 2026 15:55:40 +0000 (UTC)
 Received: from loberman-thinkpadp16gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 52A7F30002CB;
-	Wed, 21 Oct 2026 15:55:31 +0000 (UTC)
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C6C8730002CB;
+	Wed, 21 Oct 2026 15:55:39 +0000 (UTC)
 From: Laurence Oberman <loberman@redhat.com>
 To: stable@vger.kernel.org
 Cc: Dingisoul <dingiso.kernel@gmail.com>,
 	"Martin K. Petersen (Oracle)" <mkp@kernel.org>
-Subject: [PATCH 5.15.y] scsi: st: Fix use-after-free race between st_remove() and st_open()
-Date: Wed, 21 Oct 2026 11:55:26 -0400
-Message-ID: <20261021155526.2740230-1-loberman@redhat.com>
-In-Reply-To: <2026102131-preview-unlovely-f4ad@gregkh>
-References: <2026102131-preview-unlovely-f4ad@gregkh>
+Subject: [PATCH 6.1.y] scsi: st: Fix use-after-free race between st_remove() and st_open()
+Date: Wed, 21 Oct 2026 11:55:37 -0400
+Message-ID: <20261021155537.2740297-1-loberman@redhat.com>
+In-Reply-To: <2026102130-reputably-unlikable-edca@gregkh>
+References: <2026102130-reputably-unlikable-edca@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -121,17 +121,17 @@ Tested-by: Dingisoul <dingiso.kernel@gmail.com>
 Signed-off-by: Laurence Oberman <loberman@redhat.com>
 Link: https://patch.msgid.link/20261013202548.249628-1-loberman@redhat.com
 Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ loberman: st_remove() still returns int in 5.15; context adjusted ]
+[ loberman: st_remove() still returns int in 6.1; context adjusted ]
 Signed-off-by: Laurence Oberman <loberman@redhat.com>
 ---
  drivers/scsi/st.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/scsi/st.c b/drivers/scsi/st.c
-index dc0c6508d254..444eb99e4f5f 100644
+index 9ba5ad106b65..603ac7de030e 100644
 --- a/drivers/scsi/st.c
 +++ b/drivers/scsi/st.c
-@@ -4433,11 +4433,11 @@ static int st_remove(struct device *dev)
+@@ -4434,11 +4434,11 @@ static int st_remove(struct device *dev)
  	remove_cdevs(tpnt);
  
  	mutex_lock(&st_ref_mutex);
