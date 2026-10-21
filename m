@@ -1,58 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792600450;
-	b=iF/0M6bgidfEdSPmEsiXP3zNVGMYI0BYtErXA19QjH8REXjGufQlscErpayLqYs2gka3
-	 Qo7gm+fCkYYrhRKkaLq0hSFb73hFiJJ3zkWDJz1x5DPpiO69i0emuj+T3MPKWwQlXvKdS
-	 Jt+xwvXBZpn6YWNyrQLEjh0iJmb98+r1ZY+ed1SbFSr17MYxmWLXyE1WJTOmGYUhsDvTW
-	 vfpGtOYhlEwqROv1ON3yhH+U6eMipMYtExBSu2vi93yUKlqfXMYkfd6IiVLza0jIU6EiL
-	 uBGS366k1jRMoqNO3tvFpdZoyrHGqul2JkeFS5zz7B8vBYt3m59XKa1Zt2i8huteFTg==
+	t=1792600650;
+	b=JDP6C40FkENIBrav2CR+M1WnKIg8/9OnX6iTTmw7xGt80mBnKV2E+I4skStm9U7uE5G4
+	 XtJu+yebHaiSQndKqCXsTws/dESnboI7yJqCWsR62JxlHh4kvbBnI4B9W9iiN0VlRD/6D
+	 67Tuu9+u35vVTrSSzlFxvtQnZKplcSoXHmrk//NfIbDuHBKmYUI5oGucrs3GFAJtDd14b
+	 HeNq4VRoKbI7WxlONeoGxW4DvmcAyobTcJ7rJvqwYWa4+Eyzh+ympTwRkPJfjC4ovAVId
+	 k51jct3q6Dvv+Vj4puQMBF7EsWBqFlMRnPaF8zNEXywml7L0GTeuRLJFKfklyFvuOPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792600450;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=odKDNtkbaGsEGggup2G4St8tDApvqwrM08BGj9fz1M4=;
-	b=RRE1YmP06s5cMqGm+ggc4Oolo1p60Q9Nbz2PlD6WOzrrLQk/MgsDR/ZlrubzoDtChIPT
-	 aaSoaZHkpO6PkZe/TkFciNjk331tL+0+xK3Hxyc0C7yaJLsZeYpdNPD1/sSfX0mBYH6hC
-	 dMzBbzKKTE92QmDW5A0G/j447enJPULZf/4VnKm90nfdBalmiD90FTKdxNZlIepvV/de/
-	 Se9Icm2kykFYF77UD3Jn3mKR5B37oSdgR3s+uCLHQIh9e80Dxo7fHNbPNY4NITPBYAE+W
-	 Z27emTv9RZitrzKa9OOtPwP7cXNZxVPLHnKZ9bG2M7GgnwbtwfSk6j5i562CFzEbdaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792600650;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=YLCxMKcoPqJQvB6O+KV4fn7PG1sEtJ+RVWenhox/UVk=;
+	b=xvOmuG4akAfMaLryuXeRnxE/8BXvrfSQZBZx8lhF83kyPqOeqmsH9DGA7EF2PeoNTvnR
+	 VeNbGK0Er9qRSAZMfQCSB59yauKsPFjrJ7HqGbts2ZGmMwKGzO0KpzbeDwnk5oy1ibJ87
+	 5BY9XMtoalv3T5uRDFYYJr/JwiAb51E4nY7roQu6SAVY8ofTtuv7/6nIDP54fRMngYp6z
+	 gwRkY6ynqPn3ozYmt1zpIovoj7LpcHwnvVgIICIY4dCnx/EpraSeeK1XaMibzc6zJX6WB
+	 IXiWQHoWHgKpdRpu8EHSrgCFSwbWY+K7ZeUR1US5kWnADpq1P7iAEfFvkAwyqXwxu5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YkCb19Sz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=W0F44w4k;
+	arc=none smtp.remote-ip=199.89.1.14
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F81606A31E;
-	Wed, 21 Oct 2026 16:34:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B962A606A31E;
+	Wed, 21 Oct 2026 16:37:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B962A606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YkCb19Sz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5D121F000C1;
-	Wed, 21 Oct 2026 16:34:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792600449;
-	bh=odKDNtkbaGsEGggup2G4St8tDApvqwrM08BGj9fz1M4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YkCb19SzDz6qagE2Nr1xchf+djbBXfpDC/l/TbrhNWwywPm3vOQakNq6+aT3p0qFA
-	 ktTUjo5KinGKz+ApjNUWIbdgZjjPavKuDEkfgpG8bnpS8pph2KrO+5RpYBqOpCV54e
-	 ksjUpfJq+ub0PkGp5o9WD8EG8vUa1LXp3ibGVdRWtJSPymP0gUaqGtfajoJjqJwJ8E
-	 CO8ovjJPIgRl5xnyuxtBDxXF2HyHWxWAW0JxMX/PZYgZj41MX9Bed3AJ/Of62b1gp4
-	 U5wCfKOAI1v2Apmiifutz8HgpTLRpxH5DLbqLH4hB+QIg9bLn+/TlKfByaAPxAKIEc
-	 l+9Nck/vCeAGw==
-Date: Wed, 21 Oct 2026 17:34:05 +0100
-From: Lee Jones <lee@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>,
-	Chong Qiao <qiaochong@loongson.cn>,
-	Corey Minyard <corey@minyard.net>,
-	Huacai Chen <chenhuacai@kernel.org>, mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 02/28] mfd: ls2kbmc: Unregister GPIO GSI via
- devm_add_action_or_reset()
-Message-ID: <20261021163405.GI1795367@google.com>
-References: <20261021121245.3111563-1-lee@kernel.org>
- <20261021121245.3111563-2-lee@kernel.org>
- <atjEyo2VkaJuecMh@ashevche-desk.local>
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=W0F44w4k
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4j8w1P0dpKz1XM4Tn;
+	Wed, 21 Oct 2026 16:37:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1792600645; x=1795192646; bh=YLCxMKcoPqJQvB6O+KV4fn7P
+	G1sEtJ+RVWenhox/UVk=; b=W0F44w4kMysnjqfe10crB0r4/w1Yzt8bKB3ayzBW
+	IOWFsntacPGYef7vUzP7UAtjURQClKa735i4DvUpGE4IsQEgYi2wR60Pup/Wdnxi
+	ImBMz2TKQ8+IfZ5dNMHR1QXBfHH8bWBsGZnxcZGbDBGtykpCrzL0PgTjpIT8B4fj
+	s5Qtom2aERpqDd/2auNwgyMAubA3EOruaafByt3X+qrBXwpQych9IpmdmBdIgINX
+	1wo1NbUxVwahvgkFk1dzbgiokPn5aGc4rDoGGe4tCKNMJqP9hshisF5FFWtgGlxi
+	lT5izhQ1z7EWm6fZKTclyrGi9+SToe2oxnhDxEGRrD82bg==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id 56L81EbwRjUK; Wed, 21 Oct 2026 16:37:25 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4j8w1J3QJwz1XM4Tl;
+	Wed, 21 Oct 2026 16:37:24 +0000 (UTC)
+Message-ID: <fdb5c391-01ef-4a23-94c2-4f3853909348@acm.org>
+Date: Wed, 21 Oct 2026 09:37:23 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,33 +70,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atjEyo2VkaJuecMh@ashevche-desk.local>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 5/6] scsi: ufs: core: Fix double release in
+ ufshcd_abort()
+To: Stanley Jhu <stanleyjhu@google.com>, Peter Wang <peter.wang@mediatek.com>
+Cc: "Martin K . Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org,
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Bean Huo <beanhuo@micron.com>,
+ Can Guo <can.guo@oss.qualcomm.com>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261021035450.3488805-1-stanleyjhu@google.com>
+ <20261021040615.3566831-1-stanleyjhu@google.com>
+ <20261021040615.3566831-3-stanleyjhu@google.com>
+ <db4d4e246ad6b4769f736db0d3d1678adf9d59cb.camel@mediatek.com>
+ <CAE14pdcR7NPqK3W6Pfy+FkRrXSXB9wFuweOhLyFtSye_Bg4vWw@mail.gmail.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <CAE14pdcR7NPqK3W6Pfy+FkRrXSXB9wFuweOhLyFtSye_Bg4vWw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, 21 Oct 2026, Andy Shevchenko wrote:
+On 10/21/26 6:28 AM, Stanley Jhu wrote:
+> A return value of 0 here means the completion path, rather than
+> this abort path, has claimed the tag and may still be running
+> ufshcd_release_scsi_cmd() after it dropped outstanding_lock.
+Do we really need the code that checks that a command has completed
+without notification interrupt? I have never encountered any logs on
+any test setup that indicates that this happened.
 
-> On Wed, Oct 21, 2026 at 12:09:24PM +0000, Lee Jones wrote:
-> > ls2k_bmc_init() unconditionally calls acpi_unregister_gsi() immediately
-> > after requesting the GPIO interrupt via devm_request_irq().  This
-> > prematurely disposes of the active IRQ mapping while the interrupt
-> > handler remains registered, breaking the GPIO watchdog interrupt and
-> > causing a use-after-free when devres later frees the disposed IRQ
-> > descriptor on probe failure or device unbind.
-> > 
-> > Register a devm_add_action_or_reset() callback before devm_request_irq()
-> > so that acpi_unregister_gsi() is invoked only after devres has freed the
-> > interrupt.
-> 
-> ...
-> 
-> > Fixes: d952bba3fbb5 ("mfd: ls2kbmc: Add Loongson-2K BMC reset function support")
-> > Closes: https://sashiko.dev/#/bug/linux-cab8bfb6-4077-46f3-a173-ac2e2042cf66
-> 
-> Don't we use the official Sachiko's email in Reported-by tag?
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
+Thanks,
 
-Roman suggested Closes: when I reached out.
-
--- 
-Lee Jones
+Bart.
