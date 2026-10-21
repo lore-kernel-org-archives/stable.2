@@ -1,110 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792551948;
-	b=Yo2MROsXYz3rPrdJzQ68X1gAwKgl7GoV7/a1KPMx74ryPG6thR1y3JucoHOI2SYvpPZC
-	 QfnOjaxU4wK7sUFoCcJOAKFHn5lJvLrzlzBdDP8Bq6L8mUtOQGuvYTNsci2uJmVM/h7s7
-	 2J9ct2jB4R/PqeYshbGhwUoZLVisH/BQkwcviV9o+2V+pas0UFgpjS/bL2WOQmtUUYeaG
-	 taAo6GHFZF6x4DtzkzgBcbxJBEzCOhNqK+H4Yi/n4ocNMfaReaPyvzUYppnH9KuJMnLTM
-	 mA3EAcrpm9cxzFAFVDszh9B1LcE9XhN03VJ2ODPw9KvnV9VTWLvSiMGSipEYTrJToLA==
+	t=1792553093;
+	b=n1KUeoQYmRKup//11jDuhWoIMy71+6woNj869NYioNS5yphA7clYeHBOvAMRDqrqcche
+	 4smrTZs6fPNdLgTmyEb9++j/v6D/1pLDiE5/6fDPI+kC7r5tI2Iq5CLNeqppCeduLip9/
+	 clLvxhm+ivSdbbMyYlrN2JX1+Cn9gflWzKtl78QnoJhn+0Db2FaKVId0rkatDjH6PpjGC
+	 ZfK1OvphraHsZVPmM9eknSOcBrRNSpH/g4Rl72c+TiBh2KSqb+EAntvaN9p6fbBVDlHw9
+	 EsIOjtB63wSKzsSubpn+YpqQM45dhm8k00ErceOf6MznuQQOUCcGAPkwAIHePiGmkpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792551948;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792553093;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=gDndSD0GZIvZyUTYE/Z9F/DZP122ym6cCPQpCZSHgLk=;
-	b=0CWqC3C19WitpvVpMDEsFBKPe9449bFZCARvIGdWqUZ3LVVC9lH3+VlcOIfX6/2ECUPF
-	 nTto2KnwhtH4a6KsG2ruyvk9t5NA+erRrPavdMQhxhNTmi9XBdfZ38cBQVDcbHuFyQQ2i
-	 0k1qbY3DRuz6o3DBglTPM7Xx81DFOXJkxix8QGbMJGROlXLkf4LGX+U0W8CE2AijE6bmq
-	 wFMVc4Lr4/n1IEPyjk831/miSdw93gNLct7veJ2UPik+bLA6jSp+kFyEKxB8YfeHcwqBG
-	 tz4aIhLE8IA4VGpPpnspYgKPlw0coN+lbnQuiJVLFZM86afCBbvRjhcFD8SMAUKoODw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ZFVAKQGsMgdgNfkXAN9sULjMGSL2i7oHnvsLeDRjk+s=;
+	b=1qHFu9zMf51jx5GvPpYTevUIbtmOz7idKfhxbnJAYRBHOY66pLFeGG+5Ll0C1htu08Og
+	 1+zeDPj/kBiGy9XUz2k10wROoVfeEHAYEo3m5ORWMtQNHA41Recf1Sh3wgOXFS58i1/el
+	 aopMwLhZZexL7jZqBb5NpBnpvyVLmk4FMu6/Opw/rPXsDxVA0dfKy4USsQLgZJ4XTG3ov
+	 MvAf2XrIioAYfOD0T8oQHkxgopkkZnBr8/xha6RJLAaSAnROuQ+hwQUz35STjZm0wPV7D
+	 g+cwh6g5C/7oCYna0JYWdSPWrmFiSq6rGe7XtEW8y9xw1UqNk3zb7xQEznQeCVM5C4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iyEoV8X7;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	dmarc=pass header.from=octane.security;
+	spf=pass smtp.mailfrom=octane.security;
+	dkim=pass header.d=octane.security header.i=@octane.security header.a=rsa-sha256 header.s=google header.b=ojPcxL9A;
+	arc=none smtp.remote-ip=209.85.216.51
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29DCF606A31A
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 03:05:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29DCF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D41606BEF5
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 03:24:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92D41606BEF5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=octane.security
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=octane.security
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iyEoV8X7
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48e22b83de6so28826f8f.3
-        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 20:05:47 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=octane.security header.i=@octane.security header.a=rsa-sha256 header.s=google header.b=ojPcxL9A
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ab9268d90eso170937a91.3
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 20:24:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792551946; x=1793156746; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gDndSD0GZIvZyUTYE/Z9F/DZP122ym6cCPQpCZSHgLk=;
-        b=iyEoV8X7OnT+MoWdag8gC0LlhSjG7fzgL/q3idOwMs/rP3y1qFo81s/SJIcmiuci0l
-         JW3akbq18jxuXt1DhdQIkCEJ0PjMVP3Qz8Bz0rntL/+Bgo+LklOQ3JlRFtkGq3NK/vzF
-         7QoPp9ApQZpD9f+xyJvxbas5mgubXjROp7Lpilj8ZihGbffu6fYjpyQbEKxwQ4SzaOv6
-         mwuIMtSVVhl5qgeHNW24LzzX00EWYzh/op64Y2O0Yq4o5rWgYq6ezPlrOlLEiJpCX3hA
-         6EaK/HTlFVvVxwgQH5qj3852iR7qUcXJjMGerXZgpcN/ax9CaojSVLA+IewPINQoiwD1
-         BIfg==
+        d=octane.security; s=google; t=1792553092; x=1793157892; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZFVAKQGsMgdgNfkXAN9sULjMGSL2i7oHnvsLeDRjk+s=;
+        b=ojPcxL9Amul7kBOJOcMw0LKjDpPLd8q8X4B9mxDTd+UGa5ldBO7U8up7cReajCWUjL
+         q7dsM3IKeJh7w/ESsLpUyS49ZK7zLfX1Jme3+ilA1Xi5x2L5rYG1aMmNL2F961FLUWfJ
+         WfceVgc85Q28m3htW28qpD0iXq6Iv3pPg0vfevqlM9yLNDjHVZ6Ibqye0ijNEGEOj4Fx
+         kUyTfo7Iw6O8lBLh7rbEDQbjhi1kURc4pUlFIkKD24lU/iCToGIUR7WGFYV5RnIMS3tM
+         zx+A5QO0tfj1tT8xxgq3mymKhLtyyxEXmf86a2DBqsSqCY0EAZrvvXzVH7YKZ+DgJW9i
+         I7UQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792551946; x=1793156746;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gDndSD0GZIvZyUTYE/Z9F/DZP122ym6cCPQpCZSHgLk=;
-        b=DwzUUDyXua6pyrkmV1bI07szAivhB5OFj9T/IlPwYDU9rFh+OUl06mOoU5tzBqQ4HR
-         agas+9r93lqwvkAakBQs0uyWj7kJt83pcnCvfk1J5TmIWqZNC/3Q5YlPvWrG8ZN0WUpj
-         +M8q002LVzZ4ZqlXMyflpAZz77HFnbaddk2Gm+aee5TwmjH3sdfTqE/+FisaunO/+J2e
-         Fq6W7MQd1bgz3L28XPnVKyT2ag8w5BY5AWdW8nU0UakJ2NgoRTpGm/RT+5hLyKIBkzRz
-         74Gjw+sJbakX0cdtkM9m7P6XhtozlqMSwjwnoV92su15pNRmqEnxs2F+hw1fu0UNJlKw
-         ZF/w==
-X-Gm-Message-State: AFq9FYIWw0LIp8L3ItqIqqmpycV4CkpecVSVszJDDSttU/YvR04CW+0o
-	X9tqkNoInNvuQHcncTFbOTO3qiSpCiGXCH7qYCz9jRA+8jDW0e0v3169
-X-Gm-Gg: AYBFou03B+SDGXjGpRiNSvohwtbid9s1kE3pxk6lEowGt/o2/jZeONnoiofyaCvicBX
-	Lvntsai1NYi1vzMdpR2DmW/FbE23tR+Z98HFwOSHss4ECletrl2Kj77ylQcR2XiOsDXggrv3bOe
-	htPUkUA4/EYzIsWFj9Nrca8y5PS4ZLNUuIy7wzRxQiWBS8HOgj5SrZXJ5ZvJnfyVTOMga2nmr31
-	YX0XSz336AOJGIqX29D57Q0YRN/0jm2aaAOVZcn9QGnenLPUUahZr0LFHCVO8f/eG2jkePv4eki
-	b8SPllIpyscsotPejtRJfmPtY+pLqSLKw8nWWVb+3Afpw2ccOpNWWV9v/9bbRHXNk6UogjBV94R
-	3gwWYyN9yYvRfIlkwGvA0VWvbrCn2efZ+2H4Nr1BX5a89VYj54NfCtxwAE9Na3WcII8S9VL9B4+
-	4vN8k+QCceqmpKSS9SZIMFvS0U1Rrde3XpULG51rHLOPYSirwXVrcknN/4rImJBW7iahW0SjP/+
-	9KPipR/9ruCs+qjqIXnRvjGsK/TLleXcadfn2zC6rlHl27hTk6sY7UeRx3Z4n7JxBQcZ6dK87u/
-	nJ22vRmrPd82rI8pLYTiT/mxOAEKEGY2rlUI
-X-Received: by 2002:a05:600c:3e87:b0:4a1:d899:b633 with SMTP id 5b1f17b1804b1-4a1fdae0e9cmr9334205e9.1.1792551946307;
-        Tue, 20 Oct 2026 20:05:46 -0700 (PDT)
-Received: from localhost.localdomain ([194.36.104.180])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2e8daffsm131033835e9.4.2026.10.20.20.05.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 20:05:45 -0700 (PDT)
-From: Iaroslav Voitovych <yaroslav.voytovych@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org,
-	patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org,
-	akpm@linux-foundation.org,
-	linux@roeck-us.net,
-	shuah@kernel.org,
-	patches@kernelci.org,
-	lkft-triage@lists.linaro.org,
-	pavel@nabladev.com,
-	jonathanh@nvidia.com,
-	f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com,
-	rwarsow@gmx.de,
-	conor@kernel.org,
-	hargar@microsoft.com,
-	broonie@kernel.org,
-	achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.6 0000/1651] 6.6.160-rc2 review
-Date: Wed, 21 Oct 2026 05:05:42 +0200
-Message-ID: <20261021030542.1434603-1-yaroslav.voytovych@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261020075535.084584701@linuxfoundation.org>
-References: <20261020075535.084584701@linuxfoundation.org>
+        d=1e100.net; s=20260707; t=1792553092; x=1793157892;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZFVAKQGsMgdgNfkXAN9sULjMGSL2i7oHnvsLeDRjk+s=;
+        b=zICe2MoX9jDrJTRFnhcbdtaDfOq3oJ7qYbAIH/qZ38VgQl7qUN0B8LvGDRew9afPKF
+         SUlpwImuHRkjHBibgaxolWmwCZf2I+v0cuRIdWqSUPO6MTiaQvEU88XXTzLKRYjdytTI
+         NVv5239w1zAhOj2JkPGAMD2If2VCEQzZMAhi9uJZntJNi5HhpLtXqd0CzybhNVV7eMyJ
+         2QiU4ewHG8cgCWx/rwwBA8AJNJBEFf3qgQWtMpF+MqMfkDt1gqkaAt1CopCmBbgmA/n5
+         wpnX4hALujK2JjkBQ9A0NepKTu4yPyyAHi1Fh1rWDOVJvBjt2zFcRXslHqS8LhAFVLoK
+         Y8Gw==
+X-Forwarded-Encrypted: i=1; AKwUvBzlqbUpzSEf8JGX+el3Hwgi9SzyrPLmRsIsNcG5JXlbig/llp7DGL7VMQtgC1qisVJhv8B5cR0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLW3fhCvq/779nVhEpiJmJiYgQ9cU7jkfSNEhjqUDf8E/qh/NJr
+	JkEmMKhUcJpjVq89EDGkBAZkUUU16rLhAHuA8K95Duh44sBxIL+QCV4OdkiVv/3eQYI=
+X-Gm-Gg: AYBFou3Sw85lINUE6GLS+2GD/ncTGuKPFNivjmOZM2VuLgUN8rCcScmFhkixxJh8nuk
+	v0agQYoE66KF/cN0x5iIpNjtPdmn38ngQyZZR9zsfYntoC2P4qIkz9yn8AY6puc5UYgxe/ydrQB
+	DJNF1e3c5gg5oin2uYc9We4cX/i45ZW8IGGk+1ZAW1ivtwfJpymRzQa3v0vkqIw3djgp/4NN0VC
+	Hk45srfOPfTyV9c4EknYbHckw8mrcWwgiGSUGJhhIfGhnH62kkRkFIUvAwT6iO1duTSWfMWDseX
+	DC6Z5hr+GlP3GLjdWzTU0sFPgyPtgm4te6dr+XryDP6R87ETJIr3nmAliDtCjCeEsPyUPVoUcX4
+	cL60rYDTznZj6zx3AX9CWeb9hEw5MUjIkoIVJkskili/w1gjMy1WRKtUd+zTTLMyj3hXNGulwRS
+	JCmwVyPsZTqmVCEtSqlRBl+STIPWtCIMEmWYa+z0V3tPXv/XLo16XLAJ4KQbeJoBE+JfzEKGLl+
+	uYGJypzBwxv8qGrHcldXdyxDXAT2pF+n2ntVJ/JdgXHQPF4n6CF9etqzsClDoLOAQAB5I7tBGzY
+	SWTGquHyvZo6yRqCE59DhZEFzrgibzK580vh6mIRjn1ZrfkPBjGLicixz0xC8uyX+RvHbDgOH/8
+	7Qw==
+X-Received: by 2002:a17:90b:390e:b0:3ac:9706:7735 with SMTP id 98e67ed59e1d1-3ad86b0c35cmr794388a91.5.1792553091800;
+        Tue, 20 Oct 2026 20:24:51 -0700 (PDT)
+Received: from localhost.localdomain ([103.207.175.177])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad8030226csm2155285a91.12.2026.10.20.20.24.49
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 20 Oct 2026 20:24:51 -0700 (PDT)
+From: Shubham Antil <shubham@octane.security>
+To: netdev@vger.kernel.org
+Cc: David Heidelberg <david@ixit.cz>,
+	oe-linux-nfc@lists.linux.dev,
+	gio@octane.security,
+	stable@vger.kernel.org
+Subject: [PATCH net v6 1/6] nfc: nci: skip controller reset while unregistering
+Date: Wed, 21 Oct 2026 08:54:38 +0530
+Message-ID: <20261021032443.44412-2-shubham@octane.security>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261021032443.44412-1-shubham@octane.security>
+References: <20261021032443.44412-1-shubham@octane.security>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -114,42 +100,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 09:57:46AM +0200, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.6.160 release.
-> There are 1651 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Thu, 22 Oct 2026 07:53:04 +0000.
-> Anything received after that time might be too late.
+nci_unregister_device() marks a device as unregistering before closing it,
+but nci_close_device() still sends CORE_RESET and waits for a response.  A
+transport may already be detaching at this point.  In particular, line
+discipline close holds the TTY line discipline lock for writing, so receive
+callbacks cannot deliver the response and close waits for the full timeout.
 
-Built 6.6.160-rc2 (c578c158a368) and 6.6.159 for x86_64 with BlueZ's
-doc/tester.config (KASAN, lockdep) and ran the BlueZ CI TestRunner
-suites on both in QEMU/KVM (emulated controllers, no Bluetooth
-hardware). Four of rc2's fixes show up as intended:
+Skip the reset request when NCI_UNREG is set.  Keep the reset for a normal
+device-down operation, where the transport remains attached and can deliver
+the response.
 
-- "Bluetooth: hci_event: fix simultaneous discovery stuck in FINDING":
-  mgmt-tester "Start Discovery - Simultaneous Inquiry Late" fails on
-  6.6.159 (Start Discovery answered Busy) and passes on rc2, 3 of 3.
-- "Bluetooth: MGMT: Fix status of pending commands flushed on power
-  off": a vhci reproducer gets Command Status 0x00 for Start Discovery
-  on 6.6.159 and 0x0f (Not Powered) on rc2, 2 of 2.
-- "Bluetooth: MGMT: fix crash in set_mesh_sync and set_mesh_complete":
-  mesh-tester "Mesh - Enable 2" hits KASAN stack-out-of-bounds in
-  set_mesh_sync and then a GPF in mgmt_pending_remove on 6.6.159; on
-  rc2 it passes.
-- "Bluetooth: L2CAP: fix out-of-bounds write in l2cap_ecred_connect":
-  l2cap-tester "L2CAP Ext-Flowctl Client - Defer limit" fails on 6.6.159
-  and passes on rc2, 3 of 3.
+Found during a source audit assisted by OpenAI Codex, gpt-5.6-sol, and
+reproduced by closing a pty-backed NCI UART while its NCI device was up.
 
-No other case that ran on both kernels passes on one and not on the
-other: mgmt-tester (rc2 465 passed, 37 failed, 6 timed out; 6.6.159
-464, 38, 6), mesh-, iso-, sco-, rfcomm-, bnep-, smp-, ioctl-, userchan-
-and 6lowpan-tester, and l2cap-tester up to "L2CAP Ext-Flowctl Server -
-Accept 2 Close 1", which hangs on both. No kernel warnings, sanitizer
-or lockdep reports were found on rc2 in these runs.
+Fixes: 6a2968aaf50c ("NFC: basic NCI protocol implementation")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM KASAN
+Signed-off-by: Shubham Antil <shubham@octane.security>
+---
+ net/nfc/nci/core.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-Tested-by: Iaroslav Voitovych <yaroslav.voytovych@gmail.com>
+diff --git a/net/nfc/nci/core.c b/net/nfc/nci/core.c
+index 73e3a96470ac..8ee33505e93a 100644
+--- a/net/nfc/nci/core.c
++++ b/net/nfc/nci/core.c
+@@ -582,13 +582,15 @@ static int nci_close_device(struct nci_dev *ndev)
+ 	/* Flush TX wq, RX wq flush can't be under the lock */
+ 	flush_workqueue(ndev->tx_wq);
+ 
+-	/* Reset device */
++	/* Reset device unless it is being unregistered */
+ 	skb_queue_purge(&ndev->cmd_q);
+-	atomic_set(&ndev->cmd_cnt, 1);
+ 
+-	set_bit(NCI_INIT, &ndev->flags);
+-	__nci_request(ndev, nci_reset_req, (void *)0,
+-		      msecs_to_jiffies(NCI_RESET_TIMEOUT));
++	if (!test_bit(NCI_UNREG, &ndev->flags)) {
++		atomic_set(&ndev->cmd_cnt, 1);
++		set_bit(NCI_INIT, &ndev->flags);
++		__nci_request(ndev, nci_reset_req, (void *)0,
++			      msecs_to_jiffies(NCI_RESET_TIMEOUT));
++	}
+ 
+ 	/* After this point our queues are empty
+ 	 * rx work may be running but will see that NCI_UP was cleared
+-- 
+2.43.0
+
