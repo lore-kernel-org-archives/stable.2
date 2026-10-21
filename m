@@ -1,107 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792591703;
-	b=V5FuF9HV7VrLQpSfEd8k0CUqNLW8SX31B3xHNoYDPxbVPxx0uRiS7LkEMPO4lc0ESPga
-	 bhTBPps1pv3g3thwM6//Ecwdf9Zao0iQlq1f3jHb5OL9iZyzzUnGRimFKowaR27Lo2RHr
-	 rOP0VZ7jke6wTdj3UCmystHryYSP4aSgPzNLT/oHgQ/xNqVrfhTNiqgNklMT8FnikhBvt
-	 5t+tetdWrX04PyME14fCiyKOuhx1CKO8Kgw19uN+4pKkZXMH48YhuB6b0Ma6l18tnya+7
-	 /Ad/3qH8uVDbypk4PyCFe22yxh8UWR8CuMswYVhKURupj+u7VyAN78IPhuk0H8AcQkA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792591703;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:Mail-Followup-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-TM-AS-GCONF:X-Proofpoint-Reinject:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=ADvt/YKRVb0IDur0qISzY9q0oNf6yoH61rpJhz6SvPo=;
-	b=V9rV0mdUpCicLvF3lWXdEaz9gO2e7hIUcG56PU/yW2iy/Ez4q0qNro7BRxQIPLyzfLGH
-	 urnfEhkZZY4FfdCU3sd3eJgLWehiDv37RH9tBODrBns/iZPkHEbhPHnr2lOgg5Icga6ad
-	 YhrSbeNGUmZPYBAQFtdRfOO+nELDsAfcFyKXe4BaXnjN7oQRnekTZVfxE8fDQeznV8ecH
-	 UiJ0spuMjsEWuoArRDNk3uG7QV4/gSg0cKIzINQMPEdEO5Dil3+akrvDEm0LtJzjGOS8C
-	 qYbvrjsQq3m68bhlSRPQFed9y7e/YJ696vJ2EuMCXti037bUW/VNbResgXDi8aG96Dg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=fCDCXvxX;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792592045;
+	b=dLfBqsV+L3O+qc17uX2v7cvIXWXRNjjbSjWHyfcGOc2xKXAO0GHIFfQBYUiM48EqpeaD
+	 ARelvAk9QpI+WzUAa7EJlnPYtlqw3KJvwK+0Az2RJbT9yT3T1zZYfe3ZKMvmC3lfKaZoV
+	 H23zNrH5hq8kpi68RephieD4ubR/JlgcsjhwbOLWMGBVPhU6efrIQkJHV6tZ5sxso0T9B
+	 rsw9ztPak6ivs42gGsyCVxiC42AeLjcVKTOfhSZkpNfPQKcN2dDkmFRsbvgYSO6xK7Glg
+	 srTDmaRW1eXX2OitutgCWHc5rmYoIqcx+plxeNtB5Yzvf3q05MzT+WtXfd5tsQJ5IrA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792592045;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=UJ/A60pshTDV64EOc8/U0dsozGI6wHG2kt68wdBZvGk=;
+	b=GIup+aV2dRIj2AMIduKhphvUR0FV9RW1DqVIBtBS/cfwKArAn2qZT57Hv+Ntk8UCgtYl
+	 TvovlHlbj16y7KMg42L+ect+J4xFcgsvK8flJUhFQ7djK0Ri3SBhDFeNh5Zmq6AL0QrIb
+	 3woPLZpNhRvkmh8l6MGmnztzwW3k/2N+6u3RSi3sFxNt83aUJ6lwDl+zW/REfubhTjO3q
+	 kP29pF4LMVZoFVCctDqaEVcibLs+XDyyn/fPdBI3hY5v1ta8VxrzuRCp2EWUh9jL3l+JD
+	 3YWhoxXvR7dLo3Zs9IydVJtfSc3MNM8/veJziPlg1SBMc/VYHw9l7IGtGg5RwXlCmcA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="P5i/ZeyD";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.52
+Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9229606A319;
-	Wed, 21 Oct 2026 14:08:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9229606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E6A606A31E
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:14:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85E6A606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=fCDCXvxX
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LBihEh1092707;
-	Wed, 21 Oct 2026 14:08:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=ADvt/Y
-	KRVb0IDur0qISzY9q0oNf6yoH61rpJhz6SvPo=; b=fCDCXvxXS5yMYjrbst8URF
-	GXReuq4NOxJExJHRKFMVqLQOtNYkaIWoDn7TEWTtsOYnZJ39JNZ9p5ZsRSbKTD5U
-	Kl8/4OJqsXSEMBQ74Nmwp+5qqyuCKRJWkj6fkAYhqZfpoUzbcOJ+7u2eO7uAP5je
-	7Qnk8xUlw/CMgclHATD2Bx58Cy3umCIj3obVKzWmHB3FKvxcltajKglO0VKAiujA
-	E3uPz5cW1ATQ6RILKLllWL6d3BZPFg9ZGXs9CDoCYwAnLv267XmFn/GlQBm7b9hR
-	69Bs42eGh5dkA55aVUnMcCTrM4UavpNE8yZvTCPg9uPy9Z46cF4CZmib9P4uC/Xg
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw5a16p3-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 21 Oct 2026 14:08:06 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69LBo0Nf3083664;
-	Wed, 21 Oct 2026 14:08:06 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hcmuh78su-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 21 Oct 2026 14:08:06 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69LE7xKM42402202
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 21 Oct 2026 14:07:59 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 87CD720040;
-	Wed, 21 Oct 2026 14:07:59 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 83B092004B;
-	Wed, 21 Oct 2026 14:07:56 +0000 (GMT)
-Received: from fedora (unknown [9.5.7.39])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Wed, 21 Oct 2026 14:07:56 +0000 (GMT)
-Date: Wed, 21 Oct 2026 19:46:21 +0530
-From: Amit Machhiwal <amachhiw@linux.ibm.com>
-To: Michal =?utf-8?B?U3VjaMOhbmVr?= <msuchanek@suse.de>
-Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
-        Steven Rostedt <rostedt@goodmis.org>,
-        Masami Hiramatsu <mhiramat@kernel.org>,
-        linux-trace-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-        Vincent Donnefort <vdonnefort@google.com>,
-        Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Harsh Prateek Bora <harshpb@linux.ibm.com>,
-        linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-        kvm-ppc@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] ring-buffer: Do not check si_mem_available() before
- deferred init completes
-Message-ID: <20261021194442.d82d52ff-07-amachhiw@linux.ibm.com>
-Mail-Followup-To: Michal =?utf-8?B?U3VjaMOhbmVr?= <msuchanek@suse.de>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	linux-trace-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	Vincent Donnefort <vdonnefort@google.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	Harsh Prateek Bora <harshpb@linux.ibm.com>, linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
-	kvm-ppc@vger.kernel.org, stable@vger.kernel.org
-References: <20261009163557.88467-3-amachhiw@linux.ibm.com>
- <20261016134247.70722-1-amachhiw@linux.ibm.com>
- <atX3fzEV_Pai4woV@kunlun.suse.cz>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=P5i/ZeyD
+Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-9908e3cd939so355583241.3
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 07:14:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792592044; cv=none;
+        d=google.com; s=arc-20260327;
+        b=St9mV7wjyRJtrDdxC6qQp+MclCd8Iee8Q9BFl2zUtHqxgMi/JuccGWwFY1jk83o7+f
+         AxIlJlI4MozCrNHhAwUCB37OIM+cyhSJjL4TfwoFsqmrK8MYrUxWJoZ+ZLgcz8hkbNkV
+         86ZaAqIvMyPl22H1XJY7m9MTrONy8nExbcznGSrD5ghVJxVUhyZpYupKAmjr95p6iSxc
+         kM3n2RGhfKXT/+erk3EO6ckAa/CUterSEld7qyYcy6u3vze2AdgvJEuiqx4X7tyw9anv
+         RMTuXCa43KAhcb+tLMZdrSo46hdE6vlfbYpDWqwPg5RnSlemeZatQPQ9JUAl7PZwamL4
+         ADUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=UJ/A60pshTDV64EOc8/U0dsozGI6wHG2kt68wdBZvGk=;
+        fh=sGlYDpVEajosZ3helnEJaIvkvHXOZKQt1KpHcVgtNII=;
+        b=MYuO3CGlQMtpDshgKlrA7hC57P3CDDZ9DiIzOhXoQEndjKGLT3o8EdBWoU5bnHC+G7
+         n6ldPxeRTg5d8FiWZtXPmliRAasfo44WUb0/M4tg/CObHwPpXzoiyU38ZoF6hjfVGUaS
+         4uIxn6auTob/hvSFsdsA2/VMy64qQ2Ay++GYez0ldJOntyQn+duIqYwVyuSEW0q8Kdfv
+         ZPIseg+VoiQVUu0xwxeAesMfSqeuw+rlMrUqAPeZ+arnhcX8SeYj6kbum51pSIzbZ9j3
+         HcBE0rIcUSh/wKA7oJ7If3i4xSvXllqDzGgUn7tpXQYBYB4RaV8wHIENrZWE/j9y0ieR
+         GHVA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792592044; x=1793196844; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UJ/A60pshTDV64EOc8/U0dsozGI6wHG2kt68wdBZvGk=;
+        b=P5i/ZeyDVBkMIGuohnrHggiD4vso5z6e9mLwAvvqbmg+cZfeSijP9feo9Qf6rDuRXp
+         yE7xHqSDNb0plAIhJWaSoLmsG9DZGbbb/JleA2EBPdBaDHp3wh1dG9pOwnkdcdRj9IN8
+         XbO4rKntCjlm2Omf8PK8MgaxoHOrYKq9q9l9umfreEaTRiOK7FWi8O/KBGFQXg5jMVUU
+         Ae9XbUO6K7OKbak/sOYq3aqvGuZ2rHWPfjtGFIyqlfFdhWZYF3SlTaatsDppaPHVBxc7
+         gNQ6bF/72WNKa6B0C1ppZULgcMk88NNG5Af5kotLPdpjfSKAuXUC/8S/spHwWZC0jvqw
+         8yCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792592044; x=1793196844;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UJ/A60pshTDV64EOc8/U0dsozGI6wHG2kt68wdBZvGk=;
+        b=oTNz8oQgCzc4sVCC4H3OhN0SXZu1mxhsrSgnnbAvtvqZGd4QJDm1NWnnO3Dd07uKcf
+         KCUhCuL465M3h2CbjTx/qnGJOq85vzJzRvKgNjc94QwnzqF/XlMx+gOBAmyxwcDMvKqd
+         NOFgplrxr/tUh9rNej4Cd1Hi+K0zFv1jvsDaI7EKUooAkXGxvmIlBxL2zg1QgD+Vpkq4
+         6nn47RCI96+yV69Af4GFyv7u/yNnFGXlP2RCT91SS58IR+vK5nPHEm1XHXfZHpakp2Lh
+         GyhZaAFRlrpZcTxB09wOJ2/cnTQ77u0aLIZ1fQ2KaIFqJH5Uyopwmf7V1Zr8w9LA7mL8
+         pY3g==
+X-Forwarded-Encrypted: i=1; AKwUvBzSVKXvT5rwEMjRxdYLgczXH2wLNv4zAXRFEWjQhS/Ec2ddHOU481qiR7/RwjupHIxASigHSrc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPs+anXmigqw9BRcfgiR4qC+thdFpqooxPP378vuMhm/ppPLhG
+	ClwrcI2MyxdTLkzXEMLQOpDVO60NWJ4mb2e+v+3DKMpM5X2AY7JmbPLBw/Hq2Txwe4cwdbGoEaX
+	wpX8vAS5MkLpk+BH420bYcECJ0I1S7OY=
+X-Gm-Gg: AYBFou2znTiYcCZlR90stzk0qsDT/iwXI4V73sdC1CdtWGelHO+TrFoBK6Prl+qgr++
+	08VBctsFqY0vVcDez8F2aSTxfIn1TKNaX75JpLqkdSk56t1OiGLBridevq82C++7xeOZ0tEErue
+	smTSjBCNJPWqf9NffsNB/mSMiXai9mSq8WGz7dhn+Cw2ndcYBg2ecSAkAE1O1yIyBtJ+X7+NEa2
+	M+XJhF8L9bZLbWHRHE615hHsJXmUjA7Vd136pxmxOM4mgcIBbVJj0iUP3rPCc2x9za1LLtyC5lj
+	n20oh3onpz1yziRVAkQRceXTpfXmNr7qwAfN6gxo5IHh/jLq5szfFs70uh/vPIIeQEkKIhz3Jrf
+	6BuwQK3X6zz4ZvUhQE2kkOdoGXbbGIYkVF5CTINxrb9CWy8eYUa2/Zi+ZpK86tdZfzkgMCA==
+X-Received: by 2002:a05:6102:3588:b0:7a1:f980:e93b with SMTP id
+ ada2fe7eead31-7cc926b0bc6mr656524137.23.1792592044313; Wed, 21 Oct 2026
+ 07:14:04 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,97 +104,125 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <atX3fzEV_Pai4woV@kunlun.suse.cz>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA1NCBTYWx0ZWRfXyG65JXecQ1qZ
- XTrj6qOaw599HABgWv3Eww0Xs9tLyqxfAKHoR+2McAqaVtBYvr3IrTcJrbmkMlRuUQuvANACUEW
- 7IluMJcNfVuTpkOTRtuMf6laDL8JULOhPdDV76eGJDCcMKAAG0fDCtg9tMFNgqghXzkEWHxq5ae
- xU5BARihXwnoT4+ZbGcX7OPy87xGLE1RuVu5/FunFdVpRq35lxYeolBGPNTEfTUSU9irEmVea1C
- a5qm55uFNWYwqMcg0WUh7smrsVRv2mIjQLTTsNjaCjOeIM1NHVy/PUgMm6LHastdF8ZKU0flIuk
- +CwOXDrwyy28c5fVpnBIu+iqrz5aRN6NkMnUgLRafIzE5dkj4h7LGugRrljWdlTfkSfunDJskEI
- qRIr4PWFC5q7t/MwLeEpKWnGC/mxmhtGJEThA/flhxLEvBV1Ujf894BzFFnj1I4kJrDvlIU3fkn
- XvlmDwAbfn+AIjd93GA==
-X-Proofpoint-ORIG-GUID: hyUw3X5wNZrdxkXQRgY-MffWMIOFZAJT
-X-Proofpoint-GUID: KO4BRUAyOt7JDDy1mg87zV7Y6gkDWO3B
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA1NCBTYWx0ZWRfX8uqSMDpxuI6A
- J8xRgCnNYesbvsgxGa0BeU2aPp1OqIHPJasPEANYOfB6h98yFst7I5eeh2JXUc3yxHAKO+6G9Tu
- fFH9RfJll9qgCA8BfNMPMFUZ2ipTKoE=
-X-Authority-Analysis: v=2.4 cv=ZfSIpcVA c=1 sm=1 tr=0 ts=6ad8c747 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=8nJEP1OIZ-IA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=M0V5yE8pmHsQCC-Gis0A:9
- a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 malwarescore=0 spamscore=0 suspectscore=0
- clxscore=1015 phishscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210054
+References: <20261021115400.30885-1-mike.michalo@gmail.com>
+In-Reply-To: <20261021115400.30885-1-mike.michalo@gmail.com>
+From: mixalhs <mike.michalo@gmail.com>
+Date: Wed, 21 Oct 2026 16:13:49 +0200
+X-Gm-Features: AclHuK-nUd4UmTxE9F3RBMXljFNNhLJJZePwWHLxIeXwrSoZlz9LU3TXba0QmGI
+Message-ID: <CAO+rqLj5rF8MGMTRSav1n43NqLbazwyuPsPKgiQT2qtP+EDxeQ@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: restore Kerberos logins with released ksmbd-tools
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, regressions@lists.linux.dev, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026/10/19 12:57 PM, Michal Suchánek wrote:
-> On Fri, Oct 16, 2026 at 07:12:47PM +0530, Amit Machhiwal wrote:
-> > During early boot (early_trace_init() called from start_kernel()),
-> > tracing allocates initial ring buffers (temp_buffer, array_buffer, and
-> > snapshot_buffer) for CPU 0.  Later, as secondary CPUs come online during
-> > smp_init(), each CPU's ring buffer is allocated via trace_rb_cpu_prepare().
-> > 
-> > Before attempting page allocation, __rb_allocate_pages() performs a
-> > heuristic check using si_mem_available() to return early with -ENOMEM if
-> > memory appears insufficient.
-> > 
+The ksmbd-tools side is up as
+https://github.com/cifsd-team/ksmbd-tools/pull/347
 
-<snip>
+Michalis
 
-> >  kernel/trace/ring_buffer.c | 14 ++++++++++++++
-> >  1 file changed, 14 insertions(+)
-> > 
-> > diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-> > index 04bb94c29f58..aa877a272c89 100644
-> > --- a/kernel/trace/ring_buffer.c
-> > +++ b/kernel/trace/ring_buffer.c
-> > @@ -2452,10 +2452,24 @@ static int __rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
-> >  	 * memory. It may not be accurate. But we don't care, we just want
-> >  	 * to prevent doing any allocation when it is obvious that it is
-> >  	 * not going to succeed.
-> > +	 *
-> > +	 * With CONFIG_DEFERRED_STRUCT_PAGE_INIT, NR_FREE_PAGES only reflects
-> > +	 * the initial non-deferred pool during early boot and throughout SMP
-> > +	 * bring-up (smp_init() runs before page_alloc_init_late() completes
-> > +	 * deferred initialization). si_mem_available() returns a false negative
-> > +	 * across this entire window while actual allocations succeed by growing
-> > +	 * the zone on demand via deferred_grow_zone(). Only re-enable the check
-> > +	 * from SYSTEM_FREEING_INITMEM onward, after page_alloc_init_late() has
-> > +	 * finished and si_mem_available() is accurate.
-> >  	 */
-> >  	i = si_mem_available();
-> > +#ifdef CONFIG_DEFERRED_STRUCT_PAGE_INIT
-> > +	if (system_state >= SYSTEM_FREEING_INITMEM && i < nr_pages)
-> > +		return -ENOMEM;
-> > +#else
-> >  	if (i < nr_pages)
-> >  		return -ENOMEM;
-> > +#endif
-> >  
-> >  	/*
-> >  	 * If a user thread allocates too much, and si_mem_available()
-> > 
-> > base-commit: 2f2f7eeef8b0a1a9b9ca998231419873ccae8d4e
-> 
-> Hello,
-> 
-> due to other conflicting changes this no longer applies.
-> 
-> Will you send a rebase?
-
-Hi Michal,
-
-Thanks for checking and notifying.  I'll look into it and send a v3 as needed.
-
-Thanks,
-Amit
+On Wed, Oct 21, 2026 at 1:54=E2=80=AFPM Michail Andreas Michalopoulos
+<mike.michalo@gmail.com> wrote:
+>
+> Commit a47634cd729b ("ksmbd: expire SMB sessions when Kerberos tickets
+> expire") added a __u64 session_expiry field to struct
+> ksmbd_spnego_authen_response, growing it from 156 to 168 bytes.
+> ipc_validate_msg() requires the response to have exactly that size, so
+> the 156-byte response of every released ksmbd-tools, up to 3.5.7, is
+> dropped and Kerberos session setup fails with STATUS_LOGON_FAILURE.
+> The other way round, kernels without that commit, including the stable
+> trees, drop the 168-byte response of current ksmbd-tools master, and
+> ksmbd-tools has no way to tell which layout a kernel expects.
+>
+> Pass the expiry in the reserved area of the embedded struct
+> ksmbd_login_response instead. ksmbd-tools releases with that area
+> (3.4.4 and later) allocate the response zeroed and never write to it,
+> so they send an expiry of 0, which ksmbd already treats as no expiry.
+> The response is 156 bytes again, so it works with those releases, and
+> every kernel also accepts a response that sets the expiry. Use two
+> __u32 halves, as the reserved area is only 4-byte aligned.
+>
+> Fixes: a47634cd729b ("ksmbd: expire SMB sessions when Kerberos tickets ex=
+pire")
+> Cc: stable@vger.kernel.org
+> Closes: https://lore.kernel.org/all/CAO+rqLhpPvY0NLrAnZjFXz0gOXnA6zsXxK8x=
+CgtA42XUkSsAeg@mail.gmail.com/
+> Assisted-by: LLM
+> Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+> ---
+> The matching ksmbd-tools change (struct layout and mountd/worker.c)
+> will follow as a pull request.
+>
+> Tested with a local MIT KDC and smbclient --use-kerberos=3Drequired:
+>
+>                     3.5.7      master     master + tools change
+>   7.2               login OK   fails      login OK
+>   7.3               fails      login OK   fails
+>   7.3 + this patch  login OK   fails      login OK
+>
+> With this patch and the tools change, smbtorture smb2.session over
+> Kerberos (including expire1n/1s/1e, expire2s/2e and expire_disconnect)
+> and the 190 smbtorture tests run by the ksmbd CI over NTLM give the same
+> results as 7.3 with ksmbd-tools master, with no kernel warnings. NTLM
+> logins also work with 3.5.7. A test-only mountd that overrides the
+> expiry (including values above 2^32), the response size and the length
+> fields found no wrong session expiry and no kernel warnings in 313
+> logins.
+>
+> Current ksmbd-tools master needs the tools change to work with this
+> patch. If you'd rather the kernel also kept accepting the 168-byte
+> layout, I can add that in a v2. Only tested with smbclient and
+> smbtorture on x86_64.
+>
+>  fs/smb/server/auth.c          | 3 ++-
+>  fs/smb/server/ksmbd_netlink.h | 5 +++--
+>  2 files changed, 5 insertions(+), 3 deletions(-)
+>
+> diff --git a/fs/smb/server/auth.c b/fs/smb/server/auth.c
+> index 1b24eb3f3998..8e5a1b10db6a 100644
+> --- a/fs/smb/server/auth.c
+> +++ b/fs/smb/server/auth.c
+> @@ -464,7 +464,8 @@ int ksmbd_krb5_authenticate(struct ksmbd_session *ses=
+s, char *in_blob,
+>         memcpy(out_blob, resp->payload + resp->session_key_len,
+>                resp->spnego_blob_len);
+>         *out_len =3D resp->spnego_blob_len;
+> -       sess->kerberos_expiry =3D resp->session_expiry;
+> +       sess->kerberos_expiry =3D (u64)resp->login_response.session_expir=
+y_hi << 32 |
+> +                               resp->login_response.session_expiry_lo;
+>         retval =3D 0;
+>  out:
+>         kvfree_sensitive(resp, sizeof(*resp) + resp->session_key_len +
+> diff --git a/fs/smb/server/ksmbd_netlink.h b/fs/smb/server/ksmbd_netlink.=
+h
+> index 2673522c76bc..fc6af757e45e 100644
+> --- a/fs/smb/server/ksmbd_netlink.h
+> +++ b/fs/smb/server/ksmbd_netlink.h
+> @@ -148,7 +148,9 @@ struct ksmbd_login_response {
+>         __u16   status;
+>         __u16   hash_sz;                        /* hash size */
+>         __s8    hash[KSMBD_REQ_MAX_HASH_SZ];    /* password hash */
+> -       __u32   reserved[16];                   /* Reserved room */
+> +       __u32   session_expiry_lo;      /* Kerberos ticket expiry, SPNEGO=
+ only */
+> +       __u32   session_expiry_hi;
+> +       __u32   reserved[14];                   /* Reserved room */
+>  };
+>
+>  /*
+> @@ -286,7 +288,6 @@ struct ksmbd_spnego_authen_response {
+>                                   * stored in SecurityBuffer of SMB2 SESS=
+ION
+>                                   * SETUP response
+>                                   */
+> -       __u64   session_expiry; /* Kerberos ticket expiry time */
+>         __u8    payload[]; /* session key + AP_REP */
+>  };
+>
+> --
+> 2.56.0
+>
