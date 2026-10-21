@@ -1,101 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.171
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792605277;
-	b=Ln9WiL0hQH2i56QOqllq8yRXbDsBCGGQZRyY1uybEeGoPIAumccjLhr7/xv4L/FzlEvX
-	 G96WlJ9k/IlyWNNIOwb1U/RkzBIslmZ76+mwMV8E8JM9QgSdSDQ5RFlkTco/g7QC7hE7A
-	 3efAFEpFRF7WxiMs4mbZxzFdPTSgwst0JgetifBhaCNY7bE7G//6l5GtKCJZ9X6ev9FaD
-	 huw0uAK8/vYRgbm72nJaY2SenAxrmKAC+Kb+y3vM0PHM+zKyltdH5oQPeQ1DHN8/SrwS0
-	 rA9C/Q6H+XfmD8Cx3oNdoYEO8tyTHKcALeug6N0svyXbNe7eLI6vdKlps2pxV0/YKbQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792605277;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792605402;
+	b=4MlptjfPXQ60LH8I8WHbIufJEq/NH4VoBJkuEbZJ1KANe07GYdtQRrWRb9GqAxwHLmNQ
+	 NwbetyRhZWa0Qx6MThpq26t9f+PCjqJLg00tgNFstI1UZQ4QVM4tMMWBMjTICFAdStxqz
+	 gvSh8BoWOkNyn7ehvTjayMvg9JxH9ghCvE5fDKldlooxFDb+LNk2bEMHKMAm0L7m+ptVs
+	 vejPcagOay1QDw5iMbCDfYkMsRsVizRiHpnsBtCmkjZxMcJFtTfjw3oyD5mTsrMKWPvlK
+	 G0iNhOHWTapmHi+ExZBX4BsJmXnVXMv3IKcfFzcixi50+h3vMgvEwW2L/KUsyK9MGxQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792605402;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=bnSgzKVlIwUx1mAdgm8G7itOWlMwTusQYmRJS/QwgdQ=;
-	b=ps0ip7FEoGtZpJ6vQzaejt/2tm5yIULP5pmCvJPi/91kEcRLYtxP4yqj6osVLPGHLHpg
-	 K3GzXv5IV2H1lplhVZ8oFmQcYzJNHHaJWZeJT8rUnDo07Tu2JNgzAz/PYUMJ6eNKfQPdk
-	 Yy0ITowLxgdWpgpAgYz2tnlXbLG0WQsspR7qBM1sLK8ShNQfHElkEjjMIj8OE+UFnikLe
-	 1vEl/PQwkmRVWUWI9p/F1dYAPpYDHlLgk1UYcEdfijS4gl701IhhLcbW525DLSuGRQgz9
-	 oWcbzhJhV4tF/CgbVd8l6ywZmqY7YflQYA7H+62vC3Xgf3XRerUDm/uIi7dzMUaqN9A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="YspD/xZY";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.171
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=8ILZGqeePK3tN5s5Fa4xyHKs3r5hIM8Fdn/roa97zOY=;
+	b=1oBbXlTuTF3ArhScZf2urP01SIsAH/RVDbYeE2FVQy25nl0LEX9u2oHNcLOMU8GMiN4B
+	 c+hYJvM8szTOBkc73z74rj7VJIJxzdKmBMdaCe2ELSCqmt18EeikL22LVM3PkTZ9nWDvb
+	 iddYZLz2JaUUm7lBsDEgHl6fkKIOVnzNNXBJ7l01FAifU1sc0CEfmMfdPacvRJ4faiY2R
+	 yHS7V+6z8+pJzzqESsfMmVzD5uOGn640cCE6LZzRPOMzLwtpRdY951Cb0UmkvGKL3X7Zq
+	 BxlxjSb86b1zjb5pbNP2B3mV186prjGH+1+azLblpzGfsSg6/mwwFhOwzJzgCtsr+og==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=trailofbits.com;
+	spf=pass smtp.mailfrom=trailofbits.com;
+	dkim=pass header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=XQ8MzsJf;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 115B7606A31A
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 17:54:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 115B7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B2A8606A31D
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 17:56:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B2A8606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=YspD/xZY
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2db33db4de9so6935ad.0
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 10:54:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792605276; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EaN6Nhxj6HPF9z98NUpxLvLhOIz8hq5GuDSIU/hPX1K+7YstlI2A2t0iAOWy8n0ylm
-         R4GEPh4JM0Yj6DHAJcvpWF5YN8/NJ6dCzfm3zFbZXnPwckw+AFe2VXgZxGfy1ezTzrK9
-         GUKMX+m9EfWWruK4tCH7Br+ytfYaNB0be1l+dDoRz7ORIMNVcU8PYOPjyLL5hgzj75Up
-         i1jTjQ4EU2F/GhdrMt8XbQzRPBjlnomHO+SK/dxEHnGBsifWXh6sEVGsJ/QpJHHWbwLz
-         zhOf/4HZ4sllyIpfRlkQz8DSJJuuxm4wSnX7/RgZ3RvNZbBlsqTI33n96YbgF83UjRY2
-         KGHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bnSgzKVlIwUx1mAdgm8G7itOWlMwTusQYmRJS/QwgdQ=;
-        fh=Tr73vS0JLbWLGw5xoovgHPxo75WBUQfMjjHpKOLoL/4=;
-        b=Fva5RmZruqSakzw4925BBKzR0r2A2P8Kavapn22Mv2I4h6Vr3B9Xk8FzC3FbQnmBze
-         D3jPPzjB8je+YAee9QnrZululbBYsHUByRXGwPAkVW2t1iEromDWonYkrmxzoCY1GoUU
-         dGrYoUeXclDDUKTdWZbGZ2ZMoauEOB4b7N4LH2S+N6he+rnws1BvQ/yX5HgFZQS4wTGA
-         lTp8aFJUhbozVVdTxNGafhEqsNMhbC+bRDlpyWIJfqGkTqxePIKHbgl6+MFI87JSa7qC
-         Q5hxoXcWcWvgsVMl6R82EUk1rc3EAhmtbvYCzU+2S46fUlM4DeXqPyxqz4RMm88ePTv6
-         8BjA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=XQ8MzsJf
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-17bc533fda3so1222090c88.1
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 10:56:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792605276; x=1793210076; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bnSgzKVlIwUx1mAdgm8G7itOWlMwTusQYmRJS/QwgdQ=;
-        b=YspD/xZY44fFV+FFHSZjF/1RlmBvUNuSfWoWWuFHud6JXIClp37+f+OlnoJN1eKOFv
-         MQwoRZ1P9DqC2Qp2kHPovo9qAd0TufADjD0onPwpW7vRQHd7e4lfy43i9RbNf9+IekNM
-         zlMvCbl+Gs+EP66/kfLB2hUtRPMo0cNKL27WtWxfeIRVgl1aztbKh+i3BhpMc8WkQmRQ
-         OU8c6q+GZActMQnlEzInHLDDUC/nt438pE2N47e+HQN3Bbw84i7dNsQh0+pxRanzfcRC
-         8HL2Vby3lni04TIOBHrddKZ7sdcx8H6SsjQP1K0p1tG5Sribwas8GMu1gQZTpsDxi+xT
-         rVAg==
+        d=trailofbits.com; s=google; t=1792605401; x=1793210201; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8ILZGqeePK3tN5s5Fa4xyHKs3r5hIM8Fdn/roa97zOY=;
+        b=XQ8MzsJfm7hVLaVVmJxcZ6cCv2OpnZhEPS/ixp+1iyeH7bdd67uqG1H1T22iN81Vpj
+         IqdFpLXy+hex8KLmaifYYxCctnfDmCSeb6G/AZ2ct0NJ7cUn6kLJdQhpKeFcQ0KzF1QO
+         MaQCpyPrutkdj7djQwJeI99nmLRhJMs07Kkrf+Y/qy+Vl6TpSthXMSA1odxP9ZiiAWfJ
+         jkVxSyB/XBfrqpb4OYXbXcDz52Ok2oaXNuR2p6KUICorES9mE3pSIOIZVbHrA+dpsHBI
+         /8OuhiCIh+NdJvgh0zzCsMwPSjQK1TE+TJk+8qxNr4sz5wUBSb29H8lSMda6j9GbB8EB
+         l/mA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792605276; x=1793210076;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bnSgzKVlIwUx1mAdgm8G7itOWlMwTusQYmRJS/QwgdQ=;
-        b=gD/LR1riyIdit3DBFn++ZHauKPMQk+go03GARSjShKvGPJjijMXjGm9ENXtDmCtdDu
-         UWi8dvShCBO2D5cEw/21puqcZ4GdiNqWt+3Yq0msLbRu6Zc+SKLjrQLkIw8MhLffHQhn
-         ywHDgTNj7mLZnv4Nx87l3VU/gL5gS+EKJnJoxiLE8kGaw5H1/VmZSN7D3vzTpeZlgQ/+
-         I2LwDmdisdwx7suQfmpJKfE7ogHqbOnBOSQJCitGufYhgXTFscGC83hCy6YPSjBYdN8G
-         UyF5Ycd5WUXbBtiCtXsoOJNxQt9w8Fos+pXMqehUkoXOfhpSgCgOlrkZtGfNEnk2bSHK
-         oQQA==
-X-Forwarded-Encrypted: i=1; AKwUvBx/2OKl8S6wjk8nhIRCRcn+/kA44XnnNl9ZDHm1uVdjq4yB2ruPlB8tti3DKp7PhEu3fvx5LmM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLUR2ZrbZKx8jL47pIhGGk1ZiEYLMtsqPmEN9ea+xjPnPwPUR0G
-	xsZIy7LTcmG8QM2Y9VcjfcSFWxpkXnkVxTQsyj0pujb+KwSRVZLWGHuIC+yGbh6nBDqaJFHTmxd
-	MCxHtQNpkNdjkH03r1FWwsbkQSCWvDNI74T7l3KLP
-X-Gm-Gg: AYBFou1GQuqnwJjl9bP+uVQOwGRrzYInZQ8YpHjgYTouJl5nzLpg90oeZnNQyuinS/x
-	pdOK9L3Ri6mwcrwKKMQ+S93E5pzFsicyztwFEJc92ejEHY7ARmbP6oLyYJVP1GynctfQfhvoSl8
-	I0MxwebcBV0pOYMOkjI1VE94cHVBBePVT0/TiB7+EkAYFd17FDeiJzMDqnC7sv6aWv4VzJaIYOL
-	/dWEBua8jrn8d6SyzQWSi+/IfTrfbLb17uiRtN+sOicr+b82VLubeL4/GXj3NkBG3G5Jo+MPFqj
-	sRg0/YySWyoqQeyr1nB/naBNK/8eQCva80kwczWE15z9nwcB/fxup+ZN4cwfWXGNe1GJ8XsvxwS
-	wSH7KfVm6Rjj/UOSwRP6fxQ4RY0wvJGTEtXeuNcMBnSwgji1dThg1YM8bw1QDPvqbL3Nsbu0Hh8
-	kKeihLsVpCH+X9ATEj52IevpXqzCskkxTZlesP
-X-Received: by 2002:a17:903:1c9:b0:2e6:f400:5655 with SMTP id
- d9443c01a7336-2ea1ad93c36mr12625325ad.3.1792605275821; Wed, 21 Oct 2026
- 10:54:35 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792605401; x=1793210201;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8ILZGqeePK3tN5s5Fa4xyHKs3r5hIM8Fdn/roa97zOY=;
+        b=WWHELi9IT+xEQ1dlHB3fEhyIvo/Hyux6JXmPIpwqtYhklv61vv3+xtsFecxqXwhLQd
+         ClHfTv4TwmCNSGcw9djbXVZaoTJ1snXMhv6KxV4io5X5whiklcxpMCEVn7hhsSxfGJdo
+         q7DDG7V5RvvlC+O1nPAZq+xy0yWsBRSj5gYe94QSDrwLhjsFew8rt2kYIPNi/mOA26i5
+         4Nazdd1rFLJlEZxsjSFAhDaJ/3Q6Bn4WWnWWTvNFfUX93mp2iqvIzpI6Gq7VDPxxiI5v
+         JoxuLrSKAJr541a+7smmWBmO/LU0bWxPaHmojgrW92CjbpbDrMYP7Lksr7rhhlJhveWG
+         Gv+w==
+X-Gm-Message-State: AFq9FYLm+OnoD2uW255+fA7P0SVFQJp5UjmN3M9uvmi5zDsA/UWdCoiy
+	4pEkJL4Urca087TEbR5EL+eW7x9wo9JivwlVo46fES2NBxLd6N2tqfhDpWDbju8zfsHVQCrFlz6
+	2UJyc9m8vzA==
+X-Gm-Gg: AYBFou2WHTN8Vv4JhoQ63bGf1f2EHoKWGMtkEMT08DKVM7FlPIr5GTo9pyBF6fJBjBx
+	GKuSi2FKHxVWp5VVVnDrmpLEB36hzG9kLc1Rf7Wm8w8xKbi9kwau+EDp/EUvUE/czlCNoFURStj
+	hpooV2Oy5JTZYS/sze/funep0y50fimbuy+9NrNHF75nOPfBN+0Omj2EEhD0OFFKXL1zO2ZLRQc
+	alxx93YTadu78e0fwLHeaUrCNnouB1fes3TRLQ5o/61afrHf/GL54TCrPh6LxwOKpYpYhE6jzTu
+	uSs2opReKUYpZyObsCkT8FBEYwMrEXlGoDkREpm0FZu7Rp6PvEIqFyEacXn73Lm/zUsmozn5HbQ
+	ZXVSw7XbuQHMURoSAXkrdX9S7Kq1Zta2S0v9i1P1jREEscRACt2Hp4iK9HX0nsUKsTnSwM+NSfh
+	t1FWz3H82r62iho5P8a441P6nhlXnHJx8Q2gq/o6AX+6kgvb75ev4CwbrQfest0Km0JV3jxlWJv
+	cG/pBRrjBgdFO3TD9tHKTr5t9k6YIaukXPjkBVQOj/swCR+o9dUJV3M5c3MP0npekwLqVovAvgW
+	annz5k5/noMkyk9dSUEZu6Z56OrUs7e+Fqi20LnGs7irT2YnfmEJ
+X-Received: by 2002:a05:7022:928:b0:151:6e80:baa9 with SMTP id a92af1059eb24-190a4ffadbbmr4178212c88.12.1792605401167;
+        Wed, 21 Oct 2026 10:56:41 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:d059:e601:becb:a5ad])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903bf5d0a1sm7736763c88.14.2026.10.21.10.56.39
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 21 Oct 2026 10:56:40 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: alison.schofield@intel.com,
+	dave.jiang@intel.com,
+	dave@stgolabs.net,
+	djbw@kernel.org,
+	icheng@nvidia.com,
+	iweiny@kernel.org,
+	jic23@kernel.org,
+	kaihengf@nvidia.com,
+	kobak@nvidia.com,
+	linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ming.li@zohomail.com,
+	vishal.l.verma@intel.com
+Subject: [PATCH 6.6.y] cxl/mbox: Clamp mailbox output allocation to the payload size
+Date: Wed, 21 Oct 2026 13:56:37 -0400
+Message-ID: <20261021175637.1655-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,73 +104,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <AS8P251MB0001135AF3233180DC42DCD1C8672@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-In-Reply-To: <AS8P251MB0001135AF3233180DC42DCD1C8672@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-From: Harshitha Ramamurthy <hramamurthy@google.com>
-Date: Wed, 21 Oct 2026 10:54:24 -0700
-X-Gm-Features: AclHuK8DF4cNZdOlsLxmOPiqNQYOfIZsIcUlIaWsQRwFpFNtX7VrcLCvRlNCrbM
-Message-ID: <CAEAWyHeByLa9ONLzb+NiaavjVSpuNHbEgM_u9uzyVGV3w2zaHw@mail.gmail.com>
-Subject: Re: [PATCH net] gve: fix out-of-bounds read in gve_get_flow_rule_entry()
-To: Aamir Ahmed <elb12345@hotmail.co.uk>
-Cc: netdev@vger.kernel.org, Joshua Washington <joshwash@google.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 3:33=E2=80=AFPM Aamir Ahmed <elb12345@hotmail.co.uk=
-> wrote:
->
-> gve_get_flow_rule_entry() checks the requested location against the
-> first and last cached rules, but rules_cache_num can be 0 while
-> rules_cache_synced is true: GVE_FLOW_RULE_QUERY_RULES returns the rules
-> from the requested location onwards, so a request past the last
-> installed rule - or any request when no rules are installed - returns
-> zero rules, which the driver accepts and marks as synced.
->
-> The next query evaluates rules_cache[*cache_num - 1] with
-> *cache_num =3D=3D 0. The zero-initialised cache does not trip the earlier
-> comparison, *cache_num - 1 wraps to 0xFFFFFFFF in u32, and the read
-> faults about 352 GiB past the cache. ETHTOOL_GRXCLSRULE needs no
-> capability, so an unprivileged user can trigger it:
->
->     BUG: unable to handle page fault for address: ff240996c4c64fa8
->     #PF: supervisor read access in kernel mode
->     RIP: gve_get_flow_rule_entry+0xd4/0x110 [gve]
->
-> Treat an empty cache as a cache miss and re-query.
->
-> Fixes: 6f3bc487565d ("gve: Add flow steering ethtool support")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+From: Richard Cheng <icheng@nvidia.com>
 
-Thanks for the patch!
-Reviewed-by: Harshitha Ramamurthy <hramamurthy@google.com>
+[ Upstream commit 8a13db9f899d149c3aab24abcb668121cfda5a4f ]
 
-> ---
-> Reproducer available on request.
->
->  drivers/net/ethernet/google/gve/gve_flow_rule.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/net/ethernet/google/gve/gve_flow_rule.c b/drivers/ne=
-t/ethernet/google/gve/gve_flow_rule.c
-> index 2c80cda..db8b9a3 100644
-> --- a/drivers/net/ethernet/google/gve/gve_flow_rule.c
-> +++ b/drivers/net/ethernet/google/gve/gve_flow_rule.c
-> @@ -206,6 +206,7 @@ int gve_get_flow_rule_entry(struct gve_priv *priv, st=
-ruct ethtool_rxnfc *cmd)
->                 return -EOPNOTSUPP;
->
->         if (!priv->flow_rules_cache.rules_cache_synced ||
-> +           !*cache_num ||
->             fsp->location < be32_to_cpu(rules_cache[0].location) ||
->             fsp->location > be32_to_cpu(rules_cache[*cache_num - 1].locat=
-ion)) {
->                 err =3D gve_adminq_query_flow_rules(priv, GVE_FLOW_RULE_Q=
-UERY_RULES, fsp->location);
-> --
-> 2.55.0
->
+CXL_MEM_SEND_COMMAND bounds the user's in.size to the mailbox payload
+size but leaves out.size unbounded, then cxl_mbox_cmd_ctor() calls
+kvzalloc(out.size). A large out.size drives a huge allocation, above
+INT_MAX it WARNs and taints, and with panic_on_warn=1 it panics.
+
+The transport __cxl_pci_mbox_send_cmd() already clamps the response copy
+to min(out.size, payload_size, device len), so the output buffer is
+never written beyond payload_size. Clamp the allocation to payload_size
+too, matching the RAW path.
+
+Fixes: 583fa5e71cae ("cxl/mem: Add basic IOCTL interface")
+Reviewed-by: Kai-Heng Feng <kaihengf@nvidia.com>
+Reviewed-by: Koba Ko <kobak@nvidia.com>
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+Reviewed-by: Davidlohr Bueso <dave@stgolabs.net>
+Signed-off-by: Richard Cheng <icheng@nvidia.com>
+Link: https://patch.msgid.link/20260624144147.53997-1-icheng@nvidia.com
+Signed-off-by: Dave Jiang <dave.jiang@intel.com>
+Assisted-by: LLM
+[ Backport to 6.6.y: Use the target mbox and mds objects for the upstream
+  output-size clamp. ]
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi,
+
+Please consider this backport of the fix for CVE-2026-93186 to 6.6.y.
+
+The code changes match upstream with the target mailbox object names. See
+the bracketed backport note above.
+
+The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
+
+Build-tested only as part of a cumulative 6.6.y series on x86_64
+(allmodconfig, CONFIG_WERROR=y); no runtime testing.
+
+Thanks,
+Artem Dinaburg
+
+ drivers/cxl/core/mbox.c |    6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/drivers/cxl/core/mbox.c b/drivers/cxl/core/mbox.c
+index 059e95e086205a497eb5f6c863a4bfc29c1c16c9..278a11657d8b7516533749bc8c1ce3eb933848cf 100644
+--- a/drivers/cxl/core/mbox.c
++++ b/drivers/cxl/core/mbox.c
+@@ -359,11 +359,7 @@ static int cxl_mbox_cmd_ctor(struct cxl_mbox_cmd *mbox,
+ 		}
+ 	}
+ 
+-	/* Prepare to handle a full payload for variable sized output */
+-	if (out_size == CXL_VARIABLE_PAYLOAD)
+-		mbox->size_out = mds->payload_size;
+-	else
+-		mbox->size_out = out_size;
++	mbox->size_out = min_t(size_t, out_size, mds->payload_size);
+ 
+ 	if (mbox->size_out) {
+ 		mbox->payload_out = kvzalloc(mbox->size_out, GFP_KERNEL);
