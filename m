@@ -1,54 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792596608;
-	b=rJ8owpbfpIIvV1I+846GZT5VOOc31UtRBsSn4G7gYp+tYc3why9xidELu0BCcAE3m/Q4
-	 3cy9Zx0uc3sLWLM2FYnWHjxU0WTuRLRiuLsWxPK9+RBlCyd0oOi4HtmSb1PE2VDC95TNL
-	 YoGCZjsvfSPlRhIRohKsyTIFyyZagH7xnDQhNvN2I+xLmctCOS9YNn4i8SUunoDjI1Pjt
-	 pdl5rYhRcE8jMzgA9IS48QIcf9eQNX/+reD35biS20rFe7hoJ3qNdnjkdfrezqL7Lju65
-	 osZjCYbrqNDdV2yds+Q1ZtkLKh6MTz0XZ2AA1TE3xc0gYw5L95CXeWGM1r0OICN57EQ==
+	t=1792596607;
+	b=GIgtrnXRJEUiWVB2j6T15UV6rEXGZ6CVrZwWWvLoOcnEQFrZ0JxNvbdbdKeQs6PvtB3V
+	 +FHszeBTKvIw/Q1wf7g5OzwY1nm7++7e+gAwzZkODktJpg+a+KqFrMMKJG4QAr6mE5mOQ
+	 4t2fXW2MLf5RzbYxugqgMAPf4S9uak7q5FoLO1RygalOCrJxvkqQXpAayvnrOZMXv7rph
+	 j4uPrBG307uPFQMk/iuFy/EFqFJL2t3iYjFtkpcXmmWk6K0vN3uupBVuYe+L0vTaM0G0y
+	 25CKwPyd1QM/T+it9XhOPh+pNuwCtihSUduBtxzWPtwgt3ErKaINeNAguv9fOrov+kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792596608;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=uFNUCuGzA+hpEMxm4fgOgzmswLKTR2sZ91KsxskyeOk=;
-	b=bMurequghWyzGkjXgPm8q6XeIPaKmWWo42feaxfy8wz4te9Hksa4Zd7+v0mz/6ZcMkw6
-	 Spwfu/sPC+41on3+akZLT0vYoV4sx+t/xVWYL5SmJ7pjIYWWrSQCTmTk26cIOYzS9m8DJ
-	 /BOT74dqeAcDC8EJnY5v9XRWuzPKR2jfC3sMR2x7jVL86lGw9ESgvbE7kE50/m+VpRLck
-	 AjhyFOGS5sqwivTOSXcMYj0ZgW1l3Ezr+wOWDjjIzNEDyx1oR8hP/aFuNtiDDwn8lM5iq
-	 IY2+/OyErlnUc4F2LJ2eWwlJcPcZxFf+qiUVq148gUmXPJpuxQAjM1bqpuGfgseXbfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792596607;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=HaSw9CI+ZF+Vt07rKhd2TFzurUYhiAv7ZJ2gF8vcgyo=;
+	b=P6ZhE3cbdkX+3SGreolWTdLTCnWCrWLY8GG3c33iZbEScsAR4TzMQKYbdz5IcJKAHA1x
+	 eEYkQxU2Y5UGmrXXyls9SxRhyhz9avgQIWk9pBM+mkEghS2mlU+sIDcFAZTmSr9T4Y7Vk
+	 IUGePbuCy2C+b4xgENQYgL1R+tabg/wGwS9iEFV6TMF9V3I9Mf/y2hjRaUOUFjsysiWBQ
+	 02lXsJ46rnkJvYjyMdB1Kflhg/v2h94ntDEICR95cz1AmxpXi/j2XMb8H+bSoCeNTFo1w
+	 SessXkM5h4Y0AqR+e7n1DuUhDWdVJ/kjKmbNp0liJkYmTF5bu1UDjWRhJNx+Lx+BS9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nb0Uzriw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=JUz+9Pzj;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="re/OyTLv";
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=f279zzle;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=niU1uIJq;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39521606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:30:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99E6606A31B;
+	Wed, 21 Oct 2026 15:30:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A99E6606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nb0Uzriw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6D761F000C8;
-	Wed, 21 Oct 2026 15:30:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792596608;
-	bh=uFNUCuGzA+hpEMxm4fgOgzmswLKTR2sZ91KsxskyeOk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nb0UzriwB+KDCvfcw/hDXPvdnSWQRXJ1p2t/BGrIsffgkvhRo+U0UjuyWLMAoGeSB
-	 4hidK91ZGQc6QHySHoZV1eCkloSs+w5ybhb77oW6u8rMDqpcZxeCUYDhqV4U2LM46e
-	 rWgUGD6UK6b8g0gqPONkhuHfQTMxSWCgwqgCpaOjnkSvriFN7aebzLwt2K2R+r1Xy4
-	 6ql4EOn6ivZGOcCbexp3xbqXYkexeNehQFzOtN7HMzkdpWXCMhARdsiM9b8hA+AlZr
-	 SenN9mQKHaQz4B82Dr3wVGohK5It5Yer6b09EpJDY0ExmcDRGvOgZDxaxqxnItkkSq
-	 Kx70Z/erF4lHw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] ext4: free the sbi after a grace period
-Date: Wed, 21 Oct 2026 11:30:06 -0400
-Message-ID: <20261021152924.292498-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102102-likewise-pointless-8de1@gregkh>
-References: <2026102102-likewise-pointless-8de1@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=JUz+9Pzj;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=re/OyTLv;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=f279zzle;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=niU1uIJq
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id D70E222019;
+	Wed, 21 Oct 2026 15:30:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792596605; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HaSw9CI+ZF+Vt07rKhd2TFzurUYhiAv7ZJ2gF8vcgyo=;
+	b=JUz+9PzjFFvT68FU8KbVKnG9ONPa90Jx1jDJjXCpX1ap3DuKTdLsMyqj/clMsUJ8ON4w4p
+	wLf5XGQl0b4RHWITx5eE9YjHWBAn5i+eTvtBwnV1WXjV0Wa1Nx/y7dLizZ43PBtASZzUWo
+	SZJSdK/b/ygQDeqUSo9McPrB2hyyL6s=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792596605;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HaSw9CI+ZF+Vt07rKhd2TFzurUYhiAv7ZJ2gF8vcgyo=;
+	b=re/OyTLvyhxvPBv31y3qG45QYv69fN91b+v856lgqv2vQIdrGMx5g+cRSgf81p7FnaRSbz
+	1NsqT92yn5MchNDg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792596604; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HaSw9CI+ZF+Vt07rKhd2TFzurUYhiAv7ZJ2gF8vcgyo=;
+	b=f279zzleEbbQn+5QK4zJCFpw82PKJ3T99LUEwIjcfY8H45YQWvMYuCLGvVsEm/vWPDZlh7
+	b8kC4TyIc9JOB9ID9quFLa/1fdFddOIb55NyihyU6xqDIQRgiWYs6CT/lmAHmSz2RinUbi
+	/pLQrFgsEIwRAgm4S1LZMJhiQViVcwo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792596604;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HaSw9CI+ZF+Vt07rKhd2TFzurUYhiAv7ZJ2gF8vcgyo=;
+	b=niU1uIJqowBJeRdaiquQw54mbqjXEIup3RWdChZ+madKbfWqR31SagOEFJfBCwCSZ2RnVK
+	Vez1AXPIIWH2M5CA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B72AC134A5;
+	Wed, 21 Oct 2026 15:30:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id HlWtJXza2GrqFAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 21 Oct 2026 15:30:04 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 4E115A1418; Wed, 21 Oct 2026 17:29:56 +0200 (CEST)
+Date: Wed, 21 Oct 2026 17:29:56 +0200
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Miklos Szeredi <mszeredi@redhat.com>, 
+	Jeff Layton <jlayton@kernel.org>, shaos <shawnq1@163.com>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 5/6] listns: don't wrap around with a U64_MAX cursor
+Message-ID: <mlpsaezfk3apjsk3jl6nksrxp7fmmpsahxwljs2ilornsovgyu@ohmycilav6el>
+References: <20261021-work-mount-statmount_listns_fixes-v1-0-8917a4c1bd14@kernel.org>
+ <20261021-work-mount-statmount_listns_fixes-v1-5-8917a4c1bd14@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,158 +112,223 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021-work-mount-statmount_listns_fixes-v1-5-8917a4c1bd14@kernel.org>
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_ENVRCPT(0.00)[163.com];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,zeniv.linux.org.uk,suse.cz,redhat.com,kernel.org,163.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email]
+X-Spam-Score: -12.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-From: Christian Brauner <brauner@kernel.org>
+On Wed 21-10-26 13:46:58, Christian Brauner wrote:
+> do_listns() and do_listns_userns() take the last namespace id the caller
+> saw and look up the first namespace after it by searching the rbtree for
+> last_ns_id + 1. With U64_MAX that wraps around to zero and the search
+> returns the namespace with the smallest id. So a cursor at the largest
+> possible id restarts the listing from the beginning instead of failing
+> with ENOENT like a cursor of U64_MAX - 1 does. That's the case for the
+> unified tree, the type-specific trees and the owner tree alike.
+> 
+> No namespace will ever have that id. They come from a counter and a
+> caller that only feeds back ids it got from us can't hit this. It's
+> still wrong.
+> 
+> Instead of adding one to the cursor and searching for the smallest id
+> that's greater or equal make the lookup helpers search for the smallest
+> id that's strictly greater than the cursor. That's what both callers
+> want anyway and there's nothing left to overflow.
+> 
+> Reproducer, unprivileged:
+> 
+>     #define _GNU_SOURCE
+>     #include <errno.h>
+>     #include <stdint.h>
+>     #include <stdio.h>
+>     #include <sys/syscall.h>
+>     #include <unistd.h>
+>     #ifndef __NR_listns
+>     #define __NR_listns 470
+>     #endif
+>     #define CLONE_NEWUSER		0x10000000U
+>     #define LISTNS_CURRENT_USER	0xffffffffffffffffULL
+>     struct ns_id_req {
+>     	uint32_t size, spare;
+>     	uint64_t ns_id;
+>     	uint32_t ns_type, spare2;
+>     	uint64_t user_ns_id;
+>     };
+>     static void list(const char *tree, uint32_t type, uint64_t owner,
+>     		 uint64_t cursor)
+>     {
+>     	struct ns_id_req req = {
+>     		.size = sizeof(req), .ns_id = cursor, .ns_type = type,
+>     		.user_ns_id = owner,
+>     	};
+>     	uint64_t ids[8];
+>     	long ret;
+>     	errno = 0;
+>     	ret = syscall(__NR_listns, &req, ids, 8, 0);
+>     	printf("%s cursor %llu: ret %ld errno %d", tree,
+>     	       (unsigned long long)cursor, ret, errno);
+>     	for (long i = 0; i < ret && i < 3; i++)
+>     		printf("%s%llu", i ? "," : " ids ", (unsigned long long)ids[i]);
+>     	printf("%s\n", ret > 3 ? ",..." : "");
+>     }
+>     int main(void)
+>     {
+>     	static const uint64_t cursors[] = { 0, UINT64_MAX - 1, UINT64_MAX };
+>     	for (int i = 0; i < 3; i++)
+>     		list("unified", 0, 0, cursors[i]);
+>     	for (int i = 0; i < 3; i++)
+>     		list("userns", CLONE_NEWUSER, 0, cursors[i]);
+>     	for (int i = 0; i < 3; i++)
+>     		list("owner", 0, LISTNS_CURRENT_USER, cursors[i]);
+>     	return 0;
+>     }
+> 
+> Before, on 7.3.0-rc7-00252-g4e3259b08c54 (vfs.fixes) in a VM:
+> 
+>     unified cursor 0: ret 8 errno 0 ids 1,2,3,...
+>     unified cursor 18446744073709551614: ret -1 errno 2
+>     unified cursor 18446744073709551615: ret 8 errno 0 ids 1,2,3,...
+>     userns cursor 0: ret 1 errno 0 ids 3
+>     userns cursor 18446744073709551614: ret -1 errno 2
+>     userns cursor 18446744073709551615: ret 1 errno 0 ids 3
+>     owner cursor 0: ret 8 errno 0 ids 1,2,4,...
+>     owner cursor 18446744073709551614: ret -1 errno 2
+>     owner cursor 18446744073709551615: ret 8 errno 0 ids 1,2,4,...
+> 
+> After:
+> 
+>     unified cursor 0: ret 8 errno 0 ids 1,2,3,...
+>     unified cursor 18446744073709551614: ret -1 errno 2
+>     unified cursor 18446744073709551615: ret -1 errno 2
+>     userns cursor 0: ret 1 errno 0 ids 3
+>     userns cursor 18446744073709551614: ret -1 errno 2
+>     userns cursor 18446744073709551615: ret -1 errno 2
+>     owner cursor 0: ret 8 errno 0 ids 1,2,4,...
+>     owner cursor 18446744073709551614: ret -1 errno 2
+>     owner cursor 18446744073709551615: ret -1 errno 2
+> 
+> Reported-by: shaos <shawnq1@163.com>
+> Link: https://lore.kernel.org/r/20261020110732.959552-1-shawnq1@163.com
+> Fixes: 76b6f5dfb3fd ("nstree: add listns()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-[ Upstream commit c17b44266a1f9fcb49b894d4611d1254bf1aa313 ]
+Looks good! Feel free to add:
 
-ext4_get_link() follows a symlink that keeps its target in a data block
-in rcu pathwalk mode with ext4_getblk(EXT4_GET_BLOCKS_CACHED_NOWAIT).
-That reads s_mount_state in the ASSERT() of ext4_getblk() and again in
-ext4_es_lookup_extent(), and the lookup bumps the extent status hit or
-miss counter, all through sb->s_fs_info.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-ext4_put_super() destroys those counters, clears sb->s_fs_info and frees
-the sbi without waiting for a grace period. A pathwalk that is still in
-ext4_get_link() when the last reference to the mount goes away then
-dereferences a NULL s_fs_info, the freed sbi or the destroyed percpu
-counters.
+								Honza
 
-With a pathwalk held up in ext4_get_link() while the last reference
-goes away:
-
-  KASAN: null-ptr-deref in range [0x00000000000000a8-0x00000000000000af]
-  RIP: 0010:ext4_getblk+0xf0/0x640
-  Call Trace:
-   <TASK>
-   ext4_get_link+0x26c/0x410
-   pick_link+0xf96/0x1780
-   step_into_slowpath+0x9b8/0x1250
-   path_lookupat+0x484/0xb00
-   filename_lookup+0x1f1/0x5b0
-   vfs_statx+0xd7/0x3b0
-   vfs_fstatat+0x4d/0x90
-   __do_sys_newfstatat+0xa0/0x100
-   do_syscall_64+0x10e/0x5e0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-So far that has been hard to hit. umount(2) waits for a grace period in
-namespace_unlock() before it drops the mount, so only a mount whose last
-reference goes away elsewhere, like the close of a file or a chdir out of
-a lazily unmounted directory, can race a walker.
-
-Keep sb->s_fs_info and free the sbi together with the extent status
-counters after a grace period. Split the counters out of
-ext4_es_unregister_shrinker() for that. The shrinker still gets wasted
-in ext4_put_super(), the counters go with the sbi.
-
-Fixes: 6493792d3299 ("ext4: convert symlink external data block mapping to bdev")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261009-work-fixes-rcu-v1-1-7446d2d335e6@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: Omitted changes tied to absent extent KUnit tests. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/ext4/ext4.h           |  2 ++
- fs/ext4/extents_status.c |  7 ++++++-
- fs/ext4/extents_status.h |  1 +
- fs/ext4/super.c          | 13 +++++++++++--
- 4 files changed, 20 insertions(+), 3 deletions(-)
-
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index da6428312c36b..dae7fb8bc598e 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -1694,6 +1694,8 @@ struct ext4_sb_info {
- 	struct list_head s_es_list;	/* List of inodes with reclaimable extents */
- 	long s_es_nr_inode;
- 	struct ext4_es_stats s_es_stats;
-+	/* ext4_get_link() reads the sbi in rcu pathwalk */
-+	struct rcu_head s_rcu;
- 	struct mb_cache *s_ea_block_cache;
- 	struct mb_cache *s_ea_inode_cache;
- 	spinlock_t s_es_lock ____cacheline_aligned_in_smp;
-diff --git a/fs/ext4/extents_status.c b/fs/ext4/extents_status.c
-index 31dc0496f8d0c..fbfd1937d07d0 100644
---- a/fs/ext4/extents_status.c
-+++ b/fs/ext4/extents_status.c
-@@ -1796,12 +1796,17 @@ int ext4_es_register_shrinker(struct ext4_sb_info *sbi)
- }
- 
- void ext4_es_unregister_shrinker(struct ext4_sb_info *sbi)
-+{
-+	shrinker_free(sbi->s_es_shrinker);
-+}
-+
-+/* ext4_get_link() bumps the hit and miss counters in rcu pathwalk */
-+void ext4_es_destroy_stats(struct ext4_sb_info *sbi)
- {
- 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_cache_hits);
- 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_cache_misses);
- 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_all_cnt);
- 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_shk_cnt);
--	shrinker_free(sbi->s_es_shrinker);
- }
- 
- /*
-diff --git a/fs/ext4/extents_status.h b/fs/ext4/extents_status.h
-index 8f9c008d11e81..502d9110a73cc 100644
---- a/fs/ext4/extents_status.h
-+++ b/fs/ext4/extents_status.h
-@@ -238,6 +238,7 @@ static inline void ext4_es_store_pblock_status(struct extent_status *es,
- 
- extern int ext4_es_register_shrinker(struct ext4_sb_info *sbi);
- extern void ext4_es_unregister_shrinker(struct ext4_sb_info *sbi);
-+extern void ext4_es_destroy_stats(struct ext4_sb_info *sbi);
- 
- extern int ext4_seq_es_shrinker_info_show(struct seq_file *seq, void *v);
- 
-diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 9b45d27515f9f..3f5e9d825a5e6 100644
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
-@@ -1268,6 +1268,14 @@ static void ext4_flex_groups_free(struct ext4_sb_info *sbi)
- 	}
- }
- 
-+static void ext4_put_sbi_rcu(struct rcu_head *head)
-+{
-+	struct ext4_sb_info *sbi = container_of(head, struct ext4_sb_info, s_rcu);
-+
-+	ext4_es_destroy_stats(sbi);
-+	kfree(sbi);
-+}
-+
- static void ext4_put_super(struct super_block *sb)
- {
- 	struct ext4_sb_info *sbi = EXT4_SB(sb);
-@@ -1361,7 +1369,6 @@ static void ext4_put_super(struct super_block *sb)
- 	ext4_stop_mmpd(sbi);
- 
- 	brelse(sbi->s_sbh);
--	sb->s_fs_info = NULL;
- 	/*
- 	 * Now that we are completely done shutting down the
- 	 * superblock, we need to actually destroy the kobject.
-@@ -1374,7 +1381,8 @@ static void ext4_put_super(struct super_block *sb)
- #if IS_ENABLED(CONFIG_UNICODE)
- 	utf8_unload(sb->s_encoding);
- #endif
--	kfree(sbi);
-+	/* ext4_get_link() reads the sbi and the counters in rcu pathwalk */
-+	call_rcu(&sbi->s_rcu, ext4_put_sbi_rcu);
- }
- 
- static struct kmem_cache *ext4_inode_cachep;
-@@ -5692,6 +5700,7 @@ failed_mount8: __maybe_unused
- 	}
- failed_mount3a:
- 	ext4_es_unregister_shrinker(sbi);
-+	ext4_es_destroy_stats(sbi);
- failed_mount3:
- 	/* flush s_sb_upd_work before sbi destroy */
- 	flush_work(&sbi->s_sb_upd_work);
+> ---
+>  kernel/nstree.c | 29 +++++++++++------------------
+>  1 file changed, 11 insertions(+), 18 deletions(-)
+> 
+> diff --git a/kernel/nstree.c b/kernel/nstree.c
+> index 831f279d174a..58b2b55fa8d2 100644
+> --- a/kernel/nstree.c
+> +++ b/kernel/nstree.c
+> @@ -459,10 +459,10 @@ static inline int prepare_klistns(struct klistns *kls, struct ns_id_req *kreq,
+>  }
+>  
+>  /*
+> - * Lookup a namespace owned by owner with id >= ns_id.
+> - * Returns the namespace with the smallest id that is >= ns_id.
+> + * Lookup a namespace owned by owner with id > ns_id.
+> + * Returns the namespace with the smallest id that is > ns_id.
+>   */
+> -static struct ns_common *lookup_ns_owner_at(u64 ns_id, struct ns_common *owner)
+> +static struct ns_common *lookup_ns_owner_after(u64 ns_id, struct ns_common *owner)
+>  {
+>  	struct ns_common *ret = NULL;
+>  	struct rb_node *node;
+> @@ -476,10 +476,8 @@ static struct ns_common *lookup_ns_owner_at(u64 ns_id, struct ns_common *owner)
+>  		struct ns_common *ns;
+>  
+>  		ns = node_to_ns_owner(node);
+> -		if (ns_id <= ns->ns_id) {
+> +		if (ns_id < ns->ns_id) {
+>  			ret = ns;
+> -			if (ns_id == ns->ns_id)
+> -				break;
+>  			node = node->rb_left;
+>  		} else {
+>  			node = node->rb_right;
+> @@ -565,7 +563,7 @@ static ssize_t do_listns_userns(struct klistns *kls)
+>  	 * then use it's list entry to iterate from there.
+>  	 */
+>  	if (kls->last_ns_id) {
+> -		kls->first_ns = lookup_ns_owner_at(kls->last_ns_id + 1, ns);
+> +		kls->first_ns = lookup_ns_owner_after(kls->last_ns_id, ns);
+>  		if (!kls->first_ns)
+>  			return -ENOENT;
+>  		first_ns = kls->first_ns;
+> @@ -613,10 +611,10 @@ static ssize_t do_listns_userns(struct klistns *kls)
+>  }
+>  
+>  /*
+> - * Lookup a namespace with id >= ns_id in either the unified tree or a type-specific tree.
+> - * Returns the namespace with the smallest id that is >= ns_id.
+> + * Lookup a namespace with id > ns_id in either the unified tree or a type-specific tree.
+> + * Returns the namespace with the smallest id that is > ns_id.
+>   */
+> -static struct ns_common *lookup_ns_id_at(u64 ns_id, int ns_type)
+> +static struct ns_common *lookup_ns_id_after(u64 ns_id, int ns_type)
+>  {
+>  	struct ns_common *ret = NULL;
+>  	struct ns_tree_root *ns_tree = NULL;
+> @@ -643,13 +641,8 @@ static struct ns_common *lookup_ns_id_at(u64 ns_id, int ns_type)
+>  		else
+>  			ns = node_to_ns_unified(node);
+>  
+> -		if (ns_id <= ns->ns_id) {
+> -			if (ns_type)
+> -				ret = node_to_ns(node);
+> -			else
+> -				ret = node_to_ns_unified(node);
+> -			if (ns_id == ns->ns_id)
+> -				break;
+> +		if (ns_id < ns->ns_id) {
+> +			ret = ns;
+>  			node = node->rb_left;
+>  		} else {
+>  			node = node->rb_right;
+> @@ -708,7 +701,7 @@ static ssize_t do_listns(struct klistns *kls)
+>  	}
+>  
+>  	if (kls->last_ns_id) {
+> -		kls->first_ns = lookup_ns_id_at(kls->last_ns_id + 1, ns_type);
+> +		kls->first_ns = lookup_ns_id_after(kls->last_ns_id, ns_type);
+>  		if (!kls->first_ns)
+>  			return -ENOENT;
+>  		first_ns = kls->first_ns;
+> 
+> -- 
+> 2.53.0
+> 
 -- 
-2.53.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
