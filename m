@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792598035;
-	b=a9j0deMSPDDzjTdIBN/C/Qb3G5KRnIbCY150rQm8uG82V1F/RyK+bJjN4tQTdoEOI1we
-	 xyTBzHPCb6t9eHAr94tTSnMCQf5hBT8Z2LeN8A15bFJExCdBIkHNF4FVTAsBPFpA3LMgL
-	 WGB4BSk3kAy8ObjybDcn3seC+3wR6l79K6VEhskG9G147ZJ3qvmNqW0UB2dIhxs/WhAso
-	 BN0fgj5Kt6yYjDnt32h05aTpPJydxp+zJmPrSLe/717B3pSWuGoHb0P7DBBGeG9DDmXc/
-	 5tuDpU7z7+L5Ndu1GG3V9LnHWRcy2OxSObgh6OfBYOHsiRjeYSaeVEGzCS053PNwBTQ==
+	t=1792598068;
+	b=Tt9+v3OwZ1UtdL6FLzgM30BSSIZzbsxYeFVkVkK7M8zhlxSMx/1TIQBip291YfU7LXAE
+	 8QbcrUHjq9SYuFIgZd2gxtZRzLEACv7r9Tqyb1oXu5xbzODkciZ5+mXe5WvNjAoAzCOi2
+	 GsF5bWUdVcv+6mOaHlhXfrDmAIgA6VTJ0jcrrZSZnoppqLkCsJlrstKEwuREG1qmsU1jR
+	 ZTYX0uOCKgBPOhXbg2DZu2+3pZTzDInUhrMzBP6CRYFa/KYr9/pEeWZ2lZgPTjwxycgMf
+	 /44tMJ3nFTPw0LSx1PGvTMnfnRouwdvFcwLyew6aej+1NAPu8lFOzQcLU8Aw0sMCwJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792598035;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792598068;
 	h=Received:DKIM-Signature:From:To:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
 	bh=uLZ2osQJ7uiRUIsiiKGBz+t5qtMtD0O/F6LqjFJrt/0=;
-	b=zorn0hD30M55Jfg2LXy7bVF7POFM9L2DIOxze2JH7/VB/FEd0aXxYFkJc3Hzw4W9fHhw
-	 8gfXqHMeQFKgQvV03iSgoV5DmnGSYXWf4qqoM25p/orqyNBoEI3+gNNK2RSr8GimPPHCC
-	 k05ZdB8NYbiq7MoXRtjCM3uo4G/ImdEE5l8Q6U15iLtxMmPYXoFZV3tN+WbDJsdNg9w/9
-	 1tCpwFWNH8QabDUTni/bDyuvRl920e1ICT2X+yCoBOYuMtK6V/HVWfDMrJaBuEVSu8L62
-	 EdAQyAo4fRY5tg7P0i/OXHMP7E5Q5Ao3ru/bXgQhZ6abR5rFYP5XX7u5NsaKAEfZMmg==
+	b=WtnyKzhviGuY2cd2Qb8LtVHthvX8o/TwfMbVLzPT3dpbnSmN8K+gxFKSWAw3yuw/mJ7V
+	 vqLTmQTnvQbckhDrnVwys9N3xICX1XDoxl9BkoCh5EIp1ULf7HvFiPXepKME7cFIU5ot+
+	 YO5EkiVvZxUzpYzqbYSqq3SwqDT7FrWm77f07by9PY+KMwnvbxHI9v2K0l4ORq7xx+cGz
+	 /fnKo8s9vILkznO9Wqo7BhsNv1gee0jYAfkNE5hmS0hlGROYMuek0+61CrzwcSPNU2cWO
+	 hi8vDP8AtbLPbU+UzLQ32YecduJP2fqZkyeyv1UsJUFDfM4FAM6kTWfpoHwEl0PKRgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SErAX8rK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ACMDj+wY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87361606A333
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:53:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72A0C606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:54:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SErAX8rK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D8D31F000C1;
-	Wed, 21 Oct 2026 15:53:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ACMDj+wY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4393A1F000C1;
+	Wed, 21 Oct 2026 15:54:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792598035;
+	s=k20260515; t=1792598068;
 	bh=uLZ2osQJ7uiRUIsiiKGBz+t5qtMtD0O/F6LqjFJrt/0=;
 	h=From:To:Subject:Date:In-Reply-To:References;
-	b=SErAX8rKAC2aG/oJpFuqjFk8vCvXmsnFjqPye78LQImkM4WJ2k0snXfB20ITl0vAj
-	 A0Bs2BEf/7gOcCnKaBGaTKQIjSIoBh2CXbhBN1hMlufwgaGBHvfrqGUh4203VPPNRr
-	 7hIdCNG+7yMWX4rhBUrgaNwU/wSnbwzpSm5IId26MFt5fad4N+1/r90oGMAhoRIRMA
-	 NG8WAtjBcTZoABrooZBDn0VhGJhAcgWwS4LfrFLKxPMyWmnGogJG1S9OfvNbVwfGe8
-	 mmvciMxU1PDmWcn14lhTcY/e4ou4N7+mT1/0IWm03j1Eqf/XBETiY7FZQ/js6vH3uM
-	 tM/rk9mVL374A==
+	b=ACMDj+wYOPMshbkTfzLCtKH1QKAu2Htax4JOllyVbUIW6MLeH9ThTCl5adYRDAVxp
+	 mew9iDZXghjBcyG1/genyCbJ3NPIb+a9U4qn1CS5ypFNlgdRmweA5IObF6BEnmS+EA
+	 FjFPX/X8ciDjCJFYUjSIw62Za4XwNopIMxuOokGxmj2qezvdZiqfXG91ynnBfrOcq4
+	 tDKIL3IRtrloT6DZx31yBO8PktgKxJk/ze5VGajwsDari9mkyzdQH1VDhG23AXXc9H
+	 bH5tA1pXDJZlLU9leovCMmrp9BnhC9Ms6BPsZ20aEA57xYqg2qt+rhGARthUbTb3CO
+	 ST8hKIIDAKL1Q==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 To: stable@vger.kernel.org
 Subject: [PATCH 6.12.y] perf: Track the perf mlock gift separately
-Date: Wed, 21 Oct 2026 16:53:49 +0100
-Message-ID: <20261021155349.1698340-1-ljs@kernel.org>
+Date: Wed, 21 Oct 2026 16:54:25 +0100
+Message-ID: <20261021155425.1699021-1-ljs@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <2026102117-rethink-jaybird-bd86@gregkh>
 References: <2026102117-rethink-jaybird-bd86@gregkh>
