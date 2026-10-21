@@ -1,77 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792597661;
-	b=LYYrTOA5rbq6L9xIzCHmj2ejPJxvRTzI1MTlOQihGGJxe3XU/qhygNsv8KeLv9mj2cvJ
-	 kdSIhMiJZh78Rpe06bYIvmQUGZTN2LfTTgGU5raDouRZFXYsNG7UdVe0dwDAetfDypdRk
-	 cpKQon0v8rM6JzFZGfSxjx/kkk7eEIslNnIgI5p8QbrpiudHBUuW4xDcSw6v8gL0zIDK8
-	 nzU8xx3rIIvsVSKYXMgGFXMcDvN8tyrsYEMUBXue52HWUER/NLIxCKPGRfc2SVWEf80m6
-	 H2haEGi/MkLMVdpaXso6na3HnDjhaADOosJodnb7KVo7RC9JJSDVmmSQPVfuOT5GCnQ==
+	t=1792597697;
+	b=JPdorTizmTwcz9Jv0BVQRZo0fG7AFtHdqrONIkZdkLfixsFbo7bCAuORWNOiCjSqUWI7
+	 6Ednl7BsmGtas7eQwOpy4rNinHV9aVbbn+rRNT2NNK8Y3DgoVXVpc6G3cjNAqX3TINN1I
+	 AAdaYx2V74/pIQZAAmWRunt/1d/84JPUe0Q6O/cTb9v8mjKgOH9IzA0XZUHgR+M1iZlLZ
+	 LuXBEjBGpjJ/ZfYG4K4zy3E9viEzNdixXsF6cKAPciiRJtDll/20PY1VVD5rXvK0TEmkx
+	 w5OUabNnn0V+ONOQnHjsGBYXrThRHOeoHv9KkDecuKtcaQxwunFo8nfd5ZB8cRluDEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792597661;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=8qgA8w2sH2bh3z2kNuYay7MeLSP++FG6E6X3KcotEQA=;
-	b=l9GEXkY5Co7b2IBVgw2//h3P6HOgVunSjajgEBq+DcW2MDJlbpHNQe6oo3kmq3VhNDMR
-	 clB5xb4Egbmi9r8hPX5VCTyrFEcK8HjdrYzHFozOvg95Dqq+jFua2HqrYd7vxSjipnOG+
-	 jEiRrYyaElCDJQccRZvvDq9Rs+ulfpXdP0LDNIwH0DfrofnKXJFMr0f2mpLxW9BD5gyQN
-	 u3IhAxwQukJx1V3wmqd7qIOlOqn9ItzNjzo9it+RqFAG9nWsiuI3NppdtqMMlBBnYYVge
-	 H7RpaEzCOGKKNubq5+/7P6Emjc37ihx5xo6tEvMBHy2lSBejUbIlatI4w8nlWawbBLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792597697;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=dAbNzipTudsCYekYIwRYbAOvVTskMJ/6EC8N8VzmzFU=;
+	b=enKpAoswdyk6oyrCMkO+PkFwg2jwFwXMxOPt73rDf/ZmqMY8SyCLtZPQF0jzTtuvX0XH
+	 eVn5F9DjG5amFhP0QkE78ljysYdLsJJws0k+zPo25/3IYdMe/TPjFsK0oXITYPSTclBKK
+	 eX3WBUlmT3K38EsvO/UPTQ6wOH/EslqrkVB98ehx/TKubwAGik7GyOkLx9NOc1+upKQzF
+	 I5BZyS000neuIkWey8dgPm9WEcFZHnLaBsLC4LLIfyIWl1lMC04rvA5hWQ2QM0rsmc0Li
+	 tvrxWO26f00isjkRS20HolsUpvPD+Gq1Uq1qmmOhoxeq88BIvTIpfSf2vO7ZeOXZ/LA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Bx9mWcma;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XzsKB0Ru;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD231606A31D
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:47:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD231606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66047606A31A
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:48:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Bx9mWcma
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792597659;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8qgA8w2sH2bh3z2kNuYay7MeLSP++FG6E6X3KcotEQA=;
-	b=Bx9mWcmaWha6NzfnaDQyzjsGLPrrETd7vpg5wmSqbl+7LkSDwySv3HexqM6SD/aE/iOZ5H
-	EL/VEkCPwj90AuaNACM9Gggj0XgXSqodDn/uoa6NR58Z0k1KjMFr/z/VTNFYu5BbFP/WSL
-	1gqkkyoGszzeNOSbJ6udVEvrCZDvQWU=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-484-sv1qX5g2NYa-Lyi2M27u-A-1; Wed,
- 21 Oct 2026 15:47:37 +0000
-X-MC-Unique: sv1qX5g2NYa-Lyi2M27u-A-1
-X-Mimecast-MFC-AGG-ID: sv1qX5g2NYa-Lyi2M27u-A_1792597656
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A931018004D2;
-	Wed, 21 Oct 2026 15:47:35 +0000 (UTC)
-Received: from loberman-thinkpadp16gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7FD3B18002B1;
-	Wed, 21 Oct 2026 15:47:34 +0000 (UTC)
-From: Laurence Oberman <loberman@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XzsKB0Ru
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CE451F000C1;
+	Wed, 21 Oct 2026 15:48:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792597697;
+	bh=dAbNzipTudsCYekYIwRYbAOvVTskMJ/6EC8N8VzmzFU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XzsKB0RuJq5ZpS7mu5V99oyL0CIIcf+Py2/tn7ZdJJoY8NKsZvjJw5DD3r4nQQWEd
+	 b950eiLh+ZLABjUUCvyivkUJm4hIYbUhMqqo/87auc8U7TgYEwCABSXFV+b2sur0dy
+	 W2mQ5MEJks6vo8SV+rE/RgP2hbwBU054BfMPN1ZBvRJj7Yq62rsJowKYRfkoTkeoI5
+	 OGCjmHQ/KilW7kU1ZwGHxgz8QlO436c2czCJGAL1YbXdcTOsP6TVfjc3Evi5BxkB+L
+	 qeMFjZiMqDS0dacIeePWeDuT+Bi/O4OJThivaH0uKLg936g1Fg3MZUUd5od8HCRWdM
+	 9RW6BOiWi1txw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
-	Paul Moore <paul@paul-moore.com>,
-	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
-Subject: [PATCH 5.10.y 02/16] ns: Free anonymous mount namespaces via ns_common_free()
-Date: Wed, 21 Oct 2026 11:46:51 -0400
-Message-ID: <20261021154705.2737365-3-loberman@redhat.com>
-In-Reply-To: <20261021154705.2737365-1-loberman@redhat.com>
-References: <2026102131-walmart-preschool-d157@gregkh>
- <20261021154705.2737365-1-loberman@redhat.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	SimonP <simonp.git@mailbox.org>,
+	Sean Christopherson <seanjc@google.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] KVM: x86/mmu: Cope with the SS bit being set in #NPF exit codes
+Date: Wed, 21 Oct 2026 11:48:15 -0400
+Message-ID: <20261021154742.366022-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026102100-dominion-poser-834f@gregkh>
+References: <2026102100-dominion-poser-834f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,83 +60,105 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-From: Christian Brauner <brauner@kernel.org>
+From: Paolo Bonzini <pbonzini@redhat.com>
 
-free_mnt_ns() skipped ns_common_free() for anonymous mount namespaces
-(the "if (!is_anon_ns(ns))" guard) because they carry the reserved inum
-MNT_NS_ANON_INO, which proc_free_inum() must never release.
+[ Upstream commit e90ab3669181c6469e3647ef2b30ae408275f496 ]
 
-A following change needs ns_common_free() to run for every namespace, to
-release per-namespace state attached during __ns_common_init().  Move
-the reserved-inum decision into __ns_common_free() and let free_mnt_ns()
-call ns_common_free() unconditionally.
+When running Hyper-V from Windows 11, KVM is seeing the SS bit set
+in nested page fault error codes produced for shadowed NPT.  The AMD
+manual is unclear about when SS is set, including whether it can be set
+when SupervisorShadowStackEn (bit 6) is not set in the MISC_CTL field
+of the VMCB.
 
-__ns_common_free() is shared by all namespace types, so it gates
-proc_free_inum() on ns->inum > MNT_NS_INO_SPECIAL_MAX (a new alias for
-MNT_NS_ANON_INO) rather than the mount-specific is_anon_ns().  The
-reserved inums (MNT_NS_ANON_INO and the *_NS_INIT_INO values just above
-it) belong to namespaces that are never freed, except the anonymous
-mount namespace; dynamically allocated inums are >= PROC_DYNAMIC_FIRST.
-So the comparison frees every dynamic inum and skips exactly the
-anonymous mount namespace, matching the previous guard.
+Nevertheless, the unexpected SS bit causes out of bounds accesses in
+permission_fault(), seen as either WARNs or UBSAN reports:
 
-Cc: Günther Noack <gnoack@google.com>
-Cc: Paul Moore <paul@paul-moore.com>
-Signed-off-by: Christian Brauner <brauner@kernel.org>
-Co-developed-by: Mickaël Salaün <mic@digikod.net>
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
-Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Signed-off-by: Paul Moore <paul@paul-moore.com>
+  kernel: UBSAN: array-index-out-of-bounds in arch/x86/kvm/mmu.h:225:27
+  kernel: index 34 is out of range for type 'u16 [16]'
+
+(in this case, the page fault error code is 34*2=0x44, i.e. SS|U; the
+report shows SS|U|W happening as well).  Fix the handling of unknown
+error codes by dropping SS and (with a WARN) any bits not among those
+that permission_fault() expects to receive.
+
+At the same time, given the uncertainty about when hardware sets SS,
+follow the processor's behavior when constructing the fault's error
+code, and preserve the SS bit as passed to FNAME(walk_addr_generic).
+While the behavior is surprising, there's a possibility that Hyper-V
+expects it (Hyper-V does not even enable CET unless it finds MBEC/GMET!),
+so retain the information when reflecting the fault to L1 instead of
+unconditionally discarding it.
+
+Bisection shows that this started happening with commit 687ee95c1b6d ("KVM:
+nSVM: enable GMET for guests"), even though SHSTK was available to guests
+since Linux 6.18.  However, this is not because bit 1 of MISC_CTL (GMET)
+somehow enables reporting the SS bit; rather, it's simply that Hyper-V
+never uses CET unless GMET is also present.  The WARN is reproducible
+even with gmet=0, with some hacking of kvm-unit-tests's cet.c testcase
+to ensure that the first access to the shadow stack triggers a page fault.
+
+Reported-by: SimonP <simonp.git@mailbox.org>
+Fixes: 8db428fd5229 ("KVM: SVM: Enable shadow stack virtualization for SVM")
+Cc: stable@vger.kernel.org
+Reviewed-by: Sean Christopherson <seanjc@google.com>
+Closes: https://lore.kernel.org/all/asUqYEisPp9MJ8mQ@rika.bernkas.tel
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+[ sashal: Adapted permission checks to use mmu->permissions and mmu->pkru_mask instead of the newer page-walk structures. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/namespace.c            | 3 +--
- include/uapi/linux/nsfs.h | 1 +
- kernel/nscommon.c         | 3 ++-
- 3 files changed, 4 insertions(+), 3 deletions(-)
+ arch/x86/kvm/mmu.h             | 16 ++++++++++++----
+ arch/x86/kvm/mmu/paging_tmpl.h |  2 +-
+ 2 files changed, 13 insertions(+), 5 deletions(-)
 
-diff --git a/fs/namespace.c b/fs/namespace.c
-index 1ecd96c918b3..8d4009cfbf5b 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -4193,8 +4193,7 @@ static void dec_mnt_namespaces(struct ucounts *ucounts)
- 
- static void free_mnt_ns(struct mnt_namespace *ns)
+diff --git a/arch/x86/kvm/mmu.h b/arch/x86/kvm/mmu.h
+index f63074048ec61..64b785ad6fd66 100644
+--- a/arch/x86/kvm/mmu.h
++++ b/arch/x86/kvm/mmu.h
+@@ -186,8 +186,18 @@ static inline u8 permission_fault(struct kvm_vcpu *vcpu, struct kvm_mmu *mmu,
+ 				  unsigned pte_access, unsigned pte_pkey,
+ 				  u64 access)
  {
--	if (!is_anon_ns(ns))
--		ns_common_free(ns);
-+	ns_common_free(ns);
- 	dec_mnt_namespaces(ns->ucounts);
- 	mnt_ns_tree_remove(ns);
- }
-diff --git a/include/uapi/linux/nsfs.h b/include/uapi/linux/nsfs.h
-index 007fed5971b4..e5909266ec3f 100644
---- a/include/uapi/linux/nsfs.h
-+++ b/include/uapi/linux/nsfs.h
-@@ -55,6 +55,7 @@ enum init_ns_ino {
- 	MNT_NS_INIT_INO		= 0xEFFFFFF8U,
- #ifdef __KERNEL__
- 	MNT_NS_ANON_INO		= 0xEFFFFFF7U,
-+	MNT_NS_INO_SPECIAL_MAX	= MNT_NS_ANON_INO,
- #endif
- };
+-	/* strip nested paging fault error codes */
+-	unsigned int pfec = access;
++	/*
++	 * Of the error codes that do not contribute to the index in
++	 * mmu->permissions, PK and SS are not supported by shadow paging
++	 * and also not provided to EPT violations, but SS *is* included
++	 * in the NPT exit code.  RSVD faults are handled elsewhere.
++	 */
++	unsigned int pfec = access & ~PFERR_SS_MASK;
++	if (WARN_ON_ONCE(pfec & ~(PFERR_PRESENT_MASK | PFERR_WRITE_MASK |
++				  PFERR_USER_MASK | PFERR_FETCH_MASK)))
++		pfec &= (PFERR_PRESENT_MASK | PFERR_WRITE_MASK |
++			 PFERR_USER_MASK | PFERR_FETCH_MASK);
++
+ 	unsigned long rflags = kvm_x86_call(get_rflags)(vcpu);
  
-diff --git a/kernel/nscommon.c b/kernel/nscommon.c
-index 3166c1fd844a..e6f623e1bc37 100644
---- a/kernel/nscommon.c
-+++ b/kernel/nscommon.c
-@@ -91,7 +91,8 @@ int __ns_common_init(struct ns_common *ns, u32 ns_type, const struct proc_ns_ope
+ 	/*
+@@ -211,8 +221,6 @@ static inline u8 permission_fault(struct kvm_vcpu *vcpu, struct kvm_mmu *mmu,
+ 	kvm_mmu_refresh_passthrough_bits(vcpu, mmu);
  
- void __ns_common_free(struct ns_common *ns)
- {
--	proc_free_inum(ns->inum);
-+	if (ns->inum > MNT_NS_INO_SPECIAL_MAX)
-+		proc_free_inum(ns->inum);
- }
+ 	fault = (mmu->permissions[index] >> pte_access) & 1;
+-
+-	WARN_ON_ONCE(pfec & (PFERR_PK_MASK | PFERR_SS_MASK | PFERR_RSVD_MASK));
+ 	if (unlikely(mmu->pkru_mask)) {
+ 		u32 pkru_bits, offset;
  
- struct ns_common *__must_check ns_owner(struct ns_common *ns)
+diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
+index 6e2ce54a13b31..07b0ddd15b9de 100644
+--- a/arch/x86/kvm/mmu/paging_tmpl.h
++++ b/arch/x86/kvm/mmu/paging_tmpl.h
+@@ -474,7 +474,7 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
+ 	return 1;
+ 
+ error:
+-	errcode |= write_fault | user_fault;
++	errcode |= write_fault | user_fault | (access & PFERR_SS_MASK);
+ 	if (fetch_fault && (is_efer_nx(mmu) || is_cr4_smep(mmu)))
+ 		errcode |= PFERR_FETCH_MASK;
+ 
 -- 
-2.56.0
+2.53.0
 
