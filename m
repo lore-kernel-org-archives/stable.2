@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792622028;
-	b=G2yObQnMW+z9+y4SScfuwHSLk2Pceyqyax9hjthlhDtZKvzuNroF3qU5yEuTA6xb+epg
-	 V9ISavLfA5kZo9zRQ1hoy/c1XqkVoanNh6pXLJPvgmqOeiwK6wogAXqxbw0tJrlR95gqK
-	 xPNc7lprYjPXmWSGWUrtAUEf2fghLlctM6pSRZ7x/CjvrTGbSgeDR+mmLDMNnpLEsFzXG
-	 E2NeZQytZ+DSrMwYtOywO5NeefJuEPXTmtmW+nwSkMdV2XBU5717Q/9sYIQBwc3dvKUWe
-	 KT2lZ/gleucdo32rPuX6AcNZJ9ZIcj79Q68Z2KidAFpENDRnT2N/YBOKDDsSapKcNkA==
+	t=1792622867;
+	b=kxYRNllNji9y1Z65upV38j82ecp0iOTmMxdfmMjfyIzWAFK19sxHm+Oquph5aMwspM0Y
+	 O14k/j+XYw2o9m2y/cZy5+PhRMuy3GFMk+aLgF1p3xfQ7KAVDXG1VmHulDH+xdjo+2Kbu
+	 ash2is7+B2FRRoDCNC3Y6W8N869CVOQsD+XsATeE3IEdUa6rWi8FHokvWDgZcBXLMCqAN
+	 lrWN80Ul8G/QbtsBsq9Hvror9X8TkFvMIb7Kh3k6xbbUGOVon/0kIP6ODlyRbtfXI+4p2
+	 FTh1t/7kCABHfkGF3gjTzp4tAw2+EkYbIUfy8zwZASRV8O3OweqK2zgJlrtevKB17BQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792622028;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=TL7mbe/xtrzGTO0Hy7xZjUjaYdh2W2uKzcx2I9ujOoo=;
-	b=HaBee1riO4U8WYo+mym5uw/9URYqR8TBJOiNjv054e6SSRgWSSQZ43O7N7Ehr9C2LI73
-	 IGTB33d7E7EQtgtZdG1IGJiz3i4jcv83eyxRHgUCrTmUstOF8lHKfCjgbFL1Q3ArVdBJF
-	 q2OuAnlPNzGdh/Un6hIkdz+NbmoPc+UCKOcbBme8gu4gH5K7smdBFblTflp0es4mPr5Na
-	 4T9p1uFJ4iN9ZpLVNQa2cXM9WgeR8gWJFxP51s5nMTAVpJwyhFW2ZWZr0XqNSok0A2yft
-	 u7emwCEdNynTLVPzSRz+Kzv1wTPCCqCcxKOuEp1U9EOq1oLtNxuDclUtndJ1yq1gQPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792622867;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Z17GSdCX2AVlDCVfP3oFeK5ugdwfseV89dBX+YdznSQ=;
+	b=A8C3Tc34FzGX30XKEZBQIwQLCuHVJYSk7kp/pNF2QpjQBRVKLsbeLdFcDM2cuS2vJL39
+	 pn+1m0o9wNzHTQQSRtl8AXEZEtwlkTkEWja1GDCxzaVw2+zPS1qxKHflSM+UeelDATRc5
+	 giofD/QAY5RnejBseCoakfSVa8qeCAl9EYgZNX6Xc3/fKcMvqnusAkbgTCOIv3rWlWz3B
+	 oFKL+oaSrlkfgVk8YqBgDvQqmEaIYt401+wMeGbwTmmrCBM5d4ygesYgYGdEUYM6b77zb
+	 8pQEvmf06p7z+b3yvxqEcnIHl8aLBFIx/ooWcDDg+jK2RSI8dyuvj6e3O0/Bel1ZmWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mzTk+MVd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=1g4.org;
+	spf=pass smtp.mailfrom=1g4.org;
+	dkim=pass header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=DI3LSXNu;
+	arc=none smtp.remote-ip=185.70.43.97
+Received: from mail-4397.protonmail.ch (mail-4397.protonmail.ch [185.70.43.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF73606A31E;
-	Wed, 21 Oct 2026 22:33:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 029D0606A31A;
+	Wed, 21 Oct 2026 22:47:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 029D0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mzTk+MVd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EA411F000C1;
-	Wed, 21 Oct 2026 22:33:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792622027;
-	bh=TL7mbe/xtrzGTO0Hy7xZjUjaYdh2W2uKzcx2I9ujOoo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mzTk+MVdz2r4GfSPYAI3Vg9+cRuW3fDzsVozID7ZKDuEYZ3deqegkdbc/pAFG1crA
-	 29acM8lr0vRXc1pyyqYpqQSd7hQZbIrZFpnlfjrdSJl1jNGR/tgbLVA9y8x7l5DfLE
-	 dHvmW+IDQzKpzkHpFlRsN/wzSOeChJvzWXfJ6VC47M8im1ktIIsk1ORMqWfuEoIfrd
-	 MQaSv6PJIwIxn3jTlMCLBp1Ukqhj1ley9UAi3PFaPIPsFbMXB1QYXF76Wd1yHnHw7e
-	 81960ZtKbA9kEY8cOg2Xia8yrEC6uc00H9hGJIV4R24WMm4fxVfaaDf1Ra5g5xV3VV
-	 sD4Z+05e7+wVA==
-Date: Wed, 21 Oct 2026 16:33:45 -0600
-From: Keith Busch <kbusch@kernel.org>
-To: Andrew Stellman <astellman@stellman-greene.com>
-Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>, linux-nvme@lists.infradead.org,
-	Jens Axboe <axboe@kernel.dk>,
-	Bryam Vargas <hexlabsecurity@proton.me>, security@kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] nvmet-rdma: fix out-of-bounds write in
- nvmet_rdma_map_sgl_inline()
-Message-ID: <atk9yQvt7KN_e4nq@kbusch-mbp>
-References: <166ea8e3-189e-4212-a457-e0b6e2e678f4@kernel.dk>
- <20261021050748.32491-1-astellman@stellman-greene.com>
+	dkim=pass (2048-bit key, unprotected) header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=DI3LSXNu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
+	s=protonmail; t=1792622858; x=1792882058;
+	bh=Z17GSdCX2AVlDCVfP3oFeK5ugdwfseV89dBX+YdznSQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=DI3LSXNuFBeE+EcHbvnsjHBo8gZt6ugvDQytWrBZVkbgOGdRxORikB3zRDw+oNftr
+	 u0D3oWNP7Gk2ry71jQKu64RfMCwvslOO6Yc9zegYEjuamADjECcfcDZWDdBAc2Kcmx
+	 Kshv8zl30rLHUabLo8GtqRt5X5BYdLDnEcLGG13A95hqqwTwiC38PYfC+VvZQYaMVt
+	 zSQTyt11yESyt0lr2Bj8IlvfEe/JNt2Bm1ZrkQzkb2sQgddGf+Nw9H9hzlRkdCjIQb
+	 G7xF1stddMB/CeewcQBQ5hUgWfVnMCcRg8q8QAFLUoyUvpnVVFE/F7OBggeUu+jn9Q
+	 /T75YrFJ7lN4g==
+Date: Wed, 21 Oct 2026 22:47:33 +0000
+To: netdev@vger.kernel.org, magnus.karlsson@intel.com, maciej.fijalkowski@intel.com
+From: Paul Moses <p@1g4.org>
+Cc: sdf@fomichev.me, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Paul Moses <p@1g4.org>
+Subject: [PATCH net] xsk: restore UMEM flags after failed pool assignment
+Message-ID: <20261021224705.2078753-1-p@1g4.org>
+Feedback-ID: 8253658:user:proton
+X-Pm-Message-ID: ecd6710c2687fda68e398888edecd953935d89d0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,46 +61,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021050748.32491-1-astellman@stellman-greene.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 21, 2026 at 01:07:48AM -0400, Andrew Stellman wrote:
-> nvmet_rdma_map_sgl_inline() bounds the host-supplied in-capsule SGL
-> offset with "off + len > inline_data_size", evaluated in 64-bit
-> arithmetic. off is taken straight from the host SGL descriptor
-> (le64_to_cpu(sgl->addr)) and len is promoted to 64-bit, so the sum
-> wraps: an off within len of 2^64 makes it small and the check passes.
-> off is then used as page_idx = off / PAGE_SIZE to index the fixed-size
-> rsp->cmd->inline_sg[] array (NVMET_RDMA_MAX_INLINE_SGE entries), so a
-> crafted offset yields an out-of-bounds scatterlist index that is written
-> through in nvmet_rdma_use_inline_sg().
-> 
-> The mapping runs while handling a received capsule, before the command
-> executes, so a remote RDMA peer can reach it (the Connect capsule is a
-> write and takes this path on a queue that has no controller yet). The
-> host controls only the low bits of the resulting displacement, so the
-> expected impact is an out-of-bounds write that faults the target
-> (remote denial of service).
-> 
-> This wrap was reported, with a KASAN reproduction, on linux-nvme in May,
-> and the check below was suggested in that thread. The fix that was
-> applied, 48c0162f647b, reworked how the offset is mapped but kept the
-> original check, and its page index turns a wrapped offset into an
-> out-of-bounds index into inline_sg[].
-> 
-> Reject the offset before it can wrap.
-> 
-> Found independently by static analysis with AI assistance, not
-> reproduced at runtime.
-> 
-> Fixes: 0d5ee2b2ab4f ("nvmet-rdma: support max(16KB, PAGE_SIZE) inline data")
-> Fixes: 48c0162f647b ("nvmet-rdma: handle inline data with a nonzero offset")
-> Reported-by: Bryam Vargas <hexlabsecurity@proton.me>
-> Closes: https://lore.kernel.org/all/LM21QIR-1-qJb7PViyJKCnGBnUzizeiNJVWQ3wb7ZwGezodjgKg3f-iobqOyequ-sT1jFCKJImfqNO_BKU3KO80xFITnaI5GTV_GxLUNDDc=@proton.me/
-> Suggested-by: Keith Busch <kbusch@kernel.org>
-> Cc: stable@kernel.org
+xp_assign_dev() sets XDP_UMEM_SG_FLAG before checking whether the
+device supports multibuffer zero-copy. If assignment fails, xsk_bind()
+destroys the pool but retains the registered UMEM. A subsequent bind
+without XDP_USE_SG inherits the stale flag.
 
-Should be @vger.kernel.org.
+The flag also changes RX buffer sizing after DMA mapping. On igc, a
+failed SG bind followed by a non-SG retry with 4096-byte chunks and
+1792 bytes of headroom passes admission with 2048 bytes, but programs
+a 1024-byte RX buffer. On I225-V hardware, an ordinary 1514-byte frame
+is truncated to 1024 bytes or 1008 with RX timestamps enabled.
+Restoring the original flags eliminates the truncation in both cases.
 
-Thanks, applied to nvme-7.4 with the above email fixed.
+Save the UMEM flags before assignment and restore them on failure.
+
+Fixes: d609f3d228a8 ("xsk: add multi-buffer support for sockets sharing ume=
+m")
+Cc: stable@vger.kernel.org
+Signed-off-by: Paul Moses <p@1g4.org>
+---
+ net/xdp/xsk_buff_pool.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/net/xdp/xsk_buff_pool.c b/net/xdp/xsk_buff_pool.c
+index 0ebd4d46f7ab..7750d2ec4ee2 100644
+--- a/net/xdp/xsk_buff_pool.c
++++ b/net/xdp/xsk_buff_pool.c
+@@ -166,6 +166,7 @@ int xp_assign_dev(struct xsk_buff_pool *pool,
+ {
+ =09u32 needed =3D netdev->mtu + ETH_PAD_LEN;
+ =09u32 segs =3D netdev->xdp_zc_max_segs;
++=09u8 umem_flags =3D pool->umem->flags;
+ =09bool mbuf =3D flags & XDP_USE_SG;
+ =09bool force_zc, force_copy;
+ =09struct netdev_bpf bpf;
+@@ -268,6 +269,7 @@ int xp_assign_dev(struct xsk_buff_pool *pool,
+ =09if (!force_zc)
+ =09=09err =3D 0; /* fallback to copy mode */
+ =09if (err) {
++=09=09pool->umem->flags =3D umem_flags;
+ =09=09xsk_clear_pool_at_qid(netdev, queue_id);
+ =09=09hlist_del(&pool->dev_node);
+ =09=09pool->netdev =3D NULL;
+
+--=20
+2.56.GIT
+
+
