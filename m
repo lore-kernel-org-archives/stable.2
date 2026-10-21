@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594963;
-	b=OvTAqegZr+JFkXKArKKO5dGc9bGZ+VaMlEliwwtdbSzSvHEh0fSXXR6ty6vS25bXa4X5
-	 aN3//f0IEoOqvS9r/kWOR6wUgzUzZKL4PgSFyoCxaLvglzaG2oHRtyTkf6KbQg29uS4Io
-	 18dlZLDZLACtH6NykUCpHeSeWqgz0nln4wW3L2J4fnSe4OVRoGzmg8n50W/x+Yzxusd+y
-	 Xy0+DNgN4TWUG5DXzZWXfnxR96qSt+FN2MsiwgrXy5zniu/e+CWuC8rD/jTMQhTnNxDac
-	 seBCjbQu/gPykT2KCyC0Agdin+51k6ODZXi9Um7IQFM3WV0ahXzv4doJ81TmeXAdAtg==
+	t=1792594966;
+	b=kJaP225b5zzegzs9gJPuft35PgDa+7ljPgeBeTMkdlYtOtKlvBeKrPIwaSE57mBYtmBx
+	 1dtNIfZA/py519WQZvFW/nfBlgWx/BMHVIoGAJyWnvN8XuWl72LZ162FBSGXjFnYBiyZi
+	 QL6fMx72p2aogFhPa8VCjzD014k1T2YOlBp27pk1XUkpYsyv6lOgGvXEFyQJs7CCxCVT2
+	 fy6X4A5/TepsioBQ7dnP0qwk/8axKH4DROEtthdwVIzeZDt04BtsZzZMH9DK/VwvDlWzo
+	 yRf5AfX9gWRfNKu4TBEdbsK0NFIRZABw2sc4AWtJ9hlztnbXYNATSMEuF3/Ws1Amh8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594963;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594966;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=kMT88WsIgT2NaxKCkFeoLFCmMtm8Iwta6tRBuTeJ8U4=;
-	b=H/+8AeWIhXQM3o/+nQCUj8ZOcs6EJT/Gs/3MtUh/a/4IxvIpqE+9RBrYobIFUs52CjGd
-	 uu9D7sZ+6jYPcxOYv6LykaFp/p9Ed95Lm+HtUw9y9FB1WgLWPQaj1apPmeq733WZiFNGM
-	 /2wfVvmUR/isTYOQsqAKqJXZ6iePt74C0tlgm2PmYxQwnYr2yUln8gg8jEz5JleKbWXmk
-	 3qY7YuhK5wERXH1h5YWmgvRuYZfWyLE/3hUQKdjf40RnG0CKMmODkF/3VKEIVL4K7UXoA
-	 i2CmM/e0bhudrza+g0TG+7mlRniJVD2vyEtZssIoJ8QsbhyRV4Exf+EldgQb3GOD4gQ==
+	bh=yJ5YprPTJ68DgfM8C9L3paKZUPJuHYoa+o08Rb8GIMM=;
+	b=ScF99XiX3Ld/7wRL6bcPNHIzG0iEE6ahD47ZWozpBjPp3dzZAj0ba91VHdzat+nbIglz
+	 dnnYvo+nRL8d4q9xYPapKq+nHFk0obsXcrM4gRivPa/PuzjywPmYTUQnpZWFb66E2DH72
+	 SUusiEY80S7HnRD+iLjmj+Ib9aT3dfkKClpTS3WH50SCp4gYkSPUv/6grnIykG2DuGiyT
+	 wKlJbV/fFrvXIk4FWUh0y2pugOZ3iWDZ0wxgb9LHhSINbCTTRUMcPDtyQEouUzIRtAcT4
+	 E4NYCSqSyZQ/QLXNwneY17FJ9NESlvbWVGizS+j221gaRfT30qB2H6kOhBHIwNe8AmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KOnCQQO9;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZRcq7Asy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED55606A31A
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:02:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09184606A31F
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:02:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KOnCQQO9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62FAC1F000C2;
-	Wed, 21 Oct 2026 15:02:42 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZRcq7Asy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 614B81F000C1;
+	Wed, 21 Oct 2026 15:02:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594963;
-	bh=kMT88WsIgT2NaxKCkFeoLFCmMtm8Iwta6tRBuTeJ8U4=;
+	s=korg; t=1792594965;
+	bh=yJ5YprPTJ68DgfM8C9L3paKZUPJuHYoa+o08Rb8GIMM=;
 	h=Subject:To:Cc:From:Date;
-	b=KOnCQQO94ErPz0NNS0Dtc52HsxBehmmRza4nntcYf61GEZfcyATVzL4CVRk7x7Fw2
-	 tTha2LxL2zUfxVF6R8ygr5gipnoW7rx5W3lsmNVwIEGzblQ+uKpwUG1xBUbcb3sKeu
-	 LtoEdp/8QeDZieQEbPtsLweHDd3vDdEIrdl66ec8=
-Subject: FAILED: patch "[PATCH] tracing: Fix ignored return value of" failed to apply to 6.12-stable tree
+	b=ZRcq7AsypRnUJ6A0jdPpAVuAHiOgmyxUkSAP6AeUtCNDTqHjDldCMhnU1Qu578SHN
+	 SCdh0acR0pVkMzh/rBP0WFWRznFpdLAEO7eXM9Y9lKvNb6b1cr9TO9aHRJLk+8SG21
+	 y4jOIHnl3UscD4zsnjeo9t2YHDaGwsZy+FmILd7M=
+Subject: FAILED: patch "[PATCH] tracing: Fix ignored return value of" failed to apply to 6.18-stable tree
 To: d.kandybka@gmail.com,rostedt@goodmis.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 21 Oct 2026 16:51:26 +0200
-Message-ID: <2026102126-handsfree-shove-984d@gregkh>
+Message-ID: <2026102126-obtuse-trimness-c3cc@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 3110d09bb98e3ac66482a7b257548a1683ec6c1a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102126-handsfree-shove-984d@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102126-obtuse-trimness-c3cc@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
