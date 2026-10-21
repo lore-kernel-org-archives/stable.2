@@ -1,84 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.26.1.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792616426;
-	b=YOnhEjr7SKPxJ1i7+hxczZjxQ0ogW+9CGbyTQBNdy19CfsoaaXQVlntNHHSv2X4RFdqc
-	 p/t1WaR7ivNCJBAorBdFqEsKSIK5jdcnPvpUtebp1AmsXYmhZJEfctb6pf421JQY/Qr6a
-	 TZWjURmmxPtNrZgb1o3GktECLb1Xn88goWQN7uWkSlU/aRmCec9rVDBtVT06yLxmE36DL
-	 qFj8HMhVVe55e3IRo3utU/fsDnYDH61AmG4+se+zqHwr9ES0oCcLhkxf5Pxfm6SjSyAqS
-	 OnwNaV/eCCVzZnqz5FH6CAO2uHkdS6yC99cvTLqYM5QZv+hwX+on9Q78GF5sAm94cJw==
+	t=1792616522;
+	b=IGG6gtivzUlnF4B2kraVuFc5xqpjuQkD9EQZE9YVFrmehWn+WDAr40pG15k63OxNyaPX
+	 iOyVWp4j2CC08+iJ20QwvhlTUdxq9+vlASMGzC0/rH4FIMpzJmzYViAnQyOmmJjX8koV7
+	 a5Lq+3bV/LH9+oITY8ilYkOXx7NsQNSDrMEE56WC6hCX90zgXOL/adFuYxVfNPR+HC6KK
+	 Xkt1PkViyCF0nNQhq4ewEwjr04hFzWxXChTJstwiELEg8zkA6h54Oz0ivxQ4K/+1NafFx
+	 Uak8txFhticeXNzufzfcPlwYWbwmV/7kIGT+HwDXqjSyGiXhDsK/naGvc1+dbfYH/gQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792616426;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=KmKQiASgHHpPpvSVCiK2LSdfMBzEqABYMCvRYtwTfIw=;
-	b=Cgiqwtcf/rAgWB5gTeO9PTkaI3thRYtzJWT1n1HI3IURdwSAhilJGwuAIvc0/O3feRp+
-	 5Oxcl4+X/ue9OlglUDm0dupP27J6FEJjA8dbGsmVswYlh2ZeIjiUxyWLLf1j6l020sb9l
-	 tUdkuGE4s1HLWJuuANkDnufRGuwaoscVhfIcf8x3sjiBxhcbhhFrndh5+9P1IB+BowwV3
-	 8Vm/4h147moo/M3Ww4/Xc6jowARPbT7CLZEQwZya+Xv37SYhzvKPNOu+RMsFdcwCLZSt5
-	 r6zN1qc5il8BL9RwTrP5mXR6t5xrUlYNa2lJUgDUlXcnuiKyZ9Iunm+/sJXjxehuArQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792616522;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:User-Agent:MIME-Version:
+	 X-SRS-Rewrite;
+	bh=MeueggKi48gnff3VUrSjikCBY6bGfKJ4k9AzVge6EaE=;
+	b=JH4EWZ+LnvG+xpsBslRfpl7Gjumj/pT5b3NJAk6lqF3ha0FhgB5N3ZdOr94wHlGIgd9H
+	 jIpc1SXqwvnwFV6WY2FNaPig0BFO3JEJsBuPma2QI77md/qsJ7Bs1m3J/Rczcn9N8efbn
+	 jeZyHegRnXj4aA5vT896SlECYaVbDibzVy73r7/MMsIi3z604aRdIaR5VU3qdPFhWSOxY
+	 lTwJegft0zm5bA/mRc0WLtDHTI0TXBry5atLhPTzuQf+939Zm+ZRBmoNtvNOAbCNL2YCg
+	 OShH4Jbq5X27+6lso/kcu7nEokFDuTrB3mLlslEbimuA3hNwVlOOOuqe3ylXOyjvSxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b="qZnB/RAo";
-	arc=none smtp.remote-ip=52.26.1.71
-Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=casper.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=EwmVP3EO;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4286606A319;
-	Wed, 21 Oct 2026 21:00:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4286606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB4E606A319;
+	Wed, 21 Oct 2026 21:01:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AB4E606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=qZnB/RAo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1792616425; x=1824152425;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=KmKQiASgHHpPpvSVCiK2LSdfMBzEqABYMCvRYtwTfIw=;
-  b=qZnB/RAo8GVXNejfEbqJahtf83qzOSqDTHtVKlOe9jvIrTLmFus3rMxi
-   igljnKR/dFLtiFNWf1vE5EH3uSaVm8ColVCXwBIWFArRiOdmjnz5GOXj+
-   rvWx0bT5KTeuh9qq5Bwxo4MBdqLEry9kytlpIqj9eAUQz0G5DqdVVb5rS
-   Jr2A9594RLmHwabqzhprni83L+5OG0ZxBYMOgiyoWl8m95isoutrJw/w6
-   3GD8fmvj//w3ztwXijjg8zH5Ih8NG7+SyhVS47E56Lud6qLLZ3XVm56Qt
-   j0aYAG0RU/Uni2NZMloacpOEkCss0hMzOs+biOKJFmXsg/bYJzovAkqBG
-   A==;
-X-CSE-ConnectionGUID: cwGklPTASR6F0+v0f9L9oA==
-X-CSE-MsgGUID: lpiPmw3+RnSbAWVyuTMyfQ==
-X-IronPort-AV: E=Sophos;i="6.27,170,1787011200"; 
-   d="scan'208";a="31940288"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 21:00:25 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:12534]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.22.5:2525] with esmtp (Farcaster)
- id d8ae2856-7a85-415a-be54-ff72d9aa0b5b; Wed, 21 Oct 2026 21:00:25 +0000 (UTC)
-X-Farcaster-Flow-ID: d8ae2856-7a85-415a-be54-ff72d9aa0b5b
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Wed, 21 Oct 2026 21:00:25 +0000
-Received: from dev-dsk-patrzhan-2a-52a3f46b.us-west-2.amazon.com
- (172.22.91.11) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Wed, 21 Oct 2026
- 21:00:24 +0000
-From: Patrick Zhang <patrzhan@amazon.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol
-	<mailhol@kernel.org>, <linux-can@vger.kernel.org>
-CC: Pavel Pisa <pisa@cmp.felk.cvut.cz>, Ondrej Ille <ondrej.ille@gmail.com>,
-	Harini T <harini.t@amd.com>, Michal Simek <michal.simek@amd.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-Subject: [PATCH 2/3] can: xilinx_can: enable NAPI before starting the controller
-Date: Wed, 21 Oct 2026 20:59:23 +0000
-Message-ID: <20261021205924.2538511-3-patrzhan@amazon.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261021205924.2538511-1-patrzhan@amazon.com>
-References: <20261021205924.2538511-1-patrzhan@amazon.com>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=EwmVP3EO
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=MeueggKi48gnff3VUrSjikCBY6bGfKJ4k9AzVge6EaE=; b=EwmVP3EOfz157ubzU1URKgigNK
+	ntVCnhC3ulFUUMkvtoWuyszhxPQvYI2nim0S8+IWTgGi9b1gZahZrwirV5h2Y3+5VGBh3xKj7cxlN
+	actYmQ89/h/NnrPymK0ptKXesKCMt0Z3Lzjdk41HVXLXMU0W76suT7ZT9K/IqEfJly3Is2kW1VM1K
+	Fg34OBm0rnrTMKykLbYSR0gbl6chuYdWCGz8++XSwLNEun+U+JfRY5BPc50I4T64kLSDzMR3PaXYt
+	aqsnR/81qYd8wGfR994P3aEC2gWKHLfbqvHODPadanFAoAoH8UGtDyvq0FVpRQ4B77IktOu+PLPU3
+	KK+AetGQ==;
+Received: from 54-240-197-233.amazon.com ([54.240.197.233] helo=u09cd745991455d.ant.amazon.com)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xJdRa-0000000Cfy1-1Ndp;
+	Wed, 21 Oct 2026 21:01:55 +0000
+Message-ID: <3bc2d742e0fa4944c5da6b4d2932225a1c1761d7.camel@infradead.org>
+Subject: Re: [PATCH AUTOSEL 6.18-6.6] KVM: x86/xen: Prevent runstate times
+ from becoming negative
+From: David Woodhouse <dwmw2@infradead.org>
+To: Sean Christopherson <seanjc@google.com>, Sasha Levin <sashal@kernel.org>
+Cc: patches@lists.linux.dev, stable@vger.kernel.org, Paul Durrant
+ <paul@xen.org>, 	pbonzini@redhat.com, tglx@kernel.org, mingo@redhat.com,
+ bp@alien8.de, 	dave.hansen@linux.intel.com, x86@kernel.org,
+ kvm@vger.kernel.org, 	linux-kernel@vger.kernel.org
+Date: Wed, 21 Oct 2026 22:01:53 +0100
+In-Reply-To: <atkdzsPJgcu123DO@google.com>
+References: <20261019135441.1420968-1-sashal@kernel.org>
+	 <20261019135441.1420968-127-sashal@kernel.org>
+	 <atkdzsPJgcu123DO@google.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-imuaOhcTB0QvbOwXTSlu"
+User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,75 +73,147 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA003.ant.amazon.com (10.13.139.47) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-xcan_open() calls xcan_chip_start(), which writes XCAN_IER_OFFSET to
-unmask the RX interrupts and then sets XCAN_SRR_CEN_MASK to enable the
-controller, and only then calls napi_enable(). A frame that arrives in
-that window raises the RX interrupt. xcan_interrupt() clears the RX
-bits in XCAN_IER_OFFSET and calls napi_schedule(). NAPI is still
-disabled, so napi_schedule_prep() finds NAPI_STATE_SCHED set and the
-schedule is dropped. Only xcan_rx_poll() unmasks RX again, and it never
-runs. The interface receives nothing until the next close. Transmit
-still works and no rx_errors subcounter moves, so the stall is silent.
-Every re-open (ip link down/up, a driver rebind) runs the same race
-again.
 
-The window is only the tail of xcan_chip_start(), so the failure is
-rare. Adding an mdelay(50) at the end of xcan_chip_start() makes it
-reproducible with continuous traffic from another node and a single
-"ip link set down/up" on the test device.
+--=-imuaOhcTB0QvbOwXTSlu
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Enable NAPI before the controller starts, so that an early RX interrupt
-can schedule the poll. NAPI can be enabled while the controller is in
-reset, because nothing schedules it until an interrupt arrives. If
-xcan_chip_start() fails, disable NAPI again. Otherwise the next open
-would call napi_enable() on an already enabled instance and trip the
-BUG_ON() in napi_enable_locked().
+On Wed, 2026-10-21 at 13:17 -0700, Sean Christopherson wrote:
+>=20
+>=20
+> Two questions: do we care abou this specific flaw, and does anyone run Xe=
+n guests
+> with KVM using an LTS kernel?=C2=A0 I agree with AI's assessment that thi=
+s is low risk,
+> but unless this will actually benefit someone, I don't see the point.
 
-This is the same race as in ctucanfd, fixed by the previous patch.
+I concur. Nobody runs KVM and expects steal time and clocks not to be
+entirely hosed once you start caring deeply about the details =E2=80=94 eve=
+n in
+upstream. You want this stuff to work, you carefully curate the kernel
+you're running.
 
-Tested on a Versal board.
+Backporting this one to LTS kernels doesn't help anyone. The risk is
+low, but the benefit is lower.
 
-Fixes: b1201e44f50b ("can: xilinx CAN controller support")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Patrick Zhang <patrzhan@amazon.com>
----
- drivers/net/can/xilinx_can.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Those who care will already have it backported to 6.18 anyway.
 
-diff --git a/drivers/net/can/xilinx_can.c b/drivers/net/can/xilinx_can.c
-index 43d7f2282..5c2412bf9 100644
---- a/drivers/net/can/xilinx_can.c
-+++ b/drivers/net/can/xilinx_can.c
-@@ -1570,18 +1570,22 @@ static int xcan_open(struct net_device *ndev)
- 	if (ret)
- 		goto err_irq;
- 
-+	/* Keep before xcan_chip_start(): the ISR masks RX interrupts and only
-+	 * the poll unmasks them.
-+	 */
-+	napi_enable(&priv->napi);
- 	ret = xcan_chip_start(ndev);
- 	if (ret < 0) {
- 		netdev_err(ndev, "xcan_chip_start failed!\n");
- 		goto err_candev;
- 	}
- 
--	napi_enable(&priv->napi);
- 	netif_start_queue(ndev);
- 
- 	return 0;
- 
- err_candev:
-+	napi_disable(&priv->napi);
- 	close_candev(ndev);
- err_irq:
- 	free_irq(ndev->irq, ndev);
--- 
-2.50.1
+--=-imuaOhcTB0QvbOwXTSlu
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
 
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
+ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
+MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
+AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
+DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
+q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
+S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
+Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
+72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
+CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
+mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
+h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
+CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
+GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
+v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
+CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
+b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
+Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
+A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
+vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
+0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
+jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
+FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
+HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
+IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
+MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
+MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
+sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
+tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
+EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
+6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
+ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
+bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
+Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
+02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
+sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
+ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
+JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
+LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
+BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
+LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
+hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
+SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
+c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
+RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
+AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
+EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
+ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
++3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
++icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
+McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
+LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
+nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
+gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
+Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
+CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
+QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
+Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
+SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
+YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
+kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
+pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
+v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
+vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
+PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
+REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
+lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
+aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
+D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
+bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
+MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
+oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
+TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
+bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
+BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
+MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
+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
+V0dBkh33bqcdw1/lbImlIgYAAAAAAAA=
+
+
+--=-imuaOhcTB0QvbOwXTSlu--
