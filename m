@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792597286;
-	b=JBHzksnngjG07Xg7YMW61HESKsD9v2hZGjE+Wq7IUKJHESzQ0/GaGcd+3wceOXqbcCJx
-	 0lyiwNi/vYV9L4RGWJydxjOEyyUW1WMtVbPs6nY3qHUcvjBJTL4ReLSUQdulBcqJQsL6M
-	 BLsnBuILLWMmPXKEX1+O1S2/lkQHyuQuC2s3/N3RypkKig/DfqC3jm4G2e1mmAw7iKict
-	 9YHmyfP80Qjd/gTbINCyKNJz81Jv/yR0zZ4Aw1pkkSl299vZktt52FtyNwSOk1K+6zYiZ
-	 Db7CKGcwIN7Y80txQRucG5B0QxCVNfpE6z3/MtqQ9ZmUpLZ5mhZSODRqS2XOgDpVKig==
+	t=1792597289;
+	b=KObRY7Cd+rdBZ8lf6lTmRPFKIX/hI0IQORoqa9z5KEaZ7tmHHlF96RajHANQz1QSU6wY
+	 BwNySK9i9hpEeoKgbNqo6Wrqq2s2IdBJ8nPDsMRWMWJeHHeSKh73AMiU3zhmwcoDChHxV
+	 eRzDYWY8F1ZsUjOYB7i/gakZOzNcBvQ2vLo3/GW3xbPMH0EnSyr932NNKnb4n7XTC5zdb
+	 H/+pWeMvIOjIzke32nPJ759f06hRf03+pz5/oaAGib52tdU8qqp4avbZ/8EpDxjItsB3C
+	 n0DCYqeWaLVks47po+WgTt0AA4Gyex6j9jT4EdEf96grbubtTTnrm/kPXZ/g1keAlIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792597286;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792597289;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6H/Xwq/CkKhTnKLevjJuwfXiRazGmpeW6hIoxFrYiBw=;
-	b=LgojrgL0zsHjzMnzPPUn740T1c/3GNGTw3pQ61L3KhjNuvE6EKikQiAk7JtihFLAdw9x
-	 jAdJDzLjFiJhSO0ZSZyixqbvCoQF02N0YQklv9/jxhLAdUC3R/u+eJoAldpsSr4VfKgQi
-	 FaveJ4wPlKJ6AWyKrQVcLd4BlP3Smz2hyFGMVbh/Sv2amCjl0qG12G2BRn8mtv/BgKL4v
-	 Odp8v5Baxjoq3Btl1eCDOK2jJXwiEBmpWJs/2oBZMk5/vSqonVPHlT7QMpE7Ekm266sMO
-	 tQ4QNSyfuTjO5PSZ+RDXXA2HbfzrO6+eRX/IjwfIBCzyVQf7XM2KHkUGS6JJtJGkDPg==
+	bh=WZCtZ677LbeXmT/FvAupaobbEZpMxqdy5knY5FH1lG0=;
+	b=CtCYAgouM+yX8ZB3eBHskBbGVYsfZlvv9g0tRogCRnSjIs3hQvYLCkXoPScHryHHcz7C
+	 NeQJNY6mNElsBR4/t7GhBW/MfGPeQTWc4CKePucgfoYJMj7/lgcGxlUCPXnlMKIbSO+qE
+	 qUCNGyg8eGBMx64H489G1jicNro5BmK5DURC9kFmlA3TPQEycPmkXYn30n19sF4peGKaH
+	 rQTKSTqtRerplweVxHCKl0BcryIuAKztzXH5SDQhDhNMyAUXEn5Z8q94UputI4ekLMrta
+	 nEsVL3wEamErrdZdDxpREtq96Eow/WIDWJbewjkc00yODghhO0EtQzW8ftF2Bf8b1tA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Zcmp+uAD;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KIwvX1mK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0ED5606A31A
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:41:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1492D606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:41:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Zcmp+uAD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DED1A1F000C1;
-	Wed, 21 Oct 2026 15:41:24 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KIwvX1mK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0E041F000C1;
+	Wed, 21 Oct 2026 15:41:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792597285;
-	bh=6H/Xwq/CkKhTnKLevjJuwfXiRazGmpeW6hIoxFrYiBw=;
+	s=korg; t=1792597288;
+	bh=WZCtZ677LbeXmT/FvAupaobbEZpMxqdy5knY5FH1lG0=;
 	h=Subject:To:Cc:From:Date;
-	b=Zcmp+uADy6RmcDDq3NOGBQaJRWSA9FhM/LPOnbCVIZs9c2RwKcXezQWpV8vtXb27t
-	 +z5kTfrfJgX/1jj8ZTb7PiATEQOmILsFvbAeyxOEVlQdqxmtR0K+vTB3Eq7vJPQJnW
-	 suMIdg3kBB8YDMkuKaubGb1cnONc1aPmiwagZIPA=
-Subject: FAILED: patch "[PATCH] s390/pai: Handle multiple PMU stop callback invocations" failed to apply to 6.12-stable tree
+	b=KIwvX1mK2h6fV/DQclDI3kb4V8CKWfgwTw+/xVM4/VooGIF/7SHCwCv1hhReXQbui
+	 DeWv903Xjk8R9HlMJp6EThhfAMUIhyScOretlm0ZH0OUMSo1s+jfMrz5V+aaPSGuUW
+	 4HvsX+3D7cNIBROIVqsriq+xsmKdcqEoe9+F7yO0=
+Subject: FAILED: patch "[PATCH] s390/pai: Handle multiple PMU stop callback invocations" failed to apply to 6.18-stable tree
 To: tmricht@linux.ibm.com,gor@linux.ibm.com,hca@linux.ibm.com,sumanthk@linux.ibm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 21 Oct 2026 17:36:47 +0200
-Message-ID: <2026102147-crank-malformed-5356@gregkh>
+Message-ID: <2026102146-bonded-pancake-e5ac@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x f3110e969ad226ffbb2d9b4bf5387e68d0d9ef40
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102147-crank-malformed-5356@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102146-bonded-pancake-e5ac@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
