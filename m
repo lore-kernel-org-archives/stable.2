@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792560657;
-	b=UM5r5GWOJ9swJg6jqjF7DEdKCbjx5l/Xc008kcA5ZpDis7Mo1KQvQ1AWrXWyRCR695o6
-	 Dglp+LJrtQGCCjZuiV3UhpoMW3QWXDw8uzfHqMHArpWiD2WmAdGd115VfpsfH0ChUiZGn
-	 qIlRTiI3WqXLxeCVMuI2T5Ck0W6tvQHXsLVu397P/SFAANHFlY4AEm+eHPf0o/m5DrEzT
-	 biyhF31gLc7fbHUWXNXcBZdzMNj3cMH41V/puRz5OB4TIP8PTO/aS3YifZH+NpHdXrDoD
-	 J/ShMtCJj1xpnuvOwEbr9ohcVNKxVvSqiCgw6p0gc5+hWE4VVaH++vslCr7L54cwmEQ==
+	t=1792560653;
+	b=ksLsx66qfsGj/C8zzWu/0KOQ4LXG99GOC7QQnGJaLHRr3ajGDbDQc9qSwP7XlrpPlGwo
+	 jwNnmK7xSyk+CbWNPBZskKV4ILARRheL3WPN6Sce6glfOWqBkk1fytAC9F1EjCZJji2mn
+	 z4LudRvTU7oh2dZKAmzVIrNIxyjOBAIwkG6UOmcgnwwMfgMckPl+wO3WwchGJAXJ4UzdT
+	 34T89LSc/k977MV5uL2brGyPY6TfV0en6gNPSEKXzFtbrUPnf6GdmSpe0v9n84SNksuCp
+	 pewfalz7YrC0jKXza9pf2aFr5chmnw/Cxlv3B+JN+XBliOoRIsy7GoCR6TFkJBcwndA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792560657;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792560653;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=ublMZcLIbcCEZ/1y8FrhU9TIh2gmLO9pPwLHb2PR2Lg=;
-	b=nnLe4kPeXAUB9WnuY0EmfDgNiK4lCVEwAmx+rt55d1iV4JyrUbYAWl7+4xFjn9v2CuF+
-	 VQBSq/rbOcSYc4SiL0MvH8umi5IZR/aptZX/yC9d3Alv6NlH5S7BDn+CzOz1xXsNw8nzr
-	 aIX3T0QuQhntj6yyfOCSuwjmA/5VBwJ3AZykoeSGRpMYuhQ7kLVYlD0PZ0Nd5XZKAi0mj
-	 xK9uTls7x1Mr6wd33DyvetdfwUiQbltIjhtHsZMiitFOZkbUHPKBRszMmzcYB2FCG2y0O
-	 NFKyp4JdZHkxwzOmw+/cFfoOhtZasGZ41biB0rTgAEZ9Nixije05lsggcrlDNvqKIFQ==
+	bh=4/WO178zW5a0OEKRuEb2FG/k359HZ8gtqgs89Jfq4BI=;
+	b=rGzL5WwvmErf3c6JGL3mziGuDOCoJTwrzI74kJwgAwdIAgrFfoSyxbJ3W0MROpPoOiKP
+	 1Y1sIQj3v81ULveANIHfwdy3JuniCZM9B4ehFSUgiDDpbCh3WPjP4qRPXNov4dk0wjJJK
+	 Rf6erDQHCAjE9X15THD/bEErx05lJ/0niERJwe6As4qhrdHxADOHlZlli/M3hUgC424WA
+	 0ERBtGNz32ZZJDZhMRmElnrVWdjB7awt3i6EXADjvHi8zA/sL7B4GJG68UYo0NzOsQ+H4
+	 rQkNRrX3/LEfzbumIZ8g5LkRNl/nk0synMU2Aq3AH5TweFhaR79q2dsgT1xxZ+1MqKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Lmnzs7fR;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=1luPfLfe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEDA4606A333;
-	Wed, 21 Oct 2026 05:30:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 973F3606A322;
+	Wed, 21 Oct 2026 05:30:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Lmnzs7fR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FAD41F000CA;
-	Wed, 21 Oct 2026 05:30:56 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=1luPfLfe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D9641F000C9;
+	Wed, 21 Oct 2026 05:30:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792560656;
-	bh=ublMZcLIbcCEZ/1y8FrhU9TIh2gmLO9pPwLHb2PR2Lg=;
+	d=linux-foundation.org; s=korg; t=1792560653;
+	bh=4/WO178zW5a0OEKRuEb2FG/k359HZ8gtqgs89Jfq4BI=;
 	h=Date:To:From:Subject;
-	b=Lmnzs7fRtyRRSkemhQ1FbLu3KR8DOPWNu7XPqCkNfC0cHpLkZzDftq64960qiQjMb
-	 F+gf3kaA9ZN8PYAs7p1EexKLbAJkmVSQLHGZZNfjr0nigYHveURBvxabkM3Fhz4533
-	 JTvHqmEk2PVSXBolTbSHxptbZXtAxFcJHzxWNmNA=
-Date: Tue, 20 Oct 2026 22:30:56 -0700
-To: mm-commits@vger.kernel.org,sunil.mushran@oracle.com,stable@vger.kernel.org,rppt@kernel.org,rollkingzzc@gmail.com,mark@fasheh.com,kurt.hackel@oracle.com,kmehltretter@gmail.com,kees@kernel.org,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,jack@suse.cz,heming.zhao@suse.com,ericterminal@gmail.com,christophe.jaillet@wanadoo.fr,brauner@kernel.org,baijiaju1990@gmail.com,zzzccc427@gmail.com,akpm@linux-foundation.org
+	b=1luPfLfeQ2gPsNjXjHR5TjaFJdYavsTrCHcAQvYGCQWgaY3WX1o2nqIQ4J72dZtdN
+	 hU8SugyIbVCiiJhTtGmfeHY+CyY+LO1R0AmH74TAFGP4snk7GkZm6fbYR1sITK9lRe
+	 0s8Rv6hBKlyvTN3yANZQ4xnOpZZwdvSOn64iUCbA=
+Date: Tue, 20 Oct 2026 22:30:53 -0700
+To: mm-commits@vger.kernel.org,tao.ma@oracle.com,stable@vger.kernel.org,mark@fasheh.com,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,heming.zhao@suse.com,baijiaju1990@gmail.com,zzzccc427@gmail.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-nonmm-stable] ocfs2-pin-owning-modules-for-open-debugfs-files.patch removed from -mm tree
-Message-Id: <20261021053056.9FAD41F000CA@smtp.kernel.org>
+Subject: [merged mm-nonmm-stable] ocfs2-pin-refcount-trees-before-dropping-the-lookup-lock.patch removed from -mm tree
+Message-Id: <20261021053053.6D9641F000C9@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,208 +51,237 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: ocfs2: pin owning modules for open debugfs files
+     Subject: ocfs2: pin refcount trees before dropping the lookup lock
 has been removed from the -mm tree.  Its filename was
-     ocfs2-pin-owning-modules-for-open-debugfs-files.patch
+     ocfs2-pin-refcount-trees-before-dropping-the-lookup-lock.patch
 
 This patch was dropped because it was merged into the mm-nonmm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
 From: Cen Zhang <zzzccc427@gmail.com>
-Subject: ocfs2: pin owning modules for open debugfs files
-Date: Fri, 16 Oct 2026 09:17:13 +0800
+Subject: ocfs2: pin refcount trees before dropping the lookup lock
+Date: Wed, 14 Oct 2026 11:47:15 +0800
 
-The OCFS2 debugfs file operation tables do not set owner. The
-full debugfs proxy obtains real_fops with fops_get() at open and
-keeps it until final release. Without an owner, this does not acquire
-a reference to the module containing the table and its callbacks.
-Removing the debugfs entries does not drain retained open files.
+A refcount tree returned to ocfs2_lock_refcount_tree() must stay alive
+until that caller releases its operation reference. However,
+ocfs2_get_refcount_tree() returns the cached pointer after dropping
+osb_lock, and the caller only takes its kref afterwards. The registry
+reference does not protect this gap from concurrent removal.
 
-An open connected_nodes file can therefore outlive ocfs2_nodemanager
-and make full_proxy_release() read real_fops->release from freed
-module memory. Heming also reproduced the issue with fs_state and
-asked for the other OCFS2 debugfs operation tables to be checked.
+This can happen when another node frees a refcount root and reuses its
+block with a different generation while this mount retains the old
+cached tree. Two local operations on different inodes sharing the new
+root, such as data CoW and an external xattr update, can then look up
+the same stale tree. Their inode locks are independent, and both the
+REFCOUNT DLM lock and rf_sem are acquired after the first operation
+reference.
 
-Set owner to THIS_MODULE in all eleven explicit debugfs operation
-tables: five in ocfs2_nodemanager, four in ocfs2_dlm, and two in
-ocfs2. The existing debugfs get/put pair then holds the appropriate
-module until final release. Leave the open, read and release callbacks
-unchanged. The blockcheck table already sets owner through
-DEFINE_DEBUGFS_ATTRIBUTE(), so it needs no change.
+The following ordering is possible, with no other operation references:
 
-The original controlled test used an unloadable OCFS2 module and
-case-local probe filters without changing the candidate open, unload
-or release logic. Closing a retained connected_nodes file after
-normal unload produced:
+  Data CoW                         Xattr update
+  --------                         ------------
+  Look up the old tree under
+    osb_lock, then drop osb_lock
+                                   Look up the same tree and take a kref
+                                   Acquire the tree locks and read the
+                                     new on-disk generation
+                                   Erase the old tree under osb_lock
+                                   Unlock and drop the operation kref
+                                   Drop the registry kref, freeing tree
+  Take a kref through the
+    freed tree pointer
 
-  BUG: unable to handle page fault for address: fffffbfff804cfef
-  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:full_proxy_release+0xbf/0x190
-  Call Trace:
-   <TASK>
-   __fput+0x39a/0xa60
-   fput_close_sync+0xff/0x200
-   __x64_sys_close+0x8c/0xf0
-   do_syscall_64+0x114/0x620
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
-  Modules linked in: [last unloaded: ocfs2_nodemanager]
+The final kref_get() accesses freed rf_getcnt storage, and subsequent
+accesses in ocfs2_lock_refcount_tree() also use the freed allocation.
 
-Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0089-v6-f7fda843f80887488145@gmail.com
-Fixes: 2309e9e040fe ("ocfs2/net: Add debug interface to o2net")
-Fixes: 87d3d3f3931f ("ocfs2/hb: Expose the list of heartbeating nodes via debugfs")
-Fixes: 3ba169ccec1c ("ocfs2/cluster: Add new function o2net_fill_node_map()")
-Fixes: 50397507e856 ("ocfs2: Expose the file system state via debugfs")
-Fixes: ccd979bdbce9 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Fixes: 7209300a9b98 ("ocfs2/dlm: Dumps the purgelist into a debugfs file")
-Fixes: d0129aceaecc ("ocfs2/dlm: Dumps the mles into a debugfs file")
-Fixes: 4e3d24ed1a12 ("ocfs2/dlm: Dumps the lockres' into a debugfs file")
-Fixes: 007dce53a29c ("ocfs2/dlm: Dump the dlm state in a debugfs file")
-Fixes: db02754c8a12 ("ocfs2/cluster: Show o2net timing statistics")
+Take the operation reference in ocfs2_get_refcount_tree() before
+releasing osb_lock, including when an insertion loses to another lookup.
+Removal must acquire the same lock, so it cannot drop the registry
+reference before the lookup has pinned the tree. Keep the existing
+unlock and error path puts. The two callers that already hold the
+refcount tree lock keep their borrowed lookup behavior and do not
+acquire an extra reference.
+
+KASAN report as below:
+
+    BUG: KASAN: slab-use-after-free in ocfs2_lock_refcount_tree+0x94a/0x9b0
+    Read of size 4 at addr ffff888117212820 by task python3/497
+
+[Kernel and hardware identification omitted.]
+
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? ocfs2_lock_refcount_tree+0x94a/0x9b0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20e/0x420
+     ? ocfs2_lock_refcount_tree+0x94a/0x9b0
+     kasan_report+0xe0/0x110
+     ? ocfs2_lock_refcount_tree+0x94a/0x9b0
+     ocfs2_lock_refcount_tree+0x94a/0x9b0
+     ? __pfx_ocfs2_lock_refcount_tree+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? ocfs2_refcount_cow+0x3b6/0xd90
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __kmalloc_cache_noprof+0x28d/0x610
+     ? ocfs2_refcount_cow+0x3b6/0xd90
+     ocfs2_refcount_cow+0x410/0xd90
+     ? __pfx_ocfs2_refcount_cow+0x10/0x10
+     ? __pfx___might_resched+0x10/0x10
+     ? down_write+0x11a/0x1f0
+     ? __pfx_down_write+0x10/0x10
+     ? ocfs2_inode_unlock+0x1a9/0x260
+     ? __pfx_ocfs2_inode_unlock+0x10/0x10
+     ? ocfs2_file_write_iter+0x1413/0x1d30
+     ocfs2_file_write_iter+0x157b/0x1d30
+     ? __pfx_ocfs2_file_write_iter+0x10/0x10
+     ? lock_acquire+0x190/0x300
+     ? __x64_sys_pwrite64+0x1b7/0x220
+     ? __pfx___might_resched+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? security_file_permission+0x26/0x80
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_is_held_type+0x8f/0x100
+     vfs_write+0x639/0x1010
+     ? __pfx_ocfs2_file_write_iter+0x10/0x10
+     ? lock_vma_under_rcu+0x154/0x4a0
+     ? __pfx_vfs_write+0x10/0x10
+     ? lock_release+0x121/0x290
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     __x64_sys_pwrite64+0x1b7/0x220
+     ? __pfx___x64_sys_pwrite64+0x10/0x10
+     ? irqentry_exit+0xbe/0x820
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? trace_hardirqs_on_prepare+0x11d/0x150
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+[Register dump omitted.]
+
+     </TASK>
+
+    Allocated by task 491:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_cache_noprof+0x28d/0x610
+     ocfs2_allocate_refcount_tree+0x49/0x1a0
+     ocfs2_create_refcount_tree+0x5d7/0x1630
+     ocfs2_attach_refcount_tree+0x57d/0x1100
+     __ocfs2_reflink.isra.0+0x1c4/0x1940
+     ocfs2_reflink+0x501/0x9b0
+     ocfs2_reflink_ioctl+0x6b2/0x920
+     ocfs2_ioctl+0x538/0x640
+     __x64_sys_ioctl+0x163/0x1d0
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    Freed by task 498:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     kfree+0x308/0x580
+     ocfs2_lock_refcount_tree+0x672/0x9b0
+     ocfs2_xattr_set+0x72c/0x2530
+     ocfs2_xattr_user_set+0xaf/0xf0
+     __vfs_setxattr+0x143/0x1b0
+     __vfs_setxattr_noperm+0x112/0x5b0
+     __vfs_setxattr_locked+0xfe/0x2b0
+     vfs_setxattr+0x13c/0x370
+     do_setxattr+0x128/0x170
+     filename_setxattr+0x147/0x190
+     path_setxattrat+0x1ac/0x260
+     __x64_sys_setxattr+0xcb/0x140
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    The buggy address belongs to the object at ffff888117212800
+     which belongs to the cache kmalloc-1k of size 1024
+    The buggy address is located 32 bytes inside of
+     freed 1024-byte region [ffff888117212800, ffff888117212c00)
+
+[Page and memory dumps omitted.]
+
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0037-v4-9f1a261dfbc341721689@gmail.com
+Fixes: 374a263e790c ("ocfs2: Add refcount tree lock mechanism.")
 Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Suggested-by: Heming Zhao <heming.zhao@suse.com>
 Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 Assisted-by: LLM
 Cc: Mark Fasheh <mark@fasheh.com>
 Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Cc: Yufan Chen <ericterminal@gmail.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Zhang Cen <rollkingzzc@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Sunil Mushran <sunil.mushran@oracle.com>
-Cc: Kurt Hackel <kurt.hackel@oracle.com>
-Cc: Jan Kara <jack@suse.cz>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Tao Ma <tao.ma@oracle.com>
 Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
 Cc: <jjzuming@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- fs/ocfs2/cluster/heartbeat.c |    1 +
- fs/ocfs2/cluster/netdebug.c  |    4 ++++
- fs/ocfs2/dlm/dlmdebug.c      |    5 +++++
- fs/ocfs2/dlmglue.c           |    2 ++
- fs/ocfs2/super.c             |    1 +
- 5 files changed, 13 insertions(+)
+ fs/ocfs2/refcounttree.c |   15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
---- a/fs/ocfs2/cluster/heartbeat.c~ocfs2-pin-owning-modules-for-open-debugfs-files
-+++ a/fs/ocfs2/cluster/heartbeat.c
-@@ -1447,6 +1447,7 @@ static ssize_t o2hb_debug_read(struct fi
- #endif  /* CONFIG_DEBUG_FS */
- 
- static const struct file_operations o2hb_debug_fops = {
-+	.owner =	THIS_MODULE,
- 	.open =		o2hb_debug_open,
- 	.release =	o2hb_debug_release,
- 	.read =		o2hb_debug_read,
---- a/fs/ocfs2/cluster/netdebug.c~ocfs2-pin-owning-modules-for-open-debugfs-files
-+++ a/fs/ocfs2/cluster/netdebug.c
-@@ -183,6 +183,7 @@ static int nst_fop_release(struct inode
+--- a/fs/ocfs2/refcounttree.c~ocfs2-pin-refcount-trees-before-dropping-the-lookup-lock
++++ a/fs/ocfs2/refcounttree.c
+@@ -375,8 +375,10 @@ ocfs2_allocate_refcount_tree(struct ocfs
+ 	return new;
  }
  
- static const struct file_operations nst_seq_fops = {
-+	.owner = THIS_MODULE,
- 	.open = nst_fop_open,
- 	.read = seq_read,
- 	.llseek = seq_lseek,
-@@ -415,6 +416,7 @@ static int stats_fop_open(struct inode *
- }
++/* Callers without the refcount tree lock must request a reference. */
+ static int ocfs2_get_refcount_tree(struct ocfs2_super *osb, u64 rf_blkno,
+-				   struct ocfs2_refcount_tree **ret_tree)
++				   struct ocfs2_refcount_tree **ret_tree,
++				   bool get_ref)
+ {
+ 	int ret = 0;
+ 	struct ocfs2_refcount_tree *tree, *new = NULL;
+@@ -433,6 +435,8 @@ static int ocfs2_get_refcount_tree(struc
+ 	new = NULL;
  
- static const struct file_operations stats_seq_fops = {
-+	.owner = THIS_MODULE,
- 	.open = stats_fop_open,
- 	.read = seq_read,
- 	.llseek = seq_lseek,
-@@ -427,6 +429,7 @@ static int sc_fop_open(struct inode *ino
- }
+ out:
++	if (get_ref)
++		ocfs2_refcount_tree_get(tree);
+ 	*ret_tree = tree;
  
- static const struct file_operations sc_seq_fops = {
-+	.owner = THIS_MODULE,
- 	.open = sc_fop_open,
- 	.read = seq_read,
- 	.llseek = seq_lseek,
-@@ -476,6 +479,7 @@ static ssize_t o2net_debug_read(struct f
- }
+ 	osb->osb_ref_tree_lru = tree;
+@@ -506,14 +510,12 @@ int ocfs2_lock_refcount_tree(struct ocfs
+ 	struct ocfs2_refcount_block *rb;
  
- static const struct file_operations nodes_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= nodes_fop_open,
- 	.release	= o2net_debug_release,
- 	.read		= o2net_debug_read,
---- a/fs/ocfs2/dlm/dlmdebug.c~ocfs2-pin-owning-modules-for-open-debugfs-files
-+++ a/fs/ocfs2/dlm/dlmdebug.c
-@@ -7,6 +7,7 @@
-  * Copyright (C) 2004, 2008 Oracle.  All rights reserved.
-  */
+ again:
+-	ret = ocfs2_get_refcount_tree(osb, ref_blkno, &tree);
++	ret = ocfs2_get_refcount_tree(osb, ref_blkno, &tree, true);
+ 	if (ret) {
+ 		mlog_errno(ret);
+ 		return ret;
+ 	}
  
-+#include <linux/module.h>
- #include <linux/types.h>
- #include <linux/slab.h>
- #include <linux/highmem.h>
-@@ -339,6 +340,7 @@ static int debug_purgelist_open(struct i
- }
+-	ocfs2_refcount_tree_get(tree);
+-
+ 	ret = __ocfs2_lock_refcount_tree(osb, tree, rw);
+ 	if (ret) {
+ 		mlog_errno(ret);
+@@ -2355,7 +2357,8 @@ int ocfs2_decrease_refcount(struct inode
+ 		goto out;
+ 	}
  
- static const struct file_operations debug_purgelist_fops = {
-+	.owner =	THIS_MODULE,
- 	.open =		debug_purgelist_open,
- 	.release =	debug_release,
- 	.read =		debug_read,
-@@ -394,6 +396,7 @@ static int debug_mle_open(struct inode *
- }
+-	ret = ocfs2_get_refcount_tree(OCFS2_SB(inode->i_sb), ref_blkno, &tree);
++	ret = ocfs2_get_refcount_tree(OCFS2_SB(inode->i_sb), ref_blkno,
++				      &tree, false);
+ 	if (ret) {
+ 		mlog_errno(ret);
+ 		goto out;
+@@ -2590,7 +2593,7 @@ int ocfs2_prepare_refcount_change_for_de
+ 	BUG_ON(!ocfs2_is_refcount_inode(inode));
  
- static const struct file_operations debug_mle_fops = {
-+	.owner =	THIS_MODULE,
- 	.open =		debug_mle_open,
- 	.release =	debug_release,
- 	.read =		debug_read,
-@@ -601,6 +604,7 @@ static int debug_lockres_release(struct
- }
- 
- static const struct file_operations debug_lockres_fops = {
-+	.owner =	THIS_MODULE,
- 	.open =		debug_lockres_open,
- 	.release =	debug_lockres_release,
- 	.read =		seq_read,
-@@ -791,6 +795,7 @@ static int debug_state_open(struct inode
- }
- 
- static const struct file_operations debug_state_fops = {
-+	.owner =	THIS_MODULE,
- 	.open =		debug_state_open,
- 	.release =	debug_release,
- 	.read =		debug_read,
---- a/fs/ocfs2/dlmglue.c~ocfs2-pin-owning-modules-for-open-debugfs-files
-+++ a/fs/ocfs2/dlmglue.c
-@@ -7,6 +7,7 @@
-  * Copyright (C) 2003, 2004 Oracle.  All rights reserved.
-  */
- 
-+#include <linux/module.h>
- #include <linux/types.h>
- #include <linux/slab.h>
- #include <linux/highmem.h>
-@@ -3332,6 +3333,7 @@ static int ocfs2_dlm_debug_open(struct i
- }
- 
- static const struct file_operations ocfs2_dlm_debug_fops = {
-+	.owner =	THIS_MODULE,
- 	.open =		ocfs2_dlm_debug_open,
- 	.release =	ocfs2_dlm_debug_release,
- 	.read =		seq_read,
---- a/fs/ocfs2/super.c~ocfs2-pin-owning-modules-for-open-debugfs-files
-+++ a/fs/ocfs2/super.c
-@@ -387,6 +387,7 @@ static ssize_t ocfs2_debug_read(struct f
- #endif	/* CONFIG_DEBUG_FS */
- 
- static const struct file_operations ocfs2_osb_debug_fops = {
-+	.owner =	THIS_MODULE,
- 	.open =		ocfs2_osb_debug_open,
- 	.release =	ocfs2_debug_release,
- 	.read =		ocfs2_debug_read,
+ 	ret = ocfs2_get_refcount_tree(OCFS2_SB(inode->i_sb),
+-				      refcount_loc, &tree);
++				      refcount_loc, &tree, false);
+ 	if (ret) {
+ 		mlog_errno(ret);
+ 		goto out;
 _
 
 Patches currently in -mm which might be from zzzccc427@gmail.com are
