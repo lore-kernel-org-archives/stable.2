@@ -1,49 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792583227;
-	b=KRD8N3iDe7hbhyuBibP/hzdjOv9a0uhSyw9SQzR8qEZ5rel5GalcLwjcPXcDk5xKWv0a
-	 F+C88b4E9RJP5OkInSIFIQJVqDQ4ZCpoI5VPCI13YousLsxs8TmU5nQ0MZ5Ihe1OOdUkA
-	 T4CFcEWWM8Nhe1/Vs1i8FBRxi4DHEEUt5u4Xnw/6PCFsUjg2PsdubVU5gbrw1zLqSuZAO
-	 nfaxgezWJ5wNMnws3uIIji1b77u3DRR94qM8feyBW5LUj+KSTlXrggrmIP7YG9ntyasN8
-	 4Ol/E46i85CztjNFx/+65wARyFFsSsGzcs0BkghUcLpShGg2E7NtizBmm0Xgy4u0gPQ==
+	t=1792583319;
+	b=Ib9pAvOb1cW3xMLcg47QM7Gq8je84YhEkmKO0/AhbdbRQwIv436pTXAHvTFzjqZqhPGP
+	 BORCSJZY7zERh3mKjYKzwyq6Xm0NwRMJotFn7+BqH56LSf4Jdn0SOu1WjCfLTmD2qYMI3
+	 yZa2cDZnPteAM/OX2hUCBiCedAeywFU6Vffg4l82DCYg4/Nb2XshdOZaM/dBiCW5Vez5w
+	 4/J2iALUBj3MLyfCsRMCItlyEJdZr76dwnqkaqPQONub8A7GtD+VkMm7yQO8BJi9ZgdYa
+	 lu0ZUSbUhh+TE7jWYRjLVnYNJXBbxHR3gCGvRiJStEnfdCOc1K6mwbRujjZ4wi+02qA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792583227;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=41Sz2ACg6iRei1NKXbN6VfJjDTLu6Oiy8mmaBWF22dQ=;
-	b=3lDFLSeJDHOhxkvkxU3GhsqeK4SU6T44jyUh5Quxzxp27wvYuXJmTD3ne9Eioud7QiR/
-	 gKPiaIAjqthHBwpxn1xTpxy2yugKfQKX8m6zmnMuaLxkJ7vAykU7viKT75gC/+1XgOA80
-	 5HszQMvI/C0sGwUV4M+nOqPVTabQ8iQC6IPHGH5cG9ECes0V2LPwLJxViacVsxbNawTds
-	 TImB9Wmb7ayYMuFCJH08NfOrd0gqalKgf03NcBOEtFlrgOIYgBqqwb41icLsfkH8t2B/Q
-	 0Xnv/lr4dUB8hPyrWg8/WaxOyrT9GqduNN+ucn+ds2YtlBVkBM0cOZ2tv4tl/gXoJNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792583319;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=P+P5ZMQTBAwifUc4og7voZXXPSPAoXdrR3ly/exkImc=;
+	b=1M+HlccLKEk2Ok5hJ1KRxVgsLCdP9DCj8kFhDXZLzMfgu6LQL0JKeQEu2Ud/xsapWLhz
+	 OyBWFXZxFVDA6RMWbiQxSQzrfFOYImw3ttuOlmvi+MexSADBjfcEHA6Em3VI1igcTvCgE
+	 /elXgpNYb+OKxq5L+/fctaVx29noRPMGaBFB5rXy366ec39GOaTnNx1z1+Iac6/P2vzim
+	 7S6RSjd3WYyxfth1iE6Wcc16Cq+YQmbbv2SeyLEb225lIN7U2ZIp9lXkZHnrdrIH75R3+
+	 53rZDBoRwQJmp8rbNw8eaiRkGJMtvclyTHp+pHn3NY2zI/QTwQM9YZbE4+9VDqiwEKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GTkSyIon;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UIAXE+9t;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC3C606A336;
-	Wed, 21 Oct 2026 11:47:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E24606A328;
+	Wed, 21 Oct 2026 11:48:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GTkSyIon
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7D401F000C4;
-	Wed, 21 Oct 2026 11:47:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UIAXE+9t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56D641F000C4;
+	Wed, 21 Oct 2026 11:48:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792583227;
-	bh=41Sz2ACg6iRei1NKXbN6VfJjDTLu6Oiy8mmaBWF22dQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=GTkSyIonGXM9RGg6BbcFRihGpjKkrI6J/WT6JB7MpAghCm5xznYutNy7wZKuKByoP
-	 Cc2wo1jGVuhxQdO/9+7Las1lm1Kqm3lNro5ut9q5PWcyuugIw5rlOhAmDuf38iQv9K
-	 iVhVukLoKjCwcoBGTvkUsj40uSGmtHvEXhEVjtLkhdvizD4I5UCLF23uPsZ4YCoC+l
-	 QscR3bkUNwBeTFCrP0YpK37Ju4lKKjs+lS8hPv5PIrDTCPi8DFGQVbeWaJoUdvQqhQ
-	 +xsJkpjznUXQupqChDSQlpY5GHBiS/t7PVzzzdDXncbUXSIhw2XSktEGzXkqJ8ACC7
-	 Cs1zMDl+1V1kQ==
-From: Christian Brauner <brauner@kernel.org>
-Date: Wed, 21 Oct 2026 13:46:54 +0200
-Subject: [PATCH 1/6] statmount: don't copy the reserved empty string past
- the buffer
+	s=k20260515; t=1792583319;
+	bh=P+P5ZMQTBAwifUc4og7voZXXPSPAoXdrR3ly/exkImc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UIAXE+9twiE2YHeUN7Y9SD9H2FrwBPp0T+KEKufY7AGbTtLYv0cxySK0uYXAj57GO
+	 msSiSqwWKhvotgBfsZZoQjmD6r2bPxl0XbHoMSRl2KgtRbqqpZlF0SOh4QyDusDxbx
+	 OnxtNB983yISKBOeZ3EdQTbo/ofK9sqijAbC/S0n8sVuM5wiQBQS8ZHI5uRBpmg20M
+	 AekqusowJ0X3TLrQI3dQn6nZ/SkCQNViPQ1Uzy7RC0o7rxVkswn2HSGEMq/HUdRiN0
+	 IAme8nSXbSqXyXBuCLzYIm4IdtQA0Oc8gME2vigxscYgX+FRkZotMV3zQLcLCGL3eJ
+	 Jh4zjjvB+OJLw==
+Message-ID: <4ef66cfe-9ff8-4d26-87de-48485e9d4fa3@kernel.org>
+Date: Wed, 21 Oct 2026 13:48:35 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,156 +51,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6] can: dev: can_fill_info(): don't wake up controller if
+ interface is down
+To: ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht>
+Cc: netdev@vger.kernel.org, linux-can@vger.kernel.org, mkl@pengutronix.de,
+ kernel@pengutronix.de, haibo.chen@oss.nxp.com, shawnguo@kernel.org,
+ imx@lists.linux.dev, stable@vger.kernel.org, netdev-bot+sinfo@kernel.org
+References: <20261021023334.11803-1-chunyuzhiqiang@yinhe.ht>
+From: Vincent Mailhol <mailhol@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=mailhol@kernel.org; keydata=
+ xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
+ JFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbEBrZXJuZWwub3JnPsKZBBMWCgBBFiEE7Y9wBXTm
+ fyDldOjiq1/riG27mcIFAmdfB/kCGwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcC
+ F4AACgkQq1/riG27mcKBHgEAygbvORJOfMHGlq5lQhZkDnaUXbpZhxirxkAHwTypHr4A/joI
+ 2wLjgTCm5I2Z3zB8hqJu+OeFPXZFWGTuk0e2wT4JzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrb
+ YZzu0JG5w8gxE6EtQe6LmxKMqP6EyR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDl
+ dOjiq1/riG27mcIFAmceMvMCGwwFCQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8V
+ zsZwr/S44HCzcz5+jkxnVVQ5LZ4BANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
+In-Reply-To: <20261021023334.11803-1-chunyuzhiqiang@yinhe.ht>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-work-mount-statmount_listns_fixes-v1-1-8917a4c1bd14@kernel.org>
-References: <20261021-work-mount-statmount_listns_fixes-v1-0-8917a4c1bd14@kernel.org>
-In-Reply-To: <20261021-work-mount-statmount_listns_fixes-v1-0-8917a4c1bd14@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- Miklos Szeredi <mszeredi@redhat.com>, Jeff Layton <jlayton@kernel.org>, 
- shaos <shawnq1@163.com>, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, "Christian Brauner (Amutable)" <brauner@kernel.org>
-X-Mailer: b4 0.17-dev-3d1b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5000; i=brauner@kernel.org;
- h=from:subject:message-id; bh=AHQAFfLWnKTl7ZT8W/RhRdf0RxeTfvtVkb+ZuwU2MNo=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTdWGY8Z/tHOedft8vnsxq1mrxcevpNZEfK43KBI5PjY
- gN3Ktg1dJSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEzk01FGhuNsinFRa1leKu05
- W7023ep/cKWv/XVdtrDUn9t4t6dIxDP84ek6yXD3Q/XhZ3bPf63L0ryWcLVF51TNMfkVu/ck/lz
- zjxUA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-statmount_string() reserves an empty string at the start of the seq
-buffer before it calls the handler for the requested string. That's
-what the offsets of unset strings point to since commit e52e97f09fb6
-("statmount: let unset strings be empty").
+On 21/10/2026 at 04:33, ChunYuZhiQiang wrote:
+> If the interface is down, the CAN controller might be powered down, the
+> clock disabled, and/or its external reset asserted.
+> 
+> Don't call do_get_berr_counter() or do_get_auto_tdcv() to read the CAN
+> controller if the interface is down. This fixes a generic logic problem
+> that exists on all platforms.
+> 
+> As a result, IFLA_CAN_BERR_COUNTER is no longer reported for down
+> interfaces, and the automatic TDCV readback is skipped. The other TDC
+> parameters are still reported, as they are meaningful while the
+> interface is down. This is intentional: the counters and the automatic
+> TDCV are not meaningful in that state, and calling into the driver can
+> wake a runtime-suspended controller or touch registers whose clocks are
+> gated.
+> 
+> Fixes: ec56acfef2af1 ("can: flexcan: flexcan_get_berr_counter(): switch on clocks before accessing ecr register")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht>
+> ---
+> v6:
+>  - Only gate do_get_auto_tdcv() on netif_running(), as suggested by
+>    Vincent Mailhol and Marc Kleine-Budde. The other TDC parameters are
+>    still reported for down interfaces.
+>  - Adjust can_tdc_get_size() so that only the automatic TDCV size is
+>    skipped when the interface is down.
+>  - Keep the berr-counter gating unchanged.
+> ---
+>  drivers/net/can/dev/netlink.c | 21 ++++++++++++---------
+>  1 file changed, 12 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/net/can/dev/netlink.c b/drivers/net/can/dev/netlink.c
+> index 6f83b87d54fc..ae0cef791ef3 100644
+> --- a/drivers/net/can/dev/netlink.c
+> +++ b/drivers/net/can/dev/netlink.c
+> @@ -517,7 +517,7 @@ static int can_changelink(struct net_device *dev, struct nlattr *tb[],
+>  }
+>  
+>  static size_t can_tdc_get_size(struct data_bittiming_params *dbt_params,
+> -			       u32 tdc_flags)
+> +			       u32 tdc_flags, bool auto_tdcv_running)
 
-If the handler emits nothing the early return from commit 75ead69a7173
-("fs: don't let statmount return empty strings") skips the size check
-against the caller's buffer. Back then an empty emission meant an empty
-seq buffer and there was nothing to copy. Now the reserved NUL byte is
-there and copy_statmount_to_user() copies it to buf + sizeof(struct
-statmount) no matter how small bufsize is.
+Nitpick: I think it is slightly better to pass dev rather than
+auto_tdcv_running:
 
-So request a string that may turn out empty with a buffer that's
-smaller than struct statmount and the kernel writes one zero byte past
-the caller's buffer and reports a size that's larger than the buffer.
-STATMOUNT_MNT_UIDMAP or STATMOUNT_MNT_GIDMAP on a mount that isn't
-idmapped will do, so will STATMOUNT_FS_SUBTYPE on anything but fuse or
-STATMOUNT_OPT_ARRAY on a filesystem without ->show_options(). None of
-this needs privileges. The byte only lands in the caller's own address
-space but that's still not ok.
+	static size_t can_tdc_get_size(const struct net_device *dev,
+				       struct data_bittiming_params *dbt_params,
+				       u32 tdc_flags)
 
-prepare_kstatmount() already refuses a buffer of exactly sizeof(struct
-statmount) for string requests. A smaller buffer can't hold a string
-either and it can't even hold the reserved empty string. So refuse any
-buffer that isn't larger than the fixed part. That's also what the uapi
-header says: string requests need space after the fixed part of the
-structure.
+The reason is that by passing dev, it would be easier in the future if
+for whatever reason we need to retrieve other values. (And to be
+honest, I was not going to comment just for this, but because a v7 is
+needed anyway, I think you can add this small change while at it).
 
-Reproducer, unprivileged, on any mount that isn't idmapped:
+>  {
+>  	bool tdc_manual = tdc_flags & CAN_CTRLMODE_TDC_MANUAL_MASK;
+>  	size_t size;
+> @@ -538,7 +538,7 @@ static size_t can_tdc_get_size(struct data_bittiming_params *dbt_params,
+>  	}
+>  
+>  	if (tdc_flags) {
+> -		if (tdc_manual || dbt_params->do_get_auto_tdcv)
+> +		if (tdc_manual || (dbt_params->do_get_auto_tdcv && auto_tdcv_running))
 
-    #define _GNU_SOURCE
-    #include <errno.h>
-    #include <fcntl.h>
-    #include <stdint.h>
-    #include <stdio.h>
-    #include <string.h>
-    #include <sys/mman.h>
-    #include <sys/syscall.h>
-    #include <unistd.h>
-    #define STATMOUNT_FS_SUBTYPE	0x00000100U
-    #define STATMOUNT_MNT_UIDMAP	0x00002000U
-    #define STATX_MNT_ID_UNIQUE	0x00004000U
-    #define SM_SIZE			512 /* sizeof(struct statmount) */
-    struct mnt_id_req {
-    	uint32_t size, mnt_ns_fd;
-    	uint64_t mnt_id, param, mnt_ns_id;
-    };
-    static uint64_t root_mnt_id(void)
-    {
-    	unsigned char stx[256]; /* struct statx, stx_mnt_id at offset 144 */
-    	uint64_t id;
-    	if (syscall(__NR_statx, AT_FDCWD, "/", 0, STATX_MNT_ID_UNIQUE, stx))
-    		_exit(1);
-    	memcpy(&id, stx + 144, sizeof(id));
-    	return id;
-    }
-    static void probe(uint64_t mnt_id, uint64_t mask, int guard)
-    {
-    	struct mnt_id_req req = {
-    		.size = sizeof(req), .mnt_id = mnt_id, .param = mask,
-    	};
-    	long page = sysconf(_SC_PAGESIZE);
-    	unsigned char *map, *buf;
-    	uint32_t size;
-    	long ret;
-    	map = mmap(NULL, 2 * page, PROT_READ | PROT_WRITE,
-    		   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    	memset(map, 0xaa, 2 * page);
-    	/* 100 byte buffer ending right at the page boundary */
-    	buf = map + page - 100;
-    	if (guard)
-    		mprotect(map + page, page, PROT_NONE);
-    	errno = 0;
-    	ret = syscall(__NR_statmount, &req, buf, 100, 0);
-    	printf("mask 0x%04llx%s: ret %ld errno %d", (unsigned long long)mask,
-    	       guard ? " guard page" : "", ret, errno);
-    	if (!guard) {
-    		memcpy(&size, buf, sizeof(size));
-    		printf(", size 0x%x, byte[%d] 0x%02x", size, SM_SIZE,
-    		       buf[SM_SIZE]);
-    	}
-    	printf("\n");
-    	munmap(map, 2 * page);
-    }
-    int main(void)
-    {
-    	uint64_t id = root_mnt_id();
-    	probe(id, STATMOUNT_MNT_UIDMAP, 0);
-    	probe(id, STATMOUNT_FS_SUBTYPE, 0);
-    	probe(id, STATMOUNT_MNT_UIDMAP, 1);
-    	return 0;
-    }
+And by passing dev, this becomes:
 
-Before, on 7.3.0-rc7-00252-g4e3259b08c54 (vfs.fixes) in a VM, the
-same on a distro 7.1.13:
+		if (tdc_manual || (dbt_params->do_get_auto_tdcv && netif_running(dev)))
 
-    mask 0x2000: ret 0 errno 0, size 0x65, byte[512] 0x00
-    mask 0x0100: ret 0 errno 0, size 0x65, byte[512] 0x00
-    mask 0x2000 guard page: ret -1 errno 14
+making the pattern slightly more consistent throughout the file.
 
-After:
+>  			size += nla_total_size(sizeof(u32));	/* IFLA_CAN_TDCV */
+>  		size += nla_total_size(sizeof(u32));		/* IFLA_CAN_TDCO */
+>  		if (dbt_params->tdc_const->tdcf_max)
+> @@ -548,8 +548,9 @@ static size_t can_tdc_get_size(struct data_bittiming_params *dbt_params,
+>  	return size;
+>  }
 
-    mask 0x2000: ret -1 errno 75, size 0xaaaaaaaa, byte[512] 0xaa
-    mask 0x0100: ret -1 errno 75, size 0xaaaaaaaa, byte[512] 0xaa
-    mask 0x2000 guard page: ret -1 errno 75
 
-Reported-by: shaos <shawnq1@163.com>
-Link: https://lore.kernel.org/r/20261020110747.959829-1-shawnq1@163.com
-Fixes: e52e97f09fb6 ("statmount: let unset strings be empty")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- fs/namespace.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/fs/namespace.c b/fs/namespace.c
-index c30f063742f4..6c9c0cdbe890 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -6058,7 +6058,8 @@ static int prepare_kstatmount(struct kstatmount *ks, struct mnt_id_req *kreq,
- 	ks->bufsize = bufsize;
- 
- 	if (ks->mask & STATMOUNT_STRING_REQ) {
--		if (bufsize == sizeof(ks->sm))
-+		/* Even the reserved empty string needs room past the fixed part. */
-+		if (bufsize <= sizeof(ks->sm))
- 			return -EOVERFLOW;
- 
- 		ks->seq.buf = kvmalloc(seq_size, GFP_KERNEL_ACCOUNT);
-
--- 
-2.53.0
-
+Yours sincerely,
+Vincent Mailhol
