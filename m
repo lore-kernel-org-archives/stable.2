@@ -1,59 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792565578;
-	b=OSWjPoBHcuuy2Hf263RNLuvxw0p6H5q5km7d/a8S8ANy1WWImjfcpPsmoI+qhj7kJuXi
-	 G7Wc169q2T7NQvYzy4+4hWQgQDtR6bMEDQ+5CUKedz23FTGNf1sD3787EXfnVGF3c7ChV
-	 DTpeUAgSxnBqpDZF9uUhf/TRIkX/iFH1z5hhIkj45rszIHdkVIdi8kzAfAkdA7SE+2jBc
-	 vEgcSzqdnYhFNDfLf3PsyjdHrbTPyv0naxLDpitAkvtCQtvMf6Up4GMpT5NthuE4s7kWP
-	 xunYme1u88o/wOXvDieiyZlPzJgSS/AifzvT3lKoMKRFJOyOkyGcNqF9ZL0a4fZWhxw==
+	t=1792565750;
+	b=wDTIt/ZE2ptPLurd33Dfc8B8e3snvZ3ByBnurz7DgUa2ZPuB2OiaVUNdeY+qS/vJg5zV
+	 0VtXoqtwwRNqyVTdqs6s3yxhumeUUVsuK3fXqZA1LbYmfLuAPPI5N6yRniTuHRKdph8IQ
+	 zXc2qrkbOLBc5cUcikx5t677k4EInqKWLQC0/5WAGxWlNziZygGxW42oHfKBulN0JCBvi
+	 ze3T02p+UDinQKQigzB2VKeNJKVL367c5O6av9fOkOv3dGb641D8UtaG0+GmhpZCTzzto
+	 HGWY8qzlYGEmFWH12tV2MA+IYjqTf/VQY3on2FqCG8qz3VKdppqq6yCxpODyhOKyy/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792565578;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=83IFGnmgPfwXL2SJmPqP3e9cOIxkzV3X81QB3jUeQ98=;
-	b=JJfb/kDy+d3sS/ijm9RCR+kjy6rH0ekUwCCyC+af2A1T7SGViCitmx3giClWaYklovfQ
-	 UHju5FbA0E0yfhhxkDcsfy3uFoN+MrW7IeObFH3zKJczFlSFuFmzwQw0KeHNC282L8Cpj
-	 WpudcDxhN2SxNBxkLqBXEpIT28oYRTAgiSfDnpKUod9wnCy7Hv/hn1u+KIhvi6d500Efp
-	 7PMHDXiXxn/qMxdh0zJk52eSeNhBoQAuYaatTHrwlJdixMw502AlogebNn7pq/YeEurlF
-	 5ze/HBnhonwyjeezDFRih10P5DEf2sgp73XHbIVpVEwXD1Mwo8GfCvT/aAlPWDY+LXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792565750;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=V+R4YF/y9X5+PnJYN2y3x8HJLwi28vjcGLuJXKxuZzw=;
+	b=oIDPT6Qpog6qPx/jnHQGtFE2NaDH7QQY2W5pU2RC9q4Xt/Dxsa/PIRAbaV9ZasuhyAfx
+	 LqnHvcOR8oCYPOFx4oGqKuoF+/BHsOEiVPY/iHalUOhMGDTW/TX6jY9uAvRQKD/eScgXR
+	 ELzIcW17JZssnQ3PH8B4RDtKwYbFvWnZeRZSrMMRoobjGboD+2q8YcC37nPZCakAbymOY
+	 xbt1E3M/jF0iTSyQ54heS7xiOI4xm08L8f5Gk0cwI6JJYPKDhHHhnoSZ/IenM5MRFr/wT
+	 qmXc2WDXqPR6VChTqXSvBpC7O3Uu1pLO3NoQAlVHdr2kmvIILagvzDVSoXcV+T9gSUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EXsUL6YJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CvvqXYrV;
+	arc=none smtp.remote-ip=209.85.208.50
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA7E606A31A;
-	Wed, 21 Oct 2026 06:52:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B84EF606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 06:55:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B84EF606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EXsUL6YJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D9F81F000CD;
-	Wed, 21 Oct 2026 06:52:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792565577;
-	bh=83IFGnmgPfwXL2SJmPqP3e9cOIxkzV3X81QB3jUeQ98=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EXsUL6YJRZFhtO3UkTSX4Eg+AMeyN5J3AlMzLZ1jRiG1ocwPGrhnbD9QQz4IeMtmr
-	 kAnAe4xjVVSwsBO1qa1X4Hegiu7mzzaWGZd6n45zOuqjPo4Rvb9Zh9z/IKy96lc/zj
-	 PMFStBQlnb1e7ICuaob8gL+sWwF2I9kTsqRwkWPY=
-Date: Wed, 21 Oct 2026 08:44:11 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH] docs: stable-kernel-rules: mention Rust soundness issues
-Message-ID: <2026102155-hence-semifinal-b827@gregkh>
-References: <20261020163358.176088-1-ojeda@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CvvqXYrV
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b3dc272dcfso407025a12.3
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 23:55:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792565748; x=1793170548; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V+R4YF/y9X5+PnJYN2y3x8HJLwi28vjcGLuJXKxuZzw=;
+        b=CvvqXYrVhzzPQkSFPnwn0++FTGgQkvh80qkMneWETr+RUvhHd8xfNiO0gZOIA3UkB4
+         /HU53j2ToGqS7ek2++CHZl7FxkmR0lNPLtFSwQfwLT9+eP/f0gAVXAuaxeJKD5B8eyph
+         81gV80/1gvzU3UbsJbbpAo7UfuHKPJGxU2G0JYdeeSYHJZlZp+iRNoN4b9fvkdT5LTEC
+         ROAZJdxeieGTPYAxhtcIP/hzIetVpY2czlf8aTHdw5csogJNsPh2JZadvxopL2JiGc4v
+         PGqWi/GbRS2w8S7/jgBNyaCL/DidZamOmTuf4slpO9+K0i2I5tvZ1y4dlWeEgea1blhz
+         k7Hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792565748; x=1793170548;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=V+R4YF/y9X5+PnJYN2y3x8HJLwi28vjcGLuJXKxuZzw=;
+        b=GCsOycqAQHBBVfw19FN6F319/AaHWbIkoebPQQsV4g9SCgWGt5ELUh8INOzEGZLPVC
+         zkjJAQSDy4U/HGZnYeFwqm+Kt2l22UQ/kxwqQHZEkcr5w7JRonGYndxmRyk9xD2jPd7j
+         vKaXYuuysIc71mDJ43J4OEd7WlW3qlZubhXaigU4IDjb/gXXLS8CyWEB19Sz49ZrbhJ5
+         3XDX9bzcYTBeJACO0XaEe7zb/GGlDd/CG0gF65ysMfyVtXUX5tpqWLsnSYxQDJF+60C9
+         OSFnEVbkxTaGrZuqsuM10nGExDlRH+qkrjFtTVWDGMe9yO7bBmntvLDODm7x7jc1ljED
+         SFZw==
+X-Forwarded-Encrypted: i=1; AKwUvBwvERLX0rFjukQAshdP/WLkOUe3eXSjZar2dzGTHKvCTXBR2FXngVJQnRiINC3i58p1E7FDvoY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIxQ9R+2RUdv4+blcCjR69rOVqwokB7+IjN7oa8VfVSyhCgJBKS
+	QV52yz0Fwh8c8oPlslL2Y645FT13Vxz4rzUOOARz3q1lmhryUPzqAXHB
+X-Gm-Gg: AYBFou3ZmMJmDWNPsPwXR/x8sDKY+0/6ZFay50d6Ggr8xyukpveSgwl0/FuHYR+hnqh
+	VWx0IrgI3nSWPNQKnN8/cp8bU2oPFOuJOuzHKUk6GPbmLpD3miPaDc81B3aRi0M05sbrQmUZCfj
+	fEJfGvQlKNsVAJFvwK2CGznSYGc7jzkG/GMoZMJVG9TpjbwTqPh9LBCVLIYyeF5ZH8WMGsmp2hE
+	fcgbxifHip0AVQqv2yDqT92g2XttnuSJuPsxGnXRqoLBGPMt4ExQOtEM5PxYsBXjnTp+tuXJVUV
+	Qc5/8Hi6xV75UwoZjafpxVb1W2lrUkeH6Mjq56BuydOWK9d6SoAzb9tTBDPT/xBDXbwMorDhByk
+	ibQ3n6vGgtSBYIAPIrAwIi2ZmmlrLflEqR9y+7KMlgW4FvERI9gZpkPIu04WFLhN5KRRbGJrNvC
+	4OxylAe7lVEcCC0hzbmx3X7nK6C7lKRMA7lVBcm3FgPgyjq80J6MYPN9FfSGSEp4llbqNTH4o2E
+	KjmJjqO7EuAkPUlR/ad1Os6VynBfPMVgbDi8Rmpoe69hDVcm7oOZEnsOKscsL3TW8asd+m4HPTK
+	w0GxLKq1d/7v
+X-Received: by 2002:a05:6402:52d3:b0:6b1:d2d6:4013 with SMTP id 4fb4d7f45d1cf-6b408eb8292mr521517a12.17.1792565747740;
+        Tue, 20 Oct 2026 23:55:47 -0700 (PDT)
+Received: from theodors-laptop.. ([5.255.118.7])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b402f2b8f9sm543690a12.3.2026.10.20.23.55.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 23:55:47 -0700 (PDT)
+From: Theodor Arsenij Larionov Trichkine <theodorlarionov@gmail.com>
+To: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Theodor Arsenij Larionov Trichkine <theodorlarionov@gmail.com>
+Subject: [PATCH net v2] fou: reserve headroom before pushing the encap header
+Date: Wed, 21 Oct 2026 14:55:17 +0800
+Message-Id: <20261021065517.198322-1-theodorlarionov@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,77 +101,123 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020163358.176088-1-ojeda@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 06:33:58PM +0200, Miguel Ojeda wrote:
-> Back in 2023 I asked the stable kernel team whether we could consider
-> Rust soundness issues for backporting, since we wanted to be able to
-> protect (as much as possible) downstream users of stable kernels.
-> 
-> Since then, we have been doing our best to backport patches for Rust
-> soundness issues.
-> 
-> After the Rust experiment ended, I documented it in the "Submit checklist
-> addendum" in our "Subsystem Profile document" [1] (i.e. `P:` entry in
-> `MAINTAINERS`):
-> 
->     #### Soundness issues and backporting
-> 
->     In general, fixes for Rust soundness issues should be marked for
->     backport, unless there is a reason not to (such as situations where
->     the backport may require a lot of effort but the risk of users
->     hitting UB is low).
-> 
->     For context, while the stable kernel rules mention "theoretical
->     issues" should not be backported (which one could argue Rust soundness
->     issues are if no existing users hit UB), we discussed the topic of
->     Rust soundness issues with the stable team and decided that we would
->     do our best to backport them.
-> 
->     The goal is to help to prevent actual issues for downstream users,
->     distributions and vendors that patch the kernel further or even
->     add completely new code on top, since those modifications could
->     hit UB. In other words, the idea is to maintain the "extra layer"
->     of protection in stable kernels too, as much as reasonably possible.
-> 
-> Thus make it clearer by briefly mentioning it as well in the stable
-> kernel rules.
-> 
-> Link: https://rust-for-linux.com/contributing#soundness-issues-and-backporting [1]
-> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
-> ---
-> As requested, here is the following embedded patch as an independent
-> thread:
-> 
->   https://lore.kernel.org/all/20261016160030.118973-1-ojeda@kernel.org/
-> 
-> I added a small paragraph above to make it clear it is what we have been
-> doing in practice since then.
-> 
->  Documentation/process/stable-kernel-rules.rst | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/process/stable-kernel-rules.rst b/Documentation/process/stable-kernel-rules.rst
-> index edf90bbe30f4..ffa7905543a6 100644
-> --- a/Documentation/process/stable-kernel-rules.rst
-> +++ b/Documentation/process/stable-kernel-rules.rst
-> @@ -17,7 +17,7 @@ Rules on what kind of patches are accepted, and which ones are not, into the
-> 
->    - It fixes a problem like an oops, a hang, data corruption, a real security
->      issue, a hardware quirk, a build error (but not for things marked
-> -    CONFIG_BROKEN), or some "oh, that's not good" issue.
-> +    CONFIG_BROKEN), a Rust soundness issue, or some "oh, that's not good" issue.
->    - Serious issues as reported by a user of a distribution kernel may also
->      be considered if they fix a notable performance or interactivity issue.
->      As these fixes are not as obvious and have a higher risk of a subtle
-> 
-> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-> --
-> 2.56.0
+ip_tunnel_xmit() and ip_md_tunnel_xmit() call ip_tunnel_encap() before
+reserving headroom. A packet redirected into the tunnel (tc mirred, nft
+fwd) has only the headroom of its original device, so fou_build_udp()
+hits skb_under_panic(); with a mirred mirror the push overwrites the
+Ethernet header of the original packet.
 
-Looks good, thanks, I'll queue this up after my first batch of -rc1
-patches get merged.
+Reserve the headroom in fou_build_header() and gue_build_header(). GUE
+sizes and builds the header from one copy of the encap config, which
+can change concurrently. As the skb head may move, ip_tunnel_xmit() and
+ip_md_tunnel_xmit() reload inner_iph after ip_tunnel_encap(), and
+ip_tunnel_xmit() reads tnl_params before it: for GRE with header_ops,
+tnl_params points into the head.
 
-greg k-h
+Fixes: 56328486539d ("net: Changes to ip_tunnel to support foo-over-udp encapsulation")
+Fixes: ac931d4cdec3 ("ipip,ip_tunnel,sit: Add FOU support for externally controlled ipip devices")
+Cc: stable@vger.kernel.org
+Signed-off-by: Theodor Arsenij Larionov Trichkine <theodorlarionov@gmail.com>
+---
+v2: move the headroom reservation into {fou,gue}_build_header(), reload
+inner_iph after ip_tunnel_encap() and read tnl_params before it, which
+the Sashiko review of v1 pointed out.
+v1: https://lore.kernel.org/netdev/20261010223601.1193655-1-theodorlarionov@gmail.com/
+
+Chengfeng Ye posted an earlier series for this bug; this takes the
+builder approach Paolo suggested.
+Link: https://lore.kernel.org/netdev/20260904165544.1362052-1-nicoyip.dev@gmail.com/
+
+ net/ipv4/fou_core.c  | 15 +++++++++++----
+ net/ipv4/ip_tunnel.c |  6 ++++--
+ 2 files changed, 15 insertions(+), 6 deletions(-)
+
+diff --git a/net/ipv4/fou_core.c b/net/ipv4/fou_core.c
+index 076fdca44f51..896e63adf698 100644
+--- a/net/ipv4/fou_core.c
++++ b/net/ipv4/fou_core.c
+@@ -1059,6 +1059,9 @@ static int fou_build_header(struct sk_buff *skb, struct ip_tunnel_encap *e,
+ 	__be16 sport;
+ 	int err;
+ 
++	if (skb_cow_head(skb, fou_encap_hlen(e)))
++		return -ENOMEM;
++
+ 	err = __fou_build_header(skb, e, protocol, &sport, type);
+ 	if (err)
+ 		return err;
+@@ -1071,16 +1074,20 @@ static int fou_build_header(struct sk_buff *skb, struct ip_tunnel_encap *e,
+ static int gue_build_header(struct sk_buff *skb, struct ip_tunnel_encap *e,
+ 			    u8 *protocol, struct flowi4 *fl4)
+ {
+-	int type = e->flags & TUNNEL_ENCAP_FLAG_CSUM ? SKB_GSO_UDP_TUNNEL_CSUM :
+-						       SKB_GSO_UDP_TUNNEL;
++	struct ip_tunnel_encap encap = READ_ONCE(*e);
++	int type = encap.flags & TUNNEL_ENCAP_FLAG_CSUM ?
++		   SKB_GSO_UDP_TUNNEL_CSUM : SKB_GSO_UDP_TUNNEL;
+ 	__be16 sport;
+ 	int err;
+ 
+-	err = __gue_build_header(skb, e, protocol, &sport, type);
++	if (skb_cow_head(skb, gue_encap_hlen(&encap)))
++		return -ENOMEM;
++
++	err = __gue_build_header(skb, &encap, protocol, &sport, type);
+ 	if (err)
+ 		return err;
+ 
+-	fou_build_udp(skb, e, fl4, protocol, sport);
++	fou_build_udp(skb, &encap, fl4, protocol, sport);
+ 
+ 	return 0;
+ }
+diff --git a/net/ipv4/ip_tunnel.c b/net/ipv4/ip_tunnel.c
+index e6bcf01411d0..742c2b309608 100644
+--- a/net/ipv4/ip_tunnel.c
++++ b/net/ipv4/ip_tunnel.c
+@@ -606,6 +606,7 @@ void ip_md_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ 
+ 	if (ip_tunnel_encap(skb, &tun_info->encap, &proto, &fl4) < 0)
+ 		goto tx_error;
++	inner_iph = (const struct iphdr *)skb_inner_network_header(skb);
+ 
+ 	use_cache = ip_tunnel_dst_cache_usable(skb, tun_info);
+ 	if (use_cache)
+@@ -749,6 +750,8 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ 	}
+ 
+ 	tos = tnl_params->tos;
++	df = tnl_params->frag_off;
++	ttl = tnl_params->ttl;
+ 	if (tos & 0x1) {
+ 		tos &= ~0x1;
+ 		if (payload_protocol == htons(ETH_P_IP)) {
+@@ -767,6 +770,7 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ 
+ 	if (ip_tunnel_encap(skb, &tunnel->encap, &protocol, &fl4) < 0)
+ 		goto tx_error;
++	inner_iph = (const struct iphdr *)skb_inner_network_header(skb);
+ 
+ 	if (connected && md) {
+ 		use_cache = ip_tunnel_dst_cache_usable(skb, tun_info);
+@@ -799,7 +803,6 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ 		goto tx_error;
+ 	}
+ 
+-	df = tnl_params->frag_off;
+ 	if (payload_protocol == htons(ETH_P_IP) && !tunnel->ignore_df)
+ 		df |= (inner_iph->frag_off & htons(IP_DF));
+ 
+@@ -821,7 +824,6 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ 	}
+ 
+ 	tos = ip_tunnel_ecn_encap(tos, inner_iph, skb);
+-	ttl = tnl_params->ttl;
+ 	if (ttl == 0) {
+ 		if (payload_protocol == htons(ETH_P_IP))
+ 			ttl = inner_iph->ttl;
+-- 
+2.34.1
+
