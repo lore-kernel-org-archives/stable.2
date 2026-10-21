@@ -1,67 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792575763;
-	b=ubwmrNFhs4TxEIAEWsQHtbze4o6DRqgPlVSgWcU7D2MvhyjHHijFn2zC8dSimX9MfuAv
-	 NYTwHkpl4KrfPLhqZY0VrhTQTnrrwFhm8SB+eiwR2IIAVnLUK7/esYhxkmZnWMOvdtDmA
-	 u9rd20mUZNSpf5PHYl0/XmXHFQPUHT5nvpHsIkqxztLTMAM0AzBiO/9XsqYXnJdNGohDa
-	 3sD029oG5rSXzgIIx7wTX5vK1fwjYXmmcKCbrAocCmTNY4FHcebEf7sFaht0FYOXE4bhG
-	 q1Ui38i1psJJ0BRI9XfBam67hN19GhEIuqRWucetEdVcOkngmSdlxVUTkqhlKsh1U3Q==
+	t=1792576122;
+	b=OxAf2WnX1OwQJ+IOZLszGYLWJBmJGlYuxziNV/+65OmiNPGADdQZDOtqsZSveqQGoUzW
+	 olR+eYMskvkxH3Y2lL3Zd4x+2Z7QjbtzvALnjis5aW1iKkHH8Yt5I8V6EBwk/64Sm20qR
+	 gP6b23qdegTj/UTbIGHBDvGYWkh1JYxisCg0/TkSmNqpHg6krsILlJa3A5SAfNFN6d5dC
+	 sVrL1JE/KE0AXaYMy+4gD/k0iySrbpTgLIlQCqzCIaTmZ3/RPLrv0xg0Dqo0daFVTN1Ze
+	 Q07PNCTHsaGrdwPkVKw8hZTG5kyUgPsCpXCCOzTunTiORuArJjRvaPDbtOr255fwjsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792575763;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=GJzeaTpZqVIxVkIIE61LYZXU2u51XkZg/vAcigcjOTM=;
-	b=ehXGhxmx/VaLbHjhwre3sD7Qzmym/FPENK67yXwQM9EbnZNKJKNqwegl6en7kKRUVcAu
-	 bzE8wKLq9bCg9Yh136LFHXUoQ/MFQ9Qev8Lbd7aBpbxaMvaLi1d+Yy+f9GMwR16deg8f/
-	 Vtb3rKdibx0E/FXL7Z8EbF/jrdp4QsKZjN6hu+FFTCBhplzvWm44HPU7WEslXVDwH2M/q
-	 +CZxhWftspbHMDTuiMsh4mr4PVuzajFr8XOC2U+CH9gTm/HQmBGNHPbBv2CWYqvREXXG2
-	 N5Ny6fKf8KT+yP0BKrCNUuNUDgJMbqEPARiEXITyDlchG5HV4e11MwAwHdPEBr21A5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792576122;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=Xm+Ve/tXN2PYHWw15Ga7Gmdc7Cs7sLZm518+G2Vxh1Q=;
+	b=uL7ReUofGhFmvAIPLR2NFSF8NC/G2u3g5KKpKkT1MaaZZfPgtA9KRPGSYR0oF51KmRjq
+	 LTjiJXm3buZIINvCa6639q3/q3w/c03XTKIaLuWoIcpQBN/nQS6kq1zk5H1Ixu5+PDFrt
+	 lWzwbU00W2nmpiM5t8trhMPftkqqBK7viWYa3SzcLRMud5Nuarj8OZfyK+Va99//6T17t
+	 HnxRtTmnva97LPOoPJxKJOwZ6S6iqf4Y8+kiRbIIZkV5qyD+DQBRFPUhoabbGiGsecRjc
+	 lreZl7w67qomiybollSdgIfe4TmPYQctGKQHsTFuBYju4YKn0u6WffwZzeJJBEneVFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Vbml+9K5;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gXQbmU4B;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED18A606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 09:42:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED18A606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECAE2606A319;
+	Wed, 21 Oct 2026 09:48:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECAE2606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Vbml+9K5
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	Date:Subject:Cc:To:From:From:Reply-To;
-	bh=GJzeaTpZqVIxVkIIE61LYZXU2u51XkZg/vAcigcjOTM=; b=Vbml+9K5aEDDr0uW8tfzbFoFN1
-	2FbVEuhxYwvHhIDdHddnORqBNbKD71jKX+A86uw0SJleFfaos6m2E3t2dFSxyN9aw/pndlhWhAIFk
-	DwaqinXA073Yyn+kCuejPwuBoykDIa1PuyycVXxcyvQ6T9DNsjaRV60X7t6HaDe9imlfWv6VdHZlU
-	qZwIm76hNM+Qy+IzYoj2PVHIzfsnOaAWePWatG+rmhSpQagMsLOQ1r1r6hlDNc/vEUvMZYAoJ9ugI
-	cda06MhDQpFUILPr1zWNhgkt6QxGADgOIs0kZbuvwmuuP2N/pE/5BU1xZ03o4MlWLQl9dkng+FipL
-	MzJlT7Qg==;
-Received: from [81.79.79.1] (helo=localhost)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xJSq6-005Uf1-HH; Wed, 21 Oct 2026 11:42:30 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org,
-	kernel-dev@igalia.com,
-	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/2] drm/sched: Adjust run-queue when changing priority at runtime
-Date: Wed, 21 Oct 2026 10:42:27 +0100
-Message-ID: <20261021094227.48034-3-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261021094227.48034-1-tvrtko.ursulin@igalia.com>
-References: <20261021094227.48034-1-tvrtko.ursulin@igalia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gXQbmU4B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792576122; x=1824112122;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=mYqES3D0TXPYP1B4ikr75vrMtc0qw0j02MmovWZ+a6Y=;
+  b=gXQbmU4BmgayKc8F/Ob5aCBT/T2fJnSTkkrwhy4IVLndzuWTTQDsWdzL
+   N6UePy6A0bkJBbs3Qnzwey4LrzRKqZffi+utaE/9NGUrejAp4401OsZpd
+   jlSkn5YUZPliSBlmbvepcmMllNyF0P2sqSHZC+XgPoNgVg7mIrZrJxM3h
+   g+vEk1BiWhBSh310OkAm9CR+V573xC45Xo/nHBCDa6QC4n3sUH6qbdbte
+   LlBGCEe3B1yMBhNSf8jjFRR2Er6uFhLftHvAQ9RQKldsC5zDwQi1tN/Dx
+   Tij9ETqMr3ZrojD3vResCQDmD1e9qlvSZsNxxyMp3cev+haMwnZAW7k7H
+   Q==;
+X-CSE-ConnectionGUID: l+wBijV8S0qHAb1yFPa7HA==
+X-CSE-MsgGUID: Z9VthFNOQcqPhKaNIdAREA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1194603"
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="1194603"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 02:48:42 -0700
+X-CSE-ConnectionGUID: JMNunso3RSWEVRtxj0YqSw==
+X-CSE-MsgGUID: bf5g+90CQ5aaoqBy82Hpbw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="3039664"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.75])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 02:48:38 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 21 Oct 2026 12:48:32 +0300 (EEST)
+To: Wentao Liang <vulab@iscas.ac.cn>
+cc: Hans de Goede <hansg@kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
+    luzmaximilian@gmail.com, platform-driver-x86@vger.kernel.org, 
+    stable@vger.kernel.org
+Subject: Re: [PATCH] platform/surface: aggregator: Fix use-after-free in
+ ssh_ptl_shutdown()
+In-Reply-To: <20260917135607.2154130-1-vulab@iscas.ac.cn>
+Message-ID: <8cddfc6f-c357-c5f8-dc4d-8209d3c31668@linux.intel.com>
+References: <20260917135607.2154130-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,52 +80,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-Another consequence of the recent revert of
-77a6809f1dc3 ("drm/sched: Remove FIFO and RR and simplify to a single run queue")
-is that after the revert we need to adjust entity->rq_priority when
-runtime priority changes are requested.
+On Thu, 17 Sep 2026, Wentao Liang wrote:
 
-Only amdgpu does that so the impact is minimal. Also considering dynamic
-priority changes are largely broken there, due currently broken entity
-scheduler list handling where the special case of a single scheduler can
-never change it's run-queue. And coupled with the fact for the rest a two-
-tier approach of drm_sched_entity_set_priority() and
-drm_sched_entity_modify_sched() is used, where later directly maps to
-different hardware queue priority by replacing the set of schedulers
-completely.
+> ssh_packet_put() is called on the loop variable of both
+> list_for_each_entry() loops in ssh_ptl_shutdown(), freeing the packet
+> before the iterator advances past it. Use list_for_each_entry_safe()
+> and move pending packets to complete_p, as their links use
+> pending_node, so that each loop walks a single list.
 
-Hence the regression is limited to rings which have multiple instances
-other than compute and graphics, which would be SDMA only, for which I am
-not sure any userspace actually does dynamic priority changes in the first
-place.
+It sounds like there are two independent issues as per your description, 
+so two patches would be needed.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Fixes: 2fa4d8e2c109 ("drm/sched: Add fair scheduling policy")
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Philipp Stanner <phasta@kernel.org>
-Cc: <stable@vger.kernel.org> # v7.2+
----
- drivers/gpu/drm/scheduler/sched_entity.c | 2 ++
- 1 file changed, 2 insertions(+)
+> Fixes: c167b9c7e3d6 ("platform/surface: Add Surface Aggregator subsystem")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/platform/surface/aggregator/ssh_packet_layer.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/platform/surface/aggregator/ssh_packet_layer.c b/drivers/platform/surface/aggregator/ssh_packet_layer.c
+> index 3dd22856570f..871780828419 100644
+> --- a/drivers/platform/surface/aggregator/ssh_packet_layer.c
+> +++ b/drivers/platform/surface/aggregator/ssh_packet_layer.c
+> @@ -1983,13 +1983,13 @@ void ssh_ptl_shutdown(struct ssh_ptl *ptl)
+>  		smp_mb__before_atomic();
+>  		clear_bit(SSH_PACKET_SF_PENDING_BIT, &p->state);
+>  
+> -		list_move_tail(&p->pending_node, &complete_q);
+> +		list_move_tail(&p->pending_node, &complete_p);
+>  	}
+>  	atomic_set(&ptl->pending.count, 0);
+>  	spin_unlock(&ptl->pending.lock);
+>  
+>  	/* Complete and drop packets on complete_q. */
+> -	list_for_each_entry(p, &complete_q, queue_node) {
+> +	list_for_each_entry_safe(p, n, &complete_q, queue_node) {
+>  		if (!test_and_set_bit(SSH_PACKET_SF_COMPLETED_BIT, &p->state))
+>  			__ssh_ptl_complete(p, -ESHUTDOWN);
+>  
+> @@ -1997,7 +1997,7 @@ void ssh_ptl_shutdown(struct ssh_ptl *ptl)
+>  	}
+>  
+>  	/* Complete and drop packets on complete_p. */
+> -	list_for_each_entry(p, &complete_p, pending_node) {
+> +	list_for_each_entry_safe(p, n, &complete_p, pending_node) {
+>  		if (!test_and_set_bit(SSH_PACKET_SF_COMPLETED_BIT, &p->state))
+>  			__ssh_ptl_complete(p, -ESHUTDOWN);
+>  
+> 
 
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index e12709b7bd0c..03e68b4102d5 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -456,6 +456,8 @@ void drm_sched_entity_set_priority(struct drm_sched_entity *entity,
- {
- 	spin_lock(&entity->lock);
- 	entity->priority = priority;
-+	if (drm_sched_policy != DRM_SCHED_POLICY_FAIR)
-+		entity->rq_priority = priority;
- 	spin_unlock(&entity->lock);
- }
- EXPORT_SYMBOL(drm_sched_entity_set_priority);
 -- 
-2.56.0
+ i.
 
