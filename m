@@ -1,78 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792564549;
-	b=04Yw/wcIgZMLIKlIZd6Vt/qanh+IKm+DLnD3SCabKgM3k7/yTAz6ZBQeGkWWRcRZETxv
-	 sGrRlRsejFNLdJkTWEo9ednu3FQ1Ek/cAeeV8Z6mrkDglgoqKdMhY5yXgWvfB9osFQMvC
-	 8EzK2FOUGBzJbyY/qrGLD/C2CbYWFtXQBoyO+HVjXoi+er3I+QsAEpwUWazKQYsynQzBe
-	 NN6MyVNdn6CQKQrPt2p+dGKhkjhG6Kg94TTJd06i6LA4d40r0FJI1oT8kWerO7NzsY/ym
-	 wsSV2L0lkMZKg1UAXgYK/qTdmP9VDr565BF6k+kpf5v5CVLcCLAPrD99kipSDRzR7kg==
+	t=1792564952;
+	b=27kinaX3vXBEj8Yzqs6XOnGIQdt7byTOTtNh4ES9URsTWi5flJiK/aKhZpMADvJak/v3
+	 rTw+0Po8vkdWTefjI9kZa1JQCORxjaivAH9fEaOaQNLB+1K0RP0MZwtHwVRyMPFmHeqQv
+	 OCMMZeqvJfwkPJzQUJWs/0uuDYDsujQkxXDLxqLanj724x8NDw0VZDCItQ4TvkcdTB6gB
+	 SKFIA43mQzU3Hlb9QqzOESoUX8X50nB7jeFs1Ucq9vXFlTrqkoQ0017GhfVfwqkfE38Wj
+	 EDA3Q2ozTp3lFXGaOWLFNxzFKEMg05FcEfZX2ZFd14C9Uf3Gin0nSfqAcFMwclDSUzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792564549;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792564952;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To:Organization;
-	bh=nI2lebnxiMrb8Ko9vQ5ebF7pfSORHUslFYD8iWIpiYQ=;
-	b=yS6gR67bzQS9EzkU4almiX6691aiBG2sYDaUumUxyG1ywI3O9mvHRCwF9fvJs3VdofPN
-	 68w9M3PXaliiMmd9+/gmoX8GrYcHRf46myOpYponBrWtLW6zCkH3i3kxOK3IAhw7pyws/
-	 jLqm2QB3IuZtoZr0LgQHSos+RyVXjBjiJ55INhunOQSJwa9AZYlSsQlvRQoQFi1ST9heJ
-	 KBJqj24me2HUh/rVvZxl7Von9RsNggTor22yNKAhdHTd56REMzQMirln7gGLua8yOARb4
-	 SGgl0pgP4UmF8jV8X1slcGd6M+fVX27qL36XOBgqwzIgpNZlC7vHrrFa4cYEU0cb3Og==
+	bh=xKvnDsvcrUclI7bmfx6XSwXsJ6fBbrciYsjEvfxco8Y=;
+	b=IMmW4PmB/KiWw4LvDuyl7JXGP9C9Oqk7syiz23m+kmBQHireDNeWtNx79I2GS0RgzV6S
+	 WrW/nBo9/H9Qk8ynOFXDoGqLYT94pRdi8Tz9whP5JecwXLNKIe2YOunsUGIjAeZVMjNDr
+	 qvyyM7BDRAzHl9vL7aAoJn4U9WqSKObE4kg5/RmGZa6CIruNnnMz9lxpvOwewkR0qP06w
+	 zecP4hm7ygZAQWxq/2UIw0DqMjH71bajTS4YGwEM0sADSo/zp5elH0hCOETiuU1KMtj4v
+	 HXeAEnfxkmLTLa3E2Ns8edUteBgIG9yTK+hsBQ5lI+Ps9cHZXP89HH7izLuTpMapjtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ehEEkDKU;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="gm9Zci/5";
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2106606A31C;
-	Wed, 21 Oct 2026 06:35:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2106606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB8BC606A31B;
+	Wed, 21 Oct 2026 06:42:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB8BC606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ehEEkDKU
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gm9Zci/5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792564549; x=1824100549;
+  t=1792564952; x=1824100952;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=204hoocMj5W7Cd2xOMa0yV5znDDU09JGjewWWWcCJoM=;
-  b=ehEEkDKU/2FUTLo+H8BA0oBL03fzbN0r4vQaQvIFPL6wGXl/XlKLGBoj
-   8STKpoRX25mOmaSIMTVfe6MgWfIfKW6zm3M88ZO+gKS5xEasSM0jN9tgK
-   ps6WsUN2oGzRtCwf0QlN7J+p5iKxDdRvczye6p1kBwuTwdMUYx0GE7Hlk
-   gUs4igeGg0wNaHFs5uthmzh2sOaNCBPDmu72inRArp01E2v5Ta9Q556kC
-   cacoMX1iLtnkScIQa47iZMCwCRaGk9RuchfSBG/h2DnhjqcT0dmyjTD+6
-   +0Dss901in+jcQIdSZQQ8FMDCRlV84xNdISrvzKuuTF7Lp8VGzYB7yRdy
-   w==;
-X-CSE-ConnectionGUID: nHH3e11FRii9Q+v8LxW6Nw==
-X-CSE-MsgGUID: AY5FqkXwSHCI5iqWKNUu5w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1273109"
+  bh=u83JnWYhV8tXdA0VeD7wuq6PNl1DjfWmUWC3duEyOH8=;
+  b=gm9Zci/5WaqFocMzIscm17zBUWD1Q8qgP7xmT49eFc9s7CkglkN9viWF
+   7bV3BBTnHdFHn9HEfIZYGvlmDwiVHGs582FAkfCl/COCxJWC1jxMetUx4
+   39X0H342Y9CoASbiC80hMuajN9ZAXQS/qlzmh00zMcV/Ag0di50TVXj42
+   0uzGVDaHGY+aJBn7yn05jLwlD1RoCH1AssKUwFiQQcZTPUVNtOAdTaPr6
+   wkvQ0o80+vwAIHJMDmh7KcXw1zuHb2xi9/BEbOYTrszwmpt0zXtxaoS/g
+   BSdFWybWQOOrLh5Yp+yBNpB7sU0bY072odaoeMQM3KJnr72y306IYSLzc
+   Q==;
+X-CSE-ConnectionGUID: ooLIIyOSTEyNqVtrdYIqxQ==
+X-CSE-MsgGUID: vi4dXOAJTBO27ClPI85w/A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1261929"
 X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="1273109"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 23:35:48 -0700
-X-CSE-ConnectionGUID: AZ92ABLjRo2tGbTW+uc0LA==
-X-CSE-MsgGUID: 16YwEvqvSDepxi1uDl/OLQ==
+   d="scan'208";a="1261929"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 23:42:31 -0700
+X-CSE-ConnectionGUID: a+ZzgIexTNKCA3Xwk92Tug==
+X-CSE-MsgGUID: kakhjIkcTQSPqoihcgSIvw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="2957654"
+   d="scan'208";a="4809657"
 Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 23:35:46 -0700
-Date: Wed, 21 Oct 2026 09:35:44 +0300
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 23:42:28 -0700
+Date: Wed, 21 Oct 2026 09:42:25 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Muhammad Bilal <meatuni001@gmail.com>
-Cc: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v6] platform/x86: hp-bioscfg: fix heap OOB in
- hp_enforce_single_line_input()
-Message-ID: <athdQF9HW4cDR7xI@ashevche-desk.local>
-References: <20261016025352.230535-1-meatuni001@gmail.com>
+To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+Cc: linux-serial@vger.kernel.org, gregkh@linuxfoundation.org,
+	jirislaby@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, ilpo.jarvinen@linux.intel.com,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	Andre Przywara <andre.przywara@arm.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook
+ when DLF is present
+Message-ID: <athe0QikG2mzCAtd@ashevche-desk.local>
+References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
+ <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
+ <atcrpTI_R4kRM8pb@ashevche-desk.local>
+ <20261020104753.28703-1-vinicius.eduardo.pedrosa@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,67 +92,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261016025352.230535-1-meatuni001@gmail.com>
+In-Reply-To: <20261020104753.28703-1-vinicius.eduardo.pedrosa@gmail.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Oct 16, 2026 at 07:53:52AM +0500, Muhammad Bilal wrote:
-> The input is copied with kstrdup(), which stops at the first NUL, but
-> the full write size is passed to hp_enforce_single_line_input(). With
-> an embedded NUL the helper reads, and can write one byte, past the
-> copy. Return -EINVAL if the input contains a NUL.
->  
-> Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.8): writing "A\0"
-> followed by 4093 bytes of "B" to current_password 100 times returns
-> -EINVAL every time, without reading into the heap.
+On Tue, Oct 20, 2026 at 07:47:53AM -0300, Vinicius Pedrosa wrote:
+> On Tue, 20 Oct 2026, Andy Shevchenko wrote:
 
 ...
 
->  {
->  	char *p;
->  
-> +	/* buf is a string, so a NUL before count is invalid input */
-> +	if (strnlen(buf, count) < count)
-> +		return -EINVAL;
-> +
->  	p = memchr(buf, '\n', count);
->  
->  	if (p == buf + count - 1)
+> > > +		/* Keep a hook the driver has already installed */
+> > > +		if (!p->set_divisor)
+> > > +			p->set_divisor = dw8250_set_divisor;
+> >
+> > On top of my previous reply, why is this hunk needed?
+> 
+> dw8250_probe() installs the BUSY-safe dw8250_set_divisor() before
+> dw8250_setup_port() runs. Without the !p->set_divisor check, detecting
+> DLF replaces it with the dwlib setter, which is the BUSY problem
+> described in the commit message.
+> 
+> > In the case of existing _set_divisor, do we want to keep the possible set
+> > _get_divisor as well? Shouldn't we introduce a respective _get_divisor in
+> > 8250_dw.c?
+> 
+> 8250_dw.c doesn't install a get_divisor, so there's no existing getter
+> to preserve.
 
-Let's look at the full implementation
+Right.
 
-int hp_enforce_single_line_input(char *buf, size_t count)
-{
-	char *p;
+> The dwlib getter is still needed when DLF is present,
+> because it computes the fractional part used by the preserved BUSY-safe
+> setter.
 
-	p = memchr(buf, '\n', count);
+Right, but have you read my second question in the above paragraph?
 
-	if (p == buf + count - 1)
-		*p = '\0'; /* strip trailing newline */
-	else if (p)
-		return -EINVAL;  /* enforce single line input */
-
-	return 0;
-}
-
-With your enforcement in place the rest can be simplified and refactored.
-The hint is to use strnchrnul().
-
-int hp_enforce_single_line_input(char *buf, size_t count)
-{
-	char *p;
-
-	p = strnchrnul(buf, count, '\n');
-
-	if (p == buf + count - 1)
-		*p = '\0'; /* strip trailing newline */
-	else if (p < buf + count - 1)
-		return -EINVAL;  /* enforce single line input */
-
-	return 0;
-}
-
-(the above done with the less intrusive changes)
+> > But now I see that we have same function name in two files. Can we rename
+> > those in dwlib to, for example,
+> > dw8250_get_divisor --> dw8250_get_dfl_divisor
+> > dw8250_set_divisor --> dw8250_set_dfl_divisor
+> 
+> I'll also clean up the naming in v3: dw8250_update_dlf() with a frac
+> parameter, static inline after dw8250_writel_ext(), and the dwlib-local
+> helpers renamed to dw8250_get_dlf_divisor() and
+> dw8250_set_dlf_divisor().
 
 -- 
 With Best Regards,
