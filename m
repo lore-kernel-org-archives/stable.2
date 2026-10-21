@@ -1,75 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.11.79.128
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792558729;
-	b=z4RIps/Ryk7QW765QiBI5To1pdzLKEof/eTWhv982R+OwSSj4vj7uWnfClxn+Qd/C2Jd
-	 8Y1BTVL4T+1/PY0ofnMuZJrU2uSJqMgZ20rloZJywq66ubSUJJVh3pDsNRyaPmDI/ARqs
-	 Pt3RGGrvxLVYT0/Sg1vgMFIMSgCkWwjLmTOqwnLGn6vHmIpyJGHN1ctL2H1ligV2q9tXh
-	 k5V5aWDQhx0OJVfS1WX2TxOqtgzZLhGn0/+0CMx0DIHnjQGuYw8x9MKo//OT2h9IpMGE/
-	 45+zos33/rgCQfFfLIJbqpW5Ih/LIlCxGxqyhux8U03pmnnaak0+O7uf5qfMBspkNzA==
+	t=1792560176;
+	b=ltrnKKkv28jaCpGEQ6l7zC/xUVQIbNCoM1Y1swYYTR8LF1EaRZc+cK7eXqmm0uOKUd13
+	 X2iJES6wCrPtC6te/WnfEi1NvzlSOdDRa8T/kNRzl4blmfRXhh+Q44Ka43e1pRmAMfqOX
+	 CeZ/TzijlH6cs+cx2K+HomrKsOiTTHiTe699iHgLgxl0L92Fm9n787sID4x0B6cFPwRoH
+	 8m8MBbgom+aAECr8MjYasC9ibCHn0qhtYortbcKP+j0rpyl9dfm4M79AKhvduM5QjsC7E
+	 g3ZrlQYQgMojMatBH8ZsdjzhSxBBu49Visl1SBSq8thbd+aSRNj+LkfJt8n3lK1qgsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792558729;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:X-Mailer-Info:Subject:
-	 From:To:Cc:Date:Received:Message-ID:X-MailerSend-RecipientID:
-	 Feedback-ID:X-MailerSend-MessageID:In-Reply-To:References:Reply-To:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Abp8x3DSJqqn2+3iXSrmmhIrpq3pCoX57uw/qGsuvA8=;
-	b=LaTTKLpeJscYxtX/KsJErDHx+v7tQbnnMHozyunRyYghbNma6mwkn4CYXMzwKnqn2o6N
-	 tByFqsjVDdABndpmEGx5jAXLoDIfNxrO/KLiviR9wdtUehaRwxcxKfcNHqllLXzR+bDN0
-	 +69lNQNTExk0btaE5CyiZSHYXf9ivBI95mRAajU+D3NJv8xvBOpU+gi1ueHbTEhy8QWz7
-	 t/NediUSaODuwHH4NLa110v07JEzLtvwYfW7ReKe6qoRzWL7Yds7A4+UchllYUqDoROrn
-	 6L5ZrTRPyCALnXfY+NObiUC7zCW8Emj542aIgUNf00EbWXBDh6tumyDkM8E+F2EizxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792560176;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Swfs28hXtM8sdZG1SyRpeTzhFRqeD6kprzmA4qDc3ps=;
+	b=dqYzRmKm31Ag+5+O1zC099IFElpsXFD8uHScuQb1bUPd0hWG9uFG7Wqn8Kyok3NJgRXN
+	 jNKjFJr+5rnxoryg8jI6XaEw7Fr1eKvpFNHDUwjyetQRGeHZmNTM9mTvHJvT++5NdxgtS
+	 LtOuT9a7WSBNtEbh/DNIJp+r5wZ72EwV8Z7ksvo4rYbhjtvruxehIG6Gn7Dfd8rGsH0hw
+	 EcUikElttZrD8uycHMvn/yAoQL0jBnDAaEu0dAb/PVOhiH6fkTuKUvJoKepPvbHffbYCQ
+	 uO3EoxeLnMv3HqOArrimfq4WmQH3e0DBYx7epMGcLs9a21UEW6E2qf1yKvqYRTKopjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hatchling.org;
-	spf=pass smtp.mailfrom=mta.hatchling.org;
-	dkim=pass header.d=hatchling.org header.i=@hatchling.org header.a=rsa-sha256 header.s=mlsend2 header.b=H+zbEilm;
-	dkim=pass header.d=mailersend.net header.i=@mailersend.net header.a=rsa-sha256 header.s=ms1 header.b=BD8dqM91;
-	arc=none smtp.remote-ip=212.11.79.128
-Received: from mail128.mailersend.net (mail128.mailersend.net [212.11.79.128])
+	dmarc=pass header.from=packett.cool;
+	spf=pass smtp.mailfrom=packett.cool;
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=RaXdLKKd;
+	arc=none smtp.remote-ip=95.215.58.176
+Received: from mta1.migadu.com (out-176.mta1.migadu.com [95.215.58.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C575E606A327
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 04:58:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C575E606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hatchling.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mta.hatchling.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF18606A31C
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 05:22:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCF18606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=hatchling.org header.i=@hatchling.org header.a=rsa-sha256 header.s=mlsend2 header.b=H+zbEilm;
-	dkim=pass (2048-bit key, unprotected) header.d=mailersend.net header.i=@mailersend.net header.a=rsa-sha256 header.s=ms1 header.b=BD8dqM91
-DKIM-Signature: a=rsa-sha256; bh=Abp8x3DSJqqn2+3iXSrmmhIrpq3pCoX57uw/qGsuvA8=;
- c=relaxed/relaxed; d=hatchling.org;
- h=DKIM-Signature:X-Mailer-Info:Subject:From:To:Cc:Date:Received:Message-ID:X-MailerSend-RecipientID:Feedback-ID:X-MailerSend-MessageID:In-Reply-To:References:Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding;
- s=mlsend2; t=1792558719; v=1;
- b=H+zbEilmxyR3BJI4bnBx5cVTapARpCNWtAF7KMGt+KJFnnxMUXL53VMHEsg3Aj1C671zpxUI
- zaX6dxr7DfbluOAyAEgkPENORKrE39i5wpUl9TNT/E3uIT7jUbfiRukbYGvtXP/Rxq6bcwyxhve
- A6DNk/zfYKfhRDeT8PMUj+hA=
-DKIM-Signature: a=rsa-sha256; bh=Abp8x3DSJqqn2+3iXSrmmhIrpq3pCoX57uw/qGsuvA8=;
- c=relaxed/relaxed; d=mailersend.net;
- h=X-Mailer-Info:Subject:From:To:Cc:Date:Received:Message-ID:X-MailerSend-RecipientID:Feedback-ID:X-MailerSend-MessageID:In-Reply-To:References:Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding;
- s=ms1; t=1792558719; v=1;
- b=BD8dqM91JzFrHOvH29z+BmDu4B5p/elP0BDTypnSO2/409CX1P2YNfN6STZ3Ud4Ju9otekFc
- 9ZrAkX3OZ4GeYBMlmtc6vNif6XFusd2T1MHZJoHv7rSj20eqwyLNPdH0EBCrJFhwDRUokcYxyi/
- upfOz3qGsTz7IBKG0AADpWZ7O/JZ0YHctp4gmvAN1WrV2gJObprVyIqYA4fYqtRrecC5VCUd8dd
- 5/IV/XjyvDcpegzJRCG56E/V0IbeTpKskRDmBwKrYn6Yv/kXDUY5eqldpTzU/W2dwBC3fnXaMfD
- MAVRtcLp5mkX9AETWXTW9eUDbWhyb0MANrpC81ncCWEEg==
-X-Mailer-Info: 10.AZlZWY1xGd.AZlZWY1xGd0MTN5UzN.wc0FmYsVGQ2dWZy5yalJnblxmLvJ3
- Z.gNhRGO0YzNlFWMyImZlVGOmRjZkdzMzYzK0MTN5UzN....
-Subject: [PATCH 2/2] fs/ntfs3: don't mark pages uptodate when ni_read_frame() fails
-From: Senjin <senjin@hatchling.org>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: Senjin <senjin@hatchling.org>,
- ntfs3@lists.linux.dev,
- linux-fsdevel@vger.kernel.org,
- stable@vger.kernel.org
-Date: 21 Oct 2026 04:58:39 -0000
-Received: from 10.8.15.26 by 10.132.0.99 with http; 21 Oct 2026 04:58:39 +0000
-Message-ID: <6ad8467f490aa6aa8fec85c9@mailersend.net>
-X-MailerSend-RecipientID: 6ad8467f490aa6aa8fec85c9;6ad8467ea12bfee8f4fd7336;r9084zv9678gw63d
-Feedback-ID: r9084zv9678gw63d:MailerSend
-X-MailerSend-MessageID: 6ad8467f6da68140f232e816
-In-Reply-To: <20261021045734.573753-1-senjin@hatchling.org>
-References: <20261021045734.573753-1-senjin@hatchling.org>
-Reply-To: senjin@hatchling.org
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=RaXdLKKd
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=TCPeloyadGAu87uW5ws1DgAebc3Cc2vxp0sBhDg8za0=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792560174; v=1; x=1793164974;
+ b=RaXdLKKdviumWYiwGHPMbHseCFipUyls44pXG9jgvwNjPZtgZSZkzZ+Zg/K95zd/1lU3pQPZ
+ 7SlMiZ2+AdaKI8CPgfiLnmWFekeWzqsa9242nEAX0Wpmd5luBK3/HLFQW49AzXTW5PGjklRH+SD
+ I5BdvNneDv3Jv+RcoCo5VnfUbod+tVHKKaAfMQGqbkhJPtZMMH0sAFcNsqQIhsEuGcCcc97637L
+ BIVMJ8IKp4JD8JPubtiINSpI1qtx5gQg1Kr7NOkxeyPOQuA0C+F5iSgMRvglcBnUvwNRRN6ReYm
+ a9PLQ0rURddlF6KK/JF74grExaAk3MOBpilL0Eo13pYLQ==
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id effd227a1c24da30;
+	Wed, 21 Oct 2026 05:22:53 +0000
+X-Mizu-Trace-ID: effd227a1c24da30
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <bfc5414e-5616-4a64-becc-d16c2b01ecf4@packett.cool>
+Date: Wed, 21 Oct 2026 02:22:48 -0300
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,68 +60,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] bus: mhi: host: pci_generic: Update the default
+ autosuspend_delay_ms as 5000ms
+To: Slark Xiao <slark_xiao@163.com>, mani@kernel.org,
+ jeff.hugo@oss.qualcomm.com, krishna.chundru@oss.qualcomm.com
+Cc: loic.poulain@oss.qualcomm.com, mhi@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261021024038.17127-1-slark_xiao@163.com>
+Content-Language: en-US
+From: Val Packett <val@packett.cool>
+In-Reply-To: <20261021024038.17127-1-slark_xiao@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-ni_read_frame() calls SetPageUptodate() on every page of the frame on
-exit, including when reading or decompressing the frame failed. The
-pages then hold zeroes or partially decompressed data, and that is
-served as valid file data until the page cache is dropped.
 
-The error is also lost for the folio that was actually requested:
-ni_read_folio_cmpr() returns it from ->read_folio, but
-filemap_read_folio() only checks folio_test_uptodate() afterwards and
-treats the read as successful. Userspace gets wrong data, read() returns=
+On 10/20/26 11:40 PM, Slark Xiao wrote:
+> For some MHI devices in some specific scenario, the default value
+> of autosuspend_delay_ms may not enough to handle last wake event.
+Missing verb.. may not *be* enough
+> This may lead to some unexpected problems.
+Sounds vague, are there any examples of the problems? A short 
+description of a concrete error message or something would be nice.
+> Refer to the Qualcomm's Windows settings and we checked this with
+> Quaclomm over case, Qualcomm recommend us to set this as 5000ms.
 
-no error, and nothing is logged.
+spelliiiiing. Quaclomm? :)
 
-Only mark the pages uptodate when the frame was read successfully. On
-failure the requested folio is left !uptodate and the read returns an
-error; the other pages of the frame are retried on their next access.
+(also "over case" sounds odd)
 
-With the bug fixed by the previous patch still present, a read of an
-affected file now fails with an error after the last good frame, instead=
+> Qualcomm also suggests us to update this for all MHI devices.
+> Since this setting has affected some existed kernel versions, it's
+> better to be applied to stable version.
+Please leave the "meta" stuff about where the commit applies outside of 
+the commit message.
+> Fixes: d3800c1dce24 ("bus: mhi: pci_generic: Add support for runtime PM")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Slark Xiao <slark_xiao@163.com>
+> ---
+> v2: define a autosuspend delay timeout and explain the reason
+> ---
+>   drivers/bus/mhi/host/pci_generic.c | 5 ++++-
+>   1 file changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/bus/mhi/host/pci_generic.c b/drivers/bus/mhi/host/pci_generic.c
+> index 7193a384cca4..1f52542794d7 100644
+> --- a/drivers/bus/mhi/host/pci_generic.c
+> +++ b/drivers/bus/mhi/host/pci_generic.c
+> @@ -21,6 +21,9 @@
+>   
+>   #define MHI_POST_RESET_DELAY_MS 2000
+>   
+> +/* Add define of  initial autosuspend_delay_ms to accommodate a potential 'late wake-event' issue */
 
-of silently returning zeroes.
+Not a very necessary comment, but if you do add it, please don't write 
+things like "Add define of". This *is* the define, we're looking at it..
 
-Fixes: f35590ee26f5 ("fs/ntfs3: remove ntfs_bio_pages and use page cache=
- for compressed I/O")
-Cc: stable@vger.kernel.org # 6.19+
-Signed-off-by: Senjin <senjin@hatchling.org>
----
- fs/ntfs3/frecord.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+Also, it's not "initial" if it's not a tunable or anything, it's just 
+*the* delay value.
 
-diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
-index bead01a..a8b696d 100644
---- a/fs/ntfs3/frecord.c
-+++ b/fs/ntfs3/frecord.c
-@@ -2287,7 +2287,6 @@ int ni_read_frame(struct ntfs_inode *ni, u64 frame=
-_vbo, struct page **pages,
- 	u64 vbo_disk;
- 	size_t unc_size =3D 0;
- 	u32 frame_size, i, ondisk_size;
--	struct page *pg;
- 	struct ATTRIB *attr;
- 	CLST frame, clst_data;
-=20
-@@ -2519,9 +2518,14 @@ out1:
- #endif
- 	vunmap(frame_mem);
- out:
--	for (i =3D 0; i < pages_per_frame; i++) {
--		pg =3D pages[i];
--		SetPageUptodate(pg);
-+	/*
-+	 * Only mark the pages uptodate if the frame was read successfully,
-+	 * otherwise zeroed or partially decompressed pages would be served
-+	 * from the page cache as valid data.
-+	 */
-+	if (!err) {
-+		for (i =3D 0; i < pages_per_frame; i++)
-+			SetPageUptodate(pages[i]);
- 	}
-=20
- 	return err;
---=20
-2.56.0
+> +#define MHI_AUTOSUSPEND_DELAY_MS 5000
+> +
+>   #define HEALTH_CHECK_PERIOD (HZ * 2)
+>   
+>   /* PCI VID definitions */
+> @@ -1483,7 +1486,7 @@ static int mhi_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+>   
+>   	/* Allow runtime suspend only if both PME from D3Hot and M3 are supported */
+>   	if (pci_pme_capable(pdev, PCI_D3hot) && !(info->no_m3)) {
+> -		pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
+> +		pm_runtime_set_autosuspend_delay(&pdev->dev, MHI_AUTOSUSPEND_DELAY_MS);
+>   		pm_runtime_use_autosuspend(&pdev->dev);
+>   		pm_runtime_mark_last_busy(&pdev->dev);
+>   		pm_runtime_put_noidle(&pdev->dev);
+
+
+Thanks,
+~val
+
