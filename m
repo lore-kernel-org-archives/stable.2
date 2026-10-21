@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792618618;
-	b=2rbI+6ZqOsHtN0sTwF5AgCLXBCa80D+J6hIl951lhdQ+8nP48hQrtOp64gR0NZekIceT
-	 msjBxZnT8dM/yafTAIFKVUNZl8sHz1LJ8Qkr6UgtqE53S7isL4GUJZGk/zpz6tICo1uM0
-	 RD7S5zt0fUOqvmafr3NopXe4cOnyJQSDzQROq6CUqxbzdeY+bJ7zfOvPE25uUmjFkCon+
-	 TQ5Ub4YJCM2P6vixyms5La5gvNOssNewz0bua01HewnstID3lvHeCmEf1x7+heINJ+Wj6
-	 6Hj1xXybSeu/uC9dlkOhK/nguKhb8qvKFSZfdqIcSGd6BgYj3r+B9g6r/hyLQzG3D1A==
+	t=1792618613;
+	b=1ykO75nbPb4tigMEybT9FiM7187L9Gf2pSTHU01lMJXN8JdyQc081detDaS0RsOktiRL
+	 lnN2KgFY8q/IQ4m4Oye5MJAJOeVBWUotw98wf+LzVhFUBdcG1z9x5v09Sm3ZGCCNgxRSN
+	 6G3FccpM2TEqbUBWHxB6pkOT6vaSAYWU0qSRptr4y4y4Y9qVnFr+y8nLHN2xEHWGr6SFv
+	 9tNMP5fGWmlyMUXDSUxypMyGdFrnjQ/UJ3qIKQth7T3DSLxyfVTLHxlxglpOL/JCumsJm
+	 yam26Dfh3WTQvFHzqSfndCi6j9/ABFuB4awk6uC2Gkzwd9DS/6WZ6WF44I3BEasJ4Vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792618618;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792618613;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=tmFcGRuLOlkbYJ3BR27sqBOxMQB3FShzNd2EgfKZ1Hc=;
-	b=YE4zMkwFB5J4AO87xyqJTgwPFb6/yEyWvKto1xxyaanD+q1AKjbbAoxemy1F0EI1eLhe
-	 dApXMHwprPwGbGyvvtf01S0Z/u68sYgWuXHBHgcYZ0BvgT+0PL7WeCex6YaIhksNeocSl
-	 PI7gkglq7wWz+UM3wQqv6Tuu07p3X/RjPbS2K7jFblcRQp8Hs8kN9HiMgcIIbP4YaD6V9
-	 c5b6Q3mDBAHvR+7/LKTMe6Yn9n6/twzOrODNKmweZK4XafcxDtyIFb5nox50XO02cKEJx
-	 5S+jsh8nT9b05voNsL24G9fYcaX4wn6Fgt7sZ+h3GteeXcjBEL/shgV1ec+dijRZ4vA==
+	bh=eQsdmkuCQILvhTUiSXVhGu7V6rlQfnHJJpfyfyFewTw=;
+	b=s6sJxPm1zexGm5L0KB6mdDKVauRMcnxcYkrHEq21vW3E3qItLA/lsUzsolEELCwkYmDe
+	 ff3I4o0jR9JL+2wXi+lab87ayY2fJda+Vj1+lHW3kKm6VaCFpzcJmKvrgsh3V3ZTHOoej
+	 G+J+Ddwt2gxmhDh6C/14yiCAD43KmXVdviQ4Wy9WWhObw6aKDpXxrQipXgkrsj5mU1b1k
+	 pXc2zzOU0af3GiHyyBpp89NFx0sPpf0/HyrANWzwuIgzrP2WdOKLHnQz7bWuz3jA0GWwm
+	 bqVu4J4VJp1TUcNKLZCjiNGwWn8z31S5sYHjPQJM5jZ7ZykjcLI6iHDuGQiq7dUPJWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IuuKrsDq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lzhX8Tme;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E1F1606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 21:36:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A02F8606A31E
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 21:36:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IuuKrsDq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1758B1F000C3;
-	Wed, 21 Oct 2026 21:36:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lzhX8Tme
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 192CD1F000C2;
+	Wed, 21 Oct 2026 21:36:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792618618;
-	bh=tmFcGRuLOlkbYJ3BR27sqBOxMQB3FShzNd2EgfKZ1Hc=;
+	s=k20260515; t=1792618613;
+	bh=eQsdmkuCQILvhTUiSXVhGu7V6rlQfnHJJpfyfyFewTw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IuuKrsDq7BHiiPZ7w6dq9iwrRZlbiFiKUKDCt2FabcOAiI1GJc506JOBoxo30vxGe
-	 c++Kbp81hwUdkz+7vJpymPfsGJYFFe59I7r1ixlr1HYCIjjk8ITsRITC9XTrRO3/4S
-	 S5k2h40ECZyr85RQzBrsxX3DVbVwoEIpB+0YFYM/RuFToy+t6WqVJYSgQRxxh5C1fJ
-	 kN41WE1YWOc9IcnnIkGleKyi4g97x1hLddVWMTwtP/xQvHhxSgpYFet6Vz7009x09S
-	 D636mRd7SxNGg/6FhZTWISu0FuIRHKTjd35aPHa3EwyhgaWPt8h91bAT2BCikEuH2q
-	 c4uGkza9lJIbQ==
+	b=lzhX8TmeSaKt0mowPIwjjA88z2UUh8wXPop+da+fFEBLLMMg9wdXHx0txFQL7vaMV
+	 yxp1V2neQepnOq3wGbUJZaUjKv9ILrINQR2P3094G6Ka6HRM1ARYs5gkN8ao3+MDw+
+	 JUQTb4S+sSaSb/C7FO1LTZXf1m0RnU91OHzbT4XUyJj/M5FMIjD4EASj9C0O/y2nym
+	 yYCVW6cp8xr61ck9jgHGEH4VzDkX2tV4l0IJhNIOSUykvm7woePce8txdwNj3u5IJZ
+	 PFMmbp7AVCjZJp6Yr12wGBGGEPIqcRjn1GM/3y3+BNcSMeiNLqlUzow7rZlpYxp1WQ
+	 7nKkji2GN3GUw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] unicode: free the map after a grace period
-Date: Wed, 21 Oct 2026 17:36:56 -0400
-Message-ID: <20261021213611.487937-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] ext4: free the sbi after a grace period
+Date: Wed, 21 Oct 2026 17:36:51 -0400
+Message-ID: <20261021213613.466431-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102113-bobcat-angriness-3465@gregkh>
-References: <2026102113-bobcat-angriness-3465@gregkh>
+In-Reply-To: <2026102104-stitch-grievous-60d8@gregkh>
+References: <2026102104-stitch-grievous-60d8@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,114 +62,154 @@ Content-Transfer-Encoding: 8bit
 
 From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit a96c5299bd7305eb984377681eb3222a57376405 ]
+[ Upstream commit c17b44266a1f9fcb49b894d4611d1254bf1aa313 ]
 
-generic_ci_d_hash() and generic_ci_d_compare() read sb->s_encoding and
-dereference the unicode map while a pathwalk in rcu mode holds nothing
-but rcu_read_lock(). The filesystems that use them, ext4, f2fs and
-tmpfs, drop the map with utf8_unload() from ->put_super(), which runs
-when the last reference to the mount goes away. A lookup that is still
-inside such a filesystem at that point reads a freed map.
+ext4_get_link() follows a symlink that keeps its target in a data block
+in rcu pathwalk mode with ext4_getblk(EXT4_GET_BLOCKS_CACHED_NOWAIT).
+That reads s_mount_state in the ASSERT() of ext4_getblk() and again in
+ext4_es_lookup_extent(), and the lookup bumps the extent status hit or
+miss counter, all through sb->s_fs_info.
 
-With a pathwalk held up in utf8_casefold_hash() while the last reference
-to a casefolded tmpfs goes away:
+ext4_put_super() destroys those counters, clears sb->s_fs_info and frees
+the sbi without waiting for a grace period. A pathwalk that is still in
+ext4_get_link() when the last reference to the mount goes away then
+dereferences a NULL s_fs_info, the freed sbi or the destroyed percpu
+counters.
 
-  BUG: KASAN: slab-use-after-free in utf8nlookup+0x74c/0x950
-  Read of size 8 at addr ff110001030fe658 by task walker/98
+With a pathwalk held up in ext4_get_link() while the last reference
+goes away:
+
+  KASAN: null-ptr-deref in range [0x00000000000000a8-0x00000000000000af]
+  RIP: 0010:ext4_getblk+0xf0/0x640
   Call Trace:
    <TASK>
-   utf8nlookup+0x74c/0x950
-   utf8byte+0x160/0x1560
-   utf8_casefold_hash+0x167/0x230
-   generic_ci_d_hash+0xdd/0x1c0
-   link_path_walk+0x11ad/0x1d30
-   path_lookupat+0x63/0xb00
+   ext4_get_link+0x26c/0x410
+   pick_link+0xf96/0x1780
+   step_into_slowpath+0x9b8/0x1250
+   path_lookupat+0x484/0xb00
    filename_lookup+0x1f1/0x5b0
    vfs_statx+0xd7/0x3b0
-  [...]
-  Allocated by task 94:
-   __kmalloc_cache_noprof+0x249/0x560
-   utf8_load+0x4e/0x570
-   shmem_parse_opt_casefold.isra.0+0x92/0x270
-  [...]
-  Freed by task 97:
-   kfree+0x1db/0x5b0
-   shmem_put_super+0x72/0x170
-   generic_shutdown_super+0x14c/0x530
-   kill_anon_super+0x3a/0x60
-   deactivate_locked_super+0x9c/0xf0
-   cleanup_mnt+0x9f/0x130
+   vfs_fstatat+0x4d/0x90
+   __do_sys_newfstatat+0xa0/0x100
+   do_syscall_64+0x10e/0x5e0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-So far that has been hard to hit. umount(2) waits for a grace period
-in namespace_unlock() before it drops the mount, so only a mount whose
-last reference goes away elsewhere, like the close of a file or a chdir
-out of a lazily unmounted directory, can race a walker. So it is
-reachable.
+So far that has been hard to hit. umount(2) waits for a grace period in
+namespace_unlock() before it drops the mount, so only a mount whose last
+reference goes away elsewhere, like the close of a file or a chdir out of
+a lazily unmounted directory, can race a walker.
 
-Delay the free until a grace period has passed. The map and the data
-table it holds a reference to then outlive any pathwalk that found the
-superblock before the mount went away. The reference on the data table
-module is dropped from the rcu callback as well. utf8-core is built in
-whenever CONFIG_UNICODE is set, so there is no module exit that would
-have to wait for the callbacks.
+Keep sb->s_fs_info and free the sbi together with the extent status
+counters after a grace period. Split the counters out of
+ext4_es_unregister_shrinker() for that. The shrinker still gets wasted
+in ext4_put_super(), the counters go with the sbi.
 
-Overlayfs points the s_encoding of an overlay at the map of its first
-layer without taking a reference of its own. That stays correct. The
-layer is held by the overlay, so its map is dropped only after the
-overlay is gone.
-
-Fixes: b886ee3e778e ("ext4: Support case-insensitive file name lookups")
+Fixes: 6493792d3299 ("ext4: convert symlink external data block mapping to bdev")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261009-work-fixes-rcu-v1-6-7446d2d335e6@kernel.org
+Link: https://patch.msgid.link/20261009-work-fixes-rcu-v1-1-7446d2d335e6@kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: replaced the custom RCU callback with kfree_rcu() because there is no table module reference to release ]
+[ sashal: Replaced shrinker_free() with unregister_shrinker() for the embedded shrinker. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/unicode/utf8-core.c  | 9 ++++++++-
- include/linux/unicode.h | 1 +
- 2 files changed, 9 insertions(+), 1 deletion(-)
+ fs/ext4/ext4.h           |  2 ++
+ fs/ext4/extents_status.c |  7 ++++++-
+ fs/ext4/extents_status.h |  1 +
+ fs/ext4/super.c          | 13 +++++++++++--
+ 4 files changed, 20 insertions(+), 3 deletions(-)
 
-diff --git a/fs/unicode/utf8-core.c b/fs/unicode/utf8-core.c
-index dc25823bfed96..d946ccfd90181 100644
---- a/fs/unicode/utf8-core.c
-+++ b/fs/unicode/utf8-core.c
-@@ -3,6 +3,7 @@
- #include <linux/kernel.h>
- #include <linux/string.h>
- #include <linux/slab.h>
-+#include <linux/rcupdate.h>
- #include <linux/parser.h>
- #include <linux/errno.h>
- #include <linux/unicode.h>
-@@ -227,9 +228,15 @@ struct unicode_map *utf8_load(const char *version)
+diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
+index 5654a1cd2b4af..58746c5130ac6 100644
+--- a/fs/ext4/ext4.h
++++ b/fs/ext4/ext4.h
+@@ -1669,6 +1669,8 @@ struct ext4_sb_info {
+ 	struct list_head s_es_list;	/* List of inodes with reclaimable extents */
+ 	long s_es_nr_inode;
+ 	struct ext4_es_stats s_es_stats;
++	/* ext4_get_link() reads the sbi in rcu pathwalk */
++	struct rcu_head s_rcu;
+ 	struct mb_cache *s_ea_block_cache;
+ 	struct mb_cache *s_ea_inode_cache;
+ 	spinlock_t s_es_lock ____cacheline_aligned_in_smp;
+diff --git a/fs/ext4/extents_status.c b/fs/ext4/extents_status.c
+index d9d5cfb9c951a..cd5160e72d5ae 100644
+--- a/fs/ext4/extents_status.c
++++ b/fs/ext4/extents_status.c
+@@ -1749,12 +1749,17 @@ int ext4_es_register_shrinker(struct ext4_sb_info *sbi)
  }
- EXPORT_SYMBOL(utf8_load);
  
-+/*
-+ * A pathwalk in rcu mode may still be in ->d_hash() or ->d_compare() of a
-+ * filesystem that is being torn down and read the map through its
-+ * superblock, so the map has to outlive the grace period.
-+ */
- void utf8_unload(struct unicode_map *um)
+ void ext4_es_unregister_shrinker(struct ext4_sb_info *sbi)
++{
++	unregister_shrinker(&sbi->s_es_shrinker);
++}
++
++/* ext4_get_link() bumps the hit and miss counters in rcu pathwalk */
++void ext4_es_destroy_stats(struct ext4_sb_info *sbi)
  {
--	kfree(um);
-+	if (um)
-+		kfree_rcu(um, rcu);
+ 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_cache_hits);
+ 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_cache_misses);
+ 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_all_cnt);
+ 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_shk_cnt);
+-	unregister_shrinker(&sbi->s_es_shrinker);
  }
- EXPORT_SYMBOL(utf8_unload);
  
-diff --git a/include/linux/unicode.h b/include/linux/unicode.h
-index 74484d44c7554..b82625a023688 100644
---- a/include/linux/unicode.h
-+++ b/include/linux/unicode.h
-@@ -8,6 +8,7 @@
- struct unicode_map {
- 	const char *charset;
- 	int version;
-+	struct rcu_head rcu;
- };
+ /*
+diff --git a/fs/ext4/extents_status.h b/fs/ext4/extents_status.h
+index d9847a4a25dba..b2c6579b2c9dd 100644
+--- a/fs/ext4/extents_status.h
++++ b/fs/ext4/extents_status.h
+@@ -241,6 +241,7 @@ static inline void ext4_es_store_pblock_status(struct extent_status *es,
  
- int utf8_validate(const struct unicode_map *um, const struct qstr *str);
+ extern int ext4_es_register_shrinker(struct ext4_sb_info *sbi);
+ extern void ext4_es_unregister_shrinker(struct ext4_sb_info *sbi);
++extern void ext4_es_destroy_stats(struct ext4_sb_info *sbi);
+ 
+ extern int ext4_seq_es_shrinker_info_show(struct seq_file *seq, void *v);
+ 
+diff --git a/fs/ext4/super.c b/fs/ext4/super.c
+index 349e2b087769d..94d40e03ff2f0 100644
+--- a/fs/ext4/super.c
++++ b/fs/ext4/super.c
+@@ -1289,6 +1289,14 @@ static void ext4_flex_groups_free(struct ext4_sb_info *sbi)
+ 	}
+ }
+ 
++static void ext4_put_sbi_rcu(struct rcu_head *head)
++{
++	struct ext4_sb_info *sbi = container_of(head, struct ext4_sb_info, s_rcu);
++
++	ext4_es_destroy_stats(sbi);
++	kfree(sbi);
++}
++
+ static void ext4_put_super(struct super_block *sb)
+ {
+ 	struct ext4_sb_info *sbi = EXT4_SB(sb);
+@@ -1378,7 +1386,6 @@ static void ext4_put_super(struct super_block *sb)
+ 	ext4_stop_mmpd(sbi);
+ 
+ 	brelse(sbi->s_sbh);
+-	sb->s_fs_info = NULL;
+ 	/*
+ 	 * Now that we are completely done shutting down the
+ 	 * superblock, we need to actually destroy the kobject.
+@@ -1393,7 +1400,8 @@ static void ext4_put_super(struct super_block *sb)
+ #if IS_ENABLED(CONFIG_UNICODE)
+ 	utf8_unload(sb->s_encoding);
+ #endif
+-	kfree(sbi);
++	/* ext4_get_link() reads the sbi and the counters in rcu pathwalk */
++	call_rcu(&sbi->s_rcu, ext4_put_sbi_rcu);
+ }
+ 
+ static struct kmem_cache *ext4_inode_cachep;
+@@ -5688,6 +5696,7 @@ failed_mount8: __maybe_unused
+ 	}
+ failed_mount3a:
+ 	ext4_es_unregister_shrinker(sbi);
++	ext4_es_destroy_stats(sbi);
+ failed_mount3:
+ 	/* flush s_sb_upd_work before sbi destroy */
+ 	flush_work(&sbi->s_sb_upd_work);
 -- 
 2.53.0
 
