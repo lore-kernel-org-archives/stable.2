@@ -1,58 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.69.126.157
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792586187;
-	b=HP7SNgdlc5p2r1ujD+PR7WgUhH1Myx9O5QTIu5LEQWxf/FqObfns4b1v9VLyTFG6I1q3
-	 etai/PGHtrwa/QYHxjTpPkNNngmRmYm1lTFJ37mY18XIIWXX3CfjeJuho1PwvXXB/8ySY
-	 QUIGBrTpbQdA+HkWRWN+ZNFTqYRarxyig5Qbn29k2QRs1Ap4xTmtXmb9WPsgu+or2HEfC
-	 9sLcLGUYslKvQLx7ATmFW4lUEWHOlZ0L+JX5wM/E8kgGsOA0NV+9R7KxEi6goNkf3MNBp
-	 XnAHs+Zt1J1h+zFMtHKB1DijUKpNFngOFX2uF6BxX3kJEf8+H5gMr9qHCufHgZYIg9Q==
+	t=1792586277;
+	b=rHC5OYlhBYB94POmvtgAdvXxG4hHSm5Vt5jj2ekXRRnypVRC/gRq+hbfG8RmOjhcINIp
+	 1P5YhmHMEvwUHU/7UbNqgrFlVyCT8y+JEsmbD3icyLmRuMD253MtQu2dE/9457JuV8QdN
+	 We/T8yCn94GafrOAd6AyO4ZatjzQIJ0abFo4blsMCf1R4NRuKAt7CcJnD3AGY0RofkHGt
+	 INuKvtSRDl5ReK/Mr2znMYo3nRbSpR2u5aH+7pfO0jbkRijACgUVu8Ta1mzkSzv5c90o+
+	 JdQ8QHbGCGi0/XM+mc/SIMQ1QyF2R6ukMqvYjXX7cggdHYHRE4xkTCVNsofo9RTQ3xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792586187;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/ysTjV0GBjSJYji7PBboh+pSwqOHhnA/0a5rIMsM+RU=;
-	b=PeCktDRGysGviLvYhGnkRizjQcztRX78RyPyEYMe82zrbqF8IlTXkAnWM0xbYI7s6tRf
-	 W+0pC2aYHjPsnDnwXFg06S9mEprsMkFZKvK964QY5hAwE76UT4DDo89fsOtfRbd1T5vAK
-	 QyJ99KkzuxVMkO08U4uHvEtXMNR482yKEs1F5iIxKvGkCWTbHRM6Udm6zVod81VpOsRZX
-	 wj9gipQlvIGBU9Zehh5Ez4sot6rP7r/OTluAvhBQV10RJvAvRz4Scvw4BSZ9kiGKbLrub
-	 eEnWQUMILmCilDl4mGfAziloWArZ3kMHUtZVy979pG8CdXP75Rw4Wm1hBBthinUJ9Tg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792586277;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=j4wNxT2Jicxfwguu54sbOsv/vnn7quYx+PA11c7hVRA=;
+	b=bmfhySstPxsffqdY8XNTxpyrt8Jfz5n0STTjZMhwQVmspUhiViLfuuggPWYdfbcGJHSk
+	 HbAlJkCru3ssW+ioEudVXhl9rK0TJ24TqDFXW3wnSbK1rlKZtTD4+Q5yZVmlRuofJz6b7
+	 qw919Zf3ZeQdzMrosflXrs1QOP7CFzur0HlCK8oOQnKh/9bV90TrB3jlvYhCcER5snM5Q
+	 FxhvmUS2syamBvzn9yssPzuxeZ21FeW1Hk13fZwwyfLKnVpwSAASUrzS04K4g1Qa04NRJ
+	 cm+8WSoHB8zsbJfurrqTl3P/ZBCm972iN2zmG+hMtYlyHChmYHUYzAK3gRzaptbmKkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U7PIVoKP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=weissschuh.net;
+	spf=pass smtp.mailfrom=weissschuh.net;
+	dkim=pass header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=tGwT1iSe;
+	arc=none smtp.remote-ip=159.69.126.157
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 239C360A2630;
-	Wed, 21 Oct 2026 12:36:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD1FE606A320;
+	Wed, 21 Oct 2026 12:37:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD1FE606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U7PIVoKP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CDA31F000C4;
-	Wed, 21 Oct 2026 12:36:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792586187;
-	bh=/ysTjV0GBjSJYji7PBboh+pSwqOHhnA/0a5rIMsM+RU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=U7PIVoKPDlOqueJeSNwK1DxvSrkNaXhI18pqzPszsYFm1CcSmeXJDnSu976muqiGY
-	 uOuGRrLpHKaZpp+nVWGY+JHnH9T5li3zpjnryIP3LsMJPa2zPEfIqIPM+UzZX5bzlU
-	 NruXaO1NnHHqi+w5W1e1zzLeWEcd4ZilVjMiAM++gm1WDwfnzazGBMfdRyuBUqZKRG
-	 dRvbmBmYaNG59k5xYSWLk85TmgZeB42hDZz4LVClStZ22CBE3UOklcm8iF6q06zOXE
-	 nFXShF8mI/FYcoltDAf8Ys18GrOoBYUjIaHd9CmZjNQjYocTJt9kjg8m8Erzo8lHi5
-	 38A9WTsfPvf5w==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Pavel Machek <pavel@kernel.org>,
-	Dan Murphy <dmurphy@ti.com>,
-	Jacek Anaszewski <jacek.anaszewski@gmail.com>,
-	linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 21/21] leds: lm3692x: Use devm_mutex_init() to avoid premature mutex destruction
-Date: Wed, 21 Oct 2026 12:32:30 +0000
-Message-ID: <20261021123406.3163547-22-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
-In-Reply-To: <20261021123406.3163547-1-lee@kernel.org>
-References: <20261021123406.3163547-1-lee@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=tGwT1iSe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+	s=mail; t=1792586273;
+	bh=MDzqjayLh/aCOpngdlyENnTIYyHSay9mE8a/uUgJ7j8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tGwT1iSezgzCm5hyegWTShWYsGzTQCloBeWBey4WUGmm0TrPPny0Yrmac8nJ9tswV
+	 HI7LhUBi/ucEi1SEVksZ5GnLAZvIWC6LCTA9wxAm79HL1r22qSMUjhqIfeVfAk1UGh
+	 7htzW+tXTXmZUne7NjjqbJXx2fpO9cJL3+U4h0ik=
+Date: Wed, 21 Oct 2026 14:37:52 +0200
+From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
+To: stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>, 
+	Sebastian Reichel <sre@kernel.org>
+Cc: stable-commits@vger.kernel.org
+Subject: Re: Patch "power: supply: core: implement extension API" has been
+ added to the 6.12-stable tree
+Message-ID: <5fba6144-ffc8-457f-ba29-6c95f81b0e63@t-8ch.de>
+References: <20261021115355.4175993-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,51 +57,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021115355.4175993-1-sashal@kernel.org>
 
-lm3692x_probe() registers the LED class device using
-devm_led_classdev_register_ext(), so the LED is unregistered during
-devres release after lm3692x_remove() returns.  Calling mutex_destroy()
-in lm3692x_remove() destroys led->lock while the LED sysfs interface is
-still active and before devres unregistration turns off the LED via
-lm3692x_brightness_set().
+On 2026-10-21 07:53:55-0400, Sasha Levin wrote:
+> This is a note to let you know that I've just added the patch titled
+> 
+>     power: supply: core: implement extension API
+> 
+> to the 6.12-stable tree which can be found at:
+>     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+> 
+> The filename of the patch is:
+>      power-supply-core-implement-extension-api.patch
+> and it can be found in the queue-6.12 subdirectory.
+> 
+> If you, or anyone else, feels it should not be added to the stable tree,
+> please let <stable@vger.kernel.org> know about it.
 
-Initialise led->lock with devm_mutex_init() before registering the LED
-class device and drop mutex_destroy() from lm3692x_remove() so the mutex
-outlives the LED device.
+This backports a whole feature series to enable a single backport.
+I don't see how commit 5b4bd13e0552 ("power: supply: core: prevent
+unregistering a power supply while a callback runs") functionally
+depends on power supply extensions.
 
-Fixes: 9699cb6bbef2 ("leds: lm3692x: Introduce LM3692x dual string driver")
-Closes: https://sashiko.dev/#/bug/linux-012e3698-2af6-4390-88c9-d8989d2dc2a6
-Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- drivers/leds/leds-lm3692x.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+From my PoV the power supply extensions backport patches should be
+dropped. Sebastian, what is your opinion?
 
-diff --git a/drivers/leds/leds-lm3692x.c b/drivers/leds/leds-lm3692x.c
-index 9c58d54c5783..ec53f9d25654 100644
---- a/drivers/leds/leds-lm3692x.c
-+++ b/drivers/leds/leds-lm3692x.c
-@@ -470,7 +470,10 @@ static int lm3692x_probe(struct i2c_client *client)
- 	if (!led)
- 		return -ENOMEM;
- 
--	mutex_init(&led->lock);
-+	ret = devm_mutex_init(&client->dev, &led->lock);
-+	if (ret)
-+		return ret;
-+
- 	led->client = client;
- 	led->led_dev.brightness_set_blocking = lm3692x_brightness_set;
- 	led->model_id = id->driver_data;
-@@ -500,7 +503,6 @@ static void lm3692x_remove(struct i2c_client *client)
- 	struct lm3692x_led *led = i2c_get_clientdata(client);
- 
- 	lm3692x_leds_disable(led);
--	mutex_destroy(&led->lock);
- }
- 
- static const struct i2c_device_id lm3692x_id[] = {
--- 
-2.56.0.218.g1ec904b173-goog
-
+(...)
