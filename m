@@ -1,60 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792567135;
-	b=Eqi23KI6k9q9uYYgnafvsFzYdAKVqAGogOyGScbVG/FNsfSE8OH6rm9l085muMJ/glAO
-	 HhjgFuGfodkjjzc2iGmHlMKyiMHRuRIy4D9ZuTHf/tAXC35QHWaq8WtWai2h/N+IVyu3M
-	 hTsyHimxwZPeRRPzmhXhDDk3bEhw4sEYzOWF81PrHxrpNnoPrligBfZ93T8n0S8iSOMiA
-	 1ZgfsxteNezywmek68B+k3Gz1x3b9b883aNLrDYWX0ApRVlaUaLSF2bYI4qywrq3CxkRg
-	 BoG/8SVSHNvyqFUKy70Yeo02cpFweJXP9yY5YfOpRxPZYXZu/Iio3eckK+op0wkLYAw==
+	t=1792567297;
+	b=b1BZWNIjK7+Tll+sQscl59jnDk9IdL2NHUx3xxdQ87sn1Sx533ZoSRGxVi1IKMXRLaOT
+	 rykwWcV39snqD6N3urVFqJgxq+CR/FlL4U6MzKB8K5sjHz+XSYjgaCzhDJwHlO0qiNeE+
+	 s7M5r1je+wWIsU3XP/OVRx9My43T/do3s95GgafZEfkct/nB4OYznClwIlZmU22z8aGsX
+	 wq4R6A+glgMQZTRCuAjrcqTH0OBq6r1bnR4FpjuP/cZ8OmWw6//Hoe+grfB+WkBH9e9Nr
+	 0gowd/Iu97LxFVhbyBqy70UKSx886WkOG8tz7O6crEEJ3Q6ajzVdvyFHBr33Z+zNbCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792567135;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=OkzJOC3U9s+7WzyFCx87rKjdb44EwEf0x4LnQn1JlY0=;
-	b=AK9WOxtXaihKh5+t4cPO2MiYBXjAe6YpLV88vBApF8Sc/Doc5q7FQHyjSapspIzb4eFn
-	 8+1mvqebBntZtAGefvxW1Z9AJf2SJCa2+Hf9xBSFTRhVuUOVNSsOq75K4VqmwgJ84vGTI
-	 yuieZ4ErYr5/vOJbe0VQQw1xYjxAR222IH7psfuMfk0thvDp81ujw6RY/kVoFGT0e1o8e
-	 +n1pwj/OMRscKTbTarE70g/1e6+SRe0Svcqgt1bMFbf9zjfpY4FmaAMXbtR0HvoY9Nd5x
-	 O3cg2VHmB6TK+pyVjqE1OcFEI7iuZM1TNmIjsgD9KXVOv28HZZ9wCNKTpHHhIrwcbCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792567297;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=HmLsFgKYt4hjamblS90ei1R66crwKp0Qqp8Psy34br8=;
+	b=dHkZzZEA4ZMzWgaA1R1OYGpp84GGwj/SblHYJECDz2yxJP0rL18Tc3xO0XyUr9ZAcFdb
+	 HQCZs1LQgctw4Dd51pm7oNUFTh3WnEX90JwdmYvSfuyb/krUf6ygeQlrX7abm+xrU4Zn3
+	 oXnm+gzp/VE+hhdiJgFtYvdQDxngwN5Vd7g+OyUjYVIgMU03y/PbBRx8UDS6d8AAUBxoi
+	 sOLyHGHoc100cGpSp3eilhWIn3t38LP3yLbT2w9wZGG5qGSDZoaX1EO40wkHdUMkk0V88
+	 wH31zGaPBvyDkdNq0QWnpbLajhtCXz+oPpfbRGBca6ASqMn/xCYK1OOyncjoSmgEp4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ehajmxh7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="i+sy8Qv/";
+	arc=none smtp.remote-ip=209.85.208.54
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50031606A319;
-	Wed, 21 Oct 2026 07:18:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F13CC606A319
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 07:21:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F13CC606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ehajmxh7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B582F1F000C9;
-	Wed, 21 Oct 2026 07:18:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792567134;
-	bh=OkzJOC3U9s+7WzyFCx87rKjdb44EwEf0x4LnQn1JlY0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ehajmxh7dEMIk+Vp7En/Q731+aAMX1/6iwTRm58fxd/wTgf1uT5aYUfPGDmITFLec
-	 uN9PfOOGFAh0wiymSXg52YPiAfeZKnDAg6ni9N7T9XSVGcQ5JEWykp0Edp/+Yxv1R0
-	 D0GbhCMrjbw2vxZklfoBe6OdkraVndwYAKdFDC/NIzOQarfgRXt56zJm9YklMRq+JQ
-	 4HGsTjybj5xpV3xq8U77fM9T/iymKerPf3bmN1EoCMdKoCFE4gFQh/WqjZqKZZ0YFR
-	 75fS94vhdy0vVNZXu6q+BrUGwSjqGPeXZEIP43YuEOqBMQQJxx9LbNC9gmK120JVnl
-	 IHont/63NJKpA==
-Date: Wed, 21 Oct 2026 00:18:53 -0700
-From: Wei Liu <wei.liu@kernel.org>
-To: Yuho Choi <oss.patchbox@gmail.com>
-Cc: "K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	Jinank Jain <jinankjain@linux.microsoft.com>,
-	Nuno Das Neves <nunodasneves@linux.microsoft.com>,
-	Easwar Hariharan <easwar.hariharan@linux.microsoft.com>,
-	Praveen K Paladugu <prapal@linux.microsoft.com>,
-	Tianyu Lan <tiala@microsoft.com>, linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v1] mshv: Don't free overlay pages after a failed unmap
-Message-ID: <20261021071853.GF851443@liuwe-devbox-debian-v2.local>
-References: <20261012042851.389128-1-oss.patchbox@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=i+sy8Qv/
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b1afcd2d23so478102a12.1
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 00:21:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792567295; x=1793172095; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HmLsFgKYt4hjamblS90ei1R66crwKp0Qqp8Psy34br8=;
+        b=i+sy8Qv/+LsMlhZbtZzA9Ad/NJqZpvNaWCk1KsngQyGXEhcPgTTcX/xoFSws/vytND
+         2yVp3UabhTI/DYZMlQaKDKMelYuVEukaVrfpXEzNwrEE759iFlChNMQLb2imXpsGlc5z
+         17wLHI7NX5xxUCM6sbnoYvt0Pk2a63UVDwq2Zje9luQT75PEvBd9KjYZflkz4XJ1gxG2
+         7LRw3w3cK/8yqRQP9FrEK/1cHDhFSa5U1WT9H2Nd2QB80pSfUaFuGaFIfC7RBhkt+XmZ
+         RcN03QJw2jvW7ySmL77VOnKmKcwHvcz9U+4QqFa+QLvqDFCEn/n7mlYo4MQOX0XYA4zI
+         hBzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792567295; x=1793172095;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HmLsFgKYt4hjamblS90ei1R66crwKp0Qqp8Psy34br8=;
+        b=KrE+GmipW5EI/dnK6BWDp7cZgXm5y+bUL6cPINIXhPdGbtWEvz3jqyhLM5nQePXNQj
+         NEsezYoiE6H3ngL1+uBLA3VhpFf1u82cWzyyaRkY7JAReUXsy01mqP9+ZyZyRpn9uEZf
+         pJqf3kRuOiDInUQ5iPhMfVBvF1qeJHoZDc08oLIxcV4yFytP4FtscwpBFBLIEUBH0owo
+         Nk9hDc9EONiHbM8jd3jIDW06+8Tr/MtlObqiVKzK/+I8YXRlxj/GJx8l8ofiyZyS14Vc
+         7ZVvUuF2JOugfIqwjARcrH4649fuLTwtyUMpIjk8vLQc5zjFg9cVlHlOyR74PiYZ13mo
+         FJPg==
+X-Forwarded-Encrypted: i=1; AKwUvBwN3+7HTwwCBdyxJPOgE5HLnkomsrj0Tm6aQIKytEh0iwBa4BKZ+eFkToiwxKNLWtB/iGuVyvk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIHZ6d9pHXnz0lJ4CX09SWZMiu0P/0bEYeSfWQvwLjHQf3i4L4+
+	ilPDpBywrBtw6umc05+lVGYCPCvkxA1V/h4Evdj8X+8alJQqJdLkgmf/
+X-Gm-Gg: AYBFou3C1OWtlIwtfDvnRG44aVR34MC9jXLfAUKzt3HegwHhctez3Z//BYU1LBxnZNm
+	sodf6RPTsBYcOki7fK0pwLWfFem7NP3HBXeBoRDjSjrWY4bACn1Ryzu8hQXEcjwBsxyqbdm/Tma
+	3zddy0se8LCpcQE1mDwUT0eJQqXMnv6SrT5J9q1sEYIGRUEDF+2nftt8j4wFinAb5Wx+krO4+Zm
+	9FfIAooay96R3KJBUueXKGvwWhXoDrl6Xp/Df33MSxv+9gLnUTQFQ7twh22aIVMMqm5Wd5mGO6E
+	kGw46oIyVcJKLQlRuKWb0b7oTbIzEukt6GCH3z6MymQnCPHj1MayVjjXczuKk2qDsS0lA6g+I7v
+	FZHCv1G9LYKmtx8v8vYXHztP9MQqb6s23g0+3lRmwfL4W4ytmRZlF45+Y0lUYRO0Ul9etKIW9bO
+	3aWe3Y1m76c7QQ7H7ikoLaGo8xPbvph61qwyYSiNBR+Ejk677l+nObuJ1oeMsdjcTtQL+/F2ZVX
+	S8gNf7znurR1wOq30HiEz7TY+2cfP1RfC5q7U5/bgUNTd9LjW/ZAY9Ei5dwdWy/BEg=
+X-Received: by 2002:a05:6402:400c:b0:6b1:d62b:a8dc with SMTP id 4fb4d7f45d1cf-6b408e066d7mr645670a12.1.1792567294939;
+        Wed, 21 Oct 2026 00:21:34 -0700 (PDT)
+Received: from theodors-laptop.. ([5.255.118.7])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b40315a59esm518881a12.32.2026.10.21.00.21.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 00:21:34 -0700 (PDT)
+From: Theodor Arsenij Larionov Trichkine <theodorlarionov@gmail.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>
+Cc: Phil Sutter <phil@nwl.cc>,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	Theodor Arsenij Larionov Trichkine <theodorlarionov@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH nf] netfilter: nfnetlink_queue: use the verdict portid for NFQA_EXP events
+Date: Wed, 21 Oct 2026 15:21:20 +0800
+Message-Id: <20261021072120.218794-1-theodorlarionov@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,62 +97,414 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012042851.389128-1-oss.patchbox@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 12, 2026 at 12:28:35AM -0400, Yuho Choi wrote:
-[...]
-> 
->  drivers/hv/mshv_root_hv_call.c | 21 ++++++++++++++++++---
->  1 file changed, 18 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/hv/mshv_root_hv_call.c b/drivers/hv/mshv_root_hv_call.c
-> index cb55d4d4be2e5..9614cee4dad39 100644
-> --- a/drivers/hv/mshv_root_hv_call.c
-> +++ b/drivers/hv/mshv_root_hv_call.c
-> @@ -651,8 +651,18 @@ int hv_unmap_vp_state_page(u64 partition_id, u32 vp_index, u32 type,
->  {
->  	int ret = hv_call_unmap_vp_state_page(partition_id, vp_index, type, input_vtl);
->  
-> -	if (mshv_use_overlay_gpfn() && state_page)
-> -		__free_page(state_page);
-> +	if (mshv_use_overlay_gpfn() && state_page) {
-> +		/*
-> +		 * If the unmap failed, the hypervisor may still be using the
-> +		 * page as an overlay. Leak it rather than handing it back to
-> +		 * the page allocator.
-> +		 */
-> +		if (ret)
-> +			pr_err("%s: failed to unmap partition %llu vp %u state page type %u, leaking page: %d\n",
-> +			       __func__, partition_id, vp_index, type, ret);
-> +		else
-> +			__free_page(state_page);
-> +	}
->  
->  	return ret;
->  }
-> @@ -1003,7 +1013,12 @@ int hv_unmap_stats_page(enum hv_stats_object_type type,
->  
->  	ret = hv_call_unmap_stats_page(type, identity);
->  
-> -	if (mshv_use_overlay_gpfn() && page_addr)
-> +	/*
-> +	 * If the unmap failed, the hypervisor may still be updating the
-> +	 * overlay page. Leak it rather than handing it back to the page
-> +	 * allocator.
-> +	 */
-> +	if (mshv_use_overlay_gpfn() && page_addr && !ret)
->  		__free_page(virt_to_page(page_addr));
+nfqnl_ct_parse() passes NETLINK_CB(entry->skb).portid to attach_expect(),
+but entry->skb is the queued packet, so the portid comes from its IPCB.
+With NLM_F_ECHO the expectation event is unicast to that portid. For
+IPv4 without options it is 0, so the event reaches the kernel nfnetlink
+socket and nfnetlink_rcv() dereferences its NULL file:
 
-I would like to get an error or a warning here, too. Can you send v2?
+  KASAN: null-ptr-deref in range [0x0000000000000030-0x0000000000000037]
+  RIP: 0010:file_ns_capable+0x43/0xb0
+   netlink_net_capable+0x140/0x1c0
+   nfnetlink_rcv+0x13a/0x420
+   netlink_unicast+0x71d/0x970
+   nlmsg_notify+0x108/0x290
+   ctnetlink_expect_event+0x4ba/0x600
+   nf_ct_expect_event_report+0x164/0x1d0
+   nf_ct_expect_related_report+0x178/0x1f0
+   ctnetlink_glue_attach_expect+0x2b0/0x380
+   nfqnl_recv_verdict+0x8df/0x25d0
+   nfnetlink_rcv_msg+0x4ff/0x890
 
-Thanks,
-Wei
+Pass the portid of the verdict message.
 
+Fixes: b7bd1809e078 ("netfilter: nfnetlink_queue: get rid of nfnetlink_queue_ct.c")
+Cc: stable@vger.kernel.org
+Signed-off-by: Theodor Arsenij Larionov Trichkine <theodorlarionov@gmail.com>
+---
+Found with a custom syzkaller-based fuzzer.
 
+Pablo's pending "netfilter: nfnetlink_queue: restrict NFQA_EXP to
+userspace helpers" still passes NETLINK_CB(entry->skb).portid, so it
+does not fix this, and the two patches conflict.
 
->  
->  	return ret;
-> -- 
-> 2.43.0
+Config:
+
+CONFIG_KASAN=y
+CONFIG_USER_NS=y
+CONFIG_NET_NS=y
+CONFIG_NETFILTER=y
+CONFIG_NF_CONNTRACK=y
+CONFIG_NF_CONNTRACK_EVENTS=y
+CONFIG_NF_CONNTRACK_TFTP=y
+CONFIG_NF_CT_NETLINK=y
+CONFIG_NETFILTER_NETLINK_QUEUE=y
+CONFIG_NETFILTER_NETLINK_GLUE_CT=y
+CONFIG_NF_TABLES=y
+CONFIG_NF_TABLES_IPV4=y
+CONFIG_NFT_CT=y
+CONFIG_NFT_QUEUE=y
+
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000006: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000030-0x0000000000000037]
+CPU: 2 UID: 65534 PID: 519 Comm: repro Not tainted 7.3.0-rc5-00195-gab699d296e06 #1 PREEMPT(full)
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
+RIP: 0010:file_ns_capable+0x43/0xb0 kernel/capability.c:457
+Code: bf 28 00 00 00 e8 bd 18 35 00 41 83 fc 28 77 55 e8 a2 20 35 00 48 8d 7b 30 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 75 52 48 8b 7b 30 31 c9 44 89 e2 48 89 ee e8 16 62 0f
+RSP: 0018:ffffc90000f2f078 EFLAGS: 00010206
+RAX: dffffc0000000000 RBX: 0000000000000000 RCX: ffffffff8ebc74fe
+RDX: 0000000000000006 RSI: 0000000000000201 RDI: 0000000000000030
+RBP: ffff88800431a640 R08: 0000000000000201 R09: ffffed10015ef263
+R10: 000000000000000c R11: 0000000000048e51 R12: 000000000000000c
+R13: ffff88800431a640 R14: ffff888009f57970 R15: 00000000000000dc
+FS:  000000002d5723c0(0000) GS:ffff8880d6b52000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f6d70ce4000 CR3: 0000000019718005 CR4: 0000000000770ef0
+PKRU: 55555554
+Call Trace:
+ <TASK>
+ __netlink_ns_capable net/netlink/af_netlink.c:852 [inline]
+ netlink_ns_capable net/netlink/af_netlink.c:870 [inline]
+ netlink_net_capable+0x140/0x1c0 net/netlink/af_netlink.c:901
+ nfnetlink_rcv+0x13a/0x420 net/netfilter/nfnetlink.c:659
+ netlink_unicast_kernel net/netlink/af_netlink.c:1338 [inline]
+ netlink_unicast+0x71d/0x970 net/netlink/af_netlink.c:1364
+ nlmsg_unicast include/net/netlink.h:1198 [inline]
+ nlmsg_notify+0x108/0x290 net/netlink/af_netlink.c:2626
+ ctnetlink_expect_event+0x4ba/0x600 net/netfilter/nf_conntrack_netlink.c:3130
+ nf_ct_expect_event_report+0x164/0x1d0 net/netfilter/nf_conntrack_ecache.c:262
+ nf_ct_expect_related_report+0x178/0x1f0 net/netfilter/nf_conntrack_expect.c:549
+ ctnetlink_glue_attach_expect+0x2b0/0x380 net/netfilter/nf_conntrack_netlink.c:2895
+ nfqnl_ct_parse net/netfilter/nfnetlink_queue.c:1743 [inline]
+ nfqnl_recv_verdict+0x8df/0x25d0 net/netfilter/nfnetlink_queue.c:1821
+ nfnetlink_rcv_msg+0x4ff/0x890 net/netfilter/nfnetlink.c:288
+ netlink_rcv_skb+0x14b/0x410 net/netlink/af_netlink.c:2575
+ nfnetlink_rcv+0x1af/0x420 net/netfilter/nfnetlink.c:667
+ netlink_unicast_kernel net/netlink/af_netlink.c:1338 [inline]
+ netlink_unicast+0x71d/0x970 net/netlink/af_netlink.c:1364
+ netlink_sendmsg+0x879/0xd50 net/netlink/af_netlink.c:1919
+ sock_sendmsg_nosec net/socket.c:800 [inline]
+ __sock_sendmsg net/socket.c:815 [inline]
+ __sys_sendto+0x48e/0x4e0 net/socket.c:2281
+ __do_sys_sendto net/socket.c:2288 [inline]
+ __se_sys_sendto net/socket.c:2284 [inline]
+ __x64_sys_sendto+0xe0/0x1c0 net/socket.c:2284
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0xf6/0x500 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x44b1aa
+Code: d8 64 89 02 48 c7 c0 ff ff ff ff eb b9 0f 1f 00 f3 0f 1e fa 41 89 ca 64 8b 04 25 18 00 00 00 85 c0 75 15 b8 2c 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 7e c3 0f 1f 44 00 00 41 54 48 83 ec 30 44 89
+RSP: 002b:00007ffd6d44e7e8 EFLAGS: 00000246 ORIG_RAX: 000000000000002c
+RAX: ffffffffffffffda RBX: 0000000000000098 RCX: 000000000044b1aa
+RDX: 0000000000000098 RSI: 00000000004c9320 RDI: 0000000000000006
+RBP: 000000000000002c R08: 00007ffd6d44e7fc R09: 000000000000000c
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000006
+R13: 00000000004c93fc R14: 00000000004c934c R15: 00007ffd6d44e8b0
+ </TASK>
+Modules linked in:
+
+Reproducer:
+
+#define _GNU_SOURCE
+#include <arpa/inet.h>
+#include <errno.h>
+#include <linux/netfilter.h>
+#include <linux/netfilter/nf_tables.h>
+#include <linux/netfilter/nfnetlink.h>
+#include <linux/netfilter/nfnetlink_conntrack.h>
+#include <linux/netfilter/nfnetlink_queue.h>
+#include <linux/netlink.h>
+#include <net/if.h>
+#include <netinet/in.h>
+#include <sched.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/ioctl.h>
+#include <sys/socket.h>
+#include <unistd.h>
+
+#ifndef NFT_OBJECT_CT_HELPER
+#define NFT_OBJECT_CT_HELPER 3
+#endif
+
+static char buf[8192];
+static int len;
+
+static void die(const char *m) { perror(m); exit(1); }
+
+static struct nlmsghdr *msg_begin(uint16_t type, uint16_t flags, uint8_t family, uint16_t res_id)
+{
+	struct nlmsghdr *nlh = (struct nlmsghdr *)(buf + len);
+	struct nfgenmsg *g;
+
+	memset(nlh, 0, NLMSG_HDRLEN + sizeof(*g));
+	nlh->nlmsg_type = type;
+	nlh->nlmsg_flags = NLM_F_REQUEST | flags;
+	nlh->nlmsg_seq = len;
+	g = NLMSG_DATA(nlh);
+	g->nfgen_family = family;
+	g->version = NFNETLINK_V0;
+	g->res_id = htons(res_id);
+	len += NLMSG_HDRLEN + NLMSG_ALIGN(sizeof(*g));
+	return nlh;
+}
+
+static void msg_end(struct nlmsghdr *nlh) { nlh->nlmsg_len = buf + len - (char *)nlh; }
+
+static void put(uint16_t type, const void *data, int dlen)
+{
+	struct nlattr *a = (struct nlattr *)(buf + len);
+
+	a->nla_type = type;
+	a->nla_len = NLA_HDRLEN + dlen;
+	memcpy((char *)a + NLA_HDRLEN, data, dlen);
+	memset((char *)a + NLA_HDRLEN + dlen, 0, NLA_ALIGN(dlen) - dlen);
+	len += NLA_ALIGN(a->nla_len);
+}
+
+static void put_str(uint16_t t, const char *s) { put(t, s, strlen(s) + 1); }
+static void put_u8(uint16_t t, uint8_t v) { put(t, &v, 1); }
+static void put_be16(uint16_t t, uint16_t v) { v = htons(v); put(t, &v, 2); }
+static void put_be32(uint16_t t, uint32_t v) { v = htonl(v); put(t, &v, 4); }
+
+static struct nlattr *nest(uint16_t type)
+{
+	struct nlattr *a = (struct nlattr *)(buf + len);
+
+	a->nla_type = NLA_F_NESTED | type;
+	len += NLA_HDRLEN;
+	return a;
+}
+
+static void nest_end(struct nlattr *a) { a->nla_len = buf + len - (char *)a; }
+
+static void nl_send(int fd)
+{
+	struct sockaddr_nl sa = { .nl_family = AF_NETLINK };
+
+	if (sendto(fd, buf, len, 0, (struct sockaddr *)&sa, sizeof(sa)) != len)
+		die("sendto netlink");
+	len = 0;
+}
+
+static void nl_acks(int fd, int n)
+{
+	char rb[8192];
+
+	while (n > 0) {
+		int r = recv(fd, rb, sizeof(rb), 0);
+		struct nlmsghdr *h;
+
+		if (r < 0)
+			die("recv ack");
+		for (h = (struct nlmsghdr *)rb; NLMSG_OK(h, r); h = NLMSG_NEXT(h, r)) {
+			if (h->nlmsg_type == NLMSG_ERROR) {
+				struct nlmsgerr *e = NLMSG_DATA(h);
+
+				if (e->error) {
+					fprintf(stderr, "netlink error %d (seq %u)\n", e->error, h->nlmsg_seq);
+					exit(1);
+				}
+				n--;
+			}
+		}
+	}
+}
+
+static void tuple(uint16_t type, uint32_t src, uint32_t dst, uint16_t sport, uint16_t dport)
+{
+	struct nlattr *t = nest(type), *ip, *pr;
+
+	ip = nest(CTA_TUPLE_IP);
+	put(CTA_IP_V4_SRC, &src, 4);
+	put(CTA_IP_V4_DST, &dst, 4);
+	nest_end(ip);
+	pr = nest(CTA_TUPLE_PROTO);
+	put_u8(CTA_PROTO_NUM, IPPROTO_UDP);
+	put_be16(CTA_PROTO_SRC_PORT, sport);
+	put_be16(CTA_PROTO_DST_PORT, dport);
+	nest_end(pr);
+	nest_end(t);
+}
+
+int main(void)
+{
+	struct sockaddr_in dst = { .sin_family = AF_INET, .sin_port = htons(69),
+				   .sin_addr.s_addr = htonl(INADDR_LOOPBACK) };
+	struct nlmsghdr *nlh;
+	struct nlattr *n1, *n2, *n3;
+	struct ifreq ifr = { 0 };
+	int nft, q, lis, u, grp = NFNLGRP_CONNTRACK_EXP_NEW, r;
+	uint32_t id = 0;
+	char rb[65536];
+
+	if (unshare(CLONE_NEWNET))
+		die("unshare");
+	u = socket(AF_INET, SOCK_DGRAM, 0);
+	strcpy(ifr.ifr_name, "lo");
+	ifr.ifr_flags = IFF_UP;
+	if (ioctl(u, SIOCSIFFLAGS, &ifr))
+		die("lo up");
+
+	lis = socket(AF_NETLINK, SOCK_RAW, NETLINK_NETFILTER);
+	if (lis < 0 || setsockopt(lis, SOL_NETLINK, NETLINK_ADD_MEMBERSHIP, &grp, sizeof(grp)))
+		die("listener");
+
+	nft = socket(AF_NETLINK, SOCK_RAW, NETLINK_NETFILTER);
+	if (nft < 0)
+		die("nft socket");
+	msg_end(msg_begin(NFNL_MSG_BATCH_BEGIN, 0, AF_UNSPEC, NFNL_SUBSYS_NFTABLES));
+	nlh = msg_begin(NFNL_SUBSYS_NFTABLES << 8 | NFT_MSG_NEWTABLE, NLM_F_CREATE | NLM_F_ACK, NFPROTO_IPV4, 0);
+	put_str(NFTA_TABLE_NAME, "t");
+	msg_end(nlh);
+	nlh = msg_begin(NFNL_SUBSYS_NFTABLES << 8 | NFT_MSG_NEWCHAIN, NLM_F_CREATE | NLM_F_ACK, NFPROTO_IPV4, 0);
+	put_str(NFTA_CHAIN_TABLE, "t");
+	put_str(NFTA_CHAIN_NAME, "c");
+	put_str(NFTA_CHAIN_TYPE, "filter");
+	n1 = nest(NFTA_CHAIN_HOOK);
+	put_be32(NFTA_HOOK_HOOKNUM, NF_INET_LOCAL_OUT);
+	put_be32(NFTA_HOOK_PRIORITY, 0);
+	nest_end(n1);
+	msg_end(nlh);
+	nlh = msg_begin(NFNL_SUBSYS_NFTABLES << 8 | NFT_MSG_NEWOBJ, NLM_F_CREATE | NLM_F_ACK, NFPROTO_IPV4, 0);
+	put_str(NFTA_OBJ_TABLE, "t");
+	put_str(NFTA_OBJ_NAME, "h");
+	put_be32(NFTA_OBJ_TYPE, NFT_OBJECT_CT_HELPER);
+	n1 = nest(NFTA_OBJ_DATA);
+	put_str(NFTA_CT_HELPER_NAME, "tftp");
+	put_u8(NFTA_CT_HELPER_L4PROTO, IPPROTO_UDP);
+	nest_end(n1);
+	msg_end(nlh);
+	nlh = msg_begin(NFNL_SUBSYS_NFTABLES << 8 | NFT_MSG_NEWRULE, NLM_F_CREATE | NLM_F_APPEND | NLM_F_ACK, NFPROTO_IPV4, 0);
+	put_str(NFTA_RULE_TABLE, "t");
+	put_str(NFTA_RULE_CHAIN, "c");
+	n1 = nest(NFTA_RULE_EXPRESSIONS);
+	n2 = nest(NFTA_LIST_ELEM);
+	put_str(NFTA_EXPR_NAME, "objref");
+	n3 = nest(NFTA_EXPR_DATA);
+	put_be32(NFTA_OBJREF_IMM_TYPE, NFT_OBJECT_CT_HELPER);
+	put_str(NFTA_OBJREF_IMM_NAME, "h");
+	nest_end(n3);
+	nest_end(n2);
+	n2 = nest(NFTA_LIST_ELEM);
+	put_str(NFTA_EXPR_NAME, "queue");
+	n3 = nest(NFTA_EXPR_DATA);
+	put_be16(NFTA_QUEUE_NUM, 0);
+	nest_end(n3);
+	nest_end(n2);
+	nest_end(n1);
+	msg_end(nlh);
+	msg_end(msg_begin(NFNL_MSG_BATCH_END, 0, AF_UNSPEC, NFNL_SUBSYS_NFTABLES));
+	nl_send(nft);
+	nl_acks(nft, 4);
+
+	q = socket(AF_NETLINK, SOCK_RAW, NETLINK_NETFILTER);
+	if (q < 0)
+		die("queue socket");
+	{
+		struct nfqnl_msg_config_cmd cmd = { .command = NFQNL_CFG_CMD_BIND };
+		struct nfqnl_msg_config_params par = { .copy_range = htonl(0xffff), .copy_mode = NFQNL_COPY_META };
+
+		nlh = msg_begin(NFNL_SUBSYS_QUEUE << 8 | NFQNL_MSG_CONFIG, NLM_F_ACK, AF_UNSPEC, 0);
+		put(NFQA_CFG_CMD, &cmd, sizeof(cmd));
+		put(NFQA_CFG_PARAMS, &par, sizeof(par));
+		msg_end(nlh);
+		nl_send(q);
+		nl_acks(q, 1);
+	}
+
+	if (sendto(u, "x", 1, MSG_DONTWAIT, (struct sockaddr *)&dst, sizeof(dst)) != 1)
+		die("udp sendto");
+
+	r = recv(q, rb, sizeof(rb), 0);
+	if (r < 0)
+		die("recv queued packet");
+	for (nlh = (struct nlmsghdr *)rb; NLMSG_OK(nlh, r); nlh = NLMSG_NEXT(nlh, r)) {
+		struct nlattr *a = (struct nlattr *)((char *)NLMSG_DATA(nlh) + NLMSG_ALIGN(sizeof(struct nfgenmsg)));
+		int rem = nlh->nlmsg_len - ((char *)a - (char *)nlh);
+
+		if (nlh->nlmsg_type != (NFNL_SUBSYS_QUEUE << 8 | NFQNL_MSG_PACKET))
+			continue;
+		for (; rem >= NLA_HDRLEN && a->nla_len >= NLA_HDRLEN && a->nla_len <= rem;
+		     rem -= NLA_ALIGN(a->nla_len), a = (struct nlattr *)((char *)a + NLA_ALIGN(a->nla_len)))
+			if ((a->nla_type & NLA_TYPE_MASK) == NFQA_PACKET_HDR)
+				id = ntohl(((struct nfqnl_msg_packet_hdr *)((char *)a + NLA_HDRLEN))->packet_id);
+	}
+	if (!id) {
+		fprintf(stderr, "no queued packet\n");
+		return 1;
+	}
+	printf("queued packet id %u, sending verdict with NFQA_EXP and NLM_F_ECHO\n", id);
+	fflush(stdout);
+
+	{
+		struct nfqnl_msg_verdict_hdr vh = { .verdict = htonl(NF_ACCEPT), .id = htonl(id) };
+		uint32_t mark = 0;
+
+		nlh = msg_begin(NFNL_SUBSYS_QUEUE << 8 | NFQNL_MSG_VERDICT, NLM_F_ECHO, AF_INET, 0);
+		put(NFQA_VERDICT_HDR, &vh, sizeof(vh));
+		n1 = nest(NFQA_CT);
+		put(CTA_MARK, &mark, 4);
+		nest_end(n1);
+		n1 = nest(NFQA_EXP);
+		tuple(CTA_EXPECT_TUPLE, htonl(INADDR_LOOPBACK), htonl(INADDR_LOOPBACK), 0, 5000);
+		tuple(CTA_EXPECT_MASK, 0xffffffff, 0xffffffff, 0, 0xffff);
+		nest_end(n1);
+		msg_end(nlh);
+		nl_send(q);
+	}
+
+	r = recv(q, rb, sizeof(rb), MSG_DONTWAIT);
+	nlh = (struct nlmsghdr *)rb;
+	if (r > 0 && nlh->nlmsg_type == (NFNL_SUBSYS_CTNETLINK_EXP << 8 | IPCTNL_MSG_EXP_NEW))
+		printf("echo received on the verdict socket (type 0x%x)\n", nlh->nlmsg_type);
+	else
+		printf("no echo on the verdict socket (r=%d errno=%d)\n", r, r < 0 ? errno : 0);
+	return 0;
+}
+
+ net/netfilter/nfnetlink_queue.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/net/netfilter/nfnetlink_queue.c b/net/netfilter/nfnetlink_queue.c
+index a3bc00280051..a432813001e2 100644
+--- a/net/netfilter/nfnetlink_queue.c
++++ b/net/netfilter/nfnetlink_queue.c
+@@ -1724,7 +1724,7 @@ static int nfqnl_recv_verdict_batch(struct sk_buff *skb,
+ }
+ 
+ static struct nf_conn *nfqnl_ct_parse(const struct nfnl_ct_hook *nfnl_ct,
+-				      const struct nlmsghdr *nlh,
++				      const struct nlmsghdr *nlh, u32 portid,
+ 				      const struct nlattr * const nfqa[],
+ 				      struct nf_queue_entry *entry,
+ 				      enum ip_conntrack_info *ctinfo)
+@@ -1740,8 +1740,7 @@ static struct nf_conn *nfqnl_ct_parse(const struct nfnl_ct_hook *nfnl_ct,
+ 		return NULL;
+ 
+ 	if (nfqa[NFQA_EXP])
+-		nfnl_ct->attach_expect(nfqa[NFQA_EXP], ct,
+-				      NETLINK_CB(entry->skb).portid,
++		nfnl_ct->attach_expect(nfqa[NFQA_EXP], ct, portid,
+ 				      nlmsg_report(nlh));
+ 	return ct;
+ #else
+@@ -1818,8 +1817,9 @@ static int nfqnl_recv_verdict(struct sk_buff *skb, const struct nfnl_info *info,
+ 
+ 	if (nfqa[NFQA_CT]) {
+ 		if (nfnl_ct != NULL)
+-			ct = nfqnl_ct_parse(nfnl_ct, info->nlh, nfqa, entry,
+-					    &ctinfo);
++			ct = nfqnl_ct_parse(nfnl_ct, info->nlh,
++					    NETLINK_CB(skb).portid, nfqa,
++					    entry, &ctinfo);
+ 	}
+ 
+ 	if (entry->state.pf == PF_BRIDGE) {
+-- 
+2.34.1
+
