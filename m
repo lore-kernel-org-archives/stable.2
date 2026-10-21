@@ -1,64 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792593960;
-	b=nlJeCmLO8HO6HD5gQcWTwQ0YhY5Y3Oa72M96x5U3zxCfbrxOZhoggdJjvdls2wwEe1mq
-	 HkNasHWjz/6mM+FzDFO+HPIVXtn8XJu39NFve8PLQnZUkrTBWub8X1kycgsgqbSk0iGN5
-	 OscAvR+ELqc11Mnq8Fs1j4FgkrpSvDBqVLotloxBGKesBtIWXuZKKCKRCx7ykHgGQEIUb
-	 ym2+tOiFiHRX9ZgF7JEDPUYV06ZX8HS87Rbs2rtNHcuGJYr2n9w1IiT64Z/XRhhHkBHI9
-	 2lUpuTvAPAYm1kj6sQbfe2zLZJPh3/gq/pjdEgFZwT1SkNb//uTn+UE9h96oy/QPHtQ==
+	t=1792594116;
+	b=cmu6t9eNmmMf3xBeVB2em03Q+c9CdUAaSG08pLk850BnWHP/ZpUFlbRRBYwbAQ8GoMa2
+	 PjzJFc1eeDKfOplBHK8MUeG3VUCEWRC2+wkMipLTjJlkooAmepPoEbkb29Nk6VW2t/MTx
+	 pAkBVQBbqyMXSiDZimqbGU0cV9qpg5SCOIjswm193+b/YUMh6vO1MXrkGlCAPc1F0orvr
+	 EWnvDtj5Kk/OXSMS+h/sC+wlSBoS0DhVPSJh3pQybYWeNs5qBmHWhdd96B8AiTmU7O8RI
+	 Dv7sFqKdHDqiLT/hGEnGJtiKVXIB9ULLSSDddWWyeRt3KX9YtmiS7Kc9m4RuzXHZRAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792593960;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=dmI12ASRBID7pbG7Kj3YA2ZrzgqrOIsSp9SPF5rc8VU=;
-	b=Jzyhx2wJfzNsvagkrEGt8p7rjvL5KVr3iX1frBrIqdK3DtJYwhoXv1wpGd0XrGumEVxv
-	 QF+rSfd3biSWtyzaM5eSR9gatjYG09/2CsnVPl5ywsv7sRdakM/SanM0YCo5bnXtbmWct
-	 pD6Ar6qK0oE8OdqzTj53rN651nn54G9IejpkPONALVcyye3Rq5SCHoLcG/cVwdGxMHqtr
-	 HyQk1GvSROxuezTuWJhH3AdrpY6VUVhKe2giGiWsjZPDQ9aIHCKUGzOFO6Ub6WG9umHVG
-	 Oh7gQ46p+MocrIwwKeZK0JlfW26Sfr6Fj6JMBpBpybKvd5xbrQEtcHgO+2270PszBbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594116;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=YIWbERfJTI1iBuL7X4yKjCyyLdCk72QrLmM0ntXAwsU=;
+	b=S8V/7KWp44kPh6PtD3X8l75f86sMs+7eHyrT64lGjw+dYVZ5Fmrp15rq7ChnJ6wEvOEg
+	 oZbkoO0+lsqcLq/61xZEd2FOl5iOAnLNcgCgrPKxPOfzhoSz1SXrnwaqE+unJM2uBNTm9
+	 rz3+gyE6pJ2z+QmHgz2pjN4R5vygC5z5+6qXNHwnKTqNgd10R9aA+Di+0C0dPC9VA6RlQ
+	 ik64qsCB53/KimQk2JCU9t1RegLgJ51oXttR+PctSqMyQZNO3NE6w30DH95xFdgn9vqpC
+	 SCGVgYPOzJnWlxomWIa8AoZbdy2d7Sxct6Wnrjl/tydSTT0zZLQFZ3tHe4Ze4eOt9eQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=ED6NNPBb;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=j48XsJ5j;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE9F606A319;
-	Wed, 21 Oct 2026 14:45:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBE9F606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 941E3606A31F
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:48:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=ED6NNPBb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=dm
-	I12ASRBID7pbG7Kj3YA2ZrzgqrOIsSp9SPF5rc8VU=; b=ED6NNPBb8bgQDJXUMs
-	qILbSV9NC9mPowlKI5JB6DGM8Z7x6PNhDIzIxUl3YVI/Aa8Y5CwCxBccMvwJ488u
-	IQ2AjfXvxRfFByGqhFryI8lHlGVbj9wzVHvkdwjRyLGYfXPDTeJMCWkOFXV/FBmZ
-	IGi86S/RE99pKvwT4wdAAjFR0=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3998G0NhqjItXBw--.10228S6;
-	Wed, 21 Oct 2026 22:45:30 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Marc Zyngier <maz@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2 4/6] irqchip/gic-v5-its: validate MADT translate frames
-Date: Wed, 21 Oct 2026 22:45:22 +0800
-Message-Id: <20261021144524.364143-5-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261021144524.364143-1-yaojiale02@163.com>
-References: <20261021144524.364143-1-yaojiale02@163.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=j48XsJ5j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B82521F000C2;
+	Wed, 21 Oct 2026 14:48:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792594116;
+	bh=YIWbERfJTI1iBuL7X4yKjCyyLdCk72QrLmM0ntXAwsU=;
+	h=Subject:To:Cc:From:Date;
+	b=j48XsJ5jN3aeOHxSUjl+Eb1CTtYrVu9MzX7uJ8E09cV10uiWSMjITwukv/51nIEzR
+	 mNEaWufv3QCJP+pY708QNaLaYwCB2Ym0W/Oldbip3iq7u4T5zbtMyvmjOpxuPQTmR1
+	 zwTNwSXjUSQ4XUXgIx7yU1kL0mebvIKvvJ/r558M=
+Subject: FAILED: patch "[PATCH] unicode: free the map after a grace period" failed to apply to 5.15-stable tree
+To: brauner@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 21 Oct 2026 16:33:12 +0200
+Message-ID: <2026102112-reprocess-growl-c2b7@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,42 +51,149 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3998G0NhqjItXBw--.10228S6
-X-Coremail-Antispam: 1Uf129KBjvdXoWrZF18Gw45AFyfCw4xKr18AFb_yoWkGFX_Cw
-	1kWFn3JF4xKr47tw1xJr45ZrW2vw1v9Fn5uFZ0qa95Gr48Zw13XFnrX395XF4DGFnYyFn3
-	Gws8CF1fKr129jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbAwIDUUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7woHQWrY0AoTzAAA3U
 
-The GICv5 ITS translate-frame callback accesses IDs and the base address
-without checking that the MADT entry contains the complete fixed-size
-record. A truncated firmware entry can therefore cause out-of-bounds
-reads.
 
-Reject incomplete translate-frame entries before using their fields.
+The patch below does not apply to the 5.15-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Fixes: a97efa5ba594 ("irqchip/gic-v5: Add ACPI ITS probing")
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git checkout FETCH_HEAD
+git cherry-pick -x a96c5299bd7305eb984377681eb3222a57376405
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102112-reprocess-growl-c2b7@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From a96c5299bd7305eb984377681eb3222a57376405 Mon Sep 17 00:00:00 2001
+From: Christian Brauner <brauner@kernel.org>
+Date: Fri, 9 Oct 2026 23:51:56 +0200
+Subject: [PATCH] unicode: free the map after a grace period
+
+generic_ci_d_hash() and generic_ci_d_compare() read sb->s_encoding and
+dereference the unicode map while a pathwalk in rcu mode holds nothing
+but rcu_read_lock(). The filesystems that use them, ext4, f2fs and
+tmpfs, drop the map with utf8_unload() from ->put_super(), which runs
+when the last reference to the mount goes away. A lookup that is still
+inside such a filesystem at that point reads a freed map.
+
+With a pathwalk held up in utf8_casefold_hash() while the last reference
+to a casefolded tmpfs goes away:
+
+  BUG: KASAN: slab-use-after-free in utf8nlookup+0x74c/0x950
+  Read of size 8 at addr ff110001030fe658 by task walker/98
+  Call Trace:
+   <TASK>
+   utf8nlookup+0x74c/0x950
+   utf8byte+0x160/0x1560
+   utf8_casefold_hash+0x167/0x230
+   generic_ci_d_hash+0xdd/0x1c0
+   link_path_walk+0x11ad/0x1d30
+   path_lookupat+0x63/0xb00
+   filename_lookup+0x1f1/0x5b0
+   vfs_statx+0xd7/0x3b0
+  [...]
+  Allocated by task 94:
+   __kmalloc_cache_noprof+0x249/0x560
+   utf8_load+0x4e/0x570
+   shmem_parse_opt_casefold.isra.0+0x92/0x270
+  [...]
+  Freed by task 97:
+   kfree+0x1db/0x5b0
+   shmem_put_super+0x72/0x170
+   generic_shutdown_super+0x14c/0x530
+   kill_anon_super+0x3a/0x60
+   deactivate_locked_super+0x9c/0xf0
+   cleanup_mnt+0x9f/0x130
+
+So far that has been hard to hit. umount(2) waits for a grace period
+in namespace_unlock() before it drops the mount, so only a mount whose
+last reference goes away elsewhere, like the close of a file or a chdir
+out of a lazily unmounted directory, can race a walker. So it is
+reachable.
+
+Delay the free until a grace period has passed. The map and the data
+table it holds a reference to then outlive any pathwalk that found the
+superblock before the mount went away. The reference on the data table
+module is dropped from the rcu callback as well. utf8-core is built in
+whenever CONFIG_UNICODE is set, so there is no module exit that would
+have to wait for the callbacks.
+
+Overlayfs points the s_encoding of an overlay at the map of its first
+layer without taking a reference of its own. That stays correct. The
+layer is held by the overlay, so its map is dropped only after the
+overlay is gone.
+
+Fixes: b886ee3e778e ("ext4: Support case-insensitive file name lookups")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/irqchip/irq-gic-v5-its.c | 3 +++
- 1 file changed, 3 insertions(+)
+Link: https://patch.msgid.link/20261009-work-fixes-rcu-v1-6-7446d2d335e6@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
-index 28e39b065de0..dad3b95ba150 100644
---- a/drivers/irqchip/irq-gic-v5-its.c
-+++ b/drivers/irqchip/irq-gic-v5-its.c
-@@ -1233,6 +1233,9 @@ static int __init gic_acpi_parse_madt_its_translate(union acpi_subtable_headers
- 	int err;
+diff --git a/fs/unicode/utf8-core.c b/fs/unicode/utf8-core.c
+index f313532f5e80..74a74a48dd8b 100644
+--- a/fs/unicode/utf8-core.c
++++ b/fs/unicode/utf8-core.c
+@@ -3,6 +3,7 @@
+ #include <linux/kernel.h>
+ #include <linux/string.h>
+ #include <linux/slab.h>
++#include <linux/rcupdate.h>
+ #include <linux/parser.h>
+ #include <linux/errno.h>
+ #include <linux/stringhash.h>
+@@ -183,12 +184,24 @@ struct unicode_map *utf8_load(unsigned int version)
+ }
+ EXPORT_SYMBOL(utf8_load);
  
- 	its_frame = (struct acpi_madt_gicv5_translate_frame *)header;
-+	if (BAD_MADT_ENTRY(its_frame, end))
-+		return -EINVAL;
++static void utf8_unload_rcu(struct rcu_head *head)
++{
++	struct unicode_map *um = container_of(head, struct unicode_map, rcu);
 +
- 	if (its_frame->linked_translator_id != current_its_entry->translator_id)
- 		return 0;
++	symbol_put(utf8_data_table);
++	kfree(um);
++}
++
++/*
++ * A pathwalk in rcu mode may still be in ->d_hash() or ->d_compare() of a
++ * filesystem that is being torn down and read the map through its
++ * superblock, so the map and the tables it points to have to outlive the
++ * grace period.
++ */
+ void utf8_unload(struct unicode_map *um)
+ {
+-	if (um) {
+-		symbol_put(utf8_data_table);
+-		kfree(um);
+-	}
++	if (um)
++		call_rcu(&um->rcu, utf8_unload_rcu);
+ }
+ EXPORT_SYMBOL(utf8_unload);
  
--- 
-2.34.1
+diff --git a/include/linux/unicode.h b/include/linux/unicode.h
+index 64fa44fe180c..3a8cb603eb93 100644
+--- a/include/linux/unicode.h
++++ b/include/linux/unicode.h
+@@ -53,6 +53,7 @@ struct unicode_map {
+ 	unsigned int version;
+ 	const struct utf8data *ntab[UTF8_NMAX];
+ 	const struct utf8data_table *tables;
++	struct rcu_head rcu;
+ };
+ 
+ int utf8_validate(const struct unicode_map *um, const struct qstr *str);
 
