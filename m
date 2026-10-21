@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792609289;
-	b=pG2IZumfpxYi+el7z8YLWOa300PglQsJUBZu9iv0QXYX6l41l59bTqvPxUiL0bOX5wZf
-	 nipvAtevf/p1GVf3N4/BnafeH4W+IWa98BbmqXxfk3SdnYUaPjIrORr+9wdh4A6W8yeRt
-	 bQs6i/3+eh3FkTjn7Xr5A75xNym5z2knax1YuFLQ9onNJsiJRztultlXhuC+JJZHn5+PR
-	 ko8Xj2hmr5Puu4M7cuFvR8WcGoEznPaHzXbi0xL0nDFs6jJ60c0UTsMpnqnr6Z1nkAeOh
-	 WmRXGa7WK8P6mh0iImAHSOzAFnPaEmEYcVdAaY6A7fM1Ibhwc/ODJHhf9yP8741sehA==
+	t=1792609443;
+	b=CD4K1CGnCGL9Nacl/AXZNVgPFX7+T2W91VHL97ay8B6UDegKtdYhKA4Mg6x6perfznur
+	 t3LnzSIrhktWRxTTt/m9hCuZJx/eo7Zt9o2dp40Cq9BE1zpxOYQGUth3Y9mjbcUQjJI8l
+	 c6fdihMW0fbxr6WtHYfuxlHlzFs6Bq46ZXFfODC8V8PwlN1Y9hA2B+UMxSrte/TZkGpfl
+	 W5u27VZ7eHwH5crMD8VjODvWgwX4RaApj6d4ZOPW2lxcZoRtQmshYixl8Rg1N59zotW/k
+	 +khIlMZDodexD3gH1edNp/RJmRUb9TYR5P3gBCDP+i94Q5K82J/NQskpsc4lJrXfN7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792609289;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792609443;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=PRe2NYJxuhncsR4aT3ffbxqidw3GkmS5s7J2yFuY5Wg=;
-	b=hH+isxh52xxapZ36OrU+k5MPPKigeWavw4a17WiCSIMwPCZFvidCAe3AOG6yBbRFnF9Z
-	 jKuMsDJsHDHFtvNqBD2Hm6XjLbkZUnKu6fgfqDTSZjqqflg9RWOjuSGKeMqtcSXbnAS6o
-	 y7WmMo2P2+O6izZ4sVgNt7Z8cWgEymwDtpDsbXRZkuObAPajQ1f3OFVcCaRm/53euEyOY
-	 d9tU5FQJqPJdxAe8dgB7Y1UAhNv2Pknzq4os6hs6GFt5pqwK/euaLtli/XjLNa/8Z8A3F
-	 Qz1T06UGIGusmTAkeW/n7hHeTcUrcNlTtuUD/njb5XIvbP3TCJabF8Xob/paJDy+D0A==
+	bh=n8U3NPb6qJjh33S8/t0CTqr/1TXqpv+wOJ21D7k9Jjk=;
+	b=UC1j0QhC82yCcKwzGBN063p3GzRg7C69oW/KBlunRdFssY+UclE8TUQ0TE96exQ4WFGm
+	 AKTd2ePCeRm87Sp0xdfIiPyC+LAA1M+S44xZviv9to042h3xJg6SRTGlyZLb1XaOhWd+C
+	 PWECW6V0LFpJnmxo+eDM+EF4KdAITSFJj4m25cUOdq06V5MfK46DxAi2rn/5fpkjBSAlD
+	 1wzE2hcVEk/98bpdNRT0t83hm+fsMcbTB1vnb5KQhLgVgE3B1SD+E/mOI5yvaWpHktDxD
+	 usI8S3FkcSMURseN7eMJh24KUvAWeHz++zkoZ47iqiNXNA2Z+qKWuOnOCEc4DySF6lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOni2VZV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iF4rFlar;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8D9606A31A;
-	Wed, 21 Oct 2026 19:01:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB02606A319;
+	Wed, 21 Oct 2026 19:04:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOni2VZV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 147DB1F000C1;
-	Wed, 21 Oct 2026 19:01:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iF4rFlar
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20EDC1F000C1;
+	Wed, 21 Oct 2026 19:04:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792609288;
-	bh=PRe2NYJxuhncsR4aT3ffbxqidw3GkmS5s7J2yFuY5Wg=;
+	s=k20260515; t=1792609442;
+	bh=n8U3NPb6qJjh33S8/t0CTqr/1TXqpv+wOJ21D7k9Jjk=;
 	h=From:To:Cc:Subject:Date;
-	b=NOni2VZVMGgGp5CQiYLq8aRma5CPEiWa9jfGg4tGj21+VVrnAq4ekmHJ8N+6isZ88
-	 +u324KOgg2yuKbJ9XMz9Qo1DkzwGYrPXO8X2GeAk0GVeG1IncLAzTI4thLuxviz/DN
-	 zjLpotDY/mXW5fMresvQF/sXsQJvj3+FIV7r8CM/gnyCanwFnjr5nRs3q1nhVb5GiA
-	 F03WNTWODGLYmONUi/fIBmiwcbyQSMUsbWEivQTV8Go8qFF89MvXjtPE8yjmCig9LO
-	 9c+ZANP4VH9YuAIKzjwlfBpdUu0XItygv3BmaJJ2CMEVAJPxEJQGnFeZvmJnel8moC
-	 D9hPJUbMPviCA==
+	b=iF4rFlarNDUzt0Pu+RPkNWNasD01VPEbRg3XHxJCU9XoxEt/De8/bJlnPQIAcq3hv
+	 pkzF+gssYeGtkih9uVBCCSofWTm9Pl8/2Ivr55M6Z5MhxShUNzi10H1zpFaLhEfYq5
+	 fmMWO56djQgCNELQA2dDdSF6HcWZvncx+bQwV57gOZGTcADHryIgcZade9FpdH49LL
+	 +bt5HaX425QuppusFjKSz+53P5RrJxv2RwxiUa1R4GzDkWx/sQBarGn7vEop1bV4QG
+	 vBjNkMgKnOop22tkYOqfTNtzvkmgC7Oiz4fkyqmRkspuaGQRi9dVbhWB8cDdEer63O
+	 am2V/0FVcaVgw==
 From: Imre Kaloz <kaloz@kernel.org>
 To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
 	linux-mips@vger.kernel.org
-Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] MIPS: c-r4k: Flush the cache error vector before writing it uncached
-Date: Wed, 21 Oct 2026 21:00:20 +0200
-Message-ID: <20261021190020.20954-1-kaloz@kernel.org>
+Cc: stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] MIPS: SGI-IP27: Install the cache error vector on every CPU
+Date: Wed, 21 Oct 2026 21:02:53 +0200
+Message-ID: <20261021190253.30128-1-kaloz@kernel.org>
 X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -60,55 +59,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On R10000-class CPUs, a store prefetch while copying the preceding
-vector can leave a dirty line whose write-back overwrites the uncached
-cache error handler. Flush it first in r4k_cache_error_setup() with
-r4k_dma_cache_wback_inv(), as dma_cache_wback_inv() is a no-op on
-coherent systems.
+The hub flips the low 128K of the CKSEG1 (attribute 0) uncached alias
+per CPU slice, and the cache error vector is fetched through it.
+trap_init() writes the vector through TO_UNCAC(), which is not flipped,
+so only slice 0 sees it. Copy it to each secondary CPU's slot as it
+comes up.
 
-Fixes: e01402b115cc ("More AP / SP bits for the 34K, the Malta bits and things.  Still wants a little polishing.")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
 Signed-off-by: Imre Kaloz <kaloz@kernel.org>
 ---
- arch/mips/mm/c-r4k.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ arch/mips/sgi-ip27/ip27-smp.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
-diff --git a/arch/mips/mm/c-r4k.c b/arch/mips/mm/c-r4k.c
-index d8aadd3dc057..ae31966ac65b 100644
---- a/arch/mips/mm/c-r4k.c
-+++ b/arch/mips/mm/c-r4k.c
-@@ -743,8 +743,6 @@ static void r4k_flush_icache_user_range(unsigned long start, unsigned long end)
- 	return __r4k_flush_icache_range(start, end, true);
+diff --git a/arch/mips/sgi-ip27/ip27-smp.c b/arch/mips/sgi-ip27/ip27-smp.c
+index 62733e049570..0fef66b86959 100644
+--- a/arch/mips/sgi-ip27/ip27-smp.c
++++ b/arch/mips/sgi-ip27/ip27-smp.c
+@@ -7,11 +7,13 @@
+  * Copyright (C) 2000 - 2001 by Silicon Graphics, Inc.
+  */
+ #include <linux/init.h>
++#include <linux/string.h>
+ #include <linux/sched.h>
+ #include <linux/sched/task_stack.h>
+ #include <linux/topology.h>
+ #include <linux/nodemask.h>
+ 
++#include <asm/addrspace.h>
+ #include <asm/page.h>
+ #include <asm/processor.h>
+ #include <asm/ptrace.h>
+@@ -133,6 +135,18 @@ static void ip27_init_cpu(void)
+ 	per_cpu_init();
  }
  
--#ifdef CONFIG_DMA_NONCOHERENT
--
- static void r4k_dma_cache_wback_inv(unsigned long addr, unsigned long size)
- {
- 	/* Catch bad driver code */
-@@ -786,6 +784,8 @@ static void r4k_dma_cache_wback_inv(unsigned long addr, unsigned long size)
- 	__sync();
- }
- 
-+#ifdef CONFIG_DMA_NONCOHERENT
-+
- static void prefetch_cache_inv(unsigned long addr, unsigned long size)
- {
- 	unsigned int linesz = cpu_scache_line_size();
-@@ -1684,6 +1684,14 @@ static void r4k_cache_error_setup(void)
- 	extern char __weak except_vec2_generic;
- 	extern char __weak except_vec2_sb1;
- 
++static void ip27_init_secondary(void)
++{
 +	/*
-+	 * The handler is written uncached. Copying the preceding vector
-+	 * may have left a dirty cached line of it behind, through a store
-+	 * prefetch or a speculative store; write it back and invalidate it
-+	 * first, or its later write-back overwrites the handler.
++	 * The hub flips the low 128K of the attribute 0 uncached alias per
++	 * CPU slice and the cache error vector is fetched through that alias,
++	 * so the copy trap_init() made through TO_UNCAC() only serves slice 0.
 +	 */
-+	r4k_dma_cache_wback_inv(ebase + 0x100, 0x80);
++	memcpy((void *)CKSEG1ADDR(0x100), (void *)TO_UNCAC(0x100), 0x80);
 +
- 	switch (current_cpu_type()) {
- 	case CPU_SB1:
- 	case CPU_SB1A:
++	ip27_init_cpu();
++}
++
+ static void ip27_smp_finish(void)
+ {
+ 	hub_rt_clock_event_init();
+@@ -182,7 +196,7 @@ static void __init ip27_prepare_cpus(unsigned int max_cpus)
+ const struct plat_smp_ops ip27_smp_ops = {
+ 	.send_ipi_single	= ip27_send_ipi_single,
+ 	.send_ipi_mask		= ip27_send_ipi_mask,
+-	.init_secondary		= ip27_init_cpu,
++	.init_secondary		= ip27_init_secondary,
+ 	.smp_finish		= ip27_smp_finish,
+ 	.boot_secondary		= ip27_boot_secondary,
+ 	.smp_setup		= ip27_smp_setup,
 
 base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+-- 
+2.47.3
+
