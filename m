@@ -1,47 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792608821;
-	b=XDXtoyQkZvT/MO/t80UOScxeiHudZAn0rwKOB0eA0t36u5H6EbVVwwe0tECYGmQOl50I
-	 CzYeLmIywMMz7GUsDx6bYC21yDB5THVmi9IWH3I6xyjZMnOJ0N5T+fqoPs8enLP0K2zAB
-	 Enwaab5SmEBc37UvuRASYxQfBzij4hDaG5QIONQVl4MqJrCbcxeWRknc1UmF8Y8BiggQU
-	 8nuVbWSKvTBvqWgoCDkjcxZtPR5tPNLkX0i0p01U4YznUhs9yiJHc0/LELpuSMZtdfdLA
-	 nOLjGGHu+bHz03O5kqWn8lfLyCAbP/NMwmm+fxSAGKiUPCbrUfXgQULj2OFcBGYhnKA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792608821;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=LNBtaaADrjuie4hs9LMEj8wsMQkpS1JPr6xfz8m980Q=;
-	b=1mTE67+7E5McX9LO+odE2UmjwubEPrPFMiknColoBZpfgiXZRN9vSoGx6itulRNMgp9M
-	 M2WC/o1L+f0O3Qqk2HwXM0fxbw9S2GSsaCWgqYAk6EJzjshLp0gqwojgsN2fgHTKpU4p7
-	 /tJf1gmyNoGAa381LDts8N0usfYjnU599MPR8IrEGyHNNZen8brsJFsrUq6UB7JWCer5B
-	 31WavafDwG+Nb+HkCxJtjDdGQSFKrCIEJdpJDBZLv5AMgrKTo1yhY+FS09TlaJy7kXNiN
-	 70m6/G8OGMN/bHPS8eP80FCHFpL8g8jrHEzs8+yf4D281HuIm07aPLbHjGrYu58CwCg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QZVnHdjr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792609055;
+	b=mdW0kQPMHkNwsbjXUSGvbRJZBFIazynUqCid0yeeIR9oOeB1vbCLGbtqF8r8+KTtO7L+
+	 gV58scNIyI7+vgtI6P13I0u9p0AboAqlVECPM4IFl4hogTHklgNDCuDAMKhB3/lmTGs2i
+	 o1R7liOCaBlSiTsaA+77WQ8OPddTVONRShEzZbIp29iuGp3Pn4Oa/WgshRDozHDUF+dY6
+	 P57ja8x4BXyOgQOFRzqKo/RmFAlE/8RGy3iKV8ts6H92y+R+dy5ah5rX8FEKz7y9ho4rt
+	 ruxfKQSeybXUR9uE3k45FURloCkRKkuATGiev2GoO+jjY7KrIH1VHd88Lxjz80304VA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792609055;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=lxU+fpXdNAqE/uzoh+966DgHUBkiqVjMoTjja5oXr5o=;
+	b=1MLkHEm32vFpnIGLmN45zsSx2a7jydpxLmoS+So7ioSR8blDjqwgIPMadzG03yV1p9/p
+	 44vzAvmDHvhIC7pu79cUFi/XMyRNecBCqI86NI5YGTGrevxyvVYX/xfnem9aKOUCJ3R0l
+	 7Yef3Iq8AYRpx4VAwIGd3S68uxby0nia31qqqrckOPjGd7ph1FmZ7XMhD2XeOXmGd+QrM
+	 MOlpPtkZBXWKDFKJqVAj/Ghjz2LkNTpVzdOCAOApK0Wtgj5NOVZCCMY1HbOKwu05CGQiW
+	 VdepVviPpNpldQ/JOmp7CB1tXvIqiSQegMBLLE/n2Qi6/AbxIeRhcc5vWHW/HlGLCgw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bmVclC5M;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.51
+Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEDA3606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 18:53:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00FE1606A31D
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 18:57:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00FE1606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QZVnHdjr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D001E1F000C1;
-	Wed, 21 Oct 2026 18:53:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792608820;
-	bh=LNBtaaADrjuie4hs9LMEj8wsMQkpS1JPr6xfz8m980Q=;
-	h=Subject:To:Cc:From:Date;
-	b=QZVnHdjrS4Chp1mcOzEs9UYoje2AZaZU2MTEaylLeRi3WUNTXo/l3t3D/p5H+rIGZ
-	 nAe3JIqrWunY1tWfwpjtYU4WXGVbk1j9sNmAMgdH9DqdQwAumtouKmMfbDWt2kIjwV
-	 NI9z7ZNzBVtorbP1172lB/e+xk9Ik/qjg9fwFVQs=
-Subject: FAILED: patch "[PATCH] x86/kvm: Don't consume async #PF flags on a kernel #PF in NMI" failed to apply to 5.15-stable tree
-To: ejc3@meta.com,pbonzini@redhat.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 20:50:16 +0200
-Message-ID: <2026102116-motion-upchuck-3417@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bmVclC5M
+Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-917b78dfe30so14931296d6.0
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 11:57:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792609053; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HsvnbOsYUjmAEM/8FZWytye4dVWrjMR3zUvM60IzRm/bnnr47Qmm+Rj/GWxCw05DQP
+         8dmGAPXiWPjW/00bV82lSGIQxlwgLmd1w58uqrFbSFhTcmRTfOCdjC4vavxkLH6LlPmI
+         VhF4oy5QMDHfYzrnaZC9rQNf58CCICaVNAaW2bJwNA9+l/zaIAURdOJqe30gzTdfsnZI
+         AEuTV1rOHDWU4hBjDHlficG2VMJq06bz8bY6/tb7WYmbQyPCtjbUlIT1SJvEfdEI7Vaq
+         OmWWavstfw1yPBazxkwCw0XY0A6FN/aWaJzqYwiVFVCMJlNILfPw8TE9wCriuRY76JVY
+         kF1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lxU+fpXdNAqE/uzoh+966DgHUBkiqVjMoTjja5oXr5o=;
+        fh=nuUfgF4391CHcZtTPKmjA3O7ZWcTbA008lkL9ZoSB9g=;
+        b=hz2b5gG/uILKFH0XYGun2WEzLsmb0Gbl0n+hqCGTfG0flNaJfONksYsVEryZtyGozf
+         c3qR2lNMesDIz08Io68Vy1ibPRNIyPOEmLpJJnqwoTtrJt7K+0QPdYulyQ/vs+GC069/
+         /thMgIktDTl/6Etalt1gNTMRHal/F/UFVmwH8QKCLnHYbRtu0Jyc+doxN/Oj02ivY0y4
+         vJHQAWzdduMqS1zK+bKdeQ3nB+ZCSpfdYhKB2PyZa6/ELZ2go2w2p1v4ttigjcO3JFMf
+         KplLaMGIkHHv7cuJZ7EjtIV5OiyrIslVNmy1rswfwr5upo9Gp3mO3R05Kair6QtEJNkE
+         CGwA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792609053; x=1793213853; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lxU+fpXdNAqE/uzoh+966DgHUBkiqVjMoTjja5oXr5o=;
+        b=bmVclC5MlwrTR45BapWQgbddpL/QxFqMLlQtOhGHP08FQUvEZuWo3GWybvcGgbhhx5
+         CWqqf7dJuQqmHyZQAiiycqSDdSXitDAT0MaC6S6UiFQ8Nm0sQu+TlAhY6S+5IeYPdZiW
+         RzJakPeQWusbAGhcqb/WPvIFeQDMqGQOT1gB6wTdDou/74bERRmvj+zCS9x6jnHqLNA5
+         qpDWoxDYmzaV5IVY+K+W/18QWkty48TAWqaQq2NsmOpQbohk5Z7MhbbkB4N0D+ZcxCsv
+         q3nELFMt5li1271WxJim9KthYN/1ypAwRUntNRrxQAmX5v2dBTaod9gLrg1OhCr07RZK
+         2KBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792609053; x=1793213853;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lxU+fpXdNAqE/uzoh+966DgHUBkiqVjMoTjja5oXr5o=;
+        b=Smrq8AF1rQA8P8+e8gUTzFwIgb28YWVzcwO29HWypKNmb0R7GmcxVrwHT7G51v71SV
+         m4zZkGkk7KsA7hpElzcoeHNdfdP08wm8QG7GRRhXAu1RRmUFlf4+lFRmggcyGcoZg0oK
+         3swHLwPmsFgM3ZofHbGyqpw8WO/0FkqS2ud+BHXpDI84j0wrl0mGS8Oqn8mndhkY5NMo
+         TRBmDSLp4jnL1QM3KDD3hnhT/c2QPZCSOph1I28yu7/j5EXFQiVn3JJ5Psd7Rh/d+27k
+         thx8GsWsRd7ouI62SqDusFPjY8Cz349Zf0eE6rgKk3BK5xmwGnDJLaQSmkuehnN0PVEt
+         QyvA==
+X-Forwarded-Encrypted: i=1; AKwUvBxJJeORvNdTSoEdRRWx3M0PzAnjtv75+T24NP2ShBQTrxTUVwqqoN27p14iI/6mBL6nXWWfL/s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ6evTKGRPXqx4yChneGgCdYHTzsKALHceTrqb7cMvHlEIUjIMD
+	UsikGxkLyYSFoIDLd2D+l2P9XRxQhH+t9Lp4ThV6q/Cf6moAi5rmeSLx3BvCYPOwEPFSLQ4bJz4
+	9gP2JQfBVleNyIZQGS3fIphjZrZQm/uA=
+X-Gm-Gg: AYBFou0ha3DzXOLQ32UCuz3lFArCJ0PnP4v41kQqJJJoXb4B03NxNv9VTWCjM1gvWXk
+	hfhSCHQJ4IjVSFven5RcPykFaEX/JaU5qmYiNWc/prQ+rmBLfM3uEBR2lIZu/3P9f+3bTxZTm9k
+	I72FKAQEejuppfGBbm4X8go5lWbUHFY4+shiCY745sDZIPK6WOVk+S4tfV+0DX9GnEYorqPY8pj
+	mTXoJD6IwI509koZYafZR1EHisZiKXxJCjpoTJIANGBhZHzjpEmDOFwbbr2LQQc1naAqH68OOiu
+	mz6T9TqHgrIbOn0+mQn1aWA/UhN07RQomt5gERxsjgwlpJ0y7pF8ypFZTfSCX6+YtdM5QuxnlTb
+	RldNtM9f9gdSV8W4ZfSAm8Zp7NlJG1BskyyME
+X-Received: by 2002:a05:6214:410d:b0:912:517b:40fb with SMTP id
+ 6a1803df08f44-91c12f1f4ebmr46726246d6.45.1792609052612; Wed, 21 Oct 2026
+ 11:57:32 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,154 +104,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+References: <20260927041138.4112920-1-jinmo44.yang@gmail.com>
+ <20261018124755.850888-1-jinmo44.yang@gmail.com> <20261018124755.850888-4-jinmo44.yang@gmail.com>
+In-Reply-To: <20261018124755.850888-4-jinmo44.yang@gmail.com>
+From: Jason Gerecke <killertofu@gmail.com>
+Date: Wed, 21 Oct 2026 11:57:21 -0700
+X-Gm-Features: AclHuK9stdHp_EZ12QZ6ixOiQE0-gFWmsBr9NPmTz86JK-NBRQoQJ6Axr2WSgaA
+Message-ID: <CANRwn3QaVYAvFHS-oLqChjCyhGdMFnmMvOS-jBCV7m4=cLYcpg@mail.gmail.com>
+Subject: Re: [PATCH v3 3/6] HID: wacom: add NULL pad_input guard to wacom_intuos_pad()
+To: Jinmo Yang <jinmo44.yang@gmail.com>
+Cc: ping.cheng@wacom.com, jason.gerecke@wacom.com, jikos@kernel.org, 
+	bentiss@kernel.org, dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	"Claude Opus 4.6" <noreply@anthropic.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Sun, Oct 18, 2026 at 5:49=E2=80=AFAM Jinmo Yang <jinmo44.yang@gmail.com>=
+ wrote:
+>
+> wacom_intuos_pad() uses wacom->pad_input throughout, but pad_input can
+> be NULL when wacom_setup_pad_input_capabilities() returns -ENODEV during
+> a successful probe.
+>
+> Place the guard after the data[0] report-ID check and return 1 so the
+> report is consumed. Returning 0 would let the caller fall through to
+> wacom_intuos_inout(), which would misparse the pad packet as a pen
+> event.
+>
+
+The other intuos functions (wacom_intuos_inout() and
+wacom_intuos_general()) reference pen_input and a rough evaluation by
+eye makes me think that they are susceptible to the same kind of
+issue. I feel like it would make sense to add a check for non-null
+pen_input at the top of wacom_intuos_irq() to protect its helpers, in
+addition to the pad_input check you add in this patch.
+
+> Fixes: 10059cdc0ad0 ("Input: wacom - split out the pad device for Intuos/=
+Cintiq")
+> Signed-off-by: Jinmo Yang <jinmo44.yang@gmail.com>
+> Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+> ---
+>  drivers/hid/wacom_wac.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
+> index bec8dbec5bc3..65829de86363 100644
+> --- a/drivers/hid/wacom_wac.c
+> +++ b/drivers/hid/wacom_wac.c
+> @@ -581,6 +581,12 @@ static int wacom_intuos_pad(struct wacom_wac *wacom)
+>               data[0] =3D=3D WACOM_REPORT_CINTIQPAD))
+>                 return 0;
+>
+> +       if (!input) {
+> +               dev_warn_once(&container_of(wacom, struct wacom, wacom_wa=
+c)->hdev->dev,
+> +                             "%s: pad_input is NULL\n", __func__);
+> +               return 1; /* consume the report to prevent fall-through *=
+/
+> +       }
+> +
+
+Returning a non-zero value will trigger an eventual input_sync() at
+the bottom of wacom_wac_irq(). Realistically this shouldn't matter
+since we would never expect a null pad in normal operation (so these
+spurious syncs are unlikely), but it still kinda pokes me the wrong
+way. I feel like update wacom_intuos_pad should be updated to follow
+the same return convention as the other intuos_* functions where
+wacom_intuos_irq() has a "return result -1" to allow functions to
+signal "handled, but don't sync".
+
+Jason (she/they)
+---
+Now instead of four in the eights place /
+you=E2=80=99ve got three, =E2=80=98Cause you added one  /
+(That is to say, eight) to the two,     /
+But you can=E2=80=99t take seven from three,    /
+So you look at the sixty-fours....
 
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
-
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x 81d99abe2bd81379abfb595e403bbbee6fbfc624
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102116-motion-upchuck-3417@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
-
-Possible dependencies:
 
 
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 81d99abe2bd81379abfb595e403bbbee6fbfc624 Mon Sep 17 00:00:00 2001
-From: EJ Campbell <ejc3@meta.com>
-Date: Tue, 29 Sep 2026 11:12:32 -0700
-Subject: [PATCH] x86/kvm: Don't consume async #PF flags on a kernel #PF in NMI
- context
-
-An async #PF "page not present" event arrives through the #PF vector,
-and its reason sits in the per-CPU apf_reason.flags until
-__kvm_handle_async_pf() reads and clears it. If an NMI arrives after
-the event is injected and before the #PF handler reads the flags, and
-the NMI handler itself takes a #PF, that fault reads and clears the
-flags belonging to the #PF it interrupted. It then finds interrupts
-disabled in the NMI context it interrupted, and panics:
-
-  Kernel panic - not syncing: Host injected async #PF in interrupt
-disabled region
-  Call Trace:
-   <NMI>
-   panic+0x52/0x60
-   __kvm_handle_async_pf+0xb0/0xb0
-   exc_page_fault+0x71/0xb0
-   asm_exc_page_fault+0x27/0x30
-  RIP: 0010:__get_user_nocheck_8+0x6/0x20
-   perf_callchain_user+0x147/0x1a0
-   get_perf_callchain+0x12d/0x1c0
-   ...
-   perf_event_nmi_handler+0x26/0x50
-   exc_nmi+0xe8/0x110
-  RIP: 0010:asm_exc_page_fault+0x0/0x30
-   </NMI>
-
-The last RIP line shows the NMI landing on the first instruction of
-the #PF entry. perf with user call chains takes such a fault: the
-sampling NMI walks the user stack with __get_user(), which faults when
-a saved frame pointer is not a valid user address or the walk runs off
-the top of the stack. The same window exists when KVM, running as an
-L1 hypervisor with DELIVERY_AS_PF_VMEXIT, reads the flags itself after
-a #PF VM-exit.
-
-The NMI entry code saves and restores CR2 for this nesting, but not the
-async #PF reason. Andy Lutomirski described the race, with perf as the
-example, when async #PF delivery was reworked in 2020 [1]. Saving and
-clearing the flags across the NMI, next to CR2, was discussed there but
-not merged.
-
-Since that rework, Linux has stopped setting KVM_ASYNC_PF_SEND_ALWAYS,
-so the host delivers "page not present" only for user mode faults and
-a kernel-mode fault in NMI context (including kernel-mode #MC and #DB)
-cannot be an async page fault.  In that case, return without touching
-the flags so that the interrupted handler finds them intact.
-
-Tested on v7.3-rc5 in a 4-vCPU, 2 GiB guest restored from a snapshot
-whose memory is served on demand through userfaultfd, so that reading
-it back takes async #PFs, while every thread samples hardware cycles
-with user call chains and points its frame pointer at an unmapped page.
-Without this patch the guest panicked as above in 3 of 3 runs. With it,
-the guest survived 3 of 3 runs of 60 seconds, and the host counted
-148,441 to 153,334 kvm_async_pf_not_present events in the first 20
-seconds of each. On 6.18.50 the results were the same: the guest
-panicked without the patch and survived with it.
-
-Link: https://lore.kernel.org/all/ed71d0967113a35f670a9625a058b8e6e0b2f104.1583547991.git.luto@kernel.org/ [1]
-Link: https://lore.kernel.org/all/20211126123145.2772-1-jiangshanlai@gmail.com/ [2]
-Cc: stable@vger.kernel.org # v5.9+
-Signed-off-by: EJ Campbell <ejc3@meta.com>
-Link: https://patch.msgid.link/CADkxfh-uQTca_6jB1JPDq1MsKffF_UKGQR339oQSJNcoV75GNQ@mail.gmail.com
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-
-diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
-index 6b0a5861ccb8..d8dd2cadcbf7 100644
---- a/arch/x86/kernel/kvm.c
-+++ b/arch/x86/kernel/kvm.c
-@@ -265,11 +265,39 @@ noinstr u32 kvm_read_and_reset_apf_flags(void)
- }
- EXPORT_SYMBOL_FOR_KVM(kvm_read_and_reset_apf_flags);
- 
-+static __always_inline bool kvm_apf_reason_pending(void)
-+{
-+	return __this_cpu_read(async_pf_enabled) &&
-+	       __this_cpu_read(apf_reason.flags);
-+}
-+
- noinstr bool __kvm_handle_async_pf(struct pt_regs *regs, u32 token)
+>         if (features->type >=3D INTUOS4S && features->type <=3D INTUOS4L)=
  {
--	u32 flags = kvm_read_and_reset_apf_flags();
- 	irqentry_state_t state;
-+	u32 flags;
- 
-+	if (!kvm_apf_reason_pending())
-+		return false;
-+
-+	/*
-+	 * The guest does not enable KVM_ASYNC_PF_SEND_ALWAYS, so the host
-+	 * delivers async #PF only to user mode (or as a #PF VM-exit, which KVM
-+	 * reads itself). A #PF from kernel mode can still arrive between that
-+	 * delivery and the read of the reason flags, inside an NMI that
-+	 * interrupted it, for instance perf reading user memory for a call
-+	 * chain. Such a fault is not async, so leave the async PF flags
-+	 * untouched for the outer handler.  Outside NMI context, on the other
-+	 * hand, async PF flags on a kernel-mode fault mean the host is broken.
-+	 */
-+	if (!user_mode(regs)) {
-+		if (likely(in_nmi()))
-+			return false;
-+		state = irqentry_enter(regs);
-+		instrumentation_begin();
-+		panic("Host injected async #PF in kernel mode\n");
-+	}
-+
-+	flags = kvm_read_and_reset_apf_flags();
- 	if (!flags)
- 		return false;
- 
-@@ -285,8 +313,6 @@ noinstr bool __kvm_handle_async_pf(struct pt_regs *regs, u32 token)
- 		panic("Host injected async #PF in interrupt disabled region\n");
- 
- 	if (flags & KVM_PV_REASON_PAGE_NOT_PRESENT) {
--		if (unlikely(!(user_mode(regs))))
--			panic("Host injected async #PF in kernel mode\n");
- 		/* Page is swapped out by the host. */
- 		kvm_async_pf_task_wait_schedule(token);
- 	} else {
-
+>                 buttons =3D (data[3] << 1) | (data[2] & 0x01);
+>                 ring1 =3D data[1];
+> --
+> 2.53.0
+>
+>
