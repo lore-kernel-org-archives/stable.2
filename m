@@ -1,47 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595581;
-	b=XsOSVxMi7NK+VwQt+iNvYjA9m6FIffjhT2qPURP1i6eVa1H5Q9PZ3h8jAob8tTkRw4us
-	 VUPdpkbZ0WxQbvHA3LmousOF1LVFipQTG4l7JCeBDU48XXgOg3PPFj7NiFxaQJCviSQV5
-	 RVuP+/bWAM/68IHQva1Tv6qMrZSMjvw71CwhxGdkqoHYwoUETjhsMrLsu/kxEzgjoKLqr
-	 AbNHPBX1NNeHlOFqXmWgHyymf1tHJndVpGsNl9vbNAqC8vXG3o8hk4aDbSEAvOYgmbQ9x
-	 D4ytw+DB8oee+Z2FR05n7l4gx4uNbJWvkmkSK0vAnD0i4Bn0e3xZ+WYTLf8dvkBv/yA==
+	t=1792595669;
+	b=GoGpkM9cyw+eQJ49hAVzi7iFjEFl9VcIQF7/m+JjZIRyIGnmVtFUykEAYnS5S3i1HE5k
+	 K1ns5I2SfYxI8m44F4GwFIPwMAb+1uOfcvTlDcaOem2ykQabBnnFX1aKS5CgzbjQReWk7
+	 EbCkLJc/tTGg7EOpptC/UOk9qsArDKiHo7SGYbSkazIVrz2KH+YpU37iLs/lFYw0A+KWp
+	 SSY6k08LsIKQcWo+7hJJ1r+NP2yCw1KDoZPxkoluN5K1N4CRk80SF69XkpjSzw8Gzrn4Q
+	 zHazYseLXfRrxWMNYCvvmvgehRSuv2QnVCFEsFVr698Hk1h6xrQDdJYHCayfHYfr6Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595581;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=jEw/KdOfOErUW2SuDHV0LcQht8o2qarpcFTEkJy1enA=;
-	b=EM5dgEuNGGwX6p9H2J0Jo+3bhC0qV5U4gGgnPWh0upLihTudgIn7/70drksvYq73IycM
-	 2dBTnaJwvhdaQMLUG33qQHi9wTLStVF3xUj9vKhogqP+ZOCrQzXOrrwG4PygeERO/51jz
-	 nSsGf8UKa8AK3ddmO9r9284/9Ui0dgOpsqm7tB1EI+veUbznnnSELw9ueEtLptpghu0Zp
-	 xG/m/llu2ToCe6hoW1bqVIrrGdWCb0V3OusQb8dUDieR6UWKrOWYL78SjlXfI+LHdACIV
-	 yWh6Jl3uFx4/Tct53STyat0iUGVy8xx+KgwK4/GNkxfb6e3m2eVzrdIvouq44aV5XLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595669;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=0YZLYsLs1zDQz5M0rn0ZPlb3pIBZFLCQPnvXndpW+/w=;
+	b=oVYDXGtsO68iY8PDV1EC14d8czYhcgasNrNxHgDcDW8rAFsvjin5MFK662lV3g167zVl
+	 gAuvS2MkDlrEnLEngzf9wnxsxkw+FxQ8WIgSBOEGmnnAC++Plu26/DCKzjV2z87T6lAoi
+	 Nb0eNPsDY9KdBVkA2dLOHG3G1n8S/xyB8aUdd6hjEWhF1tJbafN6fWv59QGthifXj9HDp
+	 MBqJO5eeYB+RW3F21+GC9Hqkz1xCIm3DK3aFG9z0TMccuP2ATbmQZ5qsrL1ZCF8Ha7mEl
+	 q+lFvEAF3gexQXe1dGXFD1q3YclXLE+VA91oWkSc80jKR6R9wM8YjMWg+8DOuhtBd2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zgI5k8R8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=hk8eLAfv;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70968606A31F
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:13:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2CA0606A323
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:14:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2CA0606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zgI5k8R8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2A141F000C1;
-	Wed, 21 Oct 2026 15:13:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792595581;
-	bh=jEw/KdOfOErUW2SuDHV0LcQht8o2qarpcFTEkJy1enA=;
-	h=Subject:To:Cc:From:Date;
-	b=zgI5k8R8xtqTP8J0jrQUPnaV/0+iVDCaW8aH36qTvjS0jvuOEiY5nDPE7ltOQogiQ
-	 JCBRuJ0TbNxfTCfnjwLWSDIMMWl58awLSWEDAugijBrLOS8VL773KCZfBOH8ff2sUI
-	 2hSXX2lhHgwSrdGo78J2vE+QMJTRfqrC8uGNubnk=
-Subject: FAILED: patch "[PATCH] io_uring/cancel: don't spin on local work the task can't run" failed to apply to 6.12-stable tree
-To: cenzhang@linux.microsoft.com,axboe@kernel.dk
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 17:10:28 +0200
-Message-ID: <2026102128-salvation-quack-0ba4@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=hk8eLAfv
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48c5358fc28so783537f8f.0
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 08:14:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792595667; x=1793200467; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0YZLYsLs1zDQz5M0rn0ZPlb3pIBZFLCQPnvXndpW+/w=;
+        b=hk8eLAfvxJtBkeMiOfCn7G6FUZUYj0JZy1OvouDmazmx9rgkV0HqqYmYD3ThrNsj0p
+         cXsCsqrpKF5rfL2jhtObUdLTxiY7JtFOsV74zYWoj0PFFpsJnt7iTuzP1wcHG2KNDzOd
+         kLxp0wsVNg1XpSrCW5AxOOXj+WYcs433mL3/Ylr1ZW4N/Fm0MGbxoUqZ7n6FsIM3ehcn
+         qW8uiQtpZanBWkeaWgXJ3LtkRAyYZlKN3dL8YnuPnn1oSWXEuJTVMYC++HdPB0F3o+Pc
+         saxSSdxqrN8t0PEhpd8EVWBjK3yjo+2vZMjnIcJ+YFH+pKK8VelWTnSnvOrnXqG2lPgJ
+         WkKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792595667; x=1793200467;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0YZLYsLs1zDQz5M0rn0ZPlb3pIBZFLCQPnvXndpW+/w=;
+        b=ObsCgNzk5YHX5cLaXkDPGrezfnQhjSO+ps+Sg1sTxmru5egpvwwDKUPQw9/iiJAjED
+         C0L0Hot508L2Xnc1xCVv1CuWmo/o5KomBefQMNdHD4NGoc9MuvYeOYutVIxLPMIGNZ0T
+         7Co3OYvyQHm3ylwwq/l7Mq03Ql4N7vQK7pqM4NkllYBynDfRRVgHOuxcacVMxoZp2D4+
+         q1MNaT9Bem4Ip535lzC/nAkOQB9vMDrQn2l4M2bsrzMkhC46tmCmrc/Or2ltjFU/Bkia
+         MmKB/Lc+DNYyyHtboesWZ/hmOoDT8Ob3+SVu8W3lpqBMLhpf/xITLu8LFv5iNLX7X2eB
+         uVAw==
+X-Forwarded-Encrypted: i=1; AKwUvBwNvYAhzUZFPqPh7b3iUbdzQq4HEYL/Mttq8ckJZbrmNJ4WwnvQLfmK9g8ZDQIQaLBplH/PM0I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK+kiiP+pi+kFQP/P62/lQOYD27N69uvdcKDTb5yHshp8OfgqBe
+	bRd7Gv8TJpb7kTLNz0tt7co/ILuhXS1zYbF7k8TrIfTWPcle+DZujrJsC/FmerVSSA==
+X-Gm-Gg: AYBFou3vf7+aPWCUkRtUwKPQItT7EE10UfNaO+Y3r5npa3lESQniUW1yRT4qm7fdg0m
+	Bw6AtoKX4+YpOn4InCQSkVgDtJTV6402DIOQm5/wur3oFU8Um6BYhrMh4PNVmWptToymsfEN1pD
+	lAuwDRpfq0W5TXYmXjHQWyH8P0DOHTlc5WgZVN1Cew+ofi9ogyNKP3O5V4TjdXJOTCcghwZXKzk
+	FNELr669b9G5TOu3vtZ0V64n1Dep0xQH0p0oaDMaSV6quEPgJ/lBu3aDrJ5+Ozk4Jc402PuGfqy
+	p2xrKQ1VDploZBGOHtPyd+dUtEJYHkqJ767tryfcjiBUEbThsH+58gaqB7aCrvVdNynt79MvVNm
+	TQM+zY6PQpTBLh0iLTlBi9yC1C1p8UB1Op/cAyfEBKwthaC4Bg2PuITd7Gmq5M6i0mNC0IVOWJg
+	MssdOVZFcX8GTs9tgftb7VAejSDdGrbF8MrTF9Qs0frfDGNy9Ti0nZ+ugyRdGiLtiDHyUcYMGJ7
+	ZVIMFmXWf7yh5Yyj28NkLuTXF43xtYd5hInv3WFvWLcfHJiefrP7hFjAX2hji0pAxVbTstD9qqv
+	mZyVaip3CXCglxsg1rGFcP41
+X-Received: by 2002:a05:600c:3e83:b0:4a1:6425:be69 with SMTP id 5b1f17b1804b1-4a1fdb078camr50365605e9.17.1792595666559;
+        Wed, 21 Oct 2026 08:14:26 -0700 (PDT)
+Received: from google.com (197.183.140.34.bc.googleusercontent.com. [34.140.183.197])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fc1066cfsm58540435e9.1.2026.10.21.08.14.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 08:14:25 -0700 (PDT)
+Date: Wed, 21 Oct 2026 16:14:21 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Marc Zyngier <maz@kernel.org>
+Cc: oupton@kernel.org, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, joey.gouly@arm.com,
+	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com,
+	catalin.marinas@arm.com, will@kernel.org, kernel-team@android.com,
+	fuad.tabba@linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH v1] KVM: arm64: pkvm: Clear GICv3 LRs in the hypervisor
+Message-ID: <atjWzRABsApbZ8CC@google.com>
+References: <20261021110000.508827-1-vdonnefort@google.com>
+ <86qzhjz1iz.wl-maz@kernel.org>
+ <ati1DrtmMd-63bIN@google.com>
+ <86pkx3yylb.wl-maz@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,88 +102,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <86pkx3yylb.wl-maz@kernel.org>
 
+On Wed, Oct 21, 2026 at 02:25:52PM +0100, Marc Zyngier wrote:
+> On Wed, 21 Oct 2026 13:50:22 +0100,
+> Vincent Donnefort <vdonnefort@google.com> wrote:
+> > 
+> > On Wed, Oct 21, 2026 at 01:22:28PM +0100, Marc Zyngier wrote:
+> > > On Wed, 21 Oct 2026 12:00:00 +0100,
+> > > Vincent Donnefort <vdonnefort@google.com> wrote:
+> > > > 
+> > > > The LR registers are architecturally UNKNOWN when the CPU boots or
+> > > > resumes. However, in protected mode, only the used ones are reset.
+> > > > During boot the HVC __vgic_v3_init_lrs() is never called because
+> > > > vgic_present is only set in init_subsystems(), after cpu_hyp_init() was
+> > > > called.
+> > > 
+> > > Why don't you fix this rather than making the init even more
+> > > different?
+> > 
+> > Ack, I'll make a patch to fix that first.
+> > 
+> > > 
+> > > > Also, the PM notifier isn't registered for pKVM and the HVC
+> > > > becomes unavailable after the host is deprivileged.
+> > > 
+> > > Sanitising the LRs on PSCI_ON is probably the right thing to do, but I
+> > > don't understand why resetting the LRs is out of reach from the host,
+> > > given that the host is fully in charge of the interrupt injection, and
+> > > therefore controls the LRs.
+> > 
+> > I suppose I could reinstantiate the pm callbacks for pkvm to at least reset the
+> > LRs?
+> 
+> I think there are two different things:
+> 
+> - pKVM must not rely on the host resetting the LRs once it is
+>   deprivileged (that's the PSCI_ON case)
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Definitely not a hot path, but if we keep this one ^, isn't a shame of making
+the host issue HVCs on CPU resume to reset the LRs if we know the hypervisor did
+it anyway?
 
-To reproduce the conflict and resubmit, you may use the following commands:
+-- 
+Vincent
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x fddcf4c5321b3ea5f72166c3fd36a9d1c34f80c7
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102128-salvation-quack-0ba4@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From fddcf4c5321b3ea5f72166c3fd36a9d1c34f80c7 Mon Sep 17 00:00:00 2001
-From: "Cen Zhang (Microsoft Security FORGE Labs)"
- <cenzhang@linux.microsoft.com>
-Date: Thu, 8 Oct 2026 15:16:02 -0400
-Subject: [PATCH] io_uring/cancel: don't spin on local work the task can't run
-
-io_uring_cancel_generic() refuses to sleep while any ring on the exiting
-task's tctx has local work pending. It assumes the task is that ring's
-submitter and that the next io_uring_try_cancel_requests() pass will run
-the work. This does not hold for a ring that was still
-IORING_SETUP_R_DISABLED when the task got its tctx node from
-io_uring_create() or io_ringfd_register(). The submitter is set later by
-IORING_REGISTER_ENABLE_RINGS, possibly from another task, and only the
-submitter may run local work on an IORING_SETUP_DEFER_TASKRUN ring. To
-the exiting task the work stays pending forever, the loop never reaches
-schedule(), and the task trips the WARN_ON_ONCE() once and then spins in
-do_exit().
-
-An unprivileged user can set this up at will by creating a disabled
-ring, having a child enable it and stop, posting to the ring with
-IORING_OP_MSG_RING and exiting with a request in flight that only the
-child can complete. The exiting thread burns a CPU until the child runs
-or dies, and with panic_on_warn set the WARN panics the kernel.
-
-Fix by skipping the sleep only when io_allowed_defer_tw_run() allows the
-task to run the work. This is reasonable since work it cannot run cannot
-complete any of its requests either, so nothing is lost by sleeping.
-Drop the WARN_ON_ONCE() since handing a disabled ring to another thread
-is a supported scenario, not a bug state.
-
-Fixes: 360cd42c4e95 ("io_uring: optimise io_req_local_work_add")
-Reported-by: AutonomousCodeSecurity@microsoft.com
-Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <cenzhang@linux.microsoft.com>
-Link: https://patch.msgid.link/20261008191602.45101-1-cenzhang@linux.microsoft.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-
-diff --git a/io_uring/cancel.c b/io_uring/cancel.c
-index 7d7820eab878..4f706aff14fc 100644
---- a/io_uring/cancel.c
-+++ b/io_uring/cancel.c
-@@ -634,12 +634,11 @@ __cold void io_uring_cancel_generic(bool cancel_all, struct io_sq_data *sqd)
- 		prepare_to_wait(&tctx->wait, &wait, TASK_INTERRUPTIBLE);
- 		io_run_task_work();
- 		io_uring_drop_tctx_refs(current);
-+		/* only skip the sleep for local work this task may run */
- 		xa_for_each(&tctx->xa, index, node) {
--			if (io_local_work_pending(node->ctx)) {
--				WARN_ON_ONCE(node->ctx->submitter_task &&
--					     node->ctx->submitter_task != current);
-+			if (io_local_work_pending(node->ctx) &&
-+			    io_allowed_defer_tw_run(node->ctx))
- 				goto end_wait;
--			}
- 		}
- 		/*
- 		 * If we've seen completions, retry without waiting. This
-
+> 
+> - pKVM must not prevent the host from resetting the LRs (that's the
+>   "mind your own business" case).
+> 
+> Both need addressing. If that means the LRs get reset twice because
+> pKVM inherits the PM callbacks, so be it.
+> 
+> Thanks,
+> 
+> 	M.
+> 
+> -- 
+> Without deviation from the norm, progress is not possible.
