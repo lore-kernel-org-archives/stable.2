@@ -1,61 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792579664;
-	b=1MuV9LkXzbtakyBTUIQWrhC8hyaRbCJcyBO/bpSSHI96EcayTByT8zSfWW6meznT5fKe
-	 ZyvqHcFEzlTFma1IOwyt57KAFQV/g455QGu4SAYnHzv+IqZ2z4Kx54S83Xit02ATDeON/
-	 VBZsd/GdYic8EWd4VEvHA1bJyHmWCFbe6ifRnQM00Nald1zTKavdd3PnSnpCmQYyZrTHX
-	 LCdJi8igkfFCyg0HMPi6x/FbjEXoqSp6sDe18O7sRAYeaqg72vtaqh3PRTSDltnHR23ly
-	 FdDr7eeGh5Q/3jh4jVkYhBlDjdbn9XrSgkIqzIOecPJyG1NOLIjRSqHPfumKuhOCECw==
+	t=1792580117;
+	b=LfPagpAXBEtg3R5NJLFnCx+RW7X2mMUd0Kcg3UOFyl3dvsYISbnUT0+olWtmkkxVFc7J
+	 1I/ZStXpzkElPnmoWEJejbWKxFhdlA559KNOb0hs8/5vnu34oZrE0OKPEpNt6nQ7egQdd
+	 bDxlV51ngx1uFR8B4weIarEcOST6WmHnqC9gO5rQjKm95+F9HlRKMGtmc9V8QKQKPdWob
+	 CcydFDSIQeM8+etW0idF+dLAQagXTfvcCWNPO2BBXX7nz9svspwkZvtk9rdliS/FjJ049
+	 +2T07fwEHhmT/TdL+IRzvmGhNa2xqBV6eJ5jCFgJ3ceRT64B/i8zhDSioDhuNNg3dTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792579664;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792580117;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=F5csqRK13zPSxfbq79pxKullCTeZhYmrR2iPCGxcWe8=;
-	b=1WFz7AwS3XWSllZlBVP2YHjcEcWEKmuhISH3NpZhGG1hyDUtflRk6gncZJroboWadiHj
-	 KUEPWWLqg1bfSsU3FI3b6N2e3gwCVnylXFgBjLQ30/BvDjS3/2vzRpd6jAL5u2BkcnbSu
-	 ASR8oNtQKr3B2UREZQJtSIYyYLe81Z8ccyphSXe4Q66D9X06VIpsNp6/QMAe20EPFOHdO
-	 y2dkgeFto7gUyQ81kY7gY7W2iMHk5lVj0xwW63D6lg4PtP5BrYuMsctWpGouL+Z2WidK9
-	 KnFbg/1L++wONo84676kejuBfygdagKg71Akq8ISi3V9sA5jOrmVkV2bNAuwQSaFSSg==
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=hylB7Q5s6aIIrh9STmuiAIGnIKZCFLhCVkXWbPnn+4U=;
+	b=cPm6KZypTc3Nm90dRqbh/Nw0V0d5+18I/BKBbzSdi2xGlA0NhXaLTqsA2PFZ+RgroN/T
+	 nNLNJ8acj7yU7F/jzUvv4GzGgTk2beBlfbHNdPFouMxHE4cnsZn6SdqLjaSRn7fhi37CD
+	 wUitTuUZ24lALAxCGcUCCPHJEdTTSDhUjYgComPTDnvQqveptzcAU9cxRKgUFPk6AulnL
+	 jDl4nCmfc2lNa0OKWIXwd2u5ow4/AaJ4wj20bae3SDGTq16Ay9DwC3m8s527t6kOgj207
+	 fcXk2WeiMP7m8WkPhCAAnLyAf4l8xKiTgXT/OqlS6SNTrUbrobWcAJN95oShlpmsZ5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=DZZ7Cy9B;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=WnGUsFZ4;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DADF2606A324;
-	Wed, 21 Oct 2026 10:47:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DADF2606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81205606A31A;
+	Wed, 21 Oct 2026 10:55:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81205606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=DZZ7Cy9B
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=WnGUsFZ4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=F5
-	csqRK13zPSxfbq79pxKullCTeZhYmrR2iPCGxcWe8=; b=DZZ7Cy9BjqEvHVvK38
-	CSG2QtQlglH667JsRNVQBmlPCyCk/l1jI//VMWvaHPkIJ8V/pg+Beaylvv42VeZD
-	8AEFmiK+ivylIeAyp2IdQKi16RxJL0JKqJ1Hg0AQLbZZSThL4lgEMvelFQG6r8QZ
-	KHrAjrFiXboMxdmXEpM05syAI=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDX3xM5mNhq3MNSBw--.27855S4;
-	Wed, 21 Oct 2026 18:47:24 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Felipe Balbi <felipe.balbi@linux.intel.com>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 2/4] usb: gadget: renesas_usb3: initialize debugfs command buffer
-Date: Wed, 21 Oct 2026 18:47:17 +0800
-Message-Id: <20261021104720.4106961-3-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261021104720.4106961-1-yaojiale02@163.com>
-References: <20261021104720.4106961-1-yaojiale02@163.com>
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=hy
+	lB7Q5s6aIIrh9STmuiAIGnIKZCFLhCVkXWbPnn+4U=; b=WnGUsFZ4arwK11llxk
+	5yF+HvDN9+CBevVjvvjcIRyH6HmpPzKBSBEzQCTX8peAm4WkP1Z+mlZrAZEorNWB
+	UyxM/ryUuLSr2i+NB+LH3AChMfq9mBzcRWhrA6n54QKeXJz90hnYncgm3ChJWJRb
+	zqc8siQ4z9Iv23dO5HE5Swklc=
+Received: from jbd-ThinkPad-X1-Carbon-Gen-14 (unknown [])
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wDX_wPwmdhqxCoxBw--.10772S2;
+	Wed, 21 Oct 2026 18:54:41 +0800 (CST)
+From: Slark Xiao <slark_xiao@163.com>
+To: mani@kernel.org,
+	jeff.hugo@oss.qualcomm.com,
+	krishna.chundru@oss.qualcomm.com
+Cc: loic.poulain@oss.qualcomm.com,
+	val@packett.cool,
+	mhi@lists.linux.dev,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Slark Xiao <slark_xiao@163.com>
+Subject: [PATCH v3] bus: mhi: host: pci_generic: Update the default autosuspend_delay_ms as 5000ms
+Date: Wed, 21 Oct 2026 18:54:34 +0800
+Message-ID: <20261021105434.29897-1-slark_xiao@163.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,39 +67,62 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDX3xM5mNhq3MNSBw--.27855S4
-X-Coremail-Antispam: 1Uf129KBjvdXoW7Gr4DtFyUCr4kXr4DXryfXrb_yoWDurg_Za
-	409ryUXr48Arn8Kr18X3yavrW2k3WkXFn7ZF1q9w4fJrWIgw1rJFn8Cr97ta1UuF47Jws0
-	kw1ftr4jvF4xWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU0LZ23UUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhwGQGrYmDyHjwAA3K
+X-CM-TRANSID:_____wDX_wPwmdhqxCoxBw--.10772S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tF47Xry3AF1xKr1xZr4UXFb_yoW8uF4DpF
+	WF9a1Fqr1rJrWUK3Wkt34kXFy5W3y3GrWjyrykCa4Fk3s5t3sYgryvqFy5ta4qkrZ3Za9x
+	Aa1jq3y5Xr1jyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0p_YFCUUUUUU=
+X-CM-SenderInfo: xvod2y5b0lt0i6rwjhhfrp/xtbC5xFz12rYmfEaPgAA3s
 
-renesas_usb3_b_device_write() copies user input into an uninitialized
-stack buffer before comparing it as a command. A zero-length write makes
-strncmp() inspect an uninitialized byte.
+For some MHI devices in some specific scenarios, the default value
+of autosuspend_delay_ms may not be enough to handle the last wake
+event, potentially leading to device timeout or link drop issues.
+This can lead to a runtime resume failure and a subsequent system
+error:
 
-Zero-initialize the buffer so the copied input is always terminated.
+  [ 8749.089545] mhi mhi0: Resuming from non M3 state (SYS ERROR)
+  [ 8749.089573] mhi-pci-generic 0000:73:00.0: failed to resume device: -22
+  [ 8749.090218] mhi-pci-generic 0000:73:00.0: device recovery started
+  ...
+  [ 8752.940324] mhi-pci-generic 0000:73:00.0: reset failed
 
-Fixes: 43ba968b00ea ("usb: gadget: udc: renesas_usb3: add debugfs to set the b-device mode")
+Following Qualcomm's recommended settings from Windows and their
+suggestion during case discussions, update the default autosuspend
+delay to 5000ms for MHI devices.
+
+Fixes: d3800c1dce24 ("bus: mhi: pci_generic: Add support for runtime PM")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
+Signed-off-by: Slark Xiao <slark_xiao@163.com>
 ---
- drivers/usb/gadget/udc/renesas_usb3.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v3: update the commit message and the comment of the define
+v2: define a autosuspend delay timeout and explain the reason
+---
+ drivers/bus/mhi/host/pci_generic.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/usb/gadget/udc/renesas_usb3.c b/drivers/usb/gadget/udc/renesas_usb3.c
-index 2c9c3e935a5e..baa654f616f7 100644
---- a/drivers/usb/gadget/udc/renesas_usb3.c
-+++ b/drivers/usb/gadget/udc/renesas_usb3.c
-@@ -2613,7 +2613,7 @@ static ssize_t renesas_usb3_b_device_write(struct file *file,
- {
- 	struct seq_file *s = file->private_data;
- 	struct renesas_usb3 *usb3 = s->private;
--	char buf[32];
-+	char buf[32] = { };
+diff --git a/drivers/bus/mhi/host/pci_generic.c b/drivers/bus/mhi/host/pci_generic.c
+index 7193a384cca4..17d51964b55f 100644
+--- a/drivers/bus/mhi/host/pci_generic.c
++++ b/drivers/bus/mhi/host/pci_generic.c
+@@ -21,6 +21,9 @@
  
- 	if (!usb3->driver)
- 		return -ENODEV;
+ #define MHI_POST_RESET_DELAY_MS 2000
+ 
++/* Timeout to accommodate a potential 'late wake-event' issue */
++#define MHI_AUTOSUSPEND_DELAY_MS 5000
++
+ #define HEALTH_CHECK_PERIOD (HZ * 2)
+ 
+ /* PCI VID definitions */
+@@ -1483,7 +1486,7 @@ static int mhi_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 
+ 	/* Allow runtime suspend only if both PME from D3Hot and M3 are supported */
+ 	if (pci_pme_capable(pdev, PCI_D3hot) && !(info->no_m3)) {
+-		pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
++		pm_runtime_set_autosuspend_delay(&pdev->dev, MHI_AUTOSUSPEND_DELAY_MS);
+ 		pm_runtime_use_autosuspend(&pdev->dev);
+ 		pm_runtime_mark_last_busy(&pdev->dev);
+ 		pm_runtime_put_noidle(&pdev->dev);
 -- 
-2.34.1
+2.53.0
 
