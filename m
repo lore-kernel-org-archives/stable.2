@@ -1,99 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792607071;
-	b=fpss2ODE5PZSLrIyYJl+wofuacfHZy9xaaidWxenZs8fDSlnb06M9H8tYYSXyAd2WdxI
-	 K8MmS0leO7UxBd+C0WJFMG8VG8PFIapiKBsU4W3xEUkLn5I+toSTl7o3J+9fNa8hcJiVl
-	 WY9gnSlIRbCjM/5NG3H0crs1/LXE5qIE7AmGgfLbWSWpam0s+btf6znwzFIZpaZ7JU1NX
-	 eqvHgTM09n1wYgThrMZaAEc5KrrGXFU7Cq1MHzMKbdtqo/3Ah69QpcmQBRfmGSK2rjtXP
-	 24NFRn9WidTPv7ARQXaJ5yliJyIr10bZT+/UEj1s22we4oVNZWwhvOBtyNNzNp2fMnA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792607071;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792607385;
+	b=Jf4hlNbOWQx56a4DBMZ0qM4ug8Wi4+/8n534qdYU0Jo5fEoRjatJDjWPy+45rrRdgW05
+	 R92B3p0Ix7dnK43S3RiuzBw0VVgacyuzlsb9aRmbHL4OTlQVJlVkgG+Sh9lFjBKdB192D
+	 twCTyhecuI+mro35vZoYcz0ABTL/1nnmCaH4FLjLFqOp4bYrDi3NkdcgI0RqSZP24PsDk
+	 Ioe7GVT4BsTsEX4htWMRvc5A7OCgQE9quis6dbJ2+DWyy6I204QonE/FLX9P0qAXD7lES
+	 CXcaElCNMxgY66lropZo8bEbIBHQPbfTBCK//A/D6Z8oPSXpLH7dHebiiAf+uI/vd6w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792607385;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=C8k+JbJNU5IGiHKVYYM+eJQgIjguwqcbHlYgMrCENwg=;
-	b=fokJiU/Vx8UGMZ837YDadYruW7sHv0/t/wcB/KCGEsxi/jBBSfttSFpmXeNZBetns3Bp
-	 /ddWwsSKfDupliSHs7sYsLN8MphGHACtIIE1DeThEhBi1xUcaLA6ecSdmEdSEFlDKLEbd
-	 FkZJmpzSc+VNyrVtCbMjwB+Iagb6w73bcrdeCJeTtbDA0OlaJXVX5fscjak49GlCDOA11
-	 1E1HucM/AhxkvLIICm0Ba6qyIOhL2s2EHt3PXK8v6BEErCEsNKydbs7vf93m4H/FRylyA
-	 MvrpJ7xuJYi/mB5qLDU7b+5xwY6RPYz2KTVKW6mrLCSNDSuc0iyqqgJZGQho06sunng==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GUcHk8EG;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=zNzj/nwpT7sp/+0FKjS9bH1e9IBQXTtxz8PSLmwa0TQ=;
+	b=JLUR0rsGrH5bAESC3C2nrD+fCmhtYYiZa9x10cNyhRxvVwnymSBf9hDtQ4Icfaijya2E
+	 y31WfuV10460inQjIYasJXP6CzzMeg4pEVhZXAJE9dCP9MN2x7p5nAHLh25rH7vQKuH4c
+	 +SnjeeHF+Qvm5he/M/YGY6xUSMRwUBCY1O+GnmbV+R5d7VPx9wN4t312Nj+IfnMCC4FVT
+	 /WO/z537J0lPPM6eHZR+Bw+iTzF4FUbUXEgUN9rdQRV3beRnmIKri7ECuNlgEwT3Kh7xA
+	 cq2grNPKGRNtm+NM0Zph7xeBxjKgAo7WxjgGtSCHga2Ox0T6p8RH2SxryGL9yrePe7A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=uhEr+jKk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3159606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 18:24:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3159606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2526606A31A
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 18:29:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2526606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GUcHk8EG
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3550c917fd3so1348396eec.0
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 11:24:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=uhEr+jKk
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48c4be28b82so954606f8f.2
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 11:29:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792607383; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lnXvMfw+U7kM6LmzqmiwlRZNFS48KYGlY5ZElZS/Oa5AkvmWSCvVN5DdNNShqvF90Q
+         xFR4KiXHGw0GEn6+0RgMNUkUlMWum/IgUs/dPJxnTh8nCZ7z3pxyEAoVX0XWL2JRnIqb
+         /9B8qbtzMIbsNH3Qkos16relegBNt8N/DbobMMVOYrGfHww8FhJG+A6vJe2nvMc3BPQ8
+         lwoK4WM/Tb3tJFRywd3V8OPUwQBOZzPYbOcWVzRsZLSt/FF3yIdSmCIgJXzL6Rx0mq+U
+         UiepZgtuw8GAoTe4YTIsxt/yxA9V8Uoa+mB3z8yMrbX3T2jAW1vBVNch4Og+Dwf9VK/5
+         qeqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zNzj/nwpT7sp/+0FKjS9bH1e9IBQXTtxz8PSLmwa0TQ=;
+        fh=WlZfHtPL40E/5Z17rdx4ItbWfLtRWH4WTXR4P/msyEc=;
+        b=TpakIOfKCzTrZOPo6cMpKOly0UfYdUSoUhF4BXsr/DZLR9AXO6SljmHIGZ81erig6x
+         gox/I2EPTXoiuDy61Cci9CX9euEh/pVDTm0cJfD4bhZcFJmVjoJDuEoYhbKztVnMhbtb
+         R+HjPlsN77fHWvwCxN4eA5veAWTRuHRcf9ICbAagdee/N4frQ65MyIh1kZFUuAqZNUzq
+         rPRuf3xRp9odM7SmaI4q9P6IPBQk1xZ6j0f9aPV28cqn4NGSYuKYfIymFs3Um4ArYv1B
+         woBYolQqvydMzo1MnnKBRO1esyn0enf6SuzCZpIBO9wjy/hz542zlgfS6q9p/qGs83ma
+         +f4Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792607070; x=1793211870; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C8k+JbJNU5IGiHKVYYM+eJQgIjguwqcbHlYgMrCENwg=;
-        b=GUcHk8EGdW9iALfuUNV6i+ojsO6BzNoR66EmrjLsrEgDqIVVpJsC6mc/me/508QbaR
-         5hGlOZ/Ite48vvaiYyvDH6wDS1BOGMx7nB0RtSnTJPkWExQOwnjZFpD9sp2WjbOG06qq
-         S6qWcZ7z/aW+sChHoygj9nzAPIiR3/larwlogL0J+Q53c8qSSBlqr0boF8iWTS6XNKTo
-         KgwFvZNjjFDBm2qjyDy9bQ+UOf5WOnRdBUsb7f5Oqk9tvvl1jwpL9nfEdkrzOYkxlcEj
-         fzjZnuIrKl28dfJ9svUYcjjr6CiQU/jlYu42mdRlwutO93/xD+PBlBFdNGwHN+BW8Q99
-         y7ew==
+        d=google.com; s=20251104; t=1792607383; x=1793212183; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zNzj/nwpT7sp/+0FKjS9bH1e9IBQXTtxz8PSLmwa0TQ=;
+        b=uhEr+jKk96hzkTwObdC8c+APl616ShEbFaMN/hljBiXVKAJapK7ag+qgMNv4vZOI/j
+         s7S2Gv4mSQUzIdIGq9RSvJ2ltqCVM1nt/AOOB2IIuPZ/lOoWyCaXC6PbISKgNMK855Uu
+         ZYHCEGK0cCxtto+AsiZeVpKr9xeYkTv1VaveQvwKZtNWSSdY/yzBHRdGYBUGxXlPy1l9
+         dgkKSxm2HRnVtnT8mc285pX6F4GMae5XJCOXAMekfbhcH5HvOF4Xv0vBGhnh/MFvOraN
+         B6gcldVhTm4Z9gDsvKE0InacApMUWDiNofzJVql6pzqtXPsLnjrxAXSA/MfUbB1Kw7b9
+         1xTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792607070; x=1793211870;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C8k+JbJNU5IGiHKVYYM+eJQgIjguwqcbHlYgMrCENwg=;
-        b=talzHmJkDzcqFq1e7cTz2+WSeI1xnxdeSYIy6AfIH27qu7lVvHKj78BAprYU0RPwQG
-         jSuGBmqd0t6u4nhhiVx58+AQgwXrY5H8YcQVQ//+Z6NB33iXHrsmwc4rhb8ssOKHHYTD
-         HPRO/E5csYj7DxHQ+oKqNOE75SHQH05kUxjmSrkzeUCQBjYaPbV8xlbfb0blUk4XaqfK
-         1lABeY9zIpXQXln32umpo8mDyjo/dBGzeXvMzw7usZDzIPgUbFBlNK9rHAMnjRS1Cm9f
-         Zc206e+OqsrPkvsVUgJD9DbcThHI3Gv5ayP4PFzGPNEhkOn69ZGySBt0zgX6xImWajSO
-         lK8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy8b4l/+jYraiaUqOlM70Czo2UyHVRNTQwV0lCf2qbJwBu74pEn6B7mahd21l20iGxNso7CFh8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJP8KH0YQLjDyn9bJ/7CPy9KDsF2h4rRDzsAEwCXxQnoaolGZzr
-	YXX349I0JHoKm2gvBcVbTHGj47On/S8JKClJjO6bHZFBUcfDJSoOk0fc
-X-Gm-Gg: AYBFou19OR4NLd6FAFDHTBnFS1NvIEIAhcVdAP54Zd2Y075uZciIg3jmNYnHOMp1in5
-	ToCzloqOL+cCJcQ/xiq6+9fhW2eVfFYzZvslSvP+9Kyt3tTUfYQoUH8HJGyEkwzM/wY/+7ethkF
-	YH9GuXsp7dSwnZl50/axAw7IUOl04A2VCqp4xJQgNpRA4ckXgAzHK0dF4vqdl8DVW535lRlZfRP
-	YaDgUC5X3hONYrGTqqUEXDbOG3ref/WuJA1jg3AcD4rY9gx71+iRmXEcHT/CVboNez9ylEKAc7e
-	L6rmIexYbQQgiXltA583zDhAmpRhBcR4vmTNVpYe7qlI+VFnxwp3HOMkRp6JTCH80qZJ2/ljPJJ
-	dGSPbFA6zpojEloJ6eMRbW/Uodv8DB5aVB3QPDXaLZNglitcxrHgVHiUFkfgEY4n3jTegeMTXLv
-	TSnCzHlKXZidA6dskMgP/z+siW2mbB9rpa96KkiDKfqPcQPy2XtLa55zMdCA/wNFfmJQvdFyG8m
-	1IscxFk+x1eMQDEkBWB6v7kBDYnyW2/V68Obl4tFc8G/WliP7HZa2AJM33ByyEW8n3a4JniSV4+
-	GsPq0Tk3/gGfjmrqo9b+k2JqrP6ZVAAAHWThjA==
-X-Received: by 2002:a05:693c:8399:10b0:35e:f1a5:9ba6 with SMTP id 5a478bee46e88-3674a40738emr4497258eec.5.1792607069610;
-        Wed, 21 Oct 2026 11:24:29 -0700 (PDT)
-Received: from 1u1g-b650-0212.nvidia.com ([72.25.70.131])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36740cca3d8sm9107228eec.14.2026.10.21.11.24.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 11:24:29 -0700 (PDT)
-From: Samarth Narang <samarth.colleges@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: Xu Xin <xu.xin@linux.dev>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Peter Xu <peterx@redhat.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Samarth Narang <samarth.colleges@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] mm/ksm: keep soft-dirty when merging a page
-Date: Wed, 21 Oct 2026 11:21:57 -0700
-Message-ID: <20261021182157.1873726-1-samarth.colleges@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1792607383; x=1793212183;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zNzj/nwpT7sp/+0FKjS9bH1e9IBQXTtxz8PSLmwa0TQ=;
+        b=ekFhKqHsiQh1h/PNtvgIu3wpOh/AESnMZ5QMJgyDr2ayyI5Cgs8qzFkAx6hC1KTfnx
+         nHvWjk2GQG+zrVMsgv0zZVr0hC5wlqGXc0NlNRGpGKgU+vDtnVTQDIWYB/XFtJgUzB69
+         J/lvwINDbM51iCbVNG8aF6prqoLKAp2ZGTSjnp8K8sIH/OneUTo2P9tgAERNr1Qv+ytn
+         De9q+ZPhUvwf2ytzFX5FcJcJg0kz3+677cefb13k6cK8nHsLQ/fTEBL4vmIrJWaDkd/V
+         VFTJ4RXpJXCTozuVF4dTVa3yR1uUdMH31YC5u8t+E3LHl6ptTLjvUBVHAScQ+wDo+wZ0
+         SXTw==
+X-Forwarded-Encrypted: i=1; AKwUvBxNTr+OHq7vI3h8GSCmPAk0PkgvuyilBz8OpTimmjG4+QYDk3iR7UR2LZvDQIiSxDfaTT3dhSc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJT/Gvt/tX8QDmXluE8LWRNh7knwPZVaznp2FJvlqi0skBJ8Wg
+	IXawyGte7WkDvg1Y6l5WkqC2B/lc6hAzYSxYnoANwfBNaNMB8Fl+E4vQ32wSyGAodIHxXEb5o4X
+	pp2oqDHpaivYW0DAViKBVJ/IzkuFOEzFK52+ClfM=
+X-Gm-Gg: AYBFou03R83X6PY+gGLbtyFsAEcnZlEwgQLxbvCJfJ619hRDsBld6aUkbZSdmm5RzYd
+	qGt3SwXIpxXoXFcQkePn3MbLCUj0HncT11gamwwu4dFufG2tIIFg8FAEzeLtW6ioQj5UHqgUYRT
+	h02Gr0z5/ZDFWJ+08KaMkcqnmZ73ArmKHzOo7V/hN1wtEC0pZQjKNKLle6yQ1gcsTKMpADyAnHI
+	7I7w65NPMD+pqMZLlhXYwr/vJpE+D0oTGFjiSWQMUcQNU9KyT+IMGou5XOfiM+sHuOPRtgZCh+g
+	iLE0KAQGSw56tuGuPTaOWPvRzsTvDN6DLiTKvUy1ZPet+W4DPvdJf0/ydEATR9n72NTbaxX/WBO
+	dUthrD3oZwypbpiDXVyrHMpmw6F5IIHc5CEymxqG7cy1BfjoBIo24vdC3dZanMwt5aOZvKl1y89
+	H3HY1gOzBF3Swr+xjeSyAvOSoAGFATsXhV/539I0Ab5mwZeSd+7lO2WVAncAYkdaatd9Fsy5PfI
+	nuEDTqMhG3kS+WYWcXN5iq8EFTeC4s+ySl+kaclK7grVNCkoD8U3mVzpTY8JdFeE3KppgIlK8Q=
+X-Received: by 2002:a05:6000:230b:b0:48e:d88:55e5 with SMTP id
+ ffacd0b85a97d-48e26450055mr6466370f8f.6.1792607382625; Wed, 21 Oct 2026
+ 11:29:42 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,50 +106,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261019080324.4147815-1-4ncienth@gmail.com>
+In-Reply-To: <20261019080324.4147815-1-4ncienth@gmail.com>
+From: John Stultz <jstultz@google.com>
+Date: Wed, 21 Oct 2026 11:29:30 -0700
+X-Gm-Features: AclHuK-WQNEEmHu8rKLAOcS4kdd24XhGHp0io995JGj81OD21sSnuH8TiknMehA
+Message-ID: <CANDhNCrZbw-JnmC6DLWp6FHe6Vait=q_0uwRE1HqdbDYjL0Zwg@mail.gmail.com>
+Subject: Re: [PATCH] timekeeping: Require permission to set auxiliary clocks
+To: Daehyeon Ko <4ncienth@gmail.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Miroslav Lichvar <mlichvar@redhat.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-replace_page() maps the KSM page with a PTE built from scratch, so the
-soft-dirty bit of the PTE it replaces is lost. A page written since
-"clear_refs 4" then no longer shows as soft-dirty once it is merged, and
-a soft-dirty based dumper treats it as unchanged.
+On Mon, Oct 19, 2026 at 1:03=E2=80=AFAM Daehyeon Ko <4ncienth@gmail.com> wr=
+ote:
+>
+> The generic clock_settime() entry point delegates permission checks to
+> each clock-specific callback. aux_clock_set() does not perform one. Once
+> an administrator enables an auxiliary clock, any local process can
+> therefore change the global clock offset.
+>
+> A test process running as UID and GID 65534 with no effective, permitted,
+> inheritable, or ambient capabilities set CLOCK_AUX0 successfully, and a
+> separate process observed the new value. The same process was denied by
+> clock_adjtime(). An AppArmor profile denying sys_time also blocked
+> CLOCK_REALTIME changes but did not see the auxiliary clock operation.
+>
+> Call security_settime64() before mutating the auxiliary timekeeper. This
+> matches CLOCK_REALTIME's permission model, enforces initial-user-namespac=
+e
+> CAP_SYS_TIME, and gives LSMs the settime hook while preserving authorized
+> clock changes.
+>
+> Fixes: 60ecc26ec5af ("timekeeping: Provide time setter for auxiliary cloc=
+ks")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+> ---
+> AI assistance was used for source analysis, reproducer development, and
+> validation. The submitter reviewed the resulting change before signing it=
+.
+>
+>  kernel/time/timekeeping.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/kernel/time/timekeeping.c b/kernel/time/timekeeping.c
+> index ea2e6e55f37bf..1b342825bd8f1 100644
+> --- a/kernel/time/timekeeping.c
+> +++ b/kernel/time/timekeeping.c
+> @@ -14,6 +14,7 @@
+>  #include <linux/random.h>
+>  #include <linux/sched/clock.h>
+>  #include <linux/sched/loadavg.h>
+> +#include <linux/security.h>
+>  #include <linux/static_key.h>
+>  #include <linux/stop_machine.h>
+>  #include <linux/syscore_ops.h>
+> @@ -3215,11 +3216,15 @@ static int aux_clock_set(const clockid_t id, cons=
+t struct timespec64 *tnew)
+>         struct tk_data *aux_tkd =3D aux_get_tk_data(id);
+>         struct timekeeper *aux_tks;
+>         ktime_t tnow, nsecs;
+> +       int ret;
+>
+>         if (!timespec64_valid_settod(tnew))
+>                 return -EINVAL;
+>         if (!aux_tkd)
+>                 return -ENODEV;
+> +       ret =3D security_settime64(tnew, NULL);
+> +       if (ret)
+> +               return ret;
+>
+>         aux_tks =3D &aux_tkd->shadow_timekeeper;
 
-Copy the soft-dirty bit from the original PTE to the new PTE.
+This looked a little odd adding the security_settime64() check in the
+core timekeeping.c where as is usually called closer to the syscall in
+time.c, but given the clock_aux k_clock is defined in timekeeping.c, I
+guess this makes it the best place to add the check.
 
-Fixes: 0f8975ec4db2 ("mm: soft-dirty bits for user memory changes tracking")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
----
+Acked-by: John Stultz <jstultz@google.com>
 
-Notes:
-    v2: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
-    
-    Changes since v2:
-    - Keep only the soft-dirty fix, as David suggested; Lance will be handling
-      the uffd-wp/RWP part.
-    - Fixes tag reduced to the soft-dirty commit.
-    - Dropped the Tested-by tag, since the patch changed.
-
- mm/ksm.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/mm/ksm.c b/mm/ksm.c
-index dbfb8f98b189..910a1307ac9f 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -1463,6 +1463,10 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
- 		dec_mm_counter(mm, MM_ANONPAGES);
- 	}
- 
-+	/* Preserve soft-dirty when replacing the page. */
-+	if (pte_soft_dirty(orig_pte))
-+		newpte = pte_mksoft_dirty(newpte);
-+
- 	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
- 	/*
- 	 * No need to notify as we are replacing a read only page with another
-
-base-commit: fcec4f4bcc1101dbd7e3aff267856b3bbfe128c6
--- 
-2.53.0
-
+thanks
+-john
