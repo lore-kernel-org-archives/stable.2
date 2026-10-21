@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594308;
-	b=lpSxxaCV7ugsVdkJP+E+nCry7wWTj7fBRvS2QGdTfm4mJQKQUSKk5jxM+Xz5M6w5OV6T
-	 Lk31KgMennXyHC6c0j+6JJ+33DTevBfWYJTazpNutcF3mXjeclmckspWSCFg/YHgPYpD/
-	 rpjzi5i8bip1dJdpwcRNF9SFYCmjZGbty/R64WqhSj6G3Hrn+mTE12ScJNjqcEhZGvJYq
-	 JdgS4AHK4YyfpLYMkcVZ8VvYtUKDzZRY2ii2WMSdk1GtlbYDmgjfDVzKVZ/IB/wG9nmLP
-	 /wtobN4cR/AHrJ6nmBpGbWBkBMvdFHRuQMQmAkdNR4juOG2wSbgjd1qb4saqi+hKjQQ==
+	t=1792594311;
+	b=qOFW5WNdEyciqd6l1Dhdjx7Rjw7M2C8IyiQt2CNPKSlNjfjJZBVl3gj5DlD1hlRZ6Rc+
+	 y+fApORrEamESOvpbAgKNLCMcZaaDKCmRCIDQN0/7IBthVI9Q0zn+bMba62XUKHg4emkB
+	 iqbGEJJKeaS7swnZd2ONVGUvyR1oIwtiJvqSGyrRJ+w3n6SykTvza8CCToybmlxG+vqUN
+	 iJPYqZ0zsKJ6YzFUR2gEQf5H82Ia9Hda/RfRKzQf9msWVRW0qxOtCFFRwR7dBrGUt9bRu
+	 9Nlb9Pa06OuQHKNA+kIrlXzgY0N+hreqeL/Aql7vQ04Il2gB+Wp8H1N1ko1ALJJfZgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594308;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594311;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=yU54UVPcpnSsq6RKdL+Nd4tJCunxe9m/hNl/5OLfcVY=;
-	b=l7+epZRpkxblyQecq+J+CZ6+TrEW7ON8bjVSzA3dyWCvEhAWqHdIR8vq6s3uutcmYr88
-	 8FZ2Mz10uLbYcRFPWhns4O30sPimZ960xODx5rNFHBQhtx5fO0THP+8hVGUNjmH/mjMd+
-	 67MVnbU7PoNamfJ8QdoDZUKgX+6EnbCtVssmYEFrjZijVptBoWgTSPTBeW6ACf2Zrxm1O
-	 QwxNNPKJJeakxSLy1r44n7WAVu87wG4i/A98UOjqDHDH8IVh9KaNuUZHXmrw8u+qWCPqz
-	 9K9oH5sS4TOcuNET8vURoLMT5knsVqOmupOA60HS7S33I7aVws4OCyPJoBW0W/q2aPg==
+	bh=J7+hIguXMisF3RenzMeFRVFLYxvNDZxVMIL1zRSuxkE=;
+	b=B46YjK3ykOsAE+WsEUWDdN3N6/FS67HHsZz8BRIe5n8c5swLF3cPZoob2Q08CAfFP+YG
+	 icxjYlEkdIoA2RlipN/N0lJPA3jlKa6lVkh9c0h1fTcYiaT6ekVgvgr18I4bUU5TtTjI/
+	 pOLMhajhUDGOlXdZxNqFjKSRA7lFsNFWhMWN4B+4R4H0ZRc+QIIBPouk+ZEv57gaGtI0F
+	 +GLBAn3ZZQPKFeulL1TYHEI2G4d22OVthxV/PI7W62HP/+FamAEtd65+qC5tHDnbHNYT9
+	 qETv54yLelO97QN9oF6dYN8ZUWZIkneLVKC2Xi+t8Tssw+O3oPLRZOMdMut3FYr6Ikw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ICuHf7Sg;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NE7yzUn2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26191606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:51:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EECA5606A31A
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:51:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ICuHf7Sg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46E421F000C2;
-	Wed, 21 Oct 2026 14:51:47 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NE7yzUn2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 112321F000C5;
+	Wed, 21 Oct 2026 14:51:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792594307;
-	bh=yU54UVPcpnSsq6RKdL+Nd4tJCunxe9m/hNl/5OLfcVY=;
+	s=korg; t=1792594310;
+	bh=J7+hIguXMisF3RenzMeFRVFLYxvNDZxVMIL1zRSuxkE=;
 	h=Subject:To:Cc:From:Date;
-	b=ICuHf7Sg69Ht/k/PMdA9uZYIKQXubn4c+S4NSMn5vt5FtThcWLFy6yBMXawM4yUNv
-	 aNvqhrMJatZ/WJ6faFNIJikCHt6Bfhn0eEIZymONqL8apTLrqmXjU64WGGvE1OwdNp
-	 vuhoh0eB9/9/2hzHQqx4VoJy3Dw3ZKaiL417Li/Y=
-Subject: FAILED: patch "[PATCH] drm/exec: don't immediately add prelocked obj to array of" failed to apply to 6.6-stable tree
-To: ckoenig.leichtzumerken@gmail.com,christian.koenig@amd.com,vitaly.prosyak@amd.com
+	b=NE7yzUn2PkvjEFs7aXwId13z0UApZaM1wB6yqf/Ke6VHdYYSC5KOvthUBif9k31gP
+	 C3O+dhbjqE+Jpiv8au0F1BAcaQ6CypYEakrKDZ8KMjndMmvAW8dB7LO8j/V7sd0yUJ
+	 AwQ8GhCAQ0pC+olmYI5BtDJUNgdvnwgZ3bPTClP8=
+Subject: FAILED: patch "[PATCH] drm/i915/dmc: Add sanity check for DMC load address" failed to apply to 5.15-stable tree
+To: dibin.moolakadan.subrahmanian@intel.com,ankit.k.nautiyal@intel.com,joonas.lahtinen@linux.intel.com,mitulkumar.ajitkumar.golani@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 16:46:42 +0200
-Message-ID: <2026102142-thank-kitty-b913@gregkh>
+Date: Wed, 21 Oct 2026 16:47:03 +0200
+Message-ID: <2026102102-cosponsor-entrench-2d30@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,23 +51,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 26401a4999f1596a515b2e704e7066ac09306488
+git cherry-pick -x 7dedc5bb11f95e96fe80757c924d8d9aa7327759
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102142-thank-kitty-b913@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102102-cosponsor-entrench-2d30@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,206 +79,122 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 26401a4999f1596a515b2e704e7066ac09306488 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Date: Wed, 7 Oct 2026 14:46:57 +0200
-Subject: [PATCH] drm/exec: don't immediately add prelocked obj to array of
- locked objs
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 7dedc5bb11f95e96fe80757c924d8d9aa7327759 Mon Sep 17 00:00:00 2001
+From: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
+Date: Tue, 22 Sep 2026 19:05:38 +0530
+Subject: [PATCH] drm/i915/dmc: Add sanity check for DMC load address
 
-When a contention is detected the drm_exec object grabs a reference to
-the contended object, unlocks all other objects and pre-locks the
-contended one before anything else.
+For DMC firmware header version 3, the firmware load address is stored
+in dmc_info->start_mmioaddr and later used by dmc_load_program().
 
-The problem is that it is possible that this pre-locked object was about
-to be destroyed and drm_exec is now holding the last reference to it.
+Unlike the MMIO address table, the firmware load address is not
+validated. Add a sanity check to ensure it is within the valid range.
 
-So we never actually see this pre-locked object again to be explicitly
-locked and so also never reserve a slot for a dma_fence object on it.
+BSpec: 69671, 68378
+Fixes: 3d5928a168a9 ("drm/i915/xelpd: Pipe A DMC plugging")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude-Code:Sonnet-5
+Signed-off-by: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
+Reviewed-by: Mitul Golani<mitulkumar.ajitkumar.golani@intel.com>
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Link: https://patch.msgid.link/20260922133535.3180973-6-dibin.moolakadan.subrahmanian@intel.com
+(cherry picked from commit 5e47ee5c76ca9becde8df4ad5202845b7ffcbc4c)
+Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 
-Should the driver now use drm_exec_for_each_locked_object() to add a new
-fence to all locked objects we eventually see a warning or even a
-BUG_ON() to prevent random memory corruption.
-
-Fix this by keeping the prelocked object out of the array of locked objs
-until it was explicitly mentioned by the driver again.
-
-If the prelocked object is never mentioned again by the driver
-just unlock and drop the reference at the end of the locking loop.
-
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Reported-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
-Reviewed-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
-Tested-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
-Fixes: 09593216bff1 ("drm: execution context for GEM buffers v7")
-CC: stable@vger.kernel.org # v6.6+
-Link: https://lore.kernel.org/r/20261007124657.9664-1-christian.koenig@amd.com
-
-diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
-index 2453ec41360f..6fa3568ceba6 100644
---- a/drivers/gpu/drm/drm_exec.c
-+++ b/drivers/gpu/drm/drm_exec.c
-@@ -48,6 +48,16 @@
-  * See struct dma_exec for more details.
-  */
+diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
+index 725481012578..6611765fd62c 100644
+--- a/drivers/gpu/drm/i915/display/intel_dmc.c
++++ b/drivers/gpu/drm/i915/display/intel_dmc.c
+@@ -1023,6 +1023,55 @@ static void dmc_set_fw_offset(struct intel_dmc *dmc,
+ 	}
+ }
  
-+/* Unlock and put the prelocked obj */
-+static void drm_exec_drop_prelocked(struct drm_exec *exec)
++/*
++ * Check if the load address is within the valid range for the given DMC ID.
++ */
++static bool dmc_load_addr_sanity_check(struct intel_dmc *dmc,
++				       u32 start_addr, u32 payload_size,
++				       int header_ver, enum intel_dmc_id dmc_id)
 +{
-+	if (exec->prelocked) {
-+		dma_resv_unlock(exec->prelocked->resv);
-+		drm_gem_object_put(exec->prelocked);
-+		exec->prelocked = NULL;
++	u32 start_range, end_range, end_addr;
++
++	if (header_ver != 3)
++		return true;
++
++	switch (dmc_id) {
++	case DMC_FW_MAIN:
++		start_range = DMC_MAIN_PROGRAM_BASE_START;
++		end_range = DMC_MAIN_PROGRAM_BASE_END;
++		break;
++	case DMC_FW_PIPEA:
++		start_range = DMC_PIPEA_PROGRAM_BASE_START;
++		end_range = DMC_PIPEA_PROGRAM_BASE_END;
++		break;
++	case DMC_FW_PIPEB:
++		start_range = DMC_PIPEB_PROGRAM_BASE_START;
++		end_range = DMC_PIPEB_PROGRAM_BASE_END;
++		break;
++	case DMC_FW_PIPEC:
++		start_range = DMC_PIPEC_PROGRAM_BASE_START;
++		end_range = DMC_PIPEC_PROGRAM_BASE_END;
++		break;
++	case DMC_FW_PIPED:
++		start_range = DMC_PIPED_PROGRAM_BASE_START;
++		end_range = DMC_PIPED_PROGRAM_BASE_END;
++		break;
++	default:
++		MISSING_CASE(dmc_id);
++		return false;
 +	}
++
++	if (payload_size == 0)
++		end_addr = start_addr;
++	else if (check_add_overflow(start_addr, payload_size - 1, &end_addr))
++		return false;
++
++	if (start_addr < start_range || end_addr > end_range)
++		return false;
++
++	return true;
 +}
 +
- /* Unlock all objects and drop references */
- static void drm_exec_unlock_all(struct drm_exec *exec)
- {
-@@ -58,8 +68,7 @@ static void drm_exec_unlock_all(struct drm_exec *exec)
- 		drm_gem_object_put(obj);
+ static bool dmc_mmio_addr_sanity_check(struct intel_dmc *dmc,
+ 				       const u32 *mmioaddr, u32 mmio_count,
+ 				       int header_ver, enum intel_dmc_id dmc_id)
+@@ -1189,6 +1238,12 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
+ 		return 0;
  	}
  
--	drm_gem_object_put(exec->prelocked);
--	exec->prelocked = NULL;
-+	drm_exec_drop_prelocked(exec);
- }
- 
- /**
-@@ -118,6 +127,14 @@ EXPORT_SYMBOL(drm_exec_fini);
- bool drm_exec_cleanup(struct drm_exec *exec)
- {
- 	if (likely(!exec->contended)) {
++	if (!dmc_load_addr_sanity_check(dmc, start_mmioaddr, payload_size,
++					dmc_header->header_ver, dmc_id)) {
++		drm_err(display->drm, "DMC %d: firmware has wrong load address\n", dmc_id);
++		return 0;
++	}
 +
-+		/*
-+		 * The contended and prelocked object might never be passed to
-+		 * drm_exec_lock_obj() again. This can happen when the object
-+		 * is about to be cleaned up and we now hold the last reference
-+		 * to it. Make sure that we don't unnecessarily keep it around.
-+		 */
-+		drm_exec_drop_prelocked(exec);
- 		ww_acquire_done(&exec->ticket);
- 		return false;
- 	}
-@@ -175,16 +192,16 @@ static int drm_exec_lock_contended(struct drm_exec *exec)
- 		dma_resv_lock_slow(obj->resv, &exec->ticket);
- 	}
+ 	dmc_info->payload = kmalloc(payload_size, GFP_KERNEL);
+ 	if (!dmc_info->payload)
+ 		return 0;
+diff --git a/drivers/gpu/drm/i915/display/intel_dmc_regs.h b/drivers/gpu/drm/i915/display/intel_dmc_regs.h
+index 6b7978fb8986..324320afad58 100644
+--- a/drivers/gpu/drm/i915/display/intel_dmc_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_dmc_regs.h
+@@ -521,6 +521,18 @@ enum pipedmc_event_id {
+ #define TGL_PIPE_MMIO_END(dmc_id)	_PICK_EVEN(((dmc_id) - 1), _TGL_PIPEA_MMIO_END,\
+ 					      _TGL_PIPEB_MMIO_END)
  
--	ret = drm_exec_obj_locked(exec, obj);
--	if (unlikely(ret))
--		goto error_unlock;
-+	/*
-+	 * It is perfectly possible that we see another contention before the
-+	 * first one is fully handled.
-+	 */
-+	drm_exec_drop_prelocked(exec);
- 
-+	/* We move the reference from contended to prelocked here */
- 	exec->prelocked = obj;
- 	return 0;
- 
--error_unlock:
--	dma_resv_unlock(obj->resv);
--
- error_dropref:
- 	drm_gem_object_put(obj);
- 	return ret;
-@@ -212,35 +229,31 @@ int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
- 	if (exec->prelocked == obj) {
- 		drm_gem_object_put(exec->prelocked);
- 		exec->prelocked = NULL;
--		return 0;
-+	} else {
-+		if (exec->flags & DRM_EXEC_INTERRUPTIBLE_WAIT)
-+			ret = dma_resv_lock_interruptible(obj->resv,
-+							  &exec->ticket);
-+		else
-+			ret = dma_resv_lock(obj->resv, &exec->ticket);
++/* For DMC header version v3*/
++#define DMC_MAIN_PROGRAM_BASE_START	0x80000
++#define DMC_MAIN_PROGRAM_BASE_END	0x86fff
++#define DMC_PIPEA_PROGRAM_BASE_START	0x90000
++#define DMC_PIPEA_PROGRAM_BASE_END	0x96fff
++#define DMC_PIPEB_PROGRAM_BASE_START	0x98000
++#define DMC_PIPEB_PROGRAM_BASE_END	0x9efff
++#define DMC_PIPEC_PROGRAM_BASE_START	0x52000
++#define DMC_PIPEC_PROGRAM_BASE_END	0x53fff
++#define DMC_PIPED_PROGRAM_BASE_START	0x59000
++#define DMC_PIPED_PROGRAM_BASE_END	0x5afff
 +
-+		if (unlikely(ret == -EDEADLK)) {
-+			drm_gem_object_get(obj);
-+			exec->contended = obj;
-+			return -EDEADLK;
-+		}
-+
-+		if (unlikely(ret == -EALREADY) &&
-+		    exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
-+			return 0;
-+
-+		if (unlikely(ret))
-+			return ret;
- 	}
- 
--	if (exec->flags & DRM_EXEC_INTERRUPTIBLE_WAIT)
--		ret = dma_resv_lock_interruptible(obj->resv, &exec->ticket);
--	else
--		ret = dma_resv_lock(obj->resv, &exec->ticket);
--
--	if (unlikely(ret == -EDEADLK)) {
--		drm_gem_object_get(obj);
--		exec->contended = obj;
--		return -EDEADLK;
--	}
--
--	if (unlikely(ret == -EALREADY) &&
--	    exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
--		return 0;
--
--	if (unlikely(ret))
--		return ret;
--
- 	ret = drm_exec_obj_locked(exec, obj);
- 	if (ret)
--		goto error_unlock;
-+		dma_resv_unlock(obj->resv);
- 
--	return 0;
--
--error_unlock:
--	dma_resv_unlock(obj->resv);
- 	return ret;
- }
- EXPORT_SYMBOL(drm_exec_lock_obj);
-diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-index cc2937185a9f..c92d69a2c793 100644
---- a/include/drm/drm_exec.h
-+++ b/include/drm/drm_exec.h
-@@ -73,13 +73,15 @@ drm_exec_obj(struct drm_exec *exec, unsigned long index)
- 
- /* Helper for drm_exec_for_each_locked_object(). Internal use only. */
- #define __drm_exec_for_each_locked_object(exec, obj, __index)		\
--	for (unsigned long __index = 0; ((obj) = drm_exec_obj(exec, __index)); ++__index)
-+	for (unsigned long __index = 0; ((obj) = drm_exec_obj(exec, __index)); \
-+	     ++__index)
- /**
-  * drm_exec_for_each_locked_object - iterate over all the locked objects
-  * @exec: drm_exec object
-  * @obj: the current GEM object
-  *
-- * Iterate over all the locked GEM objects inside the drm_exec object.
-+ * Iterate over all the explicitly locked GEM objects inside the drm_exec
-+ * container, except for the contended and implicit prelocked one.
-  */
- #define drm_exec_for_each_locked_object(exec, obj)			\
- 	__drm_exec_for_each_locked_object(exec, obj, __UNIQUE_ID(drm_exec))
-@@ -94,12 +96,13 @@ drm_exec_obj(struct drm_exec *exec, unsigned long index)
-  * @exec: drm_exec object
-  * @obj: the current GEM object
-  *
-- * Iterate over all the locked GEM objects inside the drm_exec object in
-- * reverse locking order. Note that the internal index may wrap around,
-- * but that will be caught by drm_exec_obj(), returning a NULL object.
-+ * Iterate over all the explicitly locked GEM objects inside the drm_exec
-+ * container in reverse locking order. Note that the internal index may wrap
-+ * around, but that will be caught by drm_exec_obj(), returning a NULL object.
-  */
- #define drm_exec_for_each_locked_object_reverse(exec, obj)		\
--	__drm_exec_for_each_locked_object_reverse(exec, obj, __UNIQUE_ID(drm_exec))
-+	__drm_exec_for_each_locked_object_reverse(exec, obj,		\
-+						  __UNIQUE_ID(drm_exec))
- 
- /**
-  * drm_exec_until_all_locked - loop until all GEM objects are locked
+ #define SKL_DMC_DC3_DC5_COUNT	_MMIO(0x80030)
+ #define SKL_DMC_DC5_DC6_COUNT	_MMIO(0x8002C)
+ #define BXT_DMC_DC3_DC5_COUNT	_MMIO(0x80038)
 
