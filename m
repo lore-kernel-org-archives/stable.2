@@ -1,92 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792572793;
-	b=CTHL6/ZVHJTT8I0r+5gDCucmtoRf5DEZbdEDYbbyS+EW9dOmJhAvv7zdIJt3Q+y+wwCR
-	 nkBh441vvo84Qr+MTixKItINgJG+x2bS0NZ9FTKFclz6/8fsB0dV/yg4s+iIT4+vNxqAr
-	 Jr22NYasLJAJ2Yt+efbNz+2eGaATPg8duHk60N6mKkpaLKrJj9TsB1uBP/HiQFrr62Si/
-	 CIuMB33OuhhkIgrYwbmGT3HL4ti6C+8+k9NfYFvhIfcxp43mT6bnmwySoKm5IfS2ymmXM
-	 44tWApf5pPRf7BW5gfneKa6JPQctR2SngBV6ZdjdQZDaVTEN7kCpAgM98dyE0x/v/uQ==
+	t=1792572957;
+	b=veNAyKIUHZzT5QS/MA6rFUeK8IuRoiGT41ddtzlA/9E2aY9sCzHNhtwBx1BrAjrRdDlj
+	 sOSJ60vHVhLtFGQNJQ6ByLsSXwcP+ROZO6S/JJlW1w1WvPffPxvuSBWKTJqoWjQb6Jjq1
+	 V5bFCaDWuCsVJf7DloXywwsU6XrmSOyieKT3zve08xNY9lKx12EK7AfIVR2H4E04yxsqB
+	 jidzCvpOGehfI5RrT/2vlh1kfmnMoc0tfRLc73OxGRkp92YFNrXrGUnoWK0oXzn9DJmCN
+	 6+dEEyz7CKh+wtk+CAunEh+Yej60Y5DMMyxxI0/oScDyuPt1Oumc+KGBnZQo3Mcko9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792572793;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=azsroOQy0D9NBLxIw8305L+Q5mbMoQP0E8Zku8I6kL8=;
-	b=dUbMRwvtN2LEuprFp3viedn8eUv9+p9sCUlQinEax26iCt6kgtEov8aEFZvC1XAI/yuV
-	 YSoG3DFFw+6aFDDblPuwmaqwEdFJGwk/5dTS2j00xqRjlrFab/k7u7I/pX2DiqJwNNvX3
-	 rF8CfjRIwEfWbedSNPFmMU6OjBM5UHRMOF+PuqIF4f+arT/yQZhLvbXpCb/fG/45sH6rv
-	 OuM6jnaR2mpiZJJrpOZaIxmnpk/FuqE3eKRIt8OoacceNDwhD1kD2CU8EqULja/uTOHzN
-	 p16erWVUM9cZyI7uK4LUqRFpZISi/leRGdMz2EmHF6LzkzyvzdswX5S/ek/BFo7NZxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792572957;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=kBfmRD+HTUM5tLd6gOgOmsCqpMWEseYJOLoe2SuJ4F0=;
+	b=FRgBY4nCueoxO92aPYFnr6UKdIvzOBfnC2amsTde5HYdiryba4dAj3r5FSIP0ua3dtMm
+	 zgAuU4QcBgK6h3rmvHiXLBtddGtyXBlKJcqZrtOku5TDsYv7qbSVLVHEN/zR+8EqZgtl0
+	 n7PqCn4P5mrdfSPpRJiinO5TBrt3O3MU8QS6RYWiCvcKHZKqO7WbIkwgUPCTPhMT+7F6b
+	 FSg/OnJ1XyRTdIhjjgz2OFVbDvKAW3AYG/anY+9p6M/zidvW0gvS0XT6R+Uw01KKM7rzk
+	 jyQE0k2YGJbqoqyt4lghbazK+9EL0jcxb2wQZiC2qgsdEhA3kP4MxJwJ1svHRKrFBtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n4HxuxQC;
-	arc=none smtp.remote-ip=209.85.210.170
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bc2Z88ul;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04205606A31F
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 08:53:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04205606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D98606A319;
+	Wed, 21 Oct 2026 08:55:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n4HxuxQC
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a06c60065fso340896b3a.1
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 01:53:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792572792; x=1793177592; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=azsroOQy0D9NBLxIw8305L+Q5mbMoQP0E8Zku8I6kL8=;
-        b=n4HxuxQCqnew/uzBCFBXl9JM/FUybwmzHZedUalx6HnPy+gFSnup1v1oIqINM9mG8d
-         59xRtEIvffxG6LLWjFm8AUXTAmrL4WUHJF3SN+E/cQ5eQH6RUWLqkQvLGTSsx8u5P+2i
-         S2rtHo16giWUSAKVEdIghcH7CB4oNU/mzZkNwqrjm0kGw0fbfBsnEh80sxE8ZaLlNufS
-         +upD6IyYCtJRrvSuHt0tvukfn0Jm33m3QQj0cUvSifqRlAGyyiV33PJjHKeIitHk4rF3
-         bO/w37mjmImsru0WB1Pgsus/ktsL+0vo1QW8KyeVsUozxup5sumLfhP928ov82sVx5vF
-         7yWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792572792; x=1793177592;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=azsroOQy0D9NBLxIw8305L+Q5mbMoQP0E8Zku8I6kL8=;
-        b=qxQVTW3fzAnK46AP9HbAi0JJ/5NvNwOy08C5H6pXW7ETaStsWbvXfdhoxuepBUFq/j
-         7uPEkOtb9qPYmFm/xS4Hn7HCVdQRyECOqp7W9hsL91tzpIg7/T2+lZjYc9zVGNLxVylP
-         STRDi7qvb3cN886U5CDYyg4uKUxPtKtLf7Z11Z5k2YgZDNYJSVPfSB4NkHzkvGFQeTqL
-         DqYz9LfKMcBdf5oAzC5eacBZLwEHOebPS/+OEHYVrqwFHqjwxZluAfkdOgLityej+EoP
-         VMNTCSzz2rKu/ewzgFKUMQLKPI44nHZW7KqMLKoT76YCpYMWz89ePDAD7dpYyOB1uHJz
-         TG3g==
-X-Forwarded-Encrypted: i=1; AKwUvBwoLinjS6SYIKDE9UzVjckjr2VwTUOJ3HY7u0bYD4eivfKVheczepvuxviTndlAoWPe1zoPR/M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJuXoA/2DS1f25EIOyyJ2cOaYVVAkFE8bRqRcXuZCtOWlURnh67
-	dG3fRL4vOc9euasfLAbS3jj8H8fYPBMx6hRi9+g82u5UzJkmDc98CBEq
-X-Gm-Gg: AYBFou1fb8NWXEcY1SEO9Rbl1WnqBbI7Ku2l9TgC4HVLtOwGfLE4xcM0FOvXl0JzFbU
-	XJ6PwSSS0CfDEweu+JVmko/WNNKrriNFgGdydYChp/xV2ZY4N2psId5YALEwJbsDj+Z50gMp/g8
-	ECgFpqimc/cwO22V2R1+Vks7k/ooHEk92yc5acO7ezlbQYpsnTQ/Mixn4B7vvywnbYVc1/Htlrd
-	kMO7BNODx3eWbO13Z5rlLx1F4UdhIrMGqqT3567WMCqgajFURqXurEkr6ogmfCUfuD8GMuXmxU+
-	NDb15YjWXg1CyNEFJy3QcgpK7t1fOmpu5cqqR1TLfw10Ke0XlTw0/ktTGAieMjvnZaRAsSE7hDB
-	o0NO3k/DuVPOBsMzdKF2gJ/W/28ZMDgVPZ1+uAyR4Tb37igFtWheifcEicG35ltN9dJ7hDIqf9/
-	XUUmVtKxoPojxi5MfwNubxJsHB/suOmV1uaWuvsAYaptpNgkUqzuw0aryP0Ypvf8Mdk4PdukJmP
-	DtQWz1G4+cNcSJxHZuUihEUENtLv2T3LY4L2AtM8l6pxbN/SD+Yim95F6BWiTjD/LQNGysmtp11
-	rP4jOoZQ3VVMoRXXVfz8M5jSGmxC2AV0KFROlA==
-X-Received: by 2002:a05:6a00:810:b0:8a0:2b8f:ba7b with SMTP id d2e1a72fcca58-8a089b82570mr1155273b3a.0.1792572792205;
-        Wed, 21 Oct 2026 01:53:12 -0700 (PDT)
-Received: from 675-reply.eml (awork131052.netvigator.com. [219.76.131.52])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a0895d8e70sm611023b3a.35.2026.10.21.01.53.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 01:53:11 -0700 (PDT)
-From: Yuqi Xu <xuyuqiabc@gmail.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Yuqi Xu <xuyuqiabc@gmail.com>, linux-integrity@vger.kernel.org, Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>, Jerry Snitselaar <jsnitsel@redhat.com>, James Bottomley <James.Bottomley@hansenpartnership.com>, stable@vger.kernel.org, Vega <vega@nebusec.ai>, Ren Wei <weir@nebusec.ai>, xuyq21@lenovo.com
-Subject: Re: [PATCH v2 1/1] tpm: reject duplicate PCR banks in tpm2_get_pcr_allocation
-Date: Wed, 21 Oct 2026 16:49:34 +0800
-Message-ID: <179257257405.72348.17698648428918034727@gmail.com>
-In-Reply-To: <ateJA_WanjASrIUM@kernel.org>
-References: <cover.1790568982.git.xuyuqiabc@gmail.com> <9d27c4513a3c6fc32f9574ba192cd3bfcb2bac98.1790568982.git.xuyuqiabc@gmail.com> <arwssp0czGg9XKv7@kernel.org> <arw9CHc4mIOm5C6Q@kernel.org> <20260930033300.30295-1-xuyuqiabc@gmail.com> <ar8hhrjQQw_yfghj@iki.fi> <ateJA_WanjASrIUM@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bc2Z88ul
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 971571F000CB;
+	Wed, 21 Oct 2026 08:55:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792572956;
+	bh=kBfmRD+HTUM5tLd6gOgOmsCqpMWEseYJOLoe2SuJ4F0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bc2Z88ul+Wdi6ex8pvF8klzjJkZsyRycNpC+fqEvZwhpSTog+Ws2CFQaP7yf81qtW
+	 MlF5pKgAruT5Om3ovBjx44c0A70egnsrKIO5PXmJriv5wruyxcu1ATvCF4uo7MVz46
+	 Dy+zxHutfuPBzrqPb0FoGLtDlaOcoUyHjJskAGpEDsJ5UJznKmNWRagAV4Jv0O2yWl
+	 7ppdJbz9WyJH42i9yzbxnzJ5mGb9feE5OT1f8UZC+Un/U2hU9fL8BfMjSAtVpw6d3P
+	 rZqVPie6kTOAcEB0CN+suPI8nN6r1XWueiS4WFG8NI50i35KImYKUN3ykMhzYnGVoI
+	 DmmVcaxMgVkKg==
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 7613E1980050;
+	Wed, 21 Oct 2026 04:55:52 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Wed, 21 Oct 2026 04:55:54 -0400
+X-ME-Sender: <xms:F37YaojVWrsR83031gVvpnRvGNk3M7OQ1i3nUtjEzGX-YPIOqn8LaQ>
+    <xme:F37YahfiUUY-rLQahuAvVVp5w7RN08Az6vZm-EFeLqSvV14sox0ci1ARP_Jboml1W
+    _bYBoANT1M0V4wDtgzP51clRTAyk2pt91gpFeuQvhxg01ryFCp_FWnw>
+X-ME-Received: <xmr:F37Yalgx8LUjo11qIaCHCUxkODdZMuxBbjSrKJdpCTGR_Gisu8Eoo1tNlsE>
+X-ME-Proxy-Cause: dmFkZTEBD829IPSJldAEeV8g8TjtY4+wpWNFDE0//6V1zbMXwfqkzjCBJM7vp2VnYyE6BQ
+    cTG8ugeY95ZXs8su3YTJNRFD11qFtvPEio1QgBsUIQ5MzQ5NIRzzqPV+LhiBOZzB0IJOEv
+    Is/kA+k7tTRpZsr4rhd2iYJlPa0vuel/YvFTzqFS7o8miy9srjNIAq5rA5ZhmXr1sADhki
+    1PTJLYfs7YUNH9EZd0xT8DRRkGoeaROyYcl+3dMeasHllZRtdvYyk4Fbo+movVzd29ywrI
+    xYfvHgmBtENvnnIcfdcD+ZXF33LQbfElVQbTvW9VoPNNtmzzsLfi0bbZ0ZnXfMF5I+C0VP
+    VHCICwVqm0BmTISx2nQVYmvAVLhuJk0im+xr9PddCYXwiSGbxyjonOBq7evO49Rso05MmK
+    IrT+nF21YP9Qm3+s1G4YASJaEqnQnpvRSA44fptB+MZOkV+hoA5xekZKOtzWHBSKt89pOT
+    Qel+zTlMzKw0gcXBBOJC6YO8g+Al53ByXP+SV2kmUk3aaJdE4eVFmc541llE/QOdi7ESlN
+    hc+SFGehm1l6OTHDB1JFCrOkD1oiOGIdkZhPHZovdo5EhMGShA+pfe3bb5sKVkGSl6/wYm
+    CJNmydURXKNowlpHRLaTOldiFULdXb8VwADQNQ2bUihguy531D770kU++SPw
+X-ME-Proxy: <xmx:F37YanNp8iZN7MgTJnXmEO6YgONTNgwcdzR7Lu91iWqMbktXcr4HRA>
+    <xmx:F37Yapmwr0fJV5Ayegmk3VllttZe5TyWEKW3_tzsUHCVOlnjFKFOgA>
+    <xmx:F37YameuTO_lVWqrg6KFFAbgZKzU66sgfRSXVk7jlI8Gy_qS0o9ctg>
+    <xmx:F37YajuxDEhv9S9oaw20FiWHqZQrDhGlZJbJspcnqW7M3Mqn-JmyAw>
+    <xmx:GH7YagAfGGfDD_kD5-HU6L1DbNvJxou9v2XGXi5OXt9Ou0SkxkuroWhh>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 21 Oct 2026 04:55:51 -0400 (EDT)
+Date: Wed, 21 Oct 2026 09:55:50 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>, samarth.colleges@gmail.com, 
+	akpm@linux-foundation.org, xu.xin@linux.dev, chengming.zhou@linux.dev, peterx@redhat.com, 
+	rppt@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/ksm: keep soft-dirty and uffd-wp when merging a
+ page
+Message-ID: <ath8JTlITYcXsyLg@thinkstation>
+References: <efa6a28c-f0f9-4d1e-9cce-fec2c08e7d9f@kernel.org>
+ <20261020055518.36087-1-lance.yang@linux.dev>
+ <3da45e6d-2b46-4fff-9ff3-241f70d68296@kernel.org>
+ <f6bdf823-be42-4184-87d2-fc7c128f4786@linux.dev>
+ <68f17ee7-d272-4475-8a59-645442e2c210@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,35 +92,24 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <68f17ee7-d272-4475-8a59-645442e2c210@kernel.org>
 
-Hi Jarkko,
+On Wed, Oct 21, 2026 at 10:21:53AM +0200, David Hildenbrand (Arm) wrote:
+> > +1. Did it ever actually work there :) Why not just skip them and
+> > call it a day :D
+> 
+> I think QEMU just always sets MADV_MERGABLE and later activates uffd. So that
+> needs some care to not disable them. So let's rather try to get it fixed properly.
+> 
+> Can you send out proper patches? Thanks!
 
-On Tue, Oct 20, 2026 at 06:30:11PM +0300, Jarkko Sakkinen wrote:
-> OK, so now that I was writing summary of TPM pull request changes, I
-> came into conclusion that this is not a bug fix, unless you can show
-> from TCG specifications that this is possible spec allowed behaviour.
++1.
 
-I cannot. Part 1 identifies a PCR bank by its hash algorithm, so one
-hash is one bank. In the TCG reference implementation, TPM2_PCR_Allocate
-keeps only the last selection when the same hash appears more than once,
-and TPM2_GetCapability(TPM_CAP_PCRS) returns that allocation. A
-conformant TPM will not report a duplicate.
+Lance's direction is right. Unsharing is not an access: do_wp_page()
+already skips the uffd-wp fault on FAULT_FLAG_UNSHARE, and RWP should do
+the same.
 
-> So I can keep the commit but would remove fixes and bug related tags
-> from this. It is essentially hardening and safety measure but not a
-> bug fix.
-
-Please do. Drop Fixes:, Cc: stable, Reported-by:, and Closes:. The code
-change can stay as hardening.
-
-> Do you have something to say that I might have missed?
-
-Only that the commit is not on the current master after the rebase. I
-can send a v3 without those tags if that is easier than reapplying it
-yourself.
-
-Thanks,
-Yuqi
-
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
