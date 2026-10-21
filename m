@@ -1,74 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792579451;
-	b=X42iyThq+C/FnfH+xMv2FKYvG3GTB8GTE+QlzG8nn8esjSXS+mN9viYQ6heZAPcGA5w5
-	 ObG8IrLJb4A3CI8U7QdCziLFmHy3zg7M5NNguPabV6yuAezlMlKRIXaamjqrvDbQhQuSU
-	 DB6A7i0r8x/KrfO8E5hkERpHA72khV9YObPrfYlZJl4qTMBDo1TyFjurT5XD31txzLMBd
-	 IOQjhLuuP3iWWxB7sMoknpeHpmSmZAF37fyODHdjOveNv8WBkoM0RJH7kxCE+1X8sN1aW
-	 YEjoJGxRH9085YLuHFRoms4mZk8Yiw5/EYKnyDDBTdvex4qK/crYf/FGcrwK5EcQ83Q==
+	t=1792579536;
+	b=tVLqW7GhgSRMTzRxqWV1g7RwiyrtDYeR6dE3nrvwJzdLr0bC3lv716+xPwjbkeax+/8D
+	 QPxynfho4Mo7XwCFT/NfZG1ji0jW2AKW/+n+hkIx47zZwaZVxlWEPad8lMTulyhDP2q93
+	 +34Vfj7j/txDpjyKQA+RksJMTNFeRFEnjJBSCslNm5F+pMOTjfQ4eZ6evSHroNsV/HJa3
+	 MPPQRSqF95wmUW4wAOU2RH4YikQuSe9gAqJkTB7ImsQZGryL2adldNl+GtZHa+JytwFcH
+	 anV8f7fclwpwVsjwpW9q2aV+ZsqR2dH7/LEAAG1SdjgEypENyElg1Kcf7CSiNzAG1aA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792579451;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792579536;
 	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
 	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=Us9MblHdqheExL+x3XL9+16dU0fSlqkrDNwTx8ZinSI=;
-	b=i2jPygHG+c00NzxPWEKqMZt5n44eZDAby19qLr7ihp71AXoMSbMN0pHlwv+OryXrss6s
-	 LMUE95yxEFlPaw4IetsKtmMEdRMsmoDYoDSaNqjir9G0p/7oMSZFOW5awCrD3v4uN/7YV
-	 5UtVAzYrKYBdFPBxAk7MLeyyhjUJ63q+FvXRK70K4g4zfxjFNEzFyWikEMdb2Y3l5dQss
-	 aAUR9Uqf7aaDhAc5tdDEMbrx+V7tunvlU1yMDK2QGR0FFk67oj/LqaDEwnmSiEzVzMs9K
-	 0YpajIVjbyuBBXrF5VWrvDeAXkKtC+//qifj6kn+4mCmgRs5lcxC6tx4gbw5BO3VUhg==
+	bh=Zsif3MYLSFHQaVAeajAin29JnyY4ARKYrABwitLB9Rk=;
+	b=nJyaebebcAMourIw1twb3ZGvpS/CYmwd1tt4947MDyjFGdlLEqjZrchpJN3qBP1Igbpy
+	 8Du8bHcwR/97XWpN04t2Db8Xg/SiP5Z9T9prjgHrNZxqZkr9At4QR5rOrGPgTR/EtKEfI
+	 q3n7FLyY8pPBS0j6lox5P7+dilSWJk9VbipdnSbeWXb26SX8kSrpA4YC4HX/MGsLho4sz
+	 /uQ71Dp58QEAi4HpxF5fRE3pNWCuN8Be0RvLTlN0Z9C41aBdJ3kIPW1KNSnNbDF1m5MI9
+	 ZSqZtT/fAO+9mpNiySpDaYWmj4VWr0K0rETN+FYKhcNcj7Sccb5BhM7ZS5UYAmpkvaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cpWdr09j;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ITUoFWnm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8E3606A319;
-	Wed, 21 Oct 2026 10:44:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE29606A319;
+	Wed, 21 Oct 2026 10:45:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cpWdr09j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2CD71F000CC;
-	Wed, 21 Oct 2026 10:44:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ITUoFWnm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E35AF1F000CA;
+	Wed, 21 Oct 2026 10:45:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792579450;
-	bh=Us9MblHdqheExL+x3XL9+16dU0fSlqkrDNwTx8ZinSI=;
+	s=k20260515; t=1792579536;
+	bh=Zsif3MYLSFHQaVAeajAin29JnyY4ARKYrABwitLB9Rk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cpWdr09jPEBb0bc9LwNOJEzRdZjJF/BmJqcBNQwEwkzMr688MKrLiEmNM9hjiMWey
-	 UQslgbqyADbfbVDMyMEghX6Y3z23Ket3+TL6VEwjtJ44VtWdzyt0HsypjPDiwsY+fA
-	 yDpGl8ZcSRDnArSkUdQkEs9PZCf9/8uOYWJnIIAdmxFu6F1WYK0Jt0z3NCLzcT/rpu
-	 n2TsT61w2zbwBJhuJX9+wr6MbpT7ybuL2En/4PmCLIwcmn/M4Sm+0QVo8heQa2W29r
-	 TKAxBEHIWbH2lF2Il7Um6mDpwMbYMbIHyC6XH1LPbyv+gqfS6li7UEM4nTraVAVNKa
-	 Ypkq0uk2Xaj5A==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 2AD67198004A;
-	Wed, 21 Oct 2026 06:44:04 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Wed, 21 Oct 2026 06:44:07 -0400
-X-ME-Sender: <xms:c5fYajUSghtNgFI70pcZQneEQiKH-7lS9ZiDirnB17TnEvHBNdbCoA>
-    <xme:c5fYanAQyxuwZwdQplhyZWO5Bdi2T3DvThxLwzqn_3RnCTqpb-X4KPqEKjKDGlTZ7
-    oKcZRIZfz-3S6jmsuUKK8xOpGS7tHrzX8oz-CmCJCmsjXvaBHq7Ui28>
-X-ME-Received: <xmr:c5fYai81E17U72TQR6cBaVLxynEL8Mf3FphrFIRT7W66q-afIjHNwVhOSWI>
+	b=ITUoFWnmtKQkesrydomGXhgVh6suxMt9U+eAPECm2bS6NIWx0OnvPgp9Ci8bzz5o6
+	 Iw4Ta3oHfnBrpKhlThbz7Z+HS7vq88EiXKxUfLyiD2ijaCgNsKIhI/UDwYAUo7u2qe
+	 oTOGCK44SOPftpzd89v+sYaI+GzO4C4TfHgsGc4lGIni6CwBrLfy3iFAUysMwAGhcn
+	 hnTDFjkcAfrORGDAwClR3Z1a+sa6hu1UItqQdyCko4uXm3UN1g3QJECatsA6HKwygZ
+	 zc+XUedibMaf7MSN2FOX/oXPlMUK8GlykhWPJprupCQHp92dFJPilNeY5pALSwobUT
+	 zZD/tBhLzhnQQ==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 3CC6E198004A;
+	Wed, 21 Oct 2026 06:45:30 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Wed, 21 Oct 2026 06:45:33 -0400
+X-ME-Sender: <xms:yZfYajk1SVwZJL2etJoKFZN-C4ohiZpbZg6EAmmaN_g5NuGrTYGYFw>
+    <xme:yZfYareAtwR4eZ90nH3KOh4AXJMscwAu6JuENUOcilG46IIS2Uj8g_2T3FJ_h36Sk
+    JBEyayXhq0nLsBqTf3T09M0SlavfTuRFAnif9mHAR6MF6l-rCL5qV1c>
+X-ME-Received: <xmr:yZfYahzPCvaDuZUacNeT2K55W13M1htWPgwTKP9YN-qioxTqJG7W8T-32os>
 X-ME-Proxy-Cause: dmFkZTGjd0a96U9V2vCQJLOMnRP+wBw1u1T1zryEKh7wa0310J6MaOgUiIze5CmLw2GV9H
     W7t6mlprVd+kvbSxqwnutYrDRHFq9thzgxnKvzoOneg/m+7lBF9h6ytrT+iKjxIUuf+vvN
     y9Cq7W4xWk7YVHBR3ir9mF0JQz+UsddF9RY9ecD9IhTffHR77HlcEV22e07OPYPqpykR1c
     Wbn4lcV/ZHNQlUrw+hxoN3dRq3FexhKkQBbUB2wMoaOQaVWFZvvUIADdR6OZTcM2mOgGbt
-    Bk1nFt8UG7lG7K1JW9O5KIcUOduE5+An5YPc7EUyj56sUKNTOHdIARZs+z4z7vm38NyPL+
-    HMeJaBxs1tnJ0vyAx9C/DXs6nkO5W+SROu2gcLvgiyeg+rJm8DzqGFpZRqkGkzLHbSENiJ
-    HBbb/QiPxtnII8Uk1Aw0fsQFr4bsOMXrpJpP4o9kQ6A6DpRyVen1lHrEEJ4L9yapznEJAj
-    3PpKWlBNVcyf/NsutF0IPRW7//mfti3i/gbQX23xqmAqPmynlQt9p6EB2slaCusRSNwU2q
-    TqhR1AuKmJ9+wlHfDyYPNRZ6p0We8D+oBsW/o3vn35BTXm8B9lt5J6jeuOcZJ/s43Qu9gD
-    mjnUcWTYfxtc0HJnryuldPPfmsEjTZQJq09ZQ5pAmUiMVHNuJ4+1inCL5tDg
-X-ME-Proxy: <xmx:c5fYanX-UOwD1UJMljja19LTZSvPp6QGcT0h-ll81DosJRWQO3Hp0w>
-    <xmx:c5fYaqveaLErmdg4TlIzJ8FZHHZWWJWD8PxVjFCrfhuzfBv-JlBQhQ>
-    <xmx:c5fYapwXBuSeNxn6ADFbdlYq0tTrchCfRfxXKfJJahhF3GaoUflqoA>
-    <xmx:c5fYatQlMd7RbKCdCqBqcY3jcV_k3NMeVXticf3wiq0mfAzk1ElIMQ>
-    <xmx:c5fYaj_ICU5Mn5lVmICEv_wySfwlt4Bp4UxwPMTYguEn6y9bPCJ8cNWj>
+    Bk1nFt8UG7lG7K1JW9O5KIcUOduE5+An5YPc7EUyj56sUKNTOHdIARZs+z4z7vm38NyPkO
+    wmSUXNPpxjcQFp7/JkJjUwG76pPAgcYBdQxvJ6P4aqeaJTbZM844gkr22S/ig48+kIad7U
+    Djp1LfHzH3bPcjoFPQwRqL8I8jmrSMut7I64r3tTqNHUcas8SMKa5FnnfSxdJVyRdqBTSl
+    vVoDVVid5tQMWpVWKGQYCcrdnpu7vGKgsS42F8BMXd7gKOroHVPpFDeswMEnjQSZA+yLvI
+    HfWbQgiVG+kr8vmS0PrCdjOFK0y7wfS6DGhJFEjaRI953nvts016DGEPQevp3NpVH6Jkeg
+    T228p1VaGhC1FU4fpGyxJy4addfW2sr1D6fUdC0yVGrxWHqoJ1vIwohGDkkA
+X-ME-Proxy: <xmx:yZfYaltlWgJH0iQ_XyQYetAnpv1cS9Flskc6TVHt2Fm5HIUvXyQvyA>
+    <xmx:yZfYamr-qW0eQ-X6lNXhK-8yGIC-YpTuJJ7qYGqeXvy0jPyt4c-Z_Q>
+    <xmx:yZfYag07UcTns2rUJW6IaMSRlce-bFbGeqbDrUkmNwT3jtZFMerA0A>
+    <xmx:yZfYaiU5cEwtulAkG0_t8jDRrXHGQ02KtO60MALEosyCFJ4hl88xHQ>
+    <xmx:yZfYahf1xhEj98DBGsJaU0kLdz-iJVOf38BnjH6MqJBIFWtMqT9vyRO7>
 Feedback-ID: i10464835:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 21 Oct 2026 06:44:02 -0400 (EDT)
-Date: Wed, 21 Oct 2026 11:44:01 +0100
+ 21 Oct 2026 06:45:29 -0400 (EDT)
+Date: Wed, 21 Oct 2026 11:45:28 +0100
 From: Kiryl Shutsemau <kas@kernel.org>
 To: "David Hildenbrand (Arm)" <david@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>, 
@@ -79,12 +79,12 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
 	Adam Litke <agl@us.ibm.com>, Mel Gorman <mel@csn.ul.ie>, Rik van Riel <riel@surriel.com>, 
 	Peter Xu <peterx@redhat.com>, "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
 	Josef Bacik <josef@toxicpanda.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 07/10] mm/hugetlb: tolerate uffd bits set without uffd
- for PROT_NONE PTEs
-Message-ID: <atiXUuyXM89u-XBV@thinkstation>
+	stable@vger.kernel.org, Chris Mason <mason@kernel.org>
+Subject: Re: [PATCH 09/10] mm/hugetlb: don't leave a uffd-wp marker when
+ zapping an RWP entry
+Message-ID: <atiXpldwe6HbI-aV@thinkstation>
 References: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
- <20261015-urgent_fixes-v1-7-42796911043b@kernel.org>
+ <20261015-urgent_fixes-v1-9-42796911043b@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,21 +96,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261015-urgent_fixes-v1-7-42796911043b@kernel.org>
+In-Reply-To: <20261015-urgent_fixes-v1-9-42796911043b@kernel.org>
 
-On Thu, Oct 15, 2026 at 06:07:13PM +0200, David Hildenbrand (Arm) wrote:
-> The whole uffd handling when a VMA is unregistered from UFFD is shaky:
-> there are still some scenarios where we might have stale uffd PTE bits
-> in VMAs no longer registered for UFFD, which confuses other code.
+On Thu, Oct 15, 2026 at 06:07:15PM +0200, David Hildenbrand (Arm) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
 > 
-> Let's just tolerate that for now and simply clear the PTE bit. Add a
-> TODO to really clean up any uffd leftovers when unregistering a VMA from
-> userfaultfd.
+> An entry that is protected with UFFDIO_RWPROTECT is PAGE_NONE with the
+> uffd bit set, the bit that userfaultfd write protection uses too.  When
+> __unmap_hugepage_range() zaps an entry with that bit it leaves a
+> PTE_MARKER_UFFD_WP behind, whatever the VMA is registered for.
 > 
-> The handling is now more similar to what we have in handle_pte_fault().
+> In a VMA registered with UFFDIO_REGISTER_MODE_RWP that marker means
+> nothing.  The next fault has hugetlb_no_page() turn it into a present,
+> read-only entry with the uffd bit.  That is not an RWP entry, since it is
+> not PAGE_NONE, and the VMA has no VM_UFFD_WP (the two modes can not be
+> registered together).  An earlier fix solved some side effects, now just
+> stop the zap from wrongly installing a marker.
+> 
+> Leave a marker only if the VMA is registered for write protection, both
+> for present and for non-present entries.  The zap of ordinary page
+> tables has the same test, in cond_install_uffd_wp_ptes(), and
+> hugetlb_change_protection() says that "uffd_rwp does not install markers".
+> 
+> After a zap the range of an RWP VMA is simply empty, as it is for
+> anonymous memory and shmem.  Nothing changes for VMAs with VM_UFFD_WP.  In
+> a VMA that is not registered at all a leftover uffd bit or marker is now
+> dropped by the zap and no longer kept alive.
+> 
+> Original fix generated by an LLM and sent in private by Josef.
 > 
 > Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
 > Cc: stable@vger.kernel.org
+> Reported-by: Chris Mason <mason@kernel.org>
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> [ david: a bit of description overhaul+simplification ]
 > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
 Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
