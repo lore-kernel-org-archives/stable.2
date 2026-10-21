@@ -1,71 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.1.125
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.26.1.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792616403;
-	b=a2sVoLRhxs+Y4qOgSXIJ4AL8IFf+1P1p0It814POGK4vztqAP8WAVByCUgAMjQvNRn45
-	 jYggafu2SD52Di4BNhKBXo3xP944t81dJdAzhho1LoxWB2umi2EhKk32XMRxHcFQel8pI
-	 9vAFB8TDhj/0EoRQ+PhHaRqmMSvugKY8tYv/SEj1IS8koeLy+pFjznWTnaspRM2YXhZi9
-	 eFxpQk5TC5iOaHJ0KOb8JesOPphiUCG19NUxEqQcXZSyl/bmyyapof9QypIoqYJFudSQw
-	 /OsAoVIJ6+TQ3xk/jDdebbZKUQ4rMGTL0Swf9d8p5O0Mj1rEEnJsR8VxqP2WVAiY3Ag==
+	t=1792616426;
+	b=YOnhEjr7SKPxJ1i7+hxczZjxQ0ogW+9CGbyTQBNdy19CfsoaaXQVlntNHHSv2X4RFdqc
+	 p/t1WaR7ivNCJBAorBdFqEsKSIK5jdcnPvpUtebp1AmsXYmhZJEfctb6pf421JQY/Qr6a
+	 TZWjURmmxPtNrZgb1o3GktECLb1Xn88goWQN7uWkSlU/aRmCec9rVDBtVT06yLxmE36DL
+	 qFj8HMhVVe55e3IRo3utU/fsDnYDH61AmG4+se+zqHwr9ES0oCcLhkxf5Pxfm6SjSyAqS
+	 OnwNaV/eCCVzZnqz5FH6CAO2uHkdS6yC99cvTLqYM5QZv+hwX+on9Q78GF5sAm94cJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792616403;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792616426;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
 	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=1vskPYQTGSiRlfiG8NjtDrPBmdQ7Pt7Lx7mQfl+2YAU=;
-	b=ntt32mzcUqiZiqRYL0Rvbgq6bV9fbGxD42YbSbCrIVw3J+B7vdkRg1FRjdVvW2xET9Ye
-	 HGFozL5gqjAH+3bszUXHGNkuHIkPAkSeojS5ORJBo+wKiyid58Y/P4Rv6cA94BkJB985k
-	 PQUCncAplvoG+hkmNpOy5kLU40jBZqvw0XLwVQ/4eBvtuguPWscSP9kyrnGCGg5AU2gP+
-	 dNs3AldQAzUsdRG8CAPq/Jyku5/Yz7+a4vFA3EBA0W4H3K/mKBBGwgfntwDVhTauQpTnV
-	 R/zPZFCfDw0s8pYa8LCW1RhYeH0SPX7iqWEE0JyXGG/JSxBWmyefSremGx4E4XQeqYg==
+	bh=KmKQiASgHHpPpvSVCiK2LSdfMBzEqABYMCvRYtwTfIw=;
+	b=Cgiqwtcf/rAgWB5gTeO9PTkaI3thRYtzJWT1n1HI3IURdwSAhilJGwuAIvc0/O3feRp+
+	 5Oxcl4+X/ue9OlglUDm0dupP27J6FEJjA8dbGsmVswYlh2ZeIjiUxyWLLf1j6l020sb9l
+	 tUdkuGE4s1HLWJuuANkDnufRGuwaoscVhfIcf8x3sjiBxhcbhhFrndh5+9P1IB+BowwV3
+	 8Vm/4h147moo/M3Ww4/Xc6jowARPbT7CLZEQwZya+Xv37SYhzvKPNOu+RMsFdcwCLZSt5
+	 r6zN1qc5il8BL9RwTrP5mXR6t5xrUlYNa2lJUgDUlXcnuiKyZ9Iunm+/sJXjxehuArQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amazon.com;
 	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b="XSX/CjyC";
-	arc=none smtp.remote-ip=44.246.1.125
-Received: from pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.1.125])
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b="qZnB/RAo";
+	arc=none smtp.remote-ip=52.26.1.71
+Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76910606A31A;
-	Wed, 21 Oct 2026 21:00:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76910606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4286606A319;
+	Wed, 21 Oct 2026 21:00:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4286606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=XSX/CjyC
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=qZnB/RAo
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1792616403; x=1824152403;
+  t=1792616425; x=1824152425;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=1vskPYQTGSiRlfiG8NjtDrPBmdQ7Pt7Lx7mQfl+2YAU=;
-  b=XSX/CjyCB/vkTfGLQIbwtwNArWf8peEbtJ5BzO9+oMuold8nRGRr/phn
-   GHcn2Zz0I47LTeQTzk3n3tekobWWJRKXrS7WRkBhCM0EVhGgdurCvTKuv
-   13uSSs81SQgyFKg3sw1KeNWe0fy9S2XUYNpESc9xDf0JskmjIDkl04Za2
-   WvJBvpFCFyUD2+uTp/6RM23Ykl+HxLHxlFQ3esbd6GV67nBXMnrqqbqpw
-   JQjClphEolMK4J1b6ZbG/CHuJ3Z7kShKpW/oHOxh2Bd2Qsy8RK50WvdM8
-   D/rjfTRMmpMwNpHe1ENYxS0YhJyCY/zJl6hxhDGCHmQ2bYwHVmgmi6oqg
-   w==;
-X-CSE-ConnectionGUID: vLrZ2WaFR1aYiCQMpY5b0w==
-X-CSE-MsgGUID: dQDwu3MKT3O/yvN3/BXiWw==
+  bh=KmKQiASgHHpPpvSVCiK2LSdfMBzEqABYMCvRYtwTfIw=;
+  b=qZnB/RAo8GVXNejfEbqJahtf83qzOSqDTHtVKlOe9jvIrTLmFus3rMxi
+   igljnKR/dFLtiFNWf1vE5EH3uSaVm8ColVCXwBIWFArRiOdmjnz5GOXj+
+   rvWx0bT5KTeuh9qq5Bwxo4MBdqLEry9kytlpIqj9eAUQz0G5DqdVVb5rS
+   Jr2A9594RLmHwabqzhprni83L+5OG0ZxBYMOgiyoWl8m95isoutrJw/w6
+   3GD8fmvj//w3ztwXijjg8zH5Ih8NG7+SyhVS47E56Lud6qLLZ3XVm56Qt
+   j0aYAG0RU/Uni2NZMloacpOEkCss0hMzOs+biOKJFmXsg/bYJzovAkqBG
+   A==;
+X-CSE-ConnectionGUID: cwGklPTASR6F0+v0f9L9oA==
+X-CSE-MsgGUID: lpiPmw3+RnSbAWVyuTMyfQ==
 X-IronPort-AV: E=Sophos;i="6.27,170,1787011200"; 
-   d="scan'208";a="31914416"
+   d="scan'208";a="31940288"
 Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 21:00:03 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:30807]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.51.105:2525] with esmtp (Farcaster)
- id 2652e6fa-dded-4dcd-aa2f-370e1df2b89e; Wed, 21 Oct 2026 21:00:02 +0000 (UTC)
-X-Farcaster-Flow-ID: 2652e6fa-dded-4dcd-aa2f-370e1df2b89e
+  by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 21:00:25 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:12534]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.22.5:2525] with esmtp (Farcaster)
+ id d8ae2856-7a85-415a-be54-ff72d9aa0b5b; Wed, 21 Oct 2026 21:00:25 +0000 (UTC)
+X-Farcaster-Flow-ID: d8ae2856-7a85-415a-be54-ff72d9aa0b5b
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Wed, 21 Oct 2026 21:00:02 +0000
+ Wed, 21 Oct 2026 21:00:25 +0000
 Received: from dev-dsk-patrzhan-2a-52a3f46b.us-west-2.amazon.com
  (172.22.91.11) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Wed, 21 Oct 2026
- 21:00:02 +0000
+ 21:00:24 +0000
 From: Patrick Zhang <patrzhan@amazon.com>
 To: Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol
 	<mailhol@kernel.org>, <linux-can@vger.kernel.org>
@@ -73,9 +73,9 @@ CC: Pavel Pisa <pisa@cmp.felk.cvut.cz>, Ondrej Ille <ondrej.ille@gmail.com>,
 	Harini T <harini.t@amd.com>, Michal Simek <michal.simek@amd.com>,
 	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
 	<stable@vger.kernel.org>
-Subject: [PATCH 1/3] can: ctucanfd: enable NAPI before starting the controller
-Date: Wed, 21 Oct 2026 20:59:22 +0000
-Message-ID: <20261021205924.2538511-2-patrzhan@amazon.com>
+Subject: [PATCH 2/3] can: xilinx_can: enable NAPI before starting the controller
+Date: Wed, 21 Oct 2026 20:59:23 +0000
+Message-ID: <20261021205924.2538511-3-patrzhan@amazon.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261021205924.2538511-1-patrzhan@amazon.com>
 References: <20261021205924.2538511-1-patrzhan@amazon.com>
@@ -90,74 +90,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA004.ant.amazon.com (10.13.139.19) To
+X-ClientProxiedBy: EX19D031UWA003.ant.amazon.com (10.13.139.47) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-ctucan_open() starts the controller and unmasks RBNEI in
-ctucan_chip_start(), prints "ctu_can_fd device registered", and only
-then calls napi_enable(). A frame that arrives in that window raises
-RBNEI. ctucan_interrupt() masks RBNEI and calls napi_schedule(). NAPI is
-still disabled, so napi_schedule_prep() finds NAPI_STATE_SCHED set and
-the schedule is dropped. napi_enable() then clears SCHED without
-scheduling anything. Only ctucan_rx_poll() unmasks RBNEI again, and it
-never runs. The interface receives nothing until the next close.
-Transmit still works. The RX FIFO fills up and the core sets DOR, but
-the overrun is only accounted in ctucan_rx_poll(), so rx_errors and
-rx_over_errors stay at zero and nothing is logged. Every re-open (ip
-link down/up, a driver rebind) runs the same race again.
+xcan_open() calls xcan_chip_start(), which writes XCAN_IER_OFFSET to
+unmask the RX interrupts and then sets XCAN_SRR_CEN_MASK to enable the
+controller, and only then calls napi_enable(). A frame that arrives in
+that window raises the RX interrupt. xcan_interrupt() clears the RX
+bits in XCAN_IER_OFFSET and calls napi_schedule(). NAPI is still
+disabled, so napi_schedule_prep() finds NAPI_STATE_SCHED set and the
+schedule is dropped. Only xcan_rx_poll() unmasks RX again, and it never
+runs. The interface receives nothing until the next close. Transmit
+still works and no rx_errors subcounter moves, so the stall is silent.
+Every re-open (ip link down/up, a driver rebind) runs the same race
+again.
 
-The netdev_info() in the window makes it much wider on a slow console.
-This can be reproduced by sending continuous traffic with cangen from
-another node and repeating "ip link set down/up" on the test device.
+The window is only the tail of xcan_chip_start(), so the failure is
+rare. Adding an mdelay(50) at the end of xcan_chip_start() makes it
+reproducible with continuous traffic from another node and a single
+"ip link set down/up" on the test device.
 
 Enable NAPI before the controller starts, so that an early RX interrupt
 can schedule the poll. NAPI can be enabled while the controller is in
 reset, because nothing schedules it until an interrupt arrives. If
-ctucan_chip_start() fails, disable NAPI again. Otherwise the next open
+xcan_chip_start() fails, disable NAPI again. Otherwise the next open
 would call napi_enable() on an already enabled instance and trip the
 BUG_ON() in napi_enable_locked().
 
-Tested on QEMU with the ctucan_pci device.
+This is the same race as in ctucanfd, fixed by the previous patch.
 
-Fixes: 2dcb8e8782d8 ("can: ctucanfd: add support for CTU CAN FD open-source IP core - bus independent part.")
+Tested on a Versal board.
+
+Fixes: b1201e44f50b ("can: xilinx CAN controller support")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Patrick Zhang <patrzhan@amazon.com>
 ---
- drivers/net/can/ctucanfd/ctucanfd_base.c | 6 +++++-
+ drivers/net/can/xilinx_can.c | 6 +++++-
  1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/can/ctucanfd/ctucanfd_base.c b/drivers/net/can/ctucanfd/ctucanfd_base.c
-index 07d4aa43c..82bf6c645 100644
---- a/drivers/net/can/ctucanfd/ctucanfd_base.c
-+++ b/drivers/net/can/ctucanfd/ctucanfd_base.c
-@@ -1231,6 +1231,10 @@ static int ctucan_open(struct net_device *ndev)
+diff --git a/drivers/net/can/xilinx_can.c b/drivers/net/can/xilinx_can.c
+index 43d7f2282..5c2412bf9 100644
+--- a/drivers/net/can/xilinx_can.c
++++ b/drivers/net/can/xilinx_can.c
+@@ -1570,18 +1570,22 @@ static int xcan_open(struct net_device *ndev)
+ 	if (ret)
  		goto err_irq;
- 	}
  
-+	/* Keep before ctucan_chip_start(): the ISR masks RBNEI and only the
-+	 * poll unmasks it.
++	/* Keep before xcan_chip_start(): the ISR masks RX interrupts and only
++	 * the poll unmasks them.
 +	 */
 +	napi_enable(&priv->napi);
- 	ret = ctucan_chip_start(ndev);
+ 	ret = xcan_chip_start(ndev);
  	if (ret < 0) {
- 		netdev_err(ndev, "ctucan_chip_start failed!\n");
-@@ -1238,12 +1242,12 @@ static int ctucan_open(struct net_device *ndev)
+ 		netdev_err(ndev, "xcan_chip_start failed!\n");
+ 		goto err_candev;
  	}
  
- 	netdev_info(ndev, "ctu_can_fd device registered\n");
 -	napi_enable(&priv->napi);
  	netif_start_queue(ndev);
  
  	return 0;
  
- err_chip_start:
+ err_candev:
 +	napi_disable(&priv->napi);
- 	free_irq(ndev->irq, ndev);
- err_irq:
  	close_candev(ndev);
-
-base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
+ err_irq:
+ 	free_irq(ndev->irq, ndev);
 -- 
 2.50.1
 
