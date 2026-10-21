@@ -1,74 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792598146;
-	b=Q9eLvnhQFtm38MmRxVv6tFJIYPKw/CRWNUkYuSdcrNUhQeIJI2mnii8EFz5XBycFVuPy
-	 i7kCXpFqWAtfMweEr3Kva0GfBbXuVBFTKIJYd66YFQ5WxBeGOp8obWAkms7WGhn11Hg7Y
-	 JPc4z6++0BgauWwgMnsJe+WuRYrkBw+q6ak21wGw4kfUX8B3uWLE/7c6iwxEQvSKp5oKA
-	 8boDUdSecmrWV0WOmXkYkSp0BumtnrufDRxfY8Oy/K7cx8u28y04Ofi5nZPEEfoaRzLS9
-	 qK+OWtC+koYLpDiQx4xRucKalw5x8xZjITtV1NRa9FGlYPsDnP+7WlA9+keY32ZHn3Q==
+	t=1792598148;
+	b=oHQHpBPOSzwjioM1s9KadJUu/hkJ+yBbSgwHAonpd9mzLDMKDqZwcQ0kgwmHAqvpjaQ1
+	 Z3VxDVzZGCK/cveYZrpFA96f/VhdKSBxpuyDZ1XknXKr5IIKaFrEjC/ZzhDZ+ynjOKgD0
+	 qemzjff+N7cDpbGBnme70CBAIId/kruPxx13hVbILP9/Cf3h+JEfZ8wZERALxRgycbJjN
+	 T52sCVYkzWAqQ7NT595Z40YpigksvyKQrBDXkzd+tJXX3BvsjF/QMjq45oJVFgWGxsHQo
+	 xAO4HdHkfYVZM9WxmA090GfL6BGNsMMnnXNrQN50ZbQA97vi1JQjJ64ZwPf+k+sNc/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792598146;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=i50wEGYXCLBVOGgmt9v4+hZIwNI4ZPAHYIYyfh4PdOY=;
-	b=SN2kO6oK7P2iQyWZU2JKg1zjm2SdWf0flp48vScmN9fMZXMWSCrJ9SjTEyTtx/CTd/3d
-	 BNdSADX9+9p+OlTJcKOkQl9XYa8VB9ACwLlI04+6dNeVy3b7GyUf6zCk+DGaExdmU6GML
-	 sJILkE55Bpj4guQV9XrReaJRpULxDzht3X/82XIMuVCqVN3GSUi3qEusRXfoU9ZHG8lFF
-	 4Do/0BWlg/Kjx5eAARKbbj1YeS3Dxjo11DoGwoNcoo/5BCyuVQ/jXG6zA1WzhaZL8yDPd
-	 O7YSDdQBj2VkBdI1WwyCpnJSRlYkxDnwndMVh9nyxydGaNBGhoULb2Zwl5mgRm052zQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792598148;
+	h=Received:DKIM-Signature:From:To:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=lz8wMP6s5JA4lp89uvkHpwRk/PhlU0bp6A2ZhVtlO2o=;
+	b=3UKiT6Ptdh5wz4R0WovWKAbXysBZqFAC+1ghlqfNjSZ4QknvpHMKui3arM3EADcOrRCO
+	 3f4wv7T0WMouXVV2oqAC3HqnKTZa16VUKrY6nk2AAl1427NC0R18PMnavUGHj6PyDjhAb
+	 nZjIl9QloloZPb2dfT7s5jEsJScFaaazWRPvP2HPzUoZq5BzoOiJI2G75kpkh4cqLHk7u
+	 DYx9JPbH0uMdMeVRYgFEIiiR7kCMewufSaSzfzAf+0htYqdHMx+NBBzI9kfFTBgzEbdLz
+	 6X18lbaEVPgYO+uTrkE55tk0ODFDH2mfR4fOBo2be3B5S45EuCPpwqNAJOwZM6MdkBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bJPclUME;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g3y1chON;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11CD7606A320
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:55:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11CD7606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8FEA606A31D
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 15:55:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bJPclUME
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792598145;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=i50wEGYXCLBVOGgmt9v4+hZIwNI4ZPAHYIYyfh4PdOY=;
-	b=bJPclUMETi3ZH93lvxur36ar6dmWwk+ZIiN2ZcQchHlk6HtDeteYslvb9Ggyvb+xqVSNIW
-	EyW+nYZwgdrJSh1i8K/4R2CIX1NxESyB0S3oq6VtiH81rmrgN8ChMrF1omUe5DYho4OThv
-	TvR/57s/8p1saBgQuuv4SC4pYeHwjeI=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-410-UIVlsxmSOT-zXiKMWi4UlQ-1; Wed,
- 21 Oct 2026 15:55:41 +0000
-X-MC-Unique: UIVlsxmSOT-zXiKMWi4UlQ-1
-X-Mimecast-MFC-AGG-ID: UIVlsxmSOT-zXiKMWi4UlQ_1792598140
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 688A819560AF;
-	Wed, 21 Oct 2026 15:55:40 +0000 (UTC)
-Received: from loberman-thinkpadp16gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C6C8730002CB;
-	Wed, 21 Oct 2026 15:55:39 +0000 (UTC)
-From: Laurence Oberman <loberman@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g3y1chON
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C1BD1F000C5;
+	Wed, 21 Oct 2026 15:55:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792598147;
+	bh=lz8wMP6s5JA4lp89uvkHpwRk/PhlU0bp6A2ZhVtlO2o=;
+	h=From:To:Subject:Date:In-Reply-To:References;
+	b=g3y1chONbhLHtv9Wsee0zIa/0pX9Uq6quSCRS3/3iYXu0gO94Ef25YjSjFJBHjOrH
+	 u/SP4HKPO/x3WO+KghL5rzCSgRFknc1KwIYn2X56jGOoDQ6Oss3lnFWH09lWbfU1ej
+	 zeSK7OYpIQ/Wv/riiERn6qH50uA010aMm71di+ORp5I1HlIeIK9NJWrQ9IPgxys3+Z
+	 HBEhsFm8BXSG35ik5t6aY9bN7QiFh4WH6PR3fBUPzVVJFtg52/vMrZdpP9vRmR0HOs
+	 klSMS6AgSshxPyR7cCzseXxTXw+fvvVwCkbrTc4fiCTcOddLG1rupaN9DlbGPYkQPi
+	 7A9HNU0VV3AAg==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 To: stable@vger.kernel.org
-Cc: Dingisoul <dingiso.kernel@gmail.com>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>
-Subject: [PATCH 6.1.y] scsi: st: Fix use-after-free race between st_remove() and st_open()
-Date: Wed, 21 Oct 2026 11:55:37 -0400
-Message-ID: <20261021155537.2740297-1-loberman@redhat.com>
-In-Reply-To: <2026102130-reputably-unlikable-edca@gregkh>
-References: <2026102130-reputably-unlikable-edca@gregkh>
+Subject: [PATCH 6.6.y] perf: Track the perf mlock gift separately
+Date: Wed, 21 Oct 2026 16:55:41 +0100
+Message-ID: <20261021155541.1700184-1-ljs@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <2026102118-chip-silicon-40c5@gregkh>
+References: <2026102118-chip-silicon-40c5@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,72 +57,137 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-commit 71caf7f84bd62a4bf91cc95abd2de690afb8d15f upstream.
+The locked_vm field in struct user_struct was originally introduced by
+commit 789f90fcf6b0 ("perf_counter: per user mlock gift") to provide an
+mlock-like budget for perf measured against mm->pinned_vm (since 2011).
 
-st_remove() drops the probe reference on the scsi_tape with kref_put()
-and only afterwards removes its index from st_index_idr. If that was the
-last reference, scsi_tape_release() frees the structure while it is
-still published in the idr.
+perf grants each user a 'gift' of perf_event_mlock_kb * online CPUs of
+buffer pages which is charged to user->locked_vm without any RLIMIT_MEMLOCK
+check.
 
-scsi_tape_get(), called from st_open(), looks up the tape in
-st_index_idr and takes a reference under st_ref_mutex and
-st_index_lock. remove_cdevs() does not wait for opens that are already
-past chrdev_open(), so an open that is blocked on st_ref_mutex while
-st_remove() holds it can take the mutex as soon as st_remove() drops it,
-find the freed tpnt in the idr and call kref_get() on it:
+Only pages beyond the gift are checked against RLIMIT_MEMLOCK, per-mm, via
+mm->pinned_vm, which makes it different from the standard mlock() check,
+which is per-mm and made against RLIMIT_MEMLOCK.
 
-  BUG: KASAN: slab-use-after-free in st_open
-  Write of size 4 ...
-   st_open (drivers/scsi/st.c:254 drivers/scsi/st.c:1291)
-   chrdev_open
-  ...
-  Freed by task ...:
-   kfree
-   st_remove (drivers/scsi/st.c:4512)
+However, since this was introduced, a number of other components have
+utilised this field where a shared resource needed to be limited against
+RLIMIT_MEMLOCK.
 
-Remove the index from the idr before dropping the reference, all under
-st_ref_mutex. A concurrent scsi_tape_get() now either runs first and
-holds a valid reference that keeps the tape alive, or runs afterwards
-and finds nothing, so st_open() fails with -ENXIO.
+The other users are currently MSG_ZEROCOPY, io_uring, AF_XDP, iommufd,
+s390 KVM zPCI and most recently, secretmem in commit 97d34aa65c29
+("mm/secretmem: properly account locked pages").
 
-This restores the ordering st_remove() had before the conversion to
-st_index_idr, where the tape was unpublished from scsi_tapes[] before
-the final kref_put().
+This field is shared between all of these, but because the gift is not
+checked against RLIMIT_MEMLOCK, user->locked_vm alone can exceed it - 16
+CPUs * 516 KiB is already more than the default 8 MiB - after which every
+other user of the field fails unconditionally.
 
-Fixes: 6c648d95a6af ("[SCSI] st: get rid of scsi_tapes array")
+This was reported by a user who saw secretmem failing while running a
+simultaneous perf record.
+
+Resolve the issue by simply giving perf its own field separate from the
+rest.
+
+BPF used user->locked_vm up until commit 80ee81e0403c ("bpf: Eliminate
+rlimit-based memory accounting infra for bpf maps") which landed in 5.11.
+
+Thus also eliminate the now-defunct ifdef for CONFIG_BPF_SYSCALL for
+user->locked_vm.
+
+This issue exists between all of the components which use user->locked_vm
+and perf, however secretmem is the first user who has caused a report over
+many years and has been backported, so target the fix at that.
+
+Fixes: 97d34aa65c29 ("mm/secretmem: properly account locked pages")
+Closes: https://lore.kernel.org/20261002175651.811343-1-ameer.hamza@truenas.com
+Reported-by: Ameer Hamza <ameer.hamza@truenas.com>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 Cc: stable@vger.kernel.org
-Reported-by: Dingisoul <dingiso.kernel@gmail.com>
-Closes: https://lore.kernel.org/linux-scsi/20261007211520.1428497-1-dingiso.kernel@gmail.com/
-Tested-by: Dingisoul <dingiso.kernel@gmail.com>
-Signed-off-by: Laurence Oberman <loberman@redhat.com>
-Link: https://patch.msgid.link/20261013202548.249628-1-loberman@redhat.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ loberman: st_remove() still returns int in 6.1; context adjusted ]
-Signed-off-by: Laurence Oberman <loberman@redhat.com>
+(cherry picked from commit 78436f3882fb8d848c823bf8cf754988202c5ca5)
+[ ljs - Applied to open-coded accounting in perf_mmap()/perf_mmap_close(). ]
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- drivers/scsi/st.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ include/linux/sched/user.h |  8 +++++---
+ kernel/events/core.c       | 12 ++++++------
+ 2 files changed, 11 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/scsi/st.c b/drivers/scsi/st.c
-index 9ba5ad106b65..603ac7de030e 100644
---- a/drivers/scsi/st.c
-+++ b/drivers/scsi/st.c
-@@ -4434,11 +4434,11 @@ static int st_remove(struct device *dev)
- 	remove_cdevs(tpnt);
+diff --git a/include/linux/sched/user.h b/include/linux/sched/user.h
+index 8d7e5521f7cd..ec262b605437 100644
+--- a/include/linux/sched/user.h
++++ b/include/linux/sched/user.h
+@@ -23,11 +23,13 @@ struct user_struct {
+ 	struct hlist_node uidhash_node;
+ 	kuid_t uid;
  
- 	mutex_lock(&st_ref_mutex);
--	kref_put(&tpnt->kref, scsi_tape_release);
--	mutex_unlock(&st_ref_mutex);
- 	spin_lock(&st_index_lock);
- 	idr_remove(&st_index_idr, index);
- 	spin_unlock(&st_index_lock);
-+	kref_put(&tpnt->kref, scsi_tape_release);
-+	mutex_unlock(&st_ref_mutex);
- 	return 0;
- }
+-#if defined(CONFIG_PERF_EVENTS) || defined(CONFIG_BPF_SYSCALL) || \
+-	defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
++#if defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
+ 	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD) || \
+ 	defined(CONFIG_SECRETMEM)
+-	atomic_long_t locked_vm;
++	atomic_long_t locked_vm;	/* pinned pages charged to RLIMIT_MEMLOCK */
++#endif
++#ifdef CONFIG_PERF_EVENTS
++	atomic_long_t perf_mlock;	/* perf buffer pages within perf_event_mlock_kb */
+ #endif
+ #ifdef CONFIG_WATCH_QUEUE
+ 	atomic_t nr_watches;	/* The number of watches this user currently has */
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index a226f908490f..34ae6f5b4e3e 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -6407,7 +6407,7 @@ static void perf_mmap_close(struct vm_area_struct *vma)
+ 		perf_pmu_output_stop(event);
  
+ 		/* now it's safe to free the pages */
+-		atomic_long_sub(rb->aux_nr_pages - rb->aux_mmap_locked, &mmap_user->locked_vm);
++		atomic_long_sub(rb->aux_nr_pages - rb->aux_mmap_locked, &mmap_user->perf_mlock);
+ 		atomic64_sub(rb->aux_mmap_locked, &vma->vm_mm->pinned_vm);
+ 
+ 		/* this has to be the last one */
+@@ -6482,7 +6482,7 @@ static void perf_mmap_close(struct vm_area_struct *vma)
+ 	 */
+ 
+ 	atomic_long_sub((size >> PAGE_SHIFT) + 1 - mmap_locked,
+-			&mmap_user->locked_vm);
++			&mmap_user->perf_mlock);
+ 	atomic64_sub(mmap_locked, &vma->vm_mm->pinned_vm);
+ 	free_uid(mmap_user);
+ 
+@@ -6642,11 +6642,11 @@ static int perf_mmap(struct file *file, struct vm_area_struct *vma)
+ 	 */
+ 	user_lock_limit *= num_online_cpus();
+ 
+-	user_locked = atomic_long_read(&user->locked_vm);
++	user_locked = atomic_long_read(&user->perf_mlock);
+ 
+ 	/*
+ 	 * sysctl_perf_event_mlock may have changed, so that
+-	 *     user->locked_vm > user_lock_limit
++	 *     user->perf_mlock > user_lock_limit
+ 	 */
+ 	if (user_locked > user_lock_limit)
+ 		user_locked = user_lock_limit;
+@@ -6654,7 +6654,7 @@ static int perf_mmap(struct file *file, struct vm_area_struct *vma)
+ 
+ 	if (user_locked > user_lock_limit) {
+ 		/*
+-		 * charge locked_vm until it hits user_lock_limit;
++		 * charge perf_mlock until it hits user_lock_limit;
+ 		 * charge the rest from pinned_vm
+ 		 */
+ 		extra = user_locked - user_lock_limit;
+@@ -6706,7 +6706,7 @@ static int perf_mmap(struct file *file, struct vm_area_struct *vma)
+ 
+ unlock:
+ 	if (!ret) {
+-		atomic_long_add(user_extra, &user->locked_vm);
++		atomic_long_add(user_extra, &user->perf_mlock);
+ 		atomic64_add(extra, &vma->vm_mm->pinned_vm);
+ 
+ 		atomic_inc(&event->mmap_count);
 -- 
 2.56.0
 
