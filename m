@@ -1,79 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792591057;
-	b=OYPYBAqmqcNUQTrlpIB9lVo9HcYbGITvrKcONsVxiPHManmnMr2hBEni9o20AGs7uFCD
-	 55kCNulVHcC7xHpi/zaNWaKX3MNXrxryDQpUdY1BJqUh58Vn7XlD/1sydjUcsRTl8RV+G
-	 LBijYIJnW+0i9MMfr3qJy7R8sl/AMYV2a6y//RiJAgqvSEbpXHnK85rcmCbLrKKKZX594
-	 Ts6SxeXthO6DgJ4ZI2DWUL9RmVr7TAEW5h+3f829Q4tr+YaJWHaCFDYMqvosvxFg/csdw
-	 lcwvpAbAX9KLjWLNrZmn+9RtCndzULsC1Qpu/mnajOVn1kZ3SWYFRj+iPQ8rBU9Iw6A==
+	t=1792591127;
+	b=1MOu6E68ATqWas+glpXoS4ZssLaqTIMun2lPNYi+2gLSt+nvTx4qninlK0nFaQyXqweo
+	 Ht8cfgJfMrYUg27oGQHBhFuopppC8JjDnpTQbqxWgaumd4+1r+eo5HdIZmXx6i/xBVDQH
+	 roTbtqGjNuuOVidGAMSnsNbiDdarQ1578v3OAtTzS1vntsvptnLmz28iSIffDdi8CJLsw
+	 DMnwuqPQf7jRJM9F/0Y+XKJbpoeYKlE5TrepkzsxXMss54S53I3XBNY9pK+MFXOGmwDaA
+	 I6AXyjK+c1pvfqNGgSqIFjv+PtSjJGMjLF4rlsX8Zd1wGYiWB3DAIcLrLjRi8nJlcMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792591057;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=5W+iT+MkSvp3/KJA4Aq2SUM9unr+BuTaqOzLyaskO+o=;
-	b=ybjKv0KK0xv4mYx0/srrCiMNaXlW6iRagBCDpbcznAdYpTQp4Q5pJ2eONWHX0lR2gXt5
-	 z6gtzui3PYzE8yhe2onIl4qnXES3vU9O8TGLFIrLMTyuz+ebTtgKM08UbpqkmHxpq/Dc6
-	 taRr6SuOaI7/ycNcnRYTHBX5/9E3Uc8HuGX9RJ8yMJRke0Qi5E1i+g8Cr5N+No//VO/OM
-	 3ON5Ue46ozZ16tAg3i/z7XyRbRaZeqWeAn5J9dVdaeaOEJUQxqCwuo0NOHO/pZd3uW6dj
-	 HvbRInHEiBn6thT+h4q966Hfq1K1TKH3CMQ0up4h2k1aVu2LHxmWGlDmL19EVSv22iQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792591127;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=4zg/LYuc5EVJgXpf2aLA4/NF2gq/+rC0L8/4lGLzGqE=;
+	b=Gm62wNzFD0PDWbofurffe+d4uhpSHla7D7qkQ+6YvafyTdsqQTjtHesOdYRA7f2uVMze
+	 TJYeM4i0ChxonEYNSYgMLvOhwMNnI1FV5mWg4XnmfqHJC42aOtMo0j2Mqif1y3vSTpmJI
+	 WssYQX1skHc5m3mSboMx5zhI8IQyQrP9fXTLdsPnnD6VRrlhIjg11WlAtaZtrQ0A8qjU5
+	 31Swe/JVoojNTuRABrnMuJ4jwaSu6QZPmjgrUhk0w5WEPubhcIzIpzOh6N7EfXzi76wEv
+	 2o2yVp6eJUXJh1GhUefsNpJSwUirZsJvmC+A6wqEytDSPa01mbJlgTu6VOfTKmkT82g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UyWaOkPC;
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NBvJApti;
+	arc=none smtp.remote-ip=209.85.216.48
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1B6606A31D;
-	Wed, 21 Oct 2026 13:57:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A1B6606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3346606A31B
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 13:58:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3346606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UyWaOkPC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792591057; x=1824127057;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Br9EKJwhi7WcbmbtW8Y2iu+BL2cD1Vy7EQOi8VN93i0=;
-  b=UyWaOkPCmeSv+UKjF9lAK/rVkvlNAw3pTsXVz2CsBMs84jdAwZ8MtRhw
-   5bdWcVRRqqJejtL6QgiEiKvZ0qdX6Vj6VAtkzeO53EYZiFuWQIXpOeVOh
-   P3FxmQYprXdKfGgr9cdfz+vrvzf6TpNWd65gVweG6KgoF/63hxMQMISPE
-   IbEu+8d7Nj7hxBU2KM1pF3oMtlvxASDxMojMTSsMNMQoQFW77boi+ypGh
-   WF/eGl8OPBKD8qqW25LqZtQVvQZv8MUbNY7HJFmarReJix0yjDrWDxYzr
-   4guLsMqM/7jQOXh6C8UNvBHEIdmPfDSUfIFKkdcP82UC1GxsVAH2URUfy
-   Q==;
-X-CSE-ConnectionGUID: /Jy3thBsSiKIMq3YnmbUtQ==
-X-CSE-MsgGUID: h5p8iT59R5uE9uzfBXcbQA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1332673"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1332673"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 06:57:36 -0700
-X-CSE-ConnectionGUID: RAMc1K4zRf+2ZuLiFKfmCQ==
-X-CSE-MsgGUID: TgiW3nb/Sby1oVttqXa00Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="3115929"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 06:57:33 -0700
-Date: Wed, 21 Oct 2026 16:57:30 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>,
-	Chong Qiao <qiaochong@loongson.cn>,
-	Corey Minyard <corey@minyard.net>,
-	Huacai Chen <chenhuacai@kernel.org>, mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 02/28] mfd: ls2kbmc: Unregister GPIO GSI via
- devm_add_action_or_reset()
-Message-ID: <atjEyo2VkaJuecMh@ashevche-desk.local>
-References: <20261021121245.3111563-1-lee@kernel.org>
- <20261021121245.3111563-2-lee@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NBvJApti
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ad6499e88fso109430a91.0
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 06:58:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792591126; x=1793195926; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4zg/LYuc5EVJgXpf2aLA4/NF2gq/+rC0L8/4lGLzGqE=;
+        b=NBvJAptiWLVWyTnnDIdNkW7PRUv0hDRVi2HNyBXHSlHsNGSpubjArczgoe0F+uKrMf
+         E+TJ8OztoOv9h/IJm4b/4EAZqNxBOBnIF1mGWTYmCQ3MQspieCzuaqEzKawhWldsa4zW
+         sh4CjX9QwoDkE94aoj52vZjOOsw4bDwxE1LfzJ1IeB30CJ5J31mexy8lFtzvGsQzIyNW
+         Tp2G9ygrE9dqZ9qaQKkLvuUwIkf+CAA55ssWS7p8jbdsSz/ttTzB6I8W5sG3IZcrcUxi
+         I2LSW/P7P58yNoQxLATR0eC9kIUd2e/hMXwI+2/TRGKFMPDBeCwMH4BJ9Qm8dvri68Z3
+         7ZMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792591126; x=1793195926;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4zg/LYuc5EVJgXpf2aLA4/NF2gq/+rC0L8/4lGLzGqE=;
+        b=Bvt3JYDC7LvcPfU5P7cuwuo3kOWn0yeGrkfpSdLUckAsGsSe7YlPRgowbhj55bOOqz
+         hpDGtQg4CjptY8w065SugbopYDWz4Njm1n3cmG8A+nEWoV2cIJIkENy3dGWDr1gSNa/8
+         qjlGnYG3IHu/I8uAuCCCxUx8oPaHXOkWl7yQxi/0RheODSxNrvWE8enSg6uD15ks5xj9
+         qwDQ8980NlsngIHqzCGJidaN0Umi5dGGn4Oz7b7SwCy4KawWQELb0XFbRGtdphfn/xz2
+         uo5YLOCprITXRys6bkOYS0Ypu98HiFuiRct9joYiWkMtDArh13n5+ifIK8o+HIdK+lz5
+         cB0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxrIA9/KVrtWdfisNo06kROSwUZT+Zo4QAGgCYrslllD8hojy24taK9xcQdrr0yiUM4F/B5nKY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJIszqbqoS73RQK5uL53OW0/5fIYgXhmu9+UQi8s9RD/XOFzr4r
+	kQuyhWIdLnCGtGrrf+Y6YD5txiZQhQgzgjX4UwYjjrKAeHxfhLGPJ30L
+X-Gm-Gg: AYBFou2Ue8qJrbYrlFa0h970jFwFtKBrVquq3ODwAbQG7lEIRq5bgg0G86SQxwCY0Ud
+	OUCv/FWGTlx3ud1BqB1Xv4lMXF4Ks8ZMuc+VX3XI+liKwQoRg+v763bdTtQjs2qr7+Jz/qCCppS
+	HMx4PYR/egtOMKcN4TyZWjAhY0cegcIgotXlq6YpRO7EcHh4nZEZt68Ri0kv+5y5ixvHHaxH0MC
+	WkXI7Sgf8/yKKtn7CrhpCNzBWBL8rYhan/d+1fxUIgZW6UMw1Z/mU7TkzsePZVvR0v6HqVVVrEN
+	kEy0/WDtTpkJBLiO/ZQUYQ/v7W7HykQyyNAfjXkwcyYwc18VIpVSJdXoSfF0kwKbN+gCo/2AhuD
+	bm77QOJKOzgVMFvTmOJsxVE1pYTp6gTpwmfvP9xfIFfDz9f3+xXOZSPcjjf8wqhy3zy/VR4qY09
+	/V/h2kR3pDfg618U4kUKiPTSgezShQdDKAKInjX5kueutdI+nH3fRPcyc4EBOF3Sw04YmoHTeac
+	Q302uDCxjUDqmk84v13xJd8XbD/b/NP/zUYhzezT4fSlFOkaJmw4TI4orIVr2XVDXnmQGjuskMm
+	Bf6hozw=
+X-Received: by 2002:a17:90b:5249:b0:3ac:e6a:1af5 with SMTP id 98e67ed59e1d1-3ad86de0976mr3286305a91.2.1792591126388;
+        Wed, 21 Oct 2026 06:58:46 -0700 (PDT)
+Received: from [192.168.31.234] ([183.193.19.60])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad85f38df2sm2209811a91.2.2026.10.21.06.58.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 06:58:45 -0700 (PDT)
+From: Anfernee Cao <anferneemelokc5@gmail.com>
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] pmdomain: core: clear states after freeing them
+Date: Wed, 21 Oct 2026 21:58:39 +0800
+Message-ID: <179259111932.19580.13027750156272888992@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,35 +94,54 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021121245.3111563-2-lee@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 12:09:24PM +0000, Lee Jones wrote:
-> ls2k_bmc_init() unconditionally calls acpi_unregister_gsi() immediately
-> after requesting the GPIO interrupt via devm_request_irq().  This
-> prematurely disposes of the active IRQ mapping while the interrupt
-> handler remains registered, breaking the GPIO watchdog interrupt and
-> causing a use-after-free when devres later frees the disposed IRQ
-> descriptor on probe failure or device unbind.
-> 
-> Register a devm_add_action_or_reset() callback before devm_request_irq()
-> so that acpi_unregister_gsi() is invoked only after devres has freed the
-> interrupt.
+genpd_free_data() frees the genpd power states through the ->free_states()
+callback, but leaves genpd->states and genpd->state_count pointing at the
+freed memory.
 
-...
+Providers that allocate the states themselves hand them over to genpd by
+setting ->free_states().  When they fail after genpd has taken over, they
+still run their own free helper, as psci_pd_init() and the RISC-V SBI idle
+driver do:
 
-> Fixes: d952bba3fbb5 ("mfd: ls2kbmc: Add Loongson-2K BMC reset function support")
-> Closes: https://sashiko.dev/#/bug/linux-cab8bfb6-4077-46f3-a173-ac2e2042cf66
+    remove_pd:
+            pm_genpd_remove(pd);  /* frees states via ->free_states() */
+    ...
+            dt_idle_pd_free(pd);  /* frees them again */
 
-Don't we use the official Sachiko's email in Reported-by tag?
-Reported-by: Sashiko <sashiko-bot@kernel.org>
+The second call dereferences the freed states array and frees it again,
+causing a use-after-free and a double free.
 
-> Signed-off-by: Lee Jones <lee@kernel.org>
+Clear genpd->states and genpd->state_count once the states have been
+freed, so that a later free helper becomes a no-op.
 
+This issue was found by manual code inspection.
+
+Fixes: 9d976d6721df ("cpuidle: Factor-out power domain related code from PSCI domain driver")
+Cc: stable@vger.kernel.org # v5.18+
+Signed-off-by: Anfernee Cao <anferneemelokc5@gmail.com>
+---
+ drivers/pmdomain/core.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
+index 052ec478dfcc..12db69f53aee 100644
+--- a/drivers/pmdomain/core.c
++++ b/drivers/pmdomain/core.c
+@@ -2353,8 +2353,11 @@ static void genpd_free_data(struct generic_pm_domain *genpd)
+ 		ida_free(&genpd_ida, genpd->device_id);
+ 	if (genpd_is_cpu_domain(genpd))
+ 		free_cpumask_var(genpd->cpus);
+-	if (genpd->free_states)
++	if (genpd->free_states) {
+ 		genpd->free_states(genpd->states, genpd->state_count);
++		genpd->states = NULL;
++		genpd->state_count = 0;
++	}
+ 	kfree(genpd->gd);
+ }
+ 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.54.0.windows.1
 
