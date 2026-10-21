@@ -1,81 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792601444;
-	b=ct84s88IKSky1M0d3IjLO3339qYNsFaC9PZ58hQARHYKphLQLLMPoYHJxb+2BImcOTjK
-	 pSjF228PYcMqZOJ8YJfATU8kJYnKXeqOebTMPdD/ocjj24f84T+HS5j+mxqMn94sBo4b+
-	 enVvirMwMcBmqiwcBYVlKCYNJpPNb1hjYdp/aiM5Rnx5BkueTqokH4tANv0O8V/eb/SSV
-	 s8KOn2FhP5jPAxHGa3SDwq36jFSiDzcy3MmrZo+0cYGGaX3tSP0TNgKJoA2HjyO6y9cgg
-	 Gq02SG79J+U723PwL14Ik6SvaW3N3L4rynPzPC7PBki4lUBUA4sc3Dm6/Ew9zBn3NLA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792601444;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=2I12zZUGi8IkHCfLoLBXgmvmIv1jBPZyRGr1hwDC/1M=;
-	b=aHR+6MLaxmAu3gl9XcOy0qO5WD9azqMAsL1KQDOdxreHvGO6rq6N33oYWYA1DxMswNaD
-	 /UtkiiB40fQROIRZ6P6QMDecCVo8cjl+JMvrerEZIY60Fmd9vYDF5hFOCqrdKQBoYQKDR
-	 qLLEc3u5d2rK3d9uY80BMRSR1hw6C9UcKUO4OkaSJoCRRlvqhSvL3yw8PtC4siv6Eh4+y
-	 9AeMtiyZw5SIa/deIZv2Do5/iqzhLFsDm3qA7xLJiMzTlBkBZmEPIkKCZL2HfFVjLE0Qg
-	 ETfKilBtyXex+ZUxdL+OZvGjXeOaGIQguquymlzdCDO7Tdcp0D1UEv09mn6afatVUvQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hnq2Gate;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792601716;
+	b=HBMYTscCfEXeGOUsVAYoRWvxhBZs89VXzvSzYXBSZK+OzbC4o8ylz87b9wWNFtwiy2IU
+	 c6h+C+7fGxXy7ZB+Mz1+OTAYANJfUZeE2YnyWnpAR/g0AQomC724BTXMGDCeujBGGv0A6
+	 AQslj2lHVyAr6IJ2V39GquvbHduxihs6pKJMHyDqhcyUV7eOPMFJP+z3JReMY2d4Vtp6j
+	 dVf/livCHgtqgIEw36fmwiZGwiUc96OjaQCN+4WFVlCiV/cPK0rCcSTO5HIKgNtUYT0Pt
+	 FrNkPK/22L00XN9tL7nDrI/EMGBX1h4jB/nRYejo3h+Hq1PHkI3VN8uPDb4ghZuYQtg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792601716;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=C4QyRnGrdWyZezn3sJE3V8gSx7WRk2zAitUEcSJ86rs=;
+	b=1+Mo7gnnjFU3ldBj8Fg+xnq+Q0WQcy2/M2xGmAQYLEg/Frgq21BHDqeVxfRBSZcwLEZv
+	 YPiKX8KozDubEVmdEYKssIV74TkkmCsVyC3PQZ9HGfvhtf26vinZpTegCYK/jOnk1yrTG
+	 5ti+BFFKwUrBSC3JjziJJcOEa52bnR6vTnx5pNhXphJKl20ze53dBmzEOEzm+/1/Af2iW
+	 6FEi2KLNJhAPhMJ+aBxdPi08kPtNvMsMUcB6COoqQG2slJ0ujGTIB0bDQb1VwcycSbY+l
+	 E0v5xFYpLCfwbW+N/bJ3LSDcnRjROELkYVhnXJYpB2AHOrMYC+0Y04z8bQxjN9JVx3g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DGQ9n7zR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DC7F606A31A;
-	Wed, 21 Oct 2026 16:50:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DC7F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0996606A31B;
+	Wed, 21 Oct 2026 16:55:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hnq2Gate
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792601443; x=1824137443;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=yYMKKIdbV7b3eMCMI7dG8r4taU6rDDpjImRye20+01Y=;
-  b=hnq2Gate9vgpvKI3bDiBhy77pOa8rzeEQSPfh+NlEAEyLVvbDS9lL7lK
-   gu84MTI7F/15XEB4rbBoh8NGDOyRXavgGtSPdc7ikO4PhuBdxhk6oYHE0
-   P2GGI+Q7PQuvjJ6neC69IsPBZZmUyt/BOLAlevYRzbhI+cqtQvMTVAEAG
-   J9kQGLh5minksMf+Kw2VtcyNb4RYqLp8PdA03snIpRbj0a8dTFaLm0eFL
-   T5Gm6iaVO1Sk3K4FN1LJGPsfZ63Q5LV0Lr6hSAjwRcrSX2IeOw1K2Vr+v
-   IT5rRsmQWj1uqXYYAORfPghg8we75bQvN6GHqGHFhYVSYmRBw/kQZPbg6
-   w==;
-X-CSE-ConnectionGUID: k+I/EIDuTyy9AoVbt9ZqvA==
-X-CSE-MsgGUID: g7tm0eMoS3C/6w79XWdNFQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1332831"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1332831"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 09:50:43 -0700
-X-CSE-ConnectionGUID: peRzz2TRTBKdGuhrylrvnw==
-X-CSE-MsgGUID: YUpkw5GUQLKjy80JhRLG3g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="3457978"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 09:50:40 -0700
-Date: Wed, 21 Oct 2026 19:50:38 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>,
-	Chong Qiao <qiaochong@loongson.cn>,
-	Corey Minyard <corey@minyard.net>,
-	Huacai Chen <chenhuacai@kernel.org>, mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 02/28] mfd: ls2kbmc: Unregister GPIO GSI via
- devm_add_action_or_reset()
-Message-ID: <atjtXj50zqeBzfGH@ashevche-desk.local>
-References: <20261021121245.3111563-1-lee@kernel.org>
- <20261021121245.3111563-2-lee@kernel.org>
- <atjEyo2VkaJuecMh@ashevche-desk.local>
- <20261021163405.GI1795367@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DGQ9n7zR
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792601715;
+	b=Z8TDklyvD3dqXjQZkuyMlq8T0vTsPlJr4stVJXIHiRwivOl3SG76HrxhKuSER1JR+TxV
+	 VUMDeWHGecsu11DB3EH5VwUQbeLeRLkrH+lr5Ptpt8lMaCNJt5QQ3oUQ+MTPC4+7gwCrk
+	 l0432H7FGUHhcLAWSx1fsgZuVLSW3nKonFnfguMaMuEjgPm2ovM2gUPFmWYroxFUmxPyM
+	 TZ/PAqxnsbkDOGrwXPKEdUPXpDemx1S6BjW8vtJpXB19NS43dWkYOPBuvXWRRYnQpM6Vh
+	 Zu9uqYfLgSv6vsLTl+ht1ttecANRYykSIuJc+wxWP3lvzOaaWYetkRF8dXqBkgydHZw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792601715;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=C4QyRnGrdWyZezn3sJE3V8gSx7WRk2zAitUEcSJ86rs=;
+	b=p8srcuw4IPzuyKU/ZxAiooQJEh91Zua21RMdWryUpAPwM8kjG5OM3BWEylpjswTVBkt0
+	 jBy7GtOrqLbR88393wdKTVka74lCQ4OPJnsj+mmPX2IXhUghZVSrEmSuuwqVjngXkZSSc
+	 8U85Em8EK2Saj3oKAyWzaVD2mZMVlMoKnZTLJNKkMMNDSDKhIjbLQaPCiY0ko1ttnu/he
+	 qCCmGBAkDUE7IvcSErSfOIPy1Vcz/W/utGjEUJ6MCTiJC7HFRAKojux+HZGMZgKdj4aiR
+	 A72LFKDmfjNnzfJgHkGDeeGZUwgOvD4V0UpG2gRDiiwIgKhEcuflN1xur02BE1N0sWg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id C4F9F1F000C4;
+	Wed, 21 Oct 2026 16:55:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792601715;
+	bh=C4QyRnGrdWyZezn3sJE3V8gSx7WRk2zAitUEcSJ86rs=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=DGQ9n7zR5pO1CvUnp7ZwfrYzXsuz3l+1IOW+IYKpGJh2ivevmtd14AJNm2Q1KRq8O
+	 vnMzaTLrfb5IlxxjSMbPpkLG6LvYXNzL539SbFBD8Se/5LSOEPHx/XlvCT6zc1/skX
+	 /vjqmIN2dbel537K/fOe9hcXhIdSl6/hprEaf9Bd7459DCSyUgR/JgHQO/7NOD5/Yp
+	 cQ+PoSVJddEUn1bjhRwX0Kq1Wx2fBEkx99euUe+uXNhQDmGFT/JwVxejCMu+bQFDxJ
+	 NtX/pE7+VLWozfrHCk1Ydpn2x2fMgDrrvS/TqfQ/3uaWOJke+ouQH5wC0xeHGkbnKs
+	 YWE8knpbVKgsw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 271EA4315A;
+	Wed, 21 Oct 2026 16:55:14 +0000 (UTC)
+From: Joe Finzel via B4 Relay <devnull+joe.sudmix.de@kernel.org>
+Date: Wed, 21 Oct 2026 18:55:02 +0200
+Subject: [PATCH] drm/nouveau/gsp: skip address-only I2C starts with MOT on
+ GSP-RM
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,30 +83,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021163405.GI1795367@google.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261021-nouveau-edid-segment-v1-1-101dd5aa3ecd@sudmix.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MOwqAMBBF0a3I1A4kEb9bEQsxT53CKIkGQdy7w
+ fIU9z4U4AWBuuwhjyhBdpeg84ymdXQLWGwyGWUqrYxmt18R48WwYjlg2eBOLsq6UeWkW9SglB4
+ es9z/th/e9wNCX9yIZgAAAA==
+X-Change-ID: 20261021-nouveau-edid-segment-357805c19e7e
+To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dave Airlie <airlied@redhat.com>, Ben Skeggs <bskeggs@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Joe Finzel <joe@sudmix.de>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792601713; l=3093;
+ i=joe@sudmix.de; s=default; h=from:subject:message-id;
+ bh=oM+HRdxOHZSWOEGviI42/1A3BImx/Py3uHcns0asV/U=;
+ b=jMHvMxK6yddba4p7Pt0fqga8L7DwN8eEuQoeEyw0ST+chY2TqJwgejk6gvqPWkuOMF7j+dIhd
+ kwv35tkNSMiDaPEHzJvz4Xx4CmSGsIwK430y+hVswUKYGkUoWQ8e2w7
+X-Developer-Key: i=joe@sudmix.de; a=ed25519;
+ pk=vaX11uVm57me/1N8otNmzMMnsE+f0U3/Hi9TCPbnvZM=
+X-Endpoint-Received: by B4 Relay for joe@sudmix.de/default with
+ auth_id=1151
+X-Original-From: Joe Finzel <joe@sudmix.de>
+Reply-To: joe@sudmix.de
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 21, 2026 at 05:34:05PM +0100, Lee Jones wrote:
-> On Wed, 21 Oct 2026, Andy Shevchenko wrote:
-> > On Wed, Oct 21, 2026 at 12:09:24PM +0000, Lee Jones wrote:
+From: Joe Finzel <joe@sudmix.de>
 
-...
+The DRM I2C-over-AUX helper starts each I2C message with an
+address-only request with MOT set. r535_dp_aux_xfer() forwards it to
+GSP-RM with MOT cleared, which issues a stop on the DDC bus.
 
-> > > Fixes: d952bba3fbb5 ("mfd: ls2kbmc: Add Loongson-2K BMC reset function support")
-> > > Closes: https://sashiko.dev/#/bug/linux-cab8bfb6-4077-46f3-a173-ac2e2042cf66
-> > 
-> > Don't we use the official Sachiko's email in Reported-by tag?
-> > Reported-by: Sashiko <sashiko-bot@kernel.org>
-> 
-> Roman suggested Closes: when I reached out.
+E-DDC resets the segment pointer (I2C address 0x30) on a stop. The
+segment write is thus lost when the next message (offset write at 0x50)
+starts, and the sink returns segment 0 again: EDID blocks 2 and 3 read
+back as blocks 0 and 1. On a Dell AW2723DF connected to an RTX 3070 Ti,
+block 2 is its DisplayID extension with the only 2560x1440@240Hz
+timing; the kernel saw a second copy of the base block instead, and the
+highest mode offered was 2560x1440@144Hz. Windows reads the correct
+block from the same monitor.
 
-Same answer is in the previous reply.
+Forwarding the start with MOT set instead left the display without a
+signal on the same system. NVIDIA's own DisplayPort library never sends
+GSP-RM an address-only request with MOT: it writes the segment and the
+offset as data requests with MOT and ends with a read without it. Do
+the same and skip the start; the data requests carry the address and
+MOT themselves, and the address-only stop that ends a transfer is still
+sent as before.
 
+Tested on an RTX 3070 Ti (GA104, GSP-RM 570.144) with the AW2723DF over
+DisplayPort: the EDID read back now matches the one Windows reads byte
+for byte, and 2560x1440@240Hz is among the probed modes.
+
+Fixes: 9e9944449023 ("drm/nouveau/disp/r535: initial support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joe Finzel <joe@sudmix.de>
+---
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
+index f5f22173fc2..13a27476875 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
+@@ -1072,6 +1072,20 @@ r535_dp_aux_xfer(struct nvkm_outp *outp, u8 type, u32 addr, u8 *data, u8 *psize)
+ 	int ret;
+ 	int retries;
+ 
++	/*
++	 * The DRM I2C-over-AUX helper starts each I2C message with an
++	 * address-only request with MOT set. GSP-RM is only ever given complete
++	 * requests (NVIDIA's DisplayPort library sends none of these), and
++	 * forwarding it as below, with MOT cleared, issues a stop: the sink then
++	 * resets the E-DDC segment pointer written just before, and EDID blocks
++	 * 2 and 3 read back as blocks 0 and 1. The data requests that follow
++	 * carry the address and MOT themselves, so the start can be skipped.
++	 */
++	if (!size &&
++	    NVDEF_TEST(type, NV0073_CTRL, DP_AUXCH_CMD, TYPE, ==, I2C) &&
++	    NVDEF_TEST(type, NV0073_CTRL, DP_AUXCH_CMD, I2C_MOT, ==, TRUE))
++		return 0; /* ACK */
++
+ 	for (retries = 0; retries < 3; ++retries) {
+ 		ctrl = nvkm_gsp_rm_ctrl_get(&disp->rm.objcom, NV0073_CTRL_CMD_DP_AUXCH_CTRL, sizeof(*ctrl));
+ 		if (IS_ERR(ctrl))
+
+---
+base-commit: fb26cf4f1df40a462ea65552a3fbcc8cfafab523
+change-id: 20261021-nouveau-edid-segment-357805c19e7e
+
+Best regards,
 -- 
-With Best Regards,
-Andy Shevchenko
+Joe Finzel <joe@sudmix.de>
 
 
