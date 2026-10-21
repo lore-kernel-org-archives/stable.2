@@ -1,100 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.52
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.75.142
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792592045;
-	b=dLfBqsV+L3O+qc17uX2v7cvIXWXRNjjbSjWHyfcGOc2xKXAO0GHIFfQBYUiM48EqpeaD
-	 ARelvAk9QpI+WzUAa7EJlnPYtlqw3KJvwK+0Az2RJbT9yT3T1zZYfe3ZKMvmC3lfKaZoV
-	 H23zNrH5hq8kpi68RephieD4ubR/JlgcsjhwbOLWMGBVPhU6efrIQkJHV6tZ5sxso0T9B
-	 rsw9ztPak6ivs42gGsyCVxiC42AeLjcVKTOfhSZkpNfPQKcN2dDkmFRsbvgYSO6xK7Glg
-	 srTDmaRW1eXX2OitutgCWHc5rmYoIqcx+plxeNtB5Yzvf3q05MzT+WtXfd5tsQJ5IrA==
+	t=1792592096;
+	b=2W4LpW2p6uwsNI8oZKEatngT36UMqnXNe48qQDpOyp0v1szCk/6MGijn96XH/id4pUrv
+	 oZw5cHqThbx/WwpHW83l3z2aY2BlqDnwQy+JUR3mqmJiflo7xsCa9qgH3zZYYceaUf/Tr
+	 cz/7/FLcFo9103teyX6Kzv/br6Huik7xRSoYy789wW92MaRuyt/238Uo4C6HziDuqwidD
+	 1VPec5uTBnTAnw60OqydIMX+mgM4oViE5Q/Aq2182Cd/pNSgegqbEqkbt+TwpVYi4GXnP
+	 6xsJVWV0WlUAp5dvd3HedY0PvgNFJuiqgCGeW6OoeuBvByXZJVkh/KdqR3IxvkiZcMw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792592045;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=UJ/A60pshTDV64EOc8/U0dsozGI6wHG2kt68wdBZvGk=;
-	b=GIup+aV2dRIj2AMIduKhphvUR0FV9RW1DqVIBtBS/cfwKArAn2qZT57Hv+Ntk8UCgtYl
-	 TvovlHlbj16y7KMg42L+ect+J4xFcgsvK8flJUhFQ7djK0Ri3SBhDFeNh5Zmq6AL0QrIb
-	 3woPLZpNhRvkmh8l6MGmnztzwW3k/2N+6u3RSi3sFxNt83aUJ6lwDl+zW/REfubhTjO3q
-	 kP29pF4LMVZoFVCctDqaEVcibLs+XDyyn/fPdBI3hY5v1ta8VxrzuRCp2EWUh9jL3l+JD
-	 3YWhoxXvR7dLo3Zs9IydVJtfSc3MNM8/veJziPlg1SBMc/VYHw9l7IGtGg5RwXlCmcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792592096;
+	h=DKIM-Signature:Received:Received:Message-ID:Date:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=qYizYxwSUwgBb+dDkFOx1xIdGwm+OcLDgeA0dV2ZtbY=;
+	b=E9zjyfGkRWdVYh3XTNBVWL7Ac4YnyHGzLX1HAEwqN/ABh76qWpHhhjcB3WXkhBN8shrS
+	 wzb+U0CKrReUuyoIBLZn+emJOYyeI4dvMJ4WPMwcPKSUL7rPqA7OTxjosJAy570FjeJVN
+	 y5e9/A5zn0d9LI5Hh+ZTXv3nGEX8sWgrV/uYqNcjoiPW6eeyGzk0cOzxhsWVXU0J1fEGP
+	 wYVz1FALPCvKhPldMOdoj8JmNCWTsJXwSGXHpLnsDrU18mDRAZbY6npU+S9duOqsDCzO4
+	 XNpoY4zVHqGT3dVbDwnvObD90pQm9GoX9EFl5ixrTpIjL8izrRJkCEZB1tAn4xSElyw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="P5i/ZeyD";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.52
-Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=permerror header.from=gaisler.com;
+	spf=pass smtp.mailfrom=gaisler.com;
+	dkim=pass header.d=gaisler.com header.i=@gaisler.com header.a=rsa-sha256 header.s=selector1 header.b=YlP+9OmX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.75.142
+Received: from GV3P280CU013.outbound.protection.outlook.com (mail-swedencentralazon11020142.outbound.protection.outlook.com [52.101.75.142])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E6A606A31E
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:14:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85E6A606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040EE606A319;
+	Wed, 21 Oct 2026 14:14:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=gaisler.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gaisler.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=P5i/ZeyD
-Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-9908e3cd939so355583241.3
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 07:14:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792592044; cv=none;
-        d=google.com; s=arc-20260327;
-        b=St9mV7wjyRJtrDdxC6qQp+MclCd8Iee8Q9BFl2zUtHqxgMi/JuccGWwFY1jk83o7+f
-         AxIlJlI4MozCrNHhAwUCB37OIM+cyhSJjL4TfwoFsqmrK8MYrUxWJoZ+ZLgcz8hkbNkV
-         86ZaAqIvMyPl22H1XJY7m9MTrONy8nExbcznGSrD5ghVJxVUhyZpYupKAmjr95p6iSxc
-         kM3n2RGhfKXT/+erk3EO6ckAa/CUterSEld7qyYcy6u3vze2AdgvJEuiqx4X7tyw9anv
-         RMTuXCa43KAhcb+tLMZdrSo46hdE6vlfbYpDWqwPg5RnSlemeZatQPQ9JUAl7PZwamL4
-         ADUw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=UJ/A60pshTDV64EOc8/U0dsozGI6wHG2kt68wdBZvGk=;
-        fh=sGlYDpVEajosZ3helnEJaIvkvHXOZKQt1KpHcVgtNII=;
-        b=MYuO3CGlQMtpDshgKlrA7hC57P3CDDZ9DiIzOhXoQEndjKGLT3o8EdBWoU5bnHC+G7
-         n6ldPxeRTg5d8FiWZtXPmliRAasfo44WUb0/M4tg/CObHwPpXzoiyU38ZoF6hjfVGUaS
-         4uIxn6auTob/hvSFsdsA2/VMy64qQ2Ay++GYez0ldJOntyQn+duIqYwVyuSEW0q8Kdfv
-         ZPIseg+VoiQVUu0xwxeAesMfSqeuw+rlMrUqAPeZ+arnhcX8SeYj6kbum51pSIzbZ9j3
-         HcBE0rIcUSh/wKA7oJ7If3i4xSvXllqDzGgUn7tpXQYBYB4RaV8wHIENrZWE/j9y0ieR
-         GHVA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792592044; x=1793196844; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UJ/A60pshTDV64EOc8/U0dsozGI6wHG2kt68wdBZvGk=;
-        b=P5i/ZeyDVBkMIGuohnrHggiD4vso5z6e9mLwAvvqbmg+cZfeSijP9feo9Qf6rDuRXp
-         yE7xHqSDNb0plAIhJWaSoLmsG9DZGbbb/JleA2EBPdBaDHp3wh1dG9pOwnkdcdRj9IN8
-         XbO4rKntCjlm2Omf8PK8MgaxoHOrYKq9q9l9umfreEaTRiOK7FWi8O/KBGFQXg5jMVUU
-         Ae9XbUO6K7OKbak/sOYq3aqvGuZ2rHWPfjtGFIyqlfFdhWZYF3SlTaatsDppaPHVBxc7
-         gNQ6bF/72WNKa6B0C1ppZULgcMk88NNG5Af5kotLPdpjfSKAuXUC/8S/spHwWZC0jvqw
-         8yCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792592044; x=1793196844;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UJ/A60pshTDV64EOc8/U0dsozGI6wHG2kt68wdBZvGk=;
-        b=oTNz8oQgCzc4sVCC4H3OhN0SXZu1mxhsrSgnnbAvtvqZGd4QJDm1NWnnO3Dd07uKcf
-         KCUhCuL465M3h2CbjTx/qnGJOq85vzJzRvKgNjc94QwnzqF/XlMx+gOBAmyxwcDMvKqd
-         NOFgplrxr/tUh9rNej4Cd1Hi+K0zFv1jvsDaI7EKUooAkXGxvmIlBxL2zg1QgD+Vpkq4
-         6nn47RCI96+yV69Af4GFyv7u/yNnFGXlP2RCT91SS58IR+vK5nPHEm1XHXfZHpakp2Lh
-         GyhZaAFRlrpZcTxB09wOJ2/cnTQ77u0aLIZ1fQ2KaIFqJH5Uyopwmf7V1Zr8w9LA7mL8
-         pY3g==
-X-Forwarded-Encrypted: i=1; AKwUvBzSVKXvT5rwEMjRxdYLgczXH2wLNv4zAXRFEWjQhS/Ec2ddHOU481qiR7/RwjupHIxASigHSrc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJPs+anXmigqw9BRcfgiR4qC+thdFpqooxPP378vuMhm/ppPLhG
-	ClwrcI2MyxdTLkzXEMLQOpDVO60NWJ4mb2e+v+3DKMpM5X2AY7JmbPLBw/Hq2Txwe4cwdbGoEaX
-	wpX8vAS5MkLpk+BH420bYcECJ0I1S7OY=
-X-Gm-Gg: AYBFou2znTiYcCZlR90stzk0qsDT/iwXI4V73sdC1CdtWGelHO+TrFoBK6Prl+qgr++
-	08VBctsFqY0vVcDez8F2aSTxfIn1TKNaX75JpLqkdSk56t1OiGLBridevq82C++7xeOZ0tEErue
-	smTSjBCNJPWqf9NffsNB/mSMiXai9mSq8WGz7dhn+Cw2ndcYBg2ecSAkAE1O1yIyBtJ+X7+NEa2
-	M+XJhF8L9bZLbWHRHE615hHsJXmUjA7Vd136pxmxOM4mgcIBbVJj0iUP3rPCc2x9za1LLtyC5lj
-	n20oh3onpz1yziRVAkQRceXTpfXmNr7qwAfN6gxo5IHh/jLq5szfFs70uh/vPIIeQEkKIhz3Jrf
-	6BuwQK3X6zz4ZvUhQE2kkOdoGXbbGIYkVF5CTINxrb9CWy8eYUa2/Zi+ZpK86tdZfzkgMCA==
-X-Received: by 2002:a05:6102:3588:b0:7a1:f980:e93b with SMTP id
- ada2fe7eead31-7cc926b0bc6mr656524137.23.1792592044313; Wed, 21 Oct 2026
- 07:14:04 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gaisler.com header.i=@gaisler.com header.a=rsa-sha256 header.s=selector1 header.b=YlP+9OmX
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UtLDsmnao3gq5MmDkTMAlgwen/FPlKiQLfZ+74Pb/yFpkN4/1PyUJnMsHApHse2GmS7cSgGMzHxg4JYxo+JJRjGd3cABsLz6VZ7Hj1QI8i9lQS2y3dpc5G/gXchNtkmb78vZVy+zNSQN47+QdsdwjUX7bT++fdSl9mcwvTPm2juv55jSX1QfQWPNoTxt71xP+8LT3DqWh3XTBbOE6lYmq6U5vWHsvoM/2Cc7TKjXdacieCyPIJKxR8Kz8Xyhrcv6AroCO3kIj2I+6bC5yxI4jv12ntqHXy1yzfgFzmyiAdIZ3tRJl/eT+5PYsF43Bze+y6Ca4Mug0gjmLLHcWn32aA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qYizYxwSUwgBb+dDkFOx1xIdGwm+OcLDgeA0dV2ZtbY=;
+ b=yC4UjgMSEK0uh1FWKaqKj8JL/vtUMiWoHapmpp6l7+mm8qVS26/eQs00dY65vllFEJLvl2Ucef9HH7dHrs1O1lqr/ObBWCjOKAwEb01ehN+wMgQmzvUKT3wMQGY+aRJr3rCf/d+wA1dWhPEaDLbs0PNAhhSyiaxh7jW8Xb5mk4UVNJjqO8kEb23V9++0X5u9K0SRWpm0OGrpnHRxhSYOF3RKq7UZvgxuOpzlru66phkEWWWifPo697PYY6uSDSDWEK6PvcK27RI9rygrROUjtVMgd95E2vfkpcjelwX/CGB4PMt8QNEj+ebAe4XQ1xbCKsqAIrWD80kJ0SmDzbJULQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=gaisler.com; dmarc=pass action=none header.from=gaisler.com;
+ dkim=pass header.d=gaisler.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gaisler.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qYizYxwSUwgBb+dDkFOx1xIdGwm+OcLDgeA0dV2ZtbY=;
+ b=YlP+9OmX1galKMrg/p/Nvl+3C+EPEIvEZ0tpFIXGp9+a8rA5+7/05i2mdt83qZlpHQXSUQ6b8GxJ2QMqaAT5z7KpmEMK4xw0BjKZa3EmatPIS27xRVR9pcZSCHhPWwBZ24Pj3bBbiagNLV/MCJwymTbHDI2D/Pm/Zv3u/VkW5NXzFbnNw2rtf2kksjrGuQeIiEX+L3Wp9WnhulWBV6Q+4b2ZtARG96mbPRf7lNc5hRD7zeJlIdyaXs+cQE7lqA+0Kvn2zb2B9pkf9GX+NEL8r7FxezxleQRGNtdheRoGxrNxWmWkxb4yJxMWGAf6bjzlOR02vVNdGLF+di3FAlgSTg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=gaisler.com;
+Received: from MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM (2603:10a6:190:2f::5)
+ by GV5P280MB2219.SWEP280.PROD.OUTLOOK.COM (2603:10a6:150:376::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
+ 2026 14:14:49 +0000
+Received: from MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
+ ([fe80::1f13:f10:e16b:7939]) by MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
+ ([fe80::1f13:f10:e16b:7939%4]) with mapi id 15.21.0472.016; Wed, 21 Oct 2026
+ 14:14:49 +0000
+Message-ID: <84a43e75-6302-4115-9e68-90576a88163c@gaisler.com>
+Date: Wed, 21 Oct 2026 16:14:48 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] sparc64: flush only the aliased page, not its
+ whole folio
+To: Imre Kaloz <kaloz@kernel.org>, "David S. Miller" <davem@davemloft.net>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ "Mike Rapoport (IBM)" <rppt@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, sparclinux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260928132102.1707-1-kaloz@kernel.org>
+ <20260928132102.1707-2-kaloz@kernel.org>
+Content-Language: en-US
+From: Andreas Larsson <andreas@gaisler.com>
+In-Reply-To: <20260928132102.1707-2-kaloz@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MM0P280CA0082.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:190:8::11) To MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:190:2f::5)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,125 +100,242 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021115400.30885-1-mike.michalo@gmail.com>
-In-Reply-To: <20261021115400.30885-1-mike.michalo@gmail.com>
-From: mixalhs <mike.michalo@gmail.com>
-Date: Wed, 21 Oct 2026 16:13:49 +0200
-X-Gm-Features: AclHuK-nUd4UmTxE9F3RBMXljFNNhLJJZePwWHLxIeXwrSoZlz9LU3TXba0QmGI
-Message-ID: <CAO+rqLj5rF8MGMTRSav1n43NqLbazwyuPsPKgiQT2qtP+EDxeQ@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: restore Kerberos logins with released ksmbd-tools
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, regressions@lists.linux.dev, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MM0P280MB495062:EE_|GV5P280MB2219:EE_
+X-MS-Office365-Filtering-Correlation-Id: 34368836-3ae9-4009-89dc-08df2f7daabd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|56012099006|4143699003|11063799006|10067099003|261009223027099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	ZbdhtMmn2Y+LCwMKwn3DMYsZEtkLByL/1ZR++HOcQ62CX4SvlrC1eHuPyeitDPbgkswVCyQI2F2ycTKhnDHu09bEHqhMnJwrxb6XTXlGdIcOGErt7Swhy/Fzg2gjVOede01RXn4kIkT6gywPlgAzWPFn2IZsdJgbApNG905VAUqsEex1mcv6nK+JcdWJB8SxdMcNrqcstfY4I190VNkBPH+VwH5Zgrm2Q3g1uHOmTG2T1hedL7YHZcbZi64SJJJpIanOT2hKOI3Vg2fABdgkakYdxCWlo8ZCABObRTsX6cfCnRLJwXMbNIlNmc0HGOmG7klIk8Ijj9Wp16+aE19kSKK5jY71UdRPRvXYYaM45kbdtqla8tr4ZWWlFoz59R/t1fj584x6Y0AR5BWUdYWxg8h51J9tWqEOWvllj2YWpgbX4roLyKgGReZ7voaQb+7DsfFSqBXovmJKEjEzBSayX6VZxiMoZMN6lMx2/StWWJOzkeIxoi5u+Fj1PhgrfSLQTtRj50h4BJntTBePOOwHBiSj8Z+ScaspJTE2oFJ/m/akr2L+SYJ43aNuaJ+QfwhnH7FZK5FCUzwtEeHQPnYdFMvP5R0kNfLrfzhSMj8SiGWsTldMv7fIKODBnE6PURxvmb1KPN33SdgpcxTce7dZo0iSOtfPTRpSn8UnpAXVijM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(56012099006)(4143699003)(11063799006)(10067099003)(261009223027099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RWN5QmI3UDZWTWduQ0pxUkZ6U2JNWGFWUVBmMDh4cThMV01SVlhZWWVJMjdC?=
+ =?utf-8?B?UzFkc3VVblhpU1lpMDZ5RjlQL1pQRm40UjZSbExhSFIrOGwrUnRMLzVvSUlH?=
+ =?utf-8?B?RlhjeHRucTN5YmJtNzlaU1N5V3pEYmJxYWJkY0UycGhocUhaSnFTNVJxWm9m?=
+ =?utf-8?B?RmRSU0FNcUw2dkZHNi9FTGlCd3JYL0Y2YUVZWGNmQzNScklERFEvdkNGQjdt?=
+ =?utf-8?B?c2pzR08yUXp5bXZsSkhhZ0RqdUhmaXR5WVc0VUxiYjFZaGJ6MVdPcVl0Zm9k?=
+ =?utf-8?B?b21Pa0IyZEdyM3ZKTHR1d3VSMEM2bERnaTVqUTBsZi9vUUV0QTV5OWYzeFMz?=
+ =?utf-8?B?cXpRY1pPaDl6Qzg1RU5WNzZjT1Z3RVY2dWd1VTZVVkxOMlhDcEVPQlF5RWpl?=
+ =?utf-8?B?d2FZMlJSU0pzYW5idHozQUFieFQ4eGoxd01STldJUmJ3bUEzenNCZnF1cUtX?=
+ =?utf-8?B?cFJZNFRUODk2eGkwUU5EV2JLSzFOWnM0K1NlWml2a0xlQm1pekFZWCtpWmUy?=
+ =?utf-8?B?d25sUU0xYnYyTTYrQ2l1SGQvNlU0VHpLV1NSazRmV0ExbEFhUWdtRzY4cWQy?=
+ =?utf-8?B?RWVMQUowajIzWk50bEk0SkRwN3lIQVhLOWRRY1AydHhvd0RvVTF5bEFhWlo5?=
+ =?utf-8?B?TnBRTEkzNzFnUG51NWl5Z2tBVDNNRnhidFhHOW0xb3k5Q0hhWkNSb2ZRSU94?=
+ =?utf-8?B?L0M2RXlkZjh3QmtwNkFscldEQUc1M3ZrQVU5Rm9zcCtuSWtJbkZLYzgrQlE2?=
+ =?utf-8?B?d1dsUEk4V2dQQ1U1TGl5dHdUMzZ1UlVRUDRlL25lRmxCNEJkcDViSHRzOVFz?=
+ =?utf-8?B?U29rTUZkQjlRa0FYZFNsaFB4RW8veS9TanQzell2UTRVcjlNbFpUYmRqaWZE?=
+ =?utf-8?B?VzJORTUwSGR3MTUwK3RQUGF6Y3UyU0JEOHFUREhMLzdYWm9BZ2d1YVNmQ0JQ?=
+ =?utf-8?B?WDAweWVFMHVIL2FpN1pVb3gyVHdKOWtyQWNjSWFNUWFnVmFRbEpGMlMxOG16?=
+ =?utf-8?B?SjBhY2JqN21BMGNFSjQwRElvRTlWMjZxaWVyeUh6d3o3QXNwdHRNREZPSkF2?=
+ =?utf-8?B?RUFpbEFLNlF0ZmlpSDc0bkFxRk1PSzJZYys5b2pydUlJTnRrLzNTSGVlZ1Ru?=
+ =?utf-8?B?aytmOERLeDc5V2ZqL0xUTWt3Q2NVMTJ6UDlpTFJwVDdHd3l6WlNTWENRNjVK?=
+ =?utf-8?B?Q1hKUEtoNGRaYi81elJ1SU5ZeXV2S09BL1BNRTEzZTM5SGc2Ti85SjYxNHAv?=
+ =?utf-8?B?NG5HZnp2SXJaR0o3bUhwbG1SSVMwOFpMSWlJQXM4UmZkeElGcnJjeWg0Ym5q?=
+ =?utf-8?B?ajZ2QUh3RDFoWW5yTGdBNTBLSGljUStzSEpnajVOeU8vZXZ5czNwWDgvTzVO?=
+ =?utf-8?B?aDQ5dTZOVFJNcllLaTJOSHBXQk1tdmQ3VWNSb2tQejNrUmZNZ0NobHgydVFh?=
+ =?utf-8?B?RkEyeW4wdE0xazJ5UURuTWhIak1sN3FSYTVjL1ptZjREbFlrRkRmYTU0N0tK?=
+ =?utf-8?B?TDRIYzhGTUlkZ0ZxaW5pWGhEU2Vxb05LK0lBMWR6TTY5Y3o1N2ViTDdmL01W?=
+ =?utf-8?B?N21JRS9uTnVPeUlqV1hQUnZJRzhVUkdrZlBWenJUVEV3Q2JjV1B6dDY3dXN0?=
+ =?utf-8?B?S2d0YnVRd1hadEhqM1JWcmxONFVlNHdOTytaSmpaRkJoMkM2WmE5MGFNU1pZ?=
+ =?utf-8?B?anNWZ2hrUWprM1ZEak5BejZ6M1VibFMwcTJybnA4SGtQNkttYWNaOEhaQW0v?=
+ =?utf-8?B?UWl6VjROamM1NU9mckhBQXIyVy95d3ROcHJoc0lFVDI4N24va0ZBRVRaT20z?=
+ =?utf-8?B?TjFJdUJsNndSSC9zRDBxL2JWN2pOVU1PcDNsa3RnSEdlZVV3OUF0eFNmdXhj?=
+ =?utf-8?B?Y0JVaVA1TWNaTnVTbVMyNGtjdFR5ZHZOYmZWOUFkb3FtUkxyS2prN2dQc0FC?=
+ =?utf-8?B?UlFvdVdFRnBIZytDNjQ4ZG00dEliS1o5QXo0bU1QT3VEK3N3Y2ZzVThkWTNs?=
+ =?utf-8?B?Qkl6UDhKS3lIMUxvUGw0MUNaaGtTV01SUXRhd0l3ekNNTlBHeWJySkZKaGtq?=
+ =?utf-8?B?ZjFmMDhySmo2SmZRcitzalZvNkJHQVZQeU5aeU9rVHM4aEo4dE5JTVlzdjF5?=
+ =?utf-8?B?OW1UTE9iZVdndE5XbUQweFpaQlZCUm40NksxMEh6NlVZZk9GbFB2OEZLVWZY?=
+ =?utf-8?B?ZGV3cjJTMHhPNG1QZEhwWHM4TExWTVh4SzluQnRQcjNRWU0yYkFEb2FqMXVq?=
+ =?utf-8?B?Y0FtUjVsQ3E1QmxNV0g1Wlh3dkVGb2lyUzdBUGovRFVLZHNtVEVkQjFFak9R?=
+ =?utf-8?B?RnpSbUl0dDVObGN1dnlvNUtaTEROYlE1SkZvZS9RWllVMVpqUkRFSGFvNFFs?=
+ =?utf-8?Q?zpY1JKlFJ0+dEdDo=3D?=
+X-OriginatorOrg: gaisler.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 34368836-3ae9-4009-89dc-08df2f7daabd
+X-MS-Exchange-CrossTenant-AuthSource: MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 14:14:49.2833
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 91fa4a59-2167-458a-8318-e45d80469d7e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: f8xwWsfTL924aMYDFRVda1ENz3/A10+mmWqwzhXp4m13hyjkX3DmdlRNl5Qgl3ehpU+uXBVsQ4OWLmGavCwi0JyrdS3d/7eB5oQDhMt1/Zc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV5P280MB2219
 
-The ksmbd-tools side is up as
-https://github.com/cifsd-team/ksmbd-tools/pull/347
-
-Michalis
-
-On Wed, Oct 21, 2026 at 1:54=E2=80=AFPM Michail Andreas Michalopoulos
-<mike.michalo@gmail.com> wrote:
->
-> Commit a47634cd729b ("ksmbd: expire SMB sessions when Kerberos tickets
-> expire") added a __u64 session_expiry field to struct
-> ksmbd_spnego_authen_response, growing it from 156 to 168 bytes.
-> ipc_validate_msg() requires the response to have exactly that size, so
-> the 156-byte response of every released ksmbd-tools, up to 3.5.7, is
-> dropped and Kerberos session setup fails with STATUS_LOGON_FAILURE.
-> The other way round, kernels without that commit, including the stable
-> trees, drop the 168-byte response of current ksmbd-tools master, and
-> ksmbd-tools has no way to tell which layout a kernel expects.
->
-> Pass the expiry in the reserved area of the embedded struct
-> ksmbd_login_response instead. ksmbd-tools releases with that area
-> (3.4.4 and later) allocate the response zeroed and never write to it,
-> so they send an expiry of 0, which ksmbd already treats as no expiry.
-> The response is 156 bytes again, so it works with those releases, and
-> every kernel also accepts a response that sets the expiry. Use two
-> __u32 halves, as the reserved area is only 4-byte aligned.
->
-> Fixes: a47634cd729b ("ksmbd: expire SMB sessions when Kerberos tickets ex=
-pire")
+On 2026-09-28 15:21, Imre Kaloz wrote:
+> Since the conversion to folios, move_pte() and tlb_batch_add() flush the
+> D-cache of every page in the folio a single PTE maps.  Both run once per
+> PTE, so moving or unmapping a range backed by a large folio flushes each
+> of its pages once for every PTE of that folio, and each page flush is a
+> cross-call to all other online CPUs.
+> 
+> Only the page the PTE maps can hold lines at the old colour, so flush
+> just that page, as before the conversion.  flush_dcache_folio_all() has
+> no other users and becomes flush_dcache_page_all() again.
+> 
+> On SMP QEMU guests, apt rebuilding its caches through mremap() triggers
+> RCU stalls and soft lockups in move_pte().
+> 
+> Fixes: 1a10a44dfc1d ("sparc64: implement the new page table range API")
 > Cc: stable@vger.kernel.org
-> Closes: https://lore.kernel.org/all/CAO+rqLhpPvY0NLrAnZjFXz0gOXnA6zsXxK8x=
-CgtA42XUkSsAeg@mail.gmail.com/
-> Assisted-by: LLM
-> Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
 > ---
-> The matching ksmbd-tools change (struct layout and mountd/worker.c)
-> will follow as a pull request.
->
-> Tested with a local MIT KDC and smbclient --use-kerberos=3Drequired:
->
->                     3.5.7      master     master + tools change
->   7.2               login OK   fails      login OK
->   7.3               fails      login OK   fails
->   7.3 + this patch  login OK   fails      login OK
->
-> With this patch and the tools change, smbtorture smb2.session over
-> Kerberos (including expire1n/1s/1e, expire2s/2e and expire_disconnect)
-> and the 190 smbtorture tests run by the ksmbd CI over NTLM give the same
-> results as 7.3 with ksmbd-tools master, with no kernel warnings. NTLM
-> logins also work with 3.5.7. A test-only mountd that overrides the
-> expiry (including values above 2^32), the response size and the length
-> fields found no wrong session expiry and no kernel warnings in 313
-> logins.
->
-> Current ksmbd-tools master needs the tools change to work with this
-> patch. If you'd rather the kernel also kept accepting the 168-byte
-> layout, I can add that in a v2. Only tested with smbclient and
-> smbtorture on x86_64.
->
->  fs/smb/server/auth.c          | 3 ++-
->  fs/smb/server/ksmbd_netlink.h | 5 +++--
->  2 files changed, 5 insertions(+), 3 deletions(-)
->
-> diff --git a/fs/smb/server/auth.c b/fs/smb/server/auth.c
-> index 1b24eb3f3998..8e5a1b10db6a 100644
-> --- a/fs/smb/server/auth.c
-> +++ b/fs/smb/server/auth.c
-> @@ -464,7 +464,8 @@ int ksmbd_krb5_authenticate(struct ksmbd_session *ses=
-s, char *in_blob,
->         memcpy(out_blob, resp->payload + resp->session_key_len,
->                resp->spnego_blob_len);
->         *out_len =3D resp->spnego_blob_len;
-> -       sess->kerberos_expiry =3D resp->session_expiry;
-> +       sess->kerberos_expiry =3D (u64)resp->login_response.session_expir=
-y_hi << 32 |
-> +                               resp->login_response.session_expiry_lo;
->         retval =3D 0;
->  out:
->         kvfree_sensitive(resp, sizeof(*resp) + resp->session_key_len +
-> diff --git a/fs/smb/server/ksmbd_netlink.h b/fs/smb/server/ksmbd_netlink.=
-h
-> index 2673522c76bc..fc6af757e45e 100644
-> --- a/fs/smb/server/ksmbd_netlink.h
-> +++ b/fs/smb/server/ksmbd_netlink.h
-> @@ -148,7 +148,9 @@ struct ksmbd_login_response {
->         __u16   status;
->         __u16   hash_sz;                        /* hash size */
->         __s8    hash[KSMBD_REQ_MAX_HASH_SZ];    /* password hash */
-> -       __u32   reserved[16];                   /* Reserved room */
-> +       __u32   session_expiry_lo;      /* Kerberos ticket expiry, SPNEGO=
- only */
-> +       __u32   session_expiry_hi;
-> +       __u32   reserved[14];                   /* Reserved room */
->  };
->
->  /*
-> @@ -286,7 +288,6 @@ struct ksmbd_spnego_authen_response {
->                                   * stored in SecurityBuffer of SMB2 SESS=
-ION
->                                   * SETUP response
->                                   */
-> -       __u64   session_expiry; /* Kerberos ticket expiry time */
->         __u8    payload[]; /* session key + AP_REP */
->  };
->
-> --
-> 2.56.0
->
+>  arch/sparc/include/asm/cacheflush_64.h |  3 +--
+>  arch/sparc/include/asm/pgtable_64.h    |  7 +++++--
+>  arch/sparc/kernel/smp_64.c             | 24 +++++++++++++-----------
+>  arch/sparc/mm/init_64.c                | 22 ++++++++++++++++++++++
+>  arch/sparc/mm/tlb.c                    |  2 +-
+>  5 files changed, 42 insertions(+), 16 deletions(-)
+> 
+> diff --git a/arch/sparc/include/asm/cacheflush_64.h b/arch/sparc/include/asm/cacheflush_64.h
+> index 06092572c045..02c969417e7b 100644
+> --- a/arch/sparc/include/asm/cacheflush_64.h
+> +++ b/arch/sparc/include/asm/cacheflush_64.h
+> @@ -38,11 +38,10 @@ void __flush_dcache_page(void *addr, int flush_icache);
+>  void flush_dcache_folio_impl(struct folio *folio);
+>  #ifdef CONFIG_SMP
+>  void smp_flush_dcache_folio_impl(struct folio *folio, int cpu);
+> -void flush_dcache_folio_all(struct mm_struct *mm, struct folio *folio);
+>  #else
+>  #define smp_flush_dcache_folio_impl(folio, cpu) flush_dcache_folio_impl(folio)
+> -#define flush_dcache_folio_all(mm, folio) flush_dcache_folio_impl(folio)
+>  #endif
+> +void flush_dcache_page_all(struct mm_struct *mm, struct page *page);
+>  
+>  void __flush_dcache_range(unsigned long start, unsigned long end);
+>  #define ARCH_IMPLEMENTS_FLUSH_DCACHE_PAGE 1
+> diff --git a/arch/sparc/include/asm/pgtable_64.h b/arch/sparc/include/asm/pgtable_64.h
+> index 0837ebbc5dce..6712eac4baf1 100644
+> --- a/arch/sparc/include/asm/pgtable_64.h
+> +++ b/arch/sparc/include/asm/pgtable_64.h
+> @@ -946,6 +946,9 @@ static inline void set_ptes(struct mm_struct *mm, unsigned long addr,
+>  	set_pte_at((mm), (addr), (ptep), __pte(0UL))
+>  
+>  #ifdef DCACHE_ALIASING_POSSIBLE
+> +/* Without pte_batch_hint(), move_ptes() calls this once per PTE, so
+> + * only the page this PTE maps can have lines at the old colour.
+> + */
+>  #define __HAVE_ARCH_MOVE_PTE
+>  #define move_pte(pte, old_addr, new_addr)				\
+>  ({									\
+> @@ -955,8 +958,8 @@ static inline void set_ptes(struct mm_struct *mm, unsigned long addr,
+>  									\
+>  		if (pfn_valid(this_pfn) &&				\
+>  		    (((old_addr) ^ (new_addr)) & (1 << 13)))		\
+> -			flush_dcache_folio_all(current->mm,		\
+> -				page_folio(pfn_to_page(this_pfn)));	\
+> +			flush_dcache_page_all(current->mm,		\
+> +					      pfn_to_page(this_pfn));	\
+>  	}								\
+>  	newpte;								\
+>  })
+> diff --git a/arch/sparc/kernel/smp_64.c b/arch/sparc/kernel/smp_64.c
+> index 371460e34484..18b6145da591 100644
+> --- a/arch/sparc/kernel/smp_64.c
+> +++ b/arch/sparc/kernel/smp_64.c
+> @@ -982,8 +982,9 @@ void smp_flush_dcache_folio_impl(struct folio *folio, int cpu)
+>  	put_cpu();
+>  }
+>  
+> -void flush_dcache_folio_all(struct mm_struct *mm, struct folio *folio)
+> +void flush_dcache_page_all(struct mm_struct *mm, struct page *page)
+>  {
+> +	struct folio *folio = page_folio(page);
+>  	void *pg_addr;
+>  	u64 data0;
+>  
+> @@ -996,7 +997,7 @@ void flush_dcache_folio_all(struct mm_struct *mm, struct folio *folio)
+>  	atomic_inc(&dcpage_flushes);
+>  #endif
+>  	data0 = 0;
+> -	pg_addr = folio_address(folio);
+> +	pg_addr = page_address(page);
+>  	if (tlb_type == spitfire) {
+>  		data0 = ((u64)&xcall_flush_dcache_page_spitfire);
+>  		if (folio_flush_mapping(folio) != NULL)
+> @@ -1007,18 +1008,19 @@ void flush_dcache_folio_all(struct mm_struct *mm, struct folio *folio)
+>  #endif
+>  	}
+>  	if (data0) {
+> -		unsigned int i, nr = folio_nr_pages(folio);
+> -
+> -		for (i = 0; i < nr; i++) {
+> -			xcall_deliver(data0, __pa(pg_addr),
+> -				      (u64) pg_addr, cpu_online_mask);
+> +		xcall_deliver(data0, __pa(pg_addr),
+> +			      (u64)pg_addr, cpu_online_mask);
+>  #ifdef CONFIG_DEBUG_DCFLUSH
+> -			atomic_inc(&dcpage_flushes_xcall);
+> +		atomic_inc(&dcpage_flushes_xcall);
+>  #endif
+> -			pg_addr += PAGE_SIZE;
+> -		}
+>  	}
+> -	__local_flush_dcache_folio(folio);
+> +#ifdef DCACHE_ALIASING_POSSIBLE
+> +	__flush_dcache_page(pg_addr,
+> +			    tlb_type == spitfire && folio_flush_mapping(folio));
+> +#else
+> +	if (tlb_type == spitfire && folio_flush_mapping(folio))
+> +		__flush_icache_page(__pa(pg_addr));
+> +#endif
+>  
+>  	preempt_enable();
+>  }
+> diff --git a/arch/sparc/mm/init_64.c b/arch/sparc/mm/init_64.c
+> index 103db4683b16..8792e5d92517 100644
+> --- a/arch/sparc/mm/init_64.c
+> +++ b/arch/sparc/mm/init_64.c
+> @@ -214,6 +214,28 @@ inline void flush_dcache_folio_impl(struct folio *folio)
+>  #endif
+>  }
+>  
+> +#ifndef CONFIG_SMP
+> +void flush_dcache_page_all(struct mm_struct *mm, struct page *page)
+> +{
+> +	struct folio *folio = page_folio(page);
+> +
+> +	if (tlb_type == hypervisor)
+> +		return;
+> +
+> +#ifdef CONFIG_DEBUG_DCFLUSH
+> +	atomic_inc(&dcpage_flushes);
+> +#endif
+> +
+> +#ifdef DCACHE_ALIASING_POSSIBLE
+> +	__flush_dcache_page(page_address(page),
+> +			    tlb_type == spitfire && folio_flush_mapping(folio));
+> +#else
+> +	if (tlb_type == spitfire && folio_flush_mapping(folio))
+> +		__flush_icache_page(page_to_phys(page));
+> +#endif
+> +}
+> +#endif
+
+Another thing, an /* !CONFIG_SMP */ here would be great as well. In the
+followup patch it drifts even further away from its #ifndef
+
+> +
+>  #define PG_dcache_dirty		PG_arch_1
+>  #define PG_dcache_cpu_shift	32UL
+>  #define PG_dcache_cpu_mask	\
+> diff --git a/arch/sparc/mm/tlb.c b/arch/sparc/mm/tlb.c
+> index 6d9dd5eb1328..1221814ca0e1 100644
+> --- a/arch/sparc/mm/tlb.c
+> +++ b/arch/sparc/mm/tlb.c
+> @@ -144,7 +144,7 @@ void tlb_batch_add(struct mm_struct *mm, unsigned long vaddr,
+>  
+>  		paddr = (unsigned long) page_address(page);
+>  		if ((paddr ^ vaddr) & (1 << 13))
+> -			flush_dcache_folio_all(mm, folio);
+> +			flush_dcache_page_all(mm, page);
+>  	}
+>  
+>  no_cache_flush:
+
+Cheers,
+Andreas
+
