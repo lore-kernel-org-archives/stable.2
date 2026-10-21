@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792584980;
-	b=5LkMcKsMCsLvh3GGlLBQ8ild8K4y8mbKjI1R4wZepgTmIlLFoUTD5vkE+HE/DkNc2Os7
-	 HYgnRgMw8KWkAmk/CqS16mjgLt1X8Mrrq1jVwowuuOX17Eo8RPM76VlhD34JFoLdXum/Z
-	 JNFxDARlo7AM9wM0US4hDwHruPPCGEFXbptTJmf808ZXMML0IJ2HwQJISExmesa0bhXvo
-	 pKSLiReLnWcqsy4akRcnG4G9Mj1nug1YQCKYBbU6Uc7buTdfTpJ8S9AlYFH7LPbijQj0Y
-	 jP9m3N42LpK6o+nXhiPWbaGDz39oJIVqzuy4m1ybalKnfqkoQntq8MeV9ioSqlUB3eA==
+	t=1792584986;
+	b=Or2yjOV3FHjxk4BYHOzjZ7eH81xxgAnqejWS0w6nz41lsqlfJKt2IvFWI2gsaP9ZTVLt
+	 CEyNiMlXb3p+Wt4M/83iuN3+TVTV+az6vjod/+/b/M92mM5jS8m/0SqhBEASkALAtP3pw
+	 iCydcZ7QFBjmM2lcWABfMlwYiINiTSM0PTpSnNzFbwkh9RhzcoA00hZb25ACbfQjktMK3
+	 HZInNJROgmfbCxve9UMXRz/ZUaTvghwNYQmxtc8qd2PFqyIG772VezjEwV+MhcrxMKYqR
+	 lxhQMF7T+ZHuhRkBZViB+etylA6JtixN0nyqIKVctKkB1kUEYW42fOd8kgdGXep0BaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792584980;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792584986;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3sV2BVll+rmA+nzXI9MkZz3cUVSsRVhz3ZropH017dE=;
-	b=cdrdy3yPv9mvbzUstP64gIQwuKj6JOnrwWUKT7qtR4PMdmjkB47vmwfMXVYb4BfegXfY
-	 8kPXAD0CkzT33w49+a+W4GuIVH4oN+f9FGf7dNVWXam1W72JL4sfbAYXGZF8jFd6omieq
-	 v76zukE6Cwh//w82iqJyO9GOq1JHUkDGZAly+I5HisoTqghVXsBoe4F7uxA7zEQNN+bDu
-	 BhMZ186uEiK8gSS5Pdp7aT/ptqryhUAmCRdMGLTF+QcuT5Mf3NqLvcAk4fLhrlx0TZiif
-	 FK4ZV3WgxgHusKsm4fPvmDRrDAfkopbxGnroYISWc69UdTtoc5qenR3R206TGzxGiYQ==
+	bh=M1n1hBWFrb7+3IcENFJ0R4sSlfudB755zznR4XrxZXc=;
+	b=CtvNGBac++68T8wfU1n/pB28O1NHVVR1c/8bc8D3N+COgfbmvnq2Nxhol2yB5Rvrcnuu
+	 PWL8cvVxtzzFtx++wCAKnlhNgKaB4uVMPgORrqWBPB2PbSHKgRJhP0fnW+o0TPlmhsVHe
+	 ruh+OICewOyLEOZ9s1dGVgM8Zchr61OA1OMSJu+e6Wu3HwTgqBlcSItq5s+4nTucbJyeG
+	 VhD/qjNwuZGeJ48v6nt/JRsCE+SRZXhzrNEt1ZwFUUdGRk5E53MxOpTGVL0m5/j0l/sBo
+	 RsZY/X+1k7U4yaPKr155ngP+V7Zh+eY38D50QGsyeDCXIM9h5g+WHd8h4igFgGWoOhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XgQaPU/t";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LU8cB6vn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C81A1606A31B;
-	Wed, 21 Oct 2026 12:16:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD24260A5BD0;
+	Wed, 21 Oct 2026 12:16:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XgQaPU/t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 267711F000C4;
-	Wed, 21 Oct 2026 12:16:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LU8cB6vn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D94E81F000C4;
+	Wed, 21 Oct 2026 12:16:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792584979;
-	bh=3sV2BVll+rmA+nzXI9MkZz3cUVSsRVhz3ZropH017dE=;
+	s=k20260515; t=1792584985;
+	bh=M1n1hBWFrb7+3IcENFJ0R4sSlfudB755zznR4XrxZXc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XgQaPU/tHQ9qG5+iV9rAw//oA7KdsmgdtJivOyAzjRyPRZhJyaUG8Qmo7JlBY5qTu
-	 nrTF6ZrnMzc5lpbtM2AwahvSfgGOFd/7DXE3cyMAJywI9mm5dfP9dJWWX8Nr9sl7iA
-	 rDxHBhN1UJDOsEFqj8feYfo5Xs8GFo+yfoqTCDsPzLph07QM3Zp5JKv4mcKtFT4OIe
-	 Nvxpvz3MrQVhSAjwNYErptApnZNz5Wj3egVYqWoTOsBicl06purDm7MYA2HL6BB1BU
-	 aMfM/E2CHHg1ZjCX3ERNx7fMVSBk+eZrG+nT+iS7Sdki1LWfiuSZJhdJyILcnKpgBq
-	 0aMsEnmmmHnqA==
+	b=LU8cB6vne4L6Qq8Oej/VmD3BuW0L+pIt+q5mkY8vUOpDTS0Q9Hptwta18nA5MivL/
+	 8yg30K55p4JIjEgUvHh1xCY+wmXU08M17tag6LFiBMvqbG6Maltu8FV+8Vt6BZOWhb
+	 10gPGk6rM6UFB2u20yZo+pTx+PjKS8JjFWTbm6ezdMWu2OOh+/o0VHTxp/ag4d/2qA
+	 mYsrTR4yz6kZXz31SPJuC/tSev5QPq1LonDxBM19fb+Q7EOcz0rZS8loZbMCLnz/3W
+	 t4jyjo97Zz23Ve0R5fEMnpfsLGdya+Ksge7l6SFZWNcFWBPAV0jK+06PBBt5JqyIw9
+	 /yXPuuEf27LTA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Linus Walleij <linusw@kernel.org>,
+	Srinidhi Kasagar <srinidhi.kasagar@stericsson.com>,
+	Rabin Vincent <rabin.vincent@stericsson.com>,
 	Mattias Wallin <mattias.wallin@stericsson.com>,
-	Samuel Ortiz <sameo@linux.intel.com>,
 	linux-arm-kernel@lists.infradead.org,
 	mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 22/28] mfd: abx500-core: Unregister device ops on devm release
-Date: Wed, 21 Oct 2026 12:09:44 +0000
-Message-ID: <20261021121245.3111563-22-lee@kernel.org>
+Subject: [PATCH 23/28] mfd: ab8500-core: Register sysfs attribute groups via devm_device_add_group()
+Date: Wed, 21 Oct 2026 12:09:45 +0000
+Message-ID: <20261021121245.3111563-23-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
 In-Reply-To: <20261021121245.3111563-1-lee@kernel.org>
 References: <20261021121245.3111563-1-lee@kernel.org>
@@ -65,81 +66,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-abx500_register_ops() allocates struct abx500_device_entry via
-devm_kzalloc() and links it into the global abx500_list without
-registering a devres cleanup action.  If a caller's probe function
-subsequently fails, devres frees the entry while it remains linked in
-abx500_list, causing use-after-free and list corruption on later
-traversals.
+ab8500_probe() registers up to two sysfs attribute groups with
+sysfs_create_group().  On AB8505 and AB9540 (cut 2.0 and later), the
+second sysfs_create_group() call unconditionally overwrites the return
+value of the first, and if the second call fails, ab8500_probe() returns
+an error without removing the first group.  Because the driver context
+is freed and driver data is cleared on probe failure, reading any leaked
+sysfs attribute dereferences a NULL ab8500 pointer in
+get_register_interruptible().
 
-Register a devm_add_action_or_reset() callback in abx500_register_ops()
-to remove the entry from abx500_list before devres frees it.
+Register the attribute groups via devm_device_add_group() and only
+register the second group when the first succeeds so that devres
+automatically cleans up registered sysfs attributes on probe failure.
 
-Fixes: c211b6b9c014 ("mfd: abx500-core: Convert to managed resources for allocating memory")
-Closes: https://sashiko.dev/#/bug/linux-6a9c6b8b-8f89-4af5-8cb1-102822e44e6e
+Fixes: 93ff722e8853 ("ab8500-fg: Add power cut feature for ab8505 and ab8540")
+Closes: https://sashiko.dev/#/bug/linux-a9ac1a9d-5a97-4ad3-b4c5-c7775c24a333
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/mfd/abx500-core.c | 29 ++++++++++++++++++-----------
- 1 file changed, 18 insertions(+), 11 deletions(-)
+ drivers/mfd/ab8500-core.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/mfd/abx500-core.c b/drivers/mfd/abx500-core.c
-index e896531d0354..5873e335c395 100644
---- a/drivers/mfd/abx500-core.c
-+++ b/drivers/mfd/abx500-core.c
-@@ -5,6 +5,7 @@
-  * Author: Mattias Wallin <mattias.wallin@stericsson.com>
-  */
+diff --git a/drivers/mfd/ab8500-core.c b/drivers/mfd/ab8500-core.c
+index 86fa99022cb3..408bad2f577a 100644
+--- a/drivers/mfd/ab8500-core.c
++++ b/drivers/mfd/ab8500-core.c
+@@ -1232,16 +1232,13 @@ static int ab8500_probe(struct platform_device *pdev)
  
-+#include <linux/device.h>
- #include <linux/list.h>
- #include <linux/slab.h>
- #include <linux/err.h>
-@@ -33,6 +34,21 @@ static void lookup_ops(struct device *dev, struct abx500_ops **ops)
- 	}
- }
+ 	if (((is_ab8505(ab8500) || is_ab9540(ab8500)) &&
+ 			ab8500->chip_id >= AB8500_CUT2P0) || is_ab8540(ab8500))
+-		ret = sysfs_create_group(&ab8500->dev->kobj,
+-					&ab9540_attr_group);
++		ret = devm_device_add_group(ab8500->dev, &ab9540_attr_group);
+ 	else
+-		ret = sysfs_create_group(&ab8500->dev->kobj,
+-					&ab8500_attr_group);
++		ret = devm_device_add_group(ab8500->dev, &ab8500_attr_group);
  
-+void abx500_remove_ops(struct device *dev)
-+{
-+	struct abx500_device_entry *dev_entry, *tmp;
-+
-+	list_for_each_entry_safe(dev_entry, tmp, &abx500_list, list)
-+		if (dev_entry->dev == dev)
-+			list_del(&dev_entry->list);
-+}
-+EXPORT_SYMBOL(abx500_remove_ops);
-+
-+static void abx500_unregister_ops(void *data)
-+{
-+	abx500_remove_ops(data);
-+}
-+
- int abx500_register_ops(struct device *dev, struct abx500_ops *ops)
- {
- 	struct abx500_device_entry *dev_entry;
-@@ -45,20 +61,11 @@ int abx500_register_ops(struct device *dev, struct abx500_ops *ops)
- 	memcpy(&dev_entry->ops, ops, sizeof(*ops));
+ 	if ((is_ab8505(ab8500) || is_ab9540(ab8500)) &&
+-			ab8500->chip_id >= AB8500_CUT2P0)
+-		ret = sysfs_create_group(&ab8500->dev->kobj,
+-					 &ab8505_attr_group);
++			ab8500->chip_id >= AB8500_CUT2P0 && !ret)
++		ret = devm_device_add_group(ab8500->dev, &ab8505_attr_group);
  
- 	list_add_tail(&dev_entry->list, &abx500_list);
--	return 0;
-+
-+	return devm_add_action_or_reset(dev, abx500_unregister_ops, dev);
- }
- EXPORT_SYMBOL(abx500_register_ops);
- 
--void abx500_remove_ops(struct device *dev)
--{
--	struct abx500_device_entry *dev_entry, *tmp;
--
--	list_for_each_entry_safe(dev_entry, tmp, &abx500_list, list)
--		if (dev_entry->dev == dev)
--			list_del(&dev_entry->list);
--}
--EXPORT_SYMBOL(abx500_remove_ops);
--
- int abx500_set_register_interruptible(struct device *dev, u8 bank, u8 reg,
- 	u8 value)
- {
+ 	if (ret)
+ 		dev_err(ab8500->dev, "error creating sysfs entries\n");
 -- 
 2.56.0.218.g1ec904b173-goog
 
