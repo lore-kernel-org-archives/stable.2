@@ -1,59 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792562822;
-	b=0rXeY7CeTENWv2rKpDfoy+Hgpl2MbzLYZMvcpSH9sOboLqV1lsd4ZDn9miKIGyinD95H
-	 bDFtmai3rEvnJBjI+7sKlMfCAEyNxMMzRXxA55JrLTpeA0SrT76MXaornugeWxQx6QHdf
-	 G7ktDjww9zFQ9rzezNLtkGYe1obE5i6YcTj9PVEgmPKza585jjgRC0ADB/1doW1RomoTX
-	 mgj1G199D0ThPnPostTS08iPuqmlgWAD0C/k/rlbyRFaeRhuvsL19EafeUShRR89IhNha
-	 8NMM3Wij5nWewET6W70fT+mY8tmPPkfuUSTDnDhF89rVRuCRBDuEkcTIMTY+QdnVgtQ==
+	t=1792562837;
+	b=YqF0NRbACLvKhZwOuFoUbEc31ViZQGJwmn6BAYFr6heuKHusO/nwvvzCtEdqZlqv64xK
+	 e8ga0t0RM/iVQtxg5VycIPPcOgX3n0Dv2ReUPmeRFw2wZcA4gQzYNcYI5nO04+vXqJVcs
+	 04G2/WVcEjZhxLKN+m49yUg5aiZvi2A83IIBiuGGxX3I6DPDCaLaw5Aup7LCYT3pcdA+L
+	 TIRah7v87cj3UOa/WEYEynP6dTyz3MLB0hPMfsH8871RRXvP1v0UYxqe9Gu5s1kL3FAxi
+	 bPy0t6nMasBYXlRP0TIFMX7Cqkv/V8999JcUAqX6TGaez193bag56OoSUgJ+Eg7oLqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792562822;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=w0bfKG4jWhsgSPibMdf5DakdYa8sqFj/DLA6rj361Lg=;
-	b=xK5hjkAZvhqgeaPbdiyrSKWXNNNx5ECXYSc9QtcMT6Y6+3fTdFuYVLOlKDsgx6kArQdf
-	 clcV4IENb2CR+PTjKY9aVUj9wYRDNmjBlSg9cQ3AWC04t1UAnlEr8jOEFP8izbI8EN9ZY
-	 PEx1V/l0QQtcqUFnArrkWg+2Omevx7JU0DJWUrzYyUlOeu2mzyEXdayIE/TVhu+F/bXVi
-	 BsEppKetLbJtiHB28EUDnL8ZkC9yaKcAekqIZFovijb2CmywHp5482IYoj7UgL7Ly9goA
-	 6q3DV2D1XcvtCm/s43iCsJ+APfHSOFSX9KYxxjSo00mqgvF6/bOJzi9s1XVcPPnSF3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792562837;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=fKaDERhzPbkXN7Gq1dg6sjNw7qQA/V1PTTySjHjN2d4=;
+	b=WWm3/Q5UoFeVMiXn/INj2gTfBdoxsEnb9YzQi0KzoGbOCQS7EBRJf8pdLr9sogt5Uvx/
+	 K312w8Sge2Q248nZHo7dqmopecASNynaJmaidHfb2usPb9VTRM4ZQVWKSf9ushGsx7c32
+	 tlzaHNM2BsmWL9/vtFPKtHzVTAKR4iUFh5/LXuPwrfEPv57mZXJy0sjaNKr+6v3WsiSVG
+	 HfEuGYxXvSBs3PJdNu6CccrDPR5RrzerDuRwVVyjrNFRct6Vxj9hJBqSoGvH1aAYjHjlm
+	 fPZsGqgFCaOrArvwzUV5oklQpYKamRrvwpPI4AQDDUW9DaRZp0OkXmx/6MoYoQA+1VA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DBGtq+pG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gmPsU5A0;
+	arc=none smtp.remote-ip=74.125.229.135
+Received: from mail-dl2-f7.google.com (mail-dl2-f7.google.com [74.125.229.135])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CB3606A329;
-	Wed, 21 Oct 2026 06:07:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A1360A2611
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 06:07:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06A1360A2611
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DBGtq+pG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16B8B1F000C9;
-	Wed, 21 Oct 2026 06:07:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792562821;
-	bh=w0bfKG4jWhsgSPibMdf5DakdYa8sqFj/DLA6rj361Lg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=DBGtq+pGdde4n2ZkFs4ytJc2vdgzLUhfUE9JWOjkoDzcAjNURwsPnuq2OtAE1JWK3
-	 eRm+KWSIhX6PcI0m+0bz8GsGcPS6ABfuuCjGxjtIh6wrf459G+BhBjgnrK4U2wGcTP
-	 3IYhRuBhbiTTMDYm8isx9EqY9nkk0CEWKvHw/1H5RoOcCpg1r97WHp76AUBTzzRtle
-	 Do3yY9DdBkf00Zz2ZbwXvHKK139O7j3GJhYdIQ8Anat9PsZSEVNSFZZUkbVY+zNR/E
-	 1HOoXwS+JdhnRaVrXTGs25UKphbUvMVAzSBL+a6rKQg4CkM2Ld7cp6GyTlKV3n2Q6B
-	 8LCVfm3/ZY2pQ==
-Subject: Re: [PATCH mptcp-net 2/2] selftests: mptcp: join: re-add the initial
- subflow endp with fullmesh
-From: netdev-bot+sashiko@kernel.org
-To: w453y.me@gmail.com
-Cc: mptcp@lists.linux.dev, matttbe@kernel.org, martineau@kernel.org,
- geliang@kernel.org, pabeni@redhat.com, stable@vger.kernel.org,
- kuba@kernel.org
-Date: Wed, 21 Oct 2026 06:07:00 +0000
-Message-ID: <179256282060.3133.15812705751852336988@kernel.org>
-In-Reply-To: <20261019170751.200446-3-w453y.me@gmail.com>
-References: <20261019170751.200446-3-w453y.me@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gmPsU5A0
+Received: by mail-dl2-f7.google.com with SMTP id a92af1059eb24-13985f8229aso340835c88.1
+        for <stable@vger.kernel.org>; Tue, 20 Oct 2026 23:07:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792562836; x=1793167636; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fKaDERhzPbkXN7Gq1dg6sjNw7qQA/V1PTTySjHjN2d4=;
+        b=gmPsU5A0udQnjW1Kk0RVwWRDw1aGaaWBl5groR9VnSYKEnmFFRbNIZ8vk8OI+w/gFs
+         OfHFHESQOQRlKcAd5c12KWmNuTupXgcf3tk0YSkkRfW3QmA3o9PFqKyGXdScEmt4AFa+
+         P96V452jEG4+bTEN52okYDYh87RDYuEFt9LpDELgL9Nj36iC39moEROlZh8zVw/aXAHe
+         NYD2TAKMMoRtnsFsSzTFvpT0OCvuIjJZrywmDeslm0NS15QS4RnQvPhEK+9A4gsONefN
+         W25LiRMSXTSOPj5JiPA0VT7+vWNtT8qBdewth11rD/S/3diFP5RwEMIAxCKhnkbnVTSs
+         3OAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792562836; x=1793167636;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fKaDERhzPbkXN7Gq1dg6sjNw7qQA/V1PTTySjHjN2d4=;
+        b=PHbJZO4AftACT3F6zMWkRzI5E6JFFFuSfVEA6m6cxDajfTQgvxUTYT2QaGTQU8OrGb
+         wvqhxXUhF8W4lCewe0w7CPyhyf/Ohq91u+2NtMCfkm50Y8x/MbRs1hTs9HCGMwuFfihc
+         2+a9w7I6gGn64rOzS6gAa192kWFBzBF+osOHECwR5P8nZpmJ+6WZO3S0OOIH80NC9Fet
+         qdSIXH3ddNaPouBmn+khCe8yWyVUO3FEQit5V6Ayfj5AADNEIEGJ3vqBvna5wgpRjoUZ
+         9k+UkOiA0UqDN3ZhExZhcmmXEjwrx5GPvo1pyEtpq/bRq4qAK9kiyCG/8+DBtOfD0n/B
+         SGNw==
+X-Forwarded-Encrypted: i=1; AKwUvByx94AQlJ8Hz9nsk9oEftQLNU1wEKHa960hTqvzEhq1y0W80sDv5+SgzFpd5khjHXzjTUQnV2U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIpHr9jgbMkBrM8oJib5ZWNEVDFxCWCsk+MYQZs/FxfpWFHJGm4
+	N57Bygp3D4Ee0Cm0HlDCdLX1GhiJZpCmdpPaizqBialC76U03Hoxrmop
+X-Gm-Gg: AYBFou00H57xAWC5VUof4xhZDaNmM6fa6JTGCiaAzqfyqHiCZhYE904yqLSuK/RDnya
+	/NPMlxbLnf6atebc3X/hJgevoV6wyX0K/0Aili0OOulVmKuwGkMZiq4SIFQLDKRVx66mTmoeLh9
+	jzwL2OQrl32zQGZimLsJ0z6zRgEHP4kw4WiUShGhJX0H0MtBiiRJPqEPtBQqclFTiU9LmVZQsFO
+	TgNuyNMEiqCSpFve+qrvn50nPuT2c4asNCElFifFoI6/E7FXBhqyOLyBe6629j/Huf2vtscBK/G
+	onEeZxvgJ8f455rHMeyqqLHXXk+zmdzEdUtjPYG3CoDpCXO4VhC3XHTUnv81VrfzP3B3Et0485J
+	qnstdfEHvmvJGjUrPhcQ+hbh2fbRmheoLK3UW1ZozOcPvc3tLjJ7rxRvTbRb4mVls69H8qEMIK5
+	kOah/u1frSp4O8OuNsmGVAeumC1mn9ykZ8fHRLTyholThxr6Iu/PaKDqzCTCqo32OzXJ52GMDBL
+	QrO1hJL+3odO5UZaG0+45ZuiKEv13uLCSR6EfAiPYnJaJzBPXTw0gNIGDLkiSFP3GBnJq9wGoFm
+	Ci/fTTM=
+X-Received: by 2002:a05:701b:2608:b0:144:c127:dd1b with SMTP id a92af1059eb24-190a7f02797mr1363525c88.39.1792562835846;
+        Tue, 20 Oct 2026 23:07:15 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19035c0c9a6sm3504720c88.3.2026.10.20.23.07.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 23:07:15 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: akpm@linux-foundation.org
+Cc: willy@infradead.org,
+	jack@suse.cz,
+	shr@devkernel.io,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH v2] mm/page-writeback: avoid 32-bit overflow in dirty threshold shares
+Date: Wed, 21 Oct 2026 06:06:54 +0000
+Message-ID: <20261021060654.27855-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,92 +100,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+The ratios used by __wb_calc_thresh() are scaled to parts per million,
+but the threshold and ratio operands are unsigned long. On 32-bit
+kernels, their multiplication can wrap before the result is assigned
+to u64.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+For example, with a threshold of 25600 pages and the default maximum
+ratio of 1000000, wb_max_thresh becomes 4125 pages instead of 25600.
+The shared threshold and minimum share calculations can overflow in
+the same way, producing incorrect per-writeback dirty limits.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Use a u64 threshold for the three ratio multiplications and div_u64()
+to retain the existing division order and rounding.
 
-- [Medium] mptcp: pm: fill_remote_addresses_fullmesh() fails to skip
-  reset initial subflow
+Fixes: ae82291e9ca4 ("mm: use part per 1000000 for bdi ratios")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+Changes in v2:
+- Use a u64 threshold variable instead of repeated casts, as suggested by
+  Andrew Morton.
 
---
+ mm/page-writeback.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-> diff --git a/tools/testing/selftests/net/mptcp/mptcp_join.sh b/tools/testing/selftests/net/mptcp/mptcp_join.sh
-> --- a/tools/testing/selftests/net/mptcp/mptcp_join.sh
-> +++ b/tools/testing/selftests/net/mptcp/mptcp_join.sh
-> @@ -4424,6 +4424,36 @@ endpoint_tests()
->  		chk_rm_nr 4 4
->  	fi
->  
-> +	# remove and re-add the endpoint of the initial subflow, with fullmesh
-> +	if reset_with_events "delete and re-add, fullmesh" &&
-> +	   continue_if mptcp_lib_kallsyms_has "subflow_rebuild_header$"; then
-> +		pm_nl_set_limits $ns1 0 2
-> +		pm_nl_set_limits $ns2 0 2
-> +		pm_nl_add_endpoint $ns2 10.0.1.2 id 1 dev ns2eth1 flags subflow,fullmesh
-> +		pm_nl_add_endpoint $ns2 10.0.2.2 id 2 dev ns2eth2 flags subflow,fullmesh
-> +		{ timeout_test=120 test_linkfail=128 speed=5 \
-> +			run_tests $ns1 $ns2 10.0.1.1 & } 2>/dev/null
-> +		local tests_pid=$!
-> +
-> +		wait_event ns2 MPTCP_LIB_EVENT_ESTABLISHED 1
-> +		wait_mpj 1
-> +		chk_subflow_nr "before delete id 0" 2
-> +
-> +		pm_nl_del_endpoint $ns2 1 10.0.1.2
-> +		sleep 0.5
-> +		chk_subflow_nr "after delete id 0" 1
-> +
-> +		pm_nl_add_endpoint $ns2 10.0.1.2 id 1 dev ns2eth1 flags subflow,fullmesh
-> +		wait_mpj 2
-> +		chk_subflow_nr "after re-add id 0" 2
-> +
-> +		mptcp_lib_kill_group_wait $tests_pid
-> +		kill_events_pids
-> +
-> +		chk_join_nr 2 2 2
-> +		chk_rm_nr 1 1
-> +	fi
-> +
->  	# remove and re-add
->  	if reset_with_events "delete re-add signal" &&
->  	   continue_if mptcp_lib_kallsyms_has "subflow_rebuild_header$"; then
-
-[Severity: Medium]
-This only exercises the case where msk->first is still established
-when the endpoint is removed. In that case __mptcp_subflow_disconnect()
-takes the tcp_shutdown() branch and the subflow context is left intact.
-Doesn't the fix from the previous patch still have a hole when the
-initial subflow reaches TCP_CLOSE before mptcp_close_ssk() runs? That
-can happen after a peer RST or FIN, a timeout, or a shutdown from
-TCP_SYN_SENT.
-
-In that case __mptcp_close_ssk() sets subflow->closing and keeps
-msk->first in conn_list because dispose_it is false. Then
-__mptcp_subflow_disconnect() calls tcp_disconnect() followed by
-mptcp_subflow_ctx_reset(). The memset of subflow->reset clears closing
-again, zeroes remote_id and sets local_id to -1.
-
-When the fullmesh endpoint is then re-added,
-fill_remote_addresses_fullmesh() no longer skips that subflow. The
-second loop copies 0.0.0.0 port 0 with id 0 from the disconnected
-socket and marks remote id 0 as unavailable, so any live subflow
-towards remote id 0 is skipped. __mptcp_subflow_connect() then fails
-with -EINVAL on the port 0 address. No subflow towards remote id 0
-gets created, which is the same symptom this test is meant to catch.
-
-Would checking the ssk state or the remote port in
-fill_remote_addresses_fullmesh() be a more robust guard than
-subflow->closing here? Could the selftest also grow a variant where
-the initial subflow is reset by the peer before the endpoint is
-re-added, so that path is covered too?
-
+diff --git a/mm/page-writeback.c b/mm/page-writeback.c
+index eeab25d6ce36..1d6aab8781a5 100644
+--- a/mm/page-writeback.c
++++ b/mm/page-writeback.c
+@@ -883,6 +883,7 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
+ {
+ 	struct wb_domain *dom = dtc_dom(dtc);
+ 	struct bdi_writeback *wb = dtc->wb;
++	u64 threshold = thresh;
+ 	u64 wb_thresh;
+ 	u64 wb_max_thresh;
+ 	unsigned long numerator, denominator;
+@@ -894,13 +895,14 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
+ 	fprop_fraction_percpu(&dom->completions, dtc->wb_completions,
+ 			      &numerator, &denominator);
+ 
+-	wb_thresh = (thresh * (100 * BDI_RATIO_SCALE - bdi_min_ratio)) / (100 * BDI_RATIO_SCALE);
++	wb_thresh = div_u64(threshold * (100 * BDI_RATIO_SCALE - bdi_min_ratio),
++			    100 * BDI_RATIO_SCALE);
+ 	wb_thresh *= numerator;
+ 	wb_thresh = div64_ul(wb_thresh, denominator);
+ 
+ 	wb_min_max_ratio(wb, &wb_min_ratio, &wb_max_ratio);
+ 
+-	wb_thresh += (thresh * wb_min_ratio) / (100 * BDI_RATIO_SCALE);
++	wb_thresh += div_u64(threshold * wb_min_ratio, 100 * BDI_RATIO_SCALE);
+ 
+ 	/*
+ 	 * It's very possible that wb_thresh is close to 0 not because the
+@@ -916,7 +918,7 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
+ 			wb_thresh = max(wb_thresh, (thresh - dtc->dirty) / 8);
+ 	}
+ 
+-	wb_max_thresh = thresh * wb_max_ratio / (100 * BDI_RATIO_SCALE);
++	wb_max_thresh = div_u64(threshold * wb_max_ratio, 100 * BDI_RATIO_SCALE);
+ 	if (wb_thresh > wb_max_thresh)
+ 		wb_thresh = wb_max_thresh;
+ 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261019170751.200446-1-w453y.me%40gmail.com
+2.43.0
+
