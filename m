@@ -1,68 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792602896;
-	b=tlCVpRSF7tW28XBQ+wOzbZTbD7vEXTLy3JhajPsGN05VO6Ue3gRjvclOjwEiZ1bOsDxU
-	 8rGPxzLnT8fLtwNY5ORFZv7nZuDifVr0f49iYcx8S3dlh71DgzHw1fsOvIa8KFoqJvUtV
-	 0AD+Uvz1TYreMBmdsP21eb43beXi/fQHu1dTirNuQ5V3vxgFo3AHFNWk+lLQW1cPoic6e
-	 2dvmCo/oEZX5lj6hNn10xJZ/SJxSqlhSwPWq1ErB6LIU8ysKjJnt9d+A0q8UgPuA44yzQ
-	 uzgKJT35qklQR0KgduDapRtqj8NTXtDRNeyqo9ELtDnJHSqxI50l5yu1cuINEkTwoTw==
+	t=1792602991;
+	b=S7UdaWVkgiXfGesKbIH70RgqQXgawBfIjIo4O82cqkMOY2X3LIaaJWmjFdCu5Kf7rmd6
+	 j5taWUv3IFa8l9ww/dhLAIa+nZUwBbzlHyezqlCQ7PZFFPQ2vQhN7lMVWi54n89aIAYBF
+	 eu9eVkdMFlx+iu4sBAKCLhJCWePrrXHi+1ttvTiQJNrMdVoFIphvvCdWYlc06/hLgg/kX
+	 dHbAwX6Nj+5RoG82lantP4Ew88kt5LHri/LR+jbPuL1xqt0C+La791RUASDKMySeE3dlD
+	 JLdMuMwKkzmkm+ItGUApPvJl8VhFNbxaf5Snq0mLcGwcUl+MwlbsbAcD0BzPXJr8yjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602896;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wpISKsYdIVz9d6bHJMIPHTSQMYCt0PBJlMxAnbCOdTo=;
-	b=uKA/YdVleQPPq1bLLst8L1DJl9nnLPY5rMEJTqbh9oCUmZ3rkeWb4X8llVnMX/5J0yGe
-	 UpnsxCUqaBvpZ+wSHQesXZ353UM0rJMMm59TIyB+9A0MmyK8BNjKqr0D801eGV5ts4smA
-	 P0z9z9Bu5gSVGXdpkcIvtLW1xbjJEyRzgImceueDqNmJrvqnU+Uev+WbWdgJPLFKK+Fz1
-	 por3pdNyLmzjtjxQFq4vUBQDIP+OSrRERYRdQJBhK/NvvmJje0hzLqQA2KgxA6rVFprbb
-	 MSovMZm74QiuMCYlv4RcLwSgA6rV3qvHlMYQAxxru/6H8ymKggIfpQUcJn86SiehBkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792602991;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=B9xTWWD9mfzJtMcAru9lP6tSUbC9S1bscJnItCWs39w=;
+	b=gBe6R2SQDfJjykEJWkyZ2SzuaGdduCGHn/gMWNfmNXVVIHIfpQ2th6YuyQiFfGyXx6f+
+	 qr6LEfGN0mOXvR2LYpfKfByYtmMxvSbYqSoGZCKOiFewC1T30fzn7y56lMiM3VF0YtXQi
+	 5siIaQ2UmQC0AxOiMRW4OsKjwinkXQsYcT92f3+uMj/I8L8SHF74MgGHR+QGSSVyeaUCf
+	 2ZydLdvg3H4/KdueNp6uuN0VvzhE6fSA3k74AL4xVmpwufWLpZ/yTQS9xiK3w4Y60wwUT
+	 RSlWnr8i3PXEM39rgcwnSIndHaj2PZt00+YNXY4SIThHbl4oePqqHSYChpf3QV1HjLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eQbErXQh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=trailofbits.com;
+	spf=pass smtp.mailfrom=trailofbits.com;
+	dkim=pass header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=f5amWmm1;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 7D6DB606A319;
-	Wed, 21 Oct 2026 17:14:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B829606A31F
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 17:16:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B829606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eQbErXQh
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id C731B1F000C3;
-	Wed, 21 Oct 2026 17:14:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792602896;
-	bh=wpISKsYdIVz9d6bHJMIPHTSQMYCt0PBJlMxAnbCOdTo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eQbErXQhiLRODpJENOpDjqJ6YNp37xxGTfNHexYZBVCPOGJNDRksQFXXIbS4DwyHv
-	 Qy5R2wM+1iEwF0tsRWDPYn7+gZfUW9azhQvIewX6xT5VAd+ms9eaf9oXJcMA0XxyJN
-	 Ne6lCfk0CTU/DcA5AO0l+UJljDRvjvhKZSESoFKY6/WPyAbQAb7plgfGftm5sbgWJQ
-	 O7/Aez5ARG+qxnNPZfdNGVGsdnlshp0Zpogc5c5QWQSJHqQke5ijvM6q4H69FdSqCT
-	 j4D+j69iUO2mWxc/f77QdCXL8ImznhdPn+2zdkz8qFKZlnBOORjpw7z57Z0Hvp853P
-	 v4e3U+g3DqJMg==
-Date: Wed, 21 Oct 2026 20:14:52 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	stable@vger.kernel.org, Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	"open list:COMMON INTERNET FILE SYSTEM CLIENT (CIFS and SMB3)" <linux-cifs@vger.kernel.org>,
-	"moderated list:COMMON INTERNET FILE SYSTEM CLIENT (CIFS and SMB3)" <samba-technical@lists.samba.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
-Subject: Re: [PATCH v4 1/3] KEYS: Expand key->{datalen,quotalen} to unsigned
- int
-Message-ID: <atjzDKHgkufVnMED@kernel.org>
-References: <20261020174325.2229448-1-jarkko@kernel.org>
- <20261020174325.2229448-2-jarkko@kernel.org>
- <atfT5WJU_ldjpQOM@kernel.org>
- <20261020214335.GE699485@google.com>
- <atfky30OZQ5vsNVs@kernel.org>
- <20261021170321.GC1879@quark>
+	dkim=pass (2048-bit key, unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=f5amWmm1
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-170135e43c7so903436c88.0
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 10:16:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1792602989; x=1793207789; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=B9xTWWD9mfzJtMcAru9lP6tSUbC9S1bscJnItCWs39w=;
+        b=f5amWmm1rM7SwpLLXKz2K+o6DHbLZHwpLVXk6EryPZsEbT8GBgDBGLsGk5nqeXShGB
+         h7dSo9hGdeZuxhJ+5uTl7kUcYMYrnCCUhv6w7LandIJoFUnSHGeuMk+q/bLvv5BEW2Z2
+         o//QDUb7cXaEXBIg4js5X9+vEFJpS3sThCQHAmy8eePIzGzIK6vAY2iVp8DBIiRvS0h2
+         NST6tbFgsTm7F30uH/0ZSa7JuAMZA4pkpXBG4TfVmbqqcFxbViwBJaCozcdxNFGErRdZ
+         GyyJNi+3oCazMrFJJbNYJOVYQqywnL51/mt22X+A4Z6vwRH/nxZqUabVBKrAh8eYYhEQ
+         i+TQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792602989; x=1793207789;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=B9xTWWD9mfzJtMcAru9lP6tSUbC9S1bscJnItCWs39w=;
+        b=qjisTAT0w45CLTk6MNOXPjxJ3t52XvFAH5Rg+qNpswkcLZ+w3mhUMUYaPN1jIUQkNL
+         P4dxrEevmgXKeidn86b4MGE1OxO61DanauOu8Iu2AOKVyiBviNBa6m8w5U6Q2y9Fkhlq
+         OgOjrhXxF2+LXyy2GyGvV/zSsGfySllFyMyh0kIEX3FIB4fWfT3xeefkqR+sF3pSadje
+         o8XYwP3DSlcCu60gGBR5X/U7TqmL4JsIMt0NsGw+HkZmkmqPODgoBiYNtSvkGP9yCFdz
+         iNxyG9LYK7mmt7uQXzc6axbVTlMYJDJ6rWe94Sz9f3bic6XwB8Bg+wMzN6tBzLYFCHwe
+         oldA==
+X-Gm-Message-State: AFq9FYKXB5vUn6BiM+zB8ktgwELdmuOIWfFkcFWw5p6FFZSM/HAvcP+g
+	mhepN3i5nrounUKGwDGl3T6m+n05DEuxwL+I97HYUjVt0SXxmZfWJe16AJnmMc1TcZ2BHShiUAP
+	6T24SbOPXIw==
+X-Gm-Gg: AYBFou1fP/vHzJd+M+RoQTSm1x5wXpaqoEA1jsIANj5xez8XYjeVeO09p9+/u1PSjsK
+	8hcjWu0zoq8HmOC7TUK7JE2RZRlsNda8AAnLYUq1t85956noYGrkIQioPfZRdZuz5e+GZzFUYyV
+	45TmkUu5bqOQG6xcGXlN9Qhxc8O+M8GwMVuAjmiHmjYhAhYTgHw0xzeVoR94JiNRWAk1WTeR3Ys
+	UrD6wFxB1tbjNtj/b9aJ9DLZQIcNV/mOgraLnPYyYZVJg7e740zv99ImFxEUTQ1PfIX0vYjiF0K
+	n7M5/9Qu4Xsnp+CXA+gfodz2Pe3Uz31CvlICjsrlbS5jCQcrFHwDYIuQ7IcoVr+TToJnlFClOQL
+	I7TBEEU0jbUTz7MzF07kWFcrVJ2wMe2FnzE4XWzilWufC8rw9+ZaQETKo0q5J2O4tECz37s9wpU
+	Orj8Mf7iR96iu83G+fcGS02w/Syu02ilHht5qvYB2ULhcmKz4ZmeBkfrC74eG5M/81chWLHoRIF
+	7XZ2wM7+ox07QNUQFE4zRMYMW7EtQiiJkG3MQm2gorYlEcThMG24F2v26ljs/IwGAvbRZDxoFgG
+	lgW8QfICPi+AY74Uoys+CyyP7TUXzmxSbB7jHp4xb023fiwQJac2
+X-Received: by 2002:a05:7022:3f09:b0:18b:bce0:a227 with SMTP id a92af1059eb24-190a6adcd36mr3737924c88.15.1792602988593;
+        Wed, 21 Oct 2026 10:16:28 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:d059:e601:becb:a5ad])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903aefe90asm7392775c88.9.2026.10.21.10.16.27
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 21 Oct 2026 10:16:28 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: andrii@kernel.org,
+	ast@kernel.org,
+	bpf@vger.kernel.org,
+	contact@arnaud-lcm.com,
+	daniel@iogearbox.net,
+	eddyz87@gmail.com,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	jolsa@kernel.org,
+	linux-kernel@vger.kernel.org,
+	martin.lau@linux.dev,
+	memxor@gmail.com,
+	song@kernel.org,
+	yonghong.song@linux.dev
+Subject: [PATCH 6.6.y] bpf: Fix stackmap overflow check in __bpf_get_stackid()
+Date: Wed, 21 Oct 2026 13:16:25 -0400
+Message-ID: <20261021171625.206-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,77 +105,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021170321.GC1879@quark>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 10:03:21AM -0700, Eric Biggers wrote:
-> On Wed, Oct 21, 2026 at 01:01:47AM +0300, Jarkko Sakkinen wrote:
-> > On Tue, Oct 20, 2026 at 09:43:35PM +0000, Eric Biggers wrote:
-> > > On Tue, Oct 20, 2026 at 11:49:41PM +0300, Jarkko Sakkinen wrote:
-> > > > For any kernel patches I've missed all Sashiko reviews so far and have
-> > > > not taken the feedback into account in anything.
-> > > > 
-> > > > There is two issues:
-> > > > 
-> > > > 1. I was not subscribed to linux-security-module. I could be and have
-> > > >    been but probably when I've changed my list subscriptions at some
-> > > >    point otherwise, I happened not to be.
-> > > > 2. Even if I was subscribed to linux-security-module, at least I'd
-> > > >    like to get reviews Cc'd that concern my patches or patches
-> > > >    sent to me.
-> > > > 
-> > > > Now that Eric pointed out Sashiko review I was able to look up this
-> > > > via web browser:
-> > > > 
-> > > > https://lore.kernel.org/linux-security-module/20261020174325.2229448-1-jarkko@kernel.org/T/#mccc5900222fdad9d790be343fcec2a32540ed2fb
-> > > > 
-> > > > This is somewhat inconvenient though that it responds like that, and
-> > > > not to the review thread.
-> > > > 
-> > > > Not actually sure how do you write a Sieve filter that automates
-> > > > relevant-to-me Sashiko emails going into some specific folder but
-> > > > I'm sure that is somehow possible. I guess I'll start by subscribing
-> > > > to linux-security-module.
-> > > 
-> > > Well, the keyrings mailing list isn't currently opted into Sashiko
-> > > monitoring or emails.  linux-security-modules is opted in, but it's set
-> > > to have the Sashiko emails go to only that list.  See
-> > > https://github.com/sashiko-dev/sashiko/blob/main/projects/linux/mailing_lists.toml
-> > > 
-> > >     ["linux-security-module@vger.kernel.org"]
-> > >     reply_to = ["list"]
-> > >     positive_review = "all"
-> > > 
-> > > (Sashiko defaults to no email, because unfortunately there hasn't yet
-> > > been consensus in the kernel community to enable it everywhere yet.)
-> > > 
-> > > keyrings could be opted in by opening a GitHub pull request that edits
-> > > that file.  Let me know if you want me to do it.
-> > > 
-> > > My preference is what I set the fscrypt and fsverity lists too: enable
-> > > monitoring of the list and emails of issues found to everyone (but not
-> > > the noisy positive reviews, i.e. "It looks great!"):
-> > > 
-> > >     ["linux-fscrypt@vger.kernel.org"]
-> > >     reply_to = ["author", "list", "recipients"]
-> > > 
-> > > So for keyrings I suggest we add:
-> > > 
-> > >     ["keyrings@vger.kernel.org"]
-> > >     reply_to = ["author", "list", "recipients"]
-> > > 
-> > > Do you agree with that?
-> > 
-> > Yeah, that would help, thanks :-)
-> 
-> FYI, it's merged now: https://github.com/sashiko-dev/sashiko/pull/719
+From: Arnaud Lecomte <contact@arnaud-lcm.com>
 
-Thanks, and about wrapper. I tried it and it does not play out 
-in practice so no changes to the patch set from my side unless
-there is something that needs to be still fixed.
+[ Upstream commit 23f852daa4bab4d579110e034e4d513f7d490846 ]
 
-> 
-> - Eric
+Syzkaller reported a KASAN slab-out-of-bounds write in __bpf_get_stackid()
+when copying stack trace data. The issue occurs when the perf trace
+ contains more stack entries than the stack map bucket can hold,
+ leading to an out-of-bounds write in the bucket's data array.
 
-Br, Jarkko
+Fixes: ee2a098851bf ("bpf: Adjust BPF stack helper functions to accommodate skip > 0")
+Reported-by: syzbot+c9b724fbb41cf2538b7b@syzkaller.appspotmail.com
+Signed-off-by: Arnaud Lecomte <contact@arnaud-lcm.com>
+Signed-off-by: Andrii Nakryiko <andrii@kernel.org>
+Acked-by: Yonghong Song <yonghong.song@linux.dev>
+Acked-by: Song Liu <song@kernel.org>
+Link: https://lore.kernel.org/bpf/20251025192941.1500-1-contact@arnaud-lcm.com
+
+Closes: https://syzkaller.appspot.com/bug?extid=c9b724fbb41cf2538b7b
+Assisted-by: LLM
+[ Backport to 6.6.y: stack_map_calculate_max_depth() was introduced by
+  e17d62fedd10 ("bpf: Refactor stack map trace depth calculation into
+  helper function"), which is not in 6.6.y; open-code the same
+  computation in __bpf_get_stackid(). ]
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi,
+
+Please consider this backport of the fix for CVE-2025-68378 to 6.6.y.
+
+The only difference from upstream is that the
+stack_map_calculate_max_depth() helper, which 6.6.y lacks, is
+open-coded in __bpf_get_stackid().
+
+The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
+
+Build-tested only as part of a cumulative 6.6.y series on x86_64
+(allmodconfig, CONFIG_WERROR=y); no runtime testing.
+
+Thanks,
+Artem Dinaburg
+
+ kernel/bpf/stackmap.c |   20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
+
+diff --git a/kernel/bpf/stackmap.c b/kernel/bpf/stackmap.c
+--- a/kernel/bpf/stackmap.c
++++ b/kernel/bpf/stackmap.c
+@@ -216,7 +216,8 @@
+ 	struct bpf_stack_map *smap = container_of(map, struct bpf_stack_map, map);
+ 	struct stack_map_bucket *bucket, *new_bucket, *old_bucket;
+ 	u32 skip = flags & BPF_F_SKIP_FIELD_MASK;
+-	u32 hash, id, trace_nr, trace_len;
++	u32 hash, id, trace_nr, trace_len, max_depth;
++	u32 curr_sysctl_max_stack;
+ 	bool user = flags & BPF_F_USER_STACK;
+ 	u64 *ips;
+ 	bool hash_matches;
+@@ -225,7 +226,12 @@
+ 		/* skipping more than usable stack trace */
+ 		return -EFAULT;
+ 
+-	trace_nr = trace->nr - skip;
++	curr_sysctl_max_stack = READ_ONCE(sysctl_perf_event_max_stack);
++	max_depth = map->value_size / stack_map_data_size(map);
++	max_depth += skip;
++	if (max_depth > curr_sysctl_max_stack)
++		max_depth = curr_sysctl_max_stack;
++	trace_nr = min_t(u32, trace->nr - skip, max_depth - skip);
+ 	trace_len = trace_nr * sizeof(u64);
+ 	ips = trace->ip + skip;
+ 	hash = jhash2((u32 *)ips, trace_len / sizeof(u32), 0);
+@@ -354,15 +360,11 @@
+ 		return -EFAULT;
+ 
+ 	nr_kernel = count_kernel_ip(trace);
++	__u64 nr = trace->nr; /* save original */
+ 
+ 	if (kernel) {
+-		__u64 nr = trace->nr;
+-
+ 		trace->nr = nr_kernel;
+ 		ret = __bpf_get_stackid(map, trace, flags);
+-
+-		/* restore nr */
+-		trace->nr = nr;
+ 	} else { /* user */
+ 		u64 skip = flags & BPF_F_SKIP_FIELD_MASK;
+ 
+@@ -373,6 +375,10 @@
+ 		flags = (flags & ~BPF_F_SKIP_FIELD_MASK) | skip;
+ 		ret = __bpf_get_stackid(map, trace, flags);
+ 	}
++
++	/* restore nr */
++	trace->nr = nr;
++
+ 	return ret;
+ }
+ 
