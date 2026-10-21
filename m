@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792605740;
-	b=pyWEt500zWlFOxtpyoELju1GpXDwlPXnMiD66nFEXWm48RlT6FoUK+zGgKkLOGlWWnSj
-	 H5fbh2ZIWPC2n8VCQyZHglch079sycHNC7+IVO+aBwtRSC6dOvpRn1PcLBXwBynTb5C8h
-	 s2aeec8RBwNyfOl2YhscCshHeIHf3AFOC6qB66OmiBPyE3uaAd+eIHmfABaxxL6A7WRpv
-	 fGuEYBSgx3KP17uVuKdfMVne0bwNfbAIknz4/eVtLXsZ9kIpV+vLr1drXLhekVDgCKQdP
-	 zycpALb1iIu5K3Bi3rV8QZF6QuXYmPvZ1fP8OxoiwJjxEWxH+mVcwd0oPiwf5vGVtiA==
+	t=1792605742;
+	b=zhTbtAMNX9Z9/HHUOhAOFmEUmfRdr9zvpDu2QV5nZNehA9BvEhu3GoZxeKZLPPnIB0/M
+	 PtW7OW78Chad9oTgmV6GjHWIlE1ebBe2KavrICdvi0AMzMULR32hh2Dg2dCZo9wzvFE19
+	 NSqmb105DpENoXabzRkzKK7dEl3gQsBgoiL1rit9iHD4RgNForFgGYw8qroJho2F6pXAk
+	 YcvKAWTxtsYz8CKacGPD/LkXz/DHnfKGPtESG5rV1qcWHgfQxZFFkwcrEPyTlRQ3PppaV
+	 cdK4djsSnRvgpjG+vMKV7qfiUCDVLggHm9qErzTbV7pBS8/yHhtoD58kzRaH0Zlzquw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792605740;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792605742;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=CZ0RpRrq2nSW3sSSZyakC7djhxcPcGFzQemPF8KWlx4=;
-	b=Pbq8ngpEvTOZjkTpbxUheF4H+gcS3gAyqrRRI0uwIpd24WhE7ga2gO1e3zajcO3IGfmx
-	 sBO9BH1xJ1zI63XY5uMgL7Xd6+khdtXEYSzFDFh9iEfWuNuaKJEKiJMLVji77rdyH5WI+
-	 rLL90LJZFfjzg/mnb/m4kuNel7Keftlo50kKTEBOHrjN0aZP47MakMzgWrQyj90Y7e8rA
-	 8/bPPJcQyWt/wNULpoE2XlYcr21hlkvqn+MmRa6Qeo7oUSty5L6iujhUwXqUF0zxedSZC
-	 faDbkB4Xk55VxOzYrF2zRPbS0dh0qSDVtbAiCI5deGcUrdEeGYLnF0gQoA//Nh2pq9g==
+	bh=Bwk5SqsThNKGcypvSrxTzTQ77sFGi05aHLuR7ykL69c=;
+	b=0Q1ys+E/g8flgPksmFjiBgi4d6KbjBP0310AvcSVJVgvtvhpBpKNcWuB10pzg/qu+pGl
+	 gtZY96ameOb9SMK9PClWMSpYluHqcBd8YLyP4r5HBgIIqehcKa5UdJzYKd575nkE4HS7z
+	 pfZlw9RM1lx52uQVYI/SsBtaoIcYWaCFh5MwNCKrAVXCDIQbiUXFG91bvkEO79roTGqcn
+	 8QBce6YDbTkFm0lAyqgHW/atb8B9CkLfnmjS+N5ieOya1KWqOYhrZcKZ1GMChck9xVtBj
+	 Sb+WsQIp3MgHnE6HVE+vcy1rJjo1GLlRYZ0gncvxHkfrhGuahUnthrjZzxdtsuZlDTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Nn9AdWok;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OD6jkNt7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACCA3606A319
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 18:02:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 735AC606A31A
+	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 18:02:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Nn9AdWok
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 953FF1F000C1;
-	Wed, 21 Oct 2026 18:02:18 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OD6jkNt7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8281B1F000C1;
+	Wed, 21 Oct 2026 18:02:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792605739;
-	bh=CZ0RpRrq2nSW3sSSZyakC7djhxcPcGFzQemPF8KWlx4=;
+	s=korg; t=1792605742;
+	bh=Bwk5SqsThNKGcypvSrxTzTQ77sFGi05aHLuR7ykL69c=;
 	h=Subject:To:Cc:From:Date;
-	b=Nn9AdWoktOeJOCuDCPcbleh1AufCoUC33VdPCviPYv1uGseV0qSUFpNbc6iUWRxWG
-	 Xa7EdgHjCL2B2syxJMsQwhUwSPyXVO2VtCJeQqnLgMbLCIZVsi9V0AUlSlsfTBQBtV
-	 AW2GXM9VWadi9V9iUoeFmXkFOkZeUHPzeISw0gR0=
-Subject: FAILED: patch "[PATCH] ipv4: udp: Create exceptions before socket matching" failed to apply to 7.2-stable tree
-To: idosch@nvidia.com,aksecurity@gmail.com,dsahern@kernel.org,kuba@kernel.org,noam.caspi@mail.huji.ac.il
+	b=OD6jkNt7eOF3JtT1ZivYTORiZFt9tZTlRMbuYJZ3ilNbHPi/vcw5VNAOQRQCCLvqt
+	 1ZAzPA1PYX8X6STU+Ry4HtLdiHiFENyixgl/En1T0tvdLIknLvdDtKR/eU6JzKmS7m
+	 C2bk7BC+1h0Tm4ujWl0rFg6V+ClyhdCc9XfPROXo=
+Subject: FAILED: patch "[PATCH] vsock/vmci: validate packet source for connected sockets" failed to apply to 6.12-stable tree
+To: 4ncienth@gmail.com,kuba@kernel.org,pabeni@redhat.com,sashiko-bot@kernel.org,sgarzare@redhat.com,vishnu.dasa@broadcom.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 21 Oct 2026 19:54:54 +0200
-Message-ID: <2026102154-unfiled-decorator-3b61@gregkh>
+Date: Wed, 21 Oct 2026 19:56:21 +0200
+Message-ID: <2026102121-spotty-barge-9a74@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 4c3499f79f8c7e8561266bcc220a18538cec0458
+git cherry-pick -x ad9a7da3fa39c2d616ec0dd3cf6e30531d032fe7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102154-unfiled-decorator-3b61@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102121-spotty-barge-9a74@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,89 +79,123 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 4c3499f79f8c7e8561266bcc220a18538cec0458 Mon Sep 17 00:00:00 2001
-From: Ido Schimmel <idosch@nvidia.com>
-Date: Fri, 28 Aug 2026 22:23:42 +0300
-Subject: [PATCH] ipv4: udp: Create exceptions before socket matching
+From ad9a7da3fa39c2d616ec0dd3cf6e30531d032fe7 Mon Sep 17 00:00:00 2001
+From: Daehyeon Ko <4ncienth@gmail.com>
+Date: Wed, 26 Aug 2026 09:39:28 +0900
+Subject: [PATCH] vsock/vmci: validate packet source for connected sockets
 
-Currently, when ICMP Fragmentation Needed and Redirect Message packets
-are locally delivered and quote a UDP packet, a FIB nexthop exception
-(FNHE) is only created if the kernel can match the UDP packet to an
-existing socket.
+vmci_transport_recv_stream_cb() looks up sockets first by the full source
+and destination tuple, then by destination only in the bound table. The
+fallback can select a non-listening socket without checking whether the
+packet came from its stored peer.
 
-This behavior allows off-path attackers to conduct a side-channel attack
-on the FNHE cache in order to discover the ephemeral port used by a
-connected UDP socket.
+This was reproduced with two VMCI contexts. A RST from the context not
+stored in a TCP_SYN_SENT socket reset that socket after it was selected by
+the destination-only lookup.
 
-Commit 6457378fe796 ("ipv4: use siphash instead of Jenkins in
-fnhe_hashfun()") and commit 67d6d681e15b ("ipv4: make exception cache
-less predictible") tried to mitigate such attacks by making it harder
-for attackers to discover hash collisions in the FNHE cache and by
-randomizing the number of exceptions a hash bucket can hold,
-respectively. Unfortunately, both of the mitigations can be bypassed.
+VMCI can process notification packets in bottom-half context when the
+socket is not owned by user context, or defer packets to a workqueue. Use
+vsock_check_source() after taking the socket lock in the bottom-half path,
+and recheck after lock_sock() in the workqueue path. Listening sockets
+continue to accept packets from any source.
 
-Instead, mitigate such attacks by always creating a FNHE, even before
-trying to find a matching socket. Do that by calling ipv4_update_pmtu()
-and ipv4_redirect(), the helpers used when the quoted packet did not
-originate from a socket.
+Reply with a RST addressed from the received packet before dropping a
+source that fails validation. This preserves the existing reset behavior
+for bound non-listening and concurrently closed sockets without directing
+the reset to a connected socket's stored peer.
 
-This means that guesses (right or wrong) from an off-path attacker will
-always result in a FNHE being created or updated in the cache that the
-attacker can observe.
-
-Pass an oif of 0, in a similar fashion to icmp_err(). This is also the
-oif used by the socket path for sockets that are not bound to a device.
-
-Note that this does not allow attackers to create FNHEs that they could
-not create before, as both helpers can already be reached with little to
-no validation. For example, by sending an ICMP error that quotes an ICMP
-Echo Reply or one that quotes a UDP source port that matches a wildcard
-socket.
-
-Also note that in the good case (matched socket) the above scheme comes
-at the cost of an extra route lookup, as the no socket helpers perform
-their own lookup before the one performed by ipv4_sk_update_pmtu() /
-ipv4_sk_redirect(). When the two resolve to different nexthops, it also
-results in two exceptions being created for the same destination IP. One
-in the FNHE cache of the nexthop resolved by the no socket helpers and
-another in the FNHE cache of the nexthop used by the socket.
-
-Fixes: 4895c771c7f0 ("ipv4: Add FIB nexthop exceptions.")
+Fixes: d021c344051a ("VSOCK: Introduce VM Sockets")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/netdev/20260814121255.6B5001F000E9@smtp.kernel.org/
 Cc: stable@vger.kernel.org
-Reported-by: Amit Klein <aksecurity@gmail.com>
-Reported-by: Noam Caspi <noam.caspi@mail.huji.ac.il>
-Signed-off-by: Ido Schimmel <idosch@nvidia.com>
-Reviewed-by: David Ahern <dsahern@kernel.org>
-Link: https://patch.msgid.link/20260828192344.2596928-3-idosch@nvidia.com
+Suggested-by: Stefano Garzarella <sgarzare@redhat.com>
+Suggested-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Reviewed-by: Vishnu Dasa <vishnu.dasa@broadcom.com>
+Link: https://patch.msgid.link/20260826003929.966160-3-4ncienth@gmail.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/net/ipv4/udp.c b/net/ipv4/udp.c
-index 6ff5670bf6ed..bb8cfc62cb00 100644
---- a/net/ipv4/udp.c
-+++ b/net/ipv4/udp.c
-@@ -900,6 +900,15 @@ static struct sock *__udp4_lib_err_encap(struct net *net,
- 	return sk;
- }
- 
-+static void udp_err_update_exception(struct net *net, struct sk_buff *skb,
-+				     int type, int code, u32 info)
-+{
-+	if (type == ICMP_DEST_UNREACH && code == ICMP_FRAG_NEEDED)
-+		ipv4_update_pmtu(skb, net, info, 0, IPPROTO_UDP);
-+	else if (type == ICMP_REDIRECT)
-+		ipv4_redirect(skb, net, 0, IPPROTO_UDP);
-+}
-+
- /*
-  * This routine is called by the ICMP module when it gets some
-  * sort of error condition.  If err < 0 then the socket should
-@@ -923,6 +932,8 @@ int udp_err(struct sk_buff *skb, u32 info)
- 	int harderr;
+diff --git a/net/vmw_vsock/vmci_transport.c b/net/vmw_vsock/vmci_transport.c
+index 1c4ee039c166..1f186e8f8364 100644
+--- a/net/vmw_vsock/vmci_transport.c
++++ b/net/vmw_vsock/vmci_transport.c
+@@ -680,11 +680,13 @@ static int vmci_transport_recv_stream_cb(void *data, struct vmci_datagram *dg)
+ 	struct vmci_transport_packet *pkt;
+ 	struct vsock_sock *vsk;
+ 	bool bh_process_pkt;
++	bool drop_pkt;
  	int err;
  
-+	udp_err_update_exception(net, skb, type, code, info);
+ 	sk = NULL;
+ 	err = VMCI_SUCCESS;
+ 	bh_process_pkt = false;
++	drop_pkt = false;
+ 
+ 	/* Ignore incoming packets from resources that aren't vsock
+ 	 * implementations.
+@@ -765,17 +767,29 @@ static int vmci_transport_recv_stream_cb(void *data, struct vmci_datagram *dg)
+ 	bh_lock_sock(sk);
+ 
+ 	if (!sock_owned_by_user(sk)) {
+-		/* The local context ID may be out of date, update it. */
+-		vsk->local_addr.svm_cid = dst.svm_cid;
++		if (sk->sk_state != TCP_LISTEN &&
++		    !vsock_check_source(vsk, &vmci_transport, &src)) {
++			drop_pkt = true;
++			err = VMCI_ERROR_NO_ACCESS;
++		} else {
++			/* The local context ID may be out of date, update it. */
++			vsk->local_addr.svm_cid = dst.svm_cid;
+ 
+-		if (sk->sk_state == TCP_ESTABLISHED)
+-			vmci_trans(vsk)->notify_ops->handle_notify_pkt(
+-					sk, pkt, true, &dst, &src,
+-					&bh_process_pkt);
++			if (sk->sk_state == TCP_ESTABLISHED)
++				vmci_trans(vsk)->notify_ops->handle_notify_pkt(sk, pkt, true,
++									       &dst, &src,
++									       &bh_process_pkt);
++		}
+ 	}
+ 
+ 	bh_unlock_sock(sk);
+ 
++	if (drop_pkt) {
++		if (vmci_transport_send_reset_bh(&dst, &src, pkt) < 0)
++			pr_err("unable to send reset\n");
++		goto out;
++	}
 +
- 	uh = (struct udphdr *)(skb->data + (iph->ihl << 2));
- 	sk = __udp4_lib_lookup(net, iph->daddr, uh->dest,
- 			       iph->saddr, uh->source, skb->dev->ifindex,
+ 	if (!bh_process_pkt) {
+ 		struct vmci_transport_recv_pkt_info *recv_pkt_info;
+ 
+@@ -900,6 +914,7 @@ static void vmci_transport_recv_pkt_work(struct work_struct *work)
+ {
+ 	struct vmci_transport_recv_pkt_info *recv_pkt_info;
+ 	struct vmci_transport_packet *pkt;
++	struct sockaddr_vm src;
+ 	struct sock *sk;
+ 
+ 	recv_pkt_info =
+@@ -908,6 +923,12 @@ static void vmci_transport_recv_pkt_work(struct work_struct *work)
+ 	pkt = &recv_pkt_info->pkt;
+ 
+ 	lock_sock(sk);
++	vsock_addr_init(&src, pkt->dg.src.context, pkt->src_port);
++	if (sk->sk_state != TCP_LISTEN &&
++	    !vsock_check_source(vsock_sk(sk), &vmci_transport, &src)) {
++		vmci_transport_reply_reset(pkt);
++		goto out;
++	}
+ 
+ 	/* The local context ID may be out of date. */
+ 	vsock_sk(sk)->local_addr.svm_cid = pkt->dg.dst.context;
+@@ -937,6 +958,7 @@ static void vmci_transport_recv_pkt_work(struct work_struct *work)
+ 		break;
+ 	}
+ 
++out:
+ 	release_sock(sk);
+ 	kfree(recv_pkt_info);
+ 	/* Release reference obtained in the stream callback when we fetched
 
