@@ -1,104 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.56
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.75.78
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792592168;
-	b=kVPyjlgDoQ/xHSFuqwiROzbqUDvUQoT6momELf/Mza9JX3LVSPKURXXrds9lZzcjNdBD
-	 QsHgZSEBDVYk4SoYrIqCHkkIe4kdHijpSs6UpPfTobbruzhHhxc2OOZHPiP5msgZLGFVA
-	 g14+1TuXUO9h+Cf7aupGdOGZCCbYMQ6wMCI58JIshxRGp6+9f09fT1dL3Stz3LapDO+kN
-	 vt9n6LrBfyEjBO/4zv8F2uLu/aHjGsaFsEj4Xm5aPBYQF6wz/GecHjls60r/z63zPZLuJ
-	 015K246Fo8JFiPgvDAxt9c2e1Mpu5DwqMD5F5LMdPXJe4xva5WdFrbph9iXtMPgjApg==
+	t=1792592292;
+	b=l1FoZdDw4xqblRZRzrQpsnHELfS0ThWO6cefDaKJx98URnmfK+JCwiNkLQJpH70bpnI8
+	 B58VU1l/76ofdheCami1TbO5U9mbRfYQJf4RATmrgc39n3qWjg+HGYHjOE91hPygiUr9p
+	 Oty8VGkC9NIBL9wvKXG4N41f1vWe4o+XqXlv+pwXYYPwEGJpu8rLZpOCEwyl8WigOEm0j
+	 hItgUEDXnDEmL4FB/x5R6epWrAgGUTgTZrzPsdFglV71QbeIZR4tZMFNUGf9ampKDlrpr
+	 3Ibj3C2qwWzr6W51AxQelAviIVWZMMkDGiE7o0iPcAtEnu07/TYia4XbIe05n6HP3Tg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792592168;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792592292;
+	h=DKIM-Signature:Received:Received:Message-ID:Date:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=QyCzWZARzlOpni62ULd9tzkAosXUHUFBhTIOTDFMNi4=;
-	b=3Z+kR+3Z1Ufq0OJ1Vq6ZM/CSjwpgpRAEscltM8IcFuffoUAPGHOkS9g8X7gH83/e2ojj
-	 LjzlN0ls/GgsQdjaYA7zxjOCvcARz0cspw4pdDW7gAmUkd/FLRGWO1TF8Ap9fxL5PQA8z
-	 nqYfgAw4PxjbKL9MzzMQyvK4bokODhSO0N4wuj2vjlF1CxRSlD78ZJdvPbTlLvoYpqQWn
-	 xCJf7in0Ws7HNNc4BdLpYld4d9cZ87fSDY+V/DwMQ8lZnMItHUt3JRirFz7kW0HgfUp/1
-	 uiMV4Ag8mj2QL0msgcveBtxECLeC6/m+6GswTVIPsrgNVs7KTAPugrjnwB2zak+plrg==
+	bh=xJVyRhqMugmiODCMmIHwgfhe++iO3cVb31aMk0TEDEE=;
+	b=UMFBhkrHp34WKIKT9fxNL+dttQokkC5aerm9vR6LqOdCDJz6M7KqdRlqRabl2Noq8jAV
+	 Gk/BRLWq1QIovDeZzyoD9j2ksKDkab6cftQhZ+XZ0TTG2BtH9UwHjQRoMB33JxXUK+dvR
+	 mTvH0ExuFpvunqvAs2ECknIE52eI1OW6bhZ4N9QTHAwjzSQXBZubiV1PhSZe8wIMtrCet
+	 j6vFNSrxg3VNKca0GERn/hzZBtP1nVB1DprDt6Asfy8jkfadPTeAS/9nalMg/Ik0AKcOY
+	 e1cxPrMR1u44TGz39D19apgpO4pVnGeE/gAry3J+q/inUf3g65cJor747lQKB/dKL4Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="FI/8/w4g";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.56
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011056.outbound.protection.outlook.com [52.101.57.56])
+	dmarc=permerror header.from=gaisler.com;
+	spf=pass smtp.mailfrom=gaisler.com;
+	dkim=pass header.d=gaisler.com header.i=@gaisler.com header.a=rsa-sha256 header.s=selector1 header.b=VZbhyMIx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.75.78
+Received: from GV3P280CU013.outbound.protection.outlook.com (mail-swedencentralazon11020078.outbound.protection.outlook.com [52.101.75.78])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433AC60A380D
-	for <stable@vger.kernel.org>; Wed, 21 Oct 2026 14:16:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 433AC60A380D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931BE606A31F;
+	Wed, 21 Oct 2026 14:18:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=gaisler.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gaisler.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=FI/8/w4g
+	dkim=pass (2048-bit key, unprotected) header.d=gaisler.com header.i=@gaisler.com header.a=rsa-sha256 header.s=selector1 header.b=VZbhyMIx
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oCSFDazj3SkUmqzUv04FPXYR7kyYHzpm4LKTh/MmZWFwzMEU+Hdc8p2oGDHcpgD/wjiBYpW4HxTjJnOmRdauXA/oe4NEIVGLP1Cuok0CVb0DZHmHEMtnBKUS8qURuehZCzjRYD+fRYsCVFaz4IxQapZghz1dCXrv8lTJvDAz9/9gpZjwpLAjtrkj7yTgTnxeC+m6RyIj+arhuMue++0XOzq4tBFxYF5m6gwrEcYT2L7vT1L8eEQWSDznqDVBdqxYnVPPbHSUhW7jaIYQHldBQs+fvbVdidGdb6ctR1DvpBTHF8cZujX300uw+8HOL1ENUxGB/P3r2/QL3viT7P6V0A==
+ b=ec7d7HSJdpbNs/hDZJUmep5tHDVKtd4SWIsdJvgjFwn6yL/5Ejh0tqK9WD7qQNMIxJpLKS+e28rRqe7XKDCpYTrrnyC29KqnoTmndZxHeX+Z5C5jHtBx8rmV9lwxIjCa2px6Bfs5kLhIlzqagBATkSJ/Uy8dPh6BLIzXsvOE+sTw5q4rf4i9WWDscvY8n243YLTpxSrgICw67epUvT8U5hPgekmCR4gXVWMwQ48bIEuSgISOWDV6AOKdqSd8n79QPZrHtFq+Hafvuf1bdwjqfRcRBW2HLLR4h+wkgGZogizPDdPUjCPomUamza7BtL9aIiQgxvzjhH/KGTSbDGuqRw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QyCzWZARzlOpni62ULd9tzkAosXUHUFBhTIOTDFMNi4=;
- b=GrNFVup+q5HXrFqW7SlSntSJkKfmxWtFnPQX9ux+dul/ulGnZihNJnuARuIpsvgXbiLkWcAur92nPt1sAa3WS14yiKcp6K+FIkcg/uHpSuzIv8SWF127z4GwUr6JkntV3+ieeJsA0lDydT6afO0V/gETRQRDgIlS+nzI/+YkeFBXEGbmHjoZzoauc4Es9DMAyOqya4L8Ly8gxUrw4TbzOfrs8ktmL8ee/uIfBU/eA3+w0dOR3E+U0kQowDG475xOo8z9bMwLHRtqfR+jQyk5eWNSHpeuUOszKnKqDh1jADXK7aTY+sYqgl3QpTgcC8Dv10lalfCtp++99j1cENTFuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=xJVyRhqMugmiODCMmIHwgfhe++iO3cVb31aMk0TEDEE=;
+ b=jf7cXcgloaG1I+243Ey3VXbRCQuYYT0A9DhT8ZYEqk9owr0aUojN5WBfFMnsvRmOT0ofRcIFqGEJRlpfaW76RretsmXjIhWoYfs5ahI1Xf2RWMoCRvX1TyyobuCh4pOiHa05z5lsBgRrsMKbxl6vOG6VSaKYN9I8MYfpZrjS+aLU+Aur8uS64A0oR8BC93uuOJH53scSKsJ6WLxqd1yzNs2MAVX2rL0U4Cw1T33z3/UIi9ZQVtjrbFvuhnkyLuX27xHN3hBWqePONvXAnHR3S0xI4/4caJC7iQpU9rRBJkq8jGDjTL0RoA0KHtO9DRK/qdhWYw14E21qpkIE8n5ydw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=gaisler.com; dmarc=pass action=none header.from=gaisler.com;
+ dkim=pass header.d=gaisler.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gaisler.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QyCzWZARzlOpni62ULd9tzkAosXUHUFBhTIOTDFMNi4=;
- b=FI/8/w4gVA3e1RYp6zMRAQAGA7hrEkOeHthEgQUUE4A8olxC1pIBwKjsEfOr4/Wua+TyzVNM/evvEjpcI1b9fEETEdpnOSePfVulawvEDDJplp0hHZcNSN4B6yB47DCgfhyM2pVw8XRfMW8/8//GvOLl+IPWx30YG6HENJPOVR8gXQkT2oRykAW+iqISk4+ZiKZev+Zuc16oPDxTPq+/WhaLfEP1hkTaJMiH7BU1KcP+LhgGs+l6dQKXibl83OifXXd6ZMbKrlceG+F5CBdnNsfJw6C4mqyRJBrcIPm3ch5mxSXjmeC6cRAVMzH5QkeqHigMY/a1n6l1hsPOV3bFAA==
-Received: from BY3PR03CA0016.namprd03.prod.outlook.com (2603:10b6:a03:39a::21)
- by CY3PR12MB9580.namprd12.prod.outlook.com (2603:10b6:930:10a::20) with
+ bh=xJVyRhqMugmiODCMmIHwgfhe++iO3cVb31aMk0TEDEE=;
+ b=VZbhyMIx8K2tKJwrBDxhoM9hp08S2/ajUr1Yyoo4uv8fwIl89oNg7IfcIULdBQkQ+QeJU4siBNpcQxekJq2wiGzON+y/TAZ80IRvZE85aQrBd6PhIWbnqnB964yalDbLVxEWaNuF4ErAFUzfvX2hN0nY0+fKGpF16GrU2NonwXRp/9YlCxQRhLuihXGP/lUblrwEhKwMkV+8j2vgxvMT+P3Q0nlB43Az+gx5M/9xkpUoGRntmzz5ex0qvkpQoqa29JZglfykr+FSCNG7pScvDANany4ZkCJiD7jSMM7DcZQcmyyhYo8oY0GRF623MdwYo6Qxv6LmRToa/Gz8/UOJSg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=gaisler.com;
+Received: from MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM (2603:10a6:190:2f::5)
+ by GV5P280MB2219.SWEP280.PROD.OUTLOOK.COM (2603:10a6:150:376::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 14:15:58 +0000
-Received: from MW2PEPF00014679.namprd04.prod.outlook.com
- (2603:10b6:a03:39a:cafe::96) by BY3PR03CA0016.outlook.office365.com
- (2603:10b6:a03:39a::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.16 via Frontend Transport; Wed,
- 21 Oct 2026 14:15:58 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- MW2PEPF00014679.mail.protection.outlook.com (10.167.249.186) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 14:15:58 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 21 Oct
- 2026 07:15:32 -0700
-Received: from r-build-bsp-06.mtr.labs.mlnx (10.126.230.37) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 21 Oct 2026 07:15:30 -0700
-From: Felix Radensky <fradensky@nvidia.com>
-To: Vadim Pasternak <vadimp@nvidia.com>
-CC: Felix Radensky <fradensky@nvidia.com>, <stable@vger.kernel.org>
-Subject: [PATCH] leds: mlxreg: Fix missing fan LEDs on systems reporting a unit count
-Date: Wed, 21 Oct 2026 17:15:14 +0300
-Message-ID: <20261021141514.591959-1-fradensky@nvidia.com>
-X-Mailer: git-send-email 2.34.1
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
+ 2026 14:18:05 +0000
+Received: from MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
+ ([fe80::1f13:f10:e16b:7939]) by MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
+ ([fe80::1f13:f10:e16b:7939%4]) with mapi id 15.21.0472.016; Wed, 21 Oct 2026
+ 14:18:05 +0000
+Message-ID: <1649afcb-ae04-406c-ac41-92f62d7343ed@gaisler.com>
+Date: Wed, 21 Oct 2026 16:18:04 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] sparc64: flush vmalloc ranges from the D-cache on
+ map and unmap
+To: Imre Kaloz <kaloz@kernel.org>, "David S. Miller" <davem@davemloft.net>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ "Mike Rapoport (IBM)" <rppt@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, sparclinux@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ nsafran1217 <54966414+nsafran1217@users.noreply.github.com>,
+ stable@vger.kernel.org, Stian Halseth <stian@itx.no>
+References: <20260928132102.1707-1-kaloz@kernel.org>
+ <20260928132102.1707-3-kaloz@kernel.org>
+Content-Language: en-US
+From: Andreas Larsson <andreas@gaisler.com>
+In-Reply-To: <20260928132102.1707-3-kaloz@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MM0P280CA0089.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:190:8::32) To MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:190:2f::5)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -108,121 +102,310 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW2PEPF00014679:EE_|CY3PR12MB9580:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6bc6b391-1baf-4007-bb16-08df2f7dd3db
+X-MS-TrafficTypeDiagnostic: MM0P280MB495062:EE_|GV5P280MB2219:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6aad6c60-8ccd-4bda-4ec3-08df2f7e1fa4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|1800799024|82310400026|376014|10067099003|18002099003|5023799004|11063799006|261009223027099003|56012099006;
+	BCL:0;ARA:13230040|7416014|366016|1800799024|23010399003|376014|260925021311599003|56012099006|4143699003|6123799006|260925022911599003|11063799006|10067099003|261009223027099003|260925021911599003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	PiDDVnUvxDSy0CtAQjCny4M8ZtVOOVvRBgp/GM8rrtL24eAjEs1rSw3jGDDWMYCZvpDSTVJ4+jyXIFSE3yjKIgbuaZdu8O8JbNnEIkKWxD4QZLdUnGEr4umQmNYPFYVWl0HeMMzOCxhPgzngRXD2Zp1LdxKLQKBDM74z4x1CRNal4w2mRES7BKU+kBK8weeNTXKerE/ny3nThIh/KLZUJZTjLg1xbXObKJd3en/tOv0G450dnshdAN/ZLjUvLNoEyBfC7apjN6VVqFYJdsv7R/70fvulR69snXP/3dEjGTv9VrYHWeS827rfc7Vz5Hk8F/bGsINtfiXtAOVkCUoabVEH3CLW+3eCZ6mQGLnSUmZi+AqtNNgN7dUmGXgKoBBPE4LmFa1dyd5tFEJgCwEIAJKYYTnNKNa+UP27isLalHPB0m/YQKm/xlABOlx9VxOJu33hR2amBgY0rAvWIYJsK7EMn8g0O+QvOqqm0h5CnxXz0pKbm9pmjQxgUMaJ6NqjHlYM/gtMBXJDOp4aMujqM0pDNCt8u8yvkiTpdXzhAyhPBcVbkJZBYmSgr4A0PoX2GEDIMNYfs2PI96BW+7DuBqwZnpGcw++lEueYK3lPULTMsbG8Wr3+Da6c/Ok/0FyVL4Kr8TOgo0DS6m4wdC4GmG5ncwMRE06E/JXy6voer4bX4il8pUkrTa1UYtPwwOTBCl2vOEATZxdzbZuxYFZWPQ==
+	BarULVdq1ZvFwasrkweq06gyn4Ja/9RWYdQMVrruVLv0H5rZSpjlAx9C2iLy5Wj3O7Mujonw2WBj1eVdsD0ak8SsQADbN62wwzStocU/aIgh44fyYyd1AwUnT/q9NqtX1S52rX/RCUxIFeNPQaPwPc0ZJLx+Sg9tC4v47bUxjDs7eCBJk7wA3vOKKm7LrX/2AxVk43O3GE6d8pqK1HAj7zb5/RzqPwQrQoN0sTRh7icuygZyD/WB/X2YASZsVf34d0yHT6SJkIwbFr5et9fZ/4LsFzJHM6SNcCwPK+byLDIsmIk07YI6C3CzyO58tf8Sa54rUVrOZIDzEaebCxqcQ6YyTwwuHrCSC13I82o7th53CvgeTeoBwiros6rLklL1VQuHbratG32NqG8+DG4QMj5FRQX8aHELcXgUDpt8nDbQzHWeVOuaT6QFDfRZQL83VhUpQRmGZTJD7138IKEBlnNURlBgbYbWV9jnEosrfSVfVWGJoRoWxZFwzfv++FK/M0SBPlvI+yjDcxTvsdQNPv7wYvmObYq7T3bfSS1cV1yrU8/BS/ASPKqxhh9JgoruhkNDvotJ12dysZC69Uttgq7sMwHxZjxv7Dl+vnGhonKURKCAOyEOEE3o6UE2r+Mj3+wlzG0ZMA3tKdK23UiKDtbN1EyLnjO0SC8vaqG05M8=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(1800799024)(82310400026)(376014)(10067099003)(18002099003)(5023799004)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(1800799024)(23010399003)(376014)(260925021311599003)(56012099006)(4143699003)(6123799006)(260925022911599003)(11063799006)(10067099003)(261009223027099003)(260925021911599003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	54zYlwEUdkKridDZn2907BvMdwRZIoCMcM6BOm/bridhJSY/PMvKq6ouT9ciyrgeWLb+iEPSiCl4+fBlF/nCfX09lOg4EzbQNyXh0QVzN19GI7lcGhIwZ2omXDxvyQKMKsMIernlaXZiNz1w/Q5zo2FHSGita3jpLucrXHMEHIEpMUqleeFNG+6umHkYlIBGmfcwBYQjMotcFncsTdIF2rBzltg8+lD9q95g1mMNCCDbZJ9aYuiERfBzrjGbYaBq9adKPQ7tCI2AXUanFERGM9b6hDstPw0jI7YSKR4BvHEDh64/lfGp35/fgpqOeL5al/ZcBokEfOgBmowgKEPCTd6PgQJAUoj8C+Q3tMKaM+HxLOnvxuY7VgLOarZhkRyVBl9Z8L3IGEyfywPeMnVhXJIhILoaX3zl2qMYJmz+LWbvoCdjiZIfoE3haWSIUSiO
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 14:15:58.0785
+	=?utf-8?B?TkNuNTJhL3EvMzFoVXhQTVVZMGhVeDB2cW5jMWh3R0lyMHRWdTd0RHAyME13?=
+ =?utf-8?B?aW5DMnpaYUdXRlBnbU5veTBubVI4R0pnSFNJRFdTQWE2RUk0NnhRaVpZZk5P?=
+ =?utf-8?B?MlhsOHhuemV3aGlMdmdmdkpuU1VkdXlvdTllMUtrOWtqc2g2Rm5kZkhneHV1?=
+ =?utf-8?B?TnBKYlVLcFNZVXhKRTcvSS9xV2tMMjRlVk9RSkZFWU1iZjlQb0F5YnN1bzgr?=
+ =?utf-8?B?RC9OOWlUclZ1L0QxRU05M0RnTUUrbkY3K2luUHZZcjMxYW1rcXdwd056T0lV?=
+ =?utf-8?B?WWFSK2NXRE9wa05HYXVBdnV2K1MxcjBoTnRJZVpRTWMrZ1lPTXNnTkhHQ2Fn?=
+ =?utf-8?B?REpBbFpqN2VranVLTjJqSEpzMjlUYjVwaVhDMjhPbE9VcmJOYjkzaW40SlJp?=
+ =?utf-8?B?Q0d5L3dsSm9sQ0pjT1pwdE5GWW1FalpPdjA2QmEydjVlRncybFVVZDVsTTFo?=
+ =?utf-8?B?L01EaHRmejZYWWF4Ykk5Q2NhK29QUzFxaUZ1blFCaDdKZTI5T21kVnZwNlV4?=
+ =?utf-8?B?b0k1NjV2ME9aWUJweXRQTUMwWktmMTVjVU5XVWd3TFdYb1lOQ0VLQytXK1Nq?=
+ =?utf-8?B?SzFEcC9YNTBvNnpQekZTL0JMVHFFcWlxSDNiUWtRL1hKYmkyWGxHREU0VlVz?=
+ =?utf-8?B?c2JScjk2S2xpUmd2QXNIdjJtd0FjVVhWekxiT3JkYlZ0RVN6WnhTWERTVU41?=
+ =?utf-8?B?L1FhbWQycDZpb0lFbng2N3RvSCt1WGRyNE13SnFIdUE0eTJUYjNUU1lLRXI4?=
+ =?utf-8?B?MWZQYmNtZXJTeGhDcVpGdy9ZTjRCRGR1RzBDaWFTZW1HdVNneFFtNGNWR1Iv?=
+ =?utf-8?B?ZWVHbnZNOW1GcS9TMkpuTThGL21ZTDZwa0lXUzFtN3RhVXJXaXBXOGV2cHM1?=
+ =?utf-8?B?QzEvdHFLRjV5Y2lRRkRBM25Lais2Vk01RVlnUElBbmcrS3FSNVhWek5LSFp5?=
+ =?utf-8?B?WDRuSy9Mc0E1bFJzQWxjR1ozR1hsdTU2Z0d1QTZ5N2o2VWF6M1ZheFNNNnQ0?=
+ =?utf-8?B?RktXdUZqblJvT21Jd29GeGsvTVJ2R1J6VnBlcW5STFJxc2sreTlyNzBiSmlx?=
+ =?utf-8?B?aGNwcDNVUzNDZnA2MHBINWt5T2Fram85T1lKRnlNYndPNndVU3dESmZjTFhL?=
+ =?utf-8?B?N0F0NXJlUGFVSjFoMFQzOUgzelhtam1Fd0V6Tng3S3o0RUNkWktUQzZjREth?=
+ =?utf-8?B?VnV1RitrUEt6TUd1Q0locGhlLzBsN0NMc3J2SjMycWVPTE8vTlpaMGR4bFU3?=
+ =?utf-8?B?UzU3RmwxcDJkNDR2djRDM1lMVG5iK1RMc2tSMXJNS0dUOFdxUW5vYnVuYVFq?=
+ =?utf-8?B?d0NOdjdrQkJTMTJ4SHI0QlhRVXFzQWMzQjA3bWsrSUsrNVpGcEo1aDFBS1p1?=
+ =?utf-8?B?bWdFMk92MW91Q3RjUTZnTGNCaGZHMzJqYzZRbU81bjAxVkZBcEZsTU9MQWc1?=
+ =?utf-8?B?djdkam1tNWtsNW5OUzZaRUM4UGFyQnBQUWxoNDdVd0VRdnZERkxuQXZLYXUy?=
+ =?utf-8?B?YU84OFhtNGZKK05wZmp2K0c1OU1LU2xVVzhHZ2NGNmdaeExhK3N2WUFabkRz?=
+ =?utf-8?B?eGNlV2JNMU5QTlovQTd2eFRzVHhDOG9xWVdLYjZWWkUzZWhvcEoxL1gwSDVv?=
+ =?utf-8?B?ZUNMdURUNVQzTlEvVUJUdGtHYTRqSHRudUNhalVhVFJWc0JyaHQvamlmN0lq?=
+ =?utf-8?B?OU1nLzFzTDZYSW45azNPbUdHKzVEeWpMWGk4Wm16MlNLVFNLRDl4WmNDMjMx?=
+ =?utf-8?B?TVVUcWJFcncya0crSVI3Nm1KM2lnRTcxYnY1azgxK1lSd3duS1ArSjNmMHhW?=
+ =?utf-8?B?S0hTRElWZWxHUW1ObUFJUTFVNWw3aHVTaG94Ukw0RTdtN0lVLzArTGhwTHRF?=
+ =?utf-8?B?N29yR2w5M3Y5Q3BQVEttN28xaUdiVVprWWdFQ1YwN29vYnN2NXdmWFVDL1BM?=
+ =?utf-8?B?Qkd5Um5jekY2Ymg4b1htQnhVSDBFS2JlbnpYOFFXOHNCWHF0alZkQXczbi9n?=
+ =?utf-8?B?cHBSd0VqamlGbFJuUGluUEg0eThrbW5Gc3JhRWpZNjkzWUZQQ244enl6Y0Fy?=
+ =?utf-8?B?dmhvdmwybFNHOVpHYUFpT3Q4K2NMSkxlYTk2cTlSZ3FyMmY2ZUJLa2F4VHVF?=
+ =?utf-8?B?OEJKWS8rZUErRGFzcnpEZU9QVkQxd0FhbnNlVFJRanYybk5CSlAvOFJac2tB?=
+ =?utf-8?B?bURwWUxwUThuZzVtU3llWnhKYW5YWDNpZG50c1FtUEsvM3dyUkVEaDI3aVcz?=
+ =?utf-8?B?RHRuYzRhVzY2Q29Qa1ZGY2svOElpSkhNVGhTTVh5dUJ3U3BDcjRPTFZMMTRn?=
+ =?utf-8?B?dmRlbVVjSXlmcmR0WXNwVWY4VnRyaGFSbXRiOUp1S3FiczdmSm5qZ3RRd2tp?=
+ =?utf-8?Q?9GCsQoADSO8KQHRo=3D?=
+X-OriginatorOrg: gaisler.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6aad6c60-8ccd-4bda-4ec3-08df2f7e1fa4
+X-MS-Exchange-CrossTenant-AuthSource: MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 14:18:05.4193
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6bc6b391-1baf-4007-bb16-08df2f7dd3db
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MW2PEPF00014679.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9580
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 91fa4a59-2167-458a-8318-e45d80469d7e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DBSj+tTEdJAgDNFkmu+iaPPiKlJUkQQLvw4V2NXLi2NkbLG69bN1Tr7KbLCg85HyEmmxrH2FCrh3Ein9CFHkzL3t8ub1IM7evzUWIA70lUI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV5P280MB2219
 
-From: Vadim Pasternak <vadimp@nvidia.com>
+Hi Imre,
 
-LED platform data is shared between systems of the same family, and the
-driver registers only the LED instances that are actually present on the
-running system. The platform data entry names a capability register and
-a bit in it, and an entry whose bit is clear is skipped.
+On 2026-09-28 15:21, Imre Kaloz wrote:
+> The L1 D-cache of Spitfire and Cheetah is indexed with VA bit 13, but
+> flush_cache_vmap() and flush_cache_vunmap() are no-ops. Lines loaded
+> through a vmalloc address survive the unmap, and once the page is
+> written through the other colour, e.g. zeroed through the linear
+> mapping, a later mapping of the old colour reads stale data. Anonymous
+> user pages arrive the same way, as tlb_batch_add() does not flush them.
+> On UltraSPARC III this corrupts BPF programs and module data.
+> 
+> Flush each page on every CPU on map and unmap, or the whole D-cache in
+> one cross call once the range exceeds its size.
+> 
+> flush_cache_vmap() also runs on the vmemmap, from sparse_init() before
+> init_IRQ() sets up the cross-call mondo blocks; with the mondo block PA
+> still zero, flush_dcache_all()'s cross-call lands on physical address 0
+> instead. The vmemmap has no aliases to flush, so skip addresses outside
+> vmalloc and module space.
 
-The capability registers are a single byte wide, so a bitmap cannot
-describe more than eight units, which is not enough for systems with ten
-fan drawers. Recent CPLD revisions therefore report a count of the units
-present instead of a bitmap, and do so uniformly rather than only where
-the bitmap would overflow, leaving no per unit bit to test. Platform
-data describes such an entry by its 'slot', the one based index of the
-unit the LED belongs to, and leaves 'bit' at zero.
+I would not say a cross call lands on address 0, which kind of sounds
+like execution would end up there, rather that it would do writes
+starting at physical address 0. Clear language about problems that
+"would" happen would be nice so that it cannot be read like it happens
+with this patch.
 
-This driver only ever learned the bitmap flavour, so every such entry
-fails the presence test: 'regval & 0' is zero and the LED is silently
-skipped. All twenty fan LEDs of mlxplat_mlxcpld_xdr_led_data[] are lost
-this way, on smart switch systems since the table was introduced, and on
-SN5640 and SN5610 since commit 3113bcf4ccf0 ("platform/mellanox: Fix
-SN5640/SN5610 LED platform data") moved them onto the same table.
-Nothing reports an error, the LEDs simply never appear.
+I'm afraid this solution could be a bit fragile though, in case some
+vmalloc() later on would happen between vmalloc_init() and init_IRQ(),
+we would be in trouble here. Better might be to in xcall_deliver() build
+the CPU-list first locally, returning if coming up empty, and only after
+that start accessing the trap block. This could be a preparatory patch
+that is not marked for stable. 
 
-Use a non-zero 'slot' to select the counter interpretation: register the
-LED when its slot index does not exceed the value read from the
-capability register, and keep the bitmap test for entries that leave
-'slot' at zero. The bit clearing that follows the bitmap test applies
-only to the bitmap flavour, so move it into that branch.
+This patch under review could still do its job as this manner and have
+the is_vmalloc_or_module_addr() filter be a performance enhancer in the
+context of a less fragile xcall_deliver(), but needed for a stable
+pickup, clearly mentioned in the commit message.
 
-This mirrors the counter handling that mlxreg-fan already does for the
-fan drawer capability register, added by commit 1e11552ee54d ("hwmon:
-(mlxreg-fan) Add support for new flavour of capability register").
 
-Fixes: 783259e9b19d ("platform: mellanox: Introduce support of Nvidia smart switch")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vadim Pasternak <vadimp@nvidia.com>
-Signed-off-by: Felix Radensky <fradensky@nvidia.com>
----
-Note for the LED maintainers: an upcoming platform driver,
-nvsw-host-spc6, describes its per drawer fan LEDs the same way and
-depends on this change as well. It is being reviewed separately against
-platform-drivers-x86 and needs nothing from this tree, so the two can
-be applied independently.
+> Link: https://github.com/sparclinux/issues/issues/29#issuecomment-5041121375
+> Closes: https://github.com/sparclinux/issues/issues/29
+> Suggested-by: nsafran1217 <54966414+nsafran1217@users.noreply.github.com>
 
- drivers/leds/leds-mlxreg.c | 24 ++++++++++++++++++------
- 1 file changed, 18 insertions(+), 6 deletions(-)
+This is a strange email address to use for a Suggested-by
 
-diff --git a/drivers/leds/leds-mlxreg.c b/drivers/leds/leds-mlxreg.c
-index 1b70de72376c..e428531f4ac5 100644
---- a/drivers/leds/leds-mlxreg.c
-+++ b/drivers/leds/leds-mlxreg.c
-@@ -204,14 +204,26 @@ static int mlxreg_led_config(struct mlxreg_led_priv_data *priv)
- 				dev_err(&priv->pdev->dev, "Failed to query capability register\n");
- 				return err;
- 			}
--			if (!(regval & data->bit))
--				continue;
- 			/*
--			 * Field "bit" can contain one capability bit in 0 byte
--			 * and offset bit in 1-3 bytes. Clear capability bit and
--			 * keep only offset bit.
-+			 * The capability register reports unit presence either
-+			 * as a bitmap, or as a count of the units present when
-+			 * platform data assigns a slot number to the LED.
- 			 */
--			data->bit &= MLXREG_LED_CAPABILITY_CLEAR;
-+			if (data->slot) {
-+				if (data->slot > regval)
-+					continue;
-+			} else {
-+				if (!(regval & data->bit))
-+					continue;
-+				/*
-+				 * Byte 0 of "bit" is the capability bit just
-+				 * tested, while bytes 1-3 hold the shift that
-+				 * positions the LED's nibble within its
-+				 * register. Clear the capability bit so that
-+				 * only the shift remains.
-+				 */
-+				data->bit &= MLXREG_LED_CAPABILITY_CLEAR;
-+			}
- 		}
- 
- 		led_cdev = &led_data->led_cdev;
--- 
-2.34.1
+> Cc: stable@vger.kernel.org
+
+Given that this patch depends on the previous patch in the series, that
+comes with a Fixes: tag, which this one don't, a comment that this
+depends on that previous fix could perhaps be good here
+
+
+> Tested-by: Stian Halseth <stian@itx.no> # Sun Fire V240, SPARC T4-1
+> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+> ---
+> v2: skip the flush outside vmalloc/module space, since
+>     flush_cache_vmap() also runs on the vmemmap during sparse_init()
+>     before cross-calls are set up (Stian Halseth); picked up his
+>     Tested-by.
+> 
+>  arch/sparc/include/asm/cacheflush_64.h |  6 ++--
+>  arch/sparc/kernel/smp_64.c             | 18 +++++++++++
+>  arch/sparc/mm/init_64.c                | 43 ++++++++++++++++++++++++++
+>  arch/sparc/mm/ultra.S                  | 25 +++++++++++++++
+>  4 files changed, 90 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/sparc/include/asm/cacheflush_64.h b/arch/sparc/include/asm/cacheflush_64.h
+> index 02c969417e7b..54a2d37008e6 100644
+> --- a/arch/sparc/include/asm/cacheflush_64.h
+> +++ b/arch/sparc/include/asm/cacheflush_64.h
+> @@ -42,6 +42,8 @@ void smp_flush_dcache_folio_impl(struct folio *folio, int cpu);
+>  #define smp_flush_dcache_folio_impl(folio, cpu) flush_dcache_folio_impl(folio)
+>  #endif
+>  void flush_dcache_page_all(struct mm_struct *mm, struct page *page);
+> +void __flush_dcache_all(unsigned long size, unsigned long line_size);
+> +void flush_dcache_all(void);
+>  
+>  void __flush_dcache_range(unsigned long start, unsigned long end);
+>  #define ARCH_IMPLEMENTS_FLUSH_DCACHE_PAGE 1
+> @@ -73,9 +75,9 @@ void flush_ptrace_access(struct vm_area_struct *, struct page *,
+>  #define flush_dcache_mmap_lock(mapping)		do { } while (0)
+>  #define flush_dcache_mmap_unlock(mapping)	do { } while (0)
+>  
+> -#define flush_cache_vmap(start, end)		do { } while (0)
+> +void flush_cache_vmap(unsigned long start, unsigned long end);
+>  #define flush_cache_vmap_early(start, end)	do { } while (0)
+> -#define flush_cache_vunmap(start, end)		do { } while (0)
+> +#define flush_cache_vunmap(start, end)		flush_cache_vmap(start, end)
+>  
+>  #endif /* !__ASSEMBLER__ */
+>  
+> diff --git a/arch/sparc/kernel/smp_64.c b/arch/sparc/kernel/smp_64.c
+> index 18b6145da591..bebfc44241b3 100644
+> --- a/arch/sparc/kernel/smp_64.c
+> +++ b/arch/sparc/kernel/smp_64.c
+> @@ -915,6 +915,7 @@ extern unsigned long xcall_kgdb_capture;
+>  
+>  #ifdef DCACHE_ALIASING_POSSIBLE
+>  extern unsigned long xcall_flush_dcache_page_cheetah;
+> +extern unsigned long xcall_flush_dcache_all;
+>  #endif
+>  extern unsigned long xcall_flush_dcache_page_spitfire;
+>  
+> @@ -1025,6 +1026,23 @@ void flush_dcache_page_all(struct mm_struct *mm, struct page *page)
+>  	preempt_enable();
+>  }
+>  
+> +#ifdef DCACHE_ALIASING_POSSIBLE
+> +void flush_dcache_all(void)
+> +{
+> +	unsigned long size, line_size;
+> +
+> +	if (tlb_type == hypervisor)
+> +		return;
+> +
+> +	preempt_disable();
+> +	size = local_cpu_data().dcache_size;
+> +	line_size = local_cpu_data().dcache_line_size;
+> +	smp_cross_call(&xcall_flush_dcache_all, 0, size, line_size);
+> +	__flush_dcache_all(size, line_size);
+> +	preempt_enable();
+> +}
+> +#endif
+> +
+>  #ifdef CONFIG_KGDB
+>  void kgdb_roundup_cpus(void)
+>  {
+> diff --git a/arch/sparc/mm/init_64.c b/arch/sparc/mm/init_64.c
+> index 8792e5d92517..3e2096545e52 100644
+> --- a/arch/sparc/mm/init_64.c
+> +++ b/arch/sparc/mm/init_64.c
+> @@ -27,6 +27,7 @@
+>  #include <linux/percpu.h>
+>  #include <linux/mmzone.h>
+>  #include <linux/gfp.h>
+> +#include <linux/vmalloc.h>
+>  
+>  #include <asm/head.h>
+>  #include <asm/page.h>
+> @@ -234,6 +235,17 @@ void flush_dcache_page_all(struct mm_struct *mm, struct page *page)
+>  		__flush_icache_page(page_to_phys(page));
+>  #endif
+>  }
+> +
+> +#ifdef DCACHE_ALIASING_POSSIBLE
+> +void flush_dcache_all(void)
+> +{
+> +	if (tlb_type == hypervisor)
+> +		return;
+> +
+> +	__flush_dcache_all(local_cpu_data().dcache_size,
+> +			   local_cpu_data().dcache_line_size);
+> +}
+> +#endif
+>  #endif
+>  
+>  #define PG_dcache_dirty		PG_arch_1
+> @@ -3072,6 +3084,37 @@ arch_initcall(report_memory);
+>  #define do_flush_tlb_kernel_range	__flush_tlb_kernel_range
+>  #endif
+>  
+> +/*
+> + * The L1 D-cache is indexed with VA bit 13, so lines loaded through a
+> + * vmalloc address outlive the mapping.  Stores through a mapping of the
+> + * other colour do not update them, and a later load through their colour
+> + * returns stale data.  Flush at unmap so vmalloc's lines do not follow
+> + * the page back to the allocator, and at map time since anonymous user
+> + * pages are freed without a flush (see tlb_batch_add()).  Past the
+> + * D-cache size, one whole-cache flush is cheaper than a cross call per
+> + * page.
+> + */
+> +void flush_cache_vmap(unsigned long start, unsigned long end)
+> +{
+> +#ifdef DCACHE_ALIASING_POSSIBLE
+> +	/* The vmemmap has no aliases and is mapped before cross calls work. */
+> +	if (tlb_type == hypervisor || !is_vmalloc_or_module_addr((void *)start))
+> +		return;
+> +
+> +	if (end - start > cpu_data(raw_smp_processor_id()).dcache_size) {
+> +		flush_dcache_all();
+> +		return;
+> +	}
+> +
+> +	for (; start < end; start += PAGE_SIZE) {
+> +		struct page *page = vmalloc_to_page((void *)start);
+> +
+> +		if (page)
+> +			flush_dcache_page_all(NULL, page);
+> +	}
+> +#endif
+> +}
+> +
+>  void flush_tlb_kernel_range(unsigned long start, unsigned long end)
+>  {
+>  	if (start < HI_OBP_ADDRESS && end > LOW_OBP_ADDRESS) {
+> diff --git a/arch/sparc/mm/ultra.S b/arch/sparc/mm/ultra.S
+> index 70e658d107e0..ff190670a235 100644
+> --- a/arch/sparc/mm/ultra.S
+> +++ b/arch/sparc/mm/ultra.S
+> @@ -242,6 +242,20 @@ __flush_dcache_page:	/* %o0=kaddr, %o1=flush_icache */
+>  	retl
+>  	 nop
+>  
+> +	/* Zeroing every D-cache tag invalidates the whole cache on
+> +	 * Spitfire and Cheetah alike.
+> +	 */
+> +	.align		32
+> +	.globl		__flush_dcache_all
+> +__flush_dcache_all:	/* %o0=D-cache size, %o1=D-cache line size */
+> +1:	subcc		%o0, %o1, %o0
+> +	stxa		%g0, [%o0] ASI_DCACHE_TAG
+> +	membar		#Sync
+> +	bne,pt		%icc, 1b
+> +	 nop
+> +	retl
+> +	 nop
+> +
+>  #endif /* DCACHE_ALIASING_POSSIBLE */
+>  
+>  	.previous
+> @@ -801,6 +815,17 @@ xcall_flush_dcache_page_cheetah: /* %g1 == physical page address */
+>  	 nop
+>  	retry
+>  	nop
+> +
+> +	.align		32
+> +	.globl		xcall_flush_dcache_all
+> +xcall_flush_dcache_all: /* %g1 == D-cache size, %g7 == D-cache line size */
+> +1:	subcc		%g1, %g7, %g1
+> +	stxa		%g0, [%g1] ASI_DCACHE_TAG
+> +	membar		#Sync
+> +	bne,pt		%icc, 1b
+> +	 nop
+> +	retry
+> +	nop
+>  #endif /* DCACHE_ALIASING_POSSIBLE */
+>  
+>  	.globl		xcall_flush_dcache_page_spitfire
+
+Thanks,
+Andreas
 
