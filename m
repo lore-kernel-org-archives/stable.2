@@ -1,49 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.116.240.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792591391;
-	b=jaU/SbkJH4TxTIdjIWw7zofHMO7r7aGoK7cULfkMJL8xVPc1tKXjoSwunHyeq+aX8wTo
-	 /dMA1VKY35ZdtqYsd8Ok/b9dKwEDb6vgpQ8C1si7zD0re7dFbeQBtFqe5h5Jylff7kfuN
-	 Z6p68BL//L5oBYqMfiC49zKY/V4CKplYRA6hDgxxJ4hjHIYCs9AYaVhzTZaSFLf2coSe0
-	 ZeD/OVaEkupaMuH6l212V8L0vrus0TKE/q6ygy1A6U3ttAmifG+wsIA/ZFPQfSJrVJV9/
-	 DW2Pg7zqNs3IXRfKFoJADxN3IJ3QUiOltemQY3UZ1n+a2AhKPexFW5UdAatV1ovUxeA==
+	t=1792591703;
+	b=V5FuF9HV7VrLQpSfEd8k0CUqNLW8SX31B3xHNoYDPxbVPxx0uRiS7LkEMPO4lc0ESPga
+	 bhTBPps1pv3g3thwM6//Ecwdf9Zao0iQlq1f3jHb5OL9iZyzzUnGRimFKowaR27Lo2RHr
+	 rOP0VZ7jke6wTdj3UCmystHryYSP4aSgPzNLT/oHgQ/xNqVrfhTNiqgNklMT8FnikhBvt
+	 5t+tetdWrX04PyME14fCiyKOuhx1CKO8Kgw19uN+4pKkZXMH48YhuB6b0Ma6l18tnya+7
+	 /Ad/3qH8uVDbypk4PyCFe22yxh8UWR8CuMswYVhKURupj+u7VyAN78IPhuk0H8AcQkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792591391;
-	h=DMARC-Filter:DKIM-Signature:Received:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:From:To:Cc:
-	 Subject:X-Mailer:References:In-Reply-To;
-	bh=/r0AxVVWGLZRXANdtf3mhSCkftv12XEmvpE4y1kyZFE=;
-	b=bltoNOXjNuBwCXT4aUDdVwaRvUEOY6azJitLTYdlBQ4fUv5nE/SmW0z3BfmZJRiNGdAa
-	 DOzJCszNrTvXWRIlCj3DaISDmUE48/HQuD2mhg3v67vhawaOfzk6tD23bXmLlUhULYzYK
-	 KmofFsscEz7OB5b7kHitlxWvpD5KUTmfM3F696B6cgif9yw5vNP9KKQ4ZiFRMLe5MYaaV
-	 wfhBcVkCqUMFLqXcL5yDCQabC2OSt5OxlNrD7lvz1KsRfxW6Xcyn88h9ryeHVd3FICo+s
-	 eSXzNjMpZ2EAIzEJuklgkvbDMyDNrEQVu9wUKLfJ5/QfjSDBS71LYXBZz1y4RPH9q4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792591703;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-TM-AS-GCONF:X-Proofpoint-Reinject:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=ADvt/YKRVb0IDur0qISzY9q0oNf6yoH61rpJhz6SvPo=;
+	b=V9rV0mdUpCicLvF3lWXdEaz9gO2e7hIUcG56PU/yW2iy/Ez4q0qNro7BRxQIPLyzfLGH
+	 urnfEhkZZY4FfdCU3sd3eJgLWehiDv37RH9tBODrBns/iZPkHEbhPHnr2lOgg5Icga6ad
+	 YhrSbeNGUmZPYBAQFtdRfOO+nELDsAfcFyKXe4BaXnjN7oQRnekTZVfxE8fDQeznV8ecH
+	 UiJ0spuMjsEWuoArRDNk3uG7QV4/gSg0cKIzINQMPEdEO5Dil3+akrvDEm0LtJzjGOS8C
+	 qYbvrjsQq3m68bhlSRPQFed9y7e/YJ696vJ2EuMCXti037bUW/VNbResgXDi8aG96Dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arkamax.eu;
-	spf=pass smtp.mailfrom=arkamax.eu;
-	dkim=pass header.d=arkamax.eu header.i=@arkamax.eu header.a=rsa-sha256 header.s=mail1 header.b=ZM9s7tSx;
-	arc=none smtp.remote-ip=128.116.240.228
-Received: from arkamax.eu (128-116-240-228.dyn.eolo.it [128.116.240.228])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=fCDCXvxX;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2346606A325;
-	Wed, 21 Oct 2026 14:03:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2346606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arkamax.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arkamax.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9229606A319;
+	Wed, 21 Oct 2026 14:08:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9229606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arkamax.eu header.i=@arkamax.eu header.a=rsa-sha256 header.s=mail1 header.b=ZM9s7tSx
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; s=mail1; bh=Uke4Cy4YCZOUDu
-	A/rCbWYHMHT4sU8wffe55QX/Y+8xk=; h=in-reply-to:references:subject:cc:
-	to:from:date; d=arkamax.eu; b=ZM9s7tSxTTv5A2+xzTaxDhNjGwuY60LWr+mDKEuV
-	3tFbZ9hCuAfZK0JdhVKuhpkcXGe4xJUz7+MpPPyv+1xn3ULEyKva9tTkMpKuozcrOtDCTW
-	73++HmX0V3WieEGS3KbZmlvuAjSynJonGlPuTP3tBcRV6a3zVKyYnqfEqILdapOuKH+Y5j
-	/twF/IbCZM3XNFEpwOMsrB5HHucm11sW6fOmjtpfzBiZw/i23vifHsHvaeQQrlDHtOvWvE
-	06t8mi68kFz45nB0yJuCUPrCxQmzYWa9wDGNBeBZfdO6b/Ex/NnUVGIGMz7iATgzhpG4tK
-	T57zI2rM36uhvjYMFggs3w==
-Received: from localhost (128-116-240-228.dyn.eolo.it [128.116.240.228])
-	by arkamax.eu (OpenSMTPD) with ESMTPSA id 9a5ef087 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Wed, 21 Oct 2026 16:02:56 +0200 (CEST)
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=fCDCXvxX
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LBihEh1092707;
+	Wed, 21 Oct 2026 14:08:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=ADvt/Y
+	KRVb0IDur0qISzY9q0oNf6yoH61rpJhz6SvPo=; b=fCDCXvxXS5yMYjrbst8URF
+	GXReuq4NOxJExJHRKFMVqLQOtNYkaIWoDn7TEWTtsOYnZJ39JNZ9p5ZsRSbKTD5U
+	Kl8/4OJqsXSEMBQ74Nmwp+5qqyuCKRJWkj6fkAYhqZfpoUzbcOJ+7u2eO7uAP5je
+	7Qnk8xUlw/CMgclHATD2Bx58Cy3umCIj3obVKzWmHB3FKvxcltajKglO0VKAiujA
+	E3uPz5cW1ATQ6RILKLllWL6d3BZPFg9ZGXs9CDoCYwAnLv267XmFn/GlQBm7b9hR
+	69Bs42eGh5dkA55aVUnMcCTrM4UavpNE8yZvTCPg9uPy9Z46cF4CZmib9P4uC/Xg
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw5a16p3-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 21 Oct 2026 14:08:06 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69LBo0Nf3083664;
+	Wed, 21 Oct 2026 14:08:06 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hcmuh78su-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 21 Oct 2026 14:08:06 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69LE7xKM42402202
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 21 Oct 2026 14:07:59 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 87CD720040;
+	Wed, 21 Oct 2026 14:07:59 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 83B092004B;
+	Wed, 21 Oct 2026 14:07:56 +0000 (GMT)
+Received: from fedora (unknown [9.5.7.39])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Wed, 21 Oct 2026 14:07:56 +0000 (GMT)
+Date: Wed, 21 Oct 2026 19:46:21 +0530
+From: Amit Machhiwal <amachhiw@linux.ibm.com>
+To: Michal =?utf-8?B?U3VjaMOhbmVr?= <msuchanek@suse.de>
+Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
+        Steven Rostedt <rostedt@goodmis.org>,
+        Masami Hiramatsu <mhiramat@kernel.org>,
+        linux-trace-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+        Vincent Donnefort <vdonnefort@google.com>,
+        Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Harsh Prateek Bora <harshpb@linux.ibm.com>,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+        kvm-ppc@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] ring-buffer: Do not check si_mem_available() before
+ deferred init completes
+Message-ID: <20261021194442.d82d52ff-07-amachhiw@linux.ibm.com>
+Mail-Followup-To: Michal =?utf-8?B?U3VjaMOhbmVr?= <msuchanek@suse.de>, 
+	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	linux-trace-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	Vincent Donnefort <vdonnefort@google.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+	Harsh Prateek Bora <harshpb@linux.ibm.com>, linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+	kvm-ppc@vger.kernel.org, stable@vger.kernel.org
+References: <20261009163557.88467-3-amachhiw@linux.ibm.com>
+ <20261016134247.70722-1-amachhiw@linux.ibm.com>
+ <atX3fzEV_Pai4woV@kunlun.suse.cz>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,85 +110,98 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Oct 2026 16:02:55 +0200
-Message-Id: <DMAKLXGB0BLV.1S3CO480V3JJM@arkamax.eu>
-From: "Maurizio Lombardi" <mlombard@arkamax.eu>
-To: "Yu Zhang" <yuz08559@gmail.com>, "Keith Busch" <kbusch@kernel.org>,
- "Christoph Hellwig" <hch@lst.de>, "Sagi Grimberg" <sagi@grimberg.me>,
- "Chaitanya Kulkarni" <kch@nvidia.com>
-Cc: "Maurizio Lombardi" <mlombard@arkamax.eu>,
- <linux-nvme@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <stable@vger.kernel.org>
-Subject: Re: [PATCH v2] nvmet: take subsys->lock while force-reconnecting in
- nvmet_subsys_attr_qid_max_store()
-X-Mailer: aerc 0.22.0
-References: <20261014054727.53183-1-yuz08559@gmail.com>
- <20261020025047.88297-1-yuz08559@gmail.com>
-In-Reply-To: <20261020025047.88297-1-yuz08559@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <atX3fzEV_Pai4woV@kunlun.suse.cz>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA1NCBTYWx0ZWRfXyG65JXecQ1qZ
+ XTrj6qOaw599HABgWv3Eww0Xs9tLyqxfAKHoR+2McAqaVtBYvr3IrTcJrbmkMlRuUQuvANACUEW
+ 7IluMJcNfVuTpkOTRtuMf6laDL8JULOhPdDV76eGJDCcMKAAG0fDCtg9tMFNgqghXzkEWHxq5ae
+ xU5BARihXwnoT4+ZbGcX7OPy87xGLE1RuVu5/FunFdVpRq35lxYeolBGPNTEfTUSU9irEmVea1C
+ a5qm55uFNWYwqMcg0WUh7smrsVRv2mIjQLTTsNjaCjOeIM1NHVy/PUgMm6LHastdF8ZKU0flIuk
+ +CwOXDrwyy28c5fVpnBIu+iqrz5aRN6NkMnUgLRafIzE5dkj4h7LGugRrljWdlTfkSfunDJskEI
+ qRIr4PWFC5q7t/MwLeEpKWnGC/mxmhtGJEThA/flhxLEvBV1Ujf894BzFFnj1I4kJrDvlIU3fkn
+ XvlmDwAbfn+AIjd93GA==
+X-Proofpoint-ORIG-GUID: hyUw3X5wNZrdxkXQRgY-MffWMIOFZAJT
+X-Proofpoint-GUID: KO4BRUAyOt7JDDy1mg87zV7Y6gkDWO3B
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA1NCBTYWx0ZWRfX8uqSMDpxuI6A
+ J8xRgCnNYesbvsgxGa0BeU2aPp1OqIHPJasPEANYOfB6h98yFst7I5eeh2JXUc3yxHAKO+6G9Tu
+ fFH9RfJll9qgCA8BfNMPMFUZ2ipTKoE=
+X-Authority-Analysis: v=2.4 cv=ZfSIpcVA c=1 sm=1 tr=0 ts=6ad8c747 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=8nJEP1OIZ-IA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=M0V5yE8pmHsQCC-Gis0A:9
+ a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 spamscore=0 suspectscore=0
+ clxscore=1015 phishscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210054
 
-On Tue Oct 20, 2026 at 4:50 AM CEST, Yu Zhang wrote:
-> nvmet_subsys_attr_qid_max_store() sets subsys->max_qid and then walks
-> subsys->ctrls to force every controller to reconnect, but it holds only
-> nvmet_config_sem (for write).  subsys->ctrls is protected by subsys->lock=
-:
-> nvmet_alloc_ctrl() adds an entry under subsys->lock, and nvmet_ctrl_free(=
-)
-> removes it under subsys->lock with list_del() + kfree() (not kfree_rcu).
-> The free path takes no nvmet_config_sem, so the two locks are independent=
-.
->
-> A controller teardown (host disconnect, keep-alive timeout or fatal error
-> -> nvmet_sq_destroy() -> nvmet_ctrl_put() -> nvmet_ctrl_free()) can
-> therefore list_del() an entry while qid_max_store() is iterating the list=
-,
-> corrupting the walk.
->
-> KASAN, concurrent "echo 128 > .../subsystems/<nqn>/attr_qid_max" racing
-> nvme-loop controllers connecting and disconnecting, panics in seconds:
->
->   BUG: KASAN: null-ptr-deref in nvmet_subsys_attr_qid_max_store+0x10d/0x1=
-b0
->   Read of size 8 at addr 0000000000000090
->   Call Trace:
->    nvmet_subsys_attr_qid_max_store+0x10d/0x1b0
->    configfs_write_iter+0x1a7/0x250
->    vfs_write+0x5df/0x940
->    ksys_write+0xfd/0x1e0
->
-> (also seen as a general-protection fault dereferencing a LIST_POISON
-> pointer at the same instruction.)
->
-> Take subsys->lock around the list_for_each_entry() loop, matching every
-> other subsys->ctrls accessor.  ->delete_ctrl() only queues asynchronous
-> controller teardown, so it does not re-enter subsys->lock under the loop.
->
-> Fixes: 3e980f5995e0 ("nvmet: expose max queues to configfs")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yu Zhang <yuz08559@gmail.com>
-> Tested-by: Yu Zhang <yuz08559@gmail.com>
-> ---
->  drivers/nvme/target/configfs.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configf=
-s.c
-> index 2b69ffc..23418fa 100644
-> --- a/drivers/nvme/target/configfs.c
-> +++ b/drivers/nvme/target/configfs.c
-> @@ -1684,8 +1684,10 @@ static ssize_t nvmet_subsys_attr_qid_max_store(str=
-uct config_item *item,
->  	subsys->max_qid =3D qid_max;
-> =20
->  	/* Force reconnect */
-> +	mutex_lock(&subsys->lock);
->  	list_for_each_entry(ctrl, &subsys->ctrls, subsys_entry)
->  		ctrl->ops->delete_ctrl(ctrl);
-> +	mutex_unlock(&subsys->lock);
->  	up_write(&nvmet_config_sem);
-> =20
->  	return cnt;
+On 2026/10/19 12:57 PM, Michal Suchánek wrote:
+> On Fri, Oct 16, 2026 at 07:12:47PM +0530, Amit Machhiwal wrote:
+> > During early boot (early_trace_init() called from start_kernel()),
+> > tracing allocates initial ring buffers (temp_buffer, array_buffer, and
+> > snapshot_buffer) for CPU 0.  Later, as secondary CPUs come online during
+> > smp_init(), each CPU's ring buffer is allocated via trace_rb_cpu_prepare().
+> > 
+> > Before attempting page allocation, __rb_allocate_pages() performs a
+> > heuristic check using si_mem_available() to return early with -ENOMEM if
+> > memory appears insufficient.
+> > 
 
-Reviewed-by: Maurizio Lombardi <mlombard@redhat.com>
+<snip>
+
+> >  kernel/trace/ring_buffer.c | 14 ++++++++++++++
+> >  1 file changed, 14 insertions(+)
+> > 
+> > diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+> > index 04bb94c29f58..aa877a272c89 100644
+> > --- a/kernel/trace/ring_buffer.c
+> > +++ b/kernel/trace/ring_buffer.c
+> > @@ -2452,10 +2452,24 @@ static int __rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
+> >  	 * memory. It may not be accurate. But we don't care, we just want
+> >  	 * to prevent doing any allocation when it is obvious that it is
+> >  	 * not going to succeed.
+> > +	 *
+> > +	 * With CONFIG_DEFERRED_STRUCT_PAGE_INIT, NR_FREE_PAGES only reflects
+> > +	 * the initial non-deferred pool during early boot and throughout SMP
+> > +	 * bring-up (smp_init() runs before page_alloc_init_late() completes
+> > +	 * deferred initialization). si_mem_available() returns a false negative
+> > +	 * across this entire window while actual allocations succeed by growing
+> > +	 * the zone on demand via deferred_grow_zone(). Only re-enable the check
+> > +	 * from SYSTEM_FREEING_INITMEM onward, after page_alloc_init_late() has
+> > +	 * finished and si_mem_available() is accurate.
+> >  	 */
+> >  	i = si_mem_available();
+> > +#ifdef CONFIG_DEFERRED_STRUCT_PAGE_INIT
+> > +	if (system_state >= SYSTEM_FREEING_INITMEM && i < nr_pages)
+> > +		return -ENOMEM;
+> > +#else
+> >  	if (i < nr_pages)
+> >  		return -ENOMEM;
+> > +#endif
+> >  
+> >  	/*
+> >  	 * If a user thread allocates too much, and si_mem_available()
+> > 
+> > base-commit: 2f2f7eeef8b0a1a9b9ca998231419873ccae8d4e
+> 
+> Hello,
+> 
+> due to other conflicting changes this no longer applies.
+> 
+> Will you send a rebase?
+
+Hi Michal,
+
+Thanks for checking and notifying.  I'll look into it and send a v3 as needed.
+
+Thanks,
+Amit
