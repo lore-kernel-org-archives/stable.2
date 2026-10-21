@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792609099;
-	b=q9/Z32Kg7bUYTsGDVIMbus1YKbQ780mNgOU1NDOgVX1MY0XDVvZsXva1WUboms+83Dh0
-	 uncedk5TZfI0yBt285d7S7Bjiv/oFk3YJKo6qz7Y3ohlMkYINFi6C8FBodI3Z11QdcjGi
-	 67gLM9tc0B8w6k0JZvRZjf+GRvBFLG1XSfu4l4WoulvyI/3Iz4rk9bVL0uTPpNddLzdbX
-	 BOBD9f5TBcFGOpE36X7LPp8LBaVPGuxBxA9xWejVoGlpgPx4CVNKCOQPBtjx5F6U7QRcb
-	 GuTMca2WWfgNbXPw4BPExgypNQSzypAyRSrAf9VCnrMUJryTMdje4ShFEas2bT5D0wg==
+	t=1792609289;
+	b=pG2IZumfpxYi+el7z8YLWOa300PglQsJUBZu9iv0QXYX6l41l59bTqvPxUiL0bOX5wZf
+	 nipvAtevf/p1GVf3N4/BnafeH4W+IWa98BbmqXxfk3SdnYUaPjIrORr+9wdh4A6W8yeRt
+	 bQs6i/3+eh3FkTjn7Xr5A75xNym5z2knax1YuFLQ9onNJsiJRztultlXhuC+JJZHn5+PR
+	 ko8Xj2hmr5Puu4M7cuFvR8WcGoEznPaHzXbi0xL0nDFs6jJ60c0UTsMpnqnr6Z1nkAeOh
+	 WmRXGa7WK8P6mh0iImAHSOzAFnPaEmEYcVdAaY6A7fM1Ibhwc/ODJHhf9yP8741sehA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792609099;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792609289;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=xRvd94tmSxAaQgza+g8FTO+Z/dinhulsKwwfnc1BqFY=;
-	b=5L56NXDI++AwuUGi8xvaWqnW3IMhslnsoVW8zIZVb1hYZFw+8X/BzDPs95MAk3/THp+X
-	 wVX2Z4mc340dQ/WLq4qsU3hyl4qmCovUqujb2fqqIMn/VZlbrwzrVu6lwh4r/ZH+p29EO
-	 5CjXA+MrX+Ysk+qSVNQ8/1m7Jn6RfA3dX0bRmQ8Bk+tn+VyCKRlOlYzCPxBtUu4Px0kFd
-	 H3PTnB8IvRmQ4RlO7emuRvFY2gu88nPv+R3QFBI5I3Yw0FFzhWidJKuToEwlf/BpWnXbN
-	 Kw9cAJM/is5QmRshyGGUqx4qpVNQzCktpaa2p8NG+gFjIwwqfO9tCEGhsz33aCyM6IQ==
+	bh=PRe2NYJxuhncsR4aT3ffbxqidw3GkmS5s7J2yFuY5Wg=;
+	b=hH+isxh52xxapZ36OrU+k5MPPKigeWavw4a17WiCSIMwPCZFvidCAe3AOG6yBbRFnF9Z
+	 jKuMsDJsHDHFtvNqBD2Hm6XjLbkZUnKu6fgfqDTSZjqqflg9RWOjuSGKeMqtcSXbnAS6o
+	 y7WmMo2P2+O6izZ4sVgNt7Z8cWgEymwDtpDsbXRZkuObAPajQ1f3OFVcCaRm/53euEyOY
+	 d9tU5FQJqPJdxAe8dgB7Y1UAhNv2Pknzq4os6hs6GFt5pqwK/euaLtli/XjLNa/8Z8A3F
+	 Qz1T06UGIGusmTAkeW/n7hHeTcUrcNlTtuUD/njb5XIvbP3TCJabF8Xob/paJDy+D0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LgvJuLyn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOni2VZV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4663F606A31A;
-	Wed, 21 Oct 2026 18:58:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8D9606A31A;
+	Wed, 21 Oct 2026 19:01:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LgvJuLyn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B2EC1F000C1;
-	Wed, 21 Oct 2026 18:58:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOni2VZV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 147DB1F000C1;
+	Wed, 21 Oct 2026 19:01:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792609098;
-	bh=xRvd94tmSxAaQgza+g8FTO+Z/dinhulsKwwfnc1BqFY=;
+	s=k20260515; t=1792609288;
+	bh=PRe2NYJxuhncsR4aT3ffbxqidw3GkmS5s7J2yFuY5Wg=;
 	h=From:To:Cc:Subject:Date;
-	b=LgvJuLynUgmvOR2zac6QQoM6y9ghmMO/gf/PNpOJuRq0BSfQfAdpSJt00JoRXGnsI
-	 asqWOuhGLe1duXjI/fymLwttnWlgrDM6Lc+8udu9h/Pw0uyxfAPr2T9GviI57epSC3
-	 YXDoNNyruUs3a0shrRSDXqD5cHKpMUklTtVEg4VsVXHMUYHUE3Ia6tnYJsDP0lLRRl
-	 0jXIYG7ytGNfsX2y4/kDPkV9U/gIoWbMlzY/+KZCRg+ts0B8rkHvYrmn8hMFYbZEXx
-	 /FzDpxfNsF7vBwbTeKh7g/5tp6AYt6SmTlV3d7sZRsyMwnBObtM5PIaSWg/duJVOzq
-	 PUk6XVDXpWamw==
+	b=NOni2VZVMGgGp5CQiYLq8aRma5CPEiWa9jfGg4tGj21+VVrnAq4ekmHJ8N+6isZ88
+	 +u324KOgg2yuKbJ9XMz9Qo1DkzwGYrPXO8X2GeAk0GVeG1IncLAzTI4thLuxviz/DN
+	 zjLpotDY/mXW5fMresvQF/sXsQJvj3+FIV7r8CM/gnyCanwFnjr5nRs3q1nhVb5GiA
+	 F03WNTWODGLYmONUi/fIBmiwcbyQSMUsbWEivQTV8Go8qFF89MvXjtPE8yjmCig9LO
+	 9c+ZANP4VH9YuAIKzjwlfBpdUu0XItygv3BmaJJ2CMEVAJPxEJQGnFeZvmJnel8moC
+	 D9hPJUbMPviCA==
 From: Imre Kaloz <kaloz@kernel.org>
 To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
 	linux-mips@vger.kernel.org
-Cc: Paul Burton <paulburton@kernel.org>,
+Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] MIPS: mm: Fix the cache error vector jump for XKPHYS kernels
-Date: Wed, 21 Oct 2026 20:57:09 +0200
-Message-ID: <20261021185709.22561-1-kaloz@kernel.org>
+Subject: [PATCH] MIPS: c-r4k: Flush the cache error vector before writing it uncached
+Date: Wed, 21 Oct 2026 21:00:20 +0200
+Message-ID: <20261021190020.20954-1-kaloz@kernel.org>
 X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -60,52 +60,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-except_vec2_generic jumps to cache_parity_error with a j, which cannot
-leave the vector's 256MB region. An XKPHYS kernel such as IP30's, linked
-at 512MB, is outside it, so the j targets an unbacked address and its
-speculative fetch raises bus errors on unrelated fetches. Jump to the
-handler's uncached XKPHYS address instead.
+On R10000-class CPUs, a store prefetch while copying the preceding
+vector can leave a dirty line whose write-back overwrites the uncached
+cache error handler. Flush it first in r4k_cache_error_setup() with
+r4k_dma_cache_wback_inv(), as dma_cache_wback_inv() is a no-op on
+coherent systems.
 
-Fixes: 7505576d1c1a ("MIPS: add support for SGI Octane (IP30)")
+Fixes: e01402b115cc ("More AP / SP bits for the 34K, the Malta bits and things.  Still wants a little polishing.")
 Cc: stable@vger.kernel.org
 Signed-off-by: Imre Kaloz <kaloz@kernel.org>
 ---
- arch/mips/mm/cex-gen.S | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ arch/mips/mm/c-r4k.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/arch/mips/mm/cex-gen.S b/arch/mips/mm/cex-gen.S
-index e528583d1331..6989fe274aab 100644
---- a/arch/mips/mm/cex-gen.S
-+++ b/arch/mips/mm/cex-gen.S
-@@ -8,6 +8,7 @@
-  *
-  * Cache error handler
-  */
-+#include <asm/addrspace.h>
- #include <asm/asm.h>
- #include <asm/regdef.h>
- #include <asm/mipsregs.h>
-@@ -37,6 +38,21 @@
- 	nop
- 	nop
+diff --git a/arch/mips/mm/c-r4k.c b/arch/mips/mm/c-r4k.c
+index d8aadd3dc057..ae31966ac65b 100644
+--- a/arch/mips/mm/c-r4k.c
++++ b/arch/mips/mm/c-r4k.c
+@@ -743,8 +743,6 @@ static void r4k_flush_icache_user_range(unsigned long start, unsigned long end)
+ 	return __r4k_flush_icache_range(start, end, true);
+ }
  
-+#if defined(CONFIG_64BIT) && VMLINUX_LOAD_ADDRESS >= XKPHYS && \
-+    VMLINUX_LOAD_ADDRESS < XKSEG
+-#ifdef CONFIG_DMA_NONCOHERENT
+-
+ static void r4k_dma_cache_wback_inv(unsigned long addr, unsigned long size)
+ {
+ 	/* Catch bad driver code */
+@@ -786,6 +784,8 @@ static void r4k_dma_cache_wback_inv(unsigned long addr, unsigned long size)
+ 	__sync();
+ }
+ 
++#ifdef CONFIG_DMA_NONCOHERENT
++
+ static void prefetch_cache_inv(unsigned long addr, unsigned long size)
+ {
+ 	unsigned int linesz = cpu_scache_line_size();
+@@ -1684,6 +1684,14 @@ static void r4k_cache_error_setup(void)
+ 	extern char __weak except_vec2_generic;
+ 	extern char __weak except_vec2_sb1;
+ 
 +	/*
-+	 * An XKPHYS kernel may lie outside the 256MB region a j from the
-+	 * vector reaches, so jump to the handler's uncached XKPHYS address.
++	 * The handler is written uncached. Copying the preceding vector
++	 * may have left a dirty cached line of it behind, through a store
++	 * prefetch or a speculative store; write it back and invalidate it
++	 * first, or its later write-back overwrites the handler.
 +	 */
-+	PTR_LA	k0, cache_parity_error
-+	PTR_LI	k1, TO_PHYS_MASK
-+	and	k0, k0, k1
-+	PTR_LI	k1, UNCAC_BASE
-+	or	k0, k0, k1
-+	jr	k0
-+	nop
-+#else
- 	j	cache_parity_error
- 	nop
-+#endif
- 	END(except_vec2_generic)
++	r4k_dma_cache_wback_inv(ebase + 0x100, 0x80);
++
+ 	switch (current_cpu_type()) {
+ 	case CPU_SB1:
+ 	case CPU_SB1A:
 
 base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
