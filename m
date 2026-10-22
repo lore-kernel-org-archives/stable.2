@@ -1,54 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792689606;
-	b=wpjLp0oQEGkf8waigEJIcRlSB47GRjzrjxzDgRkLXTwQycOD6h6ll5ePa0l9sx/sClbR
-	 kRSKRYMFzxCMRtbWBRbwGwff5YpJBAEziEID5drR+AFUi5E3JCmousRjhwSqwZ4iih3fm
-	 7Y1wsl+0wPrQYpAH3cpRs+vx17G9faabtR/XryoHni8ig1fdJa84TCKXT28iFp+DA12Yc
-	 nTDuSi1gYOksV/GT6hv+yp7/WfdcjE2rCz5Za8bh7VZiIHxXtofRkaraipRW7RLDMei0O
-	 9GfWSHyi03ZFaNeHgngBiFEsxa3HYz69cMiaVNMVY5SQvnpMoXrgktHKaC0fmV1bUwA==
+	t=1792689744;
+	b=qi+cjrfa5s+BPTz+e5T5OB6TTqsspQe0F+ubOCkHBUOpEwAslLd+w6usVukA1WvYdToH
+	 Y6XED7bGldngvRe0/nfdayO80UDGTuWvHHVcFU35w0H0+HBpHPRVEjeqeKs8kGYBlmgdH
+	 BrCUsp6dv4z0zDPU8wRhLFUd2N2++AZyZtefwnCpjpACkz1zE6F4i9z2/hImB0nkPHUCb
+	 Fg+5WrbjOF2qcFOHDI+NEiDwKE8dgemG9cyd9sv+meizFlwc215JRszh9uUU+hyzFZaCA
+	 XMlr84QJthq2zRVZ4vU0v0671ZI7pHZutX2xXlq0Eno3eHoS/g/m2BR/C9d5ZFkfjZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792689606;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=4UT4wBei7lo5P9ke+g//ajLXiPvxYYsQ7T5yHwgF27o=;
-	b=kVrDFDgugtJX5HyuzwzDhtFv+J0tLM0lNRuNdG/NW3N8H1SWRrkqH1R74yyoo7ViBMsg
-	 frgHJH5NYP+CTVKPdobBrRlVI0ZHjx4vKlHtXPpYYPg2+u2ibA5Tizz35Tlud26BuZPdN
-	 6koACvfv1u1BBLdxF8btXdeMefZiBZIIHgesbGaNDtI4RhZFCbC/vMDCwWZkbmGnpvUAI
-	 or8UHlqrcl9t0tLq1xdGFxgwC9gUsuFpRgmegNWsh+qqUnLYU04KfbK94fCUqUdzkJISK
-	 7IdT75bjIc9694VXMkTIn1ATLYUv27j2rWqhO62EpNB6IeWxcM3Poa7KK8OUVFh7toA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792689744;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=jvLxyUemcZ6OHmW/vOaMN2ACELM8HQ5bLXTBKTJqhDQ=;
+	b=mnuVRJYe94ALELPkKClNgQVtydr5ZINymW4s3okBOr4Oxkivrsu5siJ1dOJGvuvSYpUQ
+	 AgTJFYoLo1bh5JaAw2MnM6/cORLCe/paG1mbz8xNHVH69TXsgRIRknLzAdN/IHheCBeTK
+	 mIGxYtguVSyeVM8x1DxcqbgMtlDZOVxckEbOEtM3JCA1K5mBdGtCFibk3PFB+Wyl1qLLa
+	 d0QkLmANWBOUM0dyQTXRI+rhb21jH5G+uuvZOfXgBRp+3Mmwcpe0UtehKoTSmD6bfzLky
+	 83EdU+IHOmxcvJg0l2cPl8Aubpar4xQAHI/9Luehh2QjlaL8fwtFN+IGNj5CrZBomrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RjjpL0nF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A1E3606A31A
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 17:20:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A1E3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-5587351d419so101007b6e.1
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 10:20:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792689605; x=1793294405;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4UT4wBei7lo5P9ke+g//ajLXiPvxYYsQ7T5yHwgF27o=;
-        b=y9+ERW8A0NUKqjttokdSPhzgDgk+FxCNNqvMCObQZiNFbsc8IPbWJzNDmFl/M4P/Wl
-         AQX3jMjnCsD9+22Ysigswkw7aWR3gGnI7NamDiJWv2GKBc6wVbU5pbBbeZAsZjAPjQuv
-         NdMj4JJAZttI7FPRjzJ0G5ilk2NVV92gt8Jw7kgjsn7p5xUZwXUB/5PVl3w4xAu51u/A
-         iWtzFmy9eCFY31bMLr2KjzUul/a++8TfvRFlv3Wu3GiVJ5BzGSVIDTSrwo1gY4x8XtY/
-         9ax93TplG+NSMDbTp2s6Q3SZH/IJNSfoUK48y7cLDeA+BQhsqn83oF2/4hkZW3fAWgUp
-         +Ltw==
-X-Forwarded-Encrypted: i=1; AKwUvBz7aLs7huzfDMbFDnDyVi+1P3BqgCyCKiMFrUgl7wN0cnR9yXQ0UCzoFCY12WXnTnrS368Nm1s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKTR5jzJuMOe3RwtpJXFoCr6XeHxiFTh1BBXUETar2xSucgCRl+
-	Zjnpaohp3jzMKfWgKW+6BkDwfZ0ifsvA7ysyfJggF5CLnthfG3K33KS1+qHW252/a25AUxhjG5O
-	pm252E4K3m9C/Razy3a8HwFK/IgDno7csa/24gKt5qeiDNL0wu90XipRPIzI=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC670606A319
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 17:22:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RjjpL0nF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7407F1F01828;
+	Thu, 22 Oct 2026 17:22:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792689743;
+	bh=jvLxyUemcZ6OHmW/vOaMN2ACELM8HQ5bLXTBKTJqhDQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RjjpL0nFr2HP7yqBfnHGmWBeGBeBKw9alpcosxQX5pMcXWJ4DViOGvCkasOGN+gA0
+	 W+fhcY8Jn9Pf8oisTq099cV0oKUbYdIbnrn+oQvat7qyzpvmI+bVnLoKfF/RoSiU/S
+	 9agKBl8o6THQJg6HbNus/+DU2cfn/nC4ZYZTzPVfIRYhB26B/55XE9x40KMONgwPys
+	 jQLBV0KtiopeUc/h7yoLU96iqoOj0wunP0jsFCajZazihef3tML5SCaJHabEo4YOF0
+	 2k5ZzxzIVJtM3ziJhYXlfgrUPxfb1eCE9xr6AetohidlN58M1DzskTDyxBL51zlNzy
+	 dG6fN6Gh3T6kA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ido Schimmel <idosch@nvidia.com>,
+	Amit Klein <aksecurity@gmail.com>,
+	Noam Caspi <noam.caspi@mail.huji.ac.il>,
+	David Ahern <dsahern@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] ipv4: udp: Create exceptions before socket matching
+Date: Thu, 22 Oct 2026 13:22:21 -0400
+Message-ID: <20261022172149.1756491-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026102115-squabble-mossy-a3ac@gregkh>
+References: <2026102115-squabble-mossy-a3ac@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,36 +62,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4fe1:b0:4f2:f229:1895 with SMTP id
- 5614622812f47-5535c2846ddmr5380130b6e.43.1792689605345; Thu, 22 Oct 2026
- 10:20:05 -0700 (PDT)
-Date: Thu, 22 Oct 2026 10:20:05 -0700
-In-Reply-To: <CAO+rqLgLRszT2U_x49hYVULuJ6Lm-80EdokzQUyNO_mECKEvKA@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ada45c5.d1c214cc.659fa.00dd.GAE@google.com>
-Subject: Re: [syzbot] [netfilter?] WARNING in nf_flow_table_extend_ct_timeout
-From: syzbot <syzbot+521f7e7e2b974abde99a@syzkaller.appspotmail.com>
-To: coreteam@netfilter.org, davem@davemloft.net, edumazet@google.com, 
-	edumazet@kernel.org, fw@strlen.de, horms@kernel.org, kuba@kernel.org, 
-	linux-kernel@vger.kernel.org, mike.michalo@gmail.com, netdev@vger.kernel.org, 
-	netfilter-devel@vger.kernel.org, pabeni@redhat.com, pablo@netfilter.org, 
-	phil@nwl.cc, stable@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+From: Ido Schimmel <idosch@nvidia.com>
 
-syzbot tried to test the proposed patch but the build/boot failed:
+[ Upstream commit 4c3499f79f8c7e8561266bcc220a18538cec0458 ]
 
-failed to checkout kernel repo git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/main: failed to run ["git" "-c" "core.hooksPath=/dev/null" "fetch" "--force" "675adff2843877c2da27b36b2517f827bc9915ea" "main"]: exit status 128
+Currently, when ICMP Fragmentation Needed and Redirect Message packets
+are locally delivered and quote a UDP packet, a FIB nexthop exception
+(FNHE) is only created if the kernel can match the UDP packet to an
+existing socket.
 
+This behavior allows off-path attackers to conduct a side-channel attack
+on the FNHE cache in order to discover the ephemeral port used by a
+connected UDP socket.
 
-Tested on:
+Commit 6457378fe796 ("ipv4: use siphash instead of Jenkins in
+fnhe_hashfun()") and commit 67d6d681e15b ("ipv4: make exception cache
+less predictible") tried to mitigate such attacks by making it harder
+for attackers to discover hash collisions in the FNHE cache and by
+randomizing the number of exceptions a hash bucket can hold,
+respectively. Unfortunately, both of the mitigations can be bypassed.
 
-commit:         [unknown 
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git main
-kernel config:  https://syzkaller.appspot.com/x/.config?x=c4b098695335c89f
-dashboard link: https://syzkaller.appspot.com/bug?extid=521f7e7e2b974abde99a
-compiler:       
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=115f4d0d580000
+Instead, mitigate such attacks by always creating a FNHE, even before
+trying to find a matching socket. Do that by calling ipv4_update_pmtu()
+and ipv4_redirect(), the helpers used when the quoted packet did not
+originate from a socket.
+
+This means that guesses (right or wrong) from an off-path attacker will
+always result in a FNHE being created or updated in the cache that the
+attacker can observe.
+
+Pass an oif of 0, in a similar fashion to icmp_err(). This is also the
+oif used by the socket path for sockets that are not bound to a device.
+
+Note that this does not allow attackers to create FNHEs that they could
+not create before, as both helpers can already be reached with little to
+no validation. For example, by sending an ICMP error that quotes an ICMP
+Echo Reply or one that quotes a UDP source port that matches a wildcard
+socket.
+
+Also note that in the good case (matched socket) the above scheme comes
+at the cost of an extra route lookup, as the no socket helpers perform
+their own lookup before the one performed by ipv4_sk_update_pmtu() /
+ipv4_sk_redirect(). When the two resolve to different nexthops, it also
+results in two exceptions being created for the same destination IP. One
+in the FNHE cache of the nexthop resolved by the no socket helpers and
+another in the FNHE cache of the nexthop used by the socket.
+
+Fixes: 4895c771c7f0 ("ipv4: Add FIB nexthop exceptions.")
+Cc: stable@vger.kernel.org
+Reported-by: Amit Klein <aksecurity@gmail.com>
+Reported-by: Noam Caspi <noam.caspi@mail.huji.ac.il>
+Signed-off-by: Ido Schimmel <idosch@nvidia.com>
+Reviewed-by: David Ahern <dsahern@kernel.org>
+Link: https://patch.msgid.link/20260828192344.2596928-3-idosch@nvidia.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: inlined udp_err_update_exception() logic into the existing udp_err() wrapper to accommodate the separate __udp4_lib_err() handler. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/ipv4/udp.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/net/ipv4/udp.c b/net/ipv4/udp.c
+index 341786983d42e..a7ae0d098f2c6 100644
+--- a/net/ipv4/udp.c
++++ b/net/ipv4/udp.c
+@@ -1033,7 +1033,16 @@ int __udp4_lib_err(struct sk_buff *skb, u32 info, struct udp_table *udptable)
+ 
+ int udp_err(struct sk_buff *skb, u32 info)
+ {
+-	return __udp4_lib_err(skb, info, dev_net(skb->dev)->ipv4.udp_table);
++	const int type = icmp_hdr(skb)->type;
++	const int code = icmp_hdr(skb)->code;
++	struct net *net = dev_net(skb->dev);
++
++	if (type == ICMP_DEST_UNREACH && code == ICMP_FRAG_NEEDED)
++		ipv4_update_pmtu(skb, net, info, 0, IPPROTO_UDP);
++	else if (type == ICMP_REDIRECT)
++		ipv4_redirect(skb, net, 0, IPPROTO_UDP);
++
++	return __udp4_lib_err(skb, info, net->ipv4.udp_table);
+ }
+ 
+ /*
+-- 
+2.53.0
 
