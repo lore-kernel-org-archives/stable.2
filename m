@@ -1,45 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792686813;
-	b=efDa+Gudy64qBRW3baDJckKMjcCOkYkbvSGTbkrBJYY9YPms/BLCErnAtvpEQSqxYxT3
-	 SpI6FMJ9FTCl+njLeBgSsSmiR7MEQhZK6iUaHN1AQ4kQ96hjIUizegioKBrg8mxAUtdlU
-	 SlFQT6W2mK2tkocwnt9mIrAm/pVmCJNVcsb7PAjXgeNZkYrISvXDYSzgbYcl4rgriKUNX
-	 fRa2dzmnoBXm+lrlWN7zR9zxQOdofmVQubx1RhBs156ArD54wpQxjGzSeyqndfsK2pvQZ
-	 Ru0sel9WFnwW+4GG2ko7TD59J+wirDwDBKDaKEOlnx0Hw6lXqsPVgMUVRm3ge5r7A6A==
+	t=1792687003;
+	b=wEibuYfQdGE5DrTOGxYaKb9dhEUio8GqLiViFqwFKQ8QLcTrqTTQ1yrCJENYNzaDr08I
+	 t+Lpjp6M9LJgGu0lYlJIkKrsdHb0MD5xEhk1PnvQ4kWM1fIHUk3FR1HcuHmCUE3jbplhy
+	 U5kPvHjxCdvmQiGevLfkZ7HWbEvoHCShDPv+KU7Sr7KS+ykeuS95a1gRSwiwe7Idd1Ord
+	 AyL+J3QtnusuVEjdfBhqNZnKaGkbkQDEDgWD/isUPVLv2GbsFgJcKozxV8GvIntq1tycs
+	 kNF0QFO6fL7ZBzOwEX6QS5OCN2mGfDoopNVTz+B/iKfvdRMNU/7CZELOgjf22XIWbdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792686813;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=Jra6vwfFJoJgBBbvOxpVOEvGYDp9HxQqbq5v4awEj3U=;
-	b=nbp7e/9GwWmAh9V+JCJQMXVHXfpQRcXMEAoaCV7h6N8x68bMzXflWXgliTdabuwdjPCA
-	 CQKuq8j81iJc++OyQB1n7OqVJ6L7FWSNb/Of81vCTColPQ1hpOscR/dBSDMjXoiq+BKXu
-	 jl4yA7tmKLzKuedzChY0wnpDPbv+4y/OMwv0KMe9QAB4EzLbXjErZYiCQsYJabP+XfQia
-	 FtBlx51KTXmgaN5UIE5wHzaVe6z0kDzpVzklEClrwfvZ7lUHgfMXCA8aQDeWJLeoWQ3ym
-	 szTKB6rEhJ9at1m+vzoC8eFIM+3MMj0Mf7bri+/xpxTxIIJZEQ6QRE9vzKiThuLuxtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792687003;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=R7l9GBldBqggvq/zvWK0w7jaQ7qb61TWRK+g3QMrrtM=;
+	b=Tc8ViSdPHH0QRbnUuzxAZW1OlNUgEygSKhKjczN+LgUuoVSeoAQZnPdJeJJLwBPbnoSr
+	 hMw/sVJrfTmDJRs+8/H4hTCwsX2vbArRaXBpLKITbdoQ6CsFpjhT4rYVBHNwl2ISzEEZm
+	 xL/I8YCOliipS8rKmX7Ss7I/bcHPSr8ZBmSSMBgMyYJAt+pPpKAAORttbBnE3mEuJNBaP
+	 UFsP6UA0IHsVIC7JdaC+5trrFAMEIwWil/c0Ysk1mSWMz8VnNPCAtceOVK2T02fXVBx/L
+	 FlCmJzvqd+XE/FfM98K0bfWXBECDi4zmdADK/4ElOmcKwxvTdCTpak9vpAdXSDBBIhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ShbDaLcL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Vokx/Tg8";
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16A3D606A319;
-	Thu, 22 Oct 2026 16:33:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72CFC606A31A
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 16:36:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72CFC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ShbDaLcL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 990531F01829;
-	Thu, 22 Oct 2026 16:33:32 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Vokx/Tg8
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso48705e9.3
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 09:36:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792686812;
-	bh=Jra6vwfFJoJgBBbvOxpVOEvGYDp9HxQqbq5v4awEj3U=;
-	h=Date:To:From:Subject;
-	b=ShbDaLcLH9rcANzm5H2Aub48M0JyeW3++jgZn0vvxUUWCzhNjOWOdRX9Q5LBJBuh0
-	 q6cd/N7yDvEyI5uWWG6/A9TncVkXKLWz9iGdNt3YslzDHIQoS+5VnyKmIxNTh1grG1
-	 uRAt6VAla1ngEfO3oFiQgloDfQcXaIUOAkQc46CA=
-Date: Thu, 22 Oct 2026 09:33:32 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,rppt@kernel.org,peterx@redhat.com,osalvador@suse.de,muchun.song@linux.dev,david@kernel.org,azpijr@gmail.com,lizhe.67@bytedance.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-hugetlb-fix-mremap-deadlock-when-pmd-sharing-is-possible.patch added to mm-unstable branch
-Message-Id: <20261022163332.990531F01829@smtp.kernel.org>
+        d=gmail.com; s=20251104; t=1792687002; x=1793291802; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R7l9GBldBqggvq/zvWK0w7jaQ7qb61TWRK+g3QMrrtM=;
+        b=Vokx/Tg8TYjm7F/SKH8DDaZUu92EOwWBEPcfCIIyGelydx+ks+r3kdT/Q7Pf8xeFu5
+         Q93181FjebSTzRVLLMCnCIgs1ZtiJPV3dJTwJgt3PsEDXNq8O0NssbWA7dhYpG5cdMa6
+         rv2M7wIv4eaS+CHYapfxkr5yKhlLjjGMdu1R/j2MjAIXxwdQabrnCVh6EnCXGziI0K9U
+         XlO4jocMxrcN1M2TjO2Qp8EUHcTGoxAeWykVXoJ3K2NFKCv8ujmiHjJGh/puVnGVBQIs
+         LVhhycFDpcGDnbNeR7uxY23W6NEAzsNdg0eK4riZzHlw4Jgm45N8SCjxNdT2OQjGo3b8
+         aq/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792687002; x=1793291802;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R7l9GBldBqggvq/zvWK0w7jaQ7qb61TWRK+g3QMrrtM=;
+        b=FB3l9kBzkQGnohOvG6S8yvVdgAccoOnkBRXtx8m7dEpu1FRI/vNra3CRYK09m3vqwW
+         fMOG5AtsN16o/Tx2fGBTLjukOj7wvGXB+dFqfOazMQowR66Fo0kOWnOaUYFhpJ/tDl9z
+         HebMu/MCRMKbodPPI1a6pbLsdmohuelu18rKPjHSOo4KCnvPciMlVurriUpzGzP6z29O
+         Lj452b7Bjo5AAuvzeDl8HliftdFryzpSBbjQR1dHyGVSNUWLQsBmzv3+j+EG1wbsNqll
+         2ew85w4g72dJfXn5/BFJOXJ0wu05d6pSEL88W256BIiEmJlZ5aC345HWcMprnpXYIG9L
+         f7QQ==
+X-Forwarded-Encrypted: i=1; AKwUvByN5B3aoAQkZlXXuwc6PGcibwnUimjo6HDAjNpfc+k4eY2QXMIAZs7gab6cBHYguuAaXEwXzsA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEYb5Z2/oO7JTx1OjUSjZItCyZrCyC1s4t2wfqMkGo9EMgEi0Q
+	AmD56kiWCym4spUDiM/aDlSPj6P7rUa1lQmLdllkJYItHZG6al4Ocem+
+X-Gm-Gg: AYBFou13Ch8eJup9hhuWHNnJUiF/NUUhRbtPeXRw+sR+hSWxinejqnXZJmZ6cQTw+H8
+	A/+TDEJXnLKR4b6dGsknDm0EdkafZQqMJW0ufThQ2IpsxYnO1Owexte7COt4s8vgz3x8TW805zx
+	Sx8CkMmYTMtTUrMvPSrhmad56Aom4Diole8eqKWiVKoCjlm3kHbaHSC4DJ6A+jPbiUmdD2nHvY1
+	0+nH4yG5PcuFVk+190I73/GVtk9/74jcqlx2dlc0xVm8J0paCF8aq0Yql/ImeeTybCQkOGZNcK7
+	AF3d+e49c/huGjIVYEbf6i+OjSDlPIhgBLkJsYPAMWPg4TlzQPQ67ht25nmhxWbtiU6f8OVBApZ
+	1EnZagDKHNSA+lDHONJ7zSlQ4xPLUNM89lBaZkVdlNRw91aOIwk6+M1AltkSwTjsXNJ8A0LBMHO
+	eRuglUWHe57VBqeHC3Go3CCWh2vyEuzv0WwyiQH/lgoXX5kxz/rIG9qTmtJyI81N4uxA3+pSoHv
+	KZSqeiu2RFkTRvWCTq+4+sHJ72fh/LH735WzAMcE1nMKVGVsFM=
+X-Received: by 2002:a05:600c:620a:b0:4a1:706f:b40d with SMTP id 5b1f17b1804b1-4a1fdb1a609mr102596995e9.7.1792687001668;
+        Thu, 22 Oct 2026 09:36:41 -0700 (PDT)
+Received: from dev1.kernelcare.com ([2a01:4f8:172:1c85::2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a210299910sm8263415e9.1.2026.10.22.09.36.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 09:36:41 -0700 (PDT)
+From: Andrey Misiurov <andrey.misyrov@gmail.com>
+To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Xin Long <lucien.xin@gmail.com>
+Cc: Jun Yang <junvyyang@tencent.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-sctp@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Andrey Misiurov <andrey.misyrov@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] sctp: fix ASCONF address change on single-homed hosts
+Date: Thu, 22 Oct 2026 18:36:39 +0200
+Message-ID: <20261022163639.2566945-1-andrey.misyrov@gmail.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -48,170 +102,61 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+Commit 9b2854f86f0b ("sctp: don't free the ASCONF's own transport in
+DEL-IP processing") refuses a DEL-IP of the transport the ASCONF was
+located by, so that a later wildcard DEL-IP cannot use it after free.
 
-The patch titled
-     Subject: mm/hugetlb: fix mremap deadlock when PMD sharing is possible
-has been added to the -mm mm-unstable branch.  Its filename is
-     mm-hugetlb-fix-mremap-deadlock-when-pmd-sharing-is-possible.patch
+This also breaks the single-homed address change (RFC 5061 5.3.2). The
+host sends [Address Parameter L] [ADD-IP S] [DEL-IP L], the association
+is located by L, and DEL-IP L is now refused. The sender never gets an
+all-success ASCONF-ACK, keeps src_out_of_asoc_ok set and stops sending
+data, so the association stalls.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-hugetlb-fix-mremap-deadlock-when-pmd-sharing-is-possible.patch
+Fix the wildcard DEL-IP instead: look up the transport of the packet
+source rather than reusing asconf->transport, and clear
+asconf->transport when a plain DEL-IP removes it.
 
-This patch will later appear in the mm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Li Zhe <lizhe.67@bytedance.com>
-Subject: mm/hugetlb: fix mremap deadlock when PMD sharing is possible
-Date: Thu, 22 Oct 2026 11:45:43 +0800
-
-move_hugetlb_page_tables() holds the mapping's i_mmap_rwsem for
-write while moving hugetlb PTEs. This prevents races with truncation
-and protects huge_pmd_unshare(), but the move loop must not call
-helpers that can acquire the same rwsem for read.
-
-huge_pte_alloc() can do that when the destination can use PMD
-sharing: it may call huge_pmd_share(), which takes i_mmap_rwsem for
-read while searching for a shareable PMD table. Calling it while the
-move path already holds i_mmap_rwsem for write can deadlock.
-
-Avoid that path for PMD-sized hugetlb mappings that can use PMD
-sharing. Instead of allocating or sharing the destination page table
-while moving, zap the source range and let the destination fault path
-populate or share the PMD lazily.
-
-Reuse the hugetlb unmap logic for the source-side zap by splitting
-the core loop out of __unmap_hugepage_range(). The wrapper keeps the
-existing tlb_start_vma(), tlb_end_vma() and huge_pmd_unshare_flush()
-behavior, while move_hugetlb_page_tables() can reuse the unmap loop
-with its existing mmu_gather.
-
-Link: https://lore.kernel.org/20261022034543.51226-4-lizhe.67@bytedance.com
-Fixes: 550a7d60bd5e ("mm, hugepages: add mremap() support for hugepage backed vma")
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Co-developed-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Cc: <stable@vger.kernel.org>
+Fixes: 9b2854f86f0b ("sctp: don't free the ASCONF's own transport in DEL-IP processing")
+Cc: stable@vger.kernel.org
+Signed-off-by: Andrey Misiurov <andrey.misyrov@gmail.com>
 ---
+ net/sctp/sm_make_chunk.c | 15 ++++++++-------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
- mm/hugetlb.c |   47 +++++++++++++++++++++++++++++++++++++----------
- 1 file changed, 37 insertions(+), 10 deletions(-)
-
---- a/mm/hugetlb.c~mm-hugetlb-fix-mremap-deadlock-when-pmd-sharing-is-possible
-+++ a/mm/hugetlb.c
-@@ -137,6 +137,10 @@ static int __huge_pmd_unshare(struct mmu
- 		bool check_locks);
- static void hugetlb_unshare_pmds(struct vm_area_struct *vma,
- 		unsigned long start, unsigned long end, bool take_locks);
-+static void hugetlb_unmap_range(struct mmu_gather *tlb,
-+				struct vm_area_struct *vma, unsigned long start,
-+				unsigned long end, struct folio *folio,
-+				zap_flags_t zap_flags);
- static struct resv_map *vma_resv_map(struct vm_area_struct *vma);
- 
- static inline bool subpool_is_free(struct hugepage_subpool *spool)
-@@ -5238,6 +5242,8 @@ unsigned long move_hugetlb_page_tables(s
- 	for (; old_addr < old_end; old_addr += sz, new_addr += sz) {
- 		const unsigned long offset_to_last_entry =
- 			(old_addr | last_addr_mask) - old_addr;
-+		const unsigned long offset_to_last_dst_entry =
-+			(new_addr | last_addr_mask) - new_addr;
- 
- 		src_pte = hugetlb_walk(vma, old_addr, sz);
- 		if (!src_pte) {
-@@ -5254,6 +5260,24 @@ unsigned long move_hugetlb_page_tables(s
- 			continue;
+diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
+--- a/net/sctp/sm_make_chunk.c
++++ b/net/sctp/sm_make_chunk.c
+@@ -3150,9 +3150,11 @@
+ 		 * packet MUST be deleted.
+ 		 */
+ 		if (af->is_any(&addr)) {
+-			sctp_assoc_set_primary(asoc, asconf->transport);
+-			sctp_assoc_del_nonprimary_peers(asoc,
+-							asconf->transport);
++			peer = sctp_assoc_lookup_paddr(asoc, &asconf->source);
++			if (!peer)
++				return SCTP_ERROR_REQ_REFUSED;
++			sctp_assoc_set_primary(asoc, peer);
++			sctp_assoc_del_nonprimary_peers(asoc, peer);
+ 			return SCTP_ERROR_NO_ERROR;
  		}
  
-+		/*
-+		 * Avoid entering the destination PMD sharing path while holding
-+		 * i_mmap_rwsem for write. Leave destination page table
-+		 * population to the fault path, which can share the PMD lazily.
-+		 */
-+		if (sz == PMD_SIZE && want_pmd_share(new_vma, new_addr)) {
-+			const unsigned long unmap_size =
-+				min(old_end - old_addr,
-+				    offset_to_last_dst_entry + sz);
-+
-+			hugetlb_unmap_range(&tlb, vma, old_addr,
-+					    old_addr + unmap_size, NULL,
-+					    ZAP_FLAG_DROP_MARKER);
-+			old_addr += unmap_size - sz;
-+			new_addr += unmap_size - sz;
-+			continue;
-+		}
-+
- 		dst_pte = huge_pte_alloc(mm, new_vma, new_addr, sz);
- 		if (!dst_pte)
- 			break;
-@@ -5273,9 +5297,10 @@ unsigned long move_hugetlb_page_tables(s
- 	return len + old_addr - old_end;
- }
+@@ -3165,13 +3167,9 @@
+ 		if (!peer)
+ 			return SCTP_ERROR_DNS_FAILED;
  
--void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
--			    unsigned long start, unsigned long end,
--			    struct folio *folio, zap_flags_t zap_flags)
-+static void hugetlb_unmap_range(struct mmu_gather *tlb,
-+				struct vm_area_struct *vma, unsigned long start,
-+				unsigned long end, struct folio *folio,
-+				zap_flags_t zap_flags)
- {
- 	struct mm_struct *mm = vma->vm_mm;
- 	const bool folio_provided = !!folio;
-@@ -5293,13 +5318,6 @@ void __unmap_hugepage_range(struct mmu_g
- 	BUG_ON(start & ~huge_page_mask(h));
- 	BUG_ON(end & ~huge_page_mask(h));
- 
--	/*
--	 * This is a hugetlb vma, all the pte entries should point
--	 * to huge page.
--	 */
--	tlb_change_page_size(tlb, sz);
--	tlb_start_vma(tlb, vma);
+-		/* Don't free asconf->transport; a later wildcard DEL-IP
+-		 * parameter reuses it.
+-		 */
+-		if (peer == asconf->transport)
+-			return SCTP_ERROR_REQ_REFUSED;
 -
- 	last_addr_mask = hugetlb_mask_last_page(h);
- 	address = start;
- 	for (; address < end; address += sz) {
-@@ -5428,6 +5446,15 @@ void __unmap_hugepage_range(struct mmu_g
- 		if (folio_provided)
- 			break;
- 	}
-+}
-+
-+void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
-+			    unsigned long start, unsigned long end,
-+			    struct folio *folio, zap_flags_t zap_flags)
-+{
-+	tlb_change_page_size(tlb, huge_page_size(hstate_vma(vma)));
-+	tlb_start_vma(tlb, vma);
-+	hugetlb_unmap_range(tlb, vma, start, end, folio, zap_flags);
- 	tlb_end_vma(tlb, vma);
- 
- 	huge_pmd_unshare_flush(tlb, vma);
-_
-
-Patches currently in -mm which might be from lizhe.67@bytedance.com are
-
-mm-hugetlb-fix-overbroad-mmu-notifiers-for-unshared-pmds.patch
-mm-hugetlb-fix-mremap-move-length-truncation.patch
-mm-hugetlb-fix-mremap-deadlock-when-pmd-sharing-is-possible.patch
-
+ 		sctp_assoc_rm_peer(asoc, peer);
++		if (asconf->transport == peer)
++			asconf->transport = NULL;
+ 		break;
+ 	case SCTP_PARAM_SET_PRIMARY:
+ 		/* ADDIP Section 4.2.4
