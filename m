@@ -1,102 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792675800;
-	b=omNZ8tbJsFdKGP9X/tio3V8p/l1L0t3dFxnrb5tnKWiq+ZrUcRt2kgLwJL+SJi8qWvIh
-	 dOt1CBXMs1UMWKo7FSwwhcoieZct9Cn8iLWqfCd45ZyZ1QlxUzR+/QflDHfD8BdAgJq+B
-	 PQy0HRYaCVxUDg7lsVQy6uluEfEf5gvfHd5WjKvEnsa6B1lo4l8vAZjCUsKNb3s2V6E5A
-	 SZ/akbSBgn0qyAgXUq2zoHSiydGLmvUnCuOl7/9444I24tE2Q+bVFozi2p0ATPaIyNvU7
-	 G8OZmAspLERgnKAm00UfbUQo5Z++CrK4mMVINYSmyCNpu+Wrq96A+hHmr6EetP/4+jw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792675800;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=HDUAmNZcPxPev48FOk/77ScD0rraPEGB2IzDMOiukPk=;
-	b=013EVCgQcZmUJdM6t1El3AawwZ/TPU3MzAG2VtGj9A0Xn0HeTs+L49a1BZvNgBxnTKDx
-	 G28apMr3Lys50N7dSNpA2lgHP/TP4/0qB43Z5uHrEgyPKFS8cQwINGOn93tpSgW+sTfgA
-	 vcn++XPw4uU81hE/JSr9t3fElPt1viSXG7+HeUmDE7Gaz92Ret9x8Pdot3Ryq+0bf41/0
-	 aeS8SQ/l6NIO6IEjuVA+a3T9mEIsyF7bheY7wx4qcA2xwVWeqVkVtRtGw0a7JoKx4caxl
-	 biExNr3oWmcRFZn+w8PC4yN0nxTavncb4KzZyyU8fIuqD4L32WsJnZWyK2fKNsbXPyg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mihQV4ct;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792675900;
+	b=BlRRTcyGAKro+LEM08PXE2NWvOWfwj412sB2Oe+kE7kqmlGXZOZ9nT+f6mIZIKXz61OK
+	 iYhaVDIQiohOomHrHIEcMWW+LN5kNVob0KWLg9TARFDWqPrUEYr3kpcuQ3Mcpck8eCCXT
+	 8+G/sG9txqgQd/tiHtBQt0Ds/24T5ehedp6d9iR881W+LQzxSs7gaF1L+RSNEwySbCtUH
+	 mydsVSpeWXEOXqCm6v4bcO1oGPsuxTk9TB/cCCOvw162eKTXFCottZQiAy2VfXqCoDkYj
+	 gHK8sN2fZUB/QGx4EZc0clgE7h1I5+9+924ll3rdBmwiG5fl6XP3/dSnYREzXCNEpjw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792675900;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=BIdLDKvZ8Gb9KO82Yn9OgQ6TjBbb88LPc8iOmBN900k=;
+	b=Os3fuDOBr83wtKIbe6N8KVdBixVpSNcJf/M8NmfQ99qya9LJTMBroW5VRAQpNKvMpZ81
+	 65aDnd8Rx/dSlYmZ/4BPW0FZL25swAm8SpZFwAuW/HzBUxi9g1BEYulm8XyLsv341gbHm
+	 +p4FwyWyJdyMcQoyvzfRtkvKDNV4NN4ioaQ8eYVltVbZ1fLqUcB5qaA23Goc5e5gaII3D
+	 tiyL8hAzRsMQKxA2/Ib+gMK4KU1A1hNuoAAY3S9sgkj/1jGLax5gh8vKICUzR05euXaJr
+	 eCkZMcq9o/w2gxS9dbzx2aqbf5HWgWhPd4xGbs236NMZGhlDiTbWqKcNghKBOe7UzIA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GpMd3A4p;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 322E2606A31B;
+	Thu, 22 Oct 2026 13:31:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GpMd3A4p
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792675899;
+	b=uW/E/EK1GITkEqk0IjwSFb6g9K9gL7oi3mI/EEvfGmfOz2+WzkJtNaqwmOgRvXEpYvPO
+	 WbCfStobbEUCbcH0yr0c53+8JYvVDd7EXEOOM2qoHZp4sixVjjVJlrv8IhiDU929fPnuc
+	 xDu/kAIzjSW+qlFxHE/5dU1/56/Ze2BzJeTZTlBG7I/B3xzOw/wi5z4MjNXdT/zo4ChNA
+	 3fgBlK/DOSlMGXt+1dwSsiDwavOwU8poKiQ13wmKyvcrpXJsQ6Ueu/r7AfMXCpZ/5e4tk
+	 4ETKZA2UNjXvnoaUv1xnWG/1+vBbzrorcMokd5P4IZQ1FpOJZhDAtPVbi/C5UmqT51g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792675899;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=BIdLDKvZ8Gb9KO82Yn9OgQ6TjBbb88LPc8iOmBN900k=;
+	b=CPRC9TSa1/oZdgi+nrWCkwFNG0/nHMO44hwuSJkAZTKlxTQOL5Mo8eypz9URHml85jHd
+	 f8nSQVnVeFk3Ga2phouj2v5Z4N2HKDqD0vHNGM22moWVElA5r5ZM4P7DQ5VnR++69BSWQ
+	 DyKpPCLhmx+tkaXzlTQfV3qN6Jh+aFjVasYjDl5aRrwiju49mC2wvWvgwPYwhAB+FnwbI
+	 zPWY5/plgDPAOkB+4P1o3ptzMNfDS0E/QhLcUGUmwzv0JRp+QSN7acNiH4z2nvY6FhDXX
+	 sz22HFreTLqErUcSwhCV9tLQM5yrMcnWwKe/3gZHbq9eXhcSIr73/FayxNyI2XMY3gg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3AB606A31E
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 13:30:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D3AB606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mihQV4ct
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so15004005e9.0
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 06:29:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792675798; x=1793280598; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HDUAmNZcPxPev48FOk/77ScD0rraPEGB2IzDMOiukPk=;
-        b=mihQV4ctF7GgLgksS9/Md+9MgDcXfHQfbOKrD52tlOEglwuCnB+pgQRmUXixjX+qr+
-         EnKdESBUS/u4VWha5ayK/H7sQeHUwKnPhYnqcOmjcLqq1q3g14GTXPdbXF8vWuEL+ll/
-         TU43ZMCAeKf/ZCM0T4YVjv5px/8BxK9CwXWH3kJlM5oOv2EC8Hlu4945qa9R8WH++0Ir
-         n5GQ//TXwYtZwbGKbk0K6h1ZuIkMutRCeoqHd26oR7gLvR5Onw9zkA683Bk9WrDO3+uD
-         2XmPCzL9K4yJiUjn+GAYedGK4ydGmsJlPOujdirtHNkZGr+m0POrJRzP248yIUN4zOgg
-         YWbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792675798; x=1793280598;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HDUAmNZcPxPev48FOk/77ScD0rraPEGB2IzDMOiukPk=;
-        b=Wde3gsIrWwFn62hBv7SN4WBDStW6rTEDy/Bsqy3a9mH0rV8kfiWxGWAAx13/sU7Ole
-         sZifHgznzRjolfSpyIOHteA12yXm3FA15s/ucXw7O5t/fzAsa57ufFFQo4WF0uvqRaFN
-         xWrd3NX05Zh2CooO/w/IoUog/+8tr3sc488gTAFaAK4fqPbCf0HTy2IW1iZ2gZ/GuaR5
-         MuVZ2BP3XoFbFgF07xBb7pzqe6+UV8QIBd+VMNNVchyhiSodfqkAkQRCG3jx57XJo5U6
-         L8UraIB4cD2/I0aPx0FJllUxh5t1jru974sPyMca15OboAr/tUWwUUyvYxrRFDnu5djb
-         wRUA==
-X-Forwarded-Encrypted: i=1; AKwUvBzt42WEvjZfjs02KWH9gLX//Y/aq3AfdcRzw7uAyWkGfVzqatXpWOwEx8hI1Ji8B19p+/ekO3M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKAXLsT/AZdc31mt43jNcfhtyaijY4KWzKJn0LlrtsBZjBHdUYw
-	oqKXECzs6AGvly+cod/2tao0r0NR+MULwsRKl/bJ4peUu8NSCT9TAPK4
-X-Gm-Gg: AYBFou2gDXS15AXGzkvYdOCoCNBMdRAfv2DjPr4La7mvb119Gub0b3o7ii8n+emsBXb
-	Qy7YcVpTxGN+4A9E0nRqZSzgWRGVj58h7IRV2UP16OERSLFazpMRlLIVb7G3uj6rxJK+2qdD3aR
-	31DWgtcsmcRE5lOUBggQdTwQCZQImbmEqhgYrlBZIktl8d+ioxGBFIXmDBVDcLgvZhK/WJA/Kc5
-	gksFb7kPr7tw9MPH0XXnbWDZgfN1iyJMHg4zs+p9YXT5OPVlkZvPCyZdwZZ7aehx2531vwxBReO
-	Jc6KC6QCWHOyd7VhbfaL1nlVspiZUT9v9B3MRc2OMcOXedLMTy/r4sLN9WsuHmNZCVq/qaAQs1V
-	RzmQt3tPiyQJRQIDh89JZJ9RIKMzEzSGMXSjY431DsASaxzD/0YzftRbhwq0bKnh1sJpl+eZo9d
-	8O/MmNA/zcRxNfCAhFtzYk1+1QMxI6TIIRS1Lu/m5P0RuYe18cDhRLrDx+pdGqW0B7rzP2IfKeM
-	2SdJm+/LWbsNan1Yw+7Pd0YDZPD0kbSWiUPOq5A7EBDS+msOA7CGAAcWJdhR9pzMKNxT1xad0ei
-	5YBTwWmh3sXP/ycM6xoqYBGq
-X-Received: by 2002:a05:600c:540f:b0:4a1:dfaf:f465 with SMTP id 5b1f17b1804b1-4a1fd8cde00mr100975265e9.4.1792675798292;
-        Thu, 22 Oct 2026 06:29:58 -0700 (PDT)
-Received: from andreayoga.wind3.hub ([151.76.51.95])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fcd629bbsm108832715e9.5.2026.10.22.06.29.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 06:29:56 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Keith Busch <kbusch@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2 4/4] nvmet: pci-epf: require SGLs to match the command data length
-Date: Thu, 22 Oct 2026 15:29:33 +0200
-Message-ID: <20261022132934.3592924-5-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261022132934.3592924-1-parri.andrea@gmail.com>
-References: <20261022132934.3592924-1-parri.andrea@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 3FFBF1F000C1;
+	Thu, 22 Oct 2026 13:31:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792675899;
+	bh=BIdLDKvZ8Gb9KO82Yn9OgQ6TjBbb88LPc8iOmBN900k=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=GpMd3A4pyuxWGXlGZQfMaxq80VsrCRsK0c5BsUTxzVNb43mB5mXgXlP3ryDiOYalw
+	 AiO/pEPdRtn3lGDLaILyBcNTnHBCBhflJWBHOrwK8EEVipPHSaFwUKudSZkTX0DxLe
+	 7WYk7J6ViE7mVgO0R5gSupcaRTXeD8u8dqdN8bpZU2jzpv23z0B5Hzx9VXOxLrY+te
+	 HJ6ccwh0wH7j/EgnISvBmqPPd2EWqecObhzJ4+mTtykwoQuYw1Nc7PtzXhsu5bgO2l
+	 n2gKOPI1GVDAnPPmU33RuAjUQK5mrNNYPC4tHIjIhf/NdbbmxsZWP9zhYcqyExy54D
+	 jB4d/4N3uIp7A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id CA14743588;
+	Thu, 22 Oct 2026 13:31:38 +0000 (UTC)
+From: Daan De Meyer via B4 Relay <devnull+daan.amutable.com@kernel.org>
+Subject: [PATCH v3 0/2] loop, nbd: drop partitions left behind by the
+ GD_NEED_PART_SCAN removal
+Date: Thu, 22 Oct 2026 15:31:10 +0200
+Message-Id: <20261022-b4-loop-nbd-stale-partitions-v3-0-7c58ecab69c8@amutable.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,94 +84,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43OTU7DMBAF4KtUXjPIdps4dMU9UBcz9kCMkjjyu
+ BGoyt2xywaxgeWbn0/vpoRzZFHnw01l3qLEtNRwfDgoP+LyxhBDzcpq2+tB90AnmFJaYaEAUnB
+ iWDGXWOqfgA1Gc2Bn0KKqxJr5NX7c+ZfLd5YrvbMvzWwXhMJAGRc/ttGMUji3xRilpPx5L7aZB
+ vyzw2ZAQ++IXIdDcMTPOF8L0sSPPs2q1djsD8+e/vBs9Z4G02HnnGcKv7x9378AAM8qSEYBAAA
+ =
+X-Change-ID: 20260806-b4-loop-nbd-stale-partitions-2d10ede71a2a
+To: Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>, 
+ Josef Bacik <josef@toxicpanda.com>, 
+ Daan De Meyer <daan.j.demeyer@gmail.com>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ nbd@other.debian.org, Christoph Hellwig <hch@infradead.org>, 
+ Bart Van Assche <bvanassche@acm.org>, 
+ Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>, 
+ Daan De Meyer <daan@amutable.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792675886; l=2769;
+ i=daan@amutable.com; s=20260712; h=from:subject:message-id;
+ bh=3+PDMxnsl8G9ZlQLR/RlC4f2OkrLNO1Xhb37Ahs8XaM=;
+ b=cg2u2hn5E935C0FY3USY7C/0Oz9LXFC33XtW608UD/MlDeMedXfFIx20Y3vtT1osg+P6STlXH
+ UM1gcJ+K8XTDmxOFLQuO2dYE1oeOy0zMyGxbOdvl3kEfJ0mhamdKyXv
+X-Developer-Key: i=daan@amutable.com; a=ed25519;
+ pk=I1l+WwrtmzRgofA5SQ1wTuJi18fjh91w+f5uRkFeZEA=
+X-Endpoint-Received: by B4 Relay for daan@amutable.com/20260712 with
+ auth_id=868
+X-Original-From: Daan De Meyer <daan@amutable.com>
+Reply-To: daan@amutable.com
 
-The PCI endpoint target sends the host every byte a read command's SGL
-describes, even when the SGL describes more than the command transfers.
-The excess is kmalloc() memory the command never wrote, so the host
-receives stale target memory. Any successful read can do this,
-including Identify.
+Commit 267ec4d7223a ("loop: fix partition scan race between udev and
+loop_reread_partitions()") stopped disk_force_media_change() from setting
+GD_NEED_PART_SCAN. The caller audit in that commit only considered the bit
+as a request to rescan partitions, but it did more than that:
+bdev_disk_changed() drops every entry in disk->part_tbl before it consults
+disk_has_partscan(), and only the re-adding half is gated on partition
+scanning being enabled. The lazy scan on the next open was therefore also
+the only thing removing partitions from a device that has partitions but
+no partition scanning.
 
-nvmet_pci_epf_alloc_iod_data_buf() allocates each segment at the length
-of its SGL data descriptor, but sets req->transfer_len from
-iod->data_len, the length the command implies. Once the command
-completes, nvmet_pci_epf_transfer_iod_data() sends every segment in
-full. Nothing compares the descriptor lengths with iod->data_len, and
-the MDTS check only bounds iod->data_len.
+Loop devices without LO_FLAGS_PARTSCAN are exactly such devices, and they
+are not unusual. bdev_add_partition() only rejects GENHD_FL_NO_PART disks,
+so BLKPG_ADD_PARTITION works while GD_SUPPRESS_PART_SCAN is set, and
+parted, libfdisk and systemd all fall back to BLKPG when BLKRRPART fails
+with -EINVAL, which is what a loop device without LO_FLAGS_PARTSCAN
+returns.
 
-Fail the command with Data SGL Length Invalid when the data descriptors
-do not add up to iod->data_len, before any segment is allocated. The
-tcp and rdma transports take the data length from the SGL itself, so
-there most commands already reject a mismatch in
-nvmet_check_transfer_len(). PRP lists are built from iod->data_len and
-are unaffected.
+Commit c4f4c0fc551c ("loop: remove manually added partitions on detach")
+fixed the detach path after this was reported as loop devices picking up
+partition devices from a previously built image:
 
-Found by code inspection.
+  https://bugs.debian.org/1141434
 
-Fixes: 0faa0fe6f90e ("nvmet: New NVMe PCI endpoint function target driver")
-Cc: stable@vger.kernel.org
-Tested-by: Niklas Cassel <cassel@kernel.org>
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+These two patches fix the two remaining places that relied on the same
+lazy cleanup, LOOP_CHANGE_FD and NBD_CLEAR_SOCK.
+
+Regression tests for both paths have been submitted to blktests:
+
+  https://github.com/linux-blktests/blktests/pull/259
+  https://github.com/linux-blktests/blktests/pull/260
+
+Signed-off-by: Daan De Meyer <daan@amutable.com>
 ---
-For stable, this depends on patch 3/4: without it, the new Data SGL
-Length Invalid error is still reported to the host as a success.
+Changes in v3:
+- Rebase onto current mainline.
+- No functional changes.
+- Link to v2: https://patch.msgid.link/20260824-b4-loop-nbd-stale-partitions-v2-0-9815a577cebd@amutable.com
 
- drivers/nvme/target/pci-epf.c | 29 +++++++++++++++++++++++++++--
- 1 file changed, 27 insertions(+), 2 deletions(-)
+Changes in v2:
+- Rewrap the comments added by both patches so they fit in 80 columns
+  (Christoph Hellwig).
+- No functional change, so the review and test tags from v1 were carried
+  over.
+- Link to v1: https://patch.msgid.link/20260806-b4-loop-nbd-stale-partitions-v1-0-67bb75a8d7be@amutable.com
 
-diff --git a/drivers/nvme/target/pci-epf.c b/drivers/nvme/target/pci-epf.c
-index 099e8766f6d40..0cc198f87dec3 100644
---- a/drivers/nvme/target/pci-epf.c
-+++ b/drivers/nvme/target/pci-epf.c
-@@ -1070,10 +1070,22 @@ static int nvmet_pci_epf_iod_parse_sgl_segments(struct nvmet_pci_epf_ctrl *ctrl,
- 	return 0;
- }
- 
-+static u64 nvmet_pci_epf_iod_data_segs_len(struct nvmet_pci_epf_iod *iod)
-+{
-+	u64 len = 0;
-+	int i;
-+
-+	for (i = 0; i < iod->nr_data_segs; i++)
-+		len += iod->data_segs[i].length;
-+
-+	return len;
-+}
-+
- static int nvmet_pci_epf_iod_parse_sgls(struct nvmet_pci_epf_iod *iod)
- {
- 	struct nvmet_pci_epf_ctrl *ctrl = iod->ctrl;
- 	struct nvme_sgl_desc *sgl = &iod->cmd.common.dptr.sgl;
-+	int ret;
- 
- 	if (sgl->type == (NVME_SGL_FMT_DATA_DESC << 4)) {
- 		/* Single data descriptor case. */
-@@ -1081,10 +1093,23 @@ static int nvmet_pci_epf_iod_parse_sgls(struct nvmet_pci_epf_iod *iod)
- 		iod->data_segs = &iod->data_seg;
- 		iod->data_seg.pci_addr = le64_to_cpu(sgl->addr);
- 		iod->data_seg.length = le32_to_cpu(sgl->length);
--		return 0;
-+	} else {
-+		ret = nvmet_pci_epf_iod_parse_sgl_segments(ctrl, iod);
-+		if (ret)
-+			return ret;
- 	}
- 
--	return nvmet_pci_epf_iod_parse_sgl_segments(ctrl, iod);
-+	/*
-+	 * The command executes on data_len bytes, but each segment is
-+	 * allocated and transferred in full, so they must describe exactly
-+	 * data_len bytes.
-+	 */
-+	if (nvmet_pci_epf_iod_data_segs_len(iod) != iod->data_len) {
-+		iod->status = NVME_SC_SGL_INVALID_DATA | NVME_STATUS_DNR;
-+		return -EINVAL;
-+	}
-+
-+	return 0;
- }
- 
- static int nvmet_pci_epf_alloc_iod_data_buf(struct nvmet_pci_epf_iod *iod)
--- 
-2.53.0
+To: Jens Axboe <axboe@kernel.dk>
+To: Daan De Meyer <daan.j.demeyer@gmail.com>
+To: Christian Brauner <brauner@kernel.org>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: linux-block@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: nbd@other.debian.org
+
+---
+Daan De Meyer (2):
+      loop: drop stale partitions on LOOP_CHANGE_FD
+      nbd: drop stale partitions on NBD_CLEAR_SOCK
+
+ drivers/block/loop.c | 10 ++++++----
+ drivers/block/nbd.c  |  7 +++++++
+ 2 files changed, 13 insertions(+), 4 deletions(-)
+---
+base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
+change-id: 20260806-b4-loop-nbd-stale-partitions-2d10ede71a2a
+
+Best regards,
+--  
+Daan De Meyer <daan@amutable.com>
+
 
