@@ -1,64 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792661952;
-	b=TeAHjzmFSawgIKRRp32A5oaFx8aWYfeTM2PkJM2TvvFkbt2YO0tBfreFuHNfoIcZYjrz
-	 rpOk6xUgeXbpXEcajWnFKO8t19FDApbx3Yi0lOn6PWvgPsXniUAfVdPszNuyPNVCA89Ss
-	 yuRT0QTEEMQyVf25ZT9995aBxLRjkYQDTjdh+78SjiYvE4I7ZXYhDAt6+e88+SuIiRbjc
-	 86S9oQlMV1Rt4SCP2rvuIsw8xsEAovwYusSP3EHqW2daK+LBrsIX4QuNBueE+soMO87YZ
-	 mK8rPWCYKtSnMIVnWeQp+XVGlzeuM6WP5QnRmH2hUPcyrA0BLwz3ZfuqrWopjDSwCkg==
+	t=1792661948;
+	b=G4JGlbzmpaQvd/CKQ5rPZFaW2hwfJycS73A9SGxN7XyFnFH+nD916gDqI6dG0Ln07jlk
+	 FzOrz9FeiGpHBw1Ztx0SXbpOb1lD0Hm5aFhgIRh9DuEwBjol35ehII1Yvdy3HnsmiokRi
+	 qBh5RQfOqPPYpXyfgeBguvZrb7J2/r0s7oSPDMsid82w3lGcDcjmc0CSJwLI3eWU8/CNU
+	 Y3DNzKkkvVRZXDa5m6BukqZdYysaR6aKiys6ODDcxEUytKjvZvUEYDKKuHt7ENoBj3FHP
+	 6XoS0NpJjTBHeTHK20AgV3KJlwfc4P5r6YAoO3TJznaowfNQadkYXxniqIVdRD7Q9dQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792661952;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792661948;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Rspamd-Queue-Id;
-	bh=Omxv2Mm8QufsZ7qulUJXdVEh66B2cIV2QhPW4FgWnTE=;
-	b=bGXkUXT3A/NXNOqWJ5i6Brsnb394AhfZVTUfFPk1jp8ZxXIuoSMn9QrCQ4aEHj76jirX
-	 IalhfDV3NmVZGvYuWdNwMYbRg+0QJ6Ye0bwTM8Pez1wAofH5Dv3/KEE6+Q0R/UimrBqKF
-	 7t90/HhV/0ugw96JzE+Nx5HtqqP5UZ1MROv6dFgzd/rgQWNdJFsbXwiAoZc04EbXHogo3
-	 DW10AGJrASrM1NjIr9kWk9j2NVK8ZAG30RTpg3TzOA8zZpp5Q6dCshi3B3nDYSA0xU9Ri
-	 FsHEQkvViq87GLKq5Z31zllXBre6Oa9PbKcb6FJTqrWOPMZaHmfscgaRYQjBCwaboNw==
+	bh=DQQ6Ux9jXPPYVl3eL1qiITspn2MEQEJ2iHgUWM8g/LM=;
+	b=M+wxwN9jTrnjN9C1yRG5VPWUNqBTSpvf7jxK2XWZxXZBj14YIbY7mXME2PmsujGxC/sy
+	 W8Wzukk4O5nUCcJ7R1nAqwIYW//1dW8T5SXWJxJflZ/TpH0zBB6bFwV+E4ylbSwuQIqHt
+	 3n0ZeFX92w7MJsgzUCtWBMeotWkNdOXXNZwm6WLEWzok2QNr16ZsRJY/foWIgvAmUPeEH
+	 9QNi1TUhYN+tYvxecufscYepR/kPz2RGjYEXWf70MRSJzhbE3eufv/wk690RuRvuokEPE
+	 xtV0vd6Ko2T5Zz+wY7+d9pr7AWD9EAXPf4FD8dNlakt2CUkF4i11M+iEAPNFdxPkkCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=steffen.cc;
 	spf=pass smtp.mailfrom=steffen.cc;
-	dkim=pass header.d=steffen.cc header.i=@steffen.cc header.a=rsa-sha256 header.s=MBO0001 header.b=LqashFgF;
-	arc=none smtp.remote-ip=80.241.56.172
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	dkim=pass header.d=steffen.cc header.i=@steffen.cc header.a=rsa-sha256 header.s=MBO0001 header.b=UymfAfX9;
+	arc=none smtp.remote-ip=80.241.56.152
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C4FE60A261B;
-	Thu, 22 Oct 2026 09:39:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C4FE60A261B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980C1606A319;
+	Thu, 22 Oct 2026 09:39:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 980C1606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=steffen.cc
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=steffen.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=steffen.cc header.i=@steffen.cc header.a=rsa-sha256 header.s=MBO0001 header.b=LqashFgF
+	dkim=pass (2048-bit key, unprotected) header.d=steffen.cc header.i=@steffen.cc header.a=rsa-sha256 header.s=MBO0001 header.b=UymfAfX9
 Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j9LhD0Hz3zMljH;
-	Thu, 22 Oct 2026 11:39:08 +0200 (CEST)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4j9Lh82CL3zKn28;
+	Thu, 22 Oct 2026 11:39:04 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=steffen.cc; s=MBO0001;
-	t=1792661948;
+	t=1792661944;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Omxv2Mm8QufsZ7qulUJXdVEh66B2cIV2QhPW4FgWnTE=;
-	b=LqashFgF/yJ+c5ct6+HTVskDLtlI+t7FFP7iMsyr9eXXGenk5H+0Kl+VrMsPFP68QSzamq
-	VtZ0MJSzjZ61Lxjor6q13Gbr3hf5niB0NWQ6zqGwGnp0PGPQrcxJWXH7bJC0I1C5Krj++l
-	IemLsNk6ctv1Jqk6kA8FnqGKyHmDTWx+D5IKGufzK39fnBmt9gw+HtHjlqXG17ODxre7Ke
-	w+itnRMZvjXK4urXLVTVV1NttCC6gqV6+U+y9S0N1i91TdL1yNwQ9yEwiB1WoeAYUgKXr9
-	/OLbnHviWnskTGbVv3cXjV7Xq7muPZ4brjpPMNslTOI5MY1YhQeLo+ncc0la2g==
+	bh=DQQ6Ux9jXPPYVl3eL1qiITspn2MEQEJ2iHgUWM8g/LM=;
+	b=UymfAfX9PRzbKHIOEPe/VKBMbOH0baGrQoa6B9xchnZupYAkYr9RAX/JVh4EseZlkAV9z4
+	i7YyV+7XK8u9QhfMnPx8Yc/lsLWZnrPJd67dI9iLJIHsPHrh7HiPmziDAIzl0Y90EaenOB
+	nom3lTwZBJlbizxYu+Te+LhpeKpyju0qfOaT36QgO8nVTCe269M1ACwmTo4uV4mzuVPAp1
+	EMpMhMCExjNLXe+YCXtltHwBiaKerqrTTeAwqreDQrz4GJPP98YI8pLCWpbMrxe252DMEs
+	59bvoZFl0I4VJsG1EfWszJPlUaxHCe56kS4JfpImkiQvH2+7ZSg/N0r4phBkWA==
 Authentication-Results: outgoing_mbo_mout;
 	dkim=none;
 	spf=pass (outgoing_mbo_mout: domain of lists@steffen.cc designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=lists@steffen.cc
 From: Steffen Dirkwinkel <lists@steffen.cc>
-Date: Thu, 22 Oct 2026 11:38:49 +0200
-Subject: [PATCH RFC net 4/6] net: macb: rotate unreaped TX frames behind
- the ring base on link-up
+Date: Thu, 22 Oct 2026 11:38:47 +0200
+Subject: [PATCH RFC net 2/6] net: macb: reprogram TBQP after shuffling the
+ TX ring on link-up
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,7 +70,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-std-macb-v14-send-v1-4-9187bc545bf6@beckhoff.com>
+Message-Id: <20261022-std-macb-v14-send-v1-2-9187bc545bf6@beckhoff.com>
 References: <20261022-std-macb-v14-send-v1-0-9187bc545bf6@beckhoff.com>
 In-Reply-To: <20261022-std-macb-v14-send-v1-0-9187bc545bf6@beckhoff.com>
 To: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
@@ -85,136 +85,80 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-rt-devel@lists.linux.dev, 
  Christian Taedcke <christian.taedcke@weidmueller.com>, 
  Nicolai Buchwitz <nb@tipi-net.de>, 
- Andrea della Porta <andrea.porta@suse.com>, 
- Steffen Dirkwinkel <s.dirkwinkel@beckhoff.com>, stable@vger.kernel.org
+ Andrea della Porta <andrea.porta@suse.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792661936; l=4726;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792661936; l=2872;
  i=s.dirkwinkel@beckhoff.com; s=20260625; h=from:subject:message-id;
- bh=0viIiPU5WIpc/1LXbcjtKBH7YCYP4VkmvYvGZraIf5U=;
- b=rruHMCKOATDsnv/RfRgb5KzHk+BU3c3Locf39Q0+WJOX3wtjJbbOEzTXEFYodbQvRYrL6UNxe
- yCTIwqVKMofCCZrkUIgara9UD9XX8daqiqRZSew5ocVT5o80kt0Ed+B
+ bh=PVXdyWnGxC/U+cT1+etV6P/qyYxZAkjmK8bSnBlzMjM=;
+ b=kGrSYFlMrLIcORqZZ7UPZaFYiwTWg0ekvlY8Sc8NpclG7BoxG6ZCvoDzUfwV/p+9DcW++/3XW
+ Ac8pCcKPAU3AaYJ1Q7okRvv49oTE+lJDYYAZR7sF1oiggbWQKLRAsqV
 X-Developer-Key: i=s.dirkwinkel@beckhoff.com; a=ed25519;
  pk=5DcsaSpVtmm7nCi3Bnw5A4vbXI+sg3hBgt8e2A2U/gw=
-X-Rspamd-Queue-Id: 4j9LhD0Hz3zMljH
+X-Rspamd-Queue-Id: 4j9Lh82CL3zKn28
 
-From: Steffen Dirkwinkel <s.dirkwinkel@beckhoff.com>
+From: Christian Taedcke <christian.taedcke@weidmueller.com>
 
-Start the link-up rotation in gem_shuffle_tx_one_ring() at the first
-frame that still has to be sent instead of at tx_tail, and schedule the
-TX NAPI poll once transmit is enabled again.
+gem_shuffle_tx_one_ring() rotates the software TX ring so that the
+tail sits at index 0 and resets queue->tx_tail to 0, but it never
+reprograms the hardware transmit buffer queue pointer (TBQP). Other
+paths that reset tx_tail to the ring base (macb_init_buffers() and
+macb_tx_error_task()) also reprogram TBQP to queue->tx_ring_dma; this
+path does not, leaving TBQP pointing at a stale descriptor.
 
-macb_mac_link_down() masks TCOMP before disabling transmit. A frame
-completed in that window keeps the used bit on its first descriptor and
-is never reaped. The rotation moves it to index 0, where the controller
-starts after link-up, reads the used bit and stops; macb_tx_restart()
-then keeps writing TSTART onto the same descriptor, an interrupt storm
-that on PREEMPT_RT ends in RCU stalls.
+gem_shuffle_tx_rings() runs on every link-up from
+macb_mac_link_up(). After a few link up/down flaps that leave
+un-completed descriptors in the ring, the stale TBQP keeps pointing at
+a descriptor whose used bit is set. When TX is re-enabled on link-up,
+the GEM reads that used descriptor and raises TXUBR. macb_interrupt()
+schedules the TX NAPI, macb_tx_poll() makes no progress (work_done ==
+0) and macb_tx_restart() re-issues TSTART, which makes the controller
+read the same used descriptor again and re-assert TXUBR. As the MAC
+interrupt is level-triggered, it never deasserts and one CPU is pegged
+at 100% in the threaded handler, eventually triggering "sched: RT
+throttling activated" and a dead network interface.
 
-Keeping the completed frames behind the ring base leaves tx_tail on
-them for NAPI to reap. Reaping in link-down instead would have to wait
-for NAPI there, which deadlocks against macb_close() and the PM
-callbacks disabling it.
+Fix it by reprogramming TBQP to the ring base on every path of
+gem_shuffle_tx_one_ring() that resets tx_tail to 0, mirroring
+macb_tx_error_task(). The early return for an already-aligned tail is
+left untouched as TBQP is already consistent there. This is safe
+because the shuffle runs from macb_mac_link_up() while TE is still
+disabled, so the transmitter is halted.
 
 Fixes: 881a0263d502 ("net: macb: Shuffle the tx ring before enabling tx")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Steffen Dirkwinkel <s.dirkwinkel@beckhoff.com>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Christian Taedcke <christian.taedcke@weidmueller.com>
 ---
- drivers/net/ethernet/cadence/macb_main.c | 43 +++++++++++++++++++++++---------
- 1 file changed, 31 insertions(+), 12 deletions(-)
+ drivers/net/ethernet/cadence/macb_main.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 14c8299cb7f3..6e7ead23d0b7 100644
+index 4b5037867537..97494933eb1e 100644
 --- a/drivers/net/ethernet/cadence/macb_main.c
 +++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -798,7 +798,7 @@ static void macb_mac_link_down(struct phylink_config *config, unsigned int mode,
- /* Use juggling algorithm to left rotate tx ring and tx skb array */
- static void gem_shuffle_tx_one_ring(struct macb_queue *queue)
- {
--	unsigned int head, tail, count, ring_size, desc_size;
-+	unsigned int head, tail, count, ring_size, desc_size, start, done;
- 	struct macb_tx_skb tx_skb, *skb_curr, *skb_next;
- 	struct macb_dma_desc *desc_curr, *desc_next;
- 	unsigned int i, cycles, shift, curr, next;
-@@ -817,8 +817,19 @@ static void gem_shuffle_tx_one_ring(struct macb_queue *queue)
- 	ring_size = bp->tx_ring_size;
- 	count = CIRC_CNT(head, tail, ring_size);
- 
--	if (!(tail % ring_size))
--		goto unlock;
-+	/* Frames completed while link-down had TCOMP masked are still
-+	 * unreaped and their used bit would stop the controller at the ring
-+	 * base, so rotate the first frame still to be sent there instead.
-+	 */
-+	rmb();
-+	for (start = tail; start != head &&
-+	     (macb_tx_desc(queue, start)->ctrl & MACB_BIT(TX_USED)); start++)
-+		while (start + 1 != head && !macb_tx_skb(queue, start)->skb)
-+			start++;
-+	done = start - tail;
-+
-+	if (!(start % ring_size))
-+		goto reset_hw_ptr;
- 
+@@ -823,7 +823,7 @@ static void gem_shuffle_tx_one_ring(struct macb_queue *queue)
  	if (!count) {
  		queue->tx_head = 0;
-@@ -826,7 +837,7 @@ static void gem_shuffle_tx_one_ring(struct macb_queue *queue)
- 		goto reset_hw_ptr;
+ 		queue->tx_tail = 0;
+-		goto unlock;
++		goto reset_hw_ptr;
  	}
  
--	shift = tail % ring_size;
-+	shift = start % ring_size;
- 	cycles = gcd(ring_size, shift);
- 
- 	for (i = 0; i < cycles; i++) {
-@@ -866,24 +877,23 @@ static void gem_shuffle_tx_one_ring(struct macb_queue *queue)
- 		       sizeof(struct macb_tx_skb));
- 	}
- 
--	queue->tx_head = count;
--	queue->tx_tail = 0;
-+	queue->tx_tail = done ? ring_size - done : 0;
-+	queue->tx_head = queue->tx_tail + count;
- 
+ 	shift = tail % ring_size;
+@@ -872,6 +872,13 @@ static void gem_shuffle_tx_one_ring(struct macb_queue *queue)
  	/* Make descriptor updates visible to hardware */
  	wmb();
  
- reset_hw_ptr:
--	/* tx_tail was reset to the ring base, so TBQP must be reprogrammed
--	 * to match; otherwise it keeps pointing at a stale descriptor. Safe
--	 * to write directly here as TX is still disabled (called from
--	 * macb_mac_link_up() before TE is set).
-+	/* The first frame to be sent is now at the ring base, so TBQP must
-+	 * be reprogrammed to match; otherwise it keeps pointing at a stale
-+	 * descriptor. Safe to write directly here as TX is still disabled
-+	 * (called from macb_mac_link_up() before TE is set).
- 	 */
- 	queue_writel(queue, TBQP, lower_32_bits(queue->tx_ring_dma));
--unlock:
++reset_hw_ptr:
++	/* tx_tail was reset to the ring base, so TBQP must be reprogrammed
++	 * to match; otherwise it keeps pointing at a stale descriptor. Safe
++	 * to write directly here as TX is still disabled (called from
++	 * macb_mac_link_up() before TE is set).
++	 */
++	queue_writel(queue, TBQP, lower_32_bits(queue->tx_ring_dma));
+ unlock:
  	spin_unlock_irqrestore(&queue->tx_ptr_lock, flags);
  }
- 
--/* Rotate the queue so that the tail is at index 0 */
-+/* Rotate the queue so that the first frame to be sent is at index 0 */
- static void gem_shuffle_tx_rings(struct macb *bp)
- {
- 	struct macb_queue *queue;
-@@ -958,6 +968,15 @@ static void macb_mac_link_up(struct phylink_config *config,
- 	macb_writel(bp, NCR, ctrl | MACB_BIT(RE) | MACB_BIT(TE));
- 	spin_unlock_irqrestore(&bp->lock, flags);
- 
-+	if (!(bp->caps & MACB_CAPS_MACB_IS_EMAC)) {
-+		/* Reap the frames completed while link-down had TCOMP masked */
-+		local_bh_disable();
-+		for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue)
-+			if (READ_ONCE(queue->tx_tail) != READ_ONCE(queue->tx_head))
-+				napi_schedule(&queue->napi_tx);
-+		local_bh_enable();
-+	}
-+
- 	netif_tx_wake_all_queues(netdev);
- }
- 
 
 -- 
 2.56.0
