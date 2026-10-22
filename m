@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792680572;
-	b=G3gY1r/8NRgD7TGKduyO2Ce+yCo6Mmq11ZLhFehtx+4dBtjWS1soc7Gzad3UNz/MOsj0
-	 ++swa/QtHu/Pe6w5DKw/N3qeN7p+UfTsvPwj52gCDQWYl10AFmSQ5e0LeHzBSKLDFjIcg
-	 M/qL7zErFt89DrTTL5ESjka6uY3WJ2DLbVw8J0icNBeY1Kdv/H/f2EBKvK90eq5v7p7ON
-	 tBfiYuElD62R6hIGtTKJRozw8csSYUW/Jwjz8pehl5Y7cCQtlgMxprWKRxpKjblA4X5nr
-	 Vcs/RNx9JWtJvN0bE+3TUEif5th5jUmdAf9OTpNvYxaYZHpwr8ot2tNF8OBl1BVFkpg==
+	t=1792680606;
+	b=MjMHpssuZPWLPsnCLen6Pjvv4wX8nAnARYVkVCYq7lMa0N/CEIq3AqETY8QEgybBey1Z
+	 mEZjIFklQoNLgTs/yq6N2KMDxwF7xlKO9yPdTQQwmhE7esBXPjCR64d1GD/oShoUg4DL1
+	 LiZzhZ5kDtdW2RWjAu8KHoMNjBmfdI7LRyNQ6ScpESgR3BtkzrJwVFTIKSLwZMmu20Mee
+	 BjKDO2p3/rCLtYOLTzenz2pI99xUGj9Flo/kZuW2Z57qR1Hk/O3J5FWoNljOOfB4s5vTA
+	 IOFURputEweJKeiyJdVrsvopwmXwECR0AqVOoHpwvnA3kXesHRSO7+WzNTFtwOK2TPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792680572;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792680606;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=0aGDuZUxKpoClzz6d4lSZ2bW+2WDlBNYNEmjPRhlvjk=;
-	b=CWW4+oxNwdBrYGK91eL4BKzL3uc5wNEvtSHwTdDAbvCcqovFw8wGWYtVfjNv9gIb8Fa0
-	 s3BIlXERuXTe9bP3W0hPfc2LldGkUMcICWyYlSlTVxz6A8Ehczmn+WrcgXBLfRTL6+iZj
-	 Ow7hQcH7m1KmYgI0n3+v971HiaocV2Ef+Nhmtn7Q0Ix8XK5W0kSHaAZ6jHLmA+2D2oOu4
-	 meXJM7McibQ6a5vwYEi4WNxE8T1FoMcbvS5QjLt/g7vVI5q3sfhmj7Rh6mx+CrAJkWEQ2
-	 B9T6VyEUtY1I9DAX4BgOty1BmFNkim872iO1fsF2rBtT+OZ7VMT6t2ANL28lvuV/Vrw==
+	bh=0nxzWjWTncpXKqMiUQkEcupUXgWcJgw0HwU/2CIau6I=;
+	b=VgNUDs4AMiI10FXiT794MTHttqY5g0CtnQ3/VGmkO451+//g7VNyY4ShvSNypfqLwaou
+	 8bzY7EgakTUbFh9y+Izb9ynH8waaCoktCWg+G1OGX3fZFXQT4iu48KonVWLBdHJ7+XWBJ
+	 KrvRpLZJHo16YY/+3jgXzZZmYQdfy6PUxn6rATQIqat+6pw7WWv5+r+oqAeBw/V2/YtFe
+	 XxfBXvaxCvzpM/d0E5PmkdE6ClGFvFXjeqWMidKwh9yt0vxYeSqKH1GrdhmOJChOTMaxI
+	 74p11sHG9mzqi46jQcMWgJQUcrGwhZS39YF5dRxg1B+x7yASaLaYMmkdXLmfaN6HobA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AOh4RsER;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IegnJPI5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F974606A328
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:49:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2CE5606A320
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:50:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AOh4RsER
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4594F1F000C3;
-	Thu, 22 Oct 2026 14:49:31 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IegnJPI5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E411D1F000C1;
+	Thu, 22 Oct 2026 14:50:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792680572;
-	bh=0aGDuZUxKpoClzz6d4lSZ2bW+2WDlBNYNEmjPRhlvjk=;
+	s=k20260515; t=1792680605;
+	bh=0nxzWjWTncpXKqMiUQkEcupUXgWcJgw0HwU/2CIau6I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AOh4RsERkUWEo8JNrx/QdWiT6GYL5t0VwrVF9S4rbxnNB5EWlo+0GH22+4ciUT6av
-	 HrbkHcFEpadIPA5Px8D/Od4aHE8trpbCADRZ63606HD2lgeGaIB2w2sQFCrg5ET+wW
-	 77tLl78+Be8ehTu67Rv4ippeZtqJcOsCn7wcMvz6mZ5JuZ1LsD9NwJw0n3gHLKA0Y2
-	 SPxVi274VcOzzAy/w771AXCXlz+W/wjdlJuSwzooHAvzeimGfW4EISTH6T2cpAr2iV
-	 hzOef8fUK85INTHUq8TFdlRHwPZocePu+XiMaRpfUzE3gsX3AKwcWhiSaYr6pQBN0h
-	 XtmVosFc/04Yg==
+	b=IegnJPI56vm8KFSwf70GBi3SOvkws8wlmGj1j8PF3NEny7oHK06brPzBBnXV7y5Ey
+	 GtKuMwHT1D7WSkEUBVTayGvCeQzKedd/5eKFnFftktQWMBsaUvJqtgOU1QuzOfIU34
+	 psnBpjbul04771rvRgPqC9AR+FFNwGPXBg4hPjfgklqq/T0lgeG2QUbHcv2eZgj0bQ
+	 0X0yXp1s8kHqvlfQKyXUcsNEoTnkqONF/GO88ktiOG2EZuBtUqL1HPpl5hEa52dCsm
+	 a1Os6ue7HdT8ZxR5c4a3/wXDtteYnxV1a9Q2JGhuOSQkHSxrx6jGw2KCp3YY0ZFB7Z
+	 Sm8fThYRYkuBQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yun Zhou <yun.zhou@windriver.com>,
-	syzbot+837bcd54843dd6262f2f@syzkaller.appspotmail.com,
-	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cem@kernel.org>,
+Cc: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>,
+	AutonomousCodeSecurity@microsoft.com,
+	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] xfs: don't hold buffer locks across sync transaction commit in xfs_sync_sb_buf
-Date: Thu, 22 Oct 2026 10:49:30 -0400
-Message-ID: <20261022144858.1630581-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] io_uring/cancel: don't spin on local work the task can't run
+Date: Thu, 22 Oct 2026 10:50:03 -0400
+Message-ID: <20261022144856.1619302-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102121-jacket-unbridle-f8af@gregkh>
-References: <2026102121-jacket-unbridle-f8af@gregkh>
+In-Reply-To: <2026102128-salvation-quack-0ba4@gregkh>
+References: <2026102128-salvation-quack-0ba4@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,73 +62,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yun Zhou <yun.zhou@windriver.com>
+From: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
 
-[ Upstream commit 41a28c865d1d5843f8cb9e0af17a8f4d9e2961ff ]
+[ Upstream commit fddcf4c5321b3ea5f72166c3fd36a9d1c34f80c7 ]
 
-xfs_sync_sb_buf() holds sb/rtsb buffer locks across a synchronous
-xfs_trans_commit(), which flushes the CIL push workqueue internally.
-If shutdown occurs during the CIL push, xfs_buf_item_unpin() needs to
-lock these buffers to fail them, causing a deadlock:
+io_uring_cancel_generic() refuses to sleep while any ring on the exiting
+task's tctx has local work pending. It assumes the task is that ring's
+submitter and that the next io_uring_try_cancel_requests() pass will run
+the work. This does not hold for a ring that was still
+IORING_SETUP_R_DISABLED when the task got its tctx node from
+io_uring_create() or io_ringfd_register(). The submitter is set later by
+IORING_REGISTER_ENABLE_RINGS, possibly from another task, and only the
+submitter may run local work on an IORING_SETUP_DEFER_TASKRUN ring. To
+the exiting task the work stays pending forever, the loop never reaches
+schedule(), and the task trips the WARN_ON_ONCE() once and then spins in
+do_exit().
 
-  setlabel:          holds buf lock -> flush_workqueue(xfs-cil)
-  CIL push worker:   xfs_buf_item_unpin -> xfs_buf_lock(same buf)
+An unprivileged user can set this up at will by creating a disabled
+ring, having a child enable it and stop, posting to the ring with
+IORING_OP_MSG_RING and exiting with a request in flight that only the
+child can complete. The exiting thread burns a CPU until the child runs
+or dies, and with panic_on_warn set the WARN panics the kernel.
 
-Remove the xfs_trans_bhold() calls so that commit releases the buffer
-locks normally.  After the sync commit, re-acquire the buffers via
-mp->m_sb_bp / mp->m_rtsb_bp for the on-disk writeback.
+Fix by skipping the sleep only when io_allowed_defer_tw_run() allows the
+task to run the work. This is reasonable since work it cannot run cannot
+complete any of its requests either, so nothing is lost by sleeping.
+Drop the WARN_ON_ONCE() since handing a disabled ring to another thread
+is a supported scenario, not a bug state.
 
-Fixes: f7664b31975b ("xfs: implement online get/set fs label")
-Reported-by: syzbot+837bcd54843dd6262f2f@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=837bcd54843dd6262f2f
-Cc: stable@vger.kernel.org
-Signed-off-by: Yun Zhou <yun.zhou@windriver.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-[ sashal: Omitted realtime superblock changes because the existing code lacks realtime superblock support. ]
+Fixes: 360cd42c4e95 ("io_uring: optimise io_req_local_work_add")
+Reported-by: AutonomousCodeSecurity@microsoft.com
+Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <cenzhang@linux.microsoft.com>
+Link: https://patch.msgid.link/20261008191602.45101-1-cenzhang@linux.microsoft.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+[ sashal: Used !llist_empty(&node->ctx->work_llist) instead of the unavailable io_local_work_pending() helper. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/libxfs/xfs_sb.c | 17 +++++++----------
- 1 file changed, 7 insertions(+), 10 deletions(-)
+ io_uring/io_uring.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/fs/xfs/libxfs/xfs_sb.c b/fs/xfs/libxfs/xfs_sb.c
-index f4656d17121eb..279e174fba8ac 100644
---- a/fs/xfs/libxfs/xfs_sb.c
-+++ b/fs/xfs/libxfs/xfs_sb.c
-@@ -1150,26 +1150,23 @@ xfs_sync_sb_buf(
- 	struct xfs_mount	*mp)
- {
- 	struct xfs_trans	*tp;
--	struct xfs_buf		*bp;
- 	int			error;
- 
- 	error = xfs_trans_alloc(mp, &M_RES(mp)->tr_sb, 0, 0, 0, &tp);
- 	if (error)
- 		return error;
- 
--	bp = xfs_trans_getsb(tp);
- 	xfs_log_sb(tp);
--	xfs_trans_bhold(tp, bp);
- 	xfs_trans_set_sync(tp);
- 	error = xfs_trans_commit(tp);
- 	if (error)
--		goto out;
--	/*
--	 * write out the sb buffer to get the changes to disk
--	 */
--	error = xfs_bwrite(bp);
--out:
--	xfs_buf_relse(bp);
-+		return error;
-+
-+	/* Re-acquire and write the sb to disk. */
-+	xfs_buf_lock(mp->m_sb_bp);
-+	error = xfs_bwrite(mp->m_sb_bp);
-+	xfs_buf_unlock(mp->m_sb_bp);
-+
- 	return error;
- }
- 
+diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+index 0076c7599c947..68a21552a186f 100644
+--- a/io_uring/io_uring.c
++++ b/io_uring/io_uring.c
+@@ -3190,12 +3190,11 @@ __cold void io_uring_cancel_generic(bool cancel_all, struct io_sq_data *sqd)
+ 		prepare_to_wait(&tctx->wait, &wait, TASK_INTERRUPTIBLE);
+ 		io_run_task_work();
+ 		io_uring_drop_tctx_refs(current);
++		/* only skip the sleep for local work this task may run */
+ 		xa_for_each(&tctx->xa, index, node) {
+-			if (!llist_empty(&node->ctx->work_llist)) {
+-				WARN_ON_ONCE(node->ctx->submitter_task &&
+-					     node->ctx->submitter_task != current);
++			if (!llist_empty(&node->ctx->work_llist) &&
++			    io_allowed_defer_tw_run(node->ctx))
+ 				goto end_wait;
+-			}
+ 		}
+ 		/*
+ 		 * If we've seen completions, retry without waiting. This
 -- 
 2.53.0
 
