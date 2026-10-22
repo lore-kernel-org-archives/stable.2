@@ -1,101 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792636093;
-	b=pDwQqJFgi6Is2OEpHW226WrfRFsT7mXoSPXwtxxf819AHEgzJlITYLIUXqJq1d5Vld4R
-	 OqnoL+xFQE8nTZL60iVugBnyHbh1ibFDdkAjYiF3QKodZDvrcjaEey7Lz3owxS2+bflqY
-	 E+ex0HAVREGAkcp9IVUQByXz+8ghrqRcEuc8NMXGsTWy5oOMIBUm/Bk7BSPKdEA8gaOd2
-	 Pt7KcqjE2VjErPX+w0bviivo8MVaZBmMBCFWRvBgj6lDFQuLLTYApx6mnegKExGZBd/Z8
-	 zVgfr+chhG28jBnUSNeQCq9utDaJhCWD6Q4Upor7nsn4ah9KG7HJOEHPPCZVdf8bY5Q==
+	t=1792636209;
+	b=MZnALd/0aZMEtNybqAOlqrXcpxGAarNHcye5tWzVUr6SFhSFjYcBBVL0fzeqfJrWEwcp
+	 m1+3qupakm4y83vfWrFCrsdDDvTNMU5AZV/N3W/rV+qPdKU9722x2Y2jYW6KCNsNiT68x
+	 weJkTX4rJHgo0/5Mj6YM5j89go/WvUITN07zyvB5iTS2bAHGOHXQk5xFq4fGSUDKlby7Q
+	 o5H71EycsFUDdr8z1r2BWbiSdEoWgRrl9i4JA4CrI7k+RA61DFhy3qS/wxOuaUM0tMQnZ
+	 cf9P0b9+SxmKko2aNTSlpH2SVT5G36f4iUdhzCdxRADUB8gZt+/fZjCUlMDh6wx8vOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792636093;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792636209;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:From:To:Subject:Date:Cc:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=xruEMXmxKsYyy3/7Uv5aUsYVZ6xRBTshqU8cnD7X6m8=;
-	b=SUMRkhYGmtfgilPvO/9v6jOlICWtSWrkroMOcyjqC99qaKW8f/OgsvbyObtQ4iNKo78i
-	 o3MzfGa9v8EMqBed693vOtJN9j7qMxsjECNc9jR5zBNKgBdVoMlpPysOIviPsvlVi0ybl
-	 IPtfFouFCSMvLsKQbt8FTtMXkbF2SrlAPaim9M0eWbqh4FUJ92oNhEQ/RgtcRwZ3uIwik
-	 HmU7uusCfGnuUIcyOSQuDxSr4FFa09GabM7j5Xp8rR3UNHcePq68LA5RQTMvH6iqF+yTT
-	 e1wfJNjHYiuMATso/8NNQbAYMxJmjxxOlyOucpZUqcVPUyOutluECX0P6GDGaI0gHkw==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
+	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
+	 Date:Message-ID;
+	bh=R49LZ6at4Pz061fSRdXsVwNiwfWK7H3yc4GVuvrpB0Q=;
+	b=Q5IXCdrtBwzmy1s1wdbnBGwqBjT8ShuNIVrQ/aXZyig/9TKkuSRUIbxrJ1m4/WH5ipkb
+	 KjWXkhFErhfYvxmvSum6W82V6NTMp8uBj9LTf/52ZYkTjfWDb6SRrcvnwYxDoeUZLsNYB
+	 haGYvCZQQl24ilYh7hkNDw3+8EfAxPgnFjdHDiFBYptMdggfiPf/KA1YMCP6NjBWagz55
+	 R/5oVpKOOmJCVwGNQnVtNsiGyTdSAOLGjm2CSpJVzwIJFxzVr7dHSZyCq592FdBbWigZy
+	 fOvgMSWuNXvl4+lbhqdEUbPVfYGlILLrBWlQUp2qofAeYhD7KAZAnnB9ScAkPBJUIGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=utexas.edu;
-	spf=pass smtp.mailfrom=utexas.edu;
-	dkim=pass header.d=utexas.edu header.i=@utexas.edu header.a=rsa-sha256 header.s=google header.b=nXBXmYpB;
-	arc=none smtp.remote-ip=209.85.161.49
-Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
+	dmarc=pass header.from=kernelci.org;
+	spf=pass smtp.mailfrom=kernelci.org;
+	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=b70DvwBP;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00560606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 02:28:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00560606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=utexas.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=utexas.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9863606A31E
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 02:30:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9863606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=utexas.edu header.i=@utexas.edu header.a=rsa-sha256 header.s=google header.b=nXBXmYpB
-Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-6d290b10a35so607824eaf.2
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 19:28:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=b70DvwBP
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-35f036b17easo264909eec.1
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 19:30:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=utexas.edu; s=google; t=1792636091; x=1793240891; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:cc:date:subject:to:from:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xruEMXmxKsYyy3/7Uv5aUsYVZ6xRBTshqU8cnD7X6m8=;
-        b=nXBXmYpBirikcttyx9/5JLJT4vDIsSgTxxKc2Q+QM0P/YSHZVvJlli/wRgaW6jlwIJ
-         8gx+AYrpMZRCMw7qLUaMlg2yRrJo7k30lyCmwZzaeOHYU5b9NuXF1kSZmY7Un26bKGFn
-         ppwkRPzNEWkIv23LWxaLgs/glqQYstb1P19e1btE4ajwkgKywl59wDcz5Jy5VQUsYEiQ
-         B+KdRJE906oj/8ryBUMc2NdKfo4YMajjBqVxWoy89MxzxuTAl4Cd0y3yv1pI9JFjzNWe
-         3jYE5hrslakvLkCPbW8dZr/kWE8tjNUsDoG9aeTtgHbSwFwmmZVIk8iQbP1Z01jdbQMZ
-         ozow==
+        d=kernelci.org; s=google; t=1792636208; x=1793241008; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=R49LZ6at4Pz061fSRdXsVwNiwfWK7H3yc4GVuvrpB0Q=;
+        b=b70DvwBP4USNnHFbI4nv3+LJE26Ga+RdYbiouG2O0acHkaHtdZOd8acrVFLHkLtq5m
+         gfrgp6T0xhgja3/yPTVMjpT3Z5MxL6ddu24JK4IooDY+RASRR/CNS64sEFDX2HI2f6pY
+         GVrxdnDTwfjHQMoj4Y0xJfheJdxdpwK4pdUMIt4CfC5qpCYUawjipJZIdwD/OrLDMOIy
+         82zA7m2kzLsjfdahxhF58q9hfAwwFeTGTK6bTl8f3ofyvegmbmYd2oEZsOfJj+OH1ofD
+         8ROo9le4hEopmfNiqKRTOgNVcMcw6/LXqZC1eZNFcRpQW0eLooCCy8JA+Eql10WVZfAd
+         LZnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792636091; x=1793240891;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:cc:date:subject:to:from:message-id:x-gm-gg
+        d=1e100.net; s=20260707; t=1792636208; x=1793241008;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xruEMXmxKsYyy3/7Uv5aUsYVZ6xRBTshqU8cnD7X6m8=;
-        b=VwnSMvI6SrMsvUvpZ2tbeHzSqbictxvGAkkGGZS5/kJQyN5EUibSqmrTDT7SNBJkd1
-         YbxaQQpTuogFXhBhaLaX/8G8egw8a9Rd8S3OaYWsfCSBtI7F8dEbVi5VfS4sxCDnYF4f
-         yTZiUJvXyRDomd9aPQUgdqtIeXxZ+TYYcb0A1K0tLG7STukIcTs8dpSJL86SqVYh583w
-         QPsHIlvXRbAaCIR3JUy7Zhk/m5CN7xuM6+EbLxdJG2s/pkWet25n6BFwQV7cvNq2rfRt
-         qArmrG3nzXCSVmBjEQF0RewLz0zxtga62L0nBs/XEneqZjbXG+na92Yy7y65Usl4Z5oI
-         mR4w==
-X-Forwarded-Encrypted: i=1; AKwUvBz5OxOFADq9mx9fQLZfzNeXy0olOW/TC/cjcuTb19I7C9Nuju18GuYfPYsDwgbjefufposI8Hw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLgNy+6IMwlGd1rUKmFW9O01I+CjAKmFM/LVRqwQrtIP/fo/FA7
-	PTbeB3ntLqY1IrCQHShl/mEaFT/1aExC0LIJ6LmF+U7a9pse+AUui8vRZc4WGyP/vTZfw59+Dd1
-	rpFNLaJjsxg==
-X-Gm-Gg: AYBFou0a7RcwepeCUfgHQ6ecMD89OR3ofNZm5253cNOuVfWcLIDFrRfP4m2oBVL+xPD
-	IGhDn9CHFfng6FH53WSREnAt+bDcM1EOb7B+9KPcY4pvZhsDJ3v8DIpu2tCtobnHHIw9WGy/Ht9
-	CnIAlHvHTtEakuQix03fPtGdoa2C8Sc39ERHGmz745A6Wgam6PO/iUMR8h0nG24goBglkraEYPa
-	j/MGBofL1TpXYBMssvI2Bchimq0J5zvNr3ftKo2dIrsqx9hmVbW1QKlA33IOd5CeMdeG2nbGIUe
-	1+dpBkofVXqIiikAbB7/WT0njlEIpEMOKxxSzOQ5pIqwBW85fvQ8STZX7A7/HFJv3VzpS15pry3
-	3tDGjVOfxSiiPBtIObOxEKeIgrwENUs/TgZ00/f5OI+e4/DSEZtZFmjuqPAL/KORCR3YxOwCQSc
-	iq4Yvk460QwZlXKZgJ8bWLozQ6r/BgZ+UzkKqFnfqYwddQeds2Ok6fqQDJ5NQJ/6H+KND5KzRHZ
-	Q1uAOEQVBJUq/ldPI5lqE8gWkqCx9tEDgFVq5ddhwcKt/NVBpJ+dbE4coqWLBC92WTZUn9AtTV+
-	kJwNpIv6sA4NIUqNSKMQJHvn32//z9XS45DZnqZ7201vJnC1PLNYiTZEt4J22w3W3PT6Wbq+n2r
-	ZdUj4ClWXEdgx79GZrDXuQRNrPPxST/h+xKsID2umxwNLsjUL2fwPtpmXXPN8MGkaz7MzDb/0W0
-	owaiqpUD3YUYGtGVtKwOM=
-X-Received: by 2002:a05:6820:813:b0:6b7:8396:f3d6 with SMTP id 006d021491bc7-70941fbb729mr2897081eaf.56.1792636090730;
-        Wed, 21 Oct 2026 19:28:10 -0700 (PDT)
-Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([173.174.112.101])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a7d5eb8fc0sm3431624fac.1.2026.10.21.19.28.09
+        bh=R49LZ6at4Pz061fSRdXsVwNiwfWK7H3yc4GVuvrpB0Q=;
+        b=OTz7CZomfF0wD9M034iTPGBxVuA4RIhmBfMWv8xcfjnHL8osssxiohYztaN86iQQIq
+         3LdxzYUsTYl9gjwbJOIGFE5x8Kr1gjTsnIErbyU2VxjyQVyg5NvUWGx06Bn9tNNcqB5G
+         BZB40HDCoSkOE3WltLD54JO3AYBNQCxXNC/rNLpCd+aHOAtpFNj3BcPMyFcqZtVivTeK
+         aCruewHLYTZt/lS8K0WqhiTWkKGa4ZrLo2P1Z0XfCwQanMsrMZjOAWwMJ9olkG7JSHoG
+         PujMObnj8Xy/rxlqSYbgfkeKedNLAVjn1em7xqWgAO6+WN3x4+0J5dVvEGUMjFg7pD5P
+         9WXA==
+X-Gm-Message-State: AFq9FYIfmJvugHqYBr117ehtaX/yd5SLiLTYEcy4egEmwEIMjf0JXT0x
+	FwCvlZZnCotGUxkso7Eog9WdOD8js9YSYrEe/L3QrDg9mDTB5V7m8hQexoiOxlBehps=
+X-Gm-Gg: AYBFou3lDn2sIsKQGWHlNGzLnIgQEdq31gTyMhmp9erXH14rGnvdyOizYACi8uqcrug
+	yiQLHQ8e/qJTtX2kBoS91LLjdd70albVEbch/dLSgQPTZ+mZaX8+UYhOnkTxELhDXWCCaGu7zAN
+	77cg7+O2FcHlzsQS5gH8iFUID1etNNYgEZt1JpoS/YWzwE+aPTPAota6VpQxtIPngBwBFlx62iX
+	ZswoRDExjVVd0ejvH60t/ldVa+pyEtC5f+WxyTKXPHdqH3kZqpURlhKeKSIv2Od7VHOqFCZt3d1
+	2eSbIea+6sp5Xzxx6j2Ajc/X90YNYXFIxaZOdkiwmCYp5xlaO1aeCzpqucZTmoB0OP8qzumtHuo
+	CRxL6mlyWxt9t5DSDVwvyM1I3VQvqYrnaGkpP0ysyuQKbcIMBhCai9dMSZmfQkgD8YTNsN+m6iS
+	7yWVLTuHOxIxEtRS3Gql7Jkuvpj6kBB/JFdeZt2OPUvEDk7tbti5OnoZGt56+Ku5rYGBtd+coe/
+	NpjACS31lhRc7Fh9glSpAzmSo4A2PRdmXHXy/oFXflcsq/I
+X-Received: by 2002:a05:701b:418a:20b0:14d:cb67:afc4 with SMTP id a92af1059eb24-190a941da11mr5342311c88.41.1792636207208;
+        Wed, 21 Oct 2026 19:30:07 -0700 (PDT)
+Received: from 6e52bff8000c ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903a180b9esm15471743c88.4.2026.10.21.19.30.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 19:28:10 -0700 (PDT)
-Message-ID: <6ad974ba.a8122b97.39a7e6.f867@mx.google.com>
-From: karim.sabar@utexas.edu
-To: matthew.brost@intel.com
-Subject:
- Re: [PATCH] drm/xe: Use kvmalloc for the VMA ops page-table update array
-Date: Wed, 21 Oct 2026 21:28:08 -0500
-Cc: thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
- airlied@gmail.com, simona@ffwll.ch, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-In-Reply-To: <atkLLH47Zd6vMX3B@gsse-cloud1.jf.intel.com>
-References: <atkLLH47Zd6vMX3B@gsse-cloud1.jf.intel.com>
+        Wed, 21 Oct 2026 19:30:06 -0700 (PDT)
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,131 +87,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [STATUS] stable/linux-6.6.y -
+ 0aebf2870d53a8d97e02a99e2103ea0b38950c1b
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
+Cc: stable@vger.kernel.org
+Reply-To: kernelci@lists.linux.dev
+Date: Thu, 22 Oct 2026 02:30:06 -0000
+Message-ID: <179263620588.276449.8339300134959706753@6e52bff8000c>
 
-Hey Matthew!
 
-Sounds good to me, the fallback of trying to bind the vma one at a time sound=
-s good to me. And it is actually a bit broader than my patch since it covers =
-the -ENOBUFS case as well. It should also be easy to get through drm-xe-fixes=
- and then backported the normal way.
 
-I can write it as a v2 & test it on my Panther Lake device, I have a small re=
-pro that does about 20,000 mappings and fails after suspend (every time witho=
-ut the fix). If you'd prefer to write it, I can test your patch as well.
+Hello,
 
-Thanks,
-Karim
+Status summary for stable/linux-6.6.y
 
-On Wed, 21 Oct 2026 11:57:48 -0700, Matthew Brost wrote:
-> On Tue, Oct 20, 2026 at 07:08:27PM -0500, karim.sabar@utexas.edu wrote:
->> From: Karim Sabar <karim.sabar@utexas.edu>
->>=20
->
-> Thanks for the patch. I do see the problem in the old code.
-> Unfortunately, we will not be able to pull this into drm-xe-next or
-> drm-xe-fixes, as 7.3 is already out and 0e33330f1238 is included in our
-> 7.4 PR. As a result, this would need to go directly to stable.
->
-> There is also a risk that predates the series containing 0e33330f1238.
-> If the bind has to run on the GPU, you can still get -ENOBUFS later in
-> the bind pipeline if the bind is too large to fit into the
-> migration-layer BB. If that occurs, the proper fix may actually be in
-> xe_vm_validate_rebind(). If xe_vm_rebind() fails with -ENOBUFS or
-> -ENOMEM, we could call a new function, such as xe_vm_rebind_iterative(),
-> which would run each VMA requiring a rebind in its own job. This is
-> effectively what Mesa does in userspace when a bind operation returns
-> -ENOBUFS.
->
-> We could probably still pull that approach into drm-xe-fixes + have
-> naturally backport to stable, and it may ultimately be the better
-> solution.
->
-> Let me know what you think. I can give this an RB, but I'd like to hold
-> off until we've settled on the solution we want to pursue here.
->
-> Matt
->
->> Big games die after every s2idle resume on flat-CCS iGPUs. The exec
->> ioctl keeps returning -ENOMEM even with 11-16 GB of RAM free.
->>=20
->> On suspend xe_bo_evict_all_user() evicts every user BO in XE_PL_TT on
->> these parts. On resume the first exec rebinds every VMA in one go and
->> xe_vma_ops_alloc() kmallocs one 384-byte op per VMA as a single array.
->> Final Fantasy VII Rebirth has about 33,500 VMAs which means a 12.9 MB
->> array. It's over the 4 MB KMALLOC_MAX_SIZE and can never succeed.
->> __GFP_NOWARN keeps it out of dmesg.
->>=20
->> Data from a Panther Lake handheld (SteamOS kernel 7.2.7), kretprobes
->> after resume:
->>   xe_vma_ops_alloc  -ENOMEM on 63 of 63 attempts
->>   xe_vm_rebind      -ENOMEM on 63 of 63 attempts
->>   BO validate, TTM populate, PT prepare  never failed
->>=20
->> The array is only used by the CPU and doesn't need to be contiguous.
->> This switches it to kvmalloc and kvfree.
->>=20
->> With the same change applied as a module on that kernel, the game
->> survives every sleep I tried with zero ENOMEM. The biggest array was
->> 30,753 ops (11.8 MB).
->>=20
->> drm-xe-next already does this through commit 0e33330f1238 ("drm/xe: Add
->> struct xe_pt_job_ops"), but that's part of a big series that won't go
->> to stable.
->>=20
->> I tracked this down and tested it on my own device. I used an AI
->> assistant to help with the debugging, i.e the kprobe tracing and
->> reading through the xe code. I ran every test, picked the fix and
->> reviewed the change myself.
->>=20
->> What I couldn't do: this is build-tested on drm-xe-fixes but only
->> run-tested on the SteamOS 7.2.7 kernel through an equivalent module,
->> not on a mainline kernel.
->>=20
->> Fixes: 2e524668c440 ("drm/xe: Add xe_vm_pgtable_update_op to xe_vma_ops")
->> Cc: stable@vger.kernel.org # v6.11+
->> Assisted-by: Claude:claude-opus-5-5
->> Signed-off-by: Karim Sabar <karim.sabar@utexas.edu>
->> ---
->> Downstream SteamOS report with the same data: https://github.com/ValveSoft=
-ware/SteamOS/issues/2962
->> ---
->>  drivers/gpu/drm/xe/xe_vm.c | 8 ++++----
->>  1 file changed, 4 insertions(+), 4 deletions(-)
->>=20
->> diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
->> index 99e42bd29..5caef443b 100644
->> --- a/drivers/gpu/drm/xe/xe_vm.c
->> +++ b/drivers/gpu/drm/xe/xe_vm.c
->> @@ -703,9 +703,9 @@ static int xe_vma_ops_alloc(struct xe_vma_ops *vops, b=
-ool array_of_binds)
->>  			continue;
->> =20
->>  		vops->pt_update_ops[i].ops =3D
->> -			kmalloc_objs(*vops->pt_update_ops[i].ops,
->> -				     vops->pt_update_ops[i].num_ops,
->> -				     GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
->> +			kvmalloc_objs(*vops->pt_update_ops[i].ops,
->> +				      vops->pt_update_ops[i].num_ops,
->> +				      GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
->>  		if (!vops->pt_update_ops[i].ops)
->>  			return array_of_binds ? -ENOBUFS : -ENOMEM;
->>  	}
->> @@ -742,7 +742,7 @@ static void xe_vma_ops_fini(struct xe_vma_ops *vops)
->>  	xe_vma_svm_prefetch_ops_fini(vops);
->> =20
->>  	for (i =3D 0; i < XE_MAX_TILES_PER_DEVICE; ++i)
->> -		kfree(vops->pt_update_ops[i].ops);
->> +		kvfree(vops->pt_update_ops[i].ops);
->>  }
->> =20
->>  static void xe_vma_ops_incr_pt_update_ops(struct xe_vma_ops *vops, u8 til=
-e_mask, int inc_val)
->>=20
->> ---
->> base-commit: d2ce8fcd778ee6d92748c92d23a56d4416c29d86
->> change-id: 20261020-xe-kvmalloc-vma-ops-2637ebf81cfd
->>=20
->> Best regards,
->> -- =20
->> Karim Sabar <karim.sabar@utexas.edu>
->>
+Dashboard:
+https://d.kernelci.org/c/stable/linux-6.6.y/0aebf2870d53a8d97e02a99e2103ea0b38950c1b/
+
+giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+branch: linux-6.6.y
+commit hash: 0aebf2870d53a8d97e02a99e2103ea0b38950c1b
+origin: maestro
+test start time: 2026-10-21 09:16:28.927000+00:00
+
+Builds:	   33 ✅    1 ❌    0 ⚠️
+Boots: 	   66 ✅    0 ❌    0 ⚠️
+Tests: 	 8450 ✅  680 ❌ 1649 ⚠️
+
+### POSSIBLE REGRESSIONS
+    
+Hardware: imx6q-udoo
+  > Config: multi_v7_defconfig
+    - Architecture/compiler: arm/gcc-14
+      - kselftest.alsa.alsa_mixer-test_name_0_10
+      last run: https://d.kernelci.org/test/maestro:6ad88ba755fda507605a3456
+      history:  > ✅  > ❌  
+            
+
+
+### FIXED REGRESSIONS
+    
+Hardware: beaglebone-black
+  > Config: multi_v7_defconfig
+    - Architecture/compiler: arm/gcc-14
+      - ltp
+      last run: https://d.kernelci.org/test/maestro:6ad88b5655fda507605a3279
+      history:  > ❌  > ❌  > ❌  > ✅  > ✅  
+            
+Hardware: imx6q-udoo
+  > Config: multi_v7_defconfig
+    - Architecture/compiler: arm/gcc-14
+      - kselftest.alsa.alsa_mixer-test_name_0_22
+      last run: https://d.kernelci.org/test/maestro:6ad88ba755fda507605a34aa
+      history:  > ❌  > ✅  
+            
+      - kselftest.alsa.alsa_mixer-test_name_0_9
+      last run: https://d.kernelci.org/test/maestro:6ad88ba755fda507605a344f
+      history:  > ❌  > ✅  
+            
+Hardware: stm32mp157a-dhcor-avenger96
+  > Config: multi_v7_defconfig
+    - Architecture/compiler: arm/gcc-14
+      - ltp.shmctl05
+      last run: https://d.kernelci.org/test/maestro:6ad8e15755fda507605e50a2
+      history:  > ❌  > ✅  
+            
+Hardware: sun50i-a64-pine64-plus
+  > Config: defconfig+arm64-chromebook+kselftest
+    - Architecture/compiler: arm64/gcc-14
+      - kselftest.kvm.kvm_dirty_log_test
+      last run: https://d.kernelci.org/test/maestro:6ad8935d55fda507605abc87
+      history:  > ❌  > ✅  
+            
+
+
+### UNSTABLE TESTS
+    
+Hardware: qemu-arm64
+  > Config: defconfig+netdev+nfs-root-boot+ltp
+    - Architecture/compiler: arm64/gcc-15
+      - ltp
+      last run: https://d.kernelci.org/test/maestro:6ad8907d55fda507605aa2e8
+      history:  > ✅  > ✅  > ❌  > ✅  > ❌  
+            
+
+
+
+This branch has 1 pre-existing build issues. See details in the dashboard.
+
+Sent every day if there were changes in the past 24 hours.
+Legend: ✅ PASS   ❌ FAIL  ⚠️ INCONCLUSIVE
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
