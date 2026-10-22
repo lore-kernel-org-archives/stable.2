@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792697241;
-	b=XFpuS0QV8qTgAB6vpm2GfkdzzUc9ke71LMBNmsdJZ9ClHM00qfVmshStHEbBfpW2kzSf
-	 bOiLegy8/GpQoaXjIQ6B+61malBE1Ron0qtQoJekENihIAEXYBKOzE9xPXmXaZvKlH6vF
-	 sR08N82f6sBmrTP+ZCv8RdmVAbzTD0+y/gRNOMeO8+1gjYoPubUOKbdHK3XZ1bQSY/y2X
-	 99x7PMtZr4ITzddOMOk9+dP9GvC8Lmj/y12aLidBYX1jx9icBzL/vompnWUdNaBWzkpV1
-	 nYcFaINGMfHRkG9gSKsmzknRgkbp4PcBmaIQXZZD/fkJcd2PF1z+p9EzJC6BFCui/2Q==
+	t=1792697247;
+	b=hDnO7JAeYwfiuAJMmvAZyaJoGrzYqxIGMLi6ZeZqhD/0TrNpF1UhNYcQnZqXhSvnQO9P
+	 RE3cepEtZv+O9SXB2DfulPGqEdCAkP1SR3oT1Ox1vKB+WFxPCKN0RNfF3qadHZhtXO+De
+	 w9yarvsGw/vP0SQVQyfv1ohkaKC4ITgSU0cZ83cezlkGLybNjdOCNhXmy3LqWGdRKpjlo
+	 5A2wqlcnJ/E/AkuOwJFPHkMuRZG1PdCn9lSgtNt+u8fg+48/CCJpaS/keFbgMWxrPptdt
+	 2KBr3LFEkCe8bAGvjgRvQ27oSOXJtjTRSNFIMkKgvu4aKUWkXp315BdbbINKbC0rXXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792697241;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792697247;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Qu7bXSTKz4yJk5jFpot5GqPTr4OCRen0F7LdG3C/gXs=;
-	b=kH7Fxav/rgMcuAQB4e53fdwMhVg22hDC2xYzMAOaDz9t8f/Mi7X1PYYO7riJyOzHDAkX
-	 hZN9Ro6Cu4fmoxFwPQKb04Iz7qHPTOSD1QJ7Wg2pN1TmVqFtGcwFas9EiHwzTobTZvd7k
-	 sQ9/HrOjRAPKQF8bppYBFAcAT6hFY33w8vds5k/zm5E/oBm1E2h7DDD45BlQ8uUxJ2zmw
-	 a3QyesFpL6Y8m4j+6LrtKf03SuUAxG/rvp2+Us6B0xdlO5gQXBrP2ssyStXE70p5azoeB
-	 fqA6y4cY7PzoqKxgvI4HdV4SQJooo5tvIjsNgAa46v25jr5DZjD2FrWNSosS9OQXP6Q==
+	bh=t1/DAVBhm27R4WVDppqUSwYXcQywREL/+Le9FgN5bgA=;
+	b=x+cerkMZSR0e+NYUBxRVU9EYvUqgeyDcqssgS39id6zTk1meK/w1MAUWXsEVOHpOq+yU
+	 P90yoVFkHOQvfY1i5BojFIS4Qa/1zLjWqr7GJl9HpsvOdKrQqzKgAgxAVHMiIEFbkATDc
+	 6zPrPXm82NOLUMzUmRBq67wpSXFy7bs4C8Ly8CZ3SDvTV6/j3V+R9sSPmLRmwShIa8dzV
+	 5Ip5ojQz615ls1CJwKuAX6T9//3NixVDuGgjK762t9jGro7w7EIR8Bm1mFBPKarO0XbSU
+	 wAwFRLHRTV7eAME1NI2b49T/OukMCgqp4ag3vgsnMc3t+tsBsvrCDLOQsvJEb/9hPQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Yr/F+5Zj";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cn5DoWKc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E22BC606A31F
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 19:27:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD5D4606A320
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 19:27:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yr/F+5Zj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1E101F01825;
-	Thu, 22 Oct 2026 19:27:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cn5DoWKc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 912A81F031E1;
+	Thu, 22 Oct 2026 19:27:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792697240;
-	bh=Qu7bXSTKz4yJk5jFpot5GqPTr4OCRen0F7LdG3C/gXs=;
+	s=k20260515; t=1792697246;
+	bh=t1/DAVBhm27R4WVDppqUSwYXcQywREL/+Le9FgN5bgA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Yr/F+5Zjs3dctQ29NnTPwiSEbjCWs0bUcJLVnyWh6jis1dt8fTBTsW0Wsi3f84SEZ
-	 ge6dB0tKt2TpNIC2w1e++GQf3brYUYgMDVLA7bPBFKcIxDX2MyvpvqaZ90qyUfwDxs
-	 tNVjdh39lvoR8cVX0lo9BsF3Ons9hc/X/LOErv+5zsNZLf7ZtweEMwT5SPusNbB1M1
-	 NNCSc0d8eO12HHHI0MQoRtfQ24yyHZ6SnObbYYyH6ZGW72KrIn1lvJyDq9llD0py2v
-	 E5U15X16DX531pPfHtpUtZjQoRqMXLftXI+WjCrQZ/SZxR41Esdw+ay7rWQ3OtOjir
-	 SFLxy+RRtIlVw==
+	b=cn5DoWKc76a0ZG8gZHuq6/gUiB46fuxQ8SSW+Adk+I0hnMsT5wCVla94pOuvmqGe/
+	 ySJUSJqPZlwhTNEV1s0aeeTqQDqKX60AqfWBIxkOwPdaYs2Lqsaifa5CdAknAkCpf1
+	 PDyvnhF+QkXP9f1Km+mitNqe6MENisVRZMDbjNzv4Wf/jPkWu8zn15+vCf3e+CxJSf
+	 eGu5+8rzYnLJj8quB7I4eSw8e0oWFhGCp9WvzM8fJBauLJh6166Gubulpimk/jxQV6
+	 iAdYjiwzsf+VilP54yOXEttQxjIfnZUMokRsPKsD7UySxsNDffXggWDvMg4VcYzPgY
+	 sI0pHDnFEgzQA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Aleksandr Khromov <haa@amicon.ru>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
+Cc: Ido Schimmel <idosch@nvidia.com>,
+	Amit Klein <aksecurity@gmail.com>,
+	Noam Caspi <noam.caspi@mail.huji.ac.il>,
+	David Ahern <dsahern@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ksmbd: zero the FS_OBJECT_ID_INFORMATION buffer before filling it in
-Date: Thu, 22 Oct 2026 15:27:17 -0400
-Message-ID: <20261022192708.1985263-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] ipv4: udp: Create exceptions before socket matching
+Date: Thu, 22 Oct 2026 15:27:23 -0400
+Message-ID: <20261022192706.1912456-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102212-scanner-refinery-9bbf@gregkh>
-References: <2026102212-scanner-refinery-9bbf@gregkh>
+In-Reply-To: <2026102120-delete-matching-aff8@gregkh>
+References: <2026102120-delete-matching-aff8@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,57 +64,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Aleksandr Khromov <haa@amicon.ru>
+From: Ido Schimmel <idosch@nvidia.com>
 
-[ Upstream commit 399aa12450a61a5c73dc77e73f069ece9687c95d ]
+[ Upstream commit 4c3499f79f8c7e8561266bcc220a18538cec0458 ]
 
-smb2_get_info_filesystem() reports 64 bytes for FS_OBJECT_ID_INFORMATION,
-that is the whole of struct object_id_info, but writes only 46 of them:
+Currently, when ICMP Fragmentation Needed and Redirect Message packets
+are locally delivered and quote a UDP packet, a FIB nexthop exception
+(FNHE) is only created if the kernel can match the UDP packet to an
+existing socket.
 
- - objid[] is 16 bytes, and when the volume UUID is not available only
-   sizeof(stfs.f_fsid) (8) bytes are copied into it;
- - extended_info.version_string[] is STRING_LENGTH (28) bytes, and only
-   strlen("1.1.0") (5) bytes are copied into it.
+This behavior allows off-path attackers to conduct a side-channel attack
+on the FNHE cache in order to discover the ephemeral port used by a
+connected UDP socket.
 
-The response buffer is zeroed on allocation (kvzalloc() in
-smb2_allocate_rsp_buf()), so for a standalone request the remaining 31
-bytes are zero.  In a compound request they need not be.  The offset of
-the next response is advanced by the length pinned for the previous one,
-so if a preceding command wrote its reply into the buffer and then
-failed, smb2_set_err_rsp() pins only the short error response and the
-next reply lands inside the area that has already been written.  Only
-the header is cleared there:
+Commit 6457378fe796 ("ipv4: use siphash instead of Jenkins in
+fnhe_hashfun()") and commit 67d6d681e15b ("ipv4: make exception cache
+less predictible") tried to mitigate such attacks by making it harder
+for attackers to discover hash collisions in the FNHE cache and by
+randomizing the number of exceptions a hash bucket can hold,
+respectively. Unfortunately, both of the mitigations can be bypassed.
 
-	memset((char *)rsp_hdr, 0, sizeof(struct smb2_hdr) + 2);
+Instead, mitigate such attacks by always creating a FNHE, even before
+trying to find a matching socket. Do that by calling ipv4_update_pmtu()
+and ipv4_redirect(), the helpers used when the quoted packet did not
+originate from a socket.
 
-The client then receives up to 31 bytes of a response it was not meant
-to see, including one that failed with an access denied error.
+This means that guesses (right or wrong) from an off-path attacker will
+always result in a FNHE being created or updated in the cache that the
+attacker can observe.
 
-Clear the structure before filling it in.  As a side effect
-version_string is now NUL terminated.
+Pass an oif of 0, in a similar fashion to icmp_err(). This is also the
+oif used by the socket path for sockets that are not bound to a device.
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Suggested-by: ChenXiaoSong <chenxiaosong@chenxiaosong.com>
+Note that this does not allow attackers to create FNHEs that they could
+not create before, as both helpers can already be reached with little to
+no validation. For example, by sending an ICMP error that quotes an ICMP
+Echo Reply or one that quotes a UDP source port that matches a wildcard
+socket.
+
+Also note that in the good case (matched socket) the above scheme comes
+at the cost of an extra route lookup, as the no socket helpers perform
+their own lookup before the one performed by ipv4_sk_update_pmtu() /
+ipv4_sk_redirect(). When the two resolve to different nexthops, it also
+results in two exceptions being created for the same destination IP. One
+in the FNHE cache of the nexthop resolved by the no socket helpers and
+another in the FNHE cache of the nexthop used by the socket.
+
+Fixes: 4895c771c7f0 ("ipv4: Add FIB nexthop exceptions.")
 Cc: stable@vger.kernel.org
-Signed-off-by: Aleksandr Khromov <haa@amicon.ru>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Reported-by: Amit Klein <aksecurity@gmail.com>
+Reported-by: Noam Caspi <noam.caspi@mail.huji.ac.il>
+Signed-off-by: Ido Schimmel <idosch@nvidia.com>
+Reviewed-by: David Ahern <dsahern@kernel.org>
+Link: https://patch.msgid.link/20260828192344.2596928-3-idosch@nvidia.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: inlined udp_err_update_exception() into the existing udp_err() wrapper ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ksmbd/smb2pdu.c | 1 +
- 1 file changed, 1 insertion(+)
+ net/ipv4/udp.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/fs/ksmbd/smb2pdu.c b/fs/ksmbd/smb2pdu.c
-index de03750a2b0c9..f6ebcc31d92bf 100644
---- a/fs/ksmbd/smb2pdu.c
-+++ b/fs/ksmbd/smb2pdu.c
-@@ -5196,6 +5196,7 @@ static int smb2_get_info_filesystem(struct ksmbd_work *work,
- 		struct object_id_info *info;
+diff --git a/net/ipv4/udp.c b/net/ipv4/udp.c
+index 86a1b2c9e71fe..8ceaeef5c184c 100644
+--- a/net/ipv4/udp.c
++++ b/net/ipv4/udp.c
+@@ -870,7 +870,16 @@ int __udp4_lib_err(struct sk_buff *skb, u32 info, struct udp_table *udptable)
  
- 		info = (struct object_id_info *)(rsp->Buffer);
-+		memset(info, 0, sizeof(*info));
+ int udp_err(struct sk_buff *skb, u32 info)
+ {
+-	return __udp4_lib_err(skb, info, dev_net(skb->dev)->ipv4.udp_table);
++	const int type = icmp_hdr(skb)->type;
++	const int code = icmp_hdr(skb)->code;
++	struct net *net = dev_net(skb->dev);
++
++	if (type == ICMP_DEST_UNREACH && code == ICMP_FRAG_NEEDED)
++		ipv4_update_pmtu(skb, net, info, 0, IPPROTO_UDP);
++	else if (type == ICMP_REDIRECT)
++		ipv4_redirect(skb, net, 0, IPPROTO_UDP);
++
++	return __udp4_lib_err(skb, info, net->ipv4.udp_table);
+ }
  
- 		if (!user_guest(sess->user))
- 			memcpy(info->objid, user_passkey(sess->user), 16);
+ /*
 -- 
 2.53.0
 
