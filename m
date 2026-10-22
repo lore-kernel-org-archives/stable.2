@@ -1,74 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792681389;
-	b=3WP4qBiQzH0qAhhOeberOH3IcWpUALzt0lN9SmEqb1nTd5LmqudF9gTkJ+sqzJ3uKxWb
-	 tRdx+iWXjMXFSWzVBdKeetNbMPMhmPdOwRFCQIAHKhiB8CNu9kZBn7L/g/JvY8kyj4yGp
-	 VgsLjKP1qww0TwBpIRkRAnh5xcbdd4VXPaWkn/n7z3RTQjntMay2B7YylQJ2dVKdvcNcb
-	 YAilxPNJ9m5pdCjuVnkz4MJg6dFPmdDTicX3s0Yq8AIY8yBHpQIpxMPmxZiWbedJULs8Z
-	 2+VA5JxwuPvi8cmm3J0S760ZnYbdc/+vpLpKGHPRqVjWb2xOa2QpGLtdMQwAnU/U9Gg==
+	t=1792681557;
+	b=snNxIZ7rW7msNyF4bJ9CGY3JUoU0RDHEdTkGkXuEc5Uzqists+uyBmPUrlGZiOnNQRC3
+	 PPVPbZ9uqSOb3BQVQeqN0VCaWnAcC2Qy1mmSuVyfpAV+JSzfLkkyDdiGLutZJ88CFn8Nb
+	 otgOtO9WeDX0Hx852uGsP/eoPOD2YO/KDlY+7mH802fUQ8IBPRuUkng4qrqWgXGfnpuqc
+	 IIg/f2AXwqoOjjIx/cclZXRbX89Z5eTECNTxyfkuqvDup60PR7yDFRm5jXBQyDU8sAABT
+	 D4dzq7XL6fgZZ91AxQ8TUbSgTM11HPjcrMDrzemDyyK6+XolTbpT034P1EdGwAlk12Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792681389;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=RS+w97Z7+gAprFJv+vqfHSnrNycJNQGbw0RdFqhpDtQ=;
-	b=pp1D0gQG9uBH5DilIvVNxonw8sF+AZ7rTHGtcXHMY1PX92Il5bIv6K56BAxl5I2W5YfS
-	 f8p28XzoKq4y+uxOH2/5GUBigaJHeh3bnhmEXu8spgnh9FB5r+lDhoxkdV5yX/28ORSlj
-	 Cjlm5kA4588X1/JQJwTcDBTg+vEYbciKZOqBjWgC7REMeRD5ADs+LTLAht/3TpUriDiJH
-	 PO086CDK9CsTyXiYs730tbeBA2y6JJYZLpGcAcCtiOBEsuukmesgMNoGDOoFC2YczgCpS
-	 5m3quRczDwwlCwj0hH35qgMenlUqdyMjNGVP/hoZfSo3GhgtoP+luhIpwIKmlAM0sYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792681557;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=HrKgZPRLerxUrII0oqrcm4Xvj2MVo+Q+vkum7aPMFP0=;
+	b=YQG6eE4MQHdAdi3R5x8ee1Vl5WIsb7KB8Ls2gx7AKSIRy1R0o1hcOLqP1D9bzBWpXUey
+	 j4h6Es7NEPGEotJ1rzXWdS1T7w411f8Oy6BTavuXnWEI7T1dCQFBAZSZP8d9ORxu4JqZ7
+	 rmxEa0ZOQR5dAJeFLXX1HlqmFKZjFMH6CYkj70h+xaHralDrqdktntziwU6pEidbEaJUI
+	 8V2/bG+ZKmCDjlwfehxGPevvAiM5CAUBGj2PxnzUnEOOnpqVCJyNdrOiUq00rVJCqrgYR
+	 qxDJ2x55tN34xJZQ2/E0kFBWsendnwiw4ODLlfg0WS2WdEj5n7v84vTzDQ/L8Dlfw6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nU7Tf7wI;
-	arc=none smtp.remote-ip=209.85.214.200
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jBoONAWd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E5A8606A323
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 15:03:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E5A8606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D18606A334;
+	Thu, 22 Oct 2026 15:05:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nU7Tf7wI
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e60770381cso19809955ad.0
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 08:03:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792681388; x=1793286188; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RS+w97Z7+gAprFJv+vqfHSnrNycJNQGbw0RdFqhpDtQ=;
-        b=nU7Tf7wIhsEVGz8mS2x/cvBdPaTJnFOFld64n02hF/Br36xXEJ7LWcunqvpTxAL6I9
-         47pOz8NpVDxUg14iOHsBOCPgW+zI8Hg4azY0278LQI6xmDcegCgy3cZir9BoNCDnudU6
-         M1eT92a1weJJoeB7F0IBahUFY0yQyGLSGrWM1WSZWcLY3naewDfDhFyvTsQ9zm+nLN8+
-         OMsSPCZ3Cq4WCiomGiqFJl6Qn+BKCtkZP5ZKEH+2ympj3Sb9bjfjGQ0IpDXdqOWVJ9rE
-         3Us25R3+VgDAD8On0aGZjMUo3fhFf5DMH1QedO1mX2ftRY405F5McSGPChwUNFH3/oj2
-         ShIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792681388; x=1793286188;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RS+w97Z7+gAprFJv+vqfHSnrNycJNQGbw0RdFqhpDtQ=;
-        b=wLVOiqSzjBmk98t/O+Z9YEi8+w0EITdROm7oZclmlMIW/kausCalbgIson+RX7f1aW
-         iLOTY3sEEOFxyz0z6LMxV7MBohqjcDhwkT1mcV8Jjxkd8GjjKLLm4HrDTKEa8hI3Dkjz
-         SlV5C4N9pl2Ho2J9l5Uuz0C0Ksuet6WBMo8jke6tW7g+PKwstAVtTKiI830SXRs8lnhJ
-         A6i1nmlhpD0bSUzTpx+Dq9xr7Yhbqvocdcxc2Qh2VQuZAuSluSkqo2B5/cB+/MbqsNDs
-         YRTus+GCmtBlLfl6KEdOpqAkRdpw9L0ktiS3pmlj6Osl5zpeCn9QYP15sTDd48vK4RyS
-         6uEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz49L4Tq2ZvWUkFeh+22iNMRnmHALoiQyrCL7IGJQb66Y+J0pqfWOTvsZhrgc3rL/h2j9/JM+A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJHYnyzFLIk6kKCcXj1fYXnh65wuIinhIanCiHiSnpGD0Te3Wjz
-	u0LpJeXK0Rjrq7DUFZcqTzR6T61O8sngx0RfLbB9/RDLvNRChpP9MXurxMFmh2P8txdHJjiK+zd
-	0DM3GXw==
-X-Received: from plsr17.prod.google.com ([2002:a17:902:be11:b0:2e9:4f49:1132])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:1a0c:b0:2e9:460e:ca49
- with SMTP id d9443c01a7336-2ea439f467amr49266545ad.18.1792681388121; Thu, 22
- Oct 2026 08:03:08 -0700 (PDT)
-Date: Thu, 22 Oct 2026 15:03:07 +0000
-In-Reply-To: <20261017193911.40182-1-amirmohammad.eftekhar@cispa.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jBoONAWd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B56E1F01825;
+	Thu, 22 Oct 2026 15:05:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792681556;
+	bh=HrKgZPRLerxUrII0oqrcm4Xvj2MVo+Q+vkum7aPMFP0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=jBoONAWdiVDjkztEn+QvJxIfQwxPY2nv1ax6Tw+MeqGqS6XKEwpSvQaX8bqoQxXma
+	 Pg/Ua0YU6xi/QnTmc4+DXgijDYJhHb8HRDYE2IW6sWCyNZasUpXwrXnF4G5NF33gqK
+	 +ELC9kc8ByGwR5cFp6AXFKwTUtSqALpIFMM6THrG7ifEIasMrV7qUPOmNEYnqm3/JG
+	 4lLF2viZNjaxXVeVUcQSrr+ywwwGBLlUqhH0fLM8+fSVFVtU6W3+6GEAg3/sNiPunT
+	 nMLPyxx4KALgFfjffckUsMV4ZQD9uArt4qvlBrobHPSjpx+dHOXmBL1DuGmLQXx/p7
+	 e0VTqysmQzvCw==
+Subject:
+ Re: [PATCH net v2] xfrm: esp: reset outer TCP GSO metadata on espintcp input
+From: netdev-bot+sashiko@kernel.org
+To: yangguoshuai@gmail.com
+Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
+ sd@queasysnail.net, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Thu, 22 Oct 2026 15:05:55 +0000
+Message-ID: <179268155570.3135.6366960419287611684@kernel.org>
+In-Reply-To: <20261020030450.7170-1-yangguoshuai@gmail.com>
+References: <20261020030450.7170-1-yangguoshuai@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,177 +63,121 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261017193911.40182-1-amirmohammad.eftekhar@cispa.de>
-Message-ID: <atolq8545YGo4iKx@google.com>
-Subject: Re: [BUG] KVM: x86/xen: gfn_to_pfn_cache left active after
- mmu_notifier release leads to a host use-after-free write
-From: Sean Christopherson <seanjc@google.com>
-To: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
-Cc: w@1wt.eu, security@kernel.org, dwmw2@infradead.org, paul@xen.org, 
-	pbonzini@redhat.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 
-On Sat, Oct 17, 2026, Amirmohammad Eftekhar wrote:
-> ---
->  virt/kvm/kvm_main.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> index 479b7f5bf..6ac6a71fe 100644
-> --- a/virt/kvm/kvm_main.c
-> +++ b/virt/kvm/kvm_main.c
-> @@ -891,6 +891,18 @@ static void kvm_mmu_notifier_release(struct mmu_notifier *mn,
-> 
->  	idx = srcu_read_lock(&kvm->srcu);
->  	kvm_flush_shadow_all(kvm);
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
+
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] Problem: outer TCP GRO metadata can still break espintcp input
+  when the outer GRO aggregate carries SKB_GSO_FRAGLIST.
+
+--
+
+xfrm: esp: reset outer TCP GSO metadata on espintcp input
+
+On espintcp input, this patch clears stale outer TCP GSO metadata. It
+calls skb_gso_reset() on the head skb and on each frag_list member at the
+skip_cow label in esp_input() and esp6_input(). This is meant to stop the
+decrypted inner packet from reaching skb_segment() with outer GSO state
+and hitting BUG_ON(!list_skb->head_frag).
+
+> diff --git a/net/ipv4/esp4.c b/net/ipv4/esp4.c
+> index e76db5817e78..012b59f69292 100644
+> --- a/net/ipv4/esp4.c
+> +++ b/net/ipv4/esp4.c
+> @@ -900,6 +900,14 @@ static int esp_input(struct xfrm_state *x, struct sk_buff *skb)
+>  	nfrags = err;
+>  
+>  skip_cow:
+> +	if (x->encap && x->encap->encap_type == TCP_ENCAP_ESPINTCP) {
+> +		struct sk_buff *iter;
 > +
-> +	/*
-> +	 * Invalidate all gfn_to_pfn_caches before KVM is unhooked from the
-> +	 * mmu_notifier.  Release is the last callback KVM will receive for this
-> +	 * mm, so the invalidate_range events that exit_mmap() raises when it
-> +	 * frees the pages can no longer reach the caches; without this the
-> +	 * caches are left valid, pointing at pages that are about to be freed,
-> +	 * and an async writer (e.g. the Xen event-channel timer) can perform a
-> +	 * use-after-free write through the stale kernel mapping.
-> +	 */
+> +		skb_gso_reset(skb);
+> +		skb_walk_frags(skb, iter)
+> +			skb_gso_reset(iter);
+> +	}
 
-Eh, I would omit the comment, IMO this falls into the "obviously necessary"
-category once the code exists.
+[Severity: Medium]
+Is this reset reached when the outer TCP GRO aggregate carries
+SKB_GSO_FRAGLIST? It only runs after skb_cow_data() succeeds, and
+skb_cow_data() can fail on that gso_type before we get here.
 
-> +	gfn_to_pfn_cache_invalidate_start(kvm, 0, ULONG_MAX);
+tcp4_gro_complete() sets this on fraglist GRO aggregates:
 
-I'm pretty sure this should go inside kvm_flush_shadow_all(), both because this
-isn't unique to mmu_notifiers, even though that's the only remaining user of
-kvm_flush_shadow_all().  E.g. in a hypothetical world where kvm_flush_shadow_all()
-was used to ensure there were no outstanding mappings anywhere in KVM, hooking
-only kvm_mmu_notifier_release() would do the wrong thing.
+    skb_shinfo(skb)->gso_type |= SKB_GSO_FRAGLIST | SKB_GSO_TCPV4;
 
-The other wrinkle is that super strictly speaking the invalidation needs to happen
-before kvm_arch_guest_memory_reclaimed().  In practice, there are no interactions
-between SEV's cache maintenance and GPCs, but conceptually the GPC invalidation
-should occur first.  That would also match the ordering in 
-kvm_mmu_notifier_invalidate_range_start().
+tcp4_check_fraglist_gro() chooses fraglist GRO when it finds no socket in
+the ingress device's netns. That happens when rx-gro-list is enabled and
+the espintcp socket is in another netns reached through veth or a bridge.
+veth passes the aggregate on intact, and TCP queues it unsegmented.
 
-Another stupid nit: ULONG_MAX is somewhat misleading because
-gfn_to_pfn_cache_invalidate_start() takes an exclusive @end.  It's not a bug
-because GPCs only ever deal with user addresses, i.e. it should be impossible to
-have a cache at ULONG_MAX-PAGE_SIZE.  Ugh, except for maybe s390, which selects
-ALTERNATE_USER_ADDRESS_SPACE?  CONFIG_HAVE_KVM_PFNCACHE is only selected by x86,
-but it still seems like we should do this "right" the first time.
+When an ESP record spans such an aggregate, __strp_recv() makes it a
+frag_list child of the message head and keeps the FRAGLIST gso_type. This
+happens in one of two ways:
 
-Rather than pass literal numbers, what if (over a few patches) we massage
-gfn_to_pfn_cache_invalidate_start() to take a range pointer, and then add an
-"invalidate all" wrapper that passes a NULL range?
+- skb_unclone() on an appended clone that has its own frag_list
+- moving an old head that has a frag_list under a newly allocated head
 
-Anyone object to taking this on-list?  Unless I'm missing something, this only
-affects the Xen timer, and there are preciously few end users of KVM Xen emulation.
+esp_input() then takes the skb_cow_data() path, and for that child:
 
-E.g. (completely untested)
+net/core/skbuff.c:skb_cow_data() {
+    ...
+		if (copyflag ||
+		    skb_cloned(skb1) ||
+		    ntail ||
+		    skb_shinfo(skb1)->nr_frags ||
+		    skb_has_frag_list(skb1)) {
+			...
+			if (ntail == 0)
+				skb2 = skb_copy(skb1, GFP_ATOMIC);
+			...
+			if (unlikely(skb2 == NULL))
+				return -ENOMEM;
+    ...
+}
 
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index cf4cb586f140..c2e16370f5b8 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -350,6 +350,7 @@ void kvm_flush_remote_tlbs_memslot(struct kvm *kvm,
- static void kvm_flush_shadow_all(struct kvm *kvm)
- {
- 	kvm_arch_flush_shadow_all(kvm);
-+	gfn_to_pfn_cache_invalidate_all(kvm);
- 	kvm_arch_guest_memory_reclaimed(kvm);
- }
- 
-@@ -764,7 +765,7 @@ static int kvm_mmu_notifier_invalidate_range_start(struct mmu_notifier *mn,
- 	 * mn_active_invalidate_count (see above) instead of
- 	 * mmu_invalidate_in_progress.
- 	 */
--	gfn_to_pfn_cache_invalidate_start(kvm, range->start, range->end);
-+	gfn_to_pfn_cache_invalidate_start(kvm, range);
- 
- 	/*
- 	 * If one or more memslots were found and thus zapped, notify arch code
-diff --git a/virt/kvm/kvm_mm.h b/virt/kvm/kvm_mm.h
-index c65cfdb14f1c..f46d999d056a 100644
---- a/virt/kvm/kvm_mm.h
-+++ b/virt/kvm/kvm_mm.h
-@@ -6,6 +6,8 @@
- #include <linux/kvm.h>
- #include <linux/kvm_types.h>
- 
-+struct mmu_notifier_range;
-+
- /*
-  * Architectures can choose whether to use an rwlock or spinlock
-  * for the mmu_lock.  These macros, for use in common code
-@@ -60,14 +62,19 @@ kvm_pfn_t hva_to_pfn(struct kvm_follow_pfn *kfp);
- 
- #ifdef CONFIG_HAVE_KVM_PFNCACHE
- void gfn_to_pfn_cache_invalidate_start(struct kvm *kvm,
--				       unsigned long start,
--				       unsigned long end);
-+				       const struct mmu_notifier_range *range);
-+
-+static inline void gfn_to_pfn_cache_invalidate_all(struct kvm *kvm)
-+{
-+	gfn_to_pfn_cache_invalidate_start(kvm, NULL);
-+}
-+
- #else
- static inline void gfn_to_pfn_cache_invalidate_start(struct kvm *kvm,
--						     unsigned long start,
--						     unsigned long end)
-+						     const struct mmu_notifier_range *range)
- {
- }
-+static inline void gfn_to_pfn_cache_invalidate_all(struct kvm *kvm) { }
- #endif /* HAVE_KVM_PFNCACHE */
- 
- #endif /* __KVM_MM_H__ */
-diff --git a/virt/kvm/pfncache.c b/virt/kvm/pfncache.c
-index 3659686b97c2..3f0edb46ec57 100644
---- a/virt/kvm/pfncache.c
-+++ b/virt/kvm/pfncache.c
-@@ -19,11 +19,18 @@
- 
- #include "kvm_mm.h"
- 
-+static bool gfn_to_pfn_cache_needs_invalidation(struct gfn_to_pfn_cache *gpc,
-+						const struct mmu_notifier_range *range)
-+{
-+	return gpc->valid && !is_error_noslot_pfn(gpc->pfn) &&
-+	       (!range || (gpc->uhva >= range->start && gpc->uhva < range->end));
-+}
-+
- /*
-  * MMU notifier 'invalidate_range_start' hook.
-  */
--void gfn_to_pfn_cache_invalidate_start(struct kvm *kvm, unsigned long start,
--				       unsigned long end)
-+void gfn_to_pfn_cache_invalidate_start(struct kvm *kvm,
-+				       const struct mmu_notifier_range *range)
- {
- 	struct gfn_to_pfn_cache *gpc;
- 
-@@ -32,8 +39,7 @@ void gfn_to_pfn_cache_invalidate_start(struct kvm *kvm, unsigned long start,
- 		read_lock_irq(&gpc->lock);
- 
- 		/* Only a single page so no need to care about length */
--		if (gpc->valid && !is_error_noslot_pfn(gpc->pfn) &&
--		    gpc->uhva >= start && gpc->uhva < end) {
-+		if (gfn_to_pfn_cache_needs_invalidation(gpc, range)) {
- 			read_unlock_irq(&gpc->lock);
- 
- 			/*
-@@ -45,8 +51,8 @@ void gfn_to_pfn_cache_invalidate_start(struct kvm *kvm, unsigned long start,
- 			 */
- 
- 			write_lock_irq(&gpc->lock);
--			if (gpc->valid && !is_error_noslot_pfn(gpc->pfn) &&
--			    gpc->uhva >= start && gpc->uhva < end)
-+			
-+			if (gfn_to_pfn_cache_needs_invalidation(gpc, range))
- 				gpc->valid = false;
- 			write_unlock_irq(&gpc->lock);
- 			continue;
+net/core/skbuff.c:skb_copy() {
+    ...
+	if (WARN_ON_ONCE(skb_shinfo(skb)->gso_type & SKB_GSO_FRAGLIST))
+		return NULL;
+    ...
+}
 
+esp_input() then takes the goto out before skip_cow, so neither reset
+runs. The result is a WARN_ON_ONCE() splat, which panics with
+panic_on_warn. Each valid ESP-in-TCP record like this is also dropped.
+All of this happens before ESP authentication, on data that the TCP peer
+controls.
 
+esp6_input() has the same ordering:
+
+	nfrags = skb_cow_data(skb, 0, &trailer);
+	if (nfrags < 0) {
+		ret = -EINVAL;
+		goto out;
+	}
+
+The commit message says that at skip_cow:
+
+    the head skb and all frag_list members are guaranteed to be uncloned
+    with private skb_shinfo.
+
+In this case skb_cow_data() fails before skip_cow is reached.
+
+The skb_copy() WARN_ON_ONCE() itself is older than this patch. This is
+still the same stale outer TCP GRO metadata problem the patch sets out to
+fix, and a reset placed after skb_cow_data() can't cover it. Should the
+outer GSO state be handled before or inside the COW step instead?
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020030450.7170-1-yangguoshuai%40gmail.com
