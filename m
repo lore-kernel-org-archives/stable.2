@@ -1,109 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792665501;
-	b=cOfx/0wan1U4sqAEhmGUlhJhohIuC/3nonkzivHkQjquooWN5PFXnSfA+hRa3jy/snvI
-	 brJHY9BJT7/iXQZleN4bZa+6CNCDNaWjiWvSixaK2Ilw26s/1R15PGUo2dfSkyue5s6MH
-	 VWCxW4bTfnFZlt84ji53mQalLigvHwepsQB8wbUzmE4iBpj6se6HiSHx5JI6F5WtW3nRD
-	 IGomSVRw1S9FD5pDxovHZ/ePgEkfB2OXKwda+Q1drxADKXpYCvoXrh2z/ZGQha7Zr0owC
-	 UKAHXudzmdg9keXm5b9AQc2EWtaaMf2fjDEmSHBbdg9Ceh4PS9kCE5aZZbLlDzfUpvA==
+	t=1792665621;
+	b=Rjr/kxarGHvIOH1DD7nXjDwYGpkAjFItyJuWaA6nvoghXoNbdNwSFoLGfGYKZnXVdCnV
+	 P7GnX56MtWTvKLfkbevy6PJFSKGwqh7svMHJusAupJfv5TxNYFbFDvNJlUZisVDa6afeu
+	 D1CZ/F6jyBj9HOBzdIImI0BgNXpw12DfWkMlb2G14q/hUdRcE5StDZH2SBjgR3wqC9P/d
+	 NMSTY6garfZHcERhG9kTFWFSVpCFsy9ZeHOXGqH+gQtZOp7cOECkhaTLgi/PBd/RL1tZq
+	 BXJ5EKycy8gMUNcssE8DLUx7Nc+8TJF3n1HjMiQPsWGVyDev6z0+LYNiHSYjlDmtXfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792665501;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=41JCmBNS/gSKFEfwkqTpoi94vQPWz5Cux+SoBsWvcng=;
-	b=07FM7Rgd8t6SjdYcVD0Xp6TqFGCRhLgroNhCyNJUskHoVd4g4iopV4OfJjjeVqO9iRK7
-	 sq1ZxZiPREzo8BpygqIk+6DUTI++kUBZjErs4ReObnaz/ncgL1rXmsCjzyF3YGc3BLMBo
-	 Qd07QksMm2gG3x2EqWyADzbFlaYcIY+ullf9u43YB+7Agb6u6qQXNYTi4OAhMJCHwWZTx
-	 cikiu8xuxNlDgE9Cnatel7ffkUXlXOX8N3MM75XoOMYa/sUri7HTbBiKITDPxPx43DeJe
-	 yWbrUyxrYvUSGxin97wdcD8HHzpXALvi6iFXPwvWvD0XLUu8pF7QpylBIGGt2J3poMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792665621;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=FEKm5nQsGf/I+ugCmSSfq8QJNoZ1NYPo9Xa7ZqzEb5w=;
+	b=VecQP7+rj/p/f77IvlwaSXahVJ6nwR5SV+jRuX0l0Wvf60eBuKWpCxHw/2PnOA/aoHPZ
+	 h5i8O5696vVmM0q3WfhM/rjE2DqACtAJmg39ER2Lo2wZW9uG+w8xB1jRYBbuMSSPDdoy1
+	 bhIcdZDaEiEVImu8UXVHFGBZUf+eQkPMDNwArzx5hGnoBpWqucL/au+FtVqEliZB8jz8E
+	 zzCShmxYoAVHVc6ray5eykGVskh5snUB/8nNRc9E1gGksPltMq3SudeMQEvL+Sa+GSeQ0
+	 n+JQygYe9wsWBEKAjsT5c993R1t/r8lIDSSK/PNTPEOhkpjgVKPKjyzGR0qVkgoii5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=qpRo+Ndf;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vzsXiGCn;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=qpRo+Ndf;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vzsXiGCn;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=H+aAUIH0;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=BNGnn+Hb;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 267D0606A319;
-	Thu, 22 Oct 2026 10:38:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 267D0606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CEF9606A31A
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 10:40:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CEF9606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=qpRo+Ndf;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vzsXiGCn;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=qpRo+Ndf;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vzsXiGCn
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 3AADB21E60;
-	Thu, 22 Oct 2026 10:38:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792665499; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=H+aAUIH0;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=BNGnn+Hb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792665620;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=41JCmBNS/gSKFEfwkqTpoi94vQPWz5Cux+SoBsWvcng=;
-	b=qpRo+NdfJguJX/4UdEB5jnRpJ0vqvO+TmrdFLmqZXaoZCFDKXQu31qxzuTkXKsCI0EbAJu
-	yVbkTalFaQ109OfxY9d6AvJosssHkPZSPAeEBi9PO4Q37x4FWaHJBwQcntaav+IF5ZSk29
-	mgEcsxaMLPV5KWsGTsIMhShnrZYfFRU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792665499;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=41JCmBNS/gSKFEfwkqTpoi94vQPWz5Cux+SoBsWvcng=;
-	b=vzsXiGCnkscRboT2utBQ0qsWW9aSXO8jPVesTsrULdHyG/lQJuBIWswIDCRAr4h8FcPSTK
-	Pwtm02tr5khyQ9Bg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=qpRo+Ndf;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=vzsXiGCn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792665499; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=41JCmBNS/gSKFEfwkqTpoi94vQPWz5Cux+SoBsWvcng=;
-	b=qpRo+NdfJguJX/4UdEB5jnRpJ0vqvO+TmrdFLmqZXaoZCFDKXQu31qxzuTkXKsCI0EbAJu
-	yVbkTalFaQ109OfxY9d6AvJosssHkPZSPAeEBi9PO4Q37x4FWaHJBwQcntaav+IF5ZSk29
-	mgEcsxaMLPV5KWsGTsIMhShnrZYfFRU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792665499;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=41JCmBNS/gSKFEfwkqTpoi94vQPWz5Cux+SoBsWvcng=;
-	b=vzsXiGCnkscRboT2utBQ0qsWW9aSXO8jPVesTsrULdHyG/lQJuBIWswIDCRAr4h8FcPSTK
-	Pwtm02tr5khyQ9Bg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0DC13134E6;
-	Thu, 22 Oct 2026 10:38:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id R6FDNprn2WpjNAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 22 Oct 2026 10:38:19 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 8C84BA1417; Thu, 22 Oct 2026 12:38:18 +0200 (CEST)
-Date: Thu, 22 Oct 2026 12:38:18 +0200
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 11/15] super: keep the read-only state if a
- reconfiguration doesn't change it
-Message-ID: <h4njmihez4imvzmmpl6zqyxys6hedwzhukidmpp4ba52oxei4c@g25ohxttylap>
-References: <20261011-work-super-fixes-core-v1-0-c727176c5b53@kernel.org>
- <20261011-work-super-fixes-core-v1-11-c727176c5b53@kernel.org>
+	bh=FEKm5nQsGf/I+ugCmSSfq8QJNoZ1NYPo9Xa7ZqzEb5w=;
+	b=H+aAUIH0CB7c7yTA6nVQsOgOvq2yvnbZT4sOQtojIefTpq3/oXmGcPBj34wd3dqy+6L9s1
+	1z+SyMUET+CP2h/2KKdIKCMRDt62/9bovCIzlNcq7D8Xx5dpx/ZnxlVn3DfsKS8qsCaWa6
+	HwPTW/4cmawzdKlbFOVqPCghmjn5mjQ=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-646-1kTDrrX_OUuGIdEhfzk34A-1; Thu, 22 Oct 2026 10:40:18 +0000
+X-MC-Unique: 1kTDrrX_OUuGIdEhfzk34A-1
+X-Mimecast-MFC-AGG-ID: 1kTDrrX_OUuGIdEhfzk34A_1792665618
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a1dec05668so13220995e9.0
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 03:40:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792665617; x=1793270417; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FEKm5nQsGf/I+ugCmSSfq8QJNoZ1NYPo9Xa7ZqzEb5w=;
+        b=BNGnn+Hb1UNwzl0XkCj84/glT4JGR/ZvQvv3wPj85ZRPvZlQKG1qaJV0ne9W1aOLHj
+         ZjacEcR92berX4JLAOLGBKvn8MAQEnidr4uhx68Ui8wmtxCzuefbLSd8+07go83/qaSO
+         JiZ0Y7h5p8+pJnUnds4LwkpQ1c5jiQ13NsYT/t6/xP3OckHsEmQ0D4NrF5k3UR6qdTun
+         G8c1D9bv9nSsquOIRzDFC0RVnB13EDwwxeZfMWgdKWTknaWJVwMeTWW3eFqJj2ZatxUT
+         1rmAtxZc3dAp+pv2Kj/DmC1ch1DNpA/nE3VZ8sFhFuMS+fwVFivKrkiPbnsJr9WM0Enz
+         fsWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792665617; x=1793270417;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FEKm5nQsGf/I+ugCmSSfq8QJNoZ1NYPo9Xa7ZqzEb5w=;
+        b=qmedcqpy2XVesjpfaaq48gYzdomJEa07mBIHpmxy9Q4NXXBqwWy4lphoFFf7EE4h/U
+         NC03HKuWVT5iQqbzJSRR3HJIdjyIO0aifKM1Q2bKp5sKQDJqNzaSiHcNrQiFy+ras+RR
+         I2QqObf5l7Kr8e4BVWY+ZlXx6sdoGxd9cyICqAxOmzeMSFP3pijtdK8uXPY4RwV+Lo/0
+         KZJX1MUIUI1oihYP6BCKuZ/s0vrceHxU64ZsGXY8sMdpMHmCzcRAv5ZhX6TQTrlMDdZ4
+         HvSLPSQywd31/ZveoD/QPavnn15p08x8ooqJnlUNGZyRPVq5HLYH/bMg6jAM2aWlUs2h
+         gkww==
+X-Forwarded-Encrypted: i=1; AKwUvBxiBZ/n6DjsMYmIhEz9cX3BbuRRl8LBybSpHRULz/7Gaw3Z3kfFDdxY2PPRPQJcKe9o9+JXrI0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKInHFw/t3otlF/SEavn/HBPD+5GwLErrylP76c1gy6+3ZhJxRM
+	DkYcQk/T5tvmFZzJdFYzneTzQPQE8HLiaEn+ZDJ3B65vzfHUWOBH9gc+SY30TDg4Nc2of5jQ5iJ
+	oiYhp8kS1iTmpoayNzo0gUDZDUk3YVH+WcubZNHwhzL9fpswfwYtlvF7ykA==
+X-Gm-Gg: AYBFou2BgkXYQULgeO9naE/+vzb1RsXYAlmIB0gJPNUFTuA5a2qDuWXMqELxNKj2uu/
+	n7ieg3dewWFrj+68DsdCl59qEofqj61q8hOjYMzqnylFTUOzr7b+Az0czNA+7Rr0LUkrhJu1rxy
+	jHcVVt2M5O5WtM90QDKLvFKkrZ/tm9Rh8q6ruR5FtNzINECE8llzxeOozkDx4nJwuOz/Qoqk8Te
+	Jg6Zy0XdBx4g9t8PropQ0apQDsp22TspfULGdIfkf0ABm4RpsN+vmVUV5VsCl8wkfp+97MzO061
+	qrpDkoeuwnpyaNcraY7tS3mx8E9EspMtglWu7QBtiNYLdFZMHFB/mnP2RzgvUxOwmnGJOyS8kg=
+	=
+X-Received: by 2002:a05:600c:5308:b0:4a2:47:b79c with SMTP id 5b1f17b1804b1-4a20047b7bemr73764585e9.32.1792665617516;
+        Thu, 22 Oct 2026 03:40:17 -0700 (PDT)
+X-Received: by 2002:a05:600c:5308:b0:4a2:47:b79c with SMTP id 5b1f17b1804b1-4a20047b7bemr73764225e9.32.1792665616929;
+        Thu, 22 Oct 2026 03:40:16 -0700 (PDT)
+Received: from [192.168.2.75] ([46.175.183.46])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a207fd494dsm17235475e9.4.2026.10.22.03.40.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 03:40:16 -0700 (PDT)
+Message-ID: <9d167482-2cac-42eb-9fa1-c242406c493d@redhat.com>
+Date: Thu, 22 Oct 2026 12:40:13 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -113,105 +111,174 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261011-work-super-fixes-core-v1-11-c727176c5b53@kernel.org>
-X-Spamd-Result: default: False [-13.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	ARC_NA(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	DWL_DNSWL_BLOCKED(0.00)[suse.cz:dkim];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.cz:dkim]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 3AADB21E60
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH iwl-net 1/3] ice: avoid RTNL deadlock when notifying the
+ RDMA auxiliary driver
+To: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>
+Cc: "Nguyen, Anthony L" <anthony.l.nguyen@intel.com>,
+ "Kitszel, Przemyslaw" <przemyslaw.kitszel@intel.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "Ertman, David M" <david.m.ertman@intel.com>,
+ Shiraz Saleem <shiraz.saleem@intel.com>, Leon Romanovsky <leon@kernel.org>,
+ "Maziarz, Kamil" <kamil.maziarz@intel.com>,
+ Rafal Rogalski <rafalx.rogalski@intel.com>,
+ "Schmidt, Michal" <mschmidt@redhat.com>,
+ "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
+ "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ Mateusz Palczewski <mateusz.palczewski@intel.com>,
+ "linux-rt-devel@lists.linux.dev" <linux-rt-devel@lists.linux.dev>
+References: <20261019065301.3983537-1-poros@redhat.com>
+ <20261019065301.3983537-2-poros@redhat.com>
+ <CH3PR11MB566895C406B00646530A5249C9E5662@CH3PR11MB566895.namprd11.prod.outlook.com>
+Content-Language: en-US
+From: Petr Oros <poros@redhat.com>
+In-Reply-To: <CH3PR11MB566895C406B00646530A5249C9E5662@CH3PR11MB566895.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun 11-10-26 17:56:11, Christian Brauner wrote:
-> fspick() creates a reconfiguration context with an empty flag mask. Only
-> setting "ro" or "rw" adds SB_RDONLY to it. reconfigure_super() honours
-> the mask and leaves SB_RDONLY alone otherwise. But a lot of filesystems
-> decide in their ->reconfigure() whether to go read-write by comparing
-> fc->sb_flags & SB_RDONLY with the current state of the superblock and
-> ignore the mask: affs, befs, btrfs, efivarfs, ext4, fat, gfs2, hfs,
-> hfsplus, hpfs, isofs, jffs2, jfs, minix, nilfs2, ntfs, ntfs3, ocfs2,
-> overlayfs, ubifs, udf, ufs and xfs. mount(2) always puts SB_RDONLY into
-> the mask so that never mattered for it.
-> 
-> So reconfiguring a read-only superblock through fspick() without "rw",
-> e.g., to change an unrelated option or with no option at all, makes
-> these filesystems go through their read-only to read-write transition.
-> For ext4 and btrfs that ends with a read-write superblock that writes to
-> the device and can be written to through any read-write bind mount:
-> 
->   EXT4-fs (vda): re-mounted 68db7463-95cb-47f9-ab87-d1fd35252958 r/w.
-> 
-> Fill in the current read-only state when the mask doesn't cover it.
-> reconfigure_super() is called with s_umount held so that can't race with
-> another reconfiguration. Doing it when the context is created would.
-> 
-> Fixes: cf3cba4a429b ("vfs: syscall: Add fspick() to select a superblock for reconfiguration")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Yeah, this is a bit of a workaround for slightly broken conversions to the
-new mount API but given how widespread this is I think it is a sensible
-choice. Feel free to add:
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+On 10/21/26 1:20 PM, Loktionov, Aleksandr wrote:
+> 
+> 
+>> -----Original Message-----
+>> From: Petr Oros <poros@redhat.com>
+>> Sent: Monday, October 19, 2026 8:53 AM
+>> To: netdev@vger.kernel.org
+>> Cc: Oros, Petr <poros@redhat.com>; Nguyen, Anthony L
+>> <anthony.l.nguyen@intel.com>; Kitszel, Przemyslaw
+>> <przemyslaw.kitszel@intel.com>; Andrew Lunn <andrew+netdev@lunn.ch>;
+>> David S . Miller <davem@davemloft.net>; Eric Dumazet
+>> <edumazet@kernel.org>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
+>> <pabeni@redhat.com>; Ertman, David M <david.m.ertman@intel.com>; Shiraz
+>> Saleem <shiraz.saleem@intel.com>; Leon Romanovsky <leon@kernel.org>;
+>> Maziarz, Kamil <kamil.maziarz@intel.com>; Rafal Rogalski
+>> <rafalx.rogalski@intel.com>; Loktionov, Aleksandr
+>> <aleksandr.loktionov@intel.com>; Schmidt, Michal <mschmidt@redhat.com>;
+>> linux-rdma@vger.kernel.org; intel-wired-lan@lists.osuosl.org; linux-
+>> kernel@vger.kernel.org; stable@vger.kernel.org; Sebastian Andrzej
+>> Siewior <bigeasy@linutronix.de>; Clark Williams <clrkwllms@kernel.org>;
+>> Steven Rostedt <rostedt@goodmis.org>; Mateusz Palczewski
+>> <mateusz.palczewski@intel.com>; linux-rt-devel@lists.linux.dev
+>> Subject: [PATCH iwl-net 1/3] ice: avoid RTNL deadlock when notifying the
+>> RDMA auxiliary driver
+>>
+>> ice_send_event_to_aux() blocks on the auxiliary device lock, and the
+>> dcbnl callers reach it with the RTNL lock held. The RDMA auxiliary probe
+>> takes the two in the opposite order, because __driver_attach() holds the
+>> auxiliary device lock across ib_register_device(), which needs the RTNL
+>> lock:
+>>
+>>    systemd-udevd   state:D
+>>      really_probe                  <- holds device_lock(&adev->dev)
+>>      icrdma_probe
+>>      irdma_ib_register_device
+>>      ib_register_device
+>>      setup_device
+>>      irdma_roce_port_immutable
+>>      ib_query_port
+>>      irdma_query_port
+>>      ib_get_eth_speed              <- blocks on rtnl_lock()
+>>
+>>    lldpad          state:D
+>>      rtnetlink_rcv_msg             <- holds rtnl_lock()
+>>      dcb_doit
+>>      dcbnl_ieee_set
+>>      ice_dcbnl_setets
+>>      ice_pf_dcb_cfg
+>>      ice_send_event_to_aux         <- blocks on device_lock(&adev->dev)
+>>
+>> Everything else that needs the RTNL lock piles up behind lldpad and the
+>> boot never completes. The probe side cannot be changed, so use
+>> device_trylock() and report whether the event reached the driver.
+>>
+>> IIDC_RDMA_EVENT_BEFORE_TC_CHANGE has to arrive before the traffic
+>> classes change, so ice_pf_dcb_cfg() refuses the request with -EBUSY
+>> rather than run it behind the RDMA driver's back. The critical error and
+>> MTU change events are sent from the service task, which consumes their
+>> pending bits before sending, so those are re-armed instead.
+>> AFTER_TC_CHANGE keeps its fire and forget behaviour, it can be neither
+>> refused, the hardware has already changed, nor deferred, every lock that
+>> would serialise a deferred delivery against the dcbnl callers forms
+>> another cycle.
+>>
+>> Fixes: 348048e724a0 ("ice: Implement iidc operations")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Petr Oros <poros@redhat.com>
+>> ---
+>>   drivers/net/ethernet/intel/ice/ice_dcb_lib.c |  9 ++++++++-
+>>   drivers/net/ethernet/intel/ice/ice_idc.c     | 20 ++++++++++++++++----
+>>   drivers/net/ethernet/intel/ice/ice_idc_int.h |  2 +-
+>>   drivers/net/ethernet/intel/ice/ice_main.c    | 16 ++++++++++++----
+>>   4 files changed, 37 insertions(+), 10 deletions(-)
+>>
+>> diff --git a/drivers/net/ethernet/intel/ice/ice_dcb_lib.c
+>> b/drivers/net/ethernet/intel/ice/ice_dcb_lib.c
+>> index 0bc6dd37568792..2022b46c990cb2 100644
+>> --- a/drivers/net/ethernet/intel/ice/ice_dcb_lib.c
+>> +++ b/drivers/net/ethernet/intel/ice/ice_dcb_lib.c
+>> @@ -355,8 +355,10 @@ int ice_pf_dcb_cfg(struct ice_pf *pf, struct
+>> ice_dcbx_cfg *new_cfg, bool locked)
+>>   	struct iidc_rdma_event *event;
+>>   	int ret = ICE_DCB_NO_HW_CHG;
+>>   	struct ice_vsi *pf_vsi;
+>> +	bool dcb_ena;
+>>
+>>   	curr_cfg = &pf->hw.port_info->qos_cfg.local_dcbx_cfg;
+>> +	dcb_ena = test_bit(ICE_FLAG_DCB_ENA, pf->flags);
+>>
+>>   	/* FW does not care if change happened */
+>>   	if (!pf->hw.port_info->qos_cfg.is_sw_lldp)
+>> @@ -406,7 +408,12 @@ int ice_pf_dcb_cfg(struct ice_pf *pf, struct
+>> ice_dcbx_cfg *new_cfg, bool locked)
+>>   	}
+>>
+>>   	set_bit(IIDC_RDMA_EVENT_BEFORE_TC_CHANGE, event->type);
+>> -	ice_send_event_to_aux(pf, event);
+>> +	if (!ice_send_event_to_aux(pf, event)) {
+>> +		assign_bit(ICE_FLAG_DCB_ENA, pf->flags, dcb_ena);
+>> +		kfree(event);
+>> +		ret = -EBUSY;
+> -EBUSY doesn't match to any ICE_DCB_* constant, are you sure you tested this case?
+> It looks like it will be processed like ICE_DCB_NO_HW_CHG i.e. no change needed, isn't it?
 
-								Honza
+The negative return takes the same path as the existing -EBUSY for the
+custom Tx scheduler. ice_dcbnl_setets() and setpfc() pass it to dcbnl
+unchanged, only ICE_DCB_NO_HW_CHG is mapped to zero. setapp() and
+cee_set_all() mask every error, that is pre-existing and also hides
+-ENOMEM and the AQ errors. I have noted this in the v2 message.
 
-> ---
->  fs/super.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
 > 
-> diff --git a/fs/super.c b/fs/super.c
-> index ac4c4d067509..edd5648d1720 100644
-> --- a/fs/super.c
-> +++ b/fs/super.c
-> @@ -1077,6 +1077,14 @@ int reconfigure_super(struct fs_context *fc)
->  	if (sb->s_writers.frozen != SB_UNFROZEN)
->  		return -EBUSY;
->  
-> +	/*
-> +	 * Filesystems take fc->sb_flags & SB_RDONLY as the read-only state the
-> +	 * superblock ends up in. If that isn't being changed, e.g., fspick()
-> +	 * without "ro" or "rw", it's the current one.
-> +	 */
-> +	if (!(fc->sb_flags_mask & SB_RDONLY))
-> +		fc->sb_flags = (fc->sb_flags & ~SB_RDONLY) | (sb->s_flags & SB_RDONLY);
-> +
->  	retval = security_sb_remount(sb, fc->security);
->  	if (retval)
->  		return retval;
 > 
-> -- 
-> 2.53.0
+>> +		goto free_cfg;
+>> +	}
+>>   	kfree(event);
+>>
+>>   	/* avoid race conditions by holding the lock while disabling and
+>> diff --git a/drivers/net/ethernet/intel/ice/ice_idc.c
+>> b/drivers/net/ethernet/intel/ice/ice_idc.c
+>> index 102d63c3018b1f..7fd35ce966ea65 100644
+>> --- a/drivers/net/ethernet/intel/ice/ice_idc.c
+>> +++ b/drivers/net/ethernet/intel/ice/ice_idc.c
+>> @@ -34,30 +34,42 @@ ice_get_auxiliary_drv(struct iidc_rdma_core_dev_info
+>> *cdev)
+>>    * ice_send_event_to_aux - send event to RDMA AUX driver
+>>    * @pf: pointer to PF struct
+>>    * @event: event struct
 > 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+> ...
+> 
+>>   			kfree(event);
+>>   		}
+>>   	}
+>> --
+>> 2.56.0
+> 
+
