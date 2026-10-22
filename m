@@ -1,100 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792642085;
-	b=07yNYgShCuBMdNLUiVPSgSk4MN9kkzuNm+b4XgIN357b/yPdVzuNAR5V++8HXabpmdrc
-	 x1yTykm9xJM3a8U0q5+B6hCQc2mxzsjvbk7z8cSakImgeNjorynBF6EN8inSnUoT+qSMX
-	 PR8Qii3pIQJHgLd+INFVWXH3NyWz4dfvEz4K5i8Bbol3tKDBJ8YgX2VY+YuB3ghVCrZEV
-	 CAfsUI+zjjpoYj+JtnUntsFvCOsbEQq5R2S+sdeukmiyFki/kjJS4iXKQJSxW42Qb141j
-	 qXGsmWbOIjOFd2g6gy9P4+Vz0aRlogAjdWEWRPmSuxTNOuosJ1w8GY79AsqmxdpQOag==
+	t=1792642352;
+	b=Tb/SagSLyg9Rejm2syA68NnZNPPSnDnh2phhZprnDa23xnK/lSQYX6qq+0+Y3bPXaNXA
+	 Lf9AS2cO/w55LNPFRCC8dm3kp3ocRLwWFL1mfc4xnIemxrgSwnYuBhLnjbygPuDe90o0a
+	 Yy6EMC/AIvNNejYati22I2vsMyJtmXkHbvTiI8Z0ybzvGZzjgNj0Kbw5K41xRsEAn2Fd3
+	 AdzFDCOw2oluVNhjE94wBnz3y5CI9F4pmQUa4LgHAXSqR+0xFN6qw7fLvvrGde0/PSxUS
+	 5TbBJte7gTTqAXSCHbd5rrKOXnWGjppt+B4HrLQDWCgf1wQkOeKk05ytFjshj2umhSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792642085;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=d7ZmiZYP2dbsn+AwXoo6pLxe8j6QIbtXdMPkJjGuZvI=;
-	b=EJ+oj0e2aLCf8PPuiuYgdl9G5n4N5ewoU/24bgN+F2Z3wIOywRteJ7ldW/hVbUMFoUXy
-	 TTmaeHCam3iazXLER3QSKfF0ekbCSTBUjiYNAfFMuzumtQIx2WCEboBuM85IwnHINzHo4
-	 4QotUiNa6xsQ/YDuO3FLCfh4XucD0ciPTAEl6FEkhazS+loVvT07m50JR9JNt+pE9AXWk
-	 TNo5C2/E5NW1aIVzTzF3Nx116isyjd9uRubtDX6IBZeXDYu44LooNtil4snvhWyufvVwL
-	 9pG2dRJ6o0uWwL/gr5l5e8Nr5ubFoOsywdEVU8nEN7y11lML3c1+lDQye2zTgCY5blA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792642352;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Spam-Status:X-Spam-Checker-Version;
+	bh=d+O7Dkr5gSsXrS8hwwvE3xGFoOZ+WROQM7tFy95u0ak=;
+	b=q1X6ImX0VPw0tnrOTiYeeo5rvhH0gbd+5wa8Lmx90ZRNtphxT8vgUMz0wigb7cN+V5sF
+	 9KpxwVO1c83txUMSL1FZwnzSJovQcKqMP9MgguWHwNGOpOcbF65if+wb6pSPNuwO52hR5
+	 HK+x4iOXzyKL4A8Hc93CHCI7AyFMW2jJTERnGzO8OEZhGpEkOC580Nq2dl5pprphjRz3/
+	 mjMnDEl6SBWOD2o/w36RWwNniRw+iMGyvyYKEHtKHzkVJabCiSjL6fUv51vFZ1xoc1gvO
+	 9BTdEV0qqiHklUR3J7P6VM+RMkoYE74o1ciJIBj9oZHuAFlmO+EqlCn0yIlz6+iPTeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=De61s8He;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A314606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 04:08:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A314606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=KtjrY0f2;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D4D5B606A332;
+	Thu, 22 Oct 2026 04:12:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4D5B606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=De61s8He
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a018dc1f98so11495605e9.3
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 21:08:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792642084; x=1793246884; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=d7ZmiZYP2dbsn+AwXoo6pLxe8j6QIbtXdMPkJjGuZvI=;
-        b=De61s8Heo9S1XYhRqmxSjzY7gAsNhPTq2vgOcgBb/WwuTyIzis7k+hVLSARONYzeuf
-         8LoqQldhOABJf1af+nXE2PaSyg/jJZCPtfSI1O8D5PDD7ZJPxZmLqAoG9HEnDGnuGF9x
-         3Xhhwlp+2Vo1W5dflcIoalFG488mARf91SFEOO+NQxYhl5iARl0pE52BGiIUEfcohs2X
-         Q9MSL13ourqsNAhd7o2GYAwa+r2vU4C+r2sUvyMDP7K3DsreYMV5WhYnkjqz5eT39RBO
-         QNaKrGmPB36NWVkpGgAmJm17noGhNbEoBsgw26l0iqedXa4jjuYB3RynjieDMRFndUk4
-         F/lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792642084; x=1793246884;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d7ZmiZYP2dbsn+AwXoo6pLxe8j6QIbtXdMPkJjGuZvI=;
-        b=LDbd2uraRXdGDVCi8sd5ZH6VQijX85SvzDP3ziFuviAUKNg8wIGmSaLLwJA2UtrqKA
-         MQ5TufTwPs1B7N7OqgH1ms66GqrnM7QOlZkmrYUAik4fnY5Rnj+8tW4KMfw60F9aWmEn
-         A6VYn7NbZYgTsogIwKYRFYNY4m2TAShi7IfsTxiSdAZrYIJbStmO+bqmuxrvWVr/YvUf
-         eHyJGm98PqwlPrMg6lA6vppivpamRCThH/ghVUyXBwBm2rGDF6E/82uCPljWX01fJh3V
-         CRHP2ke255khLPWm4AnsoS+SDeIXMaoALZde4ayZ78mT9BuNVFC6vVn5/WU2uNZAkCFP
-         pgKw==
-X-Gm-Message-State: AFq9FYLCwM5DGJG260ZCtPx5IeHhM4+CeIAkVK/adzt598FSXf7I/+lR
-	RdjNS+Bi8g5tzjljvot1227D+Jsm6I2LqtriAwdK43+jXYPJqKKmkF7++Rt7rg==
-X-Gm-Gg: AYBFou07dLFt/5rKr0HQlQsH5CDSi4Lg0Ty4pxq0T4qxHN/Pd/bQmoSP0eb+f5KslEs
-	ZuyvWNA0WPDBTwxMJucV9Z8TsUmh+ohKpF9XGE+FwSx8S+w0PVYHs/W67vlPku3NtA4dEGt2aaA
-	LOlNi2WUpy1CaNY8025z7zLdH59A4apF7LBGbViKnRaUMVkukxBhhIScrpPA7GcC081hMcT/som
-	fKcCUbR8Gz/Ie9VIfxSDQoZxEVeeOxbkw+FoIU52echOV6vEst++piAzWa7xgrI6TNsvETjw98i
-	9qibO99EtcdZuWj1VkZKVDa7Ppnd4hXhz9PVnxvB9vvvS3McE85A57hoBa8aAyyEfIUIGERYa9k
-	vjT1mSyT7J5t8yeDHQ+MSeeBDaWIY54u5z+tcsQhrq6hNQBStujK3kz3k9uV1Ok+tMi1Yqyi+0n
-	aQQ/rFpWSVHoDstILZElsCjDEY/hIwXocSyU2sFBsk35YSA8FSB26F2B82CYkD2UNYbwiV7M7Mf
-	9Gx8wTAbi8vNR7erUqnc2afl1+ZMI0Bq1KTyB+HjGaQdN/GGQPW/P5A+vxVmutCH5pr8K1uQUC8
-	vCM6ATBb50O9ujisORCIylwUtuzGQvI=
-X-Received: by 2002:a05:600d:6413:20b0:4a1:80d8:aed5 with SMTP id 5b1f17b1804b1-4a1fdd20c95mr59036485e9.6.1792642083757;
-        Wed, 21 Oct 2026 21:08:03 -0700 (PDT)
-Received: from SurHub.localdomain ([102.213.69.52])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fcd2eff9sm91457025e9.4.2026.10.21.21.08.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 21:08:02 -0700 (PDT)
-From: Abdifatah Suruur <suruurism@gmail.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>
-Cc: stable@vger.kernel.org, Florian Westphal <fw@strlen.de>,
- security@kernel.org, Willy Tarreau <w@1wt.eu>,
- Sasha Levin <sashal@kernel.org>
-Subject: Re: [SECURITY] netfilter: nft_byteorder leaks uninitialised kernel
- stack on 6.12.y with CONFIG_INIT_STACK_NONE (CWE-457)
-Date: Thu, 22 Oct 2026 07:07:58 +0300
-Message-ID: <179264207807.19673.10894070663262050870@gmail.com>
-In-Reply-To: <atXZxmkU9Yrv4h_b@chamomile>
-References: <179235055956.10524.6485282696272965887@gmail.com>
- <atU2brRgmeb6ght2@1wt.eu> <179236182769.4914.3317139682579833845@gmail.com>
- <atWvQFXJzJ434qGd@strlen.de>
- <179239012164.14465.16534329674629579851@gmail.com>
- <atXZxmkU9Yrv4h_b@chamomile>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=KtjrY0f2
+Received: from mac.lan (unknown [4.194.122.162])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 8634220B7166;
+	Wed, 21 Oct 2026 21:12:16 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 8634220B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1792642342;
+	bh=d+O7Dkr5gSsXrS8hwwvE3xGFoOZ+WROQM7tFy95u0ak=;
+	h=From:To:Cc:Subject:Date:From;
+	b=KtjrY0f2cmtpolqk6LP+2vtTWx2MDNG5CyBBKh+b3t6qW2/aGToGslkmFHK3TG7qA
+	 uHBq7WakD7raErHsiDO2f90FGJOFDsltPjQ17AfoLm+/c7SyvMFId/zm6Rc2xpd0hn
+	 4KFtKX5fiXNE5bv3xiEC1ZRpwK9aQML9vwGXEUh4=
+From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	Ronnie Sahlberg <lsahlber@redhat.com>,
+	Steve French <stfrench@microsoft.com>,
+	Hyunchul Lee <hyc.lee@gmail.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	AutonomousCodeSecurity@microsoft.com,
+	Cen Zhang <cenzhang@linux.microsoft.com>
+Subject: [PATCH] ksmbd: fix parent dentry lifetime in directory enumeration
+Date: Thu, 22 Oct 2026 00:12:16 -0400
+Message-ID: <20261022041216.8988-1-cenzhang@linux.microsoft.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,19 +67,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Pablo,
+ksmbd_populate_dot_dotdot_entries() builds the ".." entry from
+the open directory's d_parent and passes that pointer to
+ksmbd_vfs_fill_dentry_attrs() without taking a reference. That pointer
+is only valid while the directory stays under this parent. If a
+concurrent rename moves the directory elsewhere, the old parent loses
+its last reference; a following rmdir then turns it into a negative
+dentry with d_inode cleared, and after the RCU grace period the dentry
+itself is freed. The worker still holds the raw pointer and
+dereferences d_inode through vfs_getattr() and vfs_getxattr().
 
-Yes.  The CVE would cover the vulnerability in released stable kernels, not
-the upstream change itself.  bb061d3de4170741 is the upstream fix, but it was
-not backported, and 6.12.y still leaks uninitialised stack words under
-CONFIG_INIT_STACK_NONE; SUSE Leap 16 ships that configuration.
+A remote SMB client, authenticated or guest, triggers this by listing
+a directory while that directory is moved under a new parent and the
+old parent is deleted. It can be done by the client itself with write
+access or by other concurrent writers, triggering null-ptr-deref and
+slab-use-after-free on a KASAN build.
 
-Sasha has now queued the full backport for both 6.12 and 6.18 (queue commits
-d9a6f49f787e and 1eed0466672b).  I'll send the CVE request to cve@kernel.org
-once it appears in a stable release, per the documented process.  Happy to
-adjust if you'd prefer a different sequence.
+  KASAN: null-ptr-deref in range
+      [0x0000000000000000-0x0000000000000007]
+  Workqueue: ksmbd-io handle_ksmbd_work
+  RIP: 0010:xattr_permission+0x9d/0x160
+  Call Trace:
+   vfs_getxattr+0x9c/0x1b0
+   ksmbd_vfs_getxattr+0x82/0x100
+   ksmbd_vfs_get_dos_attrib_xattr+0x7f/0x130
+   ksmbd_vfs_fill_dentry_attrs+0x435/0x650
+   ksmbd_populate_dot_dotdot_entries+0x25e/0x630
+   smb2_query_dir+0xcf9/0x1a20
+   handle_ksmbd_work+0x5f1/0x1c80
+   process_one_work+0x90b/0x19d0
 
-Thanks,
-Abdifatah Suruur
-suruurism@gmail.com
+Fix by using the dentry reference counting APIs: take the parent with
+dget_parent(), take a matching dget() on ".", and dput() the dentry
+once ksmbd_vfs_fill_dentry_attrs() has returned or the pattern does
+not match.
+
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@vger.kernel.org
+Cc: AutonomousCodeSecurity@microsoft.com
+Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
+---
+ fs/smb/server/smb_common.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/fs/smb/server/smb_common.c b/fs/smb/server/smb_common.c
+index ec6ee56293ce..8e44b15a4177 100644
+--- a/fs/smb/server/smb_common.c
++++ b/fs/smb/server/smb_common.c
+@@ -478,16 +478,17 @@ int ksmbd_populate_dot_dotdot_entries(struct ksmbd_work *work, int info_level,
+ 			if (i == 0) {
+ 				d_info->name = ".";
+ 				d_info->name_len = 1;
+-				dentry = dir->filp->f_path.dentry;
++				dentry = dget(dir->filp->f_path.dentry);
+ 			} else {
+ 				d_info->name = "..";
+ 				d_info->name_len = 2;
+-				dentry = dir->filp->f_path.dentry->d_parent;
++				dentry = dget_parent(dir->filp->f_path.dentry);
+ 			}
+ 
+ 			if (!match_pattern(d_info->name, d_info->name_len,
+ 					   search_pattern)) {
+ 				dir->dot_dotdot[i] = 1;
++				dput(dentry);
+ 				continue;
+ 			}
+ 
+@@ -496,6 +497,7 @@ int ksmbd_populate_dot_dotdot_entries(struct ksmbd_work *work, int info_level,
+ 							 idmap,
+ 							 dentry,
+ 							 &ksmbd_kstat);
++			dput(dentry);
+ 			if (rc)
+ 				break;
+ 
+-- 
+2.55.0
+
