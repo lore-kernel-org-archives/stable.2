@@ -1,85 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792680174;
-	b=UP1C7u66yr0FioEwRd8bwBIHw8YXuibaJZUgEXT8YEyxe8dnujA5r98spiKHCnYeFsVf
-	 tDrFh1VuPoKsLr2Bwul2LkbDjgBnNrlrPN+uYDGNeGHapCIWfSh3DE8ZE6u7M6nvX40zV
-	 dT8N5bfk6tI1LQtY6uv4V4hl3MddDOsvJejy+LTXFCQIqk+AqbiZQweOQEB4dj7P+q+tD
-	 Iuwd7YaUlV7UzS8uSBu/LmbMp/xBlJNbeniIlrAcTK6xmmu5WHS0M2qeXwsLWkbmOvYD4
-	 5Bkv29CT9+CpXZYHwo4ZYmvjYxA5k83SjCCKw4EZFWq3R67VkjEZVvSjPXgt4NV6LQQ==
+	t=1792680394;
+	b=r0v7/qDbJBduLskdbAhfFJo8UqKS019LuamBmpWECfltN3sBw5TMB7aFrI4H/7HEvGT4
+	 pPmZTmKgaf8viPf1zDTTW56TFNHY2EB47ZeTYYAaz426Zip31hn07tDmh+TaoAIUnHKI+
+	 GIOwR/eDjGkqe8ZFlj/1+XEljW2PX8Q129WjTwejS0Vr8ZBN0IVWyxg585McovsUFSuIe
+	 fpe7N42HBp1xaGthnZwMcOzjQTJon1vraa4+zXojD22NdbHh2oAlzadg4xf4EnahzvqS/
+	 iwC874QFErRPinmARWXwzvx3067rPm4TJI33NmoyoynYDhKcYbu3JYgKFYy0x856/4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792680174;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:
-	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=vrcWaHVIeX4mO1LrsCPWfI2eA+VxsiZCBF7UZYtiUaw=;
-	b=m00lbijWXuidz4YQfSV6Q7BrPSOQ7AuQfEKfX/ehORRzShgFuzuMEAU7LrYNqBCNqWnL
-	 NCCO0zXwkONzH5VldmmC3KFRoPjMpoullDHQ95dzxj9XcT5WknWywdgenieVRJH2wGyfS
-	 rzmoaU/BexQtmcWaWAyTGCCZCqxMyLNF13ZQBxhJ6suTagVGprKfB4Bpz045+V6wOd/mh
-	 9aqpK532DHTlEMOefhhUTn8ihCwoXOLnLmVczHYpfHZ1DWhoKYxkIeCH1mb3zw6NbTCDJ
-	 ObEnaKoB7z8fFcex3CN0PbuvlQ/Yk4S33082AXKTeKwzBV6fWqxHAcT+BVk+/qKgJxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792680394;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=+oHYwW+2+REHEr6vVJAo/VLToYTJjn8LSKpd6kIFqVk=;
+	b=h3yMUbXUrIZbFqk97bnSYOy77jGR78WdKglBUsbwlLLlwpghCfPZl0/4A+KGGILrd8uY
+	 TIToyxUchW4phuPptHlaQmTtHXxtW3ZuXuLyoY1a3DaxeEWDPNP6dpNoC7lg0BnW85bs+
+	 f6O5TrxbiDYMXj3LsdFFyvpzSgmNstwP6QQSXxxDzVvCNal0vCWwQRcRUfDyRX+vZQ3hp
+	 OvNtmQrFkAZrBwWvDU3Unt5LhXrF00z0Hj6jDixhXsHSX4OCeEmMWXCeTW9SpgtW/anKr
+	 ocND+kydztCdYSSi75iHRqko6aRQHJbHAfATzV928DeXfHxRBgMiTqSd4ZapWms7K+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=embSkSZV;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MDnhHOoR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B147606A31B;
-	Thu, 22 Oct 2026 14:42:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B147606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 246AB606A319
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:46:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=embSkSZV
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MEFUHR4098306;
-	Thu, 22 Oct 2026 14:42:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=vrcWaHVIeX4
-	mO1LrsCPWfI2eA+VxsiZCBF7UZYtiUaw=; b=embSkSZV9AlrbM5gQ8OzDdAS+YN
-	D/Up2bPy150kfYo+2v31LdDTrRwxX0LLdDbLNY6NC7+XJ9SW+K58kvHzuA3J90ON
-	P8dnc5CdTwinlG0Zoeuir19Zk9NcZrtTfBO/cGtnG43QOD6GIJW/Y4krs3SedYQj
-	TaE40y2qdwwu/gWg173Qp+mPBnLgHyNvqhm2JdOEi6OQEnAtFRPMS7OVmzCVPy9V
-	Ho0/ley46omvlS5bjneHkZcof6s9T8cX563HJxDm3dgTZlDmW+Q+iQhMS7MXKMAC
-	NdDl+1gYCTT18USg1tnbS7K2cQ6wJbAfcLGbTKvF6sxT/PjMHFW/9/u2EZA==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfewq337a-2
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 22 Oct 2026 14:42:45 +0000 (GMT)
-Received: from pps.filterd (apblrppmta02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69MEfW141932678;
-	Thu, 22 Oct 2026 14:41:32 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-mohis-hyd.qualcomm.com [10.147.253.64])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 69MEfVCV1932658
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 22 Oct 2026 14:41:31 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4840500)
-	id D4596639; Thu, 22 Oct 2026 20:11:30 +0530 (+0530)
-From: Mohit Sharma <mohit.sharma@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Mark Brown <broonie@kernel.org>
-Cc: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>,
-        Liam Girdwood <lgirdwood@gmail.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Mohit Sharma <mohit.sharma@oss.qualcomm.com>, stable@vger.kernel.org
-Subject: [PATCH 1/2] ASoC: qcom: q6apm: Guard callbacks until probe data is ready
-Date: Thu, 22 Oct 2026 20:11:29 +0530
-Message-Id: <20261022144130.2443667-2-mohit.sharma@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261022144130.2443667-1-mohit.sharma@oss.qualcomm.com>
-References: <20261022144130.2443667-1-mohit.sharma@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MDnhHOoR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B070F1F000C2
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:46:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792680393;
+	bh=+oHYwW+2+REHEr6vVJAo/VLToYTJjn8LSKpd6kIFqVk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=MDnhHOoR0YdNyYJ1me1ajZRLCz1Bq2Ck49Vz5d+G10/s2Pc0vz9gxuzmKyA91IGMO
+	 G6NhvrtMY0x9cK2OtbfgmCW3x9iSDOG6Si8JrVrdsBElR03vfPNsiu39jKtJGgc1eR
+	 Vl3tCGM69Rk0puqxY52folQycDewZMmKYfsfpLaKhhiOp8izSp2BxUsD5Qk/9Lziqj
+	 oxjUth7jX45n3PGv8xRt5oV7yRwwknaEY9COPEpJnC7g/7VT8m2hyMaNqD0fiVpTav
+	 sig2OVOtnW/z31nf6/sfgjgX4tYeE1Tf+fnWm+WTUWSc20TVDnCzYnie1sX53xqK+x
+	 5Bvk20EKE7L+Q==
+Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6cf995766a3so1572518eaf.2
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 07:46:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxOhZtLPDsZTiLIK0rgwcfhqnWgipO8frLUJ1Ug2lkNuWdvV/++d3/H/Y1C7J6t3gc2JuuOTRk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKyIZybOqFrItuMYbtylHvuHk7UrtGfuc2bFSRrQ3bqwnl4tt3F
+	sWclgDfkzupFM/eIyYu2G53qUbtggXfRXM/5HzTC/tEdCzVr4vgPMlr0F+fns2RGW0wLvHXbHCK
+	+m17JpgKL1XwvD7DPm878v7LJPUil+3g=
+X-Received: by 2002:a05:6820:160a:b0:6fc:373a:1775 with SMTP id
+ 006d021491bc7-70941a50e37mr3218344eaf.79.1792680393015; Thu, 22 Oct 2026
+ 07:46:33 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,100 +59,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-GUID: wglhc3ftu4akMWXr7lmt-vRb-Cx85mvx
-X-Proofpoint-ORIG-GUID: wglhc3ftu4akMWXr7lmt-vRb-Cx85mvx
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA1OCBTYWx0ZWRfXyi9Iv5zho5fa
- slWNbpk7mz7gMndP95rH5lC5JNvDH2TR1h4Z0W3uockMWR5I1k7zJXtNnjFNmcW8exgA4ZdDGk5
- Bcu8tQ8Jh5HMsFQCd2Q+szOCvgPFO+c=
-X-Authority-Analysis: v=2.4 cv=G4OJgNk5 c=1 sm=1 tr=0 ts=6ada20e6 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=CQ11ig6xNshaWAb830gA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA1OCBTYWx0ZWRfX9j93riZ0B+3W
- 8Av3+KRDtmgZor52WTssmqY06fVGDo1+A5sN/1+2WNKsEBIDB6j4Vms4FwsnZupvOVLRjMmperZ
- nHzVEQGbIxWdWVi+6OO0P14yyAIZB9jF4q+2A2TrbHdAN/TTjridkTgflXDz7TDKZA4a8XC5Bzp
- rqmPxRnhdxpCGU5q58wwiBExQ4f1ePrOwjwCCsDOdSDObp4ug0Fb7Uo9U8o/7mn9hBhQ79yv6N3
- Q+Kam/MW7yPNagdhChFl8nyVAVd/tdyZ1tNm+cDs2zltZ7tQik7Ury/J0OjULWR7hLRNdS2DbQ/
- Qt18jsKFViMC7CP6gNlKjbOgH0+aULt4zu2Ou9m5cnJHQNgrE8tbsZa0qMKpp0W1mKJgJVFNAAU
- ws6yXZK22nBKkt8mN3Phbss8GVsdJCgWXvJvMpSaW97YdQcTW5BJmkJ6treNtxGogiLGwc3kK5i
- Nln//3clizBc5zBteyg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1011 phishscore=0 lowpriorityscore=0 bulkscore=0
- impostorscore=0 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220058
+References: <20261021193151.1819085-2-Jeremy.Jean@oss.cyber.gouv.fr>
+In-Reply-To: <20261021193151.1819085-2-Jeremy.Jean@oss.cyber.gouv.fr>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Thu, 22 Oct 2026 16:46:21 +0200
+X-Gmail-Original-Message-ID: <CAL4WiiqYwtZ0851Y0M1gOAQ5uU=kjU29Puwjx7+kyR7BqKEpUg@mail.gmail.com>
+X-Gm-Features: AclHuK_eJ8qt7rFIbVyfxXEh_VsPWT_SRnJGCQzv1xMfMCKNtYZIIndkv2R0CTA
+Message-ID: <CAL4WiiqYwtZ0851Y0M1gOAQ5uU=kjU29Puwjx7+kyR7BqKEpUg@mail.gmail.com>
+Subject: Re: [PATCH] tcp: fix authentication bypass via unsupported TCP auth options
+To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The GPR bus needs to make response callbacks available before invoking a
-client probe because clients can issue synchronous commands from probe.
-This creates a short interval where a callback can run before the client
-has published its private data.
+Le mer. 21 oct. 2026 =C3=A0 21:32, J=C3=A9r=C3=A9my Jean
+<Jeremy.Jean@oss.cyber.gouv.fr> a =C3=A9crit :
+>
+> tcp_inbound_hash() parses both TCP-MD5 and TCP-AO options when at
+> least one of the two features is enabled. With TCP_MD5SIG=3Dy and
+> TCP_AO=3Dn, a packet with an AO option reaches the disabled
+> tcp_inbound_ao_hash() stub. That stub returns success, so sockets
+> configured to require MD5 authentication end up accepting
+> unauthenticated data.
+>
+> The inverse configuration with TCP_MD5SIG=3Dn and TCP_AO=3Dy has the same
+> problem for an MD5 option on AO sockets.
+>
+> Make the disabled stubs reject options for the unsupported
+> authentication scheme.
+>
+> Fixes: 0a3a809089eb ("net/tcp: Verify inbound TCP-AO signed segments")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> ---
+>  include/net/tcp_ao.h | 2 +-
+>  net/ipv4/tcp.c       | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/include/net/tcp_ao.h b/include/net/tcp_ao.h
+> index 9a2333e62e994..bb249d6df8723 100644
+> --- a/include/net/tcp_ao.h
+> +++ b/include/net/tcp_ao.h
+> @@ -303,7 +303,7 @@ static inline enum skb_drop_reason tcp_inbound_ao_has=
+h(struct sock *sk,
+>                 const struct request_sock *req, int l3index,
+>                 const struct tcp_ao_hdr *aoh)
+>  {
+> -       return SKB_NOT_DROPPED_YET;
+> +       return SKB_DROP_REASON_TCP_AOUNEXPECTED;
+>  }
+>
+>  static inline struct tcp_ao_key *tcp_ao_do_lookup(const struct sock *sk,
+> diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+> index 87ef6d5cbfeba..7d800b6283bd2 100644
+> --- a/net/ipv4/tcp.c
+> +++ b/net/ipv4/tcp.c
+> @@ -4962,7 +4962,7 @@ tcp_inbound_md5_hash(const struct sock *sk, const s=
+truct sk_buff *skb,
+>                      const void *saddr, const void *daddr,
+>                      int family, int l3index, const __u8 *hash_location)
+>  {
+> -       return SKB_NOT_DROPPED_YET;
+> +       return SKB_DROP_REASON_TCP_MD5UNEXPECTED;
+>  }
+>
+>  #endif
+> --
+> 2.47.3
+>
 
-Make q6apm publish its driver data only after all callback-visible state
-has been initialized. Have the q6apm and q6prm callbacks ignore packets
-received before driver data is available.
+Good catch, thanks.
 
-Fixes: ec1471a898cc ("soc: qcom: apr: Add GPR support")
-Cc: stable@vger.kernel.org
-Co-developed-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-Signed-off-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-Signed-off-by: Mohit Sharma <mohit.sharma@oss.qualcomm.com>
----
- sound/soc/qcom/qdsp6/q6apm.c | 6 ++++--
- sound/soc/qcom/qdsp6/q6prm.c | 3 +++
- 2 files changed, 7 insertions(+), 2 deletions(-)
+The forged AO option makes us skip the unsigned fast path, which is
+the only place where tcp_md5_do_lookup() can return MD5NOTFOUND.
+An attacker able to hit the window of an MD5-protected session (BGP...)
+can therefore inject RST or data with a junk AO option, which is
+exactly what RFC 2385 is supposed to prevent.
 
-diff --git a/sound/soc/qcom/qdsp6/q6apm.c b/sound/soc/qcom/qdsp6/q6apm.c
-index 3ec3c5a18c7a..dbebb643cd5e 100644
---- a/sound/soc/qcom/qdsp6/q6apm.c
-+++ b/sound/soc/qcom/qdsp6/q6apm.c
-@@ -872,8 +872,6 @@ static int apm_probe(gpr_device_t *gdev)
- 	if (!apm)
- 		return -ENOMEM;
- 
--	dev_set_drvdata(dev, apm);
--
- 	mutex_init(&apm->lock);
- 	apm->dev = dev;
- 	apm->gdev = gdev;
-@@ -887,6 +885,7 @@ static int apm_probe(gpr_device_t *gdev)
- 
- 	idr_init(&apm->modules_idr);
- 
-+	dev_set_drvdata(dev, apm);
- 	g_apm = apm;
- 
- 	q6apm_get_apm_state(apm);
-@@ -930,6 +929,9 @@ static int apm_callback(const struct gpr_resp_pkt *data, void *priv, int op)
- 	const struct gpr_hdr *hdr = &data->hdr;
- 	int graph_id, is_pos_buf;
- 
-+	if (!apm)
-+		return 0;
-+
- 	result = data->payload;
- 
- 	switch (hdr->opcode) {
-diff --git a/sound/soc/qcom/qdsp6/q6prm.c b/sound/soc/qcom/qdsp6/q6prm.c
-index 2042ff1e8ff1..5c927ebd81f4 100644
---- a/sound/soc/qcom/qdsp6/q6prm.c
-+++ b/sound/soc/qcom/qdsp6/q6prm.c
-@@ -194,6 +194,9 @@ static int prm_callback(const struct gpr_resp_pkt *data, void *priv, int op)
- 	const struct gpr_ibasic_rsp_result_t *result;
- 	const struct gpr_hdr *hdr = &data->hdr;
- 
-+	if (!prm)
-+		return 0;
-+
- 	switch (hdr->opcode) {
- 	case PRM_CMD_RSP_REQUEST_HW_RSC:
- 	case PRM_CMD_RSP_RELEASE_HW_RSC:
--- 
-2.34.1
+Please mention in the changelog that TCP_AO depends on 64BIT: every
+32-bit kernel with TCP_MD5SIG=3Dy is in the vulnerable configuration.
+
+With your patch the stubs now return what the real helpers return for
+a socket without keys (AOUNEXPECTED / MD5UNEXPECTED), so behavior
+becomes consistent across configs. One visible change is that MD5=3Dn,
+AO=3Dy kernels will now drop segments carrying an MD5 option to unkeyed
+sockets, as MD5=3Dy kernels already do. That is fine, but worth one
+sentence.
+
+Optional: bumping LINUX_MIB_TCPAOKEYNOTFOUND / LINUX_MIB_TCPMD5UNEXPECTED
+from the stubs would make these drops visible in nstat.
+
+This is a fix, please send v2 as [PATCH net].
+
+Also please CC TCP-AO folks from Arista
+
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
