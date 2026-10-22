@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792673685;
-	b=XB5Y/a72wEqlnkyN74303culD2AAO8TEQZA0d0Oqev/TvAw2eLHMaszdHYc5A/hkZVuX
-	 +B57be5kh0SKY0WpTPqMA7VuVX3cjTB1qWNF4wW1r3lCNWazFLR1EMO7SpmMX00YJlIZ1
-	 NF8FFeUmKLuy37GAKJojKAo44SEwHOVrO9CU1OiWEo/UxeIyS8VED7IYwbqshsOBGqplB
-	 5m3ZcAalNtt7akuUY0xNwYUU+67HZ4QgeNVXTHWWoqVGa8RY3PVPmo6buILB6YOSppYux
-	 5YKZKADH9i2mMGMKn7c8ZiF/3czofA0ToYalN5+8E7G9WqWaCGV55DfV9UMwU5T7vKg==
+	t=1792673688;
+	b=KgZLX6/LCrJIcvvrCg8JjbzXneVmLuVtyBVzbtrqmUyX8VttYMkZYROuu8jZeDeoIzVm
+	 3/mNUpkaflFIv8tKwxwbH4JEwNnO0V4rCjKBNdupI5nHiLgydRz6l1rtS1NwywbLUfYz5
+	 JaO72GW/vP6TLnoqi0uENsxAgXGiXyYXHtFoKTfX90nZmBzuo/E4obL2YTGzOVsMoLNiw
+	 +giXoyIu65ulQ5o7xnB1M6TvwLIs9TNI4B4EOLldixwaRX3ISWujQYmGNHLaA0xWkS/CP
+	 IPXPNwfhjRCRefdpk7G/wUaHOTtf2Voa1OQEmW6IFRspqPa2spBhYXfSbsg+Z0lonKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792673685;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792673688;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=qBsfA7HS2a9Ojhy981op17IhypY2l30ZwgdhcpBePEo=;
-	b=h7OXN8+vKUBl7U4Bb+UNRX59bDwoyYhImkaCKrehjHFU3vXfqfJ8EooyHJxQS62wRZ/h
-	 mOoCS57P6N32Hnsxf/RT8jMdGZtFAxH4Gsq7DrPnrtdE45uk2CBVlkppZhMlMsubylY8p
-	 5UYVCnAvocuZcu54yf4Z1xmhUnjGa1vxtlfFm3QtAh4DAODO5o0ZVYUndIu3oPhMZ/IFc
-	 fMATGaE4cRH9aCFPoXfDPd5UFQvGOqbHGHyZD1G1Eg0dpxdRrv1D8xBhMxueRw6QGQu2K
-	 7qagZXcCItGIj+LX8zcHu0Cv8vXgxdayhExPnMCPy5DlqugK+YZ2AQkqu3abfbaxo1w==
+	bh=4/tx/ZYqiTB0UDMu9m8ijFVpagIOPtZNAU0MTOcfHzw=;
+	b=38yEFm62upjJpfIY9sp7a7keQwHMver2+QjsTKZqro9d5tJrJEn26sdAOMXWjj82GRu/
+	 EzgiPVvfIegapR4dnyE+6K9MAD0/gfTkwN7Qeb9wRJ4s3mwTN+Sv/h84JzA2bclu2RH24
+	 o5lAbHWjbSiMFXgpP3SFu5AdMqIZPLHW4cajf3MrmOTRFMe3kyr42/PJkCFA2O82yDUiW
+	 ZyuHv/c3My5vZE9fSe7c1wdCknDQk3cvmCQ+5o68OnmEoYSv5pZKX3xdBp3zVWVOUEkjw
+	 fOkraNzM7u8XSZMay7k5tYZgq1MpaUSP5QnLYU0IItk+Ptob8qHdUrLuI4GuaiXQfnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=blBNscZP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hYHUnHyO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB58B606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 12:54:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E68C2606A31A
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 12:54:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=blBNscZP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E36051F000C1;
-	Thu, 22 Oct 2026 12:54:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hYHUnHyO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 027A21F000C1;
+	Thu, 22 Oct 2026 12:54:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792673684;
-	bh=qBsfA7HS2a9Ojhy981op17IhypY2l30ZwgdhcpBePEo=;
+	s=k20260515; t=1792673687;
+	bh=4/tx/ZYqiTB0UDMu9m8ijFVpagIOPtZNAU0MTOcfHzw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=blBNscZPz1pRnd9bEOA453sIHFcbrQe6RdMn+mE6TL5SB4Rrr9iQLsRCO88xTXPLL
-	 +wnjdFLDirCFyshEQct59TNFYGEmwBnjz6lVGb99rfIMGKUzYagE4/A+8V6Z8trp/p
-	 1eowtIOo7F4QlCZ6Oau8sj5NSFQQPwn5mv9Md11BJLbMMZt3KAVYDp9jTP+cJlQrFc
-	 g2ixSKbr51oHXzBSTmHFFuaoTKUVJsk8Q85sLzs2qHtLExHVaXvbZldBNDXokS0nOf
-	 hNwjBgTh2UPvkE/QK1Xusc+SdPmj/qaKo+PArGRSfNQpe9slq5oC9CY0LO0PlxXYve
-	 0eFbZQ/IilOcg==
+	b=hYHUnHyOCtOLcAKdqWDeh3NQM5ql5dagZBoCdl/QEyDeiX++zc1JUOPdEWsiY0xhE
+	 c07x4F4e2VSUzoWPcVJZ/0YvKu6hGxJ4qGTuG7OWuAI8CDRgo4hxCXnuOGiVMWR3/T
+	 qa0iXuQlJdDP84ogqqoIqPDcAiuQ+HfOxALsHOJZrODSb5Mm4OII4t6SIxjP7GzwiS
+	 zyDjuCxdn3pfsGId6PI2jMS08TQ6RYDcCiT/zDxVoZbrxEcC97s3lGFWP016l3ad/d
+	 D+sy7GoUmGpgfWdYhxiB4v5IaN302Cfubg/XdwsXTJ5cY0JzNLL5+Oy760/Y4fH3N6
+	 lwMFmigNS4j/Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Taeyang Lee <0wn@theori.io>,
-	Steven Rostedt <rostedt@goodmis.org>,
+Cc: Wentao Liang <vulab@iscas.ac.cn>,
+	Andi Shyti <andi.shyti@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] tracing: Keep the predicate limit separate from program capacity
-Date: Thu, 22 Oct 2026 08:54:42 -0400
-Message-ID: <20261022125421.1190173-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] i2c: viai2c-wmt: Fix clock leak in wmt_i2c_probe()
+Date: Thu, 22 Oct 2026 08:54:45 -0400
+Message-ID: <20261022125417.1187808-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102143-backlog-glove-c78f@gregkh>
-References: <2026102143-backlog-glove-c78f@gregkh>
+In-Reply-To: <2026102102-unafraid-triumph-de54@gregkh>
+References: <2026102102-unafraid-triumph-de54@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,57 +61,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Taeyang Lee <0wn@theori.io>
+From: Wentao Liang <vulab@iscas.ac.cn>
 
-[ Upstream commit 803aa6fc2dbea25ab9d3ed19eca1c96d0ab17445 ]
+[ Upstream commit aaabefc79b0ff0018e8e3832169bbe359d0551fc ]
 
-predicate_parse() adds two to nr_preds to reserve the terminal TRUE
-and FALSE entries. It also uses that increased value as the limit for
-parsed predicates. If the initial count is smaller than the number
-actually parsed, the program can fill the allocation and subsequent
-accesses can go past its end.
+In wmt_i2c_probe(), i2c->clk is acquired using of_clk_get(). If any
+subsequent operation fails or when the module is unloaded, the clock
+reference count is never decremented via clk_put(), leading to a
+resource leak.
 
-Keep nr_preds as the predicate limit and use a separate value for the
-allocation size. This leaves space for both terminal entries and a
-zeroed entry when parsing stops at the limit.
+Switch to devm_clk_get() so that the clock is automatically managed
+and released.
 
+Fixes: 560746eb79d3 ("i2c: vt8500: Add support for I2C bus on Wondermedia SoCs")
 Cc: stable@vger.kernel.org
-Fixes: 39f7c41c908b ("tracing/filters: Enable filtering a cpumask field by another cpumask")
-Link: https://patch.msgid.link/atELCd1XjKVhrkFL@Taeyangs-MacBook-Pro.local
-Signed-off-by: Taeyang Lee <0wn@theori.io>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-[ sashal: Adapted the kzalloc_objs() allocation to the existing kcalloc() call. ]
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+Link: https://patch.msgid.link/20260916070631.1965713-1-vulab@iscas.ac.cn
+[ sashal: adapted the clock assignment to use i2c_dev instead of i2c ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace_events_filter.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/i2c/busses/i2c-wmt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-index fbed36c49ef6c..7985bbdf2ba65 100644
---- a/kernel/trace/trace_events_filter.c
-+++ b/kernel/trace/trace_events_filter.c
-@@ -482,18 +482,17 @@ predicate_parse(const char *str, int nr_parens, int nr_preds,
- 	int len;
- 	int N = 0;
- 	int i;
--
--	nr_preds += 2; /* For TRUE and FALSE */
-+	int nr_preds_alloc = nr_preds + 2; /* For TRUE and FALSE */
- 
- 	op_stack = kmalloc_array(nr_parens, sizeof(*op_stack), GFP_KERNEL);
- 	if (!op_stack)
- 		return ERR_PTR(-ENOMEM);
--	prog_stack = kcalloc(nr_preds, sizeof(*prog_stack), GFP_KERNEL);
-+	prog_stack = kcalloc(nr_preds_alloc, sizeof(*prog_stack), GFP_KERNEL);
- 	if (!prog_stack) {
- 		parse_error(pe, -ENOMEM, 0);
- 		goto out_free;
+diff --git a/drivers/i2c/busses/i2c-wmt.c b/drivers/i2c/busses/i2c-wmt.c
+index 88f5aafdce5b4..33d085e564f57 100644
+--- a/drivers/i2c/busses/i2c-wmt.c
++++ b/drivers/i2c/busses/i2c-wmt.c
+@@ -391,7 +391,7 @@ static int wmt_i2c_probe(struct platform_device *pdev)
+ 		return -EINVAL;
  	}
--	inverts = kmalloc_array(nr_preds, sizeof(*inverts), GFP_KERNEL);
-+	inverts = kmalloc_array(nr_preds_alloc, sizeof(*inverts), GFP_KERNEL);
- 	if (!inverts) {
- 		parse_error(pe, -ENOMEM, 0);
- 		goto out_free;
+ 
+-	i2c_dev->clk = of_clk_get(np, 0);
++	i2c_dev->clk = devm_clk_get(&pdev->dev, NULL);
+ 	if (IS_ERR(i2c_dev->clk)) {
+ 		dev_err(&pdev->dev, "unable to request clock\n");
+ 		return PTR_ERR(i2c_dev->clk);
 -- 
 2.53.0
 
