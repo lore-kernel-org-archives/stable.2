@@ -1,55 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792696782;
-	b=aRz2to5n+QJHTzYl5MgrJKz9YtlwcfBZf7a4LRnLpLBtDv3eXfOwHmxhk3cY1MwkGOxa
-	 jfax77PfF+zWRcxnChExUX6G6knvVs0VUvdVLQkTHf4lHiAghTUhKdjo5Lhmnz67IU5kF
-	 eRDxwcB8jIPUJTv0da6Gxm4xLvz3bZfn7OGbhilsi3Z9gC6+PjqskZgENyYrvyO+Ro8Zz
-	 FAFUh7rKvNXXRYiJzMnkmB0VhHOobBdB9S+u8TCe5+PjT2+KKTYfyP0XKfn972FIuSiaQ
-	 4uRlBWK3D/n8KRv/+cbZ66ptSUApHAqnNtSegKXsNZa6vlWwYq0eXkw7DuZlLqrnz0A==
+	t=1792696839;
+	b=pCE0q23ZOWiIBSB/7jpI6GOY66azOrKkCBm4/4N07989bMJM+q3bnw4xtGo+2/kB/abQ
+	 uJ+UzWMikGK0rsRuQAgXYS78k7x0MrLCCkrf9GdoWGEZqmHnbYpwOfiT3XDvjeajlKuHr
+	 P9woutrWo9LC9FICVfCUdORKhNm5OZgs19t/fRLiPCl59YsFxUAk9Urt5IocxE8ZxGK77
+	 INxKPfZChPdD5gwUIpFCjVgNq+96fm6BEs80wE36CUsOR/LQv13jCRbCOhSZXhsaxERjX
+	 U8j3xKQAco6W0gt/ITKo4IEBY2p+pZq3o/vwoUGE+6EK6ZWnKOQGTucBinYVRjPucww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792696782;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=h21GP7Yw0xqzTo77UJGXYxvaVPEEcWohOkf7JL29Cso=;
-	b=tUEQ4zJPwzeSQPav2RiHJBDBlAr6tB9h56KUww5HGTLXv+GQJ/IIA8Rc/blUyfALcdED
-	 v89HWLt1Z6wIyphNzol4kU/uP/o/bChri7S0Ln2lovys+SzNM9ihjViCXgcNggLx6DdEF
-	 TqvYePDdXH1yKg2k2aPWkFbr7h3O/loT7a99zGxm5DhtoWYQ5Mc8LnfKa8KibbKrxmdob
-	 TBPnfj1HUmew/utwIXS7MkyJnYuHeTja69vrn5CLVONf0vx5NNY2CWSVTR5eSbsR5yjmZ
-	 m0mhai93kp8Deqxy82adI8LinCCohhzoczdzbq5s7wCFimJozk6xrGaY4F4zVcNkLVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792696839;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=9sXkOvf7AxrvAAH1/YNkURKgzHX7Y0lOYp7pZGB9twE=;
+	b=UsQnyzhz/YyBy33J3P93nOh/qhjFuWjpO/hp1uDM9IzTzrqX3d9dUKt5thyW81neNYFP
+	 DixJRYSMmwedTNqHNqVnS2DkiXwWUQNiPUG6khw1cJtMl3zrDn90Aa9GhVkIlLs+QvKX6
+	 ns45JGXbV80+RZPTC02kwUmVHmFXW+AECCmWaceQLJ5KaKqETFg3Ad8RHqmwfpwchWwuG
+	 iDFMqrVBchVJiwUMf/i0FjWjUfPkJpvuqed5H8aVUFLSVGr/Pn8wJ/a6HtooDGqMyL21h
+	 kddR+7VERmfhYc7MfkmfG1bCAKGJHPl67lnbCF+MQwU+lEP1ZbNIxO2tr8WrbVgc3QA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H1uwemf1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RhEpnE+1;
+	arc=none smtp.remote-ip=209.85.208.53
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37EB0606A31E
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 19:19:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5292C606A31D
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 19:20:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5292C606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H1uwemf1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24E791F01828;
-	Thu, 22 Oct 2026 19:19:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792696781;
-	bh=h21GP7Yw0xqzTo77UJGXYxvaVPEEcWohOkf7JL29Cso=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=H1uwemf1UixcKNM+RW90Gpliv1JKaR4P2XBf2aO1jn25GA3CHicZxw2ECXrVWIcBd
-	 ishEdOHGATZRdqtzUl7G+Lll2+99ZyYgJfcDEy0yGxxqxSPkLR57UwVrmoOT8ED6Mb
-	 z4lKYYbngV8azz3LDgL+uqYe2zWsMKrb0cJUdiesS0JxizvbrzAsvUPfgoaVcAZdpx
-	 TINarF2fWEJSt+NU+86Q/tuotJbL5/i2GrbaCsGUPNpZEsyR2S53+yXFLFN9MXomA3
-	 HERsaVB8M4wqptNNCoXp5ob/R+IrZQp+5EiV0tM11Z5SaWX6uiJRgLF2+oakPoM2Vs
-	 HOPBdMfnDA44A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Frank Sorenson <sorenson@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] cifs: add revalidation on FSCTL failure in smb2_duplicate_extents()
-Date: Thu, 22 Oct 2026 15:19:39 -0400
-Message-ID: <20261022190947.1758805-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102115-gaining-immature-ff14@gregkh>
-References: <2026102115-gaining-immature-ff14@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RhEpnE+1
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b21cf1a580so91132a12.1
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 12:20:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792696837; x=1793301637; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9sXkOvf7AxrvAAH1/YNkURKgzHX7Y0lOYp7pZGB9twE=;
+        b=RhEpnE+1jUnYlqv7JiGI+cVLv0LAbRqOGEjDHl+SzzNNqELp3BCGQMTTtkgrVV3sGl
+         EFu4BCg+awMIqSrV39O77g2wInCTCrcBhkIjy0jDRVtvvIGkUBfHrA9RQ60mPXoMgadW
+         ++gt39oScXT2O6apkAxfTnmB9uKAJWi5IC2NaVHRKSqz2CXsM2nyCcjU0TwiFPHwe6MH
+         y0T2ETNBajdsd7ISMCyCFyNHHC18XZ+r+d1l9jE2k2ZkiJXu2/Jr2MsniWUCdPbIRci1
+         QZ6s/cvamcXw/xg/Dc28xFpzsZr0b3ZAVkTclEmnqNGmro07X6tHoGCdMbjrYQ9HIXQl
+         JTLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792696837; x=1793301637;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9sXkOvf7AxrvAAH1/YNkURKgzHX7Y0lOYp7pZGB9twE=;
+        b=iyyj4mIGYnI6D91kKiDY6aSsaZF68PCL+v9V1anK8ToF9xb0g0wU1yZCp9+wsfcC+8
+         420+x8puh0fCw5V1oJeUC6rI1kAnJo8mCaD6Bwkwf0yn90T7k8Bm4Nqs/YJ/gwyZuS86
+         +r7IC8BcocCpctiYVOTRSzBXoHpWltG5tSSbTbxx5l1x93tChZEH/Ia8i/THXSNMfYsu
+         JFYwdt+KVKQgSCsDx0EemgNnY8Hk1rs9ys9bazCK/HI3fYbxz5E3KaftFYm6LPVzBDJQ
+         YkMr9pE/Xlj/jmdWjRmjiWtclh4dgTrkxDOwMJsBmJFD/Ndc5TzS/w54NKs4w8MkeMj8
+         bsRA==
+X-Gm-Message-State: AFq9FYLTzR2hrjDu3TPs/fu5R4JJvFNJqt5PUGE5a22s24L16HhMdb5a
+	E1AgP/xpkz7/GBGfVKKpWMfBqYHySgbn7yp4SWAjUsdXWMR3EI3jngI5
+X-Gm-Gg: AYBFou23qO3izlxZIMmtke08kZ/oUBEDf6nYigoBtXYUs0t7ieNsNtujMrGVxehaYqi
+	O5d11xVXo0f9dwA1tVdwInMo5sWhOnR87Eb9U09cTWlJu9d/AbXZqgd1ig4wscuSF+/UKbvC0Ty
+	j4W/jlgiRztgNCsBbNs9tKK8uTznPr5JbMh1m1md3CJSha7F0OftGvQsYEYnofrHrPW6jwTNJyF
+	e4y4JqNC8ERLql88kjBYZxdnfjyR2Al0a6mHUvZAmLlrxIXeNvlgedQIk5PTuQBlgFN8mdUGGFz
+	nXWyy1lYsZ8QqsyXQutK5FjBmNnQxmFW8eoiDG9bEx7+Up5vycSxMnrgDAx+mEWW3hoEDv/MBg0
+	PaX9JOooCoRMt+I5AbEMoGpLRkqlo0SEW7fEEcI36CW0V16FrW0LGjqb6zo1Eu3MCLHk1X22ce4
+	L6CDrXSji8xa7M+1xJZ0y17GVdB5oL99toGuqQuxq7jDlTz/mHiFwuUYcBBdXB2GEYL9rl0p+Na
+	8X0eOkB//ywU8bGCns6abe0Raq/YULelrS12XRTIMYtP2/EDpzNCoExL3TMXkORPXo=
+X-Received: by 2002:a17:907:db15:b0:c3f:4d1:8cd7 with SMTP id a640c23a62f3a-c46a92afc93mr21950366b.25.1792696836432;
+        Thu, 22 Oct 2026 12:20:36 -0700 (PDT)
+Received: from [192.168.0.193] ([194.183.54.57])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46a5cadf1esm20266066b.53.2026.10.22.12.20.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 12:20:35 -0700 (PDT)
+Message-ID: <e44c1fc2-802e-4cd6-8359-a315bda970e6@gmail.com>
+Date: Thu, 22 Oct 2026 21:20:34 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,65 +89,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-From: Frank Sorenson <sorenson@redhat.com>
-
-[ Upstream commit 53676a5e28231186c9f56d87b7998b640699bc15 ]
-
-smb2_duplicate_extents() has no handling for
-FSCTL_DUPLICATE_EXTENTS_TO_FILE failure: when the FSCTL fails, local
-inode metadata may be stale from the pre-extension or from concurrent
-remote writes, but is never refreshed.
-
-Force revalidation on FSCTL failure and use i_size_read() for the
-pre-extension check.
-
-Fixes: cfc63fc8126a ("smb3: fix cached file size problems in duplicate extents (reflink)")
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 14/21] leds: flash: Avoid divide-by-zero in
+ led_clamp_align()
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+ Dmitry Antipov <dmantipov@yandex.ru>,
+ Jacek Anaszewski <j.anaszewski@samsung.com>, Bryan Wu <cooloney@gmail.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, linux-leds@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ sashal: replaced cifs_invalidate_cache() with fscache_invalidate() guarded by CONFIG_CIFS_FSCACHE. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/cifs/smb2ops.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+References: <20261021123406.3163547-1-lee@kernel.org>
+ <20261021123406.3163547-15-lee@kernel.org>
+Content-Language: en-US
+From: Jacek Anaszewski <jacek.anaszewski@gmail.com>
+In-Reply-To: <20261021123406.3163547-15-lee@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-diff --git a/fs/cifs/smb2ops.c b/fs/cifs/smb2ops.c
-index 57ba6f7d813d7..781fe599dda7e 100644
---- a/fs/cifs/smb2ops.c
-+++ b/fs/cifs/smb2ops.c
-@@ -8,6 +8,7 @@
- #include <linux/pagemap.h>
- #include <linux/vfs.h>
- #include <linux/falloc.h>
-+#include <linux/fscache.h>
- #include <linux/scatterlist.h>
- #include <linux/uuid.h>
- #include <linux/sort.h>
-@@ -2160,7 +2161,7 @@ smb2_duplicate_extents(const unsigned int xid,
- 		src_off, dest_off, len);
- 
- 	inode = d_inode(trgtfile->dentry);
--	if (inode->i_size < dest_off + len) {
-+	if (i_size_read(inode) < dest_off + len) {
- 		rc = smb2_set_file_size(xid, tcon, trgtfile, dest_off + len, false);
- 		if (rc)
- 			goto duplicate_extents_out;
-@@ -2185,6 +2186,13 @@ smb2_duplicate_extents(const unsigned int xid,
- 	if (ret_data_len > 0)
- 		cifs_dbg(FYI, "Non-zero response length in duplicate extents\n");
- 
-+	if (rc) {
-+		CIFS_I(inode)->time = 0; /* force reval */
-+#ifdef CONFIG_CIFS_FSCACHE
-+		fscache_invalidate(CIFS_I(inode)->fscache);
-+#endif
-+	}
-+
- duplicate_extents_out:
- 	return rc;
- }
+Hi Lee,
+
+On 10/21/26 2:32 PM, Lee Jones wrote:
+> If a flash LED driver leaves a setting's step size as zero, writing to
+> the corresponding sysfs attribute invokes led_clamp_align() and triggers
+> an integer division by zero when aligning the offset to s->step.
+> 
+> Clamp s->val to [s->min, s->max] and return early when s->step is zero.
+> 
+> Fixes: 7aea8389a77a ("leds: Add LED Flash class extension to the LED subsystem")
+> Closes: https://sashiko.dev/#/bug/linux-9d06d7fe-310b-4aee-8b16-0fb49550c287
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
+> ---
+>   drivers/leds/led-class-flash.c | 5 +++++
+>   1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/leds/led-class-flash.c b/drivers/leds/led-class-flash.c
+> index 181dfd49c6ad..16b3b6b9365b 100644
+> --- a/drivers/leds/led-class-flash.c
+> +++ b/drivers/leds/led-class-flash.c
+> @@ -375,6 +375,11 @@ static void led_clamp_align(struct led_flash_setting *s)
+>   {
+>   	u32 v, offset;
+>   
+> +	if (!s->step) {
+> +		s->val = clamp(s->val, s->min, s->max);
+> +		return;
+> +	}
+> +
+>   	v = s->val + s->step / 2;
+>   	v = clamp(v, s->min, s->max);
+>   	offset = v - s->min;
+
+
+Reviewed-by: Jacek Anaszewski <jacek.anaszewski@gmail.com>
+
 -- 
-2.53.0
+Best regards,
+Jacek Anaszewski
 
