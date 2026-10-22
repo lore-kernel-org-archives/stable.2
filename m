@@ -1,69 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=134.76.10.21
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792682952;
-	b=jwgPLKQQ7rslYuQ/21RwlaoWuaobYDlQENJAu1avNhk3wgoKiO2nqMjaqJ9AszHjRdDZ
-	 mS72aF2ON0Ed8svouH3FhgXj8IPDIYyVYZ8So092kO408lfTnXdqKE2tQgy2ywp3TGgpV
-	 x4ELA2rlRb8rDKSeriWqqRO4dwLKBGL14N+4XjQZ1gmdbVWVXaEGAHO2OLg1SqJg0PShd
-	 kzX4jwmT141HZSYAGG9ZRXj3DagMvrYya83p+XDuMNETf+a0kU/QlTft4kmKrxKL0NbXP
-	 q7POpqxPz3M7M3hgAZq+xn0bABQuPKSeW06dn9y2uWQCtJpPty5bOjJjw4U66YlvG5g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792682952;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
-	 X-Virus-Scanned:X-Spam-Level;
-	bh=D3AAs+Z1bIzoxEDML9W2VI7nbazqxQldCJY+X6eiE80=;
-	b=V6eYTEFlr/M0oQCreTdXWJ4A66d/RqZ3oP/pYD7PyFkEADjtjOwyE/6aKherEoA74uX3
-	 lEFFrTwubvrwyMvwy5MvcWpY/EwZeZt2z9KbPH2W7Uwhx6cqHdLWgI/X5pdnd0MoE5A8F
-	 SHo24uIzy5aV97Wdtp5wN3eL1tNoGwXrxx5wdUCV0vgkyvbfjod94jjuN+HDvoA9+fBMg
-	 s4IZsKsCIOUt86oBJ+7qbWZ06hfNIOobL0vTj4sfJ6l27FKGmT1v0Q3wGl3Rl8mTZrwA0
-	 nGc/Vv6v9VFVidTM364lo4mJQGeL4JtliPtc6V22M2KhD7WhaTJ5h8Vhp/5REYeCtZQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cispa.de;
-	spf=pass smtp.mailfrom=cispa.de;
-	dkim=pass header.d=cispa.de header.i=@cispa.de header.a=rsa-sha256 header.s=2023-rsa header.b=eqFKGvFv;
-	arc=none smtp.remote-ip=134.76.10.21
-Received: from mx-2023-1.gwdg.de (mx-2023-1.gwdg.de [134.76.10.21])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.27
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792683674;
+	b=nFL9Aj2ziXPw6xN7sxjtmewWODTxSP9jeC6rcotMajqAqyMZAmxMJyjTP534kcNBtkTT
+	 hSeIgqxXzLwdAk49r1hNExM/CSuiUl6T0zcS8OeF2whAqwM+rLqyzxZxHhgvNbNWEfPXs
+	 i5GGMRcjIEdbPfyUypG/cdIKjoC5AB+2T8W4L0Canxhj4iB4g+bIeLSkeBvR7oP9macjU
+	 K4mSWgV6aYh2K6ffLM2V8htSNSG9l/FstFPKHZFHAd17u6QVju9Y8LzaQEImjs371JD/0
+	 pV8+03Qo+kOTvXsiNf/G397jD1RxGjxFyq2MjQnyyFAP+a/nh2+dkluFqAI2mxZtw9g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792683674;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
+	 X-MS-Reactions:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=51bAgWKZ8bzrXoxoovitJnctqga+4cKVORV5uxz4fWc=;
+	b=fJk/rOtbAWtPjSlw+Xpjh2+lnq8KJTTVo9OCGTY+wCih3hYyTOy93NWMgP2XBanzM54k
+	 Xdvodm3uptR7bCqQ9JP6zBfpRWFbl29/OoE8jmTeXGusuExxp/F+QAzCkFUGDSeUPvXjB
+	 epXPiIh20TCDFxCpWyuBcZPKt75DeDF2HiX5cvJD1loxFckyVO3D91oGWDWfKoIf9mMpz
+	 OXsWinrnPLLf7pULY5eXYzfkMpSVWSbjTDIDz8+T9Z+KfR+CiXGwqayQbD7eB0j4NebDC
+	 VI9OhT6XPgpT5EyHLPnJ5RL0JgXnmTmDcO6dOu25bzq0WT/QpQeMMCZkbw8+We3neOw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ePUt6iL1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.27
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012027.outbound.protection.outlook.com [40.93.195.27])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE4E606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 15:29:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EE4E606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cispa.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cispa.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC17E606A319;
+	Thu, 22 Oct 2026 15:41:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC17E606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cispa.de header.i=@cispa.de header.a=rsa-sha256 header.s=2023-rsa header.b=eqFKGvFv
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=cispa.de;
-	s=2023-rsa; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:CC:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=D3AAs+Z1bIzoxEDML9W2VI7nbazqxQldCJY+X6eiE80=; b=eqFKGvFvM7XG7fE+Xkwega5UnD
-	reQ2SGTA0XwCLOciWQBsSTfRlDrFh8wJMA8dqFq2OKf6Vp4TfLvbWTDD6CGt4y+wzvZjnWHW8dsCD
-	l4sa5lX8dmUVzK1vx3qOv0bpGVMcJUJtzrHQF+nPcC2mN6tvbOOF4BGT9f9wZ0w3rACcoIegQn4b2
-	sRXI21NzFQYfg1j2B+rTTF8O5xX4k4PxPtVWNVtJKyY2DsIhY0lWKRo0kpUpREZkl4CNONi/R2DFw
-	4yUCPWK05u9xb+phF8tdS+nWukXYo2d0k4OyYbfQ9WxrW///QS5DoxKoFmDWLlgRjR1Og+ase5Cif
-	stxIAVNA==;
-Received: from mailer.gwdg.de ([134.76.10.26]:39681)
-	by mailer.gwdg.de with esmtp (GWDG Mailer)
-	(envelope-from <amirmohammad.eftekhar@cispa.de>)
-	id 1xJuir-00E3LW-0m;
-	Thu, 22 Oct 2026 17:28:52 +0200
-Received: from mbx19-gwd-01.um.gwdg.de ([10.108.142.50] helo=email.gwdg.de)
-	by mailer.gwdg.de with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
-	(GWDG Mailer)
-	(envelope-from <amirmohammad.eftekhar@cispa.de>)
-	id 1xJuiq-000Vw7-2e;
-	Thu, 22 Oct 2026 17:28:52 +0200
-Received: from [10.17.212.44] (10.250.9.199) by mbx19-gwd-01.um.gwdg.de
- (10.108.142.50) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Thu, 22 Oct
- 2026 17:28:52 +0200
-Message-ID: <1f069122-c856-406a-a30d-244770563206@cispa.de>
-Date: Thu, 22 Oct 2026 17:28:51 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ePUt6iL1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ExlhRBgbf2cSLaqdUImqibJSFOJ8UPUc50wRs/ggm4urg0rtbVUVFoxwke5e34pb0GskYAtp4zOdG0W6CfBnWJvvrayQNZZ3ii2UkQvI7jVNSgZsokFcyi+aUWX6g5lHVrgGwqLeg2QfQ130KKV6vpD3PLbI3bMGdq60FxuU+JpYpWkBP0BBpammWEYgLqm6QViEXf208TTnF2V3GxAlVH03xbhIPlJJ/NfHc5FfOKjqXNo84+UI19EY6TWA/pFiY0pWr2LYkQKWImsPH1aGwKRK2fIPsiRnQKubQfcuhAN6tvbd8g6UF+wHD2Yw+iN8WCLMkIqSpKbPrHtAlou7BQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=51bAgWKZ8bzrXoxoovitJnctqga+4cKVORV5uxz4fWc=;
+ b=j/AQzMQvE+uMea6Mcwj6cCNQPvRzJmvoHrepAuliNYpsM6Z/VSIavxSdGGhnNjUwxoNxKbQa5Zvx8tcwCe9p+izcp1kq8tiOIeZgEqzUBvz+Hya/7NBrFe/8I4cvGCTJdfI2iN8H1g/ay7yI0e5EHlYGQN6Nok6AKxeiXUCc25lX0PzfKI4x7QIFA6HlwEWlfE+4A0mD+RzRZIkxKddH7EdmXjlTdqxeZ0EuxZE9BAlmzqot2i2xKBOPy7zYsGrSGJn7t7QXI1n7MarrGufhtU5Go4KcK8TahcoYh7Z2n9wwYUsbLLvahgsKhbMP40cXE/I5ZVv0DowFZliMYV7aiQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=51bAgWKZ8bzrXoxoovitJnctqga+4cKVORV5uxz4fWc=;
+ b=ePUt6iL1Nfb1jbso9u7i3zk6KV/6UdXIOKEuFTMZVBWKg7cQDvVj5tt8gT1Ga1lHtelc5l6V0UgAxmCRy2gNn4FbdlpQJjBCW0hb00Gw0spvUzrIhWRf03Ks1dk3dHJ9NN6nTzff2NPipZTFJWiv34Wa9ClPVc/DFJA0t9RFBguxQan5Y5Oe3nkeXDdsT83/MAy1B1Uzmx6dKM/RIiQZwcYkEsKarCZuEDzMNh+SJxmmplhWhaLHIxu2MEysuJs1kqPpe1yLn6w04jy8reX1LXD7QbHGhFTsp/0x0mWGYS4OmQD5OVZ1wjJnKkGy8rjWisBYO3lqqDE0ncpIwNKqhg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by CH1PPF0B4A257F6.namprd12.prod.outlook.com (2603:10b6:61f:fc00::605) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 15:41:03 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0522.017; Thu, 22 Oct 2026
+ 15:41:02 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: Gregory Price <gourry@gourry.net>
+Cc: linux-mm@kvack.org, Jiayuan Chen <jiayuan.chen@shopee.com>,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ akpm@linux-foundation.org, vbabka@kernel.org, surenb@google.com,
+ mhocko@suse.com, brendan.jackman@linux.dev, hannes@cmpxchg.org,
+ flyinrm@gmail.com, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/page_alloc: let the highest memory node recover from
+ hopeless state
+Date: Thu, 22 Oct 2026 11:40:59 -0400
+X-Mailer: MailMate (3.0r7032)
+Message-ID: <1CF47F72-BA4D-435A-924A-5CFB66FFB8DD@nvidia.com>
+In-Reply-To: <atZ6H6IIx5gmiAkg@gourry-fedora-PF4VCD3F>
+References: <20261019184850.3427905-1-gourry@gourry.net>
+ <DM92ROTIF1U8.26CQNH7ZPEBG@nvidia.com>
+ <atZ6H6IIx5gmiAkg@gourry-fedora-PF4VCD3F>
+Content-Type: text/plain
+X-MS-Reactions: disallow
+X-ClientProxiedBy: BN9PR03CA0237.namprd03.prod.outlook.com
+ (2603:10b6:408:f8::32) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,205 +102,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG] KVM: x86/xen: gfn_to_pfn_cache left active after
- mmu_notifier release leads to a host use-after-free write
-To: Sean Christopherson <seanjc@google.com>
-CC: <w@1wt.eu>, <security@kernel.org>, <dwmw2@infradead.org>, <paul@xen.org>,
-	<pbonzini@redhat.com>, <stable@vger.kernel.org>
-References: <20261017193911.40182-1-amirmohammad.eftekhar@cispa.de>
- <atolq8545YGo4iKx@google.com>
-Content-Language: en-US
-From: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
-In-Reply-To: <atolq8545YGo4iKx@google.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MBX19-GWD-04.um.gwdg.de (10.108.142.57) To
- mbx19-gwd-01.um.gwdg.de (10.108.142.50)
-X-Virus-Scanned: (clean) by clamav
-X-Spam-Level: -
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CH1PPF0B4A257F6:EE_
+X-MS-Office365-Filtering-Correlation-Id: 85a10c3e-a2ab-4065-0b53-08df3052e0dd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|56012099006|4143699003|5023799004|11063799006|261021121427099003|261009223027099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	TvxuwysXCgYf4HopAyP8N3SaDk/fDj/cUnPsZzTBrnWQZLXsdXHH6nh/evPKpDC2ScWwEPs3hM6WFcUc9PqJefQQv1Eft7LsnqNMCPA3Xoa2lSARKoiSBV9cZRyNxZIt/lrGudz/tI6RHYrWvMvMu3I4mUVpYuxFteDeQWwkZi1kb4c+InkYbPy5AIO7drLUQAKevILS3qAtC88XVH7XmqQ4herSeV5ehwWxBrIQo36X3U+qCy+zCvrTaKLq7Wxth7M08n5QamQBcqG4E7ky8xMbIn4pFOeb2LsnMG4SQYy3K9aloyToUtameS7dD+v79pz6VBvePyZw+f7OqQ2Ma82YkDDcdy1JqYnILS1mdCutSZsd37IkmAbY5ODfDfaNlVo0tkjbIhNMK8VKxMpcRRwmqSyQ7CpKvJbdp+CIg803VPpBZV8P8cLUT8yCnx54qjUDJA1GiFSSJaO1ZtwGOQkxe/GPTaNEUSHW4xeEn9Suu+N5UQZyvyBq67vyjgFpSg5PMwc9BiAksVZa5Sj0msi5hhX9O43n6oqV0dIPAuj0LLUCr5DiCbhvsPRlIk/er66FbSqg6yPH2o0RH5APnHNhcmDXfMHcg7JIV3dH3cgfHH3RwsXLor2TaMWCzRBXMW47bu0wDPA3+sKCaatvoCpvXzX2jWBN7rfzSBLpD0o=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(56012099006)(4143699003)(5023799004)(11063799006)(261021121427099003)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?efq1qG8YbownV1qedizJVwfQ0U4/DyOvOstyljwF6PbqQzjDOj2mKHxgLKVM?=
+ =?us-ascii?Q?oVryya0igFnd13EokeNgn7x4+9LKn+ykhH1dTmD/cPn/p2/DO81r5ixY99lu?=
+ =?us-ascii?Q?Ep61HDiobDVVzPVi+zrPnznhOBBZynSoOVpPPlRV2DCt09WFDJ+k5lnoGdCb?=
+ =?us-ascii?Q?0G/Bc73YpJxmnmcrkPBBH7jPgKoBuwXibf1COHpiMeC8+8MT4edAvZMLsY8q?=
+ =?us-ascii?Q?rDIUlEjDlH8yOi0jm6a6nHoIT7bh9H+Hc4zqC8zL/6DKM827rTyLrdj4+/D2?=
+ =?us-ascii?Q?VqU3WBnGTcwwk7cCk1AZFJ2+5xG58ywd4dByefPAmVNXtCe+lA5hLjrp1HN3?=
+ =?us-ascii?Q?/kCrtHMlB//o8xKFBV0rMnJGquH9TpFVmGcr2aFmOXEUklGiwjPdvrzTSQuS?=
+ =?us-ascii?Q?crNp3wrOCRTb5lCpY9+N7F9gK48IHzAGKcJqDO2XpZH5BczkTSfp2J4+BTQ0?=
+ =?us-ascii?Q?gY0JLHHSdvwACBuvNB3+MosMmjMcGgYJsB2A0G35Hl93A/aaMSLLLBH5/C9H?=
+ =?us-ascii?Q?1A20K61Snv+THvYRE6VUvn4V5djOy2R8UZbhiwmKupbE3NkvJsDiHXRJa5bQ?=
+ =?us-ascii?Q?WXNYYR3a9r9d1zqCtmhVosQ8mBZ9WY6L7vUEOcTrAAToSTAmVe/sZC9An0vH?=
+ =?us-ascii?Q?cig+iTMGpwOlpQLSyXOJWTCDKJr5d1eTDq5bXVbs2/WEQcrIv7iCRgqe1i9Q?=
+ =?us-ascii?Q?qUlG9PP2SekGEtcY5ZcWHGtEGf59FK/0uDbKC+P47pCzQCiWwZM1ISd8VbZ/?=
+ =?us-ascii?Q?dMpgzDjbPgSUIi8EzMj47SJJo0e9pykzfR8WgH5IMGoP+VvaJn9bUUpzXuXT?=
+ =?us-ascii?Q?ZZSqMGUvV/k+Cgba7ktq9mtMK0mVpSYlynv0shd+64cf4GSAaQSAszV9PJcV?=
+ =?us-ascii?Q?1pOVAYCtIR4i7atzF8QwOMzCK25BsWIHGUGbt9WxEXqMCCpnna5jqD5/bRWw?=
+ =?us-ascii?Q?s/1g8hwiykyIWsKA1Yvku4HpFvxgTL4Ct6MK2XcYtT2Tv9XQ7VlWMdOjvKoC?=
+ =?us-ascii?Q?Ksp0W9vSMmDqvbh/ha413aINAScN3gxdnLCSZhZVWziFVAA2O06WO/oS4oXE?=
+ =?us-ascii?Q?ZMpaQbGj4NsuitUd4uJcwWTep3g2Uo2haYVcanEReVb/yUNcMcN/Z90Q6O0A?=
+ =?us-ascii?Q?D8yfSVshhD4hfCOgRkpJjxt31ro/JRwWs6kWz3qDyi220Yw3ybxNbtWgTd3z?=
+ =?us-ascii?Q?qOhZoRrTBgmlX6xilBeNcq2DCbgaf1W/JqCGXXvOt07/v9rhiVHuu0QZ8LeU?=
+ =?us-ascii?Q?3gYrTYxvMa8RJ6QrF33E0n0imPAOVtsCgI5sL+7Hzbsn05OwQSMrNQY6K3O1?=
+ =?us-ascii?Q?bK0AXHtVtU9UhSYUAaDvTlTMKDMne/jGy49H7UX5f5FOw0qwidw6PK/DrqvV?=
+ =?us-ascii?Q?0zh/AI4kW3YcliJZkO1mDvg/WzKSOvedLcV6APT3RZouANwgtSHGEK9/0Qdh?=
+ =?us-ascii?Q?55aP6JTo8k35xU9ePejC/eQUdkKcH6Ansj8X+3qAzpaloZiq7dGjentrFJzl?=
+ =?us-ascii?Q?ch6d6opodA636NHU6nc5y7XRmXlcORsPtKYSGi9PW8biki6QooknLyCgBCYr?=
+ =?us-ascii?Q?pbOyuzDmjU3Xg48UmHpxwRGvTFMcxoSMSRBp0wH+9STL2K0xFnryLXwSiv9B?=
+ =?us-ascii?Q?9/4y0HeL/2UMoG8DWICpbLCFtsxIigfHZoPcNa1YB562Z0YvMAQtUdEAL2VC?=
+ =?us-ascii?Q?3zqbDK+aXetMWRbuRSjrLfga4/po0Saaqx7TThzKmrAyAIWR?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85a10c3e-a2ab-4065-0b53-08df3052e0dd
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 15:41:02.9311
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NwQtf4LNBYSBD7vi7Tq2bnWWLNXgFQTPWIPgi1kjK04Zcdm47o1mPLeErRlBnot8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF0B4A257F6
 
-No objection to on-list.
+On 19 Oct 2026, at 16:16, Gregory Price wrote:
 
-The Xen timer is the only writer that can actually hit it today, but the
-dangling cache isnt Xen-specific. kvm_mmu_notifier_release() leaves every
-gpc on kvm->gpc_list valid, pv_time (pvclock) included, which doesnt depend
-on CONFIG_KVM_XEN. pv_time just never gets written from an async, non-vCPU
-context, so its a latent dangle rather than a live UAF - which is another
-reason to fix it in the generic path like youre suggesting rather than in
-Xen.
-
-Agreed on moving it into kvm_flush_shadow_all() and doing the invalidate
-before kvm_arch_guest_memory_reclaimed(), and the range-pointer + 
-"invalidate
-all" wrapper is nicer than the ULONG_MAX. Happy to respin it that way, or
-leave it to you - whichever is less work.
-
-Thanks,
-Amir
-
-On 10/22/26 17:03, Sean Christopherson wrote:
-> On Sat, Oct 17, 2026, Amirmohammad Eftekhar wrote:
->> ---
->>   virt/kvm/kvm_main.c | 12 ++++++++++++
->>   1 file changed, 12 insertions(+)
+> On Mon, Oct 19, 2026 at 03:51:27PM -0400, Zi Yan wrote:
+>> On Mon Oct 19, 2026 at 2:48 PM EDT, Gregory Price (Meta) wrote:
+>>>  		if (kswapd_test_hopeless(pgdat) &&
+>>> -		    next_memory_node(pgdat->node_id) < MAX_NUMNODES)
+>>> +		    num_node_state(N_MEMORY) > 1)
 >>
->> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
->> index 479b7f5bf..6ac6a71fe 100644
->> --- a/virt/kvm/kvm_main.c
->> +++ b/virt/kvm/kvm_main.c
->> @@ -891,6 +891,18 @@ static void kvm_mmu_notifier_release(struct mmu_notifier *mn,
+>> Why does a runtime behavior, clearing kswapd hopeless state, depend on a
+>> static memory topology (excluding memory hotadd/hotremove in this
+>> context)? There is nothing telling us if a fallback node has available memory.
 >>
->>   	idx = srcu_read_lock(&kvm->srcu);
->>   	kvm_flush_shadow_all(kvm);
->> +
->> +	/*
->> +	 * Invalidate all gfn_to_pfn_caches before KVM is unhooked from the
->> +	 * mmu_notifier.  Release is the last callback KVM will receive for this
->> +	 * mm, so the invalidate_range events that exit_mmap() raises when it
->> +	 * frees the pages can no longer reach the caches; without this the
->> +	 * caches are left valid, pointing at pages that are about to be freed,
->> +	 * and an async writer (e.g. the Xen event-channel timer) can perform a
->> +	 * use-after-free write through the stale kernel mapping.
->> +	 */
-> 
-> Eh, I would omit the comment, IMO this falls into the "obviously necessary"
-> category once the code exists.
-> 
->> +	gfn_to_pfn_cache_invalidate_start(kvm, 0, ULONG_MAX);
-> 
-> I'm pretty sure this should go inside kvm_flush_shadow_all(), both because this
-> isn't unique to mmu_notifiers, even though that's the only remaining user of
-> kvm_flush_shadow_all().  E.g. in a hypothetical world where kvm_flush_shadow_all()
-> was used to ensure there were no outstanding mappings anywhere in KVM, hooking
-> only kvm_mmu_notifier_release() would do the wrong thing.
-> 
-> The other wrinkle is that super strictly speaking the invalidation needs to happen
-> before kvm_arch_guest_memory_reclaimed().  In practice, there are no interactions
-> between SEV's cache maintenance and GPCs, but conceptually the GPC invalidation
-> should occur first.  That would also match the ordering in
-> kvm_mmu_notifier_invalidate_range_start().
-> 
-> Another stupid nit: ULONG_MAX is somewhat misleading because
-> gfn_to_pfn_cache_invalidate_start() takes an exclusive @end.  It's not a bug
-> because GPCs only ever deal with user addresses, i.e. it should be impossible to
-> have a cache at ULONG_MAX-PAGE_SIZE.  Ugh, except for maybe s390, which selects
-> ALTERNATE_USER_ADDRESS_SPACE?  CONFIG_HAVE_KVM_PFNCACHE is only selected by x86,
-> but it still seems like we should do this "right" the first time.
-> 
-> Rather than pass literal numbers, what if (over a few patches) we massage
-> gfn_to_pfn_cache_invalidate_start() to take a range pointer, and then add an
-> "invalidate all" wrapper that passes a NULL range?
-> 
-> Anyone object to taking this on-list?  Unless I'm missing something, this only
-> affects the Xen timer, and there are preciously few end users of KVM Xen emulation.
-> 
-> E.g. (completely untested)
-> 
-> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> index cf4cb586f140..c2e16370f5b8 100644
-> --- a/virt/kvm/kvm_main.c
-> +++ b/virt/kvm/kvm_main.c
-> @@ -350,6 +350,7 @@ void kvm_flush_remote_tlbs_memslot(struct kvm *kvm,
->   static void kvm_flush_shadow_all(struct kvm *kvm)
->   {
->   	kvm_arch_flush_shadow_all(kvm);
-> +	gfn_to_pfn_cache_invalidate_all(kvm);
->   	kvm_arch_guest_memory_reclaimed(kvm);
->   }
->   
-> @@ -764,7 +765,7 @@ static int kvm_mmu_notifier_invalidate_range_start(struct mmu_notifier *mn,
->   	 * mn_active_invalidate_count (see above) instead of
->   	 * mmu_invalidate_in_progress.
->   	 */
-> -	gfn_to_pfn_cache_invalidate_start(kvm, range->start, range->end);
-> +	gfn_to_pfn_cache_invalidate_start(kvm, range);
->   
->   	/*
->   	 * If one or more memslots were found and thus zapped, notify arch code
-> diff --git a/virt/kvm/kvm_mm.h b/virt/kvm/kvm_mm.h
-> index c65cfdb14f1c..f46d999d056a 100644
-> --- a/virt/kvm/kvm_mm.h
-> +++ b/virt/kvm/kvm_mm.h
-> @@ -6,6 +6,8 @@
->   #include <linux/kvm.h>
->   #include <linux/kvm_types.h>
->   
-> +struct mmu_notifier_range;
-> +
->   /*
->    * Architectures can choose whether to use an rwlock or spinlock
->    * for the mmu_lock.  These macros, for use in common code
-> @@ -60,14 +62,19 @@ kvm_pfn_t hva_to_pfn(struct kvm_follow_pfn *kfp);
->   
->   #ifdef CONFIG_HAVE_KVM_PFNCACHE
->   void gfn_to_pfn_cache_invalidate_start(struct kvm *kvm,
-> -				       unsigned long start,
-> -				       unsigned long end);
-> +				       const struct mmu_notifier_range *range);
-> +
-> +static inline void gfn_to_pfn_cache_invalidate_all(struct kvm *kvm)
-> +{
-> +	gfn_to_pfn_cache_invalidate_start(kvm, NULL);
-> +}
-> +
->   #else
->   static inline void gfn_to_pfn_cache_invalidate_start(struct kvm *kvm,
-> -						     unsigned long start,
-> -						     unsigned long end)
-> +						     const struct mmu_notifier_range *range)
->   {
->   }
-> +static inline void gfn_to_pfn_cache_invalidate_all(struct kvm *kvm) { }
->   #endif /* HAVE_KVM_PFNCACHE */
->   
->   #endif /* __KVM_MM_H__ */
-> diff --git a/virt/kvm/pfncache.c b/virt/kvm/pfncache.c
-> index 3659686b97c2..3f0edb46ec57 100644
-> --- a/virt/kvm/pfncache.c
-> +++ b/virt/kvm/pfncache.c
-> @@ -19,11 +19,18 @@
->   
->   #include "kvm_mm.h"
->   
-> +static bool gfn_to_pfn_cache_needs_invalidation(struct gfn_to_pfn_cache *gpc,
-> +						const struct mmu_notifier_range *range)
-> +{
-> +	return gpc->valid && !is_error_noslot_pfn(gpc->pfn) &&
-> +	       (!range || (gpc->uhva >= range->start && gpc->uhva < range->end));
-> +}
-> +
->   /*
->    * MMU notifier 'invalidate_range_start' hook.
->    */
-> -void gfn_to_pfn_cache_invalidate_start(struct kvm *kvm, unsigned long start,
-> -				       unsigned long end)
-> +void gfn_to_pfn_cache_invalidate_start(struct kvm *kvm,
-> +				       const struct mmu_notifier_range *range)
->   {
->   	struct gfn_to_pfn_cache *gpc;
->   
-> @@ -32,8 +39,7 @@ void gfn_to_pfn_cache_invalidate_start(struct kvm *kvm, unsigned long start,
->   		read_lock_irq(&gpc->lock);
->   
->   		/* Only a single page so no need to care about length */
-> -		if (gpc->valid && !is_error_noslot_pfn(gpc->pfn) &&
-> -		    gpc->uhva >= start && gpc->uhva < end) {
-> +		if (gfn_to_pfn_cache_needs_invalidation(gpc, range)) {
->   			read_unlock_irq(&gpc->lock);
->   
->   			/*
-> @@ -45,8 +51,8 @@ void gfn_to_pfn_cache_invalidate_start(struct kvm *kvm, unsigned long start,
->   			 */
->   
->   			write_lock_irq(&gpc->lock);
-> -			if (gpc->valid && !is_error_noslot_pfn(gpc->pfn) &&
-> -			    gpc->uhva >= start && gpc->uhva < end)
-> +			
-> +			if (gfn_to_pfn_cache_needs_invalidation(gpc, range))
->   				gpc->valid = false;
->   			write_unlock_irq(&gpc->lock);
->   			continue;
-> 
-> 
+>> Just reset it regardless. kswapd can go hopeless later if the node
+>> cannot be reclaimed.
+>>
+>
+> I mostly agree, but this was more of behavioral change than i was
+> outright willing to commit to in a stable backport.
+>
+> I can send a follow up commit to drop the check altogether if you
+> prefer - but I'm not sure we want to drop it outright in the backport.
 
+Yeah, for that specific Fixes, your patch works. Feel free to add
+
+Acked-by: Zi Yan <ziy@nvidia.com>
+
+>
+>> BTW, LLM also points out that kswapd_try_clear_hopeless(), called by
+>> direct reclaim, only clears hopeless when the node is balanced, but that
+>> rarely happens. So hopeless state can stay much longer if there is only
+>> one node. Adding Jiayuna, who added kswapd_try_clear_hopeless(), to gvie
+>> some insight.
+>>
+>
+> Yeah I have some additional things in my pile on the hopeless flag, but
+> i haven't gotten around to them.
+
+Got it. The above issue will have a separate fix I guess.
+
+
+Best Regards,
+Yan, Zi
