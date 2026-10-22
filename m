@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792678048;
-	b=qdtk9PFKrohbfTzh5njRlOw4WS7WEJQ5dVrqcd1JttJakMgvWSdAMEYn3gnXxKigbOw8
-	 eOPaUmo8r1gp8FGrAQd8It/xJEq8GpCBLj6BvgCLS/VqYM8z5AwUV4XjEAvkz0zbH3f0Z
-	 k6MEJbxPD8/y+fTe83wmC1qZXvpRGTWj6vNnQkTlHO7gityRlswl6pUy2gu1HEhzIHSWn
-	 byf45mZlYKUiBC/0tbKNOq/jyzpM8iEdMxor0mVYKwLy8B0ddv+zEolxh0xKUS27LHimU
-	 n1krT2wDDVfJFDBfFIEdPphPmD2nfuDyT64UCmBhcffyWCR8UpHZlj82AscmiithdKw==
+	t=1792678143;
+	b=lI8+ngEHt/bc/0xIw/QIaFgD31/j3ZT39Fa+xfwtKnTbn9pks3vIG2syYSwt3rWx7JYB
+	 UQ3L5QdC/TqxMY9arlu0uG15IiYJ9thVZ4BnlHWErvNJCudVB/vrMcD65iZYoW21ME4iw
+	 hX0M7wEmOfbZo7dWq6pisCmQ11iyA28/EkNyfe4kvpDdIEiAGiCrBmdbRVGpYikFFoWA0
+	 7acw6cZZg5e2DoAaSadP4c5FbvZFHVhDW2aiZNPTXIiEY+FB6EiIQQg/zHyIhonQRrNkw
+	 Q/srpXUYD2bmG3S86a2B0VNHr8uoQG2jFh4VLud/i3kjVCB32VE9DzdZ4DPUs1xDVLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792678048;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	b=quxMtEE6GxlVCMkn5xRD+KqU3s0nR0lifLmxsFTqAp87z8FrYpzM1eNnQ4GR8WlC3joX
-	 V/c+HG83xr8qsGrFqyE84fGVNjdY4P2puMhFD7KnkFFO5qEHhBv9dF9w30h2d3E8CdTdQ
-	 bF1EV7bbW/YP9iRoeHGj5OpfL9onBWlhkjkryK7wcTbG9SirdGJeBK483a+0HdKSo5XXQ
-	 Mdf2hAOBiXbYFZ4gPJ2a8UfHS/FGL/IFlnu//9BtaF6TfswNXDW1v4hbVArJe7BzprQV7
-	 GrNldVwkVi+66DXOymsWZ744XKW75R0eTEMj7eoXz5dFxxZauUIyshvhrM5SAG465Cw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792678143;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=q45kTUHwAqCJNhX1DNdsP+3hLbDNU9+IBL03bbxOVlU=;
+	b=UC1Yc8WAND+nVNBKHAIB+lrL4Ej44WKbeDm0G9aU/BlR6HUHHI+Gf7hqRTxOfwuEdqyo
+	 zIX+F6FscC4CgwRlhKhr5xx/7DRMRneR8y6U4fBv9VoBJ8waI4I6PK/QWPo+rO8yeybwD
+	 ixKlCM4NrRIU1Wg0UTm/8mFJjRHqeZs0TmDDi6zdJBuNgKSG4IkAGlSf/+QglHq0r4qum
+	 fn36qD81aOHJxVFKhA/1uqhk0BlNkENvCB1XaFaLl5wjtHpC9whefSD/2qauob9oM7hgk
+	 aYkQLU7DByvkWtHnFUa8w/yM0moA5ZEUotlpMxrdC7HK0uQdX07628FXSjTrhn7MYBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IpQFeUY0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VlUdXL8/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B391606A31D;
-	Thu, 22 Oct 2026 14:07:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D28606A31A
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:09:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IpQFeUY0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 528971F000C1;
-	Thu, 22 Oct 2026 14:07:27 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VlUdXL8/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A50B61F000C2;
+	Thu, 22 Oct 2026 14:09:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792678047;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
+	s=k20260515; t=1792678143;
+	bh=q45kTUHwAqCJNhX1DNdsP+3hLbDNU9+IBL03bbxOVlU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IpQFeUY0cXAt528pGVzP/wn6tBvLtTeYpzWaYGGk1VqcSu9usViffUDabmBW0yT/T
-	 29oq7k8xIorBVKJ115Avpoef3o/x+uR2LinT9Y6eg0BdHG0WFlLpVntmDwP0fOtpKh
-	 IGWyLdr/FA0qG2rXnPrLkTVOQlcJmYHz2gE84Kbfskdvtu8j7TeixO4qxNjdy4wwX2
-	 txqcKp6elbXXc8BFt6D25psiNluhomybENSi9SPalUXg/WgIYBZKVEVD5gw2YZ6Ygh
-	 RUbSigHzTSgOG4snodjyx3/O/YZRGOZpW0iW/nFTMg1JPZqvHWgDCobl1qNBeIw377
-	 Oma48dhzAIxZA==
-From: netdev-bot+sinfo@kernel.org
-To: Yingjie Wang <1075151112@qq.com>
-Cc: kuniyu@google.com, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: 
- Re: [PATCH net] af_unix: order MSG_PEEK references against garbage collection
-Date: Thu, 22 Oct 2026 14:07:26 +0000
-Message-ID: <179267804679.3290.7400946684850477681@kernel.org>
-In-Reply-To: <tencent_287A56749EA8448A970F2715FFF29F334108@qq.com>
-References: <tencent_287A56749EA8448A970F2715FFF29F334108@qq.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	b=VlUdXL8/XVoizo+jYjFmvlOQCj42WQflIvk+Dmrt4t6uHnoUmBR4ilg8k1js6wvcq
+	 r5UWhaP6yD7HLnoiXEP7UNXgotTycb5NDNpACmPMFNyT2knp2LWw/Ex8CMqasTQI9H
+	 XUCjobcY4ZQq5MBkgMC01DWv0ShLcz5ur25VadulLVsUZHWfO1s9DPcr5L4aafrgS6
+	 IKdDPZgNDtNd+CPkeVJiB5lNE29uJ+rNL4wpzeTm3KqwkDbP/YeghfwEOOr7A0hycv
+	 3zSLau1qRxTOMfZX9YiYiViNAdL9HXgQgjZEet6TVs416aH+z3HgKAwEnZpM6SEnix
+	 O1sEtkdtg23+w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Tom Zanussi <zanussi@kernel.org>,
+	"Steven Rostedt (Google)" <rostedt@goodmis.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/4] tracing: Fix fully-qualified variable reference printing in histograms
+Date: Thu, 22 Oct 2026 10:08:58 -0400
+Message-ID: <20261022140848.1513845-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026102122-sandy-lazy-aa40@gregkh>
+References: <2026102122-sandy-lazy-aa40@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,21 +59,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi!
+From: Tom Zanussi <zanussi@kernel.org>
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+[ Upstream commit 9236eebd138aa2753f7b30fc6cee7b7202841247 ]
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+The syntax for fully-qualified variable references in histograms is
+subsys.event.$var, which is parsed correctly, but not displayed correctly
+when printing a histogram spec. The current code puts the $ reference at
+the beginning of the fully-qualified variable name i.e. $subsys.event.var,
+which is incorrect.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Before:
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+trigger info: hist:keys=next_comm:vals=hitcount:wakeup_lat=common_timestamp.usecs-$sched.sched_wakeup.ts0: ...
+
+After:
+
+trigger info: hist:keys=next_comm:vals=hitcount:wakeup_lat=common_timestamp.usecs-sched.sched_wakeup.$ts0: ...
+
+Link: https://patch.msgid.link/5dee9a86d062a4dd68c2214f3d90ac93811e1951.1776112478.git.zanussi@kernel.org
+Signed-off-by: Tom Zanussi <zanussi@kernel.org>
+Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
+Stable-dep-of: a0777b9e5315 ("tracing: Fix NULL dereference when copying keys for a field variable")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ kernel/trace/trace_events_hist.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index eaf6084d65149..31563c47bb8d9 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -1342,9 +1342,12 @@ static const char *hist_field_name(struct hist_field *field,
+ 		 field->flags & HIST_FIELD_FL_VAR_REF) {
+ 		if (field->system) {
+ 			static char full_name[MAX_FILTER_STR_VAL];
++			static char *fmt;
+ 			int len;
+ 
+-			len = snprintf(full_name, sizeof(full_name), "%s.%s.%s",
++			fmt = field->flags & HIST_FIELD_FL_VAR_REF ? "%s.%s.$%s" : "%s.%s.%s";
++
++			len = snprintf(full_name, sizeof(full_name), fmt,
+ 				       field->system, field->event_name,
+ 				       field->name);
+ 			if (len < sizeof(full_name))
+@@ -1724,9 +1727,10 @@ static const char *get_hist_field_flags(struct hist_field *hist_field)
+ 
+ static void expr_field_str(struct hist_field *field, char *expr)
+ {
+-	if (field->flags & HIST_FIELD_FL_VAR_REF)
+-		strcat(expr, "$");
+-	else if (field->flags & HIST_FIELD_FL_CONST) {
++	if (field->flags & HIST_FIELD_FL_VAR_REF) {
++		if (!field->system)
++			strcat(expr, "$");
++	} else if (field->flags & HIST_FIELD_FL_CONST) {
+ 		char str[HIST_CONST_DIGITS_MAX];
+ 
+ 		snprintf(str, HIST_CONST_DIGITS_MAX, "%llu", field->constant);
+@@ -6139,7 +6143,8 @@ static void hist_field_print(struct seq_file *m, struct hist_field *hist_field)
+ 	else if (field_name) {
+ 		if (hist_field->flags & HIST_FIELD_FL_VAR_REF ||
+ 		    hist_field->flags & HIST_FIELD_FL_ALIAS)
+-			seq_putc(m, '$');
++			if (!hist_field->system)
++				seq_putc(m, '$');
+ 		seq_printf(m, "%s", field_name);
+ 	} else if (hist_field->flags & HIST_FIELD_FL_TIMESTAMP)
+ 		seq_puts(m, "common_timestamp");
+-- 
+2.53.0
+
