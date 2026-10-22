@@ -1,55 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792680394;
-	b=r0v7/qDbJBduLskdbAhfFJo8UqKS019LuamBmpWECfltN3sBw5TMB7aFrI4H/7HEvGT4
-	 pPmZTmKgaf8viPf1zDTTW56TFNHY2EB47ZeTYYAaz426Zip31hn07tDmh+TaoAIUnHKI+
-	 GIOwR/eDjGkqe8ZFlj/1+XEljW2PX8Q129WjTwejS0Vr8ZBN0IVWyxg585McovsUFSuIe
-	 fpe7N42HBp1xaGthnZwMcOzjQTJon1vraa4+zXojD22NdbHh2oAlzadg4xf4EnahzvqS/
-	 iwC874QFErRPinmARWXwzvx3067rPm4TJI33NmoyoynYDhKcYbu3JYgKFYy0x856/4w==
+	t=1792680471;
+	b=sYD59j4/Y4L/5idVJyYjjuF1l46bJetZv0gdIGnVmygKe/HO7Q3KJmBayDRWtWXuSAYM
+	 sj4zqLnQQNFTRjzrKi//OKvkR9IGvhjGwwHXLtcqE1VOJDgc2PxmQKGCpLFafelokqI+7
+	 FF+4uZd2k8bhdOnCtR3uB+WdEvsgnAS2NvaJqdPOalM5mpnBRS9zR5V7w02GN56b+0BhR
+	 ZLxGSkMpI0pni+guXrI89YQBZzYvVFloSHDBYMHXQJlG0IbU6kJgZ+nN0W2CVpyj2B5eu
+	 xH84VpxFrL1QqHQWN8IGK87r1tdI+4Jgdnfd2ScTZ3a/QjOqBAx7kZB2eYvkQytVIyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792680394;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=+oHYwW+2+REHEr6vVJAo/VLToYTJjn8LSKpd6kIFqVk=;
-	b=h3yMUbXUrIZbFqk97bnSYOy77jGR78WdKglBUsbwlLLlwpghCfPZl0/4A+KGGILrd8uY
-	 TIToyxUchW4phuPptHlaQmTtHXxtW3ZuXuLyoY1a3DaxeEWDPNP6dpNoC7lg0BnW85bs+
-	 f6O5TrxbiDYMXj3LsdFFyvpzSgmNstwP6QQSXxxDzVvCNal0vCWwQRcRUfDyRX+vZQ3hp
-	 OvNtmQrFkAZrBwWvDU3Unt5LhXrF00z0Hj6jDixhXsHSX4OCeEmMWXCeTW9SpgtW/anKr
-	 ocND+kydztCdYSSi75iHRqko6aRQHJbHAfATzV928DeXfHxRBgMiTqSd4ZapWms7K+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792680471;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:
+	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=UUSDmlVMcwhr9iutDz3uUlfo+9Wxwrfjom0SeIArEXE=;
+	b=S462VJHJcFiOU61tmzmNMRaVATRJNb07WqhkB5WSRcps5S3AM0cYBmmeGzY9AbVFA10z
+	 dh2M9a2/2edHzL8gNDom+hvAlwWPSeDkXtOVmTSGPkjEAsGwki5bLGRhZUgFO6cC1v3Gc
+	 eA5eDY20K5qCpBN4oD4eftLME0JjWWoPnRLhs+YL91T6F6n6LcPzn7ywDLv9JY175cPnd
+	 Vpp6xbk8p4wdvVUzoSKEdXXojakhzSsjwvYFHkIzkSVyVpz7lRSmYmcK5GVulADbRbdJr
+	 xULniTvtzzycLlU4BUAzDOMBvT62ELmT3SjHU7p2b14Lzk0mcJQTK0hdcT01zUFFkUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MDnhHOoR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=f4Ma57WR;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 246AB606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:46:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6A0B606A324;
+	Thu, 22 Oct 2026 14:47:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6A0B606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MDnhHOoR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B070F1F000C2
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:46:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792680393;
-	bh=+oHYwW+2+REHEr6vVJAo/VLToYTJjn8LSKpd6kIFqVk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=MDnhHOoR0YdNyYJ1me1ajZRLCz1Bq2Ck49Vz5d+G10/s2Pc0vz9gxuzmKyA91IGMO
-	 G6NhvrtMY0x9cK2OtbfgmCW3x9iSDOG6Si8JrVrdsBElR03vfPNsiu39jKtJGgc1eR
-	 Vl3tCGM69Rk0puqxY52folQycDewZMmKYfsfpLaKhhiOp8izSp2BxUsD5Qk/9Lziqj
-	 oxjUth7jX45n3PGv8xRt5oV7yRwwknaEY9COPEpJnC7g/7VT8m2hyMaNqD0fiVpTav
-	 sig2OVOtnW/z31nf6/sfgjgX4tYeE1Tf+fnWm+WTUWSc20TVDnCzYnie1sX53xqK+x
-	 5Bvk20EKE7L+Q==
-Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6cf995766a3so1572518eaf.2
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 07:46:33 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxOhZtLPDsZTiLIK0rgwcfhqnWgipO8frLUJ1Ug2lkNuWdvV/++d3/H/Y1C7J6t3gc2JuuOTRk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKyIZybOqFrItuMYbtylHvuHk7UrtGfuc2bFSRrQ3bqwnl4tt3F
-	sWclgDfkzupFM/eIyYu2G53qUbtggXfRXM/5HzTC/tEdCzVr4vgPMlr0F+fns2RGW0wLvHXbHCK
-	+m17JpgKL1XwvD7DPm878v7LJPUil+3g=
-X-Received: by 2002:a05:6820:160a:b0:6fc:373a:1775 with SMTP id
- 006d021491bc7-70941a50e37mr3218344eaf.79.1792680393015; Thu, 22 Oct 2026
- 07:46:33 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=f4Ma57WR
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MEFUmR4098301;
+	Thu, 22 Oct 2026 14:47:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=UUSDmlVMcwh
+	r9iutDz3uUlfo+9Wxwrfjom0SeIArEXE=; b=f4Ma57WRIqhZSzt46TiyC57qZhX
+	S5RyeQJhuHdIcAeXzQnZ+0fIo3zCQTgEPFWqgl4hEfHKxlDSt9lBv9cuUuGSK+dr
+	wbK2j2kbcZttbP5suPr4DMUqD880VspjeKFGMGlNZotnAtZ+Xwb+QkvKS83QZiO8
+	ptmhsVMJ2GngEpzVc2JB0Dj8IWRUeTai03KTRgfzMUHILSA9DUIFmLm54hoVwMOI
+	NqZCGizVueor6qyYOZ9GOMn/+waXldVQ29d6tq0a3dnnGQjkwLI5i4RGt381sRyB
+	BE2jkdWNp1adV9Pi4rg06r1H5nctBEOQIpcNKqljHIuQ147hKwiI2LbpqrQ==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfewq33w6-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 22 Oct 2026 14:47:43 +0000 (GMT)
+Received: from pps.filterd (apblrppmta02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69MEfWbj1932677;
+	Thu, 22 Oct 2026 14:41:32 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-mohis-hyd.qualcomm.com [10.147.253.64])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 69MEfVmS1932657
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 22 Oct 2026 14:41:31 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4840500)
+	id D4F8065A; Thu, 22 Oct 2026 20:11:30 +0530 (+0530)
+From: Mohit Sharma <mohit.sharma@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Mark Brown <broonie@kernel.org>
+Cc: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>,
+        Liam Girdwood <lgirdwood@gmail.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Mohit Sharma <mohit.sharma@oss.qualcomm.com>, stable@vger.kernel.org
+Subject: [PATCH 2/2] soc: qcom: apr: Publish GPR callback before client probe
+Date: Thu, 22 Oct 2026 20:11:30 +0530
+Message-Id: <20261022144130.2443667-3-mohit.sharma@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261022144130.2443667-1-mohit.sharma@oss.qualcomm.com>
+References: <20261022144130.2443667-1-mohit.sharma@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,99 +89,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021193151.1819085-2-Jeremy.Jean@oss.cyber.gouv.fr>
-In-Reply-To: <20261021193151.1819085-2-Jeremy.Jean@oss.cyber.gouv.fr>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Thu, 22 Oct 2026 16:46:21 +0200
-X-Gmail-Original-Message-ID: <CAL4WiiqYwtZ0851Y0M1gOAQ5uU=kjU29Puwjx7+kyR7BqKEpUg@mail.gmail.com>
-X-Gm-Features: AclHuK_eJ8qt7rFIbVyfxXEh_VsPWT_SRnJGCQzv1xMfMCKNtYZIIndkv2R0CTA
-Message-ID: <CAL4WiiqYwtZ0851Y0M1gOAQ5uU=kjU29Puwjx7+kyR7BqKEpUg@mail.gmail.com>
-Subject: Re: [PATCH] tcp: fix authentication bypass via unsupported TCP auth options
-To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: DN5y412NKtRmmEGG_ZXkBzbD-ZOv26nM
+X-Proofpoint-ORIG-GUID: DN5y412NKtRmmEGG_ZXkBzbD-ZOv26nM
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA1OCBTYWx0ZWRfX2/Oe6Hy2TyLi
+ C8HapLbTFBMuVe41S3s5QFJNX6ql3TQ8XS1WyMa2Gj5ZJfkJarzISF33B+zN9epLdzdDpuqmk8T
+ LLgHr+6V+i0OZeYqvQKmCbAxxZkR8jw=
+X-Authority-Analysis: v=2.4 cv=G4OJgNk5 c=1 sm=1 tr=0 ts=6ada220f cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=gUX7mVKeEC_5i4-4ascA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA1OCBTYWx0ZWRfX/GtrjWmIuFVZ
+ l0tFg/iEG90uzx3nucTubDVlwdGsKw6/x2YjX1+2gZwI/AeoFSNh9Lz8DDZZWg6Toq1h7Gejiv7
+ wa+LT7VxjPPXx5FLc32ctQKk7cGcCLCwphDtkFBMllbrc2BuGnLgjVfzEEWcv/NZQXoaKoRrc5o
+ +XKfI2XWJLO6HbmiqvR03Dh+rM/FAgD24QZjW0Cr88AYO7PQ3ZVUPyVF3GWd3H9w7ckALGv8oN/
+ 6bdIhNbdmzUIk4DwZgZyr45t662vHnGk0F2e9JV7zsoyOXieW7Yo+C/F/hh63JlDowt0FMbbyiJ
+ CCs4tPkZQLsfBAY2mevkn889Qa98jdu/81fnMQGOyCWT+yONczurOhic+qZWsgrCtuKaRNoOI5V
+ zt7cCHn/XJmWzEWBRPkPk/Z/Qh9shFoQ8jkNSlNnqJN6tHtShTcKceIdJULSTUBAihdkcwj41H1
+ cVZ3zax9IFCQ0tpvX6A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220058
 
-Le mer. 21 oct. 2026 =C3=A0 21:32, J=C3=A9r=C3=A9my Jean
-<Jeremy.Jean@oss.cyber.gouv.fr> a =C3=A9crit :
->
-> tcp_inbound_hash() parses both TCP-MD5 and TCP-AO options when at
-> least one of the two features is enabled. With TCP_MD5SIG=3Dy and
-> TCP_AO=3Dn, a packet with an AO option reaches the disabled
-> tcp_inbound_ao_hash() stub. That stub returns success, so sockets
-> configured to require MD5 authentication end up accepting
-> unauthenticated data.
->
-> The inverse configuration with TCP_MD5SIG=3Dn and TCP_AO=3Dy has the same
-> problem for an MD5 option on AO sockets.
->
-> Make the disabled stubs reject options for the unsupported
-> authentication scheme.
->
-> Fixes: 0a3a809089eb ("net/tcp: Verify inbound TCP-AO signed segments")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-> ---
->  include/net/tcp_ao.h | 2 +-
->  net/ipv4/tcp.c       | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/include/net/tcp_ao.h b/include/net/tcp_ao.h
-> index 9a2333e62e994..bb249d6df8723 100644
-> --- a/include/net/tcp_ao.h
-> +++ b/include/net/tcp_ao.h
-> @@ -303,7 +303,7 @@ static inline enum skb_drop_reason tcp_inbound_ao_has=
-h(struct sock *sk,
->                 const struct request_sock *req, int l3index,
->                 const struct tcp_ao_hdr *aoh)
->  {
-> -       return SKB_NOT_DROPPED_YET;
-> +       return SKB_DROP_REASON_TCP_AOUNEXPECTED;
->  }
->
->  static inline struct tcp_ao_key *tcp_ao_do_lookup(const struct sock *sk,
-> diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-> index 87ef6d5cbfeba..7d800b6283bd2 100644
-> --- a/net/ipv4/tcp.c
-> +++ b/net/ipv4/tcp.c
-> @@ -4962,7 +4962,7 @@ tcp_inbound_md5_hash(const struct sock *sk, const s=
-truct sk_buff *skb,
->                      const void *saddr, const void *daddr,
->                      int family, int l3index, const __u8 *hash_location)
->  {
-> -       return SKB_NOT_DROPPED_YET;
-> +       return SKB_DROP_REASON_TCP_MD5UNEXPECTED;
->  }
->
->  #endif
-> --
-> 2.47.3
->
+A GPR service driver can issue synchronous commands from its probe path,
+or populate child devices which issue commands before the parent probe
+returns. The APR/GPR bus currently installs the GPR service callback only
+after the service driver's probe has completed.
 
-Good catch, thanks.
+If a response arrives while the client probe is still running, GPR finds
+the destination service but cannot dispatch the response because the
+service callback is NULL. The client waiting for the response eventually
+times out.
 
-The forged AO option makes us skip the unsigned fast path, which is
-the only place where tcp_md5_do_lookup() can return MD5NOTFOUND.
-An attacker able to hit the window of an MD5-protected session (BGP...)
-can therefore inject RST or data with a junk AO option, which is
-exactly what RFC 2385 is supposed to prevent.
+This was observed intermittently on Qualcomm Lemans and Monaco platforms
+when q6apm child probing sent an APM shared-memory map command before the
+parent probe returned. The failure has the following signature:
 
-Please mention in the changelog that TCP_AO depends on 64BIT: every
-32-bit kernel with TCP_MD5SIG=3Dy is in the vulnerable configuration.
+  qcom-apm ... CMD timeout for [100100c] opcode
+  q6apm-dai ... Audio Start: Buffer Allocation failed rc = -110
+  snd-sc8280xp ... ASoC: can't create pcm MultiMedia1 Playback :-110
 
-With your patch the stubs now return what the real helpers return for
-a socket without keys (AOUNEXPECTED / MD5UNEXPECTED), so behavior
-becomes consistent across configs. One visible change is that MD5=3Dn,
-AO=3Dy kernels will now drop segments carrying an MD5 option to unkeyed
-sockets, as MD5=3Dy kernels already do. That is fine, but worth one
-sentence.
+Install the GPR callback before invoking the client probe so responses to
+probe-time commands can be dispatched. Clear the callback again if probe
+fails, and preserve the existing callback ordering for APR clients.
 
-Optional: bumping LINUX_MIB_TCPAOKEYNOTFOUND / LINUX_MIB_TCPMD5UNEXPECTED
-from the stubs would make these drops visible in nstat.
+Fixes: ec1471a898cc ("soc: qcom: apr: Add GPR support")
+Cc: stable@vger.kernel.org
+Co-developed-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+Signed-off-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+Signed-off-by: Mohit Sharma <mohit.sharma@oss.qualcomm.com>
+---
+ drivers/soc/qcom/apr.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-This is a fix, please send v2 as [PATCH net].
-
-Also please CC TCP-AO folks from Arista
-
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+diff --git a/drivers/soc/qcom/apr.c b/drivers/soc/qcom/apr.c
+index ea7f83916d8d..829e5c8fdf98 100644
+--- a/drivers/soc/qcom/apr.c
++++ b/drivers/soc/qcom/apr.c
+@@ -365,13 +365,24 @@ static int apr_device_probe(struct device *dev)
+ {
+ 	struct apr_device *adev = to_apr_device(dev);
+ 	struct apr_driver *adrv = to_apr_driver(dev->driver);
++	struct packet_router *apr = dev_get_drvdata(dev->parent);
+ 	int ret;
+ 
++	if (apr->type == PR_TYPE_GPR)
++		adev->svc.callback = adrv->gpr_callback;
++
+ 	ret = adrv->probe(adev);
+-	if (!ret)
++	if (ret) {
++		if (apr->type == PR_TYPE_GPR)
++			adev->svc.callback = NULL;
++
++		return ret;
++	}
++
++	if (apr->type != PR_TYPE_GPR)
+ 		adev->svc.callback = adrv->gpr_callback;
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ static void apr_device_remove(struct device *dev)
+-- 
+2.34.1
