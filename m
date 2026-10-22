@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792668893;
-	b=cw8FcNtPlWbixQ4im9VV8dCUUVIQskvuBn5cibZkT+1R1nZBI1Mbw1tHgObfWtn42Phg
-	 7NnvaeX6taKbEoQGi5vw13uM6ukpLfOPg7VUEHJDxPLFM0f+HfV1VwgmEcC8LvlT2FQBr
-	 Z7oeOZMoG3C2kHaGJZjw8YAies1WOJOvob1DoZnFnuqNuoG3xQQMsJVka4asLbHBbzmXr
-	 Q1Gx+Ow8uzGW66S4zt2CFRXnS/2zqm8lzoUqB14gxeOj/AOxs4TIhACgH3QOHrnk4aO4b
-	 4bGuuXx/fbUcU0Ntci+B5fXtvFVMQRROGTqfsqBUdEGjx9hJiNhXmi03gORhX/n5smA==
+	t=1792668898;
+	b=riI5O3pFC/4WT0YSqPuEFY9mlCWtv9c/PX7nU9iC8rx3m5Pl+OJTQvLoD/cgB/InyscX
+	 CoNTfs85BUBxRJ11p50jTACRo/FR/zKyZ/ZqtF7eTp6l0YNB1Uw/clicJMxqIxAh4J2nj
+	 qfNqcw7BojvTBYXJB9niZHYfl4kXJvufcd7QfACUz8YPBLvMbIlEP9lAWGV9g64LkECzw
+	 9EqCJlqQ07PFAR6RmfsnqsIchwHJN76vEDf9Zvg2HlZ5/HHLHolsPHjyFROEKB5lBbpmD
+	 IUScDatCvzXXevODn09/IvstAuvqQH5zETcwt2ltF+i1Gg1BfS9vmYeKH/tliFMK4Yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792668893;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792668898;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=X0jciOGA6mGDiPwvGrmn+MAYk1uG02Qws7rhgk7JY1Q=;
-	b=GeltBXWpn6sRpThHzRjsPc6ZdPq0JYUxnQmqDUfHrygRgHMJVabpcJfnIbmnoDTMtKQH
-	 sLWRiLgRJihJ2WW/IWorDyk8GvAkpIO9yPHmH3dT4zEKVGEhiy4wORL8cj0zuPi1iuhzv
-	 +O+6TLrlTxtL39NZ78ZMZJflegxGLB0CzqjzzpxsxiVqcST/9DonqKXGTb1wXEMmU0pRi
-	 gsBhbv2sl3cv6LaL7Ft8yo5nrpbEqN8fVAJTvoKfhQMif2twXIWXCaDD4OZuDfx8w1iFo
-	 nStHmaRGFxQryDgsvy5PPiqe9t9lBfG65zW/WE9H7OPCac4gihatdZPS2ApJzuhfEvw==
+	bh=DNEPsw8H4peVGAfn1gU70bLlWJ3sDy0G5hioQLtIBHI=;
+	b=1/gOzLlBWYHdwDR654uuKP+NPtMyLXtWzdu1CV6LW6ohr/WKORDkzIgxErovTiApemGA
+	 Em35UraFas4K124AW3YVBr0W2lUckzl4DzEX+evX4lHtZzbvx97cfZfA0HnJIVZGuxd5w
+	 Gy2Ywh4sVOA9zD42NO1KnLNWcsUBkQLREP2f6X7TzdOd8VlAC6tIM9evWCUwhlHY4e6it
+	 LWgSmBZ/Lib2fs/AcCMxWPgBiNeL2HMXOPuOwOfE8kDSnrVv/H4+oeJWrShFGk7IYrovQ
+	 ndF/xauTu57KCyAW8Tr9njv6bFzhxDp9Y5g4XZja5RhFxUE0O8ZDwCaLiyQHo40Yb3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m7tzVbSD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJCzJR96;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75728606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 11:34:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED354606A31A
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 11:34:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m7tzVbSD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5D0A1F000C1;
-	Thu, 22 Oct 2026 11:34:52 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJCzJR96
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB7FA1F000C1;
+	Thu, 22 Oct 2026 11:34:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792668893;
-	bh=X0jciOGA6mGDiPwvGrmn+MAYk1uG02Qws7rhgk7JY1Q=;
+	s=k20260515; t=1792668897;
+	bh=DNEPsw8H4peVGAfn1gU70bLlWJ3sDy0G5hioQLtIBHI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=m7tzVbSDZfuZsJxQlwIr1jZlJbqoz8Le6pOXIUOH0XJEVnEQ+MRl2FjXbX4RgJbNK
-	 WLq3NDq1v0+1JPR1arVwWmStaczUMIAHKoR1qg9cr7Oje6LCybKr5gRJ+9gdbrti/c
-	 3NvBy/2M1CKpiifmCqqxHEdbqWmD3CxdEK0he1rykTgqXHTGbQEGbbTxqg64RoqGhB
-	 EENZoP2RibbDBrNI9l2g47ZjtwGTpJvvPptxF213z1CRXlFgD9MH5s+zQLbBrq689Y
-	 SqM42+I6LtcOtL9L4YxNFBkLA8owoHY0yhCz3QNBoynf12crIHgzxLWG+f5hEFTGTA
-	 ZfgMNjPZfrrzw==
+	b=ZJCzJR96RAgbkhraL69dPa3ndL+4CXO+xQRPgmLJv2ocaZhZVRGdbAyPAE0vXwn4B
+	 gx0kHSzOU/QW9QGpHKdnaZEqcoPejteRso/3lBxnM0ptja0NbbdTbX649i0hnf4r/X
+	 Cia2Qt+V1qTtWeOhWAaQuibv7JByyAt6hm8emCisIQR3TkVXi6FUgEn+89lDnQV9c0
+	 sWgy0gePHhVzg7vBsIomjVonytGZ3UVwMeXuCQKPsUmjLASCaXJR2jKD7TQOIZWlHz
+	 NPTs8zh92XGo1zlb9jJt5xItRmjuNmfDDo5Vt9NuVJktrt4mezHZsOfe4a2ztplFxb
+	 Wzv9JN8NZlAXw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Wentao Liang <vulab@iscas.ac.cn>,
-	Andi Shyti <andi.shyti@kernel.org>,
+Cc: Hui Su <sh_def@163.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Tejun Heo <tj@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] i2c: viai2c-wmt: Fix clock leak in wmt_i2c_probe()
-Date: Thu, 22 Oct 2026 07:34:51 -0400
-Message-ID: <20261022113410.917078-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] sched_ext: idle: Respect task affinity in restricted CPU selection
+Date: Thu, 22 Oct 2026 07:34:55 -0400
+Message-ID: <20261022113411.921725-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102101-sculpture-murmuring-9b82@gregkh>
-References: <2026102101-sculpture-murmuring-9b82@gregkh>
+In-Reply-To: <2026102136-landless-alienate-afa8@gregkh>
+References: <2026102136-landless-alienate-afa8@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,42 +62,118 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Wentao Liang <vulab@iscas.ac.cn>
+From: Hui Su <sh_def@163.com>
 
-[ Upstream commit aaabefc79b0ff0018e8e3832169bbe359d0551fc ]
+[ Upstream commit 6ac4544eff796666ce6fbcc4be8181c81dfccc85 ]
 
-In wmt_i2c_probe(), i2c->clk is acquired using of_clk_get(). If any
-subsequent operation fails or when the module is unloaded, the clock
-reference count is never decremented via clk_put(), leading to a
-resource leak.
+The restricted select_cpu kfunc path handles single-CPU and
+migration-disabled tasks without going through scx_select_cpu_dfl().
 
-Switch to devm_clk_get() so that the clock is automatically managed
-and released.
+It currently uses prev_cpu as the candidate, even though prev_cpu is only a
+hint and may no longer be usable after an affinity change. With a
+caller-provided @allowed mask, this can also return an idle CPU outside
+p->cpus_ptr.
 
-Fixes: 560746eb79d3 ("i2c: vt8500: Add support for I2C bus on Wondermedia SoCs")
+Derive the candidate from task state instead: use the sole CPU in
+p->cpus_ptr for single-CPU tasks and task_cpu(p) for migration-disabled
+tasks. Validate it against p->cpus_ptr and @allowed before claiming its
+idle state.
+
+Since the derived candidate may be on a different NUMA node from
+prev_cpu, also preserve SCX_PICK_IDLE_IN_NODE by rejecting cross-node
+candidates.
+
+Perform all checks before scx_idle_test_and_clear_cpu(), as a successful
+call consumes the CPU's idle bit.
+
+Fixes: 683d2d0faba1 ("sched_ext: idle: Introduce scx_bpf_select_cpu_and()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://patch.msgid.link/20260916070631.1965713-1-vulab@iscas.ac.cn
-[ sashal: Adapted i2c->clk to i2c_dev->clk within the existing error-handling context. ]
+Signed-off-by: Hui Su <sh_def@163.com>
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
+Signed-off-by: Tejun Heo <tj@kernel.org>
+[ sashal: Adjusted declaration context to retain rq and rf for the existing task_rq_lock() locking. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/busses/i2c-wmt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ kernel/sched/ext_idle.c | 50 ++++++++++++++++++++++++++++++++---------
+ 1 file changed, 39 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-wmt.c b/drivers/i2c/busses/i2c-wmt.c
-index 7d4bc87360793..a1716dddfca8e 100644
---- a/drivers/i2c/busses/i2c-wmt.c
-+++ b/drivers/i2c/busses/i2c-wmt.c
-@@ -391,7 +391,7 @@ static int wmt_i2c_probe(struct platform_device *pdev)
- 		return -EINVAL;
- 	}
+diff --git a/kernel/sched/ext_idle.c b/kernel/sched/ext_idle.c
+index d16a1de078656..d2024279939de 100644
+--- a/kernel/sched/ext_idle.c
++++ b/kernel/sched/ext_idle.c
+@@ -889,12 +889,43 @@ static bool is_bpf_migration_disabled(const struct task_struct *p)
+ 	return p->migration_disabled;
+ }
  
--	i2c_dev->clk = of_clk_get(np, 0);
-+	i2c_dev->clk = devm_clk_get(&pdev->dev, NULL);
- 	if (IS_ERR(i2c_dev->clk)) {
- 		dev_err(&pdev->dev, "unable to request clock\n");
- 		return PTR_ERR(i2c_dev->clk);
++static s32 select_cpu_restricted(struct task_struct *p, s32 prev_cpu,
++				 const struct cpumask *allowed, u64 flags,
++				 bool migration_disabled)
++{
++	s32 cpu;
++
++	if (migration_disabled)
++		cpu = task_cpu(p);
++	else
++		cpu = cpumask_first(p->cpus_ptr);
++
++	if (!cpumask_test_cpu(cpu, p->cpus_ptr))
++		return -EBUSY;
++
++	if (allowed && !cpumask_test_cpu(cpu, allowed))
++		return -EBUSY;
++
++	if (flags & SCX_PICK_IDLE_IN_NODE) {
++		int node = scx_cpu_node_if_enabled(prev_cpu);
++
++		if (scx_cpu_node_if_enabled(cpu) != node)
++			return -EBUSY;
++	}
++
++	if (!scx_idle_test_and_clear_cpu(cpu))
++		return -EBUSY;
++
++	return cpu;
++}
++
+ static s32 select_cpu_from_kfunc(struct scx_sched *sch, struct task_struct *p,
+ 				 s32 prev_cpu, u64 wake_flags,
+ 				 const struct cpumask *allowed, u64 flags)
+ {
+ 	struct rq *rq;
+ 	struct rq_flags rf;
++	bool migration_disabled;
+ 	s32 cpu;
+ 
+ 	if (!ops_cpu_valid(sch, prev_cpu, NULL))
+@@ -928,20 +959,17 @@ static s32 select_cpu_from_kfunc(struct scx_sched *sch, struct task_struct *p,
+ 
+ 	/*
+ 	 * This may also be called from ops.enqueue(), so we need to handle
+-	 * per-CPU tasks as well. For these tasks, we can skip all idle CPU
+-	 * selection optimizations and simply check whether the previously
+-	 * used CPU is idle and within the allowed cpumask.
++	 * per-CPU tasks as well. For these tasks, skip general idle CPU
++	 * selection and validate the task's only usable CPU directly.
+ 	 */
+-	if (p->nr_cpus_allowed == 1 || is_bpf_migration_disabled(p)) {
+-		if (cpumask_test_cpu(prev_cpu, allowed ?: p->cpus_ptr) &&
+-		    scx_idle_test_and_clear_cpu(prev_cpu))
+-			cpu = prev_cpu;
+-		else
+-			cpu = -EBUSY;
+-	} else {
++	migration_disabled = is_bpf_migration_disabled(p);
++
++	if (p->nr_cpus_allowed == 1 || migration_disabled)
++		cpu = select_cpu_restricted(p, prev_cpu, allowed, flags,
++					    migration_disabled);
++	else
+ 		cpu = scx_select_cpu_dfl(p, prev_cpu, wake_flags,
+ 					 allowed ?: p->cpus_ptr, flags);
+-	}
+ 
+ 	if (scx_kf_allowed_if_unlocked())
+ 		task_rq_unlock(rq, p, &rf);
 -- 
 2.53.0
 
