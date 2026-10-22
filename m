@@ -1,55 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.218.115.239
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792691288;
-	b=DgT9cKb7HUErSaQ6ktpf7waYnJoDDdOyA6f5LqHS5OdmQIzDAPwWAluteTd9R2QpCUoB
-	 jM5K4jWBh6ic8Qf/Fy+JW3oWdhVKpDNcFMchY7UsClijk1Y0WvopIrbfW3miEMshrb4if
-	 bR+auKjj999FVlZc5wYes7BN6TSt2n+FdW0l4rr8y7nu7kVvfB3AlPfjkzvrk+3s/1IFe
-	 xJNLExOrgVRcUS30CPKavHy4zen9xyhIm3SBMbGcWHNz/9iRDNbPrcSFXg+aNYotjVPYA
-	 g5wK2Saa0yfN2pVETQkO1TgZqAnjN5Hkga4ctWPXYNhiptgSMLFObUqGhF8r9NVa5Hg==
+	t=1792691312;
+	b=RQiZPVdddQ2sEhf7F5cukCDttzMcifwNg+xPL3xWxvDVcaT8ewCn4L1bQmS1e2d76ji/
+	 YJoA/WeWc7Hhn01jSNB4dPporlgzmHwh4lwoIbXnyRqELgfn4ZqaNVXiCt7Elbwihrmv+
+	 /UMLWo9Lj21W5vblEljDDp7ZZ3/NRmQOCbG15UFjZ9YaWnDyj5ZJLtA+r7TwndVsC/lVL
+	 0lQEUOMa7QEz0t/R3DjBxEUAJlHUVpHePuCGl8uU2fgKmjFMRc9bd7iuL+omtnOOtw/GN
+	 fax7sAZCGNW2szmaVzBD/6Gf4Ou/vV8zF7Ipm1wKpS6S9RhCc7njhlbXx2FXpNBO+sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792691288;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=MGotvCzhWr/lonfJnRU59oPcrOTBROzb2+c6xsa3Gm8=;
-	b=q75VBcH1i8jd8E1eagHDpshHWcNSC3CqHv7qmpcVmSoEjxtnHBW8rSadI4VxjvRcYVvf
-	 CVdIOgvJf6v2am6ij0/w7QnoEHAzHQDffEDdz0152XjP6GOtvoM+iNN3zABNbgKIDOTs+
-	 a3nGlaINbnyz2Wu6Nrwq1BgszZ+0Wqdl9NtMkqQPHr4RXy7XgmyaKpjFRAyK6qoYgMXbU
-	 rvxi0Af1ViYwIfjyDr45+u/VOZ5nAFq5+W4AWliTsVOrU/vG0NGefnof1+CMUxjALk+AK
-	 Kh3uTFFt8tDojMDkHhDduzFWN2K1K6YBCP4G4yUVrd+3Z53DiJd7E00iULxKxXE7nvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792691312;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=SpslVbUahu1lzhSFFj8q6rCig7MM9wSX+fuc0eipTGc=;
+	b=pSHBU/mtzpO+HNAV5/2kCFIC/8XqDZAl9Pt5Z3CZ/tWsFztVTCqET+wDKGJs4nI5tg4X
+	 gHFU/9o2Xqs5+7oVPUaEgWGm81L8lvTRQpTqYNS7Lto1QBux2q6z/GlE5vkugpWRVDH+H
+	 zyIot7u9n4MU5/uK0NV8NQIS4kxfNfEdkIsHfTqvJVV20qsB5s8/BZfKN20Di5zg5mqgR
+	 n7XfccH/WMTBt39BUVsPy5qZYiYnZ/KUN22XSYTmxm09engiPrxaqzVzfAXMucj5SYzPX
+	 GmNHISkTz4fn0MqeQjxrEnTXKYh1JKe+rRE09Eih6VRL2tHQk3eQfDRjK2JRdGE0VBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G2ZmsuqW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b="T7UZ/xC6";
+	arc=none smtp.remote-ip=34.218.115.239
+Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD926606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 17:48:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B691C606A31B;
+	Thu, 22 Oct 2026 17:48:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B691C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G2ZmsuqW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AACF51F031EB
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 17:48:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792691287;
-	bh=MGotvCzhWr/lonfJnRU59oPcrOTBROzb2+c6xsa3Gm8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=G2ZmsuqWEkBNHwHLkDIFwTgdwWMAd3VNDMwaCMWpekNralQaK67EgcCV65cGgVuvE
-	 Z1t4l+1ZaspZDFN+aExiW1/gzzI8+zKtPOP6pqWyU5MA/tUfYkLXCYYJmBVhVtLw7F
-	 wkYsKr/O0pFcd6I1qGPFnd2xcbVJ3SzKFDsMKzE4oSLjm1jMKrdQ3BsGddjo+7vWbt
-	 4csvW/KjdE1ca6xD1BLQ1AYh62VR3KYJC29nAqEpcYS9NA3vjLZv6BhuC6p1UCrweR
-	 VI96xsUqb8q+e06o9xbKIUxqB0WWBg2ALwreAZu2V/QOMgHqiUCp56/5wkv7KEDc7l
-	 cvBD8yWEqNB5g==
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5be4d648aacso1749440e87.3
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 10:48:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBydODwTgijbMA9/SlfDiWKRq4918xL3eaC0jzDOvlky2iAKpMoambtr/q6ui6GHueLX0w98A7U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqJLZ2jksOSiC4aowPUsELSLNiXV+MF/I6Mowg8S2ldYn/L6/C
-	ULu5mSdS1Ns7XRRSpDxYDrf9WoGELbn76XKzcJzudn5Yxp5k0ixNz30tqOM95+jDjDjNCX8232W
-	8xzexqI9TZ0CR4JWgsqA9P1b8tGsQVFg=
-X-Received: by 2002:a2e:b88b:0:b0:3ac:4ce6:8b73 with SMTP id
- 38308e7fff4ca-3ac4ce68e14mr12334331fa.22.1792691286350; Thu, 22 Oct 2026
- 10:48:06 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=T7UZ/xC6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1792691311; x=1824227311;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=SpslVbUahu1lzhSFFj8q6rCig7MM9wSX+fuc0eipTGc=;
+  b=T7UZ/xC6BezNuiL+3Wdnm2IPgpNrcke8tP3zj/jRsjKllA7/0EFuxw1F
+   khtCIz85VrOONWTTkCBuhckHsDodgNsudIsHhIH3Wg4Z67FF6Wf6EUwAv
+   MQ40zrLKCkvdpxn2qsGKZ81bunMYR4Dg8yxEKlf4OM33hdS2fRqvdeSAo
+   Vyh8G/sv3ZrrOInFxn7IKEiBLJ672Cs0ezqq9dlhXt23cToS4OmLzVGEx
+   mKllSEfpS5DQEaD+ip+IMt/kt/GbQAw52fmPzQcTxyIGUXLdcZ2dx1YN4
+   7N3CZlMONw4DwOW2KzRxm0a77qYAz862aw63rU1DQlr1/68fRA+VNV6bo
+   g==;
+X-CSE-ConnectionGUID: L+EihjG2S0W5i2YMzsl0Uw==
+X-CSE-MsgGUID: xBeVkGZtR9OnaJ0HESE8mw==
+X-IronPort-AV: E=Sophos;i="6.27,172,1787011200"; 
+   d="scan'208";a="31772390"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 17:48:31 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:11227]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.29.97:2525] with esmtp (Farcaster)
+ id dd35c2c1-3ca3-49e5-a666-293da7c32e6d; Thu, 22 Oct 2026 17:48:31 +0000 (UTC)
+X-Farcaster-Flow-ID: dd35c2c1-3ca3-49e5-a666-293da7c32e6d
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Thu, 22 Oct 2026 17:48:30 +0000
+Received: from dev-dsk-aarnahmd-2a-95203392.us-west-2.amazon.com
+ (172.19.38.251) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Thu, 22 Oct 2026
+ 17:48:30 +0000
+From: Aaron Ahmed <aarnahmd@amazon.com>
+To: <stable@vger.kernel.org>
+CC: <maz@kernel.org>, <oupton@kernel.org>, <joey.gouly@arm.com>,
+	<seiden@linux.ibm.com>, <suzuki.poulose@arm.com>, <yuzenghui@huawei.com>,
+	<fuad.tabba@linux.dev>, <linux-arm-kernel@lists.infradead.org>,
+	<kvmarm@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH 5.10.y] KVM: arm64: vgic-its: Don't dereference a NULL collection on ITT save
+Date: Thu, 22 Oct 2026 17:45:36 +0000
+Message-ID: <20261022174537.2767-1-aarnahmd@amazon.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,104 +85,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <ACT-N6N4.v1.r0.20261022051412@mojatatu.com> <ACT-N6N4.v1.r0.20261022051412-1@mojatatu.com>
- <ACT-N6N4.v1.r0.20261022051412-2@mojatatu.com> <ACT-N6N4.v1.r0.20261022051412-3@mojatatu.com>
- <ACT-N6N4.v1.r0.20261022051412-4@mojatatu.com> <ACT-N6N4.v1.r0.20261022051412-5@mojatatu.com>
- <0225eac7-1432-4d46-8649-2ad864aa26d4@ovn.org>
-In-Reply-To: <0225eac7-1432-4d46-8649-2ad864aa26d4@ovn.org>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Thu, 22 Oct 2026 19:47:50 +0200
-X-Gmail-Original-Message-ID: <CAL4Wiipm9x5LekCb2WTo1CfqihwRY1=rV0W+KdS-FVA_pRCj3A@mail.gmail.com>
-X-Gm-Features: AclHuK-omgKLVDEOSqFcU4jhRjUPSbk60eGlMwcbvEyU8LVQvfW9BHbpDh38hkk
-Message-ID: <CAL4Wiipm9x5LekCb2WTo1CfqihwRY1=rV0W+KdS-FVA_pRCj3A@mail.gmail.com>
-Subject: Re: [PATCH net 5/5] net: openvswitch: ensure a linear inner Ethernet
- header on NSH pop
-To: Ilya Maximets <i.maximets@ovn.org>
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>, netdev@vger.kernel.org, 
-	Aaron Conole <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>, 
-	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Eric Garver <e@erig.me>, Yi Yang <yi.y.yang@intel.com>, 
-	Jiri Benc <jbenc@redhat.com>, Pravin Shelar <pshelar@ovn.org>, Jiri Pirko <jiri@resnulli.us>, 
-	Victor Nogueira <victor@mojatatu.com>, dev@openvswitch.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC003.ant.amazon.com (10.13.139.252) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Le jeu. 22 oct. 2026 =C3=A0 14:43, Ilya Maximets <i.maximets@ovn.org> a =C3=
-=A9crit :
->
-> On 10/22/26 11:22 AM, Jamal Hadi Salim wrote:
-> > The issue:
-> > pop_nsh() restores MAC_PROTO_ETHERNET when the popped NSH next-protocol
-> > is TUN_P_ETHERNET, but nsh_pop() only guarantees that the NSH header is
-> > in the linear area.  When the inner Ethernet header sits in a page
-> > fragment, the datapath then claims an Ethernet header it cannot access
-> > linearly.
-> >
-> > Output to an OVS internal vport then calls eth_type_trans(), which
-> > pulls ETH_HLEN from an empty linear area and triggers the BUG in
-> > __skb_pull():
-> >
-> >   kernel BUG at ./include/linux/skbuff.h:2830!
-> >   RIP: 0010:eth_type_trans+0x335/0x500
-> >   internal_dev_recv
-> >   ovs_vport_send
-> >   do_output
-> >   do_execute_actions
-> >   ovs_execute_actions
-> >   ovs_dp_process_packet
-> >   ovs_vport_receive
-> >   internal_dev_xmit
-> >
-> > Conditions to recreate the bug:
-> > On a system with 4 KiB pages and CONFIG_OPENVSWITCH and CONFIG_PACKET
-> > enabled, use CAP_NET_ADMIN to create an OVS datapath and bring its loca=
-l
-> > internal port up with MTU 9000.  Install a flow matching an Ethernet/NS=
-H
-> > packet with a 24-byte MD1 header whose next-protocol is TUN_P_ETHERNET,
-> > and actions pop_eth, pop_nsh, output to the local port.  With
-> > CAP_NET_RAW, send a 4148-byte AF_PACKET/SOCK_RAW frame containing outer
-> > Ethernet, the NSH header, inner Ethernet and 4096 payload bytes.  The
-> > two pops consume the linear headers and expose the inner Ethernet heade=
-r
-> > in page fragments.
-> >
-> > The fix:
-> > Pull the inner Ethernet header into the linear area before restoring
-> > MAC_PROTO_ETHERNET.  This is the NSH counterpart of the MPLS/TEB
-> > producer fix in the previous patch.
-> >
-> > Fixes: b2d0f5d5dc53 ("openvswitch: enable NSH support")
-> > Link: https://lore.kernel.org/netdev/e85fa16e-df3c-43dd-bb3a-9edca07200=
-ea@kernel.org/
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-> > ---
-> >  net/openvswitch/actions.c | 7 +++++--
-> >  1 file changed, 5 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/net/openvswitch/actions.c b/net/openvswitch/actions.c
-> > index 03b31e33e880..cb7e16c6a8ef 100644
-> > --- a/net/openvswitch/actions.c
-> > +++ b/net/openvswitch/actions.c
-> > @@ -314,10 +314,13 @@ static int pop_nsh(struct sk_buff *skb, struct sw=
-_flow_key *key)
-> >               return err;
-> >
-> >       /* safe right before invalidate_flow_key */
-> > -     if (skb->protocol =3D=3D htons(ETH_P_TEB))
-> > +     if (skb->protocol =3D=3D htons(ETH_P_TEB)) {
-> > +             if (!pskb_may_pull(skb, ETH_HLEN))
-> > +                     return -ENOMEM;
-> >               key->mac_proto =3D MAC_PROTO_ETHERNET;
-> > -     else
-> > +     } else {
-> >               key->mac_proto =3D MAC_PROTO_NONE;
-> > +     }
-> >       invalidate_flow_key(key);
-> >       return 0;
-> >  }
->
-> Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
 
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+[ Upstream commit c6c156d931c33b92362383cf76f6d6e1291dcbfe ]
+
+MAPC with V=0 drops ite->collection but leaves the ITE on the device's
+ITT list, and vgic_its_save_ite() dereferences it unconditionally. A
+guest that issues MAPD, MAPTI and then MAPC(V=0) therefore oopses the
+host when the VMM issues KVM_DEV_ARM_ITS_SAVE_TABLES to migrate it.
+That sequence is UNPREDICTABLE per the architecture, but KVM already
+handles the resulting state in the translate, MOVI and DISCARD paths.
+
+Save a zeroed entry, which vgic_its_restore_ite() reads back as
+invalid. Skipping the ITE instead would leave the ITT slot holding
+whatever is in guest memory, and restore rejects an entry naming a
+collection the restored collection table does not have.
+
+Fixes: eff484e0298da ("KVM: arm64: vgic-its: ITT save and restore")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Link: https://patch.msgid.link/20260807104102.2410744-2-fuad.tabba@linux.dev
+Signed-off-by: Oliver Upton <oupton@kernel.org>
+[aarnahmd: Upstream vgic_its_write_entry_lock() takes in the kind of table
+ entry (ite) and looks up its size, while 5.10 takes in the size of an ite
+ directly via ite_esz, because commit 3b2c81d5feb2 ("KVM: arm64: vgic-its:
+ Add stronger type-checking to the ITS entry sizes") is not in 5.10.]
+Signed-off-by: Aaron Ahmed <aarnahmd@amazon.com>
+---
+ arch/arm64/kvm/vgic/vgic-its.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
+index e6ec0701f5616..07b8ca72111f3 100644
+--- a/arch/arm64/kvm/vgic/vgic-its.c
++++ b/arch/arm64/kvm/vgic/vgic-its.c
+@@ -2151,6 +2151,14 @@ static int vgic_its_save_ite(struct vgic_its *its, struct its_device *dev,
+ 	u32 next_offset;
+ 	u64 val;
+ 
++	/*
++	 * MAPC with V=0 keeps the ITEs mapped but drops their collection,
++	 * and with it the ICID. Save a zeroed entry, which the restore path
++	 * reads back as invalid.
++	 */
++	if (!ite->collection)
++		return vgic_its_write_entry_lock(its, gpa, 0ULL, ite_esz);
++
+ 	next_offset = compute_next_eventid_offset(&dev->itt_head, ite);
+ 	val = ((u64)next_offset << KVM_ITS_ITE_NEXT_SHIFT) |
+ 	       ((u64)ite->irq->intid << KVM_ITS_ITE_PINTID_SHIFT) |
+-- 
+2.47.3
+
