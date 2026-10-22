@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792674823;
-	b=sy93ZwALNTyyBex4Wm81dkA6x/7eaFDb9CNCTJCtU4/6gRzGp/hEPlN3EkMkNlz0GV4r
-	 V0MZz86vGqg/XfUZz72ko9vKbp8OYDchZEEAeuiOSM707g9B88fff400TeMV3HVdMhcXA
-	 XHJkhG+IiKif2t6XnJ4xgirYmmUBXWPJG2uAaTysWt8bkD4yWYw3hcJLYMVUBlYWT+DYb
-	 BeE66dpbOqsbfZZQdxp2itre40SaUY9YE/puajACLXbPhuGrQkN1W4HV/tmm/nARqsZFc
-	 MyDAmbGWssowrjmMdgK/Se1BPonzicMRxLB1eyaYi1j4vD4yif+5QPffcgb5fcvcfDg==
+	t=1792674826;
+	b=by9YV6hmyRi1JbEtBDbMRfITs/pcwMKZJWmFFWgitPb+pABVPaV6oFAWREa6yFgqa86l
+	 N6O6/VleBTiMByaVUUOentQW1b3OMsXDQJZ5xwF8pBMZry4wL+OKHsaFBz8MklUlNpcxx
+	 W5Rpjyh43Zp3jdzbZ5cydrtkpeKIpwB8vHB0tA/JncMBJhK+90FKdKB/TnwvF4jlYUO1v
+	 Jlfn8PwkQUfy/Y2hGawugJQgvbxp9pKP9M/ESSQfOHvJUj9YWDeusJA+m3dKw8gL+xOue
+	 l3s3WGzrg6YvVy4DlTcr8eLcfzAEOph/gnBk05Q7/LAcidkODbU9Z1ClKKzMgwiVy4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792674823;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792674826;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=eFYf5wp/cjB3/C7hIN2/gqghITRTz5C5bAIi9JZnEPo=;
-	b=QcyVhtZn8UJs7ZNZLkUKb2nYQx+lL2286d1+P7m2cW0BCfogKnxHXiQGqbUYyzRQdc6g
-	 e+i8e+JgQy4a9G09oWXQivvYvOF53CUCVPGcHGpUWSdmwYpRIeFis9XIyqhIOxTDhkaZs
-	 MvsZF4ii2ddwBGO7FfRZzdMvAa6x3WZ9WtWlPqQ9Zdjw5O3hn7S/518b2byW3NXwcCFD9
-	 tdTQsIIxAWgaKQG/Noh1pIfo/9C6BBu/d0wABo6H1fsGGRSxdP3GVm+UxYdIs77hm/j59
-	 Z6KP+8/NFlGtZlVNrIiJTuYYIhimu6aX7nvGpWssAai3XmI062Bj5IaoQyLFCNvRSfw==
+	bh=Nij4UFex7vIZGvPRaWIyk3v+cFyndrkTWXfYRn1JmnE=;
+	b=uXYiP0G1ODhb2JyCrQN68a2KJMt3URiAz02JIk1aj+i2aKhyZ37tIaaPUarsh/NbQLBB
+	 wy7fi/VKYlxKI+BM3neLBabn/ZHPlr5jeLR2K+ocYGCaqXZ+Kg3+DrZfBUYjnjRGrPbSM
+	 o/gDiPqWBmFylT9arWRHfxhoNOPwOutgb/dV+Nd35LMZZ7Ui10bfE2VHrAWrmuoaEl5qf
+	 Ao6DgIETeivSiZ2UMsQ+2/+EbS28BZBc9rEb8LJTyjmTSIXhOZONZbDP5DoNmO+HElb8F
+	 v5XlEFWJ8S8JId4TKHoq2OY0s7EpTV2Rmxfi9SxYLsEe5SCd8HBgzuQ6y9m0SonlOrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PJepMfuo;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="DuMjTdD/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55872606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 13:13:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB08606A31A
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 13:13:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PJepMfuo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7351C1F000C1;
-	Thu, 22 Oct 2026 13:13:42 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DuMjTdD/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38CAF1F000C3;
+	Thu, 22 Oct 2026 13:13:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792674823;
-	bh=eFYf5wp/cjB3/C7hIN2/gqghITRTz5C5bAIi9JZnEPo=;
+	s=korg; t=1792674825;
+	bh=Nij4UFex7vIZGvPRaWIyk3v+cFyndrkTWXfYRn1JmnE=;
 	h=Subject:To:Cc:From:Date;
-	b=PJepMfuo1iGRn16u/zRBvEZstTciENKyvfMortpVonndEMHe0BP2RoZ66Vz4zp/pX
-	 yGlug8yhZCzyo3pqYBx4W9uDN1Sl+GJe5r+17v9FvdUjjq78Q+STUHEk3UGrrmfAdR
-	 zXwRSBGtbTXAmqpuPV0mqf2OmxcymX8Wa+/hUJAY=
-Subject: FAILED: patch "[PATCH] ntfs: fix race between fallocate and mmap reads" failed to apply to 7.2-stable tree
+	b=DuMjTdD/cqUB/S1gaxiA+j0lxp4llVbXSUGLYNkUeS14zfdkrJaXNR7KKlCZbExsO
+	 K2Jm7iF0YYtQvMST8RGZmrXC116T720vG34C6SGXPQPZPUfVgw6GdGQ26dbQZHmHq5
+	 +Ti9Lp/bbsw1XEt1AYFvotP8m4zRPHssIcmwJAFA=
+Subject: FAILED: patch "[PATCH] ntfs: take invalidate_lock in ntfs_filemap_page_mkwrite()" failed to apply to 7.2-stable tree
 To: zenghongling@kylinos.cn,hyc.lee@gmail.com,linkinjeon@kernel.org,liubaolin@kylinos.cn
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 22 Oct 2026 15:12:37 +0200
-Message-ID: <2026102237-durably-dimmed-c122@gregkh>
+Date: Thu, 22 Oct 2026 15:12:40 +0200
+Message-ID: <2026102240-impending-elusive-74a7@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,10 +64,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 67aded1da114dc44808315f249bd9e7e440f799d
+git cherry-pick -x 0fecc393f2060e6bc25138df32cb923ec7071c6b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102237-durably-dimmed-c122@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102240-impending-elusive-74a7@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,76 +79,84 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 67aded1da114dc44808315f249bd9e7e440f799d Mon Sep 17 00:00:00 2001
+From 0fecc393f2060e6bc25138df32cb923ec7071c6b Mon Sep 17 00:00:00 2001
 From: Hongling Zeng <zenghongling@kylinos.cn>
-Date: Thu, 27 Aug 2026 13:58:44 +0800
-Subject: [PATCH] ntfs: fix race between fallocate and mmap reads
+Date: Mon, 31 Aug 2026 16:32:52 +0800
+Subject: [PATCH] ntfs: take invalidate_lock in ntfs_filemap_page_mkwrite()
 
-The fallocate implementation only takes invalidate_lock for punch hole,
-collapse range, and insert range operations. For standard allocation modes
-(mode == 0, FALLOC_FL_KEEP_SIZE), the lock is not held.
+ntfs_filemap_page_mkwrite() calls iomap_page_mkwrite() without holding
+mapping->invalidate_lock, so a concurrent truncate or fallocate can be
+in the middle of invalidating pagecache and rewriting the runlist while
+the write fault maps blocks and dirties the folio.  This races with
+ntfs_attr_fallocate(), which merges clusters into the in-memory
+runlist, drops the runlist lock, and only afterwards zeroes the newly
+allocated clusters on disk; and with the punch-hole/insert/collapse
+paths that free clusters after truncating the cache.
 
-During ntfs_attr_fallocate(), new clusters are mapped to the runlist via
-ntfs_attr_map_cluster() before being zeroed by ntfs_dio_zero_range(). This
-creates a window where concurrent mmap page faults can read uninitialized
-disk data.
+Per Documentation/filesystems/locking.rst, ->page_mkwrite() must ensure
+there are no truncate/invalidate races, "usually mapping->invalidate_lock
+is suitable for proper serialization".  xfs takes its mmaplock (= the
+invalidate_lock rwsem) shared in exactly this path.
 
-Since mmap uses filemap_fault() which takes invalidate_lock in shared mode,
-it can fault in pages during this window and expose old disk contents to
-userspace. This is an information leak and data integrity issue.
+Take invalidate_lock shared around iomap_page_mkwrite().  The read-only
+fault path is already covered because filemap_fault() itself grabs
+invalidate_lock shared on instantiation/read paths; only page_mkwrite
+was bypassing it in this driver.
 
-Fix by taking invalidate_lock for all fallocate operations, not just for
-punch/collapse/insert modes. This prevents concurrent page faults from
-accessing unzeroed clusters during the allocation window.
-
-Fixes: 495e90fa3348 ("ntfs: update attrib operations")
+Fixes: 9c87959601e8 ("ntfs: update file operations")
 Cc: stable@vger.kernel.org
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
 Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
 Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Co-developed-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 
 diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-index 88747217ba61..1969e4f444f7 100644
+index 585ab2145797..8164326b7812 100644
 --- a/fs/ntfs/file.c
 +++ b/fs/ntfs/file.c
-@@ -1116,7 +1116,6 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
- 	struct ntfs_volume *vol = ni->vol;
- 	int err = 0;
- 	loff_t old_size;
--	bool map_locked = false;
+@@ -676,6 +676,7 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ static vm_fault_t ntfs_filemap_page_mkwrite(struct vm_fault *vmf)
+ {
+ 	struct inode *inode = file_inode(vmf->vma->vm_file);
++	struct address_space *mapping = inode->i_mapping;
+ 	vm_fault_t ret;
  
- 	if (mode & ~(NTFS_FALLOC_FL_SUPPORTED))
- 		return -EOPNOTSUPP;
-@@ -1148,16 +1147,13 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
+ 	if (NInoWofCompressed(NTFS_I(inode)))
+@@ -684,7 +685,14 @@ static vm_fault_t ntfs_filemap_page_mkwrite(struct vm_fault *vmf)
+ 	sb_start_pagefault(inode->i_sb);
+ 	file_update_time(vmf->vma->vm_file);
  
- 	inode_lock(vi);
- 	if (NInoCompressed(ni) || NInoEncrypted(ni) || NInoWofCompressed(ni)) {
--		err = -EOPNOTSUPP;
--		goto out;
-+		inode_unlock(vi);
-+		return -EOPNOTSUPP;
- 	}
- 
- 	inode_dio_wait(vi);
--	if (mode & (FALLOC_FL_PUNCH_HOLE | FALLOC_FL_COLLAPSE_RANGE |
--		    FALLOC_FL_INSERT_RANGE)) {
--		filemap_invalidate_lock(vi->i_mapping);
--		map_locked = true;
--	}
-+	/* Take invalidate_lock for all fallocate operations to prevent races */
-+	filemap_invalidate_lock(vi->i_mapping);
- 
- 	switch (mode & FALLOC_FL_MODE_MASK) {
- 	case FALLOC_FL_ALLOCATE_RANGE:
-@@ -1182,8 +1178,7 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
++	/*
++	 * Serialize against truncate/fallocate which hold the lock
++	 * exclusively while invalidating pagecache and changing extents.
++	 */
++	filemap_invalidate_lock_shared(mapping);
+ 	ret = iomap_page_mkwrite(vmf, &ntfs_page_mkwrite_iomap_ops, NULL);
++	filemap_invalidate_unlock_shared(mapping);
++
+ 	sb_end_pagefault(inode->i_sb);
+ 	return ret;
+ }
+@@ -1185,13 +1193,15 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
  
  	err = file_modified(file);
  out:
--	if (map_locked)
--		filemap_invalidate_unlock(vi->i_mapping);
-+	filemap_invalidate_unlock(vi->i_mapping);
++	if (!err && mode == 0 && NInoNonResident(ni) &&
++	    offset > old_size) {
++		truncate_pagecache(vi, old_size);
++		pagecache_isize_extended(vi, old_size, offset);
++	}
++
+ 	filemap_invalidate_unlock(vi->i_mapping);
++
  	if (!err) {
- 		if (mode == 0 && NInoNonResident(ni) &&
- 		    offset > old_size) {
+-		if (mode == 0 && NInoNonResident(ni) &&
+-		    offset > old_size) {
+-			truncate_pagecache(vi, old_size);
+-			pagecache_isize_extended(vi, old_size, offset);
+-		}
+ 		NInoSetFileNameDirty(ni);
+ 		inode_set_mtime_to_ts(vi, inode_set_ctime_current(vi));
+ 		mark_inode_dirty(vi);
 
