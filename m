@@ -1,79 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792679278;
-	b=Qr8Akyj6UATAF+IJPlGefr0CWv77nb6uEvfVwSmR9byWDgV08rdY5XXNFlTV4+rrAfkN
-	 fsSEQokHOKBLnlczOXS9wcmRbGGySZswkCbwuwee2xzj0COMOQR381QNP8y2mufAOKxaz
-	 DEXY5dERgqOZTrkphoJWyVeno74CYXJoRjf5NX1sXbjGrW/f48X7Wx940R8NfRLBfB6vg
-	 uxlwZdEhag9HYuTcUJr83an1E4ZHdZPGQoMv7ZarxdA7H6A5mFrF0GTn6KzSuPpoITUp2
-	 d0fSEn7Q9EyYYVYUXJmaKYf5ToLiOpcMTHTVErA4lQFFWLe7nMl6puy7sbX2gVZz4dw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792679278;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=kPB5YzBpcOpwtk+wXDdd834zs1tNE0uiB6x7DaxSC8g=;
-	b=Md+pEbV7krvNYC9K/DN/VbfM06I8peIKX6F3ONQy8e99EDF403CA+hmTLG61hwgZQmHq
-	 MDwcwj+n2BWASGlp7pBZY7aSI8RYErkV/xLXXXZIDwSxDD5tzBjV2eeTXSlp5DfZQOMpX
-	 DkzJlvgh4tuN9LnbEA9Ypi1+K5k+b+xhrVWNbKwJ+69IyLE2Yo5ihknL90IEWKc/nMcPQ
-	 YW+1DrBpSLOtwYW6tA5djdq/dIt/4P6pmMlicLKQLJNa05NBKSeVYRXkagt9t/Gwhxy6D
-	 csY78I33jFr6dx5Si7KXU1CtgZSa0PmHarDiTUOpKHP0fbPm2VhP35XyBXDk6IOqVJw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eewBn5U5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50354606A319;
-	Thu, 22 Oct 2026 14:27:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eewBn5U5
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792679278;
-	b=lh1O61a1orJq17Euo25qjLYpwU/PJAoBi6Ept9w9uYixCmtcPOLdVFYYBnzlLSdrZJAw
-	 Rb5Id6esFyxCnSlG2zZaS0ph/5iyNPq5gdeRO7MZrJQSTrzc6CkKY0RAS3U1pZl5uj8eC
-	 kwiTCBdx8oqNLeWY0ypEdj1fjAs4o8aAbmQxdsOekl9uvfO4Xa1fHimHsHrk7TexHdOww
-	 wSwf8xa9Ri8Fk1g86rpgntalm94SN+AwgajOgG/PzQl3V1As6BiN9pZkk78RMyLZt1Ovv
-	 CuQDgFmlqBlcALIDhlaaStFg/kJg7KLDfjpIFnjE1teyKHbJC4BiCuQBdmgKyMDAUyw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792679278;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=kPB5YzBpcOpwtk+wXDdd834zs1tNE0uiB6x7DaxSC8g=;
-	b=vOY0/cGQ53fkwNeMFDp9sroSbcVuMGjm3Wyt6CloMeNsiiRWPIan56oSYpWQib8aDI4u
-	 o3+HUqBx8nlZZPkzXbU9B58Aubqo/T6Lzl3LycFPMxt+U65Rc2+aqr9srjEyOtBI8flAF
-	 dbBwHbGLXe3qIY/Yd6BvsMmmZOULoIlwKh66U/w0PFBsEnMJTc1g4ATz2PtREkHQI05pZ
-	 ecTkgEf0djUItVz9waO0rSUV+JBDZWcYh5W7UTuc6suQwX9MiEmqjNdhikwMcqExUFRFT
-	 1OOYg7tcDbbeb5D1XmhW8jTnGS+0ulj9Jf8EHE9oRf2z6ZdadRiatUyz5oI2mgSNW3g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.171
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792679363;
+	b=cDKYgVKwSf7iNps8RKCOJRW7PW9ed/Q9an4D7+P8k/VJwuLMuBAeKjXEW8Fv1ly98pIC
+	 I5JroI5iOP5TuNzn4RVUH869K6SW34S3iNyU39u+EwRpE+SoWTaRHdkUF5WhKobpp5zwz
+	 mGnLXwwXly7eCRLJfpdhpnsYbT/xBbKbOvD+VinHXa09LUoJUb+szHHN7eoLBIxFXwdkS
+	 MLbRdFUdI19vm8e6p55WpReOrKk2c7OuOCypU0Drsja10pRClZLu3lAygWy/Qh3Emhw6l
+	 1wUOHUtebrwhXIfqvuhLRq0r0pW1zYTOU7mT7NwN4w5wwZ4HThElgfShogohu7ym3Ag==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792679363;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=ip3LDVkz43JVMLeEy65y5DnSL95eKEKIg6rsimQU6Ow=;
+	b=3VxZj+EAJxNHOpKpVlnpxB3faeQDvWTR1TqnTjBaWhyjdUeEUwcxOXeO6hRmSPkbT+30
+	 HEV3rtk43VjmfT3yksQql2albo587jVTUQGDGxxpntcaDFzBr8Kpe0snSVZ03CoqXd55b
+	 +kX+K2L4w/Rfyt39/lj0asoixlCc34wXGuT0HuBKVt+R9lWIHPhu11NSMDjnGNxqY8nte
+	 XQhT3xwrP+9lhV4HyGvccMghuZnpHzHMaVqTLZ4whxisdqRgpiso4epN2wuhGq0sH3C9m
+	 A6cK4wppNf/fpUY6clNa8UyfQO0C9bSO3/MRwOSE1Y6pSPeLjwNxudOEizsDMSygykg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=Sh3VG5SY;
+	arc=none smtp.remote-ip=209.85.128.171
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E83A71F000C7;
-	Thu, 22 Oct 2026 14:27:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792679278;
-	bh=kPB5YzBpcOpwtk+wXDdd834zs1tNE0uiB6x7DaxSC8g=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=eewBn5U5JktlKnPVgOibuna5Wdoh2+Sb69GuTz7Z2LJB5In3AEcBMx2HN3KWP8mEo
-	 W4sfkUi0xbKqGYEwxN2nzFexaVqG4o9joZNqgpJmSwOzU5iyHl4dvatFitA6hnrKiv
-	 oHWp+DosFFM/QE1R1wo5prTaogJ902FlhLv57wQv4pEaQMNdKDkCgZS5brtKgEtZdb
-	 nobeG/LEFSq1qXDxO87uuj2HMIGB9NJtk2Iv1isYyksk1LAEWjtbxv013SfIsuE8jl
-	 IDWNVGgjBbLi44/r4KnFjpuXRbRy+IMmxe4R0bzftJb+r+H0Gt+WP+oXsnZYOntljL
-	 MOBpWwxvEyShg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D497F435D6;
-	Thu, 22 Oct 2026 14:27:54 +0000 (UTC)
-From: =?utf-8?q?St=C3=A9phane_Grosjean_via_B4_Relay?= <devnull+s.grosjean.peak-system.fr@kernel.org>
-Date: Thu, 22 Oct 2026 16:27:55 +0200
-Subject: [PATCH v6 10/13] can: peak_usb: validate the data length of
- PCAN-USB Pro CAN records
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA86D606A329
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:29:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA86D606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=Sh3VG5SY
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8b0e21048f8so18566287b3.0
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 07:29:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1792679362; x=1793284162; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ip3LDVkz43JVMLeEy65y5DnSL95eKEKIg6rsimQU6Ow=;
+        b=Sh3VG5SYS86Y/cUu48NcOpZrlstcwtzOP6oDtt0f1lj8SLeLI5pZWs7o+SIp4ix3oT
+         5SggpjHjZ7iWCohx4alswx4ieJz3fvs2sb977apngl3IBzprzk4ulKjhiMFuN6ydLzPY
+         u+OpLY/nMxUyMt/PFrFzJImPdTz/mxUyUWVNKGrEISFLs6U1C1IZZV7uuawmXExSMTo/
+         fLl4ztuQw5RQXnLf6jlBAC9GycJ38e4qI3pKMz8GHe7RDB8g6Qib28eKU+J32wqwYyK5
+         90VRC7sN7POAsHt2h6PjNVLCGTBMGFJ/5KOAClc+KKEbaLuUeqK6opKhBmbEwfSp6jMU
+         PbbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792679362; x=1793284162;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ip3LDVkz43JVMLeEy65y5DnSL95eKEKIg6rsimQU6Ow=;
+        b=2jY2OzFkMHZSlmcVEZ5aOuOMYuKGQbb4ipMPzA/py46zTGos506gahRdcDMy+l50Vm
+         qdgRS8MpjGcEmXb9L3k/siO9+yIiiWSsQJCF8OXXPOA3sldXCy2Uid0reGqzIoOPE3H0
+         9QDlLrzFJtMKtNMqmCy/+OOR9lGK6DmkCzqh5GiqHy+43094HPxBsKaI2u44OsaEJLhj
+         AO0ZbDRUsKk7/oKPUTo+AFFAIgQVKsPkwzxhkaLMEpWzktsUNFvUjPu6yGsbEA2CwJHa
+         pRPyLJTOk2+5j8609cKyjZ60UTjt5Bou5bEY+57C15StQMq7nqU+jLF7WelO4u8OfceE
+         vqFw==
+X-Forwarded-Encrypted: i=1; AKwUvBy+q7FbgM5iCLM4Z37yAr+M8jfqs8KLA1PDUnRoVfhjpiRMMyYqI2kxMKMiDHNcModp/VngupM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQcs5lclXUDhRSOLL3yMqFAKH032fMvLP2r0P6USOGss6r0VbK
+	+NJAfRuzu7LXZVhGYyM5cMotLg/R/cW4Df6mJLTlBR1TWDl9dGaCaY9pIrjgatn4Sw==
+X-Gm-Gg: AYBFou0asfByRFBvISqGU34oYc5WNWr0+0p196BcIeOOFPFAEU00olDthM1/RDwYVDZ
+	/mkcM5UuJxlWkOoZbwq/WuEklt7lzy8xiE/urV+lVWBzbs70BnZ/0iezE8tbK0GpbPAqHh/6gzQ
+	uIVJLJXxBJ7u1mzo13jGrMd7KVewu7O7XR5RGvu+hv7YFIVJ7otK5chnMoStWXGI7bhPox2Fst/
+	CgZj4uV83lY3ZnuCgfsTbdsR0Xa0Sw7Lj7QAejMCLig3z+SJDwCMgb98OLFI7v+NoqM0CStbQwA
+	yON0yzOyPzj86Rl19wDDZzlphpPJHOddy8TsSOYhjW8GvAfGm7bSdKP7HPbvRHRt9WLJ10OSHVF
+	VeNz+BzFrBOIgb2HPgAXCByUW3QTgb6aSHznRcTr3jrb4YlWloZG91ESca1Jf5XTSUxfn+sbCWP
+	UV6QRGRvJQcDwMV/oaBODQurojLk2wCa+KAsuZ4voCi1P8k5gjfBR8iMm8CrbsDnm74GNF78SSu
+	TjnbI3eaUZpyUH5fSYUzVsndS1pOByGq2QGLbHYbs4/WmKS+V+7wyJCVquNsvVKnqh3wsjH2vVX
+	POESe0WinUmMRX+DTS5LlUhw
+X-Received: by 2002:a05:690c:6603:b0:8b0:a171:65e4 with SMTP id 00721157ae682-8b133f979ebmr36772897b3.15.1792679361535;
+        Thu, 22 Oct 2026 07:29:21 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b1300f3cfesm27329767b3.27.2026.10.22.07.29.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 07:29:21 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: jack@suse.cz
+Cc: tytso@mit.edu,
+	linux-ext4@vger.kernel.org,
+	adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	dave.hansen@linux.intel.com,
+	akpm@linux-foundation.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ext4: do not advance i_size on a buffered write that copied nothing
+Date: Thu, 22 Oct 2026 10:29:11 -0400
+Message-ID: <20261022142911.1490979-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <34dtkdstf5yxg2ulinnh4hocc53gz35ij6k62egi2ykgpyc3a5@zuxt6doiajwq>
+References: <20261009044656.1993196-1-hengyul@cs.unc.edu> <34dtkdstf5yxg2ulinnh4hocc53gz35ij6k62egi2ykgpyc3a5@zuxt6doiajwq>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,98 +107,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261022-canfd_check_channel_idx-v6-10-197704231551@peak-system.fr>
-References: <20261022-canfd_check_channel_idx-v6-0-197704231551@peak-system.fr>
-In-Reply-To: <20261022-canfd_check_channel_idx-v6-0-197704231551@peak-system.fr>
-To: Marc Kleine-Budde <mkl@pengutronix.de>, 
- Vincent Mailhol <mailhol@kernel.org>, 
- Wolfgang Grandegger <wg@grandegger.com>, 
- =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
- Dan Carpenter <error27@gmail.com>, Lukas Magel <lukas.magel@posteo.net>
-Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792679273; l=2800;
- i=s.grosjean@peak-system.fr; s=20261020; h=from:subject:message-id;
- bh=uWnLgjcp0YwEkIOkw0lEbASAJSKQMUMnptlEDyOVxgg=;
- b=SO1mGWOkijP/tip1RJwH8OnpB4Y9E8OKRH4uOghZmHBIOesKX8TSRvYSy9iKdAvH6onnsvPGb
- uuvunv+580ACFs+FrljXD4q+/DNqBDL0D7QNgH4kTeDK2Pmu2S7QOiR
-X-Developer-Key: i=s.grosjean@peak-system.fr; a=ed25519;
- pk=bP7QV2zvvAKAfConZlUOGKGEcXL64SNUpVUm++Ai+/c=
-X-Endpoint-Received: by B4 Relay for s.grosjean@peak-system.fr/20261020
- with auth_id=1250
-X-Original-From: =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>
-Reply-To: s.grosjean@peak-system.fr
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Stéphane Grosjean <s.grosjean@peak-system.fr>
+Hi Jan,
 
-The PCAN-USB Pro decoder takes the data length of a received CAN frame
-from the 4-bit DLC field of the record, i.e. 0 to 15, and copies that
-many bytes from the record into can_frame->data. This length is checked
-neither against CAN_MAX_DLEN nor against the size of the record, which
-depends on its type: RXMSG8, RXMSG4 and RXMSG0/RXRTR records carry 8, 4
-and 0 data bytes. pcan_usb_pro_decode_buf() only checks that the record
-fits in the URB, according to its type.
+On Thu 22-10-26 11:48:35, Jan Kara wrote:
+> I agree with the problem but first, Ted has merged rewrite of ext4
+> buffered IO path to iomap your fix would very likely need rebasing, and
+> second:
 
-A faulty or malicious device can therefore make the driver:
-- copy bytes located beyond the record into the frame, i.e. stale bytes
-  of the RX buffer or, when the record ends the 1024-byte buffer, bytes
-  beyond it, and deliver them to the CAN sockets;
-- write up to 7 bytes past can_frame->data[] with a DLC of 9 to 15;
-- deliver an RTR frame whose len is greater than CAN_MAX_DLEN.
+Thanks for the review.
 
-Convert the DLC with can_cc_dlc2len() and reject a data frame whose
-length exceeds the number of data bytes of its record type, as the
-other malformed records are.
+In the ext4 dev branch, the iomap buffered path is only used with the
+new buffered_iomap mount option, and it faults the source in before
+->write_begin(), so it does not have this problem. The default
+buffer_head path still does: on 8c4f6e337634, a 100-byte file still
+has a size of 1048586 after a failed pwrite() at 1 MiB + 10, sync and
+remount. The patch applies to the dev branch without changes, and I
+will base v2 on it.
 
-Found by Sashiko AI review.
+> this is wrong and would leak delayed allocation reservations AFAICT. You
+> should just use ext4_truncate_failed_write() like e.g.
+> ext4_da_write_begin() does on failure.
 
-Fixes: d8a199355f8f ("can: usb: PEAK-System Technik PCAN-USB Pro specific part")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
----
- drivers/net/can/usb/peak_usb/pcan_usb_pro.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+I don't think it leaks. ext4_es_remove_extent() gives back the
+reservation of the delayed blocks it removes through
+ext4_da_release_space(), which ext4_iomap_punch_delalloc() also relies
+on in the iomap path.
 
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
-index 151c5ea2859b..f94494e01f4a 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
-@@ -534,6 +534,7 @@ static int pcan_usb_pro_handle_canmsg(struct pcan_usb_pro_interface *usb_if,
- 				      struct pcan_usb_pro_rxmsg *rx)
- {
- 	const unsigned int ctrl_idx = (rx->len >> 4) & 0x0f;
-+	const u8 len = can_cc_dlc2len(rx->len & 0x0f);
- 	struct peak_usb_device *dev;
- 	struct net_device *netdev;
- 	struct can_frame *can_frame;
-@@ -543,6 +544,12 @@ static int pcan_usb_pro_handle_canmsg(struct pcan_usb_pro_interface *usb_if,
- 	if (ctrl_idx >= ARRAY_SIZE(usb_if->dev))
- 		return -EINVAL;
- 
-+	/* the number of data bytes depends on the record type */
-+	if (!(rx->flags & PCAN_USBPRO_RTR) &&
-+	    len > pcan_usb_pro_sizeof_rec[rx->data_type] -
-+		  offsetof(struct pcan_usb_pro_rxmsg, data))
-+		return -EINVAL;
-+
- 	dev = READ_ONCE(usb_if->dev[ctrl_idx]);
- 
- 	/* reject records for a channel that is not (or no longer) set up */
-@@ -556,7 +563,7 @@ static int pcan_usb_pro_handle_canmsg(struct pcan_usb_pro_interface *usb_if,
- 		return -ENOMEM;
- 
- 	can_frame->can_id = le32_to_cpu(rx->id);
--	can_frame->len = rx->len & 0x0f;
-+	can_frame->len = len;
- 
- 	if (rx->flags & PCAN_USBPRO_EXT)
- 		can_frame->can_id |= CAN_EFF_FLAG;
+To check this, I ran my earlier tests on the dev branch with the patch
+as sent and with the helper replaced by ext4_truncate_failed_write(),
+plus a test on an image with the quota feature that reads the user's
+quota usage (which includes reserved space) and the free block count.
+After a failed write past EOF, both versions bring both numbers back
+to their values before the write, and nothing is logged at umount.
+Without the patch, the same case keeps 64 KiB reserved until the inode
+is evicted.
 
--- 
-2.53.0
+I did not use ext4_truncate_failed_write() because since 665575cff098
+this path is also taken by ordinary writes. When the source page is
+not faulted in yet, the first copy fails, ->write_end() sees
+copied == 0, and generic_perform_write() faults the page in and tries
+again. ext4_truncate_failed_write() would then run ext4_truncate() for
+each such write that starts past EOF, and that frees blocks
+preallocated past EOF with FALLOC_FL_KEEP_SIZE, even though the write
+succeeds right after. In my test, a 64 KiB write from untouched
+anonymous memory into a file with 1 MiB preallocated past EOF leaves
+st_blocks at 2056 with the helper, but drops it to 136 with
+ext4_truncate_failed_write().
 
+So I would prefer to keep the helper. Is that OK with you, or would
+you still rather use ext4_truncate_failed_write()?
 
+Thanks,
+Hengyu
