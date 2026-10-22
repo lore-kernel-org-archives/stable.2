@@ -1,109 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792680874;
-	b=Ar3d3zdMe+4cijigGxZTMEEwIRp8kW5CDrx0/dhqC/vuXZn2J1jFZr1pSigyjUwlfE17
-	 A/3osgA462AFpaMDUYUeMI6DTvvTLt0Cx4PLSTTVd5/nVyrk7Kq4mtCytoMiR7tBXeWyo
-	 C2rEjLDw8yRDQXcyj+/c4Fao2KaTi445umkiaQPn5SSCMjXfjcnUK5RskoDI5ghRpG5ds
-	 8PZBw3TcRLobybhj4I+3ePOE/9GSlqFmMDcpZ1YWINSIsNexvr5KBNXiMlWFhxrqJbsOD
-	 aoQekARmGnhiuSbwFfX5lxfxAYFuxt6H2HtcFia3ZDhG2RJpipIQI/SCYL4msll9nlw==
+	t=1792681389;
+	b=3WP4qBiQzH0qAhhOeberOH3IcWpUALzt0lN9SmEqb1nTd5LmqudF9gTkJ+sqzJ3uKxWb
+	 tRdx+iWXjMXFSWzVBdKeetNbMPMhmPdOwRFCQIAHKhiB8CNu9kZBn7L/g/JvY8kyj4yGp
+	 VgsLjKP1qww0TwBpIRkRAnh5xcbdd4VXPaWkn/n7z3RTQjntMay2B7YylQJ2dVKdvcNcb
+	 YAilxPNJ9m5pdCjuVnkz4MJg6dFPmdDTicX3s0Yq8AIY8yBHpQIpxMPmxZiWbedJULs8Z
+	 2+VA5JxwuPvi8cmm3J0S760ZnYbdc/+vpLpKGHPRqVjWb2xOa2QpGLtdMQwAnU/U9Gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792680874;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=LeyVFsqCqVWi/yTiZu/t1rp7LlLuz+7A3YoONaVMHFI=;
-	b=JHzNNp93fSw7faYTh9CJv/vAc1PqJugT4TxurWt03DRKM0QMG99fCy0YhxrcgvYet2eh
-	 2UdQOL/+waBXxnfjLttXNvs5MfBvtb2mkJxkXwwvZRErJ8EWgdsOpDtJyNHxIJjnnoaaq
-	 L21dQIkX871IrL1rnkFdBswnKEFpk5ZaPeaJrme2sjEk8jd7xRlbAnZtOr0PNqoh17d+0
-	 BrxZM0Avz2sEP6yttp0BEVGpEk+QdiPRK7gQyOjskTyRHoXjtL6eFD+2WclLgOfh4JFBK
-	 eHjIXAdIEQIXnYn019yyrr1AbXbA6RTjvLLkixfl/OJfcD6lzYcckJmFitNekQs17GA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792681389;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=RS+w97Z7+gAprFJv+vqfHSnrNycJNQGbw0RdFqhpDtQ=;
+	b=pp1D0gQG9uBH5DilIvVNxonw8sF+AZ7rTHGtcXHMY1PX92Il5bIv6K56BAxl5I2W5YfS
+	 f8p28XzoKq4y+uxOH2/5GUBigaJHeh3bnhmEXu8spgnh9FB5r+lDhoxkdV5yX/28ORSlj
+	 Cjlm5kA4588X1/JQJwTcDBTg+vEYbciKZOqBjWgC7REMeRD5ADs+LTLAht/3TpUriDiJH
+	 PO086CDK9CsTyXiYs730tbeBA2y6JJYZLpGcAcCtiOBEsuukmesgMNoGDOoFC2YczgCpS
+	 5m3quRczDwwlCwj0hH35qgMenlUqdyMjNGVP/hoZfSo3GhgtoP+luhIpwIKmlAM0sYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="FNu/nGsG";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=U1e6LBUz;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nU7Tf7wI;
+	arc=none smtp.remote-ip=209.85.214.200
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F86606A31E
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:54:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3F86606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E5A8606A323
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 15:03:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E5A8606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FNu/nGsG;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=U1e6LBUz
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MEFXci3771501
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:54:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=LeyVFsqCqVWi/yTiZu/t1r
-	p7LlLuz+7A3YoONaVMHFI=; b=FNu/nGsGUGijxpOunvpAFg313nntuufV14mIIT
-	limhirkmXmrBmRiwMvw88X0yLt8F3mvnvnMn7CGMJIS+DqODnB4qclY7195jk+Nd
-	pX2tCdXY9juGiSVl9+xBVskQIpSN3mF0GCoHK3lhc1S/1gwlf10hpmcJXAA7KWjK
-	kpcVpTskb1YQ9gzGVFlCRERPzQ69inOCwCpzrjTGZ5HxPF0zxyon0x69U0Wx6UnF
-	5FkR0UAgWNCVxTdyeqvuuRl3ItquW0v6dNmHjNsBv5uo0cxj9OyF6ozYDeWf2fBd
-	D2mJrINo9nwDH7SaTv+YThP1Jtm57LzImeRMatAIFS/A8aEA==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93bvah4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:54:32 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3510d0baf63so4418212eec.1
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 07:54:32 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nU7Tf7wI
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e60770381cso19809955ad.0
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 08:03:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792680872; x=1793285672; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=LeyVFsqCqVWi/yTiZu/t1rp7LlLuz+7A3YoONaVMHFI=;
-        b=U1e6LBUz0vYNgvi01E3wOd3GQxVmW806KeGOQroELH4ui18WSPYG7mUwlluqia4lgg
-         INPszpMI9kYMXordzyfQ17RjY4Ra4UNHynAa2BTfsHt20YqcEpKF3rM5xiE2sVvptCGD
-         MGsGH7jrTijmXV1tUVfnDdv2/5w7SfxeWUt70nAro724BdH5BnYkN07XH/4zuJdySpPE
-         B9QxHo9qa2clAU0Fm2I96HLOwHDllsSeGVxxus6RJog+GVOcucZedokFYP4M47ewymfW
-         AYe9V5l81xg1Pcc42XLWWA59+Ijj/d2v1Wxwu3gYuiehfoqAbqdT2JKKAs459XQLXBwc
-         OyRg==
+        d=google.com; s=20251104; t=1792681388; x=1793286188; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RS+w97Z7+gAprFJv+vqfHSnrNycJNQGbw0RdFqhpDtQ=;
+        b=nU7Tf7wIhsEVGz8mS2x/cvBdPaTJnFOFld64n02hF/Br36xXEJ7LWcunqvpTxAL6I9
+         47pOz8NpVDxUg14iOHsBOCPgW+zI8Hg4azY0278LQI6xmDcegCgy3cZir9BoNCDnudU6
+         M1eT92a1weJJoeB7F0IBahUFY0yQyGLSGrWM1WSZWcLY3naewDfDhFyvTsQ9zm+nLN8+
+         OMsSPCZ3Cq4WCiomGiqFJl6Qn+BKCtkZP5ZKEH+2ympj3Sb9bjfjGQ0IpDXdqOWVJ9rE
+         3Us25R3+VgDAD8On0aGZjMUo3fhFf5DMH1QedO1mX2ftRY405F5McSGPChwUNFH3/oj2
+         ShIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792680872; x=1793285672;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=LeyVFsqCqVWi/yTiZu/t1rp7LlLuz+7A3YoONaVMHFI=;
-        b=FvftElLIlyhbr+EogaXqogPOlAgcsOjnMaXYqez4VJQGfiRDCAWPWiCwyL8FEwY+Rb
-         e/b71cMjTa+pY06WKPAI9BYMT9N4wrzGoLfgZhLTfTbf9OXxKw6SXNoiWzA7rB87nnZX
-         +IXSppSs1F1b3OPdFbwwgWzJhbZbasWN9HYjNpqdilWuUDRaxJgrVsSLadVR0p555QOz
-         dxqrEY/fBd4fJzANgk7lQgkq700RSKBrxDbcwr8PH1kLBZCIwn+klajpDiA8SSQidBfR
-         z2T1kEp1J9y82xIte1rn+bhFY+kZJiBu/0hjkrGHObUQVlDNmIhIV5/vyXfhdzvoz/4A
-         m9qA==
-X-Forwarded-Encrypted: i=1; AKwUvBwUhpL5gW2MV59aitI9+ziTxprEkV8nJNigPn8rmB1roScnxp+Rq+/DcYY+UkOyz7DqV+t/c+o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLHjVijxRFceZd7rHQPHFYRauiC+2SBfLQBolF0cntIHxBCR5Vy
-	EwZnN7jh1PRjfLKxhLm7x/voHd7zRauc3g+F3AeX8PT34SDd4nrdDjZ/PvIo0hjUDlIMIpnt8h7
-	ec7Z7xoY+EhoQ/kchqWp6AZXH+ABCihGAcovpZwqbn2Gku6ZgNXBjcu0PvT0=
-X-Gm-Gg: AYBFou02ZtJvm33UWhV/bUlFdhSJ6uKB0q9AvMBZJxwwMg7Hw6GXr9ISzPuIGBPjwpl
-	/VAJ/l8yRU1fdLfKP0rdLD45N1yBBoJdr+Wta9uIbgy0dQx144jZoFLeiYpJGMg0RZg9xeJkbUz
-	gVkvqZk4ziho9JK1RK76YY3MB6MD5ZglLZxjyK2D6kd2X/fxXeBUto85u1L3Fgka7KyKe50xTUX
-	rhYhsVOB6Qt/ooNW4eMBuEQ8s0uhmbWi3QpyNydNKpL0ihLRm8ewQwUFDpAC3HlcoaKHaXUl3hL
-	IIKmKPTZ+paIf1l3KTx1UpuJIH0FHQw8E1eKNCnPINqTbD1X/920EXJkQvO/ZazdZhD/Hq9m5nP
-	J0zYe+soRkaskcZWz+Mmezkl/nsZLQJMU86Y0
-X-Received: by 2002:a05:7301:8615:b0:359:8492:20ff with SMTP id 5a478bee46e88-3674c43a7a8mr6978996eec.12.1792680871418;
-        Thu, 22 Oct 2026 07:54:31 -0700 (PDT)
-X-Received: by 2002:a05:7301:8615:b0:359:8492:20ff with SMTP id 5a478bee46e88-3674c43a7a8mr6978969eec.12.1792680870900;
-        Thu, 22 Oct 2026 07:54:30 -0700 (PDT)
-Received: from hu-anupvish-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367411bd2a6sm26250257eec.18.2026.10.22.07.54.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 07:54:30 -0700 (PDT)
-From: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
-Date: Thu, 22 Oct 2026 20:24:25 +0530
-Subject: [PATCH] remoteproc: qcom: pas: Release DTB firmware after load
+        d=1e100.net; s=20260707; t=1792681388; x=1793286188;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RS+w97Z7+gAprFJv+vqfHSnrNycJNQGbw0RdFqhpDtQ=;
+        b=wLVOiqSzjBmk98t/O+Z9YEi8+w0EITdROm7oZclmlMIW/kausCalbgIson+RX7f1aW
+         iLOTY3sEEOFxyz0z6LMxV7MBohqjcDhwkT1mcV8Jjxkd8GjjKLLm4HrDTKEa8hI3Dkjz
+         SlV5C4N9pl2Ho2J9l5Uuz0C0Ksuet6WBMo8jke6tW7g+PKwstAVtTKiI830SXRs8lnhJ
+         A6i1nmlhpD0bSUzTpx+Dq9xr7Yhbqvocdcxc2Qh2VQuZAuSluSkqo2B5/cB+/MbqsNDs
+         YRTus+GCmtBlLfl6KEdOpqAkRdpw9L0ktiS3pmlj6Osl5zpeCn9QYP15sTDd48vK4RyS
+         6uEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz49L4Tq2ZvWUkFeh+22iNMRnmHALoiQyrCL7IGJQb66Y+J0pqfWOTvsZhrgc3rL/h2j9/JM+A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJHYnyzFLIk6kKCcXj1fYXnh65wuIinhIanCiHiSnpGD0Te3Wjz
+	u0LpJeXK0Rjrq7DUFZcqTzR6T61O8sngx0RfLbB9/RDLvNRChpP9MXurxMFmh2P8txdHJjiK+zd
+	0DM3GXw==
+X-Received: from plsr17.prod.google.com ([2002:a17:902:be11:b0:2e9:4f49:1132])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:1a0c:b0:2e9:460e:ca49
+ with SMTP id d9443c01a7336-2ea439f467amr49266545ad.18.1792681388121; Thu, 22
+ Oct 2026 08:03:08 -0700 (PDT)
+Date: Thu, 22 Oct 2026 15:03:07 +0000
+In-Reply-To: <20261017193911.40182-1-amirmohammad.eftekhar@cispa.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,94 +77,177 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-b4-qcom_pas_dtb_fw_release-v1-1-d92d84a05544@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAKAj2moC/yXM0QqCMBQG4FeRc91gG1OoV4kY2/G3FqW2oyWI7
- +6qy+/mW0mQE4RO1UoZ7yRp6AvMoSK+hf4Kldpisto2RlurolMvHp5+DOLbKfru4zMeCAJ1rNk
- 43biawVSCMaNLyy8/X/6WOd7B03ekbdsBhcScl34AAAA=
-X-Change-ID: 20261022-b4-qcom_pas_dtb_fw_release-95c140645cec
-To: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792680867; l=1584;
- i=anup.vishwakarma@oss.qualcomm.com; s=20260805; h=from:subject:message-id;
- bh=40dojUEYiTck5avIuh4BZLBGj7u3joSJCzFWspEillw=;
- b=HMYQhkmCsBufTsqpejcDU81i+XJ/9B031qiPCSbjZs8maM+zPlzrmJBFmkfKc+l0CN3jB4U1m
- iGFeS0C3y5/BwCarm9Ozo6DDo2U4cHbU3laE3PXpypjuIp5xiJveJQz
-X-Developer-Key: i=anup.vishwakarma@oss.qualcomm.com; a=ed25519;
- pk=Y9ilCu91UQrzHOM14SG2IjnmQ1QSroH5uVeBSWEmEDM=
-X-Proofpoint-GUID: soWpIpsLoLoRPCIt11PioMC4_c9U85EW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA1OSBTYWx0ZWRfX/Q5KrTvF7B+J
- B2GNQBGjmbpVrcxIoMI+UinUoPiV7ROcjaMXQTj8tTbRMjoK9aPKT2hcJ8VQaNdQOX9emcnn0Ve
- /MagF4OEEklTpGPYbanXwop5JaLkHg06nU90gew+RlH9kSR85mPoXtBIz+AOF8iUBsz04gXKouY
- tXFm2w9bVuL2YP/KJXJyfdMZZ3r2a1e4WRrEhX3kYDndBtp3pbVr+WJORhjgMVFd/Qhj+s4IsIr
- Q+GWBRDA/LsOkwG8O3ZCSFWPdztOit3oAFNQg8UpAyzg71ZnoEui2o2b98SPqxXVpQBaiiaz3RH
- JaW6KYjrfeR682ufeBTLoXDeC1SB6MDeDQRU2Yh6lM/IUGEUMLN0XscN5Ey/+gP0XzKYjTiLFsp
- 1Dk60N4+sbvdPbWdsTrX8GuCfXV7HKcVk7XV4eTC7AI3DWjeO62PC5MfakOqTUJf+uqZVB9Jx3F
- i+3fQA5YqjdWeitn59A==
-X-Authority-Analysis: v=2.4 cv=HJxWhYtv c=1 sm=1 tr=0 ts=6ada23a8 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Y1IhKJFcC3I6eYhxwIsA:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA1OSBTYWx0ZWRfX9DcrZ6ZrOMep
- yeqobE5GBqdCEsZxcNIt8MZd+cVcCowzt2sw59+CIfCA3iqFQBKwsfRMoLvEIOt5Mx/DczRQwK7
- z15X128SWYLNpB8oTHTrwLsqFhDcwg0=
-X-Proofpoint-ORIG-GUID: soWpIpsLoLoRPCIt11PioMC4_c9U85EW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
- clxscore=1011 priorityscore=1501 adultscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220059
+Mime-Version: 1.0
+References: <20261017193911.40182-1-amirmohammad.eftekhar@cispa.de>
+Message-ID: <atolq8545YGo4iKx@google.com>
+Subject: Re: [BUG] KVM: x86/xen: gfn_to_pfn_cache left active after
+ mmu_notifier release leads to a host use-after-free write
+From: Sean Christopherson <seanjc@google.com>
+To: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
+Cc: w@1wt.eu, security@kernel.org, dwmw2@infradead.org, paul@xen.org, 
+	pbonzini@redhat.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-qcom_pas_load() releases the DTB firmware only when
-qcom_mdt_pas_load() fails. On success the firmware is never released,
-so the DTB image stays allocated, and each later load leaks another
-struct firmware and an extra reference to the shared firmware buffer.
+On Sat, Oct 17, 2026, Amirmohammad Eftekhar wrote:
+> ---
+>  virt/kvm/kvm_main.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+> index 479b7f5bf..6ac6a71fe 100644
+> --- a/virt/kvm/kvm_main.c
+> +++ b/virt/kvm/kvm_main.c
+> @@ -891,6 +891,18 @@ static void kvm_mmu_notifier_release(struct mmu_notifier *mn,
+> 
+>  	idx = srcu_read_lock(&kvm->srcu);
+>  	kvm_flush_shadow_all(kvm);
+> +
+> +	/*
+> +	 * Invalidate all gfn_to_pfn_caches before KVM is unhooked from the
+> +	 * mmu_notifier.  Release is the last callback KVM will receive for this
+> +	 * mm, so the invalidate_range events that exit_mmap() raises when it
+> +	 * frees the pages can no longer reach the caches; without this the
+> +	 * caches are left valid, pointing at pages that are about to be freed,
+> +	 * and an async writer (e.g. the Xen event-channel timer) can perform a
+> +	 * use-after-free write through the stale kernel mapping.
+> +	 */
 
-The firmware is not needed once qcom_mdt_pas_load() returns, since the
-metadata and segments have already been copied. Release it right after
-the call, on both paths, and clear the pointer.
+Eh, I would omit the comment, IMO this falls into the "obviously necessary"
+category once the code exists.
 
-Fixes: 29814986b82e ("remoteproc: qcom_q6v5_pas: add support for dtb co-firmware loading")
-Cc: stable@vger.kernel.org
-Signed-off-by: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
----
- drivers/remoteproc/qcom_q6v5_pas.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+> +	gfn_to_pfn_cache_invalidate_start(kvm, 0, ULONG_MAX);
 
-diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-index 2e1e39826ffa..2ac21c502d35 100644
---- a/drivers/remoteproc/qcom_q6v5_pas.c
-+++ b/drivers/remoteproc/qcom_q6v5_pas.c
-@@ -279,9 +279,10 @@ static int qcom_pas_load(struct rproc *rproc, const struct firmware *fw)
+I'm pretty sure this should go inside kvm_flush_shadow_all(), both because this
+isn't unique to mmu_notifiers, even though that's the only remaining user of
+kvm_flush_shadow_all().  E.g. in a hypothetical world where kvm_flush_shadow_all()
+was used to ensure there were no outstanding mappings anywhere in KVM, hooking
+only kvm_mmu_notifier_release() would do the wrong thing.
+
+The other wrinkle is that super strictly speaking the invalidation needs to happen
+before kvm_arch_guest_memory_reclaimed().  In practice, there are no interactions
+between SEV's cache maintenance and GPCs, but conceptually the GPC invalidation
+should occur first.  That would also match the ordering in 
+kvm_mmu_notifier_invalidate_range_start().
+
+Another stupid nit: ULONG_MAX is somewhat misleading because
+gfn_to_pfn_cache_invalidate_start() takes an exclusive @end.  It's not a bug
+because GPCs only ever deal with user addresses, i.e. it should be impossible to
+have a cache at ULONG_MAX-PAGE_SIZE.  Ugh, except for maybe s390, which selects
+ALTERNATE_USER_ADDRESS_SPACE?  CONFIG_HAVE_KVM_PFNCACHE is only selected by x86,
+but it still seems like we should do this "right" the first time.
+
+Rather than pass literal numbers, what if (over a few patches) we massage
+gfn_to_pfn_cache_invalidate_start() to take a range pointer, and then add an
+"invalidate all" wrapper that passes a NULL range?
+
+Anyone object to taking this on-list?  Unless I'm missing something, this only
+affects the Xen timer, and there are preciously few end users of KVM Xen emulation.
+
+E.g. (completely untested)
+
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index cf4cb586f140..c2e16370f5b8 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -350,6 +350,7 @@ void kvm_flush_remote_tlbs_memslot(struct kvm *kvm,
+ static void kvm_flush_shadow_all(struct kvm *kvm)
+ {
+ 	kvm_arch_flush_shadow_all(kvm);
++	gfn_to_pfn_cache_invalidate_all(kvm);
+ 	kvm_arch_guest_memory_reclaimed(kvm);
+ }
  
- 		ret = qcom_mdt_pas_load(pas->dtb_pas_ctx, pas->dtb_firmware,
- 					pas->dtb_firmware_name, &pas->dtb_mem_reloc);
-+		release_firmware(pas->dtb_firmware);
-+		pas->dtb_firmware = NULL;
- 		if (ret) {
- 			qcom_pas_metadata_release(pas->dtb_pas_ctx);
--			release_firmware(pas->dtb_firmware);
- 			return ret;
- 		}
- 	}
+@@ -764,7 +765,7 @@ static int kvm_mmu_notifier_invalidate_range_start(struct mmu_notifier *mn,
+ 	 * mn_active_invalidate_count (see above) instead of
+ 	 * mmu_invalidate_in_progress.
+ 	 */
+-	gfn_to_pfn_cache_invalidate_start(kvm, range->start, range->end);
++	gfn_to_pfn_cache_invalidate_start(kvm, range);
+ 
+ 	/*
+ 	 * If one or more memslots were found and thus zapped, notify arch code
+diff --git a/virt/kvm/kvm_mm.h b/virt/kvm/kvm_mm.h
+index c65cfdb14f1c..f46d999d056a 100644
+--- a/virt/kvm/kvm_mm.h
++++ b/virt/kvm/kvm_mm.h
+@@ -6,6 +6,8 @@
+ #include <linux/kvm.h>
+ #include <linux/kvm_types.h>
+ 
++struct mmu_notifier_range;
++
+ /*
+  * Architectures can choose whether to use an rwlock or spinlock
+  * for the mmu_lock.  These macros, for use in common code
+@@ -60,14 +62,19 @@ kvm_pfn_t hva_to_pfn(struct kvm_follow_pfn *kfp);
+ 
+ #ifdef CONFIG_HAVE_KVM_PFNCACHE
+ void gfn_to_pfn_cache_invalidate_start(struct kvm *kvm,
+-				       unsigned long start,
+-				       unsigned long end);
++				       const struct mmu_notifier_range *range);
++
++static inline void gfn_to_pfn_cache_invalidate_all(struct kvm *kvm)
++{
++	gfn_to_pfn_cache_invalidate_start(kvm, NULL);
++}
++
+ #else
+ static inline void gfn_to_pfn_cache_invalidate_start(struct kvm *kvm,
+-						     unsigned long start,
+-						     unsigned long end)
++						     const struct mmu_notifier_range *range)
+ {
+ }
++static inline void gfn_to_pfn_cache_invalidate_all(struct kvm *kvm) { }
+ #endif /* HAVE_KVM_PFNCACHE */
+ 
+ #endif /* __KVM_MM_H__ */
+diff --git a/virt/kvm/pfncache.c b/virt/kvm/pfncache.c
+index 3659686b97c2..3f0edb46ec57 100644
+--- a/virt/kvm/pfncache.c
++++ b/virt/kvm/pfncache.c
+@@ -19,11 +19,18 @@
+ 
+ #include "kvm_mm.h"
+ 
++static bool gfn_to_pfn_cache_needs_invalidation(struct gfn_to_pfn_cache *gpc,
++						const struct mmu_notifier_range *range)
++{
++	return gpc->valid && !is_error_noslot_pfn(gpc->pfn) &&
++	       (!range || (gpc->uhva >= range->start && gpc->uhva < range->end));
++}
++
+ /*
+  * MMU notifier 'invalidate_range_start' hook.
+  */
+-void gfn_to_pfn_cache_invalidate_start(struct kvm *kvm, unsigned long start,
+-				       unsigned long end)
++void gfn_to_pfn_cache_invalidate_start(struct kvm *kvm,
++				       const struct mmu_notifier_range *range)
+ {
+ 	struct gfn_to_pfn_cache *gpc;
+ 
+@@ -32,8 +39,7 @@ void gfn_to_pfn_cache_invalidate_start(struct kvm *kvm, unsigned long start,
+ 		read_lock_irq(&gpc->lock);
+ 
+ 		/* Only a single page so no need to care about length */
+-		if (gpc->valid && !is_error_noslot_pfn(gpc->pfn) &&
+-		    gpc->uhva >= start && gpc->uhva < end) {
++		if (gfn_to_pfn_cache_needs_invalidation(gpc, range)) {
+ 			read_unlock_irq(&gpc->lock);
+ 
+ 			/*
+@@ -45,8 +51,8 @@ void gfn_to_pfn_cache_invalidate_start(struct kvm *kvm, unsigned long start,
+ 			 */
+ 
+ 			write_lock_irq(&gpc->lock);
+-			if (gpc->valid && !is_error_noslot_pfn(gpc->pfn) &&
+-			    gpc->uhva >= start && gpc->uhva < end)
++			
++			if (gfn_to_pfn_cache_needs_invalidation(gpc, range))
+ 				gpc->valid = false;
+ 			write_unlock_irq(&gpc->lock);
+ 			continue;
 
----
-base-commit: 9a482184d910775cf648863148944945b74e2815
-change-id: 20261022-b4-qcom_pas_dtb_fw_release-95c140645cec
-
-Best regards,
---  
-Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
 
