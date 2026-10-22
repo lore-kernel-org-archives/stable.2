@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792673700;
-	b=LCIY7zSd2rR2m9JS//XiJNMQv0cBnbF0S4u6d7buQ+rgdso0eU8eUY14S5ATtvI6+OlL
-	 GP3WlWfrNQ6oAzWCuMzxCGm58NeLyhml4JluFel7H9iFGFnD5ozmTptWQobxyz4YmLBu+
-	 9hIjgzbWpY4b38UDEcFVWBi7wOfoQOpiiUawA+y5VtlNR6XB8fR8kOS7UHUiPvsvB27ZE
-	 fd1Ye3TJ47B+QZm+tcgjFnB0iJGsYZUBOj46n7feHKY7dxNxZ82gj0pQK8OwfZckAbSG/
-	 nm0v5BOl+guPe+fWmrycsXGWPDqolhALS+zJDuYEPoTVGJ2uxwvEoEEmgmVsSHXAdRg==
+	t=1792673707;
+	b=MYp8/KZbPD5jAgwrId38qUVcqLVbX+pL8o4nYEBRBxv754h18EIeY/cUCdy7cwAZ7Zk9
+	 z7gzjvwZojPnO20wTZhbArol4ZYes4rit+rkXFeRJSuSA67fpGJLisYCpP+kSsIGBkflw
+	 80xGJl/Np2Cgp+dPadUAeK3QQMDeFjKSIU2iA6egVlzQ92p4s/EkkD4jl/kLSr1OTTAV3
+	 h0X1WJXT269FiUm8wFX+E+w5uM7647yA0uZUTs1x5kjwHKz7cDOcJGxs/UOWyFq8PPFuR
+	 /KGxzZh/XZ0hn+TCOmz7dSQtboJrQcFQ9OljfK8kVfIbYzb/yET1IOkBM2M2TgcN4/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792673700;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792673707;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ut596dSYDA9muKlngf95bMEANj8c9d53sp5+5NOhEJk=;
-	b=maDULup1aZ6/uo+D6Ar8ZT75wOeO5t9TT+kQFz5utQVGTw44m60Z8UhFk4yXFKG8Y3O+
-	 svRaneRRvigNiVasdi26zd/uTwa+DDB2Y83x5Z/zsB08ZSp/QaLHKYAqkQOtleZVigm7U
-	 kUodAol/k7inzD3zbBK57VKsD3kNiTEDA2ILRG5oFXivqnAVo6YpK2RoYkhPh3jetoDQJ
-	 4RdgsXUhdiNxlDkEtuwAeA6ykUwXRe3rw+RqmsRL0mVfRT96xRLbXd9fV8EfVFhCt7T72
-	 +vh+cR+7xQ6ZQDuYykZLXplUxOXNW8PV/tpqMVBObDmvUY86BirezYPjhGWcu1p1EzA==
+	bh=H8DFoxt5zy8uCsvpWqodTyMFJID0sWP0UTMoV2TVPto=;
+	b=C6GL6doxMXOecDWHnnIDKwb5xQVRn89JUR5eYdISjLU3qn2fRIKHyDybYDx7GteGRwKl
+	 o5ZgkFLGAyuWLjNzZgz9ZNln2GrTJHp78UCaPjKH15U6AmUjFS9eSCB5mO1IjETL4N6aI
+	 A4hFTHuLxqifCApA6w6C18IBk+4GtJN58y2ZwC8P81uJOdUhxXwQj2el+47+7C4a+M84V
+	 gxiJPgdze30I0G2F7OZHcbMQTP0Ys0FsrgJVJ6mGvsjW+VlJNLE+aHlJkQgBd6lBa2GOi
+	 qpKytIv7JBPVx/I+y1p7IqpROsWCVqNSLR8b4vTlzCHY2Isiw0xw2YAy47/D6VE0ZnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FFj3uWnG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eXepuRjC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA9B606A323
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 12:54:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46695606A319
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 12:55:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FFj3uWnG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B0B01F000C1;
-	Thu, 22 Oct 2026 12:54:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eXepuRjC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F9631F000C1;
+	Thu, 22 Oct 2026 12:55:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792673699;
-	bh=ut596dSYDA9muKlngf95bMEANj8c9d53sp5+5NOhEJk=;
+	s=k20260515; t=1792673707;
+	bh=H8DFoxt5zy8uCsvpWqodTyMFJID0sWP0UTMoV2TVPto=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FFj3uWnGvN211ipES/YXsjnTdTPT7CWdqMof+SAHAvKdXhgtQAZuYGj6r2kuuk7NR
-	 UV2lk4ImjksqChlZpI+x5brNGpQzULl5AKyGxMZb0IeEwZdaCZWgn8nVCiQO59I/0n
-	 SYW2jOWrxHW+DIslEuQmOKtq3xExWAp2o8O8uudZzQljQRw8LNAcqoQ3vl2ILguZ5/
-	 ttny9PMJP44M0pPQFWaNfIG+ZHZFIa4rh7BzN2835QQ/Zmt89Wc6BizERMd1fl+kHg
-	 1cnUlwnlrQZGB3/sT0Ud6kPirw2bEzHAFxzMpVGx1ooyc6sqV5OKofZEk1s0x7wx1Y
-	 04DbUTPRF9gZA==
+	b=eXepuRjCPJvK97ahUuZYelFUD0PgBO2KGKj6wip4tcABzDQWZO4JlIjajQb8JdpmT
+	 elMZqD0VUvJnEvwVhZ++P7RACZ4tEkQbBKkgTiGfgeZNFLBsGtikkXoGNL/E6zJfWM
+	 kHCCRwHqGiJE4kgcF8yh+D1t7VsaBnLmZh0UO0ixOzc3xXpJykQXIcQG/6eIzbMxaj
+	 mVKPUpvLSqDV9OAedaEQar9XooqUa5kPwcsADkp+dGFJQY4UqhY26LtQM/AC/Klybg
+	 VTsT/vrH24q9myglDp1k21OuNcg4FfkG7G+m8OHpl0aehFWJ4+7d/DnmRvxbr4F1t7
+	 La7U692wBgIkA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
+Cc: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>,
+	Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
+	Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 3/3] tracing: Fix NULL dereference when copying keys for a field variable
-Date: Thu, 22 Oct 2026 08:54:56 -0400
-Message-ID: <20261022125436.1346436-3-sashal@kernel.org>
+Subject: [PATCH 6.12.y] drm/i915/dmc: Harden DMC firmware payload parsing
+Date: Thu, 22 Oct 2026 08:55:05 -0400
+Message-ID: <20261022125422.1187451-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261022125436.1346436-1-sashal@kernel.org>
-References: <2026102121-bronchial-ozone-0317@gregkh>
- <20261022125436.1346436-1-sashal@kernel.org>
+In-Reply-To: <2026102110-spry-excursion-fbc9@gregkh>
+References: <2026102110-spry-excursion-fbc9@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,72 +63,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+From: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
 
-[ Upstream commit a0777b9e53157f1f6848a0fd0650f5465391ea81 ]
+[ Upstream commit 8bb1858db453cd4250e3b633f5d2d09206024ca6 ]
 
-In event_hist_trigger_parse() where it needs to create actions like
-"onmatch", it calls:
+Validate the conversion of the DMC firmware size from dwords to bytes
+using check_mul_overflow() before calculating the firmware payload size.
 
-  event_hist_trigger_parse() {
-    create_actions() {
-      action_create() {
-        trace_action_create() {
-          trace_action_create_field_var() {
-            create_field_var_hist()
+Reject zero-length payloads and zero MMIO counts in the DMC firmware
+header so malformed firmware is caught early. Also set dmc_fw_size only
+after the payload allocation succeeds.
 
-Where create_field_var_hist() does a loop on the hist_data
-representing the keys. The issue is, if the keys uses one of the
-pseudo field types (like common_cpu), the hist_data field element
-will have NULL for its field member causing a NULL pointer
-dereference when accessing the key_field->field->name.
-
-  # echo 'hist:keys=common_cpu:ts0=common_timestamp.usecs' > \
-      events/sched/sched_waking/trigger
-  # echo 'my_synth u64 lat; int prio' > synthetic_events
-  # echo 'hist:keys=common_cpu:wakeup_lat=common_timestamp.usecs-$ts0:\
-      onmatch(sched.sched_waking).my_synth($wakeup_lat,prio)' > \
-      events/sched/sched_switch/trigger
-
-  KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
-  RIP: 0010:create_field_var_hist+0x771/0x1380
-  Call Trace:
-   trace_action_create_field_var+0x360/0x600
-   trace_action_create+0x393/0xe80
-   event_hist_trigger_parse+0x3e47/0x69e0
-   trigger_process_regex+0x1a6/0x250
-   event_trigger_write+0xce/0x160
-
-Instead of accessing it directly, use the proper handler
-expr_field_str() to get the name.
-
-The three previous patches are prerequisites: without them a .buckets
-key and a common_stacktrace key each render into a command that cannot
-be parsed back.
-
+Fixes: eb805623d8b1 ("drm/i915/skl: Add support to load SKL CSR firmware.")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260914053443.981201-5-donggeunyoo.kernel@gmail.com
-Fixes: 02205a6752f2 ("tracing: Add support for 'field variables'")
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Assisted-by: Claude-Code:Sonnet-5
+Signed-off-by: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
+Reviewed-by: Mitul Golani<mitulkumar.ajitkumar.golani@intel.com>
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Link: https://patch.msgid.link/20260922133535.3180973-5-dibin.moolakadan.subrahmanian@intel.com
+(cherry picked from commit efde6601a1f1daedfe3dcc2816c934ddb44e3eef)
+Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+[ sashal: Changed logging arguments from `display->drm` to `&i915->drm`. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace_events_hist.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_dmc.c | 21 ++++++++++++++++-----
+ 1 file changed, 16 insertions(+), 5 deletions(-)
 
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 8caeb6bfb7d5e..2295ca7bccefd 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -3078,7 +3078,7 @@ create_field_var_hist(struct hist_trigger_data *target_hist_data,
- 		key_field = hist_data->fields[i];
- 		if (!first)
- 			seq_buf_putc(&s, ',');
--		seq_buf_puts(&s, key_field->field->name);
-+		expr_field_str(key_field, &s);
- 		first = false;
+diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
+index 7c756d5ba2a22..641dabf275e73 100644
+--- a/drivers/gpu/drm/i915/display/intel_dmc.c
++++ b/drivers/gpu/drm/i915/display/intel_dmc.c
+@@ -796,7 +796,7 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
  	}
+ 
+ 	/* Cache the dmc header info. */
+-	if (mmio_count > mmio_count_max) {
++	if (!mmio_count || mmio_count > mmio_count_max) {
+ 		drm_err(&i915->drm, "DMC firmware has wrong mmio count %u\n", mmio_count);
+ 		return 0;
+ 	}
+@@ -819,13 +819,21 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
+ 			    disable_dmc_evt(i915, dmc_id, dmc_info->mmioaddr[i],
+ 					    dmc_info->mmiodata[i]) ? " (disabling)" : "");
+ 	}
+-	dmc_info->mmio_count = mmio_count;
+-	dmc_info->start_mmioaddr = start_mmioaddr;
+ 
+ 	rem_size -= header_len_bytes;
+ 
+ 	/* fw_size is in dwords, so multiplied by 4 to convert into bytes. */
+-	payload_size = dmc_header->fw_size * 4;
++	if (check_mul_overflow(dmc_header->fw_size, 4u, &payload_size)) {
++		drm_err(&i915->drm, "DMC fw_size too large (%u dwords)\n",
++			dmc_header->fw_size);
++		return 0;
++	}
++
++	if (!payload_size) {
++		drm_err(&i915->drm, "DMC firmware has empty payload\n");
++		return 0;
++	}
++
+ 	if (rem_size < payload_size)
+ 		goto error_truncated;
+ 
+@@ -833,12 +841,15 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
+ 		drm_err(&i915->drm, "DMC FW too big (%u bytes)\n", payload_size);
+ 		return 0;
+ 	}
+-	dmc_info->dmc_fw_size = dmc_header->fw_size;
+ 
+ 	dmc_info->payload = kmalloc(payload_size, GFP_KERNEL);
+ 	if (!dmc_info->payload)
+ 		return 0;
+ 
++	dmc_info->mmio_count = mmio_count;
++	dmc_info->start_mmioaddr = start_mmioaddr;
++	dmc_info->dmc_fw_size = dmc_header->fw_size;
++
+ 	payload = (u8 *)(dmc_header) + header_len_bytes;
+ 	memcpy(dmc_info->payload, payload, payload_size);
  
 -- 
 2.53.0
