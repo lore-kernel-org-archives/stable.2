@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792673695;
-	b=mfLXCn89DqfqyTmasg4TSPKHi3LAKEB0k65IqYUCV+FJboqT0BnLQwBlLwmNo4/gSzzF
-	 J8xG9D6Yi6f09xkVYKcPG/xnO5QyUZgUYjPpWyZUE1N7LPeRobsWDIoZ2ZABZiS/LEN31
-	 c76LKvZE4Kbb6dMpD4rDv75RXsvpFBsF/w3BeiHatUeiPRLoH7R6jz6EeuOO/0yUdhFTv
-	 SNaLR4oOBHTw1u6o1eqHHPNtbSESwC5EnFDSTyWxf/4OzHGMtqhT3LUYHRhd8BXXbQ4yH
-	 ughNWcW6gpa0FS5OO/nLZEeqFrYmL3ykQtHpfM5ds3B6+omb9EJUEoSHsW86E7Dfn/w==
+	t=1792673698;
+	b=I7KZ/4lUnbYYJBnIa/kwB3TBd9pbneDVlWA7B+ef6F6qHERh1LLlQ+sA+ONzZGyI1jpw
+	 LwkuFjIIdtEwmhfaf8qlncaALTBwLGxsvsSq284CGlM/SRXk6qs4En7Y4F0aT5jL91DYz
+	 ZcB+nac7wYeG2ZAj6SrLmv8qxAI2xfPIxfno77qJdBApEWww4+A8zP2MKcLAUbdbNnMBh
+	 pQoo+c/MkdarUga9BSP111qQVVP16TAL9mizoBMxiLnTR2nf5BRMhquQGcf+YOb9wg+PC
+	 8ydAtH96QmgB+3A2LRJgWVy3uVxx8SMQl8oXTZVcqYx01p646X+1QmfBzFyVMdDCJvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792673695;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792673698;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=XaAMdlAl5xA/6ERK0qt9znOYU60zrzPyb7EA3K4qJ8w=;
-	b=EViIysCiwKD5OiF0Y3XpfRVwEtjm/FUDcfRMprQhIVlTz4qTx/HLXUGb52dFzACKVQzj
-	 95n6Y3joAnnxsgL7FrV8NYgOAImTApQvEE9f1v5I17F8RDjspCFlN/Kwvu8wk8XYLAalA
-	 l2rgepOvh6kO4h6th78k1+EJhOOAielWsFG/Hct08q4Q3tngBL6ko8F9tQlpuleVIUlWR
-	 iWuCKZMAmNECdFL1nxXfDFP52IPrnHlgbvZu/BnXlIxZ/KGVn1jHSdKim29005bHEMyRY
-	 RGWs3zYshmy6xyHgsDVWk2j1dBW1YT0mmwGvYq7f+WKCJJ3cAkhXvunZ8n46xVAjARA==
+	bh=i07aKEUwhXFLXTojR0CU7v/ISTIlnWIztn5GzMyxDQ4=;
+	b=0jmir8QQgY0o4/2SCJTR6AiEIXQBBZ/H2prTA96+8xz3C3ZvaEatJU32c3eFEjz99uUM
+	 z77lkv+15ibSTwk5pExOrvrUrfaEQvfqx9QSYyqF3yYYGnOec3XYVSv07RtywPBHJLEXq
+	 stRvLyxC+QfsRfEe9HmGrg8MBG0ZZ7Csc3mk/duxisGDzmimE9/EXuRqHLtUkKDUWknpn
+	 lEzr/cR4wk+7PDKCe8799HjQ3a7bNwmnxLnrh3RgZaxngL1dvZuqQyBIL22hoO+3Dqq2U
+	 If2szOg5z0q1G3/D5NMRClDSPPebSCsHWax/dabmHQtYfi6CwqmoDCD3PcEgd0NPj4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CtdDCOEf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TN8NKMls;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5912F606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 12:54:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C95E606A319
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 12:54:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CtdDCOEf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 750791F000C1;
-	Thu, 22 Oct 2026 12:54:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TN8NKMls
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7DF21F000C1;
+	Thu, 22 Oct 2026 12:54:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792673695;
-	bh=XaAMdlAl5xA/6ERK0qt9znOYU60zrzPyb7EA3K4qJ8w=;
+	s=k20260515; t=1792673698;
+	bh=i07aKEUwhXFLXTojR0CU7v/ISTIlnWIztn5GzMyxDQ4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CtdDCOEfnKx/OU3nXLrdle7iW2qC63GxsRIhGshKOepcbt1yzoWbdqsEaocyNgjaP
-	 dPj5bbnm/GjyXDOGGDOl7PjPKJtuZ/Xy2EpcZYOWlyNTmMABVnjyxAxdVM88RvtM+M
-	 Tzc/eR/Yttl3hSSp+810+v6aruf1+gLnNMRAivOPNKjCXTILNCEPes7DqVqbsLgk5n
-	 Ux0vQOLARUtF67xN9QUeegEKsO56oJ+lj8Rq5eInQN8lMzCmOhLyvjV6TuADv6dVcn
-	 +YJxycZv5wUr1/0+X0Oq8nNFTP2CH6+U0hDI6VAF28RK6vOJQUtqHY9SCiia19wZZE
-	 fh+O7tCQGDDJA==
+	b=TN8NKMlsguUJz66jaeCvIH/kWQVZ0yShEAnhYzu3eALSPaJrIdXxnDkaZYGokF6tK
+	 YfCGqUIxLJB5B8scFdVIBpYum8FQHpkIx8cIbkmFcvfQQC/Vy+CUm32XgeWG10LngY
+	 qaADt5Uc5LiHrGwrIBNJWrs+XlTtvmFHibu6SFlKvOZlRw0mGymYh2CYWb6B1VX1OE
+	 vmL7YIXCUZ5DMP7/zm2VBwhePU9le6aTgEr6V69dyG2b2rEw9EAcTCxb46mjIsaTTd
+	 Pb+Xb+EL6qg7fs5a0f2vEUukzcq58NfnyDcHt0LvTxLPTjn5U4JkspBEL9GxHRuBP3
+	 OfoywvAeEpqyA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jesse Zhang <Jesse.Zhang@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Steven Rostedt <rostedt@goodmis.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] drm/amdgpu: free the userptr ranges when a CS fails after parser_bos
-Date: Thu, 22 Oct 2026 08:54:53 -0400
-Message-ID: <20261022125418.1189136-1-sashal@kernel.org>
+Subject: [PATCH 7.2.y 1/3] tracing: Use __free() for expr_str() buffer
+Date: Thu, 22 Oct 2026 08:54:54 -0400
+Message-ID: <20261022125436.1346436-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102129-upright-catatonic-cf8f@gregkh>
-References: <2026102129-upright-catatonic-cf8f@gregkh>
+In-Reply-To: <2026102121-bronchial-ozone-0317@gregkh>
+References: <2026102121-bronchial-ozone-0317@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,62 +61,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jesse Zhang <Jesse.Zhang@amd.com>
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-[ Upstream commit 1b4da805a0ba354a549ce07459c871c17dd94fe0 ]
+[ Upstream commit 988995c0552b6213b6bf16cea57258d4842c1488 ]
 
-amdgpu_cs_parser_bos() allocates an HMM range for every userptr entry of
-the BO list and looks up the user pages. Those ranges are only freed when
-amdgpu_cs_parser_bos() itself fails or when amdgpu_cs_submit() checks
-them under the notifier lock. If amdgpu_cs_patch_jobs(),
-amdgpu_cs_vm_handling(), amdgpu_cs_sync_rings() or the early part of
-amdgpu_cs_submit() fails, nothing frees them: neither
-amdgpu_cs_parser_fini() nor amdgpu_bo_list_free() touch e->range.
+expr_str() allocates a temporary expression buffer and manually frees it
+on some error paths.
 
-Each such CS then leaks the range, its hmm_pfns array (8 bytes per page
-of the userptr BO) and the BO reference the range holds. An IB on a ring
-that patches the CS in place (e.g. VCN) with an unmapped va_start fails
-in amdgpu_cs_patch_ibs() and takes this path.
+Convert the buffer to __free(kfree) and return it with return_ptr() on
+success. This keeps ownership handling separate from the later ERR_PTR()
+conversion and string-bound change.
 
-Free the ranges on those error paths. Ranges amdgpu_cs_submit() already
-dropped are NULL, so freeing them again is a no-op.
-
-Fixes: fec8fdb54e8f ("drm/amdgpu: fix userptr HMM range handling v2")
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit c52a9542ed7cfd527feb938bd0accada2ac8d267)
-Cc: stable@vger.kernel.org
-[ sashal: Adapted cleanup to the existing error_backoff path using amdgpu_ttm_tt_get_user_pages_done() before the mutex unlock. ]
+Link: https://patch.msgid.link/20260611055945.22348-2-pengpeng@iscas.ac.cn
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Stable-dep-of: a0777b9e5315 ("tracing: Fix NULL dereference when copying keys for a field variable")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ kernel/trace/trace_events_hist.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 38ce4d7c86f00..f8a2c9e41ca31 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1448,6 +1448,7 @@ static void amdgpu_cs_parser_fini(struct amdgpu_cs_parser *parser)
- int amdgpu_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 160445760545c..81bb1cf96c751 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -1758,7 +1758,7 @@ static void expr_field_str(struct hist_field *field, char *expr)
+ 
+ static char *expr_str(struct hist_field *field, unsigned int level)
  {
- 	struct amdgpu_device *adev = drm_to_adev(dev);
-+	struct amdgpu_bo_list_entry *e;
- 	struct amdgpu_cs_parser parser;
- 	int r;
+-	char *expr;
++	char *expr __free(kfree) = NULL;
  
-@@ -1502,6 +1503,11 @@ int amdgpu_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 	return 0;
+ 	if (level > 1)
+ 		return NULL;
+@@ -1769,7 +1769,7 @@ static char *expr_str(struct hist_field *field, unsigned int level)
  
- error_backoff:
-+	/* amdgpu_cs_submit() only drops the ranges once it got that far. */
-+	amdgpu_bo_list_for_each_userptr_entry(e, parser.bo_list) {
-+		amdgpu_ttm_tt_get_user_pages_done(e->bo->tbo.ttm, e->range);
-+		e->range = NULL;
-+	}
- 	mutex_unlock(&parser.bo_list->bo_list_mutex);
+ 	if (!field->operands[0]) {
+ 		expr_field_str(field, expr);
+-		return expr;
++		return_ptr(expr);
+ 	}
  
- error_fini:
+ 	if (field->operator == FIELD_OP_UNARY_MINUS) {
+@@ -1777,16 +1777,15 @@ static char *expr_str(struct hist_field *field, unsigned int level)
+ 
+ 		strcat(expr, "-(");
+ 		subexpr = expr_str(field->operands[0], ++level);
+-		if (!subexpr) {
+-			kfree(expr);
++		if (!subexpr)
+ 			return NULL;
+-		}
++
+ 		strcat(expr, subexpr);
+ 		strcat(expr, ")");
+ 
+ 		kfree(subexpr);
+ 
+-		return expr;
++		return_ptr(expr);
+ 	}
+ 
+ 	expr_field_str(field->operands[0], expr);
+@@ -1805,13 +1804,12 @@ static char *expr_str(struct hist_field *field, unsigned int level)
+ 		strcat(expr, "*");
+ 		break;
+ 	default:
+-		kfree(expr);
+ 		return NULL;
+ 	}
+ 
+ 	expr_field_str(field->operands[1], expr);
+ 
+-	return expr;
++	return_ptr(expr);
+ }
+ 
+ /*
 -- 
 2.53.0
 
