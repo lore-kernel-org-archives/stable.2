@@ -1,81 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=50.112.246.219
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792691314;
-	b=UcBBMADtvdVf58fdvUYTbT4e6OCofG2RVaDfz4WIIbfaBJp30pMS3VDlPp6m03BfJHrM
-	 6xmwOTpyw3wRsu9uZhJlVOR+dNe2Ksz8yKcydshlWt2dDT9GM5T2rOtNs3JRSjXrTWoKT
-	 ZNnY71GIyVBvuEi16MublXxOX8e1ZAkQnCKE7Vg7jLKeGRpwgvWrBoXiExlcKcs9qG/ag
-	 WFqn48cXInoNIvcgU6XW033jTus9MAoG7Cjy238K2uAhb5EMcBSAaTLEig0DL+ML8n6qW
-	 KWxAFsvrf5BIRpjBhYj89pfXlhiZ3D++Gfkk00eN8MCyM+RQPYW7v3ekcwaD71HQX6g==
+	t=1792691552;
+	b=CG93XE0XoIHfYjPWwJU7AYC1nVNML0I1nF6hdUfRqcx1Y5Ld/hAm2CvUfBNbk/pJ+I8r
+	 zwn+bgi/MYoKVjOLuGejDG2SBmcqbtcio2v9b/7cZ7oXg4WZwM6oK78zJns1QaQI5DK8P
+	 5P8zn4V+mTJ3gFYPIGZ01sk46a9rlL0RwTUZZzZRgY5xCvG0r4kjw+j+nPefdd+2Xuy9/
+	 jrZrJVbcJ/t0BBTEgcijFAwdqiHRCuBuT5WaGTO6RQZqSTpPH7i95eageErfNwMKNVpRV
+	 jNZyBLC9Tq7UUK56k9zCd61MX+82xIsVl/WTuJ6eay2gQuHOzorgzddU0KU5APbRfFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792691314;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=f9i8wkFVwMHQ4SaJgNQsC2mhEDqyv5B2iC1yR23KMbU=;
-	b=xEmHl3F3uOYS/xRYUw8/eB5xnfZy1PAS9GJ341Nopsl6lAFgt8OgvJVO8BQH58keQWcK
-	 I8t6D09vk/9nWBdK1i7da04SB94WDf8TkTrNnkMi5/nbMjjPfJrN4+cKp9Xsr/uhBIlan
-	 CrsYZKusmD35iZDoYgVIlEROSpTit2WAWO0JGYjwsjTuEUVY8EuJ78j8qTdvBP5BvmYbY
-	 1Lokgf/mVxiixHRGTKxclq/hjPG0/Vs+rgFOVuUQ/KZC2NUq65QPBedkx5hpHSrPF8yzo
-	 JLV0+18J98UItIDya2u84ekVb7mh5ruB5BydhqxuCuWHYfGA3s0uyamwQ/eapRKxBMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792691552;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=sVf47aEsd+XkYlW1t6M73q5BRuGgvCqtUM6WXvYFTSA=;
+	b=z9WOmObHnCFWt9AD0oOf1GJJtahAt+i6pQvTos67yKYuIuIir+wHC+OQgjs/VnMhzxyG
+	 ix/M5fZxozeR8de4i4OUXkl4RemiUd9pFXwme7YizXlOmcihH0a8Ujd/KN0zpqoYZv0t7
+	 BGqcTKJuRcESj6ikTLmQDd5BUfugNamVxX9vflnZ/PzbrocYGH8fKWqyCa+6BofhX3kvk
+	 brTKK4UxwuH7oIYj6MRjodz/YrbmHbiah0ZsFxilIdpMiqlUK8pAnbb1FBJdi+4SzJch3
+	 gzPN2b6vfehWt2NXX+tG1r8MvcokqjnI91eTkG5/7S2mhnGU/U8yq06E0nhUHE3RojQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=DkmBDjP+;
-	arc=none smtp.remote-ip=50.112.246.219
-Received: from pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com [50.112.246.219])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bT3YR+nh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384AE606A31A;
-	Thu, 22 Oct 2026 17:48:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 384AE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 083B2606A319
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 17:52:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=DkmBDjP+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1792691314; x=1824227314;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=f9i8wkFVwMHQ4SaJgNQsC2mhEDqyv5B2iC1yR23KMbU=;
-  b=DkmBDjP+IVRlscHK/RGObZabJCfmoDv9SDyl4D+bb429D1ZixGKSoYCR
-   +6pT4bIff1UqI0s06H7qEXX6U6HqtGJ0SbZ9lKyS8WOZJXU8hdsXlNz8c
-   ZQ/y/lp6nZpoVpGqhhKsbkUh9iRx7S9T4xP8bZM+4PrIwU3ry7ym2eLpY
-   D0saCbzSsWqjPS71kq9JPvkvMlm/Fgen5oX0TKnYFUADEsycd2V7Y1c6E
-   x0Vn4wcsGss/TvkzTKXgvoB4MxjfjWn65boZulih8xjEA9SIjMYcilU+7
-   6GB2GNI6ClIEx5yhWliOU0rGXEGAxkICclA0RrZevSK/glLEdi9dAcKre
-   w==;
-X-CSE-ConnectionGUID: RQZi2DGsSYa+ml+jqpMlvg==
-X-CSE-MsgGUID: yTyMOonyS6GQr5ore6opzg==
-X-IronPort-AV: E=Sophos;i="6.27,172,1787011200"; 
-   d="scan'208";a="31764559"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 17:48:33 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:1871]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.41.86:2525] with esmtp (Farcaster)
- id 4c96b239-c80a-43e4-9e2a-b476f8e81ec6; Thu, 22 Oct 2026 17:48:33 +0000 (UTC)
-X-Farcaster-Flow-ID: 4c96b239-c80a-43e4-9e2a-b476f8e81ec6
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 22 Oct 2026 17:48:33 +0000
-Received: from dev-dsk-aarnahmd-2a-95203392.us-west-2.amazon.com
- (172.19.38.251) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Thu, 22 Oct 2026
- 17:48:32 +0000
-From: Aaron Ahmed <aarnahmd@amazon.com>
-To: <stable@vger.kernel.org>
-CC: <maz@kernel.org>, <oupton@kernel.org>, <joey.gouly@arm.com>,
-	<seiden@linux.ibm.com>, <suzuki.poulose@arm.com>, <yuzenghui@huawei.com>,
-	<fuad.tabba@linux.dev>, <linux-arm-kernel@lists.infradead.org>,
-	<kvmarm@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH 5.15.y] KVM: arm64: vgic-its: Don't dereference a NULL collection on ITT save
-Date: Thu, 22 Oct 2026 17:45:37 +0000
-Message-ID: <20261022174537.2767-2-aarnahmd@amazon.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bT3YR+nh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C22531F031E6
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 17:52:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792691551;
+	bh=sVf47aEsd+XkYlW1t6M73q5BRuGgvCqtUM6WXvYFTSA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=bT3YR+nh7EgwWufP7iOtZ7C2DcZbDKhWlSvAM253FgDLenF4BRs37VOu/Q6RDMs6t
+	 eRIzO2IdzT8OwWzwbATCt0InnIyFhSfYOgcaUN0JExoYl7SBUHcynH56J4y8vmnIjf
+	 JJMCWobry35HDzz15PjowDd0yGcbCFxeRMPPVrEdk/IsYfu4+L6oIWWsVKfxjbnIE1
+	 75mx162WzUELP+eM2sT+YBDw0KlHFjx2uWsBYQ84JxRBhSacpJ1MeNnd+s8K0MoxnI
+	 VGTb01BVde+lP3XZAitfl50/pxDWlHDCTVWoiTNfruuQDWMsAqfiAsiFcwgUWwcEbF
+	 Z7bvDdHgkjLbw==
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5bcc6094d7fso1628572e87.2
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 10:52:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwPxJD82Xs95XyHFeRqCB68ax0+4d8veMsojsXzTtBPlaJV2QPLYQT2bXDNTslue+/LXuaLahc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK/tik/H/hFhPP1G91KkRaYA9TO900tuuM2OgJnqP6Fns3OXbzd
+	jwu3W5tr5Nw6YbZiwzo0sMFdaCIsIzbEWe/fHuin3QVoLK3WEO0ZdinokyBEV41+M2vifH2Eb3V
+	8gONW+iQkGJdqIqdW2Fodjctl01myFek=
+X-Received: by 2002:a05:6512:2392:b0:5be:5184:8c23 with SMTP id
+ 2adb3069b0e04-5bfa1c5b7bdmr2526996e87.3.1792691550457; Thu, 22 Oct 2026
+ 10:52:30 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,60 +59,124 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC003.ant.amazon.com (10.13.139.252) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+References: <ACT-N6N4.v1.r0.20261022051412@mojatatu.com> <ACT-N6N4.v1.r0.20261022051412-1@mojatatu.com>
+ <ACT-N6N4.v1.r0.20261022051412-2@mojatatu.com>
+In-Reply-To: <ACT-N6N4.v1.r0.20261022051412-2@mojatatu.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Thu, 22 Oct 2026 19:52:16 +0200
+X-Gmail-Original-Message-ID: <CAL4WiiqSMdYQYeeW0Fk_GK6ekR4xiS4zPrGKrbB9wZknpqf1-w@mail.gmail.com>
+X-Gm-Features: AclHuK-HAodO7ZT4F82zTy6LKJNz-xrSusqBzXNSUa99LviiCuG6cFZ6fapMU2M
+Message-ID: <CAL4WiiqSMdYQYeeW0Fk_GK6ekR4xiS4zPrGKrbB9wZknpqf1-w@mail.gmail.com>
+Subject: Re: [PATCH net 2/5] net/sched: act_mpls: reject short linear Ethernet
+ headers after pop
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
+	Victor Nogueira <victor@mojatatu.com>, "David S . Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Martin Varghese <martin.varghese@nokia.com>, Pravin B Shelar <pshelar@ovn.org>, Vega <vega@nebusec.ai>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Fuad Tabba <fuad.tabba@linux.dev>
+Le jeu. 22 oct. 2026 =C3=A0 11:22, Jamal Hadi Salim <jhs@mojatatu.com> a =
+=C3=A9crit :
+>
+> The issue:
+> act_mpls POP can leave fewer than ETH_HLEN linear bytes after
+> skb_mpls_pop(), either standalone on an Ethernet device or chained after
+> act_vlan POP_ETH.  A subsequent eth_type_trans() can then BUG in
+> __skb_pull().
+>
+> The Fix:
+> After the pop, when the skb started as MPLS, drop it if the linear head
+> is shorter than ETH_HLEN.  Non-MPLS pops and pushes are unaffected.
+>
+> Conditions to recreate the bug:
+> - egress tc filter on lo: action mpls pop (standalone), or
+>   action vlan pop_eth action mpls pop (chained).
+> - AF_PACKET SOCK_RAW with PACKET_VNET_HDR, hdr_len=3D28, and a non-linear
+>   eth / mpls / inner-eth frame.
+> - The pop leaves skb_headlen(skb) < ETH_HLEN; a following
+>   eth_type_trans() can BUG in __skb_pull().
 
-[ Upstream commit c6c156d931c33b92362383cf76f6d6e1291dcbfe ]
+skb_mpls_pop() calls skb_ensure_writable(skb, mac_len + MPLS_HLEN),
+then memmove()s the mac header and pulls MPLS_HLEN.
+So after the pop we still have at least mac_len bytes in the linear part.
 
-MAPC with V=0 drops ite->collection but leaves the ITE on the device's
-ITT list, and vgic_its_save_ite() dereferences it unconditionally. A
-guest that issues MAPD, MAPTI and then MAPC(V=0) therefore oopses the
-host when the VMM issues KVM_DEV_ARM_ITS_SAVE_TABLES to migrate it.
-That sequence is UNPREDICTABLE per the architecture, but KVM already
-handles the resulting state in the translate, MOVI and DISCARD paths.
+If mac_len >=3D ETH_HLEN, the new check can never trigger.
+It only matters when mac_len < ETH_HLEN, ie after POP_ETH
+or on an L3 device.
 
-Save a zeroed entry, which vgic_its_restore_ite() reads back as
-invalid. Skipping the ITE instead would leave the ITT slot holding
-whatever is in guest memory, and restore rejects an entry naming a
-collection the restored collection table does not have.
+Do you have a standalone repro? If yes, which path ends up with
+mac_len < ETH_HLEN on an Ethernet device?
 
-Fixes: eff484e0298da ("KVM: arm64: vgic-its: ITT save and restore")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-Link: https://patch.msgid.link/20260807104102.2410744-2-fuad.tabba@linux.dev
-Signed-off-by: Oliver Upton <oupton@kernel.org>
-[aarnahmd: Upstream vgic_its_write_entry_lock() takes in the kind of table
- entry (ite) and looks up its size, while 5.15 takes in the size of an ite
- directly via ite_esz, because commit 3b2c81d5feb2 ("KVM: arm64: vgic-its:
- Add stronger type-checking to the ITS entry sizes") is not in 5.15.]
-Signed-off-by: Aaron Ahmed <aarnahmd@amazon.com>
----
- arch/arm64/kvm/vgic/vgic-its.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
 
-diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
-index 054aec8a72e35..e6ed23b14623f 100644
---- a/arch/arm64/kvm/vgic/vgic-its.c
-+++ b/arch/arm64/kvm/vgic/vgic-its.c
-@@ -2151,6 +2151,14 @@ static int vgic_its_save_ite(struct vgic_its *its, struct its_device *dev,
- 	u32 next_offset;
- 	u64 val;
- 
-+	/*
-+	 * MAPC with V=0 keeps the ITEs mapped but drops their collection,
-+	 * and with it the ICID. Save a zeroed entry, which the restore path
-+	 * reads back as invalid.
-+	 */
-+	if (!ite->collection)
-+		return vgic_its_write_entry_lock(its, gpa, 0ULL, ite_esz);
-+
- 	next_offset = compute_next_eventid_offset(&dev->itt_head, ite);
- 	val = ((u64)next_offset << KVM_ITS_ITE_NEXT_SHIFT) |
- 	       ((u64)ite->irq->intid << KVM_ITS_ITE_PINTID_SHIFT) |
--- 
-2.47.3
+>
+> Fixes: 040b5cfbcefa ("Fixed updating of ethertype in function skb_mpls_po=
+p")
 
+This commit only added the @ethernet parameter to fix the ethertype update.
+The pop leaving a short linear part dates back to act_mpls introduction:
+
+Fixes: 2a2ea50870ba ("net: sched: add mpls manipulation actions to TC")
+
+> Reported-by: Vega <vega@nebusec.ai>
+> Link: https://lore.kernel.org/r/40fe2d7dfce13411bfbe9271c0f7c54fb7e88e3b.=
+1782548651.git.bronzed_45_vested@icloud.com/
+> Cc: stable@vger.kernel.org
+> Suggested-by: Jakub Kicinski <kuba@kernel.org>
+> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+> ---
+>  net/sched/act_mpls.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/net/sched/act_mpls.c b/net/sched/act_mpls.c
+> index 4ea8b2e08c3a..4d375033400b 100644
+> --- a/net/sched/act_mpls.c
+> +++ b/net/sched/act_mpls.c
+> @@ -57,6 +57,7 @@ TC_INDIRECT_SCOPE int tcf_mpls_act(struct sk_buff *skb,
+>         struct tcf_mpls *m =3D to_mpls(a);
+>         struct tcf_mpls_params *p;
+>         __be32 new_lse;
+> +       bool was_mpls;
+>         int mac_len;
+>
+>         tcf_lastuse_update(&m->tcf_tm);
+> @@ -76,9 +77,12 @@ TC_INDIRECT_SCOPE int tcf_mpls_act(struct sk_buff *skb=
+,
+>
+>         switch (p->tcfm_action) {
+>         case TCA_MPLS_ACT_POP:
+> +               was_mpls =3D eth_p_mpls(skb->protocol);
+>                 if (skb_mpls_pop(skb, p->tcfm_proto, mac_len,
+>                                  skb->dev && skb->dev->type =3D=3D ARPHRD=
+_ETHER))
+>                         goto drop;
+> +               if (was_mpls && unlikely(skb_headlen(skb) < ETH_HLEN))
+> +                       goto drop;
+
+Same remark as Willem's on patch 1: please pull instead of dropping.
+
+skb_mpls_pop() only guarantees the popped label was in the linear part.
+On an L3 device (mac_len =3D=3D 0) with a label stack, the next label and
+the following headers can legitimately sit in a frag.
+These packets work today, and this patch would silently drop them.
+
+Something like:
+
+        if (mac_len < ETH_HLEN && !pskb_may_pull(skb, ETH_HLEN))
+                goto drop;
+
+This would also remove the need for @was_mpls: if the packet
+was not MPLS, skb_mpls_pop() did not change anything, and pulling
+only drops packets shorter than ETH_HLEN.
+
+Thanks.
+
+>                 break;
+>         case TCA_MPLS_ACT_PUSH:
+>                 new_lse =3D tcf_mpls_get_lse(NULL, p, !eth_p_mpls(skb_pro=
+tocol(skb, true)));
+> --
+> 2.43.0
+>
