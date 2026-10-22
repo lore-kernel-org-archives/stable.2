@@ -1,57 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.181.193.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792696247;
-	b=Y14q/AVOUWJREasq6E3DleX29d2th8CNn0fbtOPEw8ussZDOZTUnTN+H1mK2FH2U1S2E
-	 wR7ENtYevr7D3lqCOykozFmhmy/X8KRMMm2w+DTjlBITGuijEEXzbZGseqqEK8g3opwyV
-	 46QvOaX90Q92xfRMPV4slPw+FDoY6tswq3UPeTurknFzoDbZa6AxA+T4Ul3yMvEQodsD/
-	 1lifYK6joltimA5SexlkPA+tCtQ8cxV1mzORCa4/46cMu6H1P9bmjrtnJ+QMomxjx9ZmM
-	 7oAYWKa2cmu+fGiqYOVDLXko021sst0REgcBpbjmVD2Wh0e1a9aZKHtBfExWj1LGL9g==
+	t=1792696444;
+	b=faQRdteZuYI2JFl9rvlP03E5POZOFUN/iyA4NgDA4eTzZipGeZntQVlo/97dUaUXqwxC
+	 g119hbiOe3nUVLjfS0IHa0tdUJkPHjTXWAorM0/0r4p3JqMjFkHFXnYVEU6xjEEa/FGd+
+	 lFC5QKNDZJ9yChvSOqJqtLHQprzyAT5SLHa7mEXM9lJaIWc6D0oh1Xv/ZY4sVS+ifWp6D
+	 0HbGfaL3Rgvt6Wdnjdme0Ign0xIlOxxz2+x1aj/UpFp79SgPruGvi9rGFxk7YeueLMq20
+	 u7P3d0PuYFdz0fuEMlYSLOZInI0iQg4B53z+hBIvRg5VO/fjpSXLIPqnpo7DqYhW4pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792696247;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=MFeC07KAH4GvpuKBWNAkiACw4RLLu07VaDPB38ST+hA=;
-	b=5mYoaHbeH6VBQ+P/IswKMLcOzSNwWJYi0O5oLX7awGVtYNlsnyv2WfpCJbCaO+UChMeo
-	 BfU8e2OpoY+GpK0vgutZBbvzzJTIUlulIONk3hPmpmNIHHKMxnKNcG5nnYh3ZVQ9piu+R
-	 vTcP/YW8uTM+4twtxG3jN3lcz+Vpvc4MujJDMBRnMdfUNkPaKZN8njutpJsPlYeNi6AeD
-	 hIY1wqaplIkUKT8w9rwBqZqvON4CEh1BVNq9sQufQV+LRBN315Rjm0gpxOBepmRJMaNJU
-	 +j6pwoi5m/rmDw7XUDCFraXemEGZkuELPvipoBwGH89OvzngnaI8M7YBOgvL0ROF0Jw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792696444;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:CC:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=vsJpFAykU3s5jKmosS/bzWFNklnfVvPjnhdmd2c4CtM=;
+	b=hOmhJjKavBCvcqWiBvj+SRbz9J6MIFkcnKZ8MKx3Ipalco9LMotgWSy6e79Q0Jp+fQLJ
+	 sHVhx+9mCt3ILGHLESU+nzEZXpmji3s9e0JM/dmImyAHHTHTIl26KlA7/HsSNNVV/89j8
+	 QH3M74KQ6pD3VY9d5bDbEVMnAAWIjB6cjF/yv9e+THQ433k/CUCVXypbkNOLkxNRRRJy+
+	 pCIr4iBC6nQQgFNR2oqFFqCz6hh9ijMTP6tNkQg3CpS0M71SEseQLtyawLBayHVSGb9Nt
+	 vqNF78ntDiKOPYDEo6AeCixQcn9bpJsKLRzdS+X9afhfa6ADBJnQUfzKpNU4kcXZ/Pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kezVzHAa;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=auroraos.dev;
+	spf=pass smtp.mailfrom=auroraos.dev;
+	arc=none smtp.remote-ip=95.181.193.9
+Received: from mail.auroraos.dev (unknown [95.181.193.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E2E606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 19:10:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kezVzHAa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1E471F01825;
-	Thu, 22 Oct 2026 19:10:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792696246;
-	bh=MFeC07KAH4GvpuKBWNAkiACw4RLLu07VaDPB38ST+hA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kezVzHAaYgId9qad/9d9AxxXEj0NA5GwSBOJD38EaP+EgUDWyo0V2Qkm8pDyvMkJb
-	 ewONd7xlaFiQcH39K9Tnp1/p5V8blgh6ngym4JSV8sVPcPctCvAKSi0ZF9FXRr4292
-	 0NHX4eCUJO3BhcGwj/sa/RFd4fNANU91Nd1i98H+kOPFXvIjS3JYo+BTVSHuZivvz3
-	 6MdpNfEqiWdRontAjpFqELxzXPF7bFt3BQQnGJU4aP7iKwHp9k+TJTiyWFXxqdAxnO
-	 Vtx27XPWEWww1R3tnuISOJXe5bjJYFxRA6sZ0ZdLqpwR0vZZJ+jLMA2tlQhX99IZON
-	 BMICCgesIrd2w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Daehyeon Ko <4ncienth@gmail.com>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	Bobby Eshleman <bobbyeshleman@meta.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] vsock/virtio: validate packet source for connected sockets
-Date: Thu, 22 Oct 2026 15:10:43 -0400
-Message-ID: <20261022190944.1791837-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102111-scrimmage-preface-ffce@gregkh>
-References: <2026102111-scrimmage-preface-ffce@gregkh>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B17606A319;
+	Thu, 22 Oct 2026 19:13:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01B17606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auroraos.dev
+Received: from [192.168.2.104] (91.78.0.35) by exch16.corp.auroraos.dev
+ (10.189.209.38) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Thu, 22 Oct
+ 2026 22:13:49 +0300
+Message-ID: <04a4490d-ac6e-4e90-bec4-dd3c0525e62d@auroraos.dev>
+Date: Thu, 22 Oct 2026 22:13:49 +0300
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,123 +45,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: dib8000: validate SNR exponent before shifting
+To: Ilya Krutskih <devsec@tpz.ru>, Mauro Carvalho Chehab <mchehab@kernel.org>
+CC: <lvc-project@linuxtesting.org>, Kees Cook <kees@kernel.org>, Hans Verkuil
+	<hverkuil+cisco@kernel.org>, Patrick Boettcher <pboettcher@dibcom.fr>,
+	Olivier Grenie <Olivier.Grenie@dibcom.fr>, <linux-media@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+References: <20261022172308.224576-1-devsec@tpz.ru>
+Content-Language: en-US
+From: Sergey Shtylyov <s.shtylyov@auroraos.dev>
+In-Reply-To: <20261022172308.224576-1-devsec@tpz.ru>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: exch16.corp.auroraos.dev (10.189.209.38) To
+ exch16.corp.auroraos.dev (10.189.209.38)
 
-From: Daehyeon Ko <4ncienth@gmail.com>
+On 10/22/26 8:23 PM, Ilya Krutskih wrote:
 
-[ Upstream commit dee44f41f206becb41c492899c1996cfd7f82a1b ]
+   Please consider using --no-git-fallback with scripts/get_maintainer.pl --
+I don't see what do I have to do with this patch (other than fixing another
+bug in this driver earlier).
 
-virtio_transport_recv_pkt() looks up sockets first by the full source and
-destination tuple, then by destination only in the bound table. The
-fallback is needed for listening and connecting sockets, but sockets remain
-in the bound table after connect(), so it can also return a non-listening
-socket.
+> Decode the SNR exponent as a signed value instead of storing it in a
+> u32.
 
-The fallback does not validate the source address. In TCP_SYN_SENT, a
-RESPONSE from an unrelated source can transition the victim socket to
-TCP_ESTABLISHED while its stored remote address remains unchanged.
-Subsequent RW packets from that source are delivered through the same
-destination-only fallback.
+   I don't see where are you changing the type from u32 in this version of
+patch -- this phrase seems to be copied from the 1st (internal) version...
 
-This was reproduced with capability-empty processes under different UIDs.
-The attacker discovered the target tuple through unprivileged AF_VSOCK
-sock_diag and caused the victim socket to read 16 attacker-chosen bytes;
-the intended peer-side socket read 0 of those 16 bytes.
+> Subtracting 0x40 from the unsigned exponent currently causes it
+> to wrap around when the encoded value represents a negative number.
 
-Add vsock_check_source() to validate the transport, source port and source
-CID against the peer stored in a non-listening socket. The local transport
-is the CID exception because its packets are generated internally with
-VMADDR_CID_LOCAL as their source, including connections using CID aliases.
+   Seems to be the intended effect...
 
-Use the helper after lock_sock() in the virtio receive path.
+> Keep the signal and noise mantissas unsigned, as they are used in
+> unsigned fixed-point arithmetic.
 
-Fixes: 06a8fc78367d ("VSOCK: Introduce virtio_vsock_common.ko")
-Closes: https://lore.kernel.org/netdev/20260813121236.2328599-1-4ncienth@gmail.com/
-Cc: stable@vger.kernel.org
-Suggested-by: Stefano Garzarella <sgarzare@redhat.com>
-Reviewed-by: Bobby Eshleman <bobbyeshleman@meta.com>
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Link: https://patch.msgid.link/20260826003929.966160-2-4ncienth@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: adjusted receive-path context to retain virtio_transport_reset_no_sock(t, pkt). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/net/af_vsock.h                  |  3 +++
- net/vmw_vsock/af_vsock.c                | 32 +++++++++++++++++++++++++
- net/vmw_vsock/virtio_transport_common.c |  3 ++-
- 3 files changed, 37 insertions(+), 1 deletion(-)
+   Again, this phrase seems to be (mindlessly?) copied from the 1st
+version... :-)
 
-diff --git a/include/net/af_vsock.h b/include/net/af_vsock.h
-index f742e50207fbd..2b5dd17cb58a5 100644
---- a/include/net/af_vsock.h
-+++ b/include/net/af_vsock.h
-@@ -204,6 +204,9 @@ void vsock_remove_connected(struct vsock_sock *vsk);
- struct sock *vsock_find_bound_socket(struct sockaddr_vm *addr);
- struct sock *vsock_find_connected_socket(struct sockaddr_vm *src,
- 					 struct sockaddr_vm *dst);
-+bool vsock_check_source(const struct vsock_sock *vsk,
-+			const struct vsock_transport *transport,
-+			const struct sockaddr_vm *src);
- void vsock_remove_sock(struct vsock_sock *vsk);
- void vsock_for_each_connected_socket(struct vsock_transport *transport,
- 				     void (*fn)(struct sock *sk));
-diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
-index c89f7b2df4ec1..0712c8339f927 100644
---- a/net/vmw_vsock/af_vsock.c
-+++ b/net/vmw_vsock/af_vsock.c
-@@ -328,6 +328,38 @@ struct sock *vsock_find_connected_socket(struct sockaddr_vm *src,
- }
- EXPORT_SYMBOL_GPL(vsock_find_connected_socket);
- 
-+/**
-+ * vsock_check_source - validate a packet source against a socket peer
-+ * @vsk: socket receiving the packet
-+ * @transport: transport receiving the packet
-+ * @src: source address from the packet
-+ *
-+ * Return: true if the packet arrived on the socket's assigned transport and
-+ * its source matches the stored peer. Loopback packets are generated
-+ * internally and always use the local CID as their source, including
-+ * connections using a valid CID alias.
-+ *
-+ * The caller must hold the socket lock and must not call this for listening
-+ * sockets, which accept packets from any source and have no assigned
-+ * transport.
-+ */
-+bool vsock_check_source(const struct vsock_sock *vsk,
-+			const struct vsock_transport *transport,
-+			const struct sockaddr_vm *src)
-+{
-+	if (vsk->transport != transport)
-+		return false;
-+
-+	if (src->svm_port != vsk->remote_addr.svm_port)
-+		return false;
-+
-+	if (src->svm_cid == vsk->remote_addr.svm_cid)
-+		return true;
-+
-+	return transport->get_local_cid() == VMADDR_CID_LOCAL;
-+}
-+EXPORT_SYMBOL_GPL(vsock_check_source);
-+
- void vsock_remove_sock(struct vsock_sock *vsk)
- {
- 	/* Transport reassignment must not remove the binding. */
-diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
-index 12eb365c1603d..9216ffe6a88a6 100644
---- a/net/vmw_vsock/virtio_transport_common.c
-+++ b/net/vmw_vsock/virtio_transport_common.c
-@@ -1320,7 +1320,8 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
- 	 * lock_sock (note: listener sockets are not assigned to any transport)
- 	 */
- 	if (sock_flag(sk, SOCK_DONE) ||
--	    (sk->sk_state != TCP_LISTEN && vsk->transport != &t->transport)) {
-+	    (sk->sk_state != TCP_LISTEN &&
-+	     !vsock_check_source(vsk, &t->transport, &src))) {
- 		(void)virtio_transport_reset_no_sock(t, pkt);
- 		release_sock(sk);
- 		sock_put(sk);
--- 
-2.53.0
+> Check exponent values before shifting by check_shl_overflow().
+
+   Yes, that's what the patch below actually does! :-)
+
+> Return the existing invalid SNR value when the exponent cannot be
+> represented safely.
+> 
+> Fixes: 77e2c0f5d471 ("V4L/DVB (12900): DiB8000: added support for DiBcom ISDB-T/ISDB-Tsb demodulator DiB8000")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ilya Krutskih <devsec@tpz.ru>
+> ---
+>  drivers/media/dvb-frontends/dib8000.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/media/dvb-frontends/dib8000.c b/drivers/media/dvb-frontends/dib8000.c
+> index d291113291e0..442ec06e34dc 100644
+> --- a/drivers/media/dvb-frontends/dib8000.c
+> +++ b/drivers/media/dvb-frontends/dib8000.c
+[...]> @@ -3873,7 +3874,8 @@ static u32 dib8000_get_snr(struct dvb_frontend *fe)
+>         exp = (val & 0x3f);
+>         if ((exp & 0x20) != 0)
+>                 exp -= 0x40;
+> -       n <<= exp+16;
+> +       if (check_shl_overflow(n, exp + 16, &n))
+
+   The question is whether the hardware can actually return exp < -16 or > 15...
+
+> +               return 0xffffffff;
+> 
+>         if (state->revision != 0x8090)
+>                 val = dib8000_read_word(state, 543);
+> @@ -3883,7 +3885,8 @@ static u32 dib8000_get_snr(struct dvb_frontend *fe)
+>         exp = (val & 0x3f);
+>         if ((exp & 0x20) != 0)
+>                 exp -= 0x40;
+> -       s <<= exp+16;
+> +       if (check_shl_overflow(s, exp + 16, &s))
+> +               return 0xffffffff;
+> 
+>         if (n > 0) {
+>                 u32 t = (s/n) << 16;[...]
+
+MBR, Sergey
 
