@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792634660;
-	b=nhAO3PttQTimS29ircHMfeyj527iAjrJI1ub3fqG+g4oQy5a6mA+iZZOlmo2RqMzVzJB
-	 H7QTf6KZU8V0ijg6cq64NGoa/7h8YVlJF+bMXrYAK7HjKqzHorUrHZ0R6hjq8PwG32bL5
-	 dqHcPgvSC2Xr47xxWqWpKCpErtOEIdmb7K+l6xvAAhiSLYfhCrr54r/Gjb688yc5N0rsO
-	 ZH/A3GRkTrUPS5RikeGvq7P/9deRxK1tmoa5alL+SF6OD2STIXLtdWmGhWA/nP5vxNI/+
-	 WwG/pUAE9kt//8GUpSIg8bxyhlGuQaEtCpxXnUFOwTzn2mbNj5QXtY2xCj38SmvFECQ==
+	t=1792634668;
+	b=cHGbeg/ESRgwYlEQE0A6ddc1yeRZ0cMB2lueSB2U699H78LkZHVMUjordtCLC1AA09yy
+	 EKItIS6mEhdrfVUVHycKVeKNbvfq/SsxAz54eSQa+zoKaivK6rt/8tZNOskLJReEO+Ibm
+	 52IP+vm6ZvBviYp5ExHpr4XwBXkswAfuTmE9GZkcPfS5S18FhNcWvxlv01Hw3yKyaYq8y
+	 /qbc7tgrE5jcczUDc88WGvpiZYhpg6m6xAKxB35cWEEjJTBeZWk3tcDwySIHYE/alibAJ
+	 CTZ8cR2gwOi6ZGWQer9V0jlZgOuivMs/gCLpccWvtOAztPdLo5CCvQB5DCKwFN/O25g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792634660;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792634668;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Pvb1W6New77Qu7AZhZxWG2Le7gUUjpAgzIQyd5xgYrE=;
-	b=rx2jdsKm+GoGXdNBWNtDNXJDd5ApoVRlm6LSvUwPu4dgR+LWPvk/6ebNUDWUzeFVgl48
-	 1eM4YhjNpOF/npjjUOB7tQKexKjFJIZXYM0/XWXyzcOtXbvQ0vKwQhIr9X5VWPQiUID1c
-	 mNIK34OKsy+obNnBahCRvi29fch2gVFH0O2U/TR0JcF06MCg4CWwiZYL1WzYY+iiJIshO
-	 yGPo9+yfSA8mMK/TvzyL2dCzMKC47VLX0TaNHOkVjyyq5YPXDfvMZGW6kx4SXsqvbJzmk
-	 qjWhO1bqg1BTLIQ6qvLN/Fkf3bID+Q2t6mrLdqxn6qfTSkoDMe5nDZwD57p1/nM5lJQ==
+	bh=EIBe6Egbq8wlFoK5s9mm5fcqq9mc2/jTVPwCC5RTPeA=;
+	b=K9Jt/HUvdk4MtwmuLHtR8S06mBwz7j6ZJ2Q6QNnw0fPTtWUGfHLRkZSTviiBvfuDvzgJ
+	 r+bwxEFhGPL8qFsshDUOgOaHlRkP+ZbU9FxOjnX9ZRHWKlHkfNuDKi1ptSgd+22u7OtqH
+	 2UyD9FxbywbEIheGLs63DAHTdteOZ7xeVJ4xtpZ2FAj1kymxrjSDowZlBQqOq5T8aKGwx
+	 8IOpu9J9VjEN17QypN8yDk8OI940108qtYPEEMjcZK/ZjIVtaazdwozYpFoDuTqhtaC+A
+	 1XyfcSWZMZxNeE9bJD7XVtRF4rkwuyrC/KlcZEpLcF1QDdx/DyXfXIoOrvGvOqNmCAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OfdODx0M;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2ijeOqb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B064606A319;
-	Thu, 22 Oct 2026 02:04:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FA9E606A329;
+	Thu, 22 Oct 2026 02:04:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OfdODx0M
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 150521F000C2;
-	Thu, 22 Oct 2026 02:04:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2ijeOqb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 416891F000C2;
+	Thu, 22 Oct 2026 02:04:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792634659;
-	bh=Pvb1W6New77Qu7AZhZxWG2Le7gUUjpAgzIQyd5xgYrE=;
+	s=k20260515; t=1792634668;
+	bh=EIBe6Egbq8wlFoK5s9mm5fcqq9mc2/jTVPwCC5RTPeA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OfdODx0MnouRb3RR2BGad1GjxqSs7yU83n87GraCP9GlqRh59P2aRMwZuEPgQahq+
-	 53PJiCQ5mPlqPp/NJP1MYZJztP+p5BBTpVAXAHz6OSDha7bpRIaKene6KVOiJ5HBa2
-	 Bt+wTP+N1WvB2mjHW8lrpKgKugewMLYosbENFto8ZWOWSwCSuYvysyHA1yNA/Nc+CB
-	 62OH4OmtuXuOqnhY4ucp1vLSwugaucr+b/1sO2Trs2aWdnlbAZtYwiP2RVKZRO4Eu2
-	 jQ4/82YhBppGzMom3HptWDoBSN+cHDToJcA2ZILSOQxdVbHNCUuFOqjh9dxYAybsL8
-	 lsAoNIPxRszhA==
+	b=j2ijeOqb0B6d//ylvbeNf8on1Tzd1ZfKXgHKdX+U3zdQ09G6k/bjfL3BJ+sABwJQO
+	 MYeJ5vFrzIAsrdYO2xjkgi7drLqlD1o4+uv+h4flnkGewVY3egVCWpCDVGC6IMLq4f
+	 0WzXXZ0iaiL23UOQrejidp6hvUeS7djnDQbnwfa47I0bQHMRYUkb9DC9y5XG5TImw8
+	 vK+ngWdWz2aXiUPP5DIsIFTAFR8PJFfA2ZZEbPrj5l1ezgtW9I0Lohqu4ttymGHjpO
+	 i3aV7nCuJD85m50VknQt7t2VgYYn7EpqqvGHY+ZfiDNj0q9nQf8Hr0ggZwWF+iQTlP
+	 0631pJCCLnHtw==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	regressions@lists.linux.dev,
-	linux-acpi@vger.kernel.org,
-	rafael@kernel.org,
-	Mikkel Sejdelin <mikkel.sejdelin@proton.me>
-Subject: Re: [REGRESSION] 6.18.57: resume from s2idle triggers poweroff and hangs when tiny_power_button is built as a module
-Date: Wed, 21 Oct 2026 22:03:44 -0400
-Message-ID: <2026-10-21-1-daily-reply-0019-tiny-power-button-6-18@kernel.org>
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hyunwoo Kim <imv4bel@gmail.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>
+Subject: Re: [PATCH 5.15.y] KVM: x86/mmu: Preserve nested TDP shadow page tables if they are used as roots
+Date: Wed, 21 Oct 2026 22:03:52 -0400
+Message-ID: <2026-10-21-1-daily-reply-0027-kvm-nested-tdp-roots-5-15@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <1kU98bgDqqEMGUcpGahaBYlaPiP2ssSCZj1uIKq1MEaGpNv2exGeJc3VWzXxB8-VJQ1Uk62W19oByt2KC-v1bSA4Sux9fBhnlA_IHWjV2Zw=@proton.me>
-References: <1kU98bgDqqEMGUcpGahaBYlaPiP2ssSCZj1uIKq1MEaGpNv2exGeJc3VWzXxB8-VJQ1Uk62W19oByt2KC-v1bSA4Sux9fBhnlA_IHWjV2Zw=@proton.me>
+In-Reply-To: <20261021024921.1735149-1-seanjc@google.com>
+References: <20261021024921.1735149-1-seanjc@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,15 +65,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Suggested fix: backport f4203ec64e11 together with 52d864019636, or
-> revert 38c79dacc806 (and its dependents) from 6.18.y. Note that the same
-> backport also appears to lose fixed-event power buttons (LNXPWRBN)
-> without ab06eb920401 ("ACPI: scan: Register platform devices for fixed
-> event buttons"), reported at
+> As in top-level reclaim, do not recursively prepare zapping of a
+> nested TDP child whose root_count is non-zero.
 
-Queued the tiny-power-button conversion for 6.18, thanks for the report.
-The fixed event buttons commit you mention is already queued for 6.18 as
-well.
+Queued for 5.15, thanks.
 
 -- 
 Thanks,
