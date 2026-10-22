@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792698824;
-	b=MJ1g3qKvUM6migCumiWT48rqf5how4+lLCv9npv01tvToJfTx5iMQPfaMYD8hzPIS+pb
-	 LyEfvQcoZkr+diB4v9cjyQXgXMxc4lIVpDSt4UuwPmQEoeXZR7j4M4kWr81gF5dAmNWso
-	 zMwJocv5bWDspXQLnlosskR7tymm2+EUlVwx9HOMQ6HFR1PKusyHy5NwcPUQGZbFxt1R0
-	 W8s3vtCpfmKX/DYIsl5kldcGTHZ6mGIg52JQ+BnFNkcE12til07kFBz5MynPm5pMLx8uy
-	 CIcvU/hvQCl+UPn077whOAtJbQHL16OzatH9ZAgyjbqRJsjeb4Htw1PC1kVkumTa+qw==
+	t=1792699845;
+	b=g/HCEDe3D/HQZdXgfeLDCHgU7Syw3x3bWtml59oRNDOmCJjJY3HXpr681DJxAujewL6l
+	 /u899as683Sx7NkjQ0KEs5XxPJOim2oCg0kkG8d+MrpI6v2mzFmrJ+QIBNYAFlSHajog+
+	 88xHHMk9TvIlJBALBVxZlWg+6UQhdGrn75GDlXxNBQPStoXqEo/8I4y0RgNW8fj4JA0rs
+	 03QwPX7s8B7HD8hmi4f2l1eUFW4czVDfOdD5uIaxEMbZ9HY/uHuGWXEEx4lNifg5E5on+
+	 C2WdCc35FPH4rlHve2BaKZeP2JkJA6YGC4c9oPiIwpS7yZfJw3fv5CAmulfGRyxlApQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792698824;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=WP6JlEeQD8ASkWEjwTi9/wZT4bsEhI/9QekFpGnJ+1s=;
-	b=BmtZsbv5NTi0MZAC2g+wCfkcDw04B7idE7JL7ID+m0CLy8v9I19uehUFaQiG2WS44I2e
-	 7xgsc57kV+P0wv8QfBFqVvavG0JKPktC2jpoFEF/n2HPW+fVD3qpysJkshnT83XHFlNiX
-	 rNxL9yFZMpz9qfZNbP4dWqxinpkEbYNfuyn1t7p/KUTWtYlhS4qLPEJHir57qHUSzvAqm
-	 ErW4I4iT6UQRRjaOKkTac9hY0dVxh7F3sv5ZEuZ6esRkQRZhgeMv3W7/sTH45y8QbWAg2
-	 fCiIrMRMbHOhml5JfeLXhYV7qpDsuDXDup1hizqvPdPn+J2i7FiUX12fhGsU70Lg6fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792699845;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=FG273xMG1Uae6fqL/j4kCU9/xbfPk6mISMKHJAcQOuo=;
+	b=BPwae1uYs1AX84nr3qGdOheBkCdnT090cyTdxEGhMS7uKNirfcL/ktuxxoTMv51urLJ6
+	 +8Q1Fpynu0h8qUt2u7Xo1DiBLzlhnojgPgn/hWUN/WlxugLG6hjjUu+30I9TpV0S4y9JL
+	 jW6vm222cDN4GH7Cbct1sunzDacjjf6fC699nMHUPMIl9ZTSd48qJI+jTFkP8Zk4W4bwe
+	 piL0PTntsOvhoOXSqLKR7K4oCgkUBuTduiyGRqJFK+NN5feBZaadVu3VPkpH2xr6V+Dm+
+	 9mlV8k5goOmVJURfehrV7QA0DjtXcZLpDsXWqRNf/AqnsVQB7zLcA9/B15zqWE1fLqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ap/n+GRk";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="JDF542N/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F91606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 19:53:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C4E5606A31D;
+	Thu, 22 Oct 2026 20:10:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ap/n+GRk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DC5B1F01828;
-	Thu, 22 Oct 2026 19:53:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JDF542N/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F4331F01825;
+	Thu, 22 Oct 2026 20:10:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792698824;
-	bh=WP6JlEeQD8ASkWEjwTi9/wZT4bsEhI/9QekFpGnJ+1s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ap/n+GRkCB9RpxAIDBLjjEOMXtAuv21IFKd9fcEQYnj8ZR0/hyMXvwq3wdekNAUFS
-	 rIrGob/5EHHN3S7PTvFclFfuxgoRhi6vE7B/ZHiS2DReXwoBQo2WJzOqE8gGCMBO4F
-	 lkb0XBrlr8Dywv8gQEA/BJeRGx6mSpnQshaY660wEGg4kFCMtzo3cf/10otihjW/AD
-	 L3LOh1tcA2hRSY2XQSEKSWihBD/OFwTVj2lAhdgxlw9ZQHWooGZguJD3BBFYp/pCsP
-	 lEIM7qY3R5K/cp8GuXxEGItcKoR20sjSL+jBEMT8SCM/Ll6b4lers1JDySH/e6MK2E
-	 RvLhkN/jPOepg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ido Schimmel <idosch@nvidia.com>,
-	Amit Klein <aksecurity@gmail.com>,
-	Noam Caspi <noam.caspi@mail.huji.ac.il>,
-	David Ahern <dsahern@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] ipv4: udp: Create exceptions before socket matching
-Date: Thu, 22 Oct 2026 15:53:42 -0400
-Message-ID: <20261022195312.1991979-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102123-unroasted-manpower-c7ea@gregkh>
-References: <2026102123-unroasted-manpower-c7ea@gregkh>
+	s=k20260515; t=1792699844;
+	bh=FG273xMG1Uae6fqL/j4kCU9/xbfPk6mISMKHJAcQOuo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=JDF542N/voHMh8Ttpa695Cp3cQC56d1e+882C4gB1AJgdoUUp/Dleh2q/vd/WEcvi
+	 gPN/HBMAJy8p6CDv8AuHPT1kKhf6jZmDepTAXiFomOB7HMGXgQPy7OA7ITjb3VPjTW
+	 wxaB8mYdFWVBBp2BJxNYUziFZP9OSGRgdIwgwUVv/pBrtkEKWzJa9sNXeyElh9c0gW
+	 fhJ5raHJRO/B9aNSIqn6cFKZKCFLqpREztgReRVeKuwRM4xKYGneoy9ueZUnkIbm/T
+	 LZsfpHno8yncdn/rf5zAAzagQ4W8/nm0vsTJpO32rtpiy6e9ZaGOw2fLWzJHRuy2jj
+	 IwhXy5GApi14A==
+Subject: Re: [PATCH mptcp-net v5 1/2] mptcp: pm: in-kernel: fullmesh: skip
+ closed subflows
+From: netdev-bot+sashiko@kernel.org
+To: w453y.me@gmail.com
+Cc: mptcp@lists.linux.dev, matttbe@kernel.org, martineau@kernel.org,
+ geliang@kernel.org, pabeni@redhat.com, stable@vger.kernel.org,
+ kuba@kernel.org
+Date: Thu, 22 Oct 2026 20:10:43 +0000
+Message-ID: <179269984391.3133.8401922398950966518@kernel.org>
+In-Reply-To: <20261021070324.50533-2-w453y.me@gmail.com>
+References: <20261021070324.50533-2-w453y.me@gmail.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,88 +63,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Ido Schimmel <idosch@nvidia.com>
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-[ Upstream commit 4c3499f79f8c7e8561266bcc220a18538cec0458 ]
+Low priority / nit picks for your consideration:
 
-Currently, when ICMP Fragmentation Needed and Redirect Message packets
-are locally delivered and quote a UDP packet, a FIB nexthop exception
-(FNHE) is only created if the kernel can match the UDP packet to an
-existing socket.
+- [Low] The commit message gets the failure mechanism partly wrong for
+  the case where the initial subflow is already in TCP_CLOSE.
 
-This behavior allows off-path attackers to conduct a side-channel attack
-on the FNHE cache in order to discover the ephemeral port used by a
-connected UDP socket.
+--
 
-Commit 6457378fe796 ("ipv4: use siphash instead of Jenkins in
-fnhe_hashfun()") and commit 67d6d681e15b ("ipv4: make exception cache
-less predictible") tried to mitigate such attacks by making it harder
-for attackers to discover hash collisions in the FNHE cache and by
-randomizing the number of exceptions a hash bucket can hold,
-respectively. Unfortunately, both of the mitigations can be bypassed.
+mptcp: pm: in-kernel: fullmesh: skip closed subflows
 
-Instead, mitigate such attacks by always creating a FNHE, even before
-trying to find a matching socket. Do that by calling ipv4_update_pmtu()
-and ipv4_redirect(), the helpers used when the quoted packet did not
-originate from a socket.
+This patch changes fill_remote_addresses_fullmesh() to skip subflows that
+are closing or in TCP_CLOSE. They are skipped both when collecting the
+remote IDs in use and when picking remote addresses. If no subflow is left
+to provide the remote ID 0 address, the remote address of the MPTCP socket
+is used instead, as fill_remote_addr() does.
 
-This means that guesses (right or wrong) from an off-path attacker will
-always result in a FNHE being created or updated in the cache that the
-attacker can observe.
+> If it was already in TCP_CLOSE,
+> e.g. after a reset, it is disconnected and its context is reset: the
+> 'closing' flag and the remote ID are cleared, and its remote address
+> and port are zeroed. It is then picked as a remote address, with the
+> address 0.0.0.0, the port 0 and the ID 0, which also marks the remote
+> ID 0 as unavailable.
 
-Pass an oif of 0, in a similar fashion to icmp_err(). This is also the
-oif used by the socket path for sockets that are not bound to a device.
+[Severity: Low]
+Is this description of the TCP_CLOSE case accurate?
 
-Note that this does not allow attackers to create FNHEs that they could
-not create before, as both helpers can already be reached with little to
-no validation. For example, by sending an ICMP error that quotes an ICMP
-Echo Reply or one that quotes a UDP source port that matches a wildcard
-socket.
+>From __mptcp_close_ssk(), the initial subflow stays in the conn_list and
+goes through __mptcp_subflow_disconnect():
 
-Also note that in the good case (matched socket) the above scheme comes
-at the cost of an extra route lookup, as the no socket helpers perform
-their own lookup before the one performed by ipv4_sk_update_pmtu() /
-ipv4_sk_redirect(). When the two resolve to different nexthops, it also
-results in two exceptions being created for the same destination IP. One
-in the FNHE cache of the nexthop resolved by the no socket helpers and
-another in the FNHE cache of the nexthop used by the socket.
+net/mptcp/protocol.c:__mptcp_subflow_disconnect() {
+    ...
+	WARN_ON_ONCE(tcp_disconnect(ssk, 0));
+	mptcp_subflow_ctx_reset(subflow);
+    ...
+}
 
-Fixes: 4895c771c7f0 ("ipv4: Add FIB nexthop exceptions.")
-Cc: stable@vger.kernel.org
-Reported-by: Amit Klein <aksecurity@gmail.com>
-Reported-by: Noam Caspi <noam.caspi@mail.huji.ac.il>
-Signed-off-by: Ido Schimmel <idosch@nvidia.com>
-Reviewed-by: David Ahern <dsahern@kernel.org>
-Link: https://patch.msgid.link/20260828192344.2596928-3-idosch@nvidia.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: Inlined udp_err_update_exception() into the existing udp_err() wrapper before calling __udp4_lib_err(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/ipv4/udp.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+On that path, tcp_disconnect() resets only the destination port and the
+source address:
 
-diff --git a/net/ipv4/udp.c b/net/ipv4/udp.c
-index 271bf781fe54b..3c41aed3788c0 100644
---- a/net/ipv4/udp.c
-+++ b/net/ipv4/udp.c
-@@ -879,6 +879,15 @@ int __udp4_lib_err(struct sk_buff *skb, u32 info, struct udp_table *udptable)
- 
- int udp_err(struct sk_buff *skb, u32 info)
- {
-+	const int type = icmp_hdr(skb)->type;
-+	const int code = icmp_hdr(skb)->code;
-+	struct net *net = dev_net(skb->dev);
-+
-+	if (type == ICMP_DEST_UNREACH && code == ICMP_FRAG_NEEDED)
-+		ipv4_update_pmtu(skb, net, info, 0, IPPROTO_UDP);
-+	else if (type == ICMP_REDIRECT)
-+		ipv4_redirect(skb, net, 0, IPPROTO_UDP);
-+
- 	return __udp4_lib_err(skb, info, &udp_table);
- }
- 
+net/ipv4/tcp.c:tcp_disconnect() {
+    ...
+	inet->inet_dport = 0;
+
+	inet_bhash2_reset_saddr(sk);
+    ...
+}
+
+inet_bhash2_reset_saddr() ends up in inet_reset_saddr(). That clears
+inet_saddr, inet_rcv_saddr and the IPv6 source addresses, but not
+sk_daddr or skc_v6_daddr. mptcp_subflow_ctx_reset() clears the reset
+group (closing, remote_id, ...) and sets local_id to -1. It does not
+touch the socket addresses.
+
+So in the old fill_remote_addresses_fullmesh(), mptcp_remote_address(ssk)
+would return the real peer address with port 0 and remote ID 0, not
+0.0.0.0:0.
+
+The conclusion still holds, since port 0 is unusable and remote ID 0
+still gets marked as unavailable. Could the changelog say that only the
+destination port, the source address and the IDs are reset, and that the
+peer address is kept?
+
 -- 
-2.53.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261021070324.50533-1-w453y.me%40gmail.com
