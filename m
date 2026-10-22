@@ -1,109 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792662947;
-	b=iuBUHotYezSvsOywoz5gsDQjxlfwynOZPOfori5KUM4biMOQ0VlhuEfu++odGDb2g+47
-	 4jy1zE8tNmfQDfCnnrnQmtsAI/G18QcdZtw/nZSng+LOn4ITsElabeXOjoMPo094yo23Z
-	 PejT0V6Tq8TOCwDXRxvF3l3nw4xD/9kO1RzxSMKSN7RV6FVSyrU5vgbTyD3ouYMpbV61R
-	 fOb9hTBYQR4xbmcTcbVZwjS1GdGq/w3b3ysOsnqunOfDb86SA2GvjafsAQX8nd1VCT4mT
-	 j1F3v2HagYIr4J/YD6qEqjbCq5K7DSs35xBoKln8Kvmh/fBv5+JCtnKPE6yvRLiVLhA==
+	t=1792662956;
+	b=A1fRWVaeErbHcRdDSACdxtyO7TIirA1RykCwSr3jyi7gR3YJKxo2txvIFLuk/XleQFxj
+	 Hpm7hQmiOS0Dn0Mkv/Y7F0NKNDs4Nj9u+4xXSN+KpbGVY68keqpkDJ1NaX7lzHT64E0eO
+	 14ynsuInh5mcNLTwDomHKJgbp99Gu6/AbxDhrYm/cpe9osBWjDg92YHEp3YLtxdanfHkB
+	 MqkF+FN2vRxE3rqH2kAi1e4BzhXmlmtzlnj17lLv2tFYJXGqfbfDmdSweZBz1STMsj+p6
+	 D/sj4waaScy9LOoyZdUF1T/XSlMa1dh/hwx8qxXWmlR/vy0Fo5XbYg4IY/rVTxQ4GWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792662947;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=8VmMT6SL3lJ/c87KR2eDUfeOG9XwswkHzu1/RmZsfbw=;
-	b=bgQH1kzT3LbW3HBj63xATJA1UnnMKzUVcUeh2kDEmQzRxVVm4wYRk8haI0zPX9bnis0x
-	 VQ481nGzjFEYvupgfPBAGBP8JnsiHDaZCXCCqIUzumQ8ohCDsCQWSdeL50Fd2qOUxf/S/
-	 42kd+P6Nej22uUJBh4dr4wOuFOIfBiuz2ARUHQaNrkx6weyoZeipLRcKqm4QGTFFiS/cl
-	 ZNUaaAklM0NZA12wDRLshEL8gH+F7QPVWZ23rXgEF4yIujd3auqhBxDc7GB/KdW/AtIjm
-	 VF7CUJ4YVvRXxIn09Pl0MhoLxNxsb2DXHnd/TccOJE9GFtozdroDWhDhPyyFkr1KQmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792662956;
+	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
+	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=qaKCa+TjoD1OzgCla43bUHaZNaOHmxBbECmuWAdteZU=;
+	b=OUwhChYVm6l0F1RaGKFSKV+35kizMKdytXYJ1AV4B/W1PaW6CrsOjZ1NslSqqDq+NgXF
+	 /MohJ0fDOryt/mtYlqZh9b/Rpb0t7JPkOOsIYq879VSR9RaV4TmfvCg1RJSmZf7S9IsSi
+	 P8a2Xj880aMhGrGvoHiQUlZBlBxupDmp1qkvSk4oV3r78nMe01uy8PysquMVg2oKkyVDt
+	 VEsKF0YwgMmcw4+uz4wLV3QEwZpNnStQQKw3kDURXwxJIUjbiYzjpR3FaQEdxl2+3pXvQ
+	 oDnXw+OfgKFTze0NyWj54JHt0BHBGJPWE8e1KVjtX7uXfkUaxNHQUCpSCIg9kNFd/Tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=kdn4NQ9K;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="CB/cdJ/3";
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=0MKzMBl1;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bTQCFzj4;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=jkGd8yDi;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2AF9606A319;
-	Thu, 22 Oct 2026 09:55:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2AF9606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E95606A31A;
+	Thu, 22 Oct 2026 09:55:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6E95606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=kdn4NQ9K;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=CB/cdJ/3;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=0MKzMBl1;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bTQCFzj4
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id DF3472212F;
-	Thu, 22 Oct 2026 09:55:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792662945; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8VmMT6SL3lJ/c87KR2eDUfeOG9XwswkHzu1/RmZsfbw=;
-	b=kdn4NQ9KpaN2zIvp5IbzFXPnTdAst5oxWQFJQvaiZvlwPoc5BP7yOEPKSEqBhCZ5HbkO3Q
-	4cc+KCdYAiyTTLUZcev9n9oIAvRqlxsS7FMrL2qhl2jQYX32YU6oL7EZyZW1wy9RjmrJMm
-	UdQzIe7pPGvbBHgZh0gV7tg1XvU+rsY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792662945;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8VmMT6SL3lJ/c87KR2eDUfeOG9XwswkHzu1/RmZsfbw=;
-	b=CB/cdJ/3F90e9V1KBM/iB3jXpWdeZLBPotnWDu7U88AD3yxrhFrb6wwW89jy7K5VdFkw0G
-	0z0ARWtFNTXyR9Cg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=0MKzMBl1;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=bTQCFzj4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792662944; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8VmMT6SL3lJ/c87KR2eDUfeOG9XwswkHzu1/RmZsfbw=;
-	b=0MKzMBl1VINOziycO0wd4arrDofm8Fp6OEvtmrIr9dOHypVu3p71TOMehGSMkSJ0cXnCTV
-	KfZoTmHEOWa1mh+kMkUtj9JpbYi86N75lew37UsprdGfRZ7V1LkCYxYJ0P39wdLRIlZRYa
-	pRRCFo/SakFa6XQduKYdCzZ9y+C2K5A=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792662944;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8VmMT6SL3lJ/c87KR2eDUfeOG9XwswkHzu1/RmZsfbw=;
-	b=bTQCFzj4e7EnvITVqIllGzkZxJ8tmLEcYVC4wEcOvks9wsfmKpIh3CZQ3NTpBlFscPeuPM
-	ZT5ZP+Ofn3lCzHCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B651E133F3;
-	Thu, 22 Oct 2026 09:55:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id iFi6I6Dd2Wp3BwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 22 Oct 2026 09:55:44 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 3F280A1417; Thu, 22 Oct 2026 11:55:36 +0200 (CEST)
-Date: Thu, 22 Oct 2026 11:55:36 +0200
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 02/15] super: don't warn when resume thaws a userspace
- freeze
-Message-ID: <zx5xykzg6s5tdzcegobouzicxdddgxakdw5lhmubgzqkqa5d2m@s56uiwg47smi>
-References: <20261011-work-super-fixes-core-v1-0-c727176c5b53@kernel.org>
- <20261011-work-super-fixes-core-v1-2-c727176c5b53@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=jkGd8yDi
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7DD1DA002E;
+	Thu, 22 Oct 2026 11:55:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1792662952; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=qaKCa+TjoD1OzgCla43bUHaZNaOHmxBbECmuWAdteZU=;
+	b=jkGd8yDibczG1IzorFlU0eIzFeR7ouTn8kpjRjh7Z8+AH6tILxsPy7X8E6zi1qSBFO3315
+	jQlgC/jX1h+tP+NaF80fxQlpB8233HvEKYYKL800t+7a4eKgLcXQR2u8HzuPl1gDTMsHzz
+	SbuOVUx5ThCI120xgTHKGO+alPwUBXrcwj2lJh6sPxzUTMuQ34ZbLN+XkJgYdC4lOKq9On
+	S/X935HMwWM3CjrtsQS+LxSbro1EOAqgNMuJDxX+kLIiGC2r1HZhdit+DfyxjJ4QQM3z2w
+	nRmDL/QS1EoyeIDeuP/hln1d3WluMMJ2ILpq7LHM2WnI1LG3GqhAoy9hyZs7Ww==
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -113,115 +53,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261011-work-super-fixes-core-v1-2-c727176c5b53@kernel.org>
-X-Spamd-Result: default: False [-13.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.cz:dkim];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: DF3472212F
+Date: Thu, 22 Oct 2026 11:55:49 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Steffen Dirkwinkel <lists@steffen.cc>
+Cc: =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, Conor Dooley
+ <conor.dooley@microchip.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+ <horms@kernel.org>, Kevin Hao <haokexin@gmail.com>, Sebastian Andrzej
+ Siewior <bigeasy@linutronix.de>, Russell King <linux@armlinux.org.uk>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, Christian Taedcke
+ <christian.taedcke@weidmueller.com>, Andrea della Porta
+ <andrea.porta@suse.com>, stable@vger.kernel.org, Steffen Dirkwinkel
+ <s.dirkwinkel@beckhoff.com>
+Subject: Re: [PATCH RFC net 0/6] net: macb: fix TX stalls, IRQ storms and a
+ lost NCR update on link-up
+In-Reply-To: <20261022-std-macb-v14-send-v1-0-9187bc545bf6@beckhoff.com>
+References: <20261022-std-macb-v14-send-v1-0-9187bc545bf6@beckhoff.com>
+Message-ID: <21335ef00521312c158b0a71bf8ef08d@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sun 11-10-26 17:56:02, Christian Brauner wrote:
-> filesystems_thaw() is called on every resume from suspend or hibernation
-> no matter whether filesystem freezing was enabled. It walks all
-> superblocks that have freeze methods and calls thaw_super() with
-> FREEZE_EXCL | FREEZE_HOLDER_KERNEL and its owner token. It relies on
-> may_unfreeze() to refuse every superblock it didn't freeze itself.
-> 
-> But may_unfreeze() checks the kernel freeze count before it checks
-> whether the superblock is exclusively frozen at all. A superblock that
-> userspace froze via FIFREEZE or that got frozen through its block device
-> has freeze_kcount == 0. So every resume while such a filesystem is
-> frozen triggers:
-> 
->   WARNING: fs/super.c:2165 at thaw_super_locked+0x85f/0xbf0
->   ...
->    filesystems_thaw_callback+0x196/0x220
-> 
-> and with panic_on_warn the resume panics.
-> 
-> Check the owner first. If the superblock isn't exclusively frozen, or
-> not by the caller, there's nothing for the caller to undo and that isn't
-> a bug. An exclusive freeze always holds a kernel reference so keep
-> warning if that's not the case.
-> 
-> Reproducer, needs CONFIG_PM_DEBUG:
-> 
->   mount /dev/sda /mnt
->   fsfreeze --freeze /mnt
->   echo freezer > /sys/power/pm_test
->   echo freeze > /sys/power/state
->   # WARNING in thaw_super_locked() from filesystems_thaw_callback()
-> 
-> It fires on every run. Not a selftest because it suspends the machine
-> and the only symptom is the warning in the kernel log.
-> 
-> Fixes: 1af3331764b9 ("super: add filesystem freezing helpers for suspend and hibernate")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Hi Steffen
 
-Right, looks good. Feel free to add:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
-> ---
->  fs/super.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
+On 22.10.2026 11:38, Steffen Dirkwinkel wrote:
+> Hello Théo, Christian, all,
 > 
-> diff --git a/fs/super.c b/fs/super.c
-> index 15ecfbeb92ab..4e8f7f48540c 100644
-> --- a/fs/super.c
-> +++ b/fs/super.c
-> @@ -2165,14 +2165,15 @@ static inline bool may_unfreeze(struct super_block *sb, enum freeze_holder who,
->  			return false;
->  		if (WARN_ON_ONCE(!freeze_owner))
->  			return false;
-> -		if (WARN_ON_ONCE(sb->s_writers.freeze_kcount == 0))
-> -			return false;
->  		/* This isn't exclusively frozen. */
->  		if (!sb->s_writers.freeze_owner)
->  			return false;
->  		/* This isn't exclusively frozen by us. */
->  		if (sb->s_writers.freeze_owner != freeze_owner)
->  			return false;
-> +		/* An exclusive freeze always holds a kernel reference. */
-> +		if (WARN_ON_ONCE(sb->s_writers.freeze_kcount == 0))
-> +			return false;
->  		/*
->  		 * This is still frozen multiple times so we're just
->  		 * going to drop our reference count and undo our
+> I've been looking at RCU and TX stalls on macb devices (Xilinx ZynqMP 
+> on
+> Beckhoff CX9240) for a while and have been carrying downstream patches
+> similar to Christian's. A while ago I let Claude try to reproduce this 
+> on my
+> devices, it was able to reproduce and found some fixes but I wasn't
+> happy with the quality of the patches and my understanding of them. I
+> briefly talked to Théo in Prague and he suggested I send what I have as
+> either the patches or the reproducers may be useful for ideas.
+> I've finally gotten around to it and also ran some more testing and 
+> improved
+> the patches in the meantime. The series includes Christian's patches in 
+> the
+> original form (should also at least be reworded) and I also have Patch 
+> 1 in here
+> since the bench seems to have reproduced the issue on hardware (see 
+> below).
 > 
-> -- 
-> 2.53.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+> If anyone has other ideas / patches for these issues I'm also happy to
+> run tests on devices.
+
+Thanks for posting this RFC. I will go later through the details, but 
+wanted to let you
+know that I'm also investigating the macb watchdog issue on RPi RP1 [1].
+
+Yesterday Théo also shared some findings in the thread.
+
+Three things from that work which touch your series:
+
+- Patch 3 changes the IER write in macb_tx_poll() that I need a readl 
+after. The write
+   is posted, a TCOMP landing between the ring check and the write 
+reaching the MAC is
+   lost. That seems to be the RP1 stall, masking TXUBR does not change 
+it.
+   The two patches need ordering.
+
+- The watchdog only recovers a lost TSTART. With a missed completion 
+TBQP == tx_head and
+   macb_tx_restart() does nothing, the queue never comes back. I have a 
+patch that
+   schedules TX NAPI from macb_tx_timeout() when the tail descriptor has 
+TX_USED set.
+
+- RP1 has a single TX queue, so the starvation from patch 6 is not what 
+we see.
+
+I can run the series on an RP1 board with my reproducer if that helps.
+
+[1] 
+https://github.com/raspberrypi/linux/issues/7661#issuecomment-6322904343
+
+> [...]
+
+Thanks,
+Nicolai
