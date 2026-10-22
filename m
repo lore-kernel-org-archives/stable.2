@@ -1,79 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792693772;
-	b=1U22Bq9yvjwigvPzcuQT1XauysCvs3y1qoMrGTvZjBDLX3T/dCiHCDVRVH27+aq4aDUf
-	 viDcfCgoV21rzLR+82OuKT8qSY7fXhliopbHWSCrjFc66/O/OfLyXgqM3hxlmchWJ68Ix
-	 4CKR5J6O53D3ji95Cq1HUSdhKpvexxZHJ8K3r+KQV0N1Q9VPUkZaMIbpoSa6LNd8txeSo
-	 o7flqQWQdtWWRLtyUmHu9IqX9f/wBrWyrW+whjD1biQkZ9HzW6WfdE4wsG+d07Vkpno4r
-	 x8tBwApCADWgU9w71iTYcuKxgdobE/MfZcqiEWqXY5xRphesJ56kGEvlbsqP7czjI6Q==
+	t=1792694216;
+	b=uWwxQWFhzmWGO5b6aEi+wa8MpZGzDy9pz5UeZSgqqoVlVoMPnKee8UcmW+bBg+R+gnrj
+	 Ec0nbZUeT6wY6xxgo29p4aSekdJ36Muh7z5GzuN0JvsQUkxW67Y0vKUowFkqp5pYOCCN0
+	 wpdimrNdXIETz3JyhhC4ij3DtyX9wPwsrFWfIj4pKfIOZ/RgG2kG0/VBs9nUWBAgJsQfT
+	 vyluOvkMoQMeZSn9g1uJbFlPoLupyH2i3dI2mpRqgPluAoYtIKTUsWZvdMpA6h5n1t4eh
+	 wcXMuPhrCyjzTJJXQs1T5rpQVekGKkUdYLYBcIwBA5F/muQQhHO43F5cge6zyBVx7pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792693772;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Organization:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=Unr027+HipeiaEr9adjjqZOA3I/uVdgh9rSHPsOuPiA=;
-	b=a1tkhaLguxv8nj3lr4+Y/SextKJEdRfWpfmdF9UDym8m7+pr4VPgOt42huyJClcuHZ48
-	 EXe4vnMDLArrEc/3qnW4OrwQChulLdvNuDodzVhKKjmB/hYvk/vazjUnXDoSWEVhkMn5c
-	 DJqyplUis6oM+EVNOKm8joWg3ZAqt9P/Sio4+D1uH3UFHf90eYkAdq8Q/TpmbiWVbXmAZ
-	 xw8NJh9/pW5qajMyheI0X/zAzgu0Nje591c8KqituP8qjc0duv0Z6A0AcbSZTewhbyfRG
-	 XeWyjp4X5qUpJG76PNKT7duWHL8B3Qhp59e5stoCQGveKPtNsuT3hrK9UvXduL84V8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792694216;
+	h=DMARC-Filter:DKIM-Signature:Received:MIME-Version:Date:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Message-ID:X-Sender:
+	 Content-Type:Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=V8UYp7qVy64yxBL1iZ5RNTwYBzXsnnh4TVvEsNUf1A8=;
+	b=wcfhKjE7e+xIVoGbM9Tdcbm1OjudgE8scNxlCkcQ3mcpLRSMswlm4zos/ZIZqlbNly8B
+	 /jo9ZTt2sM4K24sjSQK0YPJDqAqnex8Kz5Ey6spIVt/BB2/YuS6sTJI/wXq5rKhzt9UT5
+	 xUb/Q4PAItAJrAVum+4BO7PTpC2D95cK0cvN7O7JFWF8Zobg2nsodkRq1HsqH/put73Wj
+	 xXZV69uC+Hsqa7pI9Id0z3e3JYMFjhQRQ/vYrC1cF9xS3jzOOVHWO6pRQ5SLWOnQnV0gZ
+	 PVFiMN1r9+JPGSCXMsKxAO/s/yBFT5lG7pK9EO7dQXcToG6I2K4pyQNlmMgJFtYOMQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YtC3mCDc;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=HT8csTrz;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A646606A320
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 18:29:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A646606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5C8360A2615;
+	Thu, 22 Oct 2026 18:36:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5C8360A2615
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YtC3mCDc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792693772; x=1824229772;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=6BwPdua4UuOyGEYU8/f5ZAANCuDIRmi8quDTOodfj4w=;
-  b=YtC3mCDcBm+YjtW1suURyVJ3u3sQxJEtqfDpCbGoziDus+t3B0kmj8ru
-   EXWemyXgnY22dmayeFPrLx3EGRA74M9TH03mtpcgZCnFngzcFqQ8NNnmk
-   TPEgzy6z5DLd7/N9RRDOK66eg8ETA+R9NDjAN3zGw5IZF5bF1hD7HFxPV
-   ZqT4jv4ILGLrcQ/QcoUfUMernpF2KPYxhaliJ7MbDlP7UpZorzkQknrm4
-   VYV/pZV9uoRCJOZZ2xhcOA5HZKThGPZFxNAOs1UycEPe+6JONxkqhv9t0
-   +B73zcL/oXt7zHA6uRmbOFqx6VdCNY0DkgmHp0FI1ApxWdyyAREFQNcEE
-   A==;
-X-CSE-ConnectionGUID: F8mfHZtnTUWs+hM1vm9Q+g==
-X-CSE-MsgGUID: NeDpJaBzTjCSUgikAwybkQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1466494"
-X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
-   d="scan'208";a="1466494"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 11:29:25 -0700
-X-CSE-ConnectionGUID: HXKz2F3uRGeN+fzF7sv0tA==
-X-CSE-MsgGUID: duw25cQBTSS1Ts2LHjrFuQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
-   d="scan'208";a="3553184"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO [10.245.244.44]) ([10.245.244.44])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 11:29:24 -0700
-Message-ID: <45831f6088cde19e2885cbbde52574da8a595e18.camel@linux.intel.com>
-Subject: Re: [PATCH 1/2] drm/xe/sa: make suballocator waits uninterruptible
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Matthew Auld <matthew.auld@intel.com>, intel-xe@lists.freedesktop.org
-Cc: Matthew Brost <matthew.brost@intel.com>, stable@vger.kernel.org
-Date: Thu, 22 Oct 2026 20:29:21 +0200
-In-Reply-To: <20261022174058.226432-5-matthew.auld@intel.com>
-References: <20261022174058.226432-4-matthew.auld@intel.com>
-	 <20261022174058.226432-5-matthew.auld@intel.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=HT8csTrz
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=V8UYp7qVy64yxBL1iZ5RNTwYBzXsnnh4TVvEsNUf1A8=; b=HT8csTrzXZtDDxrBa9FBDoxRbX
+	o+8tyr5/Th61ko7LJS71QLW+4GwHxIKzL5eqs571eSv14Fma/4pnv6Ai7EyUEF1ZjYIE+lVblxXEJ
+	rifipuahKXrxq513U2fgW0nUMXWpuIOIbjnQw2k0baWUK35AmgROl20nH8KadFnUWweEP62DSoKbD
+	cCbFml9j2gTYtH/bhmvZj7jGUTe/5BgQa9jCF0Pv2FeXECgp7itGrgk4nQoUvJfT1EV62yR4zNw+K
+	k86lothh+an0hffCDqVLhLEkZXkwB6Y+GqWMf5JGLfjak8dFEfQ2zRtlmwi5HEOAc9jkvyte2FJZP
+	WPCBeS4w==;
+Received: from [::1] (port=41390 helo=pf-012.whm.fr-par.scw.cloud)
+	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
+	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
+	id 1xJxeo-0000000BPPs-17qD;
+	Thu, 22 Oct 2026 20:36:53 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,89 +60,166 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Date: Thu, 22 Oct 2026 20:36:53 +0200
+From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+To: Eric Dumazet <edumazet@kernel.org>
+Cc: Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima
+ <kuniyu@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] tcp: fix authentication bypass via unsupported TCP auth
+ options
+In-Reply-To: <CAL4WiiqYwtZ0851Y0M1gOAQ5uU=kjU29Puwjx7+kyR7BqKEpUg@mail.gmail.com>
+References: <20261021193151.1819085-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <CAL4WiiqYwtZ0851Y0M1gOAQ5uU=kjU29Puwjx7+kyR7BqKEpUg@mail.gmail.com>
+User-Agent: Roundcube Webmail/1.6.19
+Message-ID: <76cd85fa3315cd7efbd99c791514f22e@oss.cyber.gouv.fr>
+X-Sender: jeremy.jean@oss.cyber.gouv.fr
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-Hi, Matt
+On 2026-10-22 16:46, Eric Dumazet wrote:
+> Le mer. 21 oct. 2026 à 21:32, Jérémy Jean
+> <Jeremy.Jean@oss.cyber.gouv.fr> a écrit :
+>> 
+>> tcp_inbound_hash() parses both TCP-MD5 and TCP-AO options when at
+>> least one of the two features is enabled. With TCP_MD5SIG=y and
+>> TCP_AO=n, a packet with an AO option reaches the disabled
+>> tcp_inbound_ao_hash() stub. That stub returns success, so sockets
+>> configured to require MD5 authentication end up accepting
+>> unauthenticated data.
+>> 
+>> The inverse configuration with TCP_MD5SIG=n and TCP_AO=y has the same
+>> problem for an MD5 option on AO sockets.
+>> 
+>> Make the disabled stubs reject options for the unsupported
+>> authentication scheme.
+>> 
+>> Fixes: 0a3a809089eb ("net/tcp: Verify inbound TCP-AO signed segments")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+>> ---
+>>  include/net/tcp_ao.h | 2 +-
+>>  net/ipv4/tcp.c       | 2 +-
+>>  2 files changed, 2 insertions(+), 2 deletions(-)
+>> 
+>> diff --git a/include/net/tcp_ao.h b/include/net/tcp_ao.h
+>> index 9a2333e62e994..bb249d6df8723 100644
+>> --- a/include/net/tcp_ao.h
+>> +++ b/include/net/tcp_ao.h
+>> @@ -303,7 +303,7 @@ static inline enum skb_drop_reason 
+>> tcp_inbound_ao_hash(struct sock *sk,
+>>                 const struct request_sock *req, int l3index,
+>>                 const struct tcp_ao_hdr *aoh)
+>>  {
+>> -       return SKB_NOT_DROPPED_YET;
+>> +       return SKB_DROP_REASON_TCP_AOUNEXPECTED;
+>>  }
+>> 
+>>  static inline struct tcp_ao_key *tcp_ao_do_lookup(const struct sock 
+>> *sk,
+>> diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+>> index 87ef6d5cbfeba..7d800b6283bd2 100644
+>> --- a/net/ipv4/tcp.c
+>> +++ b/net/ipv4/tcp.c
+>> @@ -4962,7 +4962,7 @@ tcp_inbound_md5_hash(const struct sock *sk, 
+>> const struct sk_buff *skb,
+>>                      const void *saddr, const void *daddr,
+>>                      int family, int l3index, const __u8 
+>> *hash_location)
+>>  {
+>> -       return SKB_NOT_DROPPED_YET;
+>> +       return SKB_DROP_REASON_TCP_MD5UNEXPECTED;
+>>  }
+>> 
+>>  #endif
+>> --
+>> 2.47.3
+>> 
+> 
+> Good catch, thanks.
+> 
+> The forged AO option makes us skip the unsigned fast path, which is
+> the only place where tcp_md5_do_lookup() can return MD5NOTFOUND.
+> An attacker able to hit the window of an MD5-protected session (BGP...)
+> can therefore inject RST or data with a junk AO option, which is
+> exactly what RFC 2385 is supposed to prevent.
+> 
+> Please mention in the changelog that TCP_AO depends on 64BIT: every
+> 32-bit kernel with TCP_MD5SIG=y is in the vulnerable configuration.
+> 
+> With your patch the stubs now return what the real helpers return for
+> a socket without keys (AOUNEXPECTED / MD5UNEXPECTED), so behavior
+> becomes consistent across configs. One visible change is that MD5=n,
+> AO=y kernels will now drop segments carrying an MD5 option to unkeyed
+> sockets, as MD5=y kernels already do. That is fine, but worth one
+> sentence.
+> 
+> Optional: bumping LINUX_MIB_TCPAOKEYNOTFOUND / 
+> LINUX_MIB_TCPMD5UNEXPECTED
+> from the stubs would make these drops visible in nstat.
+> 
+> This is a fix, please send v2 as [PATCH net].
+> 
+> Also please CC TCP-AO folks from Arista
+> 
+> Reviewed-by: Eric Dumazet <edumazet@kernel.org>
 
-On Thu, 2026-10-22 at 18:41 +0100, Matthew Auld wrote:
-> Large BO clears and copies in xe_migrate_clear() and
-> xe_migrate_copy()
-> are split into multiple passes, each needing a batchbuffer from the
-> fixed size kernel bb pool. Once the pool fills up, __xe_sa_bo_new()
-> waits interruptibly for space, so a pending signal (e.g. Xorg's 5ms
-> SIGALRM smart-scheduler timer) makes it fail mid-loop with -
-> ERESTARTSYS.
-> The partial progress is then thrown away and the restarted ioctl
-> starts
-> again from byte 0, including the memory allocation, which can
-> livelock
-> if the signal arrives faster than the whole operation completes. In
-> the
-> shrinker path the same error also aborts the shrinker walk, even
-> though
-> ctx->interruptible is false.
->=20
-> Being interruptible here doesn't seem to buy much anyway: on error
-> the loop already waits uninterruptibly for all submitted passes
-> before
-> returning. So just make the suballocator waits uninterruptible,
-> matching
-> amdgpu and radeon. The other users (page reclaim from a kworker, and
-> the
-> GuC buffer cache) shouldn't really see any meaningful change.
+Hello Eric,
 
-This is a deviation from the "make all waits possible interruptible".
-One might argue that user-space that interrupts kernel work with a 5ms
-time only to restart it again and again is not well-behaving and
-continously shoots itself in the foot.
+Thanks for the quick review.
 
-Given our pipelining abilities, isn't there a risk that we delay signal
-delivery with up to 10s?
+I have prepared a v2, which only adds some bits to the commit message,
+and leave the actual patch untouched.
 
-In the worst case, is there a way we can periodically at least check
-for pending signals or perhaps increase the sa bo size so that it
-doesn't block on a single large buffer?
+Noted for the Cc:, I will use the 3 @arista.com addresses at the top of
+the tcp_ao.c file.
 
-/Thomas
+For your optional remark, I was thinking of adding a second commit as
+a 2/2 in a 2-patch series. Something like the below diff, which AFAICT,
+would make the drops visible under TCPAOKeyNotFound and TCPMD5Unexpected
+in nstat. Is it what you had in mind? I am not particularly familiar
+with that subsystem; yet, while getting this kind of feedbacks in nstat
+seems good, I am opened for advice. Do you prefer that I add this
+in the same fix instead?
 
->=20
-> Assisted-by: LLM
-> Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9644
-> Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel
-> GPUs")
-> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-> Cc: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: <stable@vger.kernel.org> # v6.12+
-> ---
-> =C2=A0drivers/gpu/drm/xe/xe_sa.c | 5 +++--
-> =C2=A01 file changed, 3 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/xe/xe_sa.c b/drivers/gpu/drm/xe/xe_sa.c
-> index f32045f40b7a..d9c2b28b08c2 100644
-> --- a/drivers/gpu/drm/xe/xe_sa.c
-> +++ b/drivers/gpu/drm/xe/xe_sa.c
-> @@ -165,7 +165,8 @@ void xe_sa_bo_sync_shadow(struct drm_suballoc
-> *sa_bo)
-> =C2=A0 * @size: number of bytes we want to suballocate
-> =C2=A0 * @gfp: gfp flags used for memory allocation. Typically GFP_KERNEL=
-.
-> =C2=A0 *
-> - * Try to make a suballocation of size @size.
-> + * Try to make a suballocation of size @size. Any waits for space
-> are
-> + * uninterruptible.
-> =C2=A0 *
-> =C2=A0 * Return: a &drm_suballoc, or an ERR_PTR.
-> =C2=A0 */
-> @@ -178,7 +179,7 @@ struct drm_suballoc *__xe_sa_bo_new(struct
-> xe_sa_manager *sa_manager, u32 size,
-> =C2=A0	if (size > sa_manager->base.size)
-> =C2=A0		return ERR_PTR(-ENOBUFS);
-> =C2=A0
-> -	return drm_suballoc_new(&sa_manager->base, size, gfp, true,
-> 0);
-> +	return drm_suballoc_new(&sa_manager->base, size, gfp, false,
-> 0);
-> =C2=A0}
-> =C2=A0
-> =C2=A0/**
+Regards,
+Jérémy
+
+---
+
+diff --git a/include/net/tcp_ao.h b/include/net/tcp_ao.h
+index 9a2333e62e994..xxxxxxx 100644
+--- a/include/net/tcp_ao.h
++++ b/include/net/tcp_ao.h
+@@ -303,6 +303,7 @@ static inline enum skb_drop_reason 
+tcp_inbound_ao_hash(struct sock *sk,
+               const struct request_sock *req, int l3index,
+               const struct tcp_ao_hdr *aoh)
+  {
++     NET_INC_STATS(sock_net(sk), LINUX_MIB_TCPAOKEYNOTFOUND);
+       return SKB_DROP_REASON_TCP_AOUNEXPECTED;
+  }
+
+diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+index 87ef6d5cbfeba..xxxxxxx 100644
+--- a/net/ipv4/tcp.c
++++ b/net/ipv4/tcp.c
+@@ -4962,6 +4962,7 @@ tcp_inbound_md5_hash(const struct sock *sk, const 
+struct sk_buff *skb,
+                    const void *saddr, const void *daddr,
+                    int family, int l3index, const __u8 *hash_location)
+  {
++     NET_INC_STATS(sock_net(sk), LINUX_MIB_TCPMD5UNEXPECTED);
+       return SKB_DROP_REASON_TCP_MD5UNEXPECTED;
+  }
