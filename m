@@ -1,57 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792709166;
-	b=uv+N5ZEqutBPodosu0r0FXgErz7A7b3ThM6ipRfpQa4VtC/HeOz3ndee/Jtydz++7xa/
-	 WmLKZ4BvgKnB7qKZTef3pl3HZxlJeZYtrOuyCbrib4fwEWZhStx6eRX+RbVUqyuO5zErx
-	 lw5BhktIhF32buqCn1S2HQNu+Y/9O7f/8VNotFOFnQrIV1Lm3rfE5uORK9ZFvHS2cYB6N
-	 JSUsTzDVPl561X1mM+mKNSdzu98zhhSJBbQjdPMnc+uVze/2rK3Mo7plq+MlIUi/ygxZd
-	 dxmTN3+E4682IvvkUjnxk/M9bIEIlOP8SgV0WMnXiinbz9P5wBtrdRiZRpDXISQYf4Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792709166;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=nVbSUJ5UVW8Ol0Olu+NWKy++agyoaq9EJBHO+L/Hg5Q=;
-	b=z6QFJ5towuHpdACPrgtEMGxWODWNWHgnuSNvIWYmcaV5nP76/Shzpg/k3rLfzWKW6BQb
-	 nZiaWNfPbinZgyVQsQsuLn4h/tsmbmBJTixIXxO+LCKN++V826RGmUPR62vNBdZBEQIbM
-	 pyNUh5lnG+6A8Py6rMFsoL24wM24yojisi59oelfkQrsDsWKm8XzV2nUl7Xmj0EqQOqk9
-	 G6463ezh0RgqYtAnu4jwGMz6fG+hRmKe3OSrJks7uaHuXTjN3L37x+rHhjIm1YmXbqvTG
-	 OvLECsoOlHqFUaWuxSVid7u/rDeZ7tTYovPGmgLcMylmOzgvNTZPgO3J3dRporISYhg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AJgvKJou;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792709899;
+	b=t+ckVcX+DMOBn0NhKQfGWrY0DdHPwdDFj/aOzrMqp+xPZoilofPNmSlm6SQJBHLTy4eW
+	 e3dZZkYlBXGvJ+8QwR38baYxM4FgZo6cBFTpdVuMXTtBOUdG4jnM4hrZHMuvJnxCAxiyl
+	 Vo0EOQprBa2MCVEJDxaWhfpKB8M73u+gAXn8Ov71j10DDMuYT2mUfyohL7jOmzCRiqYTi
+	 eKxmB7MEQxzKMBAjSbakzxTrjEjXhvzxX3P5efSJ91CCb1NgMbZ0FQPBrCZ/O4Q2eNysr
+	 zcP9MZwWF9j83FIJvMc1vIXSupx/xeZhbg0zb+/uLmFwyvama6wcLRPNyuhGGVRlj8Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792709899;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=4h8EJtUuQDNTtWsFUTYQGXARXr8rvvu+aTdvO93crQM=;
+	b=cpuKI5KyEtdOslGILmu1B2I6SrKNcmN+EWM5socTruM0RUtcUS5f4cebngl04mLPCgS9
+	 OhbbEaXiW2XKcnN3vR4sIkenYcasPtPydu5xFpv1XTLXQ9w5MmCq760YABoxMsTvf5IiS
+	 Yfq3HludtX1hcJDBwMyu9pNvsB8JD8d3B+moeCb93fgkbuT3I0/3gtnIAyaUUYSg1ZNSV
+	 xugnBDLeKEJWoxe1npeLrp2HFy4SFPqjBm8zTYh6vVn/Pz5ZV9GB/cf5+aZ/VKA261l+6
+	 c2A+Hjq+tBqT7oowg5r3fB5X/bhP+htaKL6G4VQFLPX56bqKr7NaFzqtIbficboXP3g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=kAWpkhn1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBBA606A321
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 22:46:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3DC606A31E
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 22:58:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D3DC606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AJgvKJou
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7316C1F031E0;
-	Thu, 22 Oct 2026 22:46:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792709166;
-	bh=nVbSUJ5UVW8Ol0Olu+NWKy++agyoaq9EJBHO+L/Hg5Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AJgvKJouFDXm0T2iK1oF6r/MKUC5QyQ6UYppc/5zlkDuUBM5eilCLuueL3ngDEqFE
-	 3lSwp7wiN5yKurI4LCU/smpm1DBLOuaZ1GjGesm791Y+QDBY1T+dKHdQp7ZdpJzjR0
-	 j27mH/c0zo8Xxe5BCdaMNkRCkDURKMCBIt6VETCqj3C8zCQ9Guau0rD8AIENRSmuxO
-	 +bb1PGAJgdC8mcI7Bb2xOr6Kgf9+mPMv91GQM1tcKzcLtPS1Qn6Hbvs9/TWDLhuIQz
-	 4dUbCWddXhQsoOc9sKl0C0muTJM8On9cchYyDce3lQKdc0UeWkBPJ06yykEIIb1kn5
-	 VK+449V/SXj8w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Hongling Zeng <zenghongling@kylinos.cn>,
-	Hyunchul Lee <hyc.lee@gmail.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 3/3] ntfs: fix memmove overlap in ntfs_new_attr_flags
-Date: Thu, 22 Oct 2026 18:46:02 -0400
-Message-ID: <20261022224435.2159674-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261022224435.2159674-1-sashal@kernel.org>
-References: <2026102234-sector-enjoyably-8d59@gregkh>
- <20261022224435.2159674-1-sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=kAWpkhn1
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6afac79b3a3so1949a12.1
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 15:58:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792709896; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dCm8wo6qS23GE0e/VfZeGNE7PUtK0mjjVRyEAKv6w+H20AOCfHE/rypIXVhXsQ9VI/
+         U/2L2603IbRcCrh9qN6EQEiJ9icqVNu/NOGmktve8Hb0CU3TDs/f8XyPCa0l3FszxowA
+         d1uQ0sJJeWJFtAm8a+bdn4hkKVg0NbI4nkLaq4fisFTuYgK/W/DEvfPGI6OnIUuhh5xl
+         j74lSxa2XJ3ND+FBn6mKbsGty5GrsbG4Xw0X8Ku0tuDzAiw/gMRBG30J/5mfWEr9+n/E
+         3bG3fnB3J/1+RdOqwojmHZB9aTsUnp7vTLdBVQSFkvLDB7XkesMeiz9H1bSq4jwPDSmW
+         EeVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4h8EJtUuQDNTtWsFUTYQGXARXr8rvvu+aTdvO93crQM=;
+        fh=7MRUxY8+/ik6artXQtOfTnf9p8d8G9MaRdNUTHkPxQw=;
+        b=de/7k7ys/Tw6qBRAxB0quLTCphyjxnti1nsVWicPkXBUzi8uNdRymnwrYiJyxyiAci
+         0TVqTSS74B+g9VjVen5Ib4pzrUswzaJCGoNac2131++YPQPD+ND9hVOgRHuZ7usVz0Mz
+         X51YUdQMEmllIS0zavhL8HmO730iQeZSrjH3mCJ7FcIE8Z+IN+fXS2p+LoJK6LTBnpqL
+         ZeB0ef1bzpDlp7ep+n0UP6pbLkJ7nxzC67li2KjSRkXB6seWITmfJK7Cxfxqk1rL//mZ
+         fAYQ6AJg5ffKRl7l0a6Ljo72zAWxLXg73VhQcG69R87tZtUxIyFUx+t5rsV4BQyvQsPg
+         340g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792709896; x=1793314696; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4h8EJtUuQDNTtWsFUTYQGXARXr8rvvu+aTdvO93crQM=;
+        b=kAWpkhn1xJIsRNb3kWf753Jo/W1Z9mqUGTtDto8RAWIddAkJgZn+T1ZScI238Xw36Q
+         qWKFhPYd264ScQPYkDRL13eNkyduAvBpqsczVv+z8utITIo9zymG135SeAU5POJKGS8M
+         MWSba+2TyycipFlrHFl1R0vsellMcEGh+TldPzF3vnmlAFVZJ2N/YpqjKn8WhPDv96F7
+         l3w6V7quxAIbR+/O3fb4BSTp69DGSEnKM8xhqiEko9P+wxOFHIeh5XOSxUob0m95Pk9F
+         NWbF9E1eyxYhOl6MSHmpr/655ZHRbGYikxJsxmxfnGr8SLx7G2GKAcaZY/9jOOVVgdpV
+         53jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792709896; x=1793314696;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4h8EJtUuQDNTtWsFUTYQGXARXr8rvvu+aTdvO93crQM=;
+        b=bqZZ/MEfWh6tQdoLfuE3kPuScDiaq/tqsJGGvQys4y8crJbe2NRpj1aaCJVAenF9qA
+         JOQW0c7txl5yW6L30+e100I/FNA0mmGs/q23Pp08PfQzFwZM4Q5IXRnZDz+yT+y4VSgL
+         5iCBVXoZ3ESVtuwBkoB14qauj6MtHPFt/2rV+xS0j3OYEEvyFocRjENVqf8EccPrxrpV
+         yD1d/DO1+VmRx/8TthkCijiiiMjioch053GBto3Q26yY6FDGjKSU6L9t/fORmNR9e3Wf
+         ntYzSNVuKobeT/8eiaEICGAy1OfxsZDcm4bxoAwIZ2EukrIp7Ql1feR31aeoEAUpks0U
+         ZFRg==
+X-Forwarded-Encrypted: i=1; AKwUvBy9k6id+VMev6/HQ28C4fJkr+RSfGJCYm1BzAcWHyZkYcJ+6RGGTkg5cujsY6DMq1Tte6vcMRY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0HKxxxR+Y8L6CMcI0VOWzszn9hJh0qLXwXzehouZ+06/5FZYv
+	qH3QjjP12YgVACsdXxXm+GyUFBZfbVE+KtmK5xX6LnzLg32Dsm+0POLITsmQGyHLRqjbufJsATl
+	PPpn3r2N2Ayvyh2l24NhyHzrLoMUd+TfUa+nIoPGu
+X-Gm-Gg: AYBFou3TsBygtpYSwUatIngV+Kz/YijnxOoCVBR7oPIqO35xQ00as/Nffj1M2RAT9Ng
+	OQlbLLEYU8PaeaC7MMVJYZIGjAaAxsrC7xFB8+IjlvYvx55FLGcju9abBWIHV8JqbK/ug2vghNn
+	fC/AkoA9uUwDCTPOEg5D+QXr4Fe4r0cFfB+439/pLTxdo8m6rz+6VMDPKgqUOXwT+Su9uGWhInW
+	O17mZWBLC4tOH+U1e3b0yWviTtaBPoTJKboKfsWABOV6nkTn3KbplLmRMV8IS21P8RhxKBfx1N2
+	ROY9Onh3S+gVwQuTZK3ClNbgg+sYqnfp+WYuIRvWi59QYaOVjznSL5f7kUFYheeChwNqUsG6cry
+	xnxhZIYRLQn4KAX8N7COtlFY1458fp4fxro+apKc9DeNmYqU8/j0OWXulMPDDQBHi
+X-Received: by 2002:a05:6402:20cc:20b0:6b1:a517:5bce with SMTP id
+ 4fb4d7f45d1cf-6b43505cab5mr9309a12.16.1792709896086; Thu, 22 Oct 2026
+ 15:58:16 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,77 +104,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261014-update-autofdo-split-machine-function-option-v1-1-5c71b3005e89@kernel.org>
+In-Reply-To: <20261014-update-autofdo-split-machine-function-option-v1-1-5c71b3005e89@kernel.org>
+From: Rong Xu <xur@google.com>
+Date: Thu, 22 Oct 2026 15:58:04 -0700
+X-Gm-Features: AclHuK8dO3MsAmO6cAa68r7ozQ6JK-D1flEqoU6M1Xnqf0FQ7RSBHTS-OpOYYkM
+Message-ID: <CAF1bQ=SN8wZ1hKDTtGspBiZ8VQBoUtQP6uNioO-ZOOvS2tLZAg@mail.gmail.com>
+Subject: Re: [PATCH] kbuild: AutoFDO: Update split machine function argument
+ for upstream rename
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Nicolas Schier <nsc@kernel.org>, Han Shen <shenhan@google.com>, linux-kbuild@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Hongling Zeng <zenghongling@kylinos.cn>
+This looks good to me. Thanks for fixing this.
 
-[ Upstream commit acb1095fd2db884b417cb70808c886e4b615ff05 ]
+Reviewed-by: Rong Xu <xur@google.com>
 
-When the record shrinks while the payload offsets increase (e.g., enabling
-compression reduces padding, making arec_size < old_arec_size, but the header
-grows by 8 bytes), moving the name first can overwrite the old mapping_pairs
-before they are copied. Move mapping_pairs first in this case.
+-Rong
 
-Since mp_ofs is derived from name_ofs, they always change in the same
-direction. Checking name_ofs alone is sufficient.
-
-Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/ntfs/ea.c | 33 +++++++++++++++++++++++++++------
- 1 file changed, 27 insertions(+), 6 deletions(-)
-
-diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-index dc0a70041d788..6cc0b6cfee920 100644
---- a/fs/ntfs/ea.c
-+++ b/fs/ntfs/ea.c
-@@ -729,15 +729,36 @@ static int ntfs_new_attr_flags(struct ntfs_inode *ni, __le32 fattr)
- 	old_arec_size = le32_to_cpu(a->length);
- 
- 	/*
--	 * Move payloads before shrinking the record.  Otherwise resizing moves
-+	 * Move payloads before shrinking the record. Otherwise resizing moves
- 	 * the following attribute over the old payload before it can be copied.
-+	 *
-+	 * When offsets increase, move mapping_pairs first to avoid name
-+	 * overwriting the start of mapping_pairs.
- 	 */
- 	if (arec_size < old_arec_size) {
--		if (a->name_length && name_ofs != old_name_ofs)
--			memmove((u8 *)a + name_ofs, (u8 *)a + old_name_ofs,
--				a->name_length * sizeof(__le16));
--		if (mp_ofs != old_mp_ofs)
--			memmove((u8 *)a + mp_ofs, (u8 *)a + old_mp_ofs, mp_size);
-+		if (name_ofs > old_name_ofs) {
-+			/* Payload offsets increased: move mapping pairs first. */
-+			if (mp_ofs != old_mp_ofs)
-+				memmove((u8 *)a + mp_ofs,
-+						(u8 *)a + old_mp_ofs,
-+						mp_size);
-+			if (a->name_length && name_ofs != old_name_ofs)
-+				memmove((u8 *)a + name_ofs,
-+						(u8 *)a + old_name_ofs,
-+						a->name_length *
-+							sizeof(__le16));
-+		} else {
-+			/* Payload offsets decreased or unchanged: move name first. */
-+			if (a->name_length && name_ofs != old_name_ofs)
-+				memmove((u8 *)a + name_ofs,
-+						(u8 *)a + old_name_ofs,
-+						a->name_length *
-+							sizeof(__le16));
-+			if (mp_ofs != old_mp_ofs)
-+				memmove((u8 *)a + mp_ofs,
-+						(u8 *)a + old_mp_ofs,
-+						mp_size);
-+		}
- 	}
- 
- 	err = ntfs_attr_record_resize(ctx->mrec, a, arec_size);
--- 
-2.53.0
-
+On Wed, Oct 14, 2026 at 4:40=E2=80=AFPM Nathan Chancellor <nathan@kernel.or=
+g> wrote:
+>
+> A recent LLVM commit [1] renamed the internal LLVM plugin option
+> '-split-machine-functions' to '-function-splitting=3Dall', breaking the
+> AutoFDO + ThinLTO build with:
+>
+>   ld.lld: error: -plugin-opt=3D-: ld.lld: Unknown command line argument '=
+-split-machine-functions'.  Try: 'ld.lld --help'
+>
+> The plugin option is needed for in-process ThinLTO, so handle the rename
+> accordingly using ld-option.
+>
+> Cc: stable@vger.kernel.org
+> Closes: https://github.com/ClangBuiltLinux/linux/issues/2186
+> Fixes: 2fd65f7afd5a ("AutoFDO: Enable machine function split optimization=
+ for AutoFDO")
+> Link: https://github.com/llvm/llvm-project/commit/3e6acc87c58843e551d6e8e=
+4bf06c26712b04622 [1]
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+> ---
+>  scripts/Makefile.autofdo | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/scripts/Makefile.autofdo b/scripts/Makefile.autofdo
+> index 1442043da139..57a3aba6ffc2 100644
+> --- a/scripts/Makefile.autofdo
+> +++ b/scripts/Makefile.autofdo
+> @@ -22,7 +22,7 @@ ifdef CONFIG_LTO_CLANG_THIN
+>      KBUILD_LDFLAGS +=3D --lto-sample-profile=3D$(CLANG_AUTOFDO_PROFILE)
+>    endif
+>    KBUILD_LDFLAGS +=3D --mllvm=3D-enable-fs-discriminator=3Dtrue --mllvm=
+=3D-improved-fs-discriminator=3Dtrue -plugin-opt=3Dthinlto
+> -  KBUILD_LDFLAGS +=3D -plugin-opt=3D-split-machine-functions
+> +  KBUILD_LDFLAGS +=3D $(call ld-option,-plugin-opt=3D-function-splitting=
+=3Dall,-plugin-opt=3D-split-machine-functions)
+>  endif
+>
+>  export CFLAGS_AUTOFDO_CLANG RUSTFLAGS_AUTOFDO_CLANG
+>
+> ---
+> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+> change-id: 20261014-update-autofdo-split-machine-function-option-d4edb03d=
+370c
+>
+> Best regards,
+> --
+> Cheers,
+> Nathan
+>
