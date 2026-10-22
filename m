@@ -1,84 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792675263;
-	b=g9x7Kxi5P76nneFFhL71eD7l2iRxczZyWnja58awi3iDT2RYvDd5sL+zW77az/QE2ufw
-	 9DYcIhtHtj6IHeat5KEVx7fbjuo6peZJQCCDNqZCEhNYvWfYp9/rIotMdQXfrnRNKUWGb
-	 o2onKzb3P2z3yRt63E9DRujFuPuNq91v4SCCgnsSnif5fJubIUEsO7P7Nbjl825uudfDt
-	 faydzD35LNtSSMWonBKEpvi+t+ZEKEgQofZMQo9kMaf0Pakt39eM4kkSFPWrO51DPspm1
-	 xa5Mu8GjsJgrreYMlzljUk4m+hEOui7bIHM3jKTfYsTBW1obqBVw4br/QIbe+ONMlUw==
+	t=1792675792;
+	b=xI66mHqtK0bFbzM32Jv22zZlOTXiga/pKMsQKl0nR+LEeue529kkUXsD9zbE8FQjNOkK
+	 2sJ4ynTl0mYJAE/K/nrFlLGluvarJyOL9P9K0blWYiEWO+pLEqjHdMHWhwCb/UycEHDjh
+	 Jg0oXlSekcwwywX1SS2t2IydHFEZrj/fHMpAOaMuu0Y8yX/14Y6dKpL2Y86A4lWi4Aadd
+	 VdG4iQ/OQGCSORrOs+d3x0IhhKnZIuYhw72M8g8WA8VzkQq/SeEj/MEM46Xa2AubMHeon
+	 GISvi5Vg0VrPOZklw7IsQ9aecTSQ/nCdSOkrjajXBUfJinM58KsTVIflf/3oJtjB/nA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792675263;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=J1cJunRtziCQSI57V0U3l58lyDmUupWkdJUEjrp/6ac=;
-	b=rpR7kpNpbKIYpQ1KxFWRzL3NbULT0yhdpyoRIXDSsppEvTavjew27YJFVxWDq2mZPCdo
-	 8j93t46W2/Zc5SnaX0l3g6diztMGS59KI/ZS2mpGoBBaaY/qBGVDwsUlPuGufQPqCQ+HH
-	 AEJdNfVdo2j2Za3D8uilo3pmb6cYRI4Xpk6ycXSlqGFe/gHi2g43HYYc9eCy7+mPNZkCZ
-	 tzo/+9fbJLj1C0wmg7OQIqI2ZrrkPnmQdFF17Fdr/WQDkfRyWPoBCF809f9Dupqe/qIM4
-	 nKodkJDq2jo/FMcWiYiRrZpanFCI9wJIGkdu/6Rt7W6ohHITYDyXUmIz1AiuqrWrkUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792675792;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Uw/cd/kzkyBkXI5zP9mLCKnmK/pe1xDS1i27lZNCuU8=;
+	b=1WaPxGVbo2aqnfsqfDHOBEvTTOKrSIS7zGoddNe2P08ie6V+5AWI17wMApRpCpjwJWzL
+	 /v0xB69krXe2eDp2WxyXDkq81Zgw+LeZ9/Jzi3OHPh3yHuxW5tUKIsmC3Nrb8HaW0sko5
+	 oW2WfF+46IwDHCCrO/LrkjS8yTZ74FqaaQFD1rob1pmcNDZXcv9XRNJbTFiTDD3EpKZyX
+	 nXQPrZCD4wfXlV9tpxvfYAyp/SEVVTwTJK575nhv9vms5MbuIvZJevJv9J/7TXgqi10nZ
+	 NMPVit4V21Rl1aHbpAmIggdtZ/l9mqHrKvIAjGK/M+EAhenmfP26kJelAF/chHDYySw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ee8Yj8lF;
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ipuvz17g;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F9F606A31F;
-	Thu, 22 Oct 2026 13:21:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99F9F606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6989D60A2602
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 13:29:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6989D60A2602
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ee8Yj8lF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792675261; x=1824211261;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=RPtVW+zJYuGYEvqqnTvxnUJoTo1amg8ZRAWoVfiCZ18=;
-  b=ee8Yj8lFP3xZ4G0Kk9wK363HLDaSZ95iOWqRtW2aTWS81hHDvDVnOVjc
-   y8lFbglR03fmeEqpgnCzF8jw+1Vq5XOBg+Z/RhwjodOeH6BmOyrQV+MZu
-   YlOAgjupMBxrOKFlAIEUFpur+B5UnZxCqdzZURxDWxIzWCwJ/jdd98w9F
-   yH1rGv9IEa2Mqym+r/5NkaEeZ/g7nJ1nBnkSHLCFdH74ymJiihXqPYs3q
-   v1TLWvdyqdMliXEhGFTPch+KPQPGHrxfQCRYceQ17rOjeT+745xSDQm1L
-   UAmRGxzjKSlRFE3SpxNhJ1lWQwNijXjRxpKcywNA02ZoJ1xQOhmuqjFPq
-   w==;
-X-CSE-ConnectionGUID: hwwiFS/sRiObncYI47L/9g==
-X-CSE-MsgGUID: KcC4JQZ7Tim7S3WcSkkkeA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1456206"
-X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
-   d="scan'208";a="1456206"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 06:21:00 -0700
-X-CSE-ConnectionGUID: 81646FC0QK+lTVLsXp90pg==
-X-CSE-MsgGUID: Ef+DEytISBOPzyqcvoN+FQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
-   d="scan'208";a="3293950"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.189])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 06:20:57 -0700
-Date: Thu, 22 Oct 2026 16:20:54 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Arnav Kapoor <kapoorarnav43@gmail.com>
-Cc: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
-	Conall O'Griofa <conall.ogriofa@amd.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Anand Ashok Dumbre <anand.ashok.dumbre@xilinx.com>,
-	Manish Narani <manish.narani@xilinx.com>, stable@vger.kernel.org,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
-	linux-iio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: adc: xilinx-ams: fix out-of-bounds accesses when
-Message-ID: <atoNtka8rCO3Cil3@ashevche-desk.local>
-References: <20261021225356.625288-1-kapoorarnav43@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ipuvz17g
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a20803a757so3482325e9.0
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 06:29:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792675790; x=1793280590; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Uw/cd/kzkyBkXI5zP9mLCKnmK/pe1xDS1i27lZNCuU8=;
+        b=ipuvz17gBC95kOVuKeV8CG7qMCObc3Hv1GIQOefBpcMEVvP4wpYsinPtkcTf4+f+7S
+         BEE25OFnwn9cTYD5nNdaqMtgURwb3KzTwOoOfkaVgoQmIRT4ERTSynpfQ7mhk/abx0m+
+         uxWHmYgUhiFFmJ0RRZyDqj6G2i2GN6pFcxIT+gyZARSS69l9bEpF5lsKra3+949ENMwE
+         uovnljcGIsQzsCfzBqW39f0L2w/XuLGdfdedtfm5bYHSnBF2VsvTfXc9VcUST94fHUhU
+         CzRrP6hUqxm5Ksc0gXan5enk+8cdHBFLmHufmuJxqOeBf+i/ui7b+BR5xklFQ3GEVOq5
+         C8Fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792675790; x=1793280590;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Uw/cd/kzkyBkXI5zP9mLCKnmK/pe1xDS1i27lZNCuU8=;
+        b=FKtE/OyzeYk14DDrCtDhVlwsxwOek45v1OyieT+Npxy8ZccRxGsvlkjzEAG7n/vYwT
+         S05KwOVTeL3OIZF/ICcsamOIzMEzxgg4deW9cle6Q3ly6nmPQTg+wl5/SLpshq7ynA6Z
+         dEWReD8AZWqC7QRDXR5wxhpCfbgbQgclnI0/5SBuLUyXGoZFN8Ff/V/3CaYKh6i7Aude
+         qj5AEYdAB5pxCBW9YGPn3Hw8RSSUsQ45PdeY3t4FiiskHhokPoWuYfyf8bZU4QF/8CPS
+         6vwbshBRLwz5NmgY50r8qMMwoGWApWUoNIFbWGGpcZyMYARXtR7v2gPdi0Of1qvuGAVv
+         5tCw==
+X-Forwarded-Encrypted: i=1; AKwUvBxoYWnyFIDxTt2mkwm8rxZQdZ72UouGewPz1eQyuKj8GnEqD76K2KavGz1yF7dHfH3nEbb4LjQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKrbfMEN3/JsAfq+XQe90xVZzQOCobuefr58ZMzwn/y9g8Je9ML
+	VCh5gU/CLZ2v+8QElQ7TeIL8E20m5IPA8y+jaCEfveBvRs6ds9XvZO29
+X-Gm-Gg: AYBFou3MpDaV+qf+ZGIP3K83yMMDERZv//iF/dnT+0xvZZbMl2MHfOge64/vyDOqkn5
+	iciZzGQJZ5qjPGBpRfhNO5yzougt9Y83jeFwc/fjpSCLwJcaRoPkdUauFvhpR9pnrG4bLLLoFbm
+	BJyGVOQbegPWnSZYSNouiJ/BrGwp2GcaU+j7pVB+N0zxMQJ7Xdmll1sx/YGEdnxWjgHsXy50LnF
+	QBuC6IvsJ1Anvi+MkmNqBYpQJ5BQXw+outKsIlgaz30zKiJE8dJrEqv/kYvTEwvIKf4DXTDLmbp
+	TlxIWW+UnAPp3nJy704jPszyrWuYORZ49WsG61MZRk3q4VDvdplSSZ43iUdKp/WDSKVwc+W5LDW
+	d52jEDahr+HaF7pmpQFaHiVvSbEwKi/+BXgpOYgsm06SC4s3jtC+7fI9gt0hfzN22iUc4bYV0Jj
+	Pfow0xS4VZfJvYO6HqLiNOs93+HJT6Y6Wcamm/xQLKep7n8GaMMeHQwbJpS5Z7XNdlBTrIbQBoc
+	8/3uMxMGnJMer6R3HNrZaAZESz9bDLmE75SFHn69TuROHU2W4Uwy2PvdjzwvjluiDLK6tmJ9wWj
+	f2ELTiJaFHeruvlPsAyzy/K/mg==
+X-Received: by 2002:a05:600c:46d3:b0:4a1:80d8:aed0 with SMTP id 5b1f17b1804b1-4a1fdd15be9mr114440055e9.15.1792675789631;
+        Thu, 22 Oct 2026 06:29:49 -0700 (PDT)
+Received: from andreayoga.wind3.hub ([151.76.51.95])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fcd629bbsm108832715e9.5.2026.10.22.06.29.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 06:29:48 -0700 (PDT)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Justin Tee <justintee8345@gmail.com>,
+	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+	Paul Ely <paul.ely@broadcom.com>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+	James Smart <jsmart833426@gmail.com>,
+	Keith Busch <kbusch@kernel.org>,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/4] nvmet-fc: only send read data for successful commands
+Date: Thu, 22 Oct 2026 15:29:30 +0200
+Message-ID: <20261022132934.3592924-2-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261022132934.3592924-1-parri.andrea@gmail.com>
+References: <20261022132934.3592924-1-parri.andrea@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,85 +107,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021225356.625288-1-kapoorarnav43@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 04:23:34AM +0530, Arnav Kapoor wrote:
+When a read command completes with an error,
+__nvmet_fc_fcp_nvme_cmd_done() still pushes the whole data buffer to
+the host before the response. nvmet_fc_alloc_tgt_pgs() allocates that
+buffer with sgl_alloc() and no __GFP_ZERO, and a command rejected by
+nvmet_check_transfer_len() leaves it untouched, so the host receives
+stale target memory.
 
- Subject: [PATCH] iio: adc: xilinx-ams: fix out-of-bounds accesses when
+The buffer is as large as the data length in the command IU, so the
+amount of stale memory returned is up to the host.
 
-when what?..
+The tcp and rdma targets send data only when cqe->status is zero (see
+nvmet_tcp_need_data_out() and nvmet_rdma_need_data_out()), so no nvmet
+command can rely on returning data with an error status. Do the same
+for fc. The ERSP then reports a transferred length of fod->offset,
+which is 0, matching what nvme_fc_fcpio_done() checks on the host.
 
-Please, read what you about to send. Most likely you used AI for all this and
-hence people tend to stop checking all the crap it produces...
+Tested over nvme-fcloop: a failed read command no longer transfers
+data and still completes with its error status, and successful reads
+are unaffected.
 
-> ams_parse_firmware() allocates room for ARRAY_SIZE(ams_ps_channels) +
-> ARRAY_SIZE(ams_pl_channels) + ARRAY_SIZE(ams_ctrl_channels) = 51
-> channel specs and lets ams_init_module() fill them for the AMS node and
-> each of its children, without telling it how much room is left.
-> 
-> For the PL-SYSMON node, ams_get_ext_chan() appends one channel per
-> "channel@N" child after the 10 fixed PL channels. The binding allows
-> reg values 20..50, so a PL node can have up to 31 such children, i.e.
-> up to 41 PL channels, while only 31 are budgeted for it. Together with
-> the 13 PS and 7 AMS control channels, this writes past the end of the
-> buffer. Since the modules are filled in device tree order, the fixed
-> channel blocks copied after the PL node can overflow as well.
-> 
-> ams_get_ext_chan() also only checks the upper bound of reg. ext_chan is
-> unsigned, so a reg below 20 makes it wrap and ams_pl_channels[] is read
-> far out of bounds.
-> 
-> Pass the remaining capacity down to ams_init_module() and
-> ams_get_ext_chan() and fail with -ENOSPC when a module does not fit,
-> instead of writing past the buffer. Also reject reg values below 20, as
-> the binding requires.
+Fixes: c53432030d86 ("nvme-fabrics: Add target support for FC transport")
+Cc: stable@vger.kernel.org
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+---
+ drivers/nvme/target/fc.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-> This was previously reported by Weigang He, but the thread stalled
-> before the changes were picked up.
-
-Convert this paragraph to Reported-by, Closes, and respective Link tags.
-
-...
-
-> +		ret = ams_get_ext_chan(fwnode, channels, num_channels,
-> +					max_channels);
-
-Perhaps a single line?
-
-...
-
->  	if (fwnode_device_is_available(fwnode)) {
-> -		ret = ams_init_module(indio_dev, fwnode, ams_channels);
-> +		ret = ams_init_module(indio_dev, fwnode, ams_channels,
-> +				      (int)(ams_size - num_channels));
-
-Why do we need casting? is ams_init_module() is aware of negative numbers?
-If so, it can also be aware of some "big" number.
-
->  		if (ret < 0)
->  			return ret;
-
-...
-
-> static int ams_parse_firmware(struct iio_dev *indio_dev)
-
->  	device_for_each_child_node_scoped(dev, child) {
-> -		ret = ams_init_module(indio_dev, child, ams_channels + num_channels);
-> +		ret = ams_init_module(indio_dev, child,
-> +				      ams_channels + num_channels,
-> +				      (int)(ams_size - num_channels));
-
-Ditto.
-
->  		if (ret < 0)
->  			return ret;
-
+diff --git a/drivers/nvme/target/fc.c b/drivers/nvme/target/fc.c
+index eecdffefa24fa..b95893adae36c 100644
+--- a/drivers/nvme/target/fc.c
++++ b/drivers/nvme/target/fc.c
+@@ -2487,11 +2487,11 @@ __nvmet_fc_fcp_nvme_cmd_done(struct nvmet_fc_tgtport *tgtport,
+ 	} else {
+ 
+ 		/*
+-		 * try to push the data even if the SQE status is non-zero.
+-		 * There may be a status where data still was intended to
+-		 * be moved
++		 * A failed command may not have filled its read buffer, so
++		 * only push data for success, as the tcp and rdma targets do.
+ 		 */
+-		if ((fod->io_dir == NVMET_FCP_READ) && (fod->data_sg_cnt)) {
++		if (fod->io_dir == NVMET_FCP_READ && fod->data_sg_cnt &&
++		    !cqe->status) {
+ 			/* push the data over before sending rsp */
+ 			nvmet_fc_transfer_fcp_data(tgtport, fod,
+ 						NVMET_FCOP_READDATA);
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
