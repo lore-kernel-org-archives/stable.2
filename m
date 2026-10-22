@@ -1,54 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792634639;
-	b=e4mTPTbiBJsMkEVxjfpDclZGRTx4rgPYmi+8JnsxLq1VPtT3xiI4eH0zFUT5IPiuRErp
-	 QhJ4SvhWbFYftl9+T8Julx4pHywiLQ4UT/6gR39lmFG3US9X5Dt/7LJOXwYgwI1x4i8Yy
-	 Y+YCPcG0zTy8bzLumVqufGZE/GtnUO3j5NGxxIOxF8/AXwNRrTMmEwkZnf/bBkVWoIud8
-	 xzw80dAJOLtpNpJGFOyOXKtxR/uugqBeP9Me8Wy4YruCxX82fYilpZJvXIfMi8kssoO0D
-	 pIujBV4oflhnDQvldJ3Tm3GNGnxQwn1rHN4U7V1s+Fs86hd+V0vF8m8mwRdDAKHsJeQ==
+	t=1792634645;
+	b=aWPAljPJRjbmob76yKISLj3pfObefXIWw3CY5Ez/DmiNjsBTcSiiA+XRj7AFiaTIu9Dl
+	 jr/jwA6nSpkDEeze2VDunNrLe/I7QHooyb29UrlfS5A4AxmTRE3OQrWxvKhnKH5cibjo6
+	 JSi2V885s2XXarnuy1V8DWH3WpWFJk/K58nG3q3VvcSIPcKp4GLSg4Sx1Sd/GZA6/swrs
+	 Zl+OEWn1yvNbRUbu1eq4ffv7d4YjFDFGpfAH0nZy/PaGHWX1589x1qn/w8dux/xD2Q/EO
+	 VCRwK6tQMv/GanUfUwMjY9ba7UnzFEOnmffZDXTnNm1Hr7F1HpQnA5mnpbnfgNRUS/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792634639;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792634645;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=T/Nx27uRFThE/ANQITswXzsFAHoFZDXxt4E8+ArdcbE=;
-	b=27t+u+nCkZs6bM6mfCTlFe7q7wo9LTGenO+oy2xRX+fvWnsLOBW9P+/dqnMrcITNDBvf
-	 DLH44SflUxCEz+1hZEzI/z7tUsiu9YHbB1nnMytp6D4rj7Mh9zH3fBwa5VkK90K7GBkF0
-	 57Mfa7YL+SwXAC+RhHr7NsLo8cl8guKmXLF6vr3qV4SLGgW1iC1r5raTRjC0Z7z5T20NI
-	 HTPlky9KFoEhIvv1yI48jSjrynizoAQHGLc5Rk4ksJmSP1HBjUJrvI4wOrBHRrCZq393T
-	 Exvm0JMOQlvT23wsZN5yVcfztW+Zh6LPoUKep4syLSNIT/hnvyolx9rjAB15bt6+n5g==
+	bh=D186RsOPDw8rmImQs44b04+WZUHbh0p799zf41rcur0=;
+	b=XKBRVkFUvsomOkHIBSETQruZy7bWiXh38Pidi8OOFeO7ZCRGx/HUmIEalYikz0rxV0Mg
+	 ahsfoRdyndzxJFPtn4Pp6rMI0xPitGNBKiG8FQxazUZ153Zfocsn1RCaKC4YjQnjwDOdd
+	 aZ2TLJt+hYC+o1lDn7GzjbPswzlIyM3hWG+EJmNu9DHn0RQeqfuQq/+j+95+6lB4swEFM
+	 g15jZfyOtISL3cqaAwlLtoLuFgh3mhlsIM8uC8+wkgZtDsyQPRsmr5RyL37NTbBOfT4RN
+	 YLAdmCBn0/Io533ZvXtbYJKOF1DtrcpMUL67oKo5NsdEHQm703T7eZZqA0w3Dt08dGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m1RUZRFC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtVqF0uP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE59606A31D
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 02:03:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0305C606A321
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 02:04:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m1RUZRFC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C28231F000C2;
-	Thu, 22 Oct 2026 02:03:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtVqF0uP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BD351F000C1;
+	Thu, 22 Oct 2026 02:04:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792634639;
-	bh=T/Nx27uRFThE/ANQITswXzsFAHoFZDXxt4E8+ArdcbE=;
+	s=k20260515; t=1792634644;
+	bh=D186RsOPDw8rmImQs44b04+WZUHbh0p799zf41rcur0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=m1RUZRFCXlfyJ3zODBRUYY9Y1OvDvQwBPhpVTt7QQCRaw15lwiOnCluTdbqcD5xhK
-	 KnGyUfzRRaienOLaRDliI07RNp9HeBE0MR2LapBRn+l3ykwG2DZqKZigaSbuQwaAkb
-	 Y5FbQ6V65foGApY/HpO5QNpcwsuks4z3kGNxMotx7f3Fjo2RSE2xvYE3EgWnjgPJWl
-	 bloYLNewy7rWxvLD0s0lN2be9TAa/FkIVc45hV0VUxANn9klg+uyu0BikyV3qFhk5h
-	 qodCI2wDg79Zu5FUn2PZbAl7aO0S58x7Q89ZUwrvj/psm1sDAMa/LIVDUoUd9CMGFC
-	 vhdwjr6fgaczA==
+	b=dtVqF0uPIB7WB52gI61vM5+Sl+YAK3E/JUSVgNKj2BjfnvBJSL5Wfz2VikDg1gpy4
+	 2J89H2+GIXHk5i9m7qQEhh2kabN1Q1PnVZSoCyLUi2BZ8o1JBBgyyTOTeFX+qcJww1
+	 ylvQ8DM3j12Gr0FG4mH+bf7WPQVZZD8/lrAJQVS9uunlgmdK99/em+YNFMOCawLhCf
+	 mnl76e1M77c1D0LJE9JGe39LXOXAMYfrjP0RPP3qBx1GTCYUdV9YDoe0yDxbtHvKPs
+	 576X9eUqMMSJfJ+2M3s6tvQt1pjX8+YCddiL4JEsbTAPUNfyEybmXcPnnpcy/k6FVI
+	 G4qRdplrgfStQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: Re: [PATCH 5.10.y] mm/vmalloc: acquire init_mm lock on huge vmap to avoid ptdump UAF
-Date: Wed, 21 Oct 2026 22:03:28 -0400
-Message-ID: <2026-10-21-1-daily-reply-0003-vmalloc-ptdump-5-10@kernel.org>
+	Benjamin Robin <benjamin.robin@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Stanislav Fomichev <sdf@google.com>,
+	syzbot+838346b979830606c854@syzkaller.appspotmail.com,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Martin KaFai Lau <martin.lau@kernel.org>,
+	"Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Subject: Re: [PATCH 5.10.y] bpf: Add BPF_PROG_TYPE_CGROUP_SKB attach type enforcement in BPF_LINK_CREATE
+Date: Wed, 21 Oct 2026 22:03:31 -0400
+Message-ID: <2026-10-21-1-daily-reply-0006-cgroup-skb-link-create-5-10-bounce@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261019174730.284280-1-ljs@kernel.org>
-References: <20261019174730.284280-1-ljs@kernel.org>
+In-Reply-To: <20261020-cve-2024-38564-5-10-v1-1-785c0999bf7e@bootlin.com>
+References: <20261020-cve-2024-38564-5-10-v1-1-785c0999bf7e@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,10 +66,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Currently there is a nasty race between ptdump and ioremap when attempting
-> to map a huge P4D, PUD or PMD entry:
+> Add missing attach_type enforcement for the link_create case.
 
-Queued for 5.10, thanks.
+Same as for the 5.15.y patch: link_create() in 5.10 already rejects a
+prog->type mismatch, so this adds nothing.
 
 -- 
 Thanks,
