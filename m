@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792709100;
-	b=fXWgJCsD3bgQHgCp9ajV57cCpSnA0mJ63dCcy6MuGvcE3njhU9/AY8DL3fYQpfQgWmuB
-	 cr6+/99sJK3jE0zLjS5WUxIrczpCjK+06PTSdxQ4TKUGDDBQyIRIENNPFXvevNpvAobb/
-	 L4aEKts0ZPKPhv6PYmCYORNzJa3qBj17HlBTPUCeEuVcUWTgjAbCnJd2DBdKooey9gpaF
-	 8oQyBKaW9efFmr06DQIDxhVFIKXfFQPWuCYmAZr2+t6Hdg8LaGpCJ5wl+SsxsUB2eIJ9y
-	 UWoDRMjvkKsvug1EQLAnKULiMm2JQ43GjUMpBl+Tu1MAH5gnt34RWietdrR4Th9nWPA==
+	t=1792709101;
+	b=o6E7YPGfMPwOdVP3Dleh8DPzDLq7H0QO6AHb265zsxdBakWlnRqOjWqk84RTUNzL5RND
+	 AFCBy0gfV4wunNRHvgnU/zb/daJXvB1sHU2Mo9lSo1LDUY5mHOOpxDTrLam6pFCllW3Ib
+	 CE3n8j8zkOouAlFG6NtGNp9nb2jLE47Ki5GaP6ZWwjWwx6KGEXO8CZIMf9H27ClMAsl2g
+	 4YW/zwFUBUgXEEc5yQotHPGonQmlVMTaI9iffi6AAa4iY5WdI1nZjhgIjDDeQhNnOgYgF
+	 cql901s3aAgPrk54JhD3CCmRGJzUhHU0wGsArNRqgiMJY54wYFG6ZznBb+8OFHnDEtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792709100;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792709101;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=UkNT4NMgWvmScyrptyaPuVUT8+ALfNynJSKY199s3Ow=;
-	b=jRT+J1RTKQDGatnUwZdVKnAyGofjY5H1740JbclhsbnHnknuA7Z5/hSRs3G1/SxMCBt7
-	 cu4I/ih5mFpW/UdRFIv9bKtQJAZHb2Jucy6UAC+h6IqXqMYcabiIEwHFjKOo4pD2UdVTw
-	 5JSDnTe5AjdXEWp1TXm4hfUCKmzbpxO6vWD17gIKW1lpV5FTSnhiUOSno0nUXpib5sAJV
-	 BaWZkBqb1Te5rOfRvxohfkVcqWCDQGJ2KIMs99KZkCtf7dyJbBZn6DqftXENUkEj/Sj54
-	 ltXS7KqTGfVjHvPXhahB5ojAyeX14TB/+P4jPAjwlG7GSplQTDJ5NuQIRbMqh4GpD7w==
+	bh=+uQ1wMT21WmUWTKFTpURTGiywNbQqYHor0GLH1pFm6g=;
+	b=dZf3uVCGrG5BQAIowJBz+/JmLTN8mOeQucAvSF8OOWcSNsplzrKBuV+6Qz+VOIhKV93d
+	 YmW0jf4Yp9Gte7taGtVfhvpwlOJcRZ3Nu4XH30tDO+dNwdQvU8I/Kc+3zrYubs7kCdM5Q
+	 r6pHrFCsINd7lmpeH0zR8q3+PqJJceXhfTe+mgPJutN+g0aj7tto/GONqAskSEzfYZo+6
+	 JWPxEgtHJGasVJ9PDrrjw3YtpGAR/a8bGkhRlkByO+J628CqsCuBus14lOr/hRQoZrKnu
+	 DlEX8DMezaZrH/oS3gZ4F1nWUtRXqX13AZyPdmNemz3s0qCBzg23U8ntENGs5N60n/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U7ag14pU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VFQcH6AH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB31606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 22:44:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED116606A319
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 22:45:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U7ag14pU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 225A81F01825;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VFQcH6AH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1F011F01828;
 	Thu, 22 Oct 2026 22:44:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792709099;
-	bh=UkNT4NMgWvmScyrptyaPuVUT8+ALfNynJSKY199s3Ow=;
+	s=k20260515; t=1792709100;
+	bh=+uQ1wMT21WmUWTKFTpURTGiywNbQqYHor0GLH1pFm6g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=U7ag14pU8vpQBVEmmKxsQ0PWvg4KvPgxjjI58jzbxOANo2IoiV9el+z4Hdeg9QY8N
-	 zR47d0fFVyyES4PHlSpwoJULZ6M32UQSgyEbSoRcWuYIHjXLMbdczy6LCUS1ZEjtzm
-	 GbgB+FI0ZOc8m6CQ+nEbZv4tet9A7gYT0yM7yArS/vUm6vh8VLS8Xf/utn5q7njmnh
-	 Wv2sc3DYnv/pYOWbpCY4bB82GK8QtuKG0lB7WKg9k2r0Wl7S2OMBJQSTDSHB7iAKkt
-	 8y8MKI6wFj3ZnRlQ/iKs1FPX3YdAGsVrblplIK5Q3Yph3WvK/EV3SotQyVTdXEHFp4
-	 1ftxSa+4xECTg==
+	b=VFQcH6AHVCM0dFT9kPXHDq7BVUsOe4RmG7Ewb/31MjjIyhi28iWaefoJGjunn39Xi
+	 VMDTGg5G0eEyIgFqjiBerzck/V5FKBJGNuNcjvWB/k54k8Z0K4hxYfgdygMybw3RNO
+	 ya06N8OuISj0xV98nNdh74Q/Qk+zkuz10l0gYIQHvYmabeY4QvB58wO+k0mYy84ymG
+	 VdHKcbAKt7bPEyrlWzNsjLiXPlgrr2ubn5T3Kb4M3xBNS0kGH4N5D5KE3LziIWJF3n
+	 oqTN1pQMeWa/quv32ajnUiuCD1tF0VVNGpg+YNNf4fScIo5plVfpkr0v0zC9L3bPKQ
+	 sfQoLs1lrujqQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
+Cc: Hongling Zeng <zenghongling@kylinos.cn>,
 	Hyunchul Lee <hyc.lee@gmail.com>,
+	Baolin Liu <liubaolin@kylinos.cn>,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 1/2] ntfs: use pagecache_isize_extended() on size extension
-Date: Thu, 22 Oct 2026 18:44:56 -0400
-Message-ID: <20261022224438.2162291-1-sashal@kernel.org>
+Subject: [PATCH 7.2.y 2/2] ntfs: take invalidate_lock in ntfs_setattr_size()
+Date: Thu, 22 Oct 2026 18:44:57 -0400
+Message-ID: <20261022224438.2162291-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102244-balmy-unicycle-3160@gregkh>
+In-Reply-To: <20261022224438.2162291-1-sashal@kernel.org>
 References: <2026102244-balmy-unicycle-3160@gregkh>
+ <20261022224438.2162291-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,75 +64,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Namjae Jeon <linkinjeon@kernel.org>
+From: Hongling Zeng <zenghongling@kylinos.cn>
 
-[ Upstream commit 5c32f0b8d791c3464d7b280859f312b006e08fab ]
+[ Upstream commit 9cc5761b8f28f9cef72061094eb5e37e2cd44d97 ]
 
-When extending file size, call truncate_pagecache() first, then update
-i_size, and use pagecache_isize_extended() instead of manual
-iomap_zero_range(). This ensures the straddling folio is properly marked
-RO so page_mkwrite() is called and post-EOF area is zeroed.
+ntfs_setattr_size() updates i_size and resizes the on-disk attribute
+without holding mapping->invalidate_lock.  Page faults take the lock
+shared, so a fault racing the resize can resolve a VCN against the
+transient runlist state of ntfs_non_resident_attr_expand() and fail
+with a spurious SIGBUS, and can interleave with the size-change
+epilogue (truncate_pagecache(), i_size_write(),
+pagecache_isize_extended()).
 
+Take invalidate_lock exclusively around the whole resize after
+inode_dio_wait(), matching the fallocate path and other filesystems
+such as xfs, which wraps truncate in its mmaplock (= invalidate_lock).
+
+Fixes: 9c87959601e8 ("ntfs: update file operations")
+Cc: stable@vger.kernel.org
 Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Stable-dep-of: 9cc5761b8f28 ("ntfs: take invalidate_lock in ntfs_setattr_size()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ntfs/file.c | 28 ++++++++++------------------
- 1 file changed, 10 insertions(+), 18 deletions(-)
+ fs/ntfs/file.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
 diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-index 8f682dbe51eaf..265f780c1f92d 100644
+index 265f780c1f92d..fb8e525743970 100644
 --- a/fs/ntfs/file.c
 +++ b/fs/ntfs/file.c
-@@ -269,23 +269,19 @@ static int ntfs_setattr_size(struct inode *vi, struct iattr *attr)
+@@ -269,18 +269,25 @@ static int ntfs_setattr_size(struct inode *vi, struct iattr *attr)
  		return err;
  
  	inode_dio_wait(vi);
--	truncate_setsize(vi, attr->ia_size);
-+	if (attr->ia_size > old_size) {
-+		truncate_pagecache(vi, old_size);
-+		i_size_write(vi, attr->ia_size);
-+		pagecache_isize_extended(vi, old_size, attr->ia_size);
-+	} else
-+		truncate_setsize(vi, attr->ia_size);
 +
- 	err = ntfs_truncate_vfs(vi, attr->ia_size, old_size);
- 	if (err) {
- 		i_size_write(vi, old_size);
- 		return err;
- 	}
++	/*
++	 * Serialize with page faults and pagecache instantiation so that
++	 * readers cannot observe the size change until the attribute
++	 * updates below have completed.
++	 */
++	filemap_invalidate_lock(vi->i_mapping);
+ 	if (attr->ia_size > old_size) {
+ 		truncate_pagecache(vi, old_size);
+ 		i_size_write(vi, attr->ia_size);
+ 		pagecache_isize_extended(vi, old_size, attr->ia_size);
+-	} else
++	} else {
+ 		truncate_setsize(vi, attr->ia_size);
++	}
  
--	if (NInoNonResident(ni) && attr->ia_size > old_size &&
--	    old_size % PAGE_SIZE != 0) {
--		loff_t len = min_t(loff_t,
--				round_up(old_size, PAGE_SIZE) - old_size,
--				attr->ia_size - old_size);
--		err = iomap_zero_range(vi, old_size, len,
--				NULL, &ntfs_seek_iomap_ops,
--				&ntfs_iomap_folio_ops, NULL);
+ 	err = ntfs_truncate_vfs(vi, attr->ia_size, old_size);
+-	if (err) {
++	if (err)
+ 		i_size_write(vi, old_size);
+-		return err;
 -	}
--
++	filemap_invalidate_unlock(vi->i_mapping);
+ 
  	return err;
  }
- 
-@@ -1125,13 +1121,9 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
- 		filemap_invalidate_unlock(vi->i_mapping);
- 	if (!err) {
- 		if (mode == 0 && NInoNonResident(ni) &&
--		    offset > old_size && old_size % PAGE_SIZE != 0) {
--			loff_t len = min_t(loff_t,
--					   round_up(old_size, PAGE_SIZE) - old_size,
--					   offset - old_size);
--			err = iomap_zero_range(vi, old_size, len, NULL,
--					       &ntfs_seek_iomap_ops,
--					       &ntfs_iomap_folio_ops, NULL);
-+		    offset > old_size) {
-+			truncate_pagecache(vi, old_size);
-+			pagecache_isize_extended(vi, old_size, offset);
- 		}
- 		NInoSetFileNameDirty(ni);
- 		inode_set_mtime_to_ts(vi, inode_set_ctime_current(vi));
 -- 
 2.53.0
 
