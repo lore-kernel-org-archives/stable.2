@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792682058;
-	b=YRGmlgUUeuAM5eQl5hctvT+WQF8Czsp+Tpdqqa+PiQSMi4yJpP2aIw7vYNLfX1/LHXGH
-	 HPoOPeLTwlXqaj/nqd2a6tXe9+x7YVvQRCqXcCsV4nPMcaWB1QQ+1eIntDvvI4SIVVIaE
-	 JfW7laNIFPtEwNQJllDdGAQz+SkEdFzP+aOi8P/Ugk1IrRGLaAg8Y5PNHGNGli8OkbwQr
-	 FuRfrIu5G/cqCmAMd7XbUJNMKzPJSxKhytKSXMj47LVKxA9sAeLs4XA5KVlpgiAFWxm8a
-	 Y3Q4c2BtOIE6vuJwgByE7I1Hdqg0qZ+CPCIwuovDrBS3LLZIQlRoXjSfjdTOEm0wztw==
+	t=1792682059;
+	b=yflvzQD22HFNQSySeftKjDQXsCGRfFGfNl2tNkNPLqpNhOjntnK/ZtGn9ZLXnwwXCe2h
+	 d5gN/YTF4B12xFc6x1ON6sa4ZRsa/T0twFAYNqoQ9pWZWHgMN4+O0FpWw1b+YN12sS7Wg
+	 B+QiWDEW5CeN1GLzyXW2sThp0LJ8xj6Ez7xvqjJIs/kw4keiJX0ySmntUVrjFxHsoMi6X
+	 b6GPJkO4Z0NL9QbY4NVWbjJJQgSjpM2+1WokdtWHXSPWZtaTHjmEDOCEVdeHlVvwV7jFe
+	 YHkFZhwB1QILpBHZL08cLNHVc5j2QI8szvnK1CASsNH7Vhi+RzfMU4s0mmXmXFEn7xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792682058;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792682059;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1liQut5JHI17Yq/A1V7YgqGN1GAoyZTilKH8/Jjrs9g=;
-	b=3K2x4GXqyBbsY+OuQdrHKszVjLmKCnm5brQA3P0n6kPVIW1ej7HIH8OEWy5hOM0dQhC2
-	 OiG18MK8SoKq5VzUmIzRXwunNm3JnNmw5hXsaIvzeSmrNKoGi1opGRLmhrTH0dpHZy5Xi
-	 VMd9yYP5VcTnhj5Kooi/Dndv8vP5Ux6coKChgZ5XUrd/Im/VZ7AsODkE1rBypUEUDg/AE
-	 KfV7bmlWHiv7OIzvwE07QX+dYbDDEXbXLSeMYDJEfUrydJHNQZyaG4oSLdyzUCrjQIQ2i
-	 l5H/zPmFOEUhOt/P8p8gfsmDdxXTPNyoE0g1EEBkbBXkXfQpBUhhMV7psdF3Z9nZvkA==
+	bh=LIVmSzIk4JB5kdc6PM/uszD40rrL6s33RURIe/NS8kI=;
+	b=TaSLcn5p5pX4ahg/f1wmxmzBg0idIbErzOqipC1yUSxW4celCLSicnnnTcOsP6F7N0lj
+	 7VSdwre+WN2fpEM3V2zbSLT3j2B9OPwjMPGFcWW7V+NSTURpZNhfOHlg4XRySRZTvrBtC
+	 yvkcDoEIQVYeTC1iz7T4BBJ95587uK3N+9WQtf9uVLeKU9VsCrHw2sbNQoMbYCmrbUps9
+	 TYtQ3GLr41yaU3zXm8xa+jKN4iVrnc4JRXK7ATZtiNBjiGcTb8bb20IYwh0gkWJR5fEVI
+	 XvYRPpDZF/W6LU49uYrjeSnMNdvYmi7HcnKl+B01oW4BtOq8oQBv0tIIr1FlSf7p9gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bNS5XQWc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aw+WlVkD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A502606ACD8
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 15:14:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DE0B606ACE4
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 15:14:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bNS5XQWc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED8381F01829;
-	Thu, 22 Oct 2026 15:14:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aw+WlVkD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80D851F031E0;
+	Thu, 22 Oct 2026 15:14:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792682058;
-	bh=1liQut5JHI17Yq/A1V7YgqGN1GAoyZTilKH8/Jjrs9g=;
+	s=k20260515; t=1792682059;
+	bh=LIVmSzIk4JB5kdc6PM/uszD40rrL6s33RURIe/NS8kI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bNS5XQWc+hcV50yT1/8fjRQdhFpJWGsQhYM+Io0/9PhrMSud6gUiYBDmdpt9HoUXR
-	 WlwjDngcz7lxDFxtENSSYMzqMBDLcuukuwZPeyqyUOo0fF7ROfUlcTpzpUnSqqLFSY
-	 tL3HJ7+dWfQ82AIW12h7wRUVdN90MOY2Hu65zR4QPa2Hb+m/tM7K5l/Xx20a8lR8ll
-	 4beBWzPlDU42yl9zg9T14jYYHyzdKRgD5yV0qBi81XtbZ1Zd04r0FwOE4w2OY5BlGk
-	 hLCOuf3xFMb6F6TPID0xUqI5PNnwiQC1mef5mOOBZuU19GxUBguoVr2ao8krpr7J79
-	 dRL/iamn9ZHmw==
+	b=aw+WlVkDflIuCe2UB0TbEzHpK5lym6vBsUSCDjxqozE8vgFsInsNrJdFen5raaVJt
+	 JBes1Uxq6d4Dylnv0GizonBBHDNjXFKp/UvVgdWR+ky6XgTZYQcgwN4FafkrOutmIa
+	 falgbOEcacvkNZk+5JXITc+byId8UXBrCzckyp17kjSytmcPsRMEuv7sDQY7DoSXCK
+	 QMwK6oj6RV3ZrtBckqa5pw0UwlF9iQlNKoLcuFS9U3CtEHiO4ZHpTJ8s9Ylq6pLkG5
+	 WSHIe9DN8PGr9B9ud0zU3GljF2E67D1z9YZsT0OXFEdw+yzlMYzX6u33JdkNeFF/ws
+	 t6ABAD4X3kN/g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yao Kai <yaokai34@huawei.com>,
-	Tejun Heo <tj@kernel.org>,
+Cc: Frank Sorenson <sorenson@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] workqueue: Fix unbound pool lifetime for pending pwqs
-Date: Thu, 22 Oct 2026 11:14:15 -0400
-Message-ID: <20261022150730.1630145-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] cifs: add revalidation on FSCTL failure in smb2_duplicate_extents()
+Date: Thu, 22 Oct 2026 11:14:17 -0400
+Message-ID: <20261022145315.1605583-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261022150730.1630145-1-sashal@kernel.org>
-References: <2026102148-outpour-epilogue-a40f@gregkh>
- <20261022150730.1630145-1-sashal@kernel.org>
+In-Reply-To: <2026102115-justify-disrupt-2bd1@gregkh>
+References: <2026102115-justify-disrupt-2bd1@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,97 +61,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yao Kai <yaokai34@huawei.com>
+From: Frank Sorenson <sorenson@redhat.com>
 
-[ Upstream commit cf9c8aaea0d47410df8708bec195889f3a85cd3c ]
+[ Upstream commit 53676a5e28231186c9f56d87b7998b640699bc15 ]
 
-KASAN reports a use-after-free of an unbound worker_pool in
-node_activate_pending_pwq():
+smb2_duplicate_extents() has no handling for
+FSCTL_DUPLICATE_EXTENTS_TO_FILE failure: when the FSCTL fails, local
+inode metadata may be stale from the pre-extension or from concurrent
+remote writes, but is never refreshed.
 
-  BUG: KASAN: slab-use-after-free in _raw_spin_trylock+0x6d/0x120
-  Read of size 4 at addr ffff8880089ce000 by task kworker/u22:0/318
+Force revalidation on FSCTL failure and use i_size_read() for the
+pre-extension check.
 
-  CPU: 1 UID: 0 PID: 318 Comm: kworker/u22:0 Not tainted 7.2.0 #1 PREEMPT(lazy)
-  Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
-  Workqueue:  0x0 (flush-8:0)
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x53/0x70
-   print_report+0xce/0x610
-   kasan_report+0xce/0x100
-   _raw_spin_trylock+0x6d/0x120
-   pwq_dec_nr_in_flight+0x4b4/0xcb0
-   process_one_work+0x921/0x11a0
-   worker_thread+0x4d0/0xd20
-   kthread+0x2de/0x3c0
-   ret_from_fork+0x3aa/0x620
-   ret_from_fork_asm+0x1a/0x30
-   </TASK>
-
-  Allocated by task 311:
-   alloc_pwq+0x439/0xca0
-   apply_wqattrs_prepare+0x75e/0xd10
-   apply_workqueue_attrs_locked+0x44/0xa0
-   wq_nice_store+0x350/0x450
-
-  Freed by task 0:
-   kfree+0x127/0x3b0
-   rcu_core+0x523/0x1780
-   handle_softirqs+0x1b3/0x610
-
-  Last potentially related work creation:
-   put_unbound_pool+0x3f3/0x7d0
-   pwq_release_workfn+0x494/0x8e0
-   kthread_worker_fn+0x1ff/0x790
-
-Canceling the last inactive work skips pwq_dec_nr_active(), so an empty
-pwq can remain on pending_pwqs when its refcnt reaches zero.
-pwq_release_workfn() currently puts the pool before removing that pwq.
-If this drops the last pool reference, the pool can be RCU-freed while
-the pwq remains reachable, and node_activate_pending_pwq() may trylock
-the freed pool->lock.
-
-Remove the pwq from pending_pwqs before putting the pool.
-
-Fixes: 5797b1c18919 ("workqueue: Implement system-wide nr_active enforcement for unbound workqueues")
+Fixes: cfc63fc8126a ("smb3: fix cached file size problems in duplicate extents (reflink)")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yao Kai <yaokai34@huawei.com>
-Signed-off-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ sashal: Made the failure check standalone because the existing code lacks the SMB2_query_info() success branch. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/workqueue.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ fs/smb/client/smb2ops.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-index b7b09a618d047..8c74f199cd707 100644
---- a/kernel/workqueue.c
-+++ b/kernel/workqueue.c
-@@ -5185,12 +5185,6 @@ static void pwq_release_workfn(struct kthread_work *work)
- 		mutex_unlock(&wq->mutex);
- 	}
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index 4da027ee4b99b..21a2b265ae7c4 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -2070,7 +2070,7 @@ smb2_duplicate_extents(const unsigned int xid,
+ 		src_off, dest_off, len);
  
--	if (!is_percpu_pool(pool)) {
--		mutex_lock(&wq_pool_mutex);
--		put_unbound_pool(pool);
--		mutex_unlock(&wq_pool_mutex);
--	}
--
- 	if (!list_empty(&pwq->pending_node)) {
- 		struct wq_node_nr_active *nna =
- 			wq_node_nr_active(pwq->wq, pwq->pool->node);
-@@ -5200,6 +5194,12 @@ static void pwq_release_workfn(struct kthread_work *work)
- 		raw_spin_unlock_irq(&nna->lock);
- 	}
+ 	inode = d_inode(trgtfile->dentry);
+-	if (inode->i_size < dest_off + len) {
++	if (i_size_read(inode) < dest_off + len) {
+ 		rc = smb2_set_file_size(xid, tcon, trgtfile, dest_off + len, false);
+ 		if (rc)
+ 			goto duplicate_extents_out;
+@@ -2095,6 +2095,11 @@ smb2_duplicate_extents(const unsigned int xid,
+ 	if (ret_data_len > 0)
+ 		cifs_dbg(FYI, "Non-zero response length in duplicate extents\n");
  
-+	if (!is_percpu_pool(pool)) {
-+		mutex_lock(&wq_pool_mutex);
-+		put_unbound_pool(pool);
-+		mutex_unlock(&wq_pool_mutex);
++	if (rc) {
++		CIFS_I(inode)->time = 0; /* force reval */
++		cifs_invalidate_cache(inode, 0);
 +	}
 +
- 	kfree_rcu(pwq, rcu);
- 
- 	/*
+ duplicate_extents_out:
+ 	return rc;
+ }
 -- 
 2.53.0
 
