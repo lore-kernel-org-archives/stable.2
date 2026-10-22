@@ -1,107 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792664629;
-	b=1yphxZhrvUbdOgVili/ronsaLKdj7nkQmuSJCsxTL9dGBtuR3AW/UyF0qunrk1Xeuye9
-	 DdSMVXd0CBUAfi4zLmMRbcovVj3AeYiM5jFUL2lxCz+XzLJ8Yj8rpA22Xrdfic7JKLmlE
-	 uAAxGWIWHgzLhr0n8ooH5MFoyLx+NDqd0w2OdI4cnQu35O+XtEbUSaTHaKuYm1TFL8Afh
-	 E59LV+HHo5GEpmhc4MRbqcnU+9+ng5GZk+MnTP7gRjFyJt0vgWfX870AynQglxROZEvbw
-	 Zvr99JjKclA2Pn2hKbtdap2Cb8rUmOPjsxKy39AzTzi3OrG11OwgBBG5HAw0wRi8PhQ==
+	t=1792664860;
+	b=qhdl7yUEZldEaod/E3GgPM1S9o9D7BsCz54G/4smzreuLhMHF++OEPCtRH1hGsCtGz96
+	 Tmse4dyT8kh6KUqvHGTQwCr88zc1Hgv+mUpNxBxxqwkRODt7hoUMJSDJkWFSUcRx/gARd
+	 3R7LMPgGipwu1ulk3NQlv0Bxsctsdr5v7fJgASJgx8VqALPyMPTBJWTDE5N7wAD72iReM
+	 yXTDi2ARUnPxZ1N5QCcKT3BXOcjRiEWYfTY+djg/bo3DXS1FwYrOIWCrYn0bnOjPITKut
+	 rPI7/ypZJJ43n3qMkOS33LEQ/xaRDSy5fGKy3rOTrwdA1m5ivvNx3B74WDRMg9yfVdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792664629;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=sZa9rUJ7koaFPHl3nudoqH3SGn6sft39s0BZomRZuiM=;
-	b=M9zBICk/5SGnbe/CgPhlQ3GPdzR+Lq+6GKvEpq0FXgjlS3BNXVfNFg+sPyAGRCxuXBie
-	 ezEENzPMlNA45EHqQDyFBerC5yvDDduUPwrriIbHron70yru7bRB1CSorR3pqKGBDLSdC
-	 /DeodUphL9qXl3tupepcuFl5sVKhAsFDMKfVs5ukRkbhAbZKA3ABxgGj6SaE/xgjc5b3h
-	 mNGfaKpuMFSg/iqihX0fRlkkBwU9/HaWoMB0hiDC2ELukF/yr1835TjV9c8RzO0lG7B+O
-	 wYnAtmsEqzbtmnybJ6sP9X5p3XDUEk+1RCNPYVqghRIUAO8MyqTNwCq4D99yLCGao0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792664860;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=ZAd7X9/vJXNgFIS3+YuK/KTO3oVmAseHL1ppDeOuesI=;
+	b=U7fNWy+HS6kBcNnLD72ekD60cqMFQ8wK17vzcx06I7fVotM1sl/gr7lc1wlvd8MYUMiP
+	 TkdMU4oK5pKC3Ti6rpFUTG9nkqoRou0KvCiMzqSjZo1BiubWfqwKS48BsX80Qs8N2sowh
+	 E2KgRtJjwmjPEgxb7yvvE3QKnLXgSHzUV0UwwsSq0JOXun8Ff9kT6GBl13OvrQJinnhnT
+	 we0/HKcvvGjp3aiSMHwXOSniiB9xueJYaiEN0U/1djOcMjApTWtt9Wn0Rr+sUE5qxQojT
+	 nYsPkSlUPxemnFynAHwVw8e9pbH2DQKj4b85t6GrYu6Tm/4U+kIBR3JdBBFKzlhsZeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=cidyetCy;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=MUruPdiB;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=cidyetCy;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=MUruPdiB;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bxGUBlou;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A6D4606A31A;
-	Thu, 22 Oct 2026 10:23:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A6D4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 039B8606A329;
+	Thu, 22 Oct 2026 10:27:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=cidyetCy;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=MUruPdiB;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=cidyetCy;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=MUruPdiB
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 328BE2214C;
-	Thu, 22 Oct 2026 10:23:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792664627; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sZa9rUJ7koaFPHl3nudoqH3SGn6sft39s0BZomRZuiM=;
-	b=cidyetCy3nVsfNsiTjcPHSZeOADygORArbcZZQYtLXx7GsTHG7/Cmyw/yJApkoqRz+Jqvp
-	1Tg8lEGL1YhP/Dr876ldH9SSbj7BC+8PeeM20BoVog2w+UhclIo3ec0bDJkYNEIs4HEXgf
-	o91YmEZuArWRvlmfIa8p8QKl3etrBzg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792664627;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sZa9rUJ7koaFPHl3nudoqH3SGn6sft39s0BZomRZuiM=;
-	b=MUruPdiBO5BltqF/uIjq/rIKuLNyDdDcZKlPGfkqjvnxDMl1guBdp6alTR9QgNrQIlQtux
-	O+hSvpbUQxxo40Cg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792664627; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sZa9rUJ7koaFPHl3nudoqH3SGn6sft39s0BZomRZuiM=;
-	b=cidyetCy3nVsfNsiTjcPHSZeOADygORArbcZZQYtLXx7GsTHG7/Cmyw/yJApkoqRz+Jqvp
-	1Tg8lEGL1YhP/Dr876ldH9SSbj7BC+8PeeM20BoVog2w+UhclIo3ec0bDJkYNEIs4HEXgf
-	o91YmEZuArWRvlmfIa8p8QKl3etrBzg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792664627;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sZa9rUJ7koaFPHl3nudoqH3SGn6sft39s0BZomRZuiM=;
-	b=MUruPdiBO5BltqF/uIjq/rIKuLNyDdDcZKlPGfkqjvnxDMl1guBdp6alTR9QgNrQIlQtux
-	O+hSvpbUQxxo40Cg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0AD5C134E6;
-	Thu, 22 Oct 2026 10:23:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id eWfsNTLk2Wo6JQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 22 Oct 2026 10:23:47 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 8AC15A1417; Thu, 22 Oct 2026 12:23:42 +0200 (CEST)
-Date: Thu, 22 Oct 2026 12:23:42 +0200
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 07/15] fs: don't fail fs_bdev_freeze() once a superblock
- is frozen
-Message-ID: <u3vsnr72tedlsbhcit4iyowesj5pkbifgh7xp6rzheg5tjj5g7@ce2eueg6nlg6>
-References: <20261011-work-super-fixes-core-v1-0-c727176c5b53@kernel.org>
- <20261011-work-super-fixes-core-v1-7-c727176c5b53@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bxGUBlou
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3A9E1F000C2;
+	Thu, 22 Oct 2026 10:27:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792664859;
+	bh=ZAd7X9/vJXNgFIS3+YuK/KTO3oVmAseHL1ppDeOuesI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=bxGUBloucVM+lNbKykAaw+ya3sDGs8o0gytT8hhahdNWlvr3VuNZR1/ATpGpSTA1t
+	 PhXH22CVY18yOzTaiczHI0E8Wx0YeQjbbi+Mvi606oCvlyzOHVF9Jqce+WvsZ9I9RJ
+	 fbBsHBIy0v/UUG393k69EJYNrF/lLAlIdjgQMl6mzknakAQiZnD/MCgW3IG48tsiIb
+	 Ds7JfpTempUGRK6B+qWTuanKie0jqif6cy8SmWdOQlTjO8KPshwuCS0eJs/w/cBqC6
+	 +MOELABAqbD2Z4e+vJQhBsgRKSKoDD+NT00SD69umf1Y0EI5bhqsW5r2lH9IfGk0Tc
+	 6fK4+2//XlxPA==
+Subject:
+ Re: [PATCH net] tls: check the right open record in TLS_TX_MAX_PAYLOAD_LEN
+From: netdev-bot+sashiko@kernel.org
+To: rjethwani@purestorage.com
+Cc: netdev@vger.kernel.org, john.fastabend@gmail.com, kuba@kernel.org,
+ sd@queasysnail.net, davem@davemloft.net, edumazet@google.com,
+ pabeni@redhat.com, horms@kernel.org, wilfred.mallawa@wdc.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Thu, 22 Oct 2026 10:27:38 +0000
+Message-ID: <179266485852.3135.2917953974496928848@kernel.org>
+In-Reply-To: <20261019222626.745408-1-rjethwani@purestorage.com>
+References: <20261019222626.745408-1-rjethwani@purestorage.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,133 +64,128 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261011-work-super-fixes-core-v1-7-c727176c5b53@kernel.org>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.com:email]
-X-Spam-Score: -12.80
 
-On Sun 11-10-26 17:56:07, Christian Brauner wrote:
-> fs_bdev_freeze() freezes the superblocks on the device and then returns
-> the error of sync_blockdev(). But bdev_freeze() takes an error from
-> ->freeze() to mean that nothing is frozen and drops bd_fsfreeze_count
-> again. Its callers act accordingly. dm's lock_fs() doesn't set
-> DMF_FROZEN and the shutdown ioctls just return. So nobody ever calls
-> bdev_thaw() and the superblock stays frozen until someone thaws it by
-> hand. Until then every writer blocks in sb_start_write().
-> 
-> freeze_super() only syncs sb->s_bdev and fails cleanly if that reports
-> an error. So the sync in fs_bdev_freeze() is the first to see a
-> writeback error on any other device of the filesystem, an external log
-> or journal device or a realtime device. It also is the first sync for a
-> read-only superblock since freeze_super() doesn't sync those at all.
-> 
-> I made fs_bdev_freeze() return that error in fbcb8f39e96d ("bdev:
-> surface the error from sync_blockdev()") without thinking about what it
-> means for the superblocks that are already frozen at that point. Don't
-> report a failed sync once a superblock was frozen. The device is frozen
-> and the regular bdev_thaw() undoes it. The error isn't lost either. It
-> stays recorded in the errseq of the mapping so fsync() on the device
-> still reports it. A device without any live superblock still reports
-> the error of the sync, just like bdev_freeze() does for a device without
-> holder ops.
-> 
-> Reproducer, xfs with an external log on dm-linear, a stale writeback
-> error on the log device, then a dm suspend:
-> 
->   mkfs.xfs -f -l logdev=/dev/vdb,size=64m /dev/vda     # vdb is 128M
->   dmsetup create log --table "0 $(blockdev --getsz /dev/vdb) linear /dev/vdb 0"
->   mount -o logdev=/dev/mapper/log /dev/vda /mnt
->   echo 1 > /sys/kernel/debug/fail_make_request/times
->   echo 100 > /sys/kernel/debug/fail_make_request/probability
->   echo 1 > /sys/block/dm-0/make-it-fail
->   xfs_io -c "pwrite 100m 4k" -c "sync_range -w 100m 4k" /dev/mapper/log
->   echo 0 > /sys/block/dm-0/make-it-fail
->   dmsetup suspend log          # fails with -EIO, the device stays active
->   touch /mnt/foo               # hangs until fsfreeze --unfreeze /mnt
-> 
->   Buffer I/O error on dev dm-0, logical block 25600, lost async page write
->   device-mapper: suspend ioctl on log  failed: Input/output error
->   INFO: task touch:117 blocked for more than 30 seconds.
->    percpu_rwsem_wait+0x203/0x500
->    mnt_want_write+0x28f/0x2f0
->    lookup_open+0x135/0x1b20
-> 
-> The selftest in the next patch covers the read-only case.
-> 
-> Fixes: fbcb8f39e96d ("bdev: surface the error from sync_blockdev()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Looks good. Feel free to add:
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-								Honza
+- [Medium] The TLS_HW check added to do_tls_setsockopt_tx_payload_len()
+  (net/tls/tls_main.c) only rejects the change when…
 
-> ---
->  fs/super.c | 16 +++++++++++++---
->  1 file changed, 13 insertions(+), 3 deletions(-)
-> 
-> diff --git a/fs/super.c b/fs/super.c
-> index 2dc4ec2e8014..82290d094c03 100644
-> --- a/fs/super.c
-> +++ b/fs/super.c
-> @@ -1555,7 +1555,8 @@ static void fs_bdev_sync(struct block_device *bdev)
->   *
->   * Return: 0, or the error from the one superblock on a single-fs device.  When
->   *         several superblocks share @bdev a per-superblock failure is swallowed
-> - *         (see below), but a sync_blockdev() failure is always reported.
-> + *         (see below).  A sync_blockdev() failure is only reported if no
-> + *         live superblock uses @bdev.
->   */
->  static int fs_bdev_freeze(struct block_device *bdev)
+--
+
+tls: check the right open record in TLS_TX_MAX_PAYLOAD_LEN
+
+This patch changes do_tls_setsockopt_tx_payload_len() to look up the open
+record based on ctx->tx_conf. For TLS_HW it now checks
+tls_offload_context_tx::open_record, instead of casting priv_ctx_tx to
+struct tls_sw_context_tx. The aim is to stop HW offloaded TX from building
+records larger than a limit that setsockopt has accepted.
+
+> diff --git a/net/tls/tls_main.c b/net/tls/tls_main.c
+> index fbb274287aa5..8f11b8629492 100644
+> --- a/net/tls/tls_main.c
+> +++ b/net/tls/tls_main.c
+> @@ -837,12 +837,23 @@ static int do_tls_setsockopt_tx_payload_len(struct sock *sk, sockptr_t optval,
+>  					    unsigned int optlen)
 >  {
-> @@ -1586,8 +1587,17 @@ static int fs_bdev_freeze(struct block_device *bdev)
->  	 */
->  	if (error && count > 1)
->  		error = 0;
-> -	if (!error)
-> -		error = sync_blockdev(bdev);
-> +	if (error)
-> +		return error;
-> +
-> +	/*
-> +	 * An error tells bdev_freeze() that nothing is frozen and nobody would
-> +	 * ever thaw a superblock frozen above. So only report a failed sync if
-> +	 * no superblock uses the device.
-> +	 */
-> +	error = sync_blockdev(bdev);
-> +	if (count)
-> +		error = 0;
->  	return error;
->  }
+>  	struct tls_context *ctx = tls_get_ctx(sk);
+> -	struct tls_sw_context_tx *sw_ctx = tls_sw_ctx_tx(ctx);
+>  	u16 value;
+>  	bool tls_13 = ctx->prot_info.version == TLS_1_3_VERSION;
 >  
-> 
-> -- 
-> 2.53.0
-> 
+> -	if (sw_ctx && sw_ctx->open_rec)
+> -		return -EBUSY;
+> +	/* Both TX paths size the record they are filling against
+> +	 * tx_max_payload_len, so refuse to change it under an open record.
+> +	 * priv_ctx_tx is a different struct for each TX configuration.
+> +	 */
+> +	switch (ctx->tx_conf) {
+> +	case TLS_SW:
+> +		if (tls_sw_ctx_tx(ctx)->open_rec)
+> +			return -EBUSY;
+> +		break;
+> +	case TLS_HW:
+> +		if (tls_offload_ctx_tx(ctx)->open_record)
+> +			return -EBUSY;
+> +		break;
+> +	}
+
+[Severity: Medium]
+Can a concurrent HW send still produce records larger than the new limit
+after this check passes?
+
+The setsockopt path takes only the socket lock and not ctx->tx_lock:
+
+net/tls/tls_main.c:do_tls_setsockopt() {
+    ...
+	case TLS_TX_MAX_PAYLOAD_LEN:
+		lock_sock(sk);
+		rc = do_tls_setsockopt_tx_payload_len(sk, optval, optlen);
+		release_sock(sk);
+    ...
+}
+
+On the device side, tls_device_sendmsg() holds tx_lock for the whole
+send. However, tls_push_data() reads the limit only once, before its loop:
+
+net/tls/tls_device.c:tls_push_data() {
+    ...
+	max_open_record_len = tls_ctx->tx_max_payload_len +
+			      prot->prepend_size;
+	do {
+		rc = tls_do_allocation(sk, ctx, pfrag, prot->prepend_size);
+		if (unlikely(rc)) {
+			rc = sk_stream_wait_memory(sk, &timeo);
+    ...
+		copy = min_t(size_t, size, max_open_record_len - record->len);
+    ...
+		if (done || record->len >= max_open_record_len ||
+    ...
+}
+
+Inside the loop, the socket lock can be dropped while open_record is NULL.
+This can happen in two places:
+
+  tls_push_record()
+    offload_ctx->open_record = NULL;
+    tls_push_sg()->tcp_sendmsg_locked()->sk_stream_wait_memory()
+      sk_wait_event()->release_sock()
+
+and also when tls_do_allocation() fails with no open record and
+tls_push_data() calls sk_stream_wait_memory() directly.
+
+If a second thread calls setsockopt(SOL_TLS, TLS_TX_MAX_PAYLOAD_LEN) with a
+smaller value during either window, the new TLS_HW check sees open_record
+as NULL and the call returns 0. The blocked send then continues to build
+records against the old, larger max_open_record_len.
+
+The SW path looks different here. tls_sw_sendmsg_locked() re-reads the
+limit after open_rec is allocated on every iteration:
+
+	record_room = tls_ctx->tx_max_payload_len - msg_pl->sg.size;
+
+Given that, is the new comment accurate for TLS_HW? It says "Both TX paths
+size the record they are filling against tx_max_payload_len", but the
+device path uses a cached copy.
+
+Would it make sense to recompute max_open_record_len from
+tls_ctx->tx_max_payload_len each time tls_push_data() starts a new record?
+Another option would be to take tx_lock in the TLS_TX_MAX_PAYLOAD_LEN
+setsockopt path before lock_sock().
+
+>  
+>  	if (sockptr_is_null(optval) || optlen != sizeof(value))
+>  		return -EINVAL;
+
+[ ... ]
+
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261019222626.745408-1-rjethwani%40purestorage.com
