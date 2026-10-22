@@ -1,59 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792697088;
-	b=vFIUzq6GH/6DWuTg+yVR1wS6vfnfTGmP77PdooVOZ/kU7S1w5owAW8zoFvzWyET3PIMj
-	 Es2TZrrCW4PJEL31AtfbkpXj4MRC8+g83QGZxp7jFJvEX6ugZEGIYGkcIIDru8aq6XFmp
-	 MkIZZqcLjcyrAjz079GiCWti5KNwpsxhQdJm5F5SmRF92tXH6B6ERGBnPHCkqEueGlQ5L
-	 AZPMjXchGSi4V6nSH9XeG6GcECo7mxYSsiIyMEfzd9fhREPkEOf3FWPlql0DR8PtP92C3
-	 NqPtCGYr/hxricURXFc30MYifubIBClvL1uo2o73fBreHLBg5PDuJCdSTeU/1YVpTQg==
+	t=1792697241;
+	b=XFpuS0QV8qTgAB6vpm2GfkdzzUc9ke71LMBNmsdJZ9ClHM00qfVmshStHEbBfpW2kzSf
+	 bOiLegy8/GpQoaXjIQ6B+61malBE1Ron0qtQoJekENihIAEXYBKOzE9xPXmXaZvKlH6vF
+	 sR08N82f6sBmrTP+ZCv8RdmVAbzTD0+y/gRNOMeO8+1gjYoPubUOKbdHK3XZ1bQSY/y2X
+	 99x7PMtZr4ITzddOMOk9+dP9GvC8Lmj/y12aLidBYX1jx9icBzL/vompnWUdNaBWzkpV1
+	 nYcFaINGMfHRkG9gSKsmzknRgkbp4PcBmaIQXZZD/fkJcd2PF1z+p9EzJC6BFCui/2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792697088;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792697241;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5p31jbyeMcCM0/TUBwTMNUa9Iq20Y8GSRHbic2xh47c=;
-	b=e5tU48eXUCWRjSN2Bz43f0/zsXmNclTKCpKcGUEK7uDljJNCihP8n6T7j7bnAuJXDh82
-	 tnwZsgjgI4Qk6FKJP5pFgDQaILdqfETRyyp3OUnRpC6TPVGFWfJG5Sz2HkEF9xzbw1g7E
-	 VrX2K5K6fBXHaGygfmcRRbj1IYf5Dx7C7/VzIbZOJ/DQXMsMAx4qdAX6cSkqgeLTKxGEk
-	 xgRzkex8dzZ53dYep3zdN57ttfyGbzglPChmc/8G2MzWt9OMqqzlbDYbkHC8TiVOuQwS2
-	 hX6fjIks0ZcQLRlK/4RKrrMC8w4cAjaI/prjGbD6SL4lw8cBCijvW77lM09LhLFlDbg==
+	bh=Qu7bXSTKz4yJk5jFpot5GqPTr4OCRen0F7LdG3C/gXs=;
+	b=kH7Fxav/rgMcuAQB4e53fdwMhVg22hDC2xYzMAOaDz9t8f/Mi7X1PYYO7riJyOzHDAkX
+	 hZN9Ro6Cu4fmoxFwPQKb04Iz7qHPTOSD1QJ7Wg2pN1TmVqFtGcwFas9EiHwzTobTZvd7k
+	 sQ9/HrOjRAPKQF8bppYBFAcAT6hFY33w8vds5k/zm5E/oBm1E2h7DDD45BlQ8uUxJ2zmw
+	 a3QyesFpL6Y8m4j+6LrtKf03SuUAxG/rvp2+Us6B0xdlO5gQXBrP2ssyStXE70p5azoeB
+	 fqA6y4cY7PzoqKxgvI4HdV4SQJooo5tvIjsNgAa46v25jr5DZjD2FrWNSosS9OQXP6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUCkMRUv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Yr/F+5Zj";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7579606A31B
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 19:24:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E22BC606A31F
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 19:27:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUCkMRUv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E399A1F01825;
-	Thu, 22 Oct 2026 19:24:45 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yr/F+5Zj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1E101F01825;
+	Thu, 22 Oct 2026 19:27:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792697087;
-	bh=5p31jbyeMcCM0/TUBwTMNUa9Iq20Y8GSRHbic2xh47c=;
+	s=k20260515; t=1792697240;
+	bh=Qu7bXSTKz4yJk5jFpot5GqPTr4OCRen0F7LdG3C/gXs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FUCkMRUvi8HBzLR7Zxsq1ieMgFZ2Sg1HD0jFq2dLgd/RZaVYrC+hOko8zeCXCVkJ3
-	 UvDmG1RuRXjK/ZZGAbCNblULvf+N5Vzktkbal6FQbouJucz0jOptmDPHkkzfY3RzSb
-	 EJEaW6S4menHSe8HlX+RR3Iw5AfPMawXBuRY1aGgrfPLLgXa9JfHm5iZlkP+euTjoz
-	 Iqd+ncNKMoMf330X4wWRHolf/EOfZpmLZjG3gzTIEkmQB5MhF/faENn3A83V035TMQ
-	 FEwOgZpDwkDQfaVzchVAk3SjI8/LrNkki3hT66bWvneRiqUs1sJxmw3gwn6GKCrvRt
-	 NJ4yAx9OoaNBQ==
+	b=Yr/F+5Zjs3dctQ29NnTPwiSEbjCWs0bUcJLVnyWh6jis1dt8fTBTsW0Wsi3f84SEZ
+	 ge6dB0tKt2TpNIC2w1e++GQf3brYUYgMDVLA7bPBFKcIxDX2MyvpvqaZ90qyUfwDxs
+	 tNVjdh39lvoR8cVX0lo9BsF3Ons9hc/X/LOErv+5zsNZLf7ZtweEMwT5SPusNbB1M1
+	 NNCSc0d8eO12HHHI0MQoRtfQ24yyHZ6SnObbYYyH6ZGW72KrIn1lvJyDq9llD0py2v
+	 E5U15X16DX531pPfHtpUtZjQoRqMXLftXI+WjCrQZ/SZxR41Esdw+ay7rWQ3OtOjir
+	 SFLxy+RRtIlVw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Daehyeon Ko <4ncienth@gmail.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Vishnu Dasa <vishnu.dasa@broadcom.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Aleksandr Khromov <haa@amicon.ru>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] vsock/vmci: validate packet source for connected sockets
-Date: Thu, 22 Oct 2026 15:24:43 -0400
-Message-ID: <20261022192429.1911737-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] ksmbd: zero the FS_OBJECT_ID_INFORMATION buffer before filling it in
+Date: Thu, 22 Oct 2026 15:27:17 -0400
+Message-ID: <20261022192708.1985263-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102121-spotty-barge-9a74@gregkh>
-References: <2026102121-spotty-barge-9a74@gregkh>
+In-Reply-To: <2026102212-scanner-refinery-9bbf@gregkh>
+References: <2026102212-scanner-refinery-9bbf@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,130 +62,57 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daehyeon Ko <4ncienth@gmail.com>
+From: Aleksandr Khromov <haa@amicon.ru>
 
-[ Upstream commit ad9a7da3fa39c2d616ec0dd3cf6e30531d032fe7 ]
+[ Upstream commit 399aa12450a61a5c73dc77e73f069ece9687c95d ]
 
-vmci_transport_recv_stream_cb() looks up sockets first by the full source
-and destination tuple, then by destination only in the bound table. The
-fallback can select a non-listening socket without checking whether the
-packet came from its stored peer.
+smb2_get_info_filesystem() reports 64 bytes for FS_OBJECT_ID_INFORMATION,
+that is the whole of struct object_id_info, but writes only 46 of them:
 
-This was reproduced with two VMCI contexts. A RST from the context not
-stored in a TCP_SYN_SENT socket reset that socket after it was selected by
-the destination-only lookup.
+ - objid[] is 16 bytes, and when the volume UUID is not available only
+   sizeof(stfs.f_fsid) (8) bytes are copied into it;
+ - extended_info.version_string[] is STRING_LENGTH (28) bytes, and only
+   strlen("1.1.0") (5) bytes are copied into it.
 
-VMCI can process notification packets in bottom-half context when the
-socket is not owned by user context, or defer packets to a workqueue. Use
-vsock_check_source() after taking the socket lock in the bottom-half path,
-and recheck after lock_sock() in the workqueue path. Listening sockets
-continue to accept packets from any source.
+The response buffer is zeroed on allocation (kvzalloc() in
+smb2_allocate_rsp_buf()), so for a standalone request the remaining 31
+bytes are zero.  In a compound request they need not be.  The offset of
+the next response is advanced by the length pinned for the previous one,
+so if a preceding command wrote its reply into the buffer and then
+failed, smb2_set_err_rsp() pins only the short error response and the
+next reply lands inside the area that has already been written.  Only
+the header is cleared there:
 
-Reply with a RST addressed from the received packet before dropping a
-source that fails validation. This preserves the existing reset behavior
-for bound non-listening and concurrently closed sockets without directing
-the reset to a connected socket's stored peer.
+	memset((char *)rsp_hdr, 0, sizeof(struct smb2_hdr) + 2);
 
-Fixes: d021c344051a ("VSOCK: Introduce VM Sockets")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/netdev/20260814121255.6B5001F000E9@smtp.kernel.org/
+The client then receives up to 31 bytes of a response it was not meant
+to see, including one that failed with an access denied error.
+
+Clear the structure before filling it in.  As a side effect
+version_string is now NUL terminated.
+
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Suggested-by: ChenXiaoSong <chenxiaosong@chenxiaosong.com>
 Cc: stable@vger.kernel.org
-Suggested-by: Stefano Garzarella <sgarzare@redhat.com>
-Suggested-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Reviewed-by: Vishnu Dasa <vishnu.dasa@broadcom.com>
-Link: https://patch.msgid.link/20260826003929.966160-3-4ncienth@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Aleksandr Khromov <haa@amicon.ru>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Depends on <20261022170952.1760451-1-sashal@kernel.org>
+ fs/ksmbd/smb2pdu.c | 1 +
+ 1 file changed, 1 insertion(+)
 
- net/vmw_vsock/vmci_transport.c | 34 ++++++++++++++++++++++++++++------
- 1 file changed, 28 insertions(+), 6 deletions(-)
-
-diff --git a/net/vmw_vsock/vmci_transport.c b/net/vmw_vsock/vmci_transport.c
-index 4f02a6f269cdb..d1bc2ec3d21fa 100644
---- a/net/vmw_vsock/vmci_transport.c
-+++ b/net/vmw_vsock/vmci_transport.c
-@@ -676,11 +676,13 @@ static int vmci_transport_recv_stream_cb(void *data, struct vmci_datagram *dg)
- 	struct vmci_transport_packet *pkt;
- 	struct vsock_sock *vsk;
- 	bool bh_process_pkt;
-+	bool drop_pkt;
- 	int err;
+diff --git a/fs/ksmbd/smb2pdu.c b/fs/ksmbd/smb2pdu.c
+index de03750a2b0c9..f6ebcc31d92bf 100644
+--- a/fs/ksmbd/smb2pdu.c
++++ b/fs/ksmbd/smb2pdu.c
+@@ -5196,6 +5196,7 @@ static int smb2_get_info_filesystem(struct ksmbd_work *work,
+ 		struct object_id_info *info;
  
- 	sk = NULL;
- 	err = VMCI_SUCCESS;
- 	bh_process_pkt = false;
-+	drop_pkt = false;
+ 		info = (struct object_id_info *)(rsp->Buffer);
++		memset(info, 0, sizeof(*info));
  
- 	/* Ignore incoming packets from contexts without sockets, or resources
- 	 * that aren't vsock implementations.
-@@ -757,17 +759,29 @@ static int vmci_transport_recv_stream_cb(void *data, struct vmci_datagram *dg)
- 	bh_lock_sock(sk);
- 
- 	if (!sock_owned_by_user(sk)) {
--		/* The local context ID may be out of date, update it. */
--		vsk->local_addr.svm_cid = dst.svm_cid;
-+		if (sk->sk_state != TCP_LISTEN &&
-+		    !vsock_check_source(vsk, &vmci_transport, &src)) {
-+			drop_pkt = true;
-+			err = VMCI_ERROR_NO_ACCESS;
-+		} else {
-+			/* The local context ID may be out of date, update it. */
-+			vsk->local_addr.svm_cid = dst.svm_cid;
- 
--		if (sk->sk_state == TCP_ESTABLISHED)
--			vmci_trans(vsk)->notify_ops->handle_notify_pkt(
--					sk, pkt, true, &dst, &src,
--					&bh_process_pkt);
-+			if (sk->sk_state == TCP_ESTABLISHED)
-+				vmci_trans(vsk)->notify_ops->handle_notify_pkt(sk, pkt, true,
-+									       &dst, &src,
-+									       &bh_process_pkt);
-+		}
- 	}
- 
- 	bh_unlock_sock(sk);
- 
-+	if (drop_pkt) {
-+		if (vmci_transport_send_reset_bh(&dst, &src, pkt) < 0)
-+			pr_err("unable to send reset\n");
-+		goto out;
-+	}
-+
- 	if (!bh_process_pkt) {
- 		struct vmci_transport_recv_pkt_info *recv_pkt_info;
- 
-@@ -892,6 +906,7 @@ static void vmci_transport_recv_pkt_work(struct work_struct *work)
- {
- 	struct vmci_transport_recv_pkt_info *recv_pkt_info;
- 	struct vmci_transport_packet *pkt;
-+	struct sockaddr_vm src;
- 	struct sock *sk;
- 
- 	recv_pkt_info =
-@@ -900,6 +915,12 @@ static void vmci_transport_recv_pkt_work(struct work_struct *work)
- 	pkt = &recv_pkt_info->pkt;
- 
- 	lock_sock(sk);
-+	vsock_addr_init(&src, pkt->dg.src.context, pkt->src_port);
-+	if (sk->sk_state != TCP_LISTEN &&
-+	    !vsock_check_source(vsock_sk(sk), &vmci_transport, &src)) {
-+		vmci_transport_reply_reset(pkt);
-+		goto out;
-+	}
- 
- 	/* The local context ID may be out of date. */
- 	vsock_sk(sk)->local_addr.svm_cid = pkt->dg.dst.context;
-@@ -929,6 +950,7 @@ static void vmci_transport_recv_pkt_work(struct work_struct *work)
- 		break;
- 	}
- 
-+out:
- 	release_sock(sk);
- 	kfree(recv_pkt_info);
- 	/* Release reference obtained in the stream callback when we fetched
+ 		if (!user_guest(sess->user))
+ 			memcpy(info->objid, user_passkey(sess->user), 16);
 -- 
 2.53.0
 
