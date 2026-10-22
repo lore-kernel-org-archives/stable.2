@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792668961;
-	b=RuH90URAYlAivWVwkTxQcbqvxnRNFWXtAwnywm9eFHQ7htLYI60DHuSZaAgCxxFHg4D0
-	 sZtJVF8qhb9vwyIdFA544FLWD0bxxTY9lLXR0dwzsptrTclOJPrgTv2av7iX43Msdq94w
-	 ca3a+2uPqgbzrsDYYLkebHCQkibIZiRp5PZ1rzxGNPOG5R4p935VgWQnQz23WxUuSEj3g
-	 a8xgqiMWkOd8hsD19jajPScT15fBWlRju6yLjou7ZUEC+QYpdf7/gIiOBFTup8Om7Enh5
-	 /XqqZLrGBc0IGklFctllTIeWWuKsaBnXFFy6VluCeASAFqoMV6fZ3WS4KPh0JCc7U8A==
+	t=1792669097;
+	b=aKRiz3zPoiYKPJAPgBsnp9aY3o4KC6u1+AEgQ4TI3NLJSKk+Ok3Ix90ju415qHN6sYlz
+	 vNNVdW4sCom+I7DYrz58YJkiIXuGC0c8VwinCmpUWF1NadwEhLghuczK0k9QgQZaL54Zb
+	 ArKVwu9lb/2h1tKBptAhkbjuFIUSTWP9RPe53GvpWhLd1UlBRdjdwO5ug+YHnZiXQBkCT
+	 7KCTIqBDn5+rzwNOViInt8ah3pUMlHd7n/MFBUXyt5mdJVGggPR2VqV49JwiRAZXaqiTr
+	 0a4IJRUZuYJB3ecSLfiGGwYV8OFdz6yi2zZjQblXIvH4t3OD286yTP5E6XMmHDAQXZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792668961;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792669097;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=IzRk8X3oVfnY85aAfGEvAg2Vsmp4mdwTSTrMqws2alU=;
-	b=sdqbEj3cM3oE57OgVHvGD1Zd+jOBmw5NLQ1+6LlLARuiAlDLiDLmGru3Ufgd874tGxGv
-	 xtRwjFrdQ2hQQAsV1ULf3gnhATO+cf/wJDyW3ba2dzO3a720IMQQpspS0aIc0HrFTOyab
-	 gAflDr2Xc4dC9EYjDlp74IuPhiNxW/1MC346iV+nsu3fjYIjGoM+alhid0aoPNNdRA1pt
-	 s5ZugWqZtNeP8+SSGNoz1hXgzaG7ht7653KbOUB+XjGZnC9GgJSY3mKy2M6OQMn0/vwkT
-	 1KnBm+fDtFtUB/yq0cSOXG9uUf+zavEJtgtkI+nYY5asQEYSg4q47aUr4Bhtr+t3SAA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=5MmJkUhdcBFSi5JbKXAGfyZGrRM4AjWJw2A8cOsr2Sc=;
+	b=2FF6Ne915NmEEqqRLU+WOLXWW6srfN3MN648XIoUo9/hFk3fMeAL7UPvYU3KyHONP/fT
+	 77bO/gtnFtlWHaKGg786Ox3u6WEmKgZ1ZPu2NavR3kwjujwVaggt+3X+2mLo/ipjUTm8X
+	 VGTKdNx3gLSP1sR6UqxQq+3k4uNLHhbpGW0qVdBR96Wn8hg8x5GstM8i6z6YVaJUp8A/0
+	 9EG4rhwrDP3VdTQK0qzJup0sg9MWNZmMnEAKnRKvvB192lkDtKlIO/B3/HhUfSEEz/s/k
+	 nGxtUHmWrDAfI6x+ASM7n/MI3aUBy3gMRCm3PL//t5NTsuAJdttxkScBUQ3b/DymQWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YNf77xeE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y6bo5HZr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE14A606A31F
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 11:36:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7099E606A322
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 11:38:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YNf77xeE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 053E11F000C1;
-	Thu, 22 Oct 2026 11:35:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y6bo5HZr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A0741F000C5;
+	Thu, 22 Oct 2026 11:38:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792668960;
-	bh=IzRk8X3oVfnY85aAfGEvAg2Vsmp4mdwTSTrMqws2alU=;
+	s=k20260515; t=1792669097;
+	bh=5MmJkUhdcBFSi5JbKXAGfyZGrRM4AjWJw2A8cOsr2Sc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YNf77xeECPaEcZVEDMGe99HiYqjS6/XDMmmpjXeY6H+r1Ma81iBbiPa8IPZvluiUJ
-	 Ei/mPaHlQautLUMg1LnfVJcsoI85ox0YKY0p2FqjBjLyy4313GbdhlLTkD/gdNJW2m
-	 eOQemZTZD6YIxO/ka+WJn4fW7nPg68pn7/fzESlg0c52cFCCmRUbgkJsIebvlb9g5L
-	 Fq1bA4XbXFqNulZVSsi81zL00ShKJISKrxxHKPmv3ijkymLi4fu6i+iGPsrSrfKtup
-	 tKnO7wZMRnZoV440qJGtqNm/1G1GwDvdb3d02yQ/X3D4k2hS/AVFd7MQPxzd2mFpca
-	 qUVsQp/5ebovw==
+	b=Y6bo5HZrjPSm3E4Y/EN+IBBOaHGI4SKKXKvDCckI6sgXdMPBqKzNgE0YvbZK7TJ2O
+	 ByyaDXsqXuyx8RO73HMaU44Z/DLsKbD5yJfPbUdWmg2cYP92H4vKcqKeDppE6qvQ1c
+	 UHj9ui59emGXx3sUYuNH/1PS/2iELXIMMsEOEOo0K3qhxhe8gMMWdixdEURiwAzCLE
+	 DDaOUt1HLNmTLpaMH42RKLv+OAXTf7lHx36tpwtYXiqeRbIru0QhkRWAdxBZMMEAZM
+	 LsIPG849y2AscXOseKQknxt0HwjjB2yeh9G0aIsGlkiXVkvRCDVKCNd5xokiZaPIb/
+	 lcun8I6/8I7yw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+Cc: Jann Horn <jannh@google.com>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] drm/xe: Bump LRU for external objects on exec and rebind
-Date: Thu, 22 Oct 2026 07:35:58 -0400
-Message-ID: <20261022113414.921168-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] futex: Fix mm reuse handling for FUT_OFF_MMSHARED
+Date: Thu, 22 Oct 2026 07:38:15 -0400
+Message-ID: <20261022113414.918384-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102132-gab-disarm-872d@gregkh>
-References: <2026102132-gab-disarm-872d@gregkh>
+In-Reply-To: <2026102124-unpopular-ambush-652e@gregkh>
+References: <2026102124-unpopular-ambush-652e@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,125 +59,205 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+From: Jann Horn <jannh@google.com>
 
-[ Upstream commit d2ce8fcd778ee6d92748c92d23a56d4416c29d86 ]
+[ Upstream commit 3267512ad1c2cc0c7768c5b014dc2cceb398a801 ]
 
-The VM's private BOs get their LRU position refreshed in bulk via
-ttm_lru_bulk_move_tail() on vm->lru_bulk_move, both after a successful
-non-LR exec and after the LR preempt-fence rebind worker runs. External
-objects (BOs potentially shared across VMs) are never added to that
-per-VM bulk move list, so their LRU position is never refreshed by
-either path. This makes external objects in active use look more
-evictable than they are.
+A FUT_OFF_MMSHARED futex is a shared futex that refers to an MM.
+It is possible for a process to wait on a shared futex with a different MM
+because a FUT_OFF_INODE waiter can be requeued onto a FUT_OFF_MMSHARED
+futex by another process.
+This can cause FUT_OFF_MMSHARED waiters on a freed MM to consume
+wakeups intended for a newly allocated MM at the same address.
 
-Add xe_vm_bump_lru(), which, under a single lru_lock critical section,
-performs the bulk move of the VM's private BOs and bumps each external
-object locked by the drm_exec transaction. Use it from both the non-LR
-exec path and the LR rebind worker, replacing the open-coded bulk move.
+Fix it by keying FUT_OFF_MMSHARED using a unique 64-bit per-MM ID.
+Leave private futexes as before to avoid influencing the performance of the
+hotpath.
 
-Fixes: d490ecf57790 ("drm/xe: Rework xe_exec and the VM rebind worker to use the drm_exec helper")
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: <stable@vger.kernel.org> # v6.8+
-Assisted-by: LLM
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-Link: https://patch.msgid.link/20261012132607.21387-1-thomas.hellstrom@linux.intel.com
-(cherry picked from commit 324ba30cca180c2e1d02090743dd78ccb15b9e4a)
-Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-[ sashal: Adjusted header context to accommodate missing xe_vm_bind_kernel_bo() and xe_vm_resume_rebind_worker() declarations. ]
+(Multi-threaded processes typically implicitly use FUT_OFF_MMSHARED by
+setting clear_child_tid such that it points into anonymous memory, which
+causes mm_release() in a multi-threaded mm to perform FUTEX_WAKE.)
+
+Fixes: 222993395ed3 ("futex: Remove pointless mmgrap() + mmdrop()")
+Closes: https://lore.kernel.org/r/CAG48ez0dLBpc3QtbAhMMVNHwHL94iHh2G+h-=BVFR4dDuzZr1g@mail.gmail.com/
+Signed-off-by: Jann Horn <jannh@google.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Link: https://patch.msgid.link/20260929-futex-mmshared-fix-v1-1-262b1ffeb3d0@google.com
+Cc: stable@vger.kernel.org
+[ sashal: adapted per-MM ID handling to use mm_struct and mm_init() directly because the newer futex infrastructure is absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/xe/xe_exec.c |  7 ++-----
- drivers/gpu/drm/xe/xe_vm.c   | 31 ++++++++++++++++++++++++++++---
- drivers/gpu/drm/xe/xe_vm.h   |  2 ++
- 3 files changed, 32 insertions(+), 8 deletions(-)
+ include/linux/futex.h    | 14 ++++++++----
+ include/linux/mm_types.h |  3 +++
+ kernel/fork.c            |  3 +++
+ kernel/futex/core.c      | 49 +++++++++++++++++++++-------------------
+ 4 files changed, 41 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_exec.c b/drivers/gpu/drm/xe/xe_exec.c
-index 04a88c16d8358..03af3704ee68d 100644
---- a/drivers/gpu/drm/xe/xe_exec.c
-+++ b/drivers/gpu/drm/xe/xe_exec.c
-@@ -330,11 +330,8 @@ int xe_exec_ioctl(struct drm_device *dev, void *data, struct drm_file *file)
- 	xe_sched_job_push(job);
- 	xe_vm_reactivate_rebind(vm);
+diff --git a/include/linux/futex.h b/include/linux/futex.h
+index b70df27d7e85c..09f757f14d01f 100644
+--- a/include/linux/futex.h
++++ b/include/linux/futex.h
+@@ -23,26 +23,30 @@ struct task_struct;
+  *  01 : Shared futex (PTHREAD_PROCESS_SHARED)
+  *	mapped on a file (reference on the underlying inode)
+  *  10 : Shared futex (PTHREAD_PROCESS_SHARED)
+- *       (but private mapping on an mm, and reference taken on it)
++ *       (but private mapping on an mm)
+ */
  
--	if (!err && !xe_vm_in_lr_mode(vm)) {
--		spin_lock(&xe->ttm.lru_lock);
--		ttm_lru_bulk_move_tail(&vm->lru_bulk_move);
--		spin_unlock(&xe->ttm.lru_lock);
--	}
-+	if (!err && !xe_vm_in_lr_mode(vm))
-+		xe_vm_bump_lru(vm, exec);
+-#define FUT_OFF_INODE    1 /* We set bit 0 if key has a reference on inode */
+-#define FUT_OFF_MMSHARED 2 /* We set bit 1 if key has a reference on mm */
++#define FUT_OFF_INODE    1 /* We set bit 0 if shared key identifies an inode */
++#define FUT_OFF_MMSHARED 2 /* We set bit 1 if shared key identifies an mm */
  
- 	if (mode == EXEC_MODE_LR)
- 		xe_hw_engine_group_resume_faulting_lr_jobs(group);
-diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index da148df421057..d53cb4e625172 100644
---- a/drivers/gpu/drm/xe/xe_vm.c
-+++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -439,6 +439,33 @@ int xe_vm_validate_rebind(struct xe_vm *vm, struct drm_exec *exec,
- 	return 0;
+ union futex_key {
++	/* For FUT_OFF_INODE */
+ 	struct {
+ 		u64 i_seq;
+ 		unsigned long pgoff;
+ 		unsigned int offset;
+ 	} shared;
++
++	/* For FUT_OFF_MMSHARED or private */
+ 	struct {
+ 		union {
+-			struct mm_struct *mm;
+-			u64 __tmp;
++			struct mm_struct *mm; /* for private */
++			u64 mm_seq; /* for FUT_OFF_MMSHARED */
+ 		};
+ 		unsigned long address;
+ 		unsigned int offset;
+ 	} private;
++
+ 	struct {
+ 		u64 ptr;
+ 		unsigned long word;
+diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+index d1a370add9bc8..690e0ea004a58 100644
+--- a/include/linux/mm_types.h
++++ b/include/linux/mm_types.h
+@@ -602,6 +602,9 @@ struct mm_struct {
+ 					  * by mmlist_lock
+ 					  */
+ 
++#ifdef CONFIG_FUTEX
++		atomic64_t futex_unique_id;
++#endif
+ 
+ 		unsigned long hiwater_rss; /* High-watermark of RSS usage */
+ 		unsigned long hiwater_vm;  /* High-water virtual memory usage */
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 1a480f30ca985..37c5d6123cf62 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -1159,6 +1159,9 @@ static struct mm_struct *mm_init(struct mm_struct *mm, struct task_struct *p,
+ #endif
+ 	mm_init_uprobes_state(mm);
+ 	hugetlb_count_init(mm);
++#ifdef CONFIG_FUTEX
++	atomic64_set(&mm->futex_unique_id, 0);
++#endif
+ 
+ 	if (current->mm) {
+ 		mm->flags = current->mm->flags & MMF_INIT_MASK;
+diff --git a/kernel/futex/core.c b/kernel/futex/core.c
+index b370fdea7c217..5944e57285063 100644
+--- a/kernel/futex/core.c
++++ b/kernel/futex/core.c
+@@ -151,39 +151,27 @@ futex_setup_timer(ktime_t *time, struct hrtimer_sleeper *timeout,
  }
  
-+/**
-+ * xe_vm_bump_lru() - Bump the LRU position of BOs used by a submission
-+ * @vm: The vm for which we are bumping LRUs.
-+ * @exec: The struct drm_exec with the locked GEM objects.
-+ *
-+ * Move the VM's private BOs, and all external objects locked by @exec,
-+ * to the LRU tail. Private BOs are moved in bulk using @vm's
-+ * &xe_vm.lru_bulk_move. External objects, which may be shared with other
-+ * VMs, are not part of that bulk move and are bumped individually.
-+ */
-+void xe_vm_bump_lru(struct xe_vm *vm, struct drm_exec *exec)
-+{
-+	spinlock_t *lru_lock = &vm->xe->ttm.lru_lock;
-+	struct drm_gem_object *obj;
-+
-+	spin_lock(lru_lock);
-+	ttm_lru_bulk_move_tail(&vm->lru_bulk_move);
-+	drm_exec_for_each_locked_object(exec, obj) {
-+		if (!drm_gpuvm_is_extobj(&vm->gpuvm, obj))
-+			continue;
-+
-+		ttm_bo_move_to_lru_tail(&gem_to_xe_bo(obj)->ttm);
-+		cond_resched_lock(lru_lock);
-+	}
-+	spin_unlock(lru_lock);
-+}
-+
- static int xe_preempt_work_begin(struct drm_exec *exec, struct xe_vm *vm,
- 				 bool *done)
+ /*
+- * Generate a machine wide unique identifier for this inode.
++ * Generate a machine wide unique identifier for this object (inode or mm).
+  *
+  * This relies on u64 not wrapping in the life-time of the machine; which with
+  * 1ns resolution means almost 585 years.
+- *
+- * This further relies on the fact that a well formed program will not unmap
+- * the file while it has a (shared) futex waiting on it. This mapping will have
+- * a file reference which pins the mount and inode.
+- *
+- * If for some reason an inode gets evicted and read back in again, it will get
+- * a new sequence number and will _NOT_ match, even though it is the exact same
+- * file.
+- *
+- * It is important that futex_match() will never have a false-positive, esp.
+- * for PI futexes that can mess up the state. The above argues that false-negatives
+- * are only possible for malformed programs.
+  */
+-static u64 get_inode_sequence_number(struct inode *inode)
++static u64 get_object_id(atomic64_t *object_seq)
  {
-@@ -552,9 +579,7 @@ static void preempt_rebind_work_func(struct work_struct *w)
+-	static atomic64_t i_seq;
++	static atomic64_t last_assigned_seq;
+ 	u64 old;
  
- #undef retry_required
+-	/* Does the inode already have a sequence number? */
+-	old = atomic64_read(&inode->i_sequence);
++	/* Does the object already have a sequence number? */
++	old = atomic64_read(object_seq);
+ 	if (likely(old))
+ 		return old;
  
--	spin_lock(&vm->xe->ttm.lru_lock);
--	ttm_lru_bulk_move_tail(&vm->lru_bulk_move);
--	spin_unlock(&vm->xe->ttm.lru_lock);
-+	xe_vm_bump_lru(vm, &exec);
+ 	for (;;) {
+-		u64 new = atomic64_add_return(1, &i_seq);
++		u64 new = atomic64_add_return(1, &last_assigned_seq);
+ 		if (WARN_ON_ONCE(!new))
+ 			continue;
  
- 	/* Point of no return. */
- 	arm_preempt_fences(vm, &preempt_fences);
-diff --git a/drivers/gpu/drm/xe/xe_vm.h b/drivers/gpu/drm/xe/xe_vm.h
-index d2406532fcc50..b0a864618eccc 100644
---- a/drivers/gpu/drm/xe/xe_vm.h
-+++ b/drivers/gpu/drm/xe/xe_vm.h
-@@ -248,6 +248,8 @@ int xe_vm_lock_vma(struct drm_exec *exec, struct xe_vma *vma);
- int xe_vm_validate_rebind(struct xe_vm *vm, struct drm_exec *exec,
- 			  unsigned int num_fences);
+-		old = atomic64_cmpxchg_relaxed(&inode->i_sequence, 0, new);
++		old = atomic64_cmpxchg_relaxed(object_seq, 0, new);
+ 		if (old)
+ 			return old;
+ 		return new;
+@@ -206,7 +194,7 @@ static u64 get_inode_sequence_number(struct inode *inode)
+  *
+  *   ( inode->i_sequence, page->index, offset_within_page )
+  *
+- * [ also see get_inode_sequence_number() ]
++ * [ also see get_object_id() ]
+  *
+  * For private mappings (or when !@fshared), the key is:
+  *
+@@ -358,8 +346,8 @@ int get_futex_key(u32 __user *uaddr, bool fshared, union futex_key *key,
+ 			goto out;
+ 		}
  
-+void xe_vm_bump_lru(struct xe_vm *vm, struct drm_exec *exec);
-+
- /**
-  * xe_vm_resv() - Return's the vm's reservation object
-  * @vm: The vm
+-		key->both.offset |= FUT_OFF_MMSHARED; /* ref taken on mm */
+-		key->private.mm = mm;
++		key->both.offset |= FUT_OFF_MMSHARED;
++		key->private.mm_seq = get_object_id(&mm->futex_unique_id);
+ 		key->private.address = address;
+ 
+ 	} else {
+@@ -394,7 +382,22 @@ int get_futex_key(u32 __user *uaddr, bool fshared, union futex_key *key,
+ 		}
+ 
+ 		key->both.offset |= FUT_OFF_INODE; /* inode-based key */
+-		key->shared.i_seq = get_inode_sequence_number(inode);
++		/*
++		 * This relies on the fact that a well formed program will not
++		 * unmap the file while it has a (shared) futex waiting on it.
++		 * This mapping will have a file reference which pins the mount
++		 * and inode.
++		 *
++		 * If for some reason an inode gets evicted and read back in
++		 * again, it will get a new sequence number and will _NOT_ match,
++		 * even though it is the exact same file.
++		 *
++		 * It is important that futex_match() will never have a
++		 * false-positive, esp. for PI futexes that can mess up the state.
++		 * The above argues that false-negatives are only possible for
++		 * malformed programs.
++		 */
++		key->shared.i_seq = get_object_id(&inode->i_sequence);
+ 		key->shared.pgoff = page_to_pgoff(tail);
+ 		rcu_read_unlock();
+ 	}
 -- 
 2.53.0
 
