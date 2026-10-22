@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792682058;
-	b=EpGgPrYY31yr2vOJFziD6SMSInEYtMF/M1L+Rjo3nWMdI5+RarkVWm0JDXQQYtlG8SbY
-	 xk9jAVeU+18Be0gYkrukC5Q2P0stroiIYBrJJ/Cw9JZncL6xbU0FPPwD+IWE7gvePI0e2
-	 AYozzzQU8jByVj4fq6xGQfnHM1BMK+atom8DfF6Inlpywjarj5IgnsoLmD8fBQWEZGbKN
-	 mrYLctXGNngfk1l6wdfynXqVXL+Hd4Ao7XqHcro2cArWd934LlH+F1CiSTa5HqaRY69aK
-	 x1uI15WAXMClrLrDJxjXrtt9f56IbiQo6fB5fPwPXZUmpZ9QGi1odou7ktSdvaGo0ew==
+	b=YRGmlgUUeuAM5eQl5hctvT+WQF8Czsp+Tpdqqa+PiQSMi4yJpP2aIw7vYNLfX1/LHXGH
+	 HPoOPeLTwlXqaj/nqd2a6tXe9+x7YVvQRCqXcCsV4nPMcaWB1QQ+1eIntDvvI4SIVVIaE
+	 JfW7laNIFPtEwNQJllDdGAQz+SkEdFzP+aOi8P/Ugk1IrRGLaAg8Y5PNHGNGli8OkbwQr
+	 FuRfrIu5G/cqCmAMd7XbUJNMKzPJSxKhytKSXMj47LVKxA9sAeLs4XA5KVlpgiAFWxm8a
+	 Y3Q4c2BtOIE6vuJwgByE7I1Hdqg0qZ+CPCIwuovDrBS3LLZIQlRoXjSfjdTOEm0wztw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792682058;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=PAgUGMUWsv1fwJz77VcXAeZqrjR0vs5IB+Vwz01JLrM=;
-	b=I1dfKvQBTuVhvYup+fmwcdHvFYuZJj2boo2Ue4CpQFH1zmptz50A387X/xh5StZ9IJWv
-	 ZoM/YCv1hflrr/rg4yQUsVaSYxV+mhDeM+QHpend3mqhY2vWR/VS5Ca+r2dUR9D++3Ekf
-	 4z3Z7ACTpXl1BAP3Jesul/p+V1wLzPEWV1PyahteF6RClzUyQJIhAlVd7vfQZi3e8IMfc
-	 ktVUUtF3Hs+RLICd6i6R0YGnqbwAzpiJbEyyNQ4Is78GmahN7S2wa+SNK5UgA5YsRAhz1
-	 gZJgg5MvMOmMp0efhG6asREn6NunoP6GC8XGd6WhEUfpxfK+vqsxT/o/fziYk+jCz3A==
+	bh=1liQut5JHI17Yq/A1V7YgqGN1GAoyZTilKH8/Jjrs9g=;
+	b=3K2x4GXqyBbsY+OuQdrHKszVjLmKCnm5brQA3P0n6kPVIW1ej7HIH8OEWy5hOM0dQhC2
+	 OiG18MK8SoKq5VzUmIzRXwunNm3JnNmw5hXsaIvzeSmrNKoGi1opGRLmhrTH0dpHZy5Xi
+	 VMd9yYP5VcTnhj5Kooi/Dndv8vP5Ux6coKChgZ5XUrd/Im/VZ7AsODkE1rBypUEUDg/AE
+	 KfV7bmlWHiv7OIzvwE07QX+dYbDDEXbXLSeMYDJEfUrydJHNQZyaG4oSLdyzUCrjQIQ2i
+	 l5H/zPmFOEUhOt/P8p8gfsmDdxXTPNyoE0g1EEBkbBXkXfQpBUhhMV7psdF3Z9nZvkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K9H4Ftfw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bNS5XQWc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BACD606ACD5
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 15:14:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A502606ACD8
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 15:14:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K9H4Ftfw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DC9B1F01825;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bNS5XQWc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED8381F01829;
 	Thu, 22 Oct 2026 15:14:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792682057;
-	bh=PAgUGMUWsv1fwJz77VcXAeZqrjR0vs5IB+Vwz01JLrM=;
+	s=k20260515; t=1792682058;
+	bh=1liQut5JHI17Yq/A1V7YgqGN1GAoyZTilKH8/Jjrs9g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K9H4Ftfw7M30OKXeKXCjTo8aYDx6ixUbV7e5VFCAuB8sxcSirTFt90/5uk1EQiO8x
-	 VOoLEbcCKVsdM2kNLCkIga/tRCbfQjhbn2N5HGjjSPHpAUAWLc8txAncPPjCBR5O2D
-	 zNrelJ+VpQnVjKgu5oQ50vuOWb/LWZxtdqlgeP6x+0d5WkzI3TwYoUgE/Pan3JFdGa
-	 cEUiqBdGqYpdL0R1bkOBqiRe5DEh83cNOIgIq7oZ6vRSkzsm+QJsZf5wprUB71UFLg
-	 3pS2pEcoIhMq3LqdBMCNIN9LoVBzYu3b5gxw9pCTtDvQN5h9JUFOHsUyx8FXDnuN79
-	 Kr/A+Ym0d5qqA==
+	b=bNS5XQWc+hcV50yT1/8fjRQdhFpJWGsQhYM+Io0/9PhrMSud6gUiYBDmdpt9HoUXR
+	 WlwjDngcz7lxDFxtENSSYMzqMBDLcuukuwZPeyqyUOo0fF7ROfUlcTpzpUnSqqLFSY
+	 tL3HJ7+dWfQ82AIW12h7wRUVdN90MOY2Hu65zR4QPa2Hb+m/tM7K5l/Xx20a8lR8ll
+	 4beBWzPlDU42yl9zg9T14jYYHyzdKRgD5yV0qBi81XtbZ1Zd04r0FwOE4w2OY5BlGk
+	 hLCOuf3xFMb6F6TPID0xUqI5PNnwiQC1mef5mOOBZuU19GxUBguoVr2ao8krpr7J79
+	 dRL/iamn9ZHmw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Breno Leitao <leitao@debian.org>,
+Cc: Yao Kai <yaokai34@huawei.com>,
 	Tejun Heo <tj@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] workqueue: release pwq pools by pool type
-Date: Thu, 22 Oct 2026 11:14:14 -0400
-Message-ID: <20261022150730.1630145-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] workqueue: Fix unbound pool lifetime for pending pwqs
+Date: Thu, 22 Oct 2026 11:14:15 -0400
+Message-ID: <20261022150730.1630145-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102148-outpour-epilogue-a40f@gregkh>
+In-Reply-To: <20261022150730.1630145-1-sashal@kernel.org>
 References: <2026102148-outpour-epilogue-a40f@gregkh>
+ <20261022150730.1630145-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,79 +62,97 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Breno Leitao <leitao@debian.org>
+From: Yao Kai <yaokai34@huawei.com>
 
-[ Upstream commit 3180ee71b676845603274c66f6bb5528939cf470 ]
+[ Upstream commit cf9c8aaea0d47410df8708bec195889f3a85cd3c ]
 
-Add is_percpu_pool() and test the pool directly for per cpu. Convert the
-other open-coded pool->cpu checks -- in put_unbound_pool(),
-pool_allowed_cpus() and the workqueue watchdog -- to the same helper.
+KASAN reports a use-after-free of an unbound worker_pool in
+node_activate_pending_pwq():
 
-No functional change.
+  BUG: KASAN: slab-use-after-free in _raw_spin_trylock+0x6d/0x120
+  Read of size 4 at addr ffff8880089ce000 by task kworker/u22:0/318
 
-Signed-off-by: Breno Leitao <leitao@debian.org>
+  CPU: 1 UID: 0 PID: 318 Comm: kworker/u22:0 Not tainted 7.2.0 #1 PREEMPT(lazy)
+  Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
+  Workqueue:  0x0 (flush-8:0)
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x53/0x70
+   print_report+0xce/0x610
+   kasan_report+0xce/0x100
+   _raw_spin_trylock+0x6d/0x120
+   pwq_dec_nr_in_flight+0x4b4/0xcb0
+   process_one_work+0x921/0x11a0
+   worker_thread+0x4d0/0xd20
+   kthread+0x2de/0x3c0
+   ret_from_fork+0x3aa/0x620
+   ret_from_fork_asm+0x1a/0x30
+   </TASK>
+
+  Allocated by task 311:
+   alloc_pwq+0x439/0xca0
+   apply_wqattrs_prepare+0x75e/0xd10
+   apply_workqueue_attrs_locked+0x44/0xa0
+   wq_nice_store+0x350/0x450
+
+  Freed by task 0:
+   kfree+0x127/0x3b0
+   rcu_core+0x523/0x1780
+   handle_softirqs+0x1b3/0x610
+
+  Last potentially related work creation:
+   put_unbound_pool+0x3f3/0x7d0
+   pwq_release_workfn+0x494/0x8e0
+   kthread_worker_fn+0x1ff/0x790
+
+Canceling the last inactive work skips pwq_dec_nr_active(), so an empty
+pwq can remain on pending_pwqs when its refcnt reaches zero.
+pwq_release_workfn() currently puts the pool before removing that pwq.
+If this drops the last pool reference, the pool can be RCU-freed while
+the pwq remains reachable, and node_activate_pending_pwq() may trylock
+the freed pool->lock.
+
+Remove the pwq from pending_pwqs before putting the pool.
+
+Fixes: 5797b1c18919 ("workqueue: Implement system-wide nr_active enforcement for unbound workqueues")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yao Kai <yaokai34@huawei.com>
 Signed-off-by: Tejun Heo <tj@kernel.org>
-
-Use a single-evaluation macro for the pool predicate. Keep the existing
-watchdog timestamp and reporting behavior, converting only its pool-type
-test; the newer stall-duration accounting is absent.
-
-Stable-dep-of: cf9c8aaea0d4 ("workqueue: Fix unbound pool lifetime for pending pwqs")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/workqueue.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ kernel/workqueue.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-index fff53beae69b1..b7b09a618d047 100644
+index b7b09a618d047..8c74f199cd707 100644
 --- a/kernel/workqueue.c
 +++ b/kernel/workqueue.c
-@@ -1562,6 +1562,9 @@ work_func_t wq_worker_last_func(struct task_struct *task)
- 	return worker->last_func;
- }
- 
-+/* True if @pool is a static per-cpu pool rather than an unbound one. */
-+#define is_percpu_pool(pool) ((pool)->cpu >= 0)
-+
- /**
-  * wq_node_nr_active - Determine wq_node_nr_active to use
-  * @wq: workqueue of interest
-@@ -2689,7 +2692,7 @@ static struct worker *alloc_worker(int node)
- 
- static cpumask_t *pool_allowed_cpus(struct worker_pool *pool)
- {
--	if (pool->cpu < 0 && pool->attrs->affn_strict)
-+	if (!is_percpu_pool(pool) && pool->attrs->affn_strict)
- 		return pool->attrs->__pod_cpumask;
- 	else
- 		return pool->attrs->cpumask;
-@@ -5030,7 +5033,7 @@ static void put_unbound_pool(struct worker_pool *pool)
- 		return;
- 
- 	/* sanity checks */
--	if (WARN_ON(!(pool->cpu < 0)) ||
-+	if (WARN_ON(is_percpu_pool(pool)) ||
- 	    WARN_ON(!list_empty(&pool->worklist)))
- 		return;
- 
-@@ -5182,7 +5185,7 @@ static void pwq_release_workfn(struct kthread_work *work)
+@@ -5185,12 +5185,6 @@ static void pwq_release_workfn(struct kthread_work *work)
  		mutex_unlock(&wq->mutex);
  	}
  
--	if (wq->flags & WQ_UNBOUND) {
+-	if (!is_percpu_pool(pool)) {
+-		mutex_lock(&wq_pool_mutex);
+-		put_unbound_pool(pool);
+-		mutex_unlock(&wq_pool_mutex);
+-	}
+-
+ 	if (!list_empty(&pwq->pending_node)) {
+ 		struct wq_node_nr_active *nna =
+ 			wq_node_nr_active(pwq->wq, pwq->pool->node);
+@@ -5200,6 +5194,12 @@ static void pwq_release_workfn(struct kthread_work *work)
+ 		raw_spin_unlock_irq(&nna->lock);
+ 	}
+ 
 +	if (!is_percpu_pool(pool)) {
- 		mutex_lock(&wq_pool_mutex);
- 		put_unbound_pool(pool);
- 		mutex_unlock(&wq_pool_mutex);
-@@ -7720,7 +7723,7 @@ static void wq_watchdog_timer_fn(struct timer_list *unused)
- 		/* did we stall? */
- 		if (time_after(now, ts + thresh)) {
- 			lockup_detected = true;
--			if (pool->cpu >= 0 && !(pool->flags & POOL_BH)) {
-+			if (is_percpu_pool(pool) && !(pool->flags & POOL_BH)) {
- 				pool->cpu_stall = true;
- 				cpu_pool_stall = true;
- 			}
++		mutex_lock(&wq_pool_mutex);
++		put_unbound_pool(pool);
++		mutex_unlock(&wq_pool_mutex);
++	}
++
+ 	kfree_rcu(pwq, rcu);
+ 
+ 	/*
 -- 
 2.53.0
 
