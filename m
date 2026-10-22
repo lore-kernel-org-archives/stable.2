@@ -1,61 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792652050;
-	b=Y2u4bovtrtj3Uzr8/qhjfBlvsVKc1WYTckgntDJZ2SbS470bbDR9Y4DgfV7+fJZHIIhK
-	 2C9HALJmLFNpLXZEEpW6AurJ2VYnXM2xkRYneiY85VmLpTBmBRfaZRhZhda1z7jKEZpzx
-	 YF+oCgDazgWz+s0zDb4NhCI4h95sdG15XrngXM7T03mwSKmmTUdMxXV4yFQ+e/AvlztB2
-	 syISo7Snn2oxfxk0yR5mpterKAilwCh5aS9Cbpwt4AA+vYcAmhcP7ysMDMVLFLKA8wTHO
-	 yaBMMR4dduf6uicRiWgyDfF3Fq75/cLB6UVGIA/VuNv9/USSKZ1O8sUAX6YI3jKJTNg==
+	t=1792652613;
+	b=rTg9N3QCirhRY3lwxkvb0LE6vZynE6e289lhLRtaUJ8RBxy4QkS3hXyNsWhgLa1S3P3K
+	 KuSvQmshBV7p7qIMb20cocXc6MEKvsjs7OmIO/a7mN5M51F1gpf33wkhazVaMx/lifzGX
+	 He7tamtnsr1Yg+ghH0Auw5ZYYxkSUIe+NUsPhl0k4uO3f0uIcVsPM4sRcNoZJZ8jj846w
+	 LItBemZtD0hQHxoS9soQvIs0QXZ/TrzOHt6XdvFKE9/xMCfBmhSpqXU1yV17yCCeHnoA4
+	 8/4hGtxGO9A7AFQZyJuHW+wHhdk6W5MtPRYFskIuj4t3K0KeE/EVd5LEGWg8h+fxP+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792652050;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=SYg9jltbjI4Z50mGckymcx0vPC7eF9PA/cqUej8Wfrw=;
-	b=rcstA3pvkRQWeP5NMNC6MgKIuD0SapP7zJGUlsqh2d78zOd1ZKqdcb0WEuiKTo8TGs4/
-	 KOgMeT+D1FnuS28j9bUd6nBzRa/iV+FD6oqfmIE7VKNf+5gJU7BNefhG5RMuGMz7oJyN5
-	 aCjcMTOwPicALxLGRoMTy/WvRWsbUBLl1ha/cecE5gFF0jsfVALO5VaqBss7vBCkSxbDk
-	 roE1aruuJWz+YavpgJ2xU3fpbO5O07dWgg1bpR51TMKjgNaCJVVcE0v3D7jzasX1G/wlE
-	 dz3O89WoP9wFMLK79wVKcm2nxP2iTQ2wbtQhLWKCvCePLYEylHS+OZwcf+Y+XfrRRnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792652613;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ESU6Z+NgB8HdmTbvYFVneDG775N32Gq8eC3TzxGZn94=;
+	b=MWj9vXwIaxo+5JMMKjK0ZX9qI6ifdvUnt3pz/8JF0uyzP8DAuRSBJyZOuhRxwbBK2fTE
+	 jzdm2+8zP/G2bRHdQ8qVS75KyMpQ5JLqvB2oZ4iVzw1XepVO7DlgV8qQhH5bUOqJTk4rA
+	 vNfgNOnIjWiQKYHGUqgtW6LCLJeb44rh4ViwXFnzZYrC27HRHFxsvRV1Fki0nz5jW7Z1j
+	 N7cQ+QQCDW1TMXY7qrSVDYJYJAN3/zqp/5TJXlW8yVuiqA7W9BTr8TMbSk8+lwLchQqc6
+	 irTeYJtNUmxFDc7Re8ZfgbByWmmwEBRSUctTppvQH/4/u+mTSFidKcKmJlNhQbkTpWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=JelJsuJV;
-	arc=none smtp.remote-ip=115.124.30.133
-Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ID6DjFiE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D8FC606A321;
-	Thu, 22 Oct 2026 06:54:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D8FC606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF1AD606A31A
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 07:03:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=JelJsuJV
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792652036; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=SYg9jltbjI4Z50mGckymcx0vPC7eF9PA/cqUej8Wfrw=;
-	b=JelJsuJVAV6UhJhEvF0JrIjF5OAJh/PB7Gol+YibN38u9MMihld1QcRyp0nR4DYEzFkVE8aoeZ2CQ7rX7Chw8B6KW1gYC9VHQbcPE6lLxK8Xwy5hvf+o/cVddC7DHxENlAIWxTcxeRhLX19ymP12ZSxLtLNimtXSAMOD7LdHGjg=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XDISZiK_1792652023;
-Received: from x31h02109.sqa.na131.tbsite.net(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XDISZiK_1792652023 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 22 Oct 2026 14:53:56 +0800
-From: Baokun Li <libaokun@linux.alibaba.com>
-To: linux-ext4@vger.kernel.org
-Cc: tytso@mit.edu,
-	adilger.kernel@dilger.ca,
-	jack@suse.cz,
-	yi.zhang@huawei.com,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] ext4: skip eof zeroing when the zero range covers the eof block
-Date: Thu, 22 Oct 2026 14:53:42 +0800
-Message-ID: <20261022065342.3569693-1-libaokun@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ID6DjFiE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 902FF1F000C1;
+	Thu, 22 Oct 2026 07:03:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792652612;
+	bh=ESU6Z+NgB8HdmTbvYFVneDG775N32Gq8eC3TzxGZn94=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ID6DjFiErNVvo/jq4poZa1Qi+Uv29P8uAHx7zm1vfAvT/IiHfbUhlndwalqqZx4h4
+	 NIyihHCsqKW4S74fxVuyRxfFWezZl6SeD2m+/GcFwZT/jUXD7leYO+vj9gEe+owwYn
+	 DYvBtPxOhTjKeCq7MT1udJUxwlM4octvHiJrZJR4=
+Date: Thu, 22 Oct 2026 09:02:15 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: stable <stable@vger.kernel.org>, Sasha Levin <sashal@kernel.org>
+Subject: Re: Please apply commit ebe559609d78 ("fs: get rid of
+ __FMODE_NONOTIFY kludge") to v6.12.y
+Message-ID: <2026102206-trinity-feminism-b082@gregkh>
+References: <7701ab76-4761-4596-b6a5-92c74e03ce5f@roeck-us.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,79 +53,35 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7701ab76-4761-4596-b6a5-92c74e03ce5f@roeck-us.net>
 
-ext4_zero_range() drops the page cache of the range before allocating,
-to avoid exposing stale cached data.  However, the dropped page can be
-read back by the eof zeroing:
+On Wed, Oct 21, 2026 at 02:50:08PM -0700, Guenter Roeck wrote:
+> Hi,
+> 
+> all sparc32 and sparc64 builds in v6.12.y fail as follows.
+> 
+> Building sparc32:defconfig ... failed
+> --------------
+> Error log:
+> <stdin>:1519:2: warning: #warning syscall clone3 not implemented [-Wcpp]
+> kernel/fork.c: In function '__do_sys_clone3':
+> kernel/fork.c:3114:2: warning: #warning clone3() entry point is missing, please fix [-Wcpp]
+>  3114 | #warning clone3() entry point is missing, please fix
+>       |  ^~~~~~~
+> In file included from <command-line>:
+> fs/fcntl.c: In function 'fcntl_init':
+> include/linux/compiler_types.h:543:45: error: call to '__compiletime_assert_325' declared with attribute error: BUILD_BUG_ON failed: 21 - 1 != HWEIGHT32( (VALID_OPEN_FLAGS & ~(O_NONBLOCK | O_NDELAY)) | __FMODE_EXEC | __FMODE_NONOTIFY)
+>   543 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+> 
+> Bisect points to commit 07ee6057f92a ("fsnotify: opt-in for permission events
+> at file open time"). See bisect log below for reference.
+> 
+> Please apply commit ebe559609d78 ("fs: get rid of __FMODE_NONOTIFY kludge")
+> to v6.12.y to fix the problem (assuming there is interest in sparc builds
+> on v6.12.y kernels - this has been broken since v6.12.105).
 
-  fallocate(fd, FALLOC_FL_ZERO_RANGE, 0, 4096)
-    ext4_zero_range()
-      ext4_truncate_page_cache_block_range(0, 4096)
-        truncate_pagecache_range(0, 4095)
-          truncate_inode_pages_range()
-            delete_from_page_cache_batch()  # drops the page
-      ext4_alloc_file_blocks(..., 4096)
-        ext4_block_zero_eof(512, LLONG_MAX) # not block aligned
-          ext4_load_tail_bh()
-             filemap_lock_folio(0)    # reads dropped page back
-             # zeroes [512,1024), marks the buffer dirty
-        ext4_map_blocks(...)          # zeroes the blocks on disk
-      ext4_update_inode_size(inode, 4096)
+Now queued up, thanks.
 
-The bytes below the old EOF keep the stale disk content.  The page is
-left dirty, so read() returns old data while O_DIRECT reads zeroes, and
-a write into the same block is not converted and is lost until the page
-is dropped:
-
-  page [0, 4096), 1k block size, file ends at 512
-   0            512          1024                      4096
-   |--- data ----|-- tail ---|---- zero range ----------|
-   | old data    |           |                          |
-
-For example:
-
-  $ xfs_io -f -c "pwrite -S 1 0 512" f
-  $ sync
-  $ fallocate -z -o 0 -l 4096 f
-  $ xfs_io -c "pread -v 0 16" f  # old data, not zeroes
-
-Since the whole eof block is converted to unwritten, zeroing it here is
-redundant.  Therefore, skip the zeroing when this allocation covers the
-eof block entirely.
-
-Keep the zeroing otherwise: the block is still written at that point,
-so touching the page cache is safe.
-
-Fixes: c7fc0366c656 ("ext4: partial zero eof block on unaligned inode size extension")
-Cc: stable@vger.kernel.org
-Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
----
- fs/ext4/extents.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index ad0d80e33f60..2ce33fd3b912 100644
---- a/fs/ext4/extents.c
-+++ b/fs/ext4/extents.c
-@@ -4639,8 +4639,15 @@ static int ext4_alloc_file_blocks(struct file *file, loff_t offset, loff_t len,
- 	credits = ext4_chunk_trans_blocks(inode, len_lblk);
- 	depth = ext_depth(inode);
- 
--	/* Zero to the end of the block containing i_size */
--	if (new_size > old_size) {
-+	/*
-+	 * Zero to the end of the block containing i_size.
-+	 * Loading the eof block back before it is converted to unwritten
-+	 * may leave the page cache inconsistent with the disk, and zeroing
-+	 * it is redundant, so skip it.
-+	 */
-+	if (new_size > old_size &&
-+	    (!(flags & EXT4_GET_BLOCKS_CONVERT_UNWRITTEN) ||
-+	     !in_range(old_size >> blkbits, map.m_lblk, map.m_len))) {
- 		ret = ext4_block_zero_eof(inode, old_size, LLONG_MAX);
- 		if (ret)
- 			return ret;
--- 
-2.43.7
-
+greg k-h
