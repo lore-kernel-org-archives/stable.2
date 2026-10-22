@@ -1,58 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792632620;
-	b=wLdTe1ohfNHA3JGbuh+h+D9VJb10c2cmajg/e6KsJ2Y9g9RnMTTDC0BHEZHwxUF4PFLW
-	 ab8ktkSjt5FeHMCTQfH7jsoTJFR2TBhdTC0hnDDQPzLGq0Klr79OYiL0rRrbZ35zkLkjf
-	 RsnhNjSBjLk0f8s6CUVrEZ0FfhhO1iLm6EcvkZi7MHxaRhKMM8htc1SvIVRiwxegeRgfB
-	 z0v/aXePWYX+rkg+9D9WTQbo7funhx+XLmzU72sbj8/je+3eITLlqoZdM5llFgThV6+4z
-	 V76F9shE5+xvFtAAOCidDKeZ0FKirNOLhb8cEYqXwFf4kjCSYCSsQXV+02B2hdDVcLw==
+	t=1792632622;
+	b=1WO/QV1JMtElIaIJ/lqDJrS8yG08zWHmudGbD1PdqVtN0w/xnE5NXHGxaeYZpitqcNhQ
+	 /L+B1chQhEFT8b+34x0Td856fpyqnAFbo3P4ThksakY5A47Em2T84MtMMx+fi90oTIzmL
+	 d9uQsBhU3vGkKWlzIzo+khPJK3K0fcchr59bYX/icW1+TSy0xkQygsHpUigaZ6CsfiGmd
+	 d7y9SFsVoLbKTJYons5gGjUogUlpJpLwG0hipVgXXEkYjzlJiGc7TZ/xzMkIxPS8YGIFq
+	 sKl6S41IPMi44kjjEHu/smvRTiaM560n2O+7/iCi8LakD85G8c6UUt2uvm/FLACdh9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792632620;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792632622;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=qUl6azi9Ik7qw0j4SQxhd0AHDbHkqRW9GcyQMAwPs5k=;
-	b=X6KHxV2tnng+F/BbVU2JCTKEVBxd5kxYS+efEd4Cp4967mCBxuepg+pD/tgcWknkJgUd
-	 fc4d82Npi7ltFHMKxuF8kAnLWpTQvvIaEenHJ7GeeoxDtyMsh83AFur9GSYoYr/kP+EJS
-	 fdJu+iHzPG0mVLWequtR8Eeo8/rKTks+lbP90orgMLpC+zsDVpp/sbhlI0s6lkeGSEsiG
-	 4fuS7CS1xdaAh6ppbTZvMBMoUR3GyQFmMu9PRuXm0cI/E9L5/zeToFvxk/U4nEn8qeFSz
-	 GiS5nRXGJ0cSWXelYLfBQtXst4xUszsvkquAIAb+7D2tkW7AjIMhdi/2emzY8/Bk2nA==
+	bh=fUWoas7PGndljJktNdJh1T5/mMH9yrmbDWpsvHQ1fHQ=;
+	b=Q2KRruRX28R/IjAx+IGPxcICzI6krOiBEKqtQsuwQj7Sjkex/2rgwVW5MwEMG3VH/p56
+	 bVrwXg2t9Lak3tn+dzGcmVYlX8bKCGeM5BNFs4KaUwDKLkku1RyJ06dwognVjetM3vLLi
+	 KlERtRaGqxYaFwoE3+HE1uUq+R6xqJ7sN4vbRKF/bvnHgpIPXsbijKga2T3oQIkm+074+
+	 MsL+3dnb4jCpErIXCLhq5I/Q2u3cHvx3FYTpCii4oCE+xTrqr7aWAWou+N2af2FCf5IbP
+	 THQFs3SwL5yYDYAYPy5PjVzn2N2C79bM2nq6dSDo4yOIOJr8ns2or+0FhlkmqnFPOYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PXDhNqtG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="H/pF/Vdj";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 095CC606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 01:30:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4402C606A31B
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 01:30:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PXDhNqtG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB0FE1F000C1;
-	Thu, 22 Oct 2026 01:30:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H/pF/Vdj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87ADA1F000C1;
+	Thu, 22 Oct 2026 01:30:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792632619;
-	bh=qUl6azi9Ik7qw0j4SQxhd0AHDbHkqRW9GcyQMAwPs5k=;
+	s=k20260515; t=1792632622;
+	bh=fUWoas7PGndljJktNdJh1T5/mMH9yrmbDWpsvHQ1fHQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PXDhNqtGXkS0k9nPlVtYwtD77v90AU1XcpxF0IgrQENN1V8g7mCAeI6t/EjIOrHgs
-	 /UhChP24tPaxYfLl8J9rvzI2lhW+LV+noQDBRw4Fk3QZ0rTq2HL8Pgahyfta1HcjES
-	 9RcbTF71NJR2AAo9MxjlmfpbgtpE+nHQ+8knfFYRaIGJMUphAKs3cB7wGzlQQSHet0
-	 pDr9WWgmyZEUEILDosN1rGCbmTnDmfZx4ZeLdLqPnKP4TJ5aeiRxlE8w5qRqh4/7zi
-	 9s/4SCJswIJ1Vood0eA7PUlQBqLKE3nB3rTzN9wox3xTY6temLrN9JgotWdjm3wwdg
-	 8N14bexxYBy7A==
+	b=H/pF/VdjGLdAQbQOsJ1WDXctV1JW4WSYdigsbFkeVYAYEEAezy0aBtP/u/nvthPaD
+	 8li9DXh2VgxJ96ToNgU3MacEwd3XYiXByZBDrXDxG11R3RzTiK5roXFsYLpSABD8ay
+	 abFXQzv1NHymwuoIWile/OhboAHeGeWJpXYMHe4dmKoo5IR5nN16Oti6M4sTOqAy44
+	 scAbMXq77O9NSAaXft3lhX2DG0xZqCI65rz7nqhrAnT7aEeBzV97QlDX6PFjABLhWG
+	 4GCCHJW256mW6ObrNNtLlRN4sLKssPLBpYY5uwyvEoymjinUBnt7n1yZIQcaQo/Dif
+	 ktqN3MaBg1eZg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>,
-	"Dae R. Jeong" <threeearcat@gmail.com>,
-	AutonomousCodeSecurity@microsoft.com,
-	Bradley Morgan <brads@mainlining.org>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+Cc: Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] watch_queue: Fix note pool publication race in watch_queue_set_size()
-Date: Wed, 21 Oct 2026 21:30:17 -0400
-Message-ID: <20261022012949.694106-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] ext4: free the sbi after a grace period
+Date: Wed, 21 Oct 2026 21:30:20 -0400
+Message-ID: <20261022012950.693573-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102125-proud-dial-e6e3@gregkh>
-References: <2026102125-proud-dial-e6e3@gregkh>
+In-Reply-To: <2026102104-sensitive-overnight-fe0d@gregkh>
+References: <2026102104-sensitive-overnight-fe0d@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,93 +60,156 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
+From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit 5e531d62f1f8834faf7a4eed0d41105cf6570a8f ]
+[ Upstream commit c17b44266a1f9fcb49b894d4611d1254bf1aa313 ]
 
-There is a race between watch_queue_set_size() and post_one_notification().
-watch_queue_set_size() publishes wqueue->notes, notes_bitmap, nr_pages and
-nr_notes with plain stores, and post_one_notification() reads them with
-plain loads under a different lock, so nothing orders the four stores
-against the poster's loads: depending on the build, notes can be stored
-last (gcc 14 on x86-64 does this).  Since keyctl_watch_key() lets a watch
-attach to a queue before it is sized, post_one_notification() can already
-be running on another CPU at that moment: it reads nr_notes > 0, passes
-its bounds check, and then reads notes while it is still NULL,
-dereferencing notes[0].
+ext4_get_link() follows a symlink that keeps its target in a data block
+in rcu pathwalk mode with ext4_getblk(EXT4_GET_BLOCKS_CACHED_NOWAIT).
+That reads s_mount_state in the ASSERT() of ext4_getblk() and again in
+ext4_es_lookup_extent(), and the lookup bumps the extent status hit or
+miss counter, all through sb->s_fs_info.
 
-An unprivileged user triggers this reliably by watching one of its own
-keys through a notification pipe and racing ioctl(IOC_WATCH_QUEUE_SET_SIZE)
-on that pipe against keyctl(KEYCTL_SETPERM) on the key from another CPU,
-triggering:
+ext4_put_super() destroys those counters, clears sb->s_fs_info and frees
+the sbi without waiting for a grace period. A pathwalk that is still in
+ext4_get_link() when the last reference to the mount goes away then
+dereferences a NULL s_fs_info, the freed sbi or the destroyed percpu
+counters.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:post_one_notification.isra.0+0xa2/0x1e0
+With a pathwalk held up in ext4_get_link() while the last reference
+goes away:
+
+  KASAN: null-ptr-deref in range [0x00000000000000a8-0x00000000000000af]
+  RIP: 0010:ext4_getblk+0xf0/0x640
   Call Trace:
-   __post_watch_notification+0x148/0x180
-   keyctl_setperm_key+0x119/0x130
-   do_syscall_64+0x108/0x4c0
+   <TASK>
+   ext4_get_link+0x26c/0x410
+   pick_link+0xf96/0x1780
+   step_into_slowpath+0x9b8/0x1250
+   path_lookupat+0x484/0xb00
+   filename_lookup+0x1f1/0x5b0
+   vfs_statx+0xd7/0x3b0
+   vfs_fstatat+0x4d/0x90
+   __do_sys_newfstatat+0xa0/0x100
+   do_syscall_64+0x10e/0x5e0
    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-  Kernel panic - not syncing: Fatal exception in interrupt
 
-Fix this by publishing nr_notes last with smp_store_release(), and by
-reading it once with smp_load_acquire() in post_one_notification() before
-the bitmap and the page array are touched.  A poster that observes a
-non-zero nr_notes then also observes the pool behind it; one that observes
-zero drops the notification as before.
+So far that has been hard to hit. umount(2) waits for a grace period in
+namespace_unlock() before it drops the mount, so only a mount whose last
+reference goes away elsewhere, like the close of a file or a chdir out of
+a lazily unmounted directory, can race a walker.
 
-Fixes: c73be61cede5 ("pipe: Add general notification queue support")
-Reported-by: Dae R. Jeong <threeearcat@gmail.com>
-Closes: https://lore.kernel.org/all/ZT-S8Q7tyutcvu_q@dragonet/
-Reported-by: AutonomousCodeSecurity@microsoft.com
-Suggested-by: Dae R. Jeong <threeearcat@gmail.com>
-Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
-Link: https://patch.msgid.link/20261009224715.46121-1-cenzhang@linux.microsoft.com
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-Cc: <stable@vger.kernel.org>
+Keep sb->s_fs_info and free the sbi together with the extent status
+counters after a grace period. Split the counters out of
+ext4_es_unregister_shrinker() for that. The shrinker still gets wasted
+in ext4_put_super(), the counters go with the sbi.
+
+Fixes: 6493792d3299 ("ext4: convert symlink external data block mapping to bdev")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261009-work-fixes-rcu-v1-1-7446d2d335e6@kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: adjusted post_one_notification() context for the existing mask variable and null-pipe check ]
+[ sashal: replaced shrinker_free() with unregister_shrinker() for the embedded shrinker ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/watch_queue.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ fs/ext4/ext4.h           |  2 ++
+ fs/ext4/extents_status.c |  7 ++++++-
+ fs/ext4/extents_status.h |  1 +
+ fs/ext4/super.c          | 13 +++++++++++--
+ 4 files changed, 20 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/watch_queue.c b/kernel/watch_queue.c
-index 6ed37bc95cb7b..b14dbef344996 100644
---- a/kernel/watch_queue.c
-+++ b/kernel/watch_queue.c
-@@ -102,7 +102,7 @@ static bool post_one_notification(struct watch_queue *wqueue,
- 	struct pipe_inode_info *pipe = wqueue->pipe;
- 	struct pipe_buffer *buf;
- 	struct page *page;
--	unsigned int head, tail, mask, note, offset, len;
-+	unsigned int head, tail, mask, note, offset, len, nr_notes;
- 	bool done = false;
+diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
+index 5ef489c9e73af..ae786abecc9a2 100644
+--- a/fs/ext4/ext4.h
++++ b/fs/ext4/ext4.h
+@@ -1688,6 +1688,8 @@ struct ext4_sb_info {
+ 	struct list_head s_es_list;	/* List of inodes with reclaimable extents */
+ 	long s_es_nr_inode;
+ 	struct ext4_es_stats s_es_stats;
++	/* ext4_get_link() reads the sbi in rcu pathwalk */
++	struct rcu_head s_rcu;
+ 	struct mb_cache *s_ea_block_cache;
+ 	struct mb_cache *s_ea_inode_cache;
+ 	spinlock_t s_es_lock ____cacheline_aligned_in_smp;
+diff --git a/fs/ext4/extents_status.c b/fs/ext4/extents_status.c
+index 592229027af72..3744d49ef2856 100644
+--- a/fs/ext4/extents_status.c
++++ b/fs/ext4/extents_status.c
+@@ -1751,12 +1751,17 @@ int ext4_es_register_shrinker(struct ext4_sb_info *sbi)
+ }
  
- 	if (!pipe)
-@@ -116,8 +116,10 @@ static bool post_one_notification(struct watch_queue *wqueue,
- 	if (pipe_full(head, tail, pipe->ring_size))
- 		goto lost;
+ void ext4_es_unregister_shrinker(struct ext4_sb_info *sbi)
++{
++	unregister_shrinker(&sbi->s_es_shrinker);
++}
++
++/* ext4_get_link() bumps the hit and miss counters in rcu pathwalk */
++void ext4_es_destroy_stats(struct ext4_sb_info *sbi)
+ {
+ 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_cache_hits);
+ 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_cache_misses);
+ 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_all_cnt);
+ 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_shk_cnt);
+-	unregister_shrinker(&sbi->s_es_shrinker);
+ }
  
--	note = find_first_bit(wqueue->notes_bitmap, wqueue->nr_notes);
--	if (note >= wqueue->nr_notes)
-+	/* Pairs with the smp_store_release() in watch_queue_set_size(). */
-+	nr_notes = smp_load_acquire(&wqueue->nr_notes);
-+	note = find_first_bit(wqueue->notes_bitmap, nr_notes);
-+	if (note >= nr_notes)
- 		goto lost;
+ /*
+diff --git a/fs/ext4/extents_status.h b/fs/ext4/extents_status.h
+index 481ec4381bee6..8a03771269b69 100644
+--- a/fs/ext4/extents_status.h
++++ b/fs/ext4/extents_status.h
+@@ -241,6 +241,7 @@ static inline void ext4_es_store_pblock_status(struct extent_status *es,
  
- 	page = wqueue->notes[note / WATCH_QUEUE_NOTES_PER_PAGE];
-@@ -305,7 +307,8 @@ long watch_queue_set_size(struct pipe_inode_info *pipe, unsigned int nr_notes)
- 	wqueue->notes = pages;
- 	wqueue->notes_bitmap = bitmap;
- 	wqueue->nr_pages = nr_pages;
--	wqueue->nr_notes = nr_notes;
-+	/* Pairs with the smp_load_acquire() in post_one_notification(). */
-+	smp_store_release(&wqueue->nr_notes, nr_notes);
- 	return 0;
+ extern int ext4_es_register_shrinker(struct ext4_sb_info *sbi);
+ extern void ext4_es_unregister_shrinker(struct ext4_sb_info *sbi);
++extern void ext4_es_destroy_stats(struct ext4_sb_info *sbi);
  
- error_p:
+ extern int ext4_seq_es_shrinker_info_show(struct seq_file *seq, void *v);
+ 
+diff --git a/fs/ext4/super.c b/fs/ext4/super.c
+index 828cbf2da05cb..fa6d9260030aa 100644
+--- a/fs/ext4/super.c
++++ b/fs/ext4/super.c
+@@ -1260,6 +1260,14 @@ static void ext4_flex_groups_free(struct ext4_sb_info *sbi)
+ 	}
+ }
+ 
++static void ext4_put_sbi_rcu(struct rcu_head *head)
++{
++	struct ext4_sb_info *sbi = container_of(head, struct ext4_sb_info, s_rcu);
++
++	ext4_es_destroy_stats(sbi);
++	kfree(sbi);
++}
++
+ static void ext4_put_super(struct super_block *sb)
+ {
+ 	struct ext4_sb_info *sbi = EXT4_SB(sb);
+@@ -1344,7 +1352,6 @@ static void ext4_put_super(struct super_block *sb)
+ 	ext4_stop_mmpd(sbi);
+ 
+ 	brelse(sbi->s_sbh);
+-	sb->s_fs_info = NULL;
+ 	/*
+ 	 * Now that we are completely done shutting down the
+ 	 * superblock, we need to actually destroy the kobject.
+@@ -1359,7 +1366,8 @@ static void ext4_put_super(struct super_block *sb)
+ #if IS_ENABLED(CONFIG_UNICODE)
+ 	utf8_unload(sb->s_encoding);
+ #endif
+-	kfree(sbi);
++	/* ext4_get_link() reads the sbi and the counters in rcu pathwalk */
++	call_rcu(&sbi->s_rcu, ext4_put_sbi_rcu);
+ }
+ 
+ static struct kmem_cache *ext4_inode_cachep;
+@@ -5640,6 +5648,7 @@ failed_mount8: __maybe_unused
+ 	}
+ failed_mount3a:
+ 	ext4_es_unregister_shrinker(sbi);
++	ext4_es_destroy_stats(sbi);
+ failed_mount3:
+ 	/* flush s_error_work before sbi destroy */
+ 	flush_work(&sbi->s_error_work);
 -- 
 2.53.0
 
