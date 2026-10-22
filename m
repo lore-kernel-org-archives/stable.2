@@ -1,58 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.165.235.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792666629;
-	b=gxRp06tBRp41jXtBnL86a1fFtD+tCJumMoXbli8JlCD4yIWpfByuDPlMZ0Lq9ZgOG767
-	 PrZsnFLV3U8RoIbSAuSDmVfOjRFdKkMWrg9h0NY+YYvQBlD4mkYh2OPEiSrJDSFNlQ0yy
-	 Ez0U3Ufa7G4E7KNZ0nneI1+fvB/Ii6e7w/e+Kd16YGu9vQCOKg3tEwgNJSkDd3uXhOK9L
-	 rSTwo8wy8WEAZ9EANalwiCc6xPkcOiS+tUCG/ledP2+ev95IJR5OlYnzthOETbeSb3xec
-	 3VyoGCKBuHaFdhetkIoE7uDT13rGK0NeqKXU7Jkd4WD1TP4aRdXgurkR9SMTiRY7voA==
+	t=1792667764;
+	b=YKaBQARuo3lTStVcK7CMyLFDByg6ciEISPUuad1FbbWq76GTx259n6ztZ83m8yipEkOM
+	 VjNWNmWIDc4ngEMdg8J5SjwYq1wZd005b0Ab42eq7zOAq+EjiXUt5vcgybe0iUwCV4Ueh
+	 f/Ue/9aoNncwTGLcCRaa0FyOmvcwQC/JzbxPLeYbJPeWaAOGsIWOJUTx+y4g6hOMe6Kzs
+	 AXVS35N9OQJ2JjwUV/4jk8uXnZgDIcCq72BRpcgVIf4uMiV72syeSq86sa+g+gP0pUD+I
+	 Gxek5hsOr3rjXGdan9Q5YvMrEF+UyfjpeyUbUb57qtPUM26zPbn497d1fMDzY8cAtOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792666629;
-	h=DMARC-Filter:From:DKIM-Signature:To:Cc:Subject:Date:Message-ID:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=iMNt/RUGjBwSgCLaiXUfJ1ikj3Mi+NCwd7oG4jHQ++0=;
-	b=sngIT/ThuiiSa1pmBsHpOBxacgPaeD1YgX/aHTbovFrqptYTssobRW1pQQBizr4fk5oB
-	 6DNy/uIS+XykzsMuNdk8O+2lGCO92pHYuB0p8IwGWvYpPG+K9JkcCnUHfyaTk9LQrpT6j
-	 2kDjjWz4iY4TUS1F2tDAgg/GKL4XA8pg6MNT7rQj19Ql8pVYrFLRI9zoQ/QeyafdGOSZG
-	 p0whV1UrdWz3IdN9MuFugq/gQ+BbNFkGSGIEIOHhB63oYoHP4V3J1tKPSGJWhmxKubJfT
-	 VkpghPRnQKGeAOFtbCiRr6KPxIDjn9fdTxp0AkxiaMWOTXHABcdoPXfsytCQCMzXmYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792667764;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=BrtZdZuRvHE7UaprIXjohtPs6I5PYcsDi23QTQ2VB7k=;
+	b=ktzyiqSnqe+0tuDQqZ47DACzGnV5XjmAGslaDMaFGynlJJ8JZsZ4jdx2iWDQcySHV0nL
+	 W7O0JLmMI4L7fH0hvrtxmApjJNETaJ5nnsYidtsnBQMlsUYE+VN+EvRndvqpFR1Vj5+1h
+	 ksk9oP6N6Jnpil/IQ+4ZjXqXj3jQLEYHzq79KhzVnQMvCJPt8zsHvj6YDcWgorjZFsMqV
+	 lsnWbrDgK6ta4UfdEZXG3o3Hncany6ii7QpqjY8r6e1h5wCaRQWG9lNdDrgThth2TUj5F
+	 dTeDVsiCqy3Cum6AKa2jg6Y/GidOCd3ZCIsWwpWprHaWbxx2GtEzapgWF97xY/KDbYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mutemail.de;
-	spf=pass smtp.mailfrom=mutemail.de;
-	dkim=pass header.d=mutemail.de header.i=@mutemail.de header.a=rsa-sha256 header.s=2024 header.b="z/caezjQ";
-	arc=none smtp.remote-ip=188.165.235.121
-Received: from mail.mutemail.de (mail.mutemail.de [188.165.235.121])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=A2rz3DNx;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 010EF606A320;
-	Thu, 22 Oct 2026 10:57:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 010EF606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mutemail.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mutemail.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27FF4606A31E
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 11:16:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27FF4606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mutemail.de header.i=@mutemail.de header.a=rsa-sha256 header.s=2024 header.b=z/caezjQ
-From: "Felix K." <fk@mutemail.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mutemail.de; s=2024;
-	t=1792666626;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=iMNt/RUGjBwSgCLaiXUfJ1ikj3Mi+NCwd7oG4jHQ++0=;
-	b=z/caezjQKNRWgTrYZUJv8kK+miLlaq5bZY1iK5OppMy4TADvhj3JM2Bn6w5I0IFrCOd3Ud
-	ALk8ARkp9fHMCCvrvRiwbvlLU60fPGRiRldrjnetSRxw44oQ/5Zb8TlVky3PXKMOH8PZcX
-	rjadhPFRDxvzPIRMqH1w4pxBEFjQqEQHPEeMUwl3/q7U80Phk3HFEBd/9ClNvsXZ8t440D
-	7oUn51v7ukUu48Qucxt0kROzVZgxQwrx+DZp0C7gBUVzuKmq3AUSRQhOrGTFF2dZ+8ll/D
-	ggn1hOf5eC7KnWH0ZWklz8npQZov9+a+DBOA7q+an/TuoSbqLQUnAfHu7bwNeg==
-Authentication-Results: ORIGINATING;
-	auth=pass smtp.auth=fk@mutemail.de smtp.mailfrom=fk@mutemail.de
-To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
-Cc: linux-wireless@vger.kernel.org,
-	"Felix K." <fk@mutemail.de>,
-	stable@vger.kernel.org
-Subject: [PATCH ath-next] wifi: ath9k_htc: fix beacon slot selection once TSF exceeds 2^42 us
-Date: Thu, 22 Oct 2026 12:56:56 +0200
-Message-ID: <20261022105656.4175421-1-fk@mutemail.de>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=A2rz3DNx
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48c5358fc28so1453739f8f.0
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 04:16:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792667762; x=1793272562; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BrtZdZuRvHE7UaprIXjohtPs6I5PYcsDi23QTQ2VB7k=;
+        b=A2rz3DNxOwpE516/gjaffiFW2OJnETBppxpXTf4DPLWLfx06LkqXLJwSbh5QQ+T6Mc
+         NlJdvi0RQIwBoacbSuY18ZfApEzw3ubQvSGBmyYOvSxKod9IGl9rAC/y/eBfi9QyZfMm
+         9ViZeKOXzsVWsFARih1caoOSPo1ARCS6eoIiFKC3UJQMntv7eLMeKF9tHSMUSLzJ1Hcs
+         KswjoysneqomW7hLU+46Wu7dhbFBcFMuaMignWAzWnxewBWd+sl7LwlNxTJcxZbiHV5r
+         2aRpidu9HblJIYa5si0diJJGMGU4bTw+gTDM6y+FT2WAnB1NMBhZBQjqGqKpOcO6g2nw
+         XvAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792667762; x=1793272562;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BrtZdZuRvHE7UaprIXjohtPs6I5PYcsDi23QTQ2VB7k=;
+        b=SXzNXVbxd2BF5SJ9uf82gjiSq1NLujhK8Y6E2P2U+69tUY8qvtRdzhqxDxO92zlTpZ
+         b6Wlwj5fgA/aNrKQ8Qbx23GVzC3Vkr9zDzFYAdEytnpy4PPyRSae8fxVUAYWxyZtNsgj
+         dh6X42gwUPuTZNfzYCHVwZeIrQwBMmW416h11YNEr9OBjEmwwFBj0i8qSocB25e5sukk
+         XGEqKxef7RWSgsqLvudWsnXqNa8O5l56AAltHRRX8yp2Lt2gZ1v8mIUgSbmS4LUveHnz
+         it3NzK9CTWglRtqgJzIPRxXHbeJdcG68M+RBqxDmfn8uATbChkksq395J0OIBOn+PT/U
+         iu4A==
+X-Gm-Message-State: AFq9FYIBSV6yul8gg8mXxTvnzWZGPHzAQxEBQT+hn4ivRB4rvCzqHLWn
+	mbbr1+blFTgxJQZKSl7vGrJpWq/aqfHffKopBc1df8h7jFgXcdiouV2Dche8zlutDtVIuA==
+X-Gm-Gg: AYBFou2TnsSXbDAOUdeSG1uk433v7fRhvwgCq+/A9miDXLKlOxSaaT/NAL8crLSrTg1
+	WqbpQVRNwREzfDSumBdrRr0nSJBx4fYQHbNe8kX/SlbbKkeHYc4Jsjp/FLAfkPIbbxTL2dIlsqj
+	puoEAEHEt5uPxdkWRLhFwUJyg8MCUKX7ohd/ccnELBZIpg9CvRehzn232tuHMAqL7RBW2wclzeE
+	apEN1BoUgMUHsjwG9Fr/3m95UuKFc00ZS+rmQ9mNcuYC9viwBytlMEbFOT2qb0jEEMvLYbRuwi2
+	Q6DeJBx27azdhVsUuVvLQhsaWqYHjn24ur6LNJO0Xmdep2OlNX/AFh3DSPTk1CL5raWkMPfRVss
+	pP372uunuoCVBWOMGPM+86C88bMaPzpdOTTlUt8cUFxPwx1epbDZF6/BEOsDhp4mTTRItgNk9nB
+	x+8Cl4EzJ0ehlRaSA4SR1haZwwewzt2cYOJ6nHRxCSSF3bQc+QCT0t7tL+Ig1BIC9Oy+G5QCsJV
+	0uDyCS5TF+6uKP5Bk98kVpn6FSTH8jueuFbNsuA1wAx3UgsAVRGZP0qXp6g/Wr6oa0NbT6ughiC
+	7sMqElAGN9HxZBHNw6DE9GDYbswvGLnr32YWXiG1cko7GH9YtuKH0aWFhZpoqdsYehVhr6Ej
+X-Received: by 2002:a05:6000:1861:b0:48e:cd3:b3ec with SMTP id ffacd0b85a97d-48e264bc4a3mr9591983f8f.28.1792667761957;
+        Thu, 22 Oct 2026 04:16:01 -0700 (PDT)
+Received: from emanueleg-nb.corp.toradex.com (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25828c6dsm12536753f8f.24.2026.10.22.04.16.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 04:16:01 -0700 (PDT)
+From: Emanuele Ghidoli <ghidoliemanuele@gmail.com>
+To: stable@vger.kernel.org
+Cc: Breno Leitao <leitao@debian.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	netdev@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org,
+	regressions@lists.linux.dev,
+	Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
+Subject: [PATCH 6.12.y] net: call getsockopt_iter if available
+Date: Thu, 22 Oct 2026 13:15:21 +0200
+Message-ID: <20261022111535.528099-1-ghidoliemanuele@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,81 +102,184 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-ath9k_htc_choose_bslot() derives the beacon slot from the TSF reported
-in the SWBA event as
+From: Breno Leitao <leitao@debian.org>
 
-	tsftu = TSF_TO_TU(tsf >> 32, tsf);
-	slot = ((tsftu % intval) * ATH9K_HTC_MAX_BCN_VIF) / intval;
+commit 5bd0dec150f56b6307d599132dcb7c01007bbecc upstream.
 
-TSF_TO_TU() truncates its result to 32 bits, so tsftu is
-(tsf / 1024) mod 2^32 and wraps every 2^42 us (~50.9 days). 2^32 is not
-a multiple of the beacon interval (2^32 mod 100 = 96 for the default
-of 100 TU), so every wrap shifts the computed position within the
-beacon interval by 4 TU. Depending on where in the interval the SWBA
-event arrives, the wrong slot is chosen after one or more wraps. The
-state only recovers when the TSF is reset.
+Update do_sock_getsockopt() to use the new getsockopt_iter callback
+when available. Add do_sock_getsockopt_iter() helper that:
 
-Compute the offset within the beacon interval from the 64-bit TSF
-instead. For TSF values below 2^42 us and an even beacon interval the
-result is identical to the old calculation. TSF_TO_TU() in htc.h has no
-other user and is removed.
+1. Reads optlen from user/kernel space
+2. Initializes a sockopt_t with the appropriate iov_iter (kvec for
+   kernel, ubuf for user buffers) and sets opt.optlen
+3. Calls the protocol's getsockopt_iter callback
+4. Writes opt.optlen back to user/kernel space
 
-This is the same issue as in ath9k_beacon_choose_slot(), which is fixed
-separately. Compile tested only, I do not have ath9k_htc hardware.
+The optlen is always written back, even on failure. Some protocols
+(e.g. CAN raw) return -ERANGE and set optlen to the required buffer
+size so userspace knows how much to allocate.
 
-Fixes: 832f6a18fc2a ("ath9k_htc: Add beacon slots")
-Cc: stable@vger.kernel.org
-Signed-off-by: Felix K. <fk@mutemail.de>
+The callback is responsible for setting opt.optlen to indicate the
+returned data size.
+
+Important to say that  iov_out does not need to be copied back in
+do_sock_getsockopt().
+
+When optval is not kernel (the userspace path), sockptr_to_sockopt()
+sets up opt->iter_out as a ITER_DEST ubuf iterator pointing directly at
+the userspace buffer (optval.user). So when getsockopt_iter
+implementations call copy_to_iter(..., &opt->iter_out), the data is
+written directly to userspace — no intermediate kernel buffer is
+involved.
+
+When optval.is_kernel is true (the in-kernel path, e.g. from io_uring),
+the kvec points at the already-provided kernel buffer (optval.kernel),
+so the data lands in the caller's buffer directly via the kvec-backed
+iterator.
+
+In both cases the iterator writes to the final destination in-place at
+protocol callback. There's nothing to copy back — only optlen needs to
+be written back.
+
+Signed-off-by: Breno Leitao <leitao@debian.org>
+Acked-by: Stanislav Fomichev <sdf@fomichev.me>
+Link: https://patch.msgid.link/20260408-getsockopt-v3-2-061bb9cb355d@debian.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
 ---
- drivers/net/wireless/ath/ath9k/htc.h            |  2 --
- drivers/net/wireless/ath/ath9k/htc_drv_beacon.c | 10 +++++-----
- 2 files changed, 5 insertions(+), 7 deletions(-)
+Clean cherry-pick of the upstream commit, no changes. Needed in 6.12.y
+only.
 
-diff --git a/drivers/net/wireless/ath/ath9k/htc.h b/drivers/net/wireless/ath/ath9k/htc.h
-index 4d2b75d02..59e0b3cf7 100644
---- a/drivers/net/wireless/ath/ath9k/htc.h
-+++ b/drivers/net/wireless/ath/ath9k/htc.h
-@@ -39,8 +39,6 @@
- #define ATH_RESTART_CALINTERVAL   1200000 /* 20 minutes */
+v6.12.114 picked up commit 41fbf726915b ("net: add getsockopt_iter
+callback to proto_ops", upstream 67fab22a7adc) and commit 22ebe6ab0b67
+("Bluetooth: L2CAP: convert to getsockopt_iter", upstream bf01627cc04b)
+as dependencies of commit 3af72bf8f73c ("Bluetooth: L2CAP: access
+chan->conn safely in get/setsockopt", upstream ca2c4c264986), but not
+this patch, which is the one making do_sock_getsockopt() actually call
+->getsockopt_iter().
+
+Since l2cap_sock_ops no longer provides ->getsockopt, every getsockopt()
+on an L2CAP socket at SOL_L2CAP/SOL_BLUETOOTH level fails with
+-EOPNOTSUPP on v6.12.114. As a result bluetoothd never registers the
+adapter and bluetoothctl reports "No default controller available":
+BlueZ's btio calls getsockopt(L2CAP_OPTIONS) while bluetoothd sets up
+the BR/EDR ATT listening socket of the GATT database, and the adapter
+is dropped when that fails. Our CI sees this on every Bluetooth-enabled
+board running v6.12.114 (i.MX 8M Plus and AM62 based, BlueZ 5.72),
+while v6.12.113 was fine. The same regression was reported with an
+Intel AX201 on Debian 13:
+https://bugzilla.kernel.org/show_bug.cgi?id=222177
+
+L2CAP is the only user of ->getsockopt_iter in 6.12.y. The other stable
+trees either did not get these backports or already contain the
+upstream commit. The patch applies cleanly on v6.12.114.
+
+Tested on a Verdin iMX8M Plus with our v6.12.114 based kernel plus
+this patch.
+
+The root cause analysis (comparing CI logs, reviewing the
+v6.12.113..v6.12.114 changes and reading the BlueZ code) was done with
+the help of an AI coding assistant (Claude); I reviewed the analysis
+and the backport.
+
+ net/socket.c | 54 +++++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 51 insertions(+), 3 deletions(-)
+
+diff --git a/net/socket.c b/net/socket.c
+index 723bc3a1ba5c..b8d662e19310 100644
+--- a/net/socket.c
++++ b/net/socket.c
+@@ -77,6 +77,7 @@
+ #include <linux/mount.h>
+ #include <linux/pseudo_fs.h>
+ #include <linux/security.h>
++#include <linux/uio.h>
+ #include <linux/syscalls.h>
+ #include <linux/compat.h>
+ #include <linux/kmod.h>
+@@ -2345,11 +2346,45 @@ SYSCALL_DEFINE5(setsockopt, int, fd, int, level, int, optname,
+ INDIRECT_CALLABLE_DECLARE(bool tcp_bpf_bypass_getsockopt(int level,
+ 							 int optname));
  
- #define ATH_DEFAULT_BMISS_LIMIT 10
--#define TSF_TO_TU(_h, _l) \
--	((((u32)(_h)) << 22) | (((u32)(_l)) >> 10))
- 
- extern struct ieee80211_ops ath9k_htc_ops;
- extern int htc_modparam_nohwcrypt;
-diff --git a/drivers/net/wireless/ath/ath9k/htc_drv_beacon.c b/drivers/net/wireless/ath/ath9k/htc_drv_beacon.c
-index 81fa7cbad..b478af150 100644
---- a/drivers/net/wireless/ath/ath9k/htc_drv_beacon.c
-+++ b/drivers/net/wireless/ath/ath9k/htc_drv_beacon.c
-@@ -266,20 +266,20 @@ static int ath9k_htc_choose_bslot(struct ath9k_htc_priv *priv,
++/*
++ * Initialize a sockopt_t from sockptr optval/optlen, setting up iov_iter
++ * for both input and output directions.
++ * It is important to remember that both iov points to the same data, but,
++ * .iter_in is read-only and .iter_out is write-only by the protocol callbacks
++ */
++static int sockptr_to_sockopt(sockopt_t *opt, sockptr_t optval,
++			      sockptr_t optlen, struct kvec *kvec)
++{
++	int koptlen;
++
++	if (copy_from_sockptr(&koptlen, optlen, sizeof(int)))
++		return -EFAULT;
++
++	if (koptlen < 0)
++		return -EINVAL;
++
++	if (optval.is_kernel) {
++		kvec->iov_base = optval.kernel;
++		kvec->iov_len = koptlen;
++		iov_iter_kvec(&opt->iter_out, ITER_DEST, kvec, 1, koptlen);
++		iov_iter_kvec(&opt->iter_in, ITER_SOURCE, kvec, 1, koptlen);
++	} else {
++		iov_iter_ubuf(&opt->iter_out, ITER_DEST, optval.user, koptlen);
++		iov_iter_ubuf(&opt->iter_in, ITER_SOURCE, optval.user,
++			      koptlen);
++	}
++	opt->optlen = koptlen;
++
++	return 0;
++}
++
+ int do_sock_getsockopt(struct socket *sock, bool compat, int level,
+ 		       int optname, sockptr_t optval, sockptr_t optlen)
  {
- 	struct ath_common *common = ath9k_hw_common(priv->ah);
- 	u64 tsf;
--	u32 tsftu;
-+	u32 offset;
- 	u16 intval;
- 	int slot;
+ 	int max_optlen __maybe_unused = 0;
+ 	const struct proto_ops *ops;
++	struct kvec kvec;
++	sockopt_t opt;
+ 	int err;
  
- 	intval = priv->cur_beacon_conf.beacon_interval;
+ 	err = security_socket_getsockopt(sock, level, optname);
+@@ -2362,15 +2397,28 @@ int do_sock_getsockopt(struct socket *sock, bool compat, int level,
+ 	ops = READ_ONCE(sock->ops);
+ 	if (level == SOL_SOCKET) {
+ 		err = sk_getsockopt(sock->sk, level, optname, optval, optlen);
+-	} else if (unlikely(!ops->getsockopt)) {
+-		err = -EOPNOTSUPP;
+-	} else {
++	} else if (ops->getsockopt_iter) {
++		err = sockptr_to_sockopt(&opt, optval, optlen, &kvec);
++		if (err)
++			return err;
++
++		err = ops->getsockopt_iter(sock, level, optname, &opt);
++
++		/* Always write back optlen, even on failure. Some protocols
++		 * (e.g. CAN raw) return -ERANGE and set optlen to the
++		 * required buffer size so userspace can discover it.
++		 */
++		if (copy_to_sockptr(optlen, &opt.optlen, sizeof(int)))
++			return -EFAULT;
++	} else if (ops->getsockopt) {
+ 		if (WARN_ONCE(optval.is_kernel || optlen.is_kernel,
+ 			      "Invalid argument type"))
+ 			return -EOPNOTSUPP;
  
- 	tsf = be64_to_cpu(swba->tsf);
--	tsftu = TSF_TO_TU(tsf >> 32, tsf);
--	slot = ((tsftu % intval) * ATH9K_HTC_MAX_BCN_VIF) / intval;
-+	div_u64_rem(tsf, TU_TO_USEC(intval), &offset);
-+	slot = (offset * ATH9K_HTC_MAX_BCN_VIF) / TU_TO_USEC(intval);
- 	slot = ATH9K_HTC_MAX_BCN_VIF - slot - 1;
+ 		err = ops->getsockopt(sock, level, optname, optval.user,
+ 				      optlen.user);
++	} else {
++		err = -EOPNOTSUPP;
+ 	}
  
- 	ath_dbg(common, BEACON,
--		"Choose slot: %d, tsf: %llu, tsftu: %u, intval: %u\n",
--		slot, tsf, tsftu, intval);
-+		"Choose slot: %d, tsf: %llu, offset: %u, intval: %u\n",
-+		slot, tsf, offset, intval);
- 
- 	return slot;
- }
+ 	if (!compat)
+
+base-commit: 85d82e0d7c2dfd3e75d34f35b7ebbf41f45c9c4e
 -- 
 2.53.0
 
