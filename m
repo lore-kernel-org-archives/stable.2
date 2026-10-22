@@ -1,60 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792659756;
-	b=yBGMPIdzeGPh6mf/X84VTq/xZt2yP20NK5xdORcTIcyrg45k8hoTHj19q1eZAax4bXvj
-	 ruQ6o+y3xDFn1aZra/8+wqL9+31zJ1Nr83fbC7Yt9QgAtkeAEKxszTvdvji88rq4m52xA
-	 92p//V+IfczJ8ccHwQv0TslIHwvydJTirrR3AZt1utWTdY34QCjdlbrTr1atK0gRpioUd
-	 ISh+Li/bmx1kJEhzClgi+HFHcRck9yHk9HjcVKJ7Ja69dMjlvN5ikZFPFhpDMTC4Kh48f
-	 q5ubzGmYjWPHRGUeVz9Gb9ROE8G2196CgJM7qp70SdigY/VcKCDZqJh03LIlrhEdtDA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792659756;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=TiU/3HHI+zKSaWPGL9CUf9cBsW6huUnx77JNbpRWtlw=;
-	b=x5JY7V8lIb/KvSLpyUyEbADyrV+ayvF4wzxAWxc8o9DsEDMbJ2jYiIihe0DqIHr3RR3i
-	 dz6PQtAK2d2UCg0T+Mv8UHqEtohfqQazXKcIH6e71VTY3T6p4x6Vl/aWJNuaxCXDXeJDH
-	 xrHGDswmLDwHLf9UzWBS8BFXlM3HQiEt0TyTKREhrFMBoaXUp51WW9eQr2p11R78FiNUL
-	 zckR+MS928ZqbULxJ8azWZ5jHl1Zr+MSh/2GHxk7pySs96w+7j9dQXPgLM0KbUAYh71FX
-	 95YqZpDwlMyxWlETfULd3DXjTiSBTbYXPgG34fhskPvhoH2kYDzOfZfIHlgsLpvkmKg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hAkauIGD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.178
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792659825;
+	b=AJOq5Swl7rY0/VjnA7HBzJVYRHo889bglOneke5iqzptXSWG69HuueMU72YQBDmfqacJ
+	 jYGFwXpWP4+fG5Ck9cHlll7ZiDmxnDGOIf284BLf+Uw8YDdqJSMvHMgteAS80eZv7mpiK
+	 CaUu2gi2lsW4yY0EIz87qhB63QbPxYmCYX3zGgVCbOAE0zm6COyyXqZl5jOkdHlDKPz9W
+	 hFhRmMgTjG0VqZvYLcfREy8AktHNz+t2ubi+U8Veivs3Hq71+0Uo2FzULdnLcKQQ+/RgG
+	 gF8JKHu5NLwMkSNmdrAd5O6YrhUzXevX8kMGP6Uh5599gBwPgffpwfyq+pgXD4iKT3w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792659825;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=LWhw+HLJxYgscIYvU2wsKpAHdSFa/l1EBTg1QHDwjyM=;
+	b=CEu61QuDlTT2rcsymKVC0CZL1/Z0L5FrtNTEKy4r6X9XaTgyhYphcLFn9UMpghAC9kla
+	 lU2q6HRVT8YQl0P2tRm1Z0R/AvrhC7zIsQbpBQBcpG61eB0xTPE9jJBLyhbl7yiMwmI4L
+	 NUraOQevNFTWDFgiVfo7LBLhWn+/KjBYlqVdA+qrUq/YuhYJllRrYPiIkZ7xGAo1OMD73
+	 7xJEB3KTabBt2gPZ068URWM19LAh2j5fWL+STtSOVixm+qDZ+AMPCKPTRR0V01RmdeBlp
+	 4HhnNU7qjTRw/AVj/pmTLU04sy8FEYgoA7PNZlOnXDgm4mgTkviITCo33TOZS4HTT+Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FinbhuvJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.178
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E609606A319;
-	Thu, 22 Oct 2026 09:02:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E06AF606A320
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 09:03:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E06AF606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hAkauIGD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 320301F000C1;
-	Thu, 22 Oct 2026 09:02:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792659755;
-	bh=TiU/3HHI+zKSaWPGL9CUf9cBsW6huUnx77JNbpRWtlw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=hAkauIGDA5tjLLNpie56S7doG4pz3mjatVrHYt+a9MxBoIRjj6sUT2gRqq4u51fFN
-	 1Q6A1a650t7iKtgq8oST8Kpn9QKXge/5uZctsYINlWJ9S1q/SrgtTbJg0K1HAFp5Km
-	 lp0a3O6ngPRolJj8X3kQs7T79zaXRCfnXhFqDCTCSKMK7W69FiSPeoXtYM7jGddGLH
-	 YYm1VFHCbNIZwSInHCztZyo0gH0evZmqc7/4RWAEvPRdHYNv2Vtwt9SBxBRGCyFrDJ
-	 6u/P5v1jVUt239tiM2ByL9nL7Adj8oMIEHb/TRq2R999pAn/yWGdmDCooPea4Q88cd
-	 HVc//Mf8S7CVg==
-Subject: Re: [PATCH net v6] net: libwx: fix VF PM suspend/resume flow
-From: netdev-bot+sashiko@kernel.org
-To: mengyuanlou@net-swift.com
-Cc: netdev@vger.kernel.org, jiawenwu@trustnetic.com,
- duanqiangwen@net-swift.com, linglingzhang@net-swift.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, hramamurthy@google.com,
- jacob.e.keller@intel.com, stable@vger.kernel.org
-Date: Thu, 22 Oct 2026 09:02:34 +0000
-Message-ID: <179265975476.3135.4456951664798289210@kernel.org>
-In-Reply-To: <20261019060216.38458-1-mengyuanlou@net-swift.com>
-References: <20261019060216.38458-1-mengyuanlou@net-swift.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FinbhuvJ
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8b12b1ee403so9899307b3.2
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 02:03:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792659824; cv=none;
+        d=google.com; s=arc-20260327;
+        b=C61i5lxOQ9SARN1+NNh2rWeEfEYnOKLdLygOf6LQBc6bxJ0jwPG6RYqrWA+ak6M498
+         3NfaTTDMLRg4c7ELUrrHxgwNeZVireGHl/kO8yRVgupKKEDy4EsVQy0t0NEomcPP0IQX
+         pvnZl2ojw1QlZ1ZnF2lkh9hGpyUC5wAID3Rd/jaO1AxDMrRmMP4c7ptYNDtxPC4/yb26
+         dFAGB7uTNw4Ebv0beVuVuiP2hc52YytQqDJ8Ag+aemXevEc6vtcNrsrbs1CyOac2byg9
+         y8HU/pcYR+Lq/vecVbCQgDpme6yfJvom94FnWDASWpe4ddyDRqXuyK8Plog5PvDoL1wC
+         m8Vg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=LWhw+HLJxYgscIYvU2wsKpAHdSFa/l1EBTg1QHDwjyM=;
+        fh=ZnTTz3QpyL5tPZqTIHBJYYJtqSr+72qI6n698VVDjSo=;
+        b=Mc/29lzrRX7elhJwEzdbQTsEca6Vik2MljmwuiQRxQ3K2ZooOsDHXV0cq+EMkRuuIT
+         kwar72LZu0Oo8VXPghD0Xg+9fj2YuCL3ZfZVWgqWJ1wRqoEH5bs/CP2r20wY+eAKyriq
+         HPSYb2pynRHs8jpELs987G5YW8OliRpGCUqt8Xlh5Ycaw2/NJiT1u3bUaZZWWGU96Eup
+         ugN1HP8nvlPmmP2/IWoMAsMVTo0bczWGRMZWAP7hrsPIH03H0M3H92Say9x4J66ItUFO
+         7xO1apmZ2fwHSjuFrMC2fJS2fOzd45DlhxM7CZLmnAIIKlsCq/MlEENmZElpiEyJ1uzN
+         mvwg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792659824; x=1793264624; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LWhw+HLJxYgscIYvU2wsKpAHdSFa/l1EBTg1QHDwjyM=;
+        b=FinbhuvJOlnR1YfXL2LeLMw7fnp4FfdEx88p27qSm/QuCdcxkCD3XNkj6cciRNl+kM
+         XWYLPl9YQQOIxn5Sgamj4n1pSRbfDQ4f3Nqkd8EIDaQI+7SWA+FJtTG3pjXi1QGEMy+O
+         marwTlnH/N/cCbOYMi8KQw2haspqopRoQ1Ob78WgHfe7yxhdNiEEYvS3jLxqWEb4HKkX
+         rthJJeonSTtQgSSpJF7aOMUCqwB+Z4uJbeP1n3Q7LDmi2BGSZWS9VdCRu2PtaGMUf1ch
+         Jxbf2uxPCUZ3ZZCtX6z1qLdR7U2/5C6dqsFZYJP/Ga9UDzI3fBGYBx2lIKxzkSILrCF6
+         DfVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792659824; x=1793264624;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LWhw+HLJxYgscIYvU2wsKpAHdSFa/l1EBTg1QHDwjyM=;
+        b=WB49YY0ce4x1fKi5qVuo22cQYl4+YRO2LgmIhGqOCcZNaiLgeJASZduDGR3i1vE9ac
+         Q2vADp7g1eHnONN2BvDOJXKZBkyiBuMJgksx1Fmzn1cLA1q7LjWNfNo3HyRmpv1/jbhC
+         9+5cWja2vWW11jtCeU5szuMIjFKtvWV2HoeOtwYfZ4fLRQPfOpa/gz22XkJ+RUVe4Z1k
+         8clvkAMOkTqLFg9KKoqdPwupcMdtHHQs+bw04P9P+sQVl68Qwrw9wjthwTpRChPQZt/p
+         nux6fGFHXZSlwo5D07D/CGFIA4Dw6Z+G8qnzycn8pDBNzm4l+67LVs7JikY2njK6hJNv
+         rEog==
+X-Forwarded-Encrypted: i=1; AKwUvBwcBtgqUSqRtiZd0lcMYz5idNAcEMq4jvAWp9Gd0TzMAIiVe0D0LmzWcfGS57Tm4X1bCFfzQBg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ5Irzam0C6yRdDY8aG5WJLgiIfjI8U3fWd/kz3OZiLw4Ke6a8n
+	1bsrsh9h88iOssBWfPxJ3OMPRnQWQJRc0n7CWInxnpD83tsPfoDJXxoXPHtKdYopLYSq0kF9D65
+	6dK6mIJYl/JrxjFfAz9fdFJPFGwbM50Q=
+X-Gm-Gg: AYBFou02Jc8+4/glEGI3FDg8kU2qcnuKPFDRPHtbeENzTLovcIQ8szdQUQZXWJLwRX5
+	7ljGp8NQNLrtofURlWw0CxUl5IGdLZjLyr8t97RSjdCnjMt/8M4ssmBrweLhAtIFB7pq3GgL+U9
+	QT/9jXJLvr8ecPsQSIzYV3v/VtVywwojhZ0X+qxfhMonn39EVEcJb4Ve7ESnHgfzqkIwLUIwhs6
+	d+ANLeQxjYig/dchtLmdDVmxb2H5VqWtcCf2kd3JJ2OiKHpd/TsdJ/pWV1OPQYOlf91p7PVE9iT
+	C5C848Mvu5clzxM0tGF59w4sPezcpjL4q/2IPeVPdSLEcGMFvI0TXAn0VK9LPDs5mANj/6gacM1
+	g/mpyyXJfmhXmQ4csh505o/fEgt6I7hojpJnyXQg=
+X-Received: by 2002:a05:690c:e3ed:b0:8b0:d9a6:dbcd with SMTP id
+ 00721157ae682-8b13406330dmr30687627b3.48.1792659823756; Thu, 22 Oct 2026
+ 02:03:43 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,278 +103,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <pm-ocfs2-objects-candidate-0088-v6-d3056754af7e660155d9-0@gmail.com>
+ <pm-ocfs2-objects-candidate-0088-v6-d3056754af7e660155d9-1@gmail.com> <9e071e7d-ae86-4b55-8609-1f00a0deb913@linux.alibaba.com>
+In-Reply-To: <9e071e7d-ae86-4b55-8609-1f00a0deb913@linux.alibaba.com>
+From: Cen Zhang <zzzccc427@gmail.com>
+Date: Thu, 22 Oct 2026 17:03:32 +0800
+X-Gm-Features: AclHuK-h6BXGmIG1OsOHu9Jb9Mx2Z8xCnybGzVquX23jnd9uB-qla6UpJFXDbIM
+Message-ID: <CAFRLqsXgk51QnjPDoZ+5JmLSrY_M0RWPtc0bMEAqt3Ee48J0UQ@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] ocfs2: snapshot dentry names in file-operation traces
+To: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com, 
+	ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Hi Joseph,
 
-Critical: 0 · High: 1 (1) · Medium: 0 · Low: 1 (1)
+> Seems ocfs2_setattr() also risks the same race, and it is missed in last
+> review comments.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Thanks for catching this. I've added a name snapshot around
+trace_ocfs2_setattr(), passing both the name and length from it.
 
-- [High] net: libwx: race between wxvf_remove() and wxvf_reopen_subtask()
-- [Low] The v5 changelog says "Schedule the reopen subtask immediately on
-  resume; keep the service timer to retry if the PF is not ready."…
+The inode lock does not exclude a same-directory rename of a source
+directory, so this trace also needs the snapshot.
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the patch adds
-  a new caller that depends on it.
-- [Low] This problem wasn't introduced by this patch, but VF teardown
-  never frees the coherent interrupt-status block (wx->isb_mem) that…
+> This looks wried, the inode is dereferenced above in OCFS2_I(inode)->ip_blkno,
+> but checked below.
+> file_inode() returns filp->f_inode, so it seems inode is never NULL here.
 
---
+Agreed. I've removed the redundant NULL-inode check from
+ocfs2_file_read_iter().
 
-net: libwx: fix VF PM suspend/resume flow
+Both changes are included in v4.
 
-This patch reworks the shared txgbevf/ngbevf PM callbacks. Suspend now
-closes a running VF under RTNL and drains the service timer and work
-before disabling PCI. Resume re-enables PCI and hands the PF readiness
-check, VF reset, interrupt setup and reopen to the service task through
-a new WX_FLAG_NEED_REOPEN flag.
-
-> diff --git a/drivers/net/ethernet/wangxun/libwx/wx_vf_common.c b/drivers/net/ethernet/wangxun/libwx/wx_vf_common.c
-> index 26de78e9a69ef..e2271e8bffcda 100644
-> --- a/drivers/net/ethernet/wangxun/libwx/wx_vf_common.c
-> +++ b/drivers/net/ethernet/wangxun/libwx/wx_vf_common.c
-
-[ ... ]
-
-> @@ -34,11 +48,20 @@ int wxvf_resume(struct device *dev_d)
->  {
->  	struct pci_dev *pdev = to_pci_dev(dev_d);
->  	struct wx *wx = pci_get_drvdata(pdev);
-> +	int err;
->  
-> -	pci_set_master(pdev);
-> -	wx_init_interrupt_scheme(wx);
-> -	netif_device_attach(wx->netdev);
-> +	err = pci_enable_device_mem(pdev);
-> +	if (err) {
-> +		dev_err(&pdev->dev, "Cannot enable PCI device from suspend\n");
-> +		return err;
-> +	}
->  
-> +	clear_bit(WX_STATE_DISABLED, wx->state);
-> +	pci_set_master(pdev);
-> +	rtnl_lock();
-> +	mod_timer(&wx->service_timer, jiffies + HZ);
-> +	set_bit(WX_FLAG_NEED_REOPEN, wx->flags);
-> +	rtnl_unlock();
->  	return 0;
->  }
-
-[Severity: Low]
-The v5 changelog says:
-
-  Schedule the reopen subtask immediately on resume; keep the service
-  timer to retry if the PF is not ready.
-
-Does wxvf_resume() actually do that? It sets service_timer to fire at
-jiffies + HZ and sets WX_FLAG_NEED_REOPEN. It does not call
-wx_service_event_schedule() or queue_work().
-
-The only place that queues the service work is the timer callback:
-
-wx_lib.c:wx_service_timer() {
-    ...
-	mod_timer(&wx->service_timer, next_event_offset + jiffies);
-
-	wx_service_event_schedule(wx);
-}
-
-So the first reopen attempt looks like it runs about one second after
-resume.
-
-Should wxvf_resume() call wx_service_event_schedule() after setting
-WX_FLAG_NEED_REOPEN, or should the changelog be corrected?
-
-> @@ -52,13 +75,15 @@ void wxvf_remove(struct pci_dev *pdev)
->  	unregister_netdev(netdev);
->  	timer_shutdown_sync(&wx->service_timer);
->  	cancel_work_sync(&wx->service_task);
-> +	clear_bit(WX_STATE_SERVICE_SCHED, wx->state);
->  	kfree(wx->vfinfo);
->  	kfree(wx->rss_key);
->  	kfree(wx->mac_table);
->  	wx_clear_interrupt_scheme(wx);
->  	pci_release_selected_regions(pdev,
->  				     pci_select_bars(pdev, IORESOURCE_MEM));
-> -	pci_disable_device(pdev);
-> +	if (!test_and_set_bit(WX_STATE_DISABLED, wx->state))
-> +		pci_disable_device(pdev);
->  }
-
-[Severity: High]
-Can wxvf_remove() race with a reopen that is still pending after
-resume?
-
-After wxvf_resume(), WX_FLAG_NEED_REOPEN is set, service_timer is
-armed, and WX_STATE_RES_FREED is still set from wxvf_suspend(). The VF
-can be unbound before wxvf_reopen_subtask() has completed. That window
-includes the first second after resume, and any period where the PF
-ping or wx_reset_vf() keeps failing and the subtask keeps retrying. In
-that case wxvf_remove() calls unregister_netdev() before it shuts down
-the timer or cancels the work.
-
-If the interface was up, unregister_netdev() reaches wxvf_close(),
-which returns early because WX_STATE_RES_FREED is already set. If the
-interface was down, wxvf_close() is not called at all. Either way,
-nothing clears WX_FLAG_NEED_REOPEN and nothing sets
-WX_STATE_DISABLED. WX_STATE_DISABLED is only set at the very end of
-wxvf_remove().
-
-Once unregister_netdev() drops RTNL, the timer can still queue the
-service task. wx_service_event_schedule() now lets it through because
-WX_FLAG_NEED_REOPEN is set. An already queued work can also run while
-wxvf_remove() waits in cancel_work_sync(). The guard in
-wxvf_reopen_subtask() passes, so it proceeds against a netdev that has
-already been unregistered:
-
-  wxvf_reopen_subtask()
-    wx_mbx_write_and_read_reply()    /* PF mailbox traffic */
-    wx_reset_vf()                    /* VF reset */
-    wx_init_interrupt_scheme()
-      wx_set_interrupt_capability()  /* MSI-X vector allocation */
-      wx_alloc_q_vectors()           /* netif_napi_add() */
-    netif_device_attach()
-
-wx_clear_interrupt_scheme() later in wxvf_remove() frees those
-q_vectors again. Even so, adding NAPI instances to a netdev after
-unregister_netdevice() has torn it down does not look safe. Neither
-does resetting the VF over the mailbox and allocating IRQ vectors in
-the middle of remove.
-
-Should wxvf_remove() quiesce the service machinery before
-unregister_netdev()? For example, it could clear WX_FLAG_NEED_REOPEN or
-mark the device as being removed, then call timer_shutdown_sync() and
-cancel_work_sync() first. That is similar to how ixgbevf_remove() sets
-__IXGBEVF_REMOVING and cancels service_task before
-unregister_netdev(). Alternatively, should wxvf_reopen_subtask() refuse
-to run once the netdev is no longer registered?
-
-[Severity: Low]
-This isn't a regression from this patch, but does the VF teardown path
-leak wx->isb_mem?
-
-wxvf_open()->wx_setup_resources()->wx_setup_isb_resources() allocates it
-with dma_alloc_coherent(), which is not devm-managed:
-
-	wx->isb_mem = dma_alloc_coherent(&pdev->dev,
-					 sizeof(u32) * 4,
-					 &wx->isb_dma,
-					 GFP_KERNEL);
-
-wxvf_close() frees only the IRQs and the RX/TX rings. wxvf_remove() never
-calls wx_free_isb_resources(). That function is called only from
-ngbe_main.c and txgbe_main.c.
-
-wx_setup_isb_resources() returns early when isb_mem is already set, so
-repeated open/resume cycles do not leak more. Even so, the 16-byte
-coherent buffer seems to be left behind on every VF unbind if the
-interface was opened at least once.
-
-[ ... ]
-
-> +static void wxvf_reopen_subtask(struct wx *wx)
-> +{
-
-[ ... ]
-
-> +	if (wx_init_interrupt_scheme(wx)) {
-> +		dev_err(&wx->pdev->dev, "Failed to initialize interrupt scheme\n");
-> +		goto hard_failure;
-> +	}
-> +
-> +	if (netif_running(wx->netdev)) {
-> +		if (wxvf_open(wx->netdev))
-> +			goto open_failed;
-> +	}
-
-[Severity: High]
-This is a pre-existing issue, but this patch adds a new caller that
-relies on it. Can the wxvf_open() error unwind free RX buffers and
-descriptor rings while the hardware queues are still enabled?
-
-wxvf_open() configures the rings before requesting IRQs:
-
-wx_vf_common.c:wxvf_open() {
-    ...
-	wx_configure_vf(wx);
-
-	err = wx_request_msix_irqs_vf(wx);
-	if (err)
-		goto err_free_resources;
-    ...
-err_free_irq:
-	wx_free_irq(wx);
-err_free_resources:
-	wx_free_resources(wx);
-err_reset:
-	wx_reset_vf(wx);
-	return err;
-}
-
-wx_configure_vf()->wx_configure_rx_vf()->wx_configure_rx_ring_vf()
-enables the queue and posts buffers:
-
-	rxdctl |= WX_VXRXDCTL_ENABLE | WX_VXRXDCTL_VLAN;
-	...
-	wx_enable_rx_queue(wx, ring);
-	wx_alloc_rx_buffers(ring, wx_desc_unused(ring));
-
-Suppose wx_request_msix_irqs_vf() or netif_set_real_num_{tx,rx}_queues()
-fails. Then wx_free_resources()->wx_free_rx_resources() returns the
-pages to the page_pool, calls dma_free_coherent() on the descriptor ring
-and calls page_pool_destroy().
-
-WX_VXRXDCTL_ENABLE is cleared only after that, through
-wx_reset_vf()->wx_reset_hw_vf()->wx_stop_adapter_vf().
-
-On this new resume path, wxvf_resume() has already called
-pci_set_master(). A frame that arrives in that window could be DMA'd
-into a recycled page or into freed descriptor memory.
-
-The open_failed path here does not quiesce the device either.
-wx_clear_interrupt_scheme() only frees the queue vectors. dev_close()
-does nothing because WX_STATE_RES_FREED is still set from suspend, so
-wxvf_close() returns early. pci_disable_device() then runs after the
-frees.
-
-Should the wxvf_open() unwind stop the hardware queues (wx_reset_vf() or
-wx_stop_adapter_vf()) before wx_free_resources()? That would match the
-order wxvf_close() uses, where wxvf_down() runs before
-wx_free_resources().
-
-> +
-> +	clear_bit(WX_FLAG_NEED_REOPEN, wx->flags);
-> +	if (!netif_running(wx->netdev))
-> +		timer_delete_sync(&wx->service_timer);
-> +	netif_device_attach(wx->netdev);
-> +	rtnl_unlock();
-> +	return;
-> +open_failed:
-> +hard_failure:
-
-[ ... ]
-
-> +	timer_delete_sync(&wx->service_timer);
-> +	wx_clear_interrupt_scheme(wx);
-> +	clear_bit(WX_FLAG_NEED_REOPEN, wx->flags);
-> +	set_bit(WX_STATE_DOWN, wx->state);
-> +
-> +	if (netif_running(wx->netdev))
-> +		dev_close(wx->netdev);
-> +
-> +	rtnl_unlock();
-> +	if (!test_and_set_bit(WX_STATE_DISABLED, wx->state))
-> +		pci_disable_device(wx->pdev);
-> +	dev_err(&wx->pdev->dev, "Failed to fully resume device\n");
->  }
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261019060216.38458-1-mengyuanlou%40net-swift.com
+Best regards,
+Cen Zhang
