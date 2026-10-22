@@ -1,85 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792660250;
-	b=u+lNDoDhgqRsCxC2hxLTTtxRC2DaGnD7QvaqQW46Z8g2QFvtV2+1um6WZZ+3vCV/H5gG
-	 3YYAJYKgoOLr7qw9ROd+CyVFcF6dknVO9237ek6BJHF+PKrCki9mZJmoClvuU44x57s36
-	 yb1s3l0tFPzlvA72OIwTpuSuuijX1iHasM0y1t22wzjEnwEfD0YtEoUFlBSdvm3z7+DJf
-	 qZw/hmGwSxm5u3jn8o24Be9YqzVebAtqf1kvPTJWl7Iw6nUnuPatfYL9n7mXNOTNXQqoh
-	 XHgBJibmRR6pyXkh7gZcf/V3ofKFdAWaVoM/10biTQiOFwRRVqKWoWCd1XArN918VaQ==
+	t=1792660951;
+	b=1gSfYHt6UgmJLTOI+exSr5AVvZho4zrDdt77abnjEAai5nkTmdJLCjrL5R/2yBlmktdZ
+	 PN95aItW8AiEo2VzwafanQK138u4hdEbu2w0FhkBqtgueN+iRV/cpfYu15VTcGnwyU542
+	 MaDzz9dYB19USvgh8tSXs2w+cm2Qn8wsAhvpyK3xR2GRDCDzGJIAY6TET7pAkEj3L8QX9
+	 dH3KDcsdZjpzgveieQIcYsD6iPvciqcMj31Gf++9GtPGXWKPAs2J7aCVN5gs9XidQQYh5
+	 u+sQJYkokXYd95RQYPfiNq3Ne5eWZpr1aph2iO8Mx34MszNk59QynLKlbQ9BN+/xMJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792660250;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:Message-ID:Subject:From:To:CC:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version:X-MTK;
-	bh=sC5+6Bwpg8Flndcyoy/sLjGpBG22wsqv9rEoNRXgEiQ=;
-	b=2fpaClnz2c1MsgEEBV2c6aghnkVFdzNLp+xO4PSsbegqGr/KQdzrxjVxzPPsrVRRSbbf
-	 HyuEyKcWgfXz8s1GN0CDK8vSKaG4x7Z42yVq2MxErSTkPQslINkoItzZobTY+rjG1v59U
-	 W0AnjrCn5PtL4Pkq2FMNoS3HmtgDw86YypiJThy2mdha/TmZ7rsaPIT/reEXzz3SUiPCO
-	 6M0hJBqjfuc12XVb1N0v0nj8Ko6aE2V3sTUIPOoWJ0Tbfzp6MSzQMe9zQuHeZPQTN4pDm
-	 lzowMyRXdpASDICCsY8bxwlbMpzZwqKKO1uY4sFL84fsKe4FQUPvywn8ssQdYUD28fQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792660951;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=kAwFyiGlL69edCRWnCYWnDbLZUd+/qfHv9HYgOhIe7I=;
+	b=I6jPv/8CpcmcmHlSy5m3g03OS13zx+1/c0Y7uDDppnVztC/ZT3bhT+K5XF+i5kOBvxmS
+	 HAP6ZPArtOupws26wRNG2W+3/kSaLupWVEMaeDacUF2LXoXsQFkLdrhxn8m56OvwoHl3M
+	 rz48EVicy2VKyW2ds4lucVhrw3cRVP9Ud+AZvT+2xFPNnnGXSS8nTV0qx+1bStUlDH7Zp
+	 wmhg8afrZ2GGx73VXLfMLiE2n+VTI+72Sl9fz36BlPQ+UFGlQcOoW4rahq9uAaiT/vb55
+	 w/iGmd6nACXRRNFv/KyP6EHEfTORpY5F5ixsBLBsnHI+F5tv4+6IfuwLgovXCmfk45g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=M9UMmh6k;
-	arc=none smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=mojatatu.com;
+	spf=none smtp.mailfrom=mojatatu.com;
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=dPxWFIdc;
+	arc=none smtp.remote-ip=209.85.160.180
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0230D606A31A;
-	Thu, 22 Oct 2026 09:10:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0230D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76489606A325
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 09:22:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76489606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=M9UMmh6k
-X-UUID: 749b63a0cdf811f18dc8c9802ae25ab1-20261022
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=sC5+6Bwpg8Flndcyoy/sLjGpBG22wsqv9rEoNRXgEiQ=;
-	b=M9UMmh6kYZUVSqkAc70pbJ9WDXEXOjArU/Ls2vyPhJmc+V8jgqda151ru90fexJp4cP4x55z4ZfEpPtMygcmoe6sM5JEfo9tmslVnpq1+Sng1u5pNey3xC9039+7eNsbXuyMFBkvuEclPV1xK2uWOuL1nW3imjSVNp9wRnOFrIk=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.20,REQID:7882e0e4-61df-44a6-ba40-4909908ebe8d,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:291e20b,CLOUDID:bf16eaba-4006-44bb-949c-6e25a7b8dad4,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|136|836|865|888|898,TC:-5,Cont
-	ent:0|15|50|99,EDM:-3|-100,IP:nil,URL:99|1,File:130,RT:0,Bulk:nil,QS:nil,B
-	EC:-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 749b63a0cdf811f18dc8c9802ae25ab1-20261022
-Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by mailgw02.mediatek.com
-	(envelope-from <peter.wang@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 292985790; Thu, 22 Oct 2026 17:10:41 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- MTKMBS14N2.mediatek.inc (172.21.101.76) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Thu, 22 Oct 2026 17:10:40 +0800
-Received: from [10.233.130.16] (10.233.130.16) by mtkmbs13n1.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Thu, 22 Oct 2026 17:10:40 +0800
-Message-ID: <dc069f4e97eeb589dc3a222017f2daad067ed0ff.camel@mediatek.com>
-Subject: Re: [PATCH v5 5/6] scsi: ufs: core: Remove
- completed-without-interrupt path in ufshcd_abort()
-From: Peter Wang <peter.wang@mediatek.com>
-To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
-	<mkp@kernel.org>, <linux-scsi@vger.kernel.org>
-CC: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, "Bart
- Van Assche" <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, Bean
- Huo <beanhuo@micron.com>, Can Guo <can.guo@oss.qualcomm.com>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Date: Thu, 22 Oct 2026 17:10:40 +0800
-In-Reply-To: <20261022034443.3034432-6-stanleyjhu@google.com>
-References: <20261022034443.3034432-1-stanleyjhu@google.com>
-	 <20261022034443.3034432-6-stanleyjhu@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=dPxWFIdc
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-533861a59b8so19243171cf.1
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 02:22:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1792660949; x=1793265749; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kAwFyiGlL69edCRWnCYWnDbLZUd+/qfHv9HYgOhIe7I=;
+        b=dPxWFIdcC9xf1UkmEEILwYbOGS3DT4ZZjIpkMUSV9aBIPqT8XdKKGip+5aIKxEYgCM
+         zC05Cum86WM3BB/g6uwptXmDR12HkP6YM00bKe08Hpj29+E1jMlKSGYRnnELp8Df2ow6
+         f/xcnU5Bqs5LASaR9Z6t3IQq0VaM82SatTgN8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792660949; x=1793265749;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kAwFyiGlL69edCRWnCYWnDbLZUd+/qfHv9HYgOhIe7I=;
+        b=PRMaeUEG8lnWCcez7MOnZW6cc80JEs1LEk/xSzjdWmWSJ4qkKkmcuX5JPXflQclVLZ
+         KknPP4eahExO8c1DcIldQ9fNnDVKYEOd0RrJEvUXxcsLxGnvMdO2KqgF+xwDX5+uMWMz
+         mXE3+gQT53/OdFTYPeLfJ/EnoTGszaa6En1QJe8vZg3z7SMCtaAS3ovDMJW3VQJZQGyr
+         cK3EFHbOl/TLVG8u5uVUcKIuTYhv+UCbOekMYmA2sYkE2thBWWCNmuPhoX1D0pTKaFgp
+         5KJpDI5/oG/9e4FFQNEIUCW5sZRZUQicuHPE71fcu5F0OGozDWOQNkR3VSdqIiVGQ1hl
+         +hgg==
+X-Forwarded-Encrypted: i=1; AKwUvBxgMbYh/LLTv0pzIUW6GExGFuCsxcVahobag6DeZz2CVVg+m0IItiA5o2ata144gJlLCW+swEg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK4OiTthhQpIrZbc3y+jTWoT1SFQjRSj0tUPAZWKFY+H8SlyoPu
+	HhfNbOZpPqWsJpuYFONyrFhzmQ+/W5Mkq6wEe+PBE1G5faxvmXZT/H1D9MP28gozIg==
+X-Gm-Gg: AYBFou0JPqDd64LQ6s0u3bX/NUtLEvbhljf6kB5PJYhlOLuKbUEnPjpRljwa3HxpRGt
+	rcywjAPFpjCkcPQeLRa6zumPlQCOXTNacvB7gk3p15NuqqbRVH/m2evtAfeNz/xAmvJzJAM6VU7
+	GnwLYksUBjbkm7X7A7lfu8Z4AQgREhK4Il+gZNvVvQmOQH4AGpBSJE+OzApfWr59iC28UXfJEQr
+	2qXH6g5vQFxYddajQm7B83F/CTklgv5FbpX3X+H4otXFIWfTxr/vYk2eQR2Tsv1nnOCohrhGwT3
+	+ltw8FlE5kho/XyxYYuuwmoJKAG4MW8dJyUnE8dSq/qvrimxle1Swtm5pLOrJVRRkKTSVBjRux/
+	SoZ/fRq62ZvpKz3DlnOEtGg43KadljrDR8YD6q+xL+0A+YuB2GPbo6IH9oE1Gkr5LlgXhB0m7XM
+	gCJ1qsuxPUK1BO+jbqKRKGr670z1co01u9n9jSxnRPvY+DzwmqoRynIvNjGNSwYCH+QIsfQinHA
+	9oi9OfX3swcajd6PCijI4UNaRF7edbmTfs0JrIFzjc5UO4LsourzLEH7Y0k5FS3NE3rxpAF/ipE
+	Zj23CqpKPud7+lNqR8IlueU3zQ==
+X-Received: by 2002:a05:620a:44d0:b0:93f:1af1:7952 with SMTP id af79cd13be357-93f57e5e325mr843876485a.4.1792660949345;
+        Thu, 22 Oct 2026 02:22:29 -0700 (PDT)
+Received: from mbili.waya ([64.203.83.2])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56e2a60fsm469884685a.41.2026.10.22.02.22.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 02:22:28 -0700 (PDT)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+To: netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Guillaume Nault <gnault@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Victor Nogueira <victor@mojatatu.com>,
+	Vega <vega@nebusec.ai>,
+	Ren Wei <n05ec@lzu.edu.cn>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Jason Wang <jasowangio@gmail.com>,
+	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net 1/5] net/sched: act_vlan: reject short linear Ethernet headers after POP_ETH
+Date: Thu, 22 Oct 2026 05:22:18 -0400
+Message-Id: <ACT-N6N4.v1.r0.20261022051412-1@mojatatu.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <ACT-N6N4.v1.r0.20261022051412@mojatatu.com>
+References: <ACT-N6N4.v1.r0.20261022051412@mojatatu.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,45 +108,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MTK: N
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2026-10-22 at 11:44 +0800, Stanley Jhu wrote:
-> In SDB mode, a command that times out right as the controller
-> finishes
-> it can be completed twice:
->=20
-> 1. The command times out and scsi_timeout() schedules ufshcd_abort().
-> 2. The controller finishes the command and clears its doorbell bit in
-> =C2=A0=C2=A0 REG_UTP_TRANSFER_REQ_DOOR_BELL, while the completion handler=
- has
-> not
-> =C2=A0=C2=A0 yet cleared BIT(tag) in hba->outstanding_reqs.
-> 3. ufshcd_abort() sees the doorbell bit clear and calls
-> =C2=A0=C2=A0 __ufshcd_transfer_req_compl() without clearing BIT(tag) in
-> =C2=A0=C2=A0 hba->outstanding_reqs.
-> 4. The normal completion handler or the logical unit reset that
-> follows
-> =C2=A0=C2=A0 sees BIT(tag) still set in hba->outstanding_reqs and complet=
-es the
-> =C2=A0=C2=A0 same command a second time.
->=20
-> This branch only exists for a rare corner case, a completion
-> interrupt
-> that is lost or arrives late. Remove it to simplify the abort path
-> and
-> leave such a command to the SCSI error handler, like any other
-> command
-> that cannot be aborted. The cost is a slower recovery in this corner
-> case, which is acceptable since it only happens after a timeout.
->=20
-> Fixes: 169f5eb28869 ("scsi: ufs: Optimize SCSI command processing")
-> Cc: stable@vger.kernel.org
-> Link:
-> https://lore.kernel.org/r/fdb5c391-01ef-4a23-94c2-4f3853909348@acm.org
-> =C2=A0
-> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-> ---
->=20
+The issue:
+act_vlan POP_ETH can leave a linear area shorter than ETH_HLEN; a
+subsequent eth_type_trans() may then BUG in __skb_pull() when the frame
+is redirected to an Ethernet device.
 
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+The Fix:
+Drop the packet at the producer boundary when skb_headlen() is shorter
+than ETH_HLEN after skb_eth_pop().
+
+Conditions to recreate the bug:
+- egress tc filter on lo: action vlan pop_eth.
+- AF_PACKET SOCK_RAW with PACKET_VNET_HDR, hdr_len=28, and a non-linear
+  eth / inner-eth frame.
+- The pop leaves skb_headlen(skb) < ETH_HLEN; a following
+  eth_type_trans() can BUG in __skb_pull().
+
+Fixes: 19fbcb36a39e ("net/sched: act_vlan: Add {POP,PUSH}_ETH actions")
+Reported-by: Vega <vega@nebusec.ai>
+Link: https://lore.kernel.org/r/40fe2d7dfce13411bfbe9271c0f7c54fb7e88e3b.1782548651.git.bronzed_45_vested@icloud.com/
+Cc: stable@vger.kernel.org
+Suggested-by: Jakub Kicinski <kuba@kernel.org>
+Reviewed-by: Victor Nogueira <victor@mojatatu.com>
+Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+---
+ net/sched/act_vlan.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/net/sched/act_vlan.c b/net/sched/act_vlan.c
+index 6a375fdc63dd..ddf03b08bfe8 100644
+--- a/net/sched/act_vlan.c
++++ b/net/sched/act_vlan.c
+@@ -79,6 +79,8 @@ TC_INDIRECT_SCOPE int tcf_vlan_act(struct sk_buff *skb,
+ 		err = skb_eth_pop(skb);
+ 		if (err)
+ 			goto drop;
++		if (unlikely(skb_headlen(skb) < ETH_HLEN))
++			goto drop;
+ 		break;
+ 	case TCA_VLAN_ACT_PUSH_ETH:
+ 		err = skb_eth_push(skb, p->tcfv_push_dst, p->tcfv_push_src);
+-- 
+2.43.0
 
