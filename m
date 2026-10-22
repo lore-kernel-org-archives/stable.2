@@ -1,55 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792678263;
-	b=Jactq60xnfZDdgd3rkSsWi/z5gSurAAizZZj3g6BsU2lHOWjN1f+mGYhqZUemolTa0pN
-	 c7nJn4YUQszJI22g/cdqr/eU8V+A+KlIKeTcjZ8CP9FzX8Zd2gKe38YBvr2V2ne8Gf38a
-	 0z0gy2P5ZHT1tz1zvRE8v0KXBWNS9QmVbUOwEWC+tAeZhL9rOXb7m8h4jGX0NTnWKFaF1
-	 UaPlDmvHmwRkH+5zwBiJTOfr8ElRpUZF+GVRxcruA0brBWmdocInibwhmTV8tItSEu9K8
-	 fxkFRet4q3313+cUlraVXArGpLxhDG9VgycwyVKSxu9jUbVp2Srqth4bi8B4TZ1f4Yw==
+	t=1792678389;
+	b=hhO5JHZYZavBs9d8YMv8Sy/WC8Kg2YCV+86CyGkPFTCc2mHtoLJZXXeexicGcIwADh0H
+	 lVYlKToPv7y11d6yShvp64mECewvXz8OgMTdexXpSTfRBmr8zUjqBQLveABzIRIJ/S1KL
+	 v6sy1VlNUdML2gP9EIL0NJssX5ChxlPRnyc2Bsbu/Y+v1lsmXW9loRwkr0qVI1Ay5+naj
+	 ixZSlwTk6sdaVlAlZETYo49lpsEfqAdBlIkRVm8ZsVWnsCG4W+amWDcO0smq76RvZoNwM
+	 f1cXZRrBghDff+DjwM0Y9Bo7lMs7yfRweoD4/KgfRkm9u8OJMamMDHq0jYt5NGHM7sg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792678263;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2+e/7zBHiQXMizSwIoPX6myblp/Mg4u1G+wu1Bb+70Y=;
-	b=FLM1tVqzOX3Ta+9vUjqvYAZ9v9cbJhRtdsTeqsDlYjZaWX7p0tE7PxrD1YUWLmmRf1Yq
-	 rlNTs2AhXf9ZvNwkSE/DwEBjE/cZACXfi287JwNcmu38DenQlOIeHU8Q9Cn8elkO6Msrm
-	 EVhu/UetK0RheB12LF1rUh8BloBd43pOMUQIeALkkTCVpUqpE3PYVSNeBCSaMsEObarg+
-	 GwV91jPl0aQ+38JVI/j2NCkwV1UFIqbDCljSAWB27Y9OVZwaag3s81mBll6Lr8VW6goC4
-	 cFgVTCaArCI+R5xodaTY9oFVoJ2RzIekEaB8Y5r2yBgPjxdGrlk5yCGRe03yfnn4M1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792678389;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=lVyCsAyW+f6wFm05LptcX8c53okKTmSAzUoLzdTwIEs=;
+	b=wJUVwb65GyzNBnmIgsZHTSC0188HScAi2H3c6aHGDhYK7rWSyq1coxDQd+yJW1LsMmf2
+	 128UGxAErh/Zw69lnkMaaMhsEReZQM+uMnVl/M/+MJ8ICl2e3CkQWFYAcgZC9cAPRedGc
+	 uqW0LVT9x1zirm2KttV54xPy3huamSHge0BV9jqjikR5nvI3WKoQMHWTfmf3vPJeQJfud
+	 EBToCuG1kQx0tgzy2AF4MYRS3vpZaJkdLTS1myLurF2hry/+mOoavWDxrixJrryxc02eD
+	 MT4LU5O8QRzYNHV4y2s5wUhJJu6X3iUdvSlkCQeoDw4PZtl1oLT3FIfsWWuSBK3FB2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BkkN/rkw";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GAkbFUMH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B42606A31A
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:11:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F76606A327;
+	Thu, 22 Oct 2026 14:13:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BkkN/rkw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618751F000C1;
-	Thu, 22 Oct 2026 14:11:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GAkbFUMH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CEC21F000C1;
+	Thu, 22 Oct 2026 14:13:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792678262;
-	bh=2+e/7zBHiQXMizSwIoPX6myblp/Mg4u1G+wu1Bb+70Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BkkN/rkwRo4mM0qjUHgy1oiqv1ekuvnKMUqdI6VEp4FQFPbq905CtzdnhBxYWSiv5
-	 3MxNPcsOYcjNowMT4WzDx5DvvDerXJr1PfkME4ha8uyB89a3ugDTXz7C4fdW5ggjvw
-	 9sshMsPL3dFvlnSUqej2Z4HFXnmYp+yfttJAf13RDqwka39HhZublv0qyq+3XHHtlI
-	 H5JXQ76cmNEUmmszBux85zETkO0BGxCF2MvnqHz6jkCsm9aRKPhrVKAHJqe+FElKWs
-	 5H+i9go4z+xJ3DxF5dL5xK7DF0QxgH2NtWoS24k2zkItSEjMAhtv1CTiRetrDFCbtc
-	 7tm4Ugv7dDAVA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jann Horn <jannh@google.com>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] futex: Fix mm reuse handling for FUT_OFF_MMSHARED
-Date: Thu, 22 Oct 2026 10:11:00 -0400
-Message-ID: <20261022140852.1448344-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102125-drum-yard-404f@gregkh>
-References: <2026102125-drum-yard-404f@gregkh>
+	s=k20260515; t=1792678388;
+	bh=lVyCsAyW+f6wFm05LptcX8c53okKTmSAzUoLzdTwIEs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=GAkbFUMHDzBKKbZkl3JMrYDZPR48XXJ7UUtT+UPPVA2uV+e+/Bb2HtlZP788n+FkH
+	 ZMCCmB7P83Rnq5jHIygQZX/3sc84m8JA3yUPhoOMVVZOjr6jH3P+mKP7DGrQS/f5Tc
+	 9n6bCpAiVJS84gXn3ReeSTa6C3CSBlrRDSieHtbCAc1yxtgIsQlFN5XnECNWJV6aZo
+	 YCKLb7UyAUaRU03heJdoNcQVaunmPK1D9FqJziOtIoQVyS3lobaFqh1COvt6RL39OZ
+	 pqT/zkr/kc4//vhqFCevmGdd8WrsWKwVYyUuAA2oIgVN225O3Jti6BCvh9bqk1uhE6
+	 iYAEOnOxddusQ==
+Subject: Re: [PATCH net v12] net/smc: fix lgr/lnk lifetime vs diag reader race
+From: netdev-bot+sashiko@kernel.org
+To: mjambigi@linux.ibm.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, alibuda@linux.alibaba.com,
+ dust.li@linux.alibaba.com, sidraya@linux.ibm.com, hidayath@linux.ibm.com,
+ pasic@linux.ibm.com, horms@kernel.org, tonylu@linux.alibaba.com,
+ guwen@linux.alibaba.com, stable@vger.kernel.org, netdev@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
+Date: Thu, 22 Oct 2026 14:13:06 +0000
+Message-ID: <179267838686.3135.11610279010793695525@kernel.org>
+In-Reply-To: <20261019111008.3367567-1-mjambigi@linux.ibm.com>
+References: <20261019111008.3367567-1-mjambigi@linux.ibm.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,206 +65,239 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Jann Horn <jannh@google.com>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-[ Upstream commit 3267512ad1c2cc0c7768c5b014dc2cceb398a801 ]
+Critical: 0 · High: 1 · Medium: 0 · Low: 2
 
-A FUT_OFF_MMSHARED futex is a shared futex that refers to an MM.
-It is possible for a process to wait on a shared futex with a different MM
-because a FUT_OFF_INODE waiter can be requeued onto a FUT_OFF_MMSHARED
-futex by another process.
-This can cause FUT_OFF_MMSHARED waiters on a freed MM to consume
-wakeups intended for a newly allocated MM at the same address.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fix it by keying FUT_OFF_MMSHARED using a unique 64-bit per-MM ID.
-Leave private futexes as before to avoid influencing the performance of the
-hotpath.
+- [High] The v12 `!lgr->terminating` guard in
+  smc_lgr_schedule_free_work() (net/smc/smc_core.c) does not close the…
+- [Low] The commit message says "Other kill paths leave the socket
+  hashed, since it can stay open until close()".
+- [Low] The commit message's 'Fifth' paragraph gets the mechanism of its
+  own example wrong.
 
-(Multi-threaded processes typically implicitly use FUT_OFF_MMSHARED by
-setting clear_child_tid such that it points into anonymous memory, which
-causes mm_release() in a multi-threaded mm to perform FUTEX_WAKE.)
+--
 
-Fixes: 222993395ed3 ("futex: Remove pointless mmgrap() + mmdrop()")
-Closes: https://lore.kernel.org/r/CAG48ez0dLBpc3QtbAhMMVNHwHL94iHh2G+h-=BVFR4dDuzZr1g@mail.gmail.com/
-Signed-off-by: Jann Horn <jannh@google.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://patch.msgid.link/20260929-futex-mmshared-fix-v1-1-262b1ffeb3d0@google.com
-Cc: stable@vger.kernel.org
-[ sashal: Moved futex unique-ID storage from futex_mm_data directly into mm_struct. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/linux/futex.h    | 14 ++++++++----
- include/linux/mm_types.h |  4 ++++
- kernel/fork.c            |  3 +++
- kernel/futex/core.c      | 49 +++++++++++++++++++++-------------------
- 4 files changed, 42 insertions(+), 28 deletions(-)
+net/smc: fix lgr/lnk lifetime vs diag reader race
 
-diff --git a/include/linux/futex.h b/include/linux/futex.h
-index b70df27d7e85c..09f757f14d01f 100644
---- a/include/linux/futex.h
-+++ b/include/linux/futex.h
-@@ -23,26 +23,30 @@ struct task_struct;
-  *  01 : Shared futex (PTHREAD_PROCESS_SHARED)
-  *	mapped on a file (reference on the underlying inode)
-  *  10 : Shared futex (PTHREAD_PROCESS_SHARED)
-- *       (but private mapping on an mm, and reference taken on it)
-+ *       (but private mapping on an mm)
- */
- 
--#define FUT_OFF_INODE    1 /* We set bit 0 if key has a reference on inode */
--#define FUT_OFF_MMSHARED 2 /* We set bit 1 if key has a reference on mm */
-+#define FUT_OFF_INODE    1 /* We set bit 0 if shared key identifies an inode */
-+#define FUT_OFF_MMSHARED 2 /* We set bit 1 if shared key identifies an mm */
- 
- union futex_key {
-+	/* For FUT_OFF_INODE */
- 	struct {
- 		u64 i_seq;
- 		unsigned long pgoff;
- 		unsigned int offset;
- 	} shared;
-+
-+	/* For FUT_OFF_MMSHARED or private */
- 	struct {
- 		union {
--			struct mm_struct *mm;
--			u64 __tmp;
-+			struct mm_struct *mm; /* for private */
-+			u64 mm_seq; /* for FUT_OFF_MMSHARED */
- 		};
- 		unsigned long address;
- 		unsigned int offset;
- 	} private;
-+
- 	struct {
- 		u64 ptr;
- 		unsigned long word;
-diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-index 00a85b64e5241..8423ea56b337c 100644
---- a/include/linux/mm_types.h
-+++ b/include/linux/mm_types.h
-@@ -578,6 +578,10 @@ struct mm_struct {
- #endif
- 		struct work_struct async_put_work;
- 
-+#ifdef CONFIG_FUTEX
-+		atomic64_t futex_unique_id;
-+#endif
-+
- #ifdef CONFIG_IOMMU_SUPPORT
- 		u32 pasid;
- #endif
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 83912c9e0c87c..c39de3ee8f537 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -1050,6 +1050,9 @@ static struct mm_struct *mm_init(struct mm_struct *mm, struct task_struct *p,
- #endif
- 	mm_init_uprobes_state(mm);
- 	hugetlb_count_init(mm);
-+#ifdef CONFIG_FUTEX
-+	atomic64_set(&mm->futex_unique_id, 0);
-+#endif
- 
- 	if (current->mm) {
- 		mm->flags = current->mm->flags & MMF_INIT_MASK;
-diff --git a/kernel/futex/core.c b/kernel/futex/core.c
-index d772b8ab29817..d39fea1723fa6 100644
---- a/kernel/futex/core.c
-+++ b/kernel/futex/core.c
-@@ -417,39 +417,27 @@ futex_setup_timer(ktime_t *time, struct hrtimer_sleeper *timeout,
- }
- 
- /*
-- * Generate a machine wide unique identifier for this inode.
-+ * Generate a machine wide unique identifier for this object (inode or mm).
-  *
-  * This relies on u64 not wrapping in the life-time of the machine; which with
-  * 1ns resolution means almost 585 years.
-- *
-- * This further relies on the fact that a well formed program will not unmap
-- * the file while it has a (shared) futex waiting on it. This mapping will have
-- * a file reference which pins the mount and inode.
-- *
-- * If for some reason an inode gets evicted and read back in again, it will get
-- * a new sequence number and will _NOT_ match, even though it is the exact same
-- * file.
-- *
-- * It is important that match_futex() will never have a false-positive, esp.
-- * for PI futexes that can mess up the state. The above argues that false-negatives
-- * are only possible for malformed programs.
-  */
--static u64 get_inode_sequence_number(struct inode *inode)
-+static u64 get_object_id(atomic64_t *object_seq)
- {
--	static atomic64_t i_seq;
-+	static atomic64_t last_assigned_seq;
- 	u64 old;
- 
--	/* Does the inode already have a sequence number? */
--	old = atomic64_read(&inode->i_sequence);
-+	/* Does the object already have a sequence number? */
-+	old = atomic64_read(object_seq);
- 	if (likely(old))
- 		return old;
- 
- 	for (;;) {
--		u64 new = atomic64_add_return(1, &i_seq);
-+		u64 new = atomic64_add_return(1, &last_assigned_seq);
- 		if (WARN_ON_ONCE(!new))
- 			continue;
- 
--		old = atomic64_cmpxchg_relaxed(&inode->i_sequence, 0, new);
-+		old = atomic64_cmpxchg_relaxed(object_seq, 0, new);
- 		if (old)
- 			return old;
- 		return new;
-@@ -472,7 +460,7 @@ static u64 get_inode_sequence_number(struct inode *inode)
-  *
-  *   ( inode->i_sequence, page->index, offset_within_page )
-  *
-- * [ also see get_inode_sequence_number() ]
-+ * [ also see get_object_id() ]
-  *
-  * For private mappings (or when !@fshared), the key is:
-  *
-@@ -624,8 +612,8 @@ static int get_futex_key(u32 __user *uaddr, bool fshared, union futex_key *key,
- 			goto out;
- 		}
- 
--		key->both.offset |= FUT_OFF_MMSHARED; /* ref taken on mm */
--		key->private.mm = mm;
-+		key->both.offset |= FUT_OFF_MMSHARED;
-+		key->private.mm_seq = get_object_id(&mm->futex_unique_id);
- 		key->private.address = address;
- 
- 	} else {
-@@ -660,7 +648,22 @@ static int get_futex_key(u32 __user *uaddr, bool fshared, union futex_key *key,
- 		}
- 
- 		key->both.offset |= FUT_OFF_INODE; /* inode-based key */
--		key->shared.i_seq = get_inode_sequence_number(inode);
-+		/*
-+		 * This relies on the fact that a well formed program will not
-+		 * unmap the file while it has a (shared) futex waiting on it.
-+		 * This mapping will have a file reference which pins the mount
-+		 * and inode.
-+		 *
-+		 * If for some reason an inode gets evicted and read back in
-+		 * again, it will get a new sequence number and will _NOT_ match,
-+		 * even though it is the exact same file.
-+		 *
-+		 * It is important that match_futex() will never have a
-+		 * false-positive, esp. for PI futexes that can mess up the state.
-+		 * The above argues that false-negatives are only possible for
-+		 * malformed programs.
-+		 */
-+		key->shared.i_seq = get_object_id(&inode->i_sequence);
- 		key->shared.pgoff = page_to_pgoff(tail);
- 		rcu_read_unlock();
- 	}
+This patch closes several windows where the SMC sock_diag dump can
+dereference conn/lgr/lnk state that has already been freed. It skips the
+CONNINFO/LGRINFO/DMBINFO attributes for SMC_INIT and SMC_CLOSED sockets,
+orders sk_state with acquire/release, unhashes sockets before teardown in
+several paths, and copies the cached link->ibname. It also unregisters
+connections unconditionally in smc_conn_free() and stops arming free_work
+on a terminating link group.
+
+> Fifth, on the smc_lgr_cleanup_early() path (e.g. server CLC decline with
+> SYNCERR) __smc_lgr_terminate() sets terminating=1 and unlinks the LGR
+> without setting freeing=1.
+
+[Severity: Low]
+Is the SYNCERR example here accurate? On the server, smc_clc_wait_msg()
+handles a DECLINE that carries SMC_FIRST_CONTACT_MASK like this
+(smc_clc_send_decline() sets that mask for SMC_CLC_DECL_SYNCERR):
+
+net/smc/smc_clc.c:smc_clc_wait_msg() {
+    ...
+		if ((dclc->hdr.typev2 & SMC_FIRST_CONTACT_MASK) &&
+		    smc->conn.lgr) {
+			smc->conn.lgr->sync_err = 1;
+			smc_lgr_terminate_sched(smc->conn.lgr);
+		}
+    ...
+}
+
+smc_lgr_terminate_sched() then unlinks the LGR itself and sets freeing:
+
+net/smc/smc_core.c:smc_lgr_terminate_sched() {
+    ...
+	list_del_init(&lgr->list);
+	lgr->freeing = 1;
+    ...
+}
+
+All of this happens before smc_listen_decline()->smc_conn_abort()->
+smc_conn_free(). Also, smc_conn_abort() calls smc_conn_free() before it
+calls smc_lgr_cleanup_early():
+
+	smc_conn_free(conn);
+	if (local_first && lgr_valid)
+		smc_lgr_cleanup_early(lgr);
+
+So in this example smc_lgr_terminate_sched() unlinks the LGR with freeing
+== 1, and the new !lgr->terminating check has no effect.
+
+The skipped smc_lgr_unregister_conn() that leaves alert_token_local
+non-zero does look real on this path. However, it is caused by the
+terminate_sched unlink, not by smc_lgr_cleanup_early(). The problem is
+only in the cited example and its freeing claim.
+
+Could this paragraph name smc_lgr_terminate_sched() for the SYNCERR case,
+or use a different example for the smc_lgr_cleanup_early() path?
+
+> diff --git a/net/smc/smc_close.c b/net/smc/smc_close.c
+> index bb0313ef5f7c1..aa6363abdd747 100644
+> --- a/net/smc/smc_close.c
+> +++ b/net/smc/smc_close.c
+> @@ -154,6 +154,7 @@ void smc_close_active_abort(struct smc_sock *smc)
+>  		if (sk->sk_state != SMC_PEERABORTWAIT)
+>  			break;
+>  		sk->sk_state = SMC_CLOSED;
+> +		sk->sk_prot->unhash(sk);
+>  		smc_conn_free(&smc->conn);
+>  		release_clcsock = true;
+>  		sock_put(sk); /* passive closing */
+> @@ -165,6 +166,7 @@ void smc_close_active_abort(struct smc_sock *smc)
+>  		if (sk->sk_state != SMC_PEERABORTWAIT)
+>  			break;
+>  		sk->sk_state = SMC_CLOSED;
+> +		sk->sk_prot->unhash(sk);
+>  		smc_conn_free(&smc->conn);
+>  		release_clcsock = true;
+>  		break;
+
+[Severity: Low]
+The commit message says:
+
+  Other kill paths leave the socket hashed, since it can stay open until
+  close().
+
+Does that match the code? Every smc_conn_kill() ends in
+smc_close_active_abort(). These new unhash calls run in its
+PEERCLOSEWAIT1/PEERCLOSEWAIT2/PEERFINCLOSEWAIT branch and its
+PROCESSABORT/APPFINCLOSEWAIT branch.
+
+Sockets whose fd is still open can be in those states:
+
+  smc_close_shutdown_write()          ACTIVE -> SMC_PEERCLOSEWAIT1
+  smc_close_passive_work()            -> SMC_APPFINCLOSEWAIT
+                                      ("just shutdown, but not yet
+                                       closed locally")
+  smc_close_passive_abort_received()  -> SMC_PROCESSABORT
+
+When the link group terminates through __smc_lgr_terminate()->
+smc_conn_kill()->smc_close_active_abort(), these open sockets are removed
+from the SMC hash, and sock_prot_inuse is decremented before close().
+
+smc_close_active_abort() also sets SOCK_DEAD unconditionally. That means
+the SOCK_DEAD-gated unhash added to smc_close_passive_work() can fire for
+sockets whose fd is still open.
+
+The dmb_nocopy unhash in smc_conn_kill() has a similar effect. It hides
+ACTIVE/APPCLOSEWAIT sockets that stay open, but only on loopback-ism
+devices.
+
+The v10 changelog gives the opposite reasoning for the other paths ("they
+must stay visible to smcss and keep their inuse accounting"). Could the
+commit message say that killed sockets in these states are unhashed
+before close()? Could it also say that visibility to smcss now depends on
+the close state and the device type?
+
+[ ... ]
+
+> diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+> index 9974149659c2f..9d8165d1b40c5 100644
+> --- a/net/smc/smc_core.c
+> +++ b/net/smc/smc_core.c
+> @@ -84,7 +84,7 @@ static void smc_lgr_schedule_free_work(struct smc_link_group *lgr)
+>  	 * creation. For client use a somewhat higher removal delay time,
+>  	 * otherwise there is a risk of out-of-sync link groups.
+>  	 */
+> -	if (!lgr->freeing) {
+> +	if (!lgr->freeing && !lgr->terminating) {
+>  		mod_delayed_work(system_percpu_wq, &lgr->free_work,
+>  				 (!lgr->is_smcd && lgr->role == SMC_CLNT) ?
+>  						SMC_LGR_FREE_DELAY_CLNT :
+
+[Severity: High]
+Does this check fully stop free_work from being re-armed on a
+terminating link group? The flag check and mod_delayed_work() are not
+done under any lock that __smc_lgr_terminate() also takes. On the other
+side, the cancel happens before the flag store:
+
+net/smc/smc_core.c:__smc_lgr_terminate() {
+	if (lgr->terminating)
+		return;	/* lgr already terminating */
+	/* cancel free_work sync, will terminate when lgr->freeing is set */
+	cancel_delayed_work(&lgr->free_work);
+	lgr->terminating = 1;
+    ...
+}
+
+smc_lgr_cleanup_early() never sets lgr->freeing, so on that path
+terminating is the only thing protecting free_work.
+
+On an SMC-D server, smc_listen_work() drops smc_server_lgr_pending right
+after sending the ACCEPT:
+
+	/* SMC-D does not need this lock any more */
+	if (ini->is_smcd)
+		mutex_unlock(&smc_server_lgr_pending);
+
+So a second connection B can join the LGR of first-contact connection A.
+Can the following interleaving happen?
+
+CPU1 (connection A, CONFIRM wait failed)
+smc_listen_decline()
+  smc_conn_abort(A, 1)
+    smc_conn_free(A)
+      smc_lgr_unregister_conn()        /* conns_num 1 */
+
+CPU2 (connection B)
+smc_conn_free(B)
+  smc_lgr_unregister_conn()            /* conns_num 0 */
+  smc_lgr_schedule_free_work()
+    if (!lgr->freeing && !lgr->terminating)   /* passes */
+
+CPU1
+    smc_lgr_cleanup_early()
+      list_del_init(&lgr->list)
+      __smc_lgr_terminate()
+        cancel_delayed_work()          /* nothing pending yet */
+        lgr->terminating = 1
+        /* conns_all is empty, B is not waited for */
+        smc_lgr_cleanup()
+        smc_lgr_free()                 /* drops base reference */
+
+CPU2
+    mod_delayed_work(..., &lgr->free_work, ...)
+  smc_lgr_put()                        /* last reference */
+    __smc_lgr_free()
+      kfree(lgr)
+
+__smc_lgr_free() does not cancel free_work again. The timer would then
+fire on freed memory after SMC_LGR_FREE_DELAY_SERV. The same window
+exists if CPU2's check lands between the cancel and the terminating
+store.
+
+Before this patch the race could happen through B passing the
+!list_empty(&lgr->list) check. With smc_lgr_unregister_conn() now called
+unconditionally in smc_conn_free(), conns_num can reach 0 at any point up
+to the terminating store.
+
+Another question: terminating:1 is written without lgr_lock, and
+freeing:1 is written under lgr_lock. Both share a bitfield byte with
+sync_err:1. Can concurrent read-modify-writes lose one of the flags this
+check relies on?
+
+The comment in __smc_lgr_terminate() says "cancel free_work sync, will
+terminate when lgr->freeing is set". However, the code uses a non-sync
+cancel, and this path never sets freeing.
+
+Would one of these work instead? Either publish terminating before the
+cancel, under a lock that smc_lgr_schedule_free_work() also holds across
+its check and mod_delayed_work(). Or do a cancel_delayed_work_sync() of
+free_work before the final kfree(lgr) in __smc_lgr_free().
+
+[ ... ]
+
 -- 
-2.53.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261019111008.3367567-1-mjambigi%40linux.ibm.com
