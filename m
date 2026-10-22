@@ -1,85 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792696839;
-	b=pCE0q23ZOWiIBSB/7jpI6GOY66azOrKkCBm4/4N07989bMJM+q3bnw4xtGo+2/kB/abQ
-	 uJ+UzWMikGK0rsRuQAgXYS78k7x0MrLCCkrf9GdoWGEZqmHnbYpwOfiT3XDvjeajlKuHr
-	 P9woutrWo9LC9FICVfCUdORKhNm5OZgs19t/fRLiPCl59YsFxUAk9Urt5IocxE8ZxGK77
-	 INxKPfZChPdD5gwUIpFCjVgNq+96fm6BEs80wE36CUsOR/LQv13jCRbCOhSZXhsaxERjX
-	 U8j3xKQAco6W0gt/ITKo4IEBY2p+pZq3o/vwoUGE+6EK6ZWnKOQGTucBinYVRjPucww==
+	t=1792697006;
+	b=gH2H/S9JZfZcec9Kjy7l8xyP0NfYc9TILUlhCbAY0CQhLcZB/9xuTCBYsF0f0yrsn9CO
+	 C1GZtE5hFRO+dkpbZrMs+cGl60P1ztfZ+B0QPOYcvO6l2BMLPQul3za7tBpQUhuBezIZf
+	 GbI5msz/1aWzciCGzvdhLb8Jkm2ajL7fO/+KzyJRsLgpwIR/Mmz4Ucjdj1jLi0WlMFZ/4
+	 7KJOHhMLx/g8F9dM3p1Iyz1WRGEJrkjxutrqO82fXPx7gjcA3/eGX7OH0sjAv3kIyftEM
+	 AY7RMfz/FvYOp932iN142Ap5AVQcpKK5IOq9vOFv/g9JTmdSZvpItQfR9y7010O8VZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792696839;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=9sXkOvf7AxrvAAH1/YNkURKgzHX7Y0lOYp7pZGB9twE=;
-	b=UsQnyzhz/YyBy33J3P93nOh/qhjFuWjpO/hp1uDM9IzTzrqX3d9dUKt5thyW81neNYFP
-	 DixJRYSMmwedTNqHNqVnS2DkiXwWUQNiPUG6khw1cJtMl3zrDn90Aa9GhVkIlLs+QvKX6
-	 ns45JGXbV80+RZPTC02kwUmVHmFXW+AECCmWaceQLJ5KaKqETFg3Ad8RHqmwfpwchWwuG
-	 iDFMqrVBchVJiwUMf/i0FjWjUfPkJpvuqed5H8aVUFLSVGr/Pn8wJ/a6HtooDGqMyL21h
-	 kddR+7VERmfhYc7MfkmfG1bCAKGJHPl67lnbCF+MQwU+lEP1ZbNIxO2tr8WrbVgc3QA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792697006;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Y/dsaxnKF3aeqTegstncGquAbZW8+HofhMVq8+s3R5M=;
+	b=Etjtpn7OMZpBMwkYooJvw5E9s0EZDdzqAKdwUf3A5bdphrivumHUcyslemE4qbGbqGS4
+	 Ey15cy2p+zJt8X8HHww2enAyrGJrfMbrBZxLtvtqEfuUaKPFbb0II6lSdSHngtVe4kRom
+	 bFIxg0yzlRnZugVx9IpYWJ9k8Lq1K3GG0dMLUUVHrX2DX0YolaSZAHTAM0ckYWhdsiR/f
+	 GXbfj9zhOdieD6sMe29vsztG43cRz1KtSqPVTAOG9ji6Zrx26E8MT3Kk46n01wCq8rDTj
+	 ma/HdnwZgGM1Rrbn3TcX6jCm5714+uLlVW19i1NBZNBqUr0K8XCtIhURRD7hrqHJKxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RhEpnE+1;
-	arc=none smtp.remote-ip=209.85.208.53
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ZIIhS/CA";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5292C606A31D
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 19:20:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5292C606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B07FE606A31B
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 19:23:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RhEpnE+1
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b21cf1a580so91132a12.1
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 12:20:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792696837; x=1793301637; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9sXkOvf7AxrvAAH1/YNkURKgzHX7Y0lOYp7pZGB9twE=;
-        b=RhEpnE+1jUnYlqv7JiGI+cVLv0LAbRqOGEjDHl+SzzNNqELp3BCGQMTTtkgrVV3sGl
-         EFu4BCg+awMIqSrV39O77g2wInCTCrcBhkIjy0jDRVtvvIGkUBfHrA9RQ60mPXoMgadW
-         ++gt39oScXT2O6apkAxfTnmB9uKAJWi5IC2NaVHRKSqz2CXsM2nyCcjU0TwiFPHwe6MH
-         y0T2ETNBajdsd7ISMCyCFyNHHC18XZ+r+d1l9jE2k2ZkiJXu2/Jr2MsniWUCdPbIRci1
-         QZ6s/cvamcXw/xg/Dc28xFpzsZr0b3ZAVkTclEmnqNGmro07X6tHoGCdMbjrYQ9HIXQl
-         JTLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792696837; x=1793301637;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9sXkOvf7AxrvAAH1/YNkURKgzHX7Y0lOYp7pZGB9twE=;
-        b=iyyj4mIGYnI6D91kKiDY6aSsaZF68PCL+v9V1anK8ToF9xb0g0wU1yZCp9+wsfcC+8
-         420+x8puh0fCw5V1oJeUC6rI1kAnJo8mCaD6Bwkwf0yn90T7k8Bm4Nqs/YJ/gwyZuS86
-         +r7IC8BcocCpctiYVOTRSzBXoHpWltG5tSSbTbxx5l1x93tChZEH/Ia8i/THXSNMfYsu
-         JFYwdt+KVKQgSCsDx0EemgNnY8Hk1rs9ys9bazCK/HI3fYbxz5E3KaftFYm6LPVzBDJQ
-         YkMr9pE/Xlj/jmdWjRmjiWtclh4dgTrkxDOwMJsBmJFD/Ndc5TzS/w54NKs4w8MkeMj8
-         bsRA==
-X-Gm-Message-State: AFq9FYLTzR2hrjDu3TPs/fu5R4JJvFNJqt5PUGE5a22s24L16HhMdb5a
-	E1AgP/xpkz7/GBGfVKKpWMfBqYHySgbn7yp4SWAjUsdXWMR3EI3jngI5
-X-Gm-Gg: AYBFou23qO3izlxZIMmtke08kZ/oUBEDf6nYigoBtXYUs0t7ieNsNtujMrGVxehaYqi
-	O5d11xVXo0f9dwA1tVdwInMo5sWhOnR87Eb9U09cTWlJu9d/AbXZqgd1ig4wscuSF+/UKbvC0Ty
-	j4W/jlgiRztgNCsBbNs9tKK8uTznPr5JbMh1m1md3CJSha7F0OftGvQsYEYnofrHrPW6jwTNJyF
-	e4y4JqNC8ERLql88kjBYZxdnfjyR2Al0a6mHUvZAmLlrxIXeNvlgedQIk5PTuQBlgFN8mdUGGFz
-	nXWyy1lYsZ8QqsyXQutK5FjBmNnQxmFW8eoiDG9bEx7+Up5vycSxMnrgDAx+mEWW3hoEDv/MBg0
-	PaX9JOooCoRMt+I5AbEMoGpLRkqlo0SEW7fEEcI36CW0V16FrW0LGjqb6zo1Eu3MCLHk1X22ce4
-	L6CDrXSji8xa7M+1xJZ0y17GVdB5oL99toGuqQuxq7jDlTz/mHiFwuUYcBBdXB2GEYL9rl0p+Na
-	8X0eOkB//ywU8bGCns6abe0Raq/YULelrS12XRTIMYtP2/EDpzNCoExL3TMXkORPXo=
-X-Received: by 2002:a17:907:db15:b0:c3f:4d1:8cd7 with SMTP id a640c23a62f3a-c46a92afc93mr21950366b.25.1792696836432;
-        Thu, 22 Oct 2026 12:20:36 -0700 (PDT)
-Received: from [192.168.0.193] ([194.183.54.57])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46a5cadf1esm20266066b.53.2026.10.22.12.20.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 12:20:35 -0700 (PDT)
-Message-ID: <e44c1fc2-802e-4cd6-8359-a315bda970e6@gmail.com>
-Date: Thu, 22 Oct 2026 21:20:34 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZIIhS/CA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05A991F01825;
+	Thu, 22 Oct 2026 19:23:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792697005;
+	bh=Y/dsaxnKF3aeqTegstncGquAbZW8+HofhMVq8+s3R5M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZIIhS/CAuRiRmqPlsWFOYiUyD7fuOw/lU2ZHG3wiA76OYcF0UKRX46dCY60Pw1L/w
+	 bxdBUF0JTy7b1D25xRasKlBHskhmrcHHDSL6k5HRxzTwesM1YdEXny8QcdwZ2u/EeZ
+	 zco3bFMPxQ87nVyKY+lA6DTQLrcQ/x4n4R79p/Mo7OnrcMuciBiT4wTVbLGa2ll0k+
+	 eawdgUokBh21j4ArVD4BFmwKQv1uAebnnksF0uQ5YT4Dkl3+akqny5UGjNoQjEKnWf
+	 9cHqCrJf/jPiGNAYs5BtQ4ahBTN6A5qArQi45N72egtglsgeCX0UAMhSD/58rUvUnM
+	 c/KXwt6c06cxA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Aleksandr Khromov <haa@amicon.ru>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] ksmbd: initialize FileSystemControlFlags in FS_CONTROL_INFORMATION
+Date: Thu, 22 Oct 2026 15:23:23 -0400
+Message-ID: <20261022192310.1962646-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026102259-drizzle-twentieth-49c2@gregkh>
+References: <2026102259-drizzle-twentieth-49c2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,61 +59,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 14/21] leds: flash: Avoid divide-by-zero in
- led_clamp_align()
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Dmitry Antipov <dmantipov@yandex.ru>,
- Jacek Anaszewski <j.anaszewski@samsung.com>, Bryan Wu <cooloney@gmail.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, linux-leds@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+
+From: Aleksandr Khromov <haa@amicon.ru>
+
+[ Upstream commit c0cd3fc6824122014da2b3b0cb7ddeaa2946ec8e ]
+
+smb2_get_info_filesystem() reports 48 bytes for FS_CONTROL_INFORMATION,
+that is the whole of struct smb2_fs_control_info, but never assigns
+FileSystemControlFlags.  Those four bytes go to the client as they are
+found in the response buffer.
+
+The buffer is zeroed on allocation, so a standalone request leaks
+nothing.  A compound request can leak: the offset of the next response
+is advanced by the length pinned for the previous one, so a reply that
+was written into the buffer and then dropped in favour of the short
+error response of smb2_set_err_rsp() stays there, and the next reply is
+laid over it with only the header cleared.
+
+ksmbd does not implement quota tracking, so report no control flags.
+
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
 Cc: stable@vger.kernel.org
-References: <20261021123406.3163547-1-lee@kernel.org>
- <20261021123406.3163547-15-lee@kernel.org>
-Content-Language: en-US
-From: Jacek Anaszewski <jacek.anaszewski@gmail.com>
-In-Reply-To: <20261021123406.3163547-15-lee@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Signed-off-by: Aleksandr Khromov <haa@amicon.ru>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/ksmbd/smb2pdu.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Hi Lee,
-
-On 10/21/26 2:32 PM, Lee Jones wrote:
-> If a flash LED driver leaves a setting's step size as zero, writing to
-> the corresponding sysfs attribute invokes led_clamp_align() and triggers
-> an integer division by zero when aligning the offset to s->step.
-> 
-> Clamp s->val to [s->min, s->max] and return early when s->step is zero.
-> 
-> Fixes: 7aea8389a77a ("leds: Add LED Flash class extension to the LED subsystem")
-> Closes: https://sashiko.dev/#/bug/linux-9d06d7fe-310b-4aee-8b16-0fb49550c287
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
-> ---
->   drivers/leds/led-class-flash.c | 5 +++++
->   1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/leds/led-class-flash.c b/drivers/leds/led-class-flash.c
-> index 181dfd49c6ad..16b3b6b9365b 100644
-> --- a/drivers/leds/led-class-flash.c
-> +++ b/drivers/leds/led-class-flash.c
-> @@ -375,6 +375,11 @@ static void led_clamp_align(struct led_flash_setting *s)
->   {
->   	u32 v, offset;
->   
-> +	if (!s->step) {
-> +		s->val = clamp(s->val, s->min, s->max);
-> +		return;
-> +	}
-> +
->   	v = s->val + s->step / 2;
->   	v = clamp(v, s->min, s->max);
->   	offset = v - s->min;
-
-
-Reviewed-by: Jacek Anaszewski <jacek.anaszewski@gmail.com>
-
+diff --git a/fs/ksmbd/smb2pdu.c b/fs/ksmbd/smb2pdu.c
+index de03750a2b0c9..6e3acd0a5687a 100644
+--- a/fs/ksmbd/smb2pdu.c
++++ b/fs/ksmbd/smb2pdu.c
+@@ -5247,6 +5247,7 @@ static int smb2_get_info_filesystem(struct ksmbd_work *work,
+ 		info->FreeSpaceStopFiltering = 0;
+ 		info->DefaultQuotaThreshold = cpu_to_le64(SMB2_NO_FID);
+ 		info->DefaultQuotaLimit = cpu_to_le64(SMB2_NO_FID);
++		info->FileSystemControlFlags = 0;
+ 		info->Padding = 0;
+ 		rsp->OutputBufferLength = cpu_to_le32(48);
+ 		break;
 -- 
-Best regards,
-Jacek Anaszewski
+2.53.0
 
