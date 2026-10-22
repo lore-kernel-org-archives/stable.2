@@ -1,89 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792662934;
-	b=2DKMhD2UUHmTURUbZoJPIvocEw8rI+TQhJD6/wgHGpM2Y+SbVhaQwx6l4CeTODfhGcDN
-	 lXEznp/ShQwwkir3yVu2dCj/t7Fod49ar3A0Gsz5bWVFZQ/OVOMzx8uTzgRBRMVlToHK5
-	 tW4yK0t2zx8CyOmz38GI4yT32GRk/gKyYFoWOl1Kq23QaQBqx4IHUCMt0wzulw5iqqkUU
-	 jMWp3XigbBtzg30GSqZ0NLkfrZDwhjvgqAe9HaQ9nyc6g6RfmC0OGWO9hsKbu8ZeALQLg
-	 FPADqPPPzFsC8LrKnDSb/3nDw5ehqIHQnf2EBVb4JTmHMPSlJs2P+aBlH6HpJpqNu5Q==
+	t=1792662947;
+	b=iuBUHotYezSvsOywoz5gsDQjxlfwynOZPOfori5KUM4biMOQ0VlhuEfu++odGDb2g+47
+	 4jy1zE8tNmfQDfCnnrnQmtsAI/G18QcdZtw/nZSng+LOn4ITsElabeXOjoMPo094yo23Z
+	 PejT0V6Tq8TOCwDXRxvF3l3nw4xD/9kO1RzxSMKSN7RV6FVSyrU5vgbTyD3ouYMpbV61R
+	 fOb9hTBYQR4xbmcTcbVZwjS1GdGq/w3b3ysOsnqunOfDb86SA2GvjafsAQX8nd1VCT4mT
+	 j1F3v2HagYIr4J/YD6qEqjbCq5K7DSs35xBoKln8Kvmh/fBv5+JCtnKPE6yvRLiVLhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792662934;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
-	 X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ADNfvEfUAy3VqrghvrDeJq01T2uWMuvSDrh74f4EyQo=;
-	b=gYuvbWdsLuHCyfz0brlmkILMTLMHZXsGchZB4crkvKNaHfs7ckwtP21AnG6lswGCLAoy
-	 w8L84r/5uIViSfmNLolh092oOPZGqNh7qq8f4jZND/Wg2uJ6PVSUqs6nQpiiXjjtITTr8
-	 daCKbFvuXsFKUWFCDbX8adnaqkL8emFKMYK9nc30aSXhZu+vogoy40MuCkN/eqJ2BGkUk
-	 2uRBDdhWJR+SYG0mR5cyA689sXRdgfJDoRbHlO5uk5OrT+XPXJRiGKX07Np66kmFLMmMp
-	 cIByGVJy8JwE+9wa6L6updMwMzBuf4ScsulX5WSMNLr07AAOJsScfPPouE+CSNlaXJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792662947;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=8VmMT6SL3lJ/c87KR2eDUfeOG9XwswkHzu1/RmZsfbw=;
+	b=bgQH1kzT3LbW3HBj63xATJA1UnnMKzUVcUeh2kDEmQzRxVVm4wYRk8haI0zPX9bnis0x
+	 VQ481nGzjFEYvupgfPBAGBP8JnsiHDaZCXCCqIUzumQ8ohCDsCQWSdeL50Fd2qOUxf/S/
+	 42kd+P6Nej22uUJBh4dr4wOuFOIfBiuz2ARUHQaNrkx6weyoZeipLRcKqm4QGTFFiS/cl
+	 ZNUaaAklM0NZA12wDRLshEL8gH+F7QPVWZ23rXgEF4yIujd3auqhBxDc7GB/KdW/AtIjm
+	 VF7CUJ4YVvRXxIn09Pl0MhoLxNxsb2DXHnd/TccOJE9GFtozdroDWhDhPyyFkr1KQmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=phea+XLA;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=kdn4NQ9K;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="CB/cdJ/3";
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=0MKzMBl1;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bTQCFzj4;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90CFC606A31A
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 09:55:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90CFC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2AF9606A319;
+	Thu, 22 Oct 2026 09:55:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2AF9606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=phea+XLA
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-354ba08cfd1so2854678eec.1
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 02:55:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792662933; x=1793267733; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ADNfvEfUAy3VqrghvrDeJq01T2uWMuvSDrh74f4EyQo=;
-        b=phea+XLAzXkdyM3bnFuvS59LbUUZoJ69K5CjUYm6xR4qIHVz1SIts52rSiDUlwJk7S
-         VY+xaiF0PWZmi2qLrsC9aKMadIZ+tCPgKIuzRVzxTNWnWPoOn+yoPejMmA6Bn6OjmyBG
-         rk6r3LdZclhp/pYRyFRzjtCxhxch8P+8ufKd4m3+BrD0hb1iYkOVBP4OZwiLRrGVXOyV
-         IeedCqSCJiuOnG/yK1CA+BZrahzK1l9/Mhy/Wdhym1m7hwDiue0e00GJHzPC4nKX6k4I
-         QcJMLdQNdBpe1czQ+o2UE34U7pyAC2BQuMG5QADiwk7kUamzbb7pGPRCHcg1JYik7R1A
-         Y49g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792662933; x=1793267733;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ADNfvEfUAy3VqrghvrDeJq01T2uWMuvSDrh74f4EyQo=;
-        b=CtOnvZNwsAybR2UbBZ4B2WkfLWkWaxesuEpm5juznA0QFUSbRlyezWTfBic7nE9dJH
-         RXeskRE3GrGHav8+B3Yoskhw2r4fP0NJjem57kQX5h6IyHmuAXVoO8Z+cKnGTcTVNdw+
-         wiSYR7w54bXlb5UGKa5wgSAtc7OjjbPmbfsIchLqaRI6o37HSNJs6vMEI7FpV8zuDo1y
-         s7Tzv/HwNaqWHyX9QeIrJ8r5kx9aEHta1pj1rdoF5PbVhULCXV4IzfBPc4/HT6h13alK
-         0NjQztJWEJYaK9YY6sEOuBt11l+Z6ZV4wGoTt280jNCUjkm0rHdn90nGxIgf/q85id2L
-         wDcQ==
-X-Gm-Message-State: AFq9FYL3at9glngvBLkGmZ+8VJ1/dFwR4ArVruT8sqaqc8URd3TiziTx
-	YIJwvgXiGvbmvHKWkY2WAXJ3sQyvcrk0ekOfIUuy1JBYUKnc9NrGHvU9m1hGa/WoRBY=
-X-Gm-Gg: AYBFou30stK9kZ32JsQVN45q5hfNp69/oazWMBKbZLifTjA3i5mxUIlvNxVpsZ1ysjI
-	hw42gJpEbPID1sxMHbiSwPMEXlMm0RW+lxu+wVEbAoS/LLBK3KDN3Lw18T1Vcn5QoB4aHJRdL7s
-	W8r/RIWPVLwq7mR3v4Deo/gSvIhZH1GHCTuX+ehnjOOEuy2niKqTo0HOe7tlObpZBSqCgNt98Vi
-	2nO0EIzEfNWoMBC2YVyaJjjpUapdF0f+EhQyMVbCL6IzmAkKcWuoap2Mjs8pad4Fg+ZvXu0rZR6
-	14MxhAG5ijaPBpngWphh1qVQ335E/Tdy8xa++kVdxDTNEtsEWSaRMrkeFy3djp6FFZhlutxFdsh
-	lzXYXenfLAG/0o2A+ixghIBl+Wvva1Ysb5PLyhRpqmmI2mfOsxIXTfjwkmITGUFvBihNrnAkx0G
-	K3cUY92yf6FSJ/WlOEk3vkoxqh9HpZ17kD0qgx4NUhPqn9r9uK8kGPE1rqsGIEaVlR1fKAMeQHJ
-	xXA59NzRO7dhqIPmlij3Al8Bss/BK04oL6ZeojqU+OPFLH7+ISMpzbctSr2khfQTBoOx+8vqlGL
-	ECxi
-X-Received: by 2002:a05:7023:a4c:b0:17f:ed8f:d0e7 with SMTP id a92af1059eb24-190a632ef26mr5712904c88.27.1792662933495;
-        Thu, 22 Oct 2026 02:55:33 -0700 (PDT)
-Received: from HP-Pro-Tower.mioffice.cn ([43.224.245.243])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19035c0c9a6sm12395962c88.3.2026.10.22.02.55.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 02:55:33 -0700 (PDT)
-From: lizhijun3 <zhijunli.leo@gmail.com>
-X-Google-Original-From: lizhijun3 <lizhijun3@xiaomi.com>
-To: lizhijun3@xiaomi.com
-Cc: stable@vger.kernel.org
-Subject: [PATCH] f2fs: fix to roll back SIT update on segment allocation failure
-Date: Thu, 22 Oct 2026 17:55:26 +0800
-Message-ID: <20261022095526.1632980-1-lizhijun3@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=kdn4NQ9K;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=CB/cdJ/3;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=0MKzMBl1;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bTQCFzj4
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id DF3472212F;
+	Thu, 22 Oct 2026 09:55:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792662945; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8VmMT6SL3lJ/c87KR2eDUfeOG9XwswkHzu1/RmZsfbw=;
+	b=kdn4NQ9KpaN2zIvp5IbzFXPnTdAst5oxWQFJQvaiZvlwPoc5BP7yOEPKSEqBhCZ5HbkO3Q
+	4cc+KCdYAiyTTLUZcev9n9oIAvRqlxsS7FMrL2qhl2jQYX32YU6oL7EZyZW1wy9RjmrJMm
+	UdQzIe7pPGvbBHgZh0gV7tg1XvU+rsY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792662945;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8VmMT6SL3lJ/c87KR2eDUfeOG9XwswkHzu1/RmZsfbw=;
+	b=CB/cdJ/3F90e9V1KBM/iB3jXpWdeZLBPotnWDu7U88AD3yxrhFrb6wwW89jy7K5VdFkw0G
+	0z0ARWtFNTXyR9Cg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=0MKzMBl1;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=bTQCFzj4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792662944; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8VmMT6SL3lJ/c87KR2eDUfeOG9XwswkHzu1/RmZsfbw=;
+	b=0MKzMBl1VINOziycO0wd4arrDofm8Fp6OEvtmrIr9dOHypVu3p71TOMehGSMkSJ0cXnCTV
+	KfZoTmHEOWa1mh+kMkUtj9JpbYi86N75lew37UsprdGfRZ7V1LkCYxYJ0P39wdLRIlZRYa
+	pRRCFo/SakFa6XQduKYdCzZ9y+C2K5A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792662944;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8VmMT6SL3lJ/c87KR2eDUfeOG9XwswkHzu1/RmZsfbw=;
+	b=bTQCFzj4e7EnvITVqIllGzkZxJ8tmLEcYVC4wEcOvks9wsfmKpIh3CZQ3NTpBlFscPeuPM
+	ZT5ZP+Ofn3lCzHCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B651E133F3;
+	Thu, 22 Oct 2026 09:55:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id iFi6I6Dd2Wp3BwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 22 Oct 2026 09:55:44 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 3F280A1417; Thu, 22 Oct 2026 11:55:36 +0200 (CEST)
+Date: Thu, 22 Oct 2026 11:55:36 +0200
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 02/15] super: don't warn when resume thaws a userspace
+ freeze
+Message-ID: <zx5xykzg6s5tdzcegobouzicxdddgxakdw5lhmubgzqkqa5d2m@s56uiwg47smi>
+References: <20261011-work-super-fixes-core-v1-0-c727176c5b53@kernel.org>
+ <20261011-work-super-fixes-core-v1-2-c727176c5b53@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,72 +113,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011-work-super-fixes-core-v1-2-c727176c5b53@kernel.org>
+X-Spamd-Result: default: False [-13.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.cz:dkim];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: DF3472212F
 
-In f2fs_allocate_data_block(), SIT is updated before segment rotation
-since SSR needs the latest valid block information:
+On Sun 11-10-26 17:56:02, Christian Brauner wrote:
+> filesystems_thaw() is called on every resume from suspend or hibernation
+> no matter whether filesystem freezing was enabled. It walks all
+> superblocks that have freeze methods and calls thaw_super() with
+> FREEZE_EXCL | FREEZE_HOLDER_KERNEL and its owner token. It relies on
+> may_unfreeze() to refuse every superblock it didn't freeze itself.
+> 
+> But may_unfreeze() checks the kernel freeze count before it checks
+> whether the superblock is exclusively frozen at all. A superblock that
+> userspace froze via FIFREEZE or that got frozen through its block device
+> has freeze_kcount == 0. So every resume while such a filesystem is
+> frozen triggers:
+> 
+>   WARNING: fs/super.c:2165 at thaw_super_locked+0x85f/0xbf0
+>   ...
+>    filesystems_thaw_callback+0x196/0x220
+> 
+> and with panic_on_warn the resume panics.
+> 
+> Check the owner first. If the superblock isn't exclusively frozen, or
+> not by the caller, there's nothing for the caller to undo and that isn't
+> a bug. An exclusive freeze always holds a kernel reference so keep
+> warning if that's not the case.
+> 
+> Reproducer, needs CONFIG_PM_DEBUG:
+> 
+>   mount /dev/sda /mnt
+>   fsfreeze --freeze /mnt
+>   echo freezer > /sys/power/pm_test
+>   echo freeze > /sys/power/state
+>   # WARNING in thaw_super_locked() from filesystems_thaw_callback()
+> 
+> It fires on every run. Not a selftest because it suspends the machine
+> and the only symptom is the warning in the kernel log.
+> 
+> Fixes: 1af3331764b9 ("super: add filesystem freezing helpers for suspend and hibernate")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-	update_sit_entry(sbi, *new_blkaddr, 1);
-	update_sit_entry(sbi, old_blkaddr, -1);
+Right, looks good. Feel free to add:
 
-If the subsequent segment rotation (new_curseg(), change_curseg() or
-get_atssr_segment()) fails, it jumps to out_err and clears *new_blkaddr,
-however, it does not roll back the two SIT updates, so that SIT may
-record that:
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-- the new block is valid even if no data was written to it;
-- the old block is free even if a node still refers to it.
+								Honza
 
-Not every failure stops the checkpoint. For example, change_curseg()
-returns PTR_ERR() if f2fs_get_sum_folio() fails (e.g. -ENOMEM), and this
-path does not call f2fs_stop_checkpoint(), so the filesystem keeps
-running. A later checkpoint can then persist the inconsistent SIT, and
-the old block may be reallocated while being referenced, causing data
-corruption. The same stale SIT state can also be exposed when pinned
-allocation returns -EAGAIN and the caller retries the allocation.
-
-Fix it by tracking whether SIT was updated and rolling back the two
-update_sit_entry() calls in the error path.
-
-Fixes: 7d009e048d7c ("f2fs: fix to handle segment allocation failure correctly")
-Cc: stable@vger.kernel.org
-Signed-off-by: lizhijun3 <lizhijun3@xiaomi.com>
----
- fs/f2fs/segment.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index 63b712d3d599..033a3b8bf426 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -3908,6 +3908,7 @@ int f2fs_allocate_data_block(struct f2fs_sb_info *sbi, struct folio *folio,
- 	bool from_gc = (type == CURSEG_ALL_DATA_ATGC);
- 	struct seg_entry *se = NULL;
- 	bool segment_full = false;
-+	bool sit_updated = false;
- 	int ret = 0;
- 
- 	f2fs_down_read(&SM_I(sbi)->curseg_lock);
-@@ -3958,6 +3959,7 @@ int f2fs_allocate_data_block(struct f2fs_sb_info *sbi, struct folio *folio,
- 	 */
- 	update_sit_entry(sbi, *new_blkaddr, 1);
- 	update_sit_entry(sbi, old_blkaddr, -1);
-+	sit_updated = true;
- 
- 	/*
- 	 * If the current segment is full, flush it out and replace it with a
-@@ -4027,6 +4029,14 @@ int f2fs_allocate_data_block(struct f2fs_sb_info *sbi, struct folio *folio,
- 	return 0;
- 
- out_err:
-+	/*
-+	 * SIT is updated before segment rotation for SSR. Roll it back if
-+	 * segment rotation fails.
-+	 */
-+	if (sit_updated) {
-+		update_sit_entry(sbi, *new_blkaddr, -1);
-+		update_sit_entry(sbi, old_blkaddr, 1);
-+	}
- 	*new_blkaddr = NULL_ADDR;
- 	up_write(&sit_i->sentry_lock);
- 	mutex_unlock(&curseg->curseg_mutex);
+> ---
+>  fs/super.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/super.c b/fs/super.c
+> index 15ecfbeb92ab..4e8f7f48540c 100644
+> --- a/fs/super.c
+> +++ b/fs/super.c
+> @@ -2165,14 +2165,15 @@ static inline bool may_unfreeze(struct super_block *sb, enum freeze_holder who,
+>  			return false;
+>  		if (WARN_ON_ONCE(!freeze_owner))
+>  			return false;
+> -		if (WARN_ON_ONCE(sb->s_writers.freeze_kcount == 0))
+> -			return false;
+>  		/* This isn't exclusively frozen. */
+>  		if (!sb->s_writers.freeze_owner)
+>  			return false;
+>  		/* This isn't exclusively frozen by us. */
+>  		if (sb->s_writers.freeze_owner != freeze_owner)
+>  			return false;
+> +		/* An exclusive freeze always holds a kernel reference. */
+> +		if (WARN_ON_ONCE(sb->s_writers.freeze_kcount == 0))
+> +			return false;
+>  		/*
+>  		 * This is still frozen multiple times so we're just
+>  		 * going to drop our reference count and undo our
+> 
+> -- 
+> 2.53.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
