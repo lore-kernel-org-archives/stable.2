@@ -1,55 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792706730;
-	b=I367us2V4ymhB7cv+BE7cJVc8zT5bKNoitoM9L0mD6hVXoOVopaldc7PYF/WXlAzze/i
-	 ZFcjOXwurffSgn5Imix+Gg+G+/Vrd9b2jWBzT13Qmnw8Kai9THwNiV3P1vi+Jg8Xu0qVz
-	 pXSW9UT0/1psB+lPiW5fUSVTrr9FPuO8a7Sr19aFqL8+pn7LjwEFK+5w7+s3F5QyQ1kI8
-	 jbazx949gmXcMaxFKofC1zHRqAW31bfUvVfTTGpG0V2DMpZtyTRx3PKaBRrGVLO1UQS19
-	 uOKp11dWXR2pwAsgpuWZLNvR8TgD4rGoGBFxfmv16sDtJQg+ZG+YNjbA4xNkDorBNUA==
+	t=1792707454;
+	b=wib0QNn5JPReEg4lvBRmwka5a3sgiW+mpm8/28u8u04TG9rnPFd4F/pH4O+xhS5b7KjW
+	 PZujTheGmrzr0LBVamaV7hsf90H63CPxf6ErnuvMgS7iNqMJrG9ERy3Re6szZEv8U8S4v
+	 NsgcTfBp8FAaM5qu9hw4EyQO2c966VIHA9qEiQmBm3xw0/ru6LTLhqB8oqZG8ZRDkeunT
+	 lPtRj+1SzFeu0xBx4qIVME/yk46Pu1MRcxnU1JzacbQ99RJyqvmG3xQZWusSDEYMKc8kh
+	 rx1HpPovUf8k1B26Rip+dp5evJ3dDPv4G2+ywr5CLWwhzBE96j2sDgG5mTQIqIxpUEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792706730;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=H5BU/gxfUxlopJpUFZRDjTLRFBZl79P8s9RRDE1yxPM=;
-	b=Vwez8vcGNiGvm13bx/DgNKLOaZR03QoGwtdfPHes0gIwHQnBZbr4xJ1JtEQ4QBNx/T6n
-	 42cyMfki+tDTZKcqXulDAVgBsBYMu18s0G4Cje7gQGEBnjFtqm5DF/XtNOIhfPbaMNar/
-	 CStlwzxNxocvvoGnwo/+bwlP6zQwGOmrFuAqyCzkfnNVIzqNLQFyhinp/EyQix5jrofBf
-	 FPYn/3/MVsHzlcStnHM4kczmFG7jCz/yyTDN++Cwz+4+96LQ2F2UIN3KrPeRDf1twfSXQ
-	 eF0S8MrD8xtmGE5tjyzZsR6RTub+09MC53OuM69wj1y67e7uRnPnnXhiOYlLa1dvKHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792707454;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=/WIkpltfnb+vy/iRWdcQeenTOR+kthNZwD1BDIJsCtY=;
+	b=0yR+vWnGIGJ9jEmgbY8nvqQQBw6xScwWrjrAUhzUYy7ONbohxxZZv7Ziu+F+KDxjHERh
+	 dUWuzxGENDnm3suQuKl+qMPl7StIZyOJMb8rKotQoZX+rwHppvudL8OOCQaa2OZWlM5Du
+	 q6wGhKQ6tok6V+I2yGktgCUiMuep0LihkASPbEVeqUSz7NXuXWQfdec+a8SsTA2GUGgYq
+	 0lKKNFFHFxSftB6OJsB9/cnwQpskqvFEwOvjd3mC8VxtTG+p84ixfGXVdiD8vV+xIPjzW
+	 Y7KV2wmuR3+yLR1NJuJ44XrxJotfOHV0QBjvAhODqnoraH60yOnDeu6LJCHXgSP+lsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DKIUMOWN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JFpZ94Ob;
+	arc=none smtp.remote-ip=209.85.221.171
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16BCF606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 22:05:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC9C7606A319
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 22:17:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC9C7606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DKIUMOWN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 579951F01825;
-	Thu, 22 Oct 2026 22:05:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792706729;
-	bh=H5BU/gxfUxlopJpUFZRDjTLRFBZl79P8s9RRDE1yxPM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DKIUMOWNQtbjqpjDLrGUn3dwBPuTy5d5toJyDPyyNWM013viQWAxQaAOsGULCzsBd
-	 YPW16pTFZnd03dPQclcGLL/kWraOlqpIC09EFxoRmGa92nBz5YzbE5EJDtU3Iy0/+P
-	 r3kVPrVY/K65sktv55sbQfLkkasuRIZVBeesrENJdDqYsCYon4UHqJKdc2hUReyeOh
-	 witL4Zq4s/y1ZL3bHFIfCi2GTUDC416mxXVgXdg+2DZ7/HIXzIhmkk6CtR7QKnSAOG
-	 I0BSmaBqlucwlSK+9H2dmmRU84r7sKzOlQAC47FbovJZl386jOUKJWcK6gGTlndrMz
-	 E4pu9ZOi2UdzA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Frank Sorenson <sorenson@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] cifs: add revalidation on FSCTL failure in smb2_duplicate_extents()
-Date: Thu, 22 Oct 2026 18:05:27 -0400
-Message-ID: <20261022220238.1944141-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102116-grove-undercut-9b92@gregkh>
-References: <2026102116-grove-undercut-9b92@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JFpZ94Ob
+Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5eac01ff101so160341e0c.2
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 15:17:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792707453; x=1793312253; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/WIkpltfnb+vy/iRWdcQeenTOR+kthNZwD1BDIJsCtY=;
+        b=JFpZ94Ob3Fm6+qT3OvTYTxeHkpIEU9c+VZ8lDQaWmzPXF/uzU7JrLsmPMCYrUuiLQZ
+         1Wtx830OvhlAppc3G4T8svioQktLUvKgcZ1KZ3v03L38/G98omE3XjY0OAmiH6DmV3ar
+         iNs2BkVv9aPFu0Ck7fqp1MbCrDMvzbcrKtbLnpRYO9esYY5a0rpVfaZeST8FDrRLZ0rw
+         JL3+G/uUiDflNKH7CHP3Nlk/zXwq97RxcLtFlvcXrIBOpsXfAHtyPvsF09Lqb76JVHHq
+         jYyQMy7aMRjpbqqg/cZb2pE3wbP8ckVY5j9uytlgLoOjBec8ATLlTrk36iNJhhBXKKlS
+         n3Ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792707453; x=1793312253;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/WIkpltfnb+vy/iRWdcQeenTOR+kthNZwD1BDIJsCtY=;
+        b=akyD3ox8mFVnxAgSA76uCZYwrvrtFfVLGLAdzj+i4nZ9TGuBQyneUejFayAUCDxz4d
+         hs3jBIumcodkydOvO/B81bUrER+bjX7s0KhkO9pCW4cBV103um+G9Zq6lByBkwutRqdg
+         KenDvqUpcXcQjVDfpksGPILfwu3TdreNC7jAi6w8a7oH8QfuX8HXmcRPfI0cCYhSn2rm
+         4smP7CID1dZb5ERLhukpN+v65ak2OB4JDnqoG8+sJbawLV4JgrhA73YDrIy6OR0MzrfW
+         5fgXaFKXIdZ95Y6IsXCXA7gG7NEVrGmkXUOKqhxIGkV+hXr22PaBvt8WPyCpYTkoenHO
+         Jksg==
+X-Forwarded-Encrypted: i=1; AKwUvBxwLtejFhVuS3v56d18w/YW7/2tnV8T5sQgZnM9vm02bQ13e/x+oFmVXHrRmTS21J1EHmaAFCQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/KFE/Sokgs2HrftagjJlL/ndD7nQ8Hk7rEZ7qJlFbb+0M9ovB
+	V7J3W7UBdWeridvS65x4lOWdZ276OwY4WJo+ptAaHyhn3cq2MquH6CN4
+X-Gm-Gg: AYBFou1VaitXYtq7Q53FDSOSqWx2/i6xLbX3guzBu6VkYImC8w0gMCbqq9KcjUOmfaC
+	BsXHGOaSmJ6fKxIvBd41dszEmIcsB5Q43GBkyl5lLeSKYWMFueH0+NBdtGaSs7QB8fjQowf6BG3
+	MhJOWqX8XBb5/AAUrxjH/P/C9YgmUizK74SlWUYN9lLqvwxk9RzjQeAb8OygKTySGfArpykHRQH
+	DG7ytj2OkvhBKmZsBtYH3pl2FRQicrWgIHKObV8meODm1opdbbmyjDG7YWtoJAPOUYJu6oVZRCZ
+	7T6SsiTnreIjjoCF1JBu12kvrfvI4bezt6PY7WtL43cSEwR+SGiVmP2KsimuNEtvhWc9WThjpAo
+	K+ZmAh/RE1XIRXxn8XobvFWln/65vsf0YqPhTJljY/M7iZF/V5v+Iv75sTd9IBnPnWBq3Dhct+j
+	Feyh2HSf+lYGRkZxWCOMcFjkRdGvc0+X7jHd1D/zr0aeRW70/Esddj3aRW3uMAlPTOaFSByz1rl
+	pyEbjpwcjtAjHe8CHmlg54Jyr4gRE66S5TF0tCs09O3RcpwDA==
+X-Received: by 2002:a05:6122:178c:b0:5ea:ae99:9b2c with SMTP id 71dfb90a1353d-5ec14ab087cmr87153e0c.14.1792707452787;
+        Thu, 22 Oct 2026 15:17:32 -0700 (PDT)
+Received: from unix.. ([181.229.23.179])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec13f2cfe0sm456271e0c.14.2026.10.22.15.17.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 15:17:32 -0700 (PDT)
+From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org
+Cc: "H . Peter Anvin" <hpa@zytor.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	=?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] x86/shstk: free shadow stack when copy_thread() fails
+Date: Thu, 22 Oct 2026 19:17:20 -0300
+Message-ID: <20261022221722.619233-2-ivanrwcm25@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261022221722.619233-1-ivanrwcm25@gmail.com>
+References: <20261015023147.519257-1-ivanrwcm25@gmail.com>
+ <20261022221722.619233-1-ivanrwcm25@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,65 +108,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Frank Sorenson <sorenson@redhat.com>
+copy_thread() maps a shadow stack for a CLONE_VM child and can still
+fail in set_new_tls(). That error returns through bad_fork_cleanup_io,
+which does not call exit_thread(). bad_fork_cleanup_thread does, but
+only after copy_thread() has returned 0.
 
-[ Upstream commit 53676a5e28231186c9f56d87b7998b640699bc15 ]
+commit 748c90c69336 ("x86/shstk: Remove useless clone error handling")
+removed the shstk_free() on this path, assuming exit_thread() would
+run. It does not. Each rejected clone leaves one shadow-stack VMA in
+the parent's mm until the mm dies: one map_count slot, pages not
+populated. The size follows the clone stack, or RLIMIT_STACK when
+that size is zero.
 
-smb2_duplicate_extents() has no handling for
-FSCTL_DUPLICATE_EXTENTS_TO_FILE failure: when the FSCTL fails, local
-inode metadata may be stale from the pre-extension or from concurrent
-remote writes, but is never refreshed.
+Free only after set_new_tls() fails, via a dedicated cleanup label.
+Nest the TLS error check under CLONE_SETTLS so the successful path
+returns 0 explicitly. The allocation error returns earlier, while
+the child's base still aliases the parent. shstk_free() ignores a
+cleared base and a different mm, so CLONE_VFORK and !CLONE_VM stay
+no-ops. The exit_thread() path is left alone, so the double unmap
+that commit avoided does not come back. The io bitmap is still
+shared only when TLS setup succeeds.
 
-Force revalidation on FSCTL failure and use i_size_read() for the
-pre-extension check.
+Tested with user shadow stack enabled, on one config with and without
+this change. Sixteen clone3() calls with CLONE_VM|CLONE_SETTLS and an
+out-of-range TLS leaked 16 shadow-stack VMAs without the fix. With it,
+the VMA count was unchanged and call/return on the parent still used
+the original shadow stack.
 
-Fixes: cfc63fc8126a ("smb3: fix cached file size problems in duplicate extents (reflink)")
+Fixes: 748c90c69336 ("x86/shstk: Remove useless clone error handling")
 Cc: stable@vger.kernel.org
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ sashal: replaced cifs_invalidate_cache() with fscache_invalidate() guarded by CONFIG_CIFS_FSCACHE ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
 ---
- fs/cifs/smb2ops.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ arch/x86/kernel/process.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/fs/cifs/smb2ops.c b/fs/cifs/smb2ops.c
-index 5d07e1400015b..0e95065ae0767 100644
---- a/fs/cifs/smb2ops.c
-+++ b/fs/cifs/smb2ops.c
-@@ -8,6 +8,7 @@
- #include <linux/pagemap.h>
- #include <linux/vfs.h>
- #include <linux/falloc.h>
-+#include <linux/fscache.h>
- #include <linux/scatterlist.h>
- #include <linux/uuid.h>
- #include <linux/sort.h>
-@@ -2045,7 +2046,7 @@ smb2_duplicate_extents(const unsigned int xid,
- 		src_off, dest_off, len);
+diff --git a/arch/x86/kernel/process.c b/arch/x86/kernel/process.c
+index 346c438ac880..451594fa5481 100644
+--- a/arch/x86/kernel/process.c
++++ b/arch/x86/kernel/process.c
+@@ -176,7 +176,7 @@ int copy_thread(struct task_struct *p, const struct kernel_clone_args *args)
+ 	struct fork_frame *fork_frame;
+ 	struct pt_regs *childregs;
+ 	unsigned long new_ssp;
+-	int ret = 0;
++	int ret;
  
- 	inode = d_inode(trgtfile->dentry);
--	if (inode->i_size < dest_off + len) {
-+	if (i_size_read(inode) < dest_off + len) {
- 		rc = smb2_set_file_size(xid, tcon, trgtfile, dest_off + len, false);
- 		if (rc)
- 			goto duplicate_extents_out;
-@@ -2070,6 +2071,13 @@ smb2_duplicate_extents(const unsigned int xid,
- 	if (ret_data_len > 0)
- 		cifs_dbg(FYI, "Non-zero response length in duplicate extents\n");
+ 	childregs = task_pt_regs(p);
+ 	fork_frame = container_of(childregs, struct fork_frame, regs);
+@@ -263,12 +263,19 @@ int copy_thread(struct task_struct *p, const struct kernel_clone_args *args)
+ 	}
  
-+	if (rc) {
-+		CIFS_I(inode)->time = 0; /* force reval */
-+#ifdef CONFIG_CIFS_FSCACHE
-+		fscache_invalidate(CIFS_I(inode)->fscache);
-+#endif
+ 	/* Set a new TLS for the child thread? */
+-	if (clone_flags & CLONE_SETTLS)
++	if (clone_flags & CLONE_SETTLS) {
+ 		ret = set_new_tls(p, tls);
++		if (ret)
++			goto shstk_free;
 +	}
+ 
+-	if (!ret && unlikely(test_tsk_thread_flag(current, TIF_IO_BITMAP)))
++	if (unlikely(test_tsk_thread_flag(current, TIF_IO_BITMAP)))
+ 		io_bitmap_share(p);
+ 
++	return 0;
 +
- duplicate_extents_out:
- 	return rc;
++shstk_free:
++	shstk_free(p);
+ 	return ret;
  }
+ 
 -- 
-2.53.0
+2.43.0
 
