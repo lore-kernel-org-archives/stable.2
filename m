@@ -1,81 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792662061;
-	b=ja9ID9VRtD1SAbqranInSAAXQoNxcMYH8lxBiHJSNgLQEp0cOAuQMLE7uRHgmZwFiYSM
-	 afThurnCYzBpY6H+M+yKerxdBc8tRG5cE9S5SQXdg7D/TCDxCZ2dmJwsf1D/lWJLhHeCx
-	 Rq7KMFM2kVf/u5mSLlsq9Sce2TpwCpnACNGZTgAJeFk2q2+acKN9gIUThJF/ZYl4gkdU4
-	 HG/BASt5BFzBgZA6CBq7reul1tq59UwdVg+jlinrnsdO2p5x6nNpRQG9mQKR5HZSThKKk
-	 X40oDiU7F7jkCOvzB48R0mhO/uBc1nCEqgEpZuOKt7Eh9OKK9EMp/oXsnNCJ/0ryBxQ==
+	t=1792662499;
+	b=0tJyk5OiKQ/pZggiwulOv+ixfwFrZP/y4UjoW/AayJblSlzFClATmniac4zcUNT0AlmV
+	 gIXx0T3y/lG9geLhPpvT1b9kIO34JKq5D3fGBRdQYQkI4CSJ01MxF1dnXrBIlauoHkv1Z
+	 RWLCPepWNBCmpIdyC/a8rjeChP6KbqCcCcq9eTAIa88MVo77I9b0ksWm7TLWMHq7KOUpY
+	 eQtVM/bbkE8HjnvB2pt7vyeU9Lbql7bkfhIa3HG8mwXeYpUgQNEPpZ+/eh4KnVG3Rf04d
+	 UkAfHhViEOUAiI4EFrX0SZV1SlFHInnXnzJ722vVIh0sa2ZD5TmbhWNWGGbf0oRmKJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792662061;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=VkX6/hxg6tGP+Na+8+f6fQRtPVGU63YxkS54Fjitld0=;
-	b=NvoVgFzbarkgi+Yp0ZUnWDhTSZ54EdFcgHor5sTnZgHMX+E6P0fOnIFC9rLEWrC823Rl
-	 I0B58XSHQA7ufJd4J7X0SitBf+Vbsz2Cm8vNdjMXN+6bfT6pVbW9tEGMGCcjpZglPmEpj
-	 GucmCVpmOwEjvz95d6JnkPE84dh5TLnLSY+XyyASosN76+nQIDFNh4fljMBrgjIXACXad
-	 l1DPuFrrRk43mhmchaayMY0/iZREZTR/jJV+Q7p1YJCatIoPxX35npEatTBxTJtJefZXy
-	 pNHKXHZPJGLazU/Zu/LTpu+vhOyAkKcC9fykLwA+mEuqBMC5AH0H2YMI3t75qCssHYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792662499;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=oN8PfD05VLTwYnGCsKQJvPE9xhzFQ5FE7iidQLuHzxo=;
+	b=wHITUMfU8k2WgBLlzglJaIEWQEjoiqKBOnFBAcfdy7iVgKn2cRIayVm6msRmIMIIG48F
+	 FyGkfyqScvYZbR3wTqekvgkvgJ2wfnlqiJGE1blcm2g5gyr+2pU+cCzqQ47DYyYLAygea
+	 FzszDKkh7nq4Yn+N3KDoFRSkn++z7KBW3T/x6b63UtC52SZ0wdtZ6I8JOr4/FgKlUut4a
+	 G9Sh6lq8682G6xG3BoiaHLXwcBuszoFMs+LdM83Dyew++2TO6aY39V6InuLwPu0mch4Dl
+	 RCRv1Q6pYraOkBfaZZEpZpb8lbJk4XIRZycvV21G2Ux1cwZ+tVOQvMQwuKckO0tEXrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=m2QDR8rV;
-	arc=none smtp.remote-ip=37.230.196.243
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=p1FMBSU0;
+	arc=none smtp.remote-ip=209.85.215.180
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E544606A31A;
-	Thu, 22 Oct 2026 09:40:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E544606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8FA2606A319
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 09:48:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8FA2606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=m2QDR8rV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1792662043;
-	bh=eLxqJqOnXKPl8NOR565h9c6QuRkURN7KkC0Ml4xZeEk=;
-	h=From:To:Cc:Subject:Date:From;
-	b=m2QDR8rVQ4Siq3hgKZli95eyy4GL2idh5Oi38kf5zEGo50bBe3QAHUfPeLIBIwiU4
-	 7y5hiSZH3IUz+t0neF31idwxCypZTMYLwMBa6JlOEhHiNJRNWcdRZPf0BHzlyuQhBH
-	 5xbVz7A58Z2fXg7b204K0tFUAP/YF98jzs/FJAaxc8vL2Q1FqsD3saKxJmIo/tjh+A
-	 XRjoFx7rNDfYG0HOaVZEeOpdN7WBUdL2RQmAn0hWJR3TyHJHQz+aaz2AKXmbKKHnyP
-	 s9eap+l6JTwdxeyhgZx7x7G7LYYk3BnTfuASws64HsrOfseELfyLipbe2Xnzc6qF7n
-	 0BBrIeRgId0+A==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 5359825867;
-	Thu, 22 Oct 2026 12:40:43 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.6])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Thu, 22 Oct 2026 12:40:41 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.49.111])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j9Lk12Nt3zNlm;
-	Thu, 22 Oct 2026 12:40:41 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Sasha Levin <sashal@kernel.org>,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>,
-	linux-nfs@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=p1FMBSU0
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc4b1f7e8f4so655061a12.1
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 02:48:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792662498; x=1793267298; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oN8PfD05VLTwYnGCsKQJvPE9xhzFQ5FE7iidQLuHzxo=;
+        b=p1FMBSU0TaOjh5DxAI3vbawcKd6jTOEZqhYCokNg4HzZ1vatFmVQxcFPLWMJ18YG/B
+         sXCYdl41QuTmU/6IzkZYcRKPtRHvMj+A2jYl34GAKlT9mgg8emy6CUGQEeXKUPLIqPtE
+         aMjHSfnarW7NOwmH1BFevNRd6FsPi+Kleee29FZH9TFA0FuopZ4/VShhsuk9QjX3ZcYw
+         v8oHDVb2YmHSJj6QnJK5awzYymsOoZvBJmJ85qdA/ngJd3Q9lUXuMy3CmEo+rFHy15bD
+         sey+V6JZZNfxh+FL34T88SYpMY9Bqmfcji6J2cEXp3kEjWv6VWCQQHfyrQv93vdAespT
+         KWgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792662498; x=1793267298;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oN8PfD05VLTwYnGCsKQJvPE9xhzFQ5FE7iidQLuHzxo=;
+        b=CxI76HeRmuSjW5yXwnQwmskjQFmgCF7l1DZEYWeRh3dFnl1OT5XT7so6CDtusUJggv
+         MBO88W8CP6wsDo26Ma7hpwgJK2KY4JAS8R+3kODND+Dw0/+XY3cXp7dTCIBE+r3oUmTR
+         76ApqmF1SMWQvRPcKnr0T4HI+B422cWQISgOgyKhCubP08uW1B/QEq9ObhpzP16WdiNt
+         A833yBySWHXxT9Zf835n6kw+ayqVEORnUyoUvaGcu3lOMFk9Poa1uBGlhueiAHmxoTXz
+         xLRWpfDnxsQ4xpcKgDBpVQ1zROy/snGLmSBRUl4yxahSCfqpsxrM6JNgsSSLDi7V+XQL
+         h0ig==
+X-Forwarded-Encrypted: i=1; AKwUvBwsKQDsrQtD5rdwtpxiK3z8ISgOe1WmUYByp5x4aaaJdzBlnUYIXmUFIr6HxKn5Di/5+lYOFZ4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKCPOq/hpeQPSJcHo1TCQR9egcVtWA7Nk1xT1PVc292yA7RXFKG
+	tJ6uCj3Vsz//LSuzoZFGel3eLPyDrvA+kMR3FT4YvK8RaLtTBY9JwrWF
+X-Gm-Gg: AYBFou07Jy/defSBKpfYJcQuJK+mGqfxLvzEDbAdUsh3xHqYzBpBk8slVFsnbDt+VR/
+	L9lrv0JWuRF1Tx11/71f90H8kd9FAYRsOiXnnjyw4WC7nXBHke2bybxHwcwOf2tvPlAt918jo9P
+	LngC6Tj5qOTvxDZ1piPa1OtaTnGAOpUdZvL1b6bqFRO0TMXZFUIhckqEvuy5FeFGQIIguwr5crb
+	Gf315XxdaBiWGExP0KkWNfZZarFl1CMwwVHl8Z0nboHdUkq/Ai9VOTSFv+sj2r5dy/zlYswcvX3
+	jPsP08PSCDZA9tUnTrqhPfxGHc2TS1JSjUvkFLf/PEsvo5Rjp2M3lBUUkZB8rFRrSciBXcOmoIu
+	gF7zqAD++6J3c5RSdrZGtcZ8HMdXn9kl9ioXywgq2z/GnOgsV+4dR7bEVfbDnabg4takvBBua60
+	UiZNt6eGRb9f58rhSEmRRPHsMqaSby6LTUfNVp7tgGJvltXE+roi1TJpFvaULtHE+71Bk/9pi7S
+	YtI0eXfVUCgxGxtMJjBvzTVZshP7RLlA6hlWFp4Yq50+F4uQ0jOfYBdkm5GykHC/goE89vo
+X-Received: by 2002:a17:90b:4c52:b0:3ac:403d:6239 with SMTP id 98e67ed59e1d1-3ad86ef4b3amr3428235a91.43.1792662498181;
+        Thu, 22 Oct 2026 02:48:18 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada4954979sm3480681a91.17.2026.10.22.02.48.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 02:48:17 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com
+Cc: heming.zhao@suse.com,
+	ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Trond Myklebust <trond.myklebust@hammerspace.com>
-Subject: [PATCH 5.10/5.15] NFSv4.1: zero referring call lists before decoding
-Date: Thu, 22 Oct 2026 12:37:39 +0300
-Message-ID: <20261022093742.1216-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	stable@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH] ocfs2: validate move extents against a stable EOF
+Date: Thu, 22 Oct 2026 17:48:12 +0800
+Message-Id: <pm-ocfs2-move-extents-isize-rrw-v3-b2a7508c41108cc2d00b@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,66 +100,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 131 0.3.131 f330ffd1b9dcd8f1d29707120f19686573775fe7, {Tracking_from_domain_doesnt_match_to}, astralinux.ru:7.1.1;new-mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 206889 [Oct 22 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/22 03:54:00 #28723736
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
 
-From: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+ocfs2_ioctl_move_extents() checks and clamps the requested range using
+several unlocked i_size_read() calls. It takes the inode and cluster
+locks later in ocfs2_move_extents(), without rechecking the range.
 
-commit 8fa4804fe62ca4155a2d8fc2789d630376cbf2fc upstream.
+A concurrent truncate can move EOF below me_start after the first check,
+or shrink it between the range comparison and subtraction. The latter
+can underflow me_len. A truncate after the initial clamp can also leave
+the range extending beyond EOF when extent movement starts. In addition,
+the me_start + me_len comparison can wrap for a large userspace length.
 
-decode_cb_sequence_args() allocates csa_rclists with kmalloc_objs(), so
-each referring_call_list starts uninitialized. decode_rc_list() assigns
-rcl_refcalls only when rcl_nrefcalls is nonzero. A valid list with zero
-referring calls therefore leaves the pointer uninitialized, and
-nfs4_callback_sequence() later passes stale slab contents to kfree().
+Use a helper that reads EOF once, checks me_start first and clamps me_len
+with a subtraction-based bound. Normalize the defragmentation threshold
+using the same snapshot. Keep the early ioctl validation, then repeat it
+after taking the local inode lock, rw lock and cluster inode lock, once
+the inode size is stable and refreshed. This rejects a start beyond the
+current EOF and bounds the range before selecting or moving extents.
 
-Allocate csa_rclists with kzalloc_objs() so every rcl_refcalls member is
-NULL from the beginning, including valid empty referring call lists.
-
-Fixes: 4aece6a19cf7 ("nfs41: cb_sequence xdr implementation")
-Assisted-by: Codex:gpt-5
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Signed-off-by: Trond Myklebust <trond.myklebust@hammerspace.com>
-[ mdmitrichenko: kzalloc_objs() does not exist in 5.10 and 5.15, so
-  replace the kmalloc_array() call with kcalloc() instead. ]
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+Fixes: 53069d4e7695 ("Ocfs2/move_extents: move/defrag extents within a certain range.")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 ---
-Backport fix for CVE-2026-90104
- fs/nfs/callback_xdr.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ fs/ocfs2/move_extents.c | 49 +++++++++++++++++++++++++++--------------
+ 1 file changed, 32 insertions(+), 17 deletions(-)
 
-diff --git a/fs/nfs/callback_xdr.c b/fs/nfs/callback_xdr.c
-index c8f5a0555ad2..cc9a19467b88 100644
---- a/fs/nfs/callback_xdr.c
-+++ b/fs/nfs/callback_xdr.c
-@@ -419,9 +419,9 @@ static __be32 decode_cb_sequence_args(struct svc_rqst *rqstp,
- 	args->csa_nrclists = ntohl(*p++);
- 	args->csa_rclists = NULL;
- 	if (args->csa_nrclists) {
--		args->csa_rclists = kmalloc_array(args->csa_nrclists,
--						  sizeof(*args->csa_rclists),
--						  GFP_KERNEL);
-+		args->csa_rclists = kcalloc(args->csa_nrclists,
-+					    sizeof(*args->csa_rclists),
-+					    GFP_KERNEL);
- 		if (unlikely(args->csa_rclists == NULL))
- 			return htonl(NFS4ERR_RESOURCE);
+diff --git a/fs/ocfs2/move_extents.c b/fs/ocfs2/move_extents.c
+index ad1678ee7cc4..ab08c273ca52 100644
+--- a/fs/ocfs2/move_extents.c
++++ b/fs/ocfs2/move_extents.c
+@@ -907,6 +907,30 @@ out:
+ 	return ret;
+ }
  
--- 
-2.43.0
-
++static int ocfs2_validate_and_adjust_move_range(struct inode *inode,
++						struct ocfs2_move_extents *range)
++{
++	u64 i_size = i_size_read(inode);
++
++	if (range->me_start > i_size)
++		return -EINVAL;
++
++	if (range->me_len > i_size - range->me_start)
++		range->me_len = i_size - range->me_start;
++
++	/*
++	 * The default threshold for defragmentation is 1 MiB, which
++	 * matches the maximum OCFS2 cluster size.
++	 */
++	if (!range->me_threshold)
++		range->me_threshold = 1024 * 1024;
++
++	if (range->me_threshold > i_size)
++		range->me_threshold = i_size;
++
++	return 0;
++}
++
+ static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
+ {
+ 	int status;
+@@ -936,6 +960,12 @@ static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
+ 		goto out_rw_unlock;
+ 	}
+ 
++	status = ocfs2_validate_and_adjust_move_range(inode, context->range);
++	if (status) {
++		mlog_errno(status);
++		goto out_inode_unlock;
++	}
++
+ 	/*
+ 	 * remember ip_xattr_sem also needs to be held if necessary
+ 	 */
+@@ -1028,27 +1058,12 @@ int ocfs2_ioctl_move_extents(struct file *filp, void __user *argp)
+ 		goto out_free;
+ 	}
+ 
+-	if (range.me_start > i_size_read(inode)) {
+-		status = -EINVAL;
++	status = ocfs2_validate_and_adjust_move_range(inode, &range);
++	if (status)
+ 		goto out_free;
+-	}
+-
+-	if (range.me_start + range.me_len > i_size_read(inode))
+-			range.me_len = i_size_read(inode) - range.me_start;
+ 
+ 	context->range = &range;
+ 
+-	/*
+-	 * ok, the default threshold for the defragmentation
+-	 * is 1M, since our maximum clustersize was 1M also.
+-	 * any thought?
+-	 */
+-	if (!range.me_threshold)
+-		range.me_threshold = 1024 * 1024;
+-
+-	if (range.me_threshold > i_size_read(inode))
+-		range.me_threshold = i_size_read(inode);
+-
+ 	if (range.me_flags & ~(OCFS2_MOVE_EXT_FL_AUTO_DEFRAG |
+ 			       OCFS2_MOVE_EXT_FL_PART_DEFRAG)) {
+ 		status = -EINVAL;
