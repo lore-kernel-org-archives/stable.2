@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792678751;
-	b=aafnu18kh6SqBv1bQbUhAmSlcrA2/5T2bZKzpkitXsda9I0BqrJHJF+Oc1cLaeCzG3UE
-	 +X1Z5lVuSQ+J2/jgXtnoCjVBSY1hXMFt3ZuWJ0VR5Da+4fm0WJbvb934aHOcHIC89itwp
-	 q4ZCVF8jMQrSJLxrMxnHrWiCgikvWV4rAc0vaKL6cEMjnEunexOhv3+MSYMm2qnn7veG/
-	 pPMCGN0xBteEdh4poPw5woe00g7G7a2Rje6ypn//+bOS148EHMsDCETjSaFZjk7gfeuK2
-	 Yi6f9o7dqoo6WGaeRvhZUkA7ID5e8kd6XN7CnTjvhXfOo6IHQ1+ycYdfniBirLh/ycQ==
+	t=1792678947;
+	b=2sjvivM+mg5X0fwIdn42jok4w2A4sozLUsUlQ484stcYGLO9rvOI7TGOFQ2qZx5jYPzx
+	 GnHB6WtPpRgCil9crKbcSizGLBdrvT98hSqYARWExZd0wUm0JCZhBwZW5l814vizE88JR
+	 Rj5roFxlAD03zXDeiOeqQvSjv1bS1/GwcORT1rUthwecoKkQ4rvPCPPnmH/SI/klws6Pq
+	 M8RpOlTYk2c4zvZw1345Eh6IQD7GSSWRLu4k+V0AjXELeECq4VVrrnM+BZFi4UvfoDu+u
+	 syRGyl86U5sMsMVEJjE3XVcQZKVIIyGMlJB+DyKa3qx+snqbklin0bpvdDj3X9UbJ3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792678751;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792678947;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=XVLJl6/F2raWBUV0gl06fxTC6SmLwzEIOWKACsZ0Rwc=;
-	b=KMSD7gVIz8PgSJi9BIKwjwNOmvVdM/PXNG90QeT02DRf9+NsCGNaGYUMGw0IAL2uJvZe
-	 w4DF768IeixBT/bxC9smHB/EXJlagUDTkFMa37bcNG5aTzDB0vqdbek6JVvXNJbHloQXv
-	 L2aMHo+0wWPeGVR0yMoDa0XG3vyAb+rJlm8B02wEtL0gSNtorfdH9IepaI1evDA7MR9DB
-	 QnhfJZWmG/WztlTM99DQvp/BXSYZYWVHBIsSOjHsyXSpfiBEvyjF8iOUhdaIzkhZaAspj
-	 XIeCzR7jA5/D2Loin/Z6aQn5ssgvtEUWfLINGLe7X4xGBnjr1KKBLoPEZkhsRhJ/6Mg==
+	bh=5g472a3W7vVawC72w7jxU2fEzFDDELB8yS2gjaZQmsU=;
+	b=APPYZboBv0KDuPadrRkeEjw+mPuZXuWW6G1OroNTF1KauhWG/JCVXtE67+kHVD2UIV47
+	 rDJ57yoPJOTtaNznPOhKIBY9J6EvSzTR09GXXBw0aE62QJCehLTUaQAG1xJDdiwf706iZ
+	 rznhktRJpCQkJY7MG5SwiC/rilHN3oWrV+Av5lGIPzp4lb8Zv7terswXRxL0/lU5p3UaA
+	 2EObZ61cL5DKSU3IM9lxBARkPufYPWNh0enE0yc2xFsj0qukdTsY+EH2cMzzagOEo+tOx
+	 t1cUWCgnlr4BjnJGibheGvgiWVTZPghq2jorXhF7QPhI+aYAfMHWzQOVFMsCuobMwEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PXiMuZKi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="JImdU/3i";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C693B606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:19:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFACF606A319
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:22:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PXiMuZKi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFB641F000C2;
-	Thu, 22 Oct 2026 14:19:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JImdU/3i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1640F1F000C1;
+	Thu, 22 Oct 2026 14:22:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792678750;
-	bh=XVLJl6/F2raWBUV0gl06fxTC6SmLwzEIOWKACsZ0Rwc=;
+	s=k20260515; t=1792678946;
+	bh=5g472a3W7vVawC72w7jxU2fEzFDDELB8yS2gjaZQmsU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PXiMuZKiGwc6/xm+QsowHqPw8BhKSHCKRP/z96XuXYst0VmREMWkK7EvoR3MbJoHS
-	 coYDvv5bStXNy7yuS+1efQRr/VJTR5XxyX3iXu8ziHiR0z/uyG7T+e1CzcXx+W+1Wg
-	 8sG08yFpImqY9+1WvQG7TJIYqLuMR23KNUrAhubwnyPDr9tVB3szRgB/MKkO6v+qwL
-	 HuFgyLdpAzL0be6dfgYmnSd7yLQSZrlEyqsDVmfy7oYIYNvK1j0qCdxnJ18xRJnM7S
-	 hJLon2LexYx6cidqUP/iVY2ohb6F9v19vUb0k/nXQTicaL9n9Cd5x3MVa6agQBduRD
-	 KhaSSseioTglw==
+	b=JImdU/3idoz7p4lOhZ7p1dofm97NKdnQ2sxbW4yCBoa8/ITessr9U8BVuSttjd6ga
+	 uWys63X3xEAd7o5k5zAF6uV42rWqpDZ3NPKu93Byp8pDoynfLCYAgGolYaMRRM9u+D
+	 3ZpiKqbUms+Tebg5H7P+m3DtFn++pbvqvd0GJ1QVvyEH5ilvXPAGcot92lE/gWlTPp
+	 TQH73uMJSkoD5oR0JVXqtY2SNO7UoYstvBf59oE13mb0YtJT6OccIFvfjsp9qzXfUp
+	 fabLTnPq3MY6D/Gcs6GpU/TyQPnT4dHvcQDgnSCFN+K06CEeNjaStL78P3V3sSczk9
+	 VgRBM9IzjIqPw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tejun Heo <tj@kernel.org>,
-	Xiangyu Bu <xbu@meta.com>,
-	Dan Schatzberg <schatzberg.dan@gmail.com>,
+Cc: Ben Cressey <ben@cressey.dev>,
+	"Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>,
+	Mikulas Patocka <mpatocka@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] sched_ext: Fix stall when a task enqueued with SCX_ENQ_LAST lands back on its CPU's local DSQ
-Date: Thu, 22 Oct 2026 10:19:08 -0400
-Message-ID: <20261022140850.1455884-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] dm-integrity: fix infinite loop on discard with large tag size
+Date: Thu, 22 Oct 2026 10:22:24 -0400
+Message-ID: <20261022142214.1516335-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102101-kilogram-periscope-454b@gregkh>
-References: <2026102101-kilogram-periscope-454b@gregkh>
+In-Reply-To: <2026102106-hacker-likely-7fd3@gregkh>
+References: <2026102106-hacker-likely-7fd3@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,84 +62,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tejun Heo <tj@kernel.org>
+From: Ben Cressey <ben@cressey.dev>
 
-[ Upstream commit 7a9df76679633cf26e0fea882a684012c6ec245a ]
+[ Upstream commit 18d80c77b4c7dd20699e81cedfbbff4e9d198f28 ]
 
-With SCX_OPS_ENQ_LAST, the last runnable task on a CPU is passed to
-ops.enqueue() instead of being kept running. Exiting tasks without
-SCX_OPS_ENQ_EXITING, migration disabled tasks without
-SCX_OPS_ENQ_MIGRATION_DISABLED and tasks on an offline rq skip ops.enqueue()
-and go straight to the local DSQ. This happens in put_prev_task_scx() after
-the pick has settled on idle, so nothing reschedules the CPU, which idles
-with the task queued until an unrelated wakeup lands on it or the watchdog
-fires.
+When integrity_metadata handles a discard, it fills a buffer with
+DISCARD_FILLER and writes it over the tags, max_blocks blocks at a
+time. If the kmalloc fails, the buffer is the on-stack array
+checksums_onstack and max_size is set to HASH_MAX_DIGESTSIZE. So if the
+tag size is larger than HASH_MAX_DIGESTSIZE, max_blocks is zero, bi_size
+is never decremented and the loop never terminates.
 
-scx_mitosis, which sets SCX_OPS_ENQ_LAST without SCX_OPS_ENQ_EXITING, hit
-this during mass cgroup teardown: exiting tasks stuck in exit_mmap() for
-over 40 seconds.
+Fix this by using sizeof(checksums_onstack) as max_size. The array has
+MAX_TAG_SIZE bytes since commit b93b6643e9b5 ("dm integrity: fix a
+crash with unusually large tag size"), so max_blocks is at least 1.
 
-A task put on the local DSQ runs, as anywhere else. If the SCX_ENQ_LAST
-enqueue left the task on this CPU's local DSQ, set need_resched on the task
-being switched in, as proxy_resched_idle() does. resched_curr() would flag
-the task being put instead, and __schedule() clears that right after the
-pick.
-
-Fixes: f0e1a0643a59 ("sched_ext: Implement BPF extensible scheduler class")
-Cc: stable@vger.kernel.org # v6.12+
-Reported-by: Xiangyu Bu <xbu@meta.com>
-Link: https://github.com/sched-ext/scx/pull/3870
-Signed-off-by: Tejun Heo <tj@kernel.org>
-Cc: Dan Schatzberg <schatzberg.dan@gmail.com>
-[ sashal: Relocated the hunks from separate source and header files into the monolithic sched_ext source file. ]
+Fixes: 84597a44a9d8 ("dm integrity: add optional discard support")
+Cc: stable@vger.kernel.org
+Reviewed-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
+Signed-off-by: Ben Cressey <ben@cressey.dev>
+Assisted-by: Claude:unspecified
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+[ sashal: Adjusted context for the absence of keyed-discard support. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/sched/ext.c | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
+ drivers/md/dm-integrity.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/sched/ext.c b/kernel/sched/ext.c
-index 876adf5568ed1..ded7a0dd2e533 100644
---- a/kernel/sched/ext.c
-+++ b/kernel/sched/ext.c
-@@ -730,8 +730,9 @@ enum scx_enq_flags {
- 	 * %SCX_OPS_ENQ_LAST is specified, they're ops.enqueue()'d with the
- 	 * %SCX_ENQ_LAST flag set.
- 	 *
--	 * The BPF scheduler is responsible for triggering a follow-up
--	 * scheduling event. Otherwise, Execution may stall.
-+	 * If the task is queued on the local DSQ of the CPU it was running on,
-+	 * it continues to run. Otherwise, the CPU goes idle. A scheduler that
-+	 * wants a full dispatch cycle on the CPU should kick it.
- 	 */
- 	SCX_ENQ_LAST		= 1LLU << 41,
+diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
+index aa6f3e71c4fa2..74cce5111637f 100644
+--- a/drivers/md/dm-integrity.c
++++ b/drivers/md/dm-integrity.c
+@@ -1814,7 +1814,7 @@ static void integrity_metadata(struct work_struct *w)
  
-@@ -3083,8 +3084,7 @@ static void put_prev_task_scx(struct rq *rq, struct task_struct *p,
- 		/*
- 		 * If @p is runnable but we're about to enter a lower
- 		 * sched_class, %SCX_OPS_ENQ_LAST must be set. Tell
--		 * ops.enqueue() that @p is the only one available for this cpu,
--		 * which should trigger an explicit follow-up scheduling event.
-+		 * ops.enqueue() that @p is the only one available for this cpu.
- 		 *
- 		 * Core scheduling can force this CPU idle while @p stays
- 		 * runnable. @p's cookie then won't match the core's, so skip
-@@ -3094,6 +3094,16 @@ static void put_prev_task_scx(struct rq *rq, struct task_struct *p,
- 			WARN_ON_ONCE(sched_cpu_cookie_match(rq, p) &&
- 				     !static_branch_unlikely(&scx_ops_enq_last));
- 			do_enqueue_task(rq, p, SCX_ENQ_LAST, -1);
-+
-+			/*
-+			 * A task put on the local DSQ runs, as anywhere else.
-+			 * Here the insert can't reschedule on its own: the pick
-+			 * has settled on @next and @p is still curr, so
-+			 * resched_curr() would flag @p and __schedule() clears
-+			 * that right after the pick. Flag @next instead.
-+			 */
-+			if (p->scx.dsq == &rq->scx.local_dsq)
-+				set_tsk_need_resched(next);
- 		} else {
- 			do_enqueue_task(rq, p, 0, -1);
- 		}
+ 		if (unlikely(dio->op == REQ_OP_DISCARD)) {
+ 			unsigned int bi_size = dio->bio_details.bi_iter.bi_size;
+-			unsigned int max_size = likely(checksums != checksums_onstack) ? PAGE_SIZE : HASH_MAX_DIGESTSIZE;
++			unsigned int max_size = likely(checksums != checksums_onstack) ? PAGE_SIZE : sizeof(checksums_onstack);
+ 			unsigned int max_blocks = max_size / ic->tag_size;
+ 
+ 			memset(checksums, DISCARD_FILLER, max_size);
 -- 
 2.53.0
 
