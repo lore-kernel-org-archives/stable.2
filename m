@@ -1,108 +1,106 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792662526;
-	b=Wzga7TnoICi/flIVHqzcNu4XaN7w8tAK/dNb7QUE505Ub4v7f+NcAUkGWWjinNyH7EyD
-	 ArGqFiks/+J/6EYkOz+4YdMILf/tzvXPImm8PdkDlED3icRdad6/9yp+J+fhj1Gw3NNwG
-	 qUFgSUUxymXTXgNJnDVTEDN3TXoJt3dft+o1GVgAgR31Fc6XOJSawUWlaSCF9D5Wo6Nl2
-	 CQ4QktjooZ2ZS4LUGbW/hh34Xtm9uXhNaoJfIZCpXBGjsnANlnVkFirt/KSZtlmJnr75h
-	 HzpRw7P5QJeieec3sTPrEvzwa44yR9xuWkQ3c/O/hYrTS9BA7PI9DWPnbcP8+wp/OUQ==
+	t=1792662766;
+	b=1BzY3T7OT6dH2QLaPsyituXE/VOGsTgonVFyEKNxkR5xtfEKW7Q0fGbl/VcW27o/hMGd
+	 Vj250+1mSuLgyqH7iQBZnoMPm34PlPvRReu095c3ClKIwYF4Ig+6nhqUDFgSN0pPFxKTU
+	 ss7C1YjE6cNxnjXrqTxw+3dV6o2m2zCsUdDDGj0+vjrbavL5/O5Kn16kN91zB3815aNL1
+	 oGdNdmhu2e2Ad+KEJsz3/Taw5lqIYxEpR7vksTHkMIPG6EHUMyeZqzpUK8DmnGKN7DTmz
+	 buXXJ+QHrJeTJHnD7GvUMuyQb2kTgTaQhJg+mti/4rNUNf4E/KpjUVkd6ZhMQ0E2kqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792662526;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792662766;
 	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
 	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
 	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=YaLhqZAxNujf1yf6yjVdrpEfaUMs2QKzKZiW60wQPUY=;
-	b=ix371fHXhV/zp12ERidyS5IVDSNZ7lr+V0EBql8nDalTNeoXgsP6FCpNmRQ2hcz9xOWK
-	 9baAl25Zn9Apn3VhgHwaOOTkTN8fDHnb5WxGX1NxasfyP/W1kHaHSEwtiOeoIwqmvBTb2
-	 WcP0apu3D/IOTkVnLK5Q3+9lcyiTROkUCQ42sunBr7u8n52hkC2VpIM3JYd0xA/k/VmFF
-	 QqaZe6sciJqvu9+Rn9vo+lDw9Menjwo685YjV12Mq9yxGl46SYUmkio8CsEkA1KcThaOr
-	 w8XyO0gioNDhICPaWXAljtHuHK6tOFOkLudWuVGXFK0kDpa5u2GyrHgCI6Tuxbj+LuQ==
+	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=05Nb8YLu9YWXWXHPGusWiMczEkKLTdlNGiT1AxdnnfE=;
+	b=hr5vNKS1GE8IfuGAdL+XBWzDG9fwHyEbk+DFApLdZWBV1moWalwL/cPd/INz1C60kpBC
+	 vp7AUdqXaGUOUZLTuwjshC/LuAwJSBX4YmySRZlgqAReGvAwUZhtD7uHZmBN8P8dwC2Wi
+	 Ne1DC9j989g8MBHKQAptEpx/YdNfHa+r8O7aozqCRT9kw/QhzL9JYK8ae8ro+6OJWQM/M
+	 77s4mgR5BO/DmiL80t7uS94fTle+fNvaJwqLHhtlV/LiUvqMaUPrQq0vx1ep6KbObiUFp
+	 wD48MMEzK+z4mAOil2G886VINekl8N3WlDKSqQo3iKCUy/a5Vv85PaE9865oPJHGw0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=suse.cz;
 	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=sq0ZEkY3;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=9P3wS2WJ;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=1JQPu11m;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=b+vUUJkB;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=A4bJ1+OO;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=PygrsFCC;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=shhkZkAR;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dj5wIR94;
 	arc=none smtp.remote-ip=195.135.223.131
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2E9606A319;
-	Thu, 22 Oct 2026 09:48:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B2E9606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD596606A31D;
+	Thu, 22 Oct 2026 09:52:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD596606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=sq0ZEkY3;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=9P3wS2WJ;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=1JQPu11m;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=b+vUUJkB
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=A4bJ1+OO;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=PygrsFCC;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=shhkZkAR;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dj5wIR94
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id B5DDD1FB25;
-	Thu, 22 Oct 2026 09:48:43 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E68791FCB6;
+	Thu, 22 Oct 2026 09:52:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792662524; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1792662764; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=YaLhqZAxNujf1yf6yjVdrpEfaUMs2QKzKZiW60wQPUY=;
-	b=sq0ZEkY3GUZ6IFkcbQItrO56hTeErfKwyfnFL7plrikFQlK1FJC7oWPZqpcU3Gg/ssLSvK
-	8JjS2Vi1RaW6tIyik/zCSRUrOfVJFDaFv+fDwDqaifWOjpcpu10X4JrHHgOd+J1XGmc9HP
-	jm7SumRJQOgrzyfjNZTIbrOEpYwaLtw=
+	bh=05Nb8YLu9YWXWXHPGusWiMczEkKLTdlNGiT1AxdnnfE=;
+	b=A4bJ1+OO5lCRsErwaFst3LPuO1wSP8NZR/4rHQ6pwRa7vQpUCfrLbFx5UZvx0RlGH8v0q0
+	RG9Xgv/x9Zr0y8Inwcswq7assU7Ri/p46hSoC3eo26h8dfVqz6IlwW2MV8rgH+FgC5esAh
+	QHY93vQ02jOntTmg7wBbkWOeI2M3WDs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792662524;
+	s=susede2_ed25519; t=1792662764;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=YaLhqZAxNujf1yf6yjVdrpEfaUMs2QKzKZiW60wQPUY=;
-	b=9P3wS2WJMWjwoRK3tP9kyGmMLZYWCFoyXN30fTxL9kZHLt/JNG96uUpplwHgH8CWWw25QG
-	xPzzCknugj+Y+YAg==
+	bh=05Nb8YLu9YWXWXHPGusWiMczEkKLTdlNGiT1AxdnnfE=;
+	b=PygrsFCCtDK3yQz3CwaMhfu6JIMSTcJfK78AknBaEwUOS+P1ps7n+dIU3zj3bKYRHJh8hl
+	2Nf5B7NFbALhbVBw==
 Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792662523; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1792662763; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=YaLhqZAxNujf1yf6yjVdrpEfaUMs2QKzKZiW60wQPUY=;
-	b=1JQPu11mrGFmGZd9JbyPAII7Y3+E2KlofWb/7MHvdLkEw8If8m8hDtAe8cJaoPaZayyWGO
-	pA+CAszPAACd0Z81kyQSPOQoxSP9DGrLhUb+RhE7qPSBS0tgIc7hy9jUKICC/g4VFnUKwJ
-	VgUcybVSxK4deQNAVLyS4nKQUSbG23U=
+	bh=05Nb8YLu9YWXWXHPGusWiMczEkKLTdlNGiT1AxdnnfE=;
+	b=shhkZkARzbtekLHUkMPP7IV1edxr/0Opph4SCRAMFoQMAHACWhNdMMxtRMoVk+V/SaAd69
+	Kj4rCN6zcI1aGKAWJ8NUlEy0mEymqB2frBKvbuvWtGEkKlfDlb2LNsqoFErwI9k3r6aQX+
+	phwemMCDa+P45ycajsc7z5yFLbkvlPE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792662523;
+	s=susede2_ed25519; t=1792662763;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=YaLhqZAxNujf1yf6yjVdrpEfaUMs2QKzKZiW60wQPUY=;
-	b=b+vUUJkB5hut1nOg9/jf17aPk9NHGd9TRSnhkwXTABL0GLvlaGp2eJJNWI2hI0OGQV9h/D
-	JGyM1kT3kENRFDCQ==
+	bh=05Nb8YLu9YWXWXHPGusWiMczEkKLTdlNGiT1AxdnnfE=;
+	b=dj5wIR94e1c7gxgfAldDVzLS5+R54gKYhm7zHal5lylSzlhp4xOSuQR7HqIDxZ57zD45YH
+	59dkJIHM/hdzmRAQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8DFE9133F3;
-	Thu, 22 Oct 2026 09:48:43 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BB25E133F3;
+	Thu, 22 Oct 2026 09:52:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id OnJUGvvb2WoHfwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 22 Oct 2026 09:48:43 +0000
+	id Oy1lJevc2WpGBAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 22 Oct 2026 09:52:43 +0000
 Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 117A0A1417; Thu, 22 Oct 2026 11:48:35 +0200 (CEST)
-Date: Thu, 22 Oct 2026 11:48:35 +0200
+	id 4538DA1417; Thu, 22 Oct 2026 11:52:43 +0200 (CEST)
+Date: Thu, 22 Oct 2026 11:52:43 +0200
 From: Jan Kara <jack@suse.cz>
-To: Hengyu Liang <hengyul@cs.unc.edu>
-Cc: tytso@mit.edu, linux-ext4@vger.kernel.org, adilger.kernel@dilger.ca, 
-	libaokun@linux.alibaba.com, jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
-	yi.zhang@huawei.com, dave.hansen@linux.intel.com, akpm@linux-foundation.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] ext4: do not advance i_size on a buffered write that
- copied nothing
-Message-ID: <34dtkdstf5yxg2ulinnh4hocc53gz35ij6k62egi2ykgpyc3a5@zuxt6doiajwq>
-References: <20261009044656.1993196-1-hengyul@cs.unc.edu>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 01/15] super: don't put the remount context under s_umount
+Message-ID: <4zo5y25hnl7bo6tamysu3ortqloicmdcl6gm26aoua77jcjxyt@ncbgimqm6d5i>
+References: <20261011-work-super-fixes-core-v1-0-c727176c5b53@kernel.org>
+ <20261011-work-super-fixes-core-v1-1-c727176c5b53@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -114,134 +112,154 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261009044656.1993196-1-hengyul@cs.unc.edu>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.30 / 50.00];
+In-Reply-To: <20261011-work-super-fixes-core-v1-1-c727176c5b53@kernel.org>
+X-Spamd-Result: default: False [-12.80 / 50.00];
 	SUSE_INTERNAL_BYPASS(-9.00)[];
 	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	MID_RHS_NOT_FQDN(0.50)[];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	TAGGED_RCPT(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[mit.edu,vger.kernel.org,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,linux.intel.com,linux-foundation.org];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
 	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[unc.edu:email,suse.com:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -11.30
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:email]
+X-Spam-Score: -12.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On Fri 09-10-26 00:46:56, Hengyu Liang wrote:
-> Commit 665575cff098 ("filemap: move prefaulting out of hot write path")
-> made generic_perform_write() call ->write_begin() and ->write_end()
-> before it finds out that the source buffer cannot be read.  In that
-> case ->write_end() is called with copied == 0.
+On Sun 11-10-26 17:56:01, Christian Brauner wrote:
+> do_emergency_remount_callback() is called from __iterate_supers() with
+> s_umount held exclusively. It creates a reconfigure context for the
+> superblock and fs_context_for_reconfigure() takes an active reference
+> for it. put_fs_context() drops that reference via deactivate_super()
+> while s_umount is still held.
 > 
-> However, ext4_write_end(), ext4_journalled_write_end() and
-> ext4_da_do_write_end() set i_size to pos + copied without checking
-> copied.  As of now, a buffered write() past EOF that fails with EFAULT
-> grows the file to the write offset, and the new size can reach the
-> disk.
+> The iterator itself only holds a passive reference. So if the
+> filesystem is unmounted while reconfigure_super() runs, the umount drops
+> the mount's active reference without ever taking s_umount because
+> atomic_add_unless() in deactivate_super() sees the context's reference.
+> Now the context holds the last active reference and we're fscked:
+> put_fs_context() ends up in deactivate_super() which tries to take
+> s_umount again and the kworker deadlocks on itself:
 > 
-> The issue can be reproduced on an ext4 mount with:
+>   WARNING: possible recursive locking detected
+>   kworker/1:1/53 is trying to acquire lock:
+>   (&type->s_umount_key#26){+.+.}-{4:4}, at: deactivate_super+0x6f/0x90
+>   but task is already holding lock:
+>   (&type->s_umount_key#26){+.+.}-{4:4}, at: super_lock+0x188/0x3a0
+>   ...
+>    down_write+0x90/0x1e0
+>    deactivate_super+0x6f/0x90
+>    put_fs_context+0xb1/0x7d0
+>    __iterate_supers+0x33d/0x410
+>    do_emergency_remount+0x20/0x40
 > 
->     char *p = mmap(NULL, 4096, PROT_NONE,
->                    MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
->     int fd = open("/mnt/ext4/file", O_CREAT | O_TRUNC | O_RDWR, 0600);
->     pwrite(fd, p, 4096, 1024 * 1024);   /* fails with EFAULT */
->     fstat(fd, &st);
+> "Emergency Remount complete" is never printed and the superblock's
+> s_umount stays held forever. Everything that needs it hangs after that,
+> including sync(2) and thus the clean reboot that usually follows a
+> sysrq-u. The window is all of reconfigure_super(), i.e., syncing a
+> read-write filesystem, so an umount racing with sysrq-u hits this
+> easily.
 > 
-> Before that commit, the result is st_size = 0.
-> After it, the result is st_size = 1048576.
+> Iterate without holding s_umount and take it in the callback instead.
+> The context's active reference keeps the superblock alive while we hold
+> s_umount and we only drop it after we released s_umount again. If it is
+> the last reference deactivate_super() takes s_umount and shuts the
+> filesystem down, just as the umount would have done.
 > 
-> This patch will leave i_size alone when nothing was copied, as
-> ext4_write_inline_data_end() already does.  The delalloc path does not
-> trim after a short write, so in this case it also has to drop the
-> folio and the delayed blocks that ->write_begin() set up past i_size.
-> Otherwise that folio stays dirty past EOF and writeback never cleans
-> it.
+> Reproducer. sysrq-u remounts every block filesystem read-only, so use a
+> throwaway VM. It needs CONFIG_SCSI_DEBUG and CONFIG_MAGIC_SYSRQ. The
+> scsi_debug delay keeps reconfigure_super() busy writing back the dirty
+> data long enough for the umount to land in the window:
 > 
-> Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
+>   modprobe scsi_debug dev_size_mb=256
+>   dev=/dev/sda        # the scsi_debug disk
+>   mkfs.ext4 -q $dev
+>   mount $dev /mnt
+>   dd if=/dev/zero of=/mnt/dirty bs=1M count=32
+>   echo 20 > /sys/bus/pseudo/drivers/scsi_debug/delay
+>   echo u > /proc/sysrq-trigger
+>   sleep 1
+>   umount /mnt
+>   # lockdep: possible recursive locking detected in
+>   # do_emergency_remount(), "Emergency Remount complete" never shows up
+>   # and sync hangs.
+> 
+> Without the fix this reproduces on the first run on v7.3-rc6. With the
+> fix the remount completes and the kworker shuts the filesystem down.
+> 
+> Fixes: 8d0347f6c3a9 ("convert do_remount_sb() to fs_context")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-I agree with the problem but first, Ted has merged rewrite of ext4
-buffered IO path to iomap your fix would very likely need rebasing, and
-second:
+Looks good. Feel free to add:
 
-> +/*
-> + * Delalloc counterpart of ext4_truncate_failed_write(): ->write_begin() only
-> + * reserved delayed blocks, so drop the page cache and the delayed extents
-> + * beyond i_size and leave the blocks that are allocated there alone.
-> + */
-> +static void ext4_da_truncate_failed_write(struct inode *inode)
-> +{
-> +	struct address_space *mapping = inode->i_mapping;
-> +	ext4_lblk_t lblk = EXT4_B_TO_LBLK(inode, inode->i_size);
-> +
-> +	filemap_invalidate_lock(mapping);
-> +	truncate_inode_pages(mapping, inode->i_size);
-> +	down_write(&EXT4_I(inode)->i_data_sem);
-> +	ext4_es_remove_extent(inode, lblk, EXT_MAX_BLOCKS - lblk);
-> +	up_write(&EXT4_I(inode)->i_data_sem);
-> +	filemap_invalidate_unlock(mapping);
-> +}
-> +
-
-this is wrong and would leak delayed allocation reservations AFAICT. You
-should just use ext4_truncate_failed_write() like e.g.
-ext4_da_write_begin() does on failure.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
 								Honza
 
->  static int ext4_da_do_write_end(struct address_space *mapping,
->  			loff_t pos, unsigned len, unsigned copied,
->  			struct folio *folio)
-> @@ -3247,12 +3268,12 @@ static int ext4_da_do_write_end(struct address_space *mapping,
->  	 * checked, we need to update i_disksize here as certain
->  	 * ext4_writepages() paths not allocating blocks and update i_disksize.
->  	 */
-> -	if (new_i_size > inode->i_size) {
-> +	if (copied && new_i_size > inode->i_size) {
->  		unsigned long end;
+> ---
+>  fs/super.c | 27 +++++++++++++++++++--------
+>  1 file changed, 19 insertions(+), 8 deletions(-)
+> 
+> diff --git a/fs/super.c b/fs/super.c
+> index 1d5ccf540a9b..15ecfbeb92ab 100644
+> --- a/fs/super.c
+> +++ b/fs/super.c
+> @@ -1158,23 +1158,34 @@ int reconfigure_super(struct fs_context *fc)
 >  
->  		i_size_write(inode, new_i_size);
->  		end = offset_in_folio(folio, new_i_size - 1);
-> -		if (copied && ext4_da_should_update_i_disksize(folio, end)) {
-> +		if (ext4_da_should_update_i_disksize(folio, end)) {
->  			ext4_update_i_disksize(inode, new_i_size);
->  			disksize_changed = true;
->  		}
-> @@ -3261,9 +3282,16 @@ static int ext4_da_do_write_end(struct address_space *mapping,
->  	folio_unlock(folio);
->  	folio_put(folio);
->  
-> -	if (pos > old_size)
-> +	if (copied && pos > old_size)
->  		pagecache_isize_extended(inode, old_size, pos);
->  
-> +	/*
-> +	 * A write past i_size that copied nothing leaves i_size alone, so
-> +	 * trim what ->write_begin() set up beyond it.
-> +	 */
-> +	if (!copied && pos > old_size)
-> +		ext4_da_truncate_failed_write(inode);
+>  static void do_emergency_remount_callback(struct super_block *sb, void *unused)
+>  {
+> -	if (sb->s_bdev && !sb_rdonly(sb)) {
+> -		struct fs_context *fc;
+> +	struct fs_context *fc = NULL;
 > +
->  	if (!disksize_changed)
->  		return copied;
+> +	if (!super_lock_excl(sb))
+> +		return;
 >  
+> +	/* Make sure no reference put under s_umount is the last one. */
+> +	atomic_inc(&sb->s_active);
+> +	if (sb->s_bdev && !sb_rdonly(sb)) {
+>  		fc = fs_context_for_reconfigure(sb->s_root,
+>  					SB_RDONLY | SB_FORCE, SB_RDONLY);
+> -		if (!IS_ERR(fc)) {
+> -			if (parse_monolithic_mount_data(fc, NULL) == 0)
+> -				(void)reconfigure_super(fc);
+> -			put_fs_context(fc);
+> -		}
+> +		if (!IS_ERR(fc) && parse_monolithic_mount_data(fc, NULL) == 0)
+> +			(void)reconfigure_super(fc);
+>  	}
+> +	super_unlock_excl(sb);
+> +
+> +	/*
+> +	 * Our active reference may be the last one by now, so only drop it
+> +	 * after s_umount has been released.
+> +	 */
+> +	if (!IS_ERR_OR_NULL(fc))
+> +		put_fs_context(fc);
+> +	deactivate_super(sb);
+>  }
+>  
+>  static void do_emergency_remount(struct work_struct *work)
+>  {
+>  	__iterate_supers(do_emergency_remount_callback, NULL,
+> -			 SUPER_ITER_EXCL | SUPER_ITER_REVERSE);
+> +			 SUPER_ITER_UNLOCKED | SUPER_ITER_REVERSE);
+>  	kfree(work);
+>  	printk("Emergency Remount complete\n");
+>  }
+> 
 > -- 
 > 2.53.0
 > 
