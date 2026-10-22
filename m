@@ -1,54 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792632622;
-	b=1WO/QV1JMtElIaIJ/lqDJrS8yG08zWHmudGbD1PdqVtN0w/xnE5NXHGxaeYZpitqcNhQ
-	 /L+B1chQhEFT8b+34x0Td856fpyqnAFbo3P4ThksakY5A47Em2T84MtMMx+fi90oTIzmL
-	 d9uQsBhU3vGkKWlzIzo+khPJK3K0fcchr59bYX/icW1+TSy0xkQygsHpUigaZ6CsfiGmd
-	 d7y9SFsVoLbKTJYons5gGjUogUlpJpLwG0hipVgXXEkYjzlJiGc7TZ/xzMkIxPS8YGIFq
-	 sKl6S41IPMi44kjjEHu/smvRTiaM560n2O+7/iCi8LakD85G8c6UUt2uvm/FLACdh9Q==
+	t=1792632633;
+	b=uxxkO7gJloRPhHRKDgjquGNepVH5PD+/ZLQvvKCXJrXeVvzO0URZP3wam67oSRgutxVW
+	 pDKn4H6O869gP8V2/PvghWOcRUDGwElg/f4fExfhKVMJ57Jy0grEP6E9HO1T1fGikzuMO
+	 FxltGIUGduUxa8V0W9W7HVthcwJ3ruqDziNcdmHWRceQafr+7Oy/+ZcgTqfM7U+im9RI7
+	 nFqX/Ua4EDw9h+ATYS1bvCQ8ySJmnhEi7wYL6QFkI0Yv/exCb+Ytv814+jbNzrRrJLjRk
+	 6tYCWyTk2gteFp13BitRV9TQLSxk34OdAySISJnPDZTIBZcghcs0sZ4C6uAehN6B8ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792632622;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792632633;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=fUWoas7PGndljJktNdJh1T5/mMH9yrmbDWpsvHQ1fHQ=;
-	b=Q2KRruRX28R/IjAx+IGPxcICzI6krOiBEKqtQsuwQj7Sjkex/2rgwVW5MwEMG3VH/p56
-	 bVrwXg2t9Lak3tn+dzGcmVYlX8bKCGeM5BNFs4KaUwDKLkku1RyJ06dwognVjetM3vLLi
-	 KlERtRaGqxYaFwoE3+HE1uUq+R6xqJ7sN4vbRKF/bvnHgpIPXsbijKga2T3oQIkm+074+
-	 MsL+3dnb4jCpErIXCLhq5I/Q2u3cHvx3FYTpCii4oCE+xTrqr7aWAWou+N2af2FCf5IbP
-	 THQFs3SwL5yYDYAYPy5PjVzn2N2C79bM2nq6dSDo4yOIOJr8ns2or+0FhlkmqnFPOYw==
+	bh=Hbq8nep18myzU4hDPnJq+/jLKXtD1hmEjcgVGbCPFHs=;
+	b=l8tiknXRcg1+bqCTsmdbZXl9fW3T71lMhHxaj9R4aufTun3OgA2zMEcqhSMln20Qyokv
+	 ic2DATuiiKSnmzA2LT6B+Ldx+yNrYoF8ORQGy2cFd7xeMxl9GjkWGnnIyT1qCaKotP1Xs
+	 oHxVTIPAMO25g9XEfby2G2Y7d3xoxLjVvViBjogH8YzVJsPkszzrHeGkHm8Woip5Iz0ll
+	 jb3IEPYdMMp1M4kDkS81zCdAShjyo8C6Jhx2Wjs8hUC5Xmx+W3wr8CYf8ntNnehs2n+W4
+	 jUGOvutrM8LDdz4nHJzRRH3a4Z8EIcTho4APNCNEgAOMwYGMozKOTXUJuMwyPVe5MvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="H/pF/Vdj";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R4+Pfo8k;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4402C606A31B
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 01:30:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A015606A319
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 01:30:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H/pF/Vdj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87ADA1F000C1;
-	Thu, 22 Oct 2026 01:30:21 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R4+Pfo8k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E33F41F000C1;
+	Thu, 22 Oct 2026 01:30:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792632622;
-	bh=fUWoas7PGndljJktNdJh1T5/mMH9yrmbDWpsvHQ1fHQ=;
+	s=k20260515; t=1792632633;
+	bh=Hbq8nep18myzU4hDPnJq+/jLKXtD1hmEjcgVGbCPFHs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=H/pF/VdjGLdAQbQOsJ1WDXctV1JW4WSYdigsbFkeVYAYEEAezy0aBtP/u/nvthPaD
-	 8li9DXh2VgxJ96ToNgU3MacEwd3XYiXByZBDrXDxG11R3RzTiK5roXFsYLpSABD8ay
-	 abFXQzv1NHymwuoIWile/OhboAHeGeWJpXYMHe4dmKoo5IR5nN16Oti6M4sTOqAy44
-	 scAbMXq77O9NSAaXft3lhX2DG0xZqCI65rz7nqhrAnT7aEeBzV97QlDX6PFjABLhWG
-	 4GCCHJW256mW6ObrNNtLlRN4sLKssPLBpYY5uwyvEoymjinUBnt7n1yZIQcaQo/Dif
-	 ktqN3MaBg1eZg==
+	b=R4+Pfo8kDii2ZLBMB9L7D1VIf9USOi7ZxRU/4pX2PqUJLntwtr5pXROuIppADSQuJ
+	 9M/QybcH2eV3c1N67VBnW0YSqQ7fIFWAuWEbzojQjT5kHw4FBRasxlyXOSB0g4Msym
+	 nn1S9bQBDZiKiwEMuhMV1UI7L+75JCWBTE488B504mbJVebl5KZgCFGAgVBPU04thL
+	 zP9emyFlcEFDbeQozqXwj1xRiGNukK92XCIyOVT1g4T6HugEIn4wkIF2aIzDK4a9gO
+	 Q6oOSlBimaI/sh+Wuc0RpIjiJ2dv51yXrO70r1tK6YHtRK1ZzAJyiiVVtoCRBxjJz/
+	 bqFSDhcC8k4RQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
+Cc: Jann Horn <jannh@google.com>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] ext4: free the sbi after a grace period
-Date: Wed, 21 Oct 2026 21:30:20 -0400
-Message-ID: <20261022012950.693573-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] futex: Fix mm reuse handling for FUT_OFF_MMSHARED
+Date: Wed, 21 Oct 2026 21:30:31 -0400
+Message-ID: <20261022012951.694863-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102104-sensitive-overnight-fe0d@gregkh>
-References: <2026102104-sensitive-overnight-fe0d@gregkh>
+In-Reply-To: <2026102124-demotion-lapped-3d24@gregkh>
+References: <2026102124-demotion-lapped-3d24@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,156 +61,203 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+From: Jann Horn <jannh@google.com>
 
-[ Upstream commit c17b44266a1f9fcb49b894d4611d1254bf1aa313 ]
+[ Upstream commit 3267512ad1c2cc0c7768c5b014dc2cceb398a801 ]
 
-ext4_get_link() follows a symlink that keeps its target in a data block
-in rcu pathwalk mode with ext4_getblk(EXT4_GET_BLOCKS_CACHED_NOWAIT).
-That reads s_mount_state in the ASSERT() of ext4_getblk() and again in
-ext4_es_lookup_extent(), and the lookup bumps the extent status hit or
-miss counter, all through sb->s_fs_info.
+A FUT_OFF_MMSHARED futex is a shared futex that refers to an MM.
+It is possible for a process to wait on a shared futex with a different MM
+because a FUT_OFF_INODE waiter can be requeued onto a FUT_OFF_MMSHARED
+futex by another process.
+This can cause FUT_OFF_MMSHARED waiters on a freed MM to consume
+wakeups intended for a newly allocated MM at the same address.
 
-ext4_put_super() destroys those counters, clears sb->s_fs_info and frees
-the sbi without waiting for a grace period. A pathwalk that is still in
-ext4_get_link() when the last reference to the mount goes away then
-dereferences a NULL s_fs_info, the freed sbi or the destroyed percpu
-counters.
+Fix it by keying FUT_OFF_MMSHARED using a unique 64-bit per-MM ID.
+Leave private futexes as before to avoid influencing the performance of the
+hotpath.
 
-With a pathwalk held up in ext4_get_link() while the last reference
-goes away:
+(Multi-threaded processes typically implicitly use FUT_OFF_MMSHARED by
+setting clear_child_tid such that it points into anonymous memory, which
+causes mm_release() in a multi-threaded mm to perform FUTEX_WAKE.)
 
-  KASAN: null-ptr-deref in range [0x00000000000000a8-0x00000000000000af]
-  RIP: 0010:ext4_getblk+0xf0/0x640
-  Call Trace:
-   <TASK>
-   ext4_get_link+0x26c/0x410
-   pick_link+0xf96/0x1780
-   step_into_slowpath+0x9b8/0x1250
-   path_lookupat+0x484/0xb00
-   filename_lookup+0x1f1/0x5b0
-   vfs_statx+0xd7/0x3b0
-   vfs_fstatat+0x4d/0x90
-   __do_sys_newfstatat+0xa0/0x100
-   do_syscall_64+0x10e/0x5e0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-So far that has been hard to hit. umount(2) waits for a grace period in
-namespace_unlock() before it drops the mount, so only a mount whose last
-reference goes away elsewhere, like the close of a file or a chdir out of
-a lazily unmounted directory, can race a walker.
-
-Keep sb->s_fs_info and free the sbi together with the extent status
-counters after a grace period. Split the counters out of
-ext4_es_unregister_shrinker() for that. The shrinker still gets wasted
-in ext4_put_super(), the counters go with the sbi.
-
-Fixes: 6493792d3299 ("ext4: convert symlink external data block mapping to bdev")
+Fixes: 222993395ed3 ("futex: Remove pointless mmgrap() + mmdrop()")
+Closes: https://lore.kernel.org/r/CAG48ez0dLBpc3QtbAhMMVNHwHL94iHh2G+h-=BVFR4dDuzZr1g@mail.gmail.com/
+Signed-off-by: Jann Horn <jannh@google.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Link: https://patch.msgid.link/20260929-futex-mmshared-fix-v1-1-262b1ffeb3d0@google.com
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261009-work-fixes-rcu-v1-1-7446d2d335e6@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: replaced shrinker_free() with unregister_shrinker() for the embedded shrinker ]
+[ sashal: adapted futex ID handling to direct mm_struct storage initialized by mm_init() because the dedicated per-MM futex infrastructure is absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ext4/ext4.h           |  2 ++
- fs/ext4/extents_status.c |  7 ++++++-
- fs/ext4/extents_status.h |  1 +
- fs/ext4/super.c          | 13 +++++++++++--
- 4 files changed, 20 insertions(+), 3 deletions(-)
+ include/linux/futex.h    | 14 ++++++++----
+ include/linux/mm_types.h |  3 +++
+ kernel/fork.c            |  3 +++
+ kernel/futex/core.c      | 49 +++++++++++++++++++++-------------------
+ 4 files changed, 41 insertions(+), 28 deletions(-)
 
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 5ef489c9e73af..ae786abecc9a2 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -1688,6 +1688,8 @@ struct ext4_sb_info {
- 	struct list_head s_es_list;	/* List of inodes with reclaimable extents */
- 	long s_es_nr_inode;
- 	struct ext4_es_stats s_es_stats;
-+	/* ext4_get_link() reads the sbi in rcu pathwalk */
-+	struct rcu_head s_rcu;
- 	struct mb_cache *s_ea_block_cache;
- 	struct mb_cache *s_ea_inode_cache;
- 	spinlock_t s_es_lock ____cacheline_aligned_in_smp;
-diff --git a/fs/ext4/extents_status.c b/fs/ext4/extents_status.c
-index 592229027af72..3744d49ef2856 100644
---- a/fs/ext4/extents_status.c
-+++ b/fs/ext4/extents_status.c
-@@ -1751,12 +1751,17 @@ int ext4_es_register_shrinker(struct ext4_sb_info *sbi)
- }
+diff --git a/include/linux/futex.h b/include/linux/futex.h
+index b70df27d7e85c..09f757f14d01f 100644
+--- a/include/linux/futex.h
++++ b/include/linux/futex.h
+@@ -23,26 +23,30 @@ struct task_struct;
+  *  01 : Shared futex (PTHREAD_PROCESS_SHARED)
+  *	mapped on a file (reference on the underlying inode)
+  *  10 : Shared futex (PTHREAD_PROCESS_SHARED)
+- *       (but private mapping on an mm, and reference taken on it)
++ *       (but private mapping on an mm)
+ */
  
- void ext4_es_unregister_shrinker(struct ext4_sb_info *sbi)
-+{
-+	unregister_shrinker(&sbi->s_es_shrinker);
-+}
+-#define FUT_OFF_INODE    1 /* We set bit 0 if key has a reference on inode */
+-#define FUT_OFF_MMSHARED 2 /* We set bit 1 if key has a reference on mm */
++#define FUT_OFF_INODE    1 /* We set bit 0 if shared key identifies an inode */
++#define FUT_OFF_MMSHARED 2 /* We set bit 1 if shared key identifies an mm */
+ 
+ union futex_key {
++	/* For FUT_OFF_INODE */
+ 	struct {
+ 		u64 i_seq;
+ 		unsigned long pgoff;
+ 		unsigned int offset;
+ 	} shared;
 +
-+/* ext4_get_link() bumps the hit and miss counters in rcu pathwalk */
-+void ext4_es_destroy_stats(struct ext4_sb_info *sbi)
- {
- 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_cache_hits);
- 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_cache_misses);
- 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_all_cnt);
- 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_shk_cnt);
--	unregister_shrinker(&sbi->s_es_shrinker);
++	/* For FUT_OFF_MMSHARED or private */
+ 	struct {
+ 		union {
+-			struct mm_struct *mm;
+-			u64 __tmp;
++			struct mm_struct *mm; /* for private */
++			u64 mm_seq; /* for FUT_OFF_MMSHARED */
+ 		};
+ 		unsigned long address;
+ 		unsigned int offset;
+ 	} private;
++
+ 	struct {
+ 		u64 ptr;
+ 		unsigned long word;
+diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+index ce3370823f9c7..91c10d8b00c02 100644
+--- a/include/linux/mm_types.h
++++ b/include/linux/mm_types.h
+@@ -849,6 +849,9 @@ struct mm_struct {
+ 		 */
+ 		int mm_lock_seq;
+ #endif
++#ifdef CONFIG_FUTEX
++		atomic64_t futex_unique_id;
++#endif
+ 
+ 
+ 		unsigned long hiwater_rss; /* High-watermark of RSS usage */
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 73e8a6b430a05..396a1d4b05e59 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -1299,6 +1299,9 @@ static struct mm_struct *mm_init(struct mm_struct *mm, struct task_struct *p,
+ #endif
+ 	mm_init_uprobes_state(mm);
+ 	hugetlb_count_init(mm);
++#ifdef CONFIG_FUTEX
++	atomic64_set(&mm->futex_unique_id, 0);
++#endif
+ 
+ 	if (current->mm) {
+ 		mm->flags = mmf_init_flags(current->mm->flags);
+diff --git a/kernel/futex/core.c b/kernel/futex/core.c
+index 660d7061740b8..8fb54800ce0ad 100644
+--- a/kernel/futex/core.c
++++ b/kernel/futex/core.c
+@@ -151,39 +151,27 @@ futex_setup_timer(ktime_t *time, struct hrtimer_sleeper *timeout,
  }
  
  /*
-diff --git a/fs/ext4/extents_status.h b/fs/ext4/extents_status.h
-index 481ec4381bee6..8a03771269b69 100644
---- a/fs/ext4/extents_status.h
-+++ b/fs/ext4/extents_status.h
-@@ -241,6 +241,7 @@ static inline void ext4_es_store_pblock_status(struct extent_status *es,
- 
- extern int ext4_es_register_shrinker(struct ext4_sb_info *sbi);
- extern void ext4_es_unregister_shrinker(struct ext4_sb_info *sbi);
-+extern void ext4_es_destroy_stats(struct ext4_sb_info *sbi);
- 
- extern int ext4_seq_es_shrinker_info_show(struct seq_file *seq, void *v);
- 
-diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 828cbf2da05cb..fa6d9260030aa 100644
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
-@@ -1260,6 +1260,14 @@ static void ext4_flex_groups_free(struct ext4_sb_info *sbi)
- 	}
- }
- 
-+static void ext4_put_sbi_rcu(struct rcu_head *head)
-+{
-+	struct ext4_sb_info *sbi = container_of(head, struct ext4_sb_info, s_rcu);
-+
-+	ext4_es_destroy_stats(sbi);
-+	kfree(sbi);
-+}
-+
- static void ext4_put_super(struct super_block *sb)
+- * Generate a machine wide unique identifier for this inode.
++ * Generate a machine wide unique identifier for this object (inode or mm).
+  *
+  * This relies on u64 not wrapping in the life-time of the machine; which with
+  * 1ns resolution means almost 585 years.
+- *
+- * This further relies on the fact that a well formed program will not unmap
+- * the file while it has a (shared) futex waiting on it. This mapping will have
+- * a file reference which pins the mount and inode.
+- *
+- * If for some reason an inode gets evicted and read back in again, it will get
+- * a new sequence number and will _NOT_ match, even though it is the exact same
+- * file.
+- *
+- * It is important that futex_match() will never have a false-positive, esp.
+- * for PI futexes that can mess up the state. The above argues that false-negatives
+- * are only possible for malformed programs.
+  */
+-static u64 get_inode_sequence_number(struct inode *inode)
++static u64 get_object_id(atomic64_t *object_seq)
  {
- 	struct ext4_sb_info *sbi = EXT4_SB(sb);
-@@ -1344,7 +1352,6 @@ static void ext4_put_super(struct super_block *sb)
- 	ext4_stop_mmpd(sbi);
+-	static atomic64_t i_seq;
++	static atomic64_t last_assigned_seq;
+ 	u64 old;
  
- 	brelse(sbi->s_sbh);
--	sb->s_fs_info = NULL;
- 	/*
- 	 * Now that we are completely done shutting down the
- 	 * superblock, we need to actually destroy the kobject.
-@@ -1359,7 +1366,8 @@ static void ext4_put_super(struct super_block *sb)
- #if IS_ENABLED(CONFIG_UNICODE)
- 	utf8_unload(sb->s_encoding);
- #endif
--	kfree(sbi);
-+	/* ext4_get_link() reads the sbi and the counters in rcu pathwalk */
-+	call_rcu(&sbi->s_rcu, ext4_put_sbi_rcu);
- }
+-	/* Does the inode already have a sequence number? */
+-	old = atomic64_read(&inode->i_sequence);
++	/* Does the object already have a sequence number? */
++	old = atomic64_read(object_seq);
+ 	if (likely(old))
+ 		return old;
  
- static struct kmem_cache *ext4_inode_cachep;
-@@ -5640,6 +5648,7 @@ failed_mount8: __maybe_unused
+ 	for (;;) {
+-		u64 new = atomic64_add_return(1, &i_seq);
++		u64 new = atomic64_add_return(1, &last_assigned_seq);
+ 		if (WARN_ON_ONCE(!new))
+ 			continue;
+ 
+-		old = atomic64_cmpxchg_relaxed(&inode->i_sequence, 0, new);
++		old = atomic64_cmpxchg_relaxed(object_seq, 0, new);
+ 		if (old)
+ 			return old;
+ 		return new;
+@@ -206,7 +194,7 @@ static u64 get_inode_sequence_number(struct inode *inode)
+  *
+  *   ( inode->i_sequence, page->index, offset_within_page )
+  *
+- * [ also see get_inode_sequence_number() ]
++ * [ also see get_object_id() ]
+  *
+  * For private mappings (or when !@fshared), the key is:
+  *
+@@ -358,8 +346,8 @@ int get_futex_key(u32 __user *uaddr, bool fshared, union futex_key *key,
+ 			goto out;
+ 		}
+ 
+-		key->both.offset |= FUT_OFF_MMSHARED; /* ref taken on mm */
+-		key->private.mm = mm;
++		key->both.offset |= FUT_OFF_MMSHARED;
++		key->private.mm_seq = get_object_id(&mm->futex_unique_id);
+ 		key->private.address = address;
+ 
+ 	} else {
+@@ -394,7 +382,22 @@ int get_futex_key(u32 __user *uaddr, bool fshared, union futex_key *key,
+ 		}
+ 
+ 		key->both.offset |= FUT_OFF_INODE; /* inode-based key */
+-		key->shared.i_seq = get_inode_sequence_number(inode);
++		/*
++		 * This relies on the fact that a well formed program will not
++		 * unmap the file while it has a (shared) futex waiting on it.
++		 * This mapping will have a file reference which pins the mount
++		 * and inode.
++		 *
++		 * If for some reason an inode gets evicted and read back in
++		 * again, it will get a new sequence number and will _NOT_ match,
++		 * even though it is the exact same file.
++		 *
++		 * It is important that futex_match() will never have a
++		 * false-positive, esp. for PI futexes that can mess up the state.
++		 * The above argues that false-negatives are only possible for
++		 * malformed programs.
++		 */
++		key->shared.i_seq = get_object_id(&inode->i_sequence);
+ 		key->shared.pgoff = page_to_pgoff(tail);
+ 		rcu_read_unlock();
  	}
- failed_mount3a:
- 	ext4_es_unregister_shrinker(sbi);
-+	ext4_es_destroy_stats(sbi);
- failed_mount3:
- 	/* flush s_error_work before sbi destroy */
- 	flush_work(&sbi->s_error_work);
 -- 
 2.53.0
 
