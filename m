@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792691847;
-	b=lbF1K+a1Tl788b/VNP9EBALxa/RMLg2cFhirMzClvDDJISFe6RHMh5AKgHpOSiqX31CI
-	 UlYuDP8ziHBrTYKh14eOgNt09kvtGmeP64uGpV/3DF1M+t0MqvCdIH52sYUqmvW3IRSxq
-	 PZLnAsE8r0+tVAV+HATvw2tm5e0DdkKp+EsNGBO2YRHQ8CvYvcAbO8CPAziKD1DaVqPXr
-	 wsFWdH3SWjt+GG4eqqNULzWoYfXlqYkxuZmtKR31BilUWB6aeET9y+lo47mwoGZ5gj900
-	 iHtGz/XiWB7e5MPoBvhxvG1pCWCQ5S4PYWa9ydcV8UNfOaNLSfoBtBtPEL0tx35sw+A==
+	t=1792692049;
+	b=uKBCPeVMQ38VbX5g94PQ5mfPBtkf/PLASbYZHjGDUsbRlqTPBGx3KyLiYSaqSP3Tmf2q
+	 pwME8OvZvHcImlvTN8qj0aU1rHWjfAk1mv0mHcurbptf/QzF9a8A8FFA2kV44MsOJ3YCJ
+	 cy7Pw7067r24MJ5XADpX1ImQjSaODDqjAgbcE2QnMFg2gcJkBnRXD/FVUwGQnPVYRe88x
+	 27h0hJP/ifKQ8lKYRH6cYXpo8tMlF4eeU0YqgDEF8pX+ZzZd7gm0jL87LSRcH4vZGLe+I
+	 OQdLe5EhyGaYyoTMaT3P7FNIaye/LBA3YI9zmAgRbbCMngdLs7EbFn+Hyj4bRpidzTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792691847;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792692049;
 	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
 	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
 	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=kezdcC+FSW+yMTp2Da1WjecVlmYgqS8wNI64QyxYIRY=;
-	b=La/m53itgeMf+UZN7tI9MUakMKcJkIKfDBNXvv4l8a1hPHWyOZOxNxPT0DYWvsaaPHnY
-	 bY2PUQnH1evhrrvHjEvqtLNaDQYAmo8sGX+doa/hXNwk3gTd+tlXgaVwBmsdSuPExbP9Z
-	 IZHGkjzGhjKpXUnv5UIBijkO5VqyEzy24SRP/sBM8qVTyHmIRs8XpeOx08oHbNs2b2Wkw
-	 gUDhh4zM0UfwYeEvuLgsrxzYsLxPvpaVbdM6+EwOIR0tT3VH+M2hpRQQaiKzNczGt0jci
-	 zfdiD3pyEZRbvdYQMUlBq67cP6Ocg8jJByz6P0e6XwUy7/r3GKHmEbl+L5NQuSYIDdA==
+	bh=OezdbdKysFqgjMHGtNKMfceio5G1Rt0ImqaD/QPQ7L4=;
+	b=od7tf5md88sOzl4Zl60FJYFUGE7+nE3PZcCADQodoBPk3Hnb14VlJ4qJEzfYhQxFRuum
+	 0rc7LiDEMoS2gh2IHJZQrMx346F/mPHRuQ1su3tnQw0iXwc/9d/1is7syXTTo7b9UARtj
+	 VHUrtUd2ELcLy9NOD8St+TsR8+3BBDd0k7weJEiMJzB5ZCQxx5Lrrx4p4at31g4xv+JsM
+	 IojOmOMHv/wGYGPcOyL5+j7R6JOs+U/VVHeRWyZiKNqmMzd+Fi/celaESh85+Vc2rRZRm
+	 Miq2VlY/HVT9/sXQz1/ufEXIC1njI5/8jP/KckTWtSYKV7S1jtGY4xmEViYHozqDeGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HWlmzYsX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GtxZxABz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3322A606A32C
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 17:57:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2481606A31B
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 18:00:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HWlmzYsX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1B261F01829
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 17:57:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GtxZxABz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BE561F01829
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 18:00:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792691845;
-	bh=kezdcC+FSW+yMTp2Da1WjecVlmYgqS8wNI64QyxYIRY=;
+	s=k20260515; t=1792692048;
+	bh=OezdbdKysFqgjMHGtNKMfceio5G1Rt0ImqaD/QPQ7L4=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=HWlmzYsXxtxFtXk59tbpJnlVi3Eo1x2LZYpEPB5xOjM44lj0VIPkxNqY3mfAtC1Tg
-	 JqOisUCzOtZjx6jXvt+i6UPUyvl5/1PpDGRC6cjN3xya5ldpydkEXENdJKNohA6Ul/
-	 UMj5x/8eqAOSget0AqX81RuSYWwwcWDu9JqMhKM6v90IWTxydHppNNnP+R+XZwn13K
-	 Zq0nlBzVaaNkZfAKDcLCmQHmq71F4UxKDT1xzdPhul4cFpNT3ZTTjSKaTmlOUTRM+l
-	 XIu7aYU08FZMJD1RAxXyF8Gu3XISUDcAW75SdNLbaPINRZYtR9JxC8hhAHFlYvFRr3
-	 pQjlIxXBhxuNA==
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3ab53a99771so19352591fa.3
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 10:57:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxKjSVYGla1q0SQNJLMB/2uZz5AeHaxU+7iI7LdTq1uMvbUe5Sb21B3Z5S+fLQJ/vViXSmcXDg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJuQSvVX6J3oNFaGnEvesGjRyjbbJtK+XwIvlucVOnobDF5FEJL
-	HabkUvU/1PF7QW3VxLw347Th3yNlptobW9X+R4q+zzaXjzzHP158zmNXp9zERY7M6IMknFxroKC
-	9ABVJZrcF2t6Ix8ldbaDeRIFQr61ICW8=
-X-Received: by 2002:a05:651c:c019:20b0:3ac:433c:6ac6 with SMTP id
- 38308e7fff4ca-3ac440a79cdmr13633081fa.3.1792691844526; Thu, 22 Oct 2026
- 10:57:24 -0700 (PDT)
+	b=GtxZxABzY7Qio4KKG3pdTrfVAn45+YIVlwOPYi4E5Z0jtJ6WNw4pLoPa8T8P/1GHB
+	 j14RVnJQTZlzdzZXyVEjN/RBzuK15pX2rGJOv+5/0HnMgcOBcWSgFYrMYFBYmfFhNv
+	 24L9dKXClr+Oh7FNtYRSD/4xnjsFUAW62GwBTO6gP7eft25Mq0jOcKasOpXcEtvdF3
+	 kHOGxUDJL2sveO1xcU1zwzyxsOaYR7mN25mzpv7PCspgacEU2Ei6Oba6QhaZ12+eSz
+	 Bn9m2Yn9sKRD/ehrnvobUPdtioHdDUNtuhZWdSnGFJ5f3m9a1z8NcmhPdgtu0SObtN
+	 6VCDrnkYNwXvg==
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3a9787a156eso23504561fa.3
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 11:00:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxIQG8ZA6qvDEtReLYxxeN7uk5jROfmqQvKe1Rep7THMXZHz/hGiG0DoJUixhaIMcDvfC1PreY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9Xyst36/JaTrGF2WLpGZRiiLsivlAHhQaHC+iNSI6t7FYb3Aj
+	VulGRHKTomiGnr4y3QKWhmwMc1svUzyAe393NMuZGTXjyBo84X5wSDgF+oxLSC0Vv4lzCuthh9n
+	x/5XQ+IlJEnb8u/xwaBKrZhmRp8/80lE=
+X-Received: by 2002:a2e:a7ca:0:b0:3a9:9c1f:1b9e with SMTP id
+ 38308e7fff4ca-3ac4413d5eamr17333041fa.4.1792692047249; Thu, 22 Oct 2026
+ 11:00:47 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,119 +60,191 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 References: <ACT-N6N4.v1.r0.20261022051412@mojatatu.com> <ACT-N6N4.v1.r0.20261022051412-1@mojatatu.com>
- <willemdebruijn.kernel.38722ee638a21@gmail.com> <CAM0EoMnJhXQPxfU65oLYvpc-a6MhZSKi-D664fTMLah_6p7G2Q@mail.gmail.com>
-In-Reply-To: <CAM0EoMnJhXQPxfU65oLYvpc-a6MhZSKi-D664fTMLah_6p7G2Q@mail.gmail.com>
+ <ACT-N6N4.v1.r0.20261022051412-2@mojatatu.com> <ACT-N6N4.v1.r0.20261022051412-3@mojatatu.com>
+ <willemdebruijn.kernel.1c05560ef167@gmail.com> <CAM0EoMmeOCQT8dRYKvfYa0EUtEsLM6EZcNCsQZSF+HfoK61Y2w@mail.gmail.com>
+In-Reply-To: <CAM0EoMmeOCQT8dRYKvfYa0EUtEsLM6EZcNCsQZSF+HfoK61Y2w@mail.gmail.com>
 From: Eric Dumazet <edumazet@kernel.org>
-Date: Thu, 22 Oct 2026 19:57:11 +0200
-X-Gmail-Original-Message-ID: <CAL4WiipJLzZ9ywOPaFHZ+wePTOuO+6+aaRCVXMHz+xmmQm2hcA@mail.gmail.com>
-X-Gm-Features: AclHuK_nqha3vOjEUCmurV-VfrxxzUbueW59pQsZ8XZJ_XYH3Bsub5nUKrzWM3M
-Message-ID: <CAL4WiipJLzZ9ywOPaFHZ+wePTOuO+6+aaRCVXMHz+xmmQm2hcA@mail.gmail.com>
-Subject: Re: [PATCH net 1/5] net/sched: act_vlan: reject short linear Ethernet
- headers after POP_ETH
+Date: Thu, 22 Oct 2026 20:00:33 +0200
+X-Gmail-Original-Message-ID: <CAL4Wiir8Y03fhsevoqjvO8bH9PyGL0TWy312KOjip0SngPmVfg@mail.gmail.com>
+X-Gm-Features: AclHuK9tGCezuKXL3ZQaoeKiwEcpj7XQlNue34RgbxGGna_VvvqlguiKkWN0igM
+Message-ID: <CAL4Wiir8Y03fhsevoqjvO8bH9PyGL0TWy312KOjip0SngPmVfg@mail.gmail.com>
+Subject: Re: [PATCH net 3/5] net: tun: keep TUN short linear copy hints safe
 To: Jamal Hadi Salim <jhs@mojatatu.com>
 Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, netdev@vger.kernel.org, 
-	Jiri Pirko <jiri@resnulli.us>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S . Miller" <davem@davemloft.net>, Guillaume Nault <gnault@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Victor Nogueira <victor@mojatatu.com>, Vega <vega@nebusec.ai>, Ren Wei <n05ec@lzu.edu.cn>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, Jason Wang <jasowangio@gmail.com>, 
-	stable@vger.kernel.org
+	Jason Wang <jasowangio@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rusty Russell <rusty@rustcorp.com.au>, Max Krasnyansky <maxk@qualcomm.com>, Jiri Pirko <jiri@resnulli.us>, 
+	Victor Nogueira <victor@mojatatu.com>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le jeu. 22 oct. 2026 =C3=A0 18:01, Jamal Hadi Salim <jhs@mojatatu.com> a =
+Le jeu. 22 oct. 2026 =C3=A0 18:17, Jamal Hadi Salim <jhs@mojatatu.com> a =
 =C3=A9crit :
 >
-> On Thu, Oct 22, 2026 at 11:21=E2=80=AFAM Willem de Bruijn
+> On Thu, Oct 22, 2026 at 11:22=E2=80=AFAM Willem de Bruijn
 > <willemdebruijn.kernel@gmail.com> wrote:
 > >
 > > Jamal Hadi Salim wrote:
 > > > The issue:
-> > > act_vlan POP_ETH can leave a linear area shorter than ETH_HLEN; a
-> > > subsequent eth_type_trans() may then BUG in __skb_pull() when the fra=
-me
-> > > is redirected to an Ethernet device.
-> > >
-> > > The Fix:
-> > > Drop the packet at the producer boundary when skb_headlen() is shorte=
-r
-> > > than ETH_HLEN after skb_eth_pop().
-> > >
-> > > Conditions to recreate the bug:
-> > > - egress tc filter on lo: action vlan pop_eth.
-> > > - AF_PACKET SOCK_RAW with PACKET_VNET_HDR, hdr_len=3D28, and a non-li=
-near
-> > >   eth / inner-eth frame.
-> > > - The pop leaves skb_headlen(skb) < ETH_HLEN; a following
-> > >   eth_type_trans() can BUG in __skb_pull().
-> > >
-> > > Fixes: 19fbcb36a39e ("net/sched: act_vlan: Add {POP,PUSH}_ETH actions=
-")
-> > > Reported-by: Vega <vega@nebusec.ai>
-> > > Link: https://lore.kernel.org/r/40fe2d7dfce13411bfbe9271c0f7c54fb7e88=
-e3b.1782548651.git.bronzed_45_vested@icloud.com/
-> > > Cc: stable@vger.kernel.org
-> > > Suggested-by: Jakub Kicinski <kuba@kernel.org>
-> > > Reviewed-by: Victor Nogueira <victor@mojatatu.com>
-> > > Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-> > > ---
-> > >  net/sched/act_vlan.c | 2 ++
-> > >  1 file changed, 2 insertions(+)
-> > >
-> > > diff --git a/net/sched/act_vlan.c b/net/sched/act_vlan.c
-> > > index 6a375fdc63dd..ddf03b08bfe8 100644
-> > > --- a/net/sched/act_vlan.c
-> > > +++ b/net/sched/act_vlan.c
-> > > @@ -79,6 +79,8 @@ TC_INDIRECT_SCOPE int tcf_vlan_act(struct sk_buff *=
-skb,
-> > >               err =3D skb_eth_pop(skb);
-> > >               if (err)
-> > >                       goto drop;
-> > > +             if (unlikely(skb_headlen(skb) < ETH_HLEN))
-> > > +                     goto drop;
+> > > A TUN skb can be redirected by tc mirred to an Ethernet xmit path, wh=
+ich
+> > > calls eth_type_trans() and needs a full Ethernet header in the linear
+> > > area.  tun_get_user() currently validates len and the GSO header leng=
+th
+> > > only for IFF_TAP, so an IFF_TUN | IFF_VNET_HDR packet can set hdr_len=
+ to
+> > > 1..13 and leave fewer than ETH_HLEN linear bytes.  The redirected pac=
+ket
+> > > then BUGs in eth_type_trans().
 > >
-> > Could it try to pull the header and only drop if the packet is too shor=
-t?
-> >
+> > TUN mode does not imply Ethernet. Indeed, TUN implies an L3 packet?
 >
-> What would be the benefit?
+> I have a feeling i am missing something: True, TUN is L3  but we are
+> not adding or parsing eth headers to TUN.
+>
+> The patch only bounds the linear copy hint and receive headroom so a
+> TUN skb redirected by tc to an some ethernet xmit path satisfies
+> eth_type_trans()'s precondition in the patchset. IOW, with current
+> code does it matter if TUN is l3? The other side will assume the
+> payload to be ethernet..
 
-Not dropping legitimate packets :)
+I agree with Willem: TUN is not the producer here, mirred is.
 
-skb_eth_pop() only guarantees the 14 bytes it removes were in the
-linear part. Nothing guarantees anything after them, and many skbs
-have exactly ETH_HLEN bytes in their linear part.
+TUN builds a valid L3 skb (mac_len =3D=3D 0). mirred then sends it to a
+device expecting a link layer header, and the IP header is parsed
+as an Ethernet one. With this patch we no longer crash, but we still
+transmit garbage.
 
-For instance, drivers using napi_gro_frags() (mlx4, sfc, gve, be2net,
-cxgb4, ionic, ...) when GRO is disabled, or for protocols without a GRO
-handler: napi_frags_skb() only pulls the Ethernet header.
+Also, rejecting len < ETH_HLEN in IFF_TUN mode changes the uAPI for
+a constraint that has nothing to do with TUN itself.
 
-After POP_ETH, skb_headlen(skb) is 0 for these packets.
-They work today (for example POP_ETH then redirect to bareudp),
-and this patch would silently drop them.
+> If the redirect itself should be rejected for TUN, that is a different
+> fix; earlier ask from Eric is to fix the producer not for example the
+> driver (like loopback).
+> The "reject redirect from TUN" could probably be done but i dont see a
+> cheap way of doing it.
 
-        err =3D skb_eth_pop(skb);
-        if (err)
-                goto drop;
-        if (!pskb_may_pull(skb, ETH_HLEN))
-                goto drop;
+It does not need to be TUN specific, and bpf_redirect() already does it.
+__bpf_redirect_common() refuses to send a packet without a link layer
+header to a device expecting one, since 3a0af8fd61f9 ("bpf: BPF for
+lightweight tunnel infrastructure"):
 
-fixes the crash, and only drops packets shorter than ETH_HLEN after the
-pop, which are not valid L3 packets anyway.
+        /* Verify that a link layer header is carried */
+        if (unlikely(skb->mac_header >=3D skb->network_header || skb->len =
+=3D=3D 0)) {
+                kfree_skb(skb);
+                return -ERANGE;
+        }
 
-> Note: the OVS patches pull because they must restore
-> MAC_PROTO_ETHERNET and already return an action error, i see a good
-> reason there.
+mirred could do the same in tcf_mirred_to_dev(), after the
+push/pull adjustment. Something like (untested):
 
-The same reasoning applies here: the producer makes the packet
-valid for the consumer, it should not punish valid packets.
+        if (!expects_nh &&
+            (unlikely(skb_network_offset(skb_to_send) < dev->min_header_len=
+) ||
+             !pskb_may_pull(skb_to_send, dev->min_header_len)))
+                /* drop, freeing skb_to_send if it was cloned */
+
+This is one compare in the fast path, covers TUN and any other L3
+source (including a vlan pop_eth / mpls pop chain followed by mirred),
+and keeps the legit case working (vlan push_eth, then mirred to an
+Ethernet device).
+
+Then this tun patch is not needed, unless there is another path
+from an IFF_TUN device to eth_type_trans() that I missed.
 
 Thanks.
 
+>
+> Thoughts?
+>
 
-> > >       case TCA_VLAN_ACT_PUSH_ETH:
-> > >               err =3D skb_eth_push(skb, p->tcfv_push_dst, p->tcfv_pus=
-h_src);
+
+
+> cheers,
+> jamal
+> > >
+> > > The Fix:
+> > > Reject packets shorter than ETH_HLEN in both modes.  For IFF_TUN, whe=
+re
+> > > hdr_len is only an allocation/copy hint when GSO and checksum offload=
+ are
+> > > off, raise a short nonzero hdr_len to ETH_HLEN instead of rejecting t=
+he
+> > > write.  Keep the TAP rejection and its NET_IP_ALIGN adjustment unchan=
+ged.
+> > > This preserves valid no-offload TUN writes with hints below ETH_HLEN =
+while
+> > > guaranteeing at least ETH_HLEN linear bytes for the redirected consum=
+er.
+> > >
+> > > The maximum receive headroom advertised through tun_set_headroom() mu=
+st
+> > > reserve the same linear minimum.  A large upper-device needed_headroo=
+m
+> > > (for example an L2 netkit port behind a VLAN in an OVS datapath) othe=
+rwise
+> > > caps good_linear below ETH_HLEN and defeats the clamp.  Reserve ETH_H=
+LEN
+> > > for TUN; the TAP branch already reserves ETH_HLEN + NET_IP_ALIGN.
+> > >
+> > > Conditions to recreate the bug (repro available):
+> > > - create a TUN device with IFF_TUN | IFF_VNET_HDR | IFF_NO_PI;
+> > > - attach ingress mirred egress redirect dev lo;
+> > > - write a virtio_net_hdr with hdr_len=3D1 and an 8192-byte payload.
+> > > Unfixed kernel will panic in eth_type_trans via loopback_xmit.
+> > > In a fixed kernel the write is accepted with hdr_len clamped to ETH_H=
+LEN and the
+> > > packet is forwarded without a BUG.
+> > > - no-offload acceptance: a separate check writes a 28-byte IPv4/UDP-s=
+haped
+> > >   packet with hdr_len 0, 1, 13, 14 and 20; all writes are accepted.
+> > > - high headroom: create an L2 netkit pair with headroom 4096, put a V=
+LAN
+> > >   over it, and add both the VLAN and the TUN to one OVS datapath so t=
+he
+> > >   TUN receive headroom is raised to 4100.  The same hdr_len=3D1 jumbo=
+ must
+> > >   keep at least ETH_HLEN linear bytes; without the setter reservation=
+ it
+> > >   still BUGs.
+> > >
+> > > Fixes: f42157cb568c ("tun: fallback if skb_alloc() fails on big packe=
+ts")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+> > > ---
+> > >  drivers/net/tun.c | 7 ++++++-
+> > >  1 file changed, 6 insertions(+), 1 deletion(-)
+> > >
+> > > diff --git a/drivers/net/tun.c b/drivers/net/tun.c
+> > > index 242899f7fd07..1e235c2f0aee 100644
+> > > --- a/drivers/net/tun.c
+> > > +++ b/drivers/net/tun.c
+> > > @@ -1193,7 +1193,7 @@ static void tun_set_headroom(struct net_device =
+*dev, int new_hr)
+> > >       if ((tun->flags & TUN_TYPE_MASK) =3D=3D IFF_TAP)
+> > >               max_headroom -=3D ETH_HLEN + NET_IP_ALIGN;
+> > >       else
+> > > -             max_headroom -=3D 1;
+> > > +             max_headroom -=3D ETH_HLEN;
+> > >
+> > >       tun->align =3D clamp_t(int, new_hr, NET_SKB_PAD, max_headroom);
+> > >  }
+> > > @@ -1830,6 +1830,11 @@ static ssize_t tun_get_user(struct tun_struct =
+*tun, struct tun_file *tfile,
+> > >               align +=3D NET_IP_ALIGN;
+> > >               if (unlikely(len < ETH_HLEN || (hdr_len && hdr_len < ET=
+H_HLEN)))
+> > >                       return -EINVAL;
+> > > +     } else {
+> > > +             if (unlikely(len < ETH_HLEN))
+> > > +                     return -EINVAL;
+> > > +             if (hdr_len)
+> > > +                     hdr_len =3D max_t(int, hdr_len, ETH_HLEN);
+> > >       }
+> > >
+> > >       good_linear =3D SKB_MAX_HEAD(align);
 > > > --
 > > > 2.43.0
 > > >
