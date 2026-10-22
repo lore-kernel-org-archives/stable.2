@@ -1,59 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792706616;
-	b=LWgwlmZPrpIWsL183mJft+2wyBUNzxtUycbTl8S8xQCqdDMq1da12DYe50Sm4hIhj6kQ
-	 gRH1YHoqwYrYmPCiDHr5EZnmg7uDLbWjxQ8D1N8du79UyY+O8RNx/An2XSr0caidmbddo
-	 MnERZk0BHkEjmP+WNhclUVSvl7p3gGJsHwLoUdEn4e4w5i8XF75QdcXuotuYf5NADb9q5
-	 cRZrHIEhS8xHTWOiqIEA6esbQU1jIFnkjZvcormkMd/yCEPQjG13ja6Wy1wArsB4Jps+d
-	 SSahYNqduYdX/mePMD2E6xpxUkRQ3DxpRpsusCPg3/u/s46sr4Jz9aGQgyrHLX8CWLw==
+	t=1792706623;
+	b=MyUGeWr98S/4KM6xX9qlsxS8H0/OdlDI71Vd/4uP7vm6fJ103ar1kfQBs6brxqwZrZof
+	 j2+jVyC6j9aBLB9dUHwi9WHvuK3Hgh51jKYydca4BeihhEv89gvmtM0G2ioN3Yo8SWrIz
+	 NCgKlW5it+wuKF6KL3pO3kVhalv662FEcKCsShOO7eDxg3wW4jFgC/tmpvQ+s3anqgJgr
+	 qHvB6YwIHEhXqn1x+OmrX+XFJAOUeWLyQX0Ls06UhYp0qzHv/N83GeO1SNamTWoVg6B/S
+	 yEVoXeUZfDS8avndeLePWhUuapDdLjomMMFB4CmZ6vdzVrxKmEiUj2oqZjyj1yEq0HQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792706616;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792706623;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=qOqpsJc7AAWTBffBDxFBpmpv1CgMyzBVCT2a8Vh1xBw=;
-	b=FYu70Px8G8duKyoydgNdZWCM+cbhLwR9Ql+hwDwK3psp9G+SW0qgpGorm0bIh7goPKjx
-	 a/u4gxnmZHG6ozJw+wMPGRdGj0uQYdOxurqebWZ7RItGMS/IIqW2lIJk8I/IO7hwIZyAY
-	 /gCT9R8iPS+tYwCGNj09P8N4rIH61Ykgj9jKsoouvvv7vXEnzVV1TbaGnesURZQ4jP/Mn
-	 oPAeckcXBxRG2YzJhgzciTsytJeuJz6Vgd7U76j/KyaCCch8xDaPnwu3ovEEpCaHL4Q5d
-	 KKxdBFwqUUXAboF+wwhRFoMovSXRsP+S32O8fWk/+6e03RAGu5VK1VXwBkhBseoQXHA==
+	bh=1S6R8LSmeWOqvKVa270AtH5Yi4ch6wmru1fxTCrkosM=;
+	b=Qj2zWEO7c9/mAtqv8lEPzCpHEF6M0ZpEa9daMH4pGW7WC3NvBcIb+UaLmVKXiifotkN9
+	 Fo7f5D5uIxlYFKoZ7q5R0/aPOmKcqBoWPle8De/+zM6xPS+7fyCw6gvLzhFLOkRvS4KB7
+	 4FWr0dtsoZ8rVbKYG7jEH1WIafIsheSLTOXvk5rT9ILC0NUVrQEbE+F9oas/NeCUO6Gd1
+	 xyIgxA1pKF6Cy0dHP0cGdx6Iayp2zqKTH0LCyvbIGgRjOsHzE9HdxSoCcGzY6wRgmTmxv
+	 kDVEoekT3wXUfCdHQEmQQadm29Y6oIzduZZAj0G8ctbiQfLcCflie3hzWjbxOMthdxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SAJBK/hO";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jr+5IufZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7743606A31A
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 22:03:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC56D606A319
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 22:03:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SAJBK/hO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C1841F01825;
-	Thu, 22 Oct 2026 22:03:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jr+5IufZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6277E1F01825;
+	Thu, 22 Oct 2026 22:03:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792706615;
-	bh=qOqpsJc7AAWTBffBDxFBpmpv1CgMyzBVCT2a8Vh1xBw=;
+	s=k20260515; t=1792706622;
+	bh=1S6R8LSmeWOqvKVa270AtH5Yi4ch6wmru1fxTCrkosM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SAJBK/hO99fbCW2xhOKxDbd5+qQX1zmfsQisdtJKgksSShbuciIZKOndxP6HrH+mq
-	 FYO2sxiHTj+ONxwwvLt6dD20vw+uZAB8Kt9i++4LmPR0MY2+0Vj8JX6orjI4EBDigi
-	 4MlmHikrJxJALQ/pNvoh54T/jMluxul1vrTNXVlqLjtJ16URxgkRiOC4RoUrk5QgVt
-	 6AsyXT8p/wX5wu9DEexqVp/Kv2Nnz37gNd+EOViqPhcFDZUZmrHU58knbJiGXpkjpU
-	 Ev7HMqJpPUKyPw/sJcmrJDIzSH3Q1wgDiFU1PMah2DxhbYx+pKSlQrkfvuhfeRVb1v
-	 xlOc1y61SOeOQ==
+	b=Jr+5IufZTbLSCAANpQOp3hqvS6xi9+/5U0Qrv/4YZalPIIw5cpVyzgeYMiAylhjE2
+	 CfnOUf0y0oJw+WFq3N/yjNTmYGILtRAFnvggBErEJ5tm2tx4g/68PSP2JlrVoWRNOh
+	 bsru9hW8jQhB1j1akG4lAugv9TlDBidncnTV3shvLusT1jJrCY6ki/qNToeioFJblr
+	 EAr7ogThLWnXGmCfulqJ2qucq3KyRDjZylcwIk1QKnQa9cN+lQk0bnlJJ09FKzxh+h
+	 5SG9yR8k3VCP1EVPul9rKcO9/uVR4j6SotQQIMURnOw/O9/N7gP59hAFBPNSDO/Nk9
+	 8Kmcq9x4ObjVw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
+Cc: Chen Cheng <chencheng@fnnas.com>,
+	Sun Yangkai <sunyangkai@fygo.io>,
+	Mikulas Patocka <mpatocka@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] smb: client: fix data corruption with concurrent writes and O_TRUNC
-Date: Thu, 22 Oct 2026 18:03:33 -0400
-Message-ID: <20261022220226.1992474-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] dm-integrity: require stable writes for internal hash modes
+Date: Thu, 22 Oct 2026 18:03:39 -0400
+Message-ID: <20261022220232.1914378-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102256-failing-clinking-a4c8@gregkh>
-References: <2026102256-failing-clinking-a4c8@gregkh>
+In-Reply-To: <2026102133-blunderer-mothball-bd53@gregkh>
+References: <2026102133-blunderer-mothball-bd53@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,109 +62,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paulo Alcantara <pc@manguebit.org>
+From: Chen Cheng <chencheng@fnnas.com>
 
-[ Upstream commit a8603b52b39f520ea8a34def74c23fba87396d3e ]
+[ Upstream commit b2fd92f016e9d692fd3c8c08d0ee014e9212279d ]
 
-cifs_do_truncate() flushes dirty pages with filemap_write_and_wait()
-and truncates the file on the server, but in the old code both
-operations ran without holding i_rwsem or invalidate_lock.  A
-concurrent buffered write via netfs_perform_write() -- which only
-needs i_rwsem shared -- could dirty new pages after the flush but
-before the local truncation, and those pages would be silently
-discarded by cifs_setsize() -> truncate_pagecache().
+dm-integrity direct, bitmap and inline internal-hash modes compute
+integrity tags from the pages carried by the write bio.  The lower data
+write also uses those pages, so the tag and the data write depend on the
+same memory contents staying unchanged while writeback is in flight.
 
-Fix by acquiring inode_lock (exclusive i_rwsem) and
-filemap_invalidate_lock at the top of cifs_do_truncate(), so the
-entire flush-truncate-resize sequence is atomic with respect to:
+Without stable writes, a buffered writer can modify a writeback folio
+after dm-integrity has submitted the data bio and before the lower device
+has consumed the data.  After a crash, this can leave data from the later
+contents with a tag calculated from the earlier contents, causing
+permanent checksum failures on read.
 
-  - buffered writes (blocked by exclusive i_rwsem, since
-    netfs_start_io_write takes i_rwsem shared),
-  - read page faults (blocked by exclusive invalidate_lock, since
-    filemap_fault takes it shared),
-  - writeback collection (blocked by netfs_wb_begin/netfs_wb_end
-    around the server truncate and local resize, since
-    netfs_writepages also acquires the wb lock).
+Set BLK_FEAT_STABLE_WRITES for internal-hash D, B and I modes so
+filesystems wait for writeback folios to become stable before modifying
+them again.  Journal mode is left unchanged because it copies data into
+the journal before computing and persisting the tag.
 
-Fixes: 110fee6b9bb5 ("smb: client: fix missing timestamp updates with O_TRUNC")
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
+Tested using dm-delay over a virtio-blk test disk, dm-integrity
+internal_hash:crc32c and no-journal ext4.  The D and B reproducers both
+failed with checksum errors before this change and completed with
+READ_RC=0 and zero mismatches after it.
+
+Fixes: 7eada909bfd7 ("dm: add integrity target")
 Cc: stable@vger.kernel.org
-[ sashal: Replaced netfs_wb_begin()/netfs_wb_end() with direct wb_lock mutex operations. ]
+Reported-by: Sun Yangkai <sunyangkai@fygo.io>
+Link: https://github.com/chencheng-fnnas/reproducer/blob/main/dm-integrity-writeback-race.py
+Signed-off-by: Chen Cheng <chencheng@fnnas.com>
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+[ sashal: Replaced BLK_FEAT_STABLE_WRITES with a per-target needs_stable_writes bit propagated through the existing queue-flag machinery. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/file.c | 28 ++++++++++++++++++----------
- 1 file changed, 18 insertions(+), 10 deletions(-)
+ drivers/md/dm-integrity.c     | 3 +++
+ drivers/md/dm-table.c         | 2 +-
+ include/linux/device-mapper.h | 5 +++++
+ 3 files changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
-index 53e457759d84c..e4281d0d12dd7 100644
---- a/fs/smb/client/file.c
-+++ b/fs/smb/client/file.c
-@@ -990,42 +990,50 @@ static int cifs_do_truncate(const unsigned int xid, struct dentry *dentry)
- 	struct cifs_tcon *tcon;
- 	int rc;
- 
--	rc = filemap_write_and_wait(inode->i_mapping);
--	if (is_interrupt_error(rc))
-+	rc = inode_lock_killable(inode);
-+	if (rc)
- 		return -ERESTARTSYS;
-+
-+	filemap_invalidate_lock(inode->i_mapping);
-+
-+	rc = filemap_write_and_wait(inode->i_mapping);
-+	if (is_interrupt_error(rc)) {
-+		rc = -ERESTARTSYS;
-+		goto out;
-+	}
- 	mapping_set_error(inode->i_mapping, rc);
- 
- 	cfile = find_writable_file(cinode, FIND_WR_FSUID_ONLY);
- 	rc = cifs_file_flush(xid, inode, cfile);
- 	if (!rc) {
- 		if (cfile) {
-+			struct netfs_inode *ictx = netfs_inode(inode);
-+
- 			tcon = tlink_tcon(cfile->tlink);
- 			server = tcon->ses->server;
-+			mutex_lock(&ictx->wb_lock);
- 			rc = server->ops->set_file_size(xid, tcon,
- 							cfile, 0, false);
- 			if (!rc) {
--				inode_lock(inode);
--				filemap_invalidate_lock(inode->i_mapping);
- 				netfs_resize_file(&cinode->netfs, 0, true);
- 				cifs_setsize(inode, 0);
--				filemap_invalidate_unlock(inode->i_mapping);
--				inode_unlock(inode);
- 				cifs_invalidate_cache(inode, 0);
- 			}
-+			mutex_unlock(&ictx->wb_lock);
- 		} else {
- 			/*
- 			 * No cached handle; evict stale pages so they can't
- 			 * be served after the file is later extended; let
- 			 * the server's O_TRUNC open response set the i_size
- 			 */
--			inode_lock(inode);
--			filemap_invalidate_lock(inode->i_mapping);
- 			truncate_inode_pages(inode->i_mapping, 0);
--			filemap_invalidate_unlock(inode->i_mapping);
--			inode_unlock(inode);
- 			cifs_invalidate_cache(inode, 0);
- 		}
+diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
+index eb13b98ba0a9c..c889457c3b330 100644
+--- a/drivers/md/dm-integrity.c
++++ b/drivers/md/dm-integrity.c
+@@ -3219,6 +3219,9 @@ static void dm_integrity_io_hints(struct dm_target *ti, struct queue_limits *lim
+ 		limits->physical_block_size = ic->sectors_per_block << SECTOR_SHIFT;
+ 		blk_limits_io_min(limits, ic->sectors_per_block << SECTOR_SHIFT);
  	}
 +
-+out:
-+	filemap_invalidate_unlock(inode->i_mapping);
-+	inode_unlock(inode);
- 	if (cfile)
- 		cifsFileInfo_put(cfile);
- 	return rc;
++	if (ic->internal_hash && (ic->mode == 'D' || ic->mode == 'B'))
++		ti->needs_stable_writes = true;
+ }
+ 
+ static void calculate_journal_section_size(struct dm_integrity_c *ic)
+diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
+index 4351de47fa775..f78979cc5baec 100644
+--- a/drivers/md/dm-table.c
++++ b/drivers/md/dm-table.c
+@@ -1799,7 +1799,7 @@ static int device_requires_stable_pages(struct dm_target *ti,
+ {
+ 	struct request_queue *q = bdev_get_queue(dev->bdev);
+ 
+-	return q && blk_queue_stable_writes(q);
++	return ti->needs_stable_writes || (q && blk_queue_stable_writes(q));
+ }
+ 
+ void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
+diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
+index 50cc070cb1f7c..bb50f631b0e91 100644
+--- a/include/linux/device-mapper.h
++++ b/include/linux/device-mapper.h
+@@ -339,6 +339,11 @@ struct dm_target {
+ 	 */
+ 	bool discards_supported:1;
+ 
++	/*
++	 * Set if this target requires stable data during writeback.
++	 */
++	bool needs_stable_writes:1;
++
+ 	/*
+ 	 * Set if we need to limit the number of in-flight bios when swapping.
+ 	 */
 -- 
 2.53.0
 
