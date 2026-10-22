@@ -1,55 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792670634;
-	b=1GzpfoKpCwYylZE6dhV3I+GszJJUEWPKJ9rFQ4rqQnlBbpB3TGVthtovZpaWqshkTjO4
-	 b02Rf5o1nScHgRgv2P4hQ/8zhqQDNy4AZt8NjjU7agLVB6++9st/9vNob+vPW6Aw1OEpF
-	 QiMEjfhAixhgOaz/hEr8soGi+55EV/rOB9gNWLImuIFJGAQ53cT3GUAFbd/lNMB/wrmyG
-	 sKEMESkusZRc4bchPRTRcQb/vvTmB6hQ5ARHdA/EqRIZw+J0d6qIcepR4J/xdB1toVZBW
-	 FsWy0nSUGqquk8gaqvXZTP8TmhnBg9QrIZpmiOMPinZTaoM41tFw+rW99K04JJJmipw==
+	t=1792670825;
+	b=1qgeSUq7noYKJKyJq0dNdLsdGr1qL5/M+5/VaVY2ydC6AbnFkPJ7d8PFzsw1MO+7yJfT
+	 JYd3gszdnEproeTXe1JWW/OvlKXSg5xDsn+WM7jiOrsZwEKLZ2jhdjwCdUP8s7K1XhTRe
+	 Efdw8yKIsr79yPZt8OHuLIcMcWxg96/5JHOmBu7RJV4r8MmxhqmyKslnlYuuygnpmW9kc
+	 s8z4wo4rQhMbfWAW97qSd/hJreW5CBlMsSq+69D9XZMi7x57ebOGhGAdVDR6kAkoGyWz9
+	 m9dg96yK4d/zCcK5K59Z1jd3uUXheOzRyuFqqKPGz1j4DwQrgA1KMqk1yPlSoQHS74Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792670634;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=HTkYvjH/eg6Y4u8UNH22t61nK2fExsGDmz5qdjJ3SY4=;
-	b=vpc75MQdaopqV1aLMynj358gNFoIylQ7J63reRFmcCIag4RCyQIFUzkpb74jHZ+Wg6iL
-	 AfoZKV5F4kAkwaFQ8rrK9A0GLYA4TG+WPDj3UBKay0EUSKuY+vwdMIJ7ZsV3k+6fTSeRZ
-	 HM8XWDQ/p7bPf6tCtP5zPIxCY3XMz8dj/jHAi0QwTiAVi6aKCdlWDVOraOQEDvhMOWvIi
-	 WdhkC5WH+BvHt6aOID5KPgPYWgQ20rYidGQmDGXYH4Hyurlc4xlTzO/ciJzoT07/j257h
-	 8v2Md2ENhDFtHC+zFnKoc0ALnCRn9/PTExJySywpW3auX2W4UlUW60pt5bW8UQdBtvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792670825;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=f4Pj7b5+BCbfAUSTsrmqLzkuYkoyWrTz+YeW1iMb6p8=;
+	b=rzgeEOoUh5m+TAuJbmFb81AQptUc/f7tBd/f43WN6CLMxRu4B//Oy4BbJFF3dmEaEu9g
+	 ZasFz+u4G23lTag9zoBioQ/cDrhELGvXzkTKYZNxTaD6cMBPymeaKHDO3bnhGwcW2jQkF
+	 uT2ga5vXpWoOhLKUgB9RQDCYLUeipOiBq3o2BAx0QNMLHu+cFWezeTlrFx+KkNELiaNae
+	 uHc6EfZWJaA1LcGmGoutDwFOnpCx+nEi8ChquFY5NX1HVkZhGBWjsp++jkXp1q4gTDLGo
+	 EvB2sd5lGYWBB1nVuO6Enrl4ig+X9DfPUDKGbfUAUXsU72r5o6DhxxGGtsXQcbauGBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q8J42vcZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=DCho+HQ0;
+	arc=none smtp.remote-ip=209.85.128.176
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334A2606A31A
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 12:03:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CDF4606A31A
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 12:07:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CDF4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q8J42vcZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBB331F000C5
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 12:03:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792670633;
-	bh=HTkYvjH/eg6Y4u8UNH22t61nK2fExsGDmz5qdjJ3SY4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Q8J42vcZEBAJR/Aq0EeoG2EzBcVELQPZ7r3T8wR6ksyYIANb27Xv4Ui/hv7NkkNFX
-	 H88mChGuPo9j/83nNYqWzSIikZz2rEmXTLFKL/6B8z4jJ73br74Fmm67OkeKFPAIs0
-	 uKOkvFKg5OAIeuw3y+6SbwH2HnesCc/vOwUEj4q8MRi93qhAXs/qnkwoqV/lcGqlsG
-	 YqUDL5U3z1DR2m5ke4HpOhfFiGYzQl4vtFq4hwKAgRHhUHL+Vd3JE1kni78AFtlQVZ
-	 HY9mOXNAODQx4qse/31nI2sGSR5KHVr4liV3HfzEa6IrNqUilfT/J3vbcda3sBv2Tx
-	 cc9zGObeF6R6w==
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so2889718a12.2
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 05:03:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwiv/W0p/3jpaXmDwtrEN1i2Z1xb7kbONOEC5EEa9mErigJCq0UVs9MXmZtkMLOzZDT0For8KI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJc7bDxwJaU3muRXhOnl+sfg1PU9nPq1/V0yfhWyMD3kk/RiFcp
-	avUqgKPhDt2pnkxlwTjXRtuhLF98Qp9nAKeAs5+cub0zoUwtJ0RGPtRrQapvyB2S33o/u6p1lTt
-	QGmv97QA4NXenjmevtjHmrZTHChbCWIY=
-X-Received: by 2002:a17:906:9f86:b0:c41:8e21:4d58 with SMTP id
- a640c23a62f3a-c46791020fcmr489905166b.5.1792670632514; Thu, 22 Oct 2026
- 05:03:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=DCho+HQ0
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8ab43af5e97so9051257b3.1
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 05:07:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1792670824; x=1793275624; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=f4Pj7b5+BCbfAUSTsrmqLzkuYkoyWrTz+YeW1iMb6p8=;
+        b=DCho+HQ0HUQRh5vJ4m/7U8EaK1YUKYd0HqPcqV483E8mA8fjn+MUsZLKDRZAc54V2o
+         dq4aMXrXJqsfG0nTL8vatAr/OVoProMCvuAiOrYBGwToottVPhQ+JkGsA+pqysFAdqVU
+         WD2Tg54uWt6n1l51HQsRTxWtYDzUjdmgf1pSV6V2Eb9EHa1Wpo5jt9bSpqBEJY+DJsoR
+         owpIrpLxe1pfrNEaXNsZax7LCA+iPdJgPosYvSJ4YRVBHCCtDkm0Q7gbTwMCl5nAa3bL
+         Vppa5iAczQkqskWc/lpfDtHIuLdFFBMUcFsbFnPA/EttqYE0WiOBydE3whHqwbUFRdiH
+         BS1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792670824; x=1793275624;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=f4Pj7b5+BCbfAUSTsrmqLzkuYkoyWrTz+YeW1iMb6p8=;
+        b=zHSjIW360h2YPP4a1Ku3hjPaPjIEaWFgCL4dbe4DbNv+piYogCdu0EOjsPgIDiXAS7
+         HizV8EYEU/O4+vxaPNkb16qkVB9SzWGtOG0z3oGrQTHLPUPRg0xljKAz/4cuQHylXY6U
+         mmt3qlYAX+azbVV+0LoOU2lJ1PvUKtM6vOKoKfIUoIuyrPZWraB2TA1vBXW0Oe6Tysn3
+         Gz+xZni0q3cxS6MXp2T2gSSuuawzJWxN6qQbKVHZqDMAKMdyreLTuCHZ3jwfNCYo0b9E
+         CbKdPFIVT09ejFJILTCZQ++TNIeVujCwBZHbW2SkIYVQUZoK8AvqKeehsBUB+qlsD0Mz
+         pSaA==
+X-Forwarded-Encrypted: i=1; AKwUvBxXe4+T3KynEaEy65aoB7knhbxpzID89/6Blgjwdh/sVniKuiSq3j4lTe7TsuYwIr/qtVsRqp4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLeCtM0KbNLeiaErwTLVLt9weDkayHfUOAuFNR6MSRfduwsySa0
+	8J1J1G7ILu7nt8NTYubyyqzTtb1A/Mv44Y39cvKsxUKXnWtbI1S0Yodnf83XQCrJAQ==
+X-Gm-Gg: AYBFou23p/irA4jCCDDzRzU+Y+N3uGvlYp8VU48wUsfOWwTvu2tagbRxJq+c2NcqcJZ
+	BTFo5+14hErAdBzhrE3H5O4ocvOe6iqfUYEccyPuyomjCjmhW3lrRhV6neLKubDuaKaPnz8NilB
+	LYAddolieMpenSeoP0am6lAgi3+Qf/foOiI+IoYysH9S1KxUUpmQCpNlRE65RY/F5+YEEjyZurg
+	sXC174/yDBRxcN8zPwEEEx1Lk8H5tFUeW4eXKuoH+R5LT9vGZEkmhsU74WaFqVowJfisC8Y/SnB
+	8RjIpsPoVES8gX8zC21ItUZ1hRA6nmYjQWgtHdTozmCltIcNko3gVXttqT1C7SnxLwfKXWTBFF+
+	cgN6HUokg5/4ZmobMofw1FaEXrRvuOZCasnE1Q7wYPYDR7gV2IWwiwcosA4mEB5hkRpkfGQ+9T5
+	uocBzmVVylj5lcNvY9SgJ6Malq2oMtMP0zW61ZuLj9C+HA3zRKwDVIQ0LlP3n0DJVEPvrmAkT35
+	lBfDqZh534EWRHQy1lH0BPBn70lxh+FGpvi9DzQbSsOkYbUKTP1AZW9uj9QT/Uc7jC917eGZh0k
+	1U1n
+X-Received: by 2002:a05:690c:39a:b0:8b0:a171:65f7 with SMTP id 00721157ae682-8b145716d60mr15017307b3.19.1792670823891;
+        Thu, 22 Oct 2026 05:07:03 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b1300ae236sm25232857b3.20.2026.10.22.05.07.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 05:07:03 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: slava@dubeyko.com
+Cc: glaubitz@physik.fu-berlin.de,
+	frank.li@vivo.com,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] hfs: avoid reusing occupied CNIDs after deletion
+Date: Thu, 22 Oct 2026 08:06:57 -0400
+Message-ID: <20261022120658.1328124-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <1797b66dee80c9553748d4a961470894c917bf5f.camel@dubeyko.com>
+References: <20261015110114.1649059-1-hengyul@cs.unc.edu> <b6f1cb66778d09015ad5862ff273edc37c44ef28.camel@dubeyko.com> <20261021153141.311425-1-hengyul@cs.unc.edu> <1797b66dee80c9553748d4a961470894c917bf5f.camel@dubeyko.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,64 +101,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022041216.8988-1-cenzhang@linux.microsoft.com>
-In-Reply-To: <20261022041216.8988-1-cenzhang@linux.microsoft.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Thu, 22 Oct 2026 21:03:39 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-L4r5UrN=KLFt-KKyhu0YRVBvng_SVd1EayKyJOwn6NA@mail.gmail.com>
-X-Gm-Features: AclHuK-Ppyr0JUuKDRqFVubdAOIszbgUxUTitaBxk1NgW5OZRcRX_CpjZZgiKZg
-Message-ID: <CAKYAXd-L4r5UrN=KLFt-KKyhu0YRVBvng_SVd1EayKyJOwn6NA@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: fix parent dentry lifetime in directory enumeration
-To: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, Ronnie Sahlberg <lsahlber@redhat.com>, 
-	Steve French <stfrench@microsoft.com>, Hyunchul Lee <hyc.lee@gmail.com>, linux-cifs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	AutonomousCodeSecurity@microsoft.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 1:12=E2=80=AFPM Cen Zhang (Microsoft)
-<cenzhang@linux.microsoft.com> wrote:
->
-> ksmbd_populate_dot_dotdot_entries() builds the ".." entry from
-> the open directory's d_parent and passes that pointer to
-> ksmbd_vfs_fill_dentry_attrs() without taking a reference. That pointer
-> is only valid while the directory stays under this parent. If a
-> concurrent rename moves the directory elsewhere, the old parent loses
-> its last reference; a following rmdir then turns it into a negative
-> dentry with d_inode cleared, and after the RCU grace period the dentry
-> itself is freed. The worker still holds the raw pointer and
-> dereferences d_inode through vfs_getattr() and vfs_getxattr().
->
-> A remote SMB client, authenticated or guest, triggers this by listing
-> a directory while that directory is moved under a new parent and the
-> old parent is deleted. It can be done by the client itself with write
-> access or by other concurrent writers, triggering null-ptr-deref and
-> slab-use-after-free on a KASAN build.
->
->   KASAN: null-ptr-deref in range
->       [0x0000000000000000-0x0000000000000007]
->   Workqueue: ksmbd-io handle_ksmbd_work
->   RIP: 0010:xattr_permission+0x9d/0x160
->   Call Trace:
->    vfs_getxattr+0x9c/0x1b0
->    ksmbd_vfs_getxattr+0x82/0x100
->    ksmbd_vfs_get_dos_attrib_xattr+0x7f/0x130
->    ksmbd_vfs_fill_dentry_attrs+0x435/0x650
->    ksmbd_populate_dot_dotdot_entries+0x25e/0x630
->    smb2_query_dir+0xcf9/0x1a20
->    handle_ksmbd_work+0x5f1/0x1c80
->    process_one_work+0x90b/0x19d0
->
-> Fix by using the dentry reference counting APIs: take the parent with
-> dget_parent(), take a matching dget() on ".", and dput() the dentry
-> once ksmbd_vfs_fill_dentry_attrs() has returned or the pattern does
-> not match.
->
-> Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-> Cc: stable@vger.kernel.org
-> Cc: AutonomousCodeSecurity@microsoft.com
-> Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
-Applied it to #ksmbd-for-next.
-Thanks!
+Hi Slava,
+
+On Wed, Oct 21, 2026 at 03:26:10PM -0700, Viacheslav Dubeyko wrote:
+> I think I see your point. So, I think that fix is much simpler. We need
+> to add the thread records processing here [1]:
+[...]
+> The current logic simply misses the HFS_CDR_THD and HFS_CDR_FTH cases
+> processing.
+
+Thanks. I tried this in KVM on a804c5742bff. It fixes the example from
+my last mail only in part, for two reasons.
+
+First, a thread record's own CNID is in its key. rec.thread.ParID is
+the CNID of the parent. In the example, a's thread is (17, "") with
+ParID 2, so taking rec.thread.ParID sets next_id to 16, and the next
+create fails with -EEXIST on z. Taking the CNID from the key gives 18,
+which is right.
+
+Second, even with the key, the scan still stops at the first record it
+finds, and the last record need not hold the largest CNID:
+
+    operation    allocated CNID
+    create a          16
+    mkdir y           17
+    create b          18
+    mv a y/
+    rm b
+
+The last records are now (17, "") for y's thread and (17, "a") for a's
+file record, with CNID 16. The scan stops at (17, "a") and sets next_id
+to 17, which y still uses, so the next create fails with -EEXIST.
+
+File threads are also optional (HFS_FIL_THD; hfs_cat_move() already
+handles files without one). If a (CNID 17) in the example has no
+thread, the next create gets CNID 17 as well, without an error, because
+hfs_cat_create() only checks for an existing thread.
+
+Result of creating the next file in each case:
+
+                        unpatched   thread ParID   thread key   patch
+    example (z, a, b)   -EEXIST     -EEXIST        18           18
+    mv a into y         -EEXIST     -EEXIST        -EEXIST      18
+    a without thread    17 (dup)    -EEXIST        17 (dup)     18
+
+So the scan needs the largest CNID over all records, not the first one
+it finds. This is what the patch does; the cnid - 1 lookup only avoids
+the full scan in the common case.
+
+If this looks right to you, I will send v2 without the != change.
+
+Thanks,
+Hengyu
