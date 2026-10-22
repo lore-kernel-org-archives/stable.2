@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792674815;
-	b=GP7wOcZhtUds6rCToq23or6WH2Bx09c7qU07iI91Pyv4OleL+8K6SUdFKXgJ2c6KT1ze
-	 4rsyBbsH4m61veStNJk/WzfUdNAKG1b58Jm0B8T/GIuzfJFU5/KGE6llJtWdcjVa4WM3A
-	 E0oiIhvx7szqw/MbY/67M6ku+ZnGOIYhK14nMYyQQBMVeoyeKBQqAGP7V4ABPtbQd/sPN
-	 CLvWOKlZPp5PjGsi0ZtSSIJjxP43bPAd/trRvmTHLz6n7L+4oiRSmvqYz88v2dunuByvt
-	 fLDCMvDc3K31C7jl9FD4jCXmsQ8DE3xC1CnRFMW3HaMSXIbZU+yxURXShsdcvxBU+BQ==
+	t=1792674817;
+	b=UEYpo54HkXg0zVUdUk6qKn4UsFQHuf+veK9ncbWCCOaXIKP4JNQvlLZt5lzEGuCXPDB4
+	 BwArhh5s7MtWMWBFMynp3Hgw7rNLxhto34H2P+esCFgGOe0UarNRZpM1Fle0ZqR1tdf4e
+	 jfghDmJ9G6EUX/Q4BTsiGNplCcFt+D7Lwrg596/jRUdXa7p0xXkyfsTL3iCk2rHjptYJD
+	 wOQX3dghTSyCo5b37YvUc8LjNO2THmApPT2tdZoLeTPioGb7WBqA4CkR0sILb+Jztt7bP
+	 HTf/xWumxO+LsYrQU/FakZ81UxMMB06r9by6njeNEGjJl6fPMtYPdheAc8K8QuhftNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792674815;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792674817;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=HBU2JAX/Uahk8sTo1Fq6WZ1og9Ox736tkI4PCIo7RsU=;
-	b=UY6UAZyPb+z2hoWd99mSY+rg8vm3b9n/nZQvr9BcmQcinUyhZTltxYsiTtJbgjlJR07c
-	 D3h7qBCjIGbpB6wNwnCghMXwsAp6sF89qhlqGdMEp/Lyqz8UfH7zOCN3e7PGEaNVy3mNU
-	 UA4qAdCiiGr6oeAp3XHfEp/DxOGJ4IWBSQtFlbu4+UeUfWXulbpBiuatL8kzR1c+xMvpM
-	 xcWlG41M0mCQ+h+lEyCokFUiVAAWiEWN+cl5m2u+1H99PxS2yirCZKJTON0+Q3KTRqkGP
-	 3V2YRtorglZ5B13UXI27GTqz+DRGvQu53uKrmdGIiEoCR9YTHsl59cV8iG/0vbTOtUA==
+	bh=cangsGNF/8/N7cnWqtPMq9N2nkhXwEus3DwnGWFj+7A=;
+	b=i1T2Rx5xmaqcX39q9dbCJILK6E+zRA9d/LdzysfGqmEbqWB/x1O9g76ERLW4jrR7q+lF
+	 3G+gZ+zoM7XqIEckenrfkEPg3g6YUiCrMcGfwtZ2BSYpt/xlXTh4n6AclqsJqHH8ZwjOA
+	 pjpUhEgVh/z7xSlsaXTb4bIe2a0tpBxE4jIRnkLe6WjHXO+fcf2bxZhnV2o/pEq0B6MCg
+	 6l8DTpdudurxIwlDoxcPAZDxtxt4oYFDt5r60G1wuosiVaIvdDfP4LVj04ndu+Ooh3GXV
+	 yagEVJPVvTxNIidG8ZpH7VpL8XeArkHT1wHcLkWJ9TtxWGMlZ69ZVuTUJ76O9YGzMtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PhVgj29W;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mhpPwWZ7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC881606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 13:13:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A97E606A319
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 13:13:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PhVgj29W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAB611F000C1;
-	Thu, 22 Oct 2026 13:13:33 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mhpPwWZ7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEA771F000C1;
+	Thu, 22 Oct 2026 13:13:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792674814;
-	bh=HBU2JAX/Uahk8sTo1Fq6WZ1og9Ox736tkI4PCIo7RsU=;
+	s=korg; t=1792674817;
+	bh=cangsGNF/8/N7cnWqtPMq9N2nkhXwEus3DwnGWFj+7A=;
 	h=Subject:To:Cc:From:Date;
-	b=PhVgj29WOsx0LasbDOIPjKfPmkP3wDJfT+YxWL5GfFHFS/8oc+3vIcec0PFT2kFKF
-	 j6uOwLR9j+S4JBSrmoqEDs9CsObbjy7b6i4gX+1/0f6XFIdS7g/3oPD5MpHZtaw3dW
-	 NOiEAQAHE/Zo4eTCSjW7lrexIvBOlYafYtoh5EeQ=
-Subject: FAILED: patch "[PATCH] smb: client: reject SetEA requests that do not fit the" failed to apply to 5.15-stable tree
+	b=mhpPwWZ71YyzqWaxNpI/2A7pjGa3lbjt2bXDxO9TEUluSPQe15TGcO714yhJ0Yzxy
+	 0OAr/T78+xreJPCCpOKG+C1P7CKNIf5uDUSqygUsd3/1mpwp+GddhuZ1C4PBMWCEvr
+	 3i/o0uPeFhIUCHq67aqrtbgFdt77coK7fjcPROY4=
+Subject: FAILED: patch "[PATCH] smb: client: reject SetEA requests that do not fit the" failed to apply to 5.10-stable tree
 To: shionthanatos@gmail.com,gmwgg05@gmail.com,jupmouse@gmail.com,linkinjeon@kernel.org,npczmd@qq.com,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 22 Oct 2026 15:11:29 +0200
-Message-ID: <2026102229-snack-quotable-d6f5@gregkh>
+Date: Thu, 22 Oct 2026 15:11:30 +0200
+Message-ID: <2026102230-cardiac-properly-0c3f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 4aa2c106aef4bf3dfd97c30842db0767b26e8428
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102229-snack-quotable-d6f5@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102230-cardiac-properly-0c3f@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
