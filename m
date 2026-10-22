@@ -1,97 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792667764;
-	b=YKaBQARuo3lTStVcK7CMyLFDByg6ciEISPUuad1FbbWq76GTx259n6ztZ83m8yipEkOM
-	 VjNWNmWIDc4ngEMdg8J5SjwYq1wZd005b0Ab42eq7zOAq+EjiXUt5vcgybe0iUwCV4Ueh
-	 f/Ue/9aoNncwTGLcCRaa0FyOmvcwQC/JzbxPLeYbJPeWaAOGsIWOJUTx+y4g6hOMe6Kzs
-	 AXVS35N9OQJ2JjwUV/4jk8uXnZgDIcCq72BRpcgVIf4uMiV72syeSq86sa+g+gP0pUD+I
-	 Gxek5hsOr3rjXGdan9Q5YvMrEF+UyfjpeyUbUb57qtPUM26zPbn497d1fMDzY8cAtOQ==
+	t=1792667831;
+	b=rkYUUdX5C25/wLDNyxmOW3mLylCJ97V3Ab0/88BdOTxr/S7MmgU4olvdLCWoDYFSOSAj
+	 xobEIs4bF9xZlB85aUpjEqw9Ab70gbN9EPvtVNsS70jtZ9tUCRP/WyXolPcuimowndeHB
+	 85rZEwPJcAXXMISwzfJOGd/vlCe85EbDrtWT/FZOsFXjzVynEZWuG98aNE/WDNC+L5O/7
+	 UKCI9OolDbXdV69Ub0m70whvhGcPiPhm2dWU/ZmtDK5rXjva7QjBgd/H9cEMmYArzEfsa
+	 HiGAkGap9LCmSMMZLBf6MoHaQVwdEgrLTvFDXo3tL4VMs34KhsdLvaIbF2zHTrb6pEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792667764;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792667831;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=BrtZdZuRvHE7UaprIXjohtPs6I5PYcsDi23QTQ2VB7k=;
-	b=ktzyiqSnqe+0tuDQqZ47DACzGnV5XjmAGslaDMaFGynlJJ8JZsZ4jdx2iWDQcySHV0nL
-	 W7O0JLmMI4L7fH0hvrtxmApjJNETaJ5nnsYidtsnBQMlsUYE+VN+EvRndvqpFR1Vj5+1h
-	 ksk9oP6N6Jnpil/IQ+4ZjXqXj3jQLEYHzq79KhzVnQMvCJPt8zsHvj6YDcWgorjZFsMqV
-	 lsnWbrDgK6ta4UfdEZXG3o3Hncany6ii7QpqjY8r6e1h5wCaRQWG9lNdDrgThth2TUj5F
-	 dTeDVsiCqy3Cum6AKa2jg6Y/GidOCd3ZCIsWwpWprHaWbxx2GtEzapgWF97xY/KDbYg==
+	bh=Hu4sJAi0UR6zv2af8fNQzaD1mOTsI3PakILnf/N52jc=;
+	b=1Tw6Rr0X+CQKsdZtFk5Wv+LGvwaqAwcsT3/Uwb4CEmGgEOhItm7UFVXuxTZDnvFs15RW
+	 dUhc6WuhztW2JwJzZ+DPQ+DkTRCdsQ0KeNdkHcd1IAMdH3ZfP26ARjdAVuiCPmp1LQr4a
+	 N4LESyJE2l6TLR7r8J2c2EE7VxWW2Jphv1ZNN6lNypMc8cZScEZ7EGEuqP+ZTC4li7yFJ
+	 AudwTMLqSk+okOTjiOLUd5Jrt2Nw4qjEuHvfivEcY5wV1vaBQHJ/kMjqdVUWJRena/ig7
+	 njaff4A/DWOID0tkRNCn/2i8NQhv0NuQe1XErsFugQMZkg1cWjGEwrQ8JUF7YxH3X6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=A2rz3DNx;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=Hobq1Y1S;
+	arc=none smtp.remote-ip=209.85.128.177
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27FF4606A31E
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 11:16:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27FF4606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E822606A31E
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 11:17:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E822606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=A2rz3DNx
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48c5358fc28so1453739f8f.0
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 04:16:03 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=Hobq1Y1S
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8565d77c277so14871557b3.0
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 04:17:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792667762; x=1793272562; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BrtZdZuRvHE7UaprIXjohtPs6I5PYcsDi23QTQ2VB7k=;
-        b=A2rz3DNxOwpE516/gjaffiFW2OJnETBppxpXTf4DPLWLfx06LkqXLJwSbh5QQ+T6Mc
-         NlJdvi0RQIwBoacbSuY18ZfApEzw3ubQvSGBmyYOvSxKod9IGl9rAC/y/eBfi9QyZfMm
-         9ViZeKOXzsVWsFARih1caoOSPo1ARCS6eoIiFKC3UJQMntv7eLMeKF9tHSMUSLzJ1Hcs
-         KswjoysneqomW7hLU+46Wu7dhbFBcFMuaMignWAzWnxewBWd+sl7LwlNxTJcxZbiHV5r
-         2aRpidu9HblJIYa5si0diJJGMGU4bTw+gTDM6y+FT2WAnB1NMBhZBQjqGqKpOcO6g2nw
-         XvAQ==
+        d=cs.unc.edu; s=google; t=1792667829; x=1793272629; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Hu4sJAi0UR6zv2af8fNQzaD1mOTsI3PakILnf/N52jc=;
+        b=Hobq1Y1Sbj74oF1Ned+FV45xdT2LX4eirbIJTjp4Pm8WgeIZix3oM/y4qD07kqKL1N
+         Fuvuflpa/Zk/tWSolzT27ateQjBv+v+//hm7J5PGK+lVUp/J27a41U7s5AkAVfGDe87P
+         QpPWj4Ys9wPFVH9zXwnD66gdndZdqcNKBJh73rRnzFfdaYchZwlrcRmdm0m31x5q3eXu
+         Le8opCiEKTs0y77zRfym268FPcO0llb3P9TLtTADeCQxWM5QnS7LdQpEgi47GMrswmxb
+         B2rQZSc0hK5QL6cE8hHFdI4VrhnpSEBdpKIw0PJ5x2nGnIJAMyrM1qpmaq9LAoTEB+Xq
+         txjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792667762; x=1793272562;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BrtZdZuRvHE7UaprIXjohtPs6I5PYcsDi23QTQ2VB7k=;
-        b=SXzNXVbxd2BF5SJ9uf82gjiSq1NLujhK8Y6E2P2U+69tUY8qvtRdzhqxDxO92zlTpZ
-         b6Wlwj5fgA/aNrKQ8Qbx23GVzC3Vkr9zDzFYAdEytnpy4PPyRSae8fxVUAYWxyZtNsgj
-         dh6X42gwUPuTZNfzYCHVwZeIrQwBMmW416h11YNEr9OBjEmwwFBj0i8qSocB25e5sukk
-         XGEqKxef7RWSgsqLvudWsnXqNa8O5l56AAltHRRX8yp2Lt2gZ1v8mIUgSbmS4LUveHnz
-         it3NzK9CTWglRtqgJzIPRxXHbeJdcG68M+RBqxDmfn8uATbChkksq395J0OIBOn+PT/U
-         iu4A==
-X-Gm-Message-State: AFq9FYIBSV6yul8gg8mXxTvnzWZGPHzAQxEBQT+hn4ivRB4rvCzqHLWn
-	mbbr1+blFTgxJQZKSl7vGrJpWq/aqfHffKopBc1df8h7jFgXcdiouV2Dche8zlutDtVIuA==
-X-Gm-Gg: AYBFou2TnsSXbDAOUdeSG1uk433v7fRhvwgCq+/A9miDXLKlOxSaaT/NAL8crLSrTg1
-	WqbpQVRNwREzfDSumBdrRr0nSJBx4fYQHbNe8kX/SlbbKkeHYc4Jsjp/FLAfkPIbbxTL2dIlsqj
-	puoEAEHEt5uPxdkWRLhFwUJyg8MCUKX7ohd/ccnELBZIpg9CvRehzn232tuHMAqL7RBW2wclzeE
-	apEN1BoUgMUHsjwG9Fr/3m95UuKFc00ZS+rmQ9mNcuYC9viwBytlMEbFOT2qb0jEEMvLYbRuwi2
-	Q6DeJBx27azdhVsUuVvLQhsaWqYHjn24ur6LNJO0Xmdep2OlNX/AFh3DSPTk1CL5raWkMPfRVss
-	pP372uunuoCVBWOMGPM+86C88bMaPzpdOTTlUt8cUFxPwx1epbDZF6/BEOsDhp4mTTRItgNk9nB
-	x+8Cl4EzJ0ehlRaSA4SR1haZwwewzt2cYOJ6nHRxCSSF3bQc+QCT0t7tL+Ig1BIC9Oy+G5QCsJV
-	0uDyCS5TF+6uKP5Bk98kVpn6FSTH8jueuFbNsuA1wAx3UgsAVRGZP0qXp6g/Wr6oa0NbT6ughiC
-	7sMqElAGN9HxZBHNw6DE9GDYbswvGLnr32YWXiG1cko7GH9YtuKH0aWFhZpoqdsYehVhr6Ej
-X-Received: by 2002:a05:6000:1861:b0:48e:cd3:b3ec with SMTP id ffacd0b85a97d-48e264bc4a3mr9591983f8f.28.1792667761957;
-        Thu, 22 Oct 2026 04:16:01 -0700 (PDT)
-Received: from emanueleg-nb.corp.toradex.com (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25828c6dsm12536753f8f.24.2026.10.22.04.16.01
+        d=1e100.net; s=20260707; t=1792667829; x=1793272629;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Hu4sJAi0UR6zv2af8fNQzaD1mOTsI3PakILnf/N52jc=;
+        b=TLZ2SEf/fOHyY0CX03zstu1mAVbAYOvRTO6KgZwFcuUJO7ss/E2qwc1vNsoEKs270R
+         4g2vc6cjMwnwi9fC7vMJA4zLTpFmMKBMpx61SuxAvdZhQ3T6rinUY5EdYvHYMpz2K0xj
+         mingIu0LelyNushMh4HDvyjlKR2X1d9NKkSL6KxfwkqFJ3OR52c/DBXWevzFIfqjaOGb
+         0fJUO6kJ+JJVtwtZ81iS4eflrTB7NIzgIWK7TStAo/2jxEcNJ9LdC3r5l4WbuwPmU2JJ
+         2tHJh9upo10QtZ6OB847ZkpRREmQMJrr4LeqHoyAEgsnf9N1XzQo8EdvEsx4b6hSsWZD
+         frzw==
+X-Forwarded-Encrypted: i=1; AKwUvBxyqGDfK8LfH03R9kCYHmDfEd4Lf+W9bs95kgzhtggglpEYPB+FLRiQjqa++GA1o+rLsMMDAyk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/o4BYncqW3w+bWRe5XBrR8+vCLtfpmkU9mTinmychCmm4P3FK
+	W+qK6qMi7K11whh6gHiyLweG1bZi+xdMEPpvETthXkcDpPWb576b5mIlsnhtaAhyPA==
+X-Gm-Gg: AYBFou0ZEWNhypFV77Dw9jv9x20LgYQcxht+gDgKIGcgC9+mhz8hbBR+Gzj4ZBy8C3I
+	8vcI24SguBMrwOqcJlsyiBiN7eQm5npR82VHwCLLjKzf3vvwiKl7GFDMohF/PSPFLzg7qKJV+4X
+	vD5+RZbP4WsizUeqpABrbwGf8bBbv1wmF3CntvSe3hdPmkijxRDsJCMGwFAEBI5Y4NKGtJXYRvv
+	5UJNJUNiNUDRjc9Au3M6GhBC61dNc1oQddqRqbhg53D8GJUXIVEk8dxKJ6ZgEnQYPrINK/RPoLs
+	NP6D4nyywbGdJjEIxE8Bjakm+lUQKrir+hXtyk0M5hNxEJwdN154LW/IsX2tQrwnIy8L42eqMuq
+	WR4GpUMWwpgteKnQfkqkr6lT61nWeCsIo9WqIj6sRL9oo/C/OB8PItT6kN7MNW6uL+uyIrX0c8G
+	+6UBMjvSC4PlOo61We0Y9UHv8gbDqi2mhgojFfF+EKw5n5mr2pTgom9gePS4GAzyQcyXMveEMBp
+	KeucdIOXfCCptUJeNyp3rRSkXJNWiblIrTi1qKCS/NpI/qHSu9JtKa4sm1+busv/WFgv2MpQ7J8
+	CA==
+X-Received: by 2002:a05:690e:118b:b0:672:99e0:ec0b with SMTP id 956f58d0204a3-67a0e5d222bmr1791670d50.163.1792667829191;
+        Thu, 22 Oct 2026 04:17:09 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a0e57bb39sm2442948d50.22.2026.10.22.04.17.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 04:16:01 -0700 (PDT)
-From: Emanuele Ghidoli <ghidoliemanuele@gmail.com>
-To: stable@vger.kernel.org
-Cc: Breno Leitao <leitao@debian.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	netdev@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org,
-	regressions@lists.linux.dev,
-	Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
-Subject: [PATCH 6.12.y] net: call getsockopt_iter if available
-Date: Thu, 22 Oct 2026 13:15:21 +0200
-Message-ID: <20261022111535.528099-1-ghidoliemanuele@gmail.com>
+        Thu, 22 Oct 2026 04:17:08 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: slava@dubeyko.com
+Cc: glaubitz@physik.fu-berlin.de,
+	frank.li@vivo.com,
+	kees@kernel.org,
+	justinstitt@google.com,
+	maurycy@maurycy.com,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] hfsplus: fix truncated xattr names in listxattr()
+Date: Thu, 22 Oct 2026 07:17:00 -0400
+Message-ID: <20261022111700.1288273-1-hengyul@cs.unc.edu>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -102,184 +100,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Breno Leitao <leitao@debian.org>
+From: Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
 
-commit 5bd0dec150f56b6307d599132dcb7c01007bbecc upstream.
+Commit 7dcbf17e3f91 ("hfsplus: refactor copy_name to not use strncpy")
+made copy_name() build names in the osx. namespace with scnprintf().
 
-Update do_sock_getsockopt() to use the new getsockopt_iter callback
-when available. Add do_sock_getsockopt_iter() helper that:
+However, the size passed to scnprintf() leaves no room for the
+terminating NUL, so the last character of the name is dropped. As of
+now, listxattr() returns every osx. name without its last character,
+and these names cannot be passed back to getxattr().
 
-1. Reads optlen from user/kernel space
-2. Initializes a sockopt_t with the appropriate iov_iter (kvec for
-   kernel, ubuf for user buffers) and sets opt.optlen
-3. Calls the protocol's getsockopt_iter callback
-4. Writes opt.optlen back to user/kernel space
+The issue can be reproduced with:
 
-The optlen is always written back, even on failure. Some protocols
-(e.g. CAN raw) return -ERANGE and set optlen to the required buffer
-size so userspace knows how much to allocate.
+    truncate -s 64M hfs.img
+    mkfs.hfsplus hfs.img
+    mount -o loop hfs.img /mnt
+    touch /mnt/file
+    setfattr -n osx.test -v 1 /mnt/file
+    getfattr -m - /mnt/file
 
-The callback is responsible for setting opt.optlen to indicate the
-returned data size.
+Without this patch, getfattr lists "osx.com.apple.FinderInf" and
+"osx.tes". With this patch, it lists "osx.com.apple.FinderInfo" and
+"osx.test".
 
-Important to say that  iov_out does not need to be copied back in
-do_sock_getsockopt().
+This patch adds room for the NUL to the size passed to scnprintf().
 
-When optval is not kernel (the userspace path), sockptr_to_sockopt()
-sets up opt->iter_out as a ITER_DEST ubuf iterator pointing directly at
-the userspace buffer (optval.user). So when getsockopt_iter
-implementations call copy_to_iter(..., &opt->iter_out), the data is
-written directly to userspace — no intermediate kernel buffer is
-involved.
-
-When optval.is_kernel is true (the in-kernel path, e.g. from io_uring),
-the kvec points at the already-provided kernel buffer (optval.kernel),
-so the data lands in the caller's buffer directly via the kvec-backed
-iterator.
-
-In both cases the iterator writes to the final destination in-place at
-protocol callback. There's nothing to copy back — only optlen needs to
-be written back.
-
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
-Link: https://patch.msgid.link/20260408-getsockopt-v3-2-061bb9cb355d@debian.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
+Fixes: 7dcbf17e3f91 ("hfsplus: refactor copy_name to not use strncpy")
+Cc: stable@vger.kernel.org # v6.10+
+Signed-off-by: Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 ---
-Clean cherry-pick of the upstream commit, no changes. Needed in 6.12.y
-only.
+Changes in v2:
+- Rewrite the commit message. No code change.
+- v1: https://lore.kernel.org/r/20260828-hfsplus-copy_name-fix-v1-1-75ed9f0f378c@maurycy.com
 
-v6.12.114 picked up commit 41fbf726915b ("net: add getsockopt_iter
-callback to proto_ops", upstream 67fab22a7adc) and commit 22ebe6ab0b67
-("Bluetooth: L2CAP: convert to getsockopt_iter", upstream bf01627cc04b)
-as dependencies of commit 3af72bf8f73c ("Bluetooth: L2CAP: access
-chan->conn safely in get/setsockopt", upstream ca2c4c264986), but not
-this patch, which is the one making do_sock_getsockopt() actually call
-->getsockopt_iter().
+Maurycy, v1 got no follow-up, so I am resending it as Viacheslav asked
+in the thread below, with you kept as the author. Let me know if you
+would rather send it yourself.
+https://lore.kernel.org/r/dc187921249a3f6716b829624853e64c10321cd1.camel@dubeyko.com
 
-Since l2cap_sock_ops no longer provides ->getsockopt, every getsockopt()
-on an L2CAP socket at SOL_L2CAP/SOL_BLUETOOTH level fails with
--EOPNOTSUPP on v6.12.114. As a result bluetoothd never registers the
-adapter and bluetoothctl reports "No default controller available":
-BlueZ's btio calls getsockopt(L2CAP_OPTIONS) while bluetoothd sets up
-the BR/EDR ATT listening socket of the GATT database, and the adapter
-is dropped when that fails. Our CI sees this on every Bluetooth-enabled
-board running v6.12.114 (i.MX 8M Plus and AM62 based, BlueZ 5.72),
-while v6.12.113 was fine. The same regression was reported with an
-Intel AX201 on Debian 13:
-https://bugzilla.kernel.org/show_bug.cgi?id=222177
+Answers to the questions on v1:
+- generic/377 passes with and without this patch. It only uses user.
+  names, which go through the strscpy() branch. That branch already
+  passes name_len + 1. No xfstests test uses osx. names.
+- Why + 1 helps: the prefix and the name are name_len +
+  XATTR_MAC_OSX_PREFIX_LEN characters long, and scnprintf() writes at
+  most size - 1 characters before the NUL. Zeroing the buffer first
+  does not help, as the last character is never written.
+- Why the write stays in bounds: both callers check that the buffer
+  has room for name_len() bytes, which covers the prefix, the name and
+  the NUL, before calling copy_name(). This is also the number of bytes
+  copy_name() wrote before commit 7dcbf17e3f91.
+- All xfstests: see the full run below.
 
-L2CAP is the only user of ->getsockopt_iter in 6.12.y. The other stable
-trees either did not get these backports or already contain the
-upstream commit. The patch applies cleanly on v6.12.114.
+Tested in KVM with KASAN on a804c5742bff, without and with this patch:
+- The commands above, and a C test that compares listxattr() with the
+  names set on files and a directory: short, long (up to 127
+  characters) and non-ASCII osx. names, FinderInfo, and user. and
+  trusted. names. Without the patch, every osx. name loses its last
+  character, fewer bytes are copied than the size query returns, a
+  buffer one byte short does not get -ERANGE, and getxattr() fails on
+  the listed osx. names. With it, the names match, the copied length
+  equals the size query, and a buffer one byte short gets -ERANGE.
+  KASAN reported nothing with exact-size buffers.
+- generic/377 and generic/062: 5/5 passed on both kernels.
+- Full fstests (805 generic tests, 608 not run on both kernels): 188
+  passed and 9 failed without the patch, 187 and 10 with it. The only
+  difference is generic/617, which fails on both kernels most of the
+  time (19 of 20 reruns without the patch, 18 of 20 with it).
+  fsck.hfsplus -fn reported no errors.
 
-Tested on a Verdin iMX8M Plus with our v6.12.114 based kernel plus
-this patch.
+ fs/hfsplus/xattr.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-The root cause analysis (comparing CI logs, reviewing the
-v6.12.113..v6.12.114 changes and reading the BlueZ code) was done with
-the help of an AI coding assistant (Claude); I reviewed the analysis
-and the backport.
-
- net/socket.c | 54 +++++++++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 51 insertions(+), 3 deletions(-)
-
-diff --git a/net/socket.c b/net/socket.c
-index 723bc3a1ba5c..b8d662e19310 100644
---- a/net/socket.c
-+++ b/net/socket.c
-@@ -77,6 +77,7 @@
- #include <linux/mount.h>
- #include <linux/pseudo_fs.h>
- #include <linux/security.h>
-+#include <linux/uio.h>
- #include <linux/syscalls.h>
- #include <linux/compat.h>
- #include <linux/kmod.h>
-@@ -2345,11 +2346,45 @@ SYSCALL_DEFINE5(setsockopt, int, fd, int, level, int, optname,
- INDIRECT_CALLABLE_DECLARE(bool tcp_bpf_bypass_getsockopt(int level,
- 							 int optname));
+diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
+index 71364e093fa7..470f090b2699 100644
+--- a/fs/hfsplus/xattr.c
++++ b/fs/hfsplus/xattr.c
+@@ -515,8 +515,8 @@ static ssize_t copy_name(char *buffer, const char *xattr_name, size_t name_len)
+ 	memset(buffer, 0, name_len);
  
-+/*
-+ * Initialize a sockopt_t from sockptr optval/optlen, setting up iov_iter
-+ * for both input and output directions.
-+ * It is important to remember that both iov points to the same data, but,
-+ * .iter_in is read-only and .iter_out is write-only by the protocol callbacks
-+ */
-+static int sockptr_to_sockopt(sockopt_t *opt, sockptr_t optval,
-+			      sockptr_t optlen, struct kvec *kvec)
-+{
-+	int koptlen;
-+
-+	if (copy_from_sockptr(&koptlen, optlen, sizeof(int)))
-+		return -EFAULT;
-+
-+	if (koptlen < 0)
-+		return -EINVAL;
-+
-+	if (optval.is_kernel) {
-+		kvec->iov_base = optval.kernel;
-+		kvec->iov_len = koptlen;
-+		iov_iter_kvec(&opt->iter_out, ITER_DEST, kvec, 1, koptlen);
-+		iov_iter_kvec(&opt->iter_in, ITER_SOURCE, kvec, 1, koptlen);
-+	} else {
-+		iov_iter_ubuf(&opt->iter_out, ITER_DEST, optval.user, koptlen);
-+		iov_iter_ubuf(&opt->iter_in, ITER_SOURCE, optval.user,
-+			      koptlen);
-+	}
-+	opt->optlen = koptlen;
-+
-+	return 0;
-+}
-+
- int do_sock_getsockopt(struct socket *sock, bool compat, int level,
- 		       int optname, sockptr_t optval, sockptr_t optlen)
- {
- 	int max_optlen __maybe_unused = 0;
- 	const struct proto_ops *ops;
-+	struct kvec kvec;
-+	sockopt_t opt;
- 	int err;
- 
- 	err = security_socket_getsockopt(sock, level, optname);
-@@ -2362,15 +2397,28 @@ int do_sock_getsockopt(struct socket *sock, bool compat, int level,
- 	ops = READ_ONCE(sock->ops);
- 	if (level == SOL_SOCKET) {
- 		err = sk_getsockopt(sock->sk, level, optname, optval, optlen);
--	} else if (unlikely(!ops->getsockopt)) {
--		err = -EOPNOTSUPP;
--	} else {
-+	} else if (ops->getsockopt_iter) {
-+		err = sockptr_to_sockopt(&opt, optval, optlen, &kvec);
-+		if (err)
-+			return err;
-+
-+		err = ops->getsockopt_iter(sock, level, optname, &opt);
-+
-+		/* Always write back optlen, even on failure. Some protocols
-+		 * (e.g. CAN raw) return -ERANGE and set optlen to the
-+		 * required buffer size so userspace can discover it.
-+		 */
-+		if (copy_to_sockptr(optlen, &opt.optlen, sizeof(int)))
-+			return -EFAULT;
-+	} else if (ops->getsockopt) {
- 		if (WARN_ONCE(optval.is_kernel || optlen.is_kernel,
- 			      "Invalid argument type"))
- 			return -EOPNOTSUPP;
- 
- 		err = ops->getsockopt(sock, level, optname, optval.user,
- 				      optlen.user);
-+	} else {
-+		err = -EOPNOTSUPP;
- 	}
- 
- 	if (!compat)
+ 	if (!is_known_namespace(xattr_name)) {
+-		len = scnprintf(buffer, name_len + XATTR_MAC_OSX_PREFIX_LEN,
+-				 "%s%s", XATTR_MAC_OSX_PREFIX, xattr_name);
++		len = scnprintf(buffer, name_len + XATTR_MAC_OSX_PREFIX_LEN + 1,
++				"%s%s", XATTR_MAC_OSX_PREFIX, xattr_name);
+ 	} else {
+ 		len = strscpy(buffer, xattr_name, name_len + 1);
+ 		if (len < 0) {
 
-base-commit: 85d82e0d7c2dfd3e75d34f35b7ebbf41f45c9c4e
+base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
 -- 
 2.53.0
 
