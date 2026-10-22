@@ -1,54 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792634664;
-	b=QiZ+v5jpnnLOpzFhH7z6XfjiRaZMcmX18zx8MX6hVr+y5hAVSBzwICkJY67uLJayjmqE
-	 tyTR3q/KSKkXhEUiebxZio9oOLkh4QBykzg78S2NQw1aajiMbOx+I6SYTtY08GB6O/Qab
-	 sJgcic/maTjXp+zlQMeKqsjiJ0acX9aa2XwvviYuN+eUe16OBTNGfSoRsQJHeSbzzjPlG
-	 6qc02JEQZfHElhECHnWN7Wr1xXYIjU+Jj6/rq+wmrFKLdO6qhTPcCXifsAKtt27DcUNQu
-	 TyUEhVVkf4xVo4CeuGBOLBXC/djM+xNtpIF20b9ioyRnaolhdYkiCBxK2mczQ+1M7Pg==
+	t=1792634660;
+	b=nhAO3PttQTimS29ircHMfeyj527iAjrJI1ub3fqG+g4oQy5a6mA+iZZOlmo2RqMzVzJB
+	 H7QTf6KZU8V0ijg6cq64NGoa/7h8YVlJF+bMXrYAK7HjKqzHorUrHZ0R6hjq8PwG32bL5
+	 dqHcPgvSC2Xr47xxWqWpKCpErtOEIdmb7K+l6xvAAhiSLYfhCrr54r/Gjb688yc5N0rsO
+	 ZH/A3GRkTrUPS5RikeGvq7P/9deRxK1tmoa5alL+SF6OD2STIXLtdWmGhWA/nP5vxNI/+
+	 WwG/pUAE9kt//8GUpSIg8bxyhlGuQaEtCpxXnUFOwTzn2mbNj5QXtY2xCj38SmvFECQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792634664;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792634660;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=FHoGU3P8VaCb7/TjoA/yHn/2fh7EfJteNLTHV+aLMyg=;
-	b=G6qMuiQtvQyeSAYxG+NYk08NYbli2LD1sNHQ07zA8q7KwCC/o2U7IMaTbms1X/hERs2k
-	 hQHY5VmHHR5O8KYSL5lmhFzLoRB+sJMgU3rcCdzYpUIC9l5GICjwwDzxEBtBfGiK2dxbu
-	 vUKSyr16YSK+SdJDfq9NfsllkWveHYLyUFvyuZA4oicLED8PeTvSnfWCfHqfyLtztNbfM
-	 OzNnsbMCiupFZ6gYceacjUlKB2aCZpZJz0B0nFhP6A6SKvA5MVGwkneIh08u0MRwgFyD1
-	 yDgrLumeWl9iiyqI8TC4YHsrmPMgz9yEHc4tMFpQOHoY4X07UROQpCMLjytrX3l4HZg==
+	bh=Pvb1W6New77Qu7AZhZxWG2Le7gUUjpAgzIQyd5xgYrE=;
+	b=rx2jdsKm+GoGXdNBWNtDNXJDd5ApoVRlm6LSvUwPu4dgR+LWPvk/6ebNUDWUzeFVgl48
+	 1eM4YhjNpOF/npjjUOB7tQKexKjFJIZXYM0/XWXyzcOtXbvQ0vKwQhIr9X5VWPQiUID1c
+	 mNIK34OKsy+obNnBahCRvi29fch2gVFH0O2U/TR0JcF06MCg4CWwiZYL1WzYY+iiJIshO
+	 yGPo9+yfSA8mMK/TvzyL2dCzMKC47VLX0TaNHOkVjyyq5YPXDfvMZGW6kx4SXsqvbJzmk
+	 qjWhO1bqg1BTLIQ6qvLN/Fkf3bID+Q2t6mrLdqxn6qfTSkoDMe5nDZwD57p1/nM5lJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LguxVDUa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OfdODx0M;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C101F606A320
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 02:04:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B064606A319;
+	Thu, 22 Oct 2026 02:04:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LguxVDUa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 335EB1F000C1;
-	Thu, 22 Oct 2026 02:04:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OfdODx0M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 150521F000C2;
+	Thu, 22 Oct 2026 02:04:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792634663;
-	bh=FHoGU3P8VaCb7/TjoA/yHn/2fh7EfJteNLTHV+aLMyg=;
+	s=k20260515; t=1792634659;
+	bh=Pvb1W6New77Qu7AZhZxWG2Le7gUUjpAgzIQyd5xgYrE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LguxVDUa060MtVkf3nwBL3FyN1TegKbXqcTQDYiTy+02gg51mVIJl+uyFQGweUSnA
-	 PNsk5kMMHB2kpHlGqvCEhZPBVtqEDqvKYZ32jfid+P5K7qeV7cK4C6RRNbCMJ/YFHL
-	 cXsiAKH8vpa5Tq2TCY+X3kfROqnTk/OZlBymnT9XS7Gz01z+WypIVtar5VQNvM4ShN
-	 ZZQ7mSqVN9Yj3Z9wnSjPRt8TjgHwSA3XI5kFJjvEYNqRgZmcSD4v+KYR/IV/WE0j6T
-	 IgOHBbxfGnvaGufQe+PQvclrtsXdveVLu5D3Aj/3hBsQ2AoUoRG4jdFIQgZtFN7yeO
-	 ORLYiaB3IL09A==
+	b=OfdODx0MnouRb3RR2BGad1GjxqSs7yU83n87GraCP9GlqRh59P2aRMwZuEPgQahq+
+	 53PJiCQ5mPlqPp/NJP1MYZJztP+p5BBTpVAXAHz6OSDha7bpRIaKene6KVOiJ5HBa2
+	 Bt+wTP+N1WvB2mjHW8lrpKgKugewMLYosbENFto8ZWOWSwCSuYvysyHA1yNA/Nc+CB
+	 62OH4OmtuXuOqnhY4ucp1vLSwugaucr+b/1sO2Trs2aWdnlbAZtYwiP2RVKZRO4Eu2
+	 jQ4/82YhBppGzMom3HptWDoBSN+cHDToJcA2ZILSOQxdVbHNCUuFOqjh9dxYAybsL8
+	 lsAoNIPxRszhA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: Re: [PATCH 6.12.y] mm/huge_memory: bypass THP tuneables for huge pfnmap mappings
-Date: Wed, 21 Oct 2026 22:03:48 -0400
-Message-ID: <2026-10-21-1-daily-reply-0023-thp-pfnmap-tuneables-6-12@kernel.org>
+	regressions@lists.linux.dev,
+	linux-acpi@vger.kernel.org,
+	rafael@kernel.org,
+	Mikkel Sejdelin <mikkel.sejdelin@proton.me>
+Subject: Re: [REGRESSION] 6.18.57: resume from s2idle triggers poweroff and hangs when tiny_power_button is built as a module
+Date: Wed, 21 Oct 2026 22:03:44 -0400
+Message-ID: <2026-10-21-1-daily-reply-0019-tiny-power-button-6-18@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261020094231.759650-1-ljs@kernel.org>
-References: <20261020094231.759650-1-ljs@kernel.org>
+In-Reply-To: <1kU98bgDqqEMGUcpGahaBYlaPiP2ssSCZj1uIKq1MEaGpNv2exGeJc3VWzXxB8-VJQ1Uk62W19oByt2KC-v1bSA4Sux9fBhnlA_IHWjV2Zw=@proton.me>
+References: <1kU98bgDqqEMGUcpGahaBYlaPiP2ssSCZj1uIKq1MEaGpNv2exGeJc3VWzXxB8-VJQ1Uk62W19oByt2KC-v1bSA4Sux9fBhnlA_IHWjV2Zw=@proton.me>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,10 +63,15 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> The sysfs THP tuneables at /sys/kernel/mm/transparent_huge_pages/ rather
-> confusingly only control the behaviour of THP in some instances.
+> Suggested fix: backport f4203ec64e11 together with 52d864019636, or
+> revert 38c79dacc806 (and its dependents) from 6.18.y. Note that the same
+> backport also appears to lose fixed-event power buttons (LNXPWRBN)
+> without ab06eb920401 ("ACPI: scan: Register platform devices for fixed
+> event buttons"), reported at
 
-Queued for 6.12, thanks.
+Queued the tiny-power-button conversion for 6.18, thanks for the report.
+The fixed event buttons commit you mention is already queued for 6.18 as
+well.
 
 -- 
 Thanks,
