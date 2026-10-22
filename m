@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792706623;
-	b=MyUGeWr98S/4KM6xX9qlsxS8H0/OdlDI71Vd/4uP7vm6fJ103ar1kfQBs6brxqwZrZof
-	 j2+jVyC6j9aBLB9dUHwi9WHvuK3Hgh51jKYydca4BeihhEv89gvmtM0G2ioN3Yo8SWrIz
-	 NCgKlW5it+wuKF6KL3pO3kVhalv662FEcKCsShOO7eDxg3wW4jFgC/tmpvQ+s3anqgJgr
-	 qHvB6YwIHEhXqn1x+OmrX+XFJAOUeWLyQX0Ls06UhYp0qzHv/N83GeO1SNamTWoVg6B/S
-	 yEVoXeUZfDS8avndeLePWhUuapDdLjomMMFB4CmZ6vdzVrxKmEiUj2oqZjyj1yEq0HQ==
+	t=1792706644;
+	b=EqAwx3n5Az4s5ZdEiICXnw+ImscWdzdH/dIz95bFsrV0NbkHlkOgmTfMnhGoudDPuVbv
+	 1mLpTOurQE0lVtYz3sscvPmkvcuXMFCJDPyQEdX8vOG9foiHyJbHwYeswK+BEfh0Qg+03
+	 V/elEdWVgz1b+XggMKg5if+0om3azO8rjP+wqe36X2dAQRAz+6xl9XEZ0+DUQrvKAAFkZ
+	 6o17N7gqHyryZxKra2h0Y5o0s5LrWdvh2Q2xoSrxsiPOv7aMiQBH5deGzoSPwKpfFmCuk
+	 0UhhDNdKn6IicDLpePIWshbWiWImXXOZESnIhbwkSsHsQXs4ZP/S+gC4Qj0rQXgWoGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792706623;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792706644;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1S6R8LSmeWOqvKVa270AtH5Yi4ch6wmru1fxTCrkosM=;
-	b=Qj2zWEO7c9/mAtqv8lEPzCpHEF6M0ZpEa9daMH4pGW7WC3NvBcIb+UaLmVKXiifotkN9
-	 Fo7f5D5uIxlYFKoZ7q5R0/aPOmKcqBoWPle8De/+zM6xPS+7fyCw6gvLzhFLOkRvS4KB7
-	 4FWr0dtsoZ8rVbKYG7jEH1WIafIsheSLTOXvk5rT9ILC0NUVrQEbE+F9oas/NeCUO6Gd1
-	 xyIgxA1pKF6Cy0dHP0cGdx6Iayp2zqKTH0LCyvbIGgRjOsHzE9HdxSoCcGzY6wRgmTmxv
-	 kDVEoekT3wXUfCdHQEmQQadm29Y6oIzduZZAj0G8ctbiQfLcCflie3hzWjbxOMthdxw==
+	bh=BGSGjw3AfRJKhSQYDygDyishNCZub3fivg1QMA60f8g=;
+	b=YxSF27Tb6ZmjS/sgr86Va58cm4F/aZgHqvTWGEn6FMmN7suwk8NAB751ClLDj5Vy7ZDm
+	 gagyOOLpCj4EqhWf/btMk4/BlcuihXSixsfOZYXNKzwZKGNhTp1EiBXedEzZVUVjTG9MJ
+	 lXapj4AzqDxrIhnmuKC0DY/tvpUrwaibomyQWjyiWqsu3NdE4Qoi2utah0LSBzc3is9aZ
+	 mI1QKcv1qzJ5h/6+Nd+cyUoKUA4qghe0SGZNYRjDUKpucJlfLRlLujTgG21lk72uuld16
+	 1VAby/wG7HFo4z5ekbn5+WhjV3ofcgyAMmMAc3zfPCUDr8BrTfVedXu+VPpVmJGG37g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jr+5IufZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="FrwT9JO/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC56D606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 22:03:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3450D606A319
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 22:04:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jr+5IufZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6277E1F01825;
-	Thu, 22 Oct 2026 22:03:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FrwT9JO/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD53D1F01825;
+	Thu, 22 Oct 2026 22:04:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792706622;
-	bh=1S6R8LSmeWOqvKVa270AtH5Yi4ch6wmru1fxTCrkosM=;
+	s=k20260515; t=1792706643;
+	bh=BGSGjw3AfRJKhSQYDygDyishNCZub3fivg1QMA60f8g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Jr+5IufZTbLSCAANpQOp3hqvS6xi9+/5U0Qrv/4YZalPIIw5cpVyzgeYMiAylhjE2
-	 CfnOUf0y0oJw+WFq3N/yjNTmYGILtRAFnvggBErEJ5tm2tx4g/68PSP2JlrVoWRNOh
-	 bsru9hW8jQhB1j1akG4lAugv9TlDBidncnTV3shvLusT1jJrCY6ki/qNToeioFJblr
-	 EAr7ogThLWnXGmCfulqJ2qucq3KyRDjZylcwIk1QKnQa9cN+lQk0bnlJJ09FKzxh+h
-	 5SG9yR8k3VCP1EVPul9rKcO9/uVR4j6SotQQIMURnOw/O9/N7gP59hAFBPNSDO/Nk9
-	 8Kmcq9x4ObjVw==
+	b=FrwT9JO/Hcvy85wiZb4u3hEMQOeuQW5tJxM93b0sUISxLeYYsgNJXlJjxu/Jh/5ZZ
+	 9Un9MTj2FqeLhwtDfPi7VO4oupIZp5sm5ptM37eb+/T6IDkYHJeZsE4VGZLpcYQ43I
+	 Bj98KqfnTOjyefIZUhJ+qpLkk+M/IZQ6jbmSY4HN4tMcke6b73lvnSl87vkwFNIgBr
+	 owTc0T2fNOQm+u68mXOPV4spn3txYOnf6rSDPBj8vEvQunHkfApb+7Mqq928NA0z7K
+	 F6CgX6cCkJ+HSrZjR51afFCXeNSMtJlEG+JnlHMFJdrUHYAY1VCp44JEtP1bF74Urg
+	 4owOIFC7ZSeaw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chen Cheng <chencheng@fnnas.com>,
-	Sun Yangkai <sunyangkai@fygo.io>,
-	Mikulas Patocka <mpatocka@redhat.com>,
+Cc: Jun Yang <littleddfu@gmail.com>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	TencentOS Corvus AI <corvus@tencent.com>,
+	Jun Yang <junvyyang@tencent.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] dm-integrity: require stable writes for internal hash modes
-Date: Thu, 22 Oct 2026 18:03:39 -0400
-Message-ID: <20261022220232.1914378-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] net: bridge: mcast: don't truncate the port group walk on teardown
+Date: Thu, 22 Oct 2026 18:04:00 -0400
+Message-ID: <20261022220239.1982727-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102133-blunderer-mothball-bd53@gregkh>
-References: <2026102133-blunderer-mothball-bd53@gregkh>
+In-Reply-To: <2026102217-reuse-backlit-3e7d@gregkh>
+References: <2026102217-reuse-backlit-3e7d@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,88 +64,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chen Cheng <chencheng@fnnas.com>
+From: Jun Yang <littleddfu@gmail.com>
 
-[ Upstream commit b2fd92f016e9d692fd3c8c08d0ee014e9212279d ]
+[ Upstream commit 5a3f7a683aee56e1f15c9d53041f3236767eaae7 ]
 
-dm-integrity direct, bitmap and inline internal-hash modes compute
-integrity tags from the pages carried by the write bio.  The lower data
-write also uses those pages, so the tag and the data write depend on the
-same memory contents staying unchanged while writeback is in flight.
+__br_multicast_disable_port_ctx() and br_multicast_del_port() walk
+port->mglist with hlist_for_each_entry_safe(). However,
+br_multicast_find_del_pg() can also delete other entries from the same
+list through br_multicast_fwd_src_remove() or __fwd_del_star_excl().
 
-Without stable writes, a buffered writer can modify a writeback folio
-after dm-integrity has submitted the data bio and before the lower device
-has consumed the data.  After a crash, this can leave data from the later
-contents with a tag calculated from the earlier contents, causing
-permanent checksum failures on read.
+If such an entry is the iterator's saved next node, hlist_del_init()
+clears its ->next and terminates the walk early. The reproducer triggers
+this in both teardown walks, leaving port groups in the bridge mdb with
+a dangling ->key.port after del_nbp() frees the port:
 
-Set BLK_FEAT_STABLE_WRITES for internal-hash D, B and I modes so
-filesystems wait for writeback folios to become stable before modifying
-them again.  Journal mode is left unchanged because it copies data into
-the journal before computing and persisting the tag.
+  BUG: KASAN: slab-use-after-free in __mdb_fill_info+0x1191/0x1320
+   __mdb_fill_info+0x1191/0x1320
+   br_mdb_dump+0x594/0xe40
+   rtnl_mdb_dump+0x1cf/0x5d0
 
-Tested using dm-delay over a virtio-blk test disk, dm-integrity
-internal_hash:crc32c and no-journal ext4.  The D and B reproducers both
-failed with checksum errors before this change and completed with
-READ_RC=0 and zero mismatches after it.
+Use hlist_del_init_rcu() to unlink the group while preserving ->next.
+br_multicast_del_pg() and the teardown walks run under
+br->multicast_lock. The GC worker must acquire the same lock before
+detaching the group for destruction, so the node remains alive while
+the walk uses the preserved pointer.
 
-Fixes: 7eada909bfd7 ("dm: add integrity target")
+Preserving ->next means a walk can now reach a group that an earlier
+iteration already deleted as a side effect. That group is off mp->ports,
+so br_multicast_find_del_pg() would fall through its port scan and hit
+the trailing WARN_ON(1). Skip such groups at the top of that helper: a
+port group is put on port->mglist when it is created and only unlinked
+when it is deleted, so hlist_unhashed() identifies exactly this case.
+
+Fixes: b08123684bd5 ("net: bridge: mcast: install S,G entries automatically based on reports")
 Cc: stable@vger.kernel.org
-Reported-by: Sun Yangkai <sunyangkai@fygo.io>
-Link: https://github.com/chencheng-fnnas/reproducer/blob/main/dm-integrity-writeback-race.py
-Signed-off-by: Chen Cheng <chencheng@fnnas.com>
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-[ sashal: Replaced BLK_FEAT_STABLE_WRITES with a per-target needs_stable_writes bit propagated through the existing queue-flag machinery. ]
+Suggested-by: Nikolay Aleksandrov <razor@blackwall.org>
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+Signed-off-by: Jun Yang <junvyyang@tencent.com>
+Reviewed-by: Nikolay Aleksandrov <razor@blackwall.org>
+Link: https://patch.msgid.link/20260831111330.199543-1-junvyyang@tencent.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: Applied the br_multicast_del_pg() change to the existing __br_multicast_del_pg() helper. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/md/dm-integrity.c     | 3 +++
- drivers/md/dm-table.c         | 2 +-
- include/linux/device-mapper.h | 5 +++++
- 3 files changed, 9 insertions(+), 1 deletion(-)
+ net/bridge/br_multicast.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
-index eb13b98ba0a9c..c889457c3b330 100644
---- a/drivers/md/dm-integrity.c
-+++ b/drivers/md/dm-integrity.c
-@@ -3219,6 +3219,9 @@ static void dm_integrity_io_hints(struct dm_target *ti, struct queue_limits *lim
- 		limits->physical_block_size = ic->sectors_per_block << SECTOR_SHIFT;
- 		blk_limits_io_min(limits, ic->sectors_per_block << SECTOR_SHIFT);
- 	}
-+
-+	if (ic->internal_hash && (ic->mode == 'D' || ic->mode == 'B'))
-+		ti->needs_stable_writes = true;
- }
+diff --git a/net/bridge/br_multicast.c b/net/bridge/br_multicast.c
+index 53dd2d56c37ef..fdaf2db7173e6 100644
+--- a/net/bridge/br_multicast.c
++++ b/net/bridge/br_multicast.c
+@@ -596,7 +596,11 @@ static void __br_multicast_del_pg(struct net_bridge_mdb_entry *mp,
+ 	struct hlist_node *tmp;
  
- static void calculate_journal_section_size(struct dm_integrity_c *ic)
-diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
-index 4351de47fa775..f78979cc5baec 100644
---- a/drivers/md/dm-table.c
-+++ b/drivers/md/dm-table.c
-@@ -1799,7 +1799,7 @@ static int device_requires_stable_pages(struct dm_target *ti,
- {
- 	struct request_queue *q = bdev_get_queue(dev->bdev);
- 
--	return q && blk_queue_stable_writes(q);
-+	return ti->needs_stable_writes || (q && blk_queue_stable_writes(q));
- }
- 
- void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
-diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
-index 50cc070cb1f7c..bb50f631b0e91 100644
---- a/include/linux/device-mapper.h
-+++ b/include/linux/device-mapper.h
-@@ -339,6 +339,11 @@ struct dm_target {
- 	 */
- 	bool discards_supported:1;
- 
-+	/*
-+	 * Set if this target requires stable data during writeback.
+ 	rcu_assign_pointer(*pp, pg->next);
+-	hlist_del_init(&pg->mglist);
++	/* Keep ->next (held under multicast_lock, freed later by the GC work):
++	 * a port->mglist teardown walk may have latched this node as its next,
++	 * and deleting other groups of the same port must not truncate it.
 +	 */
-+	bool needs_stable_writes:1;
++	hlist_del_init_rcu(&pg->mglist);
+ 	hlist_for_each_entry_safe(ent, tmp, &pg->src_list, node)
+ 		br_multicast_del_group_src(ent);
+ 	br_mdb_notify(br->dev, mp, pg, RTM_DELMDB);
+@@ -629,6 +633,13 @@ static void br_multicast_find_del_pg(struct net_bridge *br,
+ 	struct net_bridge_mdb_entry *mp;
+ 	struct net_bridge_port_group *p;
+ 
++	/* A teardown walk over port->mglist can reach a group that an earlier
++	 * iteration already deleted as a side effect. It is off mp->ports by
++	 * now, so skip it instead of falling through to the WARN_ON() below.
++	 */
++	if (hlist_unhashed(&pg->mglist))
++		return;
 +
- 	/*
- 	 * Set if we need to limit the number of in-flight bios when swapping.
- 	 */
+ 	mp = br_mdb_ip_get(br, &pg->key.addr);
+ 	if (WARN_ON(!mp))
+ 		return;
 -- 
 2.53.0
 
