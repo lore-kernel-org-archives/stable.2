@@ -1,62 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.110
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792673275;
-	b=LQMqQWbbUYcmacHJOtfAzRJp/MfDo44NVZyF6wZVg6qlk5SRwwkbVI3kVLUd2BDm/x3I
-	 aBewX0mMeSO1B84AukcbvDNkPXCyRStqE48HYSbcteRtBYBeR1U3MqK3HcvAA8BEe6tSa
-	 +UEw06+Junt2SV1nLmEanDhLoRCeNHrzPXwUp7BTpULf1kCK02xWpm7cVheG1N0/vJN4Z
-	 D1n098mXUATH409s03JR7sef9MVt2dDO94Eh4fFm/059Ypvrh9jGEVRdm44iWN23Rg+HI
-	 mY1sJ2TDOghWSe5lR+RE57DfpSQzJtycYH//c4GakvCOLMRJZworcEBsnd4v6agLo2g==
+	t=1792673519;
+	b=kwOmbNgF8w4EvmEpQqGdmheRltgYvK/gHLDCYRGJJ/cT9FHjFCbLJ/vMLQAyBLKWtObj
+	 w4WVMUaQKP0YgAnJePtYQiaN64clZ7HipWgDQGOVHT2pkDDNku6SMUWUgFjwxM4+BdrIG
+	 hcTUCVdH95IOT2H7INIt04L2AA9VL6YNqBfCp/lVfYT+lFTiucM8Zksn3r8LtcvMEtLZx
+	 w+vsWyCrutvTL0Qlcmr13tLBD2IQ6KMVTMWp76jZ6XFPZ78NFAB0Y4LHIzErQHBTZ3h4W
+	 te87dij3WQaqBB389bz1O+WFr22h/PIzzt91fWdwXpgNA6MzN/NOfQFcfdhOOHy7daQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792673275;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792673519;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=H44omwwK3lb/BN9U2vv/UuziAk2eqYKNvI4mmjizaks=;
-	b=xUnTPdv/FLMsqovsgBVZRc5E++Y5g/40n6IQLdINH7hNcZqoDD30bwzqAqcrzeiY7oc1
-	 /MPvX1c6NbS58OuaziMcvJNpizd0NcXNCr3+4zCVA/lu3FoWu2AUpqrJjT0rUu0TfXvQy
-	 Y/Y+euXyqKKueEdoZOTkItQfTpOHOMoyzqFQqRHBtGTDQU+XaT8wu97XGs1BrgSTi2pEa
-	 OAJ2/7hQxZHnh8F1gJCHQ95vBcx24Q52cviMKhNW/rHVEEN2cnVVhAnKgjhS0MXRxLcdn
-	 K35D0YS4CEmWEDs/NDAYTp9kD85YzUGjFmKxQNUDOu5B/XAGtsJLu2Qctt5CN6C0t5w==
+	bh=JJ+yvx8h9h7oxNTqk5GOk42TZ5zXpsHUleVZXM9ghI0=;
+	b=Jen0aIHdgpIyo1vNIcb2EENITgPAIv3Az/gCXjlgHTPUdooAvx58vjn/J4h8OKX62vmY
+	 kbhpL+INcRzvAsRdWNXWyL89ATLEdxtZ5V5PwubvdFCvJyeiSGtyClY3V9BXr6uUFrgW0
+	 yrUBhmmFyuo4xsqNa9Zt3+ccLElEhbQO4xzmRhdllLprZuUPqme7oja+i/cV6WGCY01as
+	 AoIxrHi+a4LwGnieNk5sBU2qwpAHFlVFIO71LR8XZ8MrjFT2u0pitt6MGdD1TVd/06GSj
+	 CTWrRo+yLhpdoT/rBObVm208xEe33CAn3EQbSQeRvCuBbQw7lCqHvhf9whfbloJuOPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f9rG4GGq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=LlABwMC1;
+	arc=none smtp.remote-ip=115.124.30.110
+Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85DA3606A319;
-	Thu, 22 Oct 2026 12:47:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE326606A31A;
+	Thu, 22 Oct 2026 12:51:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE326606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f9rG4GGq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 433C51F000C1;
-	Thu, 22 Oct 2026 12:47:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792673275;
-	bh=H44omwwK3lb/BN9U2vv/UuziAk2eqYKNvI4mmjizaks=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f9rG4GGqxaNQOUF0C72yOLZ5gj+TZEtxbIq0Vcy8I+Zn5ZChbInjMqU66I/1tpdqQ
-	 ewlaNmIVgbDNT+BEDLNyXdZpxE0QKeqQAgJxfyu3hRn/jba5W2rDKOf26aIaLjF1zl
-	 O7Om5hrlXkiLNhTsJFW6lcczXxEyN5kTBbjoZBBwDzlmagIi3MjIJKlDsWQ/26O7vt
-	 mnsA581LNLrKdjFKLSrGNemYJBKybzq+iUBPBdDoQ+gckhNclfnRnJjJcqG5PJDSrg
-	 +C7gFlbesKX/aPtGDg4f08sfdxSOENZfhdVqX+emNz+ZIuYUgFIvvI0TIT8zoNhD+P
-	 zZef+SpjBLZJw==
-From: Chuck Lever <cel@kernel.org>
-To: Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>,
-	Tom Talpey <tom@talpey.com>,
-	Hyunsol Mun <muumthf@gmail.com>
-Cc: linux-nfs@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	bobtobabz@gmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] svcrdma: silently discard undersized messages
-Date: Thu, 22 Oct 2026 08:47:50 -0400
-Message-ID: <179267326422.2409795.16633003264114396479.b4-ty@b4>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261022034629.430954-1-muumthf@gmail.com>
-References: <20261022034629.430954-1-muumthf@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=LlABwMC1
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792673512; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=JJ+yvx8h9h7oxNTqk5GOk42TZ5zXpsHUleVZXM9ghI0=;
+	b=LlABwMC1mRDKvdEUTDmmL4G48o+OAckR8J8cTgwUli6m10D3tlAuSzhu5v9O0kQLBXNrIZpbhhsksi4EzWtSph7pvmDgnn9z+Cvb8Wx3y+rAwH6nixSN/R+0GrNNB+fAdocv8F1svWi+pLZnKSHVzhAJ/4jLX9QPUcG6m28+2LQ=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=19;SR=0;TI=SMTPD_---0XDJERAJ_1792673509;
+Received: from 30.221.132.50(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XDJERAJ_1792673509 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 22 Oct 2026 20:51:50 +0800
+Message-ID: <58c0fc65-8275-4d38-9d64-0f4638dbda34@linux.alibaba.com>
+Date: Thu, 22 Oct 2026 20:51:49 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,27 +54,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 03/13] blk-crypto: reject fallback data unit sizes it
+ can't handle
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: linux-ext4@vger.kernel.org, linux-fscrypt@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-xfs@vger.kernel.org, jaegeuk@kernel.org, axboe@kernel.dk, hch@lst.de,
+ djwong@kernel.org, brauner@kernel.org, tytso@mit.edu, berto@igalia.com,
+ adilger.kernel@dilger.ca, jack@suse.cz, yi.zhang@huawei.com,
+ ojaswin@linux.ibm.com, ritesh.list@gmail.com, stable@vger.kernel.org
+References: <20261011170958.1759230-1-libaokun@linux.alibaba.com>
+ <20261011170958.1759230-4-libaokun@linux.alibaba.com>
+ <20261015184519.GF2170687@google.com>
+Content-Language: en-US
+From: Baokun Li <libaokun@linux.alibaba.com>
+In-Reply-To: <20261015184519.GF2170687@google.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Thu, 22 Oct 2026 12:46:29 +0900, Hyunsol Mun wrote:
-> RFC 8166 requires an RPC-over-RDMA message shorter than the 28-byte
-> minimum header to be silently discarded because its XID cannot be
-> trusted.
-> 
-> svc_rdma_xdr_decode_req() instead returns -EINVAL when the fixed header
-> cannot be decoded. svc_rdma_recvfrom() turns that into an RDMA_ERROR,
-> whose encoder copies the first two words from rc_recv_buf without
-> checking rc_byte_len. A zero- to seven-byte SEND can therefore return
-> up to eight bytes that were not supplied by the peer.
-> 
-> [...]
+On 2026/10/16 02:45, Eric Biggers wrote:
+> On Mon, Oct 12, 2026 at 01:09:48AM +0800, Baokun Li wrote:
+>> Such keys exist on filesystems whose
+>> block size is larger than the page size, because fscrypt uses the block
+>> size as its data unit size by default.
+>>
+>> Fix this by advertising only the data unit sizes that the fallback
+>> really supports, and by rejecting keys that the fallback can't handle in
+>> blk_crypto_fallback_start_using_key(), so that the failure happens when
+>> the key is set up instead of during I/O, and before any data is written.
+>>
+>> Fixes: 488f6682c832 ("block: blk-crypto-fallback for Inline Encryption")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
+> Several patches in this series are marked as fixes, but they seem to
+> only be needed for encryption with data_unit_size > PAGE_SIZE which is a
+> new feature in this series.  I don't think these should be marked as
+> fixes, as they will cause unnecessary backports, CVEs, etc.
 
-Applied to nfsd-testing, thanks!
+In this patch set, the five patches carrying the “Fixes” tag are
+1, 2, 3, 8, and 12.
 
-[1/1] svcrdma: silently discard undersized messages
-      commit: 667147c17f15824c00a5b2fcfdb66283c3f4cad6
+Patches 1, 2, and 12 were included because my commit 709f0f1f1bf5
+(“ext4: add checks for large folio incompatibilities when BS > PS”)
+did not account for the fact that encryption can be enabled at mount
+time, making these issues accessible. Sorry about that.
 
---
-Chuck Lever
+Patch 3 was added because the blk-crypto-fallback implementation did not
+limit the supported data unit size, setting it directly to 0xFFFFFFFF.
+This could cause silent data corruption, so I added an upper limit in
+the patch set and applied the “Fixes” tag. However, since this issue was
+unreachable prior to my patch mentioned above, I'm fine with removing
+the “Fixes” tag 
 
+Patch 8 can also be triggered when the sector size is 512 but the
+filesystem block size is 4k, so a `Fixes` tag was added to it as well.
+
+If you think any of these are unnecessary, I can remove them in the next
+iteration.
+
+
+Cheers,
+Baokun
