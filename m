@@ -1,104 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792707454;
-	b=wib0QNn5JPReEg4lvBRmwka5a3sgiW+mpm8/28u8u04TG9rnPFd4F/pH4O+xhS5b7KjW
-	 PZujTheGmrzr0LBVamaV7hsf90H63CPxf6ErnuvMgS7iNqMJrG9ERy3Re6szZEv8U8S4v
-	 NsgcTfBp8FAaM5qu9hw4EyQO2c966VIHA9qEiQmBm3xw0/ru6LTLhqB8oqZG8ZRDkeunT
-	 lPtRj+1SzFeu0xBx4qIVME/yk46Pu1MRcxnU1JzacbQ99RJyqvmG3xQZWusSDEYMKc8kh
-	 rx1HpPovUf8k1B26Rip+dp5evJ3dDPv4G2+ywr5CLWwhzBE96j2sDgG5mTQIqIxpUEA==
+	t=1792707545;
+	b=agZgCGhLI+QnmqQ+5iskJXdaZq4qfsjI/69vCsytx74blTHWxXSHMUsGOf5cu8ExSYrz
+	 AfmUyK3bvBDajnqZVvdsERmmS/RAp4Xmb5u38ko/wos0Qz91ouTV7pP3dcItQT4ftFPoD
+	 zSMccV/cA8jOHOMCwUXA6o4w0D6ddsfZMHxxC3xMeXdObZirGfAvXsv0Tc4Ny7NwQiG3T
+	 iLLxEEAaBf0hu8L+R8NXAptkD9jwa2gWcCNYqX0TTYebbrPCxXl+KSHY7u7S4CA92g5TC
+	 CH5JqBtBGisTnNIwGNL8M7prQC+9triDYmeXoDiiNCa35xqxyBRJwW5nkDBKh+XkYCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792707454;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792707545;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=/WIkpltfnb+vy/iRWdcQeenTOR+kthNZwD1BDIJsCtY=;
-	b=0yR+vWnGIGJ9jEmgbY8nvqQQBw6xScwWrjrAUhzUYy7ONbohxxZZv7Ziu+F+KDxjHERh
-	 dUWuzxGENDnm3suQuKl+qMPl7StIZyOJMb8rKotQoZX+rwHppvudL8OOCQaa2OZWlM5Du
-	 q6wGhKQ6tok6V+I2yGktgCUiMuep0LihkASPbEVeqUSz7NXuXWQfdec+a8SsTA2GUGgYq
-	 0lKKNFFHFxSftB6OJsB9/cnwQpskqvFEwOvjd3mC8VxtTG+p84ixfGXVdiD8vV+xIPjzW
-	 Y7KV2wmuR3+yLR1NJuJ44XrxJotfOHV0QBjvAhODqnoraH60yOnDeu6LJCHXgSP+lsw==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=U+fNGXuTxSBSDzV/8UaJRSMWMc2y739xNcnwuXMGhOM=;
+	b=JKqZ2HsnhNRdgiNPUridHeY8FvJguz5Xq6opNUUQj7bYF5VkHtyUV3aBdLuXpLRXVdij
+	 zJfWA/Tb7YtKplHyiGjkq0s3ghv2pGnduZ+9zKKfmM097rFpfLHSGrD0bsCkMopZK/Sk5
+	 OV4C/+nSpIHoHDbEP+4EGqN2SNz61pS7g4D5Y7UxX3qMMJiBjQ0Wl2puyYKSxpWK6DLXw
+	 I/FKQx6d4m78XE1SxQtZwIutGUUgTHHVabqgdVvFqmbzJ7OienK6jsOOJNAhhSZfAbSBj
+	 EAaxHTzuIwLqMP+fd3Ucq6weWoczXAxTWg/WDwFv6WvhikBHZuoP4uP2Tmsf/s6aoEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JFpZ94Ob;
-	arc=none smtp.remote-ip=209.85.221.171
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
+	dmarc=pass header.from=tenstorrent.com;
+	spf=pass smtp.mailfrom=tenstorrent.com;
+	dkim=pass header.d=tenstorrent.com header.i=@tenstorrent.com header.a=rsa-sha256 header.s=google header.b=UVXW82Um;
+	arc=none smtp.remote-ip=209.85.161.46
+Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC9C7606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 22:17:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC9C7606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 942F0606A319
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 22:19:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 942F0606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tenstorrent.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JFpZ94Ob
-Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5eac01ff101so160341e0c.2
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 15:17:33 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=tenstorrent.com header.i=@tenstorrent.com header.a=rsa-sha256 header.s=google header.b=UVXW82Um
+Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6aa9606ddadso204064eaf.0
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 15:19:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792707453; x=1793312253; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=tenstorrent.com; s=google; t=1792707543; x=1793312343; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=/WIkpltfnb+vy/iRWdcQeenTOR+kthNZwD1BDIJsCtY=;
-        b=JFpZ94Ob3Fm6+qT3OvTYTxeHkpIEU9c+VZ8lDQaWmzPXF/uzU7JrLsmPMCYrUuiLQZ
-         1Wtx830OvhlAppc3G4T8svioQktLUvKgcZ1KZ3v03L38/G98omE3XjY0OAmiH6DmV3ar
-         iNs2BkVv9aPFu0Ck7fqp1MbCrDMvzbcrKtbLnpRYO9esYY5a0rpVfaZeST8FDrRLZ0rw
-         JL3+G/uUiDflNKH7CHP3Nlk/zXwq97RxcLtFlvcXrIBOpsXfAHtyPvsF09Lqb76JVHHq
-         jYyQMy7aMRjpbqqg/cZb2pE3wbP8ckVY5j9uytlgLoOjBec8ATLlTrk36iNJhhBXKKlS
-         n3Ew==
+        bh=U+fNGXuTxSBSDzV/8UaJRSMWMc2y739xNcnwuXMGhOM=;
+        b=UVXW82UmJEyPVGoE1zADd2PlLrWf2Q55H0DbUqCX+Rh2spjP8ewRwWzKPEyUjIQSga
+         xJo2mvNGbLYJyaBFei59ls/n7MIrpcTy7kTLQD//L3zaWnVNbIl5TNsFW4XeqMKmydVw
+         s7ByfXc6ixdSyAyg/98J6zjI/FfDxKQllk4H4ennofDE6CDoOnUbh9gI2wco4eMqqi1x
+         /nrSrsPyt6t2DC7cYf5E9ajT6Cyu8r8bmDEEZ7hgo/Erdu+O1qySJZ6xCeGgqahs8fyg
+         0bqcvwMOBrOVboCrbhQytVOga8EkCZyDzocKHTP/2/TtPcKN6gYT2iJJzkokWEOIeHwy
+         PgkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792707453; x=1793312253;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1792707543; x=1793312343;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/WIkpltfnb+vy/iRWdcQeenTOR+kthNZwD1BDIJsCtY=;
-        b=akyD3ox8mFVnxAgSA76uCZYwrvrtFfVLGLAdzj+i4nZ9TGuBQyneUejFayAUCDxz4d
-         hs3jBIumcodkydOvO/B81bUrER+bjX7s0KhkO9pCW4cBV103um+G9Zq6lByBkwutRqdg
-         KenDvqUpcXcQjVDfpksGPILfwu3TdreNC7jAi6w8a7oH8QfuX8HXmcRPfI0cCYhSn2rm
-         4smP7CID1dZb5ERLhukpN+v65ak2OB4JDnqoG8+sJbawLV4JgrhA73YDrIy6OR0MzrfW
-         5fgXaFKXIdZ95Y6IsXCXA7gG7NEVrGmkXUOKqhxIGkV+hXr22PaBvt8WPyCpYTkoenHO
-         Jksg==
-X-Forwarded-Encrypted: i=1; AKwUvBxwLtejFhVuS3v56d18w/YW7/2tnV8T5sQgZnM9vm02bQ13e/x+oFmVXHrRmTS21J1EHmaAFCQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/KFE/Sokgs2HrftagjJlL/ndD7nQ8Hk7rEZ7qJlFbb+0M9ovB
-	V7J3W7UBdWeridvS65x4lOWdZ276OwY4WJo+ptAaHyhn3cq2MquH6CN4
-X-Gm-Gg: AYBFou1VaitXYtq7Q53FDSOSqWx2/i6xLbX3guzBu6VkYImC8w0gMCbqq9KcjUOmfaC
-	BsXHGOaSmJ6fKxIvBd41dszEmIcsB5Q43GBkyl5lLeSKYWMFueH0+NBdtGaSs7QB8fjQowf6BG3
-	MhJOWqX8XBb5/AAUrxjH/P/C9YgmUizK74SlWUYN9lLqvwxk9RzjQeAb8OygKTySGfArpykHRQH
-	DG7ytj2OkvhBKmZsBtYH3pl2FRQicrWgIHKObV8meODm1opdbbmyjDG7YWtoJAPOUYJu6oVZRCZ
-	7T6SsiTnreIjjoCF1JBu12kvrfvI4bezt6PY7WtL43cSEwR+SGiVmP2KsimuNEtvhWc9WThjpAo
-	K+ZmAh/RE1XIRXxn8XobvFWln/65vsf0YqPhTJljY/M7iZF/V5v+Iv75sTd9IBnPnWBq3Dhct+j
-	Feyh2HSf+lYGRkZxWCOMcFjkRdGvc0+X7jHd1D/zr0aeRW70/Esddj3aRW3uMAlPTOaFSByz1rl
-	pyEbjpwcjtAjHe8CHmlg54Jyr4gRE66S5TF0tCs09O3RcpwDA==
-X-Received: by 2002:a05:6122:178c:b0:5ea:ae99:9b2c with SMTP id 71dfb90a1353d-5ec14ab087cmr87153e0c.14.1792707452787;
-        Thu, 22 Oct 2026 15:17:32 -0700 (PDT)
-Received: from unix.. ([181.229.23.179])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec13f2cfe0sm456271e0c.14.2026.10.22.15.17.28
+        bh=U+fNGXuTxSBSDzV/8UaJRSMWMc2y739xNcnwuXMGhOM=;
+        b=VE86m6vJzWt5KAvAddNCmK5nvwUr1jxOfSdiZ9Ytnrq6PfPGo/KfoPfmiAIIwtyACE
+         MxlxaZM3XShgTT/POds3feqGxOb7BkxlE9NaggwNN82xWVfEg1Rj2aKkeIZUOrN2ZKcC
+         yVoKssoB2wnRa4QQTcXsL4d0OKb5wRj/T84qTIrgdLwlBB7fs2GVBTfiYFEqrEJFjkmk
+         AWvRdI55HZE6NCqV88H05d4JUiqQPZ7QoAgL2YjF0uVHQIzjp3s4uRE6wEONfDFUS96y
+         bOjtaV3YjmiX6fzB3t6yr2+1WqI1JpILugnK/72Tq2R4OjGozwP/wIoS7Inb2VPlQAjY
+         e+Og==
+X-Forwarded-Encrypted: i=1; AKwUvBxkbG65tjBwElkL/iY2h3mf8P0yRLM8XUwClETvlynijfZlH6N7uLIQt3xQy3B8yL6L8jXJpEY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ1A9sCCZq/HWXV2vVxzXgPoNWsOZOMyDd9IUlKk7joFOZgcQCW
+	hgVgDXcyO5g4/++F45SxRmtQaH6DI9OlIeCRLm2erwtQfV8smLyaajsQt+KJ/+vA0Pc=
+X-Gm-Gg: AYBFou2R5zQB1bYkPh1YfDxsi+DmSSMcHcHvQ3vGdWohZiMfo0tFuW0GE8Vudm1L5kG
+	CnqiBaoQjr49hqYSWjjxyj8tHaoVKjL9tC0AjYcOmPUJwyYVMCluuX4IGwIxGkCgk9J8ZsDOgvw
+	4sar7AOA61m0k0W3pMXsbE/i3APYl/3e2JhHq8P8aXiGrgRNA94rhGtGkPzwzj7+nbvalYlXUzQ
+	8DohFqIxa/QXxWCJaq/VuUYe7FPV1jgWDG4JxH9nqqcydetj1VEySiQxDRt2rXtmUotB6tYgwFL
+	iEumUh0z6YrDIaemqgIBv//5/AkYrC+1TlyTPjw5xZLmzaZdrEyBsS+fP++yav2BIISJq5T5VY5
+	uHxGqWXeqkwkCDkJJHGrjlA3ShSpu6kiV3LgfYFzEC3YQ51yhbj2aPZK4nq4eJLNDc2OrEf5j2t
+	I4K9LeJWPwdwOWrLDioJZevXJY87r5ohPVFKsMlA0i/eedCrMCRdkHVgXzSspOBvScg1Y03AZyn
+	u3/SRQs2r+GVzWSzggbqizjd5CgnY+9ZkdIwB/34mKWy6rGTmdQPzvYxY6uepc1rP0=
+X-Received: by 2002:a05:6820:221a:b0:6f5:eeee:b22 with SMTP id 006d021491bc7-70b88a52a06mr594387eaf.49.1792707543577;
+        Thu, 22 Oct 2026 15:19:03 -0700 (PDT)
+Received: from localhost ([68.203.12.10])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a82021ea20sm312316fac.0.2026.10.22.15.19.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 15:17:32 -0700 (PDT)
-From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org
-Cc: "H . Peter Anvin" <hpa@zytor.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	=?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] x86/shstk: free shadow stack when copy_thread() fails
-Date: Thu, 22 Oct 2026 19:17:20 -0300
-Message-ID: <20261022221722.619233-2-ivanrwcm25@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261022221722.619233-1-ivanrwcm25@gmail.com>
-References: <20261015023147.519257-1-ivanrwcm25@gmail.com>
- <20261022221722.619233-1-ivanrwcm25@gmail.com>
+        Thu, 22 Oct 2026 15:19:03 -0700 (PDT)
+Date: Thu, 22 Oct 2026 17:19:01 -0500
+From: Andy Chiu <tchiu@tenstorrent.com>
+To: Yunhui Cui <cuiyunhui@bytedance.com>
+Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+	alex@ghiti.fr, zong.li@sifive.com, wangruikang@iscas.ac.cn,
+	debug@rivosinc.com, qirui.001@bytedance.com, guoziyi114@gmail.com,
+	samuel.holland@sifive.com, ben.dooks@codethink.co.uk,
+	cyrilbur@tenstorrent.com, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] riscv: Fix SR_SUM leakage across context switches
+Message-ID: <atqL1ScMLUg2bM_E@Tao-Chiu's-Mac>
+References: <20261022083212.84721-1-cuiyunhui@bytedance.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -108,79 +99,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022083212.84721-1-cuiyunhui@bytedance.com>
 
-copy_thread() maps a shadow stack for a CLONE_VM child and can still
-fail in set_new_tls(). That error returns through bad_fork_cleanup_io,
-which does not call exit_thread(). bad_fork_cleanup_thread does, but
-only after copy_thread() has returned 0.
+Hi Yunhui,
 
-commit 748c90c69336 ("x86/shstk: Remove useless clone error handling")
-removed the shstk_free() on this path, assuming exit_thread() would
-run. It does not. Each rejected clone leaves one shadow-stack VMA in
-the parent's mm until the mm dies: one map_count slot, pages not
-populated. The size follows the clone stack, or RLIMIT_STACK when
-that size is zero.
+On Thu, Oct 22, 2026 at 04:32:12PM +0800, Yunhui Cui wrote:
+> __switch_to() saves the sstatus value of prev and restores the SR_SUM bit
+> of next with csrs. However, csrs only sets bits. If prev has SR_SUM set
+> and next has SR_SUM clear in its saved state, the old SR_SUM bit remains
+> set in sstatus.
+> 
+> This lets next run with user memory access enabled even though its saved
+> SR_SUM state is clear.
+> 
+> Use csrrc to save the sstatus value of prev and clear SR_SUM from the
+> live CSR before restoring the saved SR_SUM state of next. This keeps
+> prev's SR_SUM state intact, while preventing it from leaking to next.
 
-Free only after set_new_tls() fails, via a dedicated cleanup label.
-Nest the TLS error check under CLONE_SETTLS so the successful path
-returns 0 explicitly. The allocation error returns earlier, while
-the child's base still aliases the parent. shstk_free() ignores a
-cleared base and a different mm, so CLONE_VFORK and !CLONE_VM stay
-no-ops. The exit_thread() path is left alone, so the double unmap
-that commit avoided does not come back. The io bitmap is still
-shared only when TLS setup succeeds.
+Do you have a way to trigger this bug on existing code or is it the cae
+where the bug could happen but we never experienced it in real life?
 
-Tested with user shadow stack enabled, on one config with and without
-this change. Sixteen clone3() calls with CLONE_VM|CLONE_SETTLS and an
-out-of-range TLS leaked 16 shadow-stack VMAs without the fix. With it,
-the VMA count was unchanged and call/return on the parent still used
-the original shadow stack.
+If I understand correctly, this can only happen when the user access
+routing volutarily makes a schedule() call mid-flight, or a code fogets
+to turn off SR_SUM right after an user access and has a live SR_SUM when
+calling schedule some time after. Both case should be a bug as SR_SUM
+shouldn't live in the kernel code that is not doing user access.
 
-Fixes: 748c90c69336 ("x86/shstk: Remove useless clone error handling")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
----
- arch/x86/kernel/process.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+A trap-introduced context switch would interrupt a code that have SR_SUM
+set. However, since the bit is cleared at every exception entry, the
+context switch code would not see a live SR_SUM. Seeing the bit set in
+this case means something is not turning SR_SUM off properly.
 
-diff --git a/arch/x86/kernel/process.c b/arch/x86/kernel/process.c
-index 346c438ac880..451594fa5481 100644
---- a/arch/x86/kernel/process.c
-+++ b/arch/x86/kernel/process.c
-@@ -176,7 +176,7 @@ int copy_thread(struct task_struct *p, const struct kernel_clone_args *args)
- 	struct fork_frame *fork_frame;
- 	struct pt_regs *childregs;
- 	unsigned long new_ssp;
--	int ret = 0;
-+	int ret;
- 
- 	childregs = task_pt_regs(p);
- 	fork_frame = container_of(childregs, struct fork_frame, regs);
-@@ -263,12 +263,19 @@ int copy_thread(struct task_struct *p, const struct kernel_clone_args *args)
- 	}
- 
- 	/* Set a new TLS for the child thread? */
--	if (clone_flags & CLONE_SETTLS)
-+	if (clone_flags & CLONE_SETTLS) {
- 		ret = set_new_tls(p, tls);
-+		if (ret)
-+			goto shstk_free;
-+	}
- 
--	if (!ret && unlikely(test_tsk_thread_flag(current, TIF_IO_BITMAP)))
-+	if (unlikely(test_tsk_thread_flag(current, TIF_IO_BITMAP)))
- 		io_bitmap_share(p);
- 
-+	return 0;
-+
-+shstk_free:
-+	shstk_free(p);
- 	return ret;
- }
- 
--- 
-2.43.0
+I aggree that this is the better way to handle SR_SUM in a context switch
+but attaching a call trace or stating that "We have not caught this in
+real world due to ..." in the commit message would be appreciated.
 
+Cheers,
+Andy
+
+> 
+> Fixes: 788aa64c01f1 ("riscv: save the SR_SUM status over switches")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
+> ---
+>  arch/riscv/kernel/entry.S | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/riscv/kernel/entry.S b/arch/riscv/kernel/entry.S
+> index 61b7a77166971..628b85e3915a7 100644
+> --- a/arch/riscv/kernel/entry.S
+> +++ b/arch/riscv/kernel/entry.S
+> @@ -443,15 +443,15 @@ SYM_FUNC_START(__switch_to)
+>  	REG_S s10, TASK_THREAD_S10_RA(a3)
+>  	REG_S s11, TASK_THREAD_S11_RA(a3)
+>  
+> -	/* save the user space access flag */
+> -	csrr  s0, CSR_STATUS
+> +	/* Save and clear the user space access flag. */
+> +	li    s1, SR_SUM
+> +	csrrc s0, CSR_STATUS, s1
+>  	REG_S s0, TASK_THREAD_SUM_RA(a3)
+>  
+>  	/* Save the kernel shadow call stack pointer */
+>  	scs_save_current
+>  	/* Restore context from next->thread */
+>  	REG_L s0,  TASK_THREAD_SUM_RA(a4)
+> -	li    s1,  SR_SUM
+>  	and   s0,  s0, s1
+>  	csrs  CSR_STATUS, s0
+>  	REG_L ra,  TASK_THREAD_RA_RA(a4)
+> -- 
+> 2.39.5
+> 
