@@ -1,81 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792687996;
-	b=ltkCK2WlffWQrha7Wj1EsVHbC6r5BXLIRBAPJM9qm9ZfWOCVO1xUoh5p6kJKLZ+sg2nZ
-	 orvAq39aZifuOg5ifB306e7MQ9+dElPag9miUvZYXiAPBoSgkEb5VLjtKa9mj5X1yIOLt
-	 jm1aaXeoQ8b/UjrwmQ44j5fsv0QGxsgTCVEWrwnocrdoV1fKtxKYfhuohIlcB0Re+RPyE
-	 vI0mrhL73bOWQxqaHoGnrWAnPcXfT4mwXl6X1ofktZZq9kn7GDAnK7DN5Pho5bNq/qacB
-	 Ba7O6OtALhXjn92f8S6+b5iWkSht+KGbCxwn31p52nZ6iccGWXWbNbWLfZtY6vQAO0g==
+	t=1792688157;
+	b=vGSfZcac7waFKQoOYnUce7npYuDKX+piAaJ0JYIGhamIARa9sB5lR2DMowMerKz1EOC0
+	 1zJeLBJKhkakjGyoMxmsBzzNFnxQGJ4k4Iiz8zyueLuY9qybEznPMSBiVB/bDkSZrMzEy
+	 qjHw/iC0GZj6Kqspj3/zGmg8uDPWMme85bxtJBTHKpHfcwMUPtRYh9tUG7dy3nR2nIaHY
+	 woY36pee79DD+hYzrU207iV52+ih77E7l1Xhdiy3nyRlKfcP/8+oeAydXvHankloqH+vT
+	 PHz858T43CHL2Vy1gtzBB8bPK5nz/IsxW11T7g62RY/eZ7twuboQSiR+dol6qARiv9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792687996;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=RnjTwDdPL27OkjVG+9TQeoWZzi+3hlrocYUpqRLD/jM=;
-	b=2PdNycjv6TTljQFiNyhDxAYAMy1rsM9HhzKS3EH2+gEVGZMfIFEP8Pud+2kwsybAVk8A
-	 GNpgAkeBckfzmhS7FPw2DQSI4TDgdBChVt/e7g8m6Z69zWSPRxbwo3/AQO7pcpDvKv7xC
-	 ly0wIN7/dvEqLJxaTkSC3UdAFFx+0nK8zELi1yqkwKsVtG9ZXBwsC4wcDyA7u4Ij06sGW
-	 qn6ae95Ukfh81X0MOO0cOGmMzA8sIVtyaWj9gr/yDKX/xaiTpaDL7/tPbyZ9Pqe2KVC1g
-	 T9OigWveE0NdNLW95a5nZbl5ZmT0QgM2KsEVrRG8sFNORNZdVqF6bjF0wYLykud4Rlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792688157;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=VA9V0YBG6b0q0IcQYLKm9l1pDTTiK+Lqvk1PdMP2dC0=;
+	b=YykdgcyXBhuEdO9ycqvx8RVlGtpezwlkRYXI0lYMK5kUSTCHEwD7kER3P6L/MgkYib2l
+	 IJCoJ3uxkavmvYjg7gALd7Q27+cftCk5jStRgSeqoMFB13WRjTdDyqWh1gw91qsBSngR+
+	 V+chnWvVOlp4Eny0knwvNQyqy4NkNwd0eQuVtJAF3O9sh9ZptlBvZepzce+n8L8ETZzQa
+	 at6JdUuUrgyqko/Ho9XnLo0pUdnVYyDL016zf2lISFNpUtFwsdzPogs3YqlImSYJ1wefy
+	 XYu2YgvA91i4QcHC8U+2IZOf6XBoT2FoA+ZzU2YdwQzSnr35QT36iddYmQ3LcNaNX9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dx5Ttdm1;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="A7yaAfo/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E866B606A31A;
-	Thu, 22 Oct 2026 16:53:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E866B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF7B606A31A
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 16:55:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dx5Ttdm1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792687995; x=1824223995;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=apdNtBYS9jQOXfTQEStHFo+xPC6oHGEMoFVfhkq3zl4=;
-  b=dx5Ttdm1H3T1LhAzZ2JyvQLOKAbg/2NmvHIGiw5mmNDUVpjVwwGv4sZ0
-   zT3KaiwjO0QuI10tVSyqBDcBtjtLx4alU7a0J9NmMmWQDtqw7TeLs4rrw
-   sb7R1HYTqkjn8AB/pngK+z3ueZIaLYK/EeNrJ3br5MiattiM5WQgR/ON+
-   m7mmHBvqpg/CD8nEIrZ5z7J1NWJTlwjYldKxlccVfl4cXu3hYfSEZ7PGe
-   r8a37U7UjhJYKBzn6euaMxkCR5XndSoS8ahZUH97ihI62m4NtVtJBm9eV
-   kBUHGZVfxoyAUC64eWHlA1XbMuxYSSzlWnbMHylDJHb3XQ0bINQ+nVFfP
-   g==;
-X-CSE-ConnectionGUID: xSVZM/IYTQGZvWKxy6bN+A==
-X-CSE-MsgGUID: yxQN4dhuRn+FzZxDluy4zg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1456456"
-X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
-   d="scan'208";a="1456456"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 09:53:14 -0700
-X-CSE-ConnectionGUID: FmLqOjvvQi+F4RF4oLFx+Q==
-X-CSE-MsgGUID: t6Hx7mIGQEitWksXE5gsaQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
-   d="scan'208";a="3799455"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.189])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 09:53:12 -0700
-Date: Thu, 22 Oct 2026 19:53:09 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jan Remes <ciakval@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Joe Sandom <joe.g.sandom@gmail.com>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Jan Remes <jan.remes@mycroftmind.com>,
-	stable@vger.kernel.org,
-	Martin Triska <martin.triska@mycroftmind.com>
-Subject: Re: [PATCH v3 1/4] iio: light: tsl2591: don't divide by zero
-Message-ID: <ato_dUykpQ7__roU@ashevche-desk.local>
-References: <20261022-first-patch-v3-0-b792e89a429a@mycroftmind.com>
- <20261022-first-patch-v3-1-b792e89a429a@mycroftmind.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A7yaAfo/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F4821F01828;
+	Thu, 22 Oct 2026 16:55:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792688157;
+	bh=VA9V0YBG6b0q0IcQYLKm9l1pDTTiK+Lqvk1PdMP2dC0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=A7yaAfo/JEWAYvKPINlXxlyNvl9BkIxVEoCyb2rKLCUNVEqAsTyBuisT2MfEi04mU
+	 6yfHhuD5YzGO/q6KCmlCx9pvmLcEbMiua+glwI3Hnh3BK3OmWL96+JLIugQAc0KJ6Y
+	 Mup9cO0nQSWtXVwutj1jxXSS5BeZUMzunkw4x/JnukKXuPmuYSEWR6pRSTU7R7cuqf
+	 WAVyY7UcJnkebpKj0LjopJ2CyqUBW6F5oINikUWTzDlJXIFrY9EtHAN0GlgVqWD9Pk
+	 UyzcbnXRsnr7jQUfPzwH2LA+/bBdeYbqnA2RIGJA1bg4B6YMC5aD1WBLSYeSqX0ekD
+	 FT11oHizwiLug==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] tracing: Fix NULL dereference when copying keys for a field variable
+Date: Thu, 22 Oct 2026 12:55:55 -0400
+Message-ID: <20261022165145.1679070-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026102127-reclining-snowplow-d25d@gregkh>
+References: <2026102127-reclining-snowplow-d25d@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,22 +59,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022-first-patch-v3-1-b792e89a429a@mycroftmind.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 01:53:57PM +0200, Jan Remes wrote:
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-...
+[ Upstream commit a0777b9e53157f1f6848a0fd0650f5465391ea81 ]
 
-> Assisted-by: LLM
+In event_hist_trigger_parse() where it needs to create actions like
+"onmatch", it calls:
 
-Kill this tag everywhere in your patches.
+  event_hist_trigger_parse() {
+    create_actions() {
+      action_create() {
+        trace_action_create() {
+          trace_action_create_field_var() {
+            create_field_var_hist()
 
+Where create_field_var_hist() does a loop on the hist_data
+representing the keys. The issue is, if the keys uses one of the
+pseudo field types (like common_cpu), the hist_data field element
+will have NULL for its field member causing a NULL pointer
+dereference when accessing the key_field->field->name.
+
+  # echo 'hist:keys=common_cpu:ts0=common_timestamp.usecs' > \
+      events/sched/sched_waking/trigger
+  # echo 'my_synth u64 lat; int prio' > synthetic_events
+  # echo 'hist:keys=common_cpu:wakeup_lat=common_timestamp.usecs-$ts0:\
+      onmatch(sched.sched_waking).my_synth($wakeup_lat,prio)' > \
+      events/sched/sched_switch/trigger
+
+  KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
+  RIP: 0010:create_field_var_hist+0x771/0x1380
+  Call Trace:
+   trace_action_create_field_var+0x360/0x600
+   trace_action_create+0x393/0xe80
+   event_hist_trigger_parse+0x3e47/0x69e0
+   trigger_process_regex+0x1a6/0x250
+   event_trigger_write+0xce/0x160
+
+Instead of accessing it directly, use the proper handler
+expr_field_str() to get the name.
+
+The three previous patches are prerequisites: without them a .buckets
+key and a common_stacktrace key each render into a command that cannot
+be parsed back.
+
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260914053443.981201-5-donggeunyoo.kernel@gmail.com
+Fixes: 02205a6752f2 ("tracing: Add support for 'field variables'")
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+[ sashal: adapted the expr_field_str() call to pass a char * buffer instead of a struct seq_buf pointer ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ kernel/trace/trace_events_hist.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index c93254ae83ccc..c38728abda17f 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -2593,7 +2593,7 @@ create_field_var_hist(struct hist_trigger_data *target_hist_data,
+ 		key_field = hist_data->fields[i];
+ 		if (!first)
+ 			strcat(cmd, ",");
+-		strcat(cmd, key_field->field->name);
++		expr_field_str(key_field, cmd);
+ 		first = false;
+ 	}
+ 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
