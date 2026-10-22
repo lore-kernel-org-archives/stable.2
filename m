@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792706644;
-	b=EqAwx3n5Az4s5ZdEiICXnw+ImscWdzdH/dIz95bFsrV0NbkHlkOgmTfMnhGoudDPuVbv
-	 1mLpTOurQE0lVtYz3sscvPmkvcuXMFCJDPyQEdX8vOG9foiHyJbHwYeswK+BEfh0Qg+03
-	 V/elEdWVgz1b+XggMKg5if+0om3azO8rjP+wqe36X2dAQRAz+6xl9XEZ0+DUQrvKAAFkZ
-	 6o17N7gqHyryZxKra2h0Y5o0s5LrWdvh2Q2xoSrxsiPOv7aMiQBH5deGzoSPwKpfFmCuk
-	 0UhhDNdKn6IicDLpePIWshbWiWImXXOZESnIhbwkSsHsQXs4ZP/S+gC4Qj0rQXgWoGg==
+	t=1792706696;
+	b=xvZMX2jaKkipyZduTQhbuaRsRLI4yitH0Wo60k2Z1b191nxkuU2zwU1/BLRVvoxI8268
+	 laxGD95zcLxJfmAT/MlX8CKqv0Sm6pS0MAaTWN6sgyN6fycRrnsoTaYn4cEFUTbzDDRzl
+	 uxvUCaJq9nHG6PuRnSyVZ0x04KIID1tv/uyruWfgwiUnLlMXTaJbwmrcI8d418EaN8uv+
+	 lEILxPteKP2uZWgcKDrlal3y7Psm/5BezA5g0KD7EuI2V9N5mRxNAQSR7iLAwadGYbwzB
+	 7oQ9Vm2B/3JDg25p+lHN/4vb9SzqotQu1Ko88icmt16R7WdvEFsImUgPtJbppY/s8nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792706644;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792706696;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=BGSGjw3AfRJKhSQYDygDyishNCZub3fivg1QMA60f8g=;
-	b=YxSF27Tb6ZmjS/sgr86Va58cm4F/aZgHqvTWGEn6FMmN7suwk8NAB751ClLDj5Vy7ZDm
-	 gagyOOLpCj4EqhWf/btMk4/BlcuihXSixsfOZYXNKzwZKGNhTp1EiBXedEzZVUVjTG9MJ
-	 lXapj4AzqDxrIhnmuKC0DY/tvpUrwaibomyQWjyiWqsu3NdE4Qoi2utah0LSBzc3is9aZ
-	 mI1QKcv1qzJ5h/6+Nd+cyUoKUA4qghe0SGZNYRjDUKpucJlfLRlLujTgG21lk72uuld16
-	 1VAby/wG7HFo4z5ekbn5+WhjV3ofcgyAMmMAc3zfPCUDr8BrTfVedXu+VPpVmJGG37g==
+	bh=V+pp4HsGF8MG7/4fXk97ZD5VQnE/u6EXSEWiageyILI=;
+	b=q9bav7e0Rz/viLUrPAjQ08d9Gs0D+hZyABB/0P+1aJN/89OEW3Aay8cyzjW46+k4FAS5
+	 osCODGUWM4SMUM58DsB437YDvllV49lLOcS1JQtSESznjxi0dBPosfDkm6gyMOIrYnOfx
+	 mR/LDXc8R/WX0Kkuq7RaVYeOBUoom+KZx1xSRGoQZrTKNuSR7POQo2iSpwy48pdeDWMvR
+	 YyTCk0UlOY0QFROjpvOfMWQLNq2wkYiCumC4TH3ghJsAXoQPkqx0qZAuiGPFFfptOtc9Y
+	 fkLkVlJDVcIm1cWpkECrjKaZFxYmtxbnqMdsH6Gg0mLDGGRFWr2FNvsqtZvUqnQOnZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="FrwT9JO/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LdaFiZEd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3450D606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 22:04:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01181606A319
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 22:04:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FrwT9JO/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD53D1F01825;
-	Thu, 22 Oct 2026 22:04:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LdaFiZEd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C4961F01825;
+	Thu, 22 Oct 2026 22:04:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792706643;
-	bh=BGSGjw3AfRJKhSQYDygDyishNCZub3fivg1QMA60f8g=;
+	s=k20260515; t=1792706695;
+	bh=V+pp4HsGF8MG7/4fXk97ZD5VQnE/u6EXSEWiageyILI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FrwT9JO/Hcvy85wiZb4u3hEMQOeuQW5tJxM93b0sUISxLeYYsgNJXlJjxu/Jh/5ZZ
-	 9Un9MTj2FqeLhwtDfPi7VO4oupIZp5sm5ptM37eb+/T6IDkYHJeZsE4VGZLpcYQ43I
-	 Bj98KqfnTOjyefIZUhJ+qpLkk+M/IZQ6jbmSY4HN4tMcke6b73lvnSl87vkwFNIgBr
-	 owTc0T2fNOQm+u68mXOPV4spn3txYOnf6rSDPBj8vEvQunHkfApb+7Mqq928NA0z7K
-	 F6CgX6cCkJ+HSrZjR51afFCXeNSMtJlEG+JnlHMFJdrUHYAY1VCp44JEtP1bF74Urg
-	 4owOIFC7ZSeaw==
+	b=LdaFiZEdA8e03VToXJ1wNjb6eYSwgeSGC6wZVp2vZuPU0JJxeCUfVTuGQRpQd4G39
+	 +GDru3OKN/0v5e7CnLJExAXKt5+JYQ5QyYNVsckdmPcHB2vC324rbRaun8D8uBA7BI
+	 o4sJObP9wk/ZLV2J/8EK58MTCMDSxvXElM1iqOV5m8JcXhLovVYgGTtpIrTu0vebGf
+	 ap/mLRLQHeSNxQSLBL7sfKU6rwdRz5jExEYGJgKUyEvtzhIQoPzbSq61cNqBrh2mJr
+	 BjUCjpWz6gdHdgeaiTx65yd7FdHabLT40nMWFh1nYPkg0PKPQgvM5rmag4FyO2SEbf
+	 fkMoz19wPA7RQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jun Yang <littleddfu@gmail.com>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	TencentOS Corvus AI <corvus@tencent.com>,
-	Jun Yang <junvyyang@tencent.com>,
+Cc: Ido Schimmel <idosch@nvidia.com>,
+	Amit Klein <aksecurity@gmail.com>,
+	Noam Caspi <noam.caspi@mail.huji.ac.il>,
+	David Ahern <dsahern@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] net: bridge: mcast: don't truncate the port group walk on teardown
-Date: Thu, 22 Oct 2026 18:04:00 -0400
-Message-ID: <20261022220239.1982727-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] ipv4: udp: Create exceptions before socket matching
+Date: Thu, 22 Oct 2026 18:04:53 -0400
+Message-ID: <20261022220234.2082806-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102217-reuse-backlit-3e7d@gregkh>
-References: <2026102217-reuse-backlit-3e7d@gregkh>
+In-Reply-To: <2026102125-annuity-hardcore-06cd@gregkh>
+References: <2026102125-annuity-hardcore-06cd@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,83 +64,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jun Yang <littleddfu@gmail.com>
+From: Ido Schimmel <idosch@nvidia.com>
 
-[ Upstream commit 5a3f7a683aee56e1f15c9d53041f3236767eaae7 ]
+[ Upstream commit 4c3499f79f8c7e8561266bcc220a18538cec0458 ]
 
-__br_multicast_disable_port_ctx() and br_multicast_del_port() walk
-port->mglist with hlist_for_each_entry_safe(). However,
-br_multicast_find_del_pg() can also delete other entries from the same
-list through br_multicast_fwd_src_remove() or __fwd_del_star_excl().
+Currently, when ICMP Fragmentation Needed and Redirect Message packets
+are locally delivered and quote a UDP packet, a FIB nexthop exception
+(FNHE) is only created if the kernel can match the UDP packet to an
+existing socket.
 
-If such an entry is the iterator's saved next node, hlist_del_init()
-clears its ->next and terminates the walk early. The reproducer triggers
-this in both teardown walks, leaving port groups in the bridge mdb with
-a dangling ->key.port after del_nbp() frees the port:
+This behavior allows off-path attackers to conduct a side-channel attack
+on the FNHE cache in order to discover the ephemeral port used by a
+connected UDP socket.
 
-  BUG: KASAN: slab-use-after-free in __mdb_fill_info+0x1191/0x1320
-   __mdb_fill_info+0x1191/0x1320
-   br_mdb_dump+0x594/0xe40
-   rtnl_mdb_dump+0x1cf/0x5d0
+Commit 6457378fe796 ("ipv4: use siphash instead of Jenkins in
+fnhe_hashfun()") and commit 67d6d681e15b ("ipv4: make exception cache
+less predictible") tried to mitigate such attacks by making it harder
+for attackers to discover hash collisions in the FNHE cache and by
+randomizing the number of exceptions a hash bucket can hold,
+respectively. Unfortunately, both of the mitigations can be bypassed.
 
-Use hlist_del_init_rcu() to unlink the group while preserving ->next.
-br_multicast_del_pg() and the teardown walks run under
-br->multicast_lock. The GC worker must acquire the same lock before
-detaching the group for destruction, so the node remains alive while
-the walk uses the preserved pointer.
+Instead, mitigate such attacks by always creating a FNHE, even before
+trying to find a matching socket. Do that by calling ipv4_update_pmtu()
+and ipv4_redirect(), the helpers used when the quoted packet did not
+originate from a socket.
 
-Preserving ->next means a walk can now reach a group that an earlier
-iteration already deleted as a side effect. That group is off mp->ports,
-so br_multicast_find_del_pg() would fall through its port scan and hit
-the trailing WARN_ON(1). Skip such groups at the top of that helper: a
-port group is put on port->mglist when it is created and only unlinked
-when it is deleted, so hlist_unhashed() identifies exactly this case.
+This means that guesses (right or wrong) from an off-path attacker will
+always result in a FNHE being created or updated in the cache that the
+attacker can observe.
 
-Fixes: b08123684bd5 ("net: bridge: mcast: install S,G entries automatically based on reports")
+Pass an oif of 0, in a similar fashion to icmp_err(). This is also the
+oif used by the socket path for sockets that are not bound to a device.
+
+Note that this does not allow attackers to create FNHEs that they could
+not create before, as both helpers can already be reached with little to
+no validation. For example, by sending an ICMP error that quotes an ICMP
+Echo Reply or one that quotes a UDP source port that matches a wildcard
+socket.
+
+Also note that in the good case (matched socket) the above scheme comes
+at the cost of an extra route lookup, as the no socket helpers perform
+their own lookup before the one performed by ipv4_sk_update_pmtu() /
+ipv4_sk_redirect(). When the two resolve to different nexthops, it also
+results in two exceptions being created for the same destination IP. One
+in the FNHE cache of the nexthop resolved by the no socket helpers and
+another in the FNHE cache of the nexthop used by the socket.
+
+Fixes: 4895c771c7f0 ("ipv4: Add FIB nexthop exceptions.")
 Cc: stable@vger.kernel.org
-Suggested-by: Nikolay Aleksandrov <razor@blackwall.org>
-Reported-by: TencentOS Corvus AI <corvus@tencent.com>
-Signed-off-by: Jun Yang <junvyyang@tencent.com>
-Reviewed-by: Nikolay Aleksandrov <razor@blackwall.org>
-Link: https://patch.msgid.link/20260831111330.199543-1-junvyyang@tencent.com
+Reported-by: Amit Klein <aksecurity@gmail.com>
+Reported-by: Noam Caspi <noam.caspi@mail.huji.ac.il>
+Signed-off-by: Ido Schimmel <idosch@nvidia.com>
+Reviewed-by: David Ahern <dsahern@kernel.org>
+Link: https://patch.msgid.link/20260828192344.2596928-3-idosch@nvidia.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: Applied the br_multicast_del_pg() change to the existing __br_multicast_del_pg() helper. ]
+[ sashal: inlined udp_err_update_exception() into the existing udp_err() wrapper ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/bridge/br_multicast.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ net/ipv4/udp.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/net/bridge/br_multicast.c b/net/bridge/br_multicast.c
-index 53dd2d56c37ef..fdaf2db7173e6 100644
---- a/net/bridge/br_multicast.c
-+++ b/net/bridge/br_multicast.c
-@@ -596,7 +596,11 @@ static void __br_multicast_del_pg(struct net_bridge_mdb_entry *mp,
- 	struct hlist_node *tmp;
+diff --git a/net/ipv4/udp.c b/net/ipv4/udp.c
+index 3ebd5765fb9f3..65780cf993eac 100644
+--- a/net/ipv4/udp.c
++++ b/net/ipv4/udp.c
+@@ -821,6 +821,15 @@ int __udp4_lib_err(struct sk_buff *skb, u32 info, struct udp_table *udptable)
  
- 	rcu_assign_pointer(*pp, pg->next);
--	hlist_del_init(&pg->mglist);
-+	/* Keep ->next (held under multicast_lock, freed later by the GC work):
-+	 * a port->mglist teardown walk may have latched this node as its next,
-+	 * and deleting other groups of the same port must not truncate it.
-+	 */
-+	hlist_del_init_rcu(&pg->mglist);
- 	hlist_for_each_entry_safe(ent, tmp, &pg->src_list, node)
- 		br_multicast_del_group_src(ent);
- 	br_mdb_notify(br->dev, mp, pg, RTM_DELMDB);
-@@ -629,6 +633,13 @@ static void br_multicast_find_del_pg(struct net_bridge *br,
- 	struct net_bridge_mdb_entry *mp;
- 	struct net_bridge_port_group *p;
- 
-+	/* A teardown walk over port->mglist can reach a group that an earlier
-+	 * iteration already deleted as a side effect. It is off mp->ports by
-+	 * now, so skip it instead of falling through to the WARN_ON() below.
-+	 */
-+	if (hlist_unhashed(&pg->mglist))
-+		return;
+ int udp_err(struct sk_buff *skb, u32 info)
+ {
++	const int type = icmp_hdr(skb)->type;
++	const int code = icmp_hdr(skb)->code;
++	struct net *net = dev_net(skb->dev);
 +
- 	mp = br_mdb_ip_get(br, &pg->key.addr);
- 	if (WARN_ON(!mp))
- 		return;
++	if (type == ICMP_DEST_UNREACH && code == ICMP_FRAG_NEEDED)
++		ipv4_update_pmtu(skb, net, info, 0, IPPROTO_UDP);
++	else if (type == ICMP_REDIRECT)
++		ipv4_redirect(skb, net, 0, IPPROTO_UDP);
++
+ 	return __udp4_lib_err(skb, info, &udp_table);
+ }
+ 
 -- 
 2.53.0
 
