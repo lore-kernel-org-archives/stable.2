@@ -1,70 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792660111;
-	b=q+Cw/NDrRE7hkNYB9cASlRI8d5oWlhbeIX1MMhrubbCj4LJppZQqQHIru3ZaeJpOtH61
-	 grr00GgVqoKNnxkRV4sTzi3PV0s+J6BfmTvWcIWIwcZEDW052+Yt0eUGLjIeBHw9mYwiS
-	 CBvsVHu4Gs1FUb9kKQqSPkFu9vh0lfNfSsWj5DwgVK0dCusJ4y5mMu1jV2JEu1Y9/IvLO
-	 VQW8zD+i2k8Chcl95cRUqpe3xtBYJt5jj9hBUhuKl21BG379qXUqumEWWAa01VFIUNh0O
-	 NR5lVwSN8pNx9AJ9b5zmsoWF5RCbQJnpp9+goijttOG+klu2Y4fwy/eEdV5UkDOCZ7g==
+	t=1792660130;
+	b=kUbuthJoaj/BvkMz5qkiUgYCKEFs5Odirp+2GEJLs0TgsWzsRSonufliO2t+9A6lEmbQ
+	 poBqq2AzLIUbJFKS+sj4vluJotszhrYD2TKq4AamtQEG7HK+/Nb+B//lox4ne1s3s47Rw
+	 jmREUJ6v0wEXE3P3P8WmFDDdysnKSVXKeNF86O8Tyz9OlcrSkGVTanR2T6z5+OCIYivMb
+	 o9SSblPzFps9H1+ewmL0w+kJPJI9ri3gkB4D4C/OAPC8BxzLNVyvt/wDnHJudMpnNHtxf
+	 qcab8L0uaHw+b+JSxzqjiWrzv9Vh58z8WI88FB3wKiUNDEGEZGlearDgQS/I0bzT3Kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792660111;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792660130;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=FnPAv4piVPBvJnqlLGMEnfUI5qWz/TzWKkbWb8G7NQ0=;
-	b=SGHi/mu5Ani3CDg/WFm0KglTDjEdJ48yQczrUbwv3FFIGU5Oy/QsFc1qtgGH8j/pTy+l
-	 G6o8bFQ38T8toQHqVzzlMpqSfqRTeWcMU9c6B+35Htz/dLC2+9hWiM5nqeb6gquTfNiyt
-	 V/I9sCCB8ejuxBrbjVkycINFNzDJZaByYKHDkQbVV0dV6SBLegNkFgK+4YRY7Ztq5VA36
-	 FW61fhU2u3oFZwGV2+0rMUFvSUqmVTSywQ/n1yNC+Mw7DP2pK/oqwD9iKriE1T1e1WY4B
-	 PeDVakYGmQT5uBut6IutgUekOE2HVuR5iSHT+r7PNl7W6oHuSD7paesrVSjOHfthzFg==
+	bh=RLwjd0wA/MWjFh1zhTci1SLIdCeLzV5/hu4CPoq8FCY=;
+	b=ZD7t+P+FSfP3q6Rs2NS+Upq/Fj8esWQh4RiuB6+p1s1Nq6RBtUWepxNauFVfy+dAo6Kx
+	 c9Nbk8aKV1uWBQEg6MFAHjiQTLD8vC8io1t+ldfrmDHSr4wQRWJUGUcfkhgmS4+LRGXTe
+	 slquKugeaL48wnjuwQcD0+npmdiWC82q+cqo0OrsbyqkiQAk04NhDgsH0pCQMUDRQrUOE
+	 FADFN4igvx4E3FeAXZC4LZX9eVtTIIaPr40YG86JkBiRQDqjY5NCTBfyrOHvdcckOipGV
+	 RoTa2Z6hyuSPuF3Rwqy2/JyszYzfW26+6kPiE6/bQp40COZ17tyQXHXcH9yTcdkYlgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ve3U1wmN;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 91F6B606A31A;
-	Thu, 22 Oct 2026 09:08:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91F6B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CY3l8Psn;
+	arc=none smtp.remote-ip=209.85.216.48
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA34A606A319
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 09:08:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA34A606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ve3U1wmN
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CY3l8Psn
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3a4b3ac8fb7so860972a91.0
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 02:08:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=ve3U1wmNKvAKWU8zgJGJIVIotNyD/lmrVRwuEeNGTi8Qrgi4pp9P8wnZHw1xAjOyM9hJhEECm+yr0
-	 1kr2K6PGw2urpF6Do13YE/mTH5vVwb+MSOjbeskuI19qw/ED2pdHQXVrYplY4YdTnwigKH87Aj6obv
-	 2/UfiKKDdgfaiTCU=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16ad9d284a4a-0a136;
-	Thu, 22 Oct 2026 17:08:21 +0800 (CST)
-X-RM-TRANSID:2ee16ad9d284a4a-0a136
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[223.108.79.101])
-	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66ad9d282d89-13201;
-	Thu, 22 Oct 2026 17:08:20 +0800 (CST)
-X-RM-TRANSID:2ee66ad9d282d89-13201
-From: Xia Yan <yanxia@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
+        d=gmail.com; s=20251104; t=1792660129; x=1793264929; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RLwjd0wA/MWjFh1zhTci1SLIdCeLzV5/hu4CPoq8FCY=;
+        b=CY3l8PsndLAVHacYhXCYhzOUrOOdrTi1or1qcqw+YzmZNgjKYUWAcAcNGmqU5LYEmU
+         ZcH1+K1aBDcpmAjpDG3BXowoh/Q9edg+xXhyGguR0BgETvAc86KrAC0zXKXWeNy66ZlF
+         NCbwoFw0R4bBMiVqHXPj9ZlwQ9rhVdxiLy6qhqdwlQmOaxbjmwxw/PnBI+jqX2GH1gZZ
+         Yh9MDtGxxr2iOP3yQsRqOI59TWfkePZ5MIti1xjENP9+HADypTubFicjA/DsaxZgBdAL
+         Zy0o4O4PQobkISfVHa3X/puDHf9RndgeeddQzsfS5bcAb+r2FspTEKWKicE+eAuivIdz
+         eD0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792660129; x=1793264929;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RLwjd0wA/MWjFh1zhTci1SLIdCeLzV5/hu4CPoq8FCY=;
+        b=x3Y4lz3YzH6DaPPDZJv5AYkf2PdmdaxWPBF9470WZUL7R5YohTKOfQ4N8RyfreyiAZ
+         tcEQPyM6iJ8otg9x8vDoEFuJoc7JhweCur2FpGL/E1I6JGvlKn/ran4fnEkPE9l6Uhhc
+         6T2SzGXmWe45U5pABU9wnRl84AdJau7H0zt1q+W6vAhNLgsbQRuPSeIwJkQXRwlMfMDc
+         ePTEGmAgO43srpA/osLdcm6Akahw6upuJT5+6e8GW/hFbhvynM5pLkjBFc8RS8aPfV78
+         7oYN3Cnwrkf6t/wF35qzgLiiZdCyGrTtJ1/EHWLT4iIZbXPAdm7vKvZzU5eF2IN2W3/t
+         i/Pg==
+X-Forwarded-Encrypted: i=1; AKwUvBz4J8VcXwn9lJ2e24dXdrYyGtrBi3rxS23ySz9Bu+LdTAlcaBvDZ134aBFnxYL5kpmNU6U1zlw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKMYbScZP/6ZS3e0WzABIhYOomgKCxXEpumDTBDDhQMMNNe7NPD
+	FYwGXLj0lujCN3xZPXgfOwB+bfIUakVoqk1EgM+DK2yJNiDuXB1oaa/V
+X-Gm-Gg: AYBFou3keYDi+dNwGB2V+qkPeUPBWCyoEmmIH8aLb3+oeCXcxoItVS77Cohqm6AduMD
+	evZ1Gj+x9yOXb+ZbrOpDOwQ3VyYvGCmFrKc2uz67MPJyXpXCFgJy6UlBJdWuPTpE7yOR3cH+45K
+	hYtSflA8+8Ds68MASa3Yzs0XpgInAGK3OLWtwtVV5K4O4UKTrTt7BkpOGj9uvuu9mXqXd24oPXa
+	MyVBmXKICwtcy3GDBjsFKQ5bUKwnAJwFMK+vPPUgJRr8+fn/UpZUjjig1OpAoAhilOhI3SAI130
+	me8epKRORA6jcZ/uZdNtyvY1I9fzy8/sXRZnWD+NPkyJkKiB6/Pcx7CTISBHjSDFB69aZJaHFaK
+	X7Db5DMQgGa1X/ZsDTh3dMNJuejusZWThj2sOz/jmr8NZkq/D0qeff5VD+kjVbG3c4+6PG5RWPH
+	S5SxXrvuQXPMWqp4rjUgqOPx6CbVuroydx1xbNKuibum1ST2hG1sGmXN0z1AjIvUx8sO6v/TPXY
+	PeRZkXSuV2MAkZyT0KwujdTdU4WfgTlUb/S8Bf/eVWBYJZq6K8=
+X-Received: by 2002:a17:90b:1b0e:b0:3ac:a993:5b5c with SMTP id 98e67ed59e1d1-3ad86afc038mr4100221a91.6.1792660129150;
+        Thu, 22 Oct 2026 02:08:49 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada490c096sm3325111a91.7.2026.10.22.02.08.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 02:08:48 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com
+Cc: heming.zhao@suse.com,
+	ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	yana06070@163.com
-Subject: [PATCH net] macvlan: fix passthru promiscuity accounting while down
-Date: Thu, 22 Oct 2026 17:08:09 +0800
-Message-ID: <20261022090809.12019-1-yanxia@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH v4 0/2] ocfs2: stabilize dentry names in file and setattr traces
+Date: Thu, 22 Oct 2026 17:08:40 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0088-v7-6324344256f0c3b1c3d8-0@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,52 +100,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-macvlan_changelink() adjusts the lower device's promiscuity count when
-NOPROMISC changes, even if the passthru macvlan is down. The reference
-is acquired in macvlan_open() and released in macvlan_stop(), so a down
-interface has no reference to change.
+Snapshot names at all six users of ocfs2__file_ops and at the separate
+setattr event. Patch 1 handles the five ordinary file-operation callers
+and setattr. Patch 2 handles release separately to preserve its locked
+open-count sample and take the snapshot outside that critical section.
 
-Clearing NOPROMISC while down leaves an extra reference after the next
-open/stop cycle. Setting it while down can remove a reference held by
-another user of the lower device.
+The release explanation distinguishes its existing RCU lifetime coverage
+from name/length consistency. It does not claim that the ordinary
+callers' external-name UAF interleaving crosses the held inode spinlock.
+The release source change is unchanged from v3.
 
-Guard the count adjustment with netif_running(dev). Keep storing the
-requested flags while down so the next open uses the new setting.
+Patch 1 also removes the read callback's redundant NULL-inode check.
+The two patches apply independently and leave trace formats unchanged.
 
-Comparing changelink with open/stop exposed the unmatched count changes;
-the same issue was also described in earlier macvlan reviews. A netlink
-test on UML reproduced both DOWN cases before the fix and verified the
-expected counts afterwards. Repeated flag updates, two open/stop cycles,
-deletion and bidirectional small-frame delivery were also checked.
+Cen Zhang (2):
+  ocfs2: snapshot dentry names in file and setattr traces
+  ocfs2: snapshot the dentry name while tracing file release
 
-Full x86_64 builds completed with WERROR disabled for allmodconfig, and
-WERROR and KASAN disabled for allyesconfig, including the resulting
-dependency changes. Neither comparison showed new diagnostics.
+ fs/ocfs2/file.c | 118 +++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 77 insertions(+), 41 deletions(-)
 
-Fixes: df8ef8f3aaa6 ("macvlan: add FDB bridge ops and macvlan flags")
-Link: https://lore.kernel.org/netdev/179170088566.434549.4699134797461783473@kernel.org/
-Link: https://lore.kernel.org/netdev/20261016003009.2692872-1-kuba@kernel.org/
-Cc: stable@vger.kernel.org
-Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
 ---
- drivers/net/macvlan.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Changes in v4:
+- Add a name snapshot to the separate setattr event, including the
+  same-directory source-directory rename case missed in v3.
+- Remove the redundant NULL-inode check from ocfs2_file_read_iter().
+- Clarify that release can select external names but its held spinlock
+  already delays their RCU reclamation; retain the inline-name/name-length
+  consistency rationale and the unchanged release source fix.
 
-diff --git a/drivers/net/macvlan.c b/drivers/net/macvlan.c
-index afad90b..a48c9e6 100644
---- a/drivers/net/macvlan.c
-+++ b/drivers/net/macvlan.c
-@@ -1664,7 +1664,8 @@ static int macvlan_changelink(struct net_device *dev,
- 	if (data && data[IFLA_MACVLAN_FLAGS]) {
- 		__u16 flags = nla_get_u16(data[IFLA_MACVLAN_FLAGS]);
- 		bool promisc = (flags ^ vlan->flags) & MACVLAN_FLAG_NOPROMISC;
--		if (macvlan_passthru(vlan->port) && promisc) {
-+		if (macvlan_passthru(vlan->port) && promisc &&
-+		    netif_running(dev)) {
- 			int err;
- 
- 			if (flags & MACVLAN_FLAG_NOPROMISC)
+Changes in v3:
+- Cover all six ocfs2__file_ops call sites with two patches, grouping open,
+  fsync, read, write and splice-read and handling release separately.
+- For release, keep the trace and open-count sample under oi->ip_lock while
+  taking and releasing the snapshot outside that lock; cache the
+  event-enabled check.
 
+Changes in v2:
+- Replace d_lock around the tracepoint with a dentry name snapshot so trace
+  callbacks run without the caller holding the dentry lock.
+- Pass both the name and its length from the snapshot; keep the event
+  enabled check and release the snapshot after the trace call.
 
+Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0088-v3-d628f98bfcb6784a0bfb@gmail.com
+Link to v2: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0088-v4-a9a0df898afb4fc65fa0@gmail.com
+Link to v3: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0088-v6-d3056754af7e660155d9-0@gmail.com
