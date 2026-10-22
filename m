@@ -1,98 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.182
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792684904;
-	b=kTyDPkfjSEi++6kv89Oa8EYtTxZtqARj3eb6K4Xjz+7pk1PNxo5AzcbRSlApThvVQ5LK
-	 uyjDnfNKo4/WZ4fHTgdKmxDW1/3iuvgShnEYF0TcFHEyWW0/wXT7o6x9lRUEZA8E7fmP/
-	 2q6SsKaXL1409VKBjGlfTPmNGyYvPB67AG2COMgisHjqmY1PmInQi8gE/tkb+BHqGwH5v
-	 faNkALMf3aXcVl3FydIJtyk2f9X9u6qbWdszUmnAQV9TT0iYrshIEBcVikc+yOp+WPU3m
-	 PfwHGLGJgI3K9vfhDcBfdC7aXTJNUySACgCp0+TLbv/Xcn9F+kFELURbmw4pLm9pdJQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792684904;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=S6BzR53XkcYWnJTROJDWWc96U2wGkZB/h4YFyc/vD1Y=;
-	b=mZtWFWVCA3wYsah5oWkGLq4FAWCidWDOazGHgN4XGF2K2fOBS+BY17a/SdTmIQZGyOo4
-	 VYAtrTM8mbGrIA2+GiaRJN5I17JpVMI9h4d4Ur5zdjE/YEreiq9xzR0oIRMXxfwg6MclQ
-	 epX2FlcKm0dzCiZSbkXpzjOlQuR8ta3XBJ86tZTzOhA2b1uCH5KNwnWf8eX45c0iIHq/Z
-	 efUzGXi1RSoBH58WEdTEyh4uyh5OlX9BeH+B0xex/Q8DiH/hCVvDp3n8alhTaVkTo3+BZ
-	 kiNWDFk4iBMMXYs9hBdmih/9SiIukDm3PX7k0SxKQcnXqaXvFoJgWE92A3/u2PqMN5A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mojatatu.com;
-	spf=none smtp.mailfrom=mojatatu.com;
-	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=m+f5lWNJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.182
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.147
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792685091;
+	b=u+6ENHX6akzSRophGMRPAKBXbbjzjXeeQmSM3LWfF6OAy+60TQDrg1gO8V42H2PIeOQk
+	 Rp7npnhcjkB1P8AMTRV3mQPObE/vVSMFuPKW8bLrEs6PtsTA2u0HNbrrExSY17oE9md5l
+	 sM6+NufiZaqGl93zCfiThFqCip/V/zaBj/z/Xj3jyT5WGZYqElklzs89RP/luu6l7yFuk
+	 uO+LtyJTq2pRZeolLv9lUlsj9HAb+KGkZtvES6KuozUnaFYQ/iX5FbEuI1F+v+5IABNsZ
+	 zWcb5Ads8F2E0Qi3ngXZO18rwTl8sxvh0e2eIxAfaiH+iaMdlUeBSmobHWY58Rc4Z0w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792685091;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=pDXAHPQkxTtF2dSwsTWY/c3EcaAOKqjepqfHcy7hZKQ=;
+	b=TjEC0fBn646e4OURA3zY6PfH9hY1384hSZ6im4LR5+afFztv6DRkghBBouukr7CQNkHw
+	 6iw2BvXN6zqzTTdWFzrPraTOZF7ntf1smg1+AX4wrnjFpYrYEVvegCNfHYclxg0tZ/I2f
+	 FEor4SCIKYv/fXpt0fgJFkDJto4kaLMjllpXXDcr5opo2O9+JlAWk0hX1k3R5aEcDdYZZ
+	 rS5i9/33maeI362FD7Jyp3mLfH+S6ijXboTGCY+OkQUlRi1FfFelVjzsVhGijmt84lwpb
+	 jFbw+EvAljGynHweaVfl0lfKXnbakbN9gZ7ZHeGAjiYGS/HoKOkv29ZetZo9yvPQaLw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=tyhicks.com;
+	spf=pass smtp.mailfrom=tyhicks.com;
+	dkim=pass header.d=tyhicks.com header.i=@tyhicks.com header.a=rsa-sha256 header.s=fm1 header.b=KGEjgZIq;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ii2cseVb;
+	arc=none smtp.remote-ip=103.168.172.147
+Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE69606A31D
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 16:01:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEE69606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76585606A31D
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 16:04:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76585606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tyhicks.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tyhicks.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=m+f5lWNJ
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8a06ca6e8f4so22847b3a.1
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 09:01:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792684903; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ePYLnnNLfNuNWhBA/O3gmVCWVNKHBNYXBMX9fbMPTwz1QPvZyJ668UahkFvbgjWLR+
-         yLQpWPaWAQvh1ELrB4q8OryqKcp1IhjwF5etbZM8Lj3fE5SSmwATrVneYLP5qoJLcAzq
-         L2EBKhGCSxb2Zc/+OW30zarCf30cxCE2kjsyK2vQDItUYHcwCmCJFmvG1oMZLS16yFM+
-         ChA0V5bC10rkaN1HbXn5HcWIFmN8m1FyxHv4toc+zmRrD0ypx8cP10xiCSYo0e0hofvx
-         HMPRS5ng/5elyTCsuKWX7F1OF8Tm3oc7yHKW4iUcKtjDPtqLxIvIYfq5uitrRccrqM9L
-         YJ5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=S6BzR53XkcYWnJTROJDWWc96U2wGkZB/h4YFyc/vD1Y=;
-        fh=RJjRotZgG8q63DEveLo7NG+BoZzxcek5NmgqkXbZ+lQ=;
-        b=Eb7aKWgmglote4CGTW870hQLB2HwBuA0nmTWA2MUeFg4ptrlI69VdPEljKdNBEymQJ
-         05j811shnkYvh/sb9zMeBfG1u6i7PfOOvXTxpxNhVn6WJmb8bZBEEuiJ1OwZab3rq+SU
-         StczvNDAgQphtpAbolAUkPjAHTEa37lnf4UqL5poUdE2r/rFnDJErsWGXJJkv8vALniH
-         /iuuRKSHZwhn7naoG1evy9jrIR9Nr54pZxYyNPrYAOJwp6eq45s4BAhj+hAGSLbfLzXj
-         /1BuROHY1tpZxD/7+3f6Zrz9BVHGQ+R6z1jIW5YHmpKSXmoZZq0kv574yrghBRg+S116
-         /ULQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1792684903; x=1793289703; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=S6BzR53XkcYWnJTROJDWWc96U2wGkZB/h4YFyc/vD1Y=;
-        b=m+f5lWNJhnrnTVhzqermTyNGDuwZEXtHxT8p9i91KKg5Rufk4Rp8jE6prA1pkVWRY1
-         NBZU2CvMI/pTtWypFk9W3AaAUnmI8m/m4aPg7xTGF0W8eI92FoAnZiCqqV2ZRaFQ8AXf
-         gGsNJZAnWjV72cTsGrSG6yKBtX95pM2MHqRMM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792684903; x=1793289703;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S6BzR53XkcYWnJTROJDWWc96U2wGkZB/h4YFyc/vD1Y=;
-        b=ZJIX91BNVgAUgt8MH3F02Tnc9GUMWhW9q2ztJ7z0ItGy6uf6NMSpD+BtRVwed/ujax
-         etdrAxLtV1AHl1QbuaSKMTYMSEdH25ujJuvZPPIgwbnmjkO4L5TV+pe3OYh+mezQB/Hu
-         07ChUD1DKRSp9Dh8idkgrUF5SF/tLmyswDlTe7uwWiUAzzAf17bkrH3KOafYZ50sYEQ7
-         SK3vmfZjrtufA2m0+rVT/sZZBZzvv9gd4yyeeaTrSL33y17MV+iEKkY5yL2VRseqw1ID
-         VGhiB315KoEbwxPvPHHzl54ZeG9sq/nq+KvVDtne/Fne2pkY53dZKan84pjHFgjKQNOs
-         cZQw==
-X-Forwarded-Encrypted: i=1; AKwUvBwH34dQDk88DFl0Qde5ZLIep1GuA5aTIA++S0+yKMzeXw7Tyn0LcIwT97jwf4bhThhGXVw7UFw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLgnHqTGagNqh/7MHgwLWXGUx+j7xGGvo4fcAX5BJ9BGPUI80/s
-	fT5uZehCD8F+74mVhBGfw8wZ3Tfs86d8atT70XqPQ6rf+faOWFsyxqS51oZZOjS4mZCImYA4d86
-	xXnLo1VlEC0QWICsVBV9mPxiBrs5RaI2BwFsE7nx9
-X-Gm-Gg: AYBFou2cgj8PTTT9/l5XtpGAjidG7E2OE+XWtWXy7IfmBiLR8NZ8GiZtXIIj+7miAVZ
-	mYkV3SP1MdixLBz4vDXxKirwutnYE4KKGpplWACf1iaJjyrB6OQ9hY/Ll66Xse6qYyvPYVHZoJa
-	30tAtzaQi0OpaTVYFvgsDvS1zqqmoeSi3pWA2RjQgwx/+nyzrTaOcP0Y5cBot3OrQXqwCoLmdyV
-	GRDAMA/v/wiDuKWTNUisHQrxRIi/z9EQKQP05OwcSmnU2TqQOXtdgTLgeyZYeV+rweREN6sB6zH
-	Zfqc62RWfTzSC/OaOnX+q9gJOdSnxIL2T0spOUj683NyacgJa9NuVDlnUGjbZE2iQTvHvFu3pln
-	bHs1aKXXcaQWcJKrshfcltwEW80GlLZ8Uhx7tLUyHNIZjas2kp+eUIsP0Ic8o4NeGWk0Mbxy43B
-	V4VMBCL3IHfX5FVdQ=
-X-Received: by 2002:a05:6a00:94f2:b0:878:3783:8a88 with SMTP id
- d2e1a72fcca58-8a089d4b9demr4627712b3a.52.1792684903101; Thu, 22 Oct 2026
- 09:01:43 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=tyhicks.com header.i=@tyhicks.com header.a=rsa-sha256 header.s=fm1 header.b=KGEjgZIq;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ii2cseVb
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfout.phl.internal (Postfix) with ESMTP id AC5F8EC02CE
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 12:04:49 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-10.internal (MEProxy); Thu, 22 Oct 2026 12:04:49 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tyhicks.com; h=
+	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1792685089; x=1792771489; bh=pDXAHPQkxT
+	tF2dSwsTWY/c3EcaAOKqjepqfHcy7hZKQ=; b=KGEjgZIqH7284K5PSHfUkkEgny
+	cs5LThFyH+x5VYUNTptgP09o5K2PPMmN/lCmvI1UmepZSE2InktEAgRWdRHvS1tb
+	3Dorj+JcYuPJCvrCJIHk55dU6tKE9Bt8NiQNXpbIU+WcQxH9eVJyEz0+yryNaeab
+	XFm0JQagJD5RXLEjiTUe8FgkA3ACn6T35ashU0Zxnh7nWptiHIn1s/XpHTHs7EZz
+	cz9LO6nPJqQa3/S2BRyAUOZZXhSYOp2TVxvXsJMOWAuqM0xhZwVlg96AvHmMeLzb
+	HkqYgVUJhHBnhsroTag28HgXA2DIIMgylmwy5m+i2sk7kEtTZCjZwZgs/P+Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1792685089; x=1792771489; bh=pDXAHPQkxTtF2dSwsTWY/c3EcaAOKqjepqf
+	Hcy7hZKQ=; b=ii2cseVbIXRoefTYpqdDuM8Wc9J++NALyRhyFtb9C1/wM2Ra17A
+	rHbLM7kHZnIAv5XTLsrrzT+qNLLVxo134c/Wl0bVJA+FbYD8xCYjDZQTQZZyr3Lb
+	8jBoSplDSDhqvDUSXUA9YUwFdH9506DQC9pp7xa7jBoZ3+wJ8EQ9k5oNhG0/dS4X
+	GIdE+Yaw85Ykh7d2GtOvyUqnePuB7mhhbKyqYFNQSJoEtYbuMeXD8rsd3vyxLy5M
+	c5yHUbvP4RKHkvfG82Er0XCnMNLkBBN89WT6IqtKrXZaZAD8u1BaRHMpOWxw4qbq
+	WvC2foTv5HCXq6k+W4X9C2kV6BQxnzLOcYA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=tyhicks.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792685089; d=tyhicks.com;
+	mf=PGNvZGVAdHloaWNrcy5jb20+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:H0o6ISz33iu0Ki0ql+L34HB3yYAGYmrli04mDYe83u7XXqY
+	B3quF1V6aPa+/Ka2Cpk7eZSMPJ0gAl1jFaTJuIttsBj1Odwx9fpuarJau37NHQQH
+	jFk/Ta6SHjF5uoBuVbYHeTbVmYubJH2AASECkg9CSoqlq3PwEZLNOnJB2pWwT4ny
+	HJhssd+GTd3uUwCEU/vi4WePh2rnUKJUqTqqJMre4yrSKBVLvt8BBiaq0kbc5T9R
+	JIP1ZziNcaEioVc5hX0+pwjXfRvM4gUVXSXID6X0bAmIl7kFYvZll3Ofia7tY8NU
+	vZ+NaWz1orjA8aVPJMuxojwvekqDmyGZ8+4C9pA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:eIMjwbjvEkVM0KyB0641woYC+YgvOAMzz3RNnBYpFeA=:R/d9wQiJzANatNCUqyrrm2pLg4J+8//+WSbG0m0prLQ=;
+X-ME-Sender: <xms:ITTaamSFAOFhHTPfwO2QqAHsKZp8c7qi_4EbVf0PzbF5ewNcAjQ7TQ>
+    <xme:ITTaakv9PPkyuNOdAMf4pebPQKNYYN_hOdRE5K9FVfjxKWOY42WZeN0Gnbe0JWIi8
+    knIMPv5TlDAMYsUyRvjEJVU5eQX8FsMwFuB80UWInpbIw3rtOWxbaI3>
+X-ME-Received: <xmr:ITTaavaC5svGbjo9rLZLJuw-OzqfTbg9E4QlFDME5ukh0OLL8ONKkw>
+X-ME-Proxy-Cause: dmFkZTFLCAHjFQO2QIsgkjKn7X68PZwkorxm4dIFqzI2GdM9HP9XRb57VrPON0WYWLb7dF
+    RiPOvVi5nFg/+AmE2cP2zLCM2/hPq07i5mM5IhH4LJYoeYh135q/YzBPq/Axgw7gE0QJis
+    gEjFd/3LZ/OUuj9FmsrOhgyUy6KRrYpOdtOs2DBO+MMuKHs/EPHVmmEGTOQc7s53/lYobw
+    /kMvH2hEZoG30C9rH57dofsGH+OE3PfbBzv9IMcAO/dJDJjvPryOZqx6bI8Yzs9N7s9N68
+    CpomlH5tkDeR0pnCW7Sr4LdfN/NP3nnll3qq7pVUCdahWhIAaqxHjnwQ9psVklFUUIqwde
+    ISYRNOzV2rNgtw6aBpuPcOSRKxQn9QcD0xn+XtQXsaOrxglV1cnSK680tjsH9Rr+32WYFz
+    jCwIAKqbnDVQJKcrXt0kaO0/cqtMqIP2y5zL1dK7zqf5jlbgNM9QTJTJ1ESHxu+QsN1MOC
+    i71R/5QI9Y5JBnlp3J9H8NZoyMvmh4rE3IugJ+i/rPQTSIPvJpi0U3fksxl1P9g3j5Os1J
+    J6DUI+JHLOq22Bg7uuURSvkC+xCPLVCveCkPxMclxMP/bODf8z2WnNbXMbKd7tM44px7TL
+    GI+/4x1k6e6GcHinQcB8ltnMNaKpckYILo2eMKV8MEuwCFuVhWTtB1HBt2kg
+X-ME-Proxy: <xmx:ITTaaiEICPG9ItgyAzA7bQXrvA_uvleLKitiiqKAhxlZJkZLjZ7FDQ>
+    <xmx:ITTaarx26Dz-KZ_YH8O_73TxVS_7E8JaTMUogNj8MReimAy-g975Ww>
+    <xmx:ITTaasnl5Cqz9S_m3_5VEMQAOVz1H5YBpXH5_6EVtDNtJftkseSYkA>
+    <xmx:ITTaask7qnO7jDN_RJJcaXjRuLkqmPTjvBLoxDD21UH2jYEXAuppkA>
+    <xmx:ITTaanM-E2nj4tOJqToeHVXfRA-Ni2jrvboeJpTxIg-gwfLDPI1G8mEr>
+Feedback-ID: i78e14604:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 22 Oct 2026 12:04:48 -0400 (EDT)
+Date: Thu, 22 Oct 2026 11:04:29 -0500
+From: Tyler Hicks <code@tyhicks.com>
+To: Adriano Cordova <adrianox@gmail.com>
+Cc: Nguyen Duy Nhat Anh <neganhat@gmail.com>, ecryptfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] ecryptfs: reject short encrypted key payloads
+Message-ID: <179268488671.837681.74144863274950534.b4-ty@b4>
+References: <20261016170633.1415240-1-adrianox@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,88 +121,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <ACT-N6N4.v1.r0.20261022051412@mojatatu.com> <ACT-N6N4.v1.r0.20261022051412-1@mojatatu.com>
- <willemdebruijn.kernel.38722ee638a21@gmail.com>
-In-Reply-To: <willemdebruijn.kernel.38722ee638a21@gmail.com>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Thu, 22 Oct 2026 12:01:30 -0400
-X-Gm-Features: AclHuK-5CkW0mOltEfM9Zb_u_0BHBPvpxVVM8r2c2XDj_cPKyz7BcCck9T_aWJE
-Message-ID: <CAM0EoMnJhXQPxfU65oLYvpc-a6MhZSKi-D664fTMLah_6p7G2Q@mail.gmail.com>
-Subject: Re: [PATCH net 1/5] net/sched: act_vlan: reject short linear Ethernet
- headers after POP_ETH
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Guillaume Nault <gnault@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Victor Nogueira <victor@mojatatu.com>, Vega <vega@nebusec.ai>, Ren Wei <n05ec@lzu.edu.cn>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, Jason Wang <jasowangio@gmail.com>, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016170633.1415240-1-adrianox@gmail.com>
 
-On Thu, Oct 22, 2026 at 11:21=E2=80=AFAM Willem de Bruijn
-<willemdebruijn.kernel@gmail.com> wrote:
->
-> Jamal Hadi Salim wrote:
-> > The issue:
-> > act_vlan POP_ETH can leave a linear area shorter than ETH_HLEN; a
-> > subsequent eth_type_trans() may then BUG in __skb_pull() when the frame
-> > is redirected to an Ethernet device.
-> >
-> > The Fix:
-> > Drop the packet at the producer boundary when skb_headlen() is shorter
-> > than ETH_HLEN after skb_eth_pop().
-> >
-> > Conditions to recreate the bug:
-> > - egress tc filter on lo: action vlan pop_eth.
-> > - AF_PACKET SOCK_RAW with PACKET_VNET_HDR, hdr_len=3D28, and a non-line=
-ar
-> >   eth / inner-eth frame.
-> > - The pop leaves skb_headlen(skb) < ETH_HLEN; a following
-> >   eth_type_trans() can BUG in __skb_pull().
-> >
-> > Fixes: 19fbcb36a39e ("net/sched: act_vlan: Add {POP,PUSH}_ETH actions")
-> > Reported-by: Vega <vega@nebusec.ai>
-> > Link: https://lore.kernel.org/r/40fe2d7dfce13411bfbe9271c0f7c54fb7e88e3=
-b.1782548651.git.bronzed_45_vested@icloud.com/
-> > Cc: stable@vger.kernel.org
-> > Suggested-by: Jakub Kicinski <kuba@kernel.org>
-> > Reviewed-by: Victor Nogueira <victor@mojatatu.com>
-> > Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-> > ---
-> >  net/sched/act_vlan.c | 2 ++
-> >  1 file changed, 2 insertions(+)
-> >
-> > diff --git a/net/sched/act_vlan.c b/net/sched/act_vlan.c
-> > index 6a375fdc63dd..ddf03b08bfe8 100644
-> > --- a/net/sched/act_vlan.c
-> > +++ b/net/sched/act_vlan.c
-> > @@ -79,6 +79,8 @@ TC_INDIRECT_SCOPE int tcf_vlan_act(struct sk_buff *sk=
-b,
-> >               err =3D skb_eth_pop(skb);
-> >               if (err)
-> >                       goto drop;
-> > +             if (unlikely(skb_headlen(skb) < ETH_HLEN))
-> > +                     goto drop;
->
-> Could it try to pull the header and only drop if the packet is too short?
->
+On Fri, 16 Oct 2026 14:06:32 -0300, Adriano Cordova wrote:
+> Reject payloads too short to hold a struct ecryptfs_auth_tok,
+> as a key created with a non-ecryptfs format is shorter than
+> the struct, so the payload gets dereferenced past its end.
 
-What would be the benefit?
-Note: the OVS patches pull because they must restore
-MAC_PROTO_ETHERNET and already return an action error, i see a good
-reason there.
+Thank you! This has been applied to the next branch of the tyhicks/ecryptfs.git tree.
 
-cheers,
-jamal
+I made one small change to the first patch's commit message. Instead of
+"as a key created with a non-ecryptfs format is shorter than the
+struct", I changed it to "as a key created with a non-ecryptfs format
+can be shorter than the struct".
 
-> >               break;
-> >       case TCA_VLAN_ACT_PUSH_ETH:
-> >               err =3D skb_eth_push(skb, p->tcfv_push_dst, p->tcfv_push_=
-src);
-> > --
-> > 2.43.0
-> >
->
->
+You can find a direct link below but please be aware that the commit hash is
+unstable and, therefore, the URL may not be valid in the future.
+
+[1/2] ecryptfs: reject short encrypted key payloads
+      https://git.kernel.org/tyhicks/ecryptfs/c/00cc31a869e2f635e6455685c91c4c9045c96ebd
+[2/2] ecryptfs: bound session_key_encryption_key_bytes in auth tok
+      https://git.kernel.org/tyhicks/ecryptfs/c/8f6626bd6594a78f454d02b27b74a580c890cab9
+
+Tyler
