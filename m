@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792634652;
-	b=3cCRXK0Su4z7Rr8YpQe8A++vP+GZT768sXWQm2frDczqaTf9NTc6yjSP3c4JEOlkv+ww
-	 Jqk/YXC9VDgoEUmpI3CTw4eXHeSWvQwLDXMe+Bcv/O0np7zoy0IjNJQO9Ny7s59oUCuLN
-	 QA+hJFeN+Ds1cw57nCipZjymkjbjanZ5VAYp8ttdvmG1SbGoFwlDG1dL2+lIgb6cfG/Cn
-	 ASA1Ysy/IF6F/vJ6CZ3V/IuItto/5LmKhH5b8W5CJHZe0jtkeCZvpu7EVK+vNzTEOnPqN
-	 yiaw78UIXaj8ACN7Svda7ThM3za9WKBd3g+p71s+BNV93o/MZAKffuE4RoNRHnWAiUQ==
+	t=1792634653;
+	b=FjeIn3wLH6G7x8VJTKnfmD+/5BZefzwFYVnQDIrbQi+A+sIJKEou+Ym9AI9na3wMKCXD
+	 sMRfPCY/Y3e8iHoSWL9zi1t8qVBkfjYduwnoRys6bVwVQhnb29VPM2cGiKZJNmHqmpQpY
+	 DwESgiDHLeIlSvjBmWebDIFF5PlCtxD58zzR1GQC2XfUfkF0ty+hjCXvPWakGfvpaew08
+	 HI1xfsJusDooJ4E28k13WNvMa0Ca3fSSQ+xtvKccV2rFAWbZBRHlX54GwccHuFLeE2aAz
+	 Q1xoivSMLIhmNf5NWU5It9Fun2g77r3L0DQ+cBHhdn09noXPuIOo2UN0Pf2n2aGYHbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792634652;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792634653;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=vOYgRzzdBZVb791ahua+Vd9VZ9mzQ5ffdxL3uGu3IaU=;
-	b=dXWhamL72kerQK92TVhxRPr+aOfP11QKplXKrw9L4p4vij2IQGpO9ypZ2hOwOhqSs+Jq
-	 naXatR/8eEKYb1cJdTOrBaq7Eadh1QjWB/tj5rhqcKJKChB7iyHZzqsZYub9rJF9ldjVp
-	 MGhIgGsndR8IiinvlYft5U4HijScNQOOVU8gevY3iz6HEp0suV/cgttQR07CRXAY9yFI8
-	 N8dH4GmTXxBGcgfegelixcengvKdKzcov8pm9vrZRmB4+YIf1BviVCXXMWm3H/OgeBC0u
-	 r2LmAh0bd7jp7BZngA3bPyFg7Yzasd91k/hXPWjK2W/1yw1e4+Hr0yLmzmqk2ohYRMg==
+	bh=KUdiQc80QlWY1VQHz2hIXiVlw7ejVbPzSxf3xxM1f+w=;
+	b=g6YBqs39jfdQfnp3tO060oUpsEum28IUkSaU2eHLBvuFxJhGM/zgal2LXJIwIsGU7of9
+	 +GydhxsjUkMal6XQtnLI2QrcBIJHjkaucdzaeo76zq+TPG5V9MIFKYPmiePer+79oj8rR
+	 WW/MQO1X5uvnyfMayjlRVNF63T27SLn615UB6q0B5xCQLmYfbl9aKkzWpbszuCVhDyHf4
+	 eZmlGlHPKtmFJugvzKXvOZfIZFceHzkoW2l6ninRhRvQVDydvI+DEel5XjA4iBGTvsBxn
+	 q/b9JhdozJmBlNJ05BIzei/f4b3sGwgf6l2L6PyhUMFuCwRRZOKfAgxT5+o3JvS/tiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z11qdJUf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GovDm2d+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB032606A31E
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 02:04:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F65606A31A
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 02:04:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z11qdJUf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBE0A1F000C7;
-	Thu, 22 Oct 2026 02:04:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GovDm2d+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 151F21F000C5;
+	Thu, 22 Oct 2026 02:04:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792634651;
-	bh=vOYgRzzdBZVb791ahua+Vd9VZ9mzQ5ffdxL3uGu3IaU=;
+	s=k20260515; t=1792634652;
+	bh=KUdiQc80QlWY1VQHz2hIXiVlw7ejVbPzSxf3xxM1f+w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Z11qdJUfp1Clw99b1QYDZY+L5tPsWsU8FCF+NnIJs6rL0x38Asb1gAltF+3ZKxyI1
-	 n0amEk8QGihiYxr9h+mi9eGaP6Z4OYwrRyRf/ehZbOJBUBCC7IK4AEG9kmD/735Zgw
-	 tYQP6knEFzLCi0FxpHKkdEKdrdTQoMPZmqAZtglYptzL54sTAp1ra2wDqrEpEDO4ew
-	 K1Bo7F2D3HpFl0oFszZHVtKpVim0aksqf01bwPY05Oq/XrcYapGFvxU+g2wOR1trdV
-	 tbBf9zfCwjWzKuYicM0pl7czFd8WLzGH7ntn2Cee/waIjrwO5onAkVOQUZW713+uv4
-	 IirFNfVC5IiGg==
+	b=GovDm2d+EmMXeO7cNN+5Cqycdo9ZObPJYfy1FrUVciLRNG/TZ89py8RzB65PonBMB
+	 O74b27jbVt9n+aOgYeO/5AB0Siwk425syQfVLSrJetdFZQ+bs13KgHg2tlJM00Ek99
+	 hymtGMKkDMwVn+6tYYJIIXjb4rCyVgPrFHj0+wLahFJt918ZBLpnQFQSsfBuE95+I1
+	 lRkNBNIxE3tACpWfaSwvjiS585dc7/gl7cDaU4Bm+J1vU5L7SoJITx3gK+nE12XO63
+	 xvbb1aQdpjzI2vEQPf5bWuSa+Zdn/spJTNHkckbuqnJuGaBP/XfDrZ5FkUhZpYTlbH
+	 bc3YctWjXIqOA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
 	Benjamin Robin <benjamin.robin@bootlin.com>,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Zhang Changzhong <zhangchangzhong@huawei.com>,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+	Di Shen <di.shen@unisoc.com>,
+	Ling Xu <ling_ling.xu@unisoc.com>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
 	"Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Subject: Re: [PATCH] net/sched: cls_u32: skip hash tables in u32_bind_class()
-Date: Wed, 21 Oct 2026 22:03:37 -0400
-Message-ID: <2026-10-21-1-daily-reply-0012-cls-u32-bind-class-5-10@kernel.org>
+Subject: Re: [PATCH 5.15.y] OPP: Fix race between OPP addition and lookup
+Date: Wed, 21 Oct 2026 22:03:38 -0400
+Message-ID: <2026-10-21-1-daily-reply-0013-opp-add-lookup-race-5-15@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261020-cve-2026-74739-5-10-v1-1-c4b65c36f234@bootlin.com>
-References: <20261020-cve-2026-74739-5-10-v1-1-c4b65c36f234@bootlin.com>
+In-Reply-To: <20261020-cve-2026-74405-5-15-v1-1-d71668a66800@bootlin.com>
+References: <20261020-cve-2026-74405-5-15-v1-1-d71668a66800@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,10 +65,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> u32_walk() enumerates both struct tc_u_hnode and struct tc_u_knode
-> through the walker callback. u32_bind_class() unconditionally casts the
+> A race exists between dev_pm_opp_add_dynamic() and
+> dev_pm_opp_find_freq_exact():
 
-Queued for 5.10, thanks.
+Queued for 5.15, thanks.
 
 -- 
 Thanks,
