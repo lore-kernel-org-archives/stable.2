@@ -1,65 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792674159;
-	b=bmXyi8Pwl18Nb9eTJ2BendWB4syehvPa8ZW2Awd2ev/m2I63EZEvh+jMfLQIzOm8N1Wt
-	 CC71cT8Ulq9lfPZCwS3a9NCw7s3L/bQxqaIGujNPzPAQOa1dEUYHD0/IP+tE6FIYxhTsF
-	 xqjbOpnZgH16xNlTT2EcZq/JOpSFqPRQC4Ns+L/kNp9hvk0Pfvw+5wgv59YQQNSdpxPuR
-	 BFjUKGyNidRJIDI8jXcvWNBpDsVjGQqsFOTIPdlB8rGwe9aX6cAyaqHq1I6sTK0ZM29ee
-	 txpH9Nz6uSruWjXpnTqRanotq8UyijqvXixCYo888lALCCAEckIRLrI1OQdXHe0Ts5w==
+	t=1792674170;
+	b=sXnSmb3RM92B8LyIkBjgPmXuzxjjn0t2F/Af6IhNr8FLcuAov4ckGMXpUI5pICU3fsLE
+	 C1Hbsa+Ba5fPIakATR2Wuc7F+vV1nsgOXV7kG3qMnCnwxkXwque0Ia5NN1xEZHcbat7/2
+	 CoIhEEeVXSkaUgq73S3dkfd6dGDRzGPr+4t3ANo2dpfDFlzwkisui2tweGL0tpec8K+8j
+	 APnDCC2iFsHMIVJ2JHmzDP/ELt4pUYfcbwY/WR/wACLXJ236R/bDrlYEx0ahZorkpNNoF
+	 T0+BL5IS1dBEr5/8nF3pP4mM47K9+gOfMsQrGsFoyqAIwAarXS8OtV0l3TGj4BW45pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792674159;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=QaSV8A+DkRJxdjBJ52VGx2q6CxzJmPLWhUU+QwPg4ks=;
-	b=SD/+ozcPsYGYe7CJKriQ3IrmLp6E7Cfj3nFs0tk12Ixm1wdqujMnAX45waKMgcXeTa+o
-	 O89mn2yJEqlALzUQp9x9K49lgfKVWhJKXmIAGfB4E9xMcWe3TBYH2YgHpGksHu5K/Vaxd
-	 MtkyiMy2ni1WgRMickUu3oi8Go6aYuubZ+lkecuAUfvEvQ1l0PvWdlGMJi4bjRHt8/X9R
-	 JahRrfP5ZklBc8h6be+LPGAbmVyDtT8rpWcVPnLlekM0mbDLxck8e/yFwlONE0w4bvedC
-	 plTFjRGSMDiM+EJEPnZeKOpkSuWl1uCIuaRasr8RLZou1zAn+O91m3CxVBBOdiD5ACQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792674170;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
+	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
+	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
+	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
+	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
+	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
+	bh=/kXGwF+5gGF+xxgZdkgZRClYdZY/AztWdeG/I065pIY=;
+	b=OZwt/r62iRztiMZPQZVRZunruoaTEN3lpfCcgRlKK/vuDNUQbYxkKDSxhaB+iZmbSahZ
+	 KZq6nGEJELEGOM+F7QFvuRt8QCWRjvjbvKqjzhGeHGL3RyNrRzOlP+2oZ8n08EtS83CGJ
+	 t5vVvPO4dIGnKa2Mj0Ajb3Qo5H56+VuM82jrUYm3pUnPaXCfNoombSB8O12I8L9PjL8L1
+	 pXi1fBT05rCreKb2PJeKLj4YEdXQW2JO71Re6gk3rgEVeXBr+lWkmjXxlKFGk6gdD1k9H
+	 eILcLa20ydlp0TyUhDbbXyienooVgMvgAM3N9mBjvZSItLN86t2egVNlllvoIcPDBNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NYiOL2aH;
-	arc=none smtp.remote-ip=95.215.58.243
-Received: from mta1.migadu.com (out-243.mta1.migadu.com [95.215.58.243])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=astralinux.ru;
+	spf=pass smtp.mailfrom=astralinux.ru;
+	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=AcRU8I4T;
+	arc=none smtp.remote-ip=37.230.196.243
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD67606A31D
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 13:02:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DD67606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56989606A33A;
+	Thu, 22 Oct 2026 13:02:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56989606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NYiOL2aH
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Blk5PcHa+mtRw2PyDvEKfMHAEAMT011jjsUT7gNzPRI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792674156; v=1; x=1793278956;
- b=NYiOL2aHwYbhphng9Va624cVzGa0vU0DNgH3SgHqUB+tthpnyr2mLU6qsIBU3yl5atyh+dg7
- TlicbWLP+HDJ9ZOCn1VMmGnk+981CDRjr6QpseqGt3xNC9BOAKxB8FeUP+zQg0fWq0q3crur27N
- 0+VjArtJDc1l43XJDYR7qpos=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9a0127de9735825e;
-	Thu, 22 Oct 2026 13:02:36 +0000
-X-Mizu-Trace-ID: 9a0127de9735825e
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 22 Oct 2026 15:02:30 +0200
-From: "Pankaj Raghav (Samsung)" <pankaj.raghav@linux.dev>
-To: Daejun Park <daejun7.park@samsung.com>
-Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, 
-	Christoph Hellwig <hch@lst.de>, "Darrick J. Wong" <djwong@kernel.org>, 
-	Dave Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
-	Dai Ngo <Dai.Ngo@oracle.com>, Sergey Bashirov <sergeybashirov@gmail.com>, 
-	Andrey Albershteyn <aalbersh@kernel.org>, linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4 5/9] xfs: limit the count of a pNFS write allocation
- to one extent
-Message-ID: <atoImJxtg70XcIjS@quentin>
-References: <20261020-xfs-pnfs-batch-v4-0-9230fa2ca4a4@samsung.com>
- <20261020-xfs-pnfs-batch-v4-5-9230fa2ca4a4@samsung.com>
+	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=AcRU8I4T
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1792674164;
+	bh=huIlFCsZCtW9EvCMUYovDzCuBbGv+HAK18qyT9nyhnQ=;
+	h=From:To:Cc:Subject:Date:From;
+	b=AcRU8I4TJmhY/vg88BXHFdtyNi0ehXLBmGvHCA4BqIG+gtSmUI1rXWTTzgd3aJDoH
+	 6nVdoc3GQ3lyef9biEQGrMJ0uJLDVOh8fojvoixDLcfhNauS/PfIdj6KZxTRDe1bj+
+	 gzYjGf4eiEiOkTC7xyYPl3KbDt3/z7H5q1dGcxfC9kwMX/ycDIyGPNVDvR+vwdpB0o
+	 VLAxUjFIaZeq/BQ7hDy4x6fyH+jz0r+gKe8aDsP61JtZPA0Sr84MiNEDWTbZ3Lniz3
+	 fw658tKVj/AUunBHjjKiAJyPbPWv3IgauYtt+8c1ORgMI7xAphNxTz6JsW9GbPe8fW
+	 PnHTWWd0bmTTA==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id B1BFD269A5;
+	Thu, 22 Oct 2026 16:02:44 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.6])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Thu, 22 Oct 2026 16:02:43 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.49.111])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j9RC70RFCzRM8;
+	Thu, 22 Oct 2026 16:02:43 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Sasha Levin <sashal@kernel.org>,
+	HyeongJun An <sammiee5311@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH 5.10] ASoC: codecs: hdac_hdmi: Validate written enum value
+Date: Thu, 22 Oct 2026 16:02:05 +0300
+Message-ID: <20261022130207.475-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,64 +87,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-xfs-pnfs-batch-v4-5-9230fa2ca4a4@samsung.com>
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/22 11:19:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 132 0.3.132 b92628ca234da971a1a6d61b32804bb3075f0fd2, {diag_burst_silent}, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, 127.0.0.199:7.1.2;patch.msgid.link:7.1.1;new-mail.astralinux.ru:7.1.1;astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 206901 [Oct 22 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/22 12:20:00 #28725625
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected, bases: 2026/10/22 11:19:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-> With pynfs as the client and a 32 GiB XFS, an RW LAYOUTGET at offset 0
-> of an empty file for 16 TiB shut the filesystem down: "Corruption of
-> in-memory data (0x8) detected at xfs_trans_mod_sb". With this patch it
-> gets NFS4ERR_NOSPC, also with XFS_DEBUG, XFS keeps running, and less
-> than 8 GiB of the filesystem, one extent's worth, is left free. One
-> for 100 GiB ends the same way, where it got NFS4ERR_NOSPC with nothing
-> allocated before. One for 16 GiB, which fits, is granted the same
-> three extents as before.
-> 
-> Suggested-by: Darrick J. Wong <djwong@kernel.org>
-> Link: https://lore.kernel.org/r/20261008154017.GO2705364@frogsfrogsfrogs
-> Suggested-by: Christoph Hellwig <hch@lst.de>
-> Link: https://lore.kernel.org/r/20261015060932.GD14035@lst.de
-> Fixes: 527851124d10 ("xfs: implement pNFS export operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-> ---
->  fs/xfs/xfs_pnfs.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/fs/xfs/xfs_pnfs.c b/fs/xfs/xfs_pnfs.c
-> index 19eb18e129..401a790299 100644
-> --- a/fs/xfs/xfs_pnfs.c
-> +++ b/fs/xfs/xfs_pnfs.c
-> @@ -224,6 +224,14 @@ xfs_fs_map_blocks(
->  		else if (nimaps && imap.br_startblock == HOLESTARTBLOCK)
->  			end_fsb = min(end_fsb, imap.br_startoff +
->  					       imap.br_blockcount);
-> +		/*
-> +		 * xfs_bmapi_write() maps at most XFS_MAX_BMBT_EXTLEN blocks
-> +		 * in one mapping, so don't reserve blocks for more. The
-> +		 * range comes from a client, and its block count may not
-> +		 * even fit the 32-bit reservation. The rest of the range
-> +		 * is mapped by a later call.
-> +		 */
-> +		end_fsb = min(end_fsb, offset_fsb + XFS_MAX_BMBT_EXTLEN);
+From: HyeongJun An <sammiee5311@gmail.com>
 
-Isn't it better we add this in xfs_direct_write_iomap_begin() instead of
-adding it in pnfs?
+commit 0b08baeccdcf52fad328ad645f5b4fbee04eea34 upstream.
 
-Something like this:
+hdac_hdmi_set_pin_port_mux() uses the written enum value to index the
+texts array before calling snd_soc_dapm_put_enum_double(), which validates
+that the value is within the enum item range.
 
-diff --git a/fs/xfs/xfs_iomap.c b/fs/xfs/xfs_iomap.c
-index 329c745e3120..50cf7b0cfc76 100644
---- a/fs/xfs/xfs_iomap.c
-+++ b/fs/xfs/xfs_iomap.c
-@@ -284,6 +284,7 @@ xfs_iomap_write_direct(
-        int                     nr_exts = XFS_IEXT_ADD_NOSPLIT_CNT;
+An out-of-range value can therefore make the driver read past the texts
+array before the helper rejects the write. Move the lookup after the helper
+has accepted the value.
+
+Fixes: 4a3478debf36 ("ASoC: hdac_hdmi: Add jack reporting")
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+Link: https://patch.msgid.link/20260609124317.38046-2-sammiee5311@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+---
+Backport fix for CVE-2026-74295
+ sound/soc/codecs/hdac_hdmi.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/codecs/hdac_hdmi.c b/sound/soc/codecs/hdac_hdmi.c
+index 76e06c88f279..32f5b958cb80 100644
+--- a/sound/soc/codecs/hdac_hdmi.c
++++ b/sound/soc/codecs/hdac_hdmi.c
+@@ -906,12 +906,14 @@ static int hdac_hdmi_set_pin_port_mux(struct snd_kcontrol *kcontrol,
+ 	struct hdac_device *hdev = dev_to_hdac_dev(dapm->dev);
+ 	struct hdac_hdmi_priv *hdmi = hdev_to_hdmi_priv(hdev);
+ 	struct hdac_hdmi_pcm *pcm = NULL;
+-	const char *cvt_name =  e->texts[ucontrol->value.enumerated.item[0]];
++	const char *cvt_name;
  
-        ASSERT(count_fsb > 0);
-+       count_fsb = min_t(xfs_filblks_t, count_fsb, XFS_MAX_BMBT_EXTLEN);
+ 	ret = snd_soc_dapm_put_enum_double(kcontrol, ucontrol);
+ 	if (ret < 0)
+ 		return ret;
  
-        resaligned = xfs_aligned_fsb_count(offset_fsb, count_fsb,
-                                           xfs_get_extsz_hint(ip));
-
++	cvt_name = e->texts[ucontrol->value.enumerated.item[0]];
++
+ 	if (port == NULL)
+ 		return -EINVAL;
+ 
 -- 
-Pankaj
+2.43.0
+
