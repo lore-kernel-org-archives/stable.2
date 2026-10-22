@@ -1,54 +1,155 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.15
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792653739;
-	b=uNvkfilvhk3EFkEm2oOHB2aUyHHafaVLeMBAOTcqxErvbl5LTfWMG3TjlAa7c5rClJQF
-	 k8S1ig+eVvQvHwW9piDEkFKEu9bwV1oDOaFkQ9pJCaCFAwP1LV6FRg+EkOZPZCsiMvgra
-	 SH1Lis6TDX+x5/wuwNESauNeEp1BL8dxb7vEDF7ETSf4yVam304QRUHgXdjpxHR2ep1J1
-	 F2AnacICJEs3/P2EePGLRgdkoNMOhCtlHy//xd5eeovP7enAqzqG8Y4VY9rL1h3bRUSmW
-	 ZvoXg1m4dc73Gn1EypuImeybybH/LTWKbI4qjgG9QKpMW7lj3x69/N6vw2V54gqhzFQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792653739;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=jf8P4XWcRz7X5zcfgDmz4Vg0q6xkZPNYQ/rfn5t3fNA=;
-	b=kZP47RLCQqLOnNeb2HUc21rYu685Eds8rvp77h5o7GaqVrJKxEDSTKgvRF4/DwlFGL4z
-	 qVUSC3lqh0atqu0DyAPr+VolswcgfYE0R6M4f1W22RiboYwaiyWMs63W5XdKBPCfDIvac
-	 217j94bNZq/QZrBOempKnjtm6aVmTLXG9eFYUn/4mmRDBKukLJAyypIV/GF6HhoD5Ie47
-	 bKE2JPSxsqXkAYjQUXYGcgPvSTx0I3U/vCn416EDRd/BPRzPF5MatweuqknEe+czcBu5P
-	 u7b4NYnSy9SjTdxoZUf2BY8VIpX0fRuGIRKlb1bM+vQ4mtUds0YUZ9G+4AbEBvvLQnw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ps9IzAoM;
-	arc=none smtp.remote-ip=91.218.175.15
-Received: from mta0.migadu.com (out-15.mta0.migadu.com [91.218.175.15])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.6
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792653741;
+	b=iXvX08ENtDciKdZ2KnxWvjbE4mSrnFsrW2cmx5btrr5iACk90jT8OJY2dskYxJGwNbtq
+	 Q/qy25+OcxIuKexgMluRgEvvzCldTV95bb49sjUaU5O+Zdv05kR88PTVbIqCI8ar3J9ks
+	 Q3E7+U+CW6523KV7dw+XVewBHzKWdrhTJjaclZUdSdV5niZlGtzw8ocSSi962JZEdFMGE
+	 nTQvWedPfBAJeDnl215bEq680F+2n201EnkybC0m94dSKkdaoH68KNIGBgaIRIVZ+rG62
+	 GpNAP4ICSIWuAZZBZysjxvaVLmrcU06sUBsYfRTEP+E/YYqFQIcZZh8q08rL/OcHAdQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792653741;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=XxmMDLReZ9Ll9AOlZ3BAPOjGNhWdTwu4FBH32haAqWg=;
+	b=yJ4MKL7CjFNWnjcMNp632+iPqQgcHIciypVQaQOs3FjNbf287yFl8btdlgOoFKA4YleO
+	 MK2CxitGxzjKR7SdyN0S8pMixFFjGrLtOgxO7+X7J0EuSbWQbu/hS3aXL34KLW3cAlcfP
+	 RDK0+XrzUQCYAN3SYWvRbeANicgckVi4ktxpUo+A1gpUzyceAMXCAEVSdX/gMzUzihKmC
+	 tEuPQ4cXDdJUo+ml59tQOVoWbAvYPevRGbDZ2IagM7jlzUPZ25w5ld9/6C5Tg6cwONjD+
+	 9fje91CQTBp/p1RfCH5qOjgxJRPVwygCgkBIcQ65nD+cULi3uEfc/YlXV+Vtn0BvCpw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=jabil.com;
+	spf=pass smtp.mailfrom=jabil.com;
+	dkim=pass header.d=jabil.com header.i=@jabil.com header.a=rsa-sha256 header.s=selector1 header.b=sPJ1ySGk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.6
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013006.outbound.protection.outlook.com [40.107.201.6])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3206606A31E
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 07:22:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3206606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F110606A31A;
+	Thu, 22 Oct 2026 07:22:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F110606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jabil.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jabil.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ps9IzAoM
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lzEFVhQM3QVgAV/3EhVwgnWBENJztj7KAzIQybNKK7Y=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792653735; v=1; x=1793258535;
- b=ps9IzAoMAsRzz2hnOqfn8thFNvBflcznXyMscL7j+LjHDiyXgBNsJcaxr/3bBYMvieOIKJyr
- UeR8cNGIZlASr5hHSMEs9JEYjOIbGe3f8Qm+q+5n7Skow2+kBtH/wJZB0brIeYzxqdoETe/yQwp
- Ln7oY7WuLcULUPtwE3O9zOxI=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id f70173cbeb29589e;
-	Thu, 22 Oct 2026 07:22:15 +0000
-X-Mizu-Trace-ID: f70173cbeb29589e
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=jabil.com header.i=@jabil.com header.a=rsa-sha256 header.s=selector1 header.b=sPJ1ySGk
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LlbmbYsDZm4atBH/PmigJM0TqDPyAhK5cpIYL2VFdKPRANHX5cFtAC8oS5OdD0gcOPX1p9XghigE47d8C3vLvpBCh1qw63viOK0wJyYC4J4ukSTbprF9W+E3ixgyFksCH29NoxwSDHYWOuR289qfSpzmisjaPQ5fLIQAOFRLa5aotjUF5PK5xChnC4fOjB4Nq6tBAN56ty8Hs9rAUFKQUhKemJOnVdsxUTRlGwZ4/cX+LMk0WNURr1mwPk7EZESO1RESpoVIVqhvW0DRSttppczdl8O+VJ6eKkyEJokfKZHaywKnhGuFPhu+nZRYpveb/Mk0Gjc0QMyvPc6DfzdyJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XxmMDLReZ9Ll9AOlZ3BAPOjGNhWdTwu4FBH32haAqWg=;
+ b=M+1ynLJtjjLHfLtvmRXouW8Y9lZjdkAobq2QJNxDtbzinaGev8budUzt57fbvZHBbPqqlabVcCU58/aYgYyTU0Qz5MmA9N2suDsZK0QZSA8ZMnEaSt+wteSrDwauMqAlN52KTEnOAvQ8o1jHLvulhrx8NJejOY9r0EQCbEtw9b2bb4K8cXgZO8Uea2Dssc56HtJljE+2K81JyFbajNyrFuRIslAbySVi6VDB3JVl+sE/CQDDomTMpA1JDbwk8ZcYRjOI/1ZS5Uc1t+iK7lXq/anne4EofxwZ2hdBn+Tl3pBpeuxxxrMmZpplkF2oeYRaaXvy/EAmVoTX1m4jsRMsJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=jabil.com; dmarc=pass action=none header.from=jabil.com;
+ dkim=pass header.d=jabil.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jabil.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XxmMDLReZ9Ll9AOlZ3BAPOjGNhWdTwu4FBH32haAqWg=;
+ b=sPJ1ySGkrFt4/aw7uVZhtZMfqmIS84iHmoTKf3UVP11t3htPUUuTnay7xR1RT8nB1fByboaTAStwO7F+sBxb/aVFM4yQIUs+ICzZLCJ2UaYGAsE0cswoyf5OGpQkw1C4JBM8DIsFkJ5t2majrwdHKHSAaDk2kvhrhsKsBg5Grum4Q1o76O4zuE0bP3U7NsjzQcZg1e8RhvwczRckhTk+pelI37L5w+OqGXY9tJ6oOtLL35w4Pg6EwsiYnFpUZ8nF26CeVY79gYj67w2uaqU4x6AHKTH3zQDRO6HQG3WKh0OGisA0hAxb+bTjXPVit79/ocJIlRgh8Bvf+k+D/5u+Xw==
+Received: from DM8PR02MB8087.namprd02.prod.outlook.com (2603:10b6:8:1b::11) by
+ PH0PR02MB7351.namprd02.prod.outlook.com (2603:10b6:510:c::21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.17; Thu, 22 Oct 2026 07:22:18 +0000
+Received: from DM8PR02MB8087.namprd02.prod.outlook.com
+ ([fe80::6e40:b3cf:7280:6497]) by DM8PR02MB8087.namprd02.prod.outlook.com
+ ([fe80::6e40:b3cf:7280:6497%7]) with mapi id 15.21.0522.017; Thu, 22 Oct 2026
+ 07:22:18 +0000
+From: Kenny Hsieh <kenny_hsieh@jabil.com>
+To: Matt Johnston <matt@codeconstruct.com.au>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, Jeremy Kerr <jk@codeconstruct.com.au>
+CC: Andrew Lunn <andrew+netdev@lunn.ch>, "davem@davemloft.net"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net] mctp i2c: fix double free of midev on netdev register
+ failure
+Thread-Topic: [PATCH net] mctp i2c: fix double free of midev on netdev
+ register failure
+Thread-Index: AQHdYdPZt9L4lwA9tkiaaSIyPqksNLcI+vmAgAAkp1A=
+Date: Thu, 22 Oct 2026 07:22:17 +0000
+Message-ID:
+ <DM8PR02MB8087DCE3AE16D853D284FF2D8E652@DM8PR02MB8087.namprd02.prod.outlook.com>
+References: <20261022031704.2295541-1-kenny_hsieh@jabil.com>
+ <51bf6b10b2fc1c5d6ed7234e61067869380eebad.camel@codeconstruct.com.au>
+In-Reply-To:
+ <51bf6b10b2fc1c5d6ed7234e61067869380eebad.camel@codeconstruct.com.au>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=jabil.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM8PR02MB8087:EE_|PH0PR02MB7351:EE_
+x-ms-office365-filtering-correlation-id: 0ffdb94b-0d1b-4b3c-4325-08df300d3448
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|7416014|23010399003|1800799024|10067099003|56012099006|261021123027099003|22082099003|18002099003|38070700021|4143699003|11063799006;
+x-microsoft-antispam-message-info:
+ kq3ut+fveuweuOviObMYIHL8V1oAWRtaeVNsJRrWYWIf/mqMydv6POj++ERQ8o3MIF0fWVoooGSIYld2yyBCnkWHCpFkbsxouITdH1qQd0h8aog5LwdUAcwQ6ZlytHJctfz+iS4rJ2ShU0LcmEWVqbkICWC8Irs/52MBlppybSo30zXG/6jZ05/EDLnHACvge7mJo/MWXYUFRaSyZ/GgCQLCqunObIEF6NjrUuSZOy9s7eMMf7vE8V7DBjhM8IZ9S3kNmvo5zUSD13raKqmAQMbtY/y3oWfYPKx8XOb5F0GCudvsbDR645yOby1xJHtDnB2RZzB9emB4XDF0QXDZ34DPV98u0wS9bHKNvsKzliLgYW25kV0SWaMV/daAyATt4O1swR+ei5CyMMfQuZCPf3VyCk2ktXYscSVfvKMRjnsNvBi1te82QtYcHZ0a6huxctIbQ6/Nlo9Kujd1NYgYVMTp64YYni28/YcKdMlWEjZPiuBboOX1eAzsjdmmcCs4vYsnIKQl1K4cCfYEHghZmI+JkzbpjbtFBZNEowyCAjVqoNYJND4fwJJ1g6w62WSdYRu73vzbOwsWZI/1LEH/+TBB8Dgs7vIT3zUBHL1+0+0kYSdJwsxHIMHbhHzGrPNkZ1c5XRL6LULhF/jJuzFUyAfdG9nHG+Rg18e18NvLgdm6Ct20s8IarNhvgVjHEOuRJ8xCbBX2WCL2NYo7/MxzRQ5SBsBb3TmrsxAORH6e8+4=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM8PR02MB8087.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(10067099003)(56012099006)(261021123027099003)(22082099003)(18002099003)(38070700021)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?dU84dlpLcnoyRUhPUTdXY0xlMDV6OE1PN0RwLzhoVzlSTVZTUDBNeVk5VnI1?=
+ =?utf-8?B?MjNvdVNpYU1rYWRDR0RyWC9RUjMrVEVwdG9xQ3J0Q1VoY2s1NG8vd2FUbDNG?=
+ =?utf-8?B?cVdQWkllM2QrV04vcHRiSFZac3laNnM4cGIrc2N2U1Z0TGJ0Vi9IUVdBVS9J?=
+ =?utf-8?B?Q203eUVLd0E3TUFwV0NycTl5ZmlsTG0vZlI3azE0eVQvQjY1L3ZwalBITlV1?=
+ =?utf-8?B?SVBkaXlxRHJnZFhyN0RCKzd4cStjT1pZMklod1RNZlhxM2VYRUh1Y2hnRVRi?=
+ =?utf-8?B?MDAyd2ptWFY4UTZLZm5FdXFvdVVEQ3poTm85MjQrZDI5Zzh1cVRDRjVrZjN3?=
+ =?utf-8?B?WUx1WFk1M2FYTTBkOXlBL0JEaTBWQmxrNUhlcENNSmdzWHFnSXYrcGx3NXFr?=
+ =?utf-8?B?bkVoQk5QUGFhcVJZQTFjMmIzUnBrbXl4N3JadlhQSnN0WjNSTVpCdGUwRVIz?=
+ =?utf-8?B?SStwd01ib25ZM09FL0FGS3F0OStDZmZvdzQ4NjlRSzMvdGM3anVtSUltZlps?=
+ =?utf-8?B?enJ2UFlxcXJzbDhnMkdPdHhucjBpWjkxWU9KRlVQbkZldmcra3VNSkRwTTEz?=
+ =?utf-8?B?YXVGQ3pERERWQnVYRXhZMnNNaWRkaWtJZ3FycEZ4azBpMXJzQk5ISE0yZXcw?=
+ =?utf-8?B?aUhUdUpieHhJbWVLbzcrVjZVR2drM2E5M1lhZkxvQ0ZpK0xVZHR5Q1prQ2hi?=
+ =?utf-8?B?UWJsdzBna2t1QmZrUE1GVGVBQmt5aXVTOTJCWlhKdUdiT0l3Wm9FSmdwdCtq?=
+ =?utf-8?B?S1k3dUNVMVM0VFBJcDJXQ25Wdko3Q0FIQ0M5K2ZTQjJOY01JYWxucFE2YlRE?=
+ =?utf-8?B?cU92NFBIQ2Z5bzAzejNBaFNSN1R6T3c1eUxoY3FwVFhrb0xnS2ZjMTB3bXhh?=
+ =?utf-8?B?VDhvY3RZU01YUzlOQ2Q1VFQwZE9TWmNEU2NvWmxRa0JLWTNoajdIOVRDak82?=
+ =?utf-8?B?S0d2REtRYTdlT3hROEFxQUxhYjJQVm83anV6QTBua3dJUGFkeStoY2tackFs?=
+ =?utf-8?B?NkovVmVDbmhXalJOaEs1dU56OUlLNWpOL3NyOCt0M01HNEpHQ2J2VXdtWXRE?=
+ =?utf-8?B?T21nVFBic0ViZmlzR0R1TnNFN3NmTytkQXgyejByMUFMOXJwNkUwdzhlcWky?=
+ =?utf-8?B?Q3VkZnVMTXVoc1U4YzlnTGZIVm1BZ00yc3pqMlFrUzVZZk9ySnFGSnNwQnlD?=
+ =?utf-8?B?NE1BaW9ReUFjL0w0bkVZQlV6Y3R4S0RzcEllc2NPbzlqYzd6MkMzd0QxYTd2?=
+ =?utf-8?B?SU5TVCtXd0EwU3RqMFBONi9OY0FhMGFvODlyUVkxK2xoUk4rU0p4c05Lblpu?=
+ =?utf-8?B?eENCNXRvcUwzVERreEhQcXcrdnh5VFJ6T0dZVmhySklGSGpUVXM2N1gwaEMr?=
+ =?utf-8?B?NWM3SUtwcFNlSGVGTmlnNnV4TGZERm1WSm1USElnSnpuUnN3Y1A0S254WFVV?=
+ =?utf-8?B?WFpWdktNdGhTYUJSM1drQWw1UzIyQjhSWEYrcEhUeGlxVW5DYTViekFhSHRz?=
+ =?utf-8?B?M3NrL2hKaFBDTit3ajBPdXhjZjBndlU4c1RJUm9yTGJmZGVjRklqY084OTRD?=
+ =?utf-8?B?UEZIRG5RUzRwMXFHVmExSlJhSWo5dlVHOFFtMXBVb2NXQjVKV0l4YklseWNy?=
+ =?utf-8?B?aGo5bEdwQ0RKOGREYXVIWFE0VVF6WXJ3VlpLV3dyZ0VIYUJCbVZmMkZXVVZ6?=
+ =?utf-8?B?UzUxaDJXOFh6ZWpMSk9PeXd5S1o2K1hFMXljczlBMzJoM2k4SHJNdnpVY3k4?=
+ =?utf-8?B?T2lIcSt5NHU3ODJBMWJJWXhGeVdrNzZTZitRcUlWWGVjR1hEWG8vQVQwY3Na?=
+ =?utf-8?B?TDVKY3Mvb3JMT0JEdGNSQjNjckVFdTNpZlhNd2dDbnB4Tnd5ZzNSaUxMVWZB?=
+ =?utf-8?B?NC9NcDdVNjBFeVR6MXdrQlU0UElLa01KSVdFL2w3d2ZYcWx6T2s4bTZNd1FC?=
+ =?utf-8?B?dnVRazRvMmZHWE11Y21MZVR1WVFvMmpRcnA0eXlxbFRTVmcrNFMvVDh6Rm1B?=
+ =?utf-8?B?Q2tHTmVVZHh3ZnVEUzNhZEdWYmRGcVRtRERIT1F0OTJiekxNNlk0eWlLclJk?=
+ =?utf-8?B?U0dwK0tBbnIyTjRYTGxLQ3lqTTFWQlllQWRlWU5VWm9YNHBLTThDWE12SUlC?=
+ =?utf-8?B?V09HdkxmaDBlT0ZQVzExTEhuQUM3WXAvVkpQV09pNTQ0US9yNXFuZlZrb1Vu?=
+ =?utf-8?B?Q0Y4L25HeHVBQTBCSmM0a0ZQVUpqaDVJWk5vQ1ZLbjdDQVFUakNJRTd3TFJZ?=
+ =?utf-8?B?RW1mQ01uVG42K3h3M2ZNUzEzSGFrZ2g3N01kMC92dDdaMzI4b1RRS0tWTzBx?=
+ =?utf-8?B?cHNtcUJDSkdZaG4zaWNURGpUWXNRR2FsMExLQmdIRnJ3NXdPbEZPUT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,219 +158,34 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH] dax/pmem: fix unaligned compound devmap initialization
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <jyna5rta.ritesh.list@gmail.com>
-Date: Thu, 22 Oct 2026 15:21:55 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Dan Williams <djbw@kernel.org>,
- Vishal Verma <vishal.l.verma@intel.com>,
- Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Joao Martins <joao.m.martins@oracle.com>,
- stable@vger.kernel.org,
- nvdimm@lists.linux.dev,
- linux-cxl@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <60551F0C-D330-417A-AC8E-30E9BB00EA94@linux.dev>
-References: <20261016054914.2601510-1-songmuchun@bytedance.com>
- <jyna5rta.ritesh.list@gmail.com>
-To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+X-OriginatorOrg: jabil.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM8PR02MB8087.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ffdb94b-0d1b-4b3c-4325-08df300d3448
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Oct 2026 07:22:17.9419
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: bc876b21-f134-4c12-a265-8ed26b7f0f3b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: +ThyKUw6CDMQCyy4lgPMf2iXmKFgMhwsGjCOiIW9inEOYqs+yKHTLQALG3V4vzUF+AVwZUcwZ5A5F0Edk6gPUg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR02MB7351
 
-
-
-> On Oct 22, 2026, at 11:37, Ritesh Harjani (IBM) =
-<ritesh.list@gmail.com> wrote:
->=20
->=20
-> + linuxppc-dev (for awareness, since I also faced the same issue on
-> Power too, although this one is not related to PPC alone)
->=20
-> Muchun Song <songmuchun@bytedance.com> writes:
->=20
->> Static pmem Device DAX namespaces reserve space for namespace =
-metadata
->> before the user-visible data range, and may also include padding =
-needed
->> to satisfy the Device DAX alignment. __dax_pmem_probe() adjusts the
->> dax_region range to start at the data range, but the dev_pagemap =
-range
->> still starts at the beginning of the namespace.
->>=20
->> That is not valid for compound devmap mappings whose memmap is stored =
-in
->> system RAM. Compound page initialization requires the start PFN to be
->> naturally aligned to the compound page size, because the head and =
-tail
->> struct pages are initialized according to that geometry. If the pgmap
->> starts before the aligned data range, memmap_init_zone_device() can =
-build
->> compound page metadata from an unaligned PFN.
->>=20
->> The resulting struct page layout is inconsistent with the Device DAX
->> mapping. A later mmap fault can then resolve the user-visible PFN =
-through
->> invalid compound page metadata and hit a kernel panic while inserting =
-the
->> DAX folio.
->>=20
->> Fix this by advancing the pgmap start to the aligned Device DAX data
->> range for non-altmap compound mappings. Leave base-page namespaces
->> unchanged, and leave the altmap path unchanged because
->> memmap_init_zone_device() already skips the altmap reservation =
-itself.
->>=20
->> Fixes: 14606001efb4 ("device-dax: compound devmap support")
->> Cc: <stable@vger.kernel.org>
->> Reported-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
->=20
-> Thanks Muchun for fixing this. With this patch I am no more seeing the
-> following crash (tested on both Power and x86 kvm)
->=20
-> Feel free to add for this patch.=20
-> Tested-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-
-Thanks for your testing.
-
->=20
->=20
-> [    4.675578] page dumped because: =
-VM_BUG_ON_PAGE(!zone_spans_pfn(page_zone(page), pfn))
-> [    4.675613] ------------[ cut here ]------------
-> [    4.675615] kernel BUG at mm/page_alloc.c:373!
-> [    4.675626] Oops: invalid opcode: 0000 [#1] SMP DEBUG_PAGEALLOC PTI
-> [    4.678213] CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Not tainted =
-7.3.0-rc5-xfstests-01065-g45f4c1453cbe #33 PREEMPT(full)
-> [    4.678213] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), =
-BIOS rel-1.16.3-0-ga6ed6b701f0a-prebuilt.qemu.org 04/01/2014
-> [    4.678213] RIP: =
-0010:__set_pfnblock_flags_mask.constprop.0+0xef/0x110
-> <...>
-> [    4.678213] Call Trace:
-> [    4.678213]  <TASK>
-> [    4.678213]  pageblock_migratetype_init_range.constprop.0+0x50/0x90
-> [    4.678213]  memmap_init_zone_device+0x2fb/0x380
-> [    4.678213]  pagemap_range+0x272/0x590
-> [    4.678213]  memremap_pages+0x125/0x210
-> [    4.678213]  ? lockdep_hardirqs_on+0x7d/0x100
-> [    4.678213]  devm_memremap_pages+0x21/0x70
-> [    4.678213]  dev_dax_probe+0x1db/0x300
-> [    4.678213]  dax_bus_probe+0x6f/0xa0
-> [    4.678213]  call_driver_probe+0x24/0xf0
-> [    4.678213]  really_probe+0xb6/0x310
-> [    4.678213]  ? __pfx___device_attach_driver+0x10/0x10
-> [    4.678213]  __driver_probe_device+0x87/0x190
-> [    4.678213]  ? __pfx___device_attach_driver+0x10/0x10
-> [    4.678213]  driver_probe_device+0x1f/0x90
-> [    4.678213]  __device_attach_driver+0x89/0x130
-> [    4.678213]  bus_for_each_drv+0x86/0xe0
-> [    4.678213]  __device_attach+0xb6/0x1d0
-> [    4.678213]  device_initial_probe+0x40/0x60
-> [    4.678213]  bus_probe_device+0x3d/0xa0
-> [    4.678213]  device_add+0x4f0/0x6c0
-> [    4.678213]  __devm_create_dev_dax+0x18b/0x3f0
-> [    4.678213]  devm_create_dev_dax+0x21/0x40
-> [    4.678213]  __dax_pmem_probe+0x1c3/0x200
-> [    4.678213]  dax_pmem_probe+0xe/0x20
-> [    4.678213]  nvdimm_bus_probe+0x89/0x250
-> [    4.678213]  call_driver_probe+0x24/0xf0
-> [    4.678213]  really_probe+0xb6/0x310
-> [    4.678213]  ? __pfx___driver_attach+0x10/0x10
-> [    4.678213]  __driver_probe_device+0x87/0x190
-> [    4.678213]  ? __pfx___driver_attach+0x10/0x10
-> [    4.678213]  driver_probe_device+0x1f/0x90
-> [    4.678213]  __driver_attach+0xd7/0x200
-> [    4.678213]  bus_for_each_dev+0x79/0xc0
-> [    4.678213]  bus_add_driver+0x127/0x250
-> [    4.678213]  driver_register+0x59/0x100
-> [    4.678213]  ? __pfx_dax_pmem_init+0x10/0x10
-> [    4.678213]  do_one_initcall+0x59/0x3a0
-> [    4.678213]  do_initcalls+0xdd/0x1b0
-> [    4.678213]  kernel_init_freeable+0x16f/0x2b0
-> [    4.678213]  ? __pfx_kernel_init+0x10/0x10
-> [    4.678213]  kernel_init+0x1f/0x1d0
-> [    4.678213]  ret_from_fork+0x244/0x280
-> [    4.678213]  ? __pfx_kernel_init+0x10/0x10
-> [    4.678213]  ret_from_fork_asm+0x1a/0x30
-> [    4.678213]  </TASK>
->=20
->=20
->> Closes: https://lore.kernel.org/r/wlrkqqvg.ritesh.list@gmail.com
->> Assisted-by: LLM
->> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->> ---
->> drivers/dax/pmem.c | 7 +++++++
->> 1 file changed, 7 insertions(+)
->>=20
->> diff --git a/drivers/dax/pmem.c b/drivers/dax/pmem.c
->> index bee93066a849..d3a9b85107b0 100644
->> --- a/drivers/dax/pmem.c
->> +++ b/drivers/dax/pmem.c
->> @@ -51,6 +51,13 @@ static struct dev_dax *__dax_pmem_probe(struct =
-device *dev)
->> /* adjust the dax_region range to the start of data */
->> 	range =3D pgmap.range;
->> 	range.start +=3D offset;
->> + 	/*
->> + 	 * When the memmap is stored in RAM, exclude metadata and =
-alignment
->> + 	 * padding from compound page initialization.  Otherwise, the =
-pgmap
->> + 	 * may start before the naturally aligned Device DAX data range.
->> + 	 */
->> + 	if (!pgmap_altmap(&pgmap) && le32_to_cpu(pfn_sb->align) > =
-PAGE_SIZE)
->=20
-> BTW, this check "le32_to_cpu(pfn_sb->align) > PAGE_SIZE" - Is that =
-needed here?
-
-Making pgmap.range.start consistently match the Device DAX
-data range initially looked reasonable, but I think the
-align > PAGE_SIZE condition is still needed for backward
-compatibility.
-
-Before commit a3619190d62e ("libnvdimm/pfn: stop padding
-pmem namespaces to section alignment"), a RAM-backed
-namespace calculated dataoff from the 8 KiB info block using
-the namespace's requested alignment. On a system with 4 KiB
-pages and align =3D=3D PAGE_SIZE, this could produce an 8 KiB
-dataoff, which is not subsection-aligned.
-
-Newly created namespaces now use at least subsection
-alignment, but existing superblocks with the older layout
-remain supported. nd_pfn_validate() requires the original
-pgmap boundaries to satisfy memremap_compat_align(), while
-dataoff itself only needs to be page-aligned.
-
-Therefore, unconditionally advancing pgmap.range.start by
-dataoff can make the pgmap start and length subsection-
-unaligned. check_pfn_span() will then reject the range during
-memremap_pages(), causing the Device DAX device to fail
-probing with -EINVAL.
-
-Thanks,
-Muchun
-
->=20
-> I am trying to understand this better - so that I can add more such
-> testcases internally. For the test I mentioned earlier [1] - even w/o
-> that align check, the test passes.
->=20
-> [1]: https://lore.kernel.org/r/wlrkqqvg.ritesh.list@gmail.com
->=20
-> -ritesh
->=20
->> + pgmap.range.start =3D range.start;
->> dax_region =3D alloc_dax_region(dev, region_id, &range,
->> nd_region->target_node, le32_to_cpu(pfn_sb->align),
->> IORESOURCE_DAX_STATIC);
->>=20
->> base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
->> --=20
->> 2.54.0
-
-
+SGkgTWF0dCwNCg0KT24gVGh1LCAyMDI2LTEwLTIyIGF0IDEyOjM5ICswODAwLCBNYXR0IEpvaG5z
+dG9uIHdyb3RlOg0KPiBJIHdvbmRlciBpZiBpdCB3b3VsZCBiZSBiZXR0ZXIgdG8gZGVsZXRlIG1j
+dHBfaTJjX25kb191bmluaXQoKSBhbmQgbW92ZSB0aGUNCj4gdGhlIG1jdHBfaTJjX21pZGV2X2Zy
+ZWUoKSB0byBtY3RwX2kyY191bnJlZ2lzdGVyKCksIGJlZm9yZSBmcmVlX25ldGRldigpLg0KPiBU
+aGVuIHRoZSBmcmVlIHNlcXVlbmNlIHdvdWxkIGJlIHN5bW1ldHJpY2FsIHdpdGggdGhlIGluaXQg
+c2VxdWVuY2UgaW4NCj4gbWN0cF9pMmNfYWRkX25ldGRldi4NCg0KQWdyZWVkLCB0aGF0IGlzIGNs
+ZWFuZXIgdGhhbiBtYWtpbmcgdGhlIGZyZWUgaWRlbXBvdGVudC4gSGVyZSdzIHdoYXQgSSdtDQpw
+bGFubmluZywgbGV0IG1lIGtub3cgaWYgaXQgbG9va3MgcmlnaHQgYW5kIEknbGwgZ28gYWhlYWQ6
+DQoNCiAgLSBpbiBtY3RwX2kyY191bnJlZ2lzdGVyKCksIGRlc2VsZWN0IG1jbGktPnNlbCBpZiBp
+dCBwb2ludHMgYXQgdGhpcw0KICAgIG1pZGV2LCBiZWZvcmUgbWN0cF91bnJlZ2lzdGVyX25ldGRl
+digpLCBzbyBpdHMgZGV2X2hvbGQoKSBkb2Vzbid0DQogICAgYmxvY2sgdGhlIHVucmVnaXN0ZXIu
+DQogIC0gY2FsbCBtY3RwX2kyY19taWRldl9mcmVlKCkgYWZ0ZXIgbWN0cF91bnJlZ2lzdGVyX25l
+dGRldigpIGFuZCBiZWZvcmUNCiAgICBmcmVlX25ldGRldigpLCBhbmQgdGFrZSB0aGUgc2VsIGhh
+bmRsaW5nIG91dCBvZiBpdCBzaW5jZSB0aGF0IG5vdw0KICAgIGhhcHBlbnMgZWFybGllci4NCiAg
+LSBsZWF2ZSB0aGUgbWN0cF9pMmNfYWRkX25ldGRldigpIGVycm9yIHBhdGggY2FsbGluZw0KICAg
+IG1jdHBfaTJjX21pZGV2X2ZyZWUoKSBhcyBpdCBpcywgd2hpY2ggdGhlbiBiZWNvbWVzIHRoZSBv
+bmx5IGZyZWUgb24NCiAgICBhIGZhaWxlZCByZWdpc3Rlci4NCiAgLSBkZWxldGUgbWN0cF9pMmNf
+bmRvX3VuaW5pdCgpIGFuZCAubmRvX3VuaW5pdC4NCg==
