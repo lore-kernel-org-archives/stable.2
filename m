@@ -1,79 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792634642;
-	b=pc26BFCMeY2QAhZGMgDTcvEc0R/2S6cpT7x4WBjsujLW9yu78hmZ/8J9DBIXK+XzZdN/
-	 QJ6i+KcfZekNJYE6LmxfdN6qAdWeu/cZiAtaTyT2voatSKFwyb5E92mLpnWwyDvrZJ3NY
-	 DoMr3KMpKWDABSSmUz7P+j2y0uJMre0tGRxEuwFeimbzUAp76XlXlFO1lXfsbfaq+AKuR
-	 B+q/2zNgPbizNusjjK3C1VGFYOfR0OVVqdTzvlnfUtM2Cg/iYPoma//avU5Uknh5sl517
-	 o5ctUpd7+joOTtZ3yMYFZg+mnNunDC6hIuUdZMwPbw1bHHEheLSixAlVkxwqgFovLVw==
+	t=1792634648;
+	b=L2KnsUT9OgVymS97wdBK+9aVDDpUy0mmLFnzyT9i5hhfOMzGMHmOMaijXzUX6wuc4N4G
+	 kn80N9Srdh32fwyj4y4MLNDchmIeRWO6yhNfKI+IQiKhFJ6gLWpl2xA4GAsGMTKYFihV8
+	 IofjI49j4uwoE/z7j2SBnohsI+0gcjWQPCBQvIoio+0dtoyyjlh0SnoFNySKN6nfoSfG5
+	 WIBRFy4j86PeKRo8auaLuFukkn97qo3KNJnTATJGQKJ9SN8pEU+dIwAseh2Wxay3GCZhP
+	 JeLCrJB+Z8b+BoMXilTCPOLu0htj5AjZkxz7HSwVoq8hI+N/01351iW5FVKDUBBflxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792634642;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792634648;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/dZrxIbh6RTSU4Bjb81Y9TDCjOr0VKfEVlrnhiqKUd4=;
-	b=e7L2s9oXd2xlcy5pDhGU3rMEShAfRi3GedvBARHRP/DqbjXf9sPRwiTr7jYwfOA1bKhe
-	 Oa78q7sYenM/LkVi9QC7c2jcwAov5/g9lW6vyFbRWH3+Lvyiilc7AaCFQFwXfQsUPi/Kb
-	 YEljilO46NpDEX0GYss46LZ2kzDteRUZdY9jn2FN2R+4eNarHT+aT3p1x1NAxPjqlwvgd
-	 nLDzHe1JT4lQXkd65flKB+M0DO0VjL5C2D/dJmgfAciTOfluvApodsFymWyZwdtGZVQhX
-	 LVsc6ZgViEeiilV1muvz6tPLKfnrBd0MqLfE19lu3HG6g00Az+0TsxcfuprIDdM0Vqw==
+	bh=31fjzAaMtK+Xgn3e4J5pgoW/YeJYnJ0ajB39xEbrtBM=;
+	b=lc5fhEr2DW0QestJxU+swfep6JEMs+t4Q46GxbIKP8eobALKo9wiKSZYpmPxTy40djLg
+	 cqSrXylR1tOB5W36c2Mh6HGYMow8tghnSDt9QGdOILhi+1cCfPcSQBUgeItHwZi8SPIor
+	 cR4l7WIZX7k8uuyZ/tZ5U0Ic+Fp3ZiNvmhlF726ZEPmxjuPAfSgUNoZp0chxE8igcXwvy
+	 8tm3jDex3x254/7/kxl6CQjod3sLvPhq2+JL+7GSqmwCFEgpKo3Q2bwH8vvSybB8sK0zW
+	 SNsKQC/leqeGqwg+H6BjyAStxyGEQa2Zb5v7VJP+cG6mVVcfICD8trUo/n/060lEQ8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gCaXCxSB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VvblMpP/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C801606A319;
-	Thu, 22 Oct 2026 02:04:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6485E606A31B
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 02:04:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gCaXCxSB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B4C71F000C1;
-	Thu, 22 Oct 2026 02:03:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VvblMpP/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD09A1F000C2;
+	Thu, 22 Oct 2026 02:04:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792634642;
-	bh=/dZrxIbh6RTSU4Bjb81Y9TDCjOr0VKfEVlrnhiqKUd4=;
+	s=k20260515; t=1792634648;
+	bh=31fjzAaMtK+Xgn3e4J5pgoW/YeJYnJ0ajB39xEbrtBM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gCaXCxSB7dbVifOnVq9LNkGNcuToeD9pkMlyYHvcSgBqYZbbEYyKtPP5yaMMxYhpe
-	 xnliqHiuTvP+za3qjEP/ysbvHJeoOGQpAxOesj0123Mk1ZDbYOYl/OchrYABVKLWDS
-	 69oNhNzjdwp+1ZMwnjF3+gu16C+hyq8+Z3E60IYreHV7ZzhGRvC84hPvpsNY/j9Kdc
-	 dcQTSYqcGh/rko6aBRV4CxhLyWmSMd/Fg0W3Ny9j8H2TBafmDLsUGdeNb8044rIo5l
-	 OlO5Z9nRQtAl6/2/CXu9aWD/sF+KYg0EW7jFOHYOlELgdovho45NLzQaTSGecNzWiO
-	 wkZwUQEYOPT9Q==
+	b=VvblMpP/Y0DdbBCo4KgtPINIUUAQ0mIEq9UgC7M27VX/GushwUrRQ13KI6aJ0ep5h
+	 HfUijkArrmRw+QpVC3LfkO5krjlhgkkv1KhIQyZWNzaYseFWgP7rorVkEFVXuyV5We
+	 lav78k1D5E79cveCx4z4HKI+l/dwLf/ipEmjgbqXJVGd9Gn4RxG0LMAHsBqTdPh9UP
+	 hRZX31BORr3dxRxrRR5N78PpMgGzugkYmxiy/e6FfaJX1d9RPfHj0HxPj3Pm8JPObU
+	 +edYNwoESSUt/vRJ4gzP0lFdfvIPFA+sx6KmRVCzAsH2eI5uRRwKg3wjQH4gqPysL9
+	 YVC7WKYY/KPQw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Jim Mattson <jmattson@google.com>,
-	Kevin Cheng <chengkev@google.com>,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	david@kernel.org,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	David Laight <david.laight.linux@gmail.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Luiz Capitulino <luizcap@redhat.com>,
-	Matt Fleming <matt@readmodwrite.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Rik van Riel <riel@surriel.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Tal Zussman <tz2294@columbia.edu>,
-	andrew.cooper3@citrix.com,
-	gregkh@linuxfoundation.org,
-	Yosry Ahmed <yosry.ahmed@linux.dev>,
-	Nikola Ciprich <nikola.ciprich@linuxbox.cz>,
-	Yosry Ahmed <yosry@kernel.org>
-Subject: Re: [PATCH 6.18.y] KVM: SVM: Stop toggling virtual VMSAVE/VMLOAD on intercept recalc
-Date: Wed, 21 Oct 2026 22:03:29 -0400
-Message-ID: <2026-10-21-1-daily-reply-0004-kvm-svm-vmsave-6-18@kernel.org>
+	Benjamin Robin <benjamin.robin@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Nicholas Carlini <npc@anthropic.com>,
+	David Howells <dhowells@redhat.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Subject: Re: [PATCH 5.15.y] security/keys: fix missed RCU read section on lookup
+Date: Wed, 21 Oct 2026 22:03:34 -0400
+Message-ID: <2026-10-21-1-daily-reply-0009-keys-rcu-lookup-5-15@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261019214611.404880-1-yosry@kernel.org>
-References: <20261019214611.404880-1-yosry@kernel.org>
+In-Reply-To: <20261020-cve-2026-64015-v1-1-6b1010633008@bootlin.com>
+References: <20261020-cve-2026-64015-v1-1-6b1010633008@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,11 +70,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Virtual VMSAVE/VMLOAD enablement (i.e.
-> VIRTUAL_VMLOAD_VMSAVE_ENABLE_MASK) is set/cleared by
-> svm_recalc_instruction_intercepts() when the intercepts are cleared/set.
+> Nicholas Carlini reports that the keyring code calls assoc_array_find()
+> in find_key_to_update() without holding the RCU read lock, while the
 
-Queued for 6.18, thanks.
+Queued for 5.15, thanks.
 
 -- 
 Thanks,
