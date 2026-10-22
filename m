@@ -1,90 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792660199;
-	b=fcrsBU7PKxOrdf1KkQwWqU4KA7BTJkObijZPPYCNl+XKEERd+JlzarJ49OllKlCzLHUc
-	 tH8Gcot7eQTlgjQeG8lUJVHpHX7AyQdA/REP5QgfmKYVLItrdqXnBl5V+5xedsPaR/n6G
-	 gXc60kUBXJ1dXRfiDsNZNDYJjtEPcODOg+A6KcEA8ijgiKb30fgYkXDih/r47CsiaA/Ri
-	 dOok53ogCwvBf9STP3xaRST8r4KUi0d2lXQGceiOY1G0VrZfXYUBOvlo1TLTZ33M0M9B4
-	 Qpuw3rYCoO6/f/s+GQl0zdjcUuUJ5CgIC2JLmXw9C6r2s7hA5bOQs33wo6Z2VMca5gA==
+	t=1792660207;
+	b=DXkBnxZbHns+Fp4NzZBpIYLwQ9dq8onuzkx202R5V+VkKS0G/9zstNjQ3rRLGGqQVcyT
+	 QgrjrPX9g0Dz/Lnf2ByQhKQ4wol70ZuSX6jHRv/fthvC7emxaH9XFOx8reY8AHXND2/QI
+	 3FP6hN/VsA3Q8xqeHVNfJmJEY6G6Ic4v/RmRNPWNjQPlvdNOcJCz3LQU7w7dDtOGKoeRM
+	 TctVmTJKneL9xmIAFqUU03bdiy2mcjVpjNxjsVZvCFQErMLoVeZXpuxgr42SopPr+4XFi
+	 P2AhozsSudyKsd4WlHqUAeqwtVMssAFUFXyRbEJ0gz8QRZ17dJyC5onEXjNdSKZI8Uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792660199;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-CACHE:X-CID-P-RULE:
-	 X-CID-O-INFO:X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:
-	 X-UUID:Received:Received:Received:Message-ID:Subject:From:To:CC:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-MTK;
-	bh=jlF/kBcT0hhGl0loNqedHeNtTpaQZvYIpF5ZGyB+n9k=;
-	b=eYTZYL/cnsqRmEST+CUC/NiglovG06g1mpL6KoJ2iPuhdxkZjYFtTCFRUzV+PRY8brLm
-	 r7KkAy1u7VY0EFcQvE7hRmYVkgGRBBQ/1uiww2Ovf+vUn7mBNrYHReM9fg7DCQplf7I+i
-	 yTAy/yhJfBKr5MHTlxoYbLz8vd20kXEDWcNuxUtnPyEKMC2rsKtlh2Wfj+kfW0cxnziLr
-	 WDPQ4k02s9uVugTVrJh5vh3u9Oi+LFTkG/kzwPG4Yy53iTELsELqiYaqIB8Hf5NAUvKJt
-	 sLoCSbdG+K+rZatnYN8BFqcv/g5LspGPfO0vS20/AZ9pPuzyr1AktC7Z1YLVq6EljXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792660207;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=pfjhQGxprB6OEE7+13kybOYl138N6Xpw872x1WZ4avA=;
+	b=mZEcpO6KamvuXF2Nkafp+hDWkM/Zs4DkhCmQgGi+5YbzUtHyA98xGAdgx0HXRc4YFVlb
+	 L8VfYClBBF0wmEX48QwVJRpkJpTW/NE/e7tsD1rCviUsVy6ngCgCnkbWp0qsU5L9JKFtC
+	 yhSTYhNv9BMSiXpKyRIRfcXiYPd4pNhQpV+0kGvDB3G+CaM6qCyscqc6I3x1lGE8WjcoA
+	 3K3YfVGUMxV+FLMJDRoV7jiqMOXe5BaCl8ozxmCMMc3XfGv/8w78yq+bOIoTlYk1P47+z
+	 fBSbh2z4nPzYSmtRHWWu6GcnVBw4DFeqM6OaaB7LRHDnDNus3OB2TVL3iGpT+czz6GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=LleaQ26q;
-	arc=none smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hgAuUTg5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A585C606A319;
-	Thu, 22 Oct 2026 09:09:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A585C606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1FDA606A325;
+	Thu, 22 Oct 2026 09:10:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=LleaQ26q
-X-UUID: 569fc67acdf811f18dc8c9802ae25ab1-20261022
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=jlF/kBcT0hhGl0loNqedHeNtTpaQZvYIpF5ZGyB+n9k=;
-	b=LleaQ26qZFhZaKd1/fEJRpoWHldjwUOK5vdiVbvnUNEIiWLAqY/+Sg9kDFFSMHprR1aTGp4M6RZS/jQ9tWOsZ0gaSWfydsD47XaGLTe1tL6DxrTFXr0srmAFzxYEaGEz5Sb5OJ24eLsteC9jPE9TvhX0KVniP1baO/hhJDJojTI=;
-X-CID-CACHE: Type:Local,Time:202610221707+08,HitQuantity:5
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.20,REQID:0a297712-07e7-4671-898d-3a33653d20e1,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:291e20b,CLOUDID:390eeaba-4006-44bb-949c-6e25a7b8dad4,B
-	ulkID:nil,BulkQuantity:0,SF:80|83|102|110|111|836|865|888|898,TC:-5,Conten
-	t:0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:
-	0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 569fc67acdf811f18dc8c9802ae25ab1-20261022
-Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by mailgw02.mediatek.com
-	(envelope-from <peter.wang@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 56340743; Thu, 22 Oct 2026 17:09:51 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Thu, 22 Oct 2026 17:09:50 +0800
-Received: from [10.233.130.16] (10.233.130.16) by mtkmbs13n1.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Thu, 22 Oct 2026 17:09:50 +0800
-Message-ID: <ef0c66c3704f3426e5fb0d26e61adfefd35eb9fb.camel@mediatek.com>
-Subject: Re: [PATCH v4 5/6] scsi: ufs: core: Fix double release in
- ufshcd_abort()
-From: Peter Wang <peter.wang@mediatek.com>
-To: Bart Van Assche <bvanassche@acm.org>, Stanley Jhu <stanleyjhu@google.com>
-CC: "Martin K . Petersen" <mkp@kernel.org>, <linux-scsi@vger.kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, "Alim
- Akhtar" <alim.akhtar@samsung.com>, Bean Huo <beanhuo@micron.com>, Can Guo
-	<can.guo@oss.qualcomm.com>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-Date: Thu, 22 Oct 2026 17:09:50 +0800
-In-Reply-To: <fdb5c391-01ef-4a23-94c2-4f3853909348@acm.org>
-References: <20261021035450.3488805-1-stanleyjhu@google.com>
-	 <20261021040615.3566831-1-stanleyjhu@google.com>
-	 <20261021040615.3566831-3-stanleyjhu@google.com>
-	 <db4d4e246ad6b4769f736db0d3d1678adf9d59cb.camel@mediatek.com>
-	 <CAE14pdcR7NPqK3W6Pfy+FkRrXSXB9wFuweOhLyFtSye_Bg4vWw@mail.gmail.com>
-	 <fdb5c391-01ef-4a23-94c2-4f3853909348@acm.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hgAuUTg5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45BEE1F000C6;
+	Thu, 22 Oct 2026 09:10:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792660206;
+	bh=pfjhQGxprB6OEE7+13kybOYl138N6Xpw872x1WZ4avA=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=hgAuUTg5qk+4RgfNZeek2sT1nzMJQuk+QHlXgxWQ+l3QcAJ+xaT3DIz4gTe3hXYcJ
+	 FE+AV5OqpdwHlxrC8HYehvBZExca53cDcVUoFqiyDvIAGzCUCPMWRmGye92KWT7vEz
+	 yC/1sCz6NxiMDqtvNp5rBZr87vVhSQD4FeklbtN6dtg5LC8s210dWhqLLqZtTqgBgY
+	 JYjfYIpVIcxupWVS49dcXxEd8hdUjTNNe2siqk/A8UfGr9UjlQ62dFS7OJk6ZTJJQi
+	 S2pI7D7vAb1FAiaB41VG8U9tYi69lat1aiXNYs+ZGCOFQcifQ6UBmf1c2BJu/1Noqc
+	 SozgKJAQ29f9g==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A206380A97D;
+	Thu, 22 Oct 2026 09:10:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,27 +53,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MTK: N
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v4] tipc: fix broadcast sender hang on last acker
+ departure
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179266020503.1559266.4916570736972457348.git-patchwork-notify@kernel.org>
+Date: Thu, 22 Oct 2026 09:10:05 +0000
+References: <20261019115859.3471295-1-bsdhenrymartin@gmail.com>
+In-Reply-To: <20261019115859.3471295-1-bsdhenrymartin@gmail.com>
+To: Henry Martin <bsdhenrymartin@gmail.com>
+Cc: jmaloy@redhat.com, tung.quang.nguyen@est.tech, davem@davemloft.net,
+ kuba@kernel.org, edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ ying.xue@windriver.com, netdev@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
 
-On Wed, 2026-10-21 at 09:37 -0700, Bart Van Assche wrote:
-> On 10/21/26 6:28 AM, Stanley Jhu wrote:
-> > A return value of 0 here means the completion path, rather than
-> > this abort path, has claimed the tag and may still be running
-> > ufshcd_release_scsi_cmd() after it dropped outstanding_lock.
-> Do we really need the code that checks that a command has completed
-> without notification interrupt? I have never encountered any logs on
-> any test setup that indicates that this happened.
->=20
-> Thanks,
->=20
-> Bart.
+Hello:
 
-I remember that when the SSU timeout was only 1 sec, we'd pretty
-easily hit the concurrent execution case between the timeout and
-the complete path. But after change it to 10 sec along with patch=20
-9a5f6c09d0fa (scsi: ufs: core: Simplify ufshcd_try_to_abort_task()),=20
-it shouldn't happen anymore.
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-Thanks
-Peter
+On Mon, 19 Oct 2026 19:58:59 +0800 you wrote:
+> TIPC group broadcast senders are blocked while a replicast still has
+> outstanding member acks: tipc_group_bc_cong() returns true as long as
+> grp->bc_ackers is non-zero, and clears *grp->open, which is what
+> tipc_poll() uses to report EPOLLOUT (via tsk->group_is_open).
+> 
+> When the last outstanding acker departs before acking,
+> tipc_group_delete_member() decrements grp->bc_ackers to zero but
+> never restores *grp->open.  As a result poll(EPOLLOUT) never fires
+> again.  A writer blocked in sendmsg() is only released if some other
+> wakeup happens after the deletion: with TIPC_GROUP_MEMBER_EVTS the
+> leave event delivery calls sk_data_ready() and wakes it, but without
+> member events nothing does and it sleeps indefinitely, since the
+> default send timeout is MAX_SCHEDULE_TIMEOUT.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net,v4] tipc: fix broadcast sender hang on last acker departure
+    https://git.kernel.org/netdev/net/c/f4377bf85887
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
