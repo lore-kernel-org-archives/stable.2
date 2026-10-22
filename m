@@ -1,63 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792685918;
-	b=hTxx4gKRmcJjg/vRHUoyIeg3/LP0kIysYikOFaNZXK8Rez9TIjud+Gx3HloREabGqNBY
-	 Vb+UvwsSUSR0Z7NRPQWpSrmEHlDRFN0IAZTK5g8bIkDIXPs7fZ3zLFd9V8536rg3SiD1d
-	 WyiC5a1a7oBxu7X9eYMeRGPZTYEJG6bGO3+hZ4pEeS9jtHa/jnlCM9slyLhbpFDojvIlV
-	 oDpcvOzFLS1a5Bm7aVP583S0fQ9Dni0/ahc4E3XMaUVJGryBI5gzCFHb3R1LbNW/bRkL3
-	 V7OzxGrWBGSIAEHeKP7puccrOYtMBXW/cYARR4meUX3IWbyC/s0lrbNOu6Hp6aMxM6Q==
+	t=1792685996;
+	b=I7kKgJq1WCAQ57XS0bTRr4LAgBRi/BjNY1vxGXZFF+G56VZ19uqYp3T/DXUceyCa8qL+
+	 BQAtEv49+noBiYgetqM8HtWq/IhRuBGZg7ffmfLNhOWbNMMw9v6kmFv8PtvMdkJwLKo54
+	 G2619VYe6eGqMbfQJe+upAt+5B8GBvdoCkC9KbxOVpVXBnjN+rVJsj3ktk9h0iswQdlhI
+	 HBvu8ohsa6smLVZc6Xebk9trlrCpfe1tojBoahkAXj26Y1/+geR/jVlDey8ZOye2774pA
+	 a2TaTIMP+PYI/btuWFFfB2W3lEOZCn+DlaHaUYWfOR3BkMuxX++nR32qUmB4YM0MqJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792685918;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
-	 In-Reply-To:References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=dwTDr5uc/SBBJPDGJ0dO1kirHSFGDURAgKoYw4Q0Cy0=;
-	b=pIJIeTBgs0Vq+WiCU9kZANUsfpcT/yVpqPhkZIL6gwceldp+Bo2GQ8mDY/QhT2BNA2fd
-	 L08DVH7pcBcvEcIspA17zgzlh90Kkig7XyFS7bwf3QebdpdbQB/boC2iWzyNXqYNQZ5aI
-	 NWtPYsQBVhnjtzyWHgAW0HjNWUAIRCoWQTUDUS+fr2qPrVSnlaiAcJtPbdYbCNEQWFaGK
-	 v7OOkp8OnITO5o2ZaOjM3IDP14atbDyb8drlhZDRuOYpfDp1fKTTsw044h3i0SXQwgnSR
-	 ZhfNo1ENKa6CfcPRoL5i0IpplXW3e+jsGAAyab1RYd8dpm3CZzsevP+2bxPO7TtVGpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792685996;
+	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
+	bh=y9vbqmqLcpCnOP8rCU6dU+WcNffa3aBEAiYmP4aZMq8=;
+	b=MD0iSeInAJOv6l/poOM5EM7ua8utG1Hdn6QOx3intxNmPCAt7IQXNyIHAAm91jGx0ldQ
+	 Iu0QigBAA6GEEcor83/8+J+zK7A9UdHae62YdAtCNRZUcZzOTMbMDUjNdmMSJkdTLiU+r
+	 M31ZH3cKGg9kK+C973MlaFsWgziRK2wqHRZB5dkpqFQzrZiAQr0a0A3iepTN5PXCi12F/
+	 J4e6WatreovZeAAT9xB0maMsFQnog8nysDWF0W7DgRBfoiL514ZETyw885Da+jW1KD3AL
+	 xZS1udHL6PmGoXjgWMMqYCJqBMyDOur+kZnKu2FZ7YJ3SUgewwZaNh6sFWVFIoZfCMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=hnBxWGlT;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=ljxTLPsy;
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C84606A31B;
-	Thu, 22 Oct 2026 16:18:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0C84606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=hnBxWGlT;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=ljxTLPsy
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792685896; bh=dwTDr5uc/SBBJPDGJ0dO1ki
-	rHSFGDURAgKoYw4Q0Cy0=; b=hnBxWGlTyQuooPr0ZFbZ+KMEzkFia3onbcoN2jCTW2xwxzL1Un
-	KeZD00xYSN1uQCaUv63GsPDNRKAuhSypZ3lziCHfBfnaGPEoxlERwexFed3vX8Jvt5JMqJSOdks
-	pzPIdb0aOhlhAjg0Wu9Is/7SayLCO3d0YJ38yX0AJWBvJ3jQcE9G31NqxbNbf1SFUKMkAsl0PZP
-	HypwlTHeSUVxLAf4mTR5qjhlAKvfzJFAJT0tiaBvuC0L+2Dlx1m0bEd5TJF3Be1I6HtB759RL0o
-	UWqTN77yk0jaVu2471rA18Ykh1izapjf6zV7aXYmJxKfebNy6hmDKV5o8X1l37zagPw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792685896; bh=dwTDr5uc/SBBJPDGJ0dO1ki
-	rHSFGDURAgKoYw4Q0Cy0=; b=ljxTLPsyJLqdmlINwd+ls8V2oDnuBN9Wy6pmiRO0kwPisXMwqc
-	bGzfegTe/qcnRqDPIV12HBAyGZR8pa69oBCg==;
-Date: Thu, 22 Oct 2026 17:18:16 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Hungyu Lin <dennylin0707@gmail.com>, bsingharora@gmail.com,
- yang.yang29@zte.com.cn
-CC: akpm@linux-foundation.org, wang.yaxin@zte.com.cn, wang.yong12@zte.com.cn,
- xu.xin@linux.dev, jiang.kun2@zte.com.cn, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_delayacct=3A_Preserve_de?=
- =?US-ASCII?Q?lay_extrema_when_aggregating_taskstats?=
-In-Reply-To: <20261022160648.37411-1-dennylin0707@gmail.com>
-References: <20261022160648.37411-1-dennylin0707@gmail.com>
-Message-ID: <8E09DEA9-9161-4E32-88BA-DC4147DB3849@mainlining.org>
+	dmarc=none header.from=orcam.me.uk;
+	spf=none smtp.mailfrom=orcam.me.uk;
+	arc=none smtp.remote-ip=78.133.224.34
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8DA2C606A31E;
+	Thu, 22 Oct 2026 16:19:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DA2C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+	id 5BFAF92009E; Thu, 22 Oct 2026 18:19:47 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by angie.orcam.me.uk (Postfix) with ESMTP id 5815692009C;
+	Thu, 22 Oct 2026 17:19:47 +0100 (BST)
+Date: Thu, 22 Oct 2026 17:19:47 +0100 (BST)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: Imre Kaloz <kaloz@kernel.org>
+cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+    linux-mips@vger.kernel.org, Ethan Nelson-Moore <enelsonmoore@gmail.com>, 
+    linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] MIPS: c-r4k: Flush the cache error vector before writing
+ it uncached
+In-Reply-To: <20261021190020.20954-1-kaloz@kernel.org>
+Message-ID: <alpine.DEB.2.21.2610221709330.22065@angie.orcam.me.uk>
+References: <20261021190020.20954-1-kaloz@kernel.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,104 +52,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 22 October 2026 17:06:48 BST, Hungyu Lin <dennylin0707@gmail.com> wrote:
->delayacct_add_tsk() adds each task's statistics to the accumulated TGID
->statistics, but overwrites the delay maxima, minima and peak timestamps.
->Consequently, the last task determines these fields, and a task with no
->recorded delay can erase an earlier task's peak despite a nonzero total.
->
->For example, a four-thread process has a worker writing copy-on-write
->pages and a last-created thread with no WPCOPY events. With the group
->stopped, getdelays -d -t 49 reports the following before and after the
->fix (WPCOPY excerpt, spacing compacted and timestamp column omitted):
->
->Before:
->  WPCOPY count delay total delay average  delay max  delay min
->          4103     5163661       0.001ms 0.000000ms 0.000000ms
->
->After:
->  WPCOPY count delay total delay average  delay max  delay min
->          4101     4680983       0.001ms 0.049292ms 0.000208ms
+On Wed, 21 Oct 2026, Imre Kaloz wrote:
 
-Hmmmm... Looks feasible enough, it's a very tiny result.
-
->
->The timings vary between runs. Before the fix, the zero extrema disagree
->with the individual worker's nonzero values. After the fix, the group
->extrema match the largest maximum and smallest nonzero minimum across
->the individual threads.
->
->Keep the largest maximum and its associated timestamp, and combine the
->minima with min_not_zero() since zero denotes an unrecorded delay. Apply
->this to CPU delay and the seven delay types handled by UPDATE_DELAY().
->Single-task queries still start with zeroed statistics and retain the
->task's values.
->
->Fixes: 658eb5ab916d ("delayacct: add delay max to record delay peak")
->Fixes: f65c64f311ee ("delayacct: add delay min to record delay peak")
->Cc: stable@vger.kernel.org
->Reviewed-by: Bradley Morgan <brads@mainlining.org>
->Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
->---
->Changes in v2:
->- Add a getdelays -d -t before/after example to the commit message, as
->  requested by Andrew Morton.
->- Add Bradley Morgan's Reviewed-by.
->- No code changes.
->
-> kernel/delayacct.c | 23 +++++++++++++++--------
-> 1 file changed, 15 insertions(+), 8 deletions(-)
->
->diff --git a/kernel/delayacct.c b/kernel/delayacct.c
->index 479e860aff70..ea1424524654 100644
->--- a/kernel/delayacct.c
->+++ b/kernel/delayacct.c
->@@ -12,14 +12,18 @@
-> #include <linux/taskstats.h>
-> #include <linux/sysctl.h>
-> #include <linux/delayacct.h>
->+#include <linux/minmax.h>
-> #include <linux/module.h>
+> On R10000-class CPUs, a store prefetch while copying the preceding
+> vector can leave a dirty line whose write-back overwrites the uncached
+> cache error handler. Flush it first in r4k_cache_error_setup() with
+> r4k_dma_cache_wback_inv(), as dma_cache_wback_inv() is a no-op on
+> coherent systems.
 > 
-> #define UPDATE_DELAY(type) \
-> do { \
->-	d->type##_delay_max = tsk->delays->type##_delay_max; \
->-	d->type##_delay_min = tsk->delays->type##_delay_min; \
->-	d->type##_delay_max_ts.tv_sec = tsk->delays->type##_delay_max_ts.tv_sec; \
->-	d->type##_delay_max_ts.tv_nsec = tsk->delays->type##_delay_max_ts.tv_nsec; \
->+	if (tsk->delays->type##_delay_max > d->type##_delay_max) { \
->+		d->type##_delay_max = tsk->delays->type##_delay_max; \
->+		d->type##_delay_max_ts.tv_sec = tsk->delays->type##_delay_max_ts.tv_sec; \
->+		d->type##_delay_max_ts.tv_nsec = tsk->delays->type##_delay_max_ts.tv_nsec; \
->+	} \
->+	d->type##_delay_min = min_not_zero(d->type##_delay_min, \
->+					 tsk->delays->type##_delay_min); \
-> 	tmp = d->type##_delay_total + tsk->delays->type##_delay; \
-> 	d->type##_delay_total = (tmp < d->type##_delay_total) ? 0 : tmp; \
-> 	d->type##_count += tsk->delays->type##_count; \
->@@ -174,10 +178,13 @@ int delayacct_add_tsk(struct taskstats *d, struct task_struct *tsk)
-> 
-> 	d->cpu_count += t1;
-> 
->-	d->cpu_delay_max = tsk->sched_info.max_run_delay;
->-	d->cpu_delay_min = tsk->sched_info.min_run_delay;
->-	d->cpu_delay_max_ts.tv_sec = tsk->sched_info.max_run_delay_ts.tv_sec;
->-	d->cpu_delay_max_ts.tv_nsec = tsk->sched_info.max_run_delay_ts.tv_nsec;
->+	if (tsk->sched_info.max_run_delay > d->cpu_delay_max) {
->+		d->cpu_delay_max = tsk->sched_info.max_run_delay;
->+		d->cpu_delay_max_ts.tv_sec = tsk->sched_info.max_run_delay_ts.tv_sec;
->+		d->cpu_delay_max_ts.tv_nsec = tsk->sched_info.max_run_delay_ts.tv_nsec;
->+	}
->+	d->cpu_delay_min = min_not_zero(d->cpu_delay_min,
->+					tsk->sched_info.min_run_delay);
-> 	tmp = (s64)d->cpu_delay_total + t2;
-> 	d->cpu_delay_total = (tmp < (s64)d->cpu_delay_total) ? 0 : tmp;
-> 	tmp = (s64)d->cpu_run_virtual_total + t3;
->
+> Fixes: e01402b115cc ("More AP / SP bits for the 34K, the Malta bits and things.  Still wants a little polishing.")
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+ This is surely not the right commit to pick, as that was merely code 
+refactoring and the issue existed before it.
+
+> diff --git a/arch/mips/mm/c-r4k.c b/arch/mips/mm/c-r4k.c
+> index d8aadd3dc057..ae31966ac65b 100644
+> --- a/arch/mips/mm/c-r4k.c
+> +++ b/arch/mips/mm/c-r4k.c
+> @@ -1684,6 +1684,14 @@ static void r4k_cache_error_setup(void)
+>  	extern char __weak except_vec2_generic;
+>  	extern char __weak except_vec2_sb1;
+>  
+> +	/*
+> +	 * The handler is written uncached. Copying the preceding vector
+> +	 * may have left a dirty cached line of it behind, through a store
+> +	 * prefetch or a speculative store; write it back and invalidate it
+> +	 * first, or its later write-back overwrites the handler.
+> +	 */
+> +	r4k_dma_cache_wback_inv(ebase + 0x100, 0x80);
+> +
+
+ Conceptually this seems right to me, however I think the call ought to be 
+moved into set_uncached_handler() itself.  Also since you're repurposing a 
+DMA handler, which the removal of CONFIG_DMA_NONCOHERENT wrapping makes so 
+obvious, this asks for the function to be renamed.
+
+ Thank you for your submission overall.
+
+  Maciej
