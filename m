@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792634651;
-	b=dObA6RjWbSzZBn9L3Kx1m2RmqDsb66tjNwUMjUsH5e6XzCVbgtjcqpfF+EUtEAM5KUwQ
-	 fNkXXhvt6m+AFHaA7uQpIBb++LPt+q7kN6aFNOOL9oP/uAGz1BItPwDXOZXfOLhnCo5l/
-	 G8VjSd0GQcM94a1DY2tRk8z41lmMq1hYuRu29PauKmBKRS2APwEVpp5t2//9PgtmiCCEk
-	 zkhxhd9iD7OQ/92uC4catrUU7S6699ku+T3SlzN+hdjBKkle6S89WRqODyRaYMh88TE/q
-	 LJ+5joQ5jqYKfRnzhT8HFWiCCmRYE9B3gGThGY3SFSstdbHeiiAVYb8iNihRsKxCdaA==
+	t=1792634652;
+	b=3cCRXK0Su4z7Rr8YpQe8A++vP+GZT768sXWQm2frDczqaTf9NTc6yjSP3c4JEOlkv+ww
+	 Jqk/YXC9VDgoEUmpI3CTw4eXHeSWvQwLDXMe+Bcv/O0np7zoy0IjNJQO9Ny7s59oUCuLN
+	 QA+hJFeN+Ds1cw57nCipZjymkjbjanZ5VAYp8ttdvmG1SbGoFwlDG1dL2+lIgb6cfG/Cn
+	 ASA1Ysy/IF6F/vJ6CZ3V/IuItto/5LmKhH5b8W5CJHZe0jtkeCZvpu7EVK+vNzTEOnPqN
+	 yiaw78UIXaj8ACN7Svda7ThM3za9WKBd3g+p71s+BNV93o/MZAKffuE4RoNRHnWAiUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792634651;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792634652;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=UJLSBtDKkGqZDJrYmEv3WMefki+zsrIJ6RfNfwcIxRM=;
-	b=zvtNpNLC0uIh/xg4JOVsKxQagAGomo3ehYsrMwB+LDz92dQQtXh1MvaxgYnMBTe77O+3
-	 aV+G3CpTp38dNui8RMihpFajEyHygSFd9zDrMDZq+xjxwgPpp5jdpUWTyoDkPSCbPIjFG
-	 RZURZfBgClIhcIOT/xvt/DLunzhwDwksJhUoF/WclbNlCcMNCQAg2zjN25ARdKpZBLZNz
-	 c9/2YX57MmQrK3qE3bmHvDaZ4jJd8fk8ik5jloIEdmCclXQISXD/FFp5IGOBAno9p8Ghl
-	 5FE+jIO6JpWMCSX9jhW3IUoiYq+soWoheOGZ1/S6BnxRj3oQtbevLQFVHX5GIf1K4bw==
+	bh=vOYgRzzdBZVb791ahua+Vd9VZ9mzQ5ffdxL3uGu3IaU=;
+	b=dXWhamL72kerQK92TVhxRPr+aOfP11QKplXKrw9L4p4vij2IQGpO9ypZ2hOwOhqSs+Jq
+	 naXatR/8eEKYb1cJdTOrBaq7Eadh1QjWB/tj5rhqcKJKChB7iyHZzqsZYub9rJF9ldjVp
+	 MGhIgGsndR8IiinvlYft5U4HijScNQOOVU8gevY3iz6HEp0suV/cgttQR07CRXAY9yFI8
+	 N8dH4GmTXxBGcgfegelixcengvKdKzcov8pm9vrZRmB4+YIf1BviVCXXMWm3H/OgeBC0u
+	 r2LmAh0bd7jp7BZngA3bPyFg7Yzasd91k/hXPWjK2W/1yw1e4+Hr0yLmzmqk2ohYRMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nKHC1mpz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z11qdJUf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11923606A320
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 02:04:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB032606A31E
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 02:04:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nKHC1mpz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDD751F000C5;
-	Thu, 22 Oct 2026 02:04:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z11qdJUf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBE0A1F000C7;
+	Thu, 22 Oct 2026 02:04:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792634650;
-	bh=UJLSBtDKkGqZDJrYmEv3WMefki+zsrIJ6RfNfwcIxRM=;
+	s=k20260515; t=1792634651;
+	bh=vOYgRzzdBZVb791ahua+Vd9VZ9mzQ5ffdxL3uGu3IaU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nKHC1mpzWQAs02y6Wk5rHqfdSYMNXlNGrkfuSwh0lYUWY9ob/lZ9H0QRPNLjIwkB8
-	 Q9GoNGB2LD65HOJkpDQVIYXYj4jBNsdX0azGeobuTJPpGnOnhPMhdOmH++7/ahwm4X
-	 ZDnZrbeg0VKYv+hObtJ51MpDFdGA6FNErTalzg/CwMxJGi/6hzGKPzp7vAyeXFYrID
-	 eOvkRw9FMQCyDD5UXx28HI7zA1pLG1B45kPY8+Fdv2oGcVpHpOgwJOjzUxAF8oSUv+
-	 mr/6R37aAQsslOCdJRoGif3NI6ohSGgwpF7o+acJhc7BXlOQn57jKOugSKySvxeoqS
-	 ZZJvqJf/VJpiQ==
+	b=Z11qdJUfp1Clw99b1QYDZY+L5tPsWsU8FCF+NnIJs6rL0x38Asb1gAltF+3ZKxyI1
+	 n0amEk8QGihiYxr9h+mi9eGaP6Z4OYwrRyRf/ehZbOJBUBCC7IK4AEG9kmD/735Zgw
+	 tYQP6knEFzLCi0FxpHKkdEKdrdTQoMPZmqAZtglYptzL54sTAp1ra2wDqrEpEDO4ew
+	 K1Bo7F2D3HpFl0oFszZHVtKpVim0aksqf01bwPY05Oq/XrcYapGFvxU+g2wOR1trdV
+	 tbBf9zfCwjWzKuYicM0pl7czFd8WLzGH7ntn2Cee/waIjrwO5onAkVOQUZW713+uv4
+	 IirFNfVC5IiGg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
@@ -48,12 +48,12 @@ Cc: Sasha Levin <sashal@kernel.org>,
 	Jamal Hadi Salim <jhs@mojatatu.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	"Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Subject: Re: [PATCH 5.15.y] net/sched: cls_u32: skip hash tables in u32_bind_class()
-Date: Wed, 21 Oct 2026 22:03:36 -0400
-Message-ID: <2026-10-21-1-daily-reply-0011-cls-u32-bind-class-5-15@kernel.org>
+Subject: Re: [PATCH] net/sched: cls_u32: skip hash tables in u32_bind_class()
+Date: Wed, 21 Oct 2026 22:03:37 -0400
+Message-ID: <2026-10-21-1-daily-reply-0012-cls-u32-bind-class-5-10@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261020-cve-2026-74739-v1-1-f63ae6c92cfd@bootlin.com>
-References: <20261020-cve-2026-74739-v1-1-f63ae6c92cfd@bootlin.com>
+In-Reply-To: <20261020-cve-2026-74739-5-10-v1-1-c4b65c36f234@bootlin.com>
+References: <20261020-cve-2026-74739-5-10-v1-1-c4b65c36f234@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,7 +68,7 @@ Content-Transfer-Encoding: 8bit
 > u32_walk() enumerates both struct tc_u_hnode and struct tc_u_knode
 > through the walker callback. u32_bind_class() unconditionally casts the
 
-Queued for 5.15, thanks.
+Queued for 5.10, thanks.
 
 -- 
 Thanks,
