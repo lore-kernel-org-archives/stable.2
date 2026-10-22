@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792676566;
-	b=OtpWFudRfXS138gepZndDUqogbT5j0KliKYnEIV0gFv0hE/kd7GAIROC4zAtu65aMaZX
-	 k2euIECTvAd4EJ2cRmJAbRjbY7x5Mvgxwk8XuNbGPu41OyEWZuw0v5v7bH4NLsqFZ6yv8
-	 XOamEkb18N3HcIBOoBupQZjy0b/RAnSShJZzNUFKda12UtST+V9AQBYnrkaqn9ijymCEc
-	 NOokRMwTdZYpdBj2Le/M/idOInFmLBolcojhyIw1x/o52LW1J9SJ5Embx3sCwe45FtsIN
-	 DpKKHfQ8DhDkRlZPs8qMNQVX8oQuXfmj2rdOEdSa29a0zEeqgqVoaFQp66AdP6fi1Ug==
+	t=1792676567;
+	b=0FdJ7JUSPMjR6q5/99ZLly8GofIYoGYP2p5OFaNmb/x5X7nTw4LjUNndOcohH7hT+MAv
+	 l3MokJ46hjfUirDkEudh/y4OiHveG72NfV+VSsdcsig9ohoMC3YWlpZBzrKdjxcVSowV/
+	 Ag8HGT+aU8CPjnCH/r4EKkSdmHm9faNwxkdNTpJzp2vC0GZ6oFZvb1n+18Z+z0d0lAfhL
+	 HaraOke6fs52XvZqLJ1MabvIWfes9DIwwhNxP6M/JxMvhWU7yddLaxyeK19jplINL1RFm
+	 EjZS6SGkkmFxoA/NVxQV46bXQk3WM7AENEfxG+m5qOc0/DpZu4DhYFVdsKoZCmS0zUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792676566;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792676567;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=FKGxw5Ni5pz4gpYUmHS2/zhofkOwBpF4v+2LBNIY6LE=;
-	b=0a7sfm3+nybArmv8nB5aO+nRa7z6mQyHLpwc73X8iWP1RENci/GAnuKFFilYI/HgLpU+
-	 pKqFM1juvVnsSmfcpSuCou3ZOIn+G+qeKXYRhPJAebtdfBLu0kQobkwHORjBDSVFT9pUg
-	 63y/SNVQBTDdKUL5uc6C4wTtKV48wEzdtqFXpzU7dV7OmTa/H2/o2ZusY0BqHFS6f5ime
-	 f3/d0T8AAMnF5+JnNYb35ILdGzUHDVuYCtp5jckkB7nR4bF/CFCRHndWgmYcSveX3nwrA
-	 P7tcBPC9MddcHj2cwNyfnG4dm2kmvEsy8n7sV4r4TfK5MvzXbRiixBEycz9XPMqN2uA==
+	bh=s4AuCrYsn4dS2nLKpVvR0o43olVmPhMRKwWCMlr93FY=;
+	b=mrUnDtBJlSbU2jNRfwsHryKh6Hil4K+FDMkZbGWCvvWBycqxKVsA4xu2Ajdu/+6wzchz
+	 x5ybZ3jILTaTDCnwq7061sPEvxXnm1hZ4e5sYIairacx7hQBm0xKMNc8Ipb5an5r1eTuq
+	 Mx39Rgz70X4hXTZh5wD2RHaGUm5ucEFTKRZRrKCJOh/jg+yGWKt4ug+CIhnN2GkAFEERR
+	 Ub1M4IZL4bxuhWEBMpovZBmJK3l3CKLxLcUvQr+mTIXa1HuwUGnSdIeZbdSymMlpEEWiU
+	 DGhIlLLdiFsi3Ob0U/76ExilsDQGqm1cSKXPJPgf19YE5iZDC4wkCycYINVKd6h7F/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jHRlZg2A;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DxbRc9k3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D8C660A2638
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 13:42:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F5F460A3803
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 13:42:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jHRlZg2A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEB441F000C1;
-	Thu, 22 Oct 2026 13:42:45 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DxbRc9k3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 773861F000C3;
+	Thu, 22 Oct 2026 13:42:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792676566;
-	bh=FKGxw5Ni5pz4gpYUmHS2/zhofkOwBpF4v+2LBNIY6LE=;
+	s=k20260515; t=1792676567;
+	bh=s4AuCrYsn4dS2nLKpVvR0o43olVmPhMRKwWCMlr93FY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jHRlZg2AEskmaSmVxEUd9ZHMZ2Jf7pVDMkVPoshC+gSXfV3XNfMdzE8ByQ144oIG5
-	 swF1ar5/oQNYZ3AwJ2NowtkmoFkoZUGjcJQxFTiddCYTYBnLcaE8gtCHv9vyQ1pXtE
-	 abq7dxQLj13J+YwzmLW/ZjeyULwiYz1qacIcWALwQPDuWBcU8DKh50ztZwj1YipWfO
-	 uNHjUIgBVo3YpaCAH6re7ZUsSSw4wAkn2/mQenUEMx21wSTkFqc3pZy6eCsjNaaSUC
-	 5NxcqpBqKii4Ic/rhGjPq1vJ7B7lf1kZPpohp1CWaxSxknd3ID1e0Ow2dSZdE80+hV
-	 8cizdX7k99jiw==
+	b=DxbRc9k3HUL3lTMaa5NWXt15ynEQ0jMHR7pVZVs/o+2254/iYkKL/qGhyF5Qdii83
+	 WUDZpOdJWsb4iUl0S9YlCSe4isqgDVse4mBMhQQN//S/J1yS62wVo2j2h4zrzpAnH6
+	 uuGbwKnO43VA4j8+YRzB7P/Nyd0uPscAKWNVS39cc7YjSByLRBnZqWF6GtV7VifI/r
+	 4QHaVwa20f/dlRXw0dKFFjs7nleLF9+Ze3nHGc4+KKzX3JJwG3NUu5fPDUFr+mOCEH
+	 j78YwfUkDcRe5X4Bl0+TY63mSEW/03FteIPqJI8aES+VNVGwQN2vpAjwMwTbUbUVDA
+	 qKD9JnKUfZMjw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
 	Steven Rostedt <rostedt@goodmis.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/4] tracing: Bound histogram expression strings with seq_buf
-Date: Thu, 22 Oct 2026 09:42:41 -0400
-Message-ID: <20261022134230.1444063-3-sashal@kernel.org>
+Subject: [PATCH 6.18.y 4/4] tracing: Fix NULL dereference when copying keys for a field variable
+Date: Thu, 22 Oct 2026 09:42:42 -0400
+Message-ID: <20261022134230.1444063-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261022134230.1444063-1-sashal@kernel.org>
 References: <2026102122-spinster-handler-2d56@gregkh>
@@ -62,157 +62,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-[ Upstream commit 935601a4276f28105498609f7f98aa66e86e9c96 ]
+[ Upstream commit a0777b9e53157f1f6848a0fd0650f5465391ea81 ]
 
-expr_str() allocates a fixed MAX_FILTER_STR_VAL buffer and then builds
-expression names with a series of raw strcat() appends. Nested operands,
-constants, field flags, and generated field names can push the rendered
-string past that fixed limit before the name is attached to the hist
-field.
+In event_hist_trigger_parse() where it needs to create actions like
+"onmatch", it calls:
 
-Build expression strings with seq_buf and return -E2BIG when the
-rendered name would exceed MAX_FILTER_STR_VAL. This keeps the existing
-tracing-side limit while replacing the raw append logic with bounded
-construction.
+  event_hist_trigger_parse() {
+    create_actions() {
+      action_create() {
+        trace_action_create() {
+          trace_action_create_field_var() {
+            create_field_var_hist()
 
-Link: https://patch.msgid.link/20260611055945.22348-4-pengpeng@iscas.ac.cn
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Where create_field_var_hist() does a loop on the hist_data
+representing the keys. The issue is, if the keys uses one of the
+pseudo field types (like common_cpu), the hist_data field element
+will have NULL for its field member causing a NULL pointer
+dereference when accessing the key_field->field->name.
+
+  # echo 'hist:keys=common_cpu:ts0=common_timestamp.usecs' > \
+      events/sched/sched_waking/trigger
+  # echo 'my_synth u64 lat; int prio' > synthetic_events
+  # echo 'hist:keys=common_cpu:wakeup_lat=common_timestamp.usecs-$ts0:\
+      onmatch(sched.sched_waking).my_synth($wakeup_lat,prio)' > \
+      events/sched/sched_switch/trigger
+
+  KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
+  RIP: 0010:create_field_var_hist+0x771/0x1380
+  Call Trace:
+   trace_action_create_field_var+0x360/0x600
+   trace_action_create+0x393/0xe80
+   event_hist_trigger_parse+0x3e47/0x69e0
+   trigger_process_regex+0x1a6/0x250
+   event_trigger_write+0xce/0x160
+
+Instead of accessing it directly, use the proper handler
+expr_field_str() to get the name.
+
+The three previous patches are prerequisites: without them a .buckets
+key and a common_stacktrace key each render into a command that cannot
+be parsed back.
+
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260914053443.981201-5-donggeunyoo.kernel@gmail.com
+Fixes: 02205a6752f2 ("tracing: Add support for 'field variables'")
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Assisted-by: Claude:claude-fable-5
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-Stable-dep-of: a0777b9e5315 ("tracing: Fix NULL dereference when copying keys for a field variable")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace_events_hist.c | 57 ++++++++++++++++++--------------
- 1 file changed, 33 insertions(+), 24 deletions(-)
+ kernel/trace/trace_events_hist.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index cbf387491bc86..6e9400c62cd01 100644
+index 6e9400c62cd01..200373e19e383 100644
 --- a/kernel/trace/trace_events_hist.c
 +++ b/kernel/trace/trace_events_hist.c
-@@ -94,7 +94,6 @@ typedef u64 (*hist_field_fn_t) (struct hist_field *field,
- #define HIST_FIELD_OPERANDS_MAX	2
- #define HIST_FIELDS_MAX		(TRACING_MAP_FIELDS_MAX + TRACING_MAP_VARS_MAX)
- #define HIST_ACTIONS_MAX	8
--#define HIST_CONST_DIGITS_MAX	21
- #define HIST_DIV_SHIFT		20  /* For optimizing division by constants */
- 
- enum field_op_id {
-@@ -1735,33 +1734,36 @@ static const char *get_hist_field_flags(struct hist_field *hist_field)
- 	return flags_str;
- }
- 
--static void expr_field_str(struct hist_field *field, char *expr)
-+static bool expr_field_str(struct hist_field *field, struct seq_buf *s)
- {
-+	const char *field_name;
-+
- 	if (field->flags & HIST_FIELD_FL_VAR_REF) {
- 		if (!field->system)
--			strcat(expr, "$");
--	} else if (field->flags & HIST_FIELD_FL_CONST) {
--		char str[HIST_CONST_DIGITS_MAX];
-+			seq_buf_putc(s, '$');
-+	} else if (field->flags & HIST_FIELD_FL_CONST)
-+		seq_buf_printf(s, "%llu", field->constant);
- 
--		snprintf(str, HIST_CONST_DIGITS_MAX, "%llu", field->constant);
--		strcat(expr, str);
--	}
-+	field_name = hist_field_name(field, 0);
-+	if (!field_name)
-+		return false;
- 
--	strcat(expr, hist_field_name(field, 0));
-+	seq_buf_puts(s, field_name);
- 
- 	if (field->flags && !(field->flags & HIST_FIELD_FL_VAR_REF)) {
- 		const char *flags_str = get_hist_field_flags(field);
- 
--		if (flags_str) {
--			strcat(expr, ".");
--			strcat(expr, flags_str);
--		}
-+		if (flags_str)
-+			seq_buf_printf(s, ".%s", flags_str);
- 	}
-+
-+	return !seq_buf_has_overflowed(s);
- }
- 
- static char *expr_str(struct hist_field *field, unsigned int level)
- {
- 	char *expr __free(kfree) = NULL;
-+	struct seq_buf s;
- 
- 	if (level > 1)
- 		return NULL;
-@@ -1770,47 +1772,54 @@ static char *expr_str(struct hist_field *field, unsigned int level)
- 	if (!expr)
- 		return NULL;
- 
-+	seq_buf_init(&s, expr, MAX_FILTER_STR_VAL);
-+
- 	if (!field->operands[0]) {
--		expr_field_str(field, expr);
-+		if (!expr_field_str(field, &s))
-+			return ERR_PTR(-E2BIG);
-+
- 		return_ptr(expr);
+@@ -3081,7 +3081,7 @@ create_field_var_hist(struct hist_trigger_data *target_hist_data,
+ 		key_field = hist_data->fields[i];
+ 		if (!first)
+ 			seq_buf_putc(&s, ',');
+-		seq_buf_puts(&s, key_field->field->name);
++		expr_field_str(key_field, &s);
+ 		first = false;
  	}
  
- 	if (field->operator == FIELD_OP_UNARY_MINUS) {
- 		char *subexpr;
- 
--		strcat(expr, "-(");
- 		subexpr = expr_str(field->operands[0], ++level);
- 		if (!subexpr)
- 			return NULL;
- 
--		strcat(expr, subexpr);
--		strcat(expr, ")");
--
-+		seq_buf_printf(&s, "-(%s)", subexpr);
- 		kfree(subexpr);
- 
-+		if (seq_buf_has_overflowed(&s))
-+			return ERR_PTR(-E2BIG);
-+
- 		return_ptr(expr);
- 	}
- 
--	expr_field_str(field->operands[0], expr);
-+	if (!expr_field_str(field->operands[0], &s))
-+		return ERR_PTR(-E2BIG);
- 
- 	switch (field->operator) {
- 	case FIELD_OP_MINUS:
--		strcat(expr, "-");
-+		seq_buf_putc(&s, '-');
- 		break;
- 	case FIELD_OP_PLUS:
--		strcat(expr, "+");
-+		seq_buf_putc(&s, '+');
- 		break;
- 	case FIELD_OP_DIV:
--		strcat(expr, "/");
-+		seq_buf_putc(&s, '/');
- 		break;
- 	case FIELD_OP_MULT:
--		strcat(expr, "*");
-+		seq_buf_putc(&s, '*');
- 		break;
- 	default:
- 		return NULL;
- 	}
- 
--	expr_field_str(field->operands[1], expr);
-+	if (seq_buf_has_overflowed(&s) ||
-+	    !expr_field_str(field->operands[1], &s))
-+		return ERR_PTR(-E2BIG);
- 
- 	return_ptr(expr);
- }
 -- 
 2.53.0
 
