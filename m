@@ -1,95 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792707545;
-	b=agZgCGhLI+QnmqQ+5iskJXdaZq4qfsjI/69vCsytx74blTHWxXSHMUsGOf5cu8ExSYrz
-	 AfmUyK3bvBDajnqZVvdsERmmS/RAp4Xmb5u38ko/wos0Qz91ouTV7pP3dcItQT4ftFPoD
-	 zSMccV/cA8jOHOMCwUXA6o4w0D6ddsfZMHxxC3xMeXdObZirGfAvXsv0Tc4Ny7NwQiG3T
-	 iLLxEEAaBf0hu8L+R8NXAptkD9jwa2gWcCNYqX0TTYebbrPCxXl+KSHY7u7S4CA92g5TC
-	 CH5JqBtBGisTnNIwGNL8M7prQC+9triDYmeXoDiiNCa35xqxyBRJwW5nkDBKh+XkYCg==
+	t=1792708010;
+	b=HCxlMKgGLFcFD8iPsblzKlmhERVC1uxibQIi7gmXI2yrPkGeC+bC5FOmV5aksX09dwdT
+	 EHzuhfJx/+sTZ4vfNW/tWz7DYofchEPT/BmFHD+bdQdQeDILZhZlXzSjA4x7ph0PDljZ4
+	 rXbBfQ0WWFEi8hX3i94CrievbR/MJlgEVY9g2zGYINDVPn5F2jktAClxORCyyD7aJZetV
+	 eL2k2+/tzd3cu6cWyINC8svphpxYw+tfNfhAEL+6jP3YNtPPWcxuFD+2cIvd1kQEcUAlB
+	 QYOthWJEeNOa3oNp6ErLSJU0QsuW2UfTZ6GlAjd4yFyLOh6rPh7qSbaUqpBJNyerLIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792707545;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=U+fNGXuTxSBSDzV/8UaJRSMWMc2y739xNcnwuXMGhOM=;
-	b=JKqZ2HsnhNRdgiNPUridHeY8FvJguz5Xq6opNUUQj7bYF5VkHtyUV3aBdLuXpLRXVdij
-	 zJfWA/Tb7YtKplHyiGjkq0s3ghv2pGnduZ+9zKKfmM097rFpfLHSGrD0bsCkMopZK/Sk5
-	 OV4C/+nSpIHoHDbEP+4EGqN2SNz61pS7g4D5Y7UxX3qMMJiBjQ0Wl2puyYKSxpWK6DLXw
-	 I/FKQx6d4m78XE1SxQtZwIutGUUgTHHVabqgdVvFqmbzJ7OienK6jsOOJNAhhSZfAbSBj
-	 EAaxHTzuIwLqMP+fd3Ucq6weWoczXAxTWg/WDwFv6WvhikBHZuoP4uP2Tmsf/s6aoEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792708010;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=O5uAHb9kmGDCAnsJegP9D6Y2Iol5FUyk6rZAtZMtykY=;
+	b=tuwzYKd3mhvskfAyALFcLNdmf3SjvgxxwRiIu5YRUFwOfrQb+1KCe4UCqa8lI1+0PkhM
+	 4rJoOuX2zGzFjHhQ0MXrzQ5uezEQDkVo86M0wELmYts7lGSRKt8aXdTVUBOdrXzkbO8IK
+	 iWDGQK8QqH2IkN2dyZGjD/XjzAesMf3GgKkF4F5DBHysfN469O7/Uv+jLEO6PYJCmLDhD
+	 n2V+pTwIQvVNAgRVrSsIIaPoJMbYBbJMKOYxEfqBOecWuyLaCvV6WvQ4A4sckw+h52bZj
+	 pubdzMXVLWDWdsPuFVABoE76Lhail8dE8j/qnA2xyBngavc6R2aMBlBt6HcUnnnLa1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=tenstorrent.com;
-	spf=pass smtp.mailfrom=tenstorrent.com;
-	dkim=pass header.d=tenstorrent.com header.i=@tenstorrent.com header.a=rsa-sha256 header.s=google header.b=UVXW82Um;
-	arc=none smtp.remote-ip=209.85.161.46
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ThOXPHJw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 942F0606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 22:19:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 942F0606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tenstorrent.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A55A4606A319
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 22:26:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tenstorrent.com header.i=@tenstorrent.com header.a=rsa-sha256 header.s=google header.b=UVXW82Um
-Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6aa9606ddadso204064eaf.0
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 15:19:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tenstorrent.com; s=google; t=1792707543; x=1793312343; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=U+fNGXuTxSBSDzV/8UaJRSMWMc2y739xNcnwuXMGhOM=;
-        b=UVXW82UmJEyPVGoE1zADd2PlLrWf2Q55H0DbUqCX+Rh2spjP8ewRwWzKPEyUjIQSga
-         xJo2mvNGbLYJyaBFei59ls/n7MIrpcTy7kTLQD//L3zaWnVNbIl5TNsFW4XeqMKmydVw
-         s7ByfXc6ixdSyAyg/98J6zjI/FfDxKQllk4H4ennofDE6CDoOnUbh9gI2wco4eMqqi1x
-         /nrSrsPyt6t2DC7cYf5E9ajT6Cyu8r8bmDEEZ7hgo/Erdu+O1qySJZ6xCeGgqahs8fyg
-         0bqcvwMOBrOVboCrbhQytVOga8EkCZyDzocKHTP/2/TtPcKN6gYT2iJJzkokWEOIeHwy
-         PgkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792707543; x=1793312343;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=U+fNGXuTxSBSDzV/8UaJRSMWMc2y739xNcnwuXMGhOM=;
-        b=VE86m6vJzWt5KAvAddNCmK5nvwUr1jxOfSdiZ9Ytnrq6PfPGo/KfoPfmiAIIwtyACE
-         MxlxaZM3XShgTT/POds3feqGxOb7BkxlE9NaggwNN82xWVfEg1Rj2aKkeIZUOrN2ZKcC
-         yVoKssoB2wnRa4QQTcXsL4d0OKb5wRj/T84qTIrgdLwlBB7fs2GVBTfiYFEqrEJFjkmk
-         AWvRdI55HZE6NCqV88H05d4JUiqQPZ7QoAgL2YjF0uVHQIzjp3s4uRE6wEONfDFUS96y
-         bOjtaV3YjmiX6fzB3t6yr2+1WqI1JpILugnK/72Tq2R4OjGozwP/wIoS7Inb2VPlQAjY
-         e+Og==
-X-Forwarded-Encrypted: i=1; AKwUvBxkbG65tjBwElkL/iY2h3mf8P0yRLM8XUwClETvlynijfZlH6N7uLIQt3xQy3B8yL6L8jXJpEY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ1A9sCCZq/HWXV2vVxzXgPoNWsOZOMyDd9IUlKk7joFOZgcQCW
-	hgVgDXcyO5g4/++F45SxRmtQaH6DI9OlIeCRLm2erwtQfV8smLyaajsQt+KJ/+vA0Pc=
-X-Gm-Gg: AYBFou2R5zQB1bYkPh1YfDxsi+DmSSMcHcHvQ3vGdWohZiMfo0tFuW0GE8Vudm1L5kG
-	CnqiBaoQjr49hqYSWjjxyj8tHaoVKjL9tC0AjYcOmPUJwyYVMCluuX4IGwIxGkCgk9J8ZsDOgvw
-	4sar7AOA61m0k0W3pMXsbE/i3APYl/3e2JhHq8P8aXiGrgRNA94rhGtGkPzwzj7+nbvalYlXUzQ
-	8DohFqIxa/QXxWCJaq/VuUYe7FPV1jgWDG4JxH9nqqcydetj1VEySiQxDRt2rXtmUotB6tYgwFL
-	iEumUh0z6YrDIaemqgIBv//5/AkYrC+1TlyTPjw5xZLmzaZdrEyBsS+fP++yav2BIISJq5T5VY5
-	uHxGqWXeqkwkCDkJJHGrjlA3ShSpu6kiV3LgfYFzEC3YQ51yhbj2aPZK4nq4eJLNDc2OrEf5j2t
-	I4K9LeJWPwdwOWrLDioJZevXJY87r5ohPVFKsMlA0i/eedCrMCRdkHVgXzSspOBvScg1Y03AZyn
-	u3/SRQs2r+GVzWSzggbqizjd5CgnY+9ZkdIwB/34mKWy6rGTmdQPzvYxY6uepc1rP0=
-X-Received: by 2002:a05:6820:221a:b0:6f5:eeee:b22 with SMTP id 006d021491bc7-70b88a52a06mr594387eaf.49.1792707543577;
-        Thu, 22 Oct 2026 15:19:03 -0700 (PDT)
-Received: from localhost ([68.203.12.10])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a82021ea20sm312316fac.0.2026.10.22.15.19.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 15:19:03 -0700 (PDT)
-Date: Thu, 22 Oct 2026 17:19:01 -0500
-From: Andy Chiu <tchiu@tenstorrent.com>
-To: Yunhui Cui <cuiyunhui@bytedance.com>
-Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-	alex@ghiti.fr, zong.li@sifive.com, wangruikang@iscas.ac.cn,
-	debug@rivosinc.com, qirui.001@bytedance.com, guoziyi114@gmail.com,
-	samuel.holland@sifive.com, ben.dooks@codethink.co.uk,
-	cyrilbur@tenstorrent.com, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] riscv: Fix SR_SUM leakage across context switches
-Message-ID: <atqL1ScMLUg2bM_E@Tao-Chiu's-Mac>
-References: <20261022083212.84721-1-cuiyunhui@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ThOXPHJw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDC841F01825;
+	Thu, 22 Oct 2026 22:26:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792708009;
+	bh=O5uAHb9kmGDCAnsJegP9D6Y2Iol5FUyk6rZAtZMtykY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ThOXPHJwUmfsX28GlytNLOlpufDs/2jQkkTrwldP4H9prO4dXiNCcNJuz9nef2TOq
+	 1qAUVhtDm6+qROcFGs4SeQpIBvgOk7rxuMXGQoEYVm933QvMtumUjxIIMg5kii+QVf
+	 pCxI0JPeahbY6X4VvGTPfHOP0C76doRAQAOtiLz+23GseEfn/1rheDPwqBtif4NFBW
+	 aPlNCtL3R8KSaAbHzpJ4hXCxZ5uWPIRmZ0apm4BGKrZv1qd4sEhiRjtLx9vZinLI/k
+	 PNDfF8axaA50icRNZwOJXNYSAjZbG5Cgv3Z9TRyQ7pnYuIt0CWV0NuvItsThlxx2hb
+	 PLdYpad/Dzr6Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Xiaoyao Li <xiaoyao.li@intel.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] x86/kvm: Use separate percpu variable to track the enabling of asyncpf
+Date: Thu, 22 Oct 2026 18:26:46 -0400
+Message-ID: <20261022220231.2081230-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026102114-railroad-feisty-2a38@gregkh>
+References: <2026102114-railroad-feisty-2a38@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,77 +59,130 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022083212.84721-1-cuiyunhui@bytedance.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Yunhui,
+From: Xiaoyao Li <xiaoyao.li@intel.com>
 
-On Thu, Oct 22, 2026 at 04:32:12PM +0800, Yunhui Cui wrote:
-> __switch_to() saves the sstatus value of prev and restores the SR_SUM bit
-> of next with csrs. However, csrs only sets bits. If prev has SR_SUM set
-> and next has SR_SUM clear in its saved state, the old SR_SUM bit remains
-> set in sstatus.
-> 
-> This lets next run with user memory access enabled even though its saved
-> SR_SUM state is clear.
-> 
-> Use csrrc to save the sstatus value of prev and clear SR_SUM from the
-> live CSR before restoring the saved SR_SUM state of next. This keeps
-> prev's SR_SUM state intact, while preventing it from leaking to next.
+[ Upstream commit ccb2280ec2f9e805d70f57a3a1c5deff0d532cb3 ]
 
-Do you have a way to trigger this bug on existing code or is it the cae
-where the bug could happen but we never experienced it in real life?
+Refer to commit fd10cde9294f ("KVM paravirt: Add async PF initialization
+to PV guest") and commit 344d9588a9df ("KVM: Add PV MSR to enable
+asynchronous page faults delivery"). It turns out that at the time when
+asyncpf was introduced, the purpose was defining the shared PV data 'struct
+kvm_vcpu_pv_apf_data' with the size of 64 bytes. However, it made a mistake
+and defined the size to 68 bytes, which failed to make fit in a cache line
+and made the code inconsistent with the documentation.
 
-If I understand correctly, this can only happen when the user access
-routing volutarily makes a schedule() call mid-flight, or a code fogets
-to turn off SR_SUM right after an user access and has a live SR_SUM when
-calling schedule some time after. Both case should be a bug as SR_SUM
-shouldn't live in the kernel code that is not doing user access.
+Below justification quoted from Sean[*]
 
-A trap-introduced context switch would interrupt a code that have SR_SUM
-set. However, since the bit is cleared at every exception entry, the
-context switch code would not see a live SR_SUM. Seeing the bit set in
-this case means something is not turning SR_SUM off properly.
+  KVM (the host side) has *never* read kvm_vcpu_pv_apf_data.enabled, and
+  the documentation clearly states that enabling is based solely on the
+  bit in the synthetic MSR.
 
-I aggree that this is the better way to handle SR_SUM in a context switch
-but attaching a call trace or stating that "We have not caught this in
-real world due to ..." in the commit message would be appreciated.
+  So rather than update the documentation, fix the goof by removing the
+  enabled filed and use the separate percpu variable instread.
+  KVM-as-a-host obviously doesn't enforce anything or consume the size,
+  and changing the header will only affect guests that are rebuilt against
+  the new header, so there's no chance of ABI breakage between KVM and its
+  guests. The only possible breakage is if some other hypervisor is
+  emulating KVM's async #PF (LOL) and relies on the guest to set
+  kvm_vcpu_pv_apf_data.enabled. But (a) I highly doubt such a hypervisor
+  exists, (b) that would arguably be a violation of KVM's "spec", and
+  (c) the worst case scenario is that the guest would simply lose async
+  #PF functionality.
 
-Cheers,
-Andy
+[*] https://lore.kernel.org/all/ZS7ERnnRqs8Fl0ZF@google.com/T/#u
 
-> 
-> Fixes: 788aa64c01f1 ("riscv: save the SR_SUM status over switches")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
-> ---
->  arch/riscv/kernel/entry.S | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/riscv/kernel/entry.S b/arch/riscv/kernel/entry.S
-> index 61b7a77166971..628b85e3915a7 100644
-> --- a/arch/riscv/kernel/entry.S
-> +++ b/arch/riscv/kernel/entry.S
-> @@ -443,15 +443,15 @@ SYM_FUNC_START(__switch_to)
->  	REG_S s10, TASK_THREAD_S10_RA(a3)
->  	REG_S s11, TASK_THREAD_S11_RA(a3)
->  
-> -	/* save the user space access flag */
-> -	csrr  s0, CSR_STATUS
-> +	/* Save and clear the user space access flag. */
-> +	li    s1, SR_SUM
-> +	csrrc s0, CSR_STATUS, s1
->  	REG_S s0, TASK_THREAD_SUM_RA(a3)
->  
->  	/* Save the kernel shadow call stack pointer */
->  	scs_save_current
->  	/* Restore context from next->thread */
->  	REG_L s0,  TASK_THREAD_SUM_RA(a4)
-> -	li    s1,  SR_SUM
->  	and   s0,  s0, s1
->  	csrs  CSR_STATUS, s0
->  	REG_L ra,  TASK_THREAD_RA_RA(a4)
-> -- 
-> 2.39.5
-> 
+Suggested-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Link: https://lore.kernel.org/r/20231025055914.1201792-2-xiaoyao.li@intel.com
+[sean: use true/false instead of 1/0 for booleans]
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Stable-dep-of: 81d99abe2bd8 ("x86/kvm: Don't consume async #PF flags on a kernel #PF in NMI context")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ Documentation/virt/kvm/x86/msr.rst   |  1 -
+ arch/x86/include/uapi/asm/kvm_para.h |  1 -
+ arch/x86/kernel/kvm.c                | 11 ++++++-----
+ 3 files changed, 6 insertions(+), 7 deletions(-)
+
+diff --git a/Documentation/virt/kvm/x86/msr.rst b/Documentation/virt/kvm/x86/msr.rst
+index 9315fc385fb0b..f6d70f99a1a73 100644
+--- a/Documentation/virt/kvm/x86/msr.rst
++++ b/Documentation/virt/kvm/x86/msr.rst
+@@ -204,7 +204,6 @@ data:
+ 		__u32 token;
+ 
+ 		__u8 pad[56];
+-		__u32 enabled;
+ 	  };
+ 
+ 	Bits 5-4 of the MSR are reserved and should be zero. Bit 0 is set to 1
+diff --git a/arch/x86/include/uapi/asm/kvm_para.h b/arch/x86/include/uapi/asm/kvm_para.h
+index 6e64b27b2c1ee..605899594ebb8 100644
+--- a/arch/x86/include/uapi/asm/kvm_para.h
++++ b/arch/x86/include/uapi/asm/kvm_para.h
+@@ -142,7 +142,6 @@ struct kvm_vcpu_pv_apf_data {
+ 	__u32 token;
+ 
+ 	__u8 pad[56];
+-	__u32 enabled;
+ };
+ 
+ #define KVM_PV_EOI_BIT 0
+diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
+index b5ef2c2899f2a..20059d236ff7f 100644
+--- a/arch/x86/kernel/kvm.c
++++ b/arch/x86/kernel/kvm.c
+@@ -65,6 +65,7 @@ static int __init parse_no_stealacc(char *arg)
+ 
+ early_param("no-steal-acc", parse_no_stealacc);
+ 
++static DEFINE_PER_CPU_READ_MOSTLY(bool, async_pf_enabled);
+ static DEFINE_PER_CPU_DECRYPTED(struct kvm_vcpu_pv_apf_data, apf_reason) __aligned(64);
+ DEFINE_PER_CPU_DECRYPTED(struct kvm_steal_time, steal_time) __aligned(64) __visible;
+ static int has_steal_clock = 0;
+@@ -244,7 +245,7 @@ noinstr u32 kvm_read_and_reset_apf_flags(void)
+ {
+ 	u32 flags = 0;
+ 
+-	if (__this_cpu_read(apf_reason.enabled)) {
++	if (__this_cpu_read(async_pf_enabled)) {
+ 		flags = __this_cpu_read(apf_reason.flags);
+ 		__this_cpu_write(apf_reason.flags, 0);
+ 	}
+@@ -295,7 +296,7 @@ DEFINE_IDTENTRY_SYSVEC(sysvec_kvm_asyncpf_interrupt)
+ 
+ 	inc_irq_stat(irq_hv_callback_count);
+ 
+-	if (__this_cpu_read(apf_reason.enabled)) {
++	if (__this_cpu_read(async_pf_enabled)) {
+ 		token = __this_cpu_read(apf_reason.token);
+ 		kvm_async_pf_task_wake(token);
+ 		__this_cpu_write(apf_reason.token, 0);
+@@ -362,7 +363,7 @@ static void kvm_guest_cpu_init(void)
+ 		wrmsrl(MSR_KVM_ASYNC_PF_INT, HYPERVISOR_CALLBACK_VECTOR);
+ 
+ 		wrmsrl(MSR_KVM_ASYNC_PF_EN, pa);
+-		__this_cpu_write(apf_reason.enabled, 1);
++		__this_cpu_write(async_pf_enabled, true);
+ 		pr_debug("setup async PF for cpu %d\n", smp_processor_id());
+ 	}
+ 
+@@ -383,11 +384,11 @@ static void kvm_guest_cpu_init(void)
+ 
+ static void kvm_pv_disable_apf(void)
+ {
+-	if (!__this_cpu_read(apf_reason.enabled))
++	if (!__this_cpu_read(async_pf_enabled))
+ 		return;
+ 
+ 	wrmsrl(MSR_KVM_ASYNC_PF_EN, 0);
+-	__this_cpu_write(apf_reason.enabled, 0);
++	__this_cpu_write(async_pf_enabled, false);
+ 
+ 	pr_debug("disable async PF for cpu %d\n", smp_processor_id());
+ }
+-- 
+2.53.0
+
