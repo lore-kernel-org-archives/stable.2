@@ -1,94 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792654612;
-	b=1MQe5FxUfpY4J1Ke8gaI+uCx8ieR/ilBP47IdJawwmwH4KpttWovR1jirZD8TqmAvgy/
-	 QK+gpJMPTnCP8fePA2lad+8l3Tj+wXPsTND/xeJyH1BQA9gp/n3BjfU6+RAZHLe3I9RvU
-	 omk5UPnlXqS2jQoVV811XLqAxnFfSVcv8SsFKSWDcOiWuUSuWFAdAhQJoyGwoP+aqiWT6
-	 7MePRHJJjkfjafqXgPUN2IYV2Ai0LLTQygpw1TYWIE9kH7CxSFod70G71JyVuq+WQ38HY
-	 7icdcDw/ef1K5vZzYshUk4q4EAYL7VCwFzPturZ2FbRVg5ZptOr2x4L7QHdEGtBRdqA==
+	t=1792654637;
+	b=SNkBugFf1CPzjjm5HXjAhthQw9qn4FBiuU0sez2dyq4hjiyw1hvHhjwwPWHekzoqh9IE
+	 6/RRKaVBMvEXE2VLPDRuQIx9qXg5T25bkun+Si6eZoXkbN8PSKRWA1u2IBcoONtOYOtEv
+	 Jq794U9mj3MrvcOm/+Mn71PWObpTMPc16A1R9Ya9FJUxOGqgBStRLngOUesaKyubz/oQJ
+	 ov/ZCYu3uZv71NIyqTuPmPGmqb6Nh0TGx9X5u1TiYMXPEm4zSYggGhhByV5GSQX/3OHwG
+	 U8EJw75DEfXwRU/lrTMaxJXw7eQ/y3D6ksld8XbNFcU/n9FzbdQYTpIOkoV3S2KoxQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792654612;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=5DpYvnCuMI3yPgcDnrdR2yXHOcHCjxXFPFiwuk+v6Tw=;
-	b=1CaSxMlwYXR3JMyPFuaOUPTeRa2Pf1diFTrz3rcvoZNpRRMJ81ctc0IaFf+qAzYghQkw
-	 jnffn7wb8iY6uzxjNOQpuVgyEKrLfmhK1chdgr4kGxVJlZ0eyUrSPpNro6xnIpZsV74Ss
-	 3Y4pNU5BwJqnH21j2pxqA2Wn+MukTuzD2H/0DXlo/DqJdQrXsLYdQC1sY0fiRTMDkAE3u
-	 NMg4AOJo49UixZSALXO4tXZJcGAgVcWTiB9LfYlPMShC3tpPzcmvwYzqWgZDBAyI390eS
-	 N8ZELIBiix3pPVhRtenPWhPJblLDOzPfWJ722dR96zXUyYiFxowVLs3f8EF5YVd0Maw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792654637;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=/9fEXjgWK+5EHi3FibFeHP1l+KFsWv8kl3bq+SGJzBY=;
+	b=gyhn0Wtn+jruR/JWGH+BPg6NS3tEiWWRMghddstQyHE8/YR9N02+I8xD6SIW/nft9zC/
+	 lvqbkDRNXeP0UY3OKOT2tofMCq/bh5Z18YUwbOotNZyUuHOP/KXqmVt2Ecoy9+whVpo2M
+	 1F8eZswiXEdPRO3dwb7mUxbqxcqC7y5XQJuHQ6p3u0RSSmhaeBduBL5pMWuTCv/f4wAhu
+	 cWf0nwEPA3aUtFB+3kOW9rebA4zr7upKGVJHs4udvH0bHb7fYqPJEaRWeT2c2NDbZMaXs
+	 Ngor6PcqvWY+go4Q4VAaYhx9b1Tx0Do6dZTSmj9xLhc84TgjMG1nHhCQI4gRvlazO1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AGBghq0p;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQwZvaCV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1A70606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 07:36:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1A70606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60CE0606A323
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 07:37:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AGBghq0p
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3550dd02c9cso150690eec.0
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 00:36:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792654611; x=1793259411; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5DpYvnCuMI3yPgcDnrdR2yXHOcHCjxXFPFiwuk+v6Tw=;
-        b=AGBghq0paxJTb+IknsDDvqSPcW7e7FKb+NxGLsbOJav45qiCDCwhrXXUkcmYCeu3LP
-         zXoG4r+VbhcTwKE0Kkr25IeH145YqnRkdRazChHW6qmGMDEX8Rl81dwLAKJnLUsre+fj
-         93RUenDQHl3ABRbM0mSkJm6UPbU7sEOLRf6IUlsDz0ScETYtMWcuV1BOxPF0puBcRAJx
-         4REJEr1GOGCcYNREtDTKKHWelAJWfZb8PP1oLx6hh/eQE+FsSr75dPI06f3nEaWomDPx
-         cMwg1Yqgg+l8RA+2UemexZrIcGeaJenNiSBlvcnup9yu1JUkDUxH5rrVq+2yIJEZ818x
-         +gfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792654611; x=1793259411;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5DpYvnCuMI3yPgcDnrdR2yXHOcHCjxXFPFiwuk+v6Tw=;
-        b=wDIa4jpxGNCnZlICoEeODvaCAVL2NSIIH2eOa8MfkVJfkjuUsz9DRrQF3K0n3wQmcy
-         lVVmtnpP0URuB9rj/NRZOeb2KYOeaQFEiIeQnrr+n0bWxYpJoT+4B8JPuYjeVkoxsWlh
-         mKZSrLjqyR86jbC79GAdCjnjnTjKE8XDFmZsC8Yjl0HKa9XWL3a00MCK8bhMEncNZEf5
-         Niyo6aa7+UUa6eDgHE10pFcRLq70B8FTWj3/yIMz8QoJlLGmcNgt9gpHXeUfYpVIeZ05
-         ugWlk6emdxCOu68an0/hriZXhIMXrcoo7wFiwEhyBNlK5rYqgODgRUYUL8OXCSqoetpY
-         aA+A==
-X-Forwarded-Encrypted: i=1; AKwUvBwA5BhV/duFt5z9/7fZZGenDZlvtZ+jJCDJrf7au76MLvkalPb3bRmDvplvZdlops1CBMT/Oe4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJaVqudA8xKj2TNtTnTw5rhB4coy7OT3VurDzNIK0TDrvJsP4Se
-	3nGDSu8lM/ao2BBQquwaCB0Z5TZ8ibvalKb/HzW0pDX7Amldub1eXAJYLOPOrgDEQ5s=
-X-Gm-Gg: AYBFou2V9p6FY0z/xBCbnqC+EXgjvNioEA1S0iLT9AdMI1NqFiHwgTBjUCH71aHHuCP
-	hL2iM6Y5c+t8pk6MB8+fJ6EHEQhHqQzn9m+o69bt+TPLhBOdITc3K8a7eFUdzFOIDluWo43odg1
-	DgK31e7y0IWAF1DHFLwaE39NxB7+nnTc57AN8+mlnwyjaSCgBAT4gl8Q4dI21LxAiWd5Pr4gris
-	B5oOv6J0DEhM+kS0VfBPSKkf44fbzsJOZa6QFNLOtkZnzIW3M8ZgKtSRCLi/Ik3xvATQNYtdzSO
-	V62Hgsccd6mmuGxaxzv8g1BCQ5qe7YKQE96O4RZQtrYmGKbuDn7N7JFMoia0lRxDLtJOinLYEvm
-	bioBoYGuHFr8cR4ZBJQODQ7Gj08YfhLl8p2djATalkrZFRvLJgwIDTp79zzDmYcq4wP+jLTSy0q
-	qKY93ek8IGTOe1mbSPA5QZ7LaEFT1B4Ns6Eka3Rs8evbbL55i4CB5is1b0zdOiKR1jLKELSxm3b
-	hu1BAJu3zHYYrCLxfq7Wu8bzxb+HrQBnmqV/VA714vNX8SGQ9otNDFU
-X-Received: by 2002:a05:693c:811a:b0:368:8792:720 with SMTP id 5a478bee46e88-36887a14b77mr4373527eec.1.1792654611029;
-        Thu, 22 Oct 2026 00:36:51 -0700 (PDT)
-Received: from archbook.lan ([14.1.89.164])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-368ca323effsm4486672eec.7.2026.10.22.00.36.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 00:36:50 -0700 (PDT)
-From: Brad Drury <drury.brad@gmail.com>
-To: qchcio@gmail.com
-Cc: amd-gfx@lists.freedesktop.org,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] drm/amdgpu: reset SI ASIC on MacBookPros with VRAM at 0
-Date: Thu, 22 Oct 2026 15:36:38 +0800
-Message-ID: <20261022073638.724414-1-drury.brad@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261015095713.20560-2-qchcio@gmail.com>
-References: <20261015095713.20560-1-qchcio@gmail.com> <20261015095713.20560-2-qchcio@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQwZvaCV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DB3B1F000D0
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 07:37:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792654636;
+	bh=/9fEXjgWK+5EHi3FibFeHP1l+KFsWv8kl3bq+SGJzBY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=JQwZvaCVhjDioasnofk93mEz6Hxtkx7HIlMtDOal7shCM4Hw4d2yhVoofG3xNag0q
+	 X7m0x19DFiGD+cMb5nMjmLEka6nHcwV2FGlgC+MOGqpOGK/u1LWVnkdp2NvDBfF5so
+	 ZR6lN88qCo0I7eFCsmoQWIB/3CqQdlSLpWhqJEnPGoPnNPgwLROkUqG6zTzAUGe13i
+	 +MomN8iyCsljSThsqqfeqYGBVNFpKTMjZpoENfgMRKzyLi9bCax1zfiUgpp3SuxvF8
+	 nMFkNkGhZtNVnhy/HKW2W6/pjFI3BXnRINMZRBfTUy/2NS8MPpmNO7Fh8vd8np4BjP
+	 jPmVEYq+Ro+UA==
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b1b13e09ffso2145912a12.3
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 00:37:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw0iDqi2kfdC0/Whv4kRCSyXEm9R3Hr4BqjTlgWZ03hsr8KLyIHm277BZTXEcyvgK7NXURGrDs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLcZ92/nXLe90xlGBbCqQPQ+KglYQksQt2pq1HNfAN1qacWBPMz
+	EQH1BsvOAGqG9Q6GG3WLznDVHU2YuGCiXqGx7+SLbY6EqQTEKB53Ufa45DepLrQv8SaYNs6jU3/
+	0Rerx2KP+txjVuVorOBaQqfzgmDPaw6M=
+X-Received: by 2002:a05:6402:4489:b0:6b1:c7ae:ec40 with SMTP id
+ 4fb4d7f45d1cf-6b408e06542mr3630391a12.4.1792654634648; Thu, 22 Oct 2026
+ 00:37:14 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,43 +59,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261021144524.364143-1-yaojiale02@163.com> <20261021144524.364143-6-yaojiale02@163.com>
+In-Reply-To: <20261021144524.364143-6-yaojiale02@163.com>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Thu, 22 Oct 2026 15:37:01 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H4vM=2QP++udx9ZrRSqszKxqFtk_44v6wozTzXhof5e+g@mail.gmail.com>
+X-Gm-Features: AclHuK_AJuJIsK7gC6j48HUSTFZkH-rDHhLYzk2zC8jiWYZT2RAg3ZFTnsvOLaM
+Message-ID: <CAAhV-H4vM=2QP++udx9ZrRSqszKxqFtk_44v6wozTzXhof5e+g@mail.gmail.com>
+Subject: Re: [PATCH v2 5/6] irqchip/loongarch-cpu: validate MADT LIO-PIC entries
+To: Jiale Yao <yaojiale02@163.com>
+Cc: WANG Xuerui <kernel@xen0n.name>, Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	Jianmin Lv <lvjianmin@loongson.cn>, Marc Zyngier <maz@kernel.org>, loongarch@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Maciej,
+Hi, Jiale,
 
-I tested this patch on a second MacBookPro11,5 (Radeon R9 M370X, Verde,
-1002:6821, subsystem 106b:0149). Here the dGPU is a headless PRIME
-offload GPU and the panel is on i915. The kernel is linux 7.3-rc7, with
-amdgpu rebuilt from that tree with this patch on top and nothing else
-changed in amdgpu (amdgpu.si_support=1 radeon.si_support=0,
-mem_sleep=deep).
+On Wed, Oct 21, 2026 at 10:45=E2=80=AFPM Jiale Yao <yaojiale02@163.com> wro=
+te:
+>
+> The LIO-PIC MADT callback passes a typed record to the controller
+> initialization code without checking that the complete record is
+> present. A truncated firmware entry can therefore lead to out-of-bounds
+> field reads.
+>
+> Reject incomplete LIO-PIC entries before passing them to the
+> initialization helper.
+>
+> Fixes: b2d3e3354e2a ("irqchip: Add LoongArch CPU interrupt controller sup=
+port")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> ---
+>  drivers/irqchip/irq-loongarch-cpu.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/irqchip/irq-loongarch-cpu.c b/drivers/irqchip/irq-lo=
+ongarch-cpu.c
+> index 84ce24889488..6185825477f4 100644
+> --- a/drivers/irqchip/irq-loongarch-cpu.c
+> +++ b/drivers/irqchip/irq-loongarch-cpu.c
+> @@ -119,6 +119,9 @@ static int __init liointc_parse_madt(union acpi_subta=
+ble_headers *header,
+>  {
+>         struct acpi_madt_lio_pic *liointc_entry =3D (struct acpi_madt_lio=
+_pic *)header;
+>
+> +       if (BAD_MADT_ENTRY(liointc_entry, end))
+> +               return -EINVAL;
+If the madt entry is invalid, the control flow probably cannot arrive
+here. On the other hand, All loongson-specific drivers, such as
+irq-loongarch-cpu.c, irq-loongarch-avec.c, irq-loongarch-ir.c,
+irq-loongson-liointc.c, irq-loongson-eiointc.c, irq-loongson-htvec.c,
+irq-loongson-pch-pic.c, use the same logic. Why is this one special?
 
-Without the patch, VRAM is at 0 after boot and every S3 resume fails
-with "ring gfx test failed (-110)".
-
-With it, amdgpu logs "PCI CONFIG reset" and "GPU posting now..." at
-load, and VRAM ends up at 0x000000F400000000. I then ran four S3 cycles:
-two on battery and two on AC, from 9 minutes to 13 h 19 min asleep.
-After each resume the GART table was still at 0x000000F400000000 and
-the kernel log showed no ring timeouts, -110 errors or GPU recovery.
-After the last (overnight) resume, DRI_PRIME=1 glxgears (radeonsi) and
-vkcube (RADV) ran, and VA-API H.264 encode (VCE) and decode (UVD) both
-worked through ffmpeg.
-
-One thing I noticed: on 2 of the 4 resumes, about a second after
-resume, vce_v1_0_stop() logged:
-
-  amdgpu 0000:01:00.0: VCE busy: VCE_STATUS=0x2, SRBM_STATUS2=0x80
-
-VCE encode worked straight afterwards, so it doesn't seem to break
-anything. I didn't see it in about 11 resumes with a local workaround
-that kept VRAM at 0, so it may come with the new layout, but I haven't
-looked further. Mentioning it in case it's known.
-
-This supersedes the gmc6 patch I sent on 20 Oct for the same failure:
-https://lore.kernel.org/amd-gfx/20261020-gmc6-writes-only-v3-v1-1-70730a302504@gmail.com/
-
-Tested-by: Brad Drury <drury.brad@gmail.com> # MacBookPro11,5, Radeon R9 M370X
-
-Thanks,
-Brad
+Huacai
+> +
+>         return liointc_acpi_init(irq_domain, liointc_entry);
+>  }
+>
+> --
+> 2.34.1
+>
