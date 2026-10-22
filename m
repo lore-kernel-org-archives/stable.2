@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792682059;
-	b=yflvzQD22HFNQSySeftKjDQXsCGRfFGfNl2tNkNPLqpNhOjntnK/ZtGn9ZLXnwwXCe2h
-	 d5gN/YTF4B12xFc6x1ON6sa4ZRsa/T0twFAYNqoQ9pWZWHgMN4+O0FpWw1b+YN12sS7Wg
-	 B+QiWDEW5CeN1GLzyXW2sThp0LJ8xj6Ez7xvqjJIs/kw4keiJX0ySmntUVrjFxHsoMi6X
-	 b6GPJkO4Z0NL9QbY4NVWbjJJQgSjpM2+1WokdtWHXSPWZtaTHjmEDOCEVdeHlVvwV7jFe
-	 YHkFZhwB1QILpBHZL08cLNHVc5j2QI8szvnK1CASsNH7Vhi+RzfMU4s0mmXmXFEn7xw==
+	t=1792682072;
+	b=tUN1rs3YIUn68S+LdR70y9hHyWBRtFKKru0H8EJEo0b/fHCf6w8KyVeHC4Xo4TDarRqs
+	 GyaNWRWba0WsEHwu8UG+00saqOAtngZ1F27eNqSNz0FqfpDSnH3gZZNZYJjjE7ncaWX+M
+	 tNN9dl8BH0JOAzxNfSJ5qSkTf1q37ULD5XQNqkWjWQbscQNajx8tRJgUJQJVrlpynmK8N
+	 8lxgDKQW+dGCL398CxWepU4U8TsTUCtD8xDHZd2HZeaBl1GmPSOZI5sBBkOqtSGQHfSEe
+	 fSiLkMapEVID2reWKUvfdCDgoFiExaBxjeqSaxW6qGvm9VLk+u8CsKdDPqam/ooMt0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792682059;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792682072;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=LIVmSzIk4JB5kdc6PM/uszD40rrL6s33RURIe/NS8kI=;
-	b=TaSLcn5p5pX4ahg/f1wmxmzBg0idIbErzOqipC1yUSxW4celCLSicnnnTcOsP6F7N0lj
-	 7VSdwre+WN2fpEM3V2zbSLT3j2B9OPwjMPGFcWW7V+NSTURpZNhfOHlg4XRySRZTvrBtC
-	 yvkcDoEIQVYeTC1iz7T4BBJ95587uK3N+9WQtf9uVLeKU9VsCrHw2sbNQoMbYCmrbUps9
-	 TYtQ3GLr41yaU3zXm8xa+jKN4iVrnc4JRXK7ATZtiNBjiGcTb8bb20IYwh0gkWJR5fEVI
-	 XvYRPpDZF/W6LU49uYrjeSnMNdvYmi7HcnKl+B01oW4BtOq8oQBv0tIIr1FlSf7p9gw==
+	bh=+54fDur+D7mK8N1hyKo2kfkibhnJ75lsD6CQJTGplec=;
+	b=dFeCbh6lOgjCE5eUNjFx9dVbAQBtbDrxs5cT86bmVEPXOmOZJBPgh1gin58uuBA8lE+p
+	 CFgsHFmVpGpGjSmPxp1FxRJjtpgXGE/yjlDGGvgvYyqog7F8tHnlu9UygmVxhY79oLEeO
+	 xALuonUxG3P0jBFQWnpDpv8sldDNqVU+Muh5wbKvqJuweSoOHpQf+plFibHdUQZWG1q3p
+	 O48Ax825pVNbLZMC9MDYU7Kir6vr1JKQedKzCPwJMnoqgCkNFTMkCjLXCTBqPf9y9yD2B
+	 o4s0IsyaM4F0KhiP6KUfWtLsqIefcRNFreiIzj0k+W9HCc/4TQA6PvGdB42dTac51JA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aw+WlVkD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QYp8yi4L;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DE0B606ACE4
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 15:14:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3269F606ACD9
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 15:14:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aw+WlVkD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80D851F031E0;
-	Thu, 22 Oct 2026 15:14:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QYp8yi4L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BA041F01825;
+	Thu, 22 Oct 2026 15:14:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792682059;
-	bh=LIVmSzIk4JB5kdc6PM/uszD40rrL6s33RURIe/NS8kI=;
+	s=k20260515; t=1792682072;
+	bh=+54fDur+D7mK8N1hyKo2kfkibhnJ75lsD6CQJTGplec=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aw+WlVkDflIuCe2UB0TbEzHpK5lym6vBsUSCDjxqozE8vgFsInsNrJdFen5raaVJt
-	 JBes1Uxq6d4Dylnv0GizonBBHDNjXFKp/UvVgdWR+ky6XgTZYQcgwN4FafkrOutmIa
-	 falgbOEcacvkNZk+5JXITc+byId8UXBrCzckyp17kjSytmcPsRMEuv7sDQY7DoSXCK
-	 QMwK6oj6RV3ZrtBckqa5pw0UwlF9iQlNKoLcuFS9U3CtEHiO4ZHpTJ8s9Ylq6pLkG5
-	 WSHIe9DN8PGr9B9ud0zU3GljF2E67D1z9YZsT0OXFEdw+yzlMYzX6u33JdkNeFF/ws
-	 t6ABAD4X3kN/g==
+	b=QYp8yi4LeOkwrGwAQoOMqnau5Tmv5PnWghwzkfWqC1bFJ4F4ZNKnDM8yyo49jWOgu
+	 VuR2iFnL+7tzYc9Wi7Yf+rwVdQXU+NL2fRaTnrijbnxrgMj51eB8G6MJTFxENzobqO
+	 VlFlktx7RXDAUT1wbv+r+OI2GIg5PMbpWHGqWhzmWJv9X6Qs05XO/DMV4PR5ojwcgn
+	 FWOBf1Umw+cKqpv+a8DgLS6b+X8WnlLKyD/FheAIVOCMkzbWS06PRx4Rev4Z4ffrlW
+	 PmN40hpfzzz3rb4zD92FGfgMNMJRM3a8qiHhX2e0k3+ecKwczpqT8l3+H1yvZKm7fK
+	 wBnP8XP7z9beA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Frank Sorenson <sorenson@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>,
+	Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
+	Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] cifs: add revalidation on FSCTL failure in smb2_duplicate_extents()
-Date: Thu, 22 Oct 2026 11:14:17 -0400
-Message-ID: <20261022145315.1605583-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] drm/i915/dmc: Harden DMC firmware payload parsing
+Date: Thu, 22 Oct 2026 11:14:30 -0400
+Message-ID: <20261022150729.1593802-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102115-justify-disrupt-2bd1@gregkh>
-References: <2026102115-justify-disrupt-2bd1@gregkh>
+In-Reply-To: <2026102111-chief-uneven-0c72@gregkh>
+References: <2026102111-chief-uneven-0c72@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,53 +63,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Frank Sorenson <sorenson@redhat.com>
+From: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
 
-[ Upstream commit 53676a5e28231186c9f56d87b7998b640699bc15 ]
+[ Upstream commit 8bb1858db453cd4250e3b633f5d2d09206024ca6 ]
 
-smb2_duplicate_extents() has no handling for
-FSCTL_DUPLICATE_EXTENTS_TO_FILE failure: when the FSCTL fails, local
-inode metadata may be stale from the pre-extension or from concurrent
-remote writes, but is never refreshed.
+Validate the conversion of the DMC firmware size from dwords to bytes
+using check_mul_overflow() before calculating the firmware payload size.
 
-Force revalidation on FSCTL failure and use i_size_read() for the
-pre-extension check.
+Reject zero-length payloads and zero MMIO counts in the DMC firmware
+header so malformed firmware is caught early. Also set dmc_fw_size only
+after the payload allocation succeeds.
 
-Fixes: cfc63fc8126a ("smb3: fix cached file size problems in duplicate extents (reflink)")
+Fixes: eb805623d8b1 ("drm/i915/skl: Add support to load SKL CSR firmware.")
 Cc: stable@vger.kernel.org
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ sashal: Made the failure check standalone because the existing code lacks the SMB2_query_info() success branch. ]
+Assisted-by: Claude-Code:Sonnet-5
+Signed-off-by: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
+Reviewed-by: Mitul Golani<mitulkumar.ajitkumar.golani@intel.com>
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Link: https://patch.msgid.link/20260922133535.3180973-5-dibin.moolakadan.subrahmanian@intel.com
+(cherry picked from commit efde6601a1f1daedfe3dcc2816c934ddb44e3eef)
+Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+[ sashal: changed drm_err() calls to use &i915->drm instead of display->drm ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/smb2ops.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_dmc.c | 21 ++++++++++++++++-----
+ 1 file changed, 16 insertions(+), 5 deletions(-)
 
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 4da027ee4b99b..21a2b265ae7c4 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -2070,7 +2070,7 @@ smb2_duplicate_extents(const unsigned int xid,
- 		src_off, dest_off, len);
+diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
+index 0e04d4dd1c132..a0d6eb90d55a3 100644
+--- a/drivers/gpu/drm/i915/display/intel_dmc.c
++++ b/drivers/gpu/drm/i915/display/intel_dmc.c
+@@ -477,7 +477,7 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
+ 	}
  
- 	inode = d_inode(trgtfile->dentry);
--	if (inode->i_size < dest_off + len) {
-+	if (i_size_read(inode) < dest_off + len) {
- 		rc = smb2_set_file_size(xid, tcon, trgtfile, dest_off + len, false);
- 		if (rc)
- 			goto duplicate_extents_out;
-@@ -2095,6 +2095,11 @@ smb2_duplicate_extents(const unsigned int xid,
- 	if (ret_data_len > 0)
- 		cifs_dbg(FYI, "Non-zero response length in duplicate extents\n");
+ 	/* Cache the dmc header info. */
+-	if (mmio_count > mmio_count_max) {
++	if (!mmio_count || mmio_count > mmio_count_max) {
+ 		drm_err(&i915->drm, "DMC firmware has wrong mmio count %u\n", mmio_count);
+ 		return 0;
+ 	}
+@@ -492,13 +492,21 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
+ 		dmc_info->mmioaddr[i] = _MMIO(mmioaddr[i]);
+ 		dmc_info->mmiodata[i] = mmiodata[i];
+ 	}
+-	dmc_info->mmio_count = mmio_count;
+-	dmc_info->start_mmioaddr = start_mmioaddr;
  
-+	if (rc) {
-+		CIFS_I(inode)->time = 0; /* force reval */
-+		cifs_invalidate_cache(inode, 0);
+ 	rem_size -= header_len_bytes;
+ 
+ 	/* fw_size is in dwords, so multiplied by 4 to convert into bytes. */
+-	payload_size = dmc_header->fw_size * 4;
++	if (check_mul_overflow(dmc_header->fw_size, 4u, &payload_size)) {
++		drm_err(&i915->drm, "DMC fw_size too large (%u dwords)\n",
++			dmc_header->fw_size);
++		return 0;
 +	}
 +
- duplicate_extents_out:
- 	return rc;
- }
++	if (!payload_size) {
++		drm_err(&i915->drm, "DMC firmware has empty payload\n");
++		return 0;
++	}
++
+ 	if (rem_size < payload_size)
+ 		goto error_truncated;
+ 
+@@ -506,12 +514,15 @@ static u32 parse_dmc_fw_header(struct intel_dmc *dmc,
+ 		drm_err(&i915->drm, "DMC FW too big (%u bytes)\n", payload_size);
+ 		return 0;
+ 	}
+-	dmc_info->dmc_fw_size = dmc_header->fw_size;
+ 
+ 	dmc_info->payload = kmalloc(payload_size, GFP_KERNEL);
+ 	if (!dmc_info->payload)
+ 		return 0;
+ 
++	dmc_info->mmio_count = mmio_count;
++	dmc_info->start_mmioaddr = start_mmioaddr;
++	dmc_info->dmc_fw_size = dmc_header->fw_size;
++
+ 	payload = (u8 *)(dmc_header) + header_len_bytes;
+ 	memcpy(dmc_info->payload, payload, payload_size);
+ 
 -- 
 2.53.0
 
