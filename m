@@ -1,94 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792669837;
-	b=HGA3V4mi7dhelqc5Ewwj8eX5LpcI22Aw5Lb5sUuXbV4JlL5lCxROiMyN6EqwHqcQlPqe
-	 /8mKiS6Zzno/1+zimaJynwOOlH62Uaq2GoEyBNYMA1LYY5iyGl8b4ZuVKel154koSfgUE
-	 czUiyX+pj3UxPk9VRwdsXGi9wEz94alVhXZ6sd+ajKcKmjiSqA4xXAIWKwrISFVCdZty4
-	 7mbTEXoeRo+vhchix7ZfJ1GTaSPRjEbEc1GVbmKln3Cgq6ca89QZO8eb9y9XniSyygkUv
-	 +JzXJFyAqft7yUAw9qOadiHhK46gmPTva9DylGEO/PhAN1P4V3F6XswEImX4JMZOhdg==
+	t=1792670043;
+	b=fymDpdfyyRHQSrJW4G1uuUTIVcpA++bXZZ1pvTsFiEvXnxUJnaCI3nDzjWl7L+XWIjib
+	 GKKY+XiuycEGHjm+whGsBF8GDDy0MD7/O84vwYDsUEFwW9pu1X5RJ/8jGSQ01xRYDj8bh
+	 rmB9wKf+C57q3jNohEWeTpsbAKOyb81Cekx1ykWzYK3xotAVPwlA1LTvZCOm5qWRs9g/h
+	 iEcnynZM1SfI53vgtYs9J9VJSh6FTHsZD85PO1WPNMrcqcKo2q7CfyxFBT2EQd6ztiL15
+	 6Y2bphfmW0bslt01cYYY0smZzazb21XEcgdANf1qbhbYVPlhx4P3aS6+cy8d2fG7HMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792669837;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=3oJECff/6TmNjjeVvttGOtHn9ZcQvbn4GEFnSWveklU=;
-	b=x4WSyoAhVNnXtoSZ6BlHK+S4nAmQo10GPMKWspTZqasguSBwCKaEEb/9o20Vp3I+NDMy
-	 RzXgHjSJxi8zN53LzGlQqX4fkFm0ieyoLjkVP7zB9QzTEMSSk7gQ1JlGN24jQf75KOamv
-	 EJPZ5oX9iO2Nt4xHQUZkn5qx7CmuUEeiT1Nn0CJf0cFgON5M3zEpOuLhTNl1kycbNQYhb
-	 zjlxddsuR81oof1cJ7u5xQZl8wqYCVvrlFfbrRpvPFJEVpy+JgSzMePFe2//riXegMcfh
-	 QVNpJqyq/mf+L1rmhpwi5IXk7SqPf27zzEJguNBgjd3dI5ziMTPQnCeGAdQVVRLCyxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792670043;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=FyyeM869JQGmn6ws97WbWxLYVyUrdcmnI0jr9iIidxM=;
+	b=t1poROiZ/npH2RmMN98TzXnEXhLdg5RykMCuC6YJdISwlj8G8D+oaap/u9UcOjC21sYN
+	 dIa4UO0ZGttOXOyRE25S7TQa0YuJf6BNfO7eyk/Paq5mqERREz99F3JEs97pvckEnBKNC
+	 IU92UBj2cyEkUwBDJ5UERLeWSGM9Kf26cvkZ+zSjMn9q9QmDMUFWAix6lJ5UO/b8dJzra
+	 QL9mTAhzgVW3R27IRg0WU0MPSlZQRIZng8aelr6WuR30UT/eBatlUklnha2hj2f7HLgET
+	 Ww56dI1lts4BLQigbBwJMB+wIMRne3Px/iw5EL2gS4T3jPJl0Z926OjD7bTgIh1rwXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=HTyTEdqo;
-	arc=none smtp.remote-ip=37.230.196.243
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=l03uAgWH;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C6D5606A319;
-	Thu, 22 Oct 2026 11:50:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C6D5606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91D1B606A31D
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 11:54:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91D1B606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=HTyTEdqo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1792669830;
-	bh=RoWr8fDzA3UyiihscIKqmbkE7eoSYQCoE7+XgXJK44A=;
-	h=From:To:Cc:Subject:Date:From;
-	b=HTyTEdqoYwizTzEYXMjLAM94msMUUplS2R0b9qpWvlMv9sotVUSxUt2vrGgEtLITG
-	 /Zpk26HeDyflyFT8rV3DAeJCck/2TdWCCplJXLLL0qiP+m92h4dLk4vSAsodwAD4H0
-	 YQTCcr43mePI0lzg5HsSNJ7w61IEUqMqv7zM9osCwEWoty/3T7jkxJyypSdLr8IX2/
-	 qfXQ9G2DnpQ4vcwM2OqGzSAgTCVqkOibrYbvcq8ipuTQwH95z0KJU0MsvtW9zNMSYH
-	 pRv4pssvBIPHJlGzTE1MnueOeTz9A4ZCcpEZVgG7uZTRkRmM1PFsQlp3fcLSZibt5g
-	 vgX0JEO/Tiymw==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 03268259D9;
-	Thu, 22 Oct 2026 14:50:30 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.10])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Thu, 22 Oct 2026 14:50:27 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.49.111])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j9Pbk4BDfz2Khh;
-	Thu, 22 Oct 2026 14:50:26 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Sasha Levin <sashal@kernel.org>,
-	Chris Mason <clm@meta.com>,
-	Chuck Lever <cel@kernel.org>,
-	Anna Schumaker <anna@kernel.org>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>,
-	Tom Talpey <tom@talpey.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-nfs@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Chuck Lever <chuck.lever@oracle.com>,
-	Anna Schumaker <anna.schumaker@hammerspace.com>
-Subject: [PATCH 5.10] xprtrdma: Fix bcall rep leak and unbounded peek
-Date: Thu, 22 Oct 2026 14:50:02 +0300
-Message-ID: <20261022115004.1615-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=l03uAgWH
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48c5358fc28so1482439f8f.0
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 04:54:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792670042; x=1793274842; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=FyyeM869JQGmn6ws97WbWxLYVyUrdcmnI0jr9iIidxM=;
+        b=l03uAgWHLzkTBGKztx7BzXAucj33IonfhHxCDC4LESOGhJjOOBbyKHo8DfUkN7oqs1
+         KftQWIxGAHCPQRuHdaBUw6zI3BiRCjYcCFZp7DoLD2LgwYaYGOBmVDrjvHcN3yQVY/kf
+         FWOtkfrXi5zrt4kpQgcUM/+Cnd2AcrINRSazztidY5aJD1tT4SKoLBXkjD+IOzGSBvNB
+         S4Njq/oCAst1KImX0+1iYOs7M7oBXf+24tu6W+Rc40qJ16rbbUe5w4Tru/456waL+xG5
+         zECcdPA+1BWBK6dIKl9zHUXoPoaL1Nc2M7cg33zbDv1afsG9zg1ljw+d7PED7gVTMovL
+         wvBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792670042; x=1793274842;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=FyyeM869JQGmn6ws97WbWxLYVyUrdcmnI0jr9iIidxM=;
+        b=CUzgYgd5rABiZBJ9V0KGHdGdpwKTg1SHWC2NytfTvYF6i17WZ1mEACSMFhe46+JZ4E
+         YsDBI0LwTVbPZ4ow9dx7sCnpb1dyAMG3xLCl+Wm4G6CNRGzr/FNp4kvfF8ox805FiTgR
+         rOvlIa86gA0StfM2ZJghV7yQu1UQ9VICljA4Ooahcs1e7sIUiXcDZ2sBHj/kB5O3YQoZ
+         P6SqDWg1CjLJJTu+H0EM0oHqfTUrVfFQwW8OeDnyYc+pEFH3bj2Aq2PBhDGwKfo98RXg
+         5iJ12ClRkm9teFXslWgPHOvdH7lDDPJ7jmRnhFm49WBseKb+mGC95AACo6wLv2NTWexU
+         +Heg==
+X-Forwarded-Encrypted: i=1; AKwUvBzMmVH107JL0vypYQVqrrJjK2M5HIlKSp7WzkqsZb3E8a5oJ0kPymszaTV8CV1k4bpnPRQ9pvg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIeW6zy8rFdtlvT30HIRWMAhjdHRCbEOXyEg4z+VNwYZmzQiTEO
+	Y9y/nva6lwVE2lEb+lYdcqA2qQiO/zGmfYbJ9+wSQRrZx/DbvNwvKljX
+X-Gm-Gg: AYBFou2bF1gfO7HGK+aGuBHxXJR3f4yi3WTBIu3gY2E8uQijog5BMRpA9QZwupu43Mf
+	hAh5BhDKNkDR4tNNQls3R2HPqS/WLYgTAdx4Nb0hf2rNEwP7eYM26p+E2JY3iEJIVb+hNhFF9HZ
+	eZ2O/kiaKPCs+3HHCRUJfhweUJQhkVYTTUuXGgGW6CJUKg90QjiwT4KMOYBOrOPTMxbIaBVAdQe
+	Ibs8Z7K+ElOLt6vsfFstGUEsjkEL9HJhWDUWXKMWbbMBs/bSo/nOKOp7ZDwBp3WALa+3PTSljM5
+	t0jhSCnDZSBH8vOSHyIQwjvXKOBVok+R7xMxo/w8FfEmFIERiVTBk8iET09gLlugvQbidOUIv14
+	eBL9VcgqYGRkXIrF7Bspa5Qxc0hS9Os8CtZedMv/A9dBfrwyCyhuXLZQCw2kmjPFvqOxe7om7+X
+	u0+7eE5U8Zwj/aFzQHEDmbya7AaJSyNqPzpRLxaclLTAqu0/06KMd8C3T9ipHOKV53liTsO3NYw
+	MnZvrjGbqSTJrsQyew0Dz0NOz3QAyTpy93MamBHSvJp+CpBn6bd2/Dwbw7ZAoHPpZWwXkDYNl/q
+	WJ7uFk4GuA==
+X-Received: by 2002:a05:6000:1184:b0:488:8384:c382 with SMTP id ffacd0b85a97d-48e264de064mr7813323f8f.49.1792670041474;
+        Thu, 22 Oct 2026 04:54:01 -0700 (PDT)
+Received: from localhost (ip-94-113-240-150.net.vodafone.cz. [94.113.240.150])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25828cbfsm11720004f8f.23.2026.10.22.04.54.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 04:54:01 -0700 (PDT)
+From: Jan Remes <ciakval@gmail.com>
+Subject: [PATCH v3 0/4] iio: light: tsl2591: fix lux calculation and
+ precision, add I2C ID table, report saturation
+Date: Thu, 22 Oct 2026 13:53:56 +0200
+Message-Id: <20261022-first-patch-v3-0-b792e89a429a@mycroftmind.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,122 +92,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 131 0.3.131 f330ffd1b9dcd8f1d29707120f19686573775fe7, {Tracking_from_domain_doesnt_match_to}, new-mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 206897 [Oct 22 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/22 03:54:00 #28723736
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/z2NzQqDMBCEX0X23EhcayA99T2Kh22MZlv/SFJpE
+ d+90UKZ0wcz36wQrGcb4JKt4O3CgacxQXnKwDgaOyu4SQwoURWyOIuWfYhipmicwFJqbZSU2BC
+ kxexty+/Ddqt/HF73hzVxV+wNxyFO/nPcLbj3/uYUVckcK61Ri0IYpudC/bUbiPvcTAPU27Z9A
+ ZOB7EOxAAAA
+X-Change-ID: 20261014-first-patch-23099c6002da
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Joe Sandom <joe.g.sandom@gmail.com>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jan Remes <jan.remes@mycroftmind.com>, Jonathan Cameron <jic23@kernel.org>, 
+ stable@vger.kernel.org, Martin Triska <martin.triska@mycroftmind.com>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>
+X-Mailer: b4 0.16.0
 
-From: Chris Mason <clm@meta.com>
+This series fixes several issues found while using the TSL2591 in
+company products (Raspberry Pi CM5) and when testing (x86_64 laptops
+with MCP2221 USB-I2C bridge).
 
-commit c7653d5cebc8492c77ec0415b5e9c0fb3e644bc6 upstream.
+The original field report found that the illumination value has always
+been 0.0 (caused by division by zero on ARM).
 
-rpcrdma_is_bcall() decodes a reply's first words to decide whether
-the frame is a backchannel call. Two issues in that decode path
-let a short or malformed reply leak the receive buffer and drain
-the Receive queue.
+Patch 1 fixes divisions by zero in the lux calculation, which occur with
+LOW gain and short integration times, or in darkness when CH0 = 0.
 
-First, the speculative peek
+Patch 2 adds an i2c_device_id table so the driver can be matched by name
+(e.g. via sysfs new_device) on kernels without CONFIG_OF.
 
-    p = xdr_inline_decode(xdr, 0);
-    /* five p++ reads follow */
+Patch 3 makes the driver return an error instead of a bogus value when the
+sensor is saturated.
 
-asks xdr_inline_decode() for zero bytes, which returns xdr->p
-without consulting xdr->end. The five subsequent __be32 reads can
-then walk up to 20 bytes past the wire payload into stale regbuf
-contents and misclassify the reply as a backchannel call.
+Patch 4 improves the formula for calculating lux values to make the
+returned value more accurate.
 
-Second, after the post-peek
+Patches 3 and 4 change existing behavior, I am OK with splitting the
+series into two, if that makes things better.
 
-    p = xdr_inline_decode(xdr, 3 * sizeof(*p));
-    if (unlikely(!p))
-            return true;
+AI assistance: Claude Code (Claude Opus 5.5) was used for research on
+sensor behavior, datasheets and Adafruit library, to compare results
+produced by old and new formula, to draft some code for patches 1 and 4.
+I reviewed all of it and tested it on x86_64.
 
-the short-header arm returns true without calling
-rpcrdma_bc_receive_call(). The contract with the caller is that a
-true return transfers ownership of rep to the backchannel path:
+Changes in v3:
+- Patch 2: Fix commit message, OF-only drivers can still be enumerated via
+  DT or ACPI (PRP0001), only matching by name needs the I2C ID table (Andy)
+- Patch 2: Drop Andy's Reviewed-by
+- Rebase on current iio/testing
+- Link to v2: https://patch.msgid.link/20261014141650.259929-1-ciakval@gmail.com
 
-    rpcrdma_reply_handler()
-      if (rpcrdma_is_bcall(r_xprt, rep))
-              return;        /* bare return, skips out_post */
-      ...
-    out_post:
-      rpcrdma_post_recvs(r_xprt, credits + ...);
+Changes in v2 (thanks to Andy Shevchenko for review):
+- Patch 2: Use C99 initializers
+- Patch 4: Keep variables in reversed xmas tree order
+- Link to v1: https://lore.kernel.org/r/20261013143943.436816-1-ciakval@gmail.com/
 
-Because rpcrdma_bc_receive_call() never ran, no one took rep, but
-rpcrdma_reply_handler still bare-returns past rpcrdma_rep_put()
-and rpcrdma_post_recvs(). The rep, with its persistently
-DMA-mapped receive buffer, is orphaned on rb_all_reps and freed
-only at transport teardown. This completion reposts nothing, so
-its slot is reclaimed only when a later forward-channel reply
-reaches out_post and rpcrdma_post_recvs() allocates a fresh rep to
-backfill; absent that traffic the Receive queue drains and the
-peer's Sends draw RNR NAKs.
-
-Fix by consulting xdr->end after the zero-length peek so the five
-__be32 reads cannot run unless 20 bytes of wire payload remain. A
-byte-precise comparison against xdr->end is required because a
-non-4-aligned receive rounds the stream's word count up past the
-true payload. Also return false from the short-header arm so the
-reply falls through the normal out_norqst cleanup chain
-(rpcrdma_rep_put() plus rpcrdma_post_recvs()).
-
-Fixes: 41c8f70f5a3d ("xprtrdma: Harden backchannel call decoding")
-Assisted-by: kres:claude-opus-4-7
-Signed-off-by: Chris Mason <clm@meta.com>
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
-[ mdmitrichenko: 5.10 lacks commit 84dff5eb86ce ("rpcrdma: Fix
-  comments about reverse-direction operation"), which replaced the
-  out_short label with a direct return. Return false directly here as
-  well and drop the out_short label together with its pr_warn(), which
-  would be unused otherwise. ]
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+Signed-off-by: Jan Remes <jan.remes@mycroftmind.com>
 ---
-Backport fix for CVE-2026-72466
- net/sunrpc/xprtrdma/rpc_rdma.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+Jan Remes (4):
+      iio: light: tsl2591: don't divide by zero
+      iio: light: tsl2591: add I2C device ID table
+      iio: light: tsl2591: report saturation
+      iio: light: tsl2591: improve lux calculation precision
 
-diff --git a/net/sunrpc/xprtrdma/rpc_rdma.c b/net/sunrpc/xprtrdma/rpc_rdma.c
-index b8174c77dfe1..c9e179b7366e 100644
---- a/net/sunrpc/xprtrdma/rpc_rdma.c
-+++ b/net/sunrpc/xprtrdma/rpc_rdma.c
-@@ -1146,6 +1146,8 @@ rpcrdma_is_bcall(struct rpcrdma_xprt *r_xprt, struct rpcrdma_rep *rep)
- 
- 	/* Peek at stream contents without advancing. */
- 	p = xdr_inline_decode(xdr, 0);
-+	if ((char *)xdr->end - (char *)p < 5 * XDR_UNIT)
-+		return false;
- 
- 	/* Chunk lists */
- 	if (xdr_item_is_present(p++))
-@@ -1170,14 +1172,10 @@ rpcrdma_is_bcall(struct rpcrdma_xprt *r_xprt, struct rpcrdma_rep *rep)
- 	 */
- 	p = xdr_inline_decode(xdr, 3 * sizeof(*p));
- 	if (unlikely(!p))
--		goto out_short;
-+		return false;
- 
- 	rpcrdma_bc_receive_call(r_xprt, rep);
- 	return true;
--
--out_short:
--	pr_warn("RPC/RDMA short backward direction call\n");
--	return true;
- }
- #else	/* CONFIG_SUNRPC_BACKCHANNEL */
- {
--- 
-2.43.0
+ drivers/iio/light/tsl2591.c | 58 ++++++++++++++++++++++++++++++++-------------
+ 1 file changed, 42 insertions(+), 16 deletions(-)
+---
+base-commit: 87e28db23d0384f3995c43ecc5ae2118b371edb5
+change-id: 20261014-first-patch-23099c6002da
+
+Best regards,
+--  
+Jan Remes <jan.remes@mycroftmind.com>
 
