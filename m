@@ -1,59 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792634658;
-	b=NirkBeMKkcVJhFT9Q06bACMFnfS6SQCZZhAZJqhostxafREjk13e1NE0btW+LnDtmG7k
-	 712eV9yP2uaJDrt/VimmBHXRf2km+onhNQGCjqLDc2ajtCKo2K/r+HWN3H4py6iIOjY6h
-	 +3cCSPMsdLRkVZiLm/CZEOde6qMC5WZKaaAA1PVHr0G+jmCkokOVHNXL+ta4YqYjRn5g9
-	 iqFyzzUeNxfxTK80iovxC8z6KtUovxLNkJIYSKfAfL6HUb+yRxrmNDVcR3pzzX3RS48by
-	 SIZLKssi4ZjazrIzAhwoRL1uvWGT3QHkaiCgwn4nAc9RFqSF6r7qlTPF7fLgf2aBwVg==
+	t=1792634659;
+	b=bSy8bxOHXznPCPGKfD2o6qPri1x2kIGZ09UPBIj0ny4HUXOpuw09Sny9Y2DTakXlNEmE
+	 oXPt8i2+MMhPioQEGEmjTNjYKLQDvmX4TfGBLK710Xj1275cBX/sLPuW+4RuGC88NSAOm
+	 U5yS0rCAsRH9oOpQzoVMO0rQUa9HXiuBKnJZf4OS16djzhk0NwChSheFZ+gGQ6c4HuMKS
+	 AqBpxeXpWW/ILVWeyCdzObZg/7b3HL5L4HgopSHjcBJ7JS6Ozw0FMS2dGwEjXmeWAuwTC
+	 gpvi66Fi/loZFY7Rr0OKJklmCKHAPz5QJXhPXipo0mkVgA5yRg1qOjOMTC/NoVuXZ1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792634658;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792634659;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=x0tCXONmKAc7czkz0/Sv3TnnrcScjQD3wjpCw+uFnms=;
-	b=Aa7mA6ylyEaATXKHBvaunJ4ihpHF+Dup6N+b0/ReXohQcWXMwjb7b86x9c3VCkyw74eO
-	 rd/k1rAMm7N3aTkwhM1KmkpKbrAVQXNwBtNCfv76lmP4X/5o/OrbdfALK34I4ymamS8kN
-	 sE5s2BLGgEBfhEQgb+S7sfDQALrfTaE6yuohmW20oaV4JqKS6Hw8kDMLAfnmpkye2qdO9
-	 yJ64qECIKzoQYbSrj86xG5I1X8hZJXIbFuuenbgbh7UNgZjoGzkMflBzrYyPdlReB+Mwe
-	 Z5ZPx74kAOfOXKsGoEv4CEglCHVjzLYo6oIqvSsWkRMT58SEcPTV8Gc/Z2AC75F+5sg==
+	bh=ochEHq3UOp+Ci13Fi9SIG/nMHtRj+oW1Ty+R4hzJ67g=;
+	b=PF24+wFxhjdjdnL7ay/oQwjG3G8hiewLDuxTmFtvSN1ba7NBj2GOZAuoMr2uqU47q0St
+	 hvsdwheIt2NdTo72gHAB3QcM8Ulw9/1fW8eoWkjCPcfxp1aLbZFlZePBaxBap2psXBB/2
+	 JGTsGxi9idw1WzpT21UbTtQTBv/Fre144d7JZGs6BVsdOhbWYOfNP9UeALWAOniYtiio/
+	 zNpjxKCMcOCNocYiXsYi5VsPUpYPoppyuB265dLwiC9xUic5wKUD6HJBAsz+1oxn0LDdm
+	 AUjiPGMJ9z8z5QJFTl3sXFSoQXQ/e0ylQ335XBf7yRUl70gqz52DuWaOo6oWoIzHQzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4GjDfAX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FY45ATOb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03EA606A31A
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 02:04:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4E5606A319
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 02:04:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4GjDfAX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B2DD1F000C2;
-	Thu, 22 Oct 2026 02:04:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FY45ATOb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACD7E1F000C1;
+	Thu, 22 Oct 2026 02:04:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792634657;
-	bh=x0tCXONmKAc7czkz0/Sv3TnnrcScjQD3wjpCw+uFnms=;
+	s=k20260515; t=1792634658;
+	bh=ochEHq3UOp+Ci13Fi9SIG/nMHtRj+oW1Ty+R4hzJ67g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G4GjDfAXySB/aif5Mas3P2kPZp7X6DyPKp9AlATXeMmyzJmkaumEgQnSAv3PG/uat
-	 gJ08ug2yP1VywyRquwUGb+mZqf9BMgcwUNNJYr6UNybRyD7IRdLesOQecSgguesIHg
-	 vYbVDwJfOoVwGJLALXQAiMhSaGK/RZz6LQNhph7hjLaslpK+fw8eH1MCw5V6ctAnEK
-	 qm+1G+4I+4ETom64ugO8n2xVud+pkEghVenda1eVDQba/KswE1HtQJFXWXc/QA8He1
-	 ziUeTL+v4+Bgf65pe7o0Va37lCwx2YSOwU7O59D11diK3cJxvydQJYHa7DePvDmN7V
-	 7EDfrh6A9RcKg==
+	b=FY45ATObv7V7kmdQ7EHbOeM0Gp+9tVWrqlPUehnO1ramvE4gEcJ0niSlnf2g8potW
+	 q/yY8e5z25Us/bbdL8wo5fBKrm4HT9U2WdJjumBL1TqXY5KbVzdD0Ve05KBA4tQGDy
+	 APqyH4AokKT7PGatKuq+lYSAoJuknljsSIXaeCWdQL7xhPi58aN46M2+XqbgC4lEJj
+	 cV7LCWZO8si7QAIB08pZvL+Ifi0m77DHzhAC/cJXGHX7VKic/FkugeAm1DvCN7a+Uc
+	 AA2KE0wgP/CtUIgZf3hTCh5aOLNugVaXbLNNgr+pb6A4Y8EZxI8VK4EvDYaAPom+JL
+	 2dPjm11Zr3VqA==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Christian Theune <ct@flyingcircus.io>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Benjamin Robin <benjamin.robin@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Di Shen <di.shen@unisoc.com>,
-	Ling Xu <ling_ling.xu@unisoc.com>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	"Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Subject: Re: [PATCH 6.1.y] OPP: Fix race between OPP addition and lookup
-Date: Wed, 21 Oct 2026 22:03:42 -0400
-Message-ID: <2026-10-21-1-daily-reply-0017-opp-add-lookup-race-6-1-already-queued@kernel.org>
+	Zi Yan <ziy@nvidia.com>,
+	Deepak Nagaraj <deepak.nagaraj@baseten.com>,
+	stable@vger.kernel.org,
+	mfleming@cloudflare.com,
+	Kaz Kato <kazuyoshi.kato@baseten.co>,
+	Stephen Day <stephen.day@baseten.co>,
+	Greg KH <greg@kroah.com>,
+	1151281@bugs.debian.org,
+	Thomas MISCHLER - API AND YOU <thomas.mischler@api-and-you.com>
+Subject: Re: 6.12.110: kswapd NULL deref in list_lru_add, possibly related to xas_split_alloc backport
+Date: Wed, 21 Oct 2026 22:03:43 -0400
+Message-ID: <2026-10-21-1-daily-reply-0018-kswapd-list-lru-6-12-6-6-6-1@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261020-cve-2026-74405-6-1-v1-1-3ac1824de8a9@bootlin.com>
-References: <20261020-cve-2026-74405-6-1-v1-1-3ac1824de8a9@bootlin.com>
+In-Reply-To: <PATP264MB48180D3DFF94FB287D09CE64E0662@PATP264MB4818.FRAP264.PROD.OUTLOOK.COM>
+References: <PATP264MB48180D3DFF94FB287D09CE64E0662@PATP264MB4818.FRAP264.PROD.OUTLOOK.COM>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,10 +68,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> A race exists between dev_pm_opp_add_dynamic() and
-> dev_pm_opp_find_freq_exact():
+> to carry these patches through review ourselves. If someone sends the
+> 6.12.y backports, we are glad to run them through the same reproducer
+> and reply with a Tested-by.
 
-This is already queued for 6.1, so no backport is needed.
+Thanks for the testing. I queued the backports for 6.12, 6.6 and 6.1.
 
 -- 
 Thanks,
