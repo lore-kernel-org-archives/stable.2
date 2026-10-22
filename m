@@ -1,80 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.218.115.239
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=50.112.246.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792691312;
-	b=RQiZPVdddQ2sEhf7F5cukCDttzMcifwNg+xPL3xWxvDVcaT8ewCn4L1bQmS1e2d76ji/
-	 YJoA/WeWc7Hhn01jSNB4dPporlgzmHwh4lwoIbXnyRqELgfn4ZqaNVXiCt7Elbwihrmv+
-	 /UMLWo9Lj21W5vblEljDDp7ZZ3/NRmQOCbG15UFjZ9YaWnDyj5ZJLtA+r7TwndVsC/lVL
-	 0lQEUOMa7QEz0t/R3DjBxEUAJlHUVpHePuCGl8uU2fgKmjFMRc9bd7iuL+omtnOOtw/GN
-	 fax7sAZCGNW2szmaVzBD/6Gf4Ou/vV8zF7Ipm1wKpS6S9RhCc7njhlbXx2FXpNBO+sw==
+	t=1792691314;
+	b=UcBBMADtvdVf58fdvUYTbT4e6OCofG2RVaDfz4WIIbfaBJp30pMS3VDlPp6m03BfJHrM
+	 6xmwOTpyw3wRsu9uZhJlVOR+dNe2Ksz8yKcydshlWt2dDT9GM5T2rOtNs3JRSjXrTWoKT
+	 ZNnY71GIyVBvuEi16MublXxOX8e1ZAkQnCKE7Vg7jLKeGRpwgvWrBoXiExlcKcs9qG/ag
+	 WFqn48cXInoNIvcgU6XW033jTus9MAoG7Cjy238K2uAhb5EMcBSAaTLEig0DL+ML8n6qW
+	 KWxAFsvrf5BIRpjBhYj89pfXlhiZ3D++Gfkk00eN8MCyM+RQPYW7v3ekcwaD71HQX6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792691312;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792691314;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
 	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=SpslVbUahu1lzhSFFj8q6rCig7MM9wSX+fuc0eipTGc=;
-	b=pSHBU/mtzpO+HNAV5/2kCFIC/8XqDZAl9Pt5Z3CZ/tWsFztVTCqET+wDKGJs4nI5tg4X
-	 gHFU/9o2Xqs5+7oVPUaEgWGm81L8lvTRQpTqYNS7Lto1QBux2q6z/GlE5vkugpWRVDH+H
-	 zyIot7u9n4MU5/uK0NV8NQIS4kxfNfEdkIsHfTqvJVV20qsB5s8/BZfKN20Di5zg5mqgR
-	 n7XfccH/WMTBt39BUVsPy5qZYiYnZ/KUN22XSYTmxm09engiPrxaqzVzfAXMucj5SYzPX
-	 GmNHISkTz4fn0MqeQjxrEnTXKYh1JKe+rRE09Eih6VRL2tHQk3eQfDRjK2JRdGE0VBQ==
+	bh=f9i8wkFVwMHQ4SaJgNQsC2mhEDqyv5B2iC1yR23KMbU=;
+	b=xEmHl3F3uOYS/xRYUw8/eB5xnfZy1PAS9GJ341Nopsl6lAFgt8OgvJVO8BQH58keQWcK
+	 I8t6D09vk/9nWBdK1i7da04SB94WDf8TkTrNnkMi5/nbMjjPfJrN4+cKp9Xsr/uhBIlan
+	 CrsYZKusmD35iZDoYgVIlEROSpTit2WAWO0JGYjwsjTuEUVY8EuJ78j8qTdvBP5BvmYbY
+	 1Lokgf/mVxiixHRGTKxclq/hjPG0/Vs+rgFOVuUQ/KZC2NUq65QPBedkx5hpHSrPF8yzo
+	 JLV0+18J98UItIDya2u84ekVb7mh5ruB5BydhqxuCuWHYfGA3s0uyamwQ/eapRKxBMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amazon.com;
 	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b="T7UZ/xC6";
-	arc=none smtp.remote-ip=34.218.115.239
-Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=DkmBDjP+;
+	arc=none smtp.remote-ip=50.112.246.219
+Received: from pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com [50.112.246.219])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B691C606A31B;
-	Thu, 22 Oct 2026 17:48:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B691C606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384AE606A31A;
+	Thu, 22 Oct 2026 17:48:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 384AE606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=T7UZ/xC6
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=DkmBDjP+
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1792691311; x=1824227311;
+  t=1792691314; x=1824227314;
   h=from:to:cc:subject:date:message-id:mime-version:
    content-transfer-encoding;
-  bh=SpslVbUahu1lzhSFFj8q6rCig7MM9wSX+fuc0eipTGc=;
-  b=T7UZ/xC6BezNuiL+3Wdnm2IPgpNrcke8tP3zj/jRsjKllA7/0EFuxw1F
-   khtCIz85VrOONWTTkCBuhckHsDodgNsudIsHhIH3Wg4Z67FF6Wf6EUwAv
-   MQ40zrLKCkvdpxn2qsGKZ81bunMYR4Dg8yxEKlf4OM33hdS2fRqvdeSAo
-   Vyh8G/sv3ZrrOInFxn7IKEiBLJ672Cs0ezqq9dlhXt23cToS4OmLzVGEx
-   mKllSEfpS5DQEaD+ip+IMt/kt/GbQAw52fmPzQcTxyIGUXLdcZ2dx1YN4
-   7N3CZlMONw4DwOW2KzRxm0a77qYAz862aw63rU1DQlr1/68fRA+VNV6bo
-   g==;
-X-CSE-ConnectionGUID: L+EihjG2S0W5i2YMzsl0Uw==
-X-CSE-MsgGUID: xBeVkGZtR9OnaJ0HESE8mw==
+  bh=f9i8wkFVwMHQ4SaJgNQsC2mhEDqyv5B2iC1yR23KMbU=;
+  b=DkmBDjP+IVRlscHK/RGObZabJCfmoDv9SDyl4D+bb429D1ZixGKSoYCR
+   +6pT4bIff1UqI0s06H7qEXX6U6HqtGJ0SbZ9lKyS8WOZJXU8hdsXlNz8c
+   ZQ/y/lp6nZpoVpGqhhKsbkUh9iRx7S9T4xP8bZM+4PrIwU3ry7ym2eLpY
+   D0saCbzSsWqjPS71kq9JPvkvMlm/Fgen5oX0TKnYFUADEsycd2V7Y1c6E
+   x0Vn4wcsGss/TvkzTKXgvoB4MxjfjWn65boZulih8xjEA9SIjMYcilU+7
+   6GB2GNI6ClIEx5yhWliOU0rGXEGAxkICclA0RrZevSK/glLEdi9dAcKre
+   w==;
+X-CSE-ConnectionGUID: RQZi2DGsSYa+ml+jqpMlvg==
+X-CSE-MsgGUID: yTyMOonyS6GQr5ore6opzg==
 X-IronPort-AV: E=Sophos;i="6.27,172,1787011200"; 
-   d="scan'208";a="31772390"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 17:48:31 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:11227]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.29.97:2525] with esmtp (Farcaster)
- id dd35c2c1-3ca3-49e5-a666-293da7c32e6d; Thu, 22 Oct 2026 17:48:31 +0000 (UTC)
-X-Farcaster-Flow-ID: dd35c2c1-3ca3-49e5-a666-293da7c32e6d
+   d="scan'208";a="31764559"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 17:48:33 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:1871]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.41.86:2525] with esmtp (Farcaster)
+ id 4c96b239-c80a-43e4-9e2a-b476f8e81ec6; Thu, 22 Oct 2026 17:48:33 +0000 (UTC)
+X-Farcaster-Flow-ID: 4c96b239-c80a-43e4-9e2a-b476f8e81ec6
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 22 Oct 2026 17:48:30 +0000
+ Thu, 22 Oct 2026 17:48:33 +0000
 Received: from dev-dsk-aarnahmd-2a-95203392.us-west-2.amazon.com
  (172.19.38.251) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Thu, 22 Oct 2026
- 17:48:30 +0000
+ 17:48:32 +0000
 From: Aaron Ahmed <aarnahmd@amazon.com>
 To: <stable@vger.kernel.org>
 CC: <maz@kernel.org>, <oupton@kernel.org>, <joey.gouly@arm.com>,
 	<seiden@linux.ibm.com>, <suzuki.poulose@arm.com>, <yuzenghui@huawei.com>,
 	<fuad.tabba@linux.dev>, <linux-arm-kernel@lists.infradead.org>,
 	<kvmarm@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH 5.10.y] KVM: arm64: vgic-its: Don't dereference a NULL collection on ITT save
-Date: Thu, 22 Oct 2026 17:45:36 +0000
-Message-ID: <20261022174537.2767-1-aarnahmd@amazon.com>
+Subject: [PATCH 5.15.y] KVM: arm64: vgic-its: Don't dereference a NULL collection on ITT save
+Date: Thu, 22 Oct 2026 17:45:37 +0000
+Message-ID: <20261022174537.2767-2-aarnahmd@amazon.com>
 X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -112,16 +112,16 @@ Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 Link: https://patch.msgid.link/20260807104102.2410744-2-fuad.tabba@linux.dev
 Signed-off-by: Oliver Upton <oupton@kernel.org>
 [aarnahmd: Upstream vgic_its_write_entry_lock() takes in the kind of table
- entry (ite) and looks up its size, while 5.10 takes in the size of an ite
+ entry (ite) and looks up its size, while 5.15 takes in the size of an ite
  directly via ite_esz, because commit 3b2c81d5feb2 ("KVM: arm64: vgic-its:
- Add stronger type-checking to the ITS entry sizes") is not in 5.10.]
+ Add stronger type-checking to the ITS entry sizes") is not in 5.15.]
 Signed-off-by: Aaron Ahmed <aarnahmd@amazon.com>
 ---
  arch/arm64/kvm/vgic/vgic-its.c | 8 ++++++++
  1 file changed, 8 insertions(+)
 
 diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
-index e6ec0701f5616..07b8ca72111f3 100644
+index 054aec8a72e35..e6ed23b14623f 100644
 --- a/arch/arm64/kvm/vgic/vgic-its.c
 +++ b/arch/arm64/kvm/vgic/vgic-its.c
 @@ -2151,6 +2151,14 @@ static int vgic_its_save_ite(struct vgic_its *its, struct its_device *dev,
