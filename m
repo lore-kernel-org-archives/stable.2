@@ -1,106 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792666483;
-	b=xmdVB0Vt3Sokai216hRyuLbq141DUv40sNR80CBK9lM32mtQKnpRSyH+PC0YhddgV2Ry
-	 +dk9fz9k8cQk99qal2fpMe7aiOLpJFNdfH5q+l8Sbb41QeXHNtxtroEM2HrCAMRweTtRI
-	 dC3bS8DGn3+u0VIvb6aCuAlPwLGopN5YUngzGVmjOWLJHz7M8kKi1r7j9N0QVOC/QxMqG
-	 UwsWObrmbpYSEPcyVL+kTq9UNSImcE8+L/LnYWNN1JssTl1Rm2S+EEO8AZneCO00U7s8e
-	 c0Jvw7eqdKoEAe4E33LoaN++1ijYq03ay6gRnLak0y2sYnFYVfQUpb0EZIk5tlb9neg==
+	t=1792666585;
+	b=ZfR6OULe8L0WdA6TkVy5f7vYm0eQmqbvhObkeTl8UlUExCea/lv9d1fuMCqV1JxJFnQ+
+	 ZSd0CA7Cgilm+hYjuw4e63dU1JY46HWLrCwZdW3rgkfEvmNk3aQmetrWb24S1XDh+KYD9
+	 bPpVM/YuzlcnEfCtB1/RS9nnv0jnjMLsoWkORX00Shcm3K9vU5fzBacyHxjOgVwJdtYFy
+	 jIPhaN1qhK9dAEKLFROOWussHIga+k6pY92Ppxquu+Jzzj4Cj4BRnP56LMSy39gCbblVH
+	 Xqh+A8OjOG1w1MXgExmuDOZ8QKH7BFrWsiGmxzFviDNxJQHkpU3wqkWCIvEfEvnoTVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792666483;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 Content-Language:To:Cc:References:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792666585;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=m02LnQqAx90iQHNTDHgW+TeOE5dUtsPN+2XnmmAiXdA=;
-	b=fUBZV6dDOehPf418nDH8Tb2QM17FHM7PM2omT5pDjMq30oVkZl89I4OhRpqkxV8UFELD
-	 3W7avF3iYQV80TGrlZNCRaWcNRMPZHRPm6SbJE7ZXu5iZMaCFiRn9B9M9aBzwgSV6dDSO
-	 1MWS78oH79qZZ79YTxON2HVpbKmqj2NV0hX2qtOUaSKF94OpG/NvWsKwmXvYto9ZyHIXQ
-	 eNY5Ug7P9SOvIJw3sJk4y+eo+7PYKqyDBvfwBiN31NuGZVOJUpa35eCmR4tTGh5qZ9qQg
-	 tzOL/7XQqC8Dlm3Ac4Tzyc7nLZuvTLegtWpjlVE1aaZY+XZfzOL5GFGqlLuknVLNIdg==
+	bh=u8RNd7fpeXuZxeKtJJRHx6GNHj7VukndK2FrBt2Rid4=;
+	b=tjni+M9dh2fauhMqDUayF+K2EnEPx+9wlTQXvbr9BIDemHrlUveY3fjABuHGSFbV41i0
+	 viMBFqHrld/s1aJKOKEuLBc/8i81d0dyVhDwxNMHHQND8QYjLhql0DjC+bG4RofW7+DUR
+	 lLEGDI71xzvB2dbhzbiEnRcfoRYSvivsah5m6o16/cprAgJy1Lcu+fPqw561zstcLDbMe
+	 HnJGHKIwfRjiSqTOE2/VPoiisCtteHpzeiM5qbr9fUz3fjk5IUqwbDFUEHreQieAII63Z
+	 JyEgXG0yQG/28+bLUTS1MscDUP8cBjLeD84gH4wCE+x+H9cyu1ofa6DmJXKzLBaTYuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XZlIQ0te;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Y9wiS6va;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=N8nZaNJH;
+	arc=none smtp.remote-ip=209.85.215.169
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CCDE606A33B
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 10:54:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CCDE606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA5B0606A31F
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 10:56:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA5B0606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XZlIQ0te;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Y9wiS6va
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792666482;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=m02LnQqAx90iQHNTDHgW+TeOE5dUtsPN+2XnmmAiXdA=;
-	b=XZlIQ0te5fZtQEBIZQXCdXrUf44kpIdx3aE7pnsZhBCpWlnGCTBBW/NuCfuRewQ7j7KUhc
-	9o1rRhKangYTthynuZn5Zd8LfSnfcgelB0m+Br2F1dg1DirXoVgqtMO01e2stfCTen3EtW
-	FvpCCpakVcg2EBWOAMuur+2AZggEkaY=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-668-Ck9I2SX-P5ebbTN_DDR1RA-1; Thu, 22 Oct 2026 10:54:40 +0000
-X-MC-Unique: Ck9I2SX-P5ebbTN_DDR1RA-1
-X-Mimecast-MFC-AGG-ID: Ck9I2SX-P5ebbTN_DDR1RA_1792666479
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48b02d63407so1100611f8f.0
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 03:54:40 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=N8nZaNJH
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cd60c5da24cso889224a12.0
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 03:56:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792666479; x=1793271279; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m02LnQqAx90iQHNTDHgW+TeOE5dUtsPN+2XnmmAiXdA=;
-        b=Y9wiS6vaFVrz3SOJ3vWMnVepwefZPmmzv5KVC6o63au9Sd3K/FYAeGDPQDdbBUT9m0
-         jj05j8d0qE+ClJ/rcmCtHLR3ArC1Vz18I6kKMWW43tAqocpoT6wGfd2ekdf5HVhgnqiV
-         OCk5tqL8FNUSdDYZxTeMg1wMq3mjEiKwUkTFTjINkcJuhaovO5DtDtf54LRKSc0EQlPA
-         HkSrQlINBD1xc5kS44zKEKAIeCGFKm3WYH5xawoH1C0on+wAqG92a3QrONm6aKx3Dq85
-         uEYCBu0Wx1TfKWeNpMIQDyrHVxGqdACTvn5tol5e4pILgTyOy2rCv8rmtLloH95mVMTn
-         B2YA==
+        d=gmail.com; s=20251104; t=1792666584; x=1793271384; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=u8RNd7fpeXuZxeKtJJRHx6GNHj7VukndK2FrBt2Rid4=;
+        b=N8nZaNJHi7j4i7dMqidmlqjY6HpIXhSvZJ0TzjSsYG2mmzVbB7SAawH8UaiOPFso8X
+         4z/p2xsX4fsNP8KKuBiP7UXQHte3Q7mOpkYEG4jISXta7+Y+LYvZMOW+/r3Oa+LdX/AZ
+         qct5AqJRy+yifKChHeCsoBv0DtPqm9PrkqBjhTwQ4KA05A1vTegzMucNN5NP8AUzIg2d
+         ZXJzS+RYiqcFpPiQqWUSdLI1vVHIT71MG3i/PrKC/+B3t/5ca0Oobx9Ak0PICwld8Bta
+         spk2LzQpk8IMVtGZmmzvxPzwrzlrb+of7qHeX6pyYr2haZGIaB7hlso7gV7GfJ0Zg/F4
+         pKdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792666479; x=1793271279;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792666584; x=1793271384;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=m02LnQqAx90iQHNTDHgW+TeOE5dUtsPN+2XnmmAiXdA=;
-        b=tStNOP3SU6RGz2siUN0/93HwPBIfLSFpaF5zD/N4peyRIACT7fBEigGJuXlGrdDJTF
-         rRtswTq15n0hvezdCVDPTfp6qzdxrqgGTIltz4oMVqaLreMSV/HItqVZg42bBYhYNvTI
-         u8t/oK1vC+xCdHobt1U08r6n+HcNz/uED31dKzHefO/mdil2MqkihGIgKhtQ9tXNxzGT
-         ++dyym/qlux0xZmSkZPZ8AA63+DbtKgG3HBtyuzlSrCKrQzjnDHKwoSVVlj3W83L9y5o
-         WAOKiXQgafM5CLg80GeI0L/01lbldSDZvOemh38oZXhSpJs5Lbp28z8yiUdohVqW0S0o
-         JSBA==
-X-Forwarded-Encrypted: i=1; AKwUvBzeCA7GkRADSUYtbzHb4meVxQBSupH8KO80mpmht1s4/fK8LL7l6ma45u2YlhvAgepAO2bXn18=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLqODKDQ3f91SG7xLsblMXRMY0pCDfeFes0sPnca6Ycr4wqbwTd
-	BJ/etoVOyjDBoRw9Gyc67LxxwfudjL7N2XSOJpfNLTWz04T6B7yp9NMFRVJoibYNlKuyb7gZpaO
-	ibj63lmKS/0aLdubylw/VWwZq7JLdLEP7fbjUvMS6cu/Ck15SYG0lX6COvg==
-X-Gm-Gg: AYBFou2Cp9A3z0iwMJo4kY9Yn0CoCV4abeJzc8zXL0lf5M9Jm2cKZAykp/2dlU+60yk
-	CMBKO15L5xmz6j2kqJwt8gdwopNA3hfFyj7fgjTRy46sBS6c4FWPaRKjSJt+3azq/nYu1zFFDz5
-	P8sTEPI4liotVHe2uGrpORrlHlk6C8q3tBnUlGbSYMe9ILMVeCvsLt/kceAJh5J9iQk7EMAybba
-	S1zErcAKjJEiB3e4eEND6Y84+WSuw4WWuPBSh5qdB2V4rOhgEumqkzs1tLwY3L9i4NMwxnoGWS6
-	9Iq3cvdnwyeVgeJP81Hb6mvFDBI6InSCVw8tpBh/RKxADyR5//p7expHRMpwUB83ioALW55shg=
-	=
-X-Received: by 2002:a05:600c:c4a1:b0:4a1:f0bc:90b with SMTP id 5b1f17b1804b1-4a1fdd3d407mr99476135e9.29.1792666479352;
-        Thu, 22 Oct 2026 03:54:39 -0700 (PDT)
-X-Received: by 2002:a05:600c:c4a1:b0:4a1:f0bc:90b with SMTP id 5b1f17b1804b1-4a1fdd3d407mr99475815e9.29.1792666478965;
-        Thu, 22 Oct 2026 03:54:38 -0700 (PDT)
-Received: from [192.168.2.75] ([46.175.183.46])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e254f02f1sm12856807f8f.3.2026.10.22.03.54.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 03:54:38 -0700 (PDT)
-Message-ID: <8b9bc610-777b-4436-98a6-2428153cc5f2@redhat.com>
-Date: Thu, 22 Oct 2026 12:54:36 +0200
+        bh=u8RNd7fpeXuZxeKtJJRHx6GNHj7VukndK2FrBt2Rid4=;
+        b=Hu/GRhv19YPkcQqOO4Ag4Rs67BmhNqCaPmGT5yUSe0dt5csBXfAlTE1GyPOB8CBW/w
+         HPld+AXeMuhpy/hjdDdH/x+WFJSZOSoUoyCk6S51bhHmDmQrz2DmgvZcrBFlwP7ySGqs
+         M9K+Cxfk3I7rumk3C0p39tZeecTPcFuTSZ6drnULHFixY/a1E1LkB3ZrQctMi3EA6kHl
+         QOexI0e1lnfEZLLYesjrkbjJo8oaegQIqW5dxs9X6T31IKHe5vE0e7tqOXrr1GrKf2Xm
+         tKE2cfnviu1KVJR/yNtiTC/Pa5LxFlFsI4pMg7xPOrUCpOPWIep1MtWmZrdyWSz4ZteV
+         D/iA==
+X-Forwarded-Encrypted: i=1; AKwUvBzvpGpPv9BJ8C1IYgR6RCIZlTxFK0Gw08rxyMHQLaqTEasjhRoZ4DKDkeckOREhVJCxN+qUvX4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK8Szls2fUOpzWn2skINDeLhRY+YKuhyLiR+buv5BSYpSP1TOMm
+	6Q//hRtm65g/zhCkzTb9kcQJ50GVIOIUVWRRoJUSow8mxaS4hPqdRL/9
+X-Gm-Gg: AYBFou0jT9U/yNpSBkohw53V+q93pe6rqi86Cn+MUaxAEMDABx4P3RHs5IZEBboOEVv
+	VjYga5GKoYW0x/SBRfPpVaiCC/ErgqC9x/z2YTtkJKggjJmGmYHew/0BdMee2MWKKPcPibH+y8j
+	EjPfgakvlIMuBmGosU+MPEERKd5k5R5fZlegeg0MWxuY8sc684ZElDZoBt1YIQrGAFY+SokvYWq
+	yl2DtU+XBhOEYX4rrjPLmAhU04IwQY1HQ5hSKz4xyQ6IC8Q05eGOke4NRRpgR0k5ejUQRsd2w21
+	fHCzKKsAgEWAUFIsoSjMe/QBNok288os+ZO/V0n8wHcWWY8PBz9lA1xbav7bB+2vjtAXv3zkU6A
+	PTR8duUjyC8i4wfjRJVNmJQSd7j9DgGFfzdC3bb6YCjEgxnA9q9gOLeeASiBtqKEpBna7rv1wo/
+	gMGrS6mRhSAdD9kTdHQZGKtBcz6iD4780ao/gggTjLWHELuIrvlsF6riHEIheNGmELsjiz/OcAV
+	jfLQaorla6lOdPOmzPqrbF2ba1JnX1gE5y7Lbw0nWRbUupzZAM=
+X-Received: by 2002:a17:90b:2f85:b0:3ac:53e0:4ed5 with SMTP id 98e67ed59e1d1-3ad86f6e8camr3937225a91.39.1792666583884;
+        Thu, 22 Oct 2026 03:56:23 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada493261asm3822703a91.12.2026.10.22.03.56.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 03:56:23 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com
+Cc: heming.zhao@suse.com,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH] ocfs2: wait for filecheck kobject release after a failed add
+Date: Thu, 22 Oct 2026 18:56:17 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0087-v5-4888399e71ae6d93613f@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -110,110 +100,211 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH iwl-net 3/3] ice: do not block on the aux device lock in
- ndo_setup_tc
-Content-Language: en-US
-To: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>
-Cc: "Nguyen, Anthony L" <anthony.l.nguyen@intel.com>,
- "Kitszel, Przemyslaw" <przemyslaw.kitszel@intel.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "Ertman, David M" <david.m.ertman@intel.com>,
- Shiraz Saleem <shiraz.saleem@intel.com>, Leon Romanovsky <leon@kernel.org>,
- "Maziarz, Kamil" <kamil.maziarz@intel.com>,
- Rafal Rogalski <rafalx.rogalski@intel.com>,
- "Schmidt, Michal" <mschmidt@redhat.com>,
- "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
- "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- Mateusz Palczewski <mateusz.palczewski@intel.com>,
- "linux-rt-devel@lists.linux.dev" <linux-rt-devel@lists.linux.dev>
-References: <20261019065301.3983537-1-poros@redhat.com>
- <20261019065301.3983537-4-poros@redhat.com>
- <CH3PR11MB566895E0410B0694F734EA7DAFE5662@CH3PR11MB566895.namprd11.prod.outlook.com>
-From: Petr Oros <poros@redhat.com>
-In-Reply-To: <CH3PR11MB566895E0410B0694F734EA7DAFE5662@CH3PR11MB566895.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+The filecheck kobject and its release completion are embedded in
+ocfs2_super, so the osb must outlive the kobject. On a failed
+kobject_init_and_add(), creation clears fs_fcheck and calls
+kobject_put(), but returns without waiting for the release callback.
 
+With CONFIG_DEBUG_KOBJECT_RELEASE, the last put queues delayed cleanup.
+Mount failure can then free the containing osb before the embedded
+release timer expires:
 
-On 10/21/26 1:22 PM, Loktionov, Aleksandr wrote:
-> 
-> 
->> -----Original Message-----
->> From: Petr Oros <poros@redhat.com>
->> Sent: Monday, October 19, 2026 8:53 AM
->> To: netdev@vger.kernel.org
->> Cc: Oros, Petr <poros@redhat.com>; Nguyen, Anthony L
->> <anthony.l.nguyen@intel.com>; Kitszel, Przemyslaw
->> <przemyslaw.kitszel@intel.com>; Andrew Lunn <andrew+netdev@lunn.ch>;
->> David S . Miller <davem@davemloft.net>; Eric Dumazet
->> <edumazet@kernel.org>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
->> <pabeni@redhat.com>; Ertman, David M <david.m.ertman@intel.com>; Shiraz
->> Saleem <shiraz.saleem@intel.com>; Leon Romanovsky <leon@kernel.org>;
->> Maziarz, Kamil <kamil.maziarz@intel.com>; Rafal Rogalski
->> <rafalx.rogalski@intel.com>; Loktionov, Aleksandr
->> <aleksandr.loktionov@intel.com>; Schmidt, Michal <mschmidt@redhat.com>;
->> linux-rdma@vger.kernel.org; intel-wired-lan@lists.osuosl.org; linux-
->> kernel@vger.kernel.org; stable@vger.kernel.org; Sebastian Andrzej
->> Siewior <bigeasy@linutronix.de>; Clark Williams <clrkwllms@kernel.org>;
->> Steven Rostedt <rostedt@goodmis.org>; Mateusz Palczewski
->> <mateusz.palczewski@intel.com>; linux-rt-devel@lists.linux.dev
->> Subject: [PATCH iwl-net 3/3] ice: do not block on the aux device lock in
->> ndo_setup_tc
->>
->> The TC_SETUP_QDISC_MQPRIO path of ice_setup_tc() takes the auxiliary
->> device lock to test whether the RDMA driver is bound, and ndo_setup_tc()
->> runs with the RTNL lock held. This closes the same cycle against the
->> RDMA auxiliary probe as the two preceding patches.
->>
->> Use device_trylock() and report the device as busy when it fails, with a
->> distinct message for the same reason as in the previous patch.
->>
->> Fixes: 4b31fd4d77ff ("ice: Fix RDMA VSI removal during queue rebuild")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Petr Oros <poros@redhat.com>
->> ---
->>   drivers/net/ethernet/intel/ice/ice_main.c | 6 +++++-
->>   1 file changed, 5 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/net/ethernet/intel/ice/ice_main.c
->> b/drivers/net/ethernet/intel/ice/ice_main.c
->> index edb62606d2aae3..7b251136149615 100644
->> --- a/drivers/net/ethernet/intel/ice/ice_main.c
->> +++ b/drivers/net/ethernet/intel/ice/ice_main.c
->> @@ -9448,7 +9448,11 @@ ice_setup_tc(struct net_device *netdev, enum
->> tc_setup_type type,
->>   		cdev = pf->cdev_info;
->>   		if (cdev && cdev->adev) {
->>   			mutex_lock(&pf->adev_mutex);
->> -			device_lock(&cdev->adev->dev);
->> +			if (!device_trylock(&cdev->adev->dev)) {
->> +				mutex_unlock(&pf->adev_mutex);
->> +				netdev_dbg(netdev, "RDMA auxiliary device is
->> busy, try again\n");
->> +				return -EBUSY;
-> You return error here, but it looks like being silently dropped in mqprio_disable_offload() isn't it ?
+  Mount failure                     Delayed cleanup
+  -------------                     ---------------
+  ocfs2_filecheck_create_sysfs()
+    kobject_init_and_add() fails
+    fs_fcheck = NULL
+    kobject_put()
+      queue delayed release
+  return to mount error cleanup
+  ocfs2_dismount_volume()
+    remove_sysfs() skips the wait
+    kfree(osb)
+                                    expire embedded release timer
+                                      access freed osb
 
-Yes, mqprio_disable_offload() ignores it, the same as it ignores the
-existing -EBUSY for a bound RDMA driver. Blocking there brings the
-deadlock back and skipping the lock races with the probe, so v2 keeps
-the refusal and warns about it instead of netdev_dbg().
+The normal removal path waits for fs_kobj_unregister, but it returns
+early when fs_fcheck is NULL. The failed-add path therefore leaves the
+delayed work and its completion in freed storage.
 
-> 
->> +			}
->>   			locked = true;
->>   			if (cdev->adev->dev.driver) {
->>   				netdev_err(netdev, "Cannot change qdisc when
->> RDMA is active\n");
->> --
->> 2.56.0
-> 
+Wait for the existing release completion after the failed-add
+kobject_put(), before returning to mount error cleanup. This keeps the
+enclosing osb alive until the kobject has finished releasing, matching
+the normal teardown path.
 
+KASAN report as below:
+
+    BUG: KASAN: slab-use-after-free in __run_timers+0xa6d/0xa90
+    Write of size 8 at addr ffff8881178a5658 by task swapper/0/0
+    
+    CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy) 
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    Call Trace:
+     <IRQ>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? __run_timers+0xa6d/0xa90
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20e/0x420
+     ? __run_timers+0xa6d/0xa90
+     kasan_report+0xe0/0x110
+     ? __run_timers+0xa6d/0xa90
+     __run_timers+0xa6d/0xa90
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx___run_timers+0x10/0x10
+     ? __lock_acquire+0x5a3/0x2140
+     ? __pfx_do_raw_spin_lock+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     timer_expire_remote+0xfa/0x160
+     ? __pfx_timer_expire_remote+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? trace_hardirqs_on+0x18/0x160
+     tmigr_handle_remote_up+0x4ba/0x9d0
+     ? __pfx_tmigr_handle_remote_up+0x10/0x10
+     ? tmigr_handle_remote+0x21a/0x340
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x290
+     ? __pfx_tmigr_handle_remote_up+0x10/0x10
+     __walk_groups_from+0x5a/0x160
+     tmigr_handle_remote+0x24f/0x340
+     ? __pfx_tmigr_handle_remote+0x10/0x10
+     ? lock_acquire+0x190/0x300
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x290
+     run_timer_softirq+0x222/0x270
+     ? __pfx_run_timer_softirq+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lockdep_hardirqs_on_prepare+0xb8/0x1a0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     handle_softirqs+0x1fa/0x8d0
+     ? __pfx_handle_softirqs+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? _raw_spin_unlock+0x23/0x40
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __hrtimer_rearm_deferred+0x1fb/0x5d0
+     __irq_exit_rcu+0x113/0x1e0
+     irq_exit_rcu+0xe/0x20
+     sysvec_apic_timer_interrupt+0x6c/0x80
+     </IRQ>
+     <TASK>
+     asm_sysvec_apic_timer_interrupt+0x1a/0x20
+    RIP: 0010:pv_native_safe_halt+0xf/0x20
+    Code: fa 18 01 e9 ee 37 ff fa 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa eb 07 0f 00 2d 23 c7 14 00 fb f4 <e9> c7 37 ff fa 66 2e 0f 1f 84 00 00 00 00 00 66 90 90 90 90 90 90
+    RSP: 0018:ffffffff87c07cf8 EFLAGS: 00000206
+    RAX: 0000000000045d0f RBX: ffffffff87c2d4c0 RCX: ffffffff86111e95
+    RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffffff815b508e
+    RBP: fffffbfff0f85a98 R08: 0000000000000001 R09: ffffed10310c68ba
+    R10: ffff8881886345d3 R11: 0000000000000000 R12: 0000000000000001
+    R13: 0000000000000000 R14: 1ffffffff0f80fa4 R15: dffffc0000000000
+     ? ct_kernel_exit.constprop.0+0xc5/0xf0
+     ? do_idle+0x3ae/0x650
+     default_idle+0x9/0x10
+     default_idle_call+0x6c/0xb0
+     do_idle+0x3ae/0x650
+     ? __pfx___schedule+0x10/0x10
+     ? __pfx_do_idle+0x10/0x10
+     ? rest_init+0x1cd/0x330
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     cpu_startup_entry+0x54/0x60
+     rest_init+0x1e1/0x330
+     ? __pfx_acpi_read_bit_register+0x10/0x10
+     ? __pfx_rest_init+0x10/0x10
+     ? acpi_os_write_port+0x23/0xb0
+     ? __pfx_kernel_init+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? acpi_ut_status_exit+0xd6/0x180
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? acpi_ut_status_exit+0xd6/0x180
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? acpi_enable_subsystem+0x2b0/0x4e0
+     ? __pfx_x86_late_time_init+0x10/0x10
+     start_kernel+0x417/0x4b0
+     x86_64_start_reservations+0x18/0x30
+     x86_64_start_kernel+0x111/0x120
+     common_startup_64+0x13e/0x158
+     </TASK>
+    
+    Allocated by task 494:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_cache_noprof+0x28d/0x610
+     ocfs2_initialize_super.isra.0+0xab/0x3070
+     ocfs2_fill_super+0x801/0x3920
+     get_tree_bdev_flags+0x35d/0x5f0
+     vfs_get_tree+0x93/0x320
+     fc_mount+0x1d/0x200
+     path_mount+0x592/0x1e00
+     __x64_sys_mount+0x24b/0x2d0
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    
+    Freed by task 494:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     kfree+0x308/0x580
+     ocfs2_dismount_volume+0x43c/0x9b0
+     ocfs2_fill_super+0x258f/0x3920
+     get_tree_bdev_flags+0x35d/0x5f0
+     vfs_get_tree+0x93/0x320
+     fc_mount+0x1d/0x200
+     path_mount+0x592/0x1e00
+     __x64_sys_mount+0x24b/0x2d0
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    
+    The buggy address belongs to the object at ffff8881178a4000
+     which belongs to the cache kmalloc-8k of size 8192
+    The buggy address is located 5720 bytes inside of
+     freed 8192-byte region [ffff8881178a4000, ffff8881178a6000)
+    
+    The buggy address belongs to the physical page:
+    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x1178a0
+    head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+    flags: 0x200000000000040(head|node=0|zone=2)
+    page_type: f5(slab)
+    raw: 0200000000000040 ffff888100043880 dead000000000122 0000000000000000
+    raw: 0000000000000000 0000000000020002 00000000f5000000 0000000000000000
+    head: 0200000000000040 ffff888100043880 dead000000000122 0000000000000000
+    head: 0000000000000000 0000000000020002 00000000f5000000 0000000000000000
+    head: 0200000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
+    head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
+    page dumped because: kasan: bad access detected
+    
+    Memory state around the buggy address:
+     ffff8881178a5500: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+     ffff8881178a5580: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+    >ffff8881178a5600: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                                        ^
+     ffff8881178a5680: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+     ffff8881178a5700: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+    ==================================================================
+
+Fixes: b9fba67b3806 ("ocfs2: fix error path kobject memory leak")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+
+---
+ fs/ocfs2/filecheck.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/fs/ocfs2/filecheck.c b/fs/ocfs2/filecheck.c
+index 75334e4bd082..7e547769beb2 100644
+--- a/fs/ocfs2/filecheck.c
++++ b/fs/ocfs2/filecheck.c
+@@ -189,6 +189,8 @@ int ocfs2_filecheck_create_sysfs(struct ocfs2_super *osb)
+ 		/* Mount failure still calls ocfs2_filecheck_remove_sysfs(). */
+ 		entry->fs_fcheck = NULL;
+ 		kobject_put(&entry->fs_kobj);
++		/* Drain delayed release before freeing the embedded kobject owner. */
++		wait_for_completion(&entry->fs_kobj_unregister);
+ 		kfree(fcheck);
+ 		return ret;
+ 	}
