@@ -1,98 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792640206;
-	b=Ybai0ip5GDOdD8t0OXn7usrPG1esX66txAwUT1XkjZ4IiK7ss91x8aBWY630zsZZDuSq
-	 tLredMlLVR3nuUboUAQNZObIxZ7cEVPv5Sqivpsq70XuEf1LM23cwPzn+FhEEkzPDM+sx
-	 jmnHxDtBCEGvo3dVsB3ibFQCoAD8OvQoK2ZpGABXxjb2w2tEbD5Ft21Qb0vtAbzW2t5c6
-	 apQnUDWN3v/2K49n106abHw0eZVlqhVLBnlNXAkyBkQbEVRGctAph3/yrYynJBiqpxzI+
-	 HmPe8x8IGCu3SEVHLuGbJTf7usY5VpqSIl9f/8bjPbzwy/FRsVUnYzb4ZE4ZzHomPPw==
+	t=1792640689;
+	b=QZW10gRRLoWq0GdKSGl0vEtbQKOG0palTx9thMIhPZVLhJS2GQrjJCFnD/7grEgevBpO
+	 C2jf2qeCLq6ebJ1tMjmK5WUBlV/NaKCJwLwc+F0vhkdTPSQnbSIODQGIsPhxSP0z3xj7E
+	 loqULu8PnfZ7WcGIRfXVVXoEXpfCwXeQR903rZV+LlsNsr5/vddgprWPDqwRw3VbF9Nrt
+	 CGg0dxfLQyGBY1bhG8xJgdbmoATXAtpKYN93lbaqqm9sw7TxDLqa0AXbVNVlX9wpmEtTm
+	 wXzWeN43KX9gMfrKEhwZiHaW0ife9vyt6og1CGbMbPtOU3dwKv3+1bahWLY+oVA+PhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792640206;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792640689;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=awwXifPb5aHvVxBftaP8w2SImHVCu8Aljuq6PIur9ho=;
-	b=M5nwlQHq1mLZMyATf1rHiFyxLaBmKMaxZmM3ofsRpRXJTg8tPlTbTgJehjOQISETvA3f
-	 zqA87oeQ7yvUqWFLpiVum+LkEl4UR7hxhRQPWzGeOAXKGI5d/610nFYvNHYkfAmeBboRm
-	 OuDZe3bgLhHCPChqDD/advlQ8TMh0pfyAQDCqFS9LY9JrlaKzQDGGWh7X9YHPrW6SP9pn
-	 gL0jge9aFPcu5V5Wwa0ExsKrJ+7CFi1S+0o/lZj0A4BpgVFsLeS4mKpPh7I8FTKovIzrI
-	 2uLoE9nb6gYhzjgthFZJYwMYhgIXe4Qm0vNqz6aVR63N36gsRtBvFxDfkIT7nR7gSzQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=8T5L2Doo4hafhgE4IIDG7Xgemkp+4Eg0v8OcH6PLgGM=;
+	b=HEu9oW0Pev+X+KYVr5O2M61twrnYCnMal1kf71obl37KgFl5q2X3Z5sggIH/u1g3h0Uo
+	 93SmMAsJdYeJ6iHSSZ4KYgfJBy2jM64dRBK59y6PowMFS5zDjRGEK4Afdu7HKavFE39rV
+	 z1BZYRh4kyQAPfZQrAWDW7UZj1WIvLqeec2kY0xTTWYRzD3W/pa2krn6ziI2RHqIxkE57
+	 rOayWuWC/21gYf9KVOuTpvu0yb7E3/FXFIlfEATL1GELC8lxJEwXysJ8hXJBgzLstQpyI
+	 0Hc1BVwg8KgWQWiNR8xK3Hd8pi2V0c+APqPhvV9MnG63aUcZQjGumTC4qLm+1IkE/4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZWowEBAm;
-	arc=none smtp.remote-ip=209.85.160.171
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=kqW3zQRB;
+	arc=none smtp.remote-ip=209.85.216.69
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B82606A333
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 03:36:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59B82606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC42606A330
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 03:44:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FC42606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZWowEBAm
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-53644ab1f7bso11551981cf.3
-        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 20:36:46 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=kqW3zQRB
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ab2395f104so1314739a91.2
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 20:44:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792640205; x=1793245005; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=awwXifPb5aHvVxBftaP8w2SImHVCu8Aljuq6PIur9ho=;
-        b=ZWowEBAm3ZpvS9spxy+hCOtyHpZUQRXfMV7VGJrGBqePtMutqUsUT3HkHt6OkJuyNC
-         Ua/alNSXjOarGoORxbJ2qdgHrZxI844ntFXlED5191iWqDiQQ6fBp4Uno6ME57PZ+ElQ
-         FFZ1kzUwIWtk/jSENQ/ZfDpsbca7wUKdstXfRtJr4A0yMF7NNReaf1HW4whoef7z4ujb
-         ZrV/9LgSehijvD+JxnDfj8hFR9bRlZSxyH0z8Ff649a35Kbuuxyt+ijoLnzjHT/TSCzT
-         J42z2zn8NfpNI8AkL3HPkFh+4tzoJ3YcY5EGAVT5nbSPjH27mfU92/0RdKy6w0sA821H
-         JF4g==
+        d=google.com; s=20251104; t=1792640689; x=1793245489; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8T5L2Doo4hafhgE4IIDG7Xgemkp+4Eg0v8OcH6PLgGM=;
+        b=kqW3zQRBOvd8I2Jq+gdYfLCHqX9hdeBCX9rrNtPdsQ9l9EWTsenYVI3Xi1yPaMw4Jl
+         MyCLwDwZDu15WwiOzm6CarutKDjUNyBO1gglmooNCunQP2XX2KUhgbzCSLDvN3oC1FTq
+         4GpJtC2T/DXCD7jggVgnvEhOn91VGe1HL+SPjqrKsMi1Y+Wijtwez/rhmizLgtwzXKPo
+         5qeF4iyCOhiQwj/q4/kYzqHO9TPJQmcPqvCuNpTt6veKxmJb2rhKupB244xNsVxq7GfH
+         HJqbkYUjk0ylTZ0uV9iD7kq4+gio5zYYapsT+1XmfrCmaAyt44RJRmcoQy9F0z3QlmHw
+         b1Lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792640205; x=1793245005;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792640689; x=1793245489;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=awwXifPb5aHvVxBftaP8w2SImHVCu8Aljuq6PIur9ho=;
-        b=o0IiRdS+JU+F8j7q376gsQYUXRuQdI3aAudFzmInL99mhD1sDKIS08HN4Ms/zz0nHr
-         oe4Jw2Z82MkaVuszGBLGl8bDj9avA1F9ydYXtyYzAi1JdTA1OKuQ/m7yw6Gp+wBtYe8D
-         FACe/qCGD+rA3LT+Ephmg09x+Vih4JiT2UQjf3yOb/czRTsoVaQctQ3/8ai6zYZQ/mag
-         +d1DXCa3aNqYdeC0tW9LIZfbHjibqzBGUVS+OPz4SoZxvNWQ2c4czw0k3M3R9FwYVgii
-         00FG5vZ3HG1l/jhUwxuVzUt68NS+IOpZmSF/mcm8wfDoDDb1aG0Bxyp6hVgIc0xK7aKY
-         dgcA==
-X-Forwarded-Encrypted: i=1; AKwUvBzX+wBfpfB4IduYFLJ6OhRf/OBhtUu2H1CO9kmM+H6EGd5T598nwndKdLVCKnKX3WnKyZRuFRw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLgBLdgwfz7jWR4A6NOp9/AeMs8U7G6sTugnDfh51DmTWWStCBV
-	/ciQqQVo625A0JS37FdoGB9DrfncsW26ibuYg45ZxlctKXtZDfpLq9/f
-X-Gm-Gg: AYBFou056Z5AB1QdcSze5b0pvHjtPiMaxQwtTBVFkDws5E8FtYbNdcZ7gJrYX7ox1FC
-	arlzUCyPmlM1Jkyeiixm5M3y3s2q8VBWqA3NDtkT0I0bUox3slaG/hYKfbq0mGOTDzEPyxFpwnM
-	UW2jjnxrYJjHM3voqBFBVvgAjGsHj8UEvYPwhqWi/BqcEwZnh1wy9urMf7WjL7sDKW1PZEMY0OJ
-	OIfmAEapidve02NtVN9kYSLFjG5ELYeiuz+RCGj653+pFcUsJ10BWe+xUtlr4YmO83oU8eeTYxL
-	5GwfbhaHvre+gV3fU83CAsMyaWWKU6UGyPq5PlHr+2hUyUlrMAFZ6bMdxFa+gVhwrgTSWE5/j/h
-	UlqsF/VUmp7DLCnzF40PAq9O3Z7S3oNlEpSRlZg/j1MjPc40ktiqcoKnF7vglkUlVfSUV4/LQsm
-	H2DNBxAaCRorhmNKZpAJ87WLDIeY9fWDs2kTY59gKPngDA93f3Psk1bkAH8GjlMBAE0WJNCqdIA
-	ar9E/Gzpr5ZW8FFdWFkSFNeJwhD9B5rftZ2hIUNddrlFWB5d81wXYBsYYcyh+rBiSGYq3TcLyU5
-	Bqw=
-X-Received: by 2002:ac8:5a85:0:b0:535:2763:16a2 with SMTP id d75a77b69052e-5369b8f93f9mr64806861cf.43.1792640205211;
-        Wed, 21 Oct 2026 20:36:45 -0700 (PDT)
-Received: from localhost.localdomain ([2604:7a40:c601:5090:676a:ee3:7aa7:5c53])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c10bd5d8csm40818286d6.24.2026.10.21.20.36.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 20:36:44 -0700 (PDT)
-From: Saurav <thatsme.saurav@gmail.com>
-To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-	Andi Shyti <andi.shyti@kernel.org>
-Cc: linux-i2c@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	regressions@lists.linux.dev,
-	stable@vger.kernel.org,
-	Praveen Talari <praveen.talari@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [REGRESSION] i2c: qcom-geni: HID keyboard fails reset on x1e80100 (Yoga Slim 7x) since 7.2.9
-Date: Wed, 21 Oct 2026 23:36:36 -0400
-Message-ID: <20261022033638.32460-1-thatsme.saurav@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        bh=8T5L2Doo4hafhgE4IIDG7Xgemkp+4Eg0v8OcH6PLgGM=;
+        b=vSvQrX8ao8kSxjlyjmzv1DTpqhl8zMLFHtz4BXMmCxYt5MJo8EjPt+dBUTYkUh77Jn
+         XYHMmnMPV9MSn7iL6Oy6l2EL2eh7qeEY0+aiNpEuHJj8Etd+wySbmLVLGAgOBxD+4D3s
+         F3b+tem9SWGjW3hjkLbBdAEX9x0kzbfCYYmDG3T+5OgoKTUzGRu1BlPEC7/adzL7ZUJK
+         qYgbe7DLgB+jFjOlptVbyt1SsAYpdQHQZUVeFbZC7Q0YKU7pAV7axNH7SXbJqPdbCi3L
+         wAw6qTWt2ecPcZH2dVP63E/10fTZuNMJtxSQucWcco5KvvVmJEiM+Rbya2PNKKaGypI7
+         A2RA==
+X-Forwarded-Encrypted: i=1; AKwUvBxudRyZm2uWsic7+D2Lmg5WgMg33vP9qyiUkjLRFwoGnIoqOPA2NIwXjjbFlpvbbac+xb2dVeA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJr7VA/lQxpuDkntOzPXzFPDxauV0yL10OCFFgRY8btuA+gEyLa
+	cNqTkEFbqJnUFCaX9O7fTBP542thAsOjP07Dg+BxmtqqrKgKezbxQpQitdUz0+UaYi28kDFnaZv
+	2izTU9BkubYOIk+7rY5H9lA==
+X-Received: from pgbd23-n2.prod.google.com ([2002:a05:6a02:64d7:20b0:cd6:261d:5bde])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:5251:b0:3aa:fc22:8aa7 with SMTP id 98e67ed59e1d1-3ad86dc12eemr3420030a91.53.1792640688818;
+ Wed, 21 Oct 2026 20:44:48 -0700 (PDT)
+Date: Thu, 22 Oct 2026 11:44:39 +0800
+In-Reply-To: <20261022034443.3034432-1-stanleyjhu@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,76 +78,124 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261022034443.3034432-1-stanleyjhu@google.com>
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
+Message-ID: <20261022034443.3034432-3-stanleyjhu@google.com>
+Subject: [PATCH v5 2/6] scsi: ufs: core: Add a helper for clearing hba->outstanding_reqs
+From: Stanley Jhu <stanleyjhu@google.com>
+To: "Martin K . Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Bean Huo <beanhuo@micron.com>, Peter Wang <peter.wang@mediatek.com>, 
+	Can Guo <can.guo@oss.qualcomm.com>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+ufshcd_poll() and ufshcd_abort() each have their own copy of the code
+that clears bits in hba->outstanding_reqs under hba->outstanding_lock.
 
-Since 7.2.9, the internal keyboard on the Lenovo Yoga Slim 7x
-(x1e80100) no longer works. 7.2.8 is fine. 7.2.11 still ships the
-same i2c-qcom-geni.c as 7.2.9, so I expect it is affected too.
+Move that code into ufshcd_clear_outstanding_reqs() and its locked
+variant __ufshcd_clear_outstanding_reqs(), and use them in both
+functions. No functional change.
 
-The keyboard is a HID-over-I2C device on i2c0 (i2c@b80000, 400 kHz),
-address 0x3a, VID:PID 048D:8987, IRQ tlmm 67. On 7.2.9 it fails with:
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/r/3779e125-9acc-42c8-9489-51b9e3c6716d@acm.org
+Suggested-by: Bart Van Assche <bvanassche@acm.org>
+Reviewed-by: Bean Huo <beanhuo@micron.com>
+Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+---
+ drivers/ufs/core/ufshcd.c | 48 +++++++++++++++++++++++++++++----------
+ 1 file changed, 36 insertions(+), 12 deletions(-)
 
-  i2c_hid_of 1-003a: device did not ack reset within 1000 ms
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index 12aafcf1f9b3..1db572f84971 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -6052,6 +6052,37 @@ static void ufshcd_clear_polled(struct ufs_hba *hba,
+ 	}
+ }
+ 
++/*
++ * Return a bitmask of the transfer requests cleared from
++ * @hba->outstanding_reqs.
++ */
++static unsigned long __ufshcd_clear_outstanding_reqs(struct ufs_hba *hba,
++						     unsigned long mask,
++						     bool from_irq)
++	__must_hold(&hba->outstanding_lock)
++{
++	unsigned long completed_reqs = mask & hba->outstanding_reqs;
++
++	if (from_irq) {
++		/* Do not complete polled requests from interrupt context. */
++		ufshcd_clear_polled(hba, &completed_reqs);
++	}
++	hba->outstanding_reqs &= ~completed_reqs;
++
++	return completed_reqs;
++}
++
++/*
++ * Return a bitmask of the transfer requests cleared from
++ * @hba->outstanding_reqs.
++ */
++static unsigned long ufshcd_clear_outstanding_reqs(struct ufs_hba *hba,
++						   unsigned long mask)
++{
++	guard(spinlock_irqsave)(&hba->outstanding_lock);
++	return __ufshcd_clear_outstanding_reqs(hba, mask, false);
++}
++
+ /*
+  * Return: > 0 if one or more commands have been completed or 0 if no
+  * requests have been completed.
+@@ -6062,6 +6093,7 @@ static int ufshcd_poll(struct Scsi_Host *shost, unsigned int queue_num)
+ 	unsigned long completed_reqs, flags;
+ 	u32 tr_doorbell;
+ 	struct ufs_hw_queue *hwq;
++	bool from_irq;
+ 
+ 	if (hba->mcq_enabled) {
+ 		hwq = &hba->uhq[queue_num];
+@@ -6071,12 +6103,9 @@ static int ufshcd_poll(struct Scsi_Host *shost, unsigned int queue_num)
+ 
+ 	spin_lock_irqsave(&hba->outstanding_lock, flags);
+ 	tr_doorbell = ufshcd_readl(hba, REG_UTP_TRANSFER_REQ_DOOR_BELL);
+-	completed_reqs = ~tr_doorbell & hba->outstanding_reqs;
+-	if (queue_num == UFSHCD_POLL_FROM_INTERRUPT_CONTEXT) {
+-		/* Do not complete polled requests from interrupt context. */
+-		ufshcd_clear_polled(hba, &completed_reqs);
+-	}
+-	hba->outstanding_reqs &= ~completed_reqs;
++	from_irq = queue_num == UFSHCD_POLL_FROM_INTERRUPT_CONTEXT;
++	completed_reqs = __ufshcd_clear_outstanding_reqs(hba, ~tr_doorbell,
++							 from_irq);
+ 	spin_unlock_irqrestore(&hba->outstanding_lock, flags);
+ 
+ 	if (completed_reqs)
+@@ -8111,7 +8140,6 @@ static int ufshcd_abort(struct scsi_cmnd *cmd)
+ 	struct ufshcd_lrb *lrbp = scsi_cmd_priv(cmd);
+ 	unsigned long flags;
+ 	int err = FAILED;
+-	bool outstanding;
+ 	u32 reg;
+ 
+ 	ufshcd_hold(hba);
+@@ -8206,11 +8234,7 @@ static int ufshcd_abort(struct scsi_cmnd *cmd)
+ 	 * Clear the corresponding bit from outstanding_reqs since the command
+ 	 * has been aborted successfully.
+ 	 */
+-	spin_lock_irqsave(&hba->outstanding_lock, flags);
+-	outstanding = __test_and_clear_bit(tag, &hba->outstanding_reqs);
+-	spin_unlock_irqrestore(&hba->outstanding_lock, flags);
+-
+-	if (outstanding)
++	if (ufshcd_clear_outstanding_reqs(hba, BIT(tag)))
+ 		ufshcd_release_scsi_cmd(hba, cmd);
+ 
+ 	err = SUCCESS;
+-- 
+2.56.0.218.g1ec904b173-goog
 
-The touchpad on the same bus (0x2c, hid-descr-addr 0x20) keeps
-working. A USB keyboard works as normal.
-
-If I build 7.2.9 with drivers/i2c/busses/i2c-qcom-geni.c taken from
-7.2.8 and change nothing else, the keyboard works again. So the
-regression is in that file.
-
-Five commits touched that file between v7.2.8 and v7.2.9:
-
-  82339215fc00 i2c: qcom-geni: release DMA channels on probe error
-               (upstream 268aacb2e2a5)
-  139efdb3ee6e i2c: qcom-geni: Fix hardcoded clock index in SE_GENI_CLK_SEL
-               (upstream cb97bf3d4f91)
-  6c3420d6ba34 i2c: qcom-geni: Store of_device_id data in driver private struct
-               (upstream 692e0c84db5f, Stable-dep-of cb97bf3d4f91)
-  4edab037132b i2c: qcom-geni: Move resource initialization to separate function
-               (upstream ed4b34033db2, Stable-dep-of cb97bf3d4f91)
-  fb54df3645d8 i2c: qcom-geni: Isolate serial engine setup
-               (upstream d8d3bb127ad1, Stable-dep-of cb97bf3d4f91)
-
-I have not bisected within this series. My main suspect is
-cb97bf3d4f91.
-
-#regzbot introduced: cb97bf3d4f91
-
-7.2.8 always wrote 0 to SE_GENI_CLK_SEL in qcom_geni_i2c_conf().
-With cb97bf3d4f91, geni_i2c_clk_map_idx() uses
-geni_se_clk_freq_match() to find the index for 32 MHz or 19.2 MHz,
-stores it in clk_idx, and qcom_geni_i2c_conf() writes that index to
-SE_GENI_CLK_SEL.
-
-On x1e80100 the QUP SE clocks are registered as DFS RCGs
-(gcc_dfs_clocks[] in gcc-x1e80100.c). geni_se_clk_tbl_get() builds
-its table from clk_round_rate(), so the table comes out in ascending
-rate order. I suspect that index does not always match the hardware
-DFS perf level that firmware set up on this machine, where index 0
-happened to be correct. If so, the engine runs from a different
-source clock than the SCL counters were computed for. I have not
-confirmed this yet. So far I have only shown that the 7.2.8 file
-fixes it.
-
-I have not tested mainline yet.
-
-System:
-  Machine:  Lenovo Yoga Slim 7 14Q8X9 (83ED)
-  SoC:      Snapdragon X Elite, x1e80100
-  BIOS:     NHCN62WW
-  DT:       x1e80100-lenovo-yoga-slim7x.dtb (in-tree)
-  Kernel:   gentoo-sources 7.2.9 (genpatches do not touch this driver)
-  Good:     7.2.8
-  Bad:      7.2.9
-
-I can test patches or run more debugging if useful.
-
-Thanks,
-Saurav
-
---
-Drafted by Claude.
