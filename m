@@ -1,57 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792690638;
-	b=KeO98lZMrJ0V0xzDg7rfUdgQn8CWR+HfvFv0fPqyBLkgzH6L8aw3AgpLWjG7yQw8egIW
-	 8388GJD1/2/pyKlqLrvdEAfiIS+HAiPDV6hGwiabbu9hpLXRjoAnB1nIVSWrvnHf0MRtt
-	 /cjgitaO/qKnegXDseS5LgH6JoaDVWl8Z066mN8Ejy//dMmxoCQozsVi++jYJuRap+ai4
-	 tiwPcFGIpU+ePELz7tEEVrlJ1ND/5S+XTF1CKbUU+vk9OwGkBnWhJFKQXcTHtA5u+rboA
-	 RKhf46Y2+9KlmoBEhZrl13e5ist1tkOE9xBdH+15Wi4iDS8f9Cv2RjfhhJ1b/fjIfAw==
+	t=1792690872;
+	b=cIVuwpNXiLJRn5RPuluTbVdpojAbui96pBOjWzzJyVSy74DYGOZtK5ac+k1TJcsg19TI
+	 5iXaDILhVRWRWJ9/DPRqEXRfZVSXKB2X/j2A0dVY60m/4Xeg5xnW0qoPkaPR5XF44DTgH
+	 Jwp3ov87t7IW6aLpNZiiV+HDgj6o+4+VD5Ei9bEEkh5qlKdQzrBjg8o/y1Gru1EPX3qvC
+	 22knFYl+USESf/G+HO/8Q8os+g+O9VTaSix6i4D2vQKK1Er8WNG89+xP07lVBdtGdsxnP
+	 nkfmq1ZAhkv0Q3sWjiCYa6vvMefvi+GYkEadBf6Cl+r0e4OJStjbWfCvaX1JbkPpuAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792690638;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=HELI1dAAj3JoHmm7/ujLounOijlzjDcDTv5RfRVrWvs=;
-	b=5Gx3radUIiulOue1Qi8SmIveYbBQIXn1xFTAFyzSCjrPF0i+e044uqMSygb5Fmv5YAv9
-	 huud6GX1j30bkdCEJuMDZsABj2EZESZx32z09z8c4gML+pV9blPPJxQkgJ8eN388X5dh8
-	 n35jA2/Ly/0iHgoE5Nh7KcjtzZIgnc7fdzfPIQb8dDgGsabQN2aA4nvfSQn+iImslEpkK
-	 7lYGo1L8HCjPPZDNOlC9d1mwzCfz3MEcMmIGAmSHeC8z04U7CV26SKbQCOtwBXfpo/wZT
-	 W7vBBbQYuaowtIhn5X+hJR5BcD8ae6auiPmCTJH/1ViaWkv62lI+I68BQYQFnDkduqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792690872;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=cDla6l8fMfj8jJdamp45SxPiawr5zChOQJjC1LHk/iY=;
+	b=5b5MwH4z28otasmRmqsQay0BUv1TlX/XvLqx6WgJRuNl78Sj/ITRbnbJgbzqyNduW8K/
+	 T254xmEi8HaLbnKp7O8820m/rj70Apm7n/vQeBB8W7Dt6Sa/RzFHOoJsjOGrq3xojYb4V
+	 7pXmNiFI6HyA/rgH+NaJXNtJAQnmHc4hoEMIFo1GYO3Bf+6dXZX7VMuypqMPNXh3ul4iB
+	 mwu5Vt1bX/ueCFegKO4jhzylPgN+UT6q+eel6rCtxSRHkOzeRKFtmfvyYW/sAJfWkZLw4
+	 DW7ArXN0pfPwskMLIuQ7W+BcK6MED7mTOMf65ADH74OvWNO+lTOH6mYy5qTk+Ou/DNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JTYf5xVW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dMlzGX5d;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E78D606A328
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 17:37:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B351606A31D
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 17:41:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B351606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JTYf5xVW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C8F71F01825;
-	Thu, 22 Oct 2026 17:37:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792690638;
-	bh=HELI1dAAj3JoHmm7/ujLounOijlzjDcDTv5RfRVrWvs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JTYf5xVWE9+8sT+RC9XrypXlnfC+iCmRn1tSjRuzU/nwW2Jb3ZIavRbn0LwofBGNu
-	 i/8eIVUb1ILUPs8I0ZiuLfOFoDTm5RsbxZf62G6h92VpMBwI3UOBvdR5GiAbkR2XKc
-	 9B9uB7VkP5efyxUiXVLLejr0rna21Snwb3VtVkDf6CMJkvToBkaDaaH8vwB7RTbuSC
-	 oy+uMmQpExd0BDEMnm3Us/fS5ucdHkdRGX66kjDx/JwnFkNYmSZIkVPS33GUXr2mtS
-	 QJrkKYGZqop5pzuqV4ZgmStCdQenh2AaVJ5xB3C/HIXTmrp+igpwg95GHipyUPGjQ/
-	 BhEh24tqHJAew==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Daehyeon Ko <4ncienth@gmail.com>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	Bobby Eshleman <bobbyeshleman@meta.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] vsock/virtio: validate packet source for connected sockets
-Date: Thu, 22 Oct 2026 13:37:15 -0400
-Message-ID: <20261022173611.1783451-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102111-patient-zit-1fa0@gregkh>
-References: <2026102111-patient-zit-1fa0@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dMlzGX5d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792690871; x=1824226871;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=i0sUBTn7zZHjGdLUQOGsSLgWeN2sedvkN870GTcfR8E=;
+  b=dMlzGX5dAlyael9969AcLBzT0WLcnRwPnB08n6kmuOf7Z4t/2X4jOij8
+   dk5lRFR3+iEOcuOMbod2uIlmFKwxrctV4r68mnHkUEldZJ/8bFkln7881
+   CbYO+Gm3qdGYIViprCLG1NAw1VSPwubAJ3Dwm2BIk1aBjFjAKRGgoENtv
+   T6wJ2bnx+p4wRnKuK4OXWwua+7WFkNkNQsgzJIY/YX/bHzR+BvjGVq93c
+   jTgGDJhvGJ3skLhH4BOm5g8WaScOxJ0wtWZMKI6owcY7z5O4dqX6U2BWM
+   VV53UH8dEkOYiCUj65NO4Cak90zaAqh66VVabsQO8NrgFUT6HkChsPiVZ
+   Q==;
+X-CSE-ConnectionGUID: 2iiru1XEQd6uHDq+E4DpZg==
+X-CSE-MsgGUID: 49OdYG0QRRqoEHvtpBYhEw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1435958"
+X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
+   d="scan'208";a="1435958"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 10:41:10 -0700
+X-CSE-ConnectionGUID: tO/Bvy6VRjqyvYDaKkdhrA==
+X-CSE-MsgGUID: Mjcx5rxVS9W868FwUvC7Bg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
+   d="scan'208";a="3366104"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO mwauld-desk.intel.com) ([10.245.245.243])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 10:41:09 -0700
+From: Matthew Auld <matthew.auld@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] drm/xe/sa: make suballocator waits uninterruptible
+Date: Thu, 22 Oct 2026 18:41:00 +0100
+Message-ID: <20261022174058.226432-5-matthew.auld@intel.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261022174058.226432-4-matthew.auld@intel.com>
+References: <20261022174058.226432-4-matthew.auld@intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,123 +81,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Daehyeon Ko <4ncienth@gmail.com>
+Large BO clears and copies in xe_migrate_clear() and xe_migrate_copy()
+are split into multiple passes, each needing a batchbuffer from the
+fixed size kernel bb pool. Once the pool fills up, __xe_sa_bo_new()
+waits interruptibly for space, so a pending signal (e.g. Xorg's 5ms
+SIGALRM smart-scheduler timer) makes it fail mid-loop with -ERESTARTSYS.
+The partial progress is then thrown away and the restarted ioctl starts
+again from byte 0, including the memory allocation, which can livelock
+if the signal arrives faster than the whole operation completes. In the
+shrinker path the same error also aborts the shrinker walk, even though
+ctx->interruptible is false.
 
-[ Upstream commit dee44f41f206becb41c492899c1996cfd7f82a1b ]
+Being interruptible here doesn't seem to buy much anyway: on error
+the loop already waits uninterruptibly for all submitted passes before
+returning. So just make the suballocator waits uninterruptible, matching
+amdgpu and radeon. The other users (page reclaim from a kworker, and the
+GuC buffer cache) shouldn't really see any meaningful change.
 
-virtio_transport_recv_pkt() looks up sockets first by the full source and
-destination tuple, then by destination only in the bound table. The
-fallback is needed for listening and connecting sockets, but sockets remain
-in the bound table after connect(), so it can also return a non-listening
-socket.
-
-The fallback does not validate the source address. In TCP_SYN_SENT, a
-RESPONSE from an unrelated source can transition the victim socket to
-TCP_ESTABLISHED while its stored remote address remains unchanged.
-Subsequent RW packets from that source are delivered through the same
-destination-only fallback.
-
-This was reproduced with capability-empty processes under different UIDs.
-The attacker discovered the target tuple through unprivileged AF_VSOCK
-sock_diag and caused the victim socket to read 16 attacker-chosen bytes;
-the intended peer-side socket read 0 of those 16 bytes.
-
-Add vsock_check_source() to validate the transport, source port and source
-CID against the peer stored in a non-listening socket. The local transport
-is the CID exception because its packets are generated internally with
-VMADDR_CID_LOCAL as their source, including connections using CID aliases.
-
-Use the helper after lock_sock() in the virtio receive path.
-
-Fixes: 06a8fc78367d ("VSOCK: Introduce virtio_vsock_common.ko")
-Closes: https://lore.kernel.org/netdev/20260813121236.2328599-1-4ncienth@gmail.com/
-Cc: stable@vger.kernel.org
-Suggested-by: Stefano Garzarella <sgarzare@redhat.com>
-Reviewed-by: Bobby Eshleman <bobbyeshleman@meta.com>
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Link: https://patch.msgid.link/20260826003929.966160-2-4ncienth@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: Adjusted context for socket lookup and reset helpers without network namespace arguments. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Assisted-by: LLM
+Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9644
+Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: <stable@vger.kernel.org> # v6.12+
 ---
- include/net/af_vsock.h                  |  3 +++
- net/vmw_vsock/af_vsock.c                | 32 +++++++++++++++++++++++++
- net/vmw_vsock/virtio_transport_common.c |  3 ++-
- 3 files changed, 37 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/xe/xe_sa.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/include/net/af_vsock.h b/include/net/af_vsock.h
-index 568a87c5e0d0f..a1aebfa14a3ef 100644
---- a/include/net/af_vsock.h
-+++ b/include/net/af_vsock.h
-@@ -207,6 +207,9 @@ void vsock_remove_connected(struct vsock_sock *vsk);
- struct sock *vsock_find_bound_socket(struct sockaddr_vm *addr);
- struct sock *vsock_find_connected_socket(struct sockaddr_vm *src,
- 					 struct sockaddr_vm *dst);
-+bool vsock_check_source(const struct vsock_sock *vsk,
-+			const struct vsock_transport *transport,
-+			const struct sockaddr_vm *src);
- void vsock_remove_sock(struct vsock_sock *vsk);
- void vsock_for_each_connected_socket(struct vsock_transport *transport,
- 				     void (*fn)(struct sock *sk));
-diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
-index 893893869fd45..5675f224ea7d8 100644
---- a/net/vmw_vsock/af_vsock.c
-+++ b/net/vmw_vsock/af_vsock.c
-@@ -331,6 +331,38 @@ struct sock *vsock_find_connected_socket(struct sockaddr_vm *src,
- }
- EXPORT_SYMBOL_GPL(vsock_find_connected_socket);
+diff --git a/drivers/gpu/drm/xe/xe_sa.c b/drivers/gpu/drm/xe/xe_sa.c
+index f32045f40b7a..d9c2b28b08c2 100644
+--- a/drivers/gpu/drm/xe/xe_sa.c
++++ b/drivers/gpu/drm/xe/xe_sa.c
+@@ -165,7 +165,8 @@ void xe_sa_bo_sync_shadow(struct drm_suballoc *sa_bo)
+  * @size: number of bytes we want to suballocate
+  * @gfp: gfp flags used for memory allocation. Typically GFP_KERNEL.
+  *
+- * Try to make a suballocation of size @size.
++ * Try to make a suballocation of size @size. Any waits for space are
++ * uninterruptible.
+  *
+  * Return: a &drm_suballoc, or an ERR_PTR.
+  */
+@@ -178,7 +179,7 @@ struct drm_suballoc *__xe_sa_bo_new(struct xe_sa_manager *sa_manager, u32 size,
+ 	if (size > sa_manager->base.size)
+ 		return ERR_PTR(-ENOBUFS);
  
-+/**
-+ * vsock_check_source - validate a packet source against a socket peer
-+ * @vsk: socket receiving the packet
-+ * @transport: transport receiving the packet
-+ * @src: source address from the packet
-+ *
-+ * Return: true if the packet arrived on the socket's assigned transport and
-+ * its source matches the stored peer. Loopback packets are generated
-+ * internally and always use the local CID as their source, including
-+ * connections using a valid CID alias.
-+ *
-+ * The caller must hold the socket lock and must not call this for listening
-+ * sockets, which accept packets from any source and have no assigned
-+ * transport.
-+ */
-+bool vsock_check_source(const struct vsock_sock *vsk,
-+			const struct vsock_transport *transport,
-+			const struct sockaddr_vm *src)
-+{
-+	if (vsk->transport != transport)
-+		return false;
-+
-+	if (src->svm_port != vsk->remote_addr.svm_port)
-+		return false;
-+
-+	if (src->svm_cid == vsk->remote_addr.svm_cid)
-+		return true;
-+
-+	return transport->get_local_cid() == VMADDR_CID_LOCAL;
-+}
-+EXPORT_SYMBOL_GPL(vsock_check_source);
-+
- void vsock_remove_sock(struct vsock_sock *vsk)
- {
- 	/* Transport reassignment must not remove the binding. */
-diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
-index 6ea00b8630351..81bb95875f203 100644
---- a/net/vmw_vsock/virtio_transport_common.c
-+++ b/net/vmw_vsock/virtio_transport_common.c
-@@ -1372,7 +1372,8 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
- 	 * lock_sock (note: listener sockets are not assigned to any transport)
- 	 */
- 	if (sock_flag(sk, SOCK_DONE) ||
--	    (sk->sk_state != TCP_LISTEN && vsk->transport != &t->transport)) {
-+	    (sk->sk_state != TCP_LISTEN &&
-+	     !vsock_check_source(vsk, &t->transport, &src))) {
- 		(void)virtio_transport_reset_no_sock(t, skb);
- 		release_sock(sk);
- 		sock_put(sk);
+-	return drm_suballoc_new(&sa_manager->base, size, gfp, true, 0);
++	return drm_suballoc_new(&sa_manager->base, size, gfp, false, 0);
+ }
+ 
+ /**
 -- 
-2.53.0
+2.56.0
 
