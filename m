@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792685713;
-	b=VcnEOgrquU/Gz7Sw1KiBHGTurPi+9EAeLNDn3UuzhN3296dKLmGhksLUh9CIBC9zdlN9
-	 k668/Fci1c9KDqp+jCiNHm9NMiLl++IaG6kMgD+0S/+03WCgiE7Iuq2ih6FOVQpu5qmhl
-	 bI1m6h5Y+Hq48BNkW4Z3M7c5Fn1Yijpn/8kmRmobeODtqgkcSlWhm1hEDV4pf8gVS07WK
-	 SqzbNQ5XKHhTmMgN3SVe2dgm3Du5G1+4vPZNKELEdqGdL9W+k/NQD2uC2zcwbnkmmXkyX
-	 E2A3DrDEfNP0QRsa9hKLttQIrhv79x1ILFiTSGasNVMDdcyBrT+OAvz4GIvq37IwGdg==
+	t=1792685753;
+	b=NUVBvmCCSW2FtcSsnKTeInpN5hsuR0hsRXW6D1jceC9l5ZC6AUaqYK9ghfNFrohZ3t6n
+	 uH91gTvSACBWDOth9LOL+440p0udJESFIaPpWLbgQ+a6cT+oOFgLC+o3edm2xX3LRRhhR
+	 qRX+cANzgSrhgVvY/1wGTYwZbc0UvlGvCkzhEv4nzFJ1K3J8NFaNg0QVzmWauGhnntmq0
+	 PT8rqnIPzojBWJH94EOVrxjZ8shYiNvBsAZhcVzEd72ML49lc9pexEG4wOtZ/l8ZXa99u
+	 peLoVBSdUuXVD2JY3lT1fxleFKscGuaUnyANWMxWlQUV9dlZnqdkNTwbS5xXvruMuuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792685713;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792685753;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=SjEZv2obAaFvcdVr5OP97e3Hqrjlod99k7xpnry2pTU=;
-	b=CMVhgXN0uRukajbn/A9QMurbzwRYnhFDpAIDU155ySDT/uZnJw2wsRlTOYwMNdB8Nzoz
-	 OYC3WEGfheogO8akePntVNqL+UYpawuszslUvox49gU2P+EOsjgarWpEThD4f5Vo3cBpt
-	 e+LVXiMfSytXHlruhdbI5P+1ZvR4rpnDe2HTakrxBfzX8jRAHyEezPuQDjDOVDEHbnMlL
-	 3GCUI/O93xRlVIWdNkZQ06kgaT2uQ3ZNEyZCFBDn8DKVw8yhKVNImMkuHaCbaWw88C8ES
-	 r071eaaystboAh50AdMNJfwUZNw5A+1baJL/bvm11/EJ7TlssvA8dWGU4Nd3J73mXZA==
+	bh=dEg7zi+vxddqTxYiqnM9jUa7nhOfPILLzMR9Ir+JAOc=;
+	b=SJajYQfdjiIM2MNdguQ7oH6VbwFHWL55aTzfluWdNIrSMIz6C+byUF8/b2dByoBHNUXd
+	 kaj0EeeOoEUg4hTl2N0mBwe6cjlD0/FIsn1neMFmo4lG8T6fxsolcPk31JNlQXacIMBPR
+	 hLPsFRl1jCj9yH00IzXjcxXjzp2PbZGbY59WnbrShOXyOoTchGKFyb4hE8HKoW+7yE4ps
+	 XKWFInF2XGsPO94q29/XS1HxaIbhGD003EvLCYmmnB3w3BwWMyuQ2bPw5F5KlSs9g9zU/
+	 UeDyXPXrLLgTwp0w0J95evm/c6t4JIrOXf396LR/5zgAVgNqi+Sp2Gk8cl9gycY6soQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D029zAPs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oXO5osIc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E68606A322
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 16:15:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A490606A325
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 16:15:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D029zAPs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E77721F031E1;
-	Thu, 22 Oct 2026 16:15:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oXO5osIc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3594B1F01825;
+	Thu, 22 Oct 2026 16:15:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792685713;
-	bh=SjEZv2obAaFvcdVr5OP97e3Hqrjlod99k7xpnry2pTU=;
+	s=k20260515; t=1792685752;
+	bh=dEg7zi+vxddqTxYiqnM9jUa7nhOfPILLzMR9Ir+JAOc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=D029zAPsBRnntUyfxB4Jg4LawmJK470rgq6lneG7u4VoDDg+jzO75pjDRw8ONTXVk
-	 LjjNYMZ4jalTlMvjuSpHY3s1IzTkYlJ+06QiAEv9HJbFuH0EsdhlZZyxeMGsKQrM2b
-	 4UBKldZJCLGRF3MvcLZrgYx4MxZYjl3br/zbuBFF/yTLYaz6rlLMKpuo0dexlsEopG
-	 ndLe3Nnl+QrvjbLOuzp/XMN2BpVnQjqv5nQFmu3E+Rg5WaQvoL2RgTk0NKPcF3zY+c
-	 jjwsrjgvNVBvgl59231KxqKMKR3rtKwmvRBSedWmH1IjTAlKUfjWONSdh0ay5O+04l
-	 9u+LnJSdwv+cQ==
+	b=oXO5osIcbuObzE6X+oRkrsMHHsMGdB7M1SL6QPNe+HCRva32FG4kk0K4fTuqh0ZRN
+	 0eupvhd+e5oSZNIr0gLJ4zw+Nc+2IuOPq0SQMRmp4hYc3w1/bcQRh08Tf5VLH8KP8E
+	 aNLNuLIXSe/64Xhqd5PX6nPfyefp0PM3UoUxc200IGRBXA3voxj9bkzx+tAgcY1TtA
+	 nRZDGINjG7jfCcRbPidysqNomx3c4R96inv/KHgqp5/GhcJ8o06+b6Ast5kkBJH7aX
+	 LA7BYRpeL+AvyZqFFbnQ3Relhn0LwMavYZ+sKwH5KIyEEgGg9CZICYvdUDBeISwoS4
+	 PdYpWBSe2/Z0g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yao Kai <yaokai34@huawei.com>,
-	Tejun Heo <tj@kernel.org>,
+Cc: Chen Cheng <chencheng@fnnas.com>,
+	Sun Yangkai <sunyangkai@fygo.io>,
+	Mikulas Patocka <mpatocka@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] workqueue: Fix unbound pool lifetime for pending pwqs
-Date: Thu, 22 Oct 2026 12:15:09 -0400
-Message-ID: <20261022161457.1728158-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] dm-integrity: require stable writes for internal hash modes
+Date: Thu, 22 Oct 2026 12:15:49 -0400
+Message-ID: <20261022161457.1673341-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261022161457.1728158-1-sashal@kernel.org>
-References: <2026102148-unadorned-icon-a748@gregkh>
- <20261022161457.1728158-1-sashal@kernel.org>
+In-Reply-To: <2026102132-liver-overdraft-11ac@gregkh>
+References: <2026102132-liver-overdraft-11ac@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,97 +62,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yao Kai <yaokai34@huawei.com>
+From: Chen Cheng <chencheng@fnnas.com>
 
-[ Upstream commit cf9c8aaea0d47410df8708bec195889f3a85cd3c ]
+[ Upstream commit b2fd92f016e9d692fd3c8c08d0ee014e9212279d ]
 
-KASAN reports a use-after-free of an unbound worker_pool in
-node_activate_pending_pwq():
+dm-integrity direct, bitmap and inline internal-hash modes compute
+integrity tags from the pages carried by the write bio.  The lower data
+write also uses those pages, so the tag and the data write depend on the
+same memory contents staying unchanged while writeback is in flight.
 
-  BUG: KASAN: slab-use-after-free in _raw_spin_trylock+0x6d/0x120
-  Read of size 4 at addr ffff8880089ce000 by task kworker/u22:0/318
+Without stable writes, a buffered writer can modify a writeback folio
+after dm-integrity has submitted the data bio and before the lower device
+has consumed the data.  After a crash, this can leave data from the later
+contents with a tag calculated from the earlier contents, causing
+permanent checksum failures on read.
 
-  CPU: 1 UID: 0 PID: 318 Comm: kworker/u22:0 Not tainted 7.2.0 #1 PREEMPT(lazy)
-  Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
-  Workqueue:  0x0 (flush-8:0)
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x53/0x70
-   print_report+0xce/0x610
-   kasan_report+0xce/0x100
-   _raw_spin_trylock+0x6d/0x120
-   pwq_dec_nr_in_flight+0x4b4/0xcb0
-   process_one_work+0x921/0x11a0
-   worker_thread+0x4d0/0xd20
-   kthread+0x2de/0x3c0
-   ret_from_fork+0x3aa/0x620
-   ret_from_fork_asm+0x1a/0x30
-   </TASK>
+Set BLK_FEAT_STABLE_WRITES for internal-hash D, B and I modes so
+filesystems wait for writeback folios to become stable before modifying
+them again.  Journal mode is left unchanged because it copies data into
+the journal before computing and persisting the tag.
 
-  Allocated by task 311:
-   alloc_pwq+0x439/0xca0
-   apply_wqattrs_prepare+0x75e/0xd10
-   apply_workqueue_attrs_locked+0x44/0xa0
-   wq_nice_store+0x350/0x450
+Tested using dm-delay over a virtio-blk test disk, dm-integrity
+internal_hash:crc32c and no-journal ext4.  The D and B reproducers both
+failed with checksum errors before this change and completed with
+READ_RC=0 and zero mismatches after it.
 
-  Freed by task 0:
-   kfree+0x127/0x3b0
-   rcu_core+0x523/0x1780
-   handle_softirqs+0x1b3/0x610
-
-  Last potentially related work creation:
-   put_unbound_pool+0x3f3/0x7d0
-   pwq_release_workfn+0x494/0x8e0
-   kthread_worker_fn+0x1ff/0x790
-
-Canceling the last inactive work skips pwq_dec_nr_active(), so an empty
-pwq can remain on pending_pwqs when its refcnt reaches zero.
-pwq_release_workfn() currently puts the pool before removing that pwq.
-If this drops the last pool reference, the pool can be RCU-freed while
-the pwq remains reachable, and node_activate_pending_pwq() may trylock
-the freed pool->lock.
-
-Remove the pwq from pending_pwqs before putting the pool.
-
-Fixes: 5797b1c18919 ("workqueue: Implement system-wide nr_active enforcement for unbound workqueues")
+Fixes: 7eada909bfd7 ("dm: add integrity target")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yao Kai <yaokai34@huawei.com>
-Signed-off-by: Tejun Heo <tj@kernel.org>
+Reported-by: Sun Yangkai <sunyangkai@fygo.io>
+Link: https://github.com/chencheng-fnnas/reproducer/blob/main/dm-integrity-writeback-race.py
+Signed-off-by: Chen Cheng <chencheng@fnnas.com>
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+[ sashal: Replaced BLK_FEAT_STABLE_WRITES with a needs_stable_writes target bit propagated to QUEUE_FLAG_STABLE_WRITES. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/workqueue.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/md/dm-integrity.c     | 3 +++
+ drivers/md/dm-table.c         | 2 +-
+ include/linux/device-mapper.h | 5 +++++
+ 3 files changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-index 14a3d1775c2ff..f6dde83c9466f 100644
---- a/kernel/workqueue.c
-+++ b/kernel/workqueue.c
-@@ -5123,12 +5123,6 @@ static void pwq_release_workfn(struct kthread_work *work)
- 		mutex_unlock(&wq->mutex);
+diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
+index f552c402b3c17..4fcd7d821568f 100644
+--- a/drivers/md/dm-integrity.c
++++ b/drivers/md/dm-integrity.c
+@@ -3503,6 +3503,9 @@ static void dm_integrity_io_hints(struct dm_target *ti, struct queue_limits *lim
+ 		blk_limits_io_min(limits, ic->sectors_per_block << SECTOR_SHIFT);
+ 		limits->dma_alignment = limits->logical_block_size - 1;
  	}
- 
--	if (!is_percpu_pool(pool)) {
--		mutex_lock(&wq_pool_mutex);
--		put_unbound_pool(pool);
--		mutex_unlock(&wq_pool_mutex);
--	}
--
- 	if (!list_empty(&pwq->pending_node)) {
- 		struct wq_node_nr_active *nna =
- 			wq_node_nr_active(pwq->wq, pwq->pool->node);
-@@ -5138,6 +5132,12 @@ static void pwq_release_workfn(struct kthread_work *work)
- 		raw_spin_unlock_irq(&nna->lock);
- 	}
- 
-+	if (!is_percpu_pool(pool)) {
-+		mutex_lock(&wq_pool_mutex);
-+		put_unbound_pool(pool);
-+		mutex_unlock(&wq_pool_mutex);
-+	}
 +
- 	kfree_rcu(pwq, rcu);
++	if (ic->internal_hash && (ic->mode == 'D' || ic->mode == 'B'))
++		ti->needs_stable_writes = true;
+ }
  
+ static void calculate_journal_section_size(struct dm_integrity_c *ic)
+diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
+index 8e0b9783f3da3..214a7af330f89 100644
+--- a/drivers/md/dm-table.c
++++ b/drivers/md/dm-table.c
+@@ -1941,7 +1941,7 @@ static int device_requires_stable_pages(struct dm_target *ti,
+ 					struct dm_dev *dev, sector_t start,
+ 					sector_t len, void *data)
+ {
+-	return bdev_stable_writes(dev->bdev);
++	return ti->needs_stable_writes || bdev_stable_writes(dev->bdev);
+ }
+ 
+ int dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
+diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
+index 9505674dc883d..bda8f373c91b6 100644
+--- a/include/linux/device-mapper.h
++++ b/include/linux/device-mapper.h
+@@ -357,6 +357,11 @@ struct dm_target {
+ 	 */
+ 	bool discards_supported:1;
+ 
++	/*
++	 * Set if this target requires stable data during writeback.
++	 */
++	bool needs_stable_writes:1;
++
  	/*
+ 	 * Set if we need to limit the number of in-flight bios when swapping.
+ 	 */
 -- 
 2.53.0
 
