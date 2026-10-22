@@ -1,98 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792679997;
-	b=sNdA94npIcJ8p6+sNv2i/q0coqexIQMLFJjGkhmAuqsKOt6puGN688hIR+ZvuuBSJogu
-	 9AirVneMN5V5H82ADdub7bii7sJslqwauY3Mx99rAehymYKihek25VuEn0VoreB0++4+R
-	 AfAKiKPAD8/CVIjV9clF6BYrC2tg2+f5gPGNzPfg/WxnE4JiqP/1zrGBFrl3a0SxIoD7O
-	 hOcJxi5O8W5L7d/xJPq5erUmHNNrX+vHduD7fVwr4V8azRDwRE9/lAPZntN7dN086+GPC
-	 EhwLV5ANThNh2nZzlmKSLtxWjJGYIfRJf8cgll2izM4XjLoY+hyyBBKtFRHBE3MKN3Q==
+	t=1792680174;
+	b=UP1C7u66yr0FioEwRd8bwBIHw8YXuibaJZUgEXT8YEyxe8dnujA5r98spiKHCnYeFsVf
+	 tDrFh1VuPoKsLr2Bwul2LkbDjgBnNrlrPN+uYDGNeGHapCIWfSh3DE8ZE6u7M6nvX40zV
+	 dT8N5bfk6tI1LQtY6uv4V4hl3MddDOsvJejy+LTXFCQIqk+AqbiZQweOQEB4dj7P+q+tD
+	 Iuwd7YaUlV7UzS8uSBu/LmbMp/xBlJNbeniIlrAcTK6xmmu5WHS0M2qeXwsLWkbmOvYD4
+	 5Bkv29CT9+CpXZYHwo4ZYmvjYxA5k83SjCCKw4EZFWq3R67VkjEZVvSjPXgt4NV6LQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792679997;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=TsVtZqyGS71E5D3pQPE0mMNVJWhaOlaJlReFBXIDzUM=;
-	b=j+LQRN4YTpEaBU062VRdgoUkgsFgcZuJAVIQye1Oe4D2AT90WAM79CMVSc0wHv7BPQn5
-	 rNb601l49wyTE6FuM8iVFoaFeC+KHmik/KTTKLfZj4IPnUt+Y0E57nEf76QxPTI9qHDRN
-	 qFc7958px4dvHlbNP5zAOtlqdwaCDs9rQBBUXnoifzxV3NkS20kSpVUhvdG8GiPMcPPAM
-	 uKGM/mWNIsGrkEgneUMVT5+sIWscrUqmYH2fSHC6F4AKalGsFPrfybzCV/D85esqDcOKm
-	 /PJkVjgzNSTz/an+L/IMg/MDYaiZp8axD2xckdm7TBjFkvdrUQlaIb0KPdCtWMcKtEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792680174;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:
+	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=vrcWaHVIeX4mO1LrsCPWfI2eA+VxsiZCBF7UZYtiUaw=;
+	b=m00lbijWXuidz4YQfSV6Q7BrPSOQ7AuQfEKfX/ehORRzShgFuzuMEAU7LrYNqBCNqWnL
+	 NCCO0zXwkONzH5VldmmC3KFRoPjMpoullDHQ95dzxj9XcT5WknWywdgenieVRJH2wGyfS
+	 rzmoaU/BexQtmcWaWAyTGCCZCqxMyLNF13ZQBxhJ6suTagVGprKfB4Bpz045+V6wOd/mh
+	 9aqpK532DHTlEMOefhhUTn8ihCwoXOLnLmVczHYpfHZ1DWhoKYxkIeCH1mb3zw6NbTCDJ
+	 ObEnaKoB7z8fFcex3CN0PbuvlQ/Yk4S33082AXKTeKwzBV6fWqxHAcT+BVk+/qKgJxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=tNSU7zVm;
-	arc=none smtp.remote-ip=209.85.216.43
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=embSkSZV;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30E7C606A328
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:39:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30E7C606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B147606A31B;
+	Thu, 22 Oct 2026 14:42:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B147606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=tNSU7zVm
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ac6794fe45so1552599a91.0
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 07:39:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792679996; x=1793284796; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TsVtZqyGS71E5D3pQPE0mMNVJWhaOlaJlReFBXIDzUM=;
-        b=tNSU7zVmKU/HHHTlxBVkbJL4t8ldBOPRMROq9Oi04M97HxCp0LXAHBz+iPTY4dLD/L
-         fNstykDXUyb73Jig3KTA5TbQMFxbXDAYVuYy0F3RX4oUovYfvaFwnEE5R9q3ob4MvzVI
-         Et70Qab4D2y4GSVsjXl7H8uqI6uYZ3LlFZODL/K+Cq1xAx4uJsgs/pbHCjwCF79rTENX
-         8Ma22JDiGppuqf9QItmr5u5nNEebkn5hZv9dBv0mZb962UZLm9RDEUTfAz+wcuRn4u/b
-         jyQk1ZodhTD6z+ekWV5+5lKhGJ/1Fxfgq0GJ/eR86E7HDJjVyu1sQjVCqlCHY0tf+P2t
-         XrTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792679996; x=1793284796;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TsVtZqyGS71E5D3pQPE0mMNVJWhaOlaJlReFBXIDzUM=;
-        b=WTLze6IsHL8C/eLfKXymLNVQY9I6BAt2F2JPOKjDfs5W8EyVW14o6kubMOZO46loc7
-         0G6S5rvAsI/r+q/1h1fdZsSrazJEaRBIaW7JUWZ24hPBqLymo8BGUrxihRKuUCYw5XsE
-         TJlgGKr6pa/7yCy21MYjG4PlmKSAGZoZ5kQ0Ni2eT+u0bZsxQEV2SWjEmhCmkwbnj1Oi
-         2OWtWlYhqHoLpL+hVcOAli02x22+20BOPwYLqTBY94NYb7d+96j6+6Xg5awoxywz9zd4
-         vS6Ni7PJmeoD8bjAEgYNVCEj3c3i2Uf7UX2jsE85NH5r39YepYOC+gV//h/y/wVALxUG
-         /Wfg==
-X-Forwarded-Encrypted: i=1; AKwUvByYKrr/XCc86IRd6hM3AyxDXf0qvomUxMmsf2s+AiJ6RN4wrjrIhkt7Kh8YnEazseJQmozvVdg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJq7QpQvYAyzWwMOcP696oNj9c26cvWDMOahO//7PJPtnDZ5fhC
-	LwFxNcbbFAGWm8ECeHX2W/I/HzfywnJQDthod63h6NbS79oWQpld6WgG7AHoxwbfCcs=
-X-Gm-Gg: AYBFou2cJK5Ybs6kobCW5Z6OwtZyi4U8T2BFLg3y8TZrcg7P8jBRh/3d2TpUAdy7Qk0
-	fYCC4TbhWB8ct3z+xHuXMUfxxd03SioauWeCgCSs3qogxTcmjU7lcptdx4MNFFxAOAB3XjsNkvL
-	ibyCGdD9XXdYG6AKE33ftvb4taFY9b3hWqYjBe5J9YXxRiqKtQPOdq7+QjV+88CJFQ8kQVkp4R2
-	kOUydHTIt8kU9ROi9P2xpylHvEtmSx4SUey1c/bSZC5USIIl+LiESztTqdoew0awXP6J9VZw/Hn
-	omhtC9VKC/j3u7XNO15WDZYDa3nPlWsCca6CK1uo6sb23iS13Q+TiKCST2tDhwHogb1RwxBmUnb
-	Y2ozfufT2QNIrw0GSyIGFNFWjKLfr0kzKm6lDy4i1Y9VIgDJ6Bv4yzihqrBtpsnUNc07uREP54h
-	2JcYwooQjzNZVA+BMuLEEG/gt2qPxC/NzrYlLelJIyEhBSGfhr5J3X+eOT27AqCQwDOjt/Iv3na
-	qqT7ZEpg8bLHzGcXWU6b3XgRvB2rb3nyRuJJOdi33vdg66waXULWb9f52HhzuimbIuxCQGcImvb
-	mpw=
-X-Received: by 2002:a17:90b:5908:b0:3a8:9d0d:ca50 with SMTP id 98e67ed59e1d1-3ad86f44c42mr4641606a91.10.1792679996527;
-        Thu, 22 Oct 2026 07:39:56 -0700 (PDT)
-Received: from localhost.localdomain ([2406:5900:1044:110c:13e0:b266:5a7d:e119])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada4887669sm4719043a91.2.2026.10.22.07.39.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 07:39:56 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	linux-rdma@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v3 2/2] RDMA/srpt: widen the indirect RDMA context counters
-Date: Thu, 22 Oct 2026 23:39:01 +0900
-Message-ID: <20261022143901.2991062-3-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261022143901.2991062-1-yhlee@isslab.korea.ac.kr>
-References: <20261022143901.2991062-1-yhlee@isslab.korea.ac.kr>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=embSkSZV
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MEFUHR4098306;
+	Thu, 22 Oct 2026 14:42:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=vrcWaHVIeX4
+	mO1LrsCPWfI2eA+VxsiZCBF7UZYtiUaw=; b=embSkSZV9AlrbM5gQ8OzDdAS+YN
+	D/Up2bPy150kfYo+2v31LdDTrRwxX0LLdDbLNY6NC7+XJ9SW+K58kvHzuA3J90ON
+	P8dnc5CdTwinlG0Zoeuir19Zk9NcZrtTfBO/cGtnG43QOD6GIJW/Y4krs3SedYQj
+	TaE40y2qdwwu/gWg173Qp+mPBnLgHyNvqhm2JdOEi6OQEnAtFRPMS7OVmzCVPy9V
+	Ho0/ley46omvlS5bjneHkZcof6s9T8cX563HJxDm3dgTZlDmW+Q+iQhMS7MXKMAC
+	NdDl+1gYCTT18USg1tnbS7K2cQ6wJbAfcLGbTKvF6sxT/PjMHFW/9/u2EZA==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfewq337a-2
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 22 Oct 2026 14:42:45 +0000 (GMT)
+Received: from pps.filterd (apblrppmta02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69MEfW141932678;
+	Thu, 22 Oct 2026 14:41:32 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-mohis-hyd.qualcomm.com [10.147.253.64])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 69MEfVCV1932658
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 22 Oct 2026 14:41:31 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4840500)
+	id D4596639; Thu, 22 Oct 2026 20:11:30 +0530 (+0530)
+From: Mohit Sharma <mohit.sharma@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Mark Brown <broonie@kernel.org>
+Cc: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>,
+        Liam Girdwood <lgirdwood@gmail.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Mohit Sharma <mohit.sharma@oss.qualcomm.com>, stable@vger.kernel.org
+Subject: [PATCH 1/2] ASoC: qcom: q6apm: Guard callbacks until probe data is ready
+Date: Thu, 22 Oct 2026 20:11:29 +0530
+Message-Id: <20261022144130.2443667-2-mohit.sharma@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261022144130.2443667-1-mohit.sharma@oss.qualcomm.com>
+References: <20261022144130.2443667-1-mohit.sharma@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,63 +90,99 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: wglhc3ftu4akMWXr7lmt-vRb-Cx85mvx
+X-Proofpoint-ORIG-GUID: wglhc3ftu4akMWXr7lmt-vRb-Cx85mvx
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA1OCBTYWx0ZWRfXyi9Iv5zho5fa
+ slWNbpk7mz7gMndP95rH5lC5JNvDH2TR1h4Z0W3uockMWR5I1k7zJXtNnjFNmcW8exgA4ZdDGk5
+ Bcu8tQ8Jh5HMsFQCd2Q+szOCvgPFO+c=
+X-Authority-Analysis: v=2.4 cv=G4OJgNk5 c=1 sm=1 tr=0 ts=6ada20e6 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=CQ11ig6xNshaWAb830gA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA1OCBTYWx0ZWRfX9j93riZ0B+3W
+ 8Av3+KRDtmgZor52WTssmqY06fVGDo1+A5sN/1+2WNKsEBIDB6j4Vms4FwsnZupvOVLRjMmperZ
+ nHzVEQGbIxWdWVi+6OO0P14yyAIZB9jF4q+2A2TrbHdAN/TTjridkTgflXDz7TDKZA4a8XC5Bzp
+ rqmPxRnhdxpCGU5q58wwiBExQ4f1ePrOwjwCCsDOdSDObp4ug0Fb7Uo9U8o/7mn9hBhQ79yv6N3
+ Q+Kam/MW7yPNagdhChFl8nyVAVd/tdyZ1tNm+cDs2zltZ7tQik7Ury/J0OjULWR7hLRNdS2DbQ/
+ Qt18jsKFViMC7CP6gNlKjbOgH0+aULt4zu2Ou9m5cnJHQNgrE8tbsZa0qMKpp0W1mKJgJVFNAAU
+ ws6yXZK22nBKkt8mN3Phbss8GVsdJCgWXvJvMpSaW97YdQcTW5BJmkJ6treNtxGogiLGwc3kK5i
+ Nln//3clizBc5zBteyg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1011 phishscore=0 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220058
 
-srpt_send_ioctx::n_rdma and ::n_rw_ctx are u8, and neither of the values
-stored in them is bounded by 255.
+The GPR bus needs to make response callbacks available before invoking a
+client probe because clients can issue synchronous commands from probe.
+This creates a short interval where a callback can run before the client
+has published its private data.
 
-n_rw_ctx counts the INDIRECT descriptors a command carries, and the count
-guard in srpt_get_desc_tbl() admits data_out_desc_cnt plus
-data_in_desc_cnt, so up to 510. At 256 descriptors n_rw_ctx wraps to
-zero, and srpt_release_cmd() frees the contexts only when it is non-zero,
-so every scatterlist and RDMA context the command allocated leaks.
+Make q6apm publish its driver data only after all callback-visible state
+has been initialized. Have the q6apm and q6prm callbacks ignore packets
+received before driver data is available.
 
-n_rdma is not a descriptor count at all. It is the sum of the
-rdma_rw_ctx_init() return values, which is the number of work requests
-each context needs, accumulated by ioctx->n_rdma += ret. A handful of
-descriptors for large transfers can pass 255 on their own, with no
-unusual descriptor count involved. A wrapped n_rdma is then handed to
-atomic_sub_return(ioctx->n_rdma, &ch->sq_wr_avail) and tested by
-WARN_ON(ioctx->n_rdma <= 0), so the send queue work request accounting
-drifts too.
-
-Make both counters int, the type the values they accumulate already have.
-
-Fixes: b99f8e4d7bcd ("IB/srpt: convert to the generic RDMA READ/WRITE API")
+Fixes: ec1471a898cc ("soc: qcom: apr: Add GPR support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Co-developed-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+Signed-off-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+Signed-off-by: Mohit Sharma <mohit.sharma@oss.qualcomm.com>
 ---
- drivers/infiniband/ulp/srpt/ib_srpt.c | 2 +-
- drivers/infiniband/ulp/srpt/ib_srpt.h | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ sound/soc/qcom/qdsp6/q6apm.c | 6 ++++--
+ sound/soc/qcom/qdsp6/q6prm.c | 3 +++
+ 2 files changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/infiniband/ulp/srpt/ib_srpt.c b/drivers/infiniband/ulp/srpt/ib_srpt.c
-index 97758082f71d2..bdea47316539f 100644
---- a/drivers/infiniband/ulp/srpt/ib_srpt.c
-+++ b/drivers/infiniband/ulp/srpt/ib_srpt.c
-@@ -959,7 +959,7 @@ static int srpt_alloc_rw_ctxs(struct srpt_send_ioctx *ioctx,
- 	struct srpt_rdma_ch *ch = ioctx->ch;
- 	struct scatterlist *prev = NULL;
- 	unsigned prev_nents;
--	u8 n_rdma, n_rw_ctx;
-+	int n_rdma, n_rw_ctx;
- 	int ret, i;
+diff --git a/sound/soc/qcom/qdsp6/q6apm.c b/sound/soc/qcom/qdsp6/q6apm.c
+index 3ec3c5a18c7a..dbebb643cd5e 100644
+--- a/sound/soc/qcom/qdsp6/q6apm.c
++++ b/sound/soc/qcom/qdsp6/q6apm.c
+@@ -872,8 +872,6 @@ static int apm_probe(gpr_device_t *gdev)
+ 	if (!apm)
+ 		return -ENOMEM;
  
- 	if (nbufs == 1) {
-diff --git a/drivers/infiniband/ulp/srpt/ib_srpt.h b/drivers/infiniband/ulp/srpt/ib_srpt.h
-index 4c46b301eea18..1dce9bcb490f0 100644
---- a/drivers/infiniband/ulp/srpt/ib_srpt.h
-+++ b/drivers/infiniband/ulp/srpt/ib_srpt.h
-@@ -223,8 +223,8 @@ struct srpt_send_ioctx {
- 	struct ib_cqe		rdma_cqe;
- 	enum srpt_command_state	state;
- 	struct se_cmd		cmd;
--	u8			n_rdma;
--	u8			n_rw_ctx;
-+	int			n_rdma;
-+	int			n_rw_ctx;
- 	bool			queue_status_only;
- 	u8			sense_data[TRANSPORT_SENSE_BUFFER];
- };
+-	dev_set_drvdata(dev, apm);
+-
+ 	mutex_init(&apm->lock);
+ 	apm->dev = dev;
+ 	apm->gdev = gdev;
+@@ -887,6 +885,7 @@ static int apm_probe(gpr_device_t *gdev)
+ 
+ 	idr_init(&apm->modules_idr);
+ 
++	dev_set_drvdata(dev, apm);
+ 	g_apm = apm;
+ 
+ 	q6apm_get_apm_state(apm);
+@@ -930,6 +929,9 @@ static int apm_callback(const struct gpr_resp_pkt *data, void *priv, int op)
+ 	const struct gpr_hdr *hdr = &data->hdr;
+ 	int graph_id, is_pos_buf;
+ 
++	if (!apm)
++		return 0;
++
+ 	result = data->payload;
+ 
+ 	switch (hdr->opcode) {
+diff --git a/sound/soc/qcom/qdsp6/q6prm.c b/sound/soc/qcom/qdsp6/q6prm.c
+index 2042ff1e8ff1..5c927ebd81f4 100644
+--- a/sound/soc/qcom/qdsp6/q6prm.c
++++ b/sound/soc/qcom/qdsp6/q6prm.c
+@@ -194,6 +194,9 @@ static int prm_callback(const struct gpr_resp_pkt *data, void *priv, int op)
+ 	const struct gpr_ibasic_rsp_result_t *result;
+ 	const struct gpr_hdr *hdr = &data->hdr;
+ 
++	if (!prm)
++		return 0;
++
+ 	switch (hdr->opcode) {
+ 	case PRM_CMD_RSP_REQUEST_HW_RSC:
+ 	case PRM_CMD_RSP_RELEASE_HW_RSC:
 -- 
-2.43.0
-
+2.34.1
