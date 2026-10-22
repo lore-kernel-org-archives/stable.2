@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792680820;
-	b=dGAIvr8CP/ZFxZBxbPTKkL5G/WrrTssaolfLhgBa86VjEnyCGPmycd3Cy7mJD1vq6Gs3
-	 5gU1ASveNDOD1krfpDXN0OYVhbh5WsF5yBzKHppovW53tsjqgIHZP1CHAW5k65IG0DXe1
-	 gchGgb062ksXXgjPcK68g3giTrln1ZAsdg3A75zvKWwwFrU9QYG4/OKfobgrL81iO9kwN
-	 u3HLhXCrQr8pywOk3jhdfDOX0Y9ATUtq6ODBg/GW3fdAR464UB4uFBAlK59UqcHruIx47
-	 6eYRO6mSzecVuQVC7O/RJTMHVmLFkxNmjaKp7PFe7NdWCkeAH9kLPxMnonYILY5eiYg==
+	b=ydkwJge8INEVG0UFSLHvUAZ/9VqXfNySDvPM2A1KEkUQzpnJpT3Tqx06HKZaetjzE8+y
+	 u8R+xlj5wQYFGx8Z6tJ/i9K5ZGl6aVJHrfCWtaFfuJLjiUkJlVvZllBbR5ZpGeuF7+hLk
+	 a27czHBvSG8H+Dm8BmI9UFhwAcp+ppzjml0Rr8VkqDFXXvYa/J8+R+fZUi+hcbr0ldbP5
+	 7arlqC5MN2H09njzWWaFERuG1fv3/DbLl6SdVN8WY2IO8fQTBuGUCXGM1f+jXF0u1IHzv
+	 /DJlT7ttX85vb9C0+rnvB2wCO1BsNFu/oGBMVXsd6D+IRxXZffQsTHh981tP7utaDtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792680820;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=iFwi5qpkew6tI3QMUCNW5Meq/06eZIGab6fUqENe3iE=;
-	b=G/+BaxYCiCeuxydE4zL3gJ43eX8TaLF9c/nEnV5XZzL08RHu895kJu3tm5buqMlDwUx0
-	 G5NDstIujimYZQye+1sTkra1i6/AZmN8PU2KglqRCtJG0D133DYgUcZPy2cEizUmK3yW+
-	 MU6whRMXXuDE4DpeEBpn/sG8n3gapU57Al2C+0LhujHX/qyVVHUgnU0n2s2DNA/HcTFao
-	 GA411g4e+caxqgWm8pO3q6YNggNXFE7kEVPcOGrZd7pfJYK3MwMYn1a3myPH9wfgp/Ze3
-	 obGXxbbcPyJpXzTRYM+irrWKJqqT3hhbMDLhnHhHvStfhdSuqkpjdFZelFKkS1128Bw==
+	bh=xQjyna7GSiGTdxvjR5ggbFOwIyj+p7m4fco/htB52dU=;
+	b=Q0A3VVXmyleGLjY1DRMeenr3BTqcUFSzlrfmXdXQ7SiIWWNsLung82t3MD79RvvoZM9h
+	 jo8K4STOXCSrN+kyg/HziM0yshaZrTFZLUUxKRY35MHjhoHUVXVckaaJCEP7rNI6Ue9VR
+	 eUNZ/IgGpvWzss6R7RriuDNVUslU8XhbZLx6CLDdYXc/kmdljJQ5YcbgSHYc8vsITp+12
+	 K/FIwnevRMxgdemQ9Tb7VL/mZf3KYO30pPifswA5w06d6dZKvYbEpbbh3Uh4JgpX/LRWd
+	 aKFBfgg6CMzW/Hd1L5KUoYlffO/gUlDaP+HALfKem58UmdoqN1W9p1NHdcCDIIFOWjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uk0Q6M2T;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bluFErdD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFFD4606A328
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:53:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 100F9606A32A
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:53:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uk0Q6M2T
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D6811F000C2;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bluFErdD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D5C01F000C3;
 	Thu, 22 Oct 2026 14:53:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792680819;
-	bh=iFwi5qpkew6tI3QMUCNW5Meq/06eZIGab6fUqENe3iE=;
+	bh=xQjyna7GSiGTdxvjR5ggbFOwIyj+p7m4fco/htB52dU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Uk0Q6M2TNtTBY7y+IWpgnyKF1uc2edogBN2Pdm/DCpQP/27Ef2l7huMBcVw7PEj8F
-	 WOtb6SuhWIWkrLyxLQwL/2EFAkX8dKetKJekBzmnnSUyzfXDNId2e8T29rcT0dAOeL
-	 TcIi5ctEMSiMObK2OMLGUTH+1fPstNqKx7fKc0whwhv9w8ItKTL1UDpUrVolhrxkZ5
-	 amo1zBwvF2+ucJyR9qV0JFgUCqNKC5ebsWaqC6FDggHX8P8XzLXDvLSbdsa3RDccS1
-	 7cwatQFT7VcZLZMSNJrrkpYd5Bd6I9casAWgQtFq+Z12/pQLLGNKn+dXHmFjsNt2l7
-	 jbM/8qLCj9ddg==
+	b=bluFErdDoT1p1kvqy8nVtxs6dhEO6vL8nX35BgvIVGlCrfLwzzHEMbrGZBiQ6owIh
+	 Ot3n3L829+DCY3MuVsnLdWj0HQU8923qBAINJCasc+qxCrtVO8bfXQZJpDIcvsKFD3
+	 aCindvI6fXgEVwJE/FmYUrxTDeI3hwFmelR/85PPNhXg0Lru63JBNHkT2esydUBywp
+	 4umP/i81WUQ3XrSOJyulZgbP2tFUzj+vgyfAossvCRXwOr1+rXD/nZ1Ayje5FUi66J
+	 uG64r+3zVFZRWEXOV06gcudclIbopy3CRJJjeoXD/IAdGQGc59WUGc7lZpSRAr5rzL
+	 xJMzVm0ULFgaA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>,
-	AutonomousCodeSecurity@microsoft.com,
-	Jens Axboe <axboe@kernel.dk>,
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Steven Rostedt <rostedt@goodmis.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] io_uring/cancel: don't spin on local work the task can't run
-Date: Thu, 22 Oct 2026 10:53:38 -0400
-Message-ID: <20261022145316.1675229-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/4] tracing: Use __free() for expr_str() buffer
+Date: Thu, 22 Oct 2026 10:53:35 -0400
+Message-ID: <20261022145315.1599452-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102128-glutton-blaming-7e9e@gregkh>
-References: <2026102128-glutton-blaming-7e9e@gregkh>
+In-Reply-To: <20261022145315.1599452-1-sashal@kernel.org>
+References: <2026102123-faceplate-shallow-02a0@gregkh>
+ <20261022145315.1599452-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,65 +62,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-[ Upstream commit fddcf4c5321b3ea5f72166c3fd36a9d1c34f80c7 ]
+[ Upstream commit 988995c0552b6213b6bf16cea57258d4842c1488 ]
 
-io_uring_cancel_generic() refuses to sleep while any ring on the exiting
-task's tctx has local work pending. It assumes the task is that ring's
-submitter and that the next io_uring_try_cancel_requests() pass will run
-the work. This does not hold for a ring that was still
-IORING_SETUP_R_DISABLED when the task got its tctx node from
-io_uring_create() or io_ringfd_register(). The submitter is set later by
-IORING_REGISTER_ENABLE_RINGS, possibly from another task, and only the
-submitter may run local work on an IORING_SETUP_DEFER_TASKRUN ring. To
-the exiting task the work stays pending forever, the loop never reaches
-schedule(), and the task trips the WARN_ON_ONCE() once and then spins in
-do_exit().
+expr_str() allocates a temporary expression buffer and manually frees it
+on some error paths.
 
-An unprivileged user can set this up at will by creating a disabled
-ring, having a child enable it and stop, posting to the ring with
-IORING_OP_MSG_RING and exiting with a request in flight that only the
-child can complete. The exiting thread burns a CPU until the child runs
-or dies, and with panic_on_warn set the WARN panics the kernel.
+Convert the buffer to __free(kfree) and return it with return_ptr() on
+success. This keeps ownership handling separate from the later ERR_PTR()
+conversion and string-bound change.
 
-Fix by skipping the sleep only when io_allowed_defer_tw_run() allows the
-task to run the work. This is reasonable since work it cannot run cannot
-complete any of its requests either, so nothing is lost by sleeping.
-Drop the WARN_ON_ONCE() since handing a disabled ring to another thread
-is a supported scenario, not a bug state.
-
-Fixes: 360cd42c4e95 ("io_uring: optimise io_req_local_work_add")
-Reported-by: AutonomousCodeSecurity@microsoft.com
-Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <cenzhang@linux.microsoft.com>
-Link: https://patch.msgid.link/20261008191602.45101-1-cenzhang@linux.microsoft.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[ sashal: replaced io_local_work_pending() with a direct !llist_empty() check on work_llist ]
+Link: https://patch.msgid.link/20260611055945.22348-2-pengpeng@iscas.ac.cn
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Stable-dep-of: a0777b9e5315 ("tracing: Fix NULL dereference when copying keys for a field variable")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- io_uring/io_uring.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ kernel/trace/trace_events_hist.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
-index d4973d0d4e434..e74f49546961f 100644
---- a/io_uring/io_uring.c
-+++ b/io_uring/io_uring.c
-@@ -3491,12 +3491,11 @@ __cold void io_uring_cancel_generic(bool cancel_all, struct io_sq_data *sqd)
- 		prepare_to_wait(&tctx->wait, &wait, TASK_INTERRUPTIBLE);
- 		io_run_task_work();
- 		io_uring_drop_tctx_refs(current);
-+		/* only skip the sleep for local work this task may run */
- 		xa_for_each(&tctx->xa, index, node) {
--			if (!llist_empty(&node->ctx->work_llist)) {
--				WARN_ON_ONCE(node->ctx->submitter_task &&
--					     node->ctx->submitter_task != current);
-+			if (!llist_empty(&node->ctx->work_llist) &&
-+			    io_allowed_defer_tw_run(node->ctx))
- 				goto end_wait;
--			}
- 		}
- 		/*
- 		 * If we've seen completions, retry without waiting. This
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index f2af4605c9894..96dd7cbe116fa 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -1736,7 +1736,7 @@ static void expr_field_str(struct hist_field *field, char *expr)
+ 
+ static char *expr_str(struct hist_field *field, unsigned int level)
+ {
+-	char *expr;
++	char *expr __free(kfree) = NULL;
+ 
+ 	if (level > 1)
+ 		return NULL;
+@@ -1747,7 +1747,7 @@ static char *expr_str(struct hist_field *field, unsigned int level)
+ 
+ 	if (!field->operands[0]) {
+ 		expr_field_str(field, expr);
+-		return expr;
++		return_ptr(expr);
+ 	}
+ 
+ 	if (field->operator == FIELD_OP_UNARY_MINUS) {
+@@ -1755,16 +1755,15 @@ static char *expr_str(struct hist_field *field, unsigned int level)
+ 
+ 		strcat(expr, "-(");
+ 		subexpr = expr_str(field->operands[0], ++level);
+-		if (!subexpr) {
+-			kfree(expr);
++		if (!subexpr)
+ 			return NULL;
+-		}
++
+ 		strcat(expr, subexpr);
+ 		strcat(expr, ")");
+ 
+ 		kfree(subexpr);
+ 
+-		return expr;
++		return_ptr(expr);
+ 	}
+ 
+ 	expr_field_str(field->operands[0], expr);
+@@ -1783,13 +1782,12 @@ static char *expr_str(struct hist_field *field, unsigned int level)
+ 		strcat(expr, "*");
+ 		break;
+ 	default:
+-		kfree(expr);
+ 		return NULL;
+ 	}
+ 
+ 	expr_field_str(field->operands[1], expr);
+ 
+-	return expr;
++	return_ptr(expr);
+ }
+ 
+ /*
 -- 
 2.53.0
 
