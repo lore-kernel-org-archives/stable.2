@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792668898;
-	b=riI5O3pFC/4WT0YSqPuEFY9mlCWtv9c/PX7nU9iC8rx3m5Pl+OJTQvLoD/cgB/InyscX
-	 CoNTfs85BUBxRJ11p50jTACRo/FR/zKyZ/ZqtF7eTp6l0YNB1Uw/clicJMxqIxAh4J2nj
-	 qfNqcw7BojvTBYXJB9niZHYfl4kXJvufcd7QfACUz8YPBLvMbIlEP9lAWGV9g64LkECzw
-	 9EqCJlqQ07PFAR6RmfsnqsIchwHJN76vEDf9Zvg2HlZ5/HHLHolsPHjyFROEKB5lBbpmD
-	 IUScDatCvzXXevODn09/IvstAuvqQH5zETcwt2ltF+i1Gg1BfS9vmYeKH/tliFMK4Yg==
+	t=1792668902;
+	b=ABGLTBHX9ggtn9Li6g4L/LaR7lGRkc+4kCSr0G+2Dtr7X9dZg6cjNsbD+nvT0RKRdtJM
+	 RDTNuOStNdwzgsEHauYsoprkVyDwmFMPBHoLNAMedem2C/LWfSYc4tiBE/e86ceYPtsiO
+	 B+8uneTj0bQ14/eGAyYJZ3UOMSobvPbWcQoREGmz0DzFLeETRQrggt/6hS5G8Ce9l4iGT
+	 X2yNrk9bPcBgaV/7w5SvfT/Rt1PkRb/bDdpcDeOGWVNUUAkfIgZRO50Yn4UkYieBhC4k2
+	 K3HMiq1oR0ucqyPqxtMOT5qkHEE7uzURXORSnAXai7CEnjEM0cUsA2t7igd8xjwsd0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792668898;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792668902;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=DNEPsw8H4peVGAfn1gU70bLlWJ3sDy0G5hioQLtIBHI=;
-	b=1/gOzLlBWYHdwDR654uuKP+NPtMyLXtWzdu1CV6LW6ohr/WKORDkzIgxErovTiApemGA
-	 Em35UraFas4K124AW3YVBr0W2lUckzl4DzEX+evX4lHtZzbvx97cfZfA0HnJIVZGuxd5w
-	 Gy2Ywh4sVOA9zD42NO1KnLNWcsUBkQLREP2f6X7TzdOd8VlAC6tIM9evWCUwhlHY4e6it
-	 LWgSmBZ/Lib2fs/AcCMxWPgBiNeL2HMXOPuOwOfE8kDSnrVv/H4+oeJWrShFGk7IYrovQ
-	 ndF/xauTu57KCyAW8Tr9njv6bFzhxDp9Y5g4XZja5RhFxUE0O8ZDwCaLiyQHo40Yb3Q==
+	bh=MIOkEkykK2VZw61H3IZg5UZiUCGJsR4FNDPUbCVuUug=;
+	b=gqoVojdpfCR3+gd3kXcg3y3XxhPyrsWDy2OoEXqqUUBMIAGbf9u4kJNq3mkmL23Z9HEO
+	 8iO2kOHOAlNSUXroa4l4zDaluTqMxVeSHgyTPJiQxlc6q269VOH/U4evvDcCgMHQNWY2b
+	 /M0abbrgToU3c1eHBJnk7RQxAWX1/eMgYd+beDS6BcSFYEPhbVYrhCZJmxZ/zZigdATKj
+	 iWPcMMBf8v6ie/C5tEk4GhdMLviUAFxK/0C8A8hi2k5TAMD152V7cd3wnnRrZn5zUksV0
+	 GT30S5hfZIfQWDfLovCGdIeLLjfqRCVPotBVL9OVA9u06AJzA49G6k+ucv0H80Vwlww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJCzJR96;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UZjiK4hb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED354606A31A
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 11:34:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D695606A31A
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 11:35:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJCzJR96
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB7FA1F000C1;
-	Thu, 22 Oct 2026 11:34:56 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UZjiK4hb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56BA91F000C1;
+	Thu, 22 Oct 2026 11:35:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792668897;
-	bh=DNEPsw8H4peVGAfn1gU70bLlWJ3sDy0G5hioQLtIBHI=;
+	s=k20260515; t=1792668902;
+	bh=MIOkEkykK2VZw61H3IZg5UZiUCGJsR4FNDPUbCVuUug=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZJCzJR96RAgbkhraL69dPa3ndL+4CXO+xQRPgmLJv2ocaZhZVRGdbAyPAE0vXwn4B
-	 gx0kHSzOU/QW9QGpHKdnaZEqcoPejteRso/3lBxnM0ptja0NbbdTbX649i0hnf4r/X
-	 Cia2Qt+V1qTtWeOhWAaQuibv7JByyAt6hm8emCisIQR3TkVXi6FUgEn+89lDnQV9c0
-	 sWgy0gePHhVzg7vBsIomjVonytGZ3UVwMeXuCQKPsUmjLASCaXJR2jKD7TQOIZWlHz
-	 NPTs8zh92XGo1zlb9jJt5xItRmjuNmfDDo5Vt9NuVJktrt4mezHZsOfe4a2ztplFxb
-	 Wzv9JN8NZlAXw==
+	b=UZjiK4hbIMnOaJaadmaYahrehUa11irIUYIeZSypvFNE1NEIz65AzV5qzOdEK+7Jb
+	 gw9kr+PAx3Lnrqft4wLlGKym9xPDssUoJhPfzbqv+5t0lQSok53vHmbV8/l0tPk8OS
+	 h74BZ37uCEyPdmVO5MzpogUQn9iSBQ2Qt5VPNYjQk2RTkmfH3CaZ6c/tnD8sefliai
+	 vzTIPrzcdmcKRaT+dN8qtza3ryODiddk8MXZzEZAS/eqaETHn1B0oy40KfTFlA1THy
+	 tjuo2wHHicp3v8vnwHQ0hXGVRCpgD7/vsGP3bHSlp9xVjcGJSXMD0N6y7rLuEqO2+K
+	 JxpWCXuEnxK8Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Hui Su <sh_def@163.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Tejun Heo <tj@kernel.org>,
+Cc: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>,
+	"Dae R. Jeong" <threeearcat@gmail.com>,
+	AutonomousCodeSecurity@microsoft.com,
+	Bradley Morgan <brads@mainlining.org>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] sched_ext: idle: Respect task affinity in restricted CPU selection
-Date: Thu, 22 Oct 2026 07:34:55 -0400
-Message-ID: <20261022113411.921725-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] watch_queue: Fix note pool publication race in watch_queue_set_size()
+Date: Thu, 22 Oct 2026 07:35:00 -0400
+Message-ID: <20261022113411.917463-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102136-landless-alienate-afa8@gregkh>
-References: <2026102136-landless-alienate-afa8@gregkh>
+In-Reply-To: <2026102127-refocus-parakeet-893f@gregkh>
+References: <2026102127-refocus-parakeet-893f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,118 +64,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hui Su <sh_def@163.com>
+From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
 
-[ Upstream commit 6ac4544eff796666ce6fbcc4be8181c81dfccc85 ]
+[ Upstream commit 5e531d62f1f8834faf7a4eed0d41105cf6570a8f ]
 
-The restricted select_cpu kfunc path handles single-CPU and
-migration-disabled tasks without going through scx_select_cpu_dfl().
+There is a race between watch_queue_set_size() and post_one_notification().
+watch_queue_set_size() publishes wqueue->notes, notes_bitmap, nr_pages and
+nr_notes with plain stores, and post_one_notification() reads them with
+plain loads under a different lock, so nothing orders the four stores
+against the poster's loads: depending on the build, notes can be stored
+last (gcc 14 on x86-64 does this).  Since keyctl_watch_key() lets a watch
+attach to a queue before it is sized, post_one_notification() can already
+be running on another CPU at that moment: it reads nr_notes > 0, passes
+its bounds check, and then reads notes while it is still NULL,
+dereferencing notes[0].
 
-It currently uses prev_cpu as the candidate, even though prev_cpu is only a
-hint and may no longer be usable after an affinity change. With a
-caller-provided @allowed mask, this can also return an idle CPU outside
-p->cpus_ptr.
+An unprivileged user triggers this reliably by watching one of its own
+keys through a notification pipe and racing ioctl(IOC_WATCH_QUEUE_SET_SIZE)
+on that pipe against keyctl(KEYCTL_SETPERM) on the key from another CPU,
+triggering:
 
-Derive the candidate from task state instead: use the sole CPU in
-p->cpus_ptr for single-CPU tasks and task_cpu(p) for migration-disabled
-tasks. Validate it against p->cpus_ptr and @allowed before claiming its
-idle state.
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:post_one_notification.isra.0+0xa2/0x1e0
+  Call Trace:
+   __post_watch_notification+0x148/0x180
+   keyctl_setperm_key+0x119/0x130
+   do_syscall_64+0x108/0x4c0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  Kernel panic - not syncing: Fatal exception in interrupt
 
-Since the derived candidate may be on a different NUMA node from
-prev_cpu, also preserve SCX_PICK_IDLE_IN_NODE by rejecting cross-node
-candidates.
+Fix this by publishing nr_notes last with smp_store_release(), and by
+reading it once with smp_load_acquire() in post_one_notification() before
+the bitmap and the page array are touched.  A poster that observes a
+non-zero nr_notes then also observes the pool behind it; one that observes
+zero drops the notification as before.
 
-Perform all checks before scx_idle_test_and_clear_cpu(), as a successful
-call consumes the CPU's idle bit.
-
-Fixes: 683d2d0faba1 ("sched_ext: idle: Introduce scx_bpf_select_cpu_and()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hui Su <sh_def@163.com>
-Reviewed-by: Andrea Righi <arighi@nvidia.com>
-Signed-off-by: Tejun Heo <tj@kernel.org>
-[ sashal: Adjusted declaration context to retain rq and rf for the existing task_rq_lock() locking. ]
+Fixes: c73be61cede5 ("pipe: Add general notification queue support")
+Reported-by: Dae R. Jeong <threeearcat@gmail.com>
+Closes: https://lore.kernel.org/all/ZT-S8Q7tyutcvu_q@dragonet/
+Reported-by: AutonomousCodeSecurity@microsoft.com
+Suggested-by: Dae R. Jeong <threeearcat@gmail.com>
+Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
+Link: https://patch.msgid.link/20261009224715.46121-1-cenzhang@linux.microsoft.com
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: retained the existing mask variable when adding nr_notes to the local declaration ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/sched/ext_idle.c | 50 ++++++++++++++++++++++++++++++++---------
- 1 file changed, 39 insertions(+), 11 deletions(-)
+ kernel/watch_queue.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/kernel/sched/ext_idle.c b/kernel/sched/ext_idle.c
-index d16a1de078656..d2024279939de 100644
---- a/kernel/sched/ext_idle.c
-+++ b/kernel/sched/ext_idle.c
-@@ -889,12 +889,43 @@ static bool is_bpf_migration_disabled(const struct task_struct *p)
- 	return p->migration_disabled;
- }
+diff --git a/kernel/watch_queue.c b/kernel/watch_queue.c
+index 37da8647b4ecb..978c29b1fa427 100644
+--- a/kernel/watch_queue.c
++++ b/kernel/watch_queue.c
+@@ -102,7 +102,7 @@ static bool post_one_notification(struct watch_queue *wqueue,
+ 	struct pipe_inode_info *pipe = wqueue->pipe;
+ 	struct pipe_buffer *buf;
+ 	struct page *page;
+-	unsigned int head, tail, mask, note, offset, len;
++	unsigned int head, tail, mask, note, offset, len, nr_notes;
+ 	bool done = false;
  
-+static s32 select_cpu_restricted(struct task_struct *p, s32 prev_cpu,
-+				 const struct cpumask *allowed, u64 flags,
-+				 bool migration_disabled)
-+{
-+	s32 cpu;
-+
-+	if (migration_disabled)
-+		cpu = task_cpu(p);
-+	else
-+		cpu = cpumask_first(p->cpus_ptr);
-+
-+	if (!cpumask_test_cpu(cpu, p->cpus_ptr))
-+		return -EBUSY;
-+
-+	if (allowed && !cpumask_test_cpu(cpu, allowed))
-+		return -EBUSY;
-+
-+	if (flags & SCX_PICK_IDLE_IN_NODE) {
-+		int node = scx_cpu_node_if_enabled(prev_cpu);
-+
-+		if (scx_cpu_node_if_enabled(cpu) != node)
-+			return -EBUSY;
-+	}
-+
-+	if (!scx_idle_test_and_clear_cpu(cpu))
-+		return -EBUSY;
-+
-+	return cpu;
-+}
-+
- static s32 select_cpu_from_kfunc(struct scx_sched *sch, struct task_struct *p,
- 				 s32 prev_cpu, u64 wake_flags,
- 				 const struct cpumask *allowed, u64 flags)
- {
- 	struct rq *rq;
- 	struct rq_flags rf;
-+	bool migration_disabled;
- 	s32 cpu;
+ 	if (!pipe)
+@@ -116,8 +116,10 @@ static bool post_one_notification(struct watch_queue *wqueue,
+ 	if (pipe_full(head, tail, pipe->ring_size))
+ 		goto lost;
  
- 	if (!ops_cpu_valid(sch, prev_cpu, NULL))
-@@ -928,20 +959,17 @@ static s32 select_cpu_from_kfunc(struct scx_sched *sch, struct task_struct *p,
+-	note = find_first_bit(wqueue->notes_bitmap, wqueue->nr_notes);
+-	if (note >= wqueue->nr_notes)
++	/* Pairs with the smp_store_release() in watch_queue_set_size(). */
++	nr_notes = smp_load_acquire(&wqueue->nr_notes);
++	note = find_first_bit(wqueue->notes_bitmap, nr_notes);
++	if (note >= nr_notes)
+ 		goto lost;
  
- 	/*
- 	 * This may also be called from ops.enqueue(), so we need to handle
--	 * per-CPU tasks as well. For these tasks, we can skip all idle CPU
--	 * selection optimizations and simply check whether the previously
--	 * used CPU is idle and within the allowed cpumask.
-+	 * per-CPU tasks as well. For these tasks, skip general idle CPU
-+	 * selection and validate the task's only usable CPU directly.
- 	 */
--	if (p->nr_cpus_allowed == 1 || is_bpf_migration_disabled(p)) {
--		if (cpumask_test_cpu(prev_cpu, allowed ?: p->cpus_ptr) &&
--		    scx_idle_test_and_clear_cpu(prev_cpu))
--			cpu = prev_cpu;
--		else
--			cpu = -EBUSY;
--	} else {
-+	migration_disabled = is_bpf_migration_disabled(p);
-+
-+	if (p->nr_cpus_allowed == 1 || migration_disabled)
-+		cpu = select_cpu_restricted(p, prev_cpu, allowed, flags,
-+					    migration_disabled);
-+	else
- 		cpu = scx_select_cpu_dfl(p, prev_cpu, wake_flags,
- 					 allowed ?: p->cpus_ptr, flags);
--	}
+ 	page = wqueue->notes[note / WATCH_QUEUE_NOTES_PER_PAGE];
+@@ -305,7 +307,8 @@ long watch_queue_set_size(struct pipe_inode_info *pipe, unsigned int nr_notes)
+ 	wqueue->notes = pages;
+ 	wqueue->notes_bitmap = bitmap;
+ 	wqueue->nr_pages = nr_pages;
+-	wqueue->nr_notes = nr_notes;
++	/* Pairs with the smp_load_acquire() in post_one_notification(). */
++	smp_store_release(&wqueue->nr_notes, nr_notes);
+ 	return 0;
  
- 	if (scx_kf_allowed_if_unlocked())
- 		task_rq_unlock(rq, p, &rf);
+ error_p:
 -- 
 2.53.0
 
