@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792678146;
-	b=rTstl5jF5vWeRyY4EUDwswPEs8sKRGueQuKh/yK4/dvANtHV16Emb04Zv8vuBDUiS3pz
-	 hZ9Z7WxVO4pcpJP6V/XO09kRAcl0uKF8wLbzx/1xmuGZGnHPFDmdXTY5JNC5chfq6kjui
-	 voFL6T2a1U7MW0Lg++qtaC7r7/SCpnDzosfIR73BvpCMeY3cs9VM0mR+0PXEZoEfJoABx
-	 OU4v8dxEJm5C3BB/5rPKcerJ3ADHKoG9HyolI3Eor1Iy9BnboQhYSONGB3F2/2YJ0Xba+
-	 waTParYscD8iJb3BixMtpHVGXeNxer62xzV7lTJeRdasggwlQxGYE1LhKP92JhrnBVQ==
+	b=dXRHc0dwNJ22wYB2Mf872sR8Fi4FB36SNcjM1Fa2uPwjvp4gl05TKRaJ0WsuaAcLbeiB
+	 PUn3Hru60IxWgho+XYhDatoVLnEFvcsmHc+xavQ/B0aetjUcAY7RM6hdmUYvitDMbbZRg
+	 05Gwy/+h4M3QAqM6rppClYZCJjgIaATTPYEoz3aydNRsApV/KL28PAaoBqJggvNj77eou
+	 2fmclYBuaEKGR3jqBsJhxBT9Qdxj62VA4QBfenYnJ/mGXCKEFVvV5KnstMVwuut2MP6NN
+	 DxRyyWAerFE+t/0NlzkQTPJnzXuI23HrExZcI4Z+gJHNTYeUm8NzgbUYsRCbXDvXg8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792678146;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=aQs6I7ecl8kONrNGvwpS+WNzHfc4oeZkcTe0xW7iEn0=;
-	b=p3Bm0/wWDGR3xijh1vbrYUIxxt8Ja9+fx+rwtIur/qy8Kl9g3LrW1dNxs7OrZ8H5P45T
-	 fGWa4Rpu6V0W82mgZqAM9vSsMXCWMnq9mEwYExtR+HCowCGlQEkusjY7Jh5tGGS60300P
-	 9OgjsX3O144OfJWPh6q6/RcN3AsmYS1xAdQd7jHOolF1xi9Epy24uhiP42tffr8k+lx3V
-	 Gl0PMIfOojXtWIJryPmGfEh59/ifFMZ343954L+Kozpo7WqTrfIyIL574KbAQtye8WAET
-	 MZt3v1/Sp+nf3Vrat+dINobaOvYSLsix9/ADQmdpQjqoG76wNKw9JSe1kd1yk/8I4qQ==
+	bh=Des9Er5fxTgJUhI8uLjnrvM3lsEQs8KbQboamZltPyo=;
+	b=pl6p3LU69oI8lNfLo74D5wZga9JMqnHSfMva+8/0eQ0WTYYhwFxEvdgfvP5DiScix1/i
+	 u3GhDTeUcDkWYuN2zvTP+XE5rY7HhlfHnizLqXCg3flfKPiF2l+F+2oCdbNkCrWikJ7Uk
+	 UkFSdL4fgvwU1HM6si3o1w0zJhc3W0U2XJzchASmOHLZSYnUVXMttO8gNY6p1Vu3J38fW
+	 rM29OktRbPCK4Nahx94q+0Cc7DjkGTrXvlIU1VvIV8YlYIf1+pAPloloSghb5rNKqowf5
+	 Rb6qBbtDjZXXs6uzw7pWhZp08qXm76bmqFu2+K2xsr/HDXSiuCPnlwbUaWLQEeBlwCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="P2m/JtWe";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zp9ND22n;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D6F606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3677606A32D
 	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:09:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P2m/JtWe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBDB21F000C3;
-	Thu, 22 Oct 2026 14:09:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zp9ND22n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 171D01F000C2;
+	Thu, 22 Oct 2026 14:09:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792678145;
-	bh=aQs6I7ecl8kONrNGvwpS+WNzHfc4oeZkcTe0xW7iEn0=;
+	bh=Des9Er5fxTgJUhI8uLjnrvM3lsEQs8KbQboamZltPyo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P2m/JtWes6T9jTDjZob8vFzYiAlRPuzHjjCZzd3Z7lDIH1MmPqSkoKlbDgHnTb5JE
-	 Dww0kRdRE8g+UzxZTq9jfRLjg0Qu71TI7BjjQtkncNLcSXXrDLcECXMLXzKT1SUKvH
-	 I3lAde7TaJRTBNSeM51/x7tAW/Ps10xnvDwqJnSzj6fND5gpYa49sSetukQc85V1ke
-	 94xRypMF9O0Bl3onKN2pKrEadmivdzC+B3fAKcGNuGmhLxPRp6u2CMrUIMWiZzVvyI
-	 Ti1c632necPwMVMVfNLwgGYeVpPXoZheRRruxXWdo1EzSY2WfE0YgGxMVr1MMFrOOm
-	 0B3k3JWvSaETA==
+	b=Zp9ND22nTfWZN2w66LHEej67NNtBgaNa0kS1bRYR6g65quRFwjsdVodl5+F0YKrSP
+	 dDU2j6gUIR4zHXHo5r7u0gH5lxwgQ2t8RWPXiCggwoqAlDwxuSzvhrntuoleDtSZkp
+	 oKxqY62HLf/M+mtaWg46Qm3PXl5Ij+qkULn/6g1WxBD5wyrrTiOw6tdsCvZskadF8Q
+	 XiGYQDlwP2ZYZUTvDsVzOcstYxvsY+ddcxNM5A8RYa9//UxBtHk25jcDxMzBk0i+n3
+	 m3ovmU4BSwOQ4cKH6jvto+ch7XszORJF0WraqOb5lyTo0JngZgWVEM83r/ubqRJhD5
+	 Ba5jJ/v082Erw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+Cc: Taeyang Lee <0wn@theori.io>,
 	Steven Rostedt <rostedt@goodmis.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 4/4] tracing: Fix NULL dereference when copying keys for a field variable
-Date: Thu, 22 Oct 2026 10:09:01 -0400
-Message-ID: <20261022140848.1513845-4-sashal@kernel.org>
+Subject: [PATCH 6.6.y] tracing: Keep the predicate limit separate from program capacity
+Date: Thu, 22 Oct 2026 10:09:03 -0400
+Message-ID: <20261022140850.1513412-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261022140848.1513845-1-sashal@kernel.org>
-References: <2026102122-sandy-lazy-aa40@gregkh>
- <20261022140848.1513845-1-sashal@kernel.org>
+In-Reply-To: <2026102144-unhappy-crafter-afa2@gregkh>
+References: <2026102144-unhappy-crafter-afa2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,73 +61,57 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+From: Taeyang Lee <0wn@theori.io>
 
-[ Upstream commit a0777b9e53157f1f6848a0fd0650f5465391ea81 ]
+[ Upstream commit 803aa6fc2dbea25ab9d3ed19eca1c96d0ab17445 ]
 
-In event_hist_trigger_parse() where it needs to create actions like
-"onmatch", it calls:
+predicate_parse() adds two to nr_preds to reserve the terminal TRUE
+and FALSE entries. It also uses that increased value as the limit for
+parsed predicates. If the initial count is smaller than the number
+actually parsed, the program can fill the allocation and subsequent
+accesses can go past its end.
 
-  event_hist_trigger_parse() {
-    create_actions() {
-      action_create() {
-        trace_action_create() {
-          trace_action_create_field_var() {
-            create_field_var_hist()
-
-Where create_field_var_hist() does a loop on the hist_data
-representing the keys. The issue is, if the keys uses one of the
-pseudo field types (like common_cpu), the hist_data field element
-will have NULL for its field member causing a NULL pointer
-dereference when accessing the key_field->field->name.
-
-  # echo 'hist:keys=common_cpu:ts0=common_timestamp.usecs' > \
-      events/sched/sched_waking/trigger
-  # echo 'my_synth u64 lat; int prio' > synthetic_events
-  # echo 'hist:keys=common_cpu:wakeup_lat=common_timestamp.usecs-$ts0:\
-      onmatch(sched.sched_waking).my_synth($wakeup_lat,prio)' > \
-      events/sched/sched_switch/trigger
-
-  KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
-  RIP: 0010:create_field_var_hist+0x771/0x1380
-  Call Trace:
-   trace_action_create_field_var+0x360/0x600
-   trace_action_create+0x393/0xe80
-   event_hist_trigger_parse+0x3e47/0x69e0
-   trigger_process_regex+0x1a6/0x250
-   event_trigger_write+0xce/0x160
-
-Instead of accessing it directly, use the proper handler
-expr_field_str() to get the name.
-
-The three previous patches are prerequisites: without them a .buckets
-key and a common_stacktrace key each render into a command that cannot
-be parsed back.
+Keep nr_preds as the predicate limit and use a separate value for the
+allocation size. This leaves space for both terminal entries and a
+zeroed entry when parsing stops at the limit.
 
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260914053443.981201-5-donggeunyoo.kernel@gmail.com
-Fixes: 02205a6752f2 ("tracing: Add support for 'field variables'")
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Assisted-by: Claude:claude-fable-5
+Fixes: 39f7c41c908b ("tracing/filters: Enable filtering a cpumask field by another cpumask")
+Link: https://patch.msgid.link/atELCd1XjKVhrkFL@Taeyangs-MacBook-Pro.local
+Signed-off-by: Taeyang Lee <0wn@theori.io>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+[ sashal: Adapted kzalloc_objs() allocation to kcalloc(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace_events_hist.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ kernel/trace/trace_events_filter.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 4f1c8dd3b83c3..8b210fc4746da 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -3060,7 +3060,7 @@ create_field_var_hist(struct hist_trigger_data *target_hist_data,
- 		key_field = hist_data->fields[i];
- 		if (!first)
- 			seq_buf_putc(&s, ',');
--		seq_buf_puts(&s, key_field->field->name);
-+		expr_field_str(key_field, &s);
- 		first = false;
- 	}
+diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
+index ada02ae893c20..cd89fbf2fb208 100644
+--- a/kernel/trace/trace_events_filter.c
++++ b/kernel/trace/trace_events_filter.c
+@@ -482,18 +482,17 @@ predicate_parse(const char *str, int nr_parens, int nr_preds,
+ 	int len;
+ 	int N = 0;
+ 	int i;
+-
+-	nr_preds += 2; /* For TRUE and FALSE */
++	int nr_preds_alloc = nr_preds + 2; /* For TRUE and FALSE */
  
+ 	op_stack = kmalloc_array(nr_parens, sizeof(*op_stack), GFP_KERNEL);
+ 	if (!op_stack)
+ 		return ERR_PTR(-ENOMEM);
+-	prog_stack = kcalloc(nr_preds, sizeof(*prog_stack), GFP_KERNEL);
++	prog_stack = kcalloc(nr_preds_alloc, sizeof(*prog_stack), GFP_KERNEL);
+ 	if (!prog_stack) {
+ 		parse_error(pe, -ENOMEM, 0);
+ 		goto out_free;
+ 	}
+-	inverts = kmalloc_array(nr_preds, sizeof(*inverts), GFP_KERNEL);
++	inverts = kmalloc_array(nr_preds_alloc, sizeof(*inverts), GFP_KERNEL);
+ 	if (!inverts) {
+ 		parse_error(pe, -ENOMEM, 0);
+ 		goto out_free;
 -- 
 2.53.0
 
