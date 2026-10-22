@@ -1,59 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792634653;
-	b=FjeIn3wLH6G7x8VJTKnfmD+/5BZefzwFYVnQDIrbQi+A+sIJKEou+Ym9AI9na3wMKCXD
-	 sMRfPCY/Y3e8iHoSWL9zi1t8qVBkfjYduwnoRys6bVwVQhnb29VPM2cGiKZJNmHqmpQpY
-	 DwESgiDHLeIlSvjBmWebDIFF5PlCtxD58zzR1GQC2XfUfkF0ty+hjCXvPWakGfvpaew08
-	 HI1xfsJusDooJ4E28k13WNvMa0Ca3fSSQ+xtvKccV2rFAWbZBRHlX54GwccHuFLeE2aAz
-	 Q1xoivSMLIhmNf5NWU5It9Fun2g77r3L0DQ+cBHhdn09noXPuIOo2UN0Pf2n2aGYHbQ==
+	t=1792634644;
+	b=Ozvn9S6T3PMtnp4YGH8MT91lfn8+upsjzWdg2BoxZdCuok2lqcCFCS02HUuzJeIeeGGS
+	 GLrqcSmNaLOXCxawQPaa3a6rC28wRejTpjR9NG22Rbym9rC7tl7ggMhfY9qS6kgnV3bXQ
+	 uIeqeR1uq9s5QiIiA4OCkkRdBK10eEZtiyM/N5WCtRVobhOyqWK7Q5Ly0FmZ4ca7xzrVk
+	 dkRKlrmDKRkELA1pBUFdub86Q45gJTY62pmpS6xnlNO/Vy9jyE1IquyOFM+TK/EHQIhRb
+	 gNPDPyvYzX4QgLrrgBX8UQ1Li+IN2WL/LI9UZ/dahpTuLFd3hvPbWuJMJQjNwa5JtnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792634653;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792634644;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=KUdiQc80QlWY1VQHz2hIXiVlw7ejVbPzSxf3xxM1f+w=;
-	b=g6YBqs39jfdQfnp3tO060oUpsEum28IUkSaU2eHLBvuFxJhGM/zgal2LXJIwIsGU7of9
-	 +GydhxsjUkMal6XQtnLI2QrcBIJHjkaucdzaeo76zq+TPG5V9MIFKYPmiePer+79oj8rR
-	 WW/MQO1X5uvnyfMayjlRVNF63T27SLn615UB6q0B5xCQLmYfbl9aKkzWpbszuCVhDyHf4
-	 eZmlGlHPKtmFJugvzKXvOZfIZFceHzkoW2l6ninRhRvQVDydvI+DEel5XjA4iBGTvsBxn
-	 q/b9JhdozJmBlNJ05BIzei/f4b3sGwgf6l2L6PyhUMFuCwRRZOKfAgxT5+o3JvS/tiQ==
+	bh=yHeb+TekU+XC5c27R+SykpXIanEQHAogCi6gSn+ipQI=;
+	b=N2EXjxhHYALCYUZ+YyY4qzXNUxnnXg+iIFj1d5X20r1Ln0vG8o8zgPQPRtT1ae7xCvaT
+	 xyyTeO2P9FlbQK1QXqDtqd4NO+6yRwMl/2bjfiZE9hbpB9GSqj+18CVN17Z6v73i+RFUe
+	 m3smetdReFb8CaHrXMEHUPHSTXgVPcCVhWvCE36KcUiNN/EBS7D+gtgO1s6om1A5mHwQu
+	 qlA2aY6S3GXkc2idBwI9mmF7RPksaYhD6pbI0sYSfsmo9cfFhurF8WZjIBzLlwFfJczgU
+	 r9X3hPXLmDCzKBDMrlBO0df9KowR6EnVxPwOjfFSKJyAWdwU0CmRzjv4UjmyOb398Ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GovDm2d+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kUW+4KbM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F65606A31A
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 02:04:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1B13606A31F
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 02:04:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GovDm2d+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 151F21F000C5;
-	Thu, 22 Oct 2026 02:04:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kUW+4KbM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A1091F000C4;
+	Thu, 22 Oct 2026 02:04:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792634652;
-	bh=KUdiQc80QlWY1VQHz2hIXiVlw7ejVbPzSxf3xxM1f+w=;
+	s=k20260515; t=1792634643;
+	bh=yHeb+TekU+XC5c27R+SykpXIanEQHAogCi6gSn+ipQI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GovDm2d+EmMXeO7cNN+5Cqycdo9ZObPJYfy1FrUVciLRNG/TZ89py8RzB65PonBMB
-	 O74b27jbVt9n+aOgYeO/5AB0Siwk425syQfVLSrJetdFZQ+bs13KgHg2tlJM00Ek99
-	 hymtGMKkDMwVn+6tYYJIIXjb4rCyVgPrFHj0+wLahFJt918ZBLpnQFQSsfBuE95+I1
-	 lRkNBNIxE3tACpWfaSwvjiS585dc7/gl7cDaU4Bm+J1vU5L7SoJITx3gK+nE12XO63
-	 xvbb1aQdpjzI2vEQPf5bWuSa+Zdn/spJTNHkckbuqnJuGaBP/XfDrZ5FkUhZpYTlbH
-	 bc3YctWjXIqOA==
+	b=kUW+4KbMsJvl/Yy6xfm+dhrElHuC4trD6BsY8YdaLEac0QG2XLOMm83NT3u49XHO+
+	 WLSYVFwEZtdWNnX86AX4c3g5DJ1YRh3oQCINTy2GPLshCTO9WvRXr+7tyxy6hVaPKI
+	 4uqtXugxr3ll5wU/Hr3JLJJAUrv3DvxsZcwme2z8hPJAbI00D5l/cJV+yoGrlGOpFv
+	 WMOUQSrw2bjeQrd7VFlZr6TbjDdAh3YxBUqEVpZwu2rZZqhEcx+s9Dy0UrkcTB/SS4
+	 OH1ib7rVVSZqSjcU33YP7eZ0yLXUvcW/H54zekZjhVwOQv2NXeGpXz7ZhGLNBYjRzF
+	 eFYDklqE7upxw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
 	Benjamin Robin <benjamin.robin@bootlin.com>,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Di Shen <di.shen@unisoc.com>,
-	Ling Xu <ling_ling.xu@unisoc.com>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
+	Stanislav Fomichev <sdf@google.com>,
+	syzbot+838346b979830606c854@syzkaller.appspotmail.com,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Martin KaFai Lau <martin.lau@kernel.org>,
 	"Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Subject: Re: [PATCH 5.15.y] OPP: Fix race between OPP addition and lookup
-Date: Wed, 21 Oct 2026 22:03:38 -0400
-Message-ID: <2026-10-21-1-daily-reply-0013-opp-add-lookup-race-5-15@kernel.org>
+Subject: Re: [PATCH 5.15.y] bpf: Add BPF_PROG_TYPE_CGROUP_SKB attach type enforcement in BPF_LINK_CREATE
+Date: Wed, 21 Oct 2026 22:03:30 -0400
+Message-ID: <2026-10-21-1-daily-reply-0005-cgroup-skb-link-create-5-15-bounce@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261020-cve-2026-74405-5-15-v1-1-d71668a66800@bootlin.com>
-References: <20261020-cve-2026-74405-5-15-v1-1-d71668a66800@bootlin.com>
+In-Reply-To: <20261020-cve-2024-38564-5-15-v1-1-9c9412a9c0a7@bootlin.com>
+References: <20261020-cve-2024-38564-5-15-v1-1-9c9412a9c0a7@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,10 +66,21 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> A race exists between dev_pm_opp_add_dynamic() and
-> dev_pm_opp_find_freq_exact():
+> Add missing attach_type enforcement for the link_create case.
+> Otherwise, it's currently possible to attach cgroup_skb prog
+> types to other cgroup hooks.
 
-Queued for 5.15, thanks.
+5.15 and 5.10 don't have this problem. link_create() there still has the
+check that 3505cb9fa26c ("bpf: Add attach_type checks under
+bpf_prog_attach_check_attach_type") removed in v6.6-rc1: it maps the
+attach type with attach_type_to_prog_type() and returns -EINVAL for an
+unspecified type or a prog->type mismatch. A cgroup_skb program
+therefore can't be attached to another cgroup hook, and the patch only
+moves bpf_prog_attach_check_attach_type() and adds a redundant check.
+
+The CVE's affected range comes from the Fixes: tag, af6eea57437a ("bpf:
+Implement bpf_link-based cgroup BPF program attachment"), which is
+inaccurate here.
 
 -- 
 Thanks,
