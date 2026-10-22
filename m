@@ -1,70 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792661584;
-	b=k0alQCtXTV25c5hP9ClWrNs1cD6fer6RglwwXAEPrdqOsLeNm5POPZNCYb35O5iQ16/J
-	 RGcjAHYb4jwdSHc7bSfbji5L43ICsc/3eFnCw4CIQ16sO9zQaw0fyEe18k12CA9tXHmDk
-	 kWrbhPTPy3+Q5uA20VVoaiiiE6cT0eK1TImIhdmpGgARHg9Dn8Ls4QQmQLapn2EsOsXIN
-	 /BeSLwSViF7nF3fQ39chpTt+OYkOSCAD7Ks2bzsopP20f6P7EGpehuApL8rHhP6SkVpPz
-	 wSZIaJqEK8Tut/H7/a8Byk3zhD8+e3Qyi/ert+obh/OrqAU9wM1Mwk+lin8ARmuwsrQ==
+	t=1792661951;
+	b=1J+u6sftvcW4TmqgXPBNx84kMvzeNXk4rkbAVVj1fK8tKEHfYEboWNucbfjdyj8XzZo4
+	 Mw9NCi9ZTOIoRVTGpgJVwE1tgIQBitK01hd03mPRsYffacsc30ZOwOQOJhdNsWlAqZvVH
+	 PILZZDJtqFtvCfCITvpXGjwzseulGn2X+SdoOeGK+PAuakANEw90FjQ0EYMOvojffbMob
+	 Vy4Sy5d2lhXU9ZQMr2gTl/Htorcg30cIKG0ld4+UeLM9tXSQMKiyj5oUnP0BRIaB+2NrV
+	 aHskaqT+T1tspUsANOknbvXg2F4myfDwT3LoWLtbNShJ035waYySVA3XXsxQc1a+2gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792661584;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=MNO86/vPNqNj1ipvoo0nLkf4S6QTI8ifhfqmHv8QTLc=;
-	b=RnKAW4WsNJPsZ/L6//4h9hVZ18+gZA7Z7aeZII10A1R0udnmg7Fq50c4Z2+fRkztVGQk
-	 6PfV554WWZRQ5L/mbd3xC3EX/02dNk2x0pnH56CZfD4bDOfk6077EA/gNzDrbINCCvXPh
-	 SjESOP1iSrNYNeuMlEkWI4b1bbYZF9nDc5orCNThVcSk/BTyT83QiZx55n1EX1ZS4H/aN
-	 cPO8/SH9tGWI6AzCiBd6NBdmuH4vH2//zulvtaIOkfYeY1+l7sqCB3Y3zc3z3++Cznpoa
-	 805sg3CdiAa/OLuUEkIcxEt9nmNRGfLth7FLWMu/AWVHnSnnKT8iaBW+qnnPDJDaUhw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792661951;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Rspamd-Queue-Id;
+	bh=n8VLqU8X1/rvJlMP8QTqyuejzFMpUVHeeiGzG9y9yC8=;
+	b=OjeGRTh+PyljnSf09RhQatTeQ2dsgpSYKFWDgxd7tJx9tJuythaul5Q4Gd594Bj9BANk
+	 Eeqy+ABEaJNQ5wvSivC5W7bFobOX6qjzz72u/yhY2KwKiXKjpLACwy/G3IoGLWJYAPBFt
+	 fFT9zRV//expdheGr0NdVv9ALGUM/vOYSEMCN63fUs4+urwB7XNwBRV7pFD589AZnIT0n
+	 KZOrbL/QnkhUBoJZwnH4aWRGql/ayc7if0s8wewcbuOhjyhqLAKiSchAApAT7XLjudKmT
+	 34WJCpHtOBEILd1TvI+9Mf2naujTeJYDRP5PcpUV3BwyhPINeuWSUrV7FQQUpN0KymQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=X0XWt5ef;
-	arc=none smtp.remote-ip=54.243.244.52
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=steffen.cc;
+	spf=pass smtp.mailfrom=steffen.cc;
+	dkim=pass header.d=steffen.cc header.i=@steffen.cc header.a=rsa-sha256 header.s=MBO0001 header.b=vnFKD6Zo;
+	arc=none smtp.remote-ip=80.241.56.151
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A93606A319;
-	Thu, 22 Oct 2026 09:32:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3A93606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69C9860A2622;
+	Thu, 22 Oct 2026 09:39:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69C9860A2622
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=steffen.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=steffen.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=X0XWt5ef
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1792661527;
-	bh=MNO86/vPNqNj1ipvoo0nLkf4S6QTI8ifhfqmHv8QTLc=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=X0XWt5efgrf16/36sevCEXi6yunRWAcucw825CKt1LPupt3ONBsTaYTaBeFVr46nF
-	 89oAuMdGdmfpwPnIHopjLBnWitATyAS260kcxADP7y1gA5HD7hpfTzF+oz3b2hO+8g
-	 EdOdBwcH6yUeyPJ/sArS0EdCAyGoVpZAn94dfhtU=
-X-QQ-mid: zesmtpsz4t1792661521tf8c4d186
-X-QQ-Originating-IP: dPy+WkuC9bdncRwOP6S9bDiBeHuFCmOE3cM24EOhmeQ=
-Received: from SW-U22IC-015.dc.com ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 22 Oct 2026 17:31:59 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 12619411188459355194
-EX-QQ-RecipientCnt: 8
-From: Peixin Xie <peixin.xie@linux.spacemit.com>
-To: sashal@kernel.org
-Cc: linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	patches@lists.linux.dev,
-	peixin.xie@linux.spacemit.com,
-	rafael.j.wysocki@intel.com,
-	rafael@kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18-6.1] ACPI: scan: Defer device power initialization
-Date: Thu, 22 Oct 2026 17:31:58 +0800
-Message-Id: <20261022093158.739937-1-peixin.xie@linux.spacemit.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261019135441.1420968-273-sashal@kernel.org>
-References: <20261019135441.1420968-273-sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=steffen.cc header.i=@steffen.cc header.a=rsa-sha256 header.s=MBO0001 header.b=vnFKD6Zo
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4j9Lh558qKz8v0b;
+	Thu, 22 Oct 2026 11:39:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=steffen.cc; s=MBO0001;
+	t=1792661941;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=n8VLqU8X1/rvJlMP8QTqyuejzFMpUVHeeiGzG9y9yC8=;
+	b=vnFKD6ZoZXIGOFHK4r+eYFOu5U8S1za/28aieN54KmhIDjzob0MeFMGcjieL5DKYaTz8MG
+	+tc5ksZVpwvMIrSoWEzHgphAnLrtWh8y2kLpOh83k0hqXXBkB5Za770LRPCBkDybUbBeaw
+	juB1SzZJVJxxX0rsgU15wQC3mHKlgalJeLZLf61lpzwNY4l9wAk8rE5CtS9OjaBLQbrqYR
+	d+dUJixtlkqB2PctOvkz/JYyNxwpaOUOrlHTwiSkRp0G9aJk6P2uNYq4yb8QOamSlCFg8E
+	sZ6jjAGJHXd3exFfktgiUb7u1n29RhntosvELNfQOci/KbIe6oDLNIvFPjCDlg==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of lists@steffen.cc designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=lists@steffen.cc
+From: Steffen Dirkwinkel <lists@steffen.cc>
+Date: Thu, 22 Oct 2026 11:38:46 +0200
+Subject: [PATCH RFC net 1/6] net: macb: take bp->lock around NCR
+ read-modify-writes
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,39 +68,132 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: OC9B+nDkeCKkI9jAP7HbmnP3PO7SHXtCwDR6cXqg+/YW6pEM8g68anKk
-	qROa5eHOEw7NRGKKuv/m0MV3VtfWAFoMKlmUl/HJsbP8XncOLyGbF7WjJbyVFZREGVMe6yj
-	SZuO1kO9EzfjiPwyVZlFA5eXV+UZL5zjhldM2YSB2LPfRI2J6a16VokQEH78aDS2kw6CWIY
-	QFfnwVgVDVmj7nKjnoWVHOVpW0notiuM1spT2Wgi6rwuva+VnHNcJkGgkmPii661KwtGdWX
-	uGjW+3RZ3kUTrQ+X2RxrtNX1Dj9HlnRTHB3XvHJD+zfsThqLuI5wR4vNa3cxyS8Vq04HUQp
-	/cUhz9ocmLC5O5p7B47t6v6rmpCZVobZ+1HLAyNgltFHBRp4HMyNpiPN5oHZSVoglrt7KGf
-	1XafMpJ1LzYe5fRspSkHyYj4jckuWAFiKNdFlzydI+H1AAvgoHHvwfcjVLL+NG3LfuWEVuV
-	/kzSod1Fgvk7Y19zxUjcyGF2xIe2w+S43wdIP6rgv994bj/oPmBaeW74KsN3IEh03oadhZb
-	I/jKr9PzcrYDIIz84mwvyLUnKbKguloTzGGrfCF9vumk0V2TEBvTcSfaMfrUFaqRo0OZ56O
-	+4W+1OUV7DnR+3Ye3CeAAXCY/BkImD6y/+LwSognyx4v7EEclMnW5RKQfXl3Vmmdd/jxxcq
-	bjZK0vtcL5LbbtkzmkNBZ8JMFtw4xpmyYdpFAP7orowQ+E1IIDv82LGYyWmurxK8UDZ1lSF
-	LcdyeW95WnqP5VHBpgKcVKUmtZgR1+Px99S/jIc+JVyDSxD01b3v3DxK3V81UiERDVETS+r
-	M/YvfNlIV6YOqMGc7hzuQXFVEadHCOg1YHSlb/N6NgDSvGCWfQysWrQIyGJr3snhO9/8u64
-	IU9RoDCXbBs3HWU45GNhH/Fyho/PYgf1+pwUOyOEsJoe4m2aOsVOID9ee88VijECXX+PWUN
-	SvLQUg0qIUjZOpsJ8UehPzhNygYIUlDe3MXWLFvnS+Dq3BoC1p3yGcFHuFD9o755U8zWISj
-	xlxzdFiSZ/FoNVV6BZGgBEdGwbQOjHpHvGO0Uy2VTkdC04cQSH+uUs6wFmoRN3dsROqf9hh
-	6+rNZb8M/jp
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
+Message-Id: <20261022-std-macb-v14-send-v1-1-9187bc545bf6@beckhoff.com>
+References: <20261022-std-macb-v14-send-v1-0-9187bc545bf6@beckhoff.com>
+In-Reply-To: <20261022-std-macb-v14-send-v1-0-9187bc545bf6@beckhoff.com>
+To: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Kevin Hao <haokexin@gmail.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Russell King <linux@armlinux.org.uk>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-rt-devel@lists.linux.dev, 
+ Christian Taedcke <christian.taedcke@weidmueller.com>, 
+ Nicolai Buchwitz <nb@tipi-net.de>, 
+ Andrea della Porta <andrea.porta@suse.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792661936; l=3510;
+ i=s.dirkwinkel@beckhoff.com; s=20260625; h=from:subject:message-id;
+ bh=JAFcJ/X0rEVHNId3QslLF0CCZGplzoClBUV8j/p/9fk=;
+ b=mReO/ATBuedMrogAYTppWW+7skEJ++GIjWGJaR2eRPRENi46qDxSf7JZc+pdRtu/FuWpPYA1E
+ gO05pO+HB+WBxz0hnBa0TNHvzQMzKpDLVqRmLcCCzFGb80xR3bp/IGh
+X-Developer-Key: i=s.dirkwinkel@beckhoff.com; a=ed25519;
+ pk=5DcsaSpVtmm7nCi3Bnw5A4vbXI+sg3hBgt8e2A2U/gw=
+X-Rspamd-Queue-Id: 4j9Lh558qKz8v0b
 
-Hi Sasha,
+From: Théo Lebrun <theo.lebrun@bootlin.com>
 
-Please drop this from AUTOSEL for all targeted stable branches.
+NCR is read-modify-written from many contexts:
 
-This patch has been reverted. And Rafael has started a new thread to
-discuss a replacement fix.
+ - macb_mac_link_down() clears RE|TE,
+ - macb_mac_link_up() sets RE|TE|PTPUNI,
+ - macb_hresp_error_task() clears then re-sets RE|TE,
+ - macb_start_xmit() / macb_tx_restart() / macb_tx_error_task() set
+   TSTART (already under bp->lock),
+ - macb_interrupt() might toggle RE (also under bp->lock).
 
-Link:
-https://lore.kernel.org/lkml/6029658.DvuYhMxLoT@rafael.j.wysocki/
-https://lore.kernel.org/lkml/6044499.DvuYhMxLoT@rafael.j.wysocki/
+The first three risk concurrent RMW with anyone from the list as they
+don't grab bp->lock.
 
-Thanks,
-Peixin
+Theoretical bugfix only, it has never reproduced on hardware. Also note
+it does *not* take the lock hoping to protect against full races
+inbetween BH scheduling concurrently. We only want to ensure consistent
+NCR RMW operations.
+
+Fixes: 7897b071ac3b ("net: macb: convert to phylink")
+Cc: stable@vger.kernel.org
+Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+---
+ drivers/net/ethernet/cadence/macb_main.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index 261a7e87520a..4b5037867537 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -777,6 +777,7 @@ static void macb_mac_link_down(struct phylink_config *config, unsigned int mode,
+ 	struct net_device *netdev = to_net_dev(config->dev);
+ 	struct macb *bp = netdev_priv(netdev);
+ 	struct macb_queue *queue;
++	unsigned long flags;
+ 	unsigned int q;
+ 	u32 ctrl;
+ 
+@@ -786,8 +787,10 @@ static void macb_mac_link_down(struct phylink_config *config, unsigned int mode,
+ 				     bp->rx_intr_mask | MACB_TX_INT_FLAGS | MACB_BIT(HRESP));
+ 
+ 	/* Disable Rx and Tx */
++	spin_lock_irqsave(&bp->lock, flags);
+ 	ctrl = macb_readl(bp, NCR) & ~(MACB_BIT(RE) | MACB_BIT(TE));
+ 	macb_writel(bp, NCR, ctrl);
++	spin_unlock_irqrestore(&bp->lock, flags);
+ 
+ 	netif_tx_stop_all_queues(netdev);
+ }
+@@ -940,11 +943,13 @@ static void macb_mac_link_up(struct phylink_config *config,
+ 	}
+ 
+ 	/* Enable Rx and Tx; Enable PTP unicast */
++	spin_lock_irqsave(&bp->lock, flags);
+ 	ctrl = macb_readl(bp, NCR);
+ 	if (gem_has_ptp(bp))
+ 		ctrl |= MACB_BIT(PTPUNI);
+ 
+ 	macb_writel(bp, NCR, ctrl | MACB_BIT(RE) | MACB_BIT(TE));
++	spin_unlock_irqrestore(&bp->lock, flags);
+ 
+ 	netif_tx_wake_all_queues(netdev);
+ }
+@@ -1995,6 +2000,7 @@ static void macb_hresp_error_task(struct work_struct *work)
+ 	struct macb *bp = from_work(bp, work, hresp_err_bh_work);
+ 	struct net_device *netdev = bp->netdev;
+ 	struct macb_queue *queue;
++	unsigned long flags;
+ 	unsigned int q;
+ 	u32 ctrl;
+ 
+@@ -2003,9 +2009,11 @@ static void macb_hresp_error_task(struct work_struct *work)
+ 					 MACB_TX_INT_FLAGS |
+ 					 MACB_BIT(HRESP));
+ 	}
++	spin_lock_irqsave(&bp->lock, flags);
+ 	ctrl = macb_readl(bp, NCR);
+ 	ctrl &= ~(MACB_BIT(RE) | MACB_BIT(TE));
+ 	macb_writel(bp, NCR, ctrl);
++	spin_unlock_irqrestore(&bp->lock, flags);
+ 
+ 	netif_tx_stop_all_queues(netdev);
+ 	netif_carrier_off(netdev);
+@@ -2022,8 +2030,10 @@ static void macb_hresp_error_task(struct work_struct *work)
+ 			     MACB_TX_INT_FLAGS |
+ 			     MACB_BIT(HRESP));
+ 
+-	ctrl |= MACB_BIT(RE) | MACB_BIT(TE);
+-	macb_writel(bp, NCR, ctrl);
++	spin_lock_irqsave(&bp->lock, flags);
++	ctrl = MACB_BIT(RE) | MACB_BIT(TE);
++	macb_writel(bp, NCR, macb_readl(bp, NCR) | ctrl);
++	spin_unlock_irqrestore(&bp->lock, flags);
+ 
+ 	netif_carrier_on(netdev);
+ 	netif_tx_start_all_queues(netdev);
+
+-- 
+2.56.0
+
