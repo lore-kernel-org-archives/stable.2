@@ -1,94 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792687724;
-	b=1mTEL5wxT5qiFtj+sZ5fa/N6PiZ7/tiGAcaTyDsLMPqdc2lc0lbNesqtle+f+rRPV8wX
-	 ayM3oXZxgsyN4EkDYA39a2bjByau8aFLGAXDTa2d7JduMmwt0PRHo2kLBuNWaJqt7sf0J
-	 1IzPHeUKPSrdz5VbfpcEiAKzo/sag7Pe3fI/andTnz/GbeQLASxTp7fgjaBA6qPcTmb4k
-	 PVcyY2JJ913NYdj4PDfxSUjKn8FbmeCqZ7UkFy667T4ZvNAVQVRgzJqDufmn17xR/xpI/
-	 oXu4Z3rJMrbKNIXid8vDMTgvm5HwRT1r7FUiQqCK9097U9Q+4U65V2NkxlzBnJjWkXw==
+	t=1792687996;
+	b=ltkCK2WlffWQrha7Wj1EsVHbC6r5BXLIRBAPJM9qm9ZfWOCVO1xUoh5p6kJKLZ+sg2nZ
+	 orvAq39aZifuOg5ifB306e7MQ9+dElPag9miUvZYXiAPBoSgkEb5VLjtKa9mj5X1yIOLt
+	 jm1aaXeoQ8b/UjrwmQ44j5fsv0QGxsgTCVEWrwnocrdoV1fKtxKYfhuohIlcB0Re+RPyE
+	 vI0mrhL73bOWQxqaHoGnrWAnPcXfT4mwXl6X1ofktZZq9kn7GDAnK7DN5Pho5bNq/qacB
+	 Ba7O6OtALhXjn92f8S6+b5iWkSht+KGbCxwn31p52nZ6iccGWXWbNbWLfZtY6vQAO0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792687724;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=L5gpcAyhzAcYS4mCGlD4C+brljL9UYG+ePFjh70n9DQ=;
-	b=uITL5uppQwTRJOCGrLeuq/oUvFz3AocqlTW/KNqh3AzUjxLbtct3eGdILU5O4uOu6fdG
-	 7mhmRH74GgWYxMmMXud890w0bKwFuISapG8jqVvq7NLor6slXR9ToD+ogb2a4KOt4t4u5
-	 rK8fXuC80GDoMOX4amgFza06gqDcnexT+jUwbN1+p/432mA6ryy9j2mMpB9kokxyGfr1T
-	 IXyv3ojOJPOJdzdkNk4AbA1RXESGcKLSqadXzYSYMI6y0TBjLZXZrAzrwmcCrFAcbirff
-	 JDmtiIHuV6SY8YNvD3L3KuxzsYVr6IHU3Dj8Nc7qSqkooK5/O+A0ITQGSphA/i2Al1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792687996;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=RnjTwDdPL27OkjVG+9TQeoWZzi+3hlrocYUpqRLD/jM=;
+	b=2PdNycjv6TTljQFiNyhDxAYAMy1rsM9HhzKS3EH2+gEVGZMfIFEP8Pud+2kwsybAVk8A
+	 GNpgAkeBckfzmhS7FPw2DQSI4TDgdBChVt/e7g8m6Z69zWSPRxbwo3/AQO7pcpDvKv7xC
+	 ly0wIN7/dvEqLJxaTkSC3UdAFFx+0nK8zELi1yqkwKsVtG9ZXBwsC4wcDyA7u4Ij06sGW
+	 qn6ae95Ukfh81X0MOO0cOGmMzA8sIVtyaWj9gr/yDKX/xaiTpaDL7/tPbyZ9Pqe2KVC1g
+	 T9OigWveE0NdNLW95a5nZbl5ZmT0QgM2KsEVrRG8sFNORNZdVqF6bjF0wYLykud4Rlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XKqWfPwQ;
-	arc=none smtp.remote-ip=209.85.160.43
-Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com [209.85.160.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dx5Ttdm1;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC39D606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 16:48:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC39D606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E866B606A31A;
+	Thu, 22 Oct 2026 16:53:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E866B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XKqWfPwQ
-Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-48ed188ee81so26026fac.1
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 09:48:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792687723; x=1793292523; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=L5gpcAyhzAcYS4mCGlD4C+brljL9UYG+ePFjh70n9DQ=;
-        b=XKqWfPwQwhBLd0T/rRASHp9ltDnZA96tszZHsqD7eFQFA4W54ukwqFDr/7tUSTyDHP
-         MAa9jYh5KknLWSBzuMv9GxaNeKQaUmhi/zo9yu8ivwF5KWvilBORwW66A+PjljTLhhMV
-         VbC/RVQYlTfMC47M18mJCS794RCXJwkJKniepbbfS9nYQolNPKmoDElhhX8ae+62p7lf
-         n/rMEbn1DHQNYJe2DNZbDwTsAKplaTFwvSSyn/5lYUX8mVNPx8c/LrboRpcbVv91Dzav
-         jHpWM4raIz+CMc9ItTcHJfHAtKeLuapABX/RXa5OLgb3XAt0025/Bh9z2GXVS+XwOhKp
-         LhTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792687723; x=1793292523;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=L5gpcAyhzAcYS4mCGlD4C+brljL9UYG+ePFjh70n9DQ=;
-        b=h0Q9Yk5i3Zt5ZHk1DJbe3KOUxzgXq43cnWkYSkT/EO8OYFZIv3Y48bi17REDbMkh3N
-         pj2zdzT/d6MiFQI+YM2YvTHiHtjLUG5QjyTVfH2mf/gNISK/wPZDG9ioS4L3Errbs3NA
-         ULABPj8Elhu4QzEkZOJ+H3cX81zGGFcT+tw625UJ4rQT3kpkWbJatnaV6ifhBqKjknzz
-         w84+Mr8DMmK1/ZeNvkSMpGPSZSPkDy6CQzmaYWFfPwXiOEaYMgVXS/hIXcJxVCKYn2BS
-         P/TAiWIlFI5dKfQI47i+hJgPAfES1cSDSjNVNAQ5gkp4TMWpygHLKAFkpMIRsxLbaa2D
-         bDOw==
-X-Forwarded-Encrypted: i=1; AKwUvBzMMueJFE8EQOIeCSv12bPGVjoDnUm/TuRoKuJexBhPRugoEpJlda60ueDUoAsTKKkUvJ2UHTU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIyiYei7GAISOQR8nbQBFarSq7peGAaleO99+xB3KyXnPYVo3n1
-	Ox6kGkJp4E7MGXeWrYcG0TrhIdWo8kh0uYCd0VZu7POGODmX0kicY9K+
-X-Gm-Gg: AYBFou3Xqn+52p8dXrV24GFlazYrvHCJbsDS2KExXSH/XdGb4OCGxAQvkz3WTYbSpWF
-	+eyZFVpfJ9fQkA4SN5EHVd3l3Q05bUyehMPQJd0cjHKaLG2mPIHbnbDv7b5rk+rURC0tgL6XfUi
-	1GfzhUs1frEuLZOrUdyNa6Gu1dn2v0M+ZXslKe9fetjpbZVBQJbROMF3sTXHQa+F7uMcg4ni7J2
-	OOljWMIUy5RsT+eXiNFQs6Zy/n4FMqYY4rGbfquwr5sjWpMNpFTrJ4c234XbQ3jsmTIjSQIslxO
-	VRzLOYIODYRTc446R6E+bHs2a6BcBiO8pXtFBbNuA1SA6ETs2//f6i2Jtg2bGd4pJaEU0KtJMCK
-	9CWNk7KZRuwlEaJcExNZCMTMF4DkqzJwouQpOH5nlCGZVy9WDFzaBlHrw7gbhEVRzxzKenp08tI
-	nN7nCXdTbXlLpKPVjuCbr+QJPwXKhGPk2m9ri+ZkMZY9x9yjJqlWUWIWTlz7W8CFOOMP4I+AZlV
-	yY16w0wrBzMlm6bYLmDqABK8/lifVY9SwSJa/D9ATzCwyz2rLTdhUpipq9Ahr6VjmaQ5g==
-X-Received: by 2002:a05:6871:d205:b0:49d:ff8c:2070 with SMTP id 586e51a60fabf-4a7dc2d1b0bmr3362636fac.62.1792687722878;
-        Thu, 22 Oct 2026 09:48:42 -0700 (PDT)
-Received: from localhost.localdomain ([192.63.62.92])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a7d616e848sm4937676fac.7.2026.10.22.09.48.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 09:48:42 -0700 (PDT)
-From: Jorge Mora <jmora1300@gmail.com>
-X-Google-Original-From: Jorge Mora <mora@netapp.com>
-To: Jorge.Mora@netapp.com,
-	jorge_luis_mora@yahoo.com
-Cc: Jorge Mora <mora@netapp.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] NFSv4/flexfiles: calculate stripe boundaries from the file offset
-Date: Thu, 22 Oct 2026 10:48:25 -0600
-Message-Id: <20261022164826.38125-2-mora@netapp.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-145)
-In-Reply-To: <20261022164826.38125-1-mora@netapp.com>
-References: <20261022164826.38125-1-mora@netapp.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dx5Ttdm1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792687995; x=1824223995;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=apdNtBYS9jQOXfTQEStHFo+xPC6oHGEMoFVfhkq3zl4=;
+  b=dx5Ttdm1H3T1LhAzZ2JyvQLOKAbg/2NmvHIGiw5mmNDUVpjVwwGv4sZ0
+   zT3KaiwjO0QuI10tVSyqBDcBtjtLx4alU7a0J9NmMmWQDtqw7TeLs4rrw
+   sb7R1HYTqkjn8AB/pngK+z3ueZIaLYK/EeNrJ3br5MiattiM5WQgR/ON+
+   m7mmHBvqpg/CD8nEIrZ5z7J1NWJTlwjYldKxlccVfl4cXu3hYfSEZ7PGe
+   r8a37U7UjhJYKBzn6euaMxkCR5XndSoS8ahZUH97ihI62m4NtVtJBm9eV
+   kBUHGZVfxoyAUC64eWHlA1XbMuxYSSzlWnbMHylDJHb3XQ0bINQ+nVFfP
+   g==;
+X-CSE-ConnectionGUID: xSVZM/IYTQGZvWKxy6bN+A==
+X-CSE-MsgGUID: yxQN4dhuRn+FzZxDluy4zg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1456456"
+X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
+   d="scan'208";a="1456456"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 09:53:14 -0700
+X-CSE-ConnectionGUID: FmLqOjvvQi+F4RF4oLFx+Q==
+X-CSE-MsgGUID: t6Hx7mIGQEitWksXE5gsaQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
+   d="scan'208";a="3799455"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.189])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 09:53:12 -0700
+Date: Thu, 22 Oct 2026 19:53:09 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jan Remes <ciakval@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Joe Sandom <joe.g.sandom@gmail.com>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Jan Remes <jan.remes@mycroftmind.com>,
+	stable@vger.kernel.org,
+	Martin Triska <martin.triska@mycroftmind.com>
+Subject: Re: [PATCH v3 1/4] iio: light: tsl2591: don't divide by zero
+Message-ID: <ato_dUykpQ7__roU@ashevche-desk.local>
+References: <20261022-first-patch-v3-0-b792e89a429a@mycroftmind.com>
+ <20261022-first-patch-v3-1-b792e89a429a@mycroftmind.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,75 +85,22 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022-first-patch-v3-1-b792e89a429a@mycroftmind.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-ff_layout_pg_test() subtracted the layout segment offset when splitting
-I/O across stripes. Device selection in nfs4_ff_layout_calc_dss_id()
-uses the absolute file offset, which is also how RFC 8435 sparse
-layouts number stripes.
+On Thu, Oct 22, 2026 at 01:53:57PM +0200, Jan Remes wrote:
 
-A LAYOUTGET reply that starts off a stripe boundary therefore moves the
-clipping point while the data server is still chosen from the file
-offset. After a data-server error, a direct write that crosses a stripe
-is joined and resent past the real boundary, and a later read of that
-range is not split.
+...
 
-Clip with the same file offset used to select the data server. The
-segment offset remains the covered byte range; pnfs_generic_pg_test()
-already limits coalescing to that range.
+> Assisted-by: LLM
 
-Fixes: 4934ccbeaed3 ("NFSv4/flexfiles: Read path updates for striped layouts")
-Cc: stable@vger.kernel.org
+Kill this tag everywhere in your patches.
 
-Signed-off-by: Jorge Mora <mora@netapp.com>
----
- fs/nfs/flexfilelayout/flexfilelayout.c | 18 +++++++++++-------
- 1 file changed, 11 insertions(+), 7 deletions(-)
-
-diff --git a/fs/nfs/flexfilelayout/flexfilelayout.c b/fs/nfs/flexfilelayout/flexfilelayout.c
-index 7fe8b91fa..09d44de26 100644
---- a/fs/nfs/flexfilelayout/flexfilelayout.c
-+++ b/fs/nfs/flexfilelayout/flexfilelayout.c
-@@ -996,7 +996,6 @@ ff_layout_pg_test(struct nfs_pageio_descriptor *pgio, struct nfs_page *prev,
- 	unsigned int size;
- 	u64 p_stripe, r_stripe;
- 	u32 stripe_offset;
--	u64 segment_offset = pgio->pg_lseg->pls_range.offset;
- 	u32 stripe_unit = FF_LAYOUT_LSEG(pgio->pg_lseg)->stripe_unit;
- 
- 	/* calls nfs_generic_pg_test */
-@@ -1006,10 +1005,17 @@ ff_layout_pg_test(struct nfs_pageio_descriptor *pgio, struct nfs_page *prev,
- 	else if (!ff_layout_lseg_is_striped(FF_LAYOUT_LSEG(pgio->pg_lseg)))
- 		return size;
- 
--	/* see if req and prev are in the same stripe */
-+	/*
-+	 * Sparse flexfiles stripes by logical file offset, the same value
-+	 * nfs4_ff_layout_calc_dss_id() uses to choose a data server. The
-+	 * layout segment offset is only the covered byte range.
-+	 * pnfs_generic_pg_test() already stops coalescing at the end of it.
-+	 * Subtracting that offset here shifts the stripe phase whenever a
-+	 * LAYOUTGET reply starts off a stripe boundary.
-+	 */
- 	if (prev) {
--		p_stripe = (u64)req_offset(prev) - segment_offset;
--		r_stripe = (u64)req_offset(req) - segment_offset;
-+		p_stripe = req_offset(prev);
-+		r_stripe = req_offset(req);
- 		do_div(p_stripe, stripe_unit);
- 		do_div(r_stripe, stripe_unit);
- 
-@@ -1018,9 +1024,7 @@ ff_layout_pg_test(struct nfs_pageio_descriptor *pgio, struct nfs_page *prev,
- 	}
- 
- 	/* calculate remaining bytes in the current stripe */
--	div_u64_rem((u64)req_offset(req) - segment_offset,
--			stripe_unit,
--			&stripe_offset);
-+	div_u64_rem(req_offset(req), stripe_unit, &stripe_offset);
- 	WARN_ON_ONCE(stripe_offset > stripe_unit);
- 	if (stripe_offset >= stripe_unit)
- 		return 0;
 -- 
-2.52.0
+With Best Regards,
+Andy Shevchenko
+
 
