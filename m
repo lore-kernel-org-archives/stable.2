@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792676565;
-	b=t4XURo2SwG5OYeTtePUe+n55wSuGh5Wf3duG1qNB9AuHiL0gafHSsOQ/FZ6hIuVSvJRQ
-	 oxAKWyBhtFuzjtSUoXrrPAAH4JQAN+d8X396Ipp8ET5np7Q4DKQqW8kb0EaFRBXO3t2Zd
-	 4Mc4FofrMCqqhg82vCPIcClB1drEXKe8Mn2efP/MUHEJB92419TRMamNemSV7zAjXbCEz
-	 2lRCRY3a3GZM/APPHcxuSuCYmn3mCD/wFnROrW3KT/7ULIba0LghiVVFUgq+cyAGAyVpd
-	 3dj+Sh2MM+QQINPH61lumc6a0ukVM6w+0W+zKdIddJ9omNBX+YO9/5l7tXroCuNmB+Q==
+	b=cx65ekco03jxgxJupNLNj5J8q99xuO3HOan8HLbyMVWFVl/LNPSHyXSNz/46xfdbwvsP
+	 da01wRnnlyN2+YiHDqf3IQ43pH3rTkkcIoyF2wmFLpc53y0KRH8oIJQo8cuMUDogVtgKx
+	 6DhVtGfoALMnrcEQUhDx+Eo0mfekaXThyB++XDznQdvDQhNCXG1+3oWqI5iWPSYlUs9IN
+	 FaldwrLM68Z8v/wM2BYHc2KYWESM9sVf8GsGRgNUvl19DmYM0EtzJnulocdEQGpdNsg50
+	 TenGQnUqmTmEq4OhWnjFjRQe0eLdtTgGr4wjyA3bO4o1zr0My9qwbbIk6hOi1VUn0Yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792676565;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=YmIclGySJ9hBWuStNof5v4e1D7qYVK7xk32MmCNoaC0=;
-	b=INr0oD2h0n148l5rw/wjXf7LgzWORwJLEO155RB4S13VgNfMYqVQnTZBiSfUmmKUoDUS
-	 PpyM+E2cuNKTuLm9GWDZWxIwLFMjEz4Yi6ZgwR0TLJMYnOSQQ32JkIwFvmjcsBgPFG2AS
-	 6pkSH9XXz9/QRIJ0HhoGmbD1AACeqbr0+R5tjVQk2XUHq9Rgl/CEfgOyEcANQcsLdAmm8
-	 gcGkLjuuvDGyRVi4EDexRJodQ1UlRGKMR5QYIDqLTU40KoWKDL3Ol5ELsydRz0Sp1/F0i
-	 4hXksnNa6gP+eQL4sOsc3wMCcMm/jn+OeFoRcp34XgdWJxBUa4gsCPUjJMVr7ZdIVzA==
+	bh=2GAd8m/l11foSieKPTENM3i7SGZJRwXocA4LYYbz/iA=;
+	b=kFk57mSv6ah9IOPZPfFw9Qhu4NPutXQGfAWr2lcGuMR6CFmagZdQdMQERa+0qmtVlLP4
+	 RHNJhYVdmfjMs2vD/2aeGDqQ6uQqSb4lVczQSCO1GrkxQdDkAgSSbNMCZeNTxmiVGCClz
+	 lzwTIaIWbyM59L2G7y0l1Ed9WOHEVo9Mk0ItSQqoiFnkgN3ZXjh3rKs81TDNucRBKuaid
+	 lM7lanAjpJzTHSlMQDcR9PZ87FQ4OOskbUp6Qd3YRrgzQMp1kdbvV1lekBrJYsPGvErm/
+	 OTa0B8iuMKtu0UVaxKokruGLBMHFwzirdTOIo2PWcfKGE3RjiiPMBPV4nF/16zZzM8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mrvnOOSv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HeMqTXyk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17837606A323
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 13:42:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A36B360A262D
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 13:42:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mrvnOOSv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DF961F000C3;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HeMqTXyk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA36E1F000C4;
 	Thu, 22 Oct 2026 13:42:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792676564;
-	bh=YmIclGySJ9hBWuStNof5v4e1D7qYVK7xk32MmCNoaC0=;
+	s=k20260515; t=1792676565;
+	bh=2GAd8m/l11foSieKPTENM3i7SGZJRwXocA4LYYbz/iA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mrvnOOSvqKwckGXiWojYOkSaWpd5PfidQsI48izPA47siyl1lZl9rD2qonS5pTLFJ
-	 /WPfWtd91nUEQ4Cx1sefV/Ebk+/2srPQSMjBdn6KtGCNsvupkfvUArS9fjA7mhbRA/
-	 nR+A7OG4bqtyba8q6OtIrXZJEOy1RSbPF+RG0HUgMRSqwMJElKn/oHPBIF6FeZ9G/m
-	 Vxb2+V3eVo6CuDGDcZxcl3i5vJvQ7Kt0Wb+bksZYeU8uMqMUbDSuUWyuoH2JGr4hWf
-	 Whmzc9lghjT4RpgWlhD7pFuZEzxtSETUfKU63f/XikwVhAHW55KXuwogNJ/UPZdv0d
-	 h7jiJpWtb8gTg==
+	b=HeMqTXykBuV8oZVNA6ItgJMkmW7M7kS5OCm8IoK8LNMGk/lOGpsr1+Io2eAV7L5Rm
+	 PurXlqHLyoc3yGKFQoyH/O/wacCDfZG4dlAAqykAzpBn+tZ9fAG1bf3l6KO/LV5BMH
+	 atYL5uuSKFGmhMx0O4cGbqRV6fy8o7ZoObVELhXfXB7sOlB3ecewEE0orGVE2toHTF
+	 MyfwpQGEM0U2PGP+m6PIDUE/262reaTbLMRms7/l7+haoF4oY6LqnW8VKvOyRYLBGr
+	 pVfhcI4BvKdPiP126PCNCdEBPdrP+YS/E/ms2cYrIL40GoxijkvneTLSTwT/83W9rx
+	 7MzHnnEl+lfbQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tom Zanussi <zanussi@kernel.org>,
-	"Steven Rostedt (Google)" <rostedt@goodmis.org>,
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Steven Rostedt <rostedt@goodmis.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/4] tracing: Fix fully-qualified variable reference printing in histograms
-Date: Thu, 22 Oct 2026 09:42:39 -0400
-Message-ID: <20261022134230.1444063-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/4] tracing: Use __free() for expr_str() buffer
+Date: Thu, 22 Oct 2026 09:42:40 -0400
+Message-ID: <20261022134230.1444063-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102122-spinster-handler-2d56@gregkh>
+In-Reply-To: <20261022134230.1444063-1-sashal@kernel.org>
 References: <2026102122-spinster-handler-2d56@gregkh>
+ <20261022134230.1444063-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,75 +62,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tom Zanussi <zanussi@kernel.org>
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-[ Upstream commit 9236eebd138aa2753f7b30fc6cee7b7202841247 ]
+[ Upstream commit 988995c0552b6213b6bf16cea57258d4842c1488 ]
 
-The syntax for fully-qualified variable references in histograms is
-subsys.event.$var, which is parsed correctly, but not displayed correctly
-when printing a histogram spec. The current code puts the $ reference at
-the beginning of the fully-qualified variable name i.e. $subsys.event.var,
-which is incorrect.
+expr_str() allocates a temporary expression buffer and manually frees it
+on some error paths.
 
-Before:
+Convert the buffer to __free(kfree) and return it with return_ptr() on
+success. This keeps ownership handling separate from the later ERR_PTR()
+conversion and string-bound change.
 
-trigger info: hist:keys=next_comm:vals=hitcount:wakeup_lat=common_timestamp.usecs-$sched.sched_wakeup.ts0: ...
-
-After:
-
-trigger info: hist:keys=next_comm:vals=hitcount:wakeup_lat=common_timestamp.usecs-sched.sched_wakeup.$ts0: ...
-
-Link: https://patch.msgid.link/5dee9a86d062a4dd68c2214f3d90ac93811e1951.1776112478.git.zanussi@kernel.org
-Signed-off-by: Tom Zanussi <zanussi@kernel.org>
-Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
+Link: https://patch.msgid.link/20260611055945.22348-2-pengpeng@iscas.ac.cn
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 Stable-dep-of: a0777b9e5315 ("tracing: Fix NULL dereference when copying keys for a field variable")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace_events_hist.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+ kernel/trace/trace_events_hist.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
 diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 20d23a08b5b8b..dab2b3dc176b9 100644
+index dab2b3dc176b9..cbf387491bc86 100644
 --- a/kernel/trace/trace_events_hist.c
 +++ b/kernel/trace/trace_events_hist.c
-@@ -1355,9 +1355,12 @@ static const char *hist_field_name(struct hist_field *field,
- 		 field->flags & HIST_FIELD_FL_VAR_REF) {
- 		if (field->system) {
- 			static char full_name[MAX_FILTER_STR_VAL];
-+			static char *fmt;
- 			int len;
+@@ -1761,7 +1761,7 @@ static void expr_field_str(struct hist_field *field, char *expr)
  
--			len = snprintf(full_name, sizeof(full_name), "%s.%s.%s",
-+			fmt = field->flags & HIST_FIELD_FL_VAR_REF ? "%s.%s.$%s" : "%s.%s.%s";
-+
-+			len = snprintf(full_name, sizeof(full_name), fmt,
- 				       field->system, field->event_name,
- 				       field->name);
- 			if (len < sizeof(full_name))
-@@ -1734,9 +1737,10 @@ static const char *get_hist_field_flags(struct hist_field *hist_field)
- 
- static void expr_field_str(struct hist_field *field, char *expr)
+ static char *expr_str(struct hist_field *field, unsigned int level)
  {
--	if (field->flags & HIST_FIELD_FL_VAR_REF)
--		strcat(expr, "$");
--	else if (field->flags & HIST_FIELD_FL_CONST) {
-+	if (field->flags & HIST_FIELD_FL_VAR_REF) {
-+		if (!field->system)
-+			strcat(expr, "$");
-+	} else if (field->flags & HIST_FIELD_FL_CONST) {
- 		char str[HIST_CONST_DIGITS_MAX];
+-	char *expr;
++	char *expr __free(kfree) = NULL;
  
- 		snprintf(str, HIST_CONST_DIGITS_MAX, "%llu", field->constant);
-@@ -6167,7 +6171,8 @@ static void hist_field_print(struct seq_file *m, struct hist_field *hist_field)
- 	else if (field_name) {
- 		if (hist_field->flags & HIST_FIELD_FL_VAR_REF ||
- 		    hist_field->flags & HIST_FIELD_FL_ALIAS)
--			seq_putc(m, '$');
-+			if (!hist_field->system)
-+				seq_putc(m, '$');
- 		seq_printf(m, "%s", field_name);
- 	} else if (hist_field->flags & HIST_FIELD_FL_TIMESTAMP)
- 		seq_puts(m, "common_timestamp");
+ 	if (level > 1)
+ 		return NULL;
+@@ -1772,7 +1772,7 @@ static char *expr_str(struct hist_field *field, unsigned int level)
+ 
+ 	if (!field->operands[0]) {
+ 		expr_field_str(field, expr);
+-		return expr;
++		return_ptr(expr);
+ 	}
+ 
+ 	if (field->operator == FIELD_OP_UNARY_MINUS) {
+@@ -1780,16 +1780,15 @@ static char *expr_str(struct hist_field *field, unsigned int level)
+ 
+ 		strcat(expr, "-(");
+ 		subexpr = expr_str(field->operands[0], ++level);
+-		if (!subexpr) {
+-			kfree(expr);
++		if (!subexpr)
+ 			return NULL;
+-		}
++
+ 		strcat(expr, subexpr);
+ 		strcat(expr, ")");
+ 
+ 		kfree(subexpr);
+ 
+-		return expr;
++		return_ptr(expr);
+ 	}
+ 
+ 	expr_field_str(field->operands[0], expr);
+@@ -1808,13 +1807,12 @@ static char *expr_str(struct hist_field *field, unsigned int level)
+ 		strcat(expr, "*");
+ 		break;
+ 	default:
+-		kfree(expr);
+ 		return NULL;
+ 	}
+ 
+ 	expr_field_str(field->operands[1], expr);
+ 
+-	return expr;
++	return_ptr(expr);
+ }
+ 
+ /*
 -- 
 2.53.0
 
