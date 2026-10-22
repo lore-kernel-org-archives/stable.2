@@ -1,54 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792634646;
-	b=tkeBG1WQghNjEAJKSTOZDgJbrQ/G3dS3VfnT2m14D7/RfzhDILJyyCJTG1bUrZCceyd7
-	 jcIb0mG/ihVqCm7m0MlKqm3yvUrInG3n6cirPlBsFoUQDQNp/lXsKp/Iwb0dgOPspheCN
-	 FAf3mn1WR0ET0s2imOY53MS3pj/zhPiX7XrJe+zfKgES6JfEsr/XueyEhDhY+74ctdYna
-	 2pEQgiAUAvm8hMrwrJVdlWg+kD06/YNvZFz2VcUctlkggUs7N7oBIEmzBv8OJ+j1erDkF
-	 khr4DWxrcnQG9NLSe7WRjjuA3Q5CkpMtOflUKSMiGXu78iIQyqYHY7lyi5sssiDAFOA==
+	t=1792634642;
+	b=pc26BFCMeY2QAhZGMgDTcvEc0R/2S6cpT7x4WBjsujLW9yu78hmZ/8J9DBIXK+XzZdN/
+	 QJ6i+KcfZekNJYE6LmxfdN6qAdWeu/cZiAtaTyT2voatSKFwyb5E92mLpnWwyDvrZJ3NY
+	 DoMr3KMpKWDABSSmUz7P+j2y0uJMre0tGRxEuwFeimbzUAp76XlXlFO1lXfsbfaq+AKuR
+	 B+q/2zNgPbizNusjjK3C1VGFYOfR0OVVqdTzvlnfUtM2Cg/iYPoma//avU5Uknh5sl517
+	 o5ctUpd7+joOTtZ3yMYFZg+mnNunDC6hIuUdZMwPbw1bHHEheLSixAlVkxwqgFovLVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792634646;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792634642;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=uUBgXk4jqBccfsC7JmIUEYoS4BLLqojxubZtp+zoEkY=;
-	b=ZCtaNhfYEjaaOwWmKusrfui0hYrKcDsMhVVqj0+VcP+Kh+G6au+4+YBeqN2D+eYlso+D
-	 5S+UBNkcMpkCe92HOEV6IuLCHbvLxRtyU93G5gUg5TSfo6bUcnB5Xv8dsw/J1Kusw65jD
-	 0CmY0dekYpQYfhix2b/5Ztd+naX2XWwcq72I+5kQce6u/cNZQryfvb390ZEgeRGe8dPVS
-	 ox53HMR1BzV32FXUL4FIf0o6a8VwQ+fZTmAYQ3WzeXFuGwKvtmc9sDTdbANZU+sjbja4R
-	 h3tn78i96l9ON2Igtn7VTlLopTVQFl2feydCxzG0lQligKhh5YOMG5pPZPRaaG21GoQ==
+	bh=/dZrxIbh6RTSU4Bjb81Y9TDCjOr0VKfEVlrnhiqKUd4=;
+	b=e7L2s9oXd2xlcy5pDhGU3rMEShAfRi3GedvBARHRP/DqbjXf9sPRwiTr7jYwfOA1bKhe
+	 Oa78q7sYenM/LkVi9QC7c2jcwAov5/g9lW6vyFbRWH3+Lvyiilc7AaCFQFwXfQsUPi/Kb
+	 YEljilO46NpDEX0GYss46LZ2kzDteRUZdY9jn2FN2R+4eNarHT+aT3p1x1NAxPjqlwvgd
+	 nLDzHe1JT4lQXkd65flKB+M0DO0VjL5C2D/dJmgfAciTOfluvApodsFymWyZwdtGZVQhX
+	 LVsc6ZgViEeiilV1muvz6tPLKfnrBd0MqLfE19lu3HG6g00Az+0TsxcfuprIDdM0Vqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jdUKWlJ8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gCaXCxSB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 906A2606A329
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 02:04:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C801606A319;
+	Thu, 22 Oct 2026 02:04:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jdUKWlJ8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 023A81F000C6;
-	Thu, 22 Oct 2026 02:04:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gCaXCxSB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B4C71F000C1;
+	Thu, 22 Oct 2026 02:03:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792634646;
-	bh=uUBgXk4jqBccfsC7JmIUEYoS4BLLqojxubZtp+zoEkY=;
+	s=k20260515; t=1792634642;
+	bh=/dZrxIbh6RTSU4Bjb81Y9TDCjOr0VKfEVlrnhiqKUd4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jdUKWlJ8mZpRcC7i8AkvZHhBhmkQ4epFgJy9B/IMpK28md9dVSOcot5fOtWw3iqa4
-	 52HguOJBIqt+EeGyUpUCHNMHqobqMQqxquSf4MThnn9zLCj5rubUmg7FuV45zWpq3c
-	 y3XaxW/+K0r48uoCyuEPE4o/xbYpOkE+UDvcsxk2ePXo32c8ANIK0lpcwSB3NazerO
-	 27b4gMU1OkvT7/QNDL8d2/Kwxc5EFB9Q5QJMySH4pxMWFVYFk95TFD7pS9rKzEV1C5
-	 GAN1y1LduaZwEniQRKKV9nQoycF+OgygxoAOyDvviKM3Lc96zmuY8XaDlYfY/jl3EC
-	 XFDk6nZ/Cx15Q==
+	b=gCaXCxSB7dbVifOnVq9LNkGNcuToeD9pkMlyYHvcSgBqYZbbEYyKtPP5yaMMxYhpe
+	 xnliqHiuTvP+za3qjEP/ysbvHJeoOGQpAxOesj0123Mk1ZDbYOYl/OchrYABVKLWDS
+	 69oNhNzjdwp+1ZMwnjF3+gu16C+hyq8+Z3E60IYreHV7ZzhGRvC84hPvpsNY/j9Kdc
+	 dcQTSYqcGh/rko6aBRV4CxhLyWmSMd/Fg0W3Ny9j8H2TBafmDLsUGdeNb8044rIo5l
+	 OlO5Z9nRQtAl6/2/CXu9aWD/sF+KYg0EW7jFOHYOlELgdovho45NLzQaTSGecNzWiO
+	 wkZwUQEYOPT9Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	linuxkernel+co@alexs.space
-Subject: Re: Request: backport 2ee9836545e6 ("drm/amdgpu: Fix VCE 3 ring align_mask") to 6.18.y and 7.2.y
-Date: Wed, 21 Oct 2026 22:03:33 -0400
-Message-ID: <2026-10-21-1-daily-reply-0008-vce3-ring-align-mask@kernel.org>
+	Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Jim Mattson <jmattson@google.com>,
+	Kevin Cheng <chengkev@google.com>,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	david@kernel.org,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	David Laight <david.laight.linux@gmail.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Luiz Capitulino <luizcap@redhat.com>,
+	Matt Fleming <matt@readmodwrite.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Rik van Riel <riel@surriel.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Tal Zussman <tz2294@columbia.edu>,
+	andrew.cooper3@citrix.com,
+	gregkh@linuxfoundation.org,
+	Yosry Ahmed <yosry.ahmed@linux.dev>,
+	Nikola Ciprich <nikola.ciprich@linuxbox.cz>,
+	Yosry Ahmed <yosry@kernel.org>
+Subject: Re: [PATCH 6.18.y] KVM: SVM: Stop toggling virtual VMSAVE/VMLOAD on intercept recalc
+Date: Wed, 21 Oct 2026 22:03:29 -0400
+Message-ID: <2026-10-21-1-daily-reply-0004-kvm-svm-vmsave-6-18@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <18e055c816c88bcf-14970a90@a-workstation>
-References: <18e055c816c88bcf-14970a90@a-workstation>
+In-Reply-To: <20261019214611.404880-1-yosry@kernel.org>
+References: <20261019214611.404880-1-yosry@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,10 +85,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Please consider 2ee9836545e6 ("drm/amdgpu: Fix VCE 3 ring align_mask") for 6.18.y and 7.2.y.
+> Virtual VMSAVE/VMLOAD enablement (i.e.
+> VIRTUAL_VMLOAD_VMSAVE_ENABLE_MASK) is set/cleared by
+> svm_recalc_instruction_intercepts() when the intercepts are cleared/set.
 
-Queued for 7.2, 6.18, 6.12, 6.6, 6.1, 5.15 and 5.10, thanks. The older
-trees have the same bug.
+Queued for 6.18, thanks.
 
 -- 
 Thanks,
