@@ -1,55 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792654637;
-	b=SNkBugFf1CPzjjm5HXjAhthQw9qn4FBiuU0sez2dyq4hjiyw1hvHhjwwPWHekzoqh9IE
-	 6/RRKaVBMvEXE2VLPDRuQIx9qXg5T25bkun+Si6eZoXkbN8PSKRWA1u2IBcoONtOYOtEv
-	 Jq794U9mj3MrvcOm/+Mn71PWObpTMPc16A1R9Ya9FJUxOGqgBStRLngOUesaKyubz/oQJ
-	 ov/ZCYu3uZv71NIyqTuPmPGmqb6Nh0TGx9X5u1TiYMXPEm4zSYggGhhByV5GSQX/3OHwG
-	 U8EJw75DEfXwRU/lrTMaxJXw7eQ/y3D6ksld8XbNFcU/n9FzbdQYTpIOkoV3S2KoxQg==
+	t=1792655320;
+	b=gC/Z8AjLI8gboQwrhR4DlbAg2gMrHBxEHbDk7prx3Lf2cD8rjOtfT9JN1poIkmJtpyPQ
+	 A+qPEGxL89yY4YZj1FBneINvTflmyRKPjLnkndVNis3oBmfwBHi9vWyVRgDEgkcxxjx4J
+	 E8deK38zXVro4WXgpyGiLAl/uKCH7eYqrWJFsSed4aSAwfAm6JWNN1Br/n8+wk+BYU43v
+	 W4sA+V4hL0whBCnSFTEnvTY+Mj2J7+jG0ZD24DmyAPT6nvBeawvH2HtKWjZg1G0WK7dhA
+	 7VJ5IrmKwu4DRI+xjDkn7aycR/CkIEmRAXs5sbE6sRuBZXocgrU6RAsYKMu95be9ZSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792654637;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=/9fEXjgWK+5EHi3FibFeHP1l+KFsWv8kl3bq+SGJzBY=;
-	b=gyhn0Wtn+jruR/JWGH+BPg6NS3tEiWWRMghddstQyHE8/YR9N02+I8xD6SIW/nft9zC/
-	 lvqbkDRNXeP0UY3OKOT2tofMCq/bh5Z18YUwbOotNZyUuHOP/KXqmVt2Ecoy9+whVpo2M
-	 1F8eZswiXEdPRO3dwb7mUxbqxcqC7y5XQJuHQ6p3u0RSSmhaeBduBL5pMWuTCv/f4wAhu
-	 cWf0nwEPA3aUtFB+3kOW9rebA4zr7upKGVJHs4udvH0bHb7fYqPJEaRWeT2c2NDbZMaXs
-	 Ngor6PcqvWY+go4Q4VAaYhx9b1Tx0Do6dZTSmj9xLhc84TgjMG1nHhCQI4gRvlazO1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792655320;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Organization:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=4Ju039Z2MeKtZH/iwUVos3bdxPP/Y2nZbG4AaFuOPmo=;
+	b=oGY9QVC6wkiTFlJvbUpW/IyJkoVJalPqC2N4JCUYcHqqlsw85P1Amf0GGjpcK7wJoa06
+	 9NRyuq+f+ubgi4Z/WqXMIy+0/bk6q7CqOu0qyU1Z3bvUbJTeabq7RCV0dXKU+HwzXw0J8
+	 gh+NT5lDsyloS/lFCw4aMxCfSrmrTPjoXOyNPTTFoY3JfXXPuC/WXlHd6XprA+ByDfQJx
+	 1qw66kBNDugYx8XG54TGb4vxu7FoJakDlSj1OYEm18gmcipPuMuCq3BCwhrMnto77+mUC
+	 Ao8ZwYtWqdyxrbhh8+gPdQeFR7/qsiBEFfNC1CwxNAaF3QdLNRkjxMhafOkkUI5Y7nQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQwZvaCV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j7i0IZPT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60CE0606A323
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 07:37:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62FEB606A31A;
+	Thu, 22 Oct 2026 07:48:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQwZvaCV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DB3B1F000D0
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 07:37:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j7i0IZPT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FB2D1F000C1;
+	Thu, 22 Oct 2026 07:48:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792654636;
-	bh=/9fEXjgWK+5EHi3FibFeHP1l+KFsWv8kl3bq+SGJzBY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=JQwZvaCVhjDioasnofk93mEz6Hxtkx7HIlMtDOal7shCM4Hw4d2yhVoofG3xNag0q
-	 X7m0x19DFiGD+cMb5nMjmLEka6nHcwV2FGlgC+MOGqpOGK/u1LWVnkdp2NvDBfF5so
-	 ZR6lN88qCo0I7eFCsmoQWIB/3CqQdlSLpWhqJEnPGoPnNPgwLROkUqG6zTzAUGe13i
-	 +MomN8iyCsljSThsqqfeqYGBVNFpKTMjZpoENfgMRKzyLi9bCax1zfiUgpp3SuxvF8
-	 nMFkNkGhZtNVnhy/HKW2W6/pjFI3BXnRINMZRBfTUy/2NS8MPpmNO7Fh8vd8np4BjP
-	 jPmVEYq+Ro+UA==
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b1b13e09ffso2145912a12.3
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 00:37:15 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw0iDqi2kfdC0/Whv4kRCSyXEm9R3Hr4BqjTlgWZ03hsr8KLyIHm277BZTXEcyvgK7NXURGrDs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLcZ92/nXLe90xlGBbCqQPQ+KglYQksQt2pq1HNfAN1qacWBPMz
-	EQH1BsvOAGqG9Q6GG3WLznDVHU2YuGCiXqGx7+SLbY6EqQTEKB53Ufa45DepLrQv8SaYNs6jU3/
-	0Rerx2KP+txjVuVorOBaQqfzgmDPaw6M=
-X-Received: by 2002:a05:6402:4489:b0:6b1:c7ae:ec40 with SMTP id
- 4fb4d7f45d1cf-6b408e06542mr3630391a12.4.1792654634648; Thu, 22 Oct 2026
- 00:37:14 -0700 (PDT)
+	s=k20260515; t=1792655320;
+	bh=4Ju039Z2MeKtZH/iwUVos3bdxPP/Y2nZbG4AaFuOPmo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=j7i0IZPTqu/H+ishh8ftP0bl8FDaQ0/noRkz8zNxxNEHNTWiZ6B3bai/vF1AlKbM9
+	 A+Dujla0LNMWCqokewsm0XNP3h5ty/oS7/HsOcDqeALspyrt7swVOBJboKnmZf06iU
+	 QIhx3eobRwRblXVFnQg0pHKC+teUR731EFLXhHZZp777au2NNmrHKQFJ7fYU8UR1yJ
+	 tfX/J7TNNoPe5TE4OQlHrSZBbdCHwC1idTl1ZXxEkhhX2D66EaS8t1ibZDV5+yoogu
+	 nY9MnxT0L71VUSmw60+Y3MXr2HuIzV+IhZ0c/8AsRgzZvRqyAnalyTq8sCz+BCKwUD
+	 DT7GZ7c6fH2yg==
+Message-ID: <2099889b-6483-4f4b-bc9c-723159528cd3@kernel.org>
+Date: Thu, 22 Oct 2026 09:48:37 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,66 +51,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021144524.364143-1-yaojiale02@163.com> <20261021144524.364143-6-yaojiale02@163.com>
-In-Reply-To: <20261021144524.364143-6-yaojiale02@163.com>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Thu, 22 Oct 2026 15:37:01 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H4vM=2QP++udx9ZrRSqszKxqFtk_44v6wozTzXhof5e+g@mail.gmail.com>
-X-Gm-Features: AclHuK_AJuJIsK7gC6j48HUSTFZkH-rDHhLYzk2zC8jiWYZT2RAg3ZFTnsvOLaM
-Message-ID: <CAAhV-H4vM=2QP++udx9ZrRSqszKxqFtk_44v6wozTzXhof5e+g@mail.gmail.com>
-Subject: Re: [PATCH v2 5/6] irqchip/loongarch-cpu: validate MADT LIO-PIC entries
-To: Jiale Yao <yaojiale02@163.com>
-Cc: WANG Xuerui <kernel@xen0n.name>, Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	Jianmin Lv <lvjianmin@loongson.cn>, Marc Zyngier <maz@kernel.org>, loongarch@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ata: libata-sff: fix race between IRQ deferral and
+ ata_sff_flush_pio_task()
+To: Niklas Cassel <cassel@kernel.org>, Richard Weinberger <richard@nod.at>
+Cc: sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org,
+ linux-ide@vger.kernel.org
+References: <20261020101107.1449635-2-cassel@kernel.org>
+From: Damien Le Moal <dlemoal@kernel.org>
+Content-Language: en-US
+Organization: Western Digital Research
+In-Reply-To: <20261020101107.1449635-2-cassel@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi, Jiale,
-
-On Wed, Oct 21, 2026 at 10:45=E2=80=AFPM Jiale Yao <yaojiale02@163.com> wro=
-te:
->
-> The LIO-PIC MADT callback passes a typed record to the controller
-> initialization code without checking that the complete record is
-> present. A truncated firmware entry can therefore lead to out-of-bounds
-> field reads.
->
-> Reject incomplete LIO-PIC entries before passing them to the
-> initialization helper.
->
-> Fixes: b2d3e3354e2a ("irqchip: Add LoongArch CPU interrupt controller sup=
-port")
+On 2026/10/20 12:11, Niklas Cassel wrote:
+> Commit 4a2e5409472e ("ata: libata-sff: don't busy-wait for PIO data-in
+> command completion") allowed the interrupt handler to queue
+> ap->sff_pio_task from ata_sff_hsm_move() when a PIO data-in command is
+> still busy after its final data block.
+> 
+> ata_sff_flush_pio_task(), however, was written under the assumption that
+> cancel_delayed_work_sync() is enough to prevent sff_pio_task from being
+> queued again before the HSM state is reset to HSM_ST_IDLE and
+> sff_pio_task_link is cleared.
+> 
+> The flush runs early during error handling, at a point where the timed
+> out command is still active, the port is not frozen yet, and interrupts
+> are still being serviced.  If the final data-block interrupt of a PIO
+> data-in command is serviced in the window between
+> cancel_delayed_work_sync() and the reset of hsm_task_state, the
+> interrupt handler queues sff_pio_task after the cancel has completed.
+> When that work item then executes on ata_sff_wq after the flush cleared
+> ap->sff_pio_task_link, ata_sff_pio_task() hits
+> BUG_ON(ap->sff_pio_task_link == NULL) while holding the host lock with
+> interrupts disabled; alternatively it proceeds on a stale link while
+> error handling owns the port.
+> 
+> Fix this by resetting hsm_task_state to HSM_ST_IDLE before cancelling
+> the work item.  Once the state is IDLE, __ata_sff_port_intr() can no
+> longer enter ata_sff_hsm_move(), so the interrupt handler can no longer
+> queue the pio task, and cancel_delayed_work_sync() drains whatever was
+> queued before the reset.
+> 
+> Also make ata_sff_pio_task() bail out quietly when the HSM state was
+> marked idle by the flush, both at entry and after re-acquiring the port
+> lock following ata_msleep(), since a work item can already be running
+> when the flush resets the state.
+> 
+> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+> Link: https://lore.kernel.org/linux-ide/sashiko-outbox-177477@kernel.org/
+> Fixes: 4a2e5409472e ("ata: libata-sff: don't busy-wait for PIO data-in command completion")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> ---
->  drivers/irqchip/irq-loongarch-cpu.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/irqchip/irq-loongarch-cpu.c b/drivers/irqchip/irq-lo=
-ongarch-cpu.c
-> index 84ce24889488..6185825477f4 100644
-> --- a/drivers/irqchip/irq-loongarch-cpu.c
-> +++ b/drivers/irqchip/irq-loongarch-cpu.c
-> @@ -119,6 +119,9 @@ static int __init liointc_parse_madt(union acpi_subta=
-ble_headers *header,
->  {
->         struct acpi_madt_lio_pic *liointc_entry =3D (struct acpi_madt_lio=
-_pic *)header;
->
-> +       if (BAD_MADT_ENTRY(liointc_entry, end))
-> +               return -EINVAL;
-If the madt entry is invalid, the control flow probably cannot arrive
-here. On the other hand, All loongson-specific drivers, such as
-irq-loongarch-cpu.c, irq-loongarch-avec.c, irq-loongarch-ir.c,
-irq-loongson-liointc.c, irq-loongson-eiointc.c, irq-loongson-htvec.c,
-irq-loongson-pch-pic.c, use the same logic. Why is this one special?
+> Signed-off-by: Niklas Cassel <cassel@kernel.org>
 
-Huacai
-> +
->         return liointc_acpi_init(irq_domain, liointc_entry);
->  }
->
-> --
-> 2.34.1
->
+Looks good.
+
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+
+-- 
+Damien Le Moal
+Western Digital Research
