@@ -1,87 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792677649;
-	b=s71z0sBIRxUVfu9jl1TLICfjV7piLEkVLjMe6xRJbRmksPuBxR6ifzDs/1qnzWeDWuNd
-	 Scwgli4u+YlbYxpakSFhq4DXlDcrteVfmYHrx+5QSeiZPHYTeZUlOTJ1T/hxtlUSMYhlJ
-	 pycIhNOgpaYkVdZ6P/siHw30b9/sBp24EOPMEKZpmaKLEu/NfO6Ktw4BZu9uhEc+w4kHi
-	 f6PScquym0YWYRk1sNzRp25ZcTGXJez4Z21OCJUFM9RD5ctdVjiyiBN+EYTw6EoGJdUQu
-	 ncSCKTEUiDSvUMY1OK85nr3TBzYEOn9odX0AFYjFVT4orVwD4Uvpeoyv2RK8XbyyU1g==
+	t=1792677945;
+	b=dzjkpZylnApc0y0V+CFl6RYlXbyKuVh8ACWI8+xRKOVRVpsZD4HphkGftLLYzF/PyH2V
+	 EfVXE65wxOqG9XtJbbBP9doIRj8FbcJqsR4ebuOPgZMjY6wchMdIkMvn8toCIad2Xu8x+
+	 OFJePYDJGdvM2QvXeyKrglf5/L2jQ3sknxUy0OYRT7stIG1Ys0M/aXLHOfGMbcVIPqOqO
+	 O/h7SBxITv+Lpdzjkw8kiANpFuv+CXoRlYTcKASD1gZLDV5s3Jqw4BQxcGc5EXdE67m8P
+	 hzmLf8MphThVCq+k87M/HIFtNZ5/LiMkodo8wZX3al0WvRKd4kt6tCJXga97sW+t6fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792677649;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=RYxKdG3hGFUHAS2wMT8TWf0HywRpu62ZcKtPYmwcpl4=;
-	b=1Xe4ya2WdKCVAZJyWgyEQW2IBUH7WcCMirn1j2zZdXeIlCIAHkhpb3fbLCIGYR7mICx1
-	 ufyJJo8XQ8iL/uqXfmpU2hyr0pdPwD2jQX/KllOi1Osq6FAyTMX/zXCo9sDzukGH616mN
-	 03uJxgrS6wRL9OoGP5atWfom66RQ7TpxvWj4cNpwxcP+m9nTaV4zeDJ/5lv/xHCWitLg3
-	 7duhPsjKA1un9TQwdJbSNX7lizsA2WO+9Qpwk0nroCCHQVE8cp32m4+NSgxD2jo+pIlRV
-	 GFG3dp+phIpxMsAcPoELmiu3kSJ7qk9fHqhlQSShcb2u2u8LtMA4I9N30P5wOSy3kVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792677945;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=a5D5hMs4CadcbFRHDeYx0Gtn1SAcU/iXoF87KytFFvk=;
+	b=Bd07Ra4FEf66kbTU5tIvAhSvyujhpC5X8GNQQmQQX/I9E7b1uwG5Ky6KqWivfUBqKToA
+	 lfyXlVf8QdeYLAPh/EnKPe7GXzhoLRfo4KvzKiRfwuKjhq/oDaVK1yzSkl5yIxdEisC9Y
+	 J+sSCSna4yNlKqBhCpUI2S1qwmRwmSsGcDO+AmV5J8zxLSWk6H74ihGuxHTcEidCEs00S
+	 5Wojs4pAHQHq+9nRRWpwSjzKsfzl+bjG6PLVEUaD53OmUUJRoHDJ9w/FirJmixYsPYUbR
+	 rr+lE0Au58LKW7wPG1wF6xho521KFLvQDxThtQh+7zKlWUhRWCrJgHBPyDvOa0/CMIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Bxh+hitZ;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=f98SPToi;
+	arc=none smtp.remote-ip=203.205.221.221
+Received: from out203-205-221-221.mail.qq.com (out203-205-221-221.mail.qq.com [203.205.221.221])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2B6606A32E
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:00:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F2B6606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D65606A31D;
+	Thu, 22 Oct 2026 14:05:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04D65606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Bxh+hitZ
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-35943f55c06so1229486eec.0
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 07:00:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792677648; x=1793282448; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RYxKdG3hGFUHAS2wMT8TWf0HywRpu62ZcKtPYmwcpl4=;
-        b=Bxh+hitZO2FfVxuz5Qb9/4WIWAKO1lLwLLJ2tAGbDmc/XpxgVHZrEjIvDM/FXCMaOH
-         9ksyLbdCCzsT8O8/74+VYG6Jd5VDQvreFNb5S1p4n90dsLImy18AOoDlyNN3sRtvShor
-         Gj+utQlqLyd4ntudIORPMfB208zKeVn/eFPaD9M73Q/Jp3y40aAgvf+SYE/atC6e+3N1
-         JzK8uT4RTeUtrWvqXTNtzD+mRUCfqxdcIHSdI2NSgMILnxPqQJfUwB7IW1SlJMqGN+78
-         x6igq4CMTL2Uxeg2rNI3sussxWHoPv792Bk2Mew9uXxjg+nM7HOu7OPraJBXudKPCRK9
-         M2EQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792677648; x=1793282448;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RYxKdG3hGFUHAS2wMT8TWf0HywRpu62ZcKtPYmwcpl4=;
-        b=IZRNvotz3rwPpdFf5VFC0rpJeyFxBgrHJemeIMaBfatoRUo0vECo3zpv8mpeQyyeK8
-         uG2JtorX3g8HUo8fBNgvGSoNUZeUF8JuEkKH6YVGVvVlcn6eJZzmh8M2qelXUUOfImDb
-         0id6EOlFUvF61uiC7/fMj0b/JxTmIwUfw0w/h1Sx0jRL1Vs99ziPuxLgon5nryYcNROT
-         2y7JWburKtoGKCiTtuUZH39IPC0t0H+i63qAOSciNktlCB450p7BOr9Gw34gFs573hUL
-         iJHC7PNDXWbXbqb1rhS63G5+dmlSZRT6Haac2d/9jKHHT9TfquUeJ2uE0O6cQ7BnfnpY
-         OuPw==
-X-Forwarded-Encrypted: i=1; AKwUvBzbbKyN1NDkLx5cWUUZ3cEmDhlr6T2V3Q3njzOdnOUlQD2LUg9vG1g4Fy1UeIgc3R0HfzjHLyQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJCaDZ+AeC7w9NHwjmlLLKjNr0cUWcysAHmfx+U/iEHTJgsdZVe
-	WF3IxXixSQUrqXSDqu3XPaqD87zFRPO5RAas5helgk9anTgJZusjuyWW
-X-Gm-Gg: AYBFou0P4hfj4F0EIs9qzKXtQN7sRUkE0huVvZ0zmAKjtmxpj+rPKRBj6NQf6dinupx
-	u/OugwhsJapwLda2vOQP8n58UYdO2W9+XAerchek9dLZW4l620dEITw14BTJzVN8jFA2HNHZCOi
-	b4IYMz2f+EYaWn4H8Zj0C9/PipoGSzU5Rtmf+lPQAvxasoJ09RY9x+NZoYmGfmyYyrZ9kwiyIRS
-	o/65dwpixUXACQ8G0cLKET+Trk93J2nBGYIZFfxEsXhv+zIz1uA2/QnB6syt71ilfWVObbhpwkr
-	RwdvqR2o4sWjN5lNg6D3PopMA13QbMxLhlxVqF3BSFoMK1QzlrStOhEb21TyBkeAcnI1GVXBipQ
-	0R2LJGIFf1X4xLXB7Nw8ylIu6oeaSyZAhPHqFP4UOHftF78r/QLkvc4QRcDuWh4zD93eGzjJpPY
-	4qjrbWkfG1QKDhWh++WB5/le9+oRv9PZ/I2xKbFtr48KY4VBCRKFLHC9LgIR5s/AnuIRvf5bAk0
-	cgLwp1MNEav4/shIWk+LzhrrnLrqqk+uBZsFeJTk4ZyvJOECnt0fgPDbegFZ1QIP8tfwdCF
-X-Received: by 2002:a05:7300:c392:b0:35c:49b9:3166 with SMTP id 5a478bee46e88-368aead362fmr3201965eec.6.1792677647279;
-        Thu, 22 Oct 2026 07:00:47 -0700 (PDT)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3673e15353csm29420342eec.2.2026.10.22.07.00.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 07:00:46 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Thu, 22 Oct 2026 22:00:36 +0800
-Subject: [PATCH 1/2] mm/filemap: read ahead downwards on descending
- VM_HUGEPAGE faults
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=f98SPToi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792677939; bh=a5D5hMs4CadcbFRHDeYx0Gtn1SAcU/iXoF87KytFFvk=;
+	h=From:To:Cc:Subject:Date;
+	b=f98SPToiuLh2NWQ8JAUHUpcKhwCTKzIZ+qmyUqnVorNqDiGexHEhp+ZBazDDGvdxS
+	 RK5yhb60QplTEzbgC/RrfaWYCCQMzmHSAvo0B6LBhRXz/9sNushjKouUqGzkWxAWgC
+	 bycbCywY3QRIWyNcNwZvuIeqQbFj6H5b8xFGG6Jw=
+Received: from kernel-lab.tail5e91bb.ts.net ([2408:8352:460:ee50:a639:b3ff:fe5f:1b0f])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id 165BE656; Thu, 22 Oct 2026 22:05:37 +0800
+X-QQ-mid: xmsmtpt1792677937t2jg0qgk8
+Message-ID: <tencent_287A56749EA8448A970F2715FFF29F334108@qq.com>
+X-QQ-XMAILINFO: MGiPAdtq5twnAdiQdq/iW5VIflC6PxBOMxyoW8ydpzKhN4/FZKDysUhpIqiMSn
+	 HNnI3/XO7mzkzlwLE5KnderNdrB9YL+nef3wq40N7mvBcwsdsheLJ7E+UCCZv9u7QJqbplVQVN8T
+	 Pt1oTSATtLQnlKOORVDqgn9XVLYCqaR5GxJDp0e1zlqH9j3z9ZqXK7ZxeZlwSHBe/1UcxPP1WXvQ
+	 4kYh0t0ZntRx6XsOy+Iv6KTixx7bzZX1+AcwkX4MW3alrqzVVUZW9XsPgwswG9b9qkMUDtFd5csd
+	 En3qtXlQYTcwpk8rCGB6Uqdq1J6DI+cdZIJkfb/oH6V8VWjwsYdMT5f+5h8ZIk3ueDEBsEQsciEg
+	 voLJNxNklpFesWlsUYCWaxjER36gMLoZZ8iSU/engHGY3bg1xdMRQYFDOYfADVKcL0TuiI3KXfLK
+	 9hWgXzKI3fpdLBHU3+glka4vMu0x70waEu4aNkFxIDt+zL9wBlEd0yCAXjcRvx7T8x8yF/jSoDAl
+	 RAdK0OeE3K5cNRRrq7TWDTw+0RwHkmFEwMImrxC3zMPdmIpWz92Uic0OSA8iVzkPdA6CpqFBkQrS
+	 vDYq8g5KeLTW8eRtRRntbCV+bG7ffDGqyhfIWx6Rn9rU9Fogm0bChfabk/Ik4Q5HQwWPFIY/2nuR
+	 ngy4jYyDmwCbD3vU6f8qSjMbo6Z3wkruGtHEJqOJ6/0iUWtvlk7ePluqZlB499ccfTklO8e59452
+	 WX2RNEDiO3BwKTwzJlLDzgC4GgyDx5dCwZaJJRyei0e7fslY4m+GwFHg2JtwP2hAeDbn93voHkYL
+	 SnJQnQYhTPXBpMZzdGmEyW1Gcq8UWGWH442ykeGOW0lE6LsbhJlP/VI7TB/IRmf+gsJserA4fBxW
+	 EScsqgACK04bjU9DM6Vutu20Fp7CG18HTxaLDcSaeQK6a4pW5lNmcnPyl2NJLEP/6kj8GC2ysKDU
+	 Fpiy3aVz6GMlLngSI/rSaptTKeySvTB4BEKVWicWtK5x/Kx3bS7S8ip3hP1HBKZABIoxfRI1uQkl
+	 kfmLH/ux3Ss3ja8pFFX0lapuNTtf8BiSt2LCJ63DSYb0zrFdTWuBVzQpMgXWhc7G5HGQxsLKFRsE
+	 UtaQ43
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: Yingjie Wang <1075151112@qq.com>
+To: kuniyu@google.com
+Cc: davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net] af_unix: order MSG_PEEK references against garbage collection
+Date: Thu, 22 Oct 2026 22:05:36 +0800
+X-OQ-MSGID: <20261022140536.715328-1-1075151112@qq.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,198 +83,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-bug-mm-mmap-readahead-descending-v1-1-6d08b34862f2@gmail.com>
-References: <20261022-bug-mm-mmap-readahead-descending-v1-0-6d08b34862f2@gmail.com>
-In-Reply-To: <20261022-bug-mm-mmap-readahead-descending-v1-0-6d08b34862f2@gmail.com>
-To: "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
- Vishal Moola <vishal.moola@gmail.com>, fujunjie <fujunjie1@qq.com>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, linux-fsdevel@vger.kernel.org, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Qiliang Yuan <odys.yuan@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.13.0
+Content-Transfer-Encoding: 8bit
 
-On a VM_HUGEPAGE file mapping, a synchronous fault reads the PMD-sized
-folio that holds the faulting address and the one above it, and maps
-the faulting folio with a PMD. do_sync_mmap_readahead() counts each such
-fault in mmap_miss and stops reading ahead once it passes
-MMAP_LOTSAMISS, while filemap_map_pages() lowers the count for faults
-served from the page cache, but only when it maps them with PTEs.
+Commit e5b31d988a41 ("af_unix: Give up GC if MSG_PEEK intervened.")
+made unix_peek_fpl() invalidate unix_peek_seq when gc_in_progress is
+set.
 
-A reader that moves towards lower offsets, such as memmove() copying
-backwards out of a mapping, never finds its next folio cached: the
-folio above is the one it just read. Every folio is a miss and none is a
-hit, so after about a hundred folios mmap_miss passes the limit and
-every page after that is read on its own. Since the PTEs mapped around
-a fault no longer count as hits, nothing lowers the count for it.
+scm_fp_dup() increments the received files' reference counts before
+unix_peek_fpl() checks that flag, while unix_gc() sets the flag before
+reading the same reference counts. The reference-count operations and
+flag accesses are relaxed. spin_lock() provides acquire ordering, but
+does not order the earlier flag store against the later file_count()
+loads.
 
-When the folio above the faulting one is cached, read the folio below
-instead, without a readahead mark, and count a PMD mapping of the
-faulting address as a hit the way a PTE mapping is. Such a reader then
-misses on every other folio and hits on the rest.
+On weakly ordered machines, GC can therefore miss the reference acquired
+by MSG_PEEK while MSG_PEEK misses gc_in_progress. unix_peek_seq then
+remains unchanged, allowing GC to classify an SCC as dead and purge a
+live receive queue.
 
-Reading one byte from each page of a 2 GiB file, last page first, in a
-MADV_HUGEPAGE mapping with a cold page cache, read_ahead_kb 8192:
+Add smp_mb__after_atomic() after scm_fp_dup()'s reference increments and
+smp_mb__after_spinlock() before GC samples the reference counts. This
+ensures that either GC observes the new reference or MSG_PEEK observes
+the active GC and invalidates the seqcount.
 
-                   before       after
-  time            36.76 s      0.41 s
-  major faults     473191         516
+LKMM admits the stale/stale outcome without these barriers and forbids it
+with them. An explicit AArch64 model gives the same result. The original
+workqueue layout in that commit also lacked the PEEK-side ordering, so the
+incomplete handshake dates to e5b31d988a41.
 
-Fixes: 0b9c0aeba938 ("mm/filemap: count only the faulting address as a mmap hit")
+Fixes: e5b31d988a41 ("af_unix: Give up GC if MSG_PEEK intervened.")
 Cc: stable@vger.kernel.org
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+Signed-off-by: Yingjie Wang <1075151112@qq.com>
 ---
- mm/filemap.c | 101 ++++++++++++++++++++++++++++++++++++++++++-----------------
- 1 file changed, 72 insertions(+), 29 deletions(-)
+ net/unix/garbage.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/mm/filemap.c b/mm/filemap.c
-index 00fd89cf6f550..8a7d1238ae75d 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -3319,6 +3319,23 @@ static int lock_folio_maybe_drop_mmap(struct vm_fault *vmf, struct folio *folio,
- 	return 1;
- }
+diff --git a/net/unix/garbage.c b/net/unix/garbage.c
+index da774f56ca648..c3ed00f52b04e 100644
+--- a/net/unix/garbage.c
++++ b/net/unix/garbage.c
+@@ -329,6 +329,14 @@ void unix_peek_fpl(struct scm_fp_list *fpl)
+ 	if (!fpl || !fpl->count_unix)
+ 		return;
  
-+/*
-+ * Whether a miss at @index, right below @nr cached pages, comes from a
-+ * stream that runs towards lower offsets.
-+ */
-+static bool filemap_descending(struct address_space *mapping, pgoff_t index,
-+			       unsigned long nr)
-+{
-+	void *entry;
-+
-+	if (index < nr)
-+		return false;
-+	rcu_read_lock();
-+	entry = xa_load(&mapping->i_pages, index + nr);
-+	rcu_read_unlock();
-+	return entry && !xa_is_value(entry);
-+}
-+
- /*
-  * Synchronous readahead happens when we don't even find a page in the page
-  * cache at all.  We don't want to perform IO under the mmap sem, so if we have
-@@ -3392,13 +3409,20 @@ static struct file *do_sync_mmap_readahead(struct vm_fault *vmf)
- 		fpin = maybe_unlock_mmap_for_io(vmf, fpin);
- 		ractl._index &= ~(folio_nr_pages - 1);
- 		ra->size = folio_nr_pages;
-+		ra->async_size = folio_nr_pages;
- 		/*
- 		 * Fetch two folios so we get the chance to actually
--		 * readahead, unless we've been told not to.
-+		 * readahead, unless we've been told not to. A stream that
-+		 * runs towards lower offsets gets the folio below.
- 		 */
--		if (!(vm_flags & VM_RAND_READ))
-+		if (!(vm_flags & VM_RAND_READ)) {
- 			ra->size *= 2;
--		ra->async_size = folio_nr_pages;
-+			if (filemap_descending(mapping, ractl._index,
-+					       folio_nr_pages)) {
-+				ractl._index -= folio_nr_pages;
-+				ra->async_size = 0;
-+			}
-+		}
- 		ra->order = thp_order;
- 		page_cache_ra_order(&ractl, ra);
- 		return fpin;
-@@ -3896,6 +3920,39 @@ static vm_fault_t filemap_map_order0_folio(struct vm_fault *vmf,
- 	return ret;
- }
- 
-+/*
-+ * Whether mapping @folio at the faulting address counts as an mmap hit,
-+ * which lowers mmap_miss in do_sync_mmap_readahead().
-+ */
-+static bool filemap_mmap_hit(struct vm_fault *vmf, struct folio *folio)
-+{
-+	/* Skip the retry of a fault, which maps the folio its miss read */
-+	if (vmf->flags & FAULT_FLAG_TRIED)
-+		return false;
 +	/*
-+	 * If there are too many folios that are recently evicted in a file,
-+	 * they will probably continue to be evicted. In such situation,
-+	 * read-ahead is only a waste of IO. Don't decrease mmap_miss in this
-+	 * scenario to make sure we can stop read-ahead.
++	 * Pair with smp_mb__after_spinlock() in unix_gc(). get_file() in
++	 * scm_fp_dup() increments an atomic reference count, so this ensures
++	 * that either GC sees the new references or this thread sees
++	 * gc_in_progress and invalidates unix_peek_seq.
 +	 */
-+	if (folio_test_workingset(folio))
-+		return false;
++	smp_mb__after_atomic();
++
+ 	if (!READ_ONCE(gc_in_progress))
+ 		return;
+ 
+@@ -614,6 +622,12 @@ static void unix_gc(struct work_struct *work)
+ 	WRITE_ONCE(gc_in_progress, true);
+ 
+ 	spin_lock(&unix_gc_lock);
 +	/*
-+	 * VM_SEQ_READ and VM_EXEC mappings skip the mmap_miss increment in
-+	 * do_sync_mmap_readahead(), so skip the decrement as well to keep
-+	 * the counter symmetric.
++	 * Pair with smp_mb__after_atomic() in unix_peek_fpl() to ensure that
++	 * either the file-count reads below see MSG_PEEK's increments or
++	 * MSG_PEEK sees gc_in_progress.
 +	 */
-+	return !(vmf->vma->vm_flags & (VM_SEQ_READ | VM_EXEC));
-+}
-+
-+static void filemap_count_mmap_hit(struct file *file)
-+{
-+	unsigned short mmap_miss = READ_ONCE(file->f_ra.mmap_miss);
-+
-+	if (mmap_miss)
-+		WRITE_ONCE(file->f_ra.mmap_miss, mmap_miss - 1);
-+}
-+
- vm_fault_t filemap_map_pages(struct vm_fault *vmf,
- 			     pgoff_t start_pgoff, pgoff_t end_pgoff)
- {
-@@ -3930,10 +3987,16 @@ vm_fault_t filemap_map_pages(struct vm_fault *vmf,
- 	 * Make an exception for shmem/tmpfs that for long time
- 	 * intentionally mapped with PMDs across i_size.
- 	 */
--	if ((file_end >= folio_next_index(folio) || shmem_mapping(mapping)) &&
--	    filemap_map_pmd(vmf, folio, start_pgoff)) {
--		ret = VM_FAULT_NOPAGE;
--		goto out;
-+	if (file_end >= folio_next_index(folio) || shmem_mapping(mapping)) {
-+		/* Check before filemap_map_pmd(), which may drop the last ref */
-+		bool hit = filemap_mmap_hit(vmf, folio);
-+
-+		if (filemap_map_pmd(vmf, folio, start_pgoff)) {
-+			if (hit)
-+				filemap_count_mmap_hit(file);
-+			ret = VM_FAULT_NOPAGE;
-+			goto out;
-+		}
- 	}
++	smp_mb__after_spinlock();
  
- 	addr = vma->vm_start +
-@@ -3968,28 +4031,8 @@ vm_fault_t filemap_map_pages(struct vm_fault *vmf,
- 		}
- 		ret |= map_ret;
- 
--		/*
--		 * If there are too many folios that are recently evicted
--		 * in a file, they will probably continue to be evicted.
--		 * In such situation, read-ahead is only a waste of IO.
--		 * Don't decrease mmap_miss in this scenario to make sure
--		 * we can stop read-ahead.
--		 *
--		 * VM_SEQ_READ and VM_EXEC mappings skip the mmap_miss
--		 * increment in do_sync_mmap_readahead(), so skip the
--		 * decrement here as well to keep the counter symmetric.
--		 */
--		if ((map_ret & VM_FAULT_NOPAGE) &&
--		    !(vmf->flags & FAULT_FLAG_TRIED) &&
--		    !folio_test_workingset(folio) &&
--		    !(vma->vm_flags & (VM_SEQ_READ | VM_EXEC))) {
--			unsigned short mmap_miss;
--
--			mmap_miss = READ_ONCE(file->f_ra.mmap_miss);
--			if (mmap_miss)
--				WRITE_ONCE(file->f_ra.mmap_miss,
--					   mmap_miss - 1);
--		}
-+		if ((map_ret & VM_FAULT_NOPAGE) && filemap_mmap_hit(vmf, folio))
-+			filemap_count_mmap_hit(file);
- 
- 		folio_unlock(folio);
- 	} while ((folio = next_uptodate_folio(&xas, mapping, end_pgoff)) != NULL);
+ 	if (unix_graph_state == UNIX_GRAPH_NOT_CYCLIC) {
+ 		spin_unlock(&unix_gc_lock);
 
+base-commit: f4377bf85887f57b59abb5479f7660a81ffe4449
 -- 
 2.43.0
 
