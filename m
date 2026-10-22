@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792679661;
-	b=HvQ8J8jiBiONqZsWB2B2grhrrZHHn9piQUwMc9Bwle2ZX+BmgrUkiIeg2mhCOMT0iCFx
-	 LBTKyHvfqTTKtj8UP93kPNU/BNkEtkOmjotxZHkGfazLJa4RTmyNov5rqC4qPGzGqRHbn
-	 wcS/B0OsShe+5l4u0KM0jauUebt+xml2NbdRkJZYAV/3PCqQKpJOWY9NMIUHBWnx7KkZh
-	 Wx4nLnkeKfFbVBjpwJ+U2VyqI5kvwb2kz3dltWRiRQLhLogVb9zSp6vKULftN/LrNcszL
-	 UnkKRUyp3oamHkEyjl/MfLtyjsroMsUtOuvz6KodG4DyLn4TQvBKPdWVdI5z646SN7A==
+	t=1792679676;
+	b=b+r7O9E1ZpXM/BNcuc3BIjtX8YrgemK7uyr8+zCdBDpKm4vkJXpduarrIY9HUyJW/90w
+	 G+uKDHttenNQg58daZwCR/rcz7KpD6I51nxLnSiGEGbAhq24SmD/OpuLv4JAyZ2Qw/Uvn
+	 3UYBImb4FiqYHGgKkqEJlDVyiXfqdrPCBHjEwp59NcEYa5XdZ0YUJn87HoYt78KiQ6C5h
+	 g2LMiQ7uV7sPrsGWvtoCL/qdm7DmjI6NkYmAy4+B6YfAomjXvDGREPST9gZ1rlyrtilnk
+	 eUl74YbiYgiKNpqvAJ7he91VMaZw0wuBynet0dDNR88utcWGbsBbC37d68sguNAjYCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792679661;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792679676;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=jMXA9NISD59AwsiBya0bfW7orjFqWJakaxCvo0rmSAM=;
-	b=A91wBG72eOQAnQZV5hqUjxlrmb/issLh/BnXg/0Fq8BLv26jiUGrnfhDVxyWb4wZTgkV
-	 eb4E1oMLzsu301FubrcLxbg71cAXtl3fQE6WSJ/CBNJsR0l8PcCdhvrJXwZrH9sSsrzG6
-	 zui9LFzcTzag/WDCMQv3/vEo8tpZM9Hw7FY+8/w5pe9cRp3xe3xL8JkLHp34JfUTE3PdJ
-	 RrV1mFOhklZW+oSpequilvKHA3fGDdORQFdObQsE9U2EBrYvV7Mcoq81ocNyoedKnwWmD
-	 5mRydIm5LAw7iJQZK0lUp2HqNnOETF25rFnunycvlQC2URfgtiG71ICE4502zBBUj1g==
+	bh=KEqj6RtnCJXoFOnDyRLUEOrRr50r/RePaYCk6W5ihZ8=;
+	b=UtLx6UBj1N6KFAB8bMDRyB9U4McS8u/DgX8KMApKbcNs76uYqabM8zhb6c8XUxc2GO8Q
+	 ABXlEKhzr4EX0GO6GGx/WjOXuUj5z99fQFAcVtpOZF9E2hyS3ajnpc8riRHcnjHTS5Jls
+	 hOuk0bXchDTof3ES+wVZMyaMB/pwh8k4pWZddJwIJeYNBZfmHKoaQj9bZZNWZVWXStf8e
+	 3Zo5eMN0HOLfHFx6DKM9K2lq1puqNQExrzQ9XBPSpTRVbGhAl32aet4PdghSHwt3Ou7+6
+	 Xvf1fI8GgqOKNWSCVsjlVMLX/Wkc2KG5pzpIRey69LxYF+u1tX+fN/o+kh6NRlWhvwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VxqtQPvn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Qz3iR/DP";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6112606A31D
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:34:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA731606A31A
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:34:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VxqtQPvn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 112661F000C1;
-	Thu, 22 Oct 2026 14:34:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qz3iR/DP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E964A1F000C1;
+	Thu, 22 Oct 2026 14:34:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792679660;
-	bh=jMXA9NISD59AwsiBya0bfW7orjFqWJakaxCvo0rmSAM=;
+	s=k20260515; t=1792679675;
+	bh=KEqj6RtnCJXoFOnDyRLUEOrRr50r/RePaYCk6W5ihZ8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VxqtQPvnjKoowdM53EJlSYe9vUjkOvPfl8XL8It6rBYGOV5AdS/vOhz4GKLyRIXw5
-	 xbTUhV97fdRFAyO+DVXzQyqvdqCeIUyyn1eSw+TvbWq6/D+0slrWmVP094Y1+l5r5l
-	 2NA6MVSRKcfI/xfsnAjvc5Uxw5ggSWQNQAHVC0+xEFvM7GIPFZCBHqcyezFidTeUGS
-	 f1DROdGEj5xNGfYHzradmMan/BF14Ob5sMye82CyPpoHoe+1B3GdOddQ4d2dSW8YzH
-	 xoCTz+JbW2qTsh4QFGdOhMf/JdRcYH3RJ0kjNglYMT3QNO8BjjDgFWp+WK0xH2Eh4M
-	 d4G3UMms8gkyQ==
+	b=Qz3iR/DP9QxLlSQCtSmvSklPSaGSOegDdEGeVlIvG3HLZbbsaodhVuifHZ5mTSuBP
+	 B/1Ai7cLdWRjVdVkZAG+hxzuoAE1YRjRm08lY7+m4+F4hM+OB9j1+xzV/ooDTuhukq
+	 5QsnMHDUWez7of45HZ58/gVfcSepxlr37w2Y5yRn2zgTKkW/icDJP0m4EuxcaqO4r3
+	 RlutV4ZdoNDwbdy4Ot2cl4AZH2IODpgNucRTIwoMitJ9PD98QuMcgML3x7uD8m2Bks
+	 Xk5HKmIbNymEJuwXn38+MOPN2R5I9NU1eZglU//6ecg1w/Qiq2xJ2E80J987pgcXnC
+	 RS3KitsHl7HQA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yao Kai <yaokai34@huawei.com>,
-	Tejun Heo <tj@kernel.org>,
+Cc: Yun Zhou <yun.zhou@windriver.com>,
+	syzbot+837bcd54843dd6262f2f@syzkaller.appspotmail.com,
+	Christoph Hellwig <hch@lst.de>,
+	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y] workqueue: Fix unbound pool lifetime for pending pwqs
-Date: Thu, 22 Oct 2026 10:34:18 -0400
-Message-ID: <20261022143409.1606096-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] xfs: don't hold buffer locks across sync transaction commit in xfs_sync_sb_buf
+Date: Thu, 22 Oct 2026 10:34:33 -0400
+Message-ID: <20261022143410.1589179-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102147-clatter-yen-51fa@gregkh>
-References: <2026102147-clatter-yen-51fa@gregkh>
+In-Reply-To: <2026102120-monogram-unstable-a679@gregkh>
+References: <2026102120-monogram-unstable-a679@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,98 +63,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yao Kai <yaokai34@huawei.com>
+From: Yun Zhou <yun.zhou@windriver.com>
 
-[ Upstream commit cf9c8aaea0d47410df8708bec195889f3a85cd3c ]
+[ Upstream commit 41a28c865d1d5843f8cb9e0af17a8f4d9e2961ff ]
 
-KASAN reports a use-after-free of an unbound worker_pool in
-node_activate_pending_pwq():
+xfs_sync_sb_buf() holds sb/rtsb buffer locks across a synchronous
+xfs_trans_commit(), which flushes the CIL push workqueue internally.
+If shutdown occurs during the CIL push, xfs_buf_item_unpin() needs to
+lock these buffers to fail them, causing a deadlock:
 
-  BUG: KASAN: slab-use-after-free in _raw_spin_trylock+0x6d/0x120
-  Read of size 4 at addr ffff8880089ce000 by task kworker/u22:0/318
+  setlabel:          holds buf lock -> flush_workqueue(xfs-cil)
+  CIL push worker:   xfs_buf_item_unpin -> xfs_buf_lock(same buf)
 
-  CPU: 1 UID: 0 PID: 318 Comm: kworker/u22:0 Not tainted 7.2.0 #1 PREEMPT(lazy)
-  Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
-  Workqueue:  0x0 (flush-8:0)
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x53/0x70
-   print_report+0xce/0x610
-   kasan_report+0xce/0x100
-   _raw_spin_trylock+0x6d/0x120
-   pwq_dec_nr_in_flight+0x4b4/0xcb0
-   process_one_work+0x921/0x11a0
-   worker_thread+0x4d0/0xd20
-   kthread+0x2de/0x3c0
-   ret_from_fork+0x3aa/0x620
-   ret_from_fork_asm+0x1a/0x30
-   </TASK>
+Remove the xfs_trans_bhold() calls so that commit releases the buffer
+locks normally.  After the sync commit, re-acquire the buffers via
+mp->m_sb_bp / mp->m_rtsb_bp for the on-disk writeback.
 
-  Allocated by task 311:
-   alloc_pwq+0x439/0xca0
-   apply_wqattrs_prepare+0x75e/0xd10
-   apply_workqueue_attrs_locked+0x44/0xa0
-   wq_nice_store+0x350/0x450
-
-  Freed by task 0:
-   kfree+0x127/0x3b0
-   rcu_core+0x523/0x1780
-   handle_softirqs+0x1b3/0x610
-
-  Last potentially related work creation:
-   put_unbound_pool+0x3f3/0x7d0
-   pwq_release_workfn+0x494/0x8e0
-   kthread_worker_fn+0x1ff/0x790
-
-Canceling the last inactive work skips pwq_dec_nr_active(), so an empty
-pwq can remain on pending_pwqs when its refcnt reaches zero.
-pwq_release_workfn() currently puts the pool before removing that pwq.
-If this drops the last pool reference, the pool can be RCU-freed while
-the pwq remains reachable, and node_activate_pending_pwq() may trylock
-the freed pool->lock.
-
-Remove the pwq from pending_pwqs before putting the pool.
-
-Fixes: 5797b1c18919 ("workqueue: Implement system-wide nr_active enforcement for unbound workqueues")
+Fixes: f7664b31975b ("xfs: implement online get/set fs label")
+Reported-by: syzbot+837bcd54843dd6262f2f@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=837bcd54843dd6262f2f
 Cc: stable@vger.kernel.org
-Signed-off-by: Yao Kai <yaokai34@huawei.com>
-Signed-off-by: Tejun Heo <tj@kernel.org>
-[ sashal: Replaced `!is_percpu_pool(pool)` with the existing `wq->flags & WQ_UNBOUND` check because the helper is unavailable. ]
+Signed-off-by: Yun Zhou <yun.zhou@windriver.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+[ sashal: Omitted realtime-superblock changes because the corresponding support is absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/workqueue.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ fs/xfs/libxfs/xfs_sb.c | 17 +++++++----------
+ 1 file changed, 7 insertions(+), 10 deletions(-)
 
-diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-index 9b0bdb5df4465..a65618b6d150d 100644
---- a/kernel/workqueue.c
-+++ b/kernel/workqueue.c
-@@ -5229,12 +5229,6 @@ static void pwq_release_workfn(struct kthread_work *work)
- 		mutex_unlock(&wq->mutex);
- 	}
+diff --git a/fs/xfs/libxfs/xfs_sb.c b/fs/xfs/libxfs/xfs_sb.c
+index eb46712e27d9f..de10b1adbf8a5 100644
+--- a/fs/xfs/libxfs/xfs_sb.c
++++ b/fs/xfs/libxfs/xfs_sb.c
+@@ -1186,26 +1186,23 @@ xfs_sync_sb_buf(
+ 	struct xfs_mount	*mp)
+ {
+ 	struct xfs_trans	*tp;
+-	struct xfs_buf		*bp;
+ 	int			error;
  
--	if (wq->flags & WQ_UNBOUND) {
--		mutex_lock(&wq_pool_mutex);
--		put_unbound_pool(pool);
--		mutex_unlock(&wq_pool_mutex);
--	}
--
- 	if (!list_empty(&pwq->pending_node)) {
- 		struct wq_node_nr_active *nna =
- 			wq_node_nr_active(pwq->wq, pwq->pool->node);
-@@ -5244,6 +5238,12 @@ static void pwq_release_workfn(struct kthread_work *work)
- 		raw_spin_unlock_irq(&nna->lock);
- 	}
+ 	error = xfs_trans_alloc(mp, &M_RES(mp)->tr_sb, 0, 0, 0, &tp);
+ 	if (error)
+ 		return error;
  
-+	if (wq->flags & WQ_UNBOUND) {
-+		mutex_lock(&wq_pool_mutex);
-+		put_unbound_pool(pool);
-+		mutex_unlock(&wq_pool_mutex);
-+	}
+-	bp = xfs_trans_getsb(tp);
+ 	xfs_log_sb(tp);
+-	xfs_trans_bhold(tp, bp);
+ 	xfs_trans_set_sync(tp);
+ 	error = xfs_trans_commit(tp);
+ 	if (error)
+-		goto out;
+-	/*
+-	 * write out the sb buffer to get the changes to disk
+-	 */
+-	error = xfs_bwrite(bp);
+-out:
+-	xfs_buf_relse(bp);
++		return error;
 +
- 	kfree_rcu(pwq, rcu);
++	/* Re-acquire and write the sb to disk. */
++	xfs_buf_lock(mp->m_sb_bp);
++	error = xfs_bwrite(mp->m_sb_bp);
++	xfs_buf_unlock(mp->m_sb_bp);
++
+ 	return error;
+ }
  
- 	/*
 -- 
 2.53.0
 
