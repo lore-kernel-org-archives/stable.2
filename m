@@ -1,56 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792680822;
-	b=tgIjXSkPVLfANMXbM2j79z7LNWwHD0PaeGQcBOjEWFxk93J4XmgJSVXKGKKBwSCe7mOT
-	 zE/Y+mdLPmac2H1EC8dd6Wr1fYZvBTkr8J+WAwSrWmwnf9zYiXi9NvqdiRuX7UyGKt5EJ
-	 +mZYKCMstExJ6haCTvHve6ayDUYDtCRi91dgbE0Q2FYX6dvnSfAIwNrBz7SFgXHI1Gdq1
-	 CybdwPI6DOPD89i5ITLgLTSIrc8EUTkB4PW6Zk5Nypj21zrIgHXN7fJoPZaFPQI9MX3Ss
-	 tIRbebXcQ/yHcBe6OpjHrd+75iZ29d25ewjDlj64EfYRTJ3dOpGnnZdA2+dsMC3mGvw==
+	t=1792680874;
+	b=Ar3d3zdMe+4cijigGxZTMEEwIRp8kW5CDrx0/dhqC/vuXZn2J1jFZr1pSigyjUwlfE17
+	 A/3osgA462AFpaMDUYUeMI6DTvvTLt0Cx4PLSTTVd5/nVyrk7Kq4mtCytoMiR7tBXeWyo
+	 C2rEjLDw8yRDQXcyj+/c4Fao2KaTi445umkiaQPn5SSCMjXfjcnUK5RskoDI5ghRpG5ds
+	 8PZBw3TcRLobybhj4I+3ePOE/9GSlqFmMDcpZ1YWINSIsNexvr5KBNXiMlWFhxrqJbsOD
+	 aoQekARmGnhiuSbwFfX5lxfxAYFuxt6H2HtcFia3ZDhG2RJpipIQI/SCYL4msll9nlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792680822;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mJY7akWAoupUA6VSo7V4mxucq+RAYNM6RphG/mYT//M=;
-	b=Lfq2DOK9dnShDsdbBw8RU8tbSkIU/KgE+Ae6ptSGiuLYeBvNHrbkf/igMMB+U97scu4N
-	 lBqwueKfRiL5gRKsr1BwmpgmUd66mag8zv/uBV11RMn3339H1Fr6rmGZHkkbAfcSTaqfL
-	 0qPV+uBvFx7ur5RClPgVwC7G10yIHSODb8ywMS+G/7sGil32b+8esdQu/g4q8Rfi2C54O
-	 nhzkIWrRnx59NI34ds0ACks/OWMu42JMdAk0tFdHIN1AQ4rwMVctQgGgojhRqHpK7hA+P
-	 IriZD2LPyg0NrLeXQ3RBMpdehV+kCgRjjkTFSF9sOBZ7Wj02ijFjJCoSz9L1Y2U/f9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792680874;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=LeyVFsqCqVWi/yTiZu/t1rp7LlLuz+7A3YoONaVMHFI=;
+	b=JHzNNp93fSw7faYTh9CJv/vAc1PqJugT4TxurWt03DRKM0QMG99fCy0YhxrcgvYet2eh
+	 2UdQOL/+waBXxnfjLttXNvs5MfBvtb2mkJxkXwwvZRErJ8EWgdsOpDtJyNHxIJjnnoaaq
+	 L21dQIkX871IrL1rnkFdBswnKEFpk5ZaPeaJrme2sjEk8jd7xRlbAnZtOr0PNqoh17d+0
+	 BrxZM0Avz2sEP6yttp0BEVGpEk+QdiPRK7gQyOjskTyRHoXjtL6eFD+2WclLgOfh4JFBK
+	 eHjIXAdIEQIXnYn019yyrr1AbXbA6RTjvLLkixfl/OJfcD6lzYcckJmFitNekQs17GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="QGx/W0lk";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="FNu/nGsG";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=U1e6LBUz;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB16606A321
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:53:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F86606A31E
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:54:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3F86606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QGx/W0lk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E87661F000C2;
-	Thu, 22 Oct 2026 14:53:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792680821;
-	bh=mJY7akWAoupUA6VSo7V4mxucq+RAYNM6RphG/mYT//M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QGx/W0lktu+IY2QShPxtDUWX2Fs9gpog7pnR6LiNQHqZ84ZveMHQClfD3FaHJ7Lhe
-	 ENZg/B/VS2siKAZz4z8fD++aaJeqa730BC5aPmyXZ0kB3sLDhofv0/M6MvXUiPU9gO
-	 nb2Ai6DceiY30oFlnb5s5AAN+w8abm86SdNpOxQmf+WyTsoq9Zy2P+sSQryleTV6G5
-	 34x0nhVqO5+Uj51k+mF3JgFVH76ugcW+T3AzAIWU/aZllZgBKVI7SxwUO8G1gKOozl
-	 VdgcoSS9RR+buaMwpY1D5SK6stjAz/pYNY9LT1939xOUmih4qh+ZDcdz3vQ+jYk1Ll
-	 x2wYjXND6BxhQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 4/4] tracing: Fix NULL dereference when copying keys for a field variable
-Date: Thu, 22 Oct 2026 10:53:37 -0400
-Message-ID: <20261022145315.1599452-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261022145315.1599452-1-sashal@kernel.org>
-References: <2026102123-faceplate-shallow-02a0@gregkh>
- <20261022145315.1599452-1-sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FNu/nGsG;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=U1e6LBUz
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MEFXci3771501
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:54:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=LeyVFsqCqVWi/yTiZu/t1r
+	p7LlLuz+7A3YoONaVMHFI=; b=FNu/nGsGUGijxpOunvpAFg313nntuufV14mIIT
+	limhirkmXmrBmRiwMvw88X0yLt8F3mvnvnMn7CGMJIS+DqODnB4qclY7195jk+Nd
+	pX2tCdXY9juGiSVl9+xBVskQIpSN3mF0GCoHK3lhc1S/1gwlf10hpmcJXAA7KWjK
+	kpcVpTskb1YQ9gzGVFlCRERPzQ69inOCwCpzrjTGZ5HxPF0zxyon0x69U0Wx6UnF
+	5FkR0UAgWNCVxTdyeqvuuRl3ItquW0v6dNmHjNsBv5uo0cxj9OyF6ozYDeWf2fBd
+	D2mJrINo9nwDH7SaTv+YThP1Jtm57LzImeRMatAIFS/A8aEA==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93bvah4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:54:32 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3510d0baf63so4418212eec.1
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 07:54:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792680872; x=1793285672; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LeyVFsqCqVWi/yTiZu/t1rp7LlLuz+7A3YoONaVMHFI=;
+        b=U1e6LBUz0vYNgvi01E3wOd3GQxVmW806KeGOQroELH4ui18WSPYG7mUwlluqia4lgg
+         INPszpMI9kYMXordzyfQ17RjY4Ra4UNHynAa2BTfsHt20YqcEpKF3rM5xiE2sVvptCGD
+         MGsGH7jrTijmXV1tUVfnDdv2/5w7SfxeWUt70nAro724BdH5BnYkN07XH/4zuJdySpPE
+         B9QxHo9qa2clAU0Fm2I96HLOwHDllsSeGVxxus6RJog+GVOcucZedokFYP4M47ewymfW
+         AYe9V5l81xg1Pcc42XLWWA59+Ijj/d2v1Wxwu3gYuiehfoqAbqdT2JKKAs459XQLXBwc
+         OyRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792680872; x=1793285672;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=LeyVFsqCqVWi/yTiZu/t1rp7LlLuz+7A3YoONaVMHFI=;
+        b=FvftElLIlyhbr+EogaXqogPOlAgcsOjnMaXYqez4VJQGfiRDCAWPWiCwyL8FEwY+Rb
+         e/b71cMjTa+pY06WKPAI9BYMT9N4wrzGoLfgZhLTfTbf9OXxKw6SXNoiWzA7rB87nnZX
+         +IXSppSs1F1b3OPdFbwwgWzJhbZbasWN9HYjNpqdilWuUDRaxJgrVsSLadVR0p555QOz
+         dxqrEY/fBd4fJzANgk7lQgkq700RSKBrxDbcwr8PH1kLBZCIwn+klajpDiA8SSQidBfR
+         z2T1kEp1J9y82xIte1rn+bhFY+kZJiBu/0hjkrGHObUQVlDNmIhIV5/vyXfhdzvoz/4A
+         m9qA==
+X-Forwarded-Encrypted: i=1; AKwUvBwUhpL5gW2MV59aitI9+ziTxprEkV8nJNigPn8rmB1roScnxp+Rq+/DcYY+UkOyz7DqV+t/c+o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLHjVijxRFceZd7rHQPHFYRauiC+2SBfLQBolF0cntIHxBCR5Vy
+	EwZnN7jh1PRjfLKxhLm7x/voHd7zRauc3g+F3AeX8PT34SDd4nrdDjZ/PvIo0hjUDlIMIpnt8h7
+	ec7Z7xoY+EhoQ/kchqWp6AZXH+ABCihGAcovpZwqbn2Gku6ZgNXBjcu0PvT0=
+X-Gm-Gg: AYBFou02ZtJvm33UWhV/bUlFdhSJ6uKB0q9AvMBZJxwwMg7Hw6GXr9ISzPuIGBPjwpl
+	/VAJ/l8yRU1fdLfKP0rdLD45N1yBBoJdr+Wta9uIbgy0dQx144jZoFLeiYpJGMg0RZg9xeJkbUz
+	gVkvqZk4ziho9JK1RK76YY3MB6MD5ZglLZxjyK2D6kd2X/fxXeBUto85u1L3Fgka7KyKe50xTUX
+	rhYhsVOB6Qt/ooNW4eMBuEQ8s0uhmbWi3QpyNydNKpL0ihLRm8ewQwUFDpAC3HlcoaKHaXUl3hL
+	IIKmKPTZ+paIf1l3KTx1UpuJIH0FHQw8E1eKNCnPINqTbD1X/920EXJkQvO/ZazdZhD/Hq9m5nP
+	J0zYe+soRkaskcZWz+Mmezkl/nsZLQJMU86Y0
+X-Received: by 2002:a05:7301:8615:b0:359:8492:20ff with SMTP id 5a478bee46e88-3674c43a7a8mr6978996eec.12.1792680871418;
+        Thu, 22 Oct 2026 07:54:31 -0700 (PDT)
+X-Received: by 2002:a05:7301:8615:b0:359:8492:20ff with SMTP id 5a478bee46e88-3674c43a7a8mr6978969eec.12.1792680870900;
+        Thu, 22 Oct 2026 07:54:30 -0700 (PDT)
+Received: from hu-anupvish-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367411bd2a6sm26250257eec.18.2026.10.22.07.54.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 07:54:30 -0700 (PDT)
+From: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
+Date: Thu, 22 Oct 2026 20:24:25 +0530
+Subject: [PATCH] remoteproc: qcom: pas: Release DTB firmware after load
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,75 +113,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261022-b4-qcom_pas_dtb_fw_release-v1-1-d92d84a05544@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAKAj2moC/yXM0QqCMBQG4FeRc91gG1OoV4kY2/G3FqW2oyWI7
+ +6qy+/mW0mQE4RO1UoZ7yRp6AvMoSK+hf4Kldpisto2RlurolMvHp5+DOLbKfru4zMeCAJ1rNk
+ 43biawVSCMaNLyy8/X/6WOd7B03ekbdsBhcScl34AAAA=
+X-Change-ID: 20261022-b4-qcom_pas_dtb_fw_release-95c140645cec
+To: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792680867; l=1584;
+ i=anup.vishwakarma@oss.qualcomm.com; s=20260805; h=from:subject:message-id;
+ bh=40dojUEYiTck5avIuh4BZLBGj7u3joSJCzFWspEillw=;
+ b=HMYQhkmCsBufTsqpejcDU81i+XJ/9B031qiPCSbjZs8maM+zPlzrmJBFmkfKc+l0CN3jB4U1m
+ iGFeS0C3y5/BwCarm9Ozo6DDo2U4cHbU3laE3PXpypjuIp5xiJveJQz
+X-Developer-Key: i=anup.vishwakarma@oss.qualcomm.com; a=ed25519;
+ pk=Y9ilCu91UQrzHOM14SG2IjnmQ1QSroH5uVeBSWEmEDM=
+X-Proofpoint-GUID: soWpIpsLoLoRPCIt11PioMC4_c9U85EW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA1OSBTYWx0ZWRfX/Q5KrTvF7B+J
+ B2GNQBGjmbpVrcxIoMI+UinUoPiV7ROcjaMXQTj8tTbRMjoK9aPKT2hcJ8VQaNdQOX9emcnn0Ve
+ /MagF4OEEklTpGPYbanXwop5JaLkHg06nU90gew+RlH9kSR85mPoXtBIz+AOF8iUBsz04gXKouY
+ tXFm2w9bVuL2YP/KJXJyfdMZZ3r2a1e4WRrEhX3kYDndBtp3pbVr+WJORhjgMVFd/Qhj+s4IsIr
+ Q+GWBRDA/LsOkwG8O3ZCSFWPdztOit3oAFNQg8UpAyzg71ZnoEui2o2b98SPqxXVpQBaiiaz3RH
+ JaW6KYjrfeR682ufeBTLoXDeC1SB6MDeDQRU2Yh6lM/IUGEUMLN0XscN5Ey/+gP0XzKYjTiLFsp
+ 1Dk60N4+sbvdPbWdsTrX8GuCfXV7HKcVk7XV4eTC7AI3DWjeO62PC5MfakOqTUJf+uqZVB9Jx3F
+ i+3fQA5YqjdWeitn59A==
+X-Authority-Analysis: v=2.4 cv=HJxWhYtv c=1 sm=1 tr=0 ts=6ada23a8 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Y1IhKJFcC3I6eYhxwIsA:9 a=QEXdDO2ut3YA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA1OSBTYWx0ZWRfX9DcrZ6ZrOMep
+ yeqobE5GBqdCEsZxcNIt8MZd+cVcCowzt2sw59+CIfCA3iqFQBKwsfRMoLvEIOt5Mx/DczRQwK7
+ z15X128SWYLNpB8oTHTrwLsqFhDcwg0=
+X-Proofpoint-ORIG-GUID: soWpIpsLoLoRPCIt11PioMC4_c9U85EW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
+ clxscore=1011 priorityscore=1501 adultscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220059
 
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+qcom_pas_load() releases the DTB firmware only when
+qcom_mdt_pas_load() fails. On success the firmware is never released,
+so the DTB image stays allocated, and each later load leaks another
+struct firmware and an extra reference to the shared firmware buffer.
 
-[ Upstream commit a0777b9e53157f1f6848a0fd0650f5465391ea81 ]
+The firmware is not needed once qcom_mdt_pas_load() returns, since the
+metadata and segments have already been copied. Release it right after
+the call, on both paths, and clear the pointer.
 
-In event_hist_trigger_parse() where it needs to create actions like
-"onmatch", it calls:
-
-  event_hist_trigger_parse() {
-    create_actions() {
-      action_create() {
-        trace_action_create() {
-          trace_action_create_field_var() {
-            create_field_var_hist()
-
-Where create_field_var_hist() does a loop on the hist_data
-representing the keys. The issue is, if the keys uses one of the
-pseudo field types (like common_cpu), the hist_data field element
-will have NULL for its field member causing a NULL pointer
-dereference when accessing the key_field->field->name.
-
-  # echo 'hist:keys=common_cpu:ts0=common_timestamp.usecs' > \
-      events/sched/sched_waking/trigger
-  # echo 'my_synth u64 lat; int prio' > synthetic_events
-  # echo 'hist:keys=common_cpu:wakeup_lat=common_timestamp.usecs-$ts0:\
-      onmatch(sched.sched_waking).my_synth($wakeup_lat,prio)' > \
-      events/sched/sched_switch/trigger
-
-  KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
-  RIP: 0010:create_field_var_hist+0x771/0x1380
-  Call Trace:
-   trace_action_create_field_var+0x360/0x600
-   trace_action_create+0x393/0xe80
-   event_hist_trigger_parse+0x3e47/0x69e0
-   trigger_process_regex+0x1a6/0x250
-   event_trigger_write+0xce/0x160
-
-Instead of accessing it directly, use the proper handler
-expr_field_str() to get the name.
-
-The three previous patches are prerequisites: without them a .buckets
-key and a common_stacktrace key each render into a command that cannot
-be parsed back.
-
+Fixes: 29814986b82e ("remoteproc: qcom_q6v5_pas: add support for dtb co-firmware loading")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260914053443.981201-5-donggeunyoo.kernel@gmail.com
-Fixes: 02205a6752f2 ("tracing: Add support for 'field variables'")
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
 ---
- kernel/trace/trace_events_hist.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/remoteproc/qcom_q6v5_pas.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 18e3503bdc79b..002c298602fde 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -3009,7 +3009,7 @@ create_field_var_hist(struct hist_trigger_data *target_hist_data,
- 		key_field = hist_data->fields[i];
- 		if (!first)
- 			seq_buf_putc(&s, ',');
--		seq_buf_puts(&s, key_field->field->name);
-+		expr_field_str(key_field, &s);
- 		first = false;
- 	}
+diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+index 2e1e39826ffa..2ac21c502d35 100644
+--- a/drivers/remoteproc/qcom_q6v5_pas.c
++++ b/drivers/remoteproc/qcom_q6v5_pas.c
+@@ -279,9 +279,10 @@ static int qcom_pas_load(struct rproc *rproc, const struct firmware *fw)
  
--- 
-2.53.0
+ 		ret = qcom_mdt_pas_load(pas->dtb_pas_ctx, pas->dtb_firmware,
+ 					pas->dtb_firmware_name, &pas->dtb_mem_reloc);
++		release_firmware(pas->dtb_firmware);
++		pas->dtb_firmware = NULL;
+ 		if (ret) {
+ 			qcom_pas_metadata_release(pas->dtb_pas_ctx);
+-			release_firmware(pas->dtb_firmware);
+ 			return ret;
+ 		}
+ 	}
+
+---
+base-commit: 9a482184d910775cf648863148944945b74e2815
+change-id: 20261022-b4-qcom_pas_dtb_fw_release-95c140645cec
+
+Best regards,
+--  
+Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
 
