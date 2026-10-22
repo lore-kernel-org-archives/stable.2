@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792673729;
-	b=3ZsMDvl2pPbAy3vu1Fl17t2ab2aLNu9lku8sYoRlKHBkrJf0d8Hhr3KImTMQdwCzHz7u
-	 ocTCDqsnnT6l5y+IhO1h30xuZ54ZuCmFFnIxrxBib3yucXWioGFKanZe5kg2zbtSei6kV
-	 6ukz3H/aCtHrY2qKANUdBbNFJUZkNqU8GzDiSH7uHtwEweQcoen+pKpwZBf0J+CY/sw2A
-	 ZHbUumsAcPwO5RM7rqBZNMHp5EeXDLv5wmhvb/TkQfIOIdcG25O0q+iEtiNhq1WkNotMp
-	 pAHrXzAsgrINA40gubh0rG6xI0PJzFQhnV/T3SzwoqeyB/ujemKH7x035R87aM8Vc3Q==
+	t=1792673892;
+	b=H668EzQma0IthN2HePacKDe02KlmRBPZ51SA37PRF+BUsDRRus7i3N+1BzqVHVAvXHgT
+	 QXbu9yo0vlQaZlnL6MaTFKVLm71kvzx/gejACTNH/vvQpImgYSq7qbW5lWg9Gna4MG/Tq
+	 S7ZFxOX8opSXu91CD1t8JnUjMnvKNWyqabhA8sv+WDy+fA9kwdUU64y3CaovBKbswhZwl
+	 CWb+VHJnIwuX/c+LNVb0vmSDkFFWRs46dlsI6Kj8vh+muqLt1OynWFrMgb6FXuAFnyaKl
+	 gPg+weN88v77v6jKzoCaPOBZP7tcwm/AblwSD+XnCNvGG9lQQYMobgsusnNhZrvxHvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792673729;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792673892;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Y2X+9l5yeMsznu8XzBdikZjkUHM89U7faIRWTNrKhII=;
-	b=u00eLINaTxQWagtIdCrC91Y3EM0WUYeCe/FxwpjmSidGOyK4PDSYo57tX0t/bogwM18f
-	 Z4+HwI1NWDS8q2mBGgwMwgIfG3DoVXl5trJ8N51xeEhtQeCXt7o+YtFnj5bjL2OaSaqVg
-	 hlBDf8M72eb2QPuW+smOva0xE1DNvv8Y2if6c/Bfk5gK4pvFdGgyyHpGRVF2Pw/8gPsG4
-	 Y08qyGrU/1hggtHR8jaZOYCrGaNQGWmLlfQwCjz/Cpm1kffmOZyUHZMwRb5HJ/PoADzI8
-	 HjqyaNTk8tmhq4Tl9nOtpWekTR+bZ3ik8alCTUlxZTMGcRBOu/RGkcnI7rBQMC6HETQ==
+	bh=QRgAYzrydbf/BE76yEzQ2A++wHiNjgfJ9bvNKbkRwQE=;
+	b=UURgi1Iqjh6Ip7LfMVtk5GkvxYIk2XwTTxUre4Hc8pdrU9gxAF1uvaL8OH60YkGOuVng
+	 sYmVKBTPdI94bzXzXrP5gTh62Wls5OziRNhIpuYJ35yfPZ2uUGnOJMi3PtBhv5fau293H
+	 ZzPFulVJ2CRYyH+Y1hqB9jqmdclyczum2WLTjqnKnbztzz5LzBu8ir1JX7yTwQylu60b7
+	 GdpVQcW7RtRo54EoRE2SBtoI9sP33uoha6adWmcxWSFYFR/Vnf3A8+MMoULVdrR1y6Do/
+	 KBFbMuVH7NmvJ+AsFzgWauK3r8+ijV/tZd18Lltmmi4J0Fhmif9LCcF16JBPbjnptPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f6jpUYAi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LibqHHni;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D39606A31A
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 12:55:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C728C606A31F
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 12:58:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f6jpUYAi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 196441F000C1;
-	Thu, 22 Oct 2026 12:55:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LibqHHni
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D83591F000C6;
+	Thu, 22 Oct 2026 12:58:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792673728;
-	bh=Y2X+9l5yeMsznu8XzBdikZjkUHM89U7faIRWTNrKhII=;
+	s=k20260515; t=1792673891;
+	bh=QRgAYzrydbf/BE76yEzQ2A++wHiNjgfJ9bvNKbkRwQE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f6jpUYAiR0uc38N4j4boJYk4YLCH8IXDIfm01YDBoDXekF5L/r3Yw3stu9CtEC1o9
-	 CUa6hh/e7OpJ0TNGv+uKlAQZ5UbPajb0orqySt2rvo9gjh2NrD7Yu3oUSUEJrnQ+Lj
-	 q0MV77bWFI7dgALleWCwVK9xNB9Wplb8pAQC8T2vhFrlBPTMS8zaG+0vJNHwtMo19v
-	 iE/vAzVM2LlTmzBTRVDCy6uMzSVMvC2+KLeT2UjpB0iv3pF1j3bNKlQt+dBkMfhX5c
-	 0vH8eVKxMHqNNA/5BQJBC+FfGoLes3Fxc1SKOjkhTUQaxRJrszEiHfZBbq7+oztnyd
-	 jZh40d/8xUFYg==
+	b=LibqHHniYjKSrIZIckmYhkx35na+eyLvfN1R+A9XZyh5zPLs6qSbKgSMvVEDHETpK
+	 OIQpGxLCRgjgpJQ1YuaVJ2jV5OZF74hBCmNCtvvWG/Cz0eIxygOihNY/qEylBItBG7
+	 2DK2FtB2YaB/2nikaM9XA2qqDAAxz+zRyLDGRJnZdueIL4hvbvcQFGXr+SUvTfBwAq
+	 wDCg9VrEXRvUybfn/wpepOMp2ICN0LEhQ/YLF1HWy3rrPXwL4T3Tlv8zvxYgsQlDmS
+	 gjRi2VBwlw49zAdBeHTHRYrPEJYp/1mbfrAQhsDlFxBA9LD2rJpePOhajUWG0a2ksA
+	 VSFjQ7tSoifsw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tejun Heo <tj@kernel.org>,
-	Andrea Righi <arighi@nvidia.com>,
+Cc: Jann Horn <jannh@google.com>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y] sched_ext: Fix the bypass dispatch claim for schedulers bypassed by an ancestor
-Date: Thu, 22 Oct 2026 08:55:26 -0400
-Message-ID: <20261022125419.1189016-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] futex: Fix mm reuse handling for FUT_OFF_MMSHARED
+Date: Thu, 22 Oct 2026 08:58:09 -0400
+Message-ID: <20261022125420.1192801-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102105-slicing-rupture-e72c@gregkh>
-References: <2026102105-slicing-rupture-e72c@gregkh>
+In-Reply-To: <2026102125-action-scroll-7041@gregkh>
+References: <2026102125-action-scroll-7041@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,103 +61,204 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tejun Heo <tj@kernel.org>
+From: Jann Horn <jannh@google.com>
 
-[ Upstream commit 5bdeca322a6f8d10acaf67cccab1f69747ee7be3 ]
+[ Upstream commit 3267512ad1c2cc0c7768c5b014dc2cceb398a801 ]
 
-scx_bypass() claims bypass dispatch when the scheduler's depth goes from
-zero to one and releases it when the depth returns to zero, but propagates
-only the depth to the descendants, not the claim. A descendant that starts
-bypassing with its ancestor never claims, and one whose own bypass ends
-under the ancestor's keeps its claim, as its depth does not return to zero.
+A FUT_OFF_MMSHARED futex is a shared futex that refers to an MM.
+It is possible for a process to wait on a shared futex with a different MM
+because a FUT_OFF_INODE waiter can be requeued onto a FUT_OFF_MMSHARED
+futex by another process.
+This can cause FUT_OFF_MMSHARED waiters on a freed MM to consume
+wakeups intended for a newly allocated MM at the same address.
 
-A sub-scheduler enable whose bypass ends under a PM suspend thus leaks its
-claim: the parent keeps hosting bypass dispatch and the sub-scheduler's next
-bypass trips the WARN_ON_ONCE() on the claim. A sub-scheduler disable that
-starts under a PM suspend has no claim, so once the resume lifts the root's
-bypass its tasks sit on the parent's bypass DSQs with nobody consuming them.
+Fix it by keying FUT_OFF_MMSHARED using a unique 64-bit per-MM ID.
+Leave private futexes as before to avoid influencing the performance of the
+hotpath.
 
-Claim for every descendant whose depth goes from zero to one in the
-propagation and release every scheduler in the subtree whose depth returned
-to zero once the tasks have moved out of the bypass DSQs. A parent that is
-bypassing itself when a descendant claims consumes only its own bypass DSQs,
-empty until it leaves bypass and becomes the host.
+(Multi-threaded processes typically implicitly use FUT_OFF_MMSHARED by
+setting clear_child_tid such that it points into anonymous memory, which
+causes mm_release() in a multi-threaded mm to perform FUTEX_WAKE.)
 
-Fixes: aa2a0a19686c ("sched_ext: Separate bypass dispatch enabling from bypass depth tracking")
-Cc: stable@vger.kernel.org # v7.1+
-Signed-off-by: Tejun Heo <tj@kernel.org>
-Reviewed-by: Andrea Righi <arighi@nvidia.com>
-[ sashal: Changed scx_disable_bypass_dsp() calls to disable_bypass_dsp(). ]
+Fixes: 222993395ed3 ("futex: Remove pointless mmgrap() + mmdrop()")
+Closes: https://lore.kernel.org/r/CAG48ez0dLBpc3QtbAhMMVNHwHL94iHh2G+h-=BVFR4dDuzZr1g@mail.gmail.com/
+Signed-off-by: Jann Horn <jannh@google.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Link: https://patch.msgid.link/20260929-futex-mmshared-fix-v1-1-262b1ffeb3d0@google.com
+Cc: stable@vger.kernel.org
+[ sashal: Adapted futex ID storage to a direct mm_struct field initialized in mm_init(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/sched/ext/ext.c | 34 +++++++++++++++++++---------------
- 1 file changed, 19 insertions(+), 15 deletions(-)
+ include/linux/futex.h    | 14 ++++++++----
+ include/linux/mm_types.h |  4 ++++
+ kernel/fork.c            |  3 +++
+ kernel/futex/core.c      | 49 +++++++++++++++++++++-------------------
+ 4 files changed, 42 insertions(+), 28 deletions(-)
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index e8497c967763d..515829b53a8cc 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -5708,15 +5708,12 @@ static void enable_bypass_dsp(struct scx_sched *sch)
+diff --git a/include/linux/futex.h b/include/linux/futex.h
+index b70df27d7e85c..09f757f14d01f 100644
+--- a/include/linux/futex.h
++++ b/include/linux/futex.h
+@@ -23,26 +23,30 @@ struct task_struct;
+  *  01 : Shared futex (PTHREAD_PROCESS_SHARED)
+  *	mapped on a file (reference on the underlying inode)
+  *  10 : Shared futex (PTHREAD_PROCESS_SHARED)
+- *       (but private mapping on an mm, and reference taken on it)
++ *       (but private mapping on an mm)
+ */
  
- 	/*
- 	 * When a sub-sched bypasses, its tasks are queued on the bypass DSQs of
--	 * the nearest non-bypassing ancestor or root. As enable_bypass_dsp() is
--	 * called iff @sch is not already bypassed due to an ancestor bypassing,
--	 * we can assume that the parent is not bypassing and thus will be the
--	 * host of the bypass DSQs.
--	 *
--	 * While the situation may change in the future, the following
--	 * guarantees that the nearest non-bypassing ancestor or root has bypass
--	 * dispatch enabled while a descendant is bypassing, which is all that's
--	 * required.
-+	 * the nearest non-bypassing ancestor or root. The parent hosts them
-+	 * unless it is bypassing too. Then they sit further up and the parent
-+	 * consumes only its own bypass DSQs, empty until it leaves bypass and
-+	 * becomes the host. Either way the nearest non-bypassing ancestor or
-+	 * root has bypass dispatch enabled while a descendant is bypassing,
-+	 * which is all that's required.
- 	 *
- 	 * bypass_dsp_enabled() test is used to determine whether to enter the
- 	 * bypass dispatch handling path from both bypassing and hosting scheds.
-@@ -5809,16 +5806,19 @@ static void scx_bypass(struct scx_sched *sch, bool bypass)
- 	 * Bypass state is propagated to all descendants - an scx_sched bypasses
- 	 * if itself or any of its ancestors are in bypass mode. A descendant's
- 	 * depth is the sum of its own bypasses and its ancestors', so every
--	 * call propagates whether or not @sch changed state.
-+	 * call propagates whether or not @sch changed state. The descendants'
-+	 * claims are released below with @sch's, after their tasks have moved.
- 	 */
- 	raw_spin_lock(&scx_sched_lock);
- 	scx_for_each_descendant_pre(pos, sch) {
- 		if (pos == sch)
- 			continue;
--		if (bypass)
--			inc_bypass_depth(pos);
--		else
-+		if (bypass) {
-+			if (inc_bypass_depth(pos))
-+				enable_bypass_dsp(pos);
-+		} else {
- 			dec_bypass_depth(pos);
-+		}
- 	}
- 	raw_spin_unlock(&scx_sched_lock);
+-#define FUT_OFF_INODE    1 /* We set bit 0 if key has a reference on inode */
+-#define FUT_OFF_MMSHARED 2 /* We set bit 1 if key has a reference on mm */
++#define FUT_OFF_INODE    1 /* We set bit 0 if shared key identifies an inode */
++#define FUT_OFF_MMSHARED 2 /* We set bit 1 if shared key identifies an mm */
  
-@@ -5894,8 +5894,12 @@ static void scx_bypass(struct scx_sched *sch, bool bypass)
- 	}
+ union futex_key {
++	/* For FUT_OFF_INODE */
+ 	struct {
+ 		u64 i_seq;
+ 		unsigned long pgoff;
+ 		unsigned int offset;
+ 	} shared;
++
++	/* For FUT_OFF_MMSHARED or private */
+ 	struct {
+ 		union {
+-			struct mm_struct *mm;
+-			u64 __tmp;
++			struct mm_struct *mm; /* for private */
++			u64 mm_seq; /* for FUT_OFF_MMSHARED */
+ 		};
+ 		unsigned long address;
+ 		unsigned int offset;
+ 	} private;
++
+ 	struct {
+ 		u64 ptr;
+ 		unsigned long word;
+diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+index 07285b44d831a..4a663b39585b0 100644
+--- a/include/linux/mm_types.h
++++ b/include/linux/mm_types.h
+@@ -580,6 +580,10 @@ struct mm_struct {
+ #endif
+ 		struct work_struct async_put_work;
  
- 	/* disarming must come after moving all tasks out of the bypass DSQs */
--	if (!bypass)
--		disable_bypass_dsp(sch);
-+	if (!bypass) {
-+		guard(raw_spinlock)(&scx_sched_lock);
-+		scx_for_each_descendant_pre(pos, sch)
-+			if (!pos->bypass_depth)
-+				disable_bypass_dsp(pos);
-+	}
- unlock:
- 	raw_spin_unlock_irqrestore(&scx_bypass_lock, flags);
++#ifdef CONFIG_FUTEX
++		atomic64_t futex_unique_id;
++#endif
++
+ #ifdef CONFIG_IOMMU_SUPPORT
+ 		u32 pasid;
+ #endif
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 81355f325758c..25fb13362d38c 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -1082,6 +1082,9 @@ static struct mm_struct *mm_init(struct mm_struct *mm, struct task_struct *p,
+ #endif
+ 	mm_init_uprobes_state(mm);
+ 	hugetlb_count_init(mm);
++#ifdef CONFIG_FUTEX
++	atomic64_set(&mm->futex_unique_id, 0);
++#endif
+ 
+ 	if (current->mm) {
+ 		mm->flags = current->mm->flags & MMF_INIT_MASK;
+diff --git a/kernel/futex/core.c b/kernel/futex/core.c
+index 8a3a27967973a..0055c446b0c60 100644
+--- a/kernel/futex/core.c
++++ b/kernel/futex/core.c
+@@ -473,39 +473,27 @@ futex_setup_timer(ktime_t *time, struct hrtimer_sleeper *timeout,
  }
+ 
+ /*
+- * Generate a machine wide unique identifier for this inode.
++ * Generate a machine wide unique identifier for this object (inode or mm).
+  *
+  * This relies on u64 not wrapping in the life-time of the machine; which with
+  * 1ns resolution means almost 585 years.
+- *
+- * This further relies on the fact that a well formed program will not unmap
+- * the file while it has a (shared) futex waiting on it. This mapping will have
+- * a file reference which pins the mount and inode.
+- *
+- * If for some reason an inode gets evicted and read back in again, it will get
+- * a new sequence number and will _NOT_ match, even though it is the exact same
+- * file.
+- *
+- * It is important that match_futex() will never have a false-positive, esp.
+- * for PI futexes that can mess up the state. The above argues that false-negatives
+- * are only possible for malformed programs.
+  */
+-static u64 get_inode_sequence_number(struct inode *inode)
++static u64 get_object_id(atomic64_t *object_seq)
+ {
+-	static atomic64_t i_seq;
++	static atomic64_t last_assigned_seq;
+ 	u64 old;
+ 
+-	/* Does the inode already have a sequence number? */
+-	old = atomic64_read(&inode->i_sequence);
++	/* Does the object already have a sequence number? */
++	old = atomic64_read(object_seq);
+ 	if (likely(old))
+ 		return old;
+ 
+ 	for (;;) {
+-		u64 new = atomic64_add_return(1, &i_seq);
++		u64 new = atomic64_add_return(1, &last_assigned_seq);
+ 		if (WARN_ON_ONCE(!new))
+ 			continue;
+ 
+-		old = atomic64_cmpxchg_relaxed(&inode->i_sequence, 0, new);
++		old = atomic64_cmpxchg_relaxed(object_seq, 0, new);
+ 		if (old)
+ 			return old;
+ 		return new;
+@@ -528,7 +516,7 @@ static u64 get_inode_sequence_number(struct inode *inode)
+  *
+  *   ( inode->i_sequence, page->index, offset_within_page )
+  *
+- * [ also see get_inode_sequence_number() ]
++ * [ also see get_object_id() ]
+  *
+  * For private mappings (or when !@fshared), the key is:
+  *
+@@ -680,8 +668,8 @@ static int get_futex_key(u32 __user *uaddr, bool fshared, union futex_key *key,
+ 			goto out;
+ 		}
+ 
+-		key->both.offset |= FUT_OFF_MMSHARED; /* ref taken on mm */
+-		key->private.mm = mm;
++		key->both.offset |= FUT_OFF_MMSHARED;
++		key->private.mm_seq = get_object_id(&mm->futex_unique_id);
+ 		key->private.address = address;
+ 
+ 	} else {
+@@ -716,7 +704,22 @@ static int get_futex_key(u32 __user *uaddr, bool fshared, union futex_key *key,
+ 		}
+ 
+ 		key->both.offset |= FUT_OFF_INODE; /* inode-based key */
+-		key->shared.i_seq = get_inode_sequence_number(inode);
++		/*
++		 * This relies on the fact that a well formed program will not
++		 * unmap the file while it has a (shared) futex waiting on it.
++		 * This mapping will have a file reference which pins the mount
++		 * and inode.
++		 *
++		 * If for some reason an inode gets evicted and read back in
++		 * again, it will get a new sequence number and will _NOT_ match,
++		 * even though it is the exact same file.
++		 *
++		 * It is important that match_futex() will never have a
++		 * false-positive, esp. for PI futexes that can mess up the state.
++		 * The above argues that false-negatives are only possible for
++		 * malformed programs.
++		 */
++		key->shared.i_seq = get_object_id(&inode->i_sequence);
+ 		key->shared.pgoff = page_to_pgoff(tail);
+ 		rcu_read_unlock();
+ 	}
 -- 
 2.53.0
 
