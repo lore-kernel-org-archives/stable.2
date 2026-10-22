@@ -1,55 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792678950;
-	b=oLGlKY+GwVfq8ezFs1gWybuGxkPI6gUIvsJMgzeK+LksnBCyAeKVkxr+TN7CSAvHqxmg
-	 U0u6ItrCDkR5BqQVbMf887k4vQtgDve4vyR5FTQ4egX/99Lo0SOTsGskT8DAQPj036m2d
-	 HKdOEcrgcTDSCHABFSmLUWsDEjl4HyfV9iH5xdHasHIsohMPq1L3P04FxxqstJHNY+FVE
-	 JT7HyAT2yzxLrCpN+D2m3v6BDXbq/FAU2UxHUYA1YFoexLGPq5xL09TPp9rgQ+EV/jL7/
-	 DkZpKxH4IxJxfQIcB54JMZ34gFUsXPRL3fFCc3zA+1F+jQ/6jOSpxIl3quRbMP9PFwg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792678950;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hXmY1hqwgQfpsbxcBPlpw73jeqeR42wEz16nwbcQrSw=;
-	b=tYNdTQBkxBpkw/nTRyiRIv6+KWYuTE8+El3uPqkUSGMVG5Pryye02SHMkwEAq1w0/HMe
-	 GseJaUogXOt0vYQ0fco9HjM9pSTV7IqVkuAhdrDg82VqiagR328rW3rDYV5E23iv7+0Dt
-	 82ChRbEyNnmOI8wQAO4amdR5KefrJ15v8HoAuWSB+CNy873DjEQr866WxnjnOwu1uq7/k
-	 pTSwypVeopqxdD6lLTACxrjlBj73dad2Hr2i/miMq/s1V5M616Adkeal/KDcPHtG2uLbm
-	 jja3YvIxH2oi1bMne6Q0YMKoBvaL0WLzJ0AC8Zo7SDlA6yfCH/u3wpFfgG8yabUsZKw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jr+RsW6l;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792679276;
+	b=zvYw/AK3q2Tx0eNnLvfsUU1IoE5ioH/ymn20d7hI4qUNCdORkpRYAEB+Des8EPw7LNfd
+	 Py3lnzAeVkq+Ij7rBOUmJYuIrch1ZBLxLlttr5/RkAs55ROhgbbku9gA1djuSWb6UjIvc
+	 3jB0K+D0Ff69eIhuGkve0az0Kkn8Kr7lD+X84rhtNWpAqGdfO/Js5c4lK6HNLYtrZDx41
+	 OEd64PV+vM4IWXjxZZoyQ/Yx9hd25kaOEWHxH1QDQu33EJqGVG8SsYDm8E67UEIJmAkcj
+	 9hEfWfFhVTKJE97GdSSctxe3oKVZjFMnXp4mjwvR5N9tnlCfb/TnUgcRPH/UvqnXxPg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792679276;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=PchrU+Va3DZaNKNckQ858GV5JoQCVK375UKKXHl3JXA=;
+	b=D3LN05cS7FSDpIvuW5YRO7W/sPeEvjCdBZT4ObzqcIga5hGWAve6PWegmDD9XpDFZef+
+	 /LrlnZI+OvZBGX1gEu/xe+43aLSoZhYhpBlLVh836CCQQVHHEYDpbEOufp0W2MqIjyJmh
+	 25A1SONDwTeEcoAQdxeflPPx+1fTJ37sGZOn0qC7vmKfoo352gz6j25/ODwpshKy1ebq2
+	 UqsrlsH6J4fNnjIHbrDipLKR/AIp6EmJwtIvKvgKnRVgYsvI2BZuxknAAqayzQ7w5pu+B
+	 DAUgryqyxDkWEGY5dQnhoy4cbvfyzqqhd90+JZFSC8TjI+K4I6EOwqWgEwuMBHm+eEw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VadbGkM7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EFA0606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:22:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 101A5606A31A;
+	Thu, 22 Oct 2026 14:27:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jr+RsW6l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 876DE1F000C1;
-	Thu, 22 Oct 2026 14:22:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VadbGkM7
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792679275;
+	b=BmH1FibkTi6Lu9OxjV9eefwuuwuu9l4w9uM0xEx4DF6jjpnl6sYSCn9atvFp75j+2dik
+	 eYvZJwYZWDyTdGAr/r27HFNCIpbE10gd7F7DgrvzJG5Q0UHnfvNNilcf24ZRDtLaIdEbN
+	 NLLJUH65/IBh3r2Lm4gO4tx98aVm7unrRVRJXe63LIxWfW1DfFUjHKzKXOnn6mI5q73jS
+	 hdd9hgJBDbgRUf9Cv/LFlWJQG7m9T9Y9Rlp+F/AdORzjS9YhpX9rtLlx2OMr5+RGYhteo
+	 BWljocwepyEbvvngFJbxw0YgD/q2hhQxLjJbk7h82cIUlBiBRbr8rEwfAEpNoCXpXiQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792679275;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=PchrU+Va3DZaNKNckQ858GV5JoQCVK375UKKXHl3JXA=;
+	b=YRVD1lLcqLvZ2RFHk/Hl/sEQEKChy2+RgFqMrkrtAwjUWAWwelfTrR7M59kwrGQbMPX4
+	 Jp54xBwmHaFgVsSj1bsBLxZnDqwg2iyBYAC40DmwhWIBIGpHqMqYmRW4Wbp7fEeY8bKj/
+	 SlJNA+mtk7I/aoNxqLIobHdCUbjjBM/cLw+mph6L9Yb++haolFvmkMzBZUnn8LygPes3f
+	 1polyAeJkV+qHtXaavzOqDpNlYZxRnscHuNQqfN6gw/jlILRmuTOhil7N3E4vkFfbP3er
+	 iDaQYy3crDFwmSwHuh8Za4/02eMAfUKbW4ZILrWHbO4JeFvpqpZwZwAWPLiJEi6y7qA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 26F0C1F000C9;
+	Thu, 22 Oct 2026 14:27:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792678950;
-	bh=hXmY1hqwgQfpsbxcBPlpw73jeqeR42wEz16nwbcQrSw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Jr+RsW6lw3PqGqad2G+JnesnNvfUyXHP7WFsWHTu6T0Mo8KCgAyW509oLa4tmtbs5
-	 8XmVgsWxBRwHYpwJZBzngQSLhMvY6j/7N4nrtxSFlnaInHfjDPuT4Uk66AVK7gs/Fi
-	 BUyw5Jd8Ts47BMrDBL6zt561mg4FBz9yCjE1ibOKhdBMydx3XwQwHX8PtjFm6+ur1b
-	 X4q4NIpXnvrr+p8n/n76Ul3EY3YN06dU8uwoDBzVrEOYn4cdQeBipR4jA1OIJAz5oq
-	 MDyykr4tS/tZ2J8+xzCEdC9Hd4jTBXEa1MSGLlK7NVUOfA1x8h2YePLPZL+j5tXmMf
-	 AwYdvcm3E9raw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Frank Sorenson <sorenson@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] cifs: add revalidation on FSCTL failure in smb2_duplicate_extents()
-Date: Thu, 22 Oct 2026 10:22:28 -0400
-Message-ID: <20261022141745.1515054-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102114-skimming-various-491e@gregkh>
-References: <2026102114-skimming-various-491e@gregkh>
+	s=k20260515; t=1792679275;
+	bh=PchrU+Va3DZaNKNckQ858GV5JoQCVK375UKKXHl3JXA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=VadbGkM7bWbg9Aje6k89FCVwOXNUdSTYT458Na67GeS3wabl8+FCfrNPJ2kpQ5RjS
+	 RNQ/VUj8+LYKSTbC/zA3pkw8f4FWhxSuCf6b8A07DgREW4g/F3YW9uPEphQ30O04KA
+	 0wKNdGjvLW1TbNqbK4cGGYKDmmLyRrLZsT1x+wsO6Br/AlHjTQG8DietO+fh1wBN/v
+	 Ntmogm51OWk5YX3IuAhHahFfmVs4Kk8MRhOGfr5TxDqBMoVJhoHuJ5R0EOm74GUFsE
+	 X6y0ILqNoaDjkN4l3jb5lMimr23YGOpuLqYpjLtyok3ufNHAtIDRtzulzrKgAkNTAr
+	 V9nY7/viRytpA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 871B74359A;
+	Thu, 22 Oct 2026 14:27:54 +0000 (UTC)
+From: =?utf-8?q?St=C3=A9phane_Grosjean_via_B4_Relay?= <devnull+s.grosjean.peak-system.fr@kernel.org>
+Date: Thu, 22 Oct 2026 16:27:46 +0200
+Subject: [PATCH v6 01/13] can: peak_usb: fix missing CAN_ERR_FLAG when
+ reporting error counters
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,55 +83,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20261022-canfd_check_channel_idx-v6-1-197704231551@peak-system.fr>
+References: <20261022-canfd_check_channel_idx-v6-0-197704231551@peak-system.fr>
+In-Reply-To: <20261022-canfd_check_channel_idx-v6-0-197704231551@peak-system.fr>
+To: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>, 
+ Wolfgang Grandegger <wg@grandegger.com>, 
+ =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
+ Dan Carpenter <error27@gmail.com>, Lukas Magel <lukas.magel@posteo.net>
+Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Stefan_G=C3=BCnther?= <stefangun@pm.me>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792679273; l=1235;
+ i=s.grosjean@peak-system.fr; s=20261020; h=from:subject:message-id;
+ bh=yJYGMmDCA5H1YtV9p82vQMvFYiAXoP2GMFxyPs3vVf0=;
+ b=giTbEhTDNz1JKGA3Nk9D3GSrBLoWSPvbnnTIHpcUF8ZsSexcQ7ZlE05peeDe8Iqr8U6Fv6Gol
+ RpuAxRy2t86CfYYlij4CxeLs+N5zlrQ6ZAloDrY4zhZuo0pnNvNY7Yw
+X-Developer-Key: i=s.grosjean@peak-system.fr; a=ed25519;
+ pk=bP7QV2zvvAKAfConZlUOGKGEcXL64SNUpVUm++Ai+/c=
+X-Endpoint-Received: by B4 Relay for s.grosjean@peak-system.fr/20261020
+ with auth_id=1250
+X-Original-From: =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>
+Reply-To: s.grosjean@peak-system.fr
 
-From: Frank Sorenson <sorenson@redhat.com>
+From: Stefan Günther <stefangun@pm.me>
 
-[ Upstream commit 53676a5e28231186c9f56d87b7998b640699bc15 ]
+When the device reports error counters, the driver incorrectly uses an
+assignment (=) instead of a bitwise OR (|=) for CAN_ERR_CNT. This wipes
+out the CAN_ERR_FLAG and CAN_ERR_CRTL flags, causing the error frame to
+be sent to userspace as a regular CAN frame with ID 0x200.
 
-smb2_duplicate_extents() has no handling for
-FSCTL_DUPLICATE_EXTENTS_TO_FILE failure: when the FSCTL fails, local
-inode metadata may be stale from the pre-extension or from concurrent
-remote writes, but is never refreshed.
+Fix this by using a bitwise OR to preserve the flags.
 
-Force revalidation on FSCTL failure and use i_size_read() for the
-pre-extension check.
-
-Fixes: cfc63fc8126a ("smb3: fix cached file size problems in duplicate extents (reflink)")
+Signed-off-by: Stefan Günther <stefangun@pm.me>
 Cc: stable@vger.kernel.org
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ sashal: Used a standalone failure block because the upstream success branch is absent. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 3e5c291c7942 ("can: add CAN_ERR_CNT flag to notify availability of error counter")
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- fs/smb/client/smb2ops.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/net/can/usb/peak_usb/pcan_usb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 6ef0fcd9a05c2..7cd2e88a86b72 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -2292,7 +2292,7 @@ smb2_duplicate_extents(const unsigned int xid,
- 			       trgtfile->fid.volatile_fid, tcon->tid,
- 			       tcon->ses->Suid, src_off, dest_off, len);
- 	inode = d_inode(trgtfile->dentry);
--	if (inode->i_size < dest_off + len) {
-+	if (i_size_read(inode) < dest_off + len) {
- 		rc = smb2_set_file_size(xid, tcon, trgtfile, dest_off + len, false);
- 		if (rc)
- 			goto duplicate_extents_out;
-@@ -2318,6 +2318,11 @@ smb2_duplicate_extents(const unsigned int xid,
- 	if (ret_data_len > 0)
- 		cifs_dbg(FYI, "Non-zero response length in duplicate extents\n");
- 
-+	if (rc) {
-+		CIFS_I(inode)->time = 0; /* force reval */
-+		cifs_invalidate_cache(inode, 0);
-+	}
-+
- duplicate_extents_out:
- 	if (rc)
- 		trace_smb3_clone_err(xid, srcfile->fid.volatile_fid,
+diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
+index 8fd058c32856..785224e00c4e 100644
+--- a/drivers/net/can/usb/peak_usb/pcan_usb.c
++++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
+@@ -526,7 +526,7 @@ static int pcan_usb_decode_error(struct pcan_usb_msg_context *mc, u8 n,
+ 			/* Supply TX/RX error counters in case of
+ 			 * controller error.
+ 			 */
+-			cf->can_id = CAN_ERR_CNT;
++			cf->can_id |= CAN_ERR_CNT;
+ 			cf->data[6] = mc->pdev->bec.txerr;
+ 			cf->data[7] = mc->pdev->bec.rxerr;
+ 		}
+
 -- 
 2.53.0
+
 
