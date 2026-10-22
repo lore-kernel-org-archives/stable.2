@@ -1,103 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792679363;
-	b=cDKYgVKwSf7iNps8RKCOJRW7PW9ed/Q9an4D7+P8k/VJwuLMuBAeKjXEW8Fv1ly98pIC
-	 I5JroI5iOP5TuNzn4RVUH869K6SW34S3iNyU39u+EwRpE+SoWTaRHdkUF5WhKobpp5zwz
-	 mGnLXwwXly7eCRLJfpdhpnsYbT/xBbKbOvD+VinHXa09LUoJUb+szHHN7eoLBIxFXwdkS
-	 MLbRdFUdI19vm8e6p55WpReOrKk2c7OuOCypU0Drsja10pRClZLu3lAygWy/Qh3Emhw6l
-	 1wUOHUtebrwhXIfqvuhLRq0r0pW1zYTOU7mT7NwN4w5wwZ4HThElgfShogohu7ym3Ag==
+	t=1792679448;
+	b=sHy09g6UEpguhh/v+y830kP/NY4mxZ5dmHqgJtmwkM5m088x3Q9yskjioSwOVRVsdbvf
+	 QpXtepGQCDbUjRfXCDq9xNhENiaXkR3YPlg2+L9EDsGwbR+r9TTNGevfoXaPU4wr6LcPx
+	 vETa9PV2MZ7WsUZsK122pBliHF7KQMKn298Vlow3fzdj/7RkSUEAPrCmJmFtmI0H4BIr8
+	 TfqWnPBzqkXwcmnqvlyrXg6yw0aWvpQQSrJqGPkE0PP8GYsNLX2m5eWKvroOIlQi9YkKK
+	 OdlvM4awg9pbMoQ2EYgdk8Z/usYZ3hAR3hqRMjzfGLLp8vjIcRfsEksAcuJ+5Siezpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792679363;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ip3LDVkz43JVMLeEy65y5DnSL95eKEKIg6rsimQU6Ow=;
-	b=3VxZj+EAJxNHOpKpVlnpxB3faeQDvWTR1TqnTjBaWhyjdUeEUwcxOXeO6hRmSPkbT+30
-	 HEV3rtk43VjmfT3yksQql2albo587jVTUQGDGxxpntcaDFzBr8Kpe0snSVZ03CoqXd55b
-	 +kX+K2L4w/Rfyt39/lj0asoixlCc34wXGuT0HuBKVt+R9lWIHPhu11NSMDjnGNxqY8nte
-	 XQhT3xwrP+9lhV4HyGvccMghuZnpHzHMaVqTLZ4whxisdqRgpiso4epN2wuhGq0sH3C9m
-	 A6cK4wppNf/fpUY6clNa8UyfQO0C9bSO3/MRwOSE1Y6pSPeLjwNxudOEizsDMSygykg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792679448;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=phsyiiYftDpLPcWYGIQVdQF2640V/13pZn7gbZ+aOV8=;
+	b=TWMNeQ69W4yo45vduDxxIbaLYJrvFa0qoF23K6Gd46iOhgmqEOXTbqOMtK0Xnb4wWc/d
+	 l7uLsiUr/SNLaqibSuDephhtrvCuAcA+u93lhxEEhqo2LOmCnbsqodpiwquxj3oSHvbx9
+	 ifc11dAvtTgQ4XOJwV/dmXTliaSe2qrq2UJ0wm8hKCAu6SK90vZbAQonK9aD31oQ2FTq4
+	 kohpkosAr6jacz09iuicpOCVlS2VGUjBVMXgc9oZyTMvx1T3SnfFPKJbLWtSuJXfzBGOj
+	 +EB3HF0BKmxk3ULo7XIZRSJxPxdfN9fiQ9rXneQvr2r6QDTJLz3rs4OfaYOkVDvz0/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unc.edu;
-	spf=pass smtp.mailfrom=cs.unc.edu;
-	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=Sh3VG5SY;
-	arc=none smtp.remote-ip=209.85.128.171
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mFBmA++k;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA86D606A329
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:29:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA86D606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9798A606A31A
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 14:30:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=Sh3VG5SY
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8b0e21048f8so18566287b3.0
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 07:29:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1792679362; x=1793284162; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ip3LDVkz43JVMLeEy65y5DnSL95eKEKIg6rsimQU6Ow=;
-        b=Sh3VG5SYS86Y/cUu48NcOpZrlstcwtzOP6oDtt0f1lj8SLeLI5pZWs7o+SIp4ix3oT
-         5SggpjHjZ7iWCohx4alswx4ieJz3fvs2sb977apngl3IBzprzk4ulKjhiMFuN6ydLzPY
-         u+OpLY/nMxUyMt/PFrFzJImPdTz/mxUyUWVNKGrEISFLs6U1C1IZZV7uuawmXExSMTo/
-         fLl4ztuQw5RQXnLf6jlBAC9GycJ38e4qI3pKMz8GHe7RDB8g6Qib28eKU+J32wqwYyK5
-         90VRC7sN7POAsHt2h6PjNVLCGTBMGFJ/5KOAClc+KKEbaLuUeqK6opKhBmbEwfSp6jMU
-         PbbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792679362; x=1793284162;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ip3LDVkz43JVMLeEy65y5DnSL95eKEKIg6rsimQU6Ow=;
-        b=2jY2OzFkMHZSlmcVEZ5aOuOMYuKGQbb4ipMPzA/py46zTGos506gahRdcDMy+l50Vm
-         qdgRS8MpjGcEmXb9L3k/siO9+yIiiWSsQJCF8OXXPOA3sldXCy2Uid0reGqzIoOPE3H0
-         9QDlLrzFJtMKtNMqmCy/+OOR9lGK6DmkCzqh5GiqHy+43094HPxBsKaI2u44OsaEJLhj
-         AO0ZbDRUsKk7/oKPUTo+AFFAIgQVKsPkwzxhkaLMEpWzktsUNFvUjPu6yGsbEA2CwJHa
-         pRPyLJTOk2+5j8609cKyjZ60UTjt5Bou5bEY+57C15StQMq7nqU+jLF7WelO4u8OfceE
-         vqFw==
-X-Forwarded-Encrypted: i=1; AKwUvBy+q7FbgM5iCLM4Z37yAr+M8jfqs8KLA1PDUnRoVfhjpiRMMyYqI2kxMKMiDHNcModp/VngupM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQcs5lclXUDhRSOLL3yMqFAKH032fMvLP2r0P6USOGss6r0VbK
-	+NJAfRuzu7LXZVhGYyM5cMotLg/R/cW4Df6mJLTlBR1TWDl9dGaCaY9pIrjgatn4Sw==
-X-Gm-Gg: AYBFou0asfByRFBvISqGU34oYc5WNWr0+0p196BcIeOOFPFAEU00olDthM1/RDwYVDZ
-	/mkcM5UuJxlWkOoZbwq/WuEklt7lzy8xiE/urV+lVWBzbs70BnZ/0iezE8tbK0GpbPAqHh/6gzQ
-	uIVJLJXxBJ7u1mzo13jGrMd7KVewu7O7XR5RGvu+hv7YFIVJ7otK5chnMoStWXGI7bhPox2Fst/
-	CgZj4uV83lY3ZnuCgfsTbdsR0Xa0Sw7Lj7QAejMCLig3z+SJDwCMgb98OLFI7v+NoqM0CStbQwA
-	yON0yzOyPzj86Rl19wDDZzlphpPJHOddy8TsSOYhjW8GvAfGm7bSdKP7HPbvRHRt9WLJ10OSHVF
-	VeNz+BzFrBOIgb2HPgAXCByUW3QTgb6aSHznRcTr3jrb4YlWloZG91ESca1Jf5XTSUxfn+sbCWP
-	UV6QRGRvJQcDwMV/oaBODQurojLk2wCa+KAsuZ4voCi1P8k5gjfBR8iMm8CrbsDnm74GNF78SSu
-	TjnbI3eaUZpyUH5fSYUzVsndS1pOByGq2QGLbHYbs4/WmKS+V+7wyJCVquNsvVKnqh3wsjH2vVX
-	POESe0WinUmMRX+DTS5LlUhw
-X-Received: by 2002:a05:690c:6603:b0:8b0:a171:65e4 with SMTP id 00721157ae682-8b133f979ebmr36772897b3.15.1792679361535;
-        Thu, 22 Oct 2026 07:29:21 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b1300f3cfesm27329767b3.27.2026.10.22.07.29.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 07:29:21 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: jack@suse.cz
-Cc: tytso@mit.edu,
-	linux-ext4@vger.kernel.org,
-	adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	dave.hansen@linux.intel.com,
-	akpm@linux-foundation.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ext4: do not advance i_size on a buffered write that copied nothing
-Date: Thu, 22 Oct 2026 10:29:11 -0400
-Message-ID: <20261022142911.1490979-1-hengyul@cs.unc.edu>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mFBmA++k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B70671F000C1;
+	Thu, 22 Oct 2026 14:30:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792679448;
+	bh=phsyiiYftDpLPcWYGIQVdQF2640V/13pZn7gbZ+aOV8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mFBmA++kILyTK3Agm+DxF3BCrYbSRzjLXRDrEvmoFKYrwUshxNRIhcwTgrf1oCYfK
+	 h9eWZRIQBmCgjMpxdKH5hh2b+T34pu/PxCn3GfYf3QGSr89GP6wl7xyYHpNfmOoBJH
+	 HLU/AvOg6g1Gu5S4y6mpOCj6Eh3997pg4HEvWvX2y0F35YS0GvbdEqLcQlf52hUquM
+	 gISXOMELVJmh29e+C02qAIYPsJPRMnlwEvU72FoRF3h6EVa/8jG6EulrKHDRWlyBDt
+	 Xpl+kOA+8r+FYAcma4ELkNLzpOXxoSuhlEXgsCdIacxaGSqQ0kBBY5J+ObXTMF+Ph9
+	 CQfR01ojXZNRA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jens Axboe <axboe@kernel.dk>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/4] io_uring/cancel: move request/task cancelation logic into cancel.c
+Date: Thu, 22 Oct 2026 10:30:43 -0400
+Message-ID: <20261022143039.1598352-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <34dtkdstf5yxg2ulinnh4hocc53gz35ij6k62egi2ykgpyc3a5@zuxt6doiajwq>
-References: <20261009044656.1993196-1-hengyul@cs.unc.edu> <34dtkdstf5yxg2ulinnh4hocc53gz35ij6k62egi2ykgpyc3a5@zuxt6doiajwq>
+In-Reply-To: <2026102127-pettiness-citation-cb83@gregkh>
+References: <2026102127-pettiness-citation-cb83@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,58 +58,146 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Jan,
+From: Jens Axboe <axboe@kernel.dk>
 
-On Thu 22-10-26 11:48:35, Jan Kara wrote:
-> I agree with the problem but first, Ted has merged rewrite of ext4
-> buffered IO path to iomap your fix would very likely need rebasing, and
-> second:
+[ Upstream commit 0d677936d67774f1b4ebfb3b26f207320f0fe3c6 ]
 
-Thanks for the review.
+Move io_match_task_safe() and helpers into cancel.c, where it belongs.
 
-In the ext4 dev branch, the iomap buffered path is only used with the
-new buffered_iomap mount option, and it faults the source in before
-->write_begin(), so it does not have this problem. The default
-buffer_head path still does: on 8c4f6e337634, a 100-byte file still
-has a size of 1048586 after a failed pwrite() at 1 MiB + 10, sync and
-remount. The patch applies to the dev branch without changes, and I
-will base v2 on it.
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Stable-dep-of: fddcf4c5321b ("io_uring/cancel: don't spin on local work the task can't run")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ io_uring/cancel.c   | 38 ++++++++++++++++++++++++++++++++++++++
+ io_uring/cancel.h   |  2 ++
+ io_uring/io_uring.c | 38 --------------------------------------
+ io_uring/io_uring.h |  3 ---
+ 4 files changed, 40 insertions(+), 41 deletions(-)
 
-> this is wrong and would leak delayed allocation reservations AFAICT. You
-> should just use ext4_truncate_failed_write() like e.g.
-> ext4_da_write_begin() does on failure.
+diff --git a/io_uring/cancel.c b/io_uring/cancel.c
+index 64b51e82baa24..2754ea80e2882 100644
+--- a/io_uring/cancel.c
++++ b/io_uring/cancel.c
+@@ -384,3 +384,41 @@ int io_cancel_remove(struct io_ring_ctx *ctx, struct io_cancel_data *cd,
+ 	io_ring_submit_unlock(ctx, issue_flags);
+ 	return nr ?: -ENOENT;
+ }
++
++static bool io_match_linked(struct io_kiocb *head)
++{
++	struct io_kiocb *req;
++
++	io_for_each_link(req, head) {
++		if (req->flags & REQ_F_INFLIGHT)
++			return true;
++	}
++	return false;
++}
++
++/*
++ * As io_match_task() but protected against racing with linked timeouts.
++ * User must not hold timeout_lock.
++ */
++bool io_match_task_safe(struct io_kiocb *head, struct io_uring_task *tctx,
++			bool cancel_all)
++{
++	bool matched;
++
++	if (tctx && head->tctx != tctx)
++		return false;
++	if (cancel_all)
++		return true;
++
++	if (head->flags & REQ_F_LINK_TIMEOUT) {
++		struct io_ring_ctx *ctx = head->ctx;
++
++		/* protect against races with linked timeouts */
++		raw_spin_lock_irq(&ctx->timeout_lock);
++		matched = io_match_linked(head);
++		raw_spin_unlock_irq(&ctx->timeout_lock);
++	} else {
++		matched = io_match_linked(head);
++	}
++	return matched;
++}
+diff --git a/io_uring/cancel.h b/io_uring/cancel.h
+index eaa4069e258c9..88054aa048736 100644
+--- a/io_uring/cancel.h
++++ b/io_uring/cancel.h
+@@ -21,6 +21,8 @@ int io_try_cancel(struct io_uring_task *tctx, struct io_cancel_data *cd,
+ 
+ int io_sync_cancel(struct io_ring_ctx *ctx, void __user *arg);
+ bool io_cancel_req_match(struct io_kiocb *req, struct io_cancel_data *cd);
++bool io_match_task_safe(struct io_kiocb *head, struct io_uring_task *tctx,
++			bool cancel_all);
+ 
+ bool io_cancel_remove_all(struct io_ring_ctx *ctx, struct io_uring_task *tctx,
+ 			  struct hlist_head *list, bool cancel_all,
+diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+index ad5e203e0d5ff..3d7d88df4d88a 100644
+--- a/io_uring/io_uring.c
++++ b/io_uring/io_uring.c
+@@ -210,44 +210,6 @@ static inline unsigned int __io_cqring_events_user(struct io_ring_ctx *ctx)
+ 	return READ_ONCE(rings->cq.tail) - READ_ONCE(rings->cq.head);
+ }
+ 
+-static bool io_match_linked(struct io_kiocb *head)
+-{
+-	struct io_kiocb *req;
+-
+-	io_for_each_link(req, head) {
+-		if (req->flags & REQ_F_INFLIGHT)
+-			return true;
+-	}
+-	return false;
+-}
+-
+-/*
+- * As io_match_task() but protected against racing with linked timeouts.
+- * User must not hold timeout_lock.
+- */
+-bool io_match_task_safe(struct io_kiocb *head, struct io_uring_task *tctx,
+-			bool cancel_all)
+-{
+-	bool matched;
+-
+-	if (tctx && head->tctx != tctx)
+-		return false;
+-	if (cancel_all)
+-		return true;
+-
+-	if (head->flags & REQ_F_LINK_TIMEOUT) {
+-		struct io_ring_ctx *ctx = head->ctx;
+-
+-		/* protect against races with linked timeouts */
+-		raw_spin_lock_irq(&ctx->timeout_lock);
+-		matched = io_match_linked(head);
+-		raw_spin_unlock_irq(&ctx->timeout_lock);
+-	} else {
+-		matched = io_match_linked(head);
+-	}
+-	return matched;
+-}
+-
+ static inline void req_fail_link_node(struct io_kiocb *req, int res)
+ {
+ 	req_set_fail(req);
+diff --git a/io_uring/io_uring.h b/io_uring/io_uring.h
+index 042bdd766571b..f70423539e479 100644
+--- a/io_uring/io_uring.h
++++ b/io_uring/io_uring.h
+@@ -185,9 +185,6 @@ void io_queue_next(struct io_kiocb *req);
+ void io_task_refs_refill(struct io_uring_task *tctx);
+ bool __io_alloc_req_refill(struct io_ring_ctx *ctx);
+ 
+-bool io_match_task_safe(struct io_kiocb *head, struct io_uring_task *tctx,
+-			bool cancel_all);
+-
+ void io_activate_pollwq(struct io_ring_ctx *ctx);
+ 
+ static inline void io_lockdep_assert_cq_locked(struct io_ring_ctx *ctx)
+-- 
+2.53.0
 
-I don't think it leaks. ext4_es_remove_extent() gives back the
-reservation of the delayed blocks it removes through
-ext4_da_release_space(), which ext4_iomap_punch_delalloc() also relies
-on in the iomap path.
-
-To check this, I ran my earlier tests on the dev branch with the patch
-as sent and with the helper replaced by ext4_truncate_failed_write(),
-plus a test on an image with the quota feature that reads the user's
-quota usage (which includes reserved space) and the free block count.
-After a failed write past EOF, both versions bring both numbers back
-to their values before the write, and nothing is logged at umount.
-Without the patch, the same case keeps 64 KiB reserved until the inode
-is evicted.
-
-I did not use ext4_truncate_failed_write() because since 665575cff098
-this path is also taken by ordinary writes. When the source page is
-not faulted in yet, the first copy fails, ->write_end() sees
-copied == 0, and generic_perform_write() faults the page in and tries
-again. ext4_truncate_failed_write() would then run ext4_truncate() for
-each such write that starts past EOF, and that frees blocks
-preallocated past EOF with FALLOC_FL_KEEP_SIZE, even though the write
-succeeds right after. In my test, a 64 KiB write from untouched
-anonymous memory into a file with 1 MiB preallocated past EOF leaves
-st_blocks at 2056 with the helper, but drops it to 136 with
-ext4_truncate_failed_write().
-
-So I would prefer to keep the helper. Is that OK with you, or would
-you still rather use ext4_truncate_failed_write()?
-
-Thanks,
-Hengyu
