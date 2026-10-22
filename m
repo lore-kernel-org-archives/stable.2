@@ -1,73 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792661488;
-	b=tAeOETjjU/fWePVZyfcZOz/lukUrnGiVBLJ69HkCpoy/BOGSbq+0Yg6J3w12SaJkKkWs
-	 +Lo+2JhR0yw7DOYJRgwX7xqJLwKAT6vrGnpM+6YoPnAAoMX7FXieb5JeNs9Dan5eAvpfj
-	 llpFubRWC4CydM2LC7/Ej0poKxm6tOQwFnlD3vivnhj888bjr4En4Hnu3JGZS5i9aigui
-	 mW74fOxVeQdbyXVYEq54+XU1YFYbzGzVNporuASibPFEP6C2fcGiHX50EZZpUUK+1159R
-	 Ii9Q3Johu16OQVPUGrLUDYTlpbHSvz41tOmf+zi7NQgOjPv31QDSbrEeLRbt8JZdqSg==
+	t=1792661584;
+	b=k0alQCtXTV25c5hP9ClWrNs1cD6fer6RglwwXAEPrdqOsLeNm5POPZNCYb35O5iQ16/J
+	 RGcjAHYb4jwdSHc7bSfbji5L43ICsc/3eFnCw4CIQ16sO9zQaw0fyEe18k12CA9tXHmDk
+	 kWrbhPTPy3+Q5uA20VVoaiiiE6cT0eK1TImIhdmpGgARHg9Dn8Ls4QQmQLapn2EsOsXIN
+	 /BeSLwSViF7nF3fQ39chpTt+OYkOSCAD7Ks2bzsopP20f6P7EGpehuApL8rHhP6SkVpPz
+	 wSZIaJqEK8Tut/H7/a8Byk3zhD8+e3Qyi/ert+obh/OrqAU9wM1Mwk+lin8ARmuwsrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792661488;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type:Content-Transfer-Encoding;
-	bh=5RVGwZT8t4e1zVjXKKi0e2LIbMh0nK8upWy9XAQnYqk=;
-	b=jwERpd9zG/LdcXWNaU8nODfo5q7DweJWVBJxWTZHCWJOqMW5HcBlmYIQRUug+yxjxiL4
-	 PGOW1IEB0X1zl3lSDwGwp8SsJXDHHkrjhQJjmVMXfCseva83JrJpAZ9thiXSi+SQBXhcJ
-	 fnX4OwVDuTeWupXDSabCgMutVYX/TzxwdHyzhNJEQaq7/wyt1Z3M8C49fxk/XbbOKohTU
-	 DYn8ia7BhU2muS868Z/OSSIwajS6S/KN5J7KAIUC2eyZPOowmz9W9HSKhPv200JEr1WP8
-	 3immMkewtM1Z0k/ODiNQRPHswr9khww3dH7eBqnLRQVbVHoydPV2xwOhDtyD3qSjMfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792661584;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=MNO86/vPNqNj1ipvoo0nLkf4S6QTI8ifhfqmHv8QTLc=;
+	b=RnKAW4WsNJPsZ/L6//4h9hVZ18+gZA7Z7aeZII10A1R0udnmg7Fq50c4Z2+fRkztVGQk
+	 6PfV554WWZRQ5L/mbd3xC3EX/02dNk2x0pnH56CZfD4bDOfk6077EA/gNzDrbINCCvXPh
+	 SjESOP1iSrNYNeuMlEkWI4b1bbYZF9nDc5orCNThVcSk/BTyT83QiZx55n1EX1ZS4H/aN
+	 cPO8/SH9tGWI6AzCiBd6NBdmuH4vH2//zulvtaIOkfYeY1+l7sqCB3Y3zc3z3++Cznpoa
+	 805sg3CdiAa/OLuUEkIcxEt9nmNRGfLth7FLWMu/AWVHnSnnKT8iaBW+qnnPDJDaUhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rqlaoc0I;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=X0XWt5ef;
+	arc=none smtp.remote-ip=54.243.244.52
+Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2F0606A31A
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 09:31:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A93606A319;
+	Thu, 22 Oct 2026 09:32:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3A93606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rqlaoc0I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5441F1F000C1;
-	Thu, 22 Oct 2026 09:31:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792661488;
-	bh=5RVGwZT8t4e1zVjXKKi0e2LIbMh0nK8upWy9XAQnYqk=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=Rqlaoc0INXySVzNSPtqkJ7/DXE3rU5CiEBuItg5SQIZQKe8rcuNJKTThDaTHHWOTF
-	 T6eV8iiYS+CeP/aTDPixVPklCvujjS8QtcDBHjpQDYQNoHjFoUVLQYi1RSoCe2150j
-	 flXZxbqRKZsHpQmHzA8IhYrIJG4c8PREKuehaSKLgM+yRXjFnnmvFUOt2bttFisdKx
-	 dYY3svlqGJtC17g3lN9zcx4H8D4g4pKF0hpJlQO4DBtaYrS5uRx9yzXJoo9qHLrFsv
-	 c79IFEk6O1W49WxhVf/LFloPWd+zMh1byyQaxT2jmLMTn3ihWZEm9HnrNhT2sB5sUS
-	 I5j6+Qup6pGyg==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id B8876198003A;
-	Thu, 22 Oct 2026 05:31:25 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Thu, 22 Oct 2026 05:31:25 -0400
-X-ME-Sender: <xms:69fZaqQVwK1DFmdVlAoU2bxJ_E28AzXZnczp1Smr41RqUhpz-BLUlw>
-    <xme:69fZaqli-ZSdZd43vyDjdOc5PkJreKYp2Sm1xUHu51_HEVnMk7H2-aPFcVAvrTJs7
-    9qXLj3wGSSSAshC7Z8RXTG2wXOCo67StvEqIN6vfPQPUma5i3DhjLkdMw>
-X-ME-Proxy-Cause: dmFkZTG0yNsCHIv43dX9nlqrm6DZoOzZrDEcMcejC9UYmP2BqAxOZkNM5VrjFz5aZYVxdY
-    YJ0uxjzCchmGI0EEDIqUjVB95pRmB+py2X4nj3BTe8suTrDbq9sEbkO+dScUYAdp74FWbS
-    2eEhL2agWbq9FGXjhcju7qvhHIZljJCT+gwgGAreouqyKbrKFAEYLD1CxLN66+awuzbmFQ
-    y7nD6Sd3MnXPeBNFP5C24iqg5L/cA0VY0ws0QHOLEngMAkiA6MWBIXOc7jP1bo5qEsNuF7
-    hhk6J8Rk5mu8j4B/qBQq98Rj6xHZKoZaZykv6LbipCWV+GCWvPRjQvhHP4pD1jL18APaRD
-    fqU74uW5GFbgpWReW7YD5jTROrU55tWPWg1/ofw2dzG+X6ekUnK2hYuaQvMWB4ylVE7VTk
-    hvk4U5I/nRcdET2cnXxzCgUw+/PxYlmYxh024BMO2oTayUpotTU80psPK+/4yelcycPcJR
-    Hexny9E06HWl/icHwk/NtOs3fnUf/u7lulq/Kq4OmT/FjWGuWUkMwORPICHg15teBeroMw
-    GmLP2BJCY36TxT0PSSsl7gJmK34SjZ+zclc6jzlimyykmDl3oQdQKZQDvN2G4QRKHd/N2C
-    P35JkbKYy5PjCFnn2sb5WYtH8yBE/Iz+qEmos2wiX1J1eLSB1QCbjpkO4qXg
-X-ME-Proxy: <xmx:7dfZanyHPPsKIL31IXY9JXk8gnle0lL2d-6_kfCSgt1zGPM1Hex87w>
-    <xmx:7dfZar3-mkDMAMtXx5cZi50kORsKrYCtzKtRyxO5Xe2M02Lp319Q3g>
-    <xmx:7dfZalx9vvIMdmee0OzhAKwKdeexltv9Q2TQppeN7gCiaydrCMG6Cg>
-    <xmx:7dfZaoUJAQmNHQRaikfFM4qU7BB7GIYI_pdbuW3bnvRhTHWuoP02MQ>
-    <xmx:7dfZap9juDy-mV7hJBscy4KhOdwvEZrbGllpe9O7zxU86mFTvC_E-KhP>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 82660F8008E; Thu, 22 Oct 2026 05:31:23 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=X0XWt5ef
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1792661527;
+	bh=MNO86/vPNqNj1ipvoo0nLkf4S6QTI8ifhfqmHv8QTLc=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=X0XWt5efgrf16/36sevCEXi6yunRWAcucw825CKt1LPupt3ONBsTaYTaBeFVr46nF
+	 89oAuMdGdmfpwPnIHopjLBnWitATyAS260kcxADP7y1gA5HD7hpfTzF+oz3b2hO+8g
+	 EdOdBwcH6yUeyPJ/sArS0EdCAyGoVpZAn94dfhtU=
+X-QQ-mid: zesmtpsz4t1792661521tf8c4d186
+X-QQ-Originating-IP: dPy+WkuC9bdncRwOP6S9bDiBeHuFCmOE3cM24EOhmeQ=
+Received: from SW-U22IC-015.dc.com ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 22 Oct 2026 17:31:59 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 12619411188459355194
+EX-QQ-RecipientCnt: 8
+From: Peixin Xie <peixin.xie@linux.spacemit.com>
+To: sashal@kernel.org
+Cc: linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	patches@lists.linux.dev,
+	peixin.xie@linux.spacemit.com,
+	rafael.j.wysocki@intel.com,
+	rafael@kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH AUTOSEL 6.18-6.1] ACPI: scan: Defer device power initialization
+Date: Thu, 22 Oct 2026 17:31:58 +0800
+Message-Id: <20261022093158.739937-1-peixin.xie@linux.spacemit.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261019135441.1420968-273-sashal@kernel.org>
+References: <20261019135441.1420968-273-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,69 +74,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Thu, 22 Oct 2026 11:31:03 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Eric Biggers" <ebiggers@kernel.org>, linux-crypto@vger.kernel.org
-Cc: "Jason A . Donenfeld" <Jason@zx2c4.com>,
- "Herbert Xu" <herbert@gondor.apana.org.au>, linux-mips@vger.kernel.org,
- "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>,
- "Aaro Koskinen" <aaro.koskinen@iki.fi>, stable@vger.kernel.org
-Message-Id: <40d8586f-6572-4d98-b271-ffef69d8f78b@app.fastmail.com>
-In-Reply-To: <20261022054450.20746-1-ebiggers@kernel.org>
-References: <20261022054450.20746-1-ebiggers@kernel.org>
-Subject: Re: [PATCH] lib/crypto: mips: Disable Octeon SHA code on little-endian kernels
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: OC9B+nDkeCKkI9jAP7HbmnP3PO7SHXtCwDR6cXqg+/YW6pEM8g68anKk
+	qROa5eHOEw7NRGKKuv/m0MV3VtfWAFoMKlmUl/HJsbP8XncOLyGbF7WjJbyVFZREGVMe6yj
+	SZuO1kO9EzfjiPwyVZlFA5eXV+UZL5zjhldM2YSB2LPfRI2J6a16VokQEH78aDS2kw6CWIY
+	QFfnwVgVDVmj7nKjnoWVHOVpW0notiuM1spT2Wgi6rwuva+VnHNcJkGgkmPii661KwtGdWX
+	uGjW+3RZ3kUTrQ+X2RxrtNX1Dj9HlnRTHB3XvHJD+zfsThqLuI5wR4vNa3cxyS8Vq04HUQp
+	/cUhz9ocmLC5O5p7B47t6v6rmpCZVobZ+1HLAyNgltFHBRp4HMyNpiPN5oHZSVoglrt7KGf
+	1XafMpJ1LzYe5fRspSkHyYj4jckuWAFiKNdFlzydI+H1AAvgoHHvwfcjVLL+NG3LfuWEVuV
+	/kzSod1Fgvk7Y19zxUjcyGF2xIe2w+S43wdIP6rgv994bj/oPmBaeW74KsN3IEh03oadhZb
+	I/jKr9PzcrYDIIz84mwvyLUnKbKguloTzGGrfCF9vumk0V2TEBvTcSfaMfrUFaqRo0OZ56O
+	+4W+1OUV7DnR+3Ye3CeAAXCY/BkImD6y/+LwSognyx4v7EEclMnW5RKQfXl3Vmmdd/jxxcq
+	bjZK0vtcL5LbbtkzmkNBZ8JMFtw4xpmyYdpFAP7orowQ+E1IIDv82LGYyWmurxK8UDZ1lSF
+	LcdyeW95WnqP5VHBpgKcVKUmtZgR1+Px99S/jIc+JVyDSxD01b3v3DxK3V81UiERDVETS+r
+	M/YvfNlIV6YOqMGc7hzuQXFVEadHCOg1YHSlb/N6NgDSvGCWfQysWrQIyGJr3snhO9/8u64
+	IU9RoDCXbBs3HWU45GNhH/Fyho/PYgf1+pwUOyOEsJoe4m2aOsVOID9ee88VijECXX+PWUN
+	SvLQUg0qIUjZOpsJ8UehPzhNygYIUlDe3MXWLFvnS+Dq3BoC1p3yGcFHuFD9o755U8zWISj
+	xlxzdFiSZ/FoNVV6BZGgBEdGwbQOjHpHvGO0Uy2VTkdC04cQSH+uUs6wFmoRN3dsROqf9hh
+	6+rNZb8M/jp
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
+Hi Sasha,
 
-On Thu, 22 Oct 2026, at 07:44, Eric Biggers wrote:
-> Kernels built for the MIPS64-based Cavium Octeon SoCs are normally
-> big-endian, but little-endian builds are also supported.  Currently, the
-> SHA-1, SHA-256, and SHA-512 code using the Octeon crypto co-processor is
-> enabled in both builds.
->
-> This code is untestable without the hardware.  However, based on the
-> code itself, it is implausible that it computes hash values correctly in
-> little-endian builds.  Such builds write many incorrect values to COP2:
->
->   - SHA-1 and SHA-256: The 64-bit integer that contains the last two
->     32-bit message words of each block is written to COP2 entirely
->     byte-reflected, due to missing endianness conversion in
->     octeon_sha1_start() and octeon_sha256_start() to compensate for
->     using native 64-bit loads from the message bytes.  This differs from
->     all the earlier message words which are written correctly.
->
->     Furthermore, the state is written to COP2 with each 32-bit word
->     byte-reflected within each 64-bit integer, due to incorrect use of
->     64-bit endianness conversion in write_octeon_64bit_hash_dword() when
->     the state is kept in memory in native-endian 32-bit words.
->
->   - SHA-512: All the 64-bit message words are written to COP2
->     byte-reflected, due to missing endianness conversion in
->     write_octeon_64bit_block_sha512() and octeon_sha512_start().  The
->     SHA-512 state words seem to be written correctly.
->
-> Big-endian kernels aren't affected by these bugs.  These bugs also
-> aren't new; this code has been broken on little-endian ever since it and
-> Octeon little-endian support were first added in v4.1.
->
-> Commit d2a948d2db68 ("MIPS: Octeon: Make octeon-md5 driver
-> endian-agnostic") made the MD5 code work on little-endian kernels by
-> adding 64-bit endianness conversions to the COP2 macros used by MD5
-> (some of which are shared by SHA-1 and SHA-256, despite those algorithms
-> keeping the state words in native-endian instead of MD5's little-endian,
-> causing some of the strange behavior described above).  However, SHA-1,
-> SHA-256, and SHA-512 were never fixed to work on little-endian kernels.
->
-> Therefore, disable the Octeon SHA-1, SHA-256, and SHA-512 code in
-> little-endian kernels.  This causes the generic code that actually
-> computes hash values correctly to be used instead.
->
-> Fixes: 82be2dcfa6a1 ("crypto: octeon - add SHA1 module")
-> Fixes: c3d0def62001 ("crypto: octeon - add SHA256 module")
-> Fixes: fbaa4dfd51a0 ("crypto: octeon - add SHA512 module")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-> ---
+Please drop this from AUTOSEL for all targeted stable branches.
 
-Acked-by: Ard Biesheuvel <ardb@kernel.org>
+This patch has been reverted. And Rafael has started a new thread to
+discuss a replacement fix.
+
+Link:
+https://lore.kernel.org/lkml/6029658.DvuYhMxLoT@rafael.j.wysocki/
+https://lore.kernel.org/lkml/6044499.DvuYhMxLoT@rafael.j.wysocki/
+
+Thanks,
+Peixin
