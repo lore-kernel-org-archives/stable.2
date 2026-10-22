@@ -1,58 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792634662;
-	b=prDOUDUQHl7dRIKWXaox8wqSuuZCBtT/gE4Ev5kAc+Ww/YrrgbVPhe2LFHbZBdbMr7Zs
-	 FZH2D7xHjCgvdP3Ey9zmBjibYD+FD6TTIrMxRJdZeh8GmuHKF5KkmoTaGzew4vJv8XYbN
-	 NPqTbYPF3JpetVQBrz9jpbVEAzcoF1e9IitZTQTZye697Fin1GDqURZCMcv+qtVmpyMSZ
-	 fzolpm3PRDhvG+OwXn0p2AVG0yISqe/EeMLdTn9n54/N7GnYZGTUEno/gaFYe7qQuacg5
-	 aUStjY6jr4pWIhsb2oakOX+wy5G9qUl6ao+neuSuW+sZZE2JY5nepyv/tCJWaqYG3xQ==
+	t=1792634663;
+	b=cr8A7jAB8xS5tJ+KyG2W4OOBsX8u+dJxLQ4+pRV/hqXhyhDt+/gT8ZXpGKSofEpvMxBJ
+	 x769SKd5gTNafT1QBrvA6JSc2JwdcZYU7zbOpHCW7NueIAjwS8NSZuHkORLhmDHUCMYFv
+	 TH3JRx+2iQJZl3t3rdDEnCI+cT2zM2g1NFwJ1Y4vFV0xUx5aQOHYYZGCYYTi6RyOx/z71
+	 szneBOrFv8eYMjyfVoY3aK/yJ9MayMK1W4Gc1vE4DgQliC5aR9dDT12sIWyDRbYzp7iRQ
+	 18UZK4HaopfLej+aZ58nFLaxOCWcLTjU0bm+IIQvnufYqCuvB5ITBAVakVrqjpMzGuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792634662;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792634663;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=dccJrQdejDRTZVRPmUSOIlKFhJo8jTHrF+T2wh0y7FY=;
-	b=gEymzab6ZlCP7n8axZkCuJ62PdMxqwvKZix63goYZdNbz1X8541GYE2twtjcn0bzGQs2
-	 jcuz+SprT9N2iqqcotihsujjb3KaMXfzoQD2MAxDqq8jEKgwrdp+dZvE5q3BRyEbcpYrm
-	 6r+Z6r9qsA/K9IGOl9F5/jcMVKqvrtA6iVff1r6f/PQvr+dMufxXf07x4Aj3eAlHgsnF6
-	 9Qst2ml0x63n0XpqZEr3WzHV1g9/XMmlEyO43ELdj+r2POshkHbzbNjiIxLAfw9IkFEbT
-	 UOarSUe998RatsXzkRiPx7NDX1zdghC2jByju4/WZfQpORjG7/JJxQ8L16kDKaBe60Q==
+	bh=UbstUCtPVTuL7f6rY2OCj4hy2LZCAR1AFPeamSwRsrw=;
+	b=0Bz/gQgGICyEy19cqPuovRLJRwLUtOEYYpNvoKN+Jy2uqAoq21WX4wMF7HOmKpKN9uz0
+	 eugLDgAbb3yUWSxBeJHr8xCoBdc2vijkHNClyu+10xJgJhzsh4222hnLc6w04QTlNVl0r
+	 LgcQu5mZXQIWDVSwogBNpyiHcjOvgBliAT9cfrmQNNj3G/vK2PLOt3EX0zlaNpARdC/ld
+	 0uOvnWeEIaTCtSCAkM4Fs0JCZHzKCEnD8J+1WQpiO9IWiiaLC1cvhQBDu+nkEbYusZRoK
+	 85exedMxP9kxrc2T6gjWvVCNw+HDCZrcEU1vmKWjmaJr8yAOTZdakOLlUXmvx/LvaNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cPHHx8pb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J+gNMXEw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2317E606A31A
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 02:04:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55422606A31A
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 02:04:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cPHHx8pb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE5841F000C8;
-	Thu, 22 Oct 2026 02:04:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J+gNMXEw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA54D1F000C2;
+	Thu, 22 Oct 2026 02:04:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792634661;
-	bh=dccJrQdejDRTZVRPmUSOIlKFhJo8jTHrF+T2wh0y7FY=;
+	s=k20260515; t=1792634662;
+	bh=UbstUCtPVTuL7f6rY2OCj4hy2LZCAR1AFPeamSwRsrw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cPHHx8pbQyUym30j3H6tjutNPBPGsqW0Wp4Ro2O2nkJVQGREkjrKBrET6a6B/mQVk
-	 xURzL9fG0H1LiY+/OIHjbenkeLpMenMs4nHUCY7HoxiMnLE2NqfSNPbBNxsdqLij1i
-	 b9Ct9WOEu8Ra8/vbPr1wEsvDrgzYO66DeraahX42HINSBW5idg2p0eDd3q/pqmYmrE
-	 atkU8+4eeoIEAbeMvcNmb78er+zqb6T0pFTAQKyUt0tluC2T+HOpzIqGgobm8gYB1j
-	 IOZTEetaJlwqZHDBBZstP6MK7CwY2SNobKE16VBK3p0jueo3csiApGm5E/qJE02n4r
-	 0s+6q6D57JIeQ==
+	b=J+gNMXEwnDfiUkPyrEOWoX8sZVwbShC952vOKm5TWakyl/4/X/CVSgo1Zr9pDCGuh
+	 uEz+x0Ntvlo4cmkEnS3h4LTh7LcMEs3UvuFzRI12sHY9UsQAUhjFWxYqmN638IFpu4
+	 0xUPljlQLQK0Cd9eCw6Dqbuhq2JbL/lVZf7k0D2MDUbcvHD7vDEiFlDSAmxtq7LjCJ
+	 gpBADO0YmG2lWkUcnCZFdaEtrt+3QVgM0H5cwt9Qd44k15VkdMI6rI+ev3rH1MSIfH
+	 eSpcoairFiA06Rc061+/liVTEMM+wrOQEOdrax4XvpEGc+99UoXe38Ec6Elu3I97SW
+	 bdAGtGVlsWGBg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Florian Westphal <fw@strlen.de>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	security@kernel.org,
-	Willy Tarreau <w@1wt.eu>,
-	Abdifatah Suruur <suruurism@gmail.com>
-Subject: Re: [SECURITY] netfilter: nft_byteorder leaks uninitialised kernel stack on 6.12.y with CONFIG_INIT_STACK_NONE (CWE-457)
-Date: Wed, 21 Oct 2026 22:03:46 -0400
-Message-ID: <2026-10-21-1-daily-reply-0021-nft-byteorder-security-queued@kernel.org>
+	Benjamin Robin <benjamin.robin@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	syzbot+07a2e4a1a57118ef7355@syzkaller.appspotmail.com,
+	Jakub Sitnicki <jakub@cloudflare.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Subject: Re: [PATCH 5.10.y] sock_map: avoid race between sock_map_close and sk_psock_put
+Date: Wed, 21 Oct 2026 22:03:47 -0400
+Message-ID: <2026-10-21-1-daily-reply-0022-sock-map-close-5-10-bounce@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <179239012164.14465.16534329674629579851@gmail.com>
-References: <179239012164.14465.16534329674629579851@gmail.com>
+In-Reply-To: <20261019-cve-2024-39500-v1-1-e23b37e81914@bootlin.com>
+References: <20261019-cve-2024-39500-v1-1-e23b37e81914@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,11 +67,25 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Stable maintainers: would you prefer this minimal init patch or a backport
-> of bb061d3de4170741?  Either works from my side.
+> sk_psock_get will return NULL if the refcount of psock has gone to 0, which
+> will happen when the last call of sk_psock_put is done. However,
+> sk_psock_drop may not have finished yet, so the close callback will still
+> point to sock_map_close despite psock being NULL.
 
-Queued that commit for 6.12 and 6.18, thanks. 6.18 has the identical
-leak.
+The 5.10 adaptation adds sk_psock_get() to sock_map_close() but there is
+no sk_psock_put() to balance it, so the psock reference, and with it the
+socket, leaks whenever another holder still has a reference.
+
+The race isn't in 5.10 anyway: its sock_map_close() never used
+sk_psock_get(), because aadb2bb83ff7 ("sock_map: Fix a potential
+use-after-free in sock_map_close()") is not in 5.10. The 5.10 range in
+the CVE record comes from a Fixes: tag matching the 5.10 backport of
+5b4a79ba65a1 ("bpf, sockmap: Don't let sock_map_{close,destroy,unhash}
+call itself").
+
+Cascardo's 8259eb0e06d8 ("bpf, sockmap: Avoid using sk_socket after free
+when sending") and 6451d58a3556 ("sockmap: Fix sk_psock_drop() race vs
+sock_map_{unhash,close,destroy}().") don't apply to 5.10 either.
 
 -- 
 Thanks,
