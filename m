@@ -1,110 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792664193;
-	b=zhiyJyEwb43fuA7ND+JXJXDlO8IP+DMjmnQN505YCFf1EtsJ7nWKyBs+PiOK76MYn01D
-	 4NQ5M2IBLdskeTSm00dI3SRuV9XR+J9+JM4jdpivFF0s6DDd8foV3VX8VcCza/kkV6UKE
-	 TkvR3x9o9ULF/Gh/Y/WmuWOQ93neKLJtZsld0UZv2mXtZGPOAT0Xm7Ub5rwONIpbpyQ9H
-	 DU1akCfoPqlXh0MFuHWUjBLORZNyfC6/+5He9iXLxP+bOKoECrvNN4IQ2qHeFHmDt8RsC
-	 HAD3EKGpsctgt/6UycQnf52lj3Rpv8jfzoINk0bb0z2w5Z7yW9N4wKSOhox5uRtrVjA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792664193;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:
-	 X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=DSqtth9Qpbenh9XOfaBd+IxI7HLc0qZps+kjeRep0FM=;
-	b=hTZu477+7Ool1eLmPzluovIhLQxYiogJ4753eNNfHpfY8uCYkHOkZBKcg9hbXco59Sbb
-	 Uk4wRytmubIHIAvTi2MuopMC2ECnn85j0N+eJuYQGqLeQtG1HfNazyEQT0gCfvyBiKWR/
-	 Ui52WoaOmtrx/Z+cCc+cSdArC0b19CIxpcGw/SZGtyOt86fZwq/ydOt9HDVj6WR+wG9Kw
-	 aWT9o8Q9kObvuirxYY1XuCJuCiGLZ6VycQnyrS4vzn6YXetijRQJQIdIVflziLx4KNVbH
-	 73OZeZKqZ3KniITyjsClZtbqBOJ1dq7OcUPO8D5CmRipBKj6d1TQFwhnisFfgVM1E7g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=yywi59M5;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3KzQR2VS;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=xc7S9+dI;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="0ZtVT/29";
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792664233;
+	b=OUaJRhS02lFrQLYsV34hcTEMZj8sNl9eQd9PEFNqh9be05JUT25mqQhjveeA2JGJp5Su
+	 RGx3l1j6VrZOSg/qjxL4ik5s2XeBKcgvLdcKnp1+C6gWMX0nnLzjd7NdNw4NqMdveXQAI
+	 LkLBct8CPbHULaUigoVBT65ZsR2GSKiNqfOsyP8WYl7jK5lqdymRKb20s9ZZJixqCfDeZ
+	 qfPpAQ3wtaI3cO1itYk3KzCg52BRUX8Njp4SUx95TZ6veVb4MYRYkqXvPbLY0PPXASqF1
+	 o648E1B+qnD8cCU9KbNc6FedFA/3DZtFZc+CYEaao0Fx7qbPn/0PIKnTcjyessRBShA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792664233;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=MpQDFTjOnZQ2jUpmmDnU5MLaPPCLMzpos0JrnSoekyU=;
+	b=bz8WnKjbwErG5WDV9qTi31QqKfLW4Hr+PYpk07rSvefkRGius0icrk6MYjDNyfSeH2xs
+	 gC3cNZlGIXX+ZG4YI4+vhW1fssO65YmiMMPNe4vX2YdzcLTp4o9TzQATzIAXTuHIz298P
+	 7fIuikbCME8CqDqjWo5Gf4uLfOJgAxTtyeTVRPOruR9O9as9BbtZeub07R4E9KZRne2+h
+	 40pa+T1CRpDvjVZW0yWdLXMTEiT2ri2KmsA8g1G6G/fu1SjdeBDnGgfp+omz+wTnoqg3g
+	 HyNEdYi6K2qW+t4kbxp6fKU37Rhyw0v2dmWnpstc0r76GK1NWA9UvzTNFJfohXl8gOA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aW4TJIVW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4003606A31E;
+	Thu, 22 Oct 2026 10:17:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aW4TJIVW
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792664231;
+	b=bAu60N97WvNESTm7zar7jRFDSrsKWSoBmqPwkOiv+11BrtW5ph0hx53IKK6Z3OLZvmKD
+	 hUfpczH/T/Zd7hhT7m8dUcD4WF8JDv+W83UIZwAayFkSfFFPiKBeQ38vuzBFjuC4EcCMo
+	 owWfGtXGyqpljIKd1vjIfhJxh/idzvN8zU2KFqDrK1DDps8W60h/cBN1lKg5JW2a9RPff
+	 GHLxV8xxG+7xukaFx29oRg8+oYfi1uz49yL5eFFwHWxgG9U95gvIAQAV7Vu0GQbMRh06K
+	 RsMEaI5kzjSCZS/gF6tfcYdW55I353Kd9Qye/3NhWyGG1Dhq/QczC+ALFaXPDCCR1FQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792664231;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=MpQDFTjOnZQ2jUpmmDnU5MLaPPCLMzpos0JrnSoekyU=;
+	b=pHPkIsZiu5b5gfqnYsdFGBiBYPaWbnkPJF3wsUB/oRsLWT+Iqmy1t1w1EhA/LKBPmSK/
+	 boSM6EtXF50WCRc763q4uk2klDvKakxMozRlq9YDWXVGPmR75hzNYa9Nga/TsRptkqr/4
+	 OLlg+clCCPcSjnzRL5RGXS4wdeQei3TUbro8YDDy4iI+7h0AYyRGIkvmlCjmPf7OxNs6e
+	 gN1h9xQ1p1LlIRHx9g4ZaP+1iEr5fT3op5Sy70ukYykaitUgQ9MAXOuQZq+0zO6OfvQli
+	 5q4jZMqClAObuUDCWX8p2MaIRXl0uDJWO5vO3Ppg0/bZVRjSz+5vFp51H95yl/iXzsA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22446606A319;
-	Thu, 22 Oct 2026 10:16:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22446606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=yywi59M5;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3KzQR2VS;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=xc7S9+dI;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=0ZtVT/29
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 0290A21E93;
-	Thu, 22 Oct 2026 10:16:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792664191; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DSqtth9Qpbenh9XOfaBd+IxI7HLc0qZps+kjeRep0FM=;
-	b=yywi59M5VteevZTydF2r2FFg41u4cYkjZRJ4cm24s52cVokTH68J8xf7gnE8XuORDIEoe8
-	oetfGJHeiCkqFzSaUB3rX8vKuhcqApwylYXsbm7TSLcoFVZ0lDhIj8fc+h1LVPsQn1QC+E
-	a+OW9pzS4c/tjJ2rUY/4uzMyo2B6DYw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792664191;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DSqtth9Qpbenh9XOfaBd+IxI7HLc0qZps+kjeRep0FM=;
-	b=3KzQR2VSEDYf6jeoVRESLjB6V4LdFeBmhzDqhUUYy9ZjwhG6y4viG2LKHTroMz/ece3uqT
-	CBgZ4autqDe51+CQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=xc7S9+dI;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="0ZtVT/29"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792664190; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DSqtth9Qpbenh9XOfaBd+IxI7HLc0qZps+kjeRep0FM=;
-	b=xc7S9+dIBZz0p2jz0JdP/QczrYlJFRJ3besi4I6wCDbHgcR2S+apk5vvv0EeQxdSJ/s3pm
-	wuxVp3oEVrngccDRszugz0GvFA26J7lfBzbMYsei4nyfls9zmgRen9wrn6q5gnZhD2o+3T
-	BHJ/YAFkdlhNoupjjSAg87IEVty4LS8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792664190;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DSqtth9Qpbenh9XOfaBd+IxI7HLc0qZps+kjeRep0FM=;
-	b=0ZtVT/29aGZ7kgiaJfMW5hzAaaqEPDcFoI29H6HCEAB/mIKDg+D8TTZkO7FQQIRmdaCUpK
-	mKgy2m1TzP/TECBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C8EC0134E6;
-	Thu, 22 Oct 2026 10:16:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id kLXBJ33i2WpwHQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 22 Oct 2026 10:16:29 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 5545CA1417; Thu, 22 Oct 2026 12:16:29 +0200 (CEST)
-Date: Thu, 22 Oct 2026 12:16:29 +0200
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org, stable@vger.kernel.org, 
-	"Darrick J. Wong" <djwong@kernel.org>
-Subject: Re: [PATCH 06/15] fserror: don't accept error reports before the
- superblock is born
-Message-ID: <3mwfltl3u7sht7ubkui6nybkhzjhsjle6rzmbfuzgahee7q5la@zjkree24ksq2>
-References: <20261011-work-super-fixes-core-v1-0-c727176c5b53@kernel.org>
- <20261011-work-super-fixes-core-v1-6-c727176c5b53@kernel.org>
+	by smtp.kernel.org (Postfix) with ESMTPS id 3DF991F000C4;
+	Thu, 22 Oct 2026 10:17:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792664231;
+	bh=MpQDFTjOnZQ2jUpmmDnU5MLaPPCLMzpos0JrnSoekyU=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=aW4TJIVWnXB4vi/G7LXEGrMMtm2Hwki/pB5cGxCbjxx49Wbc++fxxjIZRRW4YBn8l
+	 W+/vxkll1rZHtRcEjlVbNAobN1lbEX/tJf90ztuMW7iuGjniT+LVmlrjgdKvzMDT0h
+	 o9/A+aXC0q4sneiqjc+mSn/hFrIAuUAuqSzIBGb15U3lX003D7BTMayDQUj+XAGycv
+	 LU3B4P8r9lke/zaNegmqwRAsxEpH14J0GYCdJN5zRNE7syZcGz0T5zsXAOqI7sr2WB
+	 m3zu1NzZShU7iqf5rgQhnJI6rbqT33lpHY4gDtb2cj4sJ3NR3b6YDkhlacbPSsiUtT
+	 MwvYulrrVFvFw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8E1AB43556;
+	Thu, 22 Oct 2026 10:17:10 +0000 (UTC)
+From: Johannes Schrimpf via B4 Relay <devnull+johannes.schrimpf.blueye.no@kernel.org>
+Date: Thu, 22 Oct 2026 12:16:52 +0200
+Subject: [PATCH v2] media: uvcvideo: Release streaming interfaces at
+ disconnect, not last close
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -114,140 +83,213 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261011-work-super-fixes-core-v1-6-c727176c5b53@kernel.org>
-X-Rspamd-Queue-Id: 0290A21E93
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	FROM_HAS_DN(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	TO_DN_SOME(0.00)[];
-	DWL_DNSWL_BLOCKED(0.00)[suse.cz:dkim];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email]
-X-Spam-Score: -13.01
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261022-uvc-release-intfs-v2-1-901bc1c47cfb@blueye.no>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/32Nyw6CMBBFf4XM2hqKUtGV/2FY9DGVGlJMhzYSw
+ r/b4t7M6uTee2YFwuCQ4FatEDA5cpPP0Bwq0IP0T2TOZIambgSv+ZnFpFnAESXlyM+WmLXXFk8
+ XIRRvIe/eAa377M5H/2OK6oV6LqLSGBzNU1j2p4mX3j9/4ixfZwR2xkppursaIy549BP027Z9A
+ XPd/+fEAAAA
+X-Change-ID: 20261014-uvc-release-intfs-ff95e3766b15
+To: laurent.pinchart@ideasonboard.com, hansg@kernel.org
+Cc: ribalda@chromium.org, hverkuil@kernel.org, linux-kernel@vger.kernel.org, 
+ mchehab@kernel.org, linux-media@vger.kernel.org, stable@vger.kernel.org, 
+ Johannes Schrimpf <johannes.schrimpf@blueye.no>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792664229; l=7840;
+ i=johannes.schrimpf@blueye.no; s=20261014; h=from:subject:message-id;
+ bh=jITjUBkqSOrja9OK7j/wiP5VysOC8DbpzIk24IUo4ns=;
+ b=PCRLhcqexTTYWT5A2+bjtxRNBlp44aWrcGYfceBjjiWYGAmJlROJ8vu54EeiA1t9sISWgXKH8
+ khjZYShjQuUDa4Daum8GIFwL3duaVHmaLkve+IbVHmoTdqhAwatZbPI
+X-Developer-Key: i=johannes.schrimpf@blueye.no; a=ed25519;
+ pk=900KgDI7vLhnD9R982XOT47UCm3e4vWxQWBC4jDCUPo=
+X-Endpoint-Received: by B4 Relay for johannes.schrimpf@blueye.no/20261014
+ with auth_id=1178
+X-Original-From: Johannes Schrimpf <johannes.schrimpf@blueye.no>
+Reply-To: johannes.schrimpf@blueye.no
+Content-Transfer-Encoding: 7bit
 
-On Sun 11-10-26 17:56:06, Christian Brauner wrote:
-> alloc_super() biases s_pending_errors for every superblock but
-> generic_shutdown_super() only drops the bias and waits for pending error
-> reports if sb->s_root is set. fserror_alloc_event() accepts reports
-> whenever SB_ACTIVE is set. But xfs sets SB_ACTIVE around log recovery
-> and f2fs around gc for checkpoint=disable, both while filling the
-> superblock. If such a mount fails s_root stays NULL, nothing waits for
-> the queued reports and destroy_super_work() frees the superblock while
-> fserror_worker() is still pending. The worker holds no reference to the
-> superblock. It reads s_flags and s_op, puts the inode it pinned and
-> decrements s_pending_errors:
-> 
->   BUG: KASAN: slab-use-after-free in fserror_worker (fs/fserror.c:54)
->   Read of size 8 at addr ff11000107366060 by task kworker/1:0/25
->   ...
->   Allocated by task 120:
->    __kmalloc_cache_noprof+0x27a/0x650
->    sget_fc (fs/super.c:326 [alloc_super()] fs/super.c:874)
->    get_tree_bdev_flags (fs/super.c:1479 fs/super.c:1866)
->    vfs_get_tree+0x8b/0x2f0
->   Freed by task 83:
->    kfree+0x1e8/0x5e0
->    process_one_work+0x953/0x1700
-> 
-> Nobody can listen for errors of a superblock that isn't born yet.
-> fanotify marks need a path in the mounted filesystem and the xfs health
-> monitor is attached through an ioctl on a mounted filesystem as well. So
-> don't accept reports before SB_BORN is set. A born superblock always has
-> s_root set when it's shut down so every accepted report is waited for.
-> Errors during the mount are still logged as lost reports and xfs still
-> records them in its health state.
-> 
-> Waiting for the reports of a failed mount in generic_shutdown_super()
-> instead wouldn't be enough. That runs from ->kill_sb() after the error
-> path of ->fill_super() and xfs and f2fs have already freed state there
-> that putting a pinned inode needs.
-> 
-> Reproducer, xfs with a dirty log and a bad crc in the refcount btree
-> root of AG 0. Log recovery reports the corruption while xfs has
-> SB_ACTIVE set and then the mount fails. The work item normally runs
-> right away, so a kprobe on queue_work_on() points it at a wrapper that
-> sleeps until destroy_super_work() has freed the superblock:
-> 
->   mkfs.xfs -f /dev/vda
->   mount /dev/vda /mnt && echo foo > /mnt/foo && sync
->   xfs_io -x -c "shutdown -f" /mnt      # flush the log, then shut down
->   umount /mnt                           # the log stays dirty
->   xfs_db -x -c "agf 0" -c "addr refcntroot" -c "write -c numrecs 7" /dev/vda
->   insmod r6_fshold.ko fserror_worker=0x$(awk '$3 == "fserror_worker" { print $1 }' /proc/kallsyms)
->   echo 1 > /sys/module/r6_fshold/parameters/armed
->   mount /dev/vda /mnt
-> 
->   XFS (vda): Metadata CRC error detected at xfs_refcountbt_read_verify+0x1e/0x240, xfs_refcountbt block 0x30
->   XFS (vda): Failed to recover leftover CoW staging extents, err -117.
->   XFS (vda): Error -5 reserving per-AG metadata reserve pool.
->   BUG: KASAN: slab-use-after-free in fserror_worker+0x2da/0x310
-> 
-> Not a selftest since the work item has to be held back with a kprobe.
-> 
-> Fixes: 21945e6cb516 ("fs: report filesystem and file I/O errors to fsnotify")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+From: Johannes Schrimpf <johannes.schrimpf@blueye.no>
 
-Looks sensible to me so feel free to add:
+If a UVC camera goes through a USB reset while an application holds it
+open, the camera is unusable after the reset.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+The old uvc_device releases its streaming interfaces only when its last
+open file handle is closed, which unbinds them from the new uvc_device
+that has claimed them in the meantime.
 
-but I've added Darrick to CC since he might have an opinion as well.
+Release them on disconnect and on the probe error path instead, as the
+last step of uvc_unregister_video(), which is renamed to
+uvc_unregister_device().
 
-								Honza
+This also ensures that usb_driver_release_interface() is only called
+with the USB device lock held.
 
-> ---
->  fs/fserror.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/fs/fserror.c b/fs/fserror.c
-> index d8a800580012..90ce04d58514 100644
-> --- a/fs/fserror.c
-> +++ b/fs/fserror.c
-> @@ -96,6 +96,13 @@ static inline struct fserror_event *fserror_alloc_event(struct super_block *sb,
->  		return NULL;
->  	if (!(sb->s_flags & SB_ACTIVE))
->  		goto out_pending;
-> +	/*
-> +	 * xfs and f2fs set SB_ACTIVE while filling the superblock. Nobody can
-> +	 * listen before the superblock is born and if the mount fails nothing
-> +	 * waits for the event.
-> +	 */
-> +	if (!(sb->s_flags & SB_BORN))
-> +		goto out_pending;
->  
->  	event = mempool_alloc(&fserror_events_pool, gfp_flags);
->  	if (!event)
-> 
-> -- 
-> 2.53.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+Cc: stable@vger.kernel.org # needs adjustments for <= 6.14: &uvc_driver.driver
+Assisted-by: LLM
+Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
+Signed-off-by: Johannes Schrimpf <johannes.schrimpf@blueye.no>
+---
+Changes in v2:
+- Shorten the commit message; the details are now below (Ricardo).
+- Move the release into uvc_unregister_video() as its last step and
+  rename that function to uvc_unregister_device() (Ricardo). The
+  release still runs after the video nodes are unregistered and before
+  kref_put(), in uvc_disconnect() and on the probe error path.
+- Add Ricardo's Reviewed-by.
+- Link to v1: https://patch.msgid.link/20261014-uvc-release-intfs-v1-1-18d6e8dfaad8@blueye.no
+---
+Details from the v1 commit message:
+
+Mechanism: uvcvideo has no pre_reset() and post_reset() handlers, so
+usb_reset_device() unbinds it and probes it again on the same struct
+usb_interface objects. A file handle from before the reset keeps the
+old uvc_device alive. usb_driver_release_interface() only checks that
+the interface is bound to uvcvideo, not to which uvc_device, so the
+old uvc_delete() unbinds the interfaces from the new device. The URBs
+of a running stream then complete with -ESHUTDOWN,
+uvc_video_complete() sets UVC_QUEUE_DISCONNECTED, and every following
+VIDIOC_QBUF fails with -ENODEV. Nothing is logged, and the stream stays
+dead until the next reset or replug.
+
+Reproduction, with a Sonix camera (0c45:6366) on an i.MX6Q board,
+Linux 6.18.24 (linux-fslc-imx):
+
+  1. open() a video node of the camera and keep the file handle
+  2. reset the camera with USBDEVFS_RESET
+  3. stream from a video node of the re-probed device
+  4. close() the file handle from step 1
+
+The stream fails within a few milliseconds of the close() in 4 of 4
+runs, with one KOBJ_UNBIND uevent per VideoStreaming interface; the
+VideoControl interface stays bound. A handle on either streaming
+interface has the same effect. Without step 1 the stream survives.
+
+usb-serial splits it the same way: usb_serial_disconnect() releases the
+sibling interface, and its kref release, destroy_serial(), releases
+none. With no file handle open, uvc_disconnect() drops the last
+reference itself, so on that path the interfaces are still released
+from within uvc_disconnect(), as before.
+
+Tested with v1 on the same board and kernel: the reproduction with the
+handle on either streaming interface or closed before the stream
+starts, a USB reset without a held handle, sysfs unbind/bind of the
+VideoControl interface with and without a held handle, and a second
+UVC camera (MJPEG and H.264 at 1080p). The stream survives all four
+streaming runs, none of the five stale-handle closes unbinds an
+interface, and the close() takes 0.13-0.23 ms instead of 38-42 ms.
+USB-reset recovery and the second camera work, and sysfs unbind/bind
+releases and reclaims the streaming interfaces.
+
+Tested with v2 on the same board, built into the kernel image: the
+reproduction with the handle on either streaming interface, closed
+before the stream starts, and with no handle held. The stream survives
+all four runs and no interface is unbound; in the two runs that close
+the stale handle while streaming, 149 frames arrive in the 5 s after
+the close.
+
+Ricardo's "media: uvcvideo: Remove refcounted cleanup" (Nov 2024) would
+have moved all device cleanup into uvc_disconnect(), and was NACKed
+because it fixed no concrete bug. This patch keeps the refcounted
+cleanup and moves only the release of the streaming interfaces.
+
+Tool use: this was developed with an LLM coding assistant, Claude Code
+running Claude Opus 5.5; v1 was also reviewed by GPT-6 Astra. Starting
+from stream failures in our bench logs, the assistant traced the code
+path, wrote the reproduction scripts, ran them and the tests above on
+the device, surveyed the upstream history and other drivers, built and
+checked the patch on media-committers next, and drafted the patch, the
+changelog and these notes.
+
+Test kernel: linux-fslc-imx 6.18.24 with three local uvcvideo patches
+(keep MJPEG frames recovered by MJPEG_NO_EOF, nodrop=0 by default, and a
+coherent_urbs parameter). None of them touches probe, uvc_disconnect(),
+uvc_delete(), the interface claim/release or uvc_video_complete().
+
+Not tested:
+- an unmodified uvcvideo, or any kernel other than linux-fslc-imx
+  6.18.24; on media-committers next, the patch is build-tested only
+  (v1: gcc and clang, arm, arm64 and x86_64, W=1, sparse, smatch; v2:
+  gcc, arm, W=1)
+- a debug kernel: the test kernel is the board's production config
+  (SMP, PREEMPT; no lockdep, DEBUG_ATOMIC_SLEEP, DEBUG_MUTEXES,
+  SLUB_DEBUG, DEBUG_PAGEALLOC or KASAN)
+- unplug and replug, sysfs unbind of a VideoStreaming interface, and
+  the probe error path
+- frame delivery after a sysfs rebind: the Sonix camera delivers no
+  frames after any re-probe that does not follow a USB reset, with and
+  without this patch, so those runs check only the binding; the
+  second camera was not rebound
+- v4l2-compliance
+- any camera other than the two on this board
+---
+ drivers/media/usb/uvc/uvc_driver.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+index cbc1456..bb8f0e3 100644
+--- a/drivers/media/usb/uvc/uvc_driver.c
++++ b/drivers/media/usb/uvc/uvc_driver.c
+@@ -1976,7 +1976,6 @@ static void uvc_delete(struct kref *kref)
+ 		struct uvc_streaming *streaming;
+ 
+ 		streaming = list_entry(p, struct uvc_streaming, list);
+-		usb_driver_release_interface(&uvc_driver, streaming->intf);
+ 		uvc_stream_delete(streaming);
+ 	}
+ 
+@@ -1992,9 +1991,9 @@ static void uvc_release(struct video_device *vdev)
+ }
+ 
+ /*
+- * Unregister the video devices.
++ * Unregister the device and release the streaming interfaces.
+  */
+-static void uvc_unregister_video(struct uvc_device *dev)
++static void uvc_unregister_device(struct uvc_device *dev)
+ {
+ 	struct uvc_streaming *stream;
+ 
+@@ -2024,6 +2023,14 @@ static void uvc_unregister_video(struct uvc_device *dev)
+ 	if (media_devnode_is_registered(dev->mdev.devnode))
+ 		media_device_unregister(&dev->mdev);
+ #endif
++
++	/*
++	 * Release the streaming interfaces here, not in uvc_delete(): after a
++	 * USB reset, a new uvc_device may already have claimed the same
++	 * interfaces.
++	 */
++	list_for_each_entry(stream, &dev->streams, list)
++		usb_driver_release_interface(&uvc_driver, stream->intf);
+ }
+ 
+ int uvc_register_video_device(struct uvc_device *dev,
+@@ -2355,7 +2362,7 @@ static int uvc_probe(struct usb_interface *intf,
+ 	return 0;
+ 
+ error:
+-	uvc_unregister_video(dev);
++	uvc_unregister_device(dev);
+ 	kref_put(&dev->ref, uvc_delete);
+ 	return ret;
+ }
+@@ -2374,7 +2381,7 @@ static void uvc_disconnect(struct usb_interface *intf)
+ 	    UVC_SC_VIDEOSTREAMING)
+ 		return;
+ 
+-	uvc_unregister_video(dev);
++	uvc_unregister_device(dev);
+ 	kref_put(&dev->ref, uvc_delete);
+ }
+ 
+
+---
+base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+change-id: 20261014-uvc-release-intfs-ff95e3766b15
+
+Best regards,
+--  
+Johannes Schrimpf <johannes.schrimpf@blueye.no>
+
+
