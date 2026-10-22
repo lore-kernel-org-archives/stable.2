@@ -1,84 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792668227;
-	b=IhHMYy1YG7zu0H/hk2cshGvycOoajQQfqAhDt9Ur/Xz+2dbHeFoqwAkARc5h+v7sgKlT
-	 342fqK95JH7njENhkDZExIBuwCiQtOzxB6h8KnHVBSLdpnH5Mu/RzuWN8f4QY1aqiLKO1
-	 DpJggyNHuC38Q6FQdJpqcagqVhl7RSgUl8qziP8q58mu3+xhtBHujLbDF2VeA8Oo4GOTy
-	 I5VwDv2c8wy5PwE0YUcngkdHfQmT3BVfgmfgt31EJ/MEE2uEbqaHBCXb+Ps6DWgkoTsP4
-	 CXOscdt3Y8/S6gGWBcch4MKtA9rHV+p46BT9ohooTdrJb4yiIZ8JJyAApmISVtSQDug==
+	t=1792668492;
+	b=lRkvPlg6SAAQmHc8I51F0u2oRCsrn3tyad75JUncB0H6vgt3OixG4ydaeWA26Q26gwKh
+	 aBribsTZiMODIKhToGV5FbtmIdqsBFU9ppWIzHVH2konSoJQB1prhYzmRbHCAn+J0LNFr
+	 I+yz+fnvXcTQ6TR3hknmxC3aK1hj3dOVMNSb/ldph7mGfnYpTdP29pPhZ2twwA0EBZaxJ
+	 S6MQhNMwyZ+5PrKm7maE+cLxQoHrPV+Tms7E3C59v6SPV4aqRrLxFXHKLkaVjRdMgjEJE
+	 xxVZ2FBA6jfXHEkfLYK+cNknMeVj57WX+O7FAYc1nGphwRdPuEAPd/7qM9i/nJdEVag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792668227;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=RbuYOQqzgIfOAiaZGXnsrc5kralu1woOsjsJovLSjjs=;
-	b=klgYEokaYAv/Cid9km5qPzfCmsHgNHIzTSff4lTqToq5OVgv+i9wXVxRXQ56MXkq8PUu
-	 RZ3IxlkGAUGEW1BxkpKSmdOCEaH6rHNlqk30b7yweCVe/OUDjK7ISJyvGdsNuGipdh7EZ
-	 1sj2EJ5O5nQqrlERN/U5/35DyTEnIVUeauJRvmmi780wHTSF+cqLCJLgaJ3D3IcMhLTiO
-	 /BYW0bbE82d4IoInAe0OxVBXbVCwB7eqOAacmkKuG41VU2K4e9CNsl5RMSkI8mEWK8Prk
-	 r29SsDdn1DFs6w3BNpK0yBkHFrrxQ4MiAqHb8lpIrKAWPCbQ2cJtWvonngRw8NS2hlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792668492;
+	h=DMARC-Filter:DKIM-Signature:Feedback-ID:X-Pm-Original-To:Received:
+	 Received:X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=J6YI7+gHBY7EK1SmqLnbwCa4P9bf8M/zCyX1MY9akck=;
+	b=jypr0JzcpnBWRUTMVlmeIOvr9jd9WK+h7XOKLaEQEVm6edS0Bvv/1tEp5JEgrJbk9+vL
+	 H2rI/TWi1s0RTeKoxCrZh01vBMSqMneoxm/W3U0TYUD1uOilEgbl5JCki4rjhIPFJA3XX
+	 CC032Zj2Hutd65CR2rzI/W3LvEl4CIY/Cri1D3k3YpFoG2edb4h6nF2x8rjSQrZEGJ9fV
+	 loOLfBi9BlFr71tAHFlG40Obo25bWxiOp5SxKYqP5VFo2shR2Eted2gA7/R7IyOIfbl2N
+	 E5yxjzPJs/bv8twoctWSbBZpMtmSXiEz53S13o+mHO/CCgWGA0SoPbsHBse4NTDJv6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OrJVOppd;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=maurycy.com;
+	spf=pass smtp.mailfrom=maurycy.com;
+	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail1 header.b=YCU9RR9t;
+	arc=none smtp.remote-ip=34.202.193.197
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2FA606A320
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 11:23:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D2FA606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35072606A327
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 11:28:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35072606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=maurycy.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=maurycy.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OrJVOppd
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-33e623bd651so172680eec.0
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 04:23:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792668226; x=1793273026; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=RbuYOQqzgIfOAiaZGXnsrc5kralu1woOsjsJovLSjjs=;
-        b=OrJVOppdJmpQzpESNnbFh7FZ8bViWXC3cUjorcBi7DoWTRLoNWKjqoq3ED5QmGPJ60
-         TFiku3HnfFCx/qDcUdPyYOK1MMrLUH4jwgZ03+npwHiehHjRednoyIgHL2zHTFqtOFPO
-         rvVQC//0bD4RTn47Nxh8PIFp31JO8cMFvp8SbdcOPrup676IWiqy/2MzqurMnkI5L/bY
-         9mJ+KRF1njvlEhevTmjxP7VpF5inuFMe44cPCDKJLM46OX6MizS8Tnhj1HQ1CqsFQeNP
-         ofih15laI4RkIeNh2qhO27Y4IchRphFPcLZOCgrz8RJlYK2EJb80Axw6EV/njxNWq6qH
-         rXYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792668226; x=1793273026;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RbuYOQqzgIfOAiaZGXnsrc5kralu1woOsjsJovLSjjs=;
-        b=EvpZMIUYHdmCHCUb8m/T3Gx45/oekXVl6WCHMUkUtA7ROIZOJNO0ptf1c0Q0H6617v
-         0nEQvHlAaD4QK2ubbirDgmY+6YKVs8BxE6pDMvVpcy+dmgkqtkc2efcAgSeingnknE5v
-         zJmNvMWFWO6LokQ+2SMjIvv1QnS8E6iWDbv++5nx7h4do8SSpBs+Qqf4KfhPtIxzh8JO
-         /F60vscAtbLP2KvM6rshgkZn2oXoXBg064lv2NHbVLUkfo7/FDC0lXiDxIB4T2rQ7UY8
-         M4FyjHHALeUHbssTVSRkoFdr8Hjlw67Q+1Whr6pc41qXhzHNRhWdehPc+pbn+gIxXi4a
-         A3tQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwlqJuNRwRk1+tmLkmkYls+SPDBTK0tH7tUekrFp1DXxvZF/rw+MNj5a8f7gkpQkAr9bRPBWFA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIenA9SWortfLGg/G4BxiTbtVf7Nz42b+tQdjQBFfalGEY70QRh
-	3k0Rdzp5pmFHXD11OrnEdpL5AVx0ltiswNyxMJP3awwdvu7zXaMNAVVc
-X-Gm-Gg: AYBFou3ab1Adg5p7VCv1clwAhsurbXWqd/6dSy6Xh1LF2hsMw8m53oUg9Ad2z4DQuVh
-	NLJ9kWT7UJn32cddsPhkabeX6z6Vva96/QQPv7Bp2jSr7d+AM1u2uV4BFRH1HARa24PYUEfHLsH
-	ti8eOkfqSU233nmHECZrUFbZMhorF8utAZHe37jgert1KuQAuJ723mJTgKwxUSMeKt5Kubntz4t
-	dE0CussI32WWIuR4tPx16nI4kHYWb50lFltR1TTkwK7IBBw4IKiWJNgsuLUeC8NeyFmWtU/T4Zy
-	6pB9V32nlBQ0MHVGz2Rik81op27VwFaKITN4k+H83AIm92zfLzPW2qY02DFqbh8X0TZo3nQjfa5
-	fO9NY/PjYjyMH9mp7A0scVtCBPFFjTrq/cbafc9N5zIPyB+rM8QkeVNLSS4prU8grIl7cjnz6RC
-	4V9f19H24c0IgGLitCfMLEzoI3ZpqsDUzaBc5EmG5i1ujcO5Szt4fO8eUMks216mpouU7ZI8sWZ
-	De1ZmPzFq4nMPPXBEstIjUGFXrytNH1nfnfHzN90pOZjus+gWIUK4UyNhiM+jDFlT6N2kTWXYra
-	UP0lCLanRBS73vTpqQ==
-X-Received: by 2002:a05:693c:42d6:b0:368:5521:612f with SMTP id 5a478bee46e88-3685522022emr5243257eec.0.1792668225739;
-        Thu, 22 Oct 2026 04:23:45 -0700 (PDT)
-Received: from o6.lan ([2602:fce1:44f:115e::])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36740cc88b5sm16249400eec.10.2026.10.22.04.23.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 04:23:45 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail1 header.b=YCU9RR9t
+DKIM-Signature: a=rsa-sha256; b=YCU9RR9t9GsGNAp1ttE9E96vAKqBS/3OkscvzYhLkRBkkfcV2YvQpQZSCGjPR7DhU85t80xPWcZroF/YvjVWICaSwZoRvAgMFVNN9MesPKKoAQT7kvBNxbpjfvvR3in/Cm8JOdoRPoW8Wbaw92KIsanBzkyXMu+2xRnQUIQqsmdacpfMpFJT4DoWP0PeqeDxe8KwaFOtlQXMn5Ra4xXQsnDR+F6dvtw9m47laPOvEoxl8R+PFy2kW8AhyOkAiDBvTgybArWQnRlDHa5J71+GAqBrZqTYlTHP03RdLVTlVP9CqMNGP1gDQSwySvpp4MxjOWgk30n5/ZaGsGGzIz4Okg==; s=purelymail1; d=purelymail.com; v=1; bh=mimxsNqhVnd0lCdCb8owKuPr5DmEBgQ0iSGfQxmJLIA=; h=Feedback-ID:Received:Received:From:Date:Subject:To;
+Feedback-ID: 1351280:50731:null:purelymail
+X-Pm-Original-To: stable@vger.kernel.org
+Authentication-Results: purelymail.com; auth=pass
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1416988449
+          for <stable@vger.kernel.org>
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Thu, 22 Oct 2026 11:28:09 +0000 (UTC)
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8a06b436dffso726861b3a.3
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 04:28:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzpevEBIAHmN6BFPLOQdY/46y7RB08VSGkdSPg288YKLCNCVQCsSauwDytqiEK7IqLVRW/188I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKgjV4YK2dwRiXSlhWOo2O+C+gjX9/jeGCn+fKMMtLynXuWX6sn
+	Smr/ZVAyzMd0zUg4foKSH7URCNeiPKYELXcpZ2hJBhM9yqXnFYISBZjxg3qGn0j57T1YvMhrDCn
+	NQjssO8zcRInV8ok5xYxXE3iRFtGlrvs=
+X-Received: by 2002:a05:6a21:6b18:b0:3e2:200b:dc1f with SMTP id
+ adf61e73a8af0-3e287f3fd67mr3785808637.74.1792668488506; Thu, 22 Oct 2026
+ 04:28:08 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,52 +61,126 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] mm/vma: avoid broken uffd merge on mremap
-From: Xueyuan Chen <xueyuan.chen21@gmail.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Xueyuan Chen <xueyuan.chen21@gmail.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- Mike Rapoport <rppt@linux.vnet.ibm.com>, Peter Xu <peterx@redhat.com>, 
- "David Hildenbrand (Arm)" <david@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, shaos <shawnq1@163.com>, 
- stable@vger.kernel.org
-In-Reply-To: <atniL5lYyE28HSTm@gremlin>
-References: <20261020-uffd-remap-fix-v1-1-0f34fc181f0a@kernel.org>
- <179266301162.763593.1501773594946042790.b4-review@b4>
- <atniL5lYyE28HSTm@gremlin>
-Date: Thu, 22 Oct 2026 19:23:38 +0800
-Message-Id: <179266821816.763593.10189260302790417327.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+References: <20261022111700.1288273-1-hengyul@cs.unc.edu>
+In-Reply-To: <20261022111700.1288273-1-hengyul@cs.unc.edu>
+From: Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
+Date: Thu, 22 Oct 2026 13:27:32 +0200
+X-Gmail-Original-Message-ID: <CANFf4eCN7rRRfts1pQozdAq2Nn_eKJCSBTAGNjx1BOEKTtLN-Q@mail.gmail.com>
+X-Gm-Features: AclHuK9kQpiKgR2aJ0KID_d9uvfCjDr7iW2kpKGkhhqYBC0Tuy32_mm2vN23hJs
+Message-ID: <CANFf4eCN7rRRfts1pQozdAq2Nn_eKJCSBTAGNjx1BOEKTtLN-Q@mail.gmail.com>
+Subject: Re: [PATCH v2] hfsplus: fix truncated xattr names in listxattr()
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: slava@dubeyko.com, glaubitz@physik.fu-berlin.de, frank.li@vivo.com, 
+	kees@kernel.org, justinstitt@google.com, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-10-22 11:15 +0100, Lorenzo Stoakes (ARM) wrote:
-> On Thu, Oct 22, 2026 at 05:56:51PM +0800, Xueyuan Chen wrote:
-> 
-> > > diff --git a/tools/testing/vma/include/stubs.h b/tools/testing/vma/include/stubs.h
-> > > index be8f5161f92a..f786a585caf0 100644
-> > > --- a/tools/testing/vma/include/stubs.h
-> > > +++ b/tools/testing/vma/include/stubs.h
-> 
-> > > +static inline bool vma_has_uffd_without_event_remap(struct vm_area_struct *vma)
-> > > +{
-> > > +	return false;
-> > > +}
-> > > +
-> >
-> > Would it make sense to have the stub in tools/testing/vma/include/stubs.h
-> > return a configurable bool, e.g. uffd_without_event_remap, and add a test
-> > for the true case? The existing tests would continue to cover the false case.
-> 
-> No, stubs.h are for simple stubs.
-> 
-> Changes like that would be only be made if needed.
+I'm sorry for the late response. Fine with me! Everything looks good
+to me. Thank you for keeping me as the author.
 
-Got it, thanks!
 
--- 
-Thanks,
-Xueyuan
-
+On Thu, Oct 22, 2026 at 1:17=E2=80=AFPM Hengyu Liang <hengyul@cs.unc.edu> w=
+rote:
+>
+> From: Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
+>
+> Commit 7dcbf17e3f91 ("hfsplus: refactor copy_name to not use strncpy")
+> made copy_name() build names in the osx. namespace with scnprintf().
+>
+> However, the size passed to scnprintf() leaves no room for the
+> terminating NUL, so the last character of the name is dropped. As of
+> now, listxattr() returns every osx. name without its last character,
+> and these names cannot be passed back to getxattr().
+>
+> The issue can be reproduced with:
+>
+>     truncate -s 64M hfs.img
+>     mkfs.hfsplus hfs.img
+>     mount -o loop hfs.img /mnt
+>     touch /mnt/file
+>     setfattr -n osx.test -v 1 /mnt/file
+>     getfattr -m - /mnt/file
+>
+> Without this patch, getfattr lists "osx.com.apple.FinderInf" and
+> "osx.tes". With this patch, it lists "osx.com.apple.FinderInfo" and
+> "osx.test".
+>
+> This patch adds room for the NUL to the size passed to scnprintf().
+>
+> Fixes: 7dcbf17e3f91 ("hfsplus: refactor copy_name to not use strncpy")
+> Cc: stable@vger.kernel.org # v6.10+
+> Signed-off-by: Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
+> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+> ---
+> Changes in v2:
+> - Rewrite the commit message. No code change.
+> - v1: https://lore.kernel.org/r/20260828-hfsplus-copy_name-fix-v1-1-75ed9=
+f0f378c@maurycy.com
+>
+> Maurycy, v1 got no follow-up, so I am resending it as Viacheslav asked
+> in the thread below, with you kept as the author. Let me know if you
+> would rather send it yourself.
+> https://lore.kernel.org/r/dc187921249a3f6716b829624853e64c10321cd1.camel@=
+dubeyko.com
+>
+> Answers to the questions on v1:
+> - generic/377 passes with and without this patch. It only uses user.
+>   names, which go through the strscpy() branch. That branch already
+>   passes name_len + 1. No xfstests test uses osx. names.
+> - Why + 1 helps: the prefix and the name are name_len +
+>   XATTR_MAC_OSX_PREFIX_LEN characters long, and scnprintf() writes at
+>   most size - 1 characters before the NUL. Zeroing the buffer first
+>   does not help, as the last character is never written.
+> - Why the write stays in bounds: both callers check that the buffer
+>   has room for name_len() bytes, which covers the prefix, the name and
+>   the NUL, before calling copy_name(). This is also the number of bytes
+>   copy_name() wrote before commit 7dcbf17e3f91.
+> - All xfstests: see the full run below.
+>
+> Tested in KVM with KASAN on a804c5742bff, without and with this patch:
+> - The commands above, and a C test that compares listxattr() with the
+>   names set on files and a directory: short, long (up to 127
+>   characters) and non-ASCII osx. names, FinderInfo, and user. and
+>   trusted. names. Without the patch, every osx. name loses its last
+>   character, fewer bytes are copied than the size query returns, a
+>   buffer one byte short does not get -ERANGE, and getxattr() fails on
+>   the listed osx. names. With it, the names match, the copied length
+>   equals the size query, and a buffer one byte short gets -ERANGE.
+>   KASAN reported nothing with exact-size buffers.
+> - generic/377 and generic/062: 5/5 passed on both kernels.
+> - Full fstests (805 generic tests, 608 not run on both kernels): 188
+>   passed and 9 failed without the patch, 187 and 10 with it. The only
+>   difference is generic/617, which fails on both kernels most of the
+>   time (19 of 20 reruns without the patch, 18 of 20 with it).
+>   fsck.hfsplus -fn reported no errors.
+>
+>  fs/hfsplus/xattr.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
+> index 71364e093fa7..470f090b2699 100644
+> --- a/fs/hfsplus/xattr.c
+> +++ b/fs/hfsplus/xattr.c
+> @@ -515,8 +515,8 @@ static ssize_t copy_name(char *buffer, const char *xa=
+ttr_name, size_t name_len)
+>         memset(buffer, 0, name_len);
+>
+>         if (!is_known_namespace(xattr_name)) {
+> -               len =3D scnprintf(buffer, name_len + XATTR_MAC_OSX_PREFIX=
+_LEN,
+> -                                "%s%s", XATTR_MAC_OSX_PREFIX, xattr_name=
+);
+> +               len =3D scnprintf(buffer, name_len + XATTR_MAC_OSX_PREFIX=
+_LEN + 1,
+> +                               "%s%s", XATTR_MAC_OSX_PREFIX, xattr_name)=
+;
+>         } else {
+>                 len =3D strscpy(buffer, xattr_name, name_len + 1);
+>                 if (len < 0) {
+>
+> base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
+> --
+> 2.53.0
+>
+>
