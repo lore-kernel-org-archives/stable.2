@@ -1,74 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792682299;
-	b=Ogwa1nkiqmgtdLd/f/Xqzc7bRiK/NYLlc7HtH1MNUNISz9KTI5Q/bL44Vloc6dZ1SvMv
-	 /Vc80EBrMwcQ49kG+M2Zcsrd8f+ga7efPbyY+bfDN+0f5NN4qGnnFOEL64OXvh/Eq3eUw
-	 yNRHW3t7nMd43WEr1ohKYF3gQ9aZGAzER2RyuBlsX5JUrrsi2Sg70Obm9Z8qxzpEnSvh7
-	 g8anxOuYhV8H3sWl4a1ufIRaAIXgF4dZadisGTb5XEF16YIL2mMpFcgFnSNReXmRgX/Kd
-	 ux8wY4w+Hk50dc1o4s2QpRWFcmFJgmhnTzQIWXMm4bQgNG7xxoR1vkILw2EieI2ThjQ==
+	t=1792682469;
+	b=spRud3vTFaulT6gHwKUUCV3oXsmrGJY/+ylaGOjlhbhj6lBxmEWkGG9U05+xV4yjZX68
+	 lRca31GS4T73l527nPGUB/WekN+OwzPp6M6AVN7LQj1fFtCCnSSM+T+dIYgNQcFl54bi0
+	 mcJgK4xpSPlaFZaKxiOQjOTnzSbQPKjpsxdPciQv1t38lxtNuXBpRafLkcOrl7i0axY9o
+	 tRGdStjMHF9Y+UDoQjrhQ046UHzdHq6l62ZMQFebTm5GyoY42NrkiyeijhimA12w/Ah//
+	 IFD1NSAta14tONRXxc07jpiarJYHEMMLVe/UOluxvMO5lCHgCNq2jMgVpjwfsdWjWxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792682299;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792682469;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=HniuhSXVODkftgalbf0fI7rep8FcOjb4f6/hND3jnD4=;
-	b=n/32TB5tSGRkJXys8WVgfUq0YJRCPZGUuX2AcpMJrX3A9T7r8tJ8jg5N6Kg9vjju7i/A
-	 nDmgJLuWIhN8f+lUpDla23Iv51WlrZh4Oh47hyLsKkcA44jjEaQD+bD8+0R2Dwiyzv3h9
-	 NxWlPnzBMEoUHofkmL++FeMKGLFgbye+gSOON06ehoYwxCuUvCr8RxdI767nq17ntkS10
-	 XbaZWOIZHt83Jf5HYsoK6dAG/9v1uqs4lcZ7jtMU/n2nzPIH/7tD31bBCF/AeuCDCV3us
-	 9Foz2LO7hrRkjjM8hvtH4vG8f5YFcZBW6vvJHYTeyUXmhWvzCPpQ+RbDRuGVJytlO/g==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=ut1MbZFisvfUQUtEfL6SNU0FdsUnm/HnnqHBMvtQOC4=;
+	b=LF6C6V9hW3jTonpu1/pOVtm1q2xdIziYXgOCDcf0JaO/bOGZSs+ghnSslv7fhD4i/FlP
+	 dAF5aB0WQOMG2XVm0IvJRCaEZRZuwmeLpinQWLjc9B6M57D7DwxX9M4TPf7e9fljLc3d0
+	 YJYLbcN43R+CGVwhs3s9J6/8wU6o+0u2nXVrnnvXMvMFIQ8bmmXF+9t2Rwwc+okXrxVyb
+	 9TOzmVmcU15DcfB1MhP++2gnb0buB2NxxIprXtVxcQaV6S2IaKP1XrOfd3NEj6/oKZ2Iq
+	 vs1ifzzr+T9y1hrV5+12zGZawYfrPLb3q6kC6RBF1XbzkKMNKV5EyuFlk2kdBsMgGPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=iXuBBBOF;
-	arc=none smtp.remote-ip=209.85.216.70
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ipQMKzYb;
+	arc=none smtp.remote-ip=209.85.221.181
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D5A2606CC43
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 15:18:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D5A2606CC43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B850606A33E
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 15:21:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B850606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=iXuBBBOF
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38f97b3f853so2579919a91.3
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 08:18:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ipQMKzYb
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5eab93a9862so578191e0c.0
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 08:21:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792682298; x=1793287098; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HniuhSXVODkftgalbf0fI7rep8FcOjb4f6/hND3jnD4=;
-        b=iXuBBBOFv6muL9xjRDyIvX6rpd8gjK7ASghpV+nnqbcgt+23m55JUmSL2Ga0FNyWqi
-         nhoyUw89f+UcRPlpBhPP0iW6Z5cOpniIUdpEhkCyCO3qcSe7DUCGYRCXe0EgGBx0YFbY
-         TwZ4XsU2oFkT/r783+BkH67Axn8uDEOEgkYKt0neRWJDvP6rPBHECQlGwuway9wn/SwE
-         J1dWz+30NqNg9O4kwTIpdr35npA2e4UV79IyrH2xIoFl/WCniV/gx26gZopXVIHjMPBl
-         +14XqsXQnm5JJ4PEJH3tQ/dKbS/Oxsa6ylRDd98MGsTcYPEw30Frp9UoVoWR/QRbw+Vv
-         lBXw==
+        d=gmail.com; s=20251104; t=1792682468; x=1793287268; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ut1MbZFisvfUQUtEfL6SNU0FdsUnm/HnnqHBMvtQOC4=;
+        b=ipQMKzYbHgjHM/EwCO58dSFAnNpq1+KU7vhUwsLIJlpYtpCPo1xOBHe9msP1BIGMI9
+         Ha4kYX2m6/onHNR9ui5yDM2wtW0Oci0uZ1QD26oVaPKKuhJQ4iCHw7smcz4oR66iMLA8
+         TGM1nTjx8obQhsiY1ytvupAHCUe+UFpDGtohgnAqQmAduzceFGTQvZnjX1TaMzYrmros
+         MbtjQwlkzk3js33URLlp66roXPSaIwP5upIVOcawIt2olSgIn9lEa9Tla+oDs8NL99VG
+         ChwZ4iDaaW8gT/fUMkxu+tCSsgLKsn+dhFPvnPRXJuqlQGizGYgtlUk1rzOP5DUDbzn+
+         MAkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792682298; x=1793287098;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HniuhSXVODkftgalbf0fI7rep8FcOjb4f6/hND3jnD4=;
-        b=kFvJbdC9gVkxAzhDyfCWd78eGDEMtcQqhofiEDa6ZQ8yXEDaTJsiKoym3/FnAot+BD
-         3j82F4shQSzhhw4IDBoyr38c+cUTvxX93BAWQIf1nGHco6YWPASf/3Kzo0ymKexBs0Kw
-         ZVxO40WK7QVDJ8UoxyDON5EbxquJAK+RIQS7cBEBv8/9JOsN/B90TpLf/3mGhbeUs7AP
-         zYmp8dLJs2eCErFonKMK6j0igpaKovwQGCzyLmTctqQmtLbIQA0tU4+WhmBA97UAoPtR
-         ZkK+N03nffGBr/+E3CDVIzlwQ68lr/E19tWj5IAtQVAgmdmd5VnmNXoPxlv3ax4FexZz
-         u65A==
-X-Forwarded-Encrypted: i=1; AKwUvBz+pWDC/eg17lH2+3NDXlQkUAeu//+7Bg/7hRXOTbYJLozEL3toro/HF9U8SH3RFmm+WRBM9/k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK3iDPhLnTiz1SwxZq8vByyKHY1T8iFS8YaflhxiDb+yc/tj3ok
-	zdRO3B1AEbLkF5GqFjbe0jcFvx21CT6yBJAE74DsGnTncPtTqAttCMZ/rpjrSOqK3zvavy+mkmd
-	bWtBRkw==
-X-Received: from pjst18.prod.google.com ([2002:a17:90b:192:b0:3ab:41e:dfcd])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:39ac:b0:3a0:9640:8039
- with SMTP id 98e67ed59e1d1-3ad86f454d8mr4908996a91.30.1792682298014; Thu, 22
- Oct 2026 08:18:18 -0700 (PDT)
-Date: Thu, 22 Oct 2026 08:18:17 -0700
-In-Reply-To: <20261017093016.32348-1-amirmohammad.eftekhar@cispa.de>
+        d=1e100.net; s=20260707; t=1792682468; x=1793287268;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ut1MbZFisvfUQUtEfL6SNU0FdsUnm/HnnqHBMvtQOC4=;
+        b=Nk5VGA6RxGIsmz396Cx5pwkmG4qi5906gLyUn4wKQfWsRPTkAmQC3XgSLkfdOoBSW2
+         ND4HNHbLpZ0/B1JYbIY5OP7iGQ6tmHg+UBQMdWBeu8VAJfh1PgWkT6RAoNpfmQ5aCN0p
+         /eiI7CGucWHHSoRUuEMnMNsQyR0VeiRM5p2zYfkk36uKg6B+pGB0bH/3DVBvz9qUk83s
+         rMIMgX2qCmrK3O+Q3TyiG2ROJ8QFaMmIwHih3wOWIUM04kqXoDTPXR1jr/1BTvaj7zjO
+         J72rBWUndmBNaNd7Thr4POEfhJPYwZt0RL/3Jw8CxamvygMJ8a08ds5/7BLwNmdUmNZ4
+         CpLQ==
+X-Forwarded-Encrypted: i=1; AKwUvByEJm71/NJ5rOufHjyst4Jm0//L0vUgu40zMeW4fzmYg0m2xMqWvBaexcSSUvnfu7lj3iY9Og4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjf9NTrSeuoqtG8hnLbIzK4XmIdWT/yygFE9T4QzQ12CLOONpn
+	jboYfLvtGNuue9Aw19zEe8lqeJb9wIzg5U61WbXvdxTJSYO3h/Itwe9t
+X-Gm-Gg: AYBFou2y3JgvUQepZp4I7Zg4AhtF2mV60qkBPQ9YI95y1usHY4irPzpPz68C4TVtSG5
+	9q5DD2afNhKge1FU6vPe1k/1Z//FD7mt67SHQxIXpKFO6/97VUm65p3H6WzKpl9t3N6Zo0YJwz4
+	O/WNHKm+HsI2TUBQBkn7/RVn5M3URw9U/bmWGHLzJb5pAyUBC2drQI2qp14JXofb2CI4v7fHL0P
+	xz0ffzgAqcY9onCUeKLfAEpApnXz2E4wnF0KawpDYIY9KogTOxh8bzdC7EzqwNELi9sFxIlRf1t
+	VtQN7z523YvkHaPZ3ZZfqQu4BByHhm8sYUfgkPdHEWL3Wnm+N7vZVKjTHP2bpRGEkLS/EQ6HRQ4
+	MKP0a38Fa/gZ9Ct+cVr0q57nCWEvKFl931BcPjFdAeN3Mn/YXgW/YD9iP6qjRWLDeIW53dxFf/p
+	Wn2C/rNDoAXA/u6EcA8RuZ/OgSB6u76zAHQhX8vWpAy6MWnN71vKnz90+DcpBhjC6LgVXPmRRAE
+	5ESDP0Qxu9UfdkULcfU1e3cdkg3beH4UREsAYn9k8vPy54GZmT+gk/1U+K079AWVbyd8t4/cx3V
+	QjG9X3gvDMRIWMjJkfCgBW4+t5/l6il+VFZ4pjyhjTJew1yqaDr/rtUzrkOMflgq/RorJBKawRA
+	QAv+JdS3mj2oDJTjgm84=
+X-Received: by 2002:a05:6122:d0a:b0:5ea:a0d9:e5d6 with SMTP id 71dfb90a1353d-5eaebea1ffamr2067386e0c.17.1792682467917;
+        Thu, 22 Oct 2026 08:21:07 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eae9788c68sm7312496e0c.5.2026.10.22.08.21.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 08:21:06 -0700 (PDT)
+Date: Thu, 22 Oct 2026 11:21:05 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Jamal Hadi Salim <jhs@mojatatu.com>, 
+ netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>, 
+ Jiri Pirko <jiri@resnulli.us>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S . Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, 
+ Guillaume Nault <gnault@redhat.com>, 
+ Simon Horman <horms@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Victor Nogueira <victor@mojatatu.com>, 
+ Vega <vega@nebusec.ai>, 
+ Ren Wei <n05ec@lzu.edu.cn>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ Jason Wang <jasowangio@gmail.com>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ stable@vger.kernel.org
+Message-ID: <willemdebruijn.kernel.38722ee638a21@gmail.com>
+In-Reply-To: <ACT-N6N4.v1.r0.20261022051412-1@mojatatu.com>
+References: <ACT-N6N4.v1.r0.20261022051412@mojatatu.com>
+ <ACT-N6N4.v1.r0.20261022051412-1@mojatatu.com>
+Subject: Re: [PATCH net 1/5] net/sched: act_vlan: reject short linear Ethernet
+ headers after POP_ETH
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,90 +114,57 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261017093016.32348-1-amirmohammad.eftekhar@cispa.de>
-Message-ID: <atopOWEJC9bDTtpi@google.com>
-Subject: Re: [PATCH] KVM: nVMX: Clear nested.smm.guest_mode on a failed RSM-to-L2
-From: Sean Christopherson <seanjc@google.com>
-To: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
-Cc: pbonzini@redhat.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, Oct 17, 2026, Amirmohammad Eftekhar wrote:
-> vmx_leave_smm() consumes nested.smm.vmxon into nested.vmxon up front, but
-> clears nested.smm.guest_mode only on the success path.  On either failure
-> arm (nested_vmx_check_restored_vmcs12() < 0, or
-> nested_vmx_enter_non_root_mode() != NVMX_VMENTRY_SUCCESS) it returns early
-> with nested.smm.guest_mode still true while nested.smm.vmxon is already
-> false.
+Jamal Hadi Salim wrote:
+> The issue:
+> act_vlan POP_ETH can leave a linear area shorter than ETH_HLEN; a
+> subsequent eth_type_trans() may then BUG in __skb_pull() when the frame
+> is redirected to an Ethernet device.
 > 
-> em_rsm() turns that non-zero return into a triple fault, but the vCPU is
-> left with the internal pair (smm.guest_mode=true, smm.vmxon=false).  That
-> pair is not representable in migration state: vmx_get_nested_state()
-> serializes KVM_STATE_NESTED_SMM_GUEST_MODE without
-> KVM_STATE_NESTED_SMM_VMXON, and vmx_set_nested_state() rejects exactly
-> SMM_GUEST_MODE && !SMM_VMXON with -EINVAL.  KVM thus serializes a state it
-> refuses to restore -- a save/restore (live-migration) round-trip break.
+> The Fix:
+> Drop the packet at the producer boundary when skb_headlen() is shorter
+> than ETH_HLEN after skb_eth_pop().
 > 
-> The leak is sticky: free_nested() and vCPU reset do not clear
-> nested.smm.guest_mode (kvm_vcpu_reset() gates the nested unwind on
-> is_guest_mode(), false here), so a later VMXON re-exposes the bad
-> KVM_GET_NESTED_STATE with no SMI/RSM involved, for the life of the vCPU.
+> Conditions to recreate the bug:
+> - egress tc filter on lo: action vlan pop_eth.
+> - AF_PACKET SOCK_RAW with PACKET_VNET_HDR, hdr_len=28, and a non-linear
+>   eth / inner-eth frame.
+> - The pop leaves skb_headlen(skb) < ETH_HLEN; a following
+>   eth_type_trans() can BUG in __skb_pull().
 > 
-> Clear nested.smm.guest_mode before the consistency check and re-entry, so
-> it is cleared on every exit from the block.  nested.vmxon is left true,
-> which is correct (L1 does have VMX on) and round-trips cleanly on its own.
-> Not a memory-safety issue; fidelity / migration only.
-> 
+> Fixes: 19fbcb36a39e ("net/sched: act_vlan: Add {POP,PUSH}_ETH actions")
+> Reported-by: Vega <vega@nebusec.ai>
+> Link: https://lore.kernel.org/r/40fe2d7dfce13411bfbe9271c0f7c54fb7e88e3b.1782548651.git.bronzed_45_vested@icloud.com/
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
+> Suggested-by: Jakub Kicinski <kuba@kernel.org>
+> Reviewed-by: Victor Nogueira <victor@mojatatu.com>
+> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 > ---
->  arch/x86/kvm/vmx/vmx.c | 13 ++++++++++++-
->  1 file changed, 12 insertions(+), 1 deletion(-)
+>  net/sched/act_vlan.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
-> diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-> index 1f802cdbe..56332a85c 100644
-> --- a/arch/x86/kvm/vmx/vmx.c
-> +++ b/arch/x86/kvm/vmx/vmx.c
-> @@ -8381,6 +8381,18 @@ int vmx_leave_smm(struct kvm_vcpu *vcpu, const union kvm_smram *smram)
->  	}
->  
->  	if (vmx->nested.smm.guest_mode) {
-> +		/*
-> +		 * Clear smm.guest_mode up front so the failure arms below, which
-> +		 * triple-fault the vCPU, cannot leave the internal pair
-> +		 * (smm.guest_mode=true, smm.vmxon=false): smm.vmxon was already
-> +		 * consumed into nested.vmxon above, and KVM_GET_NESTED_STATE
-> +		 * would then serialize SMM_GUEST_MODE without SMM_VMXON, which
-> +		 * KVM_SET_NESTED_STATE rejects (-EINVAL), breaking the
-> +		 * save/restore round-trip.  The flag has served its only purpose
-> +		 * (bringing the vCPU into this re-entry) by now.
-> +		 */
+> diff --git a/net/sched/act_vlan.c b/net/sched/act_vlan.c
+> index 6a375fdc63dd..ddf03b08bfe8 100644
+> --- a/net/sched/act_vlan.c
+> +++ b/net/sched/act_vlan.c
+> @@ -79,6 +79,8 @@ TC_INDIRECT_SCOPE int tcf_vlan_act(struct sk_buff *skb,
+>  		err = skb_eth_pop(skb);
+>  		if (err)
+>  			goto drop;
+> +		if (unlikely(skb_headlen(skb) < ETH_HLEN))
+> +			goto drop;
 
-The gorty details of exactly how this shows up in migration are great for the
-changelog, but the comment should focus on why this is "architecturally" correct.
-Unless someone objects, I'll fixup to this when applying:
+Could it try to pull the header and only drop if the packet is too short?
 
-		/*
-		 * Note, even if RSM ultimately fails (hits SHUTDOWN), the vCPU
-		 * is no longer in SMM with the intent to return to L2.
-		 */
-		vmx->nested.smm.guest_mode = false;
-
-> +		vmx->nested.smm.guest_mode = false;
-> +
->  		/* Triple fault if the state is invalid.  */
->  		if (nested_vmx_check_restored_vmcs12(vcpu) < 0)
->  			return 1;
-> @@ -8390,7 +8402,6 @@ int vmx_leave_smm(struct kvm_vcpu *vcpu, const union kvm_smram *smram)
->  			return 1;
->  
->  		vcpu->arch.nested_run_pending = KVM_NESTED_RUN_PENDING;
-> -		vmx->nested.smm.guest_mode = false;
->  	}
->  	return 0;
->  }
+>  		break;
+>  	case TCA_VLAN_ACT_PUSH_ETH:
+>  		err = skb_eth_push(skb, p->tcfv_push_dst, p->tcfv_push_src);
 > -- 
-> 2.54.0 (Apple Git-157)
+> 2.43.0
 > 
+
+
