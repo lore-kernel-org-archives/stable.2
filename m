@@ -1,61 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792651670;
-	b=1cap916SYBfcO3UvBp8nJDKnKsuF55clVDWC0DJ//iqZgp6cg4oq8sfrmMNxRm7AcJX9
-	 jziZSRympjhIMYHxbJR0myOPGfjOLkAJwt0ewGpq5n9D7uLmP/qrJqSa4KCXeXTr7L8gY
-	 ONGSBxKMod2I+fG59DoITVFprfwIh1KClmZVc5MIYu3NxJaMuHrTA7R7W7vjrLLyxX+lR
-	 TNtbGApp0lEcDu5Rkzw1sWEkTq4/R6qg+oUfEhrnszTPsgaB3+TA7pAvD9RDvj3AV5QKY
-	 5RImaXWRC/tP0BgG0WASWwrxxPqvdOOfgYwnsHP3QNRhJ93E5NdreCH/krNM2k2Ot/A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792651670;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=sAB86wHiV8Mp01DPEoAR5TRuqqoXNRHYOq2A3Ycx5Mw=;
-	b=1O+Qp8LxgBIop+6/BQW9jWsfEXO6mLgg6kOzWCwLavShUVExFVHLTDf5IMO3jN8c17SN
-	 dOUnqaoVrWsJx88lEmmGg34lMK3Co2aEuYlkkBfNv9ZzDgLuLnLeVKRFvNhTBO+mUdXB2
-	 hfs3THxd7MyaCpXHqnIZQXHA03iL2kTj6DdNo5OvytbKM8Frct1DBBTg5r3bmI4WeOiZE
-	 ZLK++cD04VxhaqHCaSfhd/L+RBXjj2RaEJkL2NanjNtgdtk02pOZzVpxOe5+dQWVpCCgN
-	 xJI1L6jW1ugw1B/L3rVnLtRALDCmr9BRuJ1QbG7vpJZQInX+seL0jVe9xRMmAkLo0LQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KXzXSxXR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792651991;
+	b=Jj7f+oNAE1VHduwCrhxBcEasWTGMRl9W53oAnBIXA8DC9u9Kjnbuk9QY+rO6aVAITN3W
+	 2xHIsVZG+gxDETfYYz4xdJFFGhrxIbdQTk6xCSEn3JaxWS1u5Rj0kjXXhe/Ut5SXKT/63
+	 yKnsAyUwiLyfpRB0LL/i5PTldKHuvUyK6J6q9h8d57OLe1N+Ls5YneCngeqIdSjIac1jl
+	 VZH59DG2D6V13tOPK1SZ9ho/67ixOE4HcfwPqisRYAEdaBq8p4nWVUFygCCowabLA1VHs
+	 cbn2u9EHpelALBLTAIbGhEKZPJUhh+RQY7TKgkQqGj5X2r/CiEqavfxCFxwc2VTU6cg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792651991;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=rg3MYkiixfpOGWKpQ3X74Jm8FS7vqinp1afZZUlph/Y=;
+	b=AF+fsFIVE8JCr3HGbt6GBae2IJNqRP454+BMIXibFtXKENRqWyHqmwpGpJGC7A5PCPeW
+	 GRuw40S4QDimt74+JkmA2iLEV5zrx19/mPP19od7xHXMGjrJkyvsCnu/erXD3nAFReAin
+	 srSwAFIslGlJxDIXoHOQEB1lvre6DK/NELoaOndK4FXKMWi0xpmYmK1/2jaK13rwzmbWl
+	 1stF+3TBDCT2IuhPTIy6mTIE07xEgcV3s6lNPbcbk9yk3uOzR9PgK1c8CIxRV5FSEPa7x
+	 IDcDlbaXc1VFvc/1JZXzIBh9YvaEBYfkdV0p41tAY2buvliFa8PU4POl3BM/vrE7WPA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UASPXeKT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.49
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D5D606A319;
-	Thu, 22 Oct 2026 06:47:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87ED4606A31B
+	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 06:53:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87ED4606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KXzXSxXR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D822F1F000C1;
-	Thu, 22 Oct 2026 06:47:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792651669;
-	bh=sAB86wHiV8Mp01DPEoAR5TRuqqoXNRHYOq2A3Ycx5Mw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=KXzXSxXR2CWjgjf4pXHd3oJIpa80cFaXcy0EodPXrfp5oAF6bbOHosVJfuAZlyf0O
-	 CdNQW06Yi7qgjLK7WwPeM7Ln2HVoCzlOD9uYJUU864C2J3PClNwnJS7biJBpTutupk
-	 HyeJIkxZ7gfLqZ8Rt2+TIbHuM16OCCd/Iou+3sfrBs0gQujLAa1odP/0vJJGdZyuyI
-	 AugeLbDcURg1n9y6d6yN8DILCpWo4mmw55nE4iROiz2OR/xlLy8TaYdsbyYDtWKFoL
-	 abkzrzKFV2rg6xGnYuZAWjcgrEPwUUbpBlZPzMV5FGCOzplv+VEDgW26u1gaAPz6pi
-	 N9rGL9TYby3HA==
-Subject:
- Re: [PATCH net v2] vxlan: reject adding a remote to a nexthop fdb entry
-From: netdev-bot+sashiko@kernel.org
-To: bsdhenrymartin@gmail.com
-Cc: davem@davemloft.net, kuba@kernel.org, edumazet@kernel.org,
- pabeni@redhat.com, andrew@lunn.ch, horms@kernel.org, kuniyu@google.com,
- idosch@nvidia.com, petrm@nvidia.com, ferruh.yigit@amd.com, atenart@redhat.com,
- i.maximets@ovn.org, qotmddnjs@gmail.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Thu, 22 Oct 2026 06:47:48 +0000
-Message-ID: <179265166841.3135.17127619051490650490@kernel.org>
-In-Reply-To: <20261020034531.1420194-1-bsdhenrymartin@gmail.com>
-References: <20261020034531.1420194-1-bsdhenrymartin@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UASPXeKT
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c4677aad67bso160206266b.0
+        for <stable@vger.kernel.org>; Wed, 21 Oct 2026 23:53:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792651989; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BahEt9sd44b8OrZoANH2lgz2ZxcdITm3KlMnI1G58+OKar+uSNwv+7Xx+JdyJj+3+B
+         QvesBJ1Eq2H7ep+STZQN/M7Tmmu3iOviO1ZcoTDA24w18CtU1+BmIe8yXHpD6gkFutWb
+         hc7W51pUvoSi3tvHxJDO/1pRR3QORZ1DJyxp7eqqkzTM/Ycz2lZl9xj/9oOf/1rvQ20B
+         M9YvyllD9D2LCAmAOiWUsAkhaQo3w+ZMZT07pAkbW9Lk28Y86NUjQRlEKUTavjhQmSsP
+         9WnlIRFWMGMr9PtmPnNEMTyeL++NksQbu3Nl476VZMvjVH8XPBXG3A9T34p3j4qv9oX5
+         baBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rg3MYkiixfpOGWKpQ3X74Jm8FS7vqinp1afZZUlph/Y=;
+        fh=G8U0Sksy2Gt1tVyaNJgVFWmtmpxkaiiPNEBgSWHTcLg=;
+        b=j+O7MBlE/iCnWh60DZL5gbShIKG9tN7d7XRLHJ+JMVwDQv/9VAj4EKagay1piEDOdH
+         ZMWLzSar7N8oh9g6Re6FMNRE6cTiMTtEZIyiI+upAgfodQjtUs6bLJjEgQttWI42F9N4
+         oYaCA1VGmN2naDTUinCSM0BDeD69KqytR+u7qPQWHVe323b15YCD4aJO4e+9PERFuzSg
+         WUsHSsvP5m+Aqq8DG9hzfRWKVcpJYPxAhhYXVhUiR6nGdjvl/jbe0vYEyQxwF9xQhyjI
+         eHlOxym96mKy3THnyuYh8umNKW+jKlnKapsBpgSb3fCu3FhX5WJV1T+AUWQ3hC6nMb05
+         ouaQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792651989; x=1793256789; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rg3MYkiixfpOGWKpQ3X74Jm8FS7vqinp1afZZUlph/Y=;
+        b=UASPXeKTAHaKwh8vbwoCb/VP+qE0e0U+GD6HxVbCrAk7FwuV+0cbhRwR2DbD8/Qnuq
+         jh+AVCTR1VepsqN50RlZ4ixYRGFq+hph0bslye8bPQSntnR//lSPcGGIvXj6KNRFygCt
+         hsZCSAGnJ2aSJcCi++AIXqcNN3/S3slWciZgiBQJF93Q4NetY1Mj7+kD4u9mxSl4YM2n
+         5Qc9TCicOf+DFPRVErJO66r5A+5JLHeUECasDJytIQA7vD+aisQTkH5DvJKb4AdBE7VS
+         +XGiovP0nPUKgRz6O1d++2NDRZnlysGRTjdWlyFPbZfAUzEnCkgQr3CAHbEn8DVgrTXr
+         xM+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792651989; x=1793256789;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rg3MYkiixfpOGWKpQ3X74Jm8FS7vqinp1afZZUlph/Y=;
+        b=UB0sFOtqumPOZipIxsE2yuCCApKsPUhBLYSB4/+N4JsvF5PW7eP0uxrEkFPy+2WT+D
+         AhakToBZB15RSXFK8hRuLTrDCiR6b7x6ZlyhsOmAWcYaf7GcYn2SS3Y9Fp9OiG3PEmoA
+         5ORViqk4B9S6k0hf/+Egw11J5zVU6xeGp6nQsvsd5HXcmDvV54zc4O6EU3hqrbhyOHnb
+         O8zyTCmTr5Q9n79pipcmWIUO3A0LENND9oELoKnnQERAyFuNfNWNtZ3yx+dlkO7ONL2p
+         mRCQX8sd8bUIORvt/aaVhrnF63KrMOQ3up0KSfOiclGCKTlxRE3ot3+mTZKiBaqiICja
+         FqMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzX5Tgo3T/ggIgaXSoobzQBUliGxYfSh4dxD1120RGJ7xkgxN3yocw+8Ell3ErC9iWFlSH7aZI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKFnzypICO4Kj4BE2f4S9hMkLz33xT6FHI5mVWpSnDShrGkNfTC
+	5A9KnGsI2X4FUyl/HVJ+tF7V6OEOEzXItsAfFHNC1ImFGye4sx/vlig3+pjf2CJGWV8KHtowUQ0
+	N6ToI6eUb4VX541SRaEw2kV+fzp8kqU0=
+X-Gm-Gg: AYBFou0Z6+fG4QH2Roi6r43XGSblVHXiukfwWspFgwJKPp6w1Hz7gAiXBBVbs4rLYBk
+	ELNdd2LqXgOPjro+u4Uh2hwsiXB7VLh6Hn8x6n194zjGIcmStQYc2ya6RlwBG9ErZs3yoxAL7SC
+	MBqBOKOh4V5mXabqUJ8mry/cH9Onc1tHr706KIB0ZWAMEt7jJ+f9tEm3HYxfg9SPsG9zDsaxV0H
+	AqlPON1Kn/qsdRt0Uys4E+aoCTeZ5p/54s4L/YWuoOpHuCDGcbbUDU43ozlFLVZDzmG3IqYcCXs
+	xlaf3p0p8i/3st3FFRXnYyt7chiRxJmxZxNJn7tNoyUG9hsFSvyaI3SAxzizOxmJ+bFHu9ibogu
+	qNojHqEcRddT7FfhP5BytV6r+1xcqX7VSBTTX8/xQGOsss/04nPN9R1XCVEhbSrnAu0TkNVQ=
+X-Received: by 2002:a17:907:3e8a:b0:c37:8c7c:a840 with SMTP id
+ a640c23a62f3a-c467966c0c2mr359451866b.18.1792651989383; Wed, 21 Oct 2026
+ 23:53:09 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,209 +104,130 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261019160615.2348500-1-nphamcs@gmail.com> <CAMgjq7AEg6XEUJPaM3mMBQAeS_KiDv8_za4w-R2WaZ=ZGenvuw@mail.gmail.com>
+ <CAKEwX=O=PL3DEaEDe=F-=zhQ=VW3_UtcqesdX9fH_cr6orb2wQ@mail.gmail.com>
+In-Reply-To: <CAKEwX=O=PL3DEaEDe=F-=zhQ=VW3_UtcqesdX9fH_cr6orb2wQ@mail.gmail.com>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Thu, 22 Oct 2026 14:52:32 +0800
+X-Gm-Features: AclHuK_1506PMfDGxQQ_jKcqLOauYM9YVlFaV9ZgB9uWuZJ7dc_z3c4TC8n9H3w
+Message-ID: <CAMgjq7BSzYTbrzbA4vGqMbvegoHnDtJ0vA9PcwCet-m6Ow3ouA@mail.gmail.com>
+Subject: Re: [PATCH] mm, swap: revalidate populated clusters before scanning
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, linux-mm <linux-mm@kvack.org>, 
+	LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Nhat Pham <nphamcs@gmail.com> =E4=BA=8E 2026=E5=B9=B410=E6=9C=8821=E6=97=A5=
+=E5=91=A8=E4=B8=89 04:19=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Tue, Oct 20, 2026 at 10:58=E2=80=AFAM Kairui Song <ryncsn@gmail.com> w=
+rote:
+> >
+> > On Tue, Oct 20, 2026 at 1:41=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> w=
+rote:
+> > >
+> > > swap_cluster_populate() can publish a cluster's table with the cluste=
+r
+> > > lock dropped. A cached allocator can use and empty it before the
+> > > populating allocator reacquires the lock. The resumed scan can then
+> > > dereference a NULL table.
+> > >
+> > > For example, CPU1 can retain a cached cluster offset on an SSD with
+> > > per-page discard disabled:
+> > >
+> > >     CPU0                          CPU1
+> > >     ----                          ----
+> > >     swap_cluster_populate()
+> > >       swap_cluster_alloc_table() fails
+> > >       spin_unlock(&ci->lock)
+> > >       local_unlock(&percpu_swap_cluster.lock)
+> > >       swap_cluster_alloc_table()
+> > >         rcu_assign_pointer(ci->table, table)
+> >
+> > Nice catch!
+> >
+> > I think the real problem is that it turns out calling
+> > swap_cluster_alloc_table() without holding ci lock is bad idea... I
+> > think this patch still leaves some other call site too?
+>
+> Do we have another callsite? There's a callsite in setup code, but I
+> assume that's safe...?
+>
+> But at this point, who knows any more. The caching only stores a
+> swapfile struct, and an offset. I wonder if there is a potential race
+> between swapoff-then-re-swapon and cached allocation? That'd be pretty
+> wild.
+>
+>
+> >
+> > We may instead add a "bool locked" to swap_cluster_alloc_table, and
+> > let it lock the ci first before it does any assign (not the alloc) if
+> > the allocation context is not locked. That is, keep the
+> > sleep-allocated tables private until swap_cluster_populate()
+> > reacquires local/global/ci, then install them under ci->lock,
+> > something like pre-cdd77f84d966, always assign it atomically.
+>
+> Hmm so a bitlock?
+>
+> Lemme think about it a bit.
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 1
+Ah, no, not that complex, just something like:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -449,9 +449,13 @@ static void swap_cluster_free_table(struct
+swap_cluster_info *ci)
+        swap_cluster_free_count_table(table);
+ }
 
-- [Medium] The new rejection makes a VNI add on a vnifilter device fail
-  every time, and the failure leaves the VNI half-installed.
-- [Low] The commit message understates the user-visible harm of the bug
-  it fixes.
+-static int swap_cluster_alloc_table(struct swap_cluster_info *ci, gfp_t gf=
+p)
++static int swap_cluster_alloc_table(struct swap_cluster_info *ci, gfp_t gf=
+p,
++               bool locked)
+ {
+        struct swap_table *table =3D NULL;
++       struct swap_memcg_table *memcg_table =3D NULL;
++       unsigned long *zeromap =3D NULL;
++
+        struct folio *folio;
 
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but it is the
-  same half-update the patch avoids for its own check.
+        /* The cluster must be empty and not on any list during allocation.=
+ */
+@@ -472,8 +476,8 @@ static int swap_cluster_alloc_table(struct
+swap_cluster_info *ci, gfp_t gfp)
+ #ifdef CONFIG_MEMCG
+        if (!mem_cgroup_disabled()) {
+                VM_WARN_ON_ONCE(ci->memcg_table);
+-               ci->memcg_table =3D kzalloc_obj(*ci->memcg_table, gfp);
+-               if (!ci->memcg_table) {
++               memcg_table =3D kzalloc_obj(*ci->memcg_table, gfp);
++               if (!memcg_table) {
+                        swap_cluster_free_count_table(table);
+                        return -ENOMEM;
+                }
+@@ -484,8 +488,8 @@ static int swap_cluster_alloc_table(struct
+swap_cluster_info *ci, gfp_t gfp)
+        VM_WARN_ON_ONCE(ci->zero_bitmap);
+        ci->zero_bitmap =3D bitmap_zalloc(SWAPFILE_CLUSTER, gfp);
+        if (!ci->zero_bitmap) {
+-               swap_cluster_free_table(ci);
+                swap_cluster_free_count_table(table);
++               kfree(memcg_table);
+                return -ENOMEM;
+        }
+ #endif
+@@ -494,6 +498,20 @@ static int swap_cluster_alloc_table(struct
+swap_cluster_info *ci, gfp_t gfp)
+         * Make tables visible to cluster_is_usable() after everything is
+         * ready.
+         */
++       if (!locked) {
++               / * Lock it here before assign, not after the asssign
+and return */
+...
 
---
-
-vxlan: reject adding a remote to a nexthop fdb entry
-
-This patch adds a check near the top of vxlan_fdb_update_existing(). The
-check rejects NLM_F_APPEND requests on multicast or all-zeros fdb entries
-that are backed by a nexthop. As a result, bridge fdb append,
-vxlan_changelink() and the vnifilter default fdb update path now fail with
--EOPNOTSUPP instead of silently appending a remote.
-
-> Note the resulting behavior change for the two rtnetlink callers:
-> operations that previously succeeded while silently attaching an
-> unused remote to a nexthop entry now fail with extack
-> "Cannot add a remote to a nexthop fdb entry".
-
-[Severity: Low]
-
-Is "unused" accurate here? vxlan_xmit() ignores f->remotes when f->nh is
-set. However, __vxlan_fdb_delete() destroys the whole fdb entry when the
-matched rdst is the only one on f->remotes:
-
-drivers/net/vxlan/vxlan_core.c:__vxlan_fdb_delete() {
-    ...
-	if (rd && !list_is_singular(&f->remotes)) {
-		vxlan_fdb_dst_destroy(vxlan, f, rd, swdev_notify);
-		goto out;
-	}
-
-	vxlan_fdb_destroy(vxlan, f, true, swdev_notify);
-    ...
-}
-
-Say a stray remote B has been appended to a nexthop-backed all-zeros
-entry. Either of these then removes the whole nexthop entry, not just the
-stray remote:
-
-  ip link set vx0 type vxlan remote 0.0.0.0
-      (vxlan_changelink()->__vxlan_fdb_delete())
-
-  bridge fdb del 00:00:00:00:00:00 dev vx0 dst B
-
-Without the stray remote, a dst-qualified delete finds no rdst and does
-nothing.
-
-This is Cc: stable and makes previously successful rtnetlink operations
-fail. Could the commit message describe this concrete consequence?
-
-> diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
-> index 278d41f58d89..42da2d7d51e0 100644
-> --- a/drivers/net/vxlan/vxlan_core.c
-> +++ b/drivers/net/vxlan/vxlan_core.c
-> @@ -1011,6 +1011,15 @@ static int vxlan_fdb_update_existing(struct vxlan_dev *vxlan,
->  		return -EOPNOTSUPP;
->  	}
->  
-> +	if (rcu_access_pointer(f->nh) &&
-> +	    (flags & NLM_F_APPEND) &&
-> +	    (is_multicast_ether_addr(f->key.eth_addr) ||
-> +	     is_zero_ether_addr(f->key.eth_addr))) {
-> +		NL_SET_ERR_MSG(extack,
-> +			       "Cannot add a remote to a nexthop fdb entry");
-> +		return -EOPNOTSUPP;
-> +	}
-
-[Severity: Medium]
-
-The commit message says the check goes here "so a refused request has no
-side effects". That holds inside vxlan_fdb_update_existing(). Does it also
-hold for the vnifilter caller the commit message lists?
-
-vxlan_vni_add() in drivers/net/vxlan/vxlan_vnifilter.c installs the new VNI
-before it touches the default fdb entry:
-
-drivers/net/vxlan/vxlan_vnifilter.c:vxlan_vni_add() {
-    ...
-	err = rhashtable_lookup_insert_fast(&vg->vni_hash,
-					    &vninode->vnode,
-					    vxlan_vni_rht_params);
-    ...
-	__vxlan_vni_add_list(vxlan, vg, vninode);
-
-	if (vxlan->dev->flags & IFF_UP)
-		vxlan_vs_add_del_vninode(vxlan, vninode, false);
-
-	err = vxlan_vni_update_group(vxlan, vninode, group, true, &changed,
-				     extack);
-
-	vxlan_vnifilter_notify(vxlan, vninode, RTM_NEWTUNNEL);
-
-	return err;
-}
-
-Suppose a nexthop-backed all-zeros fdb entry already exists for src_vni N.
-This chain now returns -EOPNOTSUPP:
-
-vxlan_vni_add()
-  vxlan_vni_update_group()
-    vxlan_update_default_fdb_entry()
-      vxlan_fdb_update(all_zeros_mac, NLM_F_APPEND | NLM_F_CREATE)
-        vxlan_fdb_update_existing()
-
-vxlan_vni_update_group() returns before it stores vninode->remote_ip and
-before vxlan_igmp_join(). vxlan_vni_add() still sends RTM_NEWTUNNEL, and
-nothing undoes the hash insert, the list add or the socket attach.
-
-Would "bridge vni add vni N dev vx0" then report failure to user space
-while VNI N stays installed? The VNI would be attached to the socket and
-announced to listeners, but with no group stored and no multicast join.
-Before this patch the same request succeeded.
-
-Such an entry can be created with:
-
-  bridge fdb add 00:00:00:00:00:00 dev vx0 nhid X src_vni N self permanent
-
-This works because vxlan_fdb_parse() doesn't check that NDA_SRC_VNI is a
-configured VNI. The entry can also be left behind by adding VNI N, adding
-the nexthop entry, and then deleting VNI N.
-
-The missing unwind in vxlan_vni_add() predates this patch. Before, it was
-only reachable on -ENOMEM or notify failures. This patch gives user space
-a deterministic way to reach it.
-
-Would it make sense to check for the nexthop entry before the VNI is
-installed, or to roll back the insertion before notifying?
-
-The trigger also looks wider than the "group <mcast>" in the commit
-message. When no group is given, vxlan_vni_update_group() falls back to
-cfg->remote_ip:
-
-	if (group && !vxlan_addr_any(group)) {
-		newrip = group;
-	} else {
-		if (!vxlan_addr_any(&cfg->remote_ip))
-			newrip = &cfg->remote_ip;
-	}
-
-vxlan_update_default_fdb_entry() accepts any non-any address. So a plain
-"bridge vni add vni N" on a device with a default remote would hit this
-too, and so would a unicast group.
-
-> +
->  	/* Do not allow an externally learned entry to take over an entry added
->  	 * by the user.
->  	 */
-
-[Severity: Medium]
-
-This is a pre-existing issue that this patch didn't introduce. It is the
-same half-update the commit message says the new check avoids.
-
-Take an NLM_F_REPLACE request on an existing zero or multicast MAC entry.
-The block below this comment overwrites f->state and f->flags and sets
-notify = 1:
-
-	if (!(fdb_flags & NTF_EXT_LEARNED) ||
-	    !(f->flags & NTF_VXLAN_ADDED_BY_USER)) {
-		if (f->state != state) {
-			f->state = state;
-			notify = 1;
-		}
-		...
-	}
-
-The NLM_F_REPLACE branch then returns directly for the non-unicast MAC:
-
-		} else {
-			NL_SET_ERR_MSG(extack, "Cannot replace non-unicast fdb entries");
-			return -EOPNOTSUPP;
-		}
-
-That return skips the RTM_NEWNEIGH and switchdev notification. It also
-skips the err_notify rollback.
-
-For example, take this command with a state or ndm flags that differ from
-the existing default entry:
-
-  bridge fdb replace 00:00:00:00:00:00 dev vx0 dst X self permanent
-
-It would fail, but the entry's state and flags would already have
-changed, and neither listeners nor offload would be told.
-
-Could the non-unicast REPLACE check also move up next to the other guards?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020034531.1420194-1-bsdhenrymartin%40gmail.com
+This should fix all potential issues I think?
