@@ -1,102 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.38.247.119
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792762348;
-	b=Aki7Q1omIRLbKRg/VAxyYipAB4QMePE0iDvAGDI0JAptjDEkk8A+bWLF/tSlvf8vADHS
-	 DETaFViMEA2ZxGFIq5U+VyLL27vFTbb6D9+GoCJwRkTg9VKJ+ZXotnwp2kbGkQI2ovJPh
-	 vZk+bX0/XL4PqbaYOfjuM/NGTOb/KAenVmesZ5l0B6PtyGKsAjkjRyTuI+t8mwdiVg5sO
-	 U9mMM6uINxYYasO+PDzxliXWdrMSDUJoZ+Hg1HSWcPn2dOoD0Xn8qvdb3HUwL2xbts3d/
-	 g5LjQJPm9m9O1C9r0edc/uOQvrou2eWrka9sofLWWsqu0jajF4WckVUT0bAYAbfKLyg==
+	t=1792763044;
+	b=oOdqJ1JsNk2GENcCqtuYloypL0sgXY5/XOwpss4/CVQjSfK49Pad3ZQITg+8QN8UwQCt
+	 Xm13HpgN/mH+It9LNWpbeEdHPqJWQOkR2vgZF0rDDrnSj6lg31NV5+MYYGejO1jZ3Usmu
+	 CIOjU1xZqpQRhX+EHg+Z6RD2CjBQHsy31jBQpuAuwhKzrAZBFb5Eip9UGXlb6W+CpOrFR
+	 So2R9TDNH0TZUx/lBKvw9WA5zpVJqgS2jXDirKn1/1joQ3I1hWcyBnoLVunGzKzq1Zap0
+	 TjZB4Lx2ZBFXMlTc0UYWqR+yYZfG6/qz9HJ5mHL5HTf5qvPegZ6mixsLjWyyAnJAhgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792762348;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:
-	 X-Spamd-Result:X-Spam-Score;
-	bh=A6+jz2LGChmKSShBjipTzMEdLOMmKYeMdnFVh1ZvRjM=;
-	b=C7JfSJilCfWy2oabu7N6nV/B/7jexTBDsngaIbUg5HdKQ1tti9peBmM7DlIdZ6NfnaXh
-	 XxFKfZ7btGIaWzfBE1n5FXRNw+i3Tiw1V8ZNhf2iH/CiZC2n+YP0L4mddOZxsuwh1WHc8
-	 Z7Nov7+d1Ymtnxh+/N2UGeOBS01RiUUD4v6vy33rZYROXO1SxD3vEQMzDVfGMKER6H2Fq
-	 BR5eWEow4Al/XU6izV31UQ/1YuuUsFJH5T16CXrATbvIgsoRSySPBc8OjUUASUSy2eViI
-	 saIPBMdp7BJKma5eurT0sS5YZ2BIGcg6lARS4DnDPx2wGA8NhK4PEJBDyMXhBA2zhbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792763044;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:
+	 Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-PPP-Message-ID:X-Rspamd-Server:
+	 X-Rspamd-Queue-Id:X-NC-CID;
+	bh=omIBejW03o1DNuS224xHckdfC4Tdy12qkWWdcAx+ZRA=;
+	b=NghStGe5PTU6CX/ZEAWxSV/RV1L0BsWPogGQWwU8PjaWtr2/DlMkvgcBY27iDxO+B2tf
+	 GnJIqmJF6ttKsrJ8X/33PElw4FwMAeaANh2Z618bIsKWdaqMm4aDakbu/sQnMklpPIEbF
+	 wsWQAaX9FJyg/aSwovCL1+WY2sqP6DTMjjUAW6GQjWdKSaihO2B8D/258GshAs/+WSIIQ
+	 KiTupRRBzSezu6+x/ly28NSO0Hg1Bw1tbODMbhKwnW3512GoqeKU4ZbjTdKjpnFx4mbkE
+	 kSCex6V+KbkIOpAOQwu8oXYmPEH10lVzN3rRB0Lw8KQnhK6U4YttojSdXO1UoJ859ZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dBp08XEs;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=G5gj3KiN;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dBp08XEs;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=G5gj3KiN;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=leemhuis.info;
+	spf=pass smtp.mailfrom=leemhuis.info;
+	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=e9E8bhqJ;
+	arc=none smtp.remote-ip=46.38.247.119
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [46.38.247.119])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 984A4606A31D;
-	Fri, 23 Oct 2026 13:32:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 984A4606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9135E606A31D;
+	Fri, 23 Oct 2026 13:44:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9135E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dBp08XEs;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=G5gj3KiN;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dBp08XEs;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=G5gj3KiN
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=e9E8bhqJ
+Received: from mors-relay-8404.netcup.net (localhost [127.0.0.1])
+	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4jB44C1mkmz8XSR;
+	Fri, 23 Oct 2026 15:43:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1792763035;
+	bh=aJnx2yywdJOJQF24mLcAVe2DM4zti1C12vQFMGaGn9I=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=e9E8bhqJu1VuJYY5NYn0RzJHYqHRfF79sCrlU2GeG1WXt0BTNWFKwZNtdn7Skj3aW
+	 Jqd3z0I465OGaWDYNfYarCjIkxD9pO9WMzZWD3oP0/uEl6tOkrPtMJLOgt2ZGab8Vz
+	 C7x1RRV9hXnOj+ceRk/9Fg8bhwOnl6WwvqWAA9ghgrbqBjRyyTsM8BBpCc9aQEx6AQ
+	 Y4+XpeD9wjQ/f/dOSHf1VNWnTdQCuPZk2Gv4cs1dSPUmT61yFQIf+bylZ5KElHlqvx
+	 GklPFb3Ktb09mPuteL06IngXnTlcwkOJD9h2S3Yl96x8y0NywAC3IRXen/9VLY51NR
+	 EWPspOWHTqjxA==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4jB44C14HMz50KZ;
+	Fri, 23 Oct 2026 15:43:55 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id C3F6D220D4;
-	Fri, 23 Oct 2026 13:32:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792762345; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=A6+jz2LGChmKSShBjipTzMEdLOMmKYeMdnFVh1ZvRjM=;
-	b=dBp08XEsblvd5CFBGtTShFlD2cvEEP7pabF1dx5HIgB3Y9OWGcRHa7FeMmsllY9rwyWdh6
-	pzL5gduDFe5trasTScu3GtuUUr8sPw+zikOUWJkBDr/Inor3+/aIb40Q6iYCCXuBxRiu4D
-	npSFpKaAxl+J+OFb8f3sJVZkv8EP7pI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792762345;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=A6+jz2LGChmKSShBjipTzMEdLOMmKYeMdnFVh1ZvRjM=;
-	b=G5gj3KiNajer/v5zNAC7rbPp4wtOwZCOSAE/D0rrh5On+Blv8ShEceceNFiiG/PPZ9iqtr
-	6UoxEfn6MtqJWGBg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792762345; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=A6+jz2LGChmKSShBjipTzMEdLOMmKYeMdnFVh1ZvRjM=;
-	b=dBp08XEsblvd5CFBGtTShFlD2cvEEP7pabF1dx5HIgB3Y9OWGcRHa7FeMmsllY9rwyWdh6
-	pzL5gduDFe5trasTScu3GtuUUr8sPw+zikOUWJkBDr/Inor3+/aIb40Q6iYCCXuBxRiu4D
-	npSFpKaAxl+J+OFb8f3sJVZkv8EP7pI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792762345;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=A6+jz2LGChmKSShBjipTzMEdLOMmKYeMdnFVh1ZvRjM=;
-	b=G5gj3KiNajer/v5zNAC7rbPp4wtOwZCOSAE/D0rrh5On+Blv8ShEceceNFiiG/PPZ9iqtr
-	6UoxEfn6MtqJWGBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 98FD0133F6;
-	Fri, 23 Oct 2026 13:32:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id sDISGuhh22oyTQAAD6G6ig
-	(envelope-from <fmancera@suse.de>); Fri, 23 Oct 2026 13:32:24 +0000
-Message-ID: <bb1fc73c-84b3-45a8-86e4-458498d0f80b@suse.de>
-Date: Fri, 23 Oct 2026 15:31:22 +0200
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4jB44B3wR3z8sb7;
+	Fri, 23 Oct 2026 15:43:54 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 749E45F9FA;
+	Fri, 23 Oct 2026 15:43:49 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <8aa88f3e-2dd7-4bfe-a0f3-e5ecbbade84f@leemhuis.info>
+Date: Fri, 23 Oct 2026 15:43:43 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,103 +75,119 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 1/5] ipv6: restrict gc_elasticity to 31
-To: Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org
-Cc: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
- Kuniyuki Iwashima <kuniyu@google.com>,
- Nikolay Aleksandrov <razor@blackwall.org>,
- Joel Granados <joel.granados@kernel.org>,
- Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
- Wyatt Feng <bronzed_45_vested@icloud.com>, Yung Chih Su
- <yuuchihsu@gmail.com>, Flavio Leitner <fbl@redhat.com>,
- Hannes Frederic Sowa <hannes@stressinduktion.org>,
- "Paul E. McKenney" <paulmck@kernel.org>, Petr Mladek <pmladek@suse.com>,
- linux-kernel@vger.kernel.org
-References: <20261023091419.167088-1-jiayuan.chen@linux.dev>
- <20261023091419.167088-2-jiayuan.chen@linux.dev>
-Content-Language: en-US
-From: Fernando Fernandez Mancera <fmancera@suse.de>
-In-Reply-To: <20261023091419.167088-2-jiayuan.chen@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [regression 6.12.y] After backport of 980084de4d9b ("Bluetooth:
+ btusb: Add ASUS USB-BT540 for Realtek 8761CU") bluethooth not anymore working
+ on 0b05:1bef ASUSTek Computer, Inc. Bluetooth Controller (requests firmware)
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+To: Sasha Levin <sashal@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Marcel Holtmann <marcel@holtmann.org>,
+ Salvatore Bonaccorso <carnil@debian.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Erik Brangs <erik.brangs@gmx.de>, benh@debian.org, stable@vger.kernel.org,
+ regressions@lists.linux.dev, linux-bluetooth@vger.kernel.org,
+ 1149377@bugs.debian.org, Christoph Zwerschke <cito@online.de>
+References: <179104011040.2214689.5921682013387867802@eldamar.lan>
+ <2026-10-04-1-daily-reply-0007-bt540-asus-firmware@kernel.org>
+ <24ce058a-28b5-4499-9ded-eec9544b80ec@leemhuis.info>
+ <as0YtvgukA-Gp-D-@eldamar.lan>
+ <3c931ea6-b325-4338-acdb-4f6eec9d204f@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <3c931ea6-b325-4338-acdb-4f6eec9d204f@leemhuis.info>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-13.29 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[21];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,icloud.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,davemloft.net,kernel.org,redhat.com,nvidia.com,google.com,blackwall.org,nokia-bell-labs.com,icloud.com,gmail.com,stressinduktion.org,suse.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
-X-Spam-Score: -13.29
+X-PPP-Message-ID: 
+ <179276303008.2712656.16619764390688834313@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: 749E45F9FA
+X-NC-CID: 807/fAhNKsBLJFRDt5Gz/wNt7qUMN9gCV3mu59yfQs7RpfFoo9Q=
 
-On 10/23/26 11:13 AM, Jiayuan Chen wrote:
-> Every counted IPv6 dst allocation runs ip6_dst_gc() once the number of
-> live dst goes over gc_thresh (1024 by default). ip6_dst_gc() decays
-> ip6_rt_gc_expire by gc_elasticity: the smaller gc_elasticity is, the
-> smaller ip6_rt_gc_expire gets, i.e. the more aggressive the gc.
-> 
-> ip6_rt_gc_expire is a u32, but gc_elasticity has no upper bound, so
-> writing >= 32 shifts a 32-bit value by >= 32 bits, which is UB:
-> 
-> 	val = atomic_read(&net->ipv6.ip6_rt_gc_expire);
-> 	atomic_set(&net->ipv6.ip6_rt_gc_expire, val - (val >> rt_elasticity));
-> 
->    UBSAN: shift-out-of-bounds in net/ipv6/route.c:3369:53
->    shift exponent 32 is too large for 32-bit type 'unsigned int'
->    CPU: 2 UID: 0 PID: 615 Comm: ping6 Not tainted 7.3.0-rc7+ #364 PREEMPT
->    Call Trace:
->     <IRQ>
->     dump_stack_lvl+0xc1/0xf0
->     dump_stack+0x10/0x20
->     __ubsan_handle_shift_out_of_bounds+0x1d1/0x390
->     ip6_dst_gc.cold+0x15/0x1a
->     dst_alloc+0x4e0/0x620
->     ip6_rt_cache_alloc+0x189/0x7e0
->     __ip6_rt_update_pmtu+0x68e/0x1160
->     ip6_update_pmtu+0x30c/0x3a0
->     icmpv6_err+0x1fa/0x330
->     icmpv6_notify+0x303/0x770
->     icmpv6_rcv+0xc12/0x1670
->     ip6_protocol_deliver_rcu+0xb4a/0x1520
->     ip6_input_finish+0x19c/0x400
->     ip6_input+0xd4/0x240
->     ipv6_rcv+0x1fd/0x330
->     __netif_receive_skb_one_core+0x118/0x1c0
->     __netif_receive_skb+0x21/0x150
->     process_backlog+0x37e/0x1200
->     __napi_poll.constprop.0+0xa5/0x5e0
->     net_rx_action+0x4c0/0xf70
->     handle_softirqs+0x204/0x9b0
->     __do_softirq+0x10/0x18
-> 
-> Cap it at 31. 31 and 32 are equivalent anyway: ip6_rt_gc_expire starts
-> at 30*HZ (~30000 with HZ=1000), and such a value shifted right by 15 or
-> more is already 0, so val - (val >> rt_elasticity) stops decaying well
-> before 31. Values above 31 add no new behaviour, they only hit the UB.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+On 10/13/26 11:03, Thorsten Leemhuis wrote:
+> On 10/12/26 19:28, Salvatore Bonaccorso wrote:
+>> On Mon, Oct 12, 2026 at 02:00:18PM +0200, Thorsten Leemhuis wrote:
+>>> On 10/4/26 18:29, Sasha Levin wrote:
+>>>>> In Debian Erik Brangs reported that after the update from 6.12.107 to
+>>>>> 6.12.111, specifically with the backport of 980084de4d9b ("Bluetooth:
+>>>>> btusb: Add ASUS USB-BT540 for Realtek 8761CU") Bluetooth is not
+>>>>> anymore working, the full report is found at
+>>>>> https://bugs.debian.org/1149377 .
+>>>>> | [   38.138881] Bluetooth: hci0: RTL: firmware file rtl_bt/rtl8761cu_fw not found
 
-Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
+This is still unresolved. Salvatore, Erik, and/or Christoph, could you
+confirm my analyses below -- and if it is ask the stable team for the
+reverts?
 
-Thanks!
+>>>> The stable code matches mainline. The failure is a missing firmware file:
+>>>> rtl_bt/rtl8761cu_fw.bin has been in linux-firmware only since 20251111,
+>>>> and Debian trixie's firmware-realtek 20250410-2 does not have it.
+>>>>
+>>>> Marcel, Luiz: could you, or Christoph Zwerschke as the author of the ID
+>>>> commit, send an upstream revert, or a fallback to ROM firmware when
+>>>> rtl8761cu_fw.bin is missing? Stable will take it for 7.2, 6.18 and 6.12
+>>>> through the normal Cc: stable route once it is in mainline.
+>>>
+>>> Hmmm, that was a week (granted: with the LPC) ago and nothing happened.
+>>> Anyone working on this?
+>>>
+>>> If not: Should we revert 980084de4d9b and its backports? Or only the
+>>> backports to older stable series?
+>>>
+>>> Strictly speaking it should be the former due to our policies wrt to
+>>> firmware -- but I guess most users of a more recent kernels also have a
+>>> newer firmware, so I wonder if reverting the change might do more harm
+>>> then good now.
+>>
+>> If my understanding is correct from a earlier fixed regression in the
+>> ariea, aka
+>> https://lore.kernel.org/regressions/0fd8c1c9-7f56-4bcb-a727-e4386d8ef094@online.de/
+
+There Christoph asked "please revert them from every tree below 6.19" --
+but they afaics were only reverted for 6.6 and earlier.
+
+"Them" meant the backports of these:
+
+* 980084de4d9b25 ("Bluetooth: btusb: Add ASUS USB-BT540 for Realtek
+8761CU") [v7.3-rc1]
+* 6f0624b4427e38 ("Bluetooth: btusb: Add ASUS USB-BT600 for Realtek
+8761CU") [v7.3-rc1]
+
+Maybe because 4a23ce935f74d1 ("Bluetooth: btrtl: Add the support for
+RTL8761CUV") was included in v6.18.53, v6.12.111. Which lead to the
+current situation with "firmware file rtl_bt/rtl8761cu_fw not found" in
+Debian.
+
+>> should then not only 980084de4d9b ("Bluetooth: btusb: Add ASUS
+>> USB-BT540 for Realtek 8761CU") be reverted, but as well along
+>> 6f0624b4427e ("Bluetooth: btusb: Add ASUS USB-BT600 for Realtek
+>> 8761CU") and as well 4a23ce935f74 ("Bluetooth: btrtl: Add the support
+>> for RTL8761CUV")?
+>
+> Maybe, I didn't look closer,
+
+I did meanwhile and agree, the backports of these should be reverted
+from 6.18.y and 6.12.y:
+
+* 980084de4d9b25 ("Bluetooth: btusb: Add ASUS USB-BT540 for Realtek
+8761CU") [v7.3-rc1]
+* 6f0624b4427e38 ("Bluetooth: btusb: Add ASUS USB-BT600 for Realtek
+8761CU") [v7.3-rc1]
+* 4a23ce935f74d1 ("Bluetooth: btrtl: Add the support for RTL8761CUV")
+[v6.19-rc1]
+
+At least if the problem wasn't resolved meanwhile, but that wasn't the
+case afaics -- or did I miss it? Salvatore, Erik, or Christoph? Or was
+it meanwhile agree on to fix this differently, for example by including
+that file in a linux-firmware update maybe?
+Ciao, Thorsten
+
+
+ but that's why reverting in mainline likely
+> really is a bad idea: it might cause a regression for users that depend
+> on those changes (one of which is from 6.19).
+> 
+> So I guess reverting some or all of those backports in "older stable
+> series", as Sasha suggested, might be the best -- but I guess it would
+> be good if someone with more knowledge in this area could provide an
+> opinion.
+
+
