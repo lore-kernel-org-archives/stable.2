@@ -1,89 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792764606;
-	b=IkYjhP4HkS93OmqVXpzMYWLyiTqye/p1/ak5cxVdaYreLZuMOG57NZVmNMRhOPaiHGVa
-	 3MJvodPR7dr3FhNWaZ105+GrrwIBemwJR1TDmYEc5816C0Q+hm/ELVVGsumLxg6cEOLuT
-	 AXzDAhSQl+DKI4oNWSkOZNV2D/lb1klDSLVqeW3aGpvoVRKqrPIGU7Jy6omr1s7i7a3mb
-	 dNtfodZDAgjP/gLOpeq8i2l+GSO5Ehn4T7DHkBYfmLmdC2CQRXE2si/lcyAlfwARXpD0u
-	 9LsjIF23gmcsE9cVaNG/Z/IU0q76L19kEAd5P+vKQ2dbkErytc+OPWJYhQO995ZEtsw==
+	t=1792764755;
+	b=3jb9/y3n4Pdi2xuNXy53rIhJ4cT74oNdTJl/EEzIQk43R4r8yjGljnMyznIX2h8M4Bb+
+	 KptjoLCr998PwODVtDEfzZugDXuKpzAavef+jwxI0/80yE+8rhy4mGNFC5nhKESoRvCpE
+	 8wWO6m/QOTXeJ9ownIQUQiTBFW+sAnJElmkcxu9B7q2JOdsoSm60V2KDO3Y8OwbJgr9/F
+	 Le9EAtuykC8Sy7fzBNl5pY6PZL56SbUos5/kzWOmAVHkQ/1D2VbBm2JhQhlv3msLxP2pw
+	 HxX7ghNrKAqIJOtuhZGEHmQCPvI4WLoSikByrz783bQEuxA2XhHXDFvBA6PJrkJHMAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792764606;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:Organization:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=XPDo1N1hT7cCAK8LkHZsP5UZtpJRXF7LrSS7WPT3zsY=;
-	b=pWACiiHmSdYT+8diIetsS5weNJWO9kJmibxQnIkmu/88NEWhQfAWQJeW/sziAHsr07RK
-	 WpJHAzfNnnmi3T8XP6OauvfrMGmo+/MsjBU5wF63t1jdqEIP3ertnQpXfEFXh40K6DX9N
-	 JC6zUG5ja2mmZDTx52ZO/08cXe6sMrRFa5Ea+k6u49y1BITKm5KzTOg/J7zYjkB5M+Oy3
-	 fAmtlBV5ed/zRcTjREvrRpDV/lekGLtKmBJrNfV53WH9P15tWwC6hiolGSGQ+S2OwV6jd
-	 2BuECb57gfCx9tPPsgZ4ZQc5KlDOzwRN3v5TbeyDSmJFCnCkYIv7tWZM3NBXmI6IKCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792764755;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Rspamd-Server:
+	 X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id;
+	bh=rl+LBmXMt0s4R6vFRBmArNwMRS9jkmPZ2VnKxQORHGI=;
+	b=QsqV+tICO2vgtnZscnd+J2tsBjjzD7iDT3y4AnwmmdjcnxlqOBq28Fg+F8C58IlbaCmU
+	 6FJ6T4rAvaYa/CuqFMdaI+5Ebho9b4vBo3cccgXNy8wlGcIKInl5WZmS0sol8HI6BOkVb
+	 qAKd2YaNfW/OTAv5asKloMDV8r8jA2ioNkEAk0aM7Pqt38n7aIQnB4wrbl6BCR3bJuGk8
+	 dzwJjemIIEBVXBN3T5Ay+p/DVnGe0K6Qy0LtoCmIwI6k3zT4zELht2ZfdZWMgG9oxICGC
+	 +i/9VEBD2C4sNQxYrQQaAkB0K3fTrdU1RmQHt2BopKEkfKLHe+bojenCyZy7gabg1eA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=openvpn.net;
-	spf=pass smtp.mailfrom=openvpn.com;
-	dkim=pass header.d=openvpn.net header.i=@openvpn.net header.a=rsa-sha256 header.s=google header.b=NTvzQ9Td;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QLXWZEuz;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=KE86RIWK;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QLXWZEuz;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=KE86RIWK;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDF0606A31A
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 14:10:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BDF0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=openvpn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openvpn.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26CB7606A31A;
+	Fri, 23 Oct 2026 14:12:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26CB7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=openvpn.net header.i=@openvpn.net header.a=rsa-sha256 header.s=google header.b=NTvzQ9Td
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so8442455e9.2
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 07:10:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openvpn.net; s=google; t=1792764604; x=1793369404; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:from:content-language:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=XPDo1N1hT7cCAK8LkHZsP5UZtpJRXF7LrSS7WPT3zsY=;
-        b=NTvzQ9TdU2e4irYs7q7441oWiK6tux+67MmXXQrw8zJ1LfSsV7SBaYxU/9PMhDSDmu
-         0hcdyppcHq6cV9461E3xbWNphSJDcIYcJ057R9L7peez0OtpKjlII1Xd4sSK478p3gUk
-         q4q6zMr7TyuOYPamkWVGJqdtnDMdH7B78ZFWVkBDdOjBKqiaTQtMds4aSu5ybaW2dZOg
-         HJ5yuPmd10r/yP5Hq7VTJThh8O1sJ6Zp1CEzqLpcLVO+DEJZrJqr5AceQLmOD78DdppG
-         a+TFUo+AVegRNQ9MEKzE4YYdDuMfMXNRY+jgKt2oifVs1G4zE+SY3nYZ2p352h5JXNLU
-         Wl8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792764604; x=1793369404;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:from:content-language:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XPDo1N1hT7cCAK8LkHZsP5UZtpJRXF7LrSS7WPT3zsY=;
-        b=A/XmwKe2v8srv9Uadn9EQxqzxAmxwlzBEUoMluM3V1rTXVynpBbkAlKA0co/Op0qzz
-         59oNgXQbOjdRCJYw6jDLDJRzY7xdjNx3FFki4lJRAI0+NwSuZJeQqgfKKdx7svvbvH7C
-         DyCBDGdy76tgvNioik9MtsEiQkrwkBO4ghT0EeResxFoo+xrYqgbOk7CIY6OiBf3iYSo
-         6G73+WebVbxnYqUv3MILXCFct8zbqfNfLTsJNiGb1rylOYbOGgecp2KJfbr4xNGcie8h
-         LEXKU3qOyD2tVggUz8CXSKL0xDfnpxHb5xZhQFlYcgkt3lWvKRnnZAf52K4Sn9yl9cRK
-         kqFA==
-X-Forwarded-Encrypted: i=1; AKwUvBxUOUHYRXJdgdsy85Ue8dFaDvzdS9gMg4k30DobpdiUVVikfsjNCUGHnyRQuHp3fdj1lHiy1GA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIQ+pgty+fD+UVPDt5Sq6j1hsR+y0pM+m9qpkYq3mEXi6ndWlua
-	6fnc39ojJfGbBbODSCgUyFNw1zO0Bbniz6HOtFNu42ihI/I4Ur1sHXbIAYn+gZ3qGsEfKgMXtLa
-	s5VQOKp+0uEM9miQOWMSoQXCKFUSiTOYpxMnFo5CLfqgMQLn7E7qnKHW/xImR/7YCAw8=
-X-Gm-Gg: AYBFou3aclN9dMKJ8GlhIAix9ZqzIKzoANWViy4klnZPGg/qTEVJjGrVkt8QaKG9Iei
-	UOc6wdTyW6yYFeSt1+rTpUGeUqWXn8P2LiL68lrE375KNZ7CNFHXF9oGhHoPeT16d3AfTJm1yeX
-	TyEkV5BXxPsTZlajvIVmTk6u1O1/nQGTx/audBOnjcjfCdoQ0FxvSd8pBrO7RME6DRVji1tvWPP
-	bcVjojmRt7dLbIWm68bY0Ky3KLFrHH45ctNLNSO6gbR/p/f6YNhQjj74bvf3nCVaDYCh+AXkzqB
-	rvf8/AG35GRjhLjSc8K6xRYSknD3CbKhB3RbJ7rofGxXDmgge4TC7BVonTV8idLD0R3Wg35GrYH
-	cMtOFQcN24EAZfY6yqY62QQ3zRNScXaNyqQxZNmc3PQopj+LgCV9SPIt1mnVfJbhSPpVi2i/8Vz
-	J9c0AHZPb+dnlAN5OSattLNVRH4Zkz7PZl7RcnWb2QQHghgE+/9zWO2VRI8rfIHq3ysA0nzXMMe
-	RuX5jCf8XMlN63fnmmNN7477sOb8uJtCQS+a1kJoDqTX7rSIOCbT9GvZgloOnxPpT4hMdnTcpaX
-	NR6Hz6fqbUyFbS+8U2YSNXNY2e4sP41hEuWkZkQ=
-X-Received: by 2002:a05:600c:c493:b0:4a2:8f4:96c with SMTP id 5b1f17b1804b1-4a211edd672mr36756275e9.29.1792764603841;
-        Fri, 23 Oct 2026 07:10:03 -0700 (PDT)
-Received: from ?IPV6:2001:67c:2fbc:1:5940:e951:c53d:9e75? ([2001:67c:2fbc:1:5940:e951:c53d:9e75])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a2a92a4444sm7330705e9.5.2026.10.23.07.10.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 07:10:03 -0700 (PDT)
-Message-ID: <ef4da481-9332-4e72-976b-e90d3fb571ee@openvpn.net>
-Date: Fri, 23 Oct 2026 16:10:01 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QLXWZEuz;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=KE86RIWK;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QLXWZEuz;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=KE86RIWK
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id DCB111F458;
+	Fri, 23 Oct 2026 14:12:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792764753; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rl+LBmXMt0s4R6vFRBmArNwMRS9jkmPZ2VnKxQORHGI=;
+	b=QLXWZEuzbWd4F8pz1RX9mmEyV4TVrx+MGR3a3/xl4xQdtNYfcGHjWFjLXi+gfIq+1Axxko
+	wpX2jjdlyMXFrisCV+8DOydUi7ZbAG55eo13tgWAHb0UphTBUcF5ftMUp/p569JxFS2nH+
+	+3WJDuqs9dReDQNIEWqKv8Dmx0CFcVI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792764753;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rl+LBmXMt0s4R6vFRBmArNwMRS9jkmPZ2VnKxQORHGI=;
+	b=KE86RIWKV+CI+WvEuTZ9vNcscQgVpPTexnCUfAp6Nj2ths/XV3rtCyPtUIymp+NK0D5k2Z
+	jZpQGJaVi4w6nsAA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=QLXWZEuz;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=KE86RIWK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792764753; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rl+LBmXMt0s4R6vFRBmArNwMRS9jkmPZ2VnKxQORHGI=;
+	b=QLXWZEuzbWd4F8pz1RX9mmEyV4TVrx+MGR3a3/xl4xQdtNYfcGHjWFjLXi+gfIq+1Axxko
+	wpX2jjdlyMXFrisCV+8DOydUi7ZbAG55eo13tgWAHb0UphTBUcF5ftMUp/p569JxFS2nH+
+	+3WJDuqs9dReDQNIEWqKv8Dmx0CFcVI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792764753;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rl+LBmXMt0s4R6vFRBmArNwMRS9jkmPZ2VnKxQORHGI=;
+	b=KE86RIWKV+CI+WvEuTZ9vNcscQgVpPTexnCUfAp6Nj2ths/XV3rtCyPtUIymp+NK0D5k2Z
+	jZpQGJaVi4w6nsAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B7BAA133F3;
+	Fri, 23 Oct 2026 14:12:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id xP5FIU9r22q/dwAAD6G6ig
+	(envelope-from <fmancera@suse.de>); Fri, 23 Oct 2026 14:12:31 +0000
+Message-ID: <5dda588d-e6fa-420d-a73d-b5278094b59c@suse.de>
+Date: Fri, 23 Oct 2026 16:11:25 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,160 +109,155 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 5/7] ovpn: fix UDP TX byte accounting
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, ralf@mandelbit.com, sd@queasysnail.net,
- kuba@kernel.org, pabeni@redhat.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, stable@vger.kernel.org
-References: <20261022121606.732029-6-antonio@openvpn.net>
- <179275784775.3134.7765670827133808012@kernel.org>
+Subject: Re: [PATCH net 2/5] ipv4: fix shift-out-of-bounds in
+ ip_rt_send_redirect()
+To: Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org
+Cc: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+ Kuniyuki Iwashima <kuniyu@google.com>,
+ Joel Granados <joel.granados@kernel.org>,
+ Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
+ Wyatt Feng <bronzed_45_vested@icloud.com>, Yung Chih Su
+ <yuuchihsu@gmail.com>, Hannes Frederic Sowa <hannes@stressinduktion.org>,
+ Flavio Leitner <fbl@redhat.com>, "Paul E. McKenney" <paulmck@kernel.org>,
+ Petr Mladek <pmladek@suse.com>, linux-kernel@vger.kernel.org
+References: <20261023091419.167088-1-jiayuan.chen@linux.dev>
+ <20261023091419.167088-3-jiayuan.chen@linux.dev>
 Content-Language: en-US
-From: Antonio Quartulli <antonio@openvpn.net>
-Autocrypt: addr=antonio@openvpn.net; keydata=
- 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
- ifS0+hzvnPVD9wXa9kdjO+0H
-Organization: OpenVPN Inc.
-In-Reply-To: <179275784775.3134.7765670827133808012@kernel.org>
+From: Fernando Fernandez Mancera <fmancera@suse.de>
+In-Reply-To: <20261023091419.167088-3-jiayuan.chen@linux.dev>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Spamd-Result: default: False [-13.50 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[20];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,icloud.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,davemloft.net,kernel.org,redhat.com,nvidia.com,google.com,nokia-bell-labs.com,icloud.com,gmail.com,stressinduktion.org,suse.com];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.50
+X-Spam-Level: 
+X-Rspamd-Queue-Id: DCB111F458
 
-I'll have a deeper look.
-Some concerns, especially about the stats, seem legit.
-
-pw-bot: cr
-
-On 23/10/2026 14:17, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
+On 10/23/26 11:13 AM, Jiayuan Chen wrote:
+> ip_rt_redirect_number is the max number of ICMP Redirects we send to one
+> endpoint; once we hit it we stop. Before that, ip_rt_redirect_load gives
+> the redirects an exponential backoff:
 > 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 0
+> 	if (peer->n_redirects == 0 ||
+> 	    time_after(jiffies,
+> 		       (peer->rate_last +
+> 			(ip_rt_redirect_load << peer->n_redirects)))) {
 > 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
+> n_redirects only stops growing when it reaches ip_rt_redirect_number, and
+> both redirect_number and redirect_load are plain proc_dointvec sysctls
+> with no upper bound. Set redirect_number past 32 and n_redirects climbs
+> past 31, so "ip_rt_redirect_load << peer->n_redirects" shifts a 32-bit
+> int by >= 32 bits, which is UB:
 > 
-> - [Medium] After this patch, the ovpn netdev's rx_bytes and tx_bytes
->    measure different layers.
+>    UBSAN: shift-out-of-bounds in net/ipv4/route.c:949:6
+>    shift exponent 32 is too large for 32-bit type 'int'
+>    CPU: 1 UID: 0 PID: 1845 Comm: ping Not tainted 7.3.0-rc7+ #364 PREEMPT
+>    Call Trace:
+>     <IRQ>
+>     dump_stack_lvl+0xc1/0xf0
+>     dump_stack+0x10/0x20
+>     __ubsan_handle_shift_out_of_bounds+0x1d1/0x390
+>     ip_rt_send_redirect.cold+0x2c/0x146
+>     ip_forward+0x1ddc/0x2430
+>     ip_rcv+0x2b1/0x320
+>     __netif_receive_skb_one_core+0x16b/0x1c0
+>     __netif_receive_skb+0x21/0x150
+>     process_backlog+0x37e/0x1200
+>     __napi_poll.constprop.0+0xa5/0x5e0
+>     net_rx_action+0x4c0/0xf70
 > 
-> --
-> 
-> ovpn: fix UDP TX byte accounting
-> 
-> This commit resets the inner network header in ovpn_udp_send_skb() before
-> the skb is handed to the UDP tunnel helpers. The goal is for the ovpn
-> netdev TX byte counter to include the OpenVPN data-channel header and the
-> authentication tag.
-> 
->> diff --git a/drivers/net/ovpn/udp.c b/drivers/net/ovpn/udp.c
->> index 7672094a67668..05e10a2ed1791 100644
->> --- a/drivers/net/ovpn/udp.c
->> +++ b/drivers/net/ovpn/udp.c
->> @@ -495,6 +495,9 @@ int ovpn_udp_send_skb(struct ovpn_peer *peer, struct sock *sk,
->>   		return -EADDRNOTAVAIL;
->>   	}
->>   
->> +	/* the encrypted openvpn packet is the UDP tunnel payload */
->> +	skb_reset_inner_network_header(skb);
->> +
-> 
-> [Severity: Medium]
-> With this change, do rx_bytes and tx_bytes on the ovpn netdev now measure
-> different layers?
-> 
-> UDP and TCP share the same RX path, and it counts the decrypted plaintext
-> length:
-> 
-> drivers/net/ovpn/io.c:ovpn_netdev_write() {
->      ...
-> 	pkt_len = skb->len;
->      ...
-> 	if (likely(ret == NET_RX_SUCCESS)) {
-> 		/* update RX stats with the size of decrypted packet */
-> 		ovpn_peer_stats_increment_rx(&peer->vpn_stats, pkt_len);
-> 		dev_dstats_rx_add(peer->ovpn->dev, pkt_len);
-> 	}
->      ...
-> }
-> 
-> UDP TX goes through iptunnel_xmit() / ip6tunnel_xmit(), which compute:
-> 
-> 	int pkt_len = skb->len - skb_inner_network_offset(skb);
-> 
-> The inner network header now sits at the start of the encrypted packet.
-> So TX counts the opcode/peer-id (4 bytes), the packet-id (4 bytes), the
-> auth tag (16 bytes) and the ciphertext. That is about 24 bytes per packet
-> that TX counts and RX does not.
-> 
-> In effect, netdev TX now follows the per-peer link_stats semantics, while
-> netdev RX follows vpn_stats.
-> 
-> TCP TX uses yet another convention. ovpn_tcp_send_sock() calls
-> dev_dstats_tx_add(peer->ovpn->dev, skb->len) after ovpn_tcp_send_skb() has
-> pushed the 2-byte length prefix:
-> 
-> 	*(__be16 *)__skb_push(skb, sizeof(u16)) = htons(len);
-> 
-> Other users of the same UDP tunnel stats helper do the opposite. WireGuard
-> sets the inner network header before it pushes its own header, so that
-> header is not counted:
-> 
-> drivers/net/wireguard/send.c:encrypt_packet() {
->      ...
-> 	skb_set_inner_network_header(skb, 0);
-> 	header = (struct message_data *)skb_push(skb, sizeof(*header));
->      ...
-> }
-> 
-> Take the case the commit message calls an undercount, where the inner
-> header still points at the plaintext. Before this patch, UDP TX counted the
-> ciphertext length there. Since the tag sits in front, that equals the
-> plaintext length, so it matched RX.
-> 
-> Is TX meant to include protocol overhead when RX does not? If so, could
-> the commit message explain why? If not, should RX and TCP TX be changed
-> to use the same convention?
-> 
-> The mismatch is still there at the end of the series. "ovpn: fix TCP TX
-> accounting for locally dropped packets" leaves both the TCP TX
-> dev_dstats_tx_add(skb->len) call and the RX accounting unchanged.
+> Fixing this from the sysctl side would mean bounding both knobs, e.g.
+> redirect_load to [0, 65535] and redirect_number to [0, 16], which gets
+> in the way of users who legitimately do not want to cap ICMP redirects.
+> Instead compute the backoff in u64 with the shift count capped at 31,
+> which cannot overflow since ip_rt_redirect_load is an int, and clamp the
+> result to MAX_JIFFY_OFFSET.
 > 
 
--- 
-Antonio Quartulli
-OpenVPN Inc.
+I think we should cap redirect_load with a minimum valid value of 0 on 
+the sysctl. If the user want to disable ICMP redirects or do not cap 
+them, they should use 0 or -1 in redirect_number IMHO.
+
+What do you think?
+
+> The clamp also fixes 32-bit kernels, where the same expression goes
+> wrong long before the shift count reaches 32. With the default
+> ip_rt_redirect_load of 20, from n_redirects == 27 on the result is
+> either truncated or too large for time_after(), which then treats the
+> deadline as already passed, and from 30 on it is 0, so every forwarded
+> packet gets a redirect again until ip_rt_redirect_number is reached.
+> This needs a raised redirect_silence to be reachable, otherwise
+> n_redirects is reset long before. On 64-bit, ip_rt_redirect_load << 31
+> stays below MAX_JIFFY_OFFSET, so nothing changes there.
+> 
+
+Isn't the same issue in 64-bit kernels too? In essence, it would be (int 
+<< u32) which results in a negative value and that is later 
+sign-extended to a corrupted 64-bit value. Am I missing something here?
+
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+> ---
+>   net/ipv4/route.c | 7 ++++---
+>   1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/net/ipv4/route.c b/net/ipv4/route.c
+> index 595a3b7f1783..76807b757046 100644
+> --- a/net/ipv4/route.c
+> +++ b/net/ipv4/route.c
+> @@ -907,6 +907,7 @@ void ip_rt_send_redirect(struct sk_buff *skb)
+>   	struct inet_peer *peer;
+>   	int log_martians;
+>   	struct net *net;
+> +	u64 backoff;
+>   	int vif;
+>   
+>   	rcu_read_lock();
+> @@ -945,10 +946,10 @@ void ip_rt_send_redirect(struct sk_buff *skb)
+>   	/* Check for load limit; set rate_last to the latest sent
+>   	 * redirect.
+>   	 */
+> +	backoff = (u64)ip_rt_redirect_load << min(peer->n_redirects, 31U);
+> +	backoff = min_t(u64, backoff, MAX_JIFFY_OFFSET);
+>   	if (peer->n_redirects == 0 ||
+> -	    time_after(jiffies,
+> -		       (peer->rate_last +
+> -			(ip_rt_redirect_load << peer->n_redirects)))) {
+> +	    time_after(jiffies, peer->rate_last + (unsigned long)backoff)) {
+>   		__be32 gw = rt_nexthop(rt, ip_hdr(skb)->daddr);
+>   
+>   		icmp_send(skb, ICMP_REDIRECT, ICMP_REDIR_HOST, gw);
 
