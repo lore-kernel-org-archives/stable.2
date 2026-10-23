@@ -1,116 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792760691;
-	b=emjb7sBvzh2jTKQ0vXhZVWLfbnxQwuqVyeywYmLOnFB9KO93PWq65UEpYEMmQG1GBuiU
-	 lK2v1sVUO4rLqlur+YeO6TXqQb04SbAOwPgqOnry1xWcZip9Vp7UxXAZGJn9Y1NxXnK9h
-	 2MEMwbvpn8+LPdaXjHtUrYs56ciMT3AqlmKhIfRK+OmcpkDLLz7Vrfo+H5SFOtDzlTxYi
-	 5V7bak1Mo4p1dhHYANpUqS5cgC6KKkVGNvAUiJpIFPDzyuQf7lAvavcnNDEh8b5Ab9S5t
-	 k6WRjfD/8S7gh/jqocDnNiVwq/9ok1o/vrUXPjBXOCcCTFTX6O0XJNBOG54orgIJUZg==
+	t=1792760741;
+	b=DosHP/K9fMJl6LGXQEYCYEOHf6oGFj7UYYTRWrdJVhUAoZkLt9FJhM+5STysAn3nNil0
+	 3HM9nfjDWkni4Am66Iy7DvJwFhO3E53KxuPPW7peSHQfO3KXLlUYkjLT5POw33AT+dcdm
+	 uI0FhtQlUHu6KnhGKVUfHKb18ofxNqGWJzuT6fwexfLKpyTJONH4yPtYFGYJelCH/Ur+A
+	 dwX0/cfGghBCKGaDLk7Mgu1LjWrXAZV3wZMxQqE5ue8i99U29tB3ugwOFkMaCjSi/gawP
+	 cc8r+4UOlJ36xjHuOFeKw9GF/M4Qb9aVvtUeCC67iA04HuvB00T9Fx8XJvHd9tDmkIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792760691;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=J/9Qj668b8yCGUf9keY9GwKS6HdGazYw0/H94SqUfB4=;
-	b=XHgwXob3FVJ8SK4uPYj6qCo3jV38lE1QRjYDE310a6kxFtocI+OArL4n/AgQMtaLU4y4
-	 IWbFmuBlE5dlwxIcHA+2fqqUemvxftTfM1cgQvLHil8hQ1y8xvfoIE4RHfwx0CST8aRTO
-	 KxdtpVrhK1em7xwSMCjMfCPAYYhNcidbcjOiA2t6sljBhftmheuibjzztWgaNi0oAg+Tp
-	 BihpOMqmusB9CMcS6KsDOvoq9I8R1hn6QNEj/xvhbWqt3q0fDyTMjKalNQOQvR2cty1rp
-	 aVoyqQms918kXK1pksYapIr0VgKdlGzGNN1e+QFXDsD9lx0bfScUwzviOPaIcdLiXTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792760741;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=nxrlDr5Pv1kPW7dd5eO3qfJ6XICV5uYprA+uta9M6UQ=;
+	b=tiytjxnJUBMF/ff9NCtGRasyTlsFLE0zIxSPo25/JXJXXyYick986JHPfq0fwbNMyGqD
+	 Rz21mCyLsLseqTSW9VvnpGYG+d2n3gqSVMKWifc3G8rhUzMXSiYf+9M9JNqFSTr2xDK0C
+	 ci6eYaPgvSQp/UsZiYOytFM2IeUXMiBTdtfLzWBIY04+0OKH5pSxQNMmxHLDxTGCmEOwh
+	 qeNAhgCm51AoPs5/BEABN/MtC5ClLfMbQBn/NJCWNlv2oK0zbbPwHY8xLWkd/YrSbom6A
+	 Pekr2ih1mBJPaK6wnm+6ms2NJwXlDqDsqEGUEgdohCnEWOAaoApfnoryZRZHa/4amNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="EXIEDt/g";
-	arc=none smtp.remote-ip=74.125.227.139
-Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mioTpND/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01D43606A31E
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 13:04:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01D43606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D32606A31A
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 13:05:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EXIEDt/g
-Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-398a0a87595so437072a91.1
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 06:04:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792760690; x=1793365490; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=J/9Qj668b8yCGUf9keY9GwKS6HdGazYw0/H94SqUfB4=;
-        b=EXIEDt/g77XCyjvCOrXALm3ZjHJcurzVbgOuPo4yHc8b9BSFah8t+KxTVfVdO5QG9V
-         0NqJXHIxid2iTef539sMqBLQYJxS/4iudVK6vuejtUfgqVySseLWHX5eE1iQOu81gAqD
-         MpsqSTgdIxnQyB8lkVxQJuMSL/PFLJIxgVdgMsEEolkqIQ/jOhqd1FXzG2LYLTo8mvyq
-         REBZ6f1G0tkhszg83Eo7BPUKLk+tRFdu2ZfhneMHQ2I2QroxV1mxQ+1EZ4Av0U+wtswl
-         cmsRBa8cCbx+OuY/8T2FQTy034Rotx+u+UwHD5V7ThgYg+58uHbB1iUuOy+AvWeVZWM1
-         oVNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792760690; x=1793365490;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=J/9Qj668b8yCGUf9keY9GwKS6HdGazYw0/H94SqUfB4=;
-        b=wf5sj5fSNKYx/sF5tkIsSp8JBNG9uecrwrcWwxExOfB32HNDeTZaw6EQY56X0O86pb
-         zfwtbKBXmYy8HgX9nU6o1Fj8btjygBwBzEgKnKnE85ANtXZU6KPRqI6IJHDsOfH6fpUF
-         N3bRbLjFdEOuE9sqLVj4d6U0g7166PKN/fw54lsrsKhdy5CZQP+L5yr5aSEmULIiDtWT
-         7TZjuF+v57JUnDTukE3eNMoSz2Xk3B2HS+z/6f5gHGH9mkhPgbUpCBzPs34P0TvTAIbT
-         rG5yaZggLVhXUTQH/iKwdfo8oEkeqU0usvbr50NOjA2jzPlOEzExhu4VPfx+el9m5KKG
-         RaRw==
-X-Forwarded-Encrypted: i=1; AKwUvBwV1j5Jvctea/AW5DkcDWj0daTMWXD77ZisWvSqswRq/3Mpik5WUplH6944KPMvhDq8CMP1eZ8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIo9BudTb4KngA5FjfTgMS3DcbGR1SXT2ZI31G+zheo7yAVIl65
-	SemdZp//P8MJHJezOMZQ7o+6gm3WiB6zfG/C9SvNrYt19AacYGZFfgA=
-X-Gm-Gg: AYBFou3ej2INWOwSqutDbf9tTXQvgez0xMU7nLfzh98urRv5Pe+rucrIllACHyWqiCX
-	TyxnPakaxYxhN+iWQhrOc4poK5Qd2nphSEA5E927WvXzLRtjfxSN7cn0DkgdJGsGtIFGLE7nMYM
-	vmH2JjslrskoGGcVIaUxbPJFgiDcckTCf7YvWOqaoM+sihVxbfqO++38DHEuiVordXAoN6UH+lf
-	N/jHV7MZxACmNhhlNymE5RxLDUUXHRkyGmQ8j7e99K4864eh6/C5+qObFUIwJBBLCGQVZAaI7MY
-	yRPLwA+8IITtkrgBaKeIVPvO7+FN73mYPXVrqyZZ3h9r0veEIa/gQqhCYR5VcM0lHGF1IrCVSPY
-	n+zgOXBnW4LnAF5pC2uNjxSfPcotrcoUVtfKjWg1OrCMl6vh8vaA2Cs1EIXT0AqOAqUaIA+QXsE
-	GR9m4eCzFC1bauFXUGWjIcOt//QgzZcmMYqACx0nAR88yxrM/t/vwRQ3ew3HPiAjGEvwGlz6v6b
-	I+7JU2szYm24bgiYMOl0yPAvZ6IPLIp/m50+4R1pz0iVTkME1vgNoVd6QbsLvNhpTgmxvTztM2/
-	F4TQj1B/wg==
-X-Received: by 2002:a17:90a:e7c1:b0:3ac:97bc:4c7b with SMTP id 98e67ed59e1d1-3adce02ec99mr1936652a91.14.1792760689865;
-        Fri, 23 Oct 2026 06:04:49 -0700 (PDT)
-Received: from WIN-2DEDQG69EF6.localdomain ([109.105.193.131])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3add282a8bcsm1349017a91.2.2026.10.23.06.04.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 06:04:48 -0700 (PDT)
-From: chenhan <chenhan0017.work@gmail.com>
-To: rust-for-linux@vger.kernel.org
-Cc: a.hindborg@kernel.org,
-	boqun@kernel.org,
-	fujita.tomonori@gmail.com,
-	frederic@kernel.org,
-	lyude@redhat.com,
-	tglx@kernel.org,
-	anna-maria@linutronix.de,
-	jstultz@google.com,
-	sboyd@kernel.org,
-	ojeda@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	dakr@kernel.org,
-	daniel.almeida@collabora.com,
-	tamird@kernel.org,
-	acourbot@nvidia.com,
-	work@onurozkan.dev,
-	miguel.ojeda.sandonis@gmail.com,
-	tomo@flapping.org,
-	georgeandrout13@gmail.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v4 2/3] rust: time: make Delta division and remainder fail consistently
-Date: Fri, 23 Oct 2026 21:04:12 +0800
-Message-Id: <20261023130413.178487-3-chenhan0017.work@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261023130413.178487-1-chenhan0017.work@gmail.com>
-References: <20261023130413.178487-1-chenhan0017.work@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mioTpND/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33B201F031E7
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 13:05:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792760741;
+	bh=nxrlDr5Pv1kPW7dd5eO3qfJ6XICV5uYprA+uta9M6UQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=mioTpND//qWuVuc3ljq4iPyNLlJKcEF6BwqcTdsM3eLtWtwrXxMQIJO/sx2FS920+
+	 OqHnBTFCFl4WSBEn+TiyiOKjaqUatBBwmUgw0Z4P8ojhUU9v5w84rMkzDZGqCGU7Qo
+	 BqpRzt36i+az+d0FO8PwJ75O8U23jIu5l/27auuiX50iHFvM3G4dFTFqstGz1TDnCd
+	 ya/r+etVeHYBX+F762XSA/1BdF4SHF61KisAt52cABXX7xWAhUzJb+egQXTizFJE0i
+	 rX1ISsCNP32oAhG/kpIOSaWjqisDrx+RKKPKr1Al1D4gRhrD+Z1sT+J8c3R9VcvUTu
+	 QLQcnTgX/w2eA==
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6f8a519e215so618546eaf.1
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 06:05:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxun/L5U9y8h4WBcIWDpdU/kdb4zSBrKfoZ/37iotOuGpHCI7NaQfAcwA1Etlv3Ldndt1wNVls=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9/58ndWeV81mFcE7RUuRo2PDs97WyHURzdvRR6m9ekzFCGCeA
+	NZDOiwpjeyJiDic+xhquNwZ2Pcs/mk259Cg84Eqk6K+Co1YdnkRfnsn4Pd3Q7Zix6JEn9PYpRQW
+	jvfUAaLqDN0VhpXz8PEwFz+LIqogum30=
+X-Received: by 2002:a05:6820:1a09:b0:6f7:384:a094 with SMTP id
+ 006d021491bc7-70a8040d285mr2645443eaf.26.1792760740508; Fri, 23 Oct 2026
+ 06:05:40 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -120,101 +59,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <ACT-N6N4.v2.r0.20261022191829@mojatatu.com> <ACT-N6N4.v2.r0.20261022191829-1@mojatatu.com>
+ <ACT-N6N4.v2.r0.20261022191829-2@mojatatu.com> <ACT-N6N4.v2.r0.20261022191829-3@mojatatu.com>
+ <ACT-N6N4.v2.r0.20261022191829-4@mojatatu.com>
+In-Reply-To: <ACT-N6N4.v2.r0.20261022191829-4@mojatatu.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Fri, 23 Oct 2026 15:05:29 +0200
+X-Gmail-Original-Message-ID: <CAL4WiirQwq=MyAn-D4voz+cctj7sj5pbpz4f1K12yhRjp-_qew@mail.gmail.com>
+X-Gm-Features: AclHuK9dKwFPAUosG0D9nbQQXD1VWaoosAHEMdMOIldlGKdqHWO2J3RhpAy5O6E
+Message-ID: <CAL4WiirQwq=MyAn-D4voz+cctj7sj5pbpz4f1K12yhRjp-_qew@mail.gmail.com>
+Subject: Re: [PATCH net v2 4/6] net/sched: act_ife: do not consume the inner
+ header on egress
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
+	Victor Nogueira <victor@mojatatu.com>, Yotam Gigi <yotam.gi@gmail.com>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Delta's division and rem_nanos() use Rust operators on 64-bit and C
-helpers on 32-bit. The report shows that rem_nanos(0) can return 10 for
-a 10 ns dividend on ARMv7, while the same call panics on x86-64. The
-i64::MIN / -1 case also differs, and neither API documents these inputs.
+Le ven. 23 oct. 2026 =C3=A0 13:59, Jamal Hadi Salim <jhs@mojatatu.com> a =
+=C3=A9crit :
+>
+> The issue:
+> tcf_ife_decode() unconditionally calls eth_type_trans(), which pulls
+> ETH_HLEN.  On egress this consumes the inner Ethernet header; a following
+> eth_type_trans() from loopback_xmit() then parses L3 data as Ethernet and
+> can BUG in __skb_pull() when the remaining linear area is short.
+>
+> The Fix:
+> Parse the inner Ethernet header with eth_type_trans() in both directions,
+> then restore the egress data position and MAC length.  On ingress the
+> existing behavior is unchanged.  On egress, push the inner Ethernet heade=
+r
+> back after parsing so the xmit path sees the original frame and later
+> actions see a consistent network header.
+>
+> Decode is a receive-side operation; the egress branch keeps the frame
+> intact for transmit paths such as loopback.  tcf_ife_is_eth_skb() accepts
+> Ethernet and loopback devices generally.
+>
+> Conditions to recreate the bug:
+> - egress tc filter on lo: action ife decode pipe;
+> - AF_PACKET SOCK_RAW frame: outer Ethernet with ETH_P_IFE, IFE metadata,
+>   inner Ethernet and an 8192-byte payload;
+> - the egress pipe re-enters eth_type_trans() via loopback_xmit() after th=
+e
+>   action consumed the inner header.
+>
+> Fixes: ef6980b6becb ("introduce IFE action")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+> ---
 
-Check for zero divisors and i64::MIN with -1 before the architecture-
-specific code, and document the panic conditions on each method. This
-matches Rust's signed division and remainder operators, including when
-overflow checks are disabled. Valid-input results and API signatures
-are unchanged; invalid inputs now panic on 32-bit too.
-
-No in-tree calls to either API were found at the base commit. The checks
-stay in the existing methods so the fix does not depend on introducing
-a math module.
-
-Fixes: 4521438fb076 ("rust: time: Implement basic arithmetic operations for Delta")
-Reported-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
-Closes: https://github.com/Rust-for-Linux/linux/issues/1254
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: chenhan <chenhan0017.work@gmail.com>
----
-Changes since v3: none.
-
- rust/kernel/time.rs | 30 ++++++++++++++++++++++++++++--
- 1 file changed, 28 insertions(+), 2 deletions(-)
-
-diff --git a/rust/kernel/time.rs b/rust/kernel/time.rs
-index 16b44e82d2ac..4415e91a5227 100644
---- a/rust/kernel/time.rs
-+++ b/rust/kernel/time.rs
-@@ -412,8 +412,20 @@ fn mul_assign(&mut self, rhs: i64) {
- impl ops::Div for Delta {
-     type Output = i64;
- 
-+    /// # Panics
-+    ///
-+    /// Panics if `rhs` is zero, or if `self` represents [`i64::MIN`] nanoseconds
-+    /// and `rhs` represents `-1` nanosecond.
-     #[inline]
-     fn div(self, rhs: Self) -> Self::Output {
-+        if rhs.value == 0 {
-+            panic!("attempt to divide by zero");
-+        }
-+
-+        if self.value == i64::MIN && rhs.value == -1 {
-+            panic!("attempt to divide with overflow");
-+        }
-+
-         #[cfg(CONFIG_64BIT)]
-         {
-             self.value / rhs.value
-@@ -421,7 +433,7 @@ fn div(self, rhs: Self) -> Self::Output {
- 
-         #[cfg(not(CONFIG_64BIT))]
-         {
--            // SAFETY: This function is always safe to call regardless of the input values
-+            // SAFETY: The checks above exclude a zero divisor and `i64::MIN / -1`.
-             unsafe { bindings::div64_s64(self.value, rhs.value) }
-         }
-     }
-@@ -615,8 +627,21 @@ pub fn to_jiffies_timeout(self) -> Delta<Jiffy> {
-     }
- 
-     /// Return `self % divisor` where `divisor` is in nanoseconds.
-+    ///
-+    /// # Panics
-+    ///
-+    /// Panics if `divisor` is zero, or if `self` represents [`i64::MIN`]
-+    /// nanoseconds and `divisor` is `-1`.
-     #[inline]
-     pub fn rem_nanos(self, divisor: i32) -> Self {
-+        if divisor == 0 {
-+            panic!("attempt to calculate the remainder with a divisor of zero");
-+        }
-+
-+        if self.value == i64::MIN && divisor == -1 {
-+            panic!("attempt to calculate the remainder with overflow");
-+        }
-+
-         #[cfg(CONFIG_64BIT)]
-         {
-             Self {
-@@ -628,7 +653,8 @@ pub fn rem_nanos(self, divisor: i32) -> Self {
-         {
-             let mut rem = 0;
- 
--            // SAFETY: `rem` is in the stack, so we can always provide a valid pointer to it.
-+            // SAFETY: The checks above exclude a zero divisor and `i64::MIN / -1`.
-+            // `&mut rem` provides a valid, aligned, writable pointer for this call.
-             unsafe { bindings::div_s64_rem(self.as_nanos(), divisor, &mut rem) };
- 
-             Self {
--- 
-2.34.1
-
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
