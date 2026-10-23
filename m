@@ -1,64 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.149
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792728213;
-	b=DO3r9i9a2xogVRC8Bmq15KZCEH/phVf6ZnRMgc8ONh5+GrIu/cAeNWEJ06ICEzClFtmB
-	 DLtkqay3DNd71azQQA9RiupSktrnbmGM1Gn3Q49HABVBtiVmjk7bobRfE3Z8FluGzrpqa
-	 gOyjtraakyvMYmdBJFBq+qyEtCoBSHcxFg8LcgOasDuY6xY/YSkPqUYTHbePRp4aRjWhS
-	 +Kpf+5tzGKM26yG5hqpzuV6HTk4ZsO/jhgZ6epvw5+NVcfxXwfBeH4xAWLwhMz23s3k+D
-	 5BCcCOfbNxb7ZGNWKk60QeSm70J3vkf9yQNbWo857QJPE5VpOzogFhXMsL9g2HvXoVQ==
+	t=1792728882;
+	b=my3k58ABrHO8+t/MgngB2RemXAv3r095qT6S2tUpRgeRQ25MCL5d+zTQ1D5WRWDs05DF
+	 MixSVApljnIU9FKVP2xkCrlvTJlYOMWqLmzuPMFlC/RVRqIXOpQ3m0mhmtPYVjxqwMxRN
+	 9iSfWJayJJFwjMip8MWH88LNuPX7Uo2ZBcniSuzpYAOBk0L646KoSBcOzI3i+jBKJtBnS
+	 Zgi8DcdMXoCYwq7I4yPacPdAvb/ZUbbaCLpIZcxUe5KWkpXgcehiVS1He2mki4DSSlMex
+	 smJ6Y0msvaCEMwyyhije9HhpIogZaeyCmfPdTbG0jwVorWGHU7Z3nKNI4fsJoixrt4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792728213;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=QKpbF2NYjurzhEa4kldxHAeNF3pXxzbhF88uq7GLFNY=;
-	b=SkHgpmGvGgw7sDeU88H9LgDO3haqanfsFJI8FbSQeklJbk9JDM5yzeoNEMVGucFf04Op
-	 LUtt6+3BA5pOm7KI1smKeYa5YxZQ5IPNbIIf7KN+gDHQrfBYBu4oSEIEdHGULZresUi1F
-	 uoOxhB/qwd4k3N29j5lBPXR2kYTZRwoQyBVmLown73an+7Gz7pHTFvk9W38TxeGb9fGmd
-	 zQcj993rAKJoxEV6evJ799yUKTktie5hkvqFOZjkmLr8gs3AHVCdTizyy7O3r0X53sF46
-	 lqT0dnsccfJrvrY/UcpNIDi+KAxGrHnKo/u9l3htdABtmJTfHQh3Sehs6WI4smwGfyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792728882;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=3PyPgn5NkwrXAaxwoXohez47LYAKkhIep1C9vV+ZOWo=;
+	b=mX1DtGcS6gLwnYaXYYfG070yNPSh5tIqJdFG7E8lJO9w5Etv0EFrQl2GSg1AFDQgu+vL
+	 TgeM9/4oF2eX6qL571m4epfQ/u9SjuYNC8rsOa6NwYC2K/aJb3FkzrkekBEdlszynxEYR
+	 67MFbrdBNwD1VCR74cJe9uQ4sCQllxj61d4KQ7oBusdm1JldSHYK5Z/EckTdbmIn/5tHs
+	 sZf0H3JyKLCP5VglG5spCD5A9Mh18L5QLlvFb33hNsQaFjA19WJtahy9UuL7bc4yRcXob
+	 3D9qjzk/LNDOfFvQqTks8QwH7LBJFnaQWPVPrxdnkI9C4qNuSs/agh2rPqOnhs8e+DA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=MWzcxIgp;
-	arc=none smtp.remote-ip=115.124.28.149
-Received: from out28-149.mail.aliyun.com (out28-149.mail.aliyun.com [115.124.28.149])
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="Fz4Tw/mR";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E34A606A319;
-	Fri, 23 Oct 2026 04:03:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E34A606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D86606A319;
+	Fri, 23 Oct 2026 04:14:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=MWzcxIgp
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1792728202; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=QKpbF2NYjurzhEa4kldxHAeNF3pXxzbhF88uq7GLFNY=;
-	b=MWzcxIgplb0QYAvlwaFOa2ivBLWXo01f6GNYM23LNPJYPbLBhBbbpo2DxxngP7X1LsxafjByHH34OFlCT7MSYmqJcMwZHR7iaeB799f/4VotJzQPZVz386FPA8zx7QpGlA9uGNb2GFhTGLeI4waxWVEQ4hTGCx0+4rRcNbevjlk=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.2734637|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_enroll_verification|0.0703598-0.00291062-0.92673;FP=8486465230796416835|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037071049;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.jnx.DIq_1792728200;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jnx.DIq_1792728200 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 23 Oct 2026 12:03:21 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: mst@redhat.com,
-	jasowangio@gmail.com,
-	eperezma@redhat.com
-Cc: xieyongji@bytedance.com,
-	xuanzhuo@linux.alibaba.com,
-	stable@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	kvm@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] vringh: fix infinite loop on cyclic top-level indirect descriptor
-Date: Fri, 23 Oct 2026 12:03:19 +0800
-Message-ID: <20261023040319.48555-1-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260922122955.69433-1-fangxy@xiaopeng.com>
-References: <20260922122955.69433-1-fangxy@xiaopeng.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Fz4Tw/mR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4CEE1F01825;
+	Fri, 23 Oct 2026 04:14:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792728882;
+	bh=3PyPgn5NkwrXAaxwoXohez47LYAKkhIep1C9vV+ZOWo=;
+	h=Date:To:From:Subject;
+	b=Fz4Tw/mRR8OPd6YC0lL9l5Css9IJiwbZZ3SlgsGBPLhAbMVDSu4qa8vOFetY417t6
+	 KHbAsqinX3WIYNsTnqyMZM32J/uPSObSVx6KT6qHyzV2a1JGAWu45QXsj//kBj+KeF
+	 lFsppgIRw3QnlIudORXoktudzUj0VuMPTSiL2chw=
+Date: Thu, 22 Oct 2026 21:14:41 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mark@fasheh.com,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,heming.zhao@suse.com,baijiaju1990@gmail.com,zzzccc427@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + ocfs2-dlm-drain-join-handlers-before-releasing-module-text.patch added to mm-nonmm-unstable branch
+Message-Id: <20261023041441.E4CEE1F01825@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,15 +48,154 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi,
 
-Thanks to Jason for acking patch 2/2.
+The patch titled
+     Subject: ocfs2/dlm: drain join handlers before releasing module text
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     ocfs2-dlm-drain-join-handlers-before-releasing-module-text.patch
 
-I wanted to follow up on patch 1/2 and check whether there are any
-concerns with the fix or if a different approach would be preferred.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-dlm-drain-join-handlers-before-releasing-module-text.patch
 
-Thanks,
-Fang Xieyan
+This patch will later appear in the mm-nonmm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Cen Zhang <zzzccc427@gmail.com>
+Subject: ocfs2/dlm: drain join handlers before releasing module text
+Date: Thu, 22 Oct 2026 17:09:10 +0800
+
+The code for a registered DLM handler must remain resident until its
+last invocation finishes. dlm_unregister_net_handlers() only removes
+dlm_join_handlers from the o2net registry. o2net_handler_get() takes a
+kref on the wrapper, but that reference does not pin ocfs2_dlm text.
+o2net_process_message() calls nh_func after dropping o2net_handler_lock.
+
+With CONFIG_OCFS2_FS_O2CB=m, ocfs2_dlm can be loaded independently of
+ocfs2_stack_o2cb while nodemanager continues handling messages from a
+configured, heartbeating peer. If no dependent module or module reference
+prevents normal unload, the following ordering is possible:
+
+  Receive worker                       Module unload
+  --------------                       -------------
+  o2net_handler_get()
+    take wrapper kref
+    drop handler lock
+  <preempted>
+                                       dlm_exit()
+                                         unregister handlers
+                                       release DLM module text
+  call saved nh_func
+    in released module text
+
+Use o2net_unregister_and_flush_handler_list() in the shared DLM
+unregister helper. It first prevents new lookups, then waits for the
+ordered o2net workqueue to drain, including a concurrent destruction of
+that queue. The acquired invocation therefore finishes before dlm_exit()
+returns and the loader releases the callback code. The same helper
+covers partial registration and dlm_init() error unwind before module
+memory is released.
+
+Skip the drain when the private join-handler list is empty. Early
+dlm_init() failures can reach this helper before any handler has been
+published. Partial-registration failure also reaches it a second time
+after the first call has already unregistered and drained the list.
+Neither case needs to take o2net_wq_mutex or drain unrelated work.
+The list is changed only by serialized module init/exit paths; a
+nonempty list still uses the full unregister-and-flush helper.
+
+Oops report as below:
+
+    Oops: int3: 0000 [#1] SMP KASAN NOPTI
+    CPU: 2 UID: 0 PID: 54 Comm: kworker/u16:3 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
+
+Hardware identification omitted.
+
+    Workqueue: o2net o2net_rx_until_empty [ocfs2_nodemanager]
+    RIP: 0010:0xffffffffc0423871
+    [Instruction byte dump omitted.]
+
+Register dump omitted.
+
+    Call Trace:
+     <TASK>
+     ? o2net_rx_until_empty+0x19b1/0x3300 [ocfs2_nodemanager]
+     ? __pfx_o2net_rx_until_empty+0x10/0x10 [ocfs2_nodemanager]
+     ? lock_acquire+0x190/0x300
+     ? process_one_work+0x935/0x1b40
+     ? process_one_work+0x834/0x1b40
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x290
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? process_one_work+0x9a8/0x1b40
+     ? __pfx_process_one_work+0x10/0x10
+     ? lock_acquire+0x190/0x300
+     ? lock_is_held_type+0x8f/0x100
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? worker_thread+0x65c/0xe40
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __kthread_parkme+0x177/0x220
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_worker_thread+0x10/0x10
+     ? kthread+0x351/0x460
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_kthread+0x10/0x10
+     ? ret_from_fork+0x659/0x940
+     ? __pfx_ret_from_fork+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __switch_to+0x74f/0xf70
+     ? __pfx_kthread+0x10/0x10
+     ? ret_from_fork_asm+0x1a/0x30
+     </TASK>
+    Modules linked in: ocfs2_nodemanager [last unloaded: ocfs2_dlm]
+    ---[ end trace 0000000000000000 ]---
+
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0076-v6-12de5f4628f57fba3be3@gmail.com
+Fixes: 6714d8e86bf4 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Assisted-by: LLM
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
+Cc: <jjzuming@gmail.com>
+Cc: <stable@vger.kernel.org>
+---
+
+ fs/ocfs2/dlm/dlmdomain.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+--- a/fs/ocfs2/dlm/dlmdomain.c~ocfs2-dlm-drain-join-handlers-before-releasing-module-text
++++ a/fs/ocfs2/dlm/dlmdomain.c
+@@ -2215,7 +2215,8 @@ static LIST_HEAD(dlm_join_handlers);
+ 
+ static void dlm_unregister_net_handlers(void)
+ {
+-	o2net_unregister_handler_list(&dlm_join_handlers);
++	if (!list_empty(&dlm_join_handlers))
++		o2net_unregister_and_flush_handler_list(&dlm_join_handlers);
+ }
+ 
+ static int dlm_register_net_handlers(void)
+_
+
+Patches currently in -mm which might be from zzzccc427@gmail.com are
+
+ocfs2-drain-quorum-work-before-removing-the-cluster.patch
+ocfs2-dlm-drain-join-handlers-before-releasing-module-text.patch
+
