@@ -1,76 +1,133 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.56.165
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792761046;
-	b=ZVOuyAS8RPjG88tKyLXCImexro6+vAT3vs2TTfQFoOl8Q8P7yEhS/u3LZ27A75IjxuoZ
-	 WP3a5MbEvnnUUqfyaJyfrKxa+EeRI+QG7DOw4hUNSqEqZKb0+lzPBs/ILezkC/Dii8mHw
-	 FZOLME2FnqruGy1APCatHkaz5UNSBxQ/38KxxJ5Ehm0RBQqDsR5vC7R3Cy2v3UP+T6GeK
-	 eGvmC4Q60GofNMqEZ4cLFFzjOamUHQxHgVfyDBp0qjgKfnk3QZKgb+nMyMSLooNHA+/16
-	 WxQ1Dg4waM38AGOshv8NfjXWXUZL81qWdfZHvtHi9PqAKIhb7BZ44dI/9UwWzZPW9Wg==
+	t=1792761167;
+	b=DJLUngOIuzEOSKFZZyUOVnCcdNAsGLOjAyr1qo5v0k45eehZMdfnikh9SXUxtLd9DlFI
+	 RifVNrpGtRklkr47/40aZLOAbDkVhYfKyvnOpTnaxqIcoLM9RRFItI2pfzn6t6ZvNrkud
+	 qcX8TUy0YLk9UhTZ4oDZG70WhV8UtnLxI5qbLxt5eM4S2RucacOf2FBi/mOj2BMBfC5M+
+	 V8cSqbwxzuklh11PavgYbMETlQ8ErnO7qqEAOW9Uu+rU5zErRQ0CtCb4VOMJRkdxoW/mQ
+	 odVeSGf8PvYukfsHjeug9lkHrRXgZxzTrTIIY2PlUNss8cyyQS7iIPOHK4wFyZIOjfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792761046;
-	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=59Qyk3aglIjIhg/npMzy4QhrcqLa7AMEvlddf8zJtOQ=;
-	b=lPpY3qXKY/AkG57tYoCa9d5CFKiGQALtGHOPVjZb+PvSblZ7hqBF87s0o7U6KG++eC6v
-	 xj0wS2xqh9vLjSBEWARtEcXjVvRvKJOyvqLualOLrMcwhlR0yqv2M3wS+FE3jHafWozlO
-	 4YcEARicI/lehLDYbnJtou3UmBDWfT3DqOB8CGf+ZlYKqykKlECt3MIbkxm71aJT6DO/k
-	 ftpT+X2zO2u7+s0OuZROgiqLrBbryZT4yqrYqxmmhqqRVDfmlHWWGLqtTXuzIzIMaSrEc
-	 kFRABvPCPwE0w6DSRMuta2bcJ38HmdXjaxBS/dIECoK4RqBBFGYRrCVPbzhTk3eitPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792761167;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Received:Received:From:To:cc:Subject:In-reply-to:References:
+	 Comments:X-Mailer:MIME-Version:Content-Type:Content-ID:
+	 Content-Transfer-Encoding:Date:Message-ID;
+	bh=I7ZqURMaAeN/39DP/yFBhYf3zDxwDlmOr5MpmREWjiE=;
+	b=rnlzU9HHKm/MWdjV6GBBMeA1eSLC5HmX3zQFANsZxAagzwCdUsmK+Q1hDzKa8ReOaWSS
+	 6cztsquvUFpTTjP0i+AaKVYnp+T6Y/oKI+3YLi9NxAMvVwp41uay6g11Kh1m54nWm1nfA
+	 iRQLfuBSu2c3cDQoAlEskep+WFzX/zGk+S7BYZd9lenrvpSEURPY0lth/RFMYmR7y8AwI
+	 hudmzRT9Hqfy8AgrB+p3j0xnwU+ZRH3gs3dpVc/076M8Ebq0EzxYzMW9HzDN6kpuanneT
+	 tBFkvlcJBO5PQdT9TnUb4WdOIODeFoRo1LJO3XHA3jEsMVcGvOJAZnKOFOqNwDV5AKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideco.ru;
-	spf=pass smtp.mailfrom=ideco.ru;
-	dkim=pass header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=TFqeyXW9;
-	arc=none smtp.remote-ip=51.250.56.165
-Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
+	dmarc=pass header.from=jvosburgh.net;
+	spf=pass smtp.mailfrom=jvosburgh.net;
+	dkim=pass header.d=jvosburgh.net header.i=@jvosburgh.net header.a=rsa-sha256 header.s=fm3 header.b=rxggQ8g9;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=phJ5vHpe;
+	arc=none smtp.remote-ip=202.12.124.151
+Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99B5606A31A;
-	Fri, 23 Oct 2026 13:10:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A99B5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideco.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideco.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3738606A31E
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 13:12:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3738606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jvosburgh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jvosburgh.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=TFqeyXW9
-Received: from [169.254.254.254] (localhost [127.0.0.1])
-	by smtp.ideco.ru (Postfix) with ESMTP id 4BE75231AA;
-	Fri, 23 Oct 2026 18:10:35 +0500 (+05)
-Received: from fedora (5cfcac1b.dynamic.mv.ru [92.252.172.27])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.ideco.ru (Postfix) with ESMTPSA id E169B18A2E;
-	Fri, 23 Oct 2026 18:09:52 +0500 (+05)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru E169B18A2E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
-	t=1792761031; bh=59Qyk3aglIjIhg/npMzy4QhrcqLa7AMEvlddf8zJtOQ=;
-	h=From:To:Cc:Subject:Date;
-	b=TFqeyXW9dHZ6eOKDKaD4Qj1nIiBzdz+sfOVgSyA+ANKcWOWCfF7obxsYLWhQEYXLl
-	 Q6YLaYL9NiV6VNUyyGlmHyEU4eM62iR5ieWIDCVutEE4VhJpST/sqUiCXXV1jowwfo
-	 WtaBPbclnURf46sMZ2f40beC75zuU2+cAyBRalbwL5WPlLx2QTRAQnl4EiRjEtqtfT
-	 BT3CH5BYI8SiTrPzz17dhIwM1glr7GNCZmUUIiHlx48m4+326Rg7YZnVAtoGToPwhp
-	 H9W0XgrY/1U0GpLG55z2P6K0BF4HSxD45HsaylLkWUyIBkpAsaWdROq6dghRct7LY4
-	 jJ6AWtF2i+JPQ==
-From: Alex Kazinsky <a.kazinsky@ideco.ru>
-To: Shenghao Ding <shenghao-ding@ti.com>
-Cc: Alex Kazinsky <a.kazinsky@ideco.ru>,
-	Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>,
-	Sen Wang <sen@ti.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Annaliese McDermond <nh6z@nh6z.net>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	stable@vger.kernel.org
-Subject: [PATCH] ASoC: tlv320aic32x4: Prevent division by zero in divider callbacks
-Date: Fri, 23 Oct 2026 17:08:52 +0400
-Message-ID: <20261023130854.93639-1-a.kazinsky@ideco.ru>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=jvosburgh.net header.i=@jvosburgh.net header.a=rsa-sha256 header.s=fm3 header.b=rxggQ8g9;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=phJ5vHpe
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.stl.internal (Postfix) with ESMTP id 288471D00142
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 09:12:46 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Fri, 23 Oct 2026 09:12:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jvosburgh.net;
+	 h=cc:cc:content-id:content-transfer-encoding:content-type
+	:content-type:date:date:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to; s=fm3; t=1792761164; x=1792847564; bh=I7ZqURMaAeN/39DP/yFBh
+	Yf3zDxwDlmOr5MpmREWjiE=; b=rxggQ8g92PXD2YZa7e8hWRIUodv2ny0mRg+v8
+	4Wv8efTVAseeGqmhXoZ6Q7nPt+cLZuZwnQGH4rdrKqWYR7vSDFxV9nnziS2U3gsP
+	Ohp7or/Ix1TWKLIiE5Wk2hTCmUdkN0XkXQc547vD6tk+4XJM0hMzvWvt+XLIR3gN
+	Q9kfK8Sf+1bJpxxmdbiut2c8C0nt0/DrWTSEalNJwJ8eABJ4f36t3dERVgKnO7dx
+	O5At1LOyrwT07Ap4k/Y4Oqw8n0EmOegcwHiDTwsLYN1i5w0W+Demn8YIL3mmX14V
+	d77BXxMfXH194O1+JXBgiMqxf2xCQv1lANcu0cjJcCd4Ivb+w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-id
+	:content-transfer-encoding:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1792761164; x=1792847564; bh=I7ZqURMaAeN/39DP/yFBhYf3zDxwDlmOr5M
+	pmREWjiE=; b=phJ5vHpe6oNFRwPCX/Iwvg0+zovyiPGXU+J2mPyr/lhkZT8l7hH
+	e2WeOnIs3iqwvjplr1Z7puiUlFR6sx0Or0vqk6Dv9bzMPcp99FGi3O+VMpvzSWmn
+	AlATQa4I0Dj8zZsiZuLJpLa/xQ0VweaVNJUYn7zz6aclUPipVZGCazkgbXaJ1vNw
+	ooHEg8qvFVBSx9T0Pr1zZ1yl1nM6t64Ym8gbamH5spr9CTKYcjlU/zjyOwlHehsA
+	3H9doHEEJWm1VjfipcT6D+viBy59xvSCqFdYuToOGWitaucN858Ggw/uTabPDyGZ
+	cXZWGEJRV8I9UZr4v8tbA3lC2xs/zCs1UAw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=jvosburgh.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792761164; d=jvosburgh.net;
+	mf=PGp2QGp2b3NidXJnaC5uZXQ+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:g8TKE3U/fEv8BQbDltaYA2fJZI/nVkALCRC4iUJUHAbKXTF
+	JaJdxhgu8Brq/ubwq9fEEvOfVUddcYuNiBdCIi2rpBEmAaJ9gL2O4Es2F+NoWJGM
+	65IyQ4x7133M5Pde+6snROLs3dVX3oJyGNdvFIrtMYNTGI/QXjNNAXcnF2CtP+gY
+	2vLac39jsY8roGJVhrhhTkz0+MDxG8w9cuz8xm+P1SdhHg2OVm3nrxdJaaB7vgFY
+	WDv7njvcFewW+aA/XLAnRU9GEM6fp2zwXUyaCR1lcL0WymDU5ucDXj+JbRWf+LQD
+	8kK750Rpnfv9cOrPlm4Cel7wrW+NL+oL2pbEemA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,comments,content-id,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:cyNuzwzH37Dgo4zT0uDMMUicmdl+FixBz7RYHV3mwZw=:syrr1aJ1tjIcOOSawhAcgtFuJjUz9NdQ5F2zl8WUVR0=;
+X-ME-Sender: <xms:TF3baqIyBTV1TknAk-KQckomJIbQGBn6p9Gh14CELYTQIcoBPbaIRQ>
+    <xme:TF3baoKSDkGvTlKg79BJgI2n9ODgbxIcEra1ClN-xDT_MIkZXlwwQ-JHN2IQnWaXv
+    s7zikXEoe5IglyQ0ySeEnI-oCtS-ubYgtFGyz4KCn2SCmSJIm0BJz1y>
+X-ME-Received: <xmr:TF3baliWbSquHqAew1E0nhQl8VXF1Hd29JQsTqNwcfC3p5303qYE8aGeZpW7T5ckNV5BPxU>
+X-ME-Proxy-Cause: dmFkZTFfRo1al3D2IO9ib2P99KdQTvrcUmBICI3lB8gtzUkSJFMmipja8+A2hgCvFraJbM
+    ocsAPRaWJYldc5i47n/lfsDQdW813UT75gJ7wU9zas6C8HELTgr4/PNJ49VUuTaWgSmshW
+    ucy4BqareE/h7towuyOhIUiBrjE8bYckffMWimx0Z/IuGke7hjF4MRihP06pxvTxoxrcuO
+    SA4lqYqilH+thfQ4KTFZ0iSVFOFQ97mHwZMCnzULyAHGQLI4GSnWKJoXTmwYxYnsguguXa
+    W7Q38FOPxQW5glqBeBpVJdnKzFxW90jD7uufEcg+A5JXRhMsh0B4YnOWzIghktpbjVbaRs
+    /OU2d1JwKHqBXalSebZBRsZwXj2EmIrscdCMIuPwR1TMs1r0DSxmT8ykGjBx8ZcCC/cZ3E
+    Ylpb04rOiKFAon77KR4vT41+0U020AC3jSGfZQ1J5xIzILviFT3Pv1MAjw2UB4+sYTg0OM
+    Veh/o+56M/omttmdaijpNnbwdoB34g9Y2ncVvs1dlXjnU31yV9D5oraaOuiligmmTD8+LS
+    QgVheIByz/cZ4tjcDlRMaSmWOx9HRuQgXizfbQ7X6rLfo1bUI2eyErLyfCCa5Kr2Jcd9y8
+    X/b3YqXihLEbKDgSqmjavGluHzRwSG0psmvG8Nb9Yz3Qo6KA5iUhxbWX90fw
+X-ME-Proxy: <xmx:TF3baiMkTjFtWLmiEAhwgZQy10xW6xidBPz3SjhxmtHB58_3TNbCOg>
+    <xmx:TF3bagqXe2aNXTI-A-eviLOQN4jeRTpy-ozCBd4uckYuIQMKN9peMg>
+    <xmx:TF3bak7RAvhRourKe658VSqu5Pnebxyee2VbevYTAdFSPvjq_weXgw>
+    <xmx:TF3bauh1dbABljKCS7NlYbl5MO51JnqZFara79Lbad5oo2Qi5nkiTQ>
+    <xmx:TF3bar-QRoS0Cy0tVB5C7eDcsA9jsla78pJKSdALuX5JO6cSfGzy3EiA>
+Feedback-ID: i53714940:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 23 Oct 2026 09:12:43 -0400 (EDT)
+Received: by vermin.localdomain (Postfix, from userid 1000)
+	id 5A5ED1C0479; Fri, 23 Oct 2026 06:12:41 -0700 (PDT)
+Received: from vermin (localhost [127.0.0.1])
+	by vermin.localdomain (Postfix) with ESMTP id 5977F1C044C;
+	Fri, 23 Oct 2026 08:12:41 -0500 (EST)
+From: Jay Vosburgh <jv@jvosburgh.net>
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+cc: netdev@vger.kernel.org, stable@vger.kernel.org,
+    Andrew Lunn <andrew+netdev@lunn.ch>,
+    "David S. Miller" <davem@davemloft.net>,
+    Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+    Paolo Abeni <pabeni@redhat.com>,
+    Nikolay Aleksandrov <razor@blackwall.org>,
+    linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] bonding: fix out-of-bounds read of arp_ip_target
+In-reply-to: <20261023104528.232427-1-jiayuan.chen@linux.dev>
+References: <20261023104528.232427-1-jiayuan.chen@linux.dev>
+Comments: In-reply-to Jiayuan Chen <jiayuan.chen@linux.dev>
+   message dated "Fri, 23 Oct 2026 18:45:27 +0800."
+X-Mailer: MH-E 8.6+git; nmh 1.7+dev; Emacs 29.0.50
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,69 +137,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <52801.1792761161.1@vermin>
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 23 Oct 2026 08:12:41 -0500
+Message-ID: <52802.1792761161@vermin>
 
-A zero rate requested through clk_set_rate() or clk_round_rate() reaches
-clk_aic32x4_div_determine_rate() when the minimum rate is zero. Clamping
-the requested rate to the allowed range leaves it unchanged, causing
-division by zero when calculating the divisor.
+Jiayuan Chen <jiayuan.chen@linux.dev> wrote:
 
-A zero parent rate can also cause division by zero in determine_rate().
-For example, if reading a parent divider's register fails,
-clk_aic32x4_div_recalc_rate() returns zero, which the clock framework
-caches as the parent's rate. A subsequent rate request for a child
-divider receives this value in best_parent_rate. With a nonzero requested
-rate, the calculated divisor is zero. It passes the existing upper-bound
-check and causes division by zero in the resulting rate calculation.
+>arp_ip_target is a module parameter array with BOND_MAX_ARP_TARGETS
+>entries. In the loop parsing it in bond_check_params(), arp_ip_count is
+>the number of accepted targets, while i is the index into
+>arp_ip_target. Invalid and duplicate entries are skipped without
+>bumping arp_ip_count, so bounding the loop with arp_ip_count lets i run
+>past the end of arp_ip_target, e.g. 16 targets with one duplicate:
+>
+>  BUG: KASAN: global-out-of-bounds in bond_check_params.constprop.0+0x114=
+8/0x1440
+>  Read of size 8 at addr ffffffff96e9ee00 by task swapper/0/1
+>  Call Trace:
+>   <TASK>
+>   dump_stack_lvl+0x91/0xf0
+>   print_report+0xd1/0x630
+>   kasan_report+0xf3/0x130
+>   __asan_report_load8_noabort+0x14/0x30
+>   bond_check_params.constprop.0+0x1148/0x1440
+>   bonding_init+0x13/0xe0
+>   do_one_initcall+0xe7/0x5b0
+>   kernel_init_freeable+0xa91/0x1120
+>   kernel_init+0x24/0x220
+>   ret_from_fork+0x5b3/0x820
+>   ret_from_fork_asm+0x1a/0x30
+>   </TASK>
+>
+>  The buggy address belongs to the variable:
+>   arp_ip_target+0x80/0xa0
+>
+>Bound the loop with i instead. arp_ip_count never exceeds i, so it
+>stays within BOND_MAX_ARP_TARGETS too.
+>
+>Fixes: 5a5c5fd48e3b ("bonding: arp_ip_count and arp_targets can be wrong"=
+)
+>Cc: stable@vger.kernel.org
+>Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 
-The set_rate callback can receive a zero rate when an ancestor's rate
-changes. clk_calc_subtree() calculates descendant rates through
-recalc_rate() without calling their determine_rate callbacks. If reading
-a descendant divider's register fails, clk_aic32x4_div_recalc_rate()
-returns zero. This becomes the descendant's new_rate, which
-clk_change_rate() passes to clk_aic32x4_div_set_rate(), causing division
-by zero.
-
-Reject zero rates in both callbacks and reject a zero divisor in
-clk_aic32x4_div_determine_rate().
-
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
-
-Fixes: a51b50062091 ("ASoC: tlv320aic32x4: Model DAC/ADC dividers in CCF")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
----
- sound/soc/codecs/tlv320aic32x4-clk.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/codecs/tlv320aic32x4-clk.c b/sound/soc/codecs/tlv320aic32x4-clk.c
-index deed61650e09..8fa8e69f1f72 100644
---- a/sound/soc/codecs/tlv320aic32x4-clk.c
-+++ b/sound/soc/codecs/tlv320aic32x4-clk.c
-@@ -318,6 +318,9 @@ static int clk_aic32x4_div_set_rate(struct clk_hw *hw, unsigned long rate,
- 	struct clk_aic32x4 *div = to_clk_aic32x4(hw);
- 	u8 divisor;
- 
-+	if (!rate)
-+		return -EINVAL;
-+
- 	divisor = DIV_ROUND_UP(parent_rate, rate);
- 	if (divisor > AIC32X4_DIV_MAX)
- 		return -EINVAL;
-@@ -331,8 +334,11 @@ static int clk_aic32x4_div_determine_rate(struct clk_hw *hw,
- {
- 	unsigned long divisor;
- 
-+	if (!req->rate)
-+		return -EINVAL;
-+
- 	divisor = DIV_ROUND_UP(req->best_parent_rate, req->rate);
--	if (divisor > AIC32X4_DIV_MAX)
-+	if (!divisor || divisor > AIC32X4_DIV_MAX)
- 		return -EINVAL;
- 
- 	req->rate = DIV_ROUND_UP(req->best_parent_rate, divisor);
--- 
-2.56.0
+Acked-by: Jay Vosburgh <jv@jvosburgh.net>
 
 
+>---
+> drivers/net/bonding/bond_main.c | 2 +-
+> 1 file changed, 1 insertion(+), 1 deletion(-)
+>
+>diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_m=
+ain.c
+>index 09aa45d71fab..7019e5d8fdc8 100644
+>--- a/drivers/net/bonding/bond_main.c
+>+++ b/drivers/net/bonding/bond_main.c
+>@@ -6273,7 +6273,7 @@ static int __init bond_check_params(struct bond_par=
+ams *params)
+> 	}
+> =
+
+> 	for (arp_ip_count =3D 0, i =3D 0;
+>-	     (arp_ip_count < BOND_MAX_ARP_TARGETS) && arp_ip_target[i]; i++) {
+>+	     (i < BOND_MAX_ARP_TARGETS) && arp_ip_target[i]; i++) {
+> 		__be32 ip;
+> =
+
+> 		/* not a complete check, but good enough to catch mistakes */
+>-- =
+
+>2.43.0
+>
