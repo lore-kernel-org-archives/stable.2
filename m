@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.75
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.84
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792746985;
-	b=15wit9dYy0M/lQ4W5RwuKtTTBW1Ey10vR9VuSF6Useleca7bEtJdFL4GF36JkAQDO3m/
-	 FL5qpZ0wsvrHjh9ICBxtlyy8OEeYQ6LLP826morNUyA+vWQCPMi+zOnoYQonZmuEbwTFU
-	 OOsdrMTLUQsmmszmv9bXEfeWNWYaYj+sL1yZaVZ7CWjSWw7ooYOvO0m9/ndBVd0C14tTQ
-	 Cg3JvcJI1D+RAYrU0oKrY9gPLDQghTGpcP3/5bZWi2IMrZbfehWSv/Fmy2qxo3ZhwCwce
-	 LQFxq9pnEwPAQjap2bmEJqfV0Zr5cRY/36UyaCko4ZMPi/dZ5XyrQUCMCRfAi5p/FDg==
+	t=1792747002;
+	b=blhfA2YkKJ4vAJwrQdmzc2jkDFBs2r+3085pkEKp2NZ5UPuyNKDv9T21y4tDPLXzOKZL
+	 oNqSj55YCcObkNn82NVQdWY2mNo4cJftuGZgX55My51jFTI1ZSqV37ZAisR4FeckgD1dL
+	 KJEOrtbpdwptTxw7KtvAD1EzqNJpQCcMiokkKzjPXDgYAdLAhBLBS6shdvLGJYgNAELa/
+	 IhCU0oVmwDgJwMkDpR92pZVSXYJT99VhgBBKqoCInfo/U4nk/gUfJjkRkz3biNlnx7zri
+	 T5cL3sBMx1ZSbSCR5a4En+gq/B6H5R+1E3sf0oocNXhagFsJR/bjlvDAgWfFB/VIM1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792746985;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792747002;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=oBI4N91izr3cJn6kY+KTMO5nPi5tQd2NZvpOi2lFG5M=;
-	b=0DQ55ZDfWTVNmdxJqsgMNq5g0F0NWe15y4wHXOU0NQ8Hp8l1dUbZpQ0LQ7S0ydAooxYh
-	 gWE08qN+KAM0SDSfpShvBlut3Ekx7eLe8/1FXM5Wl/QaDyy8rZ1DHvEoSlO4PFnISwrrT
-	 QSeNZKeZfI8CzmaoDxE3ucSBUCfOuxsaK0f6PtyGvyTyW2mIQBboZuqtM62y2oUGdj2YU
-	 giLNaeCNl3eZcp2VrMU2QTDqGAYtAjABCo+qAzl+GjjNhuujeZail9/L0ffYMi/uUPq62
-	 zQrDhOc2DUTVmF9+U/qDP01voYzACFtk2ORCQxTPms+kO9aHNYySKtuk5Ck7kk86CAw==
+	bh=q12lwCISyZPjPr61m5RHq2Uo3Q7fFgGiNopmM/Dy4L4=;
+	b=Ub0qo73SPrB+yiEA+8nfo9xFSvd2V8fNPYg0t/cFS8PNpFsmjYPWF4qKYtbAB2qL/OH5
+	 dRAap7w1iIGlspxZoZaMC9FMuVFVpfoquWhKmIsv34Bu92Rj5mGzgD/Y6uNAUyRBAWAD1
+	 9/Ylc0UbE8eHZm2bOalMCDwtCtPFQIJfqxwfvcxxipRyhbhmtQUYYNmTe0PeQnWfxN0Pt
+	 Z12NKOMwPbTMG6t+hph7cjtefsP02JDx7gd7DEHdOdZkEqeQtCLWWi3OuI42o1SKaFP+U
+	 ufSz7wyfASWBdXFUYoPa7rB2luWu6yVm6PzC2nlhQoGimFl7IXmdl8DDDk86g++ciDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=r0ysmh8K;
-	arc=none smtp.remote-ip=95.215.58.75
-Received: from mta1.migadu.com (out-75.mta1.migadu.com [95.215.58.75])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DUlE0gg+;
+	arc=none smtp.remote-ip=95.215.58.84
+Received: from mta1.migadu.com (out-84.mta1.migadu.com [95.215.58.84])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A638F606A31D
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 09:16:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A638F606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 438BE60A260D
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 09:16:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 438BE60A260D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=r0ysmh8K
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DUlE0gg+
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=X9TM650OebmRwJLsuG71hTCuTdvOT1LW5J7WGLHQn1Y=;
+DKIM-Signature: a=rsa-sha256; bh=1KupEA37m82GidlyX3LbcgZwwrs9UufQXzhoE0mR97Q=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792746982; v=1; x=1793351782;
- b=r0ysmh8KT78Hflw428Fr+mrCwAUcbpK2JYwvqX0eMHJDsgBntIvbOv2RhbWaIUyzXOioH2k3
- gyFqQEW0CNhVVpT6tVnxcehW0yNEpB+zZzeff182EauIuhZPZsGnuuOoqBLLETnwN3j1SoHs2k5
- l+tCzwJV89iuwXApwlIO9Qb0=
+ t=1792747000; v=1; x=1793351800;
+ b=DUlE0gg+48vGYSi77VhILLLl5w916XC2y+cs2xPGiBuofSNgYkeLtsOfYd+gSxFYfkxjeNN+
+ 2cvFn6Xb/wgnGeD996tFC/dEUvkzKTgcfL+E8IYZ9AjGUUOQzC1s8f3c8kAAfbxPyP+InVPkk2e
+ ET8zT70N/fueCvNJxapYEihU=
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 43f3da9f26efb15e;
-	Fri, 23 Oct 2026 09:16:22 +0000
-X-Mizu-Trace-ID: 43f3da9f26efb15e
+Received: by smtp.migadu.com with ESMTPS id 9ba89e8f548b0aa4;
+	Fri, 23 Oct 2026 09:16:40 +0000
+X-Mizu-Trace-ID: 9ba89e8f548b0aa4
 X-Migadu-Flow: FLOW_OUT
 From: Jiayuan Chen <jiayuan.chen@linux.dev>
 To: netdev@vger.kernel.org
@@ -62,16 +62,16 @@ Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
 	Joel Granados <joel.granados@kernel.org>,
 	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
 	Wyatt Feng <bronzed_45_vested@icloud.com>,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
 	Yung Chih Su <yuuchihsu@gmail.com>,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
 	Hannes Frederic Sowa <hannes@stressinduktion.org>,
 	Flavio Leitner <fbl@redhat.com>,
 	Petr Mladek <pmladek@suse.com>,
 	"Paul E. McKenney" <paulmck@kernel.org>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net 4/5] ipv4: restrict igmp_qrv to 255
-Date: Fri, 23 Oct 2026 17:13:30 +0800
-Message-ID: <20261023091419.167088-5-jiayuan.chen@linux.dev>
+Subject: [PATCH net 5/5] net: restrict message_cost and message_burst to non-negative values
+Date: Fri, 23 Oct 2026 17:13:31 +0800
+Message-ID: <20261023091419.167088-6-jiayuan.chen@linux.dev>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261023091419.167088-1-jiayuan.chen@linux.dev>
 References: <20261023091419.167088-1-jiayuan.chen@linux.dev>
@@ -86,47 +86,96 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-net.ipv4.igmp_qrv only has a lower bound, but ip_mc_reset() stores it
-into the u8 in_device::mr_qrv, and the IGMPv3 retransmit counters filled
-from it (crcount, sf_crcount) are u8 as well. Anything above 255
-silently wraps. With 256, mr_qrv becomes 0, every
-"in_dev->mr_qrv ?: sysctl_igmp_qrv" falls back to 256, which truncates
-to 0 again in crcount, and igmpv3_send_cr() never puts the state change
-records for the group into a report. The older version querier present
-timeout (mr_qrv * mr_qi + mr_qri) also collapses to just mr_qri.
+net.core.message_cost and net.core.message_burst feed the interval and
+burst of net_ratelimit_state, but neither has a lower bound:
+message_burst uses plain proc_dointvec, and message_cost uses
+proc_dointvec_jiffies, which happily stores -1 second as -HZ jiffies.
 
-Unlike MLD there is no WARN_ON() here, the reports just go missing.
+Since commit a940d145cc38 ("ratelimit: Warn if ->interval or ->burst are
+negative"), ___ratelimit() splats on such values, so the next
+net_ratelimit() caller warns, e.g. a martian source log:
 
-Cap the sysctl at U8_MAX, the largest value mr_qrv can actually hold.
+  Negative interval (-250) or burst (10): Uninitialized ratelimit_state structure?
+  WARNING: lib/ratelimit.c:43 at ___ratelimit+0x56e/0x960, CPU#1: ping/3218
+  RIP: 0010:___ratelimit+0x578/0x960
+  Call Trace:
+   <IRQ>
+   net_ratelimit+0x1c/0x30
+   ip_handle_martian_source+0x1bb/0x340
+   ip_route_input_slow+0x1057/0x3650
+   ip_route_input_noref+0x104/0x260
+   arp_process+0x109b/0x2510
+   arp_rcv+0x381/0x460
+   __netif_receive_skb_one_core+0x173/0x1c0
+   __netif_receive_skb+0x21/0x150
+   process_backlog+0x37e/0x1200
+   __napi_poll.constprop.0+0xa5/0x5e0
+   net_rx_action+0x4c0/0xf70
+   handle_softirqs+0x204/0x9b0
+   __do_softirq+0x10/0x18
+   do_softirq.part.0+0x49/0xd0
+   </IRQ>
 
-Fixes: a9fe8e29945d ("ipv4: implement igmp_qrv sysctl to tune igmp robustness variable")
+Negative values never meant anything here: ___ratelimit() treats them
+like 0, and 0 already expresses both "no limit" (interval) and
+"suppress everything" (burst).
+
+Reject them at write time. message_burst can simply use
+proc_dointvec_minmax with extra1 = 0. proc_dointvec_jiffies ignores
+extra1/extra2, so give message_cost a small handler that parses into a
+temporary and only stores the value if it is not negative.
+
+Fixes: a940d145cc38 ("ratelimit: Warn if ->interval or ->burst are negative")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 ---
- net/ipv4/sysctl_net_ipv4.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ net/core/sysctl_net_core.c | 21 +++++++++++++++++++--
+ 1 file changed, 19 insertions(+), 2 deletions(-)
 
-diff --git a/net/ipv4/sysctl_net_ipv4.c b/net/ipv4/sysctl_net_ipv4.c
-index e3760daa3470..ef631a2759b0 100644
---- a/net/ipv4/sysctl_net_ipv4.c
-+++ b/net/ipv4/sysctl_net_ipv4.c
-@@ -33,6 +33,7 @@ static int ip_privileged_port_min;
- static int ip_privileged_port_max = 65535;
- static int ip_ttl_min = 1;
- static int ip_ttl_max = 255;
-+static int igmp_qrv_max __maybe_unused = U8_MAX;
- static int tcp_syn_retries_min = 1;
- static int tcp_syn_retries_max = MAX_TCP_SYNCNT;
- static int tcp_syn_linear_timeouts_max = MAX_TCP_SYNCNT;
-@@ -978,7 +979,8 @@ static const struct ctl_table ipv4_net_table[] = {
+diff --git a/net/core/sysctl_net_core.c b/net/core/sysctl_net_core.c
+index 473c162736d6..8146ed819695 100644
+--- a/net/core/sysctl_net_core.c
++++ b/net/core/sysctl_net_core.c
+@@ -378,6 +378,22 @@ static int proc_do_skb_defer_max(const struct ctl_table *table, int write,
+ 	return ret;
+ }
+ 
++static int proc_do_message_cost(const struct ctl_table *table, int write,
++				void *buffer, size_t *lenp, loff_t *ppos)
++{
++	int ret, interval = READ_ONCE(*(int *)table->data);
++	struct ctl_table tmp = *table;
++
++	tmp.data = &interval;
++	ret = proc_dointvec_jiffies(&tmp, write, buffer, lenp, ppos);
++	if (write && !ret) {
++		if (interval < 0)
++			return -EINVAL;
++		WRITE_ONCE(*(int *)table->data, interval);
++	}
++	return ret;
++}
++
+ #ifdef CONFIG_BPF_JIT
+ static int proc_dointvec_minmax_bpf_enable(const struct ctl_table *table, int write,
+ 					   void *buffer, size_t *lenp,
+@@ -544,14 +560,15 @@ static struct ctl_table net_core_table[] = {
+ 		.data		= &net_ratelimit_state.interval,
  		.maxlen		= sizeof(int),
  		.mode		= 0644,
- 		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= SYSCTL_ONE
-+		.extra1		= SYSCTL_ONE,
-+		.extra2		= &igmp_qrv_max,
+-		.proc_handler	= proc_dointvec_jiffies,
++		.proc_handler	= proc_do_message_cost,
  	},
- #endif
+ 	{
+ 		.procname	= "message_burst",
+ 		.data		= &net_ratelimit_state.burst,
+ 		.maxlen		= sizeof(int),
+ 		.mode		= 0644,
+-		.proc_handler	= proc_dointvec,
++		.proc_handler	= proc_dointvec_minmax,
++		.extra1		= SYSCTL_ZERO,
+ 	},
+ #ifdef CONFIG_RPS
  	{
 -- 
 2.43.0
