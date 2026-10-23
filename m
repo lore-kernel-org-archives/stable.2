@@ -1,92 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.132
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792743513;
-	b=QaARzRqPH3rWkaMbRwkBMBOBgxr/9Pbyw4XdXeXNlJd2PrH5caUKRdQwVJn238GihsG9
-	 SPTqTceBRLDecDFQQCViUqNKaaqkuu4ktseI953jjB/mVnc+BnmwVKR3UXxsRATOHHODJ
-	 XXO6PKC4ryK9s2vmPKFT3K2gVuLTAGvAhtrvYSfplR1Zho/fJG71EwMIctCX4JbfbV0j9
-	 xyprNUrB5Ni6TZxjCggrvAAqVDu+Tz6tsACJ+gnmHzXzJCILikyQEltpcYqd63H3XEIma
-	 j03N6fQk38LeXPrqAS0lp1PEQekpSFs4a2kNgSirqjOZqjwuLbybXaCjVYqwl6msDag==
+	t=1792743585;
+	b=0X7J16vcJkDqYR4iKMkhBMIlOdqWky8bF+2Tj+CeoeL8hWOCDBl/iOAftaO3wVZzIaAQ
+	 0iPUCsb0dglnzp4LTojFLuztJCEejcstc628v2R3t/XjFQ7KSBeSCdfXnFmw16v0bgoqN
+	 BjbUBbCP9mxlpibe7MWP5f1VdNUVUn0iihTCEDj+jt+ZDdWcH8EFDUdGGDT1CfYNt8vYs
+	 8DinEKj6n0Knczxzz/T/p2a9Uq7BlTbtB8e4Ws9thkRH1e1F32c5Sh5vtM6fxIFfn4HBg
+	 r5NuQpeKFBUZRHuGOhVrBlSrJzUNnAVzZZy8RVWMvM88Sq4WdTg1xj88keVqXR9qyoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792743513;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=n5vPrfbmjtB4d4z+h+75wRb54w4l+pZIgRZmf289DF4=;
-	b=ANaMd1LJ1ghvrx8+q+CtTrGzH7RW+NCXvHWbYKraTyprdZuz0xBEpVSwiHB3EKMiC5EP
-	 Gre2rOhxwD1To3kNlNpmQ2yKB+uynNCc0t1UqZ84YTZkLtA6zSPUaoFD4sFurL0HUiJoX
-	 62G4qv0lIn4YKNOnpcoFx5qasGR38G222rRH0q4CGSe0GKrPUyUSzM/WnBA3iw6S7koZ5
-	 rZ+1V6OuLm0V8oAHTLf7XEdYFqUFkXa+2wpjPqZtSfttjQrBpy53ozAV/QE6x0cnZpRoD
-	 tVGOTgAXiM3UlPDXgMgpcByfrSZ9hrBznHsY6rdy60U1ITjG/+TMAqgEMKAxQJzhZAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792743585;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=aBrMWknICibqOEH4OG2gicLYXH4Dvkn7sWSAjLgDFB4=;
+	b=PPoJacv0le6VdHdoyU/48zOyK2ZFwRoaq6zofuSKEfN1R0kUE4EzPUphciqS7JtagTq4
+	 ktPxbT6VyiSFbibUS4H0kUkC6LJNTXV/hwyGmZRpd5kT6QLIXHW6bMAhrc05wYhor+M9J
+	 vJ3kJ2heWRMYE5bLRa2EarM6FqntdPh7wecYMQBbpevp9QMDE8fFFU/1+wJ6gtDr+rLdf
+	 zDGS6jznt+GSs4Uvdy4GXCjNYHIC0/TzrWKAUQJVJSMisFpDTIhRaXpN7xOGkksA60mhP
+	 uIFGrv9z1eGGUzc4FCrmCiyaVOeTvO7CPh0PeQsk0O7Mq7REe84FWDpTh3jDRdGeKjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U5UB5jg0;
-	arc=none smtp.remote-ip=209.85.216.47
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=c5QtSXy3;
+	arc=none smtp.remote-ip=115.124.30.132
+Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 157C6606A32F
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 08:18:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 157C6606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88FB4606A31A;
+	Fri, 23 Oct 2026 08:19:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88FB4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U5UB5jg0
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so378073a91.2
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 01:18:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792743512; x=1793348312; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n5vPrfbmjtB4d4z+h+75wRb54w4l+pZIgRZmf289DF4=;
-        b=U5UB5jg0MQlQYbNuXux7dTw0ltZUfisJz2vPD77hmiYC1LgyP+lRIaq9jgJJOZgBOi
-         gKtT3TZaCHB7A/dhbwoNvRDF4oaHHMlqvxpddr+A0+3m7zKvAXqKRmqEcGoEYpQ/o/gB
-         +F7BMs1HeZFjJGro8fl7JS9LqgHF3wpYFr46oxMDCyC6d28VJAeAounbfIyUm2Xu2yPN
-         Uk4vecIvihbZNNs5Av71eI8AfdKv2CWnvfXkDOJge03MnA9oyBYWFyvokDyZ8fd57e7J
-         wXWLOIURgjr3thaczfszRlW0Xtk7WsPb+OhrYw6/k1gpMsguNmvnK3LCFFHiI8tTqmIL
-         csTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792743512; x=1793348312;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n5vPrfbmjtB4d4z+h+75wRb54w4l+pZIgRZmf289DF4=;
-        b=Isi+nvfImz+8zn4mPR0OKmIWpQBfQGm+bVThziBg0ZnyYv+iLx7pOZxDzoNqdlKDR6
-         7DmMChG7l9vgCV1W4ibLa0t4gII5hGAyJgVOCx5h0GcOuO10/E1mQ424RZ21FL+Wc/CI
-         x0sSNcjNaKoHSYN4s/F7zK90Ynvnn0IKjrLYXrbUyIuyZIL/QO7DmwRX+0uMkITy0p0G
-         bQnnNYt1YKwxxPEdSvynRvFN7AKrULuwWenV0QZw/0X7/QxzccZ1Ox/WlRCIYyLbZ+Lo
-         jRON3yfiOyzhTx2bgRz9ZKgVXem2tTmMCrv7SFA/pOVXg7S5WWv2bXk81WuEmTb9E8Jv
-         +rlA==
-X-Gm-Message-State: AFq9FYICL6D1hfvuHl+RPwI9NUCWBuvGuRiFeUWMLpuDagZOkS4c0HKf
-	43fNQYq1yu52HjtHYgHabIFtwNPE8y4dB+D+KVo8sd33K9q/lb0GeNns
-X-Gm-Gg: AYBFou1beYSERQnrRQ89X2Ec4A50+T/oXcoYGPS3vH8Q4d+X8gvyMija3TzfHQ/LOVW
-	IImXj21xeFW68krgbcFdjvadFjBg3KEvbQ0VVxbTdPwaLyWqGdTro2lijQ1Z2XV+FnByDFd7Yyc
-	nokwTPy+f05SpNABE6ljXHeMeMdgN6TYPW1Mhct8z3wiUx8XcqbSO8mf1yFax4UveUE6IKU2o+F
-	QlnxzM+IlsrXlohtg6NTqhwe6vSJy0SE4SyTs4mXUfznhoya+U+fBHY179PoGAJGvTJcDF3smaP
-	wnooiJLMZk2m0cjt5cckrnymM3sIhDXJljIHM2jBZLVKwbS03+vc3fJcrMfc1swcywfmL1XiEAN
-	r3cwG9LKJ/wC/kTja0YzG8X9tluVYuemT9BYoWrvrO5+6t6AT7503eK4y3OhLkTRBS/CGZ99Ri+
-	RAAx4Ke/ro3GH3rchHA9XlftBl5girgRYhSdLfOMMSZ6csFhHgWKqZdaDhoLD51aHt+4I7qoF8J
-	dXq2UoXEBi8AoAU/KXL8d9V0gZnhZvHv4IXcx2uniCiQvpxNcoQSd+2oWhpyCFKfEiqaGnK0lNC
-	W5RG/eG+KprIUxfQLhQ062ZmhXNKizkkDlPPtpWwAXD7T2TqFqle
-X-Received: by 2002:a17:90a:d007:b0:3ac:9a5e:9ce9 with SMTP id 98e67ed59e1d1-3adce02dfbdmr1235557a91.29.1792743512400;
-        Fri, 23 Oct 2026 01:18:32 -0700 (PDT)
-Received: from hostname.tail4fb79.ts.net ([2401:7400:c804:b668:65cc:625f:9c43:1e88])
-        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-3adcb1b134csm2532052a91.8.2026.10.23.01.18.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 01:18:31 -0700 (PDT)
-From: Ho Jie Feng <hjf3108@gmail.com>
-To: basavaraj.natikar@amd.com
-Cc: stable@vger.kernel.org,
-	Ho Jie Feng <hjf3108@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] HID: amd_sfh: Use shared interrupts
-Date: Fri, 23 Oct 2026 16:18:02 +0800
-Message-ID: <20261023081803.21761-1-hjf3108@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=c5QtSXy3
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792743579; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=aBrMWknICibqOEH4OG2gicLYXH4Dvkn7sWSAjLgDFB4=;
+	b=c5QtSXy3vJO7zEvTD/DzdporMf14fm2Oj6G48nEKqzK6RpANaVxMB4UeKwYhHc53Y2fzax1AM1if258I6u+JW2EfHqrB97BDe8StOdXsqS2P0NiEwipQOPni9Lkg2jwyLFgl0KfTxwyepbG5XKt7rmvhf+iK8rocZL+MJzi9f/8=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0XDLbawC_1792743549;
+Received: from x31h02109.sqa.na131.tbsite.net(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XDLbawC_1792743549 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 23 Oct 2026 16:19:38 +0800
+From: Baokun Li <libaokun@linux.alibaba.com>
+To: linux-block@vger.kernel.org,
+	axboe@kernel.dk
+Cc: ebiggers@kernel.org,
+	linux-fscrypt@vger.kernel.org,
+	hch@lst.de,
+	dm-devel@lists.linux.dev,
+	mpatocka@redhat.com,
+	sweettea-kernel@dorminy.me,
+	stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v3] blk-crypto: fix NULL deref and UAF in __blk_crypto_evict_key()
+Date: Fri, 23 Oct 2026 16:19:08 +0800
+Message-ID: <20261023081908.3505413-1-libaokun@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,117 +66,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The AMD SFH driver requests interrupts without IRQF_SHARED.
-This can cause VFIO PCI passthrough initialization to fail
-when a passed-through device shares the interrupt with AMD MP2.
+Sashiko reported a possible NULL pointer dereference, triggered by the
+following flow:
 
-Request the interrupt with IRQF_SHARED. Check for a pending MP2
-interrupt before clearing and acknowledging it, and return IRQ_NONE
-when no MP2 interrupt is pending so the interrupt can be shared with
-other devices.
+  dm-inlinecrypt ctor            # first use of the fallback
+   ├─ blk_crypto_init_key()      # succeeds, ctx->key.size != 0
+   ├─ blk_crypto_start_using_key()
+   │   ├─ hw-wrapped key: -EOPNOTSUPP
+   │   │    # profile never allocated (NULL)
+   │   └─ raw key: fallback_start_using_mode()
+   │      └─ blk_crypto_fallback_init() fails
+   │         └─ kfree(profile)   # not NULLed
+   ├─ goto bad
+   └─ inlinecrypt_dtr()          # evicts whenever key.size is set
+      └─ blk_crypto_evict_key()
+         └─ blk_crypto_config_supported_natively() = false
+            └─ blk_crypto_fallback_evict_key()
+               └─ __blk_crypto_evict_key(blk_crypto_fallback_profile)
+                  └─ profile->num_slots # BOOM!!!
 
-On an AMD Ryzen 7 7735HS host running 7.0.0-38-generic kernel
-from Ubuntu, trying to pass through an xHCI controller
-(1022:161d, 0000:e6:00.3) fails with this message:
+This issue can be reproduced using the following commands:
 
-  genirq: Flags mismatch irq 45.
-  00200080 (vfio-intx(0000:e6:00.3)) vs. 00200000 (pcie_mp2_amd)
+  dd if=/dev/zero of=/tmp/backing bs=1M count=64
+  LOOP=$(losetup -f --show /tmp/backing)
+  SZ=$(blockdev --getsz $LOOP)
+  KEY=$(head -c 64 /dev/urandom | od -An -tx1 | tr -d ' \n')
+  dmsetup create ic --table "0 $SZ inlinecrypt aes-xts-plain64 \
+    $KEY 0 $LOOP 0 1 keytype:hw-wrapped"
 
-QEMU reports:
+And the following oops is triggered:
 
-  vfio 0000:e6:00.3: Failed to set up TRIGGER eventfd signaling for
-  interrupt INTX-0: VFIO_DEVICE_SET_IRQS failure: Device or resource busy
+  ==================================================================
+  blk-crypto: loop0: no support for wrapped keys
+  Oops: general protection fault, probably for non-canonical address
+        0xdffffc000000000b: 0000 [#1] SMP KASAN PTI
+  KASAN: null-ptr-deref in range [0x0000000000000058-0x000000000000005f]
+  CPU: 5 UID: 0 PID: 901 Comm: dmsetup 7.3.0-rc3 #1 PREEMPT(lazy)
+  RIP: 0010:__blk_crypto_evict_key+0x2e/0x3b0
+  Call Trace:
+   blk_crypto_evict_key+0x24c/0x320
+   inlinecrypt_dtr+0xf6/0x160
+   inlinecrypt_ctr+0x2d3/0xbd0
+   dm_table_add_target+0x661/0xf40
+   table_load+0x1c4/0x490
+   ctl_ioctl+0x32f/0x5f0
+   dm_ctl_ioctl+0xe/0x20
+  ==================================================================
 
-With this change, the passthrough is successful through VFIO
-on the same host.
+dm-inlinecrypt is the only caller that can evict a key that was never
+started, as fscrypt frees such a key without evicting it.
 
-Fixes: 7f016b35ca76 ("HID: amd_sfh: Add interrupt handler to process interrupts")
+Fix this by returning early from blk_crypto_fallback_evict_key() when
+tfms_inited[] is not set for the key's mode.  tfms_inited[] is only set
+after blk_crypto_fallback_init() has successfully initialized the
+profile, so the crash above is no longer reachable.
+
+The bug has been latent since commit c984ff1423ae ("blk-crypto:
+dynamically allocate fallback profile") was merged in v6.5, and only
+became actually triggerable when commit e7f57d2c47e2 ("dm-inlinecrypt:
+add target for inline block device encryption") was merged in v7.2.
+
+Fixes: c984ff1423ae ("blk-crypto: dynamically allocate fallback profile")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://patch.msgid.link/sashiko-outbox-167341@kernel.org
+Suggested-by: Eric Biggers <ebiggers@kernel.org>
+Link: https://patch.msgid.link/20261014155131.GB322435@quark
+Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
 ---
- drivers/hid/amd-sfh-hid/amd_sfh_common.h |  6 +++---
- drivers/hid/amd-sfh-hid/amd_sfh_pcie.c   | 18 ++++++++++++------
- 2 files changed, 15 insertions(+), 9 deletions(-)
+Changes since v2:
+ * Skip fallback eviction if tfms_inited[] is unset
+   (Suggested by Eric Biggers).
+ * Drop v2 2/2; fix the weak ordering in fscrypt instead
+   (Suggested by Eric Biggers).
 
-diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_common.h b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-index e8cc7f1d289cc..4481a50359de6 100644
---- a/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-+++ b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-@@ -85,7 +85,7 @@ struct amd_mp2_ops {
- 	void (*stop)(struct amd_mp2_dev *privdata, u16 sensor_idx);
- 	void (*stop_all)(struct amd_mp2_dev *privdata);
- 	int (*response)(struct amd_mp2_dev *mp2, u8 sid, u32 sensor_sts);
--	void (*clear_intr)(struct amd_mp2_dev *privdata);
-+	bool (*clear_intr)(struct amd_mp2_dev *privdata);
- 	int (*init_intr)(struct amd_mp2_dev *privdata);
- 	int (*discovery_status)(struct amd_mp2_dev *privdata);
- 	void (*suspend)(struct amd_mp2_dev *mp2);
-@@ -100,9 +100,9 @@ struct amd_mp2_ops {
- 
- void amd_sfh_work(struct work_struct *work);
- void amd_sfh_work_buffer(struct work_struct *work);
--void amd_sfh_clear_intr_v2(struct amd_mp2_dev *privdata);
-+bool amd_sfh_clear_intr_v2(struct amd_mp2_dev *privdata);
- int amd_sfh_irq_init_v2(struct amd_mp2_dev *privdata);
--void amd_sfh_clear_intr(struct amd_mp2_dev *privdata);
-+bool amd_sfh_clear_intr(struct amd_mp2_dev *privdata);
- int amd_sfh_irq_init(struct amd_mp2_dev *privdata);
- 
- static inline u64 amd_get_c2p_val(struct amd_mp2_dev *mp2, u32 idx)
-diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
-index b3cb13b8c5e87..f48a096a6d2bc 100644
---- a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
-+++ b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
-@@ -103,25 +103,31 @@ static void amd_stop_all_sensor_v2(struct amd_mp2_dev *privdata)
- 	writel(cmd_base.ul, privdata->mmio + AMD_C2P_MSG0);
- }
- 
--void amd_sfh_clear_intr_v2(struct amd_mp2_dev *privdata)
-+bool amd_sfh_clear_intr_v2(struct amd_mp2_dev *privdata)
- {
- 	if (readl(privdata->mmio + amd_get_p2c_val(privdata, 4))) {
- 		writel(0, privdata->mmio + amd_get_p2c_val(privdata, 4));
- 		writel(0xf, privdata->mmio + amd_get_p2c_val(privdata, 5));
-+		return true;
- 	}
-+
-+	return false;
- }
- 
--void amd_sfh_clear_intr(struct amd_mp2_dev *privdata)
-+bool amd_sfh_clear_intr(struct amd_mp2_dev *privdata)
- {
- 	if (privdata->mp2_ops->clear_intr)
--		privdata->mp2_ops->clear_intr(privdata);
-+		return privdata->mp2_ops->clear_intr(privdata);
-+
-+	return false;
- }
- 
- static irqreturn_t amd_sfh_irq_handler(int irq, void *data)
- {
--	amd_sfh_clear_intr(data);
-+	if (amd_sfh_clear_intr(data))
-+		return IRQ_HANDLED;
- 
--	return IRQ_HANDLED;
-+	return IRQ_NONE;
- }
- 
- int amd_sfh_irq_init_v2(struct amd_mp2_dev *privdata)
-@@ -129,7 +135,7 @@ int amd_sfh_irq_init_v2(struct amd_mp2_dev *privdata)
- 	pcim_intx(privdata->pdev, true);
- 
- 	return devm_request_irq(&privdata->pdev->dev, privdata->pdev->irq,
--				amd_sfh_irq_handler, 0, DRIVER_NAME, privdata);
-+				amd_sfh_irq_handler, IRQF_SHARED, DRIVER_NAME, privdata);
- }
- 
- static int amd_sfh_dis_sts_v2(struct amd_mp2_dev *privdata)
+Changes since v1:
+ * Publish the profile only after successful init to avoid concurrent
+   UAF (Reported by Sashiko).
 
-base-commit: 2c2fe95ab19b09bef7391e3e5cdf8146d09792b6
+v2: https://patch.msgid.link/20261014071846.3666398-1-libaokun@linux.alibaba.com
+v1: https://patch.msgid.link/20261013095106.881914-1-libaokun@linux.alibaba.com
+
+ block/blk-crypto-fallback.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
+index 2a8f40a65158..12e0b487e23a 100644
+--- a/block/blk-crypto-fallback.c
++++ b/block/blk-crypto-fallback.c
+@@ -524,6 +524,12 @@ bool blk_crypto_fallback_bio_prep(struct bio *bio)
+ 
+ int blk_crypto_fallback_evict_key(const struct blk_crypto_key *key)
+ {
++	/*
++	 * Pairs with smp_store_release() in
++	 * blk_crypto_fallback_start_using_mode()
++	 */
++	if (!smp_load_acquire(&tfms_inited[key->crypto_cfg.crypto_mode]))
++		return 0;
+ 	return __blk_crypto_evict_key(blk_crypto_fallback_profile, key);
+ }
+ 
+
+base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
 -- 
-2.55.0
+2.43.7
 
