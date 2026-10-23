@@ -1,100 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792778941;
-	b=fGsb2b68+RnueWamKvnGDvJLGOT71vLNL8hqqIzhMERlc6mt+BC98c9aU1zW65gzp265
-	 wfzCaCsUe1aBC+i5kLmMB8pF0bcwTMKO2lzbJVTnmZAWE9tL5z+I6529BQvLGsaDV49p3
-	 RbNfOJdRfO6CPerQVfZ1UVP4ph0J7VYsEV75oH+zrZadvg5aRv+RuuUcu0gnf7d5Unwkf
-	 CvcrFIgsx1ccaYikWsYht1fAvPqTtKyCfcwCoxK/1xNJWNqjc19Hovh2pI00oXK3bKZGe
-	 Eqovf2Nrsu99SJPdylmKBkUlyvX0EC3bkj50zWunD08PTtsqiBdstSELKTwgox81wuw==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792778987;
+	b=vOb1FAKC5mPE977ZONEpRGunzYfJsMK4V53iv/MuUbBs2ewzoAi3T/jP8XzYQAodQBd+
+	 iFSrevYfh8xp2lMQu2DazGWEPTzvGUxjt5opWKNLJqWQLIDkfGZ80y3i86wq/EtG+yzWW
+	 b7yaLGjBuNNM3hLoBbQFPze1NBec+5Ne+v/qZVRUswQ184d3dotMiCNOa/lmFuTK8bAQ3
+	 nvRqR9JyNzPJn3cRmqbJfcBwaa1Bh5pv90uV0a7h/VPXA6ahtCjxtFMz6hWVx+Hf1ea6z
+	 2Jm4JGKxu46GRA0Mxs2ZN+VEtyU/kFQ4/oZDYKrMi5ozo+Z7iqLvZNCmaYonJtjL5fA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792778941;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792778987;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=nKpQdPCfN7vtbw7obZJvLCHSgtoYzv6z5biXGbDum1g=;
-	b=1ebXoNmnWss6Av7X+c53ha6Ekxt3LPsAVjyPZQBP+AY4fO/HSORJIBWO/dV2urYTGD8D
-	 trL9Ok0Y5UVp1xu1fdU1ZOI0man9oTcdD2s7xUFtganJdTPzmDtgHjUv0z/BrCtQDXsma
-	 QEiJzZd8Qr7HfSuMMU+0yOfL/Fw+Kmon+R2lMjWBWwG/R9t4W5rvW14o3ZAk9iDWelYmS
-	 AlWB4JKnhJZWIRLDYYm4U5RbQ3EdBcyQSIs1P+mHtNJiLFrAPsZ0mpalIi/5TQ0ZiDLZx
-	 xi7NoGXngfTUg28Mm7wn3wTgZFIczFsdXq9HiqdfRjogubVoyHoGxiQcjTKQTdQFSrA==
+	bh=ufQQeasNhgcUlqoxNttXKmDaZXvBewhwENZeB+swFLg=;
+	b=BzKW8Cpa4m/F45sJv/9nRdPY44qyBnT6s198B569/am3gtjhlAeP8Cg5BTdaV14LXP42
+	 NMFv9xDJSXCUR4mS16rtscheaQKX1ybBut24YQyxQ5Fc9p3EjP4Vv6Wym1R2ElQSV74+L
+	 PMJHCz6328LxWJoMOnEipuqYLIZThPkBVvhpILwTfr8lCR5tPeX7jjJLIcqmzmvXWkcJ6
+	 NJTc4U8tpBE/SsssvSF1P/7JEmRGMpMlZmZvClBz46GOKH93Hpvcn3BPBz84a+vw5jLbI
+	 arc/divJ3ilRDIlV31M4E8/D2Hqmtlm8o/fywWcHhV/84jDDXyvzzWgxk4xWMVBaTqg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="V2T6l/7a";
-	arc=fail smtp.remote-ip=209.85.208.177
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+	dmarc=none header.from=mojatatu.com;
+	spf=none smtp.mailfrom=mojatatu.com;
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=tZOD+mWP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.173
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB2C606A31A
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 18:09:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFB2C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06ABA606A31B
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 18:09:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06ABA606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=V2T6l/7a
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3ac65e845a8so10281821fa.1
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 11:09:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792778939; cv=none;
+	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=tZOD+mWP
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8a31c892a1fso224704b3a.3
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 11:09:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792778986; cv=none;
         d=google.com; s=arc-20260327;
-        b=XDPOvTvRHP3zi0vM6vKqiv0mmJ8UyoPcTHg7irOgpb37QaR5AHsDM/GU2/LjFa1h9K
-         +eEzQPzUKfCIh0rCVv+WRdiufOe4O0VZ63HmVBLefa6BhJ/QiS18ESXKpj1XWlZOQxcf
-         UNQZUWGcOfqLABgyHWW6BFUlEK2lVI9AkxKRYwoZAknwHUXUNfd8cyxxJnDdCpAdm4yw
-         J376/lPhr0TDMb2sia9e8TUz0mRwOo81n5Rt/q0vTCnOdyTMgFUjX9J2uCpR1bjfiwWW
-         2IgzCQRb0cIjx85/uVmnC56OEV9QS8I66x7TB+ChW5Sg7bnXT/1FhhbxIpg04W8KmdRM
-         ftAw==
+        b=e8MHdPxJtrLDekYKCCJi8mMswYAnhn9ZUI60DnRcyteTV10QyeMeU3ypV+CsUznN2N
+         MPLth/0a2hopoiX3orFS7++KDJKwcyAdY1X9AL2H1GEJ+pYDa/AMkQAONnlYBiiH86J4
+         dvQXN8p23ePhbf3jZcVBN5mzNHnkJpDVk+34sovMVNFhQz5U6wNE03i1bg7+YYM1+6/u
+         4pgEUO+kAOv+/hjGLXNsRJbgxEayUBAQ8CEDgO7QvYwsplQrnjXSFO5GimsgjCUKighY
+         PVElaXJvz6VmTCuc92pgQbYmDy+eCaXYViXcEUsDQ8QQ3tN8+8orUEtjdHmuRh1O+k3v
+         ZNBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=nKpQdPCfN7vtbw7obZJvLCHSgtoYzv6z5biXGbDum1g=;
-        fh=gJCAAvTu04pWsY0IZmXpkSTyMDATAuoQpmtCEQDvcDU=;
-        b=N/rAr7YwYLXREGbkLGrvhlT5IC+hreJB9TSATIWGoBnrirhYOjWNUgez4JM5d/vUUP
-         j7e5XyqGnEgAcaQEU0SPPYQQj3cjQHJ9TnAhZbsScXMmQ94tHpR2UkaA87XMJ5iaO58y
-         +n5mi2QttJk/plKZw6UF0p+5i61Sej5GH8CyI0PVWdJ9N2VHi3aGDrc1GsvOMw0Q3w5k
-         hEb3CBYZ99quDr+JbYhkU4mIct72ub3fWVLus75kLBdu9QZlfvcLU8UPsL2AOm7jdEs8
-         CvL9owx8dX1yfZBbZ+nWLTRfyEBmHQ9hEpAYT62eRSR2coC+8q2jL85Ank9zqQCyPyWm
-         oDOA==;
+        bh=ufQQeasNhgcUlqoxNttXKmDaZXvBewhwENZeB+swFLg=;
+        fh=X1uLEyA2ikG1Fu2JmTvShI/wGcaba7j+9aHQ9g+lrOo=;
+        b=Wj0Ie0nTEjv1xRUGC77WcRvhEPHkAGp5W1wXs1Lqpb1cHXriTqjssC4okctcJODvu7
+         rc513Tk7JCwkyvRmwc9JX7QRcfLz6eUa/+B1DNFcjb8GQMx/uByAvPrVLcREYyAIR9Di
+         /HJA3kTGLCjMCdpBAPew/DVj22CDWcHVw4SXm24kAuzMMIOugRJzveErYL29iA0mKppd
+         Bi0b25/TALeJWTAykM+Xy6GOVBCyqOUA8kPQokcsKg3SCAtAZX/P1CmUprOf4pDc25Vn
+         NAEU5LSzGGooan3gMMACyQQnxz+KIPuhm7sD0A86bJyY32FEEqvo3V4gRE0/nZmVPWU8
+         tFPg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792778939; x=1793383739; darn=vger.kernel.org;
+        d=mojatatu.com; s=google; t=1792778986; x=1793383786; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=nKpQdPCfN7vtbw7obZJvLCHSgtoYzv6z5biXGbDum1g=;
-        b=V2T6l/7ameed6sVkeAzi5rrA0oehedbrCJVrRWC9j0OKhx2Zc0FICRciba4BDpIPQo
-         DaoImqskD9qR6gvN9ulG9cWDahYaCipbWKqi+StdjBKSgi/XEe8DFKAaWwn66eCKp9X3
-         vfIS0E+7Tjpodd69QWhWun3l0H8L4b3P/4EHAZXQMpq3jEJ2axEI8dFOAPCbcBKnmK6j
-         /ZO+Iknhs6cnujPkJELBC6nC/odMJ0gQXq4m9zGG8dPAQT/A9DMD5oAcXwbvzjdGhmSQ
-         BRMjaYDEuh/N7eC0xYZlDssRAsNMV5DA4IN1Q6D0kr1+Ug/PNtnwg3obm+1YGSudx7/e
-         PHlg==
+        bh=ufQQeasNhgcUlqoxNttXKmDaZXvBewhwENZeB+swFLg=;
+        b=tZOD+mWP6IHNBHgc87LVL3lXwgEPXc3rr7H5srdZ+OG/y3OMMebAxdNe8j4hO/gkmg
+         NRZkhY8yT3UBtypXBKaXsj82zL0qIebAHXBBUTR1VwZwvovz6u8V0M7CkaKi8nm/8khN
+         4X3gpHu0AoPBSQCsf43ig5pueV2EeFJD7AME0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792778939; x=1793383739;
+        d=1e100.net; s=20260707; t=1792778986; x=1793383786;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=nKpQdPCfN7vtbw7obZJvLCHSgtoYzv6z5biXGbDum1g=;
-        b=jihyjCEOPgJNcFxtjEYo4L6kWEUiS9Soc4c9/FsdYcUF7bgsfOcxE8jsQP1CDpxiFC
-         S7jNPLI5o0EEqn0bbA3CPaly83x/AwEafmuCiP9uhz5ZHNXUJbyXpx3C4xhpukgL2KWu
-         +FYFXZtVgf7ugc/ULiLjLFPjL1PtkNYbOWw9kc0DKxIzqEZP339ltKP0PZ3NsHYfi463
-         4cn5IGgBGf4z/FmBoIHbSYy4PYtUxkQMwCL7YS4qDWqpwn6XxspWPrkbj9a721BiCK5M
-         AjzVYu0mXmp+115mggZp92C/kYfN0SYKxtmtcU3ho4HhSw05M5sTTn5VVT1HFnGmt9/T
-         5lDw==
-X-Forwarded-Encrypted: i=1; AKwUvBwDEriVxGHiS4y80a3VFMVDOrgCafL/3yRt/uF8sm0M20Bv2bsYwM3LPq9VRbWsSHpGksDjZ4A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKJlfL8Cil6H/X3Efy0/TfdQMeOLGjO/PGGrbFeDAwwcC0DaCyT
-	aMfZNsBvheviZ5myn0slrli3S6tE/nKe2rxvTwrTCJC15FYc7s5cPLwIPmoLZ9V7oiZ47eh5Kpb
-	Pu8aBBPaqtZUcPV1xlIwTZqOxXp18VOU=
-X-Gm-Gg: AYBFou3dnrgXSUvgxwQhRGXDdgQeUOarExum83/9IakTlKAdnh/5ToFj3v6F6DP61sM
-	TgpHAqT12tWSWvupP3P39wOkvthEeGIpGTQtEF5j23eaPoee5TeIA39rxretulE9NKNGlx75odo
-	atJf1yy9hy80RBac1ib/fyu7p+EKkdi7/NKAh6K0apOyI0AUsm5a5skq5bT1vmwNvTgH3bvNPf1
-	QDmHPZRCQk8GIT02/Fef96mgR26utsDtjv3aRGUOZShEf+zGgRJ0e6OTbVCTrYNLmHzueZvYYZ6
-	UQAC0Vrspbt+6yC/BEzDbFRR95WLG+erqhUa05bFJ2zJ98KzXXl58O0YNayD2tbUuwt/nYgSYIe
-	n6kWk1rRRgS3R/Ceam4MbM8qr5Fh70ZyAK2FLhDy7VFD14L88J7Hah5+OAEonjUtv1kTXQ9Q=
-X-Received: by 2002:a05:651c:1b84:b0:3a6:62bb:906e with SMTP id
- 38308e7fff4ca-3ac6fd4e4cdmr269461fa.20.1792778938495; Fri, 23 Oct 2026
- 11:08:58 -0700 (PDT)
+        bh=ufQQeasNhgcUlqoxNttXKmDaZXvBewhwENZeB+swFLg=;
+        b=FA/W6gWu6F7yZi6fDPgZgU7tSRjBSC7GA73DYGJTX8nyjLJp0zrNWSovBKm0MlIHBf
+         TR1QLJGrC4kF2Z0SG/N0QmtvPE2fjQIRiIH6nguvJKhZh36TOGfBGwA4n+KPTVx4niT6
+         y6sarnV6OkXGRK7ItiwBXDcNS7F4kPxilrw5jYPwGazaTcGv00dIZYVgpvteSphTy7vR
+         WtGkdH1HSAXHGbNE270aZdFwGFL/J7OIiFvabVOTYtFyMkNCWx/dujzcJboP6j+0C2e4
+         qUy1FFHlVSWmY0r4trm5TOsg9IdD0kTBLYTfSkw0BlbP2KsDVxLZb/JQcqn4kphRxewc
+         vB7A==
+X-Forwarded-Encrypted: i=1; AKwUvBxNWET0kf805x5/eLn6EionFOpzpsKt7cqqTpeQBL58Jt0dRHzSR6Ac0uUXdtqgIhay+GuWeiQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIWSnIRAF6KPxvu/pA752qVMtZP1/8vwkG6Ep6nr1Sk/jI//UUA
+	ejJ9LReJ6KB1VuyMu1l5EG53QmRJBi+ELrsyR00qprDMpsJFJhUQws1AEvQiUsxzbUU06uXZUXA
+	2Bkh5dHfzfA5Tu0eoRmfZojeejVXNIkW7vxegPcC0
+X-Gm-Gg: AYBFou2ab2/z3PElgoItNcEP/6kUruvz3agie/jw+4x8copKXGS/AZKd3ELHnCB8B6b
+	3aR3unaWHkNPgy6X9cEfgOsW+iBRIPysgmXYWASG0czf7Bt31WZ9xHQElSwp8erMFyJM+OOLtec
+	fJLZqHscHTR1lgMPcr5UCxOeHNT3WWIlk8t5xgsvGYNKuhU+UxidkN40DH/pj9WXTtb6KCtaJ4X
+	wx5VvIGzzOCEjEwJPfR1Jdoae4LQXOZwGCiFURjAllFgdRNdgcRyE7a4bpHb7h+ho35awxLTSdA
+	KBoRFCVZJE6mm4c49QFZoZOHr7F45uwIgAO8NEwE7kHCebArKC2HsRuAd0Ku36Od2LlyQmWLINz
+	Tbm+r+inpKk4Rf0ZWTiVImtCu9VoIHg8tdsxEHuZFd5wJK5AGvHQ6xGFil51d06CLasUb8OnQ76
+	QEItR6fdET+2eL5bA=
+X-Received: by 2002:a05:6a00:2d91:b0:89e:f8e9:205e with SMTP id
+ d2e1a72fcca58-8a369072e1bmr56680b3a.40.1792778986330; Fri, 23 Oct 2026
+ 11:09:46 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,46 +102,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAAzpgGfrHpQZQ8iaH5fqZHzk5tTx39+jGvGkVXxhYFkp-A_bQg@mail.gmail.com>
- <CAAzpgGeAaOjPdiVOmeY7xZqEymyh4BfhESwAvTzczvqj+YuNHw@mail.gmail.com>
-In-Reply-To: <CAAzpgGeAaOjPdiVOmeY7xZqEymyh4BfhESwAvTzczvqj+YuNHw@mail.gmail.com>
-From: =?UTF-8?B?TG/Dr2MgS0FTU0VM?= <loic.kassel@gmail.com>
-Date: Fri, 23 Oct 2026 20:08:47 +0200
-X-Gm-Features: AclHuK_kKsOTsWBx0Yucceg6CRaakmJTdlvJSrwgu8_JgodWjgo2txSWsrgvUvI
-Message-ID: <CAAzpgGddO8H3EVb-WhXEeiCeoV97NuV0G22UZcHmyi0QZLwcMg@mail.gmail.com>
-Subject: Re: [REGRESSION] mac80211_hwsim: CCMP frames dropped on fast-xmit
- (WARNING in ccmp_encrypt_skb, net/mac80211/wpa.c:462)
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: Sai Pratyusha Magam <sai.magam@oss.qualcomm.com>, Rohan Dutta <quic_drohan@quicinc.com>, 
-	linux-wireless@vger.kernel.org, regressions@lists.linux.dev, 
-	Felix Fietkau <nbd@nbd.name>, stable@vger.kernel.org
+References: <ACT-N6N4.v2.r0.20261022191829@mojatatu.com> <ACT-N6N4.v2.r0.20261022191829-1@mojatatu.com>
+ <ACT-N6N4.v2.r0.20261022191829-2@mojatatu.com> <willemdebruijn.kernel.26d1ddb3bd2ae@gmail.com>
+In-Reply-To: <willemdebruijn.kernel.26d1ddb3bd2ae@gmail.com>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Fri, 23 Oct 2026 14:09:35 -0400
+X-Gm-Features: AclHuK8HN_xi05mcVg0MDRYHrOglk-5vDJvBmXSDY9jfeHaTyXNLXPV37NRYe9A
+Message-ID: <CAM0EoMmwNCHVNW0=Z_JWX_ZcT5Y1po1GRVScddOsevEvL8D-6w@mail.gmail.com>
+Subject: Re: [PATCH net v2 2/6] net/sched: act_mpls: pull the inner Ethernet
+ header after POP
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
+	Victor Nogueira <victor@mojatatu.com>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Martin Varghese <martin.varghese@nokia.com>, 
+	Pravin B Shelar <pshelar@ovn.org>, Vega <vega@nebusec.ai>, 
+	John Hurley <john.hurley@netronome.com>, Willem de Bruijn <willemb@google.com>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Fri, Oct 23, 2026 at 12:09=E2=80=AFPM Willem de Bruijn
+<willemdebruijn.kernel@gmail.com> wrote:
+>
+> Jamal Hadi Salim wrote:
+> > The issue:
+> > act_mpls POP can leave the inner Ethernet header in a page fragment aft=
+er
+> > skb_mpls_pop(), either on an L3 device (mac_len =3D=3D 0) or chained af=
+ter
+> > act_vlan POP_ETH.  A following eth_type_trans() can then BUG in
+> > __skb_pull().
+> >
+> > The Fix:
+> > After the pop, if the original MAC header is shorter than ETH_HLEN, pul=
+l
+> > the inner Ethernet header into the linear area and drop only when
+> > pskb_may_pull(skb, ETH_HLEN) fails.  skb_mpls_pop() does nothing when t=
+he
+> > skb was not MPLS, so no separate state is needed.
+> >
+> > Conditions to recreate the bug:
+> > - egress tc filter on lo: action vlan pop_eth action mpls pop
+> >   (chained), or on an L3 device where mac_len =3D=3D 0.
+> > - AF_PACKET SOCK_RAW with PACKET_VNET_HDR, hdr_len=3D28, and a non-line=
+ar
+> >   eth / mpls / inner-eth frame.
+> > - The inner header is in page frags; a following eth_type_trans() can B=
+UG
+> >   in __skb_pull().
+> >
+> > Fixes: 2a2ea50870ba ("net: sched: add mpls manipulation actions to TC")
+> > Reported-by: Vega <vega@nebusec.ai>
+> > Link: https://lore.kernel.org/r/40fe2d7dfce13411bfbe9271c0f7c54fb7e88e3=
+b.1782548651.git.bronzed_45_vested@icloud.com/
+> > Link: https://lore.kernel.org/netdev/CAL4WiiqSMdYQYeeW0Fk_GK6ekR4xiS4zP=
+rGKrbB9wZknpqf1-w@mail.gmail.com/
+> > Cc: stable@vger.kernel.org
+> > Suggested-by: Jakub Kicinski <kuba@kernel.org>
+> > Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+> > Suggested-by: Eric Dumazet <edumazet@kernel.org>
+> > Reviewed-by: Victor Nogueira <victor@mojatatu.com>
+> > Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+> > ---
+> >  net/sched/act_mpls.c | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >
+> > diff --git a/net/sched/act_mpls.c b/net/sched/act_mpls.c
+> > index 4ea8b2e08c3a..5363bca892fb 100644
+> > --- a/net/sched/act_mpls.c
+> > +++ b/net/sched/act_mpls.c
+> > @@ -79,6 +79,8 @@ TC_INDIRECT_SCOPE int tcf_mpls_act(struct sk_buff *sk=
+b,
+> >               if (skb_mpls_pop(skb, p->tcfm_proto, mac_len,
+> >                                skb->dev && skb->dev->type =3D=3D ARPHRD=
+_ETHER))
+> >                       goto drop;
+> > +             if (mac_len < ETH_HLEN && !pskb_may_pull(skb, ETH_HLEN))
+> > +                     goto drop;
+>
+> Is this first condition needed?
+>
 
-I tested commit 6832075ed4ef ("wifi: mac80211_hwsim: reserve headroom
-for software encryption") for this report, and it fixes it.
+That was me conjecturing from Eric saying in v1 "...the check can only
+matter when the original MAC header is short.."
+Since i have to send a v3 (Thanks Eric;->) I will remove it
 
-I applied its one-line change to the v7.2.11 mac80211_hwsim (Fedora 44)
-and loaded it as an out-of-tree module, then disabled my workaround
-(fragmentation threshold) on the AP radio. Pinging the station from
-behind the bridge:
+> More importantly, can it hide a bug?
+>
 
-  - without 6832075ed4ef: 100% packet loss, one WARNING at wpa.c:462
-    per packet (10 pings, 10 WARNINGs)
-  - with 6832075ed4ef: 0% packet loss, no WARNING
+What kind of bug?
 
-(The module also had my unrelated beacon timer fix applied, which does
-not touch this code path.)
+cheers,
+jamal
 
-6832075ed4ef has no Fixes: tag, so as far as I can tell it will not be
-picked up for stable. The problem was introduced in 7.1 by a536be923191
-("wifi: mac80211: Fix AAD/Nonce computation for management frames with
-MLO"), which made mac80211_hwsim encrypt CCMP/GCMP frames itself, so
-7.1, 7.2 and 7.3 are affected. Could it be considered for stable ?
-
-#regzbot fix: 6832075ed4ef
-
-Thanks,
-Lo=C3=AFc Kassel
+> Simply running pskb_may_pull is cheap if no pull is needed.
+> >               break;
+> >       case TCA_MPLS_ACT_PUSH:
+> >               new_lse =3D tcf_mpls_get_lse(NULL, p, !eth_p_mpls(skb_pro=
+tocol(skb, true)));
+> > --
+> > 2.43.0
+> >
+> >
+>
+>
