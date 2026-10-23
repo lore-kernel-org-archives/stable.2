@@ -1,75 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792781595;
-	b=pAf3xOa6id2y2s/hCOSXHVfoA+ZpxBnfKBUwFzHmfFQLwNErIlRENVFZ/Ydwkht16GxG
-	 EXJ3XvZ3d95Bh4g850UeYdFTX/pFbHO2Mv+bE6PkUL9DDOuFiRmrC4msoj8en7wpOB5bn
-	 iWg5GC05i66he+3Ea9GXFPIV0qkFR6y5+48oLKuvvdQiLuc+4MG/a/TlQGcFxObc+beGW
-	 aEJVcaqO3Hd+xGobwdvOQpAevQVw22JCiV687OFKo+JmeGRHixkTQ41RraQgUZaBqD6I6
-	 vliiD2KNDZG/Dg+JDd92fI86WXACxVm17zK1gQVUhDNZhfGpxeREAOHiLrCj9jBizgg==
+	t=1792781693;
+	b=4ctGOb/WtPLkPLSqYO9sxfh+q7yOGUbpudiJ8+SBw8Bua+QC7sjVPtqvcrAgfotT1p7f
+	 7kLaE0hzDq880V4MeH5UR+44sv/H0S9JUGTTwi2FTt68rwxFL2xfvrcRZ9loTMCi4ES4U
+	 wuMyAGCsssKbv1NzUpEUV2XGc/7vHmI/GdojV5/syjat1EaA6V3aTXl9lbKG0xuSo2b7e
+	 rXOll5bTFjwoYJWnMxyqF2CkIP04W0FNzcIIUOJkRR4Op0l1C84Z0qiFtdLInfGrki3Gn
+	 2I44aOENLCF3GoGbc4IECYUoOeIsCnkLs4a6MDMwl3Qg8zZ4/Z3L+1/ZdNLGFLkCzGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792781595;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=IxmE0gHiyjGXuLsm3BhAiy//lMTqa7LOKZbu4aeGXxg=;
-	b=1z52qsR2hXf2ZKlfYEghUNQcGZXKCncSVVuiPPrfrtVnzwfrG5zf4BmRm8ENPhTWSwsB
-	 eCl68azQFmi5cqpOYm0ogS6PK6vR+avMnO7k6FtmBbW8820UHzVn6mtf3tbMp4abFdqTE
-	 P2TUcJNNiFImtj+fkxbW1wbNJf5FWwVbFjfT/Mv3lGale4DcJH3/43uFcYsOLz7svGQmx
-	 iCZcfqd7B+kTGlGKFkvyuEPNnAWCFNyOMQMSkA/Hr8jzc5nZjW5JP/4HjBLZQUZI/U+KB
-	 KrnXxI2sL/K6cGXm3SbKzLYL93kg3h7ulkOYV7hIZ2N0ymKRFjvuINt1Iny2JOCTqXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792781693;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	b=5JeCLuqqMDUTG5R1UF22Ayp5Yo1Dsg+yKJhacFl6/Cis3RfymOnJKpza8yAVhC1wiSaJ
+	 KnQX8JKd2vCOL7iGUrc8s0EZGYqRlJ5G2xXIIpvHQxVjsKWTy3jU3mSEVd+fnDwY2TnyO
+	 mEaUTLdr8S2Ws+dPSCTMD477fPH8iBSkI5EDSzMa7aqcD+6jnGG1bvyLUjc7hZE5BlmXX
+	 c5oy9mkIrGToqjo192PLMtu3oOBXm0DSlMGTZsLAz21BJJn5hJL86lSNTTbq3C52Ro3aI
+	 sfL9OD2/t4iVFD1ccgN2sIriaMiux6rmDQazypakhms754lDViJydu7+3xXrlls4NSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=HVvl64GW;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="h/kuyFSY";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96339606A31A;
-	Fri, 23 Oct 2026 18:53:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96339606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46032606A31A;
+	Fri, 23 Oct 2026 18:54:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=HVvl64GW
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=IxmE0gHiyjGXuLsm3BhAiy//lMTqa7LOKZbu4aeGXxg=; b=HVvl64GWNiTcaT1nDCRkxHRQTi
-	U6cXZBKj1WgLkfdhEpQQbWKr721AL53saG2JBOdDMAxID6PKB6gZg3vpHSSO8a6BDdJEJyVsRI47i
-	nKtRtmsm0fCQs51IimUTBVyVI0nX4Zjgm2ZZl/NUMzvSeco7J8Ua22l+7W5RvMLWRtm2VbwMdVhgr
-	KClZvbCHXBmbVMn0QOBcUDaVZQamC87PqEZ+bM+3A+j654lAE8A93CsG0nU6Bj7RQTL3CHQ7xUJcf
-	WZQn+B8moV67IoLhnNnnJd6P0Gomvf128wafJxs/w8SZ9f/YknYfF7949GIzhtwACBdz1CRQ4oP0t
-	TKM7JXLw==;
-Received: from [151.115.150.205] (port=56522 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xKKO9-00000003uG7-26Ca;
-	Fri, 23 Oct 2026 20:53:12 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] inet: frags: prevent acceptance of partially authenticated reassembly
-Date: Fri, 23 Oct 2026 18:51:19 +0000
-Message-ID: <20261023185118.2588450-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h/kuyFSY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B9031F01825;
+	Fri, 23 Oct 2026 18:54:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792781692;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=h/kuyFSYxROdjj8btkzQ8jS9IqFVU2SoKrWR6SfdS+hAtSfj0DdFdt/sIEsCuJHH3
+	 bjiO32/jDDDq/tDHMHhRTA8iAyeeWjAOjC9zd4y7mj9WHuMrk8AQysW2mbwbpTHJYR
+	 LI1jP6vcMm4yMF8JhmHffnkGI4Y21cIjtb0N31Gy20ySWPYYH+MajKOfi4sqrtVKgK
+	 vjfT7ffPk9bV0iZQSFnoX9yNl9vGgXliT8rNOHaSr+nwpBxxEZ3xP3tsu/G4Iwtij7
+	 qpz4eeipcAqqT5+L22EPDqvOD7ORAIYHjc0t4gbK0+cXZSrebEJTMm49z9f6GCtW2H
+	 XsXUMel7bf9tQ==
+From: netdev-bot+sinfo@kernel.org
+To: =?utf-8?q?J=C3=A9r=C3=A9my?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Steffen Klassert <steffen.klassert@secunet.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>, David Ahern <dsahern@kernel.org>,
+ Ido Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v2] inet: frags: prevent acceptance of partially
+ authenticated reassembly
+Date: Fri, 23 Oct 2026 18:54:51 +0000
+Message-ID: <179278169172.3327.18212871676528933059@kernel.org>
+In-Reply-To: <20261023185118.2588450-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20261023185118.2588450-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,138 +66,25 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-A reassembled skb retains the secpath from its first fragment, which
-makes it possible for the final policy check to accept bytes that were
-not covered by the transform recorded on the skb. This can affect IPsec
-tunnel traffic, including AH and ESP, and allow a packet to be accepted
-even though only part of its payload was authenticated.
+Hi!
 
-Reject a fragment when its secpath differs from the fragments already
-in the queue, and keep overlap statistics limited to actual overlaps.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
----
-Changes in v2, after review by Eric Dumazet:
- - Remove check on verified_cnt.
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-v1: https://lore.kernel.org/all/20261023074515.2347924-2-Jeremy.Jean@oss.cyber.gouv.fr/
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
- include/net/inet_frag.h  |  1 +
- include/net/xfrm.h       | 17 +++++++++++++++++
- net/ipv4/inet_fragment.c |  5 +++++
- net/ipv4/ip_fragment.c   |  3 ++-
- net/ipv6/reassembly.c    |  3 ++-
- 5 files changed, 27 insertions(+), 2 deletions(-)
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-diff --git a/include/net/inet_frag.h b/include/net/inet_frag.h
-index 365925c9d2628..b02d2472b003e 100644
---- a/include/net/inet_frag.h
-+++ b/include/net/inet_frag.h
-@@ -171,6 +171,7 @@ extern const u8 ip_frag_ecn_table[16];
- #define IPFRAG_OK	0
- #define IPFRAG_DUP	1
- #define IPFRAG_OVERLAP	2
-+#define IPFRAG_MIXED_SECPATH	3
- int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
- 			   int offset, int end);
- void *inet_frag_reasm_prepare(struct inet_frag_queue *q, struct sk_buff *skb,
-diff --git a/include/net/xfrm.h b/include/net/xfrm.h
-index a6d69aaa6cd2d..298ca9bb00835 100644
---- a/include/net/xfrm.h
-+++ b/include/net/xfrm.h
-@@ -1201,6 +1201,23 @@ secpath_reset(struct sk_buff *skb)
- #endif
- }
- 
-+static inline bool
-+secpath_equal(const struct sk_buff *skb1, const struct sk_buff *skb2)
-+{
-+	const struct sec_path *sp1 = skb_sec_path(skb1);
-+	const struct sec_path *sp2 = skb_sec_path(skb2);
-+	int i;
-+
-+	if (!sp1 || !sp2)
-+		return sp1 == sp2;
-+	if (sp1->len != sp2->len)
-+		return false;
-+	for (i = 0; i < sp1->len; i++)
-+		if (sp1->xvec[i] != sp2->xvec[i])
-+			return false;
-+	return true;
-+}
-+
- static inline int
- xfrm_addr_any(const xfrm_address_t *addr, unsigned short family)
- {
-diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
-index b286ee429da8f..c18da91c1f031 100644
---- a/net/ipv4/inet_fragment.c
-+++ b/net/ipv4/inet_fragment.c
-@@ -23,6 +23,7 @@
- #include <net/inet_ecn.h>
- #include <net/ip.h>
- #include <net/ipv6.h>
-+#include <net/xfrm.h>
- 
- /* Use skb->cb to track consecutive/adjacent fragments coming at
-  * the end of the queue. Nodes in the rb-tree queue will
-@@ -441,6 +442,10 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
- {
- 	struct sk_buff *last = q->fragments_tail;
- 
-+	/* The reassembled skb keeps the first fragment's secpath. */
-+	if (last && !secpath_equal(last, skb))
-+		return IPFRAG_MIXED_SECPATH;
-+
- 	/* An IP fragment is never a GSO packet, but an untrusted source
- 	 * (virtio_net_hdr) may have attached GSO metadata to it. Do not let
- 	 * that reach the reassembled skb, whose head keeps the first
-diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
-index c790d2f494870..36105dd192823 100644
---- a/net/ipv4/ip_fragment.c
-+++ b/net/ipv4/ip_fragment.c
-@@ -378,8 +378,9 @@ static int ip_frag_queue(struct ipq *qp, struct sk_buff *skb, int *refs)
- 		err = -EINVAL;
- 		goto err;
- 	}
-+	if (err == IPFRAG_OVERLAP)
-+		__IP_INC_STATS(net, IPSTATS_MIB_REASM_OVERLAPS);
- 	err = -EINVAL;
--	__IP_INC_STATS(net, IPSTATS_MIB_REASM_OVERLAPS);
- discard_qp:
- 	inet_frag_kill(&qp->q, refs);
- 	__IP_INC_STATS(net, IPSTATS_MIB_REASMFAILS);
-diff --git a/net/ipv6/reassembly.c b/net/ipv6/reassembly.c
-index 05c51f669754a..53a685f5c6b7f 100644
---- a/net/ipv6/reassembly.c
-+++ b/net/ipv6/reassembly.c
-@@ -240,8 +240,9 @@ static int ip6_frag_queue(struct net *net,
- 		err = -EINVAL;
- 		goto err;
- 	}
-+	if (err == IPFRAG_OVERLAP)
-+		__IP6_INC_STATS(net, idev, IPSTATS_MIB_REASM_OVERLAPS);
- 	err = -EINVAL;
--	__IP6_INC_STATS(net, idev, IPSTATS_MIB_REASM_OVERLAPS);
- discard_fq:
- 	inet_frag_kill(&fq->q, refs);
- 	__IP6_INC_STATS(net, idev, IPSTATS_MIB_REASMFAILS);
--- 
-2.47.3
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
