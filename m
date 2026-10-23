@@ -1,45 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792797134;
-	b=48LJNVG060vp6nwwJ/MS/l9hzL2vEXBloPIETA2PhiWcj91fgm9bol117VucX/IP8Zto
-	 AqxSiR4ENJnTJQ+Oy/qd+V7D0xsEqX7NXoKFknLgZ5WsNOFm/lmrT1kvEhF7DkwXcEtrR
-	 OR4oobn+hxkWi773E0nMEUEWM/uLuZRlpAQMN1say9UAqoJK48yxyH7idLyxsFiDggVrY
-	 kpka6B+vzKFQWmGA8oKSko4AS/CNR2R5IP2OGh/jFdigc6HWo5ufBE926eV/2DkW0Sraz
-	 uSK9epS+eyfiZTHg49lHUVpRD7CFeQ5uD+Ca51DXtKNsimRIMWte9WrwrRrM+AyWiUw==
+	b=R0OhZnuX7AbgvWNb6S5z9wPjBPDbq1m4r+PmSmA/FUJrWYHRDusiQTx7nwmQbQZAiM3s
+	 IxsUQNkUpYdMZGDAvopWLIhHLX43gxDDYhTueWpqnmVCNk0QpHrF3/xUtzpGQkgXXZwv0
+	 fUI8yCecrMX9+0/picMEA5wW09OmuEDx5ZI4EExgOPoZvAEtx94oOnhBdWVvKqtO7iSu+
+	 9FOXX8/FdNBHAZL/qfbggSY//j9ocRm+l0qtEWTzdVU5p7VZPqlDNibuP7J9VsoMkYMDX
+	 XRkFwwHCkr39nv9mCssdeqMWayJhmpyalprGg4Tm1RPYqhv+O8DGZ+tNTJ66cDXHN/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792797134;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=/Ol4D8U9+mLNNfDJtmFAjSq90PV+r3ypfZOlFgHGvwg=;
-	b=qf0Tpyn7pcGDtEiYZ4wbUgephgycUY6yB+ZeKmKqIJmjyjfmDd2b6rOXGQ3ChvMPDqJ4
-	 Wxo3gnrD81JDQrJX5yC1O9tWEUlKQCp0CCaMF+gzs9I7B1/yaHvShhnEgBYOL957bA9aD
-	 qbGA6MsPaCBfzCayU/bYnk7Uww+38rHcpA049R9WGie9NrT0riYOAUK9vV3+M7l3gqbax
-	 5Ifr0g2Z+LTU1QKt77UaCQ0qNpAP2p9ZYnNeIzokiNaCIxGEwCUM0n0I9yFuVk9klR67M
-	 mFhFqmSWaI/U0aje6APkIds6sU6svaj3YmP6+Cru/1+zGCisTwv2wpynGGaMHlqOHTA==
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=BQiokQz7+NHbLU1YUgJvJRz+8rmHmPrtiNBnIP9oN2s=;
+	b=ReEy27qFMiTQw/nyJKvcAMN8yCbmGo86GVAbfWdq6qnj/GWYxXy284mMgtdgDbSR7Ae+
+	 zfz4z9EpHaKkKzFXqTUSpSG2uDFQS133EEFSJmLBlcYI0tdUZbnPWtR5Cn/F9cl6DcDZw
+	 99mXIrpa8D2nwPXYkMMBnrE0uKzK9eaZiJLdu0cOttkBUt3gNyy9MsB26iw8njR6Wv8Q1
+	 c7oSPIlorDTcBAHGdKR8YePCWo+mP3jtoCnhmxh6ckGvjj74UBhUzganNmqqzto3cVtWU
+	 6CxfaSOe2fO+bmsFZ2Jzw5MFqfCxzaHwCGjum1Cg4JqWGDOGL0iTl7MrznETDcqoT9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=coSkVFfu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Auw3Hr+A;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C9A606A31B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B748F606A31A;
 	Fri, 23 Oct 2026 23:12:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=coSkVFfu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79CED1F01829;
-	Fri, 23 Oct 2026 23:12:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792797133;
-	bh=/Ol4D8U9+mLNNfDJtmFAjSq90PV+r3ypfZOlFgHGvwg=;
-	h=Date:To:From:Subject;
-	b=coSkVFfuTVURDIwFtXBWFUYDlBbjKpldCzCsAwt+08lv0YvMX/yjYOs9BTUX3aFAC
-	 8RFGv7ESpz67IOQ25cqZuDXMC0i8Fsgb5BepF/oiDfDr8h69B6oNcMOgZcjfWO04D2
-	 9Itta5bHaWnFJPvMOygKzlIlXyK7fLdsq8yH6B9s=
-Date: Fri, 23 Oct 2026 16:12:12 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,qi.zheng@linux.dev,muchun.song@linux.dev,mhocko@kernel.org,hannes@cmpxchg.org,tjmercier@google.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-memcontrol-fix-null-pointer-deref-in-high_work_func-on-dying-memcg.patch added to mm-unstable branch
-Message-Id: <20261023231213.79CED1F01829@smtp.kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Auw3Hr+A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9D8A1F01825;
+	Fri, 23 Oct 2026 23:12:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792797133;
+	bh=BQiokQz7+NHbLU1YUgJvJRz+8rmHmPrtiNBnIP9oN2s=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Auw3Hr+Askp6mRbjjuPJMs0tBFF1JuRnyVrW7tUx1pIBKHJKfS8H0zGSYfxTc9KWX
+	 dkPk6GBpFWHzwCfDvHQE804NfgFbSBp+zTPEm7MwyMh1YyhO+XJwvdwUUPaNHctYI2
+	 waamrRZhZsMkl/zsHCeXH7L6tqdNFdhoLrfjnpGLdgs2vfdZXSNQa8gnG49Tq3mnu7
+	 2S8knSjsFdW5w/YWqBWL63355f+/lwEM1oOnZ5ZzvBp5xcRY0bQqY7nJRARocwSTMs
+	 qIOOqAv8iXQ9c5bznIefJaoQznc34M+gMJ4ezuIFJmVgOy2YHZohxFCg2J8GMfrLQf
+	 lERdhpM1sE+tw==
+Date: Fri, 23 Oct 2026 16:12:11 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+Cc: Paul Moses <p@1g4.org>, <netdev@vger.kernel.org>,
+ <magnus.karlsson@intel.com>, <sdf@fomichev.me>, <davem@davemloft.net>,
+ <edumazet@kernel.org>, <pabeni@redhat.com>, <horms@kernel.org>,
+ <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>
+Subject: Re: [PATCH net] xsk: restore UMEM flags after failed pool
+ assignment
+Message-ID: <20261023161211.74b2acb6@kernel.org>
+In-Reply-To: <atpDcGN3zWhixRj1@boxer>
+References: <20261021224705.2078753-1-p@1g4.org>
+	<atnKf5dNv0Vk1sCo@boxer>
+	<xFs3DcEr8aRQdjIeuzTZ4fmeQ3Ay8_x_94KB387XkLZDamj_rLyn4IGiFdZMi0u69fpiYrPQq9P6o1j_xixC1WbF-tl3JxDLmcMZZkPk70k=@1g4.org>
+	<atpDcGN3zWhixRj1@boxer>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -48,171 +64,22 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Thu, 22 Oct 2026 19:10:08 +0200 Maciej Fijalkowski wrote:
+> > Right, evidence suggests igc handles it gracefully, I had attempted 
+> > to provide multiple examples of real world impact to satiate Sashiko,
+> > but only igc survived final edit. It needs to be open for the failed 
+> > bind and successful retry, it can be closed after and bad state 
+> > remains. If you're looking for greater impact, look at stmmac. I'll
+> > send out a v2 without naming drivers specifically soon.  
+> 
+> Not really needed to go with v2 with reworded message. Let us wait for
+> bot reports first.
 
-The patch titled
-     Subject: mm: memcontrol: fix NULL pointer deref in high_work_func() on dying memcg
-has been added to the -mm mm-unstable branch.  Its filename is
-     mm-memcontrol-fix-null-pointer-deref-in-high_work_func-on-dying-memcg.patch
-
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-memcontrol-fix-null-pointer-deref-in-high_work_func-on-dying-memcg.patch
-
-This patch will later appear in the mm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: "T.J. Mercier" <tjmercier@google.com>
-Subject: mm: memcontrol: fix NULL pointer deref in high_work_func() on dying memcg
-Date: Fri, 23 Oct 2026 15:23:13 -0700
-
-When memory.high is exceeded in non-task context, try_charge_memcg()
-schedules memcg->high_work without taking a CSS reference on the memcg,
-and high_work_func() invokes reclaim_high() without pinning the memcg.
-
-Before commit f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of
-dying memory cgroup for LRU folios"), memory usage above memory.high
-kept the memcg's refcount non-zero. With reparenting, folios and objcgs
-charged to a child memcg are reparented to its parent in
-mem_cgroup_css_offline(), leaving the offlined child's memory usage
-permanently above its memory.high even after its last reference is
-dropped.
-
-cancel_work_sync(&memcg->high_work) only runs at the end of teardown in
-mem_cgroup_css_free(), so high_work_func() can start or still be running
-reclaim_high() after mem_cgroup_css_released() or shrink_many() has
-called lru_gen_release_memcg() and unhashed lruvec->lrugen.list. This
-causes lru_gen_rotate_memcg() to dereference a NULL pprev pointer.
-
-Fix this by acquiring a reference with css_tryget_online() in
-high_work_func() before calling reclaim_high(), and by resetting
-memory.high and swap.high to PAGE_COUNTER_MAX in
-mem_cgroup_css_offline() so that charges via references on an offlined
-memcg do not trigger high_work on the dead child or skip checking live
-ancestors in try_charge_memcg().
-
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-CPU: 1 UID: 0 PID: 27 Comm: kworker/1:0 Tainted: G    B   W           7.3.0-rc5-g2bba28e98578 #284 PREEMPT(full) <- Taint from lru_gen_rotate_memcg() VM_WARN_ON_ONCE
-Tainted: [B]=BAD_PAGE, [W]=WARN
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
-Workqueue: events high_work_func
-RIP: 0010:lru_gen_rotate_memcg+0x1a3/0xe90
-Code: fd 7f 09 45 84 ed 0f 85 64 0c 00 00 48 89 cf c6 83 6a 07 00 00 00 48 c1 ef 03 88 83 69 07 00 00 48 b8 00 00 00 00 00 fc ff df <80> 3c 07 00 0f 85 ec 0b 00 00 48 89 31 40 f6 c6 01 0f 85 4e 00
-RSP: 0018:ffa00000001ef4c8 EFLAGS: 00010046
-RAX: dffffc0000000000 RBX: ff1100000779e440 RCX: 0000000000000000
-RDX: 0000000000000001 RSI: ff1100000779b9b0 RDI: 0000000000000000
-RBP: ff110000bffd8e40 R08: 0000000000000000 R09: ff1100000779ebb8
-R10: ff1100000779ebb0 R11: 0000000000000246 R12: 0000000000000000
-R13: 0000000000000000 R14: ffa00000001efb30 R15: 0000000000000002
-FS:  0000000000000000(0000) GS:ff1100011c0e7000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000000000251ac88 CR3: 0000000009d6c000 CR4: 0000000000751ef0
-PKRU: 55555554
-Call Trace:
- <TASK>
- ? read_ctrl_pos+0x22f/0x3f0
- shrink_lruvec+0x16cb/0x1b80
- ? ret_from_fork_asm+0x1a/0x30
- ? lapic_next_event+0x15/0x20
- ? clockevents_program_event+0x2bb/0x6f0
- ? lapic_next_event+0x15/0x20
- ? __pfx_shrink_lruvec+0x10/0x10
- ? __pfx_clockevents_program_event+0x10/0x10
- ? _raw_spin_lock+0x84/0xe0
- ? __pfx__raw_spin_lock+0x10/0x10
- ? kasan_save_stack+0x30/0x50
- ? psi_group_change+0x381/0x740
- ? __pfx_sched_clock_cpu+0x10/0x10
- ? save_fpregs_to_fpstate+0xc4/0x2c0
- ? finish_task_switch.isra.0+0x1de/0xac0
- ? __schedule+0xf62/0x42c0
- ? __pfx___schedule+0x10/0x10
- ? __pfx___irq_work_queue_local+0x10/0x10
- ? shrink_node+0x626/0x31e0
- shrink_node+0x626/0x31e0
- ? ring_buffer_unlock_commit+0x11d/0x5c0
- ? kswapd_clear_hopeless+0xa0/0x150
- ? __pfx_shrink_node+0x10/0x10
- ? 0xffffffffc0000095
- do_try_to_free_pages+0x255/0x13b0
- ? ring_buffer_unlock_commit+0x11d/0x5c0
- ? reclaim_high+0x10a/0x1b0
- try_to_free_mem_cgroup_pages+0x1f9/0x5a0
- ? __pfx_try_to_free_mem_cgroup_pages+0x10/0x10
- ? irqentry_exit+0xc6/0x670
- reclaim_high+0x10a/0x1b0
- ? __pfx_reclaim_high+0x10/0x10
- ? process_one_work+0x5ff/0x1030
- ? __pfx_high_work_func+0x10/0x10
- process_one_work+0x6e2/0x1030
- ? __pfx___schedule+0x10/0x10
- ? __pfx_process_one_work+0x10/0x10
- worker_thread+0x422/0xbb0
- ? __pfx_worker_thread+0x10/0x10
- kthread+0x2cd/0x3a0
- ? recalc_sigpending+0x15c/0x200
- ? __pfx_kthread+0x10/0x10
- ret_from_fork+0x368/0x590
- ? __pfx_ret_from_fork+0x10/0x10
- ? __switch_to+0x588/0xf50
- ? __pfx_kthread+0x10/0x10
- ret_from_fork_asm+0x1a/0x30
- </TASK>
-
-Link: https://lore.kernel.org/20261023222313.3979455-1-tjmercier@google.com
-Fixes: f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of dying memory cgroup for LRU folios")
-Signed-off-by: T.J. Mercier <tjmercier@google.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Qi Zheng <qi.zheng@linux.dev>
-Cc: <stable@vger.kernel.org>
----
-
- mm/memcontrol.c |    5 +++++
- 1 file changed, 5 insertions(+)
-
---- a/mm/memcontrol.c~mm-memcontrol-fix-null-pointer-deref-in-high_work_func-on-dying-memcg
-+++ a/mm/memcontrol.c
-@@ -2457,7 +2457,10 @@ static void high_work_func(struct work_s
- 	struct mem_cgroup *memcg;
- 
- 	memcg = container_of(work, struct mem_cgroup, high_work);
-+	if (!css_tryget_online(&memcg->css))
-+		return;
- 	reclaim_high(memcg, MEMCG_CHARGE_BATCH, GFP_KERNEL);
-+	css_put(&memcg->css);
- }
- 
- static void high_irq_work_func(struct irq_work *work)
-@@ -4463,6 +4466,8 @@ static void mem_cgroup_css_offline(struc
- 
- 	page_counter_set_min(&memcg->memory, 0);
- 	page_counter_set_low(&memcg->memory, 0);
-+	page_counter_set_high(&memcg->memory, PAGE_COUNTER_MAX);
-+	page_counter_set_high(&memcg->swap, PAGE_COUNTER_MAX);
- 
- 	zswap_memcg_offline_cleanup(memcg);
- 
-_
-
-Patches currently in -mm which might be from tjmercier@google.com are
-
-mm-memcontrol-fix-null-pointer-deref-in-high_work_func-on-dying-memcg.patch
-
+Bots look happy, but I'm slightly confused by Paul's "only igc survived
+final edit" statement. Was this issue discovered in normal development
+or by an LLM bug hunt? Was it tested on I225-V hardware, or LLM just
+suggest that HW as a NIC that would be impacted?
