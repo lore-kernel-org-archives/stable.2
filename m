@@ -1,58 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792775352;
-	b=s2lLMZil+7GDFDl9/LEFxCiBzqk2xXuIPDMDZg/mpAlOqVpJUBKa0p0L5eTPm9JsiF5Q
-	 Zz9JKmYv3e0v6xdRnIywOIkcNKfBQyXCiHSJKL5pi95w//jLTruheG5gcMkbRo2WIWMX7
-	 4c9AT5ZBEuiiCjX1YXBBJVnbsDezRN9+ytj8lDdMbkCgCGgBHVGADAHR1MGM+fdOlZVhN
-	 HlA1jCsYT3fVlY1nHWqH0JXmFZDhO6pM0eZHxOO+r8taav+mNEjQXcmIHJLGutGs874kP
-	 /flJfxx/M9PRnU2cOk2nOAprQt55uXsjrTyU2Di8kMS/J1fikx2f+ugb+8fRQL1gmew==
+	t=1792775370;
+	b=oekEQanjn1Ur7127QsvdP9IO5deqLYETIEJGXgT0+i7nTnB6iamqY9/1TeGKWpliguII
+	 z2YNeX60UarWSVeWvhD7dP9k+dl4oILaNQAMjbyG6X56I8j/76XEPR70Yh807mGOw9Iie
+	 JWls9Ap0qLIkioWp4AxAFNCzHzUJM9bXJ0U0aCUgJh7Q/0mNvMiiJmHONnA8zigRZ7UlJ
+	 x5MyVhtZc+y3XGfDBE3lqsqbjx7/SyUcF2xJn5RHuAIzPU6NIkF17K9yL/2kLtL3ZRVI1
+	 l48/swqfW7q5J7mzFYjAddSNw2B9nAMUyH90XWgxxoNmVmXOavE1OHjeEj8PWgbd9iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792775352;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=P4DGtndTn3ivfvnwP1b1ay0M2dSAxMJ+wVYLjC8cyMo=;
-	b=k0WQt+vXtgRYBt7LINxqbBfUO/87bjyyQ7pFknTVigH5P3oKgfP1Nz4FjMAf86MMIbWU
-	 O83P34sptgFugJx6Tjfl2ot02JzZe2/bGdPLnK+DsNL3TJ/u8dNQzBxRkw6UVhy9kUNrO
-	 DAdepCzVqlSeas+IDNFYCivigucuF3vLwBD7FIsV8yBQA82cUiuwEn+Wz9vEivj56BnGf
-	 NKQU6CVMoVbH95OZPZpzdTsTBJ+0JvN+iRAEb8kQxY4hR1GvgcrUaexkxv4SLmsowKB0X
-	 mFEN8NYnavR1BneHnfTuupa/ROelKsLStRg2fOjhI2PdMyH94PE2AyGgh2DmjD1zn+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792775370;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=67SB6LSP3YZL4fyvJpHJjL1fYzDhmkmSaoMKutRzZoQ=;
+	b=zDeHk3vLiPvIGTaC5/imGzCb4FpPo5o9iEik9Nj7iILJCU/3ssSr4RG/dQLdrd707g+q
+	 GnWMcrcp7I1tNMuv5qMNt0C0ukrhJt7L3T/IkcBbbCpDSI3FLtLMCgM7xFmZxqTgnBpKc
+	 cCJ1kjDZ/pDEJllyNYQmE3tcYgDO0GDz9mx2DTTLor9O2i5XR4yrwUuQOsdnkpaW0aQNt
+	 0eGDeRCz6xwoFpze5BC7Ps5FNZc2RP3aqLkeZGAs9LiiL5cWqwfQx3+zh5ev9iScfdHm6
+	 7//h7JfIPvonSNYa11Il414UyPHatGPUXF1s4L7Sjf9kL5s5tzgPA811oyguKwKLGWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LYmRZoq+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HWueAitF;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=73hMXDMw;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=crw8ZLd1;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=WrNmMXSe;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21438606A31F;
-	Fri, 23 Oct 2026 17:09:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D58F1606A31D;
+	Fri, 23 Oct 2026 17:09:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D58F1606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LYmRZoq+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D7B51F01825;
-	Fri, 23 Oct 2026 17:09:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792775351;
-	bh=P4DGtndTn3ivfvnwP1b1ay0M2dSAxMJ+wVYLjC8cyMo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LYmRZoq+0Ngb/66gGhS4rbH6mq5LbK85PXxZSgGblcm0g9+0oyh1a/cjaM7WUYba7
-	 qsgBUns1L1Iu0TcMB7gkTqFbJqxVZRQ1/svObJkQ7WHm+QTt8wVws7jWqsfRayZa4U
-	 DCPgCSVoV7E0xVOosXiP+Aa4I07U5ysul7bxRuKeRk7f4I0y1InVmix3pDaRWG4MTO
-	 DufwM5rUUoaTP14kTGnGFVMxHZUIYuouHmjSmAYfh0CgI+c2Rc/z9g4e/P8V/AYn6I
-	 +hDmBDEhu/5h+cpj7S8C3LLp62WNfg5yf0UsKsTo/EtiAlFNW25pzUZvV+JuCVkMkW
-	 ml5aIDs5IkR0A==
-Date: Fri, 23 Oct 2026 18:09:07 +0100
-From: Simon Horman <horms@kernel.org>
-To: netdev-bot+sashiko@kernel.org
-Cc: mhun512@gmail.com, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-	pabeni@redhat.com, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, ae878000@gmail.com,
-	daniel.machon@microchip.com
-Subject: Re: [PATCH net v3 1/2] net: nixge: free IRQs before killing the DMA
- error tasklet
-Message-ID: <20261023170907.GB888721@horms.kernel.org>
-References: <20261018020840.3851552-2-mhun512@gmail.com>
- <179237585120.3135.6029909727102420602@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HWueAitF;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=73hMXDMw;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=crw8ZLd1;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=WrNmMXSe
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id E866622166;
+	Fri, 23 Oct 2026 17:09:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792775368; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=67SB6LSP3YZL4fyvJpHJjL1fYzDhmkmSaoMKutRzZoQ=;
+	b=HWueAitFYISYzSNe5YnyHEb+shlX8K0h7k14BJhPzBH/7EB9lkaz+S2WIPLskS6loSJdvG
+	aUR2ufGJE2HCFhRI/neX9GOF9E09SUh5tnsRlHnKP1mp+RBxUigYVFk6x5H30msdd6hprA
+	ONLQlbOaGFyv52ucs7VwuxW57NFz6rk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792775368;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=67SB6LSP3YZL4fyvJpHJjL1fYzDhmkmSaoMKutRzZoQ=;
+	b=73hMXDMwt6yPnVFNBXW0a7ItPpJrVM58oXKVcgDoYb7sxilADmqvuSH+mahIreGVj6Jc9q
+	DZxK56TCIadLHUAA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=crw8ZLd1;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=WrNmMXSe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792775367; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=67SB6LSP3YZL4fyvJpHJjL1fYzDhmkmSaoMKutRzZoQ=;
+	b=crw8ZLd1JuBzD5b00IiO2YPRlqnKODD6XVDQYYxA0MbIaeiiuNmVOd33K2W5PuP2/KhWA0
+	gxHjIOwJ8JSjW5xzj2TcHfbTtyMraZ7Zxxnr53lmvy6LxIdq65njQzO/gIPfcdBlyyHJoD
+	o1owhOMYE6Es66BCTMUp+MNFTxzXdHY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792775367;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=67SB6LSP3YZL4fyvJpHJjL1fYzDhmkmSaoMKutRzZoQ=;
+	b=WrNmMXSe/Xxlt29YJzdzeNGaBcxolLMTBpi/xUZp2whYbFL/dMDg3iXMI8VskPLoPLwsIS
+	LBorCiVjxe0EWxCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F175C133F3;
+	Fri, 23 Oct 2026 17:09:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 0J9gI8aU22oYMwAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Fri, 23 Oct 2026 17:09:26 +0000
+Date: Fri, 23 Oct 2026 18:09:16 +0100
+From: Pedro Falcato <pfalcato@suse.de>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: Re: [PATCH] mm/mremap: populate calculated fields in vrm state
+ correctly
+Message-ID: <atuUijJitqDu00ZS@pedro-suse.tail5790ac.ts.net>
+References: <20261019-mremap-fix-shrink-charge-v1-1-a3ce209e5360@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,29 +112,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <179237585120.3135.6029909727102420602@kernel.org>
+In-Reply-To: <20261019-mremap-fix-shrink-charge-v1-1-a3ce209e5360@kernel.org>
+X-Rspamd-Queue-Id: E866622166
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-13.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Score: -13.51
 
-On Mon, Oct 19, 2026 at 02:10:51AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
+On Mon, Oct 19, 2026 at 03:28:27PM +0100, Lorenzo Stoakes (ARM) wrote:
+> Commit d5c8aec0542e ("mm/mremap: initial refactor of move_vma()")
+> introduced the vma_remap_struct helper to pass state sanely through
+> mremap() logic.
 > 
-> Critical: 1 · High: 0 (3) · Medium: 0 · Low: 0
+> Part of this state is vrm->delta - equal to the absolute difference between
+> vrm->old_len and vrm->new_len (the old and new lengths of the VMA,
+> respectively).
 > 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
+> This value is used to correctly charge accounted VMAs.
 > 
-> - [Critical] In this commit, nixge_stop() in
->   drivers/net/ethernet/ni/nixge.c clears RUNSTOP on both channels (lines…
+> When shrinking a VMA, mremap_to() sets vrm->old_len equal to vrm->new_len
+> having performed the shrink of the VMA first, prior to any potential
+> move (e.g. MREMAP_FIXED | MREMAP_MAYMOVE specified).
+> 
+> However it does not recalculate vrm->delta, which results in incorrectly
+> overcharging the VMA.
+> 
+> The charge leaks to Committed_AS globally, meaning a mischievous user can
+> cause allocations to fail across the system in strict overcommit mode.
+> 
+> Resolve the issue by abstracting the update of vrm->delta to
+> vrm_populate_calculated() and invoking this from mremap_to() when
+> vrm->old_len is changed.
+> 
+> Additionally, update vrm->remap_type whose value depends on
+> vrm->delta. The field is not read again after the shrink, but it is the
+> logically correct thing to do and protects against future changes which
+> break this.
+> 
+> Fixes: d5c8aec0542e ("mm/mremap: initial refactor of move_vma()")
+> Cc: stable@vger.kernel.org
+> Reported-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+> Closes: https://lore.kernel.org/all/20261017233527.797191-1-nickolai@csail.mit.edu/
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-I believe this was also described as being pre-existing by Myeonghun
-in the thread for v1 of this patchset.
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 
-https://lore.kernel.org/netdev/CAGEsz8ENvK96T3R6kQduXwCYB0LPVxKkusLfZ6SLrf7UcsmHJw@mail.gmail.com/#t
+As always, thank you for being so responsive in dealing with AI security
+reports :))
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+-- 
+Pedro
