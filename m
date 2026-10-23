@@ -1,89 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792770058;
-	b=TqSLiSzVq1zbr13+I0nHhVIxRkxWG8VnC3vnWGsVX1oZbU+TQ+xXLXNji8NDH/ytYYOg
-	 Gb5wbBmhw02iIahYjJuqERbaP/q6QxCFAWzK7l1J4+vhSMEKrFP3kn3qB/uLT6ULrxYQl
-	 Q43P9WMM53YJMvbEv7A5exezKhMJcKaH2CS1z3QnPGn5LBmaU2/hX80wUTiIQ/EBLW8JJ
-	 LLYgi87/qU3ddsePfi+jcV8ghhWWxz44fSooMVhiQ7h1r8J5k2hzVT3v106GqiTLqwSmL
-	 93qthnzZ+R4jpiYvZ6R2y4/BTUilVAxk2HgyqAdWFJiLVcWDWZprbFBwwvo9GdOD+1g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792770058;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=o1wKXpk8uaU69f7z5em398pZg3Sc//6UJ87r/eL+V6g=;
-	b=Cv53nFKSsHRaHjlenI8iHlOAy6o0VtboqCUkFuSEzM9jXZtcYbp6pSQoba3iKv71Zt3F
-	 LU+RvD2i1smPdg/4FzO0AQ0pokXzqQ0VDKodXCrJzNn+P+GEmYPgJrqQH52h5zh2439nE
-	 IMxdpKA4/S44Ha9pV35Xloe7t0XPrqsShbNY3Luvdeqn81+oc9FjTMJ6PTmcBQak2rPOK
-	 yCpx11MjrAvC6UD6o6hcn8JSLvYQR3OcvMRbAuHNPOtjfd4mDpexKcWFDKxSePokp3Ei5
-	 k7EnpATKIqaPmcG+FpcUtidcmFXt3bAKdfScPzR4bzLvLxumWavsFwk5M5+JPnjPUQg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DAJ9Z8yE;
-	arc=none smtp.remote-ip=209.85.160.53
-Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.196.116
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792770085;
+	b=IPFr7jawbC7ZKDgL3qFnLMIDDImC7fFc8Mw9qAzooTOvtJl/W72zJQwFOdLa9nLKePHZ
+	 Fld0hRCzF82tMZWC1SmauCTKu4TrFaZhGbKUw2xaaNuJV0sJA2Y04ylv7pLCorfHCVDg2
+	 HB9LhXri9VxuUvV0vkvQAdQCen4jVFWi0hVICn9KBYTJHD3Vr2xev2itZsDZoRuAoHneW
+	 70WYFIsP7v94DPHW7g4i2uDbLhs8YQ/d1Wu2kFDjbYZh6DIMsiXbUFYVlMSl0EZhX9zR9
+	 pt9vj251Uun3yrwg3ciScd2H07UKg/Qe/I/U4gj12Sxk7EcfzNLHYADzrA+bAHALnWg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792770085;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=p4hh99SKEORXQeLjZQntEfDdHiIu0Ik3OVZji7JvLGY=;
+	b=Yb+1Yq6dIgZ3KsT1xoHf72GHAOM55KMVEtUXwqHLIpIlSesVkPjRLbmkfsyC85sceSJp
+	 5sHHFNvwerFaKyTLn5Wk1iObBTtgsP0JNEBSV8fNh6OIMMU6jIaSghpzKfAUMJ/CCl2du
+	 hmdl/ta4CTaZyqcsFqgz0EJZMC9uERiGHJ0etn+A3sN3uPiq4bJQ3BRRP67laruGeEjw9
+	 Dk3OxesJP44/O6Lvjyxp6Lh0qVTfeM1cfY7kEdprir9DG5cXZGpe0+iluEvlIDVfiQXhx
+	 UQdyCxaBp9TW09eLTDdlUfsCDgxGuc9eZhBWAdQdZ8ubdpbcVdz+cOlHHanF7y8zhFg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=atomlin.com;
+	spf=pass smtp.mailfrom=atomlin.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.196.116
+Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020116.outbound.protection.outlook.com [52.101.196.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4499F606A31B
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 15:40:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4499F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DAJ9Z8yE
-Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-4a6bb779d13so553625fac.1
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 08:40:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792770057; x=1793374857; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=o1wKXpk8uaU69f7z5em398pZg3Sc//6UJ87r/eL+V6g=;
-        b=DAJ9Z8yEtaq0BPZ6unE64Trh3XDNZCSYilPyb3X4iAKNyWcJRRd4jOi0kTpAbdiJf8
-         rM2C4u5iS1IUBNC62tP98vNNvakBq6qpiXXTKaHygQGJnQID9feSq4MQr4KCrZPYRd07
-         4ck8s6H3X8SyoulVTL2hzltRMX0S03aA+H78SfP4hKkVTQsc7+4DgovqJ32IPmQYiKAZ
-         U5Cgz8ovqSllQjjLTGBDCdpPNg2y6fYbsrff67RjK+dWI22hZhIGnFgrO8c/9W13PGzd
-         9KkXnejOWBcyX3dpGAK5Hxc/NMHP9kd6xQzAtlb5Ex83jNwOMjAnrjmSA+5qNeRTlK/u
-         Kd9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792770057; x=1793374857;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=o1wKXpk8uaU69f7z5em398pZg3Sc//6UJ87r/eL+V6g=;
-        b=LyyR7CoJhKZOAW0DUv5ya7uegRfefad/Yz0hl82AECNoU+hRLH3NZsASCzfG6nAYO2
-         la2Mq+HtCBmsjS7JVvdXcI/xgb1HNQthCyhlsflH5T63xZtNoZatyi3h/8LMVhBUDOTo
-         1evCdfX/0wevhiDaVA2eXD8WKn5aKEUoy6MP6RXtiIsAu3O86hVft2BVFCqBzyFHklbu
-         JLwbb/8mWwYu07ay1Igjw+0JOxXHtpCIGxiN3uFsRxNO+bORhdUHGCg7ABWIUFadqyei
-         SHrvsqFxPW2r4jx6tIiRm8978RE0XjA/1zCom8RqPKFpnzaEM74FA9LuMzBSDZGWyHRX
-         ljBw==
-X-Forwarded-Encrypted: i=1; AKwUvBz7KzVoFbyPJ0LoATYg3YlfHl1ii7lg518Y0l4fAnbo9w+7Ji0rF8lavABCFb/mqvOqSlHbwxw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKEArSxNCGzm5sTBXIt3f5MpUviuqAINrKPl1zsNHT42RuqT3xb
-	ju5oQ83ukVnrjGRjpKTyHY6B9M5Ypyf/qzLjQA9xkjFS5O0/9lJgg/ga
-X-Gm-Gg: AYBFou0C5UNaUaFxJhgPXSl6n0yV1CcvwI2QY1QDNzqUOmdXohCWHGFFe4WKMA9j8tb
-	UVnzmVk0RGDSiK0S7r9dHt+eGUDotpnfnOSTkMsWR7T2VqMJOxk6bzv+ljACdS0NVpU1YAL/uoa
-	Y4aWeug425blQJWUwzKMBMfKN2EKBhA4JJ+K3HtvpXD1jFam94JD6m+Nh60EWmpLv9mR7mz3ZQO
-	JIF/0XYm1tjmWQNwwN2erDQ7ZumUUe0nVBVPjZW8tTptZk+txXy0jdpq8WZBJ8HxIVETQ+nf/Cr
-	a2qSkrZLO8Fik77E24wHzMjGpygD3kkygYsnQCixQ57NfuPpy+nBFdBtdawKmY0j9OrCstlEtwI
-	38mxZUwr9ivFfmmzSYP6Jc0AmlXiMTROp9EeEpnqYhXULt/n39ZZ11Q1PCkhctswa9OWnIO2z7e
-	LlklejyRysyb6Ws9DYcgQb1lWTRo8RrJi2kQKWLSm+gpBOm7t6HaXnYoDIjakLEwP4Nr5tncfw3
-	Wr8v6pNWwIk6fSBPiR4GxbxApvkRIqEmrWBVdYZn9Qiq5AbvGA+A0lHkioE9JJGWOutLNMU8cM6
-	FcwuTzjn0NiMNGEMQEvTD/0t+8J58bPEfxP6jTZMllczerLiwt/HUHIEclghhtJhT+G3eamU+ce
-	IpKxqYuok7nYfE2cUHUpUyhZhfhDpVfJ0YpPAV6igsUJe4YOXIfU8umSVqo6l67WuxcplD4QAhr
-	E2szXR5Ft07SQLXEbKvFXCeVko
-X-Received: by 2002:a05:6870:252:b0:4a7:41a2:c208 with SMTP id 586e51a60fabf-4a821efc9e5mr1621601fac.8.1792770057105;
-        Fri, 23 Oct 2026 08:40:57 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a838287e9csm351794fac.7.2026.10.23.08.40.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 08:40:56 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 23 Oct 2026 09:40:50 -0600
-Subject: [PATCH v2] serial: 8250: calculate TX length before preparing DMA
- flow control
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9D660A2604;
+	Fri, 23 Oct 2026 15:41:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE9D660A2604
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DxZLYW8DAbEcCK3kAmWk5vrwFa/32hGGpmsi7kn9nvTf4e8sddXlgooX6PnC+x4p/UXPkJM87MQVUhTCCWas4NX2mseq6jQbsgGrl/hVoTtDLFdeVeHPEEjT/iom4CG70nVEfCC7oGcsHCPQHQWmsvw7uM7GpHORYnk50dpcinkkuPQDXP7Cxdi8FL88hKgB6K/tQVVBVHtrWWN23AxLOIQ2EFE0Kj5+nSZj8jTWTj8vzoOBlrxxPF7w3+av8MZVO+dkNT0sdzr+YUDWlHpSLtJVtZ+Quc0Z60ED8jE/1J1GGvr80SP/F3mlYB/jnqyGOt4z9CC2I2QHEmMGe3OgpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=p4hh99SKEORXQeLjZQntEfDdHiIu0Ik3OVZji7JvLGY=;
+ b=O4Pr76sOiZrtmVNUnvNCmjzUdiHP42dH8oqaNDlIxObSxhPJ/mCMrLYUlm/qrSMneCccLMlhodsSvVHuoSgNH+MGsXcerEGZkLE9o5NHq+CZoLP49od92HwiFVR33EPIJXegfAuVpe9BqGqqMWweMBfvUWWDCW5jHq4WiCQXXuY/9XZxUY+WQgGOjjj2flyUDfyqxW5LOh0QVrwTnS5o0vGrnmaYBbPLUljj/SCd2CttecSHW/HOxClf6yxhYgyFHY6EOzkppNtgnXc9PPsbAMyfdoI6hwMu87JC7XZGTPMzJx/WsJquHbYSD5TOjQ9sBJCVFwKu6LUhc70M6f5tsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by LO8P123MB8015.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:3d6::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Fri, 23 Oct
+ 2026 15:41:11 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%5]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
+ 15:41:10 +0000
+Date: Fri, 23 Oct 2026 11:41:06 -0400
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: axboe@kernel.dk
+Cc: axboe@kernel.dk, tom.leiming@gmail.com, hare@suse.de, dwagner@suse.de, 
+	tj@kernel.org, sean@ashe.io, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, marco.crivellari@suse.com, 
+	neelx@suse.com
+Subject: Re: [PATCH v4] blk-mq: dispatch kworker to housekeeping CPU when
+ hctx cpumask is empty
+Message-ID: <eavtifw74jn2uspz4ccis6c2gcntk6lnlv6sup5drgj5usq2ng@fha6al7bmyng>
+References: <20261022034737.47820-1-atomlin@atomlin.com>
+ <atoDZ85GTNGyaNPL@localhost.localdomain>
+ <w2wpzfonupkljzzcngpie7lkn23kjrr7om7okqtvyhrttxj7ra@dzvrunt3ovp4>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <w2wpzfonupkljzzcngpie7lkn23kjrr7om7okqtvyhrttxj7ra@dzvrunt3ovp4>
+X-ClientProxiedBy: BN0PR04CA0015.namprd04.prod.outlook.com
+ (2603:10b6:408:ee::20) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,73 +92,237 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-submit-serial-8250-dma-tx-length-v1-v2-1-c3106ef4d2df@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WO2w6CMAyGX4Xs2iprIgevfA/DxRiVzcAwWyUQw
- ru74ROYthd/D1//TQTyloK4ZZvwNNtgJxcFnjKhjXI9ge2iFphjIXNECJ92tAzpTA1Q4TWHblT
- ACwzkejYwS2ifBZZYVhJrJSLp7elpl+PLo/npiHmR5oROG60KBK1XTpvUYl4vscDRwmlsbODJr
- 4fLWSbMf4Zixqg0aV3VKq/rez8qO5z1NIpm3/cv81FP/gcBAAA=
-X-Change-ID: 20261022-submit-serial-8250-dma-tx-length-v1-bf627278129a
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Raul E Rangel <rrangel@chromium.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO8P123MB8015:EE_
+X-MS-Office365-Filtering-Correlation-Id: b3f26eaf-f8fe-40e6-c958-08df311c0fcf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|6133799003|18002099003|22082099003|3023799007|56012099006|4143699003|261022105027099003|261022075727099003|261021121427099003|10067099003|261021123027099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	FRVY9RBCwy2h3UX0b6rVgslf0KjXgx+o+C3oTvyPPri7WJert0jcsV7/7Xl1VoGNKhEPoLP50D0hXQd2efNaIDj0ON6OpRTLajq/8dtsGQvG2N0vNRNNqTu4E3/uSBmA7HxZ8mObsyKBOe9UIGukklDD4LZXrk/DJfUtzlArlFho2E1B5kDOPEuOQVEI0zpmhJdD0wrpf5OZmt/jDhuBVttx0psjkO/MpSMrpKaTpPsS+5cU36WkzM2hNolq+URJ8ImdnxkpH5fQyP/MKtxAxGiTddiSLosJn4eUHDsfkxvERq+5lhAt2sEA4HH5TunHqMKBDG1tfB7L2k3UlA4Ovv3/O95q+yK6E8GQ15ndZyeJxBqOeNdkxNRUiKefFY/rNXLHf43IFKYOy7VW1RZHt+J8oUFHNhieOrW1OUMxI53ZXP6zou+KyiOZ/5ANPyhWP/uwYc8jlaltDXcZ/WviThcBYyqvdCkMeN8DZ3uL2a1NxSm/10KLOuxF2n/VIvz1ZQ9RjUzd6WdcKDB3sPWDJLQkGaDt0MHIHK+KLPM/sktyczoDVpBRuF2kA7ORN/1HmCfl4AteKyBM2599UNoRbpRkTrCBqQWU11O7fg3TCLbBiL8XDsuN895YtVNqnn3p
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(6133799003)(18002099003)(22082099003)(3023799007)(56012099006)(4143699003)(261022105027099003)(261022075727099003)(261021121427099003)(10067099003)(261021123027099003)(261009223027099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cXRhWnNGcEdnZGpiVVQxdnJtQitzVkhzbkVEdXE3SEFVTVBOYUVBek9zWjVQ?=
+ =?utf-8?B?QkFMM3B5cnRmdS9jTU5OSnFuZTcxbUdTRXlUN1lGcko4emZPNUhLdXhtM2Z5?=
+ =?utf-8?B?aGVYSEpxV3JUckhQQVM2Ymtsa2VmUDFCWit0L0paTHlYRXNuenBJUFgyQmhi?=
+ =?utf-8?B?M2ErNkdEeVNCVjlUSlFrWjUvQit4S01mdFJUbFNBZ1ZTcE45QmhhU0NoNkQw?=
+ =?utf-8?B?Y1NGaWV2cGtUaGpGdk51NERSbzk3SDE0S1lzZVFaT29QVEJYalBaSks5VGow?=
+ =?utf-8?B?Qm9nU1BleEcxSnlyQ29tK0dpVXl1OWpsK0xDSVI1LzJ5eTEyWEk4azY0dFBF?=
+ =?utf-8?B?Yk56WFVLSkVqZmNkSjQydmZ3YkpqVkNjUG9WdDl6aXNHRXpsakloS1ZoN0tG?=
+ =?utf-8?B?QUpiLy84QkhxUTNkcHBNMUYvNGNOVWN1WE1Ja1NiTk9sUVY4YzhPYnd3TE9T?=
+ =?utf-8?B?UjhaalVFZjhCNWdER3E0dnA1UnI3UEZlQ2hPendZOUx1R0h1ak93dHdkZUFF?=
+ =?utf-8?B?eTB2eE9FWkJHVHY5VXdWSVpZMGlXR24rclNVY2Eyc09qZU1BN3gvbk1kaU1a?=
+ =?utf-8?B?L2x2M3J1ZHVydFdrRC9hb096eEVBMkNXN1huWHRHdE0zNk1qMWdBV1h3UnY5?=
+ =?utf-8?B?VmZVMnFSdFFyRmRTSEJzZVE2QS90Wkw2WGdCRGNVaHloVktNVldqTEd3WVAy?=
+ =?utf-8?B?cE5weVdCOE03YkYvaU84dWY5S1lwb2F2OTlnbmRTeTl1eFBBOVdyOU1GUTB3?=
+ =?utf-8?B?K2RXekxKdkN3S090TnlXazlscUhzNjk5NEFxbmZzOXZrSXMvbzllOW90dTdw?=
+ =?utf-8?B?bTU1S2F0VnMvbkFIMFg2V2drSldGMXBaZ3YrWTh1QWdva0RFNDVPWlhEY01t?=
+ =?utf-8?B?aDlNNXVHdDcvNXpSeWVpRWtnN3E2K1o2VVVYZkZaNm8rYWtjc0lMNS9lcGQx?=
+ =?utf-8?B?K0NNN3RsWGFIRGd4VHF5TVVLQlMzQy9QeWRnSC80dTVRS3pvaExQS05HSWd1?=
+ =?utf-8?B?bzV2ZFVuNFBuRndBNDh3RTdWeXh4TWRFakFtYURwYVlobmZZNU9lc0FNRm9S?=
+ =?utf-8?B?TmRhQXBzRTdHK0c0amhsR0M4cEtmZ2RUUlFQZ0ZPVlh2cXVoMDdNNkw0d0E3?=
+ =?utf-8?B?ejFDbXE4S3ZiYWxTclQwVkU4QzZwVDg0WXFsK2xjMmtsU2QwTzJTamxBYURZ?=
+ =?utf-8?B?b1hMNkw0MDhXbVlZd3hxK0Q3ODVDQXRIT3E0NmhkeTIzTXU5RUFreXRoMXF2?=
+ =?utf-8?B?ZE0yOUdJbkh0NTUvemlwZGVUQWltdU9GNzNJY0d3S214bEFLakk1cUF3OXlh?=
+ =?utf-8?B?VlpGeUh5bjZ4SzBta2dZdFZaWWFGM3ZuREp4R2JkeXp4OXI2engzY0wwMzhL?=
+ =?utf-8?B?OVFUNld4ZHJieGZQbmk0eU9XUVBIWTBrTDJXQ2VGdkp4K1NrTHhwcnZkNDlU?=
+ =?utf-8?B?RVVpaHgrbzZXbmxucFAvUFFrSjhrNkd0VlNWKzVyUXNmSlNmbVphWnpsaXVN?=
+ =?utf-8?B?M3RCL2xpMEhHTk1HZDVCbzdRVkJ2YVpFbitHV0lTOURQbm5IUjhTcFhwWWQ1?=
+ =?utf-8?B?emRaVURuVzdnYzdCcWE0V1d6bWZsd3p0b0piUGlsNUprbk15WnFGSEhpWkZQ?=
+ =?utf-8?B?dFYwMmpiYUwxL25sUCtyajExbU1TNzBGL0hsZklucHhCK3FLTmtzdjEwdUlP?=
+ =?utf-8?B?QmR1dXV1Rzlvb3o3RDIvK0tBdmhxWjVuSkJUMjA5ZVlIRVRuRUp5ZjFNLzdJ?=
+ =?utf-8?B?bU4yeW9YVVlMRlczK05UekUvS1JZY3lmUGpjWG1hK3FJMFNmM2FKVWE0RW5l?=
+ =?utf-8?B?cHE5R2FDVVlwSm1VUGlHSlkycUpUbGZHTXZmTVI2S1pqYzlIUy93citOdUdT?=
+ =?utf-8?B?M2ZOYVQ2OUxJS0VJN2FYaStWdC9oeXNZVW5wOTBhZVpoT3ZBRTRubm9YQlpB?=
+ =?utf-8?B?MDlrNDNOcTY1Y1E3ZzFMSy9ieER6K1MzNE80N3ZIT3ZYa2VqaDQ3Sk5EUnBu?=
+ =?utf-8?B?WjNTUkRnZW9lbnpMSGZrQ1FEUE9PaGFjWmdPU05meW1RM2dlMERyR0FZUGU5?=
+ =?utf-8?B?YjlkQXFWeUZPWlQrVk56ckMzUFBRVHJoVm50TTRsb1RGdDM3UXRaWkMxOTBl?=
+ =?utf-8?B?enJ4M1RrckRzUUM4SkhHL0Y4YlNVazJpcWJNV0NxOUhwZjVhaStOYk9oSTZC?=
+ =?utf-8?B?dWNqVjBndjI2cndwV0VMUmMzazdzWElxTHBYTFNjaTNkb1hiMW9WeSt5NnNE?=
+ =?utf-8?B?ek4vVUp0SXQzZHZoK3g5NUtVOWZJc0lmbkNxY0ppZHJMY3NmZDVwYzhzMnV6?=
+ =?utf-8?B?RDI4SHpkbjlxVWVRaEwxK1RsUnlvVm5pZ0xDbmZWMFVOcXNrcDd5QT09?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3f26eaf-f8fe-40e6-c958-08df311c0fcf
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 15:41:10.5628
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qayR7kCy1m2gIbl+M8FVpDquiV5f+S4/2PHzaF9J5Ws/6mrK+Qnr/FP+m5zOEcvLz7/11xgAu/bCGnUlTUgwMg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P123MB8015
 
-The Renesas RZ/N1 preparation hook programs the UART DMA block size from
-dma->tx_size. The generic TX path calls that hook before calculating the
-length of the new transfer, so it programs zero on the first transfer and
-the previous length on subsequent transfers.
+On Thu, Oct 22, 2026 at 09:20:59AM -0400, Aaron Tomlin wrote:
+> On Thu, Oct 22, 2026 at 02:36:55PM +0200, Frederic Weisbecker wrote:
+> > (Adding Marco)
+> > 
+> > Le Wed, Oct 21, 2026 at 11:47:37PM -0400, Aaron Tomlin a écrit :
+> > > Commit a46c27026da1 ("blk-mq: don't schedule block kworker on isolated
+> > > CPUs") excluded isolated CPUs from hctx->cpumask to prevent worker
+> > > threads from executing block work on isolated CPUs. When all CPUs mapped
+> > > to a hardware queue are isolated (i.e. blk_mq_hctx_empty_cpumask(hctx)
+> > > evaluates to true), blk_mq_hctx_next_cpu() returns WORK_CPU_UNBOUND with
+> > > the intention of offloading execution.
+> > > 
+> > > However, kblockd_workqueue is allocated as a per-CPU workqueue
+> > > (WQ_PERCPU). When WORK_CPU_UNBOUND is queued on a per-CPU workqueue, the
+> > > workqueue core resolves the target CPU via raw_smp_processor_id().
+> > > Consequently, if a task executing on an isolated CPU submits I/O and
+> > > triggers an asynchronous queue dispatch with zero delay (e.g. upon
+> > > hardware queue congestion, tag/resource exhaustion returning
+> > > BLK_STS_RESOURCE, or plugging), &hctx->run_work is queued directly onto
+> > > the local isolated CPU's worker pool. This causes the local per-CPU
+> > > high-priority kworker (e.g. "kworker/6:1H-kblockd") to be scheduled on
+> > > the isolated CPU. In real-time environments, an active SCHED_FIFO workload
+> > > will starve this SCHED_NORMAL worker, causing hardware dispatch to stall,
+> > > in addition to introducing unwanted latency jitter on nohz_full cores,
+> > > thereby defeating the original objective of commit a46c27026da1.
+> > > 
+> > > Introduce blk_mq_hctx_unbound_cpu() to select an online housekeeping CPU
+> > > from housekeeping_cpumask(HK_TYPE_DOMAIN) via
+> > > cpumask_any_and_distribute() when executing on an isolated CPU, and
+> > > otherwise fall back to WORK_CPU_UNBOUND. Use this helper across the
+> > > unbound fallback paths in blk_mq_hctx_next_cpu().
+> > > 
+> > > Additionally, for single-queue devices, gate the check behind the static
+> > > key housekeeping_overridden under CONFIG_CPU_ISOLATION to ensure that
+> > > common configurations without CPU isolation incur zero overhead on the
+> > > fast path.
+> > > 
+> > > This ensures that:
+> > >     1.  When executing on an isolated CPU, deferred queue work is
+> > >         cleanly offloaded to an online housekeeping CPU across single-queue
+> > >         devices, hardware queues with empty cpumasks, and offline CPU
+> > >         fallback paths.
+> > > 
+> > >     2.  The per-CPU high-priority kworker on the isolated CPU is not
+> > >         scheduled, avoiding priority inversion and latency jitter.
+> > > 
+> > >     3.  When executing on a non-isolated CPU, WORK_CPU_UNBOUND is
+> > >         preserved, maintaining optimal local execution with zero CPU
+> > >         bouncing while avoiding timer pinning hazards.
+> > > 
+> > >     4.  On systems without CPU isolation, single-queue devices maintain
+> > >         the zero-overhead fast path via a static key.
+> > > 
+> > > Fixes: a46c27026da1 ("blk-mq: don't schedule block kworker on isolated CPUs")
+> > > Cc: Ming Lei <ming.lei@redhat.com>
+> > > Cc: Jens Axboe <axboe@kernel.dk>
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+> > > ---
+> > > Changes since v3:
+> > > 
+> > >  - Create companion blktests test case (block/050) to reproduce this issue
+> > >    and verify the fix (Daniel Wagner)
+> > > 
+> > >  - Gate the single-queue (nr_hw_queues == 1) check behind the static key
+> > >    housekeeping_overridden under CONFIG_CPU_ISOLATION to ensure the
+> > >    common case without CPU isolation incurs zero overhead on the fast
+> > >    path (Jens Axboe)
+> > > 
+> > >  - Wrap the evaluation of cpu_is_isolated() inside guard(rcu)() in
+> > >    blk_mq_hctx_unbound_cpu() to prevent an RCU lockdep warning and ensure
+> > >    safe dereferencing of the housekeeping cpumask while concurrent cpuset
+> > >    updates occur
+> > > 
+> > >  - Disable preemption via guard(preempt)() around cpumask_any_and_distribute()
+> > >    to prevent a preemption warning under CONFIG_PREEMPT_RCU and avoid
+> > >    data races when accessing per-CPU distribution state
+> > > 
+> > >  - Link to v3: https://lore.kernel.org/all/20261016052203.489760-1-atomlin@atomlin.com/
+> > > 
+> > > Changes since v2:
+> > > 
+> > >  - Query housekeeping_cpumask(HK_TYPE_DOMAIN) instead of HK_TYPE_TIMER
+> > >    to align with cpu_is_isolated(), workqueue affinity rules, and cpuset
+> > >    isolated partitions
+> > > 
+> > >  - Query the housekeeping cpumask under guard(rcu)() to safely handle
+> > >    dynamic cpuset updates without lockdep warnings
+> > > 
+> > >  - Validate that cpumask_any_and_distribute() returns a valid cpu ID
+> > >    before returning, falling back cleanly to WORK_CPU_UNBOUND
+> > > 
+> > >  - Link to v2: https://lore.kernel.org/lkml/20261015020225.422107-1-atomlin@atomlin.com/
+> > > 
+> > > Changes since v1:
+> > > 
+> > >  - Introduce the blk_mq_hctx_unbound_cpu() helper to steer deferred work
+> > >    to an online housekeeping CPU only when executing on an isolated
+> > >    core, preserving WORK_CPU_UNBOUND and local cache locality for
+> > >    housekeeping cores
+> > > 
+> > >  - Apply blk_mq_hctx_unbound_cpu() across all unbound fallback paths in
+> > >    blk_mq_hctx_next_cpu(), comprehensively covering single-queue devices
+> > >    (nr_hw_queues == 1), empty hardware queue cpumasks, and the offline
+> > >    CPU fallback path.
+> > > 
+> > >  - Elaborate in the commit log on the triggers for asynchronous queue
+> > >    dispatch (e.g. tag exhaustion, BLK_STS_RESOURCE backpressure, and
+> > >    plugging) and the SCHED_FIFO worker starvation hazard on isolated
+> > >    cores
+> > > 
+> > >  - Link to v1: https://lore.kernel.org/lkml/20261012012905.267920-1-atomlin@atomlin.com/
+> > > ---
+> > >  block/blk-mq.c | 31 ++++++++++++++++++++++++++++---
+> > >  1 file changed, 28 insertions(+), 3 deletions(-)
+> > > 
+> > > diff --git a/block/blk-mq.c b/block/blk-mq.c
+> > > index 025a799f35b9..f8f862a0e525 100644
+> > > --- a/block/blk-mq.c
+> > > +++ b/block/blk-mq.c
+> > > @@ -2241,6 +2241,23 @@ static bool blk_mq_hctx_empty_cpumask(struct blk_mq_hw_ctx *hctx)
+> > >          return hctx->next_cpu >= nr_cpu_ids;
+> > >  }
+> > >  
+> > > +static inline int blk_mq_hctx_unbound_cpu(void)
+> > > +{
+> > > +	guard(rcu)();
+> > > +
+> > > +	if (cpu_is_isolated(raw_smp_processor_id())) {
+> > > +		int cpu;
+> > > +
+> > > +		guard(preempt)();
+> > > +		cpu = cpumask_any_and_distribute(housekeeping_cpumask(HK_TYPE_DOMAIN),
+> > > +						 cpu_online_mask);
+> > > +		if (cpu < nr_cpu_ids)
+> > > +			return cpu;
+> > > +	}
+> > > +
+> > > +	return WORK_CPU_UNBOUND;
+> > > +}
+> > 
+> > Just for future record, we are working on a WQ_PREFER_PERCPU workqueue flag that
+> > should automatically handle this sort of things. It's not ready for now so these
+> > hacks are still necessary but keep in mind this is a good candidare for future
+> > simplication.
+> > 
+> > Thanks.
+> > 
+> > -- 
+> > Frederic Weisbecker
+> > SUSE Labs
+> 
+> Hi Frederic,
+> 
+> Noted and thank you for sharing.
+> 
+> Sean and I observed this behaviour on a kernel with commit a46c27026da1
+> ("blk-mq: don't schedule block kworker on isolated CPUs") applied.
+> 
+> We will certainly keep WQ_PREFER_PERCPU in mind as a cleaner long-term
+> path.
 
-Calculate the scatterlist length before calling the preparation hook so
-the UART flow controller and DMA descriptor use the same transfer size.
+Hi Jens,
 
-Fixes: 1788cf6a91d9 ("tty: serial: switch from circ_buf to kfifo")
-Cc: stable@vger.kernel.org
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
-Changes in v2:
-- Correct the Fixes tag to the kfifo conversion, as pointed out by
-  Miquel Raynal.
-- Add Cc: stable@vger.kernel.org.
-- Link to v1: https://patch.msgid.link/20261022-submit-serial-8250-dma-tx-length-v1-v1-1-18cecc89a099@gmail.com
----
- drivers/tty/serial/8250/8250_dma.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Would this patch be suitable for inclusion while we await the introduction
+of WQ_PREFER_PERCPU?
 
-diff --git a/drivers/tty/serial/8250/8250_dma.c b/drivers/tty/serial/8250/8250_dma.c
-index 1da605cc8601..2dc47adafec0 100644
---- a/drivers/tty/serial/8250/8250_dma.c
-+++ b/drivers/tty/serial/8250/8250_dma.c
-@@ -110,8 +110,6 @@ int serial8250_tx_dma(struct uart_8250_port *p)
- 		return 0;
- 	}
- 
--	serial8250_do_prepare_tx_dma(p);
--
- 	sg_init_table(sgl, ARRAY_SIZE(sgl));
- 
- 	ret = kfifo_dma_out_prepare_mapped(&tport->xmit_fifo, sgl, ARRAY_SIZE(sgl),
-@@ -122,6 +120,8 @@ int serial8250_tx_dma(struct uart_8250_port *p)
- 	for_each_sg(sgl, sg, ret, i)
- 		dma->tx_size += sg_dma_len(sg);
- 
-+	serial8250_do_prepare_tx_dma(p);
-+
- 	desc = dmaengine_prep_slave_sg(dma->txchan, sgl, ret,
- 				       DMA_MEM_TO_DEV,
- 				       DMA_PREP_INTERRUPT | DMA_CTRL_ACK);
-
----
-base-commit: 1184f87e2790e8af9be3116f608d2e86b4792d7d
-change-id: 20261022-submit-serial-8250-dma-tx-length-v1-bf627278129a
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
-
+Kind regards,
+-- 
+Aaron Tomlin
