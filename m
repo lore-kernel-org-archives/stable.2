@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792773787;
-	b=QpAo8Txeg+3RrqpHjak5dU9kXdfKbtZAELND33tj6WkMpllyeYmY0gcHOdQM4ZyY8GAf
-	 bzxv3ZbehlnMGsa2zXQla0divXm5AQTwmiedS9sxLCa2HBXOcgrlnf04dJ81CVWWsbJa+
-	 XzTY2JKxGy9Y971toI6PM93AuGlCQJK48hpGNc03JcdSLaxLlK5NbPG3GIdK9v4I3C3vu
-	 hgla6FCRfYTQMMVAdQm7HpuwUDD9gF3M6XsgID7AZnc+gWFSqeKm1ccMWUw9v9hzrqxG9
-	 eSKWvI5B0FrFpZ/3OjW4tPiMle/WjkIMgEURr/OOsuH8A5dO64JyAzYc3WhGFCrRz8g==
+	t=1792773790;
+	b=ancImosRpaHt/ZP591qDojK7rCm/i+zGrr0DKQTIIPTXgIf5Owjr1cuRvnyP3dn5usHi
+	 U+xC/jT3qHhzbxE3R6OoKAzJAiLYisHwn82ob8pe05DGrglDfSVLw3LVDZwiCT3eHgaKD
+	 AwrVupOKr8NnRwiXCVKTUzD8+ngf10zc7zdHMY4S0SPHjoFLkSPHm+sBNUW8nuIAf61z6
+	 HG13S+5eUzBygpEbeWO1sqQFZc8ooNxFJFsBOArba/4bSgeXSLP9bK9A8Bpc75UZUO9n3
+	 7aGf5ZwLyakT12yfDjFRM1l6c9nl7VVzwBWGD9beT79sN9NmlsNR9vzoo3uB2JDf8kQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792773787;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792773790;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=KJbfy8TOLrO0OvX/C1vhQsuI9pgfrOHi4RqOSWgcGd0=;
-	b=ZzJAyZUuua4EXvdCIOVjLAf/nmPWaZI4ETj/qTVrI94D8jL9gpIMoEMVmot/K73J4XsS
-	 +t3EW1SxtNk3Hxzgpi75jDUMuW4yzBhITwHa2A6s2hqYpB7/gr7hqanFJAPJjZYyt4rEp
-	 tXKSawyyandrhf1ESZXpZ8/UHSJ7nOekpwnn1siUqyJ65y1vzvYg8aYiChpiiR9/1mH6D
-	 ZH7Fmi4vO5Z93TZ1DZHH94ouqUd+ILNRLor5/a/E+BjuNQtDJUmgECbL7K/rX15ygH8oA
-	 5eYQK43jzvqPClx+CZKfZ8dHqAgn2cD6ZkpbyxMZBElwHe9TwIl7U0NPzKQpmFYFIOQ==
+	bh=m/QEnO4EVXuuxXKqqPVjIHfWUBd7BfVBlBDbIb+0tyQ=;
+	b=iWVYjjGNT+tvVH2wRR79clThhO9R0NxuHsRSs628wEZkI1OrNYOBySEqvwYne/6NBKdt
+	 6PRSee8XsCTVnc9nJJq6rIobWYkLvESR7+tHKb2e1qSZab/u24QeIKusp875tejRThD5I
+	 v286ZRabi6KEirTBkXogyfYKccGxyyixoC3xchiC7JN4cK1DjeoTPPbvWGblVTdOmEjWL
+	 8obhCO2WC386WX7+PT5BSxauliv89u1AzwXR+xfuu3TC3+05PyOGYwcJKQ5gBVOksogU4
+	 r2omXsMgEPYHNAHrGm2kkHJjAfhIz2T3QYvjwMsw3P/9un0yrML4uIipx0qBKJl7eXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zpjpO5qC;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TDroHmg6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 543EC606A31B;
-	Fri, 23 Oct 2026 16:43:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11814606A31A;
+	Fri, 23 Oct 2026 16:43:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zpjpO5qC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B1FE1F01825;
-	Fri, 23 Oct 2026 16:43:06 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TDroHmg6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FF591F01825;
+	Fri, 23 Oct 2026 16:43:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792773787;
-	bh=KJbfy8TOLrO0OvX/C1vhQsuI9pgfrOHi4RqOSWgcGd0=;
+	s=korg; t=1792773789;
+	bh=m/QEnO4EVXuuxXKqqPVjIHfWUBd7BfVBlBDbIb+0tyQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=zpjpO5qCeuJB2OOTZXKdzGIa2DaImEy39HJwCCTa8N7XPHPZkl7fHN+hLfH4W5nre
-	 fa4onuU1olQVwXm00STsd8ccNTi4AlgJizBFt85af3bCpYur2CJkBrwd2b2lv0d74U
-	 5cpzX5+XEa8G8Jyro69i6BlCNwaMTMFAL62175gI=
+	b=TDroHmg6UcaxTp/UXCvLIw7j2o91iIl41aAzu/KVoh24vjQhxbY4KIxEh+QgObUQG
+	 EfbzBHa424vp8u1or4SCd0TkoRTIX38XTbStfFGrYIA+paKGia9BRLB2yrvwmbz24y
+	 2v+1rh920jzn7oXrNCIBWPyB2WPcPR1vsiE9VgaQ=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Federico Parola <fparola@amazon.de>,
+	Jinhui Guo <guojinhui.liam@bytedance.com>,
+	Thierry Reding <treding@nvidia.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 008/193] kho: free phys_bits bitmaps using free_page() in __kho_abort()
-Date: Fri, 23 Oct 2026 18:34:45 +0200
-Message-ID: <20261023163714.401900600@linuxfoundation.org>
+Subject: [PATCH 6.18 009/193] soc/tegra: fuse: Add missing newline to APBMISC error message
+Date: Fri, 23 Oct 2026 18:34:46 +0200
+Message-ID: <20261023163714.424840449@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261023163714.201276352@linuxfoundation.org>
 References: <20261023163714.201276352@linuxfoundation.org>
@@ -67,48 +68,38 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Federico Parola <fparola@amazon.de>
+From: Jinhui Guo <guojinhui.liam@bytedance.com>
 
-Commit fa759cd75bce ("kho: allocate metadata directly from the buddy
-allocator") switched the allocation of preserved memory bitmaps to
-get_zeroed_page(), but __kho_abort() still releases them with kfree().
-kfree() on a buddy page that is not a large kmalloc allocation hits the
-WARN_ON_ONCE() in free_large_kmalloc() and returns without freeing it,
-so every aborted finalization leaks all bitmap pages.
+[ Upstream commit 2f4a0fb66d313f03832f061bc3ec25b33c8198c9 ]
 
-Free the bitmaps with free_page() instead.
+The error message printed by tegra_acpi_init_apbmisc() when failing to
+get APBMISC memory resources is missing a trailing newline. This can
+cause the message to be merged with the following kernel log line, making
+the log harder to read.
 
-This is a stable-only patch. Upstream fixed it as a side effect of
-commit 99cd2ffac697 ("kho: don't unpreserve memory during abort"), which
-removes the tracking teardown from __kho_abort() altogether. That change
-builds on commit 36f8f7ef7fd2 ("kho: add interfaces to unpreserve
-folios, page ranges, and vmalloc") and commit 70f9133096c8 ("kho: drop
-notifiers"). In 6.18.y, KHO users still preserve memory from the
-KEXEC_KHO_FINALIZE notifier and have no interface to unpreserve it, so
-the teardown on abort is the only way their preservations get dropped.
-Backporting that commit would make preservations outlive every abort,
-so keep the teardown and fix only the mismatched free.
+Add the missing newline to keep the error output properly formatted.
 
-Fixes: fa759cd75bce ("kho: allocate metadata directly from the buddy allocator")
-Signed-off-by: Federico Parola <fparola@amazon.de>
+Fixes: 7b0c505eb341 ("soc/tegra: fuse: Add tegra_acpi_init_apbmisc()")
+Signed-off-by: Jinhui Guo <guojinhui.liam@bytedance.com>
+Signed-off-by: Thierry Reding <treding@nvidia.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/kexec_handover.c | 2 +-
+ drivers/soc/tegra/fuse/tegra-apbmisc.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/kexec_handover.c b/kernel/kexec_handover.c
-index 9fe5d14f1ec54..9691f6bc2fba7 100644
---- a/kernel/kexec_handover.c
-+++ b/kernel/kexec_handover.c
-@@ -1054,7 +1054,7 @@ static int __kho_abort(void)
- 		unsigned long phys;
+diff --git a/drivers/soc/tegra/fuse/tegra-apbmisc.c b/drivers/soc/tegra/fuse/tegra-apbmisc.c
+index 0ce94fdc536fb..1c25b36c2f3cd 100644
+--- a/drivers/soc/tegra/fuse/tegra-apbmisc.c
++++ b/drivers/soc/tegra/fuse/tegra-apbmisc.c
+@@ -278,7 +278,7 @@ void tegra_acpi_init_apbmisc(void)
  
- 		xa_for_each(&physxa->phys_bits, phys, bits)
--			kfree(bits);
-+			free_page((unsigned long)bits);
+ 	ret = acpi_dev_get_memory_resources(adev, &resource_list);
+ 	if (ret < 0) {
+-		pr_err("failed to get APBMISC memory resources");
++		pr_err("failed to get APBMISC memory resources\n");
+ 		goto out_put_acpi_dev;
+ 	}
  
- 		xa_destroy(&physxa->phys_bits);
- 		kfree(physxa);
 -- 
 2.53.0
 
