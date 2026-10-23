@@ -1,60 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792785310;
-	b=oECQVaa0Zkct6fxv0voeYsvv0R2uJ04zKbFDCQdg5pAkV94lOGnIXzkg4KNX4vV2v1Eg
-	 Ve4r43h1EjJfs+nM6uXdxRNClcDvbtn5q/NjjvSgYu5uLv+IAoOEzrW464WLv+9BqFhoD
-	 PlvMuFU8phDoh/fZTFuGXq0EpAtAEskhfO9SU4oQSJGeQfxMTdGtVKsgz+Wupzkzy9C9+
-	 L7hRcNHqYDbkkWIZ5KXST0tkPaKolLBzkncvcxq+H87OBQiv8qX3vn9JVB31uBM+ucRyF
-	 WnsCdtw5fN9vUiGMkGBtQLPZZUPv6/eR1fM8n5KQtrmzg/GEYZlDnKzWfgz4QE98Qdw==
+	t=1792785317;
+	b=YPCeRnm4kDg4sOG0Yj9ZiTDzuq8ULD9+C3va0TZsTfCRzkEfzsyZPNyk0A7+gJqidMsP
+	 wqq9j1Svnpkb2N5fZp8tjvF63P4P4EWTJ04hmfBZ7OkzJStCsbuYRAcDvb2+Tvdbpjir0
+	 B4JrF/YzcNVqz1uH1XSc9qtNeSsgvJg0newRltWFaGheH/IIh4PXy+cTmyhEt6qK52WhU
+	 Wpr/CH00PwTBKMbfZsM5eU0uzOgFX1mPakmSoGDCIOlsCvlx5GlFu2hVXl0kzgZjX0wip
+	 t9fxSdmTPrKG2RiTK18/vybbjPUpNrOIkTxDhfjpm4VtdXIvZ5tf8g9dCGnnU01efmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792785310;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792785317;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 In-Reply-To:References:Auto-Submitted:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
 	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	b=1L1/mahKtRoRcmNgi4aGIWMdd9Mb0jQVD3EjXzQfav1J2ZWtgbFRrHF07oVSvVYcfFU1
-	 qiE5suc9kFhElH5qhUi2ut9Zihi52CHyh7CUqPo2P6kAHc52KM/8RiRkvdEkWeRKiDvG/
-	 MJzsCj+HCDdWJHKCpMUgo0ms6Tw8qvpzoVrzJlw/vaN9QiJ4k7SVpFt5mn9Csz9Tp+HF4
-	 WbYKTzydIMq/pX/UsfsYl/Yn2gI8QuB5/xqL8BCBM8X0vN3rRJu26hIZwduWXQHhyWy3c
-	 z+IcQANuHGo9E5POgMjzJ+bVofiTZ2sKNV1pEm8JFy/yk7TjbMy6tRBiojy62jtYSDw==
+	b=W1euj5esfQUV6arn2+bQwZZriodpXfjqOazuxReMofhlApLVP4hKkpPHHYzjVS1taEin
+	 caBB7O1ltN3vCC6RKNuaJiq9lMghFZI82w6Z1F4G4tIYqP+WCQCVt2yo+pe/8whSFgXEv
+	 KqQ+NVoCABFTt45wP6S1Vgn2lkOSbIPltDUBDi99mk5OOMHkO/prSZAb+JezvO1gg87l5
+	 HWFQlomAbh32G6hx+ltnxkiHudqogc5B7D3ra5XwW/EqPobeKZdUmPjlt1u8BqOFNlOzZ
+	 +WM2wp2EzSu13po39TK2qqZ8h0NF7IPoAij7EoRQC47xxFYSCYLEty5w1gKdOWhrTtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NC52wE2K;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gpq1ObWT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E2060A3803;
-	Fri, 23 Oct 2026 19:55:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE9960A2621;
+	Fri, 23 Oct 2026 19:55:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NC52wE2K
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29E8E1F031E5;
-	Fri, 23 Oct 2026 19:55:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gpq1ObWT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C23FD1F031E2;
+	Fri, 23 Oct 2026 19:55:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792785309;
+	s=k20260515; t=1792785317;
 	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NC52wE2KMfWLaOAcV+cS8hmbbEsfAgyuQop22zsFH7iMa3h/444qLIzj3MRF43Nmr
-	 2DdTl5OEupGVN0HNmXP7E5+eAsnAhSjUg7lX9zKvHe8dOg7FHj4jWHUtnXWA7iGBot
-	 zSBhqHvFJFmGZBoggfoc5OPAiEFbeJ+vHaoPebH+DBlZ1BOeeWczzmgPSvkeXt/C1p
-	 OKLxx7kP0KDoWZtZ+XEHEeh9D+LTwAaT+LN6HGYgSFb1ys2Vki8Nq9tRObxhKoiOlv
-	 JwS8V01vtb/239JDxRzGcnmgUFvhr/PB+7t46nAlyuFuuARjBNSQMJatQrjTcWc/yF
-	 /VYoljf/lxWAg==
+	b=Gpq1ObWTktKZuuubqFVfVfiniNjgPAIjekKyny9Yi0OF+xSzdH2G3+MuW74A4YJMn
+	 /VRqUI8PkKy/PRWaNFjBAK/XUwcVD56neAkovao4AAtQ6rhsxoaQChsDNRYsrQjgtl
+	 SQmAeSWfX2OOmXdvgZsZy+cxqYbNEU160qB+6GA8GpH2T+2DNxx0PUg7sUQwxXLLUp
+	 SIFzPzo1BUImPk3unihU7xuckmonLH57Ycq8ekMR3No3/PdZ/jcLZoyem3owEDniys
+	 sLx7lmhny7X0QswkvkNdaOZj6dTCh0/NuOX0Ukd2qblAprBTW6DpiV3uU2Db2/fMF7
+	 6JAt5PANvmArg==
 From: netdev-bot+sinfo@kernel.org
 To: Tristan Madani <tristmd@gmail.com>
-Cc: Steffen Klassert <steffen.klassert@secunet.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+Cc: David Heidelberg <david@ixit.cz>, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ "John W . Linville" <linville@tuxdriver.com>,
+ Samuel Ortiz <sameo@linux.intel.com>, oe-linux-nfc@lists.linux.dev,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
  Tristan Madani <tristan@talencesecurity.com>
 Subject: 
- Re: [PATCH ipsec] xfrm: fix output state cache TOCTOU in xfrm_state_find()
-Date: Fri, 23 Oct 2026 19:55:08 +0000
-Message-ID: <179278530870.3327.6992676893660130130@kernel.org>
-In-Reply-To: <20261023195323.3528192-1-tristmd@gmail.com>
-References: <20261023195323.3528192-1-tristmd@gmail.com>
+ Re: [PATCH net] nfc: llcp: use timer_shutdown_sync to prevent timer rearm
+Date: Fri, 23 Oct 2026 19:55:16 +0000
+Message-ID: <179278531637.3327.11947058101101849130@kernel.org>
+In-Reply-To: <20261023195409.3532540-1-tristmd@gmail.com>
+References: <20261023195409.3532540-1-tristmd@gmail.com>
 Auto-Submitted: auto-generated
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
