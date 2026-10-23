@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792733192;
-	b=WFF7QGkZJtvHYnswppZgjxUDkRnfxoSjCEGWoUyiL2XhnLxzPDu5qzwTuOpAoj0H5XsT
-	 jzgj70tNeuL5sCldNL4Y3yc8nCYnqFuFc3UYtBlQIY4Nu2W2h/xogo/uwdChHutI5PKAu
-	 t3pbA4+Us1ztNC2sijgppt/wu49/0wA+779YW0K5seArqNVIe+sfIyawu1uPA1Rmbtkws
-	 kqMG6mCb/5b68zTgtSjk+PjtNYXH+lQVaKB6uRvJ73sLs/eK9RB+T3eQzT/XRlPj8hb4s
-	 +1cf3X9Ge4qyohrFoBtlcKX/1wd3ZlTCW6Yz/tWYFkdVjhKtjtELztyK0LVQ5mP3F8A==
+	t=1792733195;
+	b=bP4naDrq63lJPAo1jUJwtrCyuHKhkHmhEMQLOPcmNwayRYbYRqcPwG/aDh6udk1z0QO3
+	 DkJ+3ZUQFGgfFSyz53f1+EE9EzcAK8oym0NXHBg23aKK8ULb95txsyvyp+QsdItYPjWOZ
+	 wzbFIUcVhSfP470jwTQQkQ20OS6NGE4JlCQXU73OhdipB9n3uwy+SGeWqUpbDeRRyNMOc
+	 pSbK2M5v4rzUa54s5TNmxM6w6xEBNELFDrN75dYCRlNtMX7SobtF7JZro6WsHBCBvcOfy
+	 r7iJrFzjirJz1h/1w9Hm9+bLNurMkHaM6NpbvQGJ+yt+v7VWf/7WvMPSFX5G/6X64GQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792733192;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792733195;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=DYRpzX03doBjGv7jHtksL3nee5Jdp9ptv1S4kZpfi8A=;
-	b=yQ4hKB2L3/cpNRWbK3eXfswiAiHdMhR36dysJtyoc2MIOWeASEGqhJ4xmHzP7h/PgNtC
-	 fgjidHcTkgXp8IbCxqun+Dd+JROWWuWmq4czyNKtIbsjqaN4dlrsz6cjLvNRsTMF6oY0T
-	 R66KYAJezcWu1Y07AvaDxbgCPZ3orC4GKFwUWEt4G7y1pLXXPGV8TF0yDcpDh/xWbTJRx
-	 xlPm2idyd7KvHT9BgFksY262YFFG41+YEfJh6UhJgUex+ZsF9Mp1jdE7R7MTNiz01e/YT
-	 lv7hRdhy2id4V5YFZ8o633BZ6DeY1Sf4Q0a5ndKkTQcN477gSK2FtM1QHnUO1NZUy5w==
+	bh=KzFYL3klIlj4MNWL8WRGDKXEZF/xciuhk4WNa1f3tW0=;
+	b=QDSgX9PMaCFZljFK1TSXSNrIzlDjMR36Gw++KniFXb2/A9/7moWQEea5/HFIz1l3cRAx
+	 vz7Q8uZBhHOD+XSxTCAzl8DZX7uZdp0spauixv34VuCZ3yqNPF6fDU0Hgye752pnp52aL
+	 au1bNBR61KtMRCuo4KYWMXwAGLrfKaIBYBfMyTlTOoEenyT2XcpwHx9TfgjaF2qag5yMH
+	 RaGohHEs9K7e2rAyLO3IzzlFSUAI7XwcnlSVOJgeUIPIo0yjTsGbILEgr0P60StUivKY9
+	 i/Tx6nm1lUnHO3B6Zd+EwDQmkrIpgEtefaKPh4HXeS6fHnGnIKHvHcjy0Xw7aMK+vLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mlkb73w1;
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DPjvn2iy;
+	arc=none smtp.remote-ip=209.85.216.51
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0DA6606A319
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 05:26:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0DA6606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 511A1606A31A
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 05:26:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 511A1606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mlkb73w1
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3a4cdc9025bso301036a91.0
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 22:26:31 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DPjvn2iy
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ac5b090d16so253941a91.0
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 22:26:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792733191; x=1793337991; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792733195; x=1793337995; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DYRpzX03doBjGv7jHtksL3nee5Jdp9ptv1S4kZpfi8A=;
-        b=mlkb73w1/MRE+o7wyXDGjmIywPB6+MogUPLqg859YAtoYmSBn6V5YeBhnPSiELCmVg
-         zD0tva58FWkzcAYsHjm9rXxwHgCegk4gaeNApi5E7uPbp6cFYc9B/w8tnQHpH769zZ0F
-         fBCWMh/XcNQGZcnNDu0w+3uXH94DGPiITDjy7cZLyjG1VBChdMjYtkWycU7Vv1OWX+dJ
-         JyPxevkM9WAmL9Hec73TZTfEZh87p8YAtxd0Z/6Ra2DojpOW4adbIk/DgyYtYAr19eE5
-         eAZrPES/nMTHA0t+qNvxe+RiKhGGs3xvz4N9hc3R0is/tUjgaLknBiSoyb9NoEnqf/oR
-         Subg==
+        bh=KzFYL3klIlj4MNWL8WRGDKXEZF/xciuhk4WNa1f3tW0=;
+        b=DPjvn2iyVa3XZ4L1pytqdB2xVt5b8e27SKhYb+A6yhsFkpNE8rzS/cXYr6rMMcO1vm
+         hkzdKZkJBdJtZoSNldV1+GGxApQCD5BrTVxDJRnR2TSAVrXOL966UDTqmp+c7aWE0M+a
+         P5/fqHxokgCh4Ba8+ckruOb7I1+++BSJKKUPL11orv+lMKXwU3nd50Bu7SfWW9TlBKSa
+         GCsr8OEkgYDjPPuukUv9cwtzmUmM7QRv4vLRvH0V/VO1Wxk+3rpci3wixaVjb9Q0IecM
+         7zspmjH3hISgRlpGODODXlQ2phCvddlJH9ChxxYGBR6Qa78fqNz3C8ktFy6JMp/aJ24a
+         1AlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792733191; x=1793337991;
+        d=1e100.net; s=20260707; t=1792733195; x=1793337995;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DYRpzX03doBjGv7jHtksL3nee5Jdp9ptv1S4kZpfi8A=;
-        b=aaMlaCNmafWdkAaHfoltt4ewDjKA4H1jycH2e9TTZWoynJV73DCpclNxNHg4up76hv
-         UqCNH5aVmYmayHyAdsojkovK4UE6T1WWtckMe9n6ETBpn1ezOj+lVCTDLtDRXNd5PjpJ
-         C9Y3XcOHipuUmR9kfoHSe/bQK/wZfF0N5seYd5kmvtukWNViQLgzh0od2MmqbyH5qHn/
-         uWZBzkRrwL3PsTka+xspbfoHtt0s2U2vzLYY1JBzZ5mAEYVW1k4cjNnMK1YIoJyXYS9Y
-         2q9kkq3N3Qo16//f5tmoaTgiH5e832QW9Yb+adilfrM59sTSaxReM0SadfYUEvaBClJ0
-         BlXA==
-X-Forwarded-Encrypted: i=1; AKwUvBxd9oOh8EIyscs66zaKk8B2Vp2PKgiL1daK1OdfzWpj+QmSOyx9lKy21sKfUAzDLn6fEhMJKwg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKa/1nepQgPSL03YblsJFAQdOGCijYtw0C41HHqapUjVe4PEvfx
-	EMPKMctqqmFtvK7NgXQjbeK2JcjLFQ/S6IOYk7FJNzBg80WM+8DSb72/
-X-Gm-Gg: AYBFou01XtJcj3MYOwL2W/V52tEyI4eWtkR3Qu+Gbywuzy0FOF91kLuq80n5p7Q/kML
-	tfdIPp1OX6c/VGKPrKU89ZJ5WLClnABCrA5jIcUROn674BtdWjtbmknnss+KEce8TPNiYvVIej7
-	YkJcNA15yi9A4gYbXCcV1r9uTWPIYUry5nDKD3NBYYEB8wHXL193hAV+Gn/U+smAqjP6CETIXD1
-	bHRrSRC3pqlTFOI1iQlylDgESYlYUCQ5mW650STp+PVoTk7CDvw8QZYPWzcIzLUiP1E7nz4E6ql
-	Mpkp90kf01SX6Y7P5G4dPPylaWuBQI+38/42TMlyBJa35/7R/LVQ48Flar6l0sFSCBv2cAPtYd4
-	0mmRZ36Z8D3+lfj0w23xeCnBC4+qD5XQSVtSHbAU3RMjgHC6lnGWrLgHjMc9hIu/pZerQaWgmoB
-	io2tv8xjPIIWYES45SdvItuKwRKZr5t1FhpTyO8AA/VrqapZN2MPm1gD1R4vFY+fQ/d805IdgDX
-	GISYfjjyZdlvKy7XSE2bu5C6jDHfEsJXnKTRJZbbhh5illwmhLxsTE4xcW36m30MrfhY7s2FlJI
-	yA==
-X-Received: by 2002:a17:90b:35cb:b0:3ac:7874:639e with SMTP id 98e67ed59e1d1-3adce45ef04mr868308a91.46.1792733190475;
-        Thu, 22 Oct 2026 22:26:30 -0700 (PDT)
+        bh=KzFYL3klIlj4MNWL8WRGDKXEZF/xciuhk4WNa1f3tW0=;
+        b=OG1ZNMRqfPsU8ex2L53EIp8cv1xnUjoCnkhTGIY/j5SAH8GbPQwKErgdz6fXTm7Dc5
+         eqBUgUZXmZj36vMYtMbimanLcu2kYQOwzMEWsJBHrQ9zQKPp4JivB1M1hxkXDRxeP0l2
+         ab/vuYJrPBIYFHuMO7GvX3QIjFMmyzd3PKyw2zKmmx+cGRozMUKd2O5QlxOKXuPoHDpJ
+         JgCKsKHorMgb6wCAUwkAvYeFEY7WrlEBQq4Oq7xUnv34T24o0JejEbTnqJHyVcChitW1
+         9rFlzLAtje1RNPCwgJ0rnq3rMuP82J4Yqm8lb0if0bXtxNFHV4D3dykRVjDHssuFEgqK
+         E9GQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxcKxKT3UH+VBLxHKHaw9hzIUO4QT6Cywg1Ude8nPBN0UPv9ujk1U10ClkKllpy0IhrJ2FGOzY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjTVzEMtnGd/LkKCbkOqXM7a/mNcL3b7NAryrKh0pam5yqisb4
+	b5JgqbaHPt13OpvRH17/U0GLAVTH6dYKco1guvIED1ReZwoag2gJVuKEYFt63g==
+X-Gm-Gg: AYBFou3e48zgDnKRT8aqyCuEJskIVUyUMSz74F+tOuKa5ilwqEbVupNUCm59hNTgJCK
+	2CuMGE1j5AXJs5iCFzAJRrwbZpEr5VyjjhXZZTyXuO6bb+MWdQddPEhI6M2X4L4i/3kHCMvceJ2
+	ZWjGP6C84BToh6lDhEHcnod9OzaT508ykGLbHv3ZN7wbw84vtQTl8FslvhYjbSR/jFD5RAJviZr
+	c0FIy8mt09T2UPH9U4Okn5yZApcyYGzjukDAIPTOHEJLhQKD3waR8ESG+zGtygH0dzcJNzuFfVS
+	HgscwdQh2odx47GrbbOBcNf4+rVf6cU1xbWxddRKyBy2HP5wI32+3KMzbNeR/fX1e6dYX1vx2yD
+	hdbdqY93FLydKHR4VqAsGSg3JFqnV+9BknteVcQxaG1FwzESuQc3Z/+ACOTWWe3BUYrWBbDjfz1
+	s0x7OZybdbXyon/5h3+iBMFB1gRUa1dSf6oPxRNYN7+CnR75mIuBqDZQw17ig5PbMjeoa87gFua
+	yWEpKjzLuutxAAvb5th6wtJJbc/epZAZkHUfKsbk7I1+StY1gnYyYeGk36H9DGvvHbjgdFRLQD6
+	gA==
+X-Received: by 2002:a17:90b:1c83:b0:3ab:330d:6e47 with SMTP id 98e67ed59e1d1-3adce600214mr622360a91.10.1792733194643;
+        Thu, 22 Oct 2026 22:26:34 -0700 (PDT)
 Received: from v4bel.. ([58.123.110.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada4890c56sm7379785a91.2.2026.10.22.22.26.26
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada4890c56sm7379785a91.2.2026.10.22.22.26.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 22:26:29 -0700 (PDT)
+        Thu, 22 Oct 2026 22:26:33 -0700 (PDT)
 From: Hyunwoo Kim <imv4bel@gmail.com>
 To: edumazet@kernel.org,
 	ncardwell@google.com,
@@ -94,9 +94,9 @@ Cc: Hyunwoo Kim <imv4bel@gmail.com>,
 	jiayuan.chen@linux.dev,
 	netdev@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH net v2 1/2] inet: reject unhashed sockets during established lookups
-Date: Fri, 23 Oct 2026 14:24:35 +0900
-Message-ID: <20261023052542.3505250-2-imv4bel@gmail.com>
+Subject: [PATCH net v2 2/2] inet: restore refcount ordering for established lookups
+Date: Fri, 23 Oct 2026 14:24:36 +0900
+Message-ID: <20261023052542.3505250-3-imv4bel@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261023052542.3505250-1-imv4bel@gmail.com>
 References: <20261023052542.3505250-1-imv4bel@gmail.com>
@@ -111,182 +111,144 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-TCP established ehash lookups are lockless. The socket caches involved
-use SLAB_TYPESAFE_BY_RCU, so memory can be reused before an RCU reader
-that retained its old address has finished.
+When commit 3ab5aee7fe84 ("net: Convert TCP & DCCP hash tables to use
+RCU / hlist_nulls") was written, atomic_inc_not_zero() provided full
+memory ordering. Even after commit 41c6d650f653 ("net: convert
+sock.sk_refcnt from atomic_t to refcount_t"), default builds used
+atomic_add_unless() and retained that ordering.
 
-After a tuple match, __inet_lookup_established() and
-__inet6_lookup_established() acquire a reference and repeat the tuple
-check. They do not check whether the new object is hashed. If the
-address is reused for a socket with the same tuple, the lookup can
-acquire a reference to the new object and return it while its nulls node
-is unhashed.
+Commit fb041bb7c0a9 ("locking/refcount: Consolidate implementations
+of refcount_t") consolidated the refcount_t implementations in v5.5.
+On weakly ordered architectures, this removed the ordering required
+by validation after a successful reference acquisition.
 
-A PoC that drives reuse with a SYN cookie request socket reproduced the
-crash. The new request socket is unhashed and has a NULL rsk_listener.
-A lookup that had loaded the address of the old request socket acquired
-the reference published by tcp_get_cookie_sock() and returned the new
-object. tcp_v4_rcv() then read sk_state through the NULL listener.
+Use refcount_inc_not_zero_acquire() in the IPv4 and IPv6 established
+lookups. Use refcount_set_release() when setting initial refcounts in
+sk_clone(), SYN cookie, and request migration paths. In the TCP Fast
+Open path, move the refcount update after the required initialization
+and use release ordering.
 
-The resulting crash was:
+The TIME_WAIT path already has an smp_wmb() between refcount_set() and
+hash publication, so leave it unchanged.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000012
-  #PF: supervisor read access in kernel mode
-  #PF: error_code(0x0000) - not-present page
-  ...
-  Oops: Oops: 0000 [#1] SMP NOPTI
-  CPU: 4 UID: 0 PID: 0 Comm: swapper/4 Not tainted 7.3.0-00591-g0e135910deec #1 PREEMPT(lazy)
-  ...
-  RIP: 0010:tcp_v4_rcv+0x44e/0x1280
-  ...
-  R10: 0000000000000001 R11: 00000000024ca8c0 R12: 0000000000000000
-  ...
-  CR2: 0000000000000012 CR3: 0000000103d50004 CR4: 0000000000770ef0
-  ...
-  Call Trace:
-   <IRQ>
-   ? raw_local_deliver+0xae/0x240
-   ip_protocol_deliver_rcu+0x2d/0x180
-   ip_local_deliver_finish+0x84/0x100
-   ip_sublist_rcv_finish+0x5f/0x70
-   ip_sublist_rcv+0x12a/0x1d0
-   ip_list_rcv+0xfd/0x130
-   __netif_receive_skb_list_core+0x223/0x250
-   netif_receive_skb_list_internal+0x1d2/0x2c0
-   ? try_fill_recv+0x39/0x7b0
-   napi_complete_done+0x74/0x170
-   virtnet_poll+0x445/0x600
-   __napi_poll+0x27/0x1e0
-   net_rx_action+0x2fe/0x3b0
-   handle_softirqs+0xc2/0x2c0
-   __irq_exit_rcu+0x74/0xd0
-   common_interrupt+0x7f/0x90
-   </IRQ>
-  ...
-  Kernel panic - not syncing: Fatal exception in interrupt
-
-After taking a reference, check whether the nulls node is unhashed in
-both IPv4 and IPv6 established lookups. If it is unhashed or the tuple
-no longer matches, drop the reference and restart the lookup.
-
-Lookups racing with the TIME_WAIT hashdance, or with a request being
-replaced by its child, now restart and find the new socket instead of
-returning the old one.
-
-Request sockets that were never inserted into ehash can have a nonzero
-refcount, and a stale lookup can hold a transient reference. Therefore,
-when SYN cookie, Fast Open, and request migration paths fail after
-setting a nonzero refcount, release the references held by those paths
-with reqsk_put() instead of freeing the request directly.
-
-Fixes: 079096f103fa ("tcp/dccp: install syn_recv requests into ehash table")
+Fixes: fb041bb7c0a9 ("locking/refcount: Consolidate implementations of refcount_t")
 Cc: stable@vger.kernel.org
 Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
 ---
- net/ipv4/inet_connection_sock.c | 10 +++++++---
- net/ipv4/inet_hashtables.c      |  5 +++--
- net/ipv4/syncookies.c           |  2 ++
- net/ipv4/tcp_input.c            |  4 +++-
- net/ipv6/inet6_hashtables.c     |  4 +++-
- 5 files changed, 18 insertions(+), 7 deletions(-)
+ net/core/sock.c                 | 3 +--
+ net/ipv4/inet_connection_sock.c | 6 +++---
+ net/ipv4/inet_hashtables.c      | 2 +-
+ net/ipv4/syncookies.c           | 2 +-
+ net/ipv4/tcp_fastopen.c         | 3 +--
+ net/ipv6/inet6_hashtables.c     | 2 +-
+ 6 files changed, 8 insertions(+), 10 deletions(-)
 
+diff --git a/net/core/sock.c b/net/core/sock.c
+index 3c25d66ba31a..f3ef9601ab73 100644
+--- a/net/core/sock.c
++++ b/net/core/sock.c
+@@ -2622,8 +2622,7 @@ struct sock *sk_clone(const struct sock *sk, const gfp_t priority,
+ 	/* Before updating sk_refcnt, we must commit prior changes to memory
+ 	 * (Documentation/RCU/rculist_nulls.rst for details)
+ 	 */
+-	smp_wmb();
+-	refcount_set(&newsk->sk_refcnt, 2);
++	refcount_set_release(&newsk->sk_refcnt, 2);
+ 
+ 	sk_set_socket(newsk, NULL);
+ 	sk_tx_queue_clear(newsk);
 diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-index 6a30f1138454..cff02f4c5ac8 100644
+index cff02f4c5ac8..2d8e54d3a31b 100644
 --- a/net/ipv4/inet_connection_sock.c
 +++ b/net/ipv4/inet_connection_sock.c
-@@ -1136,10 +1136,14 @@ static void reqsk_timer_handler(struct timer_list *t)
- 	 */
- 	if (nreq) {
- 		__NET_INC_STATS(net, LINUX_MIB_TCPMIGRATEREQFAILURE);
-+		/* The timer was not armed, drop its reference here. */
-+		reqsk_put(nreq);
- no_ownership:
- 		reqsk_migrate_reset(nreq);
- 		reqsk_queue_removed(queue, nreq);
--		__reqsk_free(nreq);
-+		/* Drop the ehash and temporary references. */
-+		reqsk_put(nreq);
-+		reqsk_put(nreq);
- 	}
+@@ -1056,8 +1056,8 @@ static void reqsk_timer_handler(struct timer_list *t)
+ 		 * hold another count to prevent use-after-free and
+ 		 * call reqsk_put() just before return.
+ 		 */
+-		refcount_set(&nreq->rsk_refcnt, 2 + 1);
+ 		timer_setup(&nreq->rsk_timer, reqsk_timer_handler, TIMER_PINNED);
++		refcount_set_release(&nreq->rsk_refcnt, 2 + 1);
+ 		reqsk_queue_migrated(&inet_csk(nsk)->icsk_accept_queue, req);
  
- drop:
-@@ -1447,7 +1451,7 @@ struct sock *inet_csk_complete_hashdance(struct sock *sk, struct sock *child,
+ 		req = nreq;
+@@ -1441,7 +1441,7 @@ struct sock *inet_csk_complete_hashdance(struct sock *sk, struct sock *child,
+ 				goto child_put;
+ 			}
  
- 			__NET_INC_STATS(sock_net(sk), LINUX_MIB_TCPMIGRATEREQFAILURE);
- 			reqsk_migrate_reset(nreq);
--			__reqsk_free(nreq);
-+			reqsk_put(nreq);
- 		} else if (inet_csk_reqsk_queue_add(sk, req, child)) {
- 			return child;
- 		}
-@@ -1502,7 +1506,7 @@ void inet_csk_listen_stop(struct sock *sk)
- 					__NET_INC_STATS(sock_net(nsk),
- 							LINUX_MIB_TCPMIGRATEREQFAILURE);
- 					reqsk_migrate_reset(nreq);
--					__reqsk_free(nreq);
-+					reqsk_put(nreq);
- 				}
- 				rcu_read_unlock();
+-			refcount_set(&nreq->rsk_refcnt, 1);
++			refcount_set_release(&nreq->rsk_refcnt, 1);
+ 			if (inet_csk_reqsk_queue_add(sk, nreq, child)) {
+ 				__NET_INC_STATS(sock_net(sk), LINUX_MIB_TCPMIGRATEREQSUCCESS);
+ 				reqsk_migrate_reset(req);
+@@ -1494,7 +1494,7 @@ void inet_csk_listen_stop(struct sock *sk)
+ 		if (nsk) {
+ 			nreq = inet_reqsk_clone(req, nsk);
+ 			if (nreq) {
+-				refcount_set(&nreq->rsk_refcnt, 1);
++				refcount_set_release(&nreq->rsk_refcnt, 1);
  
+ 				rcu_read_lock();
+ 				if (inet_csk_reqsk_queue_add(nsk, nreq, child)) {
 diff --git a/net/ipv4/inet_hashtables.c b/net/ipv4/inet_hashtables.c
-index ba0faa9ae2bb..58d54965036a 100644
+index 58d54965036a..7ffa9171d6de 100644
 --- a/net/ipv4/inet_hashtables.c
 +++ b/net/ipv4/inet_hashtables.c
-@@ -552,8 +552,9 @@ struct sock *__inet_lookup_established(const struct net *net,
+@@ -550,7 +550,7 @@ struct sock *__inet_lookup_established(const struct net *net,
+ 		if (sk->sk_hash != hash)
+ 			continue;
  		if (likely(inet_match(net, sk, acookie, ports, dif, sdif))) {
- 			if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
+-			if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
++			if (unlikely(!refcount_inc_not_zero_acquire(&sk->sk_refcnt)))
  				goto out;
--			if (unlikely(!inet_match(net, sk, acookie,
--						 ports, dif, sdif))) {
-+			if (unlikely(hlist_nulls_unhashed_lockless(&sk->sk_nulls_node) ||
-+				     !inet_match(net, sk, acookie, ports, dif,
-+						 sdif))) {
- 				sock_gen_put(sk);
- 				goto begin;
- 			}
+ 			if (unlikely(hlist_nulls_unhashed_lockless(&sk->sk_nulls_node) ||
+ 				     !inet_match(net, sk, acookie, ports, dif,
 diff --git a/net/ipv4/syncookies.c b/net/ipv4/syncookies.c
-index 73e129768184..644030561537 100644
+index 644030561537..4b2d2713653b 100644
 --- a/net/ipv4/syncookies.c
 +++ b/net/ipv4/syncookies.c
-@@ -218,6 +218,8 @@ struct sock *tcp_get_cookie_sock(struct sock *sk, struct sk_buff *skb,
+@@ -205,7 +205,7 @@ struct sock *tcp_get_cookie_sock(struct sock *sk, struct sk_buff *skb,
+ 	child = icsk->icsk_af_ops->syn_recv_sock(sk, skb, req, dst,
+ 						 NULL, &own_req, NULL);
+ 	if (child) {
+-		refcount_set(&req->rsk_refcnt, 1);
++		refcount_set_release(&req->rsk_refcnt, 1);
+ 		sock_rps_save_rxhash(child, skb);
  
- 		bh_unlock_sock(child);
- 		sock_put(child);
-+		reqsk_put(req);
-+		return NULL;
- 	}
- 	__reqsk_free(req);
+ 		if (rsk_drop_req(req)) {
+diff --git a/net/ipv4/tcp_fastopen.c b/net/ipv4/tcp_fastopen.c
+index 471c78be5513..2506f415f410 100644
+--- a/net/ipv4/tcp_fastopen.c
++++ b/net/ipv4/tcp_fastopen.c
+@@ -364,8 +364,6 @@ static struct sock *tcp_fastopen_create_child(struct sock *sk,
+ 	tcp_reset_xmit_timer(child, ICSK_TIME_RETRANS,
+ 			     req->timeout, false);
  
-diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
-index 99baf14afdfd..3583867487d7 100644
---- a/net/ipv4/tcp_input.c
-+++ b/net/ipv4/tcp_input.c
-@@ -7777,7 +7777,9 @@ int tcp_conn_request(struct request_sock_ops *rsk_ops,
- 		if (!inet_csk_reqsk_queue_add(sk, req, fastopen_sk)) {
- 			bh_unlock_sock(fastopen_sk);
- 			sock_put(fastopen_sk);
--			goto drop_and_free;
-+			/* tcp_disconnect() already dropped one reqsk ref. */
-+			reqsk_put(req);
-+			goto drop;
- 		}
- 		READ_ONCE(sk->sk_data_ready)(sk);
- 		bh_unlock_sock(fastopen_sk);
+-	refcount_set(&req->rsk_refcnt, 2);
+-
+ 	sk_mark_napi_id_set(child, skb);
+ 
+ 	/* Now finish processing the fastopen child socket. */
+@@ -378,6 +376,7 @@ static struct sock *tcp_fastopen_create_child(struct sock *sk,
+ 	tcp_rsk(req)->rcv_nxt = tp->rcv_nxt;
+ 	tp->rcv_wup = tp->rcv_nxt;
+ 	tp->rcv_mwnd_seq = tp->rcv_wup + tp->rcv_wnd;
++	refcount_set_release(&req->rsk_refcnt, 2);
+ 	/* tcp_conn_request() is sending the SYNACK,
+ 	 * and queues the child into listener accept queue.
+ 	 */
 diff --git a/net/ipv6/inet6_hashtables.c b/net/ipv6/inet6_hashtables.c
-index b111b51d69fc..aa5fa1dd062f 100644
+index aa5fa1dd062f..1eea584d80df 100644
 --- a/net/ipv6/inet6_hashtables.c
 +++ b/net/ipv6/inet6_hashtables.c
-@@ -108,7 +108,9 @@ struct sock *__inet6_lookup_established(const struct net *net,
- 		if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
+@@ -105,7 +105,7 @@ struct sock *__inet6_lookup_established(const struct net *net,
+ 			continue;
+ 		if (!inet6_match(net, sk, saddr, daddr, ports, dif, sdif))
+ 			continue;
+-		if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
++		if (unlikely(!refcount_inc_not_zero_acquire(&sk->sk_refcnt)))
  			goto out;
  
--		if (unlikely(!inet6_match(net, sk, saddr, daddr, ports, dif, sdif))) {
-+		if (unlikely(hlist_nulls_unhashed_lockless(&sk->sk_nulls_node) ||
-+			     !inet6_match(net, sk, saddr, daddr, ports, dif,
-+					  sdif))) {
- 			sock_gen_put(sk);
- 			goto begin;
- 		}
+ 		if (unlikely(hlist_nulls_unhashed_lockless(&sk->sk_nulls_node) ||
 -- 
 2.43.0
 
