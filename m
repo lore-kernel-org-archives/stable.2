@@ -1,58 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792741601;
-	b=nMThCxM9PgrZ2vpTReXSFyFL/wtaP5R7AKHBMTgbhM9YsoYtJZXOGCx5NNJmFSqlQMLo
-	 LLpZ2lf/v9BlH4dOQiVXwTZqn45w5Hlo8LqwC/LT18Y7rgzNm9whz+QA+6hWI0qUjJACV
-	 YCy8yhyHcODEXKUj0Uu38caxBO0uprNwDM3Sm+/x7VBTE+l+dOMKJ1t+LaIkFv7RJe38g
-	 uOhnIOehC0XrazX/qIfYULWaUPK0LiG3l2QhQ9iFXzGC2t/kcBoMINP9Lanle8V71JWrm
-	 lMTsTt1+gSBfXQUvghghHmffZrZ6JCU14TJKZWxFaG829eL4/C5y/PF28iIELSyuOrg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792741601;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=KuBrMsz2C5u6FWjzgp8V8uFD+UU12dr0+LzGx7V9auU=;
-	b=YLQ29HfY7OSu/eAh07xaHbcxXntkZqkyNuDmWvdM0aXAz2+5nAh4XWdwYsljiyDmjxnD
-	 wiSxWUy3dm9ljGTsYT7jbtZtGUPJFzdHqWFYisaqpBcOGBqnL+dBbqG84FzrPvD4AqeU1
-	 7OjwRrUTUJlVqP5NFvwobrlCT94rAvwE38auTbMXE2Pj0hQ9sJjAPpTU1T91LKR1F4Uxo
-	 XMK6S3DRTDxl8i6FUlwB1z+qhtADQMzeL5+BnmmyoQZn7Cp/psBjIpfs2d6k/MCB9HCn7
-	 vXOw5Kmspn15EUiKwIq8z+ollP6vWVN5RA5XejoMsExwoQ1nb4KqmVQr88QcwqYPwmQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=VyaYNaDe;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792741655;
+	b=pTVTQiigtwvncJ/f8dpS9fokdpGuQ48JHvVKzfCvK3mDTOc8mgXXNuWW90BVV1op0L6R
+	 AU/qknYRAg07Vbk0GtaateA40kjeA9M4gYiABHMlGaeYdgMyYwfQ6c+QaUk7aTjSs8qIp
+	 dzx3pdr4aY7qgRL8/J1VDvFkA/bQavWK6a3/xehp/M9tAlpViSAYzxk6oDdw3BaD3kxBn
+	 0vRHXqUCYA3sMHkHhzRCjqhbiT3FQUoiw+m6YGVlXUEqaQeHQRgFAzLitVYGz5mqDnZrO
+	 aUECMWCSaXCz9ezMv8EdaTC+oDeBqLbq5xkrQyo7ve3NBZMYdZag6yb2iRSLZuSibEQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792741655;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=9yH6lCZJs4jQqhq5RKT/kA7z15frEt+8pQmmPZcgKoI=;
+	b=oosfMljevutVkG90gfPQARwWl3zyEpFxPaDw/hcX+t58LsY+n76MUyajmY+B7gKYnF62
+	 A519LgJ3cEPITicNvaUFOwYIePKPSNH/Jo4N/rciOYKz8xTfeVLOlKJCdxusOzThG0nou
+	 u9mKS0aBbpV8xoPisivcshpUCuo6VRYZPZCG0fgcc0m713WPb0Dy/bx6/jkfMlxP0eHT/
+	 8PDOMBw+VPa44fovU1lzmmUCW7aNbO3cQLPdymFTW5gjMWD0yD9kM1uuVqPQgyi63WrC9
+	 844uSDVD6UGVz9xLxuo5AzdiGLlmJMIb0mja1ip5SvwLF2IX1SRZ7UCw/9xiRVKT4gQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="MHb/qz0f";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84EDB606A31A;
+	Fri, 23 Oct 2026 07:47:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MHb/qz0f
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792741655;
+	b=POK1lHC9ktNwu9VX9PaWJH1xjXmT9N42u5XhE2DqUSGw5/t4C6bnunnleTCk3/v7qCMu
+	 F0ebKjw7V5bJza1M/CbIB8VQryOKzXpRzNXkjPPguZ8gH88tmy6Vy+RcBnjRBlyo18CB/
+	 1/HrEQj2aFLyF+/ekr47v+r+j+9pxP6fqSUai7kyPo4Dm1dKpdYmEzI1QD0AXapWUMr/b
+	 n389jLVlH5HqjLxtr8uwtrxPYZ1z8+lR2/jIXABWlfoJ093oLbK9sZLQRRqDhDrrTAcAR
+	 HmfxLmZBISfKj7W5KrgG3WR08XymCBRQnO/Vst9jjIme+A6WovV5jnjLho6t8IcXoxw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792741655;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=9yH6lCZJs4jQqhq5RKT/kA7z15frEt+8pQmmPZcgKoI=;
+	b=GMQfhp9I4vd5myvuK3oBdZ3b4+e+YNm7J8Vks+bmMS9PH099BLvTP3ZPGn/AasV1gCd2
+	 xaOzwHeAVrFDz1kJdBIoOzqgeKdCOkGRFB7Ao3D3pqRAMcjvIABGS/hMTA+zygmLd10f3
+	 2uOQW66ngmF31K9ZRBH6lRNGM2PfJftLOa1uUxb8j+iBFJ0T68kZLOVUkgjb8QRq5HhKb
+	 2z53IN1mckbicV8qgneuTchjy9AaHVn+tWvvua7jcrlYdp8M7KstrF+kRRpcKDQEvy691
+	 P718UWSF65cD6IaFht/v8x+/03dL48PkLaOybdSmYMCfziNNIn/h/583y1rJyEYdz3g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE48F606A31A;
-	Fri, 23 Oct 2026 07:46:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE48F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=VyaYNaDe
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Ku
-	BrMsz2C5u6FWjzgp8V8uFD+UU12dr0+LzGx7V9auU=; b=VyaYNaDeXX6Jf6MV7v
-	c095IK0Dt0ugwrE0ub/C7S+M/SFhDHi3piUDhuSKMOnXutVKKMaZE5bB6oGq0InN
-	OGCitE+zbQWw/oVrdARMWkr79qHFmgfiSjSCrWJ0+/tqI9WRaz4pD/SysKALvdGn
-	q4NQOcW5jorpGllg+Qafpa0Rg=
-Received: from dinm5CG319492G._sites.dc._msdcs.ad007.siemens.net (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3v4jOENtqsIqrBw--.50066S2;
-	Fri, 23 Oct 2026 15:46:22 +0800 (CST)
-From: door_110@163.com
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-input@vger.kernel.org,
-	kairen@siemens.com
-Cc: linux-kernel@vger.kernel.org,
-	Kyle Manna <kyle.manna@fuel7.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] Input: tca8418_keypad - fix debounce disable register configuration
-Date: Fri, 23 Oct 2026 15:44:17 +0800
-Message-Id: <20261023074417.3078016-1-door_110@163.com>
-X-Mailer: git-send-email 2.39.5
+	by smtp.kernel.org (Postfix) with ESMTPS id AF79D1F01829;
+	Fri, 23 Oct 2026 07:47:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792741655;
+	bh=9yH6lCZJs4jQqhq5RKT/kA7z15frEt+8pQmmPZcgKoI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=MHb/qz0fhwHON31otPKHTAfRFUgNCQ2OS0hDPjaISsN+XrDatxPI4Q2MBDlR9V5g2
+	 vw4zSiAkPqm2mukeKNMmq2JdJhwn0LGbMx6wlV3MwGVXorbUs0H+1sAEKO7VqJCIuV
+	 xGd/DX+nMbYUTqD9H2U+fRG3HJKnBtDhOwX1KN7gtnfdZ4npHfzZm0/a6serbBo8mP
+	 5XiL+Tg4Q1berTNx9OAXE1Wv0sAvv+UGn9m/p7TJnkRoysuWDKFT0zVVP/tb4tVdoR
+	 O7SrQBBkuXjT/Zo0rkIwGWDSa5VbBL2oNvhaE49tW31fah4ulzUNmXXve7T6soige+
+	 /dYgek7bahQ2g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 19DAA443FE;
+	Fri, 23 Oct 2026 07:47:34 +0000 (UTC)
+From: Daan De Meyer via B4 Relay <devnull+daan.amutable.com@kernel.org>
+Date: Fri, 23 Oct 2026 09:47:20 +0200
+Subject: [PATCH v4 1/2] loop: drop stale partitions on LOOP_CHANGE_FD
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,84 +82,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3v4jOENtqsIqrBw--.50066S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAF45Zr4UXF43Xr18GFW5Awb_yoW5Wr1kpF
-	y3Jw4Dtwsrtw1DtrsI9F18u34xX397G34ayFyjg347Xr4Uu34jva17KrWfu3WUG3y0vw43
-	trs8GFWY9rn0qr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jYpB-UUUUU=
-X-CM-SenderInfo: xgrr2sqrrqqiywtou0bp/xtbC7g7IG2rbEM5rbQAA3a
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261023-b4-loop-nbd-stale-partitions-v4-1-2baf05e4b2cb@amutable.com>
+References: <20261023-b4-loop-nbd-stale-partitions-v4-0-2baf05e4b2cb@amutable.com>
+In-Reply-To: <20261023-b4-loop-nbd-stale-partitions-v4-0-2baf05e4b2cb@amutable.com>
+To: Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>, 
+ Josef Bacik <josef@toxicpanda.com>, 
+ Daan De Meyer <daan.j.demeyer@gmail.com>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ nbd@other.debian.org, Christoph Hellwig <hch@infradead.org>, 
+ Bart Van Assche <bvanassche@acm.org>, 
+ Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>, 
+ Daan De Meyer <daan@amutable.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792741645; l=2855;
+ i=daan@amutable.com; s=20260712; h=from:subject:message-id;
+ bh=puuj6cW8tTVT3rlBQ4+twjIwX6td3ITnz1udGWzqXoE=;
+ b=Tnjirr+n77MEjWAVk8pBYLU9GIMayh2l3zrluh5TKVI0jg86QutdronlkxiSz0EGQUKpm2Lhj
+ NxLBZEsVX1lB1FuuL7jMNu3uk0R5+t1d3dWhyWkPVrpzzYGXkDYWJxV
+X-Developer-Key: i=daan@amutable.com; a=ed25519;
+ pk=I1l+WwrtmzRgofA5SQ1wTuJi18fjh91w+f5uRkFeZEA=
+X-Endpoint-Received: by B4 Relay for daan@amutable.com/20260712 with
+ auth_id=868
+X-Original-From: Daan De Meyer <daan@amutable.com>
+Reply-To: daan@amutable.com
+Content-Transfer-Encoding: 7bit
 
-From: RenKai <kairen@siemens.com>
+From: Daan De Meyer <daan@amutable.com>
 
-The DEBOUNCE_DIS1..3 registers use active-high disable bits:
-writing 0 enables input debounce, while writing 1 disables it.
-The driver currently writes the active row and column masks directly
-to these registers, disabling debounce on the configured pins.
+Commit 267ec4d7223a ("loop: fix partition scan race between udev and
+loop_reread_partitions()") stopped disk_force_media_change() from
+setting GD_NEED_PART_SCAN. That bit did more than request a rescan:
+bdev_disk_changed() drops every partition before it consults
+disk_has_partscan(), so the lazy scan on the next open was also what
+removed partitions from a loop device without LO_FLAGS_PARTSCAN.
 
-Invert the masks so that configured pins have their debounce-disable
-bits cleared and unused pins have them set. Mask DEBOUNCE_DIS3 with
-0x03 to keep reserved bits [7:2] clear.
+Such devices are not unusual. bdev_add_partition() only rejects
+GENHD_FL_NO_PART disks, so BLKPG_ADD_PARTITION works while
+GD_SUPPRESS_PART_SCAN is set, and parted, libfdisk and systemd all fall
+back to BLKPG when BLKRRPART fails with -EINVAL, which is what a loop
+device without LO_FLAGS_PARTSCAN returns.
 
-Use unsigned row and column masks when constructing the keypad-mode
-configuration, avoiding the existing left shift of a negative value.
+loop_change_fd() only rescans when LO_FLAGS_PARTSCAN is set, so those
+partitions now survive the backing file swap and keep describing the old
+file. The new backing file must have the same size, but its partition
+table can be completely different, leaving the partition devices mapping
+the wrong ranges.
 
-Verified register readback on hardware with a 4x4 keypad:
-  DEBOUNCE_DIS1 (0x29): 0xf0
-  DEBOUNCE_DIS2 (0x2a): 0xf0
-  DEBOUNCE_DIS3 (0x2b): 0x03
+Call loop_reread_partitions() unconditionally. Without LO_FLAGS_PARTSCAN,
+blk_add_partitions() returns early, so this drops the stale partitions
+without scanning the new backing file.
 
-These values clear the debounce-disable bits for ROW0..3 and COL0..3
-and set them for the unused pins.
-
-Fixes: fb6c721b69d4 ("Input: tca8418_keypad - initial driver release")
+Fixes: 267ec4d7223a ("loop: fix partition scan race between udev and loop_reread_partitions()")
 Cc: stable@vger.kernel.org
-Signed-off-by: RenKai <kairen@siemens.com>
+Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Tested-by: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
+Signed-off-by: Daan De Meyer <daan@amutable.com>
 ---
- drivers/input/keyboard/tca8418_keypad.c | 22 +++++++++++++++-------
- 1 file changed, 15 insertions(+), 7 deletions(-)
+ drivers/block/loop.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/input/keyboard/tca8418_keypad.c b/drivers/input/keyboard/tca8418_keypad.c
-index 3bbd7e652533..92234df25397 100644
---- a/drivers/input/keyboard/tca8418_keypad.c
-+++ b/drivers/input/keyboard/tca8418_keypad.c
-@@ -234,21 +234,29 @@ static irqreturn_t tca8418_irq_handler(int irq, void *dev_id)
- static int tca8418_configure(struct tca8418_keypad *keypad_data,
- 			     u32 rows, u32 cols)
- {
--	int reg, error = 0;
-+	u32 row_mask, col_mask, reg;
-+	int error = 0;
+diff --git a/drivers/block/loop.c b/drivers/block/loop.c
+index 758c20678bf6..378163fdf957 100644
+--- a/drivers/block/loop.c
++++ b/drivers/block/loop.c
+@@ -552,7 +552,6 @@ static int loop_change_fd(struct loop_device *lo, struct block_device *bdev,
+ 	struct file *old_file;
+ 	unsigned int memflags;
+ 	int error;
+-	bool partscan;
+ 	bool is_loop;
  
- 	/* Assemble a mask for row and column registers */
--	reg  =  ~(~0 << rows);
--	reg += (~(~0 << cols)) << 8;
-+	row_mask = (1U << rows) - 1;
-+	col_mask = (1U << cols) - 1;
-+	reg = row_mask | (col_mask << 8);
+ 	if (!file)
+@@ -606,7 +605,6 @@ static int loop_change_fd(struct loop_device *lo, struct block_device *bdev,
+ 	loop_assign_backing_file(lo, file);
+ 	loop_update_dio(lo);
+ 	blk_mq_unfreeze_queue(lo->lo_queue, memflags);
+-	partscan = lo->lo_flags & LO_FLAGS_PARTSCAN;
+ 	loop_global_unlock(lo, is_loop);
  
- 	/* Set registers to keypad mode */
- 	error |= tca8418_write_byte(keypad_data, REG_KP_GPIO1, reg);
- 	error |= tca8418_write_byte(keypad_data, REG_KP_GPIO2, reg >> 8);
- 	error |= tca8418_write_byte(keypad_data, REG_KP_GPIO3, reg >> 16);
- 
--	/* Enable column debouncing */
--	error |= tca8418_write_byte(keypad_data, REG_DEBOUNCE_DIS1, reg);
--	error |= tca8418_write_byte(keypad_data, REG_DEBOUNCE_DIS2, reg >> 8);
--	error |= tca8418_write_byte(keypad_data, REG_DEBOUNCE_DIS3, reg >> 16);
+ 	/*
+@@ -624,8 +622,12 @@ static int loop_change_fd(struct loop_device *lo, struct block_device *bdev,
+ 	 */
+ 	fput(old_file);
+ 	dev_set_uevent_suppress(disk_to_dev(lo->lo_disk), 0);
+-	if (partscan)
+-		loop_reread_partitions(lo);
 +	/*
-+	 * Enable debounce on used rows and columns only.
-+	 * In DEBOUNCE_DIS registers: 0 = enabled, 1 = disabled.
++	 * Rescan or, without LO_FLAGS_PARTSCAN, just drop the partitions of
++	 * the old backing file. They can exist without LO_FLAGS_PARTSCAN as
++	 * they may have been added manually with BLKPG.
 +	 */
-+	error |= tca8418_write_byte(keypad_data, REG_DEBOUNCE_DIS1,
-+				    ~row_mask & 0xff);
-+	error |= tca8418_write_byte(keypad_data, REG_DEBOUNCE_DIS2,
-+				    ~col_mask & 0xff);
-+	error |= tca8418_write_byte(keypad_data, REG_DEBOUNCE_DIS3,
-+				    ~(col_mask >> 8) & 0x03);
++	loop_reread_partitions(lo);
  
- 	if (error)
- 		return error;
+ 	error = 0;
+ done:
+
 -- 
-2.39.5
+2.54.0
+
 
