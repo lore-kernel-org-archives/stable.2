@@ -1,70 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.38.247.119
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792763044;
-	b=oOdqJ1JsNk2GENcCqtuYloypL0sgXY5/XOwpss4/CVQjSfK49Pad3ZQITg+8QN8UwQCt
-	 Xm13HpgN/mH+It9LNWpbeEdHPqJWQOkR2vgZF0rDDrnSj6lg31NV5+MYYGejO1jZ3Usmu
-	 CIOjU1xZqpQRhX+EHg+Z6RD2CjBQHsy31jBQpuAuwhKzrAZBFb5Eip9UGXlb6W+CpOrFR
-	 So2R9TDNH0TZUx/lBKvw9WA5zpVJqgS2jXDirKn1/1joQ3I1hWcyBnoLVunGzKzq1Zap0
-	 TjZB4Lx2ZBFXMlTc0UYWqR+yYZfG6/qz9HJ5mHL5HTf5qvPegZ6mixsLjWyyAnJAhgg==
+	t=1792763273;
+	b=xn0gqSUck+FexibuOr2AYAP8UAwsN/1d9e3mjYkh4qOo/GltaCEjeg+oiI8wjbGgHFmu
+	 /dvwy4e0E/Wz6kTbDhrgIv7LRrbdoMQqvKf1O7Yf2rnAp9uFNzay5W8Z7WZmxsLm6ZFHc
+	 d4wlZ4AOz7LWIBXdmQgLKb65ChJwrVvjcNHN9x4zxIjuExRs5amcgvjdtBFTU5yJTf0J2
+	 xfn9Y42MjQh/InAHn3XgHC21XVYZIBGuHvv9m1CGPVkhA/JzeE2fJ2tQCPcoOUnKc+7gB
+	 ZtYfwwhKurFMSFvl4XlMSXAQWvsSDUqhDo7Te5FxUC+eiblRmWiuxS7XuqghNW/pbwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792763044;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:
-	 Cc:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-PPP-Message-ID:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-NC-CID;
-	bh=omIBejW03o1DNuS224xHckdfC4Tdy12qkWWdcAx+ZRA=;
-	b=NghStGe5PTU6CX/ZEAWxSV/RV1L0BsWPogGQWwU8PjaWtr2/DlMkvgcBY27iDxO+B2tf
-	 GnJIqmJF6ttKsrJ8X/33PElw4FwMAeaANh2Z618bIsKWdaqMm4aDakbu/sQnMklpPIEbF
-	 wsWQAaX9FJyg/aSwovCL1+WY2sqP6DTMjjUAW6GQjWdKSaihO2B8D/258GshAs/+WSIIQ
-	 KiTupRRBzSezu6+x/ly28NSO0Hg1Bw1tbODMbhKwnW3512GoqeKU4ZbjTdKjpnFx4mbkE
-	 kSCex6V+KbkIOpAOQwu8oXYmPEH10lVzN3rRB0Lw8KQnhK6U4YttojSdXO1UoJ859ZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792763273;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=b8PlXFeXPIMULatUGJPR39iwhYNo68iKGZKAUipKPAE=;
+	b=sjkOkZYrMt3DXRaKqvBiSnF6xXzcpdAV1NP4BCSe88dSCIkEUL9WbIQzIL8DodnVUPdR
+	 icf0Lxj/DUyboVItyEVkKimSEJXfKcGA/9VSmhikswiu3zbJ+7iUq3ueLa+PDJaXGEOkO
+	 xDtrpXDPayhX+i/7nqEzrFZheu/S7QAFXGQLGkY9SzotINnYB94aab/sUo5rks8PWJY3l
+	 zYZuBpiujBHlJ/84rVQHqhF/9Eih11W0/GHzPHzrnD3TExpK9GrB8l/8LLPGIx2Lo0nSn
+	 N5HGklUZKymnnKjrmeWlITNhXAGfo16799LBhhLV2JYR6t1A19Bz/tJ312rF5p3XJxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=leemhuis.info;
-	spf=pass smtp.mailfrom=leemhuis.info;
-	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=e9E8bhqJ;
-	arc=none smtp.remote-ip=46.38.247.119
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [46.38.247.119])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EyfrLfRl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9135E606A31D;
-	Fri, 23 Oct 2026 13:44:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9135E606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D66A606A31A;
+	Fri, 23 Oct 2026 13:47:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=e9E8bhqJ
-Received: from mors-relay-8404.netcup.net (localhost [127.0.0.1])
-	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4jB44C1mkmz8XSR;
-	Fri, 23 Oct 2026 15:43:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1792763035;
-	bh=aJnx2yywdJOJQF24mLcAVe2DM4zti1C12vQFMGaGn9I=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=e9E8bhqJu1VuJYY5NYn0RzJHYqHRfF79sCrlU2GeG1WXt0BTNWFKwZNtdn7Skj3aW
-	 Jqd3z0I465OGaWDYNfYarCjIkxD9pO9WMzZWD3oP0/uEl6tOkrPtMJLOgt2ZGab8Vz
-	 C7x1RRV9hXnOj+ceRk/9Fg8bhwOnl6WwvqWAA9ghgrbqBjRyyTsM8BBpCc9aQEx6AQ
-	 Y4+XpeD9wjQ/f/dOSHf1VNWnTdQCuPZk2Gv4cs1dSPUmT61yFQIf+bylZ5KElHlqvx
-	 GklPFb3Ktb09mPuteL06IngXnTlcwkOJD9h2S3Yl96x8y0NywAC3IRXen/9VLY51NR
-	 EWPspOWHTqjxA==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4jB44C14HMz50KZ;
-	Fri, 23 Oct 2026 15:43:55 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4jB44B3wR3z8sb7;
-	Fri, 23 Oct 2026 15:43:54 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 749E45F9FA;
-	Fri, 23 Oct 2026 15:43:49 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <8aa88f3e-2dd7-4bfe-a0f3-e5ecbbade84f@leemhuis.info>
-Date: Fri, 23 Oct 2026 15:43:43 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EyfrLfRl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82FB51F01825;
+	Fri, 23 Oct 2026 13:47:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792763273;
+	bh=b8PlXFeXPIMULatUGJPR39iwhYNo68iKGZKAUipKPAE=;
+	h=From:Subject:Date:To:Cc;
+	b=EyfrLfRl/6eXOF1vlZq5joi0UMItutPbnKgTKaw48KYGj5nVzLNp5o2T2UtIYV4wU
+	 VoxIzdynZyu54LaS06o75JX2ti/uMCzukL7vsGN0hNYQP5kpRxCXEDWoja5YiLp9BS
+	 /PMwA2eIvSQKrUDZBxfgwBZ33QoAfsGOOJ8nQ+eVCGxiHTZdGhqpfhgousYKZRYN5U
+	 oBOw72KcnWbfhICt+PctlhQpYrigpAoZtTbdOZjdQqvPEq+n7GnfhrkSTCmZJyFlNd
+	 qGrBLiDQtZzXd5KZlPizVXJJBqWVb0eBG/2ck2kTWG41KdoWa+TujokxAc92dJMqMF
+	 acTC4PfhottSg==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: [PATCH 0/4] mm: avoid losing atomic VMA flags
+Date: Fri, 23 Oct 2026 14:47:26 +0100
+Message-Id: <20261023-fix-vma-atomic-v1-0-8ff4fae1fc85@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,120 +53,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [regression 6.12.y] After backport of 980084de4d9b ("Bluetooth:
- btusb: Add ASUS USB-BT540 for Realtek 8761CU") bluethooth not anymore working
- on 0b05:1bef ASUSTek Computer, Inc. Bluetooth Controller (requests firmware)
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-To: Sasha Levin <sashal@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Marcel Holtmann <marcel@holtmann.org>,
- Salvatore Bonaccorso <carnil@debian.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Erik Brangs <erik.brangs@gmx.de>, benh@debian.org, stable@vger.kernel.org,
- regressions@lists.linux.dev, linux-bluetooth@vger.kernel.org,
- 1149377@bugs.debian.org, Christoph Zwerschke <cito@online.de>
-References: <179104011040.2214689.5921682013387867802@eldamar.lan>
- <2026-10-04-1-daily-reply-0007-bt540-asus-firmware@kernel.org>
- <24ce058a-28b5-4499-9ded-eec9544b80ec@leemhuis.info>
- <as0YtvgukA-Gp-D-@eldamar.lan>
- <3c931ea6-b325-4338-acdb-4f6eec9d204f@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <3c931ea6-b325-4338-acdb-4f6eec9d204f@leemhuis.info>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: 
- <179276303008.2712656.16619764390688834313@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: 749E45F9FA
-X-NC-CID: 807/fAhNKsBLJFRDt5Gz/wNt7qUMN9gCV3mu59yfQs7RpfFoo9Q=
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvxJ7bkH3INVXooPoVntQQyMC8e9Jx
+ 4GZqVA4CxdYhgqZHymSYgc9DuBOGw9G8Z2BFBmtiHCXF59g0d4piMPJzVrt3hhLE/ToytyNf7h
+ urX35R/AfYAAAAA==
+X-Change-ID: 20261022-fix-vma-atomic-8c910fd66a28
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Davidlohr Bueso <dave@stgolabs.net>, 
+ SJ Park <sj@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Colin Cross <ccross@google.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1655; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=EzgA8OpuDj/HPokV0+ioX4khGkGy32kgZSQsaHsUjdg=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJup7ZMnpOUIbnRwN6Ox/PBp08arqWV3rmP170vZgpqb
+ T8TUX2zo5SFQYyLQVZMkeX5F/H9QSJh8zov+LvBzGFlAhnCwMUpABP50cjI8PBXyvrFEzh9yt+v
+ eHfuRJpTQp6RaNWHUC63KbJM/ifvfmL4X2DkzJ7DFCK9+Ym1bO2lBkXV53pTLCZ+DNzmO903+cQ
+ HbgA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-On 10/13/26 11:03, Thorsten Leemhuis wrote:
-> On 10/12/26 19:28, Salvatore Bonaccorso wrote:
->> On Mon, Oct 12, 2026 at 02:00:18PM +0200, Thorsten Leemhuis wrote:
->>> On 10/4/26 18:29, Sasha Levin wrote:
->>>>> In Debian Erik Brangs reported that after the update from 6.12.107 to
->>>>> 6.12.111, specifically with the backport of 980084de4d9b ("Bluetooth:
->>>>> btusb: Add ASUS USB-BT540 for Realtek 8761CU") Bluetooth is not
->>>>> anymore working, the full report is found at
->>>>> https://bugs.debian.org/1149377 .
->>>>> | [   38.138881] Bluetooth: hci0: RTL: firmware file rtl_bt/rtl8761cu_fw not found
+Since commit 2ab7f1bbafc9 ("mm/madvise: allow guard page install/remove
+under VMA lock"), VMA_MAYBE_GUARD_BIT can be set atomically under the VMA
+read lock.
 
-This is still unresolved. Salvatore, Erik, and/or Christoph, could you
-confirm my analyses below -- and if it is ask the stable team for the
-reverts?
+However, a number of places wrongly assume the flags are stable under the
+read lock, which can cause stale atomic VMA flags to overwrite existing
+valid ones.
 
->>>> The stable code matches mainline. The failure is a missing firmware file:
->>>> rtl_bt/rtl8761cu_fw.bin has been in linux-firmware only since 20251111,
->>>> and Debian trixie's firmware-realtek 20250410-2 does not have it.
->>>>
->>>> Marcel, Luiz: could you, or Christoph Zwerschke as the author of the ID
->>>> commit, send an upstream revert, or a fallback to ROM firmware when
->>>> rtl8761cu_fw.bin is missing? Stable will take it for 7.2, 6.18 and 6.12
->>>> through the normal Cc: stable route once it is in mainline.
->>>
->>> Hmmm, that was a week (granted: with the LPC) ago and nothing happened.
->>> Anyone working on this?
->>>
->>> If not: Should we revert 980084de4d9b and its backports? Or only the
->>> backports to older stable series?
->>>
->>> Strictly speaking it should be the former due to our policies wrt to
->>> firmware -- but I guess most users of a more recent kernels also have a
->>> newer firmware, so I wonder if reverting the change might do more harm
->>> then good now.
->>
->> If my understanding is correct from a earlier fixed regression in the
->> ariea, aka
->> https://lore.kernel.org/regressions/0fd8c1c9-7f56-4bcb-a727-e4386d8ef094@online.de/
+Additionally, one case in which VMA_SOFTDIRTY_BIT was overwritten is also
+addressed.
 
-There Christoph asked "please revert them from every tree below 6.19" --
-but they afaics were only reverted for 6.6 and earlier.
+This series addresses each of these, while keeping the logic inline with
+existing conventions.
 
-"Them" meant the backports of these:
+Each patch in this series is a hotfix.
 
-* 980084de4d9b25 ("Bluetooth: btusb: Add ASUS USB-BT540 for Realtek
-8761CU") [v7.3-rc1]
-* 6f0624b4427e38 ("Bluetooth: btusb: Add ASUS USB-BT600 for Realtek
-8761CU") [v7.3-rc1]
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+David Hildenbrand (Arm) (2):
+      mm/vma: write lock source VMA before duplicating it in __split_vma()
+      mm/madvise: preserve VMA_SOFTDIRTY_BIT when changing anonymous names
 
-Maybe because 4a23ce935f74d1 ("Bluetooth: btrtl: Add the support for
-RTL8761CUV") was included in v6.18.53, v6.12.111. Which lead to the
-current situation with "firmware file rtl_bt/rtl8761cu_fw not found" in
-Debian.
+Lorenzo Stoakes (ARM) (2):
+      mm: do not unintentionally overwrite atomic VMA flags
+      mm/vma: avoid losing atomic VMA flags when setting sticky VMA flags
 
->> should then not only 980084de4d9b ("Bluetooth: btusb: Add ASUS
->> USB-BT540 for Realtek 8761CU") be reverted, but as well along
->> 6f0624b4427e ("Bluetooth: btusb: Add ASUS USB-BT600 for Realtek
->> 8761CU") and as well 4a23ce935f74 ("Bluetooth: btrtl: Add the support
->> for RTL8761CUV")?
->
-> Maybe, I didn't look closer,
+ include/linux/mm.h                | 166 +++++++++++++++++++-------------------
+ mm/madvise.c                      |  10 +--
+ mm/mlock.c                        |   6 +-
+ mm/mprotect.c                     |   2 +-
+ mm/vma.c                          |  57 +++++++------
+ mm/vma_init.c                     |   3 +
+ tools/testing/vma/include/dup.h   |  78 ++++++++++--------
+ tools/testing/vma/include/stubs.h |   2 +-
+ tools/testing/vma/shared.h        |  16 ++--
+ 9 files changed, 185 insertions(+), 155 deletions(-)
+---
+base-commit: 5f980b2d53abf3950caff5d77b5c69dc6ebb19b6
+change-id: 20261022-fix-vma-atomic-8c910fd66a28
 
-I did meanwhile and agree, the backports of these should be reverted
-from 6.18.y and 6.12.y:
-
-* 980084de4d9b25 ("Bluetooth: btusb: Add ASUS USB-BT540 for Realtek
-8761CU") [v7.3-rc1]
-* 6f0624b4427e38 ("Bluetooth: btusb: Add ASUS USB-BT600 for Realtek
-8761CU") [v7.3-rc1]
-* 4a23ce935f74d1 ("Bluetooth: btrtl: Add the support for RTL8761CUV")
-[v6.19-rc1]
-
-At least if the problem wasn't resolved meanwhile, but that wasn't the
-case afaics -- or did I miss it? Salvatore, Erik, or Christoph? Or was
-it meanwhile agree on to fix this differently, for example by including
-that file in a linux-firmware update maybe?
-Ciao, Thorsten
-
-
- but that's why reverting in mainline likely
-> really is a bad idea: it might cause a regression for users that depend
-> on those changes (one of which is from 6.19).
-> 
-> So I guess reverting some or all of those backports in "older stable
-> series", as Sasha suggested, might be the best -- but I guess it would
-> be good if someone with more knowledge in this area could provide an
-> opinion.
-
+Cheers,
+-- 
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
