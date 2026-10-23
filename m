@@ -1,91 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792779550;
-	b=Xch99KNT668dqRTds0vtY5jrprH1QbZaps/zDPf+8PzkrXx8GX+MVMIa7rYtMJZ8acJI
-	 evlyajUgMg9ipgdpj/oQPfVdlkeIL4xTzAfaTwuAVXbwZQoqzaW0j29QMIX8yjGCd2VSD
-	 NZ4zYLYsW3KWr0/YWhUMsYrEjT6g2FKENlZrUc39hYZR/ChSoM/LE7riiCZOWJumNDLdj
-	 OPGvQlaZtC2GrQBHYwl8v/VBPxsk9r398IdqFmmfC5/egv+08F2uqomEspaQP4woUd7ud
-	 7nyOsoCeC/a2DcDWCsnTO45sCsk1q34OYLISY1qIQFPeS/sQiLQavAf2Onr2l/7YjXA==
+	t=1792779600;
+	b=UxtRZqXoaxp3GRts+IiCH8SdQe0TaKNyamDHA2n8XYSQXUhKLWkSBh2ufxC5uMAena4Y
+	 b38R/uzLOEkkBhyz9t5UYp/WZs4E3w4Vdksdxm/7MALUuFiMCAr/5wuEeE8JkvDLAW2e7
+	 YxNXVEH1Okw86nbX0z0yG1zpfB4MGwYCd1U9ydJOjdmWELB2xthKHlqccu11Q0CY9ZGGV
+	 QZg9xa8dsPSiKllfhdhgweM9m8zHPRKNvpaOGtJ7YllW+T5OcQtw5H34i3geenDfaAPMW
+	 /YjTkFSX4TmoADaL73bAKaIiuCkwwXGCpAtI5m8BM50NvJlN98YZ1Nr21Kggp/7uagQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792779550;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=jTqLA83kbkT8YosbSMCS7zXjw/VlllCMxeIzfWZ/V6o=;
-	b=JpYEAE43i+QwdHS8zHgiV/FflU0JNiJSjfjNXGLCx2/h/e9EI9JUN2MJWSIcUAtaV4SL
-	 ZEMCbS65g6EFEVkfzL9u8GT4PYFJHY/BYG7N51Jdk8XKq2tr+eaYMCUUt8UqHC7kwJ2x7
-	 eOI7I9Q6gcc4tcnuh/7PNGkL8QMyEiVRgeQFr0iK8RjkSOv+barYrB3qn0Yo+7iTznacA
-	 SscF9pJm4fNdz8BbSKKgn6uDKiSeqerqJvGdrhaqEJA9h6xlw6YGKDoDL7q2BvV8voQtT
-	 Cxa2hW6ICrpATUx8Fktd/3xxlMV4YFkd+Bej9adw62WqubJKifZ7nr44nX2poh3zxmA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792779600;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=G2c9gMhC26zOajKSMEZ7r3qKmAbIN4QuJKbmwPZjihI=;
+	b=4TEgIFMKPmyMhYlttFMG4hSImO7k5eEjmyYVF8awaEgfEpKWEcFz8sUdFXEJs/TAdkyY
+	 hmXq0UVSkZjQ1ks9QGUlCFV2xkf0GVHZz1Vi7RlVlphRNuiTe9SBXykTfwIP9s+VHW6Mk
+	 2yEIt8wDU/y9Y603Mng35BOdq/yoNpUJPbfZjENJeDm4OmBS72f+kfKU0QjgWKkqdsfdK
+	 p5M4/ju1nBpKrk86VVeKgMIvGd81Fy6DxciZ2CpLTxJwQggNKV/bFHB/1TabYwBb/cx4+
+	 P7HOW/12AalmtUXfqvDMc1NzYxOtUFt6ngO0xahP2FCQENn7TvnTAirh4L1dNYTctOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rdrR6k0O;
-	arc=none smtp.remote-ip=209.85.222.175
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OWlPZqPU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBBB0606A31A
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 18:19:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBBB0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB2FE606A31D;
+	Fri, 23 Oct 2026 18:19:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rdrR6k0O
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93f20b304c0so104735885a.3
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 11:19:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792779549; x=1793384349; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jTqLA83kbkT8YosbSMCS7zXjw/VlllCMxeIzfWZ/V6o=;
-        b=rdrR6k0OlUKzqPxQyJiYbBnrQkgZ+qohSF3KF+C1dXPgNSxeScZEznfJ+TibVoEKV5
-         to9TBc2RzIOWg9K9asy1HxWi9y3AQFTbqMbHsUgiISJOqSttA2M3xodgm32bJotPTKIT
-         YUv8m5jyEfEgZDz6UQTmHlBqu9gb0sYxWtK7TUcXYeOC7suawnsVYjxz/FqrVvCfCUkF
-         bS7ljpyDKT3gS7sE0G73EqWq+QvmHHRGRugfFYQ6YC/PuV6QiWY03BSXx3+mS3yp7PpN
-         644Okg4fAmu9mjV7aMfThJ325ww1rMmXRU4V73huK1nZNYrY08LYNFSsBOa60Qz/vMaz
-         hvjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792779549; x=1793384349;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jTqLA83kbkT8YosbSMCS7zXjw/VlllCMxeIzfWZ/V6o=;
-        b=GOD/P7cUzlN0MM8buYNpmLgC23yJ1lp0RnqiBKqOZPF1SwTV4vHe2I3vH5k1hN1lCr
-         wRZWc7Q2Xavc2/9YawnSlafcAeYunvoFKy+6w2mCkoUmLbhZoLqLzAc80yE+5Twb9UP7
-         SIgOx7Lk3NXEl885gdXXeaOtOr96PhRzgwtChyNySOlU4SB6gIX3AWKVaKgUfS6vh782
-         cYxO4FqWhVMc+rIUrFbbQPWwZn5elZUVN8SfjM6v6KbfLDZhFGJ6/yn7ZQSCrcn6oLo0
-         vtbkTAr7N9HF353zSOx6yMn4R1uF8YiCfjgRoVyxahhmir+uLY5fN8jKS8nEQ5I79pCG
-         izRw==
-X-Forwarded-Encrypted: i=1; AKwUvBwIuwpz1pwNvB8kJyTvR/9KgxBJ5vQz0VAsevqV4vr1+fJTldQCyW5hPPD2qbujv6Xt/BWGGYU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLu6jcuucZZ4LWBwlv6lWPbi4/XrciIYXDlRUtQBbwSEi5PJxbE
-	vVX5yr7JUgLEEh25z16uYTwhFdW3rahk+x494ErD5pv3s7L9XrKc3frH
-X-Gm-Gg: AYBFou2+RpmhVeI4d1Z8LjMgRELM+c/rIol6s4126L56GyQEEPuL7ZOrfTQT+qEoJeK
-	+MeMtkgevO78RWOW80gt/Sm54rY/zYtH0QpW5txI/HOkDILFQXuI12D467YsdHuv9KfAnh8OADf
-	c9bP2a2vA9WHbAEjZAEJrolw1I8RkZfYqzmJOcAsWd3K5Vvnx5duqPluCwLVshInIr94NG66lPe
-	8Vq6IpJoMICFe5op1fF5NExuWyhhW6RgoTFGhimBS+Y4QuafOC7NVQmFj/YECsEp43ofVUmhCzl
-	vhZVYPFkYw/1vn8QX+ZrrcdkWStYeuEHaYBHFwu8MKIdSdT2RtNQIFW1ZNAla/EDRyOAthCHvqj
-	+key3gOfuXcHFiXBbHdDmlOnU5KKKIY2LomdvyPn5feqbIm1lG32waota65a6gbZHqtB5lUafco
-	c1clTgOy/w87iUO9rkx+6EMhrWihHMLEslsQrybPw0NC2QuGTxIJ4435SbflbczVBVM8YzvTLkQ
-	dTWRHs2ztmBk06EHOume4OOnpR69EhDPuFdKRaWbwWvzF5GmwRfMWqEPbUPYVRQYjsmrlTk5V1M
-	mmLAhhW1NQ==
-X-Received: by 2002:a05:620a:439e:b0:93e:acdd:acd9 with SMTP id af79cd13be357-93f6f79e2a1mr550689285a.7.1792779548875;
-        Fri, 23 Oct 2026 11:19:08 -0700 (PDT)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-94047b1c97esm80339485a.30.2026.10.23.11.19.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 11:19:08 -0700 (PDT)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: Rui Miguel Silva <rui.silva@linaro.org>
-Cc: linux-usb@vger.kernel.org,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OWlPZqPU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F24E1F01825;
+	Fri, 23 Oct 2026 18:19:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792779599;
+	bh=G2c9gMhC26zOajKSMEZ7r3qKmAbIN4QuJKbmwPZjihI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OWlPZqPULT7AvYT142dXhPcGli+cTs827dJh+OFQRg3hqG9TU077T28tpi5Y/QbfU
+	 2O/oynuiepFmtEL7o/JYxeYIzGLIOuLFH8rWl+NFhJ+Va8rdylrykdLt53QhSOi++0
+	 ucquZUZBvBo5MjidzBWGjh4eQDUJ1w8E8gASUL1pMvAjRR4MJI/20psHpIMk7y2PZW
+	 al/+3tna+QI063mE3WJbffMTk3VY09wVqD/WJL5ryIWwaC5Wm0OtATwHTLKGYtf1pn
+	 4Zrlrj2naxR7KOZ9VxCQlARjKIJvAelMZzQWZklNgKIQeZao5eYVV3Tv76tHsyV3JU
+	 dbbYXM6Sra/cg==
+Date: Fri, 23 Oct 2026 20:19:36 +0200
+From: Gao Xiang <xiang@kernel.org>
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: xiang@kernel.org, chao@kernel.org, zbestahu@gmail.com, jefflexu@163.com,
+	dhavale@google.com, hongbohbli@tencent.com, guochunhai@vivo.com,
+	linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] usb: isp1760: fix use-after-free when kmem cache setup fails
-Date: Fri, 23 Oct 2026 14:18:57 -0400
-Message-ID: <20261023181857.114054-1-shuangpeng.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: Re: [PATCH] erofs: fix metadata reads at the end of file-backed
+ images
+Message-ID: <atulOBxgbf0OIyOE@XiangdeMacBook-Pro.local>
+Mail-Followup-To: Hengyu Liang <hengyul@cs.unc.edu>, xiang@kernel.org,
+	chao@kernel.org, zbestahu@gmail.com, jefflexu@163.com,
+	dhavale@google.com, hongbohbli@tencent.com, guochunhai@vivo.com,
+	linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+References: <20261023174232.3282900-1-hengyul@cs.unc.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,49 +65,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261023174232.3282900-1-hengyul@cs.unc.edu>
 
-isp1760_init() ignores the return value of isp1760_init_kmem_once().
-If creating the isp1760_qtd or isp1760_qh cache fails, the error path
-in isp1760_init_kmem_once() destroys the caches that were already
-created, but the global pointers keep pointing to the freed kmem_cache
-structures: urb_listitem_cachep when the qtd cache creation fails, and
-both urb_listitem_cachep and qtd_cachep when the qh cache creation
-fails. Module init still succeeds as long as one of the driver
-registrations succeeds, so the driver stays loaded with dangling cache
-pointers.
+Hi Hengyu,
 
-When the module is unloaded later, isp1760_exit() calls
-isp1760_deinit_kmem_cache(), which destroys the already freed caches a
-second time. A controller probed in the meantime would also allocate
-qTDs and QHs from freed or NULL caches.
+On Fri, Oct 23, 2026 at 01:42:31PM -0400, Hengyu Liang wrote:
+> Commit e587a984d332 ("erofs: use dedicated meta inodes for file-backed
+> mounts") made erofs_read_meta_folio() read the metadata of a
+> file-backed mount one whole folio at a time.
+> 
+> However, an image only has to be a multiple of its block size. With a
+> block size below the page size, it can end in the middle of a page. The
+> read of that last page is then short, and erofs_fileio_ki_complete()
+> fails it with -EIO. As of now, inodes in the last page of such an image
+> cannot be read, and an image smaller than a page cannot be mounted.
+> 
+> The issue can be reproduced with util-linux 2.41, whose mount uses the
+> image file directly:
+> 
+>     mkdir src
+>     for i in $(seq 50); do echo $i > src/$i; done
+>     mkfs.erofs -b512 test.erofs src
+>     mount -t erofs test.erofs /mnt
+>     ls -l /mnt
+> 
+> Before that commit, ls -l lists all 50 files. After it, ls -l reports
+> "Input/output error" for 24 of them.
+> 
+> This patch reads the folio only up to the end of the backing file and
+> zeroes the rest, as the page cache of the backing file did before.
+> 
+> Fixes: e587a984d332 ("erofs: use dedicated meta inodes for file-backed mounts")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 
-Propagate the error from isp1760_init_kmem_once() so that module load
-fails cleanly instead.
+Thanks for catching this!
 
-Fixes: db11e47dd7b0 ("USB: ISP1760 HCD driver")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
----
- drivers/usb/isp1760/isp1760-if.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Yes, since we reject short read on the complete I/O path,
+but it makes post-EOF behavior wrong.
 
-diff --git a/drivers/usb/isp1760/isp1760-if.c b/drivers/usb/isp1760/isp1760-if.c
-index a64190addba6..bf33289bfcd4 100644
---- a/drivers/usb/isp1760/isp1760-if.c
-+++ b/drivers/usb/isp1760/isp1760-if.c
-@@ -274,7 +274,9 @@ static int __init isp1760_init(void)
- {
- 	int ret, any_ret = -ENODEV;
- 
--	isp1760_init_kmem_once();
-+	ret = isp1760_init_kmem_once();
-+	if (ret)
-+		return ret;
- 
- 	ret = platform_driver_register(&isp1760_plat_driver);
- 	if (!ret)
--- 
-2.43.0
+> ---
+> Tested in KVM with KASAN on a804c5742bff: file-backed mounts of images
+> with 512 to 4096 byte blocks, uncompressed and compressed, with and
+> without directio. With this patch every file reads back correctly;
+> without it, 24 of the 36 mounts give errors. Not tested on 16K or 64K
+> page kernels, where 4K-block images should be affected too.
+> 
+>  fs/erofs/fileio.c | 15 ++++++++++++---
+>  1 file changed, 12 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/erofs/fileio.c b/fs/erofs/fileio.c
+> index c36a90a1a4cb..b4ed7fe7347c 100644
+> --- a/fs/erofs/fileio.c
+> +++ b/fs/erofs/fileio.c
+> @@ -142,17 +142,26 @@ int erofs_read_meta_folio(struct file *file, struct folio *folio)
+>  		.dev = { .m_pa = folio_pos(folio), },
+>  	};
+>  	struct inode *inode = folio_inode(folio);
+> +	size_t len = folio_size(folio);
+> +	loff_t pos, isize;
+>  	int err;
+>  
+>  	err = erofs_map_dev(inode->i_sb, &io.dev);
+>  	if (err)
+>  		return err;
+>  
+> +	pos = io.dev.m_dif->fsoff + io.dev.m_pa;
+> +	isize = i_size_read(file_inode(io.dev.m_dif->file));
+> +	/* the image may end in the middle of the folio, zero the rest */
+> +	if (pos < isize && isize - pos < len) {
+> +		len = isize - pos;
+> +		folio_zero_segment(folio, len, folio_size(folio));
+> +	}
+> +
 
+Can you just 
+	pos = folio_end_read(fi.folio, uptodate);
+	isize = i_size_read(file_inode(io.dev.m_dif->file));
+	if (pos + folio_size(folio) > isize) {
+		len = isize > pos ? isize - pos : 0;
+		folio_zero_segment(folio, len, folio_size(folio));
+		if (!len) {
+			folio_end_read(folio, true);
+			return 0;
+		}
+	}
+
+...
+
+Since post-EOF should be filled with zeroes all the time.
+
+>  	io.rq = erofs_fileio_rq_alloc(inode->i_sb, io.dev.m_dif->file);
+>  	io.rq->bio.bi_end_io = erofs_fileio_meta_endio;
+> -	io.rq->bio.bi_iter.bi_sector =
+> -		(io.dev.m_dif->fsoff + io.dev.m_pa) >> 9;
+> -	bio_add_folio_nofail(&io.rq->bio, folio, folio_size(folio), 0);
+> +	io.rq->bio.bi_iter.bi_sector = pos >> 9;
+> +	bio_add_folio_nofail(&io.rq->bio, folio, len, 0);
+
+Thanks,
+Gao Xiang
+
+>  	erofs_fileio_rq_submit(io.rq);
+>  	return 0;
+>  }
+> 
+> base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
+> -- 
+> 2.53.0
+> 
+> 
