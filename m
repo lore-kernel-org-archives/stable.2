@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792798712;
-	b=sCtbwQTOTjvS/hjQW/4HRDnOZpqvx6qgrzLiY1eTU3XWEK+ghFbkqVyYVXLu1EKoauVH
-	 uCQ3HoRh0iKkIHDqYMjyATAVjcLBMmdUWNaxVz+NX9YPmmO3ADh/tHzfuF21nP95ZvYfn
-	 vzDuQHNqueeXFU7wb+qaycDC7sOeHw4MKWS4fj7S0tPIABvM2eLPpUaHeXhNxbcR9WLzE
-	 4DWGsskbBSKFz5cL9P5DG1v80Mn+HcXJkvW98EH2dbJ1Hbbi2cn1EjoAqITSP16r7DgU8
-	 ORgXB7Ou8lgntStxgFHBdZovvWewhCXwuObPekvzXvcM8VbJHrjladldz/p8MMwukaA==
+	t=1792798714;
+	b=QdZLxza+djakRKCADleeooCXlDkKh+Pc4n0Ui65pYPtBZPsce2Molxpv/4NOhbzF7jU7
+	 /O2/pRQg+0aFQjRetaQ21V+uunyTt4pvM2+jjX29kOQbauWnqt5ZiGhaJbeFvNIMBZ1xu
+	 IPkOOLSUQfGIpUZ2FJX2ZhlIrgBu/NOYgR58uT9eA1Cu6cCHOTvjhC2c3VX0z5gYWrc5N
+	 b6/+hmbFEUoTwe+BrlExVBC69lLjjTpC609+7/PKANvQlMmt7n9kOcpzCoKj7zy5d0aUQ
+	 uYtosb3462Z5QDsXNJzBvEfrjGe5icjZeAZy8hwnEtr/WAaXwImMkibGXhnO4RIvFcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792798712;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792798714;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=5TT2qKFHVhSy1i/+TLyLe7Zn0Ot6zl7si4UQtRA1syU=;
-	b=383faOe6E9PlONZmTBZE4WAdbOF5jP10yFncSLAurg1m9/n++RajfnGHPggwf3zcPoQE
-	 TS9OmX3ciRh97/se1s3mHnQkjLPGBB+yUtzyqAWMoz6b3OBEKwBCuZbrojNxaACd1YSC+
-	 z6tM2H8FwxeM4Co+hguOWbjz1McwVP/5ue0colTUBCqWJ79ijhV0vHRnGSqBm/o3nziXn
-	 tUd/DzjimEscDY29XOgq1XM7qzz60VgXfjfmDqkdodfNJuziYLVZU1r9fFCyJAumJMfOH
-	 eSvhR37CEa1F7Fv2nml0ieKhvdGFRf0czTGwP7zzk6e8g7h8YjXqdMFua5bc7K7H+BQ==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=Yi+Mby52IcSMxw6Bb+wKdKUkb+i4YW8eVg++kxowvr0=;
+	b=S0W2qKEEP+AS+VNdo3TnEFN+uTzjHEVnZbxguVRegJrbvU2rZFUzUmyh0Iqsdz4r/sxX
+	 EenHIK4YLwcm4QMHvdWXCJGV43wyFAFuixQblKTZmeZ+bgM8bhXy8vHBjIZ8pPRsKa1KX
+	 uh8ZZQFhqdp5IUm0i7twkXQVWGWN1MrIYjSzMNTjJad0nvfRHiy1bULE1TjBzO8c6MVnZ
+	 kz1pS7Ad21RkoBDI7B6XgUBOgyYJQRrLNOcJz+v+uT4X2iPSgA05lARTBOKqNn3/WLOkx
+	 dnUGyI5qm9Snwi6VLw3xEiqJTZrDAwxbOP50xvYZoyBhz1+C4HirpQosiZNUBVV+qWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pr78gAlz;
-	arc=none smtp.remote-ip=209.85.160.41
-Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=P4UAn0Ic;
+	arc=none smtp.remote-ip=209.85.167.175
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27902606A31E
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 23:38:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27902606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B39FD606A326
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 23:38:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B39FD606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pr78gAlz
-Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-4a75171af39so512220fac.2
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 16:38:31 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=P4UAn0Ic
+Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-4f55a53898cso645868b6e.3
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 16:38:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792798711; x=1793403511; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=5TT2qKFHVhSy1i/+TLyLe7Zn0Ot6zl7si4UQtRA1syU=;
-        b=pr78gAlzIXC2FbL8sNXrCmDIy6hbfD5+knzM2ksncadeYNbBT+mbUxTIsKetSu2pkp
-         nm+3OiY2AXnrd1DBeSuwR2KtTDvgbnY/0xOlSdXDYnvi2lw3YQvjbD+lJkrR4s9ILHIS
-         F3ZhBMjLk8pMlfASxX2R7+HF8Vhub2/7/x8jQwaREFdoPw0ftZ2ohtdy+72lR81qU6Tq
-         lc5GxvxDeUPBFYGMcnNtoijA6+zEL02Y/VmMKokouG48V5/jqSZYKyU0oAOvi1BBgx7z
-         AKFCp3yKeiRZcw3k9wHkst5PZ8i7fMbcCqZvfHLTwz51ft+/6MtFjK0X0rAA5FMImT+F
-         j9yw==
+        d=gmail.com; s=20251104; t=1792798713; x=1793403513; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Yi+Mby52IcSMxw6Bb+wKdKUkb+i4YW8eVg++kxowvr0=;
+        b=P4UAn0IcmbG4TKPL5B7PSEMxE/hzhWK30fdwhR1zlTmj50+x2j5tC0kkR1xTzVhsZ3
+         cDnNBiO+Oy3rkR/NwqgWSQoV0UHc8YPQk6eNsaEQh6J4UMEtastpUQE1Vu/ylyOS2N6G
+         dteJ1UBlzz5Xfuktw3yReIkvPi6sFZ8zvUaoTfVBjoAopXYHAN87/HHzryk/yWJO7X9Q
+         MFMF+lArsuCIivGt/trPKNkb5fItEgvfH4ehlrNNdTQmWFDA3WH8lcOKQDMvrQaMuuYR
+         kKETWRd+LOdkb4qaOKlOWrVc6so7NJz7nNePTuHLlqMF8T+l9GeviN6pN2y0ewcDb5Ws
+         T+FQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792798711; x=1793403511;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=5TT2qKFHVhSy1i/+TLyLe7Zn0Ot6zl7si4UQtRA1syU=;
-        b=b8dWzrQrkH6LHLhcBEQFEgy3eHJX+luDqj6yTY9Mv58gZFrYuyUArdMmRNeM82suBL
-         PhWl2lJos7GJGEYCnF9ObxcDDQuVGOQoCxH3eEaxPRcTuwIfa2zfh6e37/3+WCwJ01rE
-         Dhci5daH1Vz76mGeotpBu+JpbeaQwfkjS0pSINrXFcgEAkXm0AchbtQHWx7Ke41DYBQ2
-         ryxh07dsoIWu7xPPh8pElgnFp/SJAMAZ5PXxiTkN5wz4SdqUA5tuuDGMCY7yz14RbR2j
-         BCWElIG0wVAmXfWPJdmvqZxw/4wtP15aPzkbwxhPCkrUeKXuIKKvAO2SfBiFv6i481vk
-         u9ww==
-X-Forwarded-Encrypted: i=1; AKwUvBykYrXwY2QA+YsKVt0Lezb6cLmfCCRf+YGv/0tAnObfzEl9HzBYklGAbk2Qqr+g9VM+nrYXwa4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJpWOfpC2WDQ1cvPtzKDiMqtsgKQVpJvFyKbhpKc2Ri02aBobnb
-	BoMgYJ1dEq9AAmMhPFJtLmdcJimg5j1ubtfStgI4y8cssiCopcmfaZ6p
-X-Gm-Gg: AYBFou1FwG7nFWGe8/039HWvSCDn9LcSrodZ264qTl+Zm5C3oMmjVftIK3PA/hMEjBk
-	QZRf64b3afPHwvTzwrXRaOBFVXYW3Zh4Xit48Eo4ZCSo++t533FRy8vW+1OjK4faG1Au9uhx8My
-	xG0e5Lt9AOFFIMFVE6kOFlSuWrfM8jkXjPh50hIvVaqTmdNp8ImNAcHMcqUnqS4uz4x8JZHV/Q2
-	7JV+gCTuzHwoKgKe57cx8cVPdq4bFbUKikGIt61GIyWyTWlbvA323z8VBCkANbKrCoAtqJz9w3L
-	Shand2dtqt8UCvonJOEa7InjsDj9Jn+bOREQ3ElKIdbuS4ogFG0xNCC1t7pOWnX3kP21MvUgvC9
-	qB1FZcNorAzrirQvVriZtprAr2cE6adUFZTm2O9oT/9TkxFe9Tj0b81uLN7+4PRK34rrPDTE0Uk
-	L0hpSQtwLjcLttgzs+6HZi/IANpMbfioLav1RuYd566sJ9Qu37VbcrX8mQXVEPpBD7Do+72r42Y
-	7wD8hyH/fJQERgwVc0anGV2adJSgMNR+lGYO6aMvzIWlxA3YVtsvrk8RFSMauJbFLtSmhHibkuf
-	6axTelVVaQrHj6J9/nL+vk7GSXVoAAoVL0hjOrAKyXZju0W3/oUiEN8Mx8gT6fukDZnpFa8nkWD
-	x46zRinOaAOG4HeoDPdsETM2hJdM32obt+PR7HOXzNOWX5BebVrD9qfjPpcYXWVUQWCjfCzBn4y
-	nfKWPE
-X-Received: by 2002:a05:6870:71c5:b0:494:a88e:3ec7 with SMTP id 586e51a60fabf-4a83f5ecc73mr613357fac.39.1792798711052;
-        Fri, 23 Oct 2026 16:38:31 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792798713; x=1793403513;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Yi+Mby52IcSMxw6Bb+wKdKUkb+i4YW8eVg++kxowvr0=;
+        b=qdVw3JVG+GTtbmXM8anGmOunmcHKop7CrCA4b25KRUjp8u2geVmFnJqI6zoIcXzq21
+         LQr9Q2kYgy/X1koVGF9xdGXEmCnn+l4yihKgAJInVTnl3cy06G485946bGwTcN/ZAepl
+         J8PovkqoTcaMuyYQhqoeNDln45aenoGO3GUBgw2DUlVymHthoe4OIfEo3epIXP2+zOeQ
+         LIlTB8HpOGbgnkrgcmL10KvIv0uGHLqPvNQgeZ4+ifoY8cDKNQ8N6BGDrn3eEbeGpz8c
+         K63t8+Ui38qhzHh+/lpmpHncpy2XseEdSvlNPXXa6h2/qKUjgJG18Im+zuUs1GcLTjrz
+         xiTA==
+X-Forwarded-Encrypted: i=1; AKwUvByyD1XhKTfTmk0vrDUzjhOgizq2IKu2mWFq8e6shCwA8J7ag932TyaIWMmK+xSvwVKDKgj2pBw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJOvXu1v8Ez9pRd1gxY6KBqPRhZv2HZJYzkak+2Q4AkGf42nKO2
+	Eqdr2mQhhWt7KrBNIPQkxrrOHePoGs1BkVFDOGtTBrf5o4jIJURn1Tbzv6dMD8+v
+X-Gm-Gg: AYBFou1KyX1guDhgfnj4JVpzH2V006xG6xjzo8Kr+TW6OeLRfc6LsYhykMhyJa4PSGM
+	0tX1obk79ObQH7qlCxFUQm8TsaK14GM0FhKLwjAV4XIhQMK8d5EFCJhEpe7X0rM5hhb3x2YFUDm
+	zo/5i5iRq42Pd8bBMrnN3e8Lprj8W9iuESVhRE1RFuUBkZHXw4lxQiqsTUjMsW55PWfaU3QHslG
+	PezTT8Hv9ChQJ9OaU4no/eCBLsTalOV4RV65EQnekuCroAcGc5pltEBgy13ZuD+hYhd1e1Sl8mT
+	Vcitl2lQpkkM6zYAOTyZ3Bpb2XxhBs88zYstmVo40CHUNsIxvqPegEk3reIDXA2IgpNOwHahRIz
+	LiHLP2VOuV3tIrzrpQkY4fnHISkx6KHF/raK+jkAS6Pbp6gTY5Oq2E+qWG2FhtfeWTqU23BTNhb
+	Esj29Y3LvaDCbUWXoFdayyVu3jWN9N6NM+RGXdnyGmIAc9yf3ydyx0ELFHr6pDsu4JBRXhw1/zD
+	iGD0ddcWSYg3pqXcxIv6VW/UgbUHqeVG3UzPh43dKUY8HP5/pwzybkCb470uaI07brS6sc2IgPY
+	9CeWVEg+pzfu0+4zbq3AbqZ/7S8Orkrv6Z6NFT8y3zW9GStSXHCNpzEnTFSZXFTX9YArtseULc2
+	to96bX1jpQZ9MG8Z1kkCV6hFF5JcC8r1yWAc4zDgfdu2dj3z7R2elae5fH6OkGbvhXKkSR1S8Sj
+	Iy7q0=
+X-Received: by 2002:a05:6808:c1b4:b0:4ea:b0ab:b753 with SMTP id 5614622812f47-55c0028c346mr545139b6e.50.1792798712613;
+        Fri, 23 Oct 2026 16:38:32 -0700 (PDT)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a843225d69sm284345fac.15.2026.10.23.16.38.29
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a843225d69sm284345fac.15.2026.10.23.16.38.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 16:38:30 -0700 (PDT)
+        Fri, 23 Oct 2026 16:38:32 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Subject: [PATCH v3 0/9] dmaengine: sun6i: fix interrupt routing and channel
- lifetime
-Date: Fri, 23 Oct 2026 17:38:19 -0600
-Message-Id: <20261023-submit-sun6i-dma-lifetime-next-v1-v3-0-ef1acb0be768@gmail.com>
+Date: Fri, 23 Oct 2026 17:38:20 -0600
+Subject: [PATCH v3 1/9] dmaengine: sun6i: fix physical channel index in
+ interrupt handler
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,14 +96,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WQzW4CMQyEXwXtuany4zhZTn2PqofEsSFVd2l3F
- 0SFePcG6AFurRQpGsn+xjOnbuap8tytV6du4kOd625swj2tOtqmccOqlqY7qy0aba2a93moS/t
- GrKoMSX1U4aUOrEY+LupglHfkjI8CEUzXOJ8TSz1ePV7fbrpB3pmWC/h3YuKvfTNfbmNdTjMr2
- g3Nar1KIp4xhSCEfQoEvbaAgL4HXUwEa0sgdDeztNC23bxeFXR9BAgIISVdctba58YphDn1yAi
- WJUV83BIMZCSWWHrWBojQa7HiGiYiWnCaXA4hP25Fb20MsQgwFZBmFUiKa5UZ53tGzj4mw9Jd8
- m/rvOym72vlB3ON+49229NKGx29YATq5WUzpPrx3Mq60g/2nuj+QrSNSC1uIALIEu+J5/P5ByH
- 21fMkAgAA
-X-Change-ID: 20261022-submit-sun6i-dma-lifetime-next-v1-53c3158f4841
+Message-Id: <20261023-submit-sun6i-dma-lifetime-next-v1-v3-1-ef1acb0be768@gmail.com>
+References: <20261023-submit-sun6i-dma-lifetime-next-v1-v3-0-ef1acb0be768@gmail.com>
+In-Reply-To: <20261023-submit-sun6i-dma-lifetime-next-v1-v3-0-ef1acb0be768@gmail.com>
 To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
  Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Samuel Holland <samuel@sholland.org>, Arnd Bergmann <arnd@arndb.de>, 
@@ -115,74 +110,47 @@ Cc: Hongling Zeng <zenghongling@kylinos.cn>,
  dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
  James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org, 
- Frank Li <Frank.Li@nxp.com>, Sashiko <sashiko-bot@kernel.org>
+ Frank Li <Frank.Li@nxp.com>
 X-Mailer: b4 0.15.2
 
-Correct interrupt routing and serialize physical-channel ownership across
-allocation, completion, pause and termination. Keep paused virtual channels
-off the allocator, drain completion callbacks before releasing resources,
-and associate cyclic state with the descriptor that owns it.
+From: Hongling Zeng <zenghongling@kylinos.cn>
 
-The first patch carries Hongling Zeng's physical-channel indexing fix [0],
-adapted to the configurable interrupt-bank size introduced for A733. The
-second handles partially populated banks, including H3's twelve channels.
-The ownership work is split into lock ordering, physical-channel locking,
-completed-descriptor retirement and interrupt cleanup. Pause bookkeeping,
-callback synchronization and per-descriptor cyclic state follow separately.
+The interrupt handler iterates over register banks in the outer loop,
+but the physical channel lookup uses only the inner loop index. It
+therefore handles every bank as if it belonged to the first channels.
 
-Based on DMAengine next at aff5e6a77fc6, which includes A733 support, with
-the posted IRQ-safe locking fix [1], channel pause-bit fix [2], and the
-virt-dma synchronization helper from [3] applied first. The synchronization
-patch uses that shared helper for the sun6i device_synchronize callback.
+For controllers with eight channels per bank, interrupts from channels
+8 and above are routed to channels 0-7. On A733, each bank covers one
+channel, so every interrupt is routed to channel 0. This can falsely
+complete descriptors for unrelated channels and corrupt their data.
 
-[0] https://lore.kernel.org/r/20260706064123.66035-1-zenghongling@kylinos.cn
-[1] https://lore.kernel.org/r/20260926171049.841335-1-tien.nguyenminh@embeddedlinux.blog
-[2] https://lore.kernel.org/r/20261021-submit-sun6i-dma-pause-bit-v1-v1-1-38d286b69dab@gmail.com
-[3] https://lore.kernel.org/r/20261022-submit-mtk-uart-dma-synchronize-v1-v2-1-fdaef0e2edd6@gmail.com
+Use the absolute channel index, calculated from the bank number and the
+controller's configured number of channels per bank.
 
-Assisted-by: Codex:gpt-6-astra
+Fixes: 555859308723 ("dmaengine: sun6i: Add driver for the Allwinner A31 DMA controller")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+[james: use the configured bank size and describe the A733 case]
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
-Changes in v3:
-- Split the ownership patch into four commits covering lock ordering,
-  physical-channel locking, completed-descriptor retirement and interrupt
-  cleanup, following Frank Li's review.
-- Document why virt-dma still takes vc.lock independently of sdev->lock.
-- Check pending interrupt status first in the per-bank loop condition.
-- Link to v2: https://lore.kernel.org/r/20261023-submit-sun6i-dma-lifetime-next-v1-v2-0-c9e07cc44bf8@gmail.com
+ drivers/dma/sun6i-dma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes in v2:
-- Clear the active descriptor pointer before handing finite completion to
-  virt-dma, replacing the completed-descriptor pointer.
-- Release completed physical channels while their virtual channels remain
-  paused, and clear the hardware pause request before reassignment.
-- Keep the ownership changes in patch 3 and the pause policy in patch 4.
-- Link to v1: https://lore.kernel.org/r/20261022-submit-sun6i-dma-lifetime-next-v1-v1-0-01085f684c9f@gmail.com
+diff --git a/drivers/dma/sun6i-dma.c b/drivers/dma/sun6i-dma.c
+index 8752969366ff..9d94a37fcf10 100644
+--- a/drivers/dma/sun6i-dma.c
++++ b/drivers/dma/sun6i-dma.c
+@@ -603,7 +603,7 @@ static irqreturn_t sun6i_dma_interrupt(int irq, void *dev_id)
+ 		sun6i_write_irq_stat(sdev, i, status);
+ 
+ 		for (j = 0; (j < sdev->cfg->num_channels_per_reg) && status; j++) {
+-			pchan = sdev->pchans + j;
++			pchan = sdev->pchans + i * sdev->cfg->num_channels_per_reg + j;
+ 			vchan = pchan->vchan;
+ 			if (vchan && (status & vchan->irq_type)) {
+ 				if (vchan->cyclic) {
 
----
-Hongling Zeng (1):
-      dmaengine: sun6i: fix physical channel index in interrupt handler
-
-James Hilliard (8):
-      dmaengine: sun6i: handle the last partial interrupt bank
-      dmaengine: sun6i: take the device lock before the virtual channel lock
-      dmaengine: sun6i: serialize physical channel ownership
-      dmaengine: sun6i: detach completed descriptors before invoking callbacks
-      dmaengine: sun6i: retire interrupt state before reusing physical channels
-      dmaengine: sun6i: track paused virtual channels
-      dmaengine: sun6i: synchronize callbacks before releasing channel resources
-      dmaengine: sun6i: keep cyclic state with the prepared descriptor
-
- drivers/dma/sun6i-dma.c | 183 ++++++++++++++++++++++++++++--------------------
- 1 file changed, 106 insertions(+), 77 deletions(-)
----
-base-commit: aff5e6a77fc69a7c490246465940d18422d7c631
-change-id: 20261022-submit-sun6i-dma-lifetime-next-v1-53c3158f4841
-prerequisite-patch-id: d6398447647aa0dbb005b5e6dc6ba96e642efa86
-prerequisite-patch-id: f67c1f8d8d9e014cc650f2f37648662430c3b77b
-prerequisite-patch-id: 8522878df4ecd4fb007cfd32611359e6eb58a1ef
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+-- 
+2.53.0
 
