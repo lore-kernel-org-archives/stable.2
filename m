@@ -1,72 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792783905;
-	b=V3kcjxlsvX+kjXmcMWnuSLUIgF1LUHGXfUahCC0hpcRI3qzzXsIqKCoRohcBMTCTM+rN
-	 caIJ1n5Kx268rQuGwAAXn2R9r+Y079eXE2Cku5Wmwl9WM2GJqqom+GrqZwDzaMSivnMr4
-	 4l7Cb/EwmNBaU7lx56ezHQ9vtbOkpvNmCnGZRuC3nU8BPkeqX4SiS6ScKGwOLqQjgUiJ2
-	 fiy/5mgmm3/5gyXFDZrM4RAkmib7IjHn6EH+MsLuKEg2tIexew73FDalIuCmeJ+x4fY0B
-	 SA+G0LpsMWOyVuF3FseCuOwcwzW35kGA8DHRmJnsG+yldqDV3ioEarPQgI0aWpjjMbg==
+	t=1792784145;
+	b=1SjbBb6E5+qyCwHes31fX+iKrlbq1lldDBW6eR6eEOkAwjTgk/CVjr4I2IDgxsgZTZi5
+	 lcLwyGawju+wXi8nEuQ4BJmvfMXJbE2JpvGf0YhIutt2/gQqJdtjh33j0bvMWvJDUQNEf
+	 Te5V9CFqmhPBuk0RERVIUTPeZxtZc2PWKUWp5T44kxlTlpQ7fOsdeIOMy30zSe70LqjeS
+	 huDjkpforV9cbGuZAC3iEvXF+vuGAHduvbfJ5H/wqFR8RGB7CNbIq3i1++8VZEXXDgSNr
+	 GE4b3aPhJhdlCPdZHgxoiUo2CQjrtvNDdLsk7YlJIrJ7JQH0h6ZyvY+4mWfbQ2yfLOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792783905;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792784145;
 	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
 	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
 	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
 	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=ggr/VQhdQP+lPE/D1sHGykkWE4SyoiDv3FucKYLEUgs=;
-	b=4D/KLCK3jf0BkCVk4r9F18gMTB0V01opgeq+EYihrV8dWOc+5VfWK7AwgfCamkCaiEIO
-	 oaXSwvCAWoEg4SnOCTTAFEVInJaLBsFO5Hde4S4HPiEbrmvMGhex+u5D18YgrE7QawzOF
-	 4up//lTDtE+uqjI/5GQO8QENkdaiAHeUTSMyCepV1vL+IvRipPqiJ/TswyD8KbyMrNLGw
-	 tkyTsjax9fSScAJiC+OEASbanUejKA18kR34h5yGAB+THqeJwSNkx0M3IXequu5k6YU36
-	 Oi80Ib9zh4zwoRT/KsmNBL0SdvO8vW4gWuRvRVxICf+k6N9rr+lm9UQGO2CpGaPOmzQ==
+	bh=Zs7T4voI7+RxGzrZ++HmmoP/YnO9yckMQ0Kw6Kbht0k=;
+	b=3XBNjnP5Vl+XcEYxYixutFxUfgzy2E4W2DBbHZkztw6G8acJOgcQeiV4mrjMXGYRrXtl
+	 IGo611k0r5Pk3DqE+OlKUH4e1aCkuzsURhENWscK4gvygaAQN4qHckoMRbd7azbQpTLMP
+	 wyms06VFKj7D3A1R/LHwQinTujgvyAF3sutSB8DpwBf8w275MKWO4r9ofpv5/20U6p3pN
+	 MKWGEn0nN+q8HxC1Ev2C0+RbAGezaQGU1Uh1/c2x8puH0KJjnGAe27G6/OaPZKGlmS/4m
+	 6u5IV9q+YaVWZS4b5WDYgq+ozjjnUF8v7fKH6pMYC4RziwYf6+aIRYjYcjpvZM0C8uA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nK1JZKAi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A0DD4lXs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 467DC606A31D
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 19:31:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A7F606A31A
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 19:35:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nK1JZKAi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAADF1F01829;
-	Fri, 23 Oct 2026 19:31:44 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A0DD4lXs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F5031F01828;
+	Fri, 23 Oct 2026 19:35:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792783905;
-	bh=ggr/VQhdQP+lPE/D1sHGykkWE4SyoiDv3FucKYLEUgs=;
+	s=k20260515; t=1792784144;
+	bh=Zs7T4voI7+RxGzrZ++HmmoP/YnO9yckMQ0Kw6Kbht0k=;
 	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=nK1JZKAiCQ1Y4Z1NyzCgfg1NFxnyORxkbFkTRUuIyGEAKbPDl+22dGrNny1+O6WWD
-	 B3xHCH33l99tE2CZRCI4XkNoTqShU8yskTHVUI8edcIjswDChj5fbB7ks3ZTIq2Sqp
-	 AnUzgg2oU704qpv6vrrjSO+KsU6da6ruqZHunOUbk5ve8uRZ9/ZfUOqhuW8kbmV2vf
-	 89N3jM7sbzATuh3TUe7eN57o7H5JCVfjXmOvCA1ymXubuRS8Z/+u5US17Cbd1rYQaX
-	 +eIUU2QkLS4z6mQhuIenERpPFMpPDQhlUjBnwKXOMsBDMwjPAdssQU0rR+8O8MtnTi
-	 0WGS7B5kAVGjg==
+	b=A0DD4lXss60vVfZXx6rRdnCsXtIOj/WVdsw/rW47pHjEuqHmQUEU4yDzgkVpREM9j
+	 /59XyaP5GEVKF1EE9JgH87lwWRmo3KEDr2DUfPXn9Yyq3SiVcB/koqWIw8zULQpt+A
+	 wOMWwvb1AkveR3Cwd6xnwB96khs3ujCEMnSUeq3g4sUdO9a74qG63y1dxXQC1IUsYg
+	 VL32FUprkLQ8PapIN6DbISamSOMsaA0Nm/ktD2PVWMAZlSD1Jo7cgPySFC65l4Pl4V
+	 IiMRqV+/bNNBY5ER8lv3ggrLvAU+zg5Mhrh70tgJrkKAugY5FhUjSlEVsea7lRWA6o
+	 k2+qbZmhA21pg==
 Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id E426CF40067;
-	Fri, 23 Oct 2026 15:31:43 -0400 (EDT)
+	by mailfauth.phl.internal (Postfix) with ESMTP id 60E21F40066;
+	Fri, 23 Oct 2026 15:35:43 -0400 (EDT)
 Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Fri, 23 Oct 2026 15:31:43 -0400
-X-ME-Sender: <xms:H7bbakkxEDgyybWMuc9-02sPY-gpZvRMx_gCSqLSJs1vf6Clwl85Pw>
-    <xme:H7bbauplBwSHm2c3_inLEN1MAk4FNYUggj-GM2c6us2UtGyrQFyaIpdisfXVbXm9G
-    rYwnaeCv_hpY7XbSwzo-KXZVmVuR685RstgMoMP2tCL-mQfn_y9pLE>
-X-ME-Proxy-Cause: dmFkZTEzkoJfQL7/iSb54XjHaX9ewOb08c9bIZid7L4WnKVNmwJaMtH7xOus53ANN/L7xf
-    wyfclulp08ivY2KA2dERjZaXRzqyaErPrZxd7oj69nFOwKZlxo0XPR1t8Q7rJNsgpRF3eI
-    RRgejklr1RnJfqxJLH3de/PCSMPkbYfbKY1cd6csd0SEkf2TizDhfEWCjoPAKq8JDoak8T
-    G0u9/S5c7N4HCHn4x9B0FRrSMPCNgl/wGDci5Eh4Iu2xpoNB+D1eXzVOuCbCmFCQGMa9Y3
-    g1SBfnsyWuMsnKsA1W5iX/sOqaaNTi2jwQfcnNkPO070Vd0u6oD2VS6YrSRU53xNuxqErn
-    mL0KJ30Sxpx44wQeh47Rnr6vxWVvthsMF7uKxJc1N10Idn3g5A2JpaelG41GinaP4dbdXi
-    9yfV3pVJOw7GPGAFsvNujapKdd5LVb+vQK5Dd4L+eN6ApY/97+bYMlN8Ptlpv+Zz1SQpLj
-    Llyem2k5DhPk08znFVfxmSwcO0LMDLl/y6s+Pib5xwvTM8nlxmh31CAgmTi9NX+l1WPfVK
-    P7TgCr/ePtyernHY0r+t2wudIv0rRrzu5hI0hKst1tTvl2zAUpbSU5nnhOO/3TPZc2IcXx
-    1pzN2G22Q7c1s6WL0A9XlVNoQYz4kGnFZC3rWM69lNOBZqvx8BRzzSChDEyQ
-X-ME-Proxy: <xmx:H7bbap3vrbaRruijTAnhRzuQGwm1sLNLGQjSt9vhcp__wqeequYmQA>
-    <xmx:H7bbaseT8liqPDDNDR8APsyu9ZgMf463y-eLjq-KZNHfv68UVA02ag>
-    <xmx:H7bbauVGPeAIE4BCO6ArtkeRVsbA5qw2ml7xkaCydrdLJ30vMu9OJg>
-    <xmx:H7bbak8CGgAJoLvCOSEFY9jG2MB6_tmpDvFOAcN0IXfgzBNhr6WmIQ>
-    <xmx:H7bbaoiVwLhWaLBi4m5V-7ZgYXFyXOUmeQoX3YEpurVnNFn2DYHlNFdJ>
+  by phl-compute-10.internal (MEProxy); Fri, 23 Oct 2026 15:35:43 -0400
+X-ME-Sender: <xms:D7fbaunzMAOv8iCTYdk7QSRjiqd9HotGs3zGWt68tMV0RKdzouRaiA>
+    <xme:D7fbagoEVhuEOG1OH6iyXlpPLobWg_RA7yE1uCk1Au6z7ri0FwBZJ_WMaL4FlLVAS
+    Qftmb7T-vCvYCJVLTuZjZHI4IHxsG91d_lJWps9AnweHn-rzRUws2M>
+X-ME-Proxy-Cause: dmFkZTF0Ps9SNVaUJQPiKp6jAEKBtJH3suwWaCJtgK5t5IwPpvijAg27gGGBInaZhdAFz8
+    rCwABSnLfE6ZKIRA0+DpPVXkeeuzdDxQmbesG88MGwJtf+FIUv2YwIxXt5SIBB80gRsjbT
+    tDJyBHuNQb6uizWbX1oyPUVbvf+DDgEt0I08jdCapzjFVUsNLppx7BRwfXxuh8CKI0A9YD
+    TirKFJEy+vpavEmSAgJRgyHmqt4OC6N39lwcLuWrzfqNI3zmeAaq/Xa5r/mZG7AkW6cX2y
+    pLiMWWACX+dYaP7DWp4HO2iFw95sHN82RAUfP5PODh+TeVyUPPSOk7yMwD9upN5SFVAMFS
+    HS8t3pB/neRzFq/48DZaOHBU7OMQKvA4keVltWtYMxu8zL8vVZEbChWzSaemIC/Npq/RVG
+    p6l9pgaqbmc8Sr+/HBzUBla8bD10L7R1KDdiiqGe9osI87Zpgo2b5yr164VMp/mw9ASGib
+    d0zkTrGPjJH3U7D5fd0u65K3z0fqbP/OsJzqx0n+zM+gz+pRdTGjsoUFmuKxZBWA2IfqbZ
+    p40QxJlYI4FZKKvdrtSxiYik8cirQnJ6XWtzofxBVJazl6PJnTug9HtLtr3khwPu2Kbte3
+    zPoZj7bEXRqYaSB7v5qm7TdE4WZCkU/MIIpubHMysFYPXDH4jLehqQcEAIKQ
+X-ME-Proxy: <xmx:D7fbaj040DXvTj75qIXxZjMNFhry_KEnCy73vwtCYiviuSuoRP9O7Q>
+    <xmx:D7fbauc_S_t2t_fLD9uo8VckSrJKdQFfv92NVC9OhB-BEUpM_B6zLQ>
+    <xmx:D7fbaoVQIxjEedRlejv7YXk_pVHm_XFy6SU7uCtZrF-NqHQ-MRHOsQ>
+    <xmx:D7fbam_bMRkze1zkoFlAGv0-_T-7kdNXHmEhW5CIRHVX-YVsViHr5A>
+    <xmx:D7fbaijIer4azbnPm1GE6Vnmanq4opMvFfGBDn5_bSAhvKH95Cil7SW3>
 Feedback-ID: ifa6e4810:Fastmail
 Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id C7958782738; Fri, 23 Oct 2026 15:31:43 -0400 (EDT)
+	id 417D678273B; Fri, 23 Oct 2026 15:35:43 -0400 (EDT)
 X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,8 +77,8 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: A2zF8WBQdH93
-Date: Fri, 23 Oct 2026 15:31:23 -0400
+X-ThreadId: AQ3ibqN4uOeg
+Date: Fri, 23 Oct 2026 15:35:23 -0400
 From: "Chuck Lever" <cel@kernel.org>
 To: "Li Xiasong" <lixiasong1@huawei.com>
 Cc: "Jeff Layton" <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
@@ -87,46 +87,95 @@ Cc: "Jeff Layton" <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
  "Anna Schumaker" <anna@kernel.org>, linux-nfs@vger.kernel.org,
  linux-rdma@vger.kernel.org, stable@vger.kernel.org, yuehaibing@huawei.com,
  zhangchangzhong@huawei.com, weiyongjun1@huawei.com
-Message-Id: <6d50ff7b-6765-4e83-92dc-009a571f9844@slotpi15m67>
-In-Reply-To: <20261023125033.528835-3-lixiasong1@huawei.com>
+Message-Id: <2edeb013-f54f-44dd-b327-a21481d19601@slotpi15m67>
+In-Reply-To: <20261023125033.528835-4-lixiasong1@huawei.com>
 References: <20261023125033.528835-1-lixiasong1@huawei.com>
- <20261023125033.528835-3-lixiasong1@huawei.com>
-Subject: Re: [PATCH 2/3] rpcrdma: Pin notifications during removal callbacks
+ <20261023125033.528835-4-lixiasong1@huawei.com>
+Subject: Re: [PATCH 3/3] xprtrdma: Wake connect worker on device removal
 Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
 On 10/23/26 8:50 AM, Li Xiasong wrote:
-> +static bool rpcrdma_ep_removal_get(struct rpcrdma_notification *rn)
-> +{
-> +	struct rpcrdma_ep *ep = container_of(rn, struct rpcrdma_ep, re_rn);
-> +
-> +	return kref_get_unless_zero(&ep->re_kref);
-> +}
+>  	case RDMA_CM_EVENT_ESTABLISHED:
+>  		rpcrdma_ep_get(ep);
+> -		ep->re_connect_status = 1;
+> +		switch (cmpxchg(&ep->re_connect_status, 0, 1)) {
 
-Before this series the whole ep could be freed under the walk;
-that's now fixed. But now that there is a get/put pair, it seems
-natural to close the remaining gap here. rpcrdma_ep_removal_get()
-could also take xprt_get(ep->re_xprt), and rpcrdma_ep_removal_put()
-could drop it with xprt_put(). xprt_put() defers the destroy to a
-work item, so dropping the last transport reference from inside the
-removal walk does not recurse into xprt_rdma_destroy() while the
-mutex is held.
+>  	case RDMA_CM_EVENT_UNREACHABLE:
+>  		ep->re_connect_status = -ENETUNREACH;
+>  		goto wake_connect_worker;
+
+>  	case RDMA_CM_EVENT_DISCONNECTED:
+> -		ep->re_connect_status = -ECONNABORTED;
+> +		status = xchg(&ep->re_connect_status, -ECONNABORTED);
+>  		rpcrdma_force_disconnect(ep);
+> -		return rpcrdma_ep_put(ep);
+> +		if (status == 1)
+> +			return rpcrdma_ep_put(ep);
+> +		return 0;
+
+UNREACHABLE can arrive on an established connection. On RoCE,
+cma_netevent_work_handler() delivers RDMA_CM_EVENT_UNREACHABLE to
+every cm_id whose cached neighbour hardware address changed, and it
+filters only the DESTROYING and DEVICE_REMOVAL states. A connected
+cm_id in RDMA_CM_CONNECT passes that filter.
+
+When that happens, the UNREACHABLE case above overwrites status 1
+with -ENETUNREACH without releasing the ESTABLISHED reference. The
+later DISCONNECTED event then sees status != 1 and skips its put.
+The ep and its cm_id are never freed.
+
+Before this patch, DISCONNECTED put unconditionally, so this path
+did not leak. Therefore UNREACHABLE needs the same xchg treatment as
+ADDR_CHANGE: when the previous status was 1, force a disconnect and
+return rpcrdma_ep_put(ep). CONNECT_ERROR and REJECTED cannot arrive
+after ESTABLISHED, so those can stay as plain stores, though making
+all three consistent would be easier to reason about.
 
 
-> diff --git a/include/linux/sunrpc/rdma_rn.h b/include/linux/sunrpc/rdma_rn.h
+> +	case 1:
+> +		rpcrdma_force_disconnect(ep);
+> +		/* DEVICE_REMOVAL prevents a later DISCONNECTED event. */
+> +		rpcrdma_ep_put(ep);
+> +		break;
 
-> +	bool			(*rn_get)(struct rpcrdma_notification *rn);
-> +	void			(*rn_put)(struct rpcrdma_notification *rn);
+I don't think this comment is accurate, and the patch description
+repeats the same rationale. Leon or Jason can correct me if I'm
+wrong.
 
-Let's add @rn_get and @rn_put entries to the struct's kdoc comment.
+ib_core removes clients in LIFO order, and xprtrdma registers its
+client after rdma_cm. So rpcrdma_remove_one() runs before rdma_cm's
+removal handler, and it does not return until every ep on the device
+has unregistered. No xprtrdma cm_id ever reaches the
+RDMA_CM_DEVICE_REMOVAL state while its ep exists. That is why the
+DEVICE_REMOVAL CM event was taken out of this handler in the first
+place.
 
-The kernel-doc for rpcrdma_rn_register() should also spell out the
-contract for @get: it has to pin the object that embeds @rn so that
-the owner cannot call rpcrdma_rn_unregister() while the pin is
-held. rpcrdma_remove_one() depends on that when it calls
-rn->rn_put() after dropping the mutex. Both registrants in this
-patch satisfy it, since they unregister only from their final kref
-release, but a future registrant has no way to know the new rule.
+After the forced disconnect here, rpcrdma_xprt_disconnect() calls
+rdma_disconnect(), and the DREP or the DREQ timeout still produces
+an RDMA_CM_EVENT_DISCONNECTED. The put above is correct, but only
+because the DISCONNECTED case now sees -ENODEV from its xchg and
+skips its own put. Someone who trusts this comment could later
+remove that guard and double-put.
+
+Let's reword both the comment and the description to state the
+actual invariant: the first event that moves re_connect_status away
+from 1 owns the ESTABLISHED reference.
+
+Also, moving the ESTABLISHED put to ADDR_CHANGE and to the removal
+callback means the final rpcrdma_ep_put() for a connected ep can
+now happen in rpcrdma_xprt_disconnect(), which frees the ep and
+only then calls rdma_destroy_id(). The DISCONNECTED event that
+rdma_disconnect() provokes is dispatched while the cm_id is still
+in RDMA_CM_CONNECT. If it lands between kfree(ep) and
+rdma_destroy_id() taking the handler mutex,
+rpcrdma_cm_event_handler() runs with id->context pointing at freed
+memory.
+
+Before this patch a connected ep's last put was always inside the
+DISCONNECTED handler itself, so CMA ordered the free and the cm_id
+destruction for us. The window is narrow, but I don't see what
+closes it now. Am I missing something?
 
 
 -- 
