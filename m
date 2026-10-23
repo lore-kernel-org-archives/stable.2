@@ -1,55 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792770928;
-	b=mkvZuvpnNSTkGf8VU+FOjaEarjTwy67gAP2x6sU58U+fM3JgCpSbKPR3OBubM9F6vC4o
-	 H30CU5gphfCC0mBxl7TKVDTrujBtKJ2ARHdfA11nLOxMce6vYed6MoNNYf05mTxTB+dSH
-	 j2ipd1VgLmj8790hFUe7VyAqUSPk+r2/tcVRobf0X5y3k4fderP0Q0V6KeDqE72Im+lPZ
-	 JnmJG8UQ901mh3qN/c/gkpgR0/ouF4JZNJlZI2sIYwe+grrcja9utZSlaPIC8gWE5O3Qg
-	 Y0l2+uSW42VIsIb1vzF7O64YMNWcveUaMVcF1xcyXn+ps7WYeLl392ca7aO6pghNjeA==
+	t=1792771697;
+	b=QzqTMTUvSyPfKATTbwvYBTT9Z1eLo8567YEroCsiLrfZ79F2KfCQiF29enxh03S+ByDi
+	 uBzAARpUPzQXZRPku82WXjgZ9kD/kvpE9IlDSgEfnJ0P0fmWef3QrZj1dPuYvc0cr+Yam
+	 6pox+Ue5gVW242aqRxamikiKRtQ9SBTm1bE2i7XndPwW8/NiqVKJaZLVbOKMih8G1IaPx
+	 EcP2hqEJW66mXzQaG/AHJ2lYy8v12Uqn6fjWAJrNbEb1O8kJL/JVtRb7IIFdMQ52GmiaC
+	 CB1+JlOD0H3UHNuXRd8ZNxnr1ZvIK0MQ/YpWJBWUNIh0qbVOHQLZqEtkmAC+Pjc4eYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792770928;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=obYDQLkkHXiggm2S/jFGDF/Bvg5EgjJRLjpcUkuTCJI=;
-	b=H6hFv3P8QqcXxcxMLjfyVAKaY0UtlSs8Pbr0X8GcE+VdyA4cp+tHUMhGngvumj8yw9Bm
-	 1QGCZk5LojQkIylQFgERtEEV+vQL9UhWE1DHjcfJ69wCjylZI9WiZYFbwv4H2GdwBpSO0
-	 F4xrAVUAt4QsAkozLH6v2Bxf7DO1YoLxXaavuRIz/XpQnlzW2kfi1ZnqC2y9Cqx8JX00B
-	 WcfgZHr2VtBzXdCtlPRiKYoBrkJHoHYNUMLE8wVCyefOqMJZnnBW2yVkKg1x5D+4US7zo
-	 s1i6Z2VCL3m5XbsaiJ6gK8ALlwD4TI8NZx7TMK/OoBl97v9Nr/BJsHvdL8Sj/ADLm0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792771697;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=I52d5yYI1jKnpurs1AFfCbTEkdJyPAYumuiwLtVfgwc=;
+	b=zP/YBgQnt/YZfNgUW5BNokxGnS8OxAYI7TeEtbOQXhLwSuG/AqStsRXmr0B1N5cg1qQ7
+	 GtcnJU4vFomiKFzfp6MxfPv4Pl6ESpaiGbEljacujYBfyidMe/Ai64jykNm0jqs6L9GNR
+	 0Po05NAhJ8mfRBAUssJKdrm/ECHBvmS9vh607eDknxX9sb6CsAEnwkYwAesS9XTliu85E
+	 rYhlp9Difir9GnsH2xKhjJuXVGfEeuan5ACTA5xvTG2oJuF4y8K3usIUBLOHAngAPNseX
+	 HFjrL3niMz4yFtL17gErJSubCpv2Eop0RJuYfwNqIBp/IZSfhA6O7Qi+35Gprtxvxew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AU76ctpS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=sVWkagat;
+	arc=none smtp.remote-ip=115.124.30.98
+Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD51606A31E
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 15:55:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2381A606A31B;
+	Fri, 23 Oct 2026 16:08:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2381A606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AU76ctpS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 688251F031E0
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 15:55:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792770927;
-	bh=obYDQLkkHXiggm2S/jFGDF/Bvg5EgjJRLjpcUkuTCJI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=AU76ctpS+cWgn4fHG70gLMmrsKI5n07WctHHaxtbOgD3IveSc4cpmGOUCyZkf5l3T
-	 MNOT9tMBRaxpFSAEgX04bdQxmCjbrbrmf7AApk4iZe+PmMxyT+rOB1/zVPdf/XxD+e
-	 sJz9jxZAa+mAORrzsEbyoOlNzGp3CCr5QJFgb8i7pJw7hZvMXzCJFzxq8+vC4KYMFn
-	 1S4CmJz7SMCR8X/DquHqLcaUHDHVu0YhY5AcxxtZZm/Cnkbu2bCy0q2uJCMny0Enom
-	 MvBHjJ2DV6PcEFzWXBMiAdQ2o4aureDuOyFdI2s1o3B6O9trxJZW3LQyV8VzKvg/8a
-	 CD9UQWPHx6rZQ==
-Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6dde81a6820so727655eaf.2
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 08:55:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByjdI37UyWPtD2pKEfjfjPX9dZKpaaqS+Rc5oz3OQugAGfl59J9t2KtxMVCcnDakRTzyXR/oqo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIpSIVWyx1USAeiL6g3lhO1OMkxeVxgzzSfgedOmQVfvowqsO5N
-	usE/oEn8aKyHuiHgJVdQMMJv2NKkqC/o6bdrGyxp1hltTN/OfzLOCKJ9pkTw7wx7L12IxeZa8Mq
-	/0KNj7j0ehK3nIGFdYXH5Ymz9AnThHXs=
-X-Received: by 2002:a05:6820:f025:b0:70a:4973:e475 with SMTP id
- 006d021491bc7-70b887ef9femr1819515eaf.9.1792770926558; Fri, 23 Oct 2026
- 08:55:26 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=sVWkagat
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792771693; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=I52d5yYI1jKnpurs1AFfCbTEkdJyPAYumuiwLtVfgwc=;
+	b=sVWkagat9/+qk85fKVxdB7hcUyjh9ItzYId3BqjQgoVvbVGBRRhaM8aliDYqMi81FZT9MtGbEpRXrFQThwo5k/4+/k4dMhysuQz7Q1+shf9MzDOCobtfPqbXRoPb/IUQ92A6uRpiY7TVPDDVjY1VyuBs3Q1BiADkYhLONxbYujI=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R891e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XDMPwbu_1792771667;
+Received: from x31h02109.sqa.na131.tbsite.net(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XDMPwbu_1792771667 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Sat, 24 Oct 2026 00:08:13 +0800
+From: Baokun Li <libaokun@linux.alibaba.com>
+To: linux-fscrypt@vger.kernel.org
+Cc: ebiggers@kernel.org,
+	tytso@mit.edu,
+	jaegeuk@kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3] fscrypt: Fix missing barrier in fscrypt_find_mode_key()
+Date: Sat, 24 Oct 2026 00:07:47 +0800
+Message-ID: <20261023160747.1382973-1-libaokun@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,70 +61,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <tencent_31D2FFCCE76C50A695A1270151F825E90906@qq.com>
- <af2ec5b0-7c62-4c6e-a28d-33ed401020af@linux.dev> <CADVnQynhY17Romr6VvzAyq-9h1zQ8gd-+pfC+1qFtz8xRaqCYg@mail.gmail.com>
-In-Reply-To: <CADVnQynhY17Romr6VvzAyq-9h1zQ8gd-+pfC+1qFtz8xRaqCYg@mail.gmail.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Fri, 23 Oct 2026 17:55:14 +0200
-X-Gmail-Original-Message-ID: <CAL4WiipvuqdDerVR9AZ6H4kaPvoSEoe-2s1P4RWeB6FwCfbBxA@mail.gmail.com>
-X-Gm-Features: AclHuK_AOyMxLdHlROqLvyZU8YQki78OcLExqwM0QO9VP0-Jx78XGF_CcLHcZd4
-Message-ID: <CAL4WiipvuqdDerVR9AZ6H4kaPvoSEoe-2s1P4RWeB6FwCfbBxA@mail.gmail.com>
-Subject: Re: [PATCH net v2] tcp: limit tcp_tso_rtt_log to a valid shift count
-To: Neal Cardwell <ncardwell@google.com>
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>, Yingjie Wang <1075151112@qq.com>, netdev@vger.kernel.org, 
-	davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	kuniyu@google.com, corbet@lwn.net, skhan@linuxfoundation.org, 
-	rdunlap@infradead.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Le ven. 23 oct. 2026 =C3=A0 17:06, Neal Cardwell <ncardwell@google.com> a =
-=C3=A9crit :
->
-> On Fri, Oct 23, 2026 at 10:50=E2=80=AFAM Jiayuan Chen <jiayuan.chen@linux=
-.dev> wrote:
-> >
-> >
-> > On 10/23/26 10:40 PM, Yingjie Wang wrote:
-> > > tcp_tso_autosize() right-shifts the u32 returned by tcp_min_rtt() by
-> > > sysctl_tcp_tso_rtt_log. The sysctl uses proc_dou8vec_minmax() without
-> > > an upper bound, so it accepts values through 255. Values above 31 mak=
-e
-> > > the shift undefined.
-> > >
-> > > A process with CAP_NET_ADMIN in the target network namespace can set =
-the
-> > > per-netns sysctl. With CONFIG_UBSAN_SHIFT=3Dy, setting it to 32 and s=
-ending
-> > > TCP data over loopback triggers:
-> > >
-> > >    UBSAN: shift-out-of-bounds in net/ipv4/tcp_output.c:2264:30
-> > >    shift exponent 32 is too large for 32-bit type 'unsigned int'
-> > >    Call Trace:
-> > >     __ubsan_handle_shift_out_of_bounds
-> > >     tcp_tso_segs
-> > >     tcp_write_xmit
-> > >     __tcp_push_pending_frames
-> > >     tcp_push
-> > >     tcp_sendmsg_locked
-> > >
-> > > Limit the sysctl to 31, the largest valid shift count for a u32, and
-> > > document the accepted range. Writes of larger values now fail with
-> > > -EINVAL.
-> > >
-> > > On a UBSAN/KASAN build of the net tree, values 0 and 31 remained
-> > > accepted, values 32 and 255 returned -EINVAL, and TCP traffic with th=
-e
-> > > valid boundary values produced no sanitizer diagnostics.
-> > >
-> > > Fixes: 65466904b015 ("tcp: adjust TSO packet sizes based on min_rtt")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Yingjie Wang <1075151112@qq.com>
-> >
-> >
-> > Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
->
-> Reviewed-by: Neal Cardwell <ncardwell@google.com>
+fscrypt_find_mode_key() walks an RCU list and hands out a per-mode
+key without an acquire:
 
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+  setup task
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  setup_per_mode_enc_key()
+   ├─ fscrypt_prepare_key()
+   │  └─ fscrypt_prepare_inline_crypt_key()
+   │     └─ blk_crypto_start_using_key()
+   │        └─ blk_crypto_fallback_start_using_mode()
+   │           ├─ init profile, keyslots, tfms[]
+   │           └─ smp_store_release(tfms_inited[mode])  # init order
+   └─ list_add_tail_rcu(&new_node->link, ...)  # release -> finder
+
+  finding task (later submits the I/O itself)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  fscrypt_find_mode_key()
+   ├─ list_for_each_entry_rcu(node, ...)
+   └─ return &node->key                 # no acquire, chain breaks
+  ...
+  blk_crypto_fallback_bio_prep()        # WRITE path
+   ├─ tfms_inited[mode]                 # addr-dep, reads true
+   ├─ blk_crypto_fallback_profile       # no dependency
+   ├─ blk_crypto_keyslots               # no dependency
+   └─ slotp->tfms[mode]                 # no dependency
+
+RCU publishes the node and the key reachable from it, so
+tfms_inited[mode] reads true through the address dependency.  The
+independent fallback globals are not covered by it and can be read as
+uninitialized.
+
+On a weakly ordered machine, a WRITE bio can crash in
+blk_crypto_get_keyslot() or crypto_sync_skcipher_setkey().
+
+Other tasks reach the key through fscrypt_inode_info's
+cmpxchg_release()/smp_load_acquire(), which is already ordered after
+the list walk; only the finding task's own later I/O was not.
+dm-inlinecrypt reaches its key only through srcu_dereference(md->map),
+with no acquire anywhere on the I/O path.
+
+Fix this by upgrading the control dependency to an acquire with
+smp_acquire__after_ctrl_dep() once a matching entry has been found.
+
+Fixes: dd015b566d50 ("fscrypt: Fix key setup in edge case with multiple data unit sizes")
+Cc: stable@vger.kernel.org
+Suggested-by: Eric Biggers <ebiggers@kernel.org>
+Link: https://patch.msgid.link/20261014161153.GC322435@quark
+Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
+---
+ fs/crypto/keysetup.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
+index 892044ebcaca..984ef43982a3 100644
+--- a/fs/crypto/keysetup.c
++++ b/fs/crypto/keysetup.c
+@@ -205,8 +205,14 @@ fscrypt_find_mode_key(struct fscrypt_master_key *mk, u8 hkdf_context,
+ 		if (node->hkdf_context == hkdf_context &&
+ 		    node->mode_num == mode_num &&
+ 		    node->data_unit_bits == ci->ci_data_unit_bits &&
+-		    fscrypt_is_key_prepared(&node->key, ci))
++		    fscrypt_is_key_prepared(&node->key, ci)) {
++			/*
++			 * Pairs with list_add_tail_rcu() in
++			 * setup_per_mode_enc_key().
++			 */
++			smp_acquire__after_ctrl_dep();
+ 			return &node->key;
++		}
+ 	}
+ 	return NULL;
+ }
+
+base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
+-- 
+2.43.7
+
