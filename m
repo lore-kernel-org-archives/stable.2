@@ -1,51 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792773781;
-	b=cTT4O+ZiLc+dgjCIKkpz1QFUs5luyT/ffaKKIudMCPz56hUDhgw5rDK3NHsQJTABsdA+
-	 uJsfhVfHo0jlmJ9tVqvQEpZqmbCvl3gNIYXTBaDz6D1wd3rK1eil7UW2bzkUG7ltKCGnl
-	 47BTQmBdtLPnudcRSz7HksCUdB37g7TLg+DfuBu6kLzJeuCQSWzaArarDn+SuQIQ13riM
-	 Et0IUKGQitWFfvLUqsQ2uyBGlGYvBX9gNSEZD0GJ1zmpv+sH85D8FZym4JKd2LCnp6P9b
-	 yvWnyCJk5El2YTCzIwiMWzrSx8tUH76SBBhKSHep9ZESFIMxqJbAHmS+9mbZJBi9j4Q==
+	t=1792773784;
+	b=KyW4n6wvcYwaXSzKt58HVrQzb7SU/Dvn6+GSsST1uDW5Sfz2BRqNTvKBgUNQJgNyTn2N
+	 bzJss0NrVaL4vzdCDqzRAwiVTFOBLbx5+3X81s/27hRO+Xmqw7zozUpNe48z3aEDGW7SO
+	 2558A8jagBtYC3WEF/l2OdXzGeqf/JOqj50C8ijeDmTXL0I6KzEdEuLZOYflLe+cos5Ra
+	 iiwiow6uIzyCYNLy702EXSbsiuFnjSXcovCeGELxApwm9lARTggG30t0wA6n+7LvQdGOo
+	 UNu1YdV1mPWOs/VHO9oQG0nTAPLxBfAdTTHMsK1V8/nQtne7O+QVPWvUvSSz6rNgu7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792773781;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792773784;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=RYiMP0Tigdya7zhZbz9gPe3MNAY7tj0PBGUDNt+05cA=;
-	b=L4z4uFg5BljZG5NvIb5Dq+UGaA809cbcUwsbE/PrvQtdkI0cfmIZjMpzadH63QloQn84
-	 d+dovtm9VpbFGqPmdv/iIi7/SrPZr6ViLqGbwuBjBo/GruWmh3f0vv/Dd3IIfvi9cuTlu
-	 3X5ZGgauVU+ZfJAnRzXW/ZufXnElbt3XiU02aI9WsoMBHFiBMrs41J95xUMB5suk5Lp6L
-	 9JZpBOiR4G+zzbkMhkF79r8FZCZYvLGS2L/CHmDiVgsoGyc6pc5PVWsw/roOMD+Bt2xQ2
-	 SpWVyT/u/OFakrIl/1Rv3e1Jgf7H/nBCpeiLxu9mKgIR2zZqnc6uUKWCFKCP0ByE7zw==
+	bh=8Mgd4icOK4KzD10Y92Quayb9G9dEUjvHTk4pHsJ0gGs=;
+	b=pp0mQSALvFVaO6VQFXqUjwd4XboitGv1PFUpRpUVDfR0jo2/AfdmKNV5FTe/fXj9v6h2
+	 DNzO0IE4cc9kHbM3h+sMM/0J+HXwjEVN6zndH12netLJmrGl9T8LGbcDt7ScVXV1bMwIk
+	 B0P/UxM3vsSAfyawQU6EiGXJzFsa4x50jJKu6xrr3RUzaNS6Mw62YVfAhd1I59pApXMM5
+	 h5KDUFYPTKHFnKGpj+QHwt7SCyMmMG3daJBqFVYc62WpXj1vVnuIggHhP8KE/cLI0adUw
+	 sVpVfreMx3oP2LUnubJLxX9HaDUq5A1U1ngrWOgdgLEpmiQs0oMfeTgvBy3wVfU+WYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BsNIPWpP;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=i6dTP6Ub;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82A1C606A31F;
-	Fri, 23 Oct 2026 16:43:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E6C606A31A;
+	Fri, 23 Oct 2026 16:43:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BsNIPWpP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9AA61F01825;
-	Fri, 23 Oct 2026 16:43:00 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=i6dTP6Ub
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83A491F01825;
+	Fri, 23 Oct 2026 16:43:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792773781;
-	bh=RYiMP0Tigdya7zhZbz9gPe3MNAY7tj0PBGUDNt+05cA=;
+	s=korg; t=1792773784;
+	bh=8Mgd4icOK4KzD10Y92Quayb9G9dEUjvHTk4pHsJ0gGs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BsNIPWpP7tJfKunsUYVrHfZ+35JFA0tEa0xeR3VO4DT8qLYR2HoG1oppQAJpaxgeP
-	 vu1EC5pRZpUPC8ZXNXom5X5bbkG8ohW/ai+X9bYIIHueiOPHkfAyJV9hMI/HLSsP7k
-	 YU1+uLtQ9UYXzF8LO22WDj8y+y4P4UJCjnJCEGgo=
+	b=i6dTP6Ub+zp8XvgyptDuZaj664jnZ2zf8IN6ojCIB7qkq4mZQq/f/UfU1W6AWGZ63
+	 uhaMYyG9O0qn6kNcVKYhA+FFovXguApTR4MfJfQ5sLWtlIx+yKotI5V58kU1LwE5XK
+	 tBVB78kX7VaSzq7gV6nK6miorDipqT7XMGIpFBv0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Bernard Pidoux <bernard.f6bvp@gmail.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Hasty Heat <hastyheat@gmail.com>,
+	Mitchell Augustin <mitchell.augustin@canonical.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 006/193] rose: purge rose_neigh->queue on final teardown
-Date: Fri, 23 Oct 2026 18:34:43 +0200
-Message-ID: <20261023163714.355984094@linuxfoundation.org>
+Subject: [PATCH 6.18 007/193] i2c: qcom-geni: Restore the source-clock selection policy
+Date: Fri, 23 Oct 2026 18:34:44 +0200
+Message-ID: <20261023163714.378050090@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261023163714.201276352@linuxfoundation.org>
 References: <20261023163714.201276352@linuxfoundation.org>
@@ -67,70 +70,94 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Bernard Pidoux <bernard.f6bvp@gmail.com>
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
 
-rose_transmit_link() queues an outgoing frame on rose_neigh->queue
-instead of sending it immediately whenever the neighbour isn't
-"restarted" yet (link not up) -- notably the CLEAR_REQUEST built by
-rose_write_internal() when a socket is released (e.g. its owning
-process is killed) while the underlying AX.25 link to that neighbour
-is still coming up.
+[ Upstream commit 8cb5c17be3a2fadc41075d04ce1c24c831546aaf ]
 
-rose_neigh_put() already tears down both timers and drops the ax25/
-digipeat references before freeing the neighbour, but never empties
-this queue. kfree(rose_neigh) only frees the rose_neigh struct itself
-(the sk_buff_head embedded in it is just three next/prev/len words),
-not the skbs still linked into it -- every frame still queued here at
-that point leaks for good.
+Currently, the source clock lookup prefers 32 MHz whenever that rate is
+available, regardless of the rate configured by the platform. Before the
+switch to looking up the clock index, the driver used the 32 MHz timing
+table only if the current source clock rate was 32 MHz, and the 19.2 MHz
+table otherwise.
 
-rose_remove_neigh() (rose_route.c) already purges this same queue, but
-it is only one of about two dozen call sites that can drop the last
-reference and trigger the real kfree() in rose_neigh_put() -- every
-socket releasing its own rose->neighbour reference (af_rose.c,
-rose_in.c, rose_timer.c) can just as well be the one that does. Doing
-the purge once, centrally, in rose_neigh_put() itself covers all of
-them regardless of which call site happens to be last, rather than
-relying on whichever caller happened to remember it.
+On X1E80100 CRD, this results in switching the source clock from 19.2 MHz
+to 32 MHz, which causes intermittent failures when probing the I2C HID
+keyboard. These range from corrupted HID descriptors to failed resets
+and transfer timeouts, which also affect the touchpad on the same bus.
 
-Matches a leak pattern observed and documented back in May 2026
-(mailbbs killed -> rose_release() -> rose_write_internal() ->
-rose_transmit_link() queues the CLEAR_REQUEST -> skb never freed),
-never root-caused until now.
+Restore the original selection policy: use 32 MHz if already selected,
+otherwise request 19.2 MHz. Look up the index for the selected rate and
+keep the check that rejects higher-frequency multiples. This retains
+the dynamic clock index lookup without preferring 32 MHz on platforms
+that previously used 19.2 MHz. Report the requested rate if the lookup
+fails.
 
-Deployed and running since 2026-09-13/15 on three independent nodes
-(f6bvp-12, f6bvp-8, f6bvp-10 -- three different kernel bases,
-6.12.94/6.18.46/6.18.34), no regression observed.
-
-Signed-off-by: Bernard Pidoux <bernard.f6bvp@gmail.com>
-(cherry picked from commit e59e4523182e4f58f4f29b5e4bce44c1ef152d70)
+Fixes: cb97bf3d4f91 ("i2c: qcom-geni: Fix hardcoded clock index in SE_GENI_CLK_SEL")
+Assisted-by: LLM
+Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Tested-by: Hasty Heat <hastyheat@gmail.com>
+Tested-by: Mitchell Augustin <mitchell.augustin@canonical.com>
+Reviewed-by: Mitchell Augustin <mitchell.augustin@canonical.com>
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+Link: https://patch.msgid.link/20260928-b4-i2c-qcom-geni-preserve-source-clock-v1-1-9aded7552a76@oss.qualcomm.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/rose.h | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/i2c/busses/i2c-qcom-geni.c | 37 ++++++++++++++++--------------
+ 1 file changed, 20 insertions(+), 17 deletions(-)
 
-diff --git a/include/net/rose.h b/include/net/rose.h
-index 0d957b8dd0ba3..49140668b3dd0 100644
---- a/include/net/rose.h
-+++ b/include/net/rose.h
-@@ -180,6 +180,18 @@ static inline void rose_neigh_put(struct rose_neigh *rose_neigh)
- 		 */
- 		timer_shutdown_sync(&rose_neigh->ftimer);
- 		timer_shutdown_sync(&rose_neigh->t0timer);
-+		/* rose_transmit_link() queues a frame here instead of sending
-+		 * it immediately whenever the neighbour isn't "restarted" yet
-+		 * (link not up) -- e.g. the CLEAR_REQUEST built by
-+		 * rose_write_internal() when a socket is released while its
-+		 * underlying AX.25 link is still coming up. If this neighbour
-+		 * is freed before that link ever comes up, nothing else ever
-+		 * empties this queue: kfree() below only frees the
-+		 * rose_neigh struct itself (including the three next/prev/len
-+		 * words of the sk_buff_head), not the skbs it points to,
-+		 * leaking every frame still queued here.
-+		 */
-+		skb_queue_purge(&rose_neigh->queue);
- 		if (rose_neigh->ax25)
- 			ax25_cb_put(rose_neigh->ax25);
- 		kfree(rose_neigh->digipeat);
+diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
+index 307e2e4030af9..fbfffbec05e14 100644
+--- a/drivers/i2c/busses/i2c-qcom-geni.c
++++ b/drivers/i2c/busses/i2c-qcom-geni.c
+@@ -169,28 +169,31 @@ static const struct geni_i2c_clk_fld geni_i2c_clk_map_32mhz[] = {
+ static int geni_i2c_clk_map_idx(struct geni_i2c_dev *gi2c)
+ {
+ 	const struct geni_i2c_clk_fld *itr;
+-	unsigned long res_freq;
++	unsigned long req_freq, res_freq;
++	int ret;
+ 
+ 	/*
+-	 * Frequency counter tables are calibrated for a specific source
+-	 * clock frequency and are not valid for any multiple of it
+-	 * (e.g. 64 MHz, 128 MHz).
+-	 * Use exact=true and verify res_freq matches req_freq literally
+-	 * to reject harmonics: a 64 MHz clock that divides evenly to
+-	 * 32 MHz would pass exact matching but produce double the intended
+-	 * I2C frequency with these counter values.
++	 * Use 32 MHz only if already selected, otherwise use 19.2 MHz.
++	 * Preferring 32 MHz merely because DFS supports it breaks I2C
++	 * transfers on X1E80100 CRD.
+ 	 */
+-	if (!geni_se_clk_freq_match(&gi2c->se, GENI_SE_CLK_32MHZ,
+-				    &gi2c->clk_idx, &res_freq, true) &&
+-	    res_freq == GENI_SE_CLK_32MHZ) {
++	if (clk_get_rate(gi2c->se.clk) == GENI_SE_CLK_32MHZ) {
++		req_freq = GENI_SE_CLK_32MHZ;
+ 		itr = geni_i2c_clk_map_32mhz;
+-	} else if (!geni_se_clk_freq_match(&gi2c->se, GENI_SE_CLK_19P2MHZ,
+-					   &gi2c->clk_idx, &res_freq, true) &&
+-		   res_freq == GENI_SE_CLK_19P2MHZ) {
+-		itr = geni_i2c_clk_map_19p2mhz;
+ 	} else {
+-		dev_err(gi2c->se.dev,
+-			"Unsupported SE source clock: must be exactly 32 MHz or 19.2 MHz\n");
++		req_freq = GENI_SE_CLK_19P2MHZ;
++		itr = geni_i2c_clk_map_19p2mhz;
++	}
++
++	ret = geni_se_clk_freq_match(&gi2c->se, req_freq, &gi2c->clk_idx,
++				     &res_freq, true);
++	if (ret)
++		return dev_err_probe(gi2c->se.dev, ret,
++				     "Failed to find SE source clock %lu Hz\n",
++				     req_freq);
++	if (res_freq != req_freq) {
++		dev_err(gi2c->se.dev, "Unsupported SE source clock %lu Hz\n",
++			res_freq);
+ 		return -EINVAL;
+ 	}
+ 
 -- 
 2.53.0
 
