@@ -1,46 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.145.95.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792753305;
-	b=Pkmetk+ptunrSGZw3vTtbLF3PJM+1KpxLoyt3Poh6ZzmxmNUZPPgWElSujs5/cPMAUYI
-	 9c8NHCzH+0eFJCoJoh/39RHZ+bt8YPrT1fQnx66Tlt2V4qoT5zXNkgrcRVQm8/D2Bx8wh
-	 bOm7d1wImE/V9HBGr07Vj12M6jiYh7UHvg8a+3+/kYkZm3cxyXP7LYs4UuWv64boAY8Xc
-	 8B3ndRDjUuqYDrmstIQc6eBjTk8lERUbxcBIn6GvIx0bHmxQGQ8iqeyR+t9qCP8RvXYDJ
-	 iAOHlzq24TfOvdnvJ+VR60Ur7yWkmEZ+xXrJg5nahekFAoiOI9FBM70/GzpwU2+0wow==
+	t=1792753378;
+	b=ghPIsCt+3lA87Gi4Sp7m4EjLmT8Awh+oXjTRkxUeRV1LDIpzfWG2y9uh1RkrwetsBNZV
+	 q9cAOxi8i9mS+Ghb4tJHUIMlYW7vVMo1GlnAAZfYdhTya/8XBTpWzXrgvohaXde4RylpM
+	 dNC1gpKr2ReQ+CvjHo0/EzTg/xsxlyCEfh/qbO+17v5bylvHD4h9SG5zAAdtE4m06er8Y
+	 13C5cVY6deUQLIFhdPNiq9QhHHZQnSWljwcGcPOUfjgCH4nf6TKDCsqUKkVvo5rJeBMzv
+	 hpH4Vuq6ckyKDjbJSnRfOchT7iq6dzunUAFJ+h/+leP4RBDGdITwPRv0a1xpEopX3CA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792753305;
-	h=DMARC-Filter:From:To:Cc:Subject:Date:X-Clacks-Overhead:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=9i1lMAauhdSb96bAn21amtKRcV/LL4J/0GNVxIc7VqM=;
-	b=ih6d1wlqMUmIE3cYoZGp1LeMwC+s7mtGgaN/54H/zhWrGkgr1er2R4e+3yVuzLun0J9N
-	 i7N47h3Tqc95YtG6X2ddpPbN/8hAvLyi1eN/Y8+bijWuWdhs+GX+BwErQ2vOCd6ZRYn2d
-	 ZbWKUFv3CbrBHmI4MLl4rczmhBtwlG1mrWwT1RCZ8RmvSYTDbugeCx5CZTXNvo4RCo+pJ
-	 +RWg4hNcW1D+dZbWRO6XruXSb2jnd+LoO9S3Z/pdDV5ifVPG8gjSP6jlz6CI1a03jek7C
-	 pzTcuffKNjouiR3jZA7GnheWYdEHoVgwgpFur6jcI83S1eNKSzcZ0lsKadpEqQ/Bopw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792753378;
+	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:In-Reply-To:
+	 References:X-Clacks-Overhead:Date:Message-ID:MIME-Version:
+	 Content-Type;
+	bh=jdVWysumPcjLQBhJ0UMvoUsZbgNuwjZsFmnCdFKmn04=;
+	b=pRZP8HXQLAADrxxtnRY29/gQsU/QXiCO4+MKxgXBg5pyOzadGrJYe0mqmPUCcbeHe/tn
+	 W4T5V+PMMIUyhP10yzXG3h3EUQxhoDYR9RaPnzWQNnIuYlLluG0sI9iSVKmAiUzQRWVoU
+	 XUliefnRhcbA6S0DTVGazB42Z9svnelnaYNCrJZ/upazbWXvv6DuOeu4w6rOkhICguQPW
+	 TpoWppxk3/oLo50lHifRrxQ2FnD6zAWVJIRWOjE0xPc3wozRB1WmkDllQIkvhRPwTpnrz
+	 3mCXmFKBdjIlHOlArYnaAAxmM+6MRiN0IdZ8e4C47YpQWKaRoeMG0KwvA+LhsMKZMNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=toke.dk;
-	spf=pass smtp.mailfrom=toke.dk;
-	arc=none smtp.remote-ip=45.145.95.4
-Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D3krj1os;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37BDF606A323;
-	Fri, 23 Oct 2026 11:01:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37BDF606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
-Authentication-Results: mail.toke.dk; dkim=none
-From: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
-To: Johannes Berg <johannes@sipsolutions.net>,
-	Alexander Wetzel <alexander@wetzel-home.de>
-Cc: linux-wireless@vger.kernel.org,
-	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
-	stable@vger.kernel.org,
-	Evan Severson <eseverson@gmail.com>
-Subject: [PATCH] wifi: mac80211: reinstate IEEE80211_TX_CTL_AMPDU flag in ieee80211_tx_prep_agg()
-Date: Fri, 23 Oct 2026 13:00:51 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE09606A31B
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 11:02:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D3krj1os
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CD261F01825;
+	Fri, 23 Oct 2026 11:02:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792753377;
+	bh=jdVWysumPcjLQBhJ0UMvoUsZbgNuwjZsFmnCdFKmn04=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=D3krj1osEDG5rSFgUZOJz2r4S9JbYSP+pRqGbFTFlYvkRXSeFcEjfxCqqJVPz9l+X
+	 KCqSuERfDpyNeYvL2NrFr3FK5T07CIItlPV3d0aXA2fdAVsywzLKvacSTtwRH8FYi+
+	 AQBL3mk16PAuvzWCdQF3WIfaX2FPsCmuOvgPJ5iEFMx7r9Q3KuEgy2+ntgXth6LQ79
+	 NM0L470hnyfk70M6IW2kK6Xgd625tqETvonhXuwDXXCPKvxsNAkr6tuxRstuqqWMyx
+	 Ma4N1hytfvZcYKRgdwjHExfezRHRkHa1cCJYfSg9KtWsAvWQn6R7y3tRCyLh/ONQZD
+	 TA+FiuLKMmZ6w==
+Received: by alrua-x1.borgediget.toke.dk (Postfix, from userid 1000)
+	id 7877EAD996E; Fri, 23 Oct 2026 13:02:54 +0200 (CEST)
+From: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@kernel.org>
+To: Evan Severson <eseverson@gmail.com>, eseverson@gmail.com
+Cc: stable@vger.kernel.org
+Subject: Re: [PATCH] wifi: ath9k: track PS-Poll responses in the BlockAck
+ window
+In-Reply-To: <20261014022332.2223387-1-eseverson@gmail.com>
+References: <20261014022332.2223387-1-eseverson@gmail.com>
 X-Clacks-Overhead: GNU Terry Pratchett
-Message-ID: <20261023110052.650519-1-toke@toke.dk>
+Date: Fri, 23 Oct 2026 13:02:54 +0200
+Message-ID: <87bj8ksmqp.fsf@toke.dk>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -50,54 +61,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-The commit 592234e941f1 ("wifi: mac80211: Fix iTXQ AMPDU fragmentation
-handling") changed the way handling of the IEEE80211_TX_CTL_AMPDU flag
-is done in mac80211, so the only place it is set is in
-ieee80211_tx_dequeue().
+Evan Severson <eseverson@gmail.com> writes:
 
-This means that any frames that are sent to the driver via drv_tx() will
-no longer have the flag set. In particular, this affects packets going
-through ieee80211_tx_pending(). Evan reported that this can result in
-the ath9k driver failing to account such packets in its block ack
-window, eventually overrunning the window and stalling TX.
+> ath_tx_setup_buffer() takes a sequence number from the TID for every
+> QoS data frame, but a frame only enters the BlockAck window when it
+> carries IEEE80211_TX_CTL_AMPDU. Since commit 592234e941f1 ("wifi:
+> mac80211: Fix iTXQ AMPDU fragmentation handling"), mac80211 sets that
+> flag only when dequeuing from a TXQ. Frames that reach ath_tx_start()
+> directly while a session is running, such as PS-Poll responses for a
+> dozing station, now use up session sequence numbers without being
+> tracked.
+>
+> Once seq_next is more than baw_size ahead of seq_start, every frame
+> the TXQ hands out is outside the window. ath_tx_get_tid_subframe()
+> puts it back on the retry queue and returns -EINPROGRESS on every
+> attempt, nothing ever moves the window, and the AP stops sending
+> unicast data to the station until the session is torn down or the
+> station reassociates.
+>
+> Seen on a QCA9563 AP (OpenWrt) with a station that stayed in power
+> save for several seconds under downlink load: the window was empty
+> and seq_next was about 2170 ahead of seq_start. With this change, a
+> 90 minute run saw a run of more than 3800 such frames and no stall.
+>
+> Flag unfragmented QoS data frames of an active session as A-MPDU where
+> the sequence number is assigned, so they are tracked like any other
+> session frame. Fragments stay unflagged, as mac80211 intends. A frame
+> from ath_tx_start() cannot wait for the window, so if it is already
+> outside it, send it untracked as before rather than set a bit beyond
+> the window.
+>
+> A PS-Poll response is sent on the UAPSD queue, and ath_tx_start() held
+> that queue's lock while it took the TID's sequence number. The sequence
+> counter and the window belong to the lock of the TID's own queue, which
+> the TXQ path holds when it adds to or advances the window, so take that
+> lock for the TID work and the UAPSD queue's lock only to hand the frame
+> to the hardware, as ath9k_release_buffered_frames() already does.
+>
+> Fixes: 592234e941f1 ("wifi: mac80211: Fix iTXQ AMPDU fragmentation handling")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Evan Severson <eseverson@gmail.com>
+> ---
+>
+> Notes:
+>     An alternative would be to restore IEEE80211_TX_CTL_AMPDU on
+>     non-fragmented PS-Poll responses in mac80211, which would also cover
+>     other drivers that track the BA window in software. Happy to rework it
+>     that way if that's preferred.
 
-Fix this by reinstating the flag in ieee80211_tx_prep_agg() when inside
-a valid block ack window. This should be harmless for the TXQ path, and
-will reinstate the previous behaviour for drivers that use the flag as a
-signal to track the packet in the window.
+Discussed this with Johannes, and we agreed it should be fine to
+reinstate the flag in mac80211. I sent a patch to do this:
 
-Fixes: 592234e941f1 ("wifi: mac80211: Fix iTXQ AMPDU fragmentation handling")
-Cc: stable@vger.kernel.org
-Reported-by: Evan Severson <eseverson@gmail.com>
-Link: https://lore.kernel.org/all/20261014025734.2288693-1-eseverson@gmail.com/
-Signed-off-by: Toke Høiland-Jørgensen <toke@toke.dk>
----
- net/mac80211/tx.c | 2 ++
- 1 file changed, 2 insertions(+)
+https://lore.kernel.org/r/20261023110052.650519-1-toke@toke.dk
 
-diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
-index e9b6a0415d6a..0f46b5ff0c4a 100644
---- a/net/mac80211/tx.c
-+++ b/net/mac80211/tx.c
-@@ -1164,6 +1164,7 @@ static bool ieee80211_tx_prep_agg(struct ieee80211_tx_data *tx,
- 	struct sk_buff *purge_skb = NULL;
- 
- 	if (test_bit(HT_AGG_STATE_OPERATIONAL, &tid_tx->state)) {
-+		info->flags |= IEEE80211_TX_CTL_AMPDU;
- 		reset_agg_timer = true;
- 	} else if (test_bit(HT_AGG_STATE_WANT_START, &tid_tx->state)) {
- 		/*
-@@ -1195,6 +1196,7 @@ static bool ieee80211_tx_prep_agg(struct ieee80211_tx_data *tx,
- 		if (!tid_tx) {
- 			/* do nothing, let packet pass through */
- 		} else if (test_bit(HT_AGG_STATE_OPERATIONAL, &tid_tx->state)) {
-+			info->flags |= IEEE80211_TX_CTL_AMPDU;
- 			reset_agg_timer = true;
- 		} else {
- 			queued = true;
--- 
-2.56.0
+could you please test it and check if it resolves your issue?
 
+-Toke
