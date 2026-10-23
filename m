@@ -1,45 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792728882;
-	b=my3k58ABrHO8+t/MgngB2RemXAv3r095qT6S2tUpRgeRQ25MCL5d+zTQ1D5WRWDs05DF
-	 MixSVApljnIU9FKVP2xkCrlvTJlYOMWqLmzuPMFlC/RVRqIXOpQ3m0mhmtPYVjxqwMxRN
-	 9iSfWJayJJFwjMip8MWH88LNuPX7Uo2ZBcniSuzpYAOBk0L646KoSBcOzI3i+jBKJtBnS
-	 Zgi8DcdMXoCYwq7I4yPacPdAvb/ZUbbaCLpIZcxUe5KWkpXgcehiVS1He2mki4DSSlMex
-	 smJ6Y0msvaCEMwyyhije9HhpIogZaeyCmfPdTbG0jwVorWGHU7Z3nKNI4fsJoixrt4w==
+	t=1792728912;
+	b=COntvFhvLt/KAzArAHs2GDl9KBL0M5k+curhcYdGL8o3LfddGWrKuXbwmJOOx6p/IaZL
+	 8Ov/bLbDHRgGgZdGPIzzjQoL5cRncTNcVg54TElJyx43HyD7sViKi9SYXKoRujkx9ytrq
+	 OHEvOotoS0waDOUNMSQYJumXqoLU0080qfq/NTv01Bwf4bJAiOHFSdcyxxY7veP7RbeEq
+	 Y2PEEbq1T5+TfvpDPNDr8ntuxOCj2OKlyXA2auAcitBD2nXMeSqpXLHrIrNcm+SAqa2fR
+	 fDQoIAFuoZhKBMIPvzqaLhKKn/pPYZjuHDD6b/bcooLtLOqLgcLrZX7eBCu0w1q2mgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792728882;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=3PyPgn5NkwrXAaxwoXohez47LYAKkhIep1C9vV+ZOWo=;
-	b=mX1DtGcS6gLwnYaXYYfG070yNPSh5tIqJdFG7E8lJO9w5Etv0EFrQl2GSg1AFDQgu+vL
-	 TgeM9/4oF2eX6qL571m4epfQ/u9SjuYNC8rsOa6NwYC2K/aJb3FkzrkekBEdlszynxEYR
-	 67MFbrdBNwD1VCR74cJe9uQ4sCQllxj61d4KQ7oBusdm1JldSHYK5Z/EckTdbmIn/5tHs
-	 sZf0H3JyKLCP5VglG5spCD5A9Mh18L5QLlvFb33hNsQaFjA19WJtahy9UuL7bc4yRcXob
-	 3D9qjzk/LNDOfFvQqTks8QwH7LBJFnaQWPVPrxdnkI9C4qNuSs/agh2rPqOnhs8e+DA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792728912;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=aAJMQvWLv6dMUeOuLQoFAGJiJnLdNrhHyRVCdhvYEhI=;
+	b=ZkEZHmG607wbKGxc2ZGfGC1d70+81EW1yptbgQXSYgKbn6DzbKt3IoqpOjhZl69W9C83
+	 5lCB/4BKfPFdy2OETTsM/2gaI71tlqrtZSPoBGIm2xIHAuheThcJnRia8FwtFtLMeMeeY
+	 58WZvjvV/ews76J75mj6AUXAhzDPRc6LpUHPm2RsNzH7/Ghc1nj3Y4J4pprly1Z0jKln2
+	 17YyjTpSp4gmE7cqEZd2C0y7yJIjhKH4Zn/HoVNjxyoKIyelgygfEAqBn0kqBTFyvmHrM
+	 X6xe5mYRT4SYLKWEuwycLdy7WNHwzRKf1YKjBjYhC10LvceZ9QOOdZ/R4a4foSiriHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="Fz4Tw/mR";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k69b1PDf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D86606A319;
-	Fri, 23 Oct 2026 04:14:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47A88606A31E;
+	Fri, 23 Oct 2026 04:15:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Fz4Tw/mR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4CEE1F01825;
-	Fri, 23 Oct 2026 04:14:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792728882;
-	bh=3PyPgn5NkwrXAaxwoXohez47LYAKkhIep1C9vV+ZOWo=;
-	h=Date:To:From:Subject;
-	b=Fz4Tw/mRR8OPd6YC0lL9l5Css9IJiwbZZ3SlgsGBPLhAbMVDSu4qa8vOFetY417t6
-	 KHbAsqinX3WIYNsTnqyMZM32J/uPSObSVx6KT6qHyzV2a1JGAWu45QXsj//kBj+KeF
-	 lFsppgIRw3QnlIudORXoktudzUj0VuMPTSiL2chw=
-Date: Thu, 22 Oct 2026 21:14:41 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mark@fasheh.com,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,heming.zhao@suse.com,baijiaju1990@gmail.com,zzzccc427@gmail.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + ocfs2-dlm-drain-join-handlers-before-releasing-module-text.patch added to mm-nonmm-unstable branch
-Message-Id: <20261023041441.E4CEE1F01825@smtp.kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k69b1PDf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17A701F01825;
+	Fri, 23 Oct 2026 04:15:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792728910;
+	bh=aAJMQvWLv6dMUeOuLQoFAGJiJnLdNrhHyRVCdhvYEhI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=k69b1PDf4BCRSakt8yAfW2iDBa9ugBSn4aWAL1ZL7UcX8pNgpTYOlg2IdmXG+vOAM
+	 wlEQBt46Gvr6Cl0D9Z7G/Udlsne8/aPle2LJ2aPUnyekkW8wmXtvwp/Ijq55ytdx6U
+	 xKBGbTf4bxj7QVekL1dPbgY5rjfI/nqzJO7YS+f6qMxor4veFf/lS/IfRjF6Kjz6d5
+	 zsjPPVJA3e7MrGYxLvbi1elIkqnyg06YR7r6XTunYebMsBxQbd1prnzlhY/nIjlWSB
+	 h0B3tlcfC9W/PGSO1XDfMs93DQEikTFvrjbEz+7t2ltenQPvG5QbBFiEEJIituq4TR
+	 Jgce65uhUQrbw==
+Subject: Re: [PATCH v7] can: dev: can_fill_info(): don't wake up controller if
+ interface is down
+From: netdev-bot+sashiko@kernel.org
+To: chunyuzhiqiang@yinhe.ht
+Cc: netdev-bot+sinfo@kernel.org, netdev@vger.kernel.org,
+ linux-can@vger.kernel.org, mkl@pengutronix.de, kernel@pengutronix.de,
+ haibo.chen@oss.nxp.com, shawnguo@kernel.org, imx@lists.linux.dev,
+ stable@vger.kernel.org, kuba@kernel.org
+Date: Fri, 23 Oct 2026 04:15:09 +0000
+Message-ID: <179272890958.3130.8901186354506678802@kernel.org>
+In-Reply-To: <20261021145115.153107-1-chunyuzhiqiang@yinhe.ht>
+References: <20261021145115.153107-1-chunyuzhiqiang@yinhe.ht>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -48,154 +63,168 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-The patch titled
-     Subject: ocfs2/dlm: drain join handlers before releasing module text
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     ocfs2-dlm-drain-join-handlers-before-releasing-module-text.patch
+Critical: 0 · High: 0 · Medium: 1 · Low: 1 (1)
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-dlm-drain-join-handlers-before-releasing-module-text.patch
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+- [Medium] The commit message calls the issue "a generic logic problem
+  that exists on all platforms", but its own root-cause analysis points…
+- [Low] The patch carries `Fixes: ec56acfef2af1` (2014) and `Cc:
+  stable@vger.kernel.org`, but it is explicitly rebased onto net-next…
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+Pre-existing issues:
+- [Low] This problem wasn't introduced by this patch, but can_get_size()
+  reserves only `sizeof(priv->bitrate_max)` (4 bytes) for…
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+--
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
+can: dev: can_fill_info(): don't wake up controller if interface is down
 
-------------------------------------------------------
-From: Cen Zhang <zzzccc427@gmail.com>
-Subject: ocfs2/dlm: drain join handlers before releasing module text
-Date: Thu, 22 Oct 2026 17:09:10 +0800
+When the interface is not running, this patch skips the calls to
+do_get_berr_counter() and do_get_auto_tdcv() in the CAN netlink fill path,
+and changes can_get_size() to match. As a result, IFLA_CAN_BERR_COUNTER and
+IFLA_CAN_TDC_TDCV are no longer reported for down interfaces. The
+motivation is a synchronous external abort seen on i.MX8QXP when "ip link
+show" is run on a flexcan interface that was never brought up.
 
-The code for a registered DLM handler must remain resident until its
-last invocation finishes. dlm_unregister_net_handlers() only removes
-dlm_join_handlers from the o2net registry. o2net_handler_get() takes a
-kref on the wrapper, but that reference does not pin ocfs2_dlm text.
-o2net_process_message() calls nh_func after dropping o2net_handler_lock.
+> Don't call do_get_berr_counter() or do_get_auto_tdcv() to read the CAN
+> controller if the interface is down. This fixes a generic logic problem
+> that exists on all platforms.
 
-With CONFIG_OCFS2_FS_O2CB=m, ocfs2_dlm can be loaded independently of
-ocfs2_stack_o2cb while nodemanager continues handling messages from a
-configured, heartbeating peer. If no dependent module or module reference
-prevents normal unload, the following ordering is possible:
+[ ... ]
 
-  Receive worker                       Module unload
-  --------------                       -------------
-  o2net_handler_get()
-    take wrapper kref
-    drop handler lock
-  <preempted>
-                                       dlm_exit()
-                                         unregister handlers
-                                       release DLM module text
-  call saved nh_func
-    in released module text
+> On i.MX8QXP the
+> CAN clocks are gated through the SCU LPCG and the subsystem shares the
+> IMX_SC_R_CAN_0 power domain; there is a window where
+> pm_runtime_resume_and_get() has returned but the clock has not reached
+> the module yet, and the immediate ECR read raises a synchronous
+> external abort.
 
-Use o2net_unregister_and_flush_handler_list() in the shared DLM
-unregister helper. It first prevents new lookups, then waits for the
-ordered o2net workqueue to drain, including a concurrent destruction of
-that queue. The acquired invocation therefore finishes before dlm_exit()
-returns and the loader releases the callback code. The same helper
-covers partial registration and dlm_init() error unwind before module
-memory is released.
+[ ... ]
 
-Skip the drain when the private join-handler list is empty. Early
-dlm_init() failures can reach this helper before any handler has been
-published. Partial-registration failure also reaches it a second time
-after the first call has already unregistered and drained the list.
-Neither case needs to take o2net_wq_mutex or drain unrelated work.
-The list is changed only by serialized module init/exit paths; a
-nonempty list still uses the full unregister-and-flush helper.
+> Fixes: ec56acfef2af1 ("can: flexcan: flexcan_get_berr_counter(): switch on clocks before accessing ecr register")
+> Cc: stable@vger.kernel.org
 
-Oops report as below:
+[Severity: Medium]
+Is "a generic logic problem that exists on all platforms" an accurate
+description of what is going on here?
 
-    Oops: int3: 0000 [#1] SMP KASAN NOPTI
-    CPU: 2 UID: 0 PID: 54 Comm: kworker/u16:3 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
+The flexcan netlink path already takes a runtime PM reference before it
+reads ECR:
 
-Hardware identification omitted.
+drivers/net/can/flexcan/flexcan-core.c:flexcan_get_berr_counter() {
+    ...
+	err = pm_runtime_resume_and_get(priv->dev);
+	if (err < 0)
+		return err;
 
-    Workqueue: o2net o2net_rx_until_empty [ocfs2_nodemanager]
-    RIP: 0010:0xffffffffc0423871
-    [Instruction byte dump omitted.]
+	err = __flexcan_get_berr_counter(dev, bec);
+    ...
+}
 
-Register dump omitted.
+flexcan_runtime_resume() only calls flexcan_clks_enable(priv).
 
-    Call Trace:
-     <TASK>
-     ? o2net_rx_until_empty+0x19b1/0x3300 [ocfs2_nodemanager]
-     ? __pfx_o2net_rx_until_empty+0x10/0x10 [ocfs2_nodemanager]
-     ? lock_acquire+0x190/0x300
-     ? process_one_work+0x935/0x1b40
-     ? process_one_work+0x834/0x1b40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x290
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? process_one_work+0x9a8/0x1b40
-     ? __pfx_process_one_work+0x10/0x10
-     ? lock_acquire+0x190/0x300
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? worker_thread+0x65c/0xe40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __kthread_parkme+0x177/0x220
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_worker_thread+0x10/0x10
-     ? kthread+0x351/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ? ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf70
-     ? __pfx_kthread+0x10/0x10
-     ? ret_from_fork_asm+0x1a/0x30
-     </TASK>
-    Modules linked in: ocfs2_nodemanager [last unloaded: ocfs2_dlm]
-    ---[ end trace 0000000000000000 ]---
+Suppose pm_runtime_resume_and_get() really can return before the LPCG clock
+reaches the module. That looks like an i.MX8QXP clock or power domain
+problem. The SCU LPCG driver already has an erratum workaround on that
+enable path, lpcg_e10858_writel() in drivers/clk/imx/clk-lpcg-scu.c.
 
-Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0076-v6-12de5f4628f57fba3be3@gmail.com
-Fixes: 6714d8e86bf4 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Assisted-by: LLM
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
-Cc: <jjzuming@gmail.com>
-Cc: <stable@vger.kernel.org>
----
+This patch removes one trigger, a netlink query while the interface is
+down. The same enable-then-MMIO sequence seems to remain elsewhere:
 
- fs/ocfs2/dlm/dlmdomain.c |    3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ip link set canX up
+  flexcan_open()
+    pm_runtime_resume_and_get()
+    ...
+    flexcan_chip_start()
 
---- a/fs/ocfs2/dlm/dlmdomain.c~ocfs2-dlm-drain-join-handlers-before-releasing-module-text
-+++ a/fs/ocfs2/dlm/dlmdomain.c
-@@ -2215,7 +2215,8 @@ static LIST_HEAD(dlm_join_handlers);
- 
- static void dlm_unregister_net_handlers(void)
- {
--	o2net_unregister_handler_list(&dlm_join_handlers);
-+	if (!list_empty(&dlm_join_handlers))
-+		o2net_unregister_and_flush_handler_list(&dlm_join_handlers);
- }
- 
- static int dlm_register_net_handlers(void)
-_
+register_flexcandev()
+  flexcan_clks_enable()
+  flexcan_chip_disable()
 
-Patches currently in -mm which might be from zzzccc427@gmail.com are
+If that window exists, would these paths hit the same abort?
+flexcan_open() does other work between the resume and the first register
+access, so it may not show up there. register_flexcandev(), however,
+touches registers right after it enables the clocks.
 
-ocfs2-drain-quorum-work-before-removing-the-cluster.patch
-ocfs2-dlm-drain-join-handlers-before-releasing-module-text.patch
+The v7 notes also say the Fixes: commit ec56acfef2af1 was not buggy. With
+Cc: stable, could this lead backporters to think the i.MX8QXP synchronous
+external abort has been root-caused and fixed?
 
+Not waking the controller while the interface is down looks reasonable,
+and it matches the m_can fix. The concern is only with the root cause and
+the Fixes/stable framing.
+
+>  - Rebase onto current net-next/main, including e63281614747
+>    ("can: netlink: add initial CAN XL support").
+
+[ ... ]
+
+>  - TDC auto readback gating is based on code inspection; only the
+>    berr-counter path was tested on i.MX8QXP hardware.
+
+[Severity: Low]
+The Fixes: and Cc: stable tags mark this for backporting to stable.
+However, the patch is based on net-next and depends on the CAN XL netlink
+support from e63281614747.
+
+The hunks that use priv->xl, CAN_CTRLMODE_XL_TDC_MASK, the dbt_params-based
+can_tdc_get_size() and can_data_bittiming_get_size(), and
+can_tdc_fill_info(..., IFLA_CAN_XL_TDC) don't look like they will apply to
+older stable branches.
+
+The same stable-tagged patch also combines the berr-counter change, which
+was tested on hardware, with the do_get_auto_tdcv gating, which came from
+code inspection only. Would it help stable reviewers if the TDCV gating
+were a separate patch?
+
+> diff --git a/drivers/net/can/dev/netlink.c b/drivers/net/can/dev/netlink.c
+> index 766d455950f5..ac30d2849543 100644
+> --- a/drivers/net/can/dev/netlink.c
+> +++ b/drivers/net/can/dev/netlink.c
+
+[ ... ]
+
+> @@ -825,10 +830,10 @@ static size_t can_get_size(const struct net_device *dev)
+>  	size += sizeof(priv->bitrate_max);			/* IFLA_CAN_BITRATE_MAX */
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but should this be
+nla_total_size(sizeof(priv->bitrate_max))?
+
+can_fill_info() emits the attribute with nla_put():
+
+	    (nla_put(skb, IFLA_CAN_BITRATE_MAX,
+		     sizeof(priv->bitrate_max),
+		     &priv->bitrate_max)) ||
+
+That needs nla_total_size(4) = 8 bytes of tailroom. can_get_size() reserves
+only 4, so it comes up 4 bytes short for each CAN interface. Every other
+attribute in can_get_size() is counted with nla_total_size().
+
+In practice the slack in if_nlmsg_size() and slab rounding probably hide
+the shortfall.
+
+>  	size += can_ctrlmode_ext_get_size();			/* IFLA_CAN_CTRLMODE_EXT */
+>  
+> -	size += can_data_bittiming_get_size(&priv->fd,
+> +	size += can_data_bittiming_get_size(dev, &priv->fd,
+>  					    priv->ctrlmode & CAN_CTRLMODE_FD_TDC_MASK);
+>  
+> -	size += can_data_bittiming_get_size(&priv->xl,
+> +	size += can_data_bittiming_get_size(dev, &priv->xl,
+>  					    priv->ctrlmode & CAN_CTRLMODE_XL_TDC_MASK);
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261021145115.153107-1-chunyuzhiqiang%40yinhe.ht
