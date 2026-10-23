@@ -1,78 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.68
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792743681;
-	b=dJ3u1WQYlFbGDwG2lM/8iShiKWxtDH8PbjER8/w7AMz/QGzKN4fxJIR61eF3V221GNsv
-	 nU4INK2DD7GQD0eIBOVzhc7LrRwXQI6Wg0IxnO07/c5dxPGiM1KkKk+9Vm5z4xfuO8XKy
-	 Yfbo2rb1a/HzE/lGa7nIglNaEwQQuiVfLM7SLLoWwivmZC3Q6B4+vU5SBOtmQPZnyQ+ix
-	 akC8JtJtva1s2GErUN7v2ZjA+JEtnws88QoDbnhH7nq9iZ0JoW/fLaH9cl/xoeEkZczyf
-	 5WNZdKRVdXWMKCx8owB/BB+g7rLsYilR092iLuMK9IO1gvVQloUPoWxVSeXqvYjg4pA==
+	t=1792743985;
+	b=NBFvhu8FLRzCxI3xvw5vQ0A5pHeWcl0YTOmxSeypgubkUdmtIqpm9JIjAairtksNLqpx
+	 xmt4oTeJ3GkKnmu+OckMPsRG73hAK5088/G+QXTdLAHOcL7Cckej2vQTHTjmcKrHpLEb2
+	 /0ZcraOiv2vCN1QucIvqpDLNRbr9PaIf5bfcZVpVcGOVr3hCrcqtnNceXXg11iKoVWuGj
+	 i2a2mN94Lt+UYLi2TTi7NAXwriFiH4Zo3HQ/BXZKUFdPOkzXF7OaEIywlorUsjD1/AcSO
+	 38bba0hK1Q2GF35RE2QIMgRvpeXuWePtwgQl3ideLoU5MWWipwcXIAyCNJSj/SACnCw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792743681;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=RZFjcUKLDQB2Qqzwh+QT+vaE3N63TGAe0FwqXRZaMiE=;
-	b=OLErek5JvchH7D3u6f9gg+E/gJAMMXySzpsLe68WFGn9msu7BwdR+FTrmMsY5/LMXJGb
-	 FbY4A8qYhUSzzwWRWTwRI4UQNCMJb7q81QrfUmqw7MTqdc4FotX69d9oLT/4KKeSXcF/Z
-	 I5Lkj938ozjv3fOm035BOiYdJeU+4hGtM/msFevKtiCpgqXy/IK+NgeYrvc5Kw6JdTrRU
-	 5v869c+HrcUYPbBveC4Cf3Qfref6NdVaXd6IzOStPmFHz69N27BMIdf2vBnM6pN02FMX7
-	 zlI4N3VFvXdGTJJIB3NrNMz/AehWpXycGXUmMFrzS7Nmz6aH1v70nwK6V8Ia25ASAZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792743985;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=S1YD5EpGDqTiFVo7VMB1hOrB6yRp5Gv5331ZY5cvGnQ=;
+	b=xj6KqWhrT5JneMAt/HbjdHJw+iNavn125yNHwuXTZz2Hz4pHUBYAeaV11oIsHdKivloi
+	 fkxA4Q7WKr/34wDWHyFw4FUWdxKssm8Lfi+pCajMLcCKtBRXhoS6Rj/CWn7jFbr9d2Zf7
+	 I956w8ZxLJC0RkVcbMVZxA8kXBCtN6Iv+9VYDYM0ja/yrkEuXb4bhDdzLq4fyKHMVxD7E
+	 iflqmRGa9zqqC62mqOWwU1i4Jh3JRQfpmxMeW9ww8V75EQQUj6N/wTLcrhXCptSRNjj7o
+	 Bl+oZL43oG956B0xAplvv5BKSIkJi0Uxi930exBGkxA+OxAcJGByn8hrqF7InnNECfg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j73r+lT4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="we+XQ/zh";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.68
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010068.outbound.protection.outlook.com [52.101.85.68])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1843606A31F;
-	Fri, 23 Oct 2026 08:21:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94AAF606A31A;
+	Fri, 23 Oct 2026 08:26:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94AAF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j73r+lT4
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792743680;
-	b=yqumJyKUIwjsAXvSZEixJacibLfnkBa+d7NYfvhkGAiTuYDT733LNH9T6l3xB8c4CcY0
-	 iHHWyJVNlZ47vacEoFq1kwe5N62hmQQXRh+fETrKkDWjdATTdluCcBxpJhdDxVp26TazD
-	 7it8JyrCYbwFUDZjpJZKRe2nDabKtooALNW6qiU2lCX6AEzAvfPMLB42js8vi+lpxYPLv
-	 xWNTlIyUdddq8p4l7IuxJ52gotOsmPrL4uDhzG9ecc7tANFBIqtD1+Kin50Ht9W+JitRa
-	 AosPELMRKKmvx9oVHBoDgYnYe+8cRNAuSGwLX4z59QLGIam/ei9LuPHAK+tDgKLu3kQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792743680;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=RZFjcUKLDQB2Qqzwh+QT+vaE3N63TGAe0FwqXRZaMiE=;
-	b=AAhY0Y0n13RTqoCqQaPZn/Tof9MngJXjnKG0jkRQ1zQdTfNmPqbdrVZSFION+jdRHX+E
-	 fC9+V4a3cE1FPp0U+0qCa8UFUe9O5rvawcgc3kGhkEcbHouD/sh+LOlotcQS6frmrhtdF
-	 MGoPT5skZwThiWarwYs7WHbkoWNigUVnrBB+JpUHI4G9n19evwgqm4wcwtuQ6aPVhbHh2
-	 LWsD59Lv/6rpeWOKhhF8M3txIAAsJgZrfJJjLZPV42OqWj+iErepZITkLRr5pfPCPOvHl
-	 XbA3ohtZZ3h2FOKz5bugczxC3a/g+Mc7AqICy/gU7R4jrfwXSdlCzCOftFTkDBXli5Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id EFF6C1F01825;
-	Fri, 23 Oct 2026 08:21:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792743680;
-	bh=RZFjcUKLDQB2Qqzwh+QT+vaE3N63TGAe0FwqXRZaMiE=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=j73r+lT4gTh664Jz/EMl3qFFghk9nujJvX6BWafr8b5iYg/u4c1MJ9aM2fbtH+YZ6
-	 7Bq9oqt3kJfiNN/xAMOWDkZr/2S/qEQIMIOZbxHTz6MTAWzwLy2F6J5NhMob+chanW
-	 cpn1glCQuXdkCJi5aK9O8w+4yIfX/0V+d1ZlNUaeHFfhMYeVbJBLm7U3Utmk7qDG8V
-	 w/CjiG2PBroao/yM4ChQSxTd1DmDnzngKfh4q4vKnknk5Yx2Lsg4M2eAEQv/eOZdvg
-	 ycgFGaGoYpu5rXNQDqaMnNIKLE167dXwegBThFou6fNjIzKjAJPeGsCp1Rx+tRjhX0
-	 lNEuMPQIXoCOQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 6FC1F4441C;
-	Fri, 23 Oct 2026 08:21:19 +0000 (UTC)
-From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
-Date: Fri, 23 Oct 2026 16:21:05 +0800
-Subject: [PATCH] gpio: rockchip: Fix debounce arithmetic for GPIO v2
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=we+XQ/zh
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=h6Hnlr8PVXay7tzOpRqePA6z8SFT30vVcthojYycT6f8/O+mngSXuaWu5wdLbRXHH624jWkt2ciltKn5EueeOB1VPp0b5koW58705rk0nStoTS1u4rtk/ysOTB4Bls9zNfp5HL9W5twY96VYpmDKBUoBZ3iH0oBntj+EBgLydUXI8wNioHRCEQjraF2O5rgQtrlCRO4Bv0CVuEL2IOm7a0q89nuO6qiB+MHt4sjdZdtS75LEP6C/rk0rSVBGd2r8VxkyfVZzTFNSYI6H5dZTyFdGwbZ64atzHwEaSxtcNigARg72s6uD2PQ0GLegf7/zXRPqBBfZIV0qLXJCwRRlpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=S1YD5EpGDqTiFVo7VMB1hOrB6yRp5Gv5331ZY5cvGnQ=;
+ b=ghG3d2p+FNTHaxQ4Uq+vD0tRPJ9Fy9R9D852PsQrZ3e97Mlcv8634csk9ctQmOXcZa5Z6PlX+bs+/PNnGGaeyHn8Ag/dUaXRMiKIN9jl/QHYNUvwf4uTGZ93iX3LxzP7Z5GYa278nUN4IplRnBjeq+2vLug+XIURspJPc91XEvM/Q25zyiNcF8C5OFr39CialkGYtZc36qwuuVC946GjshX+d8zVDYiiSDIk2cXndf3RQZr289aW3WzMfVdzYJDuKGN5MEL/qmPYMImu0k1SY8bzwCaMKsEnyOFtqXS/fP036wQgv6itoHfR8omFRVYHYiOJ7OwZFhH2nQeoJP/2zQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=S1YD5EpGDqTiFVo7VMB1hOrB6yRp5Gv5331ZY5cvGnQ=;
+ b=we+XQ/zhszuXVAju/uhLLlzzFr1/IkkcGg4R0KqYXqtQT3IYlPvr0wbQaEbWHRTMDX4IkyCKMOiHeCGr6kF4oSKpACd5ZvJZ+20FoFmz1JH3+2Ud61c3pNae9EEp5gQO/Qificke1Mty7wlHk4tXA2Qq/mTPzX/vDJdNxxLX13k=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY5PR12MB6550.namprd12.prod.outlook.com (2603:10b6:930:42::6)
+ by LV5PR12MB9825.namprd12.prod.outlook.com (2603:10b6:408:2ff::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.18; Fri, 23 Oct
+ 2026 08:26:21 +0000
+Received: from CY5PR12MB6550.namprd12.prod.outlook.com
+ ([fe80::b0a5:664e:bd0f:3f14]) by CY5PR12MB6550.namprd12.prod.outlook.com
+ ([fe80::b0a5:664e:bd0f:3f14%5]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
+ 08:26:21 +0000
+Message-ID: <7e2046b4-be10-4d7d-a7fb-ce56add7ea60@amd.com>
+Date: Fri, 23 Oct 2026 13:56:16 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] HID: amd_sfh: Use shared interrupts
+To: Ho Jie Feng <hjf3108@gmail.com>, basavaraj.natikar@amd.com
+Cc: stable@vger.kernel.org, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261023081803.21761-1-hjf3108@gmail.com>
+Content-Language: en-US
+From: Basavaraj Natikar <bnatikar@amd.com>
+In-Reply-To: <20261023081803.21761-1-hjf3108@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0041.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:175::15) To CY5PR12MB6550.namprd12.prod.outlook.com
+ (2603:10b6:930:42::6)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,130 +97,192 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261023-fix-rockchip-gpio-v2-debounce-v1-1-f1141bd5b58f@qq.com>
-X-B4-Tracking: v=1; b=H4sIAPAY22oC/yXMQQrCMBBG4auUWTuQTqFFryIu7OS3HYUkJLYUS
- u9u1OW3eG+ngmwodGl2ylitWAwV7akhne9hApuvJnHSt046ftjGOepLZ0s8JYu8CnuMcQkKPru
- hH9RD4Duqj5RRg9//evu7LOMT+v5O6Tg+e9INuoEAAAA=
-X-Change-ID: 20261023-fix-rockchip-gpio-v2-debounce-90767cde2ed3
-To: Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Jianqun Xu <jay.xu@rock-chips.com>
-Cc: linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Cunhao Lu <1579567540@qq.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792743678; l=3798;
- i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
- bh=990tz6V6xSqlnsWsntOcrs9gs3SDwAyWpRr2l3eS5jA=;
- b=MT2tjLEkyabOrZ4KFYK1MjnqubLChv5mTzLHiyvAzJ27voIKRUdgCfGc/HuEDJpf4r0Ur6HxK
- vjeJI+cZ4ILCoeBSjnIhtn2ioR6lVFz7/f31Em4yLqEq8ZqZtgJwf7S
-X-Developer-Key: i=1579567540@qq.com; a=ed25519;
- pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
-X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
- auth_id=1177
-X-Original-From: Cunhao Lu <1579567540@qq.com>
-Reply-To: 1579567540@qq.com
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY5PR12MB6550:EE_|LV5PR12MB9825:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b1cd38a-409d-4e78-f829-08df30df5150
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|6133799003|18002099003|22082099003|261022105027099003|11063799006|261009223027099003|261021123027099003|10067099003|261021121427099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	xPaCvgeKf/UnDmNeBQx5kNSiKqGHYZQrEXUkEn7iBdUKqXV6oZjbsBDAHWE6nDEqEYpEtF3T/IUh0OOXxyl3X4ab7vYH2/YN8v2tv+/X4ykPnIXUp+PZmTI3nljM3rWjLWDtvCYBUMR88G5QumEjB0F5NEm4abAsIYOJjJLJdC4EDHmWFn0k6bnyNvqPr4HrWe0PNRd43nNkCn0vUxo17cH4oDEIYUCJaohtkJ1N3cVETRT0HzCdcC07UyYTI4cKEp5UujpiqFlDgbYqPf/HL3bemF+4SH8EID85q2hq5zv5SoRUj4eHQATqkH3Y+2PxBR1iD5w58NxXMe4TbBHaI9XbZAXwJemvxTabG6HNdhWhkkfdYeuqs0segJg1KDZwI04WQTHowToc5HlSMQ6IApLBDKLEOuCR8NUPJzndIAgWGQwSmr+fVumNaubYueDsYrLl6k5Q1cyU2LemITL0wI9exv5cWWWSXh9xVCPphJIGkTrqk+lwtlJvY4QawayCviiz1PXkOeAJPEpN8hxgthYFQyplnosTc6/YmIxwcwP41r03Dx8/3WbZl797OWpAmm1MntdtfqTgdzHUK0CjuIDGUT37qJnsZUox5+RwHsgsZNXLES8NTIs4uBsOb7pTZLfFZBD9XTk8O5KGTATlWPYIhGiWx6eqFLhq7kohM6c=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6550.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(6133799003)(18002099003)(22082099003)(261022105027099003)(11063799006)(261009223027099003)(261021123027099003)(10067099003)(261021121427099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VEU4T2JKVzZ2MjhoTlA5eVdBbU9mZFpqZFUyMkxnQ1pxMnpuR0xiYThkNWt5?=
+ =?utf-8?B?RU5UZmNTYzhacjhtTXFUZGs0TGJOQlExMmdDaG1zajRYMm9QM0Z3dDR2TlNJ?=
+ =?utf-8?B?SDV2MzB3ajZHSHpoVnFNZHJBR28vVlQ3elhYNzBxT3FzbmIrM2FBUE1wSU9T?=
+ =?utf-8?B?WnhmdWNTNVIzYllkWVh5a1BpLzF6SEI0L1JaQ2JETWo5WnAwYzNWQmYzVkF3?=
+ =?utf-8?B?RHRwcVpoRUV2MXBEaGJVTXFtTEs2UjZDcko4RW5sMnpvRkZzeVlteWtwRnU5?=
+ =?utf-8?B?eS8zVkFWWVBMenI3R2tWWW9UMmFSVVEzRFJxQTFwK2JJTXpMbjA2VlFhMEdC?=
+ =?utf-8?B?OEl6UkwrelJCSXF0N1l6blA3VGsrVW42VStKY3JUa0g0UDZjWVVMUjFLRStV?=
+ =?utf-8?B?anNkcnBmVi9QV01YV204L3FaVFExelp3V25JaWhRbUdUSkpzdVRaNExXTVdN?=
+ =?utf-8?B?bVlxbE00a0Q5TTdaaWI0TmY0Q0cyNmpTT0hvVTZpSCtnUkw3UXMvZkVYbE91?=
+ =?utf-8?B?RWQ3RnlPYmVuSU10UjFmSDI2M0FUUnZrbU1sbWJ5RUFGekk2MjRSQXVpT3JY?=
+ =?utf-8?B?L3A0eUxxanRneFJjU3dmaDQ0OTZIZGdPUERxTldIcExocDBNYktEQ1FnMXNn?=
+ =?utf-8?B?cm5VYlZjR25MOUdNeGxvN0RFY1VrRS9PMGNDNG9Xcjc3aHFsc216dTBjbnRo?=
+ =?utf-8?B?a2RSdWhNSTBUbnBFSDAwODhiWnNYUUl2TlFyYWNsMDR0R2JKaWpuV0J4LzJF?=
+ =?utf-8?B?bzZPL2VuT2NKYVU5ZnpQbjVuMWZCK2lsTXVsbHF3U3BCVm1KSkphUXFsQTdk?=
+ =?utf-8?B?ZVpRVVdMR3ZvRWpuUTJLR0N1VTJueVVjL0dSYUYzeUxpQ2FRb1lEU1M2R1Z1?=
+ =?utf-8?B?YURuMWhaR3dLTXpONUF6K1Y3YVYvUGRveWtYK3JzczJrY1JsNnh4UnNhak9T?=
+ =?utf-8?B?RzdWQlRoZHhWY1psOTZPR1BkZGYzbUUrZW9OMjMwU1N6WGJHdWt3ZkFNTTNy?=
+ =?utf-8?B?T09hVWhNcGRJVk9UamlPSC8rWE5Bd29CS05EcVRNanZ1Qk96cXpkajZrVVMw?=
+ =?utf-8?B?WWFGU0JVTlBzWW9OMkg2OFVpMDMwV3pQZzdCbmMzNGsvQjBCL0FheDllc2Jz?=
+ =?utf-8?B?Y3Q2ZU52cVRPRzBMUGtUUS8rTG14cHd1b3JrZ1RJZThkZ2Fpb01VdkhUN3Vs?=
+ =?utf-8?B?VUJwQThtaTdONFRQby9yaHNYdzVsL1FYMnN4NWRMck9zamV3aE9wTDdHbXE0?=
+ =?utf-8?B?MmZMOXN4elJlWFFEbFFTanpLN0plNkVVZTErcnhXYThOamxOUzRHNGY1MU93?=
+ =?utf-8?B?MlBzaURRNjBBMnRGczIzWXI2eHNmSDFQSmlSYlVyM2lZTFlsWUEyKzdoUWg3?=
+ =?utf-8?B?R01aM0tYSlRPbzFjRmNzQUoxbGw1RUJqcGVVVEVaRDVZVUhBMHhjRVdXakpU?=
+ =?utf-8?B?YXlrcmN4S2RvVXhnaTh0bTZIQ2tZdEcydW1oT3ZGWTJWSkxSemNFV3FrNVNi?=
+ =?utf-8?B?bnJTTVN2bzRzWTVMclZjOFBnMGVHWFJnRVU2Ynh3cnhzeVJLb0FzTGJYQ3M0?=
+ =?utf-8?B?M0Iya3pmc1Rqc3d4K1VaVU5TbUF3aW5WeXQ1ZUdnamRNcXMybzF4VUYxNExB?=
+ =?utf-8?B?MVVweWVjeHVyNHRMMDQ5M3RaUForVE1mSzNleE9sNnR1T0N0YmdPa2RYTEdD?=
+ =?utf-8?B?RU9LaWVYalBDUVY2aHBYaW9LMzROcW1xL3l1M0tza1hsbUVReWQ1Q0prZ0ZH?=
+ =?utf-8?B?R1YzRXRNelhJV0FEVW5UQjR0Qnk1dEIyVDFLN0IrWTNqWkJ2MmdYeHM5b0VM?=
+ =?utf-8?B?TlZGY1hONmw5aDYzejNlRXRmcmhudGRSNSt5WG9ESG1VVE9lVFJ4WlRpM1BL?=
+ =?utf-8?B?dnhxS01IR0JVbEl0ZXVRNS9ZQ210alNvV2lhSFRHYTBHN3hUUkxYckh6SllI?=
+ =?utf-8?B?OUlCZWtxblBQOUxrblJqdlMrUXI1RWx1aDhyVGt1Z29nNVNuVU5qU3YreHFu?=
+ =?utf-8?B?a05TUkYzTzRwVUd5alB3cFRpMnR2OTdBOXdRT3ViYmE1N2lBekJFWVQ3a2k2?=
+ =?utf-8?B?eXlFQlh5VXoxR2tHb1pWS3FleU4wb1BoeXJZU2grRTVLd3dhVkZDSkN0VzVE?=
+ =?utf-8?B?bWRwNjRKeFlwYVV0TGxibGk0Vmp5K095OVhCVzBWQTUxS3VzWTFuTDB1bkJ0?=
+ =?utf-8?B?Z3l2YnhtRHVROFhUZmRGZVlSenQ4M0FDYVNhNEtuRVRnSzlnbWNVSEk4TzB4?=
+ =?utf-8?B?SFdqRUZBY0t3WExnWUp4SFBUSFNpMXQxVG12bXhwbVNNQVQ0NWpMMFZQTzdt?=
+ =?utf-8?B?ZjFMdmR6cUdOS3l2ODBVNjBCMm1BSTVpMFdpZmRTclAxclFkYmcvdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b1cd38a-409d-4e78-f829-08df30df5150
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6550.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 08:26:21.3675
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: z/E3Nu3N8iYlm1EXvFUmHMatXjpsD6PiTrAmDtfOULL5Ng73VkrAaP7K3VOl183yJMn1kbIZhSrEuAn7Ej24pA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR12MB9825
 
-From: Cunhao Lu <1579567540@qq.com>
 
-The debounce interval calculations use unsigned long operands. On 32-bit
-systems, the numerator used to calculate the maximum interval overflows
-before division, while multiplying the requested interval by the clock
-rate overflows before it is assigned to a u64. A zero debounce clock rate
-also causes division by zero.
+On 10/23/2026 1:48 PM, Ho Jie Feng wrote:
+> [You don't often get email from hjf3108@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> The AMD SFH driver requests interrupts without IRQF_SHARED.
+> This can cause VFIO PCI passthrough initialization to fail
+> when a passed-through device shares the interrupt with AMD MP2.
+>
+> Request the interrupt with IRQF_SHARED. Check for a pending MP2
+> interrupt before clearing and acknowledging it, and return IRQ_NONE
+> when no MP2 interrupt is pending so the interrupt can be shared with
+> other devices.
+>
+> On an AMD Ryzen 7 7735HS host running 7.0.0-38-generic kernel
+> from Ubuntu, trying to pass through an xHCI controller
+> (1022:161d, 0000:e6:00.3) fails with this message:
+>
+>    genirq: Flags mismatch irq 45.
+>    00200080 (vfio-intx(0000:e6:00.3)) vs. 00200000 (pcie_mp2_amd)
+>
+> QEMU reports:
+>
+>    vfio 0000:e6:00.3: Failed to set up TRIGGER eventfd signaling for
+>    interrupt INTX-0: VFIO_DEVICE_SET_IRQS failure: Device or resource busy
+>
+> With this change, the passthrough is successful through VFIO
+> on the same host.
+>
+> Fixes: 7f016b35ca76 ("HID: amd_sfh: Add interrupt handler to process interrupts")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+> ---
+>   drivers/hid/amd-sfh-hid/amd_sfh_common.h |  6 +++---
+>   drivers/hid/amd-sfh-hid/amd_sfh_pcie.c   | 18 ++++++++++++------
+>   2 files changed, 15 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_common.h b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
+> index e8cc7f1d289cc..4481a50359de6 100644
+> --- a/drivers/hid/amd-sfh-hid/amd_sfh_common.h
+> +++ b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
+> @@ -85,7 +85,7 @@ struct amd_mp2_ops {
+>          void (*stop)(struct amd_mp2_dev *privdata, u16 sensor_idx);
+>          void (*stop_all)(struct amd_mp2_dev *privdata);
+>          int (*response)(struct amd_mp2_dev *mp2, u8 sid, u32 sensor_sts);
+> -       void (*clear_intr)(struct amd_mp2_dev *privdata);
+> +       bool (*clear_intr)(struct amd_mp2_dev *privdata);
+>          int (*init_intr)(struct amd_mp2_dev *privdata);
+>          int (*discovery_status)(struct amd_mp2_dev *privdata);
+>          void (*suspend)(struct amd_mp2_dev *mp2);
+> @@ -100,9 +100,9 @@ struct amd_mp2_ops {
+>
+>   void amd_sfh_work(struct work_struct *work);
+>   void amd_sfh_work_buffer(struct work_struct *work);
+> -void amd_sfh_clear_intr_v2(struct amd_mp2_dev *privdata);
+> +bool amd_sfh_clear_intr_v2(struct amd_mp2_dev *privdata);
+>   int amd_sfh_irq_init_v2(struct amd_mp2_dev *privdata);
+> -void amd_sfh_clear_intr(struct amd_mp2_dev *privdata);
+> +bool amd_sfh_clear_intr(struct amd_mp2_dev *privdata);
+>   int amd_sfh_irq_init(struct amd_mp2_dev *privdata);
+>
+>   static inline u64 amd_get_c2p_val(struct amd_mp2_dev *mp2, u32 idx)
+> diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
+> index b3cb13b8c5e87..f48a096a6d2bc 100644
+> --- a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
+> +++ b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
+> @@ -103,25 +103,31 @@ static void amd_stop_all_sensor_v2(struct amd_mp2_dev *privdata)
+>          writel(cmd_base.ul, privdata->mmio + AMD_C2P_MSG0);
+>   }
+>
+> -void amd_sfh_clear_intr_v2(struct amd_mp2_dev *privdata)
+> +bool amd_sfh_clear_intr_v2(struct amd_mp2_dev *privdata)
+>   {
+>          if (readl(privdata->mmio + amd_get_p2c_val(privdata, 4))) {
+>                  writel(0, privdata->mmio + amd_get_p2c_val(privdata, 4));
+>                  writel(0xf, privdata->mmio + amd_get_p2c_val(privdata, 5));
+> +               return true;
+>          }
+> +
+> +       return false;
+>   }
+>
+> -void amd_sfh_clear_intr(struct amd_mp2_dev *privdata)
+> +bool amd_sfh_clear_intr(struct amd_mp2_dev *privdata)
+>   {
+>          if (privdata->mp2_ops->clear_intr)
+> -               privdata->mp2_ops->clear_intr(privdata);
+> +               return privdata->mp2_ops->clear_intr(privdata);
+> +
+> +       return false;
+>   }
+>
+>   static irqreturn_t amd_sfh_irq_handler(int irq, void *data)
+>   {
+> -       amd_sfh_clear_intr(data);
+> +       if (amd_sfh_clear_intr(data))
+> +               return IRQ_HANDLED;
+>
+> -       return IRQ_HANDLED;
+> +       return IRQ_NONE;
+>   }
+>
+>   int amd_sfh_irq_init_v2(struct amd_mp2_dev *privdata)
+> @@ -129,7 +135,7 @@ int amd_sfh_irq_init_v2(struct amd_mp2_dev *privdata)
+>          pcim_intx(privdata->pdev, true);
+>
+>          return devm_request_irq(&privdata->pdev->dev, privdata->pdev->irq,
+> -                               amd_sfh_irq_handler, 0, DRIVER_NAME, privdata);
+> +                               amd_sfh_irq_handler, IRQF_SHARED, DRIVER_NAME, privdata);
+>   }
+>
+>   static int amd_sfh_dis_sts_v2(struct amd_mp2_dev *privdata)
 
-Use 64-bit arithmetic for both calculations and reject a zero clock rate
-before division.
+Acked-by: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
 
-At 32768 Hz, a 1 us request rounds to zero divider periods. Subtracting
-one then wraps the divider value to ULONG_MAX. Decrement only a nonzero
-rounded period count so that such requests use the smallest divider
-value.
 
-Fixes: 3bcbd1a85b68 ("gpio/rockchip: support next version gpio controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cunhao Lu <1579567540@qq.com>
----
-This pre-existing issue was found by Sashiko AI during the RK3572
-mainlining work:
-https://sashiko.dev/#/patchset/20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com?part=9
+Thanks,
+--
+Basavaraj
 
-On 32-bit systems, the unsigned long products used to calculate the
-maximum and requested debounce intervals can overflow before being
-assigned to u64. A zero debounce clock rate also causes division by
-zero. In addition, at 32768 Hz, a 1 us request rounds to zero divider
-periods, so subtracting one underflows to ULONG_MAX.
-
-This patch performs both interval calculations in 64-bit arithmetic,
-rejects a zero clock rate, and avoids decrementing a zero rounded period
-count. The existing set_config fallback and divider register accesses
-are unchanged.
-
-Validation:
-
-- A host reproducer confirmed the 32768 Hz, 1 us underflow and the
-  incorrect maximum interval produced by 32-bit arithmetic.
-- The combined GPIO arithmetic suite passed 126 cases for each modeled
-  arithmetic width, covering both legacy GPIO v2 and RK3572 V2.7. The
-  suite includes zero-clock-rate and request-boundary cases. The 32-bit
-  run models unsigned long arithmetic; the 64-bit run uses the native
-  host width. Both are arithmetic-level host tests, not ARM32 hardware
-  or electrical tests.
-
-AI assistance:
-
-- Codex / DeepSeek V4.1 Flash were used for:
-  - Collecting data
-  - Automating tests
-  - Reviewing and adjusting code style to follow community conventions
----
- drivers/gpio/gpio-rockchip.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpio/gpio-rockchip.c b/drivers/gpio/gpio-rockchip.c
-index 77b239a9a601..714604c11d78 100644
---- a/drivers/gpio/gpio-rockchip.c
-+++ b/drivers/gpio/gpio-rockchip.c
-@@ -201,20 +201,25 @@ static int rockchip_gpio_set_debounce(struct gpio_chip *gc,
- {
- 	struct rockchip_pin_bank *bank = gpiochip_get_data(gc);
- 	const struct rockchip_gpio_regs	*reg = bank->gpio_regs;
--	unsigned long flags, div_reg, freq, max_debounce;
-+	unsigned long flags, div_reg, freq;
- 	bool div_debounce_support;
- 	unsigned int cur_div_reg;
--	u64 div;
-+	u64 div, max_debounce;
- 
- 	if (bank->gpio_type == GPIO_TYPE_V2 && !IS_ERR(bank->db_clk)) {
- 		div_debounce_support = true;
- 		freq = clk_get_rate(bank->db_clk);
--		max_debounce = (GENMASK(23, 0) + 1) * 2 * 1000000 / freq;
-+		if (!freq)
-+			return -EINVAL;
-+
-+		div = (u64)(GENMASK(23, 0) + 1) * 2 * USEC_PER_SEC;
-+		max_debounce = div64_u64(div, freq);
- 		if (debounce > max_debounce)
- 			return -EINVAL;
- 
--		div = debounce * freq;
--		div_reg = DIV_ROUND_CLOSEST_ULL(div, 2 * USEC_PER_SEC) - 1;
-+		div = (u64)debounce * freq;
-+		div_reg = DIV_ROUND_CLOSEST_ULL(div, 2 * USEC_PER_SEC);
-+		div_reg = div_reg ? div_reg - 1 : 0;
- 	} else {
- 		div_debounce_support = false;
- 	}
-
----
-base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
-change-id: 20261023-fix-rockchip-gpio-v2-debounce-90767cde2ed3
-
-Best regards,
---  
-Cunhao Lu <1579567540@qq.com>
-
+>
+> base-commit: 2c2fe95ab19b09bef7391e3e5cdf8146d09792b6
+> --
+> 2.55.0
+>
 
