@@ -1,66 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792727213;
-	b=NOcAiVXbp3IU+htqdKv1qWmGDAhwMSGyK81qUlsno+GDLcAq/8qLSp8OHQ0J9HYZdCnM
-	 mKs0gfTV248lzdW1vqUH1ekRlXGuICSnWpygtItVTGphW/CcjLiixVcG4gY+NrMa0wFFy
-	 6PXLa2V0OANVNpXL90Q4jRPj6N1j4TBNR9AxUHiV7Z0aH4dgMqjSoYg+Oxr0WHuwylljg
-	 duaYI00jTucb3sEBNBhYejG1Co04MZnGlzP1YxrYNN+86lNVBcyEzQJgl0NT95lHKj5nv
-	 B0RZKItX5u73eucUNcY0TypSIoqEBUd64JhFbp6tFfXpO2t4BWFMksAsg3DbQ1w+zYQ==
+	t=1792727589;
+	b=VesHhItJXpyEBas+JlQCOClHqfsV4lJah78cXt1u+L5eXBvyAlhRLzoR1afslyX0YALM
+	 JeEu9hs8200LpIcPslq1maGobApJ2AgTiH8+Rek9a3ezVTgvh+4JTa3AcpH01wLHikcg8
+	 7Ezhom0P41rPMt+N/86OJKT2XUJWfvvl1cmLKnlxZzDGK+y9Rl9UDfn9/BNRDJSTn4qJg
+	 by0IuzFZCH3doYoIWBMbZBUHRO62pZj6VRRsVePKCPrrqLWfhXC+wYq7+VkzKLxlfB/pG
+	 5d8RefDjcP013IgOTucxEyTmlN3gXWGUd4C8fIqiQga4/FCMTypkYIYFyYk3XnEugMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792727213;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=/zfyKeokjNedSUS7yMiHAkGIRA5q0HB0PWWuzOAnAKI=;
-	b=4UOIT5IHo2HQyz4ELlYRAAMvLPtQTv3rzIT3M7um08rWnsuSd3KLoO5bMKEHrG9/gBzy
-	 4PKjrJFvfOLKNq2054x9xrVZ1fsb3XwsN73W31kfvwupp3b04J7o7ZiHO+jtMh/wSrGFE
-	 Oqlwy+YfF2C4Bhzg9u/ZWlKWoJGF5gabypkqNLYeHVasHzOBpToXmrziQA2vVvNYGdmeF
-	 dCVOnR9PDfzDoOPt7we1c/frhkwtmqGNTZ4DHUxnJq23sYdmZ8Xhb9OeevJsWBdbV3kRr
-	 yOOijq3wnfXpqU5wbEJzlbTU2eyqp4BCDjJJnlKMylKfyt/lDkoRdHtWcFtm9vShvTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792727589;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=pVmQtPj73xkx0kK7v4cYdZ5fibluKU+0zwiIjqhOZRA=;
+	b=0deJHjC5PURURGGwoFkj2Z3b3tc623W2Q/fv5TqH2Eyocss0WB8zvQzFlnobHxdz6BJa
+	 X0zqJ3c2Xqf7lqu9kN08hfd+A2J5sg0/+PCUpjAk0Y5n09Gb0OQ+XIzQ0vlqXti1o8X31
+	 cMDZ1GCDSNTMnPCoTmU1yr/cIvp6pXZJ1ONG9ZNt35FaVuNP9bN8WB2BwKI2Bw0GAYmVg
+	 acHMfAmJQ0JEeONCaxruHJ3lJ/CMydTQAWOKjNO05eofOz4FA/8vi1WvTwoE1Pliqp200
+	 w2AiY8VhaAfwpXjb/mN7JdXlZt8oRa9I2DyZHSfXuko8L0WciwLOP+cq/yQpJS846fw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=hjgnsGdn;
-	arc=none smtp.remote-ip=113.46.200.222
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b="KGee/SXg";
+	arc=none smtp.remote-ip=115.124.30.118
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B20D606A319;
-	Fri, 23 Oct 2026 03:46:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B20D606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8585D606A31A;
+	Fri, 23 Oct 2026 03:53:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8585D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=hjgnsGdn
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=/zfyKeokjNedSUS7yMiHAkGIRA5q0HB0PWWuzOAnAKI=;
-	b=hjgnsGdnjFB1cVo2ZZejGdIcvkNG4tEFj+0NQ1IKK2wzzAkfDCZgQli6HNJCuWOCw5SUzuyxH
-	2bhZteWso3txWqAKPRB1c+A2jBTWJMci0isfJN2BlVcecs5BUXjoReZre9VXWW6aa6zdVO374+6
-	Tk/HiTi9XwF3hf0p4zZ/YcM=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4j9pq92x1szLlTc;
-	Fri, 23 Oct 2026 11:46:45 +0800 (CST)
-Received: from dggpemr500006.china.huawei.com (unknown [7.185.36.185])
-	by mail.maildlp.com (Postfix) with ESMTPS id 9B62440586;
-	Fri, 23 Oct 2026 11:46:48 +0800 (CST)
-Received: from localhost.localdomain (10.50.85.180) by
- dggpemr500006.china.huawei.com (7.185.36.185) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 23 Oct 2026 11:46:47 +0800
-From: Yao Kai <yaokai34@huawei.com>
-To: Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-CC: Ingo Molnar <mingo@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	<linux-kernel@vger.kernel.org>, <liuyongqiang13@huawei.com>, Yao Kai
-	<yaokai34@huawei.com>, <stable@vger.kernel.org>
-Subject: [PATCH] rseq: Prevent self-preemption when granting a time slice extension
-Date: Fri, 23 Oct 2026 12:04:39 +0800
-Message-ID: <20261023040439.3829110-1-yaokai34@huawei.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=KGee/SXg
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792727578; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=pVmQtPj73xkx0kK7v4cYdZ5fibluKU+0zwiIjqhOZRA=;
+	b=KGee/SXgDv1nJdN3gkFUKLw5K2Se5hGIGO4JHhsDIKf8i94LHF2iS0kR3RspzU7oQbkURDNH4FBxmH9eAjTMbo6mYRUCe2RaDAtc8vsqi/EDKSl/5pTkTuJlXZBwfb1yKalK2zUWHcNuOJ6TGMK82Hc2wF9SCNcq82WA/04vRCI=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XDKqBZ4_1792727577;
+Received: from 30.221.129.69(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDKqBZ4_1792727577 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 23 Oct 2026 11:52:57 +0800
+Message-ID: <ea316ce8-6496-41ad-ae00-731538870e81@linux.alibaba.com>
+Date: Fri, 23 Oct 2026 11:52:57 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,80 +53,287 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- dggpemr500006.china.huawei.com (7.185.36.185)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] ocfs2: snapshot dentry names in file and setattr
+ traces
+To: Cen Zhang <zzzccc427@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-objects-candidate-0088-v7-6324344256f0c3b1c3d8-0@gmail.com>
+ <pm-ocfs2-objects-candidate-0088-v7-6324344256f0c3b1c3d8-1@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-objects-candidate-0088-v7-6324344256f0c3b1c3d8-1@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-__rseq_grant_slice_extension() makes the grant visible to user space and
-then reads the clock to compute the expiry time before it clears the
-pending reschedule request. This runs in the exit to user mode loop with
-interrupts enabled.
 
-Clocksource read functions are free to disable and enable preemption.
-kvm_clock_read(), xen_clocksource_read() and the arm64 architected timer
-counter accessors, which are used when a counter erratum workaround is
-active, do so. With full or lazy preemption, when the request which
-triggered the grant is a non-lazy TIF_NEED_RESCHED, e.g. a lazy request
-upgraded by the scheduler tick, then preempt_enable_notrace() in the clock
-read function schedules right away, e.g. in a KVM guest:
 
-  __schedule
-  preempt_schedule_notrace
-  preempt_schedule_notrace_thunk
-  kvm_clock_get_cycles
-  ktime_get_mono_fast_ns
-  irqentry_exit
-  asm_sysvec_apic_timer_interrupt
+On 10/22/26 5:08 PM, Cen Zhang wrote:
+> The open, fsync, read, write and splice-read trace calls pass the live
+> dentry name and length to the shared ocfs2__file_ops event class.
+> ocfs2_setattr() passes the same unprotected arguments to its own event.
+> Both events size and copy a __string field separately. A reference to
+> the dentry does not pin the external storage backing an individual name.
+> 
+> With an event enabled, a caller can be preempted after loading the name
+> pointer. A long-to-short rename can then replace the name and reclaim its
+> old external allocation before the trace callback sizes or copies it,
+> provided no other snapshot retains that allocation.
+> 
+> The setattr inode lock does not exclude every rename: a same-directory
+> rename of a source directory need not take that directory's inode lock.
+> It can therefore change the dentry name while setattr records its event.
+> Inline names and separately loaded lengths can also change during trace
+> record sizing and copying.
+> 
+> Take a dentry name snapshot around each of these six trace calls and
+> pass both the string and length from the snapshot. Check event enablement
+> before taking a snapshot. Keep the event classes and formats unchanged.
+> 
+> Also remove the redundant NULL-inode check in the read callback.
+> file_inode() returns the open file's inode, which is already used by the
+> trace call above the check.
+> 
+> The historical report below is from the read path.
+> 
+> KASAN report as below:
+> 
+>     BUG: KASAN: slab-use-after-free in strlen+0x85/0xa0
+>     Read of size 1 at addr ffff88810a5b2b18 by task python3/496
+> 
+>     [CPU and host details omitted.]
+>     Call Trace:
+>      <TASK>
+>      dump_stack_lvl+0x93/0xd0
+>      print_report+0xce/0x630
+>      ? strlen+0x85/0xa0
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __virt_addr_valid+0x20e/0x420
+>      ? strlen+0x85/0xa0
+>      kasan_report+0xe0/0x110
+>      ? strlen+0x85/0xa0
+>      strlen+0x85/0xa0
+>      trace_event_raw_event_ocfs2__file_ops+0xf0/0x480
+>      ? __pfx_trace_event_raw_event_ocfs2__file_ops+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? pmbd_probe_hit_cookie+0xe7/0x1c0
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
+>      ocfs2_file_read_iter+0x6cd/0xb30
+>      ? __pfx_ocfs2_file_read_iter+0x10/0x10
+>      ? selinux_file_permission+0x11d/0x540
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? security_file_permission+0x26/0x80
+>      vfs_read+0x7d2/0xc20
+>      ? __pfx_vfs_read+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx_do_sys_openat2+0x10/0x10
+>      ksys_read+0x111/0x200
+>      ? __pfx_ksys_read+0x10/0x10
+>      ? irqentry_exit+0xbe/0x820
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? trace_hardirqs_on_prepare+0x11d/0x150
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>     [User register dump omitted.]
+>      </TASK>
+> 
+>     Allocated by task 489:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      __kasan_kmalloc+0xaa/0xb0
+>      __kmalloc_noprof+0x2de/0x780
+>      __d_alloc+0x5fc/0x8c0
+>      d_alloc_parallel+0x106/0x11d0
+>      lookup_open+0x3ff/0x13e0
+>      path_openat+0x95e/0x2020
+>      do_file_open+0x21e/0x470
+>      do_sys_openat2+0xf4/0x1b0
+>      __x64_sys_openat+0x136/0x1e0
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+>     Freed by task 0:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      kasan_save_free_info+0x3b/0x60
+>      __kasan_slab_free+0x5f/0x80
+>      __rcu_free_sheaf_prepare+0x65/0x2a0
+>      rcu_free_sheaf_nobarn+0x1d/0x50
+>      rcu_core+0x6be/0x1ed0
+>      handle_softirqs+0x1fa/0x8d0
+>      __irq_exit_rcu+0x113/0x1e0
+>      irq_exit_rcu+0xe/0x20
+>      sysvec_apic_timer_interrupt+0x6c/0x80
+>      asm_sysvec_apic_timer_interrupt+0x1a/0x20
+> 
+>     The buggy address belongs to the object at ffff88810a5b2b00
+>      which belongs to the cache kmalloc-rcl-192 of size 192
+>     The buggy address is located 24 bytes inside of
+>      freed 192-byte region [ffff88810a5b2b00, ffff88810a5b2bc0)
+> 
+>     [Page and shadow-memory dumps omitted.]
+> 
+> Fixes: 468eedde23d6 ("ocfs2: Remove mlog(0) from fs/ocfs2/file.c")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 
-The task is preempted with the grant already handed out to user space,
-i.e. in the middle of the critical section which the extension is supposed
-to protect. The stale grant is cleaned up when the task goes back to user
-space, so the damage is limited to the extension silently not working for
-such preemptions on systems which use one of these clocksources.
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-Read the clock in the interrupt disabled section after the reschedule
-request has been cleared.
-
-Fixes: dfb630f548a7 ("rseq: Implement rseq_grant_slice_extension()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yao Kai <yaokai34@huawei.com>
----
- include/linux/rseq_entry.h | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/include/linux/rseq_entry.h b/include/linux/rseq_entry.h
-index 31ce349ed42c..3e6a339175f8 100644
---- a/include/linux/rseq_entry.h
-+++ b/include/linux/rseq_entry.h
-@@ -174,8 +174,6 @@ static __always_inline bool __rseq_grant_slice_extension(bool work_pending)
- 	rseq_stat_inc(rseq_stats.s_granted);
- 
- 	curr->rseq.slice.state.granted = true;
--	/* Store expiry time for arming the timer on the way out */
--	curr->rseq.slice.expires = data_race(rseq_slice_ext_nsecs) + ktime_get_mono_fast_ns();
- 	/*
- 	 * This is racy against a remote CPU setting TIF_NEED_RESCHED in
- 	 * several ways:
-@@ -222,6 +220,18 @@ static __always_inline bool __rseq_grant_slice_extension(bool work_pending)
- 	scoped_guard(irq) {
- 		clear_tsk_need_resched(curr);
- 		clear_preempt_need_resched();
-+		/*
-+		 * Store expiry time for arming the timer on the way out.
-+		 *
-+		 * Read the clock only after the reschedule request has been
-+		 * cleared and with interrupts disabled. Clocksource read
-+		 * functions, e.g. kvm_clock_read(), may disable and enable
-+		 * preemption, which would otherwise schedule right here on a
-+		 * pending request and void the grant which was just handed
-+		 * out to user space.
-+		 */
-+		curr->rseq.slice.expires = data_race(rseq_slice_ext_nsecs) +
-+					   ktime_get_mono_fast_ns();
- 	}
- 	return true;
- 
--- 
-2.43.0
+> ---
+>  fs/ocfs2/file.c | 100 +++++++++++++++++++++++++++++++-----------------
+>  1 file changed, 64 insertions(+), 36 deletions(-)
+> 
+> diff --git a/fs/ocfs2/file.c b/fs/ocfs2/file.c
+> index d6e977ba6565..c6e7606ff9e1 100644
+> --- a/fs/ocfs2/file.c
+> +++ b/fs/ocfs2/file.c
+> @@ -85,10 +85,17 @@ static int ocfs2_file_open(struct inode *inode, struct file *file)
+>  	int mode = file->f_flags;
+>  	struct ocfs2_inode_info *oi = OCFS2_I(inode);
+>  
+> -	trace_ocfs2_file_open(inode, file, file->f_path.dentry,
+> -			      (unsigned long long)oi->ip_blkno,
+> -			      file->f_path.dentry->d_name.len,
+> -			      file->f_path.dentry->d_name.name, mode);
+> +	if (trace_ocfs2_file_open_enabled()) {
+> +		struct dentry *dentry = file->f_path.dentry;
+> +		struct name_snapshot name;
+> +
+> +		take_dentry_name_snapshot(&name, dentry);
+> +		trace_ocfs2_file_open(inode, file, dentry,
+> +				      oi->ip_blkno,
+> +				      name.name.len, name.name.name,
+> +				      mode);
+> +		release_dentry_name_snapshot(&name);
+> +	}
+>  
+>  	if (file->f_mode & FMODE_WRITE) {
+>  		status = dquot_initialize(inode);
+> @@ -174,11 +181,17 @@ static int ocfs2_sync_file(struct file *file, loff_t start, loff_t end,
+>  	tid_t commit_tid;
+>  	bool needs_barrier = false;
+>  
+> -	trace_ocfs2_sync_file(inode, file, file->f_path.dentry,
+> -			      oi->ip_blkno,
+> -			      file->f_path.dentry->d_name.len,
+> -			      file->f_path.dentry->d_name.name,
+> -			      (unsigned long long)datasync);
+> +	if (trace_ocfs2_sync_file_enabled()) {
+> +		struct dentry *dentry = file->f_path.dentry;
+> +		struct name_snapshot name;
+> +
+> +		take_dentry_name_snapshot(&name, dentry);
+> +		trace_ocfs2_sync_file(inode, file, dentry,
+> +				      oi->ip_blkno,
+> +				      name.name.len, name.name.name,
+> +				      (unsigned long long)datasync);
+> +		release_dentry_name_snapshot(&name);
+> +	}
+>  
+>  	if (unlikely(ocfs2_emergency_state(osb)))
+>  		return -EROFS;
+> @@ -1132,15 +1145,19 @@ int ocfs2_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+>  	int had_lock;
+>  	struct ocfs2_lock_holder oh;
+>  
+> -	trace_ocfs2_setattr(inode, dentry,
+> -			    (unsigned long long)OCFS2_I(inode)->ip_blkno,
+> -			    dentry->d_name.len, dentry->d_name.name,
+> -			    attr->ia_valid,
+> -				attr->ia_valid & ATTR_MODE ? attr->ia_mode : 0,
+> -				attr->ia_valid & ATTR_UID ?
+> +	if (trace_ocfs2_setattr_enabled()) {
+> +		struct name_snapshot name;
+> +
+> +		take_dentry_name_snapshot(&name, dentry);
+> +		trace_ocfs2_setattr(inode, dentry, OCFS2_I(inode)->ip_blkno,
+> +				    name.name.len, name.name.name, attr->ia_valid,
+> +				    attr->ia_valid & ATTR_MODE ? attr->ia_mode : 0,
+> +				    attr->ia_valid & ATTR_UID ?
+>  					from_kuid(&init_user_ns, attr->ia_uid) : 0,
+> -				attr->ia_valid & ATTR_GID ?
+> +				    attr->ia_valid & ATTR_GID ?
+>  					from_kgid(&init_user_ns, attr->ia_gid) : 0);
+> +		release_dentry_name_snapshot(&name);
+> +	}
+>  
+>  	status = ocfs2_emergency_state(osb);
+>  	if (unlikely(status)) {
+> @@ -2392,11 +2409,17 @@ static ssize_t ocfs2_file_write_iter(struct kiocb *iocb,
+>  	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
+>  	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
+>  
+> -	trace_ocfs2_file_write_iter(inode, file, file->f_path.dentry,
+> -		(unsigned long long)OCFS2_I(inode)->ip_blkno,
+> -		file->f_path.dentry->d_name.len,
+> -		file->f_path.dentry->d_name.name,
+> -		(unsigned int)from->nr_segs);	/* GRRRRR */
+> +	if (trace_ocfs2_file_write_iter_enabled()) {
+> +		struct dentry *dentry = file->f_path.dentry;
+> +		struct name_snapshot name;
+> +
+> +		take_dentry_name_snapshot(&name, dentry);
+> +		trace_ocfs2_file_write_iter(inode, file, dentry,
+> +					    OCFS2_I(inode)->ip_blkno,
+> +					    name.name.len, name.name.name,
+> +					    (unsigned int)from->nr_segs);
+> +		release_dentry_name_snapshot(&name);
+> +	}
+>  
+>  	if (!direct_io && nowait)
+>  		return -EOPNOTSUPP;
+> @@ -2542,17 +2565,16 @@ static ssize_t ocfs2_file_read_iter(struct kiocb *iocb,
+>  	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
+>  	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
+>  
+> -	trace_ocfs2_file_read_iter(inode, filp, filp->f_path.dentry,
+> -			(unsigned long long)OCFS2_I(inode)->ip_blkno,
+> -			filp->f_path.dentry->d_name.len,
+> -			filp->f_path.dentry->d_name.name,
+> -			to->nr_segs);	/* GRRRRR */
+> -
+> +	if (trace_ocfs2_file_read_iter_enabled()) {
+> +		struct dentry *dentry = filp->f_path.dentry;
+> +		struct name_snapshot name;
+>  
+> -	if (!inode) {
+> -		ret = -EINVAL;
+> -		mlog_errno(ret);
+> -		goto bail;
+> +		take_dentry_name_snapshot(&name, dentry);
+> +		trace_ocfs2_file_read_iter(inode, filp, dentry,
+> +					   OCFS2_I(inode)->ip_blkno,
+> +					   name.name.len, name.name.name,
+> +					   to->nr_segs);
+> +		release_dentry_name_snapshot(&name);
+>  	}
+>  
+>  	if (!direct_io && nowait)
+> @@ -2624,11 +2646,17 @@ static ssize_t ocfs2_file_splice_read(struct file *in, loff_t *ppos,
+>  	ssize_t ret = 0;
+>  	int lock_level = 0;
+>  
+> -	trace_ocfs2_file_splice_read(inode, in, in->f_path.dentry,
+> -				     (unsigned long long)OCFS2_I(inode)->ip_blkno,
+> -				     in->f_path.dentry->d_name.len,
+> -				     in->f_path.dentry->d_name.name,
+> -				     flags);
+> +	if (trace_ocfs2_file_splice_read_enabled()) {
+> +		struct dentry *dentry = in->f_path.dentry;
+> +		struct name_snapshot name;
+> +
+> +		take_dentry_name_snapshot(&name, dentry);
+> +		trace_ocfs2_file_splice_read(inode, in, dentry,
+> +					     OCFS2_I(inode)->ip_blkno,
+> +					     name.name.len, name.name.name,
+> +					     flags);
+> +		release_dentry_name_snapshot(&name);
+> +	}
+>  
+>  	/*
+>  	 * We're fine letting folks race truncates and extending writes with
 
