@@ -1,100 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792738400;
-	b=F84zH0+xGdd5Q4vm4MrPLf8cnHRr+zBVeADQ3XEcWGxeCu1EGm0AXt+ZUDTLB2fQi49M
-	 jZ92jCVVokRuI2Mh9Nq0uRleVDD42lJYPFBsti41drXq0UaVXP1jeY7YG4nglGHOPgIxu
-	 XA3Xv2qoTH68irKwEYAlA6L/X2VELTAQ5zdRXCUEgvfp33kXV5FkEJFchz1/tsvuZpQoB
-	 /OC9P7q5mIoZWUCXbPPzXa7fIi4mm/iBOCpW8wAkF72pvsAUWr0K8RjZSy90MZivX5jOu
-	 G0r7sjZv8B47BGzRgvj1wq0qhxvYvYgjLOqb6g0FWEYuDbCVojF1SYqC84eD8r02k2g==
+	t=1792738965;
+	b=GTmq460lWX9UhLFA2KquqwmdWqJpovNhIJjZM6FqWkC8JLa7u6vQ4KrUdWkeMrXegHTe
+	 5EBrhigkey3dkQ05tL0okM3QoyH4X8H8AWznXd/3Tl5d9ktSohvq8eTFJQ2B0Wfmk87tO
+	 kF+9D8FMLSrzJsh3PLChHP9x2vSeraG0jVd8QzA6cONTPeZo9DDkOMBY5xh31u3g/m12A
+	 pXZ3ez+gDuVvXTvriCZm2wFG6bHzHUdjB0bPkaQB2H+9bWnhEstCmyxIwsGWAxc12j3IA
+	 nBDdBPWyKYTnoqdrLIpo5tUCmMa5QNk6SNTj7QjV33ItZno1Na57zCK2xepC30s4lxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792738400;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=rVRNnDLDDIW+sRfhuCbABetubfb2eyFKmWznRnHIsoc=;
-	b=Z5fSyxf3RDn+yp+8zO2y1/jBoItt3NdJxi8Dabi83Qn0Qy8LtV59YokuyIiJdEQ5jKek
-	 3wA8URMwma/EdhC5aFNuBhTEqmJezngXFjCQPZVEDmM/tpIh4LXtKHOH4g7V1rrqqNkM9
-	 SAoWpcvESWHS7xqNqZB/GsY5IMze089rBCyB0E15dHc4tc2Fd2l2jG2WRlb4ahCbscffp
-	 M/5SAE0LK3jCLAAuhjcgXpzzuZn71yQZ0L+c5QMatvsS7OOnpA1KHn+f6TXJixjG+Lta8
-	 NUUgLJX0GHqnPXAfKedDjswUSQw3DYxU1+/iuZuV8L5G1OzedRQ3VVxmZnO7y+a6Fmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792738965;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Kc3NtUK8eQip9/0mvl4xkoyZxqWwahrf29NWu5Kg0ZE=;
+	b=xs8xYCoiInGsxxElKWJkVgALv4lBit6006EApuEBF5BPnNdAOJS/ZlxtJ8+XAGfj2SAl
+	 be2RdEVxErtnWPm/dzVKSXoh+E9oFia3OMRXzIgJIMLWcG+HgmjbrEfua4x9cCx+E/0Pp
+	 wXRKLCo0niys+a0tyXK5EHG8vumdhxytXT2a3ZGAx9pIXwED2m1zCz4dNHDP3wc9JX+4W
+	 q2HBAsOuqHOuXTe7sFMIMYEfhC7wmoN6As6BwElBRu4mHqhwhvqXizEfkYwDkO1dLBo9i
+	 0AgkN6Cv8tYN5IkAQQnEeaAOSt5jwtXSzTu3u4fpwYozSTpzdNMNeLxNIdznB0yTpNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="U/EOK7fA";
-	arc=none smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b="sQBM/PGx";
+	arc=none smtp.remote-ip=115.124.30.112
+Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6102606A31A
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 06:53:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6102606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 236A8606BD3F;
+	Fri, 23 Oct 2026 07:02:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 236A8606BD3F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U/EOK7fA
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e8f2c3ad6bso3217615ad.1
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 23:53:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792738399; x=1793343199; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rVRNnDLDDIW+sRfhuCbABetubfb2eyFKmWznRnHIsoc=;
-        b=U/EOK7fAC66nKGMcSF6e7r3Hz7zvk1fQrc/o+kdyEjDojVsyNAft4iQXkXF8NY8WZJ
-         IJv5ioTxgYXHL1vYgTITBcaVDczXsGhNgs5IYuhXcY+8D7bfuw/qhSqoTtwu1t3WOzv3
-         WaOdBEO+QbNnAAJTIxtFTBLKaqa1RY53q/sohUEW0MDv+kxY6HcwTQeo1uGXrMnLRzvH
-         hCCEe8mMYLUfiJUGbPo4WGYoEEwq6VWKR/DmG2hr/D/t/SfenYYyMAQUC+coUbYnulwr
-         8f8dESYeUSlTnqdkg9F2phM5nKYIgBeR3O1Gy/Uyl8c1LSbFAaHifxfkdWXXLA+6g8IO
-         DHeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792738399; x=1793343199;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rVRNnDLDDIW+sRfhuCbABetubfb2eyFKmWznRnHIsoc=;
-        b=h8ZIQHl+U0LZxl5vU4mX7UxekDeJlkC/MbxLK114aHwHKTeRUNCvtukth0HICiKzq2
-         GjqMhSRTz4rKAEXmR92/V7YrH5XP8K5Kb2LhhAqrUJiC0CCJ8sYheq8mHlfdG8cutUEa
-         4GPBhhFQFhItbbDI73clveWqobsJpFngd1UHd6W4HsTWoeuFBF+GtD1akiywwHa9n0FD
-         6SIwuA5Vuss3+aKP8ttzD8LVYHoINlzdM/n4bfCPbHh27PKVlDYpaLHKSkIf5l8TMxMU
-         YYq9DRyioWkQwfRRgu0FwvOyO91IZSYBwiKA2VgwoCefelOgpYXb0zkqCWp4QfF9ieMy
-         O4Rg==
-X-Forwarded-Encrypted: i=1; AKwUvBz7lRSeVEFZMUuA4C4Tu/9/9hHLbb8BrTZXjY7aX7EDaBEm5JicPW1DkxZctXcS7ob8Fkk6pT0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLxQMTuB5v0sV13zaj9GYcpQ3Ccra33FaSVlcb/ggycwYK/C60v
-	tfbc0hgnOkPPb7byVmOLBbxvz6DHdgXuCUw/P834ri04rLK8RA/b1mEa
-X-Gm-Gg: AYBFou3W6a+HyfzxzHFg2pvr2CMt2Ye0o29bgGFjii7jC9hq+HCDmCEa1XQIlm4ORLl
-	6YgaPC2r9PHRzc5EhiugFXVss74Ee39qQ+UuJHM8/r6HIZN0JvN6QxyJZre0z9TRsnvZ5B57a8t
-	b7nKniNh7pDVOWlrZAiwqx4g9807f4K4vZAT3N/pwwX+2QzaqgLfFA/nTDXDjNwnYSona6/9Z3x
-	H089eShFHERSqyZgNzdS7a7kLpn/y5RxMLRbzadhvyEBbZf6dZ8j5mqf+WwwhgaCRyBgUdkaZ9M
-	NiB/a59q0i03M0oTxDKbejV8Aig6ac9JXFFqC2nB0vnaUkThWFhx+XKx8IXxvnyUtj1urdr2ap1
-	ZY9i+e+dh8OfNFML73LhU34BHX14eRkckkAvcxmTz77d7i3O6HwwZnvIHpieE1ftdvRCAKtxW1v
-	T2g5oIQzRWGGt8StKbrbZbZfyNFNqmi7gAC3IbD0C7NKRphl295f0hAocgJzifEQ3l9VWfJt/ia
-	D5gn4TPtOwDDooHT+r0FqT31EzLwd/pTie2NGd+62JeNE1lMLODWzwW7BuZVfYvRITr9ByWDVdt
-	QPYdyontiD3mD/AeZohD/5DgBoNj7Id/hKoL2loSb/E5wA==
-X-Received: by 2002:a17:902:ce82:b0:2e8:486d:fa00 with SMTP id d9443c01a7336-2ea7c153a0fmr16407985ad.29.1792738398990;
-        Thu, 22 Oct 2026 23:53:18 -0700 (PDT)
-Received: from localhost.localdomain (ip67.244-167-222.hkg.ten111.net. [222.167.244.67])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7b3dd597sm6164065ad.62.2026.10.22.23.53.14
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 22 Oct 2026 23:53:18 -0700 (PDT)
-From: Guoshuai Yang <yangguoshuai@gmail.com>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Sabrina Dubroca <sd@queasysnail.net>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	David Ahern <dsahern@kernel.org>,
-	Guoshuai Yang <yangguoshuai@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v3] xfrm: esp: reset outer TCP GSO metadata on espintcp input
-Date: Fri, 23 Oct 2026 14:53:11 +0800
-Message-ID: <20261023065311.65031-1-yangguoshuai@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=sQBM/PGx
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792738955; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=Kc3NtUK8eQip9/0mvl4xkoyZxqWwahrf29NWu5Kg0ZE=;
+	b=sQBM/PGxhSEGI9FjnC0RC5Wy95TL/a3agFQdA92dL1RrjgpuWgagYBAA02RV0kP73fIwFjSsH2Gi6n9JRIs8ls5PdT96ZE4xPtdwGoMA8K7QeZ3iokJMokf6IH5RFD/J9phatOv8AIGoF9ju44GWgnBQyHAN2yswOymNbzyB6iQ=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XDLJ3Lw_1792738954;
+Received: from 30.221.129.69(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDLJ3Lw_1792738954 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 23 Oct 2026 15:02:35 +0800
+Message-ID: <cb8eef8c-40da-439c-9f62-0428a75bc977@linux.alibaba.com>
+Date: Fri, 23 Oct 2026 15:02:34 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,217 +53,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ocfs2/cluster: remove zero-address nodes from IP tree on
+ teardown
+To: Cen Zhang <zzzccc427@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-node-ip-rbtree-zero-address-uaf-v5-e7f64be16b7c3b0988d1@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-node-ip-rbtree-zero-address-uaf-v5-e7f64be16b7c3b0988d1@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-When ESP packets are received over TCP (RFC 8229 espintcp), strparser
-slices individual length-prefixed ESP records from the outer TCP stream by
-cloning the incoming TCP skb(s) in __strp_recv().
 
-If the outer TCP skb was GRO-coalesced before reaching strparser, its
-skb_shinfo carries the outer TCP stream's GSO metadata (gso_size, gso_segs,
-and gso_type). When an ESP record spans two outer TCP segments, strparser
-chains the spillover clone onto skb_shinfo(head)->frag_list.
 
-Subsequently in esp_input() and esp6_input(), skb_cow_data() unshares the
-head skb via pskb_expand_head() (preserving the outer TCP gso_size and
-gso_type in the new private skb_shinfo) and calls skb_copy() on each cloned
-frag_list member, which copies the outer TCP GSO fields via
-skb_copy_header() onto a linear frag_list child skb allocated from slab
-with head_frag == 0.
+On 10/20/26 9:12 PM, Cen Zhang wrote:
+> o2nm_node_ipv4_address_store() accepts 0.0.0.0. It sets
+> O2NM_NODE_ATTR_ADDRESS and links nd_ip_node into cl_node_ip_tree under
+> cl_nodes_lock, but o2nm_node_group_drop_item() uses nd_ipv4_address as a
+> membership test. A zero address therefore leaves the rbtree node linked
+> when config_item_put() releases and frees struct o2nm_node. A later
+> address store or IP lookup can then walk the stale node and dereference
+> freed memory.
+> 
+> During teardown, drop_item takes cl_nodes_lock, skips rb_erase()
+> for the zero key, and then calls config_item_put(). A later
+> o2nm_node_ipv4_address_store() duplicate check or o2nm_get_node_by_ip()
+> lookup takes the same lock and walks the stale cl_node_ip_tree entry. Use
+> O2NM_NODE_ATTR_ADDRESS for teardown so every published nd_ip_node is
+> erased before configfs can release the node, without rejecting 0.0.0.0
+> or changing lookup semantics.
+> 
+> Fixes: 0c83ed8eeb28 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 
-Furthermore, if an outer TCP GRO aggregate carried SKB_GSO_FRAGLIST (e.g.,
-when rx-gro-list is enabled) and was chained onto
-skb_shinfo(head)->frag_list by __strp_recv(), skb_cow_data() invokes
-skb_copy() / skb_copy_expand() on that frag_list member and hits
-WARN_ON_ONCE(skb_shinfo(skb)->gso_type & SKB_GSO_FRAGLIST), failing with
--ENOMEM before decryption even begins.
+Looks fine.
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-After ESP decryption and header removal, the resulting single inner packet
-still has skb_is_gso(skb) == true with the stale outer TCP gso_size, while
-skb_headlen(head_skb) is now smaller than that gso_size due to stripping
-the outer framing and ESP header. When this packet passes through
-gro_cells_receive() (which flushes frag_list packets via GRO_NORMAL
-without resetting gso_size) and is forwarded, validate_xmit_skb() invokes
-tcp_gso_segment() -> skb_segment(). Because head_skb is shorter than the
-stale gso_size and SKB_GSO_DODGY is not set, skb_segment() attempts to map
-the slab-backed frag_list member as a scatter-gather page fragment and hits
-BUG_ON(!list_skb->head_frag):
-
-  Internal error: Oops - undefined instruction: 0 [#1] SMP ARM
-  PC is at skb_segment+0x574/0xd20
-  LR is at skb_segment+0x884/0xd20
-  Call trace:
-   skb_segment from tcp_gso_segment
-   tcp_gso_segment from inet_gso_segment
-   inet_gso_segment from skb_mac_gso_segment
-   skb_mac_gso_segment from __skb_gso_segment
-   __skb_gso_segment from validate_xmit_skb
-   validate_xmit_skb from __dev_queue_xmit
-   __dev_queue_xmit from ip_finish_output2
-   ip_finish_output2 from ip_output
-   ip_output from ip_sublist_rcv_finish
-   ip_sublist_rcv_finish from ip_sublist_rcv
-   ip_list_rcv from __netif_receive_skb_list_core
-   __netif_receive_skb_list_core from __netif_receive_skb_list
-   __netif_receive_skb_list from gro_normal_list
-   gro_normal_list from gro_cell_poll
-
-Similarly, if a decrypted inner packet with a frag_list later takes the
-ip_do_fragment() frag_list fast path, each detached frag_list member is
-transmitted as a standalone IP fragment and would still carry the stale
-outer TCP GSO state when reaching validate_xmit_skb(). And even when an
-ESP record does not have a frag_list, leaving the stale outer TCP gso_size
-on the decrypted inner skb prevents dev_gro_receive() from initializing
-gso_size to the inner packet's skb_gro_len().
-
-We cannot reset GSO state earlier in espintcp_rcv() / handle_esp() because
-the skb may still be a clone sharing skb_shinfo with the outer TCP skb held
-by strparser. Instead, in esp_input() and esp6_input():
-1. Prior to skb_cow_data(), unshare/unclone and reset GSO metadata on any
-   frag_list member carrying SKB_GSO_FRAGLIST so skb_copy() /
-   skb_copy_expand() inside skb_cow_data() does not hit WARN_ON_ONCE() and
-   drop the packet.
-2. At skip_cow, where the head skb and all frag_list members are guaranteed
-   to be uncloned with private skb_shinfo, call skb_gso_reset() on both the
-   head skb and each skb_walk_frags() member.
-
-Fixes: e27cca96cd68 ("xfrm: add espintcp (RFC 8229)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guoshuai Yang <yangguoshuai@gmail.com>
----
-v3:
-  - Unshare/unclone and reset GSO metadata on any frag_list member carrying
-    SKB_GSO_FRAGLIST before skb_cow_data() so skb_copy() / skb_copy_expand()
-    does not hit WARN_ON_ONCE(SKB_GSO_FRAGLIST) and return -ENOMEM.
-  - Move the shared espintcp GSO reset helpers into include/net/esp.h.
-  - Link to v2: https://lore.kernel.org/netdev/20261020030450.7170-1-yangguoshuai@gmail.com/
-v2:
-  - Also call skb_gso_reset() on each skb_walk_frags() member at skip_cow
-    in esp_input() and esp6_input() so detached frag_list members on the
-    ip_do_fragment() fast path do not retain stale outer TCP GSO state.
-  - Specify target tree 'net' in subject prefix.
-  - Link to v1: https://lore.kernel.org/netdev/20261018005218.53267-1-yangguoshuai@gmail.com/
- include/net/esp.h | 51 +++++++++++++++++++++++++++++++++++++++++++++++
- net/ipv4/esp4.c   |  9 +++++++++
- net/ipv6/esp6.c   |  9 +++++++++
- 3 files changed, 69 insertions(+)
-
-diff --git a/include/net/esp.h b/include/net/esp.h
-index 3229507..09ed682 100644
---- a/include/net/esp.h
-+++ b/include/net/esp.h
-@@ -28,6 +28,57 @@ static inline void esp_output_fill_trailer(u8 *tail, int tfclen, int plen, __u8
- 	tail[plen - 1] = proto;
- }
- 
-+static inline int esp_reset_espintcp_fraglist_gso(struct sk_buff *skb)
-+{
-+	struct sk_buff **fragp;
-+	struct sk_buff *frag;
-+
-+	skb_walk_frags(skb, frag) {
-+		if (skb_shinfo(frag)->gso_type & SKB_GSO_FRAGLIST)
-+			break;
-+	}
-+	if (!frag)
-+		return 0;
-+
-+	if (skb_unclone(skb, GFP_ATOMIC))
-+		return -ENOMEM;
-+
-+	for (fragp = &skb_shinfo(skb)->frag_list; (frag = *fragp);
-+	     fragp = &frag->next) {
-+		if (!(skb_shinfo(frag)->gso_type & SKB_GSO_FRAGLIST))
-+			continue;
-+
-+		if (skb_shared(frag)) {
-+			struct sk_buff *nfrag;
-+
-+			nfrag = skb_clone(frag, GFP_ATOMIC);
-+			if (!nfrag)
-+				return -ENOMEM;
-+
-+			nfrag->next = frag->next;
-+			consume_skb(frag);
-+			frag = nfrag;
-+			*fragp = frag;
-+		}
-+
-+		if (skb_unclone(frag, GFP_ATOMIC))
-+			return -ENOMEM;
-+
-+		skb_gso_reset(frag);
-+	}
-+
-+	return 0;
-+}
-+
-+static inline void esp_reset_espintcp_gso(struct sk_buff *skb)
-+{
-+	struct sk_buff *iter;
-+
-+	skb_gso_reset(skb);
-+	skb_walk_frags(skb, iter)
-+		skb_gso_reset(iter);
-+}
-+
- struct esp_info {
- 	struct	ip_esp_hdr *esph;
- 	__be64	seqno;
-diff --git a/net/ipv4/esp4.c b/net/ipv4/esp4.c
-index e76db58..92980cd 100644
---- a/net/ipv4/esp4.c
-+++ b/net/ipv4/esp4.c
-@@ -893,6 +893,12 @@ static int esp_input(struct xfrm_state *x, struct sk_buff *skb)
- 		}
- 	}
- 
-+	if (x->encap && x->encap->encap_type == TCP_ENCAP_ESPINTCP) {
-+		err = esp_reset_espintcp_fraglist_gso(skb);
-+		if (err)
-+			goto out;
-+	}
-+
- 	err = skb_cow_data(skb, 0, &trailer);
- 	if (err < 0)
- 		goto out;
-@@ -900,6 +906,9 @@ static int esp_input(struct xfrm_state *x, struct sk_buff *skb)
- 	nfrags = err;
- 
- skip_cow:
-+	if (x->encap && x->encap->encap_type == TCP_ENCAP_ESPINTCP)
-+		esp_reset_espintcp_gso(skb);
-+
- 	err = -ENOMEM;
- 	tmp = esp_alloc_tmp(aead, nfrags, seqhilen);
- 	if (!tmp)
-diff --git a/net/ipv6/esp6.c b/net/ipv6/esp6.c
-index b1c9b36..65470d3 100644
---- a/net/ipv6/esp6.c
-+++ b/net/ipv6/esp6.c
-@@ -936,6 +936,12 @@ static int esp6_input(struct xfrm_state *x, struct sk_buff *skb)
- 		}
- 	}
- 
-+	if (x->encap && x->encap->encap_type == TCP_ENCAP_ESPINTCP) {
-+		ret = esp_reset_espintcp_fraglist_gso(skb);
-+		if (ret)
-+			goto out;
-+	}
-+
- 	nfrags = skb_cow_data(skb, 0, &trailer);
- 	if (nfrags < 0) {
- 		ret = -EINVAL;
-@@ -943,6 +949,9 @@ static int esp6_input(struct xfrm_state *x, struct sk_buff *skb)
- 	}
- 
- skip_cow:
-+	if (x->encap && x->encap->encap_type == TCP_ENCAP_ESPINTCP)
-+		esp_reset_espintcp_gso(skb);
-+
- 	ret = -ENOMEM;
- 	tmp = esp_alloc_tmp(aead, nfrags, seqhilen);
- 	if (!tmp)
--- 
-2.54.0 (Apple Git-157)
+> ---
+>  fs/ocfs2/cluster/nodemanager.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/ocfs2/cluster/nodemanager.c b/fs/ocfs2/cluster/nodemanager.c
+> index e08850a5d736..be184c5ad54d 100644
+> --- a/fs/ocfs2/cluster/nodemanager.c
+> +++ b/fs/ocfs2/cluster/nodemanager.c
+> @@ -626,8 +626,11 @@ static void o2nm_node_group_drop_item(struct config_group *group,
+>  
+>  	write_lock(&cluster->cl_nodes_lock);
+>  
+> -	/* XXX sloppy */
+> -	if (node->nd_ipv4_address)
+> +	/*
+> +	 * 0.0.0.0 is a valid configured address, so nd_ipv4_address does
+> +	 * not tell us whether nd_ip_node was published in the IP tree.
+> +	 */
+> +	if (test_bit(O2NM_NODE_ATTR_ADDRESS, &node->nd_set_attributes))
+>  		rb_erase(&node->nd_ip_node, &cluster->cl_node_ip_tree);
+>  
+>  	/* nd_num might be 0 if the node number hasn't been set.. */
 
