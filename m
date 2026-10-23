@@ -1,98 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792756779;
-	b=frJdFSIoGxqGp5hg/I+HPA+3q7xZ2iRpXStRo7UbD9kdvqkVOEQCD9v9DxPL0s3m+xWk
-	 NwmELU6VIhxWRJ2ZAUsdPePOMKb8nxDBVCvhjJfNeX6y6FBEG/o1KeXjuiw8jDjDMdfma
-	 QmbFZG0S73cTeMHkTUdUnt2l2sCDp+yAYRE2wsrGC/7RqOtc3nTX/ntijRritNeMuaDAu
-	 1aRttBuqaDGh4DvpvRClyU64BMgN7S4mHO00ZYTLZCpLDic7aG6EfRRNtoL0PtmWvwK7W
-	 AOg2JUwRTMZyCQlSIz6UT0OVwD03b/hwahbgSHyahATf8NT+b+rvYF8qwQRhXK0OQwg==
+	t=1792756780;
+	b=u5jdnXhtOQS1JHW6pgoM8i0EGQL8E9XcR64vyCfOZJZU2U2+EY6uQnuioEN2DJs7KOCv
+	 AhMU/kIsH2Cy3Q3J4a7mGMpxhSZV78XN3Zs2uuiTlWYQK3PKMZ1hqybOS/6yGx8+eKPaa
+	 Gt6TLIPLG0oGMIwFqoRnHj8lmTCvQeAJgq4Qr8NWHhIruXACdoWOLLPEVwSAZWCDq3RXo
+	 bF4RfwdnkzAl9wdGBFbyDSu0Ap9rumB22XYrvT0zT6grkWsMBkK/MA9aGTHv1rbqL0brN
+	 +P1vmTzc4QsDh/FWm+9oplfd072Om7uh2osCx+pSjWDKlcBnePsrnZb/rFlnwYVx4+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792756779;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792756780;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=CWsdl952wtvjN6N+gHzMg8QSBVTcgUU9JWbb59bA4rg=;
-	b=ylhePwwYxjQ/ayDJMvfWduP0DWSnwoF4BPlrtUla6oAhIHhMnXhW/J+fz2CQbrK8TqNn
-	 ut3yRGXuLaPBDP1dTjbFy+CmiuDZH3i8Ngn+ZiA02StJVlKWjMjYJrTWpWZFMdH9hOqGl
-	 p3MUh9yGg6PhVFX3pFgGjexStvrr3dEJT3l25QHV1KRokNKOhNhWmuTTna9A2enNdYB9E
-	 /2Yo/HEtZ6/1qLEMx0cDUJu/gLbGLn5xpa02SdvvZEPzhtPyRvyEHKz0iryvS6RkWtgMt
-	 gKIPCUyAp6SwjUnaH2mHbtq5gN933As4XioJO9mrpA3EInxM9D/jJB1QOE/7b/PJZzA==
+	bh=gV9JJW+KLxJUN6kglpTyIoS0mZGlvplEh+/pn0zPRYE=;
+	b=tNxb/cCo5KG0zPlgnIuiZVCCDevROcX1QT9In/WV+DD9JEZfob+OcDcHtveV9kJ/dRcy
+	 hiU1FzCk5U4npfUEeSgMsXXLWpOZCr+jK+63VVTFfjeAx0F/Xn/IYmB67o+PzQqD4k3fO
+	 e+3IBIhcKxwlUdmCrrGmckkOmF4yXzautuQlOYoXZos+UKQSO8515eNeuLCb6dNKEL3tr
+	 Py0hVNX+sMLu+yfe6GrlgO6QDO8s6EDdOiXycMj34AXiFpHw43FTJtNhOHWpufkNqXvpy
+	 Zamm12oXSoEF0y8PqhJE8TDXwpg48z46zJf9I7Cww+LV2e18eiaFItm32eKKTMsRVQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=mojatatu.com;
 	spf=none smtp.mailfrom=mojatatu.com;
-	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=nBgUe0mT;
-	arc=none smtp.remote-ip=209.85.219.48
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=u1430m0q;
+	arc=none smtp.remote-ip=209.85.219.43
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37DEE606A33B
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 11:59:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37DEE606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04EDD606A31D
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 11:59:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04EDD606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=nBgUe0mT
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-91b83459526so10118656d6.2
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 04:59:34 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=u1430m0q
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-91791ec1b83so6848556d6.1
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 04:59:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1792756773; x=1793361573; darn=vger.kernel.org;
+        d=mojatatu.com; s=google; t=1792756779; x=1793361579; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CWsdl952wtvjN6N+gHzMg8QSBVTcgUU9JWbb59bA4rg=;
-        b=nBgUe0mTADJl4ddyHy6UPd5rx6Iqavbz+zHKePt2nBRcXCipAzgq7s0KUA9aKlnPDG
-         uGT1KX/YwEp/JCK7W1+PqoS2gswSwQjDsqgkC36gQMVdhWQnW9US6ZPyW9gyVwfKn9Yf
-         8t7zgDnmRYxzuCmGa/s00BnvT/+jH6NiN7vgo=
+        bh=gV9JJW+KLxJUN6kglpTyIoS0mZGlvplEh+/pn0zPRYE=;
+        b=u1430m0qP/A9kJIJFSLgIapQETPAFJziJC7HIEFc3GT5frECg0W+c98paaGch9M/x5
+         /CkHWTgVCan9thcUYoK8w/xd3aTPb9JhLSM25tVKpUd/jwLzYccDDp3VjEDWk9X/odCX
+         uoZ+lPVTdca0C8NH9fz4l2rTb1QdKoiCe+VHY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792756773; x=1793361573;
+        d=1e100.net; s=20260707; t=1792756779; x=1793361579;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CWsdl952wtvjN6N+gHzMg8QSBVTcgUU9JWbb59bA4rg=;
-        b=QcYtTtgQcUr5aBThNfyJDUuidj6eBFDW6Zjoid1ohIAg56nJTms5ceznUhclNsDuub
-         OxLPbHYCAWXHiu0uKPMEJXX9BA5zWjQClVzwAXu3beHuPO3SALQ8Qin+vkQH9QB4U2Zc
-         bPO9Ys/J8+MDRygsDt6lS21o5T/Z+5pOeuBQoLL1f5BbpOekKmxP9jiaXdz66d5yFHSi
-         GkofXYc3B96bvEoGE7Li3ChHz4Veabp7bDyLUq6dH/GKV3rjDwtvW1xZDXNiZAO89qxg
-         ArgVdWTkgBLQGKBrlB8/0pBSaZdgnzQu9PKZyS4mg8zbAi5g/lcsAusR9Berss7hJijz
-         gCgw==
-X-Forwarded-Encrypted: i=1; AKwUvBxzQUYoG1kMNKcuMGJkLXbuHtQwmcVYCSB+e4H3+r3uXnV+ued1tJHuNoxglG7Vuw1i3KIoml8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKS7KGteTW7Ikff5arMPz13BMSw7be1/MaUqthZ/AJJx+qCNv8W
-	QLWqy9FZBtAJE6njNSZuUVkw37MIlcaLoAqUtRUx/jLJVLYk5TLauJTln0b9t29hTw==
-X-Gm-Gg: AYBFou3NMpWobGkLxrn7teKoFldKS0gbfeCjw+bXYOLgwMBmwIVLFjc28oE5VswllP6
-	vOB5J3rTKEV6yvpPU5g9x1fXDW6S7IS6N4V7Y4g67C9EWC/hw3GW1qgbl0QdUgGPC8ln/T2+HlJ
-	79BoHX2U0S+c+4W88zIr9an+Bn1pM6Ix2NTQW+JrocergH2twXozbHC3cT8wWF4MxCWKupPGEC+
-	LRaHHW75M+Q891g46InldXK1ONk/guSfUHPlvZO7FFlA3phHz0MI3LcYu9H5RexhBlz0HHyxLUU
-	mcOWwlmXZISYUcpYLUpb8L+uBapAF8xS0uOpDmwvS2b4vvvwZxEc84rdUsMR3YqHU4UmytC+Y+y
-	/GHN3Mg8Aff9dh/4N9+rwjziFuOt/9s2auMtj1fLAuUS9/yAmOjtE4cdUrBc65lUXlYHxGqs3Vb
-	mSmXMJfD3YCEOF0m4hioKw8LngAmj1r0o0QxfFWQtOt77y5O8q6Frq+TDgjOO19E1hsDsw2v4ha
-	dg3uWh94ggyl+YizmKOFdQLYYuhJP+VHaM+JkcxbiU6USyNNtr62VccMiY6L8K0yWL39S6GyhtK
-	p+MSkWsB/7jTPpqStGBK7rpyyBm1j0Hz7BAI3xOeM+w=
-X-Received: by 2002:ad4:5fcf:0:b0:914:5769:dcee with SMTP id 6a1803df08f44-91c3a82d162mr24656846d6.17.1792756773198;
-        Fri, 23 Oct 2026 04:59:33 -0700 (PDT)
+        bh=gV9JJW+KLxJUN6kglpTyIoS0mZGlvplEh+/pn0zPRYE=;
+        b=iIigAemmHCATJA+IjN+XDsiuBvlsu8bNl14S780EWosdrzQNgLEV1e7OG/Nx5m5rLI
+         mVc9xzrelRV0cYMp1tcax6dF2RRair8s0jm4vXdMHMh9G+qAk2bF5alAlQxzheHP7vP3
+         cRyE4q1APJhiMk8XyqSg9lt85xkDSazYfpbbgSW/S/dY9mtXzeeZU7YEgSIwyl3KzIcO
+         RcMNzTbAFhl+0nfnldQ/UJRZs+l4aaumCgiFr11bapx4G7vhDj9Pk0sS4Jr/5yB0QN8t
+         vip2hyYKlH1DyBUIN5a29B44vWYuvK3heY778xg7rILKqonyOWg/2rsshQrNKHdu9nSe
+         1WVw==
+X-Forwarded-Encrypted: i=1; AKwUvBzaP1KPBPjrJVYDK1ymypBkKdtHtFMQQQ9dYdEtT9zYYE6LsN/0/l3BoABWrumHoevRmfnfVO8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEf1haxYitTSsCoP8MpgCjQV8Dr7NhLbA9FHQB8pXYogQIBO0Y
+	b6Q1P82Rtu+/TD5UHD00qnSC8hx3l0kdo4c1bTZ3HikrjGqD/QehhwusAiXXK72FFQ==
+X-Gm-Gg: AYBFou09akOHihHNnlPdvBIe6yYJdsQ6YUvgoC5Q6S+xW2ttmkSLonRZuNYLbbLPv3W
+	w88+fgV+shBChoBrk58bQVUG5ZD47tP4o5gxCNYiC3/6THzZFaGH/6rCZKh+XkhxeffQu+tVdUA
+	bJXT+sbtdYIzGXrjhg6dOijYiaS4o9HRizzXXcz+XYuNcw1ObeesMJOeURXQNp7uVdWjRDjFCvA
+	xcxvYdXmvuSJTXWO2iSYwOSwDez8nCg0GYLzQDlUZAIkJOvSqk/uFzl/xcTR95cZ8691+OnicY+
+	HzjR5gBrxIP1zYl3ao+J6zWkRv8B5pZMNF4L2MfRkO4NvWqh5xMhBCz1jy6Z3CgfmnoEMqTJ1qI
+	xXChxVQc4uhJzvExXZYrwZjqRYbCmYboHcNDK4ZTuZLw+vpP3qWPp+j5pPtCBpNK4YLMlLRGWsa
+	Ud6jrfwk/+0uIEj7a46FfVw9ipHWHZPEtHHUjwhDBLlQdbBT++KHTczTHXuNuXGl9tDSwMxqgsZ
+	8QEO5fXlhw9baC8fZRkxaMj6laaWgANJ2CD1JZrnZnPHBhlsOFpf/YduGnI51sy8sqb7myfqDvh
+	aYGHR65hOsbm0lkKwLVRNJvBFrg11cS2ye/QFlA4CQ==
+X-Received: by 2002:a05:6214:509c:b0:91b:8d12:bac9 with SMTP id 6a1803df08f44-91c3a4bd85fmr27351516d6.0.1792756778735;
+        Fri, 23 Oct 2026 04:59:38 -0700 (PDT)
 Received: from mbili.tail33bf8.ts.net ([64.203.83.2])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c396af493sm18358246d6.9.2026.10.23.04.59.31
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c396af493sm18358246d6.9.2026.10.23.04.59.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 04:59:32 -0700 (PDT)
+        Fri, 23 Oct 2026 04:59:38 -0700 (PDT)
 From: Jamal Hadi Salim <jhs@mojatatu.com>
 To: netdev@vger.kernel.org
 Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Victor Nogueira <victor@mojatatu.com>,
-	Yotam Gigi <yotam.gi@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
+	Aaron Conole <aconole@redhat.com>,
+	Eelco Chaudron <echaudro@redhat.com>,
+	Ilya Maximets <i.maximets@ovn.org>,
+	"David S . Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Simon Horman <horms@kernel.org>,
+	Jiri Benc <jbenc@redhat.com>,
+	Pravin Shelar <pshelar@ovn.org>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Victor Nogueira <victor@mojatatu.com>,
+	dev@openvswitch.org,
 	stable@vger.kernel.org
-Subject: [PATCH net v2 4/6] net/sched: act_ife: do not consume the inner header on egress
-Date: Fri, 23 Oct 2026 07:59:19 -0400
-Message-Id: <ACT-N6N4.v2.r0.20261022191829-4@mojatatu.com>
+Subject: [PATCH net v2 6/6] net: openvswitch: ensure a linear inner Ethernet header on NSH pop
+Date: Fri, 23 Oct 2026 07:59:21 -0400
+Message-Id: <ACT-N6N4.v2.r0.20261022191829-6@mojatatu.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <ACT-N6N4.v2.r0.20261022191829-3@mojatatu.com>
-References: <ACT-N6N4.v2.r0.20261022191829@mojatatu.com> <ACT-N6N4.v2.r0.20261022191829-1@mojatatu.com> <ACT-N6N4.v2.r0.20261022191829-2@mojatatu.com> <ACT-N6N4.v2.r0.20261022191829-3@mojatatu.com>
+In-Reply-To: <ACT-N6N4.v2.r0.20261022191829-5@mojatatu.com>
+References: <ACT-N6N4.v2.r0.20261022191829@mojatatu.com> <ACT-N6N4.v2.r0.20261022191829-1@mojatatu.com> <ACT-N6N4.v2.r0.20261022191829-2@mojatatu.com> <ACT-N6N4.v2.r0.20261022191829-3@mojatatu.com> <ACT-N6N4.v2.r0.20261022191829-4@mojatatu.com> <ACT-N6N4.v2.r0.20261022191829-5@mojatatu.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,52 +110,74 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 The issue:
-tcf_ife_decode() unconditionally calls eth_type_trans(), which pulls
-ETH_HLEN.  On egress this consumes the inner Ethernet header; a following
-eth_type_trans() from loopback_xmit() then parses L3 data as Ethernet and
-can BUG in __skb_pull() when the remaining linear area is short.
+pop_nsh() restores MAC_PROTO_ETHERNET when the popped NSH next-protocol
+is TUN_P_ETHERNET, but nsh_pop() only guarantees that the NSH header is
+in the linear area.  When the inner Ethernet header sits in a page
+fragment, the datapath then claims an Ethernet header it cannot access
+linearly.
 
-The Fix:
-Parse the inner Ethernet header with eth_type_trans() in both directions,
-then restore the egress data position and MAC length.  On ingress the
-existing behavior is unchanged.  On egress, push the inner Ethernet header
-back after parsing so the xmit path sees the original frame and later
-actions see a consistent network header.
+Output to an OVS internal vport then calls eth_type_trans(), which
+pulls ETH_HLEN from an empty linear area and triggers the BUG in
+__skb_pull():
 
-Decode is a receive-side operation; the egress branch keeps the frame
-intact for transmit paths such as loopback.  tcf_ife_is_eth_skb() accepts
-Ethernet and loopback devices generally.
+  kernel BUG at ./include/linux/skbuff.h:2830!
+  RIP: 0010:eth_type_trans+0x335/0x500
+  internal_dev_recv
+  ovs_vport_send
+  do_output
+  do_execute_actions
+  ovs_execute_actions
+  ovs_dp_process_packet
+  ovs_vport_receive
+  internal_dev_xmit
 
 Conditions to recreate the bug:
-- egress tc filter on lo: action ife decode pipe;
-- AF_PACKET SOCK_RAW frame: outer Ethernet with ETH_P_IFE, IFE metadata,
-  inner Ethernet and an 8192-byte payload;
-- the egress pipe re-enters eth_type_trans() via loopback_xmit() after the
-  action consumed the inner header.
+On a system with 4 KiB pages and CONFIG_OPENVSWITCH and CONFIG_PACKET
+enabled, use CAP_NET_ADMIN to create an OVS datapath and bring its local
+internal port up with MTU 9000.  Install a flow matching an Ethernet/NSH
+packet with a 24-byte MD1 header whose next-protocol is TUN_P_ETHERNET,
+and actions pop_eth, pop_nsh, output to the local port.  With
+CAP_NET_RAW, send a 4148-byte AF_PACKET/SOCK_RAW frame containing outer
+Ethernet, the NSH header, inner Ethernet and 4096 payload bytes.  The
+two pops consume the linear headers and expose the inner Ethernet header
+in page fragments.
 
-Fixes: ef6980b6becb ("introduce IFE action")
+The fix:
+Pull the inner Ethernet header into the linear area before restoring
+MAC_PROTO_ETHERNET.  This is the NSH counterpart of the MPLS/TEB
+producer fix in the previous patch.
+
+Fixes: b2d0f5d5dc53 ("openvswitch: enable NSH support")
+Link: https://lore.kernel.org/netdev/e85fa16e-df3c-43dd-bb3a-9edca07200ea@kernel.org/
 Cc: stable@vger.kernel.org
+Reviewed-by: Jiri Benc <jbenc@redhat.com>
+Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
 Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 ---
- net/sched/act_ife.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ net/openvswitch/actions.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/net/sched/act_ife.c b/net/sched/act_ife.c
-index 2afd68983ece..3946a9589bb8 100644
---- a/net/sched/act_ife.c
-+++ b/net/sched/act_ife.c
-@@ -769,6 +769,10 @@ static int tcf_ife_decode(struct sk_buff *skb, const struct tc_action *a,
+diff --git a/net/openvswitch/actions.c b/net/openvswitch/actions.c
+index 03b31e33e880..cb7e16c6a8ef 100644
+--- a/net/openvswitch/actions.c
++++ b/net/openvswitch/actions.c
+@@ -314,10 +314,13 @@ static int pop_nsh(struct sk_buff *skb, struct sw_flow_key *key)
+ 		return err;
  
- 	skb->protocol = eth_type_trans(skb, skb->dev);
- 	skb_reset_network_header(skb);
-+	if (!skb_at_tc_ingress(skb)) {
-+		skb_push(skb, ETH_HLEN);
-+		skb_reset_mac_len(skb);
+ 	/* safe right before invalidate_flow_key */
+-	if (skb->protocol == htons(ETH_P_TEB))
++	if (skb->protocol == htons(ETH_P_TEB)) {
++		if (!pskb_may_pull(skb, ETH_HLEN))
++			return -ENOMEM;
+ 		key->mac_proto = MAC_PROTO_ETHERNET;
+-	else
++	} else {
+ 		key->mac_proto = MAC_PROTO_NONE;
 +	}
- 
- 	return action;
+ 	invalidate_flow_key(key);
+ 	return 0;
  }
 -- 
 2.43.0
-
 
