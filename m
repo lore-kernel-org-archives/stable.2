@@ -1,91 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792777597;
-	b=y7KPGBWe8yTb9M59eOybt6JwsoyQBrk3kd/+VC9zO7v8JhkDq5NFlbZJFdy+ui0u/ABN
-	 cj1FSETi0XRzQ456KAfxjbU1mdSBW2gGMAIcRKaVN8ckVrKlLTwsYk1s18qhe3rCdHn27
-	 vaKQtJ/dgl6rv4F7A2MGxfQLmT6yfgjaUlB3Yhn7/fPI1uNx7NQ5C6akQ1e5PP7sF4HLn
-	 cSVuqo/5cka37p6T6n1XYC7S+9d947aEVDmKEa5f6kJKQSm40RScoRjxRiCwb8Ylg02aS
-	 Fu0WAn3NJCO6St/rNEOMNIYlR31Yj8OXQVY36PFgHbfxAfw900lj2pjWDulVIvNe0hw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792777597;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.181
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792777830;
+	b=eZi4HbizmQMJR+2alAciHrkYj8U2skwKtMDDel9lvM75dLsWGtVeaq3LlZHDapOdvywA
+	 8NaQnz54KMIL7/jsxWLJ1YEhheMbRoRreU6bFihg1P6SsN86lsMZDPcrKUO/iks8icLEU
+	 fRiDuf2lrj9+l33HB20e11IMcEL2ts2it12/rAG3W6+djMCJxkswk8nOXC6Iq8Ku9d0mF
+	 CDmLXnCnK/E04b0wC9Bk810ry9/zBHKCDJvlmClMNO5k/zTZhgZTv1QwOXrBPfazwf+W8
+	 JgRfe2XS6gnCmVa2FUC6L9V4qj0wd0INRJQg4AyiuxdXqohWWkPiLBxWKU7G9JnfXtQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792777830;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xlzj9+7VUiD0rDPjj9xsdhl6VeuEJi64iOeLJzH8Fak=;
-	b=Fu4hSHRDPDLCAyJR/A/UqEPXWj3dWmzSXDFIjGni6xdn8qomCBuZZZtFWGqA0GbeG/+l
-	 05evXSocQMf0mgl+2k/KaOTm0BNUCoV1usr5qhv3QkKF5mYXey5jpEmxVrl1GyxkhWRBy
-	 P/Zu1c7Q3FiiSwp0Lw0WGgRyEezpZklpkC3kiniSXqq09NbEHUJTaFYLuZky1LseB2X0i
-	 3U7f1wCDusP2nTGJ8kTOGFpko9Vo+wA0mvSXgMIe7CkCXhjAT1ADliVEnZM5qpT7ZB7ZU
-	 43c6LD3kXlgVZs2uxL8G7vXEUAGDE+HMknYsYfO8SgFUZLyYzp2xu3CtUt5did7oKfA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=openai.com;
-	spf=pass smtp.mailfrom=openai.com;
-	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=YxiS9C1Q;
-	arc=none smtp.remote-ip=209.85.161.42
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=NfTMKpM4Fi2gQW/7ivR+dxPSeSUZuVAfUibL9pBsSQg=;
+	b=0Aiaro8tzVNu0RjrU60R9rUQcuHesqhT1fq/0UEiI3yQ40R+TjtX73C3HjoDCnntfOWc
+	 7xrrplK701XuGC512qQdmJGSbn1KUEuXUAmzD6HePr469GivcozFs/IvT5Ughko2iSuU5
+	 YkM7P1uILyFmz7KXeRxh+MSSasNcyB8cJJofgM81OBluAPOa4ajfrEY9IwwVjm1GJuK0Y
+	 fa+tLLIPDQQudjnckA7i+1t76P1tUKNgh5FspQyD/6Ky9n+/fnenq6FqDIerdm/y/+EDY
+	 2FVT7rjFpHJq02GIvtvYStfYo2tobD3z7iDzbidTfHIVCr/RktNnHvk7eob/hn9Sr5Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=mojatatu.com;
+	spf=none smtp.mailfrom=mojatatu.com;
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=kIidCFxN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.181
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39106606A31A
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 17:46:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39106606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA81C606A31A
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 17:50:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA81C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=YxiS9C1Q
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6faddda49e7so982564eaf.3
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 10:46:36 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=kIidCFxN
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8a070755c8cso584117b3a.0
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 10:50:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792777829; cv=none;
+        d=google.com; s=arc-20260327;
+        b=A9uCTOU/IKdcIZIOIIizDSEwvY26z+YmLUE2el1hDbbex5owBnHtwUpUAvMkOtnJAT
+         tOLYGUBIUnD++DgX3B6M506+oHSyGpACFRgsnv50fDVqJihNhguX0Gs0b5KD4Mhw8KoX
+         dvVKu2JbSFhWYH2H3UFeiUsXf+rD9c9vSdM79F48jFZKFKJ33gvp1CRtq8NzrpzXb/ur
+         LjE03c022oNQDIDJurgUBj661aKNByIKIA/q756czvXjsjVUN6I/2UnKWlqTtoreHvN7
+         gv1H3GGnUBji0+lzKnR52IkyZvdFfx08St6Een+XyS0fcBNR+qZEkpQL40+E0KF+oEPE
+         +pdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=NfTMKpM4Fi2gQW/7ivR+dxPSeSUZuVAfUibL9pBsSQg=;
+        fh=ZzCX/nNAeU8/R/XwsCc/GDuRfz9y/iyssND7g2e+qd0=;
+        b=itYrJzIU6Nx7bOg1eddpqHmXMvJRpy24h2CoywnuTvuV32qq4DYlU2IM+euOqtZqzh
+         vX/BwxL/sldcI3dwJG6/YngTff+xlOeIEwGzucT4MDerTsNv9boQagzHk7wQcN3E4pCI
+         /j46Sr/MLQbtmnL60bbq1TGR2FtwBdnSkfjTal2PLGov3u2BjtkWLtH6feq/xTUvBEvG
+         dQels5HOsi3+3nrNl6svhi75PW7ZuXIwml2M0btrSTdCgbONIXt2O5H+jnTvI4AhNFrD
+         kSJ1iSImTzt7686A6QVL3fa5EhaxT3rDYexBccOi3pCFpRUUin4nUojT6cMx1oVP19hc
+         lO5w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1792777595; x=1793382395; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xlzj9+7VUiD0rDPjj9xsdhl6VeuEJi64iOeLJzH8Fak=;
-        b=YxiS9C1QOQiQj62KnEdVaa4HjaEBExW5bp5Ol+/YPk+f2I+3STcUEaRI1aixJFSIVQ
-         foZtdo93KcXjp+UKIWW7nmoC0ZCH4CyhqCW+I/QewtnJZBg1/bONh7uFQO3PyIDaFftP
-         Cul9W/M1VUsKfdYKyQllyYvirVbrAe3fb5DeI=
+        d=mojatatu.com; s=google; t=1792777829; x=1793382629; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NfTMKpM4Fi2gQW/7ivR+dxPSeSUZuVAfUibL9pBsSQg=;
+        b=kIidCFxNjG5wNwDTUl7Dlz3h4oDosCg38JfDfuFTtQAm/Na7/ADzXuYWGVnm5ek2TE
+         VfPIf3pfTzjtorBrRVd+JhrDvdver9mnGOpvvrdG39arX7SCdY6FHwP5RBcR3yOYn+dh
+         mYzqW/5S4ErTX4U3efu0Yp8W0cfauCHrP9dHI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792777595; x=1793382395;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xlzj9+7VUiD0rDPjj9xsdhl6VeuEJi64iOeLJzH8Fak=;
-        b=aW+Serv+rVy7dbx8UU4jxLl+fWM8xfLItPf1VP1iYWS6tFx4LSKx/uFq1rOFiojPu3
-         geFuqyHsqNwrNKSIG8qCa4IKOU/IRpyFkPZd26CEvvglvDqFZdRY+jsg0JXgT1fRwSTG
-         CHBjjcEccmyecfvnWd03wBE7znxJ9IW6QBFeVXMgGx1dId3+lKX3VxonPS3w6dRzCyfG
-         GF/ULxgB4XhHuS60cKKMFNrrOgmb2H+n7EGEDC/lUCkIa08mwF7JPI3gVrUNXW+FXGMP
-         UYr5cU57hl2GXQb/J5oAbTleyQq/BXQH6XjhpEW1W+h8SPBAsympexhvtbzUQdV+DFe1
-         tPzw==
-X-Forwarded-Encrypted: i=1; AKwUvBwWpokwycNR6JMSE9zSPDr/3GS7jIjILIN76ppeE/uMn0MJnKFtWO/FhpJ/CA3t1lypZ4Bc064=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI64Y/xIPlPzqPVFNbdEb5SDiNznUV8ywTei39fsd3KNvRoyBpB
-	NnvqHFA+oX+E7wfHj19knLc+0iXFg+d1C/B+Dq/+q5rn/CM6VFlEVZfv3yn0X0cuBIY=
-X-Gm-Gg: AYBFou3XeroJMJmPVKk6M0GTtQCkkyThU9hULC8qO0ZayPYdTrL+BxXkQbOW/JG+QhW
-	UCATqB+8jTxORfr0VsiL6M7+wsaPmKaAFSprJMjoKMzXaU4kn/erfmQ4g+7sbnlOUg6rMIPwbtJ
-	WyDqwmQHJDk5vRjyYeE2IpwDk2BGq3PPZsiJxOKDTkRwVoSg56HxF4q/m6YGlYqIKaV1S6htgYH
-	e0cwA1MYW1hnbEDel0fh0eTKw5E3sCsBank03DiTb6sRxcuNLSyrbRLg9gkW2BX28YE8znZ2DJ+
-	doYWAesTHll+0g6IfXDPTyE7cZuhoCfoVejhNZBJVNcYat/cFlWTKTzXksLYYJeU9acN3us7g6B
-	tns4Y5RDCBtBHVqY1OTjh4XjbZVgoix/pvVjFSKk2e5kPg87Xh4VBDO617XdL0ajRyH8ZB8d9uT
-	FrVLiB7JbBT/A1HVtBKV3qeI1+RBRYI9KXMHslGoG0piyHcmsyAdDbZ/CuPZQWZvB4I5lGi2YG2
-	bAm/VqHU+SmgaZ8W261d606WEcziiR3Gav9s4L8nBqhxDccqVc9wVm6nbFaRat3SZ6y30yGgbGb
-	6HR7KQatkxuOxV9xQSh/tlXG6aW50O4Jp6aN1E8oiGnmNPRERfoFPuC9ow==
-X-Received: by 2002:a05:6820:2215:b0:70b:980e:454 with SMTP id 006d021491bc7-70b980e054bmr960802eaf.6.1792777595042;
-        Fri, 23 Oct 2026 10:46:35 -0700 (PDT)
-Received: from com-75606.corp.openai.org ([199.47.143.5])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-70b9aec6172sm565349eaf.11.2026.10.23.10.46.33
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 23 Oct 2026 10:46:34 -0700 (PDT)
-From: Kyle Zeng <kylebot@openai.com>
-To: linux-trace-kernel@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Kyle Zeng <kylebot@openai.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] tracing: Reject incomplete event filter expressions
-Date: Fri, 23 Oct 2026 10:46:20 -0700
-Message-ID: <20261023174620.91969-1-kylebot@openai.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1792777829; x=1793382629;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NfTMKpM4Fi2gQW/7ivR+dxPSeSUZuVAfUibL9pBsSQg=;
+        b=hlmdIh3/RuabvyCGexWgMjFkR7E7fv62URfAB3JGMpIpkSvSv0YPzGy1hoDH7yiDvS
+         F9NeFsZi2oo+N0NA5sOtc/WniWDwxGy0PvjOT4A2OaXfYyR3e46gbDiSF3SbB7t1UJ4J
+         f3jeTKgsPpPUudzCcaaYo6TjvDukAdDjaH+tapYSSi5LYfYp885teEWZfl3Cc13dChRS
+         8PDDVpurBKTvpKi/wcaBmta+CRQoq7xOKP8xHjSQQlG4wFE2kE/ToswzBiXHp6Gkb0vB
+         irsSKCwrlkKB+hyTnzTg4OqTv/3HLWHC1pgYSCMeQjgJtonQ0BqyD4ncK0nORrgyU1FN
+         59pg==
+X-Forwarded-Encrypted: i=1; AKwUvBylRdCo4X9DmN7a1UsiOsI3bRf4p00M53KpZbJDSUTaA0gumiNBu4qyvcRvB+zcb/xRMZ9XBko=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLaOheyk+CzTeLD9jS0EecebE1pL1+LuUOymDfrIcAxc9OL4YA1
+	h9rmb9YorRG63v3QzbH1jN7BJHZZMHT43CwtqUXnFsEipyHYjuk8a8Loh75a2aXcdUnUgY8/RX4
+	IHwGRPaCOBgztoc7xPR9n777yy0LSsX+lVsRtbV+S
+X-Gm-Gg: AYBFou1JapGmnNUZ+7BM/x8Y+PT1XhK9Ez8eI5ltmc1umhoRXV2UIKOtPDWFoVDlhee
+	oL5m09/sBh+aUfndDx0wSbeIU7DeNje8oFYbiW4vHLKD0ZmyViD4kiUnaZ/Gg2rqlslkLYlykjF
+	WpF3cwx1UKsHdRXg9ZEtqksp+N++1tnjm8MB8KBuln9mlj7ib1GNmJar5ppkj+wwgxaNkndwvJG
+	hOXrV+cuqqwFLxmbfMuwVlNsTZ7mbaXjCSpcdJe6BzK7D+Dckt63+Hp5FSA9tBITRtqeu7VrHKQ
+	FH8cmnifcQEhJ6w8+Bppt4GLVdfKH+Ra7mqQefJ/8wTJeoihGJm8iG0fkpx3oE66ucmgNnRdsgf
+	11vu8GKUuPDY39fn/X8UT5+nr+lzFRzdp/zVrKjI33Mj9kTiA+EW+55W7jpNELxbL7R9MtsVkax
+	7JXJLFSbYC8/A2hks=
+X-Received: by 2002:a05:6a20:cc8e:b0:3e2:490d:5127 with SMTP id
+ adf61e73a8af0-3e359a408e7mr2657796637.2.1792777829063; Fri, 23 Oct 2026
+ 10:50:29 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,83 +102,157 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <QDISC-Y0BY.v1.r0.20261015184107-2@mojatatu.com>
+ <179248763469.3135.1739559328868319628@kernel.org> <20261023162821.GN708417@horms.kernel.org>
+In-Reply-To: <20261023162821.GN708417@horms.kernel.org>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Fri, 23 Oct 2026 13:50:17 -0400
+X-Gm-Features: AclHuK-lPnqSWlBjm9YE8wHoMCILoIyS3_3o2j-_BfCIQutA2hTRfAEI60jMb08
+Message-ID: <CAM0EoM=TTf=ugCtHv_Sv3Uj0trcUgNYcoSGn+kg_pHymLU-oLg@mail.gmail.com>
+Subject: Re: [PATCH net 2/2] net/sched: sch_teql: fix use-after-free on lower
+ qdisc drop
+To: Simon Horman <horms@kernel.org>
+Cc: netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org, owen@verialabs.com, 
+	jiri@resnulli.us, victor@mojatatu.com, davem@davemloft.net, 
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, kaber@trash.net, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A non-empty expression normally finishes in predicate_parse()'s inner
-loop, which resolves the pending logical operators before jumping to
-finalization. If the input ends after an operator, possibly followed by
-unary '!' tokens, the outer loop instead falls through with unresolved
-operator state.
+On Fri, Oct 23, 2026 at 12:28=E2=80=AFPM Simon Horman <horms@kernel.org> wr=
+ote:
+>
+> On Tue, Oct 20, 2026 at 09:13:54AM +0000, netdev-bot+sashiko@kernel.org w=
+rote:
+> > Thank you for your contribution! Sashiko AI review found 1 potential
+> > issue(s) to consider.
+> >
+> > Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 0
+> >
+> > If you believe none of the issues are legitimate, please reply to each
+> > issue of Medium severity or higher and explain why the AI is wrong.
+> > If any of them are legitimate and you plan to respin, please let patchw=
+ork
+> > know by including "pw-bot: cr" as a separate line at the end of your re=
+ply
+> > (one such reply per series is enough).
+> >
+> > - [Medium] In teql_master_xmit() (net/sched/sch_teql.c), the patch
+> >   replaces `=3D=3D NETDEV_TX_OK` with `dev_xmit_complete(rc)`.
+>
+> Hi Jamal,
+>
+> Maybe things have moved on for some reason.
+> But this concern does seem to warrant a response.
+>
 
-For example, "common_pid == 1 || common_pid == 2 &&" leaves
-prog[0].target equal to -1. The second pass then reads prog[-1] before
-the forward-jump check can reject it. Depending on adjacent slab
-contents, it can also copy an out-of-bounds word into a branch target
-that passes the forward-only check. A self-targeted perf tracepoint
-counting event can reach this path through PERF_EVENT_IOC_SET_FILTER.
+Yikes, My new perfect "dont miss anything" script failed and didnt
+alert me ;-> Thanks for catching this. I will resend, one of those
+comments is legit - so i will send a v2.
 
-Reject the outer-loop fallthrough when a predicate has already been
-parsed. This ensures that non-empty expressions only reach finalization
-after the inner loop has resolved their operators. Keep the existing
-no-filter error for input that has no predicates. Add a regression test
-for trailing logical operators and unary negations.
+I do find sashiko-nipa sometimes misses showing up on the list, so i
+have a script that politely polls the site. Polling the site is more
+reliable.
+It is still strange - sometimes the embargo is lifted in 7 days but i
+just saw something with the embargo lifted after 2 days. Is there a
+human who decides this and intervenes?
 
-Fixes: 80765597bc587 ("tracing: Rewrite filter logic to be simpler and faster")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-6-astra
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
----
- kernel/trace/trace_events_filter.c            |  6 +++++
- .../test.d/filter/event-filter-incomplete.tc  | 24 +++++++++++++++++++
- 2 files changed, 30 insertions(+)
- create mode 100644 tools/testing/selftests/ftrace/test.d/filter/event-filter-incomplete.tc
+The script has a bug which i just fixed: it took reviews[0] which for
+nipa was for patch-1 which was empty review (meaning "No issue found")
+and decide that patch-2  was also "No issues found."
+At one point i think that approach worked. Note: The site didn't hide
+it; the script just selected the wrong array element. Fixed by
+matching patch_id/message_id.
 
-diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-index 2b46ca536045..405651be9c93 100644
---- a/kernel/trace/trace_events_filter.c
-+++ b/kernel/trace/trace_events_filter.c
-@@ -596,6 +596,12 @@ predicate_parse(const char *str, int nr_parens, int nr_preds,
- 			top--;					/* #12 */
- 		}
- 	}
-+	/* Only the inner loop can complete a non-empty expression. */
-+	if (N) {
-+		ret = -EINVAL;
-+		parse_error(pe, FILT_ERR_INVALID_FILTER, ptr - str);
-+		goto out_free;
-+	}
-  out:
- 	if (top != op_stack) {
- 		/* Too many '(' */
-diff --git a/tools/testing/selftests/ftrace/test.d/filter/event-filter-incomplete.tc b/tools/testing/selftests/ftrace/test.d/filter/event-filter-incomplete.tc
-new file mode 100644
-index 000000000000..cc6df762845f
---- /dev/null
-+++ b/tools/testing/selftests/ftrace/test.d/filter/event-filter-incomplete.tc
-@@ -0,0 +1,24 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0
-+# description: event filter - reject incomplete logical expressions
-+# requires: events/sched/sched_switch/filter
-+# flags: instance
-+
-+filter=events/sched/sched_switch/filter
-+
-+for base in \
-+    'common_pid == 1' \
-+    'common_pid == 1 || common_pid == 2' \
-+    'common_pid == 1 && common_pid == 2' \
-+    '!(common_pid == 1 || common_pid == 2)'
-+do
-+    printf '%s' "$base" > "$filter"
-+    for tail in '&&' '||' '&& !' '|| !' '&& !! ' '|| !! '; do
-+        if printf '%s' "$base $tail" > "$filter" 2>/dev/null; then
-+            echo "Accepted incomplete filter: $base $tail"
-+            exit_fail
-+        fi
-+    done
-+done
-+
-+echo 0 > "$filter"
+cheers,
+jamal
 
-base-commit: fd179f8a05be3ccae366b9b96e176b51fbe54aab
+> >
+> > --
+> >
+> > net/sched: sch_teql: fix use-after-free on lower qdisc drop
+> >
+> > This patch changes the check on the slave's netdev_start_xmit() return
+> > value in teql_master_xmit(). It now uses dev_xmit_complete() instead of
+> > comparing against NETDEV_TX_OK, so a slave that consumes the skb and
+> > returns NET_XMIT_DROP is no longer treated as still owning it. This fix=
+es
+> > a use-after-free when a VLAN slave's lower qdisc drops the packet.
+> >
+> > > diff --git a/net/sched/sch_teql.c b/net/sched/sch_teql.c
+> > > index c7dcec25ef420..b3efd5c281988 100644
+> > > --- a/net/sched/sch_teql.c
+> > > +++ b/net/sched/sch_teql.c
+> > > @@ -350,8 +350,8 @@ static netdev_tx_t teql_master_xmit(struct sk_buf=
+f *skb, struct net_device *dev)
+> > >
+> > >                             skb->dev =3D slave;
+> > >                             if (!netif_xmit_frozen_or_stopped(slave_t=
+xq) &&
+> > > -                               netdev_start_xmit(skb, slave, slave_t=
+xq, false) =3D=3D
+> > > -                               NETDEV_TX_OK) {
+> > > +                               dev_xmit_complete(netdev_start_xmit(s=
+kb, slave,
+> > > +                                                                   s=
+lave_txq, false))) {
+> >
+> > [Severity: Medium]
+> > This closes the use-after-free. Does the same condition now also count
+> > dropped packets as successful transmits on teql0?
+> >
+> > dev_xmit_complete() returns true for any rc < NET_XMIT_MASK. That cover=
+s
+> > NET_XMIT_DROP and negative errno values as well as NETDEV_TX_OK. All of
+> > these now take the success block in teql_master_xmit():
+> >
+> >     netif_wake_queue(dev);
+> >     master->tx_packets++;
+> >     master->tx_bytes +=3D length;
+> >     rcu_read_unlock();
+> >     return NETDEV_TX_OK;
+> >
+> > They also advance master->slaves to the next slave.
+> >
+> > teql_master_stats64() copies these counters directly into struct
+> > rtnl_link_stats64. There, tx_packets is defined as "Number of packets
+> > successfully transmitted".
+> >
+> > With the reproducer from the commit message (a VLAN slave on a dummy
+> > device with a pfifo limit 0 root), every packet the lower qdisc drops
+> > would appear as a good transmit in ip -s link show teql0. tx_dropped an=
+d
+> > tx_errors would stay at zero.
+> >
+> > The VLAN slave counts the same rc as a drop in vlan_dev_hard_start_xmit=
+():
+> >
+> >     if (likely(ret =3D=3D NET_XMIT_SUCCESS || ret =3D=3D NET_XMIT_CN)) =
+{
+> >         ...
+> >         u64_stats_inc(&stats->tx_packets);
+> >         ...
+> >     } else {
+> >         this_cpu_inc(vlan->vlan_pcpu_stats->tx_dropped);
+> >     }
+> >
+> > Could the rc be saved once? dev_xmit_complete(rc) would then decide onl=
+y
+> > whether the skb is still owned, which keeps the use-after-free fix. In
+> > that case, tx_packets and tx_bytes would only grow for NETDEV_TX_OK and
+> > NET_XMIT_CN. The other consumed codes would go to tx_dropped (or
+> > tx_errors), without touching the skb.
+> >
+> > The commit message describes this only as a use-after-free fix. Could i=
+t
+> > also mention that teql0's counters behave differently now?
+> >
+> > >                                     __netif_tx_unlock(slave_txq);
+> > >                                     raw_spin_lock_irqsave(&master->sl=
+aves_lock, flags);
+> > >                                     if (rcu_dereference_protected(mas=
+ter->slaves,
+> >
+> > --
+> > Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/pat=
+chset/QDISC-Y0BY.v1.r0.20261015184107%40mojatatu.com
