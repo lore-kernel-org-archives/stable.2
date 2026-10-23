@@ -1,47 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792773033;
-	b=odPlQniok4n59YjSds7VBXMO2ZFrPz0zNVPF2oZE8ufNIw4mhBmCKqKdmHrqOhSeBPvd
-	 6+MlF03s2TBghn7ZiB6J5rJ7ZqLVWx6sMrTayj+ggQtAGtPimoEeiVPJ6UGhKLKKxVZ13
-	 887NdPKK2U7V9JONcAuXNnEaiXD2hCkRSYMjmDnGGazb4g9L9TQW3YqrGLxqJphmWzIIX
-	 WbkMoyv2hPzF3nBfmNxiNuGl3rHiKPgxpotibc6SvJAWD7Uhkx647knb9GbSX4fztRzlJ
-	 JGcMxugAmAredt8tn7nZNv4xgNZ8rIUdCE9UaZJTQZw4ZV2zZWMcIsZ8ELG1j5LZkhQ==
+	t=1792773246;
+	b=wXEGai6/jJJAb7HF7uTaqpfHe7OetPfPYW02TUlZM3bF4AmpC2TlUWAolpiTyHfTcqKJ
+	 +w+dqduAGpoajjxuFDWSrCr2/9nMkVMBfzFXAGSV3nBjv91tS2uz9NaD7ylddyQhZZ2a8
+	 nzGUfFAATspZOX4IYCCoQHZr0+MAps1WwzM+bh8h8X0GbRNugBKTTfjPeKVq5oDPbbC7a
+	 aQahGPwEGk5bWOgDGNhB8APU/ueMxX39I0ZELYfvwz/+Ax26OckWZaYk2UcjsCuytrQQM
+	 mQsef6JgISdHlGRSnAXgUljnmyej7l+UmYVA/Xgm6VHcJXE6g442gtn0dIV8VCD0TPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792773033;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=bidR1AFwHCujHiY0WSU8gaeAW4HDxTP44acwR3nISts=;
-	b=J61a7O0HMvvxgymb6dS8NILFps5merHJkbOVjBktKWhTlYfKrpETCvtXaKh0kDuP3yv0
-	 RHmQRTHyY0o9YE8b8bO1ktdVMR6uLMLjf5gsLET7ZM54q1mL2B+y0ZylryHSLOolbbx9P
-	 JG78/gcqmksRConXlQJjH5bcJ0REaI3LcXcltRfl8yeO/vf/b+wy/WMW3GmELhINBPBT0
-	 ozB5/4t9Z1FU7V7BLqJZpwXsbUJCnG6uc8jRaEW2txzaikZ5lLx8ijACd5VrduMCKGJ8u
-	 NEtZLjDc6gA5AxiN6sf+bs/+XVOSdZTB2jA75rBxScG5VaEwsR6ga4jmmNZaMw9MVVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792773246;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Bnv/2l/k8MEQplql5Qor6TmFNI8cwuFcJwBFY8k4dLQ=;
+	b=t9286mkeXQUIS+YX7S+BUcRflEHuZwKcXH6M2xU3SdKFhiCmXk0swYVTOahtesJdbegv
+	 4gH6wmHfdCsNm9pd2ovPlm9dFnIz3myPn92faTnDg7IGsgdNGpo0nV0ZMmEz/Tk4Mtt1K
+	 Je3yEsAPFMLc2clngoIH6Jy0TyftQCm3wMVI+6b/GU1wbWP2g1LbIWZU8qdbXSzv2OxQl
+	 ujvVA8slhPh+tYkHBbFTN/yhduwOodXQaONkJZfP+cemSKVj2czVeyNFVL/yp2azb1TIY
+	 qJ//iLSWIoBnZFZu0Ti7jio5bRHlOW3EXOQV447eOwe5/IaGwVWTXAUo8Tx2Z2dhMDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aQIF54pb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dLZzOEQK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5518F606A332
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 16:30:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 638F9606A31B
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 16:34:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aQIF54pb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C6FF1F01828;
-	Fri, 23 Oct 2026 16:30:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792773032;
-	bh=bidR1AFwHCujHiY0WSU8gaeAW4HDxTP44acwR3nISts=;
-	h=Subject:To:Cc:From:Date;
-	b=aQIF54pb2bE4IrlfaAoJxN36qK9iOfHLmKxBuC56XfvT2Fy3m4mfvaE/fYDYj5xnx
-	 fYOsc1guLN/D7i6WauoictCtcliD18o3am9PEAuToP+NoiEacqquouiuviQHPbpv+k
-	 TcD7vNSWwy+Fka6yE3WWeOinCBnEN7+QJZJVlqzU=
-Subject: FAILED: patch "[PATCH] ACPI: scan: Avoid registering platform devices with resource" failed to apply to 6.18-stable tree
-To: rafael.j.wysocki@intel.com,andriy.shevchenko@linux.intel.com,julien82453@gmail.com,pmenzel@molgen.mpg.de,stable@vger.kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Fri, 23 Oct 2026 18:29:08 +0200
-Message-ID: <2026102308-twisting-bazooka-12b5@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dLZzOEQK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF6191F031E5
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 16:34:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792773246;
+	bh=Bnv/2l/k8MEQplql5Qor6TmFNI8cwuFcJwBFY8k4dLQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=dLZzOEQKJaWOtIy9+qkobtNm3lHDY4AhRWumVM3ZcQRWa4Je4jHM1otSuBF0w1qYu
+	 BF/xPksTJs3vlxq+nUQ5S3yuLJRCeVvXZoAbZDKViLFJxlCET0MA3Gljq2uZMKocrP
+	 HG5zs6MsujdQGIAK/AqNXk1L9ZQWSRajdTGeM8ZQUTVPCQ+NpJbDgPqxXUZQjK7ljy
+	 5PQWuKjOn0iy8GsRMaFFb6fz+w52bov2d4fWeZtDl1UjbjWX+Sj7GdE7muqdJKyhu0
+	 7m42OB24Js1mUwd1LLHeftws7ffOom4x1/eIJux2DP+ZFTZQcswdisvbVR+cWeBnDE
+	 dHxnweDY9LbXw==
+Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-8256106635eso548867a34.0
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 09:34:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwrMnaGDkYjW3TlGK+i3Rw373Y9QfqvvRZBrq9IDy7PFg+mdZXjrCapgJzU0x0mBVWckMrVmkI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/qFNNTL2+JzZSgS7JeSAbqX9fbysyDn1L8GShsyKWeFcpPaYm
+	g+PwR7BkY92Vz3JkXprbxMPiR0Y0lmzBs+GpUgVjlm9Yhzjrid+DGP+6TVFUCJkRXkg0jpPht5O
+	lWEmcAGPfUW0panhXbWjysmMM9u6E7Xw=
+X-Received: by 2002:a05:6808:f07:b0:4d6:9232:b3bc with SMTP id
+ 5614622812f47-55be864aec7mr1855434b6e.51.1792773245233; Fri, 23 Oct 2026
+ 09:34:05 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,130 +59,225 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+References: <20261023052542.3505250-1-imv4bel@gmail.com> <20261023052542.3505250-3-imv4bel@gmail.com>
+In-Reply-To: <20261023052542.3505250-3-imv4bel@gmail.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Fri, 23 Oct 2026 18:33:53 +0200
+X-Gmail-Original-Message-ID: <CAL4WiipDcvmNMeeC1znRmtykFg1uwb5XOZVOoi9y0dVECXtHVw@mail.gmail.com>
+X-Gm-Features: AclHuK8j0OJIInTADjUijSZdrh-TBvCvPPjm2eN4Lb9vOWvudAiLyfVYeTUust4
+Message-ID: <CAL4WiipDcvmNMeeC1znRmtykFg1uwb5XOZVOoi9y0dVECXtHVw@mail.gmail.com>
+Subject: Re: [PATCH net v2 2/2] inet: restore refcount ordering for
+ established lookups
+To: Hyunwoo Kim <imv4bel@gmail.com>
+Cc: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, martin.lau@linux.dev, 
+	john.fastabend@gmail.com, weiwan@google.com, sd@queasysnail.net, 
+	jiayuan.chen@linux.dev, netdev@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Le ven. 23 oct. 2026 =C3=A0 07:26, Hyunwoo Kim <imv4bel@gmail.com> a =C3=A9=
+crit :
+>
+> When commit 3ab5aee7fe84 ("net: Convert TCP & DCCP hash tables to use
+> RCU / hlist_nulls") was written, atomic_inc_not_zero() provided full
+> memory ordering. Even after commit 41c6d650f653 ("net: convert
+> sock.sk_refcnt from atomic_t to refcount_t"), default builds used
+> atomic_add_unless() and retained that ordering.
+>
+> Commit fb041bb7c0a9 ("locking/refcount: Consolidate implementations
+> of refcount_t") consolidated the refcount_t implementations in v5.5.
+> On weakly ordered architectures, this removed the ordering required
+> by validation after a successful reference acquisition.
+>
+> Use refcount_inc_not_zero_acquire() in the IPv4 and IPv6 established
+> lookups. Use refcount_set_release() when setting initial refcounts in
+> sk_clone(), SYN cookie, and request migration paths. In the TCP Fast
+> Open path, move the refcount update after the required initialization
+> and use release ordering.
+>
+> The TIME_WAIT path already has an smp_wmb() between refcount_set() and
+> hash publication, so leave it unchanged.
+
+This is not accurate. The smp_wmb() in inet_twsk_hashdance_schedule()
+orders the tw_refcnt store against the ehash publication, not the tw
+identity stores done in inet_twsk_alloc() against the tw_refcnt store.
+
+The latter is what a lookup holding a stale pointer needs. Today we get it
+more or less by accident from the bhash spin_unlock() followed by
+spin_lock() of the ehash lock.
+
+Please either reword this paragraph, or simply use
+refcount_set_release(&tw->tw_refcnt, 3) there; it is free under the lock
+and makes the pairing explicit.
 
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+>
+> Fixes: fb041bb7c0a9 ("locking/refcount: Consolidate implementations of re=
+fcount_t")
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x f234fdaae1cad8c39265e7ca0a14633076ec7154
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102308-twisting-bazooka-12b5@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
-
-Possible dependencies:
+refcount_inc_not_zero_acquire() and refcount_set_release() were only
+added in 7f8ceea0c580 ("refcount: provide ops for cases when object's
+memory can be reused"), in v6.15.
 
 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+> ---
+>  net/core/sock.c                 | 3 +--
+>  net/ipv4/inet_connection_sock.c | 6 +++---
+>  net/ipv4/inet_hashtables.c      | 2 +-
+>  net/ipv4/syncookies.c           | 2 +-
+>  net/ipv4/tcp_fastopen.c         | 3 +--
+>  net/ipv6/inet6_hashtables.c     | 2 +-
+>  6 files changed, 8 insertions(+), 10 deletions(-)
+>
+> diff --git a/net/core/sock.c b/net/core/sock.c
+> index 3c25d66ba31a..f3ef9601ab73 100644
+> --- a/net/core/sock.c
+> +++ b/net/core/sock.c
+> @@ -2622,8 +2622,7 @@ struct sock *sk_clone(const struct sock *sk, const =
+gfp_t priority,
+>         /* Before updating sk_refcnt, we must commit prior changes to mem=
+ory
+>          * (Documentation/RCU/rculist_nulls.rst for details)
+>          */
+> -       smp_wmb();
+> -       refcount_set(&newsk->sk_refcnt, 2);
+> +       refcount_set_release(&newsk->sk_refcnt, 2);
 
-thanks,
+This part is not a fix: the writer side only needs store->store ordering,
+which smp_wmb() already provides.
 
-greg k-h
+I do not mind the conversion, but then reqsk_queue_hash_req() (which has
+the same smp_wmb() + refcount_set() pattern) should be converted as well
+for consistency. Otherwise please drop this hunk to keep the stable
+backport minimal.
 
------------------- original commit in Linus's tree ------------------
 
-From f234fdaae1cad8c39265e7ca0a14633076ec7154 Mon Sep 17 00:00:00 2001
-From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
-Date: Fri, 7 Aug 2026 12:22:37 +0200
-Subject: [PATCH] ACPI: scan: Avoid registering platform devices with resource
- overlaps
+>
+>         sk_set_socket(newsk, NULL);
+>         sk_tx_queue_clear(newsk);
+> diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_s=
+ock.c
+> index cff02f4c5ac8..2d8e54d3a31b 100644
+> --- a/net/ipv4/inet_connection_sock.c
+> +++ b/net/ipv4/inet_connection_sock.c
+> @@ -1056,8 +1056,8 @@ static void reqsk_timer_handler(struct timer_list *=
+t)
+>                  * hold another count to prevent use-after-free and
+>                  * call reqsk_put() just before return.
+>                  */
+> -               refcount_set(&nreq->rsk_refcnt, 2 + 1);
+>                 timer_setup(&nreq->rsk_timer, reqsk_timer_handler, TIMER_=
+PINNED);
+> +               refcount_set_release(&nreq->rsk_refcnt, 2 + 1);
+>                 reqsk_queue_migrated(&inet_csk(nsk)->icsk_accept_queue, r=
+eq);
+>
+>                 req =3D nreq;
+> @@ -1441,7 +1441,7 @@ struct sock *inet_csk_complete_hashdance(struct soc=
+k *sk, struct sock *child,
+>                                 goto child_put;
+>                         }
+>
+> -                       refcount_set(&nreq->rsk_refcnt, 1);
+> +                       refcount_set_release(&nreq->rsk_refcnt, 1);
+>                         if (inet_csk_reqsk_queue_add(sk, nreq, child)) {
+>                                 __NET_INC_STATS(sock_net(sk), LINUX_MIB_T=
+CPMIGRATEREQSUCCESS);
+>                                 reqsk_migrate_reset(req);
+> @@ -1494,7 +1494,7 @@ void inet_csk_listen_stop(struct sock *sk)
+>                 if (nsk) {
+>                         nreq =3D inet_reqsk_clone(req, nsk);
+>                         if (nreq) {
+> -                               refcount_set(&nreq->rsk_refcnt, 1);
+> +                               refcount_set_release(&nreq->rsk_refcnt, 1=
+);
+>
+>                                 rcu_read_lock();
+>                                 if (inet_csk_reqsk_queue_add(nsk, nreq, c=
+hild)) {
+> diff --git a/net/ipv4/inet_hashtables.c b/net/ipv4/inet_hashtables.c
+> index 58d54965036a..7ffa9171d6de 100644
+> --- a/net/ipv4/inet_hashtables.c
+> +++ b/net/ipv4/inet_hashtables.c
+> @@ -550,7 +550,7 @@ struct sock *__inet_lookup_established(const struct n=
+et *net,
+>                 if (sk->sk_hash !=3D hash)
+>                         continue;
+>                 if (likely(inet_match(net, sk, acookie, ports, dif, sdif)=
+)) {
+> -                       if (unlikely(!refcount_inc_not_zero(&sk->sk_refcn=
+t)))
+> +                       if (unlikely(!refcount_inc_not_zero_acquire(&sk->=
+sk_refcnt)))
+>                                 goto out;
+>                         if (unlikely(hlist_nulls_unhashed_lockless(&sk->s=
+k_nulls_node) ||
+>                                      !inet_match(net, sk, acookie, ports,=
+ dif,
+> diff --git a/net/ipv4/syncookies.c b/net/ipv4/syncookies.c
+> index 644030561537..4b2d2713653b 100644
+> --- a/net/ipv4/syncookies.c
+> +++ b/net/ipv4/syncookies.c
+> @@ -205,7 +205,7 @@ struct sock *tcp_get_cookie_sock(struct sock *sk, str=
+uct sk_buff *skb,
+>         child =3D icsk->icsk_af_ops->syn_recv_sock(sk, skb, req, dst,
+>                                                  NULL, &own_req, NULL);
+>         if (child) {
+> -               refcount_set(&req->rsk_refcnt, 1);
+> +               refcount_set_release(&req->rsk_refcnt, 1);
+>                 sock_rps_save_rxhash(child, skb);
+>
+>                 if (rsk_drop_req(req)) {
+> diff --git a/net/ipv4/tcp_fastopen.c b/net/ipv4/tcp_fastopen.c
+> index 471c78be5513..2506f415f410 100644
+> --- a/net/ipv4/tcp_fastopen.c
+> +++ b/net/ipv4/tcp_fastopen.c
+> @@ -364,8 +364,6 @@ static struct sock *tcp_fastopen_create_child(struct =
+sock *sk,
+>         tcp_reset_xmit_timer(child, ICSK_TIME_RETRANS,
+>                              req->timeout, false);
+>
+> -       refcount_set(&req->rsk_refcnt, 2);
+> -
+>         sk_mark_napi_id_set(child, skb);
+>
+>         /* Now finish processing the fastopen child socket. */
+> @@ -378,6 +376,7 @@ static struct sock *tcp_fastopen_create_child(struct =
+sock *sk,
+>         tcp_rsk(req)->rcv_nxt =3D tp->rcv_nxt;
+>         tp->rcv_wup =3D tp->rcv_nxt;
+>         tp->rcv_mwnd_seq =3D tp->rcv_wup + tp->rcv_wnd;
+> +       refcount_set_release(&req->rsk_refcnt, 2);
+>         /* tcp_conn_request() is sending the SYNACK,
 
-If acpi_dev_get_resources() returns overlapping I/O or memory resources,
-the subsequent registration of a platform device will fail with -EBUSY
-due to a resource conflict.  This is reported to happen on Acer Aspire
-ES1-572 [1].
+Moving this is harmless, but not needed. The lookup never looks at
+rcv_nxt, and this req is never hashed, so after patch 1/2 a stale lookup
+will reject it anyway. A plain conversion in place would be enough.
 
-Avoid that by adjusting resources returned by acpi_dev_get_resources()
-to eliminate partial overlaps between them.
+Let's keep code churn minimal, to lower risk of merge conflicts.
 
-This has not been regarded as necessary before because putting
-overlapping resources into the _CRS of one device is really pointless,
-but now that the issue has been reported to actually happen in the
-field, it needs to be done.
-
-Fixes: ab06eb920401 ("ACPI: scan: Register platform devices for fixed event buttons")
-Fixes: 48fe2cddc85c ("tpm_crb: Convert ACPI driver to a platform one")
-Reported-by: Julien <julien82453@gmail.com>
-Tested-by: Julien <julien82453@gmail.com>
-Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Closes: https://lore.kernel.org/linux-integrity/CAJOGg3z6LJPDsdPNBxajgy8_wQxfhYBRxe4EiurZf3kPU5A5Bw@mail.gmail.com/ [1]
-Cc: All applicable <stable@vger.kernel.org>
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-[ rjw: Tweaked the new message ]
-Link: https://patch.msgid.link/12955541.O9o76ZdvQC@rafael.j.wysocki
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-
-diff --git a/drivers/acpi/acpi_platform.c b/drivers/acpi/acpi_platform.c
-index a09636a4168e..373c94de7590 100644
---- a/drivers/acpi/acpi_platform.c
-+++ b/drivers/acpi/acpi_platform.c
-@@ -12,6 +12,7 @@
- #include <linux/bits.h>
- #include <linux/device.h>
- #include <linux/err.h>
-+#include <linux/ioport.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/dma-mapping.h>
-@@ -71,6 +72,36 @@ static struct notifier_block acpi_platform_notifier = {
- 	.notifier_call = acpi_platform_device_remove_notify,
- };
- 
-+static unsigned int acpi_platform_adjust_resources(struct acpi_device *adev,
-+						   struct resource *new_res,
-+						   struct resource *resources,
-+						   unsigned int count)
-+{
-+	unsigned int i;
-+
-+	if (!(new_res->flags & (IORESOURCE_IO | IORESOURCE_MEM)))
-+		return count;
-+
-+	for (i = 0; i < count; ) {
-+		struct resource *res = &resources[i];
-+
-+		if (resource_type(new_res) != resource_type(res) ||
-+		    !resource_union(new_res, res, new_res)) {
-+			i++;
-+			continue;
-+		}
-+
-+		dev_info(&adev->dev, "%pR expanded due to overlap\n", new_res);
-+		/*
-+		 * Eliminate the previously processed resource that overlapped
-+		 * with the new one because it is not necessary any more.
-+		 */
-+		memmove(res, res + 1, (--count - i) * sizeof(*res));
-+	}
-+
-+	return count;
-+}
-+
- static void acpi_platform_fill_resource(struct acpi_device *adev,
- 	const struct resource *src, struct resource *dest)
- {
-@@ -151,10 +182,14 @@ struct platform_device *acpi_create_platform_device(struct acpi_device *adev,
- 				return ERR_PTR(-ENOMEM);
- 			}
- 			count = 0;
--			list_for_each_entry(rentry, &resource_list, node)
-+			list_for_each_entry(rentry, &resource_list, node) {
-+				count = acpi_platform_adjust_resources(adev,
-+								       rentry->res,
-+								       resources,
-+								       count);
- 				acpi_platform_fill_resource(adev, rentry->res,
- 							    &resources[count++]);
--
-+			}
- 			acpi_dev_free_resource_list(&resource_list);
- 		}
- 	}
-
+>          * and queues the child into listener accept queue.
+>          */
+> diff --git a/net/ipv6/inet6_hashtables.c b/net/ipv6/inet6_hashtables.c
+> index aa5fa1dd062f..1eea584d80df 100644
+> --- a/net/ipv6/inet6_hashtables.c
+> +++ b/net/ipv6/inet6_hashtables.c
+> @@ -105,7 +105,7 @@ struct sock *__inet6_lookup_established(const struct =
+net *net,
+>                         continue;
+>                 if (!inet6_match(net, sk, saddr, daddr, ports, dif, sdif)=
+)
+>                         continue;
+> -               if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
+> +               if (unlikely(!refcount_inc_not_zero_acquire(&sk->sk_refcn=
+t)))
+>                         goto out;
+>
+>                 if (unlikely(hlist_nulls_unhashed_lockless(&sk->sk_nulls_=
+node) ||
+> --
+> 2.43.0
+>
