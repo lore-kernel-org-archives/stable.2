@@ -1,55 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792773595;
-	b=Oubv59MiqVlO/pzkt9o7OSvRWNrmWTBHPAALVP4IhpIctliufIidQyygswnxq8waTUcs
-	 cJufKXcqQ5JX3AK5Wp5SBMZ+4DQ51lXezu9HMbLfi8DvUodL8uqHQHncWtyye3vQ0ZCZ8
-	 nNiBiBCIypv8F3QIdTiXgRi31T/7ZMRG2w/jiR7wwFYZl2TM7VAFm4i39R3TSvckgt+kr
-	 qJ/yEZ9PHbRTPi2gYfj2+z16EiJVF5ynb2RUXUlAU2LK/buSXOFf9VPxY86yXm20HQnzp
-	 4jY4mbMvNoUXpfA+zDoLYRIM4QiTvKfZuQRflfL4TQUqD2rhqg8JyPsELqFxiZeOuGA==
+	t=1792773767;
+	b=ovaCPkc1FTHoXTAklqSIegYGnKUylCljG3RdYF3QfrWUDOOdxU+I2crEqHf87d8pzM1C
+	 WcIAnTGRoEh7j7Tte5YGj25Ox+aYe3etBYn88K0VFcvlHxfb12M5h4LiKrQMSdbwT1NLt
+	 M42yIafbPcPNXmHuEM9hJem0MZ55j4CBUZcH5hn4PP78IT7ntp52LrzSBV6fjEvAzZ0/5
+	 2NYzTGRL+Zc59I7Z64j0+cBgy90XdVDrMofLbHJSnTV6Qqb2sQyZ1gupvHRkdN6/okq0w
+	 MZkoSfR4qEO52VS9SIR+PPK8h0w0rTYsiSRyV7mJOHf1Ub5ogV3BLqGJEDzAWHgsJlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792773595;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=eLoXF0D1za+hi3iGHkuVmbEpDQaUboIZtZF11tK6egI=;
-	b=RcWnsURClIrD7Wa4Nraa5PN+aK2dQSiZQ4pv9IkkjPmIUoobxx992JtkQo6bii+fAgzW
-	 ZKBmGmqxta1QkJgLD+GNunwedz4pLGGp75x1uw2ymjHYhIEI0YErLeDxvpPF9/M8+r7Yi
-	 jgFazrrbb76sD5GKZcTlsxcKVOpIlEav72Sp/7jcXQ45IcRsELjaY0ivozFeuH/d0+OL+
-	 crTAFG42PHyhDgJpFfYpf/LPIyjuvyjJ2cp4N4+y3V3lq/2pXZF1agOFviAlmEDNXouof
-	 LvYFB9+GIvUZkxiZnLzLA8yGebvQS2ZGrJaLRVMMNNDwUy+62xrzxL/BvZcjJCENLHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792773767;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=NswlyblkCfQXf057shdzjzV1gh8i9YF/IY4zMeVnJ5M=;
+	b=XRyN7n3F0zJbQRVlOmVU5jPTBPvZdFwWe0cTQwcPEMg+BY4wsJASo+x0XCE/2qcXSi+/
+	 OAohX7F6Zl7WGVb/zr20Fte2PDXdhHRO5GjyzeGIUW8L38nZxNFDv5UQzIZoGVMGL9ciO
+	 9kwd2ErbpxizPdjTg79lrmvDa5/B4zGc5t0JPTZrE8JSjd0+HKA7se6WrzkD/CZAswAjt
+	 0qm5KIlp1/DoKZ4e545mtvDndzVYekAYZmTsYq3ck72S1c7USGLYQezCHvaoB+V+QW5v9
+	 Z7W/VYinZ89Og2EB328W1UeRw6vxMiGTbl0Se/gpr6fAOm8FnAZQdCfutrz9MVtyKCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LF1HFsFR;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oOHSc3uX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE7A606A31A
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 16:39:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9108F606A31B;
+	Fri, 23 Oct 2026 16:42:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LF1HFsFR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 120101F01825
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 16:39:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792773594;
-	bh=eLoXF0D1za+hi3iGHkuVmbEpDQaUboIZtZF11tK6egI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=LF1HFsFRgVR247xGn5yUnHwE7uAVqBmIEP0ehd03WjbzyKMHRbR7nUibe7KnT0+0u
-	 k6neao6LWEzpGPDlY92HwlAYOZDtR/jo9mXgpkgKFWi8R1zxibvxkEef1R07zndnJI
-	 gDEyIyCenitIQR3q7E4jntodUP9Ix/Z3t45+PSN0Lay1HcHh3PcjHrGY3Hz7wJEgzr
-	 1pKIwxBz8mlaNBZ6bql63JOLjkuI1CbiUSOEXqsFzFzP3Tu+R9mKtERMmcH64dKvbJ
-	 0flHtdX9GhlaldIbj6XQ1aEUcSvXE+IQWxuaPfwD6516jrep/WbuZArZNZff9ltSdh
-	 VuSDkUpuAjNEw==
-Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-70b875f6f13so658306eaf.0
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 09:39:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzTaloj6rjqEltbON3gWhJSEP+NvLMqhV+odqJVRTA5j+L0RfoDrTtI44AgugtcXgYG9x5yrME=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLsrTIYUSEzNGjGjqJMucYdydxDR3jp6sua9KnUJDUiUiXhnfd9
-	0Ix1FOwDTiJsI2xKclw5MbonaZqe18vRXcfdO5OvQFlWAsQK9c2Ryz/kwVGWP/TQc9C9YnOvGvp
-	9hn/4XgkMfrcgYU4dNnZAW+iBqlepkhA=
-X-Received: by 2002:a05:6820:1612:b0:707:27c7:86d9 with SMTP id
- 006d021491bc7-70b88ab80e7mr1916749eaf.48.1792773593385; Fri, 23 Oct 2026
- 09:39:53 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oOHSc3uX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C885B1F031E0;
+	Fri, 23 Oct 2026 16:42:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792773766;
+	bh=NswlyblkCfQXf057shdzjzV1gh8i9YF/IY4zMeVnJ5M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=oOHSc3uXE0lZYGu4aiw53voV8bg0qG4SNh9ug0Ipdmr67d1SAPFPbKRURKX7Umj2S
+	 dTSRd1Iz/EOw2qW0zo48O2KE1jeoH7p3ut5h06neG4dhi7/UfBh/rg76sWM2M1jXAV
+	 DPo1nhDbjp2ZVJGW9Ncebxm1SS55zN5h4iEHJXQU=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Vadim Nikitushkin <bub4z0r@gmail.com>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 001/193] drm/ttm: fix swapped-out resources never leaving their bulk_move range
+Date: Fri, 23 Oct 2026 18:34:38 +0200
+Message-ID: <20261023163714.237943780@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261023163714.201276352@linuxfoundation.org>
+References: <20261023163714.201276352@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,227 +63,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023052542.3505250-1-imv4bel@gmail.com> <20261023052542.3505250-2-imv4bel@gmail.com>
-In-Reply-To: <20261023052542.3505250-2-imv4bel@gmail.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Fri, 23 Oct 2026 18:39:41 +0200
-X-Gmail-Original-Message-ID: <CAL4Wiio_6_a3-w9RqtC3Qpe=NXqtgBwqmSiKVbfbuPK60kSN5g@mail.gmail.com>
-X-Gm-Features: AclHuK8_oAEk4nDhnB9KV9J3Amo3OdhyF8APHYjDQSj_Ehe4KSD5B3ictQTU8Vs
-Message-ID: <CAL4Wiio_6_a3-w9RqtC3Qpe=NXqtgBwqmSiKVbfbuPK60kSN5g@mail.gmail.com>
-Subject: Re: [PATCH net v2 1/2] inet: reject unhashed sockets during
- established lookups
-To: Hyunwoo Kim <imv4bel@gmail.com>
-Cc: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, martin.lau@linux.dev, 
-	john.fastabend@gmail.com, weiwan@google.com, sd@queasysnail.net, 
-	jiayuan.chen@linux.dev, netdev@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Le ven. 23 oct. 2026 =C3=A0 07:26, Hyunwoo Kim <imv4bel@gmail.com> a =C3=A9=
-crit :
->
-> TCP established ehash lookups are lockless. The socket caches involved
-> use SLAB_TYPESAFE_BY_RCU, so memory can be reused before an RCU reader
-> that retained its old address has finished.
->
-> After a tuple match, __inet_lookup_established() and
-> __inet6_lookup_established() acquire a reference and repeat the tuple
-> check. They do not check whether the new object is hashed. If the
-> address is reused for a socket with the same tuple, the lookup can
-> acquire a reference to the new object and return it while its nulls node
-> is unhashed.
->
-> A PoC that drives reuse with a SYN cookie request socket reproduced the
-> crash. The new request socket is unhashed and has a NULL rsk_listener.
-> A lookup that had loaded the address of the old request socket acquired
-> the reference published by tcp_get_cookie_sock() and returned the new
-> object. tcp_v4_rcv() then read sk_state through the NULL listener.
->
-> The resulting crash was:
->
->   BUG: kernel NULL pointer dereference, address: 0000000000000012
->   #PF: supervisor read access in kernel mode
->   #PF: error_code(0x0000) - not-present page
->   ...
->   Oops: Oops: 0000 [#1] SMP NOPTI
->   CPU: 4 UID: 0 PID: 0 Comm: swapper/4 Not tainted 7.3.0-00591-g0e135910d=
-eec #1 PREEMPT(lazy)
->   ...
->   RIP: 0010:tcp_v4_rcv+0x44e/0x1280
->   ...
->   R10: 0000000000000001 R11: 00000000024ca8c0 R12: 0000000000000000
->   ...
->   CR2: 0000000000000012 CR3: 0000000103d50004 CR4: 0000000000770ef0
->   ...
->   Call Trace:
->    <IRQ>
->    ? raw_local_deliver+0xae/0x240
->    ip_protocol_deliver_rcu+0x2d/0x180
->    ip_local_deliver_finish+0x84/0x100
->    ip_sublist_rcv_finish+0x5f/0x70
->    ip_sublist_rcv+0x12a/0x1d0
->    ip_list_rcv+0xfd/0x130
->    __netif_receive_skb_list_core+0x223/0x250
->    netif_receive_skb_list_internal+0x1d2/0x2c0
->    ? try_fill_recv+0x39/0x7b0
->    napi_complete_done+0x74/0x170
->    virtnet_poll+0x445/0x600
->    __napi_poll+0x27/0x1e0
->    net_rx_action+0x2fe/0x3b0
->    handle_softirqs+0xc2/0x2c0
->    __irq_exit_rcu+0x74/0xd0
->    common_interrupt+0x7f/0x90
->    </IRQ>
->   ...
->   Kernel panic - not syncing: Fatal exception in interrupt
->
-> After taking a reference, check whether the nulls node is unhashed in
-> both IPv4 and IPv6 established lookups. If it is unhashed or the tuple
-> no longer matches, drop the reference and restart the lookup.
->
-> Lookups racing with the TIME_WAIT hashdance, or with a request being
-> replaced by its child, now restart and find the new socket instead of
-> returning the old one.
->
-> Request sockets that were never inserted into ehash can have a nonzero
-> refcount, and a stale lookup can hold a transient reference. Therefore,
-> when SYN cookie, Fast Open, and request migration paths fail after
-> setting a nonzero refcount, release the references held by those paths
-> with reqsk_put() instead of freeing the request directly.
->
-> Fixes: 079096f103fa ("tcp/dccp: install syn_recv requests into ehash tabl=
-e")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-> ---
->  net/ipv4/inet_connection_sock.c | 10 +++++++---
->  net/ipv4/inet_hashtables.c      |  5 +++--
->  net/ipv4/syncookies.c           |  2 ++
->  net/ipv4/tcp_input.c            |  4 +++-
->  net/ipv6/inet6_hashtables.c     |  4 +++-
->  5 files changed, 18 insertions(+), 7 deletions(-)
->
-> diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_s=
-ock.c
-> index 6a30f1138454..cff02f4c5ac8 100644
-> --- a/net/ipv4/inet_connection_sock.c
-> +++ b/net/ipv4/inet_connection_sock.c
-> @@ -1136,10 +1136,14 @@ static void reqsk_timer_handler(struct timer_list=
- *t)
->          */
->         if (nreq) {
->                 __NET_INC_STATS(net, LINUX_MIB_TCPMIGRATEREQFAILURE);
-> +               /* The timer was not armed, drop its reference here. */
-> +               reqsk_put(nreq);
->  no_ownership:
->                 reqsk_migrate_reset(nreq);
->                 reqsk_queue_removed(queue, nreq);
-> -               __reqsk_free(nreq);
-> +               /* Drop the ehash and temporary references. */
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-Lets change this comment to :
-/* Drop the temporary reference and the one reserved for ehash. */
+------------------
 
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+From: Vadim Nikitushkin <bub4z0r@gmail.com>
 
-> +               reqsk_put(nreq);
-> +               reqsk_put(nreq);
->         }
->
->  drop:
-> @@ -1447,7 +1451,7 @@ struct sock *inet_csk_complete_hashdance(struct soc=
-k *sk, struct sock *child,
->
->                         __NET_INC_STATS(sock_net(sk), LINUX_MIB_TCPMIGRAT=
-EREQFAILURE);
->                         reqsk_migrate_reset(nreq);
-> -                       __reqsk_free(nreq);
-> +                       reqsk_put(nreq);
->                 } else if (inet_csk_reqsk_queue_add(sk, req, child)) {
->                         return child;
->                 }
-> @@ -1502,7 +1506,7 @@ void inet_csk_listen_stop(struct sock *sk)
->                                         __NET_INC_STATS(sock_net(nsk),
->                                                         LINUX_MIB_TCPMIGR=
-ATEREQFAILURE);
->                                         reqsk_migrate_reset(nreq);
-> -                                       __reqsk_free(nreq);
-> +                                       reqsk_put(nreq);
->                                 }
->                                 rcu_read_unlock();
->
-> diff --git a/net/ipv4/inet_hashtables.c b/net/ipv4/inet_hashtables.c
-> index ba0faa9ae2bb..58d54965036a 100644
-> --- a/net/ipv4/inet_hashtables.c
-> +++ b/net/ipv4/inet_hashtables.c
-> @@ -552,8 +552,9 @@ struct sock *__inet_lookup_established(const struct n=
-et *net,
->                 if (likely(inet_match(net, sk, acookie, ports, dif, sdif)=
-)) {
->                         if (unlikely(!refcount_inc_not_zero(&sk->sk_refcn=
-t)))
->                                 goto out;
-> -                       if (unlikely(!inet_match(net, sk, acookie,
-> -                                                ports, dif, sdif))) {
-> +                       if (unlikely(hlist_nulls_unhashed_lockless(&sk->s=
-k_nulls_node) ||
-> +                                    !inet_match(net, sk, acookie, ports,=
- dif,
-> +                                                sdif))) {
->                                 sock_gen_put(sk);
->                                 goto begin;
->                         }
-> diff --git a/net/ipv4/syncookies.c b/net/ipv4/syncookies.c
-> index 73e129768184..644030561537 100644
-> --- a/net/ipv4/syncookies.c
-> +++ b/net/ipv4/syncookies.c
-> @@ -218,6 +218,8 @@ struct sock *tcp_get_cookie_sock(struct sock *sk, str=
-uct sk_buff *skb,
->
->                 bh_unlock_sock(child);
->                 sock_put(child);
-> +               reqsk_put(req);
-> +               return NULL;
->         }
->         __reqsk_free(req);
->
-> diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
-> index 99baf14afdfd..3583867487d7 100644
-> --- a/net/ipv4/tcp_input.c
-> +++ b/net/ipv4/tcp_input.c
-> @@ -7777,7 +7777,9 @@ int tcp_conn_request(struct request_sock_ops *rsk_o=
-ps,
->                 if (!inet_csk_reqsk_queue_add(sk, req, fastopen_sk)) {
->                         bh_unlock_sock(fastopen_sk);
->                         sock_put(fastopen_sk);
-> -                       goto drop_and_free;
-> +                       /* tcp_disconnect() already dropped one reqsk ref=
-. */
-> +                       reqsk_put(req);
-> +                       goto drop;
->                 }
->                 READ_ONCE(sk->sk_data_ready)(sk);
->                 bh_unlock_sock(fastopen_sk);
-> diff --git a/net/ipv6/inet6_hashtables.c b/net/ipv6/inet6_hashtables.c
-> index b111b51d69fc..aa5fa1dd062f 100644
-> --- a/net/ipv6/inet6_hashtables.c
-> +++ b/net/ipv6/inet6_hashtables.c
-> @@ -108,7 +108,9 @@ struct sock *__inet6_lookup_established(const struct =
-net *net,
->                 if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
->                         goto out;
->
-> -               if (unlikely(!inet6_match(net, sk, saddr, daddr, ports, d=
-if, sdif))) {
-> +               if (unlikely(hlist_nulls_unhashed_lockless(&sk->sk_nulls_=
-node) ||
-> +                            !inet6_match(net, sk, saddr, daddr, ports, d=
-if,
-> +                                         sdif))) {
->                         sock_gen_put(sk);
->                         goto begin;
->                 }
-> --
-> 2.43.0
->
+commit 3db7d7d583419f7b1f2e141e36418802dbb25cf8 upstream.
+
+ttm_tt_swapout() returns the number of pages swapped out on success and
+a negative error code on failure; for a populated ttm it never returns
+zero. Commit b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite LRU
+walk on swapout failure") moved the bulk_move bookkeeping in
+ttm_bo_swapout_cb() under "if (!ret)", so the
+ttm_resource_del_bulk_move_unevictable() / ttm_resource_move_to_lru_tail()
+pair is now skipped on every successful swapout. The equivalent change
+for the shrinker in commit 1d59f36e95f7 ("drm/ttm: Fix ttm_bo_shrink()
+infinite LRU walk on backup failure") tests "lret > 0", which is what
+was intended here as well.
+
+Before b2ed01e7ad3d the resource was taken off the bulk_move before the
+swapout; since then a swapped-out resource stays inside its BO's
+bulk_move range (and on the manager LRU) although it is unevictable.
+When it is later freed or the BO leaves the bulk_move
+(ttm_resource_free(), ttm_bo_set_bulk_move() via amdgpu_vm_bo_del()),
+ttm_resource_del_bulk_move() skips it because of its
+!ttm_resource_unevictable() guard, so a range endpoint in pos->first /
+pos->last is left pointing at freed memory. The next
+ttm_lru_bulk_move_tail() or ttm_resource_add_bulk_move() on that cursor
+is a use-after-free, seen as the resv WARN in ttm_lru_bulk_move_add(),
+"list_del corruption" in ttm_resource_move_to_lru_tail() or a NULL
+dereference in ttm_resource_manager_next() -- minutes to hours after a
+hibernation, or at process exit / reboot following one. Samuel
+Ainsworth's analysis of drm/amd issue 5387 (see Link) identified the
+dangling cursor; the missing removal at swapout time is the reason it
+dangles.
+
+Testing the condition for success restores the removal. On an AMD
+Phoenix APU (ASUS UM3406GA, gfx1103) running suspend-then-hibernate on
+a 7.0.y stable kernel carrying the backport (Ubuntu 7.0.0-31) the bug
+crashed 5 of 18 hibernation cycles; a function profile of one
+hibernation showed 336 ttm_tt_swapout() calls and zero
+ttm_resource_del_bulk_move_unevictable() calls. With this change the
+removal happens for every swapped-out resource and 12 further cycles
+were clean.
+
+Fixes: b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite LRU walk on swapout failure")
+Cc: stable@vger.kernel.org # v7.1+
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5387
+Link: https://lore.kernel.org/dri-devel/CAHYiNPa6aVacJoLOje-qZ1GyYx-9p0tN4NuP8D_eSL+UJeevXw@mail.gmail.com/
+Signed-off-by: Vadim Nikitushkin <bub4z0r@gmail.com>
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Link: https://lore.kernel.org/r/20260909205028.13799-1-bub4z0r@gmail.com
+[ Squashed with commit fcfe64715b425262af1b36f498f9197f3537ceed
+  ("drm/ttm: apply the swapout bulk_move fix to the intended condition"):
+  upstream 3db7d7d58341 was applied to the "if (ret)" after
+  ttm_resource_try_charge() in ttm_bo_alloc_at_place() instead of the
+  "if (!ret)" after ttm_tt_swapout() in ttm_bo_swapout_cb(), and
+  fcfe64715b42 restored the former and changed the latter. 7.2.y has no
+  ttm_resource_try_charge() (dmem cgroup charging is 7.3 material), so
+  neither commit applies on its own; the net effect of the two is the
+  single hunk below, which is the change the changelog describes. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/ttm/ttm_bo.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index 493471012820e..de04814a2e967 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -1176,7 +1176,7 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
+ 
+ 	if (ttm_tt_is_populated(tt)) {
+ 		ret = ttm_tt_swapout(bdev, tt, swapout_walk->gfp_flags);
+-		if (!ret) {
++		if (ret > 0) {
+ 			spin_lock(&bdev->lru_lock);
+ 			ttm_resource_del_bulk_move_unevictable(bo->resource, bo);
+ 			ttm_resource_move_to_lru_tail(bo->resource);
+-- 
+2.53.0
+
+
+
