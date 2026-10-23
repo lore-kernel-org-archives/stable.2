@@ -1,56 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792715336;
-	b=kLs26VW+M25VutMzHCy3NXFT1l6opu+bqOcxOVVAIf6hwIgK/0CDUK/eCxoDSfunFeLZ
-	 d2Y7lZoi7O6b5zvg5upRLEUD73CZHuAb16NbRRZuKT3j2CxDBOJiCdUZ/HF19hdmpW9JP
-	 1OO9sekzPZIzEZJ4kncGT//dNLM69aggYRO1q4hhFyFi4COBS/fr6XNOY3X7Ju9YdmO2b
-	 F1JyA9YZMbioS+Pd57S1zKaRRoSV7vhJtriJ0fmOofi38Am5d0Qm9t/dRcSdYJ2Xnk5mJ
-	 oykreApHFWmyUAHeGI+6hoe/9DOgbxfH+h2oIg+j+a/Gb6voV3tRnshi5ga3AXMNa2w==
+	t=1792715941;
+	b=3HkQ8wAQrSO0yXuvA5ToJtcbFWtZoDfn9gMaUdJXsPnfhoCujJZslPXuaGeybBLoF8Ee
+	 lszOJdg+K552/0/SHvbx2npd+M+LXdKpGjlmQ2jCzVfExLh0hkV5SM59G9+8tAgJ0o0s0
+	 K8x+ImWTGLG12H0vEvjSgwFRVruZMqv5cf7Udz9wkm1f7/QwKONQBLbT+Qh7ZpAJGcfR1
+	 2Zt4erAIzTiVAlkQcq+QEGSfvawE+UXf6EvregidXiKouutRJHojPGdvL+wSVpm4i0WMn
+	 x5pJCoYMvTFje5jE2NA4dU/+/J3fpWM367RuoOFTRvd6TQLWythbP9Gf5iaCyrulS2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792715336;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=yp58dyiLiJ/2t5qAcNVxk9tZwdEabXMg4HNhMKc8WyI=;
-	b=d35m+ALd4f0x/oEGwmMSHCQ+IK/oZ1D9e3JahdxeShjNKnhHCq6BvrBjsy5ckTSz9a2o
-	 teicYvjCnXgOZTf8SHbGWG2awWAF6D9d4vjkbYTbxZo56LIYPjrOBBZCk7yDLuAOD2WTg
-	 zN8EMOROUdUq1jU3Gj7n30TJHi0ADYE/nzaqlqJc2nPk6hjqvnauGfghlmLL95LCmXys0
-	 dpjfN4ciN2rUPB6qR2NDVitxG37S3vcFKVXJrWVdBvQfWpLs7uYsA5VpqjbPIKNLgg+q9
-	 5CmHnt+8Y26L9HrOc3E2f5yjMPSloYz+8GIiKxPizRulFtumu8WEIytd7GRiXbBykHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792715941;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=khbtvnCt8sXvEtX9fI1U36fFGjo7tER69Bnnl50Wz8Y=;
+	b=RpOtoiOayuPWm40DXCvRvxHItLY8d+8Xg/V0ufY5oiG1xtG5kpM53I9jE3ofbw63nlQm
+	 /DF2n+HtPvBZcbWjNW27Tma5Nmn9buhrfzvXVmkrFzSqPbFxKN+eg1KBp7i7UDLZ1vYx+
+	 P2dZ+gWRAOpeq9jXZSksUPHca49P7v31xYcXNxDfbzRtB5+8J1DeQx2pNDPtIDOtFxQY2
+	 ccgSbbRxw8O7UVKMFqXa5FGSXe1ZGvMvOsFwO0VuWswipwJ0MHR48eJx4whnmofMee9f5
+	 dVb9fNWWIV34YadHOpUwovM9edr8r2H4Ap6oQQXdFNLTz6jNoimgSTAYrm4qq44KlwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="L85/chjG";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qjSKpW+S;
+	arc=none smtp.remote-ip=209.85.208.54
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AA59606A31D
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 00:28:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E609606A31D
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 00:39:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E609606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L85/chjG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D0EF1F01828;
-	Fri, 23 Oct 2026 00:28:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792715336;
-	bh=yp58dyiLiJ/2t5qAcNVxk9tZwdEabXMg4HNhMKc8WyI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L85/chjG5nknCqYRfAMXwbzzTvkR3429P0ah6P9FmgNdJMijtGSVGvBaWZ1GIs1wT
-	 /PdjJsK6Enai4T45GRE1Eaou3DPb83oDJBkuFvFUesSH3uYC4tvk3asF89+Ky/qRHf
-	 kOr1T6a633CB1OHnYMmZyYAnzEwPm7VMT6rQf1cuMOvTxz46qytzMtYVbeVQnE4gHY
-	 9VBI9nI/ggOqZxlZbvDM+UumnofbopNbiNvw27XcZkGXJSkMLvJJAH/XPTrH0cZL9/
-	 iFD716LunNL/1KsizlzE8/yg70AQCLzJdPhxDnqnrBDvJCes2hU9xkrRaO6H7KM4h+
-	 O+qOvDwXDd//w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: EJ Campbell <ejc3@meta.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/3] x86/kvm: Don't consume async #PF flags on a kernel #PF in NMI context
-Date: Thu, 22 Oct 2026 20:28:51 -0400
-Message-ID: <20261023002045.2270144-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261023002045.2270144-1-sashal@kernel.org>
-References: <2026102116-motion-upchuck-3417@gregkh>
- <20261023002045.2270144-1-sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qjSKpW+S
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b408f2d936so396957a12.1
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 17:39:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792715939; x=1793320739; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=khbtvnCt8sXvEtX9fI1U36fFGjo7tER69Bnnl50Wz8Y=;
+        b=qjSKpW+SP6NmnUtCQP3Zp/1jd6xZYFQ17wSv7tsifa1mR91SIR/kkop/qtjTK4Iqms
+         PEZS1wbfNYsm5tbKG5nkh41NVCRhl9aCHQlTCUSHhwjEB10m8HGVjmAKLwGGwc2E25g9
+         Rfrwgo5JafcVdbH0ZSWizK0IqqaCcG4djP7By4E3x8EtyfMJ5zn8hfJfvg1WMpf9Iql1
+         QiCC8ZPyD32kiC3UBvpKPu+BpigFpC7jfcvBN6IwVxBKb7uLTsXbSB0w/jirk0Dgsg7d
+         NDz1y0o7TgbiBREwiqlVf0VEe/8EYwS6Zp8JsWA2RxVJIvLY/TyHRXyg5gcw7gDtrsd4
+         UYNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792715939; x=1793320739;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=khbtvnCt8sXvEtX9fI1U36fFGjo7tER69Bnnl50Wz8Y=;
+        b=xDST9LLoq7CKpdiGY+8G6slGEXkqg0ImRQ0ZYvQhS/B9H21dsG5LTCgstawstJxHxq
+         RBsakbSav5JpLQ2tc6ngqLC/qrWC6OBgi78GGOMbUpR9oTDtJu15+f7bP1Z3HPqB9nGF
+         2tUXURCw8e6WaU+I/EKzxSozN3YeBekFhpYbX1SBL7LZsQxISgy0ot4mT6EUpUpy8B9W
+         GiQiiu8Cdu8FdwQ85e4v8+wgvtQNn+X73wr67MwrN2fXblW3GvEw/Spq7d0G4QfU40su
+         JcaWOMMibEPXRzK41nqj4/cF1VfB3pi+PvZ5EpuEFO3NaBJhwfz1oaZzkdt9D8YvsVbX
+         Sggg==
+X-Forwarded-Encrypted: i=1; AKwUvByUNOQln3kV+39+nZ5iDEJZLjwc2ZXfrb6/4R5DGQ88x5CVDdJGyPs23rg49fihPnPSH+S0fpU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWAcUOpFdpGNJPw4NTqduwuvAUYQyHJ4SyR/4Lf/zTEtQAyOvH
+	QBhBYz1EZLz2VkeXkEbFuZQysI+TF0hduMYuV90KFJAwnA4ftax7ngKC
+X-Gm-Gg: AYBFou24ZyMcvzQ7v8GlNplYkGD206SveySL9pQuo7WRU+WGbFMUQFCoE0vl7jVgjF/
+	DuDixzSdbtPcEFksQeW2vx83t/9E01zfXSlLwdt+WoQNIWPJP6rJtdsGp98IN2wE+6wbZ/uVVbE
+	ySIfUjKiQszSLa813JnDgHrvMzqk5nhJSwPPhcvTKXiqerA68+go4YiHvEWNC4j+OWwyOO1cvW6
+	AGT49iPYB13aP4l5QRT/XxodkCYpZuQqH/IrzYShSn28scLotXapr67K7Aq4X/Dn4mMLjPGyKVA
+	2nf8o3EHxXTcWwhM0GbhRtuOsrFrPI+iulWrrmKif5Ulvr6GE5Bib+GuPgeW8wsZuMiVQU505z8
+	IeXSVa8pZOz297eYWsVDHlHcvkq3gFS7fWag40jOWz5P6SZwhAWb042maOE3Jyj/1gkg0aEkah0
+	oAi2dWrEVtCjkODoyHBY0YLb7EXZfkR0GdScsgTHVYLHqi7AbLVGNRZugPm0hgTtGFsskV1bawb
+	GvGZUcO0ahGJzwvzxfst+0FejTQFIfW8oz9VJbXIvOjNFi+ETPDoafci2Sl2QwjAd8jzBNsD6QY
+	8vfIGoz5IR/v784waT1IQr6c9z//3yD8MMTkTb8B
+X-Received: by 2002:a17:907:7b8f:b0:c41:e0c0:e6b7 with SMTP id a640c23a62f3a-c46a8f502d3mr128704266b.12.1792715939268;
+        Thu, 22 Oct 2026 17:38:59 -0700 (PDT)
+Received: from localhost.localdomain ([45.93.75.180])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46a5d17e95sm45499066b.83.2026.10.22.17.38.58
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 22 Oct 2026 17:38:58 -0700 (PDT)
+From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev,
+	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ksmbd: restore Kerberos logins with released ksmbd-tools
+Date: Fri, 23 Oct 2026 02:38:55 +0200
+Message-ID: <20261023003855.98316-1-mike.michalo@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,130 +102,95 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: EJ Campbell <ejc3@meta.com>
+Commit a47634cd729b ("ksmbd: expire SMB sessions when Kerberos tickets
+expire") added a __u64 session_expiry field to struct
+ksmbd_spnego_authen_response, growing it from 156 to 168 bytes.
+ipc_validate_msg() requires the response to have exactly that size, so
+the 156-byte response of every released ksmbd-tools, up to 3.5.7, is
+dropped and Kerberos session setup fails with STATUS_LOGON_FAILURE.
+The other way round, kernels without that commit, including the stable
+trees, drop the 168-byte response of current ksmbd-tools master, and
+ksmbd-tools has no way to tell which layout a kernel expects.
 
-[ Upstream commit 81d99abe2bd81379abfb595e403bbbee6fbfc624 ]
+Pass the expiry in the reserved area of the embedded struct
+ksmbd_login_response instead. ksmbd-tools releases with that area
+(3.4.4 and later) allocate the response zeroed and never write to it,
+so they send an expiry of 0, which ksmbd already treats as no expiry.
+The response is 156 bytes again, so it works with those releases, and
+every kernel also accepts a response that sets the expiry. Use two
+__u32 halves, as the reserved area is only 4-byte aligned.
 
-An async #PF "page not present" event arrives through the #PF vector,
-and its reason sits in the per-CPU apf_reason.flags until
-__kvm_handle_async_pf() reads and clears it. If an NMI arrives after
-the event is injected and before the #PF handler reads the flags, and
-the NMI handler itself takes a #PF, that fault reads and clears the
-flags belonging to the #PF it interrupted. It then finds interrupts
-disabled in the NMI context it interrupted, and panics:
-
-  Kernel panic - not syncing: Host injected async #PF in interrupt
-disabled region
-  Call Trace:
-   <NMI>
-   panic+0x52/0x60
-   __kvm_handle_async_pf+0xb0/0xb0
-   exc_page_fault+0x71/0xb0
-   asm_exc_page_fault+0x27/0x30
-  RIP: 0010:__get_user_nocheck_8+0x6/0x20
-   perf_callchain_user+0x147/0x1a0
-   get_perf_callchain+0x12d/0x1c0
-   ...
-   perf_event_nmi_handler+0x26/0x50
-   exc_nmi+0xe8/0x110
-  RIP: 0010:asm_exc_page_fault+0x0/0x30
-   </NMI>
-
-The last RIP line shows the NMI landing on the first instruction of
-the #PF entry. perf with user call chains takes such a fault: the
-sampling NMI walks the user stack with __get_user(), which faults when
-a saved frame pointer is not a valid user address or the walk runs off
-the top of the stack. The same window exists when KVM, running as an
-L1 hypervisor with DELIVERY_AS_PF_VMEXIT, reads the flags itself after
-a #PF VM-exit.
-
-The NMI entry code saves and restores CR2 for this nesting, but not the
-async #PF reason. Andy Lutomirski described the race, with perf as the
-example, when async #PF delivery was reworked in 2020 [1]. Saving and
-clearing the flags across the NMI, next to CR2, was discussed there but
-not merged.
-
-Since that rework, Linux has stopped setting KVM_ASYNC_PF_SEND_ALWAYS,
-so the host delivers "page not present" only for user mode faults and
-a kernel-mode fault in NMI context (including kernel-mode #MC and #DB)
-cannot be an async page fault.  In that case, return without touching
-the flags so that the interrupted handler finds them intact.
-
-Tested on v7.3-rc5 in a 4-vCPU, 2 GiB guest restored from a snapshot
-whose memory is served on demand through userfaultfd, so that reading
-it back takes async #PFs, while every thread samples hardware cycles
-with user call chains and points its frame pointer at an unmapped page.
-Without this patch the guest panicked as above in 3 of 3 runs. With it,
-the guest survived 3 of 3 runs of 60 seconds, and the host counted
-148,441 to 153,334 kvm_async_pf_not_present events in the first 20
-seconds of each. On 6.18.50 the results were the same: the guest
-panicked without the patch and survived with it.
-
-Link: https://lore.kernel.org/all/ed71d0967113a35f670a9625a058b8e6e0b2f104.1583547991.git.luto@kernel.org/ [1]
-Link: https://lore.kernel.org/all/20211126123145.2772-1-jiangshanlai@gmail.com/ [2]
-Cc: stable@vger.kernel.org # v5.9+
-Signed-off-by: EJ Campbell <ejc3@meta.com>
-Link: https://patch.msgid.link/CADkxfh-uQTca_6jB1JPDq1MsKffF_UKGQR339oQSJNcoV75GNQ@mail.gmail.com
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: a47634cd729b ("ksmbd: expire SMB sessions when Kerberos tickets expire")
+Cc: stable@vger.kernel.org
+Closes: https://lore.kernel.org/all/CAO+rqLhpPvY0NLrAnZjFXz0gOXnA6zsXxK8xCgtA42XUkSsAeg@mail.gmail.com/
+Assisted-by: LLM
+Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
 ---
- arch/x86/kernel/kvm.c | 32 +++++++++++++++++++++++++++++---
- 1 file changed, 29 insertions(+), 3 deletions(-)
+The matching ksmbd-tools change (struct layout and mountd/worker.c)
+will follow as a pull request.
 
-diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
-index 8d34f8ceca015..04b7123d3270b 100644
---- a/arch/x86/kernel/kvm.c
-+++ b/arch/x86/kernel/kvm.c
-@@ -252,11 +252,39 @@ noinstr u32 kvm_read_and_reset_apf_flags(void)
- }
- EXPORT_SYMBOL_GPL(kvm_read_and_reset_apf_flags);
+Tested with a local MIT KDC and smbclient --use-kerberos=required:
+
+                    3.5.7      master     master + tools change
+  7.2               login OK   fails      login OK
+  7.3               fails      login OK   fails
+  7.3 + this patch  login OK   fails      login OK
+
+With this patch and the tools change, smbtorture smb2.session over
+Kerberos (including expire1n/1s/1e, expire2s/2e and expire_disconnect)
+and the 190 smbtorture tests run by the ksmbd CI over NTLM give the same
+results as 7.3 with ksmbd-tools master, with no kernel warnings. NTLM
+logins also work with 3.5.7. A test-only mountd that overrides the
+expiry (including values above 2^32), the response size and the length
+fields found no wrong session expiry and no kernel warnings in 313
+logins.
+
+Current ksmbd-tools master needs the tools change to work with this
+patch. If you'd rather the kernel also kept accepting the 168-byte
+layout, I can add that in a v2. Only tested with smbclient and
+smbtorture on x86_64.
+
+ fs/smb/server/auth.c          | 3 ++-
+ fs/smb/server/ksmbd_netlink.h | 5 +++--
+ 2 files changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/fs/smb/server/auth.c b/fs/smb/server/auth.c
+index 1b24eb3f3998..8e5a1b10db6a 100644
+--- a/fs/smb/server/auth.c
++++ b/fs/smb/server/auth.c
+@@ -464,7 +464,8 @@ int ksmbd_krb5_authenticate(struct ksmbd_session *sess, char *in_blob,
+ 	memcpy(out_blob, resp->payload + resp->session_key_len,
+ 	       resp->spnego_blob_len);
+ 	*out_len = resp->spnego_blob_len;
+-	sess->kerberos_expiry = resp->session_expiry;
++	sess->kerberos_expiry = (u64)resp->login_response.session_expiry_hi << 32 |
++				resp->login_response.session_expiry_lo;
+ 	retval = 0;
+ out:
+ 	kvfree_sensitive(resp, sizeof(*resp) + resp->session_key_len +
+diff --git a/fs/smb/server/ksmbd_netlink.h b/fs/smb/server/ksmbd_netlink.h
+index 2673522c76bc..fc6af757e45e 100644
+--- a/fs/smb/server/ksmbd_netlink.h
++++ b/fs/smb/server/ksmbd_netlink.h
+@@ -148,7 +148,9 @@ struct ksmbd_login_response {
+ 	__u16	status;
+ 	__u16	hash_sz;			/* hash size */
+ 	__s8	hash[KSMBD_REQ_MAX_HASH_SZ];	/* password hash */
+-	__u32	reserved[16];			/* Reserved room */
++	__u32	session_expiry_lo;	/* Kerberos ticket expiry, SPNEGO only */
++	__u32	session_expiry_hi;
++	__u32	reserved[14];			/* Reserved room */
+ };
  
-+static __always_inline bool kvm_apf_reason_pending(void)
-+{
-+	return __this_cpu_read(async_pf_enabled) &&
-+	       __this_cpu_read(apf_reason.flags);
-+}
-+
- noinstr bool __kvm_handle_async_pf(struct pt_regs *regs, u32 token)
- {
--	u32 flags = kvm_read_and_reset_apf_flags();
- 	irqentry_state_t state;
-+	u32 flags;
-+
-+	if (!kvm_apf_reason_pending())
-+		return false;
-+
-+	/*
-+	 * The guest does not enable KVM_ASYNC_PF_SEND_ALWAYS, so the host
-+	 * delivers async #PF only to user mode (or as a #PF VM-exit, which KVM
-+	 * reads itself). A #PF from kernel mode can still arrive between that
-+	 * delivery and the read of the reason flags, inside an NMI that
-+	 * interrupted it, for instance perf reading user memory for a call
-+	 * chain. Such a fault is not async, so leave the async PF flags
-+	 * untouched for the outer handler.  Outside NMI context, on the other
-+	 * hand, async PF flags on a kernel-mode fault mean the host is broken.
-+	 */
-+	if (!user_mode(regs)) {
-+		if (likely(in_nmi()))
-+			return false;
-+		state = irqentry_enter(regs);
-+		instrumentation_begin();
-+		panic("Host injected async #PF in kernel mode\n");
-+	}
+ /*
+@@ -286,7 +288,6 @@ struct ksmbd_spnego_authen_response {
+ 				  * stored in SecurityBuffer of SMB2 SESSION
+ 				  * SETUP response
+ 				  */
+-	__u64	session_expiry;	/* Kerberos ticket expiry time */
+ 	__u8	payload[]; /* session key + AP_REP */
+ };
  
-+	flags = kvm_read_and_reset_apf_flags();
- 	if (!flags)
- 		return false;
- 
-@@ -272,8 +300,6 @@ noinstr bool __kvm_handle_async_pf(struct pt_regs *regs, u32 token)
- 		panic("Host injected async #PF in interrupt disabled region\n");
- 
- 	if (flags & KVM_PV_REASON_PAGE_NOT_PRESENT) {
--		if (unlikely(!(user_mode(regs))))
--			panic("Host injected async #PF in kernel mode\n");
- 		/* Page is swapped out by the host. */
- 		kvm_async_pf_task_wait_schedule(token);
- 	} else {
 -- 
-2.53.0
+2.56.0
 
