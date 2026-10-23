@@ -1,64 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.130.202.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792730414;
-	b=UjanvOva1FuArBup77/MYjLsyZOTz2VKylMG3TJgeyYGR1z6kAff6+Lj6+J2X499Ieet
-	 1I0wIaXmsh1FdEqZWYtNCJIEHoBP+lk1zqgyFzRl3XC8ZjuSWK66CpAjJjBAfn2Z+u0cy
-	 xLDPDg3DR3lDzElms9486GOL4xUT0/7XGvQALzrTs9ja2sqeRO2ITUL8d+AUesJiR28sC
-	 8MzVgWdzqG82hJIoHZJ09SpICOUuSi+3L/gEdIYFQwM9mM8Dnv8Qjh5JDPWAMVoX9kT2Z
-	 HikzN7eDIbdG0Ifj9Jzavhlqg1L1U1nHp8HI4+KHvlscS/InKKFo9VzsnzW720SZppQ==
+	t=1792733192;
+	b=WFF7QGkZJtvHYnswppZgjxUDkRnfxoSjCEGWoUyiL2XhnLxzPDu5qzwTuOpAoj0H5XsT
+	 jzgj70tNeuL5sCldNL4Y3yc8nCYnqFuFc3UYtBlQIY4Nu2W2h/xogo/uwdChHutI5PKAu
+	 t3pbA4+Us1ztNC2sijgppt/wu49/0wA+779YW0K5seArqNVIe+sfIyawu1uPA1Rmbtkws
+	 kqMG6mCb/5b68zTgtSjk+PjtNYXH+lQVaKB6uRvJ73sLs/eK9RB+T3eQzT/XRlPj8hb4s
+	 +1cf3X9Ge4qyohrFoBtlcKX/1wd3ZlTCW6Yz/tWYFkdVjhKtjtELztyK0LVQ5mP3F8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792730414;
-	h=DMARC-Filter:DKIM-Signature:Received:X-Iguazu-Qid:X-Iguazu-QSIG:
-	 Received:From:To:Cc:Subject:Date:X-TSB-HOP2:Message-Id:X-Mailer;
-	bh=h8PYakhuKVSQcTwaT3dKpBy1nnOIFlM8kyn1oh0ZAYw=;
-	b=TnUkbfnHMMWA+Ve467nkSyooye1pZ7fprfZaAzS/lgrH02guWn8rvZJALy7OtKB5oWLj
-	 5GzL7dyxC67vLx1yh+WHCvmdBmbWlbqM0W+RZTILECSXNJ8VF5duGm2quoeNz4C4MVxtj
-	 G0eOgdhrz3ECYBQtmRQHIaUjz2to+id8FFVXqFWkZpx20O49R297KI/xgdPepQKzDPW+b
-	 2ZG861/PhJvZWotrw6n1FsfLkTQT2Endo0fPWieCo+PyCMsDGAvCyOlLwjO6+BKwKmf9r
-	 mLEHPGoD3gOSIyOlkw37zK/xIWaogI5rodA0p6ExF6NHgP56oHIjxAjox9sLsEhzufg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792733192;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=DYRpzX03doBjGv7jHtksL3nee5Jdp9ptv1S4kZpfi8A=;
+	b=yQ4hKB2L3/cpNRWbK3eXfswiAiHdMhR36dysJtyoc2MIOWeASEGqhJ4xmHzP7h/PgNtC
+	 fgjidHcTkgXp8IbCxqun+Dd+JROWWuWmq4czyNKtIbsjqaN4dlrsz6cjLvNRsTMF6oY0T
+	 R66KYAJezcWu1Y07AvaDxbgCPZ3orC4GKFwUWEt4G7y1pLXXPGV8TF0yDcpDh/xWbTJRx
+	 xlPm2idyd7KvHT9BgFksY262YFFG41+YEfJh6UhJgUex+ZsF9Mp1jdE7R7MTNiz01e/YT
+	 lv7hRdhy2id4V5YFZ8o633BZ6DeY1Sf4Q0a5ndKkTQcN477gSK2FtM1QHnUO1NZUy5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.toshiba;
-	spf=pass smtp.mailfrom=mail.toshiba;
-	dkim=pass header.d=mail.toshiba header.i=nobuhiro.iwamatsu.x90@mail.toshiba header.a=rsa-sha256 header.s=key2.smx header.b=ZiUhgpBC;
-	arc=none smtp.remote-ip=210.130.202.152
-Received: from mo-csw.securemx.jp (mo-csw1802.securemx.jp [210.130.202.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mlkb73w1;
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C50606A319
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 04:40:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1C50606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.toshiba
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.toshiba
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0DA6606A319
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 05:26:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0DA6606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mail.toshiba header.i=nobuhiro.iwamatsu.x90@mail.toshiba header.a=rsa-sha256 header.s=key2.smx header.b=ZiUhgpBC
-DKIM-Signature: v=1;a=rsa-sha256;c=relaxed/simple;d=mail.toshiba;h=From:To:Cc:
-	Subject:Date:Message-Id;i=nobuhiro.iwamatsu.x90@mail.toshiba;s=key2.smx;t=
-	1792730381;x=1793939981;bh=TOFZXo9O7IpTOKlwN3uJxWq2i7HDYiOKPXHOC5dkBHs=;b=ZiU
-	hgpBC1Z4xfp4esRfYLIGIvkzi9NisAyFhCFVsp44oWnkcpjBBn+iqnNOXwlYeGmImSl41q3sbH8tk
-	jLquds1AphA6R8t/U+fCrlGQ1RMEMk/ld0PW9mgkPV51fIZJPhXgF9QozU49UMii5Xn5nhZA1nNLD
-	o+M6OgcIqzDO6bRiNOB2iAkzW+kCbp7x8pMBHA71vVh7nTeJ4RN7EJcImbUihqHmuPX7FVJRz1E8Y
-	vybtcMQR6+8SMEm8HSHiDk8PaVUIt0k0AotlRuo9f73KNPQG4CP7TDCRb6wJkyPh5U8KryTjNNR3y
-	IbiK8RGeKxzFCHvHpZ/IE7RXXm+bcNw==;
-Received: by mo-csw.securemx.jp (mx-mo-csw1802) id 69N4deY23015997; Fri, 23 Oct 2026 13:39:40 +0900
-X-Iguazu-Qid: 2yAac6huv2kV28r2F9
-X-Iguazu-QSIG: v=2; s=1; t=1792730379; q=2yAac6huv2kV28r2F9; m=lviR9/8xVnH7OTFf1xc0WxEiQE7b/j7tOIkOFr9QrSM=
-Received: from imx12-a.toshiba.co.jp (unknown [38.106.60.135])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	 id 4j9r0C20Ffz1xnh; Fri, 23 Oct 2026 13:39:38 +0900 (JST)
-From: Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
-To: stable@vger.kernel.org
-Cc: gregkh@linuxfoundation.org, sashal@kernel.org,
-        Christian Schoenebeck <linux_oss@crudebyte.com>,
-        Dominique Martinet <asmadeus@codewreck.org>,
-        Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
-Subject: [PATCH 6.1] fs/9p: fix NULL pointer dereference on mkdir
-Date: Fri, 23 Oct 2026 13:39:31 +0900
-X-TSB-HOP2: ON
-Message-Id: <1792730371-21640-1-git-send-email-nobuhiro.iwamatsu.x90@mail.toshiba>
-X-Mailer: git-send-email 2.7.4
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mlkb73w1
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3a4cdc9025bso301036a91.0
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 22:26:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792733191; x=1793337991; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DYRpzX03doBjGv7jHtksL3nee5Jdp9ptv1S4kZpfi8A=;
+        b=mlkb73w1/MRE+o7wyXDGjmIywPB6+MogUPLqg859YAtoYmSBn6V5YeBhnPSiELCmVg
+         zD0tva58FWkzcAYsHjm9rXxwHgCegk4gaeNApi5E7uPbp6cFYc9B/w8tnQHpH769zZ0F
+         fBCWMh/XcNQGZcnNDu0w+3uXH94DGPiITDjy7cZLyjG1VBChdMjYtkWycU7Vv1OWX+dJ
+         JyPxevkM9WAmL9Hec73TZTfEZh87p8YAtxd0Z/6Ra2DojpOW4adbIk/DgyYtYAr19eE5
+         eAZrPES/nMTHA0t+qNvxe+RiKhGGs3xvz4N9hc3R0is/tUjgaLknBiSoyb9NoEnqf/oR
+         Subg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792733191; x=1793337991;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DYRpzX03doBjGv7jHtksL3nee5Jdp9ptv1S4kZpfi8A=;
+        b=aaMlaCNmafWdkAaHfoltt4ewDjKA4H1jycH2e9TTZWoynJV73DCpclNxNHg4up76hv
+         UqCNH5aVmYmayHyAdsojkovK4UE6T1WWtckMe9n6ETBpn1ezOj+lVCTDLtDRXNd5PjpJ
+         C9Y3XcOHipuUmR9kfoHSe/bQK/wZfF0N5seYd5kmvtukWNViQLgzh0od2MmqbyH5qHn/
+         uWZBzkRrwL3PsTka+xspbfoHtt0s2U2vzLYY1JBzZ5mAEYVW1k4cjNnMK1YIoJyXYS9Y
+         2q9kkq3N3Qo16//f5tmoaTgiH5e832QW9Yb+adilfrM59sTSaxReM0SadfYUEvaBClJ0
+         BlXA==
+X-Forwarded-Encrypted: i=1; AKwUvBxd9oOh8EIyscs66zaKk8B2Vp2PKgiL1daK1OdfzWpj+QmSOyx9lKy21sKfUAzDLn6fEhMJKwg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKa/1nepQgPSL03YblsJFAQdOGCijYtw0C41HHqapUjVe4PEvfx
+	EMPKMctqqmFtvK7NgXQjbeK2JcjLFQ/S6IOYk7FJNzBg80WM+8DSb72/
+X-Gm-Gg: AYBFou01XtJcj3MYOwL2W/V52tEyI4eWtkR3Qu+Gbywuzy0FOF91kLuq80n5p7Q/kML
+	tfdIPp1OX6c/VGKPrKU89ZJ5WLClnABCrA5jIcUROn674BtdWjtbmknnss+KEce8TPNiYvVIej7
+	YkJcNA15yi9A4gYbXCcV1r9uTWPIYUry5nDKD3NBYYEB8wHXL193hAV+Gn/U+smAqjP6CETIXD1
+	bHRrSRC3pqlTFOI1iQlylDgESYlYUCQ5mW650STp+PVoTk7CDvw8QZYPWzcIzLUiP1E7nz4E6ql
+	Mpkp90kf01SX6Y7P5G4dPPylaWuBQI+38/42TMlyBJa35/7R/LVQ48Flar6l0sFSCBv2cAPtYd4
+	0mmRZ36Z8D3+lfj0w23xeCnBC4+qD5XQSVtSHbAU3RMjgHC6lnGWrLgHjMc9hIu/pZerQaWgmoB
+	io2tv8xjPIIWYES45SdvItuKwRKZr5t1FhpTyO8AA/VrqapZN2MPm1gD1R4vFY+fQ/d805IdgDX
+	GISYfjjyZdlvKy7XSE2bu5C6jDHfEsJXnKTRJZbbhh5illwmhLxsTE4xcW36m30MrfhY7s2FlJI
+	yA==
+X-Received: by 2002:a17:90b:35cb:b0:3ac:7874:639e with SMTP id 98e67ed59e1d1-3adce45ef04mr868308a91.46.1792733190475;
+        Thu, 22 Oct 2026 22:26:30 -0700 (PDT)
+Received: from v4bel.. ([58.123.110.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada4890c56sm7379785a91.2.2026.10.22.22.26.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 22:26:29 -0700 (PDT)
+From: Hyunwoo Kim <imv4bel@gmail.com>
+To: edumazet@kernel.org,
+	ncardwell@google.com,
+	kuniyu@google.com,
+	davem@davemloft.net,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org
+Cc: Hyunwoo Kim <imv4bel@gmail.com>,
+	martin.lau@linux.dev,
+	john.fastabend@gmail.com,
+	weiwan@google.com,
+	sd@queasysnail.net,
+	jiayuan.chen@linux.dev,
+	netdev@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v2 1/2] inet: reject unhashed sockets during established lookups
+Date: Fri, 23 Oct 2026 14:24:35 +0900
+Message-ID: <20261023052542.3505250-2-imv4bel@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261023052542.3505250-1-imv4bel@gmail.com>
+References: <20261023052542.3505250-1-imv4bel@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,73 +108,185 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Christian Schoenebeck <linux_oss@crudebyte.com>
+TCP established ehash lookups are lockless. The socket caches involved
+use SLAB_TYPESAFE_BY_RCU, so memory can be reused before an RCU reader
+that retained its old address has finished.
 
-commit 3f61ac7c65bdb26accb52f9db66313597e759821 upstream.
+After a tuple match, __inet_lookup_established() and
+__inet6_lookup_established() acquire a reference and repeat the tuple
+check. They do not check whether the new object is hashed. If the
+address is reused for a socket with the same tuple, the lookup can
+acquire a reference to the new object and return it while its nulls node
+is unhashed.
 
-When a 9p tree was mounted with option 'posixacl', parent directory had a
-default ACL set for its subdirectories, e.g.:
+A PoC that drives reuse with a SYN cookie request socket reproduced the
+crash. The new request socket is unhashed and has a NULL rsk_listener.
+A lookup that had loaded the address of the old request socket acquired
+the reference published by tcp_get_cookie_sock() and returned the new
+object. tcp_v4_rcv() then read sk_state through the NULL listener.
 
-  setfacl -m default:group:simpsons:rwx parentdir
+The resulting crash was:
 
-then creating a subdirectory crashed 9p client, as v9fs_fid_add() call in
-function v9fs_vfs_mkdir_dotl() sets the passed 'fid' pointer to NULL
-(since dafbe689736) even though the subsequent v9fs_set_create_acl() call
-expects a valid non-NULL 'fid' pointer:
-
-  [   37.273191] BUG: kernel NULL pointer dereference, address: 0000000000000000
+  BUG: kernel NULL pointer dereference, address: 0000000000000012
+  #PF: supervisor read access in kernel mode
+  #PF: error_code(0x0000) - not-present page
   ...
-  [   37.322338] Call Trace:
-  [   37.323043]  <TASK>
-  [   37.323621] ? __die (arch/x86/kernel/dumpstack.c:421 arch/x86/kernel/dumpstack.c:434)
-  [   37.324448] ? page_fault_oops (arch/x86/mm/fault.c:714)
-  [   37.325532] ? search_module_extables (kernel/module/main.c:3733)
-  [   37.326742] ? p9_client_walk (net/9p/client.c:1165) 9pnet
-  [   37.328006] ? search_bpf_extables (kernel/bpf/core.c:804)
-  [   37.329142] ? exc_page_fault (./arch/x86/include/asm/paravirt.h:686 arch/x86/mm/fault.c:1488 arch/x86/mm/fault.c:1538)
-  [   37.330196] ? asm_exc_page_fault (./arch/x86/include/asm/idtentry.h:574)
-  [   37.331330] ? p9_client_walk (net/9p/client.c:1165) 9pnet
-  [   37.332562] ? v9fs_fid_xattr_get (fs/9p/xattr.c:30) 9p
-  [   37.333824] v9fs_fid_xattr_set (fs/9p/fid.h:23 fs/9p/xattr.c:121) 9p
-  [   37.335077] v9fs_set_acl (fs/9p/acl.c:276) 9p
-  [   37.336112] v9fs_set_create_acl (fs/9p/acl.c:307) 9p
-  [   37.337326] v9fs_vfs_mkdir_dotl (fs/9p/vfs_inode_dotl.c:411) 9p
-  [   37.338590] vfs_mkdir (fs/namei.c:4313)
-  [   37.339535] do_mkdirat (fs/namei.c:4336)
-  [   37.340465] __x64_sys_mkdir (fs/namei.c:4354)
-  [   37.341455] do_syscall_64 (arch/x86/entry/common.c:52 arch/x86/entry/common.c:83)
-  [   37.342447] entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)
+  Oops: Oops: 0000 [#1] SMP NOPTI
+  CPU: 4 UID: 0 PID: 0 Comm: swapper/4 Not tainted 7.3.0-00591-g0e135910deec #1 PREEMPT(lazy)
+  ...
+  RIP: 0010:tcp_v4_rcv+0x44e/0x1280
+  ...
+  R10: 0000000000000001 R11: 00000000024ca8c0 R12: 0000000000000000
+  ...
+  CR2: 0000000000000012 CR3: 0000000103d50004 CR4: 0000000000770ef0
+  ...
+  Call Trace:
+   <IRQ>
+   ? raw_local_deliver+0xae/0x240
+   ip_protocol_deliver_rcu+0x2d/0x180
+   ip_local_deliver_finish+0x84/0x100
+   ip_sublist_rcv_finish+0x5f/0x70
+   ip_sublist_rcv+0x12a/0x1d0
+   ip_list_rcv+0xfd/0x130
+   __netif_receive_skb_list_core+0x223/0x250
+   netif_receive_skb_list_internal+0x1d2/0x2c0
+   ? try_fill_recv+0x39/0x7b0
+   napi_complete_done+0x74/0x170
+   virtnet_poll+0x445/0x600
+   __napi_poll+0x27/0x1e0
+   net_rx_action+0x2fe/0x3b0
+   handle_softirqs+0xc2/0x2c0
+   __irq_exit_rcu+0x74/0xd0
+   common_interrupt+0x7f/0x90
+   </IRQ>
+  ...
+  Kernel panic - not syncing: Fatal exception in interrupt
 
-Fix this by simply swapping the sequence of these two calls in
-v9fs_vfs_mkdir_dotl(), i.e. calling v9fs_set_create_acl() before
-v9fs_fid_add().
+After taking a reference, check whether the nulls node is unhashed in
+both IPv4 and IPv6 established lookups. If it is unhashed or the tuple
+no longer matches, drop the reference and restart the lookup.
 
-Fixes: dafbe689736f ("9p fid refcount: cleanup p9_fid_put calls")
-Reported-by: syzbot+5b667f9a1fee4ba3775a@syzkaller.appspotmail.com
-Signed-off-by: Christian Schoenebeck <linux_oss@crudebyte.com>
-Message-ID: <E1tsiI6-002iMG-Kh@kylie.crudebyte.com>
-Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
-Signed-off-by: Nobuhiro Iwamatsu (CIP) <nobuhiro.iwamatsu.x90@mail.toshiba>
+Lookups racing with the TIME_WAIT hashdance, or with a request being
+replaced by its child, now restart and find the new socket instead of
+returning the old one.
+
+Request sockets that were never inserted into ehash can have a nonzero
+refcount, and a stale lookup can hold a transient reference. Therefore,
+when SYN cookie, Fast Open, and request migration paths fail after
+setting a nonzero refcount, release the references held by those paths
+with reqsk_put() instead of freeing the request directly.
+
+Fixes: 079096f103fa ("tcp/dccp: install syn_recv requests into ehash table")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
 ---
- fs/9p/vfs_inode_dotl.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/ipv4/inet_connection_sock.c | 10 +++++++---
+ net/ipv4/inet_hashtables.c      |  5 +++--
+ net/ipv4/syncookies.c           |  2 ++
+ net/ipv4/tcp_input.c            |  4 +++-
+ net/ipv6/inet6_hashtables.c     |  4 +++-
+ 5 files changed, 18 insertions(+), 7 deletions(-)
 
-diff --git a/fs/9p/vfs_inode_dotl.c b/fs/9p/vfs_inode_dotl.c
-index e15ad46833e05d..7c261b354379ab 100644
---- a/fs/9p/vfs_inode_dotl.c
-+++ b/fs/9p/vfs_inode_dotl.c
-@@ -424,8 +424,8 @@ static int v9fs_vfs_mkdir_dotl(struct user_namespace *mnt_userns,
- 				 err);
- 			goto error;
+diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
+index 6a30f1138454..cff02f4c5ac8 100644
+--- a/net/ipv4/inet_connection_sock.c
++++ b/net/ipv4/inet_connection_sock.c
+@@ -1136,10 +1136,14 @@ static void reqsk_timer_handler(struct timer_list *t)
+ 	 */
+ 	if (nreq) {
+ 		__NET_INC_STATS(net, LINUX_MIB_TCPMIGRATEREQFAILURE);
++		/* The timer was not armed, drop its reference here. */
++		reqsk_put(nreq);
+ no_ownership:
+ 		reqsk_migrate_reset(nreq);
+ 		reqsk_queue_removed(queue, nreq);
+-		__reqsk_free(nreq);
++		/* Drop the ehash and temporary references. */
++		reqsk_put(nreq);
++		reqsk_put(nreq);
+ 	}
+ 
+ drop:
+@@ -1447,7 +1451,7 @@ struct sock *inet_csk_complete_hashdance(struct sock *sk, struct sock *child,
+ 
+ 			__NET_INC_STATS(sock_net(sk), LINUX_MIB_TCPMIGRATEREQFAILURE);
+ 			reqsk_migrate_reset(nreq);
+-			__reqsk_free(nreq);
++			reqsk_put(nreq);
+ 		} else if (inet_csk_reqsk_queue_add(sk, req, child)) {
+ 			return child;
  		}
--		v9fs_fid_add(dentry, &fid);
- 		v9fs_set_create_acl(inode, fid, dacl, pacl);
-+		v9fs_fid_add(dentry, &fid);
- 		d_instantiate(dentry, inode);
- 		err = 0;
- 	} else {
+@@ -1502,7 +1506,7 @@ void inet_csk_listen_stop(struct sock *sk)
+ 					__NET_INC_STATS(sock_net(nsk),
+ 							LINUX_MIB_TCPMIGRATEREQFAILURE);
+ 					reqsk_migrate_reset(nreq);
+-					__reqsk_free(nreq);
++					reqsk_put(nreq);
+ 				}
+ 				rcu_read_unlock();
+ 
+diff --git a/net/ipv4/inet_hashtables.c b/net/ipv4/inet_hashtables.c
+index ba0faa9ae2bb..58d54965036a 100644
+--- a/net/ipv4/inet_hashtables.c
++++ b/net/ipv4/inet_hashtables.c
+@@ -552,8 +552,9 @@ struct sock *__inet_lookup_established(const struct net *net,
+ 		if (likely(inet_match(net, sk, acookie, ports, dif, sdif))) {
+ 			if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
+ 				goto out;
+-			if (unlikely(!inet_match(net, sk, acookie,
+-						 ports, dif, sdif))) {
++			if (unlikely(hlist_nulls_unhashed_lockless(&sk->sk_nulls_node) ||
++				     !inet_match(net, sk, acookie, ports, dif,
++						 sdif))) {
+ 				sock_gen_put(sk);
+ 				goto begin;
+ 			}
+diff --git a/net/ipv4/syncookies.c b/net/ipv4/syncookies.c
+index 73e129768184..644030561537 100644
+--- a/net/ipv4/syncookies.c
++++ b/net/ipv4/syncookies.c
+@@ -218,6 +218,8 @@ struct sock *tcp_get_cookie_sock(struct sock *sk, struct sk_buff *skb,
+ 
+ 		bh_unlock_sock(child);
+ 		sock_put(child);
++		reqsk_put(req);
++		return NULL;
+ 	}
+ 	__reqsk_free(req);
+ 
+diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
+index 99baf14afdfd..3583867487d7 100644
+--- a/net/ipv4/tcp_input.c
++++ b/net/ipv4/tcp_input.c
+@@ -7777,7 +7777,9 @@ int tcp_conn_request(struct request_sock_ops *rsk_ops,
+ 		if (!inet_csk_reqsk_queue_add(sk, req, fastopen_sk)) {
+ 			bh_unlock_sock(fastopen_sk);
+ 			sock_put(fastopen_sk);
+-			goto drop_and_free;
++			/* tcp_disconnect() already dropped one reqsk ref. */
++			reqsk_put(req);
++			goto drop;
+ 		}
+ 		READ_ONCE(sk->sk_data_ready)(sk);
+ 		bh_unlock_sock(fastopen_sk);
+diff --git a/net/ipv6/inet6_hashtables.c b/net/ipv6/inet6_hashtables.c
+index b111b51d69fc..aa5fa1dd062f 100644
+--- a/net/ipv6/inet6_hashtables.c
++++ b/net/ipv6/inet6_hashtables.c
+@@ -108,7 +108,9 @@ struct sock *__inet6_lookup_established(const struct net *net,
+ 		if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
+ 			goto out;
+ 
+-		if (unlikely(!inet6_match(net, sk, saddr, daddr, ports, dif, sdif))) {
++		if (unlikely(hlist_nulls_unhashed_lockless(&sk->sk_nulls_node) ||
++			     !inet6_match(net, sk, saddr, daddr, ports, dif,
++					  sdif))) {
+ 			sock_gen_put(sk);
+ 			goto begin;
+ 		}
 -- 
-2.55.0
-
+2.43.0
 
