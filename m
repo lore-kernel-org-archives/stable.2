@@ -1,55 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.239.133.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.148
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792753157;
-	b=fNyJSdcFpBcUK44o7dk+uwLjqddaf+dvsqN2HPIbyX4uaMdhEMIsdg5lJOr4Rg8HtvIm
-	 EGkNBqGA8lh/JnzgvRk15XaA1yo+myuicLiYkxnFOOUj2hKPZTKnDfSRlE5H5FS9qhQLf
-	 oH0GAm8JmwIDftTvhYR9uz72hveWw8jCrqUsej8qnvM4fkhQKo2+m81Pf6F/2PLlk22Q5
-	 HDFRzzk2OtKfLUE3GklSA0YrvxWARMdSa+qtzNIxbp7NxdTsxuMghKLSSG5x+IUc6bxI5
-	 cUwiWbeDvhakxFczxnNHZTmSS3i0+nDaH4Fgus89HZb/ePpY/oodL5sODAXPuEIVpXA==
+	t=1792753286;
+	b=llCcg3TGz057C2RCz/xHdu/ZrjGUPn6Q/FN+3+1d8tFjt0RvR88I++IZpxr2ETOdVzJG
+	 FLrfQ58VtOx2CA2NDJ5G5EQYxkLhPAPbKl2k+c7Ri1iA845kT8e0IH8+kbC8js6alHwVp
+	 MOF9uKRWbbSLR/JEVr9kwEHSx35E01/ZtJSS8piKE076dAPX89oIjOG5pDfP451r3fBy5
+	 ZRk/LSPeA5ClCme6AmwviZ2SmdP9NTvxo4gUri7lzi1APiWFZcS+BJb1ys+0kaeyGft6H
+	 5/QuqblLGk62/3g8TDvkoAmHjs0+lhcial/a3qUSfXcFMOwjQY8775bboOKwZtPXkwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792753157;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-Authenticated-Id;
-	bh=HkhiN70ziVFXW1i+IKoqtGuSltinZnwzYBrMyQL/3Pc=;
-	b=yZvn6yIGtWOumkuBH2vGtbAeoDwqGxqmRbRR2MfKvHxicdulq8QxgUN8WDlZI8YO8LuD
-	 MRkDNx64KIH3WBaiygUVwivQttvZajbR4cryNeKC37tF3H9Xlu6j3pMbiPMyGvbwOPdvC
-	 gX5jr95kdO+1ivRIl+ISZyynn52oPZ/B0JUp2WQ6dSd24c59rALRXYe5ooBGC8OborLyR
-	 gw8Adb1Ch2Z06sDuGjbQqps8uPuD3X2WHk+UyFWwBgDKFYHbsou/KM06Q4fd1wWfU4sIU
-	 1Yd5qCM1Dq9Cs4g0A08MNMQAbKTfuFZYGy2QXpT9+JO2asw3vTYUzaF3fHV4VCvVgwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792753286;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4Dx2Tbtv5flHAZ7I0g5glR2gdb318idcO7oVSLafTpw=;
+	b=emmjd8/GM19lfA4l7HAJLI9sToIHaAyRvULtcZb+k2J0kB0/7M5zUc7PfYpgMDiDStWO
+	 eMXC4SIOxgf0u2BV+3kT8aqn7Ecdh8z22f4Lz5yT7+WpYkyxREdJFWwt9/q1linLCqHV7
+	 rsalYKEQBtAOzfdUFvl8Qi9Kahf7ctJj0EFBQi8ork5bK0VugzP8diLVjD3uuso8l1uV2
+	 7G8UeoFXZjpKXuTmH6MNlykk6imiCUx9CipPCf1tuHxzHPXLp3KZWUYjp6ATJiNQxjm43
+	 jNMXw35YpoJgdeLecf3CvFN6a8FgxXTaOwVSctVdGWYIKX6G15Gy+X9k2cyjQJlGiVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kubik.pl;
-	spf=pass smtp.mailfrom=kubik.pl;
-	arc=none smtp.remote-ip=213.239.133.37
-Received: from mail-e842.seohost-mail.eu (mail-e842.seohost-mail.eu [213.239.133.37])
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=K09z9O38;
+	arc=none smtp.remote-ip=115.124.28.148
+Received: from out28-148.mail.aliyun.com (out28-148.mail.aliyun.com [115.124.28.148])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE53606A326;
-	Fri, 23 Oct 2026 10:59:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EE53606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kubik.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kubik.pl
-Received: from static-46-238-236-132.awacom.net ([46.238.236.132] helo=localhost)
-	by h84.seohost.pl with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <piotr@kubik.pl>)
-	id 1xKCzP-00000007hGy-2EMY;
-	Fri, 23 Oct 2026 12:59:11 +0200
-From: Piotr Kubik <piotr@kubik.pl>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: Tamizh Chelvam Raja <tamizh.raja@oss.qualcomm.com>,
-	Muna Sinada <muna.sinada@oss.qualcomm.com>,
-	linux-wireless@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC8A606A31A;
+	Fri, 23 Oct 2026 11:01:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EC8A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=K09z9O38
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1792753274; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=4Dx2Tbtv5flHAZ7I0g5glR2gdb318idcO7oVSLafTpw=;
+	b=K09z9O38PEYdB32b3OXDrIqqpybe7D/dkRdaty4a1jcJ+b0dggLUth8/1xXwRKyVEz0kml5UfNI9sypijDVIL9t1cfwZ2tzieZaudMz//MF9C9l0daDVMYge/dNPQ3x4WU3rCDE0O+6Cytjdypo63tNMCRlYrN2QpWMWSio0ofA=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07447688|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0156875-0.000218424-0.984094;FP=16245881213183280154|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033023087102;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.joBmZWu_1792753273;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.joBmZWu_1792753273 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 23 Oct 2026 19:01:14 +0800
+From: liuc63 <liuc63@xiaopeng.com>
+To: gregkh@linuxfoundation.org
+Cc: khtsai@google.com,
+	andriy.shevchenko@intel.com,
+	fangxy@xiaopeng.com,
+	rdunlap@infradead.org,
+	dbrownell@users.sourceforge.net,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Piotr Kubik <piotr@kubik.pl>,
-	stable@vger.kernel.org
-Subject: [PATCH wireless v2 2/2] wifi: mac80211: set the link addresses of a 4-address AP_VLAN before its links
-Date: Fri, 23 Oct 2026 12:58:44 +0200
-Message-ID: <20261023105844.1117460-3-piotr@kubik.pl>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261023105844.1117460-1-piotr@kubik.pl>
-References: <20261023105844.1117460-1-piotr@kubik.pl>
+	stable@vger.kernel.org,
+	Liu Chao <liuc63@xiaopeng.com>
+Subject: [PATCH] usb: gadget: u_ether: fix out-of-bounds read in get_ether_addr
+Date: Fri, 23 Oct 2026 19:00:59 +0800
+Message-ID: <20261023110113.2969708-1-liuc63@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,79 +67,62 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authenticated-Id: piotr@kubik.pl
 
-ieee80211_set_sta_4addr() gives the AP_VLAN of a 4-address MLD station
-the links of that station. It added the links first and set
-wdev->links[].addr afterwards, from the link_conf of the AP_VLAN
-itself. ieee80211_link_init() takes the address of a new link from
-wdev->links[].addr, so a link that the station gained later came up
-with the zero address that an earlier call had set, and the copy from
-its own link_conf kept it at zero. With two such links,
-ieee80211_check_dup_link_addrs() refuses the change with -EALREADY,
-and the station stays on the AP interface instead of its AP_VLAN.
+get_ether_addr() parses a MAC address string with a fixed six-iteration
+loop, unconditionally calling hex_to_bin() twice per iteration.  It never
+checks for the terminating NUL, so a short string supplied through the
+configfs dev_addr attribute (e.g. "ab") makes the parser read past the
+end of the buffer, triggering a slab-out-of-bounds read reported by
+KASAN.  hex_to_bin() also returns -1 for non-hex characters, which is
+shifted and OR'ed into dev_addr.
 
-Set the addresses from the link_conf of the AP before the links are
-added, as the AP_VLAN link update in link.c does.
+Bail out as soon as the string ends or a non-hex digit is found, routing
+all failure paths through the existing eth_random_addr() fallback so that
+dev_addr is always fully initialized before the function returns.
 
-Fixes: 469d5d5a3b7a ("wifi: mac80211: synchronize valid links for WDS AP_VLAN interfaces")
+Fixes: 2b3d942c4878 ("usb ethernet gadget: split out network core")
 Cc: stable@vger.kernel.org
-Signed-off-by: Piotr Kubik <piotr@kubik.pl>
+Reviewed-by: Fang Xieyan <fangxy@xiaopeng.com>
+Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
 ---
-v2: remove the now unused vif variable.
+ drivers/usb/gadget/function/u_ether.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
- net/mac80211/cfg.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
-
-diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
-index a1753335eb9d..371f441d6b7f 100644
---- a/net/mac80211/cfg.c
-+++ b/net/mac80211/cfg.c
-@@ -2736,7 +2736,6 @@ static int ieee80211_set_sta_4addr(struct ieee80211_local *local,
- 				   struct ieee80211_sub_if_data *sdata,
- 				   struct sta_info *sta)
- {
--	struct ieee80211_vif *vif = &sdata->vif;
- 	struct wiphy *wiphy = local->hw.wiphy;
- 	struct ieee80211_sub_if_data *master;
- 	struct ieee80211_bss_conf *link_conf;
-@@ -2762,26 +2761,29 @@ static int ieee80211_set_sta_4addr(struct ieee80211_local *local,
+diff --git a/drivers/usb/gadget/function/u_ether.c b/drivers/usb/gadget/function/u_ether.c
+index 59d85d6a84a8..12edad59ddc3 100644
+--- a/drivers/usb/gadget/function/u_ether.c
++++ b/drivers/usb/gadget/function/u_ether.c
+@@ -689,17 +689,26 @@ static int get_ether_addr(const char *str, u8 *dev_addr)
+ 		unsigned	i;
  
- 		wdev->valid_links = new_links;
+ 		for (i = 0; i < 6; i++) {
+-			unsigned char num;
++			int hi, lo;
  
--		err = ieee80211_vif_set_links(sdata, new_links, 0);
--		if (err) {
--			wdev->valid_links = orig_links;
--			return err;
--		}
--
- 		master_iter = master->vif.valid_links;
- 
-+		/* ieee80211_link_init() takes the address of a new link from
-+		 * wdev->links, so set it before the links are added.
-+		 */
- 		for_each_set_bit(link_id, &master_iter,
- 				 IEEE80211_MLD_MAX_NUM_LINKS) {
- 			if (!(sta_links & BIT(link_id))) {
- 				eth_zero_addr(wdev->links[link_id].addr);
- 			} else {
- 				link_conf = wiphy_dereference(wiphy,
--							      vif->link_conf[link_id]);
-+							      master->vif.link_conf[link_id]);
- 
- 				ether_addr_copy(wdev->links[link_id].addr,
- 						link_conf->bssid);
- 			}
++			if (!*str)
++				goto fail;
+ 			if ((*str == '.') || (*str == ':'))
+ 				str++;
+-			num = hex_to_bin(*str++) << 4;
+-			num |= hex_to_bin(*str++);
+-			dev_addr [i] = num;
++			if (!*str)
++				goto fail;
++			hi = hex_to_bin(*str++);
++			if (hi < 0 || !*str)
++				goto fail;
++			lo = hex_to_bin(*str++);
++			if (lo < 0)
++				goto fail;
++			dev_addr[i] = (hi << 4) | lo;
  		}
-+
-+		err = ieee80211_vif_set_links(sdata, new_links, 0);
-+		if (err) {
-+			wdev->valid_links = orig_links;
-+			return err;
-+		}
+ 		if (is_valid_ether_addr(dev_addr))
+ 			return 0;
  	}
- 
- 	rcu_assign_pointer(sdata->u.vlan.sta, sta);
++fail:
+ 	eth_random_addr(dev_addr);
+ 	return 1;
+ }
 -- 
-2.55.0
+2.50.1
 
