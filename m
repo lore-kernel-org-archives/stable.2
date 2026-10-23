@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792712978;
-	b=2il1xBRMYPT4UM+XM59KoLa1Q8R1+fxuR/IYiadnm4D9fYB2kWzWBDF7TwBS08UAhHoh
-	 Anbv01ukeSBDA+4h1L5QNYIHwhrvw6z+Xg9hEwLmQP66j7CGoKQ+M7JpDx7wEQYFXI/8Y
-	 o6eS10XRp+nlQLbG6QT3NjeNVrx7xbqF4tsizssV/cHTNXyiIT0VKp9bWO0jCos/itdXd
-	 PMZZTx2VElkNKVQ6RKB/quEk9cCUgLbZIfgEZaRoBbyT4ZUZcNfzFHAJ66UDQeQXQRliy
-	 ns00uLYsgdGDI+zuJhInjsl9EbVBEsWqTuOY/CqrWD5Lto/kUm7qa2q+GmppUhVbeKA==
+	t=1792715335;
+	b=LJ2uwJNUFsYb48cX8lKigaGxdqGkz0LN7yZxKzRZz2NZSaxBKavyD1BT0m4W73nsK4a0
+	 1owvxszQTWYtPWzfIMmXdKzAgFHKxbaC2FkfftoPfxXRb0vr6K66uB4QuX+TjP5vVY9M0
+	 VnF+a4L/CRvlm32qVpn73eEnBG+ayWVx9VOV/ZhWOQWGBpTFTz81Og5sQ3Zt2BZKqr7aI
+	 w6hgtqb7fZvgzeDYd5fB3XTd+H0GxDlErAnQHa2zLu71WJN7wf6NOe213ck8Iu9vt0nxc
+	 CdZHAw/23kgchHDADOjJ270QntM3BCwl6mB3TZFZTeYqZDqOT+uBC4HjQSDKK6Qn9kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792712978;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792715335;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=YBGRdHh8w421SAdlENNWIVHbkQrG197oRHkIac9jmAA=;
-	b=HrwuH0k66HiBp+GHQ7gTL2OTjd95pK0TqUrNFDMrI1WONWMG8QTUasTa23HXtDzXs/As
-	 IyKb2qPY6DXk42PpD00RJhCT2Xp0EyN5aaFl0hVKxGhra5xW0un1p2nnwKvFBM8/7bBMM
-	 5JCaRvCm144wNfSVnzlgMv9MUyzXKUKeoqEJKasVEhLvq17RIcm71ZUmn4dJWjpc5JEcm
-	 YMIr7EFAf7wRJquRVNIDhvaoNJqy4kqPYZxtWznGy7q8u/G71Fn58x7CCBqryM40IX83P
-	 y0O0qCaAU/w6gU1X1TG21+a9+Ww38bibrbWhRbM90XjiTokxticJE2jxh3GN7grKnrw==
+	bh=igRysZJrW5JAQ0vNF0XIF2AY7svHdNyPSgMCke+h060=;
+	b=tFlu47qQWbowjFCO5qQLRxuL6FjW7SaJXEJZ4DoiJ51EPaakGM/8HITnJg+LBVGKio5s
+	 +jJoTtnzev4nJqvOiCJvxY3dKVVrvu6Y0cW6Zz4g1uk8b7mvKJU0/7Gh+1GVtHozXnEFG
+	 Hbx+JqfoJEJC0Dy9SbP209PvZmLUXReGRCNXqxvr9R/XJ02YuonEC/gMy3ljXVELtahD8
+	 /Tqhw527Je2jcl5s+4Yh4dSovc9yId6X3sgg+0AB6h/FzfFKiItF/SnfhOv2SDe9oPjLV
+	 4C4VGnh5JPJ/n5hlZfyoEhYoJruzBGtw92Pr6Wy1p7cyKZfJ41ettCB9dm464cwdiEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NtwUkCIy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AxsCL79P;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58064606A319
-	for <stable@vger.kernel.org>; Thu, 22 Oct 2026 23:49:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE5CF606A31E
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 00:28:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NtwUkCIy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E5C71F01825;
-	Thu, 22 Oct 2026 23:49:36 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AxsCL79P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE1671F01825;
+	Fri, 23 Oct 2026 00:28:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792712978;
-	bh=YBGRdHh8w421SAdlENNWIVHbkQrG197oRHkIac9jmAA=;
+	s=k20260515; t=1792715334;
+	bh=igRysZJrW5JAQ0vNF0XIF2AY7svHdNyPSgMCke+h060=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NtwUkCIyXa4ti5ErVrtnekkEoipXwtzBjdVbQ3xSdWmrodr9RENdH0ie4ubb4kRPv
-	 BxjGey3R/FdLG4qDxC0ImgujoQ2bwP4dt6Jgn2gx/tcPPDYs4ZtAZ6bKc/101M5yWa
-	 y5wQecj0aAquo4daA32ROJf9F9amDkIjRCzUbZuXSl8DIEBdxr4WpKHy2E/bEfw5GV
-	 UcADGoypAQZweuEQDxdIiIbwr9FXzuYFuhQ8KxGfaIZ5O30f4dY+3tM0QV+1eA9jTM
-	 Uc66EsO/+6hcz6Mh6wAvRH5arbnk6pGos6o0OLNrMqVUaupGkN0qHXmqe3SEPz20U2
-	 wMBE2im6Fmj3g==
+	b=AxsCL79PmDws1gsXExA+Fj1XyFm2/UZ/FMq8xRuAU8CESvKFoQP9IYI2rqTZzt37z
+	 /ogzSlD1yehDAUyByCwIUnrWtF+yreUv49soXJ+AYe4NHmKMh1P1cz7TiAs91GSyuA
+	 59STu7hAVztlUSyZLBO19NDJMhGVDjrYxjMeNKIhpbI20wC7aIptiFN/yEDAsoGu5w
+	 yOAcVe34X5gXxcWwlWJpaR+H9CjWZ2O+guiVxa2h2QkvTts7c0DYtPeUpHG6tXWn6P
+	 XuPIBWTEWDABhoZ4I9S/3Oiu1afDCmyRXR3gl8fjFRWhj4bPBih2nSxpuU1MrN+dYP
+	 9QdIfLSGM2jqw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yunpeng Tian <shionthanatos@gmail.com>,
-	Mingda Zhang <npczmd@qq.com>,
-	Gongming Wang <gmwgg05@gmail.com>,
-	Qinrun Dai <jupmouse@gmail.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: David Woodhouse <dwmw@amazon.co.uk>,
+	Paolo Bonzini <pbonzini@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] smb: client: reject SetEA requests that do not fit the request buffer
-Date: Thu, 22 Oct 2026 19:49:34 -0400
-Message-ID: <20261022234836.2161443-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/3] x86/kvm: Silence per-cpu pr_info noise about KVM clocks and steal time
+Date: Thu, 22 Oct 2026 20:28:49 -0400
+Message-ID: <20261023002045.2270144-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102230-cardiac-properly-0c3f@gregkh>
-References: <2026102230-cardiac-properly-0c3f@gregkh>
+In-Reply-To: <2026102116-motion-upchuck-3417@gregkh>
+References: <2026102116-motion-upchuck-3417@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,112 +61,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yunpeng Tian <shionthanatos@gmail.com>
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-[ Upstream commit 4aa2c106aef4bf3dfd97c30842db0767b26e8428 ]
+[ Upstream commit f3f26dae05e39f0f286f588669b54d49b61dcfb8 ]
 
-CIFSSMBSetEA() copies the caller's extended attribute value into the
-SMB request buffer without checking that it fits.  The requirement is
-stated in the source but was never implemented:
+I made the actual CPU bringup go nice and fast... and then Linux spends
+half a minute printing stupid nonsense about clocks and steal time for
+each of 256 vCPUs. Don't do that. Nobody cares.
 
-	/*BB add length check to see if it would fit in
-	     negotiated SMB buffer size BB */
-	/* if (ea_value_len > buffer_size - 512 (enough for header)) */
-	if (ea_value_len)
-		memcpy(parm_data->list.name + name_len + 1,
-		       ea_value, ea_value_len);
-
-The only bound applied on the way in is in cifs_xattr_set():
-
-	#define MAX_EA_VALUE_SIZE CIFSMaxBufSize
-	...
-	if (size > MAX_EA_VALUE_SIZE)
-
-CIFSMaxBufSize is the full payload capacity of the buffer, so a value
-of exactly that size leaves no room for the SMB header, the TRANS2
-parameter block, the fealist header and the EA name that are written
-ahead of it in the same object.
-
-SendReceive() already enforces the correct limit on this very length:
-
-	if (in_len > CIFSMaxBufSize + MAX_CIFS_HDR_SIZE)
-
-but it is called after the copy has taken place.  An unprivileged
-setxattr(2) on an SMB1 mount with a 250-byte name and a 16384-byte
-value writes 16384 bytes starting 345 bytes into a 16588-byte
-cifs_request object, ending 141 bytes past it:
-
-  BUG: KASAN: slab-out-of-bounds in CIFSSMBSetEA+0xabc/0xde0
-  Write of size 16384 at addr ffff888003aa0159 by task init/68
-   __asan_memcpy+0x3c/0x60
-   CIFSSMBSetEA+0xabc/0xde0
-   cifs_xattr_set+0xd3a/0xff0
-   __vfs_setxattr+0x13e/0x1a0
-  The buggy address is located 345 bytes inside of
-   allocated 16588-byte region
-
-Apply SendReceive()'s limit to the assembled request before the copy
-rather than after it, and widen the byte counters so the sum cannot
-wrap before it is tested.
-
-byte_count is also tested against U16_MAX, because it is stored in the
-16-bit pSMB->ByteCount.  That becomes reachable when CIFSMaxBufSize is
-raised at module load, where it may be set as high as 1024*127: with a
-5-byte EA name and a 65521-byte value, count is exactly U16_MAX while
-byte_count is 65556, and cpu_to_le16() would truncate it to 20 and
-transmit a frame whose ByteCount does not match its length.  Testing
-byte_count covers count as well, since byte_count is the larger of the
-two and count's only 16-bit consumer is written after this point.
-
-check_add_overflow() is evaluated first so that total_len is assigned
-before it is reported.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: Yunpeng Tian <shionthanatos@gmail.com>
-Reported-by: Mingda Zhang <npczmd@qq.com>
-Reported-by: Gongming Wang <gmwgg05@gmail.com>
-Reported-by: Qinrun Dai <jupmouse@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Yunpeng Tian <shionthanatos@gmail.com>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ sashal: Adapted request-length checks to use get_rfc1002_length(pSMB) with the maximum reduced by four bytes. ]
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Message-Id: <20211209150938.3518-12-dwmw2@infradead.org>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Stable-dep-of: 81d99abe2bd8 ("x86/kvm: Don't consume async #PF flags on a kernel #PF in NMI context")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/cifssmb.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ arch/x86/kernel/kvm.c      | 6 +++---
+ arch/x86/kernel/kvmclock.c | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/fs/cifs/cifssmb.c b/fs/cifs/cifssmb.c
-index 67ff1669cab2a..debbd8d2b5f10 100644
---- a/fs/cifs/cifssmb.c
-+++ b/fs/cifs/cifssmb.c
-@@ -6385,8 +6385,10 @@ CIFSSMBSetEA(const unsigned int xid, struct cifs_tcon *tcon,
- 	int name_len;
- 	int rc = 0;
- 	int bytes_returned = 0;
--	__u16 params, param_offset, byte_count, offset, count;
-+	__u16 params, param_offset;
-+	unsigned int byte_count, offset, count;
- 	int remap = cifs_remap(cifs_sb);
-+	unsigned int total_len;
+diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
+index 4286b0f247ea3..32d3319115e51 100644
+--- a/arch/x86/kernel/kvm.c
++++ b/arch/x86/kernel/kvm.c
+@@ -324,7 +324,7 @@ static void kvm_register_steal_time(void)
+ 		return;
  
- 	cifs_dbg(FYI, "In SetEA\n");
- SetEARetry:
-@@ -6437,6 +6439,14 @@ CIFSSMBSetEA(const unsigned int xid, struct cifs_tcon *tcon,
- 	pSMB->Reserved3 = 0;
- 	pSMB->SubCommand = cpu_to_le16(TRANS2_SET_PATH_INFORMATION);
- 	byte_count = 3 /* pad */  + params + count;
-+	if (check_add_overflow(get_rfc1002_length(pSMB), byte_count,
-+			       &total_len) ||
-+	    byte_count > U16_MAX ||
-+	    total_len > CIFSMaxBufSize + MAX_CIFS_HDR_SIZE - 4) {
-+		cifs_dbg(VFS, "EA request too large: %u bytes\n", total_len);
-+		cifs_buf_release(pSMB);
-+		return -E2BIG;
-+	}
- 	pSMB->DataCount = cpu_to_le16(count);
- 	parm_data->list_len = cpu_to_le32(count);
- 	parm_data->list[0].EA_flags = 0;
+ 	wrmsrl(MSR_KVM_STEAL_TIME, (slow_virt_to_phys(st) | KVM_MSR_ENABLED));
+-	pr_info("stealtime: cpu %d, msr %llx\n", cpu,
++	pr_debug("stealtime: cpu %d, msr %llx\n", cpu,
+ 		(unsigned long long) slow_virt_to_phys(st));
+ }
+ 
+@@ -361,7 +361,7 @@ static void kvm_guest_cpu_init(void)
+ 
+ 		wrmsrl(MSR_KVM_ASYNC_PF_EN, pa);
+ 		__this_cpu_write(apf_reason.enabled, 1);
+-		pr_info("setup async PF for cpu %d\n", smp_processor_id());
++		pr_debug("setup async PF for cpu %d\n", smp_processor_id());
+ 	}
+ 
+ 	if (kvm_para_has_feature(KVM_FEATURE_PV_EOI)) {
+@@ -387,7 +387,7 @@ static void kvm_pv_disable_apf(void)
+ 	wrmsrl(MSR_KVM_ASYNC_PF_EN, 0);
+ 	__this_cpu_write(apf_reason.enabled, 0);
+ 
+-	pr_info("disable async PF for cpu %d\n", smp_processor_id());
++	pr_debug("disable async PF for cpu %d\n", smp_processor_id());
+ }
+ 
+ static void kvm_disable_steal_time(void)
+diff --git a/arch/x86/kernel/kvmclock.c b/arch/x86/kernel/kvmclock.c
+index 1d986b353b3e5..047f97813bf34 100644
+--- a/arch/x86/kernel/kvmclock.c
++++ b/arch/x86/kernel/kvmclock.c
+@@ -174,7 +174,7 @@ static void kvm_register_clock(char *txt)
+ 
+ 	pa = slow_virt_to_phys(&src->pvti) | 0x01ULL;
+ 	wrmsrl(msr_kvm_system_time, pa);
+-	pr_info("kvm-clock: cpu %d, msr %llx, %s", smp_processor_id(), pa, txt);
++	pr_debug("kvm-clock: cpu %d, msr %llx, %s", smp_processor_id(), pa, txt);
+ }
+ 
+ static void kvm_save_sched_clock_state(void)
 -- 
 2.53.0
 
