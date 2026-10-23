@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792717195;
-	b=m7+k1Gnfaq7r3lWWxrtbuWSDl1cE3qLyXXOGpsdfbBP1EgQi7swugoIbV9ISlYjPHTSC
-	 /FE9k9U/Cqhen7mVzvRWBVByhHfg0ZnbJwmwa75JQ/d0TCgWOPNE6lUFiG8Hh1BrC6pRk
-	 s6JenP7ayOc+QncLQgOlMRGzSZzvINDgWf6QiU8jkYq1XeMONuraMSA541zHueLREN5So
-	 Mr5phJ7OFramRyIqeZE36OgRHEA9a9mslknDG0xbWcln8VRtiffxewrAfMF61o4XFQI3Y
-	 IeCmm0JLVtsmJEs3OhTbfba9XgpZOTcPxSrAUUgOM93jB68Jgb6HJ7SZ3cWgnnsQrcQ==
+	t=1792718910;
+	b=IqZVtZo1gO/zjMzXEx0mkoiOln+hNzPh/g53f5ckQl6/wSqFXKhwdO5/xzA/QaWHjNGD
+	 Vc+C9uAKqc4B9X55553+sZXxFrL3RG49xUJ7zdItPzbEE/0S0u+pqAdKsmi78rcSh3+J7
+	 unJPpBtcFTYGf5rAkcvuT3QVSgpaG9oEAuXZ/5Isn3ILkDWeFDd/7QXNU3NipVCue4tqE
+	 Na1KjPeX5KgE/LAG20+3CYTjzGIbUgkNLwNebh/9+WLUnsyX/sHzvHbi3a5bCC2wAbQKJ
+	 bAYoSASkJY439YZG1YV3gmQL5baoKVSefViX0uUty5xniCHfIgT/ie9O4BLGtRrSifA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792717195;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=0We8xv+1drvoYzq4NADhgvvvTw/CEa1dw/7Hzvix17s=;
-	b=SUd0gT7fIZVwkg0uvfKHiRMyJd9E2DVU2cxKCpyMlkeEbP5knI4WkIWYKarM7o3adgjx
-	 LtU5Vig7WKGp6GnxHf0+TazHcWAX4PFcI4jhOOPrlsxt6aeFWr2mKRlpKUB2c1k6RzswF
-	 7DgSC74af+e54Rjg4p8Kyo9UN23Mj3FI6XJDli2ceyfBU4aoNADYG2klacVvMZFME3itg
-	 3TvfY3YaeEUXY86NYeLBHWJM1GEC0++uGtawhkZfR1kouZ3ti8POx3IqMcMjAdmXDoypo
-	 NUKQaTJfMHKW/MIKuHtKJmdPyWRJZBaLLfQkPnAKWxanXiHHE7wD/DfUKw54UNVPhKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792718910;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=LQy2wg2eqw7YI+7MNRGfuKHoTfwnWJ2WrDcljy7soo8=;
+	b=kCrrGQu0SAC2Yt+nkZniAEzu+BGfhA1vlGgajgcIzhRLFMpSvaM7eXODIxhl5j/XOxbR
+	 NL/4OAvfwtaUn2D+KxC/yGYa1bi9VTIvO5XuqNUfUOgTquOjmpfZbWeKfG1JTn1pNW3/1
+	 2LFTRt8l6mYJLLO9dNBruXoHInA3el0wbGmT90wwOMVfY/vQclsr7QRlzuKrO+EjOhSh9
+	 GXX2RGjXThrCuqw4xrNuz1nL0dHrKfeus+wxnPaoW7wtZn5WzlDy3vvDssRTSORBZhQ7a
+	 SwVvxyA+cW9/v4Gf9KztuZQpkvuqkzp06d6j5fs+FNkobccU2dtWHCH6uIL1uuKXJpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WrnnYhB1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JGSWZA+T;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5231606A319
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 00:59:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B90606A319;
+	Fri, 23 Oct 2026 01:28:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WrnnYhB1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A364E1F01825;
-	Fri, 23 Oct 2026 00:59:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JGSWZA+T
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14CBF1F01825;
+	Fri, 23 Oct 2026 01:28:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792717194;
-	bh=0We8xv+1drvoYzq4NADhgvvvTw/CEa1dw/7Hzvix17s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WrnnYhB1BMWfYR5085VYCV/s2pQhpCWV3Uef5piSJ93tJty918d1MEWvDmfglubzv
-	 bF7b7PIduvTq93abHyAd22KIOmaEqeB+yOHR1mOn4yCZWge5oKXcvSS/xJc/lEQizV
-	 10aey37iJJlXSc4jz5/MapnmwbwB5hhk67/U4S7HzAVaQLllDxdR1xqJSp6g2mqhEy
-	 K1jyKYVu5OhkcZvXxEi8tmsD640hnp+XbYLVZ8fjgybuWpbc+CtSPIYKESJMF7Tfrp
-	 fLBo9Z1BK4Ehd33jFxvY275CKMcSinb+5codemEMXUdTmCp0hn8NywvmspDZVfDB42
-	 DvdgZUW8KkBjw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Daehyeon Ko <4ncienth@gmail.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Vishnu Dasa <vishnu.dasa@broadcom.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] vsock/vmci: validate packet source for connected sockets
-Date: Thu, 22 Oct 2026 20:59:52 -0400
-Message-ID: <20261023003900.2252502-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102123-partake-lid-6095@gregkh>
-References: <2026102123-partake-lid-6095@gregkh>
+	s=k20260515; t=1792718909;
+	bh=LQy2wg2eqw7YI+7MNRGfuKHoTfwnWJ2WrDcljy7soo8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=JGSWZA+T0XsP3RcJjj9Oa3HuR7hkJGk05bufLJIY0tD6aCP7iIfDbOByBWO8oD6HX
+	 CXcPc0P9ttr5W8x4ogIc32+Xdgk0Qjs42/au/Rc323onK7vClXggEdpvYW1eTr58da
+	 Jbdvk0u80LZcut0OwQRs5NQRct2ZHvmQyhXMVJhh6pi2mEMJgnNMfIEO1WQ81zqtXl
+	 MXePke+jwO7FAVn0Pj7xD16ytaDMtS+zOyzi2KAkQPX9/xbNpMKy7gmREmpboAlulP
+	 X9p2kTE3CE3Yu4vQ71WbMk/SG33GCXj3uBhKgPTWLwZuZt2TWEgOsHhcv9gUaQr58s
+	 pMbQ2VPsKWYJQ==
+Subject: Re: [PATCH net v5] net: ipv4: add zero check for snd_cwnd_clamp
+From: netdev-bot+sashiko@kernel.org
+To: kj2864@nyu.edu
+Cc: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, edumazet@google.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ co+71b6509cb791e531@bugs.sh, stable@vger.kernel.org
+Date: Fri, 23 Oct 2026 01:28:28 +0000
+Message-ID: <179271890858.3134.5358152366592526065@kernel.org>
+In-Reply-To: <20261019222531.1073-1-kj2864@nyu.edu>
+References: <20261019222531.1073-1-kj2864@nyu.edu>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,133 +63,184 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Daehyeon Ko <4ncienth@gmail.com>
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-[ Upstream commit ad9a7da3fa39c2d616ec0dd3cf6e30531d032fe7 ]
+Critical: 0 · High: 1 · Medium: 2 (1) · Low: 1
 
-vmci_transport_recv_stream_cb() looks up sockets first by the full source
-and destination tuple, then by destination only in the bound table. The
-fallback can select a non-listening socket without checking whether the
-packet came from its stored peer.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-This was reproduced with two VMCI contexts. A RST from the context not
-stored in a TCP_SYN_SENT socket reset that socket after it was selected by
-the destination-only lookup.
+- [High] The patch does not close the bug its commit message describes:
+  userspace setting tp->snd_cwnd_clamp to 0 through route metrics.
+- [Medium] The patch changes the core inline helper tcp_snd_cwnd_set()
+  (include/net/tcp.h:1522-1526) to store max(val, 1U) instead of val.
+- [Medium] ip_metrics_convert() now fails any IPv4 or IPv6 route
+  add/replace whose RTA_METRICS carries RTAX_CWND = 0, with -EINVAL,…
+- [Low] The new error path in ip_metrics_convert() uses a plain-text
+  NL_SET_ERR_MSG(extack, "RTAX_CWND must be greater than zero") and does…
 
-VMCI can process notification packets in bottom-half context when the
-socket is not owned by user context, or defer packets to a workqueue. Use
-vsock_check_source() after taking the socket lock in the bottom-half path,
-and recheck after lock_sock() in the workqueue path. Listening sockets
-continue to accept packets from any source.
+Pre-existing issues:
+- [Medium] Even when no route sends a zero RTAX_CWND, tp->snd_cwnd_clamp
+  can still become 0 through a lockless race in the TCP metrics cache.
 
-Reply with a RST addressed from the received packet before dropping a
-source that fails validation. This preserves the existing reset behavior
-for bound non-listening and concurrently closed sockets without directing
-the reset to a connected socket's stored peer.
+--
 
-Fixes: d021c344051a ("VSOCK: Introduce VM Sockets")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/netdev/20260814121255.6B5001F000E9@smtp.kernel.org/
-Cc: stable@vger.kernel.org
-Suggested-by: Stefano Garzarella <sgarzare@redhat.com>
-Suggested-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Reviewed-by: Vishnu Dasa <vishnu.dasa@broadcom.com>
-Link: https://patch.msgid.link/20260826003929.966160-3-4ncienth@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: Replaced unavailable vsock_check_source() calls with combined vmci_check_transport() and vsock_addr_equals_addr() checks. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/vmw_vsock/vmci_transport.c | 36 ++++++++++++++++++++++++++++------
- 1 file changed, 30 insertions(+), 6 deletions(-)
+net: ipv4: add zero check for snd_cwnd_clamp
 
-diff --git a/net/vmw_vsock/vmci_transport.c b/net/vmw_vsock/vmci_transport.c
-index 936cd088160c9..262062204168f 100644
---- a/net/vmw_vsock/vmci_transport.c
-+++ b/net/vmw_vsock/vmci_transport.c
-@@ -676,11 +676,13 @@ static int vmci_transport_recv_stream_cb(void *data, struct vmci_datagram *dg)
- 	struct vmci_transport_packet *pkt;
- 	struct vsock_sock *vsk;
- 	bool bh_process_pkt;
-+	bool drop_pkt;
- 	int err;
- 
- 	sk = NULL;
- 	err = VMCI_SUCCESS;
- 	bh_process_pkt = false;
-+	drop_pkt = false;
- 
- 	/* Ignore incoming packets from contexts without sockets, or resources
- 	 * that aren't vsock implementations.
-@@ -757,17 +759,30 @@ static int vmci_transport_recv_stream_cb(void *data, struct vmci_datagram *dg)
- 	bh_lock_sock(sk);
- 
- 	if (!sock_owned_by_user(sk)) {
--		/* The local context ID may be out of date, update it. */
--		vsk->local_addr.svm_cid = dst.svm_cid;
-+		if (sk->sk_state != TCP_LISTEN &&
-+		    (!vmci_check_transport(vsk) ||
-+		     !vsock_addr_equals_addr(&vsk->remote_addr, &src))) {
-+			drop_pkt = true;
-+			err = VMCI_ERROR_NO_ACCESS;
-+		} else {
-+			/* The local context ID may be out of date, update it. */
-+			vsk->local_addr.svm_cid = dst.svm_cid;
- 
--		if (sk->sk_state == TCP_ESTABLISHED)
--			vmci_trans(vsk)->notify_ops->handle_notify_pkt(
--					sk, pkt, true, &dst, &src,
--					&bh_process_pkt);
-+			if (sk->sk_state == TCP_ESTABLISHED)
-+				vmci_trans(vsk)->notify_ops->handle_notify_pkt(sk, pkt, true,
-+									       &dst, &src,
-+									       &bh_process_pkt);
-+		}
- 	}
- 
- 	bh_unlock_sock(sk);
- 
-+	if (drop_pkt) {
-+		if (vmci_transport_send_reset_bh(&dst, &src, pkt) < 0)
-+			pr_err("unable to send reset\n");
-+		goto out;
-+	}
-+
- 	if (!bh_process_pkt) {
- 		struct vmci_transport_recv_pkt_info *recv_pkt_info;
- 
-@@ -892,6 +907,7 @@ static void vmci_transport_recv_pkt_work(struct work_struct *work)
- {
- 	struct vmci_transport_recv_pkt_info *recv_pkt_info;
- 	struct vmci_transport_packet *pkt;
-+	struct sockaddr_vm src;
- 	struct sock *sk;
- 
- 	recv_pkt_info =
-@@ -900,6 +916,13 @@ static void vmci_transport_recv_pkt_work(struct work_struct *work)
- 	pkt = &recv_pkt_info->pkt;
- 
- 	lock_sock(sk);
-+	vsock_addr_init(&src, pkt->dg.src.context, pkt->src_port);
-+	if (sk->sk_state != TCP_LISTEN &&
-+	    (!vmci_check_transport(vsock_sk(sk)) ||
-+	     !vsock_addr_equals_addr(&vsock_sk(sk)->remote_addr, &src))) {
-+		vmci_transport_reply_reset(pkt);
-+		goto out;
-+	}
- 
- 	/* The local context ID may be out of date. */
- 	vsock_sk(sk)->local_addr.svm_cid = pkt->dg.dst.context;
-@@ -929,6 +952,7 @@ static void vmci_transport_recv_pkt_work(struct work_struct *work)
- 		break;
- 	}
- 
-+out:
- 	release_sock(sk);
- 	kfree(recv_pkt_info);
- 	/* Release reference obtained in the stream callback when we fetched
+This patch makes ip_metrics_convert() reject a zero RTAX_CWND value, so
+userspace cannot set tp->snd_cwnd_clamp to 0 through route metrics. It
+also changes tcp_snd_cwnd_set() to store max(val, 1U) instead of val.
+
+> diff --git a/include/net/tcp.h b/include/net/tcp.h
+> index 4416cdf9bf30..9f605d9ecb35 100644
+> --- a/include/net/tcp.h
+> +++ b/include/net/tcp.h
+> @@ -1522,7 +1522,7 @@ static inline u32 tcp_snd_cwnd(const struct tcp_sock *tp)
+>  static inline void tcp_snd_cwnd_set(struct tcp_sock *tp, u32 val)
+>  {
+>  	WARN_ON_ONCE((int)val <= 0);
+> -	WRITE_ONCE(tp->snd_cwnd, val);
+> +	WRITE_ONCE(tp->snd_cwnd, max(val, 1U));
+
+[Severity: Medium]
+The commit message only describes the netlink check:
+
+  Fix by checking if user pass in zero as parameter,
+  if so reject the value zero.
+
+Should this hunk be described in the changelog too? tcp_snd_cwnd_set()
+is used by every congestion control module, by tcp_input.c and
+tcp_output.c, by the TCP_BPF_IW path in net/core/filter.c, and by
+struct_ops congestion control through the tcp_slow_start() and
+tcp_cong_avoid_ai() kfuncs.
+
+With this change, a computed cwnd of 0 is quietly raised to 1 while the
+WARN still fires. That can hide caller bugs and leave connections stuck
+at cwnd 1.
+
+The clamp also doesn't match the WARN condition next to it. Values of
+0x80000000 and above trigger the WARN but are stored unchanged.
+
+This hunk is also what actually prevents the divide error on the
+RTAX_LOCK-only path described below. If a stable backport drops it as
+unrelated, would the divide error come back?
+
+>  }
+>  
+>  static inline bool tcp_in_slow_start(const struct tcp_sock *tp)
+> diff --git a/net/ipv4/metrics.c b/net/ipv4/metrics.c
+> index ad40762a8b38..cb36686973e5 100644
+> --- a/net/ipv4/metrics.c
+> +++ b/net/ipv4/metrics.c
+> @@ -54,6 +54,10 @@ static int ip_metrics_convert(struct nlattr *fc_mx,
+>  			NL_SET_ERR_MSG(extack, "Unknown flag set in feature mask in metrics attribute");
+>  			return -EINVAL;
+>  		}
+> +		if (type == RTAX_CWND && !val) {
+> +			NL_SET_ERR_MSG(extack, "RTAX_CWND must be greater than zero");
+
+[Severity: Low]
+This isn't a bug, but could this use NL_SET_ERR_MSG_ATTR(extack, nla, ...)
+like the length check earlier in ip_metrics_convert()? That way userspace
+learns which attribute was rejected.
+
+> +			return -EINVAL;
+> +		}
+
+[Severity: High]
+Does this check close the path the commit message describes? It only
+runs when an RTAX_CWND attribute is present, and it never looks at
+RTAX_LOCK.
+
+A request can set the CWND bit in RTAX_LOCK and leave RTAX_CWND out
+entirely. ip_fib_metrics_init() allocates the array with kzalloc_obj(),
+so the CWND slot stays 0. dst_metric_locked() only checks the RTAX_LOCK
+mask.
+
+>From there:
+
+tcpm_suck_dst()
+    copies the CWND lock bit and dst_metric_raw(dst, RTAX_CWND) == 0
+tcp_init_metrics()
+    if (tcp_metric_locked(tm, TCP_METRIC_CWND))
+        tp->snd_cwnd_clamp = tcp_metric_get(tm, TCP_METRIC_CWND);
+
+When an ssthresh metric is cached, tcp_init_metrics() then also clamps
+snd_ssthresh to 0. tcp_update_metrics() never overwrites a locked CWND,
+so the 0 stays for later connections.
+
+Next, tcp_init_transfer() calls tcp_snd_cwnd_set() with tcp_init_cwnd(),
+which is min(cwnd, 0) == 0. tcp_slow_start() and tcp_cong_avoid_ai() then
+pass min(cwnd, snd_cwnd_clamp) == 0 on every ACK.
+
+The divide error is now avoided only by the max(val, 1U) in
+tcp_snd_cwnd_set(). WARN_ON_ONCE((int)val <= 0) still runs before that
+clamp. Anyone with CAP_NET_ADMIN in a user namespace can still trigger
+the warning, which panics with panic_on_warn. The connection also stays
+at cwnd 1.
+
+For comparison, TCP_BPF_SNDCWND_CLAMP in net/core/filter.c rejects
+val <= 0.
+
+Would it be better to fix this in tcp_init_metrics(), applying a locked
+CWND only when it is non-zero? Another option is to check the final
+metrics array against RTAX_LOCK after the parse loop.
+
+[Severity: Medium]
+This check also changes rtnetlink behavior for both IPv4 and IPv6 routes.
+An RTM_NEWROUTE with RTAX_CWND = 0 in RTA_METRICS, for example
+"ip route replace ... cwnd 0", used to succeed. It now fails with -EINVAL
+whether or not the CWND lock bit is set.
+
+An unlocked CWND of 0 is the same as leaving the metric out, since
+dst_metric_raw() returns 0 either way. tcp_init_metrics() only reads
+TCP_METRIC_CWND when it is locked, and tcp_update_metrics() only updates
+it when it is unlocked.
+
+Is rejecting the unlocked case intended? The commit message doesn't
+mention it, and a fix in tcp_init_metrics() would leave what rtnetlink
+accepts unchanged.
+
+>  		metrics[type - 1] = val;
+>  	}
+>  
+
+[Severity: Medium]
+This is a pre-existing issue, not one introduced by this patch, but
+tp->snd_cwnd_clamp can still become 0 without any route carrying a zero
+RTAX_CWND.
+
+tcp_get_metrics() calls tcpm_check_stamp() with only rcu_read_lock held.
+After TCP_METRICS_TIMEOUT, that can call tcpm_suck_dst(), which rewrites
+a live entry in place:
+
+net/ipv4/tcp_metrics.c:tcpm_suck_dst() {
+    ...
+	WRITE_ONCE(tm->tcpm_lock, val);
+    ...
+	tcp_metric_set(tm, TCP_METRIC_CWND,
+		       dst_metric_raw(dst, RTAX_CWND));
+    ...
+}
+
+tcp_init_metrics() reads the lock bit and the CWND value as two separate
+loads. Take an entry built from a dst with no cwnd metric (lock 0,
+value 0) that gets refreshed from a dst with "cwnd lock N". Can a
+concurrent reader see the new lock bit with the old value 0 and set
+snd_cwnd_clamp to 0?
+
+The reverse transition has the same window. The reclaim path in
+tcpm_new() also rewrites entries that RCU readers can still see. With
+policy routing, two concurrent tcpm_suck_dst() calls could also leave an
+entry locked with value 0 until the next refresh.
+
+The new netlink check doesn't cover this case. Only the max(val, 1U) in
+tcp_snd_cwnd_set() avoids the divide, and the WARN_ON_ONCE still fires.
+
 -- 
-2.53.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261019222531.1073-1-kj2864%40nyu.edu
