@@ -1,101 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.175
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792783899;
-	b=nGcYJF4ZJv9w/d56W8AZsQxzG7FRCZSAivcGxV2FqPiqw8BmEdEEakss/Jp+aWEZeHJN
-	 Bfn5XOByoTlqutaHKr6NCyzgHg2l0cHbIkX6kQeS380ULNia4+WoamP0tU/VFeLAhJ0ZI
-	 gvLbhimscqvylo0LcZJwenwA3rGDn7QeBO5rDqMR9OodgmycgagUDdBpWXP6ckdeUFayS
-	 fRTqKFEQN5JveMhG5vM1rJPGNd8PY+zljfPqAlIStswCBqxHE4eEaiu9TzquDZAwWsNDS
-	 mOpBK5OLjyJeS7e4Fd+c6y+bqqpoZawAb01VZZ+p0yEdXdnO8KOBJ73AfSntRxZs1JQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792783899;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ssiACCz8iQhHfav075HToQsQkWyrJS6OaxDAqF1b0sE=;
-	b=SGBUI8ZvHU/CkOX5WHKC+kIxcbkFmiUV+mn8yxgL6RXH6uUZwpreWDeIXyjqVH50jxmv
-	 /8LKJDuV/eMw6DLoxDSPKJxj4SUgfIyRA/MXjzTAVNgIqgbJYXXbBLg6eC1xsa85muyGl
-	 63+iyXkLtDonYoreNfHwjwEVDBoEhwp7np7XVluhInIY4tthGzTOg7oGlMX0onnqTSe+P
-	 PzhT5nHv6Mv2LLuamZ78/jBpY5D4v/JHl8YOgtvG8flpgz5gbWL08Wt+woswrBH41THoj
-	 +uM8vHIz8M2cafvh9HSbgXccTRFBJlO+25HLfOMnUrbih64YQUBWTXKQjLLoLXXXlJA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fM4pp+17;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.175
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com [209.85.208.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792783905;
+	b=V3kcjxlsvX+kjXmcMWnuSLUIgF1LUHGXfUahCC0hpcRI3qzzXsIqKCoRohcBMTCTM+rN
+	 caIJ1n5Kx268rQuGwAAXn2R9r+Y079eXE2Cku5Wmwl9WM2GJqqom+GrqZwDzaMSivnMr4
+	 4l7Cb/EwmNBaU7lx56ezHQ9vtbOkpvNmCnGZRuC3nU8BPkeqX4SiS6ScKGwOLqQjgUiJ2
+	 fiy/5mgmm3/5gyXFDZrM4RAkmib7IjHn6EH+MsLuKEg2tIexew73FDalIuCmeJ+x4fY0B
+	 SA+G0LpsMWOyVuF3FseCuOwcwzW35kGA8DHRmJnsG+yldqDV3ioEarPQgI0aWpjjMbg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792783905;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=ggr/VQhdQP+lPE/D1sHGykkWE4SyoiDv3FucKYLEUgs=;
+	b=4D/KLCK3jf0BkCVk4r9F18gMTB0V01opgeq+EYihrV8dWOc+5VfWK7AwgfCamkCaiEIO
+	 oaXSwvCAWoEg4SnOCTTAFEVInJaLBsFO5Hde4S4HPiEbrmvMGhex+u5D18YgrE7QawzOF
+	 4up//lTDtE+uqjI/5GQO8QENkdaiAHeUTSMyCepV1vL+IvRipPqiJ/TswyD8KbyMrNLGw
+	 tkyTsjax9fSScAJiC+OEASbanUejKA18kR34h5yGAB+THqeJwSNkx0M3IXequu5k6YU36
+	 Oi80Ib9zh4zwoRT/KsmNBL0SdvO8vW4gWuRvRVxICf+k6N9rr+lm9UQGO2CpGaPOmzQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nK1JZKAi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF2A606A31D
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 19:31:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DF2A606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 467DC606A31D
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 19:31:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fM4pp+17
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3ab35e31f6dso19860831fa.1
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 12:31:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792783897; cv=none;
-        d=google.com; s=arc-20260327;
-        b=G+Ex2GtkCsefPCwtH69jJt3bcd/jR1wRUbvHbX21lYO0u9eAywHwg5Fn1Xaju7ixr9
-         /1bD/oa02TqhOZppA87h8alTIAuSQqEaz9ETm21m/nO3vb52l1jzp/A4Yd4hwCg5TnBo
-         h3GkCjywUpdPIWgHwMY4w3ojW6peTWmyFSyez/Qzg4kSvjKsKNTzH2nl1FdtjwRAgVJN
-         0PfBpXSsJ7ki3R0kuMR99nYymyLznmgJbUu8YCuB70Svucl/KhVvzFixtm3ezrEYBkUy
-         Ljm/kboGmbOg7otyu6fXFk5OJOmY8JtDAfotz5uJZbWKul9mHSBVDRSynmnE9qtuBgGA
-         Sm4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ssiACCz8iQhHfav075HToQsQkWyrJS6OaxDAqF1b0sE=;
-        fh=b9iKsdonHL8Y6WddW0t/j42Ne9/WOnJRr/dMt5655Es=;
-        b=Ddv+BSS4sYjoMJ45soXTnZtc5bo4Ll9xNzh3vTZUyNg6y2TAOlCjto1pF+cGNxUeUw
-         iNiB8SADPcOr2JkoqcZ+aPe0i7otA76r8mCWcWGV3dsd9D7QQKLhrFDJABRZKb+7h7zi
-         PQvcL2STxd7muP6yG1urHhIro0zNz4qhaG9C3XCth6VJ/iCL52zLylKqvFxjBVGa6CuT
-         GRqEuTGw+ecbN+Z2VArr29/E14fuYCuzBTZ9h0/apLbkf2VbpiVTXhO9z4Ux0Idzqt5+
-         SYODfWVKokOkhB5xq7vG+f+6BGJre/r27LTYjIyTIUbXBCZ6IR86J1UWwmadVzXKcrAz
-         Hd5w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792783897; x=1793388697; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ssiACCz8iQhHfav075HToQsQkWyrJS6OaxDAqF1b0sE=;
-        b=fM4pp+17mA2W5prd1gKXs4asXj+KvPItU/RBUMEhZBpKcMtyDq5558E6+66GTgP1fG
-         yPKZv9p894NBLrzFa+5RYs4AFfJXQb/o7xpkKp32dvCtr97FsbmkihOmGUCCLhtxuu1r
-         GOGGXG96BmHYxArM9K4Fp//exMojM+ADNW4fYADcQBAlhhRKIiP/l9p7o5PkEyYXoz7m
-         qHoycI7yEMC3U6Gxb1Tx/tM5ah1iu1duxm7tAK9BOKyejnzdQSUs7CjT1DAzuiaeHvMo
-         R9tUcZKEYc8478yFiI0J5VyfsrV2pe3l7c8HGdX6rJqgo9USGvkieX6t5SEIUHqNk4Yl
-         DTeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792783897; x=1793388697;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ssiACCz8iQhHfav075HToQsQkWyrJS6OaxDAqF1b0sE=;
-        b=lXaM1iYlqyLY9csKX55/996DOHMy8ejoMuNYAlOGHbU6EeybxAM23mD9pHiHUaOQV8
-         VKBkwsCD9mN2+UcVM99WrmjMlQTQnXR/Xd8ESVcm5hbbSYCV46VeTNUSrei62onN7MbW
-         HEpmIFoEROqMxOMIrnKp49YtqQCbUZj70RkYYUnEukOgZTxy6d7U8HvGI4ozeVrtwRJT
-         qqBU8S04+ckGtFadpToUEqXSEUrQzP4RxGIliVNnapG8qq4Yzk8sv+h+l7WMYDTlrIZY
-         txBvkCNmhBY/aVLiJv0MhopEFYh/Cf0meoIViDRhNv8ju2wiPkOQwTYFu1tBHXgVrsCq
-         1mVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz3eyad3iv0NIH3kjV0THjTs5XBi5pD8DsOY0JAJOV9MvWl40ib5vq7jC0XORcrYzcvCn4TanM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJaVAUEhuwTnoaUt+tepdNR3y5C5wwpfu4D6lsX+bH2V6dC8aWX
-	GGaJePXZV+Lr1sM077RxpBSZwh/vV3A6W53TDXywkZjFOBs2NCYFa215ipsjhgJY/7wlbqrqNkV
-	xLGlkpeCoU6XTIRU5AGCi5PExYsN8SaQ=
-X-Gm-Gg: AYBFou0Vkjm7DWW0hRMA/kIu13KjNnSbas0Nh+ROMz5tnL8n0YX0J23CtxqrUQBRLO3
-	3VMI+z9EmsxC3V1K8Ts0iyqAfX53qIlRqHtyVyfYc12lQKeyKY7VOQp1VNB0AtwLO1lDPngCvTp
-	dhA6qug5nSNFo+ghtGxYLX1W0WUQyANHodPPA84pq6PvxItHNmIWSs/7K5mYYzsgt+BZby9oeR/
-	zFnd1/9h2u1I8sMOd3bQHqDSpKgHQZDK/7dna446oRPLiImLCyqdtwwlvXkbEOd+bfk1ht9Tha+
-	phJEjQa/WcOGrUmFKSCuwOEesViNDHuNMxiqYMJp8JdBdVCrtSPGC2a6/wW3mhqOSmr01agSNeV
-	5Vq+bRZGnAvR6I1ATCsFLTdQnU3DffTEUWk5FHamSI/NWx71wmJN/7z4+hSOhkRxVZSObOUxeA/
-	ZY43v/c5Sq2+GKaQ==
-X-Received: by 2002:a05:651c:31c2:b0:3ab:1dcd:934c with SMTP id
- 38308e7fff4ca-3ac6fde7f59mr484421fa.1.1792783897356; Fri, 23 Oct 2026
- 12:31:37 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nK1JZKAi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAADF1F01829;
+	Fri, 23 Oct 2026 19:31:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792783905;
+	bh=ggr/VQhdQP+lPE/D1sHGykkWE4SyoiDv3FucKYLEUgs=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=nK1JZKAiCQ1Y4Z1NyzCgfg1NFxnyORxkbFkTRUuIyGEAKbPDl+22dGrNny1+O6WWD
+	 B3xHCH33l99tE2CZRCI4XkNoTqShU8yskTHVUI8edcIjswDChj5fbB7ks3ZTIq2Sqp
+	 AnUzgg2oU704qpv6vrrjSO+KsU6da6ruqZHunOUbk5ve8uRZ9/ZfUOqhuW8kbmV2vf
+	 89N3jM7sbzATuh3TUe7eN57o7H5JCVfjXmOvCA1ymXubuRS8Z/+u5US17Cbd1rYQaX
+	 +eIUU2QkLS4z6mQhuIenERpPFMpPDQhlUjBnwKXOMsBDMwjPAdssQU0rR+8O8MtnTi
+	 0WGS7B5kAVGjg==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id E426CF40067;
+	Fri, 23 Oct 2026 15:31:43 -0400 (EDT)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Fri, 23 Oct 2026 15:31:43 -0400
+X-ME-Sender: <xms:H7bbakkxEDgyybWMuc9-02sPY-gpZvRMx_gCSqLSJs1vf6Clwl85Pw>
+    <xme:H7bbauplBwSHm2c3_inLEN1MAk4FNYUggj-GM2c6us2UtGyrQFyaIpdisfXVbXm9G
+    rYwnaeCv_hpY7XbSwzo-KXZVmVuR685RstgMoMP2tCL-mQfn_y9pLE>
+X-ME-Proxy-Cause: dmFkZTEzkoJfQL7/iSb54XjHaX9ewOb08c9bIZid7L4WnKVNmwJaMtH7xOus53ANN/L7xf
+    wyfclulp08ivY2KA2dERjZaXRzqyaErPrZxd7oj69nFOwKZlxo0XPR1t8Q7rJNsgpRF3eI
+    RRgejklr1RnJfqxJLH3de/PCSMPkbYfbKY1cd6csd0SEkf2TizDhfEWCjoPAKq8JDoak8T
+    G0u9/S5c7N4HCHn4x9B0FRrSMPCNgl/wGDci5Eh4Iu2xpoNB+D1eXzVOuCbCmFCQGMa9Y3
+    g1SBfnsyWuMsnKsA1W5iX/sOqaaNTi2jwQfcnNkPO070Vd0u6oD2VS6YrSRU53xNuxqErn
+    mL0KJ30Sxpx44wQeh47Rnr6vxWVvthsMF7uKxJc1N10Idn3g5A2JpaelG41GinaP4dbdXi
+    9yfV3pVJOw7GPGAFsvNujapKdd5LVb+vQK5Dd4L+eN6ApY/97+bYMlN8Ptlpv+Zz1SQpLj
+    Llyem2k5DhPk08znFVfxmSwcO0LMDLl/y6s+Pib5xwvTM8nlxmh31CAgmTi9NX+l1WPfVK
+    P7TgCr/ePtyernHY0r+t2wudIv0rRrzu5hI0hKst1tTvl2zAUpbSU5nnhOO/3TPZc2IcXx
+    1pzN2G22Q7c1s6WL0A9XlVNoQYz4kGnFZC3rWM69lNOBZqvx8BRzzSChDEyQ
+X-ME-Proxy: <xmx:H7bbap3vrbaRruijTAnhRzuQGwm1sLNLGQjSt9vhcp__wqeequYmQA>
+    <xmx:H7bbaseT8liqPDDNDR8APsyu9ZgMf463y-eLjq-KZNHfv68UVA02ag>
+    <xmx:H7bbauVGPeAIE4BCO6ArtkeRVsbA5qw2ml7xkaCydrdLJ30vMu9OJg>
+    <xmx:H7bbak8CGgAJoLvCOSEFY9jG2MB6_tmpDvFOAcN0IXfgzBNhr6WmIQ>
+    <xmx:H7bbaoiVwLhWaLBi4m5V-7ZgYXFyXOUmeQoX3YEpurVnNFn2DYHlNFdJ>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id C7958782738; Fri, 23 Oct 2026 15:31:43 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,70 +77,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023174015.54793-1-igorpetindev@gmail.com> <e16930d5-375d-4d61-9e37-94dc9a83ba64@rowland.harvard.edu>
-In-Reply-To: <e16930d5-375d-4d61-9e37-94dc9a83ba64@rowland.harvard.edu>
-From: IgorpetinDev <igorpetindev@gmail.com>
-Date: Fri, 23 Oct 2026 22:31:27 +0300
-X-Gm-Features: AclHuK-4Gcg0KL1Ua0F-idU5uezV--PxQTbQwTM_ejfi3csX_24NMPyMrJpzCac
-Message-ID: <CAG21Q80vg9LdTRmFMC4aq7j=uEPWpEFNr3+1MLLUw_UU_cjd1Q@mail.gmail.com>
-Subject: Re: [PATCH] usb: core: hcd: cancel giveback work synchronously on stop
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Tejun Heo <tj@kernel.org>, 
-	Oliver Neukum <oneukum@suse.com>, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: A2zF8WBQdH93
+Date: Fri, 23 Oct 2026 15:31:23 -0400
+From: "Chuck Lever" <cel@kernel.org>
+To: "Li Xiasong" <lixiasong1@huawei.com>
+Cc: "Jeff Layton" <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
+ "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <Dai.Ngo@oracle.com>,
+ "Tom Talpey" <tom@talpey.com>, "Trond Myklebust" <trondmy@kernel.org>,
+ "Anna Schumaker" <anna@kernel.org>, linux-nfs@vger.kernel.org,
+ linux-rdma@vger.kernel.org, stable@vger.kernel.org, yuehaibing@huawei.com,
+ zhangchangzhong@huawei.com, weiyongjun1@huawei.com
+Message-Id: <6d50ff7b-6765-4e83-92dc-009a571f9844@slotpi15m67>
+In-Reply-To: <20261023125033.528835-3-lixiasong1@huawei.com>
+References: <20261023125033.528835-1-lixiasong1@huawei.com>
+ <20261023125033.528835-3-lixiasong1@huawei.com>
+Subject: Re: [PATCH 2/3] rpcrdma: Pin notifications during removal callbacks
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Hi Alan,
+On 10/23/26 8:50 AM, Li Xiasong wrote:
+> +static bool rpcrdma_ep_removal_get(struct rpcrdma_notification *rn)
+> +{
+> +	struct rpcrdma_ep *ep = container_of(rn, struct rpcrdma_ep, re_rn);
+> +
+> +	return kref_get_unless_zero(&ep->re_kref);
+> +}
 
-Thanks for looking at the patch.
+Before this series the whole ep could be freed under the walk;
+that's now fixed. But now that there is a get/put pair, it seems
+natural to close the remaining gap here. rpcrdma_ep_removal_get()
+could also take xprt_get(ep->re_xprt), and rpcrdma_ep_removal_put()
+could drop it with xprt_put(). xprt_put() defers the destroy to a
+work item, so dropping the last transport reference from inside the
+removal walk does not recurse into xprt_rdma_destroy() while the
+mutex is held.
 
-I think the bot caused some confusion by talking about stranded URBs.
-There are actually no pending URBs left on the list at all. The driver
-properly killed all of them.
-The issue is a race inside usb_giveback_urb_bh itself. The function
-usb_kill_urb() unblocks as soon as __usb_hcd_giveback_urb() drops
-use_count and wakes the waitqueue. The caller immediately wakes up,
-finishes removal, and frees struct usb_hcd via usb_put_hcd().
 
-Meanwhile, the worker thread on the other CPU is still running the
-tail of usb_giveback_urb_bh(). Right after __usb_hcd_giveback_urb()
-returns, it tries to access bh->completing_ep, bh->lock, and
-bh->running. Because bh is embedded directly inside struct usb_hcd,
-this access hits already freed memory.
-So all URBs are already completed and bh->head is empty, but the
-teardown path still needs to wait for the worker thread to fully exit
-before the HCD structure gets freed.
-Would calling flush_work() on both BH work items be the better way to
-synchronize this without the concern raised by the bot?
+> diff --git a/include/linux/sunrpc/rdma_rn.h b/include/linux/sunrpc/rdma_rn.h
 
-Thanks,
-Igor
+> +	bool			(*rn_get)(struct rpcrdma_notification *rn);
+> +	void			(*rn_put)(struct rpcrdma_notification *rn);
 
-On Fri, Oct 23, 2026 at 10:15=E2=80=AFPM Alan Stern <stern@rowland.harvard.=
-edu> wrote:
->
-> On Fri, Oct 23, 2026 at 08:40:15PM +0300, Igor Putko wrote:
-> > When an HCD is stopped/removed (either during module unload, driver
-> > unbind, or an error path in probe), pending URBs are unlinked and
-> > completed. However, for root hubs or HCDs with giveback done in BH
-> > context, the work function usb_giveback_urb_bh() may still be executing
-> > on another CPU after __usb_hcd_giveback_urb() finishes.
-> >
-> > Since the caller may immediately free the struct usb_hcd via usb_put_hc=
-d()
-> > after usb_stop_hcd() or usb_remove_hcd(), the running worker accesses
-> > the embedded giveback_urb_bh structure after it has been freed,
-> > triggering a slab-use-after-free write detected by KASAN.
-> >
-> > Ensure all giveback work is fully flushed and cancelled in usb_stop_hcd=
-()
-> > by calling cancel_work_sync() on both high and low priority BHs.
->
-> Sashiko's criticism has a point.  If there are any URBs still pending on
-> either of the BH lists when usb_stop_hcd() returns, something is already
-> badly wrong -- that's never supposed to happen.  Whatever it is, it
-> needs to be fixed in the driver that submitted the pending URB, not here
-> in usb_stop_hcd().
->
-> Alan Stern
+Let's add @rn_get and @rn_put entries to the struct's kdoc comment.
+
+The kernel-doc for rpcrdma_rn_register() should also spell out the
+contract for @get: it has to pin the object that embeds @rn so that
+the owner cannot call rpcrdma_rn_unregister() while the pin is
+held. rpcrdma_remove_one() depends on that when it calls
+rn->rn_put() after dropping the mutex. Both registrants in this
+patch satisfy it, since they unregister only from their final kref
+release, but a future registrant has no way to know the new rule.
+
+
+-- 
+Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
