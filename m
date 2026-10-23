@@ -1,47 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.145.95.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792768084;
-	b=LdBQdVagYDb0p0at0XCAmLQc3V4QZWx+R+hIXf/5E9iZNXubjaj1t1USo5MAxDZmjzm3
-	 rlploI0I2/xfbQD4dTOX3tKXR4N3iWwHPVVxL8nVm10xXfGRAzcLvFun84656ZjZCaq2w
-	 xIaDaZMkUOIW2Yjfrusqq7tkLuANLTnYSi9h4b7d/8ZVcxZ+v25LZxTcQiMy+xkb1j+vN
-	 RN7W3k1yVhpOaLuOnHvp/DlQVQ+eYdzgkVs58oPj67ENgejQAznV0uqIqDyGk8K2U7qGU
-	 U6uuFT9BMdUKxXXRLxHBjoEiBLTgIDv9jfs4+ohviz881O2ikMxkK2a0m1l8OmRjZ2A==
+	t=1792768338;
+	b=Qq0q+QF+cHk/FdvXv+gR9i843tWrMJii8A11mF+0PYr0ZnvsEET4acJvS2XCz1vSpMA5
+	 j9NvmZrweHteJtCxMLjCefoKGHqqH9LYBMdowoGy6qDis5PROfCt/kNFsFY15QKMYQXNj
+	 MW7AibohN235R0Xif3bVo/qJve+QphownPo90LYG36S8OXuLW4Lg42HgFaFZEABccsm1G
+	 0Ix1U94aCt8KTxAhUrnigxUvY3lR/fnwU+0plQxhp599OIXHKtunj8gMPxyhR8X68LG86
+	 jhNKyG7C43qzUg9GDmXTesDSUlhf89NTlZBJ0oQJZTrOqdAy1sjJX1WCIoNNS/sf32A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792768084;
-	h=DMARC-Filter:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 X-Clacks-Overhead:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=qdrUlsvoldYcUDWpeedZVww31s/jOKEn4B4s+rGecvs=;
-	b=GgMPxxz1+zWLOyPQO1zma02Uv+5GohBhSoIjg4CgAqVNHAXSb9zgD7iayOPpCfY5svdi
-	 QlE0bkBCpfu+xqCSNb6zjGfEEx3L7LUukrSneCnic8egfZ9kf2LHFBjBJ4IbRijRHb0I6
-	 nqPNCQv63Yp6s8sRG4JdCfetD9lZgmXUiUJm2kAWoQQ0rWuZuBu2yhF/jyT40MvyxEMvI
-	 0FU/2bdayNuqk46ZXhOefz0cn6gptF7NR6kZ1UvEnBXANVEdDeyZUncLJr8RINPCgZZUn
-	 SEuyEy9Vkg8nhMMsQ+8d+vaZ2YDrDuTxh8Upe/YcAf0qQpP0z09HlkWvM3N1kafBeJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792768338;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To;
+	bh=/nChdOq/b/gyYFhyjIipIGWStlUHbMLmpH6JMhnlOpM=;
+	b=FzmoOYvk9NRsrWwWm2XHat6rWp9bk49ViGDnD8jnxvxMFEGqz6uRVAs+9UW+pb868zqX
+	 4rIpA9OWDX9+IE/9mJfN9ghWN/IF1206Z7V5r8nxG3pky23fmQJyLPIiIVzierxb7pvGr
+	 ey5PNfQzXiRoWQuNnzAYrks8qBClr5VK8ys7NIvHTiPuFPsYPdpNGd+wfMLQWep1e3V40
+	 2n14tDgfrftc756iFBMt8ejcqsHlw8SHNNuwZeu95Y6RvLMw0Sl/9TwuZB1B2nKRAekZc
+	 xgDTsx6tjnA2UWDgJEWDhiv7VCfp8ABWoI6+OWEg062I9k1L00u8290kLLu4zhUdBcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=toke.dk;
-	spf=pass smtp.mailfrom=toke.dk;
-	arc=none smtp.remote-ip=45.145.95.4
-Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=colorfullife.com;
+	spf=pass smtp.mailfrom=colorfullife.com;
+	dkim=pass header.d=colorfullife-com.20251104.gappssmtp.com header.i=@colorfullife-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=XFQA8qEt;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D70606A31A;
-	Fri, 23 Oct 2026 15:08:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84D70606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
-Authentication-Results: mail.toke.dk; dkim=none
-From: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
-To: Mehmet Fide <mehmet.fide@gmail.com>, "Felix K." <fk@mutemail.de>
-Cc: linux-wireless@vger.kernel.org, stable@vger.kernel.org,
- mehmet.fide@screeningeagle.com
-Subject: Re: [PATCH ath-next] wifi: ath9k_htc: fix beacon slot selection
- once TSF exceeds 2^42 us
-In-Reply-To: <20261023135126.4118569-1-mehmet.fide@gmail.com>
-References: <20261023135126.4118569-1-mehmet.fide@gmail.com>
-Date: Fri, 23 Oct 2026 17:07:55 +0200
-X-Clacks-Overhead: GNU Terry Pratchett
-Message-ID: <87wlr8qwtw.fsf@toke.dk>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE0D2606A31E
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 15:12:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE0D2606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=colorfullife.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=colorfullife.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=colorfullife-com.20251104.gappssmtp.com header.i=@colorfullife-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=XFQA8qEt
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48c4d870d54so680393f8f.2
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 08:12:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=colorfullife-com.20251104.gappssmtp.com; s=20251104; t=1792768336; x=1793373136; darn=vger.kernel.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/nChdOq/b/gyYFhyjIipIGWStlUHbMLmpH6JMhnlOpM=;
+        b=XFQA8qEt8ByaOAUvLyzpvHxIa/ul77IfVhjb2qRrhv6hPJfnctOAaGmlbxG2CB0PCa
+         fUfkOOTjioqvqox19/Nmul6Q9oh+UoeJ1SsS+FeG7p4HrlUINaHpNFbQ8uTdLJg4Hxmr
+         +YRJNwDcT1cysDyftwq3afmdfTgF3Xi9cu9EGFob1/kLFHg9FkwiSPVqm6R6XfUacYDm
+         37lLFxo3296LMftonjo60A6SFn6/XD5Hsy2gkf7L7YrqkTnZwNoRksCyAcAEo/Tq0ba2
+         ezDx7sXqT5r5STLAtGXSU30mQPSV+Tt2YBkDr8ZUsW8dZzqxsgzrDyV4LnNK69cvB3fb
+         ivtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792768336; x=1793373136;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/nChdOq/b/gyYFhyjIipIGWStlUHbMLmpH6JMhnlOpM=;
+        b=CD+8vkmHbxluaMpqA8TdSqOeWqz4Y8Nmg2i0HYVdypYcLI0tJBeTcY2nK976QuUDx3
+         fySMbSMaK4UAQeJG9X989Bl1dxmGOTTaBdMJ1bwsf0slNmQfLaWpQB8EULkAh5g4L1np
+         XvCII8SpsekWt/9jGGvDYN0q7/B3TzDyDBEZc0jXbQnFR9OaIghqpwmITzLeKjGLUwd/
+         aqGjzC/RMHJt8DV6hqLQN6Z6tSra5TU8epIQDab4LLzfxPkwegch5upcjgHePaE71at2
+         Yw7qd/u5MsRAzVtXPNYTy1dytS66zl3o023HuLWeVcQL4ENqTFeKOMig5UaFjJ55uyli
+         uFsw==
+X-Forwarded-Encrypted: i=1; AKwUvByFw4L8gR4DSmwelo3VxyVMzOJ8/iAv7DIuxbI+zkQ5aNk35Zzrug8hrM/TTLqLk/6a62xyui8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIPyAQ70sjz9bB3WqGweKM7WacX/eN6sRUvpNeen7UbP92SOt6V
+	E65M+BbCIS4QqUjdtX0yN80ekTf5QrU+HkUpoLfFkcr9fipwcAINGq7cTAv0yy9sdA==
+X-Gm-Gg: AYBFou0DNbwyE+LPiFa18Q66t7B3t4j6GK1H4d5G/UIKsEWFLKQ7hWKZjvQokMAbgy9
+	iWMSGk3UFVHyDZ00zYkNxIpBJNxbRNW05mxOC4TKrJJTrG+zDrNC2j8crhmG3BaI1j3kSXiJbJM
+	ORanpleFqoxdDLSiyrCcQCSG0bSVlZCvLGmhTui2NAWMcH6VGhkO58addHKvlrowl00IJUn/SJ4
+	cwzrSLiEfVDvveDeH818uj96cxJ890B/xFY8tOM9YAKFJPAtSpXftGY8J1XeqyyVRfA1GNKmsu4
+	m3cTMvgUPNHs66rCe+20iiYG98sdgpcifkbMeioD/vsY95k7gft/MK/ZMwaIdx+GwmorCdK9BP7
+	96rVctfXiLC2LYbJT2+jTgFubPdZMc87nwbAGN4mVLYDuCyCfIJ+HnjxaIevq/Qqqfp1yK4z3b2
+	vY9r4HjKrgyCO5DyWSlkShq35cNNxQ8UuAKUx+dk3gmWxPyAYFnYe8MockdhlMQ0h8P7Rsg17Wt
+	HDO5fUmMGZKVCuBmn9OacXPPbgJTBh8Jyyd5+dXQg03X0hemlnCF803hd/y6VjSwVDz3TXkSD6w
+	Y22bFjtgrVf1bOrAus85N4OAVjo87CZ480rIvpFzzhuJVQkb0/CrdbbJnVdgw2oXvZL/PXE5dX1
+	VxlFJfZVZ1/IrcQE=
+X-Received: by 2002:adf:f308:0:b0:48d:b650:69aa with SMTP id ffacd0b85a97d-48e387ea74emr3047183f8f.50.1792768335827;
+        Fri, 23 Oct 2026 08:12:15 -0700 (PDT)
+Received: from ?IPV6:2003:d9:9707:8b00:3fa:3a3e:198d:ab69? (p200300d997078b0003fa3a3e198dab69.dip0.t-ipconnect.de. [2003:d9:9707:8b00:3fa:3a3e:198d:ab69])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3d40e830sm347543f8f.35.2026.10.23.08.12.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 23 Oct 2026 08:12:14 -0700 (PDT)
+Content-Type: multipart/mixed; boundary="------------lWpYfqxAIT1R3O0UqvedLtQH"
+Message-ID: <24afe3f2-8cf3-4182-a5ba-951e3b574f12@colorfullife.com>
+Date: Fri, 23 Oct 2026 17:12:11 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,22 +92,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] ipc/sem: reject negative SEMOPM values
+To: Yingjie Wang <x-professor@outlook.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Alexey Gladkov
+ <legion@kernel.org>, "Eric W . Biederman" <ebiederm@xmission.com>
+Cc: Vasily Averin <vasily.averin@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Shakeel Butt <shakeel.butt@linux.dev>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Michal Hocko <mhocko@suse.com>, Alejandro Colomar <alx@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ "cgroups@vger.kernel.org" <cgroups@vger.kernel.org>,
+ "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
+ "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+References: <cover.1792724953.git.x-professor@outlook.com>
+ <4fc7f5cb6bea186c5266415fcadb7e26c7738a85.1792724953.git.x-professor@outlook.com>
+Content-Language: en-US
+From: Manfred Spraul <manfred@colorfullife.com>
+In-Reply-To: <4fc7f5cb6bea186c5266415fcadb7e26c7738a85.1792724953.git.x-professor@outlook.com>
 
-Mehmet Fide <mehmet.fide@gmail.com> writes:
+This is a multi-part message in MIME format.
+--------------lWpYfqxAIT1R3O0UqvedLtQH
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> On 2026-10-23, Toke H=C3=B8iland-J=C3=B8rgensen wrote:
->> Mehmet, any chance you could test this one? :)
->
-> Tested on an AR9271 (firmware 1.4) as an AP, 6.12.113, with the TSF
-> moved forward by up to 23 wraps of 2^42 us. Without the patch the
-> beacon goes out half an interval off from 10 to 22 wraps; with it, it
-> stays in place throughout. Beacon count and a connected station were
-> fine in both cases.
->
-> Tested-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+Hi Yingjie,
 
-Great, thank you! :)
+On 10/23/26 5:19 AM, Yingjie Wang wrote:
+>   
+> diff --git a/ipc/ipc_sysctl.c b/ipc/ipc_sysctl.c
+> index d038d944257f6..2a542f838a530 100644
+> --- a/ipc/ipc_sysctl.c
+> +++ b/ipc/ipc_sysctl.c
+[...]
+> +
+> +	if (sem_ctls[2] < 0) {
+> +		ret = -ERANGE;
+> +		goto out_unlock;
+> +	}
+> +
+> +	ret = sem_check_semmni(sem_ctls[3]);
+> +	if (ret)
+> +		goto out_unlock;
+> +
 
--Toke
+The mixture of an inline sem_check_semmni() function and inline logic 
+for semopm looks strange.
+
+I would remove sem_check_semmni().
+
+
+Reviewed-By: Manfred Spraul <manfred@colorfullife.com>
+
+
+--------------lWpYfqxAIT1R3O0UqvedLtQH
+Content-Type: text/plain; charset=UTF-8; name="all-inline.txt"
+Content-Disposition: attachment; filename="all-inline.txt"
+Content-Transfer-Encoding: base64
+
+ZGlmZiAtLWdpdCBhL2lwYy9pcGNfc3lzY3RsLmMgYi9pcGMvaXBjX3N5c2N0bC5jCmluZGV4
+IDJhNTQyZjgzOGE1My4uNmJmYzY4ZjA0MzUzIDEwMDY0NAotLS0gYS9pcGMvaXBjX3N5c2N0
+bC5jCisrKyBiL2lwYy9pcGNfc3lzY3RsLmMKQEAgLTcyLDE1ICs3MiwxNyBAQCBzdGF0aWMg
+aW50IHByb2NfaXBjX3NlbV9kb2ludHZlYyhjb25zdCBzdHJ1Y3QgY3RsX3RhYmxlICp0YWJs
+ZSwgaW50IHdyaXRlLAogCWlmIChyZXQpCiAJCWdvdG8gb3V0X3VubG9jazsKIAotCWlmIChz
+ZW1fY3Rsc1syXSA8IDApIHsKLQkJcmV0ID0gLUVSQU5HRTsKKwlyZXQgPSAtRVJBTkdFOwor
+CS8vIENoZWNrIHNlbW9wbSByYW5nZSBbMCwgSU5UX01BWF0KKwlpZiAoc2VtX2N0bHNbMl0g
+PCAwKQogCQlnb3RvIG91dF91bmxvY2s7Ci0JfQogCi0JcmV0ID0gc2VtX2NoZWNrX3NlbW1u
+aShzZW1fY3Rsc1szXSk7Ci0JaWYgKHJldCkKKwkvLyBDaGVjayBzZW1tbmkgcmFuZ2UgWzAs
+IGlwY19tbmldCisJaWYgKHNlbV9jdGxzWzNdIDwgMCB8fCBzZW1fY3Rsc1szXSA+IGlwY19t
+bmkpCiAJCWdvdG8gb3V0X3VubG9jazsKIAorCS8vIFRoZSB2YWx1ZXMgYXJlIHZhbGlkLiBB
+cHBseSB0aGUgY2hhbmdlcy4KKwlyZXQ9MDsKIAlmb3IgKGkgPSAwOyBpIDwgQVJSQVlfU0la
+RShzZW1fY3Rscyk7IGkrKykKIAkJV1JJVEVfT05DRShucy0+c2VtX2N0bHNbaV0sIHNlbV9j
+dGxzW2ldKTsKIApkaWZmIC0tZ2l0IGEvaXBjL3V0aWwuaCBiL2lwYy91dGlsLmgKaW5kZXgg
+YjE0OGI1ZTE1ZmM2Li41MWI0ZWZhM2Q2ZGIgMTAwNjQ0Ci0tLSBhL2lwYy91dGlsLmgKKysr
+IGIvaXBjL3V0aWwuaApAQCAtMjQ1LDE0ICsyNDUsNiBAQCBpbnQgaXBjZ2V0KHN0cnVjdCBp
+cGNfbmFtZXNwYWNlICpucywgc3RydWN0IGlwY19pZHMgKmlkcywKIHZvaWQgZnJlZV9pcGNz
+KHN0cnVjdCBpcGNfbmFtZXNwYWNlICpucywgc3RydWN0IGlwY19pZHMgKmlkcywKIAkJdm9p
+ZCAoKmZyZWUpKHN0cnVjdCBpcGNfbmFtZXNwYWNlICosIHN0cnVjdCBrZXJuX2lwY19wZXJt
+ICopKTsKIAotc3RhdGljIGlubGluZSBpbnQgc2VtX2NoZWNrX3NlbW1uaShpbnQgc2VtbW5p
+KQotewotCS8qCi0JICogQ2hlY2sgc2VtbW5pIHJhbmdlIFswLCBpcGNfbW5pXQotCSAqLwot
+CXJldHVybiBzZW1tbmkgPCAwIHx8IHNlbW1uaSA+IGlwY19tbmkgPyAtRVJBTkdFIDogMDsK
+LX0KLQogI2lmZGVmIENPTkZJR19DT01QQVQKICNpbmNsdWRlIDxsaW51eC9jb21wYXQuaD4K
+IHN0cnVjdCBjb21wYXRfaXBjX3Blcm0gewo=
+
+--------------lWpYfqxAIT1R3O0UqvedLtQH--
