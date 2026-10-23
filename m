@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792757850;
-	b=oHxY34IfjQ+4itU5xwVRtekteH9ubS4IB1a7yz+Iwnniur5LfxkebkkTpg3aOfug/cKM
-	 LBhNVMWw97AS1jjk301FtYRxPTURYwdQb/4451k4s3Ax3JiYBthqbLNq51jzyhrEMl5v0
-	 DjZYMDtkKAsFDvNZuHahA2krvza89LW+rRVH3io7cTn6vqW/T0JtmyLqwydGPP041s5L3
-	 gYflRn1SlCUyXkiBZCJTRMqviXf6lYXpXNzwwTnmWYETkUgwgiGrZejOdgitpgZ8IWIrG
-	 gWKRUGHy8Uoq6RQWubFEqt7YLygj0htQGtSRsNxJhgVlTkUScQefCDbAdkN3qvIHFEA==
+	t=1792757851;
+	b=poKZTc3qs1/joJF2GPgc7gbUOPY+BHS9ouacAT/35f+mCGL6ioB7d8tQngKm4sKToJd3
+	 MRmkLY2UwjEGO3oykHF/c9Lm5CjEo8sjPhlbQcPFazBhWvQsdXtHl5XjUbDuui4U3n/W2
+	 q/Y1a9oWIXjo7Tc+f6f8bUpJn1Z9W/Qhdl8U81OAJ1mq9lsuFj64zMHM3MJ/a2Ixzn0FX
+	 Lf7kDiHgPnce3ODKKE76tsWLjTiiajKrk10Ioroned1HW74+BPfzRaNyKX1uRHslQG1PA
+	 jcAGxMhISTahXHZizNhMt4q9D8lFYso5yGWE6Rc8P4XQZ44QehJ1zff4K89cIi2SIuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792757850;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792757851;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=zZpTPkiBERa1gkk+1x09PUsmxHeLtWaobOySTB7HP+s=;
-	b=tIrCGBOtlHZ4eBT8U5ze9ChrvU9qx3gIN0Wybg6xtX9nWMiuTX+QpYyi9jabcmeAh7jz
-	 htPJ/YYAT9R4GmENb7ByIe1q36qbfuxlJvLFnW4UwPjqhNvO9nahdA6mJ2ctS/ZDfocJY
-	 EM1rlvrrmZtZd3RGuXfo3QoUJ8nt+Jv22n+XhV7abkK3tK4e7wY/Hppb+WPntJQIzcXFE
-	 J+DRqaHUF0yRoDZlPzeLl5DoQPI3l3trWy1bNbn5A5lXsG+k+9wvJxaqi/zGPMZamsvvo
-	 MvCSfFl0x+GwtWLDVFdSNNjmMLfJrZYJ1lrzO/r7luG6uNVJLW+jZFNzL8BzbcAs2kQ==
+	bh=ZS0tn8pzkY5HcTliLlyUVVAHnTt7rsmSXjxCSEoW0tY=;
+	b=2xu9nTIyuSPt5QQ2eh/FYcV/uCWIgZwMaj/1Dx9Wrsrpz00zOD9or6pvVqifVKpNuGDL
+	 S+kG1T6qLgbvEn3ACPWIM2Gypb7w6HqQXUKhjQoizo1x1hBW4fk5wcmw2Yby/q6lFqnSZ
+	 K7RwI8vFw58MRW9gI9kneK+Mwt1YN1kJjYD+4DoHD0txXlohMwbcasw7ghbCz7VK9EuSU
+	 cYtAM0nlNqj+6970rZOohcusy9V7OYW2o9rMH/nneLBCnLGUsDX7+QYPlIC6/KVCeXUwT
+	 WiRZbMImffYWfgLrQJplCOO/wJz5DWjiqA4Otc/tleCSxRtb9Af9u1bbrSkLENFcikw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FiM3ICOG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VGsDioPt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3B6960A3829;
-	Fri, 23 Oct 2026 12:17:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3272460A382D;
+	Fri, 23 Oct 2026 12:17:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FiM3ICOG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AD531F01825;
-	Fri, 23 Oct 2026 12:17:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VGsDioPt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50E961F01825;
+	Fri, 23 Oct 2026 12:17:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792757849;
-	bh=zZpTPkiBERa1gkk+1x09PUsmxHeLtWaobOySTB7HP+s=;
+	s=k20260515; t=1792757850;
+	bh=ZS0tn8pzkY5HcTliLlyUVVAHnTt7rsmSXjxCSEoW0tY=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=FiM3ICOGK1rGA1r/nlGEPefMmZqLMGTbrct+EQ717pyZ3VMIPn2inPXnpYEKvJX6K
-	 lcvpmMbxCfBkjANbcZgjz+wJXfg4PIaQLJsl2VpG/SitlNEnaArNLTAbrIbI1jvnbO
-	 aR6bY3h5w9jErqk2aATc9C7y969ObzngS5iPk40mn8h3eD5k3bGa3Twsb2cD03LTsH
-	 uIPjIlZjVBZm5EhzHwtw1DDJ0f0Qdr8xOXO6NpbafUYv6eJ6YrF7cGgwWMpgOLxePB
-	 wWH5ZPa9NShabcpmqEPYUm9duJuLQv9MTkuktQs3O+zNe4rPxZlezkuX9i2Ntu7yQx
-	 osRc3CmBIlRLg==
+	b=VGsDioPt2yF8NSWQwxO6dGAiED0swBBTttENZgSF5VJMprvGVzbkmlqIPI5N+ePko
+	 ySymTd96KuQu+MGJi5ufr3fw4Wsv4OmyEfPCSNwTVDSorJpGMgiAA9iRGwqvQpBYfa
+	 7rs2vd1l2W4oQuJvF612JUWeeEdgdIIsJMLnLqi33j/fgDZIZDWSezGnbyr7CxBSRK
+	 0buO91fKABTT4g0/XZcWX/39eljU3moUSj9DITvkHPY7PA146Cx3fCzf5x0p1NSHZE
+	 jVCQ/M/JshqV5wM7PlaM29yl7Fm4uu+h3OWDrhxx2UCsBZkBcMocGZJdnYSWw9wHUQ
+	 FrzDKWuH14j0w==
 Subject:
- Re: [PATCH net 6/7] ovpn: fix TCP TX accounting for locally dropped packets
+ Re: [PATCH net 7/7] selftests: ovpn: avoid calling freeaddrinfo() on NULL
 From: netdev-bot+sashiko@kernel.org
 To: antonio@openvpn.net
 Cc: netdev@vger.kernel.org, ralf@mandelbit.com, sd@queasysnail.net,
  kuba@kernel.org, pabeni@redhat.com, andrew+netdev@lunn.ch,
  davem@davemloft.net, edumazet@google.com, stable@vger.kernel.org
-Date: Fri, 23 Oct 2026 12:17:28 +0000
-Message-ID: <179275784882.3134.8206640580518712230@kernel.org>
-In-Reply-To: <20261022121606.732029-7-antonio@openvpn.net>
-References: <20261022121606.732029-7-antonio@openvpn.net>
-X-sashiko-severity: High
+Date: Fri, 23 Oct 2026 12:17:29 +0000
+Message-ID: <179275784988.3134.15557022121900385681@kernel.org>
+In-Reply-To: <20261022121606.732029-8-antonio@openvpn.net>
+References: <20261022121606.732029-8-antonio@openvpn.net>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -64,154 +64,76 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The fix leaves a TCP local-drop path with the same wrong
-  accounting.
+- [Low] The Fixes: tag in commit "selftests: ovpn: avoid calling
+  freeaddrinfo() on NULL" names the wrong commit.
 
 --
 
-ovpn: fix TCP TX accounting for locally dropped packets
+selftests: ovpn: avoid calling freeaddrinfo() on NULL
 
-With this patch, ovpn_tcp_send_skb() and ovpn_tcp_send_sock_skb() return
-an error when TCP cannot take the skb, instead of freeing it. On error,
-ovpn_encrypt_post() keeps the skb, counts the drop and frees it, without
-updating peer TX stats or last_sent. The TCP release and sendmsg paths
-now count and free the skb themselves when these helpers fail.
+This patch changes the exit path of ovpn_parse_remote() in
+tools/testing/selftests/net/ovpn/ovpn-cli.c so that freeaddrinfo() is
+called only when result is non-NULL. On musl, passing NULL to
+freeaddrinfo() makes ovpn-cli segfault.
 
-> diff --git a/drivers/net/ovpn/io.c b/drivers/net/ovpn/io.c
-> index ce1993b243e6f..eb9ba709523ee 100644
-> --- a/drivers/net/ovpn/io.c
-> +++ b/drivers/net/ovpn/io.c
-> @@ -287,7 +287,9 @@ void ovpn_encrypt_post(void *data, int ret)
->  			goto err_unlock;
->  		break;
->  	case IPPROTO_TCP:
-> -		ovpn_tcp_send_skb(peer, sock->sk, skb);
-> +		ret = ovpn_tcp_send_skb(peer, sock->sk, skb);
-> +		if (unlikely(ret < 0))
-> +			goto err_unlock;
->  		break;
->  	default:
->  		/* no transport configured yet */
-> diff --git a/drivers/net/ovpn/tcp.c b/drivers/net/ovpn/tcp.c
-> index 5340860c0b822..a3165580e97b5 100644
-> --- a/drivers/net/ovpn/tcp.c
-> +++ b/drivers/net/ovpn/tcp.c
-> @@ -319,28 +319,39 @@ void ovpn_tcp_tx_work(struct work_struct *work)
->  	release_sock(sock->sk);
->  }
->  
-> -static void ovpn_tcp_send_sock_skb(struct ovpn_peer *peer, struct sock *sk,
-> -				   struct sk_buff *skb)
-> +static int ovpn_tcp_send_sock_skb(struct ovpn_peer *peer, struct sock *sk,
-> +				  struct sk_buff *skb)
->  {
->  	if (peer->tcp.out_msg.skb)
->  		ovpn_tcp_send_sock(peer, sk);
->  
-> -	if (peer->tcp.out_msg.skb) {
-> -		ovpn_dev_dstats_tx_dropped(peer->ovpn->dev);
-> -		kfree_skb(skb);
-> -		return;
-> -	}
-> +	if (peer->tcp.out_msg.skb)
-> +		return -EBUSY;
+> ovpn_parse_remote() always calls freeaddrinfo() on its exit path, but
+> result is NULL when no vpnip was passed (with or without a remote host).
 
 [ ... ]
 
-> @@ -348,16 +359,16 @@ void ovpn_tcp_send_skb(struct ovpn_peer *peer, struct sock *sk,
->  	if (sock_owned_by_user(sk)) {
->  		if (skb_queue_len(&peer->tcp.out_queue) >=
->  		    READ_ONCE(net_hotdata.max_backlog)) {
-> -			ovpn_dev_dstats_tx_dropped(peer->ovpn->dev);
-> -			kfree_skb(skb);
-> +			ret = -ENOBUFS;
->  			goto unlock;
->  		}
->  		__skb_queue_tail(&peer->tcp.out_queue, skb);
->  	} else {
-> -		ovpn_tcp_send_sock_skb(peer, sk, skb);
-> +		ret = ovpn_tcp_send_sock_skb(peer, sk, skb);
->  	}
+> Fixes: 959bc330a439 ("testing/selftests: add test tool and scripts for ovpn module")
+> Cc: stable@vger.kernel.org
 
-[ ... ]
+[Severity: Low]
+Does this Fixes: tag point at the right commit?
 
-> @@ -388,8 +400,13 @@ static void ovpn_tcp_release(struct sock *sk)
->  	__skb_queue_head_init(&queue);
->  	skb_queue_splice_init(&peer->tcp.out_queue, &queue);
->  
-> -	while ((skb = __skb_dequeue(&queue)))
-> -		ovpn_tcp_send_sock_skb(peer, sk, skb);
-> +	while ((skb = __skb_dequeue(&queue))) {
-> +		ret = ovpn_tcp_send_sock_skb(peer, sk, skb);
-> +		if (unlikely(ret < 0)) {
-> +			ovpn_dev_dstats_tx_dropped(peer->ovpn->dev);
-> +			kfree_skb(skb);
-> +		}
-> +	}
+In 959bc330a439, result had no initializer, and the host branch in
+ovpn_parse_remote() did not free or reset it:
 
-[Severity: High]
-Can skbs that ovpn_encrypt_post() already counted as sent still be
-dropped here?
-
-When sock_owned_by_user(sk) is true, ovpn_tcp_send_skb() only puts the skb
-on peer->tcp.out_queue and returns 0. ovpn_encrypt_post() treats that 0 as
-a successful send:
-
-ovpn_encrypt_post() {
+    struct addrinfo *result;
     ...
-	ovpn_peer_stats_increment_tx(&peer->link_stats, orig_len);
-	/* keep track of last sent packet for keepalive */
-	WRITE_ONCE(peer->last_sent, ktime_get_boottime_seconds());
+        memcpy(&ovpn->remote, result->ai_addr, result->ai_addrlen);
+    }
+
+So with a host and no vpnip, the out: label freed the valid list that
+getaddrinfo() returned. The CMD_CONNECT path in main() is one such caller:
+
+    ret = ovpn_parse_new_peer(ovpn, argv[3], argv[4], argv[5],
+                              argv[6], NULL);
+
+With no host and no vpnip, out: received an uninitialized pointer, not
+NULL.
+
+The NULL case looks like it came from commit 0bd9cfebc1c9
+("selftests/net: ovpn: fix getaddrinfo memory leak in
+ovpn_parse_remote()"). That commit added both of these:
+
+    struct addrinfo *result = NULL;
     ...
-}
+        freeaddrinfo(result);
+        result = NULL;
 
-Later, release_sock()->ovpn_tcp_release() drains out_queue through
-ovpn_tcp_send_sock_skb(). Suppose peer->tcp.out_msg.skb is still pending
-because skb_send_sock_locked_with_flags() returned -EAGAIN under TCP
-backpressure. Then every drained skb gets -EBUSY and lands in this new
-branch.
+The commit message of 0bd9cfebc1c9 also describes the no-host, no-vpnip
+case in 959bc330a439 as an uninitialized pointer.
 
-The packet is then counted in the peer link TX counters
-(OVPN_A_PEER_LINK_TX_BYTES/PACKETS) and also in the device tx_dropped
-counter. peer->last_sent was also refreshed for a packet that never left.
-That pushes back the keepalive deadline in
-ovpn_peer_keepalive_work_single().
+So the statement "result is NULL when no vpnip was passed (with or
+without a remote host)" only holds once 0bd9cfebc1c9 is applied. Should
+the tag be this instead?
 
-Isn't this the "another output skb is still busy" case the commit message
-says it fixes? Several contexts can hold lock_sock() here. One is
-ovpn_tcp_tx_work(), which gets queued exactly when out_msg is stuck.
-Others are ovpn_tcp_sendmsg() and a userspace setsockopt(). A remote peer
-that stops reading (zero window) can keep out_msg stuck.
+    Fixes: 0bd9cfebc1c9 ("selftests/net: ovpn: fix getaddrinfo memory leak in ovpn_parse_remote()")
 
-The commit message also says:
+The context of the modified hunk has not changed since 959bc330a439. With
+Cc: stable, the patch would also apply cleanly to stable trees that lack
+0bd9cfebc1c9.
 
-    Handle the same helper errors locally in TCP release and
-    sendmsg paths, which do not go through ovpn_encrypt_post.
-
-That doesn't look right for the release path. Only ovpn_tcp_send_skb()
-fills out_queue, and only ovpn_encrypt_post() calls ovpn_tcp_send_skb().
-So every skb dropped here was already counted as sent. The same goes for
-queued skbs freed by skb_queue_purge() in ovpn_tcp_socket_detach().
-
-The selftests change later in the series does not touch this code, so
-this is still present at the end of the series.
-
-Could the peer link TX accounting and the last_sent update move to the
-point where TCP actually accepts the skb into out_msg or sends it?
-ovpn_tcp_send_sock() already does this for dev_dstats_tx_add().
-Alternatively, the accounting could be undone when a queued skb is
-dropped.
+In those trees, wouldn't the new if (result) check test an uninitialized
+pointer on the no-host, no-vpnip path, so the patch fixes nothing there?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261022121606.732029-2-antonio%40openvpn.net
