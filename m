@@ -1,89 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.147
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792772858;
-	b=gchsKWp+Gnqynw5Xz+dYro+js5oKtLQeKU9as9d3dRwayibSe6z1htQ3xfU7GKg39iHS
-	 w/ShA7q7BlXVGRu0ZBTRYzyJEk1WxmQlRonWtJgb/e8imVDWtIudTNLqrKP1l5tw1rlFq
-	 EBzeNT67H9aIKHkRDJLR8moZdwi+/mGE+4LaMEuu05q6F1MIFL9RvNkHNG0KPx7wR7mF7
-	 iRfBwME66wgABw0nSAtBlMfI9y2TMJuiQA2R4h2o90F7YQ00Obxq9s5F93MGV6s9qfjSE
-	 TIqFuzeGvmsvPe2ffV35hgY0tZpXGlSABs03qlvk5fOjB0SJCgrnMkAUF6QdV2dAfxQ==
+	t=1792772861;
+	b=tQqocpCfrVneOscltJT8KjOB74QwhRY5qnBrIpMfLgGiKhQ5ypAk4CokNWc2BU894oS0
+	 zPXWvys6y+JVCsBbxOiqWWF7I0TCXQpkGC+1T+vhV2NdyRW2e6ZwPAQYLJWJmHAVhHnwD
+	 jjpqMLvk9Saz8jLL+9ZoQ4dYplZa8LBkwxYlNumVVyNlSBds07o/urExwY+NW9TQM35TZ
+	 OIkNCe+QKKn9BOFz2WJjpaM7+zyp7Q+65wL50CdpDiGi1DWf7cCt2eREAoNLvEZFC53tD
+	 +WBJ6+SUG3uilL2MVyoTa+FSatboKvDflVVcAY/K+kVyZdM+VaU5cIthIVKQ9Ybpl+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792772858;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=NcEoJJHS6s0Ldxcf7QTPPdL5n5yIYzYW/l921a9eHYI=;
-	b=yKApbB9H3pYpZadjbbllH22QnXDADX1fOrPm7hLr70YcvAg57e9+O4mcquZ5D88dmZWJ
-	 RIHTg9OSxRdPTHI6IPJFqJMN+ia6Ts2If/3uff1lR5NlK4OkmJbYc/HnREERiN0ICpTY/
-	 OxgAFkaTcTgsBhuBJ5O42XNVPPXQqvL93xLE9zehC7+FdIEJEGd25bo0mQrgNB7mCTmLx
-	 /BfUXVbJKKp2WkkkCYUvD82Potrpp9M6UuShuLdocjlJLfq1o13Gcap9jFjHAZUWZsab/
-	 34T8f2zykB3tpLkvmGhMSpl6pTZbCAbiaFY7HbcYz9Jevrk8+tlYGWhBtFY/m6UbXGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792772861;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=tAaVmzUGd7yfz+Y53F9/4k9F52nXT6HbnGx9q7bJDc8=;
+	b=hKqreZot+mq9CI0I4n67DOibD7U7yaOBXQaVPJBr/FEiMNnNxfpG2TgU8O316PtJ3HXh
+	 s1QPCKLhqf1hwWZDpfT0DabZ6b8ZcmjbvfMjs1k/4H1a8gCs69OZuRtw68hKPKSBH5Eyf
+	 yM3EkXqkcOs6In6qBMrcqIww8WuyZUxy40fdVLQcKjk+r6l0lYhuxGitJ88eR+oWdZqoj
+	 tf85BVg9tdSJIVfphp02ncX6v6tMetaZ7POhgh0WWMnftR5SomPyggX2oUVHk48WIZ3wM
+	 IV0dQ8UmbaLng7xempINT+h8jMm05D5lrmnVPZYcmHR+wjegQUEeOX8BXKdqzV2Ahqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bstAkr43;
-	arc=none smtp.remote-ip=209.85.161.46
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=k1+FTmoa;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=dnQsin22;
+	arc=none smtp.remote-ip=202.12.124.147
+Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB4760A2606
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 16:27:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EB4760A2606
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47E62606A320
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 16:27:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47E62606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bstAkr43
-Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6de1fd5f572so535955eaf.3
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 09:27:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792772857; x=1793377657; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NcEoJJHS6s0Ldxcf7QTPPdL5n5yIYzYW/l921a9eHYI=;
-        b=bstAkr43KzEfnOvQVvQpkrC8EZcMp6H2yQHgpP4YuHjnzJC+a17LoDM5bdUOUNW14R
-         HMEgiATvdmlwKaaPHQqESqvPfVEEWC3ZiMmMAFGk6/Zn4oSNgmztKNNiyTt7IW/zV/O5
-         Z6rMDPxCaqmVFUycbjRBX85w6Hegt/Z3CWp8SLFIs4wrlAhwK3f/uw1WRvmzsNkGFTHh
-         xDNPJXpn4thBivAWoiAar5mDqWYGhYwUCC9TuD++5KpUkDGnmr7j0/t4oPdwO6olyMod
-         cHDZA5MKEuAWrlB6q6F1VAPAmY5VqZiDyA83jr44FUA0obY5NInDglv2mqUQRUUqzxQp
-         vtJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792772857; x=1793377657;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NcEoJJHS6s0Ldxcf7QTPPdL5n5yIYzYW/l921a9eHYI=;
-        b=NO5BbSPUkS6mtegLIQWrWr/eMEephnmG3mm6AkS8YDkFIvmahAk/iKF/rX9TV0ftjd
-         m1Ugxw5RgMevUKqdCfbG0i7J+fMKo2X6UlrVvIavf4xDDRSYl3omW6XaDaqQe4lVnbPq
-         piV+sq2wOI5SP6m1YFO2/dsNYQrh32s5c9tZDFr2bWTYpci5NRzKSa0DyngsZmMilZR/
-         2X+1fmiWpPMBpk2OIZCaFwHBGyMfFFwV4SL55yfhdURnPc8Vdc+GtymWvsludTqZhq3u
-         YpGaZpcyW1F3mbuCX5mcbeTZZX824dyr3OOwRrFBdk1aMulvOv1Wub6nidZkdOaix3mK
-         Ke1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxO7hXUSTmC1FViiw3Of9M9d1dYyuZGEqy72zinGa/aJlZYtdux9IKgbeaGp1aKTkoxzb/c1IM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKY+rQZUWz+VJrLisoFd2svAkgke6vW5M63RxgntRSfJ2WogOUj
-	bVOARK8muiBdFOul+19owB/rVVEXxHkRPzuDKj8IyPh1sy8j+JVxUtwo
-X-Gm-Gg: AYBFou0E3ssveuObolU/DgEnWabpZ2cQYQG1fA2PUXmb7csImLb6Q/0kE9W0aGHJnsi
-	gQIBNhOZhFFfEO1RlT7qSpbB8dUjszbV+6KXFGmp/61onHpwrTGb4/+UyrTSXArNt+MxLLOE1BV
-	Un3kue7Tv1mv8Lp/X3+2oMDObjBnoqWVwdSh8unbLIalmHoRk6orl8N3+lLqhR6bNhVcXc57XRL
-	PBR+Z0tQmm+ZwvUgyFKAKLcF0O1UacxWlWGNcHsQSx7E4BCg+MfwGkITEhAZx7xLjTYf1ufG+NI
-	B8fDjj8tdB+GRj/UhzoIG0HAAIEPgFCP3mfAOtYCVAnNBQZz+cqi6WxMsvENGBSjvH2/0J4Y1W/
-	JNjnoqqHWfDHbBkbSUiEj2p/DDNhZHFYkr3XlAuvTHWrAzqSkswmzma71vJLxYs271CTHleeuoo
-	ioasuOw61Zb6ltRyeRd30hbj7dzI9PX7OtZOFyJz2VBlqRGTCBaSvjUV1bFvMuUKLlarpUq1Wnr
-	zn9sCAY0G3hn20rQxT5GeU0PeKyiJ4tJJ1YCQKSvA05xrVrgabWRQkzJmme1CCmgAqvqtP8nxE9
-	uAMRpJd8om4mdNICoa8t7YehyC300ik2PhNwkojItT12vtjhb1mbbas4yaE27qRZ6i79tCq3h/j
-	pl8dxjmZPTPXegz6eHJHTNS0M1LZl9RrD4dOCQ8sn6piGTJeHc66Wn+UU/sAZRrhDRa5VXLKUSD
-	Sm6As=
-X-Received: by 2002:a05:6820:1621:b0:70b:8379:c170 with SMTP id 006d021491bc7-70b889b7a5emr1671116eaf.27.1792772857121;
-        Fri, 23 Oct 2026 09:27:37 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-70b9aed3144sm372801eaf.12.2026.10.23.09.27.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 09:27:36 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 23 Oct 2026 10:27:25 -0600
-Subject: [PATCH v3 4/4] dmaengine: dw: synchronize completion callbacks
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=k1+FTmoa;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=dnQsin22
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.stl.internal (Postfix) with ESMTP id 7A4951D00106
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 12:27:35 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Fri, 23 Oct 2026 12:27:35 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792772851;
+	 x=1792859251; bh=tAaVmzUGd7yfz+Y53F9/4k9F52nXT6HbnGx9q7bJDc8=; b=
+	k1+FTmoaMyc6c0UxlJQv5ItJzjmcBf8p9uravKf7CWcqYPIY6VYuVcRQi1zfaS3p
+	JTV7xNHXyuPBIg4M1Y3LIUo2PT4SW+1TS/sJlwKPNJv0YLOfJdujyMYDhKnLqigj
+	a4WEgF9hT7/9VDGpH25Zbg6K2nXBdR2Lf6KrtKptc05TXoJU4NnDYT/FUM4KkKuk
+	UAyTzCpIPLxRMFY0DwKMz+Xd/+LdWka84DhJR3Z5hEHVytvKYQGoRM4VE9H5af5d
+	piFJLdQHqlrfvL14KRNrabuOuKsrXYvwb62NidZPfva2+5Gsr+3vMgaEY60Xnywu
+	adgFr1W+nIsIORRMw2aktA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792772851; x=
+	1792859251; bh=tAaVmzUGd7yfz+Y53F9/4k9F52nXT6HbnGx9q7bJDc8=; b=d
+	nQsin22uZBwliP1AXOU3UkaJFKSP+MVYwuqk7E7KqIjid2XZeiDIT8VG5paoAGtg
+	ZNet4zCrwgRwT2x4QVnmNPXMzgYr0PObNTG8O1ZUWp2AmnrIv3grjPdiz1Jy4juL
+	fPU3iH9IOe0TivW+g3rKK93UlrVaXBpC7kyG2hdDY0Zhvp2yJaQpOxvhgLa8jCbu
+	A/qQa3kKPB6mQxdhvd7w+XncnK2Hlgdm00fR3sMOcEY/MT3tJq58yTPcjQkjHvQo
+	Ak8Fu0Zj+IgAZhSxPWT+R7uNGh/g2xta8311KFpIdMc7jC9/TcJCQO7+YD8jXJoI
+	tM3XqatVt1NXOGST29jLQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792772851; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+; rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:OdxOlp4uDZciUzbBff3MDonZe16cov731gMIfmiIFxT7GSU
+	PGkV5b00bq3le1CWN0TThf6mMXeeLWz2xIASjC4Nuiqi++yMDwxv4ui5AWtQ1hEo
+	a8CaI33hiISKq84SDG99proxapEGgSor2Mshp3jzDIz2pGhjvG6UnODyq3/XDBpW
+	D4tpcweIBIJC+IuP922ulahWCYV/3j1aUzXgvjiVxrdxJFTinivCjknpYlojAYgv
+	B036FDJOUGSpph8qI+w8DVVH6Lu2Q+XnD7Q7Pp5bE+qxWbgaawYMIpVisDnVnvvR
+	BQl3nMLDzffrp7+BZdUXdsd7fFgY6NDbvgbIIfg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:+e/Wk9rybGMCI5Gv34ketxCyX8V4ZGXFTpnw18SVErI=:tAaVmzUGd7yfz+Y53F9/4k9F52nXT6HbnGx9q7bJDc8=;
+X-ME-Sender: <xms:8IrbarnhdCh0sEd31LJb3TjdtxrwVseMVJEc3dOhj7OSJ4JYqz6uUQ>
+    <xme:8Irbapolq5wRAu9zEz0MAJsHFQrPBf4UWEBN8cbl-QvsXN_QaP6e4xUd4glmt_74f
+    GoK48xd2D5gmlTGJUdD4JIPu3m72S9BpEk29JSSydp3b_rFxZj8CiL_sg>
+X-ME-Proxy-Cause: dmFkZTF5nL+/XgICGqkob1XXU5PMKkrkGakQIyKKr7sF16M69IBIjyFoFlQKe+kGgPogiG
+    yDAUyj2mlimIn92XnNIp50Ko9dajCgfEKcnn2yNvERVAODPqYoO56oa+aK0xgQ5eukbl6e
+    M/NNMPIKEfXqv7Kj+mtrjZ1AIfj7ld2ptH17oz3tNF4JiSM05SBDS8fB6J49SOArm9tjKK
+    1VDgF4rbmGlg7YrP4SrbqI73wDge2Ktz0j85iJLDf/mcra8fcEkmDJLV45kb5b69fYQA/K
+    WdSFwdhUDJXiYz1AXW1+P3fn3j3B7XHCR90vnex6mc/KNGzlXF/4U/Ty18wt8+CsTlzRuD
+    RWvPQT6hZOCJaQOB0vTz8Ux2hSjMUcKo/Y8KuPF0wZlLcfEE8r3QFMX2omI8d9DvkroTXg
+    MI8wHEdhPXV6RtPPd53qYyc28mg9QxhWWS/PktaRcUuHwea49RZH9dP+/Mr7PTL+UUg6Ow
+    1R8ytafKjjzL6v5MzvdwNTHxsiL+1HCdSs6v/fbNSx/KRPdBDi1nDIqixaCpPSE1R+kQYc
+    lbQRjEeVDVfZOUQU3aCBsvhBMeF/Q/YnImc0bNX6Iru7tovjNBlfX4jBrGOYa/Fw3lUARG
+    +782Sra5wfe8XixzhOpnfKEr9UkE8WgzK1H0mktmkuNdPj5ULLzRZlhEZ6pQ
+X-ME-Proxy: <xmx:8Yrbah8gQ9MOkY9-FFK4aw-oMNvCWzlMQ9WqXbMgDvluFbyT65RQfw>
+    <xmx:8Yrbamb1s0_g7z2ajAixn54wBIosYFz0LcQ3m3zo3NDSd9PtODl8Mw>
+    <xmx:8YrbatP01ZMsq5BHWoWW5Od5SBuYIUu0o57f8F8vnPNSbAeuHEN9Fw>
+    <xmx:8YrbaqAv4Cq6xH25m4AEXs3xSszcQbWdMQ5m79EkK3WLSf9j-2-vmg>
+    <xmx:84rbaqCSCvbooSOxPkvS-MljeNmcpodl7MmvsLht1zHEB8yzfdxikeua>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 29C3F32A0097; Fri, 23 Oct 2026 12:27:28 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,89 +114,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-ThreadId: AG7ML5kObmmw
+Date: Fri, 23 Oct 2026 18:27:07 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Hungyu Lin" <dennylin0707@gmail.com>, "Jens Axboe" <axboe@kernel.dk>
+Cc: ben.hutchings@codethink.co.uk, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Message-Id: <0241d3be-82d3-4ad0-a055-3897e7dfc475@app.fastmail.com>
+In-Reply-To: <20261023153645.37546-1-dennylin0707@gmail.com>
+References: <20261023153645.37546-1-dennylin0707@gmail.com>
+Subject: Re: [PATCH] block: Return the soft block size for compat BLKBSZGET
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-submit-dw-dma-synchronize-v1-v3-4-c62bf048f5ce@gmail.com>
-References: <20261023-submit-dw-dma-synchronize-v1-v3-0-c62bf048f5ce@gmail.com>
-In-Reply-To: <20261023-submit-dw-dma-synchronize-v1-v3-0-c62bf048f5ce@gmail.com>
-To: Viresh Kumar <vireshk@kernel.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Maciej Sosnowski <maciej.sosnowski@intel.com>, 
- Dan Williams <djbw@kernel.org>, 
- Haavard Skinnemoen <haavard.skinnemoen@atmel.com>
-Cc: Serge Semin <fancer.lancer@gmail.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- dmaengine@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
- Lars-Peter Clausen <lars@metafoo.de>, 
- James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
 
-The controller tasklet can detach completed descriptors and invoke their
-callbacks outside the channel lock. Terminating the channel does not wait
-for those callbacks, and there is no device_synchronize hook. A client can
-therefore reuse callback state or release its buffers after
-dmaengine_synchronize() while an old callback still uses them.
+On Fri, Oct 23, 2026, at 17:36, Hungyu Lin wrote:
+> BLKBSZGET returns the block device's soft block size, while BLKSSZGET
+> returns its logical sector size. The compat BLKBSZGET_32 handler uses
+> bdev_logical_block_size(), so it returns the wrong value when these
+> sizes differ.
+>
+> For example, on an x86_64 kernel a native query of a RAM or loop device
+> with 512-byte logical sectors returns the initial soft block size of
+> 4096 bytes, but an i386 process gets 512 bytes. This makes 32-bit
+> blockdev --getbsz and the BSZ column of --report disagree with native
+> queries, even without a preceding BLKBSZSET.
+>
+> Use block_size() as the native handler and the pre-regression compat
+> handler do, and correct the case comment to describe the soft size.
+>
+> Fixes: 9b81648cb5e3 ("compat_ioctl: simplify up block/ioctl.c")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 
-Disable and re-enable the controller tasklet from device_synchronize,
-outside the channel lock. Disabling waits for an executing tasklet,
-including descriptors it already removed from the channel lists. After
-termination, a later tasklet run cannot acquire another descriptor from
-the terminated channel. Clients must continue to exclude new submissions
-on that channel until synchronization finishes.
-
-The tasklet is shared, so other channels may schedule it while this wait
-is in progress. Preserve those pending runs: tasklet_kill() temporarily
-owns the scheduling bit and can consume a concurrent scheduling request,
-leaving controller interrupts masked. The disable/enable pair leaves the
-scheduling bit and pending tasklet queue intact. Other channels' hardware
-transfers continue, though their callbacks may be briefly deferred.
-
-Fixes: b36f09c3c441 ("dmaengine: Add transfer termination synchronization support")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/r/sashiko-outbox-180707@kernel.org
-Cc: stable@vger.kernel.org
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/dma/dw/core.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/drivers/dma/dw/core.c b/drivers/dma/dw/core.c
-index 6d27af3c0f2d..d80be93f0c49 100644
---- a/drivers/dma/dw/core.c
-+++ b/drivers/dma/dw/core.c
-@@ -910,6 +910,19 @@ static int dwc_terminate_all(struct dma_chan *chan)
- 	return 0;
- }
- 
-+static void dwc_synchronize(struct dma_chan *chan)
-+{
-+	struct dw_dma *dw = to_dw_dma(chan->device);
-+
-+	/*
-+	 * Termination removes the channel's descriptors from the lists, but a
-+	 * running tasklet may still own a completed descriptor and its callback.
-+	 * Wait for that run without losing schedules from the other channels.
-+	 */
-+	tasklet_disable(&dw->tasklet);
-+	tasklet_enable(&dw->tasklet);
-+}
-+
- static struct dw_desc *dwc_find_desc(struct dw_dma_chan *dwc, dma_cookie_t c)
- {
- 	struct dw_desc *desc;
-@@ -1318,6 +1331,7 @@ int do_dma_probe(struct dw_dma_chip *chip)
- 	dw->dma.device_pause = dwc_pause;
- 	dw->dma.device_resume = dwc_resume;
- 	dw->dma.device_terminate_all = dwc_terminate_all;
-+	dw->dma.device_synchronize = dwc_synchronize;
- 
- 	dw->dma.device_tx_status = dwc_tx_status;
- 	dw->dma.device_issue_pending = dwc_issue_pending;
-
--- 
-2.53.0
-
+Reviewed-by: Arnd Bergmann <arnd@arndb.de>
