@@ -1,96 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792777277;
-	b=EgEa8+FprT0STB8WHsJE2Py97UOT8GpOQgIy6ZDw0KEUJF/Jno7T0a/iZGX3JVixRWTo
-	 SiMPm9GslX3oL/Gj2THgjcmuHWRAhgJws9xp71m7vLegogIVob81MGQSFQDcBrt3qevCE
-	 Ypmw+pnEuPbXS2s/ZbmcwmxLnaeJY/WYZq6nvfF1zoPn4tCd1JC/ZqQ4YL9h13vNgr5n2
-	 VGH3Uo0bRFIYs2aqxF/jlrUN45XrqZlVMTFHyi6c5NtzHfxiNoooRK8JZ2H4HR+yrIJGR
-	 SgN+vTuNCCLbmtxZEYbjtjp1qP4bLjb1ghDfmVYLxx/PIw8D3WFKpQsNzniDJPp8aEw==
+	t=1792777363;
+	b=1jDoDvJrW5EsTxxvAPNZzClTRMFeDcW//PlwyVww4T7y0yeOWcTSKQgGLwhVjGFZEFS2
+	 2JPfjq+hb62bE9YCohWb1mgqqa1KgyZkgbFkyQ1cp16t5FrsLutgUGKTt55LZ5tXHOuVw
+	 HHGOmnHWgd34vyac7+nm6Xcd5Ov11+mg2Gn46S3LWKUemg1Dussd+dK9CxYt2hP1t/ENK
+	 3I4Y7lYBX9u0TXz6ihFcb30+NbMW9UfrMXaSjdiTDc5pIaBpfDZfLlH2wK8BO2vVx9d6n
+	 tXgz/bIJahKWF/e6qArlIj28O3fqFQoNUS6nY5ootvBKPhU5VLk9RNqS95uADgg5POA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792777277;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792777363;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=truzcLzI1/fzEeSBbN3XZWCls+HY9QGypr22D9AUbNQ=;
-	b=oo60zK5rnhy+TpHx8RL6ZbHbvTosyihPNaHtuMkNotrJCbCElsUIkOvlnNo5U83e/qjy
-	 8Yq4hrGraiErJlvCfipxeNlcMUt5//iC3V9vY76ENiIZqton+KgL86OiERceJ3hOFdlH8
-	 +jYrJw9qHdpFszWXEVrZnsfD//dVjDt8KaXYlVfbIosE56x/3x71Z5ydaJ7a+C76yxKuN
-	 aMe6qP2Tc3r5kjBBTq7BkfCgizFZxpNG/TZji8RXlDkJA8yGP7vBbCN9Bxj5EOrwSXREO
-	 7KMY3nkwvK4RTICpp1uXCYzuSglxtwny7Mn/I/gAVX4XCjP1UD28EsVMU18M99nXjzA==
+	bh=pttEG3ZBXhyYyMZMgd6B9fdOX/UQFW77/8mvHBDA3zg=;
+	b=V2Aax3tt7We4ZlANCsg5Ksr2rb84H1SA+KE6ObJg98z25WUkmXem556MxxvYL2Ec5O5p
+	 IKyfMCm8XdcEnhxJl90rYdiM8Lj9mQs7u4b5+asHQ1L3/EiilvfvOd6ig01T19No/5Rax
+	 2a63nkKIJI5MIic4gYYnrghbuaGGLX8osQvktq1JaxcZzFG/AqGGsJX9jiiw+HmioD8I4
+	 I+RkQHXRkxxRSSd2aFyomzPMAc0uIPvv4+2auIVhvKlYaGlQEj0ydYPREaWXS74Pprran
+	 qLD9HcGquiIQZUFHDZqRB5dTi5ANcGJgboZv5vd6noVeoevTbo0Ran4ujHAj5Lbh5mA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fwq7HXJ3;
-	arc=none smtp.remote-ip=209.85.208.170
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=U1s2QB9D;
+	arc=none smtp.remote-ip=209.85.219.44
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5149F606A31E
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 17:41:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5149F606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A57F606A31D
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 17:42:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A57F606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fwq7HXJ3
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3a808f09021so8275141fa.0
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 10:41:17 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=U1s2QB9D
+Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-9178d514951so10710526d6.0
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 10:42:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792777275; x=1793382075; darn=vger.kernel.org;
+        d=cs.unc.edu; s=google; t=1792777362; x=1793382162; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=truzcLzI1/fzEeSBbN3XZWCls+HY9QGypr22D9AUbNQ=;
-        b=fwq7HXJ3055YN84gik4gwErUSx/7NlBw6Abzp7HJ7SZ23AouCbTUXRGUqc2YRPxA5D
-         Q/qIsx0eCtwq71y6UROQO0s94tvRyE+o74UOkoy+20GzDVNrwSXdjg87lmRwDEvBYiug
-         tHGiLyCKPP/3PH9Sw4QYDFCiSlRfzjIG8RfHuw6EbRyNcPLrA+BfIyKrfH98Gy8gXqvl
-         wk6jHPWeSSETItc++bdi9NftMuVAfrgCRxT0lLWpK3WofE4YWnKwVh72sTQ5mabdAMbQ
-         PbBH97IAH5Z5WQGB+BKC76trV8vqsUTa4inKJA6J/sz04L/tAO872COL+f9CDA8AnLje
-         8EOA==
+        bh=pttEG3ZBXhyYyMZMgd6B9fdOX/UQFW77/8mvHBDA3zg=;
+        b=U1s2QB9DlFaxhOLsTT2YhDtTDx6QZRL3z3g2Y5FPkEfdSw7GR4o+3xk++ig1ipFuwB
+         PtmqUiq3xvN26f8mvtrdY5PFLSx+nwNp2CUtRqdhsqO5/uqxDeryww0diBtu2lzk7DjJ
+         Luk7GbI/qQLF+1Hkd0DmcI5nqlp8Oo9SNjfxWiWk2HrJl9Q2g+UMrmpmAOZvNa64/rtY
+         3OA+jSHXUGKq1v2PHrJ95bddadciGt+mLBLWAMabF1sPK3WbOt1MxHT7xuAozWvN3t29
+         /iipGnc/gqj2BWiaeLt6hEQZ7i2eNfkjdag7lSDZobC6tZKmKkly3LlNckxdThRbEi0u
+         Voxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792777275; x=1793382075;
+        d=1e100.net; s=20260707; t=1792777362; x=1793382162;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=truzcLzI1/fzEeSBbN3XZWCls+HY9QGypr22D9AUbNQ=;
-        b=kWa9R8vug09Yiby2aWkv3Xv88xT60SGDoaS5gbSyJv46HgQl40ecnazzest581KyzQ
-         djG+zgfQcoaAdB9fAEWqPoTqq84oBNDAMoYJOQJhjvgDxggM5vuD7yAmeUxAW63h1dHg
-         fj4OJ00lw50AYeWyJEmfFhS5BKCvE+aEMteTWYgvPwkwDTLCuquwRvvtkC0ZXQqG5Azr
-         QaUxxAM8RRAGlaas8xmIyAFG0PkdzFgANn2Dvo401m8MIezPLAdkrGKgye3PVSxtuqEn
-         gQvRhWCPN2ArPegSTiNyTqGkCkXWYzUmjh4Un8RRV7XtrcunCtcc436msQ53lVMwJICW
-         xEpg==
-X-Forwarded-Encrypted: i=1; AKwUvBzYV0XYALx695ctWwMPy++5JqcBFz4T90oMflfYweV/PiubXfvwrvmTNzCE5/7Irkb3zW+EJjA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKyPuu4OLoVQEJGn1I1lqKl+z6qe5EbdEEiP8V4xI9M3m1+Dnj7
-	vpX7zb5HPapSsBCRWFkemxRmwrburoQCC4E5PpozNiFXjvTEH7OuwTKR
-X-Gm-Gg: AYBFou0ptGfAH1FRsuwTMcGCM3WloCqC8sncYtkiM1PDPQpdtYB9USVtFiq0pBw+28f
-	mdFyXjpvIGizfbE/gqtdLLrLWzwb4wObXnu4Y778y2k2RJ+7hYwp6Cwd5Zgm+pHK802E6S9Qv6v
-	IPM+tQJc5uqZ4GPRvL79uXf/LncTNUx5ps9ot/NMqjdD4QaeWUJonflxcU0ToLufIGJwNzlmwOH
-	NrtQTMr/DpJ3/HW5P3noeMCp8W26JwsmOk86AaVtHi3TmtW17FEOINRdHOwO7u5wp6ok8Qbug7V
-	5NIvKroGexxelmKb3qMluMtlzhAwrLBUX/ubJzFAtP/H2YOjLNjylb970TbegYY820SznlNc+FU
-	bsr7kfez8Ta/6ZvX9p0iU5E9GSsOnkC5vA0wrR8gQAD9U1599M0uzQLs8ytju2BI8nig6vc7Cuf
-	P9CbtPKKIA/TOydYhhn5WAbRIAFufwUbOihmtn7kmb82HNobhFs/9HRaLvobNW0m3h8rJcTNhHD
-	KFbzsPcWPrvQiVxNWjI/yFW7QeNA7lRcBPPdNg2nQPPQ2UXcwJzKf3+/+Pnc+A1jt/BLzoE/9RC
-	qB2ptCHjiOKnWhzEt8xGBFWDziJYJUf87dPMIPbTjthBX+g4K2NDTzpAXLH2i50VxLn9aBKkBgK
-	jH6sadQ==
-X-Received: by 2002:a05:6512:3984:b0:5be:32b8:e32c with SMTP id 2adb3069b0e04-5bfb0b3e2c7mr1148573e87.35.1792777275127;
-        Fri, 23 Oct 2026 10:41:15 -0700 (PDT)
-Received: from x870steellegend.lan (95-25-165-240.broadband.corbina.ru. [95.25.165.240])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb670e8acsm59975e87.15.2026.10.23.10.41.13
+        bh=pttEG3ZBXhyYyMZMgd6B9fdOX/UQFW77/8mvHBDA3zg=;
+        b=P9b6VvjPTg8AANVMksu0spvMPf4x1wTeerfjhxUP2rvPnIFUDQwIavXYistc+gyisW
+         Xf2ZCWaluFGYmoC75QbinO55kF0rvClby6BTSOiiSthhW4hBlKt/yKigXh97nW2mflCI
+         RAW5YygAghc+oJ2E1xSTZ7cgu7QV5SnDfLTyNUQPHC2e8pVZ5eh6cvwMZ7sNe4+fv6yo
+         GwnrV1vuPm64E8D9A1yiaD6frViM9AXIFHVi5bBVnnvZBHzHCg9AQoNbUggQ/1IT4tF9
+         3zNm3Xy4ZisgmKKWhe0jiyPYhh9ZzEQ7LOI51waKWRomaLc2UhuP1l0XdAJGCKLoqMpX
+         fYug==
+X-Forwarded-Encrypted: i=1; AKwUvBxy26vJWWo2R47JTEDZjnDHHLCX16BmgReLIsN1WCcpfh6OLiCt6m8eH8WiscwFVH/Kk0aWgFg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKFYZaBfC/Cdkj0JGBDgto+t4iGvhNy0rii4Tc7e1ZGMpnM+xtF
+	7ZOZf+EYTEl57IndhnJqk5WP76wQbErvZab0jX6BMaLh9d1TfbU3UlUfG63UMtrxiQ==
+X-Gm-Gg: AYBFou3iWOxFlZOHUAoqAJL6JFe9IiP8mpLG9c8ulKf1VvRj5Mf17/mH/bIGR0zvy0i
+	W9InXgg7+1GjVZMYpZ3JojA5CFMBOrJ5Sj0N1tBhcJdhBT/V6+hVQL1VklqWmF8JDSLC3pYWh2s
+	J7TfSSp0OcZm/xQ3XsxrB/oIlCEBpJkK0YCGtGNz2pmzGrUrjk5wS3qUwoLsvVrMlCo6cNqOFG0
+	tvDZHijv6H10J3nsTnjLB47/ikD9t9G+eFEmRcQUJZsMRX6mknWJHtLDEN9pxYasOuUdzYl8sm4
+	TrOzI3gSU2Hi0wcoXYSDuTJOkgrcX5+1EwUaXrxOMyPxHhk53+oVe+qa/Q0hpKt5JIIn9gjyO2r
+	dYRsuyJbw/SvUtfO6s7W9ljoq/tQdjZW/Uq1QLq7TnOTWVQxB2XHHTph+VhYnJIFv4++95R3RLb
+	sxBNIBiLa/t90b2lrjv9VHulz5D0bvRP6K20XLbZVzg10eIqvwr2sx/kYUZwSBiWuT8ekAqGhzd
+	/aguXrl5oYAQJWB/jWvZ0irqBf+498MtE6BGsveWxK7oTuS4kkPmm2RBdOLDZWMN3BYVg72Je4e
+	puA=
+X-Received: by 2002:a05:6214:f6a:b0:91b:8c62:eda7 with SMTP id 6a1803df08f44-91c3a86fa9emr45307186d6.29.1792777361801;
+        Fri, 23 Oct 2026 10:42:41 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47cdf6cfsm277166d6.43.2026.10.23.10.42.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 10:41:14 -0700 (PDT)
-From: Igor Putko <igorpetindev@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Tejun Heo <tj@kernel.org>,
-	Oliver Neukum <oneukum@suse.com>,
-	linux-usb@vger.kernel.org,
+        Fri, 23 Oct 2026 10:42:41 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: xiang@kernel.org
+Cc: chao@kernel.org,
+	zbestahu@gmail.com,
+	jefflexu@163.com,
+	dhavale@google.com,
+	hongbohbli@tencent.com,
+	guochunhai@vivo.com,
+	linux-erofs@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Igor Putko <igorpetindev@gmail.com>,
-	syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com
-Subject: [PATCH] usb: core: hcd: cancel giveback work synchronously on stop
-Date: Fri, 23 Oct 2026 20:40:15 +0300
-Message-ID: <20261023174015.54793-1-igorpetindev@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	stable@vger.kernel.org
+Subject: [PATCH] erofs: fix metadata reads at the end of file-backed images
+Date: Fri, 23 Oct 2026 13:42:31 -0400
+Message-ID: <20261023174232.3282900-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,42 +103,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When an HCD is stopped/removed (either during module unload, driver
-unbind, or an error path in probe), pending URBs are unlinked and
-completed. However, for root hubs or HCDs with giveback done in BH
-context, the work function usb_giveback_urb_bh() may still be executing
-on another CPU after __usb_hcd_giveback_urb() finishes.
+Commit e587a984d332 ("erofs: use dedicated meta inodes for file-backed
+mounts") made erofs_read_meta_folio() read the metadata of a
+file-backed mount one whole folio at a time.
 
-Since the caller may immediately free the struct usb_hcd via usb_put_hcd()
-after usb_stop_hcd() or usb_remove_hcd(), the running worker accesses
-the embedded giveback_urb_bh structure after it has been freed,
-triggering a slab-use-after-free write detected by KASAN.
+However, an image only has to be a multiple of its block size. With a
+block size below the page size, it can end in the middle of a page. The
+read of that last page is then short, and erofs_fileio_ki_complete()
+fails it with -EIO. As of now, inodes in the last page of such an image
+cannot be read, and an image smaller than a page cannot be mounted.
 
-Ensure all giveback work is fully flushed and cancelled in usb_stop_hcd()
-by calling cancel_work_sync() on both high and low priority BHs.
+The issue can be reproduced with util-linux 2.41, whose mount uses the
+image file directly:
 
-Fixes: 8fea0c8fda30 ("usb: core: hcd: Convert from tasklet to BH workqueue")
-Reported-by: syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspotmail.com/bug?extid=a5b220cacb0618384d5a
-Signed-off-by: Igor Putko <igorpetindev@gmail.com>
+    mkdir src
+    for i in $(seq 50); do echo $i > src/$i; done
+    mkfs.erofs -b512 test.erofs src
+    mount -t erofs test.erofs /mnt
+    ls -l /mnt
+
+Before that commit, ls -l lists all 50 files. After it, ls -l reports
+"Input/output error" for 24 of them.
+
+This patch reads the folio only up to the end of the backing file and
+zeroes the rest, as the page cache of the backing file did before.
+
+Fixes: e587a984d332 ("erofs: use dedicated meta inodes for file-backed mounts")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 ---
- drivers/usb/core/hcd.c | 3 +++
- 1 file changed, 3 insertions(+)
+Tested in KVM with KASAN on a804c5742bff: file-backed mounts of images
+with 512 to 4096 byte blocks, uncompressed and compressed, with and
+without directio. With this patch every file reads back correctly;
+without it, 24 of the 36 mounts give errors. Not tested on 16K or 64K
+page kernels, where 4K-block images should be affected too.
 
-diff --git a/drivers/usb/core/hcd.c b/drivers/usb/core/hcd.c
-index 8e8a5f59b319..0b7d30900f7a 100644
---- a/drivers/usb/core/hcd.c
-+++ b/drivers/usb/core/hcd.c
-@@ -2787,6 +2787,9 @@ static void usb_stop_hcd(struct usb_hcd *hcd)
- 	/* In case the HCD restarted the timer, stop it again. */
- 	clear_bit(HCD_FLAG_POLL_RH, &hcd->flags);
- 	timer_delete_sync(&hcd->rh_timer);
-+
-+	cancel_work_sync(&hcd->high_prio_bh.bh);
-+	cancel_work_sync(&hcd->low_prio_bh.bh);
- }
+ fs/erofs/fileio.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/fs/erofs/fileio.c b/fs/erofs/fileio.c
+index c36a90a1a4cb..b4ed7fe7347c 100644
+--- a/fs/erofs/fileio.c
++++ b/fs/erofs/fileio.c
+@@ -142,17 +142,26 @@ int erofs_read_meta_folio(struct file *file, struct folio *folio)
+ 		.dev = { .m_pa = folio_pos(folio), },
+ 	};
+ 	struct inode *inode = folio_inode(folio);
++	size_t len = folio_size(folio);
++	loff_t pos, isize;
+ 	int err;
  
- /**
+ 	err = erofs_map_dev(inode->i_sb, &io.dev);
+ 	if (err)
+ 		return err;
+ 
++	pos = io.dev.m_dif->fsoff + io.dev.m_pa;
++	isize = i_size_read(file_inode(io.dev.m_dif->file));
++	/* the image may end in the middle of the folio, zero the rest */
++	if (pos < isize && isize - pos < len) {
++		len = isize - pos;
++		folio_zero_segment(folio, len, folio_size(folio));
++	}
++
+ 	io.rq = erofs_fileio_rq_alloc(inode->i_sb, io.dev.m_dif->file);
+ 	io.rq->bio.bi_end_io = erofs_fileio_meta_endio;
+-	io.rq->bio.bi_iter.bi_sector =
+-		(io.dev.m_dif->fsoff + io.dev.m_pa) >> 9;
+-	bio_add_folio_nofail(&io.rq->bio, folio, folio_size(folio), 0);
++	io.rq->bio.bi_iter.bi_sector = pos >> 9;
++	bio_add_folio_nofail(&io.rq->bio, folio, len, 0);
+ 	erofs_fileio_rq_submit(io.rq);
+ 	return 0;
+ }
+
+base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
 -- 
-2.47.3
+2.53.0
 
