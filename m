@@ -1,81 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792758247;
-	b=rQJGQeF1v9PwZj9kL2LvxSzJvqksw1vXXTaVsMQpWujtq/fjlxwO3jlMByTd7aYbuJPX
-	 M8CyHf2GJGCSvtrd1Z/CpWA1OxAhxlGKXZCLP3FzGSDEZUrfKFhMwn4edNw4apAXqV91g
-	 rPVQHmdx8HxAXF+Jce2YFuV0IMQpIaTn4jP+vkz6QFis1IMa+c0bpS9LnxeDBK1i9vHxE
-	 5W3UhDjhzNBskDHbwRnW3bJ+IX8lSej3660FsXVMAQz0vRL0gcSDkY0BhavKgTNPL9rjd
-	 +vNFhlOiFM2G0PspvUC4L61Ja1nwI/RBv+IMwaPEHBzSBw+8qQkxb9GZHLU4TqZ5LGA==
+	t=1792758503;
+	b=FLkeHrJp1SEuLmipRNvLrGCYf1ZQJ8ITARAwAlLvEKh3fg9ENSGS/K5otWR54ovG9TN7
+	 NWIx8gfCAGainGq3h57wKd+ehGlD4mGFIIQTQgnLB+RaztzDEvdRQTqFW5hZxADbr9Z9D
+	 WBZmHKlbMg5k7lRYqOIs7iOYPUkkDS5Ar1F2JYRVwN3WNBLxgkhA8go+qOvG4R7JyJur8
+	 06Xb8FIzFU/iEoUlUprXS3wtpel/6L3EFLAjhokbabODhNpoFc3qsCQP+hbqmRqPZ93ry
+	 WLFMoVKLMaYfCrQ4e1HlxNfQLi06bUa1cUuqlENOBGkItOcIGXh2ndm/mjqeX3P+VhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792758247;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=x4CmADp2ir7n+E8mOlnp3JESSQ5fFcEi+jbhhp5rGtk=;
-	b=l9w+uB8UXLtxRynACcZWxXNEc0ikYcgLlNC5+7g1JrqIKdO433W4WqMbAWUYsOhazxFi
-	 w9CffQv827wEUZGQDJI4ApUJup9eDw152rbhm/3cWAraiWzpckvH7Zrr8pYUW+3gzVsPW
-	 y4yIjcd6ocUCkMv7TxbQQQynuZb7ue6eBT4zD/xS55rCH6tePGua78UkueFLuEyMK2I97
-	 qH2xuX54nthFOemQQcsEyUyIM9Ni13QTS+JXomlpuH6dkqpTwfVA5BO24jB0fmFamOUUj
-	 EvQ7u0t0A/wccsVBqX3jcFvp5M1r74uBgjSffzmnObGZsIXA+oa+k9YJfxqt7iJVxEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792758503;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=uT0cq+YYt9iTsmejOAfqyZ6JL1fmMxffd0mjPXUhnMU=;
+	b=dVvGIJYRUhpK20ZOmMm6VfG+cvNCDDpRTVPYl2RL2GWjklm6EeX0/zs4rXROCwxQc37Y
+	 ivhGtpy1sc5AIKcuJZs31LsGGCo3LIcMb0BrIyZ9nw375uEjR9wmzly7l2NiAa5fjMiHE
+	 ViV+N4c4/bZvw/gdLIlDe5VbRIP3V41bBoVa6bWUxLMswGGOckcm9H2qdDRd4gOX3nKbD
+	 1qO5jF/OxqskorJkzl1liaswUdKz8+Akbyh8otZHy7NIJI4MJ/o+ti2E8YaMqdrsXV1/f
+	 BYWOQExG4hlec7cOw6rPNwT0CAMUuIQtb8Jc8E2aV8sYCQLov6iIZ/xkygvmr17//3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=D3OG11W2;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DDzq6gc4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5768B606A33B
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 12:24:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5768B606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E5047606A31E;
+	Fri, 23 Oct 2026 12:28:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=D3OG11W2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792758246;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=x4CmADp2ir7n+E8mOlnp3JESSQ5fFcEi+jbhhp5rGtk=;
-	b=D3OG11W2tfzJApe6HgDa8JeQO3boMaYXHZWNyHytVO2jn9V8+6qx85LubeM9JtCeyRJ4qR
-	wZb1Krd6Hq//FtvUuEbLzXi0PjSTje1DgOCl+TDCtceArN2ALsoBPrvPu1tTVjywhUJWlV
-	Ir9j1LESVTZr2p2uThnH+86WF3j6uoA=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-608-CHJDW6xEMZqCQT8L7LpFbw-1; Fri,
- 23 Oct 2026 08:24:02 -0400
-X-MC-Unique: CHJDW6xEMZqCQT8L7LpFbw-1
-X-Mimecast-MFC-AGG-ID: CHJDW6xEMZqCQT8L7LpFbw_1792758240
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 47B6E1944D26;
-	Fri, 23 Oct 2026 12:24:00 +0000 (UTC)
-Received: from snishika-thinkpadp16vgen1.tokyo.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C9E881800444;
-	Fri, 23 Oct 2026 12:23:55 +0000 (UTC)
-From: Seiji Nishikawa <snishika@redhat.com>
-To: Hannes Reinecke <hare@suse.de>
-Cc: Seiji Nishikawa <snishika@redhat.com>,
-	Keith Busch <kbusch@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chris Leech <cleech@redhat.com>,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] nvme-tcp: fix io_work priority inversion when send_mutex is held
-Date: Fri, 23 Oct 2026 21:23:51 +0900
-Message-ID: <20261023122351.977034-1-snishika@redhat.com>
-In-Reply-To: <526673b4-a090-47a4-9181-e30813a8cbe5@suse.de>
-References: <20261014064524.4015025-1-snishika@redhat.com> <526673b4-a090-47a4-9181-e30813a8cbe5@suse.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DDzq6gc4
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 32FFD1F01825;
+	Fri, 23 Oct 2026 12:28:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792758502;
+	bh=uT0cq+YYt9iTsmejOAfqyZ6JL1fmMxffd0mjPXUhnMU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DDzq6gc4JGuLwNYy472vXx82YoSDp9uP7Vut3P92twuZvtO2Idc+Nz6aNSQmUHTc1
+	 5VrHi7w59ZQUxmcNjnUQ/FJ/9pk2OKFdLxzwLujXGeLNla/82WHG8IEH5VKq4u2jwl
+	 J30sA04Ulc0/jN/3LnVxbbdP6xbrxV+1SBUqB3+FO2p5RrWrio/AnqCxMgqqr9kpkI
+	 7VU+Bw86ROs6YG0E46C4DrIkQ+L7DKuuiIhbVAR8hAKmpzjJnrCWqgkX1IhH7/mNus
+	 CaL8uZKuT6lvFTthq2I7WHFMLM9doYvOLFkS7GIkMK3pUIe6l4PDHs++2IFQSiOLvy
+	 fE/5eNfV9vaOA==
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: keyrings@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	stable@vger.kernel.org,
+	Eric Biggers <ebiggers@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	linux-kernel@vger.kernel.org (open list),
+	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM)
+Subject: [PATCH v2 2/6] KEYS: Reject descriptions larger than KEY_MAX_DESC_SIZE
+Date: Fri, 23 Oct 2026 15:09:22 +0300
+Message-ID: <20261023120953.1206778-3-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261023120953.1206778-1-jarkko@kernel.org>
+References: <20261023120953.1206778-1-jarkko@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,133 +68,171 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Thank you for the review.
+KEY_MAX_DESC_SIZE includes the trailing NULL character. Descriptions
+generated from payloads and in-kernel paths bypass the userspace limit.
 
-On 10/21/26 12:10 PM, Hannes Reinecke wrote:
-> On 10/14/26 8:45 AM, Seiji Nishikawa wrote:
->> We hit this on a 6 CPU VM running a database on nvme-tcp storage. In
->> the vmcore, 2 tasks held send_mutex of 2 queues and were runnable in
->> lock_sock_nested() for 103 seconds, while the kworkers for those queues
->> kept running io_work on their CPUs. All database tasks were in one
->> cgroup, which got only about 0.3% of the CPU against the nice -20
->> kworker. Requests timed out, and blk_mq_timeout_work() waited in
->> synchronize_srcu() for the tasks still in .queue_rq.
->>
-> How very interesting. I don't think you could craft a blktest for this?
->
+Reject descriptions at or above KEY_MAX_DESC_SIZE with -EINVAL at the
+following sites:
 
-I do not have a reliable reproducer in my lab. Reproducing the hang
-requires a particular sequence of scheduling events. The task holding
-send_mutex is preempted inside lock_sock_nested(), a higher priority
-(nice -20) kworker looping in io_work, waiting for send_mutex to be
-released, takes that CPU, and then starves the task holding send_mutex
-of CPU time indefinitely. The kworker keeps looping because
-mutex_trylock() keeps failing, since the preempted task still holds
-send_mutex, and the pending check (f42d4796ee10) keeps the kworker
-running instead of letting it return. It happened on a 6 CPU VM with a
-database under heavy load. So far I have only seen it on the customer
-system, but there it reproduced every time.
+- key_alloc(): before quota calculation
+- __key_create_or_update(): before key_set_index_key()
+- keyring_search(): before match_preparse
+- request_key_and_link(): before match_preparse
+- request_key_rcu(): before check_cached_key()
 
->> Only do the pending check if io_work could take send_mutex. If it could
->> not, the task holding send_mutex sends what it can in
->> nvme_tcp_send_all(), and queues io_work again after it releases the
->> mutex if requests are still pending, so no request is left behind.
->>
->
-> The direct send path again. I really wonder if we need it at all, or
-> whether we cannot simply delete it.
->
-> Can you try if you see a regression with this patch?
->
-> diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-> index ba5c7b3e2a7c..2c59b550e13f 100644
-> --- a/drivers/nvme/host/tcp.c
-> +++ b/drivers/nvme/host/tcp.c
-> @@ -405,17 +405,6 @@ static inline void nvme_tcp_queue_request(struct
-> nvme_tcp_request *req,
->          empty = llist_add(&req->lentry, &queue->req_list) &&
->                  list_empty(&queue->send_list) && !queue->request;
->
-> -       /*
-> -        * if we're the first on the send_list and we can try to send
-> -        * directly, otherwise queue io_work. Also, only do that if we
-> -        * are on the same cpu, so we don't introduce contention.
-> -        */
-> -       if (queue->io_cpu == raw_smp_processor_id() &&
-> -           empty && mutex_trylock(&queue->send_mutex)) {
-> -               nvme_tcp_send_all(queue);
-> -               mutex_unlock(&queue->send_mutex);
-> -       }
-> -
->          if (last && nvme_tcp_queue_has_pending(queue))
->                  queue_work_on(queue->io_cpu, nvme_tcp_wq, &queue->io_work);
->   }
->
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Fixes: f771fde82051 ("keys: Simplify key description management")
+Reviewed-by: David Howells <dhowells@redhat.com>
+Reviewed-by: Eric Biggers <ebiggers@kernel.org>
+Link: https://lore.kernel.org/r/20261020174325.2229448-3-jarkko@kernel.org
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+---
+ include/linux/key.h         |  3 +++
+ security/keys/key.c         | 10 +++++++++-
+ security/keys/keyctl.c      |  2 --
+ security/keys/keyring.c     |  7 ++++++-
+ security/keys/request_key.c | 14 ++++++++++++--
+ 5 files changed, 30 insertions(+), 6 deletions(-)
 
-I cannot try it where the hang reproduced. That is a customer production
-system, and I have no reproducer outside of it. On the kernel with the
-regression, that system hung within 12 to about 50 minutes after boot, 5
-times in 2 days, under its normal database load. It has been running a
-kernel with my patch since October 15 under the same load, and the hang
-has not come back. With your patch this hang cannot happen, since
-io_work becomes the only sender and the trylock in io_work never fails.
-
-What I could do is a sanity check. On a 4 CPU VM with an nvmet tcp
-loopback target I ran
-
-  # NVMET_TRTYPES=tcp ./check nvme
-
-on 3 kernels: v7.3 (base), v7.3 with my patch (seiji), and v7.3 with
-your patch (hannes).
-
-base    passed=49 failed=0 not_run=12
-seiji   passed=49 failed=0 not_run=12
-hannes  passed=49 failed=0 not_run=12
-per-test results identical
-
-The 12 not run are the same on all 3 kernels, skipped for reasons
-unrelated to the patches:
-
-      6     nvme_trtype=tcp is not supported in this test
-      1     command tlshd is not available
-      1     driver scsi_debug is not available
-      1     kernel option KASAN has not been enabled
-      1     kernel option NVME_TARGET_DEBUGFS has not been enabled
-      1     libnvme version is older than 1.11.0
-      1     Remote target required but NVME_TARGET_CONTROL is not set
-
-This is only a functional check. It says nothing about latency.
-
-To apply your patch on v7.3 I had to drop the !nvme_tcp_queue_tls()
-line as well, since 08acb54b063a ("nvme-tcp: defer TLS inline send to
-io_work") is in v7.3. That commit already skips the direct send for
-TLS queues, so the io_work only path is already in use there. Two
-small things in the patch. empty is set but no longer used, which
-warns with W=1, and nvme_tcp_send_all() loses its only caller. I
-dropped both in the version I built.
-
-I agree the direct send path is the source of this family of bugs,
-5c11f7d9f843, a0fdd1418007, 70f437fb4395 and this one, and I am fine
-with removing it. But I think the two should be kept apart. This
-regression is in v6.16 and later, so it is in every current stable tree
-and in the distro kernels based on them, and people are hitting it in
-production now. What stable and the distros need is a small fix that
-only changes behavior for those who hit the problem, and that is what
-this patch is. Removing the direct send path changes performance for
-everyone using nvme-tcp and requires a performance review before it is
-introduced. Also, it belongs in the next merge window rather than in
-stable.
-
-So I would prefer to take this minimal fix now for v7.4 and stable, and
-do the removal as a separate patch for-next. If you agree, I can write
-and send that patch with your Suggested-by. For the performance side I
-can only test on VMs, so latency numbers from a real nvme-tcp setup
-would be needed from someone else. If later performance measurements
-reveal that the direct send is unnecessary, the check added here goes
-away with it, which is fine.
-
-Thanks,
-Seiji
+diff --git a/include/linux/key.h b/include/linux/key.h
+index 26139c3adf62..3b8af14fb323 100644
+--- a/include/linux/key.h
++++ b/include/linux/key.h
+@@ -37,6 +37,9 @@ struct net;
+ 
+ #undef KEY_DEBUGGING
+ 
++/* Maximum length of a key description, including the trailing NUL */
++#define KEY_MAX_DESC_SIZE 4096
++
+ #define KEY_POS_VIEW	0x01000000	/* possessor can view a key's attributes */
+ #define KEY_POS_READ	0x02000000	/* possessor can read key payload / view keyring */
+ #define KEY_POS_WRITE	0x04000000	/* possessor can update key payload / add link to keyring */
+diff --git a/security/keys/key.c b/security/keys/key.c
+index 6ebb8691551f..e88548f1a704 100644
+--- a/security/keys/key.c
++++ b/security/keys/key.c
+@@ -245,6 +245,8 @@ struct key *key_alloc(struct key_type *type, const char *desc,
+ 	}
+ 
+ 	desclen = strlen(desc);
++	if (desclen >= KEY_MAX_DESC_SIZE)
++		goto error;
+ 	quotalen = desclen + 1 + type->def_datalen;
+ 
+ 	/* get hold of the key tracking for this user */
+@@ -829,6 +831,7 @@ static key_ref_t __key_create_or_update(key_ref_t keyring_ref,
+ 	key_ref_t key_ref;
+ 	int ret;
+ 	struct key_restriction *restrict_link = NULL;
++	size_t desclen;
+ 
+ 	/* look up the key type to see if it's one of the registered kernel
+ 	 * types */
+@@ -869,7 +872,12 @@ static key_ref_t __key_create_or_update(key_ref_t keyring_ref,
+ 		if (!index_key.description)
+ 			goto error_free_prep;
+ 	}
+-	index_key.desc_len = strlen(index_key.description);
++	desclen = strlen(index_key.description);
++	if (desclen >= KEY_MAX_DESC_SIZE) {
++		key_ref = ERR_PTR(-EINVAL);
++		goto error_free_prep;
++	}
++	index_key.desc_len = desclen;
+ 	key_set_index_key(&index_key);
+ 
+ 	ret = __key_link_lock(keyring, &index_key);
+diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
+index 36ffba0ebba6..d6b10fd67627 100644
+--- a/security/keys/keyctl.c
++++ b/security/keys/keyctl.c
+@@ -24,8 +24,6 @@
+ #include <keys/request_key_auth-type.h>
+ #include "internal.h"
+ 
+-#define KEY_MAX_DESC_SIZE 4096
+-
+ static const unsigned char keyrings_capabilities[2] = {
+ 	[0] = (KEYCTL_CAPS0_CAPABILITIES |
+ 	       (IS_ENABLED(CONFIG_PERSISTENT_KEYRINGS)	? KEYCTL_CAPS0_PERSISTENT_KEYRINGS : 0) |
+diff --git a/security/keys/keyring.c b/security/keys/keyring.c
+index 7143f3079d20..2c54f7f84c55 100644
+--- a/security/keys/keyring.c
++++ b/security/keys/keyring.c
+@@ -957,7 +957,6 @@ key_ref_t keyring_search(key_ref_t keyring,
+ 	struct keyring_search_context ctx = {
+ 		.index_key.type		= type,
+ 		.index_key.description	= description,
+-		.index_key.desc_len	= strlen(description),
+ 		.cred			= current_cred(),
+ 		.match_data.cmp		= key_default_cmp,
+ 		.match_data.raw_data	= description,
+@@ -965,8 +964,14 @@ key_ref_t keyring_search(key_ref_t keyring,
+ 		.flags			= KEYRING_SEARCH_DO_STATE_CHECK,
+ 	};
+ 	key_ref_t key;
++	size_t desclen;
+ 	int ret;
+ 
++	desclen = strlen(description);
++	if (desclen >= KEY_MAX_DESC_SIZE)
++		return ERR_PTR(-EINVAL);
++	ctx.index_key.desc_len = desclen;
++
+ 	if (recurse)
+ 		ctx.flags |= KEYRING_SEARCH_RECURSE;
+ 	if (type->match_preparse) {
+diff --git a/security/keys/request_key.c b/security/keys/request_key.c
+index fa2bb9f2f538..ef00c2b08fe0 100644
+--- a/security/keys/request_key.c
++++ b/security/keys/request_key.c
+@@ -584,7 +584,6 @@ struct key *request_key_and_link(struct key_type *type,
+ 		.index_key.type		= type,
+ 		.index_key.domain_tag	= domain_tag,
+ 		.index_key.description	= description,
+-		.index_key.desc_len	= strlen(description),
+ 		.cred			= current_cred(),
+ 		.match_data.cmp		= key_default_cmp,
+ 		.match_data.raw_data	= description,
+@@ -595,8 +594,14 @@ struct key *request_key_and_link(struct key_type *type,
+ 	};
+ 	struct key *key;
+ 	key_ref_t key_ref;
++	size_t desclen;
+ 	int ret;
+ 
++	desclen = strlen(description);
++	if (desclen >= KEY_MAX_DESC_SIZE)
++		return ERR_PTR(-EINVAL);
++	ctx.index_key.desc_len = desclen;
++
+ 	kenter("%s,%s,%p,%zu,%p,%p,%lx",
+ 	       ctx.index_key.type->name, ctx.index_key.description,
+ 	       callout_info, callout_len, aux, dest_keyring, flags);
+@@ -787,7 +792,6 @@ struct key *request_key_rcu(struct key_type *type,
+ 		.index_key.type		= type,
+ 		.index_key.domain_tag	= domain_tag,
+ 		.index_key.description	= description,
+-		.index_key.desc_len	= strlen(description),
+ 		.cred			= current_cred(),
+ 		.match_data.cmp		= key_default_cmp,
+ 		.match_data.raw_data	= description,
+@@ -797,6 +801,12 @@ struct key *request_key_rcu(struct key_type *type,
+ 	};
+ 	struct key *key;
+ 	key_ref_t key_ref;
++	size_t desclen;
++
++	desclen = strlen(description);
++	if (desclen >= KEY_MAX_DESC_SIZE)
++		return ERR_PTR(-EINVAL);
++	ctx.index_key.desc_len = desclen;
+ 
+ 	kenter("%s,%s", type->name, description);
+ 
+-- 
+2.47.3
 
