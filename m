@@ -1,97 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792777363;
-	b=1jDoDvJrW5EsTxxvAPNZzClTRMFeDcW//PlwyVww4T7y0yeOWcTSKQgGLwhVjGFZEFS2
-	 2JPfjq+hb62bE9YCohWb1mgqqa1KgyZkgbFkyQ1cp16t5FrsLutgUGKTt55LZ5tXHOuVw
-	 HHGOmnHWgd34vyac7+nm6Xcd5Ov11+mg2Gn46S3LWKUemg1Dussd+dK9CxYt2hP1t/ENK
-	 3I4Y7lYBX9u0TXz6ihFcb30+NbMW9UfrMXaSjdiTDc5pIaBpfDZfLlH2wK8BO2vVx9d6n
-	 tXgz/bIJahKWF/e6qArlIj28O3fqFQoNUS6nY5ootvBKPhU5VLk9RNqS95uADgg5POA==
+	t=1792777597;
+	b=y7KPGBWe8yTb9M59eOybt6JwsoyQBrk3kd/+VC9zO7v8JhkDq5NFlbZJFdy+ui0u/ABN
+	 cj1FSETi0XRzQ456KAfxjbU1mdSBW2gGMAIcRKaVN8ckVrKlLTwsYk1s18qhe3rCdHn27
+	 vaKQtJ/dgl6rv4F7A2MGxfQLmT6yfgjaUlB3Yhn7/fPI1uNx7NQ5C6akQ1e5PP7sF4HLn
+	 cSVuqo/5cka37p6T6n1XYC7S+9d947aEVDmKEa5f6kJKQSm40RScoRjxRiCwb8Ylg02aS
+	 Fu0WAn3NJCO6St/rNEOMNIYlR31Yj8OXQVY36PFgHbfxAfw900lj2pjWDulVIvNe0hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792777363;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792777597;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=pttEG3ZBXhyYyMZMgd6B9fdOX/UQFW77/8mvHBDA3zg=;
-	b=V2Aax3tt7We4ZlANCsg5Ksr2rb84H1SA+KE6ObJg98z25WUkmXem556MxxvYL2Ec5O5p
-	 IKyfMCm8XdcEnhxJl90rYdiM8Lj9mQs7u4b5+asHQ1L3/EiilvfvOd6ig01T19No/5Rax
-	 2a63nkKIJI5MIic4gYYnrghbuaGGLX8osQvktq1JaxcZzFG/AqGGsJX9jiiw+HmioD8I4
-	 I+RkQHXRkxxRSSd2aFyomzPMAc0uIPvv4+2auIVhvKlYaGlQEj0ydYPREaWXS74Pprran
-	 qLD9HcGquiIQZUFHDZqRB5dTi5ANcGJgboZv5vd6noVeoevTbo0Ran4ujHAj5Lbh5mA==
+	bh=xlzj9+7VUiD0rDPjj9xsdhl6VeuEJi64iOeLJzH8Fak=;
+	b=Fu4hSHRDPDLCAyJR/A/UqEPXWj3dWmzSXDFIjGni6xdn8qomCBuZZZtFWGqA0GbeG/+l
+	 05evXSocQMf0mgl+2k/KaOTm0BNUCoV1usr5qhv3QkKF5mYXey5jpEmxVrl1GyxkhWRBy
+	 P/Zu1c7Q3FiiSwp0Lw0WGgRyEezpZklpkC3kiniSXqq09NbEHUJTaFYLuZky1LseB2X0i
+	 3U7f1wCDusP2nTGJ8kTOGFpko9Vo+wA0mvSXgMIe7CkCXhjAT1ADliVEnZM5qpT7ZB7ZU
+	 43c6LD3kXlgVZs2uxL8G7vXEUAGDE+HMknYsYfO8SgFUZLyYzp2xu3CtUt5did7oKfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unc.edu;
-	spf=pass smtp.mailfrom=cs.unc.edu;
-	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=U1s2QB9D;
-	arc=none smtp.remote-ip=209.85.219.44
-Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
+	dmarc=pass header.from=openai.com;
+	spf=pass smtp.mailfrom=openai.com;
+	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=YxiS9C1Q;
+	arc=none smtp.remote-ip=209.85.161.42
+Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A57F606A31D
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 17:42:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A57F606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39106606A31A
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 17:46:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39106606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=U1s2QB9D
-Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-9178d514951so10710526d6.0
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 10:42:42 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=YxiS9C1Q
+Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6faddda49e7so982564eaf.3
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 10:46:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1792777362; x=1793382162; darn=vger.kernel.org;
+        d=openai.com; s=google; t=1792777595; x=1793382395; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pttEG3ZBXhyYyMZMgd6B9fdOX/UQFW77/8mvHBDA3zg=;
-        b=U1s2QB9DlFaxhOLsTT2YhDtTDx6QZRL3z3g2Y5FPkEfdSw7GR4o+3xk++ig1ipFuwB
-         PtmqUiq3xvN26f8mvtrdY5PFLSx+nwNp2CUtRqdhsqO5/uqxDeryww0diBtu2lzk7DjJ
-         Luk7GbI/qQLF+1Hkd0DmcI5nqlp8Oo9SNjfxWiWk2HrJl9Q2g+UMrmpmAOZvNa64/rtY
-         3OA+jSHXUGKq1v2PHrJ95bddadciGt+mLBLWAMabF1sPK3WbOt1MxHT7xuAozWvN3t29
-         /iipGnc/gqj2BWiaeLt6hEQZ7i2eNfkjdag7lSDZobC6tZKmKkly3LlNckxdThRbEi0u
-         Voxg==
+        bh=xlzj9+7VUiD0rDPjj9xsdhl6VeuEJi64iOeLJzH8Fak=;
+        b=YxiS9C1QOQiQj62KnEdVaa4HjaEBExW5bp5Ol+/YPk+f2I+3STcUEaRI1aixJFSIVQ
+         foZtdo93KcXjp+UKIWW7nmoC0ZCH4CyhqCW+I/QewtnJZBg1/bONh7uFQO3PyIDaFftP
+         Cul9W/M1VUsKfdYKyQllyYvirVbrAe3fb5DeI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792777362; x=1793382162;
+        d=1e100.net; s=20260707; t=1792777595; x=1793382395;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pttEG3ZBXhyYyMZMgd6B9fdOX/UQFW77/8mvHBDA3zg=;
-        b=P9b6VvjPTg8AANVMksu0spvMPf4x1wTeerfjhxUP2rvPnIFUDQwIavXYistc+gyisW
-         Xf2ZCWaluFGYmoC75QbinO55kF0rvClby6BTSOiiSthhW4hBlKt/yKigXh97nW2mflCI
-         RAW5YygAghc+oJ2E1xSTZ7cgu7QV5SnDfLTyNUQPHC2e8pVZ5eh6cvwMZ7sNe4+fv6yo
-         GwnrV1vuPm64E8D9A1yiaD6frViM9AXIFHVi5bBVnnvZBHzHCg9AQoNbUggQ/1IT4tF9
-         3zNm3Xy4ZisgmKKWhe0jiyPYhh9ZzEQ7LOI51waKWRomaLc2UhuP1l0XdAJGCKLoqMpX
-         fYug==
-X-Forwarded-Encrypted: i=1; AKwUvBxy26vJWWo2R47JTEDZjnDHHLCX16BmgReLIsN1WCcpfh6OLiCt6m8eH8WiscwFVH/Kk0aWgFg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKFYZaBfC/Cdkj0JGBDgto+t4iGvhNy0rii4Tc7e1ZGMpnM+xtF
-	7ZOZf+EYTEl57IndhnJqk5WP76wQbErvZab0jX6BMaLh9d1TfbU3UlUfG63UMtrxiQ==
-X-Gm-Gg: AYBFou3iWOxFlZOHUAoqAJL6JFe9IiP8mpLG9c8ulKf1VvRj5Mf17/mH/bIGR0zvy0i
-	W9InXgg7+1GjVZMYpZ3JojA5CFMBOrJ5Sj0N1tBhcJdhBT/V6+hVQL1VklqWmF8JDSLC3pYWh2s
-	J7TfSSp0OcZm/xQ3XsxrB/oIlCEBpJkK0YCGtGNz2pmzGrUrjk5wS3qUwoLsvVrMlCo6cNqOFG0
-	tvDZHijv6H10J3nsTnjLB47/ikD9t9G+eFEmRcQUJZsMRX6mknWJHtLDEN9pxYasOuUdzYl8sm4
-	TrOzI3gSU2Hi0wcoXYSDuTJOkgrcX5+1EwUaXrxOMyPxHhk53+oVe+qa/Q0hpKt5JIIn9gjyO2r
-	dYRsuyJbw/SvUtfO6s7W9ljoq/tQdjZW/Uq1QLq7TnOTWVQxB2XHHTph+VhYnJIFv4++95R3RLb
-	sxBNIBiLa/t90b2lrjv9VHulz5D0bvRP6K20XLbZVzg10eIqvwr2sx/kYUZwSBiWuT8ekAqGhzd
-	/aguXrl5oYAQJWB/jWvZ0irqBf+498MtE6BGsveWxK7oTuS4kkPmm2RBdOLDZWMN3BYVg72Je4e
-	puA=
-X-Received: by 2002:a05:6214:f6a:b0:91b:8c62:eda7 with SMTP id 6a1803df08f44-91c3a86fa9emr45307186d6.29.1792777361801;
-        Fri, 23 Oct 2026 10:42:41 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47cdf6cfsm277166d6.43.2026.10.23.10.42.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 10:42:41 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: xiang@kernel.org
-Cc: chao@kernel.org,
-	zbestahu@gmail.com,
-	jefflexu@163.com,
-	dhavale@google.com,
-	hongbohbli@tencent.com,
-	guochunhai@vivo.com,
-	linux-erofs@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
+        bh=xlzj9+7VUiD0rDPjj9xsdhl6VeuEJi64iOeLJzH8Fak=;
+        b=aW+Serv+rVy7dbx8UU4jxLl+fWM8xfLItPf1VP1iYWS6tFx4LSKx/uFq1rOFiojPu3
+         geFuqyHsqNwrNKSIG8qCa4IKOU/IRpyFkPZd26CEvvglvDqFZdRY+jsg0JXgT1fRwSTG
+         CHBjjcEccmyecfvnWd03wBE7znxJ9IW6QBFeVXMgGx1dId3+lKX3VxonPS3w6dRzCyfG
+         GF/ULxgB4XhHuS60cKKMFNrrOgmb2H+n7EGEDC/lUCkIa08mwF7JPI3gVrUNXW+FXGMP
+         UYr5cU57hl2GXQb/J5oAbTleyQq/BXQH6XjhpEW1W+h8SPBAsympexhvtbzUQdV+DFe1
+         tPzw==
+X-Forwarded-Encrypted: i=1; AKwUvBwWpokwycNR6JMSE9zSPDr/3GS7jIjILIN76ppeE/uMn0MJnKFtWO/FhpJ/CA3t1lypZ4Bc064=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI64Y/xIPlPzqPVFNbdEb5SDiNznUV8ywTei39fsd3KNvRoyBpB
+	NnvqHFA+oX+E7wfHj19knLc+0iXFg+d1C/B+Dq/+q5rn/CM6VFlEVZfv3yn0X0cuBIY=
+X-Gm-Gg: AYBFou3XeroJMJmPVKk6M0GTtQCkkyThU9hULC8qO0ZayPYdTrL+BxXkQbOW/JG+QhW
+	UCATqB+8jTxORfr0VsiL6M7+wsaPmKaAFSprJMjoKMzXaU4kn/erfmQ4g+7sbnlOUg6rMIPwbtJ
+	WyDqwmQHJDk5vRjyYeE2IpwDk2BGq3PPZsiJxOKDTkRwVoSg56HxF4q/m6YGlYqIKaV1S6htgYH
+	e0cwA1MYW1hnbEDel0fh0eTKw5E3sCsBank03DiTb6sRxcuNLSyrbRLg9gkW2BX28YE8znZ2DJ+
+	doYWAesTHll+0g6IfXDPTyE7cZuhoCfoVejhNZBJVNcYat/cFlWTKTzXksLYYJeU9acN3us7g6B
+	tns4Y5RDCBtBHVqY1OTjh4XjbZVgoix/pvVjFSKk2e5kPg87Xh4VBDO617XdL0ajRyH8ZB8d9uT
+	FrVLiB7JbBT/A1HVtBKV3qeI1+RBRYI9KXMHslGoG0piyHcmsyAdDbZ/CuPZQWZvB4I5lGi2YG2
+	bAm/VqHU+SmgaZ8W261d606WEcziiR3Gav9s4L8nBqhxDccqVc9wVm6nbFaRat3SZ6y30yGgbGb
+	6HR7KQatkxuOxV9xQSh/tlXG6aW50O4Jp6aN1E8oiGnmNPRERfoFPuC9ow==
+X-Received: by 2002:a05:6820:2215:b0:70b:980e:454 with SMTP id 006d021491bc7-70b980e054bmr960802eaf.6.1792777595042;
+        Fri, 23 Oct 2026 10:46:35 -0700 (PDT)
+Received: from com-75606.corp.openai.org ([199.47.143.5])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-70b9aec6172sm565349eaf.11.2026.10.23.10.46.33
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 23 Oct 2026 10:46:34 -0700 (PDT)
+From: Kyle Zeng <kylebot@openai.com>
+To: linux-trace-kernel@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Kyle Zeng <kylebot@openai.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] erofs: fix metadata reads at the end of file-backed images
-Date: Fri, 23 Oct 2026 13:42:31 -0400
-Message-ID: <20261023174232.3282900-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+Subject: [PATCH] tracing: Reject incomplete event filter expressions
+Date: Fri, 23 Oct 2026 10:46:20 -0700
+Message-ID: <20261023174620.91969-1-kylebot@openai.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,80 +97,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit e587a984d332 ("erofs: use dedicated meta inodes for file-backed
-mounts") made erofs_read_meta_folio() read the metadata of a
-file-backed mount one whole folio at a time.
+A non-empty expression normally finishes in predicate_parse()'s inner
+loop, which resolves the pending logical operators before jumping to
+finalization. If the input ends after an operator, possibly followed by
+unary '!' tokens, the outer loop instead falls through with unresolved
+operator state.
 
-However, an image only has to be a multiple of its block size. With a
-block size below the page size, it can end in the middle of a page. The
-read of that last page is then short, and erofs_fileio_ki_complete()
-fails it with -EIO. As of now, inodes in the last page of such an image
-cannot be read, and an image smaller than a page cannot be mounted.
+For example, "common_pid == 1 || common_pid == 2 &&" leaves
+prog[0].target equal to -1. The second pass then reads prog[-1] before
+the forward-jump check can reject it. Depending on adjacent slab
+contents, it can also copy an out-of-bounds word into a branch target
+that passes the forward-only check. A self-targeted perf tracepoint
+counting event can reach this path through PERF_EVENT_IOC_SET_FILTER.
 
-The issue can be reproduced with util-linux 2.41, whose mount uses the
-image file directly:
+Reject the outer-loop fallthrough when a predicate has already been
+parsed. This ensures that non-empty expressions only reach finalization
+after the inner loop has resolved their operators. Keep the existing
+no-filter error for input that has no predicates. Add a regression test
+for trailing logical operators and unary negations.
 
-    mkdir src
-    for i in $(seq 50); do echo $i > src/$i; done
-    mkfs.erofs -b512 test.erofs src
-    mount -t erofs test.erofs /mnt
-    ls -l /mnt
-
-Before that commit, ls -l lists all 50 files. After it, ls -l reports
-"Input/output error" for 24 of them.
-
-This patch reads the folio only up to the end of the backing file and
-zeroes the rest, as the page cache of the backing file did before.
-
-Fixes: e587a984d332 ("erofs: use dedicated meta inodes for file-backed mounts")
+Fixes: 80765597bc587 ("tracing: Rewrite filter logic to be simpler and faster")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
 ---
-Tested in KVM with KASAN on a804c5742bff: file-backed mounts of images
-with 512 to 4096 byte blocks, uncompressed and compressed, with and
-without directio. With this patch every file reads back correctly;
-without it, 24 of the 36 mounts give errors. Not tested on 16K or 64K
-page kernels, where 4K-block images should be affected too.
+ kernel/trace/trace_events_filter.c            |  6 +++++
+ .../test.d/filter/event-filter-incomplete.tc  | 24 +++++++++++++++++++
+ 2 files changed, 30 insertions(+)
+ create mode 100644 tools/testing/selftests/ftrace/test.d/filter/event-filter-incomplete.tc
 
- fs/erofs/fileio.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
-
-diff --git a/fs/erofs/fileio.c b/fs/erofs/fileio.c
-index c36a90a1a4cb..b4ed7fe7347c 100644
---- a/fs/erofs/fileio.c
-+++ b/fs/erofs/fileio.c
-@@ -142,17 +142,26 @@ int erofs_read_meta_folio(struct file *file, struct folio *folio)
- 		.dev = { .m_pa = folio_pos(folio), },
- 	};
- 	struct inode *inode = folio_inode(folio);
-+	size_t len = folio_size(folio);
-+	loff_t pos, isize;
- 	int err;
- 
- 	err = erofs_map_dev(inode->i_sb, &io.dev);
- 	if (err)
- 		return err;
- 
-+	pos = io.dev.m_dif->fsoff + io.dev.m_pa;
-+	isize = i_size_read(file_inode(io.dev.m_dif->file));
-+	/* the image may end in the middle of the folio, zero the rest */
-+	if (pos < isize && isize - pos < len) {
-+		len = isize - pos;
-+		folio_zero_segment(folio, len, folio_size(folio));
+diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
+index 2b46ca536045..405651be9c93 100644
+--- a/kernel/trace/trace_events_filter.c
++++ b/kernel/trace/trace_events_filter.c
+@@ -596,6 +596,12 @@ predicate_parse(const char *str, int nr_parens, int nr_preds,
+ 			top--;					/* #12 */
+ 		}
+ 	}
++	/* Only the inner loop can complete a non-empty expression. */
++	if (N) {
++		ret = -EINVAL;
++		parse_error(pe, FILT_ERR_INVALID_FILTER, ptr - str);
++		goto out_free;
 +	}
+  out:
+ 	if (top != op_stack) {
+ 		/* Too many '(' */
+diff --git a/tools/testing/selftests/ftrace/test.d/filter/event-filter-incomplete.tc b/tools/testing/selftests/ftrace/test.d/filter/event-filter-incomplete.tc
+new file mode 100644
+index 000000000000..cc6df762845f
+--- /dev/null
++++ b/tools/testing/selftests/ftrace/test.d/filter/event-filter-incomplete.tc
+@@ -0,0 +1,24 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0
++# description: event filter - reject incomplete logical expressions
++# requires: events/sched/sched_switch/filter
++# flags: instance
 +
- 	io.rq = erofs_fileio_rq_alloc(inode->i_sb, io.dev.m_dif->file);
- 	io.rq->bio.bi_end_io = erofs_fileio_meta_endio;
--	io.rq->bio.bi_iter.bi_sector =
--		(io.dev.m_dif->fsoff + io.dev.m_pa) >> 9;
--	bio_add_folio_nofail(&io.rq->bio, folio, folio_size(folio), 0);
-+	io.rq->bio.bi_iter.bi_sector = pos >> 9;
-+	bio_add_folio_nofail(&io.rq->bio, folio, len, 0);
- 	erofs_fileio_rq_submit(io.rq);
- 	return 0;
- }
++filter=events/sched/sched_switch/filter
++
++for base in \
++    'common_pid == 1' \
++    'common_pid == 1 || common_pid == 2' \
++    'common_pid == 1 && common_pid == 2' \
++    '!(common_pid == 1 || common_pid == 2)'
++do
++    printf '%s' "$base" > "$filter"
++    for tail in '&&' '||' '&& !' '|| !' '&& !! ' '|| !! '; do
++        if printf '%s' "$base $tail" > "$filter" 2>/dev/null; then
++            echo "Accepted incomplete filter: $base $tail"
++            exit_fail
++        fi
++    done
++done
++
++echo 0 > "$filter"
 
-base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
--- 
-2.53.0
-
+base-commit: fd179f8a05be3ccae366b9b96e176b51fbe54aab
