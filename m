@@ -1,73 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792722200;
-	b=KXm4nDLck4w6gNgt84tjo+rJiHGTvU4z5XZBaTr9FcMgZLh1MIU3ZVCLwM3fLnhFaQYI
-	 WmgEHRRSqKk0LCJVWfzgr1AWoGJkbvDyFC+OpATKEbBMaysqeYSDFC5l5kP56vCRftOO3
-	 zwkJXeaxBa1aNukic+u4SE3rpljJhC/TdLP3riUhNRGy18DysJ9s0Ey67+jAtybRze8qy
-	 LGAdDd1CSe6/OHK9lsT+ESl3AbKIeReE8ElJCehMPotX61gHnu3qpErrBb9OH2cj2AgIX
-	 bYyNNNEBcOZrE03R/hB6ENsj3ezMpJ0rSR/UudzfXHV1ksyghFgDTA4yJwYIJBGTAYA==
+	t=1792722686;
+	b=iFLWnqHZU2hqMaJa24AeSBZkhTa2kP7j3RmPPs5+RvsHj4S9ibgBA2o+QUCQdUUML6Hg
+	 onJ4a4rpanR9RR8QtCQabB51vLdoM5B3wL4+whMsCUUTp5PIMLAxUbkECRqvTaTT0cK7g
+	 l1cfDiE901HlEy/GBSYt40WgIh6zsodoW0eGVcFK2WYgK2AHKfcY78S1Ko+jYMwlijDSg
+	 sP5HgXGTP7AVBDNCMEfzTv5HxJFGhmuG295iEVWYlzG1QABeD5+rmDh47obdD2WFl7HLi
+	 eOaMvRUXA30axd8hk+VtnLZi1R/3p46KhZpNeVhhCS4SnntniLMPjrZyrrbU82ChrZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792722200;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792722686;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=8aR471eyUThLQZ47HPLYqJ5jhcDVu3gnhYgQS0O/yDk=;
-	b=IZ3lndhXijdWQRZ9P1YPl9AOs+IQ++8hF0HdouZI8ZQzO+cGO4nhVxysA/F6T/gkFKh5
-	 rUU46pTzxwDjg5lBxYbTQ6ug5tmTpaaiFl1w+XnxWpfyZi5UoStacXf/Atzkn26MWUrib
-	 Fsd4xhbsW3LcaeWwArn1u70lWU2FG2aAESG5feQMjV7+S/J0XPcbjGpnmTzWDquWSuG93
-	 bdXbrP2G6fu+RoesIWu4jqOSgdxoPJlrEI0EdJsiAe4ee9D31REyMHMj5A872xZiA6FWn
-	 Bi85VSWD8ALvlW+9BrBOOBM5LwTO5PeViIJE7c0FXE5JTwpfUoau5QIf7QX1K1sTxWw==
+	bh=TdC2YU/7lyTzZkxDhw5asx021VZsxqMU4X1jjnTodL8=;
+	b=BLEYm8lUN8d4e2batqNr3/136tHt+H9lp0C5sfSrA5HvegrdHckrB2/x9DInbPiuJjgV
+	 U4qoePteTTqyrHp3IFEX2fY4/GvG0F27N+f8k9vb2xO0IlSrTFEbDIggDojQYQIqLepme
+	 aQRPL21EgTWX1202PbCaEIwtAGPp6he9HYyiNNKk+LVgynlCqLGcXuse3ImSIoZZBIFDw
+	 44dDIPHVBUd9mQhMm9zzQEnhW9k6AdBOVQpJtm2Zb5gvlTSZEQ/mVXWzg8IetUMai7z86
+	 zK3aWvvpl4avOSDLRr+ILaG86LiJgQJukGkND8rxZTPhlNBfYJDQqIR9L7sdduBvn8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=byDcUQ8b;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 01DFC606A319;
-	Fri, 23 Oct 2026 02:23:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01DFC606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=k+LbJpp+;
+	arc=none smtp.remote-ip=209.85.215.169
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3AD7606A31D
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 02:31:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3AD7606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=byDcUQ8b
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=k+LbJpp+
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cd5c9e52398so163269a12.1
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 19:31:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=byDcUQ8bLcaFJkqjv81W1xI6HfPUk7fwZQKn0w14fcvJ5TsoBkD5glTqZM+MXn0U689Vuzt6NoCMX
-	 btgxb4L+JOOALbbdjk5nrGrVhI9D2ZdaJuFOuAJWVcYh9t+29bsxHaOsMTWPgA6fHBrG7tkcjvCnSe
-	 SHOrWZ7ztgTQS8ng=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16adac511138-0f86d;
-	Fri, 23 Oct 2026 10:23:16 +0800 (CST)
-X-RM-TRANSID:2ee16adac511138-0f86d
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from desktop-c950f82eaac8410e-20260515094303939 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16adac511d3b-3046d;
-	Fri, 23 Oct 2026 10:23:16 +0800 (CST)
-X-RM-TRANSID:2ee16adac511d3b-3046d
-From: Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
-To: mst@redhat.com,
-	david@kernel.org
-Cc: jasowangio@gmail.com,
-	eperezma@redhat.com,
-	xuanzhuo@linux.alibaba.com,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	syzbot+0f659760bac1ecb01812@syzkaller.appspotmail.com,
-	syzkaller-bugs@googlegroups.com,
-	stable@vger.kernel.org,
-	Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
-Subject: [PATCH v3] virtio_balloon: drain update works on probe error paths
-Date: Fri, 23 Oct 2026 10:23:10 +0800
-Message-ID: <20261023022311.1577-1-zhaimingbing@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.53.0.windows.1
-In-Reply-To: <8f914911-8453-4f8f-b02f-384114f9d4ef@kernel.org>
-References: <8f914911-8453-4f8f-b02f-384114f9d4ef@kernel.org>
+        d=gmail.com; s=20251104; t=1792722685; x=1793327485; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TdC2YU/7lyTzZkxDhw5asx021VZsxqMU4X1jjnTodL8=;
+        b=k+LbJpp+2lF6brykMMSEFsfxbR1vyf49x+qykv07u1iRFSOQd9SlLr8vm82HGUsrrT
+         QPInWkto4gnChu6CzZBRxhUSO7QZMSM6rgdhVve91aYe41kgnIcbSU9VMgupSzJ7Bayl
+         Aou4YPXzRixuF6dJe4Nh/v9pCT4TuJzzvFW1D0oLbtKTPG08lunbReR5YH2uXW80N77H
+         YVn9DzUyxATw3BMJZ8rSB34KTGF6xBDeTgtkYvYVy8tK2NA95TGaPvcoLE8saNRi+HWI
+         0wogt+rraOjGFDrb5zRHX1vuq0HUUi71cIoUL0Z+feUvGUabFEn8RaPXiej051CJ0xBc
+         cD/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792722685; x=1793327485;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TdC2YU/7lyTzZkxDhw5asx021VZsxqMU4X1jjnTodL8=;
+        b=b0lRYF/nCjaWt6s2NN5Fc3lrYmDGMA6nWtbjH2eCurZtGxlGM6buCkLGZO7CpP1g0Y
+         p4FSO0SGGtP1fTe4Ux6u5rPdDT1ngLDSNKFqU9tKDEa/av97lvhpSB8oKK2RUcL/Xb0R
+         N21Rq8nUJx9I4LaY4XhbLLUXOJXds4QWTFhg/FWQfXlLczL5cr7OkKc3YGc/1guvl4Fk
+         NZnf8QeyzwaZCxCQmUvdvUyxMLzgDKcEKJdzpDx+yGY1z1EZcyPifoCStT04dEdgeV56
+         qeAQdxgmTBUaYN4JOk1048Lj8dociqyiDKp9/8fj5aecTLjwgKUqz1V5eLWlRKS/wJAV
+         Jctg==
+X-Forwarded-Encrypted: i=1; AKwUvBzmUevWMbUTc3PcA5JKoioKj+lQXffBhJ3UDI1iHjhERFAuUbGniuSChN2EWEIIVc0AAQMUiwk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIH79FW66bdGRW2ZiSY7bLtAetKPEcDfXQMo7B9I8p0/2dxpA4o
+	72HcA+V3BM0d9s5iW50IJeq85Ka0r0Y34hcXaMGLOGu4qvy/+kwKavzlDrlId2a6U4Q=
+X-Gm-Gg: AYBFou2vQrvkZhG4BIev9aXDaBUEKlImPboQ7m700tH4GFedSD5bCLNwtjJoO6N/iC1
+	DMkJsJeMTLK7xt3xMTnJrfDhNu90TZHt1GNcwK7X2zjbhxNta5sbREQq7XmKs+HrdtvTa20Ilc9
+	GBHoFKJRzckyPY9DXQA237jIPCqC7Hh5EBlCabBIzHMa8nsBvaQOV9fXsxRR0zFTJIe2lnc23Ks
+	z5GZrnBgs99WduMsoGfRIzmLb6yPsCMXsosrCUx4Vpn6YzUHX5Sa8n/K1B85QuiLuihq7WvMXsx
+	YgPgwILCONRbjhuJGtyr9aM2ZCmK2AkfNDXn2CeansOhn9t1LyIIabFll7HwP+54UVWWXCFWAiZ
+	Cxk52oZKjbXo2ofHa/Vs595xJe7VeVOMZJ9aerwoL5JtNI4eCBDmqiYBRrUFWUf5a4ZenQI0tBL
+	BhPKyH2pk6nQDTkVrAQh0FqQ1OoWOjomd7NfY2zi0VG7SN9KGAJJH3xXTDOIEU25OVi+txmOUfd
+	QQN15naj5rJph+WfQ7+j+OiBJcMoBnZlZgPDuP0tP2FSx7qVUp5ipM0Roe5jOEZ4eR/2Cr5SbPC
+	w3HG/zOp1i6GaWUxX9uyo9Kky5+XH6Eh0d4d1jERPRY8+S7/ZzCtb845V6W0xlH0xkCBjWLr
+X-Received: by 2002:a05:6a21:70cb:b0:3e1:1eca:2214 with SMTP id adf61e73a8af0-3e37668ea73mr712556637.49.1792722685212;
+        Thu, 22 Oct 2026 19:31:25 -0700 (PDT)
+Received: from localhost.localdomain ([240e:46c:1d00:19d6:7438:ad54:9ef4:bc36])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ba89a40fsm279852a12.14.2026.10.22.19.31.18
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 22 Oct 2026 19:31:24 -0700 (PDT)
+From: Yafang Shao <laoar.shao@gmail.com>
+To: mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	gourry@gourry.net,
+	david@kernel.org,
+	tim.c.chen@linux.intel.com,
+	yu.c.chen@intel.com
+Cc: linux-kernel@vger.kernel.org,
+	Yafang Shao <laoar.shao@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] sched: fix stale get_pref_llc() stub for !CONFIG_SCHED_CACHE
+Date: Fri, 23 Oct 2026 10:31:04 +0800
+Message-ID: <20261023023105.28829-2-laoar.shao@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261023023105.28829-1-laoar.shao@gmail.com>
+References: <20261023023105.28829-1-laoar.shao@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,123 +113,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-init_vqs() arms the stats virtqueue callback, so an update work can
-already be queued on the system freezable workqueue while
-virtballoon_probe() is still running.  If a later probe step fails, the
-error unwind deletes the virtqueues and frees vb without stopping the
-works, and the queued work runs after the balloon struct is gone:
+Commit b636fef85bda ("sched/cache: Introduce task_struct->sched_cache_grp
+to fix UAF") switched get_pref_llc() from taking a struct mm_struct * to
+taking the task's struct sched_cache_group *, but only updated the
+CONFIG_SCHED_CACHE definition and its caller: the stub in the
+!CONFIG_SCHED_CACHE branch kept the old mm_struct parameter.
 
-  BUG: KFENCE: use-after-free read in virtqueue_get_buf_ctx
-   update_balloon_stats_func+0x121/0x300
-   Workqueue: events_freezable update_balloon_stats_func
-
-remove() already handles this via virtballoon_quiesce().  Factor the
-stopping of the update works out of it and run it on the probe error
-path as well, before the queues and vb go away.
-
-The same hole exists when init_vqs() itself fails after
-virtio_find_vqs() succeeded: the stats priming can fail with the queues
-up and the callback armed, yet probe jumps straight to out_free_vb and
-leaks the virtqueues while the queued work still references vb.  Unwind
-inside init_vqs() in that case, stopping the works before the queues
-are deleted.
-
-The drained work takes vb->wakeup_lock in process_wakeup_event() and
-finish_wakeup_event(), so this depends on "virtio_balloon: initialize
-wakeup_lock before virtqueues are set up", which moves that
-spin_lock_init() to the top of probe.
-
-Fixes: 1f34c71afe51 ("virtio: Fix scheduling while atomic in virtio_balloon stats")
-Reported-by: syzbot+0f659760bac1ecb01812@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=0f659760bac1ecb01812
-Signed-off-by: Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
+Fixes: b636fef85bda ("sched/cache: Introduce task_struct->sched_cache_grp to fix UAF")
+Cc: <stable@vger.kernel.org> #v7.2.x
+Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Chen Yu <yu.c.chen@intel.com>
+Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
 ---
+ kernel/sched/fair.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Hi David,
-
-> Did you manage to reproduce this? How? (forcing the probe to fail?)
-
-Yes -- KASAN, injection right after init_vqs(): queue both works,
-mdelay() to hold the window open, then err = -ENOMEM; goto
-out_del_vqs, driven by bind/unbind loops. Unpatched: KASAN
-use-after-free with both stacks in virtballoon_probe().
-
-> Does this require the device to trigger us even before
-> virtio_device_ready(vdev)?
-
-Yes -- the callback is armed and the stats buffer primed/kicked in
-init_vqs(), and ready() is only reached at the end of a successful
-probe.
-
-> I guess this path is very hard to trigger.
-
-Agreed. That one came from the sashiko bot's review of v1 for the vq
-leak -- it does look at least theoretically reachable, though.
-
-> Do we really need this comment?
-
-Dropped both in v3.
-
-Thanks,
-Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
-
- drivers/virtio/virtio_balloon.c | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
-index 8c1b47ec1..cb53acdf7 100644
---- a/drivers/virtio/virtio_balloon.c
-+++ b/drivers/virtio/virtio_balloon.c
-@@ -554,6 +554,17 @@ static void update_balloon_stats_func(struct work_struct *work)
- 	finish_wakeup_event(vb);
- }
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 57360f5cdde4..973647ad6c2d 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -2194,7 +2194,7 @@ void init_sched_mm(struct task_struct *p) { }
+ static void task_tick_cache(struct rq *rq, struct task_struct *p) { }
  
-+/* Stop queueing of and drain any pending balloon update works. */
-+static void virtballoon_stop_updates(struct virtio_balloon *vb)
-+{
-+	spin_lock_irq(&vb->stop_update_lock);
-+	vb->stop_update = true;
-+	spin_unlock_irq(&vb->stop_update_lock);
-+
-+	cancel_work_sync(&vb->update_balloon_size_work);
-+	cancel_work_sync(&vb->update_balloon_stats_work);
-+}
-+
- static void update_balloon_size_func(struct work_struct *work)
+ static inline int get_pref_llc(struct task_struct *p,
+-			       struct mm_struct *mm)
++			       struct sched_cache_group *grp)
  {
- 	struct virtio_balloon *vb;
-@@ -633,6 +644,8 @@ static int init_vqs(struct virtio_balloon *vb)
- 		if (err) {
- 			dev_warn(&vb->vdev->dev, "%s: add stat_vq failed\n",
- 				 __func__);
-+			virtballoon_stop_updates(vb);
-+			vb->vdev->config->del_vqs(vb->vdev);
- 			return err;
- 		}
- 		virtqueue_kick(vb->stats_vq);
-@@ -1075,6 +1088,7 @@ static int virtballoon_probe(struct virtio_device *vdev)
- 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
- 		destroy_workqueue(vb->balloon_wq);
- out_del_vqs:
-+	virtballoon_stop_updates(vb);
- 	vdev->config->del_vqs(vdev);
- out_free_vb:
- 	mutex_destroy(&vb->balloon_lock);
-@@ -1115,11 +1129,7 @@ static void virtballoon_quiesce(struct virtio_balloon *vb)
- 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
- 		virtio_balloon_unregister_shrinker(vb);
- 
--	spin_lock_irq(&vb->stop_update_lock);
--	vb->stop_update = true;
--	spin_unlock_irq(&vb->stop_update_lock);
--	cancel_work_sync(&vb->update_balloon_size_work);
--	cancel_work_sync(&vb->update_balloon_stats_work);
-+	virtballoon_stop_updates(vb);
- 
- 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
- 		cancel_work_sync(&vb->report_free_page_work);
+ 	return -1;
+ }
 -- 
-2.43.0
-
-
+2.52.0
 
