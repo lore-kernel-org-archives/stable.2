@@ -1,86 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792766450;
-	b=5pb+mn9127+VmGg1TGAEoMm/XkEoGGXH187juc6UpXk3wE4eJDLa9vzHAP94/Zil7hcv
-	 /47/z1eJ/OYXQQF2aaDTGcYJLmOjTQC2ROuiLVAL0Gq9T9LDQy9UQZ9teAjgyLCVdzrYQ
-	 5BmEDwyF7kCiD2PT5V3A7oV6Nt6a/YOhnxknTsgXLAJTa7bQZXrwFI/M92/KICs++Glir
-	 KQgp8BxArSQH6nJPGtKmPp1GMmMdUFgDAX18tPh9pPV3RUcOWQXwmK5pn6HeKDxiVTdtA
-	 EUtCWE55dp4T4iFYI2KauhUQMZNLhMbZKsL2LLTrlSlXnDViUnZxj+a0Jat2F9O6Y1g==
+	t=1792766651;
+	b=nqQB6SA+N5bELe/u9znhzIgSjE02lefqBKn2qYcAq6fJOMF7o1QeXa7DwgFLTnUZUoH4
+	 KUS4ZOXEVciHXUXHaDGsdMK2wQPU98q/xC0hgyXgFxPz/m4RV2qwl91XElqGObAEvsF8V
+	 v0S8J4/xxJ+r7rsahAIJf6IlbwKGDROruGd18w7hA2UgkzRPAUFWJ8K7X5BMtW4Ljr8hV
+	 W0iBKGgj9Agum6qrk/j44WwGXZDaHcD3lVE+5WDl4wzhUWOamTVJSL2uwjTRpWakIqOOw
+	 lV33C7uLLNm/fdanPF4XiXXI+Qjw8x7HG9+XllaZc0Ma37TqT69Mu0RJWCmMacIJ4pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792766450;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=rQHeBum8IoN4wUsblO3htR9RGFV6GnquaIlN8uIvfcU=;
-	b=SJpI0Ro6r6KmTmGyDRGdoa05c+6jTMKni1qlSTpWZz7WHieuwcxOV0PJA7WeG+z/tJXJ
-	 TZxE4fPyzfdnRTrcYcyHBwUOYOx4HArfLl3a86bgA1I1DWK7/5kvODyDrOjmSiQ7p2JPb
-	 pIlavaOplJv8Y+UhiTHSSIk/gHpcyP/gLY9BJHiqvwlZJvrtz6LLZz2ipjY0kf+f9uEqG
-	 CNgcZ3935cH7ViIq3jKoKaM/gNSDki/8PgV5H+OMEplxbjl7pqib4C5OWAqE8YtJBvd/z
-	 LKh5ZBVf6T7MPQ18POzs/Zgg7ew5gzdJeKC7Z94/iRbVuvFnuJmBJglrvq6ABR2zEnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792766651;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=UzoPARaK93napsnGqG5eeO6IinVxNQh5GRiEnSU8yyY=;
+	b=aSFSb6ie8hVoEhXhj7UFY477ctckMW5xjJZ7zypdf2enBdfv53DJpRdMPrwkU2VuiCgO
+	 ZNHMaFGEt+ppIvkvHPTXqk1MhKMeHmkjTAryOb3EhwMrXtjEXIqPJERFlHNXCoObaIVY5
+	 S+oyXzPoN1bp0bI7lTce/r7SSecV9/cLfVw9vSvCzq25fv/gauLm28d31eJJVYilf7kcl
+	 0hQCYUanFcoIZXIQtzqQjsQ6yl9fd5ASZ1SgTkGUdNFZdNsijtHa3SCzucFF1Y+GWoiwz
+	 agackyoHx7JenQxsId5wOotyZViAn5PigLTExuzd+oro/9znYYuXHCFU85MFZTteVnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=etkh3MJ0;
-	arc=none smtp.remote-ip=43.163.128.54
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.54])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=EEpaWNqZ;
+	arc=none smtp.remote-ip=115.124.30.98
+Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEAD5606A328;
-	Fri, 23 Oct 2026 14:40:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEAD5606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B9C606A31A;
+	Fri, 23 Oct 2026 14:44:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52B9C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=etkh3MJ0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792766440; bh=rQHeBum8IoN4wUsblO3htR9RGFV6GnquaIlN8uIvfcU=;
-	h=From:To:Cc:Subject:Date;
-	b=etkh3MJ0ulISNEqx/5EHahVSTu6vENFqPUVWiUOBYLvbdK8BIHC3kxqZ0YjnBPxMJ
-	 oDXmuq8TekjFX2tprrprjK0/P93d1WG3eXvJzmdr3vedATfsedQ37CS/6aogGgxeui
-	 X++Fx4GxaO/HkoSn/VPsuCJOwlrDYkpUrfBXbBiE=
-Received: from kernel-lab.tail5e91bb.ts.net ([39.144.194.158])
-	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
-	id A2487023; Fri, 23 Oct 2026 22:40:36 +0800
-X-QQ-mid: xmsmtpt1792766436t479bfrd7
-Message-ID: <tencent_31D2FFCCE76C50A695A1270151F825E90906@qq.com>
-X-QQ-XMAILINFO: Nnw8JvMpFyP7mjlvYHkB+MnWu/UQWl4GoX2OQ7W/kKANeSpnw+q/kadNSXEbLU
-	 n5d7+Xj8NDB+nfACkz5+CuPuYM/ke+CNPMbp1LjKZd7O/tWXC/x3A6yUOMixoB9AEqEwE1yfH9T/
-	 2sc3L655y/vMRjmvEDBeeacjyN23wLm25sfQzaTu5yrS9DwwMfi1NgtZvJuJlb2eZEwdlV4DBh9h
-	 78RL56t9+ptuldPDCWaBRj9EYqVPdJi1GYgsHXeBWYibPrKYHYcu4pY5B91i1meEG3xMkNn6sTAC
-	 0TnqvY5oSdO49c58FbHjEyZ4RmcSX0t+wvSzVOcrItxG396sTzAXZV0U+4IZe25qZOBlDWWYIPy4
-	 HJ6b/E+VMm4uxRi+UhSNleLBUMj209AUQ7sq7bVZADCnXFlXFjygB1B7pn32wvupR/Qd6bnhM/pv
-	 JmqhiUGsSvUqzxpRi/BXPpR97Hcd2PNJ5v/UGzz2PW2gd/3LPGoAsADFPLvPdAtUBjQ6Utg8Bh9I
-	 xrh5DFrcPWOS1m/+IaJihkbJXyc+d7sy7EfsxgX50eIOIVxjkNJsHqzdH4AGkX2jq+EFrRU4rF1t
-	 /RHTGoNPeefrD7Ux8BfL/RavAX2x0zfXNKG0yqyx8jMUuFD+uI/HMx4kTzBeY8/UK1xdDTYP2nCt
-	 wNer4Jc4IGYtSioSKracLZDppVGDHYdZHP2/vuW9wNyle/XSG34oOVCf8PZX7Z+4IpJWCEXE66F/
-	 rZE588ZAE7zCGbO2Nua1wd40tgW9D6YZSsdAV+C4KnKmALIJmZlhAjdpjfzpFOiXTZBvNWMpfsFy
-	 1A10o7Mm8u/gNxaTqVcAM9IK9Lcf9RK1I++1rvb/wXvd0HLQvlsnulEKxx25ZtEfDxusndiYeZK3
-	 ZF/9z3HzHs07AzGKU/Gt/GEHlQzJaAF1D4xde7W+jG6aBBO7ifypRbzt/6YOHsCoskVU8ZdlbhTo
-	 UkWteVlcgtbvp8LMUeYbTPRyeEyDwhaTLB4t3p+pnk0exA+KH+RQdON+qiB2Ykcu/AxWcnN7noqH
-	 /jpnWzQBW13bSlJFh7wwdXcj2B2T09vMaPUYitoKKSGgpoB9mo4Mu6SMqiRx087CEWW9S7cB4j3B
-	 dWNcJdiai3mMBXZrTNLLoXizQOiHbJRUwtPMpvpTwrKYu4ZiTpOcXyLs6lB2Jp0Poqk/H9q+ZU/q
-	 PvxXc=
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: Yingjie Wang <1075151112@qq.com>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	jiayuan.chen@linux.dev,
-	ncardwell@google.com,
-	kuniyu@google.com,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] tcp: limit tcp_tso_rtt_log to a valid shift count
-Date: Fri, 23 Oct 2026 22:40:36 +0800
-X-OQ-MSGID: <20261023144036.152675-1-1075151112@qq.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=EEpaWNqZ
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792766645; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=UzoPARaK93napsnGqG5eeO6IinVxNQh5GRiEnSU8yyY=;
+	b=EEpaWNqZplxCjJvePXbwsM56qM2d7sAY+RubeXQHMGDoVx8dCikxA8Ci1/PeqZ5ewzGigM8uA/3csF0GFUWaIg5EfJCg/TvrAiFGtXqvndnduf9jTEUcgFRqQBsNptOgGvnZOTzUiNY2kRqKRifxZoGvrIIW/XFUArDXaKMAssc=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDMK9Hz_1792766643;
+Received: from 30.134.34.157(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XDMK9Hz_1792766643 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 23 Oct 2026 22:44:04 +0800
+Message-ID: <0e1f16c4-9b4e-414a-bb5e-996812e68986@linux.alibaba.com>
+Date: Fri, 23 Oct 2026 22:44:03 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,86 +54,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ext4: skip eof zeroing when the zero range covers the
+ eof block
+To: Zhang Yi <yi.zhang@huaweicloud.com>
+Cc: linux-ext4@vger.kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca,
+ jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <sashiko-outbox-181121@kernel.org>
+ <20261022122625.1744363-1-libaokun@linux.alibaba.com>
+ <fc8f09e1-02b6-4d76-95d8-d19c5635f4d5@huaweicloud.com>
+Content-Language: en-US
+From: Baokun Li <libaokun@linux.alibaba.com>
+In-Reply-To: <fc8f09e1-02b6-4d76-95d8-d19c5635f4d5@huaweicloud.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-tcp_tso_autosize() right-shifts the u32 returned by tcp_min_rtt() by
-sysctl_tcp_tso_rtt_log. The sysctl uses proc_dou8vec_minmax() without
-an upper bound, so it accepts values through 255. Values above 31 make
-the shift undefined.
+On 2026/10/23 17:23, Zhang Yi wrote:
+> On 10/22/2026 8:26 PM, Baokun Li wrote:
+>> ext4_zero_range() drops the page cache of the range before allocating,
+>> to avoid exposing stale cached data.  However, the dropped page can be
+>> read back by the eof zeroing:
+>>
+>>   fallocate(fd, FALLOC_FL_ZERO_RANGE, 0, 4096)
+>>     ext4_zero_range()
+>>       ext4_truncate_page_cache_block_range(0, 4096)
+>>         truncate_pagecache_range(0, 4095)
+>>           truncate_inode_pages_range()
+>>             delete_from_page_cache_batch()  # drops the page
+>>       ext4_alloc_file_blocks(..., 4096)
+>>         ext4_block_zero_eof(512, LLONG_MAX) # not block aligned
+>>           ext4_load_tail_bh()
+>>              __filemap_get_folio(FGP_WRITEBEGIN | FGP_ACCESSED)
+>>              # FGP_CREAT reads the dropped page back
+>>              # zeroes [512,1024), marks the buffer dirty
+>>         ext4_map_blocks(...)  # converts the extent to unwritten
+>>         ext4_update_inode_size(4096)
+>>
+>> The bytes below the old EOF keep the stale disk content.  The page is
+>> left dirty, so read() returns old data while O_DIRECT reads zeroes, and
+>> a write into the same block is not converted and is lost until the page
+>> is dropped:
+>>
+>>   page [0, 4096), 1k block size, file ends at 512
+>>    0            512          1024                      4096
+>>    |--- data ----|-- tail ---|---- zero range ----------|
+>>    | old data    |           |                          |
+>>
+>> For example:
+>>
+>>   $ xfs_io -f -c "pwrite -S 1 0 512" f
+>>   $ sync
+>>   $ fallocate -z -o 0 -l 4096 f
+>>   $ xfs_io -c "pread -v 0 16" f  # old data, not zeroes
+>>
+>> FALLOC_FL_WRITE_ZEROES hits the same path.  ext4_issue_zeroout() zeroes
+>> the block on disk without updating the page cache, and the block stays
+>> written.  Therefore, writeback of the dirty page overwrites the zeroes
+>> with old data.
+>>
+>> Since the whole eof block is converted to unwritten or zeroed out,
+>> zeroing it here is redundant.  Therefore, skip the zeroing when this
+>> allocation covers the eof block entirely.
+>>
+>> Fixes: c4602a1d09ec ("ext4: move zero partial block range functions out of active handle")
+>> Fixes: f4265b8d32c4 ("ext4: add FALLOC_FL_WRITE_ZEROES support")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
+> 
+> Hi Baokun,
 
-A process with CAP_NET_ADMIN in the target network namespace can set the
-per-netns sysctl. With CONFIG_UBSAN_SHIFT=y, setting it to 32 and sending
-TCP data over loopback triggers:
+Hi Yi,
 
-  UBSAN: shift-out-of-bounds in net/ipv4/tcp_output.c:2264:30
-  shift exponent 32 is too large for 32-bit type 'unsigned int'
-  Call Trace:
-   __ubsan_handle_shift_out_of_bounds
-   tcp_tso_segs
-   tcp_write_xmit
-   __tcp_push_pending_frames
-   tcp_push
-   tcp_sendmsg_locked
+> 
+> Thank you for the fix, this is a nice catch. This makes sense to me.
+> Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
+> 
 
-Limit the sysctl to 31, the largest valid shift count for a u32, and
-document the accepted range. Writes of larger values now fail with
--EINVAL.
+Thank you for your review!
 
-On a UBSAN/KASAN build of the net tree, values 0 and 31 remained
-accepted, values 32 and 255 returned -EINVAL, and TCP traffic with the
-valid boundary values produced no sanitizer diagnostics.
+> One small point, the condition you added looks a bit confusing. I'm
+> wondering whether, in the future, it would be more straightforward to
+> extract ext4_block_zero_eof() from ext4_alloc_file_blocks() into
+> ext4_zero_range() and ext4_do_fallocate()?
 
-Fixes: 65466904b015 ("tcp: adjust TSO packet sizes based on min_rtt")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yingjie Wang <1075151112@qq.com>
----
-v2:
-- Attach the upper bound to tcp_tso_rtt_log instead of ip_dynaddr, as
-  pointed out by Jiayuan Chen and Neal Cardwell.
-- Re-run checkpatch and boundary tests on the corrected patch.
-- Do not carry Eric Dumazet's Reviewed-by tag because the code changed.
+That sounds great. By writing zeros before truncating the page,
+we won’t have to worry about the page cache being read back,
+which means we won’t need to check the position of the EOF block
+anymore.
 
-v1: https://lore.kernel.org/netdev/tencent_53CDCF8AA0022B75CF72A294CB9993D2FF07@qq.com/
+I’ll send this out as a separate refactoring patch.
 
- Documentation/networking/ip-sysctl.rst | 2 ++
- net/ipv4/sysctl_net_ipv4.c             | 2 ++
- 2 files changed, 4 insertions(+)
+Thanks for the suggestion.
 
-diff --git a/Documentation/networking/ip-sysctl.rst b/Documentation/networking/ip-sysctl.rst
-index 8edd2eb2a..66a54c510 100644
---- a/Documentation/networking/ip-sysctl.rst
-+++ b/Documentation/networking/ip-sysctl.rst
-@@ -1128,6 +1128,8 @@ tcp_tso_rtt_log - INTEGER
- 
- 	If you want to use the old autosizing, set this sysctl to 0.
- 
-+	Possible values are [0, 31], inclusive.
-+
- 	Default: 9  (2^9 = 512 usec)
- 
- tcp_pacing_ss_ratio - INTEGER
-diff --git a/net/ipv4/sysctl_net_ipv4.c b/net/ipv4/sysctl_net_ipv4.c
-index e3760daa3..bf193e7ec 100644
---- a/net/ipv4/sysctl_net_ipv4.c
-+++ b/net/ipv4/sysctl_net_ipv4.c
-@@ -26,6 +26,7 @@ static int ip_local_port_range_max[] = { 65535, 65535 };
- static int tcp_adv_win_scale_min = -31;
- static int tcp_adv_win_scale_max = 31;
- static int tcp_app_win_max = 31;
-+static int tcp_tso_rtt_log_max = 31;
- static int tcp_min_snd_mss_min = TCP_MIN_SND_MSS;
- static int tcp_min_snd_mss_max = 65535;
- static int tcp_rto_max_max = TCP_RTO_MAX_SEC * MSEC_PER_SEC;
-@@ -1406,6 +1407,7 @@ static const struct ctl_table ipv4_net_table[] = {
- 		.maxlen		= sizeof(u8),
- 		.mode		= 0644,
- 		.proc_handler	= proc_dou8vec_minmax,
-+		.extra2		= &tcp_tso_rtt_log_max,
- 	},
- 	{
- 		.procname	= "tcp_min_rtt_wlen",
 
-base-commit: f4377bf85887f57b59abb5479f7660a81ffe4449
--- 
-2.43.0
+Cheers,
+Baokun
 
