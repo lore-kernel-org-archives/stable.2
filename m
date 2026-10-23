@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792757817;
-	b=qw+WjgIoR9dL56eVOnXZolrc2TgOZSw200EHL2+IHg25tz/z/p+E5dfHkDSU0kowcdZI
-	 WsWNKiLOWzRd7VW/+//VDprE8FPxxa3zTvAcK092lLCS5QeeqFzTI5HEuSErHgn+k+1Pm
-	 +9a62Ky3fKy4fJHNB6LhuHqpYkdB99oeCCxFnrMf1ClinBpuYHFVg5y/9fDnrtQiytdK7
-	 yDgimInSiYS36QJJcoa+akc9dxX6pZ9xKvrIhZKNUTBjk/7RpVmR2QFd1nZm8ou77i35r
-	 rjq94iFbx0Wr0xybHZ5UrObk+FWhUcjySIyFk0WKqTCKJO/6LD68Ay0q/CoBxy5mnqw==
+	b=Fkxxgd3LP5BcE2Q+qL1CrqaI7Cr6rTgz+KNByc4N90SJRXY2f5vwNC3LxG367Lpjm7vq
+	 7MWqn/ll5ed30l0fj4xZ6NP/zSi78HCOFVgLSvLKkTmgZkPlqbcXbTPdWMmPBY+HGrCjy
+	 dL7eq/72C+U3yYhB294TArKWmQSYiZAVAkWyt3FaoBuZzJdAeIYClm51S8tH9yHkjSk9F
+	 9n+I+AyCAPyiCS6tOf8CTISx/LM6zam/xhr+L09hCuXrP/hsWimHNK0Ac27l9IzW55qcc
+	 eAurewyMhPeJEKASAAu9TqYFeAs+hm+HsoejWP54t//LDqkRC0VZLNvzfAl6MHB4aUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792757817;
 	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=SVSuqNFXRzJdweZbIl5CgsES0sa6BwC26/iLpu01XDc=;
-	b=4A8VOajJcSbsjZ0Ztkpb+O3aft+Ef/dX/T2mhUSYh2qGwXmBlGlZg6HqPfH2dZJBGp2d
-	 g2Tj1NnKNP8M0QoH2xDLpLRUXM5E1BOMrCxVrxb1NIPwwWnXrkNbSnxM4QwaZEQIXqZV6
-	 1N9ONO6goPDUfdtu/4+SdeKHY96ZX2fgIHoE5FWqfV632kCzA1D+gVN52YFO7mDvobDcO
-	 Wbb0fYHjmTyoZHPqnSIm5Cq1lF6zTZyCjOZOFxarH9quejf31GFgpaMQjIaL69EfzwZCE
-	 3kjVlJLAqLC/DbW8X9k2XbcsxdCxWOIA7/wp2HaASuVWLUjsGI8PSlGZmiW28ZJru7w==
+	bh=85j6uG90tQOeVMPDeiPqaJ0ZvoWKsn7Ee6ZXZHaiL2k=;
+	b=aSkM1hixzERiX2wYNqrTqNN9jQPMs9+AObQxS8fTGc4iYjNOIQiXy0ulWUxwZ0jBzkGM
+	 tJ6OXVI/aEXDRKDuxEKvXCssK/nYTajFJy3tvj7ckV80ixccw6O0znJl2OQ+DsHagA88o
+	 VQNOO2KjEmTaGit7N4WU2N2x2CbV0HAHuBQw74qnj1aITqBAY346d4Y3/jyjJDxMzvoKv
+	 USOwqaOUoppmu+X0NJBvk1sLyR0Vf5LYXYekbyJDYz7sWs1UUsbc4B2ekSYzWrEYTnlvR
+	 hbQOT3lTXpEn/xR92V4Ucl6yVBHO/7uHHyPUClXIvWXgiJZOSrAbrtSsh2/gkvLmBaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=azrCbsaN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RA7Sv7V6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF633606A339;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DEF7606A325;
 	Fri, 23 Oct 2026 12:16:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=azrCbsaN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 755F41F031ED;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RA7Sv7V6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F55F1F031E2;
 	Fri, 23 Oct 2026 12:16:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792757815;
-	bh=SVSuqNFXRzJdweZbIl5CgsES0sa6BwC26/iLpu01XDc=;
+	bh=85j6uG90tQOeVMPDeiPqaJ0ZvoWKsn7Ee6ZXZHaiL2k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=azrCbsaNTWuQVVNAWBA2awP+DuvLZ8zqr2ln9EaFXoQhg+MptU5BGWZrlsB8owUx+
-	 OBxQgZ8N7khoxTyA77wEKgdBTLXRHB69sKdrHE2PB9P3OyPsLewrB+EcAmrvl8M/Lq
-	 KOBgfMwg6ZyZ5O2KRVECtLA9qxHeBiSQcc+3tbW9W8mQSgYPpUre9SJhRakDjkHsJH
-	 R5+agskh1TtOZLYstizIpHr4l747eJaQzuGse9gyrRQQgZ7H2RFGzj/rdEla5qygQo
-	 LSkzwLw5QXUBy6HoOzyP3s64TojmDqvUB9ceMjkII9G7w+9g0Txg1LLRzMvGYDbbIt
-	 ZgdeKSexbsCSQ==
+	b=RA7Sv7V6Rz7nnd4GMIlnHUuQPrMKhBySYet7y8r7zaGQrSferTVi4iD6nIzRradcq
+	 MG7/YgcZPS0oCOq+cx1BsPQnd9+F35/dj/7zA2wyiyZ3Z0g2KQZf7KThnnJBKO9ovk
+	 we5xVpjNTZwXxN4W7zarBmIepC4ewM1rZWC4fGjVj7u730nIsOZh88eJ7MoWTqdwOg
+	 tZvB8UvDrVaA0XAKbP268vtB3wZSX045OghPYH437Mv0kFkhTRpByxEcp/86jr+5Yp
+	 4/InH4/dArM0NaxNk7O/xcoBX83nPEHFhzwhRvcK+7ZSTpyU7nPubQbu2rJv2N2Nps
+	 2d2TFTSQw9sHg==
 Received: from johan by xi.lan with local (Exim 4.99.5)
 	(envelope-from <johan@kernel.org>)
-	id 1xKECb-00000000mZU-0SqV;
+	id 1xKECb-00000000mZZ-0Zox;
 	Fri, 23 Oct 2026 14:16:53 +0200
 From: Johan Hovold <johan@kernel.org>
 To: Johan Hovold <johan@kernel.org>
 Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2 04/12] USB: serial: io_edgeport: move initial termios update to open()
-Date: Fri, 23 Oct 2026 14:15:22 +0200
-Message-ID: <20261023121530.186541-5-johan@kernel.org>
+Subject: [PATCH v2 06/12] USB: serial: io_edgeport: fix potential use-after-free on disconnect
+Date: Fri, 23 Oct 2026 14:15:24 +0200
+Message-ID: <20261023121530.186541-7-johan@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261023121530.186541-1-johan@kernel.org>
 References: <20261023121530.186541-1-johan@kernel.org>
@@ -66,144 +66,99 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Explicitly update the terminal settings on open() instead of doing so
-from the interrupt completion handler when receiving an open command
-response, which in theory can be received after a failed open attempt.
+The driver submits command URBs asynchronously but fails to stop them on
+disconnect, something which could lead to a use-after-free when
+accessing driver data in the completion handler after a port has been
+unbound.
 
-Note that this will be used to fix a FIFO corruption issue and also
-allows for switching to synchronous commands.
+Add an URB anchor to track and kill outstanding command URBs on
+disconnect.
 
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
 Signed-off-by: Johan Hovold <johan@kernel.org>
 ---
- drivers/usb/serial/io_edgeport.c | 64 +++++---------------------------
- 1 file changed, 10 insertions(+), 54 deletions(-)
+ drivers/usb/serial/io_edgeport.c | 19 ++++++-------------
+ 1 file changed, 6 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/usb/serial/io_edgeport.c b/drivers/usb/serial/io_edgeport.c
-index e8e641e9a197..cdcff02c435b 100644
+index b8fbcc8908d1..0fe7495c47f4 100644
 --- a/drivers/usb/serial/io_edgeport.c
 +++ b/drivers/usb/serial/io_edgeport.c
-@@ -281,8 +281,7 @@ static void handle_new_lsr(struct edgeport_port *edge_port, __u8 lsrData,
- static int  send_iosp_ext_cmd(struct edgeport_port *edge_port, __u8 command,
- 				__u8 param);
- static int  calc_baud_rate_divisor(struct device *dev, int baud_rate, int *divisor);
--static void change_port_settings(struct tty_struct *tty,
--				struct edgeport_port *edge_port,
-+static void edge_set_termios(struct tty_struct *tty, struct usb_serial_port *port,
- 				const struct ktermios *old_termios);
- static int  send_cmd_write_uart_register(struct edgeport_port *edge_port,
- 				__u8 regNum, __u8 regValue);
-@@ -923,6 +922,9 @@ static int edge_open(struct tty_struct *tty, struct usb_serial_port *port)
+@@ -225,6 +225,7 @@ struct edgeport_serial {
+ 	__u8			rxStatusParam;			/* the receive status parameter */
+ 	__s16			rxBytesRemaining;		/* the number of port bytes left to read */
+ 	struct usb_serial	*serial;			/* loop back to the owner of this object */
++	struct usb_anchor	cmd_anchor;
+ };
+ 
+ /* baud rate information */
+@@ -261,9 +262,6 @@ static const struct divisor_table_entry divisor_table[] = {
+ 	{   230400,	1},
+ };
+ 
+-/* Number of outstanding Command Write Urbs */
+-static atomic_t CmdUrbs = ATOMIC_INIT(0);
+-
+ 
+ /* function prototypes */
+ 
+@@ -776,11 +774,6 @@ static void edge_bulk_out_cmd_callback(struct urb *urb)
+ 	struct device *dev = &urb->dev->dev;
+ 	int status = urb->status;
+ 
+-	atomic_dec(&CmdUrbs);
+-	dev_dbg(dev, "%s - FREE URB %p (outstanding %d)\n", __func__, urb,
+-		atomic_read(&CmdUrbs));
+-
+-
+ 	/* clean up the transfer buffer */
+ 	kfree(urb->transfer_buffer);
+ 
+@@ -2127,24 +2120,21 @@ static int write_cmd_usb(struct edgeport_port *edge_port,
+ 	if (!urb)
  		return -ENOMEM;
+ 
+-	atomic_inc(&CmdUrbs);
+-	dev_dbg(dev, "%s - ALLOCATE URB %p (outstanding %d)\n",
+-		__func__, urb, atomic_read(&CmdUrbs));
+-
+ 	usb_fill_bulk_urb(urb, edge_serial->serial->dev,
+ 			usb_sndbulkpipe(edge_serial->serial->dev,
+ 					edge_serial->bulk_out_endpoint),
+ 			buffer, length, edge_bulk_out_cmd_callback, edge_port);
+ 
+ 	edge_port->commandPending = true;
++	usb_anchor_urb(urb, &edge_serial->cmd_anchor);
+ 	status = usb_submit_urb(urb, GFP_ATOMIC);
+ 
+ 	if (status) {
+ 		/* something went wrong */
+ 		dev_err(dev, "%s - usb_submit_urb(write command) failed, status = %d\n",
+ 			__func__, status);
++		usb_unanchor_urb(urb);
+ 		usb_free_urb(urb);
+-		atomic_dec(&CmdUrbs);
+ 		return status;
  	}
  
-+	if (tty)
-+		edge_set_termios(tty, port, NULL);
+@@ -2696,6 +2686,7 @@ static int edge_startup(struct usb_serial *serial)
+ 
+ 	spin_lock_init(&edge_serial->es_lock);
+ 	edge_serial->serial = serial;
++	init_usb_anchor(&edge_serial->cmd_anchor);
+ 	usb_set_serial_data(serial, edge_serial);
+ 
+ 	/* get the name for the device from the device */
+@@ -2900,6 +2891,8 @@ static void edge_disconnect(struct usb_serial *serial)
+ {
+ 	struct edgeport_serial *edge_serial = usb_get_serial_data(serial);
+ 
++	usb_kill_anchored_urbs(&edge_serial->cmd_anchor);
 +
- 	spin_lock_irq(&edge_port->ep_lock);
- 	edge_port->open = true;
- 	spin_unlock_irq(&edge_port->ep_lock);
-@@ -1443,30 +1445,6 @@ static void edge_unthrottle(struct tty_struct *tty)
- }
- 
- 
--/*****************************************************************************
-- * SerialSetTermios
-- *	this function is called by the tty driver when it wants to change
-- * the termios structure
-- *****************************************************************************/
--static void edge_set_termios(struct tty_struct *tty,
--			     struct usb_serial_port *port,
--			     const struct ktermios *old_termios)
--{
--	struct edgeport_port *edge_port = usb_get_serial_port_data(port);
--
--	if (edge_port == NULL)
--		return;
--
--	if (!edge_port->open) {
--		dev_dbg(&port->dev, "%s - port not opened\n", __func__);
--		return;
--	}
--
--	/* change the port settings to the new ones specified */
--	change_port_settings(tty, edge_port, old_termios);
--}
--
--
- /*****************************************************************************
-  * get_lsr_info - get line status register info
-  *
-@@ -1756,7 +1734,6 @@ static void process_rcvd_status(struct edgeport_serial *edge_serial,
- {
- 	struct usb_serial_port *port;
- 	struct edgeport_port *edge_port;
--	struct tty_struct *tty;
- 	struct device *dev;
- 	__u8 code = edge_serial->rxStatusCode;
- 
-@@ -1808,15 +1785,6 @@ static void process_rcvd_status(struct edgeport_serial *edge_serial,
- 			__func__, edge_serial->rxPort, byte2, edge_port->txCredits);
- 		handle_new_msr(edge_port, byte2);
- 
--		/* send the current line settings to the port so we are
--		   in sync with any further termios calls */
--		tty = tty_port_tty_get(&edge_port->port->port);
--		if (tty) {
--			change_port_settings(tty,
--				edge_port, &tty->termios);
--			tty_kref_put(tty);
--		}
--
- 		/* we have completed the open */
- 		edge_port->openPending = false;
- 		wake_up(&edge_port->wait_open);
-@@ -2328,18 +2296,12 @@ static int send_cmd_write_uart_register(struct edgeport_port *edge_port,
- }
- 
- 
--/*****************************************************************************
-- * change_port_settings
-- *	This routine is called to set the UART on the device to match the
-- *	specified new settings.
-- *****************************************************************************/
--
--static void change_port_settings(struct tty_struct *tty,
--	struct edgeport_port *edge_port, const struct ktermios *old_termios)
-+static void edge_set_termios(struct tty_struct *tty, struct usb_serial_port *port,
-+		const struct ktermios *old_termios)
- {
--	struct device *dev = &edge_port->port->dev;
--	struct edgeport_serial *edge_serial =
--			usb_get_serial_data(edge_port->port->serial);
-+	struct edgeport_serial *edge_serial = usb_get_serial_data(port->serial);
-+	struct edgeport_port *edge_port = usb_get_serial_port_data(port);
-+	struct device *dev = &port->dev;
- 	int baud;
- 	unsigned cflag;
- 	__u8 mask = 0xff;
-@@ -2350,12 +2312,6 @@ static void change_port_settings(struct tty_struct *tty,
- 	__u8 txFlow;
- 	int status;
- 
--	if (!edge_port->open &&
--	    !edge_port->openPending) {
--		dev_dbg(dev, "%s - port not opened\n", __func__);
--		return;
--	}
--
- 	cflag = tty->termios.c_cflag;
- 
- 	switch (cflag & CSIZE) {
-@@ -2489,7 +2445,7 @@ static void change_port_settings(struct tty_struct *tty,
- 
- 	dev_dbg(dev, "%s - baud rate = %d\n", __func__, baud);
- 	status = send_cmd_write_baud_rate(edge_port, baud);
--	if (status == -1) {
-+	if (status == -1 && old_termios) {
- 		/* Speed change was not possible - put back the old speed */
- 		baud = tty_termios_baud_rate(old_termios);
- 		tty_encode_baud_rate(tty, baud, baud);
+ 	if (edge_serial->is_epic) {
+ 		usb_kill_urb(edge_serial->interrupt_read_urb);
+ 		usb_kill_urb(edge_serial->read_urb);
 -- 
 2.55.0
 
