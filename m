@@ -1,60 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792728912;
-	b=COntvFhvLt/KAzArAHs2GDl9KBL0M5k+curhcYdGL8o3LfddGWrKuXbwmJOOx6p/IaZL
-	 8Ov/bLbDHRgGgZdGPIzzjQoL5cRncTNcVg54TElJyx43HyD7sViKi9SYXKoRujkx9ytrq
-	 OHEvOotoS0waDOUNMSQYJumXqoLU0080qfq/NTv01Bwf4bJAiOHFSdcyxxY7veP7RbeEq
-	 Y2PEEbq1T5+TfvpDPNDr8ntuxOCj2OKlyXA2auAcitBD2nXMeSqpXLHrIrNcm+SAqa2fR
-	 fDQoIAFuoZhKBMIPvzqaLhKKn/pPYZjuHDD6b/bcooLtLOqLgcLrZX7eBCu0w1q2mgQ==
+	t=1792729072;
+	b=h2bK2YqzK3okId/LB4MtY02ZJVIPOr3jrDq4rclH1N8Kz8stKA9Imlz6iM6D+Y9DLUNh
+	 MAracZWHnY5tJ5sTJDWMXC3OuU5xjsAw563UUbNmIeVdvAEfwrtf3rETAunukkgMyW1fa
+	 Nrnh+sD7FO81DrBWP78aYclXRuC0mpABV+HUmYvbisBfBsB91zEm3S5ipxlIo/bYH2Zt7
+	 2kQcpGcbK4PJuZ+wYtz4Jj5H6APb+0x+2yhTWXAQsSuL+HI1Ivs3+OfEmy0WvSgb4QZwy
+	 SU2TsbgeUX7dk2PiQ2XV7Afse7+GKWYNjGqexyzORgEJ4/5tE/cUx3Gneea4BcCLY2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792728912;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=aAJMQvWLv6dMUeOuLQoFAGJiJnLdNrhHyRVCdhvYEhI=;
-	b=ZkEZHmG607wbKGxc2ZGfGC1d70+81EW1yptbgQXSYgKbn6DzbKt3IoqpOjhZl69W9C83
-	 5lCB/4BKfPFdy2OETTsM/2gaI71tlqrtZSPoBGIm2xIHAuheThcJnRia8FwtFtLMeMeeY
-	 58WZvjvV/ews76J75mj6AUXAhzDPRc6LpUHPm2RsNzH7/Ghc1nj3Y4J4pprly1Z0jKln2
-	 17YyjTpSp4gmE7cqEZd2C0y7yJIjhKH4Zn/HoVNjxyoKIyelgygfEAqBn0kqBTFyvmHrM
-	 X6xe5mYRT4SYLKWEuwycLdy7WNHwzRKf1YKjBjYhC10LvceZ9QOOdZ/R4a4foSiriHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792729072;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=E6o+77lkFv+7PjXdrWcZ2hRJGPEw0O3j6Ku2keoady0=;
+	b=ft5uoSWMnAGhtjQY/wM0mu7QeyMG7ZJubO0tZNCAZ26ht3jcHJJsgO6Sl+sf+ObOk08v
+	 oWXtHBJ5wjFhD/J8bjdmg1LFXND4+oqaTiRFnIe5X3vUGd01HNC02ulyhduWDnLzy04Zh
+	 VBGX6bEE37BqfB+rkeHjqar1Yw6kGl4lk9wEWwrn4AJ6u4FkKxI4Hpn4p+Ja40x8stjsa
+	 z2nxZYqsh1p/81LoNIsdk8tSiC5XmYJP11cU+YGroDWxu6cnHtfp9jTwMOpRLah63DfXC
+	 twfOFxr8QkFutUciY5ULYVCW8XvGj50Daw8WfDErq4rdZy8imOm2M4/t3IBZIof/kvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k69b1PDf;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ciwaWiK1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47A88606A31E;
-	Fri, 23 Oct 2026 04:15:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBBD5606A319;
+	Fri, 23 Oct 2026 04:17:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k69b1PDf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17A701F01825;
-	Fri, 23 Oct 2026 04:15:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792728910;
-	bh=aAJMQvWLv6dMUeOuLQoFAGJiJnLdNrhHyRVCdhvYEhI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=k69b1PDf4BCRSakt8yAfW2iDBa9ugBSn4aWAL1ZL7UcX8pNgpTYOlg2IdmXG+vOAM
-	 wlEQBt46Gvr6Cl0D9Z7G/Udlsne8/aPle2LJ2aPUnyekkW8wmXtvwp/Ijq55ytdx6U
-	 xKBGbTf4bxj7QVekL1dPbgY5rjfI/nqzJO7YS+f6qMxor4veFf/lS/IfRjF6Kjz6d5
-	 zsjPPVJA3e7MrGYxLvbi1elIkqnyg06YR7r6XTunYebMsBxQbd1prnzlhY/nIjlWSB
-	 h0B3tlcfC9W/PGSO1XDfMs93DQEikTFvrjbEz+7t2ltenQPvG5QbBFiEEJIituq4TR
-	 Jgce65uhUQrbw==
-Subject: Re: [PATCH v7] can: dev: can_fill_info(): don't wake up controller if
- interface is down
-From: netdev-bot+sashiko@kernel.org
-To: chunyuzhiqiang@yinhe.ht
-Cc: netdev-bot+sinfo@kernel.org, netdev@vger.kernel.org,
- linux-can@vger.kernel.org, mkl@pengutronix.de, kernel@pengutronix.de,
- haibo.chen@oss.nxp.com, shawnguo@kernel.org, imx@lists.linux.dev,
- stable@vger.kernel.org, kuba@kernel.org
-Date: Fri, 23 Oct 2026 04:15:09 +0000
-Message-ID: <179272890958.3130.8901186354506678802@kernel.org>
-In-Reply-To: <20261021145115.153107-1-chunyuzhiqiang@yinhe.ht>
-References: <20261021145115.153107-1-chunyuzhiqiang@yinhe.ht>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ciwaWiK1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DC6F1F01825;
+	Fri, 23 Oct 2026 04:17:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792729071;
+	bh=E6o+77lkFv+7PjXdrWcZ2hRJGPEw0O3j6Ku2keoady0=;
+	h=Date:To:From:Subject;
+	b=ciwaWiK1edvFjd3VJILNk44X9MYvxHoz98BG+i+Qy5wBmvyY7R7eXuz9dPlDPC1F7
+	 9eHnrQJqo7bEdDh7YIb0ZTICqTpdT/WFClSZkS4A9IKEMIEnPSSicx01A5I03y9mJ6
+	 7X5yYSJcR07wb+UHpyvLvK5bMhNotfFJlPUOdGxc=
+Date: Thu, 22 Oct 2026 21:17:50 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mark@fasheh.com,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,heming.zhao@suse.com,baijiaju1990@gmail.com,zzzccc427@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + ocfs2-snapshot-dentry-names-in-file-and-setattr-traces.patch added to mm-nonmm-unstable branch
+Message-Id: <20261023041751.2DC6F1F01825@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,168 +48,333 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1 (1)
+The patch titled
+     Subject: ocfs2: snapshot dentry names in file and setattr traces
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     ocfs2-snapshot-dentry-names-in-file-and-setattr-traces.patch
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-snapshot-dentry-names-in-file-and-setattr-traces.patch
 
-- [Medium] The commit message calls the issue "a generic logic problem
-  that exists on all platforms", but its own root-cause analysis points…
-- [Low] The patch carries `Fixes: ec56acfef2af1` (2014) and `Cc:
-  stable@vger.kernel.org`, but it is explicitly rebased onto net-next…
+This patch will later appear in the mm-nonmm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Pre-existing issues:
-- [Low] This problem wasn't introduced by this patch, but can_get_size()
-  reserves only `sizeof(priv->bitrate_max)` (4 bytes) for…
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
---
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-can: dev: can_fill_info(): don't wake up controller if interface is down
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
-When the interface is not running, this patch skips the calls to
-do_get_berr_counter() and do_get_auto_tdcv() in the CAN netlink fill path,
-and changes can_get_size() to match. As a result, IFLA_CAN_BERR_COUNTER and
-IFLA_CAN_TDC_TDCV are no longer reported for down interfaces. The
-motivation is a synchronous external abort seen on i.MX8QXP when "ip link
-show" is run on a flexcan interface that was never brought up.
+------------------------------------------------------
+From: Cen Zhang <zzzccc427@gmail.com>
+Subject: ocfs2: snapshot dentry names in file and setattr traces
+Date: Thu, 22 Oct 2026 17:08:41 +0800
 
-> Don't call do_get_berr_counter() or do_get_auto_tdcv() to read the CAN
-> controller if the interface is down. This fixes a generic logic problem
-> that exists on all platforms.
+Patch series "ocfs2: stabilize dentry names in file and setattr traces",
+v4.
 
-[ ... ]
+Snapshot names at all six users of ocfs2__file_ops and at the separate
+setattr event. Patch 1 handles the five ordinary file-operation callers
+and setattr. Patch 2 handles release separately to preserve its locked
+open-count sample and take the snapshot outside that critical section.
 
-> On i.MX8QXP the
-> CAN clocks are gated through the SCU LPCG and the subsystem shares the
-> IMX_SC_R_CAN_0 power domain; there is a window where
-> pm_runtime_resume_and_get() has returned but the clock has not reached
-> the module yet, and the immediate ECR read raises a synchronous
-> external abort.
+The release explanation distinguishes its existing RCU lifetime coverage
+from name/length consistency. It does not claim that the ordinary
+callers' external-name UAF interleaving crosses the held inode spinlock.
+The release source change is unchanged from v3.
 
-[ ... ]
+Patch 1 also removes the read callback's redundant NULL-inode check.
+The two patches apply independently and leave trace formats unchanged.
 
-> Fixes: ec56acfef2af1 ("can: flexcan: flexcan_get_berr_counter(): switch on clocks before accessing ecr register")
-> Cc: stable@vger.kernel.org
 
-[Severity: Medium]
-Is "a generic logic problem that exists on all platforms" an accurate
-description of what is going on here?
+This patch (of 2):
 
-The flexcan netlink path already takes a runtime PM reference before it
-reads ECR:
+The open, fsync, read, write and splice-read trace calls pass the live
+dentry name and length to the shared ocfs2__file_ops event class.
+ocfs2_setattr() passes the same unprotected arguments to its own event.
+Both events size and copy a __string field separately. A reference to
+the dentry does not pin the external storage backing an individual name.
 
-drivers/net/can/flexcan/flexcan-core.c:flexcan_get_berr_counter() {
-    ...
-	err = pm_runtime_resume_and_get(priv->dev);
-	if (err < 0)
-		return err;
+With an event enabled, a caller can be preempted after loading the name
+pointer. A long-to-short rename can then replace the name and reclaim its
+old external allocation before the trace callback sizes or copies it,
+provided no other snapshot retains that allocation.
 
-	err = __flexcan_get_berr_counter(dev, bec);
-    ...
-}
+The setattr inode lock does not exclude every rename: a same-directory
+rename of a source directory need not take that directory's inode lock.
+It can therefore change the dentry name while setattr records its event.
+Inline names and separately loaded lengths can also change during trace
+record sizing and copying.
 
-flexcan_runtime_resume() only calls flexcan_clks_enable(priv).
+Take a dentry name snapshot around each of these six trace calls and
+pass both the string and length from the snapshot. Check event enablement
+before taking a snapshot. Keep the event classes and formats unchanged.
 
-Suppose pm_runtime_resume_and_get() really can return before the LPCG clock
-reaches the module. That looks like an i.MX8QXP clock or power domain
-problem. The SCU LPCG driver already has an erratum workaround on that
-enable path, lpcg_e10858_writel() in drivers/clk/imx/clk-lpcg-scu.c.
+Also remove the redundant NULL-inode check in the read callback.
+file_inode() returns the open file's inode, which is already used by the
+trace call above the check.
 
-This patch removes one trigger, a netlink query while the interface is
-down. The same enable-then-MMIO sequence seems to remain elsewhere:
+The historical report below is from the read path.
 
-ip link set canX up
-  flexcan_open()
-    pm_runtime_resume_and_get()
-    ...
-    flexcan_chip_start()
+KASAN report as below:
 
-register_flexcandev()
-  flexcan_clks_enable()
-  flexcan_chip_disable()
+    BUG: KASAN: slab-use-after-free in strlen+0x85/0xa0
+    Read of size 1 at addr ffff88810a5b2b18 by task python3/496
 
-If that window exists, would these paths hit the same abort?
-flexcan_open() does other work between the resume and the first register
-access, so it may not show up there. register_flexcandev(), however,
-touches registers right after it enables the clocks.
+    [CPU and host details omitted.]
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? strlen+0x85/0xa0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20e/0x420
+     ? strlen+0x85/0xa0
+     kasan_report+0xe0/0x110
+     ? strlen+0x85/0xa0
+     strlen+0x85/0xa0
+     trace_event_raw_event_ocfs2__file_ops+0xf0/0x480
+     ? __pfx_trace_event_raw_event_ocfs2__file_ops+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? pmbd_probe_hit_cookie+0xe7/0x1c0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
+     ocfs2_file_read_iter+0x6cd/0xb30
+     ? __pfx_ocfs2_file_read_iter+0x10/0x10
+     ? selinux_file_permission+0x11d/0x540
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? security_file_permission+0x26/0x80
+     vfs_read+0x7d2/0xc20
+     ? __pfx_vfs_read+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_do_sys_openat2+0x10/0x10
+     ksys_read+0x111/0x200
+     ? __pfx_ksys_read+0x10/0x10
+     ? irqentry_exit+0xbe/0x820
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? trace_hardirqs_on_prepare+0x11d/0x150
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    [User register dump omitted.]
+     </TASK>
 
-The v7 notes also say the Fixes: commit ec56acfef2af1 was not buggy. With
-Cc: stable, could this lead backporters to think the i.MX8QXP synchronous
-external abort has been root-caused and fixed?
+    Allocated by task 489:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_noprof+0x2de/0x780
+     __d_alloc+0x5fc/0x8c0
+     d_alloc_parallel+0x106/0x11d0
+     lookup_open+0x3ff/0x13e0
+     path_openat+0x95e/0x2020
+     do_file_open+0x21e/0x470
+     do_sys_openat2+0xf4/0x1b0
+     __x64_sys_openat+0x136/0x1e0
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Not waking the controller while the interface is down looks reasonable,
-and it matches the m_can fix. The concern is only with the root cause and
-the Fixes/stable framing.
+    Freed by task 0:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     __rcu_free_sheaf_prepare+0x65/0x2a0
+     rcu_free_sheaf_nobarn+0x1d/0x50
+     rcu_core+0x6be/0x1ed0
+     handle_softirqs+0x1fa/0x8d0
+     __irq_exit_rcu+0x113/0x1e0
+     irq_exit_rcu+0xe/0x20
+     sysvec_apic_timer_interrupt+0x6c/0x80
+     asm_sysvec_apic_timer_interrupt+0x1a/0x20
 
->  - Rebase onto current net-next/main, including e63281614747
->    ("can: netlink: add initial CAN XL support").
+    The buggy address belongs to the object at ffff88810a5b2b00
+     which belongs to the cache kmalloc-rcl-192 of size 192
+    The buggy address is located 24 bytes inside of
+     freed 192-byte region [ffff88810a5b2b00, ffff88810a5b2bc0)
 
-[ ... ]
+    [Page and shadow-memory dumps omitted.]
 
->  - TDC auto readback gating is based on code inspection; only the
->    berr-counter path was tested on i.MX8QXP hardware.
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0088-v7-6324344256f0c3b1c3d8-0@gmail.com
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0088-v7-6324344256f0c3b1c3d8-1@gmail.com
+Fixes: 468eedde23d6 ("ocfs2: Remove mlog(0) from fs/ocfs2/file.c")
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Assisted-by: LLM
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
+Cc: <jjzuming@gmail.com>
+Cc: <stable@vger.kernel.org>
+---
 
-[Severity: Low]
-The Fixes: and Cc: stable tags mark this for backporting to stable.
-However, the patch is based on net-next and depends on the CAN XL netlink
-support from e63281614747.
+ fs/ocfs2/file.c |  102 +++++++++++++++++++++++++++++-----------------
+ 1 file changed, 65 insertions(+), 37 deletions(-)
 
-The hunks that use priv->xl, CAN_CTRLMODE_XL_TDC_MASK, the dbt_params-based
-can_tdc_get_size() and can_data_bittiming_get_size(), and
-can_tdc_fill_info(..., IFLA_CAN_XL_TDC) don't look like they will apply to
-older stable branches.
+--- a/fs/ocfs2/file.c~ocfs2-snapshot-dentry-names-in-file-and-setattr-traces
++++ a/fs/ocfs2/file.c
+@@ -85,10 +85,17 @@ static int ocfs2_file_open(struct inode
+ 	int mode = file->f_flags;
+ 	struct ocfs2_inode_info *oi = OCFS2_I(inode);
+ 
+-	trace_ocfs2_file_open(inode, file, file->f_path.dentry,
+-			      (unsigned long long)oi->ip_blkno,
+-			      file->f_path.dentry->d_name.len,
+-			      file->f_path.dentry->d_name.name, mode);
++	if (trace_ocfs2_file_open_enabled()) {
++		struct dentry *dentry = file->f_path.dentry;
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_file_open(inode, file, dentry,
++				      oi->ip_blkno,
++				      name.name.len, name.name.name,
++				      mode);
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 	if (file->f_mode & FMODE_WRITE) {
+ 		status = dquot_initialize(inode);
+@@ -174,11 +181,17 @@ static int ocfs2_sync_file(struct file *
+ 	tid_t commit_tid;
+ 	bool needs_barrier = false;
+ 
+-	trace_ocfs2_sync_file(inode, file, file->f_path.dentry,
+-			      oi->ip_blkno,
+-			      file->f_path.dentry->d_name.len,
+-			      file->f_path.dentry->d_name.name,
+-			      (unsigned long long)datasync);
++	if (trace_ocfs2_sync_file_enabled()) {
++		struct dentry *dentry = file->f_path.dentry;
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_sync_file(inode, file, dentry,
++				      oi->ip_blkno,
++				      name.name.len, name.name.name,
++				      (unsigned long long)datasync);
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 	if (unlikely(ocfs2_emergency_state(osb)))
+ 		return -EROFS;
+@@ -1132,15 +1145,19 @@ int ocfs2_setattr(struct mnt_idmap *idma
+ 	int had_lock;
+ 	struct ocfs2_lock_holder oh;
+ 
+-	trace_ocfs2_setattr(inode, dentry,
+-			    (unsigned long long)OCFS2_I(inode)->ip_blkno,
+-			    dentry->d_name.len, dentry->d_name.name,
+-			    attr->ia_valid,
+-				attr->ia_valid & ATTR_MODE ? attr->ia_mode : 0,
+-				attr->ia_valid & ATTR_UID ?
++	if (trace_ocfs2_setattr_enabled()) {
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_setattr(inode, dentry, OCFS2_I(inode)->ip_blkno,
++				    name.name.len, name.name.name, attr->ia_valid,
++				    attr->ia_valid & ATTR_MODE ? attr->ia_mode : 0,
++				    attr->ia_valid & ATTR_UID ?
+ 					from_kuid(&init_user_ns, attr->ia_uid) : 0,
+-				attr->ia_valid & ATTR_GID ?
++				    attr->ia_valid & ATTR_GID ?
+ 					from_kgid(&init_user_ns, attr->ia_gid) : 0);
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 	status = ocfs2_emergency_state(osb);
+ 	if (unlikely(status)) {
+@@ -2392,11 +2409,17 @@ static ssize_t ocfs2_file_write_iter(str
+ 	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
+ 	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
+ 
+-	trace_ocfs2_file_write_iter(inode, file, file->f_path.dentry,
+-		(unsigned long long)OCFS2_I(inode)->ip_blkno,
+-		file->f_path.dentry->d_name.len,
+-		file->f_path.dentry->d_name.name,
+-		(unsigned int)from->nr_segs);	/* GRRRRR */
++	if (trace_ocfs2_file_write_iter_enabled()) {
++		struct dentry *dentry = file->f_path.dentry;
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_file_write_iter(inode, file, dentry,
++					    OCFS2_I(inode)->ip_blkno,
++					    name.name.len, name.name.name,
++					    (unsigned int)from->nr_segs);
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 	if (!direct_io && nowait)
+ 		return -EOPNOTSUPP;
+@@ -2542,17 +2565,16 @@ static ssize_t ocfs2_file_read_iter(stru
+ 	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
+ 	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
+ 
+-	trace_ocfs2_file_read_iter(inode, filp, filp->f_path.dentry,
+-			(unsigned long long)OCFS2_I(inode)->ip_blkno,
+-			filp->f_path.dentry->d_name.len,
+-			filp->f_path.dentry->d_name.name,
+-			to->nr_segs);	/* GRRRRR */
+-
+-
+-	if (!inode) {
+-		ret = -EINVAL;
+-		mlog_errno(ret);
+-		goto bail;
++	if (trace_ocfs2_file_read_iter_enabled()) {
++		struct dentry *dentry = filp->f_path.dentry;
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_file_read_iter(inode, filp, dentry,
++					   OCFS2_I(inode)->ip_blkno,
++					   name.name.len, name.name.name,
++					   to->nr_segs);
++		release_dentry_name_snapshot(&name);
+ 	}
+ 
+ 	if (!direct_io && nowait)
+@@ -2624,11 +2646,17 @@ static ssize_t ocfs2_file_splice_read(st
+ 	ssize_t ret = 0;
+ 	int lock_level = 0;
+ 
+-	trace_ocfs2_file_splice_read(inode, in, in->f_path.dentry,
+-				     (unsigned long long)OCFS2_I(inode)->ip_blkno,
+-				     in->f_path.dentry->d_name.len,
+-				     in->f_path.dentry->d_name.name,
+-				     flags);
++	if (trace_ocfs2_file_splice_read_enabled()) {
++		struct dentry *dentry = in->f_path.dentry;
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_file_splice_read(inode, in, dentry,
++					     OCFS2_I(inode)->ip_blkno,
++					     name.name.len, name.name.name,
++					     flags);
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 	/*
+ 	 * We're fine letting folks race truncates and extending writes with
+_
 
-The same stable-tagged patch also combines the berr-counter change, which
-was tested on hardware, with the do_get_auto_tdcv gating, which came from
-code inspection only. Would it help stable reviewers if the TDCV gating
-were a separate patch?
+Patches currently in -mm which might be from zzzccc427@gmail.com are
 
-> diff --git a/drivers/net/can/dev/netlink.c b/drivers/net/can/dev/netlink.c
-> index 766d455950f5..ac30d2849543 100644
-> --- a/drivers/net/can/dev/netlink.c
-> +++ b/drivers/net/can/dev/netlink.c
+ocfs2-drain-quorum-work-before-removing-the-cluster.patch
+ocfs2-dlm-drain-join-handlers-before-releasing-module-text.patch
+ocfs2-snapshot-dentry-names-in-file-and-setattr-traces.patch
+ocfs2-snapshot-the-dentry-name-while-tracing-file-release.patch
 
-[ ... ]
-
-> @@ -825,10 +830,10 @@ static size_t can_get_size(const struct net_device *dev)
->  	size += sizeof(priv->bitrate_max);			/* IFLA_CAN_BITRATE_MAX */
-
-[Severity: Low]
-This isn't a bug introduced by this patch, but should this be
-nla_total_size(sizeof(priv->bitrate_max))?
-
-can_fill_info() emits the attribute with nla_put():
-
-	    (nla_put(skb, IFLA_CAN_BITRATE_MAX,
-		     sizeof(priv->bitrate_max),
-		     &priv->bitrate_max)) ||
-
-That needs nla_total_size(4) = 8 bytes of tailroom. can_get_size() reserves
-only 4, so it comes up 4 bytes short for each CAN interface. Every other
-attribute in can_get_size() is counted with nla_total_size().
-
-In practice the slack in if_nlmsg_size() and slab rounding probably hide
-the shortfall.
-
->  	size += can_ctrlmode_ext_get_size();			/* IFLA_CAN_CTRLMODE_EXT */
->  
-> -	size += can_data_bittiming_get_size(&priv->fd,
-> +	size += can_data_bittiming_get_size(dev, &priv->fd,
->  					    priv->ctrlmode & CAN_CTRLMODE_FD_TDC_MASK);
->  
-> -	size += can_data_bittiming_get_size(&priv->xl,
-> +	size += can_data_bittiming_get_size(dev, &priv->xl,
->  					    priv->ctrlmode & CAN_CTRLMODE_XL_TDC_MASK);
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261021145115.153107-1-chunyuzhiqiang%40yinhe.ht
