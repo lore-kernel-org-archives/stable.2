@@ -1,67 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.136.161.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792778879;
-	b=ZXc2HAJ3Zat1u6mE7ljGDG2v0VRXj1gR2RPdFA6Lyu5jD+BQ2uvREuqNrTkMaUGTsW4X
-	 ZPPg2D6X3DCQz60fh2Tykn+S7FQI+Dkp/VMJFJHeHdVwYtoXZOAOmCoRK2Wp3abJdwBCf
-	 dI+O4NZzuHljuwAeyssl9qSBaLcg64fLyjjV61Kdro+wZWCFhvSi3xDreVy6aBLtXSiaV
-	 XIt9KXMKniVZwfdS5F2qiD3ebjlL8PvDW2mCGfM2QV9wtcsiV5XjyBKPj69A24x5sed5A
-	 W4OY2jcDUxUnK7rs3Cuo54z9i2WwIsSRl7bB8ouygV/AWuDxdajy0yYA1Sv2AboHurA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792778879;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=TNpTDIHcROMznwYRxDpIWPwGzl98sFXPxpXvozgPziE=;
-	b=P1VadUo75PpsMlzwPDIqFLwF1bI2SBNw5+5XIFUyzAMP06JFy2zyX98JWFPZFQl3jVYm
-	 a37Rx1V2Qck9k9LOaPRdS1/t7U/MxUWFc0kmfPH2DvOdBA+cyCCP56DAxHwG5EAlV3fFw
-	 5blc/TaOeb7lITjBKQw1kNp/OJTMxExjcbFb3uX+6UKf/n6QJo54GotYcqlG+49Uhhqrs
-	 qF9fodCbRXOUyl1CQJ4JLxbpTaJ6sI2NbDiCp+2qnhx+24w4X01Zg0D4U3IPdqQ+BwFhe
-	 DwWdFB09WWVXEncL6G9/n0K1WYN5FHAfkMSdImJ8g6P89gyK49JxdzG9+fbJbAyiSWQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unibo.it;
-	spf=pass smtp.mailfrom=cs.unibo.it;
-	dkim=pass header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=D18Fpydl;
-	arc=none smtp.remote-ip=130.136.161.50
-Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [130.136.161.50])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 172A9606A329;
-	Fri, 23 Oct 2026 18:07:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 172A9606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unibo.it
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792778941;
+	b=fGsb2b68+RnueWamKvnGDvJLGOT71vLNL8hqqIzhMERlc6mt+BC98c9aU1zW65gzp265
+	 wfzCaCsUe1aBC+i5kLmMB8pF0bcwTMKO2lzbJVTnmZAWE9tL5z+I6529BQvLGsaDV49p3
+	 RbNfOJdRfO6CPerQVfZ1UVP4ph0J7VYsEV75oH+zrZadvg5aRv+RuuUcu0gnf7d5Unwkf
+	 CvcrFIgsx1ccaYikWsYht1fAvPqTtKyCfcwCoxK/1xNJWNqjc19Hovh2pI00oXK3bKZGe
+	 Eqovf2Nrsu99SJPdylmKBkUlyvX0EC3bkj50zWunD08PTtsqiBdstSELKTwgox81wuw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792778941;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=nKpQdPCfN7vtbw7obZJvLCHSgtoYzv6z5biXGbDum1g=;
+	b=1ebXoNmnWss6Av7X+c53ha6Ekxt3LPsAVjyPZQBP+AY4fO/HSORJIBWO/dV2urYTGD8D
+	 trL9Ok0Y5UVp1xu1fdU1ZOI0man9oTcdD2s7xUFtganJdTPzmDtgHjUv0z/BrCtQDXsma
+	 QEiJzZd8Qr7HfSuMMU+0yOfL/Fw+Kmon+R2lMjWBWwG/R9t4W5rvW14o3ZAk9iDWelYmS
+	 AlWB4JKnhJZWIRLDYYm4U5RbQ3EdBcyQSIs1P+mHtNJiLFrAPsZ0mpalIi/5TQ0ZiDLZx
+	 xi7NoGXngfTUg28Mm7wn3wTgZFIczFsdXq9HiqdfRjogubVoyHoGxiQcjTKQTdQFSrA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="V2T6l/7a";
+	arc=fail smtp.remote-ip=209.85.208.177
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB2C606A31A
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 18:09:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFB2C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=D18Fpydl
-Received: from eipi10.cs.unibo.it (unknown [94.32.99.206])
-	by mail.virtlab.unibo.it (Postfix) with ESMTPA id 36A991C006E;
-	Fri, 23 Oct 2026 20:07:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
-	s=virtlab; t=1792778867;
-	bh=BJcbOGmX+Z8yUrS25pNR/1jqBIqhgRSTCtLJy24//Ms=;
-	h=From:To:Cc:Subject:Date:From;
-	b=D18FpydlX118QA4mJM0TXwv1k8Mj0yQTuwA8SLtqmGrhtmrOK3i7Ru0V2HM8wNUlC
-	 Wvvnyyo9/ej6jIJzO5nfEyNhzPkmHWCSq7zQQXzsOOqe1U4obCH28RwxZ36RTQvFCM
-	 Tst6gBAS6RaZ0OdjeY+6M2tk9VILFlypxiHlKLic=
-From: Renzo Davoli <renzo@cs.unibo.it>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>
-Cc: Renzo Davoli <renzo@cs.unibo.it>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	=?UTF-8?q?Michal=20Such=C3=A1nek?= <msuchanek@suse.de>,
-	Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	Oleg Nesterov <oleg@redhat.com>,
-	"Dmitry V . Levin" <ldv@strace.io>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/1] powerpc/syscall: Return the preset value of skipped syscalls
-Date: Fri, 23 Oct 2026 20:07:32 +0200
-Message-ID: <20261023180735.853655-1-renzo@cs.unibo.it>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=V2T6l/7a
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3ac65e845a8so10281821fa.1
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 11:09:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792778939; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XDPOvTvRHP3zi0vM6vKqiv0mmJ8UyoPcTHg7irOgpb37QaR5AHsDM/GU2/LjFa1h9K
+         +eEzQPzUKfCIh0rCVv+WRdiufOe4O0VZ63HmVBLefa6BhJ/QiS18ESXKpj1XWlZOQxcf
+         UNQZUWGcOfqLABgyHWW6BFUlEK2lVI9AkxKRYwoZAknwHUXUNfd8cyxxJnDdCpAdm4yw
+         J376/lPhr0TDMb2sia9e8TUz0mRwOo81n5Rt/q0vTCnOdyTMgFUjX9J2uCpR1bjfiwWW
+         2IgzCQRb0cIjx85/uVmnC56OEV9QS8I66x7TB+ChW5Sg7bnXT/1FhhbxIpg04W8KmdRM
+         ftAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nKpQdPCfN7vtbw7obZJvLCHSgtoYzv6z5biXGbDum1g=;
+        fh=gJCAAvTu04pWsY0IZmXpkSTyMDATAuoQpmtCEQDvcDU=;
+        b=N/rAr7YwYLXREGbkLGrvhlT5IC+hreJB9TSATIWGoBnrirhYOjWNUgez4JM5d/vUUP
+         j7e5XyqGnEgAcaQEU0SPPYQQj3cjQHJ9TnAhZbsScXMmQ94tHpR2UkaA87XMJ5iaO58y
+         +n5mi2QttJk/plKZw6UF0p+5i61Sej5GH8CyI0PVWdJ9N2VHi3aGDrc1GsvOMw0Q3w5k
+         hEb3CBYZ99quDr+JbYhkU4mIct72ub3fWVLus75kLBdu9QZlfvcLU8UPsL2AOm7jdEs8
+         CvL9owx8dX1yfZBbZ+nWLTRfyEBmHQ9hEpAYT62eRSR2coC+8q2jL85Ank9zqQCyPyWm
+         oDOA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792778939; x=1793383739; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nKpQdPCfN7vtbw7obZJvLCHSgtoYzv6z5biXGbDum1g=;
+        b=V2T6l/7ameed6sVkeAzi5rrA0oehedbrCJVrRWC9j0OKhx2Zc0FICRciba4BDpIPQo
+         DaoImqskD9qR6gvN9ulG9cWDahYaCipbWKqi+StdjBKSgi/XEe8DFKAaWwn66eCKp9X3
+         vfIS0E+7Tjpodd69QWhWun3l0H8L4b3P/4EHAZXQMpq3jEJ2axEI8dFOAPCbcBKnmK6j
+         /ZO+Iknhs6cnujPkJELBC6nC/odMJ0gQXq4m9zGG8dPAQT/A9DMD5oAcXwbvzjdGhmSQ
+         BRMjaYDEuh/N7eC0xYZlDssRAsNMV5DA4IN1Q6D0kr1+Ug/PNtnwg3obm+1YGSudx7/e
+         PHlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792778939; x=1793383739;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nKpQdPCfN7vtbw7obZJvLCHSgtoYzv6z5biXGbDum1g=;
+        b=jihyjCEOPgJNcFxtjEYo4L6kWEUiS9Soc4c9/FsdYcUF7bgsfOcxE8jsQP1CDpxiFC
+         S7jNPLI5o0EEqn0bbA3CPaly83x/AwEafmuCiP9uhz5ZHNXUJbyXpx3C4xhpukgL2KWu
+         +FYFXZtVgf7ugc/ULiLjLFPjL1PtkNYbOWw9kc0DKxIzqEZP339ltKP0PZ3NsHYfi463
+         4cn5IGgBGf4z/FmBoIHbSYy4PYtUxkQMwCL7YS4qDWqpwn6XxspWPrkbj9a721BiCK5M
+         AjzVYu0mXmp+115mggZp92C/kYfN0SYKxtmtcU3ho4HhSw05M5sTTn5VVT1HFnGmt9/T
+         5lDw==
+X-Forwarded-Encrypted: i=1; AKwUvBwDEriVxGHiS4y80a3VFMVDOrgCafL/3yRt/uF8sm0M20Bv2bsYwM3LPq9VRbWsSHpGksDjZ4A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJlfL8Cil6H/X3Efy0/TfdQMeOLGjO/PGGrbFeDAwwcC0DaCyT
+	aMfZNsBvheviZ5myn0slrli3S6tE/nKe2rxvTwrTCJC15FYc7s5cPLwIPmoLZ9V7oiZ47eh5Kpb
+	Pu8aBBPaqtZUcPV1xlIwTZqOxXp18VOU=
+X-Gm-Gg: AYBFou3dnrgXSUvgxwQhRGXDdgQeUOarExum83/9IakTlKAdnh/5ToFj3v6F6DP61sM
+	TgpHAqT12tWSWvupP3P39wOkvthEeGIpGTQtEF5j23eaPoee5TeIA39rxretulE9NKNGlx75odo
+	atJf1yy9hy80RBac1ib/fyu7p+EKkdi7/NKAh6K0apOyI0AUsm5a5skq5bT1vmwNvTgH3bvNPf1
+	QDmHPZRCQk8GIT02/Fef96mgR26utsDtjv3aRGUOZShEf+zGgRJ0e6OTbVCTrYNLmHzueZvYYZ6
+	UQAC0Vrspbt+6yC/BEzDbFRR95WLG+erqhUa05bFJ2zJ98KzXXl58O0YNayD2tbUuwt/nYgSYIe
+	n6kWk1rRRgS3R/Ceam4MbM8qr5Fh70ZyAK2FLhDy7VFD14L88J7Hah5+OAEonjUtv1kTXQ9Q=
+X-Received: by 2002:a05:651c:1b84:b0:3a6:62bb:906e with SMTP id
+ 38308e7fff4ca-3ac6fd4e4cdmr269461fa.20.1792778938495; Fri, 23 Oct 2026
+ 11:08:58 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,149 +104,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <CAAzpgGfrHpQZQ8iaH5fqZHzk5tTx39+jGvGkVXxhYFkp-A_bQg@mail.gmail.com>
+ <CAAzpgGeAaOjPdiVOmeY7xZqEymyh4BfhESwAvTzczvqj+YuNHw@mail.gmail.com>
+In-Reply-To: <CAAzpgGeAaOjPdiVOmeY7xZqEymyh4BfhESwAvTzczvqj+YuNHw@mail.gmail.com>
+From: =?UTF-8?B?TG/Dr2MgS0FTU0VM?= <loic.kassel@gmail.com>
+Date: Fri, 23 Oct 2026 20:08:47 +0200
+X-Gm-Features: AclHuK_kKsOTsWBx0Yucceg6CRaakmJTdlvJSrwgu8_JgodWjgo2txSWsrgvUvI
+Message-ID: <CAAzpgGddO8H3EVb-WhXEeiCeoV97NuV0G22UZcHmyi0QZLwcMg@mail.gmail.com>
+Subject: Re: [REGRESSION] mac80211_hwsim: CCMP frames dropped on fast-xmit
+ (WARNING in ccmp_encrypt_skb, net/mac80211/wpa.c:462)
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: Sai Pratyusha Magam <sai.magam@oss.qualcomm.com>, Rohan Dutta <quic_drohan@quicinc.com>, 
+	linux-wireless@vger.kernel.org, regressions@lists.linux.dev, 
+	Felix Fietkau <nbd@nbd.name>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When ptrace or seccomp skip a system call, the return value they set in
-regs->gpr[3] gets lost or the tracer is affected, since two recent
-changes:
+Hi,
 
-1. Commit 05c033db7e9a ("entry, treewide: Make
-   syscall_enter_from_user_mode[_work]() indicate syscall execution")
-   made system_call_exception() return syscall_get_error() for a skipped
-   system call.  syscall_get_error() is 0 for any non-error value, so a
-   success value set by a tracer at a PTRACE_EVENT_SECCOMP stop (e.g.
-   with PTRACE_POKEUSER), or by a SECCOMP_RET_USER_NOTIF listener, is
-   replaced with 0.
+I tested commit 6832075ed4ef ("wifi: mac80211_hwsim: reserve headroom
+for software encryption") for this report, and it fixes it.
 
-2. Commit 69cb2be898be ("powerpc/syscall: Fix syscall skip handling for
-   seccomp and ptrace") made syscall_set_return_value() set
-   TIF_SYSCALL_RET with set_thread_flag(), i.e. on current rather than on
-   the task passed in.  When the caller is a tracer, as in
-   PTRACE_SET_SYSCALL_INFO with op == PTRACE_SYSCALL_INFO_EXIT, the flag
-   ends up on the tracer, and the next system call of the tracer is
-   silently not executed.  Setting it on the right task would not be
-   enough either: at a syscall-exit stop the flag would then skip the
-   next system call of the tracee.
+I applied its one-line change to the v7.2.11 mac80211_hwsim (Fedora 44)
+and loaded it as an out-of-tree module, then disabled my workaround
+(fragmentation threshold) on the AP radio. Pinging the station from
+behind the bridge:
 
-TIF_SYSCALL_RET is not needed anymore: after the change described in 1.
-the generic entry code tells whether ptrace or seccomp skipped the
-system call, and every in-kernel caller of syscall_set_return_value() on
-the syscall entry path (SECCOMP_RET_ERRNO, SECCOMP_RET_TRACE without a
-tracer, SECCOMP_RET_USER_NOTIF) also makes it return false.  A user
-calling syscall(-1) without tracer or seccomp still gets -ENOSYS.
+  - without 6832075ed4ef: 100% packet loss, one WARNING at wpa.c:462
+    per packet (10 pings, 10 WARNINGs)
+  - with 6832075ed4ef: 0% packet loss, no WARNING
 
-Remove the flag and return regs->gpr[3] for a skipped system call, as
-done before the conversion to GENERIC_ENTRY.  The syscall exit path
-already converts a negative error value to the "sc" ABI, and
-syscall_set_return_value() keeps CR0.SO in sync for positive error
-values.
+(The module also had my unrelated beacon timer fix applied, which does
+not touch this code path.)
 
-Fixes: 69cb2be898be ("powerpc/syscall: Fix syscall skip handling for seccomp and ptrace")
-Fixes: 05c033db7e9a ("entry, treewide: Make syscall_enter_from_user_mode[_work]() indicate syscall execution")
-Cc: Michal Suchánek <msuchanek@suse.de>
-Cc: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
-Cc: Shrikanth Hegde <sshegde@linux.ibm.com>
-Cc: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org # v7.3
-Assisted-by: claude-opus-5-5
-Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
----
-How this was found and tested: QEMU pseries (TCG, -cpu power9), ppc64le
-guest config, v7.3-rc6 (7b63ef2d55f2), with a small reproducer
-(ppc_skip_repro.c, available on request) which
+6832075ed4ef has no Fixes: tag, so as far as I can tell it will not be
+picked up for stable. The problem was introduced in 7.1 by a536be923191
+("wifi: mac80211: Fix AAD/Nonce computation for management frames with
+MLO"), which made mac80211_hwsim encrypt CCMP/GCMP frames itself, so
+7.1, 7.2 and 7.3 are affected. Could it be considered for stable ?
 
- - sets the getpid() return value at a syscall-exit stop with
-   PTRACE_SET_SYSCALL_INFO, then makes a syscall in the tracer;
- - skips getpid() at a PTRACE_EVENT_SECCOMP stop with PTRACE_POKEUSER
-   (r0 = -1, r3/CR0.SO = return value), with both "sc" and "scv 0".
+#regzbot fix: 6832075ed4ef
 
-                                             v7.3-rc6      with this patch
-  tracer syscall after SET_SYSCALL_INFO      returns 0     correct
-  skipped syscall, success value, sc/scv     returns 0     correct
-  skipped syscall, error value, sc/scv       correct       correct
-  selftests/ptrace set_syscall_info test    FAIL          pass
-  selftests/seccomp/seccomp_bpf              11 failures   all pass (*)
-
-  failing in v7.3-rc6: user_notification_{basic,child_pid_ns,
-  sibling_pid_ns,fault_recv,addfd,addfd_rlimit,sync,fifo,wait_killable},
-  TRACE_syscall.seccomp.syscall_faked, plus the timing-only one below.
-
-(*) user_notification_wait_killable_after_reply (100000 notifications
-    with a 1 ms itimer) can hit the 30 s harness timeout under emulation,
-    with and without this patch.
-
-Build-tested with W=1: ppc64le guest config, ppc64_defconfig (BE),
-pmac32_defconfig.
-
-Changes in v2:
-- Rebased on current mainline (734bef548a96), which now contains
-  commit 66236558dfac ("powerpc/syscall: Avoid atomic
-  test_and_clear_thread_flag on fast path").  That commit folded the
-  TIF_SYSCALL_RET check into the skip condition, so the v1 hunk in
-  system_call_exception() no longer applied.  The resulting code is the
-  same as with v1.
-- Link to v1:
-  https://lore.kernel.org/lkml/20261018151539.440213-1-renzo@cs.unibo.it
-
- arch/powerpc/include/asm/syscall.h     |  6 ------
- arch/powerpc/include/asm/thread_info.h |  1 -
- arch/powerpc/kernel/syscall.c          | 13 ++++++++-----
- 3 files changed, 8 insertions(+), 12 deletions(-)
-
-diff --git a/arch/powerpc/include/asm/syscall.h b/arch/powerpc/include/asm/syscall.h
-index 32be22b995cc..4b3c52ed6e9d 100644
---- a/arch/powerpc/include/asm/syscall.h
-+++ b/arch/powerpc/include/asm/syscall.h
-@@ -98,12 +98,6 @@ static inline void syscall_set_return_value(struct task_struct *task,
- 			regs->gpr[3] = val;
- 		}
- 	}
--	/*
--	 * Mark that a return value has been explicitly set by seccomp or
--	 * ptrace so that system_call_exception() can skip the syscall
--	 * unconditionally, even when the user requested syscall(-1).
--	 */
--	set_thread_flag(TIF_SYSCALL_RET);
- }
- 
- static inline void syscall_get_arguments(struct task_struct *task,
-diff --git a/arch/powerpc/include/asm/thread_info.h b/arch/powerpc/include/asm/thread_info.h
-index 1e069a2e7ce8..0487e94d3416 100644
---- a/arch/powerpc/include/asm/thread_info.h
-+++ b/arch/powerpc/include/asm/thread_info.h
-@@ -120,7 +120,6 @@ void arch_setup_new_exec(void);
- #endif
- #define TIF_POLLING_NRFLAG	19	/* true if poll_idle() is polling TIF_NEED_RESCHED */
- #define TIF_32BIT		20	/* 32 bit binary */
--#define TIF_SYSCALL_RET		21	/* syscall error value set */
- 
- /* as above, but as bit values */
- #define _TIF_SYSCALL_TRACE	(1<<TIF_SYSCALL_TRACE)
-diff --git a/arch/powerpc/kernel/syscall.c b/arch/powerpc/kernel/syscall.c
-index 8529827d697f..52ceff4ef41b 100644
---- a/arch/powerpc/kernel/syscall.c
-+++ b/arch/powerpc/kernel/syscall.c
-@@ -18,11 +18,14 @@ notrace long system_call_exception(struct pt_regs *regs, unsigned long r0)
- 	long ret;
- 	syscall_fn f;
- 
--	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0) ||
--			test_thread_flag(TIF_SYSCALL_RET))) {
--		clear_thread_flag(TIF_SYSCALL_RET);
--		return syscall_get_error(current, regs);
--	}
-+	/*
-+	 * If ptrace or seccomp decided to skip the syscall, regs->gpr[3] holds
-+	 * the return value they set (or the unmodified first argument, e.g.
-+	 * for PTRACE_SYSEMU). Return it as is, the exit path takes care of
-+	 * the error encoding for the "sc" ABI.
-+	 */
-+	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0)))
-+		return regs->gpr[3];
- 
- 	if (unlikely(r0 >= NR_syscalls)) {
- 		if (unlikely(trap_is_unsupported_scv(regs))) {
--- 
-2.55.0
-
+Thanks,
+Lo=C3=AFc Kassel
