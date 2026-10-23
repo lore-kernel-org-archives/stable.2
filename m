@@ -1,101 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792722075;
-	b=oCwi8YtGFvGF4PcDm6GGZRoMfg46BxGBJy7SiM9ac5jsdS8tXy1n2xnKyn9+3Mk9cHN3
-	 Gqq//Fq5pJ6qH3AkCwMp1xjKuIMl44ebmVIvdOO1yv2bJBe9zkyhlZUY0OWrX+Xm0UVYf
-	 RBiVx55+E5wxIH4S/69Hruc8WD8iE2l/JyZZjdNADOdJPMdOQIHNPlMfdgtANxaLzRJdp
-	 NEP/7rMyXQFueT7y8crdsPAKDKD7BnSDPQuR1KS9iuulwGQPj6aidG5lWUWT/YXxl1b2U
-	 dHeqpZoPqbv8/vZiFkQf7GlW30lRW74Xtwfn9HHlNVW4EfRrEqGqfbrLAzdNETnLslg==
+	t=1792722200;
+	b=KXm4nDLck4w6gNgt84tjo+rJiHGTvU4z5XZBaTr9FcMgZLh1MIU3ZVCLwM3fLnhFaQYI
+	 WmgEHRRSqKk0LCJVWfzgr1AWoGJkbvDyFC+OpATKEbBMaysqeYSDFC5l5kP56vCRftOO3
+	 zwkJXeaxBa1aNukic+u4SE3rpljJhC/TdLP3riUhNRGy18DysJ9s0Ey67+jAtybRze8qy
+	 LGAdDd1CSe6/OHK9lsT+ESl3AbKIeReE8ElJCehMPotX61gHnu3qpErrBb9OH2cj2AgIX
+	 bYyNNNEBcOZrE03R/hB6ENsj3ezMpJ0rSR/UudzfXHV1ksyghFgDTA4yJwYIJBGTAYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792722075;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=XXX5hCVe20W2DEnZ0HF+fr0EqmB3/p1IDPVPZBeHOFk=;
-	b=OCAoGkSPdG7kE4gvEoFdqL/Wyzid6ZhQilkemkdw4qwGnLbnMVx/rQCVFDePr3y2584T
-	 s4QPLQKYnKsyQXcQzs5aXPUpmD+jQgm+/4BilOnrAKCvJrVT7lxze+a+b77X90N9D0sF2
-	 mW27k0I7zkhGaH676GGAETBF4OMglgygCgE1C1lnqABHdOYS4eK77mUEoTFfmmA+kbUsP
-	 jSH4nt76VMAqlT6mTIfpsHz2/fPxKNLEHBGhcttuCLg0VwALEqN8lJqEFQ0ZH1HAzabcJ
-	 XKVRMCUcaS14Yjm/7FYuvniOK3VaweoGJTbCZwUhyRCA7uX+fwzPlwdO+IObOGa0SJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792722200;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=8aR471eyUThLQZ47HPLYqJ5jhcDVu3gnhYgQS0O/yDk=;
+	b=IZ3lndhXijdWQRZ9P1YPl9AOs+IQ++8hF0HdouZI8ZQzO+cGO4nhVxysA/F6T/gkFKh5
+	 rUU46pTzxwDjg5lBxYbTQ6ug5tmTpaaiFl1w+XnxWpfyZi5UoStacXf/Atzkn26MWUrib
+	 Fsd4xhbsW3LcaeWwArn1u70lWU2FG2aAESG5feQMjV7+S/J0XPcbjGpnmTzWDquWSuG93
+	 bdXbrP2G6fu+RoesIWu4jqOSgdxoPJlrEI0EdJsiAe4ee9D31REyMHMj5A872xZiA6FWn
+	 Bi85VSWD8ALvlW+9BrBOOBM5LwTO5PeViIJE7c0FXE5JTwpfUoau5QIf7QX1K1sTxWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=D7ulQNAY;
-	arc=none smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64048606A31D
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 02:21:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64048606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=byDcUQ8b;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 01DFC606A319;
+	Fri, 23 Oct 2026 02:23:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01DFC606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=D7ulQNAY
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38d489b6b71so263573a91.0
-        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 19:21:12 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=byDcUQ8b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792722072; x=1793326872; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XXX5hCVe20W2DEnZ0HF+fr0EqmB3/p1IDPVPZBeHOFk=;
-        b=D7ulQNAYpQewZbA6rR4DxTDcoX9oMPs7QYZdu4flYQ3UEakeUTfC7TOSxNNhi8OAh0
-         jDQuD29MTwJKgOS1IOHArMimnzfJvu8FvdSr7izuK9dqyz17oRSlKwzQnI6FdQYMRM82
-         G2QDHuzwugLBqXAcH3RQLT67SVYC7Wy9FRlzGyvyonoPH8n2hHqF7Jq7O5V/tnHnkysF
-         f7IzCDR3eEDqQ8hrJgkR7w8v3aFcQbqYIa3YUKzlZrlPL7t84828V5X28zkPfi4vqAQy
-         wZwqaNglqVCbGHBLfFWt4ePexQuKzGwLdr1kdzFwULfW9msWfuVyMNwPXDotZKh7xJcR
-         nKmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792722072; x=1793326872;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XXX5hCVe20W2DEnZ0HF+fr0EqmB3/p1IDPVPZBeHOFk=;
-        b=dOhnCOJWQcizqTlxc1gP5+4Dqe6iMyAnkQdwOeZbG3fS51tYlpQCmW3ZgKguLtBFPE
-         4Eoqp3QsiZksNI4+dJRnkzya7TGbKqxLSU1oL5zdCOekTeTxEPwUzuQE1ELHKCi9/gjd
-         SXbgE2QH5aWg3xrOGkIuIyA73WNC/w5txkAT/z4vZnVMQghX/jm9z1W6Iq8b2HFxju7l
-         BLOAyHr3wJY8m2bYsT6t9nX3PMU7sd4eSy0ZJFerT0qntK9mlQlRkxkGfdTXe1DfnX1E
-         p59rPxBMHGhVEjUzcQ/eZ34ltlSOaGEi/bXywkTCSNmrjLpjLyUm2zJaGJsxzDjzw6nF
-         uHAw==
-X-Forwarded-Encrypted: i=1; AKwUvBygp3vmx5hNuvi4XmDweLZvBCB7MjXDv3DkGtdF/Ai6nxTv8LL/0pfzVV9wUsUc9Yg3oaW8kzs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIxKHu4eXe65wU92RLzWjogJhNTGbpd5BxLWTV+Ok2mX+Yv0tWw
-	wrdRw2DPIYDIsvyH6lqCUH/QHxgGZ5Vg+dBYsL0KEaycVgH9aJeiJp79NunVbZrQdz8=
-X-Gm-Gg: AYBFou3S31fwSpISX7ZliGyTBXgKKstZDocR06tr9IQYSnUoeMmaYI5E2dmQim9YhIt
-	X2VIvdbISJyJF8m7ilpivGu+oBskurT8XP6WDMivNT/5of92IoN8eumYV5o+il9sZaGevRcTDDw
-	p1FODTUCyxXzNyKITjMOBtEphvMgC4akQ8ijMVOfen3HUcsbvTf2VD42ofwr5cs1PGGHqInKu6b
-	is6FBiNjK1pigYE/AW/Lp0sZt7Dfm64Yv4sdF0MEVMyi8E9b/RxlM6bI5UoSsD5/EF5hW+9StV7
-	X8bAEAVCLRnoWPduvHy7oVCuv4wBpruaaAulbpS6RVEytpjobXZ+Gs9ZYsluLyKX8cHuDil6R3q
-	ONC1b27iPIhrnyHJ8XSavJcgJaWSyqQ95Hhob6ymBXJqId+9j0lo+8yjnOcwc3JmPeI5uLfsS3c
-	nGeQX1Ln7SMYoRjoeRoltYo8qR+0KtnjNgmOfWanqMr/fiR+qsyw1LF4NOQNZwO0iiIApcqLkbe
-	kmuSKiLiYNx0i4/lBnxsh6KDt/T6whcmv9jcQX5VAosLMXnNUc8Vo8NgK+OG7+2ym0LeYD4JCAY
-	FRM=
-X-Received: by 2002:a17:90b:1fc7:b0:3ad:3715:d21 with SMTP id 98e67ed59e1d1-3adce7ca8c9mr598095a91.49.1792722072334;
-        Thu, 22 Oct 2026 19:21:12 -0700 (PDT)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:13e0:b266:5a7d:e119])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3add2994cd2sm183922a91.3.2026.10.22.19.21.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 19:21:11 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Nihar Panda <niharp@linux.ibm.com>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>
-Cc: Benjamin Block <bblock@linux.ibm.com>,
-	Steffen Maier <maier@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=byDcUQ8bLcaFJkqjv81W1xI6HfPUk7fwZQKn0w14fcvJ5TsoBkD5glTqZM+MXn0U689Vuzt6NoCMX
+	 btgxb4L+JOOALbbdjk5nrGrVhI9D2ZdaJuFOuAJWVcYh9t+29bsxHaOsMTWPgA6fHBrG7tkcjvCnSe
+	 SHOrWZ7ztgTQS8ng=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16adac511138-0f86d;
+	Fri, 23 Oct 2026 10:23:16 +0800 (CST)
+X-RM-TRANSID:2ee16adac511138-0f86d
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from desktop-c950f82eaac8410e-20260515094303939 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16adac511d3b-3046d;
+	Fri, 23 Oct 2026 10:23:16 +0800 (CST)
+X-RM-TRANSID:2ee16adac511d3b-3046d
+From: Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
+To: mst@redhat.com,
+	david@kernel.org
+Cc: jasowangio@gmail.com,
+	eperezma@redhat.com,
+	xuanzhuo@linux.alibaba.com,
+	virtualization@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
+	syzbot+0f659760bac1ecb01812@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com,
 	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH] scsi: zfcp: bound the RSCN page walk to the status read payload
-Date: Fri, 23 Oct 2026 11:20:56 +0900
-Message-ID: <20261023022056.3106651-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
+Subject: [PATCH v3] virtio_balloon: drain update works on probe error paths
+Date: Fri, 23 Oct 2026 10:23:10 +0800
+Message-ID: <20261023022311.1577-1-zhaimingbing@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.53.0.windows.1
+In-Reply-To: <8f914911-8453-4f8f-b02f-384114f9d4ef@kernel.org>
+References: <8f914911-8453-4f8f-b02f-384114f9d4ef@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,70 +79,123 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-zfcp_fc_incoming_rscn() takes the number of RSCN pages from rscn_plen in
-the received ELS and walks that many four byte pages out of the status
-read buffer payload. The fabric chooses rscn_plen, it is a 16 bit field,
-and nothing compares it against the payload. A value of 65535 gives 16383
-entries, so the loop reads up to 65532 bytes out of a payload of
-FSF_STATUS_READ_PAYLOAD_SIZE, which is 4032. The status read buffer is a
-single page and its payload ends at the page boundary, so the walk
-continues into whatever follows that page.
+init_vqs() arms the stats virtqueue callback, so an update work can
+already be queued on the system freezable workqueue while
+virtballoon_probe() is still running.  If a later probe step fails, the
+error unwind deletes the virtqueues and frees vb without stopping the
+works, and the queued work runs after the balloon struct is gone:
 
-Every iteration also hands the four bytes it just read to
-zfcp_fc_enqueue_event(), and that event reaches user space through
-fc_host_post_event(), so the bytes past the payload are reported and not
-merely read.
+  BUG: KFENCE: use-after-free read in virtqueue_get_buf_ctx
+   update_balloon_stats_func+0x121/0x300
+   Workqueue: events_freezable update_balloon_stats_func
 
-libfc bounds the same field. fc_disc_recv_rscn_req() refuses an RSCN whose
-rscn_plen is not covered by the received frame. zfcp does not share that
-code, so add the equivalent test here. Compare against the payload size
-rather than the firmware reported srb->length, because a bogus srb->length
-need not reach the payload at all.
+remove() already handles this via virtballoon_quiesce().  Factor the
+stopping of the update works out of it and run it on the probe error
+path as well, before the queues and vb go away.
 
-A conforming RSCN is unaffected. An FC data field holds at most 2112
-bytes, so at most 528 pages, well under the 1008 the payload can hold.
+The same hole exists when init_vqs() itself fails after
+virtio_find_vqs() succeeded: the stats priming can fail with the queues
+up and the callback armed, yet probe jumps straight to out_free_vb and
+leaks the virtqueues while the queued work still references vb.  Unwind
+inside init_vqs() in that case, stopping the works before the queues
+are deleted.
 
-This is an out of bounds read and an information leak to user space. It is
-not a write and it corrupts no state. It assumes the adapter passes
-rscn_plen through unchanged, the same assumption the host bus adapter
-mediated paths in other drivers already make, and one the driver cannot
-check for itself.
+The drained work takes vb->wakeup_lock in process_wakeup_event() and
+finish_wakeup_event(), so this depends on "virtio_balloon: initialize
+wakeup_lock before virtqueues are set up", which moves that
+spin_lock_init() to the top of probe.
 
-Not tested on hardware. The bound follows from the field widths and the
-payload size.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Fixes: 1f34c71afe51 ("virtio: Fix scheduling while atomic in virtio_balloon stats")
+Reported-by: syzbot+0f659760bac1ecb01812@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=0f659760bac1ecb01812
+Signed-off-by: Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
 ---
- drivers/s390/scsi/zfcp_fc.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/s390/scsi/zfcp_fc.c b/drivers/s390/scsi/zfcp_fc.c
-index 05d0812978798..24efd29b66bfc 100644
---- a/drivers/s390/scsi/zfcp_fc.c
-+++ b/drivers/s390/scsi/zfcp_fc.c
-@@ -270,6 +270,18 @@ static void zfcp_fc_incoming_rscn(struct zfcp_fsf_req *fsf_req)
- 	no_entries = be16_to_cpu(head->rscn_plen) /
- 		sizeof(struct fc_els_rscn_page);
+Hi David,
+
+> Did you manage to reproduce this? How? (forcing the probe to fail?)
+
+Yes -- KASAN, injection right after init_vqs(): queue both works,
+mdelay() to hold the window open, then err = -ENOMEM; goto
+out_del_vqs, driven by bind/unbind loops. Unpatched: KASAN
+use-after-free with both stacks in virtballoon_probe().
+
+> Does this require the device to trigger us even before
+> virtio_device_ready(vdev)?
+
+Yes -- the callback is armed and the stats buffer primed/kicked in
+init_vqs(), and ready() is only reached at the end of a successful
+probe.
+
+> I guess this path is very hard to trigger.
+
+Agreed. That one came from the sashiko bot's review of v1 for the vq
+leak -- it does look at least theoretically reachable, though.
+
+> Do we really need this comment?
+
+Dropped both in v3.
+
+Thanks,
+Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
+
+ drivers/virtio/virtio_balloon.c | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
+index 8c1b47ec1..cb53acdf7 100644
+--- a/drivers/virtio/virtio_balloon.c
++++ b/drivers/virtio/virtio_balloon.c
+@@ -554,6 +554,17 @@ static void update_balloon_stats_func(struct work_struct *work)
+ 	finish_wakeup_event(vb);
+ }
  
-+	/*
-+	 * The fabric chooses rscn_plen, so refuse a value that would walk
-+	 * the page list past the end of the status read payload.
-+	 */
-+	if (no_entries > FSF_STATUS_READ_PAYLOAD_SIZE /
-+			 sizeof(struct fc_els_rscn_page)) {
-+		dev_warn(&adapter->ccw_device->dev,
-+			 "An RSCN with a payload length of %u was dropped\n",
-+			 be16_to_cpu(head->rscn_plen));
-+		return;
-+	}
++/* Stop queueing of and drain any pending balloon update works. */
++static void virtballoon_stop_updates(struct virtio_balloon *vb)
++{
++	spin_lock_irq(&vb->stop_update_lock);
++	vb->stop_update = true;
++	spin_unlock_irq(&vb->stop_update_lock);
 +
- 	if (no_entries > 1) {
- 		/* handle failed ports */
- 		unsigned long flags;
-
-base-commit: f47d223627f80cb7a1eb14c585fe6cb35de5e984
++	cancel_work_sync(&vb->update_balloon_size_work);
++	cancel_work_sync(&vb->update_balloon_stats_work);
++}
++
+ static void update_balloon_size_func(struct work_struct *work)
+ {
+ 	struct virtio_balloon *vb;
+@@ -633,6 +644,8 @@ static int init_vqs(struct virtio_balloon *vb)
+ 		if (err) {
+ 			dev_warn(&vb->vdev->dev, "%s: add stat_vq failed\n",
+ 				 __func__);
++			virtballoon_stop_updates(vb);
++			vb->vdev->config->del_vqs(vb->vdev);
+ 			return err;
+ 		}
+ 		virtqueue_kick(vb->stats_vq);
+@@ -1075,6 +1088,7 @@ static int virtballoon_probe(struct virtio_device *vdev)
+ 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
+ 		destroy_workqueue(vb->balloon_wq);
+ out_del_vqs:
++	virtballoon_stop_updates(vb);
+ 	vdev->config->del_vqs(vdev);
+ out_free_vb:
+ 	mutex_destroy(&vb->balloon_lock);
+@@ -1115,11 +1129,7 @@ static void virtballoon_quiesce(struct virtio_balloon *vb)
+ 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
+ 		virtio_balloon_unregister_shrinker(vb);
+ 
+-	spin_lock_irq(&vb->stop_update_lock);
+-	vb->stop_update = true;
+-	spin_unlock_irq(&vb->stop_update_lock);
+-	cancel_work_sync(&vb->update_balloon_size_work);
+-	cancel_work_sync(&vb->update_balloon_stats_work);
++	virtballoon_stop_updates(vb);
+ 
+ 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
+ 		cancel_work_sync(&vb->report_free_page_work);
 -- 
 2.43.0
+
+
 
