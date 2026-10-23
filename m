@@ -1,75 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792790641;
-	b=4Nzxo2+fj25ponHg4nBjCWrnGFQ9MPRkNo44ZfEiCFLsqJUpyb0iLd7EfJcbqDsjlgZp
-	 ms2F1Jrt4XYm7aruZyVMUyV3AjFK2P+yFE5NSvbRD7cO6khmOKu1/uvLsbjVtyRKDGy6l
-	 Lp+uoSSuYQVt4lK9PimmOhbp/zva9x6SJP3n3A7ODf0bph6vtub4BHDL58TxzPG8rfMKT
-	 dRKXfYh72JDSzo2WbUJSUEU2o71GlwakdDTvCy7Vg3oFOHbZAAfukqI7A/UqvWXjerXxa
-	 2Dy97BTj1ivsxkCLFrBuPV+u+XLIkGapyrt7RIRJxTTFkJWExy5zpMfalLXR6O+37+Q==
+	t=1792790909;
+	b=v+7zFFs/yGXTDJI3O9jFUeUT9nOauvml94jrRXCBC2rAJzsX56xLppsTQ6hrV0Z2V/XV
+	 tfbMi4tG3lKZGq6dj8emz9D9Jo0FDmDWlPMEiOSYXwosPqBPHTSbugOZpPaQfQOcn0FOg
+	 Khr33+mcaFcqVoV/lA6cNK7Dok21iTn80o5RwMuDWXF02VV32144XxnsQGAONQcYxe77V
+	 fW4SYLJb9vLXo6b5OjTXUsjFZJN0tIU0MJOUw7wRpaUAYzqWwcmRyypE+H5okbHylcQS3
+	 pqsqCM1NtKuq82zP5R1C4J97ROaLF1EKHzRcJi9Ae4mBGNKlO5Bb23iglx5OoE+JmrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792790641;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=8zNIwem/ycMreXfdXv1Mt4MnSZiagxZFx6brOMbPyG4=;
-	b=goZ7qyShNIjAADh2bAyKCQv/Yl9GizVL7XFM0JDZg6HVD6TlTCWSWfrue1M+CmG0gptl
-	 ew/cryLJt4BzC4QgdPY0QDqeU9KUazetHU2mYEZ5ONXwmiuRkkyzqMJL73s3Q7uRpVZ6g
-	 C3XKZ5PC+GOoReQM9kiCW7MQv3hdQbOGBpqPS2jKrz2wLETpSqurtBts7KCFxOEbUa9Kb
-	 E97c7l3j4uHnGav/FXQtzmDK4uqGAFYKNVZnk/ztPg+pcKsIUT7NiCclgV8Lfrxfj6tiU
-	 VXXxkW/TunR+iJP2tmdEM93iQYdH8hUOfenjexrD4yPDFnBlvBOZf55HQ7k9H1MXMhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792790909;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=exTyhi+p6FLosAtSIlBuccnoi48symIvLRodBYfafn8=;
+	b=lK0xqJwrAeMm4FCagG2dvRSXJmBsh5ZzQ2gTRY9iZBf9t5cEH0skwO0rADGlPPhqWA3v
+	 3IGtFRellvr1g+sNPMPtIIV0mt2a1ago2iUVQWdl1zMVo56BvWF0SLiRF+ZzSb+CYBM0P
+	 hSxoAB41zs0YJ+Tb042WYW/RkZh/eyyXkQwprWqzptOPWoNY8totB8yinVPp8+7tf8rPR
+	 b2rYYyyRIZM8ESoOOF2poAOeCHSc+SW33rI5+Me5xhsPjlBSxuJKxsYk62QnKi8yH2WGi
+	 khrSKnt0oD2DuBO1bdhQRsw3j+EjwJEktNnfSZKSF8nxHwCZQoYUhhsKce0kMzRpIVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=efwY2+dP;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=KmArqzE8;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RIZz1Qjm;
+	arc=none smtp.remote-ip=209.85.160.169
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D656606A31E;
-	Fri, 23 Oct 2026 21:24:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D656606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A54FC606A31B
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 21:28:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A54FC606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=efwY2+dP;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=KmArqzE8
-Date: Fri, 23 Oct 2026 21:23:56 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792790638;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8zNIwem/ycMreXfdXv1Mt4MnSZiagxZFx6brOMbPyG4=;
-	b=efwY2+dPoeFVJ1G7R2UWkX6MvSA1AeZ+5FAc5nY0XZznpzChN9iSvyHh/SB34Ku7EtP4dO
-	URsGPdpBItEz5waV/mBiQkkaGZnie7EzxKIRJhM5m0lgXqMsUIXe48cVBMP02b+TqcV0ZD
-	WWZYvfzGbwOz6dR1HE5y+Qv8gP9SnqpxSQbb7Yw5I66X1JLXue6TD1rT3aGAzPsGzf7C1B
-	X2e5HtztrvEsf+T4R10quMRI9Kbg52qeSAyaBRdfOUTuNpaieaJTdpiIQX8wiY3A0ABHwD
-	iqMFer27xX8RbUsywV6GXmGAHFCbfALqz7xtj07TUfdQkXDP3IjXolmC6z/rQA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792790638;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8zNIwem/ycMreXfdXv1Mt4MnSZiagxZFx6brOMbPyG4=;
-	b=KmArqzE8Lb2ROqMJWanjUi03gP7nmkEsNuHSeTbc7fmQJKUo2GygYK+HP0hnQe1Hu+Q2R+
-	BxbAviSDBQZkZSCA==
-From: "tip-bot2 for Igor Velkov" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/urgent] genirq/kexec: Do not take the bus lock of an
- interrupt chip on the crash path
-Cc: Thomas Gleixner <tglx@kernel.org>, Igor Velkov <iav@iav.lv>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
- maz@kernel.org
-In-Reply-To: <20261015-kexec-irq-bus-lock-v2-1-2af15f0757b6@iav.lv>
-References: <20261015-kexec-irq-bus-lock-v2-1-2af15f0757b6@iav.lv>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RIZz1Qjm
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-5366463571cso13657811cf.3
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 14:28:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792790907; x=1793395707; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=exTyhi+p6FLosAtSIlBuccnoi48symIvLRodBYfafn8=;
+        b=RIZz1Qjmk10fIdkgzwkJRcomIo7yExgzdo6BsvW3muJbljRQjRgZkiEIPIWJScqNWu
+         U5AKvYzVz9GZiYZh7NM/oYDfIor4zjwW98JNlD73HKIcUp2isUiNMeuySrZwQzCF+g6J
+         C/7q03P9eC6lYQD0eOFIP3ttbzK+mjTpZsnpFB72Oc5PFWuUwl6KEMPtDdaCdsyty+1l
+         NUNOrhSqNibqKLxVPa0lH3L+GmGgxFTSN5Z0zGMIM7PgwYIys3F8jMN3hrRtejlKZRUb
+         1VmJlnHyxeJ+lOYESROIXa+LifC/iceRliizXUibV/jAqStWfp4z3yVY4r+td1uB/Xt6
+         3BIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792790907; x=1793395707;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=exTyhi+p6FLosAtSIlBuccnoi48symIvLRodBYfafn8=;
+        b=LN/ALmou7b9r79X+fXAzeGZN8WPPIEN3ag77yM1+zMkLzswPk96ggrmEvqWJ38jIio
+         5uZ+ISEsHPWb1c+ULBLxXYsgANg4XtKOUBLmZRO8yxEk2wqYHd5pVOG2c3YgzzLHywix
+         JKfMh2+XeQbOmoHOsuaOcntCgardp4YClz7UCe7d3ru6QS19slLT9QZIeDSTK5wWCowf
+         7SK1du+z/4UEVrBeEiTY6QNSG4rGTBEXC5dxL+86L9E8zOi667eOOfc5u4jCmZMmW3aM
+         v9XWEusCw5kxQ+lnk9HKQxZZGHUoGmJo52w1aeBjoSlXkcC0AbcEt68sp30pswf6AZU/
+         FeRg==
+X-Forwarded-Encrypted: i=1; AKwUvBza/e3RA6QUdBDxjAO3wmm0kceHObfwuGrhrY3R81ZaR4hJb/kE3rRcAGuKMolRWUf/wOMIA6Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLp0plR5Xun0ltdQxzsE84BJtGXMaFoBdUhxQW+RjRAvRIX0SYh
+	V3Vu9WpOygnGqBuUHepz+qOZflO5HXSN2gQaESYymWb5KGmZ1qbSq8kJ
+X-Gm-Gg: AYBFou2LzZGjDOmq03e/qoCoXL4nXwA7hxfNyR7Ch4bZJAvwzck4gcZ7mhMtGtB7MJX
+	lvMrEb1JI/q5oo7sFBDvn2juQGxEnSqqkDreGCkT4ak/ai0VCU9Q1rC+RLpjmAVK6pheFojrMWg
+	/iUsMEFa6c4TKL1CHYSuTut7JqmjD6EjZplZr6ImnLZrFqz3gWNaGnY+v4Kr+uO3jQTVGynd30s
+	ldli0aqF6qzDUoHoZ6hhgvDEtmFOQICs0tvTpnMefW/O6fpWK2syf1ENHnEIVw/pdoZwVOXTVJ0
+	InvGoNc+TvfC0/kro0qdGcii6kIpc9eq7fJysrHjjfiyirkQKX/ZArfBPh1186CwRD6kU9CGMCn
+	NFIUVmPkZQ1cjNME19aZ31+ZFO5gsuU3j7NPB4SnBr55QzMxoJ0RTLNdzNgP8kTffV6tuJ5CeJI
+	vq4VEgTHcQsATL6l5rLFQqZM1iaZrnfxo2sJT5+eZMWtCXTJuXE2Lnx/m2WUi1lz2EACmkqJVZR
+	vn1bP1y6FnsiGzpkPeoA0p4uJo58PXJUbUCzCaGZqoIutdZlw7QvDkOGbqIUbQaATtre+/q6G2i
+	56lgwc8=
+X-Received: by 2002:ac8:5a44:0:b0:536:6c87:ebd7 with SMTP id d75a77b69052e-5383b741db3mr1986071cf.69.1792790907516;
+        Fri, 23 Oct 2026 14:28:27 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47cb85f3sm4781676d6.36.2026.10.23.14.28.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 23 Oct 2026 14:28:26 -0700 (PDT)
+Message-ID: <b79c26ec-5da6-4292-a72d-6ea3298ab7df@gmail.com>
+Date: Fri, 23 Oct 2026 14:28:22 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,148 +92,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179279063639.3012171.17648535454243722657.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 000/193] 6.18.59-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20261023163714.201276352@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20261023163714.201276352@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The following commit has been merged into the irq/urgent branch of tip:
+On 10/23/26 09:34, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.59 release.
+> There are 193 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sun, 25 Oct 2026 16:36:50 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.59-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-Commit-ID:     717862eac6eff0eea8ac30a0c0de0bed84922aab
-Gitweb:        https://git.kernel.org/tip/717862eac6eff0eea8ac30a0c0de0bed849=
-22aab
-Author:        Igor Velkov <iav@iav.lv>
-AuthorDate:    Thu, 15 Oct 2026 21:51:50 +03:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Fri, 23 Oct 2026 23:16:39 +02:00
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-genirq/kexec: Do not take the bus lock of an interrupt chip on the crash path
-
-machine_kexec_mask_interrupts() calls irq_set_irqchip_state() for every
-started interrupt. That function takes the bus lock of the chip and
-desc->lock, and syncs the chip when it drops them. On the crash path
-interrupts are off and the other CPUs are stopped, so a chip whose bus
-transfer is completed by an interrupt never returns from the sync.
-
-On RK3399 boards with an RK808 PMIC the RTC alarm interrupt belongs to
-the regmap-irq chip of the RK808, which sits on I2C. rk808_irq_chip sets
-init_ack_masked, so regmap_irq_sync_unlock() writes the ack register on
-every unlock, and the I2C controller needs its own interrupt to finish
-the transfer. A panic with a crash kernel loaded prints
-
-  SMP: stopping secondary CPUs
-
-and then nothing until the watchdog resets the board.
-
-machine_kexec_mask_interrupts() takes neither lock for the other
-operations on the descriptor. Move the search for the chip that
-implements irq_set_irqchip_state() into __irq_set_irqchip_state(), which
-takes no locks, and call it from machine_kexec_mask_interrupts().
-
-Fixes: 78fd584cdec0 ("arm64: kdump: implement machine_crash_shutdown()")
-Suggested-by: Thomas Gleixner <tglx@kernel.org>
-Signed-off-by: Igor Velkov <iav@iav.lv>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261015-kexec-irq-bus-lock-v2-1-2af15f0757b6@=
-iav.lv
----
- kernel/irq/internals.h |  1 +-
- kernel/irq/kexec.c     |  2 +-
- kernel/irq/manage.c    | 43 ++++++++++++++++++++++-------------------
- 3 files changed, 26 insertions(+), 20 deletions(-)
-
-diff --git a/kernel/irq/internals.h b/kernel/irq/internals.h
-index 0ce21dd..4dff3cc 100644
---- a/kernel/irq/internals.h
-+++ b/kernel/irq/internals.h
-@@ -81,6 +81,7 @@ enum {
- #include "settings.h"
-=20
- extern int __irq_set_trigger(struct irq_desc *desc, unsigned long flags);
-+extern int __irq_set_irqchip_state(struct irq_desc *desc, enum irqchip_irq_s=
-tate which, bool val);
- extern void __disable_irq(struct irq_desc *desc);
- extern void __enable_irq(struct irq_desc *desc);
-=20
-diff --git a/kernel/irq/kexec.c b/kernel/irq/kexec.c
-index 1a3deff..f245b98 100644
---- a/kernel/irq/kexec.c
-+++ b/kernel/irq/kexec.c
-@@ -25,7 +25,7 @@ void machine_kexec_mask_interrupts(void)
- 			 * First try to remove the active state from an interrupt which is forwar=
-ded
- 			 * to a VM. If the interrupt is not forwarded, try to EOI the interrupt.
- 			 */
--			check_eoi =3D irq_set_irqchip_state(i, IRQCHIP_STATE_ACTIVE, false);
-+			check_eoi =3D __irq_set_irqchip_state(desc, IRQCHIP_STATE_ACTIVE, false);
- 		}
-=20
- 		if (check_eoi && chip->irq_eoi && irqd_irq_inprogress(&desc->irq_data))
-diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
-index 57eff26..bdb4783 100644
---- a/kernel/irq/manage.c
-+++ b/kernel/irq/manage.c
-@@ -2735,6 +2735,28 @@ int irq_get_irqchip_state(unsigned int irq, enum irqch=
-ip_irq_state which, bool *
- }
- EXPORT_SYMBOL_GPL(irq_get_irqchip_state);
-=20
-+int __irq_set_irqchip_state(struct irq_desc *desc, enum irqchip_irq_state wh=
-ich, bool val)
-+{
-+	struct irq_data *data =3D irq_desc_get_irq_data(desc);
-+	struct irq_chip *chip;
-+
-+	do {
-+		chip =3D irq_data_get_irq_chip(data);
-+
-+		if (WARN_ON_ONCE(!chip))
-+			return -ENODEV;
-+
-+		if (chip->irq_set_irqchip_state)
-+			break;
-+
-+		data =3D irqd_get_parent_data(data);
-+	} while (data);
-+
-+	if (data)
-+		return chip->irq_set_irqchip_state(data, which, val);
-+	return -EINVAL;
-+}
-+
- /**
-  * irq_set_irqchip_state - set the state of a forwarded interrupt.
-  * @irq:	Interrupt line that is forwarded to a VM
-@@ -2749,25 +2771,8 @@ EXPORT_SYMBOL_GPL(irq_get_irqchip_state);
-  */
- int irq_set_irqchip_state(unsigned int irq, enum irqchip_irq_state which, bo=
-ol val)
- {
--	scoped_irqdesc_get_and_buslock(irq, 0) {
--		struct irq_data *data =3D irq_desc_get_irq_data(scoped_irqdesc);
--		struct irq_chip *chip;
--
--		do {
--			chip =3D irq_data_get_irq_chip(data);
--
--			if (WARN_ON_ONCE(!chip))
--				return -ENODEV;
--
--			if (chip->irq_set_irqchip_state)
--				break;
--
--			data =3D irqd_get_parent_data(data);
--		} while (data);
--
--		if (data)
--			return chip->irq_set_irqchip_state(data, which, val);
--	}
-+	scoped_irqdesc_get_and_buslock(irq, 0)
-+		return __irq_set_irqchip_state(scoped_irqdesc, which, val);
- 	return -EINVAL;
- }
- EXPORT_SYMBOL_GPL(irq_set_irqchip_state);
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+-- 
+Florian
