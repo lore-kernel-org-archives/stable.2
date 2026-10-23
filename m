@@ -1,57 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792772906;
-	b=baWKJbvCcrIP78GX03285APwEfhVWabdm4kh/dA/zBzx+WTtrC/nWK1ncKCnewJX/X5d
-	 611mFClCLO+CHj1gXCFq0dKZoDN1JQ+ptavakw3+BuHAA7nRZ+iGY728W051ggvIKkYuF
-	 r5x0dKnQru7CHmyrnkTsk2VfZWSEMPntADmvlCmxnlEtfaYhJF398pz5LWGHFpII48+oU
-	 +xdociMK7dOM4U1Tfn39k85dmQw7VF6vk6BlIeHKKKJ772/LJ5X1i2FcMY33P7jLaZY2B
-	 LO9mmZIJDr/RSULuqxeG+TxjXW9ni4ubPmzMZ5VJ8jfGH/D9VPw3715iI1dnGSA6Eew==
+	t=1792773033;
+	b=odPlQniok4n59YjSds7VBXMO2ZFrPz0zNVPF2oZE8ufNIw4mhBmCKqKdmHrqOhSeBPvd
+	 6+MlF03s2TBghn7ZiB6J5rJ7ZqLVWx6sMrTayj+ggQtAGtPimoEeiVPJ6UGhKLKKxVZ13
+	 887NdPKK2U7V9JONcAuXNnEaiXD2hCkRSYMjmDnGGazb4g9L9TQW3YqrGLxqJphmWzIIX
+	 WbkMoyv2hPzF3nBfmNxiNuGl3rHiKPgxpotibc6SvJAWD7Uhkx647knb9GbSX4fztRzlJ
+	 JGcMxugAmAredt8tn7nZNv4xgNZ8rIUdCE9UaZJTQZw4ZV2zZWMcIsZ8ELG1j5LZkhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792772906;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=Co97Y0p41uorR92GJeOhUDahiBIaQEoa0saPKr2noM8=;
-	b=W/rVsNUWl2WhJpF1+qWC/vuM/nUin/itpeuUtgK7TMktEMoQq1KIj744nhgj/NeZTs+v
-	 223dkV6/eKosGWrLaEJD9s2v/BzVzDsbGuO0hWbdwXV3yDUcBmVqkVmmXfgZDeolm1gu6
-	 oEeqXHuoyDJCHodRq5toDIa1dsFOCz3cN/pjWc9t9GVqITr06sGMr25DhBIH1keVRTtKy
-	 8ZsGtvXgTlKxVPu6dr+BF3xisVHwMguwKVgX55VcCEgurLkXiar+4knbh0Ssd9cKLmXHc
-	 ST9QzkDoAAq2O6HS0cIvE2mp2vh/He4hP51Jd1dnEyPON6FAzGC43Bu208QuY29jjdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792773033;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=bidR1AFwHCujHiY0WSU8gaeAW4HDxTP44acwR3nISts=;
+	b=J61a7O0HMvvxgymb6dS8NILFps5merHJkbOVjBktKWhTlYfKrpETCvtXaKh0kDuP3yv0
+	 RHmQRTHyY0o9YE8b8bO1ktdVMR6uLMLjf5gsLET7ZM54q1mL2B+y0ZylryHSLOolbbx9P
+	 JG78/gcqmksRConXlQJjH5bcJ0REaI3LcXcltRfl8yeO/vf/b+wy/WMW3GmELhINBPBT0
+	 ozB5/4t9Z1FU7V7BLqJZpwXsbUJCnG6uc8jRaEW2txzaikZ5lLx8ijACd5VrduMCKGJ8u
+	 NEtZLjDc6gA5AxiN6sf+bs/+XVOSdZTB2jA75rBxScG5VaEwsR6ga4jmmNZaMw9MVVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OojpiN35;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aQIF54pb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DEB8606A324;
-	Fri, 23 Oct 2026 16:28:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5518F606A332
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 16:30:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OojpiN35
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAEFC1F01825;
-	Fri, 23 Oct 2026 16:28:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792772906;
-	bh=Co97Y0p41uorR92GJeOhUDahiBIaQEoa0saPKr2noM8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OojpiN35R5m9Yj0Ve6tqyjOGsScUD1AEIt+CecU0CVUjyrDZnLoNaOlJyH699BiWW
-	 Y64Rxr1/hs+JXyrQHG/AuDtFDj1KoAU2VIRD9f/yPvDDkIg2w7Jfeq52ukwgNnzp69
-	 VoZGtaIgbUcvWGoRWmG4rLj69/Z92fnq+bqU4IF2n55mBJRlaIUpVJwss/zVy4+92I
-	 v+PGgM0xND6gzNNOSv8Fj3WEjL2nPzTech//bKrpdraaMlof0/YqWrYFyF0SAPp/rv
-	 pQSb+RD6RLHpuH2nj9/9T9G04ywIiAjS6hQGaW+tofWloizuyQZBxjnqoYKbmEE8J2
-	 eXFFL6TCS4+Yg==
-Date: Fri, 23 Oct 2026 17:28:21 +0100
-From: Simon Horman <horms@kernel.org>
-To: netdev-bot+sashiko@kernel.org
-Cc: jhs@mojatatu.com, netdev@vger.kernel.org, owen@verialabs.com,
-	jiri@resnulli.us, victor@mojatatu.com, davem@davemloft.net,
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
-	kaber@trash.net, stable@vger.kernel.org
-Subject: Re: [PATCH net 2/2] net/sched: sch_teql: fix use-after-free on lower
- qdisc drop
-Message-ID: <20261023162821.GN708417@horms.kernel.org>
-References: <QDISC-Y0BY.v1.r0.20261015184107-2@mojatatu.com>
- <179248763469.3135.1739559328868319628@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aQIF54pb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C6FF1F01828;
+	Fri, 23 Oct 2026 16:30:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792773032;
+	bh=bidR1AFwHCujHiY0WSU8gaeAW4HDxTP44acwR3nISts=;
+	h=Subject:To:Cc:From:Date;
+	b=aQIF54pb2bE4IrlfaAoJxN36qK9iOfHLmKxBuC56XfvT2Fy3m4mfvaE/fYDYj5xnx
+	 fYOsc1guLN/D7i6WauoictCtcliD18o3am9PEAuToP+NoiEacqquouiuviQHPbpv+k
+	 TcD7vNSWwy+Fka6yE3WWeOinCBnEN7+QJZJVlqzU=
+Subject: FAILED: patch "[PATCH] ACPI: scan: Avoid registering platform devices with resource" failed to apply to 6.18-stable tree
+To: rafael.j.wysocki@intel.com,andriy.shevchenko@linux.intel.com,julien82453@gmail.com,pmenzel@molgen.mpg.de,stable@vger.kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Fri, 23 Oct 2026 18:29:08 +0200
+Message-ID: <2026102308-twisting-bazooka-12b5@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,102 +51,130 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <179248763469.3135.1739559328868319628@kernel.org>
 
-On Tue, Oct 20, 2026 at 09:13:54AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 0
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] In teql_master_xmit() (net/sched/sch_teql.c), the patch
->   replaces `== NETDEV_TX_OK` with `dev_xmit_complete(rc)`.
 
-Hi Jamal,
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Maybe things have moved on for some reason.
-But this concern does seem to warrant a response.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-> 
-> --
-> 
-> net/sched: sch_teql: fix use-after-free on lower qdisc drop
-> 
-> This patch changes the check on the slave's netdev_start_xmit() return
-> value in teql_master_xmit(). It now uses dev_xmit_complete() instead of
-> comparing against NETDEV_TX_OK, so a slave that consumes the skb and
-> returns NET_XMIT_DROP is no longer treated as still owning it. This fixes
-> a use-after-free when a VLAN slave's lower qdisc drops the packet.
-> 
-> > diff --git a/net/sched/sch_teql.c b/net/sched/sch_teql.c
-> > index c7dcec25ef420..b3efd5c281988 100644
-> > --- a/net/sched/sch_teql.c
-> > +++ b/net/sched/sch_teql.c
-> > @@ -350,8 +350,8 @@ static netdev_tx_t teql_master_xmit(struct sk_buff *skb, struct net_device *dev)
-> >  
-> >  				skb->dev = slave;
-> >  				if (!netif_xmit_frozen_or_stopped(slave_txq) &&
-> > -				    netdev_start_xmit(skb, slave, slave_txq, false) ==
-> > -				    NETDEV_TX_OK) {
-> > +				    dev_xmit_complete(netdev_start_xmit(skb, slave,
-> > +									slave_txq, false))) {
-> 
-> [Severity: Medium]
-> This closes the use-after-free. Does the same condition now also count
-> dropped packets as successful transmits on teql0?
-> 
-> dev_xmit_complete() returns true for any rc < NET_XMIT_MASK. That covers
-> NET_XMIT_DROP and negative errno values as well as NETDEV_TX_OK. All of
-> these now take the success block in teql_master_xmit():
-> 
->     netif_wake_queue(dev);
->     master->tx_packets++;
->     master->tx_bytes += length;
->     rcu_read_unlock();
->     return NETDEV_TX_OK;
-> 
-> They also advance master->slaves to the next slave.
-> 
-> teql_master_stats64() copies these counters directly into struct
-> rtnl_link_stats64. There, tx_packets is defined as "Number of packets
-> successfully transmitted".
-> 
-> With the reproducer from the commit message (a VLAN slave on a dummy
-> device with a pfifo limit 0 root), every packet the lower qdisc drops
-> would appear as a good transmit in ip -s link show teql0. tx_dropped and
-> tx_errors would stay at zero.
-> 
-> The VLAN slave counts the same rc as a drop in vlan_dev_hard_start_xmit():
-> 
->     if (likely(ret == NET_XMIT_SUCCESS || ret == NET_XMIT_CN)) {
->         ...
->         u64_stats_inc(&stats->tx_packets);
->         ...
->     } else {
->         this_cpu_inc(vlan->vlan_pcpu_stats->tx_dropped);
->     }
-> 
-> Could the rc be saved once? dev_xmit_complete(rc) would then decide only
-> whether the skb is still owned, which keeps the use-after-free fix. In
-> that case, tx_packets and tx_bytes would only grow for NETDEV_TX_OK and
-> NET_XMIT_CN. The other consumed codes would go to tx_dropped (or
-> tx_errors), without touching the skb.
-> 
-> The commit message describes this only as a use-after-free fix. Could it
-> also mention that teql0's counters behave differently now?
-> 
-> >  					__netif_tx_unlock(slave_txq);
-> >  					raw_spin_lock_irqsave(&master->slaves_lock, flags);
-> >  					if (rcu_dereference_protected(master->slaves,
-> 
-> -- 
-> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-Y0BY.v1.r0.20261015184107%40mojatatu.com
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x f234fdaae1cad8c39265e7ca0a14633076ec7154
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102308-twisting-bazooka-12b5@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From f234fdaae1cad8c39265e7ca0a14633076ec7154 Mon Sep 17 00:00:00 2001
+From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+Date: Fri, 7 Aug 2026 12:22:37 +0200
+Subject: [PATCH] ACPI: scan: Avoid registering platform devices with resource
+ overlaps
+
+If acpi_dev_get_resources() returns overlapping I/O or memory resources,
+the subsequent registration of a platform device will fail with -EBUSY
+due to a resource conflict.  This is reported to happen on Acer Aspire
+ES1-572 [1].
+
+Avoid that by adjusting resources returned by acpi_dev_get_resources()
+to eliminate partial overlaps between them.
+
+This has not been regarded as necessary before because putting
+overlapping resources into the _CRS of one device is really pointless,
+but now that the issue has been reported to actually happen in the
+field, it needs to be done.
+
+Fixes: ab06eb920401 ("ACPI: scan: Register platform devices for fixed event buttons")
+Fixes: 48fe2cddc85c ("tpm_crb: Convert ACPI driver to a platform one")
+Reported-by: Julien <julien82453@gmail.com>
+Tested-by: Julien <julien82453@gmail.com>
+Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Closes: https://lore.kernel.org/linux-integrity/CAJOGg3z6LJPDsdPNBxajgy8_wQxfhYBRxe4EiurZf3kPU5A5Bw@mail.gmail.com/ [1]
+Cc: All applicable <stable@vger.kernel.org>
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+[ rjw: Tweaked the new message ]
+Link: https://patch.msgid.link/12955541.O9o76ZdvQC@rafael.j.wysocki
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+
+diff --git a/drivers/acpi/acpi_platform.c b/drivers/acpi/acpi_platform.c
+index a09636a4168e..373c94de7590 100644
+--- a/drivers/acpi/acpi_platform.c
++++ b/drivers/acpi/acpi_platform.c
+@@ -12,6 +12,7 @@
+ #include <linux/bits.h>
+ #include <linux/device.h>
+ #include <linux/err.h>
++#include <linux/ioport.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+ #include <linux/dma-mapping.h>
+@@ -71,6 +72,36 @@ static struct notifier_block acpi_platform_notifier = {
+ 	.notifier_call = acpi_platform_device_remove_notify,
+ };
+ 
++static unsigned int acpi_platform_adjust_resources(struct acpi_device *adev,
++						   struct resource *new_res,
++						   struct resource *resources,
++						   unsigned int count)
++{
++	unsigned int i;
++
++	if (!(new_res->flags & (IORESOURCE_IO | IORESOURCE_MEM)))
++		return count;
++
++	for (i = 0; i < count; ) {
++		struct resource *res = &resources[i];
++
++		if (resource_type(new_res) != resource_type(res) ||
++		    !resource_union(new_res, res, new_res)) {
++			i++;
++			continue;
++		}
++
++		dev_info(&adev->dev, "%pR expanded due to overlap\n", new_res);
++		/*
++		 * Eliminate the previously processed resource that overlapped
++		 * with the new one because it is not necessary any more.
++		 */
++		memmove(res, res + 1, (--count - i) * sizeof(*res));
++	}
++
++	return count;
++}
++
+ static void acpi_platform_fill_resource(struct acpi_device *adev,
+ 	const struct resource *src, struct resource *dest)
+ {
+@@ -151,10 +182,14 @@ struct platform_device *acpi_create_platform_device(struct acpi_device *adev,
+ 				return ERR_PTR(-ENOMEM);
+ 			}
+ 			count = 0;
+-			list_for_each_entry(rentry, &resource_list, node)
++			list_for_each_entry(rentry, &resource_list, node) {
++				count = acpi_platform_adjust_resources(adev,
++								       rentry->res,
++								       resources,
++								       count);
+ 				acpi_platform_fill_resource(adev, rentry->res,
+ 							    &resources[count++]);
+-
++			}
+ 			acpi_dev_free_resource_list(&resource_list);
+ 		}
+ 	}
+
