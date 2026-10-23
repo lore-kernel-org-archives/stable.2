@@ -1,61 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792757999;
-	b=w4kQ5rAtHTadLO30TjIl20fKOHc7iVIYks1z/hGl4pJgVQPSHGhv3kq6FHlAgoKUnIJZ
-	 tcD4U5+8G0fy5NG9Xmh2Q8KKuqe66Ft/zBCwdl7nAaZB7pKPRePx5RnjTyZOW6UEj/RON
-	 I9PcA81BxW5hQvnsRLyycbQbbfYtJDpk7CX95fj5T1MIGYFODET6HnjkdQKPxO4Y19vJj
-	 N+adTpM4jh1MrTJvVzIDHQyemQHjHAmM1MeDyw+y359IkBSPrK1yWY6ES54hcpF9Njfzm
-	 4ae+BxG4ockweAVUFkawsPUzSBycyisvudeSyypgwT0ogpamfyfL2X3bDIz/8vttJGQ==
+	t=1792758055;
+	b=5pQzg/NWQF+qwj2Cy5N5137tBjNhP2E63SyPlYzK8J26xD9f97w165jwRJUT1HwUBsWn
+	 R+bx1I5ss5aJuYi5sISz5VgF43DI2YFBulmGDAEXMmaxdtRwzrCQQp3gj+i4ycKgUkdYQ
+	 fZK/0+wkUMOazsiROouIY5443U68FCoXOH+g3cACnK2q+rLK0B0V+5ch6kAIpM4dbb2jE
+	 +bvfsvmvRz3KNZDHcm4IEt1eUAUH+Htqq9ng6BfFp+YQj8MyJTLdROXwy14s1lYElspmo
+	 iKsenzMKdL0zZZVWI2bOMEo2l6+2D64JkbqG0hD2PTcRJbD25NGQTckaw6ormzWxfFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792757999;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=IMkOyMK69MskDKdftzpRFR3vYJ7WDcWvuOpEh1q94Ug=;
-	b=gurswT6QrLOQEaYptSDHS0uuQcP+7PqU+7QfZvqNke5KCZ8oRXEXfSud7bHsuApFFQON
-	 99oZUE+/tS2eNu+hGyQTB8aGW7z7pEtn0ZwKIGIQlqwj44FF2O2a0r9SnkeA31RCt38DH
-	 0a/74XD4LZBZMIXoSU9x2467vRK3d3SAXlOnM+1z0+W0tHTYzXEPuuNCQ8uswfMqOOM09
-	 1OOOwgUXU//dUplHuwGd4r52bX8bYGacnY/LPCD2MBAZdoE0e38+zhq4CBJpjcGL0azHe
-	 XB8D2IzMzfi/jkCB+HUeTnB6RA4+v/Ob1joSeyB6Jy+WoasSb6fcyo8Ni28xivpaPOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792758055;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=YXAgGXEXpUVpl4APeRrfzJlM7bkQM/8J4d8iBLQc/N8=;
+	b=ODgCV09xlMsSigIiD9K4xck22+tXRAhFgQo7I3G8Thi8jOKhZnv4ty7Gi8Px1Bb4XTpN
+	 FmNorbJ/OseOUDLERKPTk/BewhfVGQ7MN9KSEZP5OMmeLZjgBHxGRzXAZwpbxto3jKgxO
+	 9ngt0KdW+P2L0do7wMQHe2kFqNZj+iZhTbfnjPP1ExVF34P7whorPiB4DB+xW85thRlpv
+	 21zsjHXSXwUqM4vOtNGrDqW/ZcfPoTNkBy64Now2M0++MuaEMhQD82sdhL4xwN53/51Ev
+	 NgCKIWESsOTssKE2ZRc8aWwZRuelh2dhHKpsZHO00Imznqx9llLoChf9spaeiVRp09Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UYfhHKAH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C1Ixvb2u;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BCA5606A31E;
-	Fri, 23 Oct 2026 12:19:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72FA4606A31E
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 12:20:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UYfhHKAH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 957061F031E2;
-	Fri, 23 Oct 2026 12:19:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C1Ixvb2u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB02D1F01825;
+	Fri, 23 Oct 2026 12:20:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792757999;
-	bh=IMkOyMK69MskDKdftzpRFR3vYJ7WDcWvuOpEh1q94Ug=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UYfhHKAHLS0YSv2GD55pHkvozmKaWqFPvV13tu4gcH6XydsT6e+zuh0IL/kFJoHXI
-	 +o3hL3tzPsjlf5U0Ouaq4zsF3tERLzz5uN5r2I8LR6vH2LLP4PRXBRoDASpyHsvtOe
-	 DtMfHdpQbgjaSVFyopIZjPBlc7eFB1TbfogGWkrEAzKV3pKq4vaKX9MNw3I2CvUFty
-	 vQfOW5quCjX9QyUyEjxp9Ir7yzc1e/z7k57m47AQ5O0HYT6KpH3TbSDGJrRkvfYrit
-	 AfxJe8J5YjR2GBtNSCNiLtgc2G/sQTAKHFJz4lJDP5vJX5ytvqNcUoceCbcaqSMyOq
-	 d8eUgro7DG4iA==
-Date: Fri, 23 Oct 2026 14:19:53 +0200
-From: Joel Granados <joel.granados@kernel.org>
-To: Jiayuan Chen <jiayuan.chen@linux.dev>
-Cc: netdev@vger.kernel.org, stable@vger.kernel.org, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>, 
-	Wyatt Feng <bronzed_45_vested@icloud.com>, Yung Chih Su <yuuchihsu@gmail.com>, 
-	Fernando Fernandez Mancera <fmancera@suse.de>, Hannes Frederic Sowa <hannes@stressinduktion.org>, 
-	Flavio Leitner <fbl@redhat.com>, Petr Mladek <pmladek@suse.com>, 
-	"Paul E. McKenney" <paulmck@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 5/5] net: restrict message_cost and message_burst to
- non-negative values
-Message-ID: <attQGnJGhzTPFsMd@hobbes>
-References: <20261023091419.167088-1-jiayuan.chen@linux.dev>
- <20261023091419.167088-6-jiayuan.chen@linux.dev>
+	s=k20260515; t=1792758055;
+	bh=YXAgGXEXpUVpl4APeRrfzJlM7bkQM/8J4d8iBLQc/N8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=C1Ixvb2u9OGZ9zcqipA80KNFZw06YrDyeyC46QjE+aXV4SAcKgoiumbkQofNPtncR
+	 fSCncOl/RGyXc0bD7GOiHV5Y8T0q4Lt0/H5LZccCzsc5pCCy4pQxMnF2UtJLGzQ26h
+	 YvfQevwAijRV2lo5NwfuxD7IQk7XdBUjuSM3VuEQt5TUd8j3B7kgNJCvP6Qkn559MX
+	 arg415zsMVmr0+sgM5xmEYUCn7OpsecGV3jxsnejBeoKURrpCB5QgjkPtleHe8uw51
+	 1XUDpoPJYprGuJVItCuvFjUPsk//VKXg9OUmRsPcJSmG6G2fV9Cvhe4WaCOy+cvEVm
+	 IvC9pl9az7l3A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Daehyeon Ko <4ncienth@gmail.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Stefano Garzarella <sgarzare@redhat.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Vishnu Dasa <vishnu.dasa@broadcom.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] vsock/vmci: validate packet source for connected sockets
+Date: Fri, 23 Oct 2026 08:20:52 -0400
+Message-ID: <20261023120701.2344198-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026102123-unusable-siamese-c737@gregkh>
+References: <2026102123-unusable-siamese-c737@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,221 +63,133 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6kx4ibxzbc2iwevc"
-Content-Disposition: inline
-In-Reply-To: <20261023091419.167088-6-jiayuan.chen@linux.dev>
+Content-Transfer-Encoding: 8bit
 
+From: Daehyeon Ko <4ncienth@gmail.com>
 
---6kx4ibxzbc2iwevc
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH net 5/5] net: restrict message_cost and message_burst to
- non-negative values
-MIME-Version: 1.0
+[ Upstream commit ad9a7da3fa39c2d616ec0dd3cf6e30531d032fe7 ]
 
-On Fri, Oct 23, 2026 at 05:13:31PM +0800, Jiayuan Chen wrote:
-> net.core.message_cost and net.core.message_burst feed the interval and
-> burst of net_ratelimit_state, but neither has a lower bound:
-> message_burst uses plain proc_dointvec, and message_cost uses
-> proc_dointvec_jiffies, which happily stores -1 second as -HZ jiffies.
->=20
-> Since commit a940d145cc38 ("ratelimit: Warn if ->interval or ->burst are
-> negative"), ___ratelimit() splats on such values, so the next
-> net_ratelimit() caller warns, e.g. a martian source log:
->=20
->   Negative interval (-250) or burst (10): Uninitialized ratelimit_state s=
-tructure?
->   WARNING: lib/ratelimit.c:43 at ___ratelimit+0x56e/0x960, CPU#1: ping/32=
-18
->   RIP: 0010:___ratelimit+0x578/0x960
->   Call Trace:
->    <IRQ>
->    net_ratelimit+0x1c/0x30
->    ip_handle_martian_source+0x1bb/0x340
->    ip_route_input_slow+0x1057/0x3650
->    ip_route_input_noref+0x104/0x260
->    arp_process+0x109b/0x2510
->    arp_rcv+0x381/0x460
->    __netif_receive_skb_one_core+0x173/0x1c0
->    __netif_receive_skb+0x21/0x150
->    process_backlog+0x37e/0x1200
->    __napi_poll.constprop.0+0xa5/0x5e0
->    net_rx_action+0x4c0/0xf70
->    handle_softirqs+0x204/0x9b0
->    __do_softirq+0x10/0x18
->    do_softirq.part.0+0x49/0xd0
->    </IRQ>
->=20
-> Negative values never meant anything here: ___ratelimit() treats them
-> like 0, and 0 already expresses both "no limit" (interval) and
-> "suppress everything" (burst).
->=20
-> Reject them at write time. message_burst can simply use
-> proc_dointvec_minmax with extra1 =3D 0. proc_dointvec_jiffies ignores
-> extra1/extra2, so give message_cost a small handler that parses into a
-> temporary and only stores the value if it is not negative.
->=20
-> Fixes: a940d145cc38 ("ratelimit: Warn if ->interval or ->burst are negati=
-ve")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-> ---
->  net/core/sysctl_net_core.c | 21 +++++++++++++++++++--
->  1 file changed, 19 insertions(+), 2 deletions(-)
->=20
-> diff --git a/net/core/sysctl_net_core.c b/net/core/sysctl_net_core.c
-> index 473c162736d6..8146ed819695 100644
-> --- a/net/core/sysctl_net_core.c
-> +++ b/net/core/sysctl_net_core.c
-> @@ -378,6 +378,22 @@ static int proc_do_skb_defer_max(const struct ctl_ta=
-ble *table, int write,
->  	return ret;
->  }
-> =20
-> +static int proc_do_message_cost(const struct ctl_table *table, int write,
-> +				void *buffer, size_t *lenp, loff_t *ppos)
-> +{
-> +	int ret, interval =3D READ_ONCE(*(int *)table->data);
-> +	struct ctl_table tmp =3D *table;
-> +
-> +	tmp.data =3D &interval;
-> +	ret =3D proc_dointvec_jiffies(&tmp, write, buffer, lenp, ppos);
-> +	if (write && !ret) {
-> +		if (interval < 0)
-> +			return -EINVAL;
-> +		WRITE_ONCE(*(int *)table->data, interval);
-> +	}
-> +	return ret;
-> +}
-> +
->  #ifdef CONFIG_BPF_JIT
->  static int proc_dointvec_minmax_bpf_enable(const struct ctl_table *table=
-, int write,
->  					   void *buffer, size_t *lenp,
-> @@ -544,14 +560,15 @@ static struct ctl_table net_core_table[] =3D {
->  		.data		=3D &net_ratelimit_state.interval,
->  		.maxlen		=3D sizeof(int),
->  		.mode		=3D 0644,
-> -		.proc_handler	=3D proc_dointvec_jiffies,
-> +		.proc_handler	=3D proc_do_message_cost,
->  	},
->  	{
->  		.procname	=3D "message_burst",
->  		.data		=3D &net_ratelimit_state.burst,
->  		.maxlen		=3D sizeof(int),
->  		.mode		=3D 0644,
-> -		.proc_handler	=3D proc_dointvec,
-> +		.proc_handler	=3D proc_dointvec_minmax,
-> +		.extra1		=3D SYSCTL_ZERO,
->  	},
->  #ifdef CONFIG_RPS
->  	{
-> --=20
-> 2.43.0
->=20
+vmci_transport_recv_stream_cb() looks up sockets first by the full source
+and destination tuple, then by destination only in the bound table. The
+fallback can select a non-listening socket without checking whether the
+packet came from its stored peer.
 
-I would prefer something like this [1] (not tested and not compiled).
-This is more in line with the patterns inside the jiffies.c file. I put
-SYSCTL_ZERO there, but I have a doubt if you actually need SYSCTL_ONE.
+This was reproduced with two VMCI contexts. A RST from the context not
+stored in a TCP_SYN_SENT socket reset that socket after it was selected by
+the destination-only lookup.
 
-If the interval variable can be zero, then leave it as SYSCTL_ZERO, but
-if it cant be zero and can be one the use SYSCTL_ONE
+VMCI can process notification packets in bottom-half context when the
+socket is not owned by user context, or defer packets to a workqueue. Use
+vsock_check_source() after taking the socket lock in the bottom-half path,
+and recheck after lock_sock() in the workqueue path. Listening sockets
+continue to accept packets from any source.
 
-best
+Reply with a RST addressed from the received packet before dropping a
+source that fails validation. This preserves the existing reset behavior
+for bound non-listening and concurrently closed sockets without directing
+the reset to a connected socket's stored peer.
 
+Fixes: d021c344051a ("VSOCK: Introduce VM Sockets")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/netdev/20260814121255.6B5001F000E9@smtp.kernel.org/
+Cc: stable@vger.kernel.org
+Suggested-by: Stefano Garzarella <sgarzare@redhat.com>
+Suggested-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Reviewed-by: Vishnu Dasa <vishnu.dasa@broadcom.com>
+Link: https://patch.msgid.link/20260826003929.966160-3-4ncienth@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: Replaced unavailable vsock_check_source() calls with combined vmci_check_transport() and vsock_addr_equals_addr() checks. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/vmw_vsock/vmci_transport.c | 36 ++++++++++++++++++++++++++++------
+ 1 file changed, 30 insertions(+), 6 deletions(-)
 
-[1]=20
-
-diff --git i/include/linux/jiffies.h w/include/linux/jiffies.h
-index bbd57061802c..288ba81ed53e 100644
---- i/include/linux/jiffies.h
-+++ w/include/linux/jiffies.h
-@@ -646,6 +646,8 @@ extern unsigned long nsecs_to_jiffies(u64 n);
- struct ctl_table;
- int proc_dointvec_jiffies(const struct ctl_table *table, int dir, void *bu=
-ffer,
-                          size_t *lenp, loff_t *ppos);
-+int proc_dointvec_jiffies_minmax(const struct ctl_table *table, int dir, v=
-oid *buffer,
-+                                size_t *lenp, loff_t *ppos);
- int proc_dointvec_ms_jiffies_minmax(const struct ctl_table *table, int dir,
-                                    void *buffer, size_t *lenp, loff_t *ppo=
-s);
- int proc_dointvec_userhz_jiffies(const struct ctl_table *table, int dir,
-diff --git i/kernel/time/jiffies.c w/kernel/time/jiffies.c
-index 9b3487d40cd6..cf91996fe4e3 100644
---- i/kernel/time/jiffies.c
-+++ w/kernel/time/jiffies.c
-@@ -165,6 +165,14 @@ static int do_proc_int_conv_jiffies(bool *negp, ulong =
-*u_ptr, int *k_ptr,
-                             sysctl_u2k_int_conv_hz, sysctl_k2u_int_conv_hz=
-);
- }
-
-+static int do_proc_int_conv_jiffies_minmax(bool *negp, ulong *u_ptr, int *=
-k_ptr,
-+                                   int dir, const struct ctl_table *tbl)
-+{
-+       return proc_int_conv(negp, u_ptr, k_ptr, dir, tbl, true,
-+                            sysctl_u2k_int_conv_hz, sysctl_k2u_int_conv_hz=
-);
-+}
+diff --git a/net/vmw_vsock/vmci_transport.c b/net/vmw_vsock/vmci_transport.c
+index 4085163bb92dd..468d4b8b66db7 100644
+--- a/net/vmw_vsock/vmci_transport.c
++++ b/net/vmw_vsock/vmci_transport.c
+@@ -676,11 +676,13 @@ static int vmci_transport_recv_stream_cb(void *data, struct vmci_datagram *dg)
+ 	struct vmci_transport_packet *pkt;
+ 	struct vsock_sock *vsk;
+ 	bool bh_process_pkt;
++	bool drop_pkt;
+ 	int err;
+ 
+ 	sk = NULL;
+ 	err = VMCI_SUCCESS;
+ 	bh_process_pkt = false;
++	drop_pkt = false;
+ 
+ 	/* Ignore incoming packets from contexts without sockets, or resources
+ 	 * that aren't vsock implementations.
+@@ -757,17 +759,30 @@ static int vmci_transport_recv_stream_cb(void *data, struct vmci_datagram *dg)
+ 	bh_lock_sock(sk);
+ 
+ 	if (!sock_owned_by_user(sk)) {
+-		/* The local context ID may be out of date, update it. */
+-		vsk->local_addr.svm_cid = dst.svm_cid;
++		if (sk->sk_state != TCP_LISTEN &&
++		    (!vmci_check_transport(vsk) ||
++		     !vsock_addr_equals_addr(&vsk->remote_addr, &src))) {
++			drop_pkt = true;
++			err = VMCI_ERROR_NO_ACCESS;
++		} else {
++			/* The local context ID may be out of date, update it. */
++			vsk->local_addr.svm_cid = dst.svm_cid;
+ 
+-		if (sk->sk_state == TCP_ESTABLISHED)
+-			vmci_trans(vsk)->notify_ops->handle_notify_pkt(
+-					sk, pkt, true, &dst, &src,
+-					&bh_process_pkt);
++			if (sk->sk_state == TCP_ESTABLISHED)
++				vmci_trans(vsk)->notify_ops->handle_notify_pkt(sk, pkt, true,
++									       &dst, &src,
++									       &bh_process_pkt);
++		}
+ 	}
+ 
+ 	bh_unlock_sock(sk);
+ 
++	if (drop_pkt) {
++		if (vmci_transport_send_reset_bh(&dst, &src, pkt) < 0)
++			pr_err("unable to send reset\n");
++		goto out;
++	}
 +
-+
- static int do_proc_int_conv_userhz_jiffies(bool *negp, ulong *u_ptr,
-                                           int *k_ptr, int dir,
-                                           const struct ctl_table *tbl)
-@@ -263,6 +271,15 @@ int proc_dointvec_jiffies(const struct ctl_table *tabl=
-e, int dir,
- }
- EXPORT_SYMBOL(proc_dointvec_jiffies);
+ 	if (!bh_process_pkt) {
+ 		struct vmci_transport_recv_pkt_info *recv_pkt_info;
+ 
+@@ -892,6 +907,7 @@ static void vmci_transport_recv_pkt_work(struct work_struct *work)
+ {
+ 	struct vmci_transport_recv_pkt_info *recv_pkt_info;
+ 	struct vmci_transport_packet *pkt;
++	struct sockaddr_vm src;
+ 	struct sock *sk;
+ 
+ 	recv_pkt_info =
+@@ -900,6 +916,13 @@ static void vmci_transport_recv_pkt_work(struct work_struct *work)
+ 	pkt = &recv_pkt_info->pkt;
+ 
+ 	lock_sock(sk);
++	vsock_addr_init(&src, pkt->dg.src.context, pkt->src_port);
++	if (sk->sk_state != TCP_LISTEN &&
++	    (!vmci_check_transport(vsock_sk(sk)) ||
++	     !vsock_addr_equals_addr(&vsock_sk(sk)->remote_addr, &src))) {
++		vmci_transport_reply_reset(pkt);
++		goto out;
++	}
+ 
+ 	/* The local context ID may be out of date. */
+ 	vsock_sk(sk)->local_addr.svm_cid = pkt->dg.dst.context;
+@@ -929,6 +952,7 @@ static void vmci_transport_recv_pkt_work(struct work_struct *work)
+ 		break;
+ 	}
+ 
++out:
+ 	release_sock(sk);
+ 	kfree(recv_pkt_info);
+ 	/* Release reference obtained in the stream callback when we fetched
+-- 
+2.53.0
 
-+int proc_dointvec_jiffies_minmax(const struct ctl_table *table, int dir,
-+                         void *buffer, size_t *lenp, loff_t *ppos)
-+{
-+       return proc_dointvec_conv(table, dir, buffer, lenp, ppos,
-+                                 do_proc_int_conv_jiffies_minmax);
-+}
-+EXPORT_SYMBOL(proc_dointvec_jiffies);
-+
-+
- /**
-  * proc_dointvec_userhz_jiffies - read a vector of integers as 1/USER_HZ s=
-econds
-  * @table: the sysctl table
-diff --git i/net/core/sysctl_net_core.c w/net/core/sysctl_net_core.c
-index eb35da3556f4..7226697bf7c1 100644
---- i/net/core/sysctl_net_core.c
-+++ w/net/core/sysctl_net_core.c
-@@ -538,7 +538,8 @@ static struct ctl_table net_core_table[] =3D {
-                .data           =3D &net_ratelimit_state.interval,
-                .maxlen         =3D sizeof(int),
-                .mode           =3D 0644,
--               .proc_handler   =3D proc_dointvec_jiffies,
-+               .proc_handler   =3D proc_dointvec_jiffies_minmax,
-+               .extra1         =3D SYSCTL_ZERO,
-        },
-        {
-                .procname       =3D "message_burst",
-
---6kx4ibxzbc2iwevc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmrbUOMACgkQupfNUreW
-QU8xQQwAkdlzhE19hH3dtoNxiocG2HIDwyKx1G1rYfKz/bQp+TRba19EJHzRYvCA
-W+0YoCBjuCyXhE2dh0BmCmGiBW3gnceipWLQG5IIo581qAN6wKjRYGwIsAGCqKid
-7PftV/ouB6KyWQT06kkwMMgdxpZXteYZsNBv1jwiktC6fUTaJ5XxO4Fhv2bTzCsi
-aw6lahS6SAs1drI0NB9P0wpq/PpZOsAvdjyaSRDzmhh/VwY/V1EZYMJSZSCvXXyg
-KP3qZxd6OM4P6PZrQX+yhdwFmschLj0iQvl/D77x3ZGi4m15kQtJSCm/0T9Do18O
-tLFecuHJHO7Am1gqDHZSSJuxatBML1YzezNrY+hUjRuSfF+Wih82qChPDH+5DsDv
-CMPpWgpDzhWzZB07eY2kaTAuybirDMDbzUx/t0XMALV6dZWE1PlT54l4UWAEceke
-wgF/shwrRmCHnBKCiSmXw4uQ5e/UCEPYmTmlJLbPPyn2UyEMtqabM1skU8NAY1Sy
-e89oQLwC
-=M0Lg
------END PGP SIGNATURE-----
-
---6kx4ibxzbc2iwevc--
