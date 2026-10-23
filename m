@@ -1,73 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792784145;
-	b=1SjbBb6E5+qyCwHes31fX+iKrlbq1lldDBW6eR6eEOkAwjTgk/CVjr4I2IDgxsgZTZi5
-	 lcLwyGawju+wXi8nEuQ4BJmvfMXJbE2JpvGf0YhIutt2/gQqJdtjh33j0bvMWvJDUQNEf
-	 Te5V9CFqmhPBuk0RERVIUTPeZxtZc2PWKUWp5T44kxlTlpQ7fOsdeIOMy30zSe70LqjeS
-	 huDjkpforV9cbGuZAC3iEvXF+vuGAHduvbfJ5H/wqFR8RGB7CNbIq3i1++8VZEXXDgSNr
-	 GE4b3aPhJhdlCPdZHgxoiUo2CQjrtvNDdLsk7YlJIrJ7JQH0h6ZyvY+4mWfbQ2yfLOg==
+	t=1792784303;
+	b=kKrH38vX9c170uum2HadvjAWJ/28ACrdacVPYGtSCK1XM2U0IOH/y7LjXgK6lAfWFEDQ
+	 i+Y3tp3WffW4CE2qhuWvYlk59/SA1uUZD7LPc9ahO+30QJCvUA2jTvI4H4dUx7nPc/IvH
+	 FRYBW+6mJas2wgc4IJPEsE+cN4lqbcbjTHqr3zzCu9TcTYH6VwbxG1B43oQa6aR+CV41X
+	 dps/zm+hNJi8Ji2iMNc+uKcTvxZA/dwM93lu+JOinIWU/OLuKPt/EnI+CGDQw0NPhzRhF
+	 DATTtYvUP7LV1/OcGgHvlJlsxWr3Mw0pEnCs/afccXtWoW029ZiZqkj6EUmdQ6S1hEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792784145;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=Zs7T4voI7+RxGzrZ++HmmoP/YnO9yckMQ0Kw6Kbht0k=;
-	b=3XBNjnP5Vl+XcEYxYixutFxUfgzy2E4W2DBbHZkztw6G8acJOgcQeiV4mrjMXGYRrXtl
-	 IGo611k0r5Pk3DqE+OlKUH4e1aCkuzsURhENWscK4gvygaAQN4qHckoMRbd7azbQpTLMP
-	 wyms06VFKj7D3A1R/LHwQinTujgvyAF3sutSB8DpwBf8w275MKWO4r9ofpv5/20U6p3pN
-	 MKWGEn0nN+q8HxC1Ev2C0+RbAGezaQGU1Uh1/c2x8puH0KJjnGAe27G6/OaPZKGlmS/4m
-	 6u5IV9q+YaVWZS4b5WDYgq+ozjjnUF8v7fKH6pMYC4RziwYf6+aIRYjYcjpvZM0C8uA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792784303;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=RPPuwZPucbwy2XSLdynlz8wKx1+hcu99bZJ28Lx7lTs=;
+	b=HLy2o/5lpzdtCTi2HSYoCtiwR5bnUBL8BM7Mb8oSB0RVn3D4Ca8O5llIWMxll62HjCAG
+	 5Lc5MYkOWmKTBlryNb1O0xjfh5LbW0Z5UdW0NYExx+e4iHsGnEEdz4JtDhtYokwg4nzt5
+	 izGwt3gLC714BDDnb0mJauacjkusVJVgs7XwYiTgTbzg/e06/e8Bnih/b2erJenTPiJ/M
+	 zgL0Hf46tubQQTkiTe6X73S2XEw3TGLasgUqkQDACPJtnF78Onw32qBFKKuwHv/Bm0gUw
+	 RlUihytDvIZjKWl1a7mg1mlRapuTkiJSDl6UrumSd4zM92aVn2Mc6T40/97THeIUejw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A0DD4lXs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YilIglj3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A7F606A31A
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 19:35:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D01F0606A31A;
+	Fri, 23 Oct 2026 19:38:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A0DD4lXs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F5031F01828;
-	Fri, 23 Oct 2026 19:35:44 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YilIglj3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 792E71F01825;
+	Fri, 23 Oct 2026 19:38:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792784144;
-	bh=Zs7T4voI7+RxGzrZ++HmmoP/YnO9yckMQ0Kw6Kbht0k=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=A0DD4lXss60vVfZXx6rRdnCsXtIOj/WVdsw/rW47pHjEuqHmQUEU4yDzgkVpREM9j
-	 /59XyaP5GEVKF1EE9JgH87lwWRmo3KEDr2DUfPXn9Yyq3SiVcB/koqWIw8zULQpt+A
-	 wOMWwvb1AkveR3Cwd6xnwB96khs3ujCEMnSUeq3g4sUdO9a74qG63y1dxXQC1IUsYg
-	 VL32FUprkLQ8PapIN6DbISamSOMsaA0Nm/ktD2PVWMAZlSD1Jo7cgPySFC65l4Pl4V
-	 IiMRqV+/bNNBY5ER8lv3ggrLvAU+zg5Mhrh70tgJrkKAugY5FhUjSlEVsea7lRWA6o
-	 k2+qbZmhA21pg==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 60E21F40066;
-	Fri, 23 Oct 2026 15:35:43 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Fri, 23 Oct 2026 15:35:43 -0400
-X-ME-Sender: <xms:D7fbaunzMAOv8iCTYdk7QSRjiqd9HotGs3zGWt68tMV0RKdzouRaiA>
-    <xme:D7fbagoEVhuEOG1OH6iyXlpPLobWg_RA7yE1uCk1Au6z7ri0FwBZJ_WMaL4FlLVAS
-    Qftmb7T-vCvYCJVLTuZjZHI4IHxsG91d_lJWps9AnweHn-rzRUws2M>
-X-ME-Proxy-Cause: dmFkZTF0Ps9SNVaUJQPiKp6jAEKBtJH3suwWaCJtgK5t5IwPpvijAg27gGGBInaZhdAFz8
-    rCwABSnLfE6ZKIRA0+DpPVXkeeuzdDxQmbesG88MGwJtf+FIUv2YwIxXt5SIBB80gRsjbT
-    tDJyBHuNQb6uizWbX1oyPUVbvf+DDgEt0I08jdCapzjFVUsNLppx7BRwfXxuh8CKI0A9YD
-    TirKFJEy+vpavEmSAgJRgyHmqt4OC6N39lwcLuWrzfqNI3zmeAaq/Xa5r/mZG7AkW6cX2y
-    pLiMWWACX+dYaP7DWp4HO2iFw95sHN82RAUfP5PODh+TeVyUPPSOk7yMwD9upN5SFVAMFS
-    HS8t3pB/neRzFq/48DZaOHBU7OMQKvA4keVltWtYMxu8zL8vVZEbChWzSaemIC/Npq/RVG
-    p6l9pgaqbmc8Sr+/HBzUBla8bD10L7R1KDdiiqGe9osI87Zpgo2b5yr164VMp/mw9ASGib
-    d0zkTrGPjJH3U7D5fd0u65K3z0fqbP/OsJzqx0n+zM+gz+pRdTGjsoUFmuKxZBWA2IfqbZ
-    p40QxJlYI4FZKKvdrtSxiYik8cirQnJ6XWtzofxBVJazl6PJnTug9HtLtr3khwPu2Kbte3
-    zPoZj7bEXRqYaSB7v5qm7TdE4WZCkU/MIIpubHMysFYPXDH4jLehqQcEAIKQ
-X-ME-Proxy: <xmx:D7fbaj040DXvTj75qIXxZjMNFhry_KEnCy73vwtCYiviuSuoRP9O7Q>
-    <xmx:D7fbauc_S_t2t_fLD9uo8VckSrJKdQFfv92NVC9OhB-BEUpM_B6zLQ>
-    <xmx:D7fbaoVQIxjEedRlejv7YXk_pVHm_XFy6SU7uCtZrF-NqHQ-MRHOsQ>
-    <xmx:D7fbam_bMRkze1zkoFlAGv0-_T-7kdNXHmEhW5CIRHVX-YVsViHr5A>
-    <xmx:D7fbaijIer4azbnPm1GE6Vnmanq4opMvFfGBDn5_bSAhvKH95Cil7SW3>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 417D678273B; Fri, 23 Oct 2026 15:35:43 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1792784302;
+	bh=RPPuwZPucbwy2XSLdynlz8wKx1+hcu99bZJ28Lx7lTs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YilIglj3gUtbL+8nFzgEluM2h4Wdn1iEh3v5rXSjogwL9YuueE/GGWYeqwmiLJPUL
+	 YsLd4toEQmFJJPCC5aIgooLYL1+SYkfkIGidKzUkG+lY3TicAMdJ2trFsKlbcxHQix
+	 m4RDXiF7kDmpKPQyFurXT/JhY5yiC+suhCOTs3g1/KbrmaMahXucEyvfHwfssudHZe
+	 xqCFAIIFtOuKF38S5W8d8yuIpKBMf8p+tqvHkVMonD/tvyqnrN3YBeBM2x6g6ZEDAg
+	 Ggjujy3XcO9BbJqKlC8XUSF+LoZYx1dhJBnmTmDz6A4EgOg9XLj54IubM8k2YNzuWX
+	 Pt/kgon7DJ+fA==
+Date: Fri, 23 Oct 2026 19:38:21 +0000
+From: Eric Biggers <ebiggers@kernel.org>
+To: Baokun Li <libaokun@linux.alibaba.com>
+Cc: linux-fscrypt@vger.kernel.org, tytso@mit.edu, jaegeuk@kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3] fscrypt: Fix missing barrier in
+ fscrypt_find_mode_key()
+Message-ID: <20261023193821.GA3091192@google.com>
+References: <20261023160747.1382973-1-libaokun@linux.alibaba.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,106 +57,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AQ3ibqN4uOeg
-Date: Fri, 23 Oct 2026 15:35:23 -0400
-From: "Chuck Lever" <cel@kernel.org>
-To: "Li Xiasong" <lixiasong1@huawei.com>
-Cc: "Jeff Layton" <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
- "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <Dai.Ngo@oracle.com>,
- "Tom Talpey" <tom@talpey.com>, "Trond Myklebust" <trondmy@kernel.org>,
- "Anna Schumaker" <anna@kernel.org>, linux-nfs@vger.kernel.org,
- linux-rdma@vger.kernel.org, stable@vger.kernel.org, yuehaibing@huawei.com,
- zhangchangzhong@huawei.com, weiyongjun1@huawei.com
-Message-Id: <2edeb013-f54f-44dd-b327-a21481d19601@slotpi15m67>
-In-Reply-To: <20261023125033.528835-4-lixiasong1@huawei.com>
-References: <20261023125033.528835-1-lixiasong1@huawei.com>
- <20261023125033.528835-4-lixiasong1@huawei.com>
-Subject: Re: [PATCH 3/3] xprtrdma: Wake connect worker on device removal
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023160747.1382973-1-libaokun@linux.alibaba.com>
 
-On 10/23/26 8:50 AM, Li Xiasong wrote:
->  	case RDMA_CM_EVENT_ESTABLISHED:
->  		rpcrdma_ep_get(ep);
-> -		ep->re_connect_status = 1;
-> +		switch (cmpxchg(&ep->re_connect_status, 0, 1)) {
+On Sat, Oct 24, 2026 at 12:07:47AM +0800, Baokun Li wrote:
+> dm-inlinecrypt reaches its key only through srcu_dereference(md->map),
+> with no acquire anywhere on the I/O path.
 
->  	case RDMA_CM_EVENT_UNREACHABLE:
->  		ep->re_connect_status = -ENETUNREACH;
->  		goto wake_connect_worker;
+The above seems like a stray sentence that should be deleted.
 
->  	case RDMA_CM_EVENT_DISCONNECTED:
-> -		ep->re_connect_status = -ECONNABORTED;
-> +		status = xchg(&ep->re_connect_status, -ECONNABORTED);
->  		rpcrdma_force_disconnect(ep);
-> -		return rpcrdma_ep_put(ep);
-> +		if (status == 1)
-> +			return rpcrdma_ep_put(ep);
-> +		return 0;
+> Suggested-by: Eric Biggers <ebiggers@kernel.org>
+> Link: https://patch.msgid.link/20261014161153.GC322435@quark
 
-UNREACHABLE can arrive on an established connection. On RoCE,
-cma_netevent_work_handler() delivers RDMA_CM_EVENT_UNREACHABLE to
-every cm_id whose cached neighbour hardware address changed, and it
-filters only the DESTROYING and DEVICE_REMOVAL states. A connected
-cm_id in RDMA_CM_CONNECT passes that filter.
+Nit: lore.kernel.org instead of patch.msgid.link, since it links to a
+discussion (in response to a patch) rather than directly to a patch.
 
-When that happens, the UNREACHABLE case above overwrites status 1
-with -ENETUNREACH without releasing the ESTABLISHED reference. The
-later DISCONNECTED event then sees status != 1 and skips its put.
-The ep and its cm_id are never freed.
+> diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
+> index 892044ebcaca..984ef43982a3 100644
+> --- a/fs/crypto/keysetup.c
+> +++ b/fs/crypto/keysetup.c
+> @@ -205,8 +205,14 @@ fscrypt_find_mode_key(struct fscrypt_master_key *mk, u8 hkdf_context,
+>  		if (node->hkdf_context == hkdf_context &&
+>  		    node->mode_num == mode_num &&
+>  		    node->data_unit_bits == ci->ci_data_unit_bits &&
+> -		    fscrypt_is_key_prepared(&node->key, ci))
+> +		    fscrypt_is_key_prepared(&node->key, ci)) {
+> +			/*
+> +			 * Pairs with list_add_tail_rcu() in
+> +			 * setup_per_mode_enc_key().
+> +			 */
+> +			smp_acquire__after_ctrl_dep();
+>  			return &node->key;
+> +		}
+>  	}
 
-Before this patch, DISCONNECTED put unconditionally, so this path
-did not leak. Therefore UNREACHABLE needs the same xchg treatment as
-ADDR_CHANGE: when the previous status was 1, force a disconnect and
-return rpcrdma_ep_put(ep). CONNECT_ERROR and REJECTED cannot arrive
-after ESTABLISHED, so those can stay as plain stores, though making
-all three consistent would be easier to reason about.
+I think a better comment would be:
 
+			/*
+			 * Upgrade the RCU dereference to a full ACQUIRE, so
+			 * that blk-crypto global state is seen as initialized.
+			 */
 
-> +	case 1:
-> +		rpcrdma_force_disconnect(ep);
-> +		/* DEVICE_REMOVAL prevents a later DISCONNECTED event. */
-> +		rpcrdma_ep_put(ep);
-> +		break;
+That helps convey why the pre-existing RCU dereference isn't enough.
 
-I don't think this comment is accurate, and the patch description
-repeats the same rationale. Leon or Jason can correct me if I'm
-wrong.
+Other than that this patch looks good.  I can fix all the above when
+applying, if you agree, or you can just resend.  Thanks!
 
-ib_core removes clients in LIFO order, and xprtrdma registers its
-client after rdma_cm. So rpcrdma_remove_one() runs before rdma_cm's
-removal handler, and it does not return until every ep on the device
-has unregistered. No xprtrdma cm_id ever reaches the
-RDMA_CM_DEVICE_REMOVAL state while its ep exists. That is why the
-DEVICE_REMOVAL CM event was taken out of this handler in the first
-place.
-
-After the forced disconnect here, rpcrdma_xprt_disconnect() calls
-rdma_disconnect(), and the DREP or the DREQ timeout still produces
-an RDMA_CM_EVENT_DISCONNECTED. The put above is correct, but only
-because the DISCONNECTED case now sees -ENODEV from its xchg and
-skips its own put. Someone who trusts this comment could later
-remove that guard and double-put.
-
-Let's reword both the comment and the description to state the
-actual invariant: the first event that moves re_connect_status away
-from 1 owns the ESTABLISHED reference.
-
-Also, moving the ESTABLISHED put to ADDR_CHANGE and to the removal
-callback means the final rpcrdma_ep_put() for a connected ep can
-now happen in rpcrdma_xprt_disconnect(), which frees the ep and
-only then calls rdma_destroy_id(). The DISCONNECTED event that
-rdma_disconnect() provokes is dispatched while the cm_id is still
-in RDMA_CM_CONNECT. If it lands between kfree(ep) and
-rdma_destroy_id() taking the handler mutex,
-rpcrdma_cm_event_handler() runs with id->context pointing at freed
-memory.
-
-Before this patch a connected ep's last put was always inside the
-DISCONNECTED handler itself, so CMA ordered the free and the cm_id
-destruction for us. The window is narrow, but I don't see what
-closes it now. Am I missing something?
-
-
--- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+- Eric
