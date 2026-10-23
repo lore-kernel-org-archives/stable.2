@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792760390;
-	b=awu2bT2Kb1b8AJv7lOqrsfq9tt2csf8lanFdVrM9lWwAJg1ZUZ37jerV6OCUEHjPv9G8
-	 ljblgyOW+FA7YAYCZvJtSbIb7NetdDhj64iHigbrRl5C2PHeDUxrFbew/0vaXDj0TUzkW
-	 zlKvs0JM05fvG6uZTmKE0PQTKboETAiG89ra06JyHAE6JV0w1NLomUyLG4Eo0H8BzXfcj
-	 aa+0tiqFBKaTBUxW5VYClwGnoKlIN1gUW9Uon554A8WBOaArl8uaOHEPUkP01s80z2xpH
-	 JIgsYBNGL7XztxC93j+zl74NbTWEm2B1BWyk/edybOg0J93RglCQHTHVT9sYBSu7h6g==
+	t=1792760416;
+	b=rmO8HrNyft6PwQahzGy/6ghwe7xYxT3a2YNvzKL3QrBtw9aGAlKK3EuFeM8UDbDyYwtD
+	 dIhhG0kPbras1f5/Um1Po0KosGeBnDLeHL3jdjzTAGObrkozZW4zIo9CO+Cj1duOsdiSQ
+	 keIQ8I4L2nbm8FE/TNEQQrYcfpfNnMl9ilOGYgEl/VPikP43NoaxGNW4F1jSAyd/dQ0iz
+	 1XBgU0568uUwMaNEMU3ucda4cIaXvDsDby+eCW9TJWRrQ3DzW4gvDYyue/966zEFeCIJb
+	 snf11TuR2cajXGyjz6N5C9UwzD6G16yYBCANhL4gDAulPNqebI9ndL8su0I42BlL9pQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792760390;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792760416;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=rAiKmaVO3T0YYXACSbh/1Kq1BVBbibX0bZPqKXi2tg0=;
-	b=xFBs2fH8WPGxl2liK0A3SuGU8JLDofwpv5LO0MYBk7E12WuSa+gqp0ERD7G1iNeYcfTg
-	 qVEFJyzZcO6S+DQePeheHX2pfcqeHpC8Ccxj1uDHWYuRXwKzK3JJkCMLHR9h4AWMFTJBr
-	 AHOo3sZojiz9PKRs3hAmeGJCNuTQifq7pO0hCAR73miKP6WvdHPt+dx65RcAH/9pR2ui6
-	 er3AqABlsHHxx8/jmXKJBEEHHAYLsAJA+tsPqjMny9iIKKqdzYdX26h6gkYmKk4tT+VWn
-	 i1h/dJQ8/Ln3A8sDHqGSXSi3IFiJ01RvVJWTnDcpMhyWhRZpXWAqsfc2mhblgjUhIiA==
+	bh=DKApxC4aEMo5gabI1x2hU+JWNWLgoRM+Y9op4mRr65o=;
+	b=SeVXZeTOEc571e7c3QcxpwLxVrWD0MzkZ2w/WKj35r1O9N2oca8IX0EXEa/e3V6yQLLM
+	 wz+I3cGgGUvybkSSGb4HABy8aI8GOmnrFl9kwnnow0RPxji06OowVp3gfo5fX+F1iTBgZ
+	 XX6zvlmJq0xtUr/tiIpUJiKG/QCmkP+2RWOCLpBUw/na8jPCxINdANHen8lgkEFhj29Sf
+	 Y64AwNCZQ2iqdIIudOJ3UoBbdlrmbYJdf9rTmjYlZTz0BiTdq1410l3istxDmOVmN0gT0
+	 90ERlKcXE7G2wD/RnLhxVvHnPj5RdrybicMKSnrDon5/YTwpXcEnCGCz1yxufbP7n5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BPK5isr4;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iiNftLvc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22C1A606A31E;
-	Fri, 23 Oct 2026 12:59:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A7CE606A31E
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 13:00:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BPK5isr4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 048951F01825;
-	Fri, 23 Oct 2026 12:59:48 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iiNftLvc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AC461F01828;
+	Fri, 23 Oct 2026 13:00:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792760389;
-	bh=rAiKmaVO3T0YYXACSbh/1Kq1BVBbibX0bZPqKXi2tg0=;
+	s=korg; t=1792760416;
+	bh=DKApxC4aEMo5gabI1x2hU+JWNWLgoRM+Y9op4mRr65o=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BPK5isr41tMR1j2EeR9UvMg85nHFS95JQtsS5RPLlcjEnHUhXHkXudNRRhGciP/hc
-	 AY/WjMR9izofvUTqpOLvhOiDgcJiW1nEHwLDXHxtYqBN4XK2sNZgA4DCeEsxNaPb/4
-	 0N1ZRfeRm49HwT0nXLI+6vPvYP+xU39TY9WIxfEI=
-Date: Fri, 23 Oct 2026 14:56:22 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Nikola Ciprich <nikola.ciprich@linuxbox.cz>
-Cc: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org,
-	patches@lists.linux.dev, Jacob Keller <jacob.e.keller@intel.com>,
-	Michal Kubiak <michal.kubiak@intel.com>,
-	Alexander Nowlin <alexander.nowlin@intel.com>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Alexander Lobakin <aleksander.lobakin@intel.com>
-Subject: Re: [PATCH 6.18 158/621] ice: drop page splitting and recycling
-Message-ID: <2026102311-swan-heading-54cd@gregkh>
-References: <fce25d6d-8fd7-4f83-8d8d-929871aff885@intel.com>
- <2026-10-14-1-daily-reply-0015-ice-drop-page-splitting-6-18@kernel.org>
- <atsythEG2rkGdc6Z@pcnci.linuxbox.cz>
+	b=iiNftLvc9haemm4HDS9/A435rxdN6jasHNnx64onG5SCCxWnipeIVTN8U03Lsnrl7
+	 FbEZS7dhaTrCvXOzD/RDfjKVmeQ01EfA3UlOvhX9OyS2nNRy4OJP/xqftXYEkFdFXN
+	 4i8gajfXxF0Ba+9l0yS3kce5c0nROUmTJEbVx8t0=
+Date: Fri, 23 Oct 2026 14:57:45 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Abdifatah Suruur <suruurism@gmail.com>
+Cc: pablo@netfilter.org, stable@vger.kernel.org, fw@strlen.de,
+	security@kernel.org, w@1wt.eu, sashal@kernel.org
+Subject: Re: [SECURITY] netfilter: nft_byteorder leaks uninitialised kernel
+ stack on 6.12.y with CONFIG_INIT_STACK_NONE (CWE-457)
+Message-ID: <2026102330-rockslide-brunt-8616@gregkh>
+References: <179235055956.10524.6485282696272965887@gmail.com>
+ <atU2brRgmeb6ght2@1wt.eu>
+ <179236182769.4914.3317139682579833845@gmail.com>
+ <atWvQFXJzJ434qGd@strlen.de>
+ <179239012164.14465.16534329674629579851@gmail.com>
+ <atXZxmkU9Yrv4h_b@chamomile>
+ <179258686469.28311.5894488032414438351@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,41 +62,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <atsythEG2rkGdc6Z@pcnci.linuxbox.cz>
+In-Reply-To: <179258686469.28311.5894488032414438351@gmail.com>
 
-On Fri, Oct 23, 2026 at 12:11:02PM +0200, Nikola Ciprich wrote:
-> Hi,
+On Wed, Oct 21, 2026 at 03:47:44PM +0300, Abdifatah Suruur wrote:
+> Hi Pablo,
 > 
-> Just a follow-up on this one, as I just got burned by it a little.
+> I am not asking for a CVE for the upstream code, and I am not disputing
+> that bb061d3 fixes it in 7.1. I have not sent a cve@kernel.org request.
 > 
-> These made it into 6.18.58-rc1, which I was still testing (I wasn't
-> aware that some patches had been dropped from the final 6.18.58
-> without notice). After deploying it to a machine using the ice
-> driver, I noticed a huge memory leak. It's easily reproducible:
-> running a flood ping eats about 1 GB of kernel memory per second,
-> effectively killing the machine within minutes.
+> The only reason I mentioned a CVE is that 6.12.y still carries the
+> pre-bb061d3 multi-register path, and with CONFIG_INIT_STACK_NONE the
+> marked-but-unwritten destination word is exposed to a later nft load.
+> That is why I sent the 6.12.y backport rather than a mainline patch. On
+> the default CONFIG_INIT_STACK_ALL_ZERO builds the same oracle reads
+> zero, so the affected population is narrow.
 > 
-> So I just wanted to report that these cause more than just a
-> performance regression.
-> 
-> Anyway, I'd love to see these in 6.18, as some users have reported
-> that this series fixes some nasty memory corruption.
-> 
-> For some time I've been using the following ice commits, backported
-> to 6.18.44, without any issues:
-> 
-> e314a3c525c91c1e918546f472585cdbd44fbd1
-> 3a4f419f750946181e3d6a339a1ef1942c5b5685
-> 93f53db9f9dc4a16b40ecd18e6d338ad57e4b670
-> 436fa8e7d1a119ec90f39e7c2ce0f3a146652899
-> a9c354e656597aededa027d63d2ff0973f6b033f
-> 
-> But since I was busy hunting the bug, and then found out that
-> corruption was most likely caused by something else (a patch has
-> already been posted for 6.18.59 by Yosry Ahmed), I never proposed
-> submitting these to -stable. Later I saw them in 6.18.58-rc1 so
-> I just scratched that..
+> If you and the CNA consider a stable-only infoleak that is already fixed
+> upstream not CVE-worthy, I will drop the request. The stable fix is the
+> part that matters to me. If you do want it tracked, I will follow the
+> documented process once the patch is queued.
 
-I've queued up all of the above now, thanks!
+What patch?  What request?
+
+I'm totally lost here, sorry.
 
 greg k-h
