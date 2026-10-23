@@ -1,62 +1,46 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.145.95.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792753286;
-	b=llCcg3TGz057C2RCz/xHdu/ZrjGUPn6Q/FN+3+1d8tFjt0RvR88I++IZpxr2ETOdVzJG
-	 FLrfQ58VtOx2CA2NDJ5G5EQYxkLhPAPbKl2k+c7Ri1iA845kT8e0IH8+kbC8js6alHwVp
-	 MOF9uKRWbbSLR/JEVr9kwEHSx35E01/ZtJSS8piKE076dAPX89oIjOG5pDfP451r3fBy5
-	 ZRk/LSPeA5ClCme6AmwviZ2SmdP9NTvxo4gUri7lzi1APiWFZcS+BJb1ys+0kaeyGft6H
-	 5/QuqblLGk62/3g8TDvkoAmHjs0+lhcial/a3qUSfXcFMOwjQY8775bboOKwZtPXkwA==
+	t=1792753305;
+	b=Pkmetk+ptunrSGZw3vTtbLF3PJM+1KpxLoyt3Poh6ZzmxmNUZPPgWElSujs5/cPMAUYI
+	 9c8NHCzH+0eFJCoJoh/39RHZ+bt8YPrT1fQnx66Tlt2V4qoT5zXNkgrcRVQm8/D2Bx8wh
+	 bOm7d1wImE/V9HBGr07Vj12M6jiYh7UHvg8a+3+/kYkZm3cxyXP7LYs4UuWv64boAY8Xc
+	 8B3ndRDjUuqYDrmstIQc6eBjTk8lERUbxcBIn6GvIx0bHmxQGQ8iqeyR+t9qCP8RvXYDJ
+	 iAOHlzq24TfOvdnvJ+VR60Ur7yWkmEZ+xXrJg5nahekFAoiOI9FBM70/GzpwU2+0wow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792753286;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=4Dx2Tbtv5flHAZ7I0g5glR2gdb318idcO7oVSLafTpw=;
-	b=emmjd8/GM19lfA4l7HAJLI9sToIHaAyRvULtcZb+k2J0kB0/7M5zUc7PfYpgMDiDStWO
-	 eMXC4SIOxgf0u2BV+3kT8aqn7Ecdh8z22f4Lz5yT7+WpYkyxREdJFWwt9/q1linLCqHV7
-	 rsalYKEQBtAOzfdUFvl8Qi9Kahf7ctJj0EFBQi8ork5bK0VugzP8diLVjD3uuso8l1uV2
-	 7G8UeoFXZjpKXuTmH6MNlykk6imiCUx9CipPCf1tuHxzHPXLp3KZWUYjp6ATJiNQxjm43
-	 jNMXw35YpoJgdeLecf3CvFN6a8FgxXTaOwVSctVdGWYIKX6G15Gy+X9k2cyjQJlGiVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792753305;
+	h=DMARC-Filter:From:To:Cc:Subject:Date:X-Clacks-Overhead:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=9i1lMAauhdSb96bAn21amtKRcV/LL4J/0GNVxIc7VqM=;
+	b=ih6d1wlqMUmIE3cYoZGp1LeMwC+s7mtGgaN/54H/zhWrGkgr1er2R4e+3yVuzLun0J9N
+	 i7N47h3Tqc95YtG6X2ddpPbN/8hAvLyi1eN/Y8+bijWuWdhs+GX+BwErQ2vOCd6ZRYn2d
+	 ZbWKUFv3CbrBHmI4MLl4rczmhBtwlG1mrWwT1RCZ8RmvSYTDbugeCx5CZTXNvo4RCo+pJ
+	 +RWg4hNcW1D+dZbWRO6XruXSb2jnd+LoO9S3Z/pdDV5ifVPG8gjSP6jlz6CI1a03jek7C
+	 pzTcuffKNjouiR3jZA7GnheWYdEHoVgwgpFur6jcI83S1eNKSzcZ0lsKadpEqQ/Bopw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=K09z9O38;
-	arc=none smtp.remote-ip=115.124.28.148
-Received: from out28-148.mail.aliyun.com (out28-148.mail.aliyun.com [115.124.28.148])
+	dmarc=pass header.from=toke.dk;
+	spf=pass smtp.mailfrom=toke.dk;
+	arc=none smtp.remote-ip=45.145.95.4
+Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC8A606A31A;
-	Fri, 23 Oct 2026 11:01:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EC8A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=K09z9O38
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1792753274; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=4Dx2Tbtv5flHAZ7I0g5glR2gdb318idcO7oVSLafTpw=;
-	b=K09z9O38PEYdB32b3OXDrIqqpybe7D/dkRdaty4a1jcJ+b0dggLUth8/1xXwRKyVEz0kml5UfNI9sypijDVIL9t1cfwZ2tzieZaudMz//MF9C9l0daDVMYge/dNPQ3x4WU3rCDE0O+6Cytjdypo63tNMCRlYrN2QpWMWSio0ofA=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07447688|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0156875-0.000218424-0.984094;FP=16245881213183280154|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033023087102;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.joBmZWu_1792753273;
-Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.joBmZWu_1792753273 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 23 Oct 2026 19:01:14 +0800
-From: liuc63 <liuc63@xiaopeng.com>
-To: gregkh@linuxfoundation.org
-Cc: khtsai@google.com,
-	andriy.shevchenko@intel.com,
-	fangxy@xiaopeng.com,
-	rdunlap@infradead.org,
-	dbrownell@users.sourceforge.net,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37BDF606A323;
+	Fri, 23 Oct 2026 11:01:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37BDF606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
+Authentication-Results: mail.toke.dk; dkim=none
+From: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
+To: Johannes Berg <johannes@sipsolutions.net>,
+	Alexander Wetzel <alexander@wetzel-home.de>
+Cc: linux-wireless@vger.kernel.org,
+	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
 	stable@vger.kernel.org,
-	Liu Chao <liuc63@xiaopeng.com>
-Subject: [PATCH] usb: gadget: u_ether: fix out-of-bounds read in get_ether_addr
-Date: Fri, 23 Oct 2026 19:00:59 +0800
-Message-ID: <20261023110113.2969708-1-liuc63@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	Evan Severson <eseverson@gmail.com>
+Subject: [PATCH] wifi: mac80211: reinstate IEEE80211_TX_CTL_AMPDU flag in ieee80211_tx_prep_agg()
+Date: Fri, 23 Oct 2026 13:00:51 +0200
+X-Clacks-Overhead: GNU Terry Pratchett
+Message-ID: <20261023110052.650519-1-toke@toke.dk>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,63 +50,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-get_ether_addr() parses a MAC address string with a fixed six-iteration
-loop, unconditionally calling hex_to_bin() twice per iteration.  It never
-checks for the terminating NUL, so a short string supplied through the
-configfs dev_addr attribute (e.g. "ab") makes the parser read past the
-end of the buffer, triggering a slab-out-of-bounds read reported by
-KASAN.  hex_to_bin() also returns -1 for non-hex characters, which is
-shifted and OR'ed into dev_addr.
+The commit 592234e941f1 ("wifi: mac80211: Fix iTXQ AMPDU fragmentation
+handling") changed the way handling of the IEEE80211_TX_CTL_AMPDU flag
+is done in mac80211, so the only place it is set is in
+ieee80211_tx_dequeue().
 
-Bail out as soon as the string ends or a non-hex digit is found, routing
-all failure paths through the existing eth_random_addr() fallback so that
-dev_addr is always fully initialized before the function returns.
+This means that any frames that are sent to the driver via drv_tx() will
+no longer have the flag set. In particular, this affects packets going
+through ieee80211_tx_pending(). Evan reported that this can result in
+the ath9k driver failing to account such packets in its block ack
+window, eventually overrunning the window and stalling TX.
 
-Fixes: 2b3d942c4878 ("usb ethernet gadget: split out network core")
+Fix this by reinstating the flag in ieee80211_tx_prep_agg() when inside
+a valid block ack window. This should be harmless for the TXQ path, and
+will reinstate the previous behaviour for drivers that use the flag as a
+signal to track the packet in the window.
+
+Fixes: 592234e941f1 ("wifi: mac80211: Fix iTXQ AMPDU fragmentation handling")
 Cc: stable@vger.kernel.org
-Reviewed-by: Fang Xieyan <fangxy@xiaopeng.com>
-Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+Reported-by: Evan Severson <eseverson@gmail.com>
+Link: https://lore.kernel.org/all/20261014025734.2288693-1-eseverson@gmail.com/
+Signed-off-by: Toke Høiland-Jørgensen <toke@toke.dk>
 ---
- drivers/usb/gadget/function/u_ether.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+ net/mac80211/tx.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/usb/gadget/function/u_ether.c b/drivers/usb/gadget/function/u_ether.c
-index 59d85d6a84a8..12edad59ddc3 100644
---- a/drivers/usb/gadget/function/u_ether.c
-+++ b/drivers/usb/gadget/function/u_ether.c
-@@ -689,17 +689,26 @@ static int get_ether_addr(const char *str, u8 *dev_addr)
- 		unsigned	i;
+diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
+index e9b6a0415d6a..0f46b5ff0c4a 100644
+--- a/net/mac80211/tx.c
++++ b/net/mac80211/tx.c
+@@ -1164,6 +1164,7 @@ static bool ieee80211_tx_prep_agg(struct ieee80211_tx_data *tx,
+ 	struct sk_buff *purge_skb = NULL;
  
- 		for (i = 0; i < 6; i++) {
--			unsigned char num;
-+			int hi, lo;
- 
-+			if (!*str)
-+				goto fail;
- 			if ((*str == '.') || (*str == ':'))
- 				str++;
--			num = hex_to_bin(*str++) << 4;
--			num |= hex_to_bin(*str++);
--			dev_addr [i] = num;
-+			if (!*str)
-+				goto fail;
-+			hi = hex_to_bin(*str++);
-+			if (hi < 0 || !*str)
-+				goto fail;
-+			lo = hex_to_bin(*str++);
-+			if (lo < 0)
-+				goto fail;
-+			dev_addr[i] = (hi << 4) | lo;
- 		}
- 		if (is_valid_ether_addr(dev_addr))
- 			return 0;
- 	}
-+fail:
- 	eth_random_addr(dev_addr);
- 	return 1;
- }
+ 	if (test_bit(HT_AGG_STATE_OPERATIONAL, &tid_tx->state)) {
++		info->flags |= IEEE80211_TX_CTL_AMPDU;
+ 		reset_agg_timer = true;
+ 	} else if (test_bit(HT_AGG_STATE_WANT_START, &tid_tx->state)) {
+ 		/*
+@@ -1195,6 +1196,7 @@ static bool ieee80211_tx_prep_agg(struct ieee80211_tx_data *tx,
+ 		if (!tid_tx) {
+ 			/* do nothing, let packet pass through */
+ 		} else if (test_bit(HT_AGG_STATE_OPERATIONAL, &tid_tx->state)) {
++			info->flags |= IEEE80211_TX_CTL_AMPDU;
+ 			reset_agg_timer = true;
+ 		} else {
+ 			queued = true;
 -- 
-2.50.1
+2.56.0
 
