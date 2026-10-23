@@ -1,49 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.181.193.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792789223;
-	b=LlIQ1LTpj0eCdapC36xEPg/zxH2gC1+/9M8SES5oanvvsICTHXuPeJk7WH50+HD4Xmrt
-	 He+RjO5/JekUq2jzDw1hpSgrnlE/LpJvllWZ3UDnY3mVh10z6l42d4TLtGg88/yChkzAR
-	 l9o27XsXTf3X30+35cS+BkBVePgXiGx+LWkoNuAn4sR0HIvd52nq6yTaILfVGR+Jl3krv
-	 UXBI83YtVoCEm5RnXfjtBaVHR6Uz0r8U0WZLPaPlHXiYNgSaoBgJlSNQ4oOeBKYwPQ0Qs
-	 eP9V+RamwEY8aH4K89MZznhfP+7BtL/P9t4j3dSIEP8NyBhXy/GqtgoQKy6aWT+ha+g==
+	t=1792789389;
+	b=OnFrl8RUTt2B6BXKFkHbm7Ifpb3ggIHV09tBp1XIgwO/G3BN1QoaKmYTv5Fcmu3+E8Jj
+	 vUsYhfsUUDOMx3onkgQwKFAuVKwU/gHfz9mK8tNXh2+rKJSr3kJorlh2vbrOwtkaXAUOe
+	 Ead+vyKjL/zy7LE6SaCWCqo7MwgVSjl9a6juxHNeOTQAGAVUeSrNLJazZFYZma3StQqe/
+	 GO8jOpnKF3h8aVWLm2F3poDCKjeYRIgNx5aMi/VMzGgcNqw7N97a9r8SZFM5tYhzLE9b7
+	 kzjS5LEH4R87bG51uaWE+HSM05ak1asb/apAgA91Qot6+DgDrVpEhyI6pV2+M1V7ZUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792789223;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=jYZIYMBd8UVK6BNo8UCuf5+CZmWdq5SaCGptMRiApvg=;
-	b=jSJIvXODCmLuMuoZVOXcyrqehaI0LNUZb2GGTyMc5gEDMUbJuL7PbYYbwnZbVrIxHgIG
-	 5r7TsJ3OfN2edGcOyqTi/svOy1vRa3X6jy863fi84g0+oObYK2TbukVJMgS0OQgSkVRDV
-	 zb0gzxiiTjh341apA88n/doAcrfBv8lI4kx1KhU6pSA85I7uJ+Zn1LNALEb7q0qvTa7Fv
-	 kMcVawoe8bA3y0vyN4/gyERxmNeEMy+7B7NaVmgcz/iNVkx1lW8Gc0q+YEb5825C36x+4
-	 QYjPI94RkJylJicUIszfpxcQ0L4ntwRCa6apEfuvjoLIgVCjiBw2dzX3t4Si+qmjFxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792789389;
+	h=DMARC-Filter:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=bwxaO9Hd9Usj2A2YXEjAtK+3AZbfX5QVOzXiNMsq08s=;
+	b=iAvzZdceM/14d/JxGeHkTWo3Gex31M1LSe3OFyxMWHKvBlfR2uVtDIEI9TuvzjyerfSn
+	 bajdMS3l/Wv2T8Npi1CWtx1wgGiP2NivTMxoXB0aR0CRy/A9I6M1iBdUbTPb8zuK+l5/g
+	 JWNP+4Vj1Xt5dzzvgmtoPV4AFMIZkpx9tmQZBBuOBJ29BrPZKW5T48GFrBAy9GzfBa7ey
+	 W1dqCKO8IhuqVEgIrOdSWxMzk4Gr5QpQDMWu7LBhzgDemxr3oY/NBwMnpuAFohLFD669N
+	 MFc41UNCK/8HYNCnjyTSf2DfKLV7tG4hpk45mjZNuyqVZTfYfdqYQkre542kslNvaBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cj8Ta3rK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=auroraos.dev;
+	spf=pass smtp.mailfrom=auroraos.dev;
+	arc=none smtp.remote-ip=95.181.193.9
+Received: from mail.auroraos.dev (unknown [95.181.193.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5C0606A31D;
-	Fri, 23 Oct 2026 21:00:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cj8Ta3rK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 897CB1F01825;
-	Fri, 23 Oct 2026 21:00:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792789222;
-	bh=jYZIYMBd8UVK6BNo8UCuf5+CZmWdq5SaCGptMRiApvg=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=cj8Ta3rKCWsYnSXSk1mSV3LnwSX19itCnyXb5OX5n+KEBm1m6Mt/SYG5xqFpde/bv
-	 rDFtNjfCyGOtJiGDMJfAC+w2nzncR85+Sim4ak6Wmotw7g+vHYd0E+q8l7dSW+nzjC
-	 0etCEkKUTfmHIwzGEXzdkAwOr28ad7juj/YoWC4JBtdIxO66tmdq3KkfeCJqWQuYkQ
-	 gB8OjmtjGEp1MKegI68ENsuDDJmXzzgcHFpxm59IvxTi/X9Wnhg3enHphWM6N/ci2M
-	 7RcChHAhdJ6aUU9vNyxLS46jU5emYnPhhMJBjknF/kjUtfJXXyu+GUyUmqnSeA0Mow
-	 F20mk/kUOQxzw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 81705391B157;
-	Fri, 23 Oct 2026 21:00:22 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F655606A31A;
+	Fri, 23 Oct 2026 21:03:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F655606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auroraos.dev
+Received: from pc.tailf8c421.ts.net (77.37.240.142) by
+ exch16.corp.auroraos.dev (10.189.209.38) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1847.3; Sat, 24 Oct 2026 00:02:55 +0300
+From: Georgiy Osokin <g.osokin@auroraos.dev>
+To: Jens Wiklander <jenswi@kernel.org>
+CC: Sumit Garg <sumit.garg@kernel.org>, <op-tee@lists.trustedfirmware.org>,
+	<linux-kernel@vger.kernel.org>, Georgiy Osokin <g.osokin@auroraos.dev>,
+	<stable@vger.kernel.org>, <lvc-project@linuxtesting.org>
+Subject: [PATCH] tee: shm: don't warn on an oversized page array in register_shm_helper()
+Date: Sat, 24 Oct 2026 00:02:38 +0300
+Message-ID: <20261023210238.551855-1-g.osokin@auroraos.dev>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,44 +52,44 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] gve: fix out-of-bounds read in
- gve_get_flow_rule_entry()
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179278922106.1268720.5910307752725835435.git-patchwork-notify@kernel.org>
-Date: Fri, 23 Oct 2026 21:00:21 +0000
-References: 
- <AS8P251MB0001135AF3233180DC42DCD1C8672@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-In-Reply-To: 
- <AS8P251MB0001135AF3233180DC42DCD1C8672@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-To: Aamir Ahmed <elb12345@hotmail.co.uk>
-Cc: netdev@vger.kernel.org, joshwash@google.com, hramamurthy@google.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain
+X-ClientProxiedBy: exch16.corp.auroraos.dev (10.189.209.38) To
+ exch16.corp.auroraos.dev (10.189.209.38)
 
-Hello:
+register_shm_helper() sizes shm->pages from the length passed to
+TEE_IOC_SHM_REGISTER and allocates it with kzalloc_objs(). A length above
+2 GiB makes the array larger than the page allocator can serve in one
+block (MAX_PAGE_ORDER), so it trips its order warning; on a panic_on_warn
+kernel that is a panic.
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+The size comes from userspace and the request fails with -ENOMEM anyway,
+so pass __GFP_NOWARN. kvzalloc_objs() would not help since kvmalloc
+warns above INT_MAX as well.
 
-On Tue, 20 Oct 2026 23:33:46 +0100 you wrote:
-> gve_get_flow_rule_entry() checks the requested location against the
-> first and last cached rules, but rules_cache_num can be 0 while
-> rules_cache_synced is true: GVE_FLOW_RULE_QUERY_RULES returns the rules
-> from the requested location onwards, so a request past the last
-> installed rule - or any request when no rules are installed - returns
-> zero rules, which the driver accepts and marks as synced.
-> 
-> [...]
+Fixes: 033ddf12bcf5 ("tee: add register user memory")
+Cc: stable@vger.kernel.org
+Cc: lvc-project@linuxtesting.org
+Signed-off-by: Georgiy Osokin <g.osokin@auroraos.dev>
+---
+ drivers/tee/tee_shm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Here is the summary with links:
-  - [net] gve: fix out-of-bounds read in gve_get_flow_rule_entry()
-    https://git.kernel.org/netdev/net/c/45e0a63f9c86
+diff --git a/drivers/tee/tee_shm.c b/drivers/tee/tee_shm.c
+index 6742b35..d539988 100644
+--- a/drivers/tee/tee_shm.c
++++ b/drivers/tee/tee_shm.c
+@@ -438,7 +438,8 @@ register_shm_helper(struct tee_context *ctx, struct iov_iter *iter, u32 flags,
+ 		goto err_free_shm;
+ 	}
+ 
+-	shm->pages = kzalloc_objs(*shm->pages, num_pages);
++	shm->pages = kzalloc_objs(*shm->pages, num_pages,
++				  GFP_KERNEL | __GFP_NOWARN);
+ 	if (!shm->pages) {
+ 		ret = ERR_PTR(-ENOMEM);
+ 		goto err_free_shm;
 
-You are awesome, thank you!
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.54.0
 
