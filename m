@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792785784;
-	b=rCGWlVsiDGd4GjAb1CVIxAdxsbtt3AXKH7w2QDxpD/+lthRc5ghFJtKtlPplHoQfGGh7
-	 IJ+9zggWBqUUSXBhR1dGywbn8ivncwEFTNlcwjufqkHv21FmQUAvuDz+wfsrv1muzthN/
-	 Pq1+GXVKe0/n53uZ00fBpQtSVEAMSFPjzGiU1u2hdAYydG9hQLCgYQWgbAMEHbf+glBN6
-	 LNDs08MXbmQpli2nGQML6gubGg6UEhokvMMJRnIDoyMKQ1lK05PzEU+aRzzevhF0KL1Xl
-	 nqxkmr2T/zYwU9fqTI7yPHqnItbEoN2hCCkuEHlb0THS222t6O+f6I0IAX8tK1RSidw==
+	b=tyvGanxH6Ld30jj6nS0Ec5yrdRNORQyGQb7eRogGaksJCOLoNBm1KuhVR04nSoneY7kn
+	 eqRAB4xS9AnvWACv5+sNCaLrYsNrovv2Uk/auNn8mhRfreuylpcIQWbte2gIc7dg0JfSp
+	 8SoD/gBN6V9C+vUVyGSfzdx6dyIvYKprPxHqeQcPuH9cHt3AT9N1EuStzRsXhBmwW+TsB
+	 o9Tl7Wn75Q0cvggcKeSUtOH5KKUVZFtrX/HZpl4fQP3onspib3QGjGEjivPHFntruQbIP
+	 gWSYbjHj+O8o2pUgpYIeLx2taGbGjfDG8YpgBEoVGGbsIMpuSdyzJbWeDRZ8okF0dlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792785784;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=h7cEtkR3wUMaj/5k5bwBQ/UPEGYAUdT0rjLHkXCUXEM=;
-	b=nrKOwk7h6/V89iuRocypVV+LMw6MO+yoyn92h8KlX7Y9f/1VEOFAy9octwHW88rPwW/f
-	 iXl73OJnAyhuiRouh1GwKkKJnIpqmNVAc80OM0RaFeZf7V7G9SF2IQGy/Yy/9E9rT0EgA
-	 is3Qm6/O4FyRp2PbMGJhcdZ0gayCOSZuIczKZuMRgbWXYPa0vWTLqk0Xw7p+KhG8RZVqt
-	 13THtyxTRf63R6uhc0vau+sCyJQotFTjGMPrWiYxkdF9jMw6xzJ2rVPi+NgSl0TJvMbKC
-	 aANZ0X1xbFWvFMl2Diz1Xdo+1dqoyJTtyTLsCoUCUbn9CBqpcxea1LJb5cDcStAcTBg==
+	bh=DRU19x392dk4YaX+zmFXG4/lfFvDr2W7dOw0AY8YH3I=;
+	b=RH/EkL8EqbT/qudNCvIf5UkcEVVMaW+ZBh/vyCixieL9BWYPG8kphHINSot9p0FDheSk
+	 s709/lTk/hnMjHz+ppipwCxwOsyV1vAq9bbr/OUhdkcmwLN+k5clHicIbnfbnPlnGM8+R
+	 n7PRYF4zCKmsXYTujLLWjGTdo/SEFz6ccqutAbcuNNbUuMZozPiC1QZDbUWC7QzxfHL2a
+	 eA/Mwg3QemqHVHICcCdCKVsWs7OsaoUp6EVRXMCYWmBg0bGoP/dWcH8bKWsDaHpUE4u4q
+	 1PYK+b9JzAHZwAy8kk1LwB4FMCxePEmMQ5kQzHN1TsF5WZoT0CxBbaOjDe5iwI0RlZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CxACvXuD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QC3iBoIR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81628606A32E
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 20:03:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CxACvXuD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A73A51F01825;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B240C606A328;
 	Fri, 23 Oct 2026 20:03:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QC3iBoIR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99FFC1F01828;
+	Fri, 23 Oct 2026 20:03:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792785784;
-	bh=h7cEtkR3wUMaj/5k5bwBQ/UPEGYAUdT0rjLHkXCUXEM=;
+	s=k20260515; t=1792785783;
+	bh=DRU19x392dk4YaX+zmFXG4/lfFvDr2W7dOw0AY8YH3I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CxACvXuD5lkFiaq2nEPLeu16y7OzrwLy12Sdeag5srJBKCzNnhv2ZtEM2NXySTDEv
-	 MK04pZYpSY76qFC2KDis5paPv53IOkhlTvUOlhDTyxAKSsEfLlhan7611jJdN/gI/W
-	 Uh9UNjf0J2TUlqlHteSj+o01ty6Nu3dUSVE66izzpweCzOSRV3RHtD3xVI0xXlsv1f
-	 JihJew8oDoibId8jG8u6IpFFOSbUJgh4pBdt/AwYlDyxDqhwrbvbLzh19ggEk3frIy
-	 gvywNDoe1Pnx20HJaBY0XkVlkV/YOPFMD0zobseiso6CM8mXR0po/wcSRSp1A2XRAr
-	 899Qjt7gzhnfg==
+	b=QC3iBoIRnEhiQkrxvASWaOxaymxcAUMwstwM7t4VRSmjwfpvBG1O+Hf8hPG7VeIfp
+	 2zuUacARE44eHoHDepmhJq5SrhzApP9rbrneonwQRB2+hpbpnDisa/JUqMipCrTfon
+	 uuZp706JbFtjKxdbZyccHCnwVvHHyHer/02TvA9gTBSOPeMvGOsa5ccna4wK74QrKV
+	 ubap30kyxDSXvEbrbPhwWKaSFDtVnTVnT2gBAvm8F63Zj1XImb6eMuPKrmc4yQniDN
+	 jPM3Vw3xg3yiWH0Csk8IJDhNglphgna1Nnqlo4vBa4R66/a3MEMZ8F/NzazJfPx0e8
+	 FbR41bcWd33pw==
 From: Sasha Levin <sashal@kernel.org>
-To: Masami Hiramatsu <mhiramat@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>
+To: gregkh@linuxfoundation.org
 Cc: Sasha Levin <sashal@kernel.org>,
 	stable@vger.kernel.org,
-	Joseph Qi <joseph.qi@linux.alibaba.com>
-Subject: Re: [PATCH 6.6.y] eventfs: fix SRCU read lock leak in eventfs_iterate()
-Date: Fri, 23 Oct 2026 16:02:45 -0400
-Message-ID: <2026-10-23-1-daily-reply-0009-eventfs-srcu-leak-6-18-6-12-6-6@kernel.org>
+	kuba@kernel.org,
+	linux-hams@vger.kernel.org,
+	Bernard Pidoux <bernard.f6bvp@gmail.com>
+Subject: Re: [stable request] ROSE memory-safety fixes for 7.0.y and earlier (merged out-of-tree in linux-netdev/mod-orphan)
+Date: Fri, 23 Oct 2026 16:02:44 -0400
+Message-ID: <2026-10-23-1-daily-reply-0008-rose-ax25-netrom-suite-bounce@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261022064046.4048143-1-joseph.qi@linux.alibaba.com>
-References: <20261022064046.4048143-1-joseph.qi@linux.alibaba.com>
+In-Reply-To: <CAFAa3YDU2LnSiBH+2Rk455hky58fW=6_NeO3bWC_=GYmb9M0vg@mail.gmail.com>
+References: <CAFAa3YDU2LnSiBH+2Rk455hky58fW=6_NeO3bWC_=GYmb9M0vg@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,12 +63,21 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> The unbalanced reader prevents the grace period from ever completing, so
-> the call_srcu() callback queued by free_ei() never runs and the
-> eventfs_inode is leaked. Every readdir that races with removal adds
-> another reader.
+> [PATCH 6.12.y 02/26] netrom: linearize and validate lengths in nr_rx_frame()
+>
+> +		/* nr_state1_machine() reads the window size at byte 20 */
+> +		if (frametype == NR_CONNACK &&
+> +		    skb->len < NR_NETWORK_LEN + NR_TRANSPORT_LEN + 1) {
+> +			sock_put(sk);
+> +			return 0;
+> +		}
 
-Queued for 6.18, 6.12 and 6.6, thanks.
+This check ignores the flag nibble, so it also drops CONNACK|CHOKE (0x82)
+refusals. __nr_transmit_reply() builds those as 20-byte frames
+(skb_put(NR_NETWORK_LEN + NR_TRANSPORT_LEN)), so a refused connect() no
+longer gets ECONNREFUSED and times out after the T1/N2 retries, and CHOKE
+resets of state 2 and 3 circuits are lost. nr_state1_machine() only reads
+the window byte for a plain CONNACK.
 
 -- 
 Thanks,
