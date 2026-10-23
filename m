@@ -1,80 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792794709;
-	b=Od135mr7yqlqRTuBQJd3PVT5Sx/f1FhVEfqCOibREQBMWLBPFTCQs1/TSvjUwVmepgiA
-	 DcKPjPjBglOy5qc4Q6QmHlfqrYFAbFU1zO3pu5YM/fDzVQNUXOUKnBAo4YsuzXrT5D33N
-	 33pLVHngPe8KluHPVPrtLW+AX2w5nMn9QpmDt+Ht1ItP6abECrVDKwUdIQYmk6XAPy5JM
-	 neNfvcmzb8PUtfOXfDLFpjKv2JhY4IPB0x7vXBzsMy13+ToJNZ8o7CK71F0RGoDQJrruK
-	 dlOWWQjqV9kN5zcmhrmwTLhp83I+Fh8OvLinsMC2fQ4curfM5abyZlcJ8LxkoOqQOmg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792794709;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=40mHdQ1dXbS6kbZAKgswJtsHrX0WSyC5+8CucT7Tl0w=;
-	b=u/E8P8GqjFTnKGY48qYndK2syQMu0/oBq2rmD+73Y/LfhTUDIK5u+wCP7nJEs9Y4K/jo
-	 ISx12Xf/GORtWX8PcmqtZwQUaeYMS1zi3lyQM1cixlAbz6EBWSAl2ulQ0glDtBMkxKCGw
-	 bUhx/0p87TFR73C1PGMC2APnKdW1pAru1YuyaDvfJIR3Uv4iFpUCRh/inkkWy9v7fW407
-	 +NSLngVQZQ3YEdjl0BjvBzBtGmaz9kXISpaW117L4XITFRLraIV11LF6vBks2vmZnzLTe
-	 kq8stWthF85DqODdAz5BYYR4pBKRD8L1LVTPaEIdFvLiBoJ1LcsnsTORpZYXVYC07wA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m20vVpbN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792795325;
+	b=AkqIoimRtuNsluuYMT290RtDwG9ImeW/sBtF1t6+RfKCJdH+p6m5ygHGIAGHdHKoV2EB
+	 f98lyscmJcq94y1QVRGpPZkyPYD8xJZUu3ZfKtpfdSEE/kNTvVHBVBzWFC26kqLYYt3RD
+	 ySVCB25//JOdloiUNx7idJv4koUUyUk6X303C0QHgrUsxz3QS74VpLvi1+Sqefeww0d9F
+	 xMp65GUnlKcGElDEGypdvhvfUzuJJGy5g47zBZU7cL6P5FZl97pTVivJFlO4enfVMmKSS
+	 yaZ38iJc0S3rL7hfKXHTusoH9qArTCc9odi9pu7EHLtsdxp3jjG9tBF0l6n6VnR7xEg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792795325;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=7C0MYqI0nm0JYRHH3Hewaz0VQKQ10OF/daqqZ8+b0gg=;
+	b=taUecHAfU0fnQrii8R+4dkehXIgjdILqI3V7sTJlggdjLb00/BVdHqOz+tigsxR88ccN
+	 YlGTiTethvvIgi4zU8WIB6lYPLzGziY33xXSX7grCuhXrC6VcvPnrJFJmFlsK9k/8RmNT
+	 NnYAcSbXrxrdO/eWveckUV+vtnNaBtkaOgQzFDeZ8gcTnFHyYJFcd1gQOCULsh5Q2ga+M
+	 tBrAjSO96+bOye16Jumwb5gowBTFmngXl/hMt//MpSfV99RwR8feCHszHRWgjMRQesvHx
+	 5QKUPPkm8alC+3CfHDwaDV+Of5L4fMABMSieMONrdH0Izhs+4rUKeIegcW/61M3//Lg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="co/oit5T";
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C798606A326;
-	Fri, 23 Oct 2026 22:31:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D3B606A31A;
+	Fri, 23 Oct 2026 22:42:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m20vVpbN
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792794709;
-	b=3i8z07tX3w4rqIG7MfvdyYVZIQzc9orI6YsWGUnWK2gQPdzoWtaFzOiH8yc/2KIJQfqp
-	 DaNIzL75Kz3KYbp0GTOS6wRmO6SdOqWQl84o9H+xqTUJXCTU7ct/qY8WvyFliKGQ8+CXF
-	 ljrmsUHPSJfjvp9C0IzbPNQVxr9SSmJAl3D2XrjW78ZGctKYoeI67EIP5NM0xixhWlJTX
-	 TBR/puTefwVsctXo35UWpcxeWfH6zzmSVdbKseiOD8OeDwyq51EudNsN5mVnp2RtA/3c+
-	 AO6w+AyK61CsMch1p4l9zwUPS6/oqVaIyi+A7qfA+VGKR88dggkPoIcFf2T9mxrCx9w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792794709;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=40mHdQ1dXbS6kbZAKgswJtsHrX0WSyC5+8CucT7Tl0w=;
-	b=x7LqylqnKuY2AY8MiUHGFqbBCl5TzEzn33SsjxNDmJ5aqDWL5uDqLLk+h4hyY0JrIzEU
-	 fKFbLN7Xo5HxzdPkOUQlIUkzJDidGmYEx18m+e43yy7X1efuTuWh8wvPNq31V1kjMSE1L
-	 WwGQhgaf1fwfXVWad57X0x2bSIBdLGjZt+GXibsD1BzcOwefm5/EaAsz4dw435cvMuy10
-	 w6d3tf1p9CFFppZmBhSxEdcEF7rGM08eOWe0jelSxvEiCF1ppmVYUVW4zhB45V8m7qlBZ
-	 VHEKYttrba01MQNsd87La0XqIzl/G/OdsoPpOvctAmrjbjYtQOkYgaG9at75QuVVbhg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 82F8A1F031E1;
-	Fri, 23 Oct 2026 22:31:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=co/oit5T
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C51331F01825;
+	Fri, 23 Oct 2026 22:42:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792794709;
-	bh=40mHdQ1dXbS6kbZAKgswJtsHrX0WSyC5+8CucT7Tl0w=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=m20vVpbNTh6JqtqkB5c9zoIzU0QCDUVrnNBREQa/O7vtNTh78KCgPpytRYSJnQUGh
-	 7kh+J24dW/ViruCCWc+SusSxZk1NWgBizEerDK4lsxAqEb+d3pFyXPxvXjDn1EkOAj
-	 t5/rQoLakmtSaPpihnelckAKqNHRg2O6SYapjT2PyLOQC3vo4YoxIlh9loAJV/KGmi
-	 HFNvmpJboiG4QjLvLCR+N8qcTNBkcxg4EqDF0PS9cYzGiUTR26MXUeLyyfgwLMmHOb
-	 7zB2+k3AcJdmx3yLAr4Q8KP3QyRvOs2jcn0RHxbMc+KzLF1jjP1m5/V2QhR8g3FVGU
-	 nWZFMZQAMguiw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D619844655;
-	Fri, 23 Oct 2026 22:31:46 +0000 (UTC)
-From: Max Bretschneider via B4 Relay <devnull+max.bretschneider.leica-geosystems.com@kernel.org>
-Subject: [PATCH v2 0/4] media: i2c: ov08d10: use the subdev active state
- and add get_selection
-Date: Sat, 24 Oct 2026 00:28:50 +0200
-Message-Id: <20261024-ov08d10-get-selection-v2-0-f8c49972ca18@leica-geosystems.com>
+	s=k20260515; t=1792795324;
+	bh=7C0MYqI0nm0JYRHH3Hewaz0VQKQ10OF/daqqZ8+b0gg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=co/oit5TMIExSZKNTcU0h+g1nlJbKUdgnahhLDp+aujhkBm63BXC8pyPHXWHX/AwF
+	 uwLVw1QW95vzDG/bMwzs4xWGKHKRJI3R0FhGOEnmhsVUzRbQDAmFHfiyhsDjcRuSXB
+	 vtCCuFnb30I1a08J7f+L5rGUI4iXD2p8BQbj/Ajc+LZGvoMa7vVcPQzImaXO8i+uvG
+	 p8+e4JNfHN7R5JgjK3ewRHKdsbHG2mOlq3SKYDmNYo9yT1kd9iWEUi2u9d727I3Aub
+	 muvIKTATwGcorLrFvo+XwyTEbuzU7dE3Rd8iVVh8haclUDdTPZnYGZYC5wUlrH7Voc
+	 YJFvkiHU+I5fg==
+Subject: Re: [PATCH net 2/3] net: stmmac: dwmac1000: don't discard frames with
+ only a checksum error
+From: netdev-bot+sashiko@kernel.org
+To: opensource@grische.xyz
+Cc: netdev@vger.kernel.org, maxime.chevallier@bootlin.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, o.rempel@pengutronix.de,
+ stable@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, aaro.koskinen@nokia.com,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Fri, 23 Oct 2026 22:42:03 +0000
+Message-ID: <179279532326.3134.8925339564776340456@kernel.org>
+In-Reply-To: <20261020190319.884375-3-opensource@grische.xyz>
+References: <20261020190319.884375-3-opensource@grische.xyz>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,99 +67,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKLf22oC/3WNyw6CMBREf4V0bU1vlQKu/A/Doo8LNAFqeptGQ
- vh3K3uXZzJzZmeE0SOxR7WziNmTD2sBeamYnfQ6IveuMJNCKtHJjocsWgeCj5g44Yw2lQW3Wjd
- GWdO6AVnZviMO/nN6X33hyVMKcTtvMvzS0wgC4I8xAwdeOzSo7jfVqPo5o7e6tAJtlHChqw0L6
- 4/j+AKed3y/xQAAAA==
-To: Jimmy Su <jimmy.su@intel.com>, Matthias Fend <matthias.fend@emfend.at>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- Max Bretschneider <max.bretschneider@leica-geosystems.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792794706; l=3275;
- i=max.bretschneider@leica-geosystems.com; s=20260501;
- h=from:subject:message-id;
- bh=oNEbJ88MKt/pgzyIkNizvj1+LJU8OCz+hHF/MohQvGk=;
- b=0MAkuKBXNsy0Ea2kZjoRsfeij9FPgEPcXr5McPCGJBUnVNFE67b/kNZigLsDt3YIHB81Ge8sE
- 8mRrr8iu4C0Ce8PfQFkTJo3PJfK+uBKu/X0AzGxPIaKflPYS/e5W0p1
-X-Developer-Key: i=max.bretschneider@leica-geosystems.com; a=ed25519;
- pk=jf4ba33jrWlsOdGemi2InMtJAngoJVZU8Moetp0ixik=
-X-Endpoint-Received: by B4 Relay for
- max.bretschneider@leica-geosystems.com/20260501 with auth_id=1161
-X-Original-From: Max Bretschneider <max.bretschneider@leica-geosystems.com>
-Reply-To: max.bretschneider@leica-geosystems.com
 
-v1 of this was a single patch adding get_selection. After review this grew
-into four, three of which address points raised in the review.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Patch 1 fixes a NULL pointer dereference in ov08d10_get_hwcfg() and is
-marked for stable.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-Patches 2 and 3 port the driver to the subdev active state and drop the
-cached current mode, both requested in review of v1. Dropping cur_mode
-means the mode is now derived from the active state instead, for which a
-small ov08d10_get_mode() helper was added.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Patch 4 then adds get_selection, the original change from v1. Without this
-the driver never reports the analogue crop, so userspace cannot tell which
-region of the pixel array each mode reads out.
+- [High] enh_desc_get_rx_status()
+  (drivers/net/ethernet/stmicro/stmmac/enh_desc.c:209-213) now discards…
 
-Tested on a Hexagon/Leica CS50 (i.MX8MP, rkisp1) running 6.16.12 with the
-equivalent of this series applied. Further tests on a more recent kernel
-will be done in the coming weeks.
+--
 
-- Compile-tested against media/next, built with W=1, and checked with
-  sparse and checkpatch --strict.
-- The NULL dereference was first reproduced before the fix. With the fix
-  applied, and dynamic debug enabled for that statement so that its
-  arguments are actually evaluated, rebinding the driver prints
-  "Using N data lanes" instead of oopsing.
-- libcamera no longer reports "Unable to get rectangle" errors and no
-  longer defaults PixelArraySize, PixelArrayActiveAreas or the analogue
-  crop rectangle, all of which it did before.
-- The crop rectangle is correct for all tested modes.
-- Toggling HFLIP changes the media bus code reported on the source pad
-  between SBGGR10 and SGBRG10, as expected.
-- Streaming works in both the 3280x2460 and the 2x2 binned 1632x1224
-  modes.
-- v4l2-compliance 1.26.1 (SHA 4aee01a02792, 2023-12-12), run against the
-  media device: 52 of 52 pass on the sensor subdev, no failures.
-- With CONFIG_PROVE_LOCKING=y there were no lockdep reports across format
-  and selection changes, both flips, exposure, gain and vblank writes,
-  streaming in both modes, control writes while streaming, and a driver
-  unbind/rebind cycle.
+net: stmmac: dwmac1000: don't discard frames with only a checksum error
 
-Mainly modelled on imx335, imx214, imx355.
+This patch changes enh_desc_get_rx_status() so that a descriptor with the
+Error Summary bit set is discarded only when one of the L2 error bits is
+also set. Frames with only an L3/L4 checksum error then reach the stack as
+CHECKSUM_NONE. The patch also removes the per-frame pr_err for
+RDES0_IPC_CSUM_ERROR.
 
----
-Changes in v2:
-- Fix the NULL pointer dereference in ov08d10_get_hwcfg(), Cc stable
-- Port the driver to the subdev active state, drop the driver's
-  own mutex in favor of the state lock shared with the control handler
-- Drop the cached current mode and derive it from the active state
-- Moved ov08d10_get_selection() out of the control handling section and
-  appended it to the pad ops, keeping the driver's ordering
-- Link to v1: https://lore.kernel.org/r/20261011-ov08d10-get-selection-v1-1-5debe6436765@leica-geosystems.com
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
+> index 0512536012251..5c43d32a2f22b 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
+> @@ -195,9 +195,6 @@ static int enh_desc_get_rx_status(struct stmmac_extra_stats *x,
+>  		if (unlikely(rdes0 & RDES0_OVERFLOW_ERROR))
+>  			x->rx_gmac_overflow++;
+>  
+> -		if (unlikely(rdes0 & RDES0_IPC_CSUM_ERROR))
+> -			pr_err("\tIPC Csum Error/Giant frame\n");
+> -
 
----
-Max Bretschneider (4):
-      media: i2c: ov08d10: fix NULL pointer dereference in ov08d10_get_hwcfg()
-      media: i2c: ov08d10: use the subdev active state
-      media: i2c: ov08d10: drop the cached current mode
-      media: i2c: ov08d10: add get_selection support
+[ ... ]
 
- drivers/media/i2c/ov08d10.c | 172 +++++++++++++++++++++++++++-----------------
- 1 file changed, 106 insertions(+), 66 deletions(-)
----
-base-commit: 2dcdfb625c3b8fe87454e19dfbc54b3e3f0ad70e
-change-id: 20260929-ov08d10-get-selection-caa7b6cb8dfe
+> @@ -209,7 +206,11 @@ static int enh_desc_get_rx_status(struct stmmac_extra_stats *x,
+>  		if (unlikely(rdes0 & RDES0_CRC_ERROR)) {
+>  			x->rx_crc_errors++;
+>  		}
+> -		ret = discard_frame;
+> +		if (rdes0 & (RDES0_DESCRIPTOR_ERROR | RDES0_OVERFLOW_ERROR |
+> +			     RDES0_COLLISION | RDES0_RECEIVE_WATCHDOG |
+> +			     RDES0_MII_ERROR | RDES0_CRC_ERROR |
+> +			     RDES0_LENGTH_ERROR))
+> +			ret = discard_frame;
 
-Best regards,
+[Severity: High]
+Can this mask let giant frames through when Rx checksum offload is
+disabled?
+
+RDES0[7] (RDES0_IPC_CSUM_ERROR) means an IPC checksum error only while
+GMAC_CONTROL_IPC is set. With IPC clear, the same bit reports a Giant
+Frame. That is an L2 error, and it also sets ES. The pr_err string removed
+above ("IPC Csum Error/Giant frame") names both meanings.
+
+dwmac1000_rx_ipc_enable() clears IPC whenever hw->rx_csum is 0:
+
+dwmac1000_rx_ipc_enable() {
+    ...
+	if (hw->rx_csum)
+		value |= GMAC_CONTROL_IPC;
+	else
+		value &= ~GMAC_CONTROL_IPC;
+    ...
+}
+
+This happens with "ethtool -K <if> rx off" through stmmac_set_features(),
+when the platform has no RX COE, or when the IPC read-back in
+stmmac_hw_setup() fails.
+
+In that state, a giant frame where bit 7 is the only ES contributor stays
+good_frame here. It is then passed to enh_desc_coe_rdes0() with
+ipc_err = 1. That function returns csum_none for status 0x6/0x7 and
+good_frame for the "Reserved" 0x2 case. It never returns discard_frame,
+so stmmac_rx() passes the oversized frame to XDP and the stack. Before
+this patch the frame was dropped.
+
+What happens when the giant frame is larger than dma_buf_sz and spans two
+descriptors? One example is threshold DMA mode with
+snps,force_thresh_dma_mode, where the FIFO can no longer drop the frame.
+
+The non-LS descriptor returns discard_frame without rx_not_ls. So
+stmmac_rx() frees it and resets error and len. The LS descriptor is then
+handled as the start of a new frame:
+
+stmmac_rx_buf1_len() {
+    ...
+	plen = stmmac_get_rx_frame_len(priv, p, coe);
+    ...
+	return min_t(unsigned int, priv->dma_conf.dma_buf_sz, plen - len);
+}
+
+With len == 0 this reports dma_buf_sz bytes, but DMA only wrote
+plen - dma_buf_sz bytes to that buffer. Would the stack then see a frame
+whose Ethernet header comes from the middle of the giant frame's payload,
+followed by stale page_pool contents?
+
+This also seems to disagree with the commit message:
+
+  "Return discard_frame only for L2 errors."
+
+  "This matches dwmac4, whose Error Summary check does not include the
+  checksum bits."
+
+dwmac4_wrback_get_rx_status() still discards RDES3_GIANT_PACKET inside its
+ES block, and ndesc_get_rx_status() discards every ES frame.
+
+The later patch in this series that sets DMA_CONTROL_DT ("net: stmmac:
+dwmac1000: stop hardware from dropping checksum-error packets") only
+affects COE-detected errors, so it doesn't appear to cover this case.
+
+Should bit 7 also count as a discard reason unless IPC (hw->rx_csum) is
+enabled?
+
+>  	}
+>  
+>  	/* After a payload csum error, the ES bit is set.
+
 -- 
-Max Bretschneider <max.bretschneider@leica-geosystems.com>
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020190319.884375-1-opensource%40grische.xyz
