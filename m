@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792757849;
-	b=DQ0QSUwMc/5PaUC+ElNXI4HDXqdJ6sPk0xrHaQ1WXI5nr/GTcyeQHNrq81LRYfwvHxIz
-	 KsIcPyHY/p6hJLRh67qqLztz96pZcw6w8EybtM+GTQWWIKtF/IWerfRsnv8TDpYdYsb4u
-	 u11O4PYQjbLXsapqTjdbYTpuwEEDWkHyPCmkxug20BE6/K2zFYY66/WhPJ1/D5jhDcRMb
-	 pKda8EU/rnU4ghOv5UF3FzKhqDqBFOiH6rpBq1rT9sCpTmMBYw9pD2XHHcmPIpd3jJKB+
-	 gEuVV0YfLmr6tLuqI0U5VIlzxYSka9+mVFm4clG735qrWOmWjpvWx4SrBqP/FNeLltQ==
+	t=1792757850;
+	b=oHxY34IfjQ+4itU5xwVRtekteH9ubS4IB1a7yz+Iwnniur5LfxkebkkTpg3aOfug/cKM
+	 LBhNVMWw97AS1jjk301FtYRxPTURYwdQb/4451k4s3Ax3JiYBthqbLNq51jzyhrEMl5v0
+	 DjZYMDtkKAsFDvNZuHahA2krvza89LW+rRVH3io7cTn6vqW/T0JtmyLqwydGPP041s5L3
+	 gYflRn1SlCUyXkiBZCJTRMqviXf6lYXpXNzwwTnmWYETkUgwgiGrZejOdgitpgZ8IWIrG
+	 gWKRUGHy8Uoq6RQWubFEqt7YLygj0htQGtSRsNxJhgVlTkUScQefCDbAdkN3qvIHFEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792757849;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792757850;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=09Vq/dvOEjTdg1TF0hNYuv2uxb3k+yB/kedD6kH/lMc=;
-	b=uVRygYIi88vx3GFzq2RZB0gnsJLoCz1NwQYpCu1L89ADgRpHXV3bX96goESLTu82UtIj
-	 zmfEPSateNk6KZAs58+aJSUhqLGwoSgZsnQes35tf8TmSJFzLejgBqRA8c1SjzQih3Z9I
-	 lrI8MqzDmUIGdC4DmdfYDPJLhKtLwULyamGyEoMQ6EToqnek05lPsy0UR7I9WqP6+BvN4
-	 9rjx+j8H/O6xZRSB3x+BydNb3SfeZxuVOBHodqiMkc6MDBKH+V/dUuuArDH4qrbA/UI7Q
-	 uJbnctMADk47VJFz01A5ipLoNkTxiRwOx8INcxLeY+nKAwLAod8WTJNHAUslguXjIrQ==
+	bh=zZpTPkiBERa1gkk+1x09PUsmxHeLtWaobOySTB7HP+s=;
+	b=tIrCGBOtlHZ4eBT8U5ze9ChrvU9qx3gIN0Wybg6xtX9nWMiuTX+QpYyi9jabcmeAh7jz
+	 htPJ/YYAT9R4GmENb7ByIe1q36qbfuxlJvLFnW4UwPjqhNvO9nahdA6mJ2ctS/ZDfocJY
+	 EM1rlvrrmZtZd3RGuXfo3QoUJ8nt+Jv22n+XhV7abkK3tK4e7wY/Hppb+WPntJQIzcXFE
+	 J+DRqaHUF0yRoDZlPzeLl5DoQPI3l3trWy1bNbn5A5lXsG+k+9wvJxaqi/zGPMZamsvvo
+	 MvCSfFl0x+GwtWLDVFdSNNjmMLfJrZYJ1lrzO/r7luG6uNVJLW+jZFNzL8BzbcAs2kQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PACwXXG1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FiM3ICOG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE2260A260F;
-	Fri, 23 Oct 2026 12:17:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3B6960A3829;
+	Fri, 23 Oct 2026 12:17:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PACwXXG1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AE011F01828;
-	Fri, 23 Oct 2026 12:17:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FiM3ICOG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AD531F01825;
+	Fri, 23 Oct 2026 12:17:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792757848;
-	bh=09Vq/dvOEjTdg1TF0hNYuv2uxb3k+yB/kedD6kH/lMc=;
+	s=k20260515; t=1792757849;
+	bh=zZpTPkiBERa1gkk+1x09PUsmxHeLtWaobOySTB7HP+s=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=PACwXXG1TqCIxK2y0rvgIbd7t+zgdQHuERe0sCXSrY/mnF2NXKSb37GfMBoFkJkKC
-	 50yqOPhzcfC0f8ORJjx+jAVKgLG/Zv+KxDv2J3b4u2igeFyOOQBhmcrp6BKUvebMDh
-	 3/HZmb9INuxTH5y7gCZ2MTSthm+uckh6msDUGvynNsnwi44nTp+y3WCKsyz1bEau7p
-	 rL6KP2JLrlWHy7QRbsz3koLoya3cTwWKB52bg8GElgo7TogamiAl38yKoFBrAJQzUO
-	 Zri6gJKktYd4RSrUOEK2FoOWzzeXckbgOdmTXanMb8T3NGlcWBUnoWYRNJj+lW4bfK
-	 rfW5Qw/7ypeRw==
-Subject: Re: [PATCH net 5/7] ovpn: fix UDP TX byte accounting
+	b=FiM3ICOGK1rGA1r/nlGEPefMmZqLMGTbrct+EQ717pyZ3VMIPn2inPXnpYEKvJX6K
+	 lcvpmMbxCfBkjANbcZgjz+wJXfg4PIaQLJsl2VpG/SitlNEnaArNLTAbrIbI1jvnbO
+	 aR6bY3h5w9jErqk2aATc9C7y969ObzngS5iPk40mn8h3eD5k3bGa3Twsb2cD03LTsH
+	 uIPjIlZjVBZm5EhzHwtw1DDJ0f0Qdr8xOXO6NpbafUYv6eJ6YrF7cGgwWMpgOLxePB
+	 wWH5ZPa9NShabcpmqEPYUm9duJuLQv9MTkuktQs3O+zNe4rPxZlezkuX9i2Ntu7yQx
+	 osRc3CmBIlRLg==
+Subject:
+ Re: [PATCH net 6/7] ovpn: fix TCP TX accounting for locally dropped packets
 From: netdev-bot+sashiko@kernel.org
 To: antonio@openvpn.net
 Cc: netdev@vger.kernel.org, ralf@mandelbit.com, sd@queasysnail.net,
  kuba@kernel.org, pabeni@redhat.com, andrew+netdev@lunn.ch,
  davem@davemloft.net, edumazet@google.com, stable@vger.kernel.org
-Date: Fri, 23 Oct 2026 12:17:27 +0000
-Message-ID: <179275784775.3134.7765670827133808012@kernel.org>
-In-Reply-To: <20261022121606.732029-6-antonio@openvpn.net>
-References: <20261022121606.732029-6-antonio@openvpn.net>
-X-sashiko-severity: Medium
+Date: Fri, 23 Oct 2026 12:17:28 +0000
+Message-ID: <179275784882.3134.8206640580518712230@kernel.org>
+In-Reply-To: <20261022121606.732029-7-antonio@openvpn.net>
+References: <20261022121606.732029-7-antonio@openvpn.net>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -66,7 +67,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -74,90 +75,143 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] After this patch, the ovpn netdev's rx_bytes and tx_bytes
-  measure different layers.
+- [High] The fix leaves a TCP local-drop path with the same wrong
+  accounting.
 
 --
 
-ovpn: fix UDP TX byte accounting
+ovpn: fix TCP TX accounting for locally dropped packets
 
-This commit resets the inner network header in ovpn_udp_send_skb() before
-the skb is handed to the UDP tunnel helpers. The goal is for the ovpn
-netdev TX byte counter to include the OpenVPN data-channel header and the
-authentication tag.
+With this patch, ovpn_tcp_send_skb() and ovpn_tcp_send_sock_skb() return
+an error when TCP cannot take the skb, instead of freeing it. On error,
+ovpn_encrypt_post() keeps the skb, counts the drop and frees it, without
+updating peer TX stats or last_sent. The TCP release and sendmsg paths
+now count and free the skb themselves when these helpers fail.
 
-> diff --git a/drivers/net/ovpn/udp.c b/drivers/net/ovpn/udp.c
-> index 7672094a67668..05e10a2ed1791 100644
-> --- a/drivers/net/ovpn/udp.c
-> +++ b/drivers/net/ovpn/udp.c
-> @@ -495,6 +495,9 @@ int ovpn_udp_send_skb(struct ovpn_peer *peer, struct sock *sk,
->  		return -EADDRNOTAVAIL;
->  	}
+> diff --git a/drivers/net/ovpn/io.c b/drivers/net/ovpn/io.c
+> index ce1993b243e6f..eb9ba709523ee 100644
+> --- a/drivers/net/ovpn/io.c
+> +++ b/drivers/net/ovpn/io.c
+> @@ -287,7 +287,9 @@ void ovpn_encrypt_post(void *data, int ret)
+>  			goto err_unlock;
+>  		break;
+>  	case IPPROTO_TCP:
+> -		ovpn_tcp_send_skb(peer, sock->sk, skb);
+> +		ret = ovpn_tcp_send_skb(peer, sock->sk, skb);
+> +		if (unlikely(ret < 0))
+> +			goto err_unlock;
+>  		break;
+>  	default:
+>  		/* no transport configured yet */
+> diff --git a/drivers/net/ovpn/tcp.c b/drivers/net/ovpn/tcp.c
+> index 5340860c0b822..a3165580e97b5 100644
+> --- a/drivers/net/ovpn/tcp.c
+> +++ b/drivers/net/ovpn/tcp.c
+> @@ -319,28 +319,39 @@ void ovpn_tcp_tx_work(struct work_struct *work)
+>  	release_sock(sock->sk);
+>  }
 >  
-> +	/* the encrypted openvpn packet is the UDP tunnel payload */
-> +	skb_reset_inner_network_header(skb);
-> +
+> -static void ovpn_tcp_send_sock_skb(struct ovpn_peer *peer, struct sock *sk,
+> -				   struct sk_buff *skb)
+> +static int ovpn_tcp_send_sock_skb(struct ovpn_peer *peer, struct sock *sk,
+> +				  struct sk_buff *skb)
+>  {
+>  	if (peer->tcp.out_msg.skb)
+>  		ovpn_tcp_send_sock(peer, sk);
+>  
+> -	if (peer->tcp.out_msg.skb) {
+> -		ovpn_dev_dstats_tx_dropped(peer->ovpn->dev);
+> -		kfree_skb(skb);
+> -		return;
+> -	}
+> +	if (peer->tcp.out_msg.skb)
+> +		return -EBUSY;
 
-[Severity: Medium]
-With this change, do rx_bytes and tx_bytes on the ovpn netdev now measure
-different layers?
+[ ... ]
 
-UDP and TCP share the same RX path, and it counts the decrypted plaintext
-length:
+> @@ -348,16 +359,16 @@ void ovpn_tcp_send_skb(struct ovpn_peer *peer, struct sock *sk,
+>  	if (sock_owned_by_user(sk)) {
+>  		if (skb_queue_len(&peer->tcp.out_queue) >=
+>  		    READ_ONCE(net_hotdata.max_backlog)) {
+> -			ovpn_dev_dstats_tx_dropped(peer->ovpn->dev);
+> -			kfree_skb(skb);
+> +			ret = -ENOBUFS;
+>  			goto unlock;
+>  		}
+>  		__skb_queue_tail(&peer->tcp.out_queue, skb);
+>  	} else {
+> -		ovpn_tcp_send_sock_skb(peer, sk, skb);
+> +		ret = ovpn_tcp_send_sock_skb(peer, sk, skb);
+>  	}
 
-drivers/net/ovpn/io.c:ovpn_netdev_write() {
+[ ... ]
+
+> @@ -388,8 +400,13 @@ static void ovpn_tcp_release(struct sock *sk)
+>  	__skb_queue_head_init(&queue);
+>  	skb_queue_splice_init(&peer->tcp.out_queue, &queue);
+>  
+> -	while ((skb = __skb_dequeue(&queue)))
+> -		ovpn_tcp_send_sock_skb(peer, sk, skb);
+> +	while ((skb = __skb_dequeue(&queue))) {
+> +		ret = ovpn_tcp_send_sock_skb(peer, sk, skb);
+> +		if (unlikely(ret < 0)) {
+> +			ovpn_dev_dstats_tx_dropped(peer->ovpn->dev);
+> +			kfree_skb(skb);
+> +		}
+> +	}
+
+[Severity: High]
+Can skbs that ovpn_encrypt_post() already counted as sent still be
+dropped here?
+
+When sock_owned_by_user(sk) is true, ovpn_tcp_send_skb() only puts the skb
+on peer->tcp.out_queue and returns 0. ovpn_encrypt_post() treats that 0 as
+a successful send:
+
+ovpn_encrypt_post() {
     ...
-	pkt_len = skb->len;
-    ...
-	if (likely(ret == NET_RX_SUCCESS)) {
-		/* update RX stats with the size of decrypted packet */
-		ovpn_peer_stats_increment_rx(&peer->vpn_stats, pkt_len);
-		dev_dstats_rx_add(peer->ovpn->dev, pkt_len);
-	}
+	ovpn_peer_stats_increment_tx(&peer->link_stats, orig_len);
+	/* keep track of last sent packet for keepalive */
+	WRITE_ONCE(peer->last_sent, ktime_get_boottime_seconds());
     ...
 }
 
-UDP TX goes through iptunnel_xmit() / ip6tunnel_xmit(), which compute:
+Later, release_sock()->ovpn_tcp_release() drains out_queue through
+ovpn_tcp_send_sock_skb(). Suppose peer->tcp.out_msg.skb is still pending
+because skb_send_sock_locked_with_flags() returned -EAGAIN under TCP
+backpressure. Then every drained skb gets -EBUSY and lands in this new
+branch.
 
-	int pkt_len = skb->len - skb_inner_network_offset(skb);
+The packet is then counted in the peer link TX counters
+(OVPN_A_PEER_LINK_TX_BYTES/PACKETS) and also in the device tx_dropped
+counter. peer->last_sent was also refreshed for a packet that never left.
+That pushes back the keepalive deadline in
+ovpn_peer_keepalive_work_single().
 
-The inner network header now sits at the start of the encrypted packet.
-So TX counts the opcode/peer-id (4 bytes), the packet-id (4 bytes), the
-auth tag (16 bytes) and the ciphertext. That is about 24 bytes per packet
-that TX counts and RX does not.
+Isn't this the "another output skb is still busy" case the commit message
+says it fixes? Several contexts can hold lock_sock() here. One is
+ovpn_tcp_tx_work(), which gets queued exactly when out_msg is stuck.
+Others are ovpn_tcp_sendmsg() and a userspace setsockopt(). A remote peer
+that stops reading (zero window) can keep out_msg stuck.
 
-In effect, netdev TX now follows the per-peer link_stats semantics, while
-netdev RX follows vpn_stats.
+The commit message also says:
 
-TCP TX uses yet another convention. ovpn_tcp_send_sock() calls
-dev_dstats_tx_add(peer->ovpn->dev, skb->len) after ovpn_tcp_send_skb() has
-pushed the 2-byte length prefix:
+    Handle the same helper errors locally in TCP release and
+    sendmsg paths, which do not go through ovpn_encrypt_post.
 
-	*(__be16 *)__skb_push(skb, sizeof(u16)) = htons(len);
+That doesn't look right for the release path. Only ovpn_tcp_send_skb()
+fills out_queue, and only ovpn_encrypt_post() calls ovpn_tcp_send_skb().
+So every skb dropped here was already counted as sent. The same goes for
+queued skbs freed by skb_queue_purge() in ovpn_tcp_socket_detach().
 
-Other users of the same UDP tunnel stats helper do the opposite. WireGuard
-sets the inner network header before it pushes its own header, so that
-header is not counted:
+The selftests change later in the series does not touch this code, so
+this is still present at the end of the series.
 
-drivers/net/wireguard/send.c:encrypt_packet() {
-    ...
-	skb_set_inner_network_header(skb, 0);
-	header = (struct message_data *)skb_push(skb, sizeof(*header));
-    ...
-}
-
-Take the case the commit message calls an undercount, where the inner
-header still points at the plaintext. Before this patch, UDP TX counted the
-ciphertext length there. Since the tag sits in front, that equals the
-plaintext length, so it matched RX.
-
-Is TX meant to include protocol overhead when RX does not? If so, could
-the commit message explain why? If not, should RX and TCP TX be changed
-to use the same convention?
-
-The mismatch is still there at the end of the series. "ovpn: fix TCP TX
-accounting for locally dropped packets" leaves both the TCP TX
-dev_dstats_tx_add(skb->len) call and the RX accounting unchanged.
+Could the peer link TX accounting and the last_sent update move to the
+point where TCP actually accepts the skb into out_msg or sends it?
+ovpn_tcp_send_sock() already does this for dev_dstats_tx_add().
+Alternatively, the accounting could be undone when a queued skb is
+dropped.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261022121606.732029-2-antonio%40openvpn.net
