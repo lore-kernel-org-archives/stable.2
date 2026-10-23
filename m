@@ -1,96 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792785194;
-	b=B/igq7kwfs19VDTJFhGV2820X86+K2Ctpi8pblJdFUhf3p9hP3nRQAqbYK/PhKclw19J
-	 a6QWuc8Woe1cVwZja9IATOqCcWEBvIunUJQkinaMEOb+648Zb07KTxLs2uX0zhSn63t7H
-	 lDSbZwklptNFKlPh4KG7SrfX4+QrA5HgxPzUw60MpgiFuxTGBTxHQRNs0rR/lctdictb3
-	 iJhf+OlwrrJbqA+rExYGrGOyYJqJ9oXOePoVaMFOQuVxB/yc/i8aPlDwpImnUpW/v+gWT
-	 R44mUC6g5O3oJx62GtPfFwyex7ttw08Bba2PSDvmQE/Tz7vO274iCGg1djHIIlAjocg==
+	t=1792785207;
+	b=pUWiiHPOC03RiWxgNadsmKgk98AXbqgFR0FQhRJdhYsvbQ4mN/TbR466+TuQ9+a6QYUk
+	 IeYevUPxFsLFSoEQn5Y0O/uIKUErxfJ4jbS+aTjRVnBJumid3K88+AF5ViXAy3PG1Pw0j
+	 DM+myTMPt2YC36O4HKRwfit/aBpHmm3XVJkUWIsucSl/EnSQrNzunyJ1dY+m+tlAbuKXs
+	 6PcSa+rrEE8BvndewGRn9nW44WPETbCUcJltWmsuEMNsReblHRXkOfbp6FPAEH2jG2CRc
+	 BudRoyzBZRcWuzPgqqhXyRjbh8zVb8bkaO6x1fHR8j44cylM67A4QokijZYKsxSJT5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792785194;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792785207;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=MYMvGahXwl+NkKbqUxWpkDAanrsDHqw5aIx8j0gxjPs=;
-	b=jCDYIxEPCiyXmABLy1s14aKpX7L9YPWE1swAhZXGEv1h/sd+wqUNtJn8WijraN4EKrm8
-	 /41JRkE2sBH27XiohaQMdf4qeoKixPmXMzua8tnlRnVRteV4JWOH8SGp4/goMLCxpig+y
-	 0Xx/45q9ifdgXjBEwgKGWlbxB39oH2U9A4FDwJT/3MS4ITLzjBIEFd5uQyyPocljqLZk2
-	 6jRQbaEevA4sAdKsbYtYEsscyG1/8iV0eJwUiLGCeH2IICnlZ/w1KJuT05vu+Q9xQVfuF
-	 4AOl9l2Qft8DpOP7R/88ooc1qvi74PbVf9w/al3cOlzH0QjX0RCtWXoe43oxlQ3DALw==
+	bh=WhO3eiwpVjlpu/pA/NW1sjxZDrXxSK1K3FnCPXrmtt4=;
+	b=ny3a/4klFhmNT4RcOaZ90hZzZkgjDlD5v2mo8Xl1he9d3+2FJk9scfwrYNlxqp3+jIaE
+	 UwECcFhcpP3NzV+wU83JqMZLphyJrqzXEUDyxjOUZB+Snz/80uWwsmgP4Lv3d0wt9SK8H
+	 yVMc2lFDi3d4gWmQv8/Tb0vc8DO8A350p04rU5kNDY46nWZenycReFEUe7mUyuOhmfHK6
+	 udakcOOgdDt8MFRucSKD9Prwn/hkg5PMo9qxEGMvujto8OgF34yuhMlginkc3IyiyvXGM
+	 kB2xIVY9YPzHrksngQGO+nekNejLpSQqEsDjaD2KosvT55epI6HI+8ZV+oFkfVXSGbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SNymd6a1;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LyMNcric;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8272606A31A
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 19:53:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8272606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E69F8606A327
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 19:53:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E69F8606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SNymd6a1
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso766917f8f.3
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 12:53:13 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LyMNcric
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a214af2076so7504765e9.0
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 12:53:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792785192; x=1793389992; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792785205; x=1793390005; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MYMvGahXwl+NkKbqUxWpkDAanrsDHqw5aIx8j0gxjPs=;
-        b=SNymd6a1wWN4/3R20ghV9hJHANXsMHNZSjpLs7ikUYUtr6b9oz82iVM8+eYTK/D3vU
-         IGsAk8eCbL0wRGWa2VkqZqGYenDcQblbEh7NY5P5CnCrzU0GVQJd8GQdSa9LiNUopKf4
-         H+smT8EN7qxVHmRrLBcf8NQKwog626n7OpXx7vMBHc3nJNf4Ek+rT6LmoMS5Z1OSQAkX
-         /vhr8qGpafrpNzpFK/lC3P8bxKvBmvsJGKTJoKns+JWDQ7uGfMcy3Ble1kF/ytdKyupE
-         4LNMEbbDLPq2dsN94uKUpxZoySsaQkttM4MnXwwrNGH90oR3nHt597WX+Ij+22CRbRl2
-         pKdw==
+        bh=WhO3eiwpVjlpu/pA/NW1sjxZDrXxSK1K3FnCPXrmtt4=;
+        b=LyMNcrichdsAfJMln78ddsIOmImAHXNWLeOIXtCVEUuIF9LazYd+tN/CYghvWTCrm/
+         NuBmZQrhQMzU7BIdPm04SXCUUJUMuBc1KMKYJeluLgffxQnPSlqsdhD8RfPpEXvrvzTq
+         vYaK58Wkbbuk4h8XQgud5V+0UJa9Qo9pFUhVLu6TAIIGdXvhnoz76lE/K07/2SGOXW+g
+         W/kFt4YXAVdWJBHqteKlDFGn1zL4dXjgvDxCAmNScrbCwvTerOHy3AvO0IZQw5+3GZ6n
+         xE7YHrpkRdyEMixIi+pDOCWYZ+kGHxSyJ45b/mN2/EySiIjQPsj1IBisP8VOkfa8bU5L
+         AJEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792785192; x=1793389992;
+        d=1e100.net; s=20260707; t=1792785205; x=1793390005;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MYMvGahXwl+NkKbqUxWpkDAanrsDHqw5aIx8j0gxjPs=;
-        b=d7wKqM4N9WDYJszulzhv2wd79BxCAQA7bzoRXnqZXoyNvjrPpdoZKlBpgFi6dyofQR
-         GXfTBkbdOCLDuwBSrlT/dnWXyosEHVE4mQWUc5wtiGzOuGPpzErz/vbk+jjsMw1e+BPE
-         GKzBL8L5cJ+q9X32HRjubtiJMcK+W0d0C7nvXdViAWcp/+VqNSclhydmrMalAKp2VwGS
-         v/BcxnWkbpATL1B/S5yB8DNzkdZoMF5pMUGT34aZ3Tz3rArf4bkFtIn34+/PG+kpzwW+
-         ddJuumM+qtyxupFFSPC8a8+RgZsDdn8srzr4eBVvTUY8O2aVl1XW6tTZFfnXobpDSirm
-         /R+g==
-X-Forwarded-Encrypted: i=1; AKwUvBzvsha0FnbivIOygugWuDiidy1GiTmt7G9WIiVJ4h6Q1NVWBR8kC3dPrsNOkQe07QYX85W8Wgc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKFxQhyV72BjF7EK3vwfZ4gi7zTbkIysxvECiphjTvEPBkdLXj0
-	s1+3d/5UKwtq3LZctilekXB7r+zyY06Rxx1lM0xJH3QcY5sGIghCsVg=
-X-Gm-Gg: AYBFou1zwIicG0+TVMD6MS0C2i79A/YPf6K/l7SaBVS4KCiFufwf0mC42p6W/bMcyhp
-	i/Ha+yN+SDAuHXGwxVgjKm0uyk36z+Aa5VfKXuyABkBVwC1suaL3aBoMFIt8oOEDKzTUVVDavbE
-	trnkEkCzy4yIOstWx2HXpz198kdSy63i4cStQJRie76oXOSS2RUmRWIgfp9bVD8TfCEBLozRVCo
-	V07MHaPHmYffZscRnZSw2rmNYQkHqJVeNioDaRAbATaz8OKtLYhYeOBk2VvczosXftA671HKnMU
-	0RpVmpaHpnkUHHu4y0k0vXLft6bfWU3/xjeZkGZXPP0vjzGFhteVGJBIcF67G9uWMIpNwFssnbg
-	tnp8VGXY7V+pVi5OUu6di4AL61jzIxwbHlJLFyeRlKz7fqSGCGDlD8Wa8RLDC82lzcGa1KGnToS
-	FB/NONv285tSAZoS35Xm/OZgyXXRXt0ME7IFrxw3lDlFCG8LNuT3MY6lWd0TPlu04eugoLiKcpm
-	/C2SBX4+liOvwbQStRiH2uICA==
-X-Received: by 2002:a05:600c:19d4:b0:4a3:5a42:b29c with SMTP id 5b1f17b1804b1-4a35a42b345mr2557955e9.26.1792785192118;
-        Fri, 23 Oct 2026 12:53:12 -0700 (PDT)
+        bh=WhO3eiwpVjlpu/pA/NW1sjxZDrXxSK1K3FnCPXrmtt4=;
+        b=sfS7e/j8SVO543850RgulWy3ilntI1KpJKM2Y6ThFHxb3kBBfHTHe6BLFXa/OxEFLr
+         c687cXBx6mv711Njp7D6omi8FheKz1Y0fZpxLW21hfxI6BaQ6ljiM66PZsImsozYXZwF
+         Jb9ocTUqiKkRvdgEEbRhIlPC81rY1XJzc9JYaRie/yN2zhTv9np3L7PBJpBgP8ukjDfU
+         GgeleJKvhHJg9R0+2tbRZ2de3eggRW2gGUa0Qt7Kozc9uYJ0562b3waBDuhQRH2OamCB
+         zFARKeZpaOjnjq2ED6K4x9HsjLaYbCh6h0Qw/wPTPa9h4QPQejhGbOKR/zvnBcXibc/D
+         H9Qg==
+X-Forwarded-Encrypted: i=1; AKwUvBxxpeOp2c81Ix+pcKQl2sAWuYdw5jsr55T8vqmEma8xWqaodZsMiSkpNU9BK20O3iD/weP5gHQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJobrWTCF/Tdkz9IOLLZb18vaTd5VTRxoHoWWbBHsnz+wq+MrKa
+	yq1sJ9Fs1s/XO6wgJc04V3jKCiT4gdDqg03G0Rvh4pQMFgYzU98DueI=
+X-Gm-Gg: AYBFou3kk2RrApH533Yvs4SfcPpIKLtrUeHxrj2fjQo4JAlT9QeUhztNY8Cgug6zmUt
+	ypjGYMlzai6grjJGZo3S9FFdQJrQVeOGv9IydwR1ndbP5Epe3WCSwnxpQS1APc0oligBACxbtHk
+	WIjXukEq9QA5JpNWAzWAUpMo1M0K4VMpWISHdCdSU9Q/n62Zs2JMZ5Jh582+jtMNu7RLqb/PmFO
+	7cGNNV/jBuETfTgzKNGbNZXFUYNxvYyML99lA1hziRTKQCgsvAtShb1xTot0ZqArDkylMLPmMx6
+	1hljqjbN7AjLuarntHQ8oN/WGYfvh+m8GfEmYqY3BS8m903ocxjWwlN6otmvu35JIjCWVEf7Zue
+	1TDI/iwgCCO4W4rZyOr450spZ4AVH/MLdai3jM3TwrUWE2h5V3vL6r3xXlqdaCd4K22Lf9qh1MG
+	8AMn9i9bqAXTZzmYC50fT4kUIIiymQHcBcoD6NmXmyJK3hFKBfYwA/dubEbVHoP7tNks6oQhW+f
+	yqqpywqmGbmt9IPVUxdGM3I
+X-Received: by 2002:a05:600c:e555:10b0:4a1:d992:9476 with SMTP id 5b1f17b1804b1-4a211ee0060mr36703095e9.23.1792785205270;
+        Fri, 23 Oct 2026 12:53:25 -0700 (PDT)
 Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a359fc1207sm4434875e9.1.2026.10.23.12.53.09
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a06da5fsm3299225e9.3.2026.10.23.12.53.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 12:53:11 -0700 (PDT)
+        Fri, 23 Oct 2026 12:53:24 -0700 (PDT)
 From: Tristan Madani <tristmd@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
+To: Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S . Miller" <davem@davemloft.net>
+Cc: Eric Dumazet <edumazet@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Qingfang Deng <qingfang.deng@linux.dev>,
-	linux-ppp@vger.kernel.org,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH net] ppp: fix stale pointer access after pskb_may_pull in ppp_ccp_peek
-Date: Fri, 23 Oct 2026 19:53:09 +0000
-Message-ID: <20261023195309.3527129-1-tristmd@gmail.com>
+Subject: [PATCH ipsec] xfrm: fix output state cache TOCTOU in xfrm_state_find()
+Date: Fri, 23 Oct 2026 19:53:23 +0000
+Message-ID: <20261023195323.3528192-1-tristmd@gmail.com>
 X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -105,36 +105,46 @@ Content-Transfer-Encoding: 8bit
 
 From: Tristan Madani <tristan@talencesecurity.com>
 
-ppp_ccp_peek() caches a pointer to skb->data in dp after the first
-pskb_may_pull(), then uses dp after a second pskb_may_pull(skb, len + 2)
-in the CCP_CONFACK handler. If the second pull triggers
-pskb_expand_head() due to a cloned skb or frag linearization,
-skb->head is freed and reallocated, leaving dp stale.
+xfrm_state_find() checks x->km.state outside the xfrm_state_lock before
+inserting the state into the policy output state cache. Between the check
+and the lock acquisition, __xfrm_state_delete() can transition the state
+to XFRM_STATE_DEAD. The dead state is then inserted into the cache
+because the stale validity result is trusted after the lock is acquired.
 
-The stale dp is subsequently used in CCP_OPT_LENGTH() and passed to
-decomp_init()/comp_init() which read from the freed memory.
+A subsequent call traversing the cache can then access a freed state,
+since xfrm_state_gc_destroy() does not unlink from state_cache_list.
 
-Re-derive dp from skb->data after the second pskb_may_pull.
+This is the output state cache counterpart of the input cache race
+fixed by commit ddd3d01329203 ("xfrm: Fix xfrm state cache insertion
+race"). Apply the same pattern: move the km.state validity check inside
+the lock so the check and the insertion are atomic with respect to
+__xfrm_state_delete().
 
-Fixes: 1da177e4c3f41 ("Linux-2.6.12-rc2")
+Fixes: 0045e3d80613 ("xfrm: Cache used outbound xfrm states at the policy.")
 Cc: stable@vger.kernel.org
 Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- drivers/net/ppp/ppp_generic.c | 1 +
- 1 file changed, 1 insertion(+)
+ net/xfrm/xfrm_state.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ppp/ppp_generic.c b/drivers/net/ppp/ppp_generic.c
-index 1a610a18893ba..3998ce4332f42 100644
---- a/drivers/net/ppp/ppp_generic.c
-+++ b/drivers/net/ppp/ppp_generic.c
-@@ -3157,6 +3157,7 @@ ppp_ccp_peek(struct ppp *ppp, struct sk_buff *skb, int inbound)
- 		len = CCP_LENGTH(dp);
- 		if (!pskb_may_pull(skb, len + 2))
- 			return;		/* too short */
-+		dp = skb->data + 2;
- 		dp += CCP_HDRLEN;
- 		len -= CCP_HDRLEN;
- 		if (len < CCP_OPT_MINLEN || len < CCP_OPT_LENGTH(dp))
+diff --git a/net/xfrm/xfrm_state.c b/net/xfrm/xfrm_state.c
+index e45aa1ed5b965..03baa50f0df7c 100644
+--- a/net/xfrm/xfrm_state.c
++++ b/net/xfrm/xfrm_state.c
+@@ -1632,10 +1632,11 @@ xfrm_state_find(const xfrm_address_t *daddr, const xfrm_address_t *saddr,
+ 		*err = acquire_in_progress ? -EAGAIN : error;
+ 	}
+ 
+-	if (x && x->km.state == XFRM_STATE_VALID && !cached &&
++	if (x && !cached &&
+ 	    (!(pol->flags & XFRM_POLICY_CPU_ACQUIRE) || x->pcpu_num == pcpu_id)) {
+ 		spin_lock_bh(&net->xfrm.xfrm_state_lock);
+-		if (hlist_unhashed(&x->state_cache))
++		if (x->km.state == XFRM_STATE_VALID &&
++		    hlist_unhashed(&x->state_cache))
+ 			hlist_add_head_rcu(&x->state_cache, &pol->state_cache_list);
+ 		spin_unlock_bh(&net->xfrm.xfrm_state_lock);
+ 	}
 -- 
 2.47.3
 
