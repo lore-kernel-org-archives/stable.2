@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792795325;
-	b=AkqIoimRtuNsluuYMT290RtDwG9ImeW/sBtF1t6+RfKCJdH+p6m5ygHGIAGHdHKoV2EB
-	 f98lyscmJcq94y1QVRGpPZkyPYD8xJZUu3ZfKtpfdSEE/kNTvVHBVBzWFC26kqLYYt3RD
-	 ySVCB25//JOdloiUNx7idJv4koUUyUk6X303C0QHgrUsxz3QS74VpLvi1+Sqefeww0d9F
-	 xMp65GUnlKcGElDEGypdvhvfUzuJJGy5g47zBZU7cL6P5FZl97pTVivJFlO4enfVMmKSS
-	 yaZ38iJc0S3rL7hfKXHTusoH9qArTCc9odi9pu7EHLtsdxp3jjG9tBF0l6n6VnR7xEg==
+	t=1792795326;
+	b=CeKg8Ffo9dG3hZFjbLQc2bf/byGaY16VY+7OG+5Y47P50pOwcoAW0ZcpCfWRtdwmuYyy
+	 l7OuQh6edXy2T6kA0e8LhbP1lhCMy0i18SP0sYDlWJ+OsKN8LqCJKLr3ndo5qdjrUos+S
+	 iaql5YivB/C7bBd//U1AWdiphwwk6eHdodihFI+kUTybfuYtXVLA1wztegOXhm4ECKRAY
+	 RQBW5kwQ59Rkz+VmtGwGXkSEkU1v0+qewTgVxwOyToQjcg4dqveLAl0BoZV9HuYm/c4NS
+	 nwpvyib2Kj5K6uSrLUG/6bZ8TUCn2/qyOmITSQAyOmwIazTxx/T7BHKDDrnZAlaQEnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792795325;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792795326;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=7C0MYqI0nm0JYRHH3Hewaz0VQKQ10OF/daqqZ8+b0gg=;
-	b=taUecHAfU0fnQrii8R+4dkehXIgjdILqI3V7sTJlggdjLb00/BVdHqOz+tigsxR88ccN
-	 YlGTiTethvvIgi4zU8WIB6lYPLzGziY33xXSX7grCuhXrC6VcvPnrJFJmFlsK9k/8RmNT
-	 NnYAcSbXrxrdO/eWveckUV+vtnNaBtkaOgQzFDeZ8gcTnFHyYJFcd1gQOCULsh5Q2ga+M
-	 tBrAjSO96+bOye16Jumwb5gowBTFmngXl/hMt//MpSfV99RwR8feCHszHRWgjMRQesvHx
-	 5QKUPPkm8alC+3CfHDwaDV+Of5L4fMABMSieMONrdH0Izhs+4rUKeIegcW/61M3//Lg==
+	bh=4wNHCh54AAWOk3FutPjsVsjqvlf9bK+9IRjfMX0W13o=;
+	b=NpFuzlCyewY/3zaTkw+yOhUGw1pB9jKQHca3pJgFda3rMEWFw8rtR+JkyXNoSOKhI3+D
+	 tzRggGKDM33H+zMQXnKtU1rF24DvJeXtK6qN9ostk9P9zA7CKjLs6uiFVZljgs/U0rsW+
+	 3xCDCNM+7nb4lDeikIDVOUaM2W3lRsTqJzLoTJL0HCo5yvopx+1Ha1uWJj2oYlSCmxqbT
+	 Rs2MU5NCOUobcuzYBprcTIPR+RkpFyQ6UHv+jK3PVMMqvW+f/DA0js7zMJU6hHDIphIa5
+	 6gwGWl5Hkqb6WRWqOGf8nUZqZiVJZXBErP+YTM9GKbP3pz8oyNYXMTQEGXyl8ObQscQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="co/oit5T";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j+xRvqpw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D3B606A31A;
-	Fri, 23 Oct 2026 22:42:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83274606A321;
+	Fri, 23 Oct 2026 22:42:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=co/oit5T
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C51331F01825;
-	Fri, 23 Oct 2026 22:42:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j+xRvqpw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46AEA1F01828;
+	Fri, 23 Oct 2026 22:42:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792795324;
-	bh=7C0MYqI0nm0JYRHH3Hewaz0VQKQ10OF/daqqZ8+b0gg=;
+	s=k20260515; t=1792795326;
+	bh=4wNHCh54AAWOk3FutPjsVsjqvlf9bK+9IRjfMX0W13o=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=co/oit5TMIExSZKNTcU0h+g1nlJbKUdgnahhLDp+aujhkBm63BXC8pyPHXWHX/AwF
-	 uwLVw1QW95vzDG/bMwzs4xWGKHKRJI3R0FhGOEnmhsVUzRbQDAmFHfiyhsDjcRuSXB
-	 vtCCuFnb30I1a08J7f+L5rGUI4iXD2p8BQbj/Ajc+LZGvoMa7vVcPQzImaXO8i+uvG
-	 p8+e4JNfHN7R5JgjK3ewRHKdsbHG2mOlq3SKYDmNYo9yT1kd9iWEUi2u9d727I3Aub
-	 muvIKTATwGcorLrFvo+XwyTEbuzU7dE3Rd8iVVh8haclUDdTPZnYGZYC5wUlrH7Voc
-	 YJFvkiHU+I5fg==
-Subject: Re: [PATCH net 2/3] net: stmmac: dwmac1000: don't discard frames with
- only a checksum error
+	b=j+xRvqpwXo3YV5EnvWdCGlSJRFzPk5JZV6B4fEY1aVhn/OPu3YsMhudVEiorvn60N
+	 xS9ckhoBCEfM6RN7xqzWydG/Q2wmeKP8/Wi/B1gWO/zF8aAJkUmFAZ/q/bYKpkm/3/
+	 tYdNNtPsFfXt/csyhsM4JAYZ5+wKAZ+zPbn67IJwq9FPfyQZ/FTwMYkfYpkuwzcR2/
+	 obSzLhxrzBIxPN/ZyrVYYgnOuEhLOurWJXaaiN6dRXAo6tMQr5eGuOaKBGbSGJtUVi
+	 602FW790balM50S54Anu4h0yC74XyEBYBKuGKWE14+h+cH1Pe+oHCHWArAO0Ox9G9W
+	 c9D+3u0HoyujQ==
+Subject: Re: [PATCH net 3/3] net: stmmac: dwmac1000: stop hardware from
+ dropping checksum-error packets
 From: netdev-bot+sashiko@kernel.org
 To: opensource@grische.xyz
 Cc: netdev@vger.kernel.org, maxime.chevallier@bootlin.com,
@@ -51,10 +51,10 @@ Cc: netdev@vger.kernel.org, maxime.chevallier@bootlin.com,
  alexandre.torgue@foss.st.com, aaro.koskinen@nokia.com,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Fri, 23 Oct 2026 22:42:03 +0000
-Message-ID: <179279532326.3134.8925339564776340456@kernel.org>
-In-Reply-To: <20261020190319.884375-3-opensource@grische.xyz>
-References: <20261020190319.884375-3-opensource@grische.xyz>
+Date: Fri, 23 Oct 2026 22:42:04 +0000
+Message-ID: <179279532482.3134.8732796861806998047@kernel.org>
+In-Reply-To: <20261020190319.884375-4-opensource@grische.xyz>
+References: <20261020190319.884375-4-opensource@grische.xyz>
 X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -79,115 +79,92 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] enh_desc_get_rx_status()
-  (drivers/net/ethernet/stmicro/stmmac/enh_desc.c:209-213) now discards…
+- [High] dwmac1000_dma_operation_mode_rx() now sets CSR6.DT
+  (DMA_CONTROL_DT) on every dwmac1000 core, whichever descriptor format…
 
 --
 
-net: stmmac: dwmac1000: don't discard frames with only a checksum error
+net: stmmac: dwmac1000: stop hardware from dropping checksum-error packets
 
-This patch changes enh_desc_get_rx_status() so that a descriptor with the
-Error Summary bit set is discarded only when one of the L2 error bits is
-also set. Frames with only an L3/L4 checksum error then reach the stack as
-CHECKSUM_NONE. The patch also removes the per-frame pr_err for
-RDES0_IPC_CSUM_ERROR.
+This patch sets DMA_CONTROL_DT in dwmac1000_dma_operation_mode_rx(). With
+that bit set, the dwmac1000 MAC hands up frames that fail the Rx checksum
+offload check instead of dropping them. The aim is to make VXLAN over IPv6
+with zero UDP checksums work, with the driver marking those frames
+CHECKSUM_NONE.
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
-> index 0512536012251..5c43d32a2f22b 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
-> @@ -195,9 +195,6 @@ static int enh_desc_get_rx_status(struct stmmac_extra_stats *x,
->  		if (unlikely(rdes0 & RDES0_OVERFLOW_ERROR))
->  			x->rx_gmac_overflow++;
+Link: https://lore.kernel.org/all/20250625132117.1b3264e8@kernel.org/
+Link: https://github.com/freifunk-gluon/gluon/issues/3783
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
+> index 3ac7a7949529c..00c8d4dfb553b 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
+> @@ -129,6 +129,8 @@ static void dwmac1000_dma_operation_mode_rx(struct stmmac_priv *priv,
+>  {
+>  	u32 csr6 = readl(ioaddr + DMA_CHAN_CONTROL(channel));
 >  
-> -		if (unlikely(rdes0 & RDES0_IPC_CSUM_ERROR))
-> -			pr_err("\tIPC Csum Error/Giant frame\n");
-> -
-
-[ ... ]
-
-> @@ -209,7 +206,11 @@ static int enh_desc_get_rx_status(struct stmmac_extra_stats *x,
->  		if (unlikely(rdes0 & RDES0_CRC_ERROR)) {
->  			x->rx_crc_errors++;
->  		}
-> -		ret = discard_frame;
-> +		if (rdes0 & (RDES0_DESCRIPTOR_ERROR | RDES0_OVERFLOW_ERROR |
-> +			     RDES0_COLLISION | RDES0_RECEIVE_WATCHDOG |
-> +			     RDES0_MII_ERROR | RDES0_CRC_ERROR |
-> +			     RDES0_LENGTH_ERROR))
-> +			ret = discard_frame;
+> +	csr6 |= DMA_CONTROL_DT;
 
 [Severity: High]
-Can this mask let giant frames through when Rx checksum offload is
-disabled?
+Does this work on dwmac1000 cores that use normal descriptors?
 
-RDES0[7] (RDES0_IPC_CSUM_ERROR) means an IPC checksum error only while
-GMAC_CONTROL_IPC is set. With IPC clear, the same bit reports a Giant
-Frame. That is an L2 error, and it also sets ES. The pr_err string removed
-above ("IPC Csum Error/Giant frame") names both meanings.
+DT is now set no matter which descriptor format is in use. Only the
+enhanced descriptor parser turns checksum-only errors into csum_none, via
+enh_desc_get_rx_status()->enh_desc_coe_rdes0().
 
-dwmac1000_rx_ipc_enable() clears IPC whenever hw->rx_csum is 0:
+stmmac_hw_init() reads enh_desc and rx_coe from separate HW capability
+bits:
 
-dwmac1000_rx_ipc_enable() {
+    priv->plat->enh_desc = priv->dma_cap.enh_desc;
     ...
-	if (hw->rx_csum)
-		value |= GMAC_CONTROL_IPC;
-	else
-		value &= ~GMAC_CONTROL_IPC;
-    ...
-}
+    if (priv->dma_cap.rx_coe_type2)
+        priv->plat->rx_coe = STMMAC_RX_COE_TYPE2;
 
-This happens with "ethtool -K <if> rx off" through stmmac_set_features(),
-when the platform has no RX COE, or when the IPC read-back in
-stmmac_hw_setup() fails.
+stmmac_dwmac1_quirks() then picks ndesc_ops whenever enh_desc is 0. So the
+driver allows a core with normal descriptors and Type-2 Rx COE.
 
-In that state, a giant frame where bit 7 is the only ES contributor stays
-good_frame here. It is then passed to enh_desc_coe_rdes0() with
-ipc_err = 1. That function returns csum_none for status 0x6/0x7 and
-good_frame for the "Reserved" 0x2 case. It never returns discard_frame,
-so stmmac_rx() passes the oversized frame to XDP and the stack. Before
-this patch the frame was dropped.
+ndesc_get_rx_status() can only return good_frame or discard_frame. It
+never sets csum_none, and nothing in the driver checks
+RDES0_PAYLOAD_CSUM_ERR from descs.h:
 
-What happens when the giant frame is larger than dma_buf_sz and spans two
-descriptors? One example is threshold DMA mode with
-snps,force_thresh_dma_mode, where the FIFO can no longer drop the frame.
+    if (unlikely(rdes0 & RDES0_ERROR_SUMMARY)) {
+        ...
+        if (unlikely(rdes0 & RDES0_IPC_CSUM_ERROR))
+            x->ipc_csum_error++;
+        ...
+        ret = discard_frame;
+    }
 
-The non-LS descriptor returns discard_frame without rx_not_ls. So
-stmmac_rx() frees it and resets error and len. The LS descriptor is then
-handled as the start of a new frame:
+If ES is set for the checksum error, stmmac_rx() now drops the frame in
+software and counts it as an rx error. Wouldn't VXLAN over IPv6 with zero
+UDP checksums still be broken on these cores?
 
-stmmac_rx_buf1_len() {
-    ...
-	plen = stmmac_get_rx_frame_len(priv, p, coe);
-    ...
-	return min_t(unsigned int, priv->dma_conf.dma_buf_sz, plen - len);
-}
+The comment in enh_desc_get_rx_status() says the databook does not
+require ES for payload-only checksum errors. If ES is clear in that case,
+ndesc_get_rx_status() returns good_frame, and stmmac_rx() does:
 
-With len == 0 this reports dma_buf_sz bytes, but DMA only wrote
-plen - dma_buf_sz bytes to that buffer. Would the stack then see a frame
-whose Ethernet header comes from the middle of the giant frame's payload,
-followed by stale page_pool contents?
+    if (unlikely(!coe) || !stmmac_has_ip_ethertype(skb) ||
+        (status & csum_none))
+        skb_checksum_none_assert(skb);
+    else
+        skb->ip_summed = CHECKSUM_UNNECESSARY;
 
-This also seems to disagree with the commit message:
+Could a frame with a bad L4 checksum, which the hardware used to drop, now
+reach the stack marked CHECKSUM_UNNECESSARY?
 
-  "Return discard_frame only for L2 errors."
+Either way, this part of the commit message would not hold for normal
+descriptors:
 
-  "This matches dwmac4, whose Error Summary check does not include the
-  checksum bits."
+  "CoE remains enabled, so the driver still sees the error status and
+   marks the skb CHECKSUM_NONE for the stack to verify."
 
-dwmac4_wrback_get_rx_status() still discards RDES3_GIANT_PACKET inside its
-ES block, and ndesc_get_rx_status() discards every ES frame.
+Would it make sense to set DT only when enhanced descriptors are in use,
+or to make ndesc_get_rx_status() report csum_none for checksum errors?
 
-The later patch in this series that sets DMA_CONTROL_DT ("net: stmmac:
-dwmac1000: stop hardware from dropping checksum-error packets") only
-affects COE-detected errors, so it doesn't appear to cover this case.
-
-Should bit 7 also count as a discard reason unless IPC (hw->rx_csum) is
-enabled?
-
->  	}
->  
->  	/* After a payload csum error, the ES bit is set.
+> +
+>  	if (mode == SF_DMA_MODE) {
+>  		pr_debug("GMAC: enable RX store and forward mode\n");
+>  		csr6 |= DMA_CONTROL_RSF | DMA_CONTROL_DFF;
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020190319.884375-1-opensource%40grische.xyz
