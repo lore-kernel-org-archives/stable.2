@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792785780;
-	b=1gd+DIIdGYiOvbFpafX7kNtsiN1fJ1nGQn3AqXH5Hb3XfWTT6Wr/966sGimiddxRa4GK
-	 0CdBKznqx2hrwevxrE1HqimGR3rZVxntJ+BITxJpuNltlkDX4LuiZ87ICZk+6aLCyt59p
-	 TOK+dgfgll6PJNV9LYaDpQDLg9/0295LSNSh264TPlfyAInIcseDSZK8CQNfMs30E/DpR
-	 l7A1gtXAEBL5yfU0XupEckTqnz5WdxIpuUZavSAAVhhFhpmi5U3U5fjw0shwgR+fN8Zdj
-	 ChA3uheTAZXLnGu59gjVkMTobyeIZHcJBkC8tQ/KQ6mOA2wZIHtpZ13gOPkQmRQ6PTA==
+	t=1792785781;
+	b=Q71yUB5yBHENYzMvmC0YVegjyhh9SlQXkX1o55OevN3K7nQgYVKWe6V/Y8oRvLePhNSV
+	 0soPT0zVsIfUeuflGYElrA7I3Li+dDPcma5/l1Ko6EHovBeQ/BCUY7QrqA6teIwpX4k/X
+	 kk5TI4f7Hb0ds7cWs3PY2PLbziXp3d/CXDpmXglbEAiT5vWSZBOL9/ikbvWFwDL+UQAlx
+	 d1zEFQB9yiD6pmHZB5fRQA/dJnNDTMksux8kdk5RUebMu152vgcNU/XgroYvzl6a4P7sk
+	 zBfq92ZRvQYGyGpYopCnUl8n3eHzH/teRX9DAxFPPsRYq9A+xrdbd0Y3A88W+Pr5FSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792785780;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792785781;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=tY3/DeI69/zvryWxg/j2PhsOKS+siWw1e8E63ARHKWw=;
-	b=UuYKlf5tbWAaePgB2q0GG1JI2+4Jrdbhy3u5po9WeTzjQ6OUw5RSEcsdQFe6aFMyn61L
-	 96zZZYP51kF0JxMVgBu0W4FHBVp+AuktYHcw25aJf7QcQe66U62sBY1kgGLzXaQnb4qFR
-	 Prv8F6ccALc9z6H6H0nmrcpAUzazNI4SXbcn69eHf/9hdSpRPXZIuP9Y4q91VCjsSKoPM
-	 0eOA9uCmVf7ju2Ad9HLP5+R6kjoyF34KUrRJU0fb6OfDeoY9qvXW7+WBXvTHBbXbAYP1q
-	 uv2Wp4yUcP1Jaq/tEB9Dw++8WNzJ57vTaGFQIzxeKIXao7wur1K0qOX+YhF7i8rizig==
+	bh=JGa/DuvLtm4qqJKCfYwrVbgsoVIqIB5WBCSjE6SO3NM=;
+	b=dHP7y6pTfBDyNkZDNxpCJbrIGBZcXd8JSm6c70uM9ropZTm5zROCb+XdzonOFx9oQArh
+	 dCr4vR4SicVW0esWmPpbNTfm2yjIF95hDjLD3J6dfEFr86D80bmrRnWdTUThotkDCG6EA
+	 fNHsmNIqCqikRzvjzm3RtogqE7n4luqZvc5ZNdpS9w4wzxWTs7Y77ZhkAf4VWz6LPGOra
+	 NqrH1sFnDVl6IgQb+3XvrtBZ/FJOgLKO3KUwUbrn456K+xzfIYmjJViMzyEvhnqtcEvLL
+	 VYCpznHQgb1YkJQYd0j5jVuOiNTfhWtCyWJIAzfIEtfsovPVTcBjV+HyUm2FIPShrUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="n7ZLOnm/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ajPxG+Gw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 329B8606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A5B9606A330
 	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 20:03:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n7ZLOnm/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 349C91F01829;
-	Fri, 23 Oct 2026 20:02:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ajPxG+Gw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 265911F01828;
+	Fri, 23 Oct 2026 20:03:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792785779;
-	bh=tY3/DeI69/zvryWxg/j2PhsOKS+siWw1e8E63ARHKWw=;
+	s=k20260515; t=1792785780;
+	bh=JGa/DuvLtm4qqJKCfYwrVbgsoVIqIB5WBCSjE6SO3NM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=n7ZLOnm/QmLlkiTMK/BSzxg+FLHU65R6rVKN6GjECTD35WVTpPJmdpjsx6GNPU0Xs
-	 jgHBx2IMbmnl0h75EVonHsj3B0B9FhUhxeN9IBz23SBvj1h0D85/buRUWdS2gsSwZl
-	 1Pefx61sxSS1NRL49eM06J0pEtUs6OB3KjPc9xA1pwcGuyVkcH0R/5KB3ylcnH/S6o
-	 o1YbeG4gANRRuy99u9LAYB+eGTNsR3mmx2ed85UzmrfNi6IqPVvNBKgN3P0YCAbxhN
-	 dNTgiilz1EnxW9qvxo2/926SqCz/lto8/biALXec0BHjNknKLRtpd/Tm31vNJ3l3u3
-	 RJqX+tFOVlsow==
+	b=ajPxG+GwzaDnGuQBbf9zBM/hCs7bgDsVppTaoBWyO/TMfJxCm2mMVSAjwf+XKaqcV
+	 crVUCx0LX/99DAWjPzNtRnjW6ZRhU5FFeX32BPf6vaAda4e8ytQibqi5pNhyTQKdei
+	 Vbr1LGYUYYR+Q5/S+fioaa2YUxL3Da2+1k1e002YvODOofZjFTBBwjUCy8cU006L4N
+	 ihw8CihXe1kypYLLSHkNwUZ9FPYXnvFz8nWNHGKfBqrZ19ftpRgm6MjMTmJjiapx5y
+	 CJ+UQtZeW5bLU1KZI6G/8lBuzwLEfjjLE5k0lUE75rnvSQ8PgH7077KuC70AgL/G5X
+	 28OGDQ9H6X0Mg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
 	Dingisoul <dingiso.kernel@gmail.com>,
 	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Laurence Oberman <loberman@redhat.com>
-Subject: Re: [PATCH 5.15.y] scsi: st: Fix use-after-free race between st_remove() and st_open()
-Date: Fri, 23 Oct 2026 16:02:40 -0400
-Message-ID: <2026-10-23-1-daily-reply-0004-scsi-st-uaf-5-15@kernel.org>
+Subject: Re: [PATCH 5.10.y] scsi: st: Fix use-after-free race between st_remove() and st_open()
+Date: Fri, 23 Oct 2026 16:02:41 -0400
+Message-ID: <2026-10-23-1-daily-reply-0005-scsi-st-uaf-5-10@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261021155526.2740230-1-loberman@redhat.com>
-References: <20261021155526.2740230-1-loberman@redhat.com>
+In-Reply-To: <20261021154705.2737365-1-loberman@redhat.com>
+References: <20261021154705.2737365-1-loberman@redhat.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,7 +67,7 @@ Content-Transfer-Encoding: 8bit
 > last reference, scsi_tape_release() frees the structure while it is
 > still published in the idr.
 
-Queued for 5.15, thanks.
+Queued for 5.10, thanks.
 
 -- 
 Thanks,
