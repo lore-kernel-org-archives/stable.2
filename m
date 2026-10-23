@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792758503;
-	b=FLkeHrJp1SEuLmipRNvLrGCYf1ZQJ8ITARAwAlLvEKh3fg9ENSGS/K5otWR54ovG9TN7
-	 NWIx8gfCAGainGq3h57wKd+ehGlD4mGFIIQTQgnLB+RaztzDEvdRQTqFW5hZxADbr9Z9D
-	 WBZmHKlbMg5k7lRYqOIs7iOYPUkkDS5Ar1F2JYRVwN3WNBLxgkhA8go+qOvG4R7JyJur8
-	 06Xb8FIzFU/iEoUlUprXS3wtpel/6L3EFLAjhokbabODhNpoFc3qsCQP+hbqmRqPZ93ry
-	 WLFMoVKLMaYfCrQ4e1HlxNfQLi06bUa1cUuqlENOBGkItOcIGXh2ndm/mjqeX3P+VhA==
+	t=1792758498;
+	b=IHkGNR0jMsc/XL1nPq1PMQ8PSA++1h9FEd+IOMR+uTYIQzghrWP0QQfPhC74qGfO+O+Y
+	 MvNmnNw3tH0atZsseInoWYyR2aneECbmXORw/l9B4IMj+KTH0ZLUu5R0CfoscqdQKnrBA
+	 DZTK7PgUFlB6FkO+EmK5q6xtwprRbWTA25tHl61bZ/jaQqVtU+rtbvS19idJ4OHYLIths
+	 to/rw2lM1Wc3KaDd0EsD2k8syNtJFKjRQfGJOE7x7+q1SD543Ra433304WB+aPRqSza7y
+	 5UdOsVpxZMsTdeuLoavcLLhUKpzDC+ZNW8X2EZNILcL3G4007Gr6u+IOEtB2BeXxUzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792758503;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792758498;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=uT0cq+YYt9iTsmejOAfqyZ6JL1fmMxffd0mjPXUhnMU=;
-	b=dVvGIJYRUhpK20ZOmMm6VfG+cvNCDDpRTVPYl2RL2GWjklm6EeX0/zs4rXROCwxQc37Y
-	 ivhGtpy1sc5AIKcuJZs31LsGGCo3LIcMb0BrIyZ9nw375uEjR9wmzly7l2NiAa5fjMiHE
-	 ViV+N4c4/bZvw/gdLIlDe5VbRIP3V41bBoVa6bWUxLMswGGOckcm9H2qdDRd4gOX3nKbD
-	 1qO5jF/OxqskorJkzl1liaswUdKz8+Akbyh8otZHy7NIJI4MJ/o+ti2E8YaMqdrsXV1/f
-	 BYWOQExG4hlec7cOw6rPNwT0CAMUuIQtb8Jc8E2aV8sYCQLov6iIZ/xkygvmr17//3Q==
+	bh=zUW3Juk3Hv6ps05jq02d6vrsuj33+so61Tv4SlB/J4w=;
+	b=4/uAi97ygKbKodPklNFyh954eCC11XPxSEQP3FIqqdjAxCuilBASNmU5w2OFFdFsm92s
+	 PX1xdfJRWliCohhZ/b0/F3MBKd4d/87Xa7sjoPdukuJvA6NUc8+jHp4mwKSDgA6t5UrLZ
+	 nKqzELzcjcc2msuJo95UsR7w5D6k5gJa7xAcK5DsgIXw3m2nRbwgu8lYGpitW7luPYqIK
+	 F14DSwNQYz+KLW+mjfaldqCuZoGQEBdh5UySNVD/zWxgMFdUd8MJxp56P5Q2a6kldnUBq
+	 slcfuqYllLw0WCdVqeq0E/xQIwOGDustCl0+2VF5LkIr/8GduGMrxoemduP6UEm+HOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DDzq6gc4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HJTs4yR7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E5047606A31E;
-	Fri, 23 Oct 2026 12:28:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 055CF606A31B;
+	Fri, 23 Oct 2026 12:28:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DDzq6gc4
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 32FFD1F01825;
-	Fri, 23 Oct 2026 12:28:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HJTs4yR7
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 50B0A1F01828;
+	Fri, 23 Oct 2026 12:28:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792758502;
-	bh=uT0cq+YYt9iTsmejOAfqyZ6JL1fmMxffd0mjPXUhnMU=;
+	s=k20260515; t=1792758497;
+	bh=zUW3Juk3Hv6ps05jq02d6vrsuj33+so61Tv4SlB/J4w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DDzq6gc4JGuLwNYy472vXx82YoSDp9uP7Vut3P92twuZvtO2Idc+Nz6aNSQmUHTc1
-	 5VrHi7w59ZQUxmcNjnUQ/FJ/9pk2OKFdLxzwLujXGeLNla/82WHG8IEH5VKq4u2jwl
-	 J30sA04Ulc0/jN/3LnVxbbdP6xbrxV+1SBUqB3+FO2p5RrWrio/AnqCxMgqqr9kpkI
-	 7VU+Bw86ROs6YG0E46C4DrIkQ+L7DKuuiIhbVAR8hAKmpzjJnrCWqgkX1IhH7/mNus
-	 CaL8uZKuT6lvFTthq2I7WHFMLM9doYvOLFkS7GIkMK3pUIe6l4PDHs++2IFQSiOLvy
-	 fE/5eNfV9vaOA==
+	b=HJTs4yR77oNxlIeDarm7ZYFqHGMjM6njRL20Rb6g5oyO0eFFFaTYvgNpkfWYWiU5l
+	 ScVkHXcShqV2Q8/tn9UR1TBuFTwXs3Sb6dmA8yqW2YOzwp83R3MAeQTB8cL+kCG4Jf
+	 wfKAs5Iete4G7b6syjMM8/FPMaJIUmoRK6Ec081YZgqKxDZ3GcDcqaP4f/OxWWyeu8
+	 dZdC6aiBX0oj8UZG9Ant3u6J9dyGi9G/6439qJuZoiq81giKFxoZh+OeZo1zY6viFo
+	 CVd/E/SHqhNuZN+GrC8eMG6uTV8woIryNgk0+SCVTHF5p9PVhfyjVvq0Z32yhYNHM1
+	 heoT57kP8HPvQ==
 From: Jarkko Sakkinen <jarkko@kernel.org>
 To: David Howells <dhowells@redhat.com>
 Cc: keyrings@vger.kernel.org,
@@ -46,15 +46,19 @@ Cc: keyrings@vger.kernel.org,
 	Jarkko Sakkinen <jarkko@kernel.org>,
 	stable@vger.kernel.org,
 	Eric Biggers <ebiggers@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	linux-kernel@vger.kernel.org (open list),
-	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM)
-Subject: [PATCH v2 2/6] KEYS: Reject descriptions larger than KEY_MAX_DESC_SIZE
-Date: Fri, 23 Oct 2026 15:09:22 +0300
-Message-ID: <20261023120953.1206778-3-jarkko@kernel.org>
+	linux-cifs@vger.kernel.org (open list:COMMON INTERNET FILE SYSTEM CLIENT (CIFS and SMB3)),
+	samba-technical@lists.samba.org (moderated list:COMMON INTERNET FILE SYSTEM CLIENT (CIFS and SMB3)),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v2 1/6] KEYS: Expand key->{datalen,quotalen} to unsigned int
+Date: Fri, 23 Oct 2026 15:09:21 +0300
+Message-ID: <20261023120953.1206778-2-jarkko@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261023120953.1206778-1-jarkko@kernel.org>
 References: <20261023120953.1206778-1-jarkko@kernel.org>
@@ -69,170 +73,89 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-KEY_MAX_DESC_SIZE includes the trailing NULL character. Descriptions
-generated from payloads and in-kernel paths bypass the userspace limit.
+In key_alloc() and key_payload_reserve(), key->quotalen and key->datalen
+can receive values larger than USHRT_MAX.
 
-Reject descriptions at or above KEY_MAX_DESC_SIZE with -EINVAL at the
-following sites:
+Example:
 
-- key_alloc(): before quota calculation
-- __key_create_or_update(): before key_set_index_key()
-- keyring_search(): before match_preparse
-- request_key_and_link(): before match_preparse
-- request_key_rcu(): before check_cached_key()
+  keyctl new_session >/dev/null
+  owner=$(keyctl newring owner @s)
+  keeper=$(keyctl newring keeper @s)
+
+  for ((i=0; i<16384; i++)); do
+      key=$(keyctl add user "k$i" x "$keeper")
+      keyctl link "$key" "$owner"
+  done
+
+  awk -v uid="$(id -u):" '$1 == uid {print $NF}' /proc/key-users
+  keyctl clear "$owner"
+  awk -v uid="$(id -u):" '$1 == uid {print $NF}' /proc/key-users
+
+Because key->datalen wraps around 65535, the quota refunded upon clearing
+is truncated, causing quota bytes to leak in /proc/key-users.
+
+Change the types of key->datalen and key->quotalen from unsigned short to
+unsigned int so that they can carry the full payload length without
+truncation.
 
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Fixes: f771fde82051 ("keys: Simplify key description management")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Reviewed-by: David Howells <dhowells@redhat.com>
 Reviewed-by: Eric Biggers <ebiggers@kernel.org>
-Link: https://lore.kernel.org/r/20261020174325.2229448-3-jarkko@kernel.org
+Link: https://lore.kernel.org/r/20261020174325.2229448-2-jarkko@kernel.org
 Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 ---
- include/linux/key.h         |  3 +++
- security/keys/key.c         | 10 +++++++++-
- security/keys/keyctl.c      |  2 --
- security/keys/keyring.c     |  7 ++++++-
- security/keys/request_key.c | 14 ++++++++++++--
- 5 files changed, 30 insertions(+), 6 deletions(-)
+ fs/smb/client/cifsacl.c | 6 +++---
+ include/linux/key.h     | 4 ++--
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
+diff --git a/fs/smb/client/cifsacl.c b/fs/smb/client/cifsacl.c
+index d1a92bb4d9a5..e7f7ccf2a158 100644
+--- a/fs/smb/client/cifsacl.c
++++ b/fs/smb/client/cifsacl.c
+@@ -385,7 +385,7 @@ id_to_sid(unsigned int cid, uint sidtype, struct smb_sid *ssid)
+ 		goto out_revert_creds;
+ 	} else if (sidkey->datalen < CIFS_SID_BASE_SIZE) {
+ 		rc = smb_EIO1(smb_eio_trace_malformed_sid_key, sidkey->datalen);
+-		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%hu)\n",
++		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%u)\n",
+ 			 __func__, sidkey->datalen);
+ 		goto invalidate_key;
+ 	}
+@@ -403,7 +403,7 @@ id_to_sid(unsigned int cid, uint sidtype, struct smb_sid *ssid)
+ 	if (ksid_size > sidkey->datalen) {
+ 		rc = smb_EIO2(smb_eio_trace_malformed_ksid_key,
+ 			      ksid_size, sidkey->datalen);
+-		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%hu, ksid_size=%u)\n",
++		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%u, ksid_size=%u)\n",
+ 			 __func__, sidkey->datalen, ksid_size);
+ 		goto invalidate_key;
+ 	}
+@@ -498,7 +498,7 @@ sid_to_id(struct cifs_sb_info *cifs_sb, struct smb_sid *psid,
+ 	 */
+ 	BUILD_BUG_ON(sizeof(uid_t) != sizeof(gid_t));
+ 	if (sidkey->datalen != sizeof(uid_t)) {
+-		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%hu)\n",
++		cifs_dbg(FYI, "%s: Downcall contained malformed key (datalen=%u)\n",
+ 			 __func__, sidkey->datalen);
+ 		key_invalidate(sidkey);
+ 		goto out_key_put;
 diff --git a/include/linux/key.h b/include/linux/key.h
-index 26139c3adf62..3b8af14fb323 100644
+index e40b5267658f..26139c3adf62 100644
 --- a/include/linux/key.h
 +++ b/include/linux/key.h
-@@ -37,6 +37,9 @@ struct net;
- 
- #undef KEY_DEBUGGING
- 
-+/* Maximum length of a key description, including the trailing NUL */
-+#define KEY_MAX_DESC_SIZE 4096
-+
- #define KEY_POS_VIEW	0x01000000	/* possessor can view a key's attributes */
- #define KEY_POS_READ	0x02000000	/* possessor can read key payload / view keyring */
- #define KEY_POS_WRITE	0x04000000	/* possessor can update key payload / add link to keyring */
-diff --git a/security/keys/key.c b/security/keys/key.c
-index 6ebb8691551f..e88548f1a704 100644
---- a/security/keys/key.c
-+++ b/security/keys/key.c
-@@ -245,6 +245,8 @@ struct key *key_alloc(struct key_type *type, const char *desc,
- 	}
- 
- 	desclen = strlen(desc);
-+	if (desclen >= KEY_MAX_DESC_SIZE)
-+		goto error;
- 	quotalen = desclen + 1 + type->def_datalen;
- 
- 	/* get hold of the key tracking for this user */
-@@ -829,6 +831,7 @@ static key_ref_t __key_create_or_update(key_ref_t keyring_ref,
- 	key_ref_t key_ref;
- 	int ret;
- 	struct key_restriction *restrict_link = NULL;
-+	size_t desclen;
- 
- 	/* look up the key type to see if it's one of the registered kernel
- 	 * types */
-@@ -869,7 +872,12 @@ static key_ref_t __key_create_or_update(key_ref_t keyring_ref,
- 		if (!index_key.description)
- 			goto error_free_prep;
- 	}
--	index_key.desc_len = strlen(index_key.description);
-+	desclen = strlen(index_key.description);
-+	if (desclen >= KEY_MAX_DESC_SIZE) {
-+		key_ref = ERR_PTR(-EINVAL);
-+		goto error_free_prep;
-+	}
-+	index_key.desc_len = desclen;
- 	key_set_index_key(&index_key);
- 
- 	ret = __key_link_lock(keyring, &index_key);
-diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
-index 36ffba0ebba6..d6b10fd67627 100644
---- a/security/keys/keyctl.c
-+++ b/security/keys/keyctl.c
-@@ -24,8 +24,6 @@
- #include <keys/request_key_auth-type.h>
- #include "internal.h"
- 
--#define KEY_MAX_DESC_SIZE 4096
--
- static const unsigned char keyrings_capabilities[2] = {
- 	[0] = (KEYCTL_CAPS0_CAPABILITIES |
- 	       (IS_ENABLED(CONFIG_PERSISTENT_KEYRINGS)	? KEYCTL_CAPS0_PERSISTENT_KEYRINGS : 0) |
-diff --git a/security/keys/keyring.c b/security/keys/keyring.c
-index 7143f3079d20..2c54f7f84c55 100644
---- a/security/keys/keyring.c
-+++ b/security/keys/keyring.c
-@@ -957,7 +957,6 @@ key_ref_t keyring_search(key_ref_t keyring,
- 	struct keyring_search_context ctx = {
- 		.index_key.type		= type,
- 		.index_key.description	= description,
--		.index_key.desc_len	= strlen(description),
- 		.cred			= current_cred(),
- 		.match_data.cmp		= key_default_cmp,
- 		.match_data.raw_data	= description,
-@@ -965,8 +964,14 @@ key_ref_t keyring_search(key_ref_t keyring,
- 		.flags			= KEYRING_SEARCH_DO_STATE_CHECK,
- 	};
- 	key_ref_t key;
-+	size_t desclen;
- 	int ret;
- 
-+	desclen = strlen(description);
-+	if (desclen >= KEY_MAX_DESC_SIZE)
-+		return ERR_PTR(-EINVAL);
-+	ctx.index_key.desc_len = desclen;
-+
- 	if (recurse)
- 		ctx.flags |= KEYRING_SEARCH_RECURSE;
- 	if (type->match_preparse) {
-diff --git a/security/keys/request_key.c b/security/keys/request_key.c
-index fa2bb9f2f538..ef00c2b08fe0 100644
---- a/security/keys/request_key.c
-+++ b/security/keys/request_key.c
-@@ -584,7 +584,6 @@ struct key *request_key_and_link(struct key_type *type,
- 		.index_key.type		= type,
- 		.index_key.domain_tag	= domain_tag,
- 		.index_key.description	= description,
--		.index_key.desc_len	= strlen(description),
- 		.cred			= current_cred(),
- 		.match_data.cmp		= key_default_cmp,
- 		.match_data.raw_data	= description,
-@@ -595,8 +594,14 @@ struct key *request_key_and_link(struct key_type *type,
- 	};
- 	struct key *key;
- 	key_ref_t key_ref;
-+	size_t desclen;
- 	int ret;
- 
-+	desclen = strlen(description);
-+	if (desclen >= KEY_MAX_DESC_SIZE)
-+		return ERR_PTR(-EINVAL);
-+	ctx.index_key.desc_len = desclen;
-+
- 	kenter("%s,%s,%p,%zu,%p,%p,%lx",
- 	       ctx.index_key.type->name, ctx.index_key.description,
- 	       callout_info, callout_len, aux, dest_keyring, flags);
-@@ -787,7 +792,6 @@ struct key *request_key_rcu(struct key_type *type,
- 		.index_key.type		= type,
- 		.index_key.domain_tag	= domain_tag,
- 		.index_key.description	= description,
--		.index_key.desc_len	= strlen(description),
- 		.cred			= current_cred(),
- 		.match_data.cmp		= key_default_cmp,
- 		.match_data.raw_data	= description,
-@@ -797,6 +801,12 @@ struct key *request_key_rcu(struct key_type *type,
- 	};
- 	struct key *key;
- 	key_ref_t key_ref;
-+	size_t desclen;
-+
-+	desclen = strlen(description);
-+	if (desclen >= KEY_MAX_DESC_SIZE)
-+		return ERR_PTR(-EINVAL);
-+	ctx.index_key.desc_len = desclen;
- 
- 	kenter("%s,%s", type->name, description);
- 
+@@ -216,8 +216,8 @@ struct key {
+ 	kuid_t			uid;
+ 	kgid_t			gid;
+ 	key_perm_t		perm;		/* access permissions */
+-	unsigned short		quotalen;	/* length added to quota */
+-	unsigned short		datalen;	/* payload data length
++	unsigned int		quotalen;	/* length added to quota */
++	unsigned int		datalen;	/* payload data length
+ 						 * - may not match RCU dereferenced payload
+ 						 * - payload should contain own length
+ 						 */
 -- 
 2.47.3
 
