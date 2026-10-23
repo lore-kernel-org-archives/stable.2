@@ -1,62 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.245
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792720606;
-	b=dXvKohXI9Y2k8aNymn+TY/DZsjlESUEYWp5EiS3y79Gr9BlgBlX2aMPZcCL8m+GnF7jG
-	 IV78+U0d+/DyKlGVufa1Jg4acpkBIf2IW2MAzHKgjrk38LDuYeD6j+olaZZm6so1w794d
-	 CFuVTx1da3CPVQ3VHZEE3fZef7zuoPUHPp3CJReQ6d/piEw++0s9ztby8pJAi7XhTW+H2
-	 /eBBgmVJ6JQ6wEwE7RaT69Kz+BtSMEx/0wh3mPANojuJFrG86spLOPiFoCHcTBpTatKH1
-	 KwTBmSB6O+s9O67WQY/3F7VX8taoO5mRpmTknsYq2VPTVxDLEx7pnIB71xzNsnFdvDg==
+	t=1792720695;
+	b=iDa0BYUeHV0JG9cn9SynulSrv7R7jEm9/1QiMUaBKu9EFi+BeidXxPZ+IM6HI8fYWwdf
+	 I2gAyjsP3Uy0Rby/kfTvKBuRYb2PNgmEuABfvSD5CU72MsNiR6KSpUUW48dmFB2SyAlCV
+	 Ujz3yYmuauBl2Ua0foWmay1x3R7WnNpxP3tc9XuyIVFm8xs4EGWtTI2/xcUycUcSijEjq
+	 gUiX4/NZ7xM5LXDPHdMxCqlCFcCeRl3cm+qTC4kyMd9qKV4nnR4U2lyXbZhHVQIDX5osq
+	 9uuTpaT4YXYEIbDQ5UDjnmSB+2UHosSMZ6L0yGNHc4mTftTVnN+/XoustkPqPhtb9uA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792720606;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=oJFZy9ViA1hdkCiyEzcB0JcdRGfXjVzuA0WGwLAmCs4=;
-	b=YJ6iulpcCuyNJVTSJYsGkupIpF6K/hQQCr3SP8QfE2+84zZRdepuJvFoCxEz9iyMVDwA
-	 Shq255kee++7cu9AHzX1x/L4Xk95zqXh91Y/MOw/9YxxTh2TSulUUKiD/OfxpbLm2Z2Oy
-	 8R4Anl+tYQM1CZzi5kTU5SR4hoxIhqBCyrXYgMjpy7JmVC/WauRWn7lvm7QS2y27QFSOu
-	 ocv2tG37egdyJyr/i8v2uRxBZ+HVwELbndx1m82bnFj9imjvEraQPFSDGpxa3++OWZ9/r
-	 u+tlDfiV+frwS7GQiaOJvuAIlBtrkMcnV0ABLwkJIk+88IqMmcfOu0SHXTAZt7J02tQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792720695;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=E5rUhXxLObJaqeNwCfpPJbhOavyXZimGUEzXCiths9w=;
+	b=Y3mb/akMpIZd9HsN6Ta+53nfhWGI/J3eGnyb9vcQafzPHAxFPJHH658eIyiZfrFW9H/s
+	 dQzYri1xrhqjLxYlZg9C9ZM1Ta4F4qgyZ7N6XItWjeb1DwlsjcMWzB5+93RRhf87QbGfV
+	 3LQtqTHdunIHCh1l8K7ED9DhRy1Rn7JFp/eRLUP8jDwPgvjqxtFzi5x4OHsQEHUU+5Ifm
+	 BNzrkFVc+5RCCCT86LPE7xibWEnaPZNnS1eXO1iXWUUaIG4lBNZrOMNWqBNmah3mOKmZI
+	 ZNDXTMn12LRIQQJOIxP5F3l2OX8zptsdy0yVuJJCmqyOU4aRwDv+gsJW0FoT0/q8N6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lFDEReVK;
-	arc=none smtp.remote-ip=91.218.175.245
-Received: from mta0.migadu.com (out-245.mta0.migadu.com [91.218.175.245])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=P2FhE1L2;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=+Z7DCKPJ;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A579606A31B
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 01:56:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A579606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B2C606A319;
+	Fri, 23 Oct 2026 01:58:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4B2C606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lFDEReVK
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uX9E3o73V748llMETRdDfpWjDG+k2zeZTW03xJwVkb0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792720603; v=1; x=1793325403;
- b=lFDEReVKixlCCV8aln0VUOKnuYSlp8pGFtrke7nXPTicTCunZ0H8IlsIY4l4xMkG6xCOdQub
- qnGxz1sHC4r301LLvNBrT/Au2ztMkB7/IAGCmIC3V7Ws1h61Pjg4urSiVsPv8Lf/Z/reEb56Vtk
- q48DpLvM5j1fEAqr7eg9wOq4=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 1f1f20d373d9e1ae;
-	Fri, 23 Oct 2026 01:56:43 +0000
-X-Mizu-Trace-ID: 1f1f20d373d9e1ae
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 23 Oct 2026 09:56:32 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Xia Yan <yana06070@163.com>
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@kernel.org, horms@kernel.org, kuba@kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	pabeni@redhat.com, shuah@kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v3 1/2] veth: keep carrier off when resizing channels
- with a down peer
-Message-ID: <atq-0HbV71AcQi5t@fedora>
-References: <20261022085842.2527-1-yana06070@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=P2FhE1L2;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=+Z7DCKPJ
+Date: Fri, 23 Oct 2026 01:58:10 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792720692;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=E5rUhXxLObJaqeNwCfpPJbhOavyXZimGUEzXCiths9w=;
+	b=P2FhE1L2GujgbomCNlSfPnxB76KhtiggCCfnWhxfvUHVxuH87Neru0gq87RTHVRiptixZW
+	aTD73KvIa059epr+qoCqIPujNVbRw6x/ftH2f/ZQo8uRHey5hbgyx/p5K6ackr3M1wA/EX
+	xJdODhcGllL/WYlfKBcDAB0e5IjSA3CqmLNwoqbPGlZzXXmhe/9dW+QD8d63BInuICjmcF
+	rGm5JTOJwM6fRrNs5Na+jPOT8os4127qs6FAU6u5ox0Icnul/YINbJstxcX/qVMDzaeCyc
+	0wJmfzDhXMU9PHMn8OxXRGucqgJL+XOhILAM852f7CYC6vpw7MqmQjSG94Hvzg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792720692;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=E5rUhXxLObJaqeNwCfpPJbhOavyXZimGUEzXCiths9w=;
+	b=+Z7DCKPJKWkVdBrVBfoeMQAw76tDXLhObm45f+JBxGKK3NTOF7mZawzj191EeiaXFDV5HM
+	SzZGxUQ3nqyzMDAw==
+From: "tip-bot2 for Sean Christopherson" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject:
+ [tip: x86/urgent] x86/cpuid: Mark CPUID function 0x23 as being indexed
+Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ Sean Christopherson <seanjc@google.com>,
+ "Borislav Petkov (AMD)" <bp@alien8.de>, stable@vger.kernel.org,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261022210134.612848-2-seanjc@google.com>
+References: <20261022210134.612848-2-seanjc@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,87 +80,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022085842.2527-1-yana06070@163.com>
+Message-ID: <179272069017.3012171.7534138300125291612.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 22, 2026 at 04:58:41PM +0800, Xia Yan wrote:
-> veth_set_channels() temporarily turns carrier off while reconfiguring a
-> running interface. It then turns carrier on for both ends without
-> checking whether the peer is administratively up. If only one end is up,
-> changing its channel counts therefore reports LOWER_UP even though the
-> peer remains down.
-> 
-> For example, after creating a pair with two RX and TX queues per end:
-> 
->   ip link set vca up
->   ethtool -L vca rx 1 tx 1
-> 
-> vca incorrectly reports LOWER_UP while vcb is still down.
-> 
-> Only restore carrier when the peer has IFF_UP, matching veth_open().
-> The local interface is already known to be running at this point.
-> 
-> Found during LLM-assisted source review and reproduced with a veth pair
-> in network namespaces, without kernel instrumentation or error injection.
-> With the complete default veth.sh on x86_64 QEMU/KVM (three vCPUs), the
-> four mixed up/down cases fail before the fix and all six carrier cases
-> pass after it. All 55 existing checks pass on both kernels.
-> 
-> Fixes: 4752eeb3d891 ("veth: implement support for set_channel ethtool op")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Xia Yan <yana06070@163.com>
-> ---
-> 
-> Notes:
->     Changes in v3:
->     - Driver code is unchanged from v2.
->     - The companion selftest is now part of veth.sh.
-> 
->     v2: https://lore.kernel.org/netdev/20261020135544.24441-1-yana06070@163.com/
-> 
->     Testing on the v2 baseline 513444cc62e2:
->     - Complete default veth.sh on x86_64 QEMU/KVM, three vCPUs:
->       before: 57 checks pass, four mixed up/down carrier checks fail;
->       after: all 61 checks pass. The 55 existing checks pass on both.
->     - bash -n and git diff --check pass.
->     - If creating the veth pair fails, the case is skipped without
->       masking failures from earlier test cases.
-> 
->     Both patches also apply to net/main ffdf678dd166
->     (application check only, checked on 2026-10-22).
-> 
->     The QEMU guests failed to power off cleanly (initramfs issue) after
->     the tests completed; the exit codes above are the veth.sh results.
-> 
-> 
->  drivers/net/veth.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-> index 643b97d..4e75830 100644
-> --- a/drivers/net/veth.c
-> +++ b/drivers/net/veth.c
-> @@ -1372,9 +1372,10 @@ static int veth_set_channels(struct net_device *dev,
->  		 * to identify the range we have to disable
->  		 */
->  		veth_disable_range_safe(dev, new_rx_count, old_rx_count);
-> -		netif_carrier_on(dev);
-> -		if (peer)
-> +		if (peer && (peer->flags & IFF_UP)) {
-> +			netif_carrier_on(dev);
->  			netif_carrier_on(peer);
-> +		}
->  	}
->  
->  	/* update XDP supported features */
-> 
-> base-commit: 513444cc62e231a11c9b15ea88de0890da9b2b4f
-> -- 
-> 2.43.0
-> 
+The following commit has been merged into the x86/urgent branch of tip:
 
-This one looks good to me. I can reproduce the report issue.
+Commit-ID:     108775fa28fe04a16f19a828a779689f3d0ea9f0
+Gitweb:        https://git.kernel.org/tip/108775fa28fe04a16f19a828a779689f3d0=
+ea9f0
+Author:        Sean Christopherson <seanjc@google.com>
+AuthorDate:    Thu, 22 Oct 2026 14:01:32 -07:00
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Thu, 22 Oct 2026 18:39:16 -07:00
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+x86/cpuid: Mark CPUID function 0x23 as being indexed
+
+Add function 0x23 to the set of CPUID functions that are indexed, as per
+the SDM and the many sub-leafs defined in leaf_types.h.
+
+Closes: https://lore.kernel.org/all/213d614fe73e183a230c8f4e0c8fa1cc3d45df39.=
+camel@intel.com
+Reported-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Tested-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261022210134.612848-2-seanjc@google.com
+---
+ arch/x86/include/asm/cpuid/api.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/x86/include/asm/cpuid/api.h b/arch/x86/include/asm/cpuid/ap=
+i.h
+index 2d9f3d4..759b12d 100644
+--- a/arch/x86/include/asm/cpuid/api.h
++++ b/arch/x86/include/asm/cpuid/api.h
+@@ -181,6 +181,7 @@ static __always_inline bool cpuid_function_is_indexed(u32=
+ function)
+ 	case 0x1d:
+ 	case 0x1e:
+ 	case 0x1f:
++	case 0x23:
+ 	case 0x24:
+ 	case 0x8000001d:
+ 		return true;
