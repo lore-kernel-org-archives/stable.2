@@ -1,56 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792785794;
-	b=drrgCkrAwscg8ZVOQmJVETbBVrITu2LVCkSkWx5iV/afBYrZVEF4nUB4oag/KDB7I1Eb
-	 uZYSmmo/Z+4O0b3r+j5TgZe+oMZ4iLlQe0d2eYDLJuEztgQGmdne3UzNEUwgyccmFUhkh
-	 Q8L06+Oaqm5UfkWNDRh3Y8K001gZ1K6bmgtjCcTc8BYhTNsDRAVYfy70ZUTrt+0w2/pL1
-	 NZZs+TU6nKLDkZJg78efCr0W9a5YBuhns2Lp3BpQ43U4ZISJoa7k6wHXYf00E2nzyWtiy
-	 TBMPiYsc9M2xxtXcHeyfbymvFEPXPrBhn2c2E/naLwZ4E4UXxUabiGmok6lCejKTPmQ==
+	t=1792785796;
+	b=l9yKQJb4YT7PNRmjaObs7RI2wUAqAY95GullSZGoTaPh6CMBkqe78EGqPIkIC7AqyUNE
+	 KoBhaCAAdmOzW+jrG+cGve8Wh9DshbiG/NFlSexzfkP78aUWWfb7rh+qAHyDX48l5ewIv
+	 LMNNM0CVxquLGBVuYTDlm5xkPv0hk7ytJjWa4m+l0mIr1yK2auJzoUCSCgQ7V5S/mVAh6
+	 gV/wZBVUEvvCPGdpWlDTEH6JzlmMmra4T3sdA3bNeQ4iy6+947b14ZpXY6SFOznWUKupl
+	 g6Otk+Mos2nu7ipa1CKxPO+kSv2y8hwwQCbcGt6E/BKyid0SLk1dAVQ3sB1kBbxnDjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792785794;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792785796;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1gyfVBhBGNVTKcacMKgLTgjO8MRiP1DX38/TSIsqWVc=;
-	b=MNUHyJnizhXq5t1UKAA22baZFytmkz66C8OOQM1vPT31iTVKdNdvVTnpGMTkskJaTH9V
-	 5mQ60QcoGtsDszZnPDWGm853IvjqGIvjWaBNoVErKyaJgDW7oOHXxp2P0xKhGF0prJeiO
-	 lFodBZrwAxaSo1bD2/jT4C1+JhyO2hJ1TD+iw+xo8PQu41KuJgz02WJc6/xocdOqv9xxS
-	 okCgx3ZLMDKS6A5ktAuAr4AjGIueSREWirZRMwrlSdmflEsalWxOaDoWPqCnnrhv6pasU
-	 eX8J3iXxK1ajNjV3FOQ/Ihc++ddSB8VJmYL8KhTLA/1U506OvksMOQUIgeTlC2o+TJg==
+	bh=aiKTjh/oO4UHkhh/e0hU26pZyMzVo28SpJOfz6hRIB8=;
+	b=i3AA+onxiAA+eseT51bBwPWIxCirqD1snzzaxtCEp1ZEBCQxnCqdiYicalJJp+wPOXHy
+	 AxtDmtHEec8lFJXuUNichjW7Ogb4LiPMPTPxgujo3yTm0bWm/Cut9vIos3Vcgtui21Lhe
+	 mtR+i9fbYW+7p8u8YgmhjPkG4PSB7WnSAOnOnp6N+a5vySlqLIXVbXBysB0CF/m49Sb3c
+	 ZvUj9jPNIwUcG/cH6IB2ulz4AarvBqBrhbIb3WXxY4JyWp90D69engyqQw2K/JG7B84qX
+	 +djsu/mQioOQwFLo+7woMHu1VzCZ3pc57cBbwFy5rqt8NB2HZkTS0HF4uXFtFA+qcbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HPMIu2me;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jK5SE5DK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A076A606A327;
-	Fri, 23 Oct 2026 20:03:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AD05606A31E;
+	Fri, 23 Oct 2026 20:03:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HPMIu2me
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 904C01F01829;
-	Fri, 23 Oct 2026 20:03:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jK5SE5DK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86A661F031E0;
+	Fri, 23 Oct 2026 20:03:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792785794;
-	bh=1gyfVBhBGNVTKcacMKgLTgjO8MRiP1DX38/TSIsqWVc=;
+	s=k20260515; t=1792785796;
+	bh=aiKTjh/oO4UHkhh/e0hU26pZyMzVo28SpJOfz6hRIB8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HPMIu2meWVe/QGVFjj6jPQafRWrAXv9XHovMYP4T5+WjfbffLgqvT3ENc0+uAbef3
-	 lPg2zaeaPNeTlPxyRUUYba/2RrxTNeokK93HjUnrlAlQttOR8Qd8oSiS1dWhIBn/lQ
-	 hlFSb54B+BspVNCuuqE2RpaHpzAudFsnVAPUPOxj+ajA3cR6eZs7sV/i0RfJL5QihR
-	 /K1yGI24QwFxiZegy53+b21cxuHHUXWZ54UiFzNqovlro7HbzJx1CmNTPbSUAwitZa
-	 U7KN5auVCz7xcinvWt79oFaBsPMZnsb+wf92SMP7B/rT8CAKpk2qzGgI/N9MKcwsvs
-	 rqXi8505xt5CA==
+	b=jK5SE5DK/ZVVX50YnV8rqW4FQM6MfE6uS9Z5NcykGYAmCCaZKmuc8sze2Y1/376mK
+	 MZSlxJ+mnz1ScskxanEgtJxsKA7uVSRTQTcrtYUk5WAq3/8Bo3EqxnltiyYAl3z3Il
+	 IYAir7G62hmbrcZxFDcW5MbbLqbE40P9fYDvZ40KarADvXL3U4VsRomOVPERsWqzzi
+	 Je+PYf9FPAiI7K/q55youvsz8of2rC2haSaP6C0mREDLiMOT1gNOsFY1fCtG1N71o6
+	 gsQAYqsjd/xD58HhWqY8hbQu+GzDsXt9dPJWBs67HsI7kmtFM43ngqKwZIAt+ajDAY
+	 1hBNzbZ8kDQoA==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
-	Sebastian Reichel <sre@kernel.org>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
 	stable-commits@vger.kernel.org,
-	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Subject: Re: Patch "power: supply: core: implement extension API" has been added to the 6.12-stable tree
-Date: Fri, 23 Oct 2026 16:02:52 -0400
-Message-ID: <2026-10-23-1-daily-reply-0016-power-supply-extension-api-6-12-drop@kernel.org>
+	Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Peter Zijlstra <peterz@infradead.org>
+Subject: Re: Patch "sched/eevdf: Move to a single runqueue" has been added to the 7.2-stable tree
+Date: Fri, 23 Oct 2026 16:02:53 -0400
+Message-ID: <2026-10-23-1-daily-reply-0017-sched-eevdf-single-runqueue-7-2-drop@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <5fba6144-ffc8-457f-ba29-6c95f81b0e63@t-8ch.de>
-References: <5fba6144-ffc8-457f-ba29-6c95f81b0e63@t-8ch.de>
+In-Reply-To: <20261021131517.GN2823843@noisy.programming.kicks-ass.net>
+References: <20261021131517.GN2823843@noisy.programming.kicks-ass.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,16 +70,14 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> This backports a whole feature series to enable a single backport.
-> I don't see how commit 5b4bd13e0552 ("power: supply: core: prevent
-> unregistering a power supply while a callback runs") functionally
-> depends on power supply extensions.
+> Ufff, why are we backporting this?
 
-Agreed. I dropped the extension API backports and the fix that needed them
-from the 6.12 queue. On 6.12 the fix would not have reached the crash path
-anyway, since __power_supply_changed_work() still calls
-external_power_changed() directly and nothing in the tree calls the guarded
-wrapper.
+It was only pulled in as a dependency of "sched/fair: Avoid overflow in
+place_entity()". The whole chain is dropped from the 7.2 queue now.
+
+Peter, Vincent: do you want a context-adapted version of the overflow fix
+on 7.2 (h_load.weight becomes load.weight), or should 7.2 just go without
+it?
 
 -- 
 Thanks,
