@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792741655;
-	b=pTVTQiigtwvncJ/f8dpS9fokdpGuQ48JHvVKzfCvK3mDTOc8mgXXNuWW90BVV1op0L6R
-	 AU/qknYRAg07Vbk0GtaateA40kjeA9M4gYiABHMlGaeYdgMyYwfQ6c+QaUk7aTjSs8qIp
-	 dzx3pdr4aY7qgRL8/J1VDvFkA/bQavWK6a3/xehp/M9tAlpViSAYzxk6oDdw3BaD3kxBn
-	 0vRHXqUCYA3sMHkHhzRCjqhbiT3FQUoiw+m6YGVlXUEqaQeHQRgFAzLitVYGz5mqDnZrO
-	 aUECMWCSaXCz9ezMv8EdaTC+oDeBqLbq5xkrQyo7ve3NBZMYdZag6yb2iRSLZuSibEQ==
+	t=1792741656;
+	b=1XD63uHGEXu6ZyU76osp04pe+eEFHXy5Jykb6p/CiyDeFtT0fLoQ4CzdtMCuY0rEuygk
+	 hTm7KgALbgfB6Y9Tm80kz0rpGGmlGSWJUcA4kY/gLT8Gvf/R+U2lHie7QMVDljCjbJ7UW
+	 rRC0gUDRkUl5ex6t4H4HcqVG//f7R+oxoVNDhQTgZI3GytWXBQeS61STPZQrLzplRVo9j
+	 jJK/x3MbNFlV/CEZFCWh66RhSTXb2jE0aHse0hFiLVd+NF+38Q+20LY0NSGWDvbMTM6MX
+	 s6+ESXt+Vj8gjPe+m8/4hddi9hilz9eG+zMvzzzykz7QXum4GsklyLbcUMskY15+E7w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792741655;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792741656;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9yH6lCZJs4jQqhq5RKT/kA7z15frEt+8pQmmPZcgKoI=;
-	b=oosfMljevutVkG90gfPQARwWl3zyEpFxPaDw/hcX+t58LsY+n76MUyajmY+B7gKYnF62
-	 A519LgJ3cEPITicNvaUFOwYIePKPSNH/Jo4N/rciOYKz8xTfeVLOlKJCdxusOzThG0nou
-	 u9mKS0aBbpV8xoPisivcshpUCuo6VRYZPZCG0fgcc0m713WPb0Dy/bx6/jkfMlxP0eHT/
-	 8PDOMBw+VPa44fovU1lzmmUCW7aNbO3cQLPdymFTW5gjMWD0yD9kM1uuVqPQgyi63WrC9
-	 844uSDVD6UGVz9xLxuo5AzdiGLlmJMIb0mja1ip5SvwLF2IX1SRZ7UCw/9xiRVKT4gQ==
+	bh=V65awey7PH+EaVz0Z/qFwHRAyR1mJpUy4VAJ3/5UO5Y=;
+	b=zToqf1SH/a8xMROKcVYYwT0QPs4kSwxXwML6KKdvGz35ywbeARTuXq5tBqV2/mbjSjKp
+	 VbV1R58r6DPuUAk6KqPFxBq6+yARYm0Xap6JT69jUPdLuC/myFZuRIYG+CLe20H3srOuE
+	 8VxgL0y/XixRngyprn15rXV2e5ZDjfnOtPaJ/oD0L6IMIBCTUl6hnw3gFTUBGYHiQu2eP
+	 MhflXTLer5q2q9MkrqMrGwQhiy48vszHVx+Bd45VbHnwj34hzSVj/DeM117KESCzmT6Ni
+	 jamooJ6Kb2jAf+3HQBwnbfIiV+apQ31kVvjXnjGG1zZuO44fJ5s1VTcHVzi9yzwqFmw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="MHb/qz0f";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e92g5dyt;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84EDB606A31A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBBFD606A320;
 	Fri, 23 Oct 2026 07:47:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MHb/qz0f
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e92g5dyt
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1792741655;
-	b=POK1lHC9ktNwu9VX9PaWJH1xjXmT9N42u5XhE2DqUSGw5/t4C6bnunnleTCk3/v7qCMu
-	 F0ebKjw7V5bJza1M/CbIB8VQryOKzXpRzNXkjPPguZ8gH88tmy6Vy+RcBnjRBlyo18CB/
-	 1/HrEQj2aFLyF+/ekr47v+r+j+9pxP6fqSUai7kyPo4Dm1dKpdYmEzI1QD0AXapWUMr/b
-	 n389jLVlH5HqjLxtr8uwtrxPYZ1z8+lR2/jIXABWlfoJ093oLbK9sZLQRRqDhDrrTAcAR
-	 HmfxLmZBISfKj7W5KrgG3WR08XymCBRQnO/Vst9jjIme+A6WovV5jnjLho6t8IcXoxw==
+	b=1nNas0DairAlD7QaQuVf2HQp1m9hB5eOe+MeHTTLuSXT8U0MtrGObV33453lRA8UO9yS
+	 68V7N6GoKw0JxwXjo8VpiIJAozgGGcjcvoNu52TCcRSLnRlQNeSio0Wkl68uZ6s5Epaqq
+	 6O9eh8/yK8XffLDW1vJzbQiri0vXepH/+/1evnHQlYsKrQ4PXj1ICb7+yTT/CrICvqgG1
+	 REA0Qhd6r4U2GmmCaHsY70NsApg+l/U4MCbdInS+E/usM//B/k7viux5cooUF8PVrJUxm
+	 6CsT4Wj4qoOiQUhE0aUe1I3C5NKCpDPXS5infA9ApvlwxGjXaLTeo/XA8mU8jTxk1+w==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1792741655;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9yH6lCZJs4jQqhq5RKT/kA7z15frEt+8pQmmPZcgKoI=;
-	b=GMQfhp9I4vd5myvuK3oBdZ3b4+e+YNm7J8Vks+bmMS9PH099BLvTP3ZPGn/AasV1gCd2
-	 xaOzwHeAVrFDz1kJdBIoOzqgeKdCOkGRFB7Ao3D3pqRAMcjvIABGS/hMTA+zygmLd10f3
-	 2uOQW66ngmF31K9ZRBH6lRNGM2PfJftLOa1uUxb8j+iBFJ0T68kZLOVUkgjb8QRq5HhKb
-	 2z53IN1mckbicV8qgneuTchjy9AaHVn+tWvvua7jcrlYdp8M7KstrF+kRRpcKDQEvy691
-	 P718UWSF65cD6IaFht/v8x+/03dL48PkLaOybdSmYMCfziNNIn/h/583y1rJyEYdz3g==
+	bh=V65awey7PH+EaVz0Z/qFwHRAyR1mJpUy4VAJ3/5UO5Y=;
+	b=qFXrPEJaq9JzjGfSrTb0C2XIot18Vi/+OZP3tPP1FWjalfOZFxLq5Lps8M0bKjoS8+D+
+	 198Z3UKQd8AN48JBT7+ShajUJQx1CoDNhPEkU+tGLgF9ojsCwT1hMbHVPNid/vx186RiO
+	 FFDMDdyHUn7I53ufk1iLk84KzmMLJHhgOKuknTJDqp8PRZFoUJpEqur9Mvjc3cG0F+oNT
+	 dF7GZ+tIVMe1+TLVn3tQOKhmwZAZdPNyU3LcCj1ewNBKMOZ9ZkbOZrZK9ayNsIh8edOlj
+	 kJeuS5AF45D59q9MdI+akBbcKDg6EdC57HWBgOQJ5Weww8oPNbnPZNHmb8V6b/0l8Wg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id AF79D1F01829;
+	by smtp.kernel.org (Postfix) with ESMTPS id AF5E11F01825;
 	Fri, 23 Oct 2026 07:47:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792741655;
-	bh=9yH6lCZJs4jQqhq5RKT/kA7z15frEt+8pQmmPZcgKoI=;
+	bh=V65awey7PH+EaVz0Z/qFwHRAyR1mJpUy4VAJ3/5UO5Y=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=MHb/qz0fhwHON31otPKHTAfRFUgNCQ2OS0hDPjaISsN+XrDatxPI4Q2MBDlR9V5g2
-	 vw4zSiAkPqm2mukeKNMmq2JdJhwn0LGbMx6wlV3MwGVXorbUs0H+1sAEKO7VqJCIuV
-	 xGd/DX+nMbYUTqD9H2U+fRG3HJKnBtDhOwX1KN7gtnfdZ4npHfzZm0/a6serbBo8mP
-	 5XiL+Tg4Q1berTNx9OAXE1Wv0sAvv+UGn9m/p7TJnkRoysuWDKFT0zVVP/tb4tVdoR
-	 O7SrQBBkuXjT/Zo0rkIwGWDSa5VbBL2oNvhaE49tW31fah4ulzUNmXXve7T6soige+
-	 /dYgek7bahQ2g==
+	b=e92g5dytaHr+WzCny7lr4KtmtpWdBcMb7dXQe9DNNfeO8Vb0rXvweQ9EBPZqtBaOR
+	 o4FQSujBsNgQkH/vUAdwn1VYH4YvhC6wW7Lg0sB2BGzyzgYX0dEP4tBo0v+mBoGaqQ
+	 VVz59ZXGWvZm+qtQ9ylKzuRuAtQzWhr98RRkxUdGgMR6EiwsLXCAWUz0rBxqJWEW/c
+	 7YJTJ70IrQUDIAOu8FX7ZKONULoT+GAm0VJXK+GpWBnJRRvGGSbcg5JdS1Z84uNJMx
+	 vE1pg5UCySpzE7YiP15MpUJmEOfob/OPRQDU3YsyX2PQ2easy9s1u7axivJmizxiYs
+	 /Ki+us5Trxefw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 19DAA443FE;
+	by lkml.kernel.org (Postfix) with ESMTP id 22ABD44400;
 	Fri, 23 Oct 2026 07:47:34 +0000 (UTC)
 From: Daan De Meyer via B4 Relay <devnull+daan.amutable.com@kernel.org>
-Date: Fri, 23 Oct 2026 09:47:20 +0200
-Subject: [PATCH v4 1/2] loop: drop stale partitions on LOOP_CHANGE_FD
+Date: Fri, 23 Oct 2026 09:47:21 +0200
+Subject: [PATCH v4 2/2] nbd: drop stale partitions on NBD_CLEAR_SOCK
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,7 +83,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261023-b4-loop-nbd-stale-partitions-v4-1-2baf05e4b2cb@amutable.com>
+Message-Id: <20261023-b4-loop-nbd-stale-partitions-v4-2-2baf05e4b2cb@amutable.com>
 References: <20261023-b4-loop-nbd-stale-partitions-v4-0-2baf05e4b2cb@amutable.com>
 In-Reply-To: <20261023-b4-loop-nbd-stale-partitions-v4-0-2baf05e4b2cb@amutable.com>
 To: Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>, 
@@ -95,11 +95,11 @@ Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
  Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>, 
  Daan De Meyer <daan@amutable.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792741645; l=2855;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792741645; l=2448;
  i=daan@amutable.com; s=20260712; h=from:subject:message-id;
- bh=puuj6cW8tTVT3rlBQ4+twjIwX6td3ITnz1udGWzqXoE=;
- b=Tnjirr+n77MEjWAVk8pBYLU9GIMayh2l3zrluh5TKVI0jg86QutdronlkxiSz0EGQUKpm2Lhj
- NxLBZEsVX1lB1FuuL7jMNu3uk0R5+t1d3dWhyWkPVrpzzYGXkDYWJxV
+ bh=Xsf7lw9CzriaYcZ7LSWs2dUmnLL/EkAep1GawGfe3ic=;
+ b=Gk00yNSAxP0BGLLgZfO+zaDaxRJD3UmvXzA2USAiHH8ymQf38em9AeTOaEeJgTv7csveCg6OV
+ S+Ui/WVp2pFB7LgAZP1DCBYHO4ZjfizxVy2yFlSfoOzrfWpY9IWgabW
 X-Developer-Key: i=daan@amutable.com; a=ed25519;
  pk=I1l+WwrtmzRgofA5SQ1wTuJi18fjh91w+f5uRkFeZEA=
 X-Endpoint-Received: by B4 Relay for daan@amutable.com/20260712 with
@@ -112,26 +112,22 @@ From: Daan De Meyer <daan@amutable.com>
 
 Commit 267ec4d7223a ("loop: fix partition scan race between udev and
 loop_reread_partitions()") stopped disk_force_media_change() from
-setting GD_NEED_PART_SCAN. That bit did more than request a rescan:
-bdev_disk_changed() drops every partition before it consults
-disk_has_partscan(), so the lazy scan on the next open was also what
-removed partitions from a loop device without LO_FLAGS_PARTSCAN.
+setting GD_NEED_PART_SCAN. Besides requesting a rescan, that bit was what
+removed stale partitions on the next open, as bdev_disk_changed() drops
+all partitions before it consults disk_has_partscan().
 
-Such devices are not unusual. bdev_add_partition() only rejects
-GENHD_FL_NO_PART disks, so BLKPG_ADD_PARTITION works while
-GD_SUPPRESS_PART_SCAN is set, and parted, libfdisk and systemd all fall
-back to BLKPG when BLKRRPART fails with -EINVAL, which is what a loop
-device without LO_FLAGS_PARTSCAN returns.
+nbd_clear_sock_ioctl() relied on that. It zeroes the capacity through
+nbd_bdev_reset(), but nothing removes the partitions of the disconnected
+device anymore. With the default max_part=16 they linger until the next
+connect sets GD_NEED_PART_SCAN again. With max_part=0 nothing ever sets
+it, so they are never removed at all, even though nbd does not set
+GENHD_FL_NO_PART and partitions can therefore still be added with BLKPG.
 
-loop_change_fd() only rescans when LO_FLAGS_PARTSCAN is set, so those
-partitions now survive the backing file swap and keep describing the old
-file. The new backing file must have the same size, but its partition
-table can be completely different, leaving the partition devices mapping
-the wrong ranges.
-
-Call loop_reread_partitions() unconditionally. Without LO_FLAGS_PARTSCAN,
-blk_add_partitions() returns early, so this drops the stale partitions
-without scanning the new backing file.
+Set GD_NEED_PART_SCAN in nbd_clear_sock_ioctl() so the partitions are
+dropped on the next open. Calling bdev_disk_changed() directly is not an
+option as it needs open_mutex. nbd_open() acquires config_lock under
+open_mutex, and nbd_clear_sock_ioctl() runs with config_lock held.
+Taking open_mutex in nbd_clear_sock_ioctl() would invert that lock order.
 
 Fixes: 267ec4d7223a ("loop: fix partition scan race between udev and loop_reread_partitions()")
 Cc: stable@vger.kernel.org
@@ -140,44 +136,29 @@ Reviewed-by: Bart Van Assche <bvanassche@acm.org>
 Tested-by: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
 Signed-off-by: Daan De Meyer <daan@amutable.com>
 ---
- drivers/block/loop.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/block/nbd.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-index 758c20678bf6..378163fdf957 100644
---- a/drivers/block/loop.c
-+++ b/drivers/block/loop.c
-@@ -552,7 +552,6 @@ static int loop_change_fd(struct loop_device *lo, struct block_device *bdev,
- 	struct file *old_file;
- 	unsigned int memflags;
- 	int error;
--	bool partscan;
- 	bool is_loop;
- 
- 	if (!file)
-@@ -606,7 +605,6 @@ static int loop_change_fd(struct loop_device *lo, struct block_device *bdev,
- 	loop_assign_backing_file(lo, file);
- 	loop_update_dio(lo);
- 	blk_mq_unfreeze_queue(lo->lo_queue, memflags);
--	partscan = lo->lo_flags & LO_FLAGS_PARTSCAN;
- 	loop_global_unlock(lo, is_loop);
- 
- 	/*
-@@ -624,8 +622,12 @@ static int loop_change_fd(struct loop_device *lo, struct block_device *bdev,
- 	 */
- 	fput(old_file);
- 	dev_set_uevent_suppress(disk_to_dev(lo->lo_disk), 0);
--	if (partscan)
--		loop_reread_partitions(lo);
+diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
+index ffce519bf008..322dbd16dc93 100644
+--- a/drivers/block/nbd.c
++++ b/drivers/block/nbd.c
+@@ -1616,6 +1616,15 @@ static void nbd_clear_sock_ioctl(struct nbd_device *nbd)
+ 	nbd_clear_sock(nbd);
+ 	disk_force_media_change(nbd->disk);
+ 	nbd_bdev_reset(nbd);
 +	/*
-+	 * Rescan or, without LO_FLAGS_PARTSCAN, just drop the partitions of
-+	 * the old backing file. They can exist without LO_FLAGS_PARTSCAN as
-+	 * they may have been added manually with BLKPG.
++	 * Drop the partitions of the disconnected device on the next open.
++	 * They can exist even with max_part zero as they may have been added
++	 * manually with BLKPG. Dropping them here would need open_mutex.
++	 * nbd_open() acquires config_lock under open_mutex, and we hold
++	 * config_lock here. Taking open_mutex here can deadlock against
++	 * nbd_open().
 +	 */
-+	loop_reread_partitions(lo);
- 
- 	error = 0;
- done:
++	set_bit(GD_NEED_PART_SCAN, &nbd->disk->state);
+ 	if (test_and_clear_bit(NBD_RT_HAS_CONFIG_REF,
+ 			       &nbd->config->runtime_flags))
+ 		nbd_config_put(nbd);
 
 -- 
 2.54.0
