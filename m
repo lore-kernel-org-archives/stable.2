@@ -1,95 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792744198;
-	b=I8s1Qr48tZobQpbDreCFbku4QDUhZ5I+bTxgmHc+TgkSFo7PWD+DzLdVnTS7TRzpeSFW
-	 fpjvPG1Vbvh+lNFTOIFH5yCiHLcrIHYgFsWMVb9NiOWJPZE1z/zOp87RgdoEXTL1hpnjM
-	 VDFNgRF0UIUYiDyGvKdh5oddhY7sHBSG1rwrHar0brV/26YrFh6P7bKjMFO9ZCTbAqA0O
-	 rnmow5qax5+yicmU7e9JkYddSLvsWzWyiF8yc2jyIvOf+X4Dup/bMXO90+SBxye1bCvS0
-	 /8BBJOQh4wEMkDUUqQsFUu9Xyy8jt8xoicF0lgl4R5e5LgUWGZSR+f1I5TEa174qUNQ==
+	t=1792745050;
+	b=touB6a5DBN3UeclgiUkaWBsWzvtbvaSN2mdk0hk2mhMUMsZeB/cT+Z1DbXRDpCB8t4cR
+	 Is6k4BwCxix6RIYxjEEkLpJpVzl7yMKzZNnFFQkms6sq4DRaHyShG91IzXDgplEuayIfP
+	 oLvMIYw0pF48OcRFmNWm4nL7udgIQwnL5A2upp185VjWJyFkPC9AwdqNcRlyYbKDMkehv
+	 szAPv7FY8l1qbLFyqN/hKqB/sjUFrM2ty4UItHRshZ5nxqmGJtffUshwH//hMOdo0Lc/3
+	 prwtDTrtR/NQbWRgq4ZKCG/q7mE2TDpEeHRpPJyWBYFmqlV6p+eu3tgixRgIUsc+MoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792744198;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=VjvPviRplzIhgWM/q2jdDcLxkxdDLClBt75UUKoUPKE=;
-	b=Otdf2BAmZlCO5FMzplsuVGPf35JCrn9CKHiODpeDXLpUrU06yKlp8z+UftTF0i+m9wW+
-	 IOiCWGTy0YyeSWHULXVCa67/u+KGe2SM3+6nfFB1xyOgpfbNJHioTpofRMmSWfqVmCtFD
-	 5FSSnlHbRbJqr8YnfBlu67dEh4RsD2LVgcFT/p0WTpAz1VSlRA58OXY5wLobUv4G8aSXB
-	 thfE8obAVCznLx2F0WvBq9saohrxSj5XpFGllMgnPKKyOAs9bmo2yo9Y3tUziY2LFlxEF
-	 baHe1nrolI2tr6NY7Zkq4fcc5hw9OpNVg0tr66Bv4aNInqzKmd5bSfllwgD3Jw0vOsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792745050;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
+	bh=Z+XZ/53UvCxImzQ+Xo+GZ40Pfdr9wSp/K3Gh847KDWc=;
+	b=SdAedZyyJsESZEFanHR6dyAqY/L05npMMldrP9ayQtRUXSdaCWGHLhWclzDRGZIIS8hd
+	 SwJISONF/Qb0hUpFo096ZIdBE8X6HkB6njHiwAxv0KpqgKU125+Br8URDTVEUjozkg4S9
+	 cavP3ydDRMESuVMnVSp8rJdiMSbva46A+Mz53O0Qy+DOv1VDMGq8QN6c6mUsYf7oZtlli
+	 UMqpdrKKgxr0xrMHU6Y31njPjFJfLmYCzvT/vO6RoUAZ9A1lU0rJj8kRXSLSe52oY55yx
+	 9SuYrvp9Um2yhwMz1iA8D6PP3K9O11NSZthZxNPKPEujuVQ1QVohrnwF5o9bHCNJ/PQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IJiBVQfh;
-	arc=none smtp.remote-ip=74.125.229.9
-Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=XL4P28f7;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82A3D606A31A
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 08:29:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82A3D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7945F606A31A;
+	Fri, 23 Oct 2026 08:44:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7945F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IJiBVQfh
-Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-35eaf84cc66so553999eec.0
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 01:29:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792744198; x=1793348998; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VjvPviRplzIhgWM/q2jdDcLxkxdDLClBt75UUKoUPKE=;
-        b=IJiBVQfh33WgHPia3uVLnfpZvdwF6EZecy2uYH3jBNFdjsrFYFedic8cZchvyjTmn+
-         b5WkwLUEVYlfkVYilk6xpX2kmct3p55Rh9HFVmtX7YJFQK27TqObmvPwir42YPRveSTf
-         ci7OOLzI4ZR+fz53GxDwbyIpId0XVumGlM4bIcteU4oosxyhK5qBZxE3Fnu4p9TqPl2R
-         2MJMhhX4wMXjURHwVhbeMHplbpB7y/XpEUNdlrxzkJlA/rgd6i9lqK4e0w/FKPpr1leR
-         hNtFtq7mAAQS3qSmqjcxDma23llwdIBdgG5KwA1AGSZqQLRg9GV/FFopvveTLpR+UbE5
-         T4qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792744198; x=1793348998;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VjvPviRplzIhgWM/q2jdDcLxkxdDLClBt75UUKoUPKE=;
-        b=Td54i8ewxXCVlWEi9u8NbZ2CnQUoJbIA5blWe7SMMYTlDz2TgDyMFQqusIaCFYrHd8
-         pDxgWgfGuTaGZt0orkRaS5yXrGO/aYqXFfIGZ84i8+Xe+9VfqXIRDAabk204EzS1A4Qs
-         WZ4QJfAngGrlJhUOI+GT8WhyWg4Nn2/NNmehdnzG9zaySqmhL2PN+9h3WbZHFRxz+EEK
-         gPtOkeS3vQxaTGHrSQOqZYfrrbqZCEyVst4yhejzNkAHOorinRxybgXIRCAV41yigK28
-         HJI+3b5CEAs3/txovTvMuzthTga7QYnKuq/WZPkZyXdZMYEkmcybqFMcvlNmv7zOBNBl
-         lsGA==
-X-Forwarded-Encrypted: i=1; AKwUvBxQ3uvJ/0PiM5AGUhKDXpiaR/ducHUCmhtT1O+ziC2o2PVhx8rFqUtjCthtCQL2tMqch4uXD48=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJAbptLHA36J4tE76EAX6g5HeMybmkXhvmzBcRmBVL9SAAbsRW7
-	4HE/02dyQVb58gsfKWRMeTjpHk+a546uQncqR6UjuIePh37QdjKq2LBuhFdXYLsQbAA=
-X-Gm-Gg: AYBFou2ubGVZQuhjSITbEtxK772+SPkznjefgew7qubMTS2kPej0qoVmqU6Pf7wWRAj
-	P/JwExFKpxYkPIhHaO0IlaszlkNN/lWvjtJbEfMSByl6aVi8S6UMpegp1pJnBljchPq1Oj8fD5r
-	PdwPWs3wqS1fDRp97NYrdkA0+a4WazmdEP7eAozdKJ5AEns3BllS2mlEFM+rgrDlFTTF743t/1f
-	3fj+oP2ibtT5ve+ofIzviQsTS5zYVlB/dkROFTuLFy9MVEbMN29bSIkzPm4i5Nijb3g7dSNieBq
-	xijUzcnmqjRLOjXKiytiADzKJiC6sRg+APNkHCG8uj7LDXWYOIfoWxjG4BaOKcd8AcQ58S+++no
-	mU5qsVv8YNn3hW+mDeYtzTlDvz4eUmuTTsBKKjtfuIhHHB1kt+DX8ElS7TxfVK6rbnatbZUmRcu
-	4Sko6gnts8IfX6+J+FOTqxkmUjFMfT/Fhsqj3tKCmIuRl27tERqJ5Sj8E0cifGKqK03G1hsN8Xo
-	yQbk9YtcK9WV0gekAhjtc3GTtKDnhfQcJ22nVVZ0y7t6gScVx773r0=
-X-Received: by 2002:a05:7300:a225:b0:351:6b27:d67d with SMTP id 5a478bee46e88-369d9802e3amr1997730eec.30.1792744197389;
-        Fri, 23 Oct 2026 01:29:57 -0700 (PDT)
-Received: from server.lan ([168.138.199.194])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369d9a72ff2sm4847349eec.0.2026.10.23.01.29.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 01:29:56 -0700 (PDT)
-From: Coia Prant <coiaprant@gmail.com>
-To: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Kevin Hilman <khilman@baylibre.com>,
-	Roger Lu <roger.lu@mediatek.com>,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Coia Prant <coiaprant@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] soc: mediatek: SVS: fix device reference leak in svs_add_device_link()
-Date: Fri, 23 Oct 2026 16:29:48 +0800
-Message-ID: <20261023082948.1854252-1-coiaprant@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=XL4P28f7
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id CA9461A12EC;
+	Fri, 23 Oct 2026 08:44:06 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 82BA060398;
+	Fri, 23 Oct 2026 08:44:06 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6D37010328501;
+	Fri, 23 Oct 2026 10:44:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792745045; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Z+XZ/53UvCxImzQ+Xo+GZ40Pfdr9wSp/K3Gh847KDWc=;
+	b=XL4P28f7gy9ZFsrQTNe5CArpyMLBjN3CAN5OeiY0VLfyMdc0bvOv9TiZqNkTe6qxN7oEvp
+	e6F7cIXnc6z8ARxg7DkuZHdOs1E58dkX2WdwNDyh80koOsaIjI9nTtHtbsAfuW7zbyIjnf
+	hL8CaaOEbE235DpNzFryOBT+OabOWtDPmQi6EHMeRbjcT7HowMVio91ly5maFU7ACs2TPW
+	+Jxi35PI/s5G2cXb8Ht/QYpe6kd7whiLXJP3vyMHaqmVW1WMVnl2xtFA81vntWTugFr/a/
+	vFLVCCYDC4+UUeFTSnntURxK3l/rxOGF9Bpu/asOREKKldewqZVo0bF2Z+6KiQ==
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,65 +59,113 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 27/28] i2c: cgbc: Propagate hardware errors when
+ polling read status
+From: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Thomas Richard <thomas.richard@bootlin.com>, 
+ Andi Shyti <andi.shyti@kernel.org>, linux-i2c@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20261021121245.3111563-27-lee@kernel.org>
+References: <20261021121245.3111563-1-lee@kernel.org>
+ <20261021121245.3111563-27-lee@kernel.org>
+Date: Fri, 23 Oct 2026 10:43:47 +0200
+Message-Id: <179274502734.1225981.17255285643417793434.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-svs_add_device_link() calls svs_get_subsys_device(), which returns a
-device with a reference taken by of_find_device_by_node(). If either of
-the subsequent checks fails, the function returns an error pointer
-without dropping that reference, and the caller only checks IS_ERR() and
-bails out, so the reference is leaked on every -EPROBE_DEFER.
+> In cgbc_i2c_xfer_msg(), read_poll_timeout() uses the same ret variable
+> to store the polled return value of cgbc_i2c_get_status() and the
+> timeout result of the macro itself.  When cgbc_i2c_get_status() returns
+> a negative error code (such as -EIO on an I2C NACK), the loop condition
+> ret != CGBC_I2C_STAT_BUSY evaluates to true and read_poll_timeout()
+> overwrites ret with 0.  The driver then issues CGBC_I2C_CMD_DATA, which
+> completes with CGBC_STATUS_CMD_READY without populating msg->buf,
+> leaving uninitialised heap memory in the caller's read buffer.
+> 
+> Store the polled status in a separate variable, verify that it equals
+> CGBC_I2C_STAT_DAT, and check that CGBC_I2C_CMD_DATA returns the expected
+> number of bytes.
+> 
+> Fixes: 6894f640b8f3 ("i2c: Congatec Board Controller i2c bus driver")
+> Closes: https://sashiko.dev/#/bug/linux-66cbf4b1-a219-4012-969d-236417bf419a
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
+>
+> diff --git a/drivers/i2c/busses/i2c-cgbc.c b/drivers/i2c/busses/i2c-cgbc.c
+> index 682ba639d887..3226838cca46 100644
+> --- a/drivers/i2c/busses/i2c-cgbc.c
+> +++ b/drivers/i2c/busses/i2c-cgbc.c
+> @@ -198,9 +198,9 @@ static int cgbc_i2c_xfer_msg(struct i2c_adapter *adap)
+>  	struct cgbc_device_data *cgbc = i2c->cgbc;
+>  	struct i2c_msg *msg = i2c->msg;
+>  	u8 cmd[CGBC_I2C_CMD_SIZE];
+> -	int ret, max_len, len, i;
+> +	int ret, status, max_len, len, i;
+>  	unsigned int cmd_len;
+> -	u8 cmd_data;
+> +	u8 cmd_data, data_len;
+>  
+>  	struct cgbc_i2c_transfer xfer = {
+>  		.bus_id = i2c->bus_id,
+> @@ -259,17 +259,32 @@ static int cgbc_i2c_xfer_msg(struct i2c_adapter *adap)
+>  		if (ret)
+>  			goto err;
+>  
+> -		ret = read_poll_timeout(cgbc_i2c_get_status, ret,
+> -					ret != CGBC_I2C_STAT_BUSY, 0,
+> +		ret = read_poll_timeout(cgbc_i2c_get_status, status,
+> +					status != CGBC_I2C_STAT_BUSY, 0,
+>  					2 * i2c->read_maxtime_us, false, adap);
+> -		if (ret < 0)
+> +		if (ret)
+> +			goto err;
+> +
+> +		if (status < 0) {
+> +			ret = status;
+>  			goto err;
+> +		}
+> +
+> +		if (status != CGBC_I2C_STAT_DAT) {
+> +			ret = -EIO;
+> +			goto err;
+> +		}
 
-Both error paths can be hit in practice: device_link_add() returns NULL
-when the link would create a reverse dependency or on allocation
-failure, and the supplier status check fails whenever the supplier has
-not bound yet.
+We could save a goto and make code more readable IMO
 
-Drop the reference before returning on both paths.
+if (ret)
+	goto err;
 
-While at it, note that the return value of device_link_add() is only
-used to detect failure. Managed links are owned by the driver core, so
-the driver must not keep or dereference the struct device_link pointer
-to inspect the supplier state; read dev->links.status directly instead.
+if (status != CGBC_I2C_STAT_DAT) {
+	ret = (status < 0) ? status : -EIO;
+	goto err;
+}
 
-Fixes: 681a02e95000 ("soc: mediatek: SVS: introduce MTK SVS engine")
-Cc: stable@vger.kernel.org
-Signed-off-by: Coia Prant <coiaprant@gmail.com>
----
- drivers/soc/mediatek/mtk-svs.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+>  
+>  		cmd_data = CGBC_I2C_CMD_DATA | i2c->bus_id;
+>  		ret = cgbc_command(cgbc, &cmd_data, sizeof(cmd_data),
+> -				   msg->buf + i2c->pos, len, NULL);
+> +				   msg->buf + i2c->pos, len, &data_len);
+>  		if (ret)
+>  			goto err;
+> +
+> +		if (data_len != len) {
+> +			ret = -EIO;
+> +			goto err;
+> +		}
+>  	}
+>  
+>  	if (len == (msg->len - i2c->pos)) {
 
-diff --git a/drivers/soc/mediatek/mtk-svs.c b/drivers/soc/mediatek/mtk-svs.c
-index 99edecb204f25..fecb09b9185c2 100644
---- a/drivers/soc/mediatek/mtk-svs.c
-+++ b/drivers/soc/mediatek/mtk-svs.c
-@@ -2145,21 +2145,21 @@ static struct device *svs_add_device_link(struct svs_platform *svsp,
- 					  const char *node_name)
- {
- 	struct device *dev;
--	struct device_link *sup_link;
- 
- 	dev = svs_get_subsys_device(svsp, node_name);
- 	if (IS_ERR(dev))
- 		return dev;
- 
--	sup_link = device_link_add(svsp->dev, dev,
--				   DL_FLAG_AUTOREMOVE_CONSUMER);
--	if (!sup_link) {
--		dev_err(svsp->dev, "sup_link is NULL\n");
-+	if (!device_link_add(svsp->dev, dev, DL_FLAG_AUTOREMOVE_CONSUMER)) {
-+		dev_err(svsp->dev, "device_link_add returns NULL\n");
-+		put_device(dev);
- 		return ERR_PTR(-EINVAL);
- 	}
- 
--	if (sup_link->supplier->links.status != DL_DEV_DRIVER_BOUND)
-+	if (READ_ONCE(dev->links.status) != DL_DEV_DRIVER_BOUND) {
-+		put_device(dev);
- 		return ERR_PTR(-EPROBE_DEFER);
-+	}
- 
- 	return dev;
- }
+Otherwise looks good to me.
+
+Reviewed-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
+Tested-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
+
+Best Regards,
+Thomas
+
 -- 
-2.47.3
-
+Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
