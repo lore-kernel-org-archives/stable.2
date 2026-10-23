@@ -1,118 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792759840;
-	b=TC6NTxt2f9WTk8K7a/MG4MV7TURewCZlT/MkWWHL3iu581dClXbwqNctg2lYUR7lEBdD
-	 NGzEwU9TRdIzXtEjkD4BAUL0HM70DN5A3GLaK/ku//YHmhLcZ9rdJaMTO3QYFZIOy8F6a
-	 2DN7PekgzVxiXit2JOV4YjEfZZiTnjeD2dVa3QYvgaSV2xG9jBi1Yos2ywlQdkvF22la/
-	 j59Gq/8C/ZkELU3aR5KAtdC+Yv9aGF2+lk0GmOu4ijwsurPzxhlxnG6Fth572w9SAxKnY
-	 AaWjSRth16QGdM+kUfbI0BAX1lqgKrVUhb7Vq7IwMKFYHFnBlO0XN8yoAfKFoUeNjZg==
+	t=1792760176;
+	b=JIPTu050tkGM7EungOBIN9QqmfgbXEFlGXYhCGTV6lJJGo1k+o+ltSZmfRltRAK7QMg4
+	 invxwzDDlig2eggle23cSZO9ix7eE8AgjnQg/YDi4rcCDx4evbXfm5vAsiquy/9xzVVd9
+	 gWUdLgeaQKjIhVo3jyapjLMAcnGHQz9vVR3g0GUpl4PzxP8MsLfwUvG9xJ+BjkdvBxNSN
+	 e9qm7i/vey2WEb/NaZlZ5kguuaFZg0aZkhcM1QRuRLLQLSmGuRi/E33zMOyN9OJ2eyZf/
+	 FYuBwcguUVOW9xRPlfX6HW2AEfbnRutKZflv86frNuAWGI2JMH4jZnMHBd2Ks4Tb3ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792759840;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Mg+WfWQxC3P6qmiOqOVEseCpuAHnl8nyDeZIWySuY74=;
-	b=jX/5AU10OGrNjVSsv2WgQZj27U+v7mSOBGZiHeEt4zRD48HLAj8wORa3sreDwGWBzDGe
-	 wyp6SX+zMJnwISPQJWfr6RJLZKD1Or78At5/M8/w+dn2umgmU7YtwL3J0CSorYmO+QdeE
-	 jeOWxOfi+sghhXWmK9XnZFdUS8IsPek/Cwr0+9K2MV02hx6rf6Y0jnKpJ1R1cYubkCTgf
-	 GoUI0oQwmENd6/PssHlyWk4KzjN58kmi+en0/fYJwcC9jQ+6LqyUiNawzot/TNI9L+2RN
-	 1ArqT7c56Heu6lwIcNqpRSAHn+mCQ+jAg+n8+8eI0TysKZUzRFgvexlbfxYzehzpGlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792760176;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Rspamd-Server:
+	 X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id;
+	bh=Qjok9whtVXP/JIWF5OA2iF1QeRN9gsKuPI4QosshLeo=;
+	b=M0OSqI9+19Ddsq2drBLU/4lBcih5cKxNTt7UNKQfEs3AKMytQRcA3Euf/Uc1aR8Y3aqh
+	 8WQmIey9bETK6zG77McawHxq9nrPq2rhdV/a/IcH7yifP+mOFu3esQih7ldkd32bBTUB8
+	 9dCphk+cUxbDXTIILuQRz9jkxN9kxaNzcJRher8x3p69WJeBf1FYi9so+3M5FP3xY+F1C
+	 IglLL3lvZESN6ayX7KlzKe9OnDatXX1lg9RSbrp/jVLOpli30DnFYmauW0keYigB0cRzT
+	 EC+aQ5ulD6EpxxEsTjCnDVFsXIvrN9bcUvCRxNrp2QqHs0INIeHCzLp/lX6075DmiaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kroah.com;
-	spf=pass smtp.mailfrom=kroah.com;
-	dkim=pass header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm2 header.b=dkjDrj5n;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=wFBoZAla;
-	arc=none smtp.remote-ip=202.12.124.151
-Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=sCORC9A0;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=yF7qk4a9;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=sCORC9A0;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=yF7qk4a9;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA775606A323
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 12:50:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA775606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF64B606A31D;
+	Fri, 23 Oct 2026 12:56:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF64B606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm2 header.b=dkjDrj5n;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=wFBoZAla
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.stl.internal (Postfix) with ESMTP id 22CF81D00120
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 08:50:39 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Fri, 23 Oct 2026 08:50:39 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1792759838; x=1792846238; bh=Mg+WfWQxC3
-	P6qmiOqOVEseCpuAHnl8nyDeZIWySuY74=; b=dkjDrj5nqXFh6E7pw9/ora8fSh
-	DqhN5eF9qveCyBa0hNsU/5TS73cD50Jnokpe0RLjKNtrxQZFDuii0bWKhxQ2RZwu
-	r9pU/SLT/r9FITfVJ/le3D6KtAwvoHgo4nh0CYxJkNBCbBbqNmjTIzC4OGdRkKDL
-	zYYqu+GSzXDS1zuboIVSSpyYYNzvpfxJfYqkIBaoBueVXNZ9C+KkAoeaNMQvGz0M
-	Gj1zhiw7B3V0Q3j1NRUdK+qy7FLLMRpFqyRsW/SNKdMBWPC/Tp8C1OvEYBCs/7FP
-	4TioXwWQc7YIS9S0RvROy8rdzvRXoLs0E4gefCIej4rOhIoCtYnIkxnHe6VA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1792759838; x=1792846238; bh=Mg+WfWQxC3P6qmiOqOVEseCpuAHnl8nyDeZ
-	IWySuY74=; b=wFBoZAlaaToNk+twrlvepttujUKeNPxOyqsoAYvFImdY6HPLySz
-	hjEGhKeIMyAFlbI6AtmbDe6htH2seCS4ASu9d+7OJ56PrkPNtO9EJz3YJEgab8cB
-	18wd6Vw02TX0pINc4FQQXCNAb17pJMotzSdIyo/DzbHiRQ7gZTpR9CLRGtX3BqXh
-	ognpCXe+HOSG8SFc5EloOdzTBarvQKDlhX93LI2d4ojr4DhwnkKwywbngU4R+cHr
-	ML9CcAI+wfrJG7BuyeZrT4FEEkj52/bdXHboA5SWgqFZ6UVqf4DoKrncDwEYu40T
-	d9mmwInK1vbhjcuMGn1k9HE4pXIOx0gVN/Q==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=kroah.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792759838; d=kroah.com;
-	mf=PGdyZWdAa3JvYWguY29tPg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:lXeNUE5WCoZAzL7wt5vwTVRzaafP7OfaJBlG3X3OKpYPHVm
-	Yw/QBWvrz8hsE3evS46LV4807sB4eS/aYOG2fG0Yfh5CZ406eIYu0lKgwO+r8iSw
-	KCF+/hQsUhu8blwLN/UKNyGvW+m3Op10U/sT1SApuxQITfjYEThDyP6g1A2lqGtn
-	CxpX7dBm36oH9txwDqXNRm1fkZWSAR9Z96QrZin0oMf42X3O7MA+A3kBZSR+T1ay
-	nZnLEi845g+5Imqew0em7NOGNiamr9c6ln4U9oKU//sm++KaQ+IB6+wIpUuUDnO2
-	R+MiS7Jx0Risso4zBfGcB/IszY6vl8tkZgIzAaA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:N3Nk+7FQd+lBJg++i1EpNdmiDJRJy4qcTwjxDPN1J+A=:ipwzzHjBT5M/myEZnD8qNFj0WOxSydDev/u6sVP8buc=;
-X-ME-Sender: <xms:Hljbapo4fYkAxbi7o1zF2IMtIcMTS7RjHdTiNQH0E2OG_KIYiv5OgA>
-    <xme:HljbaoXBzdLX_UbUvPScJX_uBd8e0faQVIziXX3HHjYv6A3Dh1cIi4fNQwC4HoIH7
-    9XUo765Wp5CChmuaVo63vB4VfvOf8Pwrh_CfCT2YqseMXkaPhw>
-X-ME-Received: <xmr:HljbaqHGAtQlovp7FyqeFve5cfGMZQV5DVhlkwz2mzwAQMkCSfguIhA1pAaugQ>
-X-ME-Proxy-Cause: dmFkZTGHCgoe/65dzJcn9v7kUqHotx0TXzvWX3NyhFo3t9TokUCxgTUa/4pyfSWI8vGfzn
-    f4RWdTUE5ZjmRO4fisu5GDFroie350rJJDuGZtQKgqcTZpRl6ZtMgfXaEwa/KMwVeYnOGQ
-    L45m0uVzbPvHXKoC48T5pdS8RGQ/oh7ru28XXYDJud76DV438EY2pEU4EaMyA8dim5Jyih
-    5ac9LEI+fTuVIY8OIjO4m5KtiP3Cc1Pyd4Lmy+ozNnzyo5rfrBJb+jGwcW/I4xo6hFMe3l
-    iLM/gTRr/u3MYPKp1W4BLiuY3RK3EhaEeXFK6Kvd6amTXJ1tN6h0QrXnbWGDWJIy16E8rl
-    XTf/ck40bKdPD7FDNSAqsd9xcxGKM+l3i4nZdcQhissAMnAn75WfdP8iXGrV21WIe8Y4kI
-    NTtyNrCG+KEWPLKVJE1t13rxicYmcxjSXV2VkCRajv5r7WzvQ4G8ZImoTU4CoTVd272NDL
-    iVHAWICiFZFO6K5FIV00PancdeUizeVdhvwMgr6PVhXbydfHw3zNkxT05w2GpvSolqvIwF
-    pTKyBTUklKmRHuU6Hb+8dwHau7JnoYD5kGmQw4gxgvjCZBr47G3xydosf4h0lIxCHLvnGo
-    frs3MsDj10JzVMxuXXFfkxi6Snac81v+L7/Y5qOus5BJJKg4BbBeuB1lRsnA
-X-ME-Proxy: <xmx:HljbavAr1Rs84CBNU9gtpakz4ggO3hrlvasMMz_pvKR2d6eK4zMDWQ>
-    <xmx:Hljbasyi9Mf3bqX3Kc3jHirqra0V9SmNPBnm7LdZVilxFWc2-28u1g>
-    <xmx:Hljbalfg_BndeT6Fz68mdszrx8nM_F08vSstIyHJ-mdSSlt4aRU-YA>
-    <xmx:Hljbahs32KObaG3KU-5F3tOY7JsuaYF3bulZgWQfTKjLXsXyxPen6Q>
-    <xmx:HljbaiZwdLTSvapq5O2wmNUKYBsKeSrLAFG9R5JUi63fMne4f2AFiwbT>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 23 Oct 2026 08:50:37 -0400 (EDT)
-Date: Fri, 23 Oct 2026 14:49:51 +0200
-From: Greg KH <greg@kroah.com>
-To: Connor Stevens <ooglie05@gmail.com>
-Cc: stable@vger.kernel.org, regressions@lists.linux.dev,
-	rf@opensource.cirrus.com, broonie@kernel.org, sashal@kernel.org
-Subject: Re: [REGRESSION 7.2.11] ASoC: sdw_utils: cs35l56-ot25 DAI not
- registered, no sound card
-Message-ID: <2026102339-control-obsolete-df82@gregkh>
-References: <CAF50T1myMs2LSPUsTAPKyJutxzqQihyxbY3=iVGpxenRbnXxKQ@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=sCORC9A0;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=yF7qk4a9;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=sCORC9A0;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=yF7qk4a9
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 03D8D1F74C;
+	Fri, 23 Oct 2026 12:56:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792760174; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Qjok9whtVXP/JIWF5OA2iF1QeRN9gsKuPI4QosshLeo=;
+	b=sCORC9A0SeWII1iihSjufIuC0tARKKnumQVnN9dPzVccCQX0hDCVVVqyeNEoo4CtqHWnfZ
+	ds6xW0utRR083zFRrDR7mXYVty2b0Jr/Sb8t4nv2PY8Rx3rsmMa1yLvrVIZnLf3oYupr1F
+	bGnX94Jmhqe79BfVUt14Fav/zVAzZWE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792760174;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Qjok9whtVXP/JIWF5OA2iF1QeRN9gsKuPI4QosshLeo=;
+	b=yF7qk4a9xA31Q/doMvYp2i1x2spE9PxgiPZ+ANe7Qqn/l6Ko523gMa8kHnQR5yVpUrbd5G
+	sdkgy94B6s3zcAAA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=sCORC9A0;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=yF7qk4a9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792760174; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Qjok9whtVXP/JIWF5OA2iF1QeRN9gsKuPI4QosshLeo=;
+	b=sCORC9A0SeWII1iihSjufIuC0tARKKnumQVnN9dPzVccCQX0hDCVVVqyeNEoo4CtqHWnfZ
+	ds6xW0utRR083zFRrDR7mXYVty2b0Jr/Sb8t4nv2PY8Rx3rsmMa1yLvrVIZnLf3oYupr1F
+	bGnX94Jmhqe79BfVUt14Fav/zVAzZWE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792760174;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Qjok9whtVXP/JIWF5OA2iF1QeRN9gsKuPI4QosshLeo=;
+	b=yF7qk4a9xA31Q/doMvYp2i1x2spE9PxgiPZ+ANe7Qqn/l6Ko523gMa8kHnQR5yVpUrbd5G
+	sdkgy94B6s3zcAAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D61C8133F3;
+	Fri, 23 Oct 2026 12:56:12 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id c27IKGxZ22q3JgAAD6G6ig
+	(envelope-from <fmancera@suse.de>); Fri, 23 Oct 2026 12:56:12 +0000
+Message-ID: <27876dee-435f-4ea7-afed-69f8366e1c62@suse.de>
+Date: Fri, 23 Oct 2026 14:55:10 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -122,27 +108,241 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAF50T1myMs2LSPUsTAPKyJutxzqQihyxbY3=iVGpxenRbnXxKQ@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 5/5] net: restrict message_cost and message_burst to
+ non-negative values
+To: Joel Granados <joel.granados@kernel.org>,
+ Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>,
+ Ido Schimmel <idosch@nvidia.com>, Kuniyuki Iwashima <kuniyu@google.com>,
+ Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
+ Wyatt Feng <bronzed_45_vested@icloud.com>, Yung Chih Su
+ <yuuchihsu@gmail.com>, Hannes Frederic Sowa <hannes@stressinduktion.org>,
+ Flavio Leitner <fbl@redhat.com>, Petr Mladek <pmladek@suse.com>,
+ "Paul E. McKenney" <paulmck@kernel.org>, linux-kernel@vger.kernel.org
+References: <20261023091419.167088-1-jiayuan.chen@linux.dev>
+ <20261023091419.167088-6-jiayuan.chen@linux.dev> <attQGnJGhzTPFsMd@hobbes>
+Content-Language: en-US
+From: Fernando Fernandez Mancera <fmancera@suse.de>
+In-Reply-To: <attQGnJGhzTPFsMd@hobbes>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spamd-Result: default: False [-13.50 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	XM_UA_NO_VERSION(0.01)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[20];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,icloud.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,davemloft.net,kernel.org,redhat.com,nvidia.com,google.com,nokia-bell-labs.com,icloud.com,gmail.com,stressinduktion.org,suse.com];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.dev:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.50
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 03D8D1F74C
 
-On Sun, Oct 18, 2026 at 11:41:55PM +0100, Connor Stevens wrote:
-> Hi,
+On 10/23/26 2:19 PM, Joel Granados wrote:
+> On Fri, Oct 23, 2026 at 05:13:31PM +0800, Jiayuan Chen wrote:
+>> net.core.message_cost and net.core.message_burst feed the interval and
+>> burst of net_ratelimit_state, but neither has a lower bound:
+>> message_burst uses plain proc_dointvec, and message_cost uses
+>> proc_dointvec_jiffies, which happily stores -1 second as -HZ jiffies.
+>>
+>> Since commit a940d145cc38 ("ratelimit: Warn if ->interval or ->burst are
+>> negative"), ___ratelimit() splats on such values, so the next
+>> net_ratelimit() caller warns, e.g. a martian source log:
+>>
+>>    Negative interval (-250) or burst (10): Uninitialized ratelimit_state structure?
+>>    WARNING: lib/ratelimit.c:43 at ___ratelimit+0x56e/0x960, CPU#1: ping/3218
+>>    RIP: 0010:___ratelimit+0x578/0x960
+>>    Call Trace:
+>>     <IRQ>
+>>     net_ratelimit+0x1c/0x30
+>>     ip_handle_martian_source+0x1bb/0x340
+>>     ip_route_input_slow+0x1057/0x3650
+>>     ip_route_input_noref+0x104/0x260
+>>     arp_process+0x109b/0x2510
+>>     arp_rcv+0x381/0x460
+>>     __netif_receive_skb_one_core+0x173/0x1c0
+>>     __netif_receive_skb+0x21/0x150
+>>     process_backlog+0x37e/0x1200
+>>     __napi_poll.constprop.0+0xa5/0x5e0
+>>     net_rx_action+0x4c0/0xf70
+>>     handle_softirqs+0x204/0x9b0
+>>     __do_softirq+0x10/0x18
+>>     do_softirq.part.0+0x49/0xd0
+>>     </IRQ>
+>>
+>> Negative values never meant anything here: ___ratelimit() treats them
+>> like 0, and 0 already expresses both "no limit" (interval) and
+>> "suppress everything" (burst).
+>>
+>> Reject them at write time. message_burst can simply use
+>> proc_dointvec_minmax with extra1 = 0. proc_dointvec_jiffies ignores
+>> extra1/extra2, so give message_cost a small handler that parses into a
+>> temporary and only stores the value if it is not negative.
+>>
+>> Fixes: a940d145cc38 ("ratelimit: Warn if ->interval or ->burst are negative")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+>> ---
+>>   net/core/sysctl_net_core.c | 21 +++++++++++++++++++--
+>>   1 file changed, 19 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/net/core/sysctl_net_core.c b/net/core/sysctl_net_core.c
+>> index 473c162736d6..8146ed819695 100644
+>> --- a/net/core/sysctl_net_core.c
+>> +++ b/net/core/sysctl_net_core.c
+>> @@ -378,6 +378,22 @@ static int proc_do_skb_defer_max(const struct ctl_table *table, int write,
+>>   	return ret;
+>>   }
+>>   
+>> +static int proc_do_message_cost(const struct ctl_table *table, int write,
+>> +				void *buffer, size_t *lenp, loff_t *ppos)
+>> +{
+>> +	int ret, interval = READ_ONCE(*(int *)table->data);
+>> +	struct ctl_table tmp = *table;
+>> +
+>> +	tmp.data = &interval;
+>> +	ret = proc_dointvec_jiffies(&tmp, write, buffer, lenp, ppos);
+>> +	if (write && !ret) {
+>> +		if (interval < 0)
+>> +			return -EINVAL;
+>> +		WRITE_ONCE(*(int *)table->data, interval);
+>> +	}
+>> +	return ret;
+>> +}
+>> +
+>>   #ifdef CONFIG_BPF_JIT
+>>   static int proc_dointvec_minmax_bpf_enable(const struct ctl_table *table, int write,
+>>   					   void *buffer, size_t *lenp,
+>> @@ -544,14 +560,15 @@ static struct ctl_table net_core_table[] = {
+>>   		.data		= &net_ratelimit_state.interval,
+>>   		.maxlen		= sizeof(int),
+>>   		.mode		= 0644,
+>> -		.proc_handler	= proc_dointvec_jiffies,
+>> +		.proc_handler	= proc_do_message_cost,
+>>   	},
+>>   	{
+>>   		.procname	= "message_burst",
+>>   		.data		= &net_ratelimit_state.burst,
+>>   		.maxlen		= sizeof(int),
+>>   		.mode		= 0644,
+>> -		.proc_handler	= proc_dointvec,
+>> +		.proc_handler	= proc_dointvec_minmax,
+>> +		.extra1		= SYSCTL_ZERO,
+>>   	},
+>>   #ifdef CONFIG_RPS
+>>   	{
+>> -- 
+>> 2.43.0
+>>
 > 
-> Since 7.2.11 the sound card is missing on a Dell XPS 14 DA14260 (Panther
-> Lake, subsystem 1028:0db9, CS35L57 amps on SoundWire):
+> I would prefer something like this [1] (not tested and not compiled).
+> This is more in line with the patterns inside the jiffies.c file. I put
+> SYSCTL_ZERO there, but I have a doubt if you actually need SYSCTL_ONE.
 > 
->   sof_sdw sof_sdw: ASoC: CODEC DAI cs35l56-ot25 not registered
+> If the interval variable can be zero, then leave it as SYSCTL_ZERO, but
+> if it cant be zero and can be one the use SYSCTL_ONE
 > 
-> Fedora 7.2.9-200.fc44 works. 7.2.11-200.fc44 is broken. I did not test
-> 7.2.10.
-> 
-> 7.2.11 has bf7a3ce1d563 ("ASoC: sdw_utils: Switch CS35L56/57/62/63 to use
-> OT25 DAI"), but not the upstream commit before it, 86c8360c97f6
-> ("ASoC: cs35l56: Add DAI for SDCA OT25 stream"), which adds that DAI.
 
-Should now be fixed in 7.2.12, right?
+FWIW, I also like this solution and indeed we can convert other users in 
+the future.
 
-thanks,
+About SYSCTL_ZERO, I believe it is the right choice. AFAIU, it just 
+disables limiting.
 
-greg k-h
+Thanks,
+Fernando.
+
+> best
+> 
+> 
+> [1]
+> 
+> diff --git i/include/linux/jiffies.h w/include/linux/jiffies.h
+> index bbd57061802c..288ba81ed53e 100644
+> --- i/include/linux/jiffies.h
+> +++ w/include/linux/jiffies.h
+> @@ -646,6 +646,8 @@ extern unsigned long nsecs_to_jiffies(u64 n);
+>   struct ctl_table;
+>   int proc_dointvec_jiffies(const struct ctl_table *table, int dir, void *buffer,
+>                            size_t *lenp, loff_t *ppos);
+> +int proc_dointvec_jiffies_minmax(const struct ctl_table *table, int dir, void *buffer,
+> +                                size_t *lenp, loff_t *ppos);
+>   int proc_dointvec_ms_jiffies_minmax(const struct ctl_table *table, int dir,
+>                                      void *buffer, size_t *lenp, loff_t *ppos);
+>   int proc_dointvec_userhz_jiffies(const struct ctl_table *table, int dir,
+> diff --git i/kernel/time/jiffies.c w/kernel/time/jiffies.c
+> index 9b3487d40cd6..cf91996fe4e3 100644
+> --- i/kernel/time/jiffies.c
+> +++ w/kernel/time/jiffies.c
+> @@ -165,6 +165,14 @@ static int do_proc_int_conv_jiffies(bool *negp, ulong *u_ptr, int *k_ptr,
+>                               sysctl_u2k_int_conv_hz, sysctl_k2u_int_conv_hz);
+>   }
+> 
+> +static int do_proc_int_conv_jiffies_minmax(bool *negp, ulong *u_ptr, int *k_ptr,
+> +                                   int dir, const struct ctl_table *tbl)
+> +{
+> +       return proc_int_conv(negp, u_ptr, k_ptr, dir, tbl, true,
+> +                            sysctl_u2k_int_conv_hz, sysctl_k2u_int_conv_hz);
+> +}
+> +
+> +
+>   static int do_proc_int_conv_userhz_jiffies(bool *negp, ulong *u_ptr,
+>                                             int *k_ptr, int dir,
+>                                             const struct ctl_table *tbl)
+> @@ -263,6 +271,15 @@ int proc_dointvec_jiffies(const struct ctl_table *table, int dir,
+>   }
+>   EXPORT_SYMBOL(proc_dointvec_jiffies);
+> 
+> +int proc_dointvec_jiffies_minmax(const struct ctl_table *table, int dir,
+> +                         void *buffer, size_t *lenp, loff_t *ppos)
+> +{
+> +       return proc_dointvec_conv(table, dir, buffer, lenp, ppos,
+> +                                 do_proc_int_conv_jiffies_minmax);
+> +}
+> +EXPORT_SYMBOL(proc_dointvec_jiffies);
+> +
+> +
+>   /**
+>    * proc_dointvec_userhz_jiffies - read a vector of integers as 1/USER_HZ seconds
+>    * @table: the sysctl table
+> diff --git i/net/core/sysctl_net_core.c w/net/core/sysctl_net_core.c
+> index eb35da3556f4..7226697bf7c1 100644
+> --- i/net/core/sysctl_net_core.c
+> +++ w/net/core/sysctl_net_core.c
+> @@ -538,7 +538,8 @@ static struct ctl_table net_core_table[] = {
+>                  .data           = &net_ratelimit_state.interval,
+>                  .maxlen         = sizeof(int),
+>                  .mode           = 0644,
+> -               .proc_handler   = proc_dointvec_jiffies,
+> +               .proc_handler   = proc_dointvec_jiffies_minmax,
+> +               .extra1         = SYSCTL_ZERO,
+>          },
+>          {
+>                  .procname       = "message_burst",
+
