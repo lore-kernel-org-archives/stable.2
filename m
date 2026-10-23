@@ -1,51 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.72.0.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792721813;
-	b=AntooN8UmECUoouRPMQ1Izv9r3ysQ486R1z8N3qb9maF9W3Qi7gQok/Tjo2CpO7rnh8U
-	 UpGKKl3CiHPfCIDhIWXX18Lp8iI++H1NjXsmARybPDGVWfBAcL8eQF7vkcrSU23YeyWvK
-	 TjZ1v1AhQMtarQw66lj2N4vUyuV3nTPp11mC595lRPxEbUXE4Zr6azMDUx1k/1OnuWEIA
-	 TizQODm0mulnJ+9LGhI0YqvmWA0X94PjzuXNkZa3u2GPhBBwCc9VONGoY9MvTtsI4bxIL
-	 96akbmW5zsp8exX3QrrQkI1JUzvR20JWDNLQDJh6LTchTNTYecfk0gzXaArJbVZs0qw==
+	t=1792722075;
+	b=oCwi8YtGFvGF4PcDm6GGZRoMfg46BxGBJy7SiM9ac5jsdS8tXy1n2xnKyn9+3Mk9cHN3
+	 Gqq//Fq5pJ6qH3AkCwMp1xjKuIMl44ebmVIvdOO1yv2bJBe9zkyhlZUY0OWrX+Xm0UVYf
+	 RBiVx55+E5wxIH4S/69Hruc8WD8iE2l/JyZZjdNADOdJPMdOQIHNPlMfdgtANxaLzRJdp
+	 NEP/7rMyXQFueT7y8crdsPAKDKD7BnSDPQuR1KS9iuulwGQPj6aidG5lWUWT/YXxl1b2U
+	 dHeqpZoPqbv8/vZiFkQf7GlW30lRW74Xtwfn9HHlNVW4EfRrEqGqfbrLAzdNETnLslg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792721813;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=j5w3UaJh42S33xuxvox41IYKnoykSVPS5LfBwIOC1Bo=;
-	b=PblWv9jAUyvXx+BLm8VvwKKolAmR5U4dIwjSqsceWROrFRNBLrmCrIEA/ftwwKTTkQW8
-	 Ujp8C9JBwihIxDhpoXL51EWXdWwchS7W9IwvtfFa4vvKhYe2CEXGytJ6+D+sudPbAGFt4
-	 eq6d5rQ++clTUYqQ850lmcj2lqUpXtP1vskNa1hbsSJwxugA+3+cQbfzXR+ecmCO5vx7d
-	 JjgGNe3+lR3IRi5pdeaFdVAv7q8c4ERKETWiLgHgDzIqVdhdoFnk/36miI9oJ/QTkjQ/H
-	 YGoxlg2xn7R/dhT1m5Parz8JhaVTQ2yH33uskOsHaFtrkB62DTqHLmEXWyzAo/JCFgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792722075;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=XXX5hCVe20W2DEnZ0HF+fr0EqmB3/p1IDPVPZBeHOFk=;
+	b=OCAoGkSPdG7kE4gvEoFdqL/Wyzid6ZhQilkemkdw4qwGnLbnMVx/rQCVFDePr3y2584T
+	 s4QPLQKYnKsyQXcQzs5aXPUpmD+jQgm+/4BilOnrAKCvJrVT7lxze+a+b77X90N9D0sF2
+	 mW27k0I7zkhGaH676GGAETBF4OMglgygCgE1C1lnqABHdOYS4eK77mUEoTFfmmA+kbUsP
+	 jSH4nt76VMAqlT6mTIfpsHz2/fPxKNLEHBGhcttuCLg0VwALEqN8lJqEFQ0ZH1HAzabcJ
+	 XKVRMCUcaS14Yjm/7FYuvniOK3VaweoGJTbCZwUhyRCA7uX+fwzPlwdO+IObOGa0SJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gentwo.org;
-	spf=pass smtp.mailfrom=gentwo.org;
-	dkim=pass header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=OMZce5Iu;
-	arc=none smtp.remote-ip=62.72.0.81
-Received: from gentwo.org (gentwo.org [62.72.0.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=D7ulQNAY;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EABB606A319;
-	Fri, 23 Oct 2026 02:16:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EABB606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64048606A31D
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 02:21:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64048606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=OMZce5Iu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
-	s=default; t=1792721163;
-	bh=JfHhmz/ZMAseVLQWvLkDHdFajTFk05d8JaKdubprIbQ=;
-	h=From:Date:Subject:To:Cc:From;
-	b=OMZce5IuJveys/8MSa0quA2+2eqnIy9I+Xqwj7/0Ea9triWKXgJDt4eCydpAuu8Cx
-	 +Pug+3qWN0Ks2iStZx432jDj1aXjgd2DtnuGSXcXRTpdQ/TehClYJaIly9sTAPpHO+
-	 bkRXNGACyCyG7jhkYyh7pHwilkgpww0QXtKwKoTU=
-Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
-	by gentwo.org (Postfix) with ESMTPS id 89898401A2;
-	Thu, 22 Oct 2026 19:06:03 -0700 (PDT)
-From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-Date: Thu, 22 Oct 2026 19:06:02 -0700
-Subject: [PATCH] futex: Canonicalize arm64 tagged user addresses
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=D7ulQNAY
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38d489b6b71so263573a91.0
+        for <stable@vger.kernel.org>; Thu, 22 Oct 2026 19:21:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792722072; x=1793326872; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XXX5hCVe20W2DEnZ0HF+fr0EqmB3/p1IDPVPZBeHOFk=;
+        b=D7ulQNAYpQewZbA6rR4DxTDcoX9oMPs7QYZdu4flYQ3UEakeUTfC7TOSxNNhi8OAh0
+         jDQuD29MTwJKgOS1IOHArMimnzfJvu8FvdSr7izuK9dqyz17oRSlKwzQnI6FdQYMRM82
+         G2QDHuzwugLBqXAcH3RQLT67SVYC7Wy9FRlzGyvyonoPH8n2hHqF7Jq7O5V/tnHnkysF
+         f7IzCDR3eEDqQ8hrJgkR7w8v3aFcQbqYIa3YUKzlZrlPL7t84828V5X28zkPfi4vqAQy
+         wZwqaNglqVCbGHBLfFWt4ePexQuKzGwLdr1kdzFwULfW9msWfuVyMNwPXDotZKh7xJcR
+         nKmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792722072; x=1793326872;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XXX5hCVe20W2DEnZ0HF+fr0EqmB3/p1IDPVPZBeHOFk=;
+        b=dOhnCOJWQcizqTlxc1gP5+4Dqe6iMyAnkQdwOeZbG3fS51tYlpQCmW3ZgKguLtBFPE
+         4Eoqp3QsiZksNI4+dJRnkzya7TGbKqxLSU1oL5zdCOekTeTxEPwUzuQE1ELHKCi9/gjd
+         SXbgE2QH5aWg3xrOGkIuIyA73WNC/w5txkAT/z4vZnVMQghX/jm9z1W6Iq8b2HFxju7l
+         BLOAyHr3wJY8m2bYsT6t9nX3PMU7sd4eSy0ZJFerT0qntK9mlQlRkxkGfdTXe1DfnX1E
+         p59rPxBMHGhVEjUzcQ/eZ34ltlSOaGEi/bXywkTCSNmrjLpjLyUm2zJaGJsxzDjzw6nF
+         uHAw==
+X-Forwarded-Encrypted: i=1; AKwUvBygp3vmx5hNuvi4XmDweLZvBCB7MjXDv3DkGtdF/Ai6nxTv8LL/0pfzVV9wUsUc9Yg3oaW8kzs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIxKHu4eXe65wU92RLzWjogJhNTGbpd5BxLWTV+Ok2mX+Yv0tWw
+	wrdRw2DPIYDIsvyH6lqCUH/QHxgGZ5Vg+dBYsL0KEaycVgH9aJeiJp79NunVbZrQdz8=
+X-Gm-Gg: AYBFou3S31fwSpISX7ZliGyTBXgKKstZDocR06tr9IQYSnUoeMmaYI5E2dmQim9YhIt
+	X2VIvdbISJyJF8m7ilpivGu+oBskurT8XP6WDMivNT/5of92IoN8eumYV5o+il9sZaGevRcTDDw
+	p1FODTUCyxXzNyKITjMOBtEphvMgC4akQ8ijMVOfen3HUcsbvTf2VD42ofwr5cs1PGGHqInKu6b
+	is6FBiNjK1pigYE/AW/Lp0sZt7Dfm64Yv4sdF0MEVMyi8E9b/RxlM6bI5UoSsD5/EF5hW+9StV7
+	X8bAEAVCLRnoWPduvHy7oVCuv4wBpruaaAulbpS6RVEytpjobXZ+Gs9ZYsluLyKX8cHuDil6R3q
+	ONC1b27iPIhrnyHJ8XSavJcgJaWSyqQ95Hhob6ymBXJqId+9j0lo+8yjnOcwc3JmPeI5uLfsS3c
+	nGeQX1Ln7SMYoRjoeRoltYo8qR+0KtnjNgmOfWanqMr/fiR+qsyw1LF4NOQNZwO0iiIApcqLkbe
+	kmuSKiLiYNx0i4/lBnxsh6KDt/T6whcmv9jcQX5VAosLMXnNUc8Vo8NgK+OG7+2ym0LeYD4JCAY
+	FRM=
+X-Received: by 2002:a17:90b:1fc7:b0:3ad:3715:d21 with SMTP id 98e67ed59e1d1-3adce7ca8c9mr598095a91.49.1792722072334;
+        Thu, 22 Oct 2026 19:21:12 -0700 (PDT)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:13e0:b266:5a7d:e119])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3add2994cd2sm183922a91.3.2026.10.22.19.21.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 19:21:11 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Nihar Panda <niharp@linux.ibm.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>
+Cc: Benjamin Block <bblock@linux.ibm.com>,
+	Steffen Maier <maier@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH] scsi: zfcp: bound the RSCN page walk to the status read payload
+Date: Fri, 23 Oct 2026 11:20:56 +0900
+Message-ID: <20261023022056.3106651-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,166 +105,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-futex-arm64-tagged-uaddr-v1-1-84d8afbe7668@gentwo.org>
-X-B4-Tracking: v=1; b=H4sIAAnB2moC/x3MMQ6DMAxA0asgz1hKLJqhV0EdTOKkHpoiByokx
- N2JOr7h/xOamEqD53CCyU+bfmuHHweIb65FUFM3kKPgHRHmfZMD2T5hwo1LkYQ7p2ToY34Enmi
- h6KHnq0nW47+eX9d1A5QcMNhqAAAA
-X-Change-ID: 20261022-futex-arm64-tagged-uaddr-1cf56a42b2c1
-To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Darren Hart <dvhart@infradead.org>, 
- Davidlohr Bueso <dave@stgolabs.net>, 
- =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
- Shuah Khan <shuah@kernel.org>, Will Deacon <will@kernel.org>, 
- Kees Cook <kees@kernel.org>, Andrey Konovalov <andreyknvl@gmail.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
- "Christoph Lameter (Ampere)" <cl@gentwo.org>
-Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- stable@vger.kernel.org, "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792721163; l=4933;
- i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
- bh=JfHhmz/ZMAseVLQWvLkDHdFajTFk05d8JaKdubprIbQ=;
- b=ihJS3fv6DSvzSVkQrRn7u6eFELOA/yllpW5WbyiWKLt6x3hRf04vWABxymhM2mgEyO6Px983p
- 68b7W/dIaQkDjuGLy66jM10sCQyXOcKA+IK+zCG9sHihTTd8VlKYnDz
-X-Developer-Key: i=sh@gentwo.org; a=ed25519;
- pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
+Content-Transfer-Encoding: 8bit
 
-On arm64, a thread that enables the tagged address ABI can pass valid
-top-byte-tagged user pointers to futex syscalls. Such a pointer must
-have the same syscall behaviour as its untagged form.
+zfcp_fc_incoming_rscn() takes the number of RSCN pages from rscn_plen in
+the received ELS and walks that many four byte pages out of the status
+read buffer payload. The fabric chooses rscn_plen, it is a 16 bit field,
+and nothing compares it against the payload. A value of 65535 gives 16383
+entries, so the loop reads up to 65532 bytes out of a payload of
+FSF_STATUS_READ_PAYLOAD_SIZE, which is 4032. The status read buffer is a
+single page and its payload ends at the page boundary, so the walk
+continues into whatever follows that page.
 
-get_futex_key() validates the user address with access_ok(), but uses
-the raw address when constructing private and shared-anonymous futex
-keys. A waiter using a tagged address and a waker using the untagged
-form can therefore access the same futex word while hashing to distinct
-keys, causing FUTEX_WAKE to miss the waiter.
+Every iteration also hands the four bytes it just read to
+zfcp_fc_enqueue_event(), and that event reaches user space through
+fc_host_post_event(), so the bytes past the payload are reported and not
+merely read.
 
-Keep access_ok() on the original pointer so that arm64 retains its
-per-thread tagged-address ABI enforcement. Canonicalize the address
-afterwards, before it is used for futex key construction and shared
-mapping lookup.
+libfc bounds the same field. fc_disc_recv_rscn_req() refuses an RSCN whose
+rscn_plen is not covered by the received frame. zfcp does not share that
+code, so add the equivalent test here. Compare against the payload size
+rather than the firmware reported srb->length, because a bogus srb->length
+need not reach the payload at all.
 
-Add an arm64 64-bit selftest for a tagged private waiter woken through
-the corresponding untagged address.
+A conforming RSCN is unaffected. An FC data field holds at most 2112
+bytes, so at most 528 pages, well under the 1008 the payload can hold.
 
-Fixes: 63f0c6037965 ("arm64: Introduce prctl() options to control the tagged user addresses ABI")
+This is an out of bounds read and an information leak to user space. It is
+not a write and it corrupts no state. It assumes the adapter passes
+rscn_plen through unchanged, the same assumption the host bus adapter
+mediated paths in other drivers already make, and one the driver cannot
+check for itself.
+
+Not tested on hardware. The bound follows from the field widths and the
+payload size.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
-Testing:
-  - futex_tagged_addr: PASS
-  - Standard futex functional tests: PASS, except RT PI tests when run
-    without real-time scheduling permission
-  - sudo ./futex_requeue_pi: PASS (24/24)
-  - sudo ./futex_requeue_pi_signal_restart: PASS
----
- kernel/futex/core.c                                |  2 +
- tools/testing/selftests/futex/functional/Makefile  |  1 +
- .../selftests/futex/functional/futex_tagged_addr.c | 47 ++++++++++++++++++++++
- tools/testing/selftests/futex/functional/run.sh    |  3 ++
- 4 files changed, 53 insertions(+)
+ drivers/s390/scsi/zfcp_fc.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/kernel/futex/core.c b/kernel/futex/core.c
-index a240638f69e5c65bd036434a15f3df680efb4638..dcc8ffca38595a5ea69f3672375ffb9f9c6766f9 100644
---- a/kernel/futex/core.c
-+++ b/kernel/futex/core.c
-@@ -539,6 +539,8 @@ int get_futex_key(u32 __user *uaddr, unsigned int flags, union futex_key *key,
- 	if (unlikely(!access_ok(uaddr, size)))
- 		return -EFAULT;
+diff --git a/drivers/s390/scsi/zfcp_fc.c b/drivers/s390/scsi/zfcp_fc.c
+index 05d0812978798..24efd29b66bfc 100644
+--- a/drivers/s390/scsi/zfcp_fc.c
++++ b/drivers/s390/scsi/zfcp_fc.c
+@@ -270,6 +270,18 @@ static void zfcp_fc_incoming_rscn(struct zfcp_fsf_req *fsf_req)
+ 	no_entries = be16_to_cpu(head->rscn_plen) /
+ 		sizeof(struct fc_els_rscn_page);
  
-+	address = untagged_addr(address);
++	/*
++	 * The fabric chooses rscn_plen, so refuse a value that would walk
++	 * the page list past the end of the status read payload.
++	 */
++	if (no_entries > FSF_STATUS_READ_PAYLOAD_SIZE /
++			 sizeof(struct fc_els_rscn_page)) {
++		dev_warn(&adapter->ccw_device->dev,
++			 "An RSCN with a payload length of %u was dropped\n",
++			 be16_to_cpu(head->rscn_plen));
++		return;
++	}
 +
- 	if (unlikely(should_fail_futex(fshared)))
- 		return -EFAULT;
- 
-diff --git a/tools/testing/selftests/futex/functional/Makefile b/tools/testing/selftests/futex/functional/Makefile
-index a03bd5acba50319f08b04ff0904ef155c000fee3..8f7f6730285b725b483787362db4626c459d65c9 100644
---- a/tools/testing/selftests/futex/functional/Makefile
-+++ b/tools/testing/selftests/futex/functional/Makefile
-@@ -19,6 +19,7 @@ TEST_GEN_PROGS := \
- 	futex_requeue_pi \
- 	futex_requeue_pi_signal_restart \
- 	futex_requeue_pi_mismatched_ops \
-+	futex_tagged_addr \
- 	futex_wait_uninitialized_heap \
- 	futex_wait_private_mapped_file \
- 	futex_wait \
-diff --git a/tools/testing/selftests/futex/functional/futex_tagged_addr.c b/tools/testing/selftests/futex/functional/futex_tagged_addr.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..81224f024a375d08e1dd4fd12ccf548f23126f27
---- /dev/null
-+++ b/tools/testing/selftests/futex/functional/futex_tagged_addr.c
-@@ -0,0 +1,47 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+
-+#include <stdint.h>
-+#include <sys/prctl.h>
-+
-+#include <linux/prctl.h>
-+
-+#include "futextest.h"
-+#include "futex_thread.h"
-+#include "kselftest_harness.h"
-+
-+static futex_t futex;
-+static futex_t *tagged_futex;
-+
-+static int waiterfn(void *arg)
-+{
-+	struct timespec timeout = { .tv_sec = 1 };
-+
-+	return futex_wait(tagged_futex, 0, &timeout, FUTEX_PRIVATE_FLAG);
-+}
-+
-+TEST(tagged_addr)
-+{
-+	struct futex_thread waiter;
-+	int ret;
-+
-+#if !defined(__aarch64__) || __SIZEOF_POINTER__ != 8
-+	SKIP(return, "arm64 64-bit tagged address ABI not available");
-+#endif
-+
-+	ret = prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0);
-+	if (ret && errno == EINVAL)
-+		SKIP(return, "tagged address ABI not available");
-+	ASSERT_EQ(ret, 0)
-+		TH_LOG("PR_SET_TAGGED_ADDR_CTRL failed: %s", strerror(errno));
-+
-+	tagged_futex = (futex_t *)((uintptr_t)&futex | (0x42ULL << 56));
-+	ASSERT_EQ(futex_thread_create(&waiter, waiterfn, NULL), 0)
-+		TH_LOG("pthread_create failed");
-+	ASSERT_EQ(futex_wait_for_thread(&waiter, _metadata), 0)
-+		TH_LOG("waiter did not enter futex wait");
-+
-+	EXPECT_EQ(futex_wake(&futex, 1, FUTEX_PRIVATE_FLAG), 1);
-+	EXPECT_EQ(futex_thread_destroy(&waiter), 0);
-+}
-+
-+TEST_HARNESS_MAIN
-diff --git a/tools/testing/selftests/futex/functional/run.sh b/tools/testing/selftests/futex/functional/run.sh
-index d1a681b798bd385570710e7c5f9bb28cca64de3e..620d13ee7171e7cc6061053750c9ff4cf525ff72 100755
---- a/tools/testing/selftests/futex/functional/run.sh
-+++ b/tools/testing/selftests/futex/functional/run.sh
-@@ -46,6 +46,9 @@ echo
- echo
- ./futex_waitv
- 
-+echo
-+./futex_tagged_addr
-+
- echo
- ./futex_priv_hash
- 
+ 	if (no_entries > 1) {
+ 		/* handle failed ports */
+ 		unsigned long flags;
 
----
-base-commit: 3ac032ef6ca8e47bb06d1e189dfcf88fa0a09c75
-change-id: 20261022-futex-arm64-tagged-uaddr-1cf56a42b2c1
-
-Best regards,
+base-commit: f47d223627f80cb7a1eb14c585fe6cb35de5e984
 -- 
-Shubhang Kaushik (Ampere) <sh@gentwo.org>
+2.43.0
 
