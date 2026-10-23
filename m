@@ -1,72 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792751272;
-	b=yi/JudsZlZ88g8kP9Fqs/Ys4N0pnuiI2NNV3SAwLWrHN+mMxYMC093CFyMtJV85y4la4
-	 pTVHQCcPdCEi6LIx1ehH4L/YDtHUBlfn3WtqNlEQWWtenTatkQAlEmbNDT1787Q2IPact
-	 AolVoQpJDFv7Q4t7laGII+iIDsDnzgGrWvX9cJ1PAyDqBPuQjykWjw2QYRXgJnvNXHeIN
-	 ekJOfbWMs/Gyclt+ufsbrmZVF5l1X4il71uesIv2nGbedY3LJIXmyj1Fwo3IMpIJ4mXkO
-	 wgDVaj6l4ZuMGVEGnAlHM0ZCh2haMjkoUM99TjpUgr+1lqKQHt5jcGnXONJTMc7UcEw==
+	t=1792752354;
+	b=vQUVn5W4stUslcPheo5LMVix1HAd3k9K+Ku7k25zJgRkf7de9mzEsfugzDZ79eP8QQoG
+	 4/8zUSqnevXBH6EW6GphNHZ8ZbsEWyxVq8wZ708LiM9yZuQdru7qrNVzuO1KzxLoBNrLu
+	 fi9bevFlC2IWpkbNyv+BOWwakAluz4cp+xTpWYFb0oxEdtsYgUNs/Zd+PWtAj4HdzL2n6
+	 RHm/NT410ZnhSpOayO5mfL1eH/H6VqNZGa9wRVS32CZ/ry7g5Lytxqlw6E0mzq4BTQJnc
+	 XiMd6w3HYg1NkhkQ4sJEPyKF0fe3uvSKBgbmCG3IMP+0cNujUAzSDSTm80mkmwfEaLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792751272;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=qZ4/eiHVwBullnoqGWKFL11/mhEiAdGloLPRwlR6r+8=;
-	b=pzSqekNroeF42uz02gAuCYhmYLy4dDj1J1QmuD7B0Hu6aBzrATmfBSiFa4frVDjz4nfV
-	 LA7pL/RcpfxO2VSqvBjXnK+4AAuHVWyLKRbWvNXfZ+AaFQ8pYGIxpo3rBDca3l3TcFiyH
-	 Nn10yS9ej54sgZP2l6pDqbnqCR3sfD2MRU40+gO2UIdbhJ4Jq7x3k4kPfDfpraf7LokIR
-	 4BqR6YPuK3a8dFup7hmTQoLD9uifuMqrcIHWzEEPoppV4ywBION3FifE6HqBd2j8lN4O4
-	 Dsvk6mYVSAN4rXUm4ncuSlfclJERwnUsWaMH8fIu3mUD/xpaq1wl+oLxyS4nldkEKJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792752354;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=/QICUucPpXxojYxCmq3sRU8Eaip6NUcM3x+3QrmGv+8=;
+	b=zAnUxJsqARMh8ifUXIy2n9WZZZOAapQeIMWC8EGqU/qNMtgMKhi1SVIN54ILTPgX1IKm
+	 TlHpF2atBElRf3Xu2cRGhdyTZVb8ZI9ZDSa/LCxrsf1DOw2/FsxqUte4ZdmSBWOqPquN9
+	 zD6Iae/8Q/lUnhDZHS30r9CNGEsfJkJMLHniNircuUMyxnjCtuTVMP5kWHQDhElMowO3s
+	 Pv000SMtl8pL9z2/v39xXcQeeRiIk2N4lC2eq3LW9b7L4+cEZvG835MQ/OuhO1B+8g9Qa
+	 JnEq/DQYQjdYLcY85GereuDO8j9rWo7R6dNRoEzy0StpGTMkDEUKVzpyXYiRBG3/1nA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=ZbIMhIhr;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=m7oOr6su;
+	arc=none smtp.remote-ip=95.215.58.175
+Received: from mta1.migadu.com (out-175.mta1.migadu.com [95.215.58.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67C8F606A31F
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 10:27:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67C8F606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE0D0606A31B
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 10:45:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE0D0606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=ZbIMhIhr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=qZ4/
-	eiHVwBullnoqGWKFL11/mhEiAdGloLPRwlR6r+8=; b=ZbIMhIhrgXZDuqu2lwwb
-	5iRvKSTpxPy5LvrOUvYWWXaMTT1Fv5ibgEYanyUX3uSns+/xJef3M0xY1Oci9hHg
-	wZKWD9rq1XzxK/dHN1WJ/ZBauju7E8i4IMyTpYfn77fstXsYdENGLrhPBGAT4AFO
-	9DWeyYkdSVRPcJ4xUjjxGG7l85bMTL+KwoKM1YWh1e/bBrcCVz3JljNqddvRUyfS
-	y/APWvsW9z91/yPFZ8ZJYwC3Z3aEFtcpsy+OgYYzTDITYsrV4MXeC328y6SiyqWi
-	f2MtDePfCTR5mYbi07eUSoh/wL5b38GAdSOYAR09wRF95l2NfumKL8+yMk2vejs9
-	7g==
-Received: (qmail 1512031 invoked from network); 23 Oct 2026 12:27:42 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 23 Oct 2026 12:27:42 +0200
-X-UD-Smtp-Session: l3s3148p1@oDMgbn9eTKYujnv2
-Date: Fri, 23 Oct 2026 12:27:41 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Diogo Ivo <diogo.ivo.sx@renesas.com>
-Cc: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Linus Walleij <linusw@kernel.org>, linux-i3c@lists.infradead.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-gpio@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/8] i3c: renesas: Fix zero I2C SCL rate on pure I3C buses
-Message-ID: <ats2nSA-kV10hlje@shikoro>
-References: <20261020-divo-ssgrlpcsrc-2966-i3c-v1-0-30a47f25e515@renesas.com>
- <20261020-divo-ssgrlpcsrc-2966-i3c-v1-1-30a47f25e515@renesas.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=m7oOr6su
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=e0Cethm8EB8vXNdwt1eCOrxjlbHI4XfqJVujITYWMIw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792752351; v=1; x=1793357151;
+ b=m7oOr6su+D3IRWZ+Nw1K5IVj2dKwCtI3MQG2UExgvDS5QXsBLJPkm8rMAgKChheqDtW7699d
+ ZC0UF8msPReMirU8vU9UbEJUODZj2SeaqtPGcOMF58+McY+yKmVHHN6VExTNqDiw0uskvWhKvdk
+ 3QeQPXCaFMtyLl8M+ge1aDgQ=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 536d72eef6148e6b;
+	Fri, 23 Oct 2026 10:45:38 +0000
+X-Mizu-Trace-ID: 536d72eef6148e6b
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	stable@vger.kernel.org,
+	Jay Vosburgh <jv@jvosburgh.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] bonding: fix out-of-bounds read of arp_ip_target
+Date: Fri, 23 Oct 2026 18:45:27 +0800
+Message-ID: <20261023104528.232427-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,26 +71,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-divo-ssgrlpcsrc-2966-i3c-v1-1-30a47f25e515@renesas.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 10:14:55AM +0100, Diogo Ivo wrote:
-> On a pure I3C bus there are no I2C devices, so the I3C core leaves
-> bus->scl_rate.i2c at zero if i2c-scl-hz is not specified in DT.
-> Deriving i2c_total_ticks from that zero rate programs a zero-width
-> open-drain SCL into the STDBR open-drain fields, which are still used
-> in pure I3C mode for example in DAA.
-> 
-> Fall back to the 1 MHz FM+ limit instead, the fastest rate an I2C
-> device could have, so that a sane open-drain timing is programmed.
-> 
-> Fixes: d028219a9f14 ("i3c: master: Add basic driver for the Renesas I3C controller")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
+arp_ip_target is a module parameter array with BOND_MAX_ARP_TARGETS
+entries. In the loop parsing it in bond_check_params(), arp_ip_count is
+the number of accepted targets, while i is the index into
+arp_ip_target. Invalid and duplicate entries are skipped without
+bumping arp_ip_count, so bounding the loop with arp_ip_count lets i run
+past the end of arp_ip_target, e.g. 16 targets with one duplicate:
 
-Great catch! Kudos for adding a good comment. I agree with Geert about
-using the ternary operator, though. After that, you can add my:
+  BUG: KASAN: global-out-of-bounds in bond_check_params.constprop.0+0x1148/0x1440
+  Read of size 8 at addr ffffffff96e9ee00 by task swapper/0/1
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x91/0xf0
+   print_report+0xd1/0x630
+   kasan_report+0xf3/0x130
+   __asan_report_load8_noabort+0x14/0x30
+   bond_check_params.constprop.0+0x1148/0x1440
+   bonding_init+0x13/0xe0
+   do_one_initcall+0xe7/0x5b0
+   kernel_init_freeable+0xa91/0x1120
+   kernel_init+0x24/0x220
+   ret_from_fork+0x5b3/0x820
+   ret_from_fork_asm+0x1a/0x30
+   </TASK>
 
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+  The buggy address belongs to the variable:
+   arp_ip_target+0x80/0xa0
+
+Bound the loop with i instead. arp_ip_count never exceeds i, so it
+stays within BOND_MAX_ARP_TARGETS too.
+
+Fixes: 5a5c5fd48e3b ("bonding: arp_ip_count and arp_targets can be wrong")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
+ drivers/net/bonding/bond_main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+index 09aa45d71fab..7019e5d8fdc8 100644
+--- a/drivers/net/bonding/bond_main.c
++++ b/drivers/net/bonding/bond_main.c
+@@ -6273,7 +6273,7 @@ static int __init bond_check_params(struct bond_params *params)
+ 	}
+ 
+ 	for (arp_ip_count = 0, i = 0;
+-	     (arp_ip_count < BOND_MAX_ARP_TARGETS) && arp_ip_target[i]; i++) {
++	     (i < BOND_MAX_ARP_TARGETS) && arp_ip_target[i]; i++) {
+ 		__be32 ip;
+ 
+ 		/* not a complete check, but good enough to catch mistakes */
+-- 
+2.43.0
 
