@@ -1,79 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792791118;
-	b=szo1pnYT4gI6QGb3eNrpkZQ00cM8+1Vr9M8DeDLQQW2MYT6ZaUhFyohCgqwRbOr1uxyU
-	 Lf768NjSNq+lqijypVX3f4ycbj7mkXgc3zXbVJ86QyfLJY3v/hWeNYyv76ZAAJhuGnPns
-	 FTpcnssCm7UEd+DpVbW+vTtWBrBaF72YPT3nkVFL22PMHt0z7pnCZ8S3e95VBR2kpMoTh
-	 D4JHh5v7J4JWbgg/QA9fus/dNfyHaeBtUjX9s9+lW31BzznXsH/FWIAJE03EzIelzkzfS
-	 XHoAyx3ntPp3Ko0b5OdlLTd1yzZYBkaMS26UooMg0JfQPSlrYW3fgLhJ0nJk+QMWhTQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792791118;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ocF8Lo8LjPq6cYFdYP45DVtx4rTESVf+gENIjLj4css=;
-	b=vpwupLLGhImhH9yFW50e8GC0yLY0pLaC/WlKVYXhPEidYrA9IMdKpoVTXkOBroT7xoc8
-	 RKDqs1vabRrfR9vtVOatK0ZODTCHcH7AIiggSDOlGOvszSevmURpK8oDY6HGTciOOwffR
-	 wkwvzDm/bNrcqANDhYOtlp8jUCAM8VJmFw7K6ZG6ggg6/EAeU4bZ4dYYiQloJNXCquQU1
-	 GY3UytB6O3sT+O8ZJhl1oWJp0/r8cx5WbsP5mkYLbixhaIpH/mifhAhZ/K/rF55UaAec5
-	 v15xEiFFkMXL4YQ1v9mmmsM7dI/FZhN3yPSgEbNCA+QxjKu2NFkIW4tY6lozA3BI+Cw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eL6TH2Ul;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE8C606A31A;
-	Fri, 23 Oct 2026 21:31:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eL6TH2Ul
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792791117;
-	b=XRKa0qG+BdJ+ViduIY0Ynftan/BV6A0GS6GY2wOXC53Am/0f+VvIU5IqX5EfY+ssZUk6
-	 lSaPW7sJu8AjUiQxbOC2Sei1WYKjqtLL0dxcGsvX2coe+cUnfb7pag+aTmeL+mqxG6N3M
-	 A2e3Yu7RSoZAIzBjAPj7G4PHiz3P8eWzW8PkoBFwKiQ3ATEy2Q5JVl8A2oScx8O6+ynXv
-	 5HfdWJYbB2OPj32FLq+w5lKYAmAIEGiwcf58OZ2spKHANNY8H1SFrYe/p7KnR1AQc7Loz
-	 Mk5mwU2YD6unzh1TK/91+YC1NftvQPeIMYgxXxTfLxsgzSFp8GAebqq7RY+Udmlk/CQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792791117;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ocF8Lo8LjPq6cYFdYP45DVtx4rTESVf+gENIjLj4css=;
-	b=ITUTfEofUI/7/GgY30p+AOD8jWBwNY0g/bDjznJkNzxtWN9JVm5YYJsoyZiNH9T/Uxpe
-	 WivgS5jGzxO/yeaAAxg+LPvvCvlqgKEDuHUW+gGeTLynyF4mfkUPh4NCqYlCBlA2nRnGT
-	 7nbAQ+GcMe2+FG9U/asC7KkBgy3Z+maNTE0CnuhygROD7hbNnzqTOQBiiyGBNEfymofqC
-	 nXEWG/rMJxucc1BTaxFz4pd1+2Z5U1Tj/6mxVq/LS7+C2bTMc8U8jQjb9QRQimQ4gFnNn
-	 vqiORUD3MGOgXOaPPZ3HB9HKON63RSxBAPHXwOaDgprtOEmtvNvXSGXVQ9b05nzBBdA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792791280;
+	b=WxkzrZ80Xj3dNPQ8sC8L9/xqzj6FkRXC2FzX6CYRREhu4MC3PuckrxgPx3YQ+s9G2dN1
+	 yT0iqTiTXO0OOZ+r3F8S4P1rM28eXxUxGRI9cRJBxDnP08rnTWu8JH746X+urUgjrQpQH
+	 lh7d1NEdMkP63ZIOyb18iBMgHW9LUN4akNDxRN18tnye3pbw26eYt8bzdH0XF+F7iHT/N
+	 /SZa0o7pKWjIBJxWZ+yom0ZF1uPT73tBYNPA0dAnK/1Tu1kuEXQMv2SzlTL0Fzrl5YYkG
+	 /xjDDqQjq4Hh0o0tX/ou2gQ3lMJ0+m/Q7SfctvjFoTK8qWJtIohczIfF8r43/1OjOAw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792791280;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=eesM4V7nSI+jbVwdqW3OP3XkNj+CjBTD1XOjhY7hHuM=;
+	b=me9RsKkudO0FayGrger0GjSpYFx4d4VduWVRbESKI5LdfnEmYUDD+ochMR7BkS8dYEj9
+	 MSaivzYSTYwCkxeP8cFnmGLWAZl3F3A6onMvgksBxsW8AgF6yvJfg7rdsx5z3G3uSRIlZ
+	 8/nF9B2bwKHNmi3RVkQ/GQvYdw6IWiOjcH3K13hB0KlZnCNXPaF1m/Hyp69O0Op4POwdX
+	 qogNDfCAWA/YElrpYv55JEIrQY69NK40T6ZlN2mtJOwoRXUi4AmlSASCVsf+mLy6t34ow
+	 Sq3Gf3KkYVP+KEuQW/BH4vReO73IvIngrZBjKK330cVasQHfdPiYDmza5D+mJCoH6ug==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=debian.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rScLXPxM;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9E1B71F01828;
-	Fri, 23 Oct 2026 21:31:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792791117;
-	bh=ocF8Lo8LjPq6cYFdYP45DVtx4rTESVf+gENIjLj4css=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=eL6TH2UlCHUYXvBDt+rBc2dfPce7f/XCrl7ROyIJcuQip5J5ylZQAT1jvU1cEknI9
-	 WnAW93dn37MYJTJaC7vSfDX1G25v4p/gWLZ+l8xKWnBPrUgLUda7RdwOVilbwobUz0
-	 VsJNFqwUtbpeZQnkfXFR/zx87oH9aHQCxfLvLs1v+Lm9wcHhBM+XOW1Ae87EX+PS4M
-	 qPI+r+3W6D2lR/7QRLFvEWxYcSSUb66kHR8N92YsHZE93iZBs0p+8SAqGOvM9+lC3R
-	 Sj2oiwfcRsEZGqJrf25ZZrblUwfjeXL24k1DmDRrf0HUnxuDteEsz8bgnPuspcL3Gr
-	 2hswz8TYTcM7w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 00D9644633;
-	Fri, 23 Oct 2026 21:31:55 +0000 (UTC)
-From: Stanislav Zubenko via B4 Relay <devnull+zubenkos.external.gene.com@kernel.org>
-Date: Fri, 23 Oct 2026 21:31:55 +0000
-Subject: [PATCH] btrfs: fix race between device add and chunk allocation
- leading to transaction abort
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF4D0606A31E
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 21:34:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF4D0606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rScLXPxM
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso858145e9.0
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 14:34:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792791278; x=1793396078; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=eesM4V7nSI+jbVwdqW3OP3XkNj+CjBTD1XOjhY7hHuM=;
+        b=rScLXPxM2L9viz/qPsXuEN08sKN0SYqLWaw5Z24q+qeAaeF3CAsds0ywZ5AxKuo6yf
+         x36AVCr0DUivP7cvbyALZ8rsrSeVhRY8Yf3Br4nLSF1PMVycG01m0YuUkcKy8c5EbCyD
+         CjQwI2wpkhrVDJC3XeAhtclhdQsqlAqgRDfIvLPhPb92k9X9paeageS8dh3y1cos82CZ
+         Af3J8VoLDi07zhfFffVGM7wFy8N+PVTcJopUb+OnMxCCZUun9prxFiKu69+SxTJeoI9P
+         Ur8bJHaFoYY81M3s+kSooXzvAMisf9qb9iWeLfX3qLOIANWvYkLhyPXjQG1tVHJd7iqn
+         87kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792791278; x=1793396078;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eesM4V7nSI+jbVwdqW3OP3XkNj+CjBTD1XOjhY7hHuM=;
+        b=O7eFERGF0xF/hnLtM6/32ZaePj+jvzNLRZUkJO3TNTxh3JdLQJakuALc3LonSNouqi
+         MNHU5ZPFUm9YxQyKcKGpTl1+TTMPQISoNEGfF/liURXfZoaEdMXRfo64madBxEAm33Ry
+         iNP3pSSxqa+KHR2QOCC4u5foKYA5NRW2QCBTLHTNVR2pp/op3BDpGPmyX3Ui+jP0jzce
+         CGKlc/4M0RkhF30CKw2e0TH4W4WqH9ghdd/Uu/++1GnGwz7OCYMtkzSLr9GZeIVr+IxK
+         frMRYLLhtUOmURrcmV/rCeTlohnkeNFjVyTJfqq6/4IbRPAbVUzCllove1dQw/Yf17it
+         tbgg==
+X-Forwarded-Encrypted: i=1; AKwUvBzfC8YvB5Ucc9VcMSyX55ZIwQg15edvguEHSFAHSPPhiYg4Apk8zmOfzhvS8bHDiPd0jS6M+10=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKWMOgJrEBhTWK8MglSfjm7iBxyf+BURAzYBOI1bi1HSykJOewH
+	cPMwbxzL8d0NhuQ7oGDZ1miC/POcGuo4mgPynM6CxikTi20a6cUQzsGy
+X-Gm-Gg: AYBFou086BAWzxKu9kQkokwdJYuuv3+/uaS1Rk8u+EDLKy1q4do44JaQ0y92CcbwNxz
+	tFzrIsBxQJsZYH8KkZtp7pn27jR869QUoZlqiKaKtPvZF1eELWxXaI2yhTQiYMoft2LuC0RHbOL
+	TcY75DC1riI+DjZd3vbpo7QIBF90Dn3UVBR3Kxb6CLprPEq5A9fgIZC9aFhX4MkdvpxBUCigpbZ
+	tBWDFcqF7zA+q6QwmP1fk1mnJdyzbEebbaTCfBYGnrmCXAyTmneXmwYbpu/kAafsLyvkb7QRyYC
+	f+qDzfJq3QRZb/hnhwAgWpAi+U8i0eIzGjxUWFLuRa50QExG/lxNPnh9CRX1pWSfYIVCkhG6xpA
+	zLna4KehKSsiD+YC7U/NFapI5qpbR45HLwsZGE2CtfxRfKEZlDVEI3gwgiJw+pwMB17tlaet5Tx
+	Pcl8ZXBtP8khRZEQNCQhzvkAoKJqlYuiWDlJA2ApAcfEgX0aSwh03vTaIpPU1FGGZfpYkUUs+h1
+	2iU+p1euW26otEu6BvmDrYHyGmE1w60HzbAzSDia1Aq3mKz6fqbeZLiELZHIqcM7vhu7RirMarQ
+	f168YYYzDteClYw=
+X-Received: by 2002:a05:600c:4e45:b0:4a2:d82:11bb with SMTP id 5b1f17b1804b1-4a35acbf5e7mr1981825e9.30.1792791278019;
+        Fri, 23 Oct 2026 14:34:38 -0700 (PDT)
+Received: from eldamar.lan (c-82-192-247-196.customer.ggaweb.ch. [82.192.247.196])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a04ad39sm34604505e9.1.2026.10.23.14.34.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 14:34:37 -0700 (PDT)
+Sender: Salvatore Bonaccorso <salvatore.bonaccorso@gmail.com>
+Received: by eldamar.lan (Postfix, from userid 1000)
+	id 70FC1DC0579; Fri, 23 Oct 2026 23:34:35 +0200 (CEST)
+Date: Fri, 23 Oct 2026 23:34:35 +0200
+From: Salvatore Bonaccorso <carnil@debian.org>
+To: Pavel Machek <pavel@nabladev.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
+	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org, akpm@linux-foundation.org,
+	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+	lkft-triage@lists.linaro.org, jonathanh@nvidia.com,
+	f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+	conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+	achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 7.2 000/242] 7.2.13-rc1 review
+Message-ID: <atvS68GhCvmAphrQ@eldamar.lan>
+References: <20261023163713.816071858@linuxfoundation.org>
+ <atvHKoRHHjKV4l8A@duo.ucw.cz>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,240 +106,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261023-btrfs-device-add-race-v1-1-90cf05e8128f@external.gene.com>
-X-B4-Tracking: v=1; b=H4sIAErS22oC/yWMQQrCQAxFr1KyNtCZFileRVxMk4zGRZWkFqH07
- qZ19x/891ZwMRWHS7OCyaKurykgnRqgR5nugsrBkNt8Tm3ucJytOnJcSbAwo5UYPFBfE3XCQw/
- hvk2qfo/u9fZn/4xPoXmPwbb9ADELwlF5AAAA
-X-Change-ID: 20261023-btrfs-device-add-race-d8c4f1c3ed84
-To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
- Filipe Manana <fdmanana@suse.com>
-Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Stanislav Zubenko <zubenkos@external.gene.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792791115; l=9455;
- i=zubenkos@external.gene.com; s=20261023; h=from:subject:message-id;
- bh=U7hv/vC2ZXRxYfgJAmHzlLJa2Sn+3zvaObhbPm1YuR0=;
- b=Qtg3cG7lhJThEgFKoxurxMFVKBdqgSZMc2lBXkUePCmhZB3ryfklnCI2CB9Fh6JcyIopFzUNn
- mbsD7cjms+8AAs+XvFbi5X8UBf/38lNKZ5UHwNYL5jYxtb5XsMPtEmR
-X-Developer-Key: i=zubenkos@external.gene.com; a=ed25519;
- pk=0lNZ1Ki/iWkgLjsQ0VnWTZUii4kMtSjcrpbJKg4UoWQ=
-X-Endpoint-Received: by B4 Relay for zubenkos@external.gene.com/20261023
- with auth_id=1296
-X-Original-From: Stanislav Zubenko <zubenkos@external.gene.com>
-Reply-To: zubenkos@external.gene.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atvHKoRHHjKV4l8A@duo.ucw.cz>
 
-From: Stanislav Zubenko <zubenkos@external.gene.com>
+Hi,
 
-While adding a device to a filesystem that was under heavy buffered write
-load, a chunk allocation done by writeback aborted the transaction with
--ENOENT, which turned the filesystem read-only:
+On Fri, Oct 23, 2026 at 10:44:26PM +0200, Pavel Machek wrote:
+> Hi!
+> 
+> > This is the start of the stable review cycle for the 7.2.13 release.
+> > There are 242 patches in this series, all will be posted as a response
+> > to this one.  If anyone has any issues with these being applied, please
+> > let me know.
+> 
+> Either something went very wrong with our testing, or this fails on
+> all our targets. 6.18.59-rc1 does not seem to have those widespread
+> failures.
+> 
+> https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/2982452623
+> 
+> Example failure is:
+> 
+> I'll look some more to try to figure out what is going on there.
+> 
+> Best regards,
+> 
+> 								Pavel
+> 
+> 
+> [    1.238864] Yama: becoming mindful.
+> L426[    1.238864] Mount-cache hash table entries: 8192 (order: 4, 65536 bytes, linear)
+> L427[    1.238864] Mountpoint-cache hash table entries: 8192 (order: 4, 65536 bytes, linear)
+> L428[    1.238864] VFS: Finished mounting rootfs on nullfs
+> L431[    1.238864] BUG: kernel NULL pointer dereference, address: 000000000000002c
+> L436[    1.238864] #PF: supervisor write access in kernel mode
+> L437[    1.238864] #PF: error_code(0x0002) - not-present page
+> L438[    1.238864] PGD 0 P4D 0 
+> L441[    1.238864] Oops: Oops: 0002 [#1] SMP PTI
+> L446[    1.238864] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Tainted: G S                  7.2.13-rc1+ #1 PREEMPT(lazy) 
+> L447[    1.238864] Tainted: [S]=CPU_OUT_OF_SPEC
+> L448[    1.238864] Hardware name: SIEMENS AG SIMATIC IPC227E/A5E42630598, BIOS V20.01.11 03/15/2018
+> L449[    1.238864] RIP: 0010:rest_init+0x33/0xd0
+> L450[    1.238864] Code: 34 ff ba 00 02 00 00 31 f6 48 c7 c7 70 a2 e6 b2 e8 52 d3 28 ff 89 c3 e8 bb 2d 34 ff 89 df 48 c7 c6 80 db 85 b3 e8 9d d7 2b ff <81> 48 2c 00 00 00 04 65 8b 15 63 6e 45 01 48 89 c7 89 d0 c1 ea 06
+> L451[    1.238864] RSP: 0000:ffffffffb3803ee0 EFLAGS: 00010246
+> L452[    1.238864] RAX: 0000000000000000 RBX: 00000000ffffffea RCX: 0000000000000000
+> L453[    1.238864] RDX: 0000000000000000 RSI: ffffffffffffffea RDI: ffffffffffffffea
+> L454[    1.238864] RBP: ffff8cf23ffed080 R08: ffffffffb385db88 R09: ffffffffb385db80
+> L455[    1.238864] R10: 0000000000000000 R11: 0000000000000000 R12: ffff8cf23ffed0ab
+> L456[    1.238864] R13: 0000000000000000 R14: ffffffffb380c040 R15: 00000000b43e8000
+> L457[    1.238864] FS:  0000000000000000(0000) GS:ffff8cf287953000(0000) knlGS:0000000000000000
+> L458[    1.238864] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> L459[    1.238864] CR2: 000000000000002c CR3: 000000000d630000 CR4: 00000000001006f0
+> L460[    1.238864] Call Trace:
+> L461[    1.238864]  <TASK>
+> L462[    1.238864]  start_kernel+0x7a2/0x7b0
+> L463[    1.238864]  x86_64_start_reservations+0x24/0x30
+> L464[    1.238864]  x86_64_start_kernel+0xcd/0xd0
+> L465[    1.238864]  common_startup_64+0x13e/0x158
+> L466[    1.238864]  </TASK>
+> L467[    1.238864] Modules linked in:
+> L468[    1.238864] CR2: 000000000000002c
+> L469[    1.238864] ---[ end trace 0000000000000000 ]---
+> L470[    1.238864] RIP: 0010:rest_init+0x33/0xd0
 
-  BTRFS: Transaction aborted (error -2)
-  WARNING: CPU: 15 PID: 1149147 at fs/btrfs/block-group.c:3731 do_chunk_alloc.cold+0x162/0x1b7 [btrfs]
-  CPU: 15 PID: 1149147 Comm: kworker/u128:13 Tainted: G           OE      6.1.170-213.321.amzn2023.x86_64 #1
-  Hardware name: Amazon EC2 r6i.16xlarge/, BIOS 1.0 10/16/2017
-  Workqueue: writeback wb_workfn (flush-btrfs-1)
-  RIP: 0010:do_chunk_alloc.cold+0x162/0x1b7 [btrfs]
-  Call Trace:
-   <TASK>
-   btrfs_chunk_alloc+0x15d/0x2f0 [btrfs]
-   find_free_extent_update_loop+0x1f6/0x2d0 [btrfs]
-   find_free_extent+0x347/0x740 [btrfs]
-   btrfs_reserve_extent+0x147/0x290 [btrfs]
-   cow_file_range+0x15c/0x590 [btrfs]
-   btrfs_run_delalloc_range+0x111/0x1d0 [btrfs]
-   writepage_delalloc+0xc1/0x180 [btrfs]
-   __extent_writepage+0x10c/0x460 [btrfs]
-   extent_write_cache_pages+0x141/0x4e0 [btrfs]
-   extent_writepages+0x7b/0x140 [btrfs]
-   do_writepages+0xcd/0x1c0
-   __writeback_single_inode+0x41/0x270
-   writeback_sb_inodes+0x209/0x4c0
-   __writeback_inodes_wb+0x4c/0xe0
-   wb_writeback+0x1d7/0x2d0
-   wb_do_writeback+0x22a/0x2b0
-   wb_workfn+0x5d/0x250
-   process_one_work+0x1e5/0x3b0
-   worker_thread+0x50/0x3a0
-   kthread+0xd9/0x100
-   ret_from_fork+0x1f/0x30
-   </TASK>
-  BTRFS: error (device nvme1n1: state A) in do_chunk_alloc:3731: errno=-2 No such entry
-  BTRFS info (device nvme1n1: state EA): forced readonly
+Same here indepently, but not yet bisected.
 
-The filesystem had a single data profile, it was about 80% full and was
-receiving around 1GB/s of buffered writes. The abort happened about 11
-seconds after "btrfs device add" was started for a sixth device, and the
-add never completed (no "disk added" message was logged). The same
-happened on a second machine with the same workload on the same day.
-
-The -ENOENT comes from btrfs_update_device(), which does not find the
-device item of the device being added. This is due to a race between
-adding a device and chunk allocation, which the following diagram
-illustrates:
-
-         CPU 1                        CPU 2
-
- btrfs_init_new_device()
-   btrfs_start_transaction()
-   lock fs_devices->device_list_mutex
-   lock fs_info->chunk_mutex
-   adds the new device to
-   fs_devices->alloc_list
-   btrfs_clear_space_info_full()
-   unlock fs_info->chunk_mutex
-
-                              cow_file_range()
-                                btrfs_reserve_extent()
-                                  find_free_extent()
-                                    btrfs_join_transaction()
-                                      --> joins the transaction
-                                          started by CPU 1
-                                    btrfs_chunk_alloc()
-                                      lock fs_info->chunk_mutex
-                                      do_chunk_alloc()
-                                        btrfs_create_chunk()
-                                          --> picks the new device,
-                                              it is the one with
-                                              most free space
-                                        btrfs_chunk_alloc_add_chunk_item()
-                                          btrfs_update_device()
-                                            --> doesn't find the
-                                                device item of the
-                                                new device, returns
-                                                -ENOENT
-                                        btrfs_abort_transaction()
-                                      unlock fs_info->chunk_mutex
-   btrfs_sysfs_add_device()
-   unlock fs_devices->device_list_mutex
-   btrfs_add_dev_item()
-     btrfs_reserve_chunk_metadata()
-       lock fs_info->chunk_mutex
-       unlock fs_info->chunk_mutex
-     inserts the device item in the
-     chunk btree, but it's too late
-
-Before commit 79bd37120b14 ("btrfs: rework chunk allocation to avoid
-exhaustion of the system chunk array"), device items were only updated in
-phase 2 of the chunk allocation, at btrfs_finish_chunk_alloc(), and that
-was done while holding the device_list_mutex, which is taken there since
-commit 50460e37186a ("Btrfs: fix race when finishing dev replace leading
-to transaction abort"). Since adding a device holds the device_list_mutex
-until after it registers the device in sysfs, the race window was only the
-very short time between unlocking that mutex and inserting the device
-item. The chunk allocation rework moved the device item updates to phase
-1, under the protection of the chunk_mutex only, so the window now also
-covers the sysfs registration and the system space reservation done by
-btrfs_add_dev_item(), which must take the chunk_mutex itself and so can
-end up waiting for the very chunk allocation that is going to fail.
-
-Fix this by deferring everything that makes the new device usable by
-the chunk allocator until btrfs_add_dev_item() has inserted its device
-item in the chunk btree: adding it to the allocation list, accounting
-its space in free_chunk_space, clearing the full flags of the space
-infos and updating the per profile available space.
-
-When sprouting a seed filesystem, keep doing this before inserting the
-device item, because init_first_rw_device() has to allocate chunks from
-the new device first. That is safe because a seed filesystem is
-read-only and we are holding sb->s_umount, so nothing else can be
-allocating chunks.
-
-Fixes: 79bd37120b14 ("btrfs: rework chunk allocation to avoid exhaustion of the system chunk array")
-CC: stable@vger.kernel.org # 5.15+
-Assisted-by: LLM
-Signed-off-by: Stanislav Zubenko <zubenkos@external.gene.com>
----
- fs/btrfs/volumes.c | 34 ++++++++++++++++++++++++----------
- 1 file changed, 24 insertions(+), 10 deletions(-)
-
-diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
-index 6574939e1..bc8ffa7bb 100644
---- a/fs/btrfs/volumes.c
-+++ b/fs/btrfs/volumes.c
-@@ -3066,15 +3066,12 @@ int btrfs_init_new_device(struct btrfs_fs_info *fs_info, const char *device_path
- 
- 	mutex_lock(&fs_info->chunk_mutex);
- 	list_add_rcu(&device->dev_list, &fs_devices->devices);
--	list_add(&device->dev_alloc_list, &fs_devices->alloc_list);
- 	fs_devices->num_devices++;
- 	fs_devices->open_devices++;
- 	fs_devices->rw_devices++;
- 	fs_devices->total_devices++;
- 	fs_devices->total_rw_bytes += device->total_bytes;
- 
--	atomic64_add(device->total_bytes, &fs_info->free_chunk_space);
--
- 	if (bdev_rot(device->bdev))
- 		fs_devices->rotating = true;
- 
-@@ -3088,12 +3085,20 @@ int btrfs_init_new_device(struct btrfs_fs_info *fs_info, const char *device_path
- 				    orig_super_num_devices + 1);
- 
- 	/*
--	 * we've got more storage, clear any full flags on the space
--	 * infos
-+	 * The chunk allocator must not use the new device before its device
-+	 * item is in the chunk btree, otherwise allocating a chunk on it fails
-+	 * to update that item with -ENOENT and aborts the transaction.
-+	 * Sprouting is the exception: init_first_rw_device() must allocate from
-+	 * the new device before its item can be inserted, and nothing else can
-+	 * allocate chunks since a seed filesystem is read-only and we are
-+	 * holding sb->s_umount.
- 	 */
--	btrfs_clear_space_info_full(fs_info);
--
--	btrfs_update_per_profile_avail(fs_info);
-+	if (seeding_dev) {
-+		list_add(&device->dev_alloc_list, &fs_devices->alloc_list);
-+		atomic64_add(device->total_bytes, &fs_info->free_chunk_space);
-+		btrfs_clear_space_info_full(fs_info);
-+		btrfs_update_per_profile_avail(fs_info);
-+	}
- 	mutex_unlock(&fs_info->chunk_mutex);
- 
- 	/* Add sysfs device entry */
-@@ -3134,6 +3139,13 @@ int btrfs_init_new_device(struct btrfs_fs_info *fs_info, const char *device_path
- 		 * its fsid has been changed by btrfs_sprout_splice().
- 		 */
- 		btrfs_sysfs_update_sprout_fsid(fs_devices);
-+	} else {
-+		mutex_lock(&fs_info->chunk_mutex);
-+		list_add(&device->dev_alloc_list, &fs_devices->alloc_list);
-+		atomic64_add(device->total_bytes, &fs_info->free_chunk_space);
-+		btrfs_clear_space_info_full(fs_info);
-+		btrfs_update_per_profile_avail(fs_info);
-+		mutex_unlock(&fs_info->chunk_mutex);
- 	}
- 
- 	ret = btrfs_commit_transaction(trans);
-@@ -3190,13 +3202,15 @@ int btrfs_init_new_device(struct btrfs_fs_info *fs_info, const char *device_path
- 	if (!list_empty(&device->post_commit_list))
- 		list_del_init(&device->post_commit_list);
- 	list_del_rcu(&device->dev_list);
--	list_del(&device->dev_alloc_list);
-+	if (!list_empty(&device->dev_alloc_list)) {
-+		list_del_init(&device->dev_alloc_list);
-+		atomic64_sub(device->total_bytes, &fs_info->free_chunk_space);
-+	}
- 	fs_info->fs_devices->num_devices--;
- 	fs_info->fs_devices->open_devices--;
- 	fs_info->fs_devices->rw_devices--;
- 	fs_info->fs_devices->total_devices--;
- 	fs_info->fs_devices->total_rw_bytes -= device->total_bytes;
--	atomic64_sub(device->total_bytes, &fs_info->free_chunk_space);
- 	btrfs_set_super_total_bytes(fs_info->super_copy,
- 				    orig_super_total_bytes);
- 	btrfs_set_super_num_devices(fs_info->super_copy,
-
----
-base-commit: e17e64baf63f7c85bec209ed73f14c1b2a7e39fb
-change-id: 20261023-btrfs-device-add-race-d8c4f1c3ed84
-
-Best regards,
---  
-Stanislav Zubenko <zubenkos@external.gene.com>
-
-
+Regards,
+Salvatore
