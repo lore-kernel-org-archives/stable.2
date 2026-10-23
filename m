@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792763278;
-	b=X3bc0y21AiMYEYflEbG9iddNAM8ifx2jSrVBLeTYnogUEQQSg8vVIJ/wcdaBodhY5Zjc
-	 12JPdS0ORpf+3u4qQvl4/BFSKfvlEDABvF8Ge2FzUEXdIMz7AXRFeIaUHGc/gqQ8GBWaX
-	 wik5v0THR/g6LgQOKFarhKXUMXa7lAxqYwVowvwmqRnfVdJ/OSXlFrN94ho5Ev/N7bIUY
-	 cVSYYP1y3sNqBUf0ptSv/PCXO5SsYOLhB4zMGWWmCPvYIglcOig+B0daZ8kPoVsgMScbG
-	 0thPrUtyqdN1UU8dKDS0YHzy5FGcRxV065duD8kfthxwhoDw7r52gn6XeBUQBaK89bQ==
+	t=1792763290;
+	b=UC1cL19p2eV6NCeXrrPtbkQnOMhRpiwaH2mhXDBPPyng9JRnj9NE58EYW0dzYAWB7RAu
+	 YagPVZPzvc4oSu6rN6NKIsGiuZ3kinCtS1NvEHExk7FTR6qvBYoTBB4jVMup7sVoHPD0W
+	 85+/SW7qExrnEq5oR4i7zWfuW00YQyFo8DoRAqiPKbMx/buRVInspuXDybvGbS0FBfOUu
+	 8RFtMX1LTOTYIU9N/ixJP8bJHZMBGfiYLkZRGmk+7H+GqpIWZRkp/Z/8JuNKZucFPWI0C
+	 bST5MtHWBC72f60hU/WJht0pNgUxzo3ZqSbW3eruVdBX6JZmGOjeX9kGTx2ajlIq7pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792763278;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792763290;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=a+2xd0wNhUvtRJM9PIax6dYFGe76M4ZIId4t8JfMr9E=;
-	b=XsRPPQ8aG8lKhFzyJhNPHqKG4A12WkXN6Gd1kEUTClIsFw3K5K7FgsfGNADVNFvbhNW/
-	 O3OluLqzPqvxhtSQvMtwirM+M+fotKyFjiRxmofTfbNT7stYKy6sD92GBdhW+XrH1aW5T
-	 fksteLqDYpaKv2T7a45Vjwx7xaKTgoHMbxzrdx8XHlJ1uPtauJol9MIUwSlTm3wJQ/SXR
-	 wcR0Oj6olKlNhK0wsPF7BYes6qy3vL8D5rFnuFTt3RfOPxdCyoLyWrx4goSjN8Yc1MkFw
-	 HFH3e5dCIOxdsGdWSxDPQZTrKqKqsy06gzVtv7i3FmSfE7bCdPZ/OM5yOViukf3rBmg==
+	bh=G051RCtTj/aOitt//0BQMpLgWk+aIYRCuFDvRT+dDow=;
+	b=Ac4IaF6qfP1a6ddor9gph/5eOMlxzIoGLQMz2YbGco/kyFInIhK+++112PW0T1PvNoMA
+	 EYBnAGtPrxcvb4Du6yRTIhVCs8g4/m/pikfpfwQ6aHRWzQthM2MvkVydcSdMw3j3C2uK3
+	 I8Udes4hsAKUkqdX6rU9BTrFOaRo57/wY6CnDfxcFEH7h54KwaXLtYKyCucRqoCUA+93K
+	 TNByU/aS1o/Re138+K/v+lbGrwFQle4R5skUkO/FH9e9lYJECzG2qa+GJOAWDNdq4JWp9
+	 rXNLLdVkzlHJUxdLZ4wDDznnld2ezkEGrw8PiFyU4dSidZXoGX4dXsCceMi9O39Y8+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ULIbK9KT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BrNWbR17;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3FE9606A325;
-	Fri, 23 Oct 2026 13:47:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D8F60A261A;
+	Fri, 23 Oct 2026 13:48:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ULIbK9KT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A79F21F01828;
-	Fri, 23 Oct 2026 13:47:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BrNWbR17
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73B0D1F01825;
+	Fri, 23 Oct 2026 13:48:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792763277;
-	bh=a+2xd0wNhUvtRJM9PIax6dYFGe76M4ZIId4t8JfMr9E=;
+	s=k20260515; t=1792763290;
+	bh=G051RCtTj/aOitt//0BQMpLgWk+aIYRCuFDvRT+dDow=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ULIbK9KTPOHpDUadsRNnMl5O6kk75de7hBkv4iIBuzKcWWEwQTU7ZGRirlbigf5uF
-	 lN4p2ia3/J+3XYBQCxCvpwaj17j6rHyg7el7CRBLxkPvr4jOSj+3Ca5RMFI0OKqnFl
-	 fgsox4Cu0JKiadvmn8SR90Ide+9NU73+bv1g3m10xI6Xk6RpxFstWJdOj6FDd4/b2H
-	 8LcQiBrIIISzdYFDEFEeHIQA2zpa/PRamh6DkVanoZBx2rDPWf3IsVn7H62YiJGWFh
-	 4PqPoiRmCg7yL3aPjotVUxxje2ky/uyDJqAB8IRGqzPucH/g+BM/fblUtyDygdC5Eq
-	 VxiWQpGJvq7uQ==
+	b=BrNWbR17+oBuMwIuG7dEwUXWBpidc4FPmVZXUhVpfCqgodMj9N5hS2a/deBqIDhzQ
+	 0cqK/pf94yEEoZPuWuvHwjYhunsTsxP9o5sl27q6hF7qNQO8GxweATd+OTTbqfmVYz
+	 jgdCGDAwVp4i576LPGyxA1J5l58dcEkaaU/SceQmylIcIosYiOEO75mgL+upoGKise
+	 2GLGUYIPFXj92BeIpmdTvktLkBPlwf9ninCqpN+sV90q95dtDeKGOGBBHLpStiSM2h
+	 +oWN5aemU+1vd77qQKSWecQhhKzzlF6jDfgElXUjs315tPD3NeS3M4+gIttmHKEF/O
+	 rM7+LaDxYAFtA==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 23 Oct 2026 14:47:27 +0100
-Subject: [PATCH 1/4] mm: do not unintentionally overwrite atomic VMA flags
+Date: Fri, 23 Oct 2026 14:47:30 +0100
+Subject: [PATCH 4/4] mm/vma: avoid losing atomic VMA flags when setting
+ sticky VMA flags
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-fix-vma-atomic-v1-1-8ff4fae1fc85@kernel.org>
+Message-Id: <20261023-fix-vma-atomic-v1-4-8ff4fae1fc85@kernel.org>
 References: <20261023-fix-vma-atomic-v1-0-8ff4fae1fc85@kernel.org>
 In-Reply-To: <20261023-fix-vma-atomic-v1-0-8ff4fae1fc85@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -68,498 +69,248 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=17590; i=ljs@kernel.org;
- h=from:subject:message-id; bh=4Daw+dhWYM4ghHrVvdRNbkZ36ibTHQpK3cskj99W+ng=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJup7Z0pXfoVbbbPe2uPnH52GvP+76ftAIM6xwF6tPkt
- Wem2Yt0lLIwiHExyIopsjz/Ir4/SCRsXucFfzeYOaxMIEMYuDgFYCKCXxj+KS47cfWP0qnXD65z
- vb1/tlPWfdsCYf43k5b+M5it+9T83h2Gv1JFbOpTC+pvL1neIakdtGr7hBi+/V8W+5y+5/BQZvG
- kHlYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8606; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=jnauRsabm7fWTbCZvgqZyNtQKOOPKS6Lkrz/EtjN5R8=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJup7b+vWO3komTPaLjemqC/6GzFfw/p9XuM9v63+jec
+ u+PHmkOHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZgI9ydGhpcTHJ/qRUw8vEE3
+ 7HtebcDVy74rvebuKVv67PXqPaW//1Qw/M9dUp76uD9+TmyxsPsMSWmufQcb/1RUrLl5YuYnFt3
+ b07kA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-madvise, mlock and mprotect take a copy of a VMA's flags holding only the
-VMA read lock, later writing it back under the write lock (in
-madvise_update_vma(), mlock_fixup(), mlock_vma_pages_range() and
-mprotect_fixup()).
+vma_merge_existing_range() merges an existing VMA (middle) when its
+attributes have changed to match those of one or both adjacent VMAs.
 
-This was done on the assumption that VMA flags cannot change with a read
-lock held.
+Sticky flags are propagated if they are set in any of the merged VMAs. They
+are initialised from vmg->vma_flags, which is assumed to contain middle's
+sticky flags when the function is invoked.
 
-However this changed in commit 2ab7f1bbafc9 ("mm/madvise: allow guard page
-install/remove under VMA lock"), which allowed VM_ATOMIC_SET_ALLOWED
-flags (currently only VMA_MAYBE_GUARD_BIT) to be written concurrently under
-a VMA read lock.
+However, the VMA write lock is not held for middle when they are first
+populated, so concurrent updates to atomic VMA flags may occur, which will
+be lost upon merge.
 
-The actual write itself is safe as this is done under the VMA write lock
-at which point no further concurrent writes can occur, however at this
-point the stale flags mean that these callers can unintentionally overwrite
-atomic flags incorrectly.
+This can result in fork failing to propagate guard region markers and (if
+file-backed) THP collapse discarding them.
 
-The consequences of this are significant - a missing VMA_MAYBE_GUARD_BIT
-could result in page tables not being copied on fork (the vma_needs_copy()
-check can return false) or being overwritten on file-backed THP
-collapse (the file_backed_vma_is_retractable() can return true).
+Resolve this by propagating the sticky flags after middle is locked.
 
-Resolve the issue by always taking care to retain existing atomic flags
-when overwriting VMA flags, replacing the inconsistently named
-vma_flags_reset_once() with vma_overwrite_flags() to do so, and always
-invoking it when flags are overwritten like this.
+Make life easier by factoring this into propagate_sticky_flags(), which
+treats vmg->vma_flags as its base (in case any sticky flags are set there),
+updating it as sticky flags are accumulated from merged VMAs.
 
-Reads are a problem too - madvise, mlock and mprotect all compare VMA flags
-without a VMA write lock held via vma_flags_same_pair().
+Also update vma_expand() to use propagate_sticky_flags() so all merge paths
+utilise it.
 
-This has more serious impact, as concurrent changes to atomic VMA flags can
-cause two sets of VMA flags to be wrongly considered different.
+propagate_sticky_flags() also asserts that the VMA write lock is held for
+the VMA whose sticky flags are being read, with a comment explaining why.
 
-For mprotect and madvise this causes a useless split, but mlock is impacted
-more seriously as it can result in mm->locked_vm underflow.
+Another means by which atomic VMA flags can fail to be observed is when the
+merge is finalised in commit_merge().
 
-Fix this by updating vma_flags_same_pair() to disregard
-VM_ATOMIC_SET_ALLOWED VMAs - VMA equality is the same as VMA mergeability,
-and atomic VMA flags are disregarded when comparing VMA flags for merge -
-so this is justified semantically.
+rmap locks are dropped in vma_complete() before the sticky flags are
+written, meaning an rmap walker can observe the VMA without sticky flags
+set, which can also result in retract_page_tables() discarding guard
+markers.
 
-Additionally, remove the redundant vma_flags_same_mask() and the unused
-vma_flags_same() as part of the change, and replace VM_ATOMIC_SET_ALLOWED
-with VMA_ATOMIC_SET_ALLOWED, using the new VMA flag API.
+Resolve this by assigning the sticky flags before dropping rmap locks,
+factored into commit_sticky_flags() with a write assert on the VMA being
+written to.
 
-Finally, update userland VMA tests to reflect the changes.
+Also remove the vma_set_flags_mask() invocation at the end of
+vma_merge_existing_range() as this was introduced by commit
+64212ba02e66 ("mm: implement sticky VMA flags") to propagate sticky flags,
+which is now redundant with the introduction of commit_sticky_flags().
+
+The vma_set_flags_mask() invocation at the end of vma_expand() setting
+sticky flags only is also removed for the same reason.
+
+Also update vma_merge_existing_range()'s comment to reflect the fact that
+vmg->vma_flags gets updated.
+
+Finally, update the userland VMA tests to reflect a previously missed
+const-ification in vma_assert_write_locked() which would otherwise cause a
+warning when building them.
 
 Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
 Fixes: 2ab7f1bbafc9 ("mm/madvise: allow guard page install/remove under VMA lock")
+Fixes: 49e14dabed7a ("mm: set the VM_MAYBE_GUARD flag on guard region install")
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- include/linux/mm.h              | 166 ++++++++++++++++++++--------------------
- mm/madvise.c                    |   4 +-
- mm/mlock.c                      |   6 +-
- mm/mprotect.c                   |   2 +-
- tools/testing/vma/include/dup.h |  76 ++++++++++--------
- tools/testing/vma/shared.h      |  16 ++--
- 6 files changed, 146 insertions(+), 124 deletions(-)
+ mm/vma.c                          | 55 +++++++++++++++++++++------------------
+ tools/testing/vma/include/dup.h   |  2 +-
+ tools/testing/vma/include/stubs.h |  2 +-
+ 3 files changed, 32 insertions(+), 27 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 35f5fc43861a..5f82be0fcde5 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -602,7 +602,7 @@ enum {
- #define VMA_LOCKED_MASK	mk_vma_flags(VMA_LOCKED_BIT, VMA_LOCKONFAULT_BIT)
- 
- /* These flags can be updated atomically via VMA/mmap read lock. */
--#define VM_ATOMIC_SET_ALLOWED VM_MAYBE_GUARD
-+#define VMA_ATOMIC_SET_ALLOWED mk_vma_flags(VMA_MAYBE_GUARD_BIT)
- 
- /* Arch-specific flags to clear when updating VM flags on protection change */
- #ifndef VM_ARCH_CLEAR
-@@ -987,22 +987,6 @@ static inline void vm_flags_reset(struct vm_area_struct *vma,
- 	vm_flags_init(vma, flags);
+diff --git a/mm/vma.c b/mm/vma.c
+index aa59005e2f42..a65e397d6f62 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -783,6 +783,27 @@ static void vmg_adjust_set_range(struct vma_merge_struct *vmg)
+ 	}
  }
  
--static inline void vma_flags_reset_once(struct vm_area_struct *vma,
--					vma_flags_t *flags)
--{
--	const unsigned long word = flags->__vma_flags[0];
--
--	/* It is assumed only the first system word must be written once. */
--	vma_flags_overwrite_word_once(&vma->flags, word);
--	/* The remainder can be copied normally. */
--	if (NUM_VMA_FLAG_BITS > BITS_PER_LONG) {
--		unsigned long *dst = &vma->flags.__vma_flags[1];
--		const unsigned long *src = &flags->__vma_flags[1];
--
--		bitmap_copy(dst, src, NUM_VMA_FLAG_BITS - BITS_PER_LONG);
--	}
--}
--
- static inline void vm_flags_set(struct vm_area_struct *vma,
- 				vm_flags_t flags)
- {
-@@ -1039,48 +1023,6 @@ static inline void vm_flags_mod(struct vm_area_struct *vma,
- 	__vm_flags_mod(vma, set, clear);
- }
- 
--static __always_inline bool __vma_atomic_valid_flag(struct vm_area_struct *vma,
--		vma_flag_t bit)
--{
--	const vm_flags_t mask = BIT((__force int)bit);
--
--	/* Only specific flags are permitted */
--	if (WARN_ON_ONCE(!(mask & VM_ATOMIC_SET_ALLOWED)))
--		return false;
--
--	return true;
--}
--
--/*
-- * Set VMA flag atomically. Requires only VMA/mmap read lock. Only specific
-- * valid flags are allowed to do this.
-- */
--static __always_inline void vma_set_atomic_flag(struct vm_area_struct *vma,
--		vma_flag_t bit)
--{
--	unsigned long *bitmap = vma->flags.__vma_flags;
--
--	vma_assert_stabilised(vma);
--	if (__vma_atomic_valid_flag(vma, bit))
--		set_bit((__force int)bit, bitmap);
--}
--
--/*
-- * Test for VMA flag atomically. Requires no locks. Only specific valid flags
-- * are allowed to do this.
-- *
-- * This is necessarily racey, so callers must ensure that serialisation is
-- * achieved through some other means, or that races are permissible.
-- */
--static __always_inline bool vma_test_atomic_flag(struct vm_area_struct *vma,
--		vma_flag_t bit)
--{
--	if (__vma_atomic_valid_flag(vma, bit))
--		return test_bit((__force int)bit, &vma->vm_flags);
--
--	return false;
--}
--
- /* Set an individual VMA flag in flags, non-atomically. */
- static __always_inline void vma_flags_set_flag(vma_flags_t *flags,
- 		vma_flag_t bit)
-@@ -1302,34 +1244,24 @@ static __always_inline vma_flags_t vma_flags_diff_pair(const vma_flags_t *flags,
- 	return dst;
- }
- 
--/* Determine if flags and flags_other have precisely the same flags set. */
-+/*
-+ * Determine if flags and flags_other have precisely the same flags set,
-+ * excluding atomic VMA flags.
-+ */
- static __always_inline bool vma_flags_same_pair(const vma_flags_t *flags,
--						const vma_flags_t *flags_other)
-+		const vma_flags_t *flags_other)
- {
--	const unsigned long *bitmap = flags->__vma_flags;
--	const unsigned long *bitmap_other = flags_other->__vma_flags;
--
--	return bitmap_equal(bitmap, bitmap_other, NUM_VMA_FLAG_BITS);
--}
-+	vma_flags_t diff = vma_flags_diff_pair(flags, flags_other);
- 
--/* Determine if flags and flags_other have precisely the same flags set.  */
--static __always_inline bool vma_flags_same_mask(const vma_flags_t *flags,
--						vma_flags_t flags_other)
--{
--	const unsigned long *bitmap = flags->__vma_flags;
--	const unsigned long *bitmap_other = flags_other.__vma_flags;
-+	/*
-+	 * Atomic VMA flags may be set concurrently under the VMA read lock, so
-+	 * are disregarded for equality testing purposes.
-+	 */
-+	vma_flags_clear_mask(&diff, VMA_ATOMIC_SET_ALLOWED);
- 
--	return bitmap_equal(bitmap, bitmap_other, NUM_VMA_FLAG_BITS);
-+	return vma_flags_empty(&diff);
- }
- 
--/*
-- * Helper macro to determine if only the specific flags are set, e.g.:
-- *
-- * if (vma_flags_same(&flags, VMA_WRITE_BIT) { ... }
-- */
--#define vma_flags_same(flags, ...) \
--	vma_flags_same_mask(flags, mk_vma_flags(__VA_ARGS__))
--
- /*
-  * Test whether a specific flag in the VMA is set, e.g.:
-  *
-@@ -1436,6 +1368,78 @@ static __always_inline void vma_clear_flags_mask(struct vm_area_struct *vma,
- #define vma_clear_flags(vma, ...) \
- 	vma_clear_flags_mask(vma, mk_vma_flags(__VA_ARGS__))
- 
-+static __always_inline bool __vma_atomic_valid_flag(struct vm_area_struct *vma,
-+		vma_flag_t bit)
++static void propagate_sticky_flags(struct vma_merge_struct *vmg,
++		const struct vm_area_struct *vma)
 +{
-+	const vma_flags_t mask = VMA_ATOMIC_SET_ALLOWED;
++	const vma_flags_t sticky =
++		vma_flags_and_mask(&vma->flags, VMA_STICKY_FLAGS);
 +
-+	/* Is this flag allowed to be set atomically? */
-+	if (WARN_ON_ONCE(!vma_flags_test(&mask, bit)))
-+		return false;
-+
-+	return true;
-+}
-+
-+/*
-+ * Set VMA flag atomically. Requires only VMA/mmap read lock. Only specific
-+ * valid flags are allowed to do this.
-+ */
-+static __always_inline void vma_set_atomic_flag(struct vm_area_struct *vma,
-+		vma_flag_t bit)
-+{
-+	unsigned long *bitmap = vma->flags.__vma_flags;
-+
-+	vma_assert_stabilised(vma);
-+	if (__vma_atomic_valid_flag(vma, bit))
-+		set_bit((__force int)bit, bitmap);
-+}
-+
-+/*
-+ * Test for VMA flag atomically. Requires no locks. Only specific valid flags
-+ * are allowed to do this.
-+ *
-+ * This is necessarily racey, so callers must ensure that serialisation is
-+ * achieved through some other means, or that races are permissible.
-+ */
-+static __always_inline bool vma_test_atomic_flag(struct vm_area_struct *vma,
-+		vma_flag_t bit)
-+{
-+	if (__vma_atomic_valid_flag(vma, bit))
-+		return test_bit((__force int)bit, &vma->vm_flags);
-+
-+	return false;
-+}
-+
-+/*
-+ * Overwrite the VMA's flags with new ones, preserving atomic VMA flags in the
-+ * process. The write is done once and once only.
-+ */
-+static inline void vma_overwrite_flags(struct vm_area_struct *vma,
-+		vma_flags_t new_flags)
-+{
-+	vma_flags_t atomic;
-+
++	/* Write lock prevents concurrent atomic VMA flag updates. */
 +	vma_assert_write_locked(vma);
++	vma_flags_set_mask(&vmg->vma_flags, sticky);
++}
 +
-+	/*
-+	 * Preserve the VMA's atomic flags, which are kept stable by the VMA
-+	 * write lock.
-+	 */
-+	atomic = vma_flags_and_mask(&vma->flags, VMA_ATOMIC_SET_ALLOWED);
-+	vma_flags_clear_mask(&new_flags, VMA_ATOMIC_SET_ALLOWED);
-+	vma_flags_set_mask(&new_flags, atomic);
++static void commit_sticky_flags(struct vma_merge_struct *vmg)
++{
++	const vma_flags_t sticky =
++		vma_flags_and_mask(&vmg->vma_flags, VMA_STICKY_FLAGS);
++	struct vm_area_struct *target = vmg->target;
 +
-+	/* It is assumed only the first system word must be written once. */
-+	vma_flags_overwrite_word_once(&vma->flags, new_flags.__vma_flags[0]);
-+	/* The remainder can be copied normally. */
-+	if (NUM_VMA_FLAG_BITS > BITS_PER_LONG) {
-+		unsigned long *dst = &vma->flags.__vma_flags[1];
-+		const unsigned long *src = &new_flags.__vma_flags[1];
-+
-+		bitmap_copy(dst, src, NUM_VMA_FLAG_BITS - BITS_PER_LONG);
-+	}
++	vma_assert_write_locked(target);
++	vma_set_flags_mask(target, sticky);
 +}
 +
  /*
-  * Test whether a specific VMA flag is set in a VMA descriptor, e.g.:
+  * Actually perform the VMA merge operation.
   *
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 75b409e97dbf..b2e00efcaa54 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -158,7 +158,7 @@ static int madvise_update_vma(vm_flags_t new_flags,
- 	bool set_new_anon_name = madv_behavior->behavior == __MADV_SET_ANON_VMA_NAME;
- 	VMA_ITERATOR(vmi, madv_behavior->mm, range->start);
+@@ -818,6 +839,8 @@ static int commit_merge(struct vma_merge_struct *vmg)
+ 		return -ENOMEM;
  
--	if (vma_flags_same_mask(&vma->flags, new_vma_flags) &&
-+	if (vma_flags_same_pair(&vma->flags, &new_vma_flags) &&
- 	    (!set_new_anon_name ||
- 	     anon_vma_name_eq(anon_vma_name(vma), anon_name)))
- 		return 0;
-@@ -177,7 +177,7 @@ static int madvise_update_vma(vm_flags_t new_flags,
- 
- 	/* vm_flags is protected by the mmap_lock held in write mode. */
- 	vma_start_write(vma);
--	vma->flags = new_vma_flags;
-+	vma_overwrite_flags(vma, new_vma_flags);
+ 	vma_prepare(&vp);
++	/* Must be made visible before vma_complete() for rmap walkers. */
++	commit_sticky_flags(vmg);
  	/*
- 	 * If the vma become good for khugepaged to scan,
- 	 * register it here without waiting a page fault that
-diff --git a/mm/mlock.c b/mm/mlock.c
-index 67ae9b18b923..1c70a7829394 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -432,14 +432,14 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
+ 	 * THP pages may need to do additional splits if we increase
+ 	 * middle->vm_start.
+@@ -857,8 +880,8 @@ static bool can_merge_remove_vma(struct vm_area_struct *vma)
+  * merge.
+  *
+  * As part of this operation, if a merge occurs, the @vmg object will have its
+- * vma, start, end, and pgoff fields modified to execute the merge. Subsequent
+- * calls to this function should reset these fields.
++ * vma, start, end, pgoff and vma_flags fields modified to execute the merge.
++ * Subsequent calls to this function should reset these fields.
+  *
+  * Returns: The merged VMA if merge succeeds, or NULL otherwise.
+  *
+@@ -872,8 +895,6 @@ static bool can_merge_remove_vma(struct vm_area_struct *vma)
+ static __must_check struct vm_area_struct *vma_merge_existing_range(
+ 		struct vma_merge_struct *vmg)
+ {
+-	vma_flags_t sticky_flags = vma_flags_and_mask(&vmg->vma_flags,
+-						      VMA_STICKY_FLAGS);
+ 	struct vm_area_struct *middle = vmg->middle;
+ 	struct vm_area_struct *prev = vmg->prev;
+ 	struct vm_area_struct *next;
+@@ -966,24 +987,18 @@ static __must_check struct vm_area_struct *vma_merge_existing_range(
+ 
+ 	/* No matter what happens, we will be adjusting middle. */
+ 	vma_start_write(middle);
++	propagate_sticky_flags(vmg, middle);
+ 
+ 	if (merge_right) {
+-		vma_flags_t next_sticky;
+-
+ 		vma_start_write(next);
+ 		vmg->target = next;
+-		next_sticky = vma_flags_and_mask(&next->flags, VMA_STICKY_FLAGS);
+-		vma_flags_set_mask(&sticky_flags, next_sticky);
++		propagate_sticky_flags(vmg, next);
  	}
  
- 	vma_start_write(vma);
--	vma_flags_reset_once(vma, &walk_flags);
-+	vma_overwrite_flags(vma, walk_flags);
- 
- 	lru_add_drain();
- 	walk_page_range_vma(vma, start, end, &mlock_walk_ops, (void *)lock);
- 	lru_add_drain();
- 
- 	if (lock)
--		vma_flags_reset_once(vma, new_vma_flags);
-+		vma_overwrite_flags(vma, *new_vma_flags);
- }
- 
- /*
-@@ -494,7 +494,7 @@ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 	    vma_flags_test(&old_vma_flags, VMA_LOCKED_BIT)) {
- 		/* No work to do, and mlocking twice would be wrong */
- 		vma_start_write(vma);
--		vma->flags = *new_vma_flags;
-+		vma_overwrite_flags(vma, *new_vma_flags);
- 	} else {
- 		mlock_vma_pages_range(vma, start, end, new_vma_flags);
+ 	if (merge_left) {
+-		vma_flags_t prev_sticky;
+-
+ 		vma_start_write(prev);
+ 		vmg->target = prev;
+-
+-		prev_sticky = vma_flags_and_mask(&prev->flags, VMA_STICKY_FLAGS);
+-		vma_flags_set_mask(&sticky_flags, prev_sticky);
++		propagate_sticky_flags(vmg, prev);
  	}
-diff --git a/mm/mprotect.c b/mm/mprotect.c
-index 754333698c1e..e18d4e12fc34 100644
---- a/mm/mprotect.c
-+++ b/mm/mprotect.c
-@@ -833,7 +833,7 @@ mprotect_fixup(struct vma_iterator *vmi, struct mmu_gather *tlb,
- 	 * held in write mode.
- 	 */
- 	vma_start_write(vma);
--	vma_flags_reset_once(vma, &new_vma_flags);
-+	vma_overwrite_flags(vma, new_vma_flags);
- 	if (vma_wants_manual_pte_write_upgrade(vma))
- 		mm_cp_flags |= MM_CP_TRY_CHANGE_WRITABLE;
- 	vma_set_page_prot(vma);
+ 
+ 	if (merge_both) {
+@@ -1054,7 +1069,6 @@ static __must_check struct vm_area_struct *vma_merge_existing_range(
+ 	if (err || commit_merge(vmg))
+ 		goto abort;
+ 
+-	vma_set_flags_mask(vmg->target, sticky_flags);
+ 	khugepaged_enter_vma(vmg->target, vmg->vm_flags);
+ 	vmg->state = VMA_MERGE_SUCCESS;
+ 	return vmg->target;
+@@ -1241,16 +1255,11 @@ int vma_expand(struct vma_merge_struct *vmg)
+ 	struct vm_area_struct *target = vmg->target;
+ 	struct vm_area_struct *next = vmg->next;
+ 	bool remove_next = false;
+-	vma_flags_t sticky_flags =
+-		vma_flags_and_mask(&vmg->vma_flags, VMA_STICKY_FLAGS);
+-	vma_flags_t target_sticky;
+ 	int ret = 0;
+ 
+ 	mmap_assert_write_locked(vmg->mm);
+ 	vma_start_write(target);
+ 
+-	target_sticky = vma_flags_and_mask(&target->flags, VMA_STICKY_FLAGS);
+-
+ 	if (next && target != next && vmg->end == next->vm_end)
+ 		remove_next = true;
+ 
+@@ -1265,7 +1274,7 @@ int vma_expand(struct vma_merge_struct *vmg)
+ 	VM_WARN_ON_VMG(target->vm_start < vmg->start ||
+ 		       target->vm_end > vmg->end, vmg);
+ 
+-	vma_flags_set_mask(&sticky_flags, target_sticky);
++	propagate_sticky_flags(vmg, target);
+ 
+ 	/*
+ 	 * If we are removing the next VMA or copying from a VMA
+@@ -1282,18 +1291,14 @@ int vma_expand(struct vma_merge_struct *vmg)
+ 		return ret;
+ 
+ 	if (remove_next) {
+-		vma_flags_t next_sticky;
+-
+ 		vma_start_write(next);
+ 		vmg->__remove_next = true;
+ 
+-		next_sticky = vma_flags_and_mask(&next->flags, VMA_STICKY_FLAGS);
+-		vma_flags_set_mask(&sticky_flags, next_sticky);
++		propagate_sticky_flags(vmg, next);
+ 	}
+ 	if (commit_merge(vmg))
+ 		goto nomem;
+ 
+-	vma_set_flags_mask(target, sticky_flags);
+ 	return 0;
+ 
+ nomem:
 diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index f449129ea97a..815401b19c57 100644
+index 815401b19c57..c778fe437993 100644
 --- a/tools/testing/vma/include/dup.h
 +++ b/tools/testing/vma/include/dup.h
-@@ -366,6 +366,9 @@ enum {
- 
- #define VMA_LOCKED_MASK	mk_vma_flags(VMA_LOCKED_BIT, VMA_LOCKONFAULT_BIT)
- 
-+/* These flags can be updated atomically via VMA/mmap read lock. */
-+#define VMA_ATOMIC_SET_ALLOWED mk_vma_flags(VMA_MAYBE_GUARD_BIT)
-+
- #define RLIMIT_STACK		3	/* max stack size */
- #define RLIMIT_MEMLOCK		8	/* max locked-in-memory address space */
- 
-@@ -895,22 +898,6 @@ static inline void vm_flags_reset(struct vm_area_struct *vma,
- 	vm_flags_init(vma, flags);
+@@ -1212,7 +1212,7 @@ static inline void vma_assert_detached(struct vm_area_struct *vma)
+ 	WARN_ON_ONCE(vma_is_attached(vma));
  }
  
--static inline void vma_flags_reset_once(struct vm_area_struct *vma,
--					vma_flags_t *flags)
--{
--	const unsigned long word = flags->__vma_flags[0];
--
--	/* It is assumed only the first system word must be written once. */
--	vma_flags_overwrite_word_once(&vma->flags, word);
--	/* The remainder can be copied normally. */
--	if (NUM_VMA_FLAG_BITS > BITS_PER_LONG) {
--		unsigned long *dst = &vma->flags.__vma_flags[1];
--		const unsigned long *src = &flags->__vma_flags[1];
--
--		bitmap_copy(dst, src, NUM_VMA_FLAG_BITS - BITS_PER_LONG);
--	}
--}
--
- static inline void vm_flags_set(struct vm_area_struct *vma,
- 				vm_flags_t flags)
+-static inline void vma_assert_write_locked(struct vm_area_struct *);
++static inline void vma_assert_write_locked(const struct vm_area_struct *);
+ static inline void vma_mark_attached(struct vm_area_struct *vma)
  {
-@@ -1037,27 +1024,24 @@ static __always_inline vma_flags_t vma_flags_diff_pair(const vma_flags_t *flags,
- 	return dst;
+ 	vma_assert_write_locked(vma);
+diff --git a/tools/testing/vma/include/stubs.h b/tools/testing/vma/include/stubs.h
+index f786a585caf0..8d030a3ace84 100644
+--- a/tools/testing/vma/include/stubs.h
++++ b/tools/testing/vma/include/stubs.h
+@@ -320,7 +320,7 @@ static inline void anon_vma_lock_write(struct anon_vma *anon_vma)
+ {
  }
  
-+/*
-+ * Determine if flags and flags_other have precisely the same flags set,
-+ * excluding atomic VMA flags.
-+ */
- static __always_inline bool vma_flags_same_pair(const vma_flags_t *flags,
--						const vma_flags_t *flags_other)
-+		const vma_flags_t *flags_other)
+-static inline void vma_assert_write_locked(struct vm_area_struct *vma)
++static inline void vma_assert_write_locked(const struct vm_area_struct *vma)
  {
--	const unsigned long *bitmap = flags->__vma_flags;
--	const unsigned long *bitmap_other = flags_other->__vma_flags;
--
--	return bitmap_equal(bitmap, bitmap_other, NUM_VMA_FLAG_BITS);
--}
-+	vma_flags_t diff = vma_flags_diff_pair(flags, flags_other);
- 
--static __always_inline bool vma_flags_same_mask(const vma_flags_t *flags,
--						vma_flags_t flags_other)
--{
--	const unsigned long *bitmap = flags->__vma_flags;
--	const unsigned long *bitmap_other = flags_other.__vma_flags;
-+	/*
-+	 * Atomic VMA flags may be set concurrently under the VMA read lock, so
-+	 * are disregarded for equality testing purposes.
-+	 */
-+	vma_flags_clear_mask(&diff, VMA_ATOMIC_SET_ALLOWED);
- 
--	return bitmap_equal(bitmap, bitmap_other, NUM_VMA_FLAG_BITS);
-+	return vma_flags_empty(&diff);
  }
  
--#define vma_flags_same(flags, ...) \
--	vma_flags_same_mask(flags, mk_vma_flags(__VA_ARGS__))
--
- static __always_inline bool vma_test(const struct vm_area_struct *vma,
- 		vma_flag_t bit)
- {
-@@ -1106,6 +1090,36 @@ static __always_inline void vma_clear_flags_mask(struct vm_area_struct *vma,
- #define vma_clear_flags(vma, ...) \
- 	vma_clear_flags_mask(vma, mk_vma_flags(__VA_ARGS__))
- 
-+/*
-+ * Overwrite the VMA's flags with new ones, preserving atomic VMA flags in the
-+ * process. The write is done once and once only.
-+ */
-+static inline void vma_overwrite_flags(struct vm_area_struct *vma,
-+				       vma_flags_t new_flags)
-+{
-+	vma_flags_t atomic;
-+
-+	vma_assert_write_locked(vma);
-+
-+	/*
-+	 * Preserve the VMA's atomic flags, which are kept stable by the VMA
-+	 * write lock.
-+	 */
-+	atomic = vma_flags_and_mask(&vma->flags, VMA_ATOMIC_SET_ALLOWED);
-+	vma_flags_clear_mask(&new_flags, VMA_ATOMIC_SET_ALLOWED);
-+	vma_flags_set_mask(&new_flags, atomic);
-+
-+	/* It is assumed only the first system word must be written once. */
-+	vma_flags_overwrite_word_once(&vma->flags, new_flags.__vma_flags[0]);
-+	/* The remainder can be copied normally. */
-+	if (NUM_VMA_FLAG_BITS > BITS_PER_LONG) {
-+		unsigned long *dst = &vma->flags.__vma_flags[1];
-+		const unsigned long *src = &new_flags.__vma_flags[1];
-+
-+		bitmap_copy(dst, src, NUM_VMA_FLAG_BITS - BITS_PER_LONG);
-+	}
-+}
-+
- static __always_inline bool vma_desc_test(const struct vm_area_desc *desc,
- 		vma_flag_t bit)
- {
-diff --git a/tools/testing/vma/shared.h b/tools/testing/vma/shared.h
-index 97cd7a679dc1..646edf367d7c 100644
---- a/tools/testing/vma/shared.h
-+++ b/tools/testing/vma/shared.h
-@@ -51,17 +51,21 @@
- 		      __TO_SCALAR(__val1), __TO_SCALAR(__val2)); \
- 	} while (0)
- 
--#define ASSERT_FLAGS_SAME_MASK(_flags, _flags_other) \
--	ASSERT_TRUE(vma_flags_same_mask((_flags), (_flags_other)))
-+#define ASSERT_FLAGS_SAME_MASK(_flags, _flags_other) do {		\
-+	const vma_flags_t __flags_other = (_flags_other);		\
-+	ASSERT_TRUE(vma_flags_same_pair((_flags), &__flags_other));	\
-+	} while (0)
- 
--#define ASSERT_FLAGS_NOT_SAME_MASK(_flags, _flags_other) \
--	ASSERT_FALSE(vma_flags_same_mask((_flags), (_flags_other)))
-+#define ASSERT_FLAGS_NOT_SAME_MASK(_flags, _flags_other) do {		\
-+	const vma_flags_t __flags_other = (_flags_other);		\
-+	ASSERT_FALSE(vma_flags_same_pair((_flags), &__flags_other));	\
-+	} while (0)
- 
- #define ASSERT_FLAGS_SAME(_flags, ...) \
--	ASSERT_TRUE(vma_flags_same(_flags, __VA_ARGS__))
-+	ASSERT_FLAGS_SAME_MASK(_flags, mk_vma_flags(__VA_ARGS__))
- 
- #define ASSERT_FLAGS_NOT_SAME(_flags, ...) \
--	ASSERT_FALSE(vma_flags_same(_flags, __VA_ARGS__))
-+	ASSERT_FLAGS_NOT_SAME_MASK(_flags, mk_vma_flags(__VA_ARGS__))
- 
- #define ASSERT_FLAGS_EMPTY(_flags) \
- 	ASSERT_TRUE(vma_flags_empty(_flags))
 
 -- 
 2.56.0
