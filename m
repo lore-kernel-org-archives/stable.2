@@ -1,101 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792779237;
-	b=NsHp0k2GRCWpdip4L31aDImWV5/Kc6rSV0yWnqGtCTyL81HhSkQO3kEQ1fzREcuxnJxX
-	 HRIPtM/QW/LE8qqt/Zs8ElOt72+CdsuJnHVImPnh8T/7dvl99uRonJ4mTzqcH5nfTAwyo
-	 +AelvhwbTPehRy+dwhdaeN5GOvGBMmoMxa84riFGf3LtOQJUXSI0bOjZWys7oE+24rSLg
-	 DyE3mh9B0AfcpCcOWaz+VRiuJJEYEmS8NuKrUBgmMn9ZiOvdPqtzafetPGQphmrjJ+1pb
-	 oCtSOGB3xPMrIy/SwZN0s9RvCXMwEtsULXPMvea+vgC6oNp/hQSgh9VNU43neLlTgeQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792779237;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792779447;
+	b=zec2UUMBgkwwPdxhho2ECgcQksnhQUkhKC8tzd1xyGeJ2VehOIzReMxPZJcXTWQ/QUQ0
+	 8ialnSBbQgLwAEj21OtO1cMBOF7y5S8ixz+eFRcMpykdkL4YeJUykWdc00BswUQZa11rd
+	 PlUOHc8KD0t1oCK8oYKjMOzxVcu+tT4Cyml1e1dqVAh7Tu8ByMBKlRBalUWwi+IYDdeXS
+	 rVPLBz9EH+G+qX3NAuVyNIMqoylCrkhkuw4o9Byo3flVw0G2rSzO2a3N2dDaKPKo16WR+
+	 rw00axZlzBxps83gj+6s+D6zs/VEAYE6H5bpqArRo5VxIn4jLK76n/KqrfbNPGvMXtQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792779447;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=a8AhxehP29nTMFMYLaAQmj4iROvDwdVGWATuOgUSYxE=;
-	b=3xeWbEM7G2m02B1YZZ215vxI7Fuwlp7hMXsX9VN5SG25iI53qE1ggZ/VmDWQK6Pv5tNx
-	 6Tce9pXNplgXyYaeikYLQKFif3Toe7erCpTAKzg6fm94q4ZXT8U0G3RKlLsgrKFatQz0/
-	 W6nLxbviwH2kKMGeMoP2+NV9iA+wqcZcELYxbRp+OSfBSvfYPYPBmmzxPXJi957cdETzl
-	 pbcc47y+J3959bu1mq/dTSzJS0xXb7YnWF236DPz5pL/qWsxOrV2kYTFNOKbFrLifiuBw
-	 UJo0aauJi0IUZi5GiT7enpzFthEhAy0tkR0GI9K3bCPuVQwmUjq1akNu1G77t2AvAvA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XsJdhaxl;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 X-Received:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 Message-ID:User-Agent:MIME-Version:Content-Type;
+	bh=rTx9dehoDL6UrtB6cqyEQOfT2QURvHvNHtybLXG9ayI=;
+	b=4N5KSHTtmLeJO+LvMk89sYay5NdJp8QnqkQcbnu31ukb40e+J+cT6+9IzaskzAgRSoGY
+	 lKuRifUiGnAahZvGFWv5nj4/PyMn0VHzCRKKli5z1xlvKjViDidO3sTrLDazYyt/iBMSl
+	 2wUVvBgNeJPuqOmmjjnR3Cfdv5q7jZGhwUEZc+iWwVoDH/aFgP6dc7oNs4u22i+zGQvSY
+	 3k91sTnbEj7U4dxyZRaqmHrFlfXkTGRy4Atmx8/TMYll01zcyWIti48lwSSA5lgC/en9I
+	 OCbz43YxxQvD2iqCDn7FZBU3DlEBrSLnt2CF/kFOTmEOW3IaZuUYKlXQOaRf66knPPQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=gbs1CENI;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qjC4BqGZ;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F8C7606A31E
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 18:13:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F8C7606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA35606A31F
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 18:17:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECA35606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XsJdhaxl
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ab41538192so885650a91.0
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 11:13:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792779236; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RYFJPR9vO70tu1NFwRD727AbJzDTNxMD/4Nu3OQ75FNIudTKVha61t+/YWnBbTFaDZ
-         ccr9IjIjgnEWO20MqvKQWtvZe7Dv7in30eS3/d/LRf9RvpAECoM4ooVHmbDnB6s8+PHx
-         +KqNtUjcy2+QFulA7VoZx4n0/IGfmok/llAyrf/OwjQap77edx7racbdgA4Cq2A7NhSn
-         oVT9PTNA90dWn1XTtAzcfpTuB3NMU+wMmkDFgnDcyzF3ii9n+F8Nv+xHnKB2QJUdDAb5
-         Bcg43lYQVKEDg39X/+nnw5RPnYMg0hR9O+o3QGEKTWXlM0mZsd/daAKq1XfI1rI3yTzP
-         q+3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=a8AhxehP29nTMFMYLaAQmj4iROvDwdVGWATuOgUSYxE=;
-        fh=A7KzBehLnAyXTMx25izVpXRVP3mKCtCwvl/raXhp38g=;
-        b=Lw0ly+YcsMOY47hZB3rsDQt91dGqLlbWWTbFKRE/KDeqxkatV+DHrZ9D0feBNNjxQE
-         vry4YbgH63RZ/Z4HgpoENQNTFzD3LDD5YhFaxw7x5b8s9wAwpZ/mh1L+F28vzvczwMUL
-         rwr/YvXEx/X/WpbgZ51IuDTkVoqdAHPlJ3frQbBe0765+yf8FAzFmBpHi22Pk+AFpwLT
-         1Ru3Tdz6Bnyn41cWweDFz3mG4h9oBQ2X4FqdViwsFxoG20o7qtin5EnY3XRSfYt5bUWy
-         kj4wuL5zmPqpd+kUO3de3w9ESRPJoUn8OXTIMcurHRDienpEVDhbIQUzD3tzdZB1tLVf
-         QQWg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=gbs1CENI;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qjC4BqGZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792779445;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rTx9dehoDL6UrtB6cqyEQOfT2QURvHvNHtybLXG9ayI=;
+	b=gbs1CENICgA5PurJXbA8PEpER6sktnyNlLRLyqq7SVt3gBk/O2HP9YZH9woRUu6yb99ebX
+	eBftWo0pvCNuc4zqjpZibjkdL/Aaf7RloHcgUgvH+6+l6v+3SVINWd13xGt2+hkU4eLJdD
+	tXL2fReWvyL2t54UJB0SzxDlFxs3K2w=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-571-rrXl5-peNUSrE_uJ2Maf5g-1; Fri, 23 Oct 2026 14:17:18 -0400
+X-MC-Unique: rrXl5-peNUSrE_uJ2Maf5g-1
+X-Mimecast-MFC-AGG-ID: rrXl5-peNUSrE_uJ2Maf5g_1792779437
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a1e295b702so11737495e9.2
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 11:17:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792779236; x=1793384036; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=a8AhxehP29nTMFMYLaAQmj4iROvDwdVGWATuOgUSYxE=;
-        b=XsJdhaxlHUIV+RHxX+IslIZvg/0cJk3Jas2+lOtbhCi5h3POK3aAQYWGAKJSlgSlBG
-         PhLR7BWQrw7Lws805TJLiOxUxCYox/cbyo4xrtd0HceO+4KwX9i4Nlce0IyMPdsWdlVV
-         L5pukF/Oov+6kshOmkGgpaqb8xh79aydURJ1gFFD2CftTIC5HXlnO3WRbrM3oI6Y8lw6
-         reoF7CnBh73ZCi97+S//5V1iLynG/2Rj3N9MfqCHha8tBhAACD4DxgxGobSCF0A/Fb+n
-         /Y2K19+87cdeUnqExRe2K9eHCBr/y6OyI248S7cS3s80HJ1jVG+DZZIDfvOxB+//DgQb
-         V5ow==
+        d=redhat.com; s=google; t=1792779437; x=1793384237; darn=vger.kernel.org;
+        h=content-type:mime-version:user-agent:message-id:date:references
+         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=rTx9dehoDL6UrtB6cqyEQOfT2QURvHvNHtybLXG9ayI=;
+        b=qjC4BqGZ19GiA5CbMkSA7HtE/unfd/YVz7YCgLXmBk0oiNwhfNF0Q/pJXKZh6niKIj
+         CHIF5SgI4sBnrrUQOfLYGVLd7etjUkn6npZcEs/mlTF7mUoxBdq+r4vVe9WDQ6YZAcEy
+         Z64cW4/rHmHWxMbFiIwgJJxAIb2oUg6nZK55A9nb1hqw3/6m/48caDP6bi+8iHxEFlxj
+         Lx5ndbOFySjBVXf68OIWtXUIHKSxvEgzFBE53sLSF50KdeA2sJC7PZezLgZZ6/NQMhph
+         juvZsMeAAN8DTucvBqU4Jirb/hLZ2D4PMWW4mAkD+cpZ8vFuhWmevCIwCkvDHyvdGChK
+         bLlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792779236; x=1793384036;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a8AhxehP29nTMFMYLaAQmj4iROvDwdVGWATuOgUSYxE=;
-        b=h+ITLFLGnkK8IGQWH4Vy47m/t1dFMsVV/2QxAiAvztuTyjcJkkKmsZ8Dx0t6KeeUxg
-         wX9opO2t8aoDNVUxevLsQtLD+w4kI0Wd6F+HsZLzkyPCCYFFHjWX/S8VoaAVMogjQp3f
-         ZfnZZwgnpuDy/Pqwmv4UZJYSbScqel78Zx8BXR2BGD3F7nTOz7Lx+axjxs2Pd3fYk2t3
-         wNYE5H7EIBXSfc/tm7oToLrhuKb7jwX5eY3lPBLFdxKtSDmh5TW/RPRTbtMuIaTadW1E
-         s2PyOB6yLthKBqAA4kJxKkzKXMQ8V7v7S+qk0tubMiLpgQmxvbmV7flT5ntCXB2YJwQ4
-         uC0A==
-X-Forwarded-Encrypted: i=1; AKwUvBwzTR2/stHmeZZ0ykOuKoXsaCL8PZT03txD7XRVBNNKWB5OJqL7FMp5rrndZplIM+5o/6Jj+8M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYICP0xl6oIVJlelt/P5wMvFM4YRjoIeXxKW3WkHWgc3qGAJuPeK
-	WOfXzFeqd99r4CUMfW/jsSCNsno5TwMgcfKBKqKLHLYXgQZ6K861bTExKBA75QFmkMz3LrzhPnQ
-	cLDTbln4zgLkhplvQ/14HgChCiYhgvgY=
-X-Gm-Gg: AYBFou2DXoIOiwWHfVrrIzcJFUAVL6muIvAjLsQ6sAFStNOGhfFqgVutt8QeLQBvzzv
-	NWlswWJDqnPBCaSvWsqLnuvsDoO16x3H69D4iVrLpMbHviq/GDbYC4qdWjLMu9q49Ae3NfzuVL4
-	ctzVgzlTOhVYzDxYjr87ZLP2fJVZ+TINNIxL1oPg8WiyAWdkxOJki2BgLvt4YnnDMsL72de+VxL
-	aBZjDRxCTqoS6Ar3QkwCtYDn7SVlsPNoW26CWpwSbps9BKZ0qoJUhfjxO8MfOFMj64TjvLcKGDP
-	JF6Du7mwhRh1tlA2C38Zrmy33J7rwXp0jeeRq5PKfuWRDkbL8pZSu2X9lFdhZlqfQyZtvlJmL8x
-	8FrMhblFxvzPSEONlD+PMVwB+mEd3gWbkwlugUw/+fiOEXyACRUAV9kPTvHD1jvrG5gPUGKqatU
-	dtvjp7nnElUKeP2S5+zg==
-X-Received: by 2002:a17:90a:ec8e:b0:3ac:e9d4:5530 with SMTP id
- 98e67ed59e1d1-3adeae84a18mr82020a91.24.1792779236236; Fri, 23 Oct 2026
- 11:13:56 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792779437; x=1793384237;
+        h=content-type:mime-version:user-agent:message-id:date:references
+         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=rTx9dehoDL6UrtB6cqyEQOfT2QURvHvNHtybLXG9ayI=;
+        b=yvZbHgHcWzpwcHfkKa9UcwuLd5JcUS+uuEpiwAneJ/4grXdz+fgKvi3/neNJc5EQN7
+         W7Ldg1s1JfhcZHCd00ESxpSbMrWOQ/kLhMJM99H09ePfuVj8mCv3wEdf1vWh92cGPOAm
+         oF4f7L/EusDfEJa+oeFRVOwKw4GuxGN0GYZqp4Zx/22IBv9sTyS3eghdOEfuNHIx/Qrx
+         QOjjR7D/QUl8nqZWm+JUXTHXxX/MePqvhs13WIbk2BiJq5CXoZ29rFOVPylD73VOAOJ+
+         bl/oR3VYKJax+/ZCB6/YZmB3ZeFbjy4DIABG3csG2N1729JMioYCtyV7azlv522cAnpY
+         N7OQ==
+X-Forwarded-Encrypted: i=1; AKwUvByVsAvqdOOhiuYxv3bJqni0UbMkw29V/WsIlHZgdPMwlk+0eBLBKYDLt/SE289/i7xUIvrmDMw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL49e9ukvpZ/4w5ZrYxZtgPSgR3+R2yvHdP8Z0+R/Pr8cTj9kbr
+	pQT8r6WRI1RqU9NykjJnKUWGGhMor4Xkmp/4qWgeueJkEkjztWZF5ePuxrhqf1SIyLGhIRsS0RY
+	Dn1iInZRtF2obNi+djOoyUD35P5QNt2KA9hCUxYd2RHvI/wu/Iyr7XuBr6wpYEIJkrGMVaEZgRK
+	gcLuQ6pOlT3lp0RJJRfRYMxC6+1mHKdy1GHCfm1w2c
+X-Gm-Gg: AYBFou0iRn2+3YX+JVXD3m52SkZ6fttNfC/mFUp6Ky7YH+S3kFJFFaO9cZ6b3nK/GLP
+	Dy8aIVEbntoT9SgWP4Wcx3BYNY7k7zr04IKaXaZ4i2W7wZywYcGThtRCZ6xX+fsnGtHqnEAHkGE
+	pEtEXbb9c+LW53aB6WbKXKqhj9SwIKNummcNSgJgvDnlSUxxwwN51fTJBZ3iPmR2/cEjVaBVmRB
+	CmmVHE0WkFP7qwmlSYw4fPVEX08FLQvFOotOF3d0JFwVaF7CJ8yhNT0MYXglAEoluV76afMoF7h
+	5h6uKdyWJ8knRi5rqVADXWluLjtleFZPUXGS3i4zOoasKo19K8nMF3zrCpnjiLiDLHO0555KVcg
+	i7Abcgfrb8FLu9Y9ADQrFHdbJQgwdZg==
+X-Received: by 2002:a05:600c:3b18:b0:4a1:78c5:79f5 with SMTP id 5b1f17b1804b1-4a211ed8fb3mr45467205e9.33.1792779437340;
+        Fri, 23 Oct 2026 11:17:17 -0700 (PDT)
+X-Received: by 2002:a05:600c:3b18:b0:4a1:78c5:79f5 with SMTP id 5b1f17b1804b1-4a211ed8fb3mr45466695e9.33.1792779436892;
+        Fri, 23 Oct 2026 11:17:16 -0700 (PDT)
+Received: from aconole-thinkpadt14gen4.rmtusnh.csb ([216.212.39.190])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a046fefsm305055e9.5.2026.10.23.11.17.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 11:17:16 -0700 (PDT)
+From: Aaron Conole <aconole@redhat.com>
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org,  Eelco Chaudron <echaudro@redhat.com>,  Ilya
+ Maximets <i.maximets@ovn.org>,  "David S . Miller" <davem@davemloft.net>,
+  Eric Dumazet <edumazet@kernel.org>,  Jakub Kicinski <kuba@kernel.org>,
+  Paolo Abeni <pabeni@redhat.com>,  Simon Horman <horms@kernel.org>,
+  Pravin B Shelar <pshelar@ovn.org>,  Martin Varghese
+ <martin.varghese@nokia.com>,  Jiri Pirko <jiri@resnulli.us>,  Victor
+ Nogueira <victor@mojatatu.com>,  dev@openvswitch.org,
+  stable@vger.kernel.org
+Subject: Re: [PATCH net v2 5/6] net: openvswitch: ensure a linear inner
+ Ethernet header on TEB pop
+In-Reply-To: <ACT-N6N4.v2.r0.20261022191829-5@mojatatu.com> (Jamal Hadi
+	Salim's message of "Fri, 23 Oct 2026 07:59:20 -0400")
+References: <ACT-N6N4.v2.r0.20261022191829@mojatatu.com>
+	<ACT-N6N4.v2.r0.20261022191829-1@mojatatu.com>
+	<ACT-N6N4.v2.r0.20261022191829-2@mojatatu.com>
+	<ACT-N6N4.v2.r0.20261022191829-3@mojatatu.com>
+	<ACT-N6N4.v2.r0.20261022191829-4@mojatatu.com>
+	<ACT-N6N4.v2.r0.20261022191829-5@mojatatu.com>
+Date: Fri, 23 Oct 2026 14:17:13 -0400
+Message-ID: <f7twlr8s2mu.fsf@aconole-thinkpadt14gen4.rmtusnh.csb>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,202 +129,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021174406.2891598-1-vineet.gupta@linux.dev> <20261021174406.2891598-2-vineet.gupta@linux.dev>
-In-Reply-To: <20261021174406.2891598-2-vineet.gupta@linux.dev>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Fri, 23 Oct 2026 11:13:44 -0700
-X-Gm-Features: AclHuK_b8jFh1n9PBk8gfcCMD41lkp9YMQ4GmFMcfbETjnWBAQczU9_yN8yeaC4
-Message-ID: <CAEf4BzaTYgNwiBtvYoSw1wzuFZchs-2CCP93gh2OeDt-919-eQ@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] tracing: fgraph: allocate shadow stacks inline
- with GFP_NOWAIT
-To: Vineet Gupta <vineet.gupta@linux.dev>, mhiramat@kernel.org, rostedt@goodmis.org
-Cc: mark.rutland@arm.com, mathieu.desnoyers@efficios.com, andrii@kernel.org, 
-	peterz@infradead.org, linux-trace-kernel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, kernel-team@meta.com, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Wed, Oct 21, 2026 at 10:44=E2=80=AFAM Vineet Gupta <vineet.gupta@linux.d=
-ev> wrote:
+Jamal Hadi Salim <jhs@mojatatu.com> writes:
+
+> The issue:
+> pop_mpls() restores MAC_PROTO_ETHERNET when the popped ethertype is
+> ETH_P_TEB, but skb_mpls_pop() only guarantees that the MPLS shim is in
+> the linear area.  When the inner Ethernet header sits in a page
+> fragment, the datapath now claims an Ethernet header it cannot access
+> linearly.
 >
-> When ftrace graphing is turned on, all tasks in the system missing
-> return stack page are assigned one. This is done in a simplistic
-> multi-sweep loop of FTRACE_RETSTACK_ALLOC_SIZE (currently 32) tasks
-> at a time as follows:
+> Output to an OVS internal vport then calls eth_type_trans(), which
+> pulls ETH_HLEN from an empty linear area and triggers the BUG in
+> __skb_pull():
 >
->    start_graph_tracing()
->         do {
->                 alloc_retstack_tasklist
->         } while (-EAGAIN);
+>   kernel BUG at ./include/linux/skbuff.h:2830!
+>   RIP: 0010:eth_type_trans+0x335/0x500
+>   internal_dev_recv
+>   ovs_vport_send
+>   do_output
+>   do_execute_actions
+>   ovs_execute_actions
+>   ovs_dp_process_packet
+>   ovs_vport_receive
+>   internal_dev_xmit
 >
->    alloc_retstack_tasklist()
->         alloc x32           # GFP_KERNEL, may sleep
->         rcu_read_lock()     # preempt off
->                 for_each_process_thread    walk N_total, no cond_resched
->                      t->ret_stack =3D new_page
->         rcu_read_unlock()   # preempt enable but no explicit yield
+> Conditions to recreate the bug:
+> On a system with 4 KiB pages and CONFIG_OPENVSWITCH and CONFIG_PACKET
+> enabled, use CAP_NET_ADMIN to create an OVS datapath and bring its local
+> internal port up with MTU 9000.  Install a flow matching an Ethernet/MPLS
+> packet with one bottom-of-stack label and actions pop_eth,
+> pop_mpls(0x6558), output to the local port.  With CAP_NET_RAW, send a
+> 4128-byte AF_PACKET/SOCK_RAW frame containing outer Ethernet, the MPLS
+> label, inner Ethernet and 4096 payload bytes.  The two pops consume the
+> linear headers and expose the inner Ethernet header in page fragments.
 >
-> Each successive iteration of loop invokes for_each_process_thread()
-> which doesn't support cursor based resume and always restarts from the
-> init_task. Thus each successive loop needs to skip the tasks assigned
-> ret_stack in prior sweeps and thus take longer and longer to find the
-> candidate 32 tasks. And while the loop end calls rcu unlock,
-> and re-enables preemption briefly, there is no explicit yield.
+> The Fix:
+> Pull the inner Ethernet header into the linear area before restoring
+> MAC_PROTO_ETHERNET.
 >
-> The total number of iterations turn out to be
->
->         N_total * N_null / (2 * FTRACE_RETSTACK_ALLOC_SIZE)
->
-> where N_total is the number of threads on the system and N_null the numbe=
-r
-> of those whose ret_stack is still NULL. After boot with no fgraph user th=
-at
-> is every thread.
->
-> This is not a tracing-only path. Since commit 4346ba160409 ("fprobe:
-> Rewrite fprobe on function-graph tracer") fprobe is built on fgraph,
-> so an ordinary kprobe_multi BPF attach that flips ftrace_graph_active
-> from 0 to 1 pays the whole cost inside one bpf() syscall. Commit
-> 2c67dc457bc6 ("tracing: fprobe: optimization for entry only case")
-> narrows that to return and session probes but does not remove it.
->
-> A host running hundreds of thousands of threads, with the current batch
-> size of 32, turns the ftrace_graph_active 0 -> 1 transition into a
-> multi-second, and eventually multi-minute, operation which showed up as
-> RCU stall and softlockup_panic on heavily loaded Meta Fleet machines
-> with preemption disabled.
->
->     rcu: INFO: rcu_sched self-detected stall on CPU
->     rcu: 0-....: (20718 ticks this GP) (t=3D21000 jiffies g=3D913 q=3D8 n=
-cpus=3D8)
->     CPU: 0 UID: 0 PID: 160141 Comm: bpftrace
->      ___slab_alloc+0x549/0xa20
->      kmem_cache_alloc_noprof+0x16c/0x340
->      register_ftrace_graph+0x3d7/0x6c0
->      register_fprobe_ips+0x2d5/0x310
->      bpf_kprobe_multi_link_attach+0x218/0x7e0
->      __sys_bpf+0x267a/0x27a0
->
-> Fix this by allocating inline with GFP_NOWAIT instead of pre-allocating
-> a fixed batch. GFP_NOWAIT does not sleep, so it is legal inside the RCU
-> read-side critical section.
->
-> A single sweep now serves every task, so the walk becomes O(N) rather
-> than O(N_total * N_null), and the retry loop is no longer the normal
-> path.
->
-> The pre-allocated array remains as the fallback when GFP_NOWAIT fails.
-> The runs below never needed it, so it was exercised with failslab
-> injection: at a 100% failure rate every task falls back and -EAGAIN
-> retries ~1560 times for 50000 threads, with no stall or splat.
->
-> The open-coded rcu_read_lock() and the goto unwind are kept as-is so
-> this stays easy to backport; converting them to scope-based cleanup is
-> left to a follow-up.
->
-> smp_store_release() is a drop-in replacement for the smp_wmb() and
-> plain store it replaces.
->
-> Measured on a 60-core Sapphire Rapids machine running a PREEMPT_LAZY
-> kernel (CONFIG_PREEMPT_DYNAMIC=3Dy, mode lazy), timing the write that
-> drives the ftrace_graph_active 0 -> 1 transition. Threads are spawned
-> while fgraph is inactive so every one of them has ret_stack =3D=3D NULL,
-> and the loop was instrumented to count sweeps:
->
->         threads   before              after
->                   sweeps   time       sweeps   time
->         100000     3126     15.3 s      1       0.019 s
->         200000     6253     59.1 s      1       0.047 s
->         400000    12503    227.8 s      1       0.092 s
->
-> The sweep count is 1 throughout. Time now scales linearly with the
-> thread count at roughly 230 ns per task, which is the allocation and
-> initialisation of one shadow stack.
->
-> Fixes: f201ae2356c7 ("tracing/function-return-tracer: store return stack =
-into task_struct and allocate it dynamically")
-> Suggested-by: Peter Zijlstra <peterz@infradead.org>
-> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
-> Tested-by: Vineet Gupta <vineet.gupta@linux.dev>
+> Fixes: f66b53fdbb22 ("openvswitch: New MPLS actions for layer 2 tunnelling")
+> Link: https://lore.kernel.org/netdev/e85fa16e-df3c-43dd-bb3a-9edca07200ea@kernel.org/
 > Cc: stable@vger.kernel.org
+> Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
+> Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 > ---
->  kernel/trace/fgraph.c | 39 ++++++++++++++++++++++++---------------
->  1 file changed, 24 insertions(+), 15 deletions(-)
->
 
-Acked-by: Andrii Nakryiko <andrii@kernel.org>
+Reviewed-by: Aaron Conole <aconole@redhat.com>
 
-I presume this will go through Masami and Steven's tree, is that right?
-
-> diff --git a/kernel/trace/fgraph.c b/kernel/trace/fgraph.c
-> index ed455b53513b..4c74f1a15ad4 100644
-> --- a/kernel/trace/fgraph.c
-> +++ b/kernel/trace/fgraph.c
-> @@ -1033,13 +1033,16 @@ void ftrace_stub_graph(struct ftrace_graph_ret *t=
-race, struct fgraph_ops *gops,
->  trace_func_graph_ret_t ftrace_graph_return =3D ftrace_stub_graph;
->  trace_func_graph_ent_t ftrace_graph_entry =3D ftrace_graph_entry_stub;
->
-> -/* Try to assign a return stack array on FTRACE_RETSTACK_ALLOC_SIZE task=
-s. */
-> +/*
-> + * Loop thru all the tasks in the system and assign ret_stack.
-> + * The @ret_stack_list is a small pre-allocated fallback, in case
-> + * the GFP_NOWAIT allocations here fail.
-> + */
->  static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
->  {
-> -       int i;
-> -       int ret =3D 0;
->         int start =3D 0, end =3D FTRACE_RETSTACK_ALLOC_SIZE;
->         struct task_struct *g, *t;
-> +       int i, ret =3D 0;
->
->         if (WARN_ON_ONCE(!fgraph_stack_cachep))
->                 return -ENOMEM;
-> @@ -1056,20 +1059,26 @@ static int alloc_retstack_tasklist(unsigned long =
-**ret_stack_list)
->
->         rcu_read_lock();
->         for_each_process_thread(g, t) {
-> -               if (start =3D=3D end) {
-> -                       ret =3D -EAGAIN;
-> -                       goto unlock;
-> -               }
-> +               unsigned long *rs;
->
-> -               if (t->ret_stack =3D=3D NULL) {
-> -                       atomic_set(&t->trace_overrun, 0);
-> -                       ret_stack_init_task_vars(ret_stack_list[start]);
-> -                       t->curr_ret_stack =3D 0;
-> -                       t->curr_ret_depth =3D -1;
-> -                       /* Make sure the tasks see the 0 first: */
-> -                       smp_wmb();
-> -                       t->ret_stack =3D ret_stack_list[start++];
-> +               if (t->ret_stack)
-> +                       continue;
-> +
-> +               rs =3D kmem_cache_alloc(fgraph_stack_cachep, GFP_NOWAIT);
-> +               if (!rs) {
-> +                       if (start =3D=3D end) {
-> +                               ret =3D -EAGAIN;
-> +                               goto unlock;
-> +                       }
-> +                       rs =3D ret_stack_list[start++];
->                 }
-> +
-> +               atomic_set(&t->trace_overrun, 0);
-> +               ret_stack_init_task_vars(rs);
-> +               t->curr_ret_stack =3D 0;
-> +               t->curr_ret_depth =3D -1;
-> +               /* Make sure the tasks see the 0 first: */
-> +               smp_store_release(&t->ret_stack, rs);
->         }
->
->  unlock:
->
-> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-> --
-> 2.53.0-Meta
->
