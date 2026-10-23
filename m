@@ -1,45 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792772494;
-	b=QvCt68U/3yzKWCQFfRUMICKTiP9jJy2UBrH0F1mf63Wvcy96cpnCoc6fz/D8QCxyxhRd
-	 MlakFwhGM8crQEKtuasHIGAJXXbZkuEkFZlBEYSyVIWrTiekpmrzBQ+13AtJsqIT6jI7y
-	 KL4Kb9ar4GS3j6hcffEVMfjiLOU/2m5UAKVGa5s32DdhxlpR8mNYPvgAlroUT98j6tzt7
-	 0AjvxPHRpxoAZSHwXwkoQlQ5lLBK7ONkeGXLx9u9nE9ATsR+8zLHBzqIg2wMR/ntIc2O/
-	 dVeeU5XTQ+U8su0XkdHPEX5i0Ee/B3VB1/yfW4VlhcBDfW33hnkiLdwOcI6u1pGJiUA==
+	t=1792772505;
+	b=JNDfT1gVFFdeLSm+eOf3F1cXQ5TLFb6rlJiXgi0b42SgK9DedZQPSGQvAPs5vp+w7D8V
+	 FLjTU4O3HNuHm/cQdrQsjjGNSE1yqNCLLc24J1vVmzLm+DLkd4KGPoQqpfJE7PKSAs0Ne
+	 UQWlBufved+2X3Dcic2kcPIqHmwgGU4sdbzxtKG5SIRugMB1ySMPZLqWg/nMVZ2Fqj7Kk
+	 DdaHHg/bVD8AMmorGbC2FzgZOLXiiWoB9ZHeaDYZdcr1ez4TVk4dO55EbgzncJV3W2IkF
+	 9jpfQnkiqzRx8FIvqSKx21m1MBrz5Y+fkRrIJgga0MQMytcwlV7wlSVaY+ir0ERtgfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792772494;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=gf/7iou61FmGymvRsPLyDqQnM2BemOpHHtmTu2Du/nM=;
-	b=ggmT/ztV/N+t7+FWnQVon90zR1CGTOQUty5mxR15Ck1274HlX9XXqqtU8+Y0zL1pKJKC
-	 aBECoZM1rakfo/AvGzxV1fdk+tAf5v0sidiT+KLs9DmEoCWU/5sV0wnINbdORTBliGgEQ
-	 LrKergG2rBbAnzrqZlJdg35RfXWYRUGMjSVEe62gMH+H8/x4wCG5iVtxd3KqgizQqWtcO
-	 rM0qEbqR7GTg4Ip2rn9LE3ZYTJAoKQkodRceUNbndAPXkDrt/XlmHzRBorf/gVoL+hr9w
-	 zLq4dpclyr83FGDrxmalE7O8S/InpTw4cSUoZAP6u7Kw/uDvToAPKoCkbeVBJulS2uQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792772505;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Tf5fTI11AZRTr+M5HKlJWhT3pOd4N99OrUGmhNOVbAY=;
+	b=J1ZcWxiMZb6irmhSvIRh5Mhp9GTV7MU3RRFKQzVrrdYJIak0rGyNBlgWlPtEFf9ne1fS
+	 P7NfMa1Ek44nxvlEzPsFz+TvHWVjzzwPKd8hnLK81KPHw1FCjyZT8VB3dMYEZ4pJE51K0
+	 ypk2Mi5BJGDekjH3FbuPD2/Ovim4SbQXCtzCgxRM1XCFAhJtpqWril5j2jb/mLqBrMPpW
+	 NuW/MmcNUxmEEWBFtRwBEBtIlMWGb+MTFQpA1uFwz20WPb2fcOkXPtFFH2Q6lrjZLIqhk
+	 6YE+sHrsKRqKu3BJQMoSw8x1LVoiOrwMjW6A5G6iIhUEJLRkBJ0SsmU9TatgDU+tDeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Yp6miC9m;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DUcydec6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D72F606A31E;
-	Fri, 23 Oct 2026 16:21:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79156606A32F
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 16:21:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Yp6miC9m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 028C01F01825;
-	Fri, 23 Oct 2026 16:21:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792772493;
-	bh=gf/7iou61FmGymvRsPLyDqQnM2BemOpHHtmTu2Du/nM=;
-	h=Date:To:From:Subject;
-	b=Yp6miC9m4FJ5BYQFPP12hM6kjaH3O72cI7yCZjC9yQbEiLlQ75NIfzhg+TpJuH/mH
-	 uMxDL9rROmKJCdfIh8um0fLc52tmOTmrqkiy+OoYFLGzHZv+1z3JWNqHP1CkKwj5lh
-	 XPufAw+hfxaw7uxTz6kwhwBKQs4z40MrT+42MTpw=
-Date: Fri, 23 Oct 2026 09:21:32 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mark@fasheh.com,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,heming.zhao@suse.com,baijiaju1990@gmail.com,zzzccc427@gmail.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + ocfs2-cluster-remove-zero-address-nodes-from-ip-tree-on-teardown.patch added to mm-nonmm-unstable branch
-Message-Id: <20261023162133.028C01F01825@smtp.kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DUcydec6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53F451F031E5
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 16:21:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792772505;
+	bh=Tf5fTI11AZRTr+M5HKlJWhT3pOd4N99OrUGmhNOVbAY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=DUcydec62e9Z3jYUjIG4gFSufzUGRWqeEbIBnl2OBWtlHo4cE25QZRLSrghtxwbUq
+	 ROri1zrQJJLSuqyshoaW/qaXbVwFsuwVnWgPDo2kJBEnv6FQ4O0+VEq5miAbhWWVlF
+	 a0rYju/WX5RpPu/qRA6CmEfJ+GRIjYGCygm3KLTEb4Mq7V2yung9VbrJ03Jn4TEns9
+	 UHWJ0h61b3520cv9t82YjXbHHbnL5AcJ9mmf/mFvSnDPuBCH170sxdN4lBhFBqLs4X
+	 1qqIRK0jYVDl85ttFrwjDScLAGOniple+HaFhRpvluFXPri/gfbtD1vs0KdhhBzGV1
+	 YchQMHbNBTuMw==
+Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-4a75171af39so399706fac.2
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 09:21:45 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwcWWkW4SMjWcNjRbcIS4l0HFHoo3Rm0ZLoQphdh+6CELMm+tZv7ohDq9LnHRzRnAxCoeBS6eA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLFO3TEgglubq2Lb5iA8FrHzxUimTvA4s1ZMYIyW6NGLRzInp4e
+	0WlYKfLqZZe6YXNsqAGWtC0G036nQ+q97Sg2dnlyR7RyLwZ+t7QMQ4/g3vczEfUnEKcGZMJKDCC
+	zhfVYDX54XNw+7N6hFfbYbagGnnRt5Lw=
+X-Received: by 2002:a05:6871:79d:b0:48f:e24e:6b6a with SMTP id
+ 586e51a60fabf-4a8224ea80fmr1602443fac.61.1792772504596; Fri, 23 Oct 2026
+ 09:21:44 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -48,92 +58,158 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261023074515.2347924-2-Jeremy.Jean@oss.cyber.gouv.fr>
+In-Reply-To: <20261023074515.2347924-2-Jeremy.Jean@oss.cyber.gouv.fr>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Fri, 23 Oct 2026 18:21:33 +0200
+X-Gmail-Original-Message-ID: <CAL4WiioOu48M55PUHNJY3B-e_PJVqc0BZYWmgpkDpFj=bz_5_Q@mail.gmail.com>
+X-Gm-Features: AclHuK9JCAxJ-YMpRHctjjSF-nP7EZBfB7migQ3rYOkVPPQdYDjvEVAI0GVA6K0
+Message-ID: <CAL4WiioOu48M55PUHNJY3B-e_PJVqc0BZYWmgpkDpFj=bz_5_Q@mail.gmail.com>
+Subject: Re: [PATCH net] inet: frags: prevent acceptance of partially
+ authenticated reassembly
+To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Steffen Klassert <steffen.klassert@secunet.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Le ven. 23 oct. 2026 =C3=A0 09:45, J=C3=A9r=C3=A9my Jean
+<Jeremy.Jean@oss.cyber.gouv.fr> a =C3=A9crit :
+>
+> A reassembled skb retains the secpath from its first fragment, which
+> makes it possible for the final policy check to accept bytes that were
+> not covered by the transform recorded on the skb. This can affect IPsec
+> tunnel traffic, including AH and ESP, and allow a packet to be accepted
+> even though only part of its payload was authenticated.
+>
+> Reject a fragment when its secpath differs from the fragments already
+> in the queue, and keep overlap statistics limited to actual overlaps.
+>
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> ---
+>  include/net/inet_frag.h  |  1 +
+>  include/net/xfrm.h       | 17 +++++++++++++++++
+>  net/ipv4/inet_fragment.c |  5 +++++
+>  net/ipv4/ip_fragment.c   |  3 ++-
+>  net/ipv6/reassembly.c    |  3 ++-
+>  5 files changed, 27 insertions(+), 2 deletions(-)
+>
+> diff --git a/include/net/inet_frag.h b/include/net/inet_frag.h
+> index 365925c9d2628..b02d2472b003e 100644
+> --- a/include/net/inet_frag.h
+> +++ b/include/net/inet_frag.h
+> @@ -171,6 +171,7 @@ extern const u8 ip_frag_ecn_table[16];
+>  #define IPFRAG_OK      0
+>  #define IPFRAG_DUP     1
+>  #define IPFRAG_OVERLAP 2
+> +#define IPFRAG_MIXED_SECPATH   3
+>  int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *sk=
+b,
+>                            int offset, int end);
+>  void *inet_frag_reasm_prepare(struct inet_frag_queue *q, struct sk_buff =
+*skb,
+> diff --git a/include/net/xfrm.h b/include/net/xfrm.h
+> index a6d69aaa6cd2d..493faac0faa45 100644
+> --- a/include/net/xfrm.h
+> +++ b/include/net/xfrm.h
+> @@ -1201,6 +1201,23 @@ secpath_reset(struct sk_buff *skb)
+>  #endif
+>  }
+>
+> +static inline bool
+> +secpath_equal(const struct sk_buff *skb1, const struct sk_buff *skb2)
+> +{
+> +       const struct sec_path *sp1 =3D skb_sec_path(skb1);
+> +       const struct sec_path *sp2 =3D skb_sec_path(skb2);
+> +       int i;
+> +
+> +       if (!sp1 || !sp2)
+> +               return sp1 =3D=3D sp2;
+> +       if (sp1->len !=3D sp2->len || sp1->verified_cnt !=3D sp2->verifie=
+d_cnt)
+> +               return false;
+
+verified_cnt is policy check bookkeeping (written by
+__xfrm_policy_check()), it says nothing about which states
+authenticated the payload. I would only compare len and xvec[].
+
+With the verified_cnt part removed:
+
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
 
 
-The patch titled
-     Subject: ocfs2/cluster: remove zero-address nodes from IP tree on teardown
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     ocfs2-cluster-remove-zero-address-nodes-from-ip-tree-on-teardown.patch
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-cluster-remove-zero-address-nodes-from-ip-tree-on-teardown.patch
-
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Cen Zhang <zzzccc427@gmail.com>
-Subject: ocfs2/cluster: remove zero-address nodes from IP tree on teardown
-Date: Tue, 20 Oct 2026 21:12:50 +0800
-
-o2nm_node_ipv4_address_store() accepts 0.0.0.0. It sets
-O2NM_NODE_ATTR_ADDRESS and links nd_ip_node into cl_node_ip_tree under
-cl_nodes_lock, but o2nm_node_group_drop_item() uses nd_ipv4_address as a
-membership test. A zero address therefore leaves the rbtree node linked
-when config_item_put() releases and frees struct o2nm_node. A later
-address store or IP lookup can then walk the stale node and dereference
-freed memory.
-
-During teardown, drop_item takes cl_nodes_lock, skips rb_erase()
-for the zero key, and then calls config_item_put(). A later
-o2nm_node_ipv4_address_store() duplicate check or o2nm_get_node_by_ip()
-lookup takes the same lock and walks the stale cl_node_ip_tree entry. Use
-O2NM_NODE_ATTR_ADDRESS for teardown so every published nd_ip_node is
-erased before configfs can release the node, without rejecting 0.0.0.0
-or changing lookup semantics.
-
-Link: https://lore.kernel.org/pm-ocfs2-node-ip-rbtree-zero-address-uaf-v5-e7f64be16b7c3b0988d1@gmail.com
-Fixes: 0c83ed8eeb28 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Assisted-by: LLM
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
-Cc: <jjzuming@gmail.com>
-Cc: <stable@vger.kernel.org>
----
-
- fs/ocfs2/cluster/nodemanager.c |    7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
---- a/fs/ocfs2/cluster/nodemanager.c~ocfs2-cluster-remove-zero-address-nodes-from-ip-tree-on-teardown
-+++ a/fs/ocfs2/cluster/nodemanager.c
-@@ -627,8 +627,11 @@ static void o2nm_node_group_drop_item(st
- 
- 	write_lock(&cluster->cl_nodes_lock);
- 
--	/* XXX sloppy */
--	if (node->nd_ipv4_address)
-+	/*
-+	 * 0.0.0.0 is a valid configured address, so nd_ipv4_address does
-+	 * not tell us whether nd_ip_node was published in the IP tree.
-+	 */
-+	if (test_bit(O2NM_NODE_ATTR_ADDRESS, &node->nd_set_attributes))
- 		rb_erase(&node->nd_ip_node, &cluster->cl_node_ip_tree);
- 
- 	/* nd_num might be 0 if the node number hasn't been set.. */
-_
-
-Patches currently in -mm which might be from zzzccc427@gmail.com are
-
-ocfs2-drain-quorum-work-before-removing-the-cluster.patch
-ocfs2-dlm-drain-join-handlers-before-releasing-module-text.patch
-ocfs2-snapshot-dentry-names-in-file-and-setattr-traces.patch
-ocfs2-snapshot-the-dentry-name-while-tracing-file-release.patch
-ocfs2-cluster-remove-zero-address-nodes-from-ip-tree-on-teardown.patch
-
+> +       for (i =3D 0; i < sp1->len; i++)
+> +               if (sp1->xvec[i] !=3D sp2->xvec[i])
+> +                       return false;
+> +       return true;
+> +}
+> +
+>  static inline int
+>  xfrm_addr_any(const xfrm_address_t *addr, unsigned short family)
+>  {
+> diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
+> index b286ee429da8f..c18da91c1f031 100644
+> --- a/net/ipv4/inet_fragment.c
+> +++ b/net/ipv4/inet_fragment.c
+> @@ -23,6 +23,7 @@
+>  #include <net/inet_ecn.h>
+>  #include <net/ip.h>
+>  #include <net/ipv6.h>
+> +#include <net/xfrm.h>
+>
+>  /* Use skb->cb to track consecutive/adjacent fragments coming at
+>   * the end of the queue. Nodes in the rb-tree queue will
+> @@ -441,6 +442,10 @@ int inet_frag_queue_insert(struct inet_frag_queue *q=
+, struct sk_buff *skb,
+>  {
+>         struct sk_buff *last =3D q->fragments_tail;
+>
+> +       /* The reassembled skb keeps the first fragment's secpath. */
+> +       if (last && !secpath_equal(last, skb))
+> +               return IPFRAG_MIXED_SECPATH;
+> +
+>         /* An IP fragment is never a GSO packet, but an untrusted source
+>          * (virtio_net_hdr) may have attached GSO metadata to it. Do not =
+let
+>          * that reach the reassembled skb, whose head keeps the first
+> diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
+> index c790d2f494870..36105dd192823 100644
+> --- a/net/ipv4/ip_fragment.c
+> +++ b/net/ipv4/ip_fragment.c
+> @@ -378,8 +378,9 @@ static int ip_frag_queue(struct ipq *qp, struct sk_bu=
+ff *skb, int *refs)
+>                 err =3D -EINVAL;
+>                 goto err;
+>         }
+> +       if (err =3D=3D IPFRAG_OVERLAP)
+> +               __IP_INC_STATS(net, IPSTATS_MIB_REASM_OVERLAPS);
+>         err =3D -EINVAL;
+> -       __IP_INC_STATS(net, IPSTATS_MIB_REASM_OVERLAPS);
+>  discard_qp:
+>         inet_frag_kill(&qp->q, refs);
+>         __IP_INC_STATS(net, IPSTATS_MIB_REASMFAILS);
+> diff --git a/net/ipv6/reassembly.c b/net/ipv6/reassembly.c
+> index 05c51f669754a..53a685f5c6b7f 100644
+> --- a/net/ipv6/reassembly.c
+> +++ b/net/ipv6/reassembly.c
+> @@ -240,8 +240,9 @@ static int ip6_frag_queue(struct net *net,
+>                 err =3D -EINVAL;
+>                 goto err;
+>         }
+> +       if (err =3D=3D IPFRAG_OVERLAP)
+> +               __IP6_INC_STATS(net, idev, IPSTATS_MIB_REASM_OVERLAPS);
+>         err =3D -EINVAL;
+> -       __IP6_INC_STATS(net, idev, IPSTATS_MIB_REASM_OVERLAPS);
+>  discard_fq:
+>         inet_frag_kill(&fq->q, refs);
+>         __IP6_INC_STATS(net, idev, IPSTATS_MIB_REASMFAILS);
+> --
+> 2.47.3
+>
