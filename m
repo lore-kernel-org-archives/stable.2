@@ -1,95 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792785569;
-	b=za2xeTtj8cQdUIkLeivs9ALzNfKTyoXUKqRVC4GYEd700ND24bG5md/HC0I7S7kJpgWM
-	 3Y9ZpHj6VIH8+bTz8jvBzgcNwKncziGhkDBgaeujzvvPC/tgbvgappJHgvLsm1yjUnS1Z
-	 mw+jJyPHnGwyFQ39vCRd2oarmT9bCnpMURhjeZXFHArodJ2GsfFmKGlXKZgYcuT1Nc4nv
-	 R5xf0HaPzXTScetSPC0eu0C//jC1pkIXSubtG8A28F8Ue5OPfPxo8RN0rrpKX7FWXuDUi
-	 0yS+MEs/hRw7fFbCjDLXRJj/SvrcmSkQGdk9SBeEj3MJtbTIHETlnepocfn4v6q3sVg==
+	t=1792785693;
+	b=hyHHrBu74MhwKroJndZazUyHI08Q+PFGe1np0Xqzs/do9DOO51emkeSvr5T8ck3g47sh
+	 S+yLFtfv7mzClCg6T4bPJty1/qd+M9s6MbO36M0lfY6WjpRAdaFGWf+iudGJCSnh9xXAE
+	 /qQE4zocQGZRSfvUJtIS2M1MsIkoPLzFmkta8s5wa5ElwOXV0W7ugsQEg562xSmyxOwyJ
+	 MqyBt6k0H08pFn0MkyP9HsqZrisgNgAU+MKk43PoF4j+qVlKzvwfH5Nv+N9mg8Iu5A9Qk
+	 t7DTmgEf2bsMCRUe9GX1Yj7NUbwykBYZldU8YnBzuSibMP8V0zY8J6WJo0kivHq0xDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792785569;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=dubg1gFlwLFjUntHBfFzK7AT4OWC46obGwplwmSB/ss=;
-	b=ZAymGbPemwH+j+lGXV1GiPrdDe5c1BsBnXdKNjna3cugpfrBnYQopn4/olcljTLUaGbC
-	 +RclNtkJrgqNAy3HM0VLSkoQxyIEG3pMuQ4drj+YTqXlqs2pc9f3KtKXf70Fg7+vNHvJt
-	 lwGj2ljAxxsI0XgU/gJjTv+bzsu8Vj17m7OdDBSDet4Qjvli1vsaup3QPw3T7+ExBhNPK
-	 UmenelrI+8SJPVtX/cr6xJhS1JMjR01Fxm3VZs8Y1Q7UK8MmiRM1nFKILlFNqhlwSlw/W
-	 zYFRDoV0/ZFJX3Y7w1UY0pm5KQPsRMe8tmyw3/A1zzAxXip2rkCdCqsT5p2AQE0PqIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792785693;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=83dTVyz0p3AkNgmbCP0B/0Rsb2Y7EcIdwhNXZ0ef3CU=;
+	b=lP5MRtK2uAy8iRgW50cfpvj/ucOYO4eBerBMPi9Uuc+N6TKScghcWyfJFZ7CbTyBPL2K
+	 TSYMJlPudO3mOHTU9dEIsRqNtIXA+Gkxle35kql2FqWwiX3Uh4d2JyM0cUxI51D15Zc39
+	 219esJFvDIbKPff0KjKSihKmnPNt9syjvxYpXhRAtfmWJJshoH/79t1/cc9EANp7Cx+cV
+	 Z8wBSfoyreqTd2YSTnLu2b9bm6+T55T11hYIbGiJk3XnRfkNx7Gx1/LBCiuCa0ZvatD1v
+	 yiLYhb30T0ApLCBqLFPpAiUq44f/mqN4eILN9MpghNhHX2auHNEayE6L8XcJNglV8IQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="E2/f3yHA";
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IGua9sbi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F17606A31E
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 19:59:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25F17606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE37460A262D;
+	Fri, 23 Oct 2026 20:01:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=E2/f3yHA
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso11524405e9.1
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 12:59:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792785567; x=1793390367; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dubg1gFlwLFjUntHBfFzK7AT4OWC46obGwplwmSB/ss=;
-        b=E2/f3yHAM6m0IbyoviLEbfad9IrNmtVeBbDh6YA1AxtThOvKYLp8ovQ5q8wwtGi60O
-         BgXsxLo1t+gu8XptqE8IfuyLV6chhKRqTa5D+suRtQS3lUHnRZArbgkuHy4rAktdR0au
-         KbCYy8GlDgZUpojaCEZl484mrGDwZcibJ0L2XiUihgTW599oDMBmdWZ7yTHcpFnAlRAE
-         BTwHS3OM3xolyVEfLZ/49Efzxnb75j6pRcm2q/BA2bRsTviSYElRky4f4xBs3EwRHZyG
-         LSk9+lUwt8WZF0RawHk9i1RMEgkkj03W7UTzUPndV3o9Qnxupsj2h340WS1OMYwtBkU+
-         ve4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792785567; x=1793390367;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dubg1gFlwLFjUntHBfFzK7AT4OWC46obGwplwmSB/ss=;
-        b=Sort1EiwU+FwZiPAq/DWNxfyxb+s91ypXEljtJbxwObVoRddc6eIuqMjf73xK23QST
-         ec3fp1ff2PRjLBQ5rH/lryKGv2vkDl/gsA0LJj9tVDi+IfttbRK77mnB1f3krQ+xpry9
-         rkKTZEQ6GNqJySUkW/KS0VCeHy0uitQ38dO+rduHGcirLYSi7YYMwe7mk6kXT8mtJkCo
-         ocahMjkTu6tKstzMYTgwqyA1ofhcVgC6+Rt5HrUYuTIZMlhyMyqMqALQ9ZTkMggl63cs
-         YdgQMn2Y42ZLryIHCM0hojdwE+1gbN0DwERvZ9Bhec8VK1ScsvhSL1C4RMQftmLoX2YO
-         Cz/g==
-X-Forwarded-Encrypted: i=1; AKwUvBybFiM8DTTruPvFUgoZw27fAS9oVkbZ8Kv1xFyQgPFFdsgKh9EMrL729GmRgJIyB5VmSSz7kXo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIuAx2SEwXVHbOg9WBHOSJOdG4n6WrJTxGDHJ+SSwVhNkHufJUp
-	3zNkZFaTTQ04jP7eXyyMgGq/aUCKWXf/qleM9D6q3aHFRqU32woKx/k=
-X-Gm-Gg: AYBFou3lvFQRncY7Hoptany8V5BpKg5Cx5EcbmLDLv1WeLC2edGV9WBX+xO6Ob506XD
-	IaxWmYHIPxD7EG7JCAIUa+pWIZvz0aLETzw18LAulYlcRpXXnFkovov+OHcMr8Qm+hCMi12ngzv
-	n9EPUxXjSqQbMmkbarU0leQpChEQx03orAGVppsfkPWtYhOneg2lhCK9JgLYfVCPXNaxR7SGNyz
-	BIsgW0ZOVm9D06yLth1Vx3p3DZZq+pZuliIPysrJwPwrBRrCj0stkE/nMllTndugoayhoN6zirf
-	dDjWHvyOCWpkTXNU5r4sQDo4/ZS26G/XwHYC3asLA9Wg6Cz+Me631EF8IRmLh/I1RBiNHR/NKKe
-	1oPOGls46x434SLShYmO0ATt8OiQK5sqYVf3Fzpknt58NQw97sbfYxInJArjscnwP/6NhR1Fcj2
-	qPzJrX8UbTwzy304WMtglxaKQVuCv+GiNgXnGR0x8fm0I9rMD4DktJVx/YgvAmfkruqsbYwEFyo
-	IewT5cfbQg9hef9AL5IICb4N5gXOlUCHID1WKQHwVcZ4Q==
-X-Received: by 2002:a05:600c:a00b:b0:4a1:706f:b40d with SMTP id 5b1f17b1804b1-4a211c9c5cdmr49065325e9.7.1792785567419;
-        Fri, 23 Oct 2026 12:59:27 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a0bac37sm5688475e9.6.2026.10.23.12.59.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 12:59:25 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-To: "Lee, Chun-Yi" <jlee@suse.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Matthew Garrett <mjg@redhat.com>,
-	Marek Vasut <marex@denx.de>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH] platform/x86: acer-wmi: validate ACPI object type in acer_gsensor_event()
-Date: Fri, 23 Oct 2026 19:59:25 +0000
-Message-ID: <20261023195925.3559887-1-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IGua9sbi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F1871F01825;
+	Fri, 23 Oct 2026 20:01:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792785692;
+	bh=83dTVyz0p3AkNgmbCP0B/0Rsb2Y7EcIdwhNXZ0ef3CU=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=IGua9sbiZvxXE9t5mnd9LaHC1TIZfDMAaoXaEO3+IzeRAzJW74uBbIpURdPA5E2F7
+	 OR1KmqBWnTfAQTWkQkp8S4+9uE3jFoC/D8PFl24WwwwCcoH8NeIc3uZEDNS5l4YoYK
+	 FxmWgnP/yVZRb72cDWfPJaf6+GGRfV1A4CzF1MCE0DsqSwkewSWYIXpc5c07sfdnW8
+	 ThdAOh7/nakAzPmSXazynTO6Erz+EhSn/zjMNj+6WMMxdKQf04QOSG7NUSY3i7Gzsy
+	 n0+UTvxUZl7CQXBUWzT7ErJ0IBRAPWXvEEZCKj6JsgcN4TLAbsr/QR0B2DLNF01OSt
+	 oH3cWINARbIOw==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 57222F40069;
+	Fri, 23 Oct 2026 16:01:31 -0400 (EDT)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Fri, 23 Oct 2026 16:01:31 -0400
+X-ME-Sender: <xms:G73barP9AXVm5jOgncs3VboEjrQujvNFP4z8w-jxW8zt1J096JBDzQ>
+    <xme:G73bagyrWpJuBwpX2tlUc2b1tAQf2kbq3xZ37wX_zub_uKv3iSs3OQcRXdvMIvnkb
+    00e8_XrTrjT626866BNM_VpURgDCA1L7Jjvcj-w7puokwcto3lismw>
+X-ME-Proxy-Cause: dmFkZTFLSgFQCdwjP+L2UOGlp4WBYK1w9l8llu21sPp5qrLcIM9wEhZ5L3lCE5gVar5uoV
+    0yXU70fnczRS7CeKNq4kG2axPkKPLlf2zruTC6G6wf8jtkvf1PQnkbfb7OU5eKXgAggKW7
+    1dnMDtSM6msg+UOTpcS1Jx1AeIcfXNMOl0ycYI08D0bOPYt/3mD8s9PBmBAcN9MDeBJZNP
+    r9ivTRHOAr7NtHBxO2bODLqiKzdD4s+CGS2tZwcLgBTwgkMuQAFpyvQff0KoIk6VpgrlBr
+    bb3RLpjL51WkCBGwLUpQwIRW4YyB8BYzld7nU7mxmPzJJNCeWrBjkJDdICnEQmUA2g6qU+
+    Zi/Y/Vbg1Ct38fmWOLUkk1Gt6+o8ScL2Espptc8SIWzJ4b1pCeCGCPXyRzgmxeDLk9ym6p
+    BUsrl5aFv667VTJ+YSld4x19p8BVONFBk6SbEjw+ZUP7PTdNenbGeOYpRDRUEt0J4zhc50
+    6K0pSiSXm9gIFEo2mciW+qT9HEY5y//Q2q7eUW6OiRXR17j+5WDmhAQA7Vh/RfHF6g2wwq
+    0TErGVKVS30EUdJoHvI6ttUDNATMdUmBdszS7lCC0q33x5QAROoReJlGSyNcs4Md65CY70
+    pPQ0Z+nsltAraVnJ6BARJRVclWQm0vKiPcRlWKOkXyPob6Hskm4xowKmWHFw
+X-ME-Proxy: <xmx:G73batZUw0A_D0YznD8DjEUAuBJq751BFaSStcFGkjFEf-FMv1oqdg>
+    <xmx:G73batW8p94nPpt75Hl6C_le6M7DRkAimv45xGoRJvYGrT212l_IPg>
+    <xmx:G73bargMqKEBLRL6Cs90K7fmSwyUyygeAngWzG9bHhlLgnaxtcUTTQ>
+    <xmx:G73barv7CxGzL1kdYWCnxnMLGdqorpe_MnmnuR6V-v0NrGEPrqL07w>
+    <xmx:G73bak6La4kGGtadX1viPaWU-wkIH6kiVrN4wVxtcZKtnQnUZYqVUx0H>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 2257E78273D; Fri, 23 Oct 2026 16:01:26 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,45 +77,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: ALXHXgarDijJ
+Date: Fri, 23 Oct 2026 16:01:06 -0400
+From: "Chuck Lever" <cel@kernel.org>
+To: "Avi Weiss" <thnkslprpt@gmail.com>
+Cc: trondmy@kernel.org, anna@kernel.org, linux-nfs@vger.kernel.org,
+ stable@vger.kernel.org
+Message-Id: <f5a152d2-2f76-409a-823a-b2a7bc5abef2@slotpi15m67>
+In-Reply-To: <20261023084819.609293-1-thnkslprpt@gmail.com>
+References: <20261023084819.609293-1-thnkslprpt@gmail.com>
+Subject: Re: [PATCH] SUNRPC: Fix TCP-with-TLS transport class identification
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-From: Tristan Madani <tristan@talencesecurity.com>
+On 10/23/26 4:48 AM, Avi Weiss wrote:
+> xs_setup_tcp_tls() assigns the ordinary TCP transport class to
+> a TCP-with-TLS transport. When rpc_clnt_add_xprt() is called
+> with an unspecified transport type, it inherits the class
+> identifier and can create an unencrypted TCP transport.
 
-acer_gsensor_event() accesses the ACPI evaluation result as a package
-without first verifying the object type.  If the firmware returns a
-non-package type, the code reads package.count and package.elements
-from the wrong union member, which can cause a NULL pointer
-dereference or read from an invalid address.
+Confirmed: rpc_clnt_add_xprt() copies cl_xprtsec into the create
+args, but when the caller leaves the ident at zero it fills the
+ident from xprt_class->ident of the existing transport. With the
+wrong class pointer that ident names plain TCP, so
+xprt_create_transport() dispatches to xs_setup_tcp(), which never
+looks at args->xprtsec. The TLS policy is dropped and no error is
+returned.
 
-Add a type check for ACPI_TYPE_PACKAGE before accessing the package
-fields, and validate that each element is ACPI_TYPE_INTEGER before
-reading integer.value.
+The effect is a silent policy downgrade on a mount that asked for
+xprtsec=tls or xprtsec=mtls. The primary transport still completes
+its handshake, but every transport added with an unspecified ident
+is a cleartext TCP connection that the xprt switch then uses for
+ordinary application RPCs. NFSv4 trunk discovery is the main
+caller; the xprt_switch add_xprt sysfs attribute reaches the same
+code and is also fixed here.
 
-Fixes: 1eb3fe1d3b6b ("ACER: Add support for accelerometer sensor")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
- drivers/platform/x86/acer-wmi.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+Against a server that requires TLS, the added trunks fail to
+connect and the mount loses the multipath it was supposed to gain.
+Against a server that accepts both policies, the client sends
+application data unencrypted on those trunks, with nothing in the
+logs or mount options to show it, even though TLS would have worked
+for that session. Nice catch!
 
-diff --git a/drivers/platform/x86/acer-wmi.c b/drivers/platform/x86/acer-wmi.c
-index 61ae622c93d94..72b44f02a992f 100644
---- a/drivers/platform/x86/acer-wmi.c
-+++ b/drivers/platform/x86/acer-wmi.c
-@@ -2043,7 +2043,12 @@ static int acer_gsensor_event(void)
- 	if (ACPI_FAILURE(status))
- 		return -1;
- 
--	if (out_obj->package.count != 4)
-+	if (out_obj->type != ACPI_TYPE_PACKAGE || out_obj->package.count != 4)
-+		return -1;
-+
-+	if (out_obj->package.elements[0].type != ACPI_TYPE_INTEGER ||
-+	    out_obj->package.elements[1].type != ACPI_TYPE_INTEGER ||
-+	    out_obj->package.elements[2].type != ACPI_TYPE_INTEGER)
- 		return -1;
- 
- 	input_report_abs(acer_wmi_accel_dev, ABS_X,
+As a potential follow-up patch, xs_setup_tcp() still accepts args
+with a TLS xprtsec policy and silently builds a plaintext transport.
+Nothing passes it that combination after this fix, but a check that
+returns -EACCES when args->xprtsec.policy is not RPC_XPRTSEC_NONE,
+mirroring the switch in xs_setup_tcp_tls(), would turn any
+recurrence of this class of bug into a connection failure instead of
+silently using cleartext.
+
+Reviewed-by: Chuck Lever <cel@kernel.org>
+
+
 -- 
-2.47.3
-
+Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
