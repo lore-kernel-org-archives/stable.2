@@ -1,78 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.143
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792766967;
-	b=hIuQegasmNdd7ekxFsFIdOfOi7IfRixo17FVNg5mt837M+rNeuTh4joK0HYpyz0nV1AE
-	 m/x1oRHXdQuz9GOFpPy/g6MTCfB9XlFn+zYIQyYnOEpUahN29YuHxj+hsLizFBPLPFtRG
-	 5mzPbgrsWazyqElOnlRfGO3P5DpbZHgQ5gBfqkY3bP4NVHJHPc5RV8tAtzcjNyU9+vlSo
-	 EBYebAeF0M2SXs8Gr2LQ9gkjF6izVgRZWX8eUBgc9Y2Bj/Ezv+e3rZV5CiqZ19wfan/AO
-	 BF1VYeCi3menwvDXCuQSTyQIbPBRR+WqjDL9dfR6J8aRCn9PIviqe38UOTaDkFgS1hw==
+	t=1792767047;
+	b=T6YnOJ6h0YRCF+ACptEZDcWdnoh4t1Y9Ue7nXjlkD0rzlbDlLvWYa8X1jKN5OUAMYdWS
+	 HXsm3KppClSW61V13TRxBKKCLpeFA2WgIgbd20HbUeMvWf9zxd/pmr6pQfrKP7GZj09Os
+	 Ow/IPWBdIuynOMcSedu4cXH2trd38qVxMxzjjDi9bqvnBnldCU/LESrD2K9zhV/Qszwl1
+	 RYqDgUvmm/rDjtW5cZTM5ADgF/VqMMTgV95u2V7IEdH9iNmimaujv2YdwYficMNWA3KWz
+	 No5xqmolJ3krsNNVfEcCOGGeb7f/p30Hgn6c5OD1+SC/9ZxG4U7o88EMeTWcIaChf7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792766967;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=CYzMEAHApivYCP8/exvzfI2CA3vBzZ00qpCpnK0G8Y8=;
-	b=CbAyR8CvjHc4sqa8W6o/6MLqOWankkWLqi5qRyB/D4+TH0BEHmI20yZmA6/bi5WhdLs8
-	 mH6jjkoLvVTD+IWMtA8NJIicPUPy2NSvsQHtuyb4NUlouokf11OdEtMSOPTDfSCo7nuLQ
-	 mT7CKMk5zd9kdwgZrUVFXThSduc2txa6/gjJceFF7hQbA/lY14JE1MObFbIheILBe562Q
-	 4JcRtdB3wVgGLx9VdT2aG4aHlbuUmemoIrk2WkW6yDc0rb4RWMyGm1JGgZvGu6Qp3Prcz
-	 tgTvGocvp7KlQ0youYdFyd4RJnaCtq91n3L7hrbTzCKlP7+WeQVVwGxjG0VoHqVHHPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792767047;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=cx7sW0XE3e3GkkuXCIa8aE7dwlRl3GBZAuCQy670DI4=;
+	b=FDDgrsoZ0fhLCQSLoq1kvBd8cbSjtivQnTyr4B7D2kudIeRmKlWIa8S2B4xeWjy0JeTk
+	 Mj362K0kbyO1eygjJrwWoIRdsj2HhsVeat7Ub+ZuE5om3n9qJrNuSAoh22oFIDi3MQ4ii
+	 0rq6/1O9J3ve3+5w/E0h5xpf7IgDBMVECTTR6KniciHp5A73ALAl9XC0D6Xsm03O2wDE0
+	 0cXgyIYrXMkK97TfKPnoXAZzGnRUh0y1DCpP0LXxFqthBrwbsjslcsldw1PZOWgrm0b5i
+	 ZT0F32C4jZKiDu9CgzSg3ySKeuyfsiCX2mDTiCrmWQTOz46QHFrakIhk9u7zwU7xIig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=AMeYNR7+;
-	arc=none smtp.remote-ip=37.230.196.243
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=clvz8avz;
+	arc=none smtp.remote-ip=95.215.58.143
+Received: from mta1.migadu.com (out-143.mta1.migadu.com [95.215.58.143])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C19606A31B;
-	Fri, 23 Oct 2026 14:49:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87C19606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB665606A31F
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 14:50:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB665606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=AMeYNR7+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1792766957;
-	bh=SyZaUgV/c3CuArgpdL0JMROnvDgkuW0JU2NShYNaV9Y=;
-	h=From:To:Cc:Subject:Date:From;
-	b=AMeYNR7+BfMAp0d9bly7MVr8nRgEc80IJlsaEBat2dwNAu5Wk7BtwLG2phY0uNJcQ
-	 9Qtgu6vNvfQ/7EC0L+pljicNidLHwKAwYvEFqQy6R8vRORZ2Q+JO1SXrpuEYP24v4m
-	 JKsrIeRLx/rfi2Ti/UgruEW86Jkk7MmwJ5rZzFxc7R6ZLZ4KF6k0ZZvprs4OFz4AB5
-	 luP6VFhq+rU1UAfj1S4uIlw6t+50D+mkwiw1SVUi3U7tXxyCIDYsXhDhK9VZUNTOb/
-	 9F7g8kUjBc+8qpEAihKQK+0MpEtkiDtUy7d8dQpN9n31Gq+/HfgK8YrNR8njT1FfgM
-	 T/xnIU75fw8MQ==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 40C9F25AD9;
-	Fri, 23 Oct 2026 17:49:17 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.6])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Fri, 23 Oct 2026 17:49:16 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.51.25])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jB5Wc0GzKzcFj;
-	Fri, 23 Oct 2026 17:49:16 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Sasha Levin <sashal@kernel.org>,
-	Kent Overstreet <kent.overstreet@linux.dev>,
-	linux-bcachefs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 6.12] bcachefs: Drop swab code for backpointers in alloc keys
-Date: Fri, 23 Oct 2026 17:45:41 +0300
-Message-ID: <20261023144542.1053-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=clvz8avz
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=rM7gfWKY4WpRqwq90Mbl1M08Z1DYoWLMUw09JRN7Yrc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792767043; v=1; x=1793371843;
+ b=clvz8avzEWPzhYA3pwKHhDcMrxkxId2j2bHp2crrKXGx0zDx3OBIdME6vlCDDoZRBhX2kN1Y
+ 5YsW9OgeHQfMWBAdnMuXCoqWvBqooOmTLMREir63Cr6dG7LRqUY7VKupq+CUNrAhS/s9udg5Ozw
+ 1iDIFL9L+njxKN/0PwccaJ+I=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 17396e17f5dd6b28;
+	Fri, 23 Oct 2026 14:50:43 +0000
+X-Mizu-Trace-ID: 17396e17f5dd6b28
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <af2ec5b0-7c62-4c6e-a28d-33ed401020af@linux.dev>
+Date: Fri, 23 Oct 2026 22:50:28 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,70 +58,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 132 0.3.132 b92628ca234da971a1a6d61b32804bb3075f0fd2, {Tracking_from_domain_doesnt_match_to}, d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;new-mail.astralinux.ru:7.1.1;astralinux.ru:7.1.1;127.0.0.199:7.1.2, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 206945 [Oct 23 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/23 13:00:00 #28730621
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] tcp: limit tcp_tso_rtt_log to a valid shift count
+To: Yingjie Wang <1075151112@qq.com>, netdev@vger.kernel.org
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, ncardwell@google.com,
+ kuniyu@google.com, corbet@lwn.net, skhan@linuxfoundation.org,
+ rdunlap@infradead.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <tencent_31D2FFCCE76C50A695A1270151F825E90906@qq.com>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <tencent_31D2FFCCE76C50A695A1270151F825E90906@qq.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Kent Overstreet <kent.overstreet@linux.dev>
 
-commit abff9b149dcc0a584cbadc869167e5a7199cd1ce upstream.
+On 10/23/26 10:40 PM, Yingjie Wang wrote:
+> tcp_tso_autosize() right-shifts the u32 returned by tcp_min_rtt() by
+> sysctl_tcp_tso_rtt_log. The sysctl uses proc_dou8vec_minmax() without
+> an upper bound, so it accepts values through 255. Values above 31 make
+> the shift undefined.
+>
+> A process with CAP_NET_ADMIN in the target network namespace can set the
+> per-netns sysctl. With CONFIG_UBSAN_SHIFT=y, setting it to 32 and sending
+> TCP data over loopback triggers:
+>
+>    UBSAN: shift-out-of-bounds in net/ipv4/tcp_output.c:2264:30
+>    shift exponent 32 is too large for 32-bit type 'unsigned int'
+>    Call Trace:
+>     __ubsan_handle_shift_out_of_bounds
+>     tcp_tso_segs
+>     tcp_write_xmit
+>     __tcp_push_pending_frames
+>     tcp_push
+>     tcp_sendmsg_locked
+>
+> Limit the sysctl to 31, the largest valid shift count for a u32, and
+> document the accepted range. Writes of larger values now fail with
+> -EINVAL.
+>
+> On a UBSAN/KASAN build of the net tree, values 0 and 31 remained
+> accepted, values 32 and 255 returned -EINVAL, and TCP traffic with the
+> valid boundary values produced no sanitizer diagnostics.
+>
+> Fixes: 65466904b015 ("tcp: adjust TSO packet sizes based on min_rtt")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yingjie Wang <1075151112@qq.com>
 
-Signed-off-by: Kent Overstreet <kent.overstreet@linux.dev>
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
-The upstream commit has no description, so some context for stable:
-bch2_alloc_v4_swab() is called from bch2_bkey_compat() before
-bset_key_validate() when reading a btree node written with the other
-endianness, so the backpointers start and count it uses come straight
-from disk. With bogus values the loop byte-swaps memory past the end of
-the key value, possibly past the end of the node buffer.
 
-Backpointers stored in alloc keys are not used anymore,
-__bch2_alloc_to_v4() and bch2_alloc_to_v4_mut() drop them anyway, so
-removing the loop is safe.
+Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 
- fs/bcachefs/alloc_background.c | 8 --------
- 1 file changed, 8 deletions(-)
 
-diff --git a/fs/bcachefs/alloc_background.c b/fs/bcachefs/alloc_background.c
-index c84a91572a1d..402f20eadae2 100644
---- a/fs/bcachefs/alloc_background.c
-+++ b/fs/bcachefs/alloc_background.c
-@@ -322,7 +322,6 @@ int bch2_alloc_v4_validate(struct bch_fs *c, struct bkey_s_c k,
- void bch2_alloc_v4_swab(struct bkey_s k)
- {
- 	struct bch_alloc_v4 *a = bkey_s_to_alloc_v4(k).v;
--	struct bch_backpointer *bp, *bps;
- 
- 	a->journal_seq		= swab64(a->journal_seq);
- 	a->flags		= swab32(a->flags);
-@@ -333,13 +332,6 @@ void bch2_alloc_v4_swab(struct bkey_s k)
- 	a->stripe		= swab32(a->stripe);
- 	a->nr_external_backpointers = swab32(a->nr_external_backpointers);
- 	a->stripe_sectors	= swab32(a->stripe_sectors);
--
--	bps = alloc_v4_backpointers(a);
--	for (bp = bps; bp < bps + BCH_ALLOC_V4_NR_BACKPOINTERS(a); bp++) {
--		bp->bucket_offset	= swab40(bp->bucket_offset);
--		bp->bucket_len		= swab32(bp->bucket_len);
--		bch2_bpos_swab(&bp->pos);
--	}
- }
- 
- void bch2_alloc_to_text(struct printbuf *out, struct bch_fs *c, struct bkey_s_c k)
--- 
-2.43.0
+Thanks !
 
+> ---
+> v2:
+> - Attach the upper bound to tcp_tso_rtt_log instead of ip_dynaddr, as
+>    pointed out by Jiayuan Chen and Neal Cardwell.
+> - Re-run checkpatch and boundary tests on the corrected patch.
+> - Do not carry Eric Dumazet's Reviewed-by tag because the code changed.
+>
+> v1: https://lore.kernel.org/netdev/tencent_53CDCF8AA0022B75CF72A294CB9993D2FF07@qq.com/
+>
+>   Documentation/networking/ip-sysctl.rst | 2 ++
+>   net/ipv4/sysctl_net_ipv4.c             | 2 ++
+>   2 files changed, 4 insertions(+)
+>
+> diff --git a/Documentation/networking/ip-sysctl.rst b/Documentation/networking/ip-sysctl.rst
+> index 8edd2eb2a..66a54c510 100644
+> --- a/Documentation/networking/ip-sysctl.rst
+> +++ b/Documentation/networking/ip-sysctl.rst
+> @@ -1128,6 +1128,8 @@ tcp_tso_rtt_log - INTEGER
+>   
+>   	If you want to use the old autosizing, set this sysctl to 0.
+>   
+> +	Possible values are [0, 31], inclusive.
+> +
+>   	Default: 9  (2^9 = 512 usec)
+>   
+>   tcp_pacing_ss_ratio - INTEGER
+> diff --git a/net/ipv4/sysctl_net_ipv4.c b/net/ipv4/sysctl_net_ipv4.c
+> index e3760daa3..bf193e7ec 100644
+> --- a/net/ipv4/sysctl_net_ipv4.c
+> +++ b/net/ipv4/sysctl_net_ipv4.c
+> @@ -26,6 +26,7 @@ static int ip_local_port_range_max[] = { 65535, 65535 };
+>   static int tcp_adv_win_scale_min = -31;
+>   static int tcp_adv_win_scale_max = 31;
+>   static int tcp_app_win_max = 31;
+> +static int tcp_tso_rtt_log_max = 31;
+>   static int tcp_min_snd_mss_min = TCP_MIN_SND_MSS;
+>   static int tcp_min_snd_mss_max = 65535;
+>   static int tcp_rto_max_max = TCP_RTO_MAX_SEC * MSEC_PER_SEC;
+> @@ -1406,6 +1407,7 @@ static const struct ctl_table ipv4_net_table[] = {
+>   		.maxlen		= sizeof(u8),
+>   		.mode		= 0644,
+>   		.proc_handler	= proc_dou8vec_minmax,
+> +		.extra2		= &tcp_tso_rtt_log_max,
+>   	},
+>   	{
+>   		.procname	= "tcp_min_rtt_wlen",
+>
+> base-commit: f4377bf85887f57b59abb5479f7660a81ffe4449
