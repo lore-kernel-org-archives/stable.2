@@ -1,79 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792748318;
-	b=SbF/B7yGeyfgFdi2XLL7/xEFNVDxSoWcEAeOhLmEbyqlaxzBbHXz4uCdF14WtrVLgbN3
-	 1D3pd/Rrofn42MJOGJ3G+ufaxG24zQTxJzTgrXPjlm6TCITd99owHaYUhYCBCMsHESNgZ
-	 5VgwoekgfOjeke6YUersUa63B4ncEdsx39agxIP04MGyU8+X4PCWgcedII5OVfXSNxtpp
-	 mnQZ0rEsNcMorRG7l5yp5nSGq5zCUqa5MRUkYG2OH+tUR4Y13sFLh0yGaw5unQ4Khj3bo
-	 W3qW3etlhPWx3wddJhbOwpzyWZaRx5jI6iaJapk9F6bTx1bFW+6EFIaxSgIMgw3v6cg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792748318;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ivlu9gZUoZpAO3rDeEUhzGrJLnpEDAs/cTBRPWcuhG8=;
-	b=nJppMhlkAmeXvRT7Zro/QBwifBkN85J4QNrFpRniLhEB1Lpi8crVEkkTu8ClL69Eezux
-	 Rtlm9JAYJZUQTnzS/w9CuiR0Y3D4D95nTDtGBNcZiyEsILFZedX2YvVWZRRIE3+FhS84v
-	 HGZ9pmPr/q1eDS6DNxz23ws9v290+AjA3HbSIPfpmyfAt9oOY2xd+Z/wGC10VlZOTxGz/
-	 WIWjIb18c9+RrQnclH4qyxEyLTbFaJ/FkHEHjk0RNkJFt+Dvvckeg9Uu/VkufEu8AhZje
-	 WvAz9Bs7mHhCH28UjLfpn3nPw7hCjAMi59YCX80KSPG/zymm1zEdgLBK94GkQfudZgg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HrL9TBoy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796DA606A31A;
-	Fri, 23 Oct 2026 09:38:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HrL9TBoy
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792748318;
-	b=o1GvNGOdaSySdRmtmL/ylJp60kMg3TkQCUoaF9jigroj+l9JS75eqTl9NlvtEBXlR72q
-	 Go0J7R2PxmWOqSkSLr7g9LfcRGxOWkqy3HyS/cwkJPPgAFYS5j2mgya0Um0ST9MpvLFwj
-	 wj5L3URPKelxKt5aP1YfDJ5O2P5RohAfmsuoMYUqyxJm4JNKcSFPJOfBh7amThdgJJf29
-	 NqXxZjvtv2sutT1lOKt1SSw5gbuprfwtZORRbeIldL4j9VA7hed4K7DB85lFu7wiPuCjT
-	 zEY9HmmOIeKyHy8+2xob6KkW8TsBb6pEYx8eFomtXkVC5VQ4wzeG7yE0pMlvHCGjyQg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792748318;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ivlu9gZUoZpAO3rDeEUhzGrJLnpEDAs/cTBRPWcuhG8=;
-	b=qOnwyMJDaJpfwCn3F76cBDylH1JAGDyVADQM2MdOAOg/LFuGUpDeMYbBpMVYo+Pq3QmG
-	 2ExpJFO+sS0WfFqdl9w8G1ukXjDYc5ggfy6+xrDg2AOAIjkOqTC/zn4kHzoAoNWpEnwjK
-	 hbWOcDjxd0SAiunM9ricbXCA3A7MTkEggP3tb2t7ejBsIi+x9dhRdlRcBy1g6WaqceZqV
-	 Zct+Zx4lbaCAP1CzCemFiF8gfwYLxwJ3nNYTGg17BbaZ9E0RKpzJv6ZhCb4ccLPSFITRl
-	 xokUZ3IgySk1WG8mjc88xBjRmbkYWXjeoNk3c8XQvTSibxuqsAdSaJ6OtljsrQU/UtQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792748354;
+	b=ATkqecm1Xlaa3fLMkatZw2yfQKrd+51VPproBw/TE7WN0xcBHFjydVUve09s1Unx+g5U
+	 C9hK7uJnrKRJUxRBIDBY9H4He4PsLqX+Ial77qWN11i1GQYm0vsuf1ArDv6qEGRqEu6PK
+	 M1FdhPsc96eXNU9W7u00jF+wjI1VmcJ7nOHdTJItlqAMb5y9sIzjvG6oDS7VAzg/RbIDP
+	 DxzOi6e0k/tFUovnTZBK3pnmjCyW2F/hRSrAOoc/ttatKIMLndQHqwFwVu6rMrPOMcel+
+	 gwf8GOjguLgFqvA8JKRctOMi5i1YizUkWDZ3Hr9Zi9xnR3LjXbc+wqji0jpbheLNMVg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792748354;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=CT/Cws5uIyWHGwD15sUwHFGgBljncjvYFBe3U6nEdjs=;
+	b=VhX/AuHyOQxNwasF1xJztaZETGHZHP7cGRGpnmMGyCTsFM+VCfZ/Qel5Sbq7JL2LReb3
+	 8aTLtDs9jxAWBy1/er2ZDs+EMnRT1ECA7Bc1ZmK1FaYe8FRGNuZZ2gUd/k5zO+liUjWe3
+	 4hAKHSYMBtTdBlZbRpYHD4pDHzR23rugQPxdEnfkKBJ3ozTeyjl2/58L0/cDiqD0wFqM0
+	 J63KAtb28q4WdFh/qYnbArEbWaB0uBS8dBRHvh3eCImvA4HpcM1Q1q/qPHydii642PpbX
+	 /HUHiyYHLFQJprviBnsNsPXOcKDtuSKGli8tHr9Eljjti/0mvr4Na0oGHevvB3ZdB8Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 7761F1F01825;
-	Fri, 23 Oct 2026 09:38:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792748318;
-	bh=ivlu9gZUoZpAO3rDeEUhzGrJLnpEDAs/cTBRPWcuhG8=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=HrL9TBoy80ZaW5AKCY59p6fLWAvUHDO7sjAZkwEC9sHWwV14uItPHG/nX8LW7pmZR
-	 7j7qttlrhKJMp0nDGEHuYh/ja/l0bxmzk4yLUNLF0aD5M7Mi3TMx/DRXHgK+sRt5Jr
-	 +e2YhBbt2CA2qn6+vM69NxvEVfLo/DRDvdbxSDVy+fbPM8oFpw9vcfnfglsfv7K97u
-	 vp2G+CrPnvX2tBfUhLRzHHtItTteNN+k1pUX4NsNmITp/QvXpl80E1uUaxsyx6thqg
-	 ubLPY4/mYWClGGnJI3noX8Tc03A11Sx/W8WLZ2jB+zd7WtbMftLQp6xC6ogg3SY8iT
-	 w8ZmEt63V1A/w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C7EA944457;
-	Fri, 23 Oct 2026 09:38:36 +0000 (UTC)
-From: Joe Finzel via B4 Relay <devnull+joe.sudmix.de@kernel.org>
-Date: Fri, 23 Oct 2026 11:38:05 +0200
-Subject: [PATCH] drm/nouveau/gsp: only handle GSP interrupts routed to the
- host
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E25606A31F;
+	Fri, 23 Oct 2026 09:39:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7E25606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=CT
+	/Cws5uIyWHGwD15sUwHFGgBljncjvYFBe3U6nEdjs=; b=ojHdOs5i2By8cPuYn8
+	AbSYkMiozYNtoARXNA3S7j7wvszrKDI21V8MgiN/N5Zyrh4yRhC/NTsHi0ZmW6Yk
+	8xv0dKmoe2SHCGdLCCBrdyEaxA6qJFLdF68MQoMHaZsefG94tZ0+YRTSoN0bSR4E
+	/0Zo7VYfE5zAv6F0y47uMXLso=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3v3UgK9tqy0UHCA--.32485S2;
+	Fri, 23 Oct 2026 17:38:42 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Sudeep Holla <sudeep.holla@kernel.org>,
+	Jassi Brar <jassisinghbrar@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Ashwin Chaugule <ashwin.chaugule@linaro.org>,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2] mailbox: pcc: validate PCCT subspaces before parsing
+Date: Fri, 23 Oct 2026 17:38:39 +0800
+Message-Id: <20261023093839.715037-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,135 +61,132 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261023-nouveau-gsp-irqdest-v1-1-5dd6131faa14@sudmix.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBtQA8muEi0kp5qNllMRSHdPW
- r7F/wWEMpPA0BTIdLNwihW6bWDefFwJOVSDUcZqZTqM6brJX7jKjpyPQHKiV712QVPwzkIt90w
- LP/91nN73A0eequxlAAAA
-X-Change-ID: 20261023-nouveau-gsp-irqdest-a0819d1eda96
-To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Ben Skeggs <bskeggs@nvidia.com>, Dave Airlie <airlied@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Joe Finzel <joe@sudmix.de>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792748316; l=4484;
- i=joe@sudmix.de; s=default; h=from:subject:message-id;
- bh=b17+26F2qy81a+KL88BTwZnr9eyzHZo5HKZat40hBY0=;
- b=MbIuyuHc8Or6oZda9Wk1YBS5NKVR+tSNgUAdhPdBE3ZtOClgBMW1X93E8PHSnTQpSFYVhTLo0
- mcivfq9ZJCuAIrUbRqoyhiYIYpa/MDhEK0WuDFxf8AcprRTcqtduk3G
-X-Developer-Key: i=joe@sudmix.de; a=ed25519;
- pk=vaX11uVm57me/1N8otNmzMMnsE+f0U3/Hi9TCPbnvZM=
-X-Endpoint-Received: by B4 Relay for joe@sudmix.de/default with
- auth_id=1151
-X-Original-From: Joe Finzel <joe@sudmix.de>
-Reply-To: joe@sudmix.de
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3v3UgK9tqy0UHCA--.32485S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCr18Cry3Jr4kGFWfGrW3ZFb_yoWrAFyUpF
+	1Yvas8KrW3Aa13WF12vwsYyF43Aw4I9a4UKr4xKa4jqw45GF15JFy0k3429r95AFZ2gF1a
+	v3W5KF1UCFWqyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UQo7_UUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQJknmrbKyK7rgAA3Y
 
-From: Joe Finzel <joe@sudmix.de>
+The PCC mailbox probe walks PCCT entries by their declared lengths
+without checking that each entry is contained in the table. It also
+passes generic headers to type-specific parsers without establishing the
+required record size. Malformed firmware can therefore move the cursor
+outside the PCCT or cause out-of-bounds field reads.
 
-The GSP's interrupt handler takes every pending interrupt the RISC-V
-IRQMASK enables as its own, without looking at IRQDEST, which says
-whether an interrupt goes to the host or to the GSP itself. One that
-belongs to GSP-RM, pending when the host's handler runs for the message
-queue, is reported as unknown, cleared and masked off with IRQMCLR,
-taking it away from the firmware:
+Validate the table header, each subspace range, and the minimum size for
+supported subspace types during both the counting and probe passes.
 
-  nouveau 0000:01:00.0: gsp: intr 00040000
-
-NVIDIA's driver reads the interrupts routed to the host as
-IRQSTAT & IRQMASK & IRQDEST (kflcnRiscvReadIntrStatus_TU102() and
-_GA102()). Do the same, with IRQDEST from NVIDIA's register headers
-next to IRQMASK on each falcon.
-
-Seen once in a few boots on an RTX 3070 Ti (GA104, GSP-RM 570.144),
-before the login prompt. There IRQMASK reads 0x01049042 and IRQDEST
-0x01000040: 0x00040000 is enabled but routed to the GSP.
-
-Fixes: 830531e94712 ("drm/nouveau/gsp/r535: add interrupt handling")
+Fixes: 86c22f8c9a3b ("Mailbox: Add support for Platform Communication Channel")
 Cc: stable@vger.kernel.org
-Signed-off-by: Joe Finzel <joe@sudmix.de>
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/gpu/drm/nouveau/include/nvkm/engine/falcon.h  | 1 +
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c       | 1 +
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga102.c       | 1 +
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c | 4 +++-
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c       | 1 +
- 5 files changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/nouveau/include/nvkm/engine/falcon.h b/drivers/gpu/drm/nouveau/include/nvkm/engine/falcon.h
-index 341f133dc38..eb8adaf07fe 100644
---- a/drivers/gpu/drm/nouveau/include/nvkm/engine/falcon.h
-+++ b/drivers/gpu/drm/nouveau/include/nvkm/engine/falcon.h
-@@ -63,6 +63,7 @@ struct nvkm_falcon_func {
- 	int (*select)(struct nvkm_falcon *);
- 	u32 addr2;
- 	u32 riscv_irqmask;
-+	u32 riscv_irqdest;
- 	bool reset_pmc;
- 	int (*reset_eng)(struct nvkm_falcon *);
- 	int (*reset_prep)(struct nvkm_falcon *);
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c
-index d5126fe39d2..10e2813a016 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c
-@@ -27,6 +27,7 @@ ga100_gsp_flcn = {
- 	.enable = gm200_flcn_enable,
- 	.addr2 = 0x1000,
- 	.riscv_irqmask = 0x2b4,
-+	.riscv_irqdest = 0x2b8,
- 	.reset_eng = gp102_flcn_reset_eng,
- 	.reset_wait_mem_scrubbing = gm200_flcn_reset_wait_mem_scrubbing,
- 	.bind_inst = gm200_flcn_bind_inst,
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga102.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga102.c
-index b6b3eb6f4c0..96fa26fa612 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga102.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga102.c
-@@ -140,6 +140,7 @@ ga102_gsp_flcn = {
- 	.select = ga102_flcn_select,
- 	.addr2 = 0x1000,
- 	.riscv_irqmask = 0x528,
-+	.riscv_irqdest = 0x52c,
- 	.reset_eng = gp102_flcn_reset_eng,
- 	.reset_prep = ga102_flcn_reset_prep,
- 	.reset_wait_mem_scrubbing = ga102_flcn_reset_wait_mem_scrubbing,
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-index 94925f1590e..463e463db24 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-@@ -64,7 +64,9 @@ r535_gsp_intr(struct nvkm_inth *inth)
- 	u32 intr = nvkm_falcon_rd32(&gsp->falcon, 0x0008);
- 	u32 inte = nvkm_falcon_rd32(&gsp->falcon, gsp->falcon.func->addr2 +
- 						  gsp->falcon.func->riscv_irqmask);
--	u32 stat = intr & inte;
-+	u32 dest = nvkm_falcon_rd32(&gsp->falcon, gsp->falcon.func->addr2 +
-+						  gsp->falcon.func->riscv_irqdest);
-+	u32 stat = intr & inte & dest;
+Notes:
+    Changes in v2:
+    - Replace the type switch with a minimum-length lookup table.
+    - Remove the redundant remaining-header-size check.
+    - Keep an explicit type bound check before indexing the table.
+
+ drivers/mailbox/pcc.c | 49 ++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 48 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/mailbox/pcc.c b/drivers/mailbox/pcc.c
+index 9888dab64639..91cef0ee3391 100644
+--- a/drivers/mailbox/pcc.c
++++ b/drivers/mailbox/pcc.c
+@@ -553,6 +553,38 @@ static const struct mbox_chan_ops pcc_chan_ops = {
+ 	.last_tx_done = pcc_last_tx_done,
+ };
  
- 	if (!stat) {
- 		nvkm_debug(subdev, "inte %08x %08x\n", intr, inte);
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c
-index 11a37963bd4..823532758af 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c
-@@ -420,6 +420,7 @@ tu102_gsp_flcn = {
- 	.enable = gm200_flcn_enable,
- 	.addr2 = 0x1000,
- 	.riscv_irqmask = 0x2b4,
-+	.riscv_irqdest = 0x2b8,
- 	.reset_eng = gp102_flcn_reset_eng,
- 	.reset_wait_mem_scrubbing = gm200_flcn_reset_wait_mem_scrubbing,
- 	.bind_inst = gm200_flcn_bind_inst,
-
----
-base-commit: fb26cf4f1df40a462ea65552a3fbcc8cfafab523
-change-id: 20261023-nouveau-gsp-irqdest-a0819d1eda96
-
-Best regards,
++static const u16 pcc_subspace_min_len[ACPI_PCCT_TYPE_RESERVED] = {
++	[ACPI_PCCT_TYPE_GENERIC_SUBSPACE] =
++		sizeof(struct acpi_pcct_subspace),
++	[ACPI_PCCT_TYPE_HW_REDUCED_SUBSPACE] =
++		sizeof(struct acpi_pcct_hw_reduced),
++	[ACPI_PCCT_TYPE_HW_REDUCED_SUBSPACE_TYPE2] =
++		sizeof(struct acpi_pcct_hw_reduced_type2),
++	[ACPI_PCCT_TYPE_EXT_PCC_MASTER_SUBSPACE] =
++		sizeof(struct acpi_pcct_ext_pcc_master),
++	[ACPI_PCCT_TYPE_EXT_PCC_SLAVE_SUBSPACE] =
++		sizeof(struct acpi_pcct_ext_pcc_slave),
++};
++
++static bool pcc_subspace_is_valid(struct acpi_subtable_header *entry,
++				  unsigned long end)
++{
++	unsigned long start = (unsigned long)entry;
++	size_t length;
++
++	if (start >= end)
++		return false;
++
++	length = entry->length;
++	if (length < sizeof(*entry) || length > end - start)
++		return false;
++
++	if (entry->type >= ACPI_PCCT_TYPE_RESERVED)
++		return false;
++
++	return length >= pcc_subspace_min_len[entry->type];
++}
++
+ /**
+  * parse_pcc_subspace - Count PCC subspaces defined
+  * @header: Pointer to the ACPI subtable header under the PCCT.
+@@ -568,6 +600,9 @@ static int parse_pcc_subspace(union acpi_subtable_headers *header,
+ {
+ 	struct acpi_pcct_subspace *ss = (struct acpi_pcct_subspace *) header;
+ 
++	if (!pcc_subspace_is_valid(&ss->header, end))
++		return -EINVAL;
++
+ 	if (ss->header.type < ACPI_PCCT_TYPE_RESERVED)
+ 		return 0;
+ 
+@@ -812,6 +847,7 @@ static int pcc_mbox_probe(struct platform_device *pdev)
+ 	struct acpi_table_header *pcct_tbl;
+ 	struct acpi_subtable_header *pcct_entry;
+ 	struct acpi_table_pcct *acpi_pcct_tbl;
++	unsigned long table_end;
+ 	acpi_status status = AE_OK;
+ 	int i, rc, count = pcc_chan_count;
+ 
+@@ -821,6 +857,13 @@ static int pcc_mbox_probe(struct platform_device *pdev)
+ 	if (ACPI_FAILURE(status) || !pcct_tbl)
+ 		return -ENODEV;
+ 
++	acpi_pcct_tbl = (struct acpi_table_pcct *)pcct_tbl;
++	if (pcct_tbl->length < sizeof(*acpi_pcct_tbl)) {
++		rc = -EINVAL;
++		goto err;
++	}
++	table_end = (unsigned long)pcct_tbl + pcct_tbl->length;
++
+ 	pcc_mbox_channels = devm_kcalloc(dev, count, sizeof(*pcc_mbox_channels),
+ 					 GFP_KERNEL);
+ 	if (!pcc_mbox_channels) {
+@@ -844,7 +887,6 @@ static int pcc_mbox_probe(struct platform_device *pdev)
+ 	pcct_entry = (struct acpi_subtable_header *) (
+ 		(unsigned long) pcct_tbl + sizeof(struct acpi_table_pcct));
+ 
+-	acpi_pcct_tbl = (struct acpi_table_pcct *) pcct_tbl;
+ 	if (acpi_pcct_tbl->flags & ACPI_PCCT_DOORBELL) {
+ 		pcc_mbox_ctrl->txdone_irq = true;
+ 		pcc_mbox_ctrl->txdone_poll = false;
+@@ -856,6 +898,11 @@ static int pcc_mbox_probe(struct platform_device *pdev)
+ 	for (i = 0; i < count; i++) {
+ 		struct pcc_chan_info *pchan = chan_info + i;
+ 
++		if (!pcc_subspace_is_valid(pcct_entry, table_end)) {
++			rc = -EINVAL;
++			goto err;
++		}
++
+ 		pcc_mbox_channels[i].con_priv = pchan;
+ 		pchan->chan.mchan = &pcc_mbox_channels[i];
+ 
 -- 
-Joe Finzel <joe@sudmix.de>
-
+2.34.1
 
