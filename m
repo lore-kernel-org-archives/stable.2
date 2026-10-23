@@ -1,78 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792742931;
-	b=cD+vVEPvVPylPsrsSYEMCSvTiL+GQBqqTzE94qxfJiFCmREPmIceGpal1GXDk6gybhmr
-	 fbsZ04MXYLt4WuGxCOv4+j3oJOjOuql9bsNZU/DMbciPrTHGddYYRD11d9qU3pNr3yc0X
-	 vVmqUYSReHMplNbxqfgar2vADEh2SMjUIsD8M+X2XdRFDW3pHGBxWElxr4CqdEcnUI/KL
-	 HnU9bgCUzXJgtzqPOKCRroiVhaDu0Z/mxdept3lqexIaT6udmWRrq+4r0Hi+8XOjDc7RH
-	 4iHcdM2aSAXpimLEY9H6/qMOJHI9MwDHiDKZJ3lnnRp06hcICFAlNOIAvJT9yuAtAMg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792742931;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=OUxHrAdIJmtAYV0D6DcRF/F/6snaNqW+gmN/qYltlb0=;
-	b=sj9tzUPCuBfvonLMlNCcsAkEsO5/yGOwzF2Sf2J+hTc9536T/tbtKUnGxYZ507aQ5TCM
-	 hZg+QnmOjluv1JB9fKOpkXa/GKmf5dZm4qQijZZtkNrBV6u3+pvCrSRydOfzQDD2Hpb8c
-	 wBplv811aeskPoZSF5rWGCR2RyhhlntNao7W1nb84J6RmpH2jv8u+L9h5UaiKF7VL2ZQE
-	 pY+WXvJULoyGZXbiG5e0hWHXwCopmQE4eacO+BwRVTJO5/SFeG/juq/H6ziEJ4cqWnWBM
-	 2JM9yuJUemJFpDSSPoYX5tG/y/1s2u/JcosNp1znnADZaLgWGdtL+6IykCTZ8JE6Wqw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wfi6VG+G;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEFA9606A323;
-	Fri, 23 Oct 2026 08:08:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wfi6VG+G
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792742930;
-	b=lHeo68DnlkMyKpju0/I6ULa+5SMJlj4aANZXRnsWxWBA6u4VAaNUceIOhEyZ27DRoPG+
-	 5NwMGPnbSa4VsxiNB653SxY5Oetv7BE8y8VeVdy5bcSX6BE6LPByIzDNcWBoCs0ZtIsFH
-	 afpRzDX7vAVWj1E1/UsDHYc3xs2hsUuidiFEu/GUWkrS/3a+UqY8Va7Uruyh8BLTMulmB
-	 DVPalh9x6UF9GtF3DnYURWb8OAAERKTR2qrJi/9OjCyl9DDGiv+JmPcyHQJCRcRL021lP
-	 euryRsNtsaM2OG5QCqBED+x6PqmbtvW/aSynngkWx+GUE+aMdQHIatda+mPt2hfG4BQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792742930;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=OUxHrAdIJmtAYV0D6DcRF/F/6snaNqW+gmN/qYltlb0=;
-	b=Qy1t17Gpc6z3w/dsIGlTJRcTWKNL+TomdRVQ2+FhBtwmJt4Bw6z02A1jzasjTIAqqrPR
-	 Uqrxn68CfMgNeiz66C8ugS2C1H6QQGm4i5CA2V7uYomfLxwkF/MkSa1FsknuhibTatiYY
-	 Tg3Bm9UeD5VQ9e53svF4rmv0Qldjj6OX6NySwATRyhED9Lpa+rFPvuSjyLQ9soavC7n5f
-	 JHHCJsHKxOscIQzradAdpCC9rM6z2+BBKIjfHdhYGC5G2GIbahew6OUHFoROeu18CbkSR
-	 8JB+4gwy2O3AjBFqCZH/JAfJ3rf1oDg6qP3nieqTYpYpsa0owB2pL3+pTHvTk0cbs8g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792742998;
+	b=EkfPwABIkQjAiilghGpqcG3uQNLMzXWXxspjWMOrmBTWEetMgSCr8S+StyeTR+3B0PjZ
+	 VaZGoRyfMReBjjQn0UMcy7uRf70NIgxUomBmZot7/UWuYt7JwZw1oliLBnkQyp7eAEO0n
+	 bUOrTOJZKHkZrnvWFHh4Wi6UtPAX2qhIm2hSAoIwPXuY5d/r/5kw2UKM9KuOv0n7Ub+Tl
+	 1VAgbj43s5jOIoFXq8CM6vBQZ3Rt0mU9NrrvaYxzmc8URPfUATLGtefcwua7f8pwNFzfD
+	 BsqEDtstayPIT1WCdYEBju9CGHR67Tkw/YOtFlwnjFIENLgDMi2aB7bOTDfDQE36AQQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792742998;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=PydVMHArz0TUuVCof4/KPrJGkSdN7KAo4OoEVIb5fy8=;
+	b=rIryjanDQCphmvdcvZLw5XJGjoMcBIIU4mCto2+J1TKoexThEEceJTPor5YAenjbNDu8
+	 pWuys9Tp5x28i9/GbAEB96Ju7x73lqPr5OsFH1jdNQMs0yjWV4oKyhSnSKMts1OQqQH05
+	 7Rgcb1SDIKh7JB0IkORWB2QqC6cx+daegVXssoc8KmBbxgenpelqtw3/SD4bAhdFx3D3W
+	 QIEZbBt/BE+dbncuYD2fUh+sBo/z9QZvGIJnRSgBsZ75fZxhWQwJpm7MWPYLTI169MhTq
+	 IeVZi+kZe39/rOn67/VDpNUUDjFS7YRENSrmgx7uPZNu3aWGDjTLqM8mhf6Su02C26A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=mgcrea.io;
+	spf=pass smtp.mailfrom=mg-crea.com;
+	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b="kXE9su/X";
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id DAC7F1F01829;
-	Fri, 23 Oct 2026 08:08:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792742930;
-	bh=OUxHrAdIJmtAYV0D6DcRF/F/6snaNqW+gmN/qYltlb0=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=Wfi6VG+GiD+Y0/b21YtjpBWBJ9VhvLxG/3VATcxtJ2RvFpUYRCqiM5VRL5mDIIDk1
-	 eJERdO6JHeIkjLbbfOWXtD23+zj0my5lLi/dENU7Nk34WcB2WQrH6FGlgr0z7BO+RA
-	 SFVk4+1T6eq6AhiHfcX3jDHZur8kqvjIgxqcf5xTutq7jhT96oSTxcvrW3BzaNKyP3
-	 dqiJ6lj0zQV94NR4DN2RwOlmcyftL/FTa2cBOnzXVkp1kkpCigWKlv28fC2CIrV9Ni
-	 PPzv6SwActE6Iav0PFtIFvx8ep3u4MagCsvYucSazOoz6og11FzU3QlOYdgC2FtgUB
-	 ZX09iooA6gHsQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 55599443FE;
-	Fri, 23 Oct 2026 08:08:49 +0000 (UTC)
-From: Awal Awal via B4 Relay <devnull+awal.nova.gmail.com@kernel.org>
-Date: Fri, 23 Oct 2026 10:08:45 +0200
-Subject: [PATCH] platform/x86/amd/pmf: Fix memory leak in NPU metrics query
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E96606A31A
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 08:09:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1E96606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=kXE9su/X
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48c4d870d54so358985f8f.2
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 01:09:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792742995; x=1793347795; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PydVMHArz0TUuVCof4/KPrJGkSdN7KAo4OoEVIb5fy8=;
+        b=kXE9su/XrilHaMKHCZIVTSdlDgafpj4k8kcjJWY97ikZ6FAKv8qH/jtWzp+Uv6eGiy
+         G1cJGlVl6/XQpDeWDN9vHzYUzXzKM4zZlRcKCAvcz4pquWFVY2cFjMUGExIoZllY6XyH
+         BVyfkcu2JSiFuSq1KcSAs5frWzt5QQRYvG4goHN4LzhTNc9YKMrbSkRBASZBwkmM7/Zx
+         bvH6hk5WznqLWYmqUlW/8LBf55c6LEbGe4YHsQDRHhxhVd8vr3jI9/NTQ+XOFo7ULSNS
+         PHGoCtvALIZEvKYcq6IZ7ncDbvIdmP6iJNSIM4HbWlV7ldcVXWYVZLljeItOkYCmsPux
+         /hbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792742995; x=1793347795;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PydVMHArz0TUuVCof4/KPrJGkSdN7KAo4OoEVIb5fy8=;
+        b=U0tJMXhFyFXYLHLXxlO30/bwnB3BWLP/Uz86GYfFAbmK7Ll3ybfdj+rnFj77w3fhLG
+         MRcxBUlfvtieonlSBIC+7Bx8WbttDG9Fue9WA3GUa/BMffRCC+30UrbtT7nZw1gsMsqQ
+         /2235ccqHAy1K+B0k/6dDZsBLv/AZupjQiVFiDait1yfjBT/AsSZyCWOaBkSwKWiuDzk
+         7x8lZwCjFL/6QUNXacbZ5Fc+Sc3xsr/NkewjQElq64CQ+DbqcqFpFPhGULEVxOJhlKz9
+         ezk/7eUd1JL9/JXseNeyH0p0mIsZ6oCGtZzGkWxAk/wQKNpkrI8JI6alk7D3HHQX+YVT
+         yv7A==
+X-Forwarded-Encrypted: i=1; AKwUvBzrrdkmIaUGRu1jPad4yNsolGAlFi35UC0S7blY5RmZHaIz/J2yeSVbgVllIaKROtZCmqFrrQU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQde7WLANLYNA8lNfjCBTH/pleKXIoUX9M6hSVTv2VH0kqLkn1
+	V31ISbDbWLi41nMHATt9eMKFn1PeFi2rC0huBx3GINTtjcx0XSPh1VQS0r7Nr06sjbk=
+X-Gm-Gg: AYBFou149m3Junf8YJmhrkTylHtDYzl0gtsReQ72Q6ytbOMXLphodKxgy8b4LBP/Vbs
+	J0RryQ+Syg8LDkHSrC5A1isnHQhNXkuhrFSiUHE7KWp2xNpXQQeiVsj4MQBOkQcXLZJ4eM8VyR+
+	OA6PVY6lWAZhfCdg2IgGQy5rraX0dejeXOA1wMiyCZOV5cUAQpYDQePfN7GX05tHsjCY7N/H1gE
+	KUc4p9MpzpOdDGQG3N/1rjEnISITbZ19e/0GY7TDhaiBVSEc/JZvwnH7NUIOUcz4s6Zn2uBxVRB
+	lqu4ZdtLh60cOGr58xMg5w1klh+wi4lZUUu5uBNoqSaUk0iEWMg89VX2O1js8w5xYGie8ZzukNt
+	0sNm6DtvGS7GLsKwXiDHg+bS4a6AuVlNF7WU/Ljf1CwvmMGfotrY9jrIvcNssLeisL2OSaTY+7N
+	TykWaIexu6/16mA7tB9e64KaK7A7JYc1dFeifk+lmVCJkORUAfnIZCRhTdIOh357qYVpoeuUSIL
+	mdm4Ru/x0DIcnlHmvYRPXWpRqeywXDCiFC/z17HD7ixI4SuUWbJ7eipRnKjGh9j2u3L1mpxkZwg
+	togTc7MJNl8n3kafTeVXnVZfbCiuLf9wjA==
+X-Received: by 2002:a05:600c:608c:b0:4a2:167a:c939 with SMTP id 5b1f17b1804b1-4a2167acd9bmr9976075e9.21.1792742995238;
+        Fri, 23 Oct 2026 01:09:55 -0700 (PDT)
+Received: from localhost.localdomain ([2a01:e0a:9c3:9990:6877:44a0:5297:9502])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a2153c1b7csm18493655e9.1.2026.10.23.01.09.54
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 23 Oct 2026 01:09:54 -0700 (PDT)
+From: Olivier Louvignes <olivier@mgcrea.io>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Paul Cercueil <paul@crapouillou.net>,
+	Frank Li <Frank.Li@kernel.org>,
+	dmaengine@vger.kernel.org,
+	linux-mips@vger.kernel.org,
+	Olivier Louvignes <olivier@mgcrea.io>,
+	stable@vger.kernel.org
+Subject: [PATCH] dmaengine: dma-jz4780: Fix NULL dereference in tx_status after terminate
+Date: Fri, 23 Oct 2026 10:09:53 +0200
+Message-ID: <20261023080953.16963-1-olivier@mgcrea.io>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,90 +98,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261023-amd-pmf-npu-leak-v1-1-798e7161bfba@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBA0auQWTPJ0BKiXsWwqGWKo1KblhoSw
- t2psHyL/1dIHIUT3KoVIv8kydcXNHUF9mn8yChDMShSXUNKo5kGDJNDHzJ+2LzRte3V6IslTQQ
- lC5GdLMfy3p9O+fFiO/8/sG07ppGRFXQAAAA=
-X-Change-ID: 20261023-amd-pmf-npu-leak-f449a38c0300
-To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Lizhi Hou <lizhi.hou@amd.com>, Mario Limonciello <superm1@kernel.org>, 
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Awal Awal <awal.nova@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792742928; l=2529;
- i=awal.nova@gmail.com; s=20261023; h=from:subject:message-id;
- bh=1bjGttJlIKK90PokbdtL9brjGLD+8hVegScmsmTQyH8=;
- b=qI5h+6XD1sXXYtGPyE9ijcPejx4iL2AwYuBs1zP7tlGEssCU9Ln+c3edzB+QHoiwKS44YIxC3
- cMv68bxQ6R7DxsHLeL29Xy4Kity9Z2S948WZaQK2CQFQ86L5ZZ8lBvu
-X-Developer-Key: i=awal.nova@gmail.com; a=ed25519;
- pk=wrV+x9VJEgMwdldj38seKq88Gn1n1guE6xG6rtmR6Fs=
-X-Endpoint-Received: by B4 Relay for awal.nova@gmail.com/20261023 with
- auth_id=1286
-X-Original-From: Awal Awal <awal.nova@gmail.com>
-Reply-To: awal.nova@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Awal Awal <awal.nova@gmail.com>
+jz4780_dma_terminate_all() sets jzchan->desc to NULL. The cookie of a
+cyclic transfer never completes, so a later jz4780_dma_tx_status() call
+with that cookie finds no descriptor on the channel's lists, takes the
+else branch and reads jzchan->desc->vdesc.tx.cookie through the NULL
+pointer.
 
-amd_pmf_get_smu_metrics() calls amd_pmf_set_dram_addr() with
-alloc_buffer set to true on every NPU metrics request. Each call
-devm_kzalloc()s a new metrics table buffer and overwrites dev->buf with
-it. The previous buffer stays on the devres list and is only released
-when the device is unbound, so every request leaks one buffer.
+The driver has always allowed this, but it only shows once something
+calls tx_status() on a terminated cyclic channel, as
+snd_dmaengine_pcm_sync_stop() does since commit 88e98af9f4b5 ("ALSA:
+pcm_dmaengine: Don't synchronize DMA channel when DMA is paused").
+Closing a playback stream then oopses:
 
-amdxdna calls amd_pmf_get_npu_data() for its sensor query, so any
-userspace monitor that polls NPU utilisation through
-DRM_IOCTL_AMDXDNA_GET_INFO leaks memory for as long as it runs. On a
-Ryzen AI 9 365 (family 1Ah model 20h) laptop with a system monitor
-polling about 1.4 times per second, the kmalloc-512 cache grew to 5.8
-million objects (2.8 GiB) over 38 days of uptime.
+  epc : jz4780_dma_tx_status+0x184/0x210
+  Call Trace:
+  [<8048e104>] jz4780_dma_tx_status+0x184/0x210
+  [<805804d8>] snd_dmaengine_pcm_sync_stop+0x4c/0x94
+  [<8058f068>] snd_soc_pcm_component_sync_stop+0x80/0xc0
+  [<805775b8>] do_hw_free+0x20/0x6c
+  [<80577650>] snd_pcm_release_substream+0x4c/0x9c
+  [<805781ac>] snd_pcm_release+0x48/0x9c
 
-The buffer size depends only on the CPU ID, and the buffer is usually
-already allocated by amd_pmf_init_metrics_table() or
-amd_pmf_init_smart_pc(). Allocate it only if it does not exist yet and
-keep reprogramming its address on every request as before.
+Only compare the cookie with the current descriptor's when there is one.
 
-Fixes: 118222e20d16 ("platform/x86/amd/pmf: Introduce new interface to export NPU metrics")
+Fixes: d894fc6046fe ("dmaengine: jz4780: add driver for the Ingenic JZ4780 DMA controller")
 Cc: stable@vger.kernel.org
-Signed-off-by: Awal Awal <awal.nova@gmail.com>
+Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
 ---
-Tested on a Lenovo Yoga Pro 7 14ASP10 (Ryzen AI 9 365) with the
-equivalent change applied to core.c of a 7.0.14 based kernel. With the
-Resources app polling, the unpatched driver made 84 devm_kmalloc() calls
-for 84 NPU metrics queries in 60 s. The patched driver served 106
-queries in 60 s, all returning 0, with no devm_kmalloc() calls and a
-flat kmalloc-512 cache.
+Apologies to the stable list: two copies of this patch reached it earlier
+today from test sends, with the Cc trailer still in place. Please ignore
+those. This is the real submission, and it is the same patch.
 
-Up to v7.2 this code lives in drivers/platform/x86/amd/pmf/core.c
-(it moved to metrics.c in v7.3); the same one-line change applies to
-amd_pmf_get_smu_metrics() there.
----
- drivers/platform/x86/amd/pmf/metrics.c | 2 +-
+Seen on an Ingenic X1600 (HiBy R1, compatible "ingenic,x1830-dma" as
+fallback) on v7.3; the code is shared by all the SoCs this driver
+supports. The patch is build-tested on 734bef548a96 (v7.3-7363).
+
+ drivers/dma/dma-jz4780.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/platform/x86/amd/pmf/metrics.c b/drivers/platform/x86/amd/pmf/metrics.c
-index 5c0e368ec..6bad7a409 100644
---- a/drivers/platform/x86/amd/pmf/metrics.c
-+++ b/drivers/platform/x86/amd/pmf/metrics.c
-@@ -261,7 +261,7 @@ static int amd_pmf_get_smu_metrics(struct amd_pmf_dev *dev, struct amd_pmf_npu_m
- 	switch (dev->cpu_id) {
- 	case PCI_DEVICE_ID_AMD_1AH_M20H_ROOT:
- 	case PCI_DEVICE_ID_AMD_1AH_M60H_ROOT:
--		ret = amd_pmf_set_dram_addr(dev, true);
-+		ret = amd_pmf_set_dram_addr(dev, !dev->buf);
- 		if (ret)
- 			return ret;
- 
+diff --git a/drivers/dma/dma-jz4780.c b/drivers/dma/dma-jz4780.c
+index 6070dfdb7114..7f827be502f1 100644
+--- a/drivers/dma/dma-jz4780.c
++++ b/drivers/dma/dma-jz4780.c
+@@ -658,7 +658,7 @@ static enum dma_status jz4780_dma_tx_status(struct dma_chan *chan,
+ 		/* On the issued list, so hasn't been processed yet */
+ 		residue = jz4780_dma_desc_residue(jzchan,
+ 					to_jz4780_dma_desc(vdesc), 0);
+-	} else if (cookie == jzchan->desc->vdesc.tx.cookie) {
++	} else if (jzchan->desc && cookie == jzchan->desc->vdesc.tx.cookie) {
+ 		residue = jz4780_dma_desc_residue(jzchan, jzchan->desc,
+ 					jzchan->curr_hwdesc + 1);
+ 	}
 
----
-base-commit: 893018d51f27ec0449155b0afe371aaf65380630
-change-id: 20261023-amd-pmf-npu-leak-f449a38c0300
-
-Best regards,
---  
-Awal Awal <awal.nova@gmail.com>
-
+base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
+-- 
+2.39.5
 
