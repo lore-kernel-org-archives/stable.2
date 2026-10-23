@@ -1,55 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792758061;
-	b=s0PgPajVEvxwiCUzLQIZCSq5AXr+HTDWCNYZeyTjRz0bkheAaVg3g2e5CUesuJEgXzVz
-	 +GBirObtNQH6U+EQ3HBii98GJCaEh6IOtS30cp1rBwCNsA6US5RlfFtnCayPxgy41qpOk
-	 fHsKq8bqa2euDegM9NfnVlgz/DJ1pHnHwPA2lnOn6B1NFnhJuekcQzfO8cAok0jVr9uCV
-	 3es8Oqg7WLmZK7bVVre7SCA7y/1HNBO6D0qJPa4wfhcMhzj2cWslfoGekizLg865ZU2s9
-	 GxCBQK7e418sCTOfd/zVTjB7JqrvgKALjSTBIpB3SHX+wH2LPWt/NSJuEEWCblk+n+g==
+	t=1792758232;
+	b=daVvtYS+NCAv9HO/Mde2PTTgxEn0Z/6zvXawBFeRJMLA4xEb7AdczdyYbYy0NLTDgxeK
+	 hTMizT6CF5FKGNO/JhkAvwDdLbbBJPAHHuutLBAR7jZ8UyAxjjCJ3xHxHNVb9BGGmQrlv
+	 K9IrUNTYMLzWCMB3p3JmdWQ8poPPrkhtFSMN8yxPQn0X01x/+YCSpKX4q6q3W440GygwJ
+	 YvCs6AnUC5dIg0hiJnn1b42+hr5DSSeHXVJG+9gB1lgBqhYe0nwOOPd/t89w0NJ0Olgs3
+	 DyxO0f2DES/Y33brRTwA2smDRDee9DqrtAdLDIMa+ejZ91+7zDGO6aIibf6Psx3RIdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792758061;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5PSCS4KfkNR+foAg2exE+GWPI9yhDgyVs19jUVF0aVY=;
-	b=M+02P2pOHPUUeiJu9O5rsnqpaVrxghmS7KOvcGKwOBlGX/zq376r0jCeD69suz/R0ghz
-	 eKhOrE200bUEQYZChBEcI4xGziH2SnFSxD8ECU2bjAUYlFM+gqYzR/OOgGC0QTor26+xv
-	 AD5HUa8dwRnwi/OABEiH1sp6umI1NYsdnbhnT+kmIqiuOljGb/wbKnLBU/o7yExSxWO44
-	 jdCfBhJAl5EsdCs299/ky4ZzWBq4bD4PzLEl46a7erPwE/YEbTFHTBp9pSlQZQ/ylpWZh
-	 khiG7a+7TnFlb+J3Suscl2k4qxIu7eS/rJC1APh/SvNnGCiONjm/FIEUYJSf+JnAFhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792758232;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=wk3324vvbrlF1HvcgQMN7mpDc727JcjF7E1+c41AfH8=;
+	b=h58M2+seX8WQ3nwq25FxL9YrKFgAj1te7aV0QojIqGy2CYZVIKnW70vjsWsCMZK2gdFQ
+	 9i2G7xzNKTSS2DR2yEen9t13beBk3CjpaxbohnvFDSE5/KVjyf5M4PDU2DNQPSdhssqQk
+	 NOGYq8dtQgov5AsIIKbinkTcGaODA4qR787O29RPwsxV+CjUPTzjo7N6G/T6vrH16/bmc
+	 ok+zndNbE03Kf+cbk9DFDxo9vcI23WoQ+XTT1jqDesBLXK5HXuFWLNgsg1RiwZn94C9pf
+	 ESyUEhRr68v7MYBDQHzMWlUSxpH/81Zm5bcZM5Mq6U7lE/CW96TLB+AQfPRHYQECDKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l0oeNmap;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=yzt8kfNk;
+	arc=none smtp.remote-ip=113.46.200.220
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E525D606A31B
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 12:21:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C05D606A31F;
+	Fri, 23 Oct 2026 12:23:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C05D606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l0oeNmap
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DACED1F01825;
-	Fri, 23 Oct 2026 12:20:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792758060;
-	bh=5PSCS4KfkNR+foAg2exE+GWPI9yhDgyVs19jUVF0aVY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=l0oeNmapJh953kkWP5pb6Kv7K5Gi/mu2dfjvX+eNBuGutgl3+N4HQaJeXyT2++D48
-	 u8mTczIh65xrs5Pz7fUU94qotcpm41xXeLaoE+JclctVfNGcOGlQEjm7Ume1xOqYdy
-	 V+ZkgP8RFhFJTJTQ39BBia2MP0O4x/Uw1TzA0gqzOWmcfMO20YYr0ZsVMwNpSgc8u2
-	 8toZm5G/j/FNzubVnLMWiw5bXhAZ7LU5a0ovXMMAg6wBkh/oiN0cyoJGoD9ugixTRs
-	 LXVO7m9c+2WrEtOvi8tibp7rEJkhEaT4WY3M8ylNYU7CAneUpNSF0BBOycLwEaXk1t
-	 Mz82PIlyrytcw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: EJ Campbell <ejc3@meta.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] x86/kvm: Don't consume async #PF flags on a kernel #PF in NMI context
-Date: Fri, 23 Oct 2026 08:20:58 -0400
-Message-ID: <20261023120705.2303010-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102116-champion-appliance-bfe2@gregkh>
-References: <2026102116-champion-appliance-bfe2@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=yzt8kfNk
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=wk3324vvbrlF1HvcgQMN7mpDc727JcjF7E1+c41AfH8=;
+	b=yzt8kfNk0oTyQy+AXUGorgCXXI0VEg/6p0l1U0nV+ORVrZsROmcT5k0verxjfAWe37iunFazd
+	f9lNpUnt5C1jgzZzzBJR87PDw+4mG34xKqt2pCvlYEDOQaUgBmZ7lP8tAJipkiJgnAQme6dUpHI
+	zKN+Jf2wlfI0nv34nogSXqs=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4jB2Hm4shcz12LFP;
+	Fri, 23 Oct 2026 20:23:48 +0800 (CST)
+Received: from whupemk300014.china.huawei.com (unknown [7.152.185.8])
+	by mail.maildlp.com (Postfix) with ESMTPS id 46D674056D;
+	Fri, 23 Oct 2026 20:23:46 +0800 (CST)
+Received: from huawei.com (10.50.85.128) by whupemk300014.china.huawei.com
+ (7.152.185.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 23 Oct
+ 2026 20:23:44 +0800
+From: Li Xiasong <lixiasong1@huawei.com>
+To: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown
+	<neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo
+	<Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, Trond Myklebust
+	<trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>
+CC: <linux-nfs@vger.kernel.org>, <linux-rdma@vger.kernel.org>,
+	<stable@vger.kernel.org>, <yuehaibing@huawei.com>,
+	<zhangchangzhong@huawei.com>, <weiyongjun1@huawei.com>
+Subject: [PATCH 0/3] rpcrdma: Fix device removal races and endpoint cleanup
+Date: Fri, 23 Oct 2026 20:50:30 +0800
+Message-ID: <20261023125033.528835-1-lixiasong1@huawei.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,125 +73,56 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ whupemk300014.china.huawei.com (7.152.185.8)
 
-From: EJ Campbell <ejc3@meta.com>
+This series fixes races and endpoint cleanup issues in the RPC-over-RDMA
+device removal paths.
 
-[ Upstream commit 81d99abe2bd81379abfb595e403bbbee6fbfc624 ]
+Notification registration is not serialized with device removal. Removal
+can free the per-device private data while registration is still using it,
+or finish walking the notification array before a new registration is
+published. In addition, the notification walk does not hold references to
+the objects containing the notifications, allowing concurrent unregister
+and teardown to free an object before its removal callback is invoked.
 
-An async #PF "page not present" event arrives through the #PF vector,
-and its reason sits in the per-CPU apf_reason.flags until
-__kvm_handle_async_pf() reads and clears it. If an NMI arrives after
-the event is injected and before the #PF handler reads the flags, and
-the NMI handler itself takes a #PF, that fault reads and clears the
-flags belonging to the #PF it interrupted. It then finds interrupts
-disabled in the NMI context it interrupted, and panics:
+On the client side, the device removal callback only forces a transport
+disconnect. A connect worker waiting for re_connect_status to change can
+remain asleep, preventing endpoint cleanup. An established endpoint can
+also retain its connection reference because CMA suppresses subsequent
+DISCONNECTED callbacks after entering the device removal state.
 
-  Kernel panic - not syncing: Host injected async #PF in interrupt
-disabled region
-  Call Trace:
-   <NMI>
-   panic+0x52/0x60
-   __kvm_handle_async_pf+0xb0/0xb0
-   exc_page_fault+0x71/0xb0
-   asm_exc_page_fault+0x27/0x30
-  RIP: 0010:__get_user_nocheck_8+0x6/0x20
-   perf_callchain_user+0x147/0x1a0
-   get_perf_callchain+0x12d/0x1c0
-   ...
-   perf_event_nmi_handler+0x26/0x50
-   exc_nmi+0xe8/0x110
-  RIP: 0010:asm_exc_page_fault+0x0/0x30
-   </NMI>
+Patch 1 serializes notification registration with the transition to device
+removal and protects access to the per-device private data.
 
-The last RIP line shows the NMI landing on the first instruction of
-the #PF entry. perf with user call chains takes such a fault: the
-sampling NMI walks the user stack with __get_user(), which faults when
-a saved frame pointer is not a valid user address or the walk runs off
-the top of the stack. The same window exists when KVM, running as an
-L1 hypervisor with DELIVERY_AS_PF_VMEXIT, reads the flags itself after
-a #PF VM-exit.
+Patch 2 uses the same mutex to serialize notification reference acquisition
+with unregister, and holds a reference across each removal callback.
+Callbacks and reference release run outside the mutex to allow teardown
+to unregister notifications.
 
-The NMI entry code saves and restores CR2 for this nesting, but not the
-async #PF reason. Andy Lutomirski described the race, with perf as the
-example, when async #PF delivery was reworked in 2020 [1]. Saving and
-clearing the flags across the NMI, next to CR2, was discussed there but
-not merged.
+Patch 3 records device removal in the endpoint connection status and wakes
+a waiting connect worker. For an established connection, atomic state
+transitions ensure that the first path to leave the established state
+releases the connection reference exactly once. It also handles connection
+establishment racing with removal and propagates final endpoint release
+to CMA where needed.
 
-Since that rework, Linux has stopped setting KVM_ASYNC_PF_SEND_ALWAYS,
-so the host delivers "page not present" only for user mode faults and
-a kernel-mode fault in NMI context (including kernel-mode #MC and #DB)
-cannot be an async page fault.  In that case, return without touching
-the flags so that the interrupted handler finds them intact.
+The patches are ordered by dependency: patch 2 uses the serialization
+introduced by patch 1, and patch 3 relies on the callback lifetime
+protection added by patch 2.
 
-Tested on v7.3-rc5 in a 4-vCPU, 2 GiB guest restored from a snapshot
-whose memory is served on demand through userfaultfd, so that reading
-it back takes async #PFs, while every thread samples hardware cycles
-with user call chains and points its frame pointer at an unmapped page.
-Without this patch the guest panicked as above in 3 of 3 runs. With it,
-the guest survived 3 of 3 runs of 60 seconds, and the host counted
-148,441 to 153,334 kvm_async_pf_not_present events in the first 20
-seconds of each. On 6.18.50 the results were the same: the guest
-panicked without the patch and survived with it.
+Li Xiasong (3):
+  rpcrdma: Serialize notification registration with device removal
+  rpcrdma: Pin notifications during removal callbacks
+  xprtrdma: Wake connect worker on device removal
 
-Link: https://lore.kernel.org/all/ed71d0967113a35f670a9625a058b8e6e0b2f104.1583547991.git.luto@kernel.org/ [1]
-Link: https://lore.kernel.org/all/20211126123145.2772-1-jiangshanlai@gmail.com/ [2]
-Cc: stable@vger.kernel.org # v5.9+
-Signed-off-by: EJ Campbell <ejc3@meta.com>
-Link: https://patch.msgid.link/CADkxfh-uQTca_6jB1JPDq1MsKffF_UKGQR339oQSJNcoV75GNQ@mail.gmail.com
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-[ sashal: Inlined the pending-reason check using apf_reason.enabled instead of async_pf_enabled. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/x86/kernel/kvm.c | 27 ++++++++++++++++++++++++---
- 1 file changed, 24 insertions(+), 3 deletions(-)
+ include/linux/sunrpc/rdma_rn.h           |  6 ++-
+ net/sunrpc/xprtrdma/ib_client.c          | 56 +++++++++++++++++----
+ net/sunrpc/xprtrdma/svc_rdma_transport.c | 19 +++++++-
+ net/sunrpc/xprtrdma/verbs.c              | 62 +++++++++++++++++++-----
+ 4 files changed, 119 insertions(+), 24 deletions(-)
 
-diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
-index d7d2eb79120d6..41e685ba9fa1c 100644
---- a/arch/x86/kernel/kvm.c
-+++ b/arch/x86/kernel/kvm.c
-@@ -253,9 +253,32 @@ EXPORT_SYMBOL_GPL(kvm_read_and_reset_apf_flags);
- 
- noinstr bool __kvm_handle_async_pf(struct pt_regs *regs, u32 token)
- {
--	u32 flags = kvm_read_and_reset_apf_flags();
- 	irqentry_state_t state;
-+	u32 flags;
- 
-+	if (!__this_cpu_read(apf_reason.enabled) ||
-+	    !__this_cpu_read(apf_reason.flags))
-+		return false;
-+
-+	/*
-+	 * The guest does not enable KVM_ASYNC_PF_SEND_ALWAYS, so the host
-+	 * delivers async #PF only to user mode (or as a #PF VM-exit, which KVM
-+	 * reads itself). A #PF from kernel mode can still arrive between that
-+	 * delivery and the read of the reason flags, inside an NMI that
-+	 * interrupted it, for instance perf reading user memory for a call
-+	 * chain. Such a fault is not async, so leave the async PF flags
-+	 * untouched for the outer handler.  Outside NMI context, on the other
-+	 * hand, async PF flags on a kernel-mode fault mean the host is broken.
-+	 */
-+	if (!user_mode(regs)) {
-+		if (likely(in_nmi()))
-+			return false;
-+		state = irqentry_enter(regs);
-+		instrumentation_begin();
-+		panic("Host injected async #PF in kernel mode\n");
-+	}
-+
-+	flags = kvm_read_and_reset_apf_flags();
- 	if (!flags)
- 		return false;
- 
-@@ -271,8 +294,6 @@ noinstr bool __kvm_handle_async_pf(struct pt_regs *regs, u32 token)
- 		panic("Host injected async #PF in interrupt disabled region\n");
- 
- 	if (flags & KVM_PV_REASON_PAGE_NOT_PRESENT) {
--		if (unlikely(!(user_mode(regs))))
--			panic("Host injected async #PF in kernel mode\n");
- 		/* Page is swapped out by the host. */
- 		kvm_async_pf_task_wait_schedule(token);
- 	} else {
 -- 
-2.53.0
+2.34.1
 
