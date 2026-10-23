@@ -1,49 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792739350;
-	b=vSG23Mkr8lJ8tfT9nvO6/tXW09rmV+Y0QQjlrNMR5ED7aC8PwjQxWDi4tpxJRsL0Bwu/
-	 DVRoyGAjCzXh0wqBdH1IGooXS70N8YIJ0kilwiAl6e9W/vELczPGJ2id0papJLU/mkAT7
-	 AtakOx/qKZuoLE6vZdEKjzjdfFoYLdK8dJIKANz9ODmHWdjVGkaJzTsACbLv/Ec8Gh835
-	 iJyVqdwOqq8BgiTKuFN0cy10pNQPIhilLmaYdRr+ocQUmaBsqGjfSR8iF/Vf6BbI1TyEs
-	 0IviAKxMa18xODhOi3ljZCtI7DDlotO9QywYgdD6oJH/kPIhx6c6gJs0rSdB3x+AUkA==
+	t=1792741537;
+	b=Atszi5wGUWlu21U8oimDW96p3BvTCy+odAqJBaO1Wgs7vcDm1YM3GlX6Cf5L8pidjBBY
+	 3ogGQLkz3je5Dnfic5sUOGDg/itY7xrKpuO+05M26Rs9uCt5yQYzo4vCN1sxiq3AoxfO5
+	 po/GOsW8tMx2ecNSeIDJ3czTIvBPLPe7jQ8OkKGyW0OWgz2bUArJWKKqLGB7mwNKviPuA
+	 hzuELw5oef2iPKZEo3x4rZqFPqLVBqiq1kV+DDJyOwbGWtdZGOMO4fZplk5/Ax1N6dGBu
+	 wZhpOeuU4r28Z3J2hpPt3nx/YMGbEZkJDXj4mjZy7Hz4lTGq55Y4rNvVLwdxseRaEbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792739350;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=gvgYpLS83V3S26ukRbON8rhR0vUKj9WSZRuvm289hrM=;
-	b=DZG3DCcH4UQlKp+pgVtoUlyLwIQ20MR7FwJNcBc9vTNP/henRvGENfTfEHFDpezbZo2k
-	 OMSbp7sWrX6IkXNUoshAiWs+ejWqcQlcnFzO4Tly5pV1Xcm3Nkog470UvZ5Y6nQ7kxSWW
-	 vRy4IFCI4YGikbCDBVF/eOvKNWLVf8ZS2lUVk489Go6i5AHxW1IEWedB+OBrSyTa+xXsx
-	 09OUyyf8ZwzYuUr+6TozVyU9rkYCwCHYvU79QWXGBCuEOfWfQdUdBObhzMBOtQUggDGpG
-	 z7WbHl9EAMu5bdorj11NNPUnPhjQ8awcM5xqIa9HgM9V6z7jL4Iz9xdURZpJh0jaeHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792741537;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=E7+eeDnrpYAQAno1bPo/PnYZK3Z5dkIdEaeua04xbzY=;
+	b=Cpn9fBGcaeBtnjqbOxNdFl1wBm5x2zpL2VYjpF4cB0SLDp1mliRz7nqCp7Zvgt0JHnrn
+	 Ss1O3Eaxm1YA0A6amZJOQeYavOPu+/75UiC3kxnN+LuK1hWZy108Im9PjrGpX9Nc5/5C5
+	 jdNbb7OotRqSfewOlyd8kN2LCn1HKcvBFqEw0KBqdfNkyoA6nWuoyQbqyPZkjietXriQ5
+	 qw4U3iVmjzFyoW89SE1G2gXfgkgsqebCM+HOJp1GwLDNt6+Q+Z0oHw3H5eqn0NDTyGdF/
+	 /b8QBS9nx3q1uy4AYKwSqpcC/Blarta798myUzP74WK1V/BB8gOFj3lAmMjo2ZeRo6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=XALZvYdj;
-	arc=none smtp.remote-ip=115.124.30.118
-Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=Mkwjy1cZ;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEAA0606A31D;
-	Fri, 23 Oct 2026 07:09:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEAA0606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D24C4606A31B;
+	Fri, 23 Oct 2026 07:45:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D24C4606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=XALZvYdj
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792739345; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=gvgYpLS83V3S26ukRbON8rhR0vUKj9WSZRuvm289hrM=;
-	b=XALZvYdj42xFmcm0u1rx/iNObZBLVDEkt294DpkJwSsVwC2mOKXmBWGRFTRfGllsaBU2aOoBxjEyVt5zt/VfrG7fSJasO91tWRkjQaOcrps3l/kxQ95LcOIoUpO8XY1xBKCRRm/izf4XtW5F50wV1JNcZpUUswnvK8KKfCC/IzM=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDLMPQI_1792739344;
-Received: from 30.221.129.69(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDLMPQI_1792739344 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 23 Oct 2026 15:09:05 +0800
-Message-ID: <31b48648-c157-49f1-94d5-d1b927bae1c9@linux.alibaba.com>
-Date: Fri, 23 Oct 2026 15:09:04 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=Mkwjy1cZ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=E7+eeDnrpYAQAno1bPo/PnYZK3Z5dkIdEaeua04xbzY=; b=Mkwjy1cZgMYAVvHdtAIEhWhNS4
+	LKB20OcUx0TN6vP/iqwqoM3vZzwUGK9wOl5kL13vMmjERfoliT5Oe/D0RVB0dQ/+Cl8TuY18TM4o0
+	kwfqEP4vcpAfEc62Cn4GOqxxel5o0h+YofePQaMteWuCsRMD/ANc2ybJHiquIgbLM/G427wdCgeQx
+	7lt/AqDsHGaHvcBPsvz2B3ylPx08Y6Iwn/N9aP6nsuiUXjLqojkr6MxR2b4TBqjy0PQODyqh6fynZ
+	UtCkjpZZQvOMmBPZLROy1Bt1ASyDAv2Kcv2Atng/L6S3AL4T+F1aMCec8h18cUbfChKbbUR8nQntu
+	NmQbBIwQ==;
+Received: from [151.115.150.205] (port=34728 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xK9xx-0000000HG6h-2CD4;
+	Fri, 23 Oct 2026 09:45:28 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH net] inet: frags: prevent acceptance of partially authenticated reassembly
+Date: Fri, 23 Oct 2026 07:45:16 +0000
+Message-ID: <20261023074515.2347924-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,169 +79,132 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] ocfs2: cache the mount context for dentry lock
- callbacks
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-References: <pm-ocfs2-objects-candidate-0012-v9-eeb9084fb29577971229@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <pm-ocfs2-objects-candidate-0012-v9-eeb9084fb29577971229@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
+A reassembled skb retains the secpath from its first fragment, which
+makes it possible for the final policy check to accept bytes that were
+not covered by the transform recorded on the skb. This can affect IPsec
+tunnel traffic, including AH and ESP, and allow a packet to be accepted
+even though only part of its payload was authenticated.
 
+Reject a fragment when its secpath differs from the fragments already
+in the queue, and keep overlap statistics limited to actual overlaps.
 
-On 10/20/26 10:25 PM, Cen Zhang wrote:
-> ocfs2_drop_dentry_lock() drops the inode reference before releasing the
-> DENTRY lock. This lets inode eviction release the local inode and open
-> locks before a remote unlink can proceed past the DENTRY lock.
-> 
-> A DLM callback can still arrive before the DENTRY lock has been dropped.
-> ocfs2_get_dentry_osb() obtains the mount context through dl_inode->i_sb,
-> which can access a freed inode when the downconvert thread drops the
-> last inode reference in its post-unlock callback:
-> 
->   Downconvert thread                     DLM callback thread
->   ------------------                     -------------------
->   ocfs2_process_blocked_lock()
->     ocfs2_dentry_post_unlock()
->       ocfs2_dentry_lock_put()
->         ocfs2_drop_dentry_lock()
->           iput(dl->dl_inode)
->           [inode reclaimed after RCU]
->                                          ocfs2_blocking_ast()
->                                            ocfs2_get_dentry_osb()
->                                              dl->dl_inode->i_sb
->           ocfs2_simple_drop_lockres()
-> 
-> Store the mount context in the DENTRY lock resource's l_priv field and
-> use the default mount-context lookup. Recover the containing dentry
-> lock with container_of(), as already done for refcount locks, and remove
-> ocfs2_get_dentry_osb(). ocfs2_dismount_volume() shuts down the DLM before
-> freeing the mount context, so callbacks can use it without accessing the
-> inode. Preserve the existing iput-before-unlock order to avoid delaying
-> local inode and open lock release until after the DENTRY lock is released.
-> 
-> Fixes: 8ed6b23709b3 ("ocfs2: revert iput deferring code in ocfs2_drop_dentry_lock")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-> ---
-> Changes in v4:
-> - Drop the convert-worker change from v3. Keep MAYBE_ORPHANED marking before
->   the extra-reference check, including the dl_count == 0 path needed for
->   local orphan cleanup.
-> - Retain the osb cache from v2 and the original iput-before-unlock order;
->   remove the incorrect worker-lifetime claims from the commit message.
-> 
-> Changes in v3:
-> - Move the inode lookup and MAYBE_ORPHANED update after the existing
->   FREEING/dl_count guard and successful extra-reference acquisition,
->   addressing Joseph Qi's review.
-> - Keep the osb cache from v2 and preserve iput-before-unlock ordering.
-> 
-> Changes in v2:
-> - Preserve the existing iput-before-unlock order and cache the mount context
->   in the lock resource's existing l_priv field instead.
-> - Recover the containing dentry lock with container_of() and remove the
->   inode-dependent mount-context lookup.
-> - Correct the comment describing the dentry lock's inode reference.
-> 
-> Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0012-v5-a0413a339b72c02fc885@gmail.com
-> Link to v2: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0012-v6-17b58652a3505eeecb0c@gmail.com
-> Link to v3: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0012-v8-d01e30cb3f465e294c0a@gmail.com
-> 
->  fs/ocfs2/dcache.h  |  5 ++---
->  fs/ocfs2/dlmglue.c | 16 ++++------------
->  2 files changed, 6 insertions(+), 15 deletions(-)
-> 
-> diff --git a/fs/ocfs2/dcache.h b/fs/ocfs2/dcache.h
-> index 7f246c5692d8..046ab9a80769 100644
-> --- a/fs/ocfs2/dcache.h
-> +++ b/fs/ocfs2/dcache.h
-> @@ -17,9 +17,8 @@ struct ocfs2_dentry_lock {
->  	u64			dl_parent_blkno;
->  
->  	/*
-> -	 * The ocfs2_dentry_lock keeps an inode reference until
-> -	 * dl_lockres has been destroyed. This is usually done in
-> -	 * ->d_iput() anyway, so there should be minimal impact.
-> +	 * The inode reference is dropped before dl_lockres is unlocked.
-> +	 * Callbacks must not use it to find the mount context during teardown.
->  	 */
->  	struct inode		*dl_inode;
->  	struct ocfs2_lock_res	dl_lockres;
-> diff --git a/fs/ocfs2/dlmglue.c b/fs/ocfs2/dlmglue.c
-> index 88d946466083..437a726834c8 100644
-> --- a/fs/ocfs2/dlmglue.c
-> +++ b/fs/ocfs2/dlmglue.c
-> @@ -58,7 +58,6 @@ struct ocfs2_mask_waiter {
->  #endif
->  };
->  
-> -static struct ocfs2_super *ocfs2_get_dentry_osb(struct ocfs2_lock_res *lockres);
->  static struct ocfs2_super *ocfs2_get_inode_osb(struct ocfs2_lock_res *lockres);
->  static struct ocfs2_super *ocfs2_get_file_osb(struct ocfs2_lock_res *lockres);
->  static struct ocfs2_super *ocfs2_get_qinfo_osb(struct ocfs2_lock_res *lockres);
-> @@ -258,7 +257,6 @@ static const struct ocfs2_lock_res_ops ocfs2_orphan_scan_lops = {
->  };
->  
->  static const struct ocfs2_lock_res_ops ocfs2_dentry_lops = {
-> -	.get_osb	= ocfs2_get_dentry_osb,
->  	.post_unlock	= ocfs2_dentry_post_unlock,
->  	.downconvert_worker = ocfs2_dentry_convert_worker,
->  	.flags		= 0,
-> @@ -309,7 +307,7 @@ static inline struct ocfs2_dentry_lock *ocfs2_lock_res_dl(struct ocfs2_lock_res
->  {
->  	BUG_ON(lockres->l_type != OCFS2_LOCK_TYPE_DENTRY);
->  
-> -	return (struct ocfs2_dentry_lock *)lockres->l_priv;
-> +	return container_of(lockres, struct ocfs2_dentry_lock, dl_lockres);
->  }
->  
->  static inline struct ocfs2_mem_dqinfo *ocfs2_lock_res_qinfo(struct ocfs2_lock_res *lockres)
-> @@ -610,13 +608,6 @@ static __u64 ocfs2_get_dentry_lock_ino(struct ocfs2_lock_res *lockres)
->  	return be64_to_cpu(inode_blkno_be);
->  }
->  
-> -static struct ocfs2_super *ocfs2_get_dentry_osb(struct ocfs2_lock_res *lockres)
-> -{
-> -	struct ocfs2_dentry_lock *dl = lockres->l_priv;
-> -
-> -	return OCFS2_SB(dl->dl_inode->i_sb);
-> -}
-> -
->  void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
->  				u64 parent, struct inode *inode)
->  {
-> @@ -624,6 +615,7 @@ void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
->  	u64 inode_blkno = OCFS2_I(inode)->ip_blkno;
->  	__be64 inode_blkno_be = cpu_to_be64(inode_blkno);
->  	struct ocfs2_lock_res *lockres = &dl->dl_lockres;
-> +	struct ocfs2_super *osb = OCFS2_SB(inode->i_sb);
->  
->  	ocfs2_lock_res_init_once(lockres);
->  
-> @@ -652,9 +644,9 @@ void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
->  	memcpy(&lockres->l_name[OCFS2_DENTRY_LOCK_INO_START], &inode_blkno_be,
->  	       sizeof(__be64));
->  
-> -	ocfs2_lock_res_init_common(OCFS2_SB(inode->i_sb), lockres,
-> +	ocfs2_lock_res_init_common(osb, lockres,
->  				   OCFS2_LOCK_TYPE_DENTRY, &ocfs2_dentry_lops,
-> -				   dl);
-> +				   osb);
->  }
->  
->  static void ocfs2_super_lock_res_init(struct ocfs2_lock_res *res,
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+ include/net/inet_frag.h  |  1 +
+ include/net/xfrm.h       | 17 +++++++++++++++++
+ net/ipv4/inet_fragment.c |  5 +++++
+ net/ipv4/ip_fragment.c   |  3 ++-
+ net/ipv6/reassembly.c    |  3 ++-
+ 5 files changed, 27 insertions(+), 2 deletions(-)
 
-Don't see any difference between your v2 sent before.
-BTW, it seems v3 is also missing.
-
-Thanks,
-Joseph
+diff --git a/include/net/inet_frag.h b/include/net/inet_frag.h
+index 365925c9d2628..b02d2472b003e 100644
+--- a/include/net/inet_frag.h
++++ b/include/net/inet_frag.h
+@@ -171,6 +171,7 @@ extern const u8 ip_frag_ecn_table[16];
+ #define IPFRAG_OK	0
+ #define IPFRAG_DUP	1
+ #define IPFRAG_OVERLAP	2
++#define IPFRAG_MIXED_SECPATH	3
+ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
+ 			   int offset, int end);
+ void *inet_frag_reasm_prepare(struct inet_frag_queue *q, struct sk_buff *skb,
+diff --git a/include/net/xfrm.h b/include/net/xfrm.h
+index a6d69aaa6cd2d..493faac0faa45 100644
+--- a/include/net/xfrm.h
++++ b/include/net/xfrm.h
+@@ -1201,6 +1201,23 @@ secpath_reset(struct sk_buff *skb)
+ #endif
+ }
+ 
++static inline bool
++secpath_equal(const struct sk_buff *skb1, const struct sk_buff *skb2)
++{
++	const struct sec_path *sp1 = skb_sec_path(skb1);
++	const struct sec_path *sp2 = skb_sec_path(skb2);
++	int i;
++
++	if (!sp1 || !sp2)
++		return sp1 == sp2;
++	if (sp1->len != sp2->len || sp1->verified_cnt != sp2->verified_cnt)
++		return false;
++	for (i = 0; i < sp1->len; i++)
++		if (sp1->xvec[i] != sp2->xvec[i])
++			return false;
++	return true;
++}
++
+ static inline int
+ xfrm_addr_any(const xfrm_address_t *addr, unsigned short family)
+ {
+diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
+index b286ee429da8f..c18da91c1f031 100644
+--- a/net/ipv4/inet_fragment.c
++++ b/net/ipv4/inet_fragment.c
+@@ -23,6 +23,7 @@
+ #include <net/inet_ecn.h>
+ #include <net/ip.h>
+ #include <net/ipv6.h>
++#include <net/xfrm.h>
+ 
+ /* Use skb->cb to track consecutive/adjacent fragments coming at
+  * the end of the queue. Nodes in the rb-tree queue will
+@@ -441,6 +442,10 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
+ {
+ 	struct sk_buff *last = q->fragments_tail;
+ 
++	/* The reassembled skb keeps the first fragment's secpath. */
++	if (last && !secpath_equal(last, skb))
++		return IPFRAG_MIXED_SECPATH;
++
+ 	/* An IP fragment is never a GSO packet, but an untrusted source
+ 	 * (virtio_net_hdr) may have attached GSO metadata to it. Do not let
+ 	 * that reach the reassembled skb, whose head keeps the first
+diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
+index c790d2f494870..36105dd192823 100644
+--- a/net/ipv4/ip_fragment.c
++++ b/net/ipv4/ip_fragment.c
+@@ -378,8 +378,9 @@ static int ip_frag_queue(struct ipq *qp, struct sk_buff *skb, int *refs)
+ 		err = -EINVAL;
+ 		goto err;
+ 	}
++	if (err == IPFRAG_OVERLAP)
++		__IP_INC_STATS(net, IPSTATS_MIB_REASM_OVERLAPS);
+ 	err = -EINVAL;
+-	__IP_INC_STATS(net, IPSTATS_MIB_REASM_OVERLAPS);
+ discard_qp:
+ 	inet_frag_kill(&qp->q, refs);
+ 	__IP_INC_STATS(net, IPSTATS_MIB_REASMFAILS);
+diff --git a/net/ipv6/reassembly.c b/net/ipv6/reassembly.c
+index 05c51f669754a..53a685f5c6b7f 100644
+--- a/net/ipv6/reassembly.c
++++ b/net/ipv6/reassembly.c
+@@ -240,8 +240,9 @@ static int ip6_frag_queue(struct net *net,
+ 		err = -EINVAL;
+ 		goto err;
+ 	}
++	if (err == IPFRAG_OVERLAP)
++		__IP6_INC_STATS(net, idev, IPSTATS_MIB_REASM_OVERLAPS);
+ 	err = -EINVAL;
+-	__IP6_INC_STATS(net, idev, IPSTATS_MIB_REASM_OVERLAPS);
+ discard_fq:
+ 	inet_frag_kill(&fq->q, refs);
+ 	__IP6_INC_STATS(net, idev, IPSTATS_MIB_REASMFAILS);
+-- 
+2.47.3
 
