@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792757848;
-	b=VLwSZWvr5Tc2mcINT/SWHeZEukNtlzoDzL6X4jJ0K/Ehur1pi9XYigsW+Yoj2UqDYnej
-	 2E/tzXUKdmymC01ar/t0cQx4fbwDx3YyopYvqXjZ3H0LIQpPmQFHskVkvxnwdd5Ph56P1
-	 LCNBNBeBKDx67QOTvWQ5uyBfNe69si9JFRE1kI65HRp2tDw/6dBdTXSv/ETUFtCOA4O0R
-	 HvQ+WfLTfv3aC/ZPSBVSiKfeziUYajOXBTjEt8idI5U4QgKc/jGrAAgEHCI5RllE2dKJL
-	 N5z8tFV1OPZgNzk4SnHHhvu4wCp2D+cCVlQ5G5rmMymByoUhKMjqzatBh5/rztQ5rLQ==
+	t=1792757849;
+	b=DQ0QSUwMc/5PaUC+ElNXI4HDXqdJ6sPk0xrHaQ1WXI5nr/GTcyeQHNrq81LRYfwvHxIz
+	 KsIcPyHY/p6hJLRh67qqLztz96pZcw6w8EybtM+GTQWWIKtF/IWerfRsnv8TDpYdYsb4u
+	 u11O4PYQjbLXsapqTjdbYTpuwEEDWkHyPCmkxug20BE6/K2zFYY66/WhPJ1/D5jhDcRMb
+	 pKda8EU/rnU4ghOv5UF3FzKhqDqBFOiH6rpBq1rT9sCpTmMBYw9pD2XHHcmPIpd3jJKB+
+	 gEuVV0YfLmr6tLuqI0U5VIlzxYSka9+mVFm4clG735qrWOmWjpvWx4SrBqP/FNeLltQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792757848;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792757849;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=lxYi6lYgPezmPFyKxvqAdM5ywA+AGWlloT6U0eWiBso=;
-	b=ysoiAZTRe/UyZLSwX1M9z7W3tpTlTBXPsZYxaF6hTvW6ysqD0uCIfJ5AubLcTs8wQ3i7
-	 XSSJVz+VvzHBXRm8pDn4iLJIYXj2pXzjC+eWY0lSj5/TpSeRb4XctMljPm4uSPE8Jm+F1
-	 PSHFhbjnrv6l1gyInVLznCqDbxvfDfkaVscCSqNoCF0VfMHk/mNGMlx2SJcIwwZ/twTfr
-	 EsFCNX7zilf8WnlcyKRTEuQFAqcURpJ2HJUOAUG8rQs/+K6+VYNRMr5YIc2ruLiFTvuRS
-	 klsQ8YA0Vje2cqaavjZGJ+fIOegKdjPQC0w+avIAEAr1EnOfYV2UgsDPZdrc2Fq8w+A==
+	bh=09Vq/dvOEjTdg1TF0hNYuv2uxb3k+yB/kedD6kH/lMc=;
+	b=uVRygYIi88vx3GFzq2RZB0gnsJLoCz1NwQYpCu1L89ADgRpHXV3bX96goESLTu82UtIj
+	 zmfEPSateNk6KZAs58+aJSUhqLGwoSgZsnQes35tf8TmSJFzLejgBqRA8c1SjzQih3Z9I
+	 lrI8MqzDmUIGdC4DmdfYDPJLhKtLwULyamGyEoMQ6EToqnek05lPsy0UR7I9WqP6+BvN4
+	 9rjx+j8H/O6xZRSB3x+BydNb3SfeZxuVOBHodqiMkc6MDBKH+V/dUuuArDH4qrbA/UI7Q
+	 uJbnctMADk47VJFz01A5ipLoNkTxiRwOx8INcxLeY+nKAwLAod8WTJNHAUslguXjIrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dMn1x0lY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PACwXXG1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040D9606A323;
-	Fri, 23 Oct 2026 12:17:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE2260A260F;
+	Fri, 23 Oct 2026 12:17:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dMn1x0lY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F4FC1F01825;
-	Fri, 23 Oct 2026 12:17:27 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PACwXXG1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AE011F01828;
+	Fri, 23 Oct 2026 12:17:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792757847;
-	bh=lxYi6lYgPezmPFyKxvqAdM5ywA+AGWlloT6U0eWiBso=;
+	s=k20260515; t=1792757848;
+	bh=09Vq/dvOEjTdg1TF0hNYuv2uxb3k+yB/kedD6kH/lMc=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=dMn1x0lYN4tEAqwyM4/kfiA9V3zPfVzDUcgWvwlJNIQAdJgUj8LnvDw0gFPXAikEb
-	 nClGqDqrqXx+bVJpAJSxC18xROpnfUs9EhJfmOy65G0bRd4Y5KEoTIUX9wNTpSWB8L
-	 ZUGD2s4Suz6npLUXH9mbxJQb97pMYucDOG47d97B0Uil+WiglZll5oehkSTb73eYMM
-	 Sc4UbK0VKaf49QkffjNHK/HRlLccObzR4ml7Ckt7pOU52Hft6li3HJXqP9mxhXmu0+
-	 baCGDfb1hkf2rqXyp59bopzr4hyxT9GoJQdWL0jKat55txhm8K5WJ8q0z+pLvSeh3Z
-	 cRdpTkc11le7w==
-Subject:
- Re: [PATCH net 3/7] ovpn: reject UDP remotes incompatible with socket family
+	b=PACwXXG1TqCIxK2y0rvgIbd7t+zgdQHuERe0sCXSrY/mnF2NXKSb37GfMBoFkJkKC
+	 50yqOPhzcfC0f8ORJjx+jAVKgLG/Zv+KxDv2J3b4u2igeFyOOQBhmcrp6BKUvebMDh
+	 3/HZmb9INuxTH5y7gCZ2MTSthm+uckh6msDUGvynNsnwi44nTp+y3WCKsyz1bEau7p
+	 rL6KP2JLrlWHy7QRbsz3koLoya3cTwWKB52bg8GElgo7TogamiAl38yKoFBrAJQzUO
+	 Zri6gJKktYd4RSrUOEK2FoOWzzeXckbgOdmTXanMb8T3NGlcWBUnoWYRNJj+lW4bfK
+	 rfW5Qw/7ypeRw==
+Subject: Re: [PATCH net 5/7] ovpn: fix UDP TX byte accounting
 From: netdev-bot+sashiko@kernel.org
 To: antonio@openvpn.net
 Cc: netdev@vger.kernel.org, ralf@mandelbit.com, sd@queasysnail.net,
  kuba@kernel.org, pabeni@redhat.com, andrew+netdev@lunn.ch,
  davem@davemloft.net, edumazet@google.com, stable@vger.kernel.org
-Date: Fri, 23 Oct 2026 12:17:26 +0000
-Message-ID: <179275784657.3134.14079628149115069764@kernel.org>
-In-Reply-To: <20261022121606.732029-4-antonio@openvpn.net>
-References: <20261022121606.732029-4-antonio@openvpn.net>
-X-sashiko-severity: Low
+Date: Fri, 23 Oct 2026 12:17:27 +0000
+Message-ID: <179275784775.3134.7765670827133808012@kernel.org>
+In-Reply-To: <20261022121606.732029-6-antonio@openvpn.net>
+References: <20261022121606.732029-6-antonio@openvpn.net>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -64,145 +63,101 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-- [Low] In this commit, ovpn_nl_udp_remote_compatible()
-  (drivers/net/ovpn/netlink.c) checks sk->sk_family and…
-- [Low] The concern says the new rejection in
-  ovpn_nl_udp_remote_compatible() (AF_INET6 socket + ipv6_only_sock() +…
-- [Low] The concern says the NULL inet6_sk(sk) dereference the commit
-  message describes is still reachable through the RX float path.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] After this patch, the ovpn netdev's rx_bytes and tx_bytes
+  measure different layers.
 
 --
 
-ovpn: reject UDP remotes incompatible with socket family
+ovpn: fix UDP TX byte accounting
 
-This commit adds ovpn_nl_udp_remote_compatible(). It rejects UDP remotes
-that the attached socket cannot use when a peer is created or modified
-over netlink: an IPv6 remote on an AF_INET socket, or an IPv4 remote on an
-IPv6-only socket. The remote endpoint is now parsed once in the new/set
-paths and passed to ovpn_nl_peer_modify(), and the commit message notes
-that the transmit path still has to re-check the socket later.
+This commit resets the inner network header in ovpn_udp_send_skb() before
+the skb is handed to the UDP tunnel helpers. The goal is for the ovpn
+netdev TX byte counter to include the OpenVPN data-channel header and the
+authentication tag.
 
-> diff --git a/drivers/net/ovpn/netlink.c b/drivers/net/ovpn/netlink.c
-> index 1af7e0e624ba6..bf27a7a89f76b 100644
-> --- a/drivers/net/ovpn/netlink.c
-> +++ b/drivers/net/ovpn/netlink.c
-
-[ ... ]
-
-> @@ -383,12 +385,45 @@ static int ovpn_nl_peer_modify(struct ovpn_peer *peer, struct genl_info *info,
->  	return ret;
->  }
+> diff --git a/drivers/net/ovpn/udp.c b/drivers/net/ovpn/udp.c
+> index 7672094a67668..05e10a2ed1791 100644
+> --- a/drivers/net/ovpn/udp.c
+> +++ b/drivers/net/ovpn/udp.c
+> @@ -495,6 +495,9 @@ int ovpn_udp_send_skb(struct ovpn_peer *peer, struct sock *sk,
+>  		return -EADDRNOTAVAIL;
+>  	}
 >  
-> +/**
-> + * ovpn_nl_udp_remote_compatible - check if a UDP socket can use a remote
-
-[ ... ]
-
-> +static int ovpn_nl_udp_remote_compatible(const struct sock *sk,
-> +					 const struct sockaddr_storage *remote,
-> +					 struct netlink_ext_ack *extack)
-> +{
-> +	const unsigned short sock_family = READ_ONCE(sk->sk_family);
-
-[Severity: Low]
-This check reads sk->sk_family and ipv6_only_sock(sk) once, without
-lock_sock(), while the PEER_NEW/PEER_SET request is handled. In
-ovpn_nl_peer_set_doit() it runs under rcu_read_lock(), and that lock is
-dropped before ovpn_nl_peer_modify() installs the new bind.
-
-The commit message says:
-
-  The transmit path therefore still has to re-check socket/remote
-  compatibility before sending.
-
-At this commit, ovpn_udp_output() still picks ovpn_udp4_output() or
-ovpn_udp6_output() based only on bind->remote.in4.sin_family. A later
-IPV6_V6ONLY or IPV6_ADDRFORM change is therefore not caught on TX.
-
-Is this patch meant to be complete on its own for stable? The next patch
-in the series, "ovpn: recheck UDP socket family before transmit", adds the
-sock_family check in ovpn_udp_output() and closes this gap. It looks like
-the two patches need to be backported together.
-
+> +	/* the encrypted openvpn packet is the UDP tunnel payload */
+> +	skb_reset_inner_network_header(skb);
 > +
-> +	if (sock_family == AF_INET && remote->ss_family == AF_INET6) {
-> +		NL_SET_ERR_MSG_FMT_MOD(extack,
-> +				       "UDP socket is IPv4 but remote is IPv6");
-> +		return -EAFNOSUPPORT;
-> +	}
 
-[Severity: Low]
-This rejects an IPv6 remote on an AF_INET socket when the remote comes from
-netlink. Can the same mismatched bind still be installed through the RX
-float path, which does not go through this helper?
+[Severity: Medium]
+With this change, do rx_bytes and tx_bytes on the ovpn netdev now measure
+different layers?
 
-drivers/net/ovpn/io.c:ovpn_recv() {
+UDP and TCP share the same RX path, and it counts the decrypted plaintext
+length:
+
+drivers/net/ovpn/io.c:ovpn_netdev_write() {
     ...
-	if (sock && sock->sk->sk_protocol == IPPROTO_UDP)
-		/* check if this peer changed local or remote endpoint */
-		ovpn_peer_endpoints_update(peer, skb);
+	pkt_len = skb->len;
+    ...
+	if (likely(ret == NET_RX_SUCCESS)) {
+		/* update RX stats with the size of decrypted packet */
+		ovpn_peer_stats_increment_rx(&peer->vpn_stats, pkt_len);
+		dev_dstats_rx_add(peer->ovpn->dev, pkt_len);
+	}
     ...
 }
 
-ovpn_peer_endpoints_update() updates the bind from the received packet and
-does not look at the socket family. If the bind becomes AF_INET6 on a peer
-whose socket is AF_INET, the next transmit would take this path:
+UDP TX goes through iptunnel_xmit() / ip6tunnel_xmit(), which compute:
 
-ovpn_udp_output()
-  ovpn_udp6_output()
-    ip6_dst_lookup_flow(sock_net(sk), sk, &fl, NULL)
+	int pkt_len = skb->len - skb_inner_network_offset(skb);
 
-That path reaches the inet6_sk(sk) NULL dereference described in the
-commit message.
+The inner network header now sits at the start of the encrypted packet.
+So TX counts the opcode/peer-id (4 bytes), the packet-id (4 bytes), the
+auth tag (16 bytes) and the ciphertext. That is about 24 bytes per packet
+that TX counts and RX does not.
 
-At the end of the series, "ovpn: recheck UDP socket family before transmit"
-covers this case. Before calling ovpn_udp6_output(), ovpn_udp_output() now
-rejects AF_INET6 binds when sock_family != AF_INET6. With that patch, the
-only remaining effect is that the floating peer is deleted with a transport
-error.
+In effect, netdev TX now follows the per-peer link_stats semantics, while
+netdev RX follows vpn_stats.
 
-Without that patch, does this commit alone prevent the crash it describes?
+TCP TX uses yet another convention. ovpn_tcp_send_sock() calls
+dev_dstats_tx_add(peer->ovpn->dev, skb->len) after ovpn_tcp_send_skb() has
+pushed the 2-byte length prefix:
 
-> +
-> +	if (sock_family == AF_INET6 && ipv6_only_sock(sk) &&
-> +	    remote->ss_family == AF_INET) {
-> +		NL_SET_ERR_MSG_FMT_MOD(extack,
-> +				       "UDP socket is IPv6-only but remote is IPv4");
-> +		return -EAFNOSUPPORT;
-> +	}
+	*(__be16 *)__skb_push(skb, sizeof(u16)) = htons(len);
 
-[Severity: Low]
-This isn't a bug, but I have a question about this part of the commit
-message:
+Other users of the same UDP tunnel stats helper do the opposite. WireGuard
+sets the inner network header before it pushes its own header, so that
+header is not counted:
 
-  An IPv4 UDP socket cannot be used with an IPv6 remote endpoint, and an
-  IPv6-only UDP socket cannot send to an IPv4 remote endpoint.
+drivers/net/wireguard/send.c:encrypt_packet() {
+    ...
+	skb_set_inner_network_header(skb, 0);
+	header = (struct message_data *)skb_push(skb, sizeof(*header));
+    ...
+}
 
-At this commit, ovpn_udp4_output() gets the route with
-ip_route_output_flow(sock_net(sk), &fl, sk) and does not check
-ipv6_only_sock(sk). So ovpn's own TX path would still send in this
-configuration.
+Take the case the commit message calls an undercount, where the inner
+header still points at the plaintext. Before this patch, UDP TX counted the
+ciphertext length there. Since the tag sits in front, that equals the
+plaintext length, so it matched RX.
 
-What actually makes the configuration unusable is the receive side, since
-compute_score() in net/ipv4/udp.c skips IPv6-only sockets. The regular
-udpv6_sendmsg() behaviour for v4-mapped destinations points the same way.
+Is TX meant to include protocol overhead when RX does not? If so, could
+the commit message explain why? If not, should RX and TCP TX be changed
+to use the same convention?
 
-The next patch in the series adds the matching ipv6_only_sock() check in
-ovpn_udp_output(), so the netlink and TX rules agree by the end of the
-series. Since this patch rejects a configuration that used to be accepted,
-would it be worth making the reasoning clearer here?
-
-> +
-> +	return 0;
-> +}
-
-[ ... ]
+The mismatch is still there at the end of the series. "ovpn: fix TCP TX
+accounting for locally dropped packets" leaves both the TCP TX
+dev_dstats_tx_add(skb->len) call and the RX accounting unchanged.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261022121606.732029-2-antonio%40openvpn.net
