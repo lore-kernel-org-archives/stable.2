@@ -1,98 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.172
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792788556;
-	b=GCx58dAzXqh63wNG8p8Pqk/8G0jdawcfcKJKRWMQKpuhqmC6aT31S4A6YgokhqADUgjB
-	 fcGxexmxvwYn9fYSUO68FXun1fzbfvHBSIBuEJ3FQVfvw2XU6VfixdkMXa0WrgPPfTJX2
-	 faL6+Yu+mefqdbg69IFWeCbfoWzazdTCJiY5aLcsAi2F95/bzmloj6v/Y824D7zrckkiU
-	 ms0p/RV5tDGNkIRFZzI5QiRMgoXzPNLRx9iCQuV5YnqgSq8OVeTHrKnajqeisQnz+CsXt
-	 q+eFPT8rP7LDAXzXRLXRD6NZ5bjDZGawUlvvEV/gWEI3/1fomHkqYSe/Z5Cjy/vuNMQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792788556;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=1e8ZPE4kmMbmXtCl0yrab04f315W635erPEBqteGcDk=;
-	b=dnZxb4GDhAhvfALRAanT3vj+h1h33QlqYsZz6Ct3y11P0PnkVEtPLqKc0e8WWRo1ccYV
-	 +Frb6VnptmCla3AUj9ryAPsTyT9dhXHJPnHNkTH349FBTZcjyYx2lckDDFFwcOt0c9fm6
-	 u0SLvXAbSrtn1wurFGyY6iPcJVHtKQsKS0gdeOTaVZ3plmVwNPh7TXJz1VBD1lu9Idqu4
-	 3Gv3PxWh9IvE/R8lAxJYGF1Xm+Aarc3qdIoa89YBMdl5pEwv4IFDpFON9VGHqcUSUIZSw
-	 JZQTUPKDy4PPVw8dGM15rPwxVuhyfaHIEvyVU8qcLJwaQ0IT6GVgMLu1Wfr9Ci6dDDA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mojatatu.com;
-	spf=none smtp.mailfrom=mojatatu.com;
-	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=AEOv6u6v;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.172
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792788963;
+	b=UscSUhf5qDDpRJ4TeBBYoMPDSvTUcb2409rRSk6t5usWOcNfWGYlrtX91n65iKi5jAgF
+	 k78D3epTXBMTBmmLjGFU46o+OBf2mrPVX16zkGCGmxn1jEIhQnDnrO7j/wCCxt1fxN1sK
+	 OuNjGDe2JeOhqGc0JRTsAegoxI4yTSz9fCluNl1y1xZXb99k2p1Vag7LsUuI09OnT/ZCh
+	 hP2l9wkMN7IAHKQCf5zhCNLOuDgHEdvY1F76dWQE53VFioOQjysbWEdx3fmTZ4uZfp9dh
+	 8/H0LGPXPvRM0sRATHeo8mNQksTBsZglepb0ePnjYxiQkJciWoiBhs2YyFHiFJRj/5g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792788963;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=a31hdiyyDF8ZUUv40jZBEIwm/U5+mj/EC+c4Mf/cga0=;
+	b=e2Ebu1UANA2jBH4UeTC+YOfBV4an/Io48o5Tu6fq/z32ZCeL3fKd+70sLwbHltUgUG0T
+	 uf/y7Hc5FNvtkkOX5KajfZmC08OWJpXxBXBgQGCXmBBbM6F4XGcmoBEZkjTdE+mRGCzgq
+	 pKFWYNJYoV0x27omUE8/iE9yX7wUhzOqhDqevyVD5lEXQj7oop6apVDxCpxImPJP3+FuA
+	 tdKgIC7GtHflGpG6XbWO5/Cz7C5ywfAB8zWiorSQ2WwfdYveBIKSqDRRxpz+Lx0vvCspC
+	 dFeRFDJFg7FiWRt53vSNsc1APKY1ETYaoPE49BiwnpzNTZMAZwhjxO7fPfHNUKnSGRA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NKktgR4r;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7F84606A31B
-	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 20:49:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7F84606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00613606A31B;
+	Fri, 23 Oct 2026 20:56:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=AEOv6u6v
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-89f28c3ac7bso520934b3a.0
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 13:49:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792788555; cv=none;
-        d=google.com; s=arc-20260327;
-        b=f9UsTAuBc7ISVejxkpLD7cLYyVd8mlfw9WVThtKB8iPPZZcT6vhkOfY3IPrOt1SWW6
-         x7zhbVNhmwSyjUCZ8avagrVA8UKZZm6qMFl/dA4w7w++3Dvbif0JC5mmO9tJKxl6kS4d
-         nVn4sto1N1MmWvuNSb/IuZ3A34FNzk6up7uEVaMXytad9+sk3Tfalw182jOEXCmFf40J
-         2JNPaZTbUpFLCXUG3NsXPv2OtylbV6USivuMPn5bJy7Mn5misrxIw3cVOTUR/m5zV5Y3
-         4Di8TnXQuaHJJyHv/qgcd431kk9WEmIwyb21Zb4LjgSUQdqk4ZlbpRrHQH0MP/cpjoW+
-         DCKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1e8ZPE4kmMbmXtCl0yrab04f315W635erPEBqteGcDk=;
-        fh=SKVpCMdSN1QLlXLpzUvIOR3gfgPA2G6OZ86PHRzNI7Y=;
-        b=pBpD9aLzEF3EEnAILfTDIAH4eT7huOL8Xn2wruvhyxYD0pXvXO0xsBQXlGYDYtULeo
-         3b0wjbbDA0i5oYTsbi1Y0TUlp/UCXcRjFBmLNh2rw1smZeS/AWDk+QwtdMDvdxCBbSnJ
-         dZkvYQ/Y+Z/nTR2lutuippKMRCCd+T6+OKHSjZJ537jYY6HLqnTM/2GkDK67jpLsvFwH
-         DML/U+7ZDlO7UpTYevQuXqdO+XE3kN/6sf8uVOF1vcvzkn+3X9iJIM2AsziRtTP8aR/c
-         f66S9KEHtWBMD5Va5U0U9ZAYjPAeskDfr0PGnCLFteIMVWeOgt0D7ji18BkcyhXtF0Yc
-         F7uw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1792788555; x=1793393355; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1e8ZPE4kmMbmXtCl0yrab04f315W635erPEBqteGcDk=;
-        b=AEOv6u6vIlh8bMLqubdAOCo2ZaWZPNBwX8q7K4RISlY1OQ+6TfhPudRb7ZZc+IEyDI
-         Jl2uepJHcQXGgiZ/AEcTgVkS04Z5KXSWGM74zhXnh5lM5SpvjZCAsHZ3wjM8rVT6Nmmm
-         OBYpe4OZu+KBfwxchSCixguS+yxodzVQfsm04=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792788555; x=1793393355;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1e8ZPE4kmMbmXtCl0yrab04f315W635erPEBqteGcDk=;
-        b=npUi2c1kEPJttlWYHxsesnyqbFqFKLnEJUAZmZPwYtaz7WnTxVzPX1y9BAWUVm9VN1
-         5YCjOQoNilQFtsGTpfVCfPYdDwwPnRoeX7wTup09hS26HCuc+z+bxjyyOsf1Ekt2JIMy
-         0KYn/ufFGAbc8WloFbyF29FnVfRFumNXM6GjsntwIRB/bYXOftUYgZJOcrM5MIkMAVqS
-         x5y+1kzGP9x7NZRJ5iKkjMFOJI6WsB2pdrI46KJK+90sA3mwt4/pgv+nYvbZomdKASLf
-         NJUso1Yl8R48cU6dAw7Y+K6W42rTUQNAzqmCObZUclW99sIUAEv6s3guz/oQhvz90rI7
-         bkvw==
-X-Forwarded-Encrypted: i=1; AKwUvBxYXZ/L95e6MdRgACfUxb6ZUTdvRmbbI5x3wniZkt6PMJhrT123DiEK+B3NqVVCmPPVxEgpctM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLgwv7DtjSj1vuf5dxSQFQfQU+HuczuzT3wAad8kbEBbSpwJX9E
-	r8FU1mUjupoG4LfLaaz4iX5IyKRQEoLIznrngrTFe0FO5HTdO74FwHrVpUbbhClWE1CnYvPG/qa
-	sMDppaqaXrMjLezYn729nOfu+zibGgvV4aCJhmJjr
-X-Gm-Gg: AYBFou0JXqQ4WtP5Q+c8gR+U/3MT/1L7gUxnu+6SVxeT6Cx0mdaFdgJHb/On6Zxq2UG
-	fM8Fv1ZH0Q5QzCtgutL9caOWccyg6oOVvgADqdGwj5vXTdJ40iNc/y3RtCs1NUxyr1IA6T09cPS
-	c5oQChWHqMiuRCPcR+1hcty/7Gh5/QWlOAI9Y4vX/nVNSWAHY8pruLt9ane8XhxC7gLjLTDBY7i
-	38uPjxBOuedpsWRD8N9fmYFQp142W9ozYZplELHP+P0UsAE2hTR5KjfB2phY0C9dFOIt7egttR8
-	0hCjKF4LgdrjfnuYFGUUlRKICjG8S4aT23mTm1uX/p8KV56ESMlSo/lc2gIyplnCKNm2DGbWt2b
-	p7PWtusexUcUf6f1jFxyAW2au9XH7z73TwQAuFwoUxRK8kCUKiaLt9533Bp+YEswzaRaUTTT2L9
-	ISVwu9OIQA760eoWJ8TOuYnJ3xuXllFWj/Wx0V
-X-Received: by 2002:a05:6a00:f92:b0:899:55e9:880b with SMTP id
- d2e1a72fcca58-8a3661c509fmr328289b3a.14.1792788555119; Fri, 23 Oct 2026
- 13:49:15 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NKktgR4r
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A4021F01825;
+	Fri, 23 Oct 2026 20:55:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792788962;
+	bh=a31hdiyyDF8ZUUv40jZBEIwm/U5+mj/EC+c4Mf/cga0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=NKktgR4rcKUdiO2NkGJRqzAQyHyNqk4IJRrBJu5OAedX8PNttS1iKxSWrk4vI+QCk
+	 YNzgXsxxdNLNEM0LOhDMdTdWBRlT/hiT8BXaWGx9CzvO241Sp7xjXaQQMlT+li1Vmk
+	 xEV8BbhLNv3aETBLsnUYUea273eBkAXi2UlnleTBUcRzusje/zDVOTo7VpvS4HCzqP
+	 XZZoc2CkOJIPULxNsLE8pm7OWICD3bKx8L75lOJptyqzWNQxaZmKTKNYlZZ0t9JZgf
+	 /4WlgKEJZLnCIM0Tuna+bCKkOB1ER1mWz32qJhFlXkmDKNt4I8eWKojYMQm8qkFp7o
+	 rB+6gAabFfuTQ==
+Message-ID: <cc2e3af6-bb56-41b1-9cde-151797c3068d@kernel.org>
+Date: Fri, 23 Oct 2026 22:55:54 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,97 +51,159 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <ACT-N6N4.v2.r0.20261022191829@mojatatu.com> <20261023122819.5e48ea9e@kernel.org>
-In-Reply-To: <20261023122819.5e48ea9e@kernel.org>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Fri, 23 Oct 2026 16:49:04 -0400
-X-Gm-Features: AclHuK_KBBLqzVNTj_l61CA0L2zWjhSKF-P73rB5NHPry570bVn5gVtl8tS4o34
-Message-ID: <CAM0EoMkaPX_He3yCExA0DG4KuQQd6JLP=6qgsXn0kzry4+P2nA@mail.gmail.com>
-Subject: Re: [PATCH net v2 0/6] net: pull short linear Ethernet headers before eth_type_trans()
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Guillaume Nault <gnault@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Victor Nogueira <victor@mojatatu.com>, Vega <vega@nebusec.ai>, 
-	Ren Wei <n05ec@lzu.edu.cn>, Herbert Xu <herbert@gondor.apana.org.au>, 
-	Jason Wang <jasowangio@gmail.com>, Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
-	stable@vger.kernel.org, Martin Varghese <martin.varghese@nokia.com>, 
-	Pravin B Shelar <pshelar@ovn.org>, Shmulik Ladkani <sladkani@proofpoint.com>, 
-	Yotam Gigi <yotam.gi@gmail.com>, Aaron Conole <aconole@redhat.com>, 
-	Eelco Chaudron <echaudro@redhat.com>, Ilya Maximets <i.maximets@ovn.org>, dev@openvswitch.org, 
-	Jiri Benc <jbenc@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64/mm: restrict transparent contpte mappings to valid
+ PTEs
+To: Zhao Gongyi <zhaogongyi@bytedance.com>, catalin.marinas@arm.com,
+ will@kernel.org, Ryan Roberts <Ryan.Roberts@arm.com>
+Cc: dev.jain@arm.com, baolin.wang@linux.alibaba.com, lance.yang@linux.dev,
+ mark.rutland@arm.com, akpm@linux-foundation.org, ljs@kernel.org,
+ liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
+ mhocko@suse.com, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261013093600.54995-1-zhaogongyi@bytedance.com>
+ <daab2f45-56c2-48ad-a24f-aa4f889e4da2@kernel.org>
+ <e0f60526-bb95-4d39-9a7a-72cdf32ca5b6@bytedance.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <e0f60526-bb95-4d39-9a7a-72cdf32ca5b6@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 23, 2026 at 3:28=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> wr=
-ote:
->
-> On Fri, 23 Oct 2026 07:59:15 -0400 Jamal Hadi Salim wrote:
-> > This series fixes a class of producer/consumer bugs in which an outer
-> > header is popped and the packet is then handed to a consumer with fewer
-> > than ETH_HLEN bytes in the linear area.  eth_type_trans() pulls ETH_HLE=
-N
-> > from that area and can BUG in __skb_pull() when the inner Ethernet head=
-er
-> > is not linear.  The affected producers are act_vlan POP_ETH, act_mpls P=
-OP,
-> > act_ife egress decode, and the Open vSwitch MPLS/TEB and NSH pops.  A
-> > consumer-side guard in act_mirred rejects redirecting a headerless pack=
-et
-> > to a device that expects a link-layer header.
-> >
-> > Patch 1 makes act_vlan POP_ETH pull the inner Ethernet header after the
-> > pop and drop only when the packet is genuinely shorter than ETH_HLEN.
-> > Patch 2 does the same for act_mpls, gated on the pre-pop MAC length.
-> > Patch 3 adds the act_mirred guard at the redirect boundary.  Patch 4
-> > keeps act_ife egress decode from consuming the inner Ethernet header an=
-d
-> > restores the header metadata.
-> >
-> > Patches 5 and 6 establish the same linear-header invariant for the OVS
-> > MPLS/TEB and NSH pops before restoring MAC_PROTO_ETHERNET.
->
-> NIPA CI flagged a regression that appears to be introduced by this patch
-> (or one of the closely related act_vlan/act_mirred patches in the same
-> series).
->
-> The selftest tools/testing/selftests/net/forwarding/tc_mpls_l2vpn.sh now
-> fails reliably (both the "ping" and "ping6" sub-tests, on both the
-> regular and debug forwarding test configs, consistently on retry as
-> well):
->
->   # TEST: ping    [FAIL]
->   # TEST: ping6   [FAIL]
->
-> The test builds an Ethernet-over-MPLS L2VPN using exactly the tc action
-> sequence this series touches:
->
->   - ingress: mpls mac_push + vlan push_eth + mirred egress redirect
->   - ingress: vlan pop_eth + mpls pop protocol teb + mirred egress redirec=
-t
->
-> dmesg on the test run shows mirred failing to redirect the traffic:
->
->   tc mirred to Houston: device veth2 is down
->   tc mirred to Houston: device veth3 is down
->
-> This is the same "vlan pop_eth followed by mpls pop" chain described in
-> this patch's own commit message as the bug reproduction scenario, so it
-> looks like the mac_len/pskb_may_pull bookkeeping added here may not be
-> correctly handling the ingress case used by this test, causing otherwise
-> valid packets built by this chain to be mishandled and the redirect to
-> fail.
->
-> Could you take a look at whether the new POP header-pull logic correctly
-> handles the "vlan pop_eth -> mpls pop protocol teb -> mirred redirect"
-> chain on ingress? It would also be worth double-checking this alongside
-> the companion act_vlan POP_ETH and act_mirred link-layer-header patches
-> from the same series, since they touch the same pipeline.
+On 10/19/26 09:06, Zhao Gongyi wrote:
+> On 10/14/26 5:41 PM, David Hildenbrand (Arm) wrote:
+>> CCing Ryan:
+>>
+>> https://lore.kernel.org/r/20261013093600.54995-1-zhaogongyi@bytedance.com
+>>
+>> On 10/13/26 11:36, Zhao Gongyi wrote:
+>>> The transparent contpte layer treats PTE_CONT as software state: when a
+>>> PTE has PTE_CONT set, the contpte helpers may align the operation to a
+>>> CONT_PTE_SIZE block and operate on the whole block. That invariant only
+>>> makes sense for valid mappings. Explicit users such as hugetlb manage
+>>> their contiguous encodings separately.
+>>>
+>>> contpte_set_ptes() currently sets PTE_CONT from alignment alone. Batched
+>>> set_ptes() users can therefore install present-invalid PTEs with
+>>> PTE_CONT set, for example mprotect(PROT_NONE), NUMA hinting through
+>>> modify_prot_commit_ptes(), fork() copying a PROT_NONE large folio, or a
+>>> PMD split installing PAGE_NONE PTEs.
+>>>
+>>> This is not a hardware programming problem: invalid descriptors are not
+>>> translated, so the hardware ignores descriptor bits such as PTE_CONT. It
+>>> is a software-state problem. Some arm64 fast paths intentionally test
+>>> pte_cont() directly instead of pte_valid_cont(), for example commit
+>>> 9970a9a27ffc ("arm64: mm: implement the architecture-specific
+>>> test_and_clear_young_ptes()"). Fixing the producer side preserves these
+>>> fast paths and covers all consumers.
+>>>
+>>> In the observed failure, mprotect(PROT_NONE) installed a full
+>>> CONT_PTE_SIZE range of present-invalid PTEs with PTE_CONT set.
+>>> MADV_GUARD_INSTALL then zapped one PTE. The nr == 1 clear_full_ptes()
+>>> path only unfolds pte_valid_cont() entries, so the neighbouring
+>>> present-invalid entries kept PTE_CONT while the target entry became a
+>>> guard marker.
+>>
+>> Hm, is there a good reason why we cannot just use the cont-pte bit for all
+>> *present* PTEs, even if HW would not be prepared to benefit (!pte_valid())?
+>>
+>> I guess we really only have to make sure to shatter properly, right?
+>>
+> 
+> 
+> Hi David,
+> 
+> Right, there is no architectural restriction preventing PTE_CONT from
+> being used as software grouping state for present-invalid PTEs. For this
+> particular failure, making contpte_try_unfold() recognize something like
+> 
+>          pte_present(pte) && pte_cont(pte)
+> 
+> would make clear_full_ptes(nr == 1) unfold the block before replacing one
+> entry with the guard marker.
+> 
+> My reason for preferring the producer-side fix is that the existing
+> transparent contpte helpers mostly use pte_valid_cont() as the membership
+> test, including contpte_try_unfold(), ptep_get[_lockless](),
+> pte_batch_hint() and contpte_is_consistent(), while some range fast paths
+> test pte_cont() directly.
+> 
+> If present-invalid PTEs are also considered members of a transparent
+> contpte block, I think we should audit the single-PTE modification paths,
+> rather than changing only this clear path. We would likely also need a
+> pte_present_cont() helper: the pte_present() guard matters because the
+> PTE_CONT bit position is part of the swap offset for non-present entries.
+> 
+> There is no hardware benefit while the descriptors are invalid, and
+> set_ptes() can recreate the contiguous encoding when an eligible range is
+> made valid again. For a stable fix, I therefore preferred to stop
+> contpte_set_ptes() from creating present-invalid transparent contpte
+> mappings, which also matches the pte_valid_cont() contract used by most
+> of the existing helpers.
+> 
+> I agree that saying this invariant "only makes sense" for valid mappings
+> is too strong. I will reword that to describe the current helper
+> contract instead.
+> 
+> If preserving the software grouping across PROT_NONE is the intended
+> semantics, I can rework this as a broader unfold-path audit instead.
 
-Victor monitors NIPA but is currently away for a few days. I will take
-a look. Eric pointed out this broke:
-tools/testing/selftests/net/forwarding/tc_mpls_l2vpn.sh
-I'm working on updating that and will try to fix this as well..
+Hi,
 
-cheers,
-jamal
+sorry for the late reply.
+
+If we have the spare PTE bit, why shouldn't we just use it?
+
+It will make batching over PTEs faster. And we care about that for present PTEs.
+
+So I don't quite see why the stable fix couldn't just do it right away? Do you
+have a prototype that shows that it would require significant code changes?
+
+-- 
+Cheers,
+
+David
