@@ -1,57 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792760523;
-	b=e8f53Dy/EFE5poxUnoGSn+KCUOl6iEkboxmWZe66nXKMHz/U2BTUQM3ey84KTPLIU9BE
-	 kGgAXP1sXZqKI5eR/0W56MKXyoM+xYqUZfraT1Yea8L6/k2t4rM02v1TqmqOucwVOq3y8
-	 XxHa54QgzqhL5AmbRZ8pht7ZF1LmgokbINEnJ1TqXYQ/Ge+0bHtR46nZm/eOcDVP8B2I7
-	 /dDFlwZatxXgaoztTeg7e3Tdlpme5k8DFeDiWkmIZP4isvPPnABgaBYx50s0ywpUdFKfy
-	 Ti15UwlL7aWoir9j5KCl2/8Nn9mPW4qPQzcQKpPALS4JhHiPod/7PazYKv39tWt7QcA==
+	t=1792760679;
+	b=mdzH3Px/rTanY6puBEvP4IdL0TB4Cb8FDeeKZAd7e+Ci2x1uLD2eDcHc5r+52yXI7sTm
+	 /5hLY29tXBDT6d1tDlqRbq/kUa2XUaJYqv3cK9q/ceA4AIMAKVbvR1KUq14Ud9rucCgLC
+	 o790m6D18ll+dYx6t24OhpXdPHbNqOJY469o4BORMyzc6Kpg+hfmM+nrlzRUElf/wfhBs
+	 l1Dvm3CZFk77tPq9z50QBzYEzwobjhlD4LioFG1ygEr1G5dOvr7wQaL7ciNR9rpy42Z3u
+	 Bxq10NiYoPjhzUxgSTow9VHhcEcvh0nZjumeTUibuRo97z8ycHO3KDa5CvaPr9bcslw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792760523;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=HdTceXF/VTdv7WfIKt6WYyyNHKWsIb3Avw/qVXMQxzY=;
-	b=QI5p2iLrdJ0/dk+jne+Sb5/n2bp3JCNNjUZn9yClBqoc6xNYjsUCrVqraQuFFSqJPU5F
-	 WpKBJlGuFRZ8JzLuF6x3FlJ67Vt6VWhckd2seB8kmm5JXZjXcxBUS1emUJOg6KGA+AdFP
-	 0ftOB5bffrZwKUOLgiaRv0UattqKaWeNxQXFY9sMFN+VUTygJqhDPl51RqrLuWmydGDz8
-	 KSS4sbjiTgLj1FAEy/3m194QI2AfrKvEVQ80pz7H2cTyIaMBdvbrOZzF3vQ2kilnvPINg
-	 9MS8M/18pB3q7o8V7YWLH3jfY/k8tYAuS71B7fIEcytf5odp5W+/BiHS167G1+i73dQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792760679;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=m2cOO5Qmzsel13rD0d2Ch8Hy2dAKGNhwuzhw2PgQ5Ps=;
+	b=OngxKsLm6GYm1nmyMRfI92HjIfAiTrx3jx03N3ngMCY45qOfBHIAij74GkV0JFrUV07P
+	 wncFZmgyMsLMBTSGco9mi8jId4oLVNexUmikGw3sFL5T/gzdJkIYXwd2FO/DGCRtW3sHX
+	 pwpXKehBYIXhvspCsi3RZkKdCK2kg2rubnZsEj6yj0oneHvAMWKA3VJKmpWnQdHjq2bBu
+	 pQgRTjHBPGrrWPtVu62g8b9WWeHWVZq8NmiQ2h1Ngc5ZcvIobPDp8ggECJF2HsUqqfi8h
+	 3nGCL9/KaWBSWmjMS/NHQhxLC81RGBtE34K6pErd07v4bE+82qW60KlV/bedk0isTpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Y+ZLzmhf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lody6JOY;
+	arc=none smtp.remote-ip=74.125.227.131
+Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DDB7606A31A;
-	Fri, 23 Oct 2026 13:02:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11FB2606A31B
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 13:04:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11FB2606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Y+ZLzmhf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7613D1F01825;
-	Fri, 23 Oct 2026 13:02:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792760523;
-	bh=HdTceXF/VTdv7WfIKt6WYyyNHKWsIb3Avw/qVXMQxzY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Y+ZLzmhfm/bq0uTfqPDRDnlWh876qdnPiT/h86V0977XP+OD0y20bKOjr7JfMey1n
-	 0auFCN46huTatPKWVBcXIBcE43tDeP1H/x/dQjCTfxaP6v65qsJAyxzxmgNLJlBmGp
-	 mRNvyklsRy1xNbHrxxICN9nCW93HZNirf/YbNS8Y=
-Date: Fri, 23 Oct 2026 15:01:25 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: stable@vger.kernel.org, stable-commits@vger.kernel.org,
-	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>
-Subject: Re: Patch "sched/eevdf: Move to a single runqueue" has been added to
- the 7.2-stable tree
-Message-ID: <2026102336-deodorant-repressed-45e8@gregkh>
-References: <20261021115034.4170616-1-sashal@kernel.org>
- <20261021131517.GN2823843@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lody6JOY
+Received: by mail-pj2-f3.google.com with SMTP id 98e67ed59e1d1-3ada2f39f30so220628a91.0
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 06:04:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792760678; x=1793365478; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m2cOO5Qmzsel13rD0d2Ch8Hy2dAKGNhwuzhw2PgQ5Ps=;
+        b=lody6JOYmoR5Ixf41CrcWzhJx7o1D5JML/EyQN9jrlJH3u5aECQWyw3U4Hb8STtYoD
+         E1CHTWPAWSiLuzioHSPhqQ2mwanOGgeaDkB4qeSQVW3sCTg1FxDp1X+o/nFw0Up0rQoc
+         1Vl2rvrIWgelIA/aP5M9oMsi8x1zgxoK+S6GDPLH7UeHhb5FwWjcEK+TfMSjZO4SeJw0
+         KcDu5u0/yELowsCoi314qQqJlVsMt2JU2AnVZV57wj3FnkLDJjnTHxsuOtT4CEssv2p/
+         xomWbtGma/06G7aCzjTdaFcCwUrmCo794208gPOT0mdV/iHfrLv1yLlqagaDRe8ceIoy
+         FR3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792760678; x=1793365478;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=m2cOO5Qmzsel13rD0d2Ch8Hy2dAKGNhwuzhw2PgQ5Ps=;
+        b=VUasFX9CCd4qjLmmd8xMlsh4ZTPW7sXxsUA+6Uq64c2sSZs60QtcK4vDRDuPum32B3
+         v0Kkvq91crHonjjQ/EgzlTZ/icfm/QoSne87FcWz37XM54G9oeGHguvncBUkjbpM2HyU
+         7jkmmDtw/DcP5b0NbY4cZRFfm2ExzSAU9x4AZpmUtQsPY12d4mDJhBIww409gGCqTt/f
+         Z/j8BKlxcqM7D3SNSqJjFVONNMFE5bQQpSL+Q2CsR/5pF8tSoxYf74mWhtYST8hW+hwz
+         79YQRU2x2JoWCVcCl/Ofk/RAog7dl3WoH7IJlO38S4Qf1Gi3vsFyCtLXWaq88ghPqPar
+         YbNA==
+X-Forwarded-Encrypted: i=1; AKwUvBxWdXuN0t55RwaFgXssJJCcJaXsWTD75kOsSqbn36WlJsAd5PiEm8GJOH6CcH+OsKrk9Bocyro=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIAQwrvmhOonbb0lYF1ck5URc2IoMfiqQ62JPUUHziCXErLniL7
+	EpWOc08CTkAWzDz1pG8p0qvtoKK8W31X69kXq4a46DCjA7r+XrUUE+E=
+X-Gm-Gg: AYBFou2jpYSvkOkSYjrzZLpRoNWEVl9ZAf59a47B4fV7qmGOBpB1GjWYm8HlVnsI9+D
+	mPpuPh8WBj7tmeeSANLpS9xPPRcf6dm+daNDSg8PMjtJMfcXe25CQYEkpvkGqa+nINE73E4ycS7
+	NSS1LsRUYCR3CLl5FSODKR9n4iWhtI2phx4E45GV+ILJzZ9F8CUUrL0vo8Sq2VTxnn3ByoR4zis
+	DGaZeQoE1daaIjvnzG7YdU821zMy7qCUoP7+ujGZyqn1nZhVvRAGjX+Wz4lUdnFW/JNoxyeIQYz
+	XxtSz2gJSwFekk751xlCrZoWaUWdB2p2ywu86LHsqx560/4djM1V78GSQ3VXCHelZgTmCny+oTV
+	iD8TKuGirhCQjsTgYoG6iYjXwgzsg6VaxI/V60gq2uXd1TsDRi5usDH2h4FCSKjeVd2Tn9fclND
+	BLYeeZ7ffB/Hb7NXhHyjTMcMSE/2RtViHjqlz51zQhGiGls3zJlA1RypjOV3IBGW7Yp8odpEM2J
+	4JgW+awNpxs603yXfEFRwlF2TY/kSRj1v3xoHSqOlcxqwYVZ8THhPJI4g2zHrt61dBu76Ijf2gQ
+	xiVAIkkpkw==
+X-Received: by 2002:a17:90b:3810:b0:3ac:452b:4a63 with SMTP id 98e67ed59e1d1-3adce09fa89mr1966572a91.55.1792760678220;
+        Fri, 23 Oct 2026 06:04:38 -0700 (PDT)
+Received: from WIN-2DEDQG69EF6.localdomain ([109.105.193.131])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3add282a8bcsm1349017a91.2.2026.10.23.06.04.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 06:04:37 -0700 (PDT)
+From: chenhan <chenhan0017.work@gmail.com>
+To: rust-for-linux@vger.kernel.org
+Cc: a.hindborg@kernel.org,
+	boqun@kernel.org,
+	fujita.tomonori@gmail.com,
+	frederic@kernel.org,
+	lyude@redhat.com,
+	tglx@kernel.org,
+	anna-maria@linutronix.de,
+	jstultz@google.com,
+	sboyd@kernel.org,
+	ojeda@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	aliceryhl@google.com,
+	tmgross@umich.edu,
+	dakr@kernel.org,
+	daniel.almeida@collabora.com,
+	tamird@kernel.org,
+	acourbot@nvidia.com,
+	work@onurozkan.dev,
+	miguel.ojeda.sandonis@gmail.com,
+	tomo@flapping.org,
+	georgeandrout13@gmail.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v4 1/3] rust: time: rename the rem_nanos() divisor
+Date: Fri, 23 Oct 2026 21:04:11 +0800
+Message-Id: <20261023130413.178487-2-chenhan0017.work@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261023130413.178487-1-chenhan0017.work@gmail.com>
+References: <20261023130413.178487-1-chenhan0017.work@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,38 +120,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021131517.GN2823843@noisy.programming.kicks-ass.net>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 03:15:17PM +0200, Peter Zijlstra wrote:
-> On Wed, Oct 21, 2026 at 07:50:33AM -0400, Sasha Levin wrote:
-> > This is a note to let you know that I've just added the patch titled
-> > 
-> >     sched/eevdf: Move to a single runqueue
-> > 
-> > to the 7.2-stable tree which can be found at:
-> >     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-> > 
-> > The filename of the patch is:
-> >      sched-eevdf-move-to-a-single-runqueue.patch
-> > and it can be found in the queue-7.2 subdirectory.
-> > 
-> > If you, or anyone else, feels it should not be added to the stable tree,
-> > please let <stable@vger.kernel.org> know about it.
-> > 
-> 
-> Ufff, why are we backporting this?
-> 
+The argument to rem_nanos() is the divisor, while self holds the
+dividend. Rename the argument and correct the documentation. Drop the
+architecture-specific implementation explanation from the public API
+documentation; the argument type already states the divisor's width.
 
-It was to fix:
-	Stable-dep-of: 2f93bcb3f9aa ("sched/fair: Avoid overflow in place_entity()")
-but that's a mess, too many follow-on patches needed here.  I've dropped
-it and a few others.
+This does not change the function's type or behavior. It is a preparation
+for documenting and checking the invalid divisors in the next patch.
 
-If someone has a "simple" backport of the above commit, we'll take that
-instead.
+Cc: stable@vger.kernel.org # prerequisite for the Delta division/remainder fix
+Reviewed-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+Assisted-by: LLM
+Signed-off-by: chenhan <chenhan0017.work@gmail.com>
+---
+Changes since v3:
+- Carry FUJITA Tomonori's Reviewed-by; code unchanged.
 
-thanks,
+ rust/kernel/time.rs | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
-greg k-h
+diff --git a/rust/kernel/time.rs b/rust/kernel/time.rs
+index 5ae377e70dd8..16b44e82d2ac 100644
+--- a/rust/kernel/time.rs
++++ b/rust/kernel/time.rs
+@@ -614,16 +614,13 @@ pub fn to_jiffies_timeout(self) -> Delta<Jiffy> {
+         Delta::<Jiffy>::from_jiffies(jiffies)
+     }
+ 
+-    /// Return `self % dividend` where `dividend` is in nanoseconds.
+-    ///
+-    /// The kernel doesn't have any emulation for `s64 % s64` on 32 bit platforms, so this is
+-    /// limited to 32 bit dividends.
++    /// Return `self % divisor` where `divisor` is in nanoseconds.
+     #[inline]
+-    pub fn rem_nanos(self, dividend: i32) -> Self {
++    pub fn rem_nanos(self, divisor: i32) -> Self {
+         #[cfg(CONFIG_64BIT)]
+         {
+             Self {
+-                value: self.as_nanos() % i64::from(dividend),
++                value: self.as_nanos() % i64::from(divisor),
+             }
+         }
+ 
+@@ -632,7 +629,7 @@ pub fn rem_nanos(self, dividend: i32) -> Self {
+             let mut rem = 0;
+ 
+             // SAFETY: `rem` is in the stack, so we can always provide a valid pointer to it.
+-            unsafe { bindings::div_s64_rem(self.as_nanos(), dividend, &mut rem) };
++            unsafe { bindings::div_s64_rem(self.as_nanos(), divisor, &mut rem) };
+ 
+             Self {
+                 value: i64::from(rem),
+-- 
+2.34.1
+
