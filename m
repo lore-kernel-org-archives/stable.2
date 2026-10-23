@@ -1,45 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792776250;
-	b=hoXJHnNETxSGPAEU+K30MRtyrEV5rO07jMkJcgyYh8/pmaixLtw0vFW89EUJnEarkRL4
-	 8FPipqDslD3j9zfL+8iLOkKkRMe9ybtrSpAMN8TYj8GNX8r88ZqN4p2PdzZHsX/rm6fqc
-	 6ciElQNzNIDOzRk3pQ5xHY2dhQTkg0Rm6TcVDxxUB0swdkgmBOMvC1h2Rzs+Tjc9OI3tb
-	 lxxv06NdJWXvb09OtTFHPtbHrhS0RknCKSMX9/djFqYP9L/nr0eZh89dA0aXOVV0Dy94c
-	 iodzu4oFtP8gABlO3zdJo9kONDKT0gaCF5AQdeSRNT0e/3CYvxTbzjy87LG6VpsDVSQ==
+	t=1792776348;
+	b=ytyRADbWn9z4TeCOB86pdY5kv8Kg7W2x9qTo74IlM9is7OzUCSOFXAvTWglAE+luHqee
+	 Yt973g7TkOuZp4u9Q1TYKHZKWJSbv74OOSoepXii+P/PFmm2KodluOABk+Qt/dOeb+8CU
+	 fvcIhdbNQJ/VVbC0T2SwX/llisx07T2LI76H87gFMFIdJ587ddUZebrrclprlzRTdg8UI
+	 WFL+3FYg7imZVQ/eixDLB8Pn9SNrNcvSUo6ArRY6wv+ZhIz+KOeymlTPcu9PNpMNs4nYG
+	 nOw6kvUOqpEbQ35fHs8Q/CtFGMjll95oRA2lgzpS1koXwbMTJyli4FXV4yqXeTYqE+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792776250;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=CSTcT4VtkmtV1V2TDvj/wN9qE4yR0q2BZxq4dLtp+xI=;
-	b=2a4MpJjjFW/yAnXGuVCubARGsXYxSlQ6IsIUXbWEDhO6x0Jyx0hCfqOc/2qavzFA5iRd
-	 pg94CPigvAQBDNuJBS1ZoTiRWNu4CkiMyUiSlb2vTAqg42SV06Qhzla1EKHX1zZ7Aw282
-	 gHuPRSeCSTtArtLIMZV26CijFYDCGiw9xIPO0gvDxPaZwCJx/pcOgz+gnqaTull9dY26t
-	 /JnrxM9NQ+DwMEaJwZ+nMFjDYy2XDPryNPjQs0UR3QVqcj5wqcvslKFt2otH7uTN613v6
-	 qsUnhCgbIujZKBlkeN3mboik144kRujb8aeQtOhHPJuKOFtUL3VRDLVUQCw5mbYGIWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792776348;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=eUl/XNYwVVA31TSAqOL0a6VbA1NPqf8fwEhYeAhXT2o=;
+	b=lNJ34FUanZMfvWfUt3MT034CeGyzjO9Own/rzweqM2OOehQ3miU1qKtFsRHqNjBfZWX8
+	 DA07Jm8G0YTi+rxLnfTFN8Qdeuj2vgeG8voztyxFrlBBDq4G5xGjvWrwkxScpmNgsoroY
+	 B8tMMqZBdIac6FC9oFr1eaCHbScbLVcwSnR2T+xTKFeUCxSsBsHNB09t7oVrzWnG8AZPA
+	 ZmoITSTrVDuzWfHSve4thEIML51dwfrrvL7b7myiSpljJYK3ktWyxXWrqWpWDOllQH2bS
+	 NzUG1zLY+YOtn1GbNOp5opO3xEhS7027p5Ky4zdHwZLehKJ4K29iD7YWmdJxF3ZcajQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="v/Fet2bv";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=PJtP1iNX;
+	arc=none smtp.remote-ip=209.85.128.176
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9C0606A31A;
-	Fri, 23 Oct 2026 17:24:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82168606A31B
+	for <stable@vger.kernel.org>; Fri, 23 Oct 2026 17:25:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82168606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=v/Fet2bv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D40F81F01825;
-	Fri, 23 Oct 2026 17:24:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=PJtP1iNX
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8b10ac6ab7bso12008947b3.1
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 10:25:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792776249;
-	bh=CSTcT4VtkmtV1V2TDvj/wN9qE4yR0q2BZxq4dLtp+xI=;
-	h=Date:To:From:Subject;
-	b=v/Fet2bvbfP/FiN+HTz74yw2H3dsTKEsgM+LjVP8w+Lx1bCTnjzc+7VO+QdraYsoc
-	 0m//iBoYqHEHGeOmYD1OGXsDWmfapZ1QIroj7P309x+bsHlOXmlLyZlfaDLCKZuRzu
-	 ZBbYj53Gxb9rOh3hBhk18VQ4bT5AAxXaxKJHSvCo=
-Date: Fri, 23 Oct 2026 10:24:09 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,pfalcato@suse.de,matenajakub@gmail.com,luizcap@redhat.com,liam@infradead.org,jannh@google.com,ljs@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-vma-fix-expansion-of-vma_mixedmap_bit-vmas.patch added to mm-unstable branch
-Message-Id: <20261023172409.D40F81F01825@smtp.kernel.org>
+        d=cs.unc.edu; s=google; t=1792776346; x=1793381146; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eUl/XNYwVVA31TSAqOL0a6VbA1NPqf8fwEhYeAhXT2o=;
+        b=PJtP1iNXTHWLqdEgG9k1IKU8dM9tqr0By9u+R9RrwPEk7DHjZaWPDwbf752jvAMS8a
+         A+RpA9ryTA14MrkL7ba6an7yb6Q/gtb0bj5mWp26C742ApgphByX+aIPIGNEvrR4x8eL
+         1pQZcCbRch1ZrlmQnx17ucgSgXHcGfJmgbQ15U2Hv1fQ4juGh4XECw8EnmEeZQxLYAOa
+         VHcWGizzPOoGPQw7rpxdAtpP5+7sU4F6eaCeqbH5X8li+EobEFWE8aaCfztcFhoBLFeb
+         jMu/YJ0vn4982vtMhSm1Z1ZJV8A+NDxpMPfHjYoyoPaYcX+Q2OzCzJxdjYqrYXjTuwLC
+         qVCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792776346; x=1793381146;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eUl/XNYwVVA31TSAqOL0a6VbA1NPqf8fwEhYeAhXT2o=;
+        b=kaLlFqloDCsDFtR6qFDDEpqdwaqaAO8Zzd8KmwQoN+/KiEoSKdatQuJS6ZWHvSkiVD
+         nOuPNSpCWkdSvABSnjhO5cW43njDyW6QhS0QmKkKu8hhBdw8fNv4u/OtqopN7XOOBNn9
+         jSAHFygSD8gWhMd5XLCcOIwJ7YWFdP2QecMex5dx4frLsHAPrz3V7twkd0HIekDnJXb2
+         Lb3ah1m+M2XY6ZVAEu3SLqxY6aJyVn6ROiJ0EDZ4sWLoLhjjoFVM83U53WGWZYo5qXO1
+         PYIpJb6VXNna9xZo81+pcNBf8fMIDb/j38ACq9lwBH2+lDDKeIsSLo9bS1EHbFqP2n+p
+         PmWw==
+X-Forwarded-Encrypted: i=1; AKwUvByclophOHusEhDc6TZnOZT7FfVqGNReuOkYGu0hX36TVUqp/5rLae5E+SnAa/SRXGHEj022Vzs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7SVBJsmo7is6vC5kt0assaEkvAuQolobFCBrHPooTNq58Qirs
+	wjUtk42rLw//ANQchw8SW7sfTXJCTx44f432/KcJNG20BOJOBY4fDXWE2IDdx4QhOQ==
+X-Gm-Gg: AYBFou1dyqyI5wikFP4wdd5La13gQyDhMbCakCCVtxamaGuu9XmdVxdvugcvinKZwgi
+	lOELxT7+nOdJODyozjS1QM6OWnQpbW6Vmw+IvFQPB6fvQlbhgfMcAmAmBc1QzLPmfDHRJCNnXtk
+	Uruc9zLNTHorgWrx1wLI5eSGDzqwrYLKMGxVxy99QIp9ky7oVBovoa2BFwFfmYUZwMonVX0SggI
+	6QfVDepE+ZgI0caoKa2BFGEr3wc1KSC5LWCGwSxrYRmDqtWQRv3/X+gomJeumDgmh8xBOrN1TPF
+	jKAh1IaIKq9skrf9/HOIE3ne1IN35P/fekZ0prvW8eNOxBDAGItzsnHV6w+LhnGFXXYFOZ47Boq
+	70M2oNN5rO67tHO3hmGjsXSZgsJuNLxoHBI24CHqSjJj2OWeetKN7hODL4jysOjK1m9JO2mBTQV
+	r9AG/v5mGLGO1NZX7jJ4t9UcOsqyKUS+zzB+EftF6rrfDZYjNPIommCNIf+TegQcUYJ3GR6+j6d
+	LjRVrhomVJvmaUq9Wadp/IDMZeyINnWLabJNyKtmypK4nyOTpjEGWk573xVW+3c3iUp4hAvMfO4
+	Jw==
+X-Received: by 2002:a05:690c:13:b0:8b0:e8bc:5663 with SMTP id 00721157ae682-8b157e8afb0mr18899107b3.60.1792776344880;
+        Fri, 23 Oct 2026 10:25:44 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b163d69b33sm2715067b3.23.2026.10.23.10.25.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 10:25:44 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: tytso@mit.edu,
+	linux-ext4@vger.kernel.org
+Cc: adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	yi.zhang@huaweicloud.com,
+	dave.hansen@linux.intel.com,
+	akpm@linux-foundation.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] ext4: do not advance i_size on a buffered write that copied nothing
+Date: Fri, 23 Oct 2026 13:25:32 -0400
+Message-ID: <20261023172532.3271348-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -48,175 +103,157 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+Commit 665575cff098 ("filemap: move prefaulting out of hot write path")
+made generic_perform_write() call ->write_begin() and ->write_end()
+before it finds out that the source buffer cannot be read.  In that
+case ->write_end() is called with copied == 0.
 
-The patch titled
-     Subject: mm/vma: fix expansion of VMA_MIXEDMAP_BIT VMAs
-has been added to the -mm mm-unstable branch.  Its filename is
-     mm-vma-fix-expansion-of-vma_mixedmap_bit-vmas.patch
+However, ext4_write_end(), ext4_journalled_write_end() and
+ext4_da_do_write_end() set i_size to pos + copied without checking
+copied.  As of now, a buffered write() past EOF that fails with EFAULT
+grows the file to the write offset, and the new size can reach the
+disk.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-vma-fix-expansion-of-vma_mixedmap_bit-vmas.patch
+The issue can be reproduced on an ext4 mount with:
 
-This patch will later appear in the mm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+    char *p = mmap(NULL, 4096, PROT_NONE,
+                   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+    int fd = open("/mnt/ext4/file", O_CREAT | O_TRUNC | O_RDWR, 0600);
+    pwrite(fd, p, 4096, 1024 * 1024);   /* fails with EFAULT */
+    fstat(fd, &st);
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+Before that commit, the result is st_size = 0.
+After it, the result is st_size = 1048576.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+This patch will leave i_size alone when nothing was copied, as
+ext4_write_inline_data_end() already does.  The delalloc path does not
+trim after a failed write, so when such a write reaches past i_size,
+it also drops the folio and the delayed blocks that ->write_begin()
+set up there.  Otherwise that folio stays dirty past EOF and writeback
+never cleans it.
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: mm/vma: fix expansion of VMA_MIXEDMAP_BIT VMAs
-Date: Fri, 23 Oct 2026 16:17:31 +0100
-
-Commit ca3d76b0aa80 ("mm: add merging after mremap resize") combined
-merging with expansion of mremap()'d VMAs, however it also unintentionally
-disallowed the expansion of unmergeable VMAs.
-
-Previously it was possible to expand a mixed mapping which mremap() had
-already ensured was a legal expansion.
-
-This is clearly seen in the mremap() logic, as it checks
-vma_is_fixed_mapping() to determine legality of an expansion rather than
-vma_can_merge().
-
-Additionally, copy_vma() allows for a failed merge to result in a new VMA
-being instantiated if MREMAP_MAYMOVE is specified.
-
-However, this is not attempted, as a failure in vma_merge_extend() is
-assumed to be an -ENOMEM failure.
-
-Since vma_merge_extend() is used exclusively by mremap() to perform a merge
-and/or expansion, resolve the issue by invoking vma_expand() for
-unmergeable VMAs there.
-
-Explicitly assert that the VMA is both non-fixed and a mixed mapping.
-This provides double insurance against broken changes in future.
-
-Note that khugepaged_enter_vma() (which vma_merge_new_range() runs) is
-redundant in this case, as a mixed mapping is not subject to khugepaged.
-
-Also update the VMA userland tests to add a required predicate.
-
-Link: https://lore.kernel.org/20261023-vma-expansion-fix-v1-1-6142baf1f46b@kernel.org
-Fixes: ca3d76b0aa80 ("mm: add merging after mremap resize")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Luiz Capitulino <luizcap@redhat.com>
-Closes: https://lore.kernel.org/all/20261023023106.515365-1-luizcap@redhat.com/
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Jakub Matěna <matenajakub@gmail.com>
-Cc: <stable@vger.kernel.org>
+Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 ---
+Changes in v2:
+- Rebase onto the ext4 dev branch.
+- Also trim when a failed write starts before EOF and ends past it
+  (pos + len > old_size), as suggested by Zhang Yi.
+- Keep the Fixes tag and the new helper, as discussed on v1.
+- v1: https://lore.kernel.org/r/20261009044656.1993196-1-hengyul@cs.unc.edu
 
- mm/vma.c                        |   19 ++++++++++++++++---
- tools/testing/vma/include/dup.h |    5 +++++
- 2 files changed, 21 insertions(+), 3 deletions(-)
+Tested in KVM with KASAN: the reproducer above and failed writes around
+EOF on delalloc, nodelalloc, bigalloc and 1k block filesystems.
+e2fsck -fn reports no errors.
 
---- a/mm/vma.c~mm-vma-fix-expansion-of-vma_mixedmap_bit-vmas
-+++ a/mm/vma.c
-@@ -1851,12 +1851,25 @@ struct vm_area_struct *vma_merge_extend(
- 					struct vm_area_struct *vma,
- 					unsigned long delta)
- {
--	VMG_VMA_STATE(vmg, vmi, vma, vma, vma->vm_end, vma->vm_end + delta);
-+	const unsigned long start =
-+		vma_can_merge(vma) ? vma->vm_end : vma->vm_start;
-+	VMG_VMA_STATE(vmg, vmi, vma, vma, start, vma->vm_end + delta);
- 
--	vmg.next = vma_iter_next_rewind(vmi, NULL);
- 	vmg.middle = NULL; /* We use the VMA to populate VMG fields only. */
- 
--	return vma_merge_new_range(&vmg);
-+	if (vma_can_merge(vma)) {
-+		vmg.next = vma_iter_next_rewind(vmi, NULL);
-+		return vma_merge_new_range(&vmg);
-+	}
-+
-+	/* Mixed mappings are permitted to be expanded, not merged. */
-+	VM_WARN_ON_ONCE(vma_is_fixed_mapping(vma));
-+	VM_WARN_ON_ONCE(!vma_test(vma, VMA_MIXEDMAP_BIT));
-+	vma_prev(vmi); /* Reposition to start of VMA. */
-+	vmg.target = vma;
-+	if (vma_expand(&vmg))
-+		return NULL;
-+	return vma;
- }
- 
- void unlink_file_vma_batch_init(struct unlink_vma_file_batch *vb)
---- a/tools/testing/vma/include/dup.h~mm-vma-fix-expansion-of-vma_mixedmap_bit-vmas
-+++ a/tools/testing/vma/include/dup.h
-@@ -1727,3 +1727,8 @@ static inline bool vma_flags_can_merge(c
+ fs/ext4/inode.c | 42 +++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 35 insertions(+), 7 deletions(-)
+
+diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+index 6ede3644a738..e96321ce17d2 100644
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -1578,15 +1578,18 @@ static int ext4_write_end(const struct kiocb *iocb,
+ 	 * it's important to update i_size while still holding folio lock:
+ 	 * page writeout could otherwise come in and zero beyond i_size.
+ 	 *
++	 * If nothing was copied (e.g. the source buffer was unreadable), do
++	 * not move i_size up to pos.
++	 *
+ 	 * If FS_IOC_ENABLE_VERITY is running on this inode, then Merkle tree
+ 	 * blocks are being written past EOF, so skip the i_size update.
  	 */
- 	return !vma_flags_is_hugetlb(flags);
+-	if (!verity)
++	if (copied && !verity)
+ 		i_size_changed = ext4_update_inode_size(inode, pos + copied);
+ 	folio_unlock(folio);
+ 	folio_put(folio);
+ 
+-	if (old_size < pos && !verity)
++	if (copied && old_size < pos && !verity)
+ 		pagecache_isize_extended(inode, old_size, pos);
+ 
+ 	/*
+@@ -1697,13 +1700,13 @@ static int ext4_journalled_write_end(const struct kiocb *iocb,
+ 		if (!partial)
+ 			folio_mark_uptodate(folio);
+ 	}
+-	if (!verity)
++	if (copied && !verity)
+ 		size_changed = ext4_update_inode_size(inode, pos + copied);
+ 	EXT4_I(inode)->i_datasync_tid = handle->h_transaction->t_tid;
+ 	folio_unlock(folio);
+ 	folio_put(folio);
+ 
+-	if (old_size < pos && !verity)
++	if (copied && old_size < pos && !verity)
+ 		pagecache_isize_extended(inode, old_size, pos);
+ 
+ 	if (size_changed) {
+@@ -3349,6 +3352,24 @@ static int ext4_da_should_update_i_disksize(struct folio *folio,
+ 	return 1;
  }
-+
-+static inline bool vma_can_merge(const struct vm_area_struct *vma)
+ 
++/*
++ * Delalloc counterpart of ext4_truncate_failed_write(): ->write_begin() only
++ * reserved delayed blocks, so drop the page cache and the delayed extents
++ * beyond i_size and leave the blocks that are allocated there alone.
++ */
++static void ext4_da_truncate_failed_write(struct inode *inode)
 +{
-+	return vma_flags_can_merge(&vma->flags);
++	struct address_space *mapping = inode->i_mapping;
++	ext4_lblk_t lblk = EXT4_B_TO_LBLK(inode, inode->i_size);
++
++	filemap_invalidate_lock(mapping);
++	truncate_inode_pages(mapping, inode->i_size);
++	down_write(&EXT4_I(inode)->i_data_sem);
++	ext4_es_remove_extent(inode, lblk, EXT_MAX_BLOCKS - lblk);
++	up_write(&EXT4_I(inode)->i_data_sem);
++	filemap_invalidate_unlock(mapping);
 +}
-_
++
+ static int ext4_da_do_write_end(struct address_space *mapping,
+ 			loff_t pos, unsigned len, unsigned copied,
+ 			struct folio *folio)
+@@ -3386,12 +3407,12 @@ static int ext4_da_do_write_end(struct address_space *mapping,
+ 	 * checked, we need to update i_disksize here as certain
+ 	 * ext4_writepages() paths not allocating blocks and update i_disksize.
+ 	 */
+-	if (new_i_size > inode->i_size) {
++	if (copied && new_i_size > inode->i_size) {
+ 		unsigned long end;
+ 
+ 		i_size_write(inode, new_i_size);
+ 		end = offset_in_folio(folio, new_i_size - 1);
+-		if (copied && ext4_da_should_update_i_disksize(folio, end)) {
++		if (ext4_da_should_update_i_disksize(folio, end)) {
+ 			ext4_update_i_disksize(inode, new_i_size);
+ 			disksize_changed = true;
+ 		}
+@@ -3400,9 +3421,16 @@ static int ext4_da_do_write_end(struct address_space *mapping,
+ 	folio_unlock(folio);
+ 	folio_put(folio);
+ 
+-	if (pos > old_size)
++	if (copied && pos > old_size)
+ 		pagecache_isize_extended(inode, old_size, pos);
+ 
++	/*
++	 * A write reaching past i_size that copied nothing leaves i_size
++	 * alone, so trim what ->write_begin() set up beyond it.
++	 */
++	if (!copied && pos + len > old_size)
++		ext4_da_truncate_failed_write(inode);
++
+ 	if (!disksize_changed)
+ 		return copied;
+ 
 
-Patches currently in -mm which might be from ljs@kernel.org are
-
-mm-vma-fix-mmap_prepare-file-handling-remove-file_doesnt_need_get.patch
-mm-vma-introduce-and-use-vma_can_merge.patch
-mm-consistently-validate-vma-state-after-mmap-hooks.patch
-mm-vma-ensure-mmap_prepare-doesnt-set-actions-on-a-mergeable-vma.patch
-mm-make-map_kernel_pages_-internal-and-unexported.patch
-mm-vma-tidy-up-map-kernel-pages-enum-values.patch
-mm-assert-mmap-lock-held-use-new-flags-api-in-vm_insert_page.patch
-mm-add-mmap-action-for-discontiguous-kernel-page-mapping.patch
-docs-filesystems-update-mmap_prepare-docs-for-discontig-kernel-pgs.patch
-drivers-usb-mon-update-to-use-mmap_prepare-map-kernel-pages.patch
-infiniband-update-hfi1-to-use-remap_vmalloc_range.patch
-selinux-reject-writable-opens-of-policy-file-drop-mmap-shared-write-check.patch
-alsa-pcm-use-vm_insert_page-to-map-pcm-status-page.patch
-bpf-arena-mark-arena_map_mmap-mappings-vm_mixedmap.patch
-mm-vma-add-vma_is_mm_managed-predicates.patch
-mm-vma-only-allow-mmap-to-clear-vma_maywrite_bit-if-not-mm-managed.patch
-mm-vma-add-and-use-vma__is_fixed_mapping.patch
-scsi-sg-convert-mmap-hook-to-mmap_prepare-and-rework.patch
-fbdev-defio-assert-fbinfo_virtfb-drop-vm_io-add-vm_mixedmap.patch
-hsi-cmt_speech-convert-mmap-hook-to-mmap_prepare-refactor.patch
-mm-gup-error-out-early-on-vma_mayread_bit-vmas.patch
-uprobes-remove-vm_io-set-vm_mixedmap-for-mapped-kernel-pages.patch
-mm-mlock-clear-vma_locked_mask-over-mmap-callback.patch
-mm-mlock-eliminate-weird-vma_io_bit-abuse-and-simplify.patch
-mm-vma-enforce-that-mm-managed-mappings-may-not-set-vma_io_bit.patch
-mm-remove-vma_io_bit-check-in-vma_is_mm_managed.patch
-mm-remove-hugetlb_inlineh.patch
-mm-rename-is_vm_hugetlb_page-to-vma_is_hugetlb.patch
-mm-drop-some-redundant-checks-around-hugetlb-vmas.patch
-mm-vma-introduce-vma_is_mm_backed.patch
-mm-madvise-update-is_valid_guard_vma-to-use-vma_is_mm_backed.patch
-mm-uffd-use-predicates-for-userfaultfd-checks.patch
-mm-madvise-use-predicates-for-madvise-madv_dofork.patch
-mm-eliminate-vma_special_flags-usage-when-hugetlb-explicitly-tested.patch
-mm-eliminate-vma_special_flags-check-in-lru_gen_look_around.patch
-mm-avoid-use-of-vma_special_flags-in-migrate_vma_setup.patch
-mm-eliminate-vm_special-vma_special_flags.patch
-fuse-dax-do-not-set-vm_mixedmap.patch
-mm-huge_memory-remove-vma_is_special_huge.patch
-mm-vma-const-ify-vma_assert_stabilised-and-associated-functions.patch
-mm-implement-and-use-vma_has_anon_rmap-silence-kcsan.patch
-mm-update-comments-to-refer-to-anon-rmap-rather-than-anon_vma.patch
-mm-vma-dont-remove-vma-from-rmap-if-pgoff-unchanged.patch
-mm-vma-avoid-spurious-write-locks-when-mm-mm_lock_seq-overflows.patch
-mm-mremap-populate-calculated-fields-in-vrm-state-correctly.patch
-mm-mremap-correctly-uncharge-accountable-vmas-in-error-path.patch
-mm-vma-avoid-broken-uffd-merge-on-mremap.patch
-mm-vma-fix-expansion-of-vma_mixedmap_bit-vmas.patch
+base-commit: 8c4f6e3376348fc3162eed86a05b933921c8f9ed
+-- 
+2.53.0
 
