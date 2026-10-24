@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792832534;
-	b=eGmDDK5T0OjCrfWPTg3fXVCZtEvHYiVlHvM3g6BNKorVo6Tc95Jk9wQ0KhmWqpvZznHU
-	 c18E6vP3Njhgy/EUaVztTv3tIIEVRI+QkKZhfgoihyv60x0K45ly3ck+k7e8sxUR5eugL
-	 LvqDJdSs2y+d3rcuZjFLOTOSlyGe2DRq7cO5pC+pA0gwn3+7XFaPBbHnICRw8qtOV15Hy
-	 O8N2Q8m7ak4ajS7950RT1U3mFfEkJcnc1kMNR80c6hfZw6O7nXsC8wqLdihcDK+eeUd8C
-	 qKIUC1GPjsHCyXjio1CExDyreKEmPvlPuGsHUE20p3lpYx2NGvo/lrEoCm6r1lccrWA==
+	t=1792832539;
+	b=2MNIxwBT0Stjsp7+GfEy93eCU21WzmUa9yCToFk5O6TPrXgKfhVo/zLHAMvtQLBjyLja
+	 P+N7V+0sX54EbXI64KwncDQREkCBedCxq4bhSpgYZ1z85JsOkCv2EszVKFRUB32hHfa0V
+	 YdReLFq8591tfXujMdY39iAWC5OTgRWGtFbBxPRFdSLexja6Uzf7RBg16YQl0oZCvQ0iK
+	 ynmH/rhHlMidOsBlF5Bdpuaj0tS0rNGQERbfYXhiO/tlVORT5CeqAwpWTyntk6fhD3AnN
+	 tF49XIF4wm4H+7QTJcZMI66QyzsZOLTla2J39BOUqFg2WFLpqAp5+JmixaD9X24KHiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792832534;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792832539;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=JQ9apkM488aWZ7OkJDRzzYXo46s6ZLCL7Z2hMXJ30iw=;
-	b=SZXAusxnRF7MVsmOkV8rpxlQBGp4AFZPB5yLvvFfYczhw5HeWESm9/00HwdBFj5pjt9i
-	 AgCc2dRHf+4bosz9LrZIx+MrGqApyvwUYpHkZhHig8UTbsgDzqp9mm9LI4GodtrztvU4w
-	 T2TGctqBM+PO0BcVsCP5slxWbU9tJxboSt8CsO0omnwugIFGv8n6bcVW4A4iaOYlvlrls
-	 cj4q75B76nUmcnO1Lb1Ki9XN3vp+GRNkILHlAxp/fQ+GomMzQ4KtymyKwtGmtoM3O87Va
-	 krjnJNoWlkTJWhMcah6bYnpTCnjgN85jzkD16z6HmgrO9dng0BQTrhnib1EaXifAQ1A==
+	bh=68M4FMENKnpLDuXzMIWRSsZ5vWP+TYWCgvIOLu60dtk=;
+	b=3zvmzNjRI5H4W26GdnY8TEHULu5rUXGzfnMfFs0GnBem7gNYrr6SFDELOVwON9tKFjw2
+	 Spd7oPAKn+ehiGFFTis/EnMTFMC8npaWbKZ3///Lj2xFoDZ3ZypzA9PMdW2z7r2dSGRJq
+	 U0r8xDmN3aD1CbjwDEiAQuwM2zAdN8/76o1ZWvf4cabfmfm122B0x7rTq/QXk28CNncs6
+	 F92n5IgNka/fGK9yOLAkNrG1o3sOW1O2w4AhXdtf2DAPQOpwNGLWUBINbRYUDQcWXLYXX
+	 UTPYM5s+pTygYvwKR0lV6BnrF4UI7bJOrmT8KV02aFroISrTipLqBDZjqutRNg0DzQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=coVnMWQF;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=pXksDHxz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCE49606A31F;
-	Sat, 24 Oct 2026 09:02:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA4C606A323;
+	Sat, 24 Oct 2026 09:02:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=coVnMWQF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97A5B1F01825;
-	Sat, 24 Oct 2026 09:02:13 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=pXksDHxz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC9B51F031E2;
+	Sat, 24 Oct 2026 09:02:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792832533;
-	bh=JQ9apkM488aWZ7OkJDRzzYXo46s6ZLCL7Z2hMXJ30iw=;
+	d=linux-foundation.org; s=korg; t=1792832538;
+	bh=68M4FMENKnpLDuXzMIWRSsZ5vWP+TYWCgvIOLu60dtk=;
 	h=Date:To:From:Subject;
-	b=coVnMWQFSuAjuwC1rbhCUCZ2hE/3EM0lIECqHF23KT3WcbEDYRtuQt38eomoyn4OU
-	 35sQQoJ7rp05nHg96rsJC+bgCn7RWkulHwjWFR55AGjozgeL0a3FWDJjha2pnR/l1d
-	 HUQfQVsslvi21j48m9mQENSGmelBZyg1TeqKDAaA=
-Date: Sat, 24 Oct 2026 02:02:13 -0700
-To: mm-commits@vger.kernel.org,xueyuan.chen21@gmail.com,vbabka@kernel.org,stable@vger.kernel.org,pfalcato@suse.de,nickolai@csail.mit.edu,liam@infradead.org,jannh@google.com,ljs@kernel.org,akpm@linux-foundation.org
+	b=pXksDHxzvPQoImDkHg0ShqONsAepCPz2VAjsTPYrqMh8nc+ViYkTXUL5Wg+XME6sT
+	 jowUny+6yqwDVFj3C53zizP9xCLw3OD36zc4PmQJOBJN9QxIm2ekkvLKhqxkUS85Xs
+	 hsEk6bZDRRTmTy8a/ed7u4JA7Yum7xIeQuRXrFpU=
+Date: Sat, 24 Oct 2026 02:02:18 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-mremap-populate-calculated-fields-in-vrm-state-correctly.patch removed from -mm tree
-Message-Id: <20261024090213.97A5B1F01825@smtp.kernel.org>
+Subject: [merged mm-stable] mm-damon-core-filter-out-damos-address-filter-split-failed-region.patch removed from -mm tree
+Message-Id: <20261024090218.CC9B51F031E2@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,115 +51,154 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm/mremap: populate calculated fields in vrm state correctly
+     Subject: mm/damon/core: filter out damos address filter-split failed region
 has been removed from the -mm tree.  Its filename was
-     mm-mremap-populate-calculated-fields-in-vrm-state-correctly.patch
+     mm-damon-core-filter-out-damos-address-filter-split-failed-region.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: mm/mremap: populate calculated fields in vrm state correctly
-Date: Mon, 19 Oct 2026 15:28:27 +0100
+From: SJ Park <sj@kernel.org>
+Subject: mm/damon/core: filter out damos address filter-split failed region
+Date: Mon, 19 Oct 2026 17:41:18 -0700
 
-Commit d5c8aec0542e ("mm/mremap: initial refactor of move_vma()")
-introduced the vma_remap_struct helper to pass state sanely through
-mremap() logic.
+When an address type DAMOS filter is configured, DAMOS tries to split the
+region for the filter range, and apply DAMOS action to the filter-in
+region.  The split operation (damon_split_region_at()) could fail from
+allocation failure under extreme memory pressure.  In the case, DAMOS
+action could be applied more or less than expected, ignoring the address
+filter.
 
-Part of this state is vrm->delta - equal to the absolute difference between
-vrm->old_len and vrm->new_len (the old and new lengths of the VMA,
-respectively).
+The issue only rarely happens under extreme memory pressure.  No crash or
+leak happens.  Occasionally not applying the action to a few regions
+shouldn't be a real problem.  But applying the action to a region that the
+user has excluded via address filter could be a surprise depending on the
+use case.  It is only theoretical.  No such real case is found yet.
 
-This value is used to correctly charge accounted VMAs.
+Filter out the entire region if the split is failed.  Update
+damos_filter_match() signature to receive the error from split.  Also
+update kunit tests for the updated signature.
 
-When shrinking a VMA, mremap_to() sets vrm->old_len equal to vrm->new_len
-having performed the shrink of the VMA first, prior to any potential move
-(e.g.  MREMAP_FIXED | MREMAP_MAYMOVE specified).
+The issue was discovered [1] by sashiko.
 
-However it does not recalculate vrm->delta, which results in incorrectly
-overcharging the VMA when both moving and shrinking a VMA.
-
-The charge leaks to Committed_AS globally, meaning a mischievous user can
-cause allocations to fail across the system in strict overcommit mode.
-
-Resolve the issue by abstracting the update of vrm->delta to
-vrm_populate_calculated() and invoking this from mremap_to() when
-vrm->old_len is changed.
-
-Additionally, update vrm->remap_type whose value depends on vrm->delta. 
-The field is not read again after the shrink, but it is the logically
-correct thing to do and protects against future changes which break this.
-
-Link: https://lore.kernel.org/20261019-mremap-fix-shrink-charge-v1-1-a3ce209e5360@kernel.org
-Fixes: d5c8aec0542e ("mm/mremap: initial refactor of move_vma()")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Link: https://lore.kernel.org/20261020004119.106690-1-sj@kernel.org
+Link: https://lore.kernel.org/20260801203121.117449-1-sj@kernel.org [1]
+Fixes: ab9bda001b68 ("mm/damon/core: introduce address range type damos filter")
+Signed-off-by: SJ Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Closes: https://lore.kernel.org/all/20261017233527.797191-1-nickolai@csail.mit.edu/
-Reviewed-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: <stable@vger.kernel.org>
+Cc: <stable@vger.kernel.org> # 6.6.x
 ---
 
- mm/mremap.c |   17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+ mm/damon/core.c             |   16 ++++++++++++----
+ mm/damon/tests/core-kunit.h |   11 ++++++-----
+ 2 files changed, 18 insertions(+), 9 deletions(-)
 
---- a/mm/mremap.c~mm-mremap-populate-calculated-fields-in-vrm-state-correctly
-+++ a/mm/mremap.c
-@@ -887,12 +887,6 @@ again:
- 	return pmc_progress(pmc);
- }
+--- a/mm/damon/core.c~mm-damon-core-filter-out-damos-address-filter-split-failed-region
++++ a/mm/damon/core.c
+@@ -2551,13 +2551,14 @@ static void damos_update_stat(struct dam
  
--/* Set vrm->delta to the difference in VMA size specified by user. */
--static void vrm_set_delta(struct vma_remap_struct *vrm)
--{
--	vrm->delta = abs_diff(vrm->old_len, vrm->new_len);
--}
--
- /* Determine what kind of remap this is - shrink, expand or no resize at all. */
- static enum mremap_type vrm_remap_type(struct vma_remap_struct *vrm)
+ static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
+ 		struct damon_region *r, struct damos_filter *filter,
+-		unsigned long min_region_sz)
++		unsigned long min_region_sz, int *err)
  {
-@@ -905,6 +899,13 @@ static enum mremap_type vrm_remap_type(s
- 	return MREMAP_EXPAND;
- }
+ 	bool matched = false;
+ 	struct damon_target *ti;
+ 	int target_idx = 0;
+ 	unsigned long start, end, wsum;
  
-+/* Populate calculated fields. */
-+static void vrm_populate_calculated(struct vma_remap_struct *vrm)
-+{
-+	vrm->delta = abs_diff(vrm->old_len, vrm->new_len);
-+	vrm->remap_type = vrm_remap_type(vrm);
-+}
-+
- /*
-  * When moving a VMA to vrm->new_adr, does this result in the new and old VMAs
-  * overlapping?
-@@ -1523,6 +1524,7 @@ static unsigned long mremap_to(struct vm
++	*err = 0;
+ 	switch (filter->type) {
+ 	case DAMOS_FILTER_TYPE_TARGET:
+ 		damon_for_each_target(ti, ctx) {
+@@ -2583,12 +2584,13 @@ static bool damos_filter_match(struct da
+ 		}
+ 		/* start before the range and overlap */
+ 		if (r->ar.start < start) {
+-			damon_split_region_at(t, r, start - r->ar.start);
++			*err = damon_split_region_at(t, r,
++					start - r->ar.start);
+ 			matched = false;
+ 			break;
+ 		}
+ 		/* start inside the range */
+-		damon_split_region_at(t, r, end - r->ar.start);
++		*err = damon_split_region_at(t, r, end - r->ar.start);
+ 		matched = true;
+ 		break;
+ 	case DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:
+@@ -2607,10 +2609,16 @@ static bool damos_core_filter_out(struct
+ 		struct damon_region *r, struct damos *s)
+ {
+ 	struct damos_filter *filter;
++	bool matching;
++	int err;
  
- 		/* Set up for the move now shrink has been executed. */
- 		vrm->old_len = vrm->new_len;
-+		vrm_populate_calculated(vrm);
- 	}
+ 	s->core_filters_allowed = false;
+ 	damos_for_each_core_filter(filter, s) {
+-		if (damos_filter_match(ctx, t, r, filter, ctx->min_region_sz)) {
++		matching = damos_filter_match(ctx, t, r, filter,
++				ctx->min_region_sz, &err);
++		if (err)
++			return true;
++		if (matching) {
+ 			if (filter->allow)
+ 				s->core_filters_allowed = true;
+ 			return !filter->allow;
+--- a/mm/damon/tests/core-kunit.h~mm-damon-core-filter-out-damos-address-filter-split-failed-region
++++ a/mm/damon/tests/core-kunit.h
+@@ -1783,6 +1783,7 @@ static void damos_test_filter_out(struct
+ 	struct damon_target *t;
+ 	struct damon_region *r, *r2;
+ 	struct damos_filter *f;
++	int err;
  
- 	/* MREMAP_DONTUNMAP expands by old_len since old_len == new_len */
-@@ -1795,8 +1797,7 @@ static int check_prep_vma(struct vma_rem
- 	if (vma_is_hugetlb(vma) && !align_hugetlb(vrm))
- 		return -EINVAL;
+ 	f = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true, false);
+ 	if (!f)
+@@ -1803,27 +1804,27 @@ static void damos_test_filter_out(struct
+ 	damon_add_region(r, t);
  
--	vrm_set_delta(vrm);
--	vrm->remap_type = vrm_remap_type(vrm);
-+	vrm_populate_calculated(vrm);
- 	/* For convenience, we set new_addr even if VMA won't move. */
- 	if (!vrm_implies_new_addr(vrm))
- 		vrm->new_addr = addr;
+ 	/* region in the range */
+-	KUNIT_EXPECT_TRUE(test, damos_filter_match(NULL, t, r, f, 1));
++	KUNIT_EXPECT_TRUE(test, damos_filter_match(NULL, t, r, f, 1, &err));
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
+ 
+ 	/* region before the range */
+ 	r->ar.start = 1;
+ 	r->ar.end = 2;
+ 	KUNIT_EXPECT_FALSE(test,
+-			damos_filter_match(NULL, t, r, f, 1));
++			damos_filter_match(NULL, t, r, f, 1, &err));
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
+ 
+ 	/* region after the range */
+ 	r->ar.start = 6;
+ 	r->ar.end = 8;
+ 	KUNIT_EXPECT_FALSE(test,
+-			damos_filter_match(NULL, t, r, f, 1));
++			damos_filter_match(NULL, t, r, f, 1, &err));
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
+ 
+ 	/* region started before the range */
+ 	r->ar.start = 1;
+ 	r->ar.end = 4;
+-	KUNIT_EXPECT_FALSE(test, damos_filter_match(NULL, t, r, f, 1));
++	KUNIT_EXPECT_FALSE(test, damos_filter_match(NULL, t, r, f, 1, &err));
+ 	/* filter should have split the region */
+ 	KUNIT_EXPECT_EQ(test, r->ar.start, 1);
+ 	KUNIT_EXPECT_EQ(test, r->ar.end, 2);
+@@ -1839,7 +1840,7 @@ static void damos_test_filter_out(struct
+ 	r->ar.start = 2;
+ 	r->ar.end = 8;
+ 	KUNIT_EXPECT_TRUE(test,
+-			damos_filter_match(NULL, t, r, f, 1));
++			damos_filter_match(NULL, t, r, f, 1, &err));
+ 	/* filter should have split the region */
+ 	KUNIT_EXPECT_EQ(test, r->ar.start, 2);
+ 	KUNIT_EXPECT_EQ(test, r->ar.end, 6);
 _
 
-Patches currently in -mm which might be from ljs@kernel.org are
+Patches currently in -mm which might be from sj@kernel.org are
 
-mm-vma-fix-expansion-of-vma_mixedmap_bit-vmas.patch
-mm-do-not-unintentionally-overwrite-atomic-vma-flags.patch
-mm-vma-avoid-losing-atomic-vma-flags-when-setting-sticky-vma-flags.patch
 
