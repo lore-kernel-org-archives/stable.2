@@ -1,58 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792807029;
-	b=dRW4qg/fdfCIwfO+3sUHBgy5Dd2FPm+jVcTspqWJAo1EHvgvJCynTMYjwVSnweC7NNnh
-	 HWO1JuIsd5V2MZg5srOBz31aO44Cx2fLnhFsqXYPztzSf0F5FqloYpiA5p4UBumXzFCa6
-	 GhWgNZLLZEdlHz+ZDRkDjG3Zr2e0wM8TdnMd60LLt2kzj3w3Uw+lMDv0H3cb7A4dhqDjU
-	 CWJGoJqybbhJZ4NVWHzeEgHS5NMtPqTt4pGuv9Uq4ZfOgQAkbVy7ez5la7m4THmxTNgOt
-	 HoNBztgRUU7LZaPomjDNA40wLQGQah0mg2u27LK+983zGTE6DYkCqRilHHvmR16G8rw==
+	t=1792808835;
+	b=OycFYEwU4FriuA7pveBgZY/KdK6gpsgohbyEjCGAuJKG7gILSUsiQ0NEN4tJ/bvv09hd
+	 ORIKqcSE8/Yn6du5oM3ybGsWnoui3KKrV2cvV1xk2jlTv3RnWdk+ZcKRMfgFtL0PhmHL9
+	 ic9N/w7YdpngukedNVdm8PmGDJ8hwiqG/0VCWJdMQZm2H/bS8zpZXUgpg5Tks9h7sHEDu
+	 XCyHIYN6zfFMXf5nXAoMQ03XY5fxMcgsFTwxd9xHjndWtkqzpokO+P7agNxDr41BMZwHr
+	 qJ2rLpt0RKhF9ozZ7A8E/Usrh7JWAiNbDxSHZgbUH25ML9PxCw0fu46lc9zyQsl6cAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792807029;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792808835;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
+	 Cc:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=X+sHAz12Dqk+FEAwV1y7Bc6KSqj0w1iT/sjqDw7CQfM=;
-	b=oyvtduQGRscO2FefplhAZiqgCNXU9wRXRm/4kz9LPVOUNKDI7/IrCw7UGmB1aUTsJaIF
-	 BkBGNOynCMRyo4JvJDPaNBiEwLH7VeTllu31HJxR/nhkh4Ry0equqt4V6ydYSWNcmV1Mh
-	 /wjLIYcEh+PJRW2xz1Xjkf0NVZVpIKr+lfdtT2zjxlYJmOjrNnktF1B65ewrlfkYlA3ch
-	 3+SPqDUuq90pQqJUCHwqpS3mhdNJIRAUR9BH1f2m9rI5lxRkwshMBehmggH3vZCRfApaU
-	 WFFB+oO3hNC0SirH35PM3FOEEbwiGMtbQVm7hq3IT1RxK6dRzBntzjE7W45E6ySG7kQ==
+	bh=dbq+C1knGtel/8heo5gmPJKIJmhELJ53YLi5og68HsI=;
+	b=oH1NEpj0R6MvrisTxvkwIhWK+3QIaI1GfKGHlpJT4iClbcNhBwl5jrD1loj9ZVgPghy4
+	 QA/2Of7AoNMbd+9ObMB8EWxLtYNfjrkm/jUXgpMpWMPaSseSEwh1GxCWgEz7ziUD1vXVd
+	 97d/b+pBbBh9kVF8ZjXnTB5pyB415OeIu5vLDJQTp9ogYHXVGZB+snzfRTnUwOG4MqhAj
+	 ULCvcuVBQ061eKjydM823bHYnolmeNDGOmQk+PTF1omwCH9pL23XuM+MIMysv1UuLAjbo
+	 r3mELAgSXxh27zBEbHORYBlq0hwDPzeG1HcgBdKbQwqlV9LbNG15hztOua4zScY0dMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zt88HfJO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20251104 header.b=GWaJI1zI;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 570A6606A31A;
-	Sat, 24 Oct 2026 01:57:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70D3E606A31B
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 02:27:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70D3E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zt88HfJO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37A5C1F01825;
-	Sat, 24 Oct 2026 01:57:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792807028;
-	bh=X+sHAz12Dqk+FEAwV1y7Bc6KSqj0w1iT/sjqDw7CQfM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Zt88HfJOLpvyJcbBBlXmVcCfHGO0Q9f7D6usZiJG0ZkvE0Xyb92ApRMNY8Spul16K
-	 fzNfTm1ay8PTPWJulwercCdCfzNSJe9/+T5e9zI7z3sOyo2qs3UPCTJeBB+cNTbp8E
-	 YAfsismO8/cManUNj2KbpJQFuGahmxQqJP/ms1hpEOhYj/a+6RjDBxc+FZUEwmOROW
-	 VO50leAp6rblMetD5AawVcEuHAJzzInjcYfiJS6xggbjSv6Ohcw0E0xatPpBjLOzlx
-	 srGP+++BdxV8DcbMFleV2rqRUX2m2nzSS1iFH9Yn2q7uY0AmeJBmJ8hn0J1+8a1AdM
-	 W/QQOVEC4Q74g==
-Date: Sat, 24 Oct 2026 02:57:02 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Arnav Kapoor <kapoorarnav43@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Andy Shevchenko
- <andriy.shevchenko@intel.com>, stable@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] iio: proximity: sx9324: fix out-of-bounds read of
- scan period table
-Message-ID: <20261024025702.6fd8122d@jic23-hlaptop>
-In-Reply-To: <20261023192700.221344-1-kapoorarnav43@gmail.com>
-References: <20261023192700.221344-1-kapoorarnav43@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20251104 header.b=GWaJI1zI
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso822853f8f.3
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 19:27:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1792808834; x=1793413634; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dbq+C1knGtel/8heo5gmPJKIJmhELJ53YLi5og68HsI=;
+        b=GWaJI1zIUBB052oSJa9UtU2rFA/QQz6czNQ8xYEa+mHu29BouCsuGhzzCRrwbTmbnB
+         w3Kyn0Jl+G3E0xjX4PG9qH0C6XPUrixLrpd33yo9GKJc8GpTXrahRdEnp1RNi3Lmj52I
+         W3derfTam89gY47QoSd0mhe8/hhDLPKB6OQrHlWsuXA+Xx872AoZDbZIWjEwVB1zHTlZ
+         eSywb10VDzfQ6qs3zeXq63+IQ6owAuaUwhgT39IxePdNQO1o421tWCNJGIUjHtVoTcUo
+         I4146WfzVMKSab5szv7wOr6w5UpP3l1tYzjsMmpm88IBgA0I5j5ipszWfhfpgIhQKMQ9
+         eaww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792808834; x=1793413634;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dbq+C1knGtel/8heo5gmPJKIJmhELJ53YLi5og68HsI=;
+        b=eih+0Y1xdNu9kc+dV6ihRwpW2PCdUlRye3MMZtkwsBsKE/mlEZm9AnhIt7B6o/30I9
+         8250HlL1/rxKZ0+8st1QGdJppQJPE0iR1+99RV5vHMtrZowEN7v2Otk441V/k9Pyi782
+         X6zWACH87js83oc/nIhtTRrRqBeB8uSZujAbb0ME68BoSqZLPX6fInCyljuwdw1XrRlr
+         WRtDxG2RU7I/kAMeIqLFpVQolBhNjcBHF9HHyjJ+wj8UPO2tr+2bvYY9q3wwkvJvPwVI
+         YQbJ9vVSVIE9wAqhrAkGrYt/VeOKU813EIIWOpnwOo1B82JHg0fqDOFpvjM9tKQ1jaIr
+         9+8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw6ag676y7jji/vzopqec+r1nNWojbvCfrUrc/vKiYos/bRoJ+s50QYYPUS6jXSn2+Zl0ruS6U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJavJZ2Q6YJ2rzVsMaIkhxSRmZ7AqTX1lQobx8kaAP7JZhbjyuf
+	H8RvK4JJsT+WxVG9vJm2vGVjSXT0hP/V8UUdwWNQaj1RiVf9qnn+eSs=
+X-Gm-Gg: AYBFou0mfoALuUFL6NVRMX3nTNp2Pnzrg2J5RtiMpWXXhuIBIGjw4wFibuLE0BJZ//+
+	vfOLrLq3JN8Z1EIApQmzQr4JA/VzMY/c0yybH6qblDdJrEiTUEljbFncHHOm4BrJY+JayD9p+Gq
+	bVwNzg3+SwErqB6tJ8cX5nBzotRxrrSll1gLOqIDq5KwnRuHvSHnR8zWoga9ALnO0KJYpf2mUD7
+	empqj9mpujVJUk6VRiCpwgOsXYGFqy8DODqZ4euoaOqiVKc6TwUK+0MjdV15E4ryQCxMARTJE7y
+	3ZmZoxwWLkrml303ItySJ//uRra+JT5XYctelfU4O7W2qmQB3Es3gaOfTBaWKt4ZIs62jeMFwfW
+	tpkytZAg1xrBQ8V1b2t1tA+/3mcH/ziWidnYAP8fSqdP3RFw18HDX3q0L7auurzEMokeYn2bd/J
+	gyAXfsVbG3kqdQMOk6/XV03m55z+HcS2CUaNfux7g5Y8V9iE9TeeCfH/DbqKjrXuVjv65BfAJlv
+	XZUxt0H23DlyTOTyVxY1CBRGctRaJhezVcQIsx0sZHartgoo9Fxgw/ex3vn3V9qq77OEBCcPna0
+	Mi7mRnyVboLMYwEOKk7en5s/OXqWAojUziVhr61dHxjwKJnAMrmkOA==
+X-Received: by 2002:adf:ed8f:0:b0:48e:1d87:f170 with SMTP id ffacd0b85a97d-48e3eb83fffmr740933f8f.12.1792808833581;
+        Fri, 23 Oct 2026 19:27:13 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2ac555.dip0.t-ipconnect.de. [91.42.197.85])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd37f4sm1742797f8f.44.2026.10.23.19.27.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 23 Oct 2026 19:27:12 -0700 (PDT)
+Message-ID: <a4ebdccd-4f47-4449-b120-59e1d6bc4951@googlemail.com>
+Date: Sat, 24 Oct 2026 04:27:09 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,85 +91,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.18 000/193] 6.18.59-rc1 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261023163714.201276352@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20261023163714.201276352@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sat, 24 Oct 2026 00:56:51 +0530
-Arnav Kapoor <kapoorarnav43@gmail.com> wrote:
+Am 23.10.2026 um 18:34 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.18.59 release.
+> There are 193 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-> The scan period of the SX9324 is selected by the 5 bit wide
-> SX9324_REG_GNRL_CTRL0_SCANPERIOD field, so it has 32 possible values.
-> sx9324_scan_period_table[] however only has 16 entries, it was copied
-> over from the SX9310 driver where the field is only 4 bits wide.
-> 
-> sx9324_wait_for_sample() indexes the table with the raw field value, so
-> all the codes from 16 to 31 read past the end of the array. The default
-> value of the register is SX9324_REG_GNRL_CTRL0_SCANPERIOD_100MS (0x16,
-> i.e. 22), so the out-of-bounds read happens with the default
-> configuration of the device. It is only avoided when the device has an
-> interrupt line, as the wait is only done in the polling case.
-> 
-> The value read is then used as the duration of an msleep() call, so the
-> sensor is polled with a completely random delay.
-> 
-> Fill the table with the scan periods of all 32 codes, which are the
-> periods documented for the corresponding sx9324_samp_freq_table[]
-> entries, and add a static assertion to keep both tables in sync.
-> 
-> Fixes: 4c18a890dff8 ("iio:proximity:sx9324: Add SX9324 support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
-> ---
-> Changes in v2:
-> - Format sx9324_scan_period_table[] with a power-of-two number of entries
->   (8) per line and the register value range as a comment at the end of
->   each line, so the table is indexed and a typo is easy to find (Andy)
-Looks good and matches what Andy asked about.
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
 
-Applied to the fixes-togreg branch of iio.git.
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
-thanks,
 
-Jonathan
+Beste Grüße,
+Peter Schneider
 
-> - Put the static_assert() on a single line (Andy)
-> - Add Fixes tag and Cc stable
-> - Rebase on fixes-togreg
-> 
-> v1: https://lore.kernel.org/all/20261021225417.626946-1-kapoorarnav43@gmail.com/
-> 
-> Compile-tested only (W=1); I don't have SX9324 hardware.
-> 
->  drivers/iio/proximity/sx9324.c | 13 +++++++++++--
->  1 file changed, 11 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/iio/proximity/sx9324.c b/drivers/iio/proximity/sx9324.c
-> index 255a36976ac4..43266a21bf2e 100644
-> --- a/drivers/iio/proximity/sx9324.c
-> +++ b/drivers/iio/proximity/sx9324.c
-> @@ -279,11 +279,20 @@ static const struct {
->  	{ 0, 250000 },  /* 11111: 4 s */
->  };
->  
-> +/*
-> + * The scan period of the SX9324 is selected by the 5 bit wide
-> + * SX9324_REG_GNRL_CTRL0_SCANPERIOD field. The values below are the scan
-> + * periods in ms of the corresponding sx9324_samp_freq_table[] entries.
-> + */
->  static const unsigned int sx9324_scan_period_table[] = {
-> -	2,   15,  30,  45,   60,   90,	 120,  200,
-> -	400, 600, 800, 1000, 2000, 3000, 4000, 5000,
-> +	1, 2, 4, 6, 8, 10, 14, 18,			/* 0x00 - 0x07 */
-> +	22, 26, 30, 34, 38, 42, 46, 50,			/* 0x08 - 0x0f */
-> +	56, 62, 68, 74, 80, 90, 100, 200,		/* 0x10 - 0x17 */
-> +	300, 400, 600, 800, 1000, 2000, 3000, 4000,	/* 0x18 - 0x1f */
->  };
->  
-> +static_assert(ARRAY_SIZE(sx9324_scan_period_table) == ARRAY_SIZE(sx9324_samp_freq_table));
-> +
->  static const struct regmap_range sx9324_writable_reg_ranges[] = {
->  	/*
->  	 * To set COMPSTAT for compensation, even if datasheet says register is
-> 
-> base-commit: 2ef6f5c4ee56e90c237c5f7687f09e635f7d30a9
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
