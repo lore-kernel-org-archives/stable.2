@@ -1,98 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792847930;
-	b=n8Kl0Sj4FIpfA31VBBm4CUeBQcqIdhloe2Se1fZsXQJEDK1H2SWr7n+zDLJGcDaK0YNk
-	 04+MdPg8b8gyJseQ5/VsrP6jOFt4T+/EER0YD9XCui5P8OSQqAfkPmAtBG8c5EdTH3U+0
-	 ryQSqs/OGKtGHbpatSARQs82VWGXZB6OP47XfqreOE2TNpXYqveMilaT6xDhoSkY6TtcO
-	 b/cbCAW1rmQZlyysavfUB5JEPfSBDr4lc2VVd4+pazhlQCotnro2VZfF5EZ0iaKvhvGmN
-	 y8Piicl520O6Ex2l9cDaBjrmhAQHOHHR5ITE6joZ/gYPbwGLjaeO8yPrkovkyBaqDkw==
+	t=1792848203;
+	b=DxGskP0Pt+c16JpqK1scvOeaC0KkS2OgkNFIGFr5ZR06XhClhfgYtSAPmDv8wllav33B
+	 5xTN51xqjRsF3aP6H+sc6KeF6u6eUJCxwKF3C3mnYz+p8ZjvurHiuw1qvb0yd5hWvC8Ud
+	 W/+sXwNw9ZhECrNwaqpPF2qMCA0cjQgCr8hH7w423NGtDuo/e+2P0yu/NrKaFAjS6/H03
+	 YRbfPRSIoKhnyGg1zvQ+DS5bxqIrqoaElphgIb2GgdDKoKep+NZt1JfRoUZqRaB/ahjoZ
+	 py4Kc61HjYzeVy9nXEX9AN2JRwnGlNHMNtwLN82QlcYOA6E8Zpi5Z3EuZaz9n5tE67w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792847930;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=b680pKzQa13v0eIR/DWLULm8zwErDKH5uvrOsGuOoiQ=;
-	b=K992XGTH7J9qoeqJB8Ll/HWflfBzVydEsPUnrEjnzNsrFZw0cVIIoJd9RxJ5CUaPuakT
-	 4euH0cSCWsi6R6K1prE6n/239RruM57Tn/QwDFyhKd0N1wG1TbFTRH0w3TRySfyT1waQ6
-	 KpXkXyGCktcUR73AnkCKW25cwPZb5h0HT5O3kE5hppBHr2I1g9HF1YlWhZWN6tyst9Hbi
-	 2ACumwMBD/GlWHwDVxAvnLdH1Wdg3tdBxD1OfDMkch08mqb7k3obh3SwXCoXHSPj+WMsJ
-	 9ySpn77SbS35cqsmS7bbQ7I9TPZicr2FxUgqm0EqZ5iBPRGzNeBy0GYN4MZwEpXrdJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792848203;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=AenfdRm90WrSjoi864BFabnLzqWgO/qqA3F0PRLFjp0=;
+	b=L3u/c/TVi4fnca8dkn+MkD1lnrw/b87sNi1CYaywsZxDRcpqibg7IRDtKb2214an2kw/
+	 TEvwRI/GK1NP/dVBZEwsHhteNTmJ2gYIQCy690o0Qxo4Zu9RKZ9AmBIxH1iYvZe6L1n97
+	 +aXY4xFZSVUU+RHmIZZwhhwfdU5vh5QEBsa0R0Fld0IWzo9Y+VV0h44mnMiNLfC9pHzUI
+	 2bD2jENDK4xQoW+13VpeV0kZhiuH3xUhZTRI1hEKPgijQIa4B7r2+9vWGUKIAx5q+Edbh
+	 69HmPndCLUIvWPW45atle9oBKcEGp+IWjRBBgHiGOy12nDt2TYQ7QAto1EEqA2oSxeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Jaxb/P3P";
-	arc=none smtp.remote-ip=209.85.218.43
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=napl7AQi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C89606A31A
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 13:18:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43C89606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 332E1606A31A;
+	Sat, 24 Oct 2026 13:23:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Jaxb/P3P
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c2e8c710847so210188866b.0
-        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 06:18:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792847929; x=1793452729; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b680pKzQa13v0eIR/DWLULm8zwErDKH5uvrOsGuOoiQ=;
-        b=Jaxb/P3PXjFT38cXGvFVo4MLASdIUYSGXWXC7juOTbCdguJZsMVrOfc5L+iqWqi/ri
-         w5TgqYu+JlJDs668cuw5s+EZbVxKM/ftWrn/jD+8U3VXQhNKCrGrc/geDSTeTECA/Wrw
-         +mVGHgvWiYiFYjebTzctnfnBdnYVi8+z/O2pel/f3TR3bwmtiVzaz0q4xLdTR0Dty/OX
-         Y+vkU+3jukMWt6c5m9Yum1c6axwju/nZOb5/qiUORnFzCm+0543zu/mb6riXYPxKdXDA
-         dmw1bmTFMC9uGYpHsOHAL9zMbC4kSqxqCogFz7iyAeB3LeDiejZZmCHPSjEUWwY5WBEz
-         NcOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792847929; x=1793452729;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b680pKzQa13v0eIR/DWLULm8zwErDKH5uvrOsGuOoiQ=;
-        b=dw0fCk913Jle06NEFWmpGaTWcJ5vPLczmO3rnxWlIEF/SnXf2K3DezFqPu5ThXlt4G
-         /IhaMbpMK36tamvK6BugzeCx80c4drJ4e+nBgDuAqqtb6eNVdHouL4hsnK0y1YTzYHtm
-         5ge22XOnF0p7A1vEdPA8cVqiiHIGXHEP4wGAl7zy+KjQTpchlgucyF0I5snd2k4sd8Qm
-         Ri/vhx2gIrv0mgwrlJugmWQuBG/WnDxzkn+WbdJ7IPHURGZ5Z19AKDQBI0kAthht2cym
-         AxDbzAMxBrH33LI7tLDDi4fJDe6QKum0z5Zetn7+qt3XrQk19NnNamd5Z8qSu9DXOr6B
-         hBYw==
-X-Forwarded-Encrypted: i=1; AKwUvBxj/0358Y1AMm8IW3cDILownTCtVX+mw0VPH0VfSL+Sudx27ZXLKCOtn0U20Kf8xD9r1Nji1m4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJofMN8QgNy1BEDk8NrtveA//aRx2NC63rwQSWweEarWme2eXrw
-	VjYKuUcNEpoupL1+8a52DEkXbl5U4tqPgE90ukEBQ1IBYrVTXXp4e+Fh
-X-Gm-Gg: AYBFou2guG+bcX8EGdYxTrOi6UEWduIKuBu15IKL47wD3GK7v8gj131HZI3rNbyW7J9
-	bvtmkTbIu4alV5a7w95615LO1akBcGK/THMEdPbgVDtMUNKSl/uPEyof0iCJbfrRTp8ncxFqd+a
-	cYVreTwyrc5v1sSqCTnnurj4YlGl631kxLQmOO5L+u3KH6FmbnI3x/OU2SwfTO+ntG09AKlZra6
-	EPSzllDgy8gF4TPPigcbsrS7De0IKdo/ZH+LH5UdiON2FpnFu6V6PyKFdUkN+58x3Jq8/KCvbiV
-	KejJQP8jNlMbQTPGxYn0XrqccdFMUnPulqbtyvoL2gyYyfoBr8iXee4yhyiG+5OoilAY0mZImtt
-	6+HXU6vdMoTSK+1J2xSwduJ9UlSLK4QVvTNMzkk8YShezQw78x1dWUDcqBcRO7LqZWWmSakCzKI
-	fkoYkdZsS2Sd8sZ4NExYb1CR+DRwmfGu2RXkkvx/qBBqZPfN4jkVMJerEKH4p+6Jak94HmJLTuy
-	FRs3HZmHUKJA1kfMfXfvZZCaGraY4tQCZbIWbfBh2s2613/xzyJzBzge8O/7nBT7tNWsndh
-X-Received: by 2002:a17:907:2d91:b0:c41:c106:9772 with SMTP id a640c23a62f3a-c46bdac60eamr203215066b.1.1792847928479;
-        Sat, 24 Oct 2026 06:18:48 -0700 (PDT)
-Received: from localhost.localdomain ([185.65.135.248])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd6276d8sm87306666b.41.2026.10.24.06.18.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 06:18:47 -0700 (PDT)
-From: Hedi Ben Hamida <hedihamida096@gmail.com>
-To: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>
-Cc: Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	linux-wireless@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	stable@vger.kernel.org,
-	Hedi Ben Hamida <hedihamida096@gmail.com>
-Subject: [PATCH v2 2/2] wifi: mt76: mt7921: reset on HIF resume timeout
-Date: Sat, 24 Oct 2026 09:16:53 -0400
-Message-ID: <20261024131715.64435-3-hedihamida096@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261024131715.64435-1-hedihamida096@gmail.com>
-References: <20261024131715.64435-1-hedihamida096@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=napl7AQi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B4EB1F01825;
+	Sat, 24 Oct 2026 13:23:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792848202;
+	bh=AenfdRm90WrSjoi864BFabnLzqWgO/qqA3F0PRLFjp0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=napl7AQi2UiTBpTwoXjQ8MJt+9SLLnPFu7CuUVg7W/aRolDGozszZGUlIaGY+Cq/N
+	 OM471O3WWvM9+LNDFoZVYSx2OjzdA0u+FiDe6SRoEIwe9QgI2HgFtNIw0KfL8rNN1C
+	 32HI0xaj8v6w0CTprcI98iFZnFQKn2n+ja77zSSYDNUIBkUxaAMMZmyL7RNCmzuvYM
+	 xXu8APRXiotFV/J3gUsH3y1ycY8zXwuC6YoPteRB/kTOqpq87i/lshG/WOt9KNJ7l2
+	 2y5CPcgneTBH/sgUMaPQpWYCZHPWj3xP7tQ4BRrLucpNUdwqSrf25DUssebpwne0sm
+	 AqfzKMgSYqN6Q==
+Date: Sat, 24 Oct 2026 15:23:11 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Yingjie Wang <x-professor@outlook.com>
+Cc: "akpm@linux-foundation.org" <akpm@linux-foundation.org>, 
+	Manfred Spraul <manfred@colorfullife.com>, Alexey Gladkov <legion@kernel.org>, 
+	"Eric W . Biederman" <ebiederm@xmission.com>, Vasily Averin <vasily.averin@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, Michal Hocko <mhocko@suse.com>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, 
+	"cgroups@vger.kernel.org" <cgroups@vger.kernel.org>, "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>, 
+	"linux-man@vger.kernel.org" <linux-man@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>, 
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] ipc/sem: reject negative SEMOPM values
+Message-ID: <atyvbQ5xxtxcxBZE@debian>
+References: <cover.1792808260.git.x-professor@outlook.com>
+ <c2c9cb6d741fd9290c835679f9c209b147f74f64.1792808260.git.x-professor@outlook.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,47 +64,236 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3ypnmqpyuzbufluf"
+Content-Disposition: inline
+In-Reply-To: <c2c9cb6d741fd9290c835679f9c209b147f74f64.1792808260.git.x-professor@outlook.com>
 
-On some MT7922 firmware the HIF_CTRL resume command does not return a
-response after D3, so mt7921_pci_resume() returns -ETIMEDOUT and the
-PM core reports the resume as failed:
 
-  mt7921e 0000:03:00.0: Message 00020007 (seq 6) timeout
-  mt7921e 0000:03:00.0: PM: dpm_run_callback(): pci_pm_resume returns -110
+--3ypnmqpyuzbufluf
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Yingjie Wang <x-professor@outlook.com>
+Cc: "akpm@linux-foundation.org" <akpm@linux-foundation.org>, 
+	Manfred Spraul <manfred@colorfullife.com>, Alexey Gladkov <legion@kernel.org>, 
+	"Eric W . Biederman" <ebiederm@xmission.com>, Vasily Averin <vasily.averin@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, Michal Hocko <mhocko@suse.com>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, 
+	"cgroups@vger.kernel.org" <cgroups@vger.kernel.org>, "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>, 
+	"linux-man@vger.kernel.org" <linux-man@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>, 
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] ipc/sem: reject negative SEMOPM values
+Message-ID: <atyvbQ5xxtxcxBZE@debian>
+References: <cover.1792808260.git.x-professor@outlook.com>
+ <c2c9cb6d741fd9290c835679f9c209b147f74f64.1792808260.git.x-professor@outlook.com>
+MIME-Version: 1.0
+In-Reply-To: <c2c9cb6d741fd9290c835679f9c209b147f74f64.1792808260.git.x-professor@outlook.com>
 
-The driver already resets the device on this error, and the reset
-restores it. Treat the timeout as recovered after queueing the reset
-and return success, so the PM core does not mark the resume as failed.
+Hi Yingjie,
 
-Tested on MEDIATEK MT7922 (14c3:7922) on kernel 6.12.113: suspend/resume
-no longer returns -110 and Wi-Fi recovers; hibernate/resume still works.
+> Date: 2026-10-24 12:21:42+0000
+> From: Yingjie Wang <x-professor@outlook.com>
+>
+> The SEMOPM field has been stored as an int while semop() receives an
+> unsigned operation count since the beginning of Git history. A negative
+> SEMOPM accepted by proc_dointvec() is converted to a large unsigned value
+> in the comparison, defeating the intended operation-count limit.
+>=20
+> Commit 50ec499b9a43 ("sysctl: allow change system v ipc sysctls inside ipc
+> namespace") made kernel.sem writable by IPC namespace owners without
+> capabilities in the initial user namespace.
+>=20
+> Parse writes against a temporary copy and validate SEMOPM and SEMMNI
+> before changing the live settings. Hold a per-namespace mutex from the
+> snapshot through publication so concurrent sysctl writers cannot publish
+> stale values for fields they did not supply. Access the live fields with
+> READ_ONCE() and WRITE_ONCE(), preserving the per-field access semantics of
+> proc_dointvec(). Read requests continue to use proc_dointvec() directly.
+>=20
+> Failed writes leave the live settings unchanged. Successful partial writes
+> change only the supplied fields relative to the latest locked snapshot.
+> The writer mutex retains the existing per-field visibility for readers.
+>=20
+> Keep zero and positive SEMOPM values valid. Zero continues to reject every
+> non-empty semop() request.
+>=20
+> Suggested-by: Andrew Morton <akpm@linux-foundation.org>
+> Link: https://lore.kernel.org/r/20261016155905.2a659b7bb7d61f33467a3263@l=
+inux-foundation.org
+> Link: https://lore.kernel.org/r/51c93c19-f1dd-455f-8698-6b1ee30eb630@colo=
+rfullife.com
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yingjie Wang <x-professor@outlook.com>
+> Reviewed-by: Manfred Spraul <manfred@colorfullife.com>
+> ---
+>  include/linux/ipc_namespace.h |  3 +++
+>  ipc/ipc_sysctl.c              | 35 ++++++++++++++++++++++++++---------
+>  ipc/sem.c                     |  1 +
+>  ipc/util.h                    |  9 ---------
+>  4 files changed, 30 insertions(+), 18 deletions(-)
+>=20
+> diff --git a/include/linux/ipc_namespace.h b/include/linux/ipc_namespace.h
+> index 12faca29bbb9c..c06568ccfca88 100644
+> --- a/include/linux/ipc_namespace.h
+> +++ b/include/linux/ipc_namespace.h
+> @@ -4,6 +4,7 @@
+> =20
+>  #include <linux/err.h>
+>  #include <linux/idr.h>
+> +#include <linux/mutex.h>
+>  #include <linux/rwsem.h>
+>  #include <linux/notifier.h>
+>  #include <linux/nsproxy.h>
+> @@ -31,6 +32,8 @@ struct ipc_ids {
+>  struct ipc_namespace {
+>  	struct ipc_ids	ids[3];
+> =20
+> +	/* Serialize kernel.sem writers. */
+> +	struct mutex	sem_ctls_mutex;
+>  	int		sem_ctls[4];
+>  	int		used_sems;
+> =20
+> diff --git a/ipc/ipc_sysctl.c b/ipc/ipc_sysctl.c
+> index d038d944257f6..a05e28e67c305 100644
+> --- a/ipc/ipc_sysctl.c
+> +++ b/ipc/ipc_sysctl.c
+> @@ -51,21 +51,38 @@ static int proc_ipc_auto_msgmni(const struct ctl_tabl=
+e *table, int write,
+>  static int proc_ipc_sem_dointvec(const struct ctl_table *table, int writ=
+e,
+>  	void *buffer, size_t *lenp, loff_t *ppos)
+>  {
+> +	struct ctl_table ipc_table;
+>  	struct ipc_namespace *ns =3D
+>  		container_of(table->data, struct ipc_namespace, sem_ctls);
+> -	int ret, semmni;
+> +	int sem_ctls[ARRAY_SIZE(ns->sem_ctls)];
+> +	size_t i;
+> +	int ret;
+> +
+> +	if (!write)
+> +		return proc_dointvec(table, write, buffer, lenp, ppos);
+> =20
+> -	semmni =3D ns->sem_ctls[3];
+> -	ret =3D proc_dointvec(table, write, buffer, lenp, ppos);
+> +	mutex_lock(&ns->sem_ctls_mutex);
+> +	for (i =3D 0; i < ARRAY_SIZE(sem_ctls); i++)
+> +		sem_ctls[i] =3D READ_ONCE(ns->sem_ctls[i]);
+> =20
+> -	if (!ret)
+> -		ret =3D sem_check_semmni(ns);
+> +	memcpy(&ipc_table, table, sizeof(ipc_table));
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Hedi Ben Hamida <hedihamida096@gmail.com>
----
- drivers/net/wireless/mediatek/mt76/mt7921/pci.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Why memcpy(3)?  Being a structure, we could use simple assignment, which
+is type safe.
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7921/pci.c b/drivers/net/wireless/mediatek/mt76/mt7921/pci.c
-index 00532b29f..dce88fcc7 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7921/pci.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7921/pci.c
-@@ -597,6 +597,14 @@ static int _mt7921_pci_resume(struct device *device, bool restore)
- 		mt76_connac_mcu_set_deep_sleep(&dev->mt76, false);
- 
- 	err = mt76_connac_mcu_set_hif_suspend(mdev, false, true);
-+	if (err == -ETIMEDOUT) {
-+		/* Firmware may not reply after D3; the reset recovers it. */
-+		dev_warn(dev->mt76.dev,
-+			 "HIF resume timed out, resetting\n");
-+		pm->suspended = false;
-+		mt792x_reset(&dev->mt76);
-+		return 0;
-+	}
- 	if (err < 0)
- 		goto failed;
- 
--- 
-2.47.3
+	ipc_table =3D *table;
 
+memcpy(3) is way too powerful for this, and that can be dangerous.
+A few ways where it is easy to screw a call to memcpy(3) are:
+
+-  Size of destination doesn't match size of input.
+-  Size argument doesn't match size of destination.
+-  Type of input doesn't match type of destination.
+-  You may forget to copy a flexible array member.
+
+In some cases, you really want to defeat those, and then memcpy(3) is
+useful (or you're copying an array, and then you have no choice), but if
+not, memccpy(3) is not the best tool.
+
+[CC +=3D linux-hardening]
+
+
+Have a lovely day!
+Alex
+
+> +	ipc_table.data =3D sem_ctls;
+> =20
+> -	/*
+> -	 * Reset the semmni value if an error happens.
+> -	 */
+> +	ret =3D proc_dointvec(&ipc_table, write, buffer, lenp, ppos);
+>  	if (ret)
+> -		ns->sem_ctls[3] =3D semmni;
+> +		goto out_unlock;
+> +
+> +	if (sem_ctls[2] < 0 ||
+> +	    sem_ctls[3] < 0 || sem_ctls[3] > ipc_mni) {
+> +		ret =3D -ERANGE;
+> +		goto out_unlock;
+> +	}
+> +
+> +	for (i =3D 0; i < ARRAY_SIZE(sem_ctls); i++)
+> +		WRITE_ONCE(ns->sem_ctls[i], sem_ctls[i]);
+> +
+> +out_unlock:
+> +	mutex_unlock(&ns->sem_ctls_mutex);
+>  	return ret;
+>  }
+> =20
+> diff --git a/ipc/sem.c b/ipc/sem.c
+> index a8c9807175520..0f7d32c12993f 100644
+> --- a/ipc/sem.c
+> +++ b/ipc/sem.c
+> @@ -249,6 +249,7 @@ static int sysvipc_sem_proc_show(struct seq_file *s, =
+void *it);
+> =20
+>  void sem_init_ns(struct ipc_namespace *ns)
+>  {
+> +	mutex_init(&ns->sem_ctls_mutex);
+>  	ns->sc_semmsl =3D SEMMSL;
+>  	ns->sc_semmns =3D SEMMNS;
+>  	ns->sc_semopm =3D SEMOPM;
+> diff --git a/ipc/util.h b/ipc/util.h
+> index a55d6cebe6d3b..51b4efa3d6db0 100644
+> --- a/ipc/util.h
+> +++ b/ipc/util.h
+> @@ -245,15 +245,6 @@ int ipcget(struct ipc_namespace *ns, struct ipc_ids =
+*ids,
+>  void free_ipcs(struct ipc_namespace *ns, struct ipc_ids *ids,
+>  		void (*free)(struct ipc_namespace *, struct kern_ipc_perm *));
+> =20
+> -static inline int sem_check_semmni(struct ipc_namespace *ns) {
+> -	/*
+> -	 * Check semmni range [0, ipc_mni]
+> -	 * semmni is the last element of sem_ctls[4] array
+> -	 */
+> -	return ((ns->sem_ctls[3] < 0) || (ns->sem_ctls[3] > ipc_mni))
+> -		? -ERANGE : 0;
+> -}
+> -
+>  #ifdef CONFIG_COMPAT
+>  #include <linux/compat.h>
+>  struct compat_ipc_perm {
+> --=20
+> 2.43.0
+>=20
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--3ypnmqpyuzbufluf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrcsTcACgkQ64mZXMKQ
+wqnKRRAAt8enQI5cXjKMqVjXRh1pd0f04+raK2ShM3YQhaynNwX7pqaPuQu7CNYn
+XS4UU//IYiVQhRD+/a6w8QixgPRqvYbpQiVSPaOexM4TmCwbciR/XIs0PBVcyjFI
+5GRV9vJBf0c3U1Lcsc2rLqtQT5X7OWK9nEjwHdrKSbYu1JOynmH43gBP+b4wyLW2
+4Jhurv34jdrxGZ+oBgMBBOmSJcr3C7CIUj7kOgaJO6uA4w7d6KVcuwgHraP25Qat
++kEhFgs9G7SkzZ8QLOSzUhmY59tkAzuNuqpMRM4LfqOaNNrr8LJKEJLW5/BiZzu6
+DewbIzVND0w+PwohgGESVpj+fbEjO3CMlln6tAtmneIB5rrNa5kcqLUyKdhszDIB
+BeV2nVRI13zzbs7tuPa1V4/YAB53+QH+JkYadnDkwwEcKs3gGw6TA48g4Sr/L0nu
+cBp7f/yslXDqiSxIyUwt1Y2AxUX/5zDzTn4/DqDyxUrWwsc6B07X0IY0rvLDSBWJ
+Q68dB2r9lsFdzqdMpBb06OdBl2D/no3BEu/Xni7ROwc2RwlOK9gUS86ILuvIwpGU
+jtPOTnbk7c3NRO6/xmPMPVCqGrsm5HIJEfkL2x8Gvfzp3+hnIh+37aj6/Gc9lfLn
+qEEiMnILRfHuz52Lk+6KQxg4ZjFU11gtlKYtqoo0H4Gm1yGkTnM=
+=dC3A
+-----END PGP SIGNATURE-----
+
+--3ypnmqpyuzbufluf--
