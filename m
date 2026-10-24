@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792832476;
-	b=1FIa/dY7+QKVfX3VFCvjkpid0cABGRwid1Vfy17OpUZb1NQa7dx4slYFZtlTLR7sDDlh
-	 RfD6Cyfhsqt5kGycBW9JsKVgTY2KoGGzHjj+8GKdnI4Wm8LVC0+g34LDc8f3uaWBJMaOM
-	 npJW2XCOSZ5YSKZGxbD6dOSKRpmqlwp3CBw4oQbkYgCZPGfvlzBcz/nOjGfXk6siEHir3
-	 Eu9EYHzar0lFBRkHNztFqisZch83rV8ZaIjnXmcNqIWqUZvqFfqfU2sxg0FPaHpfY8M+M
-	 uXWqnyMSZ6DGSccpcA90KdgyhLgX1UioDodTM72fh1BZmqOON+iosIFX8cm7OpRhdWg==
+	t=1792832501;
+	b=ZUWqYjTrY5SugttCmaQzJ6u9bFQe87RR2T+P5c2ubnJmgM3tGaeHjOC1zDEYnRQRmrko
+	 IFLa5R24Iw/4myxsdGlsw7PDaxralRXbWfxefVSQ4dz7wGRxZnbLYs692ixxLxIEkwJLW
+	 a41Xz9J5eoi0bHfRND7MCE8OMDZc+w8t2LcmNTLOO6gUOEacJJFl8QfoB7rSenRgyNzlV
+	 +pWTd/ijVunFM0hdoGVVmt8Skxrok9Km9LrBIiWArp6hLeLutX1yDo5lzyRLtJpbqwLZF
+	 4CAvPobUy/F+etZsgMwGPUkHeCS8LHzOjYduJbhR73TjnLa2BO/QoYZKHZycbvnJOKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792832476;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792832501;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=ACXwuWR/zeV4c4E/6MIaCnBpzQn8iM5l1n0j+7DsSlM=;
-	b=nOe9Rc4xCdcKJFFi8PzBTNgcYRibZiz/6rTkFj3CcELStTWU95a3+4oRChe6KMFtLjt+
-	 3rxIw4v0jY/k3oblBy+2tyotpM11NllQDTu7FMY7c4lQdd+Hf+sCh7us06yw5KAOewavC
-	 SK9M041DbtqV/KUfWPqKDDJAYE+brceM7MpzzrGgduFdEoLT3Bgi7LiNeCGozCE0HMS8y
-	 HQD/gooR8ftVshxEzGkORaYNfu7xZuS+fzvXJEy5T52IAgD6xlHuYZl3zbz8cd9c5p9/m
-	 7FH9p92C3FoR9rzviH9qKCCrzs9k7Ok+3GtkYUk3p0frdE5zlx50m4ngCXi2aPzXkVw==
+	bh=4sWD1vyIwN3tAxumMIbAH0g2DWGSfisa4PVHqIiMTiU=;
+	b=HrVW+ulAoNRGLAPg9P0kagibD7b4QV+tXJcb1takAK4IkoeJaWmWfiXVpWGZYsbRuerk
+	 ir+s1OcCBxIp8XkaEuldp09wqTbSrKu+uPEzwldqPhyDgVV1GA180/pji5CLPnFkN1lQV
+	 NuSU1r2/9e7YLsCmTaSyYzZQmujLMzgAjaJcwI82rqlNe8zvNIt+slKUAeEtR9IOeYGUm
+	 oxvoBLydkBC5+3cHY3DIz218xF2OEugP51fZCktcj4MBENG9tYSIcufrB2/V0Dg0A8IfT
+	 eRyzXwlzfaaDzHlsqblm/2z7hHiOuprGjLrjCcN3C81i9C8xvgy0OrRQhaF66XhQdIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=a9ASz6de;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=2FjfArkf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EDF9606A31E;
-	Sat, 24 Oct 2026 09:01:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0ABB606A31A;
+	Sat, 24 Oct 2026 09:01:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=a9ASz6de
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 190C81F01825;
-	Sat, 24 Oct 2026 09:01:16 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=2FjfArkf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BB1D1F01828;
+	Sat, 24 Oct 2026 09:01:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792832476;
-	bh=ACXwuWR/zeV4c4E/6MIaCnBpzQn8iM5l1n0j+7DsSlM=;
+	d=linux-foundation.org; s=korg; t=1792832501;
+	bh=4sWD1vyIwN3tAxumMIbAH0g2DWGSfisa4PVHqIiMTiU=;
 	h=Date:To:From:Subject;
-	b=a9ASz6deywtUr0l0y2Bp1eHk3KMru3q5jor1yQCXRpxaTgTLPlFkPcvhV8Z7gbuUh
-	 iGEXihxJs9vxn6KZ3F2IB4MN0N7LYKR3YxqxuFHvcIB0ooEJlKqlWaWhjJTINEmoLz
-	 UViy5PujRZyMTPIB6B1qYc/2JW7HMQ9aElwU4lVg=
-Date: Sat, 24 Oct 2026 02:01:15 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,rppt@kernel.org,peterx@redhat.com,osalvador@suse.de,muchun.song@linux.dev,lokeshgidra@google.com,ljs@kernel.org,linmiaohe@huawei.com,liam@infradead.org,lance.yang@linux.dev,kylebot@openai.com,david@kernel.org,akpm@linux-foundation.org
+	b=2FjfArkf3GIvjDv+klO8pgNMPQVStlx2E2ERM/bV9pnG2Abmq34K11WvbRxHIsOd7
+	 NvDd1pxCnqO7FaIn8facEPm3J3yyCyNM8eTdCeUnU71hRSSD5IsEiRf41JHJVPvmoJ
+	 j4RlYEUhq1tK5UaHjx0Tweq50iTpD4WMDFvten1c=
+Date: Sat, 24 Oct 2026 02:01:41 -0700
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,pfalcato@suse.de,ljs@kernel.org,liam@infradead.org,jannh@google.com,nickolai@csail.mit.edu,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-userfaultfd-only-allocate-anon_vma-in-cow-mappings.patch removed from -mm tree
-Message-Id: <20261024090116.190C81F01825@smtp.kernel.org>
+Subject: [merged mm-stable] mm-mlock-use-a-long-for-the-page-count-in-mlock_fixup.patch removed from -mm tree
+Message-Id: <20261024090141.6BB1D1F01828@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,160 +51,96 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm/userfaultfd: only allocate anon_vma in CoW mappings
+     Subject: mm/mlock: use a long for the page count in mlock_fixup()
 has been removed from the -mm tree.  Its filename was
-     mm-userfaultfd-only-allocate-anon_vma-in-cow-mappings.patch
+     mm-mlock-use-a-long-for-the-page-count-in-mlock_fixup.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Subject: mm/userfaultfd: only allocate anon_vma in CoW mappings
-Date: Wed, 14 Oct 2026 13:53:11 +0200
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: mm/mlock: use a long for the page count in mlock_fixup()
+Date: Wed, 14 Oct 2026 09:13:58 -0400
 
-find_vma_and_prepare_anon() can end up allocating an anon_vma in VMAs that
-are not CoW mappings, which is wrong.
+mlock_fixup() adjusts mm->locked_vm, an unsigned long, by the number of
+pages whose VM_LOCKED state it changes, but computes that number in an
+int:
 
-If we have a MAP_SHARED R/O file mapped, we lack VM_SHARED (but do have
-VM_MAYSHARE) and lack VM_MAYWRITE.
+	int nr_pages;
+	...
+	nr_pages = (end - start) >> PAGE_SHIFT;
+	...
+	mm->locked_vm += nr_pages;
 
-While uffd later rejects such mappings (uffd registration requires
-VM_MAYWRITE, see comment in validate_dst_vma) find_vma_and_prepare_anon()
-still wrongly allocates an anon vma before it validates the vma.
+When a single VMA range of 2^31 pages (8 TiB with 4 KiB pages) or more
+is locked or unlocked, the count is truncated to 32 bits and then
+sign-extended, so locked_vm is changed by the wrong amount, while
+munmap(), mremap() and the other paths that maintain locked_vm use the
+full unsigned long page count.
 
-This in turn later confuses copy_page_range()->vma_needs_copy() such
-that we end up calling copy_hugetlb_page_range() with ranges that
-actually do not contain *any* per-pagetable information that would
-require copying, which is the basis for PMD-table sharing in the first
-place.
+Such a range is reachable on 64-bit architectures with a 47-bit or
+larger user address space (x86_64, arm64 with 48-bit VA, riscv64 Sv48)
+by a task with CAP_IPC_LOCK or a raised RLIMIT_MEMLOCK, which do_mlock()
+checks against the full untruncated length.  It costs nothing with
+MAP_NORESERVE and MLOCK_ONFAULT/MCL_ONFAULT, since then no page is
+populated.  On x86_64, after
 
-copy_hugetlb_page_range() should not have to worry about shared
-PMD tables at all: it doesn't make any sense to copy page tables that are
-shared, as they can be fully recreated later. Ending up in the function
-with shareable page tables is the real issue.
+	p = mmap(NULL, 8UL << 40, PROT_READ | PROT_WRITE,
+		 MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
+	mlock2(p, 8UL << 40, MLOCK_ONFAULT);
 
-If a destination PMD table is shared in copy_hugetlb_page_range(), it
-might get concurrently unshared as we are not holding relevant
-locks, resulting in us using a page table that is no longer mapped and
-possibly freed after calling:
+VmLck in /proc/self/status reads 18446744065119617024 kB instead of
+8589934592 kB; munmap() of the region then subtracts the true size and
+leaves VmLck at 18446744056529682432 kB instead of 0.  With 16 TiB,
+locked_vm is not changed at all, VmLck stays 0 kB, and after the task
+drops CAP_IPC_LOCK or lowers RLIMIT_MEMLOCK, mlock(), mmap(MAP_LOCKED)
+and the other mlock_future_ok() and account_locked_vm() users enforce
+RLIMIT_MEMLOCK against that count, so they let the task lock memory
+beyond its limit (or, in the 8 TiB case, refuse every further lock).
+The error persists for the life of the mm; unlocking the range in pieces
+skews it further.  The wrong count is per-mm accounting only: it does
+not change which pages are locked.
 
-	dst_pte = huge_pte_alloc(dst, dst_vma, addr, sz);
+The int has been there since before git history (the variable was named
+"pages" until it was renamed in 2.6.28); every other updater of
+locked_vm uses an unsigned long or long count.  Make nr_pages a long,
+which holds the page count of any user range and its negation, so the
+existing sign handling is unchanged.
 
-To fix it, do not allocate an anon_vma in non-CoW mappings and add a
-safety guard to copy_hugetlb_page_range(), making sure that we never
-end up messing with shared PMD tables in there.
+Found by formal verification of mm/mlock.c against the kernel binary.
 
-Before commit 867a43a34ff8a ("userfaultfd: use per-vma locks in userfaultfd
-operations") we would always validate the VMA before allocating an
-anon_vma, and consequently never wrongly allocate an anon_vma.
-
-As uffd_lock_vma() is part of the same lookup machinery and
-also contains a misleading VM_SHARED check, change that one as well
-directly for consistency.
-
-A follow-up cleanup will stop taking the hugetlb_vma_lock_read(src_vma)
-lock in copy_hugetlb_page_range() entirely. Further, the usage of
-VM_SHARED in userfaultfd code should be cleaned up later to focus on
-CoW vs. non-CoW mappings.
-
-Link: https://lore.kernel.org/20261014-copy_hugetlb_page_range-v1-1-5b68e03fe7fe@kernel.org
-Fixes: 867a43a34ff8 ("userfaultfd: use per-vma locks in userfaultfd operations")
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Link: https://lore.kernel.org/20261014131358.780240-1-nickolai@csail.mit.edu
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Kyle Zeng <kylebot@openai.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Kyle Zeng <kylebot@openai.com>
-Tested-by: Kyle Zeng <kylebot@openai.com>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Tested-by: Lance Yang <lance.yang@linux.dev>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Miaohe Lin <linmiaohe@huawei.com>
-Cc: Lokesh Gidra <lokeshgidra@google.com>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Assisted-by: LLM
 Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/hugetlb.c     |   24 ++++++++++++------------
- mm/userfaultfd.c |    5 ++---
- 2 files changed, 14 insertions(+), 15 deletions(-)
+ mm/mlock.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/mm/hugetlb.c~mm-userfaultfd-only-allocate-anon_vma-in-cow-mappings
-+++ a/mm/hugetlb.c
-@@ -4973,10 +4973,11 @@ int copy_hugetlb_page_range(struct mm_st
- 		raw_write_seqcount_begin(&src->write_protect_seq);
- 	} else {
- 		/*
--		 * For shared mappings the vma lock must be held before
--		 * calling hugetlb_walk() in the src vma. Otherwise, the
--		 * returned ptep could go away if part of a shared pmd and
--		 * another thread calls huge_pmd_unshare.
-+		 * Shared mappings only need copying when we could have
-+		 * information stored in page tables (e.g., userfaultfd PTE
-+		 * bits or markers), which is incompatible with PMD sharing.
-+		 * Still take the hugetlb VMA lock for now to satisfy
-+		 * hugetlb_walk()'s locking requirements.
- 		 */
- 		hugetlb_vma_lock_read(src_vma);
- 	}
-@@ -4984,6 +4985,13 @@ int copy_hugetlb_page_range(struct mm_st
- 	last_addr_mask = hugetlb_mask_last_page(h);
- 	for (addr = src_vma->vm_start; addr < src_vma->vm_end; addr += sz) {
- 		spinlock_t *src_ptl, *dst_ptl;
-+
-+		if (WARN_ON_ONCE(want_pmd_share(src_vma, addr) ||
-+				 want_pmd_share(dst_vma, addr))) {
-+			ret = -EINVAL;
-+			break;
-+		}
-+
- 		src_pte = hugetlb_walk(src_vma, addr, sz);
- 		if (!src_pte) {
- 			addr |= last_addr_mask;
-@@ -4995,14 +5003,6 @@ int copy_hugetlb_page_range(struct mm_st
- 			break;
- 		}
+--- a/mm/mlock.c~mm-mlock-use-a-long-for-the-page-count-in-mlock_fixup
++++ a/mm/mlock.c
+@@ -457,7 +457,7 @@ static int mlock_fixup(struct vma_iterat
+ {
+ 	const vma_flags_t old_vma_flags = vma->flags;
+ 	struct mm_struct *mm = vma->vm_mm;
+-	int nr_pages;
++	long nr_pages;
+ 	int ret = 0;
  
--#ifdef CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING
--		/* If the pagetables are shared, there is nothing to do */
--		if (ptdesc_pmd_is_shared(virt_to_ptdesc(dst_pte))) {
--			addr |= last_addr_mask;
--			continue;
--		}
--#endif
--
- 		dst_ptl = huge_pte_lock(h, dst, dst_pte);
- 		src_ptl = huge_pte_lockptr(h, src, src_pte);
- 		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
---- a/mm/userfaultfd.c~mm-userfaultfd-only-allocate-anon_vma-in-cow-mappings
-+++ a/mm/userfaultfd.c
-@@ -115,8 +115,7 @@ struct vm_area_struct *find_vma_and_prep
- 	vma = vma_lookup(mm, addr);
- 	if (!vma)
- 		vma = ERR_PTR(-ENOENT);
--	else if (!(vma->vm_flags & VM_SHARED) &&
--		 unlikely(anon_vma_prepare(vma)))
-+	else if (vma_is_cow_mapping(vma) && unlikely(anon_vma_prepare(vma)))
- 		vma = ERR_PTR(-ENOMEM);
- 
- 	return vma;
-@@ -145,7 +144,7 @@ static struct vm_area_struct *uffd_lock_
- 		 * We know we're going to need an anon rmap, so check that
- 		 * early.
- 		 */
--		if (!(vma->vm_flags & VM_SHARED) && unlikely(!vma_has_anon_rmap(vma)))
-+		if (vma_is_cow_mapping(vma) && unlikely(!vma_has_anon_rmap(vma)))
- 			vma_end_read(vma);
- 		else
- 			return vma;
+ 	if (vma_flags_same_pair(&old_vma_flags, new_vma_flags) ||
 _
 
-Patches currently in -mm which might be from david@kernel.org are
+Patches currently in -mm which might be from nickolai@csail.mit.edu are
 
-mm-fix-address-wraparound-when-scanning-large-folio-ptes.patch
-mm-hugetlb-disable-pmd-sharing-for-uffd-missing-mode.patch
-mm-vma-write-lock-source-vma-before-duplicating-it-in-__split_vma.patch
-mm-madvise-preserve-vma_softdirty_bit-when-changing-anonymous-names.patch
+xarray-clear-the-new-heads-parent-before-freeing-the-old-head.patch
+mm-vmalloc-read-vm_map_ram-block-regions-from-the-requested-offset.patch
 
