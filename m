@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792832503;
-	b=P7bT1tmrCkQNgVuRC9G37Onat5GlgKApP+/WyGxn0+t2Vx57m/a7M6OyrKJafUAZ1+JR
-	 3ixGNI0lUogW9Grsp8rB5LFFoHAllOLnHwO1oZkLXUlqcM1n5EctstuVhnjLk1J9CicaI
-	 rPyCHll6D4hSmRccPvd17Eyai2LqmhO66+r/1E+sbef9n3kBUtuTU2NSNtt421kyXMH9K
-	 RqrGgIKTPIXDyc+6JOmthgIV2F51/rkWkCaw3TN9rKhKa9JsOkhUE6m2GFYsKKNAghf+p
-	 FSv1Yt9aXct1W0wEIksvZySJObCqyeU2mUgmkRSFb5ohaLk/r0cYQkeZRfyfMwGRZ/A==
+	t=1792832509;
+	b=EyFe+sKU8eLMr/xoLeRHVoAqfOFOrJD5z1LQmKMZtkN+b9bokZlckaFnBrJmfHMhc+5p
+	 iISo6oLzVhNBgzdFRlD9Cwd8MntbZTjYZ1lyZRf3SJv37UEgKpb+KY6JIfko5Z/L/TK+w
+	 cpH+aP/JVu5+xGmFV1R/t0kMHtegV8mvE4cJ5Oy9zRpTHESHTwPJKDKzJDoIxdxuGf/+x
+	 bpLUasz3RfnnYwsdZRgiJZyicNPec5jDPs2RlTJfq1ywUIcAcI+YUISSlZSJBBdOhBwc3
+	 CkEUzywnKWZEF4RAZB2kT5b8CUsWnpeljih6Vhdd9aiJXz5L2Ywnn9YWh1FqMvLTSiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792832503;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792832509;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=Vz3q5S4A6UlGwFeHwDg5x+198c7jIzMe9xZxSRvF/oI=;
-	b=yk19kSzIHOXZGGfA5dp6nE7IZlYRg97Po7hFDw4bf98sFYUuVOnk/shsIYWwZrVMm8t7
-	 9rMiKlzNURhLMehSqMhlxIUY7iZKi7ODRRtRHI0P/GWKLj/TEVZlbSIVOPwwAlsmIZRT7
-	 Lf5HBBEQJ6Lpe+Tu9Qd2uETXjzR7GjpDMw/DRC8hz2WdZs++Dp8VutnADGiHhmH0EG9rn
-	 XhcIw8RCpO2yMAd+0a4AZb4o30bbiH1qospdEBLqRjMaEZTBn9mrfUWrwp9KYAVOPSYzs
-	 TetqmCvRnK7o70xFJWfSbM8GxOsojXn2etr1OX+fXPrtJIvN0Mnpa2gShKMTfMJjz5A==
+	bh=eHjkpEr9oLlcclPn1thOraO4+8omjU4rLZkEzk9l+nE=;
+	b=vgX7zYWQGkZMPENfoQMbjm5D6WGeqkCqPNDV8KqeL5lCgC2dk5CwwRq39EeWDL+wckRv
+	 XYwMpyJxxMxcSuhYbZg2u99vFtQRlFPzmn8dMsJejKcyk6LVAIEzAA5D9RANItLsQcKmf
+	 Dr+T6/2XXNWVsEuUhzBIx7bP59kGsIWYr3qTZqiUhbCJ2mc2plxzO5bCmrpa6fgt0zVwK
+	 SeOaVpaOrBp0QH+4C5iOieOkX3ACPev+BoN1HCHxDaXDBKHGNvgt7NFZgkC/DvenEzOJ7
+	 H+axebypB/zmbmB/7SA6qUgzV6l5EyQJZN4hwAXZiYRQ24LG9VISnsRH2mSXwTj9/og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="Fd5M/4b/";
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=CucWtMqV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA2B8606A31B;
-	Sat, 24 Oct 2026 09:01:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CC8606A322;
+	Sat, 24 Oct 2026 09:01:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Fd5M/4b/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 745C31F01825;
-	Sat, 24 Oct 2026 09:01:42 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=CucWtMqV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 556541F01825;
+	Sat, 24 Oct 2026 09:01:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792832502;
-	bh=Vz3q5S4A6UlGwFeHwDg5x+198c7jIzMe9xZxSRvF/oI=;
+	d=linux-foundation.org; s=korg; t=1792832509;
+	bh=eHjkpEr9oLlcclPn1thOraO4+8omjU4rLZkEzk9l+nE=;
 	h=Date:To:From:Subject;
-	b=Fd5M/4b/E0jhKLYCfwpctM5nrmsJ0wDC7H5GK5YTQxssvmLovO/TrRcrsw0DMKzKQ
-	 fH6KkcH2LBY+1B0wPw02ely1d1tBREINSrIukV8oiZtuD5IEy7V7vRzofr4c24eMVx
-	 XvoF7ZZ6FbxqLAIrbZcCdRuXL8mn3CbULL0NEiyY=
-Date: Sat, 24 Oct 2026 02:01:42 -0700
-To: mm-commits@vger.kernel.org,tgopinath@linux.microsoft.com,surenb@google.com,stable@vger.kernel.org,rppt@kernel.org,peterx@redhat.com,david@kernel.org,AutonomousCodeSecurity@microsoft.com,aarcange@redhat.com,cenzhang@linux.microsoft.com,akpm@linux-foundation.org
+	b=CucWtMqVgipwE1vW2WtIdXEaF/9S6oS2QDjkBa50BLW6k6P/esxGB3guXpfxutXmW
+	 aYU930sSzS9yj5plnP3p9TMaWQYrNIFMvbBmDw64SQEgtaNtF8T2BeIORuUGIhe6NC
+	 6bKJMbyuCbwG1Qw2eBtXET4a2qdY1IoPbT8a/L+0=
+Date: Sat, 24 Oct 2026 02:01:48 -0700
+To: mm-commits@vger.kernel.org,yuanchu@google.com,weixugc@google.com,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,ridong.chen@linux.dev,qi.zheng@linux.dev,mhocko@kernel.org,ljs@kernel.org,kasong@tencent.com,hannes@cmpxchg.org,david@kernel.org,dave@stgolabs.net,baoquan.he@linux.dev,baolin.wang@linux.alibaba.com,baohua@kernel.org,axelrasmussen@google.com,yanglincheng@kylinos.cn,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] userfaultfd-fix-uffdio_move-livelock-on-large-folio-with-extra-references.patch removed from -mm tree
-Message-Id: <20261024090142.745C31F01825@smtp.kernel.org>
+Subject: [merged mm-stable] mm-vmscan-dont-count-per-node-proactive-reclaim-as-memory-pressure.patch removed from -mm tree
+Message-Id: <20261024090149.556541F01825@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,92 +51,102 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: userfaultfd: fix UFFDIO_MOVE livelock on large folio with extra references
+     Subject: mm: vmscan: don't count per-node proactive reclaim as memory pressure
 has been removed from the -mm tree.  Its filename was
-     userfaultfd-fix-uffdio_move-livelock-on-large-folio-with-extra-references.patch
+     mm-vmscan-dont-count-per-node-proactive-reclaim-as-memory-pressure.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
-Subject: userfaultfd: fix UFFDIO_MOVE livelock on large folio with extra references
-Date: Mon, 12 Oct 2026 16:15:14 -0400
+From: Vernon Yang <yanglincheng@kylinos.cn>
+Subject: mm: vmscan: don't count per-node proactive reclaim as memory pressure
+Date: Mon, 12 Oct 2026 10:29:17 +0800
 
-To move one page out of a large folio, move_pages_ptes() first has to
-split the folio.  __folio_split() refuses if the folio has any reference
-beyond its page table mappings and the caller's own, and it reports the
-refusal as -EAGAIN.  move_pages() treats returned -EAGAIN as a transient
-race and keeps retrying the same address, holding the VMA read locks the
-whole time.  This is incorrect since in some cases userspace can hold such
-a reference indefinitely, such as by registering the page as an io_uring
-buffer.
+When the cgroup has no memory pressure at all, writing to
+/sys/devices/system/nodeX/reclaim triggers proactive reclaim on
+NUMA node, causing increase in the writer cgroup's memory PSI.
 
-An unprivileged user can trigger this with three threads: first holds such
-a reference on a page of a THP, second calls UFFDIO_MOVE on another page
-of the same THP and spins in the kernel forever holding the VMA read
-locks, and third calls fork() or mprotect(), which takes mmap_lock for
-writing and then waits forever for those read locks.  From then on every
-mmap_lock user of that mm hangs, including other processes inspecting it
-through /proc/<pid>/, until the process is SIGKILLed.  The hung task
-detector reports the blocked tasks (third one), and with
-kernel.hung_task_panic=1 the machine panics:
+Due to this reclaim is performed in the context of the write(),
+accounted as memory pressure on the writer, like
+commit e22c6ed90aa9 ("mm: memcontrol: don't count limit-setting reclaim
+as memory pressure"). This is unexpected, the similar scenarios (e.g.
+senpai) will continue to occur, only this time it is for the
+/sys/devices/system/nodeX/reclaim knob.
 
-  INFO: task wedge:95 blocked for more than 122 seconds.
-  task:wedge  state:D stack:12528 pid:95 tgid:95 ppid:94
-  Call Trace:
-   __schedule+0x596/0x1110
-   schedule+0x36/0xf0
-   __vma_start_exclude_readers+0x100/0x170
-   __vma_start_write+0x51/0xd0
-   __split_vma+0x208/0x3d0
-   vma_modify+0x6a8/0x840
-   vma_modify_flags+0xce/0x110
-   mprotect_fixup+0xbe/0x480
-   do_mprotect_pkey+0x2d9/0x580
-   __x64_sys_mprotect+0x1a/0x30
+The Documentation/ABI/stable/sysfs-devices-node documentation also
+notes that "This interface is equivalent to the memcg variant."
 
-Fix by returning -EBUSY instead of -EAGAIN in move_pages_ptes(), the
-caller of split_folio(), when the split fails.  Thus, move_pages() does
-not retry -EBUSY and the ioctl drops its locks and returns to userspace
-instead of spinning.
+This patch unifies the semantics of the memcg and node interfaces:
+per-node proactive reclaim is no longer counted as memory pressure,
+and the per-node proactive reclaim interface no longer produces
+phantom pressure.
 
-Link: https://lore.kernel.org/20261012201514.97015-1-cenzhang@linux.microsoft.com
-Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
-Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
+I ran demo[1] that performs per-node proactive reclaim 10000 times
+in qemu, writer cgroup memory.pressure as follows:
+
+without patch:
+
+some avg10=31.53 avg60=13.42 avg300=3.31 total=10602985
+full avg10=31.53 avg60=13.42 avg300=3.31 total=10602985
+
+with patch:
+
+some avg10=9.59 avg60=3.41 avg300=0.81 total=2686221
+full avg10=9.59 avg60=3.41 avg300=0.81 total=2686221
+
+
+Link: https://lore.kernel.org/20261012022917.1102467-1-vernon2gm@gmail.com
+Link: https://github.com/vernon2gh/app_and_module/tree/main/reclaim_node_psi [1]
+Fixes: b980077899ea ("mm: introduce per-node proactive reclaim interface")
+Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: <AutonomousCodeSecurity@microsoft.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Assisted-by: LLM
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Andrea Arcangeli <aarcange@redhat.com>
-Cc: <tgopinath@linux.microsoft.com>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
+Acked-by: Davidlohr Bueso <dave@stgolabs.net>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Qi Zheng <qi.zheng@linux.dev>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Axel Rasmussen <axelrasmussen@google.com>
+Cc: Yuanchu Xie <yuanchu@google.com>
+Cc: Wei Xu <weixugc@google.com>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/userfaultfd.c |    6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ mm/vmscan.c |    6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
---- a/mm/userfaultfd.c~userfaultfd-fix-uffdio_move-livelock-on-large-folio-with-extra-references
-+++ a/mm/userfaultfd.c
-@@ -1635,8 +1635,12 @@ retry:
- 			pte_unmap(dst_pte);
- 			src_pte = dst_pte = NULL;
- 			ret = split_folio(src_folio);
--			if (ret)
-+			if (ret) {
-+				/* do not retry, extra refs may be held forever */
-+				if (ret == -EAGAIN)
-+					ret = -EBUSY;
- 				goto out;
-+			}
- 			/* have to reacquire the folio after it got split */
- 			folio_unlock(src_folio);
- 			folio_put(src_folio);
+--- a/mm/vmscan.c~mm-vmscan-dont-count-per-node-proactive-reclaim-as-memory-pressure
++++ a/mm/vmscan.c
+@@ -7998,7 +7998,8 @@ static unsigned long __node_reclaim(stru
+ 					   sc->gfp_mask);
+ 
+ 	cond_resched();
+-	psi_memstall_enter(&pflags);
++	if (!sc->proactive)
++		psi_memstall_enter(&pflags);
+ 	delayacct_freepages_start();
+ 	fs_reclaim_acquire(sc->gfp_mask);
+ 	/*
+@@ -8015,7 +8016,8 @@ static unsigned long __node_reclaim(stru
+ 	memalloc_noreclaim_restore(noreclaim_flag);
+ 	fs_reclaim_release(sc->gfp_mask);
+ 	delayacct_freepages_end();
+-	psi_memstall_leave(&pflags);
++	if (!sc->proactive)
++		psi_memstall_leave(&pflags);
+ 
+ 	trace_mm_vmscan_node_reclaim_end(sc->nr_reclaimed, NULL);
+ 
 _
 
-Patches currently in -mm which might be from cenzhang@linux.microsoft.com are
+Patches currently in -mm which might be from yanglincheng@kylinos.cn are
 
 
