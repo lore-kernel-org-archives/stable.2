@@ -1,101 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792866606;
-	b=SYWIhQT/PfGr8LaHAFO9D7/J/Wkf/SIS8FpLOmL0WYYYPR19rS3NubGCSgpoo63u0NjJ
-	 GtDcUov8Y2k9HkhTjKnYtxuU2sQFo1yumJ/2tWH5GMYG8vOsTFAOVaXriOnetZ6KTC8VM
-	 /ZILSm68cr2NLkfTsMSN+O4mVZSJC4onXx7gbg8624V3URXYbGVFk7nZbNKYffouAHjwE
-	 qm2yalgpHnxZfQ8TBpVirQOKQh/duokktHeoGLB8o569sF3EijnPZeP9utvlMDcTzLPOM
-	 zZpkQ7NVw4BRjamEjZjuuMs8Nk8C1FYPblZ2bRiNz2848amHAVPToMV5XJr2h+1RulQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792866606;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792867522;
+	b=Qv9LEnOAFtHC6mtrQKzQ/dfLYdn/H/xOvp/eqgkslVgDgPpf9iENRbs2swSGfC4yM1vc
+	 Vh3Z0i5lMwBdPR7D13W8DD4G6BT42Rh4uxKE9NAEDpZA5qc0DWjAmEFDY8hl3+dOSQpQy
+	 M37cXFJGUCj7DcKBnMQou1BNLqwfyxYfcjs0O6EAhsiTemkrWRIpzlGzIQqmHa/lM1DEL
+	 6ZWnlcz4xsmHinIqjfQTke2owreKcZygXPaJjQkiczrByJF+s2AeNZIFmuo59ZONSXSEy
+	 jzK5g7rt8WdDm6jH0bi252n1tbZV3MesDupJpDovU8fAglk80S0VjwSmPdJVfQ/NaZQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792867522;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=RzgpDeCtFTyFOQNCp/6SrK6BvKk4jvhN0gJuk9MhrcE=;
-	b=BSbyE4AIyMssWdwPRzNKx43r0qKkMllH5sYj5twBtMeCF0ICuJEVlQH5H6e++zi/dksL
-	 4dp72gl5s/Q3EAlSHCV6kskcLlI0lIlL3UJ/Iis4SOmPnLmAcpN6fh4m5vZ7a5neGAHwk
-	 pdLoTeA62wt4AkNU/U7d9QQWCLt4SiE1b4MApCKot56Tpttgvuug4GOitg/g6mRBOe8DZ
-	 jbXD4/DKzkLEJJygyeVnGX6zbpufRd5SL+PihkoCfr3CWCXtHgHRLOvZYxh9zYmNaplm5
-	 C4kRm8pLoKvytBaoszBbb321X5LUtIrbIKvNUAReEF2ndjA59T27Yj+SD8sq/+pEc7w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=yY5UXFYpbU9bup1uqrZFIbo3hCy719yJ98Mgxjg26z4=;
+	b=hkohluIRbVa554+eXW53mER7lXk+0Z8kpJ1Aazc9kSLk8sGvZQYpWvDTdIWQq5iKpksP
+	 /moJx83V4gO+hoKmrgnUakJlS5wDSXZglfk9y5XXn/uBFRXjO65TYqxfM1dhM3+pMzu8u
+	 0/VnYht0VFqa0d36UUKyOeYVs+fX+TSyc9WZtqYcQ33wmqjMH88fEQDbKteb9xPULMYAQ
+	 NMO4yHdx6CL9zJ7a8rofJQ+M8KCX8TAeSwZ8o4+cxxHHlo9zQkjkRKWzSdM6wrLG3kS5t
+	 J2YkLGhe9cJrKB1gZhuPwkHF7f6nnpgRyD/QSq7/pg5pb0onIy3e+rJe8QSppUt3K8w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DohtRfeD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Ve/5r0+s";
+	arc=none smtp.remote-ip=209.85.210.50
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F38E606A31D
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 18:30:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F38E606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A72C6606A31E
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 18:45:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A72C6606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DohtRfeD
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ab3f899c8aso330283a91.1
-        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 11:30:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792866605; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TXCdrJOYgNjpawmFKEcXcrXFxnxudYFGzjnKAeEQmZKUVP0Bj1D2COI/nhz+a+F+s5
-         czu0ep6Nq+gr6af8Y/p/PgTxHk24Li31YxGeMt3gTcCMYr/5NMKPvT/BGnkFk7JZLl0i
-         hZR72kFDUte9Igbk+HdTDimJgrVNp3GyKem29xmgwhL0iLjeHBHmdu7IrweUN8DyREmi
-         R69koSfDQhcEk52IOaTwbfXlsNxbPzJdtVSN06KiydAp+pmPjkJ45rFIe1iIhBRvrvGe
-         nzvy9h5DSNLEizkfH2UyXueS/HB979wMhTLVcRZpFwUR/fOPshKiuHBfVu+AAuNtEfGY
-         mp1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RzgpDeCtFTyFOQNCp/6SrK6BvKk4jvhN0gJuk9MhrcE=;
-        fh=zRR9roS6mHuigHQ6KWNZW1TwES436rktibVY9w2QbR0=;
-        b=HwNJ4n74qL9G9nMr5/67Y9IYXhZ15hjqwbR26qi4RnZvEd/Ptwv7p1xP0fR2OpFUzx
-         gnrEvHX+0ll3S33vf40CQSLjnCPouVr/kgR1oTO9QisIV7ic23/0ZYILHptNMbYHpDMN
-         1fYr3vLQCntgJgPqB5rLstA0DFBDFGCZ/IZvlDF6K8PpJzTRT+Gu+de/UXxXRqh59j9E
-         pu/4f4OcTr+0P2jphRnYmTIurYZrUgKF02PHduCtvB0XITifP3kJhS3jCgPJu7SN0BCt
-         VSgVtlUgy0/+JuOg+Pdc54zNspzlzx+LaScBK4LRW8UfWtuSP+FYHwDgdKTAFA80T8Dv
-         gAWA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ve/5r0+s
+Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-8470d7d430fso713936a34.3
+        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 11:45:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792866605; x=1793471405; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RzgpDeCtFTyFOQNCp/6SrK6BvKk4jvhN0gJuk9MhrcE=;
-        b=DohtRfeDIfIVt2N/VMLpJzMeVxhhdoH63HMbOLSZJlb72XzhCrCVRx7XmgGAGpkHvO
-         kUb6fVySVlnHday/lEz11YTVIeJDn+oXrQxqDEMFQB6Ycsr82OCnvqr8VnalblHF1heO
-         4zMh7qL68JiVJ5wPAC3kBr2Vi8muZDpC0mpOn1pyTw16pjZa9e27b30M+nfsb592hwGt
-         VVOlMN+qbkVI8o6cnK99ngxlzEpUg5pusBnTRsPBkMPoQ4+jXZ579XwPPMbrawhI84kz
-         aTt42JHook4ljIN26y7HEs7Z68c9/L3KmMInUFx7wp1ssi0yO7oHq3uMJ+w/YjXZheYl
-         3m3Q==
+        d=gmail.com; s=20251104; t=1792867521; x=1793472321; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=yY5UXFYpbU9bup1uqrZFIbo3hCy719yJ98Mgxjg26z4=;
+        b=Ve/5r0+s4HTSaPMV+Kcd0hHLM4mvn30baQ0K+5/cDnRd1/q4ZAdyzOH8Qx8XwZdUwG
+         iZEHx/mZKCNTq/+KL7IxQjvkMqJYCgHm3Kp/lLMDPoEgVWPZ2R5DiHK5PEs4g2ADKAVi
+         yYuK0EEVEDQkZFg48hcb+xwu5JiftUyGemWFaAKWc/rH/yqNbngOsY17MPtClvNH5fJ9
+         wMQDKJDpzDWoXJ0Gl/lkNpqllyH2b4B3pSR9fRZ0VodECxwUfjl8+D+2C41wxGu8Jijr
+         wPlELm44jX8sz8L4RAXqw3Jvdt5/Bx+DpMl+kezbTZtGxNzcgWbPeHF/eZhTAOQoqEwb
+         4e6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792866605; x=1793471405;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RzgpDeCtFTyFOQNCp/6SrK6BvKk4jvhN0gJuk9MhrcE=;
-        b=MzDb6rL53NLe6lUDbD0ESz7e2BhSo3MQDBmjA2dIRmABBIY+Qc/bdL7bFSKqBYZl/5
-         Ry9om6BHiNYovxegpvLsJ2f0eq87kLbik68SMbcZha2ijZTpHRzoZvFAf+CeGq6BuX3N
-         gDmPPH0JALzt+oVq363Htx5cZjpmjoykgHlfN4b9UUXEFAwoh46fr8fRTn4LZVgpBSq8
-         6tk2Rn3DeXCPILKVOt+4Yc3bCQO4MKUlYZK7NbjPZYVplFw78mQWhCPxhzb9zm7TMu/V
-         Qg0gyi7dRGEzGVQgpMwQdIb1sH6AZJaFu1uv4Zc/DVwez3zGgElAOS+xHLpiisQ1zPYA
-         ToCw==
-X-Forwarded-Encrypted: i=1; AKwUvBwaSgUBRn8Et/clwzhlVCstJgQFLzCTpOANmX/y7vj2OazOvYI6hXIhGOTm4BHRu8kyxfHsORM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLug/Tb0bglgkcCN0us96VbQ9aWYDwZxzXYIrUOyB1rbX+9NMmW
-	HBzYGw6A0wsY6eeWJnfdeY2I+/r9EcCUZS9VIUSwFjpeD2fgkUYI3STPoWUHmCacBSE3UlrPOh1
-	J7WMW46MbDh5M0MZuD0HTeFgeG4QOiHo=
-X-Gm-Gg: AYBFou2FGKro2NL/e/vF0XIopc5/1Ev02P60PBMn6l9D9MEhBERTvwgqsnrshVkF/jW
-	O/T+iDZraJiie1eJ5dDC/aWzspH8niKEgFlhv9S/ZNJyT90TZMsxt1Hp0DUxMAHcIJlrroWQLvU
-	eKqc0uJQw8a7urhWT7AueALuuFvGP9kckxt+uGXhVcb6cAo1COlYH3ZMMBICQKzIwMnk+jYJ8w2
-	Pb7vi206QCXvSK9I4/kLXn3t46bpPQzkAMxRqbgD7kJ9cY9Fb775y4/BD8DoYfaMU3I6Nh/ieyq
-	QDbXEfcAudYzMuPlgYjC4UzrozEqzpSBSrErpwD8MoIUtewJrzfcM2JC96bVhuVXhfPsb5hghKg
-	AP1byKoO9k7t2Bvsm6swfsTLb9THTEQHt3868Tl67orYDmFZQzFn2D57cNY1qBfzidRO4BQW7Tq
-	ig
-X-Received: by 2002:a17:90b:58cd:b0:3ac:9c37:9422 with SMTP id
- 98e67ed59e1d1-3adea2003c9mr3866384a91.2.1792866604827; Sat, 24 Oct 2026
- 11:30:04 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792867521; x=1793472321;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=yY5UXFYpbU9bup1uqrZFIbo3hCy719yJ98Mgxjg26z4=;
+        b=nRa/AbWQA38W8Y8sqQvxpd2VHV54zZp+6AVlcs/FyVkH1IKGAoBjY4kAZ2AN6EpYE1
+         DJZwDTZf8lZaLxPtJHzB5dNX3r18h6FWx1YOS3cKg9/iFOpl1xSF4V/PMLfMiOa9wdgU
+         A1DUGJr5oioUYB/a0+4ENJ89mEp9FYZSjn+FzSTUS6fCOjgY1C2MF5STUvfUdDETvsgR
+         am7xKN7eWcpwXUYdQAOfUPiVAOqEWaF7woH9WM54dsEfpsvHe9zw0arLovrX72YJRH/m
+         1u1P7QkV0FWIOwjwLqInlcPpnpDTWdRtfD5Oz70HlNfXxRCvsa8gGn5kmpQaB3rJTcFy
+         W3hg==
+X-Forwarded-Encrypted: i=1; AKwUvBw2N4jtvkLblPIo2vz9UtpWEBxzbnyZj7542ZsYBH+PzpObhBBmz2p6t3gUOG0v3E/OOEkvfTY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKxMNqQ0Yq10q6FzUODo+iIYKhhIq9g8ZftJKxaT9BUZsYQEihX
+	xwuwX39jg06WaSUtcsVIAye4TgyLWe40ZEGSUKT2k/TEZ+pD4GfUPtKJ
+X-Gm-Gg: AYBFou0kGPAh9BP/HdBI42IGgYRDG/JPjAqp5U8XQOeBij/5a/h5qVNs1yqBGEi7Zzn
+	GTJ/2J60SnWCurNv1RCJZLLHVIzxZwmLb7vycMFo2eI+bnXe/IV7OBetg1J6E+Q1gkClIXbQcvU
+	7tpT8VyYkxdHejv8ZRBKX7cYh6Sw7ixZLMyzViaGnHZG0E9k9s1XY7ttdd0AB/NK6rRcFVIRUYE
+	Ff0+c8zvX4CJBIsfpE19Mot5Gea6an1nPZl+j05Lk+4q9sZ80k4rvwC59harO9PRejZcMuPu5QJ
+	5lG+AMWJyHnoelIJWp9zWxzeWgqQyRNrL8Y4i2vqRX3C1npTTxx+qVD2KMN4xhpnDpWrmgfaVLC
+	Epd8Jzv8SF0Ee5i58gUZy5SMyHBtcJPsudFThc+cX8LFrCv1AcF9EbTgmVA2pq43gi7nv+Xqcyi
+	K+if/kGUzYJdu0xr7mM8Ultx0iRMGsxfpBZDQZnbjdxloMKhxhOKbTHjjdz9ifujH63atErw0+6
+	I6crma4f00vUnNN1adKu6Jut8hEVhtPuY2il8pEXEAYaEPeOUj0VIZooCZXONUKZoLVnV2zQzUR
+	WZ7IzgdV88uxNdGKRNk/+xWzwDnABaFwiiiTz6jRpXQEE8IBgPxJcnibY8xQ97DaScvlUvUgCUH
+	/WT70B2GDQzfFO090cpnbG6LDDZuW8B6XU5EBnowOUb4FPw6gYd+S7uHCj4zNx4cHKM+Wvamb3Q
+	57VTo=
+X-Received: by 2002:a05:6871:287:b0:447:4fc:1da1 with SMTP id 586e51a60fabf-4a83f445ec0mr1555289fac.12.1792867520675;
+        Sat, 24 Oct 2026 11:45:20 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a843231095sm1477278fac.17.2026.10.24.11.45.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 11:45:20 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Sat, 24 Oct 2026 12:45:18 -0600
+Subject: [PATCH v2] serial: 8250_dw: preserve BUSY-safe fractional divisor
+ programming
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,204 +93,168 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261024-assorted-fixes-oct-v1-0-2977f974ddb7@oss.qualcomm.com> <20261024-assorted-fixes-oct-v1-6-2977f974ddb7@oss.qualcomm.com>
-In-Reply-To: <20261024-assorted-fixes-oct-v1-6-2977f974ddb7@oss.qualcomm.com>
-From: Connor Abbott <cwabbott0@gmail.com>
-Date: Sat, 24 Oct 2026 14:29:52 -0400
-X-Gm-Features: AclHuK_Wkxnx4x9hzjubfG-sNaa6VFJgJnA97sgJBAGJdBKAT92A62FuiwUWZSg
-Message-ID: <CACu1E7EO1rYgy+KN66EqQWLxvdXVKiAhwh=EWqe2ZP6wWdhZ6w@mail.gmail.com>
-Subject: Re: [PATCH 6/8] drm/msm/a6xx: Reset preemption records across suspend
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Jordan Crouse <jordan@cosmicpenguin.net>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Luben Tuikov <ltuikov89@gmail.com>, Antonino Maniscalco <antomani103@gmail.com>, 
-	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261024-submit-serial-8250-dw-divisor-v1-v2-1-032ca5338359@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WO3Q6CMAyFX4Xs2iqbjKBXvofhYj8FagTMNhFCe
+ Hc3fAKT9uK0PV/Pyjw6Qs+u2cocTuRpHKIQh4yZTg0tAtmomchFyXNxBv/WPQVINvWESsgc7Ac
+ sRevoYOIgG15WF7S5VBWLmJfDhub9xb3+6ch4oAmJmy608gjaqcF0aRTCcooNA84hrTvyYXTLH
+ nHiCfNHmlgcmkIKW2jNNW9uba/oeTRjz+pt276XvDWCAQEAAA==
+X-Change-ID: 20261023-submit-serial-8250-dw-divisor-v1-5f1689ed05a8
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Raul E Rangel <rrangel@chromium.org>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-On Sat, Oct 24, 2026 at 6:31=E2=80=AFAM Akhil P Oommen <akhilpo@oss.qualcom=
-m.com> wrote:
->
-> The preemption records are initialised only once at probe time. On every
-> resume, a6xx_preempt_hw_init() and a8xx_preempt_hw_init() refresh only a
-> subset of the fields (rptr, wptr, rptr_addr, info, data, rbase). Whatever
-> else the CP wrote into the record before the GPU was power-collapsed
-> is left in place and gets consumed again by the CP on the next preemption=
-,
-> now carrying stale context state.
->
-> To fix this, zero the whole preemption record on suspend and fully
-> initialise every field in the hw_init path.
->
-> Fixes: e7ae83da4a28 ("drm/msm/a6xx: Implement preemption for a7xx targets=
-")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+dw8250_probe() installs a divisor setter that makes the UART idle and
+checks DLAB before writing DLL and DLH. When dw8250_setup_port() detects
+fractional-divisor support, it replaces that setter with the library's
+callback. The replacement writes DLF and uses serial8250_do_set_divisor(),
+bypassing the divisor setter's idle sequence and DLAB readback.
 
-Thanks, this gets the AQE working on my glymur laptop (Slim 7x).
+If the LCR update fails to set DLAB, the subsequent divisor writes can
+reach TX and IER instead of DLL and DLH.
 
-Tested-by: Connor Abbott <cwabbott0@gmail.com>
+Expose the library's fractional-divisor calculation and DLF write as
+shared helpers. Install the BUSY-safe setter after hardware discovery and
+use the shared DLF helper to program the fractional field only after DLAB
+has been confirmed, alongside DLL and DLH. Select the shared calculator
+when fractional divisors are supported, preserving the core calculation
+for integer-only ports.
 
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     |  2 ++
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  1 +
->  drivers/gpu/drm/msm/adreno/a6xx_preempt.c | 37 ++++++++++++++++++-------=
-------
->  drivers/gpu/drm/msm/adreno/a8xx_preempt.c | 11 ++++++---
->  4 files changed, 32 insertions(+), 19 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
-adreno/a6xx_gpu.c
-> index 92e8c8abb86d..3e4afaa5345f 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -2248,6 +2248,7 @@ static int a6xx_gmu_pm_suspend(struct msm_gpu *gpu)
->                 for (i =3D 0; i < gpu->nr_rings; i++)
->                         a6xx_gpu->shadow[i] =3D 0;
->
-> +       a6xx_preempt_record_reset(gpu);
->         gpu->suspend_count++;
->
->         return 0;
-> @@ -2287,6 +2288,7 @@ static int a6xx_pm_suspend(struct msm_gpu *gpu)
->                 for (i =3D 0; i < gpu->nr_rings; i++)
->                         a6xx_gpu->shadow[i] =3D 0;
->
-> +       a6xx_preempt_record_reset(gpu);
->         gpu->suspend_count++;
->
->         return 0;
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/=
-adreno/a6xx_gpu.h
-> index 79912a33e17c..62a19e22e230 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> @@ -305,6 +305,7 @@ void a6xx_preempt_hw_init(struct msm_gpu *gpu);
->  void a6xx_preempt_trigger(struct msm_gpu *gpu);
->  void a6xx_preempt_irq(struct msm_gpu *gpu);
->  void a6xx_preempt_fini(struct msm_gpu *gpu);
-> +void a6xx_preempt_record_reset(struct msm_gpu *gpu);
->  void a6xx_emit_set_pseudo_reg(struct msm_ringbuffer *ring,
->                 struct a6xx_gpu *a6xx_gpu, struct msm_gpu_submitqueue *qu=
-eue);
->  int a6xx_preempt_submitqueue_setup(struct msm_gpu *gpu,
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c b/drivers/gpu/drm/=
-msm/adreno/a6xx_preempt.c
-> index 1e599d4ddea1..df8d4f3e8d4c 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
-> @@ -140,12 +140,17 @@ void a6xx_preempt_hw_init(struct msm_gpu *gpu)
->         for (i =3D 0; i < gpu->nr_rings; i++) {
->                 struct a6xx_preempt_record *record_ptr =3D a6xx_gpu->pree=
-mpt[i];
->
-> -               record_ptr->wptr =3D 0;
-> -               record_ptr->rptr =3D 0;
-> -               record_ptr->rptr_addr =3D shadowptr(a6xx_gpu, gpu->rb[i])=
-;
-> +               record_ptr->magic =3D A6XX_PREEMPT_RECORD_MAGIC;
->                 record_ptr->info =3D 0;
-> +               record_ptr->errno =3D 0;
->                 record_ptr->data =3D 0;
-> +               record_ptr->cntl =3D MSM_GPU_RB_CNTL_DEFAULT;
-> +               record_ptr->rptr =3D 0;
-> +               record_ptr->wptr =3D 0;
-> +               record_ptr->rptr_addr =3D shadowptr(a6xx_gpu, gpu->rb[i])=
-;
->                 record_ptr->rbase =3D gpu->rb[i]->iova;
-> +               record_ptr->counter =3D 0;
-> +               record_ptr->bv_rptr_addr =3D rbmemptr(gpu->rb[i], bv_rptr=
-);
->         }
->
->         /* Write a 0 to signal that we aren't switching pagetables */
-> @@ -163,6 +168,19 @@ void a6xx_preempt_hw_init(struct msm_gpu *gpu)
->         a6xx_gpu->cur_ring =3D gpu->rb[0];
->  }
->
-> +void a6xx_preempt_record_reset(struct msm_gpu *gpu)
-> +{
-> +       struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
-> +       struct a6xx_gpu *a6xx_gpu =3D to_a6xx_gpu(adreno_gpu);
-> +       int i;
-> +
-> +       if (gpu->nr_rings =3D=3D 1)
-> +               return;
-> +
-> +       for (i =3D 0; i < gpu->nr_rings; i++)
-> +               memset(a6xx_gpu->preempt[i], 0, a6xx_gpu->preempt_bo[i]->=
-size);
-> +}
-> +
->  void a6xx_preempt_trigger(struct msm_gpu *gpu)
->  {
->         struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
-> @@ -302,8 +320,6 @@ static int preempt_init_ring(struct a6xx_gpu *a6xx_gp=
-u,
->         a6xx_gpu->preempt_iova[ring->id] =3D iova;
->         a6xx_gpu->preempt[ring->id] =3D ptr;
->
-> -       struct a6xx_preempt_record *record_ptr =3D ptr;
-> -
->         ptr =3D msm_gem_kernel_new(gpu->dev,
->                 PREEMPT_SMMU_INFO_SIZE,
->                 MSM_BO_WC | MSM_BO_MAP_PRIV | MSM_BO_GPU_READONLY,
-> @@ -329,17 +345,6 @@ static int preempt_init_ring(struct a6xx_gpu *a6xx_g=
-pu,
->         smmu_info_ptr->asid =3D 0xdecafbad;
->         smmu_info_ptr->context_idr =3D 0;
->
-> -       /* Set up the defaults on the preemption record */
-> -       record_ptr->magic =3D A6XX_PREEMPT_RECORD_MAGIC;
-> -       record_ptr->info =3D 0;
-> -       record_ptr->data =3D 0;
-> -       record_ptr->rptr =3D 0;
-> -       record_ptr->wptr =3D 0;
-> -       record_ptr->cntl =3D MSM_GPU_RB_CNTL_DEFAULT;
-> -       record_ptr->rbase =3D ring->iova;
-> -       record_ptr->counter =3D 0;
-> -       record_ptr->bv_rptr_addr =3D rbmemptr(ring, bv_rptr);
-> -
->         return 0;
->  }
->
-> diff --git a/drivers/gpu/drm/msm/adreno/a8xx_preempt.c b/drivers/gpu/drm/=
-msm/adreno/a8xx_preempt.c
-> index 6cb53a071801..0e0503ed54a1 100644
-> --- a/drivers/gpu/drm/msm/adreno/a8xx_preempt.c
-> +++ b/drivers/gpu/drm/msm/adreno/a8xx_preempt.c
-> @@ -121,12 +121,17 @@ void a8xx_preempt_hw_init(struct msm_gpu *gpu)
->         for (i =3D 0; i < gpu->nr_rings; i++) {
->                 struct a6xx_preempt_record *record_ptr =3D a6xx_gpu->pree=
-mpt[i];
->
-> -               record_ptr->wptr =3D 0;
-> -               record_ptr->rptr =3D 0;
-> -               record_ptr->rptr_addr =3D shadowptr(a6xx_gpu, gpu->rb[i])=
-;
-> +               record_ptr->magic =3D A6XX_PREEMPT_RECORD_MAGIC;
->                 record_ptr->info =3D 0;
-> +               record_ptr->errno =3D 0;
->                 record_ptr->data =3D 0;
-> +               record_ptr->cntl =3D MSM_GPU_RB_CNTL_DEFAULT;
-> +               record_ptr->rptr =3D 0;
-> +               record_ptr->wptr =3D 0;
-> +               record_ptr->rptr_addr =3D shadowptr(a6xx_gpu, gpu->rb[i])=
-;
->                 record_ptr->rbase =3D gpu->rb[i]->iova;
-> +               record_ptr->counter =3D 0;
-> +               record_ptr->bv_rptr_addr =3D rbmemptr(gpu->rb[i], bv_rptr=
-);
->         }
->
->         /* Write a 0 to signal that we aren't switching pagetables */
->
-> --
-> 2.55.0
->
+Fixes: a7b9ce39fbe4 ("serial: 8250_dw: Ensure BUSY is deasserted")
+Cc: stable@vger.kernel.org
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+Changes in v2:
+- Share the fractional-divisor calculation and DLF write through exported
+  dwlib helpers, and use them in the platform driver as requested by Andy.
+- Select the fractional calculator only when DLF is implemented, preserving
+  the existing core calculation for integer-only ports.
+- Link to v1: https://lore.kernel.org/r/20261023-submit-serial-8250-dw-divisor-v1-v1-1-f452d4bb1b1f@gmail.com
+
+Previously included in the DMA cancellation series v4:
+https://lore.kernel.org/r/20261023-submit-serial-8250-dma-cancel-v1-v4-0-e759de1839de@gmail.com
+
+Changes in DMA cancellation v4:
+- Keep DesignWare's BUSY-safe divisor setter after fractional-divisor
+  discovery, writing DLF and DLL/DLH only after confirming DLAB.
+- Link to v3: https://patch.msgid.link/20261023-submit-serial-8250-dma-cancel-v1-v3-0-d78f9e4c4932@gmail.com
+---
+ drivers/tty/serial/8250/8250_dw.c    |  9 ++++++++-
+ drivers/tty/serial/8250/8250_dwlib.c | 15 +++++++++++----
+ drivers/tty/serial/8250/8250_dwlib.h |  2 ++
+ 3 files changed, 21 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+index eca02e8bd6d1..d036a2fe258a 100644
+--- a/drivers/tty/serial/8250/8250_dw.c
++++ b/drivers/tty/serial/8250/8250_dw.c
+@@ -190,6 +190,7 @@ static int dw8250_idle_enter(struct uart_port *p)
+ static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
+ 			       unsigned int quot, unsigned int quot_frac)
+ {
++	struct dw8250_port_data *pd = p->private_data;
+ 	struct uart_8250_port *up = up_to_u8250p(p);
+ 	int ret;
+ 
+@@ -201,6 +202,8 @@ static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
+ 	if (!(serial_port_in(p, UART_LCR) & UART_LCR_DLAB))
+ 		goto idle_failed;
+ 
++	if (pd->dlf_size)
++		dw8250_set_divisor_dlf(p, quot_frac);
+ 	serial_dl_write(up, quot);
+ 	serial_port_out(p, UART_LCR, up->lcr);
+ 
+@@ -651,7 +654,6 @@ static int dw8250_probe(struct platform_device *pdev)
+ 
+ 	p->set_ldisc	= dw8250_set_ldisc;
+ 	p->set_termios	= dw8250_set_termios;
+-	p->set_divisor	= dw8250_set_divisor;
+ 
+ 	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+ 	if (!data)
+@@ -768,6 +770,11 @@ static int dw8250_probe(struct platform_device *pdev)
+ 	if (!data->skip_autocfg)
+ 		dw8250_setup_port(p);
+ 
++	/* Use the BUSY-safe sequence for both integer and fractional divisors. */
++	if (data->data.dlf_size)
++		p->get_divisor = dw8250_get_divisor_dlf;
++	p->set_divisor = dw8250_set_divisor;
++
+ 	/* If we have a valid fifosize, try hooking up DMA */
+ 	if (p->fifosize) {
+ 		data->data.dma.rxconf.src_maxburst = p->fifosize / 4;
+diff --git a/drivers/tty/serial/8250/8250_dwlib.c b/drivers/tty/serial/8250/8250_dwlib.c
+index 9bb02a4ab11f..88562c8d5d1d 100644
+--- a/drivers/tty/serial/8250/8250_dwlib.c
++++ b/drivers/tty/serial/8250/8250_dwlib.c
+@@ -23,8 +23,8 @@
+  * we have: div(F) * (16 * baud) = rem
+  * so frac = 2^dlf_size * rem / (16 * baud) = (rem << dlf_size) / (16 * baud)
+  */
+-static unsigned int dw8250_get_divisor(struct uart_port *p, unsigned int baud,
+-				       unsigned int *frac)
++unsigned int dw8250_get_divisor_dlf(struct uart_port *p, unsigned int baud,
++				  unsigned int *frac)
+ {
+ 	unsigned int quot, rem, base_baud = baud * 16;
+ 	struct dw8250_port_data *d = p->private_data;
+@@ -35,11 +35,18 @@ static unsigned int dw8250_get_divisor(struct uart_port *p, unsigned int baud,
+ 
+ 	return quot;
+ }
++EXPORT_SYMBOL_GPL(dw8250_get_divisor_dlf);
++
++void dw8250_set_divisor_dlf(struct uart_port *p, unsigned int quot_frac)
++{
++	dw8250_writel_ext(p, DW_UART_DLF, quot_frac);
++}
++EXPORT_SYMBOL_GPL(dw8250_set_divisor_dlf);
+ 
+ static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
+ 			       unsigned int quot, unsigned int quot_frac)
+ {
+-	dw8250_writel_ext(p, DW_UART_DLF, quot_frac);
++	dw8250_set_divisor_dlf(p, quot_frac);
+ 	serial8250_do_set_divisor(p, baud, quot);
+ }
+ 
+@@ -217,7 +224,7 @@ void dw8250_setup_port(struct uart_port *p)
+ 
+ 	if (reg) {
+ 		pd->dlf_size = fls(reg);
+-		p->get_divisor = dw8250_get_divisor;
++		p->get_divisor = dw8250_get_divisor_dlf;
+ 		p->set_divisor = dw8250_set_divisor;
+ 	}
+ 
+diff --git a/drivers/tty/serial/8250/8250_dwlib.h b/drivers/tty/serial/8250/8250_dwlib.h
+index 39fcb1b323ad..7191cabfb086 100644
+--- a/drivers/tty/serial/8250/8250_dwlib.h
++++ b/drivers/tty/serial/8250/8250_dwlib.h
+@@ -97,6 +97,8 @@ struct dw8250_port_data {
+ 	int		srbr;
+ };
+ 
++unsigned int dw8250_get_divisor_dlf(struct uart_port *p, unsigned int baud, unsigned int *frac);
++void dw8250_set_divisor_dlf(struct uart_port *p, unsigned int quot_frac);
+ void dw8250_do_set_termios(struct uart_port *p, struct ktermios *termios, const struct ktermios *old);
+ void dw8250_setup_port(struct uart_port *p);
+ 
+
+---
+base-commit: 1184f87e2790e8af9be3116f608d2e86b4792d7d
+change-id: 20261023-submit-serial-8250-dw-divisor-v1-5f1689ed05a8
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
+
