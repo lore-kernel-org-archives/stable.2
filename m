@@ -1,66 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792864972;
-	b=SDTC76V8blqvfYG314+QXqOpv6js/U4uvuG0WOaehECpTUKOQYGJMPc3e7rwY8UsHi2F
-	 s1E2m0sHahqimMjzRlmECiGgNcSl9Wc3q+CaAQH0k6uhHDnsEd5ZUUlF3hBl9PVZ3RLSx
-	 llyRbOTumg1z8k5k654yduEoHky47MFbize0XZUvMKhV28svpaWUISRPeBZub5T5tsd6J
-	 /P4TYjB1SjGnSAoIqMnBtPoB1r0HMdy94LwOuOH4LAD0vR8BfkxnCTS4yTLIaIWtsRF0L
-	 Et3FZ3ZWwXE/y273OD3+7fdCcKSK8J8HBgjSrmzrSWQTddmszA1SzvPmlC/HEFLPHwg==
+	t=1792865070;
+	b=IQ63jmZ7vm1YDs7aAibvVPTpdKpQrVDftb1Lae14olCfMJxbBZ4ml4tZN6CnmdtS88o0
+	 CuzHbo9OOoOxCbsUy5d8YEKzLmcB9n+WhF9pm3BS72AMtSVCay5es1JvumWpUlZlfK8yN
+	 pNKMfSr2h8/PacCHNXRMbLDtA+2twcer8LWBjO0ATm6elzWJW/U2seJj0icjpfGd8RZjc
+	 3w59pJmvkApXWUHomEqVR6xav4k2NpZxT6FwUe2lw6UD0grvmj6U0GFppxBe38gvyoth9
+	 2+jLYom1R01smI18BnQJ3VzmES4sBiUGFE/WscR6XA4tcnVRnvVdnpU7T7qpbpH3vZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792864972;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=eIeVJTLozSdLbIKTdmQoMBob0wlVQZIBGS5B40KWhyU=;
-	b=pIeGfXR2ygqGnLMhuesASThmpgSlZnpUwClho0DYgUX67c8TQCfSbVWlF66TrrGvK60h
-	 aHBnLFZSvdPJBTn+oE2joCHwoZbpyAYcP4aKzErmEIpyEjBaEaH1DGV1VCS+QLqzqw8ZR
-	 SBLuWi5ZkQOVYF95ATybylzLQCb161Bcd33m/Uijq4qkAc+lu+6VaC2YBIUPaey4NCvsD
-	 ot4BGvPGumrXFaxM+5Lh5fOug58YpWocLJ+jvxcejKKRwq0z6jXvMplpb0xaWDbboAzj0
-	 hAiJf+UgKLfqvE1Uf5DOQz7OPdQOsInXe9MgH1islA0i5lraup0lMq1OW+1CluDgfqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792865070;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=WuFaVsQnEsxjjfPV6MVWqOly4eWoNzk8KL77FptK4VI=;
+	b=3ls2INl+c+rabpNcXM/lycfzHz5kcT+he6XGeCcJoQuns4rC8csQ2X0RPul/AHB0ZCTg
+	 VU3575u5lBEH5V9fZcIX0Cm5vCCgCPiQFbGNzdR8QdHFqXziVvUJ4MOJJ+OKmEOrEOw3u
+	 XX2PUh0VvosVwhuk/os5Z57bazSw2/0uyJGQO+qJ1vnFJhXTF77c3RQr7Qd5jz2OrC9kH
+	 SNpq8fLQaA1vM0+q53EVXgiXGIW/f0wvvkGL3jRM729+5o2dVk5vSYAINSK1LVmhkJItf
+	 7g6UZM8qjDbrlzUbdouCUD6ci4XpveB9JeYJbFMq8H71uY5UQIA3cli090NcZ7iuYVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=IRccZDxo;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l+d5gCXu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4034F606A31A;
-	Sat, 24 Oct 2026 18:02:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4034F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D927606A31A;
+	Sat, 24 Oct 2026 18:04:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=IRccZDxo
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jBnmW5x6Zzlfvps;
-	Sat, 24 Oct 2026 18:02:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1792864969; x=1795456970; bh=eIeVJTLozSdLbIKTdmQoMBob
-	0wlVQZIBGS5B40KWhyU=; b=IRccZDxowA4GvZGH14ueAYLz8AJ+ye9v8IXWvq8+
-	s2Ms7MOTVIJDBz8Lqyex5Daz4zM2rKTGPnT2EgZaWZMEbhKh9X2Z0JlcI9jpEda7
-	3UnZ4mWn7XhqluMKncDVgWmujOFlbtL8m8Iiga2kSJn6BYYRwhFV5/fZj+De+yJK
-	+Z4TpESdHOMijUavC+vY1Lxb9IfugeULK5ZQWj/6z3FIkGToqJkDV/Kj80b/QNoO
-	vQTzLpGvgT+OmSAZyUu/8XeJZSyJnIq5LrwAgviHEY6ufNgENwwbryrLAxVJfg+e
-	3VZgoTOEo8U/4euXH0IS4j9nfhk2GEf5hLZ25SN6UasU9g==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id fZcaJXGGZAEK; Sat, 24 Oct 2026 18:02:49 +0000 (UTC)
-Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jBnmT0TQYzlfvpN;
-	Sat, 24 Oct 2026 18:02:48 +0000 (UTC)
-Message-ID: <75465b8f-1109-4a83-84ab-f4b464f187e3@acm.org>
-Date: Sat, 24 Oct 2026 11:02:48 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l+d5gCXu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8089B1F01828;
+	Sat, 24 Oct 2026 18:04:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792865069;
+	bh=WuFaVsQnEsxjjfPV6MVWqOly4eWoNzk8KL77FptK4VI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=l+d5gCXulhz+B8QplBmZeI8wBVDt1VEUkCDs1SRtqNbvNdJlj9oe07deSdY9j7WaG
+	 uK1udjb5jH4Bc7Jyw0kkqo9PxSwRzmXY63xDu/mPDFT3AWWX85Z1fTMQ83AbIwX4J1
+	 vJCgCD73rsmp/jDehZkxwHAGwLaIdMWK3FtwzGznauJgGACrtortNRElwWhqUzDMBs
+	 AT9ZCPbGxIRRhs1ydSq+aYgZc61EqNRVV7+RedVwrE9R70VCkH08smNVx9iJQNvoyN
+	 +7fDm8rVLUPdB1zcV1P3UiWfdpn92Tq0kDcz3OVOuhbnHroMI0xvow72K1/uELskhp
+	 sO/LI5RNmcvpQ==
+Date: Sat, 24 Oct 2026 11:04:28 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Baokun Li <libaokun@linux.alibaba.com>
+Cc: linux-fscrypt@vger.kernel.org, tytso@mit.edu, jaegeuk@kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4] fscrypt: Fix missing barrier in
+ fscrypt_find_mode_key()
+Message-ID: <20261024180428.GB2553@quark>
+References: <20261024104350.2257313-1-libaokun@linux.alibaba.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,21 +58,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] RDMA/srpt: widen the indirect RDMA context
- counters
-To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- linux-rdma@vger.kernel.org, target-devel@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261024162852.3528224-1-yhlee@isslab.korea.ac.kr>
- <20261024162852.3528224-3-yhlee@isslab.korea.ac.kr>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261024162852.3528224-3-yhlee@isslab.korea.ac.kr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261024104350.2257313-1-libaokun@linux.alibaba.com>
 
-On 10/24/26 9:28 AM, Yehyeong Lee wrote:
-> Make both counters int, the type the values they accumulate already have.
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+On Sat, Oct 24, 2026 at 06:43:50PM +0800, Baokun Li wrote:
+> fscrypt_find_mode_key() walks an RCU list and hands out a per-mode
+> key without an acquire:
+> 
+>   setup task
+>   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>   setup_per_mode_enc_key()
+>    ├─ fscrypt_prepare_key()
+>    │  └─ fscrypt_prepare_inline_crypt_key()
+>    │     └─ blk_crypto_start_using_key()
+>    │        └─ blk_crypto_fallback_start_using_mode()
+>    │           ├─ init profile, keyslots, tfms[]
+>    │           └─ smp_store_release(tfms_inited[mode])  # init order
+>    └─ list_add_tail_rcu(&new_node->link, ...)  # release -> finder
+> 
+>   finding task (later submits the I/O itself)
+>   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>   fscrypt_find_mode_key()
+>    ├─ list_for_each_entry_rcu(node, ...)
+>    └─ return &node->key                 # no acquire, chain breaks
+>   ...
+>   blk_crypto_fallback_bio_prep()        # WRITE path
+>    ├─ tfms_inited[mode]                 # addr-dep, reads true
+>    ├─ blk_crypto_fallback_profile       # no dependency
+>    ├─ blk_crypto_keyslots               # no dependency
+>    └─ slotp->tfms[mode]                 # no dependency
+> 
+> RCU publishes the node and the key reachable from it, so
+> tfms_inited[mode] reads true through the address dependency.  The
+> independent fallback globals are not covered by it and can be read as
+> uninitialized.
+> 
+> On a weakly ordered machine, a WRITE bio can crash in
+> blk_crypto_get_keyslot() or crypto_sync_skcipher_setkey().
+> 
+> Other tasks reach the key through fscrypt_inode_info's
+> cmpxchg_release()/smp_load_acquire(), which is already ordered after
+> the list walk; only the finding task's own later I/O was not.
+> 
+> Fix this by upgrading the control dependency to an acquire with
+> smp_acquire__after_ctrl_dep() once a matching entry has been found.
+> 
+> Fixes: dd015b566d50 ("fscrypt: Fix key setup in edge case with multiple data unit sizes")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Eric Biggers <ebiggers@kernel.org>
+> Link: https://lore.kernel.org/r/20261014161153.GC322435@quark
+> Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
+> ---
+> Changes since v3:
+>  * Update commit message and comments as suggested by Eric.
+
+Applied to https://git.kernel.org/pub/scm/fs/fscrypt/linux.git/log/?h=for-next
+
+Thanks!
+
+- Eric
