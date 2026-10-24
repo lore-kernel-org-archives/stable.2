@@ -1,115 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.153
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792852373;
-	b=itqfhTLryluWrpoQvu4Pln8SXGeBuPzU8UBTjqRlErbJcnCf4N9mykZdUYuEex2h2Mdg
-	 9NVMdAjcwaaNUaPjfzXzTYdoe7IR5/pbNYW/wlk1njzmEpqquKIfyx8EiwLLByLL/1qEE
-	 dwX5bLrdv2DYVkE5T78hR34xwXHd+CU4ZsppQErTKLgE/TIkR8Iaa/WYvhzhN2OgFFmLL
-	 Vx0xTaj/jjECBAfFCYGESaKaOkrPxl6PKxWyMCq8M67UkHni4f91+Fwn72I/+e6X8PRRY
-	 dVOR/cME+/YYhA1vlQ1WpyYvJbbdOrc21CV7HaI1fk7h6ZX1KTSsipDuDs1O2QUFVzA==
+	t=1792852395;
+	b=JJTadq1e9K3fFaNRJn1ba2T8RQAiwr7EgaxKm5EMS+FfWIgqVx7CAtPq9eX98A0FKgPY
+	 S6r0knUBwyHmGFk7dWy1WCNAfiJn5lZ8/8umww/Da9yL/kZ7dvqrHQ62t6A1E7OxZNzVk
+	 go/wGyFafKBAIwTE9R+MxG/evP/Sc8zsrfwpr3q6U32F46+I8dWgz5hwREKRJp95gdbmR
+	 ywHiHThOHyhYJ6pxwCKeI0n4N62H6BB6DwW+lhy/yvdzF7dfBJ0TTYOlAmOb23oIiTbwB
+	 QyBAtGD+2iRAyTBzhTKgW0RwG7htNizbwZCdvFiOSu4YiYWqxFzMcFYPseAF+CMxoRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792852373;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=cr/MFgzbfp/0PfqFMYRD0aoKwz1s9qkrZtvNnzoLhtA=;
-	b=adMRYmLPZqaP7m8bfwoAE6h8B0ZvSnJJKhS7FEs8Thns+U/Yih4IR/exOIjWIrwyJSpu
-	 UgZkZgizqwm86nIX3/fql40pf86cZXTuXX9X3cehc2BfFOTsgwFOc7SXBMn0JLzGTRoDs
-	 EwUCfA5jmz6n9EfnhfSAd6CePtqarwrNB0dO33qfLTRFYp6KvkHtRGa+YfE9VdAXiWkEx
-	 3jIdw3/26ruvP+UYfOxfOSnE5XwPR9JQFUZ7hrfV/UNGrBme/2CZQiRoZ+lSU++/AoeA8
-	 A30L4pXfinqwRwnmVZHh64GkmmSYcdX3LobaCnlht4RDHuzUK3oZ0J/E8ysdS6Cim2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792852395;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=62C/WGQ9szz/+3dIDMXojHN4CIzM2zakryFUy7peba8=;
+	b=mFvNJTNGT/GxNTy2R/yE4hLcroP2zAOiSG+5vUTFghXBorEqFnmTdFZRU1zAVJojNPP8
+	 NDH5AbotHaVJkrS5AJKKghC5qNLycYzni9rD2gzosfIrZfmLsW3XfD5J3LWMK8gi4zV9+
+	 tFia+XzocGBwVyVUeLq39PBBR7HxLAQvPgCSbKVi5KQxeJU8BBfMlPJe5S89nqJFT6fwz
+	 4kMcdO9MTXXt43J9jLjcG/6PnYtNsZMqxWBVd5v4X2zHlY5XF2Ns8F6yhRBgOcX0AD+gs
+	 F7twg6SATSJDQ5M4+vLZtI9DipX3/WQXuPPE8FbDrX17tRLS2Tm1sHhn2WK0F3V1H0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=SVed4wJe;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=dUPUTpnt;
-	arc=none smtp.remote-ip=202.12.124.153
-Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
+	dmarc=pass header.from=gmx.de;
+	spf=pass smtp.mailfrom=gmx.de;
+	dkim=pass header.d=gmx.de header.i=erik.brangs@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=p2VXvdvi;
+	arc=none smtp.remote-ip=212.227.17.22
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF5D2606A31D
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 14:32:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF5D2606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C95A0606A31A;
+	Sat, 24 Oct 2026 14:33:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C95A0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=SVed4wJe;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=dUPUTpnt
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id CD7487A00CF
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 10:32:51 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-02.internal (MEProxy); Sat, 24 Oct 2026 10:32:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792852371;
-	 x=1792938771; bh=cr/MFgzbfp/0PfqFMYRD0aoKwz1s9qkrZtvNnzoLhtA=; b=
-	SVed4wJeH8EArNTS0lkYD6f7S+eogkv+YMT6pnZH+qjjRvp/nP/QDuDxcYQqxT1+
-	46ngOr6w5uj0AO+8gIxXUt0lgl7qgnGtSUx93NQVcKjNKeYjSJgOiuBJlYjb/pYR
-	LVQQImPTrT+s1UhTdriCU8VqhdxWk5d7+zL3/my61HLCZGRbOMwFqawtcbbmjJZH
-	ZD1bOiP0d4xLZgOKOhmc983z77jT4/7ys0A98v1EWQejKWef5L1bUcxMpwh9nER9
-	lybllWtnXKBaaFKJ0SPhaG6+BeL3jD0igDLVyLMwXsGVLDlTEjOmfBsi13S43Zh0
-	nDwIImx6l5ZNwuZhPeTWcQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792852371; x=
-	1792938771; bh=cr/MFgzbfp/0PfqFMYRD0aoKwz1s9qkrZtvNnzoLhtA=; b=d
-	UPUTpntDYbofF8q55TnR0nMguffhZK0nlckfMELr0MVwHzqxRcFg+LPioj6AcSQj
-	OFGGwOU6QWltJdCrLvsqY4bhB4j+kMAzX4b7Omvab6D7YQMyOCwQBGwyTOW+1wXJ
-	bpzDcy27mSJxpjY1va2gFfMfth1jeh66U20VN02xDdHnkL1+eGMAg1LaFfhQkVCu
-	zJGwVeqa5yJnvlFljnfmeyavxKvcmFY3KQb9V9aghFQEtcV+ubmqfJpoHjFRKQQ8
-	7ABJ1voIc2uhWHu6DRF7pMv+X+ilKv8fibutJm9azqAGJxLcvCYnNRcwXrdUo3kM
-	qnHgjmlZzC7SaQ5b2ZrVg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792852371; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:dTy4+QJg5T14+ozSRTsru07XFG4LudIG2GsmUsrmaqwtNSI
-	97P+97V0wbd1aYcU1FZIpSwe4urDtq1+kIGXO19LXfOOUNIvz0Cc6G9A0LeMSL0y
-	ETlQwq+GsvkSOrzdthPmtRVnYyIHygaeRIc//4R05UiDXvAEnLbPDyGwtwP/oFJ7
-	KRotCw3TbJIrQzjkrvZpwjkpVb1WgEIK5YiEj1Ulh/mufRUl9ZlVpOl6y8I3bSoc
-	wNe+aw1f/zfEsYXGoKqnPHwzRLOZl8qeRRoNvAfnC7KbM60nl5fmD9dEMC/NtkSe
-	1JxVOTBeo7BoN7uSuv7ImIpPOeqCaT4CU2DQwGQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:BjxQt+4SdIhaqvtXVdWCuC/zBi0EuYMXQgW581w6nvA=:d40BirmOlgNKOLeB42aieaS8xJBMHGZGrbs2wVubY2E=;
-X-ME-Sender: <xms:ksHcakS25xizakwyVmPzoQJeDKoSe6H7oqvpy3qsBrn54XViSQkNFg>
-    <xme:ksHcaveZLdDCOq4U0PrvEDYcNPTIFtVnazOzNL-y_ta5ZKHW9kjihnvwxcUlWASEh
-    gaChvpHTVXV-EIeYo56TBEp7-2zE-nzgeSV__DOVVs5SERCJ4MsSbg>
-X-ME-Received: <xmr:ksHcajli5RCcyfE2FCYuuKQIfaS-HJ0z_FXPt--N9oEf8lkk7rI8ykH_Gbbnveit3FN8wC8riMTvO9wB8G0-qjNQIa0dwEsX>
-X-ME-Proxy-Cause: dmFkZTGeuSSSqsMHirgeUUS2dLnv3QuEFpJ1nBOCCe0kzLiaaEeWj3xoE1nar82Jfkyhjc
-    tDOdmTIZL8yrkwarxsxd0BIJ5HbPwo4YBqU07rspDfc29FGDHOJIkm9yrOZ9Nc3uY46rA8
-    uisoL2Rry4J0GScyKokyZ8DqCUM0HX3gT2F/FX2OBnI1PMI96mR5THTHXiXXU2kNPEssTT
-    F6BI8/9CI/a+s8OclagmcRd84BEASIfyOjld22vENACDjrT3oyj2j/98Wqx98oqYp/7Bzs
-    7MyqEZ4MxAdZt+wn+9Wm8MYq/twlK/HiaQlQEO0NfBkK17XDKuNcSOGRfZ/ZYXHdHLgeHf
-    2uzWoLF0BuLd/0K5P+bkLg3KRNOgfEzxBvPdydy3teoBOuoUY0yMNe/rIGJuLlDsn5LZ2V
-    O9rXHRPsnBNAA9uPJMlQ7DJwzLpzs/LnRb7MW3N06HWztdMnXrwhQtwMCBfrCjWzy9CIb3
-    2JZ/QR589QZXYyEd77PWETnaR/VtosLyB0i6+kyHlJNrlRbXLypZ8pTeF0OJB2Bus0o6Al
-    fGdMrz3bn8U+HqhiqDSnlHxpGA1hPj1237BrB2c0M5U7GcA6p2dDOXnOtP8A6M/qGcmJIb
-    Od6e8Jc7uB1jeM1v2JWIGWTK0Wb6Va/Rmy38J2LzGFmCBUfhN0LNwTdBJYCg
-X-ME-Proxy: <xmx:ksHcakjB4b0juonzTjkG0oGN3RDP6ivxCzFofYtcQyERhiFPF-Cxsg>
-    <xmx:ksHcakGSgQsvvEc4dndRpG9fowoW8_CKM_GLQF4EsspvEHPMtHEFug>
-    <xmx:ksHcajzNR4vWVlEPo7m22EguQ4i-g1ZxjBJFl1YsTekD_Fpl_ZluyQ>
-    <xmx:ksHcarr-VNUK9fGBMv3JliTCqm9BmXdSVsg4mt-cqmwB9ok_REE20Q>
-    <xmx:k8HcavssCJC9iHfGBtvT4A9TdfYP38ebVpAhmeY3ODR9zGIbePRV9M5l>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 24 Oct 2026 10:32:48 -0400 (EDT)
-Message-ID: <a65e25c3-b1ea-4b8b-bf3b-c5de0d069b22@pobox.com>
-Date: Sat, 24 Oct 2026 07:32:47 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=gmx.de header.i=erik.brangs@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=p2VXvdvi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1792852380; x=1793457180; i=erik.brangs@gmx.de;
+	bh=62C/WGQ9szz/+3dIDMXojHN4CIzM2zakryFUy7peba8=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=p2VXvdvi0wgTwfi6aiVh7pLVAkDlevA09POQCOYkdSxa68Qa+hsu7cJnTmAS+Pun
+	 NSyA9Ibb9bdvCzfkccwVub2NFG9FaB4dJnS1v96hOuJ5eAkvgSCuZbaAyUQEQV226
+	 eh6trHUD232scKw0zslw/xir5JE5AFcwCZy3wZBAaifJ/Vc+fj882J9LwzHRU4mGc
+	 xxy8bfuROIQT4Dmt5hOPN5q73jUR6s82amORXYzZWUZF07Gz/lyoC7rXRxPhJYOwH
+	 GD61lDIOPH1AESwSZu+EXIu2viL5PfFFvQ9/ag8yjku2Xg4KFr01G7srpQF1DvUK/
+	 iigpBZ6h+vaRsjd2mQ==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MWAOQ-1x5lmY1GgM-00IkWo; Sat, 24
+ Oct 2026 16:33:00 +0200
+Message-ID: <95737f03-b31b-46d4-9157-b6f81941f42b@gmx.de>
+Date: Sat, 24 Oct 2026 16:32:54 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -120,51 +64,165 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 000/243] 7.2.13-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261024064731.125251200@linuxfoundation.org>
+Subject: Re: [regression 6.12.y] After backport of 980084de4d9b ("Bluetooth:
+ btusb: Add ASUS USB-BT540 for Realtek 8761CU") bluethooth not anymore working
+ on 0b05:1bef ASUSTek Computer, Inc. Bluetooth Controller (requests firmware)
+To: Thorsten Leemhuis <regressions@leemhuis.info>,
+ Sasha Levin <sashal@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Marcel Holtmann <marcel@holtmann.org>,
+ Salvatore Bonaccorso <carnil@debian.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>, benh@debian.org,
+ stable@vger.kernel.org, regressions@lists.linux.dev,
+ linux-bluetooth@vger.kernel.org, 1149377@bugs.debian.org,
+ Christoph Zwerschke <cito@online.de>
+References: <179104011040.2214689.5921682013387867802@eldamar.lan>
+ <2026-10-04-1-daily-reply-0007-bt540-asus-firmware@kernel.org>
+ <24ce058a-28b5-4499-9ded-eec9544b80ec@leemhuis.info>
+ <as0YtvgukA-Gp-D-@eldamar.lan>
+ <3c931ea6-b325-4338-acdb-4f6eec9d204f@leemhuis.info>
+ <8aa88f3e-2dd7-4bfe-a0f3-e5ecbbade84f@leemhuis.info>
 Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20261024064731.125251200@linuxfoundation.org>
+From: Erik Brangs <erik.brangs@gmx.de>
+In-Reply-To: <8aa88f3e-2dd7-4bfe-a0f3-e5ecbbade84f@leemhuis.info>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:uJcEiteeB/8uYC363xYa22uBm7j7A8C8uXEvzu+4PnI1+IIYenA
+ Z3a4AVoNt9z6FevwlGknHwuaCORgl+En0x8PLs1xzZ1fjJVo/90Mk0cKiPDIJyTIq84a+PL
+ Fl070aIgCZ6Bri2ycvG6okisI8veE2PSCoCx/Wr3bDmmJ2HjPKN93yC9CVB+9KelDb2hja2
+ 4bIYVMVD7ZTXmCFBMrtyw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:+YlGUr/bu/Y=;ffI7g34cuyPxLljCeiF6szdbUUr
+ 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
+ XZ4bkUao5uY/iWB+G66Eqg9V4csv2OHgrk
 
-On 10/23/26 11:59 PM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.13 release.
-> There are 243 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Mon, 26 Oct 2026 06:46:54 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.13-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Hi,
 
-With 7.2.13-rc2, each time I go through a suspend/wake cycle on my Lenovo
-ThinkPad T14 Gen 1, the following line appears in dmesg:
+On 23.10.26 15:43, Thorsten Leemhuis wrote:
+> I did meanwhile and agree, the backports of these should be reverted
+> from 6.18.y and 6.12.y:
+>=20
+> * 980084de4d9b25 ("Bluetooth: btusb: Add ASUS USB-BT540 for Realtek
+> 8761CU") [v7.3-rc1]
+> * 6f0624b4427e38 ("Bluetooth: btusb: Add ASUS USB-BT600 for Realtek
+> 8761CU") [v7.3-rc1]
+> * 4a23ce935f74d1 ("Bluetooth: btrtl: Add the support for RTL8761CUV")
+> [v6.19-rc1]
+>=20
+> At least if the problem wasn't resolved meanwhile, but that wasn't the
+> case afaics -- or did I miss it? Salvatore, Erik, or Christoph? Or was
+> it meanwhile agree on to fix this differently, for example by including
+> that file in a linux-firmware update maybe?
+> Ciao, Thorsten
 
-(NULL device *): Direct firmware load for i915/kbl_dmc_ver1_04.bin failed with error -2
+The problem has not been resolved yet AFAICT.
 
-This is new and appears to be a regression, and it is 100% reproducible.
-It does not occur with 7.3.0, 7.2.12, or 6.18.59-rc1. I will start
-bisecting it shortly after I send this email.
+Kind regards,
 
-In case it's relevant, my ThinkPad T14 Gen 1 has an Intel Core i5-10310U
-CPU (Comet Lake-U), and it's running an up-to-date Debian trixie.
--- 
--Barry K. Nathan  <barryn@pobox.com>
+Erik Brangs
