@@ -1,114 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.150
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792862424;
-	b=hZJ+woTje8d08WjLMRENQif8KPywnRbLfeCJhcMrP1jtZV8N5vsqQlQhpzmMyjLszBOy
-	 MoU1l9sXrNqL5qv2cgC7wmFI0PKAFcBkvTzoxYHcrCSa80skxvTeENebwI5IDLAdQk3n1
-	 se4EXxmMcIoD36BCZ4v515cMjp4un1JC3jh1iQnPPXZ2zqnOm3iWa6GPWg7lJd2EUZTH6
-	 IMR08hwGD0NZLdbc4xthwqHVJKP9Kba5z5S9VMDu0qLYi/d+2laRzRPBlA9r4laOkwccL
-	 9pTEKYyM8qEQ6biTW9CvlY3jjmGc6+YzUJHMQCqvIQMKJW95fqBwXxUNpx20Ova3C7Q==
+	t=1792862691;
+	b=kzlW7NRikV0vaph5Qh5i+Fo8hQm/skp/xwIE0/RLUTtjj8Auy1sdeRqY8j57taDSlHyY
+	 GZN1bPugVi/1t/YE4ofVr8N61anYiL6g844i1T2cs1H4p4VFkkS8fRt+v+SqBJYJufA6O
+	 f0OhKx+TEjbeWLg2PNypp/J18NVG++89ThE3HkuPXOj94zxwxaX5h+YE5QX81E1xodLYt
+	 fCMv3gCLrrT5fdT1NeHr0MpEHue9pjc1wK1fjgV6QW7GTO55xXGj3Aw52vNmPatxPP0HX
+	 1iE07BNE7bEKLtdZo1jUccK8g+FoEZewX2Jg/GW/WQgS/qrLekaD3iayB2gBJrkpwrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792862424;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=RGVmJ2lFA2gfgXgql8Rn0xxSJJgTsAownRry7w6u7Wk=;
-	b=Oi0lxjY+8CYgjezt5pb2u4gTrFapLWc7eCqEXZHz8N30YPxTmq1JuhdrsN4XVVLADDoz
-	 i5/qdSiJkqJGpLHyd24OfmEC5BwQRmGSvQFZHVqy5juQKB7VOU2abaCnaCQUpZAKWDXrd
-	 ZP2bRnaZicFaAM6xyvopxOIB2Eb0dkSXfFEna6ffdYlpnIzMdBJISwIozGCFsphOb+4rI
-	 jNXh9GMDCOD/kVj9ppBb9JM1kYy3O52sptDpGgluBd3IqEdWCddgjwsUGhwnkn8swHQOH
-	 W/x8z2aeUbSBhoBrnywcZTZ7BddE/AkZuZ2vFbZ5qdpEa9DxsXLYlS0q14z11YRDSrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792862691;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=Nx2Z0xhq704i0xpgzn1CCJZTCQQtkIFfSMDswotsH8U=;
+	b=0HaZD8GVyBzZ0VnkGPkvLz4BHLcDkIhQvTwo9Kl2IRL9GYZztcRWEv/riFxEvorB+KVE
+	 8nMRiGtXGaXp9pb8rYXzM9EEnZOsQAJngYQLtMV5RLaSQUJZ+umwR8hqeCeplG1Lx95zP
+	 fo7MPpkmiMrLScQm7lYLbGlkWg0x5h7qoE1+7PLZVlWLvxrcnJ50OdWmGMsVlGH3JiqkP
+	 /I/Rp8LQW2M8zLAQCXcrM9z97GIhyrNHHRF4tZT1RB6Zua8y5VzqKQJiy9/kO5zfvGMcW
+	 AgTM232cFUZHcZ/58RClJmZgmInFeZFMjv73gqovc1cBTdInJrfvlpWfT3a27b3wACQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=jannau.net;
-	spf=pass smtp.mailfrom=jannau.net;
-	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=SgFe3PF2;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=jTy7nzHq;
-	arc=none smtp.remote-ip=103.168.172.150
-Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=A8le0I4W;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B042606A31B
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 17:20:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B042606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7185D606A31D;
+	Sat, 24 Oct 2026 17:24:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=SgFe3PF2;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=jTy7nzHq
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
-	by mailfout.phl.internal (Postfix) with ESMTP id 5E921EC0188
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 13:20:23 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-11.internal (MEProxy); Sat, 24 Oct 2026 13:20:23 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm1; t=1792862423; x=1792948823; bh=RG
-	VmJ2lFA2gfgXgql8Rn0xxSJJgTsAownRry7w6u7Wk=; b=SgFe3PF26dqJYCYx/J
-	RhDeBOIhddOlXAAKijwb8Vy8wdHGMNCLnZBuyhjMVXtCLTCav+E37VcUJB/tamAz
-	KB7zJttcMUm/NwINhgjM70OyORb1oy5Wo1rlMorHZ8QYX7cnfxYauXuan1QECwKd
-	/VRzwbKngb7YJ8FXEaiXsAP4/TAyu+0FmtsRoQU24obUq6J2HGCw0hPACUBuNA7k
-	6iCbvheZ+BhEEQKbs2fMsx8tF+x9D+VcbMMJPH04ONrvE8Bo5cy6dZu6hFU0Eoii
-	+ibPvRU2kkr1okSJ/6l7QTge1tvT/lo+Hhu8x2irzTrQ4HnYvextysFMPZA8OUdl
-	GJNQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1792862423; x=1792948823; bh=RGVmJ2lFA2gfgXgql8Rn0xxSJJgT
-	sAownRry7w6u7Wk=; b=jTy7nzHqlw7jZptH9I2RxK9RzBW6GYIXgvwd2wUmv7NT
-	QNyiXqpSN9ciqVCaMR2tRIbXNr32qeA1cg50PVOYN1vsKzBQSKUJ3jmqV1hEIZZo
-	1tDhlEr3wzx/juoO2KVRNdwhdJwIjAs20xzdydf3PIjPB+eBeuJmarwZXGbqPAJT
-	AIC/8zc0Y+VHR2jNTbv8nKYMqFlasQIw+wC9GJJkGUyOhti0N5+DP5qPTDlfnGwH
-	DePikNuiwak4JarV/mxOCHJ8finvZTHPJw4vM0Z5pjYI0xDWqK64dfjR5PNOmH4C
-	Ga2zRhIzOOFTjDo1qLxtKBk7qjERm9S+pnRirOWbMA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=jannau.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792862423; d=jannau.net;
-	mf=PGpAamFubmF1Lm5ldD4=; rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:SqLgC1a1N6QWqfP5nTksJVKB20X/eeAkS6k7SYPUxtBFgHT
-	wa8/rKNBV0VSnH0dPOTIX4pmg0H6ypjNQhYDY61u7e83+lekSBNPXTGWbT4ySZoX
-	xK9+5+/o2ko3o1Qu/w2A2l4AYcLbYCo9n4ctfY8VtAY7UBMmCn3SE9jilbBHGQH2
-	1oFS5WUmVOA7BpeW4GWeb7DjImwJHBcfxTszD67z8GFdekFhjh5++frHDAPHLdvW
-	3OElU391o2zHjH1agS1io9EorQ0msZKAyLkyr4iW8TdkUbCq+7l2MGRYiBSzEr4A
-	BSMHgsus3dRodQ98IVYvK6A30hWuOHgY3KVyASg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=10;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:MjjdUjD1TH1u8FR4jM1dnnIhA67LmvEfPVf+2sRrAt0=:bnGHsEZ7pQqFVIzWthCEWF1bKp6VPeCWDVQGvmuTF3g=;
-X-ME-Sender: <xms:1ujcaiRqpIsfZ3uU4sG9rhjKABy01FRmqtfy7XOzM2-Y4y64c3UgFQ>
-    <xme:1ujcatwAkBZN1cxQ1FeA9M3KuHVGGnQPDxyIqqK-dC0qkvj6Fli7CeoS39gqGzOYP
-    cvCAeSxyit0eqS6eod-bxaHi5X90qzrItTuogzKPIe-nlsGca_Klcw>
-X-ME-Received: <xmr:1ujcaqpupiIfASvhwY9LEQtHAFEjYtFPaS33O89i67YhpoWy-AjvMkvOk8esVCvOgmq0jTm1F13S4cx3XkBNVE7S20av14WA9gI>
-X-ME-Proxy-Cause: dmFkZTFQFZYiDCjVoB0mM+FknsDb4uzSDQV4OYgeIXaKM3oOz3w3kfT7x2bRm/9casA+3R
-    QKLMXO1C06dwbXqPEanqqziKkWXacuUxzU0v4Gu0+c7EzB8DR8nKdiN1buKMN4i6lz49hu
-    2CVTvVME7aFXf4UQyCHvgww8R5GIzrzG7PGFZgM/Ck9x09tWESRbTlAFg8CpOdlO1N9F0p
-    7Tju3NfAN6KN3zMk+ghkCqkUiJxA5VyzxYg9FDNFYWTlHqf/Q8oJUevXlrRHHtZ8axWwft
-    NQ3VOeCKiYUjbe0F8OHOVblLNwObWaKBaAktjdqXSGV5z7D/YATUOjS0ES7RKyDFi///eH
-    5STZNZmV5LrZM99gwNSilJ2kfI3hegPrekgmbiZulVCDfrfzkccTpdvwaMYswI5Wwdu6lu
-    kHtpQMQ9rjSOe7MSYSHxZ4Px6yRM09oKF/wsH8CtJOpIs6aGg75ouuUzaB/Wc+tuFp31tE
-    U01soXg32sdRZEC81fWNk6aKAarTqCcwsKlhd1nHyOGXn5grxRF/dUUwg8s5rmSRc6SlhC
-    TjSTdAsR5UfTgYyjHdRVgvQcabdRSbjfUP2ON4qk3a0YxuJueX8c0g/ujSMzfaCgqfagcF
-    aA8/YKSNemIBY1K3CIpwdSBbSbDqSAJ9ucEJsVcWpFlYbAm/T0MAjEVRWAJA
-X-ME-Proxy: <xmx:1ujcag3rc3vMh2fGKMnB995VqJwdabn-X06vy-szgPs2u6DjgsvyrA>
-    <xmx:1ujcaqyE_zRvSovXMkFeOzjjYaZJrKwqe6wlDYcwquQNXesUJiRTOA>
-    <xmx:1ujcakiLBvuP0QXeeKaUTpSNyzVV5h1Q734ouLoNjtLiKTW4bSS1Ug>
-    <xmx:1ujcalpBmpDgDcfqEow1bQBoQwFrVJ_3KKVb0qph0GNRc-JBm98Jqw>
-    <xmx:1-jcaoNUlE3UdH2zyy3CPWiAED7-vSLUjsoeFFr52hqhIvk4CBYhy7xb>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 24 Oct 2026 13:20:21 -0400 (EDT)
-From: Janne Grunau <j@jannau.net>
-Date: Sat, 24 Oct 2026 19:19:59 +0200
-Subject: [PATCH] net: atlantic: AQC113: Initialize struct hw_atl2_priv
- fully
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=A8le0I4W
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDB681F031E5;
+	Sat, 24 Oct 2026 17:24:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792862689;
+	bh=Nx2Z0xhq704i0xpgzn1CCJZTCQQtkIFfSMDswotsH8U=;
+	h=Date:To:From:Subject;
+	b=A8le0I4Wm7Qz6lmPQ8CeRQIGKBIOTRUa+A2t8ulOjinWG4NdJhIA/400VcEfNmMG9
+	 v651aegXJSkBoCFsb9VrCbrgLmz4qKE7dpyGxbMBxy33vabaIo6EynmuuYlpnjZtSD
+	 DfibsidxyGSfc0NTiobOZy/LpBrwmcHcodu2I3Ow=
+Date: Sat, 24 Oct 2026 10:24:49 -0700
+To: mm-commits@vger.kernel.org,zzzccc427@gmail.com,
+	syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com,stable@vger.kernel.org,
+	mark@fasheh.com,kartikey406@gmail.com,joseph.qi@linux.alibaba.com,
+	jlbec@evilplan.org,heming.zhao@suse.com,eklavyasingh2106@gmail.com,
+	akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + ocfs2-heartbeat-serialize-concurrent-writes-to-a-regions-dev-attribute.patch added to mm-nonmm-unstable branch
+Message-Id: <20261024172449.CDB681F031E5@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -117,81 +52,210 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261024-net-atlantic-aq113-apple-regression-v1-1-b8305415a8b1@jannau.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2NwQrCMBAFf6Xs2YUkRgV/RTyszWtdKDFuQhFK/
- 93ocQ4zs1GFKSpdh40Mq1Z95Q7+MND4lDyDNXWm4MLZuxA5o7G0RXLTkeXt/ZGllAVsmA315zO
- im6J7pNMlgXqpGCb9/C+3+75/AdXyfqZ1AAAA
-X-Change-ID: 20261024-net-atlantic-aq113-apple-regression-e40f40bd57de
-To: Sukhdeep Singh <sukhdeeps@marvell.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Janne Grunau <j@jannau.net>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2370; i=j@jannau.net;
- s=yk2025; h=from:subject:message-id;
- bh=bnGHsEZ7pQqFVIzWthCEWF1bKp6VPeCWDVQGvmuTF3g=;
- b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqw7Ly5I7WRfEcBwY4rq1yfma9jlmGU2+jR9jzDlns2y8
- Qv3w7q7HaUsDGJcDLJiiixJ2i87GFbXKMbUPgiDmcPKBDKEgYtTACZS58LwT8v78Nz6ZwcKPsz4
- 9ZddIl/w5tzaRUpdvWeWn7np/GOumzvD/6yKnO4Vb750BL4wuyi/dUXAScsDvvOETAP8zC9ar96
- xlhkA
-X-Developer-Key: i=j@jannau.net; a=openpgp;
- fpr=8B336A6BE4E5695E89B8532B81E806F586338419
 
-Leaving parts of struct hw_atl2_priv uninitialized breaks data
-transmission on AQC113 NICs integrated in Apple silicon desktop Macs.
-Commit 6c1ca112a6e4 ("net: atlantic: fix AQC113 HW init: ART, L2 filter
-slot, MAC address") replaced a memset of the whole struct with memsets
-of a few fields and initialisation of l3l4_filters[].l[34]_index to -1.
-This leaves other fields uninitialized.
-Restoring the full struct memset while keeping the initialization of
-the l3/l4 filter indices fixes the regression on Apple silicon systems.
 
-Fixes: 6c1ca112a6e4 ("net: atlantic: fix AQC113 HW init: ART, L2 filter slot, MAC address")
-Cc: stable@vger.kernel.org
-Signed-off-by: Janne Grunau <j@jannau.net>
+The patch titled
+     Subject: ocfs2/heartbeat: serialize concurrent writes to a region's dev attribute
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     ocfs2-heartbeat-serialize-concurrent-writes-to-a-regions-dev-attribute.patch
+
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-heartbeat-serialize-concurrent-writes-to-a-regions-dev-attribute.patch
+
+This patch will later appear in the mm-nonmm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Eklavya Singh <eklavyasingh2106@gmail.com>
+Subject: ocfs2/heartbeat: serialize concurrent writes to a region's dev attribute
+Date: Wed, 21 Oct 2026 02:53:39 +0530
+
+o2hb_region_dev_store() checks reg->hr_bdev_file to see if the region
+is already started, but nothing stops two writers from doing that at
+the same time. configfs only serializes writes through the same open
+file, so two processes that each open the dev attribute can both get
+past the check:
+
+  A: hr_bdev_file is NULL, opens file A, sets hr_bdev_file = A
+  B: hr_bdev_file is NULL, opens file B, sets hr_bdev_file = B
+  A: start fails, fput(hr_bdev_file) drops B, sets it to NULL
+  B: start fails, fput(NULL)
+
+Both calls also use the same hr_slots, hr_slot_data and hr_tmp_block,
+so the error paths can free the slot data twice.
+
+syzbot hit the fput(NULL) with an unbound loop device, where every
+start fails with -EIO. With four threads doing the same thing on a
+KASAN kernel I get both crashes within a second:
+
+  BUG: KASAN: double-free in o2hb_unmap_slot_data+0x14d/0x2f0
+  BUG: kernel NULL pointer dereference, address: 0000000000000158
+
+Add a mutex to the region and hold it in dev_store(), in the
+block_bytes, start_block and blocks stores, and in dev_show(), since
+they all look at hr_bdev_file. dev_store() cleans up with goto, so it
+takes the mutex in a small wrapper rather than with guard(). The mutex
+is dropped while dev_store() waits for the heartbeat to become steady,
+which takes seconds, so a read of dev doesn't stall behind a start.
+hr_bdev_file is already set at that point, so other writers still get
+-EINVAL, and the cleanup after the wait retakes the mutex.
+
+With the patch the same test ran for 10 minutes with lockdep on and
+nothing was reported. So did a second one, with a working loop device,
+that interrupts starts during the wait while other threads read and
+write the attributes.
+
+Link: https://lore.kernel.org/20261020212339.46591-1-eklavyasingh2106@gmail.com
+Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: <syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com>
+Closes: https://syzkaller.appspot.com/bug?extid=5d4e96acd0febccb5e87
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Deepanshu Kartikey <kartikey406@gmail.com>
+Cc: Cen Zhang <zzzccc427@gmail.com>
+Cc: <stable@vger.kernel.org>
 ---
-Hej,
 
-commit 6c1ca112a6e4 ("net: atlantic: fix AQC113 HW init: ART, L2 filter
-slot, MAC address") broke data transmission on Apple silicon systems
-with integrated AQC113. The cause appears to leaving parts of struct
-hw_atl2_priv uninitialized. Since the most sensible fix for the issue is
-restoring the full struct memset I did not investigate which value in
-which field causes the issue.
-The fix restores ethernet data transmission on an Apple M1 Max Mac
-Studio.
----
- drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ fs/ocfs2/cluster/heartbeat.c |   40 ++++++++++++++++++++++++++++-----
+ 1 file changed, 34 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c b/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-index 25dd7150aaaf..5d6e81fa3bae 100644
---- a/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-+++ b/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-@@ -145,11 +145,7 @@ static int hw_atl2_hw_reset(struct aq_hw_s *self)
- 	if (err)
- 		return err;
+--- a/fs/ocfs2/cluster/heartbeat.c~ocfs2-heartbeat-serialize-concurrent-writes-to-a-regions-dev-attribute
++++ a/fs/ocfs2/cluster/heartbeat.c
+@@ -269,6 +269,8 @@ struct o2hb_region {
+ 	struct list_head	hr_handler_list;
+ 	/* Serializes timeout arming against failed-start and teardown. */
+ 	struct mutex		hr_arming_mutex;
++	/* Serializes the dev, block_bytes, start_block and blocks attributes. */
++	struct mutex		hr_dev_mutex;
+ 	bool			hr_stopping;
  
--	memset(&priv->last_stats, 0, sizeof(priv->last_stats));
--	memset(priv->l3_v4_filters, 0, sizeof(priv->l3_v4_filters));
--	memset(priv->l3_v6_filters, 0, sizeof(priv->l3_v6_filters));
--	memset(priv->l4_filters, 0, sizeof(priv->l4_filters));
--	memset(priv->etype_policy, 0, sizeof(priv->etype_policy));
-+	memset(priv, 0, sizeof(*priv));
- 	for (i = 0; i < HW_ATL2_RPF_L3L4_FILTERS; i++) {
- 		priv->l3l4_filters[i].l3_index = -1;
- 		priv->l3l4_filters[i].l4_index = -1;
+ 	/* last hb status, 0 for success, other value for error. */
+@@ -1681,6 +1683,7 @@ static ssize_t o2hb_region_block_bytes_s
+ 	unsigned long block_bytes;
+ 	unsigned int block_bits;
+ 
++	guard(mutex)(&reg->hr_dev_mutex);
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
+ 
+@@ -1710,6 +1713,7 @@ static ssize_t o2hb_region_start_block_s
+ 	char *p = (char *)page;
+ 	ssize_t ret;
+ 
++	guard(mutex)(&reg->hr_dev_mutex);
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
+ 
+@@ -1736,6 +1740,7 @@ static ssize_t o2hb_region_blocks_store(
+ 	char *p = (char *)page;
+ 	int ret;
+ 
++	guard(mutex)(&reg->hr_dev_mutex);
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
+ 
+@@ -1753,10 +1758,12 @@ static ssize_t o2hb_region_blocks_store(
+ 
+ static ssize_t o2hb_region_dev_show(struct config_item *item, char *page)
+ {
++	struct o2hb_region *reg = to_o2hb_region(item);
+ 	unsigned int ret = 0;
+ 
+-	if (to_o2hb_region(item)->hr_bdev_file)
+-		ret = sprintf(page, "%pg\n", reg_bdev(to_o2hb_region(item)));
++	guard(mutex)(&reg->hr_dev_mutex);
++	if (reg->hr_bdev_file)
++		ret = sprintf(page, "%pg\n", reg_bdev(reg));
+ 
+ 	return ret;
+ }
+@@ -1872,11 +1879,9 @@ out:
+  * this is acting as commit; we set up all of hr_bdev_file and hr_task or
+  * nothing
+  */
+-static ssize_t o2hb_region_dev_store(struct config_item *item,
+-				     const char *page,
+-				     size_t count)
++static ssize_t __o2hb_region_dev_store(struct o2hb_region *reg,
++				       const char *page, size_t count)
+ {
+-	struct o2hb_region *reg = to_o2hb_region(item);
+ 	struct task_struct *hb_task;
+ 	long fd;
+ 	int sectsize;
+@@ -1884,6 +1889,8 @@ static ssize_t o2hb_region_dev_store(str
+ 	ssize_t ret = -EINVAL;
+ 	int live_threshold;
+ 
++	lockdep_assert_held(&reg->hr_dev_mutex);
++
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
+ 
+@@ -1987,9 +1994,15 @@ static ssize_t o2hb_region_dev_store(str
+ 
+ 	wake_up_process(hb_task);
+ 
++	/*
++	 * Don't hold hr_dev_mutex across the wait, which can take seconds.
++	 * hr_bdev_file is already set, so other writers still get -EINVAL.
++	 */
++	mutex_unlock(&reg->hr_dev_mutex);
+ 	ret = wait_event_interruptible(o2hb_steady_queue,
+ 				atomic_read(&reg->hr_steady_iterations) == 0 ||
+ 				reg->hr_node_deleted);
++	mutex_lock(&reg->hr_dev_mutex);
+ 	if (ret) {
+ 		atomic_set(&reg->hr_steady_iterations, 0);
+ 		reg->hr_aborted_start = 1;
+@@ -2041,6 +2054,20 @@ out:
+ 	return ret;
+ }
+ 
++static ssize_t o2hb_region_dev_store(struct config_item *item,
++				     const char *page,
++				     size_t count)
++{
++	struct o2hb_region *reg = to_o2hb_region(item);
++	ssize_t ret;
++
++	mutex_lock(&reg->hr_dev_mutex);
++	ret = __o2hb_region_dev_store(reg, page, count);
++	mutex_unlock(&reg->hr_dev_mutex);
++
++	return ret;
++}
++
+ static ssize_t o2hb_region_pid_show(struct config_item *item, char *page)
+ {
+ 	struct o2hb_region *reg = to_o2hb_region(item);
+@@ -2143,6 +2170,7 @@ static struct config_item *o2hb_heartbea
+ 
+ 	INIT_LIST_HEAD(&reg->hr_all_item);
+ 	mutex_init(&reg->hr_arming_mutex);
++	mutex_init(&reg->hr_dev_mutex);
+ 	reg->hr_stopping = true;
+ 	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
+ 	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
+_
 
----
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20261024-net-atlantic-aq113-apple-regression-e40f40bd57de
+Patches currently in -mm which might be from eklavyasingh2106@gmail.com are
 
-Best regards,
--- 
-Janne Grunau <j@jannau.net>
+ocfs2-heartbeat-serialize-concurrent-writes-to-a-regions-dev-attribute.patch
 
