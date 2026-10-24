@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792832540;
-	b=d+et/KjNYijWdL/tSPUHtb8j5GiW7pJum8FD6RNUVyHeFwNdjYjUYnp2+UVRkPUw/d03
-	 VvC0XMX+EmyC+Fdd0SqWPPPOJ0eAiMr0N6kG3sxeQS1k//EzZ6zCLv9DL19UREfbNbNJa
-	 9sJ95neDeFH7UXj4eFo+EdeOx8RGHii26oQED/FRPk34WW7ca4Lmoi3U/2P68TNsLSm2S
-	 OVyNKhxR0XUGQiXBfXtK4N8M7GR2T6bqVxLZlALjE3eqELyweBYVQaV+4zwZG6KmLye7J
-	 aHLpRad/JVIq2q92j+zGVyH6JVEsdHTU5g7RjwRAh3ZA4c3Jcc5BYlS0lH5ADwhphIA==
+	t=1792832537;
+	b=b0oTcz6bvvQ9IfuXuamrWrlLXh/7abN9vq9Q7BkLRlhzp1rbEFpIW+v0sJIhmM97PSRv
+	 uOy35aCH9oAMnsAy7ZXTKRbZ20UIniUO70GaRu+bAI2fpJ9fIoquX4IsL0zwuQpA5Azrd
+	 Ib1Tb/jcyHYpKg1bVNotOp2gqz65wf4w3abaxwUhIFVC7EJm+dPr4fP7h5RE4+B7CGU8D
+	 fIzlySDF1fUZ4TaRcVxFmmKQxowWTVMcFD2eLifPZ4cyR9l6aqSK6jG9urp1oQNo97nzu
+	 Qgd/ySsHYIdguvWwUG7FBb6+OA2htWt7H07Wg98W5tSDtzCYOskrdzY7rHA/8BeK6TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792832540;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792832537;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=nTfx94I1o9vkdnJ7Y3U90PChafj4BQd0BrAfcL5K4xI=;
-	b=0xG94t/W7+ZsQ9OUvlb8O6ruvOe++IyHfLJ8gVb9bqJzFnwJ42J2pjANHR96cc5JY4BO
-	 krz+uCJqRnih1TQX+VX/K6zVMJwTzxF5Y8q3IcPPy2FI2ApOgnnOSEFkEE/2YxjnzniWI
-	 y26EXa1MieJIy/g8JfNBgrq7SddM45tRFlsc5eowEK6txOQVRk6ykVRWSB2Q6OoObS/eN
-	 z7QuWugpDV+wa3lKutzjHRpDoxBpOrUV50dqSnBhKKujZiynABlwTTiRzqcrbTkmIAAq8
-	 /JrBbOdCS8J6zIjpYixlZcm0vaKLgAOd3dpV9Tca6Tyk5sjH2gKBWugxww+yjPLCnjg==
+	bh=fnox/UIkNZ2fC0EmGbuWcRP61deS2PrR1/WAByO+bEA=;
+	b=4aPw4LX2y6WkYhMGPIy+3JXT0/0z2Nrt9auzy2QoheNPhrl6yBHAUwq8KPz2VdEVgnXg
+	 fG6zg1FwLJSlTkv5GFD65Xjj4NeMrFra8qYhJ03/WsbG98Dw0P91RseXWvE+QQvEwDax6
+	 YPfctH/eHmR1D/oC1o+l85okHg8sA+BhmFopY27nByL63lWV5P3K9LQNqW5qREQg81ba1
+	 RJysnwY7HfUUOEPiLRmKMFwhxSzcZ7tjVhELozKAsCFZKY45RtgFftfKOeHlKu/NzLMIj
+	 uJM8IBMvZNpjQ/hvWc64ygAZdzDcBfpckOesECp2GZSfRp6r+96NtMD2B2Wbk1KU1Dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ySMdYjsr;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="kzjh7I/j";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EAFF606A31F;
-	Sat, 24 Oct 2026 09:02:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9673606A329;
+	Sat, 24 Oct 2026 09:02:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ySMdYjsr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCE8E1F01825;
-	Sat, 24 Oct 2026 09:02:19 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=kzjh7I/j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B30411F01825;
+	Sat, 24 Oct 2026 09:02:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792832540;
-	bh=nTfx94I1o9vkdnJ7Y3U90PChafj4BQd0BrAfcL5K4xI=;
+	d=linux-foundation.org; s=korg; t=1792832536;
+	bh=fnox/UIkNZ2fC0EmGbuWcRP61deS2PrR1/WAByO+bEA=;
 	h=Date:To:From:Subject;
-	b=ySMdYjsrLrW6p83xrwxREJmVeMXr2m+3oIQ9qO/pAGvVLTvz3ly5+XA8PJP+tAYsE
-	 MZNfEnwa+6S/qvQ6sDncmogtcsV8fuMYkhpRKkBIntwmvU8mYLBiyCamp5XwMoRsgu
-	 FQPAUUEY7/ms0LoERgIoCUoVUZTJFuGRFFRPtJbs=
-Date: Sat, 24 Oct 2026 02:02:19 -0700
-To: mm-commits@vger.kernel.org,wangruikang@iscas.ac.cn,tongtiangen@huawei.com,stable@vger.kernel.org,paul.walmsley@sifive.com,pasha.tatashin@soleen.com,palmer@dabbelt.com,guoyaxing@bosc.ac.cn,david@kernel.org,aou@eecs.berkeley.edu,alex@ghiti.fr,cuiyunhui@bytedance.com,akpm@linux-foundation.org
+	b=kzjh7I/jwS0tDGoPbDc1CSLfkk9JNZ0EvzWxleMehGNoVq5Gw1Q/y1o3ayf9jqS42
+	 ozx/aClHhSuTPLGeI+xDwv06feOD3s/Puk8UU7mQfFPP0DJf136F1ccDh52PyODGzF
+	 tLSlTQ+MygIC1uwEkDqPcWRruQpprHuYXWgKfPM4=
+Date: Sat, 24 Oct 2026 02:02:16 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,stable@vger.kernel.org,rakie.kim@sk.com,pasha.tatashin@soleen.com,mhocko@suse.com,joshua.hahnjy@gmail.com,david@kernel.org,gourry@gourry.net,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] riscv-mm-exclude-invalid-thp-pmds-from-page-table-check.patch removed from -mm tree
-Message-Id: <20261024090219.DCE8E1F01825@smtp.kernel.org>
+Subject: [merged mm-stable] mm-mempolicy-apply-bind-policies-against-the-scoped-allocation-zone.patch removed from -mm tree
+Message-Id: <20261024090216.B30411F01825@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,84 +51,97 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: riscv: mm: exclude invalid THP PMDs from page table check
+     Subject: mm/mempolicy: apply bind policies against the scoped allocation zone
 has been removed from the -mm tree.  Its filename was
-     riscv-mm-exclude-invalid-thp-pmds-from-page-table-check.patch
+     mm-mempolicy-apply-bind-policies-against-the-scoped-allocation-zone.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Yunhui Cui <cuiyunhui@bytedance.com>
-Subject: riscv: mm: exclude invalid THP PMDs from page table check
-Date: Sat, 23 May 2026 12:20:52 +0800
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+Subject: mm/mempolicy: apply bind policies against the scoped allocation zone
+Date: Sat, 17 Oct 2026 22:33:49 -0400
 
-RISC-V THP splitting uses a temporary invalid PMD state where
-pmd_mkinvalid() clears _PAGE_PRESENT and _PAGE_PROT_NONE but leaves
-_PAGE_LEAF set so the MM code can still recognize the PMD as a THP split
-in-progress entry.
+QEMU fails to start a guest with a VFIO device when guest RAM comes
+from a memory backend bound to a movable-only node:
 
-That temporary state no longer describes a user-accessible mapping, but
-page_table_check currently treats it as one because the RISC-V PMD
-user-accessibility test only checks whether the PMD is a leaf and has user
-permissions.
+  vfio_container_dma_map(0x55b1b1317800, 0x0, 0x10000000,
+                         0x7f39a2200000)
+    = -12 (Cannot allocate memory)
 
-As a result, when a PMD-sized anonymous THP is split during a COW fault,
-page_table_check can account the invalid intermediate PMD as a live PMD
-mapping, and then account the replacement PTE mappings again when the
-split installs the PTE table.  This leaves stale PMD accounting behind and
-later triggers page_table_check failures such as a non-zero anon_map_count
-when the folio is freed.
+VFIO pins guest RAM when the device is realized, and the pin faults
+the pages in. io_uring fixed buffers fail the same way. Faulting the
+range in before pinning lets the same pin succeed, since resident
+pages are migrated off the node instead.
 
-Fix this by tightening pmd_user_accessible_page() so PMD page-table-check
-accounting only considers leaf PMDs that still carry either _PAGE_PRESENT
-or _PAGE_PROT_NONE.  This preserves the THP split semantics required by
-the MM code while preventing page_table_check from treating invalid split
-PMDs as live user mappings.
+A long-term pin faults under memalloc_pin_save(). PF_MEMALLOC_PIN makes
+current_gfp_context() clear __GFP_MOVABLE, but policy_nodemask() tests
+apply_policy_zone() against the caller's gfp.
 
-With CONFIG_PAGE_TABLE_CHECK=y and CONFIG_PAGE_TABLE_CHECK_ENFORCED=y,
-tools/testing/selftests/mm/cow completes successfully on RISC-V after this
-change.
+The bind keeps its movable-only nodemask, and the allocation finds no
+usable zone:
 
-Link: https://lore.kernel.org/20260523042052.35476-1-cuiyunhui@bytedance.com
-Fixes: 3fee229a8eb9 ("riscv/mm: enable ARCH_SUPPORTS_PAGE_TABLE_CHECK")
-Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
+  page allocation failure:
+      order:0,
+      mode:0x140dc2(GFP_HIGHUSER|__GFP_ZERO|__GFP_COMP),
+      nodemask=1,cpuset=/,mems_allowed=0-1
+
+  Call Trace:
+   warn_alloc+0x136/0x150
+   __alloc_frozen_pages_noprof+0xed8/0x1720
+   alloc_pages_mpol+0xaa/0x170
+   vma_alloc_folio_noprof+0x65/0xd0
+   __handle_mm_fault+0x137b/0x1ac0
+   handle_mm_fault+0xa0/0x270
+   __get_user_pages+0x250/0xfd0
+   __gup_longterm_locked+0x116/0x870
+   gup_fast_fallback+0xcfc/0xdf0
+   pin_user_pages_fast+0x47/0x60
+   io_pin_pages+0x9a/0x110
+
+Base page faults fail with -ENOMEM.
+hugetlb faults fail with -EFAULT.
+
+Check the policy zone against current_gfp_context(gfp), so a pin-scoped
+fault falls back off the movable-only nodemask, like any other
+non-movable allocation under the same bind.
+
+Tested in qemu with a dax/kmem movable-only node 1. io_uring and VFIO
+pins of unfaulted base pages and 2MB hugetlb pages now succeed and land
+on node 0 (correct). QEMU now starts with the same backend binding.
+
+Link: https://lore.kernel.org/20261018023349.1697434-1-gourry@gourry.net
+Fixes: 8e3560d963d2 ("mm: honor PF_MEMALLOC_PIN for all movable pages")
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Albert Ou <aou@eecs.berkeley.edu>
-Cc: Palmer Dabbelt <palmer@dabbelt.com>
+Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Ying Huang <ying.huang@linux.alibaba.com>
 Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: Paul Walmsley <paul.walmsley@sifive.com>
-Cc: tongtiangen <tongtiangen@huawei.com>
-Cc: Alexandre Ghiti <alex@ghiti.fr>
-Cc: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Vivian Wang <wangruikang@iscas.ac.cn>
-Cc: Yaxing Guo <guoyaxing@bosc.ac.cn>
+Cc: Michal Hocko <mhocko@suse.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- arch/riscv/include/asm/pgtable.h |    9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ mm/mempolicy.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/arch/riscv/include/asm/pgtable.h~riscv-mm-exclude-invalid-thp-pmds-from-page-table-check
-+++ a/arch/riscv/include/asm/pgtable.h
-@@ -989,7 +989,14 @@ static inline bool pte_user_accessible_p
- 
- static inline bool pmd_user_accessible_page(struct mm_struct *mm, unsigned long addr, pmd_t pmd)
- {
--	return pmd_leaf(pmd) && pmd_user(pmd);
-+	/*
-+	 * page_table_check() must ignore THP split invalidation entries created by
-+	 * pmd_mkinvalid(). These retain _PAGE_LEAF so pmd_present()/pmd_leaf() stay
-+	 * true during the split, but they no longer describe a user-accessible
-+	 * mapping once both _PAGE_PRESENT and _PAGE_PROT_NONE are cleared.
-+	 */
-+	return (pmd_val(pmd) & (_PAGE_PRESENT | _PAGE_PROT_NONE)) &&
-+		(pmd_val(pmd) & _PAGE_LEAF) && pmd_user(pmd);
- }
- 
- static inline bool pud_user_accessible_page(struct mm_struct *mm, unsigned long addr, pud_t pud)
+--- a/mm/mempolicy.c~mm-mempolicy-apply-bind-policies-against-the-scoped-allocation-zone
++++ a/mm/mempolicy.c
+@@ -2302,7 +2302,7 @@ static nodemask_t *policy_nodemask(gfp_t
+ 		break;
+ 	case MPOL_BIND:
+ 		/* Restrict to nodemask (but not on lower zones) */
+-		if (apply_policy_zone(pol, gfp_zone(gfp)) &&
++		if (apply_policy_zone(pol, gfp_zone(current_gfp_context(gfp))) &&
+ 		    cpuset_nodemask_valid_mems_allowed(&pol->nodes))
+ 			nodemask = &pol->nodes;
+ 		if (pol->home_node != NUMA_NO_NODE)
 _
 
-Patches currently in -mm which might be from cuiyunhui@bytedance.com are
+Patches currently in -mm which might be from gourry@gourry.net are
 
+mm-page_alloc-let-the-highest-memory-node-recover-from-hopeless-state.patch
 
