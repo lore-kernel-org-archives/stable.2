@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792832527;
-	b=v3UqkC180y5F9vctuvpNs171iTJA/+w9iswqlB3t3QIEIEh9OEVRzv13O2hnswqkSTz/
-	 Uam8Gi3Qak34kKlRtFSrWy8xINpEUtb4yVLTScJmfwhurpSeEwiGbm6AqSOZV8GVF/D0h
-	 LZVTz8J/nvNXTBXlIfa07b3wfeZbSV8mtwYFumjGV0iQjomiDKLskQar25Zq5EuzHjX9L
-	 PGhtinpH/PANqvQNJmIFe+54IMHXLDaCC979tNk4sCQWSvZyz+JW16fgPS7HljzVfYITj
-	 vSNmAkKmxsjsuMV8tPhMoOEo7Kh3rASSKZJ/+PjJqt/5BTcCOzCzouvfatepXbAGNZA==
+	t=1792832535;
+	b=W8HUNqRfqwnOPRmChS54YhjxQe6Y0VrCfXO7NqG013QMoX9ejA8gwzpvhP65rsMs9uoj
+	 rU9T9TbFvaKGcLVb6tJ5MipR+WS3TSK1vjbu+oV7SkpmimOGGCnGu3qbBEBfN5HJ9eh5w
+	 q+yKQnpLY31HKAbhAeeAOr0ZCh7GKmDdEVH+deEQOQqb8CZ7qmjKXfYr1jMDxJ4r/ES01
+	 5MVwN3ytM/oNpdaiS0Ul+IKOFUqH+IOfhbJmQpvO2l76gWyC4J2jD7Go/hi6b9Dt1Jkkn
+	 ZXJJ3H9ntm+Igw3OaTYpACBK2Sd6TZQR4vjOfmTsUdFzySmbl8q9pndh1IiEWnbsgww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792832527;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792832535;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=0QGVPx+14F9UmwJlUnxF0uhlWny9YKPSQZYXqMQ5NGQ=;
-	b=KLq/sN7CrRmJLkm6xYvmnsWmaH93EqdAoE/LWN+0kC+qTCY0LSNN2gGiMOYhvEP5b7t9
-	 YBfs/CS9ZdWB4YmASwd638HGRHeRVQ5+SnrdVm8KGrlz4Uvp+Kr90LOfDBnRT/OqhyZZG
-	 AN1b25oiTJsB9ZPkmXY91mpv62ZCzOUcKBt22yscvLkwF1RsBEUBxM3IpuTBIkc9PYsEm
-	 GtTUR59CtaoRXuamSHO+9G8fJxxAjRjOFGJ1vYUbMuKUjYB39fWMo4cOw7YoA1Jq43J+i
-	 edbnjVTkbgpD98rTe05oq7+RTYSOWLMCEIwHgXY2TgWa4ep+c1CGxRVgu2ZzUK0qXDw==
+	bh=1LtA8pr93j8P7KqKsav2OQgRY6SqlXaOOB05KK0ZYjA=;
+	b=22pdcyk3mj7rv6+SP37uGwpju+ME/l8HY12QARToRAN2hszgqu5ZfRkrB/JbAcXFlcN3
+	 d50/QFZP56e0lTtP3vaHaUp9CKNWXoErfA+jBIg+BoQPDSAxuJOY3uu4aG3R4s8LtL6eQ
+	 Y8dty5LV00WP1HdxZx7glvNh2eLM55K93qao6JdQBFla8vPa7r55E7j5tuD8iGTEMjsro
+	 kLI8HlCPwhNLPnBlSG0euYkGdHJ6oybvQDm54N9r2uptMQmgt/3vJIVdh6g1Vi/opSSkp
+	 qhMCPiwUt0e8xBxd8oeE1waGxznpYkwUoL7KYbBesFX+GVWXg0o+GM5eTD2xIJLqA/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=rhKeUWqr;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=n++8zO9T;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76877606A325;
-	Sat, 24 Oct 2026 09:02:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6877606A31A;
+	Sat, 24 Oct 2026 09:02:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=rhKeUWqr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 418AA1F01825;
-	Sat, 24 Oct 2026 09:02:07 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=n++8zO9T
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A08B01F01828;
+	Sat, 24 Oct 2026 09:02:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792832527;
-	bh=0QGVPx+14F9UmwJlUnxF0uhlWny9YKPSQZYXqMQ5NGQ=;
+	d=linux-foundation.org; s=korg; t=1792832534;
+	bh=1LtA8pr93j8P7KqKsav2OQgRY6SqlXaOOB05KK0ZYjA=;
 	h=Date:To:From:Subject;
-	b=rhKeUWqrMfB3hBO2repTkyH42/2i4VkCY+5EbnUknXn4e3xl4Wn/fxHm4Lp1T2Di5
-	 uHnNgroqYnxS9ERW2+pxleDnPMO9Cfy650Tl1yy3VWm7LiwsAsUXrxlMY/9aAYXHTo
-	 wLwayy/KpjVV41lZOclVfEspCc2Liforga3yl3JU=
-Date: Sat, 24 Oct 2026 02:02:06 -0700
-To: mm-commits@vger.kernel.org,treding@nvidia.com,tj@kernel.org,stable@vger.kernel.org,ilpo.jarvinen@linux.intel.com,brads@mainlining.org,bhelgaas@google.com,nickolai@csail.mit.edu,akpm@linux-foundation.org
+	b=n++8zO9TWHsUiBgPeNt4YFmbH+KiXPOXa20Zp6Xzf3+kALPxiYONa2pck8poPWDMn
+	 8il/Y4qULJD4jMpR657Ms0ZvLq3pP3wNibXuarMILhxwDSrKG/sYSJvYmskXGc6oDh
+	 xkFAWH7cNuzEHufj4VGQIlSrHaEZoIvpOq68bNwg=
+Date: Sat, 24 Oct 2026 02:02:14 -0700
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,pfalcato@suse.de,liam@infradead.org,jannh@google.com,bgeffon@google.com,0x7f454c46@gmail.com,ljs@kernel.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] resource-report-a-devm_request_resource-conflict-under-the-lock.patch removed from -mm tree
-Message-Id: <20261024090207.418AA1F01825@smtp.kernel.org>
+Subject: [merged mm-stable] mm-mremap-correctly-uncharge-accountable-vmas-in-error-path.patch removed from -mm tree
+Message-Id: <20261024090214.A08B01F01828@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,110 +51,80 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: resource: report a devm_request_resource() conflict under the lock
+     Subject: mm/mremap: correctly uncharge accountable VMAs in error path
 has been removed from the -mm tree.  Its filename was
-     resource-report-a-devm_request_resource-conflict-under-the-lock.patch
+     mm-mremap-correctly-uncharge-accountable-vmas-in-error-path.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: resource: report a devm_request_resource() conflict under the lock
-Date: Fri, 16 Oct 2026 10:00:43 -0400
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: mm/mremap: correctly uncharge accountable VMAs in error path
+Date: Mon, 19 Oct 2026 16:57:48 +0100
 
-devm_request_resource() calls request_resource_conflict(), which takes
-resource_lock, tries to insert the new resource and returns a pointer to
-the conflicting resource after dropping the lock.  The error message is
-then formatted from that pointer: conflict->name and the %pR argument
-read the name, start, end, flags and desc of a resource that nothing
-pins any more.  The owner of the conflicting resource may call
-release_resource() and free it the moment the lock is dropped.
+The mremap error path is a fragile and unwieldy beast - it reverses the
+page table move then updates vma_remap_struct state to swap VMA, length and
+address between old and new VMAs in copy_vma_and_data().
 
-The conflicting resource normally belongs to another device.  With two
-devices whose drivers claim overlapping regions (two PCI host bridges
-whose "ranges" windows overlap, two instances of a controller on the
-same aperture, or a stale claim an administrator is replacing), the
-following interleaving reads freed memory:
+If the mremap() operation didn't specify MREMAP_DONTUNMAP then its caller,
+move_vma(), invokes unmap_source_vma(), which unmaps the new VMA rather
+than the old one.
 
-  CPU 0: driver B probe                  CPU 1: driver A unbind
-  devm_request_resource(devB, root, resB)
-    request_resource_conflict()
-      write_lock(&resource_lock)
-      __request_resource() -> resA
-      write_unlock(&resource_lock)
-                                         devres_release_all(devA)
-                                           devm_resource_release()
-                                             release_resource(resA)
-                                         put_device() -> kfree(resA)
-    dev_err(..., resA->name, resA)        use after free
+For accountable VMAs when MREMAP_DONTUNMAP is not specified,
+unmap_source_vma() unsets VMA_ACCOUNT_BIT during this unmap in order that
+only the delta of a VMA expansion is charged (performed by
+vrm_calc_charge() earlier).
 
-Both halves are reachable from userspace on any kernel: a write to the
-"unbind" file of the driver that holds the region and a write to the
-"bind" file of the driver that wants it.  One in-tree path is
-drivers/pci/bus.c devm_request_pci_bus_resources(), called from host
-bridge probe for every bridge window; the windows are the embedded
-struct resource of kzalloc'ed resource_entry objects that
-pci_free_resource_list() frees when the other bridge is released.
-In the common case the "resource collision" message is garbled; with
-the slab object poisoned (CONFIG_SLUB_DEBUG) or reused, formatting
-conflict->name oopses, and KASAN reports a slab-use-after-free read in
-devm_request_resource().  All of this happens in a probe that is
-already failing with -EBUSY.  The window is a few hundred instructions
-wide and exists only when two devices actually collide, so the race
-has not been observed outside of analysis.
+Therefore nothing uncharges the expanded VMA size, and there is a permanent
+leak in global Committed_AS.
 
-Do the same here: take resource_lock, insert with __request_resource()
-and print the diagnostic while the lock still keeps the conflicting
-resource in the tree, then drop the lock.  The return values and the
-devres handling are unchanged.
+Resolve the issue by uncharging when MREMAP_DONTUNMAP is not specified.
 
-The change was built for x86_64 and RISC-V; the resource KUnit tests
-pass on both.
-
-Found by formal verification of kernel/resource.c against the kernel
-binary.
-
-Link: https://lore.kernel.org/20261016140043.790048-1-nickolai@csail.mit.edu
-Fixes: 8d38821cbcf5 ("resources: Add device-managed request/release_resource()")
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Link: https://lore.kernel.org/20261019-other-mremap-charge-leak-v1-1-d94477fe6545@kernel.org
+Fixes: fdbef6149135 ("mm/mremap: don't account pages in vma_to_resize()")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Tejun Heo <tj@kernel.org>
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-Assisted-by: LLM
-Cc: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Cc: Thierry Reding <treding@nvidia.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Brian Geffon <bgeffon@google.com>
+Cc: Dmitry Safonov <0x7f454c46@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- kernel/resource.c |    9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ mm/mremap.c |   14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
---- a/kernel/resource.c~resource-report-a-devm_request_resource-conflict-under-the-lock
-+++ a/kernel/resource.c
-@@ -1695,10 +1695,15 @@ int devm_request_resource(struct device
+--- a/mm/mremap.c~mm-mremap-correctly-uncharge-accountable-vmas-in-error-path
++++ a/mm/mremap.c
+@@ -1339,6 +1339,20 @@ static int copy_vma_and_data(struct vma_
+ 		pmc_revert.need_rmap_locks = true;
+ 		move_page_tables(&pmc_revert);
  
- 	*ptr = new;
- 
--	conflict = request_resource_conflict(root, new);
--	if (conflict) {
-+	/* Report a conflict while the lock still keeps it in the tree. */
-+	write_lock(&resource_lock);
-+	conflict = __request_resource(root, new);
-+	if (conflict)
- 		dev_err(dev, "resource collision: %pR conflicts with %s %pR\n",
- 			new, conflict->name, conflict);
-+	write_unlock(&resource_lock);
++		/*
++		 * When copy_vma_and_data() returns, the new VMA will be
++		 * unmapped rather than the old one.
++		 *
++		 * When an accountable move is being performed, this unmapping
++		 * will not uncharge any expansion, so do that now.
++		 *
++		 * A move is accountable if the VMA is accountable and
++		 * MREMAP_DONTUNMAP is not specified, so only do so if the
++		 * latter is true.
++		 */
++		if (!(vrm->flags & MREMAP_DONTUNMAP))
++			vrm_uncharge(vrm);
 +
-+	if (conflict) {
- 		devres_free(ptr);
- 		return -EBUSY;
- 	}
+ 		vrm->vma = new_vma;
+ 		vrm->old_len = vrm->new_len;
+ 		vrm->addr = vrm->new_addr;
 _
 
-Patches currently in -mm which might be from nickolai@csail.mit.edu are
+Patches currently in -mm which might be from ljs@kernel.org are
 
-xarray-clear-the-new-heads-parent-before-freeing-the-old-head.patch
-mm-vmalloc-read-vm_map_ram-block-regions-from-the-requested-offset.patch
+mm-vma-fix-expansion-of-vma_mixedmap_bit-vmas.patch
+mm-do-not-unintentionally-overwrite-atomic-vma-flags.patch
+mm-vma-avoid-losing-atomic-vma-flags-when-setting-sticky-vma-flags.patch
 
