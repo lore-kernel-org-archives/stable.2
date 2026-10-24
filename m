@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792814337;
-	b=EVKKeF/PORIMob0Qq49FFl3vnXKvKiBOTZ5vglvFmpSR2OicLVAuI1HjPWgW4p+6nCrq
-	 ti5RMVTl5f6SiMKfXsD4N1srfR+Yoq66rk30fcnfmdedVGio2wne5dfRIKXrXwOMoQl0B
-	 EGz/bzvfjpLFUEi2qZh2xlvO8ZlZdE6Vyt+REiKOgYElu7peKW/8pQ/n7P+IhuwPNROdu
-	 ukPjR4ZztNS38a7WAzCUU6dX8mME2bCkMjG1rA4nUBEI5lY5H2Z3aYsmlpJi4AJQ2+PIM
-	 HscoUvU/DwYY2TSXP/mLfv6jnF8+R8CA7zUqCb2SQfXz/Lhod2A/FfY30zjsqjbj+Qw==
+	t=1792814332;
+	b=NgKlZncJ9lsknhhVARbBBBON5a9LVWpXN82OdUbCPpXs4hawjgPKxazTS0eSAmdj+hyP
+	 CICKvrqgDFp5ZoWTS6Q+ToucM7UOcHVkJ5PZ2XeO2zNtWg7fWMIBkdtEbYaArlq1Onokh
+	 FUbs0jVEMGm5SRaDeQrPgmNUXHZtH+BGInbdGCyDWrqBYMhs4h7Ou+I+PHSpGavQDYpb3
+	 yFV5zpoLhn0T3HhZnNWbiaB2I0hnLjD4yNpgoswJKvmNxmCunmaIWbOvrPcKv9z3aDsB+
+	 yB7B8RHpuG+I9IlS7Eqlansxl2JIUGSlccJQIEsRv5zQNCAq5w1YglWjF2Xom8wDRjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792814337;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792814332;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=5xkZz2I8AMu/3n1/a9XNb4hISvxH2xKwC+RKffmK/OM=;
-	b=HExfRswIKUpFcfbBcB5xzV7enH8CEr2iox6TuK7F56y8jBxACEwu0G0lTjIR+6TIFHv4
-	 sGK5mcXXECCBn+qp2wyG5hObEdOSoxPSPh0Jl+xC4hu+h9ltmFJNAb42V7aMn4KQyBUnP
-	 txkCiRYm0E62VIUsnz6ZNCcfFRAjADE67dYmOThd4PRnvdBEs2FU2tqb6584NnrXiRk3r
-	 ixmzHJQommGghSahL0wgmaBSFaMG132P8B2ih8sg/i6naNcIo6uw6kROQg18IuvhcJwqG
-	 vmuGGt6pZODiP6bL0NGUoaqqsLAeMnoKdhQIUly5pLmbIj7CvwpuJxMLqoKhtArYKjg==
+	bh=/TAhzN/YLBIG6aPWEjTy99TQtInx/DdY7lqJKqusaWw=;
+	b=2L8P5hMD4nPHlZlZITdxRLlYWOQ4Zyx4JleNb90GgN7M4CvtxN9qPMd1m9Z0z4TXfnAs
+	 jLAwQ9MqV5RLE39vNGL2FQq2s9RV4BoGiEuaSGhg3P+BLJ0iCpnh3Tz3rS1fqB3yHUwiM
+	 I4A5sXXkYnci5jURthhZw+TQWUffBo+sq1upq2fWabjAfGYEPz7hfusatxDsrwpxPq8qe
+	 +6Yc25xKGu8i7oSfP+j5czmMh7tBtu+YL/OS/IYbvItCq/2YOnRUNDmiWu5BanRgrtyCG
+	 Z6tpWMEsOk3x6XPQnVcvyoLTV6+SS+7+x7qH1Ryui5cVtnJRgF2gYnxL7xgwt0cS4aQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=liJIzYBF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cWJG+GPV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB268606A328;
-	Sat, 24 Oct 2026 03:58:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78351606A31A;
+	Sat, 24 Oct 2026 03:58:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=liJIzYBF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11D601F01825;
-	Sat, 24 Oct 2026 03:58:56 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cWJG+GPV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 907F01F01825;
+	Sat, 24 Oct 2026 03:58:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792814336;
-	bh=5xkZz2I8AMu/3n1/a9XNb4hISvxH2xKwC+RKffmK/OM=;
+	s=k20260515; t=1792814332;
+	bh=/TAhzN/YLBIG6aPWEjTy99TQtInx/DdY7lqJKqusaWw=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=liJIzYBFJf8He7Zckb2zsPXiF1t5nTcSD6aEiN3cHRWT49EdT5rc76dTHIIYT/pMo
-	 4ccq60MZwezM0x+mTxhqzC2EIqn/cBhtf2X+W91flZp4HgmgjOKu6GVxmE5kKbXlAM
-	 wwLWfobW9ibQLu/ROovYgNSqOfY9snQnCwtpW6+BfsH2y22ZjfAH20D339aYMFGML/
-	 lLRRRVc2zrUCskWGD9DiNBKtq4HKaOH20VufJRy5tzv39CoXyc63CV32dvAQ0DuNb1
-	 +VaVbJD0V0YPwzaIlB2J+39aQO4ecJDD6rt7VwfEWMTpMAjUlcRU+xuiv5AyWej1IN
-	 BiYuzAVCkGI7Q==
-Subject: Re: [PATCH v6 11/13] can: peak_usb: don't read past the message in
- PCAN-USB Pro decoders
+	b=cWJG+GPVyGHbH0lXVME6Goec0UjUwPgdXlk6IH3p+sdb20WwRwtEJcLdVB57J3CBI
+	 xarv7kmZ0/NHLBMVrwxjM8fq8MUtWSJZGQ+E2v46EjHmY7APFx3YTQ64HsGkr66/df
+	 xQzUr5LiGhCT8Z/PyDs4/HaM/FwwPpi7mK+rcZiuwh8ZjQbnBPAuTlTvjT/mVa7pQA
+	 Io7CjapFF4zw09eZFuigPCnJjGvMU/JcnDPjZUCtfLGqUbttaNj+9EZbDSSkvfYR/A
+	 dC6OBZ+BbMWnDOxfuj2PrbQDNva7b5FXu0UUQcCdQNjy2itBDqRQsVx+G57qouwWoy
+	 mb93q9RWVyL1w==
+Subject: Re: [PATCH v6 03/13] can: peak_usb: sort ctrlmode_supported flags
 From: netdev-bot+sashiko@kernel.org
 To: s.grosjean@peak-system.fr
 Cc: mkl@pengutronix.de, mailhol@kernel.org, wg@grandegger.com,
  error27@gmail.com, lukas.magel@posteo.net, linux-can@vger.kernel.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Sat, 24 Oct 2026 03:58:55 +0000
-Message-ID: <179281433565.3130.14307625292135673040@kernel.org>
+Date: Sat, 24 Oct 2026 03:58:51 +0000
+Message-ID: <179281433115.3130.15136732593858786026@kernel.org>
 In-Reply-To:
- <20261022-canfd_check_channel_idx-v6-11-197704231551@peak-system.fr>
+ <20261022-canfd_check_channel_idx-v6-3-197704231551@peak-system.fr>
 References:
- <20261022-canfd_check_channel_idx-v6-11-197704231551@peak-system.fr>
+ <20261022-canfd_check_channel_idx-v6-3-197704231551@peak-system.fr>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -72,64 +71,61 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] The commit message overstates what the old
-  pcan_usb_pro_wait_rsp() bug could do.
+- [Low] The commit message says the patch orders the CAN_CTRLMODE_* flags
+  in ctrlmode_supported by numerical value.
 
 --
 
-can: peak_usb: don't read past the message in PCAN-USB Pro decoders
+can: peak_usb: sort ctrlmode_supported flags
 
-This commit adds bounds checks to pcan_usb_pro_decode_buf() and
-pcan_usb_pro_wait_rsp(). With these checks, the record walk stops at the
-end of the received message and no longer trusts the record count sent by
-the device. pcan_usb_pro_wait_rsp() also now rejects a record that doesn't
-fit in the received length.
+This commit reorders the CAN_CTRLMODE_* flags in the static
+ctrlmode_supported initializers of the peak_usb adapters so that they
+follow their numerical values. It is described as a cosmetic change with
+no behavior change.
 
-> - pcan_usb_pro_wait_rsp() doesn't check the records against the
->   received length at all. Since the count is a 32-bit value, a bogus
->   response makes it walk the records past the command buffer.
+> diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
+> index 785224e00c4e9..169c00d93463c 100644
+> --- a/drivers/net/can/usb/peak_usb/pcan_usb.c
+> +++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
+> @@ -1016,7 +1016,8 @@ const struct peak_usb_adapter pcan_usb = {
+>  	.name = "PCAN-USB",
+>  	.device_id = PCAN_USB_PRODUCT_ID,
+>  	.ctrl_count = 1,
+> -	.ctrlmode_supported = CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
+> +	.ctrlmode_supported = CAN_CTRLMODE_LISTENONLY |
+> +			      CAN_CTRLMODE_3_SAMPLES |
+>  			      CAN_CTRLMODE_CC_LEN8_DLC,
 
 [Severity: Low]
-With the current callers, is the last sentence accurate? The code change
-looks correct. It is less clear that the old walk could ever leave the
-command buffer allocation.
+This isn't a bug, but the runtime ctrlmode_supported update in
+pcan_usb_init() in the same file was not reordered:
 
-pcan_usb_pro_get_can_channel_id() in
-drivers/net/can/usb/peak_usb/pcan_usb_pro.c is the only caller of
-pcan_usb_pro_wait_rsp(). It builds a 4-byte header plus an 8-byte
-GETDEVID record in dev->cmd_buf:
+drivers/net/can/usb/peak_usb/pcan_usb.c:pcan_usb_init() {
+    ...
+	if (dev->device_rev >= 41) {
+		struct can_priv *priv = netdev_priv(dev->netdev);
 
-pcan_usb_pro_get_can_channel_id() {
-	...
-	pc = pcan_msg_init_empty(&um, dev->cmd_buf, PCAN_USB_MAX_CMD_LEN);
-	pcan_msg_add_rec(&um, PCAN_USBPRO_GETDEVID, dev->ctrl_idx);
-	...
+		priv->ctrlmode_supported |= CAN_CTRLMODE_ONE_SHOT |
+					    CAN_CTRLMODE_LOOPBACK;
+    ...
 }
 
-That makes um.rec_buffer_len 12. pcan_usb_pro_wait_rsp() passes that
-length to usb_bulk_msg(), so the device can write at most 12 bytes.
+CAN_CTRLMODE_LOOPBACK is 0x01 and CAN_CTRLMODE_ONE_SHOT is 0x08, so by
+the ordering described in the commit message LOOPBACK would come first.
 
-peak_usb_create_dev() allocates dev->cmd_buf with
-kzalloc(PCAN_USB_MAX_CMD_LEN), and PCAN_USB_MAX_CMD_LEN is 32. None of the
-PCAN-USB Pro command builders write more than 12 bytes into it, so bytes
-12-31 stay zero.
+The commit message says:
 
-No record type 0x00 is defined, so pcan_usb_pro_sizeof_rec[0] is 0. All
-record sizes are multiples of 4, and the largest is RXMSG8 at 20 bytes.
+  "Order the CAN_CTRLMODE_* flags in ctrlmode_supported according to
+  their numerical values."
 
-The old loop therefore reads type bytes the device controls only at
-offsets 4 and 8. From offset 8 it can advance to offset 28 at most. There
-it reads a zero type and stops on the !rec_len check, whatever value
-rec_cnt has.
+It doesn't limit this to the static initializers. Should this line be
+reordered too, for consistency? No later patch in the series appears to
+change it.
 
-What the old code could do is read past actual_length. For example, it
-could accept a truncated response with actual_length == 8 and a GETDEVID
-record at offset 4. In that case it would return the stale request bytes
-8-11 as dev_num. The new "pc + rec_len > rsp_end" check fixes that case.
+As the commit message says, the resulting bitmask is identical either
+way.
 
-Could the commit message describe this case instead, so that the stated
-impact matches what the old pcan_usb_pro_wait_rsp() code could actually
-do?
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261022-canfd_check_channel_idx-v6-0-197704231551%40peak-system.fr
