@@ -1,100 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792812663;
-	b=TrnNqqSBpbes6kjxskDYYWzcc7voHhpB4NH2cv9ceRxEQKeQ8p39RTO3G9GPsN6MSurq
-	 1ciLjPg6rd3KKL3P4MFV/ctkgYxNAIqxhzo7m+Y0xxwuKwB4eZ19mmiPRD2pjXMR3IWfK
-	 4BN/cqir5UicG3VB/HQm5eBcYvjobWnels2JT3nOQyswvypFYM81SG9x7BiWa+zLv0hrl
-	 Pi5w34hMyjRlVu3qUlBe+hIqe/emyADYADpJGeg4CZkt8mcNG6vl/IBkstElJ0r7Evn1j
-	 oZ7sQoOmrThqE3oSsCo1wAyuvz0muuxREIF2bWnVOyVm5Z+UTz0tag5I4JJiqknMaYQ==
+	t=1792814214;
+	b=URHzW0mVzzyycBYgl2SpXzEJBTVgb4kjlFQGC8G4P+oMWT5m/GBvZ6i4RuYKJLdWYfvn
+	 AUlN6LBRVkoRuYZXE1OwAirlv1mYbEC3RW1PAhlL+12MFI6zkEfJPrI6YLRVNT7I0RAKH
+	 iCALhjcwBkD4AdtXg5hBiZUzDCfBwu6Y9FuI5ZZlDQKRPyKhi2h5v5MIQkn1y/RQkT1L0
+	 UWwXAKDTNrcSMGnNe5PK1jEp2N/Ownxh1fNBoHBx1hMrk7Jyrfy+xtZji8KhGgcGANsjf
+	 yRorrat1BjWBhFUUm+zjLkAgPTZwiK1Pf1qhSBy69BPwV1EonqBT42Oiu7+E4Okj7+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792812663;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792814214;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=n3H//P2Xt+SFt1vuWW61mGplc2uJXCj0F7tBueU0V+E=;
-	b=FGRGy7avplm7lJZ7me9q47pEhF4OiaHy7fc7WNABfV9wifahY9vGMkot+Yh0567yK2Yn
-	 q7Wia0YbZKGLrDowUILPAky16R9B+RmE0k3djG3bKsDixPQ4k0CD7CES4Eiz38qBf4x5O
-	 epIL9yQQIQeR48k9e+3/Iuzqn4Ci5WF0OCve2LX9ftzDaXE0XCYQf0KIt3LOx5qK4127H
-	 Q2+XVjiEoQYHN70vj2N5bSNaeEjO+//uLxKcacNshFQFDgq36qXa3NLz2ufjal2BEBAXL
-	 CMrCfT0MWm94wblVKEXuD0XUdCAHIYJYNjIHXOuHvNYrTHahr0RZM557gFeQT3BB/sA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QmLSHEUIlzA6b1Z8wErarn2CLIxesBi7GU7DAVJa58Q=;
+	b=QPhPHsObT/zxaS6XWkulqfyA6IK5YELPvi0S+n14r7CY4boT3xWYEK1jGsASXg7xxNTY
+	 /RyXMffI3XTGCx/6fnd5gWiin/1X2XpUZcVoUIZclQg8i7YpoqVR7l0pzWv6QOTpvQzKQ
+	 qB9YdWDOdQMwJiAwA6pIZcC++A5dIApIfjjJvr0shwD3koFiuq4ksEsn7P3yt08kXsm66
+	 66j6R3lJjJmoi4Bqn/W9GQjXzXv3F/rt4hvuzXaERsUHwGaXsR/8gE3QLgygquub7FHC9
+	 1k/pPLU3GQ+wVhF3d/jCBfAkEt2xTLnD3eEgGZJg5vPYtnQlGLyq15EjiY3AwdZEdrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=O9zeuA8P;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	dmarc=pass header.from=openai.com;
+	spf=pass smtp.mailfrom=openai.com;
+	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=GWXPbxaZ;
+	arc=none smtp.remote-ip=209.85.167.181
+Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 428BF606A31D
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 03:31:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 428BF606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00DA606A31A
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 03:56:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A00DA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=O9zeuA8P
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-368581df789so1658110eec.1
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 20:31:03 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=GWXPbxaZ
+Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-4f488ba6e90so338540b6e.3
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 20:56:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792812662; x=1793417462; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n3H//P2Xt+SFt1vuWW61mGplc2uJXCj0F7tBueU0V+E=;
-        b=O9zeuA8PpjKR/mNeICZ72Ke+3eAhqwzD/YRJmTXJV8Zg4sN0tU6IOIBLWiIHESCH5M
-         9kFIIWVp3YFzP0PlfpdiXW0MRcER10Tz5Xx7mFdWbHeZdx2BekiAcEVAK46VQXtyiBxh
-         F0JB3FGAQnTAQ2pkrEZwul06jv1vheD+Dz2zn9RQSPIzR4shLjcD5B1irWqyuog2GkXa
-         PF9S+RAwu4G+uQdbUjBmDhVjtQ2opsaEKTyjFDtytP1nRRDrxM+FPMqV1EgyLvl/F9Ne
-         QcVRS49rnc3w+GCGj3zQo9VMTKnn4oShM7/B3KBIfE0h+ILFQirgTs42CvsbJlOwrJ55
-         TlIQ==
+        d=openai.com; s=google; t=1792814212; x=1793419012; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QmLSHEUIlzA6b1Z8wErarn2CLIxesBi7GU7DAVJa58Q=;
+        b=GWXPbxaZfIlF570IH3NjtOMHKT5q0tJsRhdbgvH0qPd37glkoO169EZbWvInzeLaVW
+         y4nazItapdO6NsIJBsQgFvTj7Pi/4N8XapG3/8GNXuKnLSFHij38dMxI/TdOQiWqidhS
+         HW8vNzSnm5ix+/fxpVJyYlicd+v71ya+MWW6k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792812662; x=1793417462;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n3H//P2Xt+SFt1vuWW61mGplc2uJXCj0F7tBueU0V+E=;
-        b=DgmC+6wrD6bA1AViSeVJhBq9AdhFcjiH09G2/CzoWet2i++KjC5oFBp6zoeGzaZc3N
-         5OTYjqvECqtx9NtpMhCROxSEs8EJzeT3qUWZelxs85jDgU9VWoog2KTWVQLyANqA2WUr
-         w3AzKv2zPySirjwHIHKGk6IzzSgDH8yJGRHbLwNiwSQadBminLlOwQPYaurGatDOk5CX
-         ERNMXE5HHNL1tjxhOxreW0qIANLIdASzq7/VZroMBFIrQceL9X8bKO3n3hX1mVb+G4Sm
-         JK+D4AglMgyremBKifM4iQY7e+Ca2O5O1fwiDz9tFIEmPucTplx7JS6ozqWHBY2U/gJM
-         /QjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwgngxqP4zy2GC0e6MVNqxIlrE8GosgMHws1J/qSopv00bgUFcSmqUaj8n87qpU/Qe7zbd7zy8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLgJrOh2D0L/igbtyKkbUA8I391NrrFHIP3djnepcgoiwVJBuAG
-	E3MwgLBGfezH1Fb32fzAFo+Uu2RKEung5gipNr2SBsAuaUkgZIYJ2qIj
-X-Gm-Gg: AYBFou0uuWvOrFvtXKPmm1LcszaYO4Rv4QWZ80fnYsQGjKxme5/LNd137F+T1KLUthg
-	82g9V8EshrQeKBRnGGDH1VfSmwWqgkssR+PUi2QSlCFj+Fo2F6mHICMyxMEv1yQk3nXkgnykq3z
-	OI2QlxZB11qbTnRhOaIq5r2BEkbg642tkyhGlJSyIHtgiK4oiy4bfuf0lb0hzopTnFlhaFtET05
-	dVg0lsS35/ibTXr2uC91wwV0AUBm++yjB40wnzgUu1xJsNoCP2BXWJoZMdSwJzeQu+aV2c6S7lf
-	rY1+95fwtbDVtMMsE0Ti31teO5dygeQrcGS3kxVk6htfiXZ2MBXOqQ369CqUcxZjj8qoHnBYCjY
-	isrvg53yk1vMKBaRJfHd19nZhtFt+nSRKJitXASvk7G+boLmHnqjRZoZaiqCiV6NSyhG/fbkSRM
-	387LlOLHxLbxWw8mfhjmy944y4Tz44hzA76rEy3r3GSjS+Ilm7DuI3NjS189z0r8nQew2nbpx/8
-	PIC2v8wIodkNDCYxmvJy3F0jt4FoOrEw/kqn25CIwEoybKvYegLB4hJncVdVLVY5N5ixYP9CSQ+
-	m/ReMUsukjG71losvUK2Mu8bxrxJ
-X-Received: by 2002:a05:7301:1a05:b0:361:2a55:b94e with SMTP id 5a478bee46e88-369e84d35e0mr1251819eec.15.1792812662302;
-        Fri, 23 Oct 2026 20:31:02 -0700 (PDT)
-Received: from jmoon.tail8e743c.ts.net ([118.220.156.4])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ecf087sm2827283eec.27.2026.10.23.20.30.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 20:31:01 -0700 (PDT)
-From: Jinmo Yang <jinmo44.yang@gmail.com>
-To: ping.cheng@wacom.com,
-	jason.gerecke@wacom.com,
-	jikos@kernel.org,
-	bentiss@kernel.org
-Cc: dmitry.torokhov@gmail.com,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Jinmo Yang <jinmo44.yang@gmail.com>
-Subject: [PATCH v4 6/6] HID: wacom: add NULL touch_input guards to remaining touch handlers
-Date: Sat, 24 Oct 2026 12:30:40 +0900
-Message-ID: <20261024033040.316652-7-jinmo44.yang@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261024033040.316652-1-jinmo44.yang@gmail.com>
-References: <20260927041138.4112920-1-jinmo44.yang@gmail.com>
- <20261024033040.316652-1-jinmo44.yang@gmail.com>
+        d=1e100.net; s=20260707; t=1792814212; x=1793419012;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QmLSHEUIlzA6b1Z8wErarn2CLIxesBi7GU7DAVJa58Q=;
+        b=vntAFUoaWRUEFkguGKvLLAJX74BnjrJN7PwkGzKcF9CxN47vf6jMHTR+cXKjV+dE5G
+         3xxwUC/vx7Fm+ubxJ8YLYQooL3dm5snvqiv0PkVoZgdzvD6pJmzFmk8bnYGqdg3uFBPL
+         6+NyHn9FO3iiTvlo6xgDXEQ8k3KZFappav6GPOtT+l+3rnuelQo5JJz702fOS/hdxfBR
+         8Wxz7h3IorGR5UJ8rG7mDHFbQxYVhcUqqZxvM7c97WUrXQ7pnM+dLslvhYyHoQnSReia
+         4RR7M8Qar1hvDZpWRXn/HT9gWkMuSS8VjvUIQIuDM28kUdTjSVVDBWymXWS3u7GjBCR1
+         N3xQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzjQVYI6KEa71CekuqWvutpu1CF2MC0SFV1u11Fz/zPZsR6+EM33JdQl+J7R3nyZ2VfyjK/+W4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI172RXmCUzcXvFN6fRfJ+i+uO6KXfn4dZzr5b14CN+slG8wnpP
+	au0rs53v/SiI4ieEqxfaQBRBV6Vgs26UefBG9/hU4AR5apyUwrSdzZ5E/3evMHrUVU4=
+X-Gm-Gg: AYBFou2/18P4ef439/LnhP7XnDO98jFXc39FOHUQpGa077iJy9fRm2LTPIkSQVwpn/A
+	EkxDKPP4KFZ1vciefqCd13i4wWSlQ/obD2JZKuYq455LfHM8mozW7RJF4ZrwR5Xnbs6YxZ/0Dm2
+	OkPBCJopltpmYoQnMrHSvJcPI0jaXg/NoogLlYqmNXzoYeMQx6Q/N7qj/4gf5OGiMdE7DD0hxS6
+	M8a0aQhjwpjdspBByhg3DvrNsf7j8hwzC+7xg2X/+q6UmQxYbZemnX3+CoyXnL8uDxsqOM0JnkK
+	kvofvJEu2S8FsMPAzkxNJIBR2D7cWoXQ6scVYgSmNvfFVcBIhvO1meCV0wS8mfvYicPhli7J0wz
+	n3iEaXAxq8TIAmMDXGuoSdbIN67C9AoK9hXQxEArnE94CB4vjzxTRrcWifCNMRtcFtOQaVCGtNY
+	uG2Gr2wjCLqM4ZGJCGf1aBKYtgG91xUsEuYE9/me9wUgQbIoCulT0bAHLRTejFbhVHmkFh4q9+H
+	nWD2AYqtSdl4OuO1NjyrqtLlpBiD8P5acIpluGz2k/AIX4EbRXmzhugNja/3+hPrTbDln+2T/1o
+	eIpwSM5fyxjqhhUtF/eyQpgVwxoMb0+K1WqrNypFs0XvKz5qB9ZgDQWa
+X-Received: by 2002:a05:6808:309f:b0:539:dfe8:9960 with SMTP id 5614622812f47-55c00335864mr1018155b6e.56.1792814212486;
+        Fri, 23 Oct 2026 20:56:52 -0700 (PDT)
+Received: from com-75606.corp.openai.org ([199.47.143.5])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-55c0429c56asm649076b6e.9.2026.10.23.20.56.51
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 23 Oct 2026 20:56:52 -0700 (PDT)
+From: Kyle Zeng <kylebot@openai.com>
+To: linux-mm@kvack.org
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Kyle Zeng <kylebot@openai.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] fs/proc/task_mmu: pin the mm during PAGEMAP_SCAN
+Date: Fri, 23 Oct 2026 20:56:46 -0700
+Message-ID: <20261024035646.68348-1-kylebot@openai.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,65 +99,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-wacom_24hdt_irq() (also handles WACOM_27QHDT), wacom_intuos_pro2_bt_touch(),
-and wacom_bamboo_pad_touch_event() dereference wacom->touch_input without
-checking it.
+A pagemap file holds an mm_count reference, not an mm_users reference.
+Unlike pagemap_read(), do_pagemap_scan() does not acquire a live-MM
+reference before walking the page tables. Its mmap read lock does not
+exclude the first phase of exit_mmap(), which also unmaps VMAs under the
+read lock.
 
-As with the other handlers in this series, touch_input can be NULL when
-wacom_setup_touch_input_capabilities() returns -ENODEV during an
-otherwise successful probe.
+A process retaining a pagemap descriptor can therefore race the final
+mmput() and access resources that have already been released. In
+particular, a concurrent last userfaultfd close can free a context still
+reachable through a dying MM's VMAs, and unmap_vmas() can free a shared
+HugeTLB VMA's lock while the page walker is entering down_read(). KASAN
+reports both a userfaultfd context read-after-free and a HugeTLB rwsem
+write-after-free with unprivileged, read-only PAGEMAP_SCAN requests.
 
-Fixes: 2a6cdbdd4cc0 ("HID: wacom: Introduce new 'touch_input' device")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jinmo Yang <jinmo44.yang@gmail.com>
-Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+Acquire mmget_not_zero() after validating the ioctl arguments and keep
+the reference for the entire scan, including across mmap lock drops and
+MMU-notifier operations. Return -ESRCH if the MM is already dead, as
+PROCMAP_QUERY does. Balance the reference on the bounce-buffer allocation
+failure path and at the common exit. The pagemap file continues to hold
+only its existing mm_count reference between operations.
+
+Fixes: 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and optionally clear info about PTEs")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
 ---
- drivers/hid/wacom_wac.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+I have a reproducer for this issue.
 
-diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-index c4d6295f57c9..38003e0b8083 100644
---- a/drivers/hid/wacom_wac.c
-+++ b/drivers/hid/wacom_wac.c
-@@ -1489,6 +1489,12 @@ static void wacom_intuos_pro2_bt_touch(struct wacom_wac *wacom)
- 	int num_contacts_left = 5;
- 	int i, j;
- 
-+	if (!touch_input) {
-+		dev_warn_once(&container_of(wacom, struct wacom, wacom_wac)->hdev->dev,
-+			      "%s: touch_input is NULL\n", __func__);
-+		return;
-+	}
-+
- 	for (i = 0; i < finger_frames; i++) {
- 		unsigned char *frame = &data[i*finger_frame_len + 109];
- 		int current_num_contacts = frame[0] & 0x7F;
-@@ -1660,6 +1666,12 @@ static int wacom_24hdt_irq(struct wacom_wac *wacom)
- 	int byte_per_packet = WACOM_BYTES_PER_24HDT_PACKET;
- 	int y_offset = 2;
- 
-+	if (!input) {
-+		dev_warn_once(&container_of(wacom, struct wacom, wacom_wac)->hdev->dev,
-+			      "%s: touch_input is NULL\n", __func__);
-+		return 0;
-+	}
-+
- 	if (touch_is_muted(wacom) && !wacom->shared->touch_down)
- 		return 0;
- 
-@@ -3430,6 +3442,12 @@ static int wacom_bamboo_pad_touch_event(struct wacom_wac *wacom,
- 	int x, y;
- 	bool valid;
- 
-+	if (!input) {
-+		dev_warn_once(&container_of(wacom, struct wacom, wacom_wac)->hdev->dev,
-+			      "%s: touch_input is NULL\n", __func__);
-+		return 0;
-+	}
-+
- 	prefix = data[0];
- 
- 	for (id = 0; id < wacom->features.touch_max; id++) {
--- 
-2.53.0
+ fs/proc/task_mmu.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index 5c54aebe2118..d2cee8dcba58 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -3235,11 +3235,14 @@ static long do_pagemap_scan(struct mm_struct *mm, unsigned long uarg)
+ 	if (ret)
+ 		return ret;
+ 
++	if (!mmget_not_zero(mm))
++		return -ESRCH;
++
+ 	p.masks_of_interest = p.arg.category_mask | p.arg.category_anyof_mask |
+ 			      p.arg.return_mask;
+ 	ret = pagemap_scan_init_bounce_buffer(&p);
+ 	if (ret)
+-		return ret;
++		goto out_mm;
+ 
+ 	for (walk_start = p.arg.start; walk_start < p.arg.end;
+ 			walk_start = p.arg.walk_end) {
+@@ -3294,6 +3297,8 @@ static long do_pagemap_scan(struct mm_struct *mm, unsigned long uarg)
+ 		ret = -EFAULT;
+ 
+ 	kfree(p.vec_buf);
++out_mm:
++	mmput(mm);
+ 	return ret;
+ }
+ 
