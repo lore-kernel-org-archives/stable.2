@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792844836;
-	b=u4Jmyybi6+YpVOGOK432fZIqBIDnNVhUJVmfd85Y+4vwb61W7p0NI7uCE1dnnkNRuCGP
-	 A0n2UfIVZ865BAxfbumH6aswM6AvELP9UFo+ft7J6z8OwFIImBGiwxfDK8hbyzrfQxLer
-	 yJQTxuxA1CW6pZ4HXeCGtNTqapstWBdNWnK0Bw4EXaDfAAD6kp9hdx4oQmuT3BWviH2P+
-	 a/gi2Y6PM6eitr0lcM0y71j050V7R/oGCfz4ILwlyVL1HMzpx2o8Bd9qEAcikAE+4ElrS
-	 CnjM5xiDKSd9Ftu22aF5gYSTEkP25C+s+CcdI45OmyyKvDRpl2RJj/etcuIKRr207Zw==
+	t=1792844842;
+	b=HANdCAaj6tzcoZDmgVuYvCnNmsadjTMZJs1YuYa3bJbhoZcY086cU8f0DKVvCMs9OmVt
+	 PXBYNMBmBSmeHJMaeeymUbi6aMM24b4wQxZYMAmVf86G72yO2dWUgEXZn2zvXzDUzB6Ci
+	 fH+LAcA9DflAkneBYt62h1zBN29aQe+A9/aJhgd120H34Ee1Op9WVewXZWNGRKKuZ1CSU
+	 nb0OGLR40jSf2I94PkcJQuvHS51NaU3U9PEu/DTWceXyJwKZ3ZYi1OLxS/P5MKzBkUH5w
+	 ZNvzmeKTW8CotdD8wxVJ6TtJ3+GVsFcuu91N8oFktUDjF3Wgpwn/4eNtyMOhkI/i5Mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792844836;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792844842;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=dC76N5Ln0rNHOX7RlGPetCEM3CDaxZU/FdlijHkqlFU=;
-	b=im4oa5Y3Mdbd7ZILzejr1ogijog/JAMUlnkSMXyBMwOAHUTci+ZxoGUgwZ1EHzHip2ui
-	 Rb/1nSBP4c989RoKL+I9MI0s7eQgHftsZ1B6rodVGslx0CNV4uaWm0Tr+IvXZA4IEQjVU
-	 fXh5BeKTG08m8MRWqe3PdsmItLbPf2KU9d7LTrfNN6IfVb+cnPrP3RYGuVe0paiUdepQz
-	 F0UVO6ag5xASC0pNu6n5OTomDVcb9hDTBylZOQeoCgiS4fyZDb09A10QPCMn9QqOAyLBH
-	 1bdqsC/4YfVlkzprAa9Mit6Q+OnzKVWfTbyPdMLOXt5CPESggjrunv+F+ZKqyPW+nzA==
+	bh=HH2wcH5ax7FTuPjYtzidp901kZ7Ug9dNkhc9uw1LTNE=;
+	b=JsGLKeEl6sJrz1nNBYc0E4gRb50n+DZCHdxM2YXHQlBdHr5TAZDShl/M3YrmdW9+HyEl
+	 gvElDqSlC3yVSbCTDC6ccR2N1eqweWKJmzz7XkT/e3oI+wkxSqrnbfSEO4a+tRRlWZHrz
+	 BjbNdHIAdudg+PhiY1yLSBoZ9XDeQMeWzevgiNXBxl6FQsVe9BmQby1jni2JbhcXffOaD
+	 sBlSIrLCZgjj6FcWUi7v41KxussZdiwGuOXN9+lAQ/hFVsS0DICXDxuWxQFtcGuqPfSPK
+	 zBvOH1Q9cE1bpo3YVHGJ4WfzAPlYrb/n6yOmDm2nYxZlkBUxk3J3i8y7vYgl3/zLCwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=obpTvdV9;
-	arc=none smtp.remote-ip=209.85.215.171
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hOcQXPuB;
+	arc=none smtp.remote-ip=209.85.216.48
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CA3C606A32F
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 12:27:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CA3C606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8647606A321
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 12:27:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8647606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=obpTvdV9
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cd69954c755so1173116a12.3
-        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 05:27:15 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hOcQXPuB
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ac7c7b3a90so835856a91.3
+        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 05:27:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792844835; x=1793449635; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792844841; x=1793449641; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dC76N5Ln0rNHOX7RlGPetCEM3CDaxZU/FdlijHkqlFU=;
-        b=obpTvdV9Dn94siwUyt7hoJ2e2Q2aJuSuUhXlKOfUwkwxRSna2+M+y94LVqhgr4O7eo
-         rW4H5Gf8wdCVVY7ImnSNvUSrZU4h4j7QlAzajNQn9idYjQi+yG1Mll0ens7O69oNysO0
-         TsueMcXPk4DBSRVJxHQ7rmeVJPrumC0xducaGsSq9ck/0/o4mHZlj8Y+3aYA8mZ2Pdil
-         jAC9+GHRPLeQpz85BzgtcR+AjmdTPbnLPf9DHQoDoLusVPsIySm+EXqVaQ44oxk5foLN
-         1hktYqMmt1G/qfpVauRNIHVzkgqZsYQkCxMEevBMSGmCgTaIUWCjTFYt7Uqx/bfAMYAA
-         cxpA==
+        bh=HH2wcH5ax7FTuPjYtzidp901kZ7Ug9dNkhc9uw1LTNE=;
+        b=hOcQXPuBFVQktIwg7yjAxxl4bwpYGED4nJc0NeRqhQ7aWphAnGCuopcqmDSo0nxrRf
+         yKTeNn6G1vt2s5QVZbc99v8NazVP9fFqvWY4CQzrhfFGiqFAdI0ATyUwv/Yb11lXCpYM
+         VzHpBJ+zEKpLjLCOVl4vCzu8SAEPp/TOxLVxipQUuHi2qa/tgDdIIPyUqnqmirEcxIK2
+         7UwISxcHqCFQfyO9S1AcnvmnEZGvdAsjWx6BznyJLkOz93RiL7O/h/s2ziHeLNs7Uk6O
+         U5VB47cIJRa51TrhdwLUAz8m888TzakRMjMz+aHMf5uzYcM4PH4BG9OzYsmQrkOdGuBM
+         rTIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792844835; x=1793449635;
+        d=1e100.net; s=20260707; t=1792844841; x=1793449641;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dC76N5Ln0rNHOX7RlGPetCEM3CDaxZU/FdlijHkqlFU=;
-        b=rtrJB1Ie8IuNiAt3cB7dn9ddlfCiABhtM4x+wGMhbU1uODVsmHE/jYjpXGnjjUv9T4
-         yrse41nifCzUxyZT9mS9Wex+4Eh6m46zHxw6JXpdzFCEhuEa4FPhbmjUuCcKzk9MFmQd
-         8Fbq+rIeo8ml4BFf7Oz7IoYLoWZRj7mqO5aStGTaNuR1/Eo8PWyxRteW2HCDD9GTtBfX
-         0yWN18hZFWM+NMRTCzESD9TFUrchXQ1Q4QaarKuYCqMMr8PwI2qmx4SCCH50p7Q8ZT4r
-         Kbnpv8GrouDmMFi2HX0+n1C3i6A9lhMq6lMHDuI5H2w2TfO9KgtNuce/+13PjX3o9V8U
-         kH7A==
-X-Gm-Message-State: AFq9FYJebo08pdooS+pgcPITVXu87cIxlWB7ofnmYB/tihhxsRjevdQy
-	9lUne0Tf9FBX6D0QiRki4TAzy0jCwLoo63lky/ExREsrqL7pUG1xY84lscjFPULZjHc=
-X-Gm-Gg: AYBFou3bW6rpJLr8nnWTvxG6a73kY5GyuupWYEmMQjcMbjAnevwKauKz45k3h49x9eV
-	8B916gjp7P0nRgzPAxUnkLlo5BW10lk67xEMq7qiYmy5UEZ4FR4CSl/tzsGmCAfv5ChB+/GNzjy
-	I2ma4WzOokz7B4rFRV5c44BDhogW+SexGq0F8k8Gkios4nLynhPic9H0TnJy9WHHqYf6eeQsgtd
-	zlD27k+TebHD7wZ3x3VucLUi+JxQuSS3kVkQVRn4M4oOKOWITiC8HZUBKww3IpPQmD12lEQYfbs
-	RrgFMIhhVQqYEouLwJdmlvcfnFdM3qSkFdD6A8SuWW+sjskIPRxyfw6UDYJmAZ3duVhxHc3xVe3
-	0cQmYWoJxoTgTMV0OwEmkSKcsAOjFpCb8W3B9XxjebmyfjnaaLACGrVH+Y3/RVR3mC1WsMLG7p9
-	oqBARQKLbhf5wbzp4QlTu9SRGtRSIatneu6DNZZh8QyB9z1G1dWgVsEA01bDYSvI/UrLpI3n0E9
-	G/ANmKgG0eoJV3VgTqwN2ynTmTCFdtBQQtwqJK6kPIfj8XaOWlRDzJzJmbx1TJWdrqFOAP4m8gX
-	Q7nZmlVpHTslza+vOBm6UFqmZjIreng1qmcJRcJDcF+jWlB+mixZByF9fieuGXaTNU778WoQl4d
-	LwWilD0HOsLSPcpNdhukiNwk9BrszjXYd1oixPZOXfszaIMAbfKmQ6w60sHkCMIphFuTX8SJfME
-	YeZQDwFhIFG46g7lGcUpHBdG3p/OLTvFoSBT715pqRIY8QZVCZIvjL3y81
-X-Received: by 2002:a05:6300:6bdc:b0:3e2:97d7:bf3f with SMTP id adf61e73a8af0-3e7bfbdbc24mr1514660637.23.1792844835354;
-        Sat, 24 Oct 2026 05:27:15 -0700 (PDT)
+        bh=HH2wcH5ax7FTuPjYtzidp901kZ7Ug9dNkhc9uw1LTNE=;
+        b=Pf+M/geChf3JJp0glZPONEiBbyT04ItLXFQk1O5c7ernaqYpa5VtcN7iVeKBQtaWoU
+         jbAzcmamVK9JjW8mdXxWtWN1HF1lapUsyLwe8QsXQ7fJxjFAZZZ6q4CQ1zOac1DcHu5F
+         JFmBT4cat5+VYA1AjVwpUDOza4Jzs6n5lNFjBqvhvUBXZNMyN0wkQSk8KNiSYDouhKQM
+         QxuGHKD8SbYgie+FUgwnLujd379VcL6ObZBi/Qxn+wcUQPcYcr6equV8Y3iwzuU5gZkK
+         wZlYJq8+HAf5aIMz6OztkqkUVqjSuHQw1UVGBr3p0gDuz/d8tBtJJgUp7/CW1bHVdj0+
+         If0w==
+X-Gm-Message-State: AFq9FYLxqXcK5kRaItZQ/RXaZ2MaMn9vRyAddQVexBYMG5vaGkAUIvze
+	FVlYJbXaYrTeSUaT6OT5Q8awcGHGK82EFoQKGwycKOJdYul+2EiRAvCp9Kyw+9NZxEQ=
+X-Gm-Gg: AYBFou2NO0oMuh636NLqbyM0I6BYmNtp+ww7Co35epW1uanEDrgMLzWw57P2WiC4Tlm
+	6FL0x0KgSCCgJ3qCdtdqwMFP7c58IbkL215HBNL76J0Xdb6hZAw8NrUA14ypR2Y3+XQXDvfItHR
+	wDEhbPeCuQu0YTp2iF4htqxGZwF49BlXZT/zQirHTfmiJlSm6ic8wguY8b1BbZKR9qSwpDaYmuv
+	naNF4CtU0LA/k3qk/xlm/Vys0fMjcfm7TaA+3C09EdZfuMt0dD2XhO1Jjz57IyJo4ijDMlYqAv2
+	2ai53nTpGESl4uv2G69yOPoClZ1EtFs7XAAKOKJXj6r56bMZPGphGSWKWxiZtQ+krjsNUGqZ1IP
+	V3O6d2SSxgZs0dV+kqtYfvxM9rLlGGvLCDYwt72EFaxKtsiI53tuCGiFajfnaJSRriATgWRit7T
+	jDUEbN7xLMXjfadpRT3kCQ8eHQX/CIJ7gfHshizHc7XEr7nun8yNoSr74FXISyGVu4L1S3Wlp1l
+	aBhx8TIKOziLVt4TcFV+GZHJZlSydidghGWYyXKMmQL/9dLANzJ8j0wlCPYGPj7d8vbx/ZtlVJG
+	buqF2pzBM2FTN/3fByEtf4rt7u+GlsaebJVyqRZ0S6SFKC6LF9LtvEp3PwIeMghLKjQ2Eege5CU
+	d+8HLhMTh04+qwC1xhldluzeUXCe3dITKiTu9g8eplBjg+edMtFoPoipg7SGnkK20CJU/Z8/atQ
+	SpYi/cXPF4rrZRnyQRbOFxmgaFCelYxw87tIyHIHwzfCOjqA7xOikyVyhp
+X-Received: by 2002:a17:90b:2cce:b0:3aa:548f:eb77 with SMTP id 98e67ed59e1d1-3adeaf95bd5mr1642822a91.56.1792844840973;
+        Sat, 24 Oct 2026 05:27:20 -0700 (PDT)
 Received: from desktophank.localdomain (111-242-220-176.dynamic-ip.hinet.net. [111.242.220.176])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36c1f5084sm391670b3a.47.2026.10.24.05.27.13
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeb83b408sm1719432a91.0.2026.10.24.05.27.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 05:27:14 -0700 (PDT)
+        Sat, 24 Oct 2026 05:27:20 -0700 (PDT)
 From: Ting-Han Hou <ue081723@gmail.com>
 To: stable@vger.kernel.org
 Cc: Zihan Xi <zihanx@nebusec.ai>,
@@ -86,12 +86,12 @@ Cc: Zihan Xi <zihanx@nebusec.ai>,
 	Luxing Yin <root@tr0jan.top>,
 	Willem de Bruijn <willemb@google.com>,
 	Paolo Abeni <pabeni@redhat.com>
-Subject: [PATCH 6.12.y] net: gso: limit recursive IP-in-IP segmentation
-Date: Sat, 24 Oct 2026 20:27:08 +0800
-Message-ID: <20261024122708.582-1-ue081723@gmail.com>
+Subject: [PATCH 6.6.y] net: gso: limit recursive IP-in-IP segmentation
+Date: Sat, 24 Oct 2026 20:27:14 +0800
+Message-ID: <20261024122714.610-1-ue081723@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100305-stillness-plexiglas-1e85@gregkh>
-References: <2026100305-stillness-plexiglas-1e85@gregkh>
+In-Reply-To: <2026100306-reopen-gray-026f@gregkh>
+References: <2026100306-reopen-gray-026f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -134,11 +134,14 @@ Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 [ Ting-Han: ipv6_gso_segment() still calls ipv6_hopopt_jumbo_remove()
   right after skb_reset_network_header() in this version; keep the new
   recursion check directly after skb_reset_network_header() as upstream
-  does, before the jumbo removal ]
+  does, before the jumbo removal. IP_TUNNEL_RECURSION_LIMIT is still 4
+  in this tree because 77facb35227c ("net: increase
+  IP_TUNNEL_RECURSION_LIMIT to 5") is not here, so the fifth entry is
+  the one that fails until that commit is applied ]
 Signed-off-by: Ting-Han Hou <ue081723@gmail.com>
 ---
-Tested on top of v6.12.114. The patch also applies cleanly on top of
-the current 6.12 queue (stable-queue fa04d3db75).
+Tested on top of v6.6.160. The patch also applies cleanly on top of
+the current 6.6 queue (stable-queue fa04d3db75).
 
 x86_64 defconfig + kvm_guest.config with KASAN, PROVE_LOCKING,
 DEBUG_ATOMIC_SLEEP, DEBUG_LIST and UBSAN, built with and without the
@@ -154,6 +157,11 @@ W=1 or sparse warnings in the changed .c files.
 
 Not tested: the deep nesting reproducer from the upstream report, so
 the -EINVAL path itself was not exercised.
+
+77facb35227c ("net: increase IP_TUNNEL_RECURSION_LIMIT to 5") was
+requested for 6.6.y and 6.1.y in
+https://lore.kernel.org/stable/20261024093010.485-1-ue081723@gmail.com/
+This patch does not depend on it.
 
 Tool use: this backport was prepared with an LLM coding assistant
 (Claude Code with Claude Opus 5.5), asked to backport 006c8b834aed to
@@ -192,7 +200,7 @@ index 29975440cad51..0749230d414ec 100644
  {
  	return (skb_mac_header(inner_skb) - inner_skb->head) -
 diff --git a/net/core/gso.c b/net/core/gso.c
-index bcd156372f4df..e96ef63500648 100644
+index 9e1803bfc9c6c..da77dc70f6316 100644
 --- a/net/core/gso.c
 +++ b/net/core/gso.c
 @@ -117,6 +117,7 @@ struct sk_buff *__skb_gso_segment(struct sk_buff *skb,
@@ -204,10 +212,10 @@ index bcd156372f4df..e96ef63500648 100644
  	skb_reset_mac_header(skb);
  	skb_reset_mac_len(skb);
 diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
-index c310a60760f34..b67c20019978a 100644
+index c3dcdee3f2124..dd4e334a47886 100644
 --- a/net/ipv4/af_inet.c
 +++ b/net/ipv4/af_inet.c
-@@ -1380,6 +1380,9 @@ struct sk_buff *inet_gso_segment(struct sk_buff *skb,
+@@ -1378,6 +1378,9 @@ struct sk_buff *inet_gso_segment(struct sk_buff *skb,
  	int id;
  
  	skb_reset_network_header(skb);
@@ -218,7 +226,7 @@ index c310a60760f34..b67c20019978a 100644
  	if (unlikely(!pskb_may_pull(skb, sizeof(*iph))))
  		goto out;
 diff --git a/net/ipv6/ip6_offload.c b/net/ipv6/ip6_offload.c
-index fce91183797a6..db71d557d6f5a 100644
+index 84b17eeaa57cc..0cf44440c96c3 100644
 --- a/net/ipv6/ip6_offload.c
 +++ b/net/ipv6/ip6_offload.c
 @@ -17,6 +17,7 @@
@@ -229,7 +237,7 @@ index fce91183797a6..db71d557d6f5a 100644
  
  #include "ip6_offload.h"
  
-@@ -120,6 +121,9 @@ static struct sk_buff *ipv6_gso_segment(struct sk_buff *skb,
+@@ -122,6 +123,9 @@ static struct sk_buff *ipv6_gso_segment(struct sk_buff *skb,
  	bool gso_partial;
  
  	skb_reset_network_header(skb);
@@ -240,7 +248,7 @@ index fce91183797a6..db71d557d6f5a 100644
  	if (err)
  		return ERR_PTR(err);
 
-base-commit: 85d82e0d7c2dfd3e75d34f35b7ebbf41f45c9c4e
+base-commit: 0aebf2870d53a8d97e02a99e2103ea0b38950c1b
 -- 
 2.53.0
 
