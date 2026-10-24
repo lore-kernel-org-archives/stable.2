@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792832542;
-	b=0KQCajSNM4bRpsC+QzuJTKRs6z8ywWnRfOsL0mb0uQ2VDJ4QaU6EMYstSlPIBx1S3nW0
-	 iq7p6C9kpyOcmaKLinhzVnJSni32l2q90MbFaqZpS5drsGiznhfSyTsIIppgj9oAX/QuM
-	 s26zIrLv5B7uUfxT4KblapwvWTNInbZsHjrOGHyvhGAXMBRirTR+AoKEZWTo6iviljRmV
-	 h0sXMxx4q0n+wW5ipSt07r6EoQAft2AIUkQz4y/kqQURoxlSjSzyd5aAig9bjYs5Pz95R
-	 J16A7TqRrfDiQZM138KuwUfcOLo1J9+LnKYvCjOZjOhV4QVC4w7d4pDvhOUmItsjvog==
+	t=1792832544;
+	b=1Y6sOthOpaaHTJRGum252nlwJGeFEz+cD01NlIwryBPgkT7Sz9TPdS500zSpdfHyUA2q
+	 AUjdfW7fW8X0hGvlrUPX86YRN99RYaKi5SKM16DCJMaqkGWGRiX+eE5uNhWX2ESNRDrP+
+	 LQud9ByqBTN21eQvOzmXn7I9rzcfx7hhEp41iQIEHZOHGFMBBO6u5edHP0l2PnyRD1iQ+
+	 U7prDtMAToHeI2b+BcZAsx6IEhCcPjxEOa5RioBkrIPKxfPmzJe8wWFEMewx56H0KYesG
+	 dXKRCvM2Hwcuo/qoyNxrJLROFnK6AhKrK//C9dAR4BYVkwNun4aiENtI/JgYeq9uwZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792832542;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792832544;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=ysJDE5za3VEHpTvwAAPWE01ogIHOrgmmQ7RBVCv4EJA=;
-	b=ffCJno4CAbGT0LUkNaSw8WBoayJIcukm0KCb5yN5qPT7eyKnojtPRWMWkWqOOL87dkvX
-	 DMUAE4YSwCoj1nSJfQq71FcdGljzBXdTaLzy0661bVVzxJtL/tt7JO7dup9q5yNvgLRGg
-	 6hS/YtlzB2V4Bg86UU534pi2rLDRbz3zas0YkFUWA//dyLnSaencBmyUqxGIoze+CdZmj
-	 SOHCrlNkkdpqqhTS9WA7iyoZffywxaA4AfpQyQ0EGXqFnzty18R0DV5duCsEH5FOrHYA0
-	 LLyQ/j3us3KWoyE6Jf0SMjx1fUwiUqKL723QX+PcIvF3VkONUvkGrDxRWr3mbIqGUDg==
+	bh=tUbg7rPno+XQEM3V3xKUPqT+HmamzB82mvf0uLnEtGs=;
+	b=m+7/OHl/X7Y1Xds1VEAIOn0pcgRYIOaNUZT1Xz38AOhKSJh4ZyN5O0djocQCNMhiH7Lk
+	 T9T5kGpkxT0hTh45CMIXTBVmypjm42wM6+h7PDQDf7y9lOt0WMU9WaTAEWyJgQ8jfhIdQ
+	 MSojedB4vUUGrX2yyqIgRVXhMrIXOEPPdZ4x0N3S3TTYjN4KsbH6ah9Mk5qXNIXxF3F7o
+	 /f1enZfCud62dqx/3k/UKZfbGf4ugcmeYNrq/PcGMOX4cEhNSr/SZTokBED7iQBwnDz3c
+	 JqSdJrsL38UMD8jAxVuDPEM2Sr7o5Rqrq78A70iGwH8sJz7MZlY48KjnKAvr+mZxDeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="X/ZVD9x3";
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="u7AV/3eK";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA9C606A31A;
-	Sat, 24 Oct 2026 09:02:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50200606A320;
+	Sat, 24 Oct 2026 09:02:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=X/ZVD9x3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0662B1F01828;
-	Sat, 24 Oct 2026 09:02:22 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=u7AV/3eK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C7441F01828;
+	Sat, 24 Oct 2026 09:02:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792832542;
-	bh=ysJDE5za3VEHpTvwAAPWE01ogIHOrgmmQ7RBVCv4EJA=;
+	d=linux-foundation.org; s=korg; t=1792832544;
+	bh=tUbg7rPno+XQEM3V3xKUPqT+HmamzB82mvf0uLnEtGs=;
 	h=Date:To:From:Subject;
-	b=X/ZVD9x3dNkWmxUfmaEivvQc6zx1yYNDVjhqWOTNXl2RAkwxjaPrtHNvH0HM3k5Mz
-	 vuQ4rstc4obxSAXAFPzDVtm1sOuCR0SwsIgxbyE/D0LuwrFZbZub9w27D4IqIv9sSX
-	 OZVI526bhAVpyeeX/dGEFZjjdVYWr+XBQY5qIKm4=
-Date: Sat, 24 Oct 2026 02:02:21 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
+	b=u7AV/3eK9WVBNg0/axKJhsSiFhuNb32ZfeR/KY+1dbZlEcen3n7GNI5xDx7s6CoJh
+	 Oac9vZwCQ4C6iO5X8sDlLa/e55PzVO5AgOkSpdjsD+HFj6omY6/e5SK4c+EQDrTVBQ
+	 HQBVLgj7jauz9O7ctnkKb9NPn1vUi9kFY41GpQjo=
+Date: Sat, 24 Oct 2026 02:02:23 -0700
+To: mm-commits@vger.kernel.org,xueyuan.chen21@gmail.com,vbabka@kernel.org,stable@vger.kernel.org,shawnq1@163.com,rppt@linux.vnet.ibm.com,pfalcato@suse.de,peterx@redhat.com,liam@infradead.org,kas@kernel.org,jannh@google.com,gourry@gourry.net,david@kernel.org,ljs@kernel.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-damon-core-remove-unreachable-damos-charge_targetaddr_from.patch removed from -mm tree
-Message-Id: <20261024090222.0662B1F01828@smtp.kernel.org>
+Subject: [merged mm-stable] mm-vma-avoid-broken-uffd-merge-on-mremap.patch removed from -mm tree
+Message-Id: <20261024090224.1C7441F01828@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,91 +51,102 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm/damon/core: remove unreachable damos charge_{target,addr}_from
+     Subject: mm/vma: avoid broken uffd merge on mremap
 has been removed from the -mm tree.  Its filename was
-     mm-damon-core-remove-unreachable-damos-charge_targetaddr_from.patch
+     mm-vma-avoid-broken-uffd-merge-on-mremap.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: SJ Park <sj@kernel.org>
-Subject: mm/damon/core: remove unreachable damos charge_{target,addr}_from
-Date: Mon, 19 Oct 2026 19:39:56 -0700
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: mm/vma: avoid broken uffd merge on mremap
+Date: Tue, 20 Oct 2026 15:55:30 +0100
 
-damos_quota->charge_{target,addr}_from saves the target and region the
-scheme's quota limit is reached.  damos_skip_charged_region() skips the
-target and regions before the point.  The target that was assigned to
-charge_target_from could be dynamically removed from the context by the
-runtime parameters update (aka commit) feature.  In this case,
-damos_skip_charged_region() cannot find if the point is passed or not,
-so the scheme is effectively disabled.
+Userfaultfd often causes unexpected interactions within mm, and does so at
+the intersection of uffd, mremap() and VMA merging.
 
-Similarly, the user could also remove all the regions of the target
-using the runtime parameters update feature.  It would be uncommon to do
-that, but it is a supported feature.  Because the skip pointer detection
-logic (damos_skip_charged_region()) works for each region of targets,
-this result in the logic is entirely skipped and the scheme is
-effectively disabled again.
+When an mremap of a VMA occurs, copy_vma_and_data() calls
+mremap_userfaultfd_prep() to notify uffd of this.
 
-The user impact is that the DAMOS scheme could suddenly stop working
-under certain uses of the runtime parameters update feature.  It could
-surprise users. No crash or leak happens though.  Users could also
-simply work around by re-installing the scheme.
+However, mremap_userfaultfd_prep() simply drops the UFFD context for the
+VMA if the user did not register it for remap, i.e. didn't specify the
+UFFD_FEATURE_EVENT_REMAP flag.
 
-Catch the corner cases in damos_adjust_quota() and reset the pointers.
+This is OK for the VMA itself, as upon page table move, move_ptes() clears
+UFFD page table flags, using vma_has_uffd_without_event_remap() to
+determine whether to do so.
 
-Link: https://lore.kernel.org/20261020023958.108276-1-sj@kernel.org
-Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
-Signed-off-by: SJ Park <sj@kernel.org>
+However, this doesn't account for merging with adjacent VMAs, whose page
+tables won't have received this treatment, and thus latent UFFD markers
+will be left around.
+
+Worse, it'll break UFFD for any VMAs it is merged with. This is very
+surprising behaviour for a user, who will then simply not receive UFFD
+events for VMAs they ought to.
+
+Resolve the issue by explicitly checking for this case via
+vma_has_uffd_without_event_remap() in vma_merge_copied_range(), the merge
+function explicitly designated for mremap() operations.
+
+Also update the userland VMA tests accordingly.
+
+Link: https://lore.kernel.org/20261020-uffd-remap-fix-v1-1-0f34fc181f0a@kernel.org
+Fixes: 3cfd22be0ad6 ("userfaultfd: clear flag if remap event not enabled")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Closes: https://sashiko.dev/#/bug/linux-cd0c55fc-0cc8-45d8-9637-3334811c49b8
-Cc: <stable@vger.kernel.org> # 5.19.x
+Reported-by: shaos <shawnq1@163.com>
+Closes: https://lore.kernel.org/all/20261020110748.959870-1-shawnq1@163.com/
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Mike Rapoport <rppt@linux.vnet.ibm.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: <stable@vger.kernel.org>
 ---
 
- mm/damon/core.c |   22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ mm/vma.c                          |    5 +++++
+ tools/testing/vma/include/stubs.h |    5 +++++
+ 2 files changed, 10 insertions(+)
 
---- a/mm/damon/core.c~mm-damon-core-remove-unreachable-damos-charge_targetaddr_from
-+++ a/mm/damon/core.c
-@@ -3383,6 +3383,26 @@ static void damos_trace_esz(struct damon
- 	trace_damos_esz(cidx, sidx, quota->esz);
+--- a/mm/vma.c~mm-vma-avoid-broken-uffd-merge-on-mremap
++++ a/mm/vma.c
+@@ -1211,6 +1211,11 @@ static struct vm_area_struct *vma_merge_
+ 
+ 	vmg->copied_from = vmg->middle;
+ 	vmg->middle = NULL;
++
++	/* If not registered for remap, uffd context will be cleared. */
++	if (vma_has_uffd_without_event_remap(vmg->copied_from))
++		return NULL;
++
+ 	return vma_merge_new_range(vmg);
  }
  
-+static void damos_fix_stale_charge_pointers(struct damon_ctx *c,
-+		struct damos *s)
+--- a/tools/testing/vma/include/stubs.h~mm-vma-avoid-broken-uffd-merge-on-mremap
++++ a/tools/testing/vma/include/stubs.h
+@@ -386,6 +386,11 @@ static inline bool is_mergeable_vm_userf
+ 	return true;
+ }
+ 
++static inline bool vma_has_uffd_without_event_remap(struct vm_area_struct *vma)
 +{
-+	struct damos_quota *quota;
-+	struct damon_target *t;
-+
-+	quota = &s->quota;
-+	if (!quota->charge_target_from)
-+		return;
-+	damon_for_each_target(t, c) {
-+		if (t == quota->charge_target_from) {
-+			if (damon_nr_regions(t) > 0)
-+				return;
-+			break;
-+		}
-+	}
-+	quota->charge_target_from = NULL;
-+	quota->charge_addr_from = 0;
++	return false;
 +}
 +
- static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
+ static inline bool anon_vma_name_eq(struct anon_vma_name *anon_name1,
+ 				    struct anon_vma_name *anon_name2)
  {
- 	struct damos_quota *quota = &s->quota;
-@@ -3418,6 +3438,8 @@ static void damos_adjust_quota(struct da
- 			damos_trace_esz(c, s, quota);
- 	}
- 
-+	damos_fix_stale_charge_pointers(c, s);
-+
- 	if (damos_quota_is_full(quota, c->min_region_sz))
- 		return;
- 	if (!c->ops.get_scheme_score)
 _
 
-Patches currently in -mm which might be from sj@kernel.org are
+Patches currently in -mm which might be from ljs@kernel.org are
 
+mm-vma-fix-expansion-of-vma_mixedmap_bit-vmas.patch
+mm-do-not-unintentionally-overwrite-atomic-vma-flags.patch
+mm-vma-avoid-losing-atomic-vma-flags-when-setting-sticky-vma-flags.patch
 
