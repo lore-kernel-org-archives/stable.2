@@ -1,92 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792835398;
-	b=Wke6yg5s6LDA6M6/nSzxnPJsTUkYN2cbliP3+ebnl8tEFS9GZGAJGxC22RechewN3Wn+
-	 f6/Fi1MeT3MxIz/o/GpXyP5BLEXKAO2BxmYaxJR1GuI8T9gC54YkaafK2ghYXFB9cur36
-	 m220UgF3VRmghFRfXgV3g/4EjsWTENVT53m1VtxzmiU0JPnJ9tvWd538yXw2xRTZ276dp
-	 6+SOm3VLRpRNYjF4J2TPy2cKczeiOTln5kGVO7O7kpIJPVNMdgCToxWG6mQfZmL8aBKBE
-	 W6wk9gwaaalmEffYi4H+luouEm3bE6piFFGfxlyFoEdLZp+RrJSy4ovYWBstX3pwfvQ==
+	t=1792835403;
+	b=yIXOemIOSfkhkOpURFlyR3+QsEC6EcsMGyek7ER4RUcGg+dCciq5/jN5Ariz7KyzAfXe
+	 +PE2m7iBDTh5MEfsBXchQcuEKm7APKqLWLR3j28GB7WmeextVGJyJ6TLjoxpwSu6GJKNQ
+	 7sKFQKp1lfMqMZZpmX80y0JA+QnN7O1gr7e7vTqleZtWgzfjz2jc1VW6Y3eHokosDemin
+	 mneL577IhQP7o+MOu6RY/EihmwNs4mfb4Ux3q2PUxSXEegLJ06M24OPxNN7jKbvUR00Pf
+	 vknvk0xK1iZ1Vx0wu3Zz63j8LWJaDJfXHL1PrvYoIehqwHQJLcUZ3d7ZQNaLHPsy2Kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792835398;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792835403;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=lwTdMqGia9yq5liIBK1rZlrWrNJYW5LvcryWEtwkQtk=;
-	b=IPzmMj0EWDR0isRG4fh9RQhI68+L4MzjjluzHZMTcV9kLrk0oIqW2SDKf9lZLqZPCM/8
-	 h7b7z0jHsVL/Sf9Sdj11FBWcL1fFPSC1FJosn4YnSaPyhxgIfKodqNrUVEQfPdssy9Nls
-	 j7ISgMd9DBCIH8Oxya20TsH89kNDDgzQLLD4zdx2HM6K/IEOFnAKNKQZ85k3RZ4DXWneo
-	 YnN5anjWI0LI6P34DrTjhxLl7hMrF/9fJr7pR2scEBwZeY/27OxdIUpGdXQy4g7ZnX50o
-	 SZ8y30uSyWG+Q4f0JsHqUWQJzVaE2ozXvPUM5qfzkVR7WzMt3kc7qJk44Xv2b7RLVNw==
+	bh=3fBYLV7XeCk/bCS0oq+NT8Fg65KCTf7AWpXNbKkRrbg=;
+	b=vERUONqVCq7p8xh7F5LLiY0+lsBs6lW5uczRTkiFgEuLzcchbuaYfDxCWdveWFyDs0b+
+	 5DQYyv6zKMkFQGuM8jOVS+/X7YD/X6zulgtRY6dxcKlCEECzlgzCpIcMpbsvQRwqgCpaw
+	 2L/8tQijtrpAsS8w2X565ZK1bjBWmC4WIOVWl90NhcexOt4/vWY2AVOYpBRO1X6q2xg7m
+	 MI2X2kUAXw64yVV76Puw1j8d8PkB51Uq1vlIV5gNM6GDQ8Ssb1mX7bssQZVbZn/rP0XiZ
+	 9qTmrHYeyIThFtUTgq4kmGw0JrW5+UsPpyTRnkeqW+FCyarmHFUo+FlccFwK7dng8Uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NrnPw9R5;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pRo99I1D;
+	arc=none smtp.remote-ip=209.85.210.176
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45B2606A31A
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 09:49:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D45B2606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E54606A31A
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 09:50:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93E54606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NrnPw9R5
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso3549077eec.0
-        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 02:49:57 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pRo99I1D
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-89ff475a152so682604b3a.3
+        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 02:50:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792835397; x=1793440197; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792835402; x=1793440202; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=lwTdMqGia9yq5liIBK1rZlrWrNJYW5LvcryWEtwkQtk=;
-        b=NrnPw9R55yeg8Jd0Iww0nTeSzJ8kHn9uCgfLJfsazObHw4puq4xhR2lo+jZPDDrqEB
-         gPXsljPb63ehYiAc6zcmMPGWcOzfO2gqRo0dR0ndvYlWMDv3aNtMS/O2K9EHNyC2J95r
-         3Yne5rxTEaGM2fM2T31C1/E9fJn+U9+i2tEEUc9sE7HC+WMtGbmFy0ubYMtw8uh18+6f
-         UdeSHtwXndrZf4JDKMA8Wiq3Mmc3ogNBGxAOJ8vLndm79efT/YxobKpz7rRtQ8Wmw/1z
-         nevdx9BrxXPLbFI1a5xCSb/uaXAgtHkAeloVCpCC++IFpoKJSXyf1bT0xuXwtkolWei9
-         dD9Q==
+        bh=3fBYLV7XeCk/bCS0oq+NT8Fg65KCTf7AWpXNbKkRrbg=;
+        b=pRo99I1DA8d/qHPfM3wlOVWoGLf+SHCIKZ+7a5XygQPITzBsKIQhXpIMVqxtgOoyea
+         R5ozvTOSyIhIR/QAsmqUqO/0oEPcogGhYLyoO7aGRDGrCEPIIxMi2wy5psGSuudBEyVs
+         JXQ0OMLfCCf0Bty40tfzP8pwEQmW0x+I5w3t3VVXJw6MpWubUTDngUcs+r5BGv9hYAuG
+         y3FRkejD7adnW9MfAo6y9zb+Lt5+b6WWMh7oXR4Bwot+tQ4n70GAZanIZyDmQO1m0LJB
+         GSNZXn9MKZJQA7EdRYwvtsOMLnyqC2vJyBZY5Bw6PHsmlh2C3Cw068N87MG5Yw9PQm/3
+         Jc2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792835397; x=1793440197;
+        d=1e100.net; s=20260707; t=1792835402; x=1793440202;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=lwTdMqGia9yq5liIBK1rZlrWrNJYW5LvcryWEtwkQtk=;
-        b=vYLScCqII/VW4ccSWX/ec86cxe86+3td1ByjKhEtZeOpDDdSz77wDdvbp1EuRdv9xi
-         YA8DaA/LPsoWelp4RZc88sJnc5hNSUuKSoSTEKe3IIbwysKwhrLW6UduIwBZomnchyA7
-         UBJeMHpJXFKoP3c/Dsgg+QZZdftWC/3H1pSRw6NV6AY8tSsdtnH7wxc5bSSMIIrqEm0V
-         ZnqnXdcNNN3oTUY/EQxtdS2fvqax/S5ePX6FT/5whv7+O9mW2MD2W5qezDen/WVjoaXJ
-         jWJwTrWh3HCDHkHfUEWZHEpND/17XnVfNvM55lnZlvXwFJZtDcXyq1/G2yehc0R6qDH1
-         1rJw==
-X-Gm-Message-State: AFq9FYI+W7nzpVVmuNgSww0v8fdZQKGSfK4lunswBvLcnO87VXkzBQht
-	jKVbDmyGta18YM+2Q7PPqZgeRUCYG8XqilVeXecSpwz6fLNIwe/t1s0Kea+tmY9J9Oo=
-X-Gm-Gg: AYBFou0x5VBlJ4p+MSnhP4s5p4NDPHU3PLQVNChaIuFZJNNKmwYWDzkRHThKUO9P7zA
-	rw47584sr2/Pz1e9r2j7sI/2+HnPHyfGx3kCQY1Eju/ceAdgxoXBU5hY84RmWy+iRVLKhB2jDGf
-	rieBTX3SDC5Mqr7qyq//atck2RcM4RsN2k6vxjtOeLDaWJQe7eSADyoJaD5U5wJeshaT9LbgydA
-	f2/93MnwpPe7S+7ng6+Wgs8hTi7BjEnQmF3+9kwStyr+WTBj62vqjhxAwzS8JcoyHSnRkfIXYwa
-	Y4ENEm1qUDDQjLs5f8OqdILThywwDgXzfki+b5grrXk1rhuIHDmrB8YaD5DyXFawDxA51B1/E6Q
-	5GlyI0rYUMYCt4AC51kCWuOEilcRLPfDeVb4wgpFyO91K0wK+xLFhGJ4HjQpir7etQPctSXump4
-	nc2eUkIzmRkS00Sa3lOa7cHRWa1x/Lv1AlypgnBkz9/jOfZPIKMSeVj3yAixe8YHQhR3OCrfh2m
-	9POac19r7Usw8irR/x3vCm1mKyhwFa7Rm4hSXVZYnj/2CIz2AZjVcJ5/UAKtnDU2IR2adMCz9B1
-	IvnmTPDXu10XvzLz3TssK/5WoD5nGgvfkQOjQqhk9lfVz+VVfT2ovLlITZ/4YdFWkSeZhnu9LzW
-	s3tInLgJqGOCfIo59juIOEsymgvPpQyknlvjyAQhyFbjJOScFsKKNmIX5J+8g0XPqn16aygoJHe
-	xv5GLuyJAI/o0I0PKs0fIGl03lJPnO8Dk8AYDI/G2DrTH04XsQzgQhvqgjOci0wZFE20xxkLOEr
-	QCi5A==
-X-Received: by 2002:a05:7022:2229:b0:185:5a96:ef59 with SMTP id a92af1059eb24-1993f8c2973mr3355990c88.34.1792835396786;
-        Sat, 24 Oct 2026 02:49:56 -0700 (PDT)
+        bh=3fBYLV7XeCk/bCS0oq+NT8Fg65KCTf7AWpXNbKkRrbg=;
+        b=k/OUnZqtt8Iv2cGJPg+5U6lmhLf2i231Wucv4avZIHJABHuFFfjTSg/8YchhHLkeUq
+         iGS5eRbrb4KElaTYcQB3zPLsa4j5iMec5GOSvLnmZTYkBzAEwRYYia8MTmj0JOqEVRtw
+         4fjtRTp3OX5sp89frzW3Sj02x2jW6X6WvWxSSvEP2UW5y2EsLhctGuUAsD/mbZNLzl6Y
+         NhhdxJw1+gLl2MCmr+Ih2zUONVaeUglujaj3BknAT21IyemyskXhkVeOKULrMymUMNvE
+         ++sz349bxAHd3Tdoeo8tMU/bneakLAdNvWWsyI9LFx8K8J4znhggfPUmkVDscLDbEwPG
+         5nXQ==
+X-Gm-Message-State: AFq9FYKMWgeDDAz7YEBGW4xhjjmjTYIKBebD+flKgIZxGr5mSpLLZUtx
+	Ym4hoDHxMNepVz2KfvEba4ml9FikvQc/qI/cpzJ+hbd+kXvL8Ez+atVfetVkB05DwY0=
+X-Gm-Gg: AYBFou1+/pKNCRe1LeT6qnYvAKi1MQlz9+AQbYkaAoUX5NMG9IRr/XBu2PiCG4j2FPD
+	bfyLbwmMcTW/JOyKzpZErbL/ZUflBHSzOqVVDgtS9XQ2RK8zYJGkEhuS3sRU0rn8V6n5XMYXPXK
+	TrDVfVjDnSENNo5UNB9qUY+RzO9Xfhy9t63In5dKH6oTc/1LuV4x2ZUS3ttHPv0oq7JGUfV9lqE
+	yoy0trRdo2638DzqIxSYIt7wS8VP3JvyGbxkjSUjgOuGZVszHxbw11SzHUtx1ZKgzC1XvwMN0Tw
+	5LMcSdOyO6MT054uG15HbSIQoKlIG7/+0X3ZyKHwZCbiicPoslFuCMCRRVJyJ9a1/AODNi48S7L
+	R6fExtLIrhxsZt7u7LYu9clAmbkjx8vYC5Ebr0wAV+KSkgblB1NxNkfH0BmoyrvDSESWEqCM4pe
+	oMHEX3MokcNd9bcLh6QjXqRu1n8P8GUD9W0X0CrvtVESaIruObpxhlmndKhNoCzOo64yCmTwDg8
+	1E0Q9mvb8L8eE2zSVrcLBV1gAoIFFQVLkL6bj+8DFDtl0IWVlj3Nk3M9NEleFWmO63DwDeYVT6Z
+	oRO2veuk4OQK1/vSl6Q+qNDiXUZXKM0TUzd1eaNiRb+Zt9figUNkHEk185wXfkDwB00DI/IITiF
+	vChex6J32oZJoicKvxjVNI09ZEPmbLabKKRJg69+MD96WdmrNgb202otQyuXLVmA7Szg6THa1eZ
+	jKaygNyxa5qFf/Bhz0M+QoSGiaOClB5h79EKwXLl0Gb8r+Rac1bnUReR/V
+X-Received: by 2002:a05:6a00:8e09:b0:8a0:20e0:b131 with SMTP id d2e1a72fcca58-8a367a3e739mr1307445b3a.19.1792835401840;
+        Sat, 24 Oct 2026 02:50:01 -0700 (PDT)
 Received: from desktophank.localdomain (111-242-220-176.dynamic-ip.hinet.net. [111.242.220.176])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a37c88aasm4985963c88.23.2026.10.24.02.49.55
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a368d86790sm378078b3a.1.2026.10.24.02.50.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 02:49:56 -0700 (PDT)
+        Sat, 24 Oct 2026 02:50:01 -0700 (PDT)
 From: Ting-Han Hou <ue081723@gmail.com>
 To: stable@vger.kernel.org
 Cc: David Carlier <devnexen@gmail.com>,
 	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 6.6.y] gtp: disable BH before calling udp_tunnel_xmit_skb()
-Date: Sat, 24 Oct 2026 17:49:49 +0800
-Message-ID: <20261024094949.793-1-ue081723@gmail.com>
+Subject: [PATCH 6.1.y] gtp: disable BH before calling udp_tunnel_xmit_skb()
+Date: Sat, 24 Oct 2026 17:49:56 +0800
+Message-ID: <20261024094956.833-1-ue081723@gmail.com>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -135,23 +134,24 @@ Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Assisted-by: LLM
 Signed-off-by: Ting-Han Hou <ue081723@gmail.com>
 ---
-6f1a9140ecda ("net: add xmit recursion limit to tunnel xmit functions")
-is in 6.6.160, so the per-CPU recursion counter it added is used from
-this process-context path there too.
+This fixes the 6f1a9140ecda ("net: add xmit recursion limit to tunnel
+xmit functions") backport that is currently in queue-6.1, so it needs
+to go on top of it.
 
-Build-tested on v6.6.160 (x86_64, gcc 15.2, CONFIG_GTP=m): no new W=1
-or sparse warnings in drivers/net/gtp.c. Not runtime-tested: I could
-not find an existing tool that sends GTP_CMD_ECHOREQ (libgtpnl does not
-use it), so the echo request path itself was not exercised.
+Build-tested on v6.1.190 plus queue-6.1 (x86_64, gcc 15.2,
+CONFIG_GTP=m): no new W=1 or sparse warnings in drivers/net/gtp.c.
+Not runtime-tested: I could not find an existing tool that sends
+GTP_CMD_ECHOREQ (libgtpnl does not use it), so the echo request path
+itself was not exercised.
 
  drivers/net/gtp.c | 2 ++
  1 file changed, 2 insertions(+)
 
 diff --git a/drivers/net/gtp.c b/drivers/net/gtp.c
-index f0ee46d3c873e..39515aba86e68 100644
+index 501dbfa917408..f192a7db81d1f 100644
 --- a/drivers/net/gtp.c
 +++ b/drivers/net/gtp.c
-@@ -1827,6 +1827,7 @@ static int gtp_genl_send_echo_req(struct sk_buff *skb, struct genl_info *info)
+@@ -1826,6 +1826,7 @@ static int gtp_genl_send_echo_req(struct sk_buff *skb, struct genl_info *info)
  		return -ENODEV;
  	}
  
@@ -159,7 +159,7 @@ index f0ee46d3c873e..39515aba86e68 100644
  	udp_tunnel_xmit_skb(rt, sk, skb_to_send,
  			    fl4.saddr, fl4.daddr,
  			    fl4.flowi4_tos,
-@@ -1836,6 +1837,7 @@ static int gtp_genl_send_echo_req(struct sk_buff *skb, struct genl_info *info)
+@@ -1835,6 +1836,7 @@ static int gtp_genl_send_echo_req(struct sk_buff *skb, struct genl_info *info)
  			    !net_eq(sock_net(sk),
  				    dev_net(gtp->dev)),
  			    false);
