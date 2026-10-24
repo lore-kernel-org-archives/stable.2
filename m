@@ -1,99 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.41
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.174
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792835612;
-	b=fkBFJZdRMiKntlQO3ErV7GR68E7TlvKjs7yswZWj2oXrWz0icWcSf13Fr7CoHSFlqapX
-	 6g60jaqs1WacCo1eAnmGcbSgpIRRucanOTKaBCA36eeRIXlKBclzHHfXJEn0r3u1boJGk
-	 LZ2Txra7did3Z0dzrb4It3GxcSgjqezbXt2+VI9OXoDVe3avkEZOBl6L5XuO6q31IKSyW
-	 QP4lBVX4HKS5WmYLdnIj27Iw9SPJ+8R0X6TqSaSeyKxR8F66JaN/emJdakK1H0Bx1WznP
-	 UY9DHH78cRSq0mGc+Hrrh2t+SPX4QfMZCU+Athtwd+GO+76akHXzNlRmKoGhC2j706A==
+	t=1792835685;
+	b=vJLWphEgLkFrXzqFI5GavACqNo3q+lmyT2G6q08StOtMggZqR8uI+cy2V2ml38yWLN7M
+	 cZpyds9gMWXGSW9ckxWs1UkJYbpEGB5VsIGutsqBqn2X++aEKAdGTwsxhun1EM64oi57Z
+	 aiPt/KgB1Df/2jcwqMLkQGqKe0f7m2MqqlgqiwN47QakOkplQvQ5Mh9OkVKUrVvmEu8qT
+	 pUXMtHWMidqTptWrU0J8yYDvodQUkpRa0UH22uC3okSy72ZsKTToNjCzgRFQ88lAetY8t
+	 SGZhBClDY0/iS9JwBBbK/8AomXF9UWmPjsCM8zkToymFTlaX4YQu3ahTac97Ej7Y/uw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792835612;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792835685;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=l0OGvwa7IfsJZh4FaKrc2zLuLIkkC59KwO13QWrYABo=;
-	b=c4zBFDF0jVRo6d5fTj52CyGntRdVhG7vXaW7ofYW5eaMe3BIPuUdB3OEdlPy+KfoOc0E
-	 N91N8iIaBxqYxT2gzWoSmr+h+kyd6NjNVd+5NQBTg4+YT/G30i5/eMYUpUkmTDgNA/m9E
-	 SwRyNxtWcUqzX2stzt/Zkwh+mmizeoz8F0lucH+jrQBeGGV7vvjfxtdnYGlGvBjjgkYN/
-	 gWF5dhnuM5hT1zpGgbob/MCKfk1MiwDHeUc6mBWaNtiYaxIuS3NTo8WErdgmItD2l0hhc
-	 o9bzj4xBc44AWwLtNkiod2MuoSauIG7MN7fLO0IKSrMx6vYhXZZKcLmC5TKEJRscgzQ==
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=jSHUqM6sVNj4KA+FGbxHG4caWaVLve4l4npIRz/orKk=;
+	b=DgCmQjp5j6w62KD5XXkLYSjXT3HwiT8FPxDNQjHocG5X1vK9Pr/+dfc5bblB/jdtxQII
+	 ltWkQ6ZxnuUBgweUZ+3acZ7Glk6X5ipw9ZxIilOTYnWP5yH5Uarf37T2O5xI/CL9H6CE5
+	 CKgxtxBfDFHmNql7xlC/d8WBI2amLLVNEk10jSaNP4dZWo/c/h2PtIt5MdS9ycOkbM85b
+	 22UVmb3PSFgkhUEV+OHjxLiHdIbswnOSzNoJ5KAv0OJdwPE00yomv6yPuK7chSJ+WeALw
+	 eZGqzpCvTzqDNzsETz6eYi9p2EjUDU7OpA+c93sT/xTS8UC1rUQiwo1Nn/TrBPgcq9w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Fduvgqgi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.41
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	dmarc=none header.from=mojatatu.com;
+	spf=none smtp.mailfrom=mojatatu.com;
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=xYuLJUtj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.174
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15CAF606A31A
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 09:53:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15CAF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B041606A31E
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 09:54:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B041606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Fduvgqgi
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-6767d92cde6so1598977d50.0
-        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 02:53:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792835611; cv=none;
+	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=xYuLJUtj
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cd67cc518a6so1194639a12.1
+        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 02:54:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792835684; cv=none;
         d=google.com; s=arc-20260327;
-        b=GmI+/sw3oERuqZSFbbl8XrbxeUYQAXS9mKY1b0C8LlPtlCVloMpj+ay/eBVQBrN+rG
-         B6VwnA7LrwVKtdaAV8aEiYBFNV8UKaCVxmY5Xl4bINE5I1UpaYmIWgZqdxoFuqqylaEp
-         NzrD5gyJfhcpSUu4z4j2fUjXDKkx08DSFNTf27UMqFHT6nzkSEnn8f4u5b2fNaQPSJ4l
-         NlpoMko2zPawgFwPw5579qedUAeP6fZgWdd6dA0D3pqPtO/rIrYQIxsTAnY+92n9aRI1
-         +buXQp89CXepws6qMKREguccqkniEb9K0lVJqdsnw/GnuFWXvywoVD4Yxa0N1US5DmTs
-         YrEQ==
+        b=bbA1fXALxLZTp8Hqwa0kTO31dLoVtAWRbyOFvWD/3+YjtdWj95EnRWNhP0Iuico5wf
+         cFui48A7Oy4O5NXbyMEEAuwkw4KKmBa5peyDeIe9d6NP+V+w5j4As6BGV8LjWMdVh3tA
+         1mzAMp5dCey4aTdQPP3gWaQrBRQY/Qdl6FOJ3SlYkIxAyv8Mz3od7dcIibF3i3/JdRBI
+         S1nVLYttPPdRjL1sU0pfntlnwHRRIbA7Cd29bM/iwEIkOxKVv35J1cunUFFNHvNaErlZ
+         vFoRkzFfSotvjnZLmxRrUs8YXm6I4Ek358xhOckHkp+GpxoUd/vXCgPyM2dk7IkI6bys
+         LFjw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=l0OGvwa7IfsJZh4FaKrc2zLuLIkkC59KwO13QWrYABo=;
-        fh=96VJuDEjAOA9D2jJ/x6Q0gw9slvRGLUYvjLVCbdSvzI=;
-        b=rtv8rfmFVd7fNJC77bVEmDNnrbgz/RGIxCuyRqdyMK8iaP+DfAtg47FQ4S96tksN2v
-         q7Huwk5UrO697RE33O0TKuTA/QBTiNfbGdw1rjXPFG6cF+Y2PhUBoX9UR5SstMWNYpX7
-         OFjHYCEpjelOFmHrJlbSiCfy23UJAbC5wZemoxSidBuaJ4Yl9RxgAa+QbrNde6C47pUo
-         daIs3gRN2/t1Mf9eaYsFZTkW5ioOoqp0P2fDYO52YWIDOo80a9UwrZLLjVEXWGdBWBcH
-         uUQ3aZ4DFrw+4M3SEnpieWz2HM25trc5YJ1HV9mBci0EZkdssC8geAN0B7p9t3X7kKF1
-         Q3QQ==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=jSHUqM6sVNj4KA+FGbxHG4caWaVLve4l4npIRz/orKk=;
+        fh=7rX9aX2ysdJ7ftXSGNaGBXXnSwF/YB9V+ZcF20WcfRE=;
+        b=KRFlKkZE+mqSBkrZMytxMxIQUcTWIqe9gzwaYSObdIvoX6m4oxI8u2kuAWeBbwvKHB
+         A7pXpuwS2RtpjTpgqh3iUyzoHMNFUkjHL3AnVh4Jx84vpr4A4ZG9Ha1Bpu3VpY3etcPU
+         hQFdQPQSRWokyNWETYM4Gt3i93aBFq50DKyDOWNwENncb7b7WfydVTwmZr+TtQuqPLo8
+         M48NaFdC29unBERumo/cq7QziRcdDWsVLtczvk2tG0kNKhP0OS7NapTPJOT+NA0SQFAZ
+         sTDx/UI05dQBN1Kr4TIusyGdUPx76AgGoBwtUFuhg1BnOeeHwmNfM7A3re3Z+p9fYj21
+         AlkA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792835611; x=1793440411; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l0OGvwa7IfsJZh4FaKrc2zLuLIkkC59KwO13QWrYABo=;
-        b=FduvgqgiBQJFrGQYLEdmJ7jW8w8LEG4pvU9WkxpNp8vLzl7Xc/ofxRrp33ZbzI/mxq
-         d3b9HT/BBUaCviKVP/GCLtOGcVRPBUeJFAjZrE8KFDkrsxCBL8w7IR1xg9elZywMr797
-         N4wrpqkE4FSOrSQJ4WZ94+tDLsmXgChvIica90JgxtzQL6U1SZIooBAyNAzcHGsAgtE5
-         5YQsY7E2SRb0MxrVHvt7dpJ2KyahwiwrXjy97cRlE4TM9D8kBG3PDT5pYISUSMLxdDRy
-         3G/ym6GZlMc0nd3Z63BuIasOpMfyafNn3CqXUDSAfyVeqccGgpaN574U+N2cK3VxRBXI
-         2t9A==
+        d=mojatatu.com; s=google; t=1792835684; x=1793440484; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jSHUqM6sVNj4KA+FGbxHG4caWaVLve4l4npIRz/orKk=;
+        b=xYuLJUtjK7ChZW8JwqJRH//MAhrs4S+v2TQtv/Lhw8WgAaK7+KSJumkA3m+X5PiId6
+         uExYt+M9I+AQu1K306CriByd9pLvjJBxsXxWOpIBkKJkscDxEuWG3jvUZuD4qfMr5qIk
+         VoW5emT13A6ywa2xvsda9FgrnmkgBR7lbybCk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792835611; x=1793440411;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=l0OGvwa7IfsJZh4FaKrc2zLuLIkkC59KwO13QWrYABo=;
-        b=XyWPLHmnWsRoJlZbjlGh7Ne/H28AKNbWmIT7XXd6KNDiDN3rlxvh2DsEA90MggazEJ
-         iHbu1GI8/fUX0pYMxmfAshgYSirWX+OoncH7p2gbv6haDGwwtdmynSR4wZrSu4iVQghs
-         Ng805F9krj+88+T2/ZcUtwdeKdoRx1izGyqNaCpAsGgIWZvTqAiO/Sq9vMe25Sr2SvpW
-         +TVdPmg/rFSHQl8LWoNz+PAM8YzG5hlO4jw/hGMRvDDq4Jw37G2zTDqOBW5mzA0zvwdG
-         xIUQXWYBqB1diMNH8gGVJJJhgosxNlU/0CVa/e3VacF9/WzCrVlFqLaH0nitiC6MEFUm
-         N7dg==
-X-Forwarded-Encrypted: i=1; AKwUvBzH3sQv6nWc0d/WDDKLTqBJQuTRm8qOvcZ/xteFCLKhu9j0IcSBCQibiz2VY/5OgOTyWBZuprg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLzUHGv4zC7/rJvDqlFjyhW2Ge3gP/kjv8ITd6DaysNh456CqUw
-	4hmo/SPw0D23Dr+W8aAoOh8fm24m5wn/RQ55WHzkHng2KRoqOiwh10X+6IpVgmu6HphHMITecT8
-	qV1Lv4A81mpPhjeKBTZhYWL0r1nW6qi4=
-X-Gm-Gg: AYBFou0jskEbASYC5wgnWcjZImZmFthrGiVpPXhfFgHyEpAxa+1XN5/RI+NPgxqCC7O
-	MteL8G/ovqgQ4FDleAWmdoNhTxgibpWXi5jwBOj+hQHl6y8Ue7cJ3n7jCDyTGla7f6FUfTxBBr5
-	jSPDbMezgBk+bPEhh3EXqS+NHT40gK+q2v877qNhFZ+/Crxzw1nqQLdHIpYmcMYGT8CMHAfprxa
-	TqvQCyCtX0xKav0PPUZO1SV71yCyw5mWwlGu+xPbNWwWGQFtYIw5R+Shspx8mFLHPcjPvTViT4c
-	DDSR7G+wzGzoNwnQnCL1dHlkwvGfv/zVGlsZ3jwURxrZk80DRbSxAQEOY9cuk0gkevBF2T+l+ky
-	FEswN0PHHqNJEsLT/TEcZ1oa3Wqn/DnQ1wSnx
-X-Received: by 2002:a05:690e:d85:b0:679:c6ba:9208 with SMTP id
- 956f58d0204a3-67a454b30f0mr1179288d50.102.1792835610936; Sat, 24 Oct 2026
- 02:53:30 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792835684; x=1793440484;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jSHUqM6sVNj4KA+FGbxHG4caWaVLve4l4npIRz/orKk=;
+        b=JIEGQYveyogTRoC5W+Z50oP/IDwc0ZDRqKvGl7T4+eZH3sSW7bmbDxMXqwogqBtk/2
+         UrCJ0vVq5PqUcp75ymupN27JO48ERlih2rWgtSm9xTW6INU5q/e945shthjJLVdSTQnd
+         v2cosnIJgKFAuqNgqUSd4ul9uoDJf1/y3P5xNC4P/JK3DXmcXyHMrj6Zto2xDwlq0b5s
+         8WW/nIFNqr9ZOrkpFqH0kJ/rJ7MYl04NI3uTP8kn7hwgMwu7bOYlpBfCwgD3YwjY8Snz
+         bOf3BscBUCnC2eJPTSvYAmEiyv/o2Nrn3inyd6tzEoXzjf3X28gW67NHZkJW56tS/15q
+         Xg3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwpeDx24dz6bwQL/xtdgdXbo2k41XUHc63repAt4YYpMJODhJ0srTiFSgUOukhg8/ts5kmkzt4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKp67NdenV8qfG/GBZaZoWHLDWE+OvMhMHsvFEDo2IAdbpoEZCW
+	gZiC5s5nTIl8CHiJbQo3CMfrFs9jUPkW9PJxFBF0u7TnID9GqboQBHQihE85aHhlGnejjAGq3vm
+	rJtI7WJ/d0kWkBK+kDF7Ggt7HgI4UJqAhNbrWHlKpkFWhpJvRF9w=
+X-Gm-Gg: AYBFou17U03/yveGARJfAodfU9esWubxZN/YbZAeidNjSyb8sk6XdD9KHuWKZJWG0OE
+	F7X5GTs9B7AIkdT8aFYrTZOid8KdKl7HgGm3dlCG17u5RLk9Jn72o7f5ERP5UKeFRNlsSHidu5g
+	ys0HhJ3NZEpos+izcThLHLGd0+KaxA5C4qEYNYWhlrJbrz3xtgidygtZbvoWcMn2q7bMdeTR553
+	bhlG6XAU9A3T++pTgvJ/e1eg5EwDfvkrbMRYcMBnqOkrs7wCLe/s449qPkRpHhi7zm6M8aqIL5/
+	oTPn3LxISgTssrzaKrGcJ0NVYB8VC676MX+MxEZ4/k6GfZKbKTjTyHWSo2Rw/wsaszEnEBWScmt
+	tYQ7gj/AfAjVcxtrUl28o/DRvOVXAZwhAmil26EIxUl36MYLEnnsdiKsC9GBEls1ouzGenqr4mR
+	hzM4CDNmFW8XW8meE=
+X-Received: by 2002:a17:90b:57cd:b0:3ab:884b:65a9 with SMTP id
+ 98e67ed59e1d1-3adeae9c162mr1503965a91.25.1792835683692; Sat, 24 Oct 2026
+ 02:54:43 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,228 +102,188 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAFAa3YDU2LnSiBH+2Rk455hky58fW=6_NeO3bWC_=GYmb9M0vg@mail.gmail.com>
- <2026-10-23-1-daily-reply-0008-rose-ax25-netrom-suite-bounce@kernel.org>
-In-Reply-To: <2026-10-23-1-daily-reply-0008-rose-ax25-netrom-suite-bounce@kernel.org>
-From: Bernard Pidoux <bernard.f6bvp@gmail.com>
-Date: Sat, 24 Oct 2026 11:53:19 +0200
-X-Gm-Features: AclHuK_zWhESd-j9hHDAXf4KXZBPpJ3m4ligZXqAt-AzJ6vNqYxY6rwrEjdt9_U
-Message-ID: <CAFAa3YBCwY2iEh-5NFmckvAS+RzDstJO7dY8Q=fzVCrgK04kZA@mail.gmail.com>
-Subject: Re: [stable request] ROSE memory-safety fixes for 7.0.y and earlier
- (merged out-of-tree in linux-netdev/mod-orphan)
-To: sashal@kernel.org
-Cc: gregkh@linuxfoundation.org, stable@vger.kernel.org, kuba@kernel.org, 
-	linux-hams@vger.kernel.org
-Content-Type: multipart/mixed; boundary="000000000000bb751b065e931147"
-
---000000000000bb751b065e931147
+References: <ACT-N6N4.v2.r0.20261022191829@mojatatu.com> <ACT-N6N4.v2.r0.20261022191829-1@mojatatu.com>
+ <ACT-N6N4.v2.r0.20261022191829-2@mojatatu.com> <willemdebruijn.kernel.26d1ddb3bd2ae@gmail.com>
+ <CAM0EoMmwNCHVNW0=Z_JWX_ZcT5Y1po1GRVScddOsevEvL8D-6w@mail.gmail.com>
+ <willemdebruijn.kernel.30ca6285209f7@gmail.com> <CAM0EoMm=t2FMLaGNkC_z_a_D5o4=dwVnHS=Bb23NWdmeJVCVuw@mail.gmail.com>
+In-Reply-To: <CAM0EoMm=t2FMLaGNkC_z_a_D5o4=dwVnHS=Bb23NWdmeJVCVuw@mail.gmail.com>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Sat, 24 Oct 2026 05:54:32 -0400
+X-Gm-Features: AclHuK8x6YsYN68U8TrqczucCZRfN0vZR36J_wmmtKQG0gjq4OLQPKHjLwQKBEk
+Message-ID: <CAM0EoM=9GxDCHzpJF_bqcoh+7KZY6E=ZmOiMp7kfVK3bHZDppw@mail.gmail.com>
+Subject: Re: [PATCH net v2 2/6] net/sched: act_mpls: pull the inner Ethernet
+ header after POP
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
+	Victor Nogueira <victor@mojatatu.com>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Martin Varghese <martin.varghese@nokia.com>, 
+	Pravin B Shelar <pshelar@ovn.org>, Vega <vega@nebusec.ai>, 
+	John Hurley <john.hurley@netronome.com>, Willem de Bruijn <willemb@google.com>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Sasha,
-
-You are right, thanks for catching it.
-nr_rx_frame() masks the flag nibble off the frame type, so the length
-check also hits CONNACK|CHOKE, and __nr_transmit_reply() sends those
-as 20-byte frames.
-Only the plain CONNACK case of nr_state1_machine() reads byte 20.
-
-I reproduced it on a two-VM QEMU bench (6.12.y with this series,
-KASAN, mkiss link), node A calling node B where nobody listens:
-- with v1 of 02/26, the refusal is dropped and connect() is still
-blocked after 15 seconds;
-- with v2, connect() fails with ECONNREFUSED in 40 ms.
-A plain CONNACK is still accepted: once B listens, the same call
-connects and data flows.
-No KASAN report in either run.
-
-v2 of 02/26 is attached for 6.12.y and 6.18.y.
-It applies the length check to a plain CONNACK only:
-
-  if (frametype =3D=3D NR_CONNACK && !flags &&
-      skb->len < NR_NETWORK_LEN + NR_TRANSPORT_LEN + 1) {
-
-Patches 03 to 26 apply unchanged on top of it, and net/netrom builds
-with W=3D1 and KASAN on both branches, with no warning.
-The same fix goes to mod-orphan as a follow-up to db51201afd46.
-
-Thanks,
-Bernard
-
-
-Le ven. 23 oct. 2026 =C3=A0 22:03, Sasha Levin <sashal@kernel.org> a =C3=A9=
-crit :
+On Fri, Oct 23, 2026 at 7:46=E2=80=AFPM Jamal Hadi Salim <jhs@mojatatu.com>=
+ wrote:
 >
-> > [PATCH 6.12.y 02/26] netrom: linearize and validate lengths in nr_rx_fr=
-ame()
+> . On Fri, Oct 23, 2026 at 6:50=E2=80=AFPM Willem de Bruijn
+> <willemdebruijn.kernel@gmail.com> wrote:
 > >
-> > +             /* nr_state1_machine() reads the window size at byte 20 *=
-/
-> > +             if (frametype =3D=3D NR_CONNACK &&
-> > +                 skb->len < NR_NETWORK_LEN + NR_TRANSPORT_LEN + 1) {
-> > +                     sock_put(sk);
-> > +                     return 0;
-> > +             }
+> > Jamal Hadi Salim wrote:
+> > > On Fri, Oct 23, 2026 at 12:09=E2=80=AFPM Willem de Bruijn
+> > > <willemdebruijn.kernel@gmail.com> wrote:
+> > > >
+> > > > Jamal Hadi Salim wrote:
+> > > > > The issue:
+> > > > > act_mpls POP can leave the inner Ethernet header in a page fragme=
+nt after
+> > > > > skb_mpls_pop(), either on an L3 device (mac_len =3D=3D 0) or chai=
+ned after
+> > > > > act_vlan POP_ETH.  A following eth_type_trans() can then BUG in
+> > > > > __skb_pull().
+> > > > >
+> > > > > The Fix:
+> > > > > After the pop, if the original MAC header is shorter than ETH_HLE=
+N, pull
+> > > > > the inner Ethernet header into the linear area and drop only when
+> > > > > pskb_may_pull(skb, ETH_HLEN) fails.  skb_mpls_pop() does nothing =
+when the
+> > > > > skb was not MPLS, so no separate state is needed.
+> > > > >
+> > > > > Conditions to recreate the bug:
+> > > > > - egress tc filter on lo: action vlan pop_eth action mpls pop
+> > > > >   (chained), or on an L3 device where mac_len =3D=3D 0.
+> > > > > - AF_PACKET SOCK_RAW with PACKET_VNET_HDR, hdr_len=3D28, and a no=
+n-linear
+> > > > >   eth / mpls / inner-eth frame.
+> > > > > - The inner header is in page frags; a following eth_type_trans()=
+ can BUG
+> > > > >   in __skb_pull().
+> > > > >
+> > > > > Fixes: 2a2ea50870ba ("net: sched: add mpls manipulation actions t=
+o TC")
+> > > > > Reported-by: Vega <vega@nebusec.ai>
+> > > > > Link: https://lore.kernel.org/r/40fe2d7dfce13411bfbe9271c0f7c54fb=
+7e88e3b.1782548651.git.bronzed_45_vested@icloud.com/
+> > > > > Link: https://lore.kernel.org/netdev/CAL4WiiqSMdYQYeeW0Fk_GK6ekR4=
+xiS4zPrGKrbB9wZknpqf1-w@mail.gmail.com/
+> > > > > Cc: stable@vger.kernel.org
+> > > > > Suggested-by: Jakub Kicinski <kuba@kernel.org>
+> > > > > Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+> > > > > Suggested-by: Eric Dumazet <edumazet@kernel.org>
+> > > > > Reviewed-by: Victor Nogueira <victor@mojatatu.com>
+> > > > > Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+> > > > > ---
+> > > > >  net/sched/act_mpls.c | 2 ++
+> > > > >  1 file changed, 2 insertions(+)
+> > > > >
+> > > > > diff --git a/net/sched/act_mpls.c b/net/sched/act_mpls.c
+> > > > > index 4ea8b2e08c3a..5363bca892fb 100644
+> > > > > --- a/net/sched/act_mpls.c
+> > > > > +++ b/net/sched/act_mpls.c
+> > > > > @@ -79,6 +79,8 @@ TC_INDIRECT_SCOPE int tcf_mpls_act(struct sk_bu=
+ff *skb,
+> > > > >               if (skb_mpls_pop(skb, p->tcfm_proto, mac_len,
+> > > > >                                skb->dev && skb->dev->type =3D=3D =
+ARPHRD_ETHER))
+> > > > >                       goto drop;
+> > > > > +             if (mac_len < ETH_HLEN && !pskb_may_pull(skb, ETH_H=
+LEN))
+> > > > > +                     goto drop;
+> > > >
+> > > > Is this first condition needed?
+> > > >
+> > >
+> > > That was me conjecturing from Eric saying in v1 "...the check can onl=
+y
+> > > matter when the original MAC header is short.."
+> > > Since i have to send a v3 (Thanks Eric;->) I will remove it
+> > >
+> > > > More importantly, can it hide a bug?
+> > > >
+> > >
+> > > What kind of bug?
+> >
+> > Two kinds. One, if original mac_len is larger, gets popped and the
+> > resultant packet is still too short for ETH_HLEN afterwards.
+> >
+> > But this can probably not happen, as skb_mpls_pop only pops one MPLS
+> > tag.
+> >
+> > What this patch tries to ensure is that the subsequent Ethernet
+> > header is linear.
+> >
+> > The second potential bug is this assumption that after the MPLS tag
+> > lies an Ethernet header. Is that a valid assumption? Or could we drop
+> > a valid packet with smaller header.
+> >
 >
-> This check ignores the flag nibble, so it also drops CONNACK|CHOKE (0x82)
-> refusals. __nr_transmit_reply() builds those as 20-byte frames
-> (skb_put(NR_NETWORK_LEN + NR_TRANSPORT_LEN)), so a refused connect() no
-> longer gets ECONNREFUSED and times out after the T1/N2 retries, and CHOKE
-> resets of state 2 and 3 circuits are lost. nr_state1_machine() only reads
-> the window byte for a plain CONNACK.
+> tbh, I was thinking more about skb frags earlier.
+> You are right only ETH_P_TEB promises an inner Ethernet header; for
+> other inner protocols the pull is wrong, so I=E2=80=99ll check for
+> p->tcfm_proto =3D=3D htons(ETH_P_TEB). I didnt have this check in the
+> current fix - good you responded before i sent out.
 >
-> --
-> Thanks,
-> Sasha
+> 1/6 (act_vlan POP_ETH) has a similar unconditional
+> pskb_may_pull(ETH_HLEN). A brute approach is also to check for TEB:
+>
+>       if (skb->protocol =3D=3D htons(ETH_P_TEB) &&  !pskb_may_pull(skb, E=
+TH_HLEN))
+>                 goto drop;
+>
+> Note: skb_eth_pop() only removes the outer ethernet header but does
+> not change skb->protocol
+>
 
---000000000000bb751b065e931147
-Content-Type: text/x-patch; charset="US-ASCII"; 
-	name="6.18.y-v2-02-26-netrom-nr_rx_frame.patch"
-Content-Disposition: attachment; 
-	filename="6.18.y-v2-02-26-netrom-nr_rx_frame.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mvm7scxc1>
-X-Attachment-Id: f_mvm7scxc1
+I am going to send it without this 1/6 change - it just doesn't feel
+like good taste. I will add a comment in the changes to say i
+considered it but decided not to. I also spent time eyeballing the
+code, i dont think there's a potential way to craft a packet that will
+hit the perceived issue. In any case the 24 hour embargo lifts in a
+few hours so i am not posting yet.
 
-RnJvbSA5ZmM4ZWM3NTEyMjc0ZTQ3ZDQwNDUxZWU0MmJmMzg4ZTI0NGQ1ZTgxIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBTdGFuaXNsYXYgRm9ydCA8ZGlzY2xvc3VyZUBhaXNsZS5jb20+
-CkRhdGU6IEZyaSwgMjUgU2VwIDIwMjYgMTI6MjM6NTAgKzAyMDAKU3ViamVjdDogW1BBVENIIDYu
-MTgueSB2MiAwMi8yNl0gbmV0cm9tOiBsaW5lYXJpemUgYW5kIHZhbGlkYXRlIGxlbmd0aHMgaW4K
-IG5yX3J4X2ZyYW1lKCkKCkxpbmVhcml6ZSBza2IgYW5kIGFkZCB0YXJnZXRlZCBsZW5ndGggY2hl
-Y2tzIGluIG5yX3J4X2ZyYW1lKCkgdG8KcHJldmVudCBvdXQtb2YtYm91bmRzIHJlYWRzIHdoZW4g
-cHJvY2Vzc2luZyBtYWxmb3JtZWQgTkVUL1JPTSBmcmFtZXMuCgotIFJlcXVpcmUgc2tiIHRvIGJl
-IGxpbmVhciBhbmQgYXQgbGVhc3QgTlJfTkVUV09SS19MRU4gKwogIE5SX1RSQU5TUE9SVF9MRU4g
-KDIwIGJ5dGVzKSBiZWZvcmUgcmVhZGluZyBuZXR3b3JrL3RyYW5zcG9ydCBmaWVsZHMuCi0gRm9y
-IHRoZSBleGlzdGluZyBzb2NrZXRzIHBhdGgsIGVuc3VyZSBOUl9DT05OQUNLIGluY2x1ZGVzIHRo
-ZSB3aW5kb3cKICBieXRlICg+PSAyMSBieXRlcyksIHdoaWNoIG5yX3N0YXRlMV9tYWNoaW5lKCkg
-cmVhZHMuCi0gRm9yIENPTk5SRVEgaGFuZGxpbmcsIGVuc3VyZSB3aW5kb3cgKGJ5dGUgMjApIGFu
-ZCB1c2VyIGFkZHJlc3MKICAoYnl0ZXMgMjEtMjcpIGFyZSBwcmVzZW50ICg+PSAyOCBieXRlcyks
-IGFuZCBkbyBzbyBiZWZvcmUKICBucl9maW5kX2xpc3RlbmVyKCkgc28gbm8gbGlzdGVuZXIgcmVm
-ZXJlbmNlIGNhbiBsZWFrLgotIFByZXNlcnZlIGV4aXN0aW5nIEJQUSBleHRlbnNpb24gaGFuZGxp
-bmc6CiAgLSBOUl9DT05OQUNLIGxlbiA9PSAyMiAtPiAxIGV4dHJhIGJ5dGUgKFRUTCkKICAtIE5S
-X0NPTk5SRVEgbGVuID09IDM3IC0+IDIgZXh0cmEgYnl0ZXMgKHRpbWVvdXQpCgpucl9yb3V0ZV9m
-cmFtZSgpIG9ubHkgZ3VhcmFudGVlcyAxNSBieXRlcyBiZWZvcmUgaGFuZGluZyBhIGZyYW1lCmFk
-ZHJlc3NlZCB0byBhIGxvY2FsIG5vZGUgdG8gbnJfcnhfZnJhbWUoKSwgc28gYSBzaG9ydCBmcmFt
-ZSByZWNlaXZlZApmcm9tIGFueSBBWC4yNSBuZWlnaGJvdXIgaXMgZW5vdWdoIHRvIHRyaWdnZXIg
-dGhlIG92ZXItcmVhZC4KCkZpeGVzOiAxZGExNzdlNGMzZjQgKCJMaW51eC0yLjYuMTItcmMyIikK
-U3VnZ2VzdGVkLWJ5OiBFcmljIER1bWF6ZXQgPGVkdW1hemV0QGdvb2dsZS5jb20+ClJldmlld2Vk
-LWJ5OiBFcmljIER1bWF6ZXQgPGVkdW1hemV0QGdvb2dsZS5jb20+ClNpZ25lZC1vZmYtYnk6IFN0
-YW5pc2xhdiBGb3J0IDxkaXNjbG9zdXJlQGFpc2xlLmNvbT4KW0Y2QlZQOiB2NCBuZXZlciByZWFj
-aGVkIG1haW5saW5lICh3aGl0ZXNwYWNlLWRhbWFnZWQgcG9zdGluZywgc3Vic3lzdGVtCiByZW1v
-dmVkIGluIDcuMSk7IHJlYmFzZWQgb250byBtb2Qtb3JwaGFuLCBhZGRlZCBjb21tZW50cy4gVGVz
-dGVkIG9uIGEKIHR3by1WTSBRRU1VIGJlbmNoICg2LjEyLjk0LCBta2lzcyBsaW5rKTogYW4gQVgu
-MjUgcGVlciBzZW5kcyBDT05OUkVRCiBmcmFtZXMgdHJ1bmNhdGVkIHRvIDIwIGFuZCAyNyBieXRl
-czsgd2l0aG91dCB0aGlzIHBhdGNoIGJvdGggYXJlCiBhY2NlcHRlZCBhcyBjb25uZWN0aW9ucywg
-dGhlIHVzZXIgY2FsbHNpZ24gYmVpbmcgcmVhZCBwYXN0IHRoZSBlbmQgb2YKIHRoZSBmcmFtZTsg
-d2l0aCBpdCBvbmx5IHRoZSBjb21wbGV0ZSAzNS1ieXRlIENPTk5SRVEgaXMgYWNjZXB0ZWQuCiB2
-MjogYXBwbHkgdGhlIENPTk5BQ0sgbGVuZ3RoIGNoZWNrIHRvIGEgcGxhaW4gQ09OTkFDSyBvbmx5
-LCBzbyB0aGF0CiAyMC1ieXRlIENPTk5BQ0t8Q0hPS0UgcmVmdXNhbHMgYW5kIHJlc2V0cyBhcmUg
-bm8gbG9uZ2VyIGRyb3BwZWQKIChyZXBvcnRlZCBieSBTYXNoYSBMZXZpbikuIFNhbWUgZml4IHN1
-Ym1pdHRlZCB0byBtb2Qtb3JwaGFuLl0KU2lnbmVkLW9mZi1ieTogQmVybmFyZCBQaWRvdXggPGJl
-cm5hcmQuZjZidnBAZ21haWwuY29tPgooY2hlcnJ5IHBpY2tlZCBmcm9tIGNvbW1pdCBkYjUxMjAx
-YWZkNDY5OTJjOTIwNmZhNzk4NzhiYWRiMjIzNmJiN2QzKQotLS0KIG5ldC9uZXRyb20vYWZfbmV0
-cm9tLmMgfCAyMiArKysrKysrKysrKysrKysrKysrKystCiAxIGZpbGUgY2hhbmdlZCwgMjEgaW5z
-ZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL25ldC9uZXRyb20vYWZfbmV0
-cm9tLmMgYi9uZXQvbmV0cm9tL2FmX25ldHJvbS5jCmluZGV4IDMzNDY4MTI0ZDUuLjBlNzBkMTQ5
-YWIgMTAwNjQ0Ci0tLSBhL25ldC9uZXRyb20vYWZfbmV0cm9tLmMKKysrIGIvbmV0L25ldHJvbS9h
-Zl9uZXRyb20uYwpAQCAtODg1LDYgKzg4NSwxMSBAQCBpbnQgbnJfcnhfZnJhbWUoc3RydWN0IHNr
-X2J1ZmYgKnNrYiwgc3RydWN0IG5ldF9kZXZpY2UgKmRldikKIAkgKglza2ItPmRhdGEgcG9pbnRz
-IHRvIHRoZSBuZXRyb20gZnJhbWUgc3RhcnQKIAkgKi8KIAorCWlmIChza2JfbGluZWFyaXplKHNr
-YikpCisJCXJldHVybiAwOworCWlmIChza2ItPmxlbiA8IE5SX05FVFdPUktfTEVOICsgTlJfVFJB
-TlNQT1JUX0xFTikKKwkJcmV0dXJuIDA7CisKIAlzcmMgID0gKGF4MjVfYWRkcmVzcyAqKShza2It
-PmRhdGEgKyAwKTsKIAlkZXN0ID0gKGF4MjVfYWRkcmVzcyAqKShza2ItPmRhdGEgKyA3KTsKIApA
-QCAtOTI3LDYgKzkzMiwxNyBAQCBpbnQgbnJfcnhfZnJhbWUoc3RydWN0IHNrX2J1ZmYgKnNrYiwg
-c3RydWN0IG5ldF9kZXZpY2UgKmRldikKIAl9CiAKIAlpZiAoc2sgIT0gTlVMTCkgeworCQkvKgor
-CQkgKiBucl9zdGF0ZTFfbWFjaGluZSgpIHJlYWRzIHRoZSB3aW5kb3cgc2l6ZSBhdCBieXRlIDIw
-LCBidXQKKwkJICogb25seSBmb3IgYSBwbGFpbiBDT05OQUNLLiBBIENPTk5BQ0sgd2l0aCB0aGUg
-Y2hva2UgZmxhZyBzZXQKKwkJICogaXMgYSByZWZ1c2FsIG9yIGEgcmVzZXQsIHNlbnQgYXMgYSAy
-MC1ieXRlIGZyYW1lIGJ5CisJCSAqIF9fbnJfdHJhbnNtaXRfcmVwbHkoKSwgYW5kIG11c3Qgbm90
-IGJlIGRyb3BwZWQgaGVyZS4KKwkJICovCisJCWlmIChmcmFtZXR5cGUgPT0gTlJfQ09OTkFDSyAm
-JiAhZmxhZ3MgJiYKKwkJICAgIHNrYi0+bGVuIDwgTlJfTkVUV09SS19MRU4gKyBOUl9UUkFOU1BP
-UlRfTEVOICsgMSkgeworCQkJc29ja19wdXQoc2spOworCQkJcmV0dXJuIDA7CisJCX0KIAkJYmhf
-bG9ja19zb2NrKHNrKTsKIAkJc2tiX3Jlc2V0X3RyYW5zcG9ydF9oZWFkZXIoc2tiKTsKIApAQCAt
-OTYxLDEwICs5NzcsMTQgQEAgaW50IG5yX3J4X2ZyYW1lKHN0cnVjdCBza19idWZmICpza2IsIHN0
-cnVjdCBuZXRfZGV2aWNlICpkZXYpCiAJCXJldHVybiAwOwogCX0KIAotCXNrID0gbnJfZmluZF9s
-aXN0ZW5lcihkZXN0KTsKKwkvKiBOZWVkIHdpbmRvdyAoYnl0ZSAyMCkgYW5kIHVzZXIgYWRkcmVz
-cyAoYnl0ZXMgMjEtMjcpICovCisJaWYgKHNrYi0+bGVuIDwgTlJfTkVUV09SS19MRU4gKyBOUl9U
-UkFOU1BPUlRfTEVOICsgMSArIEFYMjVfQUREUl9MRU4pCisJCXJldHVybiAwOwogCiAJdXNlciA9
-IChheDI1X2FkZHJlc3MgKikoc2tiLT5kYXRhICsgMjEpOwogCisJc2sgPSBucl9maW5kX2xpc3Rl
-bmVyKGRlc3QpOworCiAJaWYgKHNrID09IE5VTEwgfHwgc2tfYWNjZXB0cV9pc19mdWxsKHNrKSB8
-fAogCSAgICAobWFrZSA9IG5yX21ha2VfbmV3KHNrKSkgPT0gTlVMTCkgewogCQlucl90cmFuc21p
-dF9yZWZ1c2FsKHNrYiwgMCk7Ci0tIAoyLjUzLjAKCg==
---000000000000bb751b065e931147
-Content-Type: text/x-patch; charset="US-ASCII"; 
-	name="6.12.y-v2-02-26-netrom-nr_rx_frame.patch"
-Content-Disposition: attachment; 
-	filename="6.12.y-v2-02-26-netrom-nr_rx_frame.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mvm7scwo0>
-X-Attachment-Id: f_mvm7scwo0
+cheers,
+jamal
 
-RnJvbSA4NjI0YjA1NDQ3NjMxNTkyZDM4MjU4YTQ2ZjA4MmFmYzI5ZTEyNGYyIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBTdGFuaXNsYXYgRm9ydCA8ZGlzY2xvc3VyZUBhaXNsZS5jb20+
-CkRhdGU6IEZyaSwgMjUgU2VwIDIwMjYgMTI6MjM6NTAgKzAyMDAKU3ViamVjdDogW1BBVENIIDYu
-MTIueSB2MiAwMi8yNl0gbmV0cm9tOiBsaW5lYXJpemUgYW5kIHZhbGlkYXRlIGxlbmd0aHMgaW4K
-IG5yX3J4X2ZyYW1lKCkKCkxpbmVhcml6ZSBza2IgYW5kIGFkZCB0YXJnZXRlZCBsZW5ndGggY2hl
-Y2tzIGluIG5yX3J4X2ZyYW1lKCkgdG8KcHJldmVudCBvdXQtb2YtYm91bmRzIHJlYWRzIHdoZW4g
-cHJvY2Vzc2luZyBtYWxmb3JtZWQgTkVUL1JPTSBmcmFtZXMuCgotIFJlcXVpcmUgc2tiIHRvIGJl
-IGxpbmVhciBhbmQgYXQgbGVhc3QgTlJfTkVUV09SS19MRU4gKwogIE5SX1RSQU5TUE9SVF9MRU4g
-KDIwIGJ5dGVzKSBiZWZvcmUgcmVhZGluZyBuZXR3b3JrL3RyYW5zcG9ydCBmaWVsZHMuCi0gRm9y
-IHRoZSBleGlzdGluZyBzb2NrZXRzIHBhdGgsIGVuc3VyZSBOUl9DT05OQUNLIGluY2x1ZGVzIHRo
-ZSB3aW5kb3cKICBieXRlICg+PSAyMSBieXRlcyksIHdoaWNoIG5yX3N0YXRlMV9tYWNoaW5lKCkg
-cmVhZHMuCi0gRm9yIENPTk5SRVEgaGFuZGxpbmcsIGVuc3VyZSB3aW5kb3cgKGJ5dGUgMjApIGFu
-ZCB1c2VyIGFkZHJlc3MKICAoYnl0ZXMgMjEtMjcpIGFyZSBwcmVzZW50ICg+PSAyOCBieXRlcyks
-IGFuZCBkbyBzbyBiZWZvcmUKICBucl9maW5kX2xpc3RlbmVyKCkgc28gbm8gbGlzdGVuZXIgcmVm
-ZXJlbmNlIGNhbiBsZWFrLgotIFByZXNlcnZlIGV4aXN0aW5nIEJQUSBleHRlbnNpb24gaGFuZGxp
-bmc6CiAgLSBOUl9DT05OQUNLIGxlbiA9PSAyMiAtPiAxIGV4dHJhIGJ5dGUgKFRUTCkKICAtIE5S
-X0NPTk5SRVEgbGVuID09IDM3IC0+IDIgZXh0cmEgYnl0ZXMgKHRpbWVvdXQpCgpucl9yb3V0ZV9m
-cmFtZSgpIG9ubHkgZ3VhcmFudGVlcyAxNSBieXRlcyBiZWZvcmUgaGFuZGluZyBhIGZyYW1lCmFk
-ZHJlc3NlZCB0byBhIGxvY2FsIG5vZGUgdG8gbnJfcnhfZnJhbWUoKSwgc28gYSBzaG9ydCBmcmFt
-ZSByZWNlaXZlZApmcm9tIGFueSBBWC4yNSBuZWlnaGJvdXIgaXMgZW5vdWdoIHRvIHRyaWdnZXIg
-dGhlIG92ZXItcmVhZC4KCkZpeGVzOiAxZGExNzdlNGMzZjQgKCJMaW51eC0yLjYuMTItcmMyIikK
-U3VnZ2VzdGVkLWJ5OiBFcmljIER1bWF6ZXQgPGVkdW1hemV0QGdvb2dsZS5jb20+ClJldmlld2Vk
-LWJ5OiBFcmljIER1bWF6ZXQgPGVkdW1hemV0QGdvb2dsZS5jb20+ClNpZ25lZC1vZmYtYnk6IFN0
-YW5pc2xhdiBGb3J0IDxkaXNjbG9zdXJlQGFpc2xlLmNvbT4KW0Y2QlZQOiB2NCBuZXZlciByZWFj
-aGVkIG1haW5saW5lICh3aGl0ZXNwYWNlLWRhbWFnZWQgcG9zdGluZywgc3Vic3lzdGVtCiByZW1v
-dmVkIGluIDcuMSk7IHJlYmFzZWQgb250byBtb2Qtb3JwaGFuLCBhZGRlZCBjb21tZW50cy4gVGVz
-dGVkIG9uIGEKIHR3by1WTSBRRU1VIGJlbmNoICg2LjEyLjk0LCBta2lzcyBsaW5rKTogYW4gQVgu
-MjUgcGVlciBzZW5kcyBDT05OUkVRCiBmcmFtZXMgdHJ1bmNhdGVkIHRvIDIwIGFuZCAyNyBieXRl
-czsgd2l0aG91dCB0aGlzIHBhdGNoIGJvdGggYXJlCiBhY2NlcHRlZCBhcyBjb25uZWN0aW9ucywg
-dGhlIHVzZXIgY2FsbHNpZ24gYmVpbmcgcmVhZCBwYXN0IHRoZSBlbmQgb2YKIHRoZSBmcmFtZTsg
-d2l0aCBpdCBvbmx5IHRoZSBjb21wbGV0ZSAzNS1ieXRlIENPTk5SRVEgaXMgYWNjZXB0ZWQuCiB2
-MjogYXBwbHkgdGhlIENPTk5BQ0sgbGVuZ3RoIGNoZWNrIHRvIGEgcGxhaW4gQ09OTkFDSyBvbmx5
-LCBzbyB0aGF0CiAyMC1ieXRlIENPTk5BQ0t8Q0hPS0UgcmVmdXNhbHMgYW5kIHJlc2V0cyBhcmUg
-bm8gbG9uZ2VyIGRyb3BwZWQKIChyZXBvcnRlZCBieSBTYXNoYSBMZXZpbikuIFNhbWUgZml4IHN1
-Ym1pdHRlZCB0byBtb2Qtb3JwaGFuLl0KU2lnbmVkLW9mZi1ieTogQmVybmFyZCBQaWRvdXggPGJl
-cm5hcmQuZjZidnBAZ21haWwuY29tPgooY2hlcnJ5IHBpY2tlZCBmcm9tIGNvbW1pdCBkYjUxMjAx
-YWZkNDY5OTJjOTIwNmZhNzk4NzhiYWRiMjIzNmJiN2QzKQotLS0KIG5ldC9uZXRyb20vYWZfbmV0
-cm9tLmMgfCAyMiArKysrKysrKysrKysrKysrKysrKystCiAxIGZpbGUgY2hhbmdlZCwgMjEgaW5z
-ZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL25ldC9uZXRyb20vYWZfbmV0
-cm9tLmMgYi9uZXQvbmV0cm9tL2FmX25ldHJvbS5jCmluZGV4IDZlZTE0OGYwZTYuLjRkYWM1ZWU1
-OGEgMTAwNjQ0Ci0tLSBhL25ldC9uZXRyb20vYWZfbmV0cm9tLmMKKysrIGIvbmV0L25ldHJvbS9h
-Zl9uZXRyb20uYwpAQCAtODg1LDYgKzg4NSwxMSBAQCBpbnQgbnJfcnhfZnJhbWUoc3RydWN0IHNr
-X2J1ZmYgKnNrYiwgc3RydWN0IG5ldF9kZXZpY2UgKmRldikKIAkgKglza2ItPmRhdGEgcG9pbnRz
-IHRvIHRoZSBuZXRyb20gZnJhbWUgc3RhcnQKIAkgKi8KIAorCWlmIChza2JfbGluZWFyaXplKHNr
-YikpCisJCXJldHVybiAwOworCWlmIChza2ItPmxlbiA8IE5SX05FVFdPUktfTEVOICsgTlJfVFJB
-TlNQT1JUX0xFTikKKwkJcmV0dXJuIDA7CisKIAlzcmMgID0gKGF4MjVfYWRkcmVzcyAqKShza2It
-PmRhdGEgKyAwKTsKIAlkZXN0ID0gKGF4MjVfYWRkcmVzcyAqKShza2ItPmRhdGEgKyA3KTsKIApA
-QCAtOTI3LDYgKzkzMiwxNyBAQCBpbnQgbnJfcnhfZnJhbWUoc3RydWN0IHNrX2J1ZmYgKnNrYiwg
-c3RydWN0IG5ldF9kZXZpY2UgKmRldikKIAl9CiAKIAlpZiAoc2sgIT0gTlVMTCkgeworCQkvKgor
-CQkgKiBucl9zdGF0ZTFfbWFjaGluZSgpIHJlYWRzIHRoZSB3aW5kb3cgc2l6ZSBhdCBieXRlIDIw
-LCBidXQKKwkJICogb25seSBmb3IgYSBwbGFpbiBDT05OQUNLLiBBIENPTk5BQ0sgd2l0aCB0aGUg
-Y2hva2UgZmxhZyBzZXQKKwkJICogaXMgYSByZWZ1c2FsIG9yIGEgcmVzZXQsIHNlbnQgYXMgYSAy
-MC1ieXRlIGZyYW1lIGJ5CisJCSAqIF9fbnJfdHJhbnNtaXRfcmVwbHkoKSwgYW5kIG11c3Qgbm90
-IGJlIGRyb3BwZWQgaGVyZS4KKwkJICovCisJCWlmIChmcmFtZXR5cGUgPT0gTlJfQ09OTkFDSyAm
-JiAhZmxhZ3MgJiYKKwkJICAgIHNrYi0+bGVuIDwgTlJfTkVUV09SS19MRU4gKyBOUl9UUkFOU1BP
-UlRfTEVOICsgMSkgeworCQkJc29ja19wdXQoc2spOworCQkJcmV0dXJuIDA7CisJCX0KIAkJYmhf
-bG9ja19zb2NrKHNrKTsKIAkJc2tiX3Jlc2V0X3RyYW5zcG9ydF9oZWFkZXIoc2tiKTsKIApAQCAt
-OTYxLDEwICs5NzcsMTQgQEAgaW50IG5yX3J4X2ZyYW1lKHN0cnVjdCBza19idWZmICpza2IsIHN0
-cnVjdCBuZXRfZGV2aWNlICpkZXYpCiAJCXJldHVybiAwOwogCX0KIAotCXNrID0gbnJfZmluZF9s
-aXN0ZW5lcihkZXN0KTsKKwkvKiBOZWVkIHdpbmRvdyAoYnl0ZSAyMCkgYW5kIHVzZXIgYWRkcmVz
-cyAoYnl0ZXMgMjEtMjcpICovCisJaWYgKHNrYi0+bGVuIDwgTlJfTkVUV09SS19MRU4gKyBOUl9U
-UkFOU1BPUlRfTEVOICsgMSArIEFYMjVfQUREUl9MRU4pCisJCXJldHVybiAwOwogCiAJdXNlciA9
-IChheDI1X2FkZHJlc3MgKikoc2tiLT5kYXRhICsgMjEpOwogCisJc2sgPSBucl9maW5kX2xpc3Rl
-bmVyKGRlc3QpOworCiAJaWYgKHNrID09IE5VTEwgfHwgc2tfYWNjZXB0cV9pc19mdWxsKHNrKSB8
-fAogCSAgICAobWFrZSA9IG5yX21ha2VfbmV3KHNrKSkgPT0gTlVMTCkgewogCQlucl90cmFuc21p
-dF9yZWZ1c2FsKHNrYiwgMCk7Ci0tIAoyLjUzLjAKCg==
---000000000000bb751b065e931147--
+> thoughts?
+>
+> cheers,
+> jamal
+>
+> > My LLM raised similar points and says it better than I could:
+> >
+> >   1. Missing protocol check: tcf_mpls_act handles popping MPLS to arbit=
+rary inner protocols (ETH_P_IP, ETH_P_IPV6, ETH_P_MPLS_UC, ETH_P_TEB).
+> >   Requiring ETH_HLEN (14 bytes) unconditionally when mac_len < ETH_HLEN=
+ drops valid non-Ethernet packets shorter than 14 bytes (e.g. popping
+> >   an outer label to reveal a 4-byte inner label stack entry on an L3 pa=
+th or after pop_eth). Pulling ETH_HLEN only applies when popping to
+> >   Ethernet / TEB (p->tcfm_proto =3D=3D htons(ETH_P_TEB)), exactly as do=
+ne in patch 5 for Open vSwitch (pop_mpls).
+> >   2. Gating on mac_len < ETH_HLEN: mac_len here is the pre-pop outer MA=
+C length. pskb_may_pull is already a no-op if the linear buffer is
+> >   sufficient; gating on pre-pop mac_len is unnecessary and risks skippi=
+ng the pull when mac_len >=3D ETH_HLEN even if the revealed header is in
+> >   fragments.
+> >   3. Downstream metadata invariant: Popping to ETH_P_TEB exposes an inn=
+er Ethernet header at skb->data, but skb_mpls_pop leaves skb->mac_len
+> >   at 0 and resets the network header to 0 (skb_network_offset(skb) =3D=
+=3D 0). Downstream actions such as act_mirred (with patch 3's
+> >   skb_network_offset(skb) < dev->min_header_len check) will treat the p=
+acket as headerless and drop it, causing regressions in L2VPN
+> >   forwarding (tc_mpls_l2vpn.sh). When popping to TEB, the L2 MAC header=
+ boundaries (mac_len and network header offset) need to be properly
+> >   established.
+> >   =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
+> >   ### Summary of comments:
+> >
+> >   =E2=80=A2 Patch 2/6: Missing inner protocol check (p->tcfm_proto =3D=
+=3D htons(ETH_P_TEB)) before pulling ETH_HLEN; drops non-Ethernet payloads =
+< 14
+> >   bytes.
+> >   =E2=80=A2 Patch 2/6: Unsound pre-pop mac_len < ETH_HLEN gate.
+> >   =E2=80=A2 Patch 2/6: Incomplete header bookkeeping (mac_len and netwo=
+rk header offset) on TEB pop breaks subsequent redirect actions (act_mirred=
+).*
+> >
+> >
