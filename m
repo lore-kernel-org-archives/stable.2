@@ -1,72 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792806943;
-	b=TLKX2pQL8rRmDV/UEWiFAhi1q8xG0NXHlYQnRKj4BKnL8Jt6RDl+g1CcFkcuB1UXi91R
-	 Wh8Krq5RuxTwq4iSOIr/DUYesAMAr4SjnAlf1U9Fjdw93sC8CBDgvnJgnJElqGJgdn7Bp
-	 w343g+S+PkzPPUANwL5Dt0EymRdJe9hMQjP2SiRNdMRgcdEwx7wnJ0New1/stbtgvO5S9
-	 zeEbUWb6yQNQHuaa/hgTgarjhY7rmjbekI7IUFxRB590Flpqqvu4OyVEHbVdJn50Zqxm0
-	 0JrIdWTap4YiNAPKH3RDa/6cVU4bkO7/noM8S4n2jYBDsI5xdUUtABreTWHnIu9A79w==
+	t=1792807029;
+	b=dRW4qg/fdfCIwfO+3sUHBgy5Dd2FPm+jVcTspqWJAo1EHvgvJCynTMYjwVSnweC7NNnh
+	 HWO1JuIsd5V2MZg5srOBz31aO44Cx2fLnhFsqXYPztzSf0F5FqloYpiA5p4UBumXzFCa6
+	 GhWgNZLLZEdlHz+ZDRkDjG3Zr2e0wM8TdnMd60LLt2kzj3w3Uw+lMDv0H3cb7A4dhqDjU
+	 CWJGoJqybbhJZ4NVWHzeEgHS5NMtPqTt4pGuv9Uq4ZfOgQAkbVy7ez5la7m4THmxTNgOt
+	 HoNBztgRUU7LZaPomjDNA40wLQGQah0mg2u27LK+983zGTE6DYkCqRilHHvmR16G8rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792806943;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=NgwkcAh7G7TyRAJ1hK5wESY+6h2tjx7+XcYt+feArG0=;
-	b=h8fTjtULtXq2A9o+sLBfb8NMXBS1y4mHqABTNJEWpnWaO+8VHHZYBea/UTCVj6mV6kwa
-	 GBbP1+1gmEIQMzejuuB5TmPaYyZeezJSUCHunQAV4ob5IRrzFjVFhrZIJGWGvaaYj5U/n
-	 ZoO3TQ04R1hjBUU3dt7Q4T93XmgX/7o7IlzDE3XVowudVw07OqrniAbAdAInkF61ZQHBY
-	 89a8CQ0EBD69HrCKlosgRKv5RQtAIfQIsGklZhyHIyR8qWlZap7ECXKNFvbXj+YX+Vc8E
-	 myot/BptoQ6NFsjEdKQ1Kg//MIxmAcRQDru+mfV2dhm/2l5Df+lLgM7BXmryXufCB1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792807029;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=X+sHAz12Dqk+FEAwV1y7Bc6KSqj0w1iT/sjqDw7CQfM=;
+	b=oyvtduQGRscO2FefplhAZiqgCNXU9wRXRm/4kz9LPVOUNKDI7/IrCw7UGmB1aUTsJaIF
+	 BkBGNOynCMRyo4JvJDPaNBiEwLH7VeTllu31HJxR/nhkh4Ry0equqt4V6ydYSWNcmV1Mh
+	 /wjLIYcEh+PJRW2xz1Xjkf0NVZVpIKr+lfdtT2zjxlYJmOjrNnktF1B65ewrlfkYlA3ch
+	 3+SPqDUuq90pQqJUCHwqpS3mhdNJIRAUR9BH1f2m9rI5lxRkwshMBehmggH3vZCRfApaU
+	 WFFB+oO3hNC0SirH35PM3FOEEbwiGMtbQVm7hq3IT1RxK6dRzBntzjE7W45E6ySG7kQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Nlbsh4UO;
-	arc=none smtp.remote-ip=74.125.82.72
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zt88HfJO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF84606A31B
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 01:55:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CF84606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 570A6606A31A;
+	Sat, 24 Oct 2026 01:57:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Nlbsh4UO
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1383723dfddso2581294c88.0
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 18:55:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792806942; x=1793411742; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NgwkcAh7G7TyRAJ1hK5wESY+6h2tjx7+XcYt+feArG0=;
-        b=Nlbsh4UOoFahNOoAuPj9v5HGS1pWjjXyDelKFUfWeIl/2wsq76INs9hLZSw1vRPHLP
-         PHUdbHiAcP2EYgQl4gowcoeh7tvDjvjksgmM+ACgDSdPeLJRQMeW3G91mctym84XiPkp
-         JzJ5un+AD4vb/0YTZJiG5tVFwR+9NDlSIjvFrlTVIgvG+OJ5SZm2pYyeJ5oxZZyhp/vT
-         LALC5IojEVkKlPHfITvWrT2nHkhC7Gr1KxKdfDlE2TYa0aehuG8PZbdyXOcD14zoPhIj
-         JZ2hhzqAyZKvtNSmrxziWKv3L3VM0mNhlyCsk7dPIEfBTmjF3wrUMk+RpuAyICwQkqmf
-         Lnpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792806942; x=1793411742;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NgwkcAh7G7TyRAJ1hK5wESY+6h2tjx7+XcYt+feArG0=;
-        b=BpKexVUy+74gyEQh+kmfQ4PAvnQH3TsB/AkQr0MfLfbTnm7XZ3QyluWXVv1OcgehgZ
-         HXRADhSTx54e0DVLLUdv1fwr8oFHHHYHC0lI4AJMhiWWuEvo18/aywg/F8CUHIkCgh4p
-         IfbuD0G91Qf9lMsfBwFA0tm3X6d7HbznorZ6Nb/Ejy+NahqaXsSbD/4Tz9rhSgXGTRdu
-         Xv1lp5woeQo4zzfa2hegKxgPqTBRuyIBlABTm0LRkSYKcywebrr14/TiVaravC4T1oNv
-         +fyp02JygCPaDGOsCV6OiRM0XgrrUFe1NTizax3/gT5sgAYY0Eii6ylOF9PJP5D7vsG0
-         aa7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzAZcABd7dlPPZ+Qe5OixhBNPv/SJcB+4LbvoeNCbfqrEOW0qtB8U9ONzPJhyRShNnJV4oicIQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJXz7LtggFedDusOe/WD/6ZTFuCC2MU+TKgBxkd9dmWeqoSUxgy
-	WqjvvCyTM+MPgBSt14j8XknKdUHPTzoG7uItyMukq/16FSCQZtrQj9n7+V8PA3GUwpBZSSLp/vv
-	v/aimUsodpGb0MJK4ZyXdk0+f/w==
-X-Received: from dybta14.prod.google.com ([2002:a05:7301:6f0e:b0:368:2c6d:de10])
- (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7022:e990:b0:197:b597:c441 with SMTP id a92af1059eb24-1993f3f1820mr1399557c88.47.1792806941376;
- Fri, 23 Oct 2026 18:55:41 -0700 (PDT)
-Date: Sat, 24 Oct 2026 01:55:40 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zt88HfJO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37A5C1F01825;
+	Sat, 24 Oct 2026 01:57:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792807028;
+	bh=X+sHAz12Dqk+FEAwV1y7Bc6KSqj0w1iT/sjqDw7CQfM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Zt88HfJOLpvyJcbBBlXmVcCfHGO0Q9f7D6usZiJG0ZkvE0Xyb92ApRMNY8Spul16K
+	 fzNfTm1ay8PTPWJulwercCdCfzNSJe9/+T5e9zI7z3sOyo2qs3UPCTJeBB+cNTbp8E
+	 YAfsismO8/cManUNj2KbpJQFuGahmxQqJP/ms1hpEOhYj/a+6RjDBxc+FZUEwmOROW
+	 VO50leAp6rblMetD5AawVcEuHAJzzInjcYfiJS6xggbjSv6Ohcw0E0xatPpBjLOzlx
+	 srGP+++BdxV8DcbMFleV2rqRUX2m2nzSS1iFH9Yn2q7uY0AmeJBmJ8hn0J1+8a1AdM
+	 W/QQOVEC4Q74g==
+Date: Sat, 24 Oct 2026 02:57:02 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>, stable@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] iio: proximity: sx9324: fix out-of-bounds read of
+ scan period table
+Message-ID: <20261024025702.6fd8122d@jic23-hlaptop>
+In-Reply-To: <20261023192700.221344-1-kapoorarnav43@gmail.com>
+References: <20261023192700.221344-1-kapoorarnav43@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,77 +61,86 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261024015540.538758-1-almasrymina@google.com>
-Subject: [PATCH v1] vfio/pci: pass FAULT_FLAG_WRITE to vmf_insert_pfn_pmd/pud()
-From: Mina Almasry <almasrymina@google.com>
-To: Alex Williamson <alex@shazbot.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Peter Xu <peterx@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Mina Almasry <almasrymina@google.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, stable@vger.kernel.org, Ankit Agrawal <ankita@nvidia.com>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-vfio_pci_vmf_insert_pfn() unconditionally passes write=false to
-vmf_insert_pfn_pmd() and vmf_insert_pfn_pud().
+On Sat, 24 Oct 2026 00:56:51 +0530
+Arnav Kapoor <kapoorarnav43@gmail.com> wrote:
 
-In insert_pmd() and insert_pud(), write=false skips marking newly
-inserted PMD/PUD entries dirty/young via pmd_mkyoung(pmd_mkdirty()) and
-maybe_pmd_mkwrite(). Furthermore, when vma_wants_writenotify() is active
-on a shared writable VMA (for example, after CLEAR_REFS_SOFT_DIRTY
-clears VM_SOFTDIRTY and calls vma_set_page_prot()), vm_page_prot is
-downgraded to read-only so insert_pmd()/insert_pud() with write=false
-installs a write-protected huge PMD/PUD. Subsequent write faults enter
-wp_huge_pmd() or wp_huge_pud(), which invoke vma->vm_ops->huge_fault()
-to upgrade the entry in place. Because vfio_pci_vmf_insert_pfn() passes
-write=false, insert_pmd() and insert_pud() see !pmd_none(*pmd) with
-!write, do nothing, and return VM_FAULT_NOPAGE without setting the write
-bit or splitting the huge page, causing an infinite write page-fault
-loop.
+> The scan period of the SX9324 is selected by the 5 bit wide
+> SX9324_REG_GNRL_CTRL0_SCANPERIOD field, so it has 32 possible values.
+> sx9324_scan_period_table[] however only has 16 entries, it was copied
+> over from the SX9310 driver where the field is only 4 bits wide.
+> 
+> sx9324_wait_for_sample() indexes the table with the raw field value, so
+> all the codes from 16 to 31 read past the end of the array. The default
+> value of the register is SX9324_REG_GNRL_CTRL0_SCANPERIOD_100MS (0x16,
+> i.e. 22), so the out-of-bounds read happens with the default
+> configuration of the device. It is only avoided when the device has an
+> interrupt line, as the wait is only done in the polling case.
+> 
+> The value read is then used as the duration of an msleep() call, so the
+> sensor is polled with a completely random delay.
+> 
+> Fill the table with the scan periods of all 32 codes, which are the
+> periods documented for the corresponding sx9324_samp_freq_table[]
+> entries, and add a static assertion to keep both tables in sync.
+> 
+> Fixes: 4c18a890dff8 ("iio:proximity:sx9324: Add SX9324 support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+> ---
+> Changes in v2:
+> - Format sx9324_scan_period_table[] with a power-of-two number of entries
+>   (8) per line and the register value range as a comment at the end of
+>   each line, so the table is indexed and a typo is easy to find (Andy)
+Looks good and matches what Andy asked about.
 
-Pass vmf->flags & FAULT_FLAG_WRITE to vmf_insert_pfn_pmd() and
-vmf_insert_pfn_pud() so write faults properly mark huge PFNMAP entries
-dirty and writable.
+Applied to the fixes-togreg branch of iio.git.
 
-Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
-Cc: stable@vger.kernel.org
-Cc: Ankit Agrawal <ankita@nvidia.com>
-Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Assisted-by: LLM
-Signed-off-by: Mina Almasry <almasrymina@google.com>
----
- drivers/vfio/pci/vfio_pci_core.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+thanks,
 
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index fcbb2da860e2..204d959086e9 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -1745,6 +1745,8 @@ vm_fault_t vfio_pci_vmf_insert_pfn(struct vfio_pci_core_device *vdev,
- 				   unsigned long pfn,
- 				   unsigned int order)
- {
-+	bool write = vmf->flags & FAULT_FLAG_WRITE;
-+
- 	lockdep_assert_held_read(&vdev->memory_lock);
- 
- 	if (vdev->pm_runtime_engaged || !__vfio_pci_memory_enabled(vdev))
-@@ -1754,10 +1756,10 @@ vm_fault_t vfio_pci_vmf_insert_pfn(struct vfio_pci_core_device *vdev,
- 		return vmf_insert_pfn(vmf->vma, vmf->address, pfn);
- 
- 	if (IS_ENABLED(CONFIG_ARCH_SUPPORTS_PMD_PFNMAP) && order == PMD_ORDER)
--		return vmf_insert_pfn_pmd(vmf, pfn, false);
-+		return vmf_insert_pfn_pmd(vmf, pfn, write);
- 
- 	if (IS_ENABLED(CONFIG_ARCH_SUPPORTS_PUD_PFNMAP) && order == PUD_ORDER)
--		return vmf_insert_pfn_pud(vmf, pfn, false);
-+		return vmf_insert_pfn_pud(vmf, pfn, write);
- 
- 	return VM_FAULT_FALLBACK;
- }
+Jonathan
 
-base-commit: 076d7e989cb69f6ded7d60f2a080eb909930061b
--- 
-2.56.0.257.gf7497c7d27-goog
+> - Put the static_assert() on a single line (Andy)
+> - Add Fixes tag and Cc stable
+> - Rebase on fixes-togreg
+> 
+> v1: https://lore.kernel.org/all/20261021225417.626946-1-kapoorarnav43@gmail.com/
+> 
+> Compile-tested only (W=1); I don't have SX9324 hardware.
+> 
+>  drivers/iio/proximity/sx9324.c | 13 +++++++++++--
+>  1 file changed, 11 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/iio/proximity/sx9324.c b/drivers/iio/proximity/sx9324.c
+> index 255a36976ac4..43266a21bf2e 100644
+> --- a/drivers/iio/proximity/sx9324.c
+> +++ b/drivers/iio/proximity/sx9324.c
+> @@ -279,11 +279,20 @@ static const struct {
+>  	{ 0, 250000 },  /* 11111: 4 s */
+>  };
+>  
+> +/*
+> + * The scan period of the SX9324 is selected by the 5 bit wide
+> + * SX9324_REG_GNRL_CTRL0_SCANPERIOD field. The values below are the scan
+> + * periods in ms of the corresponding sx9324_samp_freq_table[] entries.
+> + */
+>  static const unsigned int sx9324_scan_period_table[] = {
+> -	2,   15,  30,  45,   60,   90,	 120,  200,
+> -	400, 600, 800, 1000, 2000, 3000, 4000, 5000,
+> +	1, 2, 4, 6, 8, 10, 14, 18,			/* 0x00 - 0x07 */
+> +	22, 26, 30, 34, 38, 42, 46, 50,			/* 0x08 - 0x0f */
+> +	56, 62, 68, 74, 80, 90, 100, 200,		/* 0x10 - 0x17 */
+> +	300, 400, 600, 800, 1000, 2000, 3000, 4000,	/* 0x18 - 0x1f */
+>  };
+>  
+> +static_assert(ARRAY_SIZE(sx9324_scan_period_table) == ARRAY_SIZE(sx9324_samp_freq_table));
+> +
+>  static const struct regmap_range sx9324_writable_reg_ranges[] = {
+>  	/*
+>  	 * To set COMPSTAT for compensation, even if datasheet says register is
+> 
+> base-commit: 2ef6f5c4ee56e90c237c5f7687f09e635f7d30a9
 
