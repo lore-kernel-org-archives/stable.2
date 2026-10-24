@@ -1,64 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792872682;
-	b=uf6tTOJnaA8nE6i0rtbYh/FBw0ZBA+DxFocBKH5jCHj651wJ/849ke0DFE9ThHEh/HpP
-	 p/zSRL2H1L20SqVqs+IojZyjtX/XmGXlg8h5kxIGwcNJ/EmhNKcbR7kr0mmIc12UEJv0d
-	 pId05HLcDhHaJ+te4KVZyHDBncmqaSbQdYJIMK272jPi27yre3zP81drlvbEpHN3euyxA
-	 QTMKpRnofFCViUefZpXNLs+g9mNiYHmKG52P6FViwR6Mygk2ZRp8owGAHj04HX/r0wIbh
-	 mPmfIorAPG+tlXytFJccFEikrWF+EhrPq9mTwZPNGGPPJodzzJHegolG4a9TWAZ/Ygg==
+	t=1792872693;
+	b=RFcfYuC2s27hRiTt1HHTCJUeBcMdZeAI10soXswaIOR14X6Q9M93//K+4I0XB96D5zId
+	 h0KWbDlXGdDeq+YydaqW+0+39xY9vJp61F5O2KI5oWS4wOCwsgCr0/jEE7o7CUHp2OED6
+	 LtPuxBavUPSs7gLfbNpKwooWlsJLNYrnw6Vs0oo+h6qBhzl3k9XbEQSGSWL7Nue/eJ5/u
+	 qWTfCcCU+mMVJLHb0P2MJE+2XAE0j+XNTt9axjMUcqEiyr1+c63bc3ZrII85vow3QEwHV
+	 qRkm59tGs43uTMlQw08jnyTs5EOAvuwMxBKoLdbEEig0LS19QSjieUEt+2VGeij81NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792872682;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792872693;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=G9MfVIB8/VTUeUSkD44jq6x96PQBUH2oB2UzhxvbDoY=;
-	b=p6XwGtcxIP1W/PAbu0asYcRSE9u2/Mvl5fZ570UhSjkwzP4jsiF0v4rQPunGqKM2VA93
-	 4Vorsha8h5Nd3ZMRBpftZeEjcB+zrqhU5mdj9oR4mezIGkws/Dgy6av310CfMPLxo6/1T
-	 yDLRcFIguygbDyNftDYSDS7f8o6WA9/J4OryoqLAfR3MErvnkYXgLKv9KTeT+rCx4hqLw
-	 zMJ/kkPu6bHY3gZBuDt/lEouE7faYeaQb2JgDM4d0ZGTibjhtb/dsSs942xqfE8QHm2Ni
-	 onLNCz7RPSZSSZiFsWf2JgwM9A4gP3Xc2j2K49AcN6CD9izjot20wnTgDjZXXRV+u1w==
+	bh=vxFGTwlGQDDEqXJl1k086dE/QU091vyZ+i82JDaxiEs=;
+	b=c1+uYzenPgjLJHgwVU0Td+5Px9fVJu/nRdSdyUt0EShzHKHKcDIWQ9Kk/XLiBFQfFIoR
+	 +JuxKUkvuRkqXy9gFF5Zb/oUiwJQp7xiP5BnoVRA+EduPS6pDSGmUmVdHvuFtK+mjW9lb
+	 QjcyPk1SN9b5R79fUBN/RUxI/UsLfBgJbRGqKpXSGHfXz2iSzlqsgmJ9g6inQyZzOGxAX
+	 9RbMSgmo/jeMjXuM7GfaosvN1LCo/ECxavnj4jDj9sBAGI+M2/Gl+Fy4F5CseLKqKPqDn
+	 lxYqYges5ms04isGsQDZKjxxpOySJqncV+caMBhhijpztgs757589qHOdmXjQZy89xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=icQyYuEf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DirlZVDP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F854606A31A;
-	Sat, 24 Oct 2026 20:11:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3782606A324;
+	Sat, 24 Oct 2026 20:11:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=icQyYuEf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E54471F01825;
-	Sat, 24 Oct 2026 20:11:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DirlZVDP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8AA51F031E0;
+	Sat, 24 Oct 2026 20:11:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792872682;
-	bh=G9MfVIB8/VTUeUSkD44jq6x96PQBUH2oB2UzhxvbDoY=;
+	s=k20260515; t=1792872693;
+	bh=vxFGTwlGQDDEqXJl1k086dE/QU091vyZ+i82JDaxiEs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=icQyYuEf64fZ8ihChm5jkFz7qxkBTkn1RSskpXZRMK/foETRgscRAOA1TGz19LaCy
-	 mId2S5NhYlPv1rPx/U+eHy2dySyIBy+GQeNEjaympMxjDttIz2bwAoHDrm4qnHo00W
-	 reMrrtHgQ83fF07CoN4PPUmfqboAZohANCpFzZz1Zc4HqdK0Z6dg3FeA9ZgNL6uhy+
-	 tGRjFY87kV0TIg+HOpJW9tOa1VSXAWphbKB3WQpFHCrNmRHkwODDGL2L1KEiuyMj43
-	 PhthBuy9AHOCpRB438OQ3AHSHZlVr7XjBjaM4KlBQsUYdmrx6A5Dtmb/3RPsYcvg98
-	 OYfcCmrokVS0g==
+	b=DirlZVDP6VXe6rtLLy9pGxK7/CuX6QiB37oidMI30zbjCl29YQhcq6m3eF5VaoZ3Y
+	 MFr/4q6ykEbdJNGCkbS42fhFd39ga+f1AZwOevCj+7/GM4ChUYeBK+zroNN7YgCWjr
+	 Hgobk46KLqtni+KM4n8AD9hnDOB5mcp6N8SDRMEhwfdELoh1flEjHZDVf5bCr3N0nl
+	 7CYKLTZ4d4PwwgDZ53wrAO4mOYMCkg1vmx/UNa9sFYbrhE+vd2paggYCSjHqCEA5vH
+	 Vu6T15V5X4ebYH7FirYs16+mqMLOVbQOunUEb7K0tQN0sCZpdzH4Mvk50wzyzYd0GN
+	 Nd0hPkZzswCfQ==
 From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Salvatore Bonaccorso <carnil@debian.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Erik Brangs <erik.brangs@gmx.de>,
-	benh@debian.org,
-	stable@vger.kernel.org,
-	regressions@lists.linux.dev,
-	linux-bluetooth@vger.kernel.org,
-	1149377@bugs.debian.org,
-	Christoph Zwerschke <cito@online.de>,
-	Thorsten Leemhuis <regressions@leemhuis.info>
-Subject: Re: [regression 6.12.y] After backport of 980084de4d9b ("Bluetooth: btusb: Add ASUS USB-BT540 for Realtek 8761CU") bluethooth not anymore working on 0b05:1bef ASUSTek Computer, Inc. Bluetooth Controller (requests firmware)
-Date: Sat, 24 Oct 2026 16:10:59 -0400
-Message-ID: <2026-10-24-1-daily-reply-0001-bluetooth-asus-rtl8761cu-firmware@kernel.org>
+	Ido Schimmel <idosch@nvidia.com>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	bridge@lists.linux.dev,
+	Steffen Pfendtner <steffen.pfendtner@kernelscan.io>
+Subject: Re: [PATCH 5.15.y] bridge: mcast: Fix use-after-free during router port configuration
+Date: Sat, 24 Oct 2026 16:11:06 -0400
+Message-ID: <2026-10-24-1-daily-reply-0008-bridge-mcast-router-port-uaf-5-15@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <8aa88f3e-2dd7-4bfe-a0f3-e5ecbbade84f@leemhuis.info>
-References: <8aa88f3e-2dd7-4bfe-a0f3-e5ecbbade84f@leemhuis.info>
+In-Reply-To: <20261024110929.47253-1-steffen.pfendtner@kernelscan.io>
+References: <20261024110929.47253-1-steffen.pfendtner@kernelscan.io>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,25 +63,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> I did meanwhile and agree, the backports of these should be reverted
-> from 6.18.y and 6.12.y:
->
-> * 980084de4d9b25 ("Bluetooth: btusb: Add ASUS USB-BT540 for Realtek
-> 8761CU") [v7.3-rc1]
-> * 6f0624b4427e38 ("Bluetooth: btusb: Add ASUS USB-BT600 for Realtek
-> 8761CU") [v7.3-rc1]
-> * 4a23ce935f74d1 ("Bluetooth: btrtl: Add the support for RTL8761CUV")
-> [v6.19-rc1]
+> The bridge maintains a global list of ports behind which a multicast
+> router resides. The list is consulted during forwarding to ensure
+> multicast packets are forwarded to these ports even if the ports are not
+> member in the matching MDB entry.
 
-The stable trees match mainline here, so nothing is going into stable for
-this. The fix has to come from the Bluetooth maintainers or Christoph: an
-upstream revert of the ID commits, or a fallback to the ROM firmware when
-rtl8761cu_fw.bin is missing. Stable will take either one for 7.2, 6.18 and
-6.12 through the normal Cc: stable route once it is in mainline.
-
-The other way out is on the distro side. rtl_bt/rtl8761cu_fw.bin has been in
-linux-firmware since 20251111, so a newer firmware-realtek package fixes this
-without any kernel change.
+Queued for 5.15, thanks.
 
 -- 
 Thanks,
