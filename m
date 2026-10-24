@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792832291;
-	b=ebeK38wUlW1aqM2knvBbmePSWhZonUdzQjfaXOHkz7yqEsrYdJpJ9CXgZrCOOHQXcUsR
-	 P06c6b/7lB3/5WYzfEi43+DNRqBSfMuNOOXUL8Jh8af1cIc0rac1gC25SBWKovAW8E9Jh
-	 2B7iIOSqzqOL0EveOKmXAOCpceNYjdlxkGzkoHefWg6Sl5BG1dfbYNsEP5OfXFpSpaZFn
-	 xCeElbyWDFFu4pCaeg2alG84aktZVC8WqmKjXzQIOVpo1fomzcydid1YBswEVXOblrVtb
-	 qByxBA4VYFVz4I4KyM+l8mHBQQDpMFbof0hZRhGyju62QtFgmGnshViYWF2HBXD95Vw==
+	t=1792832350;
+	b=mCMkiUDHBPDeM7puYSfN5+5+0NVsw3GoLmX0k3QFVB+qbpD+DelwYHnNRYDrP1bX+S6t
+	 nSkH7iwTmNLwLnFhJtMRbhmvZdsSjwe7QSFJbSKbIAHrEqZuuOdQYOtZCedoJ5x7lvR7T
+	 qUVoItIOPOEWH14GYaWZt596iJRCrYfjncD7g8bHJ700aEIGeD9AvDcZd3mBqBJLN4pHT
+	 1JdQvuH0GP1HpF1/JsPxA4eKkcGiq7oOM/zHbTCj1TaiUhibYRH/aXtPhY80qW7MHUULL
+	 PMkoBpE9hvPwQsMemEoi4hMjAruSaIYlROjwGYRHVZho/RRC+q6uUaPLZKxYXk2Xk0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792832291;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792832350;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=m/JJvVuotEWVIbVHKe86yc1j5+ARZhhkSmjJgCU9n28=;
-	b=ocF+7h2ScJ4trzxmyDFAPoslV12rtP7SdnjjirZ+w9IskbnmWG3MOVlfkqqK4zngygh7
-	 jtR3fFUIeAovkZlXupeECwJOewa3oyD/NC5eFomuBCa36BDlStrtjZ4hRSsPlQcWJd8o7
-	 6Qja1xdVWPWR7Z017S2dNjLsVJWsC5VnVGyYDOgtFwrK4xisyRgMTZ6hS3POCD1QF9PXH
-	 vtnuB9vJA1yu7D6/rT4zRyLWlLSy0tSDT0YYYP+b3FkagtugdWzeyq/3YFamEZoCs9bUr
-	 BuJ1lQ4AKx8sAePGdR0le/6uUpQsw5X51wCde3vYlCAC2AHZffMl2UJNdM1sNIH7fbA==
+	bh=F10QTamX4UWdDNJ4eVwBQod6ppbYJuWkbE5nX8JBEmo=;
+	b=DzaTeKtLJiRXSIFos2dt6XVZ+zXD1Y/MK15vK1LbCjfT2uNX3pqHpKblWC+nPU9le4Sv
+	 lc4Xw4QRRdZMcK04DJYbyPLsDNjuf8nOpUXQfTQjc5Wjj+WcMgZWBa/MNAxJWNF4FpkjU
+	 YstjvxHCdwbX3mw3YtYUrCE3l4rha7jy2S7YKFz9iZzYl2lKDsd3C3hgJI2SNJXw9H5ej
+	 5H6P+a4wmnYqN+LaSCAtQZav6ml6h3LzMTODk58kbBj9+UyPLutBgrLx/ZKdM1X3vhkPP
+	 utV9HCZJkbdZKo7SqgINlggs3EHURhPFkZPJGs08H8IiWz1ksVrUM9ExHv+HadN2JHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="Ye/2Fskm";
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=cGoBxhea;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F32CE606A31B;
-	Sat, 24 Oct 2026 08:58:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00426606A31A;
+	Sat, 24 Oct 2026 08:59:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Ye/2Fskm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF6831F01828;
-	Sat, 24 Oct 2026 08:58:10 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=cGoBxhea
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD98D1F01828;
+	Sat, 24 Oct 2026 08:59:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792832290;
-	bh=m/JJvVuotEWVIbVHKe86yc1j5+ARZhhkSmjJgCU9n28=;
+	d=linux-foundation.org; s=korg; t=1792832349;
+	bh=F10QTamX4UWdDNJ4eVwBQod6ppbYJuWkbE5nX8JBEmo=;
 	h=Date:To:From:Subject;
-	b=Ye/2Fskm+8sN6Vb+3H7ft+cO9+tdeeSN8j1hmd3uKXaRskj2XTZhf0pFUsYClG2GY
-	 rkScbaTnfi1zCQ80Sqx0yBDEr90dhCRaVB3IHyNU6AV9nKgF1Unmp0yxTgmGTNxs06
-	 +pyOn9UFNsErmizTKruXlnExjC/Y9zrFY1YFRz18=
-Date: Sat, 24 Oct 2026 01:58:10 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,bijan311@gmail.com,kmehltretter@gmail.com,akpm@linux-foundation.org
+	b=cGoBxheacieLthK/D4XrZECDO3A0ne+VN28nsvR+BdE3cu/ywO0X34Dz46zvMp7q0
+	 34x+op7s01/5BtSc9xuBqdb6C/aGSQ7UotDsUNn9Jl9QWEF4U4n/shn6xk8TjlRLXK
+	 kM/gYHGc4Dlh6JDKdzdSedWUcNMTkxgZZ1LMB+t8=
+Date: Sat, 24 Oct 2026 01:59:09 -0700
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com,surenb@google.com,stable@vger.kernel.org,rppt@kernel.org,riel@redhat.com,ngocthang2710.1999@gmail.com,mhocko@suse.com,ljs@kernel.org,liam@infradead.org,lance.yang@linux.dev,benh@kernel.crashing.org,a.p.zijlstra@chello.nl,david@kernel.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-damon-core-preserve-the-quota-passed-to-damon_new_scheme.patch removed from -mm tree
-Message-Id: <20261024085810.BF6831F01828@smtp.kernel.org>
+Subject: [merged mm-stable] mm-disallow-ioremaping-ordinary-ram-in-generic_access_phys.patch removed from -mm tree
+Message-Id: <20261024085909.BD98D1F01828@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,137 +51,109 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm/damon/core: preserve the quota passed to damon_new_scheme()
+     Subject: mm: disallow ioremap'ing ordinary RAM in generic_access_phys()
 has been removed from the -mm tree.  Its filename was
-     mm-damon-core-preserve-the-quota-passed-to-damon_new_scheme.patch
+     mm-disallow-ioremaping-ordinary-ram-in-generic_access_phys.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Karl Mehltretter <kmehltretter@gmail.com>
-Subject: mm/damon/core: preserve the quota passed to damon_new_scheme()
-Date: Mon, 28 Sep 2026 01:58:33 -0700
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: mm: disallow ioremap'ing ordinary RAM in generic_access_phys()
+Date: Tue, 13 Oct 2026 13:41:24 +0200
 
-Patch series "mm/damon/core: preserve quota state when constructing
-schemes", v3.
+generic_access_phys() can end up getting called on CoW PFNMAP mappings,
+resulting in it trying to ioremap anonymous folios, which especially
+the x86 code doesn't enjoy, and which is in general just odd/wrong.
 
-damon_commit_ctx() first commits the running context's parameters to a
-temporary context for validating proposed updates.  Constructing the
-temporary schemes clears the running schemes' quota state because
-damon_new_scheme() initializes the quota passed as a parameter before
-copying it to the new scheme.  Even an update later rejected with -EINVAL
-loses the running quota state.
+E.g., with a CoW mapping of a PCI BAR:
 
-Initialize the new scheme's copy instead, and add KUnit tests for the
-constructor and for accepted and rejected context updates.
+ioremap on RAM at 0x0000000045623000 - 0x0000000045623fff
+  WARNING: arch/x86/mm/ioremap.c:216 at __ioremap_caller.isra.0+0x4c2/0x5f0
+  Call Trace:
+   generic_access_phys+0x130/0x4d0 mm/memory.c:7178
+   kernfs_vma_access+0x1ce/0x280 fs/kernfs/file.c:437
+   __access_remote_vm+0x58f/0x890 mm/memory.c:7256
+   mem_rw+0x2a1/0x670 fs/proc/base.c:912
 
-Note: below are test results and changelogs that could be removed from the
-final commit log.
+But more generically, we should disallow access to anything that looks
+like ordinary RAM in the system: including allocating memory (e.g.,
+alloc_pages) and mapping them in a VM_PFNMAP.
 
-In the v1 live test with damo, a scheme with a plain 64 KiB size quota and
-a 60-second reset interval uses its quota, and a full "damo tune" with
-unchanged parameters then lets it try another 64 KiB within the same
-window.  With the fix, sz_tried stays at 64 KiB.
+For pages with an online memmap, allow only pages marked as reserved
+(PageReserved). This also includes memblock allocations, however,
+distinguishing them from other MMIO is tricky, and nobody should really
+be mapping them in a PFNMAP (except someone abusing /dev/mem, which we
+do not care about).
 
-KUnit was rerun after the rebase on x86-64 and i386. With only patch 2
-applied, the two new tests fail. With the fix, all 46 DAMON KUnit tests
-pass on both architectures.
+So only allow access if there is no online memmap, or if the pages are
+marked reserved. Reject other pages with -EINVAL.
 
-The v1 DAMON selftests showed no new failures (QEMU TCG guest; the
-wss_estimation test missed its accuracy bounds with and without the fix).
+Note that, just like other pfn_to_online_page() users, we won't care about
+concurrent memory offlining; mapping memory that can concurrently get
+offlined is highly dubious.
 
-
-This patch (of 2):
-
-damon_commit_ctx() first commits the running context's parameters to a
-temporary context for validating proposed updates.  When
-damon_commit_schemes() creates the temporary schemes, it passes the
-running scheme's quota as the quota parameter of damon_new_scheme().
-
-damon_new_scheme() calls damos_quota_init() on that quota before copying
-it to the new scheme.  This clears the running scheme's effective quota,
-feedback input and charging state.  Even an update rejected with -EINVAL
-loses the running quota state.
-
-For a size quota, this discards the bytes already charged and allows the
-scheme to use a fresh quota before the reset interval has elapsed.  For a
-goal-driven quota, the consist tuner loses its accumulated input and
-restarts from its minimum input.  A time quota loses its throughput
-estimate and falls back to the initial estimate.
-
-The end users will show DAMOS works more or less aggressively than
-expected for online-commit updates of quotas.  DAMON provides best efforts
-by default.  DAMON parameters online commit is supposed to be executed
-only occasionally.  Hence, the issue wouldn't be critical on sane setups. 
-For user_input type quota goals, online commit of the user input score is
-expected to be frequent.  But, for the case commit_schemes_quota_goals
-command is recommended for optimal execution, and it doesn't have this
-bug.
-
-Commit 60bd24f272d0 ("mm/damon/sysfs: test commit input against realistic
-destination") introduced this problem in v6.19 when sysfs validation began
-committing the running context's parameters to a temporary context. 
-Commit b90408ef1163 ("mm/damon/core: safely validate src on
-damon_commit_ctx()") later moved that validation into the core API,
-exposing other callers including DAMON_RECLAIM and DAMON_LRU_SORT.
-
-Sashiko reported the same side effect [1] on the RFC of the core API
-change.
-
-Copy the quota to the new scheme first, then initialize that copy.  Make
-damos_quota_init() return void, since its return value is no longer
-needed.
-
-Link: https://lore.kernel.org/20260928085835.7675-1-sj@kernel.org
-Link: https://lore.kernel.org/20260928085835.7675-2-sj@kernel.org
-Link: https://lore.kernel.org/r/20260702212143.0CB6D1F00A3D@smtp.kernel.org/ [1]
-Fixes: 60bd24f272d0 ("mm/damon/sysfs: test commit input against realistic destination")
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Signed-off-by: SJ Park <sj@kernel.org>
+Link: https://lore.kernel.org/20261013-generic_access_phys-v1-1-b3963ef76e37@kernel.org
+Fixes: 28b2ee20c7cb ("access_process_vm device memory infrastructure")
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: SJ Park <sj@kernel.org>
-Assisted-by: LLM
-Cc: Bijan Tabatabai <bijan311@gmail.com>
+Reported-by: <syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com>
+Closes: https://syzkaller.appspot.com/bug?extid=49b1021becba70c1f3f6
+Reported-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Closes: https://lore.kernel.org/r/20261001152524.171115-1-ngocthang2710.1999@gmail.com/
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Tested-by: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: Peter Zijlstra <a.p.zijlstra@chello.nl>
+Cc: Rik van Riel <riel@redhat.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/damon/core.c |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ mm/memory.c |   14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
---- a/mm/damon/core.c~mm-damon-core-preserve-the-quota-passed-to-damon_new_scheme
-+++ a/mm/damon/core.c
-@@ -734,7 +734,7 @@ static bool damos_quota_goals_empty(stru
- }
- 
- /* initialize fields of @quota that normally API users wouldn't set */
--static struct damos_quota *damos_quota_init(struct damos_quota *quota)
-+static void damos_quota_init(struct damos_quota *quota)
- {
- 	quota->esz = 0;
- 	quota->total_charged_sz = 0;
-@@ -744,7 +744,6 @@ static struct damos_quota *damos_quota_i
- 	quota->charge_target_from = NULL;
- 	quota->charge_addr_from = 0;
- 	quota->esz_bp = 0;
--	return quota;
- }
- 
- struct damos *damon_new_scheme(struct damos_access_pattern *pattern,
-@@ -776,7 +775,8 @@ struct damos *damon_new_scheme(struct da
- 	scheme->last_applied = NULL;
- 	INIT_LIST_HEAD(&scheme->list);
- 
--	scheme->quota = *(damos_quota_init(quota));
-+	scheme->quota = *quota;
-+	damos_quota_init(&scheme->quota);
- 	/* quota.goals should be separately set by caller */
- 	INIT_LIST_HEAD(&scheme->quota.goals);
- 
+--- a/mm/memory.c~mm-disallow-ioremaping-ordinary-ram-in-generic_access_phys
++++ a/mm/memory.c
+@@ -7129,6 +7129,7 @@ int generic_access_phys(struct vm_area_s
+ 	resource_size_t phys_addr;
+ 	pgprot_t prot = __pgprot(0);
+ 	void __iomem *maddr;
++	struct page *page;
+ 	int offset = offset_in_page(addr);
+ 	int ret = -EINVAL;
+ 	bool writable;
+@@ -7143,6 +7144,19 @@ int generic_access_phys(struct vm_area_s
+ retry:
+ 	if (follow_pfnmap_start(&args))
+ 		return -EINVAL;
++
++	/*
++	 * Reject anything that looks like ordinary RAM, including anonymous
++	 * folios in CoW mappings or allocated kernel memory. Note that we
++	 * cannot distinguish memblock allocations from non-RAM reliably, so
++	 * we cannot easily reject them here.
++	 */
++	page = pfn_to_online_page(args.pfn);
++	if (page && !PageReserved(page)) {
++		follow_pfnmap_end(&args);
++		return -EINVAL;
++	}
++
+ 	prot = args.pgprot;
+ 	phys_addr = (resource_size_t)args.pfn << PAGE_SHIFT;
+ 	writable = args.writable;
 _
 
-Patches currently in -mm which might be from kmehltretter@gmail.com are
+Patches currently in -mm which might be from david@kernel.org are
 
-squashfs-fix-fragment-index-table-sizing-overflow-on-32-bit.patch
-squashfs-make-the-fragment-index-table-bounds-check-overflow-safe.patch
+mm-fix-address-wraparound-when-scanning-large-folio-ptes.patch
+mm-hugetlb-disable-pmd-sharing-for-uffd-missing-mode.patch
+mm-vma-write-lock-source-vma-before-duplicating-it-in-__split_vma.patch
+mm-madvise-preserve-vma_softdirty_bit-when-changing-anonymous-names.patch
 
